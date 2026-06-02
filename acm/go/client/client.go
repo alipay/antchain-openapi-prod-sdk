@@ -444,6 +444,60 @@ func (s *Action) SetDescription(v string) *Action {
 	return s
 }
 
+// 项目
+type Project struct {
+	// 项目ID
+	ProjectId *string `json:"project_id,omitempty" xml:"project_id,omitempty" require:"true"`
+	// 项目名称
+	ProjectName *string `json:"project_name,omitempty" xml:"project_name,omitempty" require:"true"`
+	// 项目描述
+	Description *string `json:"description,omitempty" xml:"description,omitempty"`
+	// 是否为默认项目
+	IsDefault *bool `json:"is_default,omitempty" xml:"is_default,omitempty" require:"true"`
+	// 创建时间
+	GmtCreate *string `json:"gmt_create,omitempty" xml:"gmt_create,omitempty" require:"true" pattern:"\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}([Z]|([\\.]\\d{1,9})?[\\+]\\d{2}[\\:]?\\d{2})"`
+	// 更新时间
+	GmtModified *string `json:"gmt_modified,omitempty" xml:"gmt_modified,omitempty" require:"true" pattern:"\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}([Z]|([\\.]\\d{1,9})?[\\+]\\d{2}[\\:]?\\d{2})"`
+}
+
+func (s Project) String() string {
+	return tea.Prettify(s)
+}
+
+func (s Project) GoString() string {
+	return s.String()
+}
+
+func (s *Project) SetProjectId(v string) *Project {
+	s.ProjectId = &v
+	return s
+}
+
+func (s *Project) SetProjectName(v string) *Project {
+	s.ProjectName = &v
+	return s
+}
+
+func (s *Project) SetDescription(v string) *Project {
+	s.Description = &v
+	return s
+}
+
+func (s *Project) SetIsDefault(v bool) *Project {
+	s.IsDefault = &v
+	return s
+}
+
+func (s *Project) SetGmtCreate(v string) *Project {
+	s.GmtCreate = &v
+	return s
+}
+
+func (s *Project) SetGmtModified(v string) *Project {
+	s.GmtModified = &v
+	return s
+}
+
 // 授权条件
 type Condition struct {
 	//
@@ -636,6 +690,70 @@ func (s *Operator) SetUpdateTime(v string) *Operator {
 	return s
 }
 
+type QueryUserProjectRequest struct {
+	// OAuth模式下的授权token
+	AuthToken *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	// 用户ID
+	UserId *string `json:"user_id,omitempty" xml:"user_id,omitempty" require:"true"`
+}
+
+func (s QueryUserProjectRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s QueryUserProjectRequest) GoString() string {
+	return s.String()
+}
+
+func (s *QueryUserProjectRequest) SetAuthToken(v string) *QueryUserProjectRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *QueryUserProjectRequest) SetUserId(v string) *QueryUserProjectRequest {
+	s.UserId = &v
+	return s
+}
+
+type QueryUserProjectResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// 项目
+	ProjectList []*Project `json:"project_list,omitempty" xml:"project_list,omitempty" type:"Repeated"`
+}
+
+func (s QueryUserProjectResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s QueryUserProjectResponse) GoString() string {
+	return s.String()
+}
+
+func (s *QueryUserProjectResponse) SetReqMsgId(v string) *QueryUserProjectResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *QueryUserProjectResponse) SetResultCode(v string) *QueryUserProjectResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *QueryUserProjectResponse) SetResultMsg(v string) *QueryUserProjectResponse {
+	s.ResultMsg = &v
+	return s
+}
+
+func (s *QueryUserProjectResponse) SetProjectList(v []*Project) *QueryUserProjectResponse {
+	s.ProjectList = v
+	return s
+}
+
 type GetCustomerRequest struct {
 	// OAuth模式下的授权token
 	AuthToken *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
@@ -792,6 +910,10 @@ type GetOperatorResponse struct {
 	IsMaster *bool `json:"is_master,omitempty" xml:"is_master,omitempty"`
 	// 钉钉机器人 token
 	DdRobot *string `json:"dd_robot,omitempty" xml:"dd_robot,omitempty"`
+	// 操作员类型，DEFAULT默认操作员、SC_DEFAULT数科默认操作员、COMMON普通操作员
+	OperaterType *string `json:"operater_type,omitempty" xml:"operater_type,omitempty"`
+	// 关联账号id
+	RelationId *string `json:"relation_id,omitempty" xml:"relation_id,omitempty"`
 }
 
 func (s GetOperatorResponse) String() string {
@@ -897,19 +1019,29 @@ func (s *GetOperatorResponse) SetDdRobot(v string) *GetOperatorResponse {
 	return s
 }
 
+func (s *GetOperatorResponse) SetOperaterType(v string) *GetOperatorResponse {
+	s.OperaterType = &v
+	return s
+}
+
+func (s *GetOperatorResponse) SetRelationId(v string) *GetOperatorResponse {
+	s.RelationId = &v
+	return s
+}
+
 type QueryOperatorRequest struct {
 	// OAuth模式下的授权token
 	AuthToken *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
 	// 企业ID
-	Customer *string `json:"customer,omitempty" xml:"customer,omitempty" require:"true"`
+	Customer *string `json:"customer,omitempty" xml:"customer,omitempty"`
+	// 租户唯一标识
+	Tenant *string `json:"tenant,omitempty" xml:"tenant,omitempty"`
 	// 当前页，默认值为1
 	PageNum *int64 `json:"page_num,omitempty" xml:"page_num,omitempty"`
 	// 分页大小，默认值为10
 	PageSize *int64 `json:"page_size,omitempty" xml:"page_size,omitempty"`
 	// 真实姓名
 	RealName *string `json:"real_name,omitempty" xml:"real_name,omitempty"`
-	// 租户唯一标识
-	Tenant *string `json:"tenant,omitempty" xml:"tenant,omitempty"`
 	// 部门唯一码
 	DepartmentCode *string `json:"department_code,omitempty" xml:"department_code,omitempty"`
 }
@@ -932,6 +1064,11 @@ func (s *QueryOperatorRequest) SetCustomer(v string) *QueryOperatorRequest {
 	return s
 }
 
+func (s *QueryOperatorRequest) SetTenant(v string) *QueryOperatorRequest {
+	s.Tenant = &v
+	return s
+}
+
 func (s *QueryOperatorRequest) SetPageNum(v int64) *QueryOperatorRequest {
 	s.PageNum = &v
 	return s
@@ -944,11 +1081,6 @@ func (s *QueryOperatorRequest) SetPageSize(v int64) *QueryOperatorRequest {
 
 func (s *QueryOperatorRequest) SetRealName(v string) *QueryOperatorRequest {
 	s.RealName = &v
-	return s
-}
-
-func (s *QueryOperatorRequest) SetTenant(v string) *QueryOperatorRequest {
-	s.Tenant = &v
 	return s
 }
 
@@ -1020,8 +1152,8 @@ func (s *QueryOperatorResponse) SetTotalCount(v int64) *QueryOperatorResponse {
 type SearchOperatorRequest struct {
 	// OAuth模式下的授权token
 	AuthToken *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
-	// 企业ID
-	Customer *string `json:"customer,omitempty" xml:"customer,omitempty" require:"true"`
+	// 企业ID（customer和tenant必填其一）
+	Customer *string `json:"customer,omitempty" xml:"customer,omitempty"`
 	// 登录名
 	LoginName *string `json:"login_name,omitempty" xml:"login_name,omitempty"`
 	// 昵称
@@ -2443,6 +2575,8 @@ type CheckAlipayTenantResponse struct {
 	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
 	// 智科租户id(支付宝会员id)
 	TenantId *string `json:"tenant_id,omitempty" xml:"tenant_id,omitempty"`
+	// 租户名称（code）
+	TenantName *string `json:"tenant_name,omitempty" xml:"tenant_name,omitempty"`
 }
 
 func (s CheckAlipayTenantResponse) String() string {
@@ -2470,6 +2604,11 @@ func (s *CheckAlipayTenantResponse) SetResultMsg(v string) *CheckAlipayTenantRes
 
 func (s *CheckAlipayTenantResponse) SetTenantId(v string) *CheckAlipayTenantResponse {
 	s.TenantId = &v
+	return s
+}
+
+func (s *CheckAlipayTenantResponse) SetTenantName(v string) *CheckAlipayTenantResponse {
+	s.TenantName = &v
 	return s
 }
 
@@ -2914,6 +3053,8 @@ type GetMasterTenantResponse struct {
 	RealName *string `json:"real_name,omitempty" xml:"real_name,omitempty"`
 	// 企业姓名
 	FirmName *string `json:"firm_name,omitempty" xml:"firm_name,omitempty"`
+	// 是否通过数科官网或者支付宝侧实名认证
+	Certified *bool `json:"certified,omitempty" xml:"certified,omitempty"`
 }
 
 func (s GetMasterTenantResponse) String() string {
@@ -3001,6 +3142,11 @@ func (s *GetMasterTenantResponse) SetRealName(v string) *GetMasterTenantResponse
 
 func (s *GetMasterTenantResponse) SetFirmName(v string) *GetMasterTenantResponse {
 	s.FirmName = &v
+	return s
+}
+
+func (s *GetMasterTenantResponse) SetCertified(v bool) *GetMasterTenantResponse {
+	s.Certified = &v
 	return s
 }
 
@@ -4672,6 +4818,303 @@ func (s *DeleteTrustloginTokenResponse) SetResult(v bool) *DeleteTrustloginToken
 	return s
 }
 
+type CreateAlipayTenantRequest struct {
+	// OAuth模式下的授权token
+	AuthToken *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	// 支付宝账号关联的证件号
+	CertNo *string `json:"cert_no,omitempty" xml:"cert_no,omitempty"`
+	// 渠道编码 ，新接入时需要申请
+	ChannelCode *string `json:"channel_code,omitempty" xml:"channel_code,omitempty" require:"true"`
+	// 支付宝账号关联的企业名称
+	FirmName *string `json:"firm_name,omitempty" xml:"firm_name,omitempty"`
+	// 支付宝账号关联的法人姓名
+	RealName *string `json:"real_name,omitempty" xml:"real_name,omitempty"`
+	// 业务场景编码，新接入时需要申请
+	SceneCode *string `json:"scene_code,omitempty" xml:"scene_code,omitempty" require:"true"`
+	// 支付宝账号会员id（数科租户id）
+	TenantId *string `json:"tenant_id,omitempty" xml:"tenant_id,omitempty" require:"true"`
+}
+
+func (s CreateAlipayTenantRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s CreateAlipayTenantRequest) GoString() string {
+	return s.String()
+}
+
+func (s *CreateAlipayTenantRequest) SetAuthToken(v string) *CreateAlipayTenantRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *CreateAlipayTenantRequest) SetCertNo(v string) *CreateAlipayTenantRequest {
+	s.CertNo = &v
+	return s
+}
+
+func (s *CreateAlipayTenantRequest) SetChannelCode(v string) *CreateAlipayTenantRequest {
+	s.ChannelCode = &v
+	return s
+}
+
+func (s *CreateAlipayTenantRequest) SetFirmName(v string) *CreateAlipayTenantRequest {
+	s.FirmName = &v
+	return s
+}
+
+func (s *CreateAlipayTenantRequest) SetRealName(v string) *CreateAlipayTenantRequest {
+	s.RealName = &v
+	return s
+}
+
+func (s *CreateAlipayTenantRequest) SetSceneCode(v string) *CreateAlipayTenantRequest {
+	s.SceneCode = &v
+	return s
+}
+
+func (s *CreateAlipayTenantRequest) SetTenantId(v string) *CreateAlipayTenantRequest {
+	s.TenantId = &v
+	return s
+}
+
+type CreateAlipayTenantResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// 数科租户id
+	TenantId *string `json:"tenant_id,omitempty" xml:"tenant_id,omitempty"`
+	// 租户名称（code），八位大写字母
+	TenantName *string `json:"tenant_name,omitempty" xml:"tenant_name,omitempty"`
+	// 蚂蚁通行证签约账户
+	LoginName *string `json:"login_name,omitempty" xml:"login_name,omitempty"`
+	// 客户id
+	CustomerId *string `json:"customer_id,omitempty" xml:"customer_id,omitempty"`
+	// 租户描述信息
+	Description *string `json:"description,omitempty" xml:"description,omitempty"`
+	// 用户类型
+	UserType *string `json:"user_type,omitempty" xml:"user_type,omitempty"`
+	// 租户的类型 N 支付宝 Q支付宝开放平台 V 蚂蚁链账号
+	TenantLevel *string `json:"tenant_level,omitempty" xml:"tenant_level,omitempty"`
+	// 证件类型
+	CertType *string `json:"cert_type,omitempty" xml:"cert_type,omitempty"`
+	// 证件号码
+	CertNo *string `json:"cert_no,omitempty" xml:"cert_no,omitempty"`
+	// 法人姓名，个人账号时是个人姓名
+	RealName *string `json:"real_name,omitempty" xml:"real_name,omitempty"`
+	// 企业姓名
+	FirmName *string `json:"firm_name,omitempty" xml:"firm_name,omitempty"`
+	// 租户创建时间，ISO8601格式
+	CreateTime *string `json:"create_time,omitempty" xml:"create_time,omitempty"`
+	// 租户最近一次修改时间，ISO8601格式
+	UpdateTime *string `json:"update_time,omitempty" xml:"update_time,omitempty"`
+}
+
+func (s CreateAlipayTenantResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s CreateAlipayTenantResponse) GoString() string {
+	return s.String()
+}
+
+func (s *CreateAlipayTenantResponse) SetReqMsgId(v string) *CreateAlipayTenantResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *CreateAlipayTenantResponse) SetResultCode(v string) *CreateAlipayTenantResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *CreateAlipayTenantResponse) SetResultMsg(v string) *CreateAlipayTenantResponse {
+	s.ResultMsg = &v
+	return s
+}
+
+func (s *CreateAlipayTenantResponse) SetTenantId(v string) *CreateAlipayTenantResponse {
+	s.TenantId = &v
+	return s
+}
+
+func (s *CreateAlipayTenantResponse) SetTenantName(v string) *CreateAlipayTenantResponse {
+	s.TenantName = &v
+	return s
+}
+
+func (s *CreateAlipayTenantResponse) SetLoginName(v string) *CreateAlipayTenantResponse {
+	s.LoginName = &v
+	return s
+}
+
+func (s *CreateAlipayTenantResponse) SetCustomerId(v string) *CreateAlipayTenantResponse {
+	s.CustomerId = &v
+	return s
+}
+
+func (s *CreateAlipayTenantResponse) SetDescription(v string) *CreateAlipayTenantResponse {
+	s.Description = &v
+	return s
+}
+
+func (s *CreateAlipayTenantResponse) SetUserType(v string) *CreateAlipayTenantResponse {
+	s.UserType = &v
+	return s
+}
+
+func (s *CreateAlipayTenantResponse) SetTenantLevel(v string) *CreateAlipayTenantResponse {
+	s.TenantLevel = &v
+	return s
+}
+
+func (s *CreateAlipayTenantResponse) SetCertType(v string) *CreateAlipayTenantResponse {
+	s.CertType = &v
+	return s
+}
+
+func (s *CreateAlipayTenantResponse) SetCertNo(v string) *CreateAlipayTenantResponse {
+	s.CertNo = &v
+	return s
+}
+
+func (s *CreateAlipayTenantResponse) SetRealName(v string) *CreateAlipayTenantResponse {
+	s.RealName = &v
+	return s
+}
+
+func (s *CreateAlipayTenantResponse) SetFirmName(v string) *CreateAlipayTenantResponse {
+	s.FirmName = &v
+	return s
+}
+
+func (s *CreateAlipayTenantResponse) SetCreateTime(v string) *CreateAlipayTenantResponse {
+	s.CreateTime = &v
+	return s
+}
+
+func (s *CreateAlipayTenantResponse) SetUpdateTime(v string) *CreateAlipayTenantResponse {
+	s.UpdateTime = &v
+	return s
+}
+
+type FreezeOperatorRequest struct {
+	// OAuth模式下的授权token
+	AuthToken *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	// 操作员id
+	OperatorId *string `json:"operator_id,omitempty" xml:"operator_id,omitempty" require:"true"`
+}
+
+func (s FreezeOperatorRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s FreezeOperatorRequest) GoString() string {
+	return s.String()
+}
+
+func (s *FreezeOperatorRequest) SetAuthToken(v string) *FreezeOperatorRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *FreezeOperatorRequest) SetOperatorId(v string) *FreezeOperatorRequest {
+	s.OperatorId = &v
+	return s
+}
+
+type FreezeOperatorResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+}
+
+func (s FreezeOperatorResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s FreezeOperatorResponse) GoString() string {
+	return s.String()
+}
+
+func (s *FreezeOperatorResponse) SetReqMsgId(v string) *FreezeOperatorResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *FreezeOperatorResponse) SetResultCode(v string) *FreezeOperatorResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *FreezeOperatorResponse) SetResultMsg(v string) *FreezeOperatorResponse {
+	s.ResultMsg = &v
+	return s
+}
+
+type UnfreezeOperatorRequest struct {
+	// OAuth模式下的授权token
+	AuthToken *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	// 操作员id
+	OperatorId *string `json:"operator_id,omitempty" xml:"operator_id,omitempty" require:"true"`
+}
+
+func (s UnfreezeOperatorRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s UnfreezeOperatorRequest) GoString() string {
+	return s.String()
+}
+
+func (s *UnfreezeOperatorRequest) SetAuthToken(v string) *UnfreezeOperatorRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *UnfreezeOperatorRequest) SetOperatorId(v string) *UnfreezeOperatorRequest {
+	s.OperatorId = &v
+	return s
+}
+
+type UnfreezeOperatorResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+}
+
+func (s UnfreezeOperatorResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s UnfreezeOperatorResponse) GoString() string {
+	return s.String()
+}
+
+func (s *UnfreezeOperatorResponse) SetReqMsgId(v string) *UnfreezeOperatorResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *UnfreezeOperatorResponse) SetResultCode(v string) *UnfreezeOperatorResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *UnfreezeOperatorResponse) SetResultMsg(v string) *UnfreezeOperatorResponse {
+	s.ResultMsg = &v
+	return s
+}
+
 type Client struct {
 	Endpoint                *string
 	RegionId                *string
@@ -4794,7 +5237,7 @@ func (client *Client) DoRequest(version *string, action *string, protocol *strin
 				"req_msg_id":       antchainutil.GetNonce(),
 				"access_key":       client.AccessKeyId,
 				"base_sdk_version": tea.String("TeaSDK-2.0"),
-				"sdk_version":      tea.String("1.6.0"),
+				"sdk_version":      tea.String("1.6.10"),
 				"_prod_code":       tea.String("acm"),
 				"_prod_channel":    tea.String("undefined"),
 			}
@@ -4850,6 +5293,40 @@ func (client *Client) DoRequest(version *string, action *string, protocol *strin
 	}
 
 	return _resp, _err
+}
+
+/**
+ * Description: 查询用户所属项目列表
+ * Summary: 查询用户所属项目列表
+ */
+func (client *Client) QueryUserProject(request *QueryUserProjectRequest) (_result *QueryUserProjectResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &QueryUserProjectResponse{}
+	_body, _err := client.QueryUserProjectEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+/**
+ * Description: 查询用户所属项目列表
+ * Summary: 查询用户所属项目列表
+ */
+func (client *Client) QueryUserProjectEx(request *QueryUserProjectRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *QueryUserProjectResponse, _err error) {
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &QueryUserProjectResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("antcloud.acm.user.project.query"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
 }
 
 /**
@@ -6307,6 +6784,108 @@ func (client *Client) DeleteTrustloginTokenEx(request *DeleteTrustloginTokenRequ
 	}
 	_result = &DeleteTrustloginTokenResponse{}
 	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("antcloud.acm.trustlogin.token.delete"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
+}
+
+/**
+ * Description: 支付宝账号入驻到数科，同步接口
+ * Summary: 支付宝账号入驻到数科
+ */
+func (client *Client) CreateAlipayTenant(request *CreateAlipayTenantRequest) (_result *CreateAlipayTenantResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &CreateAlipayTenantResponse{}
+	_body, _err := client.CreateAlipayTenantEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+/**
+ * Description: 支付宝账号入驻到数科，同步接口
+ * Summary: 支付宝账号入驻到数科
+ */
+func (client *Client) CreateAlipayTenantEx(request *CreateAlipayTenantRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *CreateAlipayTenantResponse, _err error) {
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &CreateAlipayTenantResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("antcloud.acm.alipay.tenant.create"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
+}
+
+/**
+ * Description: 冻结操作员
+ * Summary: 冻结操作员
+ */
+func (client *Client) FreezeOperator(request *FreezeOperatorRequest) (_result *FreezeOperatorResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &FreezeOperatorResponse{}
+	_body, _err := client.FreezeOperatorEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+/**
+ * Description: 冻结操作员
+ * Summary: 冻结操作员
+ */
+func (client *Client) FreezeOperatorEx(request *FreezeOperatorRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *FreezeOperatorResponse, _err error) {
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &FreezeOperatorResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("antcloud.acm.operator.freeze"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
+}
+
+/**
+ * Description: 解冻操作员
+ * Summary: 解冻操作员
+ */
+func (client *Client) UnfreezeOperator(request *UnfreezeOperatorRequest) (_result *UnfreezeOperatorResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &UnfreezeOperatorResponse{}
+	_body, _err := client.UnfreezeOperatorEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+/**
+ * Description: 解冻操作员
+ * Summary: 解冻操作员
+ */
+func (client *Client) UnfreezeOperatorEx(request *UnfreezeOperatorRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *UnfreezeOperatorResponse, _err error) {
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &UnfreezeOperatorResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("antcloud.acm.operator.unfreeze"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
 	if _err != nil {
 		return _result, _err
 	}
