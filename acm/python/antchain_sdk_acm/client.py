@@ -135,7 +135,7 @@ class Client:
                     'req_msg_id': AntchainUtils.get_nonce(),
                     'access_key': self._access_key_id,
                     'base_sdk_version': 'TeaSDK-2.0',
-                    'sdk_version': '1.6.0',
+                    'sdk_version': '1.6.10',
                     '_prod_code': 'acm',
                     '_prod_channel': 'undefined'
                 }
@@ -239,7 +239,7 @@ class Client:
                     'req_msg_id': AntchainUtils.get_nonce(),
                     'access_key': self._access_key_id,
                     'base_sdk_version': 'TeaSDK-2.0',
-                    'sdk_version': '1.6.0',
+                    'sdk_version': '1.6.10',
                     '_prod_code': 'acm',
                     '_prod_channel': 'undefined'
                 }
@@ -274,6 +274,62 @@ class Client:
                     continue
                 raise e
         raise UnretryableException(_last_request, _last_exception)
+
+    def query_user_project(
+        self,
+        request: acm_models.QueryUserProjectRequest,
+    ) -> acm_models.QueryUserProjectResponse:
+        """
+        Description: 查询用户所属项目列表
+        Summary: 查询用户所属项目列表
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.query_user_project_ex(request, headers, runtime)
+
+    async def query_user_project_async(
+        self,
+        request: acm_models.QueryUserProjectRequest,
+    ) -> acm_models.QueryUserProjectResponse:
+        """
+        Description: 查询用户所属项目列表
+        Summary: 查询用户所属项目列表
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.query_user_project_ex_async(request, headers, runtime)
+
+    def query_user_project_ex(
+        self,
+        request: acm_models.QueryUserProjectRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> acm_models.QueryUserProjectResponse:
+        """
+        Description: 查询用户所属项目列表
+        Summary: 查询用户所属项目列表
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            acm_models.QueryUserProjectResponse(),
+            self.do_request('1.0', 'antcloud.acm.user.project.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def query_user_project_ex_async(
+        self,
+        request: acm_models.QueryUserProjectRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> acm_models.QueryUserProjectResponse:
+        """
+        Description: 查询用户所属项目列表
+        Summary: 查询用户所属项目列表
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            acm_models.QueryUserProjectResponse(),
+            await self.do_request_async('1.0', 'antcloud.acm.user.project.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
 
     def get_customer(
         self,
@@ -2681,4 +2737,172 @@ class Client:
         return TeaCore.from_map(
             acm_models.DeleteTrustloginTokenResponse(),
             await self.do_request_async('1.0', 'antcloud.acm.trustlogin.token.delete', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def create_alipay_tenant(
+        self,
+        request: acm_models.CreateAlipayTenantRequest,
+    ) -> acm_models.CreateAlipayTenantResponse:
+        """
+        Description: 支付宝账号入驻到数科，同步接口
+        Summary: 支付宝账号入驻到数科
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.create_alipay_tenant_ex(request, headers, runtime)
+
+    async def create_alipay_tenant_async(
+        self,
+        request: acm_models.CreateAlipayTenantRequest,
+    ) -> acm_models.CreateAlipayTenantResponse:
+        """
+        Description: 支付宝账号入驻到数科，同步接口
+        Summary: 支付宝账号入驻到数科
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.create_alipay_tenant_ex_async(request, headers, runtime)
+
+    def create_alipay_tenant_ex(
+        self,
+        request: acm_models.CreateAlipayTenantRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> acm_models.CreateAlipayTenantResponse:
+        """
+        Description: 支付宝账号入驻到数科，同步接口
+        Summary: 支付宝账号入驻到数科
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            acm_models.CreateAlipayTenantResponse(),
+            self.do_request('1.0', 'antcloud.acm.alipay.tenant.create', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def create_alipay_tenant_ex_async(
+        self,
+        request: acm_models.CreateAlipayTenantRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> acm_models.CreateAlipayTenantResponse:
+        """
+        Description: 支付宝账号入驻到数科，同步接口
+        Summary: 支付宝账号入驻到数科
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            acm_models.CreateAlipayTenantResponse(),
+            await self.do_request_async('1.0', 'antcloud.acm.alipay.tenant.create', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def freeze_operator(
+        self,
+        request: acm_models.FreezeOperatorRequest,
+    ) -> acm_models.FreezeOperatorResponse:
+        """
+        Description: 冻结操作员
+        Summary: 冻结操作员
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.freeze_operator_ex(request, headers, runtime)
+
+    async def freeze_operator_async(
+        self,
+        request: acm_models.FreezeOperatorRequest,
+    ) -> acm_models.FreezeOperatorResponse:
+        """
+        Description: 冻结操作员
+        Summary: 冻结操作员
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.freeze_operator_ex_async(request, headers, runtime)
+
+    def freeze_operator_ex(
+        self,
+        request: acm_models.FreezeOperatorRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> acm_models.FreezeOperatorResponse:
+        """
+        Description: 冻结操作员
+        Summary: 冻结操作员
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            acm_models.FreezeOperatorResponse(),
+            self.do_request('1.0', 'antcloud.acm.operator.freeze', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def freeze_operator_ex_async(
+        self,
+        request: acm_models.FreezeOperatorRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> acm_models.FreezeOperatorResponse:
+        """
+        Description: 冻结操作员
+        Summary: 冻结操作员
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            acm_models.FreezeOperatorResponse(),
+            await self.do_request_async('1.0', 'antcloud.acm.operator.freeze', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def unfreeze_operator(
+        self,
+        request: acm_models.UnfreezeOperatorRequest,
+    ) -> acm_models.UnfreezeOperatorResponse:
+        """
+        Description: 解冻操作员
+        Summary: 解冻操作员
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.unfreeze_operator_ex(request, headers, runtime)
+
+    async def unfreeze_operator_async(
+        self,
+        request: acm_models.UnfreezeOperatorRequest,
+    ) -> acm_models.UnfreezeOperatorResponse:
+        """
+        Description: 解冻操作员
+        Summary: 解冻操作员
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.unfreeze_operator_ex_async(request, headers, runtime)
+
+    def unfreeze_operator_ex(
+        self,
+        request: acm_models.UnfreezeOperatorRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> acm_models.UnfreezeOperatorResponse:
+        """
+        Description: 解冻操作员
+        Summary: 解冻操作员
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            acm_models.UnfreezeOperatorResponse(),
+            self.do_request('1.0', 'antcloud.acm.operator.unfreeze', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def unfreeze_operator_ex_async(
+        self,
+        request: acm_models.UnfreezeOperatorRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> acm_models.UnfreezeOperatorResponse:
+        """
+        Description: 解冻操作员
+        Summary: 解冻操作员
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            acm_models.UnfreezeOperatorResponse(),
+            await self.do_request_async('1.0', 'antcloud.acm.operator.unfreeze', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
