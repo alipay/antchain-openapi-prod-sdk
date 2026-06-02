@@ -11,7 +11,7 @@ public class PushVideoCreatetaskRequest extends TeaModel {
     @NameInMap("product_instance_id")
     public String productInstanceId;
 
-    // 模型标识，如 seedance-01-pro / happyhorse-t2v / wanx-v1
+    // 模型标识，如 ：doubao-seedance-2-0-260128
     @NameInMap("model")
     @Validation(required = true)
     public String model;
@@ -21,25 +21,21 @@ public class PushVideoCreatetaskRequest extends TeaModel {
     @Validation(required = true)
     public String prompt;
 
-    // 图生视频时传入参考图片 URL
+    // 图生视频参考图片 URL
     @NameInMap("image_url")
-    public String imageUrl;
+    public java.util.List<String> imageUrl;
 
-    // 视频续写时传入参考视频 URL
+    // 视频参考/续写时传入视频 URL
     @NameInMap("video_url")
-    public String videoUrl;
+    public java.util.List<String> videoUrl;
 
-    // 参考音频 URL（预留）
+    // 参考音频URL列表
     @NameInMap("audio_url")
-    public String audioUrl;
+    public java.util.List<String> audioUrl;
 
-    // 参考图片 URL（参考图生视频场景）
-    @NameInMap("ref_image_url")
-    public String refImageUrl;
-
-    // 分辨率，如 1280x720
-    @NameInMap("size")
-    public String size;
+    // 比例
+    @NameInMap("ratio")
+    public String ratio;
 
     // 视频时长（秒）
     @NameInMap("duration")
@@ -48,11 +44,6 @@ public class PushVideoCreatetaskRequest extends TeaModel {
     // 请求追踪 ID，用于幂等去重
     @NameInMap("request_id")
     public String requestId;
-
-    // MIST Token / API Key
-    @NameInMap("token")
-    @Validation(required = true)
-    public String token;
 
     // 扩展JSON
     @NameInMap("ext")
@@ -95,44 +86,36 @@ public class PushVideoCreatetaskRequest extends TeaModel {
         return this.prompt;
     }
 
-    public PushVideoCreatetaskRequest setImageUrl(String imageUrl) {
+    public PushVideoCreatetaskRequest setImageUrl(java.util.List<String> imageUrl) {
         this.imageUrl = imageUrl;
         return this;
     }
-    public String getImageUrl() {
+    public java.util.List<String> getImageUrl() {
         return this.imageUrl;
     }
 
-    public PushVideoCreatetaskRequest setVideoUrl(String videoUrl) {
+    public PushVideoCreatetaskRequest setVideoUrl(java.util.List<String> videoUrl) {
         this.videoUrl = videoUrl;
         return this;
     }
-    public String getVideoUrl() {
+    public java.util.List<String> getVideoUrl() {
         return this.videoUrl;
     }
 
-    public PushVideoCreatetaskRequest setAudioUrl(String audioUrl) {
+    public PushVideoCreatetaskRequest setAudioUrl(java.util.List<String> audioUrl) {
         this.audioUrl = audioUrl;
         return this;
     }
-    public String getAudioUrl() {
+    public java.util.List<String> getAudioUrl() {
         return this.audioUrl;
     }
 
-    public PushVideoCreatetaskRequest setRefImageUrl(String refImageUrl) {
-        this.refImageUrl = refImageUrl;
+    public PushVideoCreatetaskRequest setRatio(String ratio) {
+        this.ratio = ratio;
         return this;
     }
-    public String getRefImageUrl() {
-        return this.refImageUrl;
-    }
-
-    public PushVideoCreatetaskRequest setSize(String size) {
-        this.size = size;
-        return this;
-    }
-    public String getSize() {
-        return this.size;
+    public String getRatio() {
+        return this.ratio;
     }
 
     public PushVideoCreatetaskRequest setDuration(String duration) {
@@ -149,14 +132,6 @@ public class PushVideoCreatetaskRequest extends TeaModel {
     }
     public String getRequestId() {
         return this.requestId;
-    }
-
-    public PushVideoCreatetaskRequest setToken(String token) {
-        this.token = token;
-        return this;
-    }
-    public String getToken() {
-        return this.token;
     }
 
     public PushVideoCreatetaskRequest setExt(String ext) {

@@ -16,11 +16,11 @@ public class PushVideoCreatetaskResponse extends TeaModel {
     @NameInMap("result_msg")
     public String resultMsg;
 
-    // 任务 ID
+    // 任务 ID，后续查询结果通过此参数获取
     @NameInMap("task_id")
     public String taskId;
 
-    // 任务状态：submitted / processing / succeeded / failed
+    // 任务状态：pending（等待中）、processing（处理中）、succeeded（已成功）、failed（已失败）
     @NameInMap("status")
     public String status;
 

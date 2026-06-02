@@ -126,7 +126,7 @@ public class Client {
                     new TeaPair("req_msg_id", com.antgroup.antchain.openapi.antchain.util.AntchainUtils.getNonce()),
                     new TeaPair("access_key", _accessKeyId),
                     new TeaPair("base_sdk_version", "TeaSDK-2.0"),
-                    new TeaPair("sdk_version", "1.0.0"),
+                    new TeaPair("sdk_version", "1.1.2"),
                     new TeaPair("_prod_code", "AIGC"),
                     new TeaPair("_prod_channel", "default")
                 );
@@ -228,5 +228,47 @@ public class Client {
     public QueryVideoQuerytaskResponse queryVideoQuerytaskEx(QueryVideoQuerytaskRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
         com.aliyun.teautil.Common.validateModel(request);
         return TeaModel.toModel(this.doRequest("1.0", "antdigital.aigc.video.querytask.query", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new QueryVideoQuerytaskResponse());
+    }
+
+    /**
+     * <b>description</b> :
+     * <p>Description: 提交视频翻译任务
+     * Summary: 提交视频翻译任务</p>
+     */
+    public PushVideotranslateCreatetaskResponse pushVideotranslateCreatetask(PushVideotranslateCreatetaskRequest request) throws Exception {
+        com.aliyun.teautil.models.RuntimeOptions runtime = new com.aliyun.teautil.models.RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.pushVideotranslateCreatetaskEx(request, headers, runtime);
+    }
+
+    /**
+     * <b>description</b> :
+     * <p>Description: 提交视频翻译任务
+     * Summary: 提交视频翻译任务</p>
+     */
+    public PushVideotranslateCreatetaskResponse pushVideotranslateCreatetaskEx(PushVideotranslateCreatetaskRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "antdigital.aigc.videotranslate.createtask.push", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new PushVideotranslateCreatetaskResponse());
+    }
+
+    /**
+     * <b>description</b> :
+     * <p>Description: 查询视频翻译任务
+     * Summary: 查询视频翻译任务</p>
+     */
+    public QueryVideotranslateQuerytaskResponse queryVideotranslateQuerytask(QueryVideotranslateQuerytaskRequest request) throws Exception {
+        com.aliyun.teautil.models.RuntimeOptions runtime = new com.aliyun.teautil.models.RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.queryVideotranslateQuerytaskEx(request, headers, runtime);
+    }
+
+    /**
+     * <b>description</b> :
+     * <p>Description: 查询视频翻译任务
+     * Summary: 查询视频翻译任务</p>
+     */
+    public QueryVideotranslateQuerytaskResponse queryVideotranslateQuerytaskEx(QueryVideotranslateQuerytaskRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "antdigital.aigc.videotranslate.querytask.query", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new QueryVideotranslateQuerytaskResponse());
     }
 }
