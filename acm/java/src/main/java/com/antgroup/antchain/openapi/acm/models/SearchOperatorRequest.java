@@ -8,9 +8,8 @@ public class SearchOperatorRequest extends TeaModel {
     @NameInMap("auth_token")
     public String authToken;
 
-    // 企业ID
+    // 企业ID（customer和tenant必填其一）
     @NameInMap("customer")
-    @Validation(required = true)
     public String customer;
 
     // 登录名

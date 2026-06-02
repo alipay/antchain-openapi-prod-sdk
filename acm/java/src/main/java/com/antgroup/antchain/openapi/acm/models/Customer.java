@@ -9,10 +9,18 @@ public class Customer extends TeaModel {
     public String createTime;
 
     // 企业ID
+    /**
+     * <strong>example:</strong>
+     * <p>2088xxxxx1</p>
+     */
     @NameInMap("id")
     public String id;
 
     // 企业名称
+    /**
+     * <strong>example:</strong>
+     * <p>蚂蚁金融云有限公司</p>
+     */
     @NameInMap("name")
     public String name;
 

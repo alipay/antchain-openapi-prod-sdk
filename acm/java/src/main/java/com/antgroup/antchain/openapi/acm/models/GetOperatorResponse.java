@@ -90,6 +90,14 @@ public class GetOperatorResponse extends TeaModel {
     @NameInMap("dd_robot")
     public String ddRobot;
 
+    // 操作员类型，DEFAULT默认操作员、SC_DEFAULT数科默认操作员、COMMON普通操作员
+    @NameInMap("operater_type")
+    public String operaterType;
+
+    // 关联账号id
+    @NameInMap("relation_id")
+    public String relationId;
+
     public static GetOperatorResponse build(java.util.Map<String, ?> map) throws Exception {
         GetOperatorResponse self = new GetOperatorResponse();
         return TeaModel.build(map, self);
@@ -245,6 +253,22 @@ public class GetOperatorResponse extends TeaModel {
     }
     public String getDdRobot() {
         return this.ddRobot;
+    }
+
+    public GetOperatorResponse setOperaterType(String operaterType) {
+        this.operaterType = operaterType;
+        return this;
+    }
+    public String getOperaterType() {
+        return this.operaterType;
+    }
+
+    public GetOperatorResponse setRelationId(String relationId) {
+        this.relationId = relationId;
+        return this;
+    }
+    public String getRelationId() {
+        return this.relationId;
     }
 
 }

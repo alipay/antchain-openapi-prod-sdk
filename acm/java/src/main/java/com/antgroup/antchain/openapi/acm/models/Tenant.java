@@ -5,14 +5,26 @@ import com.aliyun.tea.*;
 
 public class Tenant extends TeaModel {
     // 蚂蚁通行证签约账户
+    /**
+     * <strong>example:</strong>
+     * <p><a href="mailto:antcloud@alipay.com">antcloud@alipay.com</a></p>
+     */
     @NameInMap("ant_account")
     public String antAccount;
 
     // 蚂蚁通行证uid
+    /**
+     * <strong>example:</strong>
+     * <p>2088xxxxx1</p>
+     */
     @NameInMap("ant_uid")
     public String antUid;
 
     // 金融云官网:ANTCLOUD,蚂蚁开放平台：ANTOPEN
+    /**
+     * <strong>example:</strong>
+     * <p>ANTCLOUD</p>
+     */
     @NameInMap("business_owner_id")
     public String businessOwnerId;
 
@@ -21,22 +33,42 @@ public class Tenant extends TeaModel {
     public String createTime;
 
     // 租户所在的企业的唯一标识
+    /**
+     * <strong>example:</strong>
+     * <p>2088201881714570</p>
+     */
     @NameInMap("customer")
     public String customer;
 
     // 租户描述信息
+    /**
+     * <strong>example:</strong>
+     * <p>the default tenant</p>
+     */
     @NameInMap("description")
     public String description;
 
     // 租户唯一标识
+    /**
+     * <strong>example:</strong>
+     * <p>TSCPDICN</p>
+     */
     @NameInMap("id")
     public String id;
 
     // 租户内部id
+    /**
+     * <strong>example:</strong>
+     * <p>0000000001</p>
+     */
     @NameInMap("internal_id")
     public String internalId;
 
     // 租户显示名称
+    /**
+     * <strong>example:</strong>
+     * <p>myTenant</p>
+     */
     @NameInMap("name")
     public String name;
 

@@ -9,6 +9,10 @@ public class AccessKey extends TeaModel {
     public String createTime;
 
     // AccessKey唯一标识
+    /**
+     * <strong>example:</strong>
+     * <p>LTAIyqaeoWfELqMg</p>
+     */
     @NameInMap("id")
     public String id;
 
@@ -17,6 +21,10 @@ public class AccessKey extends TeaModel {
     public String secret;
 
     // 状态
+    /**
+     * <strong>example:</strong>
+     * <p>ACTIVE</p>
+     */
     @NameInMap("status")
     public String status;
 

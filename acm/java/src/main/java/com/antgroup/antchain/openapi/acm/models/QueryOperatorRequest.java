@@ -10,8 +10,11 @@ public class QueryOperatorRequest extends TeaModel {
 
     // 企业ID
     @NameInMap("customer")
-    @Validation(required = true)
     public String customer;
+
+    // 租户唯一标识
+    @NameInMap("tenant")
+    public String tenant;
 
     // 当前页，默认值为1
     @NameInMap("page_num")
@@ -24,10 +27,6 @@ public class QueryOperatorRequest extends TeaModel {
     // 真实姓名
     @NameInMap("real_name")
     public String realName;
-
-    // 租户唯一标识
-    @NameInMap("tenant")
-    public String tenant;
 
     // 部门唯一码
     @NameInMap("department_code")
@@ -54,6 +53,14 @@ public class QueryOperatorRequest extends TeaModel {
         return this.customer;
     }
 
+    public QueryOperatorRequest setTenant(String tenant) {
+        this.tenant = tenant;
+        return this;
+    }
+    public String getTenant() {
+        return this.tenant;
+    }
+
     public QueryOperatorRequest setPageNum(Long pageNum) {
         this.pageNum = pageNum;
         return this;
@@ -76,14 +83,6 @@ public class QueryOperatorRequest extends TeaModel {
     }
     public String getRealName() {
         return this.realName;
-    }
-
-    public QueryOperatorRequest setTenant(String tenant) {
-        this.tenant = tenant;
-        return this;
-    }
-    public String getTenant() {
-        return this.tenant;
     }
 
     public QueryOperatorRequest setDepartmentCode(String departmentCode) {

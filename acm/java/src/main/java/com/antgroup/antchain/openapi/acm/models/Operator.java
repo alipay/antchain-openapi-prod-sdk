@@ -13,18 +13,34 @@ public class Operator extends TeaModel {
     public String customer;
 
     // 邮箱
+    /**
+     * <strong>example:</strong>
+     * <p><a href="mailto:zhangsan@alipay.com">zhangsan@alipay.com</a></p>
+     */
     @NameInMap("email")
     public String email;
 
     // 外部对接系统操作员id
+    /**
+     * <strong>example:</strong>
+     * <p>ding0000001</p>
+     */
     @NameInMap("external_id")
     public String externalId;
 
     // 外部对接系统类型
+    /**
+     * <strong>example:</strong>
+     * <p>DING_TALK</p>
+     */
     @NameInMap("external_system")
     public String externalSystem;
 
     // 操作员ID
+    /**
+     * <strong>example:</strong>
+     * <p>0000000001</p>
+     */
     @NameInMap("id")
     public String id;
 
@@ -45,6 +61,10 @@ public class Operator extends TeaModel {
     public String realName;
 
     // 部门唯一码
+    /**
+     * <strong>example:</strong>
+     * 
+     */
     @NameInMap("department_code")
     public String departmentCode;
 

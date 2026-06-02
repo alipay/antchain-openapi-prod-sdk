@@ -20,6 +20,10 @@ public class CheckAlipayTenantResponse extends TeaModel {
     @NameInMap("tenant_id")
     public String tenantId;
 
+    // 租户名称（code）
+    @NameInMap("tenant_name")
+    public String tenantName;
+
     public static CheckAlipayTenantResponse build(java.util.Map<String, ?> map) throws Exception {
         CheckAlipayTenantResponse self = new CheckAlipayTenantResponse();
         return TeaModel.build(map, self);
@@ -55,6 +59,14 @@ public class CheckAlipayTenantResponse extends TeaModel {
     }
     public String getTenantId() {
         return this.tenantId;
+    }
+
+    public CheckAlipayTenantResponse setTenantName(String tenantName) {
+        this.tenantName = tenantName;
+        return this;
+    }
+    public String getTenantName() {
+        return this.tenantName;
     }
 
 }

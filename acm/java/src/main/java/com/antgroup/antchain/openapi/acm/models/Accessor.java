@@ -5,6 +5,10 @@ import com.aliyun.tea.*;
 
 public class Accessor extends TeaModel {
     // Accessor关联的AccessKey
+    /**
+     * <strong>example:</strong>
+     * <p>LTAIyqaeoWfELqMg</p>
+     */
     @NameInMap("access_key")
     public String accessKey;
 
@@ -25,6 +29,10 @@ public class Accessor extends TeaModel {
     public String id;
 
     // Accessor类型(RAM/ACCOUNT)
+    /**
+     * <strong>example:</strong>
+     * <p>RAM</p>
+     */
     @NameInMap("type")
     public String type;
 

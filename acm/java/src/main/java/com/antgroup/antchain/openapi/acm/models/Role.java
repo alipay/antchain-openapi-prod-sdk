@@ -5,28 +5,52 @@ import com.aliyun.tea.*;
 
 public class Role extends TeaModel {
     // 角色ID
+    /**
+     * <strong>example:</strong>
+     * 
+     */
     @NameInMap("id")
     public String id;
 
     // 角色名称
     // 
+    /**
+     * <strong>example:</strong>
+     * 
+     */
     @NameInMap("name")
     public String name;
 
     // 角色类型，CUSTOM:自定义角色，COMMON:系统通用角色
+    /**
+     * <strong>example:</strong>
+     * 
+     */
     @NameInMap("type")
     public String type;
 
     // 角色描述
     // 
+    /**
+     * <strong>example:</strong>
+     * 
+     */
     @NameInMap("description")
     public String description;
 
     // 状态
+    /**
+     * <strong>example:</strong>
+     * <p>NORMAL</p>
+     */
     @NameInMap("status")
     public String status;
 
     // 所有者
+    /**
+     * <strong>example:</strong>
+     * <p>AntCloud</p>
+     */
     @NameInMap("owner")
     public String owner;
 

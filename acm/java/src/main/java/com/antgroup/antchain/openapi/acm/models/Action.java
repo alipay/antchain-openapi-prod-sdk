@@ -5,22 +5,42 @@ import com.aliyun.tea.*;
 
 public class Action extends TeaModel {
     // 权限点ID
+    /**
+     * <strong>example:</strong>
+     * <p>A0000000001</p>
+     */
     @NameInMap("id")
     public String id;
 
     // 权限点名称
+    /**
+     * <strong>example:</strong>
+     * <p>antcloud.xxx.xxx.labelinfo.query</p>
+     */
     @NameInMap("name")
     public String name;
 
     // 类型
+    /**
+     * <strong>example:</strong>
+     * <p>INNER</p>
+     */
     @NameInMap("type")
     public String type;
 
     // 状态
+    /**
+     * <strong>example:</strong>
+     * <p>NORMAL</p>
+     */
     @NameInMap("status")
     public String status;
 
     // 描述
+    /**
+     * <strong>example:</strong>
+     * 
+     */
     @NameInMap("description")
     public String description;
 

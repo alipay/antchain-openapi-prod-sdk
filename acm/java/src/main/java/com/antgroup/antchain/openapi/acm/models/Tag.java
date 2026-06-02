@@ -5,11 +5,19 @@ import com.aliyun.tea.*;
 
 public class Tag extends TeaModel {
     // 标签类型
+    /**
+     * <strong>example:</strong>
+     * <p>CHANNEL_SCENE</p>
+     */
     @NameInMap("tag_type")
     @Validation(required = true)
     public String tagType;
 
     // 标签值
+    /**
+     * <strong>example:</strong>
+     * <p>BAASDT_IPAE</p>
+     */
     @NameInMap("tag_value")
     @Validation(required = true)
     public String tagValue;

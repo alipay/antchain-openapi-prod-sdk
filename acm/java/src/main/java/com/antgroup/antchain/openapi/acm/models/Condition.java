@@ -5,10 +5,18 @@ import com.aliyun.tea.*;
 
 public class Condition extends TeaModel {
     //  
+    /**
+     * <strong>example:</strong>
+     * 
+     */
     @NameInMap("key")
     public String key;
 
     //  
+    /**
+     * <strong>example:</strong>
+     * 
+     */
     @NameInMap("value")
     public java.util.List<String> value;
 

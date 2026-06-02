@@ -3,7 +3,7 @@ package com.antgroup.antchain.openapi.acm.models;
 
 import com.aliyun.tea.*;
 
-public class GetMasterTenantResponse extends TeaModel {
+public class CreateAlipayTenantResponse extends TeaModel {
     // 请求唯一ID，用于链路跟踪和问题排查
     @NameInMap("req_msg_id")
     public String reqMsgId;
@@ -16,33 +16,25 @@ public class GetMasterTenantResponse extends TeaModel {
     @NameInMap("result_msg")
     public String resultMsg;
 
-    // 蚂蚁通行证签约账户
-    @NameInMap("login_name")
-    public String loginName;
-
-    // 租户id
+    // 数科租户id
     @NameInMap("tenant_id")
     public String tenantId;
 
-    // 租户创建时间，ISO8601格式	
-    @NameInMap("create_time")
-    public String createTime;
+    // 租户名称（code），八位大写字母
+    @NameInMap("tenant_name")
+    public String tenantName;
+
+    // 蚂蚁通行证签约账户
+    @NameInMap("login_name")
+    public String loginName;
 
     // 客户id
     @NameInMap("customer_id")
     public String customerId;
 
-    // 租户描述信息	
+    // 租户描述信息
     @NameInMap("description")
     public String description;
-
-    // 租户名称
-    @NameInMap("name")
-    public String name;
-
-    // 租户最近一次修改时间，ISO8601格式	
-    @NameInMap("update_time")
-    public String updateTime;
 
     // 用户类型
     @NameInMap("user_type")
@@ -68,16 +60,20 @@ public class GetMasterTenantResponse extends TeaModel {
     @NameInMap("firm_name")
     public String firmName;
 
-    // 是否通过数科官网或者支付宝侧实名认证
-    @NameInMap("certified")
-    public Boolean certified;
+    // 租户创建时间，ISO8601格式
+    @NameInMap("create_time")
+    public String createTime;
 
-    public static GetMasterTenantResponse build(java.util.Map<String, ?> map) throws Exception {
-        GetMasterTenantResponse self = new GetMasterTenantResponse();
+    // 租户最近一次修改时间，ISO8601格式
+    @NameInMap("update_time")
+    public String updateTime;
+
+    public static CreateAlipayTenantResponse build(java.util.Map<String, ?> map) throws Exception {
+        CreateAlipayTenantResponse self = new CreateAlipayTenantResponse();
         return TeaModel.build(map, self);
     }
 
-    public GetMasterTenantResponse setReqMsgId(String reqMsgId) {
+    public CreateAlipayTenantResponse setReqMsgId(String reqMsgId) {
         this.reqMsgId = reqMsgId;
         return this;
     }
@@ -85,7 +81,7 @@ public class GetMasterTenantResponse extends TeaModel {
         return this.reqMsgId;
     }
 
-    public GetMasterTenantResponse setResultCode(String resultCode) {
+    public CreateAlipayTenantResponse setResultCode(String resultCode) {
         this.resultCode = resultCode;
         return this;
     }
@@ -93,7 +89,7 @@ public class GetMasterTenantResponse extends TeaModel {
         return this.resultCode;
     }
 
-    public GetMasterTenantResponse setResultMsg(String resultMsg) {
+    public CreateAlipayTenantResponse setResultMsg(String resultMsg) {
         this.resultMsg = resultMsg;
         return this;
     }
@@ -101,15 +97,7 @@ public class GetMasterTenantResponse extends TeaModel {
         return this.resultMsg;
     }
 
-    public GetMasterTenantResponse setLoginName(String loginName) {
-        this.loginName = loginName;
-        return this;
-    }
-    public String getLoginName() {
-        return this.loginName;
-    }
-
-    public GetMasterTenantResponse setTenantId(String tenantId) {
+    public CreateAlipayTenantResponse setTenantId(String tenantId) {
         this.tenantId = tenantId;
         return this;
     }
@@ -117,15 +105,23 @@ public class GetMasterTenantResponse extends TeaModel {
         return this.tenantId;
     }
 
-    public GetMasterTenantResponse setCreateTime(String createTime) {
-        this.createTime = createTime;
+    public CreateAlipayTenantResponse setTenantName(String tenantName) {
+        this.tenantName = tenantName;
         return this;
     }
-    public String getCreateTime() {
-        return this.createTime;
+    public String getTenantName() {
+        return this.tenantName;
     }
 
-    public GetMasterTenantResponse setCustomerId(String customerId) {
+    public CreateAlipayTenantResponse setLoginName(String loginName) {
+        this.loginName = loginName;
+        return this;
+    }
+    public String getLoginName() {
+        return this.loginName;
+    }
+
+    public CreateAlipayTenantResponse setCustomerId(String customerId) {
         this.customerId = customerId;
         return this;
     }
@@ -133,7 +129,7 @@ public class GetMasterTenantResponse extends TeaModel {
         return this.customerId;
     }
 
-    public GetMasterTenantResponse setDescription(String description) {
+    public CreateAlipayTenantResponse setDescription(String description) {
         this.description = description;
         return this;
     }
@@ -141,23 +137,7 @@ public class GetMasterTenantResponse extends TeaModel {
         return this.description;
     }
 
-    public GetMasterTenantResponse setName(String name) {
-        this.name = name;
-        return this;
-    }
-    public String getName() {
-        return this.name;
-    }
-
-    public GetMasterTenantResponse setUpdateTime(String updateTime) {
-        this.updateTime = updateTime;
-        return this;
-    }
-    public String getUpdateTime() {
-        return this.updateTime;
-    }
-
-    public GetMasterTenantResponse setUserType(String userType) {
+    public CreateAlipayTenantResponse setUserType(String userType) {
         this.userType = userType;
         return this;
     }
@@ -165,7 +145,7 @@ public class GetMasterTenantResponse extends TeaModel {
         return this.userType;
     }
 
-    public GetMasterTenantResponse setTenantLevel(String tenantLevel) {
+    public CreateAlipayTenantResponse setTenantLevel(String tenantLevel) {
         this.tenantLevel = tenantLevel;
         return this;
     }
@@ -173,7 +153,7 @@ public class GetMasterTenantResponse extends TeaModel {
         return this.tenantLevel;
     }
 
-    public GetMasterTenantResponse setCertType(String certType) {
+    public CreateAlipayTenantResponse setCertType(String certType) {
         this.certType = certType;
         return this;
     }
@@ -181,7 +161,7 @@ public class GetMasterTenantResponse extends TeaModel {
         return this.certType;
     }
 
-    public GetMasterTenantResponse setCertNo(String certNo) {
+    public CreateAlipayTenantResponse setCertNo(String certNo) {
         this.certNo = certNo;
         return this;
     }
@@ -189,7 +169,7 @@ public class GetMasterTenantResponse extends TeaModel {
         return this.certNo;
     }
 
-    public GetMasterTenantResponse setRealName(String realName) {
+    public CreateAlipayTenantResponse setRealName(String realName) {
         this.realName = realName;
         return this;
     }
@@ -197,7 +177,7 @@ public class GetMasterTenantResponse extends TeaModel {
         return this.realName;
     }
 
-    public GetMasterTenantResponse setFirmName(String firmName) {
+    public CreateAlipayTenantResponse setFirmName(String firmName) {
         this.firmName = firmName;
         return this;
     }
@@ -205,12 +185,20 @@ public class GetMasterTenantResponse extends TeaModel {
         return this.firmName;
     }
 
-    public GetMasterTenantResponse setCertified(Boolean certified) {
-        this.certified = certified;
+    public CreateAlipayTenantResponse setCreateTime(String createTime) {
+        this.createTime = createTime;
         return this;
     }
-    public Boolean getCertified() {
-        return this.certified;
+    public String getCreateTime() {
+        return this.createTime;
+    }
+
+    public CreateAlipayTenantResponse setUpdateTime(String updateTime) {
+        this.updateTime = updateTime;
+        return this;
+    }
+    public String getUpdateTime() {
+        return this.updateTime;
     }
 
 }
