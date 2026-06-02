@@ -6,7 +6,7 @@ namespace AntChain\Acm\Models;
 
 use AlibabaCloud\Tea\Model;
 
-class CheckAlipayTenantResponse extends Model
+class FreezeOperatorResponse extends Model
 {
     // 请求唯一ID，用于链路跟踪和问题排查
     /**
@@ -25,24 +25,10 @@ class CheckAlipayTenantResponse extends Model
      * @var string
      */
     public $resultMsg;
-
-    // 智科租户id(支付宝会员id)
-    /**
-     * @var string
-     */
-    public $tenantId;
-
-    // 租户名称（code）
-    /**
-     * @var string
-     */
-    public $tenantName;
     protected $_name = [
         'reqMsgId'   => 'req_msg_id',
         'resultCode' => 'result_code',
         'resultMsg'  => 'result_msg',
-        'tenantId'   => 'tenant_id',
-        'tenantName' => 'tenant_name',
     ];
 
     public function validate()
@@ -61,12 +47,6 @@ class CheckAlipayTenantResponse extends Model
         if (null !== $this->resultMsg) {
             $res['result_msg'] = $this->resultMsg;
         }
-        if (null !== $this->tenantId) {
-            $res['tenant_id'] = $this->tenantId;
-        }
-        if (null !== $this->tenantName) {
-            $res['tenant_name'] = $this->tenantName;
-        }
 
         return $res;
     }
@@ -74,7 +54,7 @@ class CheckAlipayTenantResponse extends Model
     /**
      * @param array $map
      *
-     * @return CheckAlipayTenantResponse
+     * @return FreezeOperatorResponse
      */
     public static function fromMap($map = [])
     {
@@ -87,12 +67,6 @@ class CheckAlipayTenantResponse extends Model
         }
         if (isset($map['result_msg'])) {
             $model->resultMsg = $map['result_msg'];
-        }
-        if (isset($map['tenant_id'])) {
-            $model->tenantId = $map['tenant_id'];
-        }
-        if (isset($map['tenant_name'])) {
-            $model->tenantName = $map['tenant_name'];
         }
 
         return $model;

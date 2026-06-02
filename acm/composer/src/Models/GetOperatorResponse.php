@@ -121,6 +121,18 @@ class GetOperatorResponse extends Model
      * @var string
      */
     public $ddRobot;
+
+    // 操作员类型，DEFAULT默认操作员、SC_DEFAULT数科默认操作员、COMMON普通操作员
+    /**
+     * @var string
+     */
+    public $operaterType;
+
+    // 关联账号id
+    /**
+     * @var string
+     */
+    public $relationId;
     protected $_name = [
         'reqMsgId'       => 'req_msg_id',
         'resultCode'     => 'result_code',
@@ -141,6 +153,8 @@ class GetOperatorResponse extends Model
         'workNo'         => 'work_no',
         'isMaster'       => 'is_master',
         'ddRobot'        => 'dd_robot',
+        'operaterType'   => 'operater_type',
+        'relationId'     => 'relation_id',
     ];
 
     public function validate()
@@ -217,6 +231,12 @@ class GetOperatorResponse extends Model
         if (null !== $this->ddRobot) {
             $res['dd_robot'] = $this->ddRobot;
         }
+        if (null !== $this->operaterType) {
+            $res['operater_type'] = $this->operaterType;
+        }
+        if (null !== $this->relationId) {
+            $res['relation_id'] = $this->relationId;
+        }
 
         return $res;
     }
@@ -287,6 +307,12 @@ class GetOperatorResponse extends Model
         }
         if (isset($map['dd_robot'])) {
             $model->ddRobot = $map['dd_robot'];
+        }
+        if (isset($map['operater_type'])) {
+            $model->operaterType = $map['operater_type'];
+        }
+        if (isset($map['relation_id'])) {
+            $model->relationId = $map['relation_id'];
         }
 
         return $model;

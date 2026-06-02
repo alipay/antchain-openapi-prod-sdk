@@ -6,7 +6,7 @@ namespace AntChain\Acm\Models;
 
 use AlibabaCloud\Tea\Model;
 
-class GetMasterTenantResponse extends Model
+class CreateAlipayTenantResponse extends Model
 {
     // 请求唯一ID，用于链路跟踪和问题排查
     /**
@@ -26,23 +26,23 @@ class GetMasterTenantResponse extends Model
      */
     public $resultMsg;
 
-    // 蚂蚁通行证签约账户
-    /**
-     * @var string
-     */
-    public $loginName;
-
-    // 租户id
+    // 数科租户id
     /**
      * @var string
      */
     public $tenantId;
 
-    // 租户创建时间，ISO8601格式
+    // 租户名称（code），八位大写字母
     /**
      * @var string
      */
-    public $createTime;
+    public $tenantName;
+
+    // 蚂蚁通行证签约账户
+    /**
+     * @var string
+     */
+    public $loginName;
 
     // 客户id
     /**
@@ -55,18 +55,6 @@ class GetMasterTenantResponse extends Model
      * @var string
      */
     public $description;
-
-    // 租户名称
-    /**
-     * @var string
-     */
-    public $name;
-
-    // 租户最近一次修改时间，ISO8601格式
-    /**
-     * @var string
-     */
-    public $updateTime;
 
     // 用户类型
     /**
@@ -104,29 +92,34 @@ class GetMasterTenantResponse extends Model
      */
     public $firmName;
 
-    // 是否通过数科官网或者支付宝侧实名认证
+    // 租户创建时间，ISO8601格式
     /**
-     * @var bool
+     * @var string
      */
-    public $certified;
+    public $createTime;
+
+    // 租户最近一次修改时间，ISO8601格式
+    /**
+     * @var string
+     */
+    public $updateTime;
     protected $_name = [
         'reqMsgId'    => 'req_msg_id',
         'resultCode'  => 'result_code',
         'resultMsg'   => 'result_msg',
-        'loginName'   => 'login_name',
         'tenantId'    => 'tenant_id',
-        'createTime'  => 'create_time',
+        'tenantName'  => 'tenant_name',
+        'loginName'   => 'login_name',
         'customerId'  => 'customer_id',
         'description' => 'description',
-        'name'        => 'name',
-        'updateTime'  => 'update_time',
         'userType'    => 'user_type',
         'tenantLevel' => 'tenant_level',
         'certType'    => 'cert_type',
         'certNo'      => 'cert_no',
         'realName'    => 'real_name',
         'firmName'    => 'firm_name',
-        'certified'   => 'certified',
+        'createTime'  => 'create_time',
+        'updateTime'  => 'update_time',
     ];
 
     public function validate()
@@ -145,26 +138,20 @@ class GetMasterTenantResponse extends Model
         if (null !== $this->resultMsg) {
             $res['result_msg'] = $this->resultMsg;
         }
-        if (null !== $this->loginName) {
-            $res['login_name'] = $this->loginName;
-        }
         if (null !== $this->tenantId) {
             $res['tenant_id'] = $this->tenantId;
         }
-        if (null !== $this->createTime) {
-            $res['create_time'] = $this->createTime;
+        if (null !== $this->tenantName) {
+            $res['tenant_name'] = $this->tenantName;
+        }
+        if (null !== $this->loginName) {
+            $res['login_name'] = $this->loginName;
         }
         if (null !== $this->customerId) {
             $res['customer_id'] = $this->customerId;
         }
         if (null !== $this->description) {
             $res['description'] = $this->description;
-        }
-        if (null !== $this->name) {
-            $res['name'] = $this->name;
-        }
-        if (null !== $this->updateTime) {
-            $res['update_time'] = $this->updateTime;
         }
         if (null !== $this->userType) {
             $res['user_type'] = $this->userType;
@@ -184,8 +171,11 @@ class GetMasterTenantResponse extends Model
         if (null !== $this->firmName) {
             $res['firm_name'] = $this->firmName;
         }
-        if (null !== $this->certified) {
-            $res['certified'] = $this->certified;
+        if (null !== $this->createTime) {
+            $res['create_time'] = $this->createTime;
+        }
+        if (null !== $this->updateTime) {
+            $res['update_time'] = $this->updateTime;
         }
 
         return $res;
@@ -194,7 +184,7 @@ class GetMasterTenantResponse extends Model
     /**
      * @param array $map
      *
-     * @return GetMasterTenantResponse
+     * @return CreateAlipayTenantResponse
      */
     public static function fromMap($map = [])
     {
@@ -208,26 +198,20 @@ class GetMasterTenantResponse extends Model
         if (isset($map['result_msg'])) {
             $model->resultMsg = $map['result_msg'];
         }
-        if (isset($map['login_name'])) {
-            $model->loginName = $map['login_name'];
-        }
         if (isset($map['tenant_id'])) {
             $model->tenantId = $map['tenant_id'];
         }
-        if (isset($map['create_time'])) {
-            $model->createTime = $map['create_time'];
+        if (isset($map['tenant_name'])) {
+            $model->tenantName = $map['tenant_name'];
+        }
+        if (isset($map['login_name'])) {
+            $model->loginName = $map['login_name'];
         }
         if (isset($map['customer_id'])) {
             $model->customerId = $map['customer_id'];
         }
         if (isset($map['description'])) {
             $model->description = $map['description'];
-        }
-        if (isset($map['name'])) {
-            $model->name = $map['name'];
-        }
-        if (isset($map['update_time'])) {
-            $model->updateTime = $map['update_time'];
         }
         if (isset($map['user_type'])) {
             $model->userType = $map['user_type'];
@@ -247,8 +231,11 @@ class GetMasterTenantResponse extends Model
         if (isset($map['firm_name'])) {
             $model->firmName = $map['firm_name'];
         }
-        if (isset($map['certified'])) {
-            $model->certified = $map['certified'];
+        if (isset($map['create_time'])) {
+            $model->createTime = $map['create_time'];
+        }
+        if (isset($map['update_time'])) {
+            $model->updateTime = $map['update_time'];
         }
 
         return $model;

@@ -20,6 +20,12 @@ class QueryOperatorRequest extends Model
      */
     public $customer;
 
+    // 租户唯一标识
+    /**
+     * @var string
+     */
+    public $tenant;
+
     // 当前页，默认值为1
     /**
      * @var int
@@ -38,12 +44,6 @@ class QueryOperatorRequest extends Model
      */
     public $realName;
 
-    // 租户唯一标识
-    /**
-     * @var string
-     */
-    public $tenant;
-
     // 部门唯一码
     /**
      * @var string
@@ -52,16 +52,15 @@ class QueryOperatorRequest extends Model
     protected $_name = [
         'authToken'      => 'auth_token',
         'customer'       => 'customer',
+        'tenant'         => 'tenant',
         'pageNum'        => 'page_num',
         'pageSize'       => 'page_size',
         'realName'       => 'real_name',
-        'tenant'         => 'tenant',
         'departmentCode' => 'department_code',
     ];
 
     public function validate()
     {
-        Model::validateRequired('customer', $this->customer, true);
     }
 
     public function toMap()
@@ -73,6 +72,9 @@ class QueryOperatorRequest extends Model
         if (null !== $this->customer) {
             $res['customer'] = $this->customer;
         }
+        if (null !== $this->tenant) {
+            $res['tenant'] = $this->tenant;
+        }
         if (null !== $this->pageNum) {
             $res['page_num'] = $this->pageNum;
         }
@@ -81,9 +83,6 @@ class QueryOperatorRequest extends Model
         }
         if (null !== $this->realName) {
             $res['real_name'] = $this->realName;
-        }
-        if (null !== $this->tenant) {
-            $res['tenant'] = $this->tenant;
         }
         if (null !== $this->departmentCode) {
             $res['department_code'] = $this->departmentCode;
@@ -106,6 +105,9 @@ class QueryOperatorRequest extends Model
         if (isset($map['customer'])) {
             $model->customer = $map['customer'];
         }
+        if (isset($map['tenant'])) {
+            $model->tenant = $map['tenant'];
+        }
         if (isset($map['page_num'])) {
             $model->pageNum = $map['page_num'];
         }
@@ -114,9 +116,6 @@ class QueryOperatorRequest extends Model
         }
         if (isset($map['real_name'])) {
             $model->realName = $map['real_name'];
-        }
-        if (isset($map['tenant'])) {
-            $model->tenant = $map['tenant'];
         }
         if (isset($map['department_code'])) {
             $model->departmentCode = $map['department_code'];

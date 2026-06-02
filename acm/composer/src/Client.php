@@ -23,6 +23,8 @@ use AntChain\Acm\Models\CheckAlipayTenantRequest;
 use AntChain\Acm\Models\CheckAlipayTenantResponse;
 use AntChain\Acm\Models\CheckLoginnameRequest;
 use AntChain\Acm\Models\CheckLoginnameResponse;
+use AntChain\Acm\Models\CreateAlipayTenantRequest;
+use AntChain\Acm\Models\CreateAlipayTenantResponse;
 use AntChain\Acm\Models\CreateAntchainTenantRequest;
 use AntChain\Acm\Models\CreateAntchainTenantResponse;
 use AntChain\Acm\Models\CreateOauthServiceaccountRequest;
@@ -43,6 +45,8 @@ use AntChain\Acm\Models\DisableOauthMobileloginRequest;
 use AntChain\Acm\Models\DisableOauthMobileloginResponse;
 use AntChain\Acm\Models\EnableOauthMobileloginRequest;
 use AntChain\Acm\Models\EnableOauthMobileloginResponse;
+use AntChain\Acm\Models\FreezeOperatorRequest;
+use AntChain\Acm\Models\FreezeOperatorResponse;
 use AntChain\Acm\Models\GetAntpassportTenantRequest;
 use AntChain\Acm\Models\GetAntpassportTenantResponse;
 use AntChain\Acm\Models\GetCurrentidRequest;
@@ -77,6 +81,8 @@ use AntChain\Acm\Models\QueryTenantStatusRequest;
 use AntChain\Acm\Models\QueryTenantStatusResponse;
 use AntChain\Acm\Models\QueryTenantTagRequest;
 use AntChain\Acm\Models\QueryTenantTagResponse;
+use AntChain\Acm\Models\QueryUserProjectRequest;
+use AntChain\Acm\Models\QueryUserProjectResponse;
 use AntChain\Acm\Models\QueryUserRoleRequest;
 use AntChain\Acm\Models\QueryUserRoleResponse;
 use AntChain\Acm\Models\RefreshUserTokenRequest;
@@ -89,6 +95,8 @@ use AntChain\Acm\Models\SendOperatorActiveemailRequest;
 use AntChain\Acm\Models\SendOperatorActiveemailResponse;
 use AntChain\Acm\Models\SyncTenantInfoRequest;
 use AntChain\Acm\Models\SyncTenantInfoResponse;
+use AntChain\Acm\Models\UnfreezeOperatorRequest;
+use AntChain\Acm\Models\UnfreezeOperatorResponse;
 use AntChain\Acm\Models\UpdateCustomerIdentityRequest;
 use AntChain\Acm\Models\UpdateCustomerIdentityResponse;
 use AntChain\Acm\Models\UpdateOperatorRequest;
@@ -244,7 +252,7 @@ class Client
                     'req_msg_id'       => UtilClient::getNonce(),
                     'access_key'       => $this->_accessKeyId,
                     'base_sdk_version' => 'TeaSDK-2.0',
-                    'sdk_version'      => '1.6.0',
+                    'sdk_version'      => '1.6.10',
                     '_prod_code'       => 'acm',
                     '_prod_channel'    => 'undefined',
                 ];
@@ -290,6 +298,39 @@ class Client
         }
 
         throw new TeaUnableRetryError($_lastRequest, $_lastException);
+    }
+
+    /**
+     * Description: 查询用户所属项目列表
+     * Summary: 查询用户所属项目列表.
+     *
+     * @param QueryUserProjectRequest $request
+     *
+     * @return QueryUserProjectResponse
+     */
+    public function queryUserProject($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->queryUserProjectEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 查询用户所属项目列表
+     * Summary: 查询用户所属项目列表.
+     *
+     * @param QueryUserProjectRequest $request
+     * @param string[]                $headers
+     * @param RuntimeOptions          $runtime
+     *
+     * @return QueryUserProjectResponse
+     */
+    public function queryUserProjectEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return QueryUserProjectResponse::fromMap($this->doRequest('1.0', 'antcloud.acm.user.project.query', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
     }
 
     /**
@@ -1709,5 +1750,104 @@ class Client
         Utils::validateModel($request);
 
         return DeleteTrustloginTokenResponse::fromMap($this->doRequest('1.0', 'antcloud.acm.trustlogin.token.delete', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 支付宝账号入驻到数科，同步接口
+     * Summary: 支付宝账号入驻到数科.
+     *
+     * @param CreateAlipayTenantRequest $request
+     *
+     * @return CreateAlipayTenantResponse
+     */
+    public function createAlipayTenant($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->createAlipayTenantEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 支付宝账号入驻到数科，同步接口
+     * Summary: 支付宝账号入驻到数科.
+     *
+     * @param CreateAlipayTenantRequest $request
+     * @param string[]                  $headers
+     * @param RuntimeOptions            $runtime
+     *
+     * @return CreateAlipayTenantResponse
+     */
+    public function createAlipayTenantEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return CreateAlipayTenantResponse::fromMap($this->doRequest('1.0', 'antcloud.acm.alipay.tenant.create', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 冻结操作员
+     * Summary: 冻结操作员.
+     *
+     * @param FreezeOperatorRequest $request
+     *
+     * @return FreezeOperatorResponse
+     */
+    public function freezeOperator($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->freezeOperatorEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 冻结操作员
+     * Summary: 冻结操作员.
+     *
+     * @param FreezeOperatorRequest $request
+     * @param string[]              $headers
+     * @param RuntimeOptions        $runtime
+     *
+     * @return FreezeOperatorResponse
+     */
+    public function freezeOperatorEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return FreezeOperatorResponse::fromMap($this->doRequest('1.0', 'antcloud.acm.operator.freeze', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 解冻操作员
+     * Summary: 解冻操作员.
+     *
+     * @param UnfreezeOperatorRequest $request
+     *
+     * @return UnfreezeOperatorResponse
+     */
+    public function unfreezeOperator($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->unfreezeOperatorEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 解冻操作员
+     * Summary: 解冻操作员.
+     *
+     * @param UnfreezeOperatorRequest $request
+     * @param string[]                $headers
+     * @param RuntimeOptions          $runtime
+     *
+     * @return UnfreezeOperatorResponse
+     */
+    public function unfreezeOperatorEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return UnfreezeOperatorResponse::fromMap($this->doRequest('1.0', 'antcloud.acm.operator.unfreeze', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
     }
 }

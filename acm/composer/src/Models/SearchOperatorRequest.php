@@ -14,7 +14,7 @@ class SearchOperatorRequest extends Model
      */
     public $authToken;
 
-    // 企业ID
+    // 企业ID（customer和tenant必填其一）
     /**
      * @var string
      */
@@ -68,7 +68,6 @@ class SearchOperatorRequest extends Model
 
     public function validate()
     {
-        Model::validateRequired('customer', $this->customer, true);
     }
 
     public function toMap()
