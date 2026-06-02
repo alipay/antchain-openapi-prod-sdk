@@ -307,6 +307,47 @@ export class Action extends $tea.Model {
   }
 }
 
+// 项目
+export class Project extends $tea.Model {
+  // 项目ID
+  projectId: string;
+  // 项目名称
+  projectName: string;
+  // 项目描述
+  description?: string;
+  // 是否为默认项目
+  isDefault: boolean;
+  // 创建时间
+  gmtCreate: string;
+  // 更新时间
+  gmtModified: string;
+  static names(): { [key: string]: string } {
+    return {
+      projectId: 'project_id',
+      projectName: 'project_name',
+      description: 'description',
+      isDefault: 'is_default',
+      gmtCreate: 'gmt_create',
+      gmtModified: 'gmt_modified',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      projectId: 'string',
+      projectName: 'string',
+      description: 'string',
+      isDefault: 'boolean',
+      gmtCreate: 'string',
+      gmtModified: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
 // 授权条件
 export class Condition extends $tea.Model {
   //  
@@ -440,6 +481,62 @@ export class Operator extends $tea.Model {
       status: 'string',
       tenants: { 'type': 'array', 'itemType': 'string' },
       updateTime: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class QueryUserProjectRequest extends $tea.Model {
+  // OAuth模式下的授权token
+  authToken?: string;
+  // 用户ID
+  userId: string;
+  static names(): { [key: string]: string } {
+    return {
+      authToken: 'auth_token',
+      userId: 'user_id',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      authToken: 'string',
+      userId: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class QueryUserProjectResponse extends $tea.Model {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string;
+  // 结果码，一般OK表示调用成功
+  resultCode?: string;
+  // 异常信息的文本描述
+  resultMsg?: string;
+  // 项目
+  projectList?: Project[];
+  static names(): { [key: string]: string } {
+    return {
+      reqMsgId: 'req_msg_id',
+      resultCode: 'result_code',
+      resultMsg: 'result_msg',
+      projectList: 'project_list',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      reqMsgId: 'string',
+      resultCode: 'string',
+      resultMsg: 'string',
+      projectList: { 'type': 'array', 'itemType': Project },
     };
   }
 
@@ -583,6 +680,10 @@ export class GetOperatorResponse extends $tea.Model {
   isMaster?: boolean;
   // 钉钉机器人 token
   ddRobot?: string;
+  // 操作员类型，DEFAULT默认操作员、SC_DEFAULT数科默认操作员、COMMON普通操作员
+  operaterType?: string;
+  // 关联账号id
+  relationId?: string;
   static names(): { [key: string]: string } {
     return {
       reqMsgId: 'req_msg_id',
@@ -604,6 +705,8 @@ export class GetOperatorResponse extends $tea.Model {
       workNo: 'work_no',
       isMaster: 'is_master',
       ddRobot: 'dd_robot',
+      operaterType: 'operater_type',
+      relationId: 'relation_id',
     };
   }
 
@@ -628,6 +731,8 @@ export class GetOperatorResponse extends $tea.Model {
       workNo: 'string',
       isMaster: 'boolean',
       ddRobot: 'string',
+      operaterType: 'string',
+      relationId: 'string',
     };
   }
 
@@ -640,25 +745,25 @@ export class QueryOperatorRequest extends $tea.Model {
   // OAuth模式下的授权token
   authToken?: string;
   // 企业ID
-  customer: string;
+  customer?: string;
+  // 租户唯一标识
+  tenant?: string;
   // 当前页，默认值为1
   pageNum?: number;
   // 分页大小，默认值为10
   pageSize?: number;
   // 真实姓名
   realName?: string;
-  // 租户唯一标识
-  tenant?: string;
   // 部门唯一码
   departmentCode?: string;
   static names(): { [key: string]: string } {
     return {
       authToken: 'auth_token',
       customer: 'customer',
+      tenant: 'tenant',
       pageNum: 'page_num',
       pageSize: 'page_size',
       realName: 'real_name',
-      tenant: 'tenant',
       departmentCode: 'department_code',
     };
   }
@@ -667,10 +772,10 @@ export class QueryOperatorRequest extends $tea.Model {
     return {
       authToken: 'string',
       customer: 'string',
+      tenant: 'string',
       pageNum: 'number',
       pageSize: 'number',
       realName: 'string',
-      tenant: 'string',
       departmentCode: 'string',
     };
   }
@@ -727,8 +832,8 @@ export class QueryOperatorResponse extends $tea.Model {
 export class SearchOperatorRequest extends $tea.Model {
   // OAuth模式下的授权token
   authToken?: string;
-  // 企业ID
-  customer: string;
+  // 企业ID（customer和tenant必填其一）
+  customer?: string;
   // 登录名
   loginName?: string;
   // 昵称
@@ -1824,12 +1929,15 @@ export class CheckAlipayTenantResponse extends $tea.Model {
   resultMsg?: string;
   // 智科租户id(支付宝会员id)
   tenantId?: string;
+  // 租户名称（code）
+  tenantName?: string;
   static names(): { [key: string]: string } {
     return {
       reqMsgId: 'req_msg_id',
       resultCode: 'result_code',
       resultMsg: 'result_msg',
       tenantId: 'tenant_id',
+      tenantName: 'tenant_name',
     };
   }
 
@@ -1839,6 +1947,7 @@ export class CheckAlipayTenantResponse extends $tea.Model {
       resultCode: 'string',
       resultMsg: 'string',
       tenantId: 'string',
+      tenantName: 'string',
     };
   }
 
@@ -2182,6 +2291,8 @@ export class GetMasterTenantResponse extends $tea.Model {
   realName?: string;
   // 企业姓名
   firmName?: string;
+  // 是否通过数科官网或者支付宝侧实名认证
+  certified?: boolean;
   static names(): { [key: string]: string } {
     return {
       reqMsgId: 'req_msg_id',
@@ -2200,6 +2311,7 @@ export class GetMasterTenantResponse extends $tea.Model {
       certNo: 'cert_no',
       realName: 'real_name',
       firmName: 'firm_name',
+      certified: 'certified',
     };
   }
 
@@ -2221,6 +2333,7 @@ export class GetMasterTenantResponse extends $tea.Model {
       certNo: 'string',
       realName: 'string',
       firmName: 'string',
+      certified: 'boolean',
     };
   }
 
@@ -3594,6 +3707,234 @@ export class DeleteTrustloginTokenResponse extends $tea.Model {
   }
 }
 
+export class CreateAlipayTenantRequest extends $tea.Model {
+  // OAuth模式下的授权token
+  authToken?: string;
+  // 支付宝账号关联的证件号
+  certNo?: string;
+  // 渠道编码 ，新接入时需要申请
+  channelCode: string;
+  // 支付宝账号关联的企业名称
+  firmName?: string;
+  // 支付宝账号关联的法人姓名
+  realName?: string;
+  // 业务场景编码，新接入时需要申请
+  sceneCode: string;
+  // 支付宝账号会员id（数科租户id）
+  tenantId: string;
+  static names(): { [key: string]: string } {
+    return {
+      authToken: 'auth_token',
+      certNo: 'cert_no',
+      channelCode: 'channel_code',
+      firmName: 'firm_name',
+      realName: 'real_name',
+      sceneCode: 'scene_code',
+      tenantId: 'tenant_id',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      authToken: 'string',
+      certNo: 'string',
+      channelCode: 'string',
+      firmName: 'string',
+      realName: 'string',
+      sceneCode: 'string',
+      tenantId: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class CreateAlipayTenantResponse extends $tea.Model {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string;
+  // 结果码，一般OK表示调用成功
+  resultCode?: string;
+  // 异常信息的文本描述
+  resultMsg?: string;
+  // 数科租户id
+  tenantId?: string;
+  // 租户名称（code），八位大写字母
+  tenantName?: string;
+  // 蚂蚁通行证签约账户
+  loginName?: string;
+  // 客户id
+  customerId?: string;
+  // 租户描述信息
+  description?: string;
+  // 用户类型
+  userType?: string;
+  // 租户的类型 N 支付宝 Q支付宝开放平台 V 蚂蚁链账号
+  tenantLevel?: string;
+  // 证件类型
+  certType?: string;
+  // 证件号码
+  certNo?: string;
+  // 法人姓名，个人账号时是个人姓名
+  realName?: string;
+  // 企业姓名
+  firmName?: string;
+  // 租户创建时间，ISO8601格式
+  createTime?: string;
+  // 租户最近一次修改时间，ISO8601格式
+  updateTime?: string;
+  static names(): { [key: string]: string } {
+    return {
+      reqMsgId: 'req_msg_id',
+      resultCode: 'result_code',
+      resultMsg: 'result_msg',
+      tenantId: 'tenant_id',
+      tenantName: 'tenant_name',
+      loginName: 'login_name',
+      customerId: 'customer_id',
+      description: 'description',
+      userType: 'user_type',
+      tenantLevel: 'tenant_level',
+      certType: 'cert_type',
+      certNo: 'cert_no',
+      realName: 'real_name',
+      firmName: 'firm_name',
+      createTime: 'create_time',
+      updateTime: 'update_time',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      reqMsgId: 'string',
+      resultCode: 'string',
+      resultMsg: 'string',
+      tenantId: 'string',
+      tenantName: 'string',
+      loginName: 'string',
+      customerId: 'string',
+      description: 'string',
+      userType: 'string',
+      tenantLevel: 'string',
+      certType: 'string',
+      certNo: 'string',
+      realName: 'string',
+      firmName: 'string',
+      createTime: 'string',
+      updateTime: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class FreezeOperatorRequest extends $tea.Model {
+  // OAuth模式下的授权token
+  authToken?: string;
+  // 操作员id
+  operatorId: string;
+  static names(): { [key: string]: string } {
+    return {
+      authToken: 'auth_token',
+      operatorId: 'operator_id',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      authToken: 'string',
+      operatorId: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class FreezeOperatorResponse extends $tea.Model {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string;
+  // 结果码，一般OK表示调用成功
+  resultCode?: string;
+  // 异常信息的文本描述
+  resultMsg?: string;
+  static names(): { [key: string]: string } {
+    return {
+      reqMsgId: 'req_msg_id',
+      resultCode: 'result_code',
+      resultMsg: 'result_msg',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      reqMsgId: 'string',
+      resultCode: 'string',
+      resultMsg: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class UnfreezeOperatorRequest extends $tea.Model {
+  // OAuth模式下的授权token
+  authToken?: string;
+  // 操作员id
+  operatorId: string;
+  static names(): { [key: string]: string } {
+    return {
+      authToken: 'auth_token',
+      operatorId: 'operator_id',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      authToken: 'string',
+      operatorId: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class UnfreezeOperatorResponse extends $tea.Model {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string;
+  // 结果码，一般OK表示调用成功
+  resultCode?: string;
+  // 异常信息的文本描述
+  resultMsg?: string;
+  static names(): { [key: string]: string } {
+    return {
+      reqMsgId: 'req_msg_id',
+      resultCode: 'result_code',
+      resultMsg: 'result_msg',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      reqMsgId: 'string',
+      resultCode: 'string',
+      resultMsg: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
 
 export default class Client {
   _endpoint: string;
@@ -3707,7 +4048,7 @@ export default class Client {
           req_msg_id: AntchainUtil.getNonce(),
           access_key: this._accessKeyId,
           base_sdk_version: "TeaSDK-2.0",
-          sdk_version: "1.6.0",
+          sdk_version: "1.6.10",
           _prod_code: "acm",
           _prod_channel: "undefined",
         };
@@ -3753,6 +4094,25 @@ export default class Client {
     }
 
     throw $tea.newUnretryableError(_lastRequest);
+  }
+
+  /**
+   * Description: 查询用户所属项目列表
+   * Summary: 查询用户所属项目列表
+   */
+  async queryUserProject(request: QueryUserProjectRequest): Promise<QueryUserProjectResponse> {
+    let runtime = new $Util.RuntimeOptions({ });
+    let headers : {[key: string ]: string} = { };
+    return await this.queryUserProjectEx(request, headers, runtime);
+  }
+
+  /**
+   * Description: 查询用户所属项目列表
+   * Summary: 查询用户所属项目列表
+   */
+  async queryUserProjectEx(request: QueryUserProjectRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<QueryUserProjectResponse> {
+    Util.validateModel(request);
+    return $tea.cast<QueryUserProjectResponse>(await this.doRequest("1.0", "antcloud.acm.user.project.query", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new QueryUserProjectResponse({}));
   }
 
   /**
@@ -4570,6 +4930,63 @@ export default class Client {
   async deleteTrustloginTokenEx(request: DeleteTrustloginTokenRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<DeleteTrustloginTokenResponse> {
     Util.validateModel(request);
     return $tea.cast<DeleteTrustloginTokenResponse>(await this.doRequest("1.0", "antcloud.acm.trustlogin.token.delete", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new DeleteTrustloginTokenResponse({}));
+  }
+
+  /**
+   * Description: 支付宝账号入驻到数科，同步接口
+   * Summary: 支付宝账号入驻到数科
+   */
+  async createAlipayTenant(request: CreateAlipayTenantRequest): Promise<CreateAlipayTenantResponse> {
+    let runtime = new $Util.RuntimeOptions({ });
+    let headers : {[key: string ]: string} = { };
+    return await this.createAlipayTenantEx(request, headers, runtime);
+  }
+
+  /**
+   * Description: 支付宝账号入驻到数科，同步接口
+   * Summary: 支付宝账号入驻到数科
+   */
+  async createAlipayTenantEx(request: CreateAlipayTenantRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<CreateAlipayTenantResponse> {
+    Util.validateModel(request);
+    return $tea.cast<CreateAlipayTenantResponse>(await this.doRequest("1.0", "antcloud.acm.alipay.tenant.create", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new CreateAlipayTenantResponse({}));
+  }
+
+  /**
+   * Description: 冻结操作员
+   * Summary: 冻结操作员
+   */
+  async freezeOperator(request: FreezeOperatorRequest): Promise<FreezeOperatorResponse> {
+    let runtime = new $Util.RuntimeOptions({ });
+    let headers : {[key: string ]: string} = { };
+    return await this.freezeOperatorEx(request, headers, runtime);
+  }
+
+  /**
+   * Description: 冻结操作员
+   * Summary: 冻结操作员
+   */
+  async freezeOperatorEx(request: FreezeOperatorRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<FreezeOperatorResponse> {
+    Util.validateModel(request);
+    return $tea.cast<FreezeOperatorResponse>(await this.doRequest("1.0", "antcloud.acm.operator.freeze", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new FreezeOperatorResponse({}));
+  }
+
+  /**
+   * Description: 解冻操作员
+   * Summary: 解冻操作员
+   */
+  async unfreezeOperator(request: UnfreezeOperatorRequest): Promise<UnfreezeOperatorResponse> {
+    let runtime = new $Util.RuntimeOptions({ });
+    let headers : {[key: string ]: string} = { };
+    return await this.unfreezeOperatorEx(request, headers, runtime);
+  }
+
+  /**
+   * Description: 解冻操作员
+   * Summary: 解冻操作员
+   */
+  async unfreezeOperatorEx(request: UnfreezeOperatorRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<UnfreezeOperatorResponse> {
+    Util.validateModel(request);
+    return $tea.cast<UnfreezeOperatorResponse>(await this.doRequest("1.0", "antcloud.acm.operator.unfreeze", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new UnfreezeOperatorResponse({}));
   }
 
 }
