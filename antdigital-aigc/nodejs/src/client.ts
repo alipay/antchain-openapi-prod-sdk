@@ -77,30 +77,83 @@ export class Config extends $tea.Model {
   }
 }
 
+// 子任务列表
+export class SubTasks extends $tea.Model {
+  // 子任务ID
+  subTaskId: number;
+  // 子任务名称
+  subTaskName: string;
+  // 目标翻译语言
+  targetLanguage: string;
+  // 子任务状态包括：PENDING（待执行）、EXECUTING（执行中）、FAILED（失败）、COMPLETED（已完成）
+  status: string;
+  // 源语言
+  sourceLanguage: string;
+  // 翻译后视频地址
+  outputVideoUrl?: string;
+  // 翻译前字幕文件地址
+  originalSubtitleUrl?: string;
+  // 翻译后字幕文件地址
+  translatedSubtitleUrl?: string;
+  // 视频时长（秒）
+  durationSeconds?: number;
+  // 错误信息
+  errorMessage?: string;
+  static names(): { [key: string]: string } {
+    return {
+      subTaskId: 'sub_task_id',
+      subTaskName: 'sub_task_name',
+      targetLanguage: 'target_language',
+      status: 'status',
+      sourceLanguage: 'source_language',
+      outputVideoUrl: 'output_video_url',
+      originalSubtitleUrl: 'original_subtitle_url',
+      translatedSubtitleUrl: 'translated_subtitle_url',
+      durationSeconds: 'duration_seconds',
+      errorMessage: 'error_message',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      subTaskId: 'number',
+      subTaskName: 'string',
+      targetLanguage: 'string',
+      status: 'string',
+      sourceLanguage: 'string',
+      outputVideoUrl: 'string',
+      originalSubtitleUrl: 'string',
+      translatedSubtitleUrl: 'string',
+      durationSeconds: 'number',
+      errorMessage: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
 export class PushVideoCreatetaskRequest extends $tea.Model {
   // OAuth模式下的授权token
   authToken?: string;
   productInstanceId?: string;
-  // 模型标识，如 seedance-01-pro / happyhorse-t2v / wanx-v1
+  // 模型标识，如 ：doubao-seedance-2-0-260128
   model: string;
   // 文本提示词
   prompt: string;
-  // 图生视频时传入参考图片 URL
-  imageUrl?: string;
-  // 视频续写时传入参考视频 URL
-  videoUrl?: string;
-  // 参考音频 URL（预留）
-  audioUrl?: string;
-  // 参考图片 URL（参考图生视频场景）
-  refImageUrl?: string;
-  // 分辨率，如 1280x720
-  size?: string;
+  // 图生视频参考图片 URL
+  imageUrl?: string[];
+  // 视频参考/续写时传入视频 URL
+  videoUrl?: string[];
+  // 参考音频URL列表
+  audioUrl?: string[];
+  // 比例
+  ratio?: string;
   // 视频时长（秒）
   duration?: string;
   // 请求追踪 ID，用于幂等去重
   requestId?: string;
-  // MIST Token / API Key
-  token: string;
   // 扩展JSON
   ext?: string;
   static names(): { [key: string]: string } {
@@ -112,11 +165,9 @@ export class PushVideoCreatetaskRequest extends $tea.Model {
       imageUrl: 'image_url',
       videoUrl: 'video_url',
       audioUrl: 'audio_url',
-      refImageUrl: 'ref_image_url',
-      size: 'size',
+      ratio: 'ratio',
       duration: 'duration',
       requestId: 'request_id',
-      token: 'token',
       ext: 'ext',
     };
   }
@@ -127,14 +178,12 @@ export class PushVideoCreatetaskRequest extends $tea.Model {
       productInstanceId: 'string',
       model: 'string',
       prompt: 'string',
-      imageUrl: 'string',
-      videoUrl: 'string',
-      audioUrl: 'string',
-      refImageUrl: 'string',
-      size: 'string',
+      imageUrl: { 'type': 'array', 'itemType': 'string' },
+      videoUrl: { 'type': 'array', 'itemType': 'string' },
+      audioUrl: { 'type': 'array', 'itemType': 'string' },
+      ratio: 'string',
       duration: 'string',
       requestId: 'string',
-      token: 'string',
       ext: 'string',
     };
   }
@@ -151,9 +200,9 @@ export class PushVideoCreatetaskResponse extends $tea.Model {
   resultCode?: string;
   // 异常信息的文本描述
   resultMsg?: string;
-  // 任务 ID
+  // 任务 ID，后续查询结果通过此参数获取
   taskId?: string;
-  // 任务状态：submitted / processing / succeeded / failed
+  // 任务状态：pending（等待中）、processing（处理中）、succeeded（已成功）、failed（已失败）
   status?: string;
   // 模型名称
   model?: string;
@@ -263,6 +312,234 @@ export class QueryVideoQuerytaskResponse extends $tea.Model {
       errorCode: 'string',
       errorMessage: 'string',
       ext: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class PushVideotranslateCreatetaskRequest extends $tea.Model {
+  // OAuth模式下的授权token
+  authToken?: string;
+  productInstanceId?: string;
+  // 视频URL
+  videoUrl: string;
+  // 视频名称
+  videoName: string;
+  // 翻译类型：VOICE(语音级翻译)、SUBTITLE(字幕级翻译)、FACE(面容级翻译)，二次翻译仅支持VOICE
+  translateType: string;
+  // 字幕级翻译支持的源语言：zh(中文), en(英文)
+  //   
+  // 语音级翻译支持的源语言：zh(中文), en(英语), ja(日语), ko(韩语), yue(粤语), de(德语), fr(法语), es(西班牙语), ar(阿拉伯语), it(意大利语), pt(葡萄牙语), ru(俄语), hi(印地语), id(印度尼西亚语), ms(马来语), 
+  // nl(荷兰语), pl(波兰语), no(挪威语), da(丹麦语),hu(匈牙利语), cs(捷克语), ro(罗马尼亚语), bg(保加利亚语), sk(斯洛伐克语), sl(斯洛文尼亚语), lt(立陶宛语), lv(拉脱维亚语), et(爱沙尼亚语),
+  // is(冰岛语), sq(阿尔巴尼亚语), az(阿塞拜疆语), be(白俄罗斯语), bs(波斯尼亚语), bn(孟加拉语),cy(威尔士语), fa(波斯语), hbs(克罗地亚语), mn(蒙古语), mr(马拉地语), mt(马耳他语), mi(毛利语),ne(尼泊尔语)
+  // 
+  // 面容级翻译支持的源语言：与 VOICE 源语言完全一致（42种）
+  sourceLanguage: string;
+  // 字幕级翻译支持的目标语言：zh(中文), zh-tw(中文-繁体), en(英语), ja(日语), ko(韩语), id(印度尼西亚语), es(西班牙语), pt(葡萄牙语), ar(阿拉伯语), fr(法语), tr(土耳其语), de(德语), ru(俄语), th(泰语), vi(越南语), ms(马来语), yue(粤语), sichuan(四川话),dongbei(东北话), henan(河南话), shanghai(上海话), tianjin(天津话), beijing(北京话), chongqing(重庆话), hunan(湖南话),taiwan(台湾话), shanxi(山西话), shaanxi(陕西话)
+  // 
+  // 语音级翻译支持的目标语言：zh(中文), zh-tw(中文-繁体), en(英语), ja(日语), ko(韩语), yue(粤语), de(德语), fr(法语), es(西班牙语), ar(阿拉伯语), tr(土耳其语), ru(俄语), pt(葡萄牙语), vi(越南语), ms(马来语), th(泰语), id(印度尼西亚语), sichuan(四川话),
+  //   tianjin(天津话)
+  // 
+  // 面容级翻译支持的目标语言：en(英语)
+  targetLanguages: string;
+  // 字幕文件格式如下：
+  // 1
+  // 00:00:07,000 --> 00:00:08,300
+  // 流产手术需要监护人
+  // An abortion requires a guardian
+  // 
+  // 2
+  // 00:00:08,300 --> 00:00:09,100
+  // 签字才能做
+  // to sign before it_s done
+  // 
+  // 3
+  // 00:00:11,700 --> 00:00:12,800
+  // 你看看咱们家
+  // Look at our family
+  // 
+  // 4
+  // 00:00:12,900 --> 00:00:13,700
+  // 那么困难
+  // we_re barely getting by
+  // 
+  // 5
+  // 00:00:13,700 --> 00:00:14,700
+  // 你爸又生病
+  // Your father is sick again
+  // 
+  // 6
+  // 00:00:14,700 --> 00:00:16,100
+  // 我一把屎一把尿
+  // I raised you from infancy
+  // 
+  // 7
+  // 00:00:16,100 --> 00:00:16,700
+  // 把你养大
+  // got you this far
+  // 
+  // 8
+  // 00:00:16,900 --> 00:00:17,800
+  // 让你上学
+  // and put you through school
+  subtitleUrl?: string;
+  // 子任务ID，二次翻译时必填
+  subTaskId?: number;
+  // 是否擦除字幕
+  eraseSubtitle: boolean;
+  // 是否嵌入字幕
+  embedSubtitle: boolean;
+  static names(): { [key: string]: string } {
+    return {
+      authToken: 'auth_token',
+      productInstanceId: 'product_instance_id',
+      videoUrl: 'video_url',
+      videoName: 'video_name',
+      translateType: 'translate_type',
+      sourceLanguage: 'source_language',
+      targetLanguages: 'target_languages',
+      subtitleUrl: 'subtitle_url',
+      subTaskId: 'sub_task_id',
+      eraseSubtitle: 'erase_subtitle',
+      embedSubtitle: 'embed_subtitle',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      authToken: 'string',
+      productInstanceId: 'string',
+      videoUrl: 'string',
+      videoName: 'string',
+      translateType: 'string',
+      sourceLanguage: 'string',
+      targetLanguages: 'string',
+      subtitleUrl: 'string',
+      subTaskId: 'number',
+      eraseSubtitle: 'boolean',
+      embedSubtitle: 'boolean',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class PushVideotranslateCreatetaskResponse extends $tea.Model {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string;
+  // 结果码，一般OK表示调用成功
+  resultCode?: string;
+  // 异常信息的文本描述
+  resultMsg?: string;
+  // 任务ID
+  taskId?: number;
+  // 任务名称
+  taskName?: string;
+  // 子任务数量
+  subTaskCount?: number;
+  // 任务状态：PENDING-待执行、EXECUTING-执行中、COMPLETED-已完成
+  status?: string;
+  static names(): { [key: string]: string } {
+    return {
+      reqMsgId: 'req_msg_id',
+      resultCode: 'result_code',
+      resultMsg: 'result_msg',
+      taskId: 'task_id',
+      taskName: 'task_name',
+      subTaskCount: 'sub_task_count',
+      status: 'status',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      reqMsgId: 'string',
+      resultCode: 'string',
+      resultMsg: 'string',
+      taskId: 'number',
+      taskName: 'string',
+      subTaskCount: 'number',
+      status: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class QueryVideotranslateQuerytaskRequest extends $tea.Model {
+  // OAuth模式下的授权token
+  authToken?: string;
+  productInstanceId?: string;
+  // 任务ID
+  taskId: number;
+  // 子任务ID，不传则查询所有子任务
+  subTaskId?: number;
+  static names(): { [key: string]: string } {
+    return {
+      authToken: 'auth_token',
+      productInstanceId: 'product_instance_id',
+      taskId: 'task_id',
+      subTaskId: 'sub_task_id',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      authToken: 'string',
+      productInstanceId: 'string',
+      taskId: 'number',
+      subTaskId: 'number',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class QueryVideotranslateQuerytaskResponse extends $tea.Model {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string;
+  // 结果码，一般OK表示调用成功
+  resultCode?: string;
+  // 异常信息的文本描述
+  resultMsg?: string;
+  // 任务ID
+  taskId?: number;
+  // 任务名称
+  taskName?: string;
+  // 任务状态包括：PENDING（待执行）、EXECUTING（执行中）、COMPLETED（已完成）
+  status?: string;
+  // 子任务列表
+  subTasks?: SubTasks[];
+  static names(): { [key: string]: string } {
+    return {
+      reqMsgId: 'req_msg_id',
+      resultCode: 'result_code',
+      resultMsg: 'result_msg',
+      taskId: 'task_id',
+      taskName: 'task_name',
+      status: 'status',
+      subTasks: 'sub_tasks',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      reqMsgId: 'string',
+      resultCode: 'string',
+      resultMsg: 'string',
+      taskId: 'number',
+      taskName: 'string',
+      status: 'string',
+      subTasks: { 'type': 'array', 'itemType': SubTasks },
     };
   }
 
@@ -384,7 +661,7 @@ export default class Client {
           req_msg_id: AntchainUtil.getNonce(),
           access_key: this._accessKeyId,
           base_sdk_version: "TeaSDK-2.0",
-          sdk_version: "1.0.0",
+          sdk_version: "1.1.2",
           _prod_code: "AIGC",
           _prod_channel: "default",
         };
@@ -468,6 +745,44 @@ export default class Client {
   async queryVideoQuerytaskEx(request: QueryVideoQuerytaskRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<QueryVideoQuerytaskResponse> {
     Util.validateModel(request);
     return $tea.cast<QueryVideoQuerytaskResponse>(await this.doRequest("1.0", "antdigital.aigc.video.querytask.query", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new QueryVideoQuerytaskResponse({}));
+  }
+
+  /**
+   * Description: 提交视频翻译任务
+   * Summary: 提交视频翻译任务
+   */
+  async pushVideotranslateCreatetask(request: PushVideotranslateCreatetaskRequest): Promise<PushVideotranslateCreatetaskResponse> {
+    let runtime = new $Util.RuntimeOptions({ });
+    let headers : {[key: string ]: string} = { };
+    return await this.pushVideotranslateCreatetaskEx(request, headers, runtime);
+  }
+
+  /**
+   * Description: 提交视频翻译任务
+   * Summary: 提交视频翻译任务
+   */
+  async pushVideotranslateCreatetaskEx(request: PushVideotranslateCreatetaskRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<PushVideotranslateCreatetaskResponse> {
+    Util.validateModel(request);
+    return $tea.cast<PushVideotranslateCreatetaskResponse>(await this.doRequest("1.0", "antdigital.aigc.videotranslate.createtask.push", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new PushVideotranslateCreatetaskResponse({}));
+  }
+
+  /**
+   * Description: 查询视频翻译任务
+   * Summary: 查询视频翻译任务
+   */
+  async queryVideotranslateQuerytask(request: QueryVideotranslateQuerytaskRequest): Promise<QueryVideotranslateQuerytaskResponse> {
+    let runtime = new $Util.RuntimeOptions({ });
+    let headers : {[key: string ]: string} = { };
+    return await this.queryVideotranslateQuerytaskEx(request, headers, runtime);
+  }
+
+  /**
+   * Description: 查询视频翻译任务
+   * Summary: 查询视频翻译任务
+   */
+  async queryVideotranslateQuerytaskEx(request: QueryVideotranslateQuerytaskRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<QueryVideotranslateQuerytaskResponse> {
+    Util.validateModel(request);
+    return $tea.cast<QueryVideotranslateQuerytaskResponse>(await this.doRequest("1.0", "antdigital.aigc.videotranslate.querytask.query", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new QueryVideotranslateQuerytaskResponse({}));
   }
 
 }
