@@ -109,7 +109,8 @@ class Client:
                 'policy': UtilClient.default_string(runtime.backoff_policy, 'no'),
                 'period': UtilClient.default_number(runtime.backoff_period, 1)
             },
-            'ignoreSSL': runtime.ignore_ssl
+            'ignoreSSL': runtime.ignore_ssl,
+            # 子任务列表
         }
         _last_request = None
         _last_exception = None
@@ -134,7 +135,7 @@ class Client:
                     'req_msg_id': AntchainUtils.get_nonce(),
                     'access_key': self._access_key_id,
                     'base_sdk_version': 'TeaSDK-2.0',
-                    'sdk_version': '1.0.0',
+                    'sdk_version': '1.1.2',
                     '_prod_code': 'AIGC',
                     '_prod_channel': 'default'
                 }
@@ -212,7 +213,8 @@ class Client:
                 'policy': UtilClient.default_string(runtime.backoff_policy, 'no'),
                 'period': UtilClient.default_number(runtime.backoff_period, 1)
             },
-            'ignoreSSL': runtime.ignore_ssl
+            'ignoreSSL': runtime.ignore_ssl,
+            # 子任务列表
         }
         _last_request = None
         _last_exception = None
@@ -237,7 +239,7 @@ class Client:
                     'req_msg_id': AntchainUtils.get_nonce(),
                     'access_key': self._access_key_id,
                     'base_sdk_version': 'TeaSDK-2.0',
-                    'sdk_version': '1.0.0',
+                    'sdk_version': '1.1.2',
                     '_prod_code': 'AIGC',
                     '_prod_channel': 'default'
                 }
@@ -383,4 +385,116 @@ class Client:
         return TeaCore.from_map(
             aigc_models.QueryVideoQuerytaskResponse(),
             await self.do_request_async('1.0', 'antdigital.aigc.video.querytask.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def push_videotranslate_createtask(
+        self,
+        request: aigc_models.PushVideotranslateCreatetaskRequest,
+    ) -> aigc_models.PushVideotranslateCreatetaskResponse:
+        """
+        Description: 提交视频翻译任务
+        Summary: 提交视频翻译任务
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.push_videotranslate_createtask_ex(request, headers, runtime)
+
+    async def push_videotranslate_createtask_async(
+        self,
+        request: aigc_models.PushVideotranslateCreatetaskRequest,
+    ) -> aigc_models.PushVideotranslateCreatetaskResponse:
+        """
+        Description: 提交视频翻译任务
+        Summary: 提交视频翻译任务
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.push_videotranslate_createtask_ex_async(request, headers, runtime)
+
+    def push_videotranslate_createtask_ex(
+        self,
+        request: aigc_models.PushVideotranslateCreatetaskRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> aigc_models.PushVideotranslateCreatetaskResponse:
+        """
+        Description: 提交视频翻译任务
+        Summary: 提交视频翻译任务
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            aigc_models.PushVideotranslateCreatetaskResponse(),
+            self.do_request('1.0', 'antdigital.aigc.videotranslate.createtask.push', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def push_videotranslate_createtask_ex_async(
+        self,
+        request: aigc_models.PushVideotranslateCreatetaskRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> aigc_models.PushVideotranslateCreatetaskResponse:
+        """
+        Description: 提交视频翻译任务
+        Summary: 提交视频翻译任务
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            aigc_models.PushVideotranslateCreatetaskResponse(),
+            await self.do_request_async('1.0', 'antdigital.aigc.videotranslate.createtask.push', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def query_videotranslate_querytask(
+        self,
+        request: aigc_models.QueryVideotranslateQuerytaskRequest,
+    ) -> aigc_models.QueryVideotranslateQuerytaskResponse:
+        """
+        Description: 查询视频翻译任务
+        Summary: 查询视频翻译任务
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.query_videotranslate_querytask_ex(request, headers, runtime)
+
+    async def query_videotranslate_querytask_async(
+        self,
+        request: aigc_models.QueryVideotranslateQuerytaskRequest,
+    ) -> aigc_models.QueryVideotranslateQuerytaskResponse:
+        """
+        Description: 查询视频翻译任务
+        Summary: 查询视频翻译任务
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.query_videotranslate_querytask_ex_async(request, headers, runtime)
+
+    def query_videotranslate_querytask_ex(
+        self,
+        request: aigc_models.QueryVideotranslateQuerytaskRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> aigc_models.QueryVideotranslateQuerytaskResponse:
+        """
+        Description: 查询视频翻译任务
+        Summary: 查询视频翻译任务
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            aigc_models.QueryVideotranslateQuerytaskResponse(),
+            self.do_request('1.0', 'antdigital.aigc.videotranslate.querytask.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def query_videotranslate_querytask_ex_async(
+        self,
+        request: aigc_models.QueryVideotranslateQuerytaskRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> aigc_models.QueryVideotranslateQuerytaskResponse:
+        """
+        Description: 查询视频翻译任务
+        Summary: 查询视频翻译任务
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            aigc_models.QueryVideotranslateQuerytaskResponse(),
+            await self.do_request_async('1.0', 'antdigital.aigc.videotranslate.querytask.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
