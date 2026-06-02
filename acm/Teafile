@@ -1,7 +1,7 @@
 {
   "scope": "antchain",
   "name": "acm",
-  "version": "1.0.15",
+  "version": "1.0.16",
   "main": "./main.tea",
   "maintainers": [
     {
@@ -10,12 +10,12 @@
     }
   ],
   "releases": {
-    "java": "com.antgroup.antchain.openapi:openapi-acm:1.6.0",
-    "go": "github.com/antchain-openapi-sdk-go/acm/client:v1.6.0",
-    "csharp": "AntChain.SDK.Acm:1.6.0",
+    "java": "com.antgroup.antchain.openapi:openapi-acm:1.6.10",
+    "go": "github.com/antchain-openapi-sdk-go/acm/client:v1.6.10",
+    "csharp": "AntChain.SDK.Acm:1.6.10",
     "ts": "@antchain/acm:1.6.0",
-    "php": "antchain/acm:1.6.0",
-    "python": "antchain_sdk_acm:1.6.0"
+    "php": "antchain/acm:1.6.10",
+    "python": "antchain_sdk_acm:1.6.10"
   },
   "libraries": {
     "Util": "darabonba:Util:*",

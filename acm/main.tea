@@ -100,7 +100,7 @@ api doRequest(version: string, action: string, protocol: string, method: string,
     req_msg_id = AntchainUtil.getNonce(),
     access_key = @accessKeyId,
     base_sdk_version = 'TeaSDK-2.0',
-    sdk_version = '1.6.0',
+    sdk_version = '1.6.10',
     _prod_code = 'acm',
     _prod_channel = 'undefined'
   };
@@ -249,6 +249,22 @@ model Action {
   description?: string(name='description', example=' '),
 }
 
+// 项目
+model Project {
+  // 项目ID
+  projectId: string(name='project_id', example='1232132131'),
+  // 项目名称
+  projectName: string(name='project_name', example='默认项目'),
+  // 项目描述
+  description?: string(name='description', example='我是项目描述'),
+  // 是否为默认项目
+  isDefault: boolean(name='is_default', example='true'),
+  // 创建时间
+  gmtCreate: string(pattern='\\\\d{4}[-]\\\\d{1,2}[-]\\\\d{1,2}[T]\\\\d{2}:\\\\d{2}:\\\\d{2}([Z]|([\\\\.]\\\\d{1,9})?[\\\\+]\\\\d{2}[\\\\:]?\\\\d{2})', name='gmt_create', example='2026-04-21 09:57:21'),
+  // 更新时间
+  gmtModified: string(pattern='\\\\d{4}[-]\\\\d{1,2}[-]\\\\d{1,2}[T]\\\\d{2}:\\\\d{2}:\\\\d{2}([Z]|([\\\\.]\\\\d{1,9})?[\\\\+]\\\\d{2}[\\\\:]?\\\\d{2})', name='gmt_modified', example='2026-04-21 09:57:21'),
+}
+
 // 授权条件
 model Condition {
   //  
@@ -305,6 +321,43 @@ model Operator {
   tenants?: [ string ](name='tenants', example=''),
   // 操作员最近一次修改时间，ISO8601格式
   updateTime?: string(name='update_time', example=''),
+}
+
+model QueryUserProjectRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  // 用户ID
+  userId: string(name='user_id'),
+}
+
+model QueryUserProjectResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 项目
+  projectList?: [ Project ](name='project_list'),
+}
+
+/**
+ * Description: 查询用户所属项目列表
+ * Summary: 查询用户所属项目列表
+ */
+async function queryUserProject(request: QueryUserProjectRequest): QueryUserProjectResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return queryUserProjectEx(request, headers, runtime);
+}
+
+/**
+ * Description: 查询用户所属项目列表
+ * Summary: 查询用户所属项目列表
+ */
+async function queryUserProjectEx(request: QueryUserProjectRequest, headers: map[string]string, runtime: Util.RuntimeOptions): QueryUserProjectResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'antcloud.acm.user.project.query', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
 }
 
 model GetCustomerRequest = {
@@ -398,6 +451,10 @@ model GetOperatorResponse = {
   isMaster?: boolean(name='is_master'),
   // 钉钉机器人 token
   ddRobot?: string(name='dd_robot'),
+  // 操作员类型，DEFAULT默认操作员、SC_DEFAULT数科默认操作员、COMMON普通操作员
+  operaterType?: string(name='operater_type'),
+  // 关联账号id
+  relationId?: string(name='relation_id'),
 }
 
 /**
@@ -423,15 +480,15 @@ model QueryOperatorRequest = {
   // OAuth模式下的授权token
   authToken?: string(name='auth_token'),
   // 企业ID
-  customer: string(name='customer'),
+  customer?: string(name='customer'),
+  // 租户唯一标识
+  tenant?: string(name='tenant'),
   // 当前页，默认值为1
   pageNum?: long(name='page_num'),
   // 分页大小，默认值为10
   pageSize?: long(name='page_size'),
   // 真实姓名
   realName?: string(name='real_name'),
-  // 租户唯一标识
-  tenant?: string(name='tenant'),
   // 部门唯一码
   departmentCode?: string(name='department_code'),
 }
@@ -475,8 +532,8 @@ async function queryOperatorEx(request: QueryOperatorRequest, headers: map[strin
 model SearchOperatorRequest = {
   // OAuth模式下的授权token
   authToken?: string(name='auth_token'),
-  // 企业ID
-  customer: string(name='customer'),
+  // 企业ID（customer和tenant必填其一）
+  customer?: string(name='customer'),
   // 登录名
   loginName?: string(name='login_name'),
   // 昵称
@@ -1147,6 +1204,8 @@ model CheckAlipayTenantResponse = {
   resultMsg?: string(name='result_msg'),
   // 智科租户id(支付宝会员id)
   tenantId?: string(name='tenant_id'),
+  // 租户名称（code）
+  tenantName?: string(name='tenant_name'),
 }
 
 /**
@@ -1375,6 +1434,8 @@ model GetMasterTenantResponse = {
   realName?: string(name='real_name'),
   // 企业姓名
   firmName?: string(name='firm_name'),
+  // 是否通过数科官网或者支付宝侧实名认证
+  certified?: boolean(name='certified'),
 }
 
 /**
@@ -2270,5 +2331,146 @@ async function deleteTrustloginToken(request: DeleteTrustloginTokenRequest): Del
 async function deleteTrustloginTokenEx(request: DeleteTrustloginTokenRequest, headers: map[string]string, runtime: Util.RuntimeOptions): DeleteTrustloginTokenResponse {
   Util.validateModel(request);
   return doRequest('1.0' ,'antcloud.acm.trustlogin.token.delete', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model CreateAlipayTenantRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  // 支付宝账号关联的证件号
+  certNo?: string(name='cert_no'),
+  // 渠道编码 ，新接入时需要申请
+  channelCode: string(name='channel_code'),
+  // 支付宝账号关联的企业名称
+  firmName?: string(name='firm_name'),
+  // 支付宝账号关联的法人姓名
+  realName?: string(name='real_name'),
+  // 业务场景编码，新接入时需要申请
+  sceneCode: string(name='scene_code'),
+  // 支付宝账号会员id（数科租户id）
+  tenantId: string(name='tenant_id'),
+}
+
+model CreateAlipayTenantResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 数科租户id
+  tenantId?: string(name='tenant_id'),
+  // 租户名称（code），八位大写字母
+  tenantName?: string(name='tenant_name'),
+  // 蚂蚁通行证签约账户
+  loginName?: string(name='login_name'),
+  // 客户id
+  customerId?: string(name='customer_id'),
+  // 租户描述信息
+  description?: string(name='description'),
+  // 用户类型
+  userType?: string(name='user_type'),
+  // 租户的类型 N 支付宝 Q支付宝开放平台 V 蚂蚁链账号
+  tenantLevel?: string(name='tenant_level'),
+  // 证件类型
+  certType?: string(name='cert_type'),
+  // 证件号码
+  certNo?: string(name='cert_no'),
+  // 法人姓名，个人账号时是个人姓名
+  realName?: string(name='real_name'),
+  // 企业姓名
+  firmName?: string(name='firm_name'),
+  // 租户创建时间，ISO8601格式
+  createTime?: string(name='create_time'),
+  // 租户最近一次修改时间，ISO8601格式
+  updateTime?: string(name='update_time'),
+}
+
+/**
+ * Description: 支付宝账号入驻到数科，同步接口
+ * Summary: 支付宝账号入驻到数科
+ */
+async function createAlipayTenant(request: CreateAlipayTenantRequest): CreateAlipayTenantResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return createAlipayTenantEx(request, headers, runtime);
+}
+
+/**
+ * Description: 支付宝账号入驻到数科，同步接口
+ * Summary: 支付宝账号入驻到数科
+ */
+async function createAlipayTenantEx(request: CreateAlipayTenantRequest, headers: map[string]string, runtime: Util.RuntimeOptions): CreateAlipayTenantResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'antcloud.acm.alipay.tenant.create', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model FreezeOperatorRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  // 操作员id
+  operatorId: string(name='operator_id'),
+}
+
+model FreezeOperatorResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+}
+
+/**
+ * Description: 冻结操作员
+ * Summary: 冻结操作员
+ */
+async function freezeOperator(request: FreezeOperatorRequest): FreezeOperatorResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return freezeOperatorEx(request, headers, runtime);
+}
+
+/**
+ * Description: 冻结操作员
+ * Summary: 冻结操作员
+ */
+async function freezeOperatorEx(request: FreezeOperatorRequest, headers: map[string]string, runtime: Util.RuntimeOptions): FreezeOperatorResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'antcloud.acm.operator.freeze', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model UnfreezeOperatorRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  // 操作员id
+  operatorId: string(name='operator_id'),
+}
+
+model UnfreezeOperatorResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+}
+
+/**
+ * Description: 解冻操作员
+ * Summary: 解冻操作员
+ */
+async function unfreezeOperator(request: UnfreezeOperatorRequest): UnfreezeOperatorResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return unfreezeOperatorEx(request, headers, runtime);
+}
+
+/**
+ * Description: 解冻操作员
+ * Summary: 解冻操作员
+ */
+async function unfreezeOperatorEx(request: UnfreezeOperatorRequest, headers: map[string]string, runtime: Util.RuntimeOptions): UnfreezeOperatorResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'antcloud.acm.operator.unfreeze', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
 }
 
