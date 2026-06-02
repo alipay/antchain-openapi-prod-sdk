@@ -8,7 +8,7 @@ using Tea;
 
 namespace AntChain.SDK.AIGC.Models
 {
-    public class PushVideoCreatetaskResponse : TeaModel {
+    public class PushVideotranslateCreatetaskResponse : TeaModel {
         // 请求唯一ID，用于链路跟踪和问题排查
         [NameInMap("req_msg_id")]
         [Validation(Required=false)]
@@ -24,25 +24,25 @@ namespace AntChain.SDK.AIGC.Models
         [Validation(Required=false)]
         public string ResultMsg { get; set; }
 
-        // 任务 ID，后续查询结果通过此参数获取
+        // 任务ID
         [NameInMap("task_id")]
         [Validation(Required=false)]
-        public string TaskId { get; set; }
+        public long? TaskId { get; set; }
 
-        // 任务状态：pending（等待中）、processing（处理中）、succeeded（已成功）、failed（已失败）
+        // 任务名称
+        [NameInMap("task_name")]
+        [Validation(Required=false)]
+        public string TaskName { get; set; }
+
+        // 子任务数量
+        [NameInMap("sub_task_count")]
+        [Validation(Required=false)]
+        public long? SubTaskCount { get; set; }
+
+        // 任务状态：PENDING-待执行、EXECUTING-执行中、COMPLETED-已完成
         [NameInMap("status")]
         [Validation(Required=false)]
         public string Status { get; set; }
-
-        // 模型名称
-        [NameInMap("model")]
-        [Validation(Required=false)]
-        public string Model { get; set; }
-
-        // 扩展JSON
-        [NameInMap("ext")]
-        [Validation(Required=false)]
-        public string Ext { get; set; }
 
     }
 

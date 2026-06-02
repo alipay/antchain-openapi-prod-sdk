@@ -18,7 +18,7 @@ namespace AntChain.SDK.AIGC.Models
         [Validation(Required=false)]
         public string ProductInstanceId { get; set; }
 
-        // 模型标识，如 seedance-01-pro / happyhorse-t2v / wanx-v1
+        // 模型标识，如 ：doubao-seedance-2-0-260128
         [NameInMap("model")]
         [Validation(Required=true)]
         public string Model { get; set; }
@@ -28,30 +28,25 @@ namespace AntChain.SDK.AIGC.Models
         [Validation(Required=true)]
         public string Prompt { get; set; }
 
-        // 图生视频时传入参考图片 URL
+        // 图生视频参考图片 URL
         [NameInMap("image_url")]
         [Validation(Required=false)]
-        public string ImageUrl { get; set; }
+        public List<string> ImageUrl { get; set; }
 
-        // 视频续写时传入参考视频 URL
+        // 视频参考/续写时传入视频 URL
         [NameInMap("video_url")]
         [Validation(Required=false)]
-        public string VideoUrl { get; set; }
+        public List<string> VideoUrl { get; set; }
 
-        // 参考音频 URL（预留）
+        // 参考音频URL列表
         [NameInMap("audio_url")]
         [Validation(Required=false)]
-        public string AudioUrl { get; set; }
+        public List<string> AudioUrl { get; set; }
 
-        // 参考图片 URL（参考图生视频场景）
-        [NameInMap("ref_image_url")]
+        // 比例
+        [NameInMap("ratio")]
         [Validation(Required=false)]
-        public string RefImageUrl { get; set; }
-
-        // 分辨率，如 1280x720
-        [NameInMap("size")]
-        [Validation(Required=false)]
-        public string Size { get; set; }
+        public string Ratio { get; set; }
 
         // 视频时长（秒）
         [NameInMap("duration")]
@@ -62,11 +57,6 @@ namespace AntChain.SDK.AIGC.Models
         [NameInMap("request_id")]
         [Validation(Required=false)]
         public string RequestId { get; set; }
-
-        // MIST Token / API Key
-        [NameInMap("token")]
-        [Validation(Required=true)]
-        public string Token { get; set; }
 
         // 扩展JSON
         [NameInMap("ext")]

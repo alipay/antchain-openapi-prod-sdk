@@ -137,7 +137,7 @@ namespace AntChain.SDK.AIGC
                         {"req_msg_id", AntChain.AlipayUtil.AntchainUtils.GetNonce()},
                         {"access_key", _accessKeyId},
                         {"base_sdk_version", "TeaSDK-2.0"},
-                        {"sdk_version", "1.0.0"},
+                        {"sdk_version", "1.1.2"},
                         {"_prod_code", "AIGC"},
                         {"_prod_channel", "default"},
                     };
@@ -263,7 +263,7 @@ namespace AntChain.SDK.AIGC
                         {"req_msg_id", AntChain.AlipayUtil.AntchainUtils.GetNonce()},
                         {"access_key", _accessKeyId},
                         {"base_sdk_version", "TeaSDK-2.0"},
-                        {"sdk_version", "1.0.0"},
+                        {"sdk_version", "1.1.2"},
                         {"_prod_code", "AIGC"},
                         {"_prod_channel", "default"},
                     };
@@ -403,6 +403,90 @@ namespace AntChain.SDK.AIGC
         {
             AlibabaCloud.TeaUtil.Common.ValidateModel(request);
             return TeaModel.ToObject<QueryVideoQuerytaskResponse>(await DoRequestAsync("1.0", "antdigital.aigc.video.querytask.query", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 提交视频翻译任务
+         * Summary: 提交视频翻译任务
+         */
+        public PushVideotranslateCreatetaskResponse PushVideotranslateCreatetask(PushVideotranslateCreatetaskRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return PushVideotranslateCreatetaskEx(request, headers, runtime);
+        }
+
+        /**
+         * Description: 提交视频翻译任务
+         * Summary: 提交视频翻译任务
+         */
+        public async Task<PushVideotranslateCreatetaskResponse> PushVideotranslateCreatetaskAsync(PushVideotranslateCreatetaskRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return await PushVideotranslateCreatetaskExAsync(request, headers, runtime);
+        }
+
+        /**
+         * Description: 提交视频翻译任务
+         * Summary: 提交视频翻译任务
+         */
+        public PushVideotranslateCreatetaskResponse PushVideotranslateCreatetaskEx(PushVideotranslateCreatetaskRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<PushVideotranslateCreatetaskResponse>(DoRequest("1.0", "antdigital.aigc.videotranslate.createtask.push", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 提交视频翻译任务
+         * Summary: 提交视频翻译任务
+         */
+        public async Task<PushVideotranslateCreatetaskResponse> PushVideotranslateCreatetaskExAsync(PushVideotranslateCreatetaskRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<PushVideotranslateCreatetaskResponse>(await DoRequestAsync("1.0", "antdigital.aigc.videotranslate.createtask.push", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 查询视频翻译任务
+         * Summary: 查询视频翻译任务
+         */
+        public QueryVideotranslateQuerytaskResponse QueryVideotranslateQuerytask(QueryVideotranslateQuerytaskRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return QueryVideotranslateQuerytaskEx(request, headers, runtime);
+        }
+
+        /**
+         * Description: 查询视频翻译任务
+         * Summary: 查询视频翻译任务
+         */
+        public async Task<QueryVideotranslateQuerytaskResponse> QueryVideotranslateQuerytaskAsync(QueryVideotranslateQuerytaskRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return await QueryVideotranslateQuerytaskExAsync(request, headers, runtime);
+        }
+
+        /**
+         * Description: 查询视频翻译任务
+         * Summary: 查询视频翻译任务
+         */
+        public QueryVideotranslateQuerytaskResponse QueryVideotranslateQuerytaskEx(QueryVideotranslateQuerytaskRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<QueryVideotranslateQuerytaskResponse>(DoRequest("1.0", "antdigital.aigc.videotranslate.querytask.query", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 查询视频翻译任务
+         * Summary: 查询视频翻译任务
+         */
+        public async Task<QueryVideotranslateQuerytaskResponse> QueryVideotranslateQuerytaskExAsync(QueryVideotranslateQuerytaskRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<QueryVideotranslateQuerytaskResponse>(await DoRequestAsync("1.0", "antdigital.aigc.videotranslate.querytask.query", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
         }
 
     }
