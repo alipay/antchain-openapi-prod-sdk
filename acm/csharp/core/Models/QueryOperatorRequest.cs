@@ -16,8 +16,13 @@ namespace AntChain.SDK.Acm.Models
 
         // 企业ID
         [NameInMap("customer")]
-        [Validation(Required=true)]
+        [Validation(Required=false)]
         public string Customer { get; set; }
+
+        // 租户唯一标识
+        [NameInMap("tenant")]
+        [Validation(Required=false)]
+        public string Tenant { get; set; }
 
         // 当前页，默认值为1
         [NameInMap("page_num")]
@@ -33,11 +38,6 @@ namespace AntChain.SDK.Acm.Models
         [NameInMap("real_name")]
         [Validation(Required=false)]
         public string RealName { get; set; }
-
-        // 租户唯一标识
-        [NameInMap("tenant")]
-        [Validation(Required=false)]
-        public string Tenant { get; set; }
 
         // 部门唯一码
         [NameInMap("department_code")]

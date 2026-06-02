@@ -14,9 +14,9 @@ namespace AntChain.SDK.Acm.Models
         [Validation(Required=false)]
         public string AuthToken { get; set; }
 
-        // 企业ID
+        // 企业ID（customer和tenant必填其一）
         [NameInMap("customer")]
-        [Validation(Required=true)]
+        [Validation(Required=false)]
         public string Customer { get; set; }
 
         // 登录名

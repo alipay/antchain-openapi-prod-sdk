@@ -104,6 +104,16 @@ namespace AntChain.SDK.Acm.Models
         [Validation(Required=false)]
         public string DdRobot { get; set; }
 
+        // 操作员类型，DEFAULT默认操作员、SC_DEFAULT数科默认操作员、COMMON普通操作员
+        [NameInMap("operater_type")]
+        [Validation(Required=false)]
+        public string OperaterType { get; set; }
+
+        // 关联账号id
+        [NameInMap("relation_id")]
+        [Validation(Required=false)]
+        public string RelationId { get; set; }
+
     }
 
 }

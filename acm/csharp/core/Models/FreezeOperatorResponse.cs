@@ -8,7 +8,7 @@ using Tea;
 
 namespace AntChain.SDK.Acm.Models
 {
-    public class CheckAlipayTenantResponse : TeaModel {
+    public class FreezeOperatorResponse : TeaModel {
         // 请求唯一ID，用于链路跟踪和问题排查
         [NameInMap("req_msg_id")]
         [Validation(Required=false)]
@@ -23,16 +23,6 @@ namespace AntChain.SDK.Acm.Models
         [NameInMap("result_msg")]
         [Validation(Required=false)]
         public string ResultMsg { get; set; }
-
-        // 智科租户id(支付宝会员id)
-        [NameInMap("tenant_id")]
-        [Validation(Required=false)]
-        public string TenantId { get; set; }
-
-        // 租户名称（code）
-        [NameInMap("tenant_name")]
-        [Validation(Required=false)]
-        public string TenantName { get; set; }
 
     }
 

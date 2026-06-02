@@ -137,7 +137,7 @@ namespace AntChain.SDK.Acm
                         {"req_msg_id", AntChain.AlipayUtil.AntchainUtils.GetNonce()},
                         {"access_key", _accessKeyId},
                         {"base_sdk_version", "TeaSDK-2.0"},
-                        {"sdk_version", "1.6.0"},
+                        {"sdk_version", "1.6.10"},
                         {"_prod_code", "acm"},
                         {"_prod_channel", "undefined"},
                     };
@@ -263,7 +263,7 @@ namespace AntChain.SDK.Acm
                         {"req_msg_id", AntChain.AlipayUtil.AntchainUtils.GetNonce()},
                         {"access_key", _accessKeyId},
                         {"base_sdk_version", "TeaSDK-2.0"},
-                        {"sdk_version", "1.6.0"},
+                        {"sdk_version", "1.6.10"},
                         {"_prod_code", "acm"},
                         {"_prod_channel", "undefined"},
                     };
@@ -319,6 +319,48 @@ namespace AntChain.SDK.Acm
             }
 
             throw new TeaUnretryableException(_lastRequest, _lastException);
+        }
+
+        /**
+         * Description: 查询用户所属项目列表
+         * Summary: 查询用户所属项目列表
+         */
+        public QueryUserProjectResponse QueryUserProject(QueryUserProjectRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return QueryUserProjectEx(request, headers, runtime);
+        }
+
+        /**
+         * Description: 查询用户所属项目列表
+         * Summary: 查询用户所属项目列表
+         */
+        public async Task<QueryUserProjectResponse> QueryUserProjectAsync(QueryUserProjectRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return await QueryUserProjectExAsync(request, headers, runtime);
+        }
+
+        /**
+         * Description: 查询用户所属项目列表
+         * Summary: 查询用户所属项目列表
+         */
+        public QueryUserProjectResponse QueryUserProjectEx(QueryUserProjectRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<QueryUserProjectResponse>(DoRequest("1.0", "antcloud.acm.user.project.query", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 查询用户所属项目列表
+         * Summary: 查询用户所属项目列表
+         */
+        public async Task<QueryUserProjectResponse> QueryUserProjectExAsync(QueryUserProjectRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<QueryUserProjectResponse>(await DoRequestAsync("1.0", "antcloud.acm.user.project.query", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
         }
 
         /**
@@ -2125,6 +2167,132 @@ namespace AntChain.SDK.Acm
         {
             AlibabaCloud.TeaUtil.Common.ValidateModel(request);
             return TeaModel.ToObject<DeleteTrustloginTokenResponse>(await DoRequestAsync("1.0", "antcloud.acm.trustlogin.token.delete", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 支付宝账号入驻到数科，同步接口
+         * Summary: 支付宝账号入驻到数科
+         */
+        public CreateAlipayTenantResponse CreateAlipayTenant(CreateAlipayTenantRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return CreateAlipayTenantEx(request, headers, runtime);
+        }
+
+        /**
+         * Description: 支付宝账号入驻到数科，同步接口
+         * Summary: 支付宝账号入驻到数科
+         */
+        public async Task<CreateAlipayTenantResponse> CreateAlipayTenantAsync(CreateAlipayTenantRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return await CreateAlipayTenantExAsync(request, headers, runtime);
+        }
+
+        /**
+         * Description: 支付宝账号入驻到数科，同步接口
+         * Summary: 支付宝账号入驻到数科
+         */
+        public CreateAlipayTenantResponse CreateAlipayTenantEx(CreateAlipayTenantRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<CreateAlipayTenantResponse>(DoRequest("1.0", "antcloud.acm.alipay.tenant.create", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 支付宝账号入驻到数科，同步接口
+         * Summary: 支付宝账号入驻到数科
+         */
+        public async Task<CreateAlipayTenantResponse> CreateAlipayTenantExAsync(CreateAlipayTenantRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<CreateAlipayTenantResponse>(await DoRequestAsync("1.0", "antcloud.acm.alipay.tenant.create", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 冻结操作员
+         * Summary: 冻结操作员
+         */
+        public FreezeOperatorResponse FreezeOperator(FreezeOperatorRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return FreezeOperatorEx(request, headers, runtime);
+        }
+
+        /**
+         * Description: 冻结操作员
+         * Summary: 冻结操作员
+         */
+        public async Task<FreezeOperatorResponse> FreezeOperatorAsync(FreezeOperatorRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return await FreezeOperatorExAsync(request, headers, runtime);
+        }
+
+        /**
+         * Description: 冻结操作员
+         * Summary: 冻结操作员
+         */
+        public FreezeOperatorResponse FreezeOperatorEx(FreezeOperatorRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<FreezeOperatorResponse>(DoRequest("1.0", "antcloud.acm.operator.freeze", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 冻结操作员
+         * Summary: 冻结操作员
+         */
+        public async Task<FreezeOperatorResponse> FreezeOperatorExAsync(FreezeOperatorRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<FreezeOperatorResponse>(await DoRequestAsync("1.0", "antcloud.acm.operator.freeze", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 解冻操作员
+         * Summary: 解冻操作员
+         */
+        public UnfreezeOperatorResponse UnfreezeOperator(UnfreezeOperatorRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return UnfreezeOperatorEx(request, headers, runtime);
+        }
+
+        /**
+         * Description: 解冻操作员
+         * Summary: 解冻操作员
+         */
+        public async Task<UnfreezeOperatorResponse> UnfreezeOperatorAsync(UnfreezeOperatorRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return await UnfreezeOperatorExAsync(request, headers, runtime);
+        }
+
+        /**
+         * Description: 解冻操作员
+         * Summary: 解冻操作员
+         */
+        public UnfreezeOperatorResponse UnfreezeOperatorEx(UnfreezeOperatorRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<UnfreezeOperatorResponse>(DoRequest("1.0", "antcloud.acm.operator.unfreeze", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 解冻操作员
+         * Summary: 解冻操作员
+         */
+        public async Task<UnfreezeOperatorResponse> UnfreezeOperatorExAsync(UnfreezeOperatorRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<UnfreezeOperatorResponse>(await DoRequestAsync("1.0", "antcloud.acm.operator.unfreeze", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
         }
 
     }

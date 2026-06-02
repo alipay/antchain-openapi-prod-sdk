@@ -8,7 +8,7 @@ using Tea;
 
 namespace AntChain.SDK.Acm.Models
 {
-    public class GetMasterTenantResponse : TeaModel {
+    public class CreateAlipayTenantResponse : TeaModel {
         // 请求唯一ID，用于链路跟踪和问题排查
         [NameInMap("req_msg_id")]
         [Validation(Required=false)]
@@ -24,40 +24,30 @@ namespace AntChain.SDK.Acm.Models
         [Validation(Required=false)]
         public string ResultMsg { get; set; }
 
-        // 蚂蚁通行证签约账户
-        [NameInMap("login_name")]
-        [Validation(Required=false)]
-        public string LoginName { get; set; }
-
-        // 租户id
+        // 数科租户id
         [NameInMap("tenant_id")]
         [Validation(Required=false)]
         public string TenantId { get; set; }
 
-        // 租户创建时间，ISO8601格式	
-        [NameInMap("create_time")]
+        // 租户名称（code），八位大写字母
+        [NameInMap("tenant_name")]
         [Validation(Required=false)]
-        public string CreateTime { get; set; }
+        public string TenantName { get; set; }
+
+        // 蚂蚁通行证签约账户
+        [NameInMap("login_name")]
+        [Validation(Required=false)]
+        public string LoginName { get; set; }
 
         // 客户id
         [NameInMap("customer_id")]
         [Validation(Required=false)]
         public string CustomerId { get; set; }
 
-        // 租户描述信息	
+        // 租户描述信息
         [NameInMap("description")]
         [Validation(Required=false)]
         public string Description { get; set; }
-
-        // 租户名称
-        [NameInMap("name")]
-        [Validation(Required=false)]
-        public string Name { get; set; }
-
-        // 租户最近一次修改时间，ISO8601格式	
-        [NameInMap("update_time")]
-        [Validation(Required=false)]
-        public string UpdateTime { get; set; }
 
         // 用户类型
         [NameInMap("user_type")]
@@ -89,10 +79,15 @@ namespace AntChain.SDK.Acm.Models
         [Validation(Required=false)]
         public string FirmName { get; set; }
 
-        // 是否通过数科官网或者支付宝侧实名认证
-        [NameInMap("certified")]
+        // 租户创建时间，ISO8601格式
+        [NameInMap("create_time")]
         [Validation(Required=false)]
-        public bool? Certified { get; set; }
+        public string CreateTime { get; set; }
+
+        // 租户最近一次修改时间，ISO8601格式
+        [NameInMap("update_time")]
+        [Validation(Required=false)]
+        public string UpdateTime { get; set; }
 
     }
 
