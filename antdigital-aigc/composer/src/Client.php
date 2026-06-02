@@ -13,8 +13,12 @@ use AlibabaCloud\Tea\Utils\Utils;
 use AlibabaCloud\Tea\Utils\Utils\RuntimeOptions;
 use AntChain\AIGC\Models\PushVideoCreatetaskRequest;
 use AntChain\AIGC\Models\PushVideoCreatetaskResponse;
+use AntChain\AIGC\Models\PushVideotranslateCreatetaskRequest;
+use AntChain\AIGC\Models\PushVideotranslateCreatetaskResponse;
 use AntChain\AIGC\Models\QueryVideoQuerytaskRequest;
 use AntChain\AIGC\Models\QueryVideoQuerytaskResponse;
+use AntChain\AIGC\Models\QueryVideotranslateQuerytaskRequest;
+use AntChain\AIGC\Models\QueryVideotranslateQuerytaskResponse;
 use AntChain\Util\UtilClient;
 use Exception;
 
@@ -134,6 +138,7 @@ class Client
                 'period' => Utils::defaultNumber($runtime->backoffPeriod, 1),
             ],
             'ignoreSSL' => $runtime->ignoreSSL,
+            // 子任务列表
         ];
         $_lastRequest   = null;
         $_lastException = null;
@@ -161,7 +166,7 @@ class Client
                     'req_msg_id'       => UtilClient::getNonce(),
                     'access_key'       => $this->_accessKeyId,
                     'base_sdk_version' => 'TeaSDK-2.0',
-                    'sdk_version'      => '1.0.0',
+                    'sdk_version'      => '1.1.2',
                     '_prod_code'       => 'AIGC',
                     '_prod_channel'    => 'default',
                 ];
@@ -273,5 +278,71 @@ class Client
         Utils::validateModel($request);
 
         return QueryVideoQuerytaskResponse::fromMap($this->doRequest('1.0', 'antdigital.aigc.video.querytask.query', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 提交视频翻译任务
+     * Summary: 提交视频翻译任务
+     *
+     * @param PushVideotranslateCreatetaskRequest $request
+     *
+     * @return PushVideotranslateCreatetaskResponse
+     */
+    public function pushVideotranslateCreatetask($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->pushVideotranslateCreatetaskEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 提交视频翻译任务
+     * Summary: 提交视频翻译任务
+     *
+     * @param PushVideotranslateCreatetaskRequest $request
+     * @param string[]                            $headers
+     * @param RuntimeOptions                      $runtime
+     *
+     * @return PushVideotranslateCreatetaskResponse
+     */
+    public function pushVideotranslateCreatetaskEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return PushVideotranslateCreatetaskResponse::fromMap($this->doRequest('1.0', 'antdigital.aigc.videotranslate.createtask.push', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 查询视频翻译任务
+     * Summary: 查询视频翻译任务
+     *
+     * @param QueryVideotranslateQuerytaskRequest $request
+     *
+     * @return QueryVideotranslateQuerytaskResponse
+     */
+    public function queryVideotranslateQuerytask($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->queryVideotranslateQuerytaskEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 查询视频翻译任务
+     * Summary: 查询视频翻译任务
+     *
+     * @param QueryVideotranslateQuerytaskRequest $request
+     * @param string[]                            $headers
+     * @param RuntimeOptions                      $runtime
+     *
+     * @return QueryVideotranslateQuerytaskResponse
+     */
+    public function queryVideotranslateQuerytaskEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return QueryVideotranslateQuerytaskResponse::fromMap($this->doRequest('1.0', 'antdigital.aigc.videotranslate.querytask.query', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
     }
 }

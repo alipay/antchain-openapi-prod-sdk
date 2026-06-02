@@ -6,7 +6,7 @@ namespace AntChain\AIGC\Models;
 
 use AlibabaCloud\Tea\Model;
 
-class PushVideoCreatetaskResponse extends Model
+class QueryVideotranslateQuerytaskResponse extends Model
 {
     // 请求唯一ID，用于链路跟踪和问题排查
     /**
@@ -26,37 +26,37 @@ class PushVideoCreatetaskResponse extends Model
      */
     public $resultMsg;
 
-    // 任务 ID，后续查询结果通过此参数获取
+    // 任务ID
     /**
-     * @var string
+     * @var int
      */
     public $taskId;
 
-    // 任务状态：pending（等待中）、processing（处理中）、succeeded（已成功）、failed（已失败）
+    // 任务名称
+    /**
+     * @var string
+     */
+    public $taskName;
+
+    // 任务状态包括：PENDING（待执行）、EXECUTING（执行中）、COMPLETED（已完成）
     /**
      * @var string
      */
     public $status;
 
-    // 模型名称
+    // 子任务列表
     /**
-     * @var string
+     * @var SubTasks[]
      */
-    public $model;
-
-    // 扩展JSON
-    /**
-     * @var string
-     */
-    public $ext;
+    public $subTasks;
     protected $_name = [
         'reqMsgId'   => 'req_msg_id',
         'resultCode' => 'result_code',
         'resultMsg'  => 'result_msg',
         'taskId'     => 'task_id',
+        'taskName'   => 'task_name',
         'status'     => 'status',
-        'model'      => 'model',
-        'ext'        => 'ext',
+        'subTasks'   => 'sub_tasks',
     ];
 
     public function validate()
@@ -78,14 +78,20 @@ class PushVideoCreatetaskResponse extends Model
         if (null !== $this->taskId) {
             $res['task_id'] = $this->taskId;
         }
+        if (null !== $this->taskName) {
+            $res['task_name'] = $this->taskName;
+        }
         if (null !== $this->status) {
             $res['status'] = $this->status;
         }
-        if (null !== $this->model) {
-            $res['model'] = $this->model;
-        }
-        if (null !== $this->ext) {
-            $res['ext'] = $this->ext;
+        if (null !== $this->subTasks) {
+            $res['sub_tasks'] = [];
+            if (null !== $this->subTasks && \is_array($this->subTasks)) {
+                $n = 0;
+                foreach ($this->subTasks as $item) {
+                    $res['sub_tasks'][$n++] = null !== $item ? $item->toMap() : $item;
+                }
+            }
         }
 
         return $res;
@@ -94,7 +100,7 @@ class PushVideoCreatetaskResponse extends Model
     /**
      * @param array $map
      *
-     * @return PushVideoCreatetaskResponse
+     * @return QueryVideotranslateQuerytaskResponse
      */
     public static function fromMap($map = [])
     {
@@ -111,14 +117,20 @@ class PushVideoCreatetaskResponse extends Model
         if (isset($map['task_id'])) {
             $model->taskId = $map['task_id'];
         }
+        if (isset($map['task_name'])) {
+            $model->taskName = $map['task_name'];
+        }
         if (isset($map['status'])) {
             $model->status = $map['status'];
         }
-        if (isset($map['model'])) {
-            $model->model = $map['model'];
-        }
-        if (isset($map['ext'])) {
-            $model->ext = $map['ext'];
+        if (isset($map['sub_tasks'])) {
+            if (!empty($map['sub_tasks'])) {
+                $model->subTasks = [];
+                $n               = 0;
+                foreach ($map['sub_tasks'] as $item) {
+                    $model->subTasks[$n++] = null !== $item ? SubTasks::fromMap($item) : $item;
+                }
+            }
         }
 
         return $model;
