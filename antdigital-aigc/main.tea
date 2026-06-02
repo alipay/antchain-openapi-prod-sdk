@@ -100,7 +100,7 @@ api doRequest(version: string, action: string, protocol: string, method: string,
     req_msg_id = AntchainUtil.getNonce(),
     access_key = @accessKeyId,
     base_sdk_version = 'TeaSDK-2.0',
-    sdk_version = '1.0.0',
+    sdk_version = '1.1.2',
     _prod_code = 'AIGC',
     _prod_channel = 'default'
   };
@@ -161,30 +161,50 @@ api doRequest(version: string, action: string, protocol: string, method: string,
   ignoreSSL = runtime.ignoreSSL
 }
 
+// 子任务列表
+model SubTasks {
+  // 子任务ID
+  subTaskId: long(name='sub_task_id', example='子任务ID'),
+  // 子任务名称
+  subTaskName: string(name='sub_task_name', example='子任务名称'),
+  // 目标翻译语言
+  targetLanguage: string(name='target_language', example='目标翻译语言'),
+  // 子任务状态包括：PENDING（待执行）、EXECUTING（执行中）、FAILED（失败）、COMPLETED（已完成）
+  status: string(name='status', example='子任务状态'),
+  // 源语言
+  sourceLanguage: string(name='source_language', example='源语言'),
+  // 翻译后视频地址
+  outputVideoUrl?: string(name='output_video_url', example='翻译后视频地址'),
+  // 翻译前字幕文件地址
+  originalSubtitleUrl?: string(name='original_subtitle_url', example='翻译前字幕文件地址'),
+  // 翻译后字幕文件地址
+  translatedSubtitleUrl?: string(name='translated_subtitle_url', example='翻译后字幕文件地址'),
+  // 视频时长（秒）
+  durationSeconds?: long(name='duration_seconds', example='视频时长（秒）'),
+  // 错误信息
+  errorMessage?: string(name='error_message', example='错误信息'),
+}
+
 model PushVideoCreatetaskRequest = {
   // OAuth模式下的授权token
   authToken?: string(name='auth_token'),
   productInstanceId?: string(name='product_instance_id'),
-  // 模型标识，如 seedance-01-pro / happyhorse-t2v / wanx-v1
+  // 模型标识，如 ：doubao-seedance-2-0-260128
   model: string(name='model'),
   // 文本提示词
   prompt: string(name='prompt'),
-  // 图生视频时传入参考图片 URL
-  imageUrl?: string(name='image_url'),
-  // 视频续写时传入参考视频 URL
-  videoUrl?: string(name='video_url'),
-  // 参考音频 URL（预留）
-  audioUrl?: string(name='audio_url'),
-  // 参考图片 URL（参考图生视频场景）
-  refImageUrl?: string(name='ref_image_url'),
-  // 分辨率，如 1280x720
-  size?: string(name='size'),
+  // 图生视频参考图片 URL
+  imageUrl?: [ string ](name='image_url'),
+  // 视频参考/续写时传入视频 URL
+  videoUrl?: [ string ](name='video_url'),
+  // 参考音频URL列表
+  audioUrl?: [ string ](name='audio_url'),
+  // 比例
+  ratio?: string(name='ratio'),
   // 视频时长（秒）
   duration?: string(name='duration'),
   // 请求追踪 ID，用于幂等去重
   requestId?: string(name='request_id'),
-  // MIST Token / API Key
-  token: string(name='token'),
   // 扩展JSON
   ext?: string(name='ext'),
 }
@@ -196,9 +216,9 @@ model PushVideoCreatetaskResponse = {
   resultCode?: string(name='result_code'),
   // 异常信息的文本描述
   resultMsg?: string(name='result_msg'),
-  // 任务 ID
+  // 任务 ID，后续查询结果通过此参数获取
   taskId?: string(name='task_id'),
-  // 任务状态：submitted / processing / succeeded / failed
+  // 任务状态：pending（等待中）、processing（处理中）、succeeded（已成功）、failed（已失败）
   status?: string(name='status'),
   // 模型名称
   model?: string(name='model'),
@@ -273,5 +293,161 @@ async function queryVideoQuerytask(request: QueryVideoQuerytaskRequest): QueryVi
 async function queryVideoQuerytaskEx(request: QueryVideoQuerytaskRequest, headers: map[string]string, runtime: Util.RuntimeOptions): QueryVideoQuerytaskResponse {
   Util.validateModel(request);
   return doRequest('1.0' ,'antdigital.aigc.video.querytask.query', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model PushVideotranslateCreatetaskRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 视频URL
+  videoUrl: string(name='video_url'),
+  // 视频名称
+  videoName: string(name='video_name'),
+  // 翻译类型：VOICE(语音级翻译)、SUBTITLE(字幕级翻译)、FACE(面容级翻译)，二次翻译仅支持VOICE
+  translateType: string(name='translate_type'),
+  // 字幕级翻译支持的源语言：zh(中文), en(英文)
+  //   
+  // 语音级翻译支持的源语言：zh(中文), en(英语), ja(日语), ko(韩语), yue(粤语), de(德语), fr(法语), es(西班牙语), ar(阿拉伯语), it(意大利语), pt(葡萄牙语), ru(俄语), hi(印地语), id(印度尼西亚语), ms(马来语), 
+  // nl(荷兰语), pl(波兰语), no(挪威语), da(丹麦语),hu(匈牙利语), cs(捷克语), ro(罗马尼亚语), bg(保加利亚语), sk(斯洛伐克语), sl(斯洛文尼亚语), lt(立陶宛语), lv(拉脱维亚语), et(爱沙尼亚语),
+  // is(冰岛语), sq(阿尔巴尼亚语), az(阿塞拜疆语), be(白俄罗斯语), bs(波斯尼亚语), bn(孟加拉语),cy(威尔士语), fa(波斯语), hbs(克罗地亚语), mn(蒙古语), mr(马拉地语), mt(马耳他语), mi(毛利语),ne(尼泊尔语)
+  // 
+  // 面容级翻译支持的源语言：与 VOICE 源语言完全一致（42种）
+  sourceLanguage: string(name='source_language'),
+  // 字幕级翻译支持的目标语言：zh(中文), zh-tw(中文-繁体), en(英语), ja(日语), ko(韩语), id(印度尼西亚语), es(西班牙语), pt(葡萄牙语), ar(阿拉伯语), fr(法语), tr(土耳其语), de(德语), ru(俄语), th(泰语), vi(越南语), ms(马来语), yue(粤语), sichuan(四川话),dongbei(东北话), henan(河南话), shanghai(上海话), tianjin(天津话), beijing(北京话), chongqing(重庆话), hunan(湖南话),taiwan(台湾话), shanxi(山西话), shaanxi(陕西话)
+  // 
+  // 语音级翻译支持的目标语言：zh(中文), zh-tw(中文-繁体), en(英语), ja(日语), ko(韩语), yue(粤语), de(德语), fr(法语), es(西班牙语), ar(阿拉伯语), tr(土耳其语), ru(俄语), pt(葡萄牙语), vi(越南语), ms(马来语), th(泰语), id(印度尼西亚语), sichuan(四川话),
+  //   tianjin(天津话)
+  // 
+  // 面容级翻译支持的目标语言：en(英语)
+  targetLanguages: string(name='target_languages'),
+  // 字幕文件格式如下：
+  // 1
+  // 00:00:07,000 --> 00:00:08,300
+  // 流产手术需要监护人
+  // An abortion requires a guardian
+  // 
+  // 2
+  // 00:00:08,300 --> 00:00:09,100
+  // 签字才能做
+  // to sign before it_s done
+  // 
+  // 3
+  // 00:00:11,700 --> 00:00:12,800
+  // 你看看咱们家
+  // Look at our family
+  // 
+  // 4
+  // 00:00:12,900 --> 00:00:13,700
+  // 那么困难
+  // we_re barely getting by
+  // 
+  // 5
+  // 00:00:13,700 --> 00:00:14,700
+  // 你爸又生病
+  // Your father is sick again
+  // 
+  // 6
+  // 00:00:14,700 --> 00:00:16,100
+  // 我一把屎一把尿
+  // I raised you from infancy
+  // 
+  // 7
+  // 00:00:16,100 --> 00:00:16,700
+  // 把你养大
+  // got you this far
+  // 
+  // 8
+  // 00:00:16,900 --> 00:00:17,800
+  // 让你上学
+  // and put you through school
+  subtitleUrl?: string(name='subtitle_url'),
+  // 子任务ID，二次翻译时必填
+  subTaskId?: long(name='sub_task_id'),
+  // 是否擦除字幕
+  eraseSubtitle: boolean(name='erase_subtitle'),
+  // 是否嵌入字幕
+  embedSubtitle: boolean(name='embed_subtitle'),
+}
+
+model PushVideotranslateCreatetaskResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 任务ID
+  taskId?: long(name='task_id'),
+  // 任务名称
+  taskName?: string(name='task_name'),
+  // 子任务数量
+  subTaskCount?: long(name='sub_task_count'),
+  // 任务状态：PENDING-待执行、EXECUTING-执行中、COMPLETED-已完成
+  status?: string(name='status'),
+}
+
+/**
+ * Description: 提交视频翻译任务
+ * Summary: 提交视频翻译任务
+ */
+async function pushVideotranslateCreatetask(request: PushVideotranslateCreatetaskRequest): PushVideotranslateCreatetaskResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return pushVideotranslateCreatetaskEx(request, headers, runtime);
+}
+
+/**
+ * Description: 提交视频翻译任务
+ * Summary: 提交视频翻译任务
+ */
+async function pushVideotranslateCreatetaskEx(request: PushVideotranslateCreatetaskRequest, headers: map[string]string, runtime: Util.RuntimeOptions): PushVideotranslateCreatetaskResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'antdigital.aigc.videotranslate.createtask.push', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model QueryVideotranslateQuerytaskRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 任务ID
+  taskId: long(name='task_id'),
+  // 子任务ID，不传则查询所有子任务
+  subTaskId?: long(name='sub_task_id'),
+}
+
+model QueryVideotranslateQuerytaskResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 任务ID
+  taskId?: long(name='task_id'),
+  // 任务名称
+  taskName?: string(name='task_name'),
+  // 任务状态包括：PENDING（待执行）、EXECUTING（执行中）、COMPLETED（已完成）
+  status?: string(name='status'),
+  // 子任务列表
+  subTasks?: [ SubTasks ](name='sub_tasks'),
+}
+
+/**
+ * Description: 查询视频翻译任务
+ * Summary: 查询视频翻译任务
+ */
+async function queryVideotranslateQuerytask(request: QueryVideotranslateQuerytaskRequest): QueryVideotranslateQuerytaskResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return queryVideotranslateQuerytaskEx(request, headers, runtime);
+}
+
+/**
+ * Description: 查询视频翻译任务
+ * Summary: 查询视频翻译任务
+ */
+async function queryVideotranslateQuerytaskEx(request: QueryVideotranslateQuerytaskRequest, headers: map[string]string, runtime: Util.RuntimeOptions): QueryVideotranslateQuerytaskResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'antdigital.aigc.videotranslate.querytask.query', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
 }
 

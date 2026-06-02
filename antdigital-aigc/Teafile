@@ -1,7 +1,7 @@
 {
   "scope": "antchain",
   "name": "AIGC",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "main": "./main.tea",
   "maintainers": [
     {
@@ -10,12 +10,12 @@
     }
   ],
   "releases": {
-    "java": "com.antgroup.antchain.openapi:openapi-aigc:1.0.0",
-    "go": "github.com/antchain-openapi-sdk-go/antdigital-aigc/client:v1.0.0",
-    "csharp": "AntChain.SDK.AIGC:1.0.0",
+    "java": "com.antgroup.antchain.openapi:openapi-aigc:1.1.2",
+    "go": "github.com/antchain-openapi-sdk-go/antdigital-aigc/client:v1.1.2",
+    "csharp": "AntChain.SDK.AIGC:1.1.2",
     "ts": "@antchain/aigc:^1.0.0",
-    "php": "antchain/aigc:1.0.0",
-    "python": "antchain_sdk_aigc:1.0.0"
+    "php": "antchain/aigc:1.1.2",
+    "python": "antchain_sdk_aigc:1.1.2"
   },
   "libraries": {
     "Util": "darabonba:Util:*",
