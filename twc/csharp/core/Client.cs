@@ -137,7 +137,7 @@ namespace AntChain.SDK.TWC
                         {"req_msg_id", AntChain.AlipayUtil.AntchainUtils.GetNonce()},
                         {"access_key", _accessKeyId},
                         {"base_sdk_version", "TeaSDK-2.0"},
-                        {"sdk_version", "1.13.20"},
+                        {"sdk_version", "1.13.23"},
                         {"_prod_code", "TWC"},
                         {"_prod_channel", "undefined"},
                     };
@@ -263,7 +263,7 @@ namespace AntChain.SDK.TWC
                         {"req_msg_id", AntChain.AlipayUtil.AntchainUtils.GetNonce()},
                         {"access_key", _accessKeyId},
                         {"base_sdk_version", "TeaSDK-2.0"},
-                        {"sdk_version", "1.13.20"},
+                        {"sdk_version", "1.13.23"},
                         {"_prod_code", "TWC"},
                         {"_prod_channel", "undefined"},
                     };
@@ -6501,6 +6501,48 @@ namespace AntChain.SDK.TWC
         {
             AlibabaCloud.TeaUtil.Common.ValidateModel(request);
             return TeaModel.ToObject<FinishContractFlowResponse>(await DoRequestAsync("1.0", "twc.notary.contract.flow.finish", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: e签宝合规改造外部账号信息查询
+         * Summary: e签宝合规改造外部账号信息查询
+         */
+        public QueryContractEsignaccountResponse QueryContractEsignaccount(QueryContractEsignaccountRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return QueryContractEsignaccountEx(request, headers, runtime);
+        }
+
+        /**
+         * Description: e签宝合规改造外部账号信息查询
+         * Summary: e签宝合规改造外部账号信息查询
+         */
+        public async Task<QueryContractEsignaccountResponse> QueryContractEsignaccountAsync(QueryContractEsignaccountRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return await QueryContractEsignaccountExAsync(request, headers, runtime);
+        }
+
+        /**
+         * Description: e签宝合规改造外部账号信息查询
+         * Summary: e签宝合规改造外部账号信息查询
+         */
+        public QueryContractEsignaccountResponse QueryContractEsignaccountEx(QueryContractEsignaccountRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<QueryContractEsignaccountResponse>(DoRequest("1.0", "twc.notary.contract.esignaccount.query", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: e签宝合规改造外部账号信息查询
+         * Summary: e签宝合规改造外部账号信息查询
+         */
+        public async Task<QueryContractEsignaccountResponse> QueryContractEsignaccountExAsync(QueryContractEsignaccountRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<QueryContractEsignaccountResponse>(await DoRequestAsync("1.0", "twc.notary.contract.esignaccount.query", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
         }
 
         /**
@@ -15531,6 +15573,174 @@ namespace AntChain.SDK.TWC
         {
             AlibabaCloud.TeaUtil.Common.ValidateModel(request);
             return TeaModel.ToObject<UploadTrafficOperatelogResponse>(await DoRequestAsync("1.0", "twc.notary.traffic.operatelog.upload", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: e签宝组织机构外部账号查询开放文档
+         * Summary: e签宝组织机构外部账号查询开放文档
+         */
+        public QueryContractEsignorgResponse QueryContractEsignorg(QueryContractEsignorgRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return QueryContractEsignorgEx(request, headers, runtime);
+        }
+
+        /**
+         * Description: e签宝组织机构外部账号查询开放文档
+         * Summary: e签宝组织机构外部账号查询开放文档
+         */
+        public async Task<QueryContractEsignorgResponse> QueryContractEsignorgAsync(QueryContractEsignorgRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return await QueryContractEsignorgExAsync(request, headers, runtime);
+        }
+
+        /**
+         * Description: e签宝组织机构外部账号查询开放文档
+         * Summary: e签宝组织机构外部账号查询开放文档
+         */
+        public QueryContractEsignorgResponse QueryContractEsignorgEx(QueryContractEsignorgRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<QueryContractEsignorgResponse>(DoRequest("1.0", "twc.notary.contract.esignorg.query", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: e签宝组织机构外部账号查询开放文档
+         * Summary: e签宝组织机构外部账号查询开放文档
+         */
+        public async Task<QueryContractEsignorgResponse> QueryContractEsignorgExAsync(QueryContractEsignorgRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<QueryContractEsignorgResponse>(await DoRequestAsync("1.0", "twc.notary.contract.esignorg.query", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: e签宝用户信息外部账号查询开放文档
+         * Summary: e签宝用户信息外部账号查询开放文档
+         */
+        public QueryContractEsignuserResponse QueryContractEsignuser(QueryContractEsignuserRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return QueryContractEsignuserEx(request, headers, runtime);
+        }
+
+        /**
+         * Description: e签宝用户信息外部账号查询开放文档
+         * Summary: e签宝用户信息外部账号查询开放文档
+         */
+        public async Task<QueryContractEsignuserResponse> QueryContractEsignuserAsync(QueryContractEsignuserRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return await QueryContractEsignuserExAsync(request, headers, runtime);
+        }
+
+        /**
+         * Description: e签宝用户信息外部账号查询开放文档
+         * Summary: e签宝用户信息外部账号查询开放文档
+         */
+        public QueryContractEsignuserResponse QueryContractEsignuserEx(QueryContractEsignuserRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<QueryContractEsignuserResponse>(DoRequest("1.0", "twc.notary.contract.esignuser.query", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: e签宝用户信息外部账号查询开放文档
+         * Summary: e签宝用户信息外部账号查询开放文档
+         */
+        public async Task<QueryContractEsignuserResponse> QueryContractEsignuserExAsync(QueryContractEsignuserRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<QueryContractEsignuserResponse>(await DoRequestAsync("1.0", "twc.notary.contract.esignuser.query", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 测试
+         * Summary: 测试
+         */
+        public ImportContractUserResponse ImportContractUser(ImportContractUserRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return ImportContractUserEx(request, headers, runtime);
+        }
+
+        /**
+         * Description: 测试
+         * Summary: 测试
+         */
+        public async Task<ImportContractUserResponse> ImportContractUserAsync(ImportContractUserRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return await ImportContractUserExAsync(request, headers, runtime);
+        }
+
+        /**
+         * Description: 测试
+         * Summary: 测试
+         */
+        public ImportContractUserResponse ImportContractUserEx(ImportContractUserRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<ImportContractUserResponse>(DoRequest("1.0", "twc.notary.contract.user.import", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 测试
+         * Summary: 测试
+         */
+        public async Task<ImportContractUserResponse> ImportContractUserExAsync(ImportContractUserRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<ImportContractUserResponse>(await DoRequestAsync("1.0", "twc.notary.contract.user.import", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: e签宝合规改造外部账号信息查询
+         * Summary: e签宝合规改造外部账号信息查询
+         */
+        public QueryEsignAccountResponse QueryEsignAccount(QueryEsignAccountRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return QueryEsignAccountEx(request, headers, runtime);
+        }
+
+        /**
+         * Description: e签宝合规改造外部账号信息查询
+         * Summary: e签宝合规改造外部账号信息查询
+         */
+        public async Task<QueryEsignAccountResponse> QueryEsignAccountAsync(QueryEsignAccountRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return await QueryEsignAccountExAsync(request, headers, runtime);
+        }
+
+        /**
+         * Description: e签宝合规改造外部账号信息查询
+         * Summary: e签宝合规改造外部账号信息查询
+         */
+        public QueryEsignAccountResponse QueryEsignAccountEx(QueryEsignAccountRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<QueryEsignAccountResponse>(DoRequest("1.0", "twc.notary.esign.account.query", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: e签宝合规改造外部账号信息查询
+         * Summary: e签宝合规改造外部账号信息查询
+         */
+        public async Task<QueryEsignAccountResponse> QueryEsignAccountExAsync(QueryEsignAccountRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<QueryEsignAccountResponse>(await DoRequestAsync("1.0", "twc.notary.esign.account.query", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
         }
 
     }

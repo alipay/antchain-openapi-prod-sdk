@@ -77,6 +77,11 @@ namespace AntChain.SDK.TWC.Models
         [Validation(Required=false)]
         public List<string> SealSourceTypes { get; set; }
 
+        // 法务电子签签署完重定向链接
+        [NameInMap("redirect_url")]
+        [Validation(Required=true)]
+        public string RedirectUrl { get; set; }
+
     }
 
 }
