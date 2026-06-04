@@ -1073,6 +1073,7 @@ class AntSignUserInfoRequest(TeaModel):
         order: int = None,
         auto_sign: bool = None,
         seal_source_types: List[str] = None,
+        redirect_url: str = None,
     ):
         # signUserId
         self.sign_user_id = sign_user_id
@@ -1102,6 +1103,8 @@ class AntSignUserInfoRequest(TeaModel):
         self.auto_sign = auto_sign
         # 签署方签署操作人签署时支持的印章来源类型目前支持上传公章(UPLOAD)、手写签名(PERSONAL)
         self.seal_source_types = seal_source_types
+        # 法务电子签签署完重定向链接
+        self.redirect_url = redirect_url
 
     def validate(self):
         self.validate_required(self.our_corp, 'our_corp')
@@ -1115,6 +1118,7 @@ class AntSignUserInfoRequest(TeaModel):
         self.validate_required(self.signer_cert_type, 'signer_cert_type')
         self.validate_required(self.signer_cert_number, 'signer_cert_number')
         self.validate_required(self.auto_sign, 'auto_sign')
+        self.validate_required(self.redirect_url, 'redirect_url')
 
     def to_map(self):
         _map = super().to_map()
@@ -1150,6 +1154,8 @@ class AntSignUserInfoRequest(TeaModel):
             result['auto_sign'] = self.auto_sign
         if self.seal_source_types is not None:
             result['seal_source_types'] = self.seal_source_types
+        if self.redirect_url is not None:
+            result['redirect_url'] = self.redirect_url
         return result
 
     def from_map(self, m: dict = None):
@@ -1183,6 +1189,8 @@ class AntSignUserInfoRequest(TeaModel):
             self.auto_sign = m.get('auto_sign')
         if m.get('seal_source_types') is not None:
             self.seal_source_types = m.get('seal_source_types')
+        if m.get('redirect_url') is not None:
+            self.redirect_url = m.get('redirect_url')
         return self
 
 
@@ -31326,6 +31334,174 @@ class FinishContractFlowResponse(TeaModel):
             self.result_msg = m.get('result_msg')
         if m.get('success') is not None:
             self.success = m.get('success')
+        return self
+
+
+class QueryContractEsignaccountRequest(TeaModel):
+    def __init__(
+        self,
+        auth_token: str = None,
+        product_instance_id: str = None,
+        third_party_user_id: str = None,
+        user_type: str = None,
+    ):
+        # OAuth模式下的授权token
+        self.auth_token = auth_token
+        self.product_instance_id = product_instance_id
+        # 三方账号id
+        self.third_party_user_id = third_party_user_id
+        # 用户类型
+        self.user_type = user_type
+
+    def validate(self):
+        self.validate_required(self.third_party_user_id, 'third_party_user_id')
+        self.validate_required(self.user_type, 'user_type')
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.auth_token is not None:
+            result['auth_token'] = self.auth_token
+        if self.product_instance_id is not None:
+            result['product_instance_id'] = self.product_instance_id
+        if self.third_party_user_id is not None:
+            result['third_party_user_id'] = self.third_party_user_id
+        if self.user_type is not None:
+            result['user_type'] = self.user_type
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('auth_token') is not None:
+            self.auth_token = m.get('auth_token')
+        if m.get('product_instance_id') is not None:
+            self.product_instance_id = m.get('product_instance_id')
+        if m.get('third_party_user_id') is not None:
+            self.third_party_user_id = m.get('third_party_user_id')
+        if m.get('user_type') is not None:
+            self.user_type = m.get('user_type')
+        return self
+
+
+class QueryContractEsignaccountResponse(TeaModel):
+    def __init__(
+        self,
+        req_msg_id: str = None,
+        result_code: str = None,
+        result_msg: str = None,
+        account_id: str = None,
+        name: str = None,
+        id_type: str = None,
+        id_number: str = None,
+        org_legal_id_number: str = None,
+        org_legal_name: str = None,
+        third_party_userid: str = None,
+        mobile: str = None,
+        email: str = None,
+        auth_start_time: str = None,
+        auth_end_time: str = None,
+    ):
+        # 请求唯一ID，用于链路跟踪和问题排查
+        self.req_msg_id = req_msg_id
+        # 结果码，一般OK表示调用成功
+        self.result_code = result_code
+        # 异常信息的文本描述
+        self.result_msg = result_msg
+        # 账号id
+        self.account_id = account_id
+        # 名称
+        self.name = name
+        # 证件类型
+        self.id_type = id_type
+        # 证件号
+        self.id_number = id_number
+        # 机构法定代表人证件号
+        self.org_legal_id_number = org_legal_id_number
+        # 机构法定代表人名称
+        self.org_legal_name = org_legal_name
+        # 创建账号的唯一标识
+        self.third_party_userid = third_party_userid
+        # 手机号
+        self.mobile = mobile
+        # 邮箱
+        self.email = email
+        # 授权生效时间（时间是unix时间戳（毫秒）格式）
+        self.auth_start_time = auth_start_time
+        # 授权失效时间（时间是unix时间戳（毫秒）格式）
+        self.auth_end_time = auth_end_time
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.req_msg_id is not None:
+            result['req_msg_id'] = self.req_msg_id
+        if self.result_code is not None:
+            result['result_code'] = self.result_code
+        if self.result_msg is not None:
+            result['result_msg'] = self.result_msg
+        if self.account_id is not None:
+            result['account_id'] = self.account_id
+        if self.name is not None:
+            result['name'] = self.name
+        if self.id_type is not None:
+            result['id_type'] = self.id_type
+        if self.id_number is not None:
+            result['id_number'] = self.id_number
+        if self.org_legal_id_number is not None:
+            result['org_legal_id_number'] = self.org_legal_id_number
+        if self.org_legal_name is not None:
+            result['org_legal_name'] = self.org_legal_name
+        if self.third_party_userid is not None:
+            result['third_party_userid'] = self.third_party_userid
+        if self.mobile is not None:
+            result['mobile'] = self.mobile
+        if self.email is not None:
+            result['email'] = self.email
+        if self.auth_start_time is not None:
+            result['auth_start_time'] = self.auth_start_time
+        if self.auth_end_time is not None:
+            result['auth_end_time'] = self.auth_end_time
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('req_msg_id') is not None:
+            self.req_msg_id = m.get('req_msg_id')
+        if m.get('result_code') is not None:
+            self.result_code = m.get('result_code')
+        if m.get('result_msg') is not None:
+            self.result_msg = m.get('result_msg')
+        if m.get('account_id') is not None:
+            self.account_id = m.get('account_id')
+        if m.get('name') is not None:
+            self.name = m.get('name')
+        if m.get('id_type') is not None:
+            self.id_type = m.get('id_type')
+        if m.get('id_number') is not None:
+            self.id_number = m.get('id_number')
+        if m.get('org_legal_id_number') is not None:
+            self.org_legal_id_number = m.get('org_legal_id_number')
+        if m.get('org_legal_name') is not None:
+            self.org_legal_name = m.get('org_legal_name')
+        if m.get('third_party_userid') is not None:
+            self.third_party_userid = m.get('third_party_userid')
+        if m.get('mobile') is not None:
+            self.mobile = m.get('mobile')
+        if m.get('email') is not None:
+            self.email = m.get('email')
+        if m.get('auth_start_time') is not None:
+            self.auth_start_time = m.get('auth_start_time')
+        if m.get('auth_end_time') is not None:
+            self.auth_end_time = m.get('auth_end_time')
         return self
 
 
@@ -62056,6 +62232,528 @@ class UploadTrafficOperatelogResponse(TeaModel):
             self.result_msg = m.get('result_msg')
         if m.get('upload_result') is not None:
             self.upload_result = m.get('upload_result')
+        return self
+
+
+class QueryContractEsignorgRequest(TeaModel):
+    def __init__(
+        self,
+        auth_token: str = None,
+        product_instance_id: str = None,
+        third_party_user_id: str = None,
+    ):
+        # OAuth模式下的授权token
+        self.auth_token = auth_token
+        self.product_instance_id = product_instance_id
+        # 三方用户id
+        self.third_party_user_id = third_party_user_id
+
+    def validate(self):
+        self.validate_required(self.third_party_user_id, 'third_party_user_id')
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.auth_token is not None:
+            result['auth_token'] = self.auth_token
+        if self.product_instance_id is not None:
+            result['product_instance_id'] = self.product_instance_id
+        if self.third_party_user_id is not None:
+            result['third_party_user_id'] = self.third_party_user_id
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('auth_token') is not None:
+            self.auth_token = m.get('auth_token')
+        if m.get('product_instance_id') is not None:
+            self.product_instance_id = m.get('product_instance_id')
+        if m.get('third_party_user_id') is not None:
+            self.third_party_user_id = m.get('third_party_user_id')
+        return self
+
+
+class QueryContractEsignorgResponse(TeaModel):
+    def __init__(
+        self,
+        req_msg_id: str = None,
+        result_code: str = None,
+        result_msg: str = None,
+        code: int = None,
+        message: str = None,
+        org_id: str = None,
+        name: str = None,
+        id_type: str = None,
+        id_number: str = None,
+        org_legal_id_number: str = None,
+        org_legal_name: str = None,
+        third_party_user_id: str = None,
+    ):
+        # 请求唯一ID，用于链路跟踪和问题排查
+        self.req_msg_id = req_msg_id
+        # 结果码，一般OK表示调用成功
+        self.result_code = result_code
+        # 异常信息的文本描述
+        self.result_msg = result_msg
+        # e签宝返回码
+        self.code = code
+        # 业务描述信息
+        self.message = message
+        # 机构账户id
+        self.org_id = org_id
+        # 机构名称
+        self.name = name
+        # 证件类型
+        self.id_type = id_type
+        # 证件号码
+        self.id_number = id_number
+        # 法人证件号码
+        self.org_legal_id_number = org_legal_id_number
+        # 法人名称
+        self.org_legal_name = org_legal_name
+        # 第三方平台的用户ID
+        self.third_party_user_id = third_party_user_id
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.req_msg_id is not None:
+            result['req_msg_id'] = self.req_msg_id
+        if self.result_code is not None:
+            result['result_code'] = self.result_code
+        if self.result_msg is not None:
+            result['result_msg'] = self.result_msg
+        if self.code is not None:
+            result['code'] = self.code
+        if self.message is not None:
+            result['message'] = self.message
+        if self.org_id is not None:
+            result['org_id'] = self.org_id
+        if self.name is not None:
+            result['name'] = self.name
+        if self.id_type is not None:
+            result['id_type'] = self.id_type
+        if self.id_number is not None:
+            result['id_number'] = self.id_number
+        if self.org_legal_id_number is not None:
+            result['org_legal_id_number'] = self.org_legal_id_number
+        if self.org_legal_name is not None:
+            result['org_legal_name'] = self.org_legal_name
+        if self.third_party_user_id is not None:
+            result['third_party_user_id'] = self.third_party_user_id
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('req_msg_id') is not None:
+            self.req_msg_id = m.get('req_msg_id')
+        if m.get('result_code') is not None:
+            self.result_code = m.get('result_code')
+        if m.get('result_msg') is not None:
+            self.result_msg = m.get('result_msg')
+        if m.get('code') is not None:
+            self.code = m.get('code')
+        if m.get('message') is not None:
+            self.message = m.get('message')
+        if m.get('org_id') is not None:
+            self.org_id = m.get('org_id')
+        if m.get('name') is not None:
+            self.name = m.get('name')
+        if m.get('id_type') is not None:
+            self.id_type = m.get('id_type')
+        if m.get('id_number') is not None:
+            self.id_number = m.get('id_number')
+        if m.get('org_legal_id_number') is not None:
+            self.org_legal_id_number = m.get('org_legal_id_number')
+        if m.get('org_legal_name') is not None:
+            self.org_legal_name = m.get('org_legal_name')
+        if m.get('third_party_user_id') is not None:
+            self.third_party_user_id = m.get('third_party_user_id')
+        return self
+
+
+class QueryContractEsignuserRequest(TeaModel):
+    def __init__(
+        self,
+        auth_token: str = None,
+        product_instance_id: str = None,
+        third_party_user_id: str = None,
+    ):
+        # OAuth模式下的授权token
+        self.auth_token = auth_token
+        self.product_instance_id = product_instance_id
+        # 三方用户id
+        self.third_party_user_id = third_party_user_id
+
+    def validate(self):
+        self.validate_required(self.third_party_user_id, 'third_party_user_id')
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.auth_token is not None:
+            result['auth_token'] = self.auth_token
+        if self.product_instance_id is not None:
+            result['product_instance_id'] = self.product_instance_id
+        if self.third_party_user_id is not None:
+            result['third_party_user_id'] = self.third_party_user_id
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('auth_token') is not None:
+            self.auth_token = m.get('auth_token')
+        if m.get('product_instance_id') is not None:
+            self.product_instance_id = m.get('product_instance_id')
+        if m.get('third_party_user_id') is not None:
+            self.third_party_user_id = m.get('third_party_user_id')
+        return self
+
+
+class QueryContractEsignuserResponse(TeaModel):
+    def __init__(
+        self,
+        req_msg_id: str = None,
+        result_code: str = None,
+        result_msg: str = None,
+        code: int = None,
+        message: str = None,
+        account_id: str = None,
+        name: str = None,
+        id_type: str = None,
+        id_number: str = None,
+        mobile: str = None,
+        email: str = None,
+        third_party_user_id: str = None,
+    ):
+        # 请求唯一ID，用于链路跟踪和问题排查
+        self.req_msg_id = req_msg_id
+        # 结果码，一般OK表示调用成功
+        self.result_code = result_code
+        # 异常信息的文本描述
+        self.result_msg = result_msg
+        # e签宝返回码
+        self.code = code
+        # 业务描述信息
+        self.message = message
+        # 账号id
+        self.account_id = account_id
+        # 用户名称
+        self.name = name
+        # 证件类型
+        self.id_type = id_type
+        # 证件号码
+        self.id_number = id_number
+        # 手机号
+        self.mobile = mobile
+        # 邮箱
+        self.email = email
+        # 第三方平台的用户ID
+        self.third_party_user_id = third_party_user_id
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.req_msg_id is not None:
+            result['req_msg_id'] = self.req_msg_id
+        if self.result_code is not None:
+            result['result_code'] = self.result_code
+        if self.result_msg is not None:
+            result['result_msg'] = self.result_msg
+        if self.code is not None:
+            result['code'] = self.code
+        if self.message is not None:
+            result['message'] = self.message
+        if self.account_id is not None:
+            result['account_id'] = self.account_id
+        if self.name is not None:
+            result['name'] = self.name
+        if self.id_type is not None:
+            result['id_type'] = self.id_type
+        if self.id_number is not None:
+            result['id_number'] = self.id_number
+        if self.mobile is not None:
+            result['mobile'] = self.mobile
+        if self.email is not None:
+            result['email'] = self.email
+        if self.third_party_user_id is not None:
+            result['third_party_user_id'] = self.third_party_user_id
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('req_msg_id') is not None:
+            self.req_msg_id = m.get('req_msg_id')
+        if m.get('result_code') is not None:
+            self.result_code = m.get('result_code')
+        if m.get('result_msg') is not None:
+            self.result_msg = m.get('result_msg')
+        if m.get('code') is not None:
+            self.code = m.get('code')
+        if m.get('message') is not None:
+            self.message = m.get('message')
+        if m.get('account_id') is not None:
+            self.account_id = m.get('account_id')
+        if m.get('name') is not None:
+            self.name = m.get('name')
+        if m.get('id_type') is not None:
+            self.id_type = m.get('id_type')
+        if m.get('id_number') is not None:
+            self.id_number = m.get('id_number')
+        if m.get('mobile') is not None:
+            self.mobile = m.get('mobile')
+        if m.get('email') is not None:
+            self.email = m.get('email')
+        if m.get('third_party_user_id') is not None:
+            self.third_party_user_id = m.get('third_party_user_id')
+        return self
+
+
+class ImportContractUserRequest(TeaModel):
+    def __init__(
+        self,
+        auth_token: str = None,
+        product_instance_id: str = None,
+    ):
+        # OAuth模式下的授权token
+        self.auth_token = auth_token
+        self.product_instance_id = product_instance_id
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.auth_token is not None:
+            result['auth_token'] = self.auth_token
+        if self.product_instance_id is not None:
+            result['product_instance_id'] = self.product_instance_id
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('auth_token') is not None:
+            self.auth_token = m.get('auth_token')
+        if m.get('product_instance_id') is not None:
+            self.product_instance_id = m.get('product_instance_id')
+        return self
+
+
+class ImportContractUserResponse(TeaModel):
+    def __init__(
+        self,
+        req_msg_id: str = None,
+        result_code: str = None,
+        result_msg: str = None,
+    ):
+        # 请求唯一ID，用于链路跟踪和问题排查
+        self.req_msg_id = req_msg_id
+        # 结果码，一般OK表示调用成功
+        self.result_code = result_code
+        # 异常信息的文本描述
+        self.result_msg = result_msg
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.req_msg_id is not None:
+            result['req_msg_id'] = self.req_msg_id
+        if self.result_code is not None:
+            result['result_code'] = self.result_code
+        if self.result_msg is not None:
+            result['result_msg'] = self.result_msg
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('req_msg_id') is not None:
+            self.req_msg_id = m.get('req_msg_id')
+        if m.get('result_code') is not None:
+            self.result_code = m.get('result_code')
+        if m.get('result_msg') is not None:
+            self.result_msg = m.get('result_msg')
+        return self
+
+
+class QueryEsignAccountRequest(TeaModel):
+    def __init__(
+        self,
+        auth_token: str = None,
+        product_instance_id: str = None,
+        third_party_user_id: str = None,
+        user_type: str = None,
+    ):
+        # OAuth模式下的授权token
+        self.auth_token = auth_token
+        self.product_instance_id = product_instance_id
+        # 三方账号id
+        self.third_party_user_id = third_party_user_id
+        # 用户类型
+        self.user_type = user_type
+
+    def validate(self):
+        self.validate_required(self.third_party_user_id, 'third_party_user_id')
+        self.validate_required(self.user_type, 'user_type')
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.auth_token is not None:
+            result['auth_token'] = self.auth_token
+        if self.product_instance_id is not None:
+            result['product_instance_id'] = self.product_instance_id
+        if self.third_party_user_id is not None:
+            result['third_party_user_id'] = self.third_party_user_id
+        if self.user_type is not None:
+            result['user_type'] = self.user_type
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('auth_token') is not None:
+            self.auth_token = m.get('auth_token')
+        if m.get('product_instance_id') is not None:
+            self.product_instance_id = m.get('product_instance_id')
+        if m.get('third_party_user_id') is not None:
+            self.third_party_user_id = m.get('third_party_user_id')
+        if m.get('user_type') is not None:
+            self.user_type = m.get('user_type')
+        return self
+
+
+class QueryEsignAccountResponse(TeaModel):
+    def __init__(
+        self,
+        req_msg_id: str = None,
+        result_code: str = None,
+        result_msg: str = None,
+        account_id: str = None,
+        name: str = None,
+        id_type: str = None,
+        id_number: str = None,
+        org_legal_id_number: str = None,
+        org_legal_name: str = None,
+        third_party_user_id: str = None,
+        mobile: str = None,
+        email: str = None,
+    ):
+        # 请求唯一ID，用于链路跟踪和问题排查
+        self.req_msg_id = req_msg_id
+        # 结果码，一般OK表示调用成功
+        self.result_code = result_code
+        # 异常信息的文本描述
+        self.result_msg = result_msg
+        # 账号id
+        self.account_id = account_id
+        # 名称
+        self.name = name
+        # 证件类型
+        self.id_type = id_type
+        # 证件号
+        self.id_number = id_number
+        # 机构法定代表人证件号
+        self.org_legal_id_number = org_legal_id_number
+        # 机构法定代表人名称
+        self.org_legal_name = org_legal_name
+        # 创建账号的唯一标识
+        self.third_party_user_id = third_party_user_id
+        # 手机号
+        self.mobile = mobile
+        # 邮箱
+        self.email = email
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.req_msg_id is not None:
+            result['req_msg_id'] = self.req_msg_id
+        if self.result_code is not None:
+            result['result_code'] = self.result_code
+        if self.result_msg is not None:
+            result['result_msg'] = self.result_msg
+        if self.account_id is not None:
+            result['account_id'] = self.account_id
+        if self.name is not None:
+            result['name'] = self.name
+        if self.id_type is not None:
+            result['id_type'] = self.id_type
+        if self.id_number is not None:
+            result['id_number'] = self.id_number
+        if self.org_legal_id_number is not None:
+            result['org_legal_id_number'] = self.org_legal_id_number
+        if self.org_legal_name is not None:
+            result['org_legal_name'] = self.org_legal_name
+        if self.third_party_user_id is not None:
+            result['third_party_user_id'] = self.third_party_user_id
+        if self.mobile is not None:
+            result['mobile'] = self.mobile
+        if self.email is not None:
+            result['email'] = self.email
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('req_msg_id') is not None:
+            self.req_msg_id = m.get('req_msg_id')
+        if m.get('result_code') is not None:
+            self.result_code = m.get('result_code')
+        if m.get('result_msg') is not None:
+            self.result_msg = m.get('result_msg')
+        if m.get('account_id') is not None:
+            self.account_id = m.get('account_id')
+        if m.get('name') is not None:
+            self.name = m.get('name')
+        if m.get('id_type') is not None:
+            self.id_type = m.get('id_type')
+        if m.get('id_number') is not None:
+            self.id_number = m.get('id_number')
+        if m.get('org_legal_id_number') is not None:
+            self.org_legal_id_number = m.get('org_legal_id_number')
+        if m.get('org_legal_name') is not None:
+            self.org_legal_name = m.get('org_legal_name')
+        if m.get('third_party_user_id') is not None:
+            self.third_party_user_id = m.get('third_party_user_id')
+        if m.get('mobile') is not None:
+            self.mobile = m.get('mobile')
+        if m.get('email') is not None:
+            self.email = m.get('email')
         return self
 
 

@@ -135,7 +135,7 @@ class Client:
                     'req_msg_id': AntchainUtils.get_nonce(),
                     'access_key': self._access_key_id,
                     'base_sdk_version': 'TeaSDK-2.0',
-                    'sdk_version': '1.13.20',
+                    'sdk_version': '1.13.23',
                     '_prod_code': 'TWC',
                     '_prod_channel': 'undefined'
                 }
@@ -239,7 +239,7 @@ class Client:
                     'req_msg_id': AntchainUtils.get_nonce(),
                     'access_key': self._access_key_id,
                     'base_sdk_version': 'TeaSDK-2.0',
-                    'sdk_version': '1.13.20',
+                    'sdk_version': '1.13.23',
                     '_prod_code': 'TWC',
                     '_prod_channel': 'undefined'
                 }
@@ -8513,6 +8513,62 @@ class Client:
         return TeaCore.from_map(
             twc_models.FinishContractFlowResponse(),
             await self.do_request_async('1.0', 'twc.notary.contract.flow.finish', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def query_contract_esignaccount(
+        self,
+        request: twc_models.QueryContractEsignaccountRequest,
+    ) -> twc_models.QueryContractEsignaccountResponse:
+        """
+        Description: e签宝合规改造外部账号信息查询
+        Summary: e签宝合规改造外部账号信息查询
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.query_contract_esignaccount_ex(request, headers, runtime)
+
+    async def query_contract_esignaccount_async(
+        self,
+        request: twc_models.QueryContractEsignaccountRequest,
+    ) -> twc_models.QueryContractEsignaccountResponse:
+        """
+        Description: e签宝合规改造外部账号信息查询
+        Summary: e签宝合规改造外部账号信息查询
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.query_contract_esignaccount_ex_async(request, headers, runtime)
+
+    def query_contract_esignaccount_ex(
+        self,
+        request: twc_models.QueryContractEsignaccountRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> twc_models.QueryContractEsignaccountResponse:
+        """
+        Description: e签宝合规改造外部账号信息查询
+        Summary: e签宝合规改造外部账号信息查询
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            twc_models.QueryContractEsignaccountResponse(),
+            self.do_request('1.0', 'twc.notary.contract.esignaccount.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def query_contract_esignaccount_ex_async(
+        self,
+        request: twc_models.QueryContractEsignaccountRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> twc_models.QueryContractEsignaccountResponse:
+        """
+        Description: e签宝合规改造外部账号信息查询
+        Summary: e签宝合规改造外部账号信息查询
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            twc_models.QueryContractEsignaccountResponse(),
+            await self.do_request_async('1.0', 'twc.notary.contract.esignaccount.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
     def push_digitalcontent_usage(
@@ -20553,4 +20609,228 @@ class Client:
         return TeaCore.from_map(
             twc_models.UploadTrafficOperatelogResponse(),
             await self.do_request_async('1.0', 'twc.notary.traffic.operatelog.upload', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def query_contract_esignorg(
+        self,
+        request: twc_models.QueryContractEsignorgRequest,
+    ) -> twc_models.QueryContractEsignorgResponse:
+        """
+        Description: e签宝组织机构外部账号查询开放文档
+        Summary: e签宝组织机构外部账号查询开放文档
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.query_contract_esignorg_ex(request, headers, runtime)
+
+    async def query_contract_esignorg_async(
+        self,
+        request: twc_models.QueryContractEsignorgRequest,
+    ) -> twc_models.QueryContractEsignorgResponse:
+        """
+        Description: e签宝组织机构外部账号查询开放文档
+        Summary: e签宝组织机构外部账号查询开放文档
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.query_contract_esignorg_ex_async(request, headers, runtime)
+
+    def query_contract_esignorg_ex(
+        self,
+        request: twc_models.QueryContractEsignorgRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> twc_models.QueryContractEsignorgResponse:
+        """
+        Description: e签宝组织机构外部账号查询开放文档
+        Summary: e签宝组织机构外部账号查询开放文档
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            twc_models.QueryContractEsignorgResponse(),
+            self.do_request('1.0', 'twc.notary.contract.esignorg.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def query_contract_esignorg_ex_async(
+        self,
+        request: twc_models.QueryContractEsignorgRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> twc_models.QueryContractEsignorgResponse:
+        """
+        Description: e签宝组织机构外部账号查询开放文档
+        Summary: e签宝组织机构外部账号查询开放文档
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            twc_models.QueryContractEsignorgResponse(),
+            await self.do_request_async('1.0', 'twc.notary.contract.esignorg.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def query_contract_esignuser(
+        self,
+        request: twc_models.QueryContractEsignuserRequest,
+    ) -> twc_models.QueryContractEsignuserResponse:
+        """
+        Description: e签宝用户信息外部账号查询开放文档
+        Summary: e签宝用户信息外部账号查询开放文档
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.query_contract_esignuser_ex(request, headers, runtime)
+
+    async def query_contract_esignuser_async(
+        self,
+        request: twc_models.QueryContractEsignuserRequest,
+    ) -> twc_models.QueryContractEsignuserResponse:
+        """
+        Description: e签宝用户信息外部账号查询开放文档
+        Summary: e签宝用户信息外部账号查询开放文档
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.query_contract_esignuser_ex_async(request, headers, runtime)
+
+    def query_contract_esignuser_ex(
+        self,
+        request: twc_models.QueryContractEsignuserRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> twc_models.QueryContractEsignuserResponse:
+        """
+        Description: e签宝用户信息外部账号查询开放文档
+        Summary: e签宝用户信息外部账号查询开放文档
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            twc_models.QueryContractEsignuserResponse(),
+            self.do_request('1.0', 'twc.notary.contract.esignuser.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def query_contract_esignuser_ex_async(
+        self,
+        request: twc_models.QueryContractEsignuserRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> twc_models.QueryContractEsignuserResponse:
+        """
+        Description: e签宝用户信息外部账号查询开放文档
+        Summary: e签宝用户信息外部账号查询开放文档
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            twc_models.QueryContractEsignuserResponse(),
+            await self.do_request_async('1.0', 'twc.notary.contract.esignuser.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def import_contract_user(
+        self,
+        request: twc_models.ImportContractUserRequest,
+    ) -> twc_models.ImportContractUserResponse:
+        """
+        Description: 测试
+        Summary: 测试
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.import_contract_user_ex(request, headers, runtime)
+
+    async def import_contract_user_async(
+        self,
+        request: twc_models.ImportContractUserRequest,
+    ) -> twc_models.ImportContractUserResponse:
+        """
+        Description: 测试
+        Summary: 测试
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.import_contract_user_ex_async(request, headers, runtime)
+
+    def import_contract_user_ex(
+        self,
+        request: twc_models.ImportContractUserRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> twc_models.ImportContractUserResponse:
+        """
+        Description: 测试
+        Summary: 测试
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            twc_models.ImportContractUserResponse(),
+            self.do_request('1.0', 'twc.notary.contract.user.import', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def import_contract_user_ex_async(
+        self,
+        request: twc_models.ImportContractUserRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> twc_models.ImportContractUserResponse:
+        """
+        Description: 测试
+        Summary: 测试
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            twc_models.ImportContractUserResponse(),
+            await self.do_request_async('1.0', 'twc.notary.contract.user.import', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def query_esign_account(
+        self,
+        request: twc_models.QueryEsignAccountRequest,
+    ) -> twc_models.QueryEsignAccountResponse:
+        """
+        Description: e签宝合规改造外部账号信息查询
+        Summary: e签宝合规改造外部账号信息查询
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.query_esign_account_ex(request, headers, runtime)
+
+    async def query_esign_account_async(
+        self,
+        request: twc_models.QueryEsignAccountRequest,
+    ) -> twc_models.QueryEsignAccountResponse:
+        """
+        Description: e签宝合规改造外部账号信息查询
+        Summary: e签宝合规改造外部账号信息查询
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.query_esign_account_ex_async(request, headers, runtime)
+
+    def query_esign_account_ex(
+        self,
+        request: twc_models.QueryEsignAccountRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> twc_models.QueryEsignAccountResponse:
+        """
+        Description: e签宝合规改造外部账号信息查询
+        Summary: e签宝合规改造外部账号信息查询
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            twc_models.QueryEsignAccountResponse(),
+            self.do_request('1.0', 'twc.notary.esign.account.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def query_esign_account_ex_async(
+        self,
+        request: twc_models.QueryEsignAccountRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> twc_models.QueryEsignAccountResponse:
+        """
+        Description: e签宝合规改造外部账号信息查询
+        Summary: e签宝合规改造外部账号信息查询
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            twc_models.QueryEsignAccountResponse(),
+            await self.do_request_async('1.0', 'twc.notary.esign.account.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
