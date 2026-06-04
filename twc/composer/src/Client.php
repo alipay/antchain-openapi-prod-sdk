@@ -405,6 +405,8 @@ use AntChain\TWC\Models\GetTransRequest;
 use AntChain\TWC\Models\GetTransResponse;
 use AntChain\TWC\Models\GetTsrCertificateRequest;
 use AntChain\TWC\Models\GetTsrCertificateResponse;
+use AntChain\TWC\Models\ImportContractUserRequest;
+use AntChain\TWC\Models\ImportContractUserResponse;
 use AntChain\TWC\Models\InitAilegalQuestionRequest;
 use AntChain\TWC\Models\InitAilegalQuestionResponse;
 use AntChain\TWC\Models\InitCertificationRequest;
@@ -479,6 +481,12 @@ use AntChain\TWC\Models\QueryContractDedcutpayinfoRequest;
 use AntChain\TWC\Models\QueryContractDedcutpayinfoResponse;
 use AntChain\TWC\Models\QueryContractDeductdetailRequest;
 use AntChain\TWC\Models\QueryContractDeductdetailResponse;
+use AntChain\TWC\Models\QueryContractEsignaccountRequest;
+use AntChain\TWC\Models\QueryContractEsignaccountResponse;
+use AntChain\TWC\Models\QueryContractEsignorgRequest;
+use AntChain\TWC\Models\QueryContractEsignorgResponse;
+use AntChain\TWC\Models\QueryContractEsignuserRequest;
+use AntChain\TWC\Models\QueryContractEsignuserResponse;
 use AntChain\TWC\Models\QueryContractFlowRequest;
 use AntChain\TWC\Models\QueryContractFlowResponse;
 use AntChain\TWC\Models\QueryContractFlowsignerRequest;
@@ -517,6 +525,8 @@ use AntChain\TWC\Models\QueryDataflowActionRequest;
 use AntChain\TWC\Models\QueryDataflowActionResponse;
 use AntChain\TWC\Models\QueryEnterpriseFaceauthRequest;
 use AntChain\TWC\Models\QueryEnterpriseFaceauthResponse;
+use AntChain\TWC\Models\QueryEsignAccountRequest;
+use AntChain\TWC\Models\QueryEsignAccountResponse;
 use AntChain\TWC\Models\QueryFlowCertificateRequest;
 use AntChain\TWC\Models\QueryFlowCertificateResponse;
 use AntChain\TWC\Models\QueryFlowEvidenceRequest;
@@ -882,7 +892,7 @@ class Client
                     'req_msg_id'       => UtilClient::getNonce(),
                     'access_key'       => $this->_accessKeyId,
                     'base_sdk_version' => 'TeaSDK-2.0',
-                    'sdk_version'      => '1.13.20',
+                    'sdk_version'      => '1.13.23',
                     '_prod_code'       => 'TWC',
                     '_prod_channel'    => 'undefined',
                 ];
@@ -5783,6 +5793,39 @@ class Client
         Utils::validateModel($request);
 
         return FinishContractFlowResponse::fromMap($this->doRequest('1.0', 'twc.notary.contract.flow.finish', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: e签宝合规改造外部账号信息查询
+     * Summary: e签宝合规改造外部账号信息查询.
+     *
+     * @param QueryContractEsignaccountRequest $request
+     *
+     * @return QueryContractEsignaccountResponse
+     */
+    public function queryContractEsignaccount($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->queryContractEsignaccountEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: e签宝合规改造外部账号信息查询
+     * Summary: e签宝合规改造外部账号信息查询.
+     *
+     * @param QueryContractEsignaccountRequest $request
+     * @param string[]                         $headers
+     * @param RuntimeOptions                   $runtime
+     *
+     * @return QueryContractEsignaccountResponse
+     */
+    public function queryContractEsignaccountEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return QueryContractEsignaccountResponse::fromMap($this->doRequest('1.0', 'twc.notary.contract.esignaccount.query', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
     }
 
     /**
@@ -12878,5 +12921,137 @@ class Client
         Utils::validateModel($request);
 
         return UploadTrafficOperatelogResponse::fromMap($this->doRequest('1.0', 'twc.notary.traffic.operatelog.upload', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: e签宝组织机构外部账号查询开放文档
+     * Summary: e签宝组织机构外部账号查询开放文档.
+     *
+     * @param QueryContractEsignorgRequest $request
+     *
+     * @return QueryContractEsignorgResponse
+     */
+    public function queryContractEsignorg($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->queryContractEsignorgEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: e签宝组织机构外部账号查询开放文档
+     * Summary: e签宝组织机构外部账号查询开放文档.
+     *
+     * @param QueryContractEsignorgRequest $request
+     * @param string[]                     $headers
+     * @param RuntimeOptions               $runtime
+     *
+     * @return QueryContractEsignorgResponse
+     */
+    public function queryContractEsignorgEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return QueryContractEsignorgResponse::fromMap($this->doRequest('1.0', 'twc.notary.contract.esignorg.query', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: e签宝用户信息外部账号查询开放文档
+     * Summary: e签宝用户信息外部账号查询开放文档.
+     *
+     * @param QueryContractEsignuserRequest $request
+     *
+     * @return QueryContractEsignuserResponse
+     */
+    public function queryContractEsignuser($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->queryContractEsignuserEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: e签宝用户信息外部账号查询开放文档
+     * Summary: e签宝用户信息外部账号查询开放文档.
+     *
+     * @param QueryContractEsignuserRequest $request
+     * @param string[]                      $headers
+     * @param RuntimeOptions                $runtime
+     *
+     * @return QueryContractEsignuserResponse
+     */
+    public function queryContractEsignuserEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return QueryContractEsignuserResponse::fromMap($this->doRequest('1.0', 'twc.notary.contract.esignuser.query', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 测试
+     * Summary: 测试.
+     *
+     * @param ImportContractUserRequest $request
+     *
+     * @return ImportContractUserResponse
+     */
+    public function importContractUser($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->importContractUserEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 测试
+     * Summary: 测试.
+     *
+     * @param ImportContractUserRequest $request
+     * @param string[]                  $headers
+     * @param RuntimeOptions            $runtime
+     *
+     * @return ImportContractUserResponse
+     */
+    public function importContractUserEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return ImportContractUserResponse::fromMap($this->doRequest('1.0', 'twc.notary.contract.user.import', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: e签宝合规改造外部账号信息查询
+     * Summary: e签宝合规改造外部账号信息查询.
+     *
+     * @param QueryEsignAccountRequest $request
+     *
+     * @return QueryEsignAccountResponse
+     */
+    public function queryEsignAccount($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->queryEsignAccountEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: e签宝合规改造外部账号信息查询
+     * Summary: e签宝合规改造外部账号信息查询.
+     *
+     * @param QueryEsignAccountRequest $request
+     * @param string[]                 $headers
+     * @param RuntimeOptions           $runtime
+     *
+     * @return QueryEsignAccountResponse
+     */
+    public function queryEsignAccountEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return QueryEsignAccountResponse::fromMap($this->doRequest('1.0', 'twc.notary.esign.account.query', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
     }
 }

@@ -113,6 +113,14 @@ class AntSignUserInfoRequest extends Model
      * @var string[]
      */
     public $sealSourceTypes;
+
+    // 法务电子签签署完重定向链接
+    /**
+     * @example https://twcuniversal-sit.dl.alipaydev.com/web/eletriCombineSign
+     *
+     * @var string
+     */
+    public $redirectUrl;
     protected $_name = [
         'signUserId'                  => 'sign_user_id',
         'ourCorp'                     => 'our_corp',
@@ -127,6 +135,7 @@ class AntSignUserInfoRequest extends Model
         'order'                       => 'order',
         'autoSign'                    => 'auto_sign',
         'sealSourceTypes'             => 'seal_source_types',
+        'redirectUrl'                 => 'redirect_url',
     ];
 
     public function validate()
@@ -138,6 +147,7 @@ class AntSignUserInfoRequest extends Model
         Model::validateRequired('signerCertType', $this->signerCertType, true);
         Model::validateRequired('signerCertNumber', $this->signerCertNumber, true);
         Model::validateRequired('autoSign', $this->autoSign, true);
+        Model::validateRequired('redirectUrl', $this->redirectUrl, true);
     }
 
     public function toMap()
@@ -187,6 +197,9 @@ class AntSignUserInfoRequest extends Model
         }
         if (null !== $this->sealSourceTypes) {
             $res['seal_source_types'] = $this->sealSourceTypes;
+        }
+        if (null !== $this->redirectUrl) {
+            $res['redirect_url'] = $this->redirectUrl;
         }
 
         return $res;
@@ -246,6 +259,9 @@ class AntSignUserInfoRequest extends Model
             if (!empty($map['seal_source_types'])) {
                 $model->sealSourceTypes = $map['seal_source_types'];
             }
+        }
+        if (isset($map['redirect_url'])) {
+            $model->redirectUrl = $map['redirect_url'];
         }
 
         return $model;
