@@ -113,6 +113,15 @@ public class AntSignUserInfoRequest extends TeaModel {
     @NameInMap("seal_source_types")
     public java.util.List<String> sealSourceTypes;
 
+    // 法务电子签签署完重定向链接
+    /**
+     * <strong>example:</strong>
+     * <p><a href="https://twcuniversal-sit.dl.alipaydev.com/web/eletriCombineSign">https://twcuniversal-sit.dl.alipaydev.com/web/eletriCombineSign</a></p>
+     */
+    @NameInMap("redirect_url")
+    @Validation(required = true)
+    public String redirectUrl;
+
     public static AntSignUserInfoRequest build(java.util.Map<String, ?> map) throws Exception {
         AntSignUserInfoRequest self = new AntSignUserInfoRequest();
         return TeaModel.build(map, self);
@@ -220,6 +229,14 @@ public class AntSignUserInfoRequest extends TeaModel {
     }
     public java.util.List<String> getSealSourceTypes() {
         return this.sealSourceTypes;
+    }
+
+    public AntSignUserInfoRequest setRedirectUrl(String redirectUrl) {
+        this.redirectUrl = redirectUrl;
+        return this;
+    }
+    public String getRedirectUrl() {
+        return this.redirectUrl;
     }
 
 }

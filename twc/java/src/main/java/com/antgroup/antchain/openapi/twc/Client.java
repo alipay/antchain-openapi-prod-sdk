@@ -126,7 +126,7 @@ public class Client {
                     new TeaPair("req_msg_id", com.antgroup.antchain.openapi.antchain.util.AntchainUtils.getNonce()),
                     new TeaPair("access_key", _accessKeyId),
                     new TeaPair("base_sdk_version", "TeaSDK-2.0"),
-                    new TeaPair("sdk_version", "1.13.20"),
+                    new TeaPair("sdk_version", "1.13.23"),
                     new TeaPair("_prod_code", "TWC"),
                     new TeaPair("_prod_channel", "undefined")
                 );
@@ -3275,6 +3275,27 @@ public class Client {
     public FinishContractFlowResponse finishContractFlowEx(FinishContractFlowRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
         com.aliyun.teautil.Common.validateModel(request);
         return TeaModel.toModel(this.doRequest("1.0", "twc.notary.contract.flow.finish", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new FinishContractFlowResponse());
+    }
+
+    /**
+     * <b>description</b> :
+     * <p>Description: e签宝合规改造外部账号信息查询
+     * Summary: e签宝合规改造外部账号信息查询</p>
+     */
+    public QueryContractEsignaccountResponse queryContractEsignaccount(QueryContractEsignaccountRequest request) throws Exception {
+        com.aliyun.teautil.models.RuntimeOptions runtime = new com.aliyun.teautil.models.RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.queryContractEsignaccountEx(request, headers, runtime);
+    }
+
+    /**
+     * <b>description</b> :
+     * <p>Description: e签宝合规改造外部账号信息查询
+     * Summary: e签宝合规改造外部账号信息查询</p>
+     */
+    public QueryContractEsignaccountResponse queryContractEsignaccountEx(QueryContractEsignaccountRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "twc.notary.contract.esignaccount.query", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new QueryContractEsignaccountResponse());
     }
 
     /**
@@ -7790,5 +7811,89 @@ public class Client {
     public UploadTrafficOperatelogResponse uploadTrafficOperatelogEx(UploadTrafficOperatelogRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
         com.aliyun.teautil.Common.validateModel(request);
         return TeaModel.toModel(this.doRequest("1.0", "twc.notary.traffic.operatelog.upload", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new UploadTrafficOperatelogResponse());
+    }
+
+    /**
+     * <b>description</b> :
+     * <p>Description: e签宝组织机构外部账号查询开放文档
+     * Summary: e签宝组织机构外部账号查询开放文档</p>
+     */
+    public QueryContractEsignorgResponse queryContractEsignorg(QueryContractEsignorgRequest request) throws Exception {
+        com.aliyun.teautil.models.RuntimeOptions runtime = new com.aliyun.teautil.models.RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.queryContractEsignorgEx(request, headers, runtime);
+    }
+
+    /**
+     * <b>description</b> :
+     * <p>Description: e签宝组织机构外部账号查询开放文档
+     * Summary: e签宝组织机构外部账号查询开放文档</p>
+     */
+    public QueryContractEsignorgResponse queryContractEsignorgEx(QueryContractEsignorgRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "twc.notary.contract.esignorg.query", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new QueryContractEsignorgResponse());
+    }
+
+    /**
+     * <b>description</b> :
+     * <p>Description: e签宝用户信息外部账号查询开放文档
+     * Summary: e签宝用户信息外部账号查询开放文档</p>
+     */
+    public QueryContractEsignuserResponse queryContractEsignuser(QueryContractEsignuserRequest request) throws Exception {
+        com.aliyun.teautil.models.RuntimeOptions runtime = new com.aliyun.teautil.models.RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.queryContractEsignuserEx(request, headers, runtime);
+    }
+
+    /**
+     * <b>description</b> :
+     * <p>Description: e签宝用户信息外部账号查询开放文档
+     * Summary: e签宝用户信息外部账号查询开放文档</p>
+     */
+    public QueryContractEsignuserResponse queryContractEsignuserEx(QueryContractEsignuserRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "twc.notary.contract.esignuser.query", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new QueryContractEsignuserResponse());
+    }
+
+    /**
+     * <b>description</b> :
+     * <p>Description: 测试
+     * Summary: 测试</p>
+     */
+    public ImportContractUserResponse importContractUser(ImportContractUserRequest request) throws Exception {
+        com.aliyun.teautil.models.RuntimeOptions runtime = new com.aliyun.teautil.models.RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.importContractUserEx(request, headers, runtime);
+    }
+
+    /**
+     * <b>description</b> :
+     * <p>Description: 测试
+     * Summary: 测试</p>
+     */
+    public ImportContractUserResponse importContractUserEx(ImportContractUserRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "twc.notary.contract.user.import", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new ImportContractUserResponse());
+    }
+
+    /**
+     * <b>description</b> :
+     * <p>Description: e签宝合规改造外部账号信息查询
+     * Summary: e签宝合规改造外部账号信息查询</p>
+     */
+    public QueryEsignAccountResponse queryEsignAccount(QueryEsignAccountRequest request) throws Exception {
+        com.aliyun.teautil.models.RuntimeOptions runtime = new com.aliyun.teautil.models.RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.queryEsignAccountEx(request, headers, runtime);
+    }
+
+    /**
+     * <b>description</b> :
+     * <p>Description: e签宝合规改造外部账号信息查询
+     * Summary: e签宝合规改造外部账号信息查询</p>
+     */
+    public QueryEsignAccountResponse queryEsignAccountEx(QueryEsignAccountRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "twc.notary.esign.account.query", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new QueryEsignAccountResponse());
     }
 }
