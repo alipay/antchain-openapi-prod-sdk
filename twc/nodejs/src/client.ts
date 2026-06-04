@@ -671,6 +671,8 @@ export class AntSignUserInfoRequest extends $tea.Model {
   autoSign: boolean;
   // 签署方签署操作人签署时支持的印章来源类型目前支持上传公章(UPLOAD)、手写签名(PERSONAL)
   sealSourceTypes?: string[];
+  // 法务电子签签署完重定向链接
+  redirectUrl: string;
   static names(): { [key: string]: string } {
     return {
       signUserId: 'sign_user_id',
@@ -686,6 +688,7 @@ export class AntSignUserInfoRequest extends $tea.Model {
       order: 'order',
       autoSign: 'auto_sign',
       sealSourceTypes: 'seal_source_types',
+      redirectUrl: 'redirect_url',
     };
   }
 
@@ -704,6 +707,7 @@ export class AntSignUserInfoRequest extends $tea.Model {
       order: 'number',
       autoSign: 'boolean',
       sealSourceTypes: { 'type': 'array', 'itemType': 'string' },
+      redirectUrl: 'string',
     };
   }
 
@@ -19003,6 +19007,109 @@ export class FinishContractFlowResponse extends $tea.Model {
       resultCode: 'string',
       resultMsg: 'string',
       success: 'boolean',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class QueryContractEsignaccountRequest extends $tea.Model {
+  // OAuth模式下的授权token
+  authToken?: string;
+  productInstanceId?: string;
+  // 三方账号id
+  thirdPartyUserId: string;
+  // 用户类型
+  userType: string;
+  static names(): { [key: string]: string } {
+    return {
+      authToken: 'auth_token',
+      productInstanceId: 'product_instance_id',
+      thirdPartyUserId: 'third_party_user_id',
+      userType: 'user_type',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      authToken: 'string',
+      productInstanceId: 'string',
+      thirdPartyUserId: 'string',
+      userType: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class QueryContractEsignaccountResponse extends $tea.Model {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string;
+  // 结果码，一般OK表示调用成功
+  resultCode?: string;
+  // 异常信息的文本描述
+  resultMsg?: string;
+  // 账号id
+  accountId?: string;
+  // 名称
+  name?: string;
+  // 证件类型
+  idType?: string;
+  // 证件号
+  idNumber?: string;
+  // 机构法定代表人证件号
+  orgLegalIdNumber?: string;
+  // 机构法定代表人名称
+  orgLegalName?: string;
+  // 创建账号的唯一标识
+  thirdPartyUserid?: string;
+  // 手机号
+  mobile?: string;
+  // 邮箱
+  email?: string;
+  // 授权生效时间（时间是unix时间戳（毫秒）格式）
+  authStartTime?: string;
+  // 授权失效时间（时间是unix时间戳（毫秒）格式）
+  authEndTime?: string;
+  static names(): { [key: string]: string } {
+    return {
+      reqMsgId: 'req_msg_id',
+      resultCode: 'result_code',
+      resultMsg: 'result_msg',
+      accountId: 'account_id',
+      name: 'name',
+      idType: 'id_type',
+      idNumber: 'id_number',
+      orgLegalIdNumber: 'org_legal_id_number',
+      orgLegalName: 'org_legal_name',
+      thirdPartyUserid: 'third_party_userid',
+      mobile: 'mobile',
+      email: 'email',
+      authStartTime: 'auth_start_time',
+      authEndTime: 'auth_end_time',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      reqMsgId: 'string',
+      resultCode: 'string',
+      resultMsg: 'string',
+      accountId: 'string',
+      name: 'string',
+      idType: 'string',
+      idNumber: 'string',
+      orgLegalIdNumber: 'string',
+      orgLegalName: 'string',
+      thirdPartyUserid: 'string',
+      mobile: 'string',
+      email: 'string',
+      authStartTime: 'string',
+      authEndTime: 'string',
     };
   }
 
@@ -37574,6 +37681,334 @@ export class UploadTrafficOperatelogResponse extends $tea.Model {
   }
 }
 
+export class QueryContractEsignorgRequest extends $tea.Model {
+  // OAuth模式下的授权token
+  authToken?: string;
+  productInstanceId?: string;
+  // 三方用户id
+  thirdPartyUserId: string;
+  static names(): { [key: string]: string } {
+    return {
+      authToken: 'auth_token',
+      productInstanceId: 'product_instance_id',
+      thirdPartyUserId: 'third_party_user_id',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      authToken: 'string',
+      productInstanceId: 'string',
+      thirdPartyUserId: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class QueryContractEsignorgResponse extends $tea.Model {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string;
+  // 结果码，一般OK表示调用成功
+  resultCode?: string;
+  // 异常信息的文本描述
+  resultMsg?: string;
+  // e签宝返回码
+  code?: number;
+  // 业务描述信息
+  message?: string;
+  // 机构账户id
+  orgId?: string;
+  // 机构名称
+  name?: string;
+  // 证件类型
+  idType?: string;
+  // 证件号码
+  idNumber?: string;
+  // 法人证件号码
+  orgLegalIdNumber?: string;
+  // 法人名称
+  orgLegalName?: string;
+  // 第三方平台的用户ID
+  thirdPartyUserId?: string;
+  static names(): { [key: string]: string } {
+    return {
+      reqMsgId: 'req_msg_id',
+      resultCode: 'result_code',
+      resultMsg: 'result_msg',
+      code: 'code',
+      message: 'message',
+      orgId: 'org_id',
+      name: 'name',
+      idType: 'id_type',
+      idNumber: 'id_number',
+      orgLegalIdNumber: 'org_legal_id_number',
+      orgLegalName: 'org_legal_name',
+      thirdPartyUserId: 'third_party_user_id',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      reqMsgId: 'string',
+      resultCode: 'string',
+      resultMsg: 'string',
+      code: 'number',
+      message: 'string',
+      orgId: 'string',
+      name: 'string',
+      idType: 'string',
+      idNumber: 'string',
+      orgLegalIdNumber: 'string',
+      orgLegalName: 'string',
+      thirdPartyUserId: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class QueryContractEsignuserRequest extends $tea.Model {
+  // OAuth模式下的授权token
+  authToken?: string;
+  productInstanceId?: string;
+  // 三方用户id
+  thirdPartyUserId: string;
+  static names(): { [key: string]: string } {
+    return {
+      authToken: 'auth_token',
+      productInstanceId: 'product_instance_id',
+      thirdPartyUserId: 'third_party_user_id',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      authToken: 'string',
+      productInstanceId: 'string',
+      thirdPartyUserId: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class QueryContractEsignuserResponse extends $tea.Model {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string;
+  // 结果码，一般OK表示调用成功
+  resultCode?: string;
+  // 异常信息的文本描述
+  resultMsg?: string;
+  // e签宝返回码
+  code?: number;
+  // 业务描述信息
+  message?: string;
+  // 账号id
+  accountId?: string;
+  // 用户名称
+  name?: string;
+  // 证件类型
+  idType?: string;
+  // 证件号码
+  idNumber?: string;
+  // 手机号
+  mobile?: string;
+  // 邮箱
+  email?: string;
+  // 第三方平台的用户ID
+  thirdPartyUserId?: string;
+  static names(): { [key: string]: string } {
+    return {
+      reqMsgId: 'req_msg_id',
+      resultCode: 'result_code',
+      resultMsg: 'result_msg',
+      code: 'code',
+      message: 'message',
+      accountId: 'account_id',
+      name: 'name',
+      idType: 'id_type',
+      idNumber: 'id_number',
+      mobile: 'mobile',
+      email: 'email',
+      thirdPartyUserId: 'third_party_user_id',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      reqMsgId: 'string',
+      resultCode: 'string',
+      resultMsg: 'string',
+      code: 'number',
+      message: 'string',
+      accountId: 'string',
+      name: 'string',
+      idType: 'string',
+      idNumber: 'string',
+      mobile: 'string',
+      email: 'string',
+      thirdPartyUserId: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class ImportContractUserRequest extends $tea.Model {
+  // OAuth模式下的授权token
+  authToken?: string;
+  productInstanceId?: string;
+  static names(): { [key: string]: string } {
+    return {
+      authToken: 'auth_token',
+      productInstanceId: 'product_instance_id',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      authToken: 'string',
+      productInstanceId: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class ImportContractUserResponse extends $tea.Model {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string;
+  // 结果码，一般OK表示调用成功
+  resultCode?: string;
+  // 异常信息的文本描述
+  resultMsg?: string;
+  static names(): { [key: string]: string } {
+    return {
+      reqMsgId: 'req_msg_id',
+      resultCode: 'result_code',
+      resultMsg: 'result_msg',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      reqMsgId: 'string',
+      resultCode: 'string',
+      resultMsg: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class QueryEsignAccountRequest extends $tea.Model {
+  // OAuth模式下的授权token
+  authToken?: string;
+  productInstanceId?: string;
+  // 三方账号id
+  thirdPartyUserId: string;
+  // 用户类型
+  userType: string;
+  static names(): { [key: string]: string } {
+    return {
+      authToken: 'auth_token',
+      productInstanceId: 'product_instance_id',
+      thirdPartyUserId: 'third_party_user_id',
+      userType: 'user_type',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      authToken: 'string',
+      productInstanceId: 'string',
+      thirdPartyUserId: 'string',
+      userType: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class QueryEsignAccountResponse extends $tea.Model {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string;
+  // 结果码，一般OK表示调用成功
+  resultCode?: string;
+  // 异常信息的文本描述
+  resultMsg?: string;
+  // 账号id
+  accountId?: string;
+  // 名称
+  name?: string;
+  // 证件类型
+  idType?: string;
+  // 证件号
+  idNumber?: string;
+  // 机构法定代表人证件号
+  orgLegalIdNumber?: string;
+  // 机构法定代表人名称
+  orgLegalName?: string;
+  // 创建账号的唯一标识
+  thirdPartyUserId?: string;
+  // 手机号
+  mobile?: string;
+  // 邮箱
+  email?: string;
+  static names(): { [key: string]: string } {
+    return {
+      reqMsgId: 'req_msg_id',
+      resultCode: 'result_code',
+      resultMsg: 'result_msg',
+      accountId: 'account_id',
+      name: 'name',
+      idType: 'id_type',
+      idNumber: 'id_number',
+      orgLegalIdNumber: 'org_legal_id_number',
+      orgLegalName: 'org_legal_name',
+      thirdPartyUserId: 'third_party_user_id',
+      mobile: 'mobile',
+      email: 'email',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      reqMsgId: 'string',
+      resultCode: 'string',
+      resultMsg: 'string',
+      accountId: 'string',
+      name: 'string',
+      idType: 'string',
+      idNumber: 'string',
+      orgLegalIdNumber: 'string',
+      orgLegalName: 'string',
+      thirdPartyUserId: 'string',
+      mobile: 'string',
+      email: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
 
 export default class Client {
   _endpoint: string;
@@ -37687,7 +38122,7 @@ export default class Client {
           req_msg_id: AntchainUtil.getNonce(),
           access_key: this._accessKeyId,
           base_sdk_version: "TeaSDK-2.0",
-          sdk_version: "1.13.20",
+          sdk_version: "1.13.23",
           _prod_code: "TWC",
           _prod_channel: "undefined",
         };
@@ -40530,6 +40965,25 @@ export default class Client {
   async finishContractFlowEx(request: FinishContractFlowRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<FinishContractFlowResponse> {
     Util.validateModel(request);
     return $tea.cast<FinishContractFlowResponse>(await this.doRequest("1.0", "twc.notary.contract.flow.finish", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new FinishContractFlowResponse({}));
+  }
+
+  /**
+   * Description: e签宝合规改造外部账号信息查询
+   * Summary: e签宝合规改造外部账号信息查询
+   */
+  async queryContractEsignaccount(request: QueryContractEsignaccountRequest): Promise<QueryContractEsignaccountResponse> {
+    let runtime = new $Util.RuntimeOptions({ });
+    let headers : {[key: string ]: string} = { };
+    return await this.queryContractEsignaccountEx(request, headers, runtime);
+  }
+
+  /**
+   * Description: e签宝合规改造外部账号信息查询
+   * Summary: e签宝合规改造外部账号信息查询
+   */
+  async queryContractEsignaccountEx(request: QueryContractEsignaccountRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<QueryContractEsignaccountResponse> {
+    Util.validateModel(request);
+    return $tea.cast<QueryContractEsignaccountResponse>(await this.doRequest("1.0", "twc.notary.contract.esignaccount.query", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new QueryContractEsignaccountResponse({}));
   }
 
   /**
@@ -44615,6 +45069,82 @@ export default class Client {
   async uploadTrafficOperatelogEx(request: UploadTrafficOperatelogRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<UploadTrafficOperatelogResponse> {
     Util.validateModel(request);
     return $tea.cast<UploadTrafficOperatelogResponse>(await this.doRequest("1.0", "twc.notary.traffic.operatelog.upload", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new UploadTrafficOperatelogResponse({}));
+  }
+
+  /**
+   * Description: e签宝组织机构外部账号查询开放文档
+   * Summary: e签宝组织机构外部账号查询开放文档
+   */
+  async queryContractEsignorg(request: QueryContractEsignorgRequest): Promise<QueryContractEsignorgResponse> {
+    let runtime = new $Util.RuntimeOptions({ });
+    let headers : {[key: string ]: string} = { };
+    return await this.queryContractEsignorgEx(request, headers, runtime);
+  }
+
+  /**
+   * Description: e签宝组织机构外部账号查询开放文档
+   * Summary: e签宝组织机构外部账号查询开放文档
+   */
+  async queryContractEsignorgEx(request: QueryContractEsignorgRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<QueryContractEsignorgResponse> {
+    Util.validateModel(request);
+    return $tea.cast<QueryContractEsignorgResponse>(await this.doRequest("1.0", "twc.notary.contract.esignorg.query", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new QueryContractEsignorgResponse({}));
+  }
+
+  /**
+   * Description: e签宝用户信息外部账号查询开放文档
+   * Summary: e签宝用户信息外部账号查询开放文档
+   */
+  async queryContractEsignuser(request: QueryContractEsignuserRequest): Promise<QueryContractEsignuserResponse> {
+    let runtime = new $Util.RuntimeOptions({ });
+    let headers : {[key: string ]: string} = { };
+    return await this.queryContractEsignuserEx(request, headers, runtime);
+  }
+
+  /**
+   * Description: e签宝用户信息外部账号查询开放文档
+   * Summary: e签宝用户信息外部账号查询开放文档
+   */
+  async queryContractEsignuserEx(request: QueryContractEsignuserRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<QueryContractEsignuserResponse> {
+    Util.validateModel(request);
+    return $tea.cast<QueryContractEsignuserResponse>(await this.doRequest("1.0", "twc.notary.contract.esignuser.query", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new QueryContractEsignuserResponse({}));
+  }
+
+  /**
+   * Description: 测试
+   * Summary: 测试
+   */
+  async importContractUser(request: ImportContractUserRequest): Promise<ImportContractUserResponse> {
+    let runtime = new $Util.RuntimeOptions({ });
+    let headers : {[key: string ]: string} = { };
+    return await this.importContractUserEx(request, headers, runtime);
+  }
+
+  /**
+   * Description: 测试
+   * Summary: 测试
+   */
+  async importContractUserEx(request: ImportContractUserRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<ImportContractUserResponse> {
+    Util.validateModel(request);
+    return $tea.cast<ImportContractUserResponse>(await this.doRequest("1.0", "twc.notary.contract.user.import", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new ImportContractUserResponse({}));
+  }
+
+  /**
+   * Description: e签宝合规改造外部账号信息查询
+   * Summary: e签宝合规改造外部账号信息查询
+   */
+  async queryEsignAccount(request: QueryEsignAccountRequest): Promise<QueryEsignAccountResponse> {
+    let runtime = new $Util.RuntimeOptions({ });
+    let headers : {[key: string ]: string} = { };
+    return await this.queryEsignAccountEx(request, headers, runtime);
+  }
+
+  /**
+   * Description: e签宝合规改造外部账号信息查询
+   * Summary: e签宝合规改造外部账号信息查询
+   */
+  async queryEsignAccountEx(request: QueryEsignAccountRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<QueryEsignAccountResponse> {
+    Util.validateModel(request);
+    return $tea.cast<QueryEsignAccountResponse>(await this.doRequest("1.0", "twc.notary.esign.account.query", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new QueryEsignAccountResponse({}));
   }
 
 }
