@@ -24,7 +24,7 @@ from setuptools import setup, find_packages
 """
 setup module for antchain_aigc.
 
-Created on 02/06/2026
+Created on 04/06/2026
 
 @author: Ant Chain SDK
 """
