@@ -100,7 +100,7 @@ api doRequest(version: string, action: string, protocol: string, method: string,
     req_msg_id = AntchainUtil.getNonce(),
     access_key = @accessKeyId,
     base_sdk_version = 'TeaSDK-2.0',
-    sdk_version = '1.13.20',
+    sdk_version = '1.13.23',
     _prod_code = 'TWC',
     _prod_channel = 'undefined'
   };
@@ -436,6 +436,8 @@ model AntSignUserInfoRequest {
   autoSign: boolean(name='auto_sign', example='true, false'),
   // 签署方签署操作人签署时支持的印章来源类型目前支持上传公章(UPLOAD)、手写签名(PERSONAL)
   sealSourceTypes?: [ string ](name='seal_source_types', example='["UPLOAD","PERSONAL"]'),
+  // 法务电子签签署完重定向链接
+  redirectUrl: string(name='redirect_url', example='https://twcuniversal-sit.dl.alipaydev.com/web/eletriCombineSign'),
 }
 
 // 订单信息
@@ -10383,6 +10385,66 @@ async function finishContractFlow(request: FinishContractFlowRequest): FinishCon
 async function finishContractFlowEx(request: FinishContractFlowRequest, headers: map[string]string, runtime: Util.RuntimeOptions): FinishContractFlowResponse {
   Util.validateModel(request);
   return doRequest('1.0' ,'twc.notary.contract.flow.finish', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model QueryContractEsignaccountRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 三方账号id
+  thirdPartyUserId: string(name='third_party_user_id'),
+  // 用户类型
+  userType: string(name='user_type'),
+}
+
+model QueryContractEsignaccountResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 账号id
+  accountId?: string(name='account_id'),
+  // 名称
+  name?: string(name='name'),
+  // 证件类型
+  idType?: string(name='id_type'),
+  // 证件号
+  idNumber?: string(name='id_number'),
+  // 机构法定代表人证件号
+  orgLegalIdNumber?: string(name='org_legal_id_number'),
+  // 机构法定代表人名称
+  orgLegalName?: string(name='org_legal_name'),
+  // 创建账号的唯一标识
+  thirdPartyUserid?: string(name='third_party_userid'),
+  // 手机号
+  mobile?: string(name='mobile'),
+  // 邮箱
+  email?: string(name='email'),
+  // 授权生效时间（时间是unix时间戳（毫秒）格式）
+  authStartTime?: string(name='auth_start_time'),
+  // 授权失效时间（时间是unix时间戳（毫秒）格式）
+  authEndTime?: string(name='auth_end_time'),
+}
+
+/**
+ * Description: e签宝合规改造外部账号信息查询
+ * Summary: e签宝合规改造外部账号信息查询
+ */
+async function queryContractEsignaccount(request: QueryContractEsignaccountRequest): QueryContractEsignaccountResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return queryContractEsignaccountEx(request, headers, runtime);
+}
+
+/**
+ * Description: e签宝合规改造外部账号信息查询
+ * Summary: e签宝合规改造外部账号信息查询
+ */
+async function queryContractEsignaccountEx(request: QueryContractEsignaccountRequest, headers: map[string]string, runtime: Util.RuntimeOptions): QueryContractEsignaccountResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'twc.notary.contract.esignaccount.query', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
 }
 
 model PushDigitalcontentUsageRequest = {
@@ -21591,5 +21653,203 @@ async function uploadTrafficOperatelog(request: UploadTrafficOperatelogRequest):
 async function uploadTrafficOperatelogEx(request: UploadTrafficOperatelogRequest, headers: map[string]string, runtime: Util.RuntimeOptions): UploadTrafficOperatelogResponse {
   Util.validateModel(request);
   return doRequest('1.0' ,'twc.notary.traffic.operatelog.upload', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model QueryContractEsignorgRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 三方用户id
+  thirdPartyUserId: string(name='third_party_user_id'),
+}
+
+model QueryContractEsignorgResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // e签宝返回码
+  code?: long(name='code'),
+  // 业务描述信息
+  message?: string(name='message'),
+  // 机构账户id
+  orgId?: string(name='org_id'),
+  // 机构名称
+  name?: string(name='name'),
+  // 证件类型
+  idType?: string(name='id_type'),
+  // 证件号码
+  idNumber?: string(name='id_number'),
+  // 法人证件号码
+  orgLegalIdNumber?: string(name='org_legal_id_number'),
+  // 法人名称
+  orgLegalName?: string(name='org_legal_name'),
+  // 第三方平台的用户ID
+  thirdPartyUserId?: string(name='third_party_user_id'),
+}
+
+/**
+ * Description: e签宝组织机构外部账号查询开放文档
+ * Summary: e签宝组织机构外部账号查询开放文档
+ */
+async function queryContractEsignorg(request: QueryContractEsignorgRequest): QueryContractEsignorgResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return queryContractEsignorgEx(request, headers, runtime);
+}
+
+/**
+ * Description: e签宝组织机构外部账号查询开放文档
+ * Summary: e签宝组织机构外部账号查询开放文档
+ */
+async function queryContractEsignorgEx(request: QueryContractEsignorgRequest, headers: map[string]string, runtime: Util.RuntimeOptions): QueryContractEsignorgResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'twc.notary.contract.esignorg.query', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model QueryContractEsignuserRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 三方用户id
+  thirdPartyUserId: string(name='third_party_user_id'),
+}
+
+model QueryContractEsignuserResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // e签宝返回码
+  code?: long(name='code'),
+  // 业务描述信息
+  message?: string(name='message'),
+  // 账号id
+  accountId?: string(name='account_id'),
+  // 用户名称
+  name?: string(name='name'),
+  // 证件类型
+  idType?: string(name='id_type'),
+  // 证件号码
+  idNumber?: string(name='id_number'),
+  // 手机号
+  mobile?: string(name='mobile'),
+  // 邮箱
+  email?: string(name='email'),
+  // 第三方平台的用户ID
+  thirdPartyUserId?: string(name='third_party_user_id'),
+}
+
+/**
+ * Description: e签宝用户信息外部账号查询开放文档
+ * Summary: e签宝用户信息外部账号查询开放文档
+ */
+async function queryContractEsignuser(request: QueryContractEsignuserRequest): QueryContractEsignuserResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return queryContractEsignuserEx(request, headers, runtime);
+}
+
+/**
+ * Description: e签宝用户信息外部账号查询开放文档
+ * Summary: e签宝用户信息外部账号查询开放文档
+ */
+async function queryContractEsignuserEx(request: QueryContractEsignuserRequest, headers: map[string]string, runtime: Util.RuntimeOptions): QueryContractEsignuserResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'twc.notary.contract.esignuser.query', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model ImportContractUserRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+}
+
+model ImportContractUserResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+}
+
+/**
+ * Description: 测试
+ * Summary: 测试
+ */
+async function importContractUser(request: ImportContractUserRequest): ImportContractUserResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return importContractUserEx(request, headers, runtime);
+}
+
+/**
+ * Description: 测试
+ * Summary: 测试
+ */
+async function importContractUserEx(request: ImportContractUserRequest, headers: map[string]string, runtime: Util.RuntimeOptions): ImportContractUserResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'twc.notary.contract.user.import', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model QueryEsignAccountRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 三方账号id
+  thirdPartyUserId: string(name='third_party_user_id'),
+  // 用户类型
+  userType: string(name='user_type'),
+}
+
+model QueryEsignAccountResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 账号id
+  accountId?: string(name='account_id'),
+  // 名称
+  name?: string(name='name'),
+  // 证件类型
+  idType?: string(name='id_type'),
+  // 证件号
+  idNumber?: string(name='id_number'),
+  // 机构法定代表人证件号
+  orgLegalIdNumber?: string(name='org_legal_id_number'),
+  // 机构法定代表人名称
+  orgLegalName?: string(name='org_legal_name'),
+  // 创建账号的唯一标识
+  thirdPartyUserId?: string(name='third_party_user_id'),
+  // 手机号
+  mobile?: string(name='mobile'),
+  // 邮箱
+  email?: string(name='email'),
+}
+
+/**
+ * Description: e签宝合规改造外部账号信息查询
+ * Summary: e签宝合规改造外部账号信息查询
+ */
+async function queryEsignAccount(request: QueryEsignAccountRequest): QueryEsignAccountResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return queryEsignAccountEx(request, headers, runtime);
+}
+
+/**
+ * Description: e签宝合规改造外部账号信息查询
+ * Summary: e签宝合规改造外部账号信息查询
+ */
+async function queryEsignAccountEx(request: QueryEsignAccountRequest, headers: map[string]string, runtime: Util.RuntimeOptions): QueryEsignAccountResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'twc.notary.esign.account.query', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
 }
 
