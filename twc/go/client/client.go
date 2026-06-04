@@ -902,6 +902,8 @@ type AntSignUserInfoRequest struct {
 	AutoSign *bool `json:"auto_sign,omitempty" xml:"auto_sign,omitempty" require:"true"`
 	// 签署方签署操作人签署时支持的印章来源类型目前支持上传公章(UPLOAD)、手写签名(PERSONAL)
 	SealSourceTypes []*string `json:"seal_source_types,omitempty" xml:"seal_source_types,omitempty" type:"Repeated"`
+	// 法务电子签签署完重定向链接
+	RedirectUrl *string `json:"redirect_url,omitempty" xml:"redirect_url,omitempty" require:"true"`
 }
 
 func (s AntSignUserInfoRequest) String() string {
@@ -974,6 +976,11 @@ func (s *AntSignUserInfoRequest) SetAutoSign(v bool) *AntSignUserInfoRequest {
 
 func (s *AntSignUserInfoRequest) SetSealSourceTypes(v []*string) *AntSignUserInfoRequest {
 	s.SealSourceTypes = v
+	return s
+}
+
+func (s *AntSignUserInfoRequest) SetRedirectUrl(v string) *AntSignUserInfoRequest {
+	s.RedirectUrl = &v
 	return s
 }
 
@@ -25290,6 +25297,153 @@ func (s *FinishContractFlowResponse) SetResultMsg(v string) *FinishContractFlowR
 
 func (s *FinishContractFlowResponse) SetSuccess(v bool) *FinishContractFlowResponse {
 	s.Success = &v
+	return s
+}
+
+type QueryContractEsignaccountRequest struct {
+	// OAuth模式下的授权token
+	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
+	// 三方账号id
+	ThirdPartyUserId *string `json:"third_party_user_id,omitempty" xml:"third_party_user_id,omitempty" require:"true"`
+	// 用户类型
+	UserType *string `json:"user_type,omitempty" xml:"user_type,omitempty" require:"true"`
+}
+
+func (s QueryContractEsignaccountRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s QueryContractEsignaccountRequest) GoString() string {
+	return s.String()
+}
+
+func (s *QueryContractEsignaccountRequest) SetAuthToken(v string) *QueryContractEsignaccountRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *QueryContractEsignaccountRequest) SetProductInstanceId(v string) *QueryContractEsignaccountRequest {
+	s.ProductInstanceId = &v
+	return s
+}
+
+func (s *QueryContractEsignaccountRequest) SetThirdPartyUserId(v string) *QueryContractEsignaccountRequest {
+	s.ThirdPartyUserId = &v
+	return s
+}
+
+func (s *QueryContractEsignaccountRequest) SetUserType(v string) *QueryContractEsignaccountRequest {
+	s.UserType = &v
+	return s
+}
+
+type QueryContractEsignaccountResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// 账号id
+	AccountId *string `json:"account_id,omitempty" xml:"account_id,omitempty"`
+	// 名称
+	Name *string `json:"name,omitempty" xml:"name,omitempty"`
+	// 证件类型
+	IdType *string `json:"id_type,omitempty" xml:"id_type,omitempty"`
+	// 证件号
+	IdNumber *string `json:"id_number,omitempty" xml:"id_number,omitempty"`
+	// 机构法定代表人证件号
+	OrgLegalIdNumber *string `json:"org_legal_id_number,omitempty" xml:"org_legal_id_number,omitempty"`
+	// 机构法定代表人名称
+	OrgLegalName *string `json:"org_legal_name,omitempty" xml:"org_legal_name,omitempty"`
+	// 创建账号的唯一标识
+	ThirdPartyUserid *string `json:"third_party_userid,omitempty" xml:"third_party_userid,omitempty"`
+	// 手机号
+	Mobile *string `json:"mobile,omitempty" xml:"mobile,omitempty"`
+	// 邮箱
+	Email *string `json:"email,omitempty" xml:"email,omitempty"`
+	// 授权生效时间（时间是unix时间戳（毫秒）格式）
+	AuthStartTime *string `json:"auth_start_time,omitempty" xml:"auth_start_time,omitempty"`
+	// 授权失效时间（时间是unix时间戳（毫秒）格式）
+	AuthEndTime *string `json:"auth_end_time,omitempty" xml:"auth_end_time,omitempty"`
+}
+
+func (s QueryContractEsignaccountResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s QueryContractEsignaccountResponse) GoString() string {
+	return s.String()
+}
+
+func (s *QueryContractEsignaccountResponse) SetReqMsgId(v string) *QueryContractEsignaccountResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *QueryContractEsignaccountResponse) SetResultCode(v string) *QueryContractEsignaccountResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *QueryContractEsignaccountResponse) SetResultMsg(v string) *QueryContractEsignaccountResponse {
+	s.ResultMsg = &v
+	return s
+}
+
+func (s *QueryContractEsignaccountResponse) SetAccountId(v string) *QueryContractEsignaccountResponse {
+	s.AccountId = &v
+	return s
+}
+
+func (s *QueryContractEsignaccountResponse) SetName(v string) *QueryContractEsignaccountResponse {
+	s.Name = &v
+	return s
+}
+
+func (s *QueryContractEsignaccountResponse) SetIdType(v string) *QueryContractEsignaccountResponse {
+	s.IdType = &v
+	return s
+}
+
+func (s *QueryContractEsignaccountResponse) SetIdNumber(v string) *QueryContractEsignaccountResponse {
+	s.IdNumber = &v
+	return s
+}
+
+func (s *QueryContractEsignaccountResponse) SetOrgLegalIdNumber(v string) *QueryContractEsignaccountResponse {
+	s.OrgLegalIdNumber = &v
+	return s
+}
+
+func (s *QueryContractEsignaccountResponse) SetOrgLegalName(v string) *QueryContractEsignaccountResponse {
+	s.OrgLegalName = &v
+	return s
+}
+
+func (s *QueryContractEsignaccountResponse) SetThirdPartyUserid(v string) *QueryContractEsignaccountResponse {
+	s.ThirdPartyUserid = &v
+	return s
+}
+
+func (s *QueryContractEsignaccountResponse) SetMobile(v string) *QueryContractEsignaccountResponse {
+	s.Mobile = &v
+	return s
+}
+
+func (s *QueryContractEsignaccountResponse) SetEmail(v string) *QueryContractEsignaccountResponse {
+	s.Email = &v
+	return s
+}
+
+func (s *QueryContractEsignaccountResponse) SetAuthStartTime(v string) *QueryContractEsignaccountResponse {
+	s.AuthStartTime = &v
+	return s
+}
+
+func (s *QueryContractEsignaccountResponse) SetAuthEndTime(v string) *QueryContractEsignaccountResponse {
+	s.AuthEndTime = &v
 	return s
 }
 
@@ -50481,6 +50635,447 @@ func (s *UploadTrafficOperatelogResponse) SetUploadResult(v bool) *UploadTraffic
 	return s
 }
 
+type QueryContractEsignorgRequest struct {
+	// OAuth模式下的授权token
+	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
+	// 三方用户id
+	ThirdPartyUserId *string `json:"third_party_user_id,omitempty" xml:"third_party_user_id,omitempty" require:"true"`
+}
+
+func (s QueryContractEsignorgRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s QueryContractEsignorgRequest) GoString() string {
+	return s.String()
+}
+
+func (s *QueryContractEsignorgRequest) SetAuthToken(v string) *QueryContractEsignorgRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *QueryContractEsignorgRequest) SetProductInstanceId(v string) *QueryContractEsignorgRequest {
+	s.ProductInstanceId = &v
+	return s
+}
+
+func (s *QueryContractEsignorgRequest) SetThirdPartyUserId(v string) *QueryContractEsignorgRequest {
+	s.ThirdPartyUserId = &v
+	return s
+}
+
+type QueryContractEsignorgResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// e签宝返回码
+	Code *int64 `json:"code,omitempty" xml:"code,omitempty"`
+	// 业务描述信息
+	Message *string `json:"message,omitempty" xml:"message,omitempty"`
+	// 机构账户id
+	OrgId *string `json:"org_id,omitempty" xml:"org_id,omitempty"`
+	// 机构名称
+	Name *string `json:"name,omitempty" xml:"name,omitempty"`
+	// 证件类型
+	IdType *string `json:"id_type,omitempty" xml:"id_type,omitempty"`
+	// 证件号码
+	IdNumber *string `json:"id_number,omitempty" xml:"id_number,omitempty"`
+	// 法人证件号码
+	OrgLegalIdNumber *string `json:"org_legal_id_number,omitempty" xml:"org_legal_id_number,omitempty"`
+	// 法人名称
+	OrgLegalName *string `json:"org_legal_name,omitempty" xml:"org_legal_name,omitempty"`
+	// 第三方平台的用户ID
+	ThirdPartyUserId *string `json:"third_party_user_id,omitempty" xml:"third_party_user_id,omitempty"`
+}
+
+func (s QueryContractEsignorgResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s QueryContractEsignorgResponse) GoString() string {
+	return s.String()
+}
+
+func (s *QueryContractEsignorgResponse) SetReqMsgId(v string) *QueryContractEsignorgResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *QueryContractEsignorgResponse) SetResultCode(v string) *QueryContractEsignorgResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *QueryContractEsignorgResponse) SetResultMsg(v string) *QueryContractEsignorgResponse {
+	s.ResultMsg = &v
+	return s
+}
+
+func (s *QueryContractEsignorgResponse) SetCode(v int64) *QueryContractEsignorgResponse {
+	s.Code = &v
+	return s
+}
+
+func (s *QueryContractEsignorgResponse) SetMessage(v string) *QueryContractEsignorgResponse {
+	s.Message = &v
+	return s
+}
+
+func (s *QueryContractEsignorgResponse) SetOrgId(v string) *QueryContractEsignorgResponse {
+	s.OrgId = &v
+	return s
+}
+
+func (s *QueryContractEsignorgResponse) SetName(v string) *QueryContractEsignorgResponse {
+	s.Name = &v
+	return s
+}
+
+func (s *QueryContractEsignorgResponse) SetIdType(v string) *QueryContractEsignorgResponse {
+	s.IdType = &v
+	return s
+}
+
+func (s *QueryContractEsignorgResponse) SetIdNumber(v string) *QueryContractEsignorgResponse {
+	s.IdNumber = &v
+	return s
+}
+
+func (s *QueryContractEsignorgResponse) SetOrgLegalIdNumber(v string) *QueryContractEsignorgResponse {
+	s.OrgLegalIdNumber = &v
+	return s
+}
+
+func (s *QueryContractEsignorgResponse) SetOrgLegalName(v string) *QueryContractEsignorgResponse {
+	s.OrgLegalName = &v
+	return s
+}
+
+func (s *QueryContractEsignorgResponse) SetThirdPartyUserId(v string) *QueryContractEsignorgResponse {
+	s.ThirdPartyUserId = &v
+	return s
+}
+
+type QueryContractEsignuserRequest struct {
+	// OAuth模式下的授权token
+	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
+	// 三方用户id
+	ThirdPartyUserId *string `json:"third_party_user_id,omitempty" xml:"third_party_user_id,omitempty" require:"true"`
+}
+
+func (s QueryContractEsignuserRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s QueryContractEsignuserRequest) GoString() string {
+	return s.String()
+}
+
+func (s *QueryContractEsignuserRequest) SetAuthToken(v string) *QueryContractEsignuserRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *QueryContractEsignuserRequest) SetProductInstanceId(v string) *QueryContractEsignuserRequest {
+	s.ProductInstanceId = &v
+	return s
+}
+
+func (s *QueryContractEsignuserRequest) SetThirdPartyUserId(v string) *QueryContractEsignuserRequest {
+	s.ThirdPartyUserId = &v
+	return s
+}
+
+type QueryContractEsignuserResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// e签宝返回码
+	Code *int64 `json:"code,omitempty" xml:"code,omitempty"`
+	// 业务描述信息
+	Message *string `json:"message,omitempty" xml:"message,omitempty"`
+	// 账号id
+	AccountId *string `json:"account_id,omitempty" xml:"account_id,omitempty"`
+	// 用户名称
+	Name *string `json:"name,omitempty" xml:"name,omitempty"`
+	// 证件类型
+	IdType *string `json:"id_type,omitempty" xml:"id_type,omitempty"`
+	// 证件号码
+	IdNumber *string `json:"id_number,omitempty" xml:"id_number,omitempty"`
+	// 手机号
+	Mobile *string `json:"mobile,omitempty" xml:"mobile,omitempty"`
+	// 邮箱
+	Email *string `json:"email,omitempty" xml:"email,omitempty"`
+	// 第三方平台的用户ID
+	ThirdPartyUserId *string `json:"third_party_user_id,omitempty" xml:"third_party_user_id,omitempty"`
+}
+
+func (s QueryContractEsignuserResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s QueryContractEsignuserResponse) GoString() string {
+	return s.String()
+}
+
+func (s *QueryContractEsignuserResponse) SetReqMsgId(v string) *QueryContractEsignuserResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *QueryContractEsignuserResponse) SetResultCode(v string) *QueryContractEsignuserResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *QueryContractEsignuserResponse) SetResultMsg(v string) *QueryContractEsignuserResponse {
+	s.ResultMsg = &v
+	return s
+}
+
+func (s *QueryContractEsignuserResponse) SetCode(v int64) *QueryContractEsignuserResponse {
+	s.Code = &v
+	return s
+}
+
+func (s *QueryContractEsignuserResponse) SetMessage(v string) *QueryContractEsignuserResponse {
+	s.Message = &v
+	return s
+}
+
+func (s *QueryContractEsignuserResponse) SetAccountId(v string) *QueryContractEsignuserResponse {
+	s.AccountId = &v
+	return s
+}
+
+func (s *QueryContractEsignuserResponse) SetName(v string) *QueryContractEsignuserResponse {
+	s.Name = &v
+	return s
+}
+
+func (s *QueryContractEsignuserResponse) SetIdType(v string) *QueryContractEsignuserResponse {
+	s.IdType = &v
+	return s
+}
+
+func (s *QueryContractEsignuserResponse) SetIdNumber(v string) *QueryContractEsignuserResponse {
+	s.IdNumber = &v
+	return s
+}
+
+func (s *QueryContractEsignuserResponse) SetMobile(v string) *QueryContractEsignuserResponse {
+	s.Mobile = &v
+	return s
+}
+
+func (s *QueryContractEsignuserResponse) SetEmail(v string) *QueryContractEsignuserResponse {
+	s.Email = &v
+	return s
+}
+
+func (s *QueryContractEsignuserResponse) SetThirdPartyUserId(v string) *QueryContractEsignuserResponse {
+	s.ThirdPartyUserId = &v
+	return s
+}
+
+type ImportContractUserRequest struct {
+	// OAuth模式下的授权token
+	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
+}
+
+func (s ImportContractUserRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s ImportContractUserRequest) GoString() string {
+	return s.String()
+}
+
+func (s *ImportContractUserRequest) SetAuthToken(v string) *ImportContractUserRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *ImportContractUserRequest) SetProductInstanceId(v string) *ImportContractUserRequest {
+	s.ProductInstanceId = &v
+	return s
+}
+
+type ImportContractUserResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+}
+
+func (s ImportContractUserResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s ImportContractUserResponse) GoString() string {
+	return s.String()
+}
+
+func (s *ImportContractUserResponse) SetReqMsgId(v string) *ImportContractUserResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *ImportContractUserResponse) SetResultCode(v string) *ImportContractUserResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *ImportContractUserResponse) SetResultMsg(v string) *ImportContractUserResponse {
+	s.ResultMsg = &v
+	return s
+}
+
+type QueryEsignAccountRequest struct {
+	// OAuth模式下的授权token
+	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
+	// 三方账号id
+	ThirdPartyUserId *string `json:"third_party_user_id,omitempty" xml:"third_party_user_id,omitempty" require:"true"`
+	// 用户类型
+	UserType *string `json:"user_type,omitempty" xml:"user_type,omitempty" require:"true"`
+}
+
+func (s QueryEsignAccountRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s QueryEsignAccountRequest) GoString() string {
+	return s.String()
+}
+
+func (s *QueryEsignAccountRequest) SetAuthToken(v string) *QueryEsignAccountRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *QueryEsignAccountRequest) SetProductInstanceId(v string) *QueryEsignAccountRequest {
+	s.ProductInstanceId = &v
+	return s
+}
+
+func (s *QueryEsignAccountRequest) SetThirdPartyUserId(v string) *QueryEsignAccountRequest {
+	s.ThirdPartyUserId = &v
+	return s
+}
+
+func (s *QueryEsignAccountRequest) SetUserType(v string) *QueryEsignAccountRequest {
+	s.UserType = &v
+	return s
+}
+
+type QueryEsignAccountResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// 账号id
+	AccountId *string `json:"account_id,omitempty" xml:"account_id,omitempty"`
+	// 名称
+	Name *string `json:"name,omitempty" xml:"name,omitempty"`
+	// 证件类型
+	IdType *string `json:"id_type,omitempty" xml:"id_type,omitempty"`
+	// 证件号
+	IdNumber *string `json:"id_number,omitempty" xml:"id_number,omitempty"`
+	// 机构法定代表人证件号
+	OrgLegalIdNumber *string `json:"org_legal_id_number,omitempty" xml:"org_legal_id_number,omitempty"`
+	// 机构法定代表人名称
+	OrgLegalName *string `json:"org_legal_name,omitempty" xml:"org_legal_name,omitempty"`
+	// 创建账号的唯一标识
+	ThirdPartyUserId *string `json:"third_party_user_id,omitempty" xml:"third_party_user_id,omitempty"`
+	// 手机号
+	Mobile *string `json:"mobile,omitempty" xml:"mobile,omitempty"`
+	// 邮箱
+	Email *string `json:"email,omitempty" xml:"email,omitempty"`
+}
+
+func (s QueryEsignAccountResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s QueryEsignAccountResponse) GoString() string {
+	return s.String()
+}
+
+func (s *QueryEsignAccountResponse) SetReqMsgId(v string) *QueryEsignAccountResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *QueryEsignAccountResponse) SetResultCode(v string) *QueryEsignAccountResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *QueryEsignAccountResponse) SetResultMsg(v string) *QueryEsignAccountResponse {
+	s.ResultMsg = &v
+	return s
+}
+
+func (s *QueryEsignAccountResponse) SetAccountId(v string) *QueryEsignAccountResponse {
+	s.AccountId = &v
+	return s
+}
+
+func (s *QueryEsignAccountResponse) SetName(v string) *QueryEsignAccountResponse {
+	s.Name = &v
+	return s
+}
+
+func (s *QueryEsignAccountResponse) SetIdType(v string) *QueryEsignAccountResponse {
+	s.IdType = &v
+	return s
+}
+
+func (s *QueryEsignAccountResponse) SetIdNumber(v string) *QueryEsignAccountResponse {
+	s.IdNumber = &v
+	return s
+}
+
+func (s *QueryEsignAccountResponse) SetOrgLegalIdNumber(v string) *QueryEsignAccountResponse {
+	s.OrgLegalIdNumber = &v
+	return s
+}
+
+func (s *QueryEsignAccountResponse) SetOrgLegalName(v string) *QueryEsignAccountResponse {
+	s.OrgLegalName = &v
+	return s
+}
+
+func (s *QueryEsignAccountResponse) SetThirdPartyUserId(v string) *QueryEsignAccountResponse {
+	s.ThirdPartyUserId = &v
+	return s
+}
+
+func (s *QueryEsignAccountResponse) SetMobile(v string) *QueryEsignAccountResponse {
+	s.Mobile = &v
+	return s
+}
+
+func (s *QueryEsignAccountResponse) SetEmail(v string) *QueryEsignAccountResponse {
+	s.Email = &v
+	return s
+}
+
 type Client struct {
 	Endpoint                *string
 	RegionId                *string
@@ -50603,7 +51198,7 @@ func (client *Client) DoRequest(version *string, action *string, protocol *strin
 				"req_msg_id":       antchainutil.GetNonce(),
 				"access_key":       client.AccessKeyId,
 				"base_sdk_version": tea.String("TeaSDK-2.0"),
-				"sdk_version":      tea.String("1.13.20"),
+				"sdk_version":      tea.String("1.13.23"),
 				"_prod_code":       tea.String("TWC"),
 				"_prod_channel":    tea.String("undefined"),
 			}
@@ -55656,6 +56251,40 @@ func (client *Client) FinishContractFlowEx(request *FinishContractFlowRequest, h
 	}
 	_result = &FinishContractFlowResponse{}
 	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("twc.notary.contract.flow.finish"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
+}
+
+/**
+ * Description: e签宝合规改造外部账号信息查询
+ * Summary: e签宝合规改造外部账号信息查询
+ */
+func (client *Client) QueryContractEsignaccount(request *QueryContractEsignaccountRequest) (_result *QueryContractEsignaccountResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &QueryContractEsignaccountResponse{}
+	_body, _err := client.QueryContractEsignaccountEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+/**
+ * Description: e签宝合规改造外部账号信息查询
+ * Summary: e签宝合规改造外部账号信息查询
+ */
+func (client *Client) QueryContractEsignaccountEx(request *QueryContractEsignaccountRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *QueryContractEsignaccountResponse, _err error) {
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &QueryContractEsignaccountResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("twc.notary.contract.esignaccount.query"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
 	if _err != nil {
 		return _result, _err
 	}
@@ -62966,6 +63595,142 @@ func (client *Client) UploadTrafficOperatelogEx(request *UploadTrafficOperatelog
 	}
 	_result = &UploadTrafficOperatelogResponse{}
 	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("twc.notary.traffic.operatelog.upload"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
+}
+
+/**
+ * Description: e签宝组织机构外部账号查询开放文档
+ * Summary: e签宝组织机构外部账号查询开放文档
+ */
+func (client *Client) QueryContractEsignorg(request *QueryContractEsignorgRequest) (_result *QueryContractEsignorgResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &QueryContractEsignorgResponse{}
+	_body, _err := client.QueryContractEsignorgEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+/**
+ * Description: e签宝组织机构外部账号查询开放文档
+ * Summary: e签宝组织机构外部账号查询开放文档
+ */
+func (client *Client) QueryContractEsignorgEx(request *QueryContractEsignorgRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *QueryContractEsignorgResponse, _err error) {
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &QueryContractEsignorgResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("twc.notary.contract.esignorg.query"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
+}
+
+/**
+ * Description: e签宝用户信息外部账号查询开放文档
+ * Summary: e签宝用户信息外部账号查询开放文档
+ */
+func (client *Client) QueryContractEsignuser(request *QueryContractEsignuserRequest) (_result *QueryContractEsignuserResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &QueryContractEsignuserResponse{}
+	_body, _err := client.QueryContractEsignuserEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+/**
+ * Description: e签宝用户信息外部账号查询开放文档
+ * Summary: e签宝用户信息外部账号查询开放文档
+ */
+func (client *Client) QueryContractEsignuserEx(request *QueryContractEsignuserRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *QueryContractEsignuserResponse, _err error) {
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &QueryContractEsignuserResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("twc.notary.contract.esignuser.query"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
+}
+
+/**
+ * Description: 测试
+ * Summary: 测试
+ */
+func (client *Client) ImportContractUser(request *ImportContractUserRequest) (_result *ImportContractUserResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &ImportContractUserResponse{}
+	_body, _err := client.ImportContractUserEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+/**
+ * Description: 测试
+ * Summary: 测试
+ */
+func (client *Client) ImportContractUserEx(request *ImportContractUserRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *ImportContractUserResponse, _err error) {
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &ImportContractUserResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("twc.notary.contract.user.import"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
+}
+
+/**
+ * Description: e签宝合规改造外部账号信息查询
+ * Summary: e签宝合规改造外部账号信息查询
+ */
+func (client *Client) QueryEsignAccount(request *QueryEsignAccountRequest) (_result *QueryEsignAccountResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &QueryEsignAccountResponse{}
+	_body, _err := client.QueryEsignAccountEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+/**
+ * Description: e签宝合规改造外部账号信息查询
+ * Summary: e签宝合规改造外部账号信息查询
+ */
+func (client *Client) QueryEsignAccountEx(request *QueryEsignAccountRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *QueryEsignAccountResponse, _err error) {
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &QueryEsignAccountResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("twc.notary.esign.account.query"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
 	if _err != nil {
 		return _result, _err
 	}
