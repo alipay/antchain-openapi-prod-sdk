@@ -3258,8 +3258,6 @@ export class PagequeryMcpMymcpRequest extends $tea.Model {
   // OAuth模式下的授权token
   authToken?: string;
   productInstanceId?: string;
-  // 空间ID
-  spaceId: string;
   // 查询条件
   query?: string;
   // 页码
@@ -3270,7 +3268,6 @@ export class PagequeryMcpMymcpRequest extends $tea.Model {
     return {
       authToken: 'auth_token',
       productInstanceId: 'product_instance_id',
-      spaceId: 'space_id',
       query: 'query',
       pageNum: 'page_num',
       pageSize: 'page_size',
@@ -3281,7 +3278,6 @@ export class PagequeryMcpMymcpRequest extends $tea.Model {
     return {
       authToken: 'string',
       productInstanceId: 'string',
-      spaceId: 'string',
       query: 'string',
       pageNum: 'number',
       pageSize: 'number',
@@ -3329,15 +3325,12 @@ export class DetailMcpMymcpRequest extends $tea.Model {
   // OAuth模式下的授权token
   authToken?: string;
   productInstanceId?: string;
-  // 空间id
-  spaceId: string;
   // 平台serverId
   serverId: string;
   static names(): { [key: string]: string } {
     return {
       authToken: 'auth_token',
       productInstanceId: 'product_instance_id',
-      spaceId: 'space_id',
       serverId: 'server_id',
     };
   }
@@ -3346,7 +3339,6 @@ export class DetailMcpMymcpRequest extends $tea.Model {
     return {
       authToken: 'string',
       productInstanceId: 'string',
-      spaceId: 'string',
       serverId: 'string',
     };
   }
@@ -3556,6 +3548,8 @@ export class ExecLibraryDocsplitRequest extends $tea.Model {
   taskName: string;
   // 文件信息列表
   files: FileReq[];
+  // 类目id
+  categoryId?: number;
   static names(): { [key: string]: string } {
     return {
       authToken: 'auth_token',
@@ -3569,6 +3563,7 @@ export class ExecLibraryDocsplitRequest extends $tea.Model {
       regex: 'regex',
       taskName: 'task_name',
       files: 'files',
+      categoryId: 'category_id',
     };
   }
 
@@ -3585,6 +3580,7 @@ export class ExecLibraryDocsplitRequest extends $tea.Model {
       regex: 'string',
       taskName: 'string',
       files: { 'type': 'array', 'itemType': FileReq },
+      categoryId: 'number',
     };
   }
 
@@ -4643,7 +4639,7 @@ export default class Client {
           req_msg_id: AntchainUtil.getNonce(),
           access_key: this._accessKeyId,
           base_sdk_version: "TeaSDK-2.0",
-          sdk_version: "4.1.0",
+          sdk_version: "4.2.0",
           _prod_code: "DTAIAGT",
           _prod_channel: "default",
         };
@@ -5066,7 +5062,7 @@ export default class Client {
 
   /**
    * Description: mcp详情查询
-   * Summary: mcp详情
+   * Summary: mcp详情查询
    */
   async detailMcpMymcp(request: DetailMcpMymcpRequest): Promise<DetailMcpMymcpResponse> {
     let runtime = new $Util.RuntimeOptions({ });
@@ -5076,7 +5072,7 @@ export default class Client {
 
   /**
    * Description: mcp详情查询
-   * Summary: mcp详情
+   * Summary: mcp详情查询
    */
   async detailMcpMymcpEx(request: DetailMcpMymcpRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<DetailMcpMymcpResponse> {
     Util.validateModel(request);
