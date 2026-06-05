@@ -974,6 +974,7 @@ class CarInfo(TeaModel):
         high_frequency: str = None,
         value: str = None,
         type: str = None,
+        time: str = None,
     ):
         # 是否高频使用，格式：YES/NO
         self.high_frequency = high_frequency
@@ -981,6 +982,8 @@ class CarInfo(TeaModel):
         self.value = value
         # 车辆类型，格式：1，2，3
         self.type = type
+        # 登记时间
+        self.time = time
 
     def validate(self):
         pass
@@ -997,6 +1000,8 @@ class CarInfo(TeaModel):
             result['value'] = self.value
         if self.type is not None:
             result['type'] = self.type
+        if self.time is not None:
+            result['time'] = self.time
         return result
 
     def from_map(self, m: dict = None):
@@ -1007,6 +1012,8 @@ class CarInfo(TeaModel):
             self.value = m.get('value')
         if m.get('type') is not None:
             self.type = m.get('type')
+        if m.get('time') is not None:
+            self.time = m.get('time')
         return self
 
 
@@ -14139,6 +14146,290 @@ class QueryRiderQualificationResponse(TeaModel):
             self.score = m.get('score')
         if m.get('extern_info') is not None:
             self.extern_info = m.get('extern_info')
+        return self
+
+
+class VerificationUserVehicleRequest(TeaModel):
+    def __init__(
+        self,
+        auth_token: str = None,
+        product_instance_id: str = None,
+        license_plate: str = None,
+        cert_name: str = None,
+        outer_order_no: str = None,
+        encrypt_type: str = None,
+        extern_param: str = None,
+    ):
+        # OAuth模式下的授权token
+        self.auth_token = auth_token
+        self.product_instance_id = product_instance_id
+        # 车牌号
+        self.license_plate = license_plate
+        # 姓名
+        self.cert_name = cert_name
+        # 请求ID，为32位以内的字母数字组合，由调用方自行生成、保证唯一并留存，以便问题定位和授权核查。
+        self.outer_order_no = outer_order_no
+        # 入参加密模式：
+        # "0"：不加密；
+        self.encrypt_type = encrypt_type
+        # 扩展信息，预留字段
+        self.extern_param = extern_param
+
+    def validate(self):
+        self.validate_required(self.license_plate, 'license_plate')
+        self.validate_required(self.cert_name, 'cert_name')
+        self.validate_required(self.outer_order_no, 'outer_order_no')
+        self.validate_required(self.encrypt_type, 'encrypt_type')
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.auth_token is not None:
+            result['auth_token'] = self.auth_token
+        if self.product_instance_id is not None:
+            result['product_instance_id'] = self.product_instance_id
+        if self.license_plate is not None:
+            result['license_plate'] = self.license_plate
+        if self.cert_name is not None:
+            result['cert_name'] = self.cert_name
+        if self.outer_order_no is not None:
+            result['outer_order_no'] = self.outer_order_no
+        if self.encrypt_type is not None:
+            result['encrypt_type'] = self.encrypt_type
+        if self.extern_param is not None:
+            result['extern_param'] = self.extern_param
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('auth_token') is not None:
+            self.auth_token = m.get('auth_token')
+        if m.get('product_instance_id') is not None:
+            self.product_instance_id = m.get('product_instance_id')
+        if m.get('license_plate') is not None:
+            self.license_plate = m.get('license_plate')
+        if m.get('cert_name') is not None:
+            self.cert_name = m.get('cert_name')
+        if m.get('outer_order_no') is not None:
+            self.outer_order_no = m.get('outer_order_no')
+        if m.get('encrypt_type') is not None:
+            self.encrypt_type = m.get('encrypt_type')
+        if m.get('extern_param') is not None:
+            self.extern_param = m.get('extern_param')
+        return self
+
+
+class VerificationUserVehicleResponse(TeaModel):
+    def __init__(
+        self,
+        req_msg_id: str = None,
+        result_code: str = None,
+        result_msg: str = None,
+    ):
+        # 请求唯一ID，用于链路跟踪和问题排查
+        self.req_msg_id = req_msg_id
+        # 结果码，一般OK表示调用成功
+        self.result_code = result_code
+        # 异常信息的文本描述
+        self.result_msg = result_msg
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.req_msg_id is not None:
+            result['req_msg_id'] = self.req_msg_id
+        if self.result_code is not None:
+            result['result_code'] = self.result_code
+        if self.result_msg is not None:
+            result['result_msg'] = self.result_msg
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('req_msg_id') is not None:
+            self.req_msg_id = m.get('req_msg_id')
+        if m.get('result_code') is not None:
+            self.result_code = m.get('result_code')
+        if m.get('result_msg') is not None:
+            self.result_msg = m.get('result_msg')
+        return self
+
+
+class InitServerWillauthRequest(TeaModel):
+    def __init__(
+        self,
+        auth_token: str = None,
+        product_instance_id: str = None,
+        file_object: BinaryIO = None,
+        file_object_name: str = None,
+        file_id: str = None,
+        scene_id: str = None,
+        cert_name: str = None,
+        cert_no: str = None,
+        enc_type: str = None,
+        face_picture_ref: str = None,
+        return_url: str = None,
+        outer_order_no: str = None,
+        extern_param: str = None,
+    ):
+        # OAuth模式下的授权token
+        self.auth_token = auth_token
+        self.product_instance_id = product_instance_id
+        # string
+        # 待上传文件
+        self.file_object = file_object
+        # 待上传文件名
+        self.file_object_name = file_object_name
+        self.file_id = file_id
+        # 场景id
+        self.scene_id = scene_id
+        # 身份证姓名
+        self.cert_name = cert_name
+        # 身份证号
+        self.cert_no = cert_no
+        # 加密方式
+        self.enc_type = enc_type
+        # 无源比对图片base64
+        self.face_picture_ref = face_picture_ref
+        # 业务回跳地址
+        self.return_url = return_url
+        # 业务请求唯一标识
+        self.outer_order_no = outer_order_no
+        # 扩展参数
+        self.extern_param = extern_param
+
+    def validate(self):
+        self.validate_required(self.file_id, 'file_id')
+        self.validate_required(self.scene_id, 'scene_id')
+        self.validate_required(self.outer_order_no, 'outer_order_no')
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.auth_token is not None:
+            result['auth_token'] = self.auth_token
+        if self.product_instance_id is not None:
+            result['product_instance_id'] = self.product_instance_id
+        if self.file_object is not None:
+            result['fileObject'] = self.file_object
+        if self.file_object_name is not None:
+            result['fileObjectName'] = self.file_object_name
+        if self.file_id is not None:
+            result['file_id'] = self.file_id
+        if self.scene_id is not None:
+            result['scene_id'] = self.scene_id
+        if self.cert_name is not None:
+            result['cert_name'] = self.cert_name
+        if self.cert_no is not None:
+            result['cert_no'] = self.cert_no
+        if self.enc_type is not None:
+            result['enc_type'] = self.enc_type
+        if self.face_picture_ref is not None:
+            result['face_picture_ref'] = self.face_picture_ref
+        if self.return_url is not None:
+            result['return_url'] = self.return_url
+        if self.outer_order_no is not None:
+            result['outer_order_no'] = self.outer_order_no
+        if self.extern_param is not None:
+            result['extern_param'] = self.extern_param
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('auth_token') is not None:
+            self.auth_token = m.get('auth_token')
+        if m.get('product_instance_id') is not None:
+            self.product_instance_id = m.get('product_instance_id')
+        if m.get('fileObject') is not None:
+            self.file_object = m.get('fileObject')
+        if m.get('fileObjectName') is not None:
+            self.file_object_name = m.get('fileObjectName')
+        if m.get('file_id') is not None:
+            self.file_id = m.get('file_id')
+        if m.get('scene_id') is not None:
+            self.scene_id = m.get('scene_id')
+        if m.get('cert_name') is not None:
+            self.cert_name = m.get('cert_name')
+        if m.get('cert_no') is not None:
+            self.cert_no = m.get('cert_no')
+        if m.get('enc_type') is not None:
+            self.enc_type = m.get('enc_type')
+        if m.get('face_picture_ref') is not None:
+            self.face_picture_ref = m.get('face_picture_ref')
+        if m.get('return_url') is not None:
+            self.return_url = m.get('return_url')
+        if m.get('outer_order_no') is not None:
+            self.outer_order_no = m.get('outer_order_no')
+        if m.get('extern_param') is not None:
+            self.extern_param = m.get('extern_param')
+        return self
+
+
+class InitServerWillauthResponse(TeaModel):
+    def __init__(
+        self,
+        req_msg_id: str = None,
+        result_code: str = None,
+        result_msg: str = None,
+        certify_id: str = None,
+        certify_url: str = None,
+    ):
+        # 请求唯一ID，用于链路跟踪和问题排查
+        self.req_msg_id = req_msg_id
+        # 结果码，一般OK表示调用成功
+        self.result_code = result_code
+        # 异常信息的文本描述
+        self.result_msg = result_msg
+        # 认证唯一标识
+        self.certify_id = certify_id
+        # 意愿认证界面url
+        self.certify_url = certify_url
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.req_msg_id is not None:
+            result['req_msg_id'] = self.req_msg_id
+        if self.result_code is not None:
+            result['result_code'] = self.result_code
+        if self.result_msg is not None:
+            result['result_msg'] = self.result_msg
+        if self.certify_id is not None:
+            result['certify_id'] = self.certify_id
+        if self.certify_url is not None:
+            result['certify_url'] = self.certify_url
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('req_msg_id') is not None:
+            self.req_msg_id = m.get('req_msg_id')
+        if m.get('result_code') is not None:
+            self.result_code = m.get('result_code')
+        if m.get('result_msg') is not None:
+            self.result_msg = m.get('result_msg')
+        if m.get('certify_id') is not None:
+            self.certify_id = m.get('certify_id')
+        if m.get('certify_url') is not None:
+            self.certify_url = m.get('certify_url')
         return self
 
 
