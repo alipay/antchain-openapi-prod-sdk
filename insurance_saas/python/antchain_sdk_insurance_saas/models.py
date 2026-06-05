@@ -739,6 +739,204 @@ class GetAasButleragentChaturlResponse(TeaModel):
         return self
 
 
+class CallbackAasMktLiveeffectRequest(TeaModel):
+    def __init__(
+        self,
+        auth_token: str = None,
+        request_id: str = None,
+        project_id: str = None,
+        marketing_mode: str = None,
+        encryption_type: str = None,
+        encrypted_user_id: str = None,
+        event_time: str = None,
+        node_type: str = None,
+        node_info: str = None,
+        landing_page_url: str = None,
+        click_id: str = None,
+        product_id: str = None,
+        ip: str = None,
+        ua: str = None,
+        live_room_id: str = None,
+        live_start_time: str = None,
+        ext_info: str = None,
+    ):
+        # OAuth模式下的授权token
+        self.auth_token = auth_token
+        # 请求id，每一次请求保持唯一；若重复，则更新原数据；
+        self.request_id = request_id
+        # 项目ID，待蚂蚁分配
+        self.project_id = project_id
+        # 营销模式，AI_HANGUP_SMS("AI挂短")， AI_OFFICIAL_ACCOUNT("AI公众号"), BPO_WECHAT("BPO企微"), AI_BPO("AI_BPO")， LIVE_STREAMING("直播")
+        self.marketing_mode = marketing_mode
+        # 加密类型：MD5，32位[小]
+        self.encryption_type = encryption_type
+        # 加密用户标识
+        self.encrypted_user_id = encrypted_user_id
+        # 事件完成时间（yyyy-MM-dd HH:mm:ss）
+        self.event_time = event_time
+        # 节点类型
+        self.node_type = node_type
+        # 节点详细信息
+        self.node_info = node_info
+        # 用户转化的落地页 URL，H5 类落地页
+        self.landing_page_url = landing_page_url
+        # N	点击 ID，来自落地页 URL、小程序 path 的埋点
+        self.click_id = click_id
+        # 产品 ID-固定参数，与商品详情页的 H5 进行绑定
+        # 或者通过埋点数据获取
+        self.product_id = product_id
+        # 用户 IP
+        self.ip = ip
+        # ua
+        self.ua = ua
+        # 直播间号 - 动参，每日直播时添加至 URL
+        self.live_room_id = live_room_id
+        # 直播间开播时间 - 动参（yyyy-MM-dd HH:mm:ss）
+        self.live_start_time = live_start_time
+        # 扩展字段
+        self.ext_info = ext_info
+
+    def validate(self):
+        self.validate_required(self.request_id, 'request_id')
+        self.validate_required(self.project_id, 'project_id')
+        self.validate_required(self.marketing_mode, 'marketing_mode')
+        self.validate_required(self.encryption_type, 'encryption_type')
+        self.validate_required(self.encrypted_user_id, 'encrypted_user_id')
+        self.validate_required(self.event_time, 'event_time')
+        self.validate_required(self.node_type, 'node_type')
+        self.validate_required(self.node_info, 'node_info')
+        self.validate_required(self.landing_page_url, 'landing_page_url')
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.auth_token is not None:
+            result['auth_token'] = self.auth_token
+        if self.request_id is not None:
+            result['request_id'] = self.request_id
+        if self.project_id is not None:
+            result['project_id'] = self.project_id
+        if self.marketing_mode is not None:
+            result['marketing_mode'] = self.marketing_mode
+        if self.encryption_type is not None:
+            result['encryption_type'] = self.encryption_type
+        if self.encrypted_user_id is not None:
+            result['encrypted_user_id'] = self.encrypted_user_id
+        if self.event_time is not None:
+            result['event_time'] = self.event_time
+        if self.node_type is not None:
+            result['node_type'] = self.node_type
+        if self.node_info is not None:
+            result['node_info'] = self.node_info
+        if self.landing_page_url is not None:
+            result['landing_page_url'] = self.landing_page_url
+        if self.click_id is not None:
+            result['click_id'] = self.click_id
+        if self.product_id is not None:
+            result['product_id'] = self.product_id
+        if self.ip is not None:
+            result['ip'] = self.ip
+        if self.ua is not None:
+            result['ua'] = self.ua
+        if self.live_room_id is not None:
+            result['live_room_id'] = self.live_room_id
+        if self.live_start_time is not None:
+            result['live_start_time'] = self.live_start_time
+        if self.ext_info is not None:
+            result['ext_info'] = self.ext_info
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('auth_token') is not None:
+            self.auth_token = m.get('auth_token')
+        if m.get('request_id') is not None:
+            self.request_id = m.get('request_id')
+        if m.get('project_id') is not None:
+            self.project_id = m.get('project_id')
+        if m.get('marketing_mode') is not None:
+            self.marketing_mode = m.get('marketing_mode')
+        if m.get('encryption_type') is not None:
+            self.encryption_type = m.get('encryption_type')
+        if m.get('encrypted_user_id') is not None:
+            self.encrypted_user_id = m.get('encrypted_user_id')
+        if m.get('event_time') is not None:
+            self.event_time = m.get('event_time')
+        if m.get('node_type') is not None:
+            self.node_type = m.get('node_type')
+        if m.get('node_info') is not None:
+            self.node_info = m.get('node_info')
+        if m.get('landing_page_url') is not None:
+            self.landing_page_url = m.get('landing_page_url')
+        if m.get('click_id') is not None:
+            self.click_id = m.get('click_id')
+        if m.get('product_id') is not None:
+            self.product_id = m.get('product_id')
+        if m.get('ip') is not None:
+            self.ip = m.get('ip')
+        if m.get('ua') is not None:
+            self.ua = m.get('ua')
+        if m.get('live_room_id') is not None:
+            self.live_room_id = m.get('live_room_id')
+        if m.get('live_start_time') is not None:
+            self.live_start_time = m.get('live_start_time')
+        if m.get('ext_info') is not None:
+            self.ext_info = m.get('ext_info')
+        return self
+
+
+class CallbackAasMktLiveeffectResponse(TeaModel):
+    def __init__(
+        self,
+        req_msg_id: str = None,
+        result_code: str = None,
+        result_msg: str = None,
+        request_id: str = None,
+    ):
+        # 请求唯一ID，用于链路跟踪和问题排查
+        self.req_msg_id = req_msg_id
+        # 结果码，一般OK表示调用成功
+        self.result_code = result_code
+        # 异常信息的文本描述
+        self.result_msg = result_msg
+        # 请求id
+        self.request_id = request_id
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.req_msg_id is not None:
+            result['req_msg_id'] = self.req_msg_id
+        if self.result_code is not None:
+            result['result_code'] = self.result_code
+        if self.result_msg is not None:
+            result['result_msg'] = self.result_msg
+        if self.request_id is not None:
+            result['request_id'] = self.request_id
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('req_msg_id') is not None:
+            self.req_msg_id = m.get('req_msg_id')
+        if m.get('result_code') is not None:
+            self.result_code = m.get('result_code')
+        if m.get('result_msg') is not None:
+            self.result_msg = m.get('result_msg')
+        if m.get('request_id') is not None:
+            self.request_id = m.get('request_id')
+        return self
+
+
 class QueryInquiryRequest(TeaModel):
     def __init__(
         self,

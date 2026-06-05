@@ -135,7 +135,7 @@ class Client:
                     'req_msg_id': AntchainUtils.get_nonce(),
                     'access_key': self._access_key_id,
                     'base_sdk_version': 'TeaSDK-2.0',
-                    'sdk_version': '1.12.26',
+                    'sdk_version': '1.12.27',
                     '_prod_code': 'INSURANCE_SAAS',
                     '_prod_channel': 'undefined'
                 }
@@ -239,7 +239,7 @@ class Client:
                     'req_msg_id': AntchainUtils.get_nonce(),
                     'access_key': self._access_key_id,
                     'base_sdk_version': 'TeaSDK-2.0',
-                    'sdk_version': '1.12.26',
+                    'sdk_version': '1.12.27',
                     '_prod_code': 'INSURANCE_SAAS',
                     '_prod_channel': 'undefined'
                 }
@@ -441,6 +441,62 @@ class Client:
         return TeaCore.from_map(
             insurance__saas_models.GetAasButleragentChaturlResponse(),
             await self.do_request_async('1.0', 'antcloud.insurancesaas.butleragent.chaturl.get', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def callback_aas_mkt_liveeffect(
+        self,
+        request: insurance__saas_models.CallbackAasMktLiveeffectRequest,
+    ) -> insurance__saas_models.CallbackAasMktLiveeffectResponse:
+        """
+        Description: 保险营销效果回传接口——直播通道
+        Summary: 保险营销效果回传接口——直播通道
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.callback_aas_mkt_liveeffect_ex(request, headers, runtime)
+
+    async def callback_aas_mkt_liveeffect_async(
+        self,
+        request: insurance__saas_models.CallbackAasMktLiveeffectRequest,
+    ) -> insurance__saas_models.CallbackAasMktLiveeffectResponse:
+        """
+        Description: 保险营销效果回传接口——直播通道
+        Summary: 保险营销效果回传接口——直播通道
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.callback_aas_mkt_liveeffect_ex_async(request, headers, runtime)
+
+    def callback_aas_mkt_liveeffect_ex(
+        self,
+        request: insurance__saas_models.CallbackAasMktLiveeffectRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> insurance__saas_models.CallbackAasMktLiveeffectResponse:
+        """
+        Description: 保险营销效果回传接口——直播通道
+        Summary: 保险营销效果回传接口——直播通道
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            insurance__saas_models.CallbackAasMktLiveeffectResponse(),
+            self.do_request('1.0', 'antcloud.insurancesaas.mkt.liveeffect.callback', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def callback_aas_mkt_liveeffect_ex_async(
+        self,
+        request: insurance__saas_models.CallbackAasMktLiveeffectRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> insurance__saas_models.CallbackAasMktLiveeffectResponse:
+        """
+        Description: 保险营销效果回传接口——直播通道
+        Summary: 保险营销效果回传接口——直播通道
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            insurance__saas_models.CallbackAasMktLiveeffectResponse(),
+            await self.do_request_async('1.0', 'antcloud.insurancesaas.mkt.liveeffect.callback', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
     def query_inquiry(
