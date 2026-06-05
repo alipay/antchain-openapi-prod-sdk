@@ -4304,8 +4304,6 @@ type PagequeryMcpMymcpRequest struct {
 	// OAuth模式下的授权token
 	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
 	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
-	// 空间ID
-	SpaceId *string `json:"space_id,omitempty" xml:"space_id,omitempty" require:"true"`
 	// 查询条件
 	Query *string `json:"query,omitempty" xml:"query,omitempty"`
 	// 页码
@@ -4329,11 +4327,6 @@ func (s *PagequeryMcpMymcpRequest) SetAuthToken(v string) *PagequeryMcpMymcpRequ
 
 func (s *PagequeryMcpMymcpRequest) SetProductInstanceId(v string) *PagequeryMcpMymcpRequest {
 	s.ProductInstanceId = &v
-	return s
-}
-
-func (s *PagequeryMcpMymcpRequest) SetSpaceId(v string) *PagequeryMcpMymcpRequest {
-	s.SpaceId = &v
 	return s
 }
 
@@ -4395,8 +4388,6 @@ type DetailMcpMymcpRequest struct {
 	// OAuth模式下的授权token
 	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
 	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
-	// 空间id
-	SpaceId *string `json:"space_id,omitempty" xml:"space_id,omitempty" require:"true"`
 	// 平台serverId
 	ServerId *string `json:"server_id,omitempty" xml:"server_id,omitempty" require:"true"`
 }
@@ -4416,11 +4407,6 @@ func (s *DetailMcpMymcpRequest) SetAuthToken(v string) *DetailMcpMymcpRequest {
 
 func (s *DetailMcpMymcpRequest) SetProductInstanceId(v string) *DetailMcpMymcpRequest {
 	s.ProductInstanceId = &v
-	return s
-}
-
-func (s *DetailMcpMymcpRequest) SetSpaceId(v string) *DetailMcpMymcpRequest {
-	s.SpaceId = &v
 	return s
 }
 
@@ -4679,6 +4665,8 @@ type ExecLibraryDocsplitRequest struct {
 	TaskName *string `json:"task_name,omitempty" xml:"task_name,omitempty" require:"true"`
 	// 文件信息列表
 	Files []*FileReq `json:"files,omitempty" xml:"files,omitempty" require:"true" type:"Repeated"`
+	// 类目id
+	CategoryId *int64 `json:"category_id,omitempty" xml:"category_id,omitempty"`
 }
 
 func (s ExecLibraryDocsplitRequest) String() string {
@@ -4741,6 +4729,11 @@ func (s *ExecLibraryDocsplitRequest) SetTaskName(v string) *ExecLibraryDocsplitR
 
 func (s *ExecLibraryDocsplitRequest) SetFiles(v []*FileReq) *ExecLibraryDocsplitRequest {
 	s.Files = v
+	return s
+}
+
+func (s *ExecLibraryDocsplitRequest) SetCategoryId(v int64) *ExecLibraryDocsplitRequest {
+	s.CategoryId = &v
 	return s
 }
 
@@ -6030,7 +6023,7 @@ func (client *Client) DoRequest(version *string, action *string, protocol *strin
 				"req_msg_id":       antchainutil.GetNonce(),
 				"access_key":       client.AccessKeyId,
 				"base_sdk_version": tea.String("TeaSDK-2.0"),
-				"sdk_version":      tea.String("4.1.0"),
+				"sdk_version":      tea.String("4.2.0"),
 				"_prod_code":       tea.String("DTAIAGT"),
 				"_prod_channel":    tea.String("default"),
 			}
@@ -6720,7 +6713,7 @@ func (client *Client) PagequeryMcpMymcpEx(request *PagequeryMcpMymcpRequest, hea
 
 /**
  * Description: mcp详情查询
- * Summary: mcp详情
+ * Summary: mcp详情查询
  */
 func (client *Client) DetailMcpMymcp(request *DetailMcpMymcpRequest) (_result *DetailMcpMymcpResponse, _err error) {
 	runtime := &util.RuntimeOptions{}
@@ -6736,7 +6729,7 @@ func (client *Client) DetailMcpMymcp(request *DetailMcpMymcpRequest) (_result *D
 
 /**
  * Description: mcp详情查询
- * Summary: mcp详情
+ * Summary: mcp详情查询
  */
 func (client *Client) DetailMcpMymcpEx(request *DetailMcpMymcpRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *DetailMcpMymcpResponse, _err error) {
 	_err = util.ValidateModel(request)
