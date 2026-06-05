@@ -881,6 +881,8 @@ type CarInfo struct {
 	Value *string `json:"value,omitempty" xml:"value,omitempty"`
 	// 车辆类型，格式：1，2，3
 	Type *string `json:"type,omitempty" xml:"type,omitempty"`
+	// 登记时间
+	Time *string `json:"time,omitempty" xml:"time,omitempty"`
 }
 
 func (s CarInfo) String() string {
@@ -903,6 +905,11 @@ func (s *CarInfo) SetValue(v string) *CarInfo {
 
 func (s *CarInfo) SetType(v string) *CarInfo {
 	s.Type = &v
+	return s
+}
+
+func (s *CarInfo) SetTime(v string) *CarInfo {
+	s.Time = &v
 	return s
 }
 
@@ -12045,6 +12052,245 @@ func (s *QueryRiderQualificationResponse) SetExternInfo(v string) *QueryRiderQua
 	return s
 }
 
+type VerificationUserVehicleRequest struct {
+	// OAuth模式下的授权token
+	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
+	// 车牌号
+	LicensePlate *string `json:"license_plate,omitempty" xml:"license_plate,omitempty" require:"true"`
+	// 姓名
+	CertName *string `json:"cert_name,omitempty" xml:"cert_name,omitempty" require:"true"`
+	// 请求ID，为32位以内的字母数字组合，由调用方自行生成、保证唯一并留存，以便问题定位和授权核查。
+	OuterOrderNo *string `json:"outer_order_no,omitempty" xml:"outer_order_no,omitempty" require:"true"`
+	// 入参加密模式：
+	// "0"：不加密；
+	EncryptType *string `json:"encrypt_type,omitempty" xml:"encrypt_type,omitempty" require:"true"`
+	// 扩展信息，预留字段
+	ExternParam *string `json:"extern_param,omitempty" xml:"extern_param,omitempty"`
+}
+
+func (s VerificationUserVehicleRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s VerificationUserVehicleRequest) GoString() string {
+	return s.String()
+}
+
+func (s *VerificationUserVehicleRequest) SetAuthToken(v string) *VerificationUserVehicleRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *VerificationUserVehicleRequest) SetProductInstanceId(v string) *VerificationUserVehicleRequest {
+	s.ProductInstanceId = &v
+	return s
+}
+
+func (s *VerificationUserVehicleRequest) SetLicensePlate(v string) *VerificationUserVehicleRequest {
+	s.LicensePlate = &v
+	return s
+}
+
+func (s *VerificationUserVehicleRequest) SetCertName(v string) *VerificationUserVehicleRequest {
+	s.CertName = &v
+	return s
+}
+
+func (s *VerificationUserVehicleRequest) SetOuterOrderNo(v string) *VerificationUserVehicleRequest {
+	s.OuterOrderNo = &v
+	return s
+}
+
+func (s *VerificationUserVehicleRequest) SetEncryptType(v string) *VerificationUserVehicleRequest {
+	s.EncryptType = &v
+	return s
+}
+
+func (s *VerificationUserVehicleRequest) SetExternParam(v string) *VerificationUserVehicleRequest {
+	s.ExternParam = &v
+	return s
+}
+
+type VerificationUserVehicleResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+}
+
+func (s VerificationUserVehicleResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s VerificationUserVehicleResponse) GoString() string {
+	return s.String()
+}
+
+func (s *VerificationUserVehicleResponse) SetReqMsgId(v string) *VerificationUserVehicleResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *VerificationUserVehicleResponse) SetResultCode(v string) *VerificationUserVehicleResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *VerificationUserVehicleResponse) SetResultMsg(v string) *VerificationUserVehicleResponse {
+	s.ResultMsg = &v
+	return s
+}
+
+type InitServerWillauthRequest struct {
+	// OAuth模式下的授权token
+	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
+	// string
+	// 待上传文件
+	FileObject io.Reader `json:"fileObject,omitempty" xml:"fileObject,omitempty"`
+	// 待上传文件名
+	FileObjectName *string `json:"fileObjectName,omitempty" xml:"fileObjectName,omitempty"`
+	FileId         *string `json:"file_id,omitempty" xml:"file_id,omitempty" require:"true"`
+	// 场景id
+	SceneId *string `json:"scene_id,omitempty" xml:"scene_id,omitempty" require:"true"`
+	// 身份证姓名
+	CertName *string `json:"cert_name,omitempty" xml:"cert_name,omitempty"`
+	// 身份证号
+	CertNo *string `json:"cert_no,omitempty" xml:"cert_no,omitempty"`
+	// 加密方式
+	EncType *string `json:"enc_type,omitempty" xml:"enc_type,omitempty"`
+	// 无源比对图片base64
+	FacePictureRef *string `json:"face_picture_ref,omitempty" xml:"face_picture_ref,omitempty"`
+	// 业务回跳地址
+	ReturnUrl *string `json:"return_url,omitempty" xml:"return_url,omitempty"`
+	// 业务请求唯一标识
+	OuterOrderNo *string `json:"outer_order_no,omitempty" xml:"outer_order_no,omitempty" require:"true"`
+	// 扩展参数
+	ExternParam *string `json:"extern_param,omitempty" xml:"extern_param,omitempty"`
+}
+
+func (s InitServerWillauthRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s InitServerWillauthRequest) GoString() string {
+	return s.String()
+}
+
+func (s *InitServerWillauthRequest) SetAuthToken(v string) *InitServerWillauthRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *InitServerWillauthRequest) SetProductInstanceId(v string) *InitServerWillauthRequest {
+	s.ProductInstanceId = &v
+	return s
+}
+
+func (s *InitServerWillauthRequest) SetFileObject(v io.Reader) *InitServerWillauthRequest {
+	s.FileObject = v
+	return s
+}
+
+func (s *InitServerWillauthRequest) SetFileObjectName(v string) *InitServerWillauthRequest {
+	s.FileObjectName = &v
+	return s
+}
+
+func (s *InitServerWillauthRequest) SetFileId(v string) *InitServerWillauthRequest {
+	s.FileId = &v
+	return s
+}
+
+func (s *InitServerWillauthRequest) SetSceneId(v string) *InitServerWillauthRequest {
+	s.SceneId = &v
+	return s
+}
+
+func (s *InitServerWillauthRequest) SetCertName(v string) *InitServerWillauthRequest {
+	s.CertName = &v
+	return s
+}
+
+func (s *InitServerWillauthRequest) SetCertNo(v string) *InitServerWillauthRequest {
+	s.CertNo = &v
+	return s
+}
+
+func (s *InitServerWillauthRequest) SetEncType(v string) *InitServerWillauthRequest {
+	s.EncType = &v
+	return s
+}
+
+func (s *InitServerWillauthRequest) SetFacePictureRef(v string) *InitServerWillauthRequest {
+	s.FacePictureRef = &v
+	return s
+}
+
+func (s *InitServerWillauthRequest) SetReturnUrl(v string) *InitServerWillauthRequest {
+	s.ReturnUrl = &v
+	return s
+}
+
+func (s *InitServerWillauthRequest) SetOuterOrderNo(v string) *InitServerWillauthRequest {
+	s.OuterOrderNo = &v
+	return s
+}
+
+func (s *InitServerWillauthRequest) SetExternParam(v string) *InitServerWillauthRequest {
+	s.ExternParam = &v
+	return s
+}
+
+type InitServerWillauthResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// 认证唯一标识
+	CertifyId *string `json:"certify_id,omitempty" xml:"certify_id,omitempty"`
+	// 意愿认证界面url
+	CertifyUrl *string `json:"certify_url,omitempty" xml:"certify_url,omitempty"`
+}
+
+func (s InitServerWillauthResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s InitServerWillauthResponse) GoString() string {
+	return s.String()
+}
+
+func (s *InitServerWillauthResponse) SetReqMsgId(v string) *InitServerWillauthResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *InitServerWillauthResponse) SetResultCode(v string) *InitServerWillauthResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *InitServerWillauthResponse) SetResultMsg(v string) *InitServerWillauthResponse {
+	s.ResultMsg = &v
+	return s
+}
+
+func (s *InitServerWillauthResponse) SetCertifyId(v string) *InitServerWillauthResponse {
+	s.CertifyId = &v
+	return s
+}
+
+func (s *InitServerWillauthResponse) SetCertifyUrl(v string) *InitServerWillauthResponse {
+	s.CertifyUrl = &v
+	return s
+}
+
 type BindCutpaymentOneclickRequest struct {
 	// OAuth模式下的授权token
 	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
@@ -12863,7 +13109,7 @@ func (client *Client) DoRequest(version *string, action *string, protocol *strin
 				"req_msg_id":       antchainutil.GetNonce(),
 				"access_key":       client.AccessKeyId,
 				"base_sdk_version": tea.String("TeaSDK-2.0"),
-				"sdk_version":      tea.String("1.22.33"),
+				"sdk_version":      tea.String("1.22.37"),
 				"_prod_code":       tea.String("REALPERSON"),
 				"_prod_channel":    tea.String("undefined"),
 			}
@@ -15938,6 +16184,104 @@ func (client *Client) QueryRiderQualificationEx(request *QueryRiderQualification
 	}
 	_result = &QueryRiderQualificationResponse{}
 	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("di.realperson.rider.qualification.query"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
+}
+
+/**
+ * Description: 用户车辆资产验证
+ * Summary: 用户车辆资产验证
+ */
+func (client *Client) VerificationUserVehicle(request *VerificationUserVehicleRequest) (_result *VerificationUserVehicleResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &VerificationUserVehicleResponse{}
+	_body, _err := client.VerificationUserVehicleEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+/**
+ * Description: 用户车辆资产验证
+ * Summary: 用户车辆资产验证
+ */
+func (client *Client) VerificationUserVehicleEx(request *VerificationUserVehicleRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *VerificationUserVehicleResponse, _err error) {
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &VerificationUserVehicleResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("di.realperson.user.vehicle.verification"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
+}
+
+/**
+ * Description: 意愿认证服务端初始化
+ * Summary: 意愿认证服务端初始化
+ */
+func (client *Client) InitServerWillauth(request *InitServerWillauthRequest) (_result *InitServerWillauthResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &InitServerWillauthResponse{}
+	_body, _err := client.InitServerWillauthEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+/**
+ * Description: 意愿认证服务端初始化
+ * Summary: 意愿认证服务端初始化
+ */
+func (client *Client) InitServerWillauthEx(request *InitServerWillauthRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *InitServerWillauthResponse, _err error) {
+	if !tea.BoolValue(util.IsUnset(request.FileObject)) {
+		uploadReq := &CreateAntcloudGatewayxFileUploadRequest{
+			AuthToken: request.AuthToken,
+			ApiCode:   tea.String("di.realperson.server.willauth.init"),
+			FileName:  request.FileObjectName,
+		}
+		uploadResp, _err := client.CreateAntcloudGatewayxFileUploadEx(uploadReq, headers, runtime)
+		if _err != nil {
+			return _result, _err
+		}
+
+		if !tea.BoolValue(antchainutil.IsSuccess(uploadResp.ResultCode, tea.String("ok"))) {
+			initServerWillauthResponse := &InitServerWillauthResponse{
+				ReqMsgId:   uploadResp.ReqMsgId,
+				ResultCode: uploadResp.ResultCode,
+				ResultMsg:  uploadResp.ResultMsg,
+			}
+			_result = initServerWillauthResponse
+			return _result, _err
+		}
+
+		uploadHeaders := antchainutil.ParseUploadHeaders(uploadResp.UploadHeaders)
+		_err = antchainutil.PutObject(request.FileObject, uploadHeaders, uploadResp.UploadUrl)
+		if _err != nil {
+			return _result, _err
+		}
+		request.FileId = uploadResp.FileId
+		request.FileObject = nil
+	}
+
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &InitServerWillauthResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("di.realperson.server.willauth.init"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
 	if _err != nil {
 		return _result, _err
 	}
