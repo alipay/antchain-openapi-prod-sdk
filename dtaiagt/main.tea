@@ -100,7 +100,7 @@ api doRequest(version: string, action: string, protocol: string, method: string,
     req_msg_id = AntchainUtil.getNonce(),
     access_key = @accessKeyId,
     base_sdk_version = 'TeaSDK-2.0',
-    sdk_version = '4.1.0',
+    sdk_version = '4.2.0',
     _prod_code = 'DTAIAGT',
     _prod_channel = 'default'
   };
@@ -1801,8 +1801,6 @@ model PagequeryMcpMymcpRequest = {
   // OAuth模式下的授权token
   authToken?: string(name='auth_token'),
   productInstanceId?: string(name='product_instance_id'),
-  // 空间ID
-  spaceId: string(name='space_id'),
   // 查询条件
   query?: string(name='query'),
   // 页码
@@ -1845,8 +1843,6 @@ model DetailMcpMymcpRequest = {
   // OAuth模式下的授权token
   authToken?: string(name='auth_token'),
   productInstanceId?: string(name='product_instance_id'),
-  // 空间id
-  spaceId: string(name='space_id'),
   // 平台serverId
   serverId: string(name='server_id'),
 }
@@ -1864,7 +1860,7 @@ model DetailMcpMymcpResponse = {
 
 /**
  * Description: mcp详情查询
- * Summary: mcp详情
+ * Summary: mcp详情查询
  */
 async function detailMcpMymcp(request: DetailMcpMymcpRequest): DetailMcpMymcpResponse {
   var runtime = new Util.RuntimeOptions{};
@@ -1874,7 +1870,7 @@ async function detailMcpMymcp(request: DetailMcpMymcpRequest): DetailMcpMymcpRes
 
 /**
  * Description: mcp详情查询
- * Summary: mcp详情
+ * Summary: mcp详情查询
  */
 async function detailMcpMymcpEx(request: DetailMcpMymcpRequest, headers: map[string]string, runtime: Util.RuntimeOptions): DetailMcpMymcpResponse {
   Util.validateModel(request);
@@ -1993,6 +1989,8 @@ model ExecLibraryDocsplitRequest = {
   taskName: string(name='task_name'),
   // 文件信息列表
   files: [ FileReq ](name='files'),
+  // 类目id
+  categoryId?: long(name='category_id'),
 }
 
 model ExecLibraryDocsplitResponse = {
