@@ -137,7 +137,7 @@ namespace AntChain.SDK.INSURANCE_SAAS
                         {"req_msg_id", AntChain.AlipayUtil.AntchainUtils.GetNonce()},
                         {"access_key", _accessKeyId},
                         {"base_sdk_version", "TeaSDK-2.0"},
-                        {"sdk_version", "1.12.26"},
+                        {"sdk_version", "1.12.27"},
                         {"_prod_code", "INSURANCE_SAAS"},
                         {"_prod_channel", "undefined"},
                     };
@@ -263,7 +263,7 @@ namespace AntChain.SDK.INSURANCE_SAAS
                         {"req_msg_id", AntChain.AlipayUtil.AntchainUtils.GetNonce()},
                         {"access_key", _accessKeyId},
                         {"base_sdk_version", "TeaSDK-2.0"},
-                        {"sdk_version", "1.12.26"},
+                        {"sdk_version", "1.12.27"},
                         {"_prod_code", "INSURANCE_SAAS"},
                         {"_prod_channel", "undefined"},
                     };
@@ -445,6 +445,48 @@ namespace AntChain.SDK.INSURANCE_SAAS
         {
             AlibabaCloud.TeaUtil.Common.ValidateModel(request);
             return TeaModel.ToObject<GetAasButleragentChaturlResponse>(await DoRequestAsync("1.0", "antcloud.insurancesaas.butleragent.chaturl.get", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 保险营销效果回传接口——直播通道
+         * Summary: 保险营销效果回传接口——直播通道
+         */
+        public CallbackAasMktLiveeffectResponse CallbackAasMktLiveeffect(CallbackAasMktLiveeffectRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return CallbackAasMktLiveeffectEx(request, headers, runtime);
+        }
+
+        /**
+         * Description: 保险营销效果回传接口——直播通道
+         * Summary: 保险营销效果回传接口——直播通道
+         */
+        public async Task<CallbackAasMktLiveeffectResponse> CallbackAasMktLiveeffectAsync(CallbackAasMktLiveeffectRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return await CallbackAasMktLiveeffectExAsync(request, headers, runtime);
+        }
+
+        /**
+         * Description: 保险营销效果回传接口——直播通道
+         * Summary: 保险营销效果回传接口——直播通道
+         */
+        public CallbackAasMktLiveeffectResponse CallbackAasMktLiveeffectEx(CallbackAasMktLiveeffectRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<CallbackAasMktLiveeffectResponse>(DoRequest("1.0", "antcloud.insurancesaas.mkt.liveeffect.callback", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 保险营销效果回传接口——直播通道
+         * Summary: 保险营销效果回传接口——直播通道
+         */
+        public async Task<CallbackAasMktLiveeffectResponse> CallbackAasMktLiveeffectExAsync(CallbackAasMktLiveeffectRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<CallbackAasMktLiveeffectResponse>(await DoRequestAsync("1.0", "antcloud.insurancesaas.mkt.liveeffect.callback", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
         }
 
         /**
