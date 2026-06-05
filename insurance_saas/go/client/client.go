@@ -597,6 +597,176 @@ func (s *GetAasButleragentChaturlResponse) SetBizResult(v string) *GetAasButlera
 	return s
 }
 
+type CallbackAasMktLiveeffectRequest struct {
+	// OAuth模式下的授权token
+	AuthToken *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	// 请求id，每一次请求保持唯一；若重复，则更新原数据；
+	RequestId *string `json:"request_id,omitempty" xml:"request_id,omitempty" require:"true"`
+	// 项目ID，待蚂蚁分配
+	ProjectId *string `json:"project_id,omitempty" xml:"project_id,omitempty" require:"true"`
+	// 营销模式，AI_HANGUP_SMS("AI挂短")， AI_OFFICIAL_ACCOUNT("AI公众号"), BPO_WECHAT("BPO企微"), AI_BPO("AI_BPO")， LIVE_STREAMING("直播")
+	MarketingMode *string `json:"marketing_mode,omitempty" xml:"marketing_mode,omitempty" require:"true"`
+	// 加密类型：MD5，32位[小]
+	EncryptionType *string `json:"encryption_type,omitempty" xml:"encryption_type,omitempty" require:"true"`
+	// 加密用户标识
+	EncryptedUserId *string `json:"encrypted_user_id,omitempty" xml:"encrypted_user_id,omitempty" require:"true"`
+	// 事件完成时间（yyyy-MM-dd HH:mm:ss）
+	EventTime *string `json:"event_time,omitempty" xml:"event_time,omitempty" require:"true"`
+	// 节点类型
+	NodeType *string `json:"node_type,omitempty" xml:"node_type,omitempty" require:"true"`
+	// 节点详细信息
+	NodeInfo *string `json:"node_info,omitempty" xml:"node_info,omitempty" require:"true"`
+	// 用户转化的落地页 URL，H5 类落地页
+	LandingPageUrl *string `json:"landing_page_url,omitempty" xml:"landing_page_url,omitempty" require:"true"`
+	// N	点击 ID，来自落地页 URL、小程序 path 的埋点
+	ClickId *string `json:"click_id,omitempty" xml:"click_id,omitempty"`
+	// 产品 ID-固定参数，与商品详情页的 H5 进行绑定
+	// 或者通过埋点数据获取
+	ProductId *string `json:"product_id,omitempty" xml:"product_id,omitempty"`
+	// 用户 IP
+	Ip *string `json:"ip,omitempty" xml:"ip,omitempty"`
+	// ua
+	Ua *string `json:"ua,omitempty" xml:"ua,omitempty"`
+	// 直播间号 - 动参，每日直播时添加至 URL
+	LiveRoomId *string `json:"live_room_id,omitempty" xml:"live_room_id,omitempty"`
+	// 直播间开播时间 - 动参（yyyy-MM-dd HH:mm:ss）
+	LiveStartTime *string `json:"live_start_time,omitempty" xml:"live_start_time,omitempty"`
+	// 扩展字段
+	ExtInfo *string `json:"ext_info,omitempty" xml:"ext_info,omitempty"`
+}
+
+func (s CallbackAasMktLiveeffectRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s CallbackAasMktLiveeffectRequest) GoString() string {
+	return s.String()
+}
+
+func (s *CallbackAasMktLiveeffectRequest) SetAuthToken(v string) *CallbackAasMktLiveeffectRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *CallbackAasMktLiveeffectRequest) SetRequestId(v string) *CallbackAasMktLiveeffectRequest {
+	s.RequestId = &v
+	return s
+}
+
+func (s *CallbackAasMktLiveeffectRequest) SetProjectId(v string) *CallbackAasMktLiveeffectRequest {
+	s.ProjectId = &v
+	return s
+}
+
+func (s *CallbackAasMktLiveeffectRequest) SetMarketingMode(v string) *CallbackAasMktLiveeffectRequest {
+	s.MarketingMode = &v
+	return s
+}
+
+func (s *CallbackAasMktLiveeffectRequest) SetEncryptionType(v string) *CallbackAasMktLiveeffectRequest {
+	s.EncryptionType = &v
+	return s
+}
+
+func (s *CallbackAasMktLiveeffectRequest) SetEncryptedUserId(v string) *CallbackAasMktLiveeffectRequest {
+	s.EncryptedUserId = &v
+	return s
+}
+
+func (s *CallbackAasMktLiveeffectRequest) SetEventTime(v string) *CallbackAasMktLiveeffectRequest {
+	s.EventTime = &v
+	return s
+}
+
+func (s *CallbackAasMktLiveeffectRequest) SetNodeType(v string) *CallbackAasMktLiveeffectRequest {
+	s.NodeType = &v
+	return s
+}
+
+func (s *CallbackAasMktLiveeffectRequest) SetNodeInfo(v string) *CallbackAasMktLiveeffectRequest {
+	s.NodeInfo = &v
+	return s
+}
+
+func (s *CallbackAasMktLiveeffectRequest) SetLandingPageUrl(v string) *CallbackAasMktLiveeffectRequest {
+	s.LandingPageUrl = &v
+	return s
+}
+
+func (s *CallbackAasMktLiveeffectRequest) SetClickId(v string) *CallbackAasMktLiveeffectRequest {
+	s.ClickId = &v
+	return s
+}
+
+func (s *CallbackAasMktLiveeffectRequest) SetProductId(v string) *CallbackAasMktLiveeffectRequest {
+	s.ProductId = &v
+	return s
+}
+
+func (s *CallbackAasMktLiveeffectRequest) SetIp(v string) *CallbackAasMktLiveeffectRequest {
+	s.Ip = &v
+	return s
+}
+
+func (s *CallbackAasMktLiveeffectRequest) SetUa(v string) *CallbackAasMktLiveeffectRequest {
+	s.Ua = &v
+	return s
+}
+
+func (s *CallbackAasMktLiveeffectRequest) SetLiveRoomId(v string) *CallbackAasMktLiveeffectRequest {
+	s.LiveRoomId = &v
+	return s
+}
+
+func (s *CallbackAasMktLiveeffectRequest) SetLiveStartTime(v string) *CallbackAasMktLiveeffectRequest {
+	s.LiveStartTime = &v
+	return s
+}
+
+func (s *CallbackAasMktLiveeffectRequest) SetExtInfo(v string) *CallbackAasMktLiveeffectRequest {
+	s.ExtInfo = &v
+	return s
+}
+
+type CallbackAasMktLiveeffectResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// 请求id
+	RequestId *string `json:"request_id,omitempty" xml:"request_id,omitempty"`
+}
+
+func (s CallbackAasMktLiveeffectResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s CallbackAasMktLiveeffectResponse) GoString() string {
+	return s.String()
+}
+
+func (s *CallbackAasMktLiveeffectResponse) SetReqMsgId(v string) *CallbackAasMktLiveeffectResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *CallbackAasMktLiveeffectResponse) SetResultCode(v string) *CallbackAasMktLiveeffectResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *CallbackAasMktLiveeffectResponse) SetResultMsg(v string) *CallbackAasMktLiveeffectResponse {
+	s.ResultMsg = &v
+	return s
+}
+
+func (s *CallbackAasMktLiveeffectResponse) SetRequestId(v string) *CallbackAasMktLiveeffectResponse {
+	s.RequestId = &v
+	return s
+}
+
 type QueryInquiryRequest struct {
 	// OAuth模式下的授权token
 	AuthToken *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
@@ -5602,7 +5772,7 @@ func (client *Client) DoRequest(version *string, action *string, protocol *strin
 				"req_msg_id":       antchainutil.GetNonce(),
 				"access_key":       client.AccessKeyId,
 				"base_sdk_version": tea.String("TeaSDK-2.0"),
-				"sdk_version":      tea.String("1.12.26"),
+				"sdk_version":      tea.String("1.12.27"),
 				"_prod_code":       tea.String("INSURANCE_SAAS"),
 				"_prod_channel":    tea.String("undefined"),
 			}
@@ -5755,6 +5925,40 @@ func (client *Client) GetAasButleragentChaturlEx(request *GetAasButleragentChatu
 	}
 	_result = &GetAasButleragentChaturlResponse{}
 	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("antcloud.insurancesaas.butleragent.chaturl.get"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
+}
+
+/**
+ * Description: 保险营销效果回传接口——直播通道
+ * Summary: 保险营销效果回传接口——直播通道
+ */
+func (client *Client) CallbackAasMktLiveeffect(request *CallbackAasMktLiveeffectRequest) (_result *CallbackAasMktLiveeffectResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &CallbackAasMktLiveeffectResponse{}
+	_body, _err := client.CallbackAasMktLiveeffectEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+/**
+ * Description: 保险营销效果回传接口——直播通道
+ * Summary: 保险营销效果回传接口——直播通道
+ */
+func (client *Client) CallbackAasMktLiveeffectEx(request *CallbackAasMktLiveeffectRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *CallbackAasMktLiveeffectResponse, _err error) {
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &CallbackAasMktLiveeffectResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("antcloud.insurancesaas.mkt.liveeffect.callback"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
 	if _err != nil {
 		return _result, _err
 	}
