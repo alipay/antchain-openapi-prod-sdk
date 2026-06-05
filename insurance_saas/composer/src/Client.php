@@ -21,6 +21,8 @@ use AntChain\INSURANCE_SAAS\Models\ApplyInsureTestRequest;
 use AntChain\INSURANCE_SAAS\Models\ApplyInsureTestResponse;
 use AntChain\INSURANCE_SAAS\Models\ApplyUnderwritingRequest;
 use AntChain\INSURANCE_SAAS\Models\ApplyUnderwritingResponse;
+use AntChain\INSURANCE_SAAS\Models\CallbackAasMktLiveeffectRequest;
+use AntChain\INSURANCE_SAAS\Models\CallbackAasMktLiveeffectResponse;
 use AntChain\INSURANCE_SAAS\Models\CallbackMarketingEventRequest;
 use AntChain\INSURANCE_SAAS\Models\CallbackMarketingEventResponse;
 use AntChain\INSURANCE_SAAS\Models\CallbackMarketingPolicycancelRequest;
@@ -248,7 +250,7 @@ class Client
                     'req_msg_id'       => UtilClient::getNonce(),
                     'access_key'       => $this->_accessKeyId,
                     'base_sdk_version' => 'TeaSDK-2.0',
-                    'sdk_version'      => '1.12.26',
+                    'sdk_version'      => '1.12.27',
                     '_prod_code'       => 'INSURANCE_SAAS',
                     '_prod_channel'    => 'undefined',
                 ];
@@ -393,6 +395,39 @@ class Client
         Utils::validateModel($request);
 
         return GetAasButleragentChaturlResponse::fromMap($this->doRequest('1.0', 'antcloud.insurancesaas.butleragent.chaturl.get', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 保险营销效果回传接口——直播通道
+     * Summary: 保险营销效果回传接口——直播通道.
+     *
+     * @param CallbackAasMktLiveeffectRequest $request
+     *
+     * @return CallbackAasMktLiveeffectResponse
+     */
+    public function callbackAasMktLiveeffect($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->callbackAasMktLiveeffectEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 保险营销效果回传接口——直播通道
+     * Summary: 保险营销效果回传接口——直播通道.
+     *
+     * @param CallbackAasMktLiveeffectRequest $request
+     * @param string[]                        $headers
+     * @param RuntimeOptions                  $runtime
+     *
+     * @return CallbackAasMktLiveeffectResponse
+     */
+    public function callbackAasMktLiveeffectEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return CallbackAasMktLiveeffectResponse::fromMap($this->doRequest('1.0', 'antcloud.insurancesaas.mkt.liveeffect.callback', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
     }
 
     /**
