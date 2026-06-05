@@ -11,11 +11,6 @@ public class PagequeryMcpMymcpRequest extends TeaModel {
     @NameInMap("product_instance_id")
     public String productInstanceId;
 
-    // 空间ID
-    @NameInMap("space_id")
-    @Validation(required = true)
-    public String spaceId;
-
     // 查询条件
     @NameInMap("query")
     public String query;
@@ -49,14 +44,6 @@ public class PagequeryMcpMymcpRequest extends TeaModel {
     }
     public String getProductInstanceId() {
         return this.productInstanceId;
-    }
-
-    public PagequeryMcpMymcpRequest setSpaceId(String spaceId) {
-        this.spaceId = spaceId;
-        return this;
-    }
-    public String getSpaceId() {
-        return this.spaceId;
     }
 
     public PagequeryMcpMymcpRequest setQuery(String query) {

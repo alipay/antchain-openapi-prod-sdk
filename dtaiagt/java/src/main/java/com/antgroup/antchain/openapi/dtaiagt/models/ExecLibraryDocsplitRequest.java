@@ -55,6 +55,10 @@ public class ExecLibraryDocsplitRequest extends TeaModel {
     @Validation(required = true)
     public java.util.List<FileReq> files;
 
+    // 类目id
+    @NameInMap("category_id")
+    public Long categoryId;
+
     public static ExecLibraryDocsplitRequest build(java.util.Map<String, ?> map) throws Exception {
         ExecLibraryDocsplitRequest self = new ExecLibraryDocsplitRequest();
         return TeaModel.build(map, self);
@@ -146,6 +150,14 @@ public class ExecLibraryDocsplitRequest extends TeaModel {
     }
     public java.util.List<FileReq> getFiles() {
         return this.files;
+    }
+
+    public ExecLibraryDocsplitRequest setCategoryId(Long categoryId) {
+        this.categoryId = categoryId;
+        return this;
+    }
+    public Long getCategoryId() {
+        return this.categoryId;
     }
 
 }

@@ -126,7 +126,7 @@ public class Client {
                     new TeaPair("req_msg_id", com.antgroup.antchain.openapi.antchain.util.AntchainUtils.getNonce()),
                     new TeaPair("access_key", _accessKeyId),
                     new TeaPair("base_sdk_version", "TeaSDK-2.0"),
-                    new TeaPair("sdk_version", "4.1.0"),
+                    new TeaPair("sdk_version", "4.2.0"),
                     new TeaPair("_prod_code", "DTAIAGT"),
                     new TeaPair("_prod_channel", "default")
                 );
@@ -594,7 +594,7 @@ public class Client {
     /**
      * <b>description</b> :
      * <p>Description: mcp详情查询
-     * Summary: mcp详情</p>
+     * Summary: mcp详情查询</p>
      */
     public DetailMcpMymcpResponse detailMcpMymcp(DetailMcpMymcpRequest request) throws Exception {
         com.aliyun.teautil.models.RuntimeOptions runtime = new com.aliyun.teautil.models.RuntimeOptions();
@@ -605,7 +605,7 @@ public class Client {
     /**
      * <b>description</b> :
      * <p>Description: mcp详情查询
-     * Summary: mcp详情</p>
+     * Summary: mcp详情查询</p>
      */
     public DetailMcpMymcpResponse detailMcpMymcpEx(DetailMcpMymcpRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
         com.aliyun.teautil.Common.validateModel(request);

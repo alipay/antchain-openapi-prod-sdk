@@ -11,11 +11,6 @@ public class DetailMcpMymcpRequest extends TeaModel {
     @NameInMap("product_instance_id")
     public String productInstanceId;
 
-    // 空间id
-    @NameInMap("space_id")
-    @Validation(required = true)
-    public String spaceId;
-
     // 平台serverId
     @NameInMap("server_id")
     @Validation(required = true)
@@ -40,14 +35,6 @@ public class DetailMcpMymcpRequest extends TeaModel {
     }
     public String getProductInstanceId() {
         return this.productInstanceId;
-    }
-
-    public DetailMcpMymcpRequest setSpaceId(String spaceId) {
-        this.spaceId = spaceId;
-        return this;
-    }
-    public String getSpaceId() {
-        return this.spaceId;
     }
 
     public DetailMcpMymcpRequest setServerId(String serverId) {
