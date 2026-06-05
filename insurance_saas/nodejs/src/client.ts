@@ -443,6 +443,123 @@ export class GetAasButleragentChaturlResponse extends $tea.Model {
   }
 }
 
+export class CallbackAasMktLiveeffectRequest extends $tea.Model {
+  // OAuth模式下的授权token
+  authToken?: string;
+  // 请求id，每一次请求保持唯一；若重复，则更新原数据；
+  requestId: string;
+  // 项目ID，待蚂蚁分配
+  projectId: string;
+  // 营销模式，AI_HANGUP_SMS("AI挂短")， AI_OFFICIAL_ACCOUNT("AI公众号"), BPO_WECHAT("BPO企微"), AI_BPO("AI_BPO")， LIVE_STREAMING("直播")
+  marketingMode: string;
+  // 加密类型：MD5，32位[小]
+  encryptionType: string;
+  // 加密用户标识
+  encryptedUserId: string;
+  // 事件完成时间（yyyy-MM-dd HH:mm:ss）
+  eventTime: string;
+  // 节点类型
+  nodeType: string;
+  // 节点详细信息
+  nodeInfo: string;
+  // 用户转化的落地页 URL，H5 类落地页
+  landingPageUrl: string;
+  // N	点击 ID，来自落地页 URL、小程序 path 的埋点
+  clickId?: string;
+  // 产品 ID-固定参数，与商品详情页的 H5 进行绑定
+  // 或者通过埋点数据获取
+  productId?: string;
+  // 用户 IP
+  ip?: string;
+  // ua
+  ua?: string;
+  // 直播间号 - 动参，每日直播时添加至 URL
+  liveRoomId?: string;
+  // 直播间开播时间 - 动参（yyyy-MM-dd HH:mm:ss）
+  liveStartTime?: string;
+  // 扩展字段
+  extInfo?: string;
+  static names(): { [key: string]: string } {
+    return {
+      authToken: 'auth_token',
+      requestId: 'request_id',
+      projectId: 'project_id',
+      marketingMode: 'marketing_mode',
+      encryptionType: 'encryption_type',
+      encryptedUserId: 'encrypted_user_id',
+      eventTime: 'event_time',
+      nodeType: 'node_type',
+      nodeInfo: 'node_info',
+      landingPageUrl: 'landing_page_url',
+      clickId: 'click_id',
+      productId: 'product_id',
+      ip: 'ip',
+      ua: 'ua',
+      liveRoomId: 'live_room_id',
+      liveStartTime: 'live_start_time',
+      extInfo: 'ext_info',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      authToken: 'string',
+      requestId: 'string',
+      projectId: 'string',
+      marketingMode: 'string',
+      encryptionType: 'string',
+      encryptedUserId: 'string',
+      eventTime: 'string',
+      nodeType: 'string',
+      nodeInfo: 'string',
+      landingPageUrl: 'string',
+      clickId: 'string',
+      productId: 'string',
+      ip: 'string',
+      ua: 'string',
+      liveRoomId: 'string',
+      liveStartTime: 'string',
+      extInfo: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class CallbackAasMktLiveeffectResponse extends $tea.Model {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string;
+  // 结果码，一般OK表示调用成功
+  resultCode?: string;
+  // 异常信息的文本描述
+  resultMsg?: string;
+  // 请求id
+  requestId?: string;
+  static names(): { [key: string]: string } {
+    return {
+      reqMsgId: 'req_msg_id',
+      resultCode: 'result_code',
+      resultMsg: 'result_msg',
+      requestId: 'request_id',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      reqMsgId: 'string',
+      resultCode: 'string',
+      resultMsg: 'string',
+      requestId: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
 export class QueryInquiryRequest extends $tea.Model {
   // OAuth模式下的授权token
   authToken?: string;
@@ -4174,7 +4291,7 @@ export default class Client {
           req_msg_id: AntchainUtil.getNonce(),
           access_key: this._accessKeyId,
           base_sdk_version: "TeaSDK-2.0",
-          sdk_version: "1.12.26",
+          sdk_version: "1.12.27",
           _prod_code: "INSURANCE_SAAS",
           _prod_channel: "undefined",
         };
@@ -4277,6 +4394,25 @@ export default class Client {
   async getAasButleragentChaturlEx(request: GetAasButleragentChaturlRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<GetAasButleragentChaturlResponse> {
     Util.validateModel(request);
     return $tea.cast<GetAasButleragentChaturlResponse>(await this.doRequest("1.0", "antcloud.insurancesaas.butleragent.chaturl.get", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new GetAasButleragentChaturlResponse({}));
+  }
+
+  /**
+   * Description: 保险营销效果回传接口——直播通道
+   * Summary: 保险营销效果回传接口——直播通道
+   */
+  async callbackAasMktLiveeffect(request: CallbackAasMktLiveeffectRequest): Promise<CallbackAasMktLiveeffectResponse> {
+    let runtime = new $Util.RuntimeOptions({ });
+    let headers : {[key: string ]: string} = { };
+    return await this.callbackAasMktLiveeffectEx(request, headers, runtime);
+  }
+
+  /**
+   * Description: 保险营销效果回传接口——直播通道
+   * Summary: 保险营销效果回传接口——直播通道
+   */
+  async callbackAasMktLiveeffectEx(request: CallbackAasMktLiveeffectRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<CallbackAasMktLiveeffectResponse> {
+    Util.validateModel(request);
+    return $tea.cast<CallbackAasMktLiveeffectResponse>(await this.doRequest("1.0", "antcloud.insurancesaas.mkt.liveeffect.callback", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new CallbackAasMktLiveeffectResponse({}));
   }
 
   /**
