@@ -5541,7 +5541,6 @@ class PagequeryMcpMymcpRequest(TeaModel):
         self,
         auth_token: str = None,
         product_instance_id: str = None,
-        space_id: str = None,
         query: str = None,
         page_num: int = None,
         page_size: int = None,
@@ -5549,8 +5548,6 @@ class PagequeryMcpMymcpRequest(TeaModel):
         # OAuth模式下的授权token
         self.auth_token = auth_token
         self.product_instance_id = product_instance_id
-        # 空间ID
-        self.space_id = space_id
         # 查询条件
         self.query = query
         # 页码
@@ -5559,7 +5556,6 @@ class PagequeryMcpMymcpRequest(TeaModel):
         self.page_size = page_size
 
     def validate(self):
-        self.validate_required(self.space_id, 'space_id')
         self.validate_required(self.page_num, 'page_num')
         self.validate_required(self.page_size, 'page_size')
 
@@ -5573,8 +5569,6 @@ class PagequeryMcpMymcpRequest(TeaModel):
             result['auth_token'] = self.auth_token
         if self.product_instance_id is not None:
             result['product_instance_id'] = self.product_instance_id
-        if self.space_id is not None:
-            result['space_id'] = self.space_id
         if self.query is not None:
             result['query'] = self.query
         if self.page_num is not None:
@@ -5589,8 +5583,6 @@ class PagequeryMcpMymcpRequest(TeaModel):
             self.auth_token = m.get('auth_token')
         if m.get('product_instance_id') is not None:
             self.product_instance_id = m.get('product_instance_id')
-        if m.get('space_id') is not None:
-            self.space_id = m.get('space_id')
         if m.get('query') is not None:
             self.query = m.get('query')
         if m.get('page_num') is not None:
@@ -5656,19 +5648,15 @@ class DetailMcpMymcpRequest(TeaModel):
         self,
         auth_token: str = None,
         product_instance_id: str = None,
-        space_id: str = None,
         server_id: str = None,
     ):
         # OAuth模式下的授权token
         self.auth_token = auth_token
         self.product_instance_id = product_instance_id
-        # 空间id
-        self.space_id = space_id
         # 平台serverId
         self.server_id = server_id
 
     def validate(self):
-        self.validate_required(self.space_id, 'space_id')
         self.validate_required(self.server_id, 'server_id')
 
     def to_map(self):
@@ -5681,8 +5669,6 @@ class DetailMcpMymcpRequest(TeaModel):
             result['auth_token'] = self.auth_token
         if self.product_instance_id is not None:
             result['product_instance_id'] = self.product_instance_id
-        if self.space_id is not None:
-            result['space_id'] = self.space_id
         if self.server_id is not None:
             result['server_id'] = self.server_id
         return result
@@ -5693,8 +5679,6 @@ class DetailMcpMymcpRequest(TeaModel):
             self.auth_token = m.get('auth_token')
         if m.get('product_instance_id') is not None:
             self.product_instance_id = m.get('product_instance_id')
-        if m.get('space_id') is not None:
-            self.space_id = m.get('space_id')
         if m.get('server_id') is not None:
             self.server_id = m.get('server_id')
         return self
@@ -5998,6 +5982,7 @@ class ExecLibraryDocsplitRequest(TeaModel):
         regex: str = None,
         task_name: str = None,
         files: List[FileReq] = None,
+        category_id: int = None,
     ):
         # OAuth模式下的授权token
         self.auth_token = auth_token
@@ -6020,6 +6005,8 @@ class ExecLibraryDocsplitRequest(TeaModel):
         self.task_name = task_name
         # 文件信息列表
         self.files = files
+        # 类目id
+        self.category_id = category_id
 
     def validate(self):
         self.validate_required(self.library_id, 'library_id')
@@ -6065,6 +6052,8 @@ class ExecLibraryDocsplitRequest(TeaModel):
         if self.files is not None:
             for k in self.files:
                 result['files'].append(k.to_map() if k else None)
+        if self.category_id is not None:
+            result['category_id'] = self.category_id
         return result
 
     def from_map(self, m: dict = None):
@@ -6094,6 +6083,8 @@ class ExecLibraryDocsplitRequest(TeaModel):
             for k in m.get('files'):
                 temp_model = FileReq()
                 self.files.append(temp_model.from_map(k))
+        if m.get('category_id') is not None:
+            self.category_id = m.get('category_id')
         return self
 
 

@@ -135,7 +135,7 @@ class Client:
                     'req_msg_id': AntchainUtils.get_nonce(),
                     'access_key': self._access_key_id,
                     'base_sdk_version': 'TeaSDK-2.0',
-                    'sdk_version': '4.1.0',
+                    'sdk_version': '4.2.0',
                     '_prod_code': 'DTAIAGT',
                     '_prod_channel': 'default'
                 }
@@ -239,7 +239,7 @@ class Client:
                     'req_msg_id': AntchainUtils.get_nonce(),
                     'access_key': self._access_key_id,
                     'base_sdk_version': 'TeaSDK-2.0',
-                    'sdk_version': '4.1.0',
+                    'sdk_version': '4.2.0',
                     '_prod_code': 'DTAIAGT',
                     '_prod_channel': 'default'
                 }
@@ -1265,7 +1265,7 @@ class Client:
     ) -> dtaiagt_models.DetailMcpMymcpResponse:
         """
         Description: mcp详情查询
-        Summary: mcp详情
+        Summary: mcp详情查询
         """
         runtime = util_models.RuntimeOptions()
         headers = {}
@@ -1277,7 +1277,7 @@ class Client:
     ) -> dtaiagt_models.DetailMcpMymcpResponse:
         """
         Description: mcp详情查询
-        Summary: mcp详情
+        Summary: mcp详情查询
         """
         runtime = util_models.RuntimeOptions()
         headers = {}
@@ -1291,7 +1291,7 @@ class Client:
     ) -> dtaiagt_models.DetailMcpMymcpResponse:
         """
         Description: mcp详情查询
-        Summary: mcp详情
+        Summary: mcp详情查询
         """
         UtilClient.validate_model(request)
         return TeaCore.from_map(
@@ -1307,7 +1307,7 @@ class Client:
     ) -> dtaiagt_models.DetailMcpMymcpResponse:
         """
         Description: mcp详情查询
-        Summary: mcp详情
+        Summary: mcp详情查询
         """
         UtilClient.validate_model(request)
         return TeaCore.from_map(
