@@ -25,6 +25,11 @@ namespace AntChain.SDK.REALPERSON.Models
         [Validation(Required=false)]
         public string Type { get; set; }
 
+        // 登记时间
+        [NameInMap("time")]
+        [Validation(Required=false)]
+        public string Time { get; set; }
+
     }
 
 }
