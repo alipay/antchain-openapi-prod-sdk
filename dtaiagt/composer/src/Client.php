@@ -224,7 +224,7 @@ class Client
                     'req_msg_id'       => UtilClient::getNonce(),
                     'access_key'       => $this->_accessKeyId,
                     'base_sdk_version' => 'TeaSDK-2.0',
-                    'sdk_version'      => '4.1.0',
+                    'sdk_version'      => '4.2.0',
                     '_prod_code'       => 'DTAIAGT',
                     '_prod_channel'    => 'default',
                 ];
@@ -845,7 +845,7 @@ class Client
 
     /**
      * Description: mcp详情查询
-     * Summary: mcp详情.
+     * Summary: mcp详情查询.
      *
      * @param DetailMcpMymcpRequest $request
      *
@@ -861,7 +861,7 @@ class Client
 
     /**
      * Description: mcp详情查询
-     * Summary: mcp详情.
+     * Summary: mcp详情查询.
      *
      * @param DetailMcpMymcpRequest $request
      * @param string[]              $headers

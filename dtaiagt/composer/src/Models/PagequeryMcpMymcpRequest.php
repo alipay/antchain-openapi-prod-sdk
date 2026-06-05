@@ -19,12 +19,6 @@ class PagequeryMcpMymcpRequest extends Model
      */
     public $productInstanceId;
 
-    // 空间ID
-    /**
-     * @var string
-     */
-    public $spaceId;
-
     // 查询条件
     /**
      * @var string
@@ -45,7 +39,6 @@ class PagequeryMcpMymcpRequest extends Model
     protected $_name = [
         'authToken'         => 'auth_token',
         'productInstanceId' => 'product_instance_id',
-        'spaceId'           => 'space_id',
         'query'             => 'query',
         'pageNum'           => 'page_num',
         'pageSize'          => 'page_size',
@@ -53,7 +46,6 @@ class PagequeryMcpMymcpRequest extends Model
 
     public function validate()
     {
-        Model::validateRequired('spaceId', $this->spaceId, true);
         Model::validateRequired('pageNum', $this->pageNum, true);
         Model::validateRequired('pageSize', $this->pageSize, true);
     }
@@ -66,9 +58,6 @@ class PagequeryMcpMymcpRequest extends Model
         }
         if (null !== $this->productInstanceId) {
             $res['product_instance_id'] = $this->productInstanceId;
-        }
-        if (null !== $this->spaceId) {
-            $res['space_id'] = $this->spaceId;
         }
         if (null !== $this->query) {
             $res['query'] = $this->query;
@@ -96,9 +85,6 @@ class PagequeryMcpMymcpRequest extends Model
         }
         if (isset($map['product_instance_id'])) {
             $model->productInstanceId = $map['product_instance_id'];
-        }
-        if (isset($map['space_id'])) {
-            $model->spaceId = $map['space_id'];
         }
         if (isset($map['query'])) {
             $model->query = $map['query'];

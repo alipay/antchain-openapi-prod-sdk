@@ -72,6 +72,12 @@ class ExecLibraryDocsplitRequest extends Model
      * @var FileReq[]
      */
     public $files;
+
+    // 类目id
+    /**
+     * @var int
+     */
+    public $categoryId;
     protected $_name = [
         'authToken'         => 'auth_token',
         'productInstanceId' => 'product_instance_id',
@@ -84,6 +90,7 @@ class ExecLibraryDocsplitRequest extends Model
         'regex'             => 'regex',
         'taskName'          => 'task_name',
         'files'             => 'files',
+        'categoryId'        => 'category_id',
     ];
 
     public function validate()
@@ -140,6 +147,9 @@ class ExecLibraryDocsplitRequest extends Model
                 }
             }
         }
+        if (null !== $this->categoryId) {
+            $res['category_id'] = $this->categoryId;
+        }
 
         return $res;
     }
@@ -190,6 +200,9 @@ class ExecLibraryDocsplitRequest extends Model
                     $model->files[$n++] = null !== $item ? FileReq::fromMap($item) : $item;
                 }
             }
+        }
+        if (isset($map['category_id'])) {
+            $model->categoryId = $map['category_id'];
         }
 
         return $model;
