@@ -28,6 +28,14 @@ public class CarInfo extends TeaModel {
     @NameInMap("type")
     public String type;
 
+    // 登记时间
+    /**
+     * <strong>example:</strong>
+     * <p>1</p>
+     */
+    @NameInMap("time")
+    public String time;
+
     public static CarInfo build(java.util.Map<String, ?> map) throws Exception {
         CarInfo self = new CarInfo();
         return TeaModel.build(map, self);
@@ -55,6 +63,14 @@ public class CarInfo extends TeaModel {
     }
     public String getType() {
         return this.type;
+    }
+
+    public CarInfo setTime(String time) {
+        this.time = time;
+        return this;
+    }
+    public String getTime() {
+        return this.time;
     }
 
 }
