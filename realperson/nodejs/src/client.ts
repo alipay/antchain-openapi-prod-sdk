@@ -608,11 +608,14 @@ export class CarInfo extends $tea.Model {
   value?: string;
   // 车辆类型，格式：1，2，3
   type?: string;
+  // 登记时间
+  time?: string;
   static names(): { [key: string]: string } {
     return {
       highFrequency: 'high_frequency',
       value: 'value',
       type: 'type',
+      time: 'time',
     };
   }
 
@@ -621,6 +624,7 @@ export class CarInfo extends $tea.Model {
       highFrequency: 'string',
       value: 'string',
       type: 'string',
+      time: 'string',
     };
   }
 
@@ -8666,6 +8670,179 @@ export class QueryRiderQualificationResponse extends $tea.Model {
   }
 }
 
+export class VerificationUserVehicleRequest extends $tea.Model {
+  // OAuth模式下的授权token
+  authToken?: string;
+  productInstanceId?: string;
+  // 车牌号
+  licensePlate: string;
+  // 姓名
+  certName: string;
+  // 请求ID，为32位以内的字母数字组合，由调用方自行生成、保证唯一并留存，以便问题定位和授权核查。
+  outerOrderNo: string;
+  // 入参加密模式：
+  // "0"：不加密；
+  encryptType: string;
+  // 扩展信息，预留字段
+  externParam?: string;
+  static names(): { [key: string]: string } {
+    return {
+      authToken: 'auth_token',
+      productInstanceId: 'product_instance_id',
+      licensePlate: 'license_plate',
+      certName: 'cert_name',
+      outerOrderNo: 'outer_order_no',
+      encryptType: 'encrypt_type',
+      externParam: 'extern_param',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      authToken: 'string',
+      productInstanceId: 'string',
+      licensePlate: 'string',
+      certName: 'string',
+      outerOrderNo: 'string',
+      encryptType: 'string',
+      externParam: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class VerificationUserVehicleResponse extends $tea.Model {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string;
+  // 结果码，一般OK表示调用成功
+  resultCode?: string;
+  // 异常信息的文本描述
+  resultMsg?: string;
+  static names(): { [key: string]: string } {
+    return {
+      reqMsgId: 'req_msg_id',
+      resultCode: 'result_code',
+      resultMsg: 'result_msg',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      reqMsgId: 'string',
+      resultCode: 'string',
+      resultMsg: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class InitServerWillauthRequest extends $tea.Model {
+  // OAuth模式下的授权token
+  authToken?: string;
+  productInstanceId?: string;
+  // string
+  fileObject?: Readable;
+  fileObjectName?: string;
+  fileId: string;
+  // 场景id
+  sceneId: string;
+  // 身份证姓名
+  certName?: string;
+  // 身份证号
+  certNo?: string;
+  // 加密方式
+  encType?: string;
+  // 无源比对图片base64
+  facePictureRef?: string;
+  // 业务回跳地址
+  returnUrl?: string;
+  // 业务请求唯一标识
+  outerOrderNo: string;
+  // 扩展参数
+  externParam?: string;
+  static names(): { [key: string]: string } {
+    return {
+      authToken: 'auth_token',
+      productInstanceId: 'product_instance_id',
+      fileObject: 'fileObject',
+      fileObjectName: 'fileObjectName',
+      fileId: 'file_id',
+      sceneId: 'scene_id',
+      certName: 'cert_name',
+      certNo: 'cert_no',
+      encType: 'enc_type',
+      facePictureRef: 'face_picture_ref',
+      returnUrl: 'return_url',
+      outerOrderNo: 'outer_order_no',
+      externParam: 'extern_param',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      authToken: 'string',
+      productInstanceId: 'string',
+      fileObject: 'Readable',
+      fileObjectName: 'string',
+      fileId: 'string',
+      sceneId: 'string',
+      certName: 'string',
+      certNo: 'string',
+      encType: 'string',
+      facePictureRef: 'string',
+      returnUrl: 'string',
+      outerOrderNo: 'string',
+      externParam: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class InitServerWillauthResponse extends $tea.Model {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string;
+  // 结果码，一般OK表示调用成功
+  resultCode?: string;
+  // 异常信息的文本描述
+  resultMsg?: string;
+  // 认证唯一标识
+  certifyId?: string;
+  // 意愿认证界面url
+  certifyUrl?: string;
+  static names(): { [key: string]: string } {
+    return {
+      reqMsgId: 'req_msg_id',
+      resultCode: 'result_code',
+      resultMsg: 'result_msg',
+      certifyId: 'certify_id',
+      certifyUrl: 'certify_url',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      reqMsgId: 'string',
+      resultCode: 'string',
+      resultMsg: 'string',
+      certifyId: 'string',
+      certifyUrl: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
 export class BindCutpaymentOneclickRequest extends $tea.Model {
   // OAuth模式下的授权token
   authToken?: string;
@@ -9276,7 +9453,7 @@ export default class Client {
           req_msg_id: AntchainUtil.getNonce(),
           access_key: this._accessKeyId,
           base_sdk_version: "TeaSDK-2.0",
-          sdk_version: "1.22.33",
+          sdk_version: "1.22.37",
           _prod_code: "REALPERSON",
           _prod_channel: "undefined",
         };
@@ -11059,6 +11236,66 @@ export default class Client {
   async queryRiderQualificationEx(request: QueryRiderQualificationRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<QueryRiderQualificationResponse> {
     Util.validateModel(request);
     return $tea.cast<QueryRiderQualificationResponse>(await this.doRequest("1.0", "di.realperson.rider.qualification.query", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new QueryRiderQualificationResponse({}));
+  }
+
+  /**
+   * Description: 用户车辆资产验证
+   * Summary: 用户车辆资产验证
+   */
+  async verificationUserVehicle(request: VerificationUserVehicleRequest): Promise<VerificationUserVehicleResponse> {
+    let runtime = new $Util.RuntimeOptions({ });
+    let headers : {[key: string ]: string} = { };
+    return await this.verificationUserVehicleEx(request, headers, runtime);
+  }
+
+  /**
+   * Description: 用户车辆资产验证
+   * Summary: 用户车辆资产验证
+   */
+  async verificationUserVehicleEx(request: VerificationUserVehicleRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<VerificationUserVehicleResponse> {
+    Util.validateModel(request);
+    return $tea.cast<VerificationUserVehicleResponse>(await this.doRequest("1.0", "di.realperson.user.vehicle.verification", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new VerificationUserVehicleResponse({}));
+  }
+
+  /**
+   * Description: 意愿认证服务端初始化
+   * Summary: 意愿认证服务端初始化
+   */
+  async initServerWillauth(request: InitServerWillauthRequest): Promise<InitServerWillauthResponse> {
+    let runtime = new $Util.RuntimeOptions({ });
+    let headers : {[key: string ]: string} = { };
+    return await this.initServerWillauthEx(request, headers, runtime);
+  }
+
+  /**
+   * Description: 意愿认证服务端初始化
+   * Summary: 意愿认证服务端初始化
+   */
+  async initServerWillauthEx(request: InitServerWillauthRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<InitServerWillauthResponse> {
+    if (!Util.isUnset(request.fileObject)) {
+      let uploadReq = new CreateAntcloudGatewayxFileUploadRequest({
+        authToken: request.authToken,
+        apiCode: "di.realperson.server.willauth.init",
+        fileName: request.fileObjectName,
+      });
+      let uploadResp = await this.createAntcloudGatewayxFileUploadEx(uploadReq, headers, runtime);
+      if (!AntchainUtil.isSuccess(uploadResp.resultCode, "ok")) {
+        let initServerWillauthResponse = new InitServerWillauthResponse({
+          reqMsgId: uploadResp.reqMsgId,
+          resultCode: uploadResp.resultCode,
+          resultMsg: uploadResp.resultMsg,
+        });
+        return initServerWillauthResponse;
+      }
+
+      let uploadHeaders = AntchainUtil.parseUploadHeaders(uploadResp.uploadHeaders);
+      await AntchainUtil.putObject(request.fileObject, uploadHeaders, uploadResp.uploadUrl);
+      request.fileId = uploadResp.fileId;
+      request.fileObject = null;
+    }
+
+    Util.validateModel(request);
+    return $tea.cast<InitServerWillauthResponse>(await this.doRequest("1.0", "di.realperson.server.willauth.init", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new InitServerWillauthResponse({}));
   }
 
   /**
