@@ -31,10 +31,19 @@ class CarInfo extends Model
      * @var string
      */
     public $type;
+
+    // 登记时间
+    /**
+     * @example 1
+     *
+     * @var string
+     */
+    public $time;
     protected $_name = [
         'highFrequency' => 'high_frequency',
         'value'         => 'value',
         'type'          => 'type',
+        'time'          => 'time',
     ];
 
     public function validate()
@@ -52,6 +61,9 @@ class CarInfo extends Model
         }
         if (null !== $this->type) {
             $res['type'] = $this->type;
+        }
+        if (null !== $this->time) {
+            $res['time'] = $this->time;
         }
 
         return $res;
@@ -73,6 +85,9 @@ class CarInfo extends Model
         }
         if (isset($map['type'])) {
             $model->type = $map['type'];
+        }
+        if (isset($map['time'])) {
+            $model->time = $map['time'];
         }
 
         return $model;

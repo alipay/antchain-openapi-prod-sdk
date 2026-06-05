@@ -85,6 +85,8 @@ use AntChain\REALPERSON\Models\InitCarrierRepairmobileRequest;
 use AntChain\REALPERSON\Models\InitCarrierRepairmobileResponse;
 use AntChain\REALPERSON\Models\InitFacevrfZimRequest;
 use AntChain\REALPERSON\Models\InitFacevrfZimResponse;
+use AntChain\REALPERSON\Models\InitServerWillauthRequest;
+use AntChain\REALPERSON\Models\InitServerWillauthResponse;
 use AntChain\REALPERSON\Models\OpenCutpaymentsubAccountRequest;
 use AntChain\REALPERSON\Models\OpenCutpaymentsubAccountResponse;
 use AntChain\REALPERSON\Models\QueryAlipayverifyServerRequest;
@@ -179,6 +181,8 @@ use AntChain\REALPERSON\Models\UnbindCutpaymentSignRequest;
 use AntChain\REALPERSON\Models\UnbindCutpaymentSignResponse;
 use AntChain\REALPERSON\Models\UploadFileRequest;
 use AntChain\REALPERSON\Models\UploadFileResponse;
+use AntChain\REALPERSON\Models\VerificationUserVehicleRequest;
+use AntChain\REALPERSON\Models\VerificationUserVehicleResponse;
 use AntChain\REALPERSON\Models\VerifyFacevrfZimRequest;
 use AntChain\REALPERSON\Models\VerifyFacevrfZimResponse;
 use AntChain\REALPERSON\Models\VerifyVoiceprintServermodeRequest;
@@ -330,7 +334,7 @@ class Client
                     'req_msg_id'       => UtilClient::getNonce(),
                     'access_key'       => $this->_accessKeyId,
                     'base_sdk_version' => 'TeaSDK-2.0',
-                    'sdk_version'      => '1.22.33',
+                    'sdk_version'      => '1.22.37',
                     '_prod_code'       => 'REALPERSON',
                     '_prod_channel'    => 'undefined',
                 ];
@@ -3220,6 +3224,91 @@ class Client
         Utils::validateModel($request);
 
         return QueryRiderQualificationResponse::fromMap($this->doRequest('1.0', 'di.realperson.rider.qualification.query', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 用户车辆资产验证
+     * Summary: 用户车辆资产验证
+     *
+     * @param VerificationUserVehicleRequest $request
+     *
+     * @return VerificationUserVehicleResponse
+     */
+    public function verificationUserVehicle($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->verificationUserVehicleEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 用户车辆资产验证
+     * Summary: 用户车辆资产验证
+     *
+     * @param VerificationUserVehicleRequest $request
+     * @param string[]                       $headers
+     * @param RuntimeOptions                 $runtime
+     *
+     * @return VerificationUserVehicleResponse
+     */
+    public function verificationUserVehicleEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return VerificationUserVehicleResponse::fromMap($this->doRequest('1.0', 'di.realperson.user.vehicle.verification', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 意愿认证服务端初始化
+     * Summary: 意愿认证服务端初始化.
+     *
+     * @param InitServerWillauthRequest $request
+     *
+     * @return InitServerWillauthResponse
+     */
+    public function initServerWillauth($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->initServerWillauthEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 意愿认证服务端初始化
+     * Summary: 意愿认证服务端初始化.
+     *
+     * @param InitServerWillauthRequest $request
+     * @param string[]                  $headers
+     * @param RuntimeOptions            $runtime
+     *
+     * @return InitServerWillauthResponse
+     */
+    public function initServerWillauthEx($request, $headers, $runtime)
+    {
+        if (!Utils::isUnset($request->fileObject)) {
+            $uploadReq = new CreateAntcloudGatewayxFileUploadRequest([
+                'authToken' => $request->authToken,
+                'apiCode'   => 'di.realperson.server.willauth.init',
+                'fileName'  => $request->fileObjectName,
+            ]);
+            $uploadResp = $this->createAntcloudGatewayxFileUploadEx($uploadReq, $headers, $runtime);
+            if (!UtilClient::isSuccess($uploadResp->resultCode, 'ok')) {
+                return new InitServerWillauthResponse([
+                    'reqMsgId'   => $uploadResp->reqMsgId,
+                    'resultCode' => $uploadResp->resultCode,
+                    'resultMsg'  => $uploadResp->resultMsg,
+                ]);
+            }
+            $uploadHeaders = UtilClient::parseUploadHeaders($uploadResp->uploadHeaders);
+            UtilClient::putObject($request->fileObject, $uploadHeaders, $uploadResp->uploadUrl);
+            $request->fileId     = $uploadResp->fileId;
+            $request->fileObject = null;
+        }
+        Utils::validateModel($request);
+
+        return InitServerWillauthResponse::fromMap($this->doRequest('1.0', 'di.realperson.server.willauth.init', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
     }
 
     /**
