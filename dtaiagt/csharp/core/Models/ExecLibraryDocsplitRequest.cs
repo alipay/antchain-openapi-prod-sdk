@@ -63,6 +63,11 @@ namespace AntChain.SDK.DTAIAGT.Models
         [Validation(Required=true)]
         public List<FileReq> Files { get; set; }
 
+        // 类目id
+        [NameInMap("category_id")]
+        [Validation(Required=false)]
+        public long? CategoryId { get; set; }
+
     }
 
 }

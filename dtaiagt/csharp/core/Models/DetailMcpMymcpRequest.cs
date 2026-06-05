@@ -18,11 +18,6 @@ namespace AntChain.SDK.DTAIAGT.Models
         [Validation(Required=false)]
         public string ProductInstanceId { get; set; }
 
-        // 空间id
-        [NameInMap("space_id")]
-        [Validation(Required=true)]
-        public string SpaceId { get; set; }
-
         // 平台serverId
         [NameInMap("server_id")]
         [Validation(Required=true)]

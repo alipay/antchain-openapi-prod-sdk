@@ -137,7 +137,7 @@ namespace AntChain.SDK.DTAIAGT
                         {"req_msg_id", AntChain.AlipayUtil.AntchainUtils.GetNonce()},
                         {"access_key", _accessKeyId},
                         {"base_sdk_version", "TeaSDK-2.0"},
-                        {"sdk_version", "4.1.0"},
+                        {"sdk_version", "4.2.0"},
                         {"_prod_code", "DTAIAGT"},
                         {"_prod_channel", "default"},
                     };
@@ -263,7 +263,7 @@ namespace AntChain.SDK.DTAIAGT
                         {"req_msg_id", AntChain.AlipayUtil.AntchainUtils.GetNonce()},
                         {"access_key", _accessKeyId},
                         {"base_sdk_version", "TeaSDK-2.0"},
-                        {"sdk_version", "4.1.0"},
+                        {"sdk_version", "4.2.0"},
                         {"_prod_code", "DTAIAGT"},
                         {"_prod_channel", "default"},
                     };
@@ -1145,7 +1145,7 @@ namespace AntChain.SDK.DTAIAGT
 
         /**
          * Description: mcp详情查询
-         * Summary: mcp详情
+         * Summary: mcp详情查询
          */
         public DetailMcpMymcpResponse DetailMcpMymcp(DetailMcpMymcpRequest request)
         {
@@ -1156,7 +1156,7 @@ namespace AntChain.SDK.DTAIAGT
 
         /**
          * Description: mcp详情查询
-         * Summary: mcp详情
+         * Summary: mcp详情查询
          */
         public async Task<DetailMcpMymcpResponse> DetailMcpMymcpAsync(DetailMcpMymcpRequest request)
         {
@@ -1167,7 +1167,7 @@ namespace AntChain.SDK.DTAIAGT
 
         /**
          * Description: mcp详情查询
-         * Summary: mcp详情
+         * Summary: mcp详情查询
          */
         public DetailMcpMymcpResponse DetailMcpMymcpEx(DetailMcpMymcpRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
         {
@@ -1177,7 +1177,7 @@ namespace AntChain.SDK.DTAIAGT
 
         /**
          * Description: mcp详情查询
-         * Summary: mcp详情
+         * Summary: mcp详情查询
          */
         public async Task<DetailMcpMymcpResponse> DetailMcpMymcpExAsync(DetailMcpMymcpRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
         {
