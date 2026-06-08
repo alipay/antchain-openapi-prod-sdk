@@ -838,6 +838,25 @@ func (s *Address) SetDistrict(v string) *Address {
 	return s
 }
 
+// 发放订单明细
+type GrantOrderDetail struct {
+	// 券编码
+	VoucherCode *string `json:"voucher_code,omitempty" xml:"voucher_code,omitempty" require:"true"`
+}
+
+func (s GrantOrderDetail) String() string {
+	return tea.Prettify(s)
+}
+
+func (s GrantOrderDetail) GoString() string {
+	return s.String()
+}
+
+func (s *GrantOrderDetail) SetVoucherCode(v string) *GrantOrderDetail {
+	s.VoucherCode = &v
+	return s
+}
+
 // 键值对
 type XNameValuePair struct {
 	// 键名
@@ -1877,6 +1896,140 @@ func (s *CallbackAntdigitalGesaasspiRightsprodOperationResponse) SetResult(v str
 	return s
 }
 
+type PushAntdigitalGesaasspiRightsprodGrantrightsRequest struct {
+	// OAuth模式下的授权token
+	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
+	// 用户ID
+	UserId *string `json:"user_id,omitempty" xml:"user_id,omitempty"`
+	// 手机号
+	PhoneNumber *string `json:"phone_number,omitempty" xml:"phone_number,omitempty"`
+	// 商户编码
+	MerchantNo *string `json:"merchant_no,omitempty" xml:"merchant_no,omitempty"`
+	// 权益编码
+	RightsCode *string `json:"rights_code,omitempty" xml:"rights_code,omitempty" require:"true"`
+	// 发放数量，可根据权益信息grantMulti判断是否可发多张
+	GrantNum *int64 `json:"grant_num,omitempty" xml:"grant_num,omitempty"`
+	// 外部发放订单号
+	OutGrantOrderNo *string `json:"out_grant_order_no,omitempty" xml:"out_grant_order_no,omitempty" require:"true"`
+	// 发放扩展信息，如活动ID等信息，暂时可以不传
+	GrantInfo *string `json:"grant_info,omitempty" xml:"grant_info,omitempty"`
+}
+
+func (s PushAntdigitalGesaasspiRightsprodGrantrightsRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s PushAntdigitalGesaasspiRightsprodGrantrightsRequest) GoString() string {
+	return s.String()
+}
+
+func (s *PushAntdigitalGesaasspiRightsprodGrantrightsRequest) SetAuthToken(v string) *PushAntdigitalGesaasspiRightsprodGrantrightsRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *PushAntdigitalGesaasspiRightsprodGrantrightsRequest) SetProductInstanceId(v string) *PushAntdigitalGesaasspiRightsprodGrantrightsRequest {
+	s.ProductInstanceId = &v
+	return s
+}
+
+func (s *PushAntdigitalGesaasspiRightsprodGrantrightsRequest) SetUserId(v string) *PushAntdigitalGesaasspiRightsprodGrantrightsRequest {
+	s.UserId = &v
+	return s
+}
+
+func (s *PushAntdigitalGesaasspiRightsprodGrantrightsRequest) SetPhoneNumber(v string) *PushAntdigitalGesaasspiRightsprodGrantrightsRequest {
+	s.PhoneNumber = &v
+	return s
+}
+
+func (s *PushAntdigitalGesaasspiRightsprodGrantrightsRequest) SetMerchantNo(v string) *PushAntdigitalGesaasspiRightsprodGrantrightsRequest {
+	s.MerchantNo = &v
+	return s
+}
+
+func (s *PushAntdigitalGesaasspiRightsprodGrantrightsRequest) SetRightsCode(v string) *PushAntdigitalGesaasspiRightsprodGrantrightsRequest {
+	s.RightsCode = &v
+	return s
+}
+
+func (s *PushAntdigitalGesaasspiRightsprodGrantrightsRequest) SetGrantNum(v int64) *PushAntdigitalGesaasspiRightsprodGrantrightsRequest {
+	s.GrantNum = &v
+	return s
+}
+
+func (s *PushAntdigitalGesaasspiRightsprodGrantrightsRequest) SetOutGrantOrderNo(v string) *PushAntdigitalGesaasspiRightsprodGrantrightsRequest {
+	s.OutGrantOrderNo = &v
+	return s
+}
+
+func (s *PushAntdigitalGesaasspiRightsprodGrantrightsRequest) SetGrantInfo(v string) *PushAntdigitalGesaasspiRightsprodGrantrightsRequest {
+	s.GrantInfo = &v
+	return s
+}
+
+type PushAntdigitalGesaasspiRightsprodGrantrightsResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// 发放状态：
+	// GRANTING：发放处理中 GRANT_SUCCESS：发放成功 GRANT_FAIL：发放失败
+	GrantStatus *string `json:"grant_status,omitempty" xml:"grant_status,omitempty"`
+	// 过期时间
+	ExpireTime *string `json:"expire_time,omitempty" xml:"expire_time,omitempty" pattern:"\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}([Z]|([\\.]\\d{1,9})?[\\+]\\d{2}[\\:]?\\d{2})"`
+	// 生效时间
+	EffectTime *string `json:"effect_time,omitempty" xml:"effect_time,omitempty" pattern:"\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}([Z]|([\\.]\\d{1,9})?[\\+]\\d{2}[\\:]?\\d{2})"`
+	// 发放订单明细数据
+	OrderDetails []*GrantOrderDetail `json:"order_details,omitempty" xml:"order_details,omitempty" type:"Repeated"`
+}
+
+func (s PushAntdigitalGesaasspiRightsprodGrantrightsResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s PushAntdigitalGesaasspiRightsprodGrantrightsResponse) GoString() string {
+	return s.String()
+}
+
+func (s *PushAntdigitalGesaasspiRightsprodGrantrightsResponse) SetReqMsgId(v string) *PushAntdigitalGesaasspiRightsprodGrantrightsResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *PushAntdigitalGesaasspiRightsprodGrantrightsResponse) SetResultCode(v string) *PushAntdigitalGesaasspiRightsprodGrantrightsResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *PushAntdigitalGesaasspiRightsprodGrantrightsResponse) SetResultMsg(v string) *PushAntdigitalGesaasspiRightsprodGrantrightsResponse {
+	s.ResultMsg = &v
+	return s
+}
+
+func (s *PushAntdigitalGesaasspiRightsprodGrantrightsResponse) SetGrantStatus(v string) *PushAntdigitalGesaasspiRightsprodGrantrightsResponse {
+	s.GrantStatus = &v
+	return s
+}
+
+func (s *PushAntdigitalGesaasspiRightsprodGrantrightsResponse) SetExpireTime(v string) *PushAntdigitalGesaasspiRightsprodGrantrightsResponse {
+	s.ExpireTime = &v
+	return s
+}
+
+func (s *PushAntdigitalGesaasspiRightsprodGrantrightsResponse) SetEffectTime(v string) *PushAntdigitalGesaasspiRightsprodGrantrightsResponse {
+	s.EffectTime = &v
+	return s
+}
+
+func (s *PushAntdigitalGesaasspiRightsprodGrantrightsResponse) SetOrderDetails(v []*GrantOrderDetail) *PushAntdigitalGesaasspiRightsprodGrantrightsResponse {
+	s.OrderDetails = v
+	return s
+}
+
 type CreateAntcloudGatewayxFileUploadRequest struct {
 	// OAuth模式下的授权token
 	AuthToken *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
@@ -2119,7 +2272,7 @@ func (client *Client) DoRequest(version *string, action *string, protocol *strin
 				"req_msg_id":       antchainutil.GetNonce(),
 				"access_key":       client.AccessKeyId,
 				"base_sdk_version": tea.String("TeaSDK-2.0"),
-				"sdk_version":      tea.String("1.5.0"),
+				"sdk_version":      tea.String("1.5.1"),
 				"_prod_code":       tea.String("GESAASSPI"),
 				"_prod_channel":    tea.String("default"),
 			}
@@ -2540,6 +2693,40 @@ func (client *Client) CallbackAntdigitalGesaasspiRightsprodOperationEx(request *
 	}
 	_result = &CallbackAntdigitalGesaasspiRightsprodOperationResponse{}
 	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("antdigital.gesaasspi.rightsprod.operation.callback"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
+}
+
+/**
+ * Description: 权益供应商权益发放spi
+ * Summary: 权益供应商权益发放spi
+ */
+func (client *Client) PushAntdigitalGesaasspiRightsprodGrantrights(request *PushAntdigitalGesaasspiRightsprodGrantrightsRequest) (_result *PushAntdigitalGesaasspiRightsprodGrantrightsResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &PushAntdigitalGesaasspiRightsprodGrantrightsResponse{}
+	_body, _err := client.PushAntdigitalGesaasspiRightsprodGrantrightsEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+/**
+ * Description: 权益供应商权益发放spi
+ * Summary: 权益供应商权益发放spi
+ */
+func (client *Client) PushAntdigitalGesaasspiRightsprodGrantrightsEx(request *PushAntdigitalGesaasspiRightsprodGrantrightsRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *PushAntdigitalGesaasspiRightsprodGrantrightsResponse, _err error) {
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &PushAntdigitalGesaasspiRightsprodGrantrightsResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("antdigital.gesaasspi.rightsprod.grantrights.push"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
 	if _err != nil {
 		return _result, _err
 	}
