@@ -6,26 +6,129 @@ import { Readable } from 'stream';
 import * as $tea from '@alicloud/tea-typescript';
 
 /**
+ * @remarks
  * Model for initing client
  */
 export class Config extends $tea.Model {
+  /**
+   * @remarks
+   * accesskey id
+   */
   accessKeyId?: string;
+  /**
+   * @remarks
+   * accesskey secret
+   */
   accessKeySecret?: string;
+  /**
+   * @remarks
+   * security token
+   */
   securityToken?: string;
+  /**
+   * @remarks
+   * http protocol
+   * 
+   * @example
+   * http
+   */
   protocol?: string;
+  /**
+   * @remarks
+   * read timeout
+   * 
+   * @example
+   * 10
+   */
   readTimeout?: number;
+  /**
+   * @remarks
+   * connect timeout
+   * 
+   * @example
+   * 10
+   */
   connectTimeout?: number;
+  /**
+   * @remarks
+   * http proxy
+   * 
+   * @example
+   * http://localhost
+   */
   httpProxy?: string;
+  /**
+   * @remarks
+   * https proxy
+   * 
+   * @example
+   * https://localhost
+   */
   httpsProxy?: string;
+  /**
+   * @remarks
+   * endpoint
+   * 
+   * @example
+   * cs.aliyuncs.com
+   */
   endpoint?: string;
+  /**
+   * @remarks
+   * proxy white list
+   * 
+   * @example
+   * http://localhost
+   */
   noProxy?: string;
+  /**
+   * @remarks
+   * max idle conns
+   * 
+   * @example
+   * 3
+   */
   maxIdleConns?: number;
+  /**
+   * @remarks
+   * user agent
+   * 
+   * @example
+   * Alibabacloud/1
+   */
   userAgent?: string;
+  /**
+   * @remarks
+   * socks5 proxy
+   */
   socks5Proxy?: string;
+  /**
+   * @remarks
+   * socks5 network
+   * 
+   * @example
+   * TCP
+   */
   socks5NetWork?: string;
+  /**
+   * @remarks
+   * 长链接最大空闲时长
+   */
   maxIdleTimeMillis?: number;
+  /**
+   * @remarks
+   * 长链接最大连接时长
+   */
   keepAliveDurationMillis?: number;
+  /**
+   * @remarks
+   * 最大连接数（长链接最大总数）
+   */
   maxRequests?: number;
+  /**
+   * @remarks
+   * 每个目标主机的最大连接数（分主机域名的长链接最大总数
+   */
   maxRequestsPerHost?: number;
   static names(): { [key: string]: string } {
     return {
@@ -81,8 +184,16 @@ export class Config extends $tea.Model {
 // 文件结构
 export class FileNode extends $tea.Model {
   // 可访问的文件链接
+  /**
+   * @example
+   * http://xxxx
+   */
   url: string;
   // 文件名
+  /**
+   * @example
+   * xxxxx.pdf
+   */
   name: string;
   static names(): { [key: string]: string } {
     return {
@@ -106,12 +217,28 @@ export class FileNode extends $tea.Model {
 // 被保人
 export class Insured extends $tea.Model {
   // 被保人名称
+  /**
+   * @example
+   * 李四
+   */
   insuredName: string;
   // 被保人证件类型
+  /**
+   * @example
+   * 01--居民身份证、03--营业执照
+   */
   insuredCardType: string;
   // 被保人证件号码
+  /**
+   * @example
+   * 123456789
+   */
   insuredCardCode: string;
   // 被保人联系方式
+  /**
+   * @example
+   * 123456789
+   */
   insuredContactInfo?: string;
   static names(): { [key: string]: string } {
     return {
@@ -139,12 +266,28 @@ export class Insured extends $tea.Model {
 // 投保人
 export class Applicant extends $tea.Model {
   // 投保人名称
+  /**
+   * @example
+   * 李三
+   */
   applicantName: string;
   // 投保人证件类型
+  /**
+   * @example
+   * 01--居民身份证、03--营业执照
+   */
   applicantCardType: string;
   // 投保人证件号码
+  /**
+   * @example
+   * xxxxxx
+   */
   applicantCardCode: string;
   // 投保人联系方式
+  /**
+   * @example
+   * 123456789
+   */
   applicantContactInfo?: string;
   static names(): { [key: string]: string } {
     return {
@@ -172,18 +315,46 @@ export class Applicant extends $tea.Model {
 // 委托险种信息
 export class EntrustGuaranteeProduct extends $tea.Model {
   // 保障失效时间
+  /**
+   * @example
+   * 1733711492119
+   */
   guaranteeExpiryDate: number;
   // 保障生效时间
+  /**
+   * @example
+   * 1733711492119
+   */
   guaranteeEffectiveDate: number;
   // 保险等待期结束时间
+  /**
+   * @example
+   * 1733711492119
+   */
   waitingPeriodDeadLine?: number;
   // 保单号
+  /**
+   * @example
+   * xxxxx
+   */
   policyNo?: string;
   // 平台定义产品码值
+  /**
+   * @example
+   * 平台定义产品码值
+   */
   guaranteeProductCode?: string;
   // 保险公司的产品code
+  /**
+   * @example
+   * 保险公司的产品code
+   */
   insuranceProductCode?: string;
   // 保险公司的产品描述
+  /**
+   * @example
+   * 保险公司的产品描述
+   */
   insuranceProductName?: string;
   static names(): { [key: string]: string } {
     return {
@@ -217,8 +388,16 @@ export class EntrustGuaranteeProduct extends $tea.Model {
 // 键值对
 export class XNameValuePair extends $tea.Model {
   // 键名
+  /**
+   * @example
+   * key
+   */
   name: string;
   // 键值
+  /**
+   * @example
+   * value
+   */
   value: string;
   static names(): { [key: string]: string } {
     return {
@@ -479,6 +658,10 @@ export class CallbackAasMktLiveeffectRequest extends $tea.Model {
   liveStartTime?: string;
   // 扩展字段
   extInfo?: string;
+  // 直播间开播场次-动参，每日每场直播时添加至 URl（唯一ID 生成规则：直播间 ID 后两位+开播时间的年（后两位）月日时分
+  // 举例：若直播间 ID 为 kxz123456，开播时间为 2026-06-18 17：22，此时唯一 ID 为：562606181722
+  // ）
+  liveSessionId?: string;
   static names(): { [key: string]: string } {
     return {
       authToken: 'auth_token',
@@ -498,6 +681,7 @@ export class CallbackAasMktLiveeffectRequest extends $tea.Model {
       liveRoomId: 'live_room_id',
       liveStartTime: 'live_start_time',
       extInfo: 'ext_info',
+      liveSessionId: 'live_session_id',
     };
   }
 
@@ -520,6 +704,7 @@ export class CallbackAasMktLiveeffectRequest extends $tea.Model {
       liveRoomId: 'string',
       liveStartTime: 'string',
       extInfo: 'string',
+      liveSessionId: 'string',
     };
   }
 
@@ -3847,7 +4032,15 @@ export class UploadMktFileRequest extends $tea.Model {
   // OAuth模式下的授权token
   authToken?: string;
   // 文件唯一id
+  /**
+   * @remarks
+   * 待上传文件
+   */
   fileObject?: Readable;
+  /**
+   * @remarks
+   * 待上传文件名
+   */
   fileObjectName?: string;
   fileId: string;
   // 业务入参json格式字符串
@@ -4201,8 +4394,10 @@ export default class Client {
   _maxRequestsPerHost: number;
 
   /**
+   * @remarks
    * Init client with Config
-   * @param config config contains the necessary information to create a client
+   * 
+   * @param config - config contains the necessary information to create a client
    */
   constructor(config: Config) {
     if (Util.isUnset(config)) {
@@ -4233,14 +4428,16 @@ export default class Client {
   }
 
   /**
+   * @remarks
    * Encapsulate the request and invoke the network
-   * @param action api name
-   * @param protocol http or https
-   * @param method e.g. GET
-   * @param pathname pathname of every api
-   * @param request which contains request params
-   * @param runtime which controls some details of call api, such as retry times
-   * @return the response
+   * 
+   * @param action - api name
+   * @param protocol - http or https
+   * @param method - e.g. GET
+   * @param pathname - pathname of every api
+   * @param request - which contains request params
+   * @param runtime - which controls some details of call api, such as retry times
+   * @returns the response
    */
   async doRequest(version: string, action: string, protocol: string, method: string, pathname: string, request: {[key: string]: any}, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<{[key: string]: any}> {
     let _runtime: { [key: string]: any } = {
@@ -4291,7 +4488,7 @@ export default class Client {
           req_msg_id: AntchainUtil.getNonce(),
           access_key: this._accessKeyId,
           base_sdk_version: "TeaSDK-2.0",
-          sdk_version: "1.12.27",
+          sdk_version: "1.12.34",
           _prod_code: "INSURANCE_SAAS",
           _prod_channel: "undefined",
         };
@@ -4340,6 +4537,7 @@ export default class Client {
   }
 
   /**
+   * @remarks
    * Description: 客户查询会话记录
    * Summary: 客户查询会话记录
    */
@@ -4350,6 +4548,7 @@ export default class Client {
   }
 
   /**
+   * @remarks
    * Description: 客户查询会话记录
    * Summary: 客户查询会话记录
    */
@@ -4359,6 +4558,7 @@ export default class Client {
   }
 
   /**
+   * @remarks
    * Description: 智能保顾完整方案url获取
    * Summary: 智能保顾完整方案url获取
    */
@@ -4369,6 +4569,7 @@ export default class Client {
   }
 
   /**
+   * @remarks
    * Description: 智能保顾完整方案url获取
    * Summary: 智能保顾完整方案url获取
    */
@@ -4378,6 +4579,7 @@ export default class Client {
   }
 
   /**
+   * @remarks
    * Description: 获取智能保顾会话聊天url
    * Summary: 获取智能保顾会话聊天url
    */
@@ -4388,6 +4590,7 @@ export default class Client {
   }
 
   /**
+   * @remarks
    * Description: 获取智能保顾会话聊天url
    * Summary: 获取智能保顾会话聊天url
    */
@@ -4397,6 +4600,7 @@ export default class Client {
   }
 
   /**
+   * @remarks
    * Description: 保险营销效果回传接口——直播通道
    * Summary: 保险营销效果回传接口——直播通道
    */
@@ -4407,6 +4611,7 @@ export default class Client {
   }
 
   /**
+   * @remarks
    * Description: 保险营销效果回传接口——直播通道
    * Summary: 保险营销效果回传接口——直播通道
    */
@@ -4416,6 +4621,7 @@ export default class Client {
   }
 
   /**
+   * @remarks
    * Description: 保险询报价结果查询
    * Summary: 保险询报价结果查询
    */
@@ -4426,6 +4632,7 @@ export default class Client {
   }
 
   /**
+   * @remarks
    * Description: 保险询报价结果查询
    * Summary: 保险询报价结果查询
    */
@@ -4435,6 +4642,7 @@ export default class Client {
   }
 
   /**
+   * @remarks
    * Description: 保险产品询价
    * Summary: 保险产品询价
    */
@@ -4445,6 +4653,7 @@ export default class Client {
   }
 
   /**
+   * @remarks
    * Description: 保险产品询价
    * Summary: 保险产品询价
    */
@@ -4454,6 +4663,7 @@ export default class Client {
   }
 
   /**
+   * @remarks
    * Description: 历史灾害查询
    * Summary: 历史灾害数据查询
    */
@@ -4464,6 +4674,7 @@ export default class Client {
   }
 
   /**
+   * @remarks
    * Description: 历史灾害查询
    * Summary: 历史灾害数据查询
    */
@@ -4473,6 +4684,7 @@ export default class Client {
   }
 
   /**
+   * @remarks
    * Description: 实时天气预警
    * Summary: 实时天气预警
    */
@@ -4483,6 +4695,7 @@ export default class Client {
   }
 
   /**
+   * @remarks
    * Description: 实时天气预警
    * Summary: 实时天气预警
    */
@@ -4492,6 +4705,7 @@ export default class Client {
   }
 
   /**
+   * @remarks
    * Description: 报价接口同步接口
    * Summary: 报价接口同步接口
    */
@@ -4502,6 +4716,7 @@ export default class Client {
   }
 
   /**
+   * @remarks
    * Description: 报价接口同步接口
    * Summary: 报价接口同步接口
    */
@@ -4511,6 +4726,7 @@ export default class Client {
   }
 
   /**
+   * @remarks
    * Description: 承保自核申请接口
    * Summary: 承保自核申请接口
    */
@@ -4521,6 +4737,7 @@ export default class Client {
   }
 
   /**
+   * @remarks
    * Description: 承保自核申请接口
    * Summary: 承保自核申请接口
    */
@@ -4530,6 +4747,7 @@ export default class Client {
   }
 
   /**
+   * @remarks
    * Description: 承保自核结果查询接口
    * Summary: 承保自核结果查询接口
    */
@@ -4540,6 +4758,7 @@ export default class Client {
   }
 
   /**
+   * @remarks
    * Description: 承保自核结果查询接口
    * Summary: 承保自核结果查询接口
    */
@@ -4549,6 +4768,7 @@ export default class Client {
   }
 
   /**
+   * @remarks
    * Description: 根据保单号查询保单附件，并返回一个有效期为7天的ossurl
    * Summary: 保险科技保单附件查询接口
    */
@@ -4559,6 +4779,7 @@ export default class Client {
   }
 
   /**
+   * @remarks
    * Description: 根据保单号查询保单附件，并返回一个有效期为7天的ossurl
    * Summary: 保险科技保单附件查询接口
    */
@@ -4568,6 +4789,7 @@ export default class Client {
   }
 
   /**
+   * @remarks
    * Description: 保险SaaS投保申请接口
    * Summary: 投保申请接口
    */
@@ -4578,6 +4800,7 @@ export default class Client {
   }
 
   /**
+   * @remarks
    * Description: 保险SaaS投保申请接口
    * Summary: 投保申请接口
    */
@@ -4587,6 +4810,7 @@ export default class Client {
   }
 
   /**
+   * @remarks
    * Description: 保单结果同步，注意：基于投保信息的保单结果同步。
    * Summary: 保单结果同步（依赖投保申请）
    */
@@ -4597,6 +4821,7 @@ export default class Client {
   }
 
   /**
+   * @remarks
    * Description: 保单结果同步，注意：基于投保信息的保单结果同步。
    * Summary: 保单结果同步（依赖投保申请）
    */
@@ -4606,6 +4831,7 @@ export default class Client {
   }
 
   /**
+   * @remarks
    * Description: 报案接口
    * Summary: 保险科技 报案接口
    */
@@ -4616,6 +4842,7 @@ export default class Client {
   }
 
   /**
+   * @remarks
    * Description: 报案接口
    * Summary: 保险科技 报案接口
    */
@@ -4625,6 +4852,7 @@ export default class Client {
   }
 
   /**
+   * @remarks
    * Description: 报案撤销（场景端）
    * Summary: 报案撤销（场景端）
    */
@@ -4635,6 +4863,7 @@ export default class Client {
   }
 
   /**
+   * @remarks
    * Description: 报案撤销（场景端）
    * Summary: 报案撤销（场景端）
    */
@@ -4644,6 +4873,7 @@ export default class Client {
   }
 
   /**
+   * @remarks
    * Description: 报案材料更新（场景端）
    * Summary: 报案材料更新（场景端）
    */
@@ -4654,6 +4884,7 @@ export default class Client {
   }
 
   /**
+   * @remarks
    * Description: 报案材料更新（场景端）
    * Summary: 报案材料更新（场景端）
    */
@@ -4663,6 +4894,7 @@ export default class Client {
   }
 
   /**
+   * @remarks
    * Description: 理赔结果确认（场景端）
    * Summary: 理赔结果确认（场景端）
    */
@@ -4673,6 +4905,7 @@ export default class Client {
   }
 
   /**
+   * @remarks
    * Description: 理赔结果确认（场景端）
    * Summary: 理赔结果确认（场景端）
    */
@@ -4682,6 +4915,7 @@ export default class Client {
   }
 
   /**
+   * @remarks
    * Description: 理赔结案通知（保司端）
    * Summary: 理赔结案通知（保司端）
    */
@@ -4692,6 +4926,7 @@ export default class Client {
   }
 
   /**
+   * @remarks
    * Description: 理赔结案通知（保司端）
    * Summary: 理赔结案通知（保司端）
    */
@@ -4701,6 +4936,7 @@ export default class Client {
   }
 
   /**
+   * @remarks
    * Description: 保险批改自核接口
    * Summary: 保险批改自核接口
    */
@@ -4711,6 +4947,7 @@ export default class Client {
   }
 
   /**
+   * @remarks
    * Description: 保险批改自核接口
    * Summary: 保险批改自核接口
    */
@@ -4720,6 +4957,7 @@ export default class Client {
   }
 
   /**
+   * @remarks
    * Description: 保单信息离线同步
    * Summary: 保单信息离线同步
    */
@@ -4730,6 +4968,7 @@ export default class Client {
   }
 
   /**
+   * @remarks
    * Description: 保单信息离线同步
    * Summary: 保单信息离线同步
    */
@@ -4739,6 +4978,7 @@ export default class Client {
   }
 
   /**
+   * @remarks
    * Description: 基于通知单号查询保险投保结果
    * Summary: 保险投保结果查询
    */
@@ -4749,6 +4989,7 @@ export default class Client {
   }
 
   /**
+   * @remarks
    * Description: 基于通知单号查询保险投保结果
    * Summary: 保险投保结果查询
    */
@@ -4758,6 +4999,7 @@ export default class Client {
   }
 
   /**
+   * @remarks
    * Description: 投保测试接口
    * Summary: 投保测试接口
    */
@@ -4768,6 +5010,7 @@ export default class Client {
   }
 
   /**
+   * @remarks
    * Description: 投保测试接口
    * Summary: 投保测试接口
    */
@@ -4777,6 +5020,7 @@ export default class Client {
   }
 
   /**
+   * @remarks
    * Description: 本接口用于调查报案数据的提交
    * Summary: 调查报案提交接口
    */
@@ -4787,6 +5031,7 @@ export default class Client {
   }
 
   /**
+   * @remarks
    * Description: 本接口用于调查报案数据的提交
    * Summary: 调查报案提交接口
    */
@@ -4796,6 +5041,7 @@ export default class Client {
   }
 
   /**
+   * @remarks
    * Description: 回销结果查询接口
    * Summary: 回销结果查询接口
    */
@@ -4806,6 +5052,7 @@ export default class Client {
   }
 
   /**
+   * @remarks
    * Description: 回销结果查询接口
    * Summary: 回销结果查询接口
    */
@@ -4815,6 +5062,7 @@ export default class Client {
   }
 
   /**
+   * @remarks
    * Description: 嵌入式保险服务卡片url链接获取
    * Summary: 嵌入式保险服务卡片url链接获取
    */
@@ -4825,6 +5073,7 @@ export default class Client {
   }
 
   /**
+   * @remarks
    * Description: 嵌入式保险服务卡片url链接获取
    * Summary: 嵌入式保险服务卡片url链接获取
    */
@@ -4834,6 +5083,7 @@ export default class Client {
   }
 
   /**
+   * @remarks
    * Description: 嵌入式保险服务打款成功出单接口
    * Summary: 嵌入式保险服务打款成功出单接口
    */
@@ -4844,6 +5094,7 @@ export default class Client {
   }
 
   /**
+   * @remarks
    * Description: 嵌入式保险服务打款成功出单接口
    * Summary: 嵌入式保险服务打款成功出单接口
    */
@@ -4853,6 +5104,7 @@ export default class Client {
   }
 
   /**
+   * @remarks
    * Description: 嵌入式主机厂车险url链接获取
    * Summary: 嵌入式主机厂车险url链接获取
    */
@@ -4863,6 +5115,7 @@ export default class Client {
   }
 
   /**
+   * @remarks
    * Description: 嵌入式主机厂车险url链接获取
    * Summary: 嵌入式主机厂车险url链接获取
    */
@@ -4872,6 +5125,7 @@ export default class Client {
   }
 
   /**
+   * @remarks
    * Description: 场景方获取权益链接 
    * Summary: 场景方获取权益链接
    */
@@ -4882,6 +5136,7 @@ export default class Client {
   }
 
   /**
+   * @remarks
    * Description: 场景方获取权益链接 
    * Summary: 场景方获取权益链接
    */
@@ -4891,6 +5146,7 @@ export default class Client {
   }
 
   /**
+   * @remarks
    * Description: 更新申请额度状态&投保人信息
    * Summary: 更新申请额度状态&投保人信息
    */
@@ -4901,6 +5157,7 @@ export default class Client {
   }
 
   /**
+   * @remarks
    * Description: 更新申请额度状态&投保人信息
    * Summary: 更新申请额度状态&投保人信息
    */
@@ -4910,6 +5167,7 @@ export default class Client {
   }
 
   /**
+   * @remarks
    * Description: 场景方标的信息通知
    * Summary: 场景方标的信息通知
    */
@@ -4920,6 +5178,7 @@ export default class Client {
   }
 
   /**
+   * @remarks
    * Description: 场景方标的信息通知
    * Summary: 场景方标的信息通知
    */
@@ -4929,6 +5188,7 @@ export default class Client {
   }
 
   /**
+   * @remarks
    * Description: 权益服务商标的信息查询
    * Summary: 权益服务商标的信息查询
    */
@@ -4939,6 +5199,7 @@ export default class Client {
   }
 
   /**
+   * @remarks
    * Description: 权益服务商标的信息查询
    * Summary: 权益服务商标的信息查询
    */
@@ -4948,6 +5209,7 @@ export default class Client {
   }
 
   /**
+   * @remarks
    * Description: 权益服务商投保后通知保单信息
    * Summary: 权益服务商投保后通知保单信息
    */
@@ -4958,6 +5220,7 @@ export default class Client {
   }
 
   /**
+   * @remarks
    * Description: 权益服务商投保后通知保单信息
    * Summary: 权益服务商投保后通知保单信息
    */
@@ -4967,6 +5230,7 @@ export default class Client {
   }
 
   /**
+   * @remarks
    * Description: 场景方获取权益链接
    * Summary: 场景方获取权益链接
    */
@@ -4977,6 +5241,7 @@ export default class Client {
   }
 
   /**
+   * @remarks
    * Description: 场景方获取权益链接
    * Summary: 场景方获取权益链接
    */
@@ -4986,6 +5251,7 @@ export default class Client {
   }
 
   /**
+   * @remarks
    * Description: 场景方订单信息查询
    * Summary: 场景方订单信息查询
    */
@@ -4996,6 +5262,7 @@ export default class Client {
   }
 
   /**
+   * @remarks
    * Description: 场景方订单信息查询
    * Summary: 场景方订单信息查询
    */
@@ -5005,6 +5272,7 @@ export default class Client {
   }
 
   /**
+   * @remarks
    * Description: 权益服务商订单状态通知
    * Summary: 权益服务商订单状态通知
    */
@@ -5015,6 +5283,7 @@ export default class Client {
   }
 
   /**
+   * @remarks
    * Description: 权益服务商订单状态通知
    * Summary: 权益服务商订单状态通知
    */
@@ -5024,6 +5293,7 @@ export default class Client {
   }
 
   /**
+   * @remarks
    * Description: 车险线索营销结果接收
    * Summary: 车险线索营销结果接收
    */
@@ -5034,6 +5304,7 @@ export default class Client {
   }
 
   /**
+   * @remarks
    * Description: 车险线索营销结果接收
    * Summary: 车险线索营销结果接收
    */
@@ -5043,6 +5314,7 @@ export default class Client {
   }
 
   /**
+   * @remarks
    * Description: 营销投保短链获取
    * Summary: 营销投保短链获取
    */
@@ -5053,6 +5325,7 @@ export default class Client {
   }
 
   /**
+   * @remarks
    * Description: 营销投保短链获取
    * Summary: 营销投保短链获取
    */
@@ -5062,6 +5335,7 @@ export default class Client {
   }
 
   /**
+   * @remarks
    * Description: 营销保单出单信息事件回传
    * Summary: 营销保单出单信息事件回传
    */
@@ -5072,6 +5346,7 @@ export default class Client {
   }
 
   /**
+   * @remarks
    * Description: 营销保单出单信息事件回传
    * Summary: 营销保单出单信息事件回传
    */
@@ -5081,6 +5356,7 @@ export default class Client {
   }
 
   /**
+   * @remarks
    * Description: 营销退保信息回传
    * Summary: 营销退保事件回传
    */
@@ -5091,6 +5367,7 @@ export default class Client {
   }
 
   /**
+   * @remarks
    * Description: 营销退保信息回传
    * Summary: 营销退保事件回传
    */
@@ -5100,6 +5377,7 @@ export default class Client {
   }
 
   /**
+   * @remarks
    * Description: 车险线索查询
    * Summary: 车险线索查询
    */
@@ -5110,6 +5388,7 @@ export default class Client {
   }
 
   /**
+   * @remarks
    * Description: 车险线索查询
    * Summary: 车险线索查询
    */
@@ -5119,6 +5398,7 @@ export default class Client {
   }
 
   /**
+   * @remarks
    * Description: 理想车险事件通知
    * Summary: 理想车险事件通知
    */
@@ -5129,6 +5409,7 @@ export default class Client {
   }
 
   /**
+   * @remarks
    * Description: 理想车险事件通知
    * Summary: 理想车险事件通知
    */
@@ -5138,6 +5419,7 @@ export default class Client {
   }
 
   /**
+   * @remarks
    * Description: 保险营销文件上传，营销链路中涉及到文件上传，均可使用本接口，根据上传的数据类型做区分
    * Summary: 保险营销文件上传，营销链路中涉及到文件上传，均可使用本接口，根据上传的数据类型做区分
    */
@@ -5148,6 +5430,7 @@ export default class Client {
   }
 
   /**
+   * @remarks
    * Description: 保险营销文件上传，营销链路中涉及到文件上传，均可使用本接口，根据上传的数据类型做区分
    * Summary: 保险营销文件上传，营销链路中涉及到文件上传，均可使用本接口，根据上传的数据类型做区分
    */
@@ -5179,6 +5462,7 @@ export default class Client {
   }
 
   /**
+   * @remarks
    * Description: 保险营销效果回传
    * Summary: 保险营销效果回传
    */
@@ -5189,6 +5473,7 @@ export default class Client {
   }
 
   /**
+   * @remarks
    * Description: 保险营销效果回传
    * Summary: 保险营销效果回传
    */
@@ -5198,6 +5483,7 @@ export default class Client {
   }
 
   /**
+   * @remarks
    * Description: 商机数量推送接口
    * Summary: 商机数量接收
    */
@@ -5208,6 +5494,7 @@ export default class Client {
   }
 
   /**
+   * @remarks
    * Description: 商机数量推送接口
    * Summary: 商机数量接收
    */
@@ -5217,6 +5504,7 @@ export default class Client {
   }
 
   /**
+   * @remarks
    * Description: 创建HTTP PUT提交的文件上传
    * Summary: 文件上传创建
    */
@@ -5227,6 +5515,7 @@ export default class Client {
   }
 
   /**
+   * @remarks
    * Description: 创建HTTP PUT提交的文件上传
    * Summary: 文件上传创建
    */
