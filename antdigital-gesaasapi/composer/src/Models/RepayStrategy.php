@@ -1,0 +1,145 @@
+<?php
+
+// This file is auto-generated, don't edit it. Thanks.
+
+namespace AntChain\GESAASAPI\Models;
+
+use AlibabaCloud\Tea\Model;
+
+class RepayStrategy extends Model
+{
+    // 应付租金时间，精确到天 格式为yyyy-MM-dd
+    /**
+     * @example 2025-09-19
+     *
+     * @var string
+     */
+    public $payDay;
+
+    // 用户还款期数，从1开始
+    /**
+     * @example 1
+     *
+     * @var int
+     */
+    public $termIndex;
+
+    // 应付租金，精确到分，即1234表示12.34元 大于0
+    /**
+     * @example 1234
+     *
+     * @var int
+     */
+    public $rentalMoney;
+
+    // 是否经营分账, Y-是、N-否 为空代表否
+    /**
+     * @example Y
+     *
+     * @var string
+     */
+    public $operateDivideFlag;
+
+    // 经营分账收入方列表
+    // 当operateDivideFlag 为Y时必填
+    /**
+     * @example
+     *
+     * @var OperateDivideTransInModel[]
+     */
+    public $operateDivideTransInList;
+
+    // 是否停止数科代扣自动执行
+    //
+    // Y：停止；由商户调用接口「支付相关接入 - 代扣计划重试」触发代扣；否则代扣不会被执行、到逾期时间后会被逾期
+    //
+    // N : 不停止；保持数科自动代扣（默认）
+    /**
+     * @example N
+     *
+     * @var string
+     */
+    public $noNeedAutoDeduction;
+    protected $_name = [
+        'payDay'                   => 'pay_day',
+        'termIndex'                => 'term_index',
+        'rentalMoney'              => 'rental_money',
+        'operateDivideFlag'        => 'operate_divide_flag',
+        'operateDivideTransInList' => 'operate_divide_trans_in_list',
+        'noNeedAutoDeduction'      => 'no_need_auto_deduction',
+    ];
+
+    public function validate()
+    {
+        Model::validateRequired('payDay', $this->payDay, true);
+        Model::validateRequired('termIndex', $this->termIndex, true);
+        Model::validateRequired('rentalMoney', $this->rentalMoney, true);
+    }
+
+    public function toMap()
+    {
+        $res = [];
+        if (null !== $this->payDay) {
+            $res['pay_day'] = $this->payDay;
+        }
+        if (null !== $this->termIndex) {
+            $res['term_index'] = $this->termIndex;
+        }
+        if (null !== $this->rentalMoney) {
+            $res['rental_money'] = $this->rentalMoney;
+        }
+        if (null !== $this->operateDivideFlag) {
+            $res['operate_divide_flag'] = $this->operateDivideFlag;
+        }
+        if (null !== $this->operateDivideTransInList) {
+            $res['operate_divide_trans_in_list'] = [];
+            if (null !== $this->operateDivideTransInList && \is_array($this->operateDivideTransInList)) {
+                $n = 0;
+                foreach ($this->operateDivideTransInList as $item) {
+                    $res['operate_divide_trans_in_list'][$n++] = null !== $item ? $item->toMap() : $item;
+                }
+            }
+        }
+        if (null !== $this->noNeedAutoDeduction) {
+            $res['no_need_auto_deduction'] = $this->noNeedAutoDeduction;
+        }
+
+        return $res;
+    }
+
+    /**
+     * @param array $map
+     *
+     * @return RepayStrategy
+     */
+    public static function fromMap($map = [])
+    {
+        $model = new self();
+        if (isset($map['pay_day'])) {
+            $model->payDay = $map['pay_day'];
+        }
+        if (isset($map['term_index'])) {
+            $model->termIndex = $map['term_index'];
+        }
+        if (isset($map['rental_money'])) {
+            $model->rentalMoney = $map['rental_money'];
+        }
+        if (isset($map['operate_divide_flag'])) {
+            $model->operateDivideFlag = $map['operate_divide_flag'];
+        }
+        if (isset($map['operate_divide_trans_in_list'])) {
+            if (!empty($map['operate_divide_trans_in_list'])) {
+                $model->operateDivideTransInList = [];
+                $n                               = 0;
+                foreach ($map['operate_divide_trans_in_list'] as $item) {
+                    $model->operateDivideTransInList[$n++] = null !== $item ? OperateDivideTransInModel::fromMap($item) : $item;
+                }
+            }
+        }
+        if (isset($map['no_need_auto_deduction'])) {
+            $model->noNeedAutoDeduction = $map['no_need_auto_deduction'];
+        }
+
+        return $model;
+    }
+}
