@@ -29,12 +29,9 @@ public class PushRightsprodVoucherRequest extends TeaModel {
     @Validation(required = true)
     public String bizType;
 
-    // GRANT_SUCCESS：发放成功
-    // GRANT_FAIL：发放失败 
-    // VERIFY_FAIL：核销失败 
-    // VERIFY_SUCCESS：核销成功 
+    // FAIL：失败 
+    // SUCCESS：成功 
     @NameInMap("status")
-    @Validation(required = true)
     public String status;
 
     // 外部订单号

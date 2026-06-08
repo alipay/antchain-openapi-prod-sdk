@@ -126,7 +126,7 @@ public class Client {
                     new TeaPair("req_msg_id", com.antgroup.antchain.openapi.antchain.util.AntchainUtils.getNonce()),
                     new TeaPair("access_key", _accessKeyId),
                     new TeaPair("base_sdk_version", "TeaSDK-2.0"),
-                    new TeaPair("sdk_version", "1.0.0"),
+                    new TeaPair("sdk_version", "1.1.0"),
                     new TeaPair("_prod_code", "GESAAS_SPI"),
                     new TeaPair("_prod_channel", "default")
                 );
@@ -207,5 +207,68 @@ public class Client {
     public PushRightsprodVoucherResponse pushRightsprodVoucherEx(PushRightsprodVoucherRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
         com.aliyun.teautil.Common.validateModel(request);
         return TeaModel.toModel(this.doRequest("1.0", "antdigital.gesaasspi.rightsprod.voucher.push", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new PushRightsprodVoucherResponse());
+    }
+
+    /**
+     * <b>description</b> :
+     * <p>Description: 权益中心券状态变更回调通知
+     * Summary: 权益中心券状态变更回调通知</p>
+     */
+    public CallbackRightsprodStatusResponse callbackRightsprodStatus(CallbackRightsprodStatusRequest request) throws Exception {
+        com.aliyun.teautil.models.RuntimeOptions runtime = new com.aliyun.teautil.models.RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.callbackRightsprodStatusEx(request, headers, runtime);
+    }
+
+    /**
+     * <b>description</b> :
+     * <p>Description: 权益中心券状态变更回调通知
+     * Summary: 权益中心券状态变更回调通知</p>
+     */
+    public CallbackRightsprodStatusResponse callbackRightsprodStatusEx(CallbackRightsprodStatusRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "antdigital.gesaasspi.rightsprod.status.callback", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new CallbackRightsprodStatusResponse());
+    }
+
+    /**
+     * <b>description</b> :
+     * <p>Description: 券操作回调通知
+     * Summary: 券操作回调通知</p>
+     */
+    public CallbackRightsprodOperationResponse callbackRightsprodOperation(CallbackRightsprodOperationRequest request) throws Exception {
+        com.aliyun.teautil.models.RuntimeOptions runtime = new com.aliyun.teautil.models.RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.callbackRightsprodOperationEx(request, headers, runtime);
+    }
+
+    /**
+     * <b>description</b> :
+     * <p>Description: 券操作回调通知
+     * Summary: 券操作回调通知</p>
+     */
+    public CallbackRightsprodOperationResponse callbackRightsprodOperationEx(CallbackRightsprodOperationRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "antdigital.gesaasspi.rightsprod.operation.callback", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new CallbackRightsprodOperationResponse());
+    }
+
+    /**
+     * <b>description</b> :
+     * <p>Description: 权益供应商权益发放spi
+     * Summary: 权益供应商权益发放spi</p>
+     */
+    public PushRightsprodGrantrightsResponse pushRightsprodGrantrights(PushRightsprodGrantrightsRequest request) throws Exception {
+        com.aliyun.teautil.models.RuntimeOptions runtime = new com.aliyun.teautil.models.RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.pushRightsprodGrantrightsEx(request, headers, runtime);
+    }
+
+    /**
+     * <b>description</b> :
+     * <p>Description: 权益供应商权益发放spi
+     * Summary: 权益供应商权益发放spi</p>
+     */
+    public PushRightsprodGrantrightsResponse pushRightsprodGrantrightsEx(PushRightsprodGrantrightsRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "antdigital.gesaasspi.rightsprod.grantrights.push", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new PushRightsprodGrantrightsResponse());
     }
 }
