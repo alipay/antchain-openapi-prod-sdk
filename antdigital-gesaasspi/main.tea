@@ -100,7 +100,7 @@ api doRequest(version: string, action: string, protocol: string, method: string,
     req_msg_id = AntchainUtil.getNonce(),
     access_key = @accessKeyId,
     base_sdk_version = 'TeaSDK-2.0',
-    sdk_version = '1.2.0',
+    sdk_version = '1.5.0',
     _prod_code = 'GESAASSPI',
     _prod_channel = 'default'
   };
@@ -159,6 +159,648 @@ api doRequest(version: string, action: string, protocol: string, method: string,
     period = Util.defaultNumber(runtime.backoffPeriod, 1)
   },
   ignoreSSL = runtime.ignoreSSL
+}
+
+// 【固定折扣特定信息】 
+model FixedDiscountCoupon {
+  // 【最高折扣金额】 最高折扣金额，单位分
+  discountAmountMax: long(name='discount_amount_max', example='100'),
+  // 【折扣百分比】 折扣百分比，例如88-八八折
+  discountPercent: long(name='discount_percent', example='88'),
+  // 【门槛】 使用券金额门槛，单位分
+  transactionMinimum?: long(name='transaction_minimum', example='100'),
+}
+
+// 【固定面额批次特定信息】 固定面额发券或消费金批次特定信息。
+model FixedNormalCoupon {
+  // 【面额】 面额，单位：分。
+  couponAmount: long(name='coupon_amount', example='100'),
+  // 【门槛】 使用券金额门槛，单位：分。
+  transactionMinimum: long(name='transaction_minimum', example='100'),
+}
+
+// 返回体度量
+model RultMetric {
+  // 度量编码
+  metricCode: string(name='metric_code', example='ori_use_amount'),
+  // 度量聚合结果
+  metricValue: string(name='metric_value', example='21.22'),
+}
+
+// 【减至批次特定信息】 单品优惠特定信息
+model CutToMessage {
+  // 【可用优惠的商品最高单价】 可用优惠的商品最高单价，单位：分。
+  singlePriceMax: long(name='single_price_max', example='100'),
+  // 【减至后的优惠单价】 减至后的优惠单价，单位：分。
+  cutToPrice: long(name='cut_to_price', example='80'),
+}
+
+// 【消费金可用地域】 消费金可用地域
+model AvailableRegion {
+  // 【类型】 消费金可用地域的类型，COUNTRY表示国家级别可用，PROVINCE表示省级可用，CITY表示市级可用，DISTRICT表示区级可用。
+  // 可选取值
+  // PROVINCE:  地域信息精确到省级
+  // CITY:  地域信息精确到市级
+  // DISTRICT:  地域信息精确到区级
+  // COUNTRY:  地域信息精确到国家级
+  type?: string(name='type', example='PROVINCE'),
+  // 【省】 消费金可用省
+  province?: string(name='province', example='广东省'),
+  // 【市】 消费金可用
+  city?: string(name='city', example='深圳市'),
+  // 【区】 消费金可用区
+  district?: string(name='district', example='南山区'),
+  // 【国家】 消费金可用国家
+  country?: string(name='country', example='中国大陆'),
+}
+
+// 维度
+model Dimension {
+  // 维度
+  dimension: string(name='dimension', example='voucher_template_id'),
+  // 维度值
+  dimensionValue: string(name='dimension_value', example='2025122400073001038200J7964H'),
+}
+
+// 【满减券/消费金批次使用规则】 满减券或消费金批次特定信息。
+model StockUseRule {
+  // 【发放总上限】 最大发券数
+  maxCoupons: long(name='max_coupons', example='100'),
+  // 【总预算】 总消耗金额，单位：分。
+  maxAmount: long(name='max_amount', example='5000'),
+  // 【单天发放上限金额】 单天最高消耗金额，单位：分。
+  maxAmountByDay: long(name='max_amount_by_day', example='400'),
+  // 【固定面额批次特定信息】 固定面额发券或消费金批次特定信息。
+  fixedNormalCoupon: FixedNormalCoupon(name='fixed_normal_coupon', example='{           "coupon_amount" : 100,           "transaction_minimum" : 100         }'),
+  // 【单个用户可领个数】 单个用户可领个数
+  maxCouponsPerUser: long(name='max_coupons_per_user', example='3'),
+  // 【券或消费金类型】 券或消费金类型
+  // 枚举值：
+  // NORMAL：满减券
+  // CUT_TO：减至券
+  couponType?: string(name='coupon_type', example='NORMAL'),
+  // 【订单优惠标记】 订单优惠标记 (该字段暂未开放返回)
+  // 特殊规则：单个优惠标记的字符长度为【1，128】,条目个数限制为【1，50】。
+  goodsTag?: [ string ](name='goods_tag', example='[           "123456"         ]'),
+  // 【指定支付模式】默认不限制(该字段暂未开放返回)，枚举值：
+  // 可选取值
+  // MICROAPP:  小程序支付
+  // APPPAY:  APP支付
+  // PPAY:  免密支付
+  // CARD:  刷卡支付
+  // FACE:  人脸支付
+  // OTHER:  其他支付，公众号、扫码等
+  tradeType?: [ string ](name='trade_type', example='[           "MICROAPP"         ]'),
+  // 【是否可叠加其他优惠】 枚举值：
+  // true：是
+  // false：否
+  combineUse?: boolean(name='combine_use', example='true'),
+  // 【固定折扣特定信息】
+  fixedDiscountCoupon?: FixedDiscountCoupon(name='fixed_discount_coupon', example='{           "discount_amount_max" : 100,           "discount_percent" : 88,      "transaction_minimum" : 100         }'),
+}
+
+// 【批次详情】 批次详情
+model WxStockData {
+  // 【批次号】 微信为每个代金券批次分配的唯一id。
+  stockId: string(name='stock_id', example='9836588'),
+  // 【批次创建方商户号】 微信为创建方商户分配的商户号
+  stockCreatorMchid: string(name='stock_creator_mchid', example='123456'),
+  // 【批次名称】 批次名称
+  stockName: string(name='stock_name', example='微信支付批次'),
+  // 【批次状态】 批次状态，枚举值：
+  // unactivated：未激活
+  // audit：审核中
+  // running：运行中
+  // stoped：已停止
+  // paused：暂停发放
+  status: string(name='status', example='paused'),
+  // 【创建时间】 批次创建时间，遵循rfc3339标准格式，格式为yyyy-MM-DDTHH:mm:ss.sss+TIMEZONE，yyyy-MM-DD表示年月日，T出现在字符串中，表示time元素的开头，HH:mm:ss.sss表示时分秒毫秒，TIMEZONE表示时区（+08:00表示东八区时间，领先UTC 8小时，即北京时间）。例如：2015-05-20T13:29:35.120+08:00表示，北京时间2015年5月20日 13点29分35秒。
+  createTime: string(name='create_time', example='2015-05-20T13:29:35.120+08:00'),
+  // 【使用说明】 批次描述信息
+  description: string(name='description', example='微信支付营销'),
+  // 【满减券/消费金批次使用规则】 满减券或消费金批次特定信息。
+  stockUseRule?: StockUseRule(name='stock_use_rule', example='{         "max_coupons" : 100,         "max_amount" : 5000,         "max_amount_by_day" : 400,         "fixed_normal_coupon" : {           "coupon_amount" : 100,           "transaction_minimum" : 100         }'),
+  // 【可用开始时间】 可用开始时间，遵循rfc3339标准格式，格式为yyyy-MM-DDTHH:mm:ss.sss+TIMEZONE，yyyy-MM-DD表示年月日，T出现在字符串中，表示time元素的开头，HH:mm:ss.sss表示时分秒毫秒，TIMEZONE表示时区（+08:00表示东八区时间，领先UTC 8小时，即北京时间）。例如：2015-05-20T13:29:35.120+08:00表示，北京时间2015年5月20日 13点29分35秒。
+  availableBeginTime: string(name='available_begin_time', example='2015-05-20T13:29:35.120+08:00'),
+  // 【可用结束时间】 可用结束时间，遵循rfc3339标准格式，格式为yyyy-MM-DDTHH:mm:ss.sss+TIMEZONE，yyyy-MM-DD表示年月日，T出现在字符串中，表示time元素的开头，HH:mm:ss.sss表示时分秒毫秒，TIMEZONE表示时区（+08:00表示东八区时间，领先UTC 8小时，即北京时间）。例如：2015-05-20T13:29:35.120+08:00表示，北京时间2015年5月20日 13点29分35秒。
+  availableEndTime: string(name='available_end_time', example='2015-05-20T13:29:35.120+08:00'),
+  // 【已发券或消费金数量】 已发券或消费金数量
+  distributedCoupons: long(name='distributed_coupons', example='100'),
+  // 【是否无资金流】 是否无资金流。枚举值：
+  // true：是
+  // false：否
+  noCash: boolean(name='no_cash', example='true'),
+  // 【激活批次的时间】 批次激活开启时间，遵循rfc3339标准格式，格式为yyyy-MM-DDTHH:mm:ss.sss+TIMEZONE，yyyy-MM-DD表示年月日，T出现在字符串中，表示time元素的开头，HH:mm:ss.sss表示时分秒毫秒，TIMEZONE表示时区（+08:00表示东八区时间，领先UTC 8小时，即北京时间）。例如：2015-05-20T13:29:35.120+08:00表示，北京时间2015年5月20日 13点29分35秒。
+  startTime?: string(name='start_time', example='2015-05-20T13:29:35.120+08:00'),
+  // 【终止批次的时间】 批次永久停止时间，遵循rfc3339标准格式，格式为yyyy-MM-DDTHH:mm:ss.sss+TIMEZONE，yyyy-MM-DD表示年月日，T出现在字符串中，表示time元素的开头，HH:mm:ss.sss表示时分秒毫秒，TIMEZONE表示时区（+08:00表示东八区时间，领先UTC 8小时，即北京时间）。例如：2015-05-20T13:29:35.120+08:00表示，北京时间2015年5月20日 13点29分35秒。
+  stopTime?: string(name='stop_time', example='2015-05-20T13:29:35.120+08:00'),
+  // 【减至批次特定信息】 单品优惠特定信息
+  cutToMessage?: CutToMessage(name='cut_to_message', example='{         "single_price_max" : 100,         "cut_to_price" : 80       }'),
+  // 【是否单品优惠】 枚举值：
+  // true：是
+  // false：否
+  singleitem: boolean(name='singleitem', example='true'),
+  // 【批次类型】 批次类型
+  // 枚举值：
+  // NORMAL：代金券批次
+  // DISCOUNT_CUT：立减与折扣
+  // OTHER：其他
+  stockType: string(name='stock_type', example='NORMAL'),
+  // 【卡包ID】 微信卡包ID
+  cardId?: string(name='card_id', example='pX2-vjoeC94Nn-r2g5GjDwkfFH7E'),
+  // 【业务类型】 细分业务类型，仅有当business_type=MULTIUSE时，才会返回，枚举值：
+  // MULTIUSE：消费金
+  // 可选取值
+  // MULTIUSE:  消费金类型
+  businessType?: string(name='business_type', example='MULTIUSE'),
+  // 消费金可用地域列表，仅有当business_type=MULTIUSE时，才会返回
+  availableRegionList?: [ AvailableRegion ](name='available_region_list', example='[         {           "type" : "PROVINCE",           "province" : "广东省",           "city" : "深圳市",           "district" : "南山区",           "country" : "中国大陆"         }       ]'),
+  // 【消费金可用行业】 消费金可用行业列表，仅有当business_type=MULTIUSE时，才会返回
+  availableIndustryList?: [ string ](name='available_industry_list', example='[         "餐饮"       ]'),
+}
+
+// 度量
+model Metric {
+  // 度量编码
+  metricCode: string(name='metric_code', example='ori_use_amount'),
+  // 计算列
+  metricColumn: string(name='metric_column', example='ori_use_amount'),
+  // 计算方式
+  functionType?: string(name='function_type', example='SUM'),
+}
+
+// 业务号条件
+model BizNoCondition {
+  // 枚举
+  // CITY 城市
+  // BLOCK 区县
+  // AGE 年龄
+  dimension: string(name='dimension', example='100010'),
+  // 枚举范围，每个维度的值是或的关系,需要校验场景和取值范围是否匹配
+  // CITY:区划码
+  // BLOCK:区划码（底包暂不支持）
+  // AGE:30+、40+、50+（底包暂不支持
+  valueScope: [ string ](name='value_scope', example='["100010","100011","100020"]'),
+}
+
+// 批处理结果
+model BatchResult {
+  // 业务号
+  bizNo: string(maxLength=64, name='biz_no', example='业务号'),
+  // 业务号类型
+  bizNoType: string(maxLength=32, name='biz_no_type', example='PHONE_SHA1'),
+  // 结果
+  result?: string(name='result', example='Y'),
+  // 结果码
+  resultCode?: string(name='result_code', example='rights_rights-config-not-exist '),
+}
+
+// 任务详细结果包含任务的统计数据信息
+model TaskDetailResult {
+  // 总数量
+  totalCount?: long(name='total_count', example='100'),
+  // 成功数量
+  successCount?: long(name='success_count', example='100'),
+  // 失败数量
+  failCount?: long(name='fail_count', example='0'),
+  // 处理中数量
+  processingCount?: long(name='processing_count', example='0'),
+  // 当状态为无效时，显示具体的错误信息
+  errorInfo?: string(name='error_info', example='xxx'),
+}
+
+// 聚合查询结果
+model DwsResult {
+  // 维度列表
+  dimensionList: [ Dimension ](name='dimension_list', example=''),
+  // 度量列表
+  metricList: [ RultMetric ](name='metric_list', example=''),
+}
+
+// 过滤条件
+model FilterCondition {
+  // 过滤列
+  filterColumn: string(name='filter_column', example='biz_date'),
+  // 过滤方式
+  filterType?: string(name='filter_type', example='BETWEEN'),
+  // 值列表
+  valueList: [ string ](name='value_list', example='["20240303", "20250303"]'),
+}
+
+// 地址，包含省、市、区(县)
+model Address {
+  // 市级
+  city: string(maxLength=6, minLength=6, name='city', example='110100'),
+  // 区、县级
+  district?: string(maxLength=6, minLength=6, name='district', example='110101'),
+}
+
+// 键值对
+model XNameValuePair {
+  // 键名
+  name: string(name='name', example='key'),
+  // 键值
+  value: string(name='value', example='value'),
+}
+
+model SubmitAntchainSdsScenedataTaskRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 【场景】约定的场景枚举
+  scene: string(maxLength=32, name='scene'),
+  // 【业务号类型】该字段逐步废弃，枚举-PHONE_SHA1，PHONE_MD5
+  bizNoType?: string(maxLength=32, name='biz_no_type'),
+  // 【来源标识】适配客户的来源，可能是客户的任务/AK
+  sourceMark?: string(maxLength=32, name='source_mark'),
+  // 【动态参数】任务动态参数信息
+  expectCondition?: [ BizNoCondition ](name='expect_condition'),
+  // 【外部批次号】和任务类型组成唯一键
+  outBatchNo?: string(name='out_batch_no'),
+  // 【任务类型】SDS根据类型触发异步处理流程
+  taskType?: string(name='task_type'),
+}
+
+model SubmitAntchainSdsScenedataTaskResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 创建任务成功后，返回批次号
+  batchNo?: string(name='batch_no'),
+}
+
+/**
+ * Description: 创建任务，获取批次号。
+ * Summary: 创建任务，获取批次号。
+ */
+async function submitAntchainSdsScenedataTask(request: SubmitAntchainSdsScenedataTaskRequest): SubmitAntchainSdsScenedataTaskResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return submitAntchainSdsScenedataTaskEx(request, headers, runtime);
+}
+
+/**
+ * Description: 创建任务，获取批次号。
+ * Summary: 创建任务，获取批次号。
+ */
+async function submitAntchainSdsScenedataTaskEx(request: SubmitAntchainSdsScenedataTaskRequest, headers: map[string]string, runtime: Util.RuntimeOptions): SubmitAntchainSdsScenedataTaskResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'antchain.sds.scenedata.task.submit', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model UploadAntchainSdsScenedataFileRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 批次号
+  batchNo: string(maxLength=64, name='batch_no'),
+  // 文件参数
+  fileObject?: readable(description='待上传文件', ignore='true'),
+  fileObjectName?: string(description='待上传文件名', ignore='true'),
+  fileId: string(name='file_id'),
+}
+
+model UploadAntchainSdsScenedataFileResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // batchNo对应的任务状态，上传后，返回RECEIVED
+  status?: string(name='status'),
+}
+
+/**
+ * Description: 批次数据文件上传
+ * Summary: 批次数据文件上传
+ */
+async function uploadAntchainSdsScenedataFile(request: UploadAntchainSdsScenedataFileRequest): UploadAntchainSdsScenedataFileResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return uploadAntchainSdsScenedataFileEx(request, headers, runtime);
+}
+
+/**
+ * Description: 批次数据文件上传
+ * Summary: 批次数据文件上传
+ */
+async function uploadAntchainSdsScenedataFileEx(request: UploadAntchainSdsScenedataFileRequest, headers: map[string]string, runtime: Util.RuntimeOptions): UploadAntchainSdsScenedataFileResponse {
+  if (!Util.isUnset(request.fileObject)) {
+    var uploadReq = new CreateAntcloudGatewayxFileUploadRequest{
+      authToken = request.authToken,
+      apiCode = 'antchain.sds.scenedata.file.upload',
+      fileName = request.fileObjectName,
+    };
+    var uploadResp = createAntcloudGatewayxFileUploadEx(uploadReq, headers, runtime);
+    if (!AntchainUtil.isSuccess(uploadResp.resultCode, "ok")) {
+      var uploadAntchainSdsScenedataFileResponse = new UploadAntchainSdsScenedataFileResponse{
+        reqMsgId = uploadResp.reqMsgId,
+        resultCode = uploadResp.resultCode,
+        resultMsg = uploadResp.resultMsg,
+      };
+      return uploadAntchainSdsScenedataFileResponse;
+    }
+    var uploadHeaders = AntchainUtil.parseUploadHeaders(uploadResp.uploadHeaders);
+    AntchainUtil.putObject(request.fileObject, uploadHeaders, uploadResp.uploadUrl);
+    request.fileId = uploadResp.fileId;
+    request.fileObject = null;
+  }
+  Util.validateModel(request);
+  return doRequest('1.0' ,'antchain.sds.scenedata.file.upload', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model BatchqueryAntchainSdsScenedataTaskresultRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 批次号
+  batchNo: string(maxLength=64, name='batch_no'),
+  // 游标，上一次的最后一条
+  cursor?: string(maxLength=256, name='cursor'),
+  // 本次同步数量
+  syncNum?: long(name='sync_num'),
+}
+
+model BatchqueryAntchainSdsScenedataTaskresultResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 0-未开始
+  // 1-可继续
+  // 2-结束
+  syncStatus?: string(name='sync_status'),
+  // 本次的最后一个游标，保存起来下一次使用
+  lastCursor?: string(name='last_cursor'),
+  // 结果列表
+  resultList?: [ BatchResult ](name='result_list'),
+}
+
+/**
+ * Description: 任务结果查询
+ * Summary: 任务结果查询
+ */
+async function batchqueryAntchainSdsScenedataTaskresult(request: BatchqueryAntchainSdsScenedataTaskresultRequest): BatchqueryAntchainSdsScenedataTaskresultResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return batchqueryAntchainSdsScenedataTaskresultEx(request, headers, runtime);
+}
+
+/**
+ * Description: 任务结果查询
+ * Summary: 任务结果查询
+ */
+async function batchqueryAntchainSdsScenedataTaskresultEx(request: BatchqueryAntchainSdsScenedataTaskresultRequest, headers: map[string]string, runtime: Util.RuntimeOptions): BatchqueryAntchainSdsScenedataTaskresultResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'antchain.sds.scenedata.taskresult.batchquery', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model QueryAntchainSdsScenedataTaskinfoRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 批次号
+  batchNo: string(name='batch_no'),
+}
+
+model QueryAntchainSdsScenedataTaskinfoResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // -1-无效，0-待处理，1-处理中，2-处理完成
+  taskStatus?: string(name='task_status'),
+  // 业务日期
+  bizDate?: string(name='biz_date'),
+  // 场景
+  scene?: string(name='scene'),
+  // 任务类型
+  taskType?: string(name='task_type'),
+  // 批次所属租户id
+  tenantId?: string(name='tenant_id'),
+  // 来源标识
+  sourceMark?: string(name='source_mark'),
+  // 任务创建时间
+  createTime?: string(name='create_time'),
+  // 批次统计结果信息
+  result?: TaskDetailResult(name='result'),
+}
+
+/**
+ * Description: 通过批次号查询任务详细信息
+ * Summary: 通过批次号查询任务详细信息
+ */
+async function queryAntchainSdsScenedataTaskinfo(request: QueryAntchainSdsScenedataTaskinfoRequest): QueryAntchainSdsScenedataTaskinfoResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return queryAntchainSdsScenedataTaskinfoEx(request, headers, runtime);
+}
+
+/**
+ * Description: 通过批次号查询任务详细信息
+ * Summary: 通过批次号查询任务详细信息
+ */
+async function queryAntchainSdsScenedataTaskinfoEx(request: QueryAntchainSdsScenedataTaskinfoRequest, headers: map[string]string, runtime: Util.RuntimeOptions): QueryAntchainSdsScenedataTaskinfoResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'antchain.sds.scenedata.taskinfo.query', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model QueryAntchainSdsFavorStocksRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 【分页页码】 页码从0开始，默认第0页
+  offset: long(name='offset'),
+  // 【分页大小】 分页大小，最大10
+  limit: long(name='limit'),
+  // 【创建批次的商户号】 批次创建方商户号。
+  // 校验规则：接口传入的批次号需由stock_creator_mchid所创建。
+  stockCreatorMchid: string(name='stock_creator_mchid'),
+  // 【起始时间】 起始创建时间，遵循rfc3339标准格式，格式为yyyy-MM-DDTHH:mm:ss+TIMEZONE，yyyy-MM-DD表示年月日，T出现在字符串中，表示time元素的开头，HH:mm:ss表示时分秒，TIMEZONE表示时区（+08:00表示东八区时间，领先UTC 8小时，即北京时间）。例如：2015-05-20T13:29:35+08:00表示，北京时间2015年5月20日 13点29分35秒。
+  // 校验规则：get请求，参数在 url中，需要进行 url 编码传递
+  createStartTime?: string(name='create_start_time'),
+  // 【终止时间】 终止创建时间，遵循rfc3339标准格式，格式为yyyy-MM-DDTHH:mm:ss+TIMEZONE，yyyy-MM-DD表示年月日，T出现在字符串中，表示time元素的开头，HH:mm:ss表示时分秒，TIMEZONE表示时区（+08:00表示东八区时间，领先UTC 8小时，即北京时间）。例如：2015-05-20T13:29:35+08:00表示，北京时间2015年5月20日 13点29分35秒。
+  // 校验规则：get请求，参数在 url中，需要进行 url 编码传递
+  createEndTime?: string(name='create_end_time'),
+  // 【批次状态】 批次状态，枚举值：
+  // unactivated：未激活
+  // audit：审核中
+  // running：运行中
+  // stoped：已停止
+  // paused：暂停发放
+  status?: string(name='status'),
+}
+
+model QueryAntchainSdsFavorStocksResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 【批次总数】 经过条件筛选，查询到的批次总数量。
+  totalCount?: long(name='total_count'),
+  // 【批次详情】 批次详情
+  data?: [ WxStockData ](name='data'),
+  // 【分页大小】 分页大小，最大10
+  limit?: long(name='limit'),
+  // 【分页页码】 页码从0开始，默认第0页
+  offset?: long(name='offset'),
+}
+
+/**
+ * Description: 微信批次分页条件查询。通过此接口可查询商家多个批次的信息，包括批次的配置信息以及批次概况数据。
+ * Summary: 微信批次分页条件查询。通过此接口可查询商家多个批次的信息，包括批次的配置信息以及批次概况数据。
+ */
+async function queryAntchainSdsFavorStocks(request: QueryAntchainSdsFavorStocksRequest): QueryAntchainSdsFavorStocksResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return queryAntchainSdsFavorStocksEx(request, headers, runtime);
+}
+
+/**
+ * Description: 微信批次分页条件查询。通过此接口可查询商家多个批次的信息，包括批次的配置信息以及批次概况数据。
+ * Summary: 微信批次分页条件查询。通过此接口可查询商家多个批次的信息，包括批次的配置信息以及批次概况数据。
+ */
+async function queryAntchainSdsFavorStocksEx(request: QueryAntchainSdsFavorStocksRequest, headers: map[string]string, runtime: Util.RuntimeOptions): QueryAntchainSdsFavorStocksResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'antchain.sds.favor.stocks.query', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model DownloadAntchainSdsStockUseflowRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 格式：yyyy-MM-DD，仅支持近1年的日期账单数据下载，账单日期需早于当前日期，且在批次有效期内。
+  billDate: string(name='bill_date'),
+  // 【批次号】单次请求仅支持单批次，校验批次号合法性，需要为创建方创建的批次号，支持全场券、单品券、全场立减、全场折扣、单品立减
+  stockId: string(name='stock_id'),
+}
+
+model DownloadAntchainSdsStockUseflowResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 【下载链接】流水文件下载链接，30s内有效
+  url?: string(name='url'),
+  // 【核销批次账单文件摘要】默认算法SHA1
+  stockUseflowHash?: string(name='stock_useflow_hash'),
+  // 【核销批次账单记录总条数】记录该批次在该请求日期下的核销记录条数
+  stockUseflowCount?: long(name='stock_useflow_count'),
+}
+
+/**
+ * Description: 微信核销账单接口
+ * Summary: 微信核销账单接口
+ */
+async function downloadAntchainSdsStockUseflow(request: DownloadAntchainSdsStockUseflowRequest): DownloadAntchainSdsStockUseflowResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return downloadAntchainSdsStockUseflowEx(request, headers, runtime);
+}
+
+/**
+ * Description: 微信核销账单接口
+ * Summary: 微信核销账单接口
+ */
+async function downloadAntchainSdsStockUseflowEx(request: DownloadAntchainSdsStockUseflowRequest, headers: map[string]string, runtime: Util.RuntimeOptions): DownloadAntchainSdsStockUseflowResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'antchain.sds.stock.useflow.download', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model DownloadAntchainSdsStockRefundflowRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 格式yyyy-MM- dd仅支持近1年的日期账单数据下载，账单日期需早于当前日期，且在批次有效期内。
+  billDate: string(name='bill_date'),
+  // 单次请求仅支持单批次，校验批次号合法性，需要为创建方创建的批次号，支持全场券、单品券、全场立减、全场折扣、单品立减。
+  stockId: string(name='stock_id'),
+}
+
+model DownloadAntchainSdsStockRefundflowResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 【下载链接】流水文件下载链接，30s内有效
+  url?: string(name='url'),
+  // 【退款批次账单文件摘要】默认算法SHA1
+  stockRefundflowHash?: string(name='stock_refundflow_hash'),
+  // 【退款批次账单记录总条数】记录该批次在请求日期下的退款记录条数
+  stockRefundflowCount?: long(name='stock_refundflow_count'),
+}
+
+/**
+ * Description: 微信退款账单接口
+ * Summary: 微信退款账单接口
+ */
+async function downloadAntchainSdsStockRefundflow(request: DownloadAntchainSdsStockRefundflowRequest): DownloadAntchainSdsStockRefundflowResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return downloadAntchainSdsStockRefundflowEx(request, headers, runtime);
+}
+
+/**
+ * Description: 微信退款账单接口
+ * Summary: 微信退款账单接口
+ */
+async function downloadAntchainSdsStockRefundflowEx(request: DownloadAntchainSdsStockRefundflowRequest, headers: map[string]string, runtime: Util.RuntimeOptions): DownloadAntchainSdsStockRefundflowResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'antchain.sds.stock.refundflow.download', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model UpdateAntchainSdsScenedataTaskRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 【批次号】submit接口返回的批次号
+  batchNo: string(name='batch_no'),
+  // 【异步任务上下线】INIT-初始化异步任务，异步任务开始执行，同时可以修改拓展参数，必须先下线才能初始化。INVALID-下线异步任务，停止异步任务执行。传空不修改。一次只能提一个任务状态变更。
+  asyncTaskStatus: string(name='async_task_status'),
+  // 【拓展参数】下线后，可以修改拓展参数，再次上线后生效。处理该拓展参数的任务，需要对参数做校验，避免参数改动太大，任务恢复异常。
+  expectCondition?: [ BizNoCondition ](name='expect_condition'),
+}
+
+model UpdateAntchainSdsScenedataTaskResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+}
+
+/**
+ * Description: 【任务修改】修改任务状态，上线的任务可以下线，下线后能够修改任务的动态参数，下线后才能再上线。
+ * Summary: 【任务修改】修改任务状态，上线的任务可以下线，下线后能够修改任务的动态参数，下线后才能再上线。
+ */
+async function updateAntchainSdsScenedataTask(request: UpdateAntchainSdsScenedataTaskRequest): UpdateAntchainSdsScenedataTaskResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return updateAntchainSdsScenedataTaskEx(request, headers, runtime);
+}
+
+/**
+ * Description: 【任务修改】修改任务状态，上线的任务可以下线，下线后能够修改任务的动态参数，下线后才能再上线。
+ * Summary: 【任务修改】修改任务状态，上线的任务可以下线，下线后能够修改任务的动态参数，下线后才能再上线。
+ */
+async function updateAntchainSdsScenedataTaskEx(request: UpdateAntchainSdsScenedataTaskRequest, headers: map[string]string, runtime: Util.RuntimeOptions): UpdateAntchainSdsScenedataTaskResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'antchain.sds.scenedata.task.update', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
 }
 
 model CallbackAntdigitalGesaasspiRightsprodStatusRequest = {
@@ -260,5 +902,58 @@ async function callbackAntdigitalGesaasspiRightsprodOperation(request: CallbackA
 async function callbackAntdigitalGesaasspiRightsprodOperationEx(request: CallbackAntdigitalGesaasspiRightsprodOperationRequest, headers: map[string]string, runtime: Util.RuntimeOptions): CallbackAntdigitalGesaasspiRightsprodOperationResponse {
   Util.validateModel(request);
   return doRequest('1.0' ,'antdigital.gesaasspi.rightsprod.operation.callback', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model CreateAntcloudGatewayxFileUploadRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  // 上传文件作用的openapi method
+  apiCode: string(name='api_code'),
+  // 文件标签，多个标签;分割
+  fileLabel?: string(maxLength=100, name='file_label'),
+  // 自定义的文件元数据
+  fileMetadata?: string(maxLength=1000, name='file_metadata'),
+  // 文件名，不传则随机生成文件名
+  fileName?: string(maxLength=100, name='file_name'),
+  // 文件的多媒体类型
+  mimeType?: string(name='mime_type'),
+  // 产品方的api归属集群，即productInstanceId
+  apiCluster?: string(name='api_cluster'),
+}
+
+model CreateAntcloudGatewayxFileUploadResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 上传有效期
+  expiredTime?: string(pattern='\\\\d{4}[-]\\\\d{1,2}[-]\\\\d{1,2}[T]\\\\d{2}:\\\\d{2}:\\\\d{2}([Z]|([\\\\.]\\\\d{1,9})?[\\\\+]\\\\d{2}[\\\\:]?\\\\d{2})', name='expired_time'),
+  // 32位文件唯一id
+  fileId?: string(name='file_id'),
+  // 放入http请求头里
+  uploadHeaders?: [ XNameValuePair ](name='upload_headers'),
+  // 文件上传地址
+  uploadUrl?: string(name='upload_url'),
+}
+
+/**
+ * Description: 创建HTTP PUT提交的文件上传
+ * Summary: 文件上传创建
+ */
+async function createAntcloudGatewayxFileUpload(request: CreateAntcloudGatewayxFileUploadRequest): CreateAntcloudGatewayxFileUploadResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return createAntcloudGatewayxFileUploadEx(request, headers, runtime);
+}
+
+/**
+ * Description: 创建HTTP PUT提交的文件上传
+ * Summary: 文件上传创建
+ */
+async function createAntcloudGatewayxFileUploadEx(request: CreateAntcloudGatewayxFileUploadRequest, headers: map[string]string, runtime: Util.RuntimeOptions): CreateAntcloudGatewayxFileUploadResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'antcloud.gatewayx.file.upload.create', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
 }
 

@@ -1,7 +1,7 @@
 {
   "scope": "antchain",
   "name": "GESAASSPI",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "main": "./main.tea",
   "maintainers": [
     {
@@ -10,12 +10,12 @@
     }
   ],
   "releases": {
-    "java": "com.antgroup.antchain.openapi:openapi-gesaasspi:1.2.0",
-    "go": "github.com/antchain-openapi-sdk-go/antdigital-gesaasspi/client:v1.2.0",
-    "csharp": "AntChain.SDK.GESAASSPI:1.2.0",
+    "java": "com.antgroup.antchain.openapi:openapi-gesaasspi:1.5.0",
+    "go": "github.com/antchain-openapi-sdk-go/antdigital-gesaasspi/client:v1.5.0",
+    "csharp": "AntChain.SDK.GESAASSPI:1.5.0",
     "ts": "@antchain/gesaasspi:^1.0.0",
-    "php": "antchain/gesaasspi:1.2.0",
-    "python": "antchain_sdk_gesaasspi:1.2.0"
+    "php": "antchain/gesaasspi:1.5.0",
+    "python": "antchain_sdk_gesaasspi:1.5.0"
   },
   "libraries": {
     "Util": "darabonba:Util:*",
