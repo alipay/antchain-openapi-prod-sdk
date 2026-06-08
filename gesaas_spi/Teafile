@@ -1,7 +1,7 @@
 {
   "scope": "antchain",
   "name": "GESAAS_SPI",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "main": "./main.tea",
   "maintainers": [
     {
@@ -10,11 +10,11 @@
     }
   ],
   "releases": {
-    "java": "com.antgroup.antchain.openapi:openapi-gesaas_spi:1.0.0",
-    "go": "github.com/antchain-openapi-sdk-go/gesaas_spi/client:v1.0.0",
-    "csharp": "AntChain.SDK.GESAAS_SPI:1.0.0",
-    "ts": "@antchain/gesaas_spi:^1.0.0",
-    "php": "antchain/gesaas_spi:1.0.0",
+    "java": "com.antgroup.antchain.openapi:openapi-gesaas_spi:1.1.0",
+    "go": "github.com/antchain-openapi-sdk-go/gesaas_spi/client:v1.1.0",
+    "csharp": "AntChain.SDK.GESAAS_SPI:1.1.0",
+    "ts": "@antchain/gesaas_spi:1.1.0",
+    "php": "antchain/gesaas_spi:1.1.0",
     "python": "antchain_sdk_gesaas_spi:0.0.1"
   },
   "libraries": {
