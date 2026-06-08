@@ -137,7 +137,7 @@ namespace AntChain.SDK.GESAASSPI
                         {"req_msg_id", AntChain.AlipayUtil.AntchainUtils.GetNonce()},
                         {"access_key", _accessKeyId},
                         {"base_sdk_version", "TeaSDK-2.0"},
-                        {"sdk_version", "1.2.0"},
+                        {"sdk_version", "1.5.0"},
                         {"_prod_code", "GESAASSPI"},
                         {"_prod_channel", "default"},
                     };
@@ -263,7 +263,7 @@ namespace AntChain.SDK.GESAASSPI
                         {"req_msg_id", AntChain.AlipayUtil.AntchainUtils.GetNonce()},
                         {"access_key", _accessKeyId},
                         {"base_sdk_version", "TeaSDK-2.0"},
-                        {"sdk_version", "1.2.0"},
+                        {"sdk_version", "1.5.0"},
                         {"_prod_code", "GESAASSPI"},
                         {"_prod_channel", "default"},
                     };
@@ -319,6 +319,390 @@ namespace AntChain.SDK.GESAASSPI
             }
 
             throw new TeaUnretryableException(_lastRequest, _lastException);
+        }
+
+        /**
+         * Description: 创建任务，获取批次号。
+         * Summary: 创建任务，获取批次号。
+         */
+        public SubmitAntchainSdsScenedataTaskResponse SubmitAntchainSdsScenedataTask(SubmitAntchainSdsScenedataTaskRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return SubmitAntchainSdsScenedataTaskEx(request, headers, runtime);
+        }
+
+        /**
+         * Description: 创建任务，获取批次号。
+         * Summary: 创建任务，获取批次号。
+         */
+        public async Task<SubmitAntchainSdsScenedataTaskResponse> SubmitAntchainSdsScenedataTaskAsync(SubmitAntchainSdsScenedataTaskRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return await SubmitAntchainSdsScenedataTaskExAsync(request, headers, runtime);
+        }
+
+        /**
+         * Description: 创建任务，获取批次号。
+         * Summary: 创建任务，获取批次号。
+         */
+        public SubmitAntchainSdsScenedataTaskResponse SubmitAntchainSdsScenedataTaskEx(SubmitAntchainSdsScenedataTaskRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<SubmitAntchainSdsScenedataTaskResponse>(DoRequest("1.0", "antchain.sds.scenedata.task.submit", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 创建任务，获取批次号。
+         * Summary: 创建任务，获取批次号。
+         */
+        public async Task<SubmitAntchainSdsScenedataTaskResponse> SubmitAntchainSdsScenedataTaskExAsync(SubmitAntchainSdsScenedataTaskRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<SubmitAntchainSdsScenedataTaskResponse>(await DoRequestAsync("1.0", "antchain.sds.scenedata.task.submit", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 批次数据文件上传
+         * Summary: 批次数据文件上传
+         */
+        public UploadAntchainSdsScenedataFileResponse UploadAntchainSdsScenedataFile(UploadAntchainSdsScenedataFileRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return UploadAntchainSdsScenedataFileEx(request, headers, runtime);
+        }
+
+        /**
+         * Description: 批次数据文件上传
+         * Summary: 批次数据文件上传
+         */
+        public async Task<UploadAntchainSdsScenedataFileResponse> UploadAntchainSdsScenedataFileAsync(UploadAntchainSdsScenedataFileRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return await UploadAntchainSdsScenedataFileExAsync(request, headers, runtime);
+        }
+
+        /**
+         * Description: 批次数据文件上传
+         * Summary: 批次数据文件上传
+         */
+        public UploadAntchainSdsScenedataFileResponse UploadAntchainSdsScenedataFileEx(UploadAntchainSdsScenedataFileRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            if (!AlibabaCloud.TeaUtil.Common.IsUnset(request.FileObject))
+            {
+                CreateAntcloudGatewayxFileUploadRequest uploadReq = new CreateAntcloudGatewayxFileUploadRequest
+                {
+                    AuthToken = request.AuthToken,
+                    ApiCode = "antchain.sds.scenedata.file.upload",
+                    FileName = request.FileObjectName,
+                };
+                CreateAntcloudGatewayxFileUploadResponse uploadResp = CreateAntcloudGatewayxFileUploadEx(uploadReq, headers, runtime);
+                if (!AntChain.AlipayUtil.AntchainUtils.IsSuccess(uploadResp.ResultCode, "ok"))
+                {
+                    UploadAntchainSdsScenedataFileResponse uploadAntchainSdsScenedataFileResponse = new UploadAntchainSdsScenedataFileResponse
+                    {
+                        ReqMsgId = uploadResp.ReqMsgId,
+                        ResultCode = uploadResp.ResultCode,
+                        ResultMsg = uploadResp.ResultMsg,
+                    };
+                    return uploadAntchainSdsScenedataFileResponse;
+                }
+                Dictionary<string, string> uploadHeaders = AntChain.AlipayUtil.AntchainUtils.ParseUploadHeaders(uploadResp.UploadHeaders);
+                AntChain.AlipayUtil.AntchainUtils.PutObject(request.FileObject, uploadHeaders, uploadResp.UploadUrl);
+                request.FileId = uploadResp.FileId;
+                request.FileObject = null;
+            }
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<UploadAntchainSdsScenedataFileResponse>(DoRequest("1.0", "antchain.sds.scenedata.file.upload", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 批次数据文件上传
+         * Summary: 批次数据文件上传
+         */
+        public async Task<UploadAntchainSdsScenedataFileResponse> UploadAntchainSdsScenedataFileExAsync(UploadAntchainSdsScenedataFileRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            if (!AlibabaCloud.TeaUtil.Common.IsUnset(request.FileObject))
+            {
+                CreateAntcloudGatewayxFileUploadRequest uploadReq = new CreateAntcloudGatewayxFileUploadRequest
+                {
+                    AuthToken = request.AuthToken,
+                    ApiCode = "antchain.sds.scenedata.file.upload",
+                    FileName = request.FileObjectName,
+                };
+                CreateAntcloudGatewayxFileUploadResponse uploadResp = await CreateAntcloudGatewayxFileUploadExAsync(uploadReq, headers, runtime);
+                if (!AntChain.AlipayUtil.AntchainUtils.IsSuccess(uploadResp.ResultCode, "ok"))
+                {
+                    UploadAntchainSdsScenedataFileResponse uploadAntchainSdsScenedataFileResponse = new UploadAntchainSdsScenedataFileResponse
+                    {
+                        ReqMsgId = uploadResp.ReqMsgId,
+                        ResultCode = uploadResp.ResultCode,
+                        ResultMsg = uploadResp.ResultMsg,
+                    };
+                    return uploadAntchainSdsScenedataFileResponse;
+                }
+                Dictionary<string, string> uploadHeaders = AntChain.AlipayUtil.AntchainUtils.ParseUploadHeaders(uploadResp.UploadHeaders);
+                AntChain.AlipayUtil.AntchainUtils.PutObject(request.FileObject, uploadHeaders, uploadResp.UploadUrl);
+                request.FileId = uploadResp.FileId;
+                request.FileObject = null;
+            }
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<UploadAntchainSdsScenedataFileResponse>(await DoRequestAsync("1.0", "antchain.sds.scenedata.file.upload", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 任务结果查询
+         * Summary: 任务结果查询
+         */
+        public BatchqueryAntchainSdsScenedataTaskresultResponse BatchqueryAntchainSdsScenedataTaskresult(BatchqueryAntchainSdsScenedataTaskresultRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return BatchqueryAntchainSdsScenedataTaskresultEx(request, headers, runtime);
+        }
+
+        /**
+         * Description: 任务结果查询
+         * Summary: 任务结果查询
+         */
+        public async Task<BatchqueryAntchainSdsScenedataTaskresultResponse> BatchqueryAntchainSdsScenedataTaskresultAsync(BatchqueryAntchainSdsScenedataTaskresultRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return await BatchqueryAntchainSdsScenedataTaskresultExAsync(request, headers, runtime);
+        }
+
+        /**
+         * Description: 任务结果查询
+         * Summary: 任务结果查询
+         */
+        public BatchqueryAntchainSdsScenedataTaskresultResponse BatchqueryAntchainSdsScenedataTaskresultEx(BatchqueryAntchainSdsScenedataTaskresultRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<BatchqueryAntchainSdsScenedataTaskresultResponse>(DoRequest("1.0", "antchain.sds.scenedata.taskresult.batchquery", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 任务结果查询
+         * Summary: 任务结果查询
+         */
+        public async Task<BatchqueryAntchainSdsScenedataTaskresultResponse> BatchqueryAntchainSdsScenedataTaskresultExAsync(BatchqueryAntchainSdsScenedataTaskresultRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<BatchqueryAntchainSdsScenedataTaskresultResponse>(await DoRequestAsync("1.0", "antchain.sds.scenedata.taskresult.batchquery", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 通过批次号查询任务详细信息
+         * Summary: 通过批次号查询任务详细信息
+         */
+        public QueryAntchainSdsScenedataTaskinfoResponse QueryAntchainSdsScenedataTaskinfo(QueryAntchainSdsScenedataTaskinfoRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return QueryAntchainSdsScenedataTaskinfoEx(request, headers, runtime);
+        }
+
+        /**
+         * Description: 通过批次号查询任务详细信息
+         * Summary: 通过批次号查询任务详细信息
+         */
+        public async Task<QueryAntchainSdsScenedataTaskinfoResponse> QueryAntchainSdsScenedataTaskinfoAsync(QueryAntchainSdsScenedataTaskinfoRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return await QueryAntchainSdsScenedataTaskinfoExAsync(request, headers, runtime);
+        }
+
+        /**
+         * Description: 通过批次号查询任务详细信息
+         * Summary: 通过批次号查询任务详细信息
+         */
+        public QueryAntchainSdsScenedataTaskinfoResponse QueryAntchainSdsScenedataTaskinfoEx(QueryAntchainSdsScenedataTaskinfoRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<QueryAntchainSdsScenedataTaskinfoResponse>(DoRequest("1.0", "antchain.sds.scenedata.taskinfo.query", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 通过批次号查询任务详细信息
+         * Summary: 通过批次号查询任务详细信息
+         */
+        public async Task<QueryAntchainSdsScenedataTaskinfoResponse> QueryAntchainSdsScenedataTaskinfoExAsync(QueryAntchainSdsScenedataTaskinfoRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<QueryAntchainSdsScenedataTaskinfoResponse>(await DoRequestAsync("1.0", "antchain.sds.scenedata.taskinfo.query", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 微信批次分页条件查询。通过此接口可查询商家多个批次的信息，包括批次的配置信息以及批次概况数据。
+         * Summary: 微信批次分页条件查询。通过此接口可查询商家多个批次的信息，包括批次的配置信息以及批次概况数据。
+         */
+        public QueryAntchainSdsFavorStocksResponse QueryAntchainSdsFavorStocks(QueryAntchainSdsFavorStocksRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return QueryAntchainSdsFavorStocksEx(request, headers, runtime);
+        }
+
+        /**
+         * Description: 微信批次分页条件查询。通过此接口可查询商家多个批次的信息，包括批次的配置信息以及批次概况数据。
+         * Summary: 微信批次分页条件查询。通过此接口可查询商家多个批次的信息，包括批次的配置信息以及批次概况数据。
+         */
+        public async Task<QueryAntchainSdsFavorStocksResponse> QueryAntchainSdsFavorStocksAsync(QueryAntchainSdsFavorStocksRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return await QueryAntchainSdsFavorStocksExAsync(request, headers, runtime);
+        }
+
+        /**
+         * Description: 微信批次分页条件查询。通过此接口可查询商家多个批次的信息，包括批次的配置信息以及批次概况数据。
+         * Summary: 微信批次分页条件查询。通过此接口可查询商家多个批次的信息，包括批次的配置信息以及批次概况数据。
+         */
+        public QueryAntchainSdsFavorStocksResponse QueryAntchainSdsFavorStocksEx(QueryAntchainSdsFavorStocksRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<QueryAntchainSdsFavorStocksResponse>(DoRequest("1.0", "antchain.sds.favor.stocks.query", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 微信批次分页条件查询。通过此接口可查询商家多个批次的信息，包括批次的配置信息以及批次概况数据。
+         * Summary: 微信批次分页条件查询。通过此接口可查询商家多个批次的信息，包括批次的配置信息以及批次概况数据。
+         */
+        public async Task<QueryAntchainSdsFavorStocksResponse> QueryAntchainSdsFavorStocksExAsync(QueryAntchainSdsFavorStocksRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<QueryAntchainSdsFavorStocksResponse>(await DoRequestAsync("1.0", "antchain.sds.favor.stocks.query", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 微信核销账单接口
+         * Summary: 微信核销账单接口
+         */
+        public DownloadAntchainSdsStockUseflowResponse DownloadAntchainSdsStockUseflow(DownloadAntchainSdsStockUseflowRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return DownloadAntchainSdsStockUseflowEx(request, headers, runtime);
+        }
+
+        /**
+         * Description: 微信核销账单接口
+         * Summary: 微信核销账单接口
+         */
+        public async Task<DownloadAntchainSdsStockUseflowResponse> DownloadAntchainSdsStockUseflowAsync(DownloadAntchainSdsStockUseflowRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return await DownloadAntchainSdsStockUseflowExAsync(request, headers, runtime);
+        }
+
+        /**
+         * Description: 微信核销账单接口
+         * Summary: 微信核销账单接口
+         */
+        public DownloadAntchainSdsStockUseflowResponse DownloadAntchainSdsStockUseflowEx(DownloadAntchainSdsStockUseflowRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<DownloadAntchainSdsStockUseflowResponse>(DoRequest("1.0", "antchain.sds.stock.useflow.download", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 微信核销账单接口
+         * Summary: 微信核销账单接口
+         */
+        public async Task<DownloadAntchainSdsStockUseflowResponse> DownloadAntchainSdsStockUseflowExAsync(DownloadAntchainSdsStockUseflowRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<DownloadAntchainSdsStockUseflowResponse>(await DoRequestAsync("1.0", "antchain.sds.stock.useflow.download", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 微信退款账单接口
+         * Summary: 微信退款账单接口
+         */
+        public DownloadAntchainSdsStockRefundflowResponse DownloadAntchainSdsStockRefundflow(DownloadAntchainSdsStockRefundflowRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return DownloadAntchainSdsStockRefundflowEx(request, headers, runtime);
+        }
+
+        /**
+         * Description: 微信退款账单接口
+         * Summary: 微信退款账单接口
+         */
+        public async Task<DownloadAntchainSdsStockRefundflowResponse> DownloadAntchainSdsStockRefundflowAsync(DownloadAntchainSdsStockRefundflowRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return await DownloadAntchainSdsStockRefundflowExAsync(request, headers, runtime);
+        }
+
+        /**
+         * Description: 微信退款账单接口
+         * Summary: 微信退款账单接口
+         */
+        public DownloadAntchainSdsStockRefundflowResponse DownloadAntchainSdsStockRefundflowEx(DownloadAntchainSdsStockRefundflowRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<DownloadAntchainSdsStockRefundflowResponse>(DoRequest("1.0", "antchain.sds.stock.refundflow.download", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 微信退款账单接口
+         * Summary: 微信退款账单接口
+         */
+        public async Task<DownloadAntchainSdsStockRefundflowResponse> DownloadAntchainSdsStockRefundflowExAsync(DownloadAntchainSdsStockRefundflowRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<DownloadAntchainSdsStockRefundflowResponse>(await DoRequestAsync("1.0", "antchain.sds.stock.refundflow.download", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 【任务修改】修改任务状态，上线的任务可以下线，下线后能够修改任务的动态参数，下线后才能再上线。
+         * Summary: 【任务修改】修改任务状态，上线的任务可以下线，下线后能够修改任务的动态参数，下线后才能再上线。
+         */
+        public UpdateAntchainSdsScenedataTaskResponse UpdateAntchainSdsScenedataTask(UpdateAntchainSdsScenedataTaskRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return UpdateAntchainSdsScenedataTaskEx(request, headers, runtime);
+        }
+
+        /**
+         * Description: 【任务修改】修改任务状态，上线的任务可以下线，下线后能够修改任务的动态参数，下线后才能再上线。
+         * Summary: 【任务修改】修改任务状态，上线的任务可以下线，下线后能够修改任务的动态参数，下线后才能再上线。
+         */
+        public async Task<UpdateAntchainSdsScenedataTaskResponse> UpdateAntchainSdsScenedataTaskAsync(UpdateAntchainSdsScenedataTaskRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return await UpdateAntchainSdsScenedataTaskExAsync(request, headers, runtime);
+        }
+
+        /**
+         * Description: 【任务修改】修改任务状态，上线的任务可以下线，下线后能够修改任务的动态参数，下线后才能再上线。
+         * Summary: 【任务修改】修改任务状态，上线的任务可以下线，下线后能够修改任务的动态参数，下线后才能再上线。
+         */
+        public UpdateAntchainSdsScenedataTaskResponse UpdateAntchainSdsScenedataTaskEx(UpdateAntchainSdsScenedataTaskRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<UpdateAntchainSdsScenedataTaskResponse>(DoRequest("1.0", "antchain.sds.scenedata.task.update", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 【任务修改】修改任务状态，上线的任务可以下线，下线后能够修改任务的动态参数，下线后才能再上线。
+         * Summary: 【任务修改】修改任务状态，上线的任务可以下线，下线后能够修改任务的动态参数，下线后才能再上线。
+         */
+        public async Task<UpdateAntchainSdsScenedataTaskResponse> UpdateAntchainSdsScenedataTaskExAsync(UpdateAntchainSdsScenedataTaskRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<UpdateAntchainSdsScenedataTaskResponse>(await DoRequestAsync("1.0", "antchain.sds.scenedata.task.update", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
         }
 
         /**
@@ -403,6 +787,48 @@ namespace AntChain.SDK.GESAASSPI
         {
             AlibabaCloud.TeaUtil.Common.ValidateModel(request);
             return TeaModel.ToObject<CallbackAntdigitalGesaasspiRightsprodOperationResponse>(await DoRequestAsync("1.0", "antdigital.gesaasspi.rightsprod.operation.callback", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 创建HTTP PUT提交的文件上传
+         * Summary: 文件上传创建
+         */
+        public CreateAntcloudGatewayxFileUploadResponse CreateAntcloudGatewayxFileUpload(CreateAntcloudGatewayxFileUploadRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return CreateAntcloudGatewayxFileUploadEx(request, headers, runtime);
+        }
+
+        /**
+         * Description: 创建HTTP PUT提交的文件上传
+         * Summary: 文件上传创建
+         */
+        public async Task<CreateAntcloudGatewayxFileUploadResponse> CreateAntcloudGatewayxFileUploadAsync(CreateAntcloudGatewayxFileUploadRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return await CreateAntcloudGatewayxFileUploadExAsync(request, headers, runtime);
+        }
+
+        /**
+         * Description: 创建HTTP PUT提交的文件上传
+         * Summary: 文件上传创建
+         */
+        public CreateAntcloudGatewayxFileUploadResponse CreateAntcloudGatewayxFileUploadEx(CreateAntcloudGatewayxFileUploadRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<CreateAntcloudGatewayxFileUploadResponse>(DoRequest("1.0", "antcloud.gatewayx.file.upload.create", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 创建HTTP PUT提交的文件上传
+         * Summary: 文件上传创建
+         */
+        public async Task<CreateAntcloudGatewayxFileUploadResponse> CreateAntcloudGatewayxFileUploadExAsync(CreateAntcloudGatewayxFileUploadRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<CreateAntcloudGatewayxFileUploadResponse>(await DoRequestAsync("1.0", "antcloud.gatewayx.file.upload.create", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
         }
 
     }
