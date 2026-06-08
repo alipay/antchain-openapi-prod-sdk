@@ -137,7 +137,7 @@ namespace AntChain.SDK.GESAAS
                         {"req_msg_id", AntChain.AlipayUtil.AntchainUtils.GetNonce()},
                         {"access_key", _accessKeyId},
                         {"base_sdk_version", "TeaSDK-2.0"},
-                        {"sdk_version", "1.3.1"},
+                        {"sdk_version", "1.3.2"},
                         {"_prod_code", "GESAAS"},
                         {"_prod_channel", "default"},
                     };
@@ -263,7 +263,7 @@ namespace AntChain.SDK.GESAAS
                         {"req_msg_id", AntChain.AlipayUtil.AntchainUtils.GetNonce()},
                         {"access_key", _accessKeyId},
                         {"base_sdk_version", "TeaSDK-2.0"},
-                        {"sdk_version", "1.3.1"},
+                        {"sdk_version", "1.3.2"},
                         {"_prod_code", "GESAAS"},
                         {"_prod_channel", "default"},
                     };
@@ -487,6 +487,90 @@ namespace AntChain.SDK.GESAAS
         {
             AlibabaCloud.TeaUtil.Common.ValidateModel(request);
             return TeaModel.ToObject<BatchqueryRightsprodVoucherResponse>(await DoRequestAsync("1.0", "antdigital.gesaas.rightsprod.voucher.batchquery", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 权益中心数据流回调 API
+         * Summary: 权益中心数据流回调 API
+         */
+        public CallbackRightsprodOperationResponse CallbackRightsprodOperation(CallbackRightsprodOperationRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return CallbackRightsprodOperationEx(request, headers, runtime);
+        }
+
+        /**
+         * Description: 权益中心数据流回调 API
+         * Summary: 权益中心数据流回调 API
+         */
+        public async Task<CallbackRightsprodOperationResponse> CallbackRightsprodOperationAsync(CallbackRightsprodOperationRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return await CallbackRightsprodOperationExAsync(request, headers, runtime);
+        }
+
+        /**
+         * Description: 权益中心数据流回调 API
+         * Summary: 权益中心数据流回调 API
+         */
+        public CallbackRightsprodOperationResponse CallbackRightsprodOperationEx(CallbackRightsprodOperationRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<CallbackRightsprodOperationResponse>(DoRequest("1.0", "antdigital.gesaas.rightsprod.operation.callback", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 权益中心数据流回调 API
+         * Summary: 权益中心数据流回调 API
+         */
+        public async Task<CallbackRightsprodOperationResponse> CallbackRightsprodOperationExAsync(CallbackRightsprodOperationRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<CallbackRightsprodOperationResponse>(await DoRequestAsync("1.0", "antdigital.gesaas.rightsprod.operation.callback", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 权益中心API
+         * Summary: 权益中心API
+         */
+        public CallbackRightsprodOperationdataResponse CallbackRightsprodOperationdata(CallbackRightsprodOperationdataRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return CallbackRightsprodOperationdataEx(request, headers, runtime);
+        }
+
+        /**
+         * Description: 权益中心API
+         * Summary: 权益中心API
+         */
+        public async Task<CallbackRightsprodOperationdataResponse> CallbackRightsprodOperationdataAsync(CallbackRightsprodOperationdataRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return await CallbackRightsprodOperationdataExAsync(request, headers, runtime);
+        }
+
+        /**
+         * Description: 权益中心API
+         * Summary: 权益中心API
+         */
+        public CallbackRightsprodOperationdataResponse CallbackRightsprodOperationdataEx(CallbackRightsprodOperationdataRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<CallbackRightsprodOperationdataResponse>(DoRequest("1.0", "antdigital.gesaas.rightsprod.operationdata.callback", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 权益中心API
+         * Summary: 权益中心API
+         */
+        public async Task<CallbackRightsprodOperationdataResponse> CallbackRightsprodOperationdataExAsync(CallbackRightsprodOperationdataRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<CallbackRightsprodOperationdataResponse>(await DoRequestAsync("1.0", "antdigital.gesaas.rightsprod.operationdata.callback", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
         }
 
     }
