@@ -109,7 +109,8 @@ class Client:
                 'policy': UtilClient.default_string(runtime.backoff_policy, 'no'),
                 'period': UtilClient.default_number(runtime.backoff_period, 1)
             },
-            'ignoreSSL': runtime.ignore_ssl
+            'ignoreSSL': runtime.ignore_ssl,
+            # 发放订单明细
         }
         _last_request = None
         _last_exception = None
@@ -134,7 +135,7 @@ class Client:
                     'req_msg_id': AntchainUtils.get_nonce(),
                     'access_key': self._access_key_id,
                     'base_sdk_version': 'TeaSDK-2.0',
-                    'sdk_version': '1.0.0',
+                    'sdk_version': '1.1.0',
                     '_prod_code': 'GESAAS_SPI',
                     '_prod_channel': 'default'
                 }
@@ -212,7 +213,8 @@ class Client:
                 'policy': UtilClient.default_string(runtime.backoff_policy, 'no'),
                 'period': UtilClient.default_number(runtime.backoff_period, 1)
             },
-            'ignoreSSL': runtime.ignore_ssl
+            'ignoreSSL': runtime.ignore_ssl,
+            # 发放订单明细
         }
         _last_request = None
         _last_exception = None
@@ -237,7 +239,7 @@ class Client:
                     'req_msg_id': AntchainUtils.get_nonce(),
                     'access_key': self._access_key_id,
                     'base_sdk_version': 'TeaSDK-2.0',
-                    'sdk_version': '1.0.0',
+                    'sdk_version': '1.1.0',
                     '_prod_code': 'GESAAS_SPI',
                     '_prod_channel': 'default'
                 }
@@ -327,4 +329,172 @@ class Client:
         return TeaCore.from_map(
             gesaas__spi_models.PushRightsprodVoucherResponse(),
             await self.do_request_async('1.0', 'antdigital.gesaasspi.rightsprod.voucher.push', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def callback_rightsprod_status(
+        self,
+        request: gesaas__spi_models.CallbackRightsprodStatusRequest,
+    ) -> gesaas__spi_models.CallbackRightsprodStatusResponse:
+        """
+        Description: 权益中心券状态变更回调通知
+        Summary: 权益中心券状态变更回调通知
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.callback_rightsprod_status_ex(request, headers, runtime)
+
+    async def callback_rightsprod_status_async(
+        self,
+        request: gesaas__spi_models.CallbackRightsprodStatusRequest,
+    ) -> gesaas__spi_models.CallbackRightsprodStatusResponse:
+        """
+        Description: 权益中心券状态变更回调通知
+        Summary: 权益中心券状态变更回调通知
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.callback_rightsprod_status_ex_async(request, headers, runtime)
+
+    def callback_rightsprod_status_ex(
+        self,
+        request: gesaas__spi_models.CallbackRightsprodStatusRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> gesaas__spi_models.CallbackRightsprodStatusResponse:
+        """
+        Description: 权益中心券状态变更回调通知
+        Summary: 权益中心券状态变更回调通知
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            gesaas__spi_models.CallbackRightsprodStatusResponse(),
+            self.do_request('1.0', 'antdigital.gesaasspi.rightsprod.status.callback', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def callback_rightsprod_status_ex_async(
+        self,
+        request: gesaas__spi_models.CallbackRightsprodStatusRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> gesaas__spi_models.CallbackRightsprodStatusResponse:
+        """
+        Description: 权益中心券状态变更回调通知
+        Summary: 权益中心券状态变更回调通知
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            gesaas__spi_models.CallbackRightsprodStatusResponse(),
+            await self.do_request_async('1.0', 'antdigital.gesaasspi.rightsprod.status.callback', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def callback_rightsprod_operation(
+        self,
+        request: gesaas__spi_models.CallbackRightsprodOperationRequest,
+    ) -> gesaas__spi_models.CallbackRightsprodOperationResponse:
+        """
+        Description: 券操作回调通知
+        Summary: 券操作回调通知
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.callback_rightsprod_operation_ex(request, headers, runtime)
+
+    async def callback_rightsprod_operation_async(
+        self,
+        request: gesaas__spi_models.CallbackRightsprodOperationRequest,
+    ) -> gesaas__spi_models.CallbackRightsprodOperationResponse:
+        """
+        Description: 券操作回调通知
+        Summary: 券操作回调通知
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.callback_rightsprod_operation_ex_async(request, headers, runtime)
+
+    def callback_rightsprod_operation_ex(
+        self,
+        request: gesaas__spi_models.CallbackRightsprodOperationRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> gesaas__spi_models.CallbackRightsprodOperationResponse:
+        """
+        Description: 券操作回调通知
+        Summary: 券操作回调通知
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            gesaas__spi_models.CallbackRightsprodOperationResponse(),
+            self.do_request('1.0', 'antdigital.gesaasspi.rightsprod.operation.callback', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def callback_rightsprod_operation_ex_async(
+        self,
+        request: gesaas__spi_models.CallbackRightsprodOperationRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> gesaas__spi_models.CallbackRightsprodOperationResponse:
+        """
+        Description: 券操作回调通知
+        Summary: 券操作回调通知
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            gesaas__spi_models.CallbackRightsprodOperationResponse(),
+            await self.do_request_async('1.0', 'antdigital.gesaasspi.rightsprod.operation.callback', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def push_rightsprod_grantrights(
+        self,
+        request: gesaas__spi_models.PushRightsprodGrantrightsRequest,
+    ) -> gesaas__spi_models.PushRightsprodGrantrightsResponse:
+        """
+        Description: 权益供应商权益发放spi
+        Summary: 权益供应商权益发放spi
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.push_rightsprod_grantrights_ex(request, headers, runtime)
+
+    async def push_rightsprod_grantrights_async(
+        self,
+        request: gesaas__spi_models.PushRightsprodGrantrightsRequest,
+    ) -> gesaas__spi_models.PushRightsprodGrantrightsResponse:
+        """
+        Description: 权益供应商权益发放spi
+        Summary: 权益供应商权益发放spi
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.push_rightsprod_grantrights_ex_async(request, headers, runtime)
+
+    def push_rightsprod_grantrights_ex(
+        self,
+        request: gesaas__spi_models.PushRightsprodGrantrightsRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> gesaas__spi_models.PushRightsprodGrantrightsResponse:
+        """
+        Description: 权益供应商权益发放spi
+        Summary: 权益供应商权益发放spi
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            gesaas__spi_models.PushRightsprodGrantrightsResponse(),
+            self.do_request('1.0', 'antdigital.gesaasspi.rightsprod.grantrights.push', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def push_rightsprod_grantrights_ex_async(
+        self,
+        request: gesaas__spi_models.PushRightsprodGrantrightsRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> gesaas__spi_models.PushRightsprodGrantrightsResponse:
+        """
+        Description: 权益供应商权益发放spi
+        Summary: 权益供应商权益发放spi
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            gesaas__spi_models.PushRightsprodGrantrightsResponse(),
+            await self.do_request_async('1.0', 'antdigital.gesaasspi.rightsprod.grantrights.push', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
