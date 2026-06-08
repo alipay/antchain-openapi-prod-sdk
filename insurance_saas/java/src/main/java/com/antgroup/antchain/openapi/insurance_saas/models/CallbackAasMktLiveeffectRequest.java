@@ -82,6 +82,12 @@ public class CallbackAasMktLiveeffectRequest extends TeaModel {
     @NameInMap("ext_info")
     public String extInfo;
 
+    // 直播间开播场次-动参，每日每场直播时添加至 URl（唯一ID 生成规则：直播间 ID 后两位+开播时间的年（后两位）月日时分
+    // 举例：若直播间 ID 为 kxz123456，开播时间为 2026-06-18 17：22，此时唯一 ID 为：562606181722
+    // ）
+    @NameInMap("live_session_id")
+    public String liveSessionId;
+
     public static CallbackAasMktLiveeffectRequest build(java.util.Map<String, ?> map) throws Exception {
         CallbackAasMktLiveeffectRequest self = new CallbackAasMktLiveeffectRequest();
         return TeaModel.build(map, self);
@@ -221,6 +227,14 @@ public class CallbackAasMktLiveeffectRequest extends TeaModel {
     }
     public String getExtInfo() {
         return this.extInfo;
+    }
+
+    public CallbackAasMktLiveeffectRequest setLiveSessionId(String liveSessionId) {
+        this.liveSessionId = liveSessionId;
+        return this;
+    }
+    public String getLiveSessionId() {
+        return this.liveSessionId;
     }
 
 }
