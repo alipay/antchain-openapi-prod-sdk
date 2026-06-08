@@ -5,26 +5,129 @@ import RPCUtil from '@alicloud/rpc-util';
 import * as $tea from '@alicloud/tea-typescript';
 
 /**
+ * @remarks
  * Model for initing client
  */
 export class Config extends $tea.Model {
+  /**
+   * @remarks
+   * accesskey id
+   */
   accessKeyId?: string;
+  /**
+   * @remarks
+   * accesskey secret
+   */
   accessKeySecret?: string;
+  /**
+   * @remarks
+   * security token
+   */
   securityToken?: string;
+  /**
+   * @remarks
+   * http protocol
+   * 
+   * @example
+   * http
+   */
   protocol?: string;
+  /**
+   * @remarks
+   * read timeout
+   * 
+   * @example
+   * 10
+   */
   readTimeout?: number;
+  /**
+   * @remarks
+   * connect timeout
+   * 
+   * @example
+   * 10
+   */
   connectTimeout?: number;
+  /**
+   * @remarks
+   * http proxy
+   * 
+   * @example
+   * http://localhost
+   */
   httpProxy?: string;
+  /**
+   * @remarks
+   * https proxy
+   * 
+   * @example
+   * https://localhost
+   */
   httpsProxy?: string;
+  /**
+   * @remarks
+   * endpoint
+   * 
+   * @example
+   * cs.aliyuncs.com
+   */
   endpoint?: string;
+  /**
+   * @remarks
+   * proxy white list
+   * 
+   * @example
+   * http://localhost
+   */
   noProxy?: string;
+  /**
+   * @remarks
+   * max idle conns
+   * 
+   * @example
+   * 3
+   */
   maxIdleConns?: number;
+  /**
+   * @remarks
+   * user agent
+   * 
+   * @example
+   * Alibabacloud/1
+   */
   userAgent?: string;
+  /**
+   * @remarks
+   * socks5 proxy
+   */
   socks5Proxy?: string;
+  /**
+   * @remarks
+   * socks5 network
+   * 
+   * @example
+   * TCP
+   */
   socks5NetWork?: string;
+  /**
+   * @remarks
+   * 长链接最大空闲时长
+   */
   maxIdleTimeMillis?: number;
+  /**
+   * @remarks
+   * 长链接最大连接时长
+   */
   keepAliveDurationMillis?: number;
+  /**
+   * @remarks
+   * 最大连接数（长链接最大总数）
+   */
   maxRequests?: number;
+  /**
+   * @remarks
+   * 每个目标主机的最大连接数（分主机域名的长链接最大总数
+   */
   maxRequestsPerHost?: number;
   static names(): { [key: string]: string } {
     return {
@@ -80,8 +183,16 @@ export class Config extends $tea.Model {
 // 经营分账收入方列表
 export class OperateDivideTransInModel extends $tea.Model {
   // 分账收入方支付宝用户id, 支付宝2088id
+  /**
+   * @example
+   * 2088id
+   */
   transInUserId: string;
   // 分账金额，单位为分 大于0
+  /**
+   * @example
+   * 12324
+   */
   divideAmount: number;
   static names(): { [key: string]: string } {
     return {
@@ -105,12 +216,28 @@ export class OperateDivideTransInModel extends $tea.Model {
 // 还款策略
 export class RepayStrategy extends $tea.Model {
   // 应付租金时间，精确到天 格式为yyyy-MM-dd
+  /**
+   * @example
+   * 2025-09-19
+   */
   payDay: string;
   // 用户还款期数，从1开始
+  /**
+   * @example
+   * 1
+   */
   termIndex: number;
   // 应付租金，精确到分，即1234表示12.34元 大于0
+  /**
+   * @example
+   * 1234
+   */
   rentalMoney: number;
   // 是否经营分账, Y-是、N-否 为空代表否
+  /**
+   * @example
+   * Y
+   */
   operateDivideFlag?: string;
   // 经营分账收入方列表
   // 当operateDivideFlag 为Y时必填
@@ -120,6 +247,10 @@ export class RepayStrategy extends $tea.Model {
   // Y：停止；由商户调用接口「支付相关接入 - 代扣计划重试」触发代扣；否则代扣不会被执行、到逾期时间后会被逾期
   // 
   // N : 不停止；保持数科自动代扣（默认）
+  /**
+   * @example
+   * N
+   */
   noNeedAutoDeduction?: string;
   static names(): { [key: string]: string } {
     return {
@@ -151,19 +282,39 @@ export class RepayStrategy extends $tea.Model {
 // 主订单信息
 export class OrderInfoReq extends $tea.Model {
   // 订单创建时间
+  /**
+   * @example
+   * 2018-10-10T10:10:00Z
+   */
   orderCreateTime: string;
   // 订单付款主题
+  /**
+   * @example
+   * 退订、续订,人工客服电话:4006476616商家订单号：
+   */
   orderPaySubject: string;
   // 总租期
   // 总租期最小值为1
   // 总租期最大值为60
+  /**
+   * @example
+   * 12
+   */
   rentTerm: number;
   // 租期单位
   // MONTH : 月 
   // DAY : 天
+  /**
+   * @example
+   * MONTH
+   */
   rentUnit?: string;
   // 租金总额 单位/分
   // 最小值为1
+  /**
+   * @example
+   * 1234
+   */
   totalRentMoney: number;
   static names(): { [key: string]: string } {
     return {
@@ -194,14 +345,30 @@ export class OrderInfoReq extends $tea.Model {
 export class OrderPromise extends $tea.Model {
   // 宽限期/天
   // 不传默认为0
+  /**
+   * @example
+   * 1233
+   */
   gracePeriodDays?: number;
   // 罚息类型
   //  NONE : 没有罚息  PENALTY_FEE： 罚息（暂不支持）
+  /**
+   * @example
+   * NONE
+   */
   punishmentType?: string;
   // 租期
   // 租期最小值为1
+  /**
+   * @example
+   * 11
+   */
   payPeriod: number;
   // 租赁公司支付宝UID
+  /**
+   * @example
+   * 2088Id
+   */
   leaseAlipayUid: string;
   // 还款策略 
   // repayStrategyList长度 == payPeriod
@@ -234,6 +401,10 @@ export class OrderPromise extends $tea.Model {
 // 订单详情列表
 export class OrderDetail extends $tea.Model {
   // 凭证编号
+  /**
+   * @example
+   * 1798234932684395
+   */
   voucherCode: string;
   static names(): { [key: string]: string } {
     return {
@@ -256,26 +427,58 @@ export class OrderDetail extends $tea.Model {
 export class OrderFullInfoReq extends $tea.Model {
   // 订单号
   // 
+  /**
+   * @example
+   * 1798234932684395
+   */
   orderId: string;
   // 手机号
+  /**
+   * @example
+   * 15629827201
+   */
   mobilePhone: string;
   // 产品ID=实际产品ID#版本 prod#1	
   // 
+  /**
+   * @example
+   * prod#1
+   */
   productId: string;
   // 商户的统一社会信用代码
+  /**
+   * @example
+   * 2088xxx
+   */
   merchantId: string;
   // 商户公司名字
+  /**
+   * @example
+   * 蚂蚁云创xxx有限公司
+   */
   merchantName: string;
   // 业务场景 默认为CHARGING_BY_TERM 
   // CHARGING_BY_ORDER : 整单结算 
   // CHARGING_BY_TERM : 分期结算
   //  CHARGING_BY_TERM_INDIRECT : 间联模式使用，分期结算
   //  CHARGING_BY_PROFIT : 分润结算
+  /**
+   * @example
+   * CHARGING_BY_TERM
+   */
   bizScene: string;
   // 业务类型 LEASE : 租赁 （默认） INSTALLMENT: 分期付款	
   // 
+  /**
+   * @example
+   * INSTALLMENT
+   */
   bizType: string;
   // 签署模式 NONE : 灵活签约
+  /**
+   * @example
+   * NONE
+   */
   signMode: string;
   // 主订单信息
   orderInfo: OrderInfoReq;
@@ -319,15 +522,35 @@ export class OrderFullInfoReq extends $tea.Model {
 // 响应结果基类
 export class CommonResponse extends $tea.Model {
   // 结果码
+  /**
+   * @example
+   * 100001
+   */
   code: string;
   // 返回码描述
+  /**
+   * @example
+   * 成功
+   */
   msg: string;
   // 业务处理结果码
   // 
+  /**
+   * @example
+   * fail
+   */
   subCode?: string;
   // 返回的提示信息
+  /**
+   * @example
+   * 失败
+   */
   subMsg?: string;
   // 可否重试
+  /**
+   * @example
+   * true, false
+   */
   retry?: boolean;
   static names(): { [key: string]: string } {
     return {
@@ -357,11 +580,19 @@ export class CommonResponse extends $tea.Model {
 // 权益发放结果
 export class RightsGrantResultVO extends $tea.Model {
   // 过期时间
+  /**
+   * @example
+   * 2018-10-10T10:10:00Z
+   */
   expireTime?: string;
   // 生效时间
   effectTime?: string;
   // 发放状态：
   // GRANTING：发放处理中 GRANT_SUCCESS：发放成功 GRANT_FAIL：发放失败
+  /**
+   * @example
+   * GRANTING
+   */
   grantStatus: string;
   // 订单详情列表
   orderDetails?: OrderDetail[];
@@ -391,14 +622,34 @@ export class RightsGrantResultVO extends $tea.Model {
 // 券基本信息
 export class VoucherBaseInfoVO extends $tea.Model {
   // 2088xxxxxx0001
+  /**
+   * @example
+   * 用户ID
+   */
   userId?: string;
   // 手机号
+  /**
+   * @example
+   * 15700001111
+   */
   phoneNumber?: string;
   // 权益编号
+  /**
+   * @example
+   * RC188955110502576765
+   */
   rightsCode: string;
   // 权益名称
+  /**
+   * @example
+   * 满10元减2元
+   */
   rightsName: string;
   // 券码
+  /**
+   * @example
+   * 202601160007300227760ZT3CMQY
+   */
   voucherCode: string;
   // 券状态
   // WAIT_EFFECT：待生效 
@@ -412,6 +663,10 @@ export class VoucherBaseInfoVO extends $tea.Model {
   // VERIFY_CANCELING：核销撤销中
   // INVALID：已失效 
   // NO_NEED_VERIFY：无需核销 
+  /**
+   * @example
+   * WAIT_VERIFY
+   */
   status: string;
   static names(): { [key: string]: string } {
     return {
@@ -767,6 +1022,178 @@ export class BatchqueryRightsprodVoucherResponse extends $tea.Model {
   }
 }
 
+export class CallbackRightsprodOperationRequest extends $tea.Model {
+  // OAuth模式下的授权token
+  authToken?: string;
+  productInstanceId?: string;
+  // 通知ID(幂等)
+  notifyId: string;
+  // 权益编号
+  rightsCode: string;
+  // 凭证编号
+  voucherCode: string;
+  // 业务类型
+  // V_REFUND（退款）
+  // V_EXPIRE（过期）
+  // V_INVALID（作废）
+  // V_USE（核销）
+  // V_PUBLISH（发放）
+  bizType: string;
+  // 支付订单号（使用和退款 时用于判断是否为重复核销、退款通知）
+  payOrderNo?: string;
+  // 券面额
+  faceAmount?: string;
+  // 流通金额（核销、退款时 金额）
+  fluxAmount?: string;
+  static names(): { [key: string]: string } {
+    return {
+      authToken: 'auth_token',
+      productInstanceId: 'product_instance_id',
+      notifyId: 'notify_id',
+      rightsCode: 'rights_code',
+      voucherCode: 'voucher_code',
+      bizType: 'biz_type',
+      payOrderNo: 'pay_order_no',
+      faceAmount: 'face_amount',
+      fluxAmount: 'flux_amount',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      authToken: 'string',
+      productInstanceId: 'string',
+      notifyId: 'string',
+      rightsCode: 'string',
+      voucherCode: 'string',
+      bizType: 'string',
+      payOrderNo: 'string',
+      faceAmount: 'string',
+      fluxAmount: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class CallbackRightsprodOperationResponse extends $tea.Model {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string;
+  // 结果码，一般OK表示调用成功
+  resultCode?: string;
+  // 异常信息的文本描述
+  resultMsg?: string;
+  // 同步结果  
+  // success 为同步成功其他均为失败
+  result?: string;
+  static names(): { [key: string]: string } {
+    return {
+      reqMsgId: 'req_msg_id',
+      resultCode: 'result_code',
+      resultMsg: 'result_msg',
+      result: 'result',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      reqMsgId: 'string',
+      resultCode: 'string',
+      resultMsg: 'string',
+      result: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class CallbackRightsprodOperationdataRequest extends $tea.Model {
+  // OAuth模式下的授权token
+  authToken?: string;
+  productInstanceId?: string;
+  // 通知ID(幂等)
+  notifyId: string;
+  // 权益编号
+  rightsCode: string;
+  // 凭证编号
+  voucherCode: string;
+  // 业务类型 V_REFUND（退款） V_EXPIRE（过期） V_INVALID（作废） V_USE（核销） V_PUBLISH（发放）
+  bizType: string;
+  // 支付订单号（使用和退款 时用于判断是否为重复核销、退款通知）
+  payOrderNo?: string;
+  // 券面额
+  faceAmount?: string;
+  // 流通金额（核销、退款时 金额）
+  fluxAmount?: string;
+  static names(): { [key: string]: string } {
+    return {
+      authToken: 'auth_token',
+      productInstanceId: 'product_instance_id',
+      notifyId: 'notify_id',
+      rightsCode: 'rights_code',
+      voucherCode: 'voucher_code',
+      bizType: 'biz_type',
+      payOrderNo: 'pay_order_no',
+      faceAmount: 'face_amount',
+      fluxAmount: 'flux_amount',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      authToken: 'string',
+      productInstanceId: 'string',
+      notifyId: 'string',
+      rightsCode: 'string',
+      voucherCode: 'string',
+      bizType: 'string',
+      payOrderNo: 'string',
+      faceAmount: 'string',
+      fluxAmount: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class CallbackRightsprodOperationdataResponse extends $tea.Model {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string;
+  // 结果码，一般OK表示调用成功
+  resultCode?: string;
+  // 异常信息的文本描述
+  resultMsg?: string;
+  // 同步结果 success 为同步成功其他均为失败
+  result?: string;
+  static names(): { [key: string]: string } {
+    return {
+      reqMsgId: 'req_msg_id',
+      resultCode: 'result_code',
+      resultMsg: 'result_msg',
+      result: 'result',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      reqMsgId: 'string',
+      resultCode: 'string',
+      resultMsg: 'string',
+      result: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
 
 export default class Client {
   _endpoint: string;
@@ -790,8 +1217,10 @@ export default class Client {
   _maxRequestsPerHost: number;
 
   /**
+   * @remarks
    * Init client with Config
-   * @param config config contains the necessary information to create a client
+   * 
+   * @param config - config contains the necessary information to create a client
    */
   constructor(config: Config) {
     if (Util.isUnset(config)) {
@@ -822,14 +1251,16 @@ export default class Client {
   }
 
   /**
+   * @remarks
    * Encapsulate the request and invoke the network
-   * @param action api name
-   * @param protocol http or https
-   * @param method e.g. GET
-   * @param pathname pathname of every api
-   * @param request which contains request params
-   * @param runtime which controls some details of call api, such as retry times
-   * @return the response
+   * 
+   * @param action - api name
+   * @param protocol - http or https
+   * @param method - e.g. GET
+   * @param pathname - pathname of every api
+   * @param request - which contains request params
+   * @param runtime - which controls some details of call api, such as retry times
+   * @returns the response
    */
   async doRequest(version: string, action: string, protocol: string, method: string, pathname: string, request: {[key: string]: any}, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<{[key: string]: any}> {
     let _runtime: { [key: string]: any } = {
@@ -880,7 +1311,7 @@ export default class Client {
           req_msg_id: AntchainUtil.getNonce(),
           access_key: this._accessKeyId,
           base_sdk_version: "TeaSDK-2.0",
-          sdk_version: "1.3.1",
+          sdk_version: "1.3.2",
           _prod_code: "GESAAS",
           _prod_channel: "default",
         };
@@ -929,6 +1360,7 @@ export default class Client {
   }
 
   /**
+   * @remarks
    * Description: 品牌会员签约鉴权产品链路风控鉴权
    * Summary: 风控鉴权
    */
@@ -939,6 +1371,7 @@ export default class Client {
   }
 
   /**
+   * @remarks
    * Description: 品牌会员签约鉴权产品链路风控鉴权
    * Summary: 风控鉴权
    */
@@ -948,6 +1381,7 @@ export default class Client {
   }
 
   /**
+   * @remarks
    * Description: 权益中心权益发放
    * Summary: 权益发放
    */
@@ -958,6 +1392,7 @@ export default class Client {
   }
 
   /**
+   * @remarks
    * Description: 权益中心权益发放
    * Summary: 权益发放
    */
@@ -967,6 +1402,7 @@ export default class Client {
   }
 
   /**
+   * @remarks
    * Description: 权益发放结果查询
    * Summary: 权益发放结果查询
    */
@@ -977,6 +1413,7 @@ export default class Client {
   }
 
   /**
+   * @remarks
    * Description: 权益发放结果查询
    * Summary: 权益发放结果查询
    */
@@ -986,6 +1423,7 @@ export default class Client {
   }
 
   /**
+   * @remarks
    * Description: 券基本信息批量查询
    * Summary: 券基本信息批量查询
    */
@@ -996,12 +1434,55 @@ export default class Client {
   }
 
   /**
+   * @remarks
    * Description: 券基本信息批量查询
    * Summary: 券基本信息批量查询
    */
   async batchqueryRightsprodVoucherEx(request: BatchqueryRightsprodVoucherRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<BatchqueryRightsprodVoucherResponse> {
     Util.validateModel(request);
     return $tea.cast<BatchqueryRightsprodVoucherResponse>(await this.doRequest("1.0", "antdigital.gesaas.rightsprod.voucher.batchquery", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new BatchqueryRightsprodVoucherResponse({}));
+  }
+
+  /**
+   * @remarks
+   * Description: 权益中心数据流回调 API
+   * Summary: 权益中心数据流回调 API
+   */
+  async callbackRightsprodOperation(request: CallbackRightsprodOperationRequest): Promise<CallbackRightsprodOperationResponse> {
+    let runtime = new $Util.RuntimeOptions({ });
+    let headers : {[key: string ]: string} = { };
+    return await this.callbackRightsprodOperationEx(request, headers, runtime);
+  }
+
+  /**
+   * @remarks
+   * Description: 权益中心数据流回调 API
+   * Summary: 权益中心数据流回调 API
+   */
+  async callbackRightsprodOperationEx(request: CallbackRightsprodOperationRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<CallbackRightsprodOperationResponse> {
+    Util.validateModel(request);
+    return $tea.cast<CallbackRightsprodOperationResponse>(await this.doRequest("1.0", "antdigital.gesaas.rightsprod.operation.callback", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new CallbackRightsprodOperationResponse({}));
+  }
+
+  /**
+   * @remarks
+   * Description: 权益中心API
+   * Summary: 权益中心API
+   */
+  async callbackRightsprodOperationdata(request: CallbackRightsprodOperationdataRequest): Promise<CallbackRightsprodOperationdataResponse> {
+    let runtime = new $Util.RuntimeOptions({ });
+    let headers : {[key: string ]: string} = { };
+    return await this.callbackRightsprodOperationdataEx(request, headers, runtime);
+  }
+
+  /**
+   * @remarks
+   * Description: 权益中心API
+   * Summary: 权益中心API
+   */
+  async callbackRightsprodOperationdataEx(request: CallbackRightsprodOperationdataRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<CallbackRightsprodOperationdataResponse> {
+    Util.validateModel(request);
+    return $tea.cast<CallbackRightsprodOperationdataResponse>(await this.doRequest("1.0", "antdigital.gesaas.rightsprod.operationdata.callback", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new CallbackRightsprodOperationdataResponse({}));
   }
 
 }
