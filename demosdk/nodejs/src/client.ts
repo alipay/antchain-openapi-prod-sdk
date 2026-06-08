@@ -5,26 +5,129 @@ import RPCUtil from '@alicloud/rpc-util';
 import * as $tea from '@alicloud/tea-typescript';
 
 /**
+ * @remarks
  * Model for initing client
  */
 export class Config extends $tea.Model {
+  /**
+   * @remarks
+   * accesskey id
+   */
   accessKeyId?: string;
+  /**
+   * @remarks
+   * accesskey secret
+   */
   accessKeySecret?: string;
+  /**
+   * @remarks
+   * security token
+   */
   securityToken?: string;
+  /**
+   * @remarks
+   * http protocol
+   * 
+   * @example
+   * http
+   */
   protocol?: string;
+  /**
+   * @remarks
+   * read timeout
+   * 
+   * @example
+   * 10
+   */
   readTimeout?: number;
+  /**
+   * @remarks
+   * connect timeout
+   * 
+   * @example
+   * 10
+   */
   connectTimeout?: number;
+  /**
+   * @remarks
+   * http proxy
+   * 
+   * @example
+   * http://localhost
+   */
   httpProxy?: string;
+  /**
+   * @remarks
+   * https proxy
+   * 
+   * @example
+   * https://localhost
+   */
   httpsProxy?: string;
+  /**
+   * @remarks
+   * endpoint
+   * 
+   * @example
+   * cs.aliyuncs.com
+   */
   endpoint?: string;
+  /**
+   * @remarks
+   * proxy white list
+   * 
+   * @example
+   * http://localhost
+   */
   noProxy?: string;
+  /**
+   * @remarks
+   * max idle conns
+   * 
+   * @example
+   * 3
+   */
   maxIdleConns?: number;
+  /**
+   * @remarks
+   * user agent
+   * 
+   * @example
+   * Alibabacloud/1
+   */
   userAgent?: string;
+  /**
+   * @remarks
+   * socks5 proxy
+   */
   socks5Proxy?: string;
+  /**
+   * @remarks
+   * socks5 network
+   * 
+   * @example
+   * TCP
+   */
   socks5NetWork?: string;
+  /**
+   * @remarks
+   * 长链接最大空闲时长
+   */
   maxIdleTimeMillis?: number;
+  /**
+   * @remarks
+   * 长链接最大连接时长
+   */
   keepAliveDurationMillis?: number;
+  /**
+   * @remarks
+   * 最大连接数（长链接最大总数）
+   */
   maxRequests?: number;
+  /**
+   * @remarks
+   * 每个目标主机的最大连接数（分主机域名的长链接最大总数
+   */
   maxRequestsPerHost?: number;
   static names(): { [key: string]: string } {
     return {
@@ -80,12 +183,28 @@ export class Config extends $tea.Model {
 // test
 export class TestParamC extends $tea.Model {
   // string_param
+  /**
+   * @example
+   * string_param
+   */
   stringParam?: string;
   // number_param
+  /**
+   * @example
+   * 1
+   */
   numberParam?: number;
   // boolean_param
+  /**
+   * @example
+   * true, false
+   */
   booleanParam?: boolean;
   // date_param
+  /**
+   * @example
+   * 2018-10-10T10:10:00Z
+   */
   dateParam?: string;
   // string
   arrayParam?: string[];
@@ -117,16 +236,36 @@ export class TestParamC extends $tea.Model {
 // test for edit
 export class TestParamB extends $tea.Model {
   // string_param
+  /**
+   * @example
+   * string_param
+   */
   stringParam?: string;
   // number_param
+  /**
+   * @example
+   * 1
+   */
   numberParam?: number;
   // boolean_param
+  /**
+   * @example
+   * true, false
+   */
   booleanParam?: boolean;
   // date_param
+  /**
+   * @example
+   * 2018-10-10T10:10:00Z
+   */
   dateParam?: string;
   // struct_param
   structParam: TestParamC;
   // aa
+  /**
+   * @example
+   * 3000
+   */
   structListB?: TestParamC;
   static names(): { [key: string]: string } {
     return {
@@ -158,16 +297,36 @@ export class TestParamB extends $tea.Model {
 // test for edit
 export class TestParamA extends $tea.Model {
   // string_param
+  /**
+   * @example
+   * string_param
+   */
   stringParam?: string;
   // number_param
+  /**
+   * @example
+   * 1
+   */
   numberParam?: number;
   // boolean_param
+  /**
+   * @example
+   * true, false
+   */
   booleanParam?: boolean;
   // date_param
+  /**
+   * @example
+   * 2018-10-10T10:10:00Z
+   */
   dateParam?: string;
   // struct_parama
   structParama: TestParamB;
   // 结构体列表a
+  /**
+   * @example
+   * undefined
+   */
   structListA?: TestParamB[];
   static names(): { [key: string]: string } {
     return {
@@ -199,6 +358,10 @@ export class TestParamA extends $tea.Model {
 // a
 export class TestDemo extends $tea.Model {
   // a
+  /**
+   * @example
+   * a
+   */
   timeout?: string;
   static names(): { [key: string]: string } {
     return {
@@ -220,12 +383,28 @@ export class TestDemo extends $tea.Model {
 // Demo类1
 export class DemoClass extends $tea.Model {
   // 字符串测试
+  /**
+   * @example
+   * some string
+   */
   someString: string;
   // 日期测试
+  /**
+   * @example
+   * 3
+   */
   someDate: string;
   // Boolean测试
+  /**
+   * @example
+   * true
+   */
   someBoolean: boolean;
   // 整数测试
+  /**
+   * @example
+   * 3
+   */
   someInt: number;
   // 列表测试
   someList: string[];
@@ -257,8 +436,16 @@ export class DemoClass extends $tea.Model {
 // 测试11-22
 export class TestParams extends $tea.Model {
   // a
+  /**
+   * @example
+   * undefined
+   */
   parameter?: TestParamA;
   // string
+  /**
+   * @example
+   * string
+   */
   string?: string;
   static names(): { [key: string]: string } {
     return {
@@ -282,14 +469,34 @@ export class TestParams extends $tea.Model {
 // DEMOSDK结构体A·edit for test18
 export class DemosdkStructA extends $tea.Model {
   // 【公司名称】
+  /**
+   * @example
+   * xx公司
+   */
   companyName?: string;
   // 【业务类型】
+  /**
+   * @example
+   * 运营
+   */
   productMainClass?: string;
   // 【公司地址】
+  /**
+   * @example
+   * xx市xx区
+   */
   companyAddress?: string;
   // 【联系人】
+  /**
+   * @example
+   * 张三
+   */
   contactName?: string;
   // 【联系人手机号】
+  /**
+   * @example
+   * 13688888888
+   */
   contactMobile?: string;
   static names(): { [key: string]: string } {
     return {
@@ -319,6 +526,10 @@ export class DemosdkStructA extends $tea.Model {
 // 返回结果测试类-11
 export class ResultTest extends $tea.Model {
   // 姓名
+  /**
+   * @example
+   * 张三
+   */
   name?: string;
   static names(): { [key: string]: string } {
     return {
@@ -340,6 +551,10 @@ export class ResultTest extends $tea.Model {
 // aaa
 export class CreateStructA extends $tea.Model {
   // 超时时间
+  /**
+   * @example
+   * 3000
+   */
   timeouta?: string;
   static names(): { [key: string]: string } {
     return {
@@ -361,10 +576,22 @@ export class CreateStructA extends $tea.Model {
 // InitPack
 export class InitPack extends $tea.Model {
   // 2022-11-07 14:48
+  /**
+   * @example
+   * 2022-11-07 14:48
+   */
   time?: string;
   // wanyi
+  /**
+   * @example
+   * wanyi
+   */
   operator?: string;
   // 1
+  /**
+   * @example
+   * 1
+   */
   count?: number;
   static names(): { [key: string]: string } {
     return {
@@ -390,6 +617,10 @@ export class InitPack extends $tea.Model {
 // a
 export class SumBean extends $tea.Model {
   // 1
+  /**
+   * @example
+   * 1
+   */
   a?: number;
   static names(): { [key: string]: string } {
     return {
@@ -2190,8 +2421,10 @@ export default class Client {
   _maxRequestsPerHost: number;
 
   /**
+   * @remarks
    * Init client with Config
-   * @param config config contains the necessary information to create a client
+   * 
+   * @param config - config contains the necessary information to create a client
    */
   constructor(config: Config) {
     if (Util.isUnset(config)) {
@@ -2222,14 +2455,16 @@ export default class Client {
   }
 
   /**
+   * @remarks
    * Encapsulate the request and invoke the network
-   * @param action api name
-   * @param protocol http or https
-   * @param method e.g. GET
-   * @param pathname pathname of every api
-   * @param request which contains request params
-   * @param runtime which controls some details of call api, such as retry times
-   * @return the response
+   * 
+   * @param action - api name
+   * @param protocol - http or https
+   * @param method - e.g. GET
+   * @param pathname - pathname of every api
+   * @param request - which contains request params
+   * @param runtime - which controls some details of call api, such as retry times
+   * @returns the response
    */
   async doRequest(version: string, action: string, protocol: string, method: string, pathname: string, request: {[key: string]: any}, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<{[key: string]: any}> {
     let _runtime: { [key: string]: any } = {
@@ -2280,7 +2515,7 @@ export default class Client {
           req_msg_id: AntchainUtil.getNonce(),
           access_key: this._accessKeyId,
           base_sdk_version: "TeaSDK-2.0",
-          sdk_version: "1.3.43",
+          sdk_version: "1.3.45",
           _prod_code: "DEMOSDK",
           _prod_channel: "default",
         };
@@ -2329,6 +2564,7 @@ export default class Client {
   }
 
   /**
+   * @remarks
    * Description: 用于结构体上线测试
    * Summary: 用于结构体上线测试
    */
@@ -2339,6 +2575,7 @@ export default class Client {
   }
 
   /**
+   * @remarks
    * Description: 用于结构体上线测试
    * Summary: 用于结构体上线测试
    */
@@ -2348,6 +2585,7 @@ export default class Client {
   }
 
   /**
+   * @remarks
    * Description: 结构体测试·edit for test18
    * Summary: 结构体测试·edit for test18
    */
@@ -2358,6 +2596,7 @@ export default class Client {
   }
 
   /**
+   * @remarks
    * Description: 结构体测试·edit for test18
    * Summary: 结构体测试·edit for test18
    */
@@ -2367,6 +2606,7 @@ export default class Client {
   }
 
   /**
+   * @remarks
    * Description: 这是测试的
    * Summary: 这是测试的
    */
@@ -2377,6 +2617,7 @@ export default class Client {
   }
 
   /**
+   * @remarks
    * Description: 这是测试的
    * Summary: 这是测试的
    */
@@ -2386,6 +2627,7 @@ export default class Client {
   }
 
   /**
+   * @remarks
    * Description: l
    * Summary: l
    */
@@ -2396,6 +2638,7 @@ export default class Client {
   }
 
   /**
+   * @remarks
    * Description: l
    * Summary: l
    */
@@ -2405,6 +2648,7 @@ export default class Client {
   }
 
   /**
+   * @remarks
    * Description: a
    * Summary: a
    */
@@ -2415,6 +2659,7 @@ export default class Client {
   }
 
   /**
+   * @remarks
    * Description: a
    * Summary: a
    */
@@ -2424,6 +2669,7 @@ export default class Client {
   }
 
   /**
+   * @remarks
    * Description: iam同步测试
    * Summary: iam同步测试
    */
@@ -2434,6 +2680,7 @@ export default class Client {
   }
 
   /**
+   * @remarks
    * Description: iam同步测试
    * Summary: iam同步测试
    */
@@ -2443,6 +2690,7 @@ export default class Client {
   }
 
   /**
+   * @remarks
    * Description: iam同步测试
    * Summary: iam同步测试
    */
@@ -2453,6 +2701,7 @@ export default class Client {
   }
 
   /**
+   * @remarks
    * Description: iam同步测试
    * Summary: iam同步测试
    */
@@ -2462,6 +2711,7 @@ export default class Client {
   }
 
   /**
+   * @remarks
    * Description: iam推送测试
    * Summary: iam推送测试
    */
@@ -2472,6 +2722,7 @@ export default class Client {
   }
 
   /**
+   * @remarks
    * Description: iam推送测试
    * Summary: iam推送测试
    */
@@ -2481,6 +2732,7 @@ export default class Client {
   }
 
   /**
+   * @remarks
    * Description: test
    * Summary: test
    */
@@ -2491,6 +2743,7 @@ export default class Client {
   }
 
   /**
+   * @remarks
    * Description: test
    * Summary: test
    */
@@ -2500,6 +2753,7 @@ export default class Client {
   }
 
   /**
+   * @remarks
    * Description: test
    * Summary: test
    */
@@ -2510,6 +2764,7 @@ export default class Client {
   }
 
   /**
+   * @remarks
    * Description: test
    * Summary: test
    */
@@ -2519,6 +2774,7 @@ export default class Client {
   }
 
   /**
+   * @remarks
    * Description: queryApiConfig接口优化
    * Summary: queryApiConfig接口优化
    */
@@ -2529,6 +2785,7 @@ export default class Client {
   }
 
   /**
+   * @remarks
    * Description: queryApiConfig接口优化
    * Summary: queryApiConfig接口优化
    */
@@ -2538,6 +2795,7 @@ export default class Client {
   }
 
   /**
+   * @remarks
    * Description: 自动化测试创建test，请勿修改、删除
    * Summary: 自动化测试创建test，请勿修改、删除
    */
@@ -2548,6 +2806,7 @@ export default class Client {
   }
 
   /**
+   * @remarks
    * Description: 自动化测试创建test，请勿修改、删除
    * Summary: 自动化测试创建test，请勿修改、删除
    */
@@ -2557,6 +2816,7 @@ export default class Client {
   }
 
   /**
+   * @remarks
    * Description: 自动化测试创建test，请勿修改、删除
    * Summary: 自动化测试创建test，请勿修改、删除
    */
@@ -2567,6 +2827,7 @@ export default class Client {
   }
 
   /**
+   * @remarks
    * Description: 自动化测试创建test，请勿修改、删除
    * Summary: 自动化测试创建test，请勿修改、删除
    */
@@ -2576,6 +2837,7 @@ export default class Client {
   }
 
   /**
+   * @remarks
    * Description: 自动化测试创建test，请勿修改、删除
    * Summary: 自动化测试创建test，请勿修改、删除
    */
@@ -2586,6 +2848,7 @@ export default class Client {
   }
 
   /**
+   * @remarks
    * Description: 自动化测试创建test，请勿修改、删除
    * Summary: 自动化测试创建test，请勿修改、删除
    */
@@ -2595,6 +2858,7 @@ export default class Client {
   }
 
   /**
+   * @remarks
    * Description: 测试api流程
    * Summary: 测试api流程
    */
@@ -2605,6 +2869,7 @@ export default class Client {
   }
 
   /**
+   * @remarks
    * Description: 测试api流程
    * Summary: 测试api流程
    */
@@ -2614,6 +2879,7 @@ export default class Client {
   }
 
   /**
+   * @remarks
    * Description: desc
    * Summary: desc
    */
@@ -2624,6 +2890,7 @@ export default class Client {
   }
 
   /**
+   * @remarks
    * Description: desc
    * Summary: desc
    */
@@ -2633,6 +2900,7 @@ export default class Client {
   }
 
   /**
+   * @remarks
    * Description: 用于个人工作台二期测试使用测试test
    * Summary: 用于个人工作台二期测试使用测试test
    */
@@ -2643,6 +2911,7 @@ export default class Client {
   }
 
   /**
+   * @remarks
    * Description: 用于个人工作台二期测试使用测试test
    * Summary: 用于个人工作台二期测试使用测试test
    */
@@ -2652,6 +2921,7 @@ export default class Client {
   }
 
   /**
+   * @remarks
    * Description: 个人工作台二期测试接口
    * Summary: 个人工作台二期测试接口
    */
@@ -2662,6 +2932,7 @@ export default class Client {
   }
 
   /**
+   * @remarks
    * Description: 个人工作台二期测试接口
    * Summary: 个人工作台二期测试接口
    */
@@ -2671,6 +2942,7 @@ export default class Client {
   }
 
   /**
+   * @remarks
    * Description: 个人工作台测试使用
    * Summary: 个人工作台测试使用
    */
@@ -2681,6 +2953,7 @@ export default class Client {
   }
 
   /**
+   * @remarks
    * Description: 个人工作台测试使用
    * Summary: 个人工作台测试使用
    */
@@ -2690,6 +2963,7 @@ export default class Client {
   }
 
   /**
+   * @remarks
    * Description: 个人工作台测试
    * Summary: 个人工作台测试
    */
@@ -2700,6 +2974,7 @@ export default class Client {
   }
 
   /**
+   * @remarks
    * Description: 个人工作台测试
    * Summary: 个人工作台测试
    */
@@ -2709,6 +2984,7 @@ export default class Client {
   }
 
   /**
+   * @remarks
    * Description: 个人工作台二期预发测试1
    * Summary: 个人工作台二期预发测试1
    */
@@ -2719,6 +2995,7 @@ export default class Client {
   }
 
   /**
+   * @remarks
    * Description: 个人工作台二期预发测试1
    * Summary: 个人工作台二期预发测试1
    */
@@ -2728,6 +3005,7 @@ export default class Client {
   }
 
   /**
+   * @remarks
    * Description: 个人工作台二期预发测试
    * Summary: 个人工作台二期预发测试
    */
@@ -2738,6 +3016,7 @@ export default class Client {
   }
 
   /**
+   * @remarks
    * Description: 个人工作台二期预发测试
    * Summary: 个人工作台二期预发测试
    */
@@ -2747,6 +3026,7 @@ export default class Client {
   }
 
   /**
+   * @remarks
    * Description: 个人工作台测试使用
    * Summary: 个人工作台测试使用
    */
@@ -2757,6 +3037,7 @@ export default class Client {
   }
 
   /**
+   * @remarks
    * Description: 个人工作台测试使用
    * Summary: 个人工作台测试使用
    */
@@ -2766,6 +3047,7 @@ export default class Client {
   }
 
   /**
+   * @remarks
    * Description: 个人工作台测试使用
    * Summary: 个人工作台测试使用
    */
@@ -2776,6 +3058,7 @@ export default class Client {
   }
 
   /**
+   * @remarks
    * Description: 个人工作台测试使用
    * Summary: 个人工作台测试使用
    */
@@ -2785,6 +3068,7 @@ export default class Client {
   }
 
   /**
+   * @remarks
    * Description: AAAA
    * Summary: AAAA
    */
@@ -2795,6 +3079,7 @@ export default class Client {
   }
 
   /**
+   * @remarks
    * Description: AAAA
    * Summary: AAAA
    */
@@ -2804,6 +3089,7 @@ export default class Client {
   }
 
   /**
+   * @remarks
    * Description: a
    * Summary: a
    */
@@ -2814,6 +3100,7 @@ export default class Client {
   }
 
   /**
+   * @remarks
    * Description: a
    * Summary: a
    */
@@ -2823,6 +3110,7 @@ export default class Client {
   }
 
   /**
+   * @remarks
    * Description: 测试
    * Summary: 测试
    */
@@ -2833,6 +3121,7 @@ export default class Client {
   }
 
   /**
+   * @remarks
    * Description: 测试
    * Summary: 测试
    */
@@ -2842,6 +3131,7 @@ export default class Client {
   }
 
   /**
+   * @remarks
    * Description: 自动化测试使用
    * Summary: 自动化测试使用
    */
@@ -2852,6 +3142,7 @@ export default class Client {
   }
 
   /**
+   * @remarks
    * Description: 自动化测试使用
    * Summary: 自动化测试使用
    */
@@ -2861,6 +3152,7 @@ export default class Client {
   }
 
   /**
+   * @remarks
    * Description: 这是编辑后的描述
    * Summary: 这是编辑后的描述
    */
@@ -2871,6 +3163,7 @@ export default class Client {
   }
 
   /**
+   * @remarks
    * Description: 这是编辑后的描述
    * Summary: 这是编辑后的描述
    */
