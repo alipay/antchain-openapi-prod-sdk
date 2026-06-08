@@ -100,7 +100,7 @@ api doRequest(version: string, action: string, protocol: string, method: string,
     req_msg_id = AntchainUtil.getNonce(),
     access_key = @accessKeyId,
     base_sdk_version = 'TeaSDK-2.0',
-    sdk_version = '1.12.30',
+    sdk_version = '1.12.34',
     _prod_code = 'INSURANCE_SAAS',
     _prod_channel = 'undefined'
   };
@@ -384,6 +384,10 @@ model CallbackAasMktLiveeffectRequest = {
   liveStartTime?: string(name='live_start_time'),
   // 扩展字段
   extInfo?: string(name='ext_info'),
+  // 直播间开播场次-动参，每日每场直播时添加至 URl（唯一ID 生成规则：直播间 ID 后两位+开播时间的年（后两位）月日时分
+  // 举例：若直播间 ID 为 kxz123456，开播时间为 2026-06-18 17：22，此时唯一 ID 为：562606181722
+  // ）
+  liveSessionId?: string(name='live_session_id'),
 }
 
 model CallbackAasMktLiveeffectResponse = {
