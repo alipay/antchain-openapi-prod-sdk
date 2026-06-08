@@ -1282,3 +1282,279 @@ class BatchqueryRightsprodVoucherResponse(TeaModel):
         return self
 
 
+class CallbackRightsprodOperationRequest(TeaModel):
+    def __init__(
+        self,
+        auth_token: str = None,
+        product_instance_id: str = None,
+        notify_id: str = None,
+        rights_code: str = None,
+        voucher_code: str = None,
+        biz_type: str = None,
+        pay_order_no: str = None,
+        face_amount: str = None,
+        flux_amount: str = None,
+    ):
+        # OAuth模式下的授权token
+        self.auth_token = auth_token
+        self.product_instance_id = product_instance_id
+        # 通知ID(幂等)
+        self.notify_id = notify_id
+        # 权益编号
+        self.rights_code = rights_code
+        # 凭证编号
+        self.voucher_code = voucher_code
+        # 业务类型
+        # V_REFUND（退款）
+        # V_EXPIRE（过期）
+        # V_INVALID（作废）
+        # V_USE（核销）
+        # V_PUBLISH（发放）
+        self.biz_type = biz_type
+        # 支付订单号（使用和退款 时用于判断是否为重复核销、退款通知）
+        self.pay_order_no = pay_order_no
+        # 券面额
+        self.face_amount = face_amount
+        # 流通金额（核销、退款时 金额）
+        self.flux_amount = flux_amount
+
+    def validate(self):
+        self.validate_required(self.notify_id, 'notify_id')
+        self.validate_required(self.rights_code, 'rights_code')
+        self.validate_required(self.voucher_code, 'voucher_code')
+        self.validate_required(self.biz_type, 'biz_type')
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.auth_token is not None:
+            result['auth_token'] = self.auth_token
+        if self.product_instance_id is not None:
+            result['product_instance_id'] = self.product_instance_id
+        if self.notify_id is not None:
+            result['notify_id'] = self.notify_id
+        if self.rights_code is not None:
+            result['rights_code'] = self.rights_code
+        if self.voucher_code is not None:
+            result['voucher_code'] = self.voucher_code
+        if self.biz_type is not None:
+            result['biz_type'] = self.biz_type
+        if self.pay_order_no is not None:
+            result['pay_order_no'] = self.pay_order_no
+        if self.face_amount is not None:
+            result['face_amount'] = self.face_amount
+        if self.flux_amount is not None:
+            result['flux_amount'] = self.flux_amount
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('auth_token') is not None:
+            self.auth_token = m.get('auth_token')
+        if m.get('product_instance_id') is not None:
+            self.product_instance_id = m.get('product_instance_id')
+        if m.get('notify_id') is not None:
+            self.notify_id = m.get('notify_id')
+        if m.get('rights_code') is not None:
+            self.rights_code = m.get('rights_code')
+        if m.get('voucher_code') is not None:
+            self.voucher_code = m.get('voucher_code')
+        if m.get('biz_type') is not None:
+            self.biz_type = m.get('biz_type')
+        if m.get('pay_order_no') is not None:
+            self.pay_order_no = m.get('pay_order_no')
+        if m.get('face_amount') is not None:
+            self.face_amount = m.get('face_amount')
+        if m.get('flux_amount') is not None:
+            self.flux_amount = m.get('flux_amount')
+        return self
+
+
+class CallbackRightsprodOperationResponse(TeaModel):
+    def __init__(
+        self,
+        req_msg_id: str = None,
+        result_code: str = None,
+        result_msg: str = None,
+        result: str = None,
+    ):
+        # 请求唯一ID，用于链路跟踪和问题排查
+        self.req_msg_id = req_msg_id
+        # 结果码，一般OK表示调用成功
+        self.result_code = result_code
+        # 异常信息的文本描述
+        self.result_msg = result_msg
+        # 同步结果
+        # success 为同步成功其他均为失败
+        self.result = result
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.req_msg_id is not None:
+            result['req_msg_id'] = self.req_msg_id
+        if self.result_code is not None:
+            result['result_code'] = self.result_code
+        if self.result_msg is not None:
+            result['result_msg'] = self.result_msg
+        if self.result is not None:
+            result['result'] = self.result
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('req_msg_id') is not None:
+            self.req_msg_id = m.get('req_msg_id')
+        if m.get('result_code') is not None:
+            self.result_code = m.get('result_code')
+        if m.get('result_msg') is not None:
+            self.result_msg = m.get('result_msg')
+        if m.get('result') is not None:
+            self.result = m.get('result')
+        return self
+
+
+class CallbackRightsprodOperationdataRequest(TeaModel):
+    def __init__(
+        self,
+        auth_token: str = None,
+        product_instance_id: str = None,
+        notify_id: str = None,
+        rights_code: str = None,
+        voucher_code: str = None,
+        biz_type: str = None,
+        pay_order_no: str = None,
+        face_amount: str = None,
+        flux_amount: str = None,
+    ):
+        # OAuth模式下的授权token
+        self.auth_token = auth_token
+        self.product_instance_id = product_instance_id
+        # 通知ID(幂等)
+        self.notify_id = notify_id
+        # 权益编号
+        self.rights_code = rights_code
+        # 凭证编号
+        self.voucher_code = voucher_code
+        # 业务类型 V_REFUND（退款） V_EXPIRE（过期） V_INVALID（作废） V_USE（核销） V_PUBLISH（发放）
+        self.biz_type = biz_type
+        # 支付订单号（使用和退款 时用于判断是否为重复核销、退款通知）
+        self.pay_order_no = pay_order_no
+        # 券面额
+        self.face_amount = face_amount
+        # 流通金额（核销、退款时 金额）
+        self.flux_amount = flux_amount
+
+    def validate(self):
+        self.validate_required(self.notify_id, 'notify_id')
+        self.validate_required(self.rights_code, 'rights_code')
+        self.validate_required(self.voucher_code, 'voucher_code')
+        self.validate_required(self.biz_type, 'biz_type')
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.auth_token is not None:
+            result['auth_token'] = self.auth_token
+        if self.product_instance_id is not None:
+            result['product_instance_id'] = self.product_instance_id
+        if self.notify_id is not None:
+            result['notify_id'] = self.notify_id
+        if self.rights_code is not None:
+            result['rights_code'] = self.rights_code
+        if self.voucher_code is not None:
+            result['voucher_code'] = self.voucher_code
+        if self.biz_type is not None:
+            result['biz_type'] = self.biz_type
+        if self.pay_order_no is not None:
+            result['pay_order_no'] = self.pay_order_no
+        if self.face_amount is not None:
+            result['face_amount'] = self.face_amount
+        if self.flux_amount is not None:
+            result['flux_amount'] = self.flux_amount
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('auth_token') is not None:
+            self.auth_token = m.get('auth_token')
+        if m.get('product_instance_id') is not None:
+            self.product_instance_id = m.get('product_instance_id')
+        if m.get('notify_id') is not None:
+            self.notify_id = m.get('notify_id')
+        if m.get('rights_code') is not None:
+            self.rights_code = m.get('rights_code')
+        if m.get('voucher_code') is not None:
+            self.voucher_code = m.get('voucher_code')
+        if m.get('biz_type') is not None:
+            self.biz_type = m.get('biz_type')
+        if m.get('pay_order_no') is not None:
+            self.pay_order_no = m.get('pay_order_no')
+        if m.get('face_amount') is not None:
+            self.face_amount = m.get('face_amount')
+        if m.get('flux_amount') is not None:
+            self.flux_amount = m.get('flux_amount')
+        return self
+
+
+class CallbackRightsprodOperationdataResponse(TeaModel):
+    def __init__(
+        self,
+        req_msg_id: str = None,
+        result_code: str = None,
+        result_msg: str = None,
+        result: str = None,
+    ):
+        # 请求唯一ID，用于链路跟踪和问题排查
+        self.req_msg_id = req_msg_id
+        # 结果码，一般OK表示调用成功
+        self.result_code = result_code
+        # 异常信息的文本描述
+        self.result_msg = result_msg
+        # 同步结果 success 为同步成功其他均为失败
+        self.result = result
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.req_msg_id is not None:
+            result['req_msg_id'] = self.req_msg_id
+        if self.result_code is not None:
+            result['result_code'] = self.result_code
+        if self.result_msg is not None:
+            result['result_msg'] = self.result_msg
+        if self.result is not None:
+            result['result'] = self.result
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('req_msg_id') is not None:
+            self.req_msg_id = m.get('req_msg_id')
+        if m.get('result_code') is not None:
+            self.result_code = m.get('result_code')
+        if m.get('result_msg') is not None:
+            self.result_msg = m.get('result_msg')
+        if m.get('result') is not None:
+            self.result = m.get('result')
+        return self
+
+
