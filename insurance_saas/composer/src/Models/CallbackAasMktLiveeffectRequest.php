@@ -110,6 +110,14 @@ class CallbackAasMktLiveeffectRequest extends Model
      * @var string
      */
     public $extInfo;
+
+    // 直播间开播场次-动参，每日每场直播时添加至 URl（唯一ID 生成规则：直播间 ID 后两位+开播时间的年（后两位）月日时分
+    // 举例：若直播间 ID 为 kxz123456，开播时间为 2026-06-18 17：22，此时唯一 ID 为：562606181722
+    // ）
+    /**
+     * @var string
+     */
+    public $liveSessionId;
     protected $_name = [
         'authToken'       => 'auth_token',
         'requestId'       => 'request_id',
@@ -128,6 +136,7 @@ class CallbackAasMktLiveeffectRequest extends Model
         'liveRoomId'      => 'live_room_id',
         'liveStartTime'   => 'live_start_time',
         'extInfo'         => 'ext_info',
+        'liveSessionId'   => 'live_session_id',
     ];
 
     public function validate()
@@ -197,6 +206,9 @@ class CallbackAasMktLiveeffectRequest extends Model
         if (null !== $this->extInfo) {
             $res['ext_info'] = $this->extInfo;
         }
+        if (null !== $this->liveSessionId) {
+            $res['live_session_id'] = $this->liveSessionId;
+        }
 
         return $res;
     }
@@ -259,6 +271,9 @@ class CallbackAasMktLiveeffectRequest extends Model
         }
         if (isset($map['ext_info'])) {
             $model->extInfo = $map['ext_info'];
+        }
+        if (isset($map['live_session_id'])) {
+            $model->liveSessionId = $map['live_session_id'];
         }
 
         return $model;
