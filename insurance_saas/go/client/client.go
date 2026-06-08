@@ -633,6 +633,10 @@ type CallbackAasMktLiveeffectRequest struct {
 	LiveStartTime *string `json:"live_start_time,omitempty" xml:"live_start_time,omitempty"`
 	// 扩展字段
 	ExtInfo *string `json:"ext_info,omitempty" xml:"ext_info,omitempty"`
+	// 直播间开播场次-动参，每日每场直播时添加至 URl（唯一ID 生成规则：直播间 ID 后两位+开播时间的年（后两位）月日时分
+	// 举例：若直播间 ID 为 kxz123456，开播时间为 2026-06-18 17：22，此时唯一 ID 为：562606181722
+	// ）
+	LiveSessionId *string `json:"live_session_id,omitempty" xml:"live_session_id,omitempty"`
 }
 
 func (s CallbackAasMktLiveeffectRequest) String() string {
@@ -725,6 +729,11 @@ func (s *CallbackAasMktLiveeffectRequest) SetLiveStartTime(v string) *CallbackAa
 
 func (s *CallbackAasMktLiveeffectRequest) SetExtInfo(v string) *CallbackAasMktLiveeffectRequest {
 	s.ExtInfo = &v
+	return s
+}
+
+func (s *CallbackAasMktLiveeffectRequest) SetLiveSessionId(v string) *CallbackAasMktLiveeffectRequest {
+	s.LiveSessionId = &v
 	return s
 }
 
@@ -5772,7 +5781,7 @@ func (client *Client) DoRequest(version *string, action *string, protocol *strin
 				"req_msg_id":       antchainutil.GetNonce(),
 				"access_key":       client.AccessKeyId,
 				"base_sdk_version": tea.String("TeaSDK-2.0"),
-				"sdk_version":      tea.String("1.12.30"),
+				"sdk_version":      tea.String("1.12.34"),
 				"_prod_code":       tea.String("INSURANCE_SAAS"),
 				"_prod_channel":    tea.String("undefined"),
 			}
