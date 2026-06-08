@@ -759,6 +759,7 @@ class CallbackAasMktLiveeffectRequest(TeaModel):
         live_room_id: str = None,
         live_start_time: str = None,
         ext_info: str = None,
+        live_session_id: str = None,
     ):
         # OAuth模式下的授权token
         self.auth_token = auth_token
@@ -795,6 +796,10 @@ class CallbackAasMktLiveeffectRequest(TeaModel):
         self.live_start_time = live_start_time
         # 扩展字段
         self.ext_info = ext_info
+        # 直播间开播场次-动参，每日每场直播时添加至 URl（唯一ID 生成规则：直播间 ID 后两位+开播时间的年（后两位）月日时分
+        # 举例：若直播间 ID 为 kxz123456，开播时间为 2026-06-18 17：22，此时唯一 ID 为：562606181722
+        # ）
+        self.live_session_id = live_session_id
 
     def validate(self):
         self.validate_required(self.request_id, 'request_id')
@@ -847,6 +852,8 @@ class CallbackAasMktLiveeffectRequest(TeaModel):
             result['live_start_time'] = self.live_start_time
         if self.ext_info is not None:
             result['ext_info'] = self.ext_info
+        if self.live_session_id is not None:
+            result['live_session_id'] = self.live_session_id
         return result
 
     def from_map(self, m: dict = None):
@@ -885,6 +892,8 @@ class CallbackAasMktLiveeffectRequest(TeaModel):
             self.live_start_time = m.get('live_start_time')
         if m.get('ext_info') is not None:
             self.ext_info = m.get('ext_info')
+        if m.get('live_session_id') is not None:
+            self.live_session_id = m.get('live_session_id')
         return self
 
 
