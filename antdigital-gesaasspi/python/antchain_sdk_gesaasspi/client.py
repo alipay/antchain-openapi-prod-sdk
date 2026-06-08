@@ -135,7 +135,7 @@ class Client:
                     'req_msg_id': AntchainUtils.get_nonce(),
                     'access_key': self._access_key_id,
                     'base_sdk_version': 'TeaSDK-2.0',
-                    'sdk_version': '1.5.0',
+                    'sdk_version': '1.5.1',
                     '_prod_code': 'GESAASSPI',
                     '_prod_channel': 'default'
                 }
@@ -239,7 +239,7 @@ class Client:
                     'req_msg_id': AntchainUtils.get_nonce(),
                     'access_key': self._access_key_id,
                     'base_sdk_version': 'TeaSDK-2.0',
-                    'sdk_version': '1.5.0',
+                    'sdk_version': '1.5.1',
                     '_prod_code': 'GESAASSPI',
                     '_prod_channel': 'default'
                 }
@@ -869,6 +869,62 @@ class Client:
         return TeaCore.from_map(
             gesaasspi_models.CallbackAntdigitalGesaasspiRightsprodOperationResponse(),
             await self.do_request_async('1.0', 'antdigital.gesaasspi.rightsprod.operation.callback', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def push_antdigital_gesaasspi_rightsprod_grantrights(
+        self,
+        request: gesaasspi_models.PushAntdigitalGesaasspiRightsprodGrantrightsRequest,
+    ) -> gesaasspi_models.PushAntdigitalGesaasspiRightsprodGrantrightsResponse:
+        """
+        Description: 权益供应商权益发放spi
+        Summary: 权益供应商权益发放spi
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.push_antdigital_gesaasspi_rightsprod_grantrights_ex(request, headers, runtime)
+
+    async def push_antdigital_gesaasspi_rightsprod_grantrights_async(
+        self,
+        request: gesaasspi_models.PushAntdigitalGesaasspiRightsprodGrantrightsRequest,
+    ) -> gesaasspi_models.PushAntdigitalGesaasspiRightsprodGrantrightsResponse:
+        """
+        Description: 权益供应商权益发放spi
+        Summary: 权益供应商权益发放spi
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.push_antdigital_gesaasspi_rightsprod_grantrights_ex_async(request, headers, runtime)
+
+    def push_antdigital_gesaasspi_rightsprod_grantrights_ex(
+        self,
+        request: gesaasspi_models.PushAntdigitalGesaasspiRightsprodGrantrightsRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> gesaasspi_models.PushAntdigitalGesaasspiRightsprodGrantrightsResponse:
+        """
+        Description: 权益供应商权益发放spi
+        Summary: 权益供应商权益发放spi
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            gesaasspi_models.PushAntdigitalGesaasspiRightsprodGrantrightsResponse(),
+            self.do_request('1.0', 'antdigital.gesaasspi.rightsprod.grantrights.push', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def push_antdigital_gesaasspi_rightsprod_grantrights_ex_async(
+        self,
+        request: gesaasspi_models.PushAntdigitalGesaasspiRightsprodGrantrightsRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> gesaasspi_models.PushAntdigitalGesaasspiRightsprodGrantrightsResponse:
+        """
+        Description: 权益供应商权益发放spi
+        Summary: 权益供应商权益发放spi
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            gesaasspi_models.PushAntdigitalGesaasspiRightsprodGrantrightsResponse(),
+            await self.do_request_async('1.0', 'antdigital.gesaasspi.rightsprod.grantrights.push', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
     def create_antcloud_gatewayx_file_upload(

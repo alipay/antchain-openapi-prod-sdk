@@ -1050,6 +1050,34 @@ class Address(TeaModel):
         return self
 
 
+class GrantOrderDetail(TeaModel):
+    def __init__(
+        self,
+        voucher_code: str = None,
+    ):
+        # 券编码
+        self.voucher_code = voucher_code
+
+    def validate(self):
+        self.validate_required(self.voucher_code, 'voucher_code')
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.voucher_code is not None:
+            result['voucher_code'] = self.voucher_code
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('voucher_code') is not None:
+            self.voucher_code = m.get('voucher_code')
+        return self
+
+
 class XNameValuePair(TeaModel):
     def __init__(
         self,
@@ -2355,6 +2383,173 @@ class CallbackAntdigitalGesaasspiRightsprodOperationResponse(TeaModel):
             self.result_msg = m.get('result_msg')
         if m.get('result') is not None:
             self.result = m.get('result')
+        return self
+
+
+class PushAntdigitalGesaasspiRightsprodGrantrightsRequest(TeaModel):
+    def __init__(
+        self,
+        auth_token: str = None,
+        product_instance_id: str = None,
+        user_id: str = None,
+        phone_number: str = None,
+        merchant_no: str = None,
+        rights_code: str = None,
+        grant_num: int = None,
+        out_grant_order_no: str = None,
+        grant_info: str = None,
+    ):
+        # OAuth模式下的授权token
+        self.auth_token = auth_token
+        self.product_instance_id = product_instance_id
+        # 用户ID
+        self.user_id = user_id
+        # 手机号
+        self.phone_number = phone_number
+        # 商户编码
+        self.merchant_no = merchant_no
+        # 权益编码
+        self.rights_code = rights_code
+        # 发放数量，可根据权益信息grantMulti判断是否可发多张
+        self.grant_num = grant_num
+        # 外部发放订单号
+        self.out_grant_order_no = out_grant_order_no
+        # 发放扩展信息，如活动ID等信息，暂时可以不传
+        self.grant_info = grant_info
+
+    def validate(self):
+        self.validate_required(self.rights_code, 'rights_code')
+        self.validate_required(self.out_grant_order_no, 'out_grant_order_no')
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.auth_token is not None:
+            result['auth_token'] = self.auth_token
+        if self.product_instance_id is not None:
+            result['product_instance_id'] = self.product_instance_id
+        if self.user_id is not None:
+            result['user_id'] = self.user_id
+        if self.phone_number is not None:
+            result['phone_number'] = self.phone_number
+        if self.merchant_no is not None:
+            result['merchant_no'] = self.merchant_no
+        if self.rights_code is not None:
+            result['rights_code'] = self.rights_code
+        if self.grant_num is not None:
+            result['grant_num'] = self.grant_num
+        if self.out_grant_order_no is not None:
+            result['out_grant_order_no'] = self.out_grant_order_no
+        if self.grant_info is not None:
+            result['grant_info'] = self.grant_info
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('auth_token') is not None:
+            self.auth_token = m.get('auth_token')
+        if m.get('product_instance_id') is not None:
+            self.product_instance_id = m.get('product_instance_id')
+        if m.get('user_id') is not None:
+            self.user_id = m.get('user_id')
+        if m.get('phone_number') is not None:
+            self.phone_number = m.get('phone_number')
+        if m.get('merchant_no') is not None:
+            self.merchant_no = m.get('merchant_no')
+        if m.get('rights_code') is not None:
+            self.rights_code = m.get('rights_code')
+        if m.get('grant_num') is not None:
+            self.grant_num = m.get('grant_num')
+        if m.get('out_grant_order_no') is not None:
+            self.out_grant_order_no = m.get('out_grant_order_no')
+        if m.get('grant_info') is not None:
+            self.grant_info = m.get('grant_info')
+        return self
+
+
+class PushAntdigitalGesaasspiRightsprodGrantrightsResponse(TeaModel):
+    def __init__(
+        self,
+        req_msg_id: str = None,
+        result_code: str = None,
+        result_msg: str = None,
+        grant_status: str = None,
+        expire_time: str = None,
+        effect_time: str = None,
+        order_details: List[GrantOrderDetail] = None,
+    ):
+        # 请求唯一ID，用于链路跟踪和问题排查
+        self.req_msg_id = req_msg_id
+        # 结果码，一般OK表示调用成功
+        self.result_code = result_code
+        # 异常信息的文本描述
+        self.result_msg = result_msg
+        # 发放状态：
+        # GRANTING：发放处理中 GRANT_SUCCESS：发放成功 GRANT_FAIL：发放失败
+        self.grant_status = grant_status
+        # 过期时间
+        self.expire_time = expire_time
+        # 生效时间
+        self.effect_time = effect_time
+        # 发放订单明细数据
+        self.order_details = order_details
+
+    def validate(self):
+        if self.expire_time is not None:
+            self.validate_pattern(self.expire_time, 'expire_time', '\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}([Z]|([\\.]\\d{1,9})?[\\+]\\d{2}[\\:]?\\d{2})')
+        if self.effect_time is not None:
+            self.validate_pattern(self.effect_time, 'effect_time', '\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}([Z]|([\\.]\\d{1,9})?[\\+]\\d{2}[\\:]?\\d{2})')
+        if self.order_details:
+            for k in self.order_details:
+                if k:
+                    k.validate()
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.req_msg_id is not None:
+            result['req_msg_id'] = self.req_msg_id
+        if self.result_code is not None:
+            result['result_code'] = self.result_code
+        if self.result_msg is not None:
+            result['result_msg'] = self.result_msg
+        if self.grant_status is not None:
+            result['grant_status'] = self.grant_status
+        if self.expire_time is not None:
+            result['expire_time'] = self.expire_time
+        if self.effect_time is not None:
+            result['effect_time'] = self.effect_time
+        result['order_details'] = []
+        if self.order_details is not None:
+            for k in self.order_details:
+                result['order_details'].append(k.to_map() if k else None)
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('req_msg_id') is not None:
+            self.req_msg_id = m.get('req_msg_id')
+        if m.get('result_code') is not None:
+            self.result_code = m.get('result_code')
+        if m.get('result_msg') is not None:
+            self.result_msg = m.get('result_msg')
+        if m.get('grant_status') is not None:
+            self.grant_status = m.get('grant_status')
+        if m.get('expire_time') is not None:
+            self.expire_time = m.get('expire_time')
+        if m.get('effect_time') is not None:
+            self.effect_time = m.get('effect_time')
+        self.order_details = []
+        if m.get('order_details') is not None:
+            for k in m.get('order_details'):
+                temp_model = GrantOrderDetail()
+                self.order_details.append(temp_model.from_map(k))
         return self
 
 
