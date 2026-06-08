@@ -137,7 +137,7 @@ namespace AntChain.SDK.GESAASSPI
                         {"req_msg_id", AntChain.AlipayUtil.AntchainUtils.GetNonce()},
                         {"access_key", _accessKeyId},
                         {"base_sdk_version", "TeaSDK-2.0"},
-                        {"sdk_version", "1.5.0"},
+                        {"sdk_version", "1.5.1"},
                         {"_prod_code", "GESAASSPI"},
                         {"_prod_channel", "default"},
                     };
@@ -263,7 +263,7 @@ namespace AntChain.SDK.GESAASSPI
                         {"req_msg_id", AntChain.AlipayUtil.AntchainUtils.GetNonce()},
                         {"access_key", _accessKeyId},
                         {"base_sdk_version", "TeaSDK-2.0"},
-                        {"sdk_version", "1.5.0"},
+                        {"sdk_version", "1.5.1"},
                         {"_prod_code", "GESAASSPI"},
                         {"_prod_channel", "default"},
                     };
@@ -787,6 +787,48 @@ namespace AntChain.SDK.GESAASSPI
         {
             AlibabaCloud.TeaUtil.Common.ValidateModel(request);
             return TeaModel.ToObject<CallbackAntdigitalGesaasspiRightsprodOperationResponse>(await DoRequestAsync("1.0", "antdigital.gesaasspi.rightsprod.operation.callback", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 权益供应商权益发放spi
+         * Summary: 权益供应商权益发放spi
+         */
+        public PushAntdigitalGesaasspiRightsprodGrantrightsResponse PushAntdigitalGesaasspiRightsprodGrantrights(PushAntdigitalGesaasspiRightsprodGrantrightsRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return PushAntdigitalGesaasspiRightsprodGrantrightsEx(request, headers, runtime);
+        }
+
+        /**
+         * Description: 权益供应商权益发放spi
+         * Summary: 权益供应商权益发放spi
+         */
+        public async Task<PushAntdigitalGesaasspiRightsprodGrantrightsResponse> PushAntdigitalGesaasspiRightsprodGrantrightsAsync(PushAntdigitalGesaasspiRightsprodGrantrightsRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return await PushAntdigitalGesaasspiRightsprodGrantrightsExAsync(request, headers, runtime);
+        }
+
+        /**
+         * Description: 权益供应商权益发放spi
+         * Summary: 权益供应商权益发放spi
+         */
+        public PushAntdigitalGesaasspiRightsprodGrantrightsResponse PushAntdigitalGesaasspiRightsprodGrantrightsEx(PushAntdigitalGesaasspiRightsprodGrantrightsRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<PushAntdigitalGesaasspiRightsprodGrantrightsResponse>(DoRequest("1.0", "antdigital.gesaasspi.rightsprod.grantrights.push", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 权益供应商权益发放spi
+         * Summary: 权益供应商权益发放spi
+         */
+        public async Task<PushAntdigitalGesaasspiRightsprodGrantrightsResponse> PushAntdigitalGesaasspiRightsprodGrantrightsExAsync(PushAntdigitalGesaasspiRightsprodGrantrightsRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<PushAntdigitalGesaasspiRightsprodGrantrightsResponse>(await DoRequestAsync("1.0", "antdigital.gesaasspi.rightsprod.grantrights.push", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
         }
 
         /**
