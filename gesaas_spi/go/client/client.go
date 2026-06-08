@@ -148,6 +148,25 @@ func (s *Config) SetMaxRequestsPerHost(v int) *Config {
 	return s
 }
 
+// 发放订单明细
+type GrantOrderDetail struct {
+	// 券编码
+	VoucherCode *string `json:"voucher_code,omitempty" xml:"voucher_code,omitempty" require:"true"`
+}
+
+func (s GrantOrderDetail) String() string {
+	return tea.Prettify(s)
+}
+
+func (s GrantOrderDetail) GoString() string {
+	return s.String()
+}
+
+func (s *GrantOrderDetail) SetVoucherCode(v string) *GrantOrderDetail {
+	s.VoucherCode = &v
+	return s
+}
+
 type PushRightsprodVoucherRequest struct {
 	// OAuth模式下的授权token
 	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
@@ -161,11 +180,9 @@ type PushRightsprodVoucherRequest struct {
 	// VERIFY：核销 GRANT_CANCEL：发放撤销 VERIFY_CANCEL：核销撤销 FREEZE：冻结
 	// UNFREEZE：解冻
 	BizType *string `json:"biz_type,omitempty" xml:"biz_type,omitempty" require:"true"`
-	// GRANT_SUCCESS：发放成功
-	// GRANT_FAIL：发放失败
-	// VERIFY_FAIL：核销失败
-	// VERIFY_SUCCESS：核销成功
-	Status *string `json:"status,omitempty" xml:"status,omitempty" require:"true"`
+	// FAIL：失败
+	// SUCCESS：成功
+	Status *string `json:"status,omitempty" xml:"status,omitempty"`
 	// 外部订单号
 	OutTradeOrderNo *string `json:"out_trade_order_no,omitempty" xml:"out_trade_order_no,omitempty"`
 	// 失败信息
@@ -263,6 +280,345 @@ func (s *PushRightsprodVoucherResponse) SetResultMsg(v string) *PushRightsprodVo
 
 func (s *PushRightsprodVoucherResponse) SetResult(v string) *PushRightsprodVoucherResponse {
 	s.Result = &v
+	return s
+}
+
+type CallbackRightsprodStatusRequest struct {
+	// OAuth模式下的授权token
+	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
+	// 权益编码
+	RightsCode *string `json:"rights_code,omitempty" xml:"rights_code,omitempty" require:"true"`
+	// 券码
+	VoucherCode *string `json:"voucher_code,omitempty" xml:"voucher_code,omitempty" require:"true"`
+	// 券变更状态
+	// V_USE（使用）
+	// V_REFUND（退款）
+	// V_EXPIRE（过期）
+	// V_INVALID（作废）
+	Status *string `json:"status,omitempty" xml:"status,omitempty" require:"true"`
+}
+
+func (s CallbackRightsprodStatusRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s CallbackRightsprodStatusRequest) GoString() string {
+	return s.String()
+}
+
+func (s *CallbackRightsprodStatusRequest) SetAuthToken(v string) *CallbackRightsprodStatusRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *CallbackRightsprodStatusRequest) SetProductInstanceId(v string) *CallbackRightsprodStatusRequest {
+	s.ProductInstanceId = &v
+	return s
+}
+
+func (s *CallbackRightsprodStatusRequest) SetRightsCode(v string) *CallbackRightsprodStatusRequest {
+	s.RightsCode = &v
+	return s
+}
+
+func (s *CallbackRightsprodStatusRequest) SetVoucherCode(v string) *CallbackRightsprodStatusRequest {
+	s.VoucherCode = &v
+	return s
+}
+
+func (s *CallbackRightsprodStatusRequest) SetStatus(v string) *CallbackRightsprodStatusRequest {
+	s.Status = &v
+	return s
+}
+
+type CallbackRightsprodStatusResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// 同步结果 success 同步成功
+	Result *string `json:"result,omitempty" xml:"result,omitempty"`
+}
+
+func (s CallbackRightsprodStatusResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s CallbackRightsprodStatusResponse) GoString() string {
+	return s.String()
+}
+
+func (s *CallbackRightsprodStatusResponse) SetReqMsgId(v string) *CallbackRightsprodStatusResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *CallbackRightsprodStatusResponse) SetResultCode(v string) *CallbackRightsprodStatusResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *CallbackRightsprodStatusResponse) SetResultMsg(v string) *CallbackRightsprodStatusResponse {
+	s.ResultMsg = &v
+	return s
+}
+
+func (s *CallbackRightsprodStatusResponse) SetResult(v string) *CallbackRightsprodStatusResponse {
+	s.Result = &v
+	return s
+}
+
+type CallbackRightsprodOperationRequest struct {
+	// OAuth模式下的授权token
+	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
+	// 权益编码
+	RightsCode *string `json:"rights_code,omitempty" xml:"rights_code,omitempty" require:"true"`
+	// 券码
+	VoucherCode *string `json:"voucher_code,omitempty" xml:"voucher_code,omitempty" require:"true"`
+	// 通知ID(幂等)
+	NotifyId *string `json:"notify_id,omitempty" xml:"notify_id,omitempty" require:"true"`
+	// 业务类型
+	// V_REFUND（退款）
+	// V_EXPIRE（过期）
+	// V_INVALID（作废）
+	// V_USE（使用）
+	BizType *string `json:"biz_type,omitempty" xml:"biz_type,omitempty" require:"true"`
+	// 支付订单号
+	PayOrderNo *string `json:"pay_order_no,omitempty" xml:"pay_order_no,omitempty"`
+	// 券面额
+	FaceAmount *string `json:"face_amount,omitempty" xml:"face_amount,omitempty"`
+	// 流通金额（核销、退款时 金额）
+	FluxAmount *string `json:"flux_amount,omitempty" xml:"flux_amount,omitempty"`
+}
+
+func (s CallbackRightsprodOperationRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s CallbackRightsprodOperationRequest) GoString() string {
+	return s.String()
+}
+
+func (s *CallbackRightsprodOperationRequest) SetAuthToken(v string) *CallbackRightsprodOperationRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *CallbackRightsprodOperationRequest) SetProductInstanceId(v string) *CallbackRightsprodOperationRequest {
+	s.ProductInstanceId = &v
+	return s
+}
+
+func (s *CallbackRightsprodOperationRequest) SetRightsCode(v string) *CallbackRightsprodOperationRequest {
+	s.RightsCode = &v
+	return s
+}
+
+func (s *CallbackRightsprodOperationRequest) SetVoucherCode(v string) *CallbackRightsprodOperationRequest {
+	s.VoucherCode = &v
+	return s
+}
+
+func (s *CallbackRightsprodOperationRequest) SetNotifyId(v string) *CallbackRightsprodOperationRequest {
+	s.NotifyId = &v
+	return s
+}
+
+func (s *CallbackRightsprodOperationRequest) SetBizType(v string) *CallbackRightsprodOperationRequest {
+	s.BizType = &v
+	return s
+}
+
+func (s *CallbackRightsprodOperationRequest) SetPayOrderNo(v string) *CallbackRightsprodOperationRequest {
+	s.PayOrderNo = &v
+	return s
+}
+
+func (s *CallbackRightsprodOperationRequest) SetFaceAmount(v string) *CallbackRightsprodOperationRequest {
+	s.FaceAmount = &v
+	return s
+}
+
+func (s *CallbackRightsprodOperationRequest) SetFluxAmount(v string) *CallbackRightsprodOperationRequest {
+	s.FluxAmount = &v
+	return s
+}
+
+type CallbackRightsprodOperationResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// 同步结果
+	// success 为同步成功其他均为失败
+	Result *string `json:"result,omitempty" xml:"result,omitempty"`
+}
+
+func (s CallbackRightsprodOperationResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s CallbackRightsprodOperationResponse) GoString() string {
+	return s.String()
+}
+
+func (s *CallbackRightsprodOperationResponse) SetReqMsgId(v string) *CallbackRightsprodOperationResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *CallbackRightsprodOperationResponse) SetResultCode(v string) *CallbackRightsprodOperationResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *CallbackRightsprodOperationResponse) SetResultMsg(v string) *CallbackRightsprodOperationResponse {
+	s.ResultMsg = &v
+	return s
+}
+
+func (s *CallbackRightsprodOperationResponse) SetResult(v string) *CallbackRightsprodOperationResponse {
+	s.Result = &v
+	return s
+}
+
+type PushRightsprodGrantrightsRequest struct {
+	// OAuth模式下的授权token
+	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
+	// 用户ID
+	UserId *string `json:"user_id,omitempty" xml:"user_id,omitempty"`
+	// 手机号
+	PhoneNumber *string `json:"phone_number,omitempty" xml:"phone_number,omitempty"`
+	// 商户编码
+	MerchantNo *string `json:"merchant_no,omitempty" xml:"merchant_no,omitempty"`
+	// 权益编码
+	RightsCode *string `json:"rights_code,omitempty" xml:"rights_code,omitempty" require:"true"`
+	// 发放数量，可根据权益信息grantMulti判断是否可发多张
+	GrantNum *int64 `json:"grant_num,omitempty" xml:"grant_num,omitempty"`
+	// 外部发放订单号
+	OutGrantOrderNo *string `json:"out_grant_order_no,omitempty" xml:"out_grant_order_no,omitempty" require:"true"`
+	// 发放扩展信息，如活动ID等信息，暂时可以不传
+	GrantInfo *string `json:"grant_info,omitempty" xml:"grant_info,omitempty"`
+}
+
+func (s PushRightsprodGrantrightsRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s PushRightsprodGrantrightsRequest) GoString() string {
+	return s.String()
+}
+
+func (s *PushRightsprodGrantrightsRequest) SetAuthToken(v string) *PushRightsprodGrantrightsRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *PushRightsprodGrantrightsRequest) SetProductInstanceId(v string) *PushRightsprodGrantrightsRequest {
+	s.ProductInstanceId = &v
+	return s
+}
+
+func (s *PushRightsprodGrantrightsRequest) SetUserId(v string) *PushRightsprodGrantrightsRequest {
+	s.UserId = &v
+	return s
+}
+
+func (s *PushRightsprodGrantrightsRequest) SetPhoneNumber(v string) *PushRightsprodGrantrightsRequest {
+	s.PhoneNumber = &v
+	return s
+}
+
+func (s *PushRightsprodGrantrightsRequest) SetMerchantNo(v string) *PushRightsprodGrantrightsRequest {
+	s.MerchantNo = &v
+	return s
+}
+
+func (s *PushRightsprodGrantrightsRequest) SetRightsCode(v string) *PushRightsprodGrantrightsRequest {
+	s.RightsCode = &v
+	return s
+}
+
+func (s *PushRightsprodGrantrightsRequest) SetGrantNum(v int64) *PushRightsprodGrantrightsRequest {
+	s.GrantNum = &v
+	return s
+}
+
+func (s *PushRightsprodGrantrightsRequest) SetOutGrantOrderNo(v string) *PushRightsprodGrantrightsRequest {
+	s.OutGrantOrderNo = &v
+	return s
+}
+
+func (s *PushRightsprodGrantrightsRequest) SetGrantInfo(v string) *PushRightsprodGrantrightsRequest {
+	s.GrantInfo = &v
+	return s
+}
+
+type PushRightsprodGrantrightsResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// 发放状态：
+	// GRANTING：发放处理中 GRANT_SUCCESS：发放成功 GRANT_FAIL：发放失败
+	GrantStatus *string `json:"grant_status,omitempty" xml:"grant_status,omitempty"`
+	// 过期时间
+	ExpireTime *string `json:"expire_time,omitempty" xml:"expire_time,omitempty" pattern:"\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}([Z]|([\\.]\\d{1,9})?[\\+]\\d{2}[\\:]?\\d{2})"`
+	// 生效时间
+	EffectTime *string `json:"effect_time,omitempty" xml:"effect_time,omitempty" pattern:"\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}([Z]|([\\.]\\d{1,9})?[\\+]\\d{2}[\\:]?\\d{2})"`
+	// 发放订单明细数据
+	OrderDetails []*GrantOrderDetail `json:"order_details,omitempty" xml:"order_details,omitempty" type:"Repeated"`
+}
+
+func (s PushRightsprodGrantrightsResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s PushRightsprodGrantrightsResponse) GoString() string {
+	return s.String()
+}
+
+func (s *PushRightsprodGrantrightsResponse) SetReqMsgId(v string) *PushRightsprodGrantrightsResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *PushRightsprodGrantrightsResponse) SetResultCode(v string) *PushRightsprodGrantrightsResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *PushRightsprodGrantrightsResponse) SetResultMsg(v string) *PushRightsprodGrantrightsResponse {
+	s.ResultMsg = &v
+	return s
+}
+
+func (s *PushRightsprodGrantrightsResponse) SetGrantStatus(v string) *PushRightsprodGrantrightsResponse {
+	s.GrantStatus = &v
+	return s
+}
+
+func (s *PushRightsprodGrantrightsResponse) SetExpireTime(v string) *PushRightsprodGrantrightsResponse {
+	s.ExpireTime = &v
+	return s
+}
+
+func (s *PushRightsprodGrantrightsResponse) SetEffectTime(v string) *PushRightsprodGrantrightsResponse {
+	s.EffectTime = &v
+	return s
+}
+
+func (s *PushRightsprodGrantrightsResponse) SetOrderDetails(v []*GrantOrderDetail) *PushRightsprodGrantrightsResponse {
+	s.OrderDetails = v
 	return s
 }
 
@@ -388,7 +744,7 @@ func (client *Client) DoRequest(version *string, action *string, protocol *strin
 				"req_msg_id":       antchainutil.GetNonce(),
 				"access_key":       client.AccessKeyId,
 				"base_sdk_version": tea.String("TeaSDK-2.0"),
-				"sdk_version":      tea.String("1.0.0"),
+				"sdk_version":      tea.String("1.1.0"),
 				"_prod_code":       tea.String("GESAAS_SPI"),
 				"_prod_channel":    tea.String("default"),
 			}
@@ -473,6 +829,108 @@ func (client *Client) PushRightsprodVoucherEx(request *PushRightsprodVoucherRequ
 	}
 	_result = &PushRightsprodVoucherResponse{}
 	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("antdigital.gesaasspi.rightsprod.voucher.push"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
+}
+
+/**
+ * Description: 权益中心券状态变更回调通知
+ * Summary: 权益中心券状态变更回调通知
+ */
+func (client *Client) CallbackRightsprodStatus(request *CallbackRightsprodStatusRequest) (_result *CallbackRightsprodStatusResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &CallbackRightsprodStatusResponse{}
+	_body, _err := client.CallbackRightsprodStatusEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+/**
+ * Description: 权益中心券状态变更回调通知
+ * Summary: 权益中心券状态变更回调通知
+ */
+func (client *Client) CallbackRightsprodStatusEx(request *CallbackRightsprodStatusRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *CallbackRightsprodStatusResponse, _err error) {
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &CallbackRightsprodStatusResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("antdigital.gesaasspi.rightsprod.status.callback"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
+}
+
+/**
+ * Description: 券操作回调通知
+ * Summary: 券操作回调通知
+ */
+func (client *Client) CallbackRightsprodOperation(request *CallbackRightsprodOperationRequest) (_result *CallbackRightsprodOperationResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &CallbackRightsprodOperationResponse{}
+	_body, _err := client.CallbackRightsprodOperationEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+/**
+ * Description: 券操作回调通知
+ * Summary: 券操作回调通知
+ */
+func (client *Client) CallbackRightsprodOperationEx(request *CallbackRightsprodOperationRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *CallbackRightsprodOperationResponse, _err error) {
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &CallbackRightsprodOperationResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("antdigital.gesaasspi.rightsprod.operation.callback"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
+}
+
+/**
+ * Description: 权益供应商权益发放spi
+ * Summary: 权益供应商权益发放spi
+ */
+func (client *Client) PushRightsprodGrantrights(request *PushRightsprodGrantrightsRequest) (_result *PushRightsprodGrantrightsResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &PushRightsprodGrantrightsResponse{}
+	_body, _err := client.PushRightsprodGrantrightsEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+/**
+ * Description: 权益供应商权益发放spi
+ * Summary: 权益供应商权益发放spi
+ */
+func (client *Client) PushRightsprodGrantrightsEx(request *PushRightsprodGrantrightsRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *PushRightsprodGrantrightsResponse, _err error) {
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &PushRightsprodGrantrightsResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("antdigital.gesaasspi.rightsprod.grantrights.push"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
 	if _err != nil {
 		return _result, _err
 	}
