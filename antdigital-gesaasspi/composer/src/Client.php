@@ -11,10 +11,28 @@ use AlibabaCloud\Tea\RpcUtils\RpcUtils;
 use AlibabaCloud\Tea\Tea;
 use AlibabaCloud\Tea\Utils\Utils;
 use AlibabaCloud\Tea\Utils\Utils\RuntimeOptions;
+use AntChain\GESAASSPI\Models\BatchqueryAntchainSdsScenedataTaskresultRequest;
+use AntChain\GESAASSPI\Models\BatchqueryAntchainSdsScenedataTaskresultResponse;
 use AntChain\GESAASSPI\Models\CallbackAntdigitalGesaasspiRightsprodOperationRequest;
 use AntChain\GESAASSPI\Models\CallbackAntdigitalGesaasspiRightsprodOperationResponse;
 use AntChain\GESAASSPI\Models\CallbackAntdigitalGesaasspiRightsprodStatusRequest;
 use AntChain\GESAASSPI\Models\CallbackAntdigitalGesaasspiRightsprodStatusResponse;
+use AntChain\GESAASSPI\Models\CreateAntcloudGatewayxFileUploadRequest;
+use AntChain\GESAASSPI\Models\CreateAntcloudGatewayxFileUploadResponse;
+use AntChain\GESAASSPI\Models\DownloadAntchainSdsStockRefundflowRequest;
+use AntChain\GESAASSPI\Models\DownloadAntchainSdsStockRefundflowResponse;
+use AntChain\GESAASSPI\Models\DownloadAntchainSdsStockUseflowRequest;
+use AntChain\GESAASSPI\Models\DownloadAntchainSdsStockUseflowResponse;
+use AntChain\GESAASSPI\Models\QueryAntchainSdsFavorStocksRequest;
+use AntChain\GESAASSPI\Models\QueryAntchainSdsFavorStocksResponse;
+use AntChain\GESAASSPI\Models\QueryAntchainSdsScenedataTaskinfoRequest;
+use AntChain\GESAASSPI\Models\QueryAntchainSdsScenedataTaskinfoResponse;
+use AntChain\GESAASSPI\Models\SubmitAntchainSdsScenedataTaskRequest;
+use AntChain\GESAASSPI\Models\SubmitAntchainSdsScenedataTaskResponse;
+use AntChain\GESAASSPI\Models\UpdateAntchainSdsScenedataTaskRequest;
+use AntChain\GESAASSPI\Models\UpdateAntchainSdsScenedataTaskResponse;
+use AntChain\GESAASSPI\Models\UploadAntchainSdsScenedataFileRequest;
+use AntChain\GESAASSPI\Models\UploadAntchainSdsScenedataFileResponse;
 use AntChain\Util\UtilClient;
 use Exception;
 
@@ -134,6 +152,7 @@ class Client
                 'period' => Utils::defaultNumber($runtime->backoffPeriod, 1),
             ],
             'ignoreSSL' => $runtime->ignoreSSL,
+            // 【固定折扣特定信息】
         ];
         $_lastRequest   = null;
         $_lastException = null;
@@ -161,7 +180,7 @@ class Client
                     'req_msg_id'       => UtilClient::getNonce(),
                     'access_key'       => $this->_accessKeyId,
                     'base_sdk_version' => 'TeaSDK-2.0',
-                    'sdk_version'      => '1.2.0',
+                    'sdk_version'      => '1.5.0',
                     '_prod_code'       => 'GESAASSPI',
                     '_prod_channel'    => 'default',
                 ];
@@ -207,6 +226,289 @@ class Client
         }
 
         throw new TeaUnableRetryError($_lastRequest, $_lastException);
+    }
+
+    /**
+     * Description: 创建任务，获取批次号。
+     * Summary: 创建任务，获取批次号。
+     *
+     * @param SubmitAntchainSdsScenedataTaskRequest $request
+     *
+     * @return SubmitAntchainSdsScenedataTaskResponse
+     */
+    public function submitAntchainSdsScenedataTask($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->submitAntchainSdsScenedataTaskEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 创建任务，获取批次号。
+     * Summary: 创建任务，获取批次号。
+     *
+     * @param SubmitAntchainSdsScenedataTaskRequest $request
+     * @param string[]                              $headers
+     * @param RuntimeOptions                        $runtime
+     *
+     * @return SubmitAntchainSdsScenedataTaskResponse
+     */
+    public function submitAntchainSdsScenedataTaskEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return SubmitAntchainSdsScenedataTaskResponse::fromMap($this->doRequest('1.0', 'antchain.sds.scenedata.task.submit', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 批次数据文件上传
+     * Summary: 批次数据文件上传.
+     *
+     * @param UploadAntchainSdsScenedataFileRequest $request
+     *
+     * @return UploadAntchainSdsScenedataFileResponse
+     */
+    public function uploadAntchainSdsScenedataFile($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->uploadAntchainSdsScenedataFileEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 批次数据文件上传
+     * Summary: 批次数据文件上传.
+     *
+     * @param UploadAntchainSdsScenedataFileRequest $request
+     * @param string[]                              $headers
+     * @param RuntimeOptions                        $runtime
+     *
+     * @return UploadAntchainSdsScenedataFileResponse
+     */
+    public function uploadAntchainSdsScenedataFileEx($request, $headers, $runtime)
+    {
+        if (!Utils::isUnset($request->fileObject)) {
+            $uploadReq = new CreateAntcloudGatewayxFileUploadRequest([
+                'authToken' => $request->authToken,
+                'apiCode'   => 'antchain.sds.scenedata.file.upload',
+                'fileName'  => $request->fileObjectName,
+            ]);
+            $uploadResp = $this->createAntcloudGatewayxFileUploadEx($uploadReq, $headers, $runtime);
+            if (!UtilClient::isSuccess($uploadResp->resultCode, 'ok')) {
+                return new UploadAntchainSdsScenedataFileResponse([
+                    'reqMsgId'   => $uploadResp->reqMsgId,
+                    'resultCode' => $uploadResp->resultCode,
+                    'resultMsg'  => $uploadResp->resultMsg,
+                ]);
+            }
+            $uploadHeaders = UtilClient::parseUploadHeaders($uploadResp->uploadHeaders);
+            UtilClient::putObject($request->fileObject, $uploadHeaders, $uploadResp->uploadUrl);
+            $request->fileId     = $uploadResp->fileId;
+            $request->fileObject = null;
+        }
+        Utils::validateModel($request);
+
+        return UploadAntchainSdsScenedataFileResponse::fromMap($this->doRequest('1.0', 'antchain.sds.scenedata.file.upload', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 任务结果查询
+     * Summary: 任务结果查询.
+     *
+     * @param BatchqueryAntchainSdsScenedataTaskresultRequest $request
+     *
+     * @return BatchqueryAntchainSdsScenedataTaskresultResponse
+     */
+    public function batchqueryAntchainSdsScenedataTaskresult($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->batchqueryAntchainSdsScenedataTaskresultEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 任务结果查询
+     * Summary: 任务结果查询.
+     *
+     * @param BatchqueryAntchainSdsScenedataTaskresultRequest $request
+     * @param string[]                                        $headers
+     * @param RuntimeOptions                                  $runtime
+     *
+     * @return BatchqueryAntchainSdsScenedataTaskresultResponse
+     */
+    public function batchqueryAntchainSdsScenedataTaskresultEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return BatchqueryAntchainSdsScenedataTaskresultResponse::fromMap($this->doRequest('1.0', 'antchain.sds.scenedata.taskresult.batchquery', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 通过批次号查询任务详细信息
+     * Summary: 通过批次号查询任务详细信息.
+     *
+     * @param QueryAntchainSdsScenedataTaskinfoRequest $request
+     *
+     * @return QueryAntchainSdsScenedataTaskinfoResponse
+     */
+    public function queryAntchainSdsScenedataTaskinfo($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->queryAntchainSdsScenedataTaskinfoEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 通过批次号查询任务详细信息
+     * Summary: 通过批次号查询任务详细信息.
+     *
+     * @param QueryAntchainSdsScenedataTaskinfoRequest $request
+     * @param string[]                                 $headers
+     * @param RuntimeOptions                           $runtime
+     *
+     * @return QueryAntchainSdsScenedataTaskinfoResponse
+     */
+    public function queryAntchainSdsScenedataTaskinfoEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return QueryAntchainSdsScenedataTaskinfoResponse::fromMap($this->doRequest('1.0', 'antchain.sds.scenedata.taskinfo.query', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 微信批次分页条件查询。通过此接口可查询商家多个批次的信息，包括批次的配置信息以及批次概况数据。
+     * Summary: 微信批次分页条件查询。通过此接口可查询商家多个批次的信息，包括批次的配置信息以及批次概况数据。
+     *
+     * @param QueryAntchainSdsFavorStocksRequest $request
+     *
+     * @return QueryAntchainSdsFavorStocksResponse
+     */
+    public function queryAntchainSdsFavorStocks($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->queryAntchainSdsFavorStocksEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 微信批次分页条件查询。通过此接口可查询商家多个批次的信息，包括批次的配置信息以及批次概况数据。
+     * Summary: 微信批次分页条件查询。通过此接口可查询商家多个批次的信息，包括批次的配置信息以及批次概况数据。
+     *
+     * @param QueryAntchainSdsFavorStocksRequest $request
+     * @param string[]                           $headers
+     * @param RuntimeOptions                     $runtime
+     *
+     * @return QueryAntchainSdsFavorStocksResponse
+     */
+    public function queryAntchainSdsFavorStocksEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return QueryAntchainSdsFavorStocksResponse::fromMap($this->doRequest('1.0', 'antchain.sds.favor.stocks.query', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 微信核销账单接口
+     * Summary: 微信核销账单接口.
+     *
+     * @param DownloadAntchainSdsStockUseflowRequest $request
+     *
+     * @return DownloadAntchainSdsStockUseflowResponse
+     */
+    public function downloadAntchainSdsStockUseflow($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->downloadAntchainSdsStockUseflowEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 微信核销账单接口
+     * Summary: 微信核销账单接口.
+     *
+     * @param DownloadAntchainSdsStockUseflowRequest $request
+     * @param string[]                               $headers
+     * @param RuntimeOptions                         $runtime
+     *
+     * @return DownloadAntchainSdsStockUseflowResponse
+     */
+    public function downloadAntchainSdsStockUseflowEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return DownloadAntchainSdsStockUseflowResponse::fromMap($this->doRequest('1.0', 'antchain.sds.stock.useflow.download', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 微信退款账单接口
+     * Summary: 微信退款账单接口.
+     *
+     * @param DownloadAntchainSdsStockRefundflowRequest $request
+     *
+     * @return DownloadAntchainSdsStockRefundflowResponse
+     */
+    public function downloadAntchainSdsStockRefundflow($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->downloadAntchainSdsStockRefundflowEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 微信退款账单接口
+     * Summary: 微信退款账单接口.
+     *
+     * @param DownloadAntchainSdsStockRefundflowRequest $request
+     * @param string[]                                  $headers
+     * @param RuntimeOptions                            $runtime
+     *
+     * @return DownloadAntchainSdsStockRefundflowResponse
+     */
+    public function downloadAntchainSdsStockRefundflowEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return DownloadAntchainSdsStockRefundflowResponse::fromMap($this->doRequest('1.0', 'antchain.sds.stock.refundflow.download', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 【任务修改】修改任务状态，上线的任务可以下线，下线后能够修改任务的动态参数，下线后才能再上线。
+     * Summary: 【任务修改】修改任务状态，上线的任务可以下线，下线后能够修改任务的动态参数，下线后才能再上线。
+     *
+     * @param UpdateAntchainSdsScenedataTaskRequest $request
+     *
+     * @return UpdateAntchainSdsScenedataTaskResponse
+     */
+    public function updateAntchainSdsScenedataTask($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->updateAntchainSdsScenedataTaskEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 【任务修改】修改任务状态，上线的任务可以下线，下线后能够修改任务的动态参数，下线后才能再上线。
+     * Summary: 【任务修改】修改任务状态，上线的任务可以下线，下线后能够修改任务的动态参数，下线后才能再上线。
+     *
+     * @param UpdateAntchainSdsScenedataTaskRequest $request
+     * @param string[]                              $headers
+     * @param RuntimeOptions                        $runtime
+     *
+     * @return UpdateAntchainSdsScenedataTaskResponse
+     */
+    public function updateAntchainSdsScenedataTaskEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return UpdateAntchainSdsScenedataTaskResponse::fromMap($this->doRequest('1.0', 'antchain.sds.scenedata.task.update', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
     }
 
     /**
@@ -273,5 +575,38 @@ class Client
         Utils::validateModel($request);
 
         return CallbackAntdigitalGesaasspiRightsprodOperationResponse::fromMap($this->doRequest('1.0', 'antdigital.gesaasspi.rightsprod.operation.callback', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 创建HTTP PUT提交的文件上传
+     * Summary: 文件上传创建.
+     *
+     * @param CreateAntcloudGatewayxFileUploadRequest $request
+     *
+     * @return CreateAntcloudGatewayxFileUploadResponse
+     */
+    public function createAntcloudGatewayxFileUpload($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->createAntcloudGatewayxFileUploadEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 创建HTTP PUT提交的文件上传
+     * Summary: 文件上传创建.
+     *
+     * @param CreateAntcloudGatewayxFileUploadRequest $request
+     * @param string[]                                $headers
+     * @param RuntimeOptions                          $runtime
+     *
+     * @return CreateAntcloudGatewayxFileUploadResponse
+     */
+    public function createAntcloudGatewayxFileUploadEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return CreateAntcloudGatewayxFileUploadResponse::fromMap($this->doRequest('1.0', 'antcloud.gatewayx.file.upload.create', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
     }
 }
