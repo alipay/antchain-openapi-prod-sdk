@@ -109,7 +109,8 @@ class Client:
                 'policy': UtilClient.default_string(runtime.backoff_policy, 'no'),
                 'period': UtilClient.default_number(runtime.backoff_period, 1)
             },
-            'ignoreSSL': runtime.ignore_ssl
+            'ignoreSSL': runtime.ignore_ssl,
+            # 【固定折扣特定信息】
         }
         _last_request = None
         _last_exception = None
@@ -134,7 +135,7 @@ class Client:
                     'req_msg_id': AntchainUtils.get_nonce(),
                     'access_key': self._access_key_id,
                     'base_sdk_version': 'TeaSDK-2.0',
-                    'sdk_version': '1.2.0',
+                    'sdk_version': '1.5.0',
                     '_prod_code': 'GESAASSPI',
                     '_prod_channel': 'default'
                 }
@@ -212,7 +213,8 @@ class Client:
                 'policy': UtilClient.default_string(runtime.backoff_policy, 'no'),
                 'period': UtilClient.default_number(runtime.backoff_period, 1)
             },
-            'ignoreSSL': runtime.ignore_ssl
+            'ignoreSSL': runtime.ignore_ssl,
+            # 【固定折扣特定信息】
         }
         _last_request = None
         _last_exception = None
@@ -237,7 +239,7 @@ class Client:
                     'req_msg_id': AntchainUtils.get_nonce(),
                     'access_key': self._access_key_id,
                     'base_sdk_version': 'TeaSDK-2.0',
-                    'sdk_version': '1.2.0',
+                    'sdk_version': '1.5.0',
                     '_prod_code': 'GESAASSPI',
                     '_prod_channel': 'default'
                 }
@@ -272,6 +274,490 @@ class Client:
                     continue
                 raise e
         raise UnretryableException(_last_request, _last_exception)
+
+    def submit_antchain_sds_scenedata_task(
+        self,
+        request: gesaasspi_models.SubmitAntchainSdsScenedataTaskRequest,
+    ) -> gesaasspi_models.SubmitAntchainSdsScenedataTaskResponse:
+        """
+        Description: 创建任务，获取批次号。
+        Summary: 创建任务，获取批次号。
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.submit_antchain_sds_scenedata_task_ex(request, headers, runtime)
+
+    async def submit_antchain_sds_scenedata_task_async(
+        self,
+        request: gesaasspi_models.SubmitAntchainSdsScenedataTaskRequest,
+    ) -> gesaasspi_models.SubmitAntchainSdsScenedataTaskResponse:
+        """
+        Description: 创建任务，获取批次号。
+        Summary: 创建任务，获取批次号。
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.submit_antchain_sds_scenedata_task_ex_async(request, headers, runtime)
+
+    def submit_antchain_sds_scenedata_task_ex(
+        self,
+        request: gesaasspi_models.SubmitAntchainSdsScenedataTaskRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> gesaasspi_models.SubmitAntchainSdsScenedataTaskResponse:
+        """
+        Description: 创建任务，获取批次号。
+        Summary: 创建任务，获取批次号。
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            gesaasspi_models.SubmitAntchainSdsScenedataTaskResponse(),
+            self.do_request('1.0', 'antchain.sds.scenedata.task.submit', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def submit_antchain_sds_scenedata_task_ex_async(
+        self,
+        request: gesaasspi_models.SubmitAntchainSdsScenedataTaskRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> gesaasspi_models.SubmitAntchainSdsScenedataTaskResponse:
+        """
+        Description: 创建任务，获取批次号。
+        Summary: 创建任务，获取批次号。
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            gesaasspi_models.SubmitAntchainSdsScenedataTaskResponse(),
+            await self.do_request_async('1.0', 'antchain.sds.scenedata.task.submit', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def upload_antchain_sds_scenedata_file(
+        self,
+        request: gesaasspi_models.UploadAntchainSdsScenedataFileRequest,
+    ) -> gesaasspi_models.UploadAntchainSdsScenedataFileResponse:
+        """
+        Description: 批次数据文件上传
+        Summary: 批次数据文件上传
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.upload_antchain_sds_scenedata_file_ex(request, headers, runtime)
+
+    async def upload_antchain_sds_scenedata_file_async(
+        self,
+        request: gesaasspi_models.UploadAntchainSdsScenedataFileRequest,
+    ) -> gesaasspi_models.UploadAntchainSdsScenedataFileResponse:
+        """
+        Description: 批次数据文件上传
+        Summary: 批次数据文件上传
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.upload_antchain_sds_scenedata_file_ex_async(request, headers, runtime)
+
+    def upload_antchain_sds_scenedata_file_ex(
+        self,
+        request: gesaasspi_models.UploadAntchainSdsScenedataFileRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> gesaasspi_models.UploadAntchainSdsScenedataFileResponse:
+        """
+        Description: 批次数据文件上传
+        Summary: 批次数据文件上传
+        """
+        if not UtilClient.is_unset(request.file_object):
+            upload_req = gesaasspi_models.CreateAntcloudGatewayxFileUploadRequest(
+                auth_token=request.auth_token,
+                api_code='antchain.sds.scenedata.file.upload',
+                file_name=request.file_object_name
+            )
+            upload_resp = self.create_antcloud_gatewayx_file_upload_ex(upload_req, headers, runtime)
+            if not AntchainUtils.is_success(upload_resp.result_code, 'ok'):
+                upload_antchain_sds_scenedata_file_response = gesaasspi_models.UploadAntchainSdsScenedataFileResponse(
+                    req_msg_id=upload_resp.req_msg_id,
+                    result_code=upload_resp.result_code,
+                    result_msg=upload_resp.result_msg
+                )
+                return upload_antchain_sds_scenedata_file_response
+            upload_headers = AntchainUtils.parse_upload_headers(upload_resp.upload_headers)
+            AntchainUtils.put_object(request.file_object, upload_headers, upload_resp.upload_url)
+            request.file_id = upload_resp.file_id
+            request.file_object = None
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            gesaasspi_models.UploadAntchainSdsScenedataFileResponse(),
+            self.do_request('1.0', 'antchain.sds.scenedata.file.upload', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def upload_antchain_sds_scenedata_file_ex_async(
+        self,
+        request: gesaasspi_models.UploadAntchainSdsScenedataFileRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> gesaasspi_models.UploadAntchainSdsScenedataFileResponse:
+        """
+        Description: 批次数据文件上传
+        Summary: 批次数据文件上传
+        """
+        if not UtilClient.is_unset(request.file_object):
+            upload_req = gesaasspi_models.CreateAntcloudGatewayxFileUploadRequest(
+                auth_token=request.auth_token,
+                api_code='antchain.sds.scenedata.file.upload',
+                file_name=request.file_object_name
+            )
+            upload_resp = await self.create_antcloud_gatewayx_file_upload_ex_async(upload_req, headers, runtime)
+            if not AntchainUtils.is_success(upload_resp.result_code, 'ok'):
+                upload_antchain_sds_scenedata_file_response = gesaasspi_models.UploadAntchainSdsScenedataFileResponse(
+                    req_msg_id=upload_resp.req_msg_id,
+                    result_code=upload_resp.result_code,
+                    result_msg=upload_resp.result_msg
+                )
+                return upload_antchain_sds_scenedata_file_response
+            upload_headers = AntchainUtils.parse_upload_headers(upload_resp.upload_headers)
+            await AntchainUtils.put_object_async(request.file_object, upload_headers, upload_resp.upload_url)
+            request.file_id = upload_resp.file_id
+            request.file_object = None
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            gesaasspi_models.UploadAntchainSdsScenedataFileResponse(),
+            await self.do_request_async('1.0', 'antchain.sds.scenedata.file.upload', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def batchquery_antchain_sds_scenedata_taskresult(
+        self,
+        request: gesaasspi_models.BatchqueryAntchainSdsScenedataTaskresultRequest,
+    ) -> gesaasspi_models.BatchqueryAntchainSdsScenedataTaskresultResponse:
+        """
+        Description: 任务结果查询
+        Summary: 任务结果查询
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.batchquery_antchain_sds_scenedata_taskresult_ex(request, headers, runtime)
+
+    async def batchquery_antchain_sds_scenedata_taskresult_async(
+        self,
+        request: gesaasspi_models.BatchqueryAntchainSdsScenedataTaskresultRequest,
+    ) -> gesaasspi_models.BatchqueryAntchainSdsScenedataTaskresultResponse:
+        """
+        Description: 任务结果查询
+        Summary: 任务结果查询
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.batchquery_antchain_sds_scenedata_taskresult_ex_async(request, headers, runtime)
+
+    def batchquery_antchain_sds_scenedata_taskresult_ex(
+        self,
+        request: gesaasspi_models.BatchqueryAntchainSdsScenedataTaskresultRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> gesaasspi_models.BatchqueryAntchainSdsScenedataTaskresultResponse:
+        """
+        Description: 任务结果查询
+        Summary: 任务结果查询
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            gesaasspi_models.BatchqueryAntchainSdsScenedataTaskresultResponse(),
+            self.do_request('1.0', 'antchain.sds.scenedata.taskresult.batchquery', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def batchquery_antchain_sds_scenedata_taskresult_ex_async(
+        self,
+        request: gesaasspi_models.BatchqueryAntchainSdsScenedataTaskresultRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> gesaasspi_models.BatchqueryAntchainSdsScenedataTaskresultResponse:
+        """
+        Description: 任务结果查询
+        Summary: 任务结果查询
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            gesaasspi_models.BatchqueryAntchainSdsScenedataTaskresultResponse(),
+            await self.do_request_async('1.0', 'antchain.sds.scenedata.taskresult.batchquery', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def query_antchain_sds_scenedata_taskinfo(
+        self,
+        request: gesaasspi_models.QueryAntchainSdsScenedataTaskinfoRequest,
+    ) -> gesaasspi_models.QueryAntchainSdsScenedataTaskinfoResponse:
+        """
+        Description: 通过批次号查询任务详细信息
+        Summary: 通过批次号查询任务详细信息
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.query_antchain_sds_scenedata_taskinfo_ex(request, headers, runtime)
+
+    async def query_antchain_sds_scenedata_taskinfo_async(
+        self,
+        request: gesaasspi_models.QueryAntchainSdsScenedataTaskinfoRequest,
+    ) -> gesaasspi_models.QueryAntchainSdsScenedataTaskinfoResponse:
+        """
+        Description: 通过批次号查询任务详细信息
+        Summary: 通过批次号查询任务详细信息
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.query_antchain_sds_scenedata_taskinfo_ex_async(request, headers, runtime)
+
+    def query_antchain_sds_scenedata_taskinfo_ex(
+        self,
+        request: gesaasspi_models.QueryAntchainSdsScenedataTaskinfoRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> gesaasspi_models.QueryAntchainSdsScenedataTaskinfoResponse:
+        """
+        Description: 通过批次号查询任务详细信息
+        Summary: 通过批次号查询任务详细信息
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            gesaasspi_models.QueryAntchainSdsScenedataTaskinfoResponse(),
+            self.do_request('1.0', 'antchain.sds.scenedata.taskinfo.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def query_antchain_sds_scenedata_taskinfo_ex_async(
+        self,
+        request: gesaasspi_models.QueryAntchainSdsScenedataTaskinfoRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> gesaasspi_models.QueryAntchainSdsScenedataTaskinfoResponse:
+        """
+        Description: 通过批次号查询任务详细信息
+        Summary: 通过批次号查询任务详细信息
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            gesaasspi_models.QueryAntchainSdsScenedataTaskinfoResponse(),
+            await self.do_request_async('1.0', 'antchain.sds.scenedata.taskinfo.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def query_antchain_sds_favor_stocks(
+        self,
+        request: gesaasspi_models.QueryAntchainSdsFavorStocksRequest,
+    ) -> gesaasspi_models.QueryAntchainSdsFavorStocksResponse:
+        """
+        Description: 微信批次分页条件查询。通过此接口可查询商家多个批次的信息，包括批次的配置信息以及批次概况数据。
+        Summary: 微信批次分页条件查询。通过此接口可查询商家多个批次的信息，包括批次的配置信息以及批次概况数据。
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.query_antchain_sds_favor_stocks_ex(request, headers, runtime)
+
+    async def query_antchain_sds_favor_stocks_async(
+        self,
+        request: gesaasspi_models.QueryAntchainSdsFavorStocksRequest,
+    ) -> gesaasspi_models.QueryAntchainSdsFavorStocksResponse:
+        """
+        Description: 微信批次分页条件查询。通过此接口可查询商家多个批次的信息，包括批次的配置信息以及批次概况数据。
+        Summary: 微信批次分页条件查询。通过此接口可查询商家多个批次的信息，包括批次的配置信息以及批次概况数据。
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.query_antchain_sds_favor_stocks_ex_async(request, headers, runtime)
+
+    def query_antchain_sds_favor_stocks_ex(
+        self,
+        request: gesaasspi_models.QueryAntchainSdsFavorStocksRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> gesaasspi_models.QueryAntchainSdsFavorStocksResponse:
+        """
+        Description: 微信批次分页条件查询。通过此接口可查询商家多个批次的信息，包括批次的配置信息以及批次概况数据。
+        Summary: 微信批次分页条件查询。通过此接口可查询商家多个批次的信息，包括批次的配置信息以及批次概况数据。
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            gesaasspi_models.QueryAntchainSdsFavorStocksResponse(),
+            self.do_request('1.0', 'antchain.sds.favor.stocks.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def query_antchain_sds_favor_stocks_ex_async(
+        self,
+        request: gesaasspi_models.QueryAntchainSdsFavorStocksRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> gesaasspi_models.QueryAntchainSdsFavorStocksResponse:
+        """
+        Description: 微信批次分页条件查询。通过此接口可查询商家多个批次的信息，包括批次的配置信息以及批次概况数据。
+        Summary: 微信批次分页条件查询。通过此接口可查询商家多个批次的信息，包括批次的配置信息以及批次概况数据。
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            gesaasspi_models.QueryAntchainSdsFavorStocksResponse(),
+            await self.do_request_async('1.0', 'antchain.sds.favor.stocks.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def download_antchain_sds_stock_useflow(
+        self,
+        request: gesaasspi_models.DownloadAntchainSdsStockUseflowRequest,
+    ) -> gesaasspi_models.DownloadAntchainSdsStockUseflowResponse:
+        """
+        Description: 微信核销账单接口
+        Summary: 微信核销账单接口
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.download_antchain_sds_stock_useflow_ex(request, headers, runtime)
+
+    async def download_antchain_sds_stock_useflow_async(
+        self,
+        request: gesaasspi_models.DownloadAntchainSdsStockUseflowRequest,
+    ) -> gesaasspi_models.DownloadAntchainSdsStockUseflowResponse:
+        """
+        Description: 微信核销账单接口
+        Summary: 微信核销账单接口
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.download_antchain_sds_stock_useflow_ex_async(request, headers, runtime)
+
+    def download_antchain_sds_stock_useflow_ex(
+        self,
+        request: gesaasspi_models.DownloadAntchainSdsStockUseflowRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> gesaasspi_models.DownloadAntchainSdsStockUseflowResponse:
+        """
+        Description: 微信核销账单接口
+        Summary: 微信核销账单接口
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            gesaasspi_models.DownloadAntchainSdsStockUseflowResponse(),
+            self.do_request('1.0', 'antchain.sds.stock.useflow.download', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def download_antchain_sds_stock_useflow_ex_async(
+        self,
+        request: gesaasspi_models.DownloadAntchainSdsStockUseflowRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> gesaasspi_models.DownloadAntchainSdsStockUseflowResponse:
+        """
+        Description: 微信核销账单接口
+        Summary: 微信核销账单接口
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            gesaasspi_models.DownloadAntchainSdsStockUseflowResponse(),
+            await self.do_request_async('1.0', 'antchain.sds.stock.useflow.download', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def download_antchain_sds_stock_refundflow(
+        self,
+        request: gesaasspi_models.DownloadAntchainSdsStockRefundflowRequest,
+    ) -> gesaasspi_models.DownloadAntchainSdsStockRefundflowResponse:
+        """
+        Description: 微信退款账单接口
+        Summary: 微信退款账单接口
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.download_antchain_sds_stock_refundflow_ex(request, headers, runtime)
+
+    async def download_antchain_sds_stock_refundflow_async(
+        self,
+        request: gesaasspi_models.DownloadAntchainSdsStockRefundflowRequest,
+    ) -> gesaasspi_models.DownloadAntchainSdsStockRefundflowResponse:
+        """
+        Description: 微信退款账单接口
+        Summary: 微信退款账单接口
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.download_antchain_sds_stock_refundflow_ex_async(request, headers, runtime)
+
+    def download_antchain_sds_stock_refundflow_ex(
+        self,
+        request: gesaasspi_models.DownloadAntchainSdsStockRefundflowRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> gesaasspi_models.DownloadAntchainSdsStockRefundflowResponse:
+        """
+        Description: 微信退款账单接口
+        Summary: 微信退款账单接口
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            gesaasspi_models.DownloadAntchainSdsStockRefundflowResponse(),
+            self.do_request('1.0', 'antchain.sds.stock.refundflow.download', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def download_antchain_sds_stock_refundflow_ex_async(
+        self,
+        request: gesaasspi_models.DownloadAntchainSdsStockRefundflowRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> gesaasspi_models.DownloadAntchainSdsStockRefundflowResponse:
+        """
+        Description: 微信退款账单接口
+        Summary: 微信退款账单接口
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            gesaasspi_models.DownloadAntchainSdsStockRefundflowResponse(),
+            await self.do_request_async('1.0', 'antchain.sds.stock.refundflow.download', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def update_antchain_sds_scenedata_task(
+        self,
+        request: gesaasspi_models.UpdateAntchainSdsScenedataTaskRequest,
+    ) -> gesaasspi_models.UpdateAntchainSdsScenedataTaskResponse:
+        """
+        Description: 【任务修改】修改任务状态，上线的任务可以下线，下线后能够修改任务的动态参数，下线后才能再上线。
+        Summary: 【任务修改】修改任务状态，上线的任务可以下线，下线后能够修改任务的动态参数，下线后才能再上线。
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.update_antchain_sds_scenedata_task_ex(request, headers, runtime)
+
+    async def update_antchain_sds_scenedata_task_async(
+        self,
+        request: gesaasspi_models.UpdateAntchainSdsScenedataTaskRequest,
+    ) -> gesaasspi_models.UpdateAntchainSdsScenedataTaskResponse:
+        """
+        Description: 【任务修改】修改任务状态，上线的任务可以下线，下线后能够修改任务的动态参数，下线后才能再上线。
+        Summary: 【任务修改】修改任务状态，上线的任务可以下线，下线后能够修改任务的动态参数，下线后才能再上线。
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.update_antchain_sds_scenedata_task_ex_async(request, headers, runtime)
+
+    def update_antchain_sds_scenedata_task_ex(
+        self,
+        request: gesaasspi_models.UpdateAntchainSdsScenedataTaskRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> gesaasspi_models.UpdateAntchainSdsScenedataTaskResponse:
+        """
+        Description: 【任务修改】修改任务状态，上线的任务可以下线，下线后能够修改任务的动态参数，下线后才能再上线。
+        Summary: 【任务修改】修改任务状态，上线的任务可以下线，下线后能够修改任务的动态参数，下线后才能再上线。
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            gesaasspi_models.UpdateAntchainSdsScenedataTaskResponse(),
+            self.do_request('1.0', 'antchain.sds.scenedata.task.update', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def update_antchain_sds_scenedata_task_ex_async(
+        self,
+        request: gesaasspi_models.UpdateAntchainSdsScenedataTaskRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> gesaasspi_models.UpdateAntchainSdsScenedataTaskResponse:
+        """
+        Description: 【任务修改】修改任务状态，上线的任务可以下线，下线后能够修改任务的动态参数，下线后才能再上线。
+        Summary: 【任务修改】修改任务状态，上线的任务可以下线，下线后能够修改任务的动态参数，下线后才能再上线。
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            gesaasspi_models.UpdateAntchainSdsScenedataTaskResponse(),
+            await self.do_request_async('1.0', 'antchain.sds.scenedata.task.update', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
 
     def callback_antdigital_gesaasspi_rightsprod_status(
         self,
@@ -383,4 +869,60 @@ class Client:
         return TeaCore.from_map(
             gesaasspi_models.CallbackAntdigitalGesaasspiRightsprodOperationResponse(),
             await self.do_request_async('1.0', 'antdigital.gesaasspi.rightsprod.operation.callback', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def create_antcloud_gatewayx_file_upload(
+        self,
+        request: gesaasspi_models.CreateAntcloudGatewayxFileUploadRequest,
+    ) -> gesaasspi_models.CreateAntcloudGatewayxFileUploadResponse:
+        """
+        Description: 创建HTTP PUT提交的文件上传
+        Summary: 文件上传创建
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.create_antcloud_gatewayx_file_upload_ex(request, headers, runtime)
+
+    async def create_antcloud_gatewayx_file_upload_async(
+        self,
+        request: gesaasspi_models.CreateAntcloudGatewayxFileUploadRequest,
+    ) -> gesaasspi_models.CreateAntcloudGatewayxFileUploadResponse:
+        """
+        Description: 创建HTTP PUT提交的文件上传
+        Summary: 文件上传创建
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.create_antcloud_gatewayx_file_upload_ex_async(request, headers, runtime)
+
+    def create_antcloud_gatewayx_file_upload_ex(
+        self,
+        request: gesaasspi_models.CreateAntcloudGatewayxFileUploadRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> gesaasspi_models.CreateAntcloudGatewayxFileUploadResponse:
+        """
+        Description: 创建HTTP PUT提交的文件上传
+        Summary: 文件上传创建
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            gesaasspi_models.CreateAntcloudGatewayxFileUploadResponse(),
+            self.do_request('1.0', 'antcloud.gatewayx.file.upload.create', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def create_antcloud_gatewayx_file_upload_ex_async(
+        self,
+        request: gesaasspi_models.CreateAntcloudGatewayxFileUploadRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> gesaasspi_models.CreateAntcloudGatewayxFileUploadResponse:
+        """
+        Description: 创建HTTP PUT提交的文件上传
+        Summary: 文件上传创建
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            gesaasspi_models.CreateAntcloudGatewayxFileUploadResponse(),
+            await self.do_request_async('1.0', 'antcloud.gatewayx.file.upload.create', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
