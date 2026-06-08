@@ -8,7 +8,7 @@ using Tea;
 
 namespace AntChain.SDK.GESAAS_SPI.Models
 {
-    public class PushRightsprodVoucherRequest : TeaModel {
+    public class CallbackRightsprodOperationRequest : TeaModel {
         // OAuth模式下的授权token
         [NameInMap("auth_token")]
         [Validation(Required=false)]
@@ -23,39 +23,39 @@ namespace AntChain.SDK.GESAAS_SPI.Models
         [Validation(Required=true)]
         public string RightsCode { get; set; }
 
-        // 权益凭证编码/券码
+        // 券码
         [NameInMap("voucher_code")]
         [Validation(Required=true)]
         public string VoucherCode { get; set; }
 
+        // 通知ID(幂等)
+        [NameInMap("notify_id")]
+        [Validation(Required=true)]
+        public string NotifyId { get; set; }
+
         // 业务类型
-        // GRANT：发放 
-        // VERIFY：核销 GRANT_CANCEL：发放撤销 VERIFY_CANCEL：核销撤销 FREEZE：冻结
-        // UNFREEZE：解冻  
+        // V_REFUND（退款）
+        // V_EXPIRE（过期）
+        // V_INVALID（作废）
+        // V_USE（使用）
         [NameInMap("biz_type")]
         [Validation(Required=true)]
         public string BizType { get; set; }
 
-        // FAIL：失败 
-        // SUCCESS：成功 
-        [NameInMap("status")]
+        // 支付订单号
+        [NameInMap("pay_order_no")]
         [Validation(Required=false)]
-        public string Status { get; set; }
+        public string PayOrderNo { get; set; }
 
-        // 外部订单号
-        [NameInMap("out_trade_order_no")]
+        // 券面额
+        [NameInMap("face_amount")]
         [Validation(Required=false)]
-        public string OutTradeOrderNo { get; set; }
+        public string FaceAmount { get; set; }
 
-        // 失败信息
-        [NameInMap("fail_msg")]
+        // 流通金额（核销、退款时 金额）
+        [NameInMap("flux_amount")]
         [Validation(Required=false)]
-        public string FailMsg { get; set; }
-
-        // 外部发放调用时传入信息
-        [NameInMap("grant_info")]
-        [Validation(Required=false)]
-        public string GrantInfo { get; set; }
+        public string FluxAmount { get; set; }
 
     }
 

@@ -137,7 +137,7 @@ namespace AntChain.SDK.GESAAS_SPI
                         {"req_msg_id", AntChain.AlipayUtil.AntchainUtils.GetNonce()},
                         {"access_key", _accessKeyId},
                         {"base_sdk_version", "TeaSDK-2.0"},
-                        {"sdk_version", "1.0.0"},
+                        {"sdk_version", "1.1.0"},
                         {"_prod_code", "GESAAS_SPI"},
                         {"_prod_channel", "default"},
                     };
@@ -263,7 +263,7 @@ namespace AntChain.SDK.GESAAS_SPI
                         {"req_msg_id", AntChain.AlipayUtil.AntchainUtils.GetNonce()},
                         {"access_key", _accessKeyId},
                         {"base_sdk_version", "TeaSDK-2.0"},
-                        {"sdk_version", "1.0.0"},
+                        {"sdk_version", "1.1.0"},
                         {"_prod_code", "GESAAS_SPI"},
                         {"_prod_channel", "default"},
                     };
@@ -361,6 +361,132 @@ namespace AntChain.SDK.GESAAS_SPI
         {
             AlibabaCloud.TeaUtil.Common.ValidateModel(request);
             return TeaModel.ToObject<PushRightsprodVoucherResponse>(await DoRequestAsync("1.0", "antdigital.gesaasspi.rightsprod.voucher.push", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 权益中心券状态变更回调通知
+         * Summary: 权益中心券状态变更回调通知
+         */
+        public CallbackRightsprodStatusResponse CallbackRightsprodStatus(CallbackRightsprodStatusRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return CallbackRightsprodStatusEx(request, headers, runtime);
+        }
+
+        /**
+         * Description: 权益中心券状态变更回调通知
+         * Summary: 权益中心券状态变更回调通知
+         */
+        public async Task<CallbackRightsprodStatusResponse> CallbackRightsprodStatusAsync(CallbackRightsprodStatusRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return await CallbackRightsprodStatusExAsync(request, headers, runtime);
+        }
+
+        /**
+         * Description: 权益中心券状态变更回调通知
+         * Summary: 权益中心券状态变更回调通知
+         */
+        public CallbackRightsprodStatusResponse CallbackRightsprodStatusEx(CallbackRightsprodStatusRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<CallbackRightsprodStatusResponse>(DoRequest("1.0", "antdigital.gesaasspi.rightsprod.status.callback", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 权益中心券状态变更回调通知
+         * Summary: 权益中心券状态变更回调通知
+         */
+        public async Task<CallbackRightsprodStatusResponse> CallbackRightsprodStatusExAsync(CallbackRightsprodStatusRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<CallbackRightsprodStatusResponse>(await DoRequestAsync("1.0", "antdigital.gesaasspi.rightsprod.status.callback", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 券操作回调通知
+         * Summary: 券操作回调通知
+         */
+        public CallbackRightsprodOperationResponse CallbackRightsprodOperation(CallbackRightsprodOperationRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return CallbackRightsprodOperationEx(request, headers, runtime);
+        }
+
+        /**
+         * Description: 券操作回调通知
+         * Summary: 券操作回调通知
+         */
+        public async Task<CallbackRightsprodOperationResponse> CallbackRightsprodOperationAsync(CallbackRightsprodOperationRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return await CallbackRightsprodOperationExAsync(request, headers, runtime);
+        }
+
+        /**
+         * Description: 券操作回调通知
+         * Summary: 券操作回调通知
+         */
+        public CallbackRightsprodOperationResponse CallbackRightsprodOperationEx(CallbackRightsprodOperationRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<CallbackRightsprodOperationResponse>(DoRequest("1.0", "antdigital.gesaasspi.rightsprod.operation.callback", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 券操作回调通知
+         * Summary: 券操作回调通知
+         */
+        public async Task<CallbackRightsprodOperationResponse> CallbackRightsprodOperationExAsync(CallbackRightsprodOperationRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<CallbackRightsprodOperationResponse>(await DoRequestAsync("1.0", "antdigital.gesaasspi.rightsprod.operation.callback", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 权益供应商权益发放spi
+         * Summary: 权益供应商权益发放spi
+         */
+        public PushRightsprodGrantrightsResponse PushRightsprodGrantrights(PushRightsprodGrantrightsRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return PushRightsprodGrantrightsEx(request, headers, runtime);
+        }
+
+        /**
+         * Description: 权益供应商权益发放spi
+         * Summary: 权益供应商权益发放spi
+         */
+        public async Task<PushRightsprodGrantrightsResponse> PushRightsprodGrantrightsAsync(PushRightsprodGrantrightsRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return await PushRightsprodGrantrightsExAsync(request, headers, runtime);
+        }
+
+        /**
+         * Description: 权益供应商权益发放spi
+         * Summary: 权益供应商权益发放spi
+         */
+        public PushRightsprodGrantrightsResponse PushRightsprodGrantrightsEx(PushRightsprodGrantrightsRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<PushRightsprodGrantrightsResponse>(DoRequest("1.0", "antdigital.gesaasspi.rightsprod.grantrights.push", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 权益供应商权益发放spi
+         * Summary: 权益供应商权益发放spi
+         */
+        public async Task<PushRightsprodGrantrightsResponse> PushRightsprodGrantrightsExAsync(PushRightsprodGrantrightsRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<PushRightsprodGrantrightsResponse>(await DoRequestAsync("1.0", "antdigital.gesaasspi.rightsprod.grantrights.push", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
         }
 
     }
