@@ -126,7 +126,7 @@ public class Client {
                     new TeaPair("req_msg_id", com.antgroup.antchain.openapi.antchain.util.AntchainUtils.getNonce()),
                     new TeaPair("access_key", _accessKeyId),
                     new TeaPair("base_sdk_version", "TeaSDK-2.0"),
-                    new TeaPair("sdk_version", "1.3.1"),
+                    new TeaPair("sdk_version", "1.3.2"),
                     new TeaPair("_prod_code", "GESAAS"),
                     new TeaPair("_prod_channel", "default")
                 );
@@ -270,5 +270,47 @@ public class Client {
     public BatchqueryRightsprodVoucherResponse batchqueryRightsprodVoucherEx(BatchqueryRightsprodVoucherRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
         com.aliyun.teautil.Common.validateModel(request);
         return TeaModel.toModel(this.doRequest("1.0", "antdigital.gesaas.rightsprod.voucher.batchquery", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new BatchqueryRightsprodVoucherResponse());
+    }
+
+    /**
+     * <b>description</b> :
+     * <p>Description: 权益中心数据流回调 API
+     * Summary: 权益中心数据流回调 API</p>
+     */
+    public CallbackRightsprodOperationResponse callbackRightsprodOperation(CallbackRightsprodOperationRequest request) throws Exception {
+        com.aliyun.teautil.models.RuntimeOptions runtime = new com.aliyun.teautil.models.RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.callbackRightsprodOperationEx(request, headers, runtime);
+    }
+
+    /**
+     * <b>description</b> :
+     * <p>Description: 权益中心数据流回调 API
+     * Summary: 权益中心数据流回调 API</p>
+     */
+    public CallbackRightsprodOperationResponse callbackRightsprodOperationEx(CallbackRightsprodOperationRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "antdigital.gesaas.rightsprod.operation.callback", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new CallbackRightsprodOperationResponse());
+    }
+
+    /**
+     * <b>description</b> :
+     * <p>Description: 权益中心API
+     * Summary: 权益中心API</p>
+     */
+    public CallbackRightsprodOperationdataResponse callbackRightsprodOperationdata(CallbackRightsprodOperationdataRequest request) throws Exception {
+        com.aliyun.teautil.models.RuntimeOptions runtime = new com.aliyun.teautil.models.RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.callbackRightsprodOperationdataEx(request, headers, runtime);
+    }
+
+    /**
+     * <b>description</b> :
+     * <p>Description: 权益中心API
+     * Summary: 权益中心API</p>
+     */
+    public CallbackRightsprodOperationdataResponse callbackRightsprodOperationdataEx(CallbackRightsprodOperationdataRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "antdigital.gesaas.rightsprod.operationdata.callback", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new CallbackRightsprodOperationdataResponse());
     }
 }
