@@ -23,6 +23,8 @@ use AntChain\GESAASSPI\Models\DownloadAntchainSdsStockRefundflowRequest;
 use AntChain\GESAASSPI\Models\DownloadAntchainSdsStockRefundflowResponse;
 use AntChain\GESAASSPI\Models\DownloadAntchainSdsStockUseflowRequest;
 use AntChain\GESAASSPI\Models\DownloadAntchainSdsStockUseflowResponse;
+use AntChain\GESAASSPI\Models\PushAntdigitalGesaasspiRightsprodGrantrightsRequest;
+use AntChain\GESAASSPI\Models\PushAntdigitalGesaasspiRightsprodGrantrightsResponse;
 use AntChain\GESAASSPI\Models\QueryAntchainSdsFavorStocksRequest;
 use AntChain\GESAASSPI\Models\QueryAntchainSdsFavorStocksResponse;
 use AntChain\GESAASSPI\Models\QueryAntchainSdsScenedataTaskinfoRequest;
@@ -180,7 +182,7 @@ class Client
                     'req_msg_id'       => UtilClient::getNonce(),
                     'access_key'       => $this->_accessKeyId,
                     'base_sdk_version' => 'TeaSDK-2.0',
-                    'sdk_version'      => '1.5.0',
+                    'sdk_version'      => '1.5.1',
                     '_prod_code'       => 'GESAASSPI',
                     '_prod_channel'    => 'default',
                 ];
@@ -575,6 +577,39 @@ class Client
         Utils::validateModel($request);
 
         return CallbackAntdigitalGesaasspiRightsprodOperationResponse::fromMap($this->doRequest('1.0', 'antdigital.gesaasspi.rightsprod.operation.callback', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 权益供应商权益发放spi
+     * Summary: 权益供应商权益发放spi.
+     *
+     * @param PushAntdigitalGesaasspiRightsprodGrantrightsRequest $request
+     *
+     * @return PushAntdigitalGesaasspiRightsprodGrantrightsResponse
+     */
+    public function pushAntdigitalGesaasspiRightsprodGrantrights($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->pushAntdigitalGesaasspiRightsprodGrantrightsEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 权益供应商权益发放spi
+     * Summary: 权益供应商权益发放spi.
+     *
+     * @param PushAntdigitalGesaasspiRightsprodGrantrightsRequest $request
+     * @param string[]                                            $headers
+     * @param RuntimeOptions                                      $runtime
+     *
+     * @return PushAntdigitalGesaasspiRightsprodGrantrightsResponse
+     */
+    public function pushAntdigitalGesaasspiRightsprodGrantrightsEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return PushAntdigitalGesaasspiRightsprodGrantrightsResponse::fromMap($this->doRequest('1.0', 'antdigital.gesaasspi.rightsprod.grantrights.push', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
     }
 
     /**
