@@ -6,7 +6,7 @@ namespace AntChain\GESAAS_SPI\Models;
 
 use AlibabaCloud\Tea\Model;
 
-class PushRightsprodVoucherRequest extends Model
+class CallbackRightsprodOperationRequest extends Model
 {
     // OAuth模式下的授权token
     /**
@@ -25,61 +25,62 @@ class PushRightsprodVoucherRequest extends Model
      */
     public $rightsCode;
 
-    // 权益凭证编码/券码
+    // 券码
     /**
      * @var string
      */
     public $voucherCode;
 
+    // 通知ID(幂等)
+    /**
+     * @var string
+     */
+    public $notifyId;
+
     // 业务类型
-    // GRANT：发放
-    // VERIFY：核销 GRANT_CANCEL：发放撤销 VERIFY_CANCEL：核销撤销 FREEZE：冻结
-    // UNFREEZE：解冻
+    // V_REFUND（退款）
+    // V_EXPIRE（过期）
+    // V_INVALID（作废）
+    // V_USE（使用）
     /**
      * @var string
      */
     public $bizType;
 
-    // FAIL：失败
-    // SUCCESS：成功
+    // 支付订单号
     /**
      * @var string
      */
-    public $status;
+    public $payOrderNo;
 
-    // 外部订单号
+    // 券面额
     /**
      * @var string
      */
-    public $outTradeOrderNo;
+    public $faceAmount;
 
-    // 失败信息
+    // 流通金额（核销、退款时 金额）
     /**
      * @var string
      */
-    public $failMsg;
-
-    // 外部发放调用时传入信息
-    /**
-     * @var string
-     */
-    public $grantInfo;
+    public $fluxAmount;
     protected $_name = [
         'authToken'         => 'auth_token',
         'productInstanceId' => 'product_instance_id',
         'rightsCode'        => 'rights_code',
         'voucherCode'       => 'voucher_code',
+        'notifyId'          => 'notify_id',
         'bizType'           => 'biz_type',
-        'status'            => 'status',
-        'outTradeOrderNo'   => 'out_trade_order_no',
-        'failMsg'           => 'fail_msg',
-        'grantInfo'         => 'grant_info',
+        'payOrderNo'        => 'pay_order_no',
+        'faceAmount'        => 'face_amount',
+        'fluxAmount'        => 'flux_amount',
     ];
 
     public function validate()
     {
         Model::validateRequired('rightsCode', $this->rightsCode, true);
         Model::validateRequired('voucherCode', $this->voucherCode, true);
+        Model::validateRequired('notifyId', $this->notifyId, true);
         Model::validateRequired('bizType', $this->bizType, true);
     }
 
@@ -98,20 +99,20 @@ class PushRightsprodVoucherRequest extends Model
         if (null !== $this->voucherCode) {
             $res['voucher_code'] = $this->voucherCode;
         }
+        if (null !== $this->notifyId) {
+            $res['notify_id'] = $this->notifyId;
+        }
         if (null !== $this->bizType) {
             $res['biz_type'] = $this->bizType;
         }
-        if (null !== $this->status) {
-            $res['status'] = $this->status;
+        if (null !== $this->payOrderNo) {
+            $res['pay_order_no'] = $this->payOrderNo;
         }
-        if (null !== $this->outTradeOrderNo) {
-            $res['out_trade_order_no'] = $this->outTradeOrderNo;
+        if (null !== $this->faceAmount) {
+            $res['face_amount'] = $this->faceAmount;
         }
-        if (null !== $this->failMsg) {
-            $res['fail_msg'] = $this->failMsg;
-        }
-        if (null !== $this->grantInfo) {
-            $res['grant_info'] = $this->grantInfo;
+        if (null !== $this->fluxAmount) {
+            $res['flux_amount'] = $this->fluxAmount;
         }
 
         return $res;
@@ -120,7 +121,7 @@ class PushRightsprodVoucherRequest extends Model
     /**
      * @param array $map
      *
-     * @return PushRightsprodVoucherRequest
+     * @return CallbackRightsprodOperationRequest
      */
     public static function fromMap($map = [])
     {
@@ -137,20 +138,20 @@ class PushRightsprodVoucherRequest extends Model
         if (isset($map['voucher_code'])) {
             $model->voucherCode = $map['voucher_code'];
         }
+        if (isset($map['notify_id'])) {
+            $model->notifyId = $map['notify_id'];
+        }
         if (isset($map['biz_type'])) {
             $model->bizType = $map['biz_type'];
         }
-        if (isset($map['status'])) {
-            $model->status = $map['status'];
+        if (isset($map['pay_order_no'])) {
+            $model->payOrderNo = $map['pay_order_no'];
         }
-        if (isset($map['out_trade_order_no'])) {
-            $model->outTradeOrderNo = $map['out_trade_order_no'];
+        if (isset($map['face_amount'])) {
+            $model->faceAmount = $map['face_amount'];
         }
-        if (isset($map['fail_msg'])) {
-            $model->failMsg = $map['fail_msg'];
-        }
-        if (isset($map['grant_info'])) {
-            $model->grantInfo = $map['grant_info'];
+        if (isset($map['flux_amount'])) {
+            $model->fluxAmount = $map['flux_amount'];
         }
 
         return $model;

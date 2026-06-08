@@ -11,6 +11,12 @@ use AlibabaCloud\Tea\RpcUtils\RpcUtils;
 use AlibabaCloud\Tea\Tea;
 use AlibabaCloud\Tea\Utils\Utils;
 use AlibabaCloud\Tea\Utils\Utils\RuntimeOptions;
+use AntChain\GESAAS_SPI\Models\CallbackRightsprodOperationRequest;
+use AntChain\GESAAS_SPI\Models\CallbackRightsprodOperationResponse;
+use AntChain\GESAAS_SPI\Models\CallbackRightsprodStatusRequest;
+use AntChain\GESAAS_SPI\Models\CallbackRightsprodStatusResponse;
+use AntChain\GESAAS_SPI\Models\PushRightsprodGrantrightsRequest;
+use AntChain\GESAAS_SPI\Models\PushRightsprodGrantrightsResponse;
 use AntChain\GESAAS_SPI\Models\PushRightsprodVoucherRequest;
 use AntChain\GESAAS_SPI\Models\PushRightsprodVoucherResponse;
 use AntChain\Util\UtilClient;
@@ -132,6 +138,7 @@ class Client
                 'period' => Utils::defaultNumber($runtime->backoffPeriod, 1),
             ],
             'ignoreSSL' => $runtime->ignoreSSL,
+            // 发放订单明细
         ];
         $_lastRequest   = null;
         $_lastException = null;
@@ -159,7 +166,7 @@ class Client
                     'req_msg_id'       => UtilClient::getNonce(),
                     'access_key'       => $this->_accessKeyId,
                     'base_sdk_version' => 'TeaSDK-2.0',
-                    'sdk_version'      => '1.0.0',
+                    'sdk_version'      => '1.1.0',
                     '_prod_code'       => 'GESAAS_SPI',
                     '_prod_channel'    => 'default',
                 ];
@@ -238,5 +245,104 @@ class Client
         Utils::validateModel($request);
 
         return PushRightsprodVoucherResponse::fromMap($this->doRequest('1.0', 'antdigital.gesaasspi.rightsprod.voucher.push', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 权益中心券状态变更回调通知
+     * Summary: 权益中心券状态变更回调通知.
+     *
+     * @param CallbackRightsprodStatusRequest $request
+     *
+     * @return CallbackRightsprodStatusResponse
+     */
+    public function callbackRightsprodStatus($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->callbackRightsprodStatusEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 权益中心券状态变更回调通知
+     * Summary: 权益中心券状态变更回调通知.
+     *
+     * @param CallbackRightsprodStatusRequest $request
+     * @param string[]                        $headers
+     * @param RuntimeOptions                  $runtime
+     *
+     * @return CallbackRightsprodStatusResponse
+     */
+    public function callbackRightsprodStatusEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return CallbackRightsprodStatusResponse::fromMap($this->doRequest('1.0', 'antdigital.gesaasspi.rightsprod.status.callback', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 券操作回调通知
+     * Summary: 券操作回调通知.
+     *
+     * @param CallbackRightsprodOperationRequest $request
+     *
+     * @return CallbackRightsprodOperationResponse
+     */
+    public function callbackRightsprodOperation($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->callbackRightsprodOperationEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 券操作回调通知
+     * Summary: 券操作回调通知.
+     *
+     * @param CallbackRightsprodOperationRequest $request
+     * @param string[]                           $headers
+     * @param RuntimeOptions                     $runtime
+     *
+     * @return CallbackRightsprodOperationResponse
+     */
+    public function callbackRightsprodOperationEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return CallbackRightsprodOperationResponse::fromMap($this->doRequest('1.0', 'antdigital.gesaasspi.rightsprod.operation.callback', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 权益供应商权益发放spi
+     * Summary: 权益供应商权益发放spi.
+     *
+     * @param PushRightsprodGrantrightsRequest $request
+     *
+     * @return PushRightsprodGrantrightsResponse
+     */
+    public function pushRightsprodGrantrights($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->pushRightsprodGrantrightsEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 权益供应商权益发放spi
+     * Summary: 权益供应商权益发放spi.
+     *
+     * @param PushRightsprodGrantrightsRequest $request
+     * @param string[]                         $headers
+     * @param RuntimeOptions                   $runtime
+     *
+     * @return PushRightsprodGrantrightsResponse
+     */
+    public function pushRightsprodGrantrightsEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return PushRightsprodGrantrightsResponse::fromMap($this->doRequest('1.0', 'antdigital.gesaasspi.rightsprod.grantrights.push', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
     }
 }
