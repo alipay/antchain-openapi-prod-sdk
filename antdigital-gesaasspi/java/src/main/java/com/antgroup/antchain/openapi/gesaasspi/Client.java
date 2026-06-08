@@ -126,7 +126,7 @@ public class Client {
                     new TeaPair("req_msg_id", com.antgroup.antchain.openapi.antchain.util.AntchainUtils.getNonce()),
                     new TeaPair("access_key", _accessKeyId),
                     new TeaPair("base_sdk_version", "TeaSDK-2.0"),
-                    new TeaPair("sdk_version", "1.2.0"),
+                    new TeaPair("sdk_version", "1.5.0"),
                     new TeaPair("_prod_code", "GESAASSPI"),
                     new TeaPair("_prod_channel", "default")
                 );
@@ -190,6 +190,196 @@ public class Client {
 
     /**
      * <b>description</b> :
+     * <p>Description: 创建任务，获取批次号。
+     * Summary: 创建任务，获取批次号。</p>
+     */
+    public SubmitAntchainSdsScenedataTaskResponse submitAntchainSdsScenedataTask(SubmitAntchainSdsScenedataTaskRequest request) throws Exception {
+        com.aliyun.teautil.models.RuntimeOptions runtime = new com.aliyun.teautil.models.RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.submitAntchainSdsScenedataTaskEx(request, headers, runtime);
+    }
+
+    /**
+     * <b>description</b> :
+     * <p>Description: 创建任务，获取批次号。
+     * Summary: 创建任务，获取批次号。</p>
+     */
+    public SubmitAntchainSdsScenedataTaskResponse submitAntchainSdsScenedataTaskEx(SubmitAntchainSdsScenedataTaskRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "antchain.sds.scenedata.task.submit", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new SubmitAntchainSdsScenedataTaskResponse());
+    }
+
+    /**
+     * <b>description</b> :
+     * <p>Description: 批次数据文件上传
+     * Summary: 批次数据文件上传</p>
+     */
+    public UploadAntchainSdsScenedataFileResponse uploadAntchainSdsScenedataFile(UploadAntchainSdsScenedataFileRequest request) throws Exception {
+        com.aliyun.teautil.models.RuntimeOptions runtime = new com.aliyun.teautil.models.RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.uploadAntchainSdsScenedataFileEx(request, headers, runtime);
+    }
+
+    /**
+     * <b>description</b> :
+     * <p>Description: 批次数据文件上传
+     * Summary: 批次数据文件上传</p>
+     */
+    public UploadAntchainSdsScenedataFileResponse uploadAntchainSdsScenedataFileEx(UploadAntchainSdsScenedataFileRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
+        if (!com.aliyun.teautil.Common.isUnset(request.fileObject)) {
+            CreateAntcloudGatewayxFileUploadRequest uploadReq = CreateAntcloudGatewayxFileUploadRequest.build(TeaConverter.buildMap(
+                new TeaPair("authToken", request.authToken),
+                new TeaPair("apiCode", "antchain.sds.scenedata.file.upload"),
+                new TeaPair("fileName", request.fileObjectName)
+            ));
+            CreateAntcloudGatewayxFileUploadResponse uploadResp = this.createAntcloudGatewayxFileUploadEx(uploadReq, headers, runtime);
+            if (!com.antgroup.antchain.openapi.antchain.util.AntchainUtils.isSuccess(uploadResp.resultCode, "ok")) {
+                UploadAntchainSdsScenedataFileResponse uploadAntchainSdsScenedataFileResponse = UploadAntchainSdsScenedataFileResponse.build(TeaConverter.buildMap(
+                    new TeaPair("reqMsgId", uploadResp.reqMsgId),
+                    new TeaPair("resultCode", uploadResp.resultCode),
+                    new TeaPair("resultMsg", uploadResp.resultMsg)
+                ));
+                return uploadAntchainSdsScenedataFileResponse;
+            }
+
+            java.util.Map<String, String> uploadHeaders = com.antgroup.antchain.openapi.antchain.util.AntchainUtils.parseUploadHeaders(uploadResp.uploadHeaders);
+            com.antgroup.antchain.openapi.antchain.util.AntchainUtils.putObject(request.fileObject, uploadHeaders, uploadResp.uploadUrl);
+            request.fileId = uploadResp.fileId;
+            request.fileObject = null;
+        }
+
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "antchain.sds.scenedata.file.upload", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new UploadAntchainSdsScenedataFileResponse());
+    }
+
+    /**
+     * <b>description</b> :
+     * <p>Description: 任务结果查询
+     * Summary: 任务结果查询</p>
+     */
+    public BatchqueryAntchainSdsScenedataTaskresultResponse batchqueryAntchainSdsScenedataTaskresult(BatchqueryAntchainSdsScenedataTaskresultRequest request) throws Exception {
+        com.aliyun.teautil.models.RuntimeOptions runtime = new com.aliyun.teautil.models.RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.batchqueryAntchainSdsScenedataTaskresultEx(request, headers, runtime);
+    }
+
+    /**
+     * <b>description</b> :
+     * <p>Description: 任务结果查询
+     * Summary: 任务结果查询</p>
+     */
+    public BatchqueryAntchainSdsScenedataTaskresultResponse batchqueryAntchainSdsScenedataTaskresultEx(BatchqueryAntchainSdsScenedataTaskresultRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "antchain.sds.scenedata.taskresult.batchquery", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new BatchqueryAntchainSdsScenedataTaskresultResponse());
+    }
+
+    /**
+     * <b>description</b> :
+     * <p>Description: 通过批次号查询任务详细信息
+     * Summary: 通过批次号查询任务详细信息</p>
+     */
+    public QueryAntchainSdsScenedataTaskinfoResponse queryAntchainSdsScenedataTaskinfo(QueryAntchainSdsScenedataTaskinfoRequest request) throws Exception {
+        com.aliyun.teautil.models.RuntimeOptions runtime = new com.aliyun.teautil.models.RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.queryAntchainSdsScenedataTaskinfoEx(request, headers, runtime);
+    }
+
+    /**
+     * <b>description</b> :
+     * <p>Description: 通过批次号查询任务详细信息
+     * Summary: 通过批次号查询任务详细信息</p>
+     */
+    public QueryAntchainSdsScenedataTaskinfoResponse queryAntchainSdsScenedataTaskinfoEx(QueryAntchainSdsScenedataTaskinfoRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "antchain.sds.scenedata.taskinfo.query", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new QueryAntchainSdsScenedataTaskinfoResponse());
+    }
+
+    /**
+     * <b>description</b> :
+     * <p>Description: 微信批次分页条件查询。通过此接口可查询商家多个批次的信息，包括批次的配置信息以及批次概况数据。
+     * Summary: 微信批次分页条件查询。通过此接口可查询商家多个批次的信息，包括批次的配置信息以及批次概况数据。</p>
+     */
+    public QueryAntchainSdsFavorStocksResponse queryAntchainSdsFavorStocks(QueryAntchainSdsFavorStocksRequest request) throws Exception {
+        com.aliyun.teautil.models.RuntimeOptions runtime = new com.aliyun.teautil.models.RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.queryAntchainSdsFavorStocksEx(request, headers, runtime);
+    }
+
+    /**
+     * <b>description</b> :
+     * <p>Description: 微信批次分页条件查询。通过此接口可查询商家多个批次的信息，包括批次的配置信息以及批次概况数据。
+     * Summary: 微信批次分页条件查询。通过此接口可查询商家多个批次的信息，包括批次的配置信息以及批次概况数据。</p>
+     */
+    public QueryAntchainSdsFavorStocksResponse queryAntchainSdsFavorStocksEx(QueryAntchainSdsFavorStocksRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "antchain.sds.favor.stocks.query", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new QueryAntchainSdsFavorStocksResponse());
+    }
+
+    /**
+     * <b>description</b> :
+     * <p>Description: 微信核销账单接口
+     * Summary: 微信核销账单接口</p>
+     */
+    public DownloadAntchainSdsStockUseflowResponse downloadAntchainSdsStockUseflow(DownloadAntchainSdsStockUseflowRequest request) throws Exception {
+        com.aliyun.teautil.models.RuntimeOptions runtime = new com.aliyun.teautil.models.RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.downloadAntchainSdsStockUseflowEx(request, headers, runtime);
+    }
+
+    /**
+     * <b>description</b> :
+     * <p>Description: 微信核销账单接口
+     * Summary: 微信核销账单接口</p>
+     */
+    public DownloadAntchainSdsStockUseflowResponse downloadAntchainSdsStockUseflowEx(DownloadAntchainSdsStockUseflowRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "antchain.sds.stock.useflow.download", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new DownloadAntchainSdsStockUseflowResponse());
+    }
+
+    /**
+     * <b>description</b> :
+     * <p>Description: 微信退款账单接口
+     * Summary: 微信退款账单接口</p>
+     */
+    public DownloadAntchainSdsStockRefundflowResponse downloadAntchainSdsStockRefundflow(DownloadAntchainSdsStockRefundflowRequest request) throws Exception {
+        com.aliyun.teautil.models.RuntimeOptions runtime = new com.aliyun.teautil.models.RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.downloadAntchainSdsStockRefundflowEx(request, headers, runtime);
+    }
+
+    /**
+     * <b>description</b> :
+     * <p>Description: 微信退款账单接口
+     * Summary: 微信退款账单接口</p>
+     */
+    public DownloadAntchainSdsStockRefundflowResponse downloadAntchainSdsStockRefundflowEx(DownloadAntchainSdsStockRefundflowRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "antchain.sds.stock.refundflow.download", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new DownloadAntchainSdsStockRefundflowResponse());
+    }
+
+    /**
+     * <b>description</b> :
+     * <p>Description: 【任务修改】修改任务状态，上线的任务可以下线，下线后能够修改任务的动态参数，下线后才能再上线。
+     * Summary: 【任务修改】修改任务状态，上线的任务可以下线，下线后能够修改任务的动态参数，下线后才能再上线。</p>
+     */
+    public UpdateAntchainSdsScenedataTaskResponse updateAntchainSdsScenedataTask(UpdateAntchainSdsScenedataTaskRequest request) throws Exception {
+        com.aliyun.teautil.models.RuntimeOptions runtime = new com.aliyun.teautil.models.RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.updateAntchainSdsScenedataTaskEx(request, headers, runtime);
+    }
+
+    /**
+     * <b>description</b> :
+     * <p>Description: 【任务修改】修改任务状态，上线的任务可以下线，下线后能够修改任务的动态参数，下线后才能再上线。
+     * Summary: 【任务修改】修改任务状态，上线的任务可以下线，下线后能够修改任务的动态参数，下线后才能再上线。</p>
+     */
+    public UpdateAntchainSdsScenedataTaskResponse updateAntchainSdsScenedataTaskEx(UpdateAntchainSdsScenedataTaskRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "antchain.sds.scenedata.task.update", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new UpdateAntchainSdsScenedataTaskResponse());
+    }
+
+    /**
+     * <b>description</b> :
      * <p>Description: 权益中心券状态变更回调通知
      * Summary: 权益中心券状态变更回调通知</p>
      */
@@ -228,5 +418,26 @@ public class Client {
     public CallbackAntdigitalGesaasspiRightsprodOperationResponse callbackAntdigitalGesaasspiRightsprodOperationEx(CallbackAntdigitalGesaasspiRightsprodOperationRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
         com.aliyun.teautil.Common.validateModel(request);
         return TeaModel.toModel(this.doRequest("1.0", "antdigital.gesaasspi.rightsprod.operation.callback", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new CallbackAntdigitalGesaasspiRightsprodOperationResponse());
+    }
+
+    /**
+     * <b>description</b> :
+     * <p>Description: 创建HTTP PUT提交的文件上传
+     * Summary: 文件上传创建</p>
+     */
+    public CreateAntcloudGatewayxFileUploadResponse createAntcloudGatewayxFileUpload(CreateAntcloudGatewayxFileUploadRequest request) throws Exception {
+        com.aliyun.teautil.models.RuntimeOptions runtime = new com.aliyun.teautil.models.RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.createAntcloudGatewayxFileUploadEx(request, headers, runtime);
+    }
+
+    /**
+     * <b>description</b> :
+     * <p>Description: 创建HTTP PUT提交的文件上传
+     * Summary: 文件上传创建</p>
+     */
+    public CreateAntcloudGatewayxFileUploadResponse createAntcloudGatewayxFileUploadEx(CreateAntcloudGatewayxFileUploadRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "antcloud.gatewayx.file.upload.create", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new CreateAntcloudGatewayxFileUploadResponse());
     }
 }
