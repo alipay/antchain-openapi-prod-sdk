@@ -95,6 +95,13 @@ namespace AntChain.SDK.INSURANCE_SAAS.Models
         [Validation(Required=false)]
         public string ExtInfo { get; set; }
 
+        // 直播间开播场次-动参，每日每场直播时添加至 URl（唯一ID 生成规则：直播间 ID 后两位+开播时间的年（后两位）月日时分
+        // 举例：若直播间 ID 为 kxz123456，开播时间为 2026-06-18 17：22，此时唯一 ID 为：562606181722
+        // ）
+        [NameInMap("live_session_id")]
+        [Validation(Required=false)]
+        public string LiveSessionId { get; set; }
+
     }
 
 }
