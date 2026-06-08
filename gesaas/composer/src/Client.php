@@ -13,6 +13,10 @@ use AlibabaCloud\Tea\Utils\Utils;
 use AlibabaCloud\Tea\Utils\Utils\RuntimeOptions;
 use AntChain\GESAAS\Models\BatchqueryRightsprodVoucherRequest;
 use AntChain\GESAAS\Models\BatchqueryRightsprodVoucherResponse;
+use AntChain\GESAAS\Models\CallbackRightsprodOperationdataRequest;
+use AntChain\GESAAS\Models\CallbackRightsprodOperationdataResponse;
+use AntChain\GESAAS\Models\CallbackRightsprodOperationRequest;
+use AntChain\GESAAS\Models\CallbackRightsprodOperationResponse;
 use AntChain\GESAAS\Models\CheckOmngRiskRequest;
 use AntChain\GESAAS\Models\CheckOmngRiskResponse;
 use AntChain\GESAAS\Models\QueryRightsprodGrantRequest;
@@ -166,7 +170,7 @@ class Client
                     'req_msg_id'       => UtilClient::getNonce(),
                     'access_key'       => $this->_accessKeyId,
                     'base_sdk_version' => 'TeaSDK-2.0',
-                    'sdk_version'      => '1.3.1',
+                    'sdk_version'      => '1.3.2',
                     '_prod_code'       => 'GESAAS',
                     '_prod_channel'    => 'default',
                 ];
@@ -344,5 +348,71 @@ class Client
         Utils::validateModel($request);
 
         return BatchqueryRightsprodVoucherResponse::fromMap($this->doRequest('1.0', 'antdigital.gesaas.rightsprod.voucher.batchquery', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 权益中心数据流回调 API
+     * Summary: 权益中心数据流回调 API.
+     *
+     * @param CallbackRightsprodOperationRequest $request
+     *
+     * @return CallbackRightsprodOperationResponse
+     */
+    public function callbackRightsprodOperation($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->callbackRightsprodOperationEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 权益中心数据流回调 API
+     * Summary: 权益中心数据流回调 API.
+     *
+     * @param CallbackRightsprodOperationRequest $request
+     * @param string[]                           $headers
+     * @param RuntimeOptions                     $runtime
+     *
+     * @return CallbackRightsprodOperationResponse
+     */
+    public function callbackRightsprodOperationEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return CallbackRightsprodOperationResponse::fromMap($this->doRequest('1.0', 'antdigital.gesaas.rightsprod.operation.callback', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 权益中心API
+     * Summary: 权益中心API.
+     *
+     * @param CallbackRightsprodOperationdataRequest $request
+     *
+     * @return CallbackRightsprodOperationdataResponse
+     */
+    public function callbackRightsprodOperationdata($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->callbackRightsprodOperationdataEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 权益中心API
+     * Summary: 权益中心API.
+     *
+     * @param CallbackRightsprodOperationdataRequest $request
+     * @param string[]                               $headers
+     * @param RuntimeOptions                         $runtime
+     *
+     * @return CallbackRightsprodOperationdataResponse
+     */
+    public function callbackRightsprodOperationdataEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return CallbackRightsprodOperationdataResponse::fromMap($this->doRequest('1.0', 'antdigital.gesaas.rightsprod.operationdata.callback', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
     }
 }
