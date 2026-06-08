@@ -1,0 +1,371 @@
+import AntchainUtil;
+import Util;
+import RPCUtil;
+
+type @endpoint = string
+type @regionId = string
+type @accessKeyId = string
+type @accessKeySecret = string
+type @protocol = string
+type @userAgent = string
+type @readTimeout = number
+type @connectTimeout = number
+type @httpProxy = string
+type @httpsProxy = string
+type @socks5Proxy = string
+type @socks5NetWork = string
+type @noProxy = string
+type @maxIdleConns = number
+type @securityToken = string
+type @maxIdleTimeMillis = number
+type @keepAliveDurationMillis = number
+type @maxRequests = number
+type @maxRequestsPerHost = number
+
+/**
+ * Model for initing client
+ */
+model Config {
+  accessKeyId?: string(description='accesskey id',default=''),
+  accessKeySecret?: string(description='accesskey secret',default=''),
+  securityToken?: string(description='security token',default=''),
+  protocol?: string(description='http protocol',example='http',default='http'),
+  readTimeout?: number(description='read timeout',example='10',default=''),
+  connectTimeout?: number(description='connect timeout',example='10',default=''),
+  httpProxy?: string(description='http proxy',example='http://localhost',default=''),
+  httpsProxy?: string(description='https proxy',example='https://localhost',default=''),
+  endpoint?: string(description='endpoint',example='cs.aliyuncs.com',default=''),
+  noProxy?: string(description='proxy white list',example='http://localhost',default=''),
+  maxIdleConns?: number(description='max idle conns',example='3',default=''),
+  userAgent?: string(description='user agent',example='Alibabacloud/1',default=''),
+  socks5Proxy?: string(description='socks5 proxy',default=''),
+  socks5NetWork?: string(description='socks5 network',example='TCP',default=''),
+  maxIdleTimeMillis?: number(description='长链接最大空闲时长',default='60 * 1000L'),
+  keepAliveDurationMillis?: number(description='长链接最大连接时长',default='5000'),
+  maxRequests?: number(description='最大连接数（长链接最大总数）',default='100'),
+  maxRequestsPerHost?: number(description='每个目标主机的最大连接数（分主机域名的长链接最大总数',default='100'),
+}
+
+/**
+ * Init client with Config
+ * @param config config contains the necessary information to create a client
+ */
+init(config: Config) {
+  if (Util.isUnset(config)) {
+    throw {
+      code = 'ParameterMissing',
+      message = '\'config\' can not be unset'
+    };
+  }
+
+  @accessKeyId = config.accessKeyId;
+  @accessKeySecret = config.accessKeySecret;
+  @securityToken = config.securityToken;
+  @endpoint = config.endpoint;
+  @protocol = config.protocol;
+  @userAgent = config.userAgent;
+  @readTimeout = Util.defaultNumber(config.readTimeout, 20000);
+  @connectTimeout = Util.defaultNumber(config.connectTimeout, 20000);
+  @httpProxy = config.httpProxy;
+  @httpsProxy = config.httpsProxy;
+  @noProxy = config.noProxy;
+  @socks5Proxy = config.socks5Proxy;
+  @socks5NetWork = config.socks5NetWork;
+  @maxIdleConns = Util.defaultNumber(config.maxIdleConns, 60000);
+  @maxIdleTimeMillis = Util.defaultNumber(config.maxIdleTimeMillis, 5);
+  @keepAliveDurationMillis = Util.defaultNumber(config.keepAliveDurationMillis, 5000);
+  @maxRequests = Util.defaultNumber(config.maxRequests, 100);
+  @maxRequestsPerHost = Util.defaultNumber(config.maxRequestsPerHost, 100);
+}
+
+/**
+ * Encapsulate the request and invoke the network
+ * @param action api name
+ * @param protocol http or https
+ * @param method e.g. GET
+ * @param pathname pathname of every api
+ * @param request which contains request params
+ * @param runtime which controls some details of call api, such as retry times
+ * @return the response
+ */
+api doRequest(version: string, action: string, protocol: string, method: string, pathname: string, request: object, headers: map[string]string, runtime: Util.RuntimeOptions): object {
+  __request.protocol = Util.defaultString(@protocol, protocol);
+  __request.method = method;
+  __request.pathname = pathname;
+  __request.query = {
+    method = action,
+    version = version,
+    sign_type = 'HmacSHA1',
+    req_time = AntchainUtil.getTimestamp(),
+    req_msg_id = AntchainUtil.getNonce(),
+    access_key = @accessKeyId,
+    base_sdk_version = 'TeaSDK-2.0',
+    sdk_version = '1.0.0',
+    _prod_code = 'GESAASAPI',
+    _prod_channel = 'default'
+  };
+
+  if (!Util.empty(@securityToken)) {
+    __request.query.security_token = @securityToken;
+  }
+
+  __request.headers = {
+    host = Util.defaultString(@endpoint, 'openapi.antchain.antgroup.com'),
+    user-agent = Util.getUserAgent(@userAgent),
+    ...headers
+  };
+
+  var tmp = Util.anyifyMapValue(RPCUtil.query(request));
+  __request.body = Util.toFormString(tmp);
+  __request.headers.content-type = 'application/x-www-form-urlencoded';
+
+  var signedParam = {
+    ...__request.query,
+    ...RPCUtil.query(request)
+  };
+  __request.query.sign = AntchainUtil.getSignature(signedParam, @accessKeySecret);
+} returns {
+  var raw = Util.readAsString(__response.body);
+  var obj = Util.parseJSON(raw);
+  var res = Util.assertAsMap(obj);
+  var resp = Util.assertAsMap(res.response);
+
+  if (AntchainUtil.hasError(raw, @accessKeySecret)) {
+    throw {
+      message = resp.result_msg,
+      data = resp,
+      code = resp.result_code
+    };
+  }
+  return resp;
+} runtime {
+  timeouted = 'retry',
+  readTimeout = Util.defaultNumber(runtime.readTimeout, @readTimeout),
+  connectTimeout = Util.defaultNumber(runtime.connectTimeout, @connectTimeout),
+  httpProxy = Util.defaultString(runtime.httpProxy, @httpProxy),
+  httpsProxy = Util.defaultString(runtime.httpsProxy, @httpsProxy),
+  noProxy = Util.defaultString(runtime.noProxy, @noProxy),
+  maxIdleConns = Util.defaultNumber(runtime.maxIdleConns, @maxIdleConns),
+  maxIdleTimeMillis = @maxIdleTimeMillis,
+  keepAliveDuration = @keepAliveDurationMillis,
+  maxRequests = @maxRequests,
+  maxRequestsPerHost = @maxRequestsPerHost,
+  retry = {
+    retryable = runtime.autoretry,
+    maxAttempts = Util.defaultNumber(runtime.maxAttempts, 3)
+  },
+  backoff = {
+    policy = Util.defaultString(runtime.backoffPolicy, 'no'),
+    period = Util.defaultNumber(runtime.backoffPeriod, 1)
+  },
+  ignoreSSL = runtime.ignoreSSL
+}
+
+// 经营分账收入方列表
+model OperateDivideTransInModel {
+  // 分账收入方支付宝用户id, 支付宝2088id
+  transInUserId: string(name='trans_in_user_id', example='2088id'),
+  // 分账金额，单位为分 大于0
+  divideAmount: long(name='divide_amount', example='12324'),
+}
+
+// 还款策略
+model RepayStrategy {
+  // 应付租金时间，精确到天 格式为yyyy-MM-dd
+  payDay: string(name='pay_day', example='2025-09-19'),
+  // 用户还款期数，从1开始
+  termIndex: long(name='term_index', example='1'),
+  // 应付租金，精确到分，即1234表示12.34元 大于0
+  rentalMoney: long(name='rental_money', example='1234'),
+  // 是否经营分账, Y-是、N-否 为空代表否
+  operateDivideFlag?: string(name='operate_divide_flag', example='Y'),
+  // 经营分账收入方列表
+  // 当operateDivideFlag 为Y时必填
+  operateDivideTransInList?: [ OperateDivideTransInModel ](name='operate_divide_trans_in_list', example=''),
+  // 是否停止数科代扣自动执行
+  // 
+  // Y：停止；由商户调用接口「支付相关接入 - 代扣计划重试」触发代扣；否则代扣不会被执行、到逾期时间后会被逾期
+  // 
+  // N : 不停止；保持数科自动代扣（默认）
+  noNeedAutoDeduction?: string(name='no_need_auto_deduction', example='N'),
+}
+
+// 主订单信息
+model OrderInfoReq {
+  // 订单创建时间
+  orderCreateTime: string(pattern='\\\\d{4}[-]\\\\d{1,2}[-]\\\\d{1,2}[T]\\\\d{2}:\\\\d{2}:\\\\d{2}([Z]|([\\\\.]\\\\d{1,9})?[\\\\+]\\\\d{2}[\\\\:]?\\\\d{2})', name='order_create_time', example='2018-10-10T10:10:00Z'),
+  // 订单付款主题
+  orderPaySubject: string(name='order_pay_subject', example='退订、续订,人工客服电话:4006476616商家订单号：'),
+  // 总租期
+  // 总租期最小值为1
+  // 总租期最大值为60
+  rentTerm: long(name='rent_term', example='12'),
+  // 租期单位
+  // MONTH : 月 
+  // DAY : 天
+  rentUnit?: string(name='rent_unit', example='MONTH'),
+  // 租金总额 单位/分
+  // 最小值为1
+  totalRentMoney: long(name='total_rent_money', example='1234'),
+}
+
+// 订单还款计划
+model OrderPromise {
+  // 宽限期/天
+  // 不传默认为0
+  gracePeriodDays?: long(name='grace_period_days', example='1233'),
+  // 罚息类型
+  //  NONE : 没有罚息  PENALTY_FEE： 罚息（暂不支持）
+  punishmentType?: string(name='punishment_type', example='NONE'),
+  // 租期
+  // 租期最小值为1
+  payPeriod: long(name='pay_period', example='11'),
+  // 租赁公司支付宝UID
+  leaseAlipayUid: string(name='lease_alipay_uid', example='2088Id'),
+  // 还款策略 
+  // repayStrategyList长度 == payPeriod
+  repayStrategyList: [ RepayStrategy ](name='repay_strategy_list', example=''),
+}
+
+// 订单详情列表
+model OrderDetail {
+  // 凭证编号
+  voucherCode: string(name='voucher_code', example='1798234932684395'),
+}
+
+// 订单进件请求参数
+model OrderFullInfoReq {
+  // 订单号
+  // 
+  orderId: string(name='order_id', example='1798234932684395'),
+  // 手机号
+  mobilePhone: string(name='mobile_phone', example='15629827201'),
+  // 产品ID=实际产品ID#版本 prod#1	
+  // 
+  productId: string(name='product_id', example='prod#1'),
+  // 商户的统一社会信用代码
+  merchantId: string(name='merchant_id', example='2088xxx'),
+  // 商户公司名字
+  merchantName: string(name='merchant_name', example='蚂蚁云创xxx有限公司'),
+  // 业务场景 默认为CHARGING_BY_TERM 
+  // CHARGING_BY_ORDER : 整单结算 
+  // CHARGING_BY_TERM : 分期结算
+  //  CHARGING_BY_TERM_INDIRECT : 间联模式使用，分期结算
+  //  CHARGING_BY_PROFIT : 分润结算
+  bizScene: string(name='biz_scene', example='CHARGING_BY_TERM'),
+  // 业务类型 LEASE : 租赁 （默认） INSTALLMENT: 分期付款	
+  // 
+  bizType: string(name='biz_type', example='INSTALLMENT'),
+  // 签署模式 NONE : 灵活签约
+  signMode: string(name='sign_mode', example='NONE'),
+  // 主订单信息
+  orderInfo: OrderInfoReq(name='order_info', example=''),
+  // 订单还款计划
+  promiseInfo: OrderPromise(name='promise_info', example=''),
+}
+
+// 响应结果基类
+model CommonResponse {
+  // 结果码
+  code: string(name='code', example='100001'),
+  // 返回码描述
+  msg: string(name='msg', example='成功'),
+  // 业务处理结果码
+  // 
+  subCode?: string(name='sub_code', example='fail'),
+  // 返回的提示信息
+  subMsg?: string(name='sub_msg', example='失败'),
+  // 可否重试
+  retry?: boolean(name='retry', example='true, false'),
+}
+
+// 权益发放结果
+model RightsGrantResultVO {
+  // 过期时间
+  expireTime?: string(pattern='\\\\d{4}[-]\\\\d{1,2}[-]\\\\d{1,2}[T]\\\\d{2}:\\\\d{2}:\\\\d{2}([Z]|([\\\\.]\\\\d{1,9})?[\\\\+]\\\\d{2}[\\\\:]?\\\\d{2})', name='expire_time', example='2018-10-10T10:10:00Z'),
+  // 生效时间
+  effectTime?: string(pattern='\\\\d{4}[-]\\\\d{1,2}[-]\\\\d{1,2}[T]\\\\d{2}:\\\\d{2}:\\\\d{2}([Z]|([\\\\.]\\\\d{1,9})?[\\\\+]\\\\d{2}[\\\\:]?\\\\d{2})', name='effect_time', example=''),
+  // 发放状态：
+  // GRANTING：发放处理中 GRANT_SUCCESS：发放成功 GRANT_FAIL：发放失败
+  grantStatus: string(name='grant_status', example='GRANTING'),
+  // 订单详情列表
+  orderDetails?: [ OrderDetail ](name='order_details', example=''),
+}
+
+// 券基本信息
+model VoucherBaseInfoVO {
+  // 2088xxxxxx0001
+  userId?: string(name='user_id', example='用户ID'),
+  // 手机号
+  phoneNumber?: string(name='phone_number', example='15700001111'),
+  // 权益编号
+  rightsCode: string(name='rights_code', example='RC188955110502576765'),
+  // 权益名称
+  rightsName: string(name='rights_name', example='满10元减2元'),
+  // 券码
+  voucherCode: string(name='voucher_code', example='202601160007300227760ZT3CMQY'),
+  // 券状态
+  // WAIT_EFFECT：待生效 
+  // WAIT_VERIFY：待核销 
+  // EXPIRED：已过期 
+  // VERIFY_SUCCESS：核销成功（已核销） 
+  // 公域场景下只会包含以上四种状态，私域场景会包含下方状态基
+  // FREEZE：已冻结 
+  // VERIFYING：核销处理中 
+  // VERIFY_FAIL：核销失败 
+  // VERIFY_CANCELING：核销撤销中
+  // INVALID：已失效 
+  // NO_NEED_VERIFY：无需核销 
+  status: string(name='status', example='WAIT_VERIFY'),
+}
+
+model CallbackAntdigitalGesaasRightsprodOperationdataRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 通知ID(幂等)
+  notifyId: string(name='notify_id'),
+  // 权益编号
+  rightsCode: string(name='rights_code'),
+  // 凭证编号
+  voucherCode: string(name='voucher_code'),
+  // 业务类型 V_REFUND（退款） V_EXPIRE（过期） V_INVALID（作废） V_USE（核销） V_PUBLISH（发放）
+  bizType: string(name='biz_type'),
+  // 支付订单号（使用和退款 时用于判断是否为重复核销、退款通知）
+  payOrderNo?: string(name='pay_order_no'),
+  // 券面额
+  faceAmount?: string(name='face_amount'),
+  // 流通金额（核销、退款时 金额）
+  fluxAmount?: string(name='flux_amount'),
+}
+
+model CallbackAntdigitalGesaasRightsprodOperationdataResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 同步结果 success 为同步成功其他均为失败
+  result?: string(name='result'),
+}
+
+/**
+ * Description: 权益中心API
+ * Summary: 权益中心API
+ */
+async function callbackAntdigitalGesaasRightsprodOperationdata(request: CallbackAntdigitalGesaasRightsprodOperationdataRequest): CallbackAntdigitalGesaasRightsprodOperationdataResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return callbackAntdigitalGesaasRightsprodOperationdataEx(request, headers, runtime);
+}
+
+/**
+ * Description: 权益中心API
+ * Summary: 权益中心API
+ */
+async function callbackAntdigitalGesaasRightsprodOperationdataEx(request: CallbackAntdigitalGesaasRightsprodOperationdataRequest, headers: map[string]string, runtime: Util.RuntimeOptions): CallbackAntdigitalGesaasRightsprodOperationdataResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'antdigital.gesaas.rightsprod.operationdata.callback', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
