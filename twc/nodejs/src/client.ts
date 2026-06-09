@@ -5,26 +5,129 @@ import RPCUtil from '@alicloud/rpc-util';
 import * as $tea from '@alicloud/tea-typescript';
 
 /**
+ * @remarks
  * Model for initing client
  */
 export class Config extends $tea.Model {
+  /**
+   * @remarks
+   * accesskey id
+   */
   accessKeyId?: string;
+  /**
+   * @remarks
+   * accesskey secret
+   */
   accessKeySecret?: string;
+  /**
+   * @remarks
+   * security token
+   */
   securityToken?: string;
+  /**
+   * @remarks
+   * http protocol
+   * 
+   * @example
+   * http
+   */
   protocol?: string;
+  /**
+   * @remarks
+   * read timeout
+   * 
+   * @example
+   * 10
+   */
   readTimeout?: number;
+  /**
+   * @remarks
+   * connect timeout
+   * 
+   * @example
+   * 10
+   */
   connectTimeout?: number;
+  /**
+   * @remarks
+   * http proxy
+   * 
+   * @example
+   * http://localhost
+   */
   httpProxy?: string;
+  /**
+   * @remarks
+   * https proxy
+   * 
+   * @example
+   * https://localhost
+   */
   httpsProxy?: string;
+  /**
+   * @remarks
+   * endpoint
+   * 
+   * @example
+   * cs.aliyuncs.com
+   */
   endpoint?: string;
+  /**
+   * @remarks
+   * proxy white list
+   * 
+   * @example
+   * http://localhost
+   */
   noProxy?: string;
+  /**
+   * @remarks
+   * max idle conns
+   * 
+   * @example
+   * 3
+   */
   maxIdleConns?: number;
+  /**
+   * @remarks
+   * user agent
+   * 
+   * @example
+   * Alibabacloud/1
+   */
   userAgent?: string;
+  /**
+   * @remarks
+   * socks5 proxy
+   */
   socks5Proxy?: string;
+  /**
+   * @remarks
+   * socks5 network
+   * 
+   * @example
+   * TCP
+   */
   socks5NetWork?: string;
+  /**
+   * @remarks
+   * 长链接最大空闲时长
+   */
   maxIdleTimeMillis?: number;
+  /**
+   * @remarks
+   * 长链接最大连接时长
+   */
   keepAliveDurationMillis?: number;
+  /**
+   * @remarks
+   * 最大连接数（长链接最大总数）
+   */
   maxRequests?: number;
+  /**
+   * @remarks
+   * 每个目标主机的最大连接数（分主机域名的长链接最大总数
+   */
   maxRequestsPerHost?: number;
   static names(): { [key: string]: string } {
     return {
@@ -90,6 +193,10 @@ export class CaSystemCrossPageRequest extends $tea.Model {
   // 用印次数
   sealTimes?: number;
   // 是否采取系统默认骑缝章用印规则
+  /**
+   * @example
+   * true, false
+   */
   defaultCrossPageRule?: boolean;
   // 默认骑缝章页数
   defaultCrossPage?: number;
@@ -125,6 +232,10 @@ export class CaSystemCrossPageRequest extends $tea.Model {
 // 正文章信息
 export class CaSystemMainBodyRequest extends $tea.Model {
   // 正文章模式坐标ABSOLUTE_POSITION, 关键字KEY_WORD
+  /**
+   * @example
+   * ABSOLUTE_POSITION, KEY_WORD
+   */
   mainBodyModel: string;
   // 签署页码
   posPage: number;
@@ -133,10 +244,22 @@ export class CaSystemMainBodyRequest extends $tea.Model {
   // 签署区位置纵坐标;mainBodyModel为ABSOLUTE_POSITION时必填
   posY?: number;
   // 关键字：mainBodyModel为KEY_WORD时必填
+  /**
+   * @example
+   * 关键字
+   */
   keyWord?: string;
   // mainBodyModel为KEY_WORD时必填
+  /**
+   * @example
+   * 关键字类型
+   */
   keyWordType?: number;
   // 第几个关键字;mainBodyModel为KEY_WORD时必填
+  /**
+   * @example
+   * 1
+   */
   kwIndex?: number;
   // x偏移量
   kwShiftX?: number;
@@ -178,14 +301,30 @@ export class CaSystemMainBodyRequest extends $tea.Model {
 // 签署区域信息（包括印模信息）
 export class CaSystemSignAreaRequest extends $tea.Model {
   // 印章印模oss-fileKey 或者oss可预览下载地址
+  /**
+   * @example
+   * ESIGN/ato/ca_png/ORG/111.png
+   */
   sealPicAddr?: string;
   // 用印对齐类型
+  /**
+   * @example
+   * BOTTOM_LEFT
+   */
   locationType: string;
   // 章的旋转角度
   rotateAngle?: number;
   // 签署位置类型	1代表正文章，2代表骑缝章
+  /**
+   * @example
+   * 1,2
+   */
   positionType: number;
   // 指定外部印章类型
+  /**
+   * @example
+   * 目前支持手签(PERSONAL)或公章(OFFICIAL)
+   */
   externalSealType?: string;
   // 骑缝章信息
   caSystemCrossPageRequest?: CaSystemCrossPageRequest;
@@ -223,6 +362,10 @@ export class CaSystemSignAreaRequest extends $tea.Model {
 // 法务电子签签署文件列表（包含印模和签署区域）
 export class CaSystemSignFileRequest extends $tea.Model {
   // 单次请求文件唯一id，与AntSignFileRequest中的fileId对应
+  /**
+   * @example
+   * 签署文件id
+   */
   fileId: string;
   // 签署区域信息（包括印模信息）
   caSystemSignAreaRequestList: CaSystemSignAreaRequest[];
@@ -248,12 +391,28 @@ export class CaSystemSignFileRequest extends $tea.Model {
 // 司法纠纷平台通用文件信息结构体
 export class JudicialFileInfo extends $tea.Model {
   // 文件全名, 包含后缀
+  /**
+   * @example
+   * 文件全名.pdf
+   */
   fileName?: string;
   // 文件key
+  /**
+   * @example
+   * c3h2g1f3jf12g3123lhfs
+   */
   fileKey?: string;
   // 文件下载地址
+  /**
+   * @example
+   * http://www.testfile.net/products/TWC/file/downloadurl
+   */
   downloadUrl?: string;
   // 司法纠纷平台文件类型
+  /**
+   * @example
+   * 文件类型
+   */
   judicialFileType?: string;
   static names(): { [key: string]: string } {
     return {
@@ -281,8 +440,16 @@ export class JudicialFileInfo extends $tea.Model {
 // 文件key和文件名称
 export class FileInfo extends $tea.Model {
   // 文件key
+  /**
+   * @example
+   * 4293ed08-3576-4f35-a65d-0d63ae8c0e8b.jpg
+   */
   fileKey: string;
   // 文件名称
+  /**
+   * @example
+   * userInfo.jpg
+   */
   fileName: string;
   // 文件类型(枚举)
   // CASE_NOTICE: 立案通知书
@@ -290,6 +457,10 @@ export class FileInfo extends $tea.Model {
   // CASE_EFFECT_PROVE: 裁决书司法生效证明
   // CASE_SERVED_NOTICE: 电子送达通知
   // PAYMETN_INFO: 缴费相关文件
+  /**
+   * @example
+   * CASE_NOTICE
+   */
   fileType?: string;
   static names(): { [key: string]: string } {
     return {
@@ -315,12 +486,28 @@ export class FileInfo extends $tea.Model {
 // 租赁分期履约信息
 export class RentalInstallmentPerformance extends $tea.Model {
   // 被申请人还款期数
+  /**
+   * @example
+   * 10
+   */
   repaymentPeriod: number;
   // 被申请人第几期租金支付方式
+  /**
+   * @example
+   * 支付宝
+   */
   rentPaymentType: string;
   // 被申请人第几期还款时间
+  /**
+   * @example
+   * 2021-05-07
+   */
   appliedRepaymentTime: string;
   // 被申请人第几期还款金额
+  /**
+   * @example
+   * 123.00
+   */
   appliedRepaymentAmount: string;
   static names(): { [key: string]: string } {
     return {
@@ -348,20 +535,52 @@ export class RentalInstallmentPerformance extends $tea.Model {
 // 订单商品信息
 export class OrderItem extends $tea.Model {
   // 产品名称
+  /**
+   * @example
+   * 戴尔电脑
+   */
   productName: string;
   // 商品品牌
+  /**
+   * @example
+   * 戴尔
+   */
   commodityBrand: string;
   // 商品版本
+  /**
+   * @example
+   * 戴尔成就3681
+   */
   commodityVersion: string;
   // 商品规格
+  /**
+   * @example
+   * 英特尔酷睿i3
+   */
   commoditySpecification: string;
   // 商品颜色
+  /**
+   * @example
+   * 黑色
+   */
   commodityColor?: string;
   // 商品详情
+  /**
+   * @example
+   * 戴尔电脑
+   */
   commodityDetails?: string;
   // 商品官方价格
+  /**
+   * @example
+   * 6666.00
+   */
   commodityOfficialPrice: string;
   // 租赁物数量
+  /**
+   * @example
+   * 10
+   */
   leaseNumber: number;
   static names(): { [key: string]: string } {
     return {
@@ -397,29 +616,53 @@ export class OrderItem extends $tea.Model {
 // 签署信息
 export class BclSignField extends $tea.Model {
   // 页码信息：当签署区sign_type为RIDE_SEAM时, 页码可以_-_分割, 例如1到15页，填"1-15"； 其他情况只能是数字； 
+  /**
+   * @example
+   * 1
+   */
   posPage: string;
   // 页面签署位置x坐标
   // 非负数，小数位最多两位x坐标
   // sign_type：SINGLE_PAGE 必填
   // sign_type：RIDE_SEAM  无需填写
+  /**
+   * @example
+   * 101.12
+   */
   posX?: string;
   // 页面签署位置y坐标
   // 非负数，小数位最多两位，y坐标
+  /**
+   * @example
+   * 111.21
+   */
   posY: string;
   // 签署类型
   // 1.单页签署: SINGLE_PAGE
   // 2.骑缝签署: RIDE_SEAM
   // 默认：SINGLE_PAGE
+  /**
+   * @example
+   * SINGLE_PAGE
+   */
   signFieldType: string;
   // 是否添加签署时间
   // 1.不添加: false 
   // 2.添加: true 
   // 默认：false
+  /**
+   * @example
+   * false
+   */
   addSignDate?: boolean;
   // 签章日期字体大小
   // 默认12，范围10-20
   // 商家签署区不支持；
   // 当add_sign_date为true时,该字段必填；为false是该字段不能传值，必须为空；
+  /**
+   * @example
+   * 12
+   */
   signDateFontSize?: number;
   // 签章日期格式
   // yyyy年MM月dd日（默认值） yyyy-MM-dd 
@@ -427,21 +670,37 @@ export class BclSignField extends $tea.Model {
   // yyyy-MM-dd HH:mm:ss 
   // 商家签署区不支持；
   //  当add_sign_date为true时,该字段必填；为false是该字段不能传值，必须为空；
+  /**
+   * @example
+   * 2023年12月11日
+   */
   signDateFormat?: string;
   // 页码信息
   // 当add_sign_date为true时，代表签署的印章必须展示签署日期，默认放在印章正下方，签署人可拖拽日期到当前页面的其他位置，如果发起方指定签署位置的同时，需要同时指定日期盖章位置，则需传入日期盖章页码（与印章页码相同），在传入X\Y坐标即可
   // 商家签署区不支持；
   //  当add_sign_date为true时,该字段必填；为false是该字段不能传值，必须为空；
+  /**
+   * @example
+   * 1
+   */
   signDatePosPage?: number;
   // 页面签章日期x坐标
   // 非负数，小数位最多两位，默认0 
   // 商家签署区不支持；
   //  当add_sign_date为true时,该字段必填；为false是该字段不能传值，必须为空；
+  /**
+   * @example
+   * 112.12
+   */
   signDatePosX?: string;
   // 页面签章日期y坐标
   // 非负数，小数位最多两位，默认0 
   // 商家签署区不支持；
   //  当add_sign_date为true时,该字段必填；为false是该字段不能传值，必须为空；
+  /**
+   * @example
+   * 101.23
+   */
   signDatePosY?: string;
   static names(): { [key: string]: string } {
     return {
@@ -481,10 +740,22 @@ export class BclSignField extends $tea.Model {
 // 租赁分期信息
 export class RentalStagingInformation extends $tea.Model {
   // 分期期数
+  /**
+   * @example
+   * 10
+   */
   installmentsNumber: number;
   // 租金每期应还款时间
+  /**
+   * @example
+   * 2021-05-31
+   */
   paymentTimeEachCycle: string;
   // 租金每期应还款额
+  /**
+   * @example
+   * 123.00
+   */
   paymentEachCycle: string;
   static names(): { [key: string]: string } {
     return {
@@ -510,9 +781,17 @@ export class RentalStagingInformation extends $tea.Model {
 // 租赁订单关联的商品
 export class BclOrderProductInfo extends $tea.Model {
   // 创建商品后返回的商品id
+  /**
+   * @example
+   * PROD1223
+   */
   productId: string;
   // 商品数量
   // 目前只允许一个商品
+  /**
+   * @example
+   * 1
+   */
   productNumber: number;
   static names(): { [key: string]: string } {
     return {
@@ -536,20 +815,44 @@ export class BclOrderProductInfo extends $tea.Model {
 // 租赁宝plus退保详情
 export class InsuranceCancelRecordInfo extends $tea.Model {
   // 保单单号
+  /**
+   * @example
+   * 123123123123213
+   */
   bclInsuranceRecordId: string;
   // 退保id
+  /**
+   * @example
+   * 12312312312123
+   */
   cancelInsuranceId: string;
   // 退还保费 单位分, 退保成功时返回
+  /**
+   * @example
+   * 12312
+   */
   cancelAmount?: number;
   // 申请退保时间
   // 格式: yyyy-MM-dd HH:mm:ss
+  /**
+   * @example
+   * 2023-04-05 12:12:23
+   */
   cancelApplyTime: string;
   // 退保状态
   // RECORD_CANCEL_INIT: 退保初始
   // RECORD_CANCEL_SUCC: 退保成功
   // RECORD_CANCEL_FAIL: 退保失败
+  /**
+   * @example
+   * RECORD_CANCEL_SUCC
+   */
   cancelStatus: string;
   // 退保失败原, 退保失败时返回
+  /**
+   * @example
+   * 退保失败, 保单已失效
+   */
   remark?: string;
   static names(): { [key: string]: string } {
     return {
@@ -581,30 +884,70 @@ export class InsuranceCancelRecordInfo extends $tea.Model {
 // 存证关联实体（个人/企业）的身份识别信息
 export class NotaryUser extends $tea.Model {
   // 用户类型，PERSON或者ENTERPRISE
+  /**
+   * @example
+   * PERSON
+   */
   userType: string;
   // 证件类型
   // ● 个人：支持身份证IDENTITY_CARD
   // ● 企业：支持UNIFIED_SOCIAL_CREDIT_CODE（统一社会信用代码）和ENTERPRISE_REGISTERED_NUMBER（企业工商注册号）
+  /**
+   * @example
+   * IDENTITY_CARD
+   */
   certType: string;
   // 证件用户名称
   // ● 个人：身份证姓名
   // ● 企业：企业名称
+  /**
+   * @example
+   * 小王
+   */
   certName: string;
   // 证件号
   // ● 个人：身份证号
   // ● 企业：社会统一信用代码或企业工商注册号，与证件类型保持一致即可
+  /**
+   * @example
+   * 12332112312312
+   */
   certNo: string;
   // 个人必填，用户手机号码
+  /**
+   * @example
+   * 18811111111
+   */
   personMobileNo?: string;
   // 企业选填，法人证件类型，仅支持身份证，IDENTITY_CARD
+  /**
+   * @example
+   * IDENTITY_CARD
+   */
   legalPersonCertType?: string;
   // 企业选填，法人身份证姓名
+  /**
+   * @example
+   * 小李
+   */
   legalPersonCertName?: string;
   // 企业选填，法人身份证号
+  /**
+   * @example
+   * 123123321123
+   */
   legalPersonCertNo?: string;
   // 企业选填，法人手机号
+  /**
+   * @example
+   * 18811111111
+   */
   legalPersonMobileNo?: string;
   // 扩展属性
+  /**
+   * @example
+   * {"key":"value"}
+   */
   properties?: string;
   static names(): { [key: string]: string } {
     return {
@@ -644,34 +987,86 @@ export class NotaryUser extends $tea.Model {
 // 法务电子签签署人信息
 export class AntSignUserInfoRequest extends $tea.Model {
   // signUserId
+  /**
+   * @example
+   * signUserId
+   */
   signUserId?: string;
   // 是否为我方（蚂蚁域）公司
+  /**
+   * @example
+   * true, false
+   */
   ourCorp: boolean;
   // 签署文件列表（包含印模和签署区域）
   caSystemSignFileRequestList: CaSystemSignFileRequest[];
   // 用户类型
+  /**
+   * @example
+   * PERSON：个人 ORG：机构
+   */
   signUserType: string;
   // 签署人名称
+  /**
+   * @example
+   * 张三
+   */
   signerName: string;
   // 签署人证件类型
+  /**
+   * @example
+   * CRED_PSN_CH_IDCARD：大陆身份证 CRED_ORG_USCC：统一社会信用代码
+   */
   signerCertType: string;
   // 签署人证件号码
+  /**
+   * @example
+   * 4201212121212121
+   */
   signerCertNumber: string;
   // 企业子类型
+  /**
+   * @example
+   * 企业子类型
+   */
   signSubType?: string;
   // 签署方联系手机号
+  /**
+   * @example
+   * 12313124112
+   */
   mobile?: string;
   // 邮件联系地址
+  /**
+   * @example
+   * 1212121@163.com
+   */
   email?: string;
   // 签署顺序
+  /**
+   * @example
+   * -1
+   */
   order?: number;
   // 是否自动签署
   // true：自动签署需传递坐标信息
   // false：非自动签署，不需要传递坐标信息，签署文件会发送给签署方签署
+  /**
+   * @example
+   * true, false
+   */
   autoSign: boolean;
   // 签署方签署操作人签署时支持的印章来源类型目前支持上传公章(UPLOAD)、手写签名(PERSONAL)
+  /**
+   * @example
+   * ["UPLOAD","PERSONAL"]
+   */
   sealSourceTypes?: string[];
   // 法务电子签签署完重定向链接
+  /**
+   * @example
+   * https://twcuniversal-sit.dl.alipaydev.com/web/eletriCombineSign
+   */
   redirectUrl: string;
   static names(): { [key: string]: string } {
     return {
@@ -719,30 +1114,78 @@ export class AntSignUserInfoRequest extends $tea.Model {
 // 订单信息
 export class OrderInfo extends $tea.Model {
   // 出租方平台名称
+  /**
+   * @example
+   * 租赁宝
+   */
   lessorPlatformName: string;
   // 订单号
+  /**
+   * @example
+   * 232278957595482
+   */
   orderNumber: string;
   // 合同编号
+  /**
+   * @example
+   * 232278957595482
+   */
   contractNo: string;
   // 合同名称
+  /**
+   * @example
+   * 租赁宝合同
+   */
   contractName: string;
   // 订单商品信息
   orderItems: OrderItem[];
   // 设备及配件总价
+  /**
+   * @example
+   * 123.00
+   */
   totalDevicePrice: string;
   // 押金金额
+  /**
+   * @example
+   * 123.00
+   */
   depositAmount: string;
   // 免押金额
+  /**
+   * @example
+   * 1123.00
+   */
   freeDeposit: string;
   // 签约时间
+  /**
+   * @example
+   * 2021-05-07 17:13:50
+   */
   signingTime: string;
   // 租期起始时间
+  /**
+   * @example
+   * 2021-05-07 17:13:50
+   */
   leaseStartTime: string;
   // 租期结束时间
+  /**
+   * @example
+   * 2021-05-07 17:13:50
+   */
   leaseEndTime: string;
   // 买断金额计算公式
+  /**
+   * @example
+   * 到期转售买断款+未还租金-实付押金
+   */
   buyoutAmountFormulaCalc: string;
   // 首付款
+  /**
+   * @example
+   * 123.00
+   */
   payInAdvance: string;
   static names(): { [key: string]: string } {
     return {
@@ -788,12 +1231,28 @@ export class OrderInfo extends $tea.Model {
 // 物流信息
 export class LogisticsInfo extends $tea.Model {
   // 发货时间
+  /**
+   * @example
+   * 2021-05-07
+   */
   deliveryTime: string;
   // 快递物流公司
+  /**
+   * @example
+   * 圆通速递
+   */
   expressLogisticsCompany: string;
   // 快递单号
+  /**
+   * @example
+   * 127974979371979
+   */
   courierNumber: string;
   // 签收时间
+  /**
+   * @example
+   * 2021-06-01
+   */
   signTime: string;
   static names(): { [key: string]: string } {
     return {
@@ -821,10 +1280,22 @@ export class LogisticsInfo extends $tea.Model {
 // 文件验签签名数据
 export class ContractDocSignVerifySignatureInfo extends $tea.Model {
   // 是否篡改
+  /**
+   * @example
+   * true, false
+   */
   isModify?: boolean;
   // 签署时间来源
+  /**
+   * @example
+   * tsr
+   */
   timeFrom?: string;
   // 签署时间
+  /**
+   * @example
+   * 2020-11-18 20:30:41
+   */
   signDate?: string;
   static names(): { [key: string]: string } {
     return {
@@ -850,6 +1321,10 @@ export class ContractDocSignVerifySignatureInfo extends $tea.Model {
 // 合同文件信息
 export class BclContractFileInfo extends $tea.Model {
   // 文件OSS Id
+  /**
+   * @example
+   * 0003fa8261d1cd6cb419264d516f9b5.pdf
+   */
   ossFileId: string;
   // 买家用户签署区信息
   userSignFields: BclSignField[];
@@ -858,6 +1333,10 @@ export class BclContractFileInfo extends $tea.Model {
   // 合同模板填充项内容扩展字段:
   // 以key:value传入，JSON对象模板签署链路，不能传"  "或空"{}"，k-v模式，k和v都必须有。
   // 当订单创建选择是模板签署时，该字段必填。
+  /**
+   * @example
+   * {"甲方":"测试甲方","乙方":"测试乙方"}
+   */
   simpleFormFields?: string;
   static names(): { [key: string]: string } {
     return {
@@ -885,40 +1364,108 @@ export class BclContractFileInfo extends $tea.Model {
 // 签署人状态
 export class AntSignOperatorResult extends $tea.Model {
   // 签署方UserId
+  /**
+   * @example
+   * 签署方UserId
+   */
   signUserId: string;
   // 签署方证件号
+  /**
+   * @example
+   * 签署方证件号
+   */
   signCertNo: string;
   // 签署方证件名称
+  /**
+   * @example
+   * 签署方证件名称
+   */
   signCertName: string;
   // 签署方证件类型
+  /**
+   * @example
+   * 签署方证件类型
+   */
   signCertType: string;
   // 是否授权
+  /**
+   * @example
+   * 是否授权
+   */
   authorized: number;
   // 授权时间
+  /**
+   * @example
+   * 授权时间
+   */
   authorizeTime?: string;
   // 授权人证件号码
+  /**
+   * @example
+   * 授权人证件号码
+   */
   authPersonCertNo?: string;
   // 授权人证件名称
+  /**
+   * @example
+   * 授权人证件名称
+   */
   authPersonCertName?: string;
   // 授权人证件类型
+  /**
+   * @example
+   * 授权人证件类型
+   */
   authPersonCertType?: string;
   // 邮件联系地址
+  /**
+   * @example
+   * 邮件联系地址
+   */
   emailAddress?: string;
   // 电话联系方式
+  /**
+   * @example
+   * 电话联系方式
+   */
   mobileNumber?: string;
   // 签署顺序
   signOrder?: number;
   // 签署失败原因
+  /**
+   * @example
+   * 签署失败原因
+   */
   failInfo?: string;
   // 备注
+  /**
+   * @example
+   * 备注
+   */
   remark?: string;
   // 是否我方公司
+  /**
+   * @example
+   * 是否我方公司
+   */
   ourCorp?: number;
   // 签署状态
+  /**
+   * @example
+   * 签署状态
+   */
   status?: string;
   // 签署时间
+  /**
+   * @example
+   * 签署时间
+   */
   signTime?: string;
   // [签署方子类型 企业子类型： BUS：企业 SINGLE：个体工商户 GOV：党政机关 INST：事业单位 COMMON：社会组织 OTHER：其他组织
+  /**
+   * @example
+   * [签署方子类型 企业子类型： BUS：企业 SINGLE：个体工商户 GOV：党政机关 INST：事业单位 COMMON：社会组织 OTHER：其他组织
+   */
   signSubType?: string;
   static names(): { [key: string]: string } {
     return {
@@ -974,8 +1521,16 @@ export class AntSignOperatorResult extends $tea.Model {
 // 履约信息
 export class PerformanceInfo extends $tea.Model {
   // 支付租金总额
+  /**
+   * @example
+   * 10000.00
+   */
   rentPayTotal: string;
   // 买断金额
+  /**
+   * @example
+   * 10000.00
+   */
   buyoutAmount: string;
   // 租赁分期履约信息
   rentalInstallmentPerformance?: RentalInstallmentPerformance[];
@@ -1003,14 +1558,34 @@ export class PerformanceInfo extends $tea.Model {
 // 文本签证书信息
 export class ContractTextSignVerifyCertInfo extends $tea.Model {
   // 证书所有者
+  /**
+   * @example
+   * 杭州**有限公司
+   */
   owner?: string;
   // 证书序列号
+  /**
+   * @example
+   * 6bdea579b491bxxxxxxx
+   */
   serial?: string;
   // 证书有效期开始时间
+  /**
+   * @example
+   * 2020-04-13 11:46:18
+   */
   startDate?: string;
   // 证书有效期结束时间
+  /**
+   * @example
+   * 2021-04-13 11:46:18
+   */
   endDate?: string;
   // 证书发布者名称
+  /**
+   * @example
+   * 智慧CA_测试CA
+   */
   issuerCn?: string;
   static names(): { [key: string]: string } {
     return {
@@ -1040,25 +1615,49 @@ export class ContractTextSignVerifyCertInfo extends $tea.Model {
 // 承诺详情
 export class BclPromiseDetailInfo extends $tea.Model {
   // 承诺期数
+  /**
+   * @example
+   * 1
+   */
   period: number;
   // 承诺金额 单位分
+  /**
+   * @example
+   * 12322
+   */
   amount: number;
   // 本期还款状态
   // 1.已还款：PAID 
   // 2.部分还款：PART_PAID 
   // 3.未还款：UN_PAID
+  /**
+   * @example
+   * UN_PAID
+   */
   status: string;
   // 每期约定还款时间
   // 示例：2023-06-7T10:50:23+08:00
+  /**
+   * @example
+   * 2023-06-7T10:50:23+08:00
+   */
   promiseTime: string;
   // 每期应还日期
   // 示例：2023-06-27T10:50:23+08:00
+  /**
+   * @example
+   * 2023-06-27T10:50:23+08:00
+   */
   payTime?: string;
   // 归还方式
   // 1.租赁代扣： PROXY_WITHHOLDING
   // 2.主动还款：ACTIVE_REPAYMENT  
   // 3.网商委托代扣：MY_BANK_DIRECT_PAYMENT
   // 4.预授权代扣：PRE_AUTHORIZATION_WITHHOLDING
+  /**
+   * @example
+   * ACTIVE_REPAYMENT
+   */
   way: string;
   static names(): { [key: string]: string } {
     return {
@@ -1090,12 +1689,28 @@ export class BclPromiseDetailInfo extends $tea.Model {
 // 签署子任务完成的文件里表
 export class AntSignFileResult extends $tea.Model {
   // fileName	文件名称
+  /**
+   * @example
+   * 111.pdf
+   */
   fileName?: string;
   // 文件osskey
+  /**
+   * @example
+   * key
+   */
   fileKey?: string;
   // 文件id
+  /**
+   * @example
+   * 12313124112
+   */
   fileId?: string;
   // 文件http链接
+  /**
+   * @example
+   * http://aaaa
+   */
   httpFileUrl?: string;
   static names(): { [key: string]: string } {
     return {
@@ -1123,8 +1738,16 @@ export class AntSignFileResult extends $tea.Model {
 // 文件信息
 export class BclFileInfo extends $tea.Model {
   // 文件名称 包含后缀
+  /**
+   * @example
+   * asasd物流.jpg
+   */
   fileName: string;
   // 文件下载链接
+  /**
+   * @example
+   * https://oss.com/asdqwe
+   */
   fileUrl: string;
   static names(): { [key: string]: string } {
     return {
@@ -1148,34 +1771,90 @@ export class BclFileInfo extends $tea.Model {
 // 自动进件订单信息
 export class LeaseOrderInfo extends $tea.Model {
   // 出租方平台名称
+  /**
+   * @example
+   * 租赁宝
+   */
   lessorPlatformName?: string;
   // 订单号
+  /**
+   * @example
+   * 232278957595482
+   */
   orderNumber: string;
   // 合同编号
+  /**
+   * @example
+   * 232278957595482
+   */
   contractNo?: string;
   // 合同名称
+  /**
+   * @example
+   * 租赁合同
+   */
   contractName?: string;
   // 订单商品信息列表
   orderItems: OrderItem[];
   // 设备及配件总价（单位元）
+  /**
+   * @example
+   * 123.00
+   */
   totalDevicePrice: string;
   // 押金金额（单位元）
+  /**
+   * @example
+   * 123.00
+   */
   depositAmount?: string;
   // 免押金额
+  /**
+   * @example
+   * 123.00
+   */
   freeDeposit?: string;
   // 签约时间
+  /**
+   * @example
+   * 2021-05-31
+   */
   signTime?: string;
   // 租期起始时间
+  /**
+   * @example
+   * 2021-06-01
+   */
   leaseStartTime?: string;
   // 租期结束时间
+  /**
+   * @example
+   * 2022-06-01
+   */
   leaseEndTime?: string;
   // 买断金额计算公式
+  /**
+   * @example
+   * 商品官方价-已还租金-实付押金-首付款
+   */
   buyoutAmountFormulaCalc?: string;
   // 首付款（单位元）
+  /**
+   * @example
+   * 1123.00
+   */
   payInAdvance?: string;
   // 创建时间
+  /**
+   * @example
+   * 2019-12-12
+   */
   orderCreateTime?: string;
   // 到期买断价 保留两位小数 单位元
+  /**
+   * @example
+   * 23.33
+   */
   buyOutPrice?: string;
   static names(): { [key: string]: string } {
     return {
@@ -1225,36 +1904,92 @@ export class LeaseOrderInfo extends $tea.Model {
 // 返回的bcl订单签署区信息
 export class BclContractSignFieldInfo extends $tea.Model {
   // 签署流程id
+  /**
+   * @example
+   * 8dfg0h80sg8sd0fa45b9cvb79
+   */
   flowId?: string;
   // 文件id
+  /**
+   * @example
+   * 9dfgsh7da89g7adfgh
+   */
   contractFileId?: string;
   // 签署人id
+  /**
+   * @example
+   * b9sc0bn9sffs
+   */
   contractUserId?: string;
   // 签署页码
+  /**
+   * @example
+   * 1
+   */
   posPage?: string;
   // x坐标
+  /**
+   * @example
+   * 11.11
+   */
   posX?: string;
   // y坐标
+  /**
+   * @example
+   * 22.22
+   */
   posY?: string;
   // 签署类型，AUTO-自动，HAND-手动
+  /**
+   * @example
+   * AUTO
+   */
   signType?: string;
   // 签署区类型， 
   // 单页签署: SINGLE_PAGE， 
   // 骑缝签署: RIDE_SEAM， 
   // 默认 SINGLE_PAGE
+  /**
+   * @example
+   * SINGLE_PAGE
+   */
   signFieldType?: string;
   // 是否添加签署时间
   // 不添加: false 添加: true ， 默认false, 商家不支持指定日期坐标
+  /**
+   * @example
+   * true, false
+   */
   addSignDate?: boolean;
   // 签章日期字体大小,默认12 商家签署区不支持
+  /**
+   * @example
+   * 12
+   */
   signDateFontSize?: number;
   // 签章日期格式，yyyy年MM月dd日 商家签署区不支持
+  /**
+   * @example
+   * yyyy年MM月dd日
+   */
   signDateFormat?: string;
   // 签章日期页码信息
+  /**
+   * @example
+   * 1
+   */
   signDatePosPage?: number;
   // 签章日期x坐标
+  /**
+   * @example
+   * 11.11
+   */
   signDatePosX?: string;
   // 签章日期y坐标
+  /**
+   * @example
+   * 22.22
+   */
   signDatePosY?: string;
   static names(): { [key: string]: string } {
     return {
@@ -1302,24 +2037,56 @@ export class BclContractSignFieldInfo extends $tea.Model {
 // 司法纠纷平台自然人通用结构体
 export class JudicialPersonInfo extends $tea.Model {
   // 姓名
+  /**
+   * @example
+   * 张三
+   */
   name?: string;
   // 身份证号码
+  /**
+   * @example
+   * 310101199901010011
+   */
   certNumber?: string;
   // 联系电话
+  /**
+   * @example
+   * 1350000000
+   */
   phone?: string;
   // 民族
+  /**
+   * @example
+   * 汉
+   */
   nationality?: string;
   // 通讯地址
+  /**
+   * @example
+   * 通讯地址
+   */
   address?: string;
   // 身份证明
   identityCertification?: JudicialFileInfo;
   // 职务
+  /**
+   * @example
+   * 法人代表
+   */
   jobTitle?: string;
   // 任职证明
   jobCertification?: JudicialFileInfo;
   // 性别， 0-男，1-女
+  /**
+   * @example
+   * 0
+   */
   sex?: number;
   // 联系邮件地址
+  /**
+   * @example
+   * email@ali.com
+   */
   email?: string;
   static names(): { [key: string]: string } {
     return {
@@ -1359,12 +2126,28 @@ export class JudicialPersonInfo extends $tea.Model {
 // 法务电子签待签署文件列表
 export class AntSignFileRequest extends $tea.Model {
   // 文件名称
+  /**
+   * @example
+   * 测试文字.pdf
+   */
   fileName: string;
   // 文件httpUrl
+  /**
+   * @example
+   * http://aaaaa
+   */
   fileHttpUrl: string;
   // 单次请求文件唯一id，与CaSystemSignFileRequest中的fileId对应
+  /**
+   * @example
+   * 79ffa96040044b49b0fde8c3feb4898
+   */
   fileId: string;
   // 文件类型（只支持pdf）
+  /**
+   * @example
+   * pdf
+   */
   fileType: string;
   static names(): { [key: string]: string } {
     return {
@@ -1392,6 +2175,10 @@ export class AntSignFileRequest extends $tea.Model {
 // 承诺信息
 export class CommitmentInfo extends $tea.Model {
   // 租金总额
+  /**
+   * @example
+   * 7890.00
+   */
   totalRent: string;
   // 租赁分期信息
   rentalStagingInformation: RentalStagingInformation[];
@@ -1417,16 +2204,40 @@ export class CommitmentInfo extends $tea.Model {
 // 当被申请人为法人
 export class LegalPerson extends $tea.Model {
   // 被申请人姓名
+  /**
+   * @example
+   * 李四
+   */
   name: string;
   // 法人统一社会信用编码
+  /**
+   * @example
+   * 412702199812252774
+   */
   idNumber: string;
   // 法定代表人姓名
+  /**
+   * @example
+   * 李四
+   */
   representativeName?: string;
   // 联系方式
+  /**
+   * @example
+   * 13812123232
+   */
   legalPhoneNumber?: string;
   // 住所地（同营业执照地址）
+  /**
+   * @example
+   * 北京市朝阳区XX地址
+   */
   legalAddress?: string;
   // 企业经营地址
+  /**
+   * @example
+   * 北京市朝阳区XX地址
+   */
   legalBusinessAddress?: string;
   // 营业执照照片
   // 文件信息列表（先调用接口获取上传url和fileKey）
@@ -1463,12 +2274,28 @@ export class LegalPerson extends $tea.Model {
 // 司法纠纷平台银行信息结构体
 export class JudicialBankInfo extends $tea.Model {
   // 开户行
+  /**
+   * @example
+   * 开户银行
+   */
   accountBank: string;
   // 开户账号
+  /**
+   * @example
+   * f3232sdj32fl312ksdj
+   */
   accountNumber: string;
   // 开户名称
+  /**
+   * @example
+   * 示例开户名称
+   */
   accountName: string;
   // 开户联系电话
+  /**
+   * @example
+   * 15000000000
+   */
   accountContactPhone: string;
   static names(): { [key: string]: string } {
     return {
@@ -1496,6 +2323,10 @@ export class JudicialBankInfo extends $tea.Model {
 // 文本签签名信息
 export class ContractTextSignVerifySignatureInfo extends $tea.Model {
   // 是否被篡改
+  /**
+   * @example
+   * true, false
+   */
   isModify?: boolean;
   static names(): { [key: string]: string } {
     return {
@@ -1517,11 +2348,23 @@ export class ContractTextSignVerifySignatureInfo extends $tea.Model {
 // 阶段存证内容类表，根据模板定义传入
 export class PhaseNotary extends $tea.Model {
   // 阶段编号，与模板阶段编号保持一致，不同阶段阶段编号不一样，要与阶段存证内容保持一致
+  /**
+   * @example
+   * 1
+   */
   phaseNo: number;
   // 阶段存证内容，如果模板数据类型定义是Hash(哈希)则填入Hash即可，如果定义是Structure(结构化)，则填入模板所有字段json对象的字符串Base64后的值
+  /**
+   * @example
+   * 123123
+   */
   notaryContent: string;
   // 业务方原始数据ID，业务方确保唯一，方便与业务方进行数据核对使用
   // 
+  /**
+   * @example
+   * xxxx
+   */
   originDataId: string;
   static names(): { [key: string]: string } {
     return {
@@ -1547,22 +2390,50 @@ export class PhaseNotary extends $tea.Model {
 // 租赁宝plus用户信息
 export class BclInsuranceUserInfo extends $tea.Model {
   // 用户名称
+  /**
+   * @example
+   * 蚂蚁区块链科技（上海）有限公司
+   */
   userName: string;
   // 保险用户类型：
   // HOLDER_ORG: 投保人（机构）
   // INSURED_ORG: 被保人（机构）
   // INSURANCE_ORG: 保司（机构）
+  /**
+   * @example
+   * HOLDER_ORG
+   */
   userType: string;
   // 证件号名称:
   // USCC，社会统一信用代码，目前仅支持
+  /**
+   * @example
+   * USCC
+   */
   idType: string;
   // 证件号码
+  /**
+   * @example
+   * 91310101MA1FPCXA3G
+   */
   idNumber: string;
   // 联系地址
+  /**
+   * @example
+   * 上海市黄浦区外马路618号8层803室
+   */
   address: string;
   // 联系方式
+  /**
+   * @example
+   * 021-61686888
+   */
   mobile: string;
   // 邮件地址
+  /**
+   * @example
+   * xxx@aa.com
+   */
   mail: string;
   static names(): { [key: string]: string } {
     return {
@@ -1597,24 +2468,56 @@ export class BclInsuranceUserInfo extends $tea.Model {
 export class BclUserInfo extends $tea.Model {
   // 用户账号ID
   // 长度不超过64位，本期只支持支付宝userid
+  /**
+   * @example
+   * 2088xxxxx
+   */
   userAccountId: string;
   // 用户账号平台类型
   // 1.支付宝：ALIPAY
   // 本期暂时只支持支付宝
+  /**
+   * @example
+   * ALIPAY
+   */
   userAccountType: string;
   // 承租人/企业姓名,长度不超过32位
+  /**
+   * @example
+   * 张三
+   */
   userCertName: string;
   // 承租人/企业证件号,长度不超过64位
+  /**
+   * @example
+   * 5002331982122xx233
+   */
   userCertNo: string;
   // 承租人/企业证件类型:
   // 1.身份证：IDENTITY_CARD
   // 本期暂时只支持个人身份证
+  /**
+   * @example
+   * IDENTITY_CARD
+   */
   userCertType: string;
   // 承租人/企业手机号,长度不超过32位
+  /**
+   * @example
+   * 172312xx231
+   */
   userPhoneNumber: string;
   // 承租人身份证人像面/企业营业执照 先调用文件上传的接口,这里填上传后返回的fileid
+  /**
+   * @example
+   * 24343.jpg
+   */
   userCertFrontFileId: string;
   // 承租人身份证国徽面 先调用文件上传的接口,这里填上传后返回的fileid
+  /**
+   * @example
+   * 342323.jpg
+   */
   userCertBackFileId?: string;
   static names(): { [key: string]: string } {
     return {
@@ -1650,14 +2553,34 @@ export class BclUserInfo extends $tea.Model {
 // 签署链接
 export class AntSignUrlResult extends $tea.Model {
   // 签署方名称
+  /**
+   * @example
+   * 某某
+   */
   signCertName: string;
   // 签署方证件号（脱敏）
+  /**
+   * @example
+   * 421011111111111111
+   */
   signCertNo: string;
   // 签署方 id
+  /**
+   * @example
+   * CA20220920000002
+   */
   signUserId: string;
   // 加密后的签署方证件号(用来关联签署方的签署链接)
+  /**
+   * @example
+   * 9***************3G
+   */
   encryptSignCertNo: string;
   // 签署链接：电子签任务为异步任务，请确保已处于签署中（SIGNNING）状态，再给用户发送签署链接，否则用户签署会不成功
+  /**
+   * @example
+   * https://p.tb.cn/_5He390eo6NzfmuCzcNhzwO
+   */
   signUrl: string;
   static names(): { [key: string]: string } {
     return {
@@ -1687,8 +2610,16 @@ export class AntSignUrlResult extends $tea.Model {
 // 自动进件履约信息
 export class LeasePerformanceInfo extends $tea.Model {
   // 支付租金总额
+  /**
+   * @example
+   * 123.00
+   */
   rentPayTotal: string;
   // 买断金额
+  /**
+   * @example
+   * 123.00
+   */
   buyoutAmount?: string;
   // 租赁分期履约信息
   rentalInstallmentPerformance?: RentalInstallmentPerformance[];
@@ -1716,16 +2647,40 @@ export class LeasePerformanceInfo extends $tea.Model {
 // 答辩人为自然人对象
 export class NaturalPerson extends $tea.Model {
   // 自然人姓名
+  /**
+   * @example
+   * 李四
+   */
   name: string;
   // 自然人手机号码
+  /**
+   * @example
+   * 13821323232
+   */
   mobileNumber: string;
   // 自然人身份号码
+  /**
+   * @example
+   * 412702199812252774
+   */
   idNumber: string;
   // 自然人民族
+  /**
+   * @example
+   * 汉
+   */
   nation?: string;
   // 自然人身份地址
+  /**
+   * @example
+   * 北京市朝阳区XX地址
+   */
   address?: string;
   // 自然人电子邮箱
+  /**
+   * @example
+   * 323232321@alibba-inc.com
+   */
   email?: string;
   // 自然人身份证正反面照片
   // 文件信息 列表（先调用接口获取上传url和fileKey）
@@ -1762,14 +2717,34 @@ export class NaturalPerson extends $tea.Model {
 // 文件签验签证书结构体
 export class ContractDocSignVerifyCertInfo extends $tea.Model {
   // 证书所有者
+  /**
+   * @example
+   * 杭州**有限公司
+   */
   owner?: string;
   // 证书序列号
+  /**
+   * @example
+   * 536deb6bfce98a9143f143ca
+   */
   serial?: string;
   // 证书开始日期
+  /**
+   * @example
+   * 2020-04-13 11:46:18
+   */
   startDate?: string;
   // 证书结束日期
+  /**
+   * @example
+   * 2021-04-13 11:46:18
+   */
   endDate?: string;
   // 证书颁发机构
+  /**
+   * @example
+   * 智慧CA_测试
+   */
   issuerCn?: string;
   static names(): { [key: string]: string } {
     return {
@@ -1799,20 +2774,52 @@ export class ContractDocSignVerifyCertInfo extends $tea.Model {
 // 可信存证存证地点信息
 export class Location extends $tea.Model {
   // 所在城市
+  /**
+   * @example
+   * 杭州
+   */
   city?: string;
   // 使用设备的IMEI号
+  /**
+   * @example
+   * 359426002899056
+   */
   imei?: string;
   // 使用设备的IMSI号
+  /**
+   * @example
+   * 460001357924680
+   */
   imsi?: string;
   // 使用设备的IP地址
+  /**
+   * @example
+   * 0.0.0.0
+   */
   ip?: string;
   // 纬度
+  /**
+   * @example
+   * 66.33
+   */
   latitude?: string;
   // 经度
+  /**
+   * @example
+   * 23.26
+   */
   longitude?: string;
   // 使用设备的Wi-Fi物理地址
+  /**
+   * @example
+   * 00-01-6C-06-A6-29
+   */
   macAddr?: string;
   // 扩展属性
+  /**
+   * @example
+   * {"key":"value"}
+   */
   properties?: string;
   static names(): { [key: string]: string } {
     return {
@@ -1848,16 +2855,32 @@ export class Location extends $tea.Model {
 // 签署子任务结果
 export class AntSignTaskResult extends $tea.Model {
   // 子任务流水号
+  /**
+   * @example
+   * 子任务流水号
+   */
   subBizNo?: string;
   // 签署子任务id
+  /**
+   * @example
+   * 签署子任务id
+   */
   signTaskId?: string;
   // 签署子任务状态:
   // INIT-初始化
   // SIGNING-签署中
   // SIGNED-已签署
   // REJECTED-已拒绝
+  /**
+   * @example
+   * INIT
+   */
   signTaskStatus?: string;
   // 上下游透传参数
+  /**
+   * @example
+   * 上下游透传参数
+   */
   extraParam?: string;
   // 签署子任务完成的文件里表
   antSignFileResultList?: AntSignFileResult[];
@@ -1893,8 +2916,16 @@ export class AntSignTaskResult extends $tea.Model {
 // 法务电子签章图片信息
 export class PngDetails extends $tea.Model {
   // 明细唯一id
+  /**
+   * @example
+   * 1
+   */
   id: string;
   // 图片 osskey
+  /**
+   * @example
+   * ESIGN/ato/ca_png/ORG/111.png
+   */
   fileKey: string;
   static names(): { [key: string]: string } {
     return {
@@ -1918,16 +2949,40 @@ export class PngDetails extends $tea.Model {
 // 自动进件案件基础信息
 export class CaseBasicInfo extends $tea.Model {
   // 案件租户id
+  /**
+   * @example
+   * ORGJC1CN
+   */
   bizTenantId: string;
   // 案件类型:LEASE：租赁，FINANCIAL：金融，OTHER：其他
+  /**
+   * @example
+   * LEASE
+   */
   caseType: string;
   // 标的金额（单位元）
+  /**
+   * @example
+   * 123.00
+   */
   amount?: string;
   // 业务来源主键
+  /**
+   * @example
+   * 232278957595482
+   */
   inputSourceId: string;
   // 案件进件来源 
+  /**
+   * @example
+   * 租赁宝
+   */
   inputSource: string;
   // 根据业务来源主键对应订单号下的租赁事实报告和证据列表页面的嵌入URL
+  /**
+   * @example
+   * https://www.aliyun.com
+   */
   caseExt?: string;
   static names(): { [key: string]: string } {
     return {
@@ -1959,16 +3014,40 @@ export class CaseBasicInfo extends $tea.Model {
 // 电子合同存证代扣计划执行操作信息
 export class ContractNotaryDeductExecutionInfo extends $tea.Model {
   // 付款方的区块链合同签署账号
+  /**
+   * @example
+   * someId
+   */
   payerId: string;
   // 扣款金额，单位分
+  /**
+   * @example
+   * 100
+   */
   amount: number;
   // 扣款渠道
+  /**
+   * @example
+   * channel
+   */
   channel: string;
   // 扣款操作是否成功
+  /**
+   * @example
+   * true, false
+   */
   result: boolean;
   // 扣款操作发起时间
+  /**
+   * @example
+   * 1589198173000
+   */
   timestamp: string;
   // 代扣计划ID
+  /**
+   * @example
+   * 04181b49ee5d7eb0099a289ac8a45df6afb5aa2679c5284444698a9790099269_1
+   */
   order: string;
   static names(): { [key: string]: string } {
     return {
@@ -2000,10 +3079,22 @@ export class ContractNotaryDeductExecutionInfo extends $tea.Model {
 // 数字票根计量字段
 export class MetricInfo extends $tea.Model {
   // 实际计收金额，单位：分。如传100，即为100分，1元
+  /**
+   * @example
+   * 100
+   */
   collectAmount: number;
   // 计收受理时间
+  /**
+   * @example
+   * 2022-04-15 17:05:37
+   */
   collectTime: string;
   // 计收的订单流水号
+  /**
+   * @example
+   * 12345678
+   */
   collectSerialNumber: string;
   static names(): { [key: string]: string } {
     return {
@@ -2029,14 +3120,34 @@ export class MetricInfo extends $tea.Model {
 // 融资租赁资方承诺
 export class LeaseCreditPromiseInfo extends $tea.Model {
   // 租期index
+  /**
+   * @example
+   * 1
+   */
   term: number;
   // 应还金额
+  /**
+   * @example
+   * 123400
+   */
   payMoney: number;
   // 应还款时间
+  /**
+   * @example
+   * 2019-07-31 12:00:00
+   */
   payDate: string;
   // 垫付日
+  /**
+   * @example
+   * 2019-07-31 12:00:00
+   */
   payInAdvanceTime: string;
   // 垫付金额
+  /**
+   * @example
+   * 123400
+   */
   payInAdvanceMoney: number;
   static names(): { [key: string]: string } {
     return {
@@ -2066,8 +3177,16 @@ export class LeaseCreditPromiseInfo extends $tea.Model {
 // 融资租赁订单额外信息
 export class LeaseOrderExtra extends $tea.Model {
   // 额外信息的主键
+  /**
+   * @example
+   * "key"
+   */
   key: string;
   // 额外信息的值
+  /**
+   * @example
+   * "value"
+   */
   value: string;
   static names(): { [key: string]: string } {
     return {
@@ -2091,40 +3210,92 @@ export class LeaseOrderExtra extends $tea.Model {
 // 发起人对象
 export class ProposerObject extends $tea.Model {
   // 申请人姓名
+  /**
+   * @example
+   * 李四
+   */
   name: string;
   // 统一社会信用代码
+  /**
+   * @example
+   * 412702199812252774
+   */
   idNumber: string;
   // 联系电话
+  /**
+   * @example
+   * 13821212121
+   */
   phoneNumber?: string;
   // 电子邮箱地址
+  /**
+   * @example
+   * 323232321@alibba-inc.com
+   */
   email?: string;
   // 经营地址
+  /**
+   * @example
+   * 北京市朝阳区XX地址
+   */
   businessAddress?: string;
   // 营业执照照片
   // 文件信息 列表
   idNumberFile?: FileInfo[];
   // 法定代表人姓名
+  /**
+   * @example
+   * 李四
+   */
   representativeName?: string;
   // 法定代表人性别
   // 0: 男 1: 女
+  /**
+   * @example
+   * 0
+   */
   representativeSex?: number;
   // 法定代表人身份证号码
+  /**
+   * @example
+   * 412702199812252774
+   */
   representativeIdNumber?: string;
   // 法定代表人手机号码
+  /**
+   * @example
+   * 1383312323
+   */
   representativeMobileNumber?: string;
   // 法定代表人代表身份证明
   // 文件信息列表
   representativeIdNumberFile?: FileInfo[];
   // 法定代表人职务
+  /**
+   * @example
+   * 经理
+   */
   representativePost?: string;
   // 法定代表人职务证明
   // 文件信息列表
   representativePostFile?: FileInfo[];
   // 签章管理员姓名
+  /**
+   * @example
+   * 李四
+   */
   signatureManagerName?: string;
   // 签章管理员身份证号码
+  /**
+   * @example
+   * 412702199812252774
+   */
   signatureManagerIdCard?: string;
   // 签章管理员手机号码
+  /**
+   * @example
+   * 13812123232
+   */
   signatureManagerPhone?: string;
   static names(): { [key: string]: string } {
     return {
@@ -2176,10 +3347,22 @@ export class ProposerObject extends $tea.Model {
 // 融资租赁人脸认证提前还款租期记录
 export class FinanceCertifyRentalInfo extends $tea.Model {
   // 租期
+  /**
+   * @example
+   * 1
+   */
   rentTerm: number;
   // 本期扣款金额，123400表示12.34元
+  /**
+   * @example
+   * 123400
+   */
   rentalMoney: number;
   // 还款日期，格式为"2019-07-31 12:00:00"
+  /**
+   * @example
+   * 2019-07-31 12:00:00
+   */
   rentalReturnTime: string;
   static names(): { [key: string]: string } {
     return {
@@ -2205,24 +3388,64 @@ export class FinanceCertifyRentalInfo extends $tea.Model {
 // 创建电子合同签署盖章区时的申请信息
 export class ContractSignFieldApplication extends $tea.Model {
   // 是否添加签署时间戳，默认不添加，时间格式如"2019-03-11 10:12:12"
+  /**
+   * @example
+   * true, false
+   */
   addSignTime?: boolean;
   // 签约主体账号标识， 将使用该主体账号对应的数字证书完成本次签署，如：当存在签署操作人代某机构签署时，需要传入该机构的账号id
+  /**
+   * @example
+   * 2c7de24aff3340f5b944ebac49545b8e
+   */
   authorizedAccountId: string;
   // 电子合同文件ID
+  /**
+   * @example
+   * fe7df2f477d649c18ebcfdfffeba253d
+   */
   fileId: string;
   // 签署区顺序，默认1,且不小于1，顺序越小越先处理
+  /**
+   * @example
+   * 1
+   */
   order?: number;
   // 页码信息：当签署区signType为2时, 页码可以_-_分割, 例如1到15页，填"1-15"； 其他情况只能是数字
+  /**
+   * @example
+   * 1
+   */
   posPage: string;
   // x坐标转为字符串的值，默认空，页面签章必填，骑缝签章不填写
+  /**
+   * @example
+   * 158.72531
+   */
   posX?: string;
   // y坐标转为字符串的值
+  /**
+   * @example
+   * 431.05658
+   */
   posY: string;
   // 印章id ，如不传，则采用账号下的默认印章
+  /**
+   * @example
+   * bcd7ffd9-5caf-4342-bd1c-02257229ccd5
+   */
   sealId?: string;
   // 第三方业务流水号id，保证相同签署人、相同签约主体、相同签署顺序的任务，对应的第三方业务流水id唯一，默认空
+  /**
+   * @example
+   * someordernumber
+   */
   thirdOrderNo?: string;
   // 签署区宽，默认印章宽度	
+  /**
+   * @example
+   * 1
+   */
   width?: string;
   // 签署类型，1-单页签署，2-骑缝签署，默认1
   signType?: number;
@@ -2266,16 +3489,40 @@ export class ContractSignFieldApplication extends $tea.Model {
 // 机构信息
 export class ContractUserOrganizationApplication extends $tea.Model {
   // 证件号，该字段只有为空才允许修改
+  /**
+   * @example
+   * 12330100470104939U
+   */
   idNumber?: string;
   // 证件类型 ，默认CRED_ORG_USCC
+  /**
+   * @example
+   * CRED_ORG_USCC
+   */
   idType?: string;
   // 企业法定代表人名称
+  /**
+   * @example
+   * 测试法人
+   */
   legalPerson?: string;
   // 企业法定代表人证件号
+  /**
+   * @example
+   * 311111111111111111
+   */
   legalPersonId?: string;
   // 机构名称
+  /**
+   * @example
+   * 测试企业
+   */
   name?: string;
   // 机构账号id
+  /**
+   * @example
+   * ORGJC1CN1591666666666
+   */
   organizationId: string;
   static names(): { [key: string]: string } {
     return {
@@ -2340,10 +3587,22 @@ export class LeaseEvidentialElement extends $tea.Model {
 // 电子合同签署盖章区
 export class ContractSignField extends $tea.Model {
   // 电子合同用户ID
+  /**
+   * @example
+   * faea8237c61a4fdea864ee8d7621e14f
+   */
   accountId: string;
   // 电子合同文档ID
+  /**
+   * @example
+   * fe7df2f477d649c18ebcfdfffeba253d
+   */
   fileId: string;
   // 电子合同签署区id
+  /**
+   * @example
+   * b76b69d5b48d4f689cae997e42809ac4
+   */
   signfieldId: string;
   static names(): { [key: string]: string } {
     return {
@@ -2370,10 +3629,22 @@ export class ContractSignField extends $tea.Model {
 export class BclPromiseInfo extends $tea.Model {
   // 承诺租期 单位
   // 月 MONTH
+  /**
+   * @example
+   * MONTH
+   */
   rentUnit: string;
   // 总期数
+  /**
+   * @example
+   * 12
+   */
   rentTerm: number;
   // 总金额 单位分
+  /**
+   * @example
+   * 123123
+   */
   totalRentMoney: number;
   // 承诺履约详情
   promiseDetails: BclPromiseDetailInfo[];
@@ -2403,48 +3674,136 @@ export class BclPromiseInfo extends $tea.Model {
 // 签署区详情
 export class ContractSignFieldDetail extends $tea.Model {
   // 签约主体类别，0-个人，1-机构，默认0,2 是不限
+  /**
+   * @example
+   * 1
+   */
   actorIndentityType?: number;
   // 添加时间
+  /**
+   * @example
+   * 1561473111450
+   */
   addTime?: number;
   // 是否指定位置，TRUE表示不允许更新位置，配置项，无默认值
+  /**
+   * @example
+   * true, false
+   */
   assignedPosbean?: boolean;
   // 是否指定印章数据，TRUE表示不允许更新印章，配置项，无默认值
+  /**
+   * @example
+   * true, false
+   */
   assignedSeal?: boolean;
   // 签约主体账号标识，将使用该主体账号对应的数字证书完成本次签署，如：当存在签署操作人代某机构签署时，需要传入该机构的账号id
+  /**
+   * @example
+   * 2c7de24aff3340f5b944ebac49545b8e
+   */
   authorizedAccountId?: string;
   // 是否自动执行，TRUE需要静默授权，配置项，无默认值
+  /**
+   * @example
+   * true, false
+   */
   autoExecute?: boolean;
   // 执行失败原因
+  /**
+   * @example
+   *  
+   */
   executeFailedReason?: string;
   // 文件file id
+  /**
+   * @example
+   * fe7df2f477d649c18ebcfdfffeba253d
+   */
   fileId?: string;
   // 流程id
+  /**
+   * @example
+   * b2cb74258a634179b0df3cc54791c8b6
+   */
   flowId?: string;
   // 签署区顺序，默认1,且不小于1，顺序越小越先处理
+  /**
+   * @example
+   * 1
+   */
   order?: number;
   // 页码信息，可以_,_或_-_分割
+  /**
+   * @example
+   * 1
+   */
   posPage?: string;
   // x坐标
+  /**
+   * @example
+   * 158.72531
+   */
   posX?: string;
   // y坐标
+  /**
+   * @example
+   * 431.05658
+   */
   posY?: string;
   // 印章文件file key
+  /**
+   * @example
+   *  
+   */
   sealFileKey?: string;
   // 印章id
+  /**
+   * @example
+   *  
+   */
   sealId?: string;
   // 印章类型，支持多种类型时逗号分割，0-手绘印章，1-模版印章，为空不限制
+  /**
+   * @example
+   *  
+   */
   sealType?: string;
   // 签署操作人个人账号标识，即操作本次签署的个人，如需e签宝通知用户签署，则系统向该账号下绑定的手机、邮箱发送签署链接
+  /**
+   * @example
+   * faea8237c61a4fdea864ee8d7621e14f
+   */
   signerAccountId?: string;
   // 签署区Id
+  /**
+   * @example
+   * b76b69d5b48d4f689cae997e42809ac4
+   */
   signfieldId?: string;
   // 签署类型，0-不限，1-单页签署，2-骑缝签署,4-关键字签署，默认1
+  /**
+   * @example
+   * 0
+   */
   signType?: number;
   // 签署区状态（0："等待执行，1："执行中"，2："执行失败"，3："审批中"，4： "执行完成"）
+  /**
+   * @example
+   * 1
+   */
   status?: number;
   // 状态描述
+  /**
+   * @example
+   * 执行中
+   */
   statusDescription?: string;
   // 签署区宽
+  /**
+   * @example
+   *  
+   */
   width?: string;
   static names(): { [key: string]: string } {
     return {
@@ -2508,16 +3867,40 @@ export class ContractSignFieldDetail extends $tea.Model {
 // 采购供应商初始化 
 export class SupplierInfo extends $tea.Model {
   // 供应商id
+  /**
+   * @example
+   * ABCDEFGH
+   */
   agentSupplierId: string;
   // 被代理机构社会统一信用码
+  /**
+   * @example
+   * 12345678
+   */
   agentSupplierCorpId: string;
   // 被代理机构名称
+  /**
+   * @example
+   * 阿里巴巴有限公司
+   */
   agentSupplierCorpName: string;
   // 被代理供应商名称
+  /**
+   * @example
+   * 阿里
+   */
   agentSupplierName: string;
   // 被代理机构的法人名称
+  /**
+   * @example
+   * 张三
+   */
   agentSupplierCorpOwnerName: string;
   // 额外信息
+  /**
+   * @example
+   * {}
+   */
   extraInfo?: string;
   static names(): { [key: string]: string } {
     return {
@@ -2549,12 +3932,28 @@ export class SupplierInfo extends $tea.Model {
 // 电子合同存证代扣计划信息
 export class ContractNotaryDeductPlanInfo extends $tea.Model {
   // PAYERIDNUMBER
+  /**
+   * @example
+   * 付款方ID
+   */
   payerId: string;
   // “总金额：”+总金额“+”“总期数：”+总期数，“+”每期金额时间（X期金额，时间）
+  /**
+   * @example
+   * 代扣计划说明
+   */
   deductPlanInfo: string;
   // AGREEMEND_ID_NUMBER
+  /**
+   * @example
+   * 代扣协议ID
+   */
   agreementNo: string;
   // 代扣计划发起时间
+  /**
+   * @example
+   * 1589198173000
+   */
   timestamp: string;
   static names(): { [key: string]: string } {
     return {
@@ -2582,30 +3981,82 @@ export class ContractNotaryDeductPlanInfo extends $tea.Model {
 // 电子合同存证结束信息
 export class ContractNotaryFinishInfo extends $tea.Model {
   // 本阶段存证内容哈希值
+  /**
+   * @example
+   * content
+   */
   content: string;
   // 签署文件份数
+  /**
+   * @example
+   * 3
+   */
   fileNum: number;
   // 发起人ID
+  /**
+   * @example
+   * account_id_of_initiator
+   */
   initiator: string;
   // 签署人ID（支持多个，不同ID间用“,”分隔开）
+  /**
+   * @example
+   * account_id_1,account_id_2
+   */
   signatories: string;
   // 存证阶段发生时间，UNIX时间戳(毫秒)
+  /**
+   * @example
+   * 1589198173000
+   */
   timestamp: string;
   // 存证凭据，仅在批量核验时需要填写
+  /**
+   * @example
+   * 95a8201ad7362f9d224937cfb715b086ea1cf0d884f1c5b1f3ed092fddff1c92
+   */
   txHash?: string;
   // signatories对应的用户类型
+  /**
+   * @example
+   * PERSON,ENTERPRISE,PERSON
+   */
   userTypes?: string;
   // 签署合同所属行业
+  /**
+   * @example
+   * finance
+   */
   businessType?: string;
   // 合同对应的金额，如果不涉及金额，填充为0，个数与file_num对应
+  /**
+   * @example
+   * 888,0,888
+   */
   amounts?: string;
   // 签署方数量
+  /**
+   * @example
+   * 2
+   */
   signPartyCount?: number;
   // 发起人名称
+  /**
+   * @example
+   * 张三
+   */
   intiatorName?: string;
   // 签署人名称,多个逗号隔开
+  /**
+   * @example
+   * 李四,王五
+   */
   signatorNames?: string;
   // 详细文件哈希
+  /**
+   * @example
+   * a91a8201ad7362f9d224937cfb715b086ea1cf0d884f1c5b1f3ed092fddff1cqa
+   */
   detailInfoFileHash?: string;
   static names(): { [key: string]: string } {
     return {
@@ -2651,8 +4102,16 @@ export class ContractNotaryFinishInfo extends $tea.Model {
 // 见证流程文档检验数据
 export class WitnessDocs extends $tea.Model {
   // 文档摘要值
+  /**
+   * @example
+   * 04181b49ee5d7eb0099a289ac8a45df6afb5aa2679c5284444698a9790099269
+   */
   docHash: string;
   // 第三方文档id
+  /**
+   * @example
+   * someId
+   */
   thirdDocId: string;
   static names(): { [key: string]: string } {
     return {
@@ -2676,20 +4135,52 @@ export class WitnessDocs extends $tea.Model {
 // 平台方自动签署区信息
 export class ContractPlatformSignField extends $tea.Model {
   // 是否添加签署时间戳，默认不添加，时间格式如"2019-03-11 10:12:12"
+  /**
+   * @example
+   * true, false
+   */
   addSignTime?: boolean;
   // 签署区顺序，默认1,且不小于1，顺序越小越先处理
+  /**
+   * @example
+   * 1
+   */
   order?: number;
   // 页码信息，当签署区signType为2时, 页码可以_-_分割, 其他情况只能是数字
+  /**
+   * @example
+   * 1
+   */
   posPage: string;
   // x坐标转为字符串的值，默认空
+  /**
+   * @example
+   * 158.72531
+   */
   posX?: string;
   // y坐标转为字符串的值
+  /**
+   * @example
+   * 431.05658
+   */
   posY: string;
   // 印章id ，如不传，则采用账号下的默认印章
+  /**
+   * @example
+   * bcd7ffd9-5caf-4342-bd1c-02257229ccd5
+   */
   sealId?: string;
   // 第三方业务流水号id，保证相同签署人、相同签约主体、相同签署顺序的任务，对应的第三方业务流水id唯一，默认空
+  /**
+   * @example
+   * someordernumber
+   */
   thirdOrderNo?: string;
   // 签署区宽，默认印章宽度
+  /**
+   * @example
+   * 1
+   */
   width?: string;
   static names(): { [key: string]: string } {
     return {
@@ -2729,6 +4220,10 @@ export class ContractDocSignVerifyInfo extends $tea.Model {
   // 签名信息
   signature?: ContractDocSignVerifySignatureInfo;
   // 印章数据
+  /**
+   * @example
+   * 35058319XXxxxxxx33
+   */
   sealData?: string;
   static names(): { [key: string]: string } {
     return {
@@ -2758,10 +4253,22 @@ export class WitnessSignData extends $tea.Model {
   // 印章id列表
   sealIds?: string[];
   // 待签署文档摘要值，批量签时必传
+  /**
+   * @example
+   * 04181b49ee5d7eb0099a289ac8a45df6afb5aa2679c5284444698a9790099269
+   */
   signHash?: string;
   // 签署位置信息
+  /**
+   * @example
+   *  
+   */
   signPosData?: string;
   // 第三方文档id，批量签时必传
+  /**
+   * @example
+   *  
+   */
   thirdDocId?: string;
   static names(): { [key: string]: string } {
     return {
@@ -2791,22 +4298,58 @@ export class WitnessSignData extends $tea.Model {
 // 生成签名图片明细
 export class CreatePngDetails extends $tea.Model {
   // 明细唯一id，必填（用于标识明细中的唯一键，返回多个图片地址时，根据id去进行匹配）
+  /**
+   * @example
+   * 明细唯一id，必填（用于标识明细中的唯一键，返回多个图片地址时，根据id去进行匹配）
+   */
   id: string;
   // 身份类型，必填，SignUserTypeEnum
+  /**
+   * @example
+   * 1、PERSON：个人 2、ORG：公司
+   */
   certType: string;
   // 名称，个人姓名/公司名称
+  /**
+   * @example
+   * 个人姓名/公司名称
+   */
   name: string;
   // 证件号，个人身份证/公司统一社会信用代码
+  /**
+   * @example
+   * 个人身份证/公司统一社会信用代码
+   */
   certNo: string;
   // 字体大小，选填，推荐不传（除特殊场景需要），默认40
+  /**
+   * @example
+   * 40
+   */
   fontSize?: number;
   // 自定义名称，选填，不传则默认按照name参数中的值生成文件名。此参数主要用于同一个人需要生成不同样式的签名图片场景
+  /**
+   * @example
+   * 自定义名称
+   */
   customName?: string;
   // 字体颜色，选填，推荐不传（除特殊场景需要），默认黑色
+  /**
+   * @example
+   * 字体颜色，选填，推荐不传（除特殊场景需要），默认黑色
+   */
   fontColor?: string;
   // [是否带边框，选填，推荐不传（除特殊场景需要），默认false]": "boolean"
+  /**
+   * @example
+   * 是否带边框，选填，推荐不传（除特殊场景需要），默认false
+   */
   withBorder?: boolean;
   // [边框颜色，选填，推荐不传（除特殊场景需要），默认红色]
+  /**
+   * @example
+   * [边框颜色，选填，推荐不传（除特殊场景需要），默认红色]
+   */
   borderColor?: string;
   static names(): { [key: string]: string } {
     return {
@@ -2844,19 +4387,35 @@ export class CreatePngDetails extends $tea.Model {
 // 案件基础信息
 export class CaseBaseInfo extends $tea.Model {
   // caseID
+  /**
+   * @example
+   * 123213
+   */
   caseId: string;
   // PENDING_RIGHTS_PROTECTION(1, "待发起维权"),
   // TO_BE_SUBMITTED(2, "待提交"),
   // ACCEPTED_AND_PROCESSED(3, "收案处理中"),
   // RESULTS_TO_BE_CONFIRMED(4, "结果待确认"),
   // CLOSED(5, "已关闭"),
+  /**
+   * @example
+   * CLOSED
+   */
   casePhase: string;
   // 维权ID
+  /**
+   * @example
+   * 12323
+   */
   recordId: string;
   // MEDIATION(1, "调解"),
   // LITIGATION(2, "诉讼"),
   // ARBITRATION(3, "仲裁"),
   // CARRIED_OUT(4, "执行"),
+  /**
+   * @example
+   * MEDIATION
+   */
   recordType: string;
   // MATERIAL_PREPARATION(1, "材料准备中"),
   // SUBMITTED(2, "已提交"),
@@ -2879,18 +4438,46 @@ export class CaseBaseInfo extends $tea.Model {
   // WITHDRAW_SIGN_REVOCATION(19, "撤案签署撤销"),
   // SIGNED(20, "签署完成"),
   // WITHDRAW_SIGNED(21, "撤案签署完成"),
+  /**
+   * @example
+   * SUBMITTED
+   */
   caseStatus: string;
   // 案件提交时间
+  /**
+   * @example
+   * 2022-01-06 15:23:32
+   */
   submitTime: string;
   // 维权机构
+  /**
+   * @example
+   * 宁波仲裁委
+   */
   arbitralBody: string;
   // 结案时间 如没有则为""
+  /**
+   * @example
+   * 2022-01-06 12:23:12
+   */
   closeTime?: string;
   // 案号 如没有则为""
+  /**
+   * @example
+   * 第x年xx号
+   */
   acceptanceNumber?: string;
   // 案件回款金额,两位小数 单位(元) 如没有则为""
+  /**
+   * @example
+   * 1200.23
+   */
   casePaymentActualAmount?: string;
   // 是否能够下载 true可以下载 false没有可下载文件
+  /**
+   * @example
+   * true
+   */
   canDownload: string;
   static names(): { [key: string]: string } {
     return {
@@ -2932,14 +4519,34 @@ export class CaseBaseInfo extends $tea.Model {
 // 电子合同存证合同文档信息
 export class ContractNotaryDocumentInfo extends $tea.Model {
   // 签署完成的合同hash
+  /**
+   * @example
+   * content
+   */
   content: string;
   // 签署人ID（支持多个，不同ID间用“,”分隔开）
+  /**
+   * @example
+   * account_id_1,account_id_2
+   */
   signatories: string;
   // 存证结束时间，UNIX时间戳(毫秒)
+  /**
+   * @example
+   * 1589198173000
+   */
   timestamp: string;
   // 存证凭据，仅在批量核验时需要填写
+  /**
+   * @example
+   * 95a8201ad7362f9d224937cfb715b086ea1cf0d884f1c5b1f3ed092fddff1c92
+   */
   txHash?: string;
   // 签署的文件ID
+  /**
+   * @example
+   * 6afb5aa2679c5284444698a9790099269
+   */
   fileId: string;
   static names(): { [key: string]: string } {
     return {
@@ -2969,12 +4576,28 @@ export class ContractNotaryDocumentInfo extends $tea.Model {
 // 关键字位置列表
 export class KeywordsPosition extends $tea.Model {
   // 关键字
+  /**
+   * @example
+   * keyword1
+   */
   keyword: string;
   // 页码
+  /**
+   * @example
+   * 32
+   */
   pageIndex: number;
   // x坐标
+  /**
+   * @example
+   * 315.43
+   */
   posX: string;
   // y坐标
+  /**
+   * @example
+   * 185.65723
+   */
   posY: string;
   static names(): { [key: string]: string } {
     return {
@@ -3002,12 +4625,28 @@ export class KeywordsPosition extends $tea.Model {
 // 电子合同文档的下载地址
 export class ContractDocAddress extends $tea.Model {
   // 电子合同文档ID
+  /**
+   * @example
+   * 01e50a9cedb74493a2d320b4f4732a29
+   */
   fileId: string;
   // 电子合同文档名称，默认文件名称
+  /**
+   * @example
+   * 第一份合同.pdf
+   */
   fileName: string;
   // 电子合同下载文档地址, 有效时间1小时
+  /**
+   * @example
+   * https://xxxoss.oss-cn-hangzhou.aliyuncs.com/xxx.pdf?Expires=xxx&OSSAccessKeyId=xxx&Signature=xxx
+   */
   fileUrl: string;
   // 合同文件的存证地址
+  /**
+   * @example
+   * a89495ddd334870a58686afe48a8eb83efe2dd51e4c06da7220eb1cde0f995e2
+   */
   txHash?: string;
   static names(): { [key: string]: string } {
     return {
@@ -3035,28 +4674,76 @@ export class ContractDocAddress extends $tea.Model {
 // 数字票根通用字段
 export class StubCommonInfo extends $tea.Model {
   // 项目名称
+  /**
+   * @example
+   * 黄山景区数字票根
+   */
   projectName: string;
   // 客户名称（三方合约中甲方名称：景区或服务商）
+  /**
+   * @example
+   * 黄山景区
+   */
   sceneName: string;
   // 业务类型。目前只有数字票根这一个情景，枚举为：TICKET_STUB
+  /**
+   * @example
+   * TICKET_STUB
+   */
   bizType: string;
   // 业务来源；Alipay：支付宝，Scene：景区
+  /**
+   * @example
+   * Alipay
+   */
   bizSource: string;
   // 订单id。若bizSource为支付宝情况下传支付宝流水号（业务系统的出票流水号）；若bizSource为景区时传上游生成的订单号
+  /**
+   * @example
+   * xxxxxx
+   */
   orderId: string;
   // 订单名称
+  /**
+   * @example
+   * xxxxxx
+   */
   orderName?: string;
   // 订单总金额，单位：分。如传100，即为100分，1元
+  /**
+   * @example
+   * 100
+   */
   orderAmount: number;
   // 下单时间
+  /**
+   * @example
+   * 2022-04-15 17:05:37
+   */
   orderTime: string;
   // 待分账金额，单位：分。如传100，即为100分，1元
+  /**
+   * @example
+   * 100
+   */
   stubAmount: number;
   // 客户id。支付宝情况下传支付宝id，2088打头；景区时可传自定义的客户id
+  /**
+   * @example
+   * 2088xxxxx
+   */
   customerId: string;
   // 景区支付宝id，当biz_source为Alipay时，该字段必填
+  /**
+   * @example
+   * 2088xxxxx
+   */
   sceneAlipayId?: string;
   // 数字票根背面业务类型，如 IMAGE（背面上传照片业务）、IMAGEANDAR（背面上传照片和AR孔明灯业务）
+  /**
+   * @example
+   * IMAGE
+   */
   backType?: string;
   static names(): { [key: string]: string } {
     return {
@@ -3104,6 +4791,10 @@ export class WitnessFlowConfig extends $tea.Model {
   // 个人实名认证方式, 银行四要素：2；芝麻认证-人脸识别：3；微众-人脸识别：4；
   personRealnameTypes?: number[];
   // 是否需要实名认证
+  /**
+   * @example
+   * true, false
+   */
   realNameCert?: boolean;
   // 意愿认证方式, 芝麻认证-人脸识别：2；短信验证码：3；微众-人脸识别：4；ukey认证：5；签署密码认证：6；
   willingnessTypes?: number[];
@@ -3133,6 +4824,10 @@ export class WitnessFlowConfig extends $tea.Model {
 // 见证流程审批数据
 export class WitnessApprovalData extends $tea.Model {
   // 审批流程id
+  /**
+   * @example
+   * someId
+   */
   approvalFlowId?: string;
   // 印章id列表
   sealIds?: string[];
@@ -3158,40 +4853,112 @@ export class WitnessApprovalData extends $tea.Model {
 // 供应商商品信息
 export class SupplierProductItem extends $tea.Model {
   // 供应商名称
+  /**
+   * @example
+   * 戴尔
+   */
   supplierName?: string;
   // 商品型号
+  /**
+   * @example
+   * 商品型号
+   */
   productModel: string;
   // 供应商id
+  /**
+   * @example
+   * 供应商id
+   */
   supplierId?: string;
   // 商品唯一id
+  /**
+   * @example
+   * 2023423424
+   */
   productId: string;
   // 3C
+  /**
+   * @example
+   * 一级类目
+   */
   mainClass: string;
   // 预计发货量
+  /**
+   * @example
+   * 100
+   */
   estimatedShipment?: number;
   // 二级类目
+  /**
+   * @example
+   * 3C_pc
+   */
   subClass: string;
   // 商品详情
+  /**
+   * @example
+   * 商品详情
+   */
   productDetailInfo: string;
   // 商品品牌
+  /**
+   * @example
+   * 商品品牌
+   */
   productBrand: string;
   // 商品来源
+  /**
+   * @example
+   * 1
+   */
   productOrigin: number;
   // 商品名称
+  /**
+   * @example
+   * 商品名称
+   */
   productName: string;
   // 商品版本
+  /**
+   * @example
+   * 0
+   */
   productVersion: number;
   // 商品安装费用
+  /**
+   * @example
+   * 100
+   */
   installPrice?: number;
   // 实际库存
+  /**
+   * @example
+   * 0
+   */
   realStock?: number;
   // 保证金
+  /**
+   * @example
+   * 0
+   */
   depositPrice?: number;
   // 商品url
+  /**
+   * @example
+   * http://www.product.url
+   */
   productUrl?: string;
   // 官网价
+  /**
+   * @example
+   * 1000
+   */
   productPrice: number;
   // 商品预留字段
+  /**
+   * @example
+   * {}
+   */
   extraInfo?: string;
   static names(): { [key: string]: string } {
     return {
@@ -3247,12 +5014,28 @@ export class SupplierProductItem extends $tea.Model {
 // 阶段存证进度查询结果
 export class PhaseQueryResult extends $tea.Model {
   // 阶段ID
+  /**
+   * @example
+   * 4a605f04-ae9f-48d3-88ba-05c073ad5484
+   */
   phaseId: string;
   // 阶段存证的链上交易Hash，只有status为FINISH才会返回
+  /**
+   * @example
+   * 04181b49ee5d7eb0099a289ac8a45df6afb5aa2679c5284444698a97900xx269
+   */
   txHash: string;
   // 阶段存证状态
+  /**
+   * @example
+   * FINISH
+   */
   status: string;
   // 阶段注册成功时间戳
+  /**
+   * @example
+   * 12345678
+   */
   registerTime: number;
   static names(): { [key: string]: string } {
     return {
@@ -3280,8 +5063,16 @@ export class PhaseQueryResult extends $tea.Model {
 // 采购商品信息
 export class ApplySupplierOrderProductInput extends $tea.Model {
   // 采购商品id
+  /**
+   * @example
+   * 202024234234
+   */
   productId: string;
   // 采购商品数量
+  /**
+   * @example
+   * 100
+   */
   productNum: number;
   static names(): { [key: string]: string } {
     return {
@@ -3305,18 +5096,46 @@ export class ApplySupplierOrderProductInput extends $tea.Model {
 // 智能合同机构账户创建申请信息
 export class ContractOrganizationApplication extends $tea.Model {
   // 证件号
+  /**
+   * @example
+   * 12330100470104939U
+   */
   idNumber: string;
   // 证件类型，默认CRED_ORG_USCC，详见机构证件类型说明 （https://antchain.antgroup.com/docs/2/424437#）
+  /**
+   * @example
+   * CRED_ORG_USCC
+   */
   idType: string;
   // 企业法人名称
+  /**
+   * @example
+   * 测试法人
+   */
   legalPerson?: string;
   // 企业法人证件号
+  /**
+   * @example
+   * 311111111111111111
+   */
   legalPersonId?: string;
   // 机构名称
+  /**
+   * @example
+   * 测试企业
+   */
   name: string;
   // 机构唯一标识，可传入第三方平台的机构用户id等
+  /**
+   * @example
+   * B002
+   */
   organizationId?: string;
   // 机构子类型：ENTERPRISE（企业）、SELF-EMPLOYED（个体工商户）、SUBSIDIARY（分公司）、OTHERORG（其他机构）。若填入这些类型，将会进行相应参数校验，例如：企业类型要求进行企业四要素校验，企业证件号必须是91开头，并且企业类型在签署时会需要授权后才可进行签署；个体工商户要求证件号必须是92开头，其余类型无其他校验。不填入此参数不会进行校验。
+  /**
+   * @example
+   * ENTERPRISE
+   */
   orgType?: string;
   static names(): { [key: string]: string } {
     return {
@@ -3350,10 +5169,22 @@ export class ContractOrganizationApplication extends $tea.Model {
 // 阶段存证结果
 export class PhaseCreateResult extends $tea.Model {
   // 阶段编号，与模板阶段编号保持一致，不同阶段阶段编号不一样，要与阶段存证内容保持一致
+  /**
+   * @example
+   * 1
+   */
   phaseNo: number;
   // 阶段ID，阶段存证的唯一标记
+  /**
+   * @example
+   * 4a605f04-ae9f-48d3-88ba-05c073ad5484
+   */
   phaseId: string;
   // 业务方原始数据ID，方便与业务方进行数据核对使用，并且如果同一个阶段多次存证，则需要根据业务方原始数据ID识别不同的阶段存证响应
+  /**
+   * @example
+   * xxx
+   */
   originDataId: string;
   static names(): { [key: string]: string } {
     return {
@@ -3379,26 +5210,58 @@ export class PhaseCreateResult extends $tea.Model {
 // 证据清单
 export class EvidentialCheckList extends $tea.Model {
   // 证据名称英文 
+  /**
+   * @example
+   * LEGAL_IDENETITY_CERT
+   */
   evidentialNameEn: string;
   // 文件名称
+  /**
+   * @example
+   * a.txt
+   */
   ossFileName: string;
   // 文件fileKey ，调用获取文件上传链接时对应的fileKey
+  /**
+   * @example
+   * 201906182149291c15e6c2d400fc3323b09f44a4e79bdf2db867a3fb9400a168de3325205519.jpg
+   */
   ossFileKey: string;
   // 证据来源
   // BUSINESS_UPLOAD	业务传入
   // ADD_MANULLY	手动添加
+  /**
+   * @example
+   * BUSINESS_UPLOAD
+   */
   sourcesOfEvidence: string;
   // 证据类型
   // BLOCKCHAIN_DEPOSIT	区块链存证
   // USER_UPLOAD	用户上传
+  /**
+   * @example
+   * BLOCKCHAIN_DEPOSIT
+   */
   evidenceType: string;
   // 存证类型
   // TEXT	文本
   // FILE	文件
+  /**
+   * @example
+   * TEXT
+   */
   depositType: string;
   // 存证哈希 当为区块链存证必填
+  /**
+   * @example
+   * 1234545676575675673
+   */
   txHash?: string;
   // 存证时间 当为区块链存证必填
+  /**
+   * @example
+   * 2021-05-07 17:13:50
+   */
   depositTime?: string;
   static names(): { [key: string]: string } {
     return {
@@ -3434,10 +5297,22 @@ export class EvidentialCheckList extends $tea.Model {
 // 见证流程签署结果数据
 export class WitnessSignResult extends $tea.Model {
   // 签名结果，外部用户签署返回
+  /**
+   * @example
+   *  
+   */
   signResult?: string;
   // 签署日志id，外部用户签署返回
+  /**
+   * @example
+   *  
+   */
   signlogId?: string;
   // 第三方文档id
+  /**
+   * @example
+   *  
+   */
   thirdDocId?: string;
   static names(): { [key: string]: string } {
     return {
@@ -3463,14 +5338,34 @@ export class WitnessSignResult extends $tea.Model {
 // 核验请求时对应的存证元数据
 export class NotaryCheckMeta extends $tea.Model {
   // 对应的法院编号
+  /**
+   * @example
+   * hzfy
+   */
   agencyCode?: string;
   // 哈希算法, notary_type 为 HASH 时此参数必填
+  /**
+   * @example
+   * SHA256
+   */
   hashAlgorithm?: string;
   // 存证内容
+  /**
+   * @example
+   * 5p2t5bee5LuK5aSp5aSp5rCU6Zi0
+   */
   notaryContent: string;
   // 交易哈希
+  /**
+   * @example
+   * aac0cf38b6072352f6b3be4cc0a3cf3950058472eacdda91e6723d75e2994567
+   */
   txHash: string;
   // 应用ID
+  /**
+   * @example
+   * dstj
+   */
   applicationCode?: string;
   static names(): { [key: string]: string } {
     return {
@@ -3500,12 +5395,28 @@ export class NotaryCheckMeta extends $tea.Model {
 // 电子合同存证代扣计划退款信息
 export class ContractNotaryDeductRefundInfo extends $tea.Model {
   // PAYERIDNUMBER
+  /**
+   * @example
+   * 付款方ID
+   */
   payerId: string;
   // 退款金额，单位分
+  /**
+   * @example
+   * 100
+   */
   amount: number;
   // 代扣计划ID
+  /**
+   * @example
+   * 04181b49ee5d7eb0099a289ac8a45df6afb5aa2679c5284444698a9790099269_1
+   */
   order: string;
   // 退款操作发起时间
+  /**
+   * @example
+   * 1589198173000
+   */
   timestamp: string;
   static names(): { [key: string]: string } {
     return {
@@ -3533,6 +5444,10 @@ export class ContractNotaryDeductRefundInfo extends $tea.Model {
 // 共享项目，资产端的采购平台回传的物流信息
 export class SupplierLogisticInfo extends $tea.Model {
   // 采购平台的物流单号
+  /**
+   * @example
+   * SF1234567890
+   */
   logisticOrderId: string;
   static names(): { [key: string]: string } {
     return {
@@ -3554,18 +5469,46 @@ export class SupplierLogisticInfo extends $tea.Model {
 // 人保扩展信息
 export class RenbaoExtInfo extends $tea.Model {
   // 银行区域代码，可网上查询各银行最新对应的区域代码，比如杭州的区域代码为：3301
+  /**
+   * @example
+   * 3301
+   */
   recBankAreaCode: string;
   // 投保人收款账号
+  /**
+   * @example
+   * 8765123556748921
+   */
   accountNo: string;
   // 完整银行名称，不需要具体到分行
+  /**
+   * @example
+   * 工商银行
+   */
   bankName: string;
   // 投保人户名
+  /**
+   * @example
+   * XXXXX有限公司
+   */
   accountName: string;
   // 联行号
+  /**
+   * @example
+   * 827330119378
+   */
   cnaps: string;
   // 统一社会信用代码
+  /**
+   * @example
+   * 173829930011029381
+   */
   identifyNo: string;
   // 银行代码
+  /**
+   * @example
+   * BOC
+   */
   bankCode: string;
   static names(): { [key: string]: string } {
     return {
@@ -3603,6 +5546,10 @@ export class JudicialEventOperateInfo extends $tea.Model {
   //   延期确认: DELAY_CONFIRM
   //   回款确认: CASH_CONFIRM
   // 
+  /**
+   * @example
+   * DELAY_CONFIRM
+   */
   operateType: string;
   // 响应内容
   // 延期确认
@@ -3611,10 +5558,22 @@ export class JudicialEventOperateInfo extends $tea.Model {
   // 回款确认:
   //   确认-CONFIRM
   //   有异议-DISSENT
+  /**
+   * @example
+   * CONFIRM
+   */
   operateOpinion: string;
   // 当延期申请不同意,回款确认有异议时填写原因
+  /**
+   * @example
+   * 请求延期,请批准
+   */
   operateReason?: string;
   // 回款记录编号,回款确认时必填
+  /**
+   * @example
+   * 202243243234a
+   */
   reqBizNo?: string;
   static names(): { [key: string]: string } {
     return {
@@ -3642,17 +5601,47 @@ export class JudicialEventOperateInfo extends $tea.Model {
 // 电子合同签署流程的配置信息
 export class ContractSignFlowConfig extends $tea.Model {
   // 回调通知地址 ,默认取项目配置通知地址
+  /**
+   * @example
+   * http://127.0.0.1:9110/notice
+   */
   noticeDeveloperUrl?: string;
   // 签署通知和审批通知的通知方式，传 "" 表示不需要通知，传"1"表示短信通知。短信功能需要联系售后开白名单才会生效。
+  /**
+   * @example
+   * 1
+   */
   noticeType: string;
   // 签署成功或者流程结束后的默认重定向地址，默认签署完成停在当前页面
+  /**
+   * @example
+   * http://127.0.0.1:8110/h5/forword
+   */
   redirectUrl?: string;
   // 【该字段已废弃】签署平台，逗号分割，1-开放服务h5，2-支付宝签 ，默认值1
+  /**
+   * @example
+   * 1
+   */
   signPlatform?: string;
   // 签署失败时的跳转地址，如果不做单独配置，默认与redirect_url一致（配合twc.notary.contract.signflow.create接口使用）
+  /**
+   * @example
+   * http://127.0.0.1:8110/h5/forword/failure
+   */
   redirectUrlOnFailure?: string;
   // 是否允许自由签署，默认false（配合twc.notary.contract.signflow.create接口使用）
+  /**
+   * @example
+   * true, false
+   */
   freeSignature?: boolean;
+  // 代扣签署回调地址,配合代扣签署一起使用
+  /**
+   * @example
+   * http://127.0.0.1:8110/xxx
+   */
+  combineSignRedirectUrl?: string;
   static names(): { [key: string]: string } {
     return {
       noticeDeveloperUrl: 'notice_developer_url',
@@ -3661,6 +5650,7 @@ export class ContractSignFlowConfig extends $tea.Model {
       signPlatform: 'sign_platform',
       redirectUrlOnFailure: 'redirect_url_on_failure',
       freeSignature: 'free_signature',
+      combineSignRedirectUrl: 'combine_sign_redirect_url',
     };
   }
 
@@ -3672,6 +5662,7 @@ export class ContractSignFlowConfig extends $tea.Model {
       signPlatform: 'string',
       redirectUrlOnFailure: 'string',
       freeSignature: 'boolean',
+      combineSignRedirectUrl: 'string',
     };
   }
 
@@ -3683,14 +5674,34 @@ export class ContractSignFlowConfig extends $tea.Model {
 // 融资租赁商品出租详细信息
 export class RentInfo extends $tea.Model {
   // 租金
+  /**
+   * @example
+   * 2933300
+   */
   rentPrice: number;
   // 租期
+  /**
+   * @example
+   * 12
+   */
   rentTerm: number;
   // 手续费
+  /**
+   * @example
+   * 1234
+   */
   commission: number;
   // 买断价
+  /**
+   * @example
+   * 0
+   */
   buyoutPrice: number;
   // 留购价
+  /**
+   * @example
+   * 31903 
+   */
   retainedPrice: number;
   static names(): { [key: string]: string } {
     return {
@@ -3720,20 +5731,52 @@ export class RentInfo extends $tea.Model {
 // 融资租赁清分信息
 export class LeaseClearingInfo extends $tea.Model {
   // 还款批次
+  /**
+   * @example
+   * 1
+   */
   returnIndex: number;
   // 清分状态
+  /**
+   * @example
+   * 1
+   */
   clearingState: number;
   // 清分金额,精确到毫厘，即123400表示12.34元
+  /**
+   * @example
+   * 123400
+   */
   clearingMoney: number;
   // 开始清分时间
+  /**
+   * @example
+   * 2019-07-31 12:00:00
+   */
   startTime: string;
   // 结束清分时间
+  /**
+   * @example
+   * 2019-08-31 12:00:00
+   */
   endTime: string;
   // 清分单号
+  /**
+   * @example
+   * 2021231231231313
+   */
   clearingOrderId: string;
   // 清分收款账号
+  /**
+   * @example
+   * 88234234234xxxx
+   */
   clearingAccount: string;
   // 清分额外说明
+  /**
+   * @example
+   * ""
+   */
   memo: string;
   static names(): { [key: string]: string } {
     return {
@@ -3769,16 +5812,32 @@ export class LeaseClearingInfo extends $tea.Model {
 // 实人信息
 export class BclCertifyInfo extends $tea.Model {
   // 认证id
+  /**
+   * @example
+   * 071b2346e73dfe309345ff9954722d01
+   */
   certifyId?: string;
   // 认证url 如果status待认证,该字段非空,
   // 如果认证失败,这里的新的认证链接,支持重复认证
+  /**
+   * @example
+   * https://asdqweqw.com/asd
+   */
   certifyUrl?: string;
   // 认证描述
+  /**
+   * @example
+   * 通过
+   */
   resultDesc?: string;
   // 认证状态 
   // 1.待认证：INIT 
   // 2.认证成功：PASS 
   // 3.认证失败：FAIL
+  /**
+   * @example
+   * INIT
+   */
   status: string;
   static names(): { [key: string]: string } {
     return {
@@ -3806,12 +5865,28 @@ export class BclCertifyInfo extends $tea.Model {
 // 子任务信息
 export class SubAntSignResult extends $tea.Model {
   // 子业务流水号
+  /**
+   * @example
+   * subBizNo12345678901
+   */
   subBizNo: string;
   // 子任务流水号
+  /**
+   * @example
+   * 子任务流水号
+   */
   signTaskId?: string;
   // 我方userId
+  /**
+   * @example
+   * 我方userId
+   */
   ourUserId?: string;
   // 是否关联业务
+  /**
+   * @example
+   * true, false
+   */
   relatedBusiness?: boolean;
   // 签署链接
   antSignUrlResultList: AntSignUrlResult[];
@@ -3843,22 +5918,58 @@ export class SubAntSignResult extends $tea.Model {
 // 代扣订单信息
 export class DeductOrderInfo extends $tea.Model {
   // 订单id
+  /**
+   * @example
+   * 9d3057dfdcad494fb2d9033130
+   */
   orderId: string;
   // 商户统一社会信用代码
+  /**
+   * @example
+   * 91310101MA1FPODA3G
+   */
   merchantId: string;
   // 租户id
+  /**
+   * @example
+   * CYRMAXCZ
+   */
   tenantId: string;
   // 用户支付宝uid
+  /**
+   * @example
+   * 2088xxxxxxxx8721
+   */
   alipayUserId: string;
   // 商品名称
+  /**
+   * @example
+   * iPhone19 Pro Max
+   */
   productName?: string;
   // 订单创建时间
+  /**
+   * @example
+   * 2024-01-01 00:00:00
+   */
   orderCreateDate: string;
   // 订单状态
+  /**
+   * @example
+   * OPEN
+   */
   orderStatusCode?: string;
   // 订单子状态,ORDER_FULFILLMENT: 履约中;ORDER_FULFILLMENT_COMPLETED:履约完成;
+  /**
+   * @example
+   * ORDER_FULFILLMENT
+   */
   orderSubStatusCode: string;
   // 总金额，单位为分
+  /**
+   * @example
+   * 100
+   */
   totalRentMoney: number;
   static names(): { [key: string]: string } {
     return {
@@ -3898,6 +6009,10 @@ export class BclContractFlowInfo extends $tea.Model {
   // 合同主题
   // 注：名称不支持以下9个字符：/ \ : * " < > | ？
   // 仅当使用合同服务时必填
+  /**
+   * @example
+   * 主题信息
+   */
   businessScene?: string;
   // 流程中的签署文件信息
   // 本期只支持一个文件
@@ -3905,18 +6020,38 @@ export class BclContractFlowInfo extends $tea.Model {
   fileInfo?: BclContractFileInfo[];
   // 签署失败时的跳转地址
   // 如果不做单独配置，默认与redirect_url一致
+  /**
+   * @example
+   * http://www.xxx.com
+   */
   redirectUrlOnFailure?: string;
   // 流程结束后的默认重定向地址
   // 默认签署完成停在当前页面
+  /**
+   * @example
+   * http://www.xxx.com
+   */
   redirectUrl?: string;
   // 签署平台，ALIPAY（支付宝小程序）或H5，默认H5
+  /**
+   * @example
+   * ALIPAY
+   */
   signPlatform?: string;
   // 收款方的ID，调用创建收款方接口获得
+  /**
+   * @example
+   * 202308181123XXX
+   */
   payeeId?: string;
   // 签署模式:
   // 模板签署:TEMPLATE_SIGN,使用同模板流程创建合同信息；
   // 原文签署:ORIGINAL_SIGN，使用原来的流程创建合同信息;
   // 未传值即为(原文签署:ORIGINAL_SIGN)
+  /**
+   * @example
+   * TEMPLATE_SIGN
+   */
   signMode?: string;
   static names(): { [key: string]: string } {
     return {
@@ -3950,20 +6085,48 @@ export class BclContractFlowInfo extends $tea.Model {
 // 阶段详情信息
 export class PhaseDetail extends $tea.Model {
   // 阶段id
+  /**
+   * @example
+   * 877c4383-9c83-477b-b7ec-03828a946***
+   */
   phaseId: string;
   // 阶段编号
+  /**
+   * @example
+   * 1
+   */
   phaseNo: number;
   // 阶段存证时间
+  /**
+   * @example
+   * 1661262742335
+   */
   registerTime: number;
   // 阶段存证凭据
+  /**
+   * @example
+   * 04181b49ee5d7eb0099a289ac8a45df6afb5aa2679c5284444698a9790099269
+   */
   txHash: string;
   // 模板字段类型，Hash/Structure，(Hash->哈希,Structure->结构化)
+  /**
+   * @example
+   * Hash/Structure
+   */
   dataType: string;
   // 阶段存证内容
   // 如果模板数据类型定义是Hash(哈希)则返回存证时Hash
   // 如果定义是Structure(结构化)，则返回所有字段json对象的字符串Base64后的值
+  /**
+   * @example
+   * 111111
+   */
   notaryContent: string;
   // 模板字段类型为Structure时才有值，结构化数据里面英文key对应的中文名称关系，json格式，key为字段英文名，value为字段中文名称
+  /**
+   * @example
+   * { "name":"名称" }
+   */
   dataTypeKey: string;
   static names(): { [key: string]: string } {
     return {
@@ -3997,16 +6160,40 @@ export class PhaseDetail extends $tea.Model {
 // 企业四要素校验
 export class CompanyFourMetaInfo extends $tea.Model {
   // 企业证件名称
+  /**
+   * @example
+   * XX公司
+   */
   companyCertName: string;
   // 企业证件号码
+  /**
+   * @example
+   * 9111011421316034XK
+   */
   companyCertNo: string;
   // 证件类型, 默认社会统一信用代码  NATIONAL_LEGAL_MERGE:统一社会信用代码，NATIONAL_LEGAL：营业执照号码
+  /**
+   * @example
+   * NATIONAL_LEGAL_MERGE
+   */
   companyCertType?: string;
   // 法人证件名称
+  /**
+   * @example
+   * 张三
+   */
   legalPersonCertName: string;
   // 法人证件号码
+  /**
+   * @example
+   * 110103202110131593
+   */
   legalPersonCertNo: string;
   // 法人证件类型 RESIDENT：居民身份证号，PASSPORT：护照，MILITARY：军官证
+  /**
+   * @example
+   * RESIDENT
+   */
   legalPersonCertType?: string;
   static names(): { [key: string]: string } {
     return {
@@ -4038,32 +6225,88 @@ export class CompanyFourMetaInfo extends $tea.Model {
 // 案件进度查询返回结果
 export class MediationCaseDetailInfo extends $tea.Model {
   // 案件编码
+  /**
+   * @example
+   * 测试案件编号001
+   */
   caseNumber: string;
   // 案号
+  /**
+   * @example
+   * (2021)互调001号
+   */
   caseCode: string;
   // 案由
+  /**
+   * @example
+   * 金融合同纠纷
+   */
   causeActionName: string;
   // 案件状态
+  /**
+   * @example
+   * 已提交
+   */
   caseTatus: string;
   // 调解平台
+  /**
+   * @example
+   * 北京版权调解中心
+   */
   mediationPlatform: string;
   // 调解机构
+  /**
+   * @example
+   * XX云调中心
+   */
   mediationOrg: string;
   // 调解员
+  /**
+   * @example
+   * 调解员1
+   */
   mediator: string;
   // 申请时间
+  /**
+   * @example
+   * 1611545931418
+   */
   applyTime: number;
   // 调解结果
+  /**
+   * @example
+   * 调解成功
+   */
   mediationResult: string;
   // 申请人意向金额
+  /**
+   * @example
+   * 8500.21
+   */
   accuserIntentAmount: number;
   // 被申请人意向金额
+  /**
+   * @example
+   * 7800.34
+   */
   accusedIntentAmount: number;
   // 和解金额
+  /**
+   * @example
+   * 8213.12
+   */
   mediationAmount: number;
   // 已确认事实
+  /**
+   * @example
+   * 证据1、2、3的三性双方已确认
+   */
   confirmFact: string;
   // 调解协议（已达成调解协议或未达成原因）
+  /**
+   * @example
+   * 双方同意减免10%的费用,以7800.34元达成调解协议
+   */
   mediationAgreement: string;
   static names(): { [key: string]: string } {
     return {
@@ -4111,6 +6354,10 @@ export class MediationCaseDetailInfo extends $tea.Model {
 // 答辩人对象
 export class PleaderObject extends $tea.Model {
   // 法人或自然人标识，法人为1，自然人为0
+  /**
+   * @example
+   * 0
+   */
   partyType: number;
   // 自然人信息
   // 当partyType=1必填
@@ -4142,20 +6389,52 @@ export class PleaderObject extends $tea.Model {
 // 电子合同存证签署信息
 export class ContractNotarySignInfo extends $tea.Model {
   // 本阶段存证内容哈希值
+  /**
+   * @example
+   * content
+   */
   content: string;
   // 电子合同文件hash，可能一次性签署多个文件，不同文件的hash间用“,”分隔开
+  /**
+   * @example
+   * hash1,hash2
+   */
   contractHash: string;
   // 签署人ID
+  /**
+   * @example
+   * account_id_of_signatory
+   */
   signatory: string;
   // 存证阶段发生时间，UNIX时间戳(毫秒)
+  /**
+   * @example
+   * 1589198173000
+   */
   timestamp: string;
   // 存证凭据，仅在批量核验时需要填写
+  /**
+   * @example
+   * 95a8201ad7362f9d224937cfb715b086ea1cf0d884f1c5b1f3ed092fddff1c92
+   */
   txHash?: string;
   // 发起人名称
+  /**
+   * @example
+   * 张三
+   */
   intiatorName?: string;
   // 签署人名称,多个逗号隔开
+  /**
+   * @example
+   * 李四,王五
+   */
   signatorNames?: string;
   // 详细文件哈希
+  /**
+   * @example
+   * 91a8201ad7362f9d224937cfb715b086ea1cf0d884f1c5b1f3ed092fddff1cqa 
+   */
   detailInfoFileHash?: string;
   static names(): { [key: string]: string } {
     return {
@@ -4191,22 +6470,58 @@ export class ContractNotarySignInfo extends $tea.Model {
 // 存证信息说明
 export class NotaryInfo extends $tea.Model {
   // 存证内容的哈希值，默认采用SHA256算法
+  /**
+   * @example
+   * 6b7966f4a30a7fec43a6b5ca8e4610f63d320f03ee698945014c0bbc13c6beba
+   */
   contentHash: string;
   // 合作人（版权存证函专用），会展示在存证证明中
+  /**
+   * @example
+   * 合作人
+   */
   cooperation?: string;
   // 作品名称类型（版权存证函使用），会展示在存证证明中
+  /**
+   * @example
+   * 音乐/视频/小说等
+   */
   creationType?: string;
   // 如果是文件存证，可填写文件名称
+  /**
+   * @example
+   * name
+   */
   fileName?: string;
   // 计算content_hash的哈希算法，目前只支持SHA256
+  /**
+   * @example
+   * SHA256
+   */
   hashAlgorithm?: string;
   // 申请平台名，用于在存证函上显示用名称
+  /**
+   * @example
+   * 某某平台
+   */
   platform?: string;
   // 文件容量，默认为0
+  /**
+   * @example
+   * 1024
+   */
   size?: number;
   // 发起存证成功后，返回的存证凭据
+  /**
+   * @example
+   * a89495ddd334870a58686afe48a8eb83efe2dd51e4c06da7220eb1cde0f995e2
+   */
   txHash: string;
   // 存证事务ID
+  /**
+   * @example
+   * 7bc888d8-1384-425c-9355-630cef0f4120
+   */
   transactionId: string;
   static names(): { [key: string]: string } {
     return {
@@ -4244,16 +6559,40 @@ export class NotaryInfo extends $tea.Model {
 // 司法纠纷平台企业信息通用结构体
 export class JudicialOrgInfo extends $tea.Model {
   // 企业名称
+  /**
+   * @example
+   * 某知名有限公司
+   */
   orgName: string;
   // 企业或机构社会统一信用代码
+  /**
+   * @example
+   * 92XXX
+   */
   orgCertNum: string;
   // 企业联系电话
+  /**
+   * @example
+   * 15000000000
+   */
   orgPhone: string;
   // 企业联系邮箱
+  /**
+   * @example
+   * email@org.com
+   */
   orgEmail?: string;
   // 企业通讯地址
+  /**
+   * @example
+   * 上海市黄浦区外马路618号
+   */
   orgAddress?: string;
   // 企业营业执照地址
+  /**
+   * @example
+   * 企业营业执照地址
+   */
   residenceAddress?: string;
   // 企业或机构营业执照信息
   orgBizLicenseInfo?: JudicialFileInfo;
@@ -4301,12 +6640,28 @@ export class JudicialOrgInfo extends $tea.Model {
 // 合同存证信息
 export class ContractNotaryInfo extends $tea.Model {
   // 存证地址
+  /**
+   * @example
+   * 04181b49ee5d7eb0099a289ac8a45df6afb5aa2679c5284444698a9790099269
+   */
   txHash: string;
   // 存证相关联的文档ID
+  /**
+   * @example
+   * 6afb5aa2679c5284444698a9790099269
+   */
   docId?: string;
   // 存证的内容哈希值
+  /**
+   * @example
+   * 04181b49ee5d7eb0099a289ac8a45df6afb5aa2679c5284444698a9790099269
+   */
   contentHash?: string;
   // 存证事务ID
+  /**
+   * @example
+   * 61d0147c-5e6d-46e8-8030-5c2fedb6cbc9
+   */
   transactionId: string;
   static names(): { [key: string]: string } {
     return {
@@ -4334,10 +6689,22 @@ export class ContractNotaryInfo extends $tea.Model {
 // 个人信息
 export class PersonInfo extends $tea.Model {
   // 个人证件名称
+  /**
+   * @example
+   * 张三
+   */
   certName: string;
   // 个人证件号码
+  /**
+   * @example
+   * 512223********1245
+   */
   certNo: string;
   // 证件类型, 默认身份证 RESIDENT：居民身份证号，PASSPORT：护照，MILITARY：军官证
+  /**
+   * @example
+   * RESIDENT
+   */
   certType?: string;
   static names(): { [key: string]: string } {
     return {
@@ -4363,10 +6730,22 @@ export class PersonInfo extends $tea.Model {
 // 共享项目，资产端的采购平台回传的订单商品信息
 export class SupplierOrderProductInfo extends $tea.Model {
   // 商品id
+  /**
+   * @example
+   * product_id_123
+   */
   productId: string;
   // 商品采购单价，单位：毫厘
+  /**
+   * @example
+   * 10000
+   */
   productPrice: number;
   // 商品的sn信息
+  /**
+   * @example
+   * ["sn1","sn2"]
+   */
   snList: string[];
   static names(): { [key: string]: string } {
     return {
@@ -4392,33 +6771,85 @@ export class SupplierOrderProductInfo extends $tea.Model {
 // 租赁订单信息
 export class BclOrderInfo extends $tea.Model {
   // 订单外部id,商户自己定义的订单id
+  /**
+   * @example
+   * asdasdqwe123wer
+   */
   orderOuterId: string;
   // 订单创建时间
+  /**
+   * @example
+   * 2023-04-05 12:12:23
+   */
   orderCreateTime: string;
   // DUE_BUYOUT 到期买断 
   // DUE_RETURN 到期归还
+  /**
+   * @example
+   * DUE_BUYOUT
+   */
   dueMode: string;
   // 订单总金额 单位分
+  /**
+   * @example
+   * 12300
+   */
   totalMoney: number;
   // 到期买断价  单位分，
   // 到期金额，若为买断形式传买断金额，否则传到期归还金额
+  /**
+   * @example
+   * 12300
+   */
   buyOutPrice?: number;
   // 芝麻信用订单免押金额 单位分
+  /**
+   * @example
+   * 10035
+   */
   depositFree?: number;
   // 芝麻信用 实际预授权金额 单位分
+  /**
+   * @example
+   * 12322
+   */
   acutalPreAuthFree?: number;
   // 网商直付通模式的代扣协议号
+  /**
+   * @example
+   * ssdsf23324dfsdfsdf
+   */
   mybankAgreementNo?: string;
   // 直付通代扣受理订单号
+  /**
+   * @example
+   * asdasdqwewqes223
+   */
   mybankAgreementOrderId?: string;
   // -网商代扣：MY_BANK_PROXY_WITHHOLDING
   // -合同代扣：CONTRACT_PROXY_WITHHOLDING
+  /**
+   * @example
+   * MY_BANK_PROXY_WITHHOLDING
+   */
   orderWithholdType: string;
   // 首付款金额 单位分
+  /**
+   * @example
+   * 12323
+   */
   downPayment?: number;
   // 商品列表
+  /**
+   * @example
+   * SANDBOX12312
+   */
   productInfos: BclOrderProductInfo[];
   // 物流方式： POST 邮寄 OFFLINE 线下自取
+  /**
+   * @example
+   * POST
+   */
   logisticType: string;
   // 订单状态
   // 已创建 CREATED
@@ -4435,8 +6866,16 @@ export class BclOrderInfo extends $tea.Model {
   // 订单异常 ORDER_ERROR
   // 
   // 
+  /**
+   * @example
+   * CREATED
+   */
   status: string;
   // 订单状态失败的描述
+  /**
+   * @example
+   * 核身没有通过
+   */
   statusRemark?: string;
   // 承租方用户信息
   userInfo: BclUserInfo;
@@ -4490,12 +6929,28 @@ export class BclOrderInfo extends $tea.Model {
 // 电子合同文档
 export class ContractDoc extends $tea.Model {
   // 上传的电子合同文档是否被加密过，0-未被加密，1-被加密过，默认0
+  /**
+   * @example
+   * 1,0
+   */
   encryption?: number;
   // 电子合同文档的ID
+  /**
+   * @example
+   * 01e50a9cedb74493a2d320b4f4732a29
+   */
   fileId: string;
   // 电子合同文档名称，默认文件名称
+  /**
+   * @example
+   * 第一份合同.pdf
+   */
   fileName?: string;
   // 电子合同文档密码, 如果encryption值为1, 文档密码不能为空，默认没有密码
+  /**
+   * @example
+   * mypassword
+   */
   filePassword?: string;
   static names(): { [key: string]: string } {
     return {
@@ -4523,24 +6978,64 @@ export class ContractDoc extends $tea.Model {
 // 合同印章
 export class ContractSeal extends $tea.Model {
   // 印章别名
+  /**
+   * @example
+   * 红色四方形印章
+   */
   alias?: string;
   // 印章创建时间
+  /**
+   * @example
+   * 1556161219000
+   */
   createDate?: number;
   // 默认印章标识
+  /**
+   * @example
+   * true, false
+   */
   defaultFlag?: boolean;
   // 印章fileKey
+  /**
+   * @example
+   * $fbd1d433-9f8f-4439-b184-7eb75861b31f$1759125409
+   */
   fileKey?: string;
   // 印章高度
+  /**
+   * @example
+   * 100
+   */
   height?: number;
   // 印章宽度
+  /**
+   * @example
+   * 100
+   */
   width?: number;
   // 印章id
+  /**
+   * @example
+   * bcd7ffd9-5caf-4342-bd1c-02257229ccd5
+   */
   sealId?: string;
   // 印章类型，1-机构模板章，2-个人模板章，3-自定义印章，4-手绘章
+  /**
+   * @example
+   * 2
+   */
   sealType?: number;
   // 印章下载地址, 有效时间1小时
+  /**
+   * @example
+   * https://esignoss.oss-cn-hangzhou.aliyuncs.com/seal-service/18bcc4c7-91
+   */
   url?: string;
   // 印章业务类型，CANCELLATION-作废章，COMMON-其它
+  /**
+   * @example
+   * COMMON
+   */
   sealBizType?: string;
   static names(): { [key: string]: string } {
     return {
@@ -4580,16 +7075,40 @@ export class ContractSeal extends $tea.Model {
 // 智能合同个人账户创建申请信息
 export class ContractAccountApplication extends $tea.Model {
   // 邮箱地址，默认空
+  /**
+   * @example
+   * xx@alipay.com
+   */
   email?: string;
   // 证件号
+  /**
+   * @example
+   * 311111111111111111
+   */
   idNumber: string;
   // 目前仅支持CRED_PSN_CH_IDCARD，即身份证号码
+  /**
+   * @example
+   * CRED_PSN_CH_IDCARD
+   */
   idType: string;
   // 手机号码，默认空
+  /**
+   * @example
+   * 15811111111
+   */
   mobile?: string;
   // 姓名
+  /**
+   * @example
+   * 张三
+   */
   name: string;
   // 用户唯一标识，可传入第三方平台的个人用户id等
+  /**
+   * @example
+   * A001
+   */
   userId: string;
   static names(): { [key: string]: string } {
     return {
@@ -4621,24 +7140,64 @@ export class ContractAccountApplication extends $tea.Model {
 // 签署区列表数据
 export class ContractPlatformSignFieldApplication extends $tea.Model {
   // 文件file id
+  /**
+   * @example
+   * fe7df2f477d649c18ebcfdfffeba253d
+   */
   fileId: string;
   // 签署顺序，默认1,且不小于1，顺序越小越先处理
+  /**
+   * @example
+   * 1
+   */
   order?: number;
   // 印章id， 仅限企业公章，暂不支持指定企业法定代表人印章 ，如不传，则采用账号下的默认印章
+  /**
+   * @example
+   * bcd7ffd9-5caf-4342-bd1c-02257229ccd5
+   */
   sealId?: string;
   // 第三方业务流水号id，保证相同签署人、相同签约主体、相同签署顺序的任务，对应的第三方业务流水id唯一，默认空
+  /**
+   * @example
+   *  
+   */
   thirdOrderNo?: string;
   // 页码信息，当签署区signType为2时, 页码可以_-_分割, 其他情况只能是数字
+  /**
+   * @example
+   * 1
+   */
   posPage: string;
   // x坐标，默认空
+  /**
+   * @example
+   * 158.72531
+   */
   posX?: string;
   // y坐标
+  /**
+   * @example
+   * 431.05658
+   */
   posY: string;
   // 签署区宽，默认印章宽度
+  /**
+   * @example
+   * 1
+   */
   width?: string;
   // 是否添加签署时间戳， 默认不添加，默认格式 yyyy-MM-dd HH : mm : ss
+  /**
+   * @example
+   * true, false
+   */
   addSignTime?: boolean;
   // 签署类型， 1-单页签署，2-骑缝签署，默认1
+  /**
+   * @example
+   * 1
+   */
   signType?: number;
   static names(): { [key: string]: string } {
     return {
@@ -4678,8 +7237,16 @@ export class ContractPlatformSignFieldApplication extends $tea.Model {
 // 租赁业务存证信息记录
 export class LeaseNotaryRecord extends $tea.Model {
   // 存证阶段
+  /**
+   * @example
+   * PLACE_ORDER
+   */
   phase: string;
   // 交易哈希，存证记录唯一标识
+  /**
+   * @example
+   * 04181b49ee5d7eb0099a289ac8a45df6afb5aa2679c5284444698a9790099269
+   */
   txHash: string;
   static names(): { [key: string]: string } {
     return {
@@ -4736,41 +7303,99 @@ export class EvidentialElement extends $tea.Model {
 // 创建电子合同手动签署盖章区时的申请信息
 export class ContractHandSignFieldApplication extends $tea.Model {
   // 签署操作人个人账号标识，即操作本次签署的个人
+  /**
+   * @example
+   * 2c7de24aff3340f5b944ebac49545b8e
+   */
   accountId: string;
   // 电子合同文件ID
+  /**
+   * @example
+   * fe7df2f477d649c18ebcfdfffeba253d
+   */
   fileId: string;
   // 签署区顺序，默认1,且不小于1，顺序越小越先处理
   order?: number;
   // 页码信息：当签署区signType为2时, 页码可以_-_分割, 例如1到15页，填"1-15"； 其他情况只能是数字；不指定xy坐标签署区可不填写
+  /**
+   * @example
+   * 1
+   */
   posPage?: string;
   // x坐标，页面签章必填，骑缝签章不填写
+  /**
+   * @example
+   * 1.1
+   */
   posX?: string;
   // y坐标
+  /**
+   * @example
+   * 1.1
+   */
   posY?: string;
   // 印章id
+  /**
+   * @example
+   * bcd7ffd9-5caf-4342-bd1c-02257229ccd5
+   */
   sealId?: string;
   // 是否需要添加签署日期，0-禁止 1-必须 ，默认0
   signDateBeanType?: number;
   // 签章日期字体大小,默认12
   signDateFontSize?: number;
   // 签章日期格式，yyyy年MM月dd日
+  /**
+   * @example
+   * yyyy年MM月dd日
+   */
   signDateFormat?: string;
   // 页码信息，当signDateBeanType为1时，代表签署的印章必须展示签署日期，默认放在印章正下方，签署人可拖拽日期到当前页面的其他位置，如果发起方指定签署位置的同时，需要同时指定日期盖章位置，则需传入日期盖章页码（与印章页码相同），在传入X\Y坐标即可。
   signDatePosPage?: number;
   // 签章日期x坐标，默认0	
+  /**
+   * @example
+   * 1.1
+   */
   signDatePosX?: string;
   // 签章日期y坐标，默认0
+  /**
+   * @example
+   * 1.1
+   */
   signDatePosY?: string;
   // 签署类型，1-单页签署，2-骑缝签署，默认1
   signType?: number;
   // 第三方业务流水号id，保证相同签署人、相同签约主体、相同签署顺序的任务，对应的第三方业务流水id唯一，默认空
+  /**
+   * @example
+   * someordernumber
+   */
   thirdOrderNo?: string;
   // 签署区宽，默认印章宽度
+  /**
+   * @example
+   * 100.0
+   */
   width?: string;
   // 印章ids，只支持企业用户进行印章ID列表的设置；用于手动签署时，指定企业印章进行展示，实现手动选择印章进行签署。
+  /**
+   * @example
+   * ["印章id1","印章id2",....]
+   */
   sealIds?: string[];
   // 签署区预设xy坐标类型，0：不指定X/Y坐标 1：指定X/Y坐标 默认：指定X/Y坐标 ; 签署区设置时可以不指定XY坐标，签署方在签署时拖拽确定最终签署区域，支持在页面任何区域拖拽，个人和企业签署用印都支持
+  /**
+   * @example
+   * 0
+   */
   signFieldType?: number;
+  // 个人用户是否需要静默签署授权,默认false false-不需要,true-需要
+  /**
+   * @example
+   * false
+   */
+  agreeAutoSign?: boolean;
   static names(): { [key: string]: string } {
     return {
       accountId: 'account_id',
@@ -4791,6 +7416,7 @@ export class ContractHandSignFieldApplication extends $tea.Model {
       width: 'width',
       sealIds: 'seal_ids',
       signFieldType: 'sign_field_type',
+      agreeAutoSign: 'agree_auto_sign',
     };
   }
 
@@ -4814,6 +7440,7 @@ export class ContractHandSignFieldApplication extends $tea.Model {
       width: 'string',
       sealIds: { 'type': 'array', 'itemType': 'string' },
       signFieldType: 'number',
+      agreeAutoSign: 'boolean',
     };
   }
 
@@ -4825,8 +7452,16 @@ export class ContractHandSignFieldApplication extends $tea.Model {
 // 再融资订单信息
 export class RefinanceOrderInfoResponse extends $tea.Model {
   // 订单id
+  /**
+   * @example
+   * 20220118123123123
+   */
   orderId: string;
   // 合约id
+  /**
+   * @example
+   * ABCDEFGH_IJKLMNO_dfadfadfafdadfadfsdffdadf
+   */
   applicationId: string;
   static names(): { [key: string]: string } {
     return {
@@ -4850,18 +7485,46 @@ export class RefinanceOrderInfoResponse extends $tea.Model {
 // 供应商对应的产品详细信息
 export class SupplierProductInfo extends $tea.Model {
   // 产品额外信息
+  /**
+   * @example
+   * {}
+   */
   extraInfo?: string;
   // 产品id
+  /**
+   * @example
+   * GS2020123
+   */
   productId: string;
   // 电子商品唯一标识码
+  /**
+   * @example
+   * 12323,123123,234234
+   */
   productImeiId: string;
   // 产品名称
+  /**
+   * @example
+   * IPAD mini 2012
+   */
   productName: string;
   // 采购产品的个数
+  /**
+   * @example
+   * 1
+   */
   productNumber: number;
   // 采购产品的价格，精确到毫厘，如12.34元表示为123400
+  /**
+   * @example
+   * 10000
+   */
   productPrice: number;
   // 产品版本
+  /**
+   * @example
+   * 0
+   */
   supplierVersion?: string;
   static names(): { [key: string]: string } {
     return {
@@ -4895,12 +7558,24 @@ export class SupplierProductInfo extends $tea.Model {
 // 承诺详情
 export class BclCreatePromiseDetailInfo extends $tea.Model {
   // 承诺期数，最小值：1
+  /**
+   * @example
+   * 1
+   */
   period: number;
   // 承诺金额，单位：分
   // 最小值：1，正整数
+  /**
+   * @example
+   * 1
+   */
   amount: number;
   // 每期应还的日期
   // 示例：格式 2023-06-27T10:50:23+08:00
+  /**
+   * @example
+   * 2023-06-27T10:50:23+08:00
+   */
   promiseTime: string;
   static names(): { [key: string]: string } {
     return {
@@ -4926,14 +7601,34 @@ export class BclCreatePromiseDetailInfo extends $tea.Model {
 // 订单商品
 export class LeaseOrderProductInfo extends $tea.Model {
   // 商品编码 长度不可超过50
+  /**
+   * @example
+   * 123456
+   */
   productId: string;
   // 产品版本，每个版本可以对应一个价格 长度不可超过50，版本号未正整数，示例"123"
+  /**
+   * @example
+   * 123
+   */
   productVersion: string;
   // 商品名称 长度不可超过50
+  /**
+   * @example
+   * iphone13
+   */
   productName: string;
   // 采购价  精确到毫厘，即123400表示12.34元
+  /**
+   * @example
+   * 123400
+   */
   productPrice: number;
   // 供应商Id，用以做索引 长度不可超过50
+  /**
+   * @example
+   * 小米
+   */
   supplierIsvAccount: string;
   static names(): { [key: string]: string } {
     return {
@@ -4963,10 +7658,22 @@ export class LeaseOrderProductInfo extends $tea.Model {
 // 租赁风控查询的实体描述
 export class LesseePerson extends $tea.Model {
   // 承租人姓名
+  /**
+   * @example
+   * 王一
+   */
   name: string;
   // 承租人身份证号
+  /**
+   * @example
+   * 11000000XXX
+   */
   certNo: string;
   // 承租人手机号
+  /**
+   * @example
+   * 130XXXX0123
+   */
   mobile: string;
   static names(): { [key: string]: string } {
     return {
@@ -4992,14 +7699,26 @@ export class LesseePerson extends $tea.Model {
 // 数字票根一键全流程存证相关参数
 export class OnestepFlowNotaryInfo extends $tea.Model {
   // 全流程模板id，需要提前创建好模板才能获取
+  /**
+   * @example
+   * TP_4a605f04-ae9f-48d3-88ba-05c073ad5484
+   */
   templateId: string;
   // 流程名称，同一个租户下同一个模板，建议唯一不重复
+  /**
+   * @example
+   * 员工入职流程_员工xxxxx
+   */
   flowName: string;
   // 存证关联实体（个人/企业）的身份识别信息
   notaryUser: NotaryUser;
   // 阶段存证内容列表，根据模板定义传入
   phaseNotaryList: PhaseNotary[];
   // 扩展属性
+  /**
+   * @example
+   * {"key":"value"}
+   */
   properties?: string;
   static names(): { [key: string]: string } {
     return {
@@ -5029,16 +7748,40 @@ export class OnestepFlowNotaryInfo extends $tea.Model {
 // 更新后平台方经办人信息
 export class ContractCreatorApplication extends $tea.Model {
   // 邮箱地址
+  /**
+   * @example
+   * wutest@tsign.com
+   */
   email?: string;
   // 证件号
+  /**
+   * @example
+   * 311111111111111111
+   */
   idNumber: string;
   // 证件类型
+  /**
+   * @example
+   * CRED_PSN_CH_IDCARD
+   */
   idType: string;
   // 手机号码
+  /**
+   * @example
+   * 15811111111
+   */
   mobile?: string;
   // 姓名
+  /**
+   * @example
+   * 张三
+   */
   name: string;
   // 创建人ID
+  /**
+   * @example
+   * 0178c086a740475caf516f37901352b3
+   */
   creatorId: string;
   static names(): { [key: string]: string } {
     return {
@@ -5076,23 +7819,47 @@ export class BclContractInfo extends $tea.Model {
   // 4.代扣拒签：PROXY_REJECT 
   // 5.合同签署失败：SIGN_FAIL 
   // 6.签署完成：FINISH
+  /**
+   * @example
+   * SIGNING
+   */
   signStatus: string;
   // 签署完成的合同文件
   // 如果使用合同服务，只有签署完成才可获取
   signedFiles?: BclFileInfo[];
   // 签署链接，使用租赁宝代扣并且发起订单后才可以查询获取
+  /**
+   * @example
+   * https://xxxx
+   */
   signUrl?: string;
   // 签署场景
+  /**
+   * @example
+   * 签署场景
+   */
   businessScene?: string;
   // 合同创建失败原因
+  /**
+   * @example
+   * 合同创建失败原因
+   */
   flowErrMsg?: string;
   // 签署区列表
   signFieldInfos?: BclContractSignFieldInfo[];
   // 签署长链接，使用租赁宝代扣并且发起订单后才可以查询获取
+  /**
+   * @example
+   * http://www.xxx.com
+   */
   destUrl?: string;
   // 签署模式：
   // 模板签署:TEMPLATE_SIGN,使用同模板流程创建合同信息；
   // 原文签署:ORIGINAL_SIGN，使用原来的流程创建合同信息
+  /**
+   * @example
+   * TEMPLATE_SIGN
+   */
   signMode?: string;
   static names(): { [key: string]: string } {
     return {
@@ -5128,26 +7895,70 @@ export class BclContractInfo extends $tea.Model {
 // 融资租赁里的产品详细信息
 export class ProductInfo extends $tea.Model {
   // 是否需要创建did
+  /**
+   * @example
+   * true, false
+   */
   needDid?: boolean;
   // 产品品牌，长度不超过50
+  /**
+   * @example
+   * 大金
+   */
   productBrand?: string;
   // 产品Id，长度不超过50
+  /**
+   * @example
+   * productId
+   */
   productId: string;
   // 唯一标识码，imeiID，长度不超过50
+  /**
+   * @example
+   * sn_number
+   */
   productImeiId?: string;
   // 产品规格型号，长度不超过255
+  /**
+   * @example
+   * LP3001
+   */
   productModel?: string;
   // 产品名称，长度不超过50
+  /**
+   * @example
+   * 大金空调
+   */
   productName: string;
   // 产品数量
+  /**
+   * @example
+   * 10
+   */
   productNumber: number;
   // 产品采购含税价 精确到毫厘，即123400表示12.34元
+  /**
+   * @example
+   * 123400
+   */
   productPrice: number;
   // 供应商id
+  /**
+   * @example
+   * supplierId
+   */
   supplierId?: string;
   // 供应商对应的产品版本，每个版本可以对应一个价格
+  /**
+   * @example
+   * 001
+   */
   supplierVersion?: string;
   // 额外字段
+  /**
+   * @example
+   * {}
+   */
   extraInfo?: string;
   static names(): { [key: string]: string } {
     return {
@@ -5189,14 +8000,26 @@ export class ProductInfo extends $tea.Model {
 // 商家联系人信息
 export class BclContactInfo extends $tea.Model {
   // 联系人名称，最大长度：128
+  /**
+   * @example
+   * 张三
+   */
   name: string;
   // 联系人手机号
   // 最大长度：20
   // 示例：13812348888
+  /**
+   * @example
+   * 138xxxx8888
+   */
   mobile: string;
   // 联系人电话
   // 最大长度：20
   // 示例：0571-12345678
+  /**
+   * @example
+   * 0571-12345678
+   */
   phone?: string;
   static names(): { [key: string]: string } {
     return {
@@ -5222,12 +8045,28 @@ export class BclContactInfo extends $tea.Model {
 // 查询全流程存证证据详情查询的请求信息
 export class NotaryFlowDetailQueryReq extends $tea.Model {
   // 全流程存证模板ID
+  /**
+   * @example
+   * someId
+   */
   templateId: string;
   // 全流程存证流程id
+  /**
+   * @example
+   * someId
+   */
   flowId: string;
   // 链上证据包对应的链上交易Hash
+  /**
+   * @example
+   * 9d5f26c7469ea9699a6e5f03ecfce24d
+   */
   chainPackTxHash: string;
   // 链上证据包授权码
+  /**
+   * @example
+   * someId
+   */
   authcode: string;
   static names(): { [key: string]: string } {
     return {
@@ -5255,26 +8094,54 @@ export class NotaryFlowDetailQueryReq extends $tea.Model {
 // 履约详情
 export class BclRentalInfo extends $tea.Model {
   // 期数
+  /**
+   * @example
+   * 1
+   */
   period: number;
   // 金额 单位分
+  /**
+   * @example
+   * 123123
+   */
   amount: number;
   // 租金归还时间
+  /**
+   * @example
+   * 2023-04-05 12:12:23
+   */
   time: string;
   // 归还方式
   // 1.租赁代扣: PROXY_WITHHOLDING
   // 2.主动还款：ACTIVE_REPAYMENT  
   // 3.网商委托代扣：MY_BANK_DIRECT_PAYMENT
   // 4.预授权代扣：PRE_AUTHORIZATION_WITHHOLDING
+  /**
+   * @example
+   * ALIPAY_WITHHOLDING
+   */
   way: string;
   // 还款渠道
   // 1.支付宝：ALIPAY
   // 2.平台代收（客户主动还款）：PLATFORM_COLLECTION 
   // 3.网商银行：MY_BANK
   // 4.其他：OTHER 
+  /**
+   * @example
+   * ALIPAY
+   */
   voucherType: string;
   // 还款凭证编号
+  /**
+   * @example
+   * asdqw23e123sd
+   */
   voucherSerial: string;
   // 手续费 如通过预授权、代扣的方式规划，必填
+  /**
+   * @example
+   * 12321
+   */
   premium: number;
   static names(): { [key: string]: string } {
     return {
@@ -5308,12 +8175,28 @@ export class BclRentalInfo extends $tea.Model {
 // 支付扣款详情
 export class PaymentDetail extends $tea.Model {
   // 业务自定义扣款id，长度不能超过64
+  /**
+   * @example
+   * miivpw2345678
+   */
   bizTradeId: string;
   // 扣款期数
+  /**
+   * @example
+   * 1
+   */
   period: number;
   // 支付金额，单位：分
+  /**
+   * @example
+   * 1200
+   */
   payMoney: number;
   // 计划扣款时间，格式"yyyy-MM-dd HH:mm:ss"
+  /**
+   * @example
+   * 2022-01-19 12:00:00
+   */
   payDate: string;
   static names(): { [key: string]: string } {
     return {
@@ -5341,12 +8224,28 @@ export class PaymentDetail extends $tea.Model {
 // 电子合同代扣计划取消操作信息
 export class ContractNotaryDeductCancelInfo extends $tea.Model {
   // 付款方的区块链合同签署账号
+  /**
+   * @example
+   * someId
+   */
   payerId: string;
   // 是否取消成功
+  /**
+   * @example
+   * true, false
+   */
   cancelStatus: boolean;
   // 取消操作发起时间
+  /**
+   * @example
+   * 1589198173000
+   */
   timestamp: string;
   // 代扣订单号，多个订单号之间以‘,’隔开
+  /**
+   * @example
+   * 04181b49ee5d7eb0099a289ac8a45df6afb5aa2679c5284444698a9790099269_1
+   */
   orders: string;
   static names(): { [key: string]: string } {
     return {
@@ -5374,16 +8273,40 @@ export class ContractNotaryDeductCancelInfo extends $tea.Model {
 // 平台方经办人信息
 export class ContractPlatformAccountApplication extends $tea.Model {
   // 邮箱地址
+  /**
+   * @example
+   * xx@alipay.com
+   */
   email?: string;
   // 证件号
+  /**
+   * @example
+   * 311111111111111111
+   */
   idNumber: string;
   // 证件类型
+  /**
+   * @example
+   * CRED_PSN_CH_IDCARD
+   */
   idType: string;
   // 手机号码
+  /**
+   * @example
+   * 15811111111
+   */
   mobile?: string;
   // 姓名
+  /**
+   * @example
+   * 张三
+   */
   name: string;
   // 用户唯一标识，可传入第三方平台的个人用户id等
+  /**
+   * @example
+   * A001
+   */
   userId: string;
   static names(): { [key: string]: string } {
     return {
@@ -5415,12 +8338,28 @@ export class ContractPlatformAccountApplication extends $tea.Model {
 // 调解回款银行账户
 export class BankAccountInfo extends $tea.Model {
   // 开户名称
+  /**
+   * @example
+   * 张某某
+   */
   accountName: string;
   // 开户行
+  /**
+   * @example
+   * 某某银行
+   */
   accountBank: string;
   // 开户账号
+  /**
+   * @example
+   * 6234242342343456
+   */
   accountNumber: string;
   // 联系电话
+  /**
+   * @example
+   * 132312312xx
+   */
   accountPhone: string;
   static names(): { [key: string]: string } {
     return {
@@ -5448,16 +8387,40 @@ export class BankAccountInfo extends $tea.Model {
 // 更新后平台方企业信息
 export class ContractPlatformApplication extends $tea.Model {
   // 证件号
+  /**
+   * @example
+   * 311111111111111111
+   */
   idNumber: string;
   // 证件类型
+  /**
+   * @example
+   * CRED_ORG_USCC
+   */
   idType: string;
   // 企业法人名称
+  /**
+   * @example
+   * 张三
+   */
   orgLegalName?: string;
   // 企业法人证件号
+  /**
+   * @example
+   * 311111111111111111
+   */
   orgLegalIdNumber?: string;
   // 机构名称
+  /**
+   * @example
+   * 测试企业
+   */
   name: string;
   // 平台方账号id
+  /**
+   * @example
+   * 5c66842caf754a6dada4124b66666666
+   */
   platformId: string;
   static names(): { [key: string]: string } {
     return {
@@ -5489,20 +8452,52 @@ export class ContractPlatformApplication extends $tea.Model {
 // 融资租赁用户侧还款条目
 export class LeaseRentalInfo extends $tea.Model {
   // 租期编号
+  /**
+   * @example
+   * 1
+   */
   term: number;
   // 租金归还状态，1.足额归还2.部分归还3.未归还
+  /**
+   * @example
+   * 1
+   */
   rentalReturnState: number;
   // 租金归还金额,精确到毫厘，即123400表示12.34元
+  /**
+   * @example
+   * 123400
+   */
   rentalMoney: number;
   // 归还时间
+  /**
+   * @example
+   * 2019-07-31 12:00:00
+   */
   returnTime: string;
   // 归还方式，1.预授权代扣2.支付宝代扣3.主动还款4.其他，5网商直付通代扣
+  /**
+   * @example
+   * 1
+   */
   returnWay: number;
   // 还款凭证类型，1.支付宝2.平台代收（客户主动还款）3.其他
+  /**
+   * @example
+   * 1
+   */
   returnVoucherType: number;
   // 还款凭证编号，不超过128字符，支付宝流水号
+  /**
+   * @example
+   * 20212312312313
+   */
   returnVoucherSerial: string;
   // 剩余归还期数
+  /**
+   * @example
+   * 11
+   */
   remainTerm: number;
   static names(): { [key: string]: string } {
     return {
@@ -5538,24 +8533,64 @@ export class LeaseRentalInfo extends $tea.Model {
 // 核验结果
 export class NotaryCheckResult extends $tea.Model {
   // 存证所在区块高度
+  /**
+   * @example
+   * 8888
+   */
   blockHeight: number;
   // 核验结果错误码
+  /**
+   * @example
+   * 错误码
+   */
   errorCode: number;
   // 错误信息
+  /**
+   * @example
+   * Permission denied
+   */
   errorMessage: string;
   // 存证时间
+  /**
+   * @example
+   * 2020-01-08 11:48:21
+   */
   notaryTime: string;
   // 存证类型
+  /**
+   * @example
+   * FileNotary
+   */
   notaryType: string;
   // 核验是否成功
+  /**
+   * @example
+   * true, false
+   */
   result: boolean;
   // 存证事务ID
+  /**
+   * @example
+   * 1a273ba1-b4c2-4bfe-93fc-c5997f3bcee9
+   */
   transactionId: string;
   // 交易哈希
+  /**
+   * @example
+   * aac0cf38b6072352f6b3be4cc0a3cf3950058472eacdda91e6723d75e2994567
+   */
   txHash: string;
   // 区块哈希
+  /**
+   * @example
+   * c3a50d4a7b521d4de13cefb02e5368b616e619d8fab5469298facacfbb39239b
+   */
   blockHash: string;
   // 存证阶段
+  /**
+   * @example
+   * start
+   */
   phase: string;
   static names(): { [key: string]: string } {
     return {
@@ -5595,34 +8630,82 @@ export class NotaryCheckResult extends $tea.Model {
 // 物流信息
 export class BclLogisticsInfo extends $tea.Model {
   // 物流订单
+  /**
+   * @example
+   * aa32sasdwqe1w
+   */
   logisticsOrderId: string;
   // 物流公司
+  /**
+   * @example
+   * 韵达
+   */
   logisticCompany: string;
   // 物流状态
   // 1.已发货：SHIPPED
   // 2.已签收：SIGNED
+  /**
+   * @example
+   * SHIPPED
+   */
   status: string;
   // 发货时间
   // 示例：2023-06-27T10:50:23+08:00
+  /**
+   * @example
+   * 2023-06-27T10:50:23+08:00
+   */
   deliverTime?: string;
   // 租赁类型
   // 1.租赁：LEASE
   // 2.退租：RETURN_LEASE
+  /**
+   * @example
+   * LEASE
+   */
   leaseType: string;
   // 签收时间
   // 示例：2023-06-27T10:50:23+08:00
+  /**
+   * @example
+   * 2023-06-27T10:50:23+08:00
+   */
   arriveConfirmTime?: string;
   // 签收文件下载链接
+  /**
+   * @example
+   * 2023-04-05 12:12:23
+   */
   arriveConfirmFileUrl: string;
   // 发货地址
+  /**
+   * @example
+   * xx省xx市
+   */
   deliverAddress: string;
   // 收货地址
+  /**
+   * @example
+   * xx省xx市
+   */
   arriveAddress: string;
   // 收货人姓名 脱敏
+  /**
+   * @example
+   * 张xx
+   */
   arriveName: string;
   // 收货人联系电话 脱敏
+  /**
+   * @example
+   * 172xxxx1232
+   */
   arriveMobile: string;
   // 物流公司标志,参考菜鸟的物流公司定义
+  /**
+   * @example
+   * YUNDA
+   */
   logisticCompanyCode?: string;
   static names(): { [key: string]: string } {
     return {
@@ -5666,30 +8749,82 @@ export class BclLogisticsInfo extends $tea.Model {
 // 融资租赁资金方还款条目信息
 export class LeaseRepaymentInfo extends $tea.Model {
   // 融资租赁还款流水
+  /**
+   * @example
+   * 20211231123000123
+   */
   repaymentUniqueId: string;
   // 还款批次
+  /**
+   * @example
+   * 1
+   */
   returnIndex: string;
   // 还款日期
+  /**
+   * @example
+   * 2019-07-31 12:00:00
+   */
   returnTime: string;
   // 还款总额,本金+利息，精确到毫厘，即123400表示12.34元
+  /**
+   * @example
+   * 123400
+   */
   returnMoney: number;
   // 还款结果状态,1.成功 2.失败
+  /**
+   * @example
+   * 1
+   */
   returnStatus: number;
   // 还款结果简要描述,长度不超过256
+  /**
+   * @example
+   * ""
+   */
   returnDescription: string;
   // 还款来源,1.共管账号，2.网商清分
+  /**
+   * @example
+   * 2
+   */
   source: number;
   // 剩余应还期数
+  /**
+   * @example
+   * 1
+   */
   remainReturnTerm: number;
   // 本期剩余应还金额，精确到毫厘，即123400表示12.34元
+  /**
+   * @example
+   * 123400
+   */
   remainReturnMoney: number;
   // 逾期状态,0为未逾期，1表示逾期
+  /**
+   * @example
+   * 0
+   */
   overdueStatus: number;
   // 逾期利率（日利率）,精确到小数点后四位 12.34% 表示为1234
+  /**
+   * @example
+   * 0
+   */
   overdueRate: number;
   // 逾期天数,支用到期日开始计算
+  /**
+   * @example
+   * 0
+   */
   overdueDay: number;
   // 逾期应还款总额,本金+利息+逾期利息,精确到毫厘，即123400表示12.34元
+  /**
+   * @example
+   * 0
+   */
   overdueMoney: number;
   static names(): { [key: string]: string } {
     return {
@@ -5735,6 +8870,10 @@ export class LeaseRepaymentInfo extends $tea.Model {
 // 数字票根扩展字段
 export class StubExtraInfo extends $tea.Model {
   // 票面视觉
+  /**
+   * @example
+   * https://www.xx.com
+   */
   ticketVision?: string;
   static names(): { [key: string]: string } {
     return {
@@ -5781,10 +8920,22 @@ export class ContractTextSignVerifySignInfo extends $tea.Model {
 // 用户端承诺信息
 export class LeasePromiseInfo extends $tea.Model {
   // 租期index
+  /**
+   * @example
+   * 1
+   */
   term: number;
   // 应还款金额
+  /**
+   * @example
+   * 123400
+   */
   payMoney: number;
   // 应还款时间
+  /**
+   * @example
+   * 2019-07-31 12:00:00
+   */
   payDate: string;
   static names(): { [key: string]: string } {
     return {
@@ -5810,16 +8961,40 @@ export class LeasePromiseInfo extends $tea.Model {
 // 个人信息
 export class ContractUserAccountApplication extends $tea.Model {
   // 邮箱地址，默认不变
+  /**
+   * @example
+   * xx@alipay.com
+   */
   email?: string;
   // 证件号，该字段只有为空才允许修改
+  /**
+   * @example
+   * 311111111111111111
+   */
   idNumber?: string;
   // 证件类型，默认为身份证
+  /**
+   * @example
+   * CRED_PSN_CH_IDCARD
+   */
   idType?: string;
   // 手机号码，默认不变
+  /**
+   * @example
+   * 15811111111
+   */
   mobile?: string;
   // 姓名，默认不变
+  /**
+   * @example
+   * 张三
+   */
   name?: string;
   // 用户/经办人账号id
+  /**
+   * @example
+   * ORGJC1CN1591674666666
+   */
   userId: string;
   static names(): { [key: string]: string } {
     return {
@@ -5851,16 +9026,40 @@ export class ContractUserAccountApplication extends $tea.Model {
 // 合约核验结果
 export class ContractCheckResult extends $tea.Model {
   // 交易hash
+  /**
+   * @example
+   * 12345678
+   */
   txHash: string;
   // 订单id
+  /**
+   * @example
+   * 12345678
+   */
   orderId: string;
   // 合约执行结果，Base64编码后的
+  /**
+   * @example
+   * afafafdfa
+   */
   contentBase64?: string;
   // 块高
+  /**
+   * @example
+   * 12345678
+   */
   blockNumber?: number;
   // 消耗gas量
+  /**
+   * @example
+   * 12345678
+   */
   gasUsed?: number;
   // log信息
+  /**
+   * @example
+   * adafada
+   */
   logBase64?: string;
   static names(): { [key: string]: string } {
     return {
@@ -5892,10 +9091,22 @@ export class ContractCheckResult extends $tea.Model {
 // 企业信息
 export class CompanyTwoMetaInfo extends $tea.Model {
   // 企业证件名称
+  /**
+   * @example
+   * XX公司
+   */
   certName: string;
   // 企业证件号码
+  /**
+   * @example
+   * 9111011421316034XK
+   */
   certNo: string;
   // 证件类型, 默认社会统一信用代码  NATIONAL_LEGAL_MERGE:统一社会信用代码，NATIONAL_LEGAL：营业执照号码
+  /**
+   * @example
+   * NATIONAL_LEGAL_MERGE
+   */
   certType?: string;
   static names(): { [key: string]: string } {
     return {
@@ -5921,8 +9132,16 @@ export class CompanyTwoMetaInfo extends $tea.Model {
 // 租赁宝plus保单详情
 export class InsuranceRecordInfo extends $tea.Model {
   // bcl订单id
+  /**
+   * @example
+   * PROD12312312311232
+   */
   orderId: string;
   // 保险单号
+  /**
+   * @example
+   * 1231234343423423
+   */
   bclInsuranceRecordId: string;
   // 投保人信息
   holder: BclInsuranceUserInfo;
@@ -5940,22 +9159,54 @@ export class InsuranceRecordInfo extends $tea.Model {
   // RECORD_CANCEL_INIT: 退保初始
   // RECORD_CANCEL_SUCC: 退保成功
   // RECORD_CANCEL_FAIL: 退保失败
+  /**
+   * @example
+   * RECORD_INSURE_SUCC
+   */
   insuranceStatus: string;
   // 起保时间
   // 格式: yyyy-MM-dd HH:mm:ss
+  /**
+   * @example
+   * 2023-04-05 12:12:23
+   */
   insuranceStartTime?: string;
   // 终保时间
   // 格式: yyyy-MM-dd HH:mm:ss
+  /**
+   * @example
+   * 2023-04-05 12:12:23
+   */
   insuranceEndTime?: string;
   // 保额 单位分
+  /**
+   * @example
+   * 1232
+   */
   insuranceAmount?: number;
   // 保费 单位分
+  /**
+   * @example
+   * 12312
+   */
   premium?: number;
   // riskGo分数
+  /**
+   * @example
+   * 60
+   */
   riskgoScore?: number;
   // 保险详情地址
+  /**
+   * @example
+   * http://xxasd.com
+   */
   insuranceUrl?: string;
   // 投保失败的具体原因, 投保失败时返回
+  /**
+   * @example
+   * 缴费失败, 费用不足
+   */
   remark?: string;
   // 退保详情
   insuranceCancelRecordInfoList?: InsuranceCancelRecordInfo[];
@@ -6005,24 +9256,64 @@ export class InsuranceRecordInfo extends $tea.Model {
 // 签字人
 export class ContractFlowSigner extends $tea.Model {
   // 签署顺序
+  /**
+   * @example
+   * 1
+   */
   signOrder?: number;
   // 签署状态, 0-待签, 1-未签, 2-已签 3-待审批 4-拒签
+  /**
+   * @example
+   * 1
+   */
   signStatus?: number;
   // 签署人账号id
+  /**
+   * @example
+   * 24c93459216945468fdf1d899c521910
+   */
   signerAccountId?: string;
   // 签署人名称
+  /**
+   * @example
+   * 孙中
+   */
   signerName?: string;
   // 签署人是否已实名
+  /**
+   * @example
+   * true, false
+   */
   signerRealName?: boolean;
   // 签约主体的账号id（个人/企业）；如签署人本签署，则返回签署人账号id；如签署人代机构签署，则返回机构账号id
+  /**
+   * @example
+   * 2c7de24aff3340f5b944ebac49545b8e
+   */
   signerAuthorizedAccountId?: string;
   // 签约主体名称
+  /**
+   * @example
+   * 深圳天谷信息科技有限公司
+   */
   signerAuthorizedAccountName?: string;
   // 签署主体是否已实名
+  /**
+   * @example
+   * true, false
+   */
   signerAuthorizedAccountRealName?: boolean;
   // 签署主体类型, 0-个人, 1-机构
+  /**
+   * @example
+   * 1
+   */
   signerAuthorizedAccountType?: number;
   // 本次签署任务对应指定的第三方业务流水号id，当存在多个第三方业务流水号id时，返回多个，并逗号隔开
+  /**
+   * @example
+   *  
+   */
   thirdOrderNo?: string;
   static names(): { [key: string]: string } {
     return {
@@ -6063,10 +9354,22 @@ export class ContractFlowSigner extends $tea.Model {
 export class RepaymentOrderRequest extends $tea.Model {
   // 代扣触发时间，精确到毫秒
   // java.lang.System#currentTimeMillis()
+  /**
+   * @example
+   * 12345600000
+   */
   payDate: number;
   // 代扣金额，整数 精确到分
+  /**
+   * @example
+   * 1000
+   */
   payMoney: number;
   // 是否用户签署成功后立即触发第一期代扣
+  /**
+   * @example
+   * 1
+   */
   triggerImmediately?: number;
   static names(): { [key: string]: string } {
     return {
@@ -6092,13 +9395,29 @@ export class RepaymentOrderRequest extends $tea.Model {
 // 用户与商家之间的协商记录
 export class ReplyDetailInfo extends $tea.Model {
   // 回复人名称
+  /**
+   * @example
+   * 刘*
+   */
   replierName: string;
   // 回复人角色 用户：USER 商家：MERCHANT 系统：SYSTEM 审核小二：AUDITOR 政府单位：GOVERNMENT
+  /**
+   * @example
+   * USER
+   */
   replierRole: string;
   // 回复时间
   // 
+  /**
+   * @example
+   * 2020-02-14 14:23:12 
+   */
   gmtCreate: string;
   // 回复内容
+  /**
+   * @example
+   * 已退款退货给您，物流单号为：12344444 
+   */
   content: string;
   // 回复图片
   images: string[];
@@ -6130,39 +9449,109 @@ export class ReplyDetailInfo extends $tea.Model {
 // 一步创建签署流程的签署区信息
 export class OneStepSignField extends $tea.Model {
   // 签署操作人个人账号标识，即操作本次签署的个人
+  /**
+   * @example
+   * 2c7de24aff3340f5b944ebac49545b8e
+   */
   accountId: string;
   // 电子合同文件ID
+  /**
+   * @example
+   * fe7df2f477d649c18ebcfdfffeba253d
+   */
   fileId: string;
   // 签署区顺序，默认1,且不小于1，顺序越小越先处理
   order?: number;
   // 页码信息：当签署区signType为2时, 页码可以_-_分割, 例如1到15页，填"1-15"； 其他情况只能是数字；不指定xy坐标签署区可不填写
+  /**
+   * @example
+   * 1
+   */
   posPage?: string;
   // x坐标
+  /**
+   * @example
+   * 1.1
+   */
   posX?: string;
   // y坐标
+  /**
+   * @example
+   * 1.1
+   */
   posY?: string;
   // 印章id
+  /**
+   * @example
+   * bcd7ffd9-5caf-4342-bd1c-02257229ccd5
+   */
   sealId?: string;
   // 是否需要添加签署日期，0-禁止 1-必须 2-不限制，默认0
+  /**
+   * @example
+   * 0
+   */
   signDateBeanType?: number;
   // 签章日期字体大小,默认12
+  /**
+   * @example
+   * 1
+   */
   signDateFontSize?: number;
   // 签章日期格式，yyyy年MM月dd日
+  /**
+   * @example
+   * yyyy年MM月dd日
+   */
   signDateFormat?: string;
   // 页码信息，当signDateBeanType为1时，代表签署的印章必须展示签署日期，默认放在印章正下方，签署人可拖拽日期到当前页面的其他位置，如果发起方指定签署位置的同时，需要同时指定日期盖章位置，则需传入日期盖章页码（与印章页码相同），在传入X\Y坐标即可。
+  /**
+   * @example
+   * 1
+   */
   signDatePosPage?: number;
   // 签章日期x坐标，默认0
+  /**
+   * @example
+   * 0
+   */
   signDatePosX?: string;
   // 签章日期y坐标，默认0
+  /**
+   * @example
+   * 0
+   */
   signDatePosY?: string;
   // 签署类型，1-单页签署，2-骑缝签署，默认1
+  /**
+   * @example
+   * 1
+   */
   signType?: number;
   // 第三方业务流水号id，保证相同签署人、相同签约主体、相同签署顺序的任务，对应的第三方业务流水id唯一，默认空
+  /**
+   * @example
+   * someordernumber
+   */
   thirdOrderNo?: string;
   // 签署区宽，默认印章宽度
+  /**
+   * @example
+   * 100.0
+   */
   width?: string;
   // 是否自动执行签署，默认false，false-手动签署，true-自动签署
+  /**
+   * @example
+   * true, false
+   */
   autoExecute?: boolean;
+  // 个人用户是否需要静默签署授权，默认false, false-不需要, true-需要
+  /**
+   * @example
+   * flase
+   */
+  agreeAutoSign?: boolean;
   static names(): { [key: string]: string } {
     return {
       accountId: 'account_id',
@@ -6182,6 +9571,7 @@ export class OneStepSignField extends $tea.Model {
       thirdOrderNo: 'third_order_no',
       width: 'width',
       autoExecute: 'auto_execute',
+      agreeAutoSign: 'agree_auto_sign',
     };
   }
 
@@ -6204,6 +9594,7 @@ export class OneStepSignField extends $tea.Model {
       thirdOrderNo: 'string',
       width: 'string',
       autoExecute: 'boolean',
+      agreeAutoSign: 'boolean',
     };
   }
 
@@ -6215,10 +9606,22 @@ export class OneStepSignField extends $tea.Model {
 // 缴费账户信息
 export class PaymentInfo extends $tea.Model {
   // 收款账户-户名 不超过64字符
+  /**
+   * @example
+   * XX
+   */
   accountName: string;
   // 收款账户-开户银行 不超过64字符
+  /**
+   * @example
+   * xx银行
+   */
   bankName: string;
   // 收款账户-收款账户银行账号 不超过64字符
+  /**
+   * @example
+   * 622848XXX1232123
+   */
   bankNum: string;
   static names(): { [key: string]: string } {
     return {
@@ -6244,22 +9647,58 @@ export class PaymentInfo extends $tea.Model {
 // 电子合同存证初始化信息
 export class ContractNotaryInitInfo extends $tea.Model {
   // 本阶段存证内容哈希值
+  /**
+   * @example
+   * content
+   */
   content: string;
   // 签署文件份数
+  /**
+   * @example
+   * 3
+   */
   fileNum: number;
   // 签署流程发起人ID
+  /**
+   * @example
+   * account_id_of_initiator
+   */
   initiator: string;
   // 签署人ID（支持多个，不同ID间用“,”分隔开），由于流程中签署人可后续追加，最终以ContractNotaryFinishInfo中的singatories信息为准。
+  /**
+   * @example
+   * account_Id_1,account_id_2
+   */
   signatories?: string;
   // 存证阶段发生时间，UNIX时间戳(毫秒)
+  /**
+   * @example
+   * 1589198173000
+   */
   timestamp: string;
   // 存证凭据，仅在批量核验时需要填写
+  /**
+   * @example
+   * 95a8201ad7362f9d224937cfb715b086ea1cf0d884f1c5b1f3ed092fddff1c92
+   */
   txHash?: string;
   // 发起人名称
+  /**
+   * @example
+   * 张三
+   */
   intiatorName?: string;
   // 签署人名称,多个逗号隔开
+  /**
+   * @example
+   * 李四,王五
+   */
   signatorNames?: string;
   // 详细文件哈希
+  /**
+   * @example
+   * 91a8201ad7362f9d224937cfb715b086ea1cf0d884f1c5b1f3ed092fddff1cqa
+   */
   detailInfoFileHash?: string;
   static names(): { [key: string]: string } {
     return {
@@ -6297,28 +9736,76 @@ export class ContractNotaryInitInfo extends $tea.Model {
 // 可信存证身份识别信息
 export class Identity extends $tea.Model {
   // 经办人姓名，企业认证选填
+  /**
+   * @example
+   * 小明
+   */
   agent?: string;
   // 经办人身份证，企业认证选填
+  /**
+   * @example
+   * 123123123123
+   */
   agentId?: string;
   // 用户名称
+  /**
+   * @example
+   * 小王
+   */
   certName: string;
   // 证件号
+  /**
+   * @example
+   * 12332112312312
+   */
   certNo: string;
   // 证件类型，个人只支持身份证IDENTITY_CARD，企业支持UNIFIED_SOCIAL_CREDIT_CODE（统一社会信用代码）和ENTERPRISE_REGISTERED_NUMBER（企业工商注册号）
+  /**
+   * @example
+   * IDENTITY_CARD
+   */
   certType: string;
   // 法人姓名，企业认证必选
+  /**
+   * @example
+   * 小李
+   */
   legalPerson?: string;
   // 法人身份证，企业认证必选
+  /**
+   * @example
+   * 123123321123
+   */
   legalPersonId?: string;
   // 用户手机号码
+  /**
+   * @example
+   * 1231231231
+   */
   mobileNo?: string;
   // 扩展属性
+  /**
+   * @example
+   * {"key":"value"}
+   */
   properties?: string;
   // 用户类型，PERSON或者ENTERPRISE
+  /**
+   * @example
+   * PERSON
+   */
   userType: string;
   // 经办人证件类型，企业认证选填
+  /**
+   * @example
+   * IDENTITY_CARD
+   */
   agentCertType?: string;
   // 法人证件类型，企业认证必选
+  /**
+   * @example
+   * IDENTITY_CARD
+   */
   legalPersonCertType?: string;
   static names(): { [key: string]: string } {
     return {
@@ -6362,10 +9849,22 @@ export class Identity extends $tea.Model {
 // 调解沟通联系人
 export class ContactInfo extends $tea.Model {
   // 联系人-姓名
+  /**
+   * @example
+   * 张三
+   */
   contactName: string;
   // 联系人-电话
+  /**
+   * @example
+   * 18888xxxx66
+   */
   contactPhone: string;
   // 联系人-电子邮箱
+  /**
+   * @example
+   * aaaaa@qq.com
+   */
   contactEmail: string;
   static names(): { [key: string]: string } {
     return {
@@ -6391,10 +9890,22 @@ export class ContactInfo extends $tea.Model {
 // 存证证明的证书信息
 export class CertificateInfo extends $tea.Model {
   // 存证证明的证书内容的SHA256哈希值
+  /**
+   * @example
+   * 6b7966f4a30a7fec43a6b5ca8e4610f63d320f03ee698945014c0bbc13c6beba
+   */
   hash: string;
   // 存证证明的证书文件名
+  /**
+   * @example
+   * resource_name.pdf
+   */
   resourceName: string;
   // 存证证明的证书下载地址
+  /**
+   * @example
+   * https://resource_download_adderss
+   */
   resourceUrl: string;
   static names(): { [key: string]: string } {
     return {
@@ -6420,6 +9931,10 @@ export class CertificateInfo extends $tea.Model {
 // 完结的分期信息
 export class BclFinishInstallment extends $tea.Model {
   // 期次号
+  /**
+   * @example
+   * 1
+   */
   termNo: number;
   static names(): { [key: string]: string } {
     return {
@@ -6443,21 +9958,45 @@ export class BclNotaryInfo extends $tea.Model {
   // 存证类型
   // 1.文件：FILE
   // 2.文本：TEXT
+  /**
+   * @example
+   * FILE
+   */
   type: string;
   // 存证内容
+  /**
+   * @example
+   * asd2112123
+   */
   content?: string;
   // 文件下载链接
   // 存证类型为FILE时此参数必填；
+  /**
+   * @example
+   * http://oss.com/asdas
+   */
   fileUrl?: string;
   // 存证内容hash
+  /**
+   * @example
+   * 12321312asdsqwewer12312sd
+   */
   contentHash: string;
   // 存证哈希
+  /**
+   * @example
+   * adsawqe12we12312werserqwe
+   */
   txHash: string;
   // 存证阶段描述： 
   // 1.上传履约流水：UPLOAD_PROMISE_FLOW
   // 2.上传物流信息：UPLOAD_LOGISTIC_INFO
   // 3.合同签署后文件存证：SIGNED_CONTRACT_FILE 
   // 4.租赁订单履约中存证：BCL_ORDER_PROMISING
+  /**
+   * @example
+   * UPLOAD_PROMISE_FLOW
+   */
   phase: string;
   static names(): { [key: string]: string } {
     return {
@@ -6489,16 +10028,32 @@ export class BclNotaryInfo extends $tea.Model {
 // 采购订单信息
 export class ApplySupplierOrderProductOutput extends $tea.Model {
   // 订单id
+  /**
+   * @example
+   * 2020223123
+   */
   orderId: string;
   // 链上采购单id
+  /**
+   * @example
+   * 23042340234234
+   */
   purOrderId: string;
   // 待采购：READY_DELIVER
   // 已采购：DELIVERED
   // 已拒发：REJECTED
   // 已退货：RETURNED
   // 已取消：CANCELED
+  /**
+   * @example
+   * 链上采购状态
+   */
   purOrderStatus: string;
   // 供应商id
+  /**
+   * @example
+   * ABCDEFGH
+   */
   supplierId?: string;
   static names(): { [key: string]: string } {
     return {
@@ -6526,14 +10081,34 @@ export class ApplySupplierOrderProductOutput extends $tea.Model {
 // 平台方企业信息
 export class ContractPlatformOrganizationApplication extends $tea.Model {
   // 证件号
+  /**
+   * @example
+   * 12330100470104939U 
+   */
   idNumber: string;
   // 证件类型
+  /**
+   * @example
+   * CRED_ORG_USCC
+   */
   idType: string;
   // 企业法人名称
+  /**
+   * @example
+   * 测试法人
+   */
   orgLegalName?: string;
   // 企业法人证件号
+  /**
+   * @example
+   * 311111111111111111
+   */
   orgLegalIdNumber?: string;
   // 机构名称
+  /**
+   * @example
+   * 测试企业
+   */
   name: string;
   static names(): { [key: string]: string } {
     return {
@@ -6563,14 +10138,34 @@ export class ContractPlatformOrganizationApplication extends $tea.Model {
 // 签署区列表包含印章id数据
 export class ContractSignFieldSealId extends $tea.Model {
   // 文件file id
+  /**
+   * @example
+   * 0178c086a740475caf516f37901352b3
+   */
   fileId?: string;
   // 流程id
+  /**
+   * @example
+   * 1b6b68e44d834f5982cf1959fd9782c3
+   */
   flowId?: string;
   // 印章id
+  /**
+   * @example
+   * 8a8b26de-b15e-4791-ae89-e75d928155cc
+   */
   sealId?: string;
   // 印章类型，支持多种类型时逗号分割，0-手绘印章，1-模版印章，为空不限制
+  /**
+   * @example
+   * 0
+   */
   sealType?: string;
   // 签署区Id
+  /**
+   * @example
+   * 52adb35497b141e3893912b3a2ea4f42
+   */
   signfieldId?: string;
   static names(): { [key: string]: string } {
     return {
@@ -6604,14 +10199,34 @@ export class AntSignTaskRequest extends $tea.Model {
   // 待签署文件列表
   antSignFileRequestList: AntSignFileRequest[];
   // relatedBusiness	是否关联业务
+  /**
+   * @example
+   * true, false 默认：false 
+   */
   relatedBusiness?: boolean;
   // 任务描述
+  /**
+   * @example
+   * 任务描述
+   */
   description?: string;
   // 业务扩展参数
+  /**
+   * @example
+   * 业务扩展参数
+   */
   extraParam?: string;
   // 子业务流水号（如果只有单任务，可以跟bizNo填相同的值）
+  /**
+   * @example
+   * 子业务流水号
+   */
   subBizNo: string;
   // 业务配置参数，用于展示或隐藏签署功能 默认不传：false
+  /**
+   * @example
+   * 默认不传
+   */
   signConfigParam?: string;
   static names(): { [key: string]: string } {
     return {
@@ -6645,6 +10260,10 @@ export class AntSignTaskRequest extends $tea.Model {
 // 协商记录
 export class ReplayDetailInfo extends $tea.Model {
   // 回复人名称
+  /**
+   * @example
+   * 刘*
+   */
   replierName: string;
   // 回复人角色
   // 用户：USER
@@ -6652,12 +10271,28 @@ export class ReplayDetailInfo extends $tea.Model {
   // 系统：SYSTEM
   // 审核小二：AUDITOR
   // 政府单位：GOVERNMENT
+  /**
+   * @example
+   * USER
+   */
   replierRole: string;
   // 回复时间
+  /**
+   * @example
+   * 2020-02-14 14:23:12
+   */
   gmtCreate: string;
   // 回复内容
+  /**
+   * @example
+   * 已退款退货给您，物流单号为：12344444
+   */
   content: string;
   // 回复图片
+  /**
+   * @example
+   * http://mdn.alipay.com/wsdk/img?fileid=A*ME4GQq2j-5oAAAAAAAAAAAAAAQAAAQ&t=83fed12ef006ebcd8df04dfe79faad6c&bi=openpunsh&ts=0&zoom=original
+   */
   images: string[];
   static names(): { [key: string]: string } {
     return {
@@ -6687,32 +10322,88 @@ export class ReplayDetailInfo extends $tea.Model {
 // 文件模板中的输入项组件
 export class ContractTemplateStructComponent extends $tea.Model {
   // 填充字体,默认1，1-宋体，2-新宋体,4-黑体，5-楷体
+  /**
+   * @example
+   * 1
+   */
   font?: number;
   // 填充字体大小,默认12
+  /**
+   * @example
+   * 11
+   */
   fontSize?: string;
   // 输入项组件高度
+  /**
+   * @example
+   * 11.11
+   */
   height?: string;
   // 输入项组件id，使用时可用id填充，为空时表示添加，不为空时表示修改
+  /**
+   * @example
+   * 45dd9420690b460c9e5ed55b40d7d0f8
+   */
   id?: string;
   // 模板下输入项组件唯一标识，使用模板时也可用根据key值填充
+  /**
+   * @example
+   * key001
+   */
   key?: string;
   // 输入项组件显示名称
+  /**
+   * @example
+   * 身份证号码
+   */
   label?: string;
   // 输入项组件type=2,type=3时填充格式校验规则;数字格式如：#,#00.0# 日期格式如： yyyy-MM-dd
+  /**
+   * @example
+   * yyyy-MM-dd
+   */
   limit?: string;
   // 页码
+  /**
+   * @example
+   * 1
+   */
   page?: number;
   // 是否必填，默认true
+  /**
+   * @example
+   * true, false
+   */
   required?: boolean;
   // 字体颜色，默认#000000黑色
+  /**
+   * @example
+   * #000000
+   */
   textColor?: string;
   // 输入项组件类型，1-文本，2-数字,3-日期，6-签约区
+  /**
+   * @example
+   *  
+   */
   type?: number;
   // 输入项组件宽度
+  /**
+   * @example
+   * 11.11
+   */
   width?: string;
   // x轴坐标，左下角为原点
+  /**
+   * @example
+   * 11.11
+   */
   x?: string;
   // y轴坐标，左下角为原点
+  /**
+   * @example
+   * 11.11
+   */
   y?: string;
   static names(): { [key: string]: string } {
     return {
@@ -6760,19 +10451,47 @@ export class ContractTemplateStructComponent extends $tea.Model {
 // 可信时间信息结构
 export class TsrResponse extends $tea.Model {
   // 可信时间请求结果状态吗
+  /**
+   * @example
+   * 0
+   */
   code: string;
   // hash后的信息
+  /**
+   * @example
+   * AAAAA 
+   */
   hashedMessage: string;
   // 哈希算法
+  /**
+   * @example
+   * 321
+   */
   hashAlgorithm: string;
   // 请求失败时候的错误信息
+  /**
+   * @example
+   * Request failed
+   */
   message?: string;
   // 时间
+  /**
+   * @example
+   * 123
+   */
   ts: string;
   // 精简后的时间戳完整编码（在校验时需要提交）
+  /**
+   * @example
+   *  
+   */
   ctsr: string;
   // 凭证序列号 （在校验的时需要先填写凭证编号）
   // 
+  /**
+   * @example
+   *  
+   */
   sn: string;
   static names(): { [key: string]: string } {
     return {
@@ -6806,10 +10525,22 @@ export class TsrResponse extends $tea.Model {
 // 融资租赁中IOT设备详情
 export class LeaseIotItemInfo extends $tea.Model {
   // 证据的时间
+  /**
+   * @example
+   * 2018-10-10T10:10:00Z
+   */
   date: string;
   // 证据的txHash
+  /**
+   * @example
+   * 0xaaaaabbbbbcccc
+   */
   txHash: string;
   // 证据的原始数据，默认为空或加密状态，除非调用方为授权用户（如出资方等
+  /**
+   * @example
+   * ""
+   */
   rawData: string;
   static names(): { [key: string]: string } {
     return {
@@ -6835,12 +10566,28 @@ export class LeaseIotItemInfo extends $tea.Model {
 // 见证流程文档确认数据
 export class WitnessConfirmData extends $tea.Model {
   // 文档fileKey
+  /**
+   * @example
+   *  
+   */
   docFileKey?: string;
   // 文档摘要算法，SHA256
+  /**
+   * @example
+   * SHA256
+   */
   hashAlgorithm: string;
   // 签署后文档摘要值
+  /**
+   * @example
+   * 04181b49ee5d7eb0099a289ac8a45df6afb5aa2679c5284444698a9790099269
+   */
   signedHash: string;
   // 第三方文档id
+  /**
+   * @example
+   * someId
+   */
   thirdDocId: string;
   static names(): { [key: string]: string } {
     return {
@@ -6885,10 +10632,22 @@ export class ContractAccount extends $tea.Model {
 // 司法调解基础参数
 export class JudicialMediationBaseParamInfo extends $tea.Model {
   // 委托调解时长(天), 仅支持:30,60,90
+  /**
+   * @example
+   * 30
+   */
   mediationDayLimit: number;
   // 调解总标的金额
+  /**
+   * @example
+   * 100.00
+   */
   mediationTotalAmount: string;
   // 可接受最低调解回款金额
+  /**
+   * @example
+   * 100.00
+   */
   minAmount: string;
   static names(): { [key: string]: string } {
     return {
@@ -38032,8 +41791,10 @@ export default class Client {
   _maxRequestsPerHost: number;
 
   /**
+   * @remarks
    * Init client with Config
-   * @param config config contains the necessary information to create a client
+   * 
+   * @param config - config contains the necessary information to create a client
    */
   constructor(config: Config) {
     if (Util.isUnset(config)) {
@@ -38064,14 +41825,16 @@ export default class Client {
   }
 
   /**
+   * @remarks
    * Encapsulate the request and invoke the network
-   * @param action api name
-   * @param protocol http or https
-   * @param method e.g. GET
-   * @param pathname pathname of every api
-   * @param request which contains request params
-   * @param runtime which controls some details of call api, such as retry times
-   * @return the response
+   * 
+   * @param action - api name
+   * @param protocol - http or https
+   * @param method - e.g. GET
+   * @param pathname - pathname of every api
+   * @param request - which contains request params
+   * @param runtime - which controls some details of call api, such as retry times
+   * @returns the response
    */
   async doRequest(version: string, action: string, protocol: string, method: string, pathname: string, request: {[key: string]: any}, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<{[key: string]: any}> {
     let _runtime: { [key: string]: any } = {
@@ -38122,7 +41885,7 @@ export default class Client {
           req_msg_id: AntchainUtil.getNonce(),
           access_key: this._accessKeyId,
           base_sdk_version: "TeaSDK-2.0",
-          sdk_version: "1.13.23",
+          sdk_version: "1.13.26",
           _prod_code: "TWC",
           _prod_channel: "undefined",
         };
@@ -38171,6 +41934,7 @@ export default class Client {
   }
 
   /**
+   * @remarks
    * Description: AI提问获取答案
    * Summary: 获取答案
    */
@@ -38181,6 +41945,7 @@ export default class Client {
   }
 
   /**
+   * @remarks
    * Description: AI提问获取答案
    * Summary: 获取答案
    */
@@ -38190,6 +41955,7 @@ export default class Client {
   }
 
   /**
+   * @remarks
    * Description: 问答反馈
    * Summary: 问答反馈
    */
@@ -38200,6 +41966,7 @@ export default class Client {
   }
 
   /**
+   * @remarks
    * Description: 问答反馈
    * Summary: 问答反馈
    */
@@ -38209,6 +41976,7 @@ export default class Client {
   }
 
   /**
+   * @remarks
    * Description: AI法律服务提问接口
    * Summary: 提出问题
    */
@@ -38219,6 +41987,7 @@ export default class Client {
   }
 
   /**
+   * @remarks
    * Description: AI法律服务提问接口
    * Summary: 提出问题
    */
@@ -38228,6 +41997,7 @@ export default class Client {
   }
 
   /**
+   * @remarks
    * Description: 提供给第三方仲裁isv的仲裁申请状态变化回调接口
    * Summary: 仲裁状态信息变更回调接口
    */
@@ -38238,6 +42008,7 @@ export default class Client {
   }
 
   /**
+   * @remarks
    * Description: 提供给第三方仲裁isv的仲裁申请状态变化回调接口
    * Summary: 仲裁状态信息变更回调接口
    */
@@ -38247,6 +42018,7 @@ export default class Client {
   }
 
   /**
+   * @remarks
    * Description: 仲裁签署状态信息变更回调接口
    * Summary: 仲裁签署状态信息变更回调接口
    */
@@ -38257,6 +42029,7 @@ export default class Client {
   }
 
   /**
+   * @remarks
    * Description: 仲裁签署状态信息变更回调接口
    * Summary: 仲裁签署状态信息变更回调接口
    */
@@ -38266,6 +42039,7 @@ export default class Client {
   }
 
   /**
+   * @remarks
    * Description: 租赁物流信息添加
    * Summary: 租赁物流信息添加
    */
@@ -38276,6 +42050,7 @@ export default class Client {
   }
 
   /**
+   * @remarks
    * Description: 租赁物流信息添加
    * Summary: 租赁物流信息添加
    */
@@ -38285,6 +42060,7 @@ export default class Client {
   }
 
   /**
+   * @remarks
    * Description: 租赁订单发起
    * Summary: 租赁订单发起
    */
@@ -38295,6 +42071,7 @@ export default class Client {
   }
 
   /**
+   * @remarks
    * Description: 租赁订单发起
    * Summary: 租赁订单发起
    */
@@ -38304,6 +42081,7 @@ export default class Client {
   }
 
   /**
+   * @remarks
    * Description: 创建租赁订单
    * Summary: 创建租赁订单
    */
@@ -38314,6 +42092,7 @@ export default class Client {
   }
 
   /**
+   * @remarks
    * Description: 创建租赁订单
    * Summary: 创建租赁订单
    */
@@ -38323,6 +42102,7 @@ export default class Client {
   }
 
   /**
+   * @remarks
    * Description: 租赁订单查询
    * Summary: 租赁订单查询
    */
@@ -38333,6 +42113,7 @@ export default class Client {
   }
 
   /**
+   * @remarks
    * Description: 租赁订单查询
    * Summary: 租赁订单查询
    */
@@ -38342,6 +42123,7 @@ export default class Client {
   }
 
   /**
+   * @remarks
    * Description: 履约信息上传接口
    * Summary: 履约信息上传接口
    */
@@ -38352,6 +42134,7 @@ export default class Client {
   }
 
   /**
+   * @remarks
    * Description: 履约信息上传接口
    * Summary: 履约信息上传接口
    */
@@ -38361,6 +42144,7 @@ export default class Client {
   }
 
   /**
+   * @remarks
    * Description: 商品导入
    * Summary: 商品导入
    */
@@ -38371,6 +42155,7 @@ export default class Client {
   }
 
   /**
+   * @remarks
    * Description: 商品导入
    * Summary: 商品导入
    */
@@ -38380,6 +42165,7 @@ export default class Client {
   }
 
   /**
+   * @remarks
    * Description: 商品查询
    * Summary: 商品查询
    */
@@ -38390,6 +42176,7 @@ export default class Client {
   }
 
   /**
+   * @remarks
    * Description: 商品查询
    * Summary: 商品查询
    */
@@ -38399,6 +42186,7 @@ export default class Client {
   }
 
   /**
+   * @remarks
    * Description: 合同资源量校验与资源扣减
    * Summary: 合同资源量校验与资源扣减
    */
@@ -38409,6 +42197,7 @@ export default class Client {
   }
 
   /**
+   * @remarks
    * Description: 合同资源量校验与资源扣减
    * Summary: 合同资源量校验与资源扣减
    */
@@ -38418,6 +42207,7 @@ export default class Client {
   }
 
   /**
+   * @remarks
    * Description: 获取授权访问oss链接
    * Summary: 获取授权访问oss链接
    */
@@ -38428,6 +42218,7 @@ export default class Client {
   }
 
   /**
+   * @remarks
    * Description: 获取授权访问oss链接
    * Summary: 获取授权访问oss链接
    */
@@ -38437,6 +42228,7 @@ export default class Client {
   }
 
   /**
+   * @remarks
    * Description: 变更BCL订单承诺履约还款方式。合同代扣类型的订单，可以调用该接口取消某一期的代扣(转换为主动还款)。
    * Summary: 变更BCL订单承诺履约还款方式
    */
@@ -38447,6 +42239,7 @@ export default class Client {
   }
 
   /**
+   * @remarks
    * Description: 变更BCL订单承诺履约还款方式。合同代扣类型的订单，可以调用该接口取消某一期的代扣(转换为主动还款)。
    * Summary: 变更BCL订单承诺履约还款方式
    */
@@ -38456,6 +42249,7 @@ export default class Client {
   }
 
   /**
+   * @remarks
    * Description: 创建收款方
    * Summary: 创建收款方
    */
@@ -38466,6 +42260,7 @@ export default class Client {
   }
 
   /**
+   * @remarks
    * Description: 创建收款方
    * Summary: 创建收款方
    */
@@ -38475,6 +42270,7 @@ export default class Client {
   }
 
   /**
+   * @remarks
    * Description: 租赁宝plus订单融资申请接口
    * Summary: 租赁宝plus订单融资申请接口
    */
@@ -38485,6 +42281,7 @@ export default class Client {
   }
 
   /**
+   * @remarks
    * Description: 租赁宝plus订单融资申请接口
    * Summary: 租赁宝plus订单融资申请接口
    */
@@ -38494,6 +42291,7 @@ export default class Client {
   }
 
   /**
+   * @remarks
    * Description: 商家发起入驻成功后，可以通过此接口查询入驻的结果
    * Summary: 查询商家入驻结果
    */
@@ -38504,6 +42302,7 @@ export default class Client {
   }
 
   /**
+   * @remarks
    * Description: 商家发起入驻成功后，可以通过此接口查询入驻的结果
    * Summary: 查询商家入驻结果
    */
@@ -38513,6 +42312,7 @@ export default class Client {
   }
 
   /**
+   * @remarks
    * Description: 商家入驻租赁宝plus平台接口
    * Summary: 商家入驻租赁宝plus平台接口
    */
@@ -38523,6 +42323,7 @@ export default class Client {
   }
 
   /**
+   * @remarks
    * Description: 商家入驻租赁宝plus平台接口
    * Summary: 商家入驻租赁宝plus平台接口
    */
@@ -38532,6 +42333,7 @@ export default class Client {
   }
 
   /**
+   * @remarks
    * Description: 当商家收到买家想解除代扣协议的消息后，可选择同意或拒绝用户解约操作；前置条件：商家已成功收到买家解除代扣协议的消息；
    * Summary: 解除代扣协议
    */
@@ -38542,6 +42344,7 @@ export default class Client {
   }
 
   /**
+   * @remarks
    * Description: 当商家收到买家想解除代扣协议的消息后，可选择同意或拒绝用户解约操作；前置条件：商家已成功收到买家解除代扣协议的消息；
    * Summary: 解除代扣协议
    */
@@ -38551,6 +42354,7 @@ export default class Client {
   }
 
   /**
+   * @remarks
    * Description: 查询单条交易投诉详情接口
    * Summary: 查询单条交易投诉详情接口
    */
@@ -38561,6 +42365,7 @@ export default class Client {
   }
 
   /**
+   * @remarks
    * Description: 查询单条交易投诉详情接口
    * Summary: 查询单条交易投诉详情接口
    */
@@ -38570,6 +42375,7 @@ export default class Client {
   }
 
   /**
+   * @remarks
    * Description: 商户上传处理图片
    * Summary: 商户上传处理图片
    */
@@ -38580,6 +42386,7 @@ export default class Client {
   }
 
   /**
+   * @remarks
    * Description: 商户上传处理图片
    * Summary: 商户上传处理图片
    */
@@ -38589,6 +42396,7 @@ export default class Client {
   }
 
   /**
+   * @remarks
    * Description: 商家处理交易投诉
    * Summary: 商家处理交易投诉
    */
@@ -38599,6 +42407,7 @@ export default class Client {
   }
 
   /**
+   * @remarks
    * Description: 商家处理交易投诉
    * Summary: 商家处理交易投诉
    */
@@ -38608,6 +42417,7 @@ export default class Client {
   }
 
   /**
+   * @remarks
    * Description: 查询投诉单id列表
    * Summary: 查询投诉单id列表
    */
@@ -38618,6 +42428,7 @@ export default class Client {
   }
 
   /**
+   * @remarks
    * Description: 查询投诉单id列表
    * Summary: 查询投诉单id列表
    */
@@ -38627,6 +42438,7 @@ export default class Client {
   }
 
   /**
+   * @remarks
    * Description: 租赁宝plus文件上传接口
    * Summary: 租赁文件上传接口
    */
@@ -38637,6 +42449,7 @@ export default class Client {
   }
 
   /**
+   * @remarks
    * Description: 租赁宝plus文件上传接口
    * Summary: 租赁文件上传接口
    */
@@ -38646,6 +42459,7 @@ export default class Client {
   }
 
   /**
+   * @remarks
    * Description: 完成租赁单推进终态，本期要支持非自建代扣+新租赁宝代扣+老合同+老租赁宝代扣的租赁单完结
    * Summary: 完结租赁单
    */
@@ -38656,6 +42470,7 @@ export default class Client {
   }
 
   /**
+   * @remarks
    * Description: 完成租赁单推进终态，本期要支持非自建代扣+新租赁宝代扣+老合同+老租赁宝代扣的租赁单完结
    * Summary: 完结租赁单
    */
@@ -38665,6 +42480,7 @@ export default class Client {
   }
 
   /**
+   * @remarks
    * Description: 租赁宝plus退款
    * Summary: 租赁宝plus退款
    */
@@ -38675,6 +42491,7 @@ export default class Client {
   }
 
   /**
+   * @remarks
    * Description: 租赁宝plus退款
    * Summary: 租赁宝plus退款
    */
@@ -38684,6 +42501,7 @@ export default class Client {
   }
 
   /**
+   * @remarks
    * Description: 租赁宝plus退款查询
    * Summary: 租赁宝plus退款查询
    */
@@ -38694,6 +42512,7 @@ export default class Client {
   }
 
   /**
+   * @remarks
    * Description: 租赁宝plus退款查询
    * Summary: 租赁宝plus退款查询
    */
@@ -38703,6 +42522,7 @@ export default class Client {
   }
 
   /**
+   * @remarks
    * Description: 租赁宝plus投保
    * Summary: 租赁宝plus投保
    */
@@ -38713,6 +42533,7 @@ export default class Client {
   }
 
   /**
+   * @remarks
    * Description: 租赁宝plus投保
    * Summary: 租赁宝plus投保
    */
@@ -38722,6 +42543,7 @@ export default class Client {
   }
 
   /**
+   * @remarks
    * Description: 租赁宝plus退保
    * Summary: 租赁宝plus退保
    */
@@ -38732,6 +42554,7 @@ export default class Client {
   }
 
   /**
+   * @remarks
    * Description: 租赁宝plus退保
    * Summary: 租赁宝plus退保
    */
@@ -38741,6 +42564,7 @@ export default class Client {
   }
 
   /**
+   * @remarks
    * Description: 租赁宝plus查询订单保险详情
    * Summary: 租赁宝plus查询订单保险详情
    */
@@ -38751,6 +42575,7 @@ export default class Client {
   }
 
   /**
+   * @remarks
    * Description: 租赁宝plus查询订单保险详情
    * Summary: 租赁宝plus查询订单保险详情
    */
@@ -38760,6 +42585,7 @@ export default class Client {
   }
 
   /**
+   * @remarks
    * Description: 调用本接口创建个人账号，后续有关该用户的所有操作都需使用该用户的accountId。如提供用户证件信息，则将根据提供的用户证件信息申请数字证书。
    * Summary: 创建电子合同签署个人帐户
    */
@@ -38770,6 +42596,7 @@ export default class Client {
   }
 
   /**
+   * @remarks
    * Description: 调用本接口创建个人账号，后续有关该用户的所有操作都需使用该用户的accountId。如提供用户证件信息，则将根据提供的用户证件信息申请数字证书。
    * Summary: 创建电子合同签署个人帐户
    */
@@ -38779,6 +42606,7 @@ export default class Client {
   }
 
   /**
+   * @remarks
    * Description: 通过模版参数，创建个人印章
    * Summary: 创建电子合同个人帐户印章
    */
@@ -38789,6 +42617,7 @@ export default class Client {
   }
 
   /**
+   * @remarks
    * Description: 通过模版参数，创建个人印章
    * Summary: 创建电子合同个人帐户印章
    */
@@ -38798,8 +42627,9 @@ export default class Client {
   }
 
   /**
+   * @remarks
    * Description: 对接方调用本接口创建机构账号，后续有关该机构的所有操作都需使用该机构的orgId。如提供机构证件信息，则将根据提供的机构证件信息申请数字证书。
-  创建机构账号前需要先创建一个个人账号并通过本接口传给服务器，该个人账号将作为该机构签署的经办人，代表企业完成实名认证和意愿认证，并完成签署操作。
+   * 创建机构账号前需要先创建一个个人账号并通过本接口传给服务器，该个人账号将作为该机构签署的经办人，代表企业完成实名认证和意愿认证，并完成签署操作。
    * Summary: 创建电子合同签署机构帐户
    */
   async createContractOrganization(request: CreateContractOrganizationRequest): Promise<CreateContractOrganizationResponse> {
@@ -38809,8 +42639,9 @@ export default class Client {
   }
 
   /**
+   * @remarks
    * Description: 对接方调用本接口创建机构账号，后续有关该机构的所有操作都需使用该机构的orgId。如提供机构证件信息，则将根据提供的机构证件信息申请数字证书。
-  创建机构账号前需要先创建一个个人账号并通过本接口传给服务器，该个人账号将作为该机构签署的经办人，代表企业完成实名认证和意愿认证，并完成签署操作。
+   * 创建机构账号前需要先创建一个个人账号并通过本接口传给服务器，该个人账号将作为该机构签署的经办人，代表企业完成实名认证和意愿认证，并完成签署操作。
    * Summary: 创建电子合同签署机构帐户
    */
   async createContractOrganizationEx(request: CreateContractOrganizationRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<CreateContractOrganizationResponse> {
@@ -38819,6 +42650,7 @@ export default class Client {
   }
 
   /**
+   * @remarks
    * Description: 通过模版参数，创建机构印章
    * Summary: 创建电子合同机构帐户印章
    */
@@ -38829,6 +42661,7 @@ export default class Client {
   }
 
   /**
+   * @remarks
    * Description: 通过模版参数，创建机构印章
    * Summary: 创建电子合同机构帐户印章
    */
@@ -38838,6 +42671,7 @@ export default class Client {
   }
 
   /**
+   * @remarks
    * Description: 静默签署授权
    * Summary: 静默签署授权
    */
@@ -38848,6 +42682,7 @@ export default class Client {
   }
 
   /**
+   * @remarks
    * Description: 静默签署授权
    * Summary: 静默签署授权
    */
@@ -38857,6 +42692,7 @@ export default class Client {
   }
 
   /**
+   * @remarks
    * Description: 通过文件直传地址创建模板，创建模板后上传文件，上传方法请参考文件流上传方法
    * Summary: 通过文件上传方式创建电子合同签署模板
    */
@@ -38867,6 +42703,7 @@ export default class Client {
   }
 
   /**
+   * @remarks
    * Description: 通过文件直传地址创建模板，创建模板后上传文件，上传方法请参考文件流上传方法
    * Summary: 通过文件上传方式创建电子合同签署模板
    */
@@ -38876,6 +42713,7 @@ export default class Client {
   }
 
   /**
+   * @remarks
    * Description: 创建签署流程
    * Summary: 创建电子合同签署流程
    */
@@ -38886,6 +42724,7 @@ export default class Client {
   }
 
   /**
+   * @remarks
    * Description: 创建签署流程
    * Summary: 创建电子合同签署流程
    */
@@ -38895,6 +42734,7 @@ export default class Client {
   }
 
   /**
+   * @remarks
    * Description: 向流程中添加待签署文档，文档必须先用文档管理接口创建，创建方式请参见文件管理接口文档。已经开启的流程不能再添加签署文档。
    * Summary: 向电子合同签署流程中添加待签署文档
    */
@@ -38905,6 +42745,7 @@ export default class Client {
   }
 
   /**
+   * @remarks
    * Description: 向流程中添加待签署文档，文档必须先用文档管理接口创建，创建方式请参见文件管理接口文档。已经开启的流程不能再添加签署文档。
    * Summary: 向电子合同签署流程中添加待签署文档
    */
@@ -38914,6 +42755,7 @@ export default class Client {
   }
 
   /**
+   * @remarks
    * Description: 向指定流程中创建签署区，每个签署区视为一个任务，系统会自动按照流程流转。 签署区的添加必须在签署文档添加之后, 签署区信息内部包含签署人、签署文档信息。 签署区创建完成，流程开启后，系统将自动完成“用户自动盖章签署区”的盖章。用户可全程无感完成本次签署。创建签署方自动盖章签署区前，需确定已完成账号静默签署授权。签署方自动盖章的合同，需要由对接平台方自行校验真实身份和真实意愿
    * Summary: 添加电子合同签署方自动盖章签署区
    */
@@ -38924,6 +42766,7 @@ export default class Client {
   }
 
   /**
+   * @remarks
    * Description: 向指定流程中创建签署区，每个签署区视为一个任务，系统会自动按照流程流转。 签署区的添加必须在签署文档添加之后, 签署区信息内部包含签署人、签署文档信息。 签署区创建完成，流程开启后，系统将自动完成“用户自动盖章签署区”的盖章。用户可全程无感完成本次签署。创建签署方自动盖章签署区前，需确定已完成账号静默签署授权。签署方自动盖章的合同，需要由对接平台方自行校验真实身份和真实意愿
    * Summary: 添加电子合同签署方自动盖章签署区
    */
@@ -38933,6 +42776,7 @@ export default class Client {
   }
 
   /**
+   * @remarks
    * Description: 开启签署流程，开启后流程文档不可再添加或修改文档，签署任务会自动按照设置开始流转。流程开启后，归档前，可随时追加签署区（指定签署人的签署信息）
    * Summary: 电子合同签署流程开启
    */
@@ -38943,6 +42787,7 @@ export default class Client {
   }
 
   /**
+   * @remarks
    * Description: 开启签署流程，开启后流程文档不可再添加或修改文档，签署任务会自动按照设置开始流转。流程开启后，归档前，可随时追加签署区（指定签署人的签署信息）
    * Summary: 电子合同签署流程开启
    */
@@ -38952,6 +42797,7 @@ export default class Client {
   }
 
   /**
+   * @remarks
    * Description: 手动归档签署流程，归档后所有资源均不可修改。归档前签署流程中的所有签署人必须都签署完成。如创建流程时设置了自动归档，则无需调用本接口，签署完成后系统会自动调用
    * Summary: 电子合同签署流程归档
    */
@@ -38962,6 +42808,7 @@ export default class Client {
   }
 
   /**
+   * @remarks
    * Description: 手动归档签署流程，归档后所有资源均不可修改。归档前签署流程中的所有签署人必须都签署完成。如创建流程时设置了自动归档，则无需调用本接口，签署完成后系统会自动调用
    * Summary: 电子合同签署流程归档
    */
@@ -38971,6 +42818,7 @@ export default class Client {
   }
 
   /**
+   * @remarks
    * Description: 流程归档后，查询和下载签署后的文件
    * Summary: 电子合同流程文档下载
    */
@@ -38981,6 +42829,7 @@ export default class Client {
   }
 
   /**
+   * @remarks
    * Description: 流程归档后，查询和下载签署后的文件
    * Summary: 电子合同流程文档下载
    */
@@ -38990,6 +42839,7 @@ export default class Client {
   }
 
   /**
+   * @remarks
    * Description: 基于文件模板生成待签文件用于后续文件，该文件可用用于签署，也可作为附件
    * Summary: 通过电子合同模板添加文档
    */
@@ -39000,6 +42850,7 @@ export default class Client {
   }
 
   /**
+   * @remarks
    * Description: 基于文件模板生成待签文件用于后续文件，该文件可用用于签署，也可作为附件
    * Summary: 通过电子合同模板添加文档
    */
@@ -39009,6 +42860,7 @@ export default class Client {
   }
 
   /**
+   * @remarks
    * Description: 电子合同平台方发起注册，提供企业信息、合同签署的经办人信息，注册成为电子合同平台方用户
    * Summary: 电子合同平台方注册
    */
@@ -39019,6 +42871,7 @@ export default class Client {
   }
 
   /**
+   * @remarks
    * Description: 电子合同平台方发起注册，提供企业信息、合同签署的经办人信息，注册成为电子合同平台方用户
    * Summary: 电子合同平台方注册
    */
@@ -39028,6 +42881,7 @@ export default class Client {
   }
 
   /**
+   * @remarks
    * Description: 电子合同平台方提供用户信息，注册成为平台用户
    * Summary: 电子合同平台方的用户注册
    */
@@ -39038,6 +42892,7 @@ export default class Client {
   }
 
   /**
+   * @remarks
    * Description: 电子合同平台方提供用户信息，注册成为平台用户
    * Summary: 电子合同平台方的用户注册
    */
@@ -39047,6 +42902,7 @@ export default class Client {
   }
 
   /**
+   * @remarks
    * Description: 电子合同平台方发起签署流程，用户在H5页面完成手动签署
    * Summary: 电子合同平台方发起手动签署流程
    */
@@ -39057,6 +42913,7 @@ export default class Client {
   }
 
   /**
+   * @remarks
    * Description: 电子合同平台方发起签署流程，用户在H5页面完成手动签署
    * Summary: 电子合同平台方发起手动签署流程
    */
@@ -39066,6 +42923,7 @@ export default class Client {
   }
 
   /**
+   * @remarks
    * Description: 查询签署流程的详细信息，包括流程配置、签署状态等
    * Summary: 签署流程查询
    */
@@ -39076,6 +42934,7 @@ export default class Client {
   }
 
   /**
+   * @remarks
    * Description: 查询签署流程的详细信息，包括流程配置、签署状态等
    * Summary: 签署流程查询
    */
@@ -39085,6 +42944,7 @@ export default class Client {
   }
 
   /**
+   * @remarks
    * Description: 创建个人/机构图片印章
    * Summary: 创建个人/机构图片印章
    */
@@ -39095,6 +42955,7 @@ export default class Client {
   }
 
   /**
+   * @remarks
    * Description: 创建个人/机构图片印章
    * Summary: 创建个人/机构图片印章
    */
@@ -39104,6 +42965,7 @@ export default class Client {
   }
 
   /**
+   * @remarks
    * Description: 采用文件直传的方式完成用户文件的上传。对接方通过该接口获取文件上传的授权地址
    * Summary: 通过上传方式创建文件
    */
@@ -39114,6 +42976,7 @@ export default class Client {
   }
 
   /**
+   * @remarks
    * Description: 采用文件直传的方式完成用户文件的上传。对接方通过该接口获取文件上传的授权地址
    * Summary: 通过上传方式创建文件
    */
@@ -39123,8 +42986,9 @@ export default class Client {
   }
 
   /**
+   * @remarks
    * Description: 向指定流程中创建签署区，每个签署区视为一个任务，系统会自动按照流程流转。 签署区的添加必须在签署文档添加之后, 签署区信息内部包含签署文档信息（平台自动签无需指定签署人信息，默认签署人是对接的企业）。
-  签署区创建完成，流程开启后，系统将自动完成“对接平台自动盖章签署区”的盖章，对接平台可全程无感完成本次签署。
+   * 签署区创建完成，流程开启后，系统将自动完成“对接平台自动盖章签署区”的盖章，对接平台可全程无感完成本次签署。
    * Summary: 添加平台自动盖章签署区
    */
   async addContractPlatformsignfields(request: AddContractPlatformsignfieldsRequest): Promise<AddContractPlatformsignfieldsResponse> {
@@ -39134,8 +42998,9 @@ export default class Client {
   }
 
   /**
+   * @remarks
    * Description: 向指定流程中创建签署区，每个签署区视为一个任务，系统会自动按照流程流转。 签署区的添加必须在签署文档添加之后, 签署区信息内部包含签署文档信息（平台自动签无需指定签署人信息，默认签署人是对接的企业）。
-  签署区创建完成，流程开启后，系统将自动完成“对接平台自动盖章签署区”的盖章，对接平台可全程无感完成本次签署。
+   * 签署区创建完成，流程开启后，系统将自动完成“对接平台自动盖章签署区”的盖章，对接平台可全程无感完成本次签署。
    * Summary: 添加平台自动盖章签署区
    */
   async addContractPlatformsignfieldsEx(request: AddContractPlatformsignfieldsRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<AddContractPlatformsignfieldsResponse> {
@@ -39144,6 +43009,7 @@ export default class Client {
   }
 
   /**
+   * @remarks
    * Description: 查询文件详情，包括文件名称、大小、下载地址等
    * Summary: 查询文件详情
    */
@@ -39154,6 +43020,7 @@ export default class Client {
   }
 
   /**
+   * @remarks
    * Description: 查询文件详情，包括文件名称、大小、下载地址等
    * Summary: 查询文件详情
    */
@@ -39163,6 +43030,7 @@ export default class Client {
   }
 
   /**
+   * @remarks
    * Description: 查询个人所有印章
    * Summary: 查询个人印章
    */
@@ -39173,6 +43041,7 @@ export default class Client {
   }
 
   /**
+   * @remarks
    * Description: 查询个人所有印章
    * Summary: 查询个人印章
    */
@@ -39182,6 +43051,7 @@ export default class Client {
   }
 
   /**
+   * @remarks
    * Description: 查询机构所有印章
    * Summary: 查询机构印章
    */
@@ -39192,6 +43062,7 @@ export default class Client {
   }
 
   /**
+   * @remarks
    * Description: 查询机构所有印章
    * Summary: 查询机构印章
    */
@@ -39201,6 +43072,7 @@ export default class Client {
   }
 
   /**
+   * @remarks
    * Description: 查询流程所有签署人列表。
    * Summary: 查询流程签署人列表
    */
@@ -39211,6 +43083,7 @@ export default class Client {
   }
 
   /**
+   * @remarks
    * Description: 查询流程所有签署人列表。
    * Summary: 查询流程签署人列表
    */
@@ -39220,6 +43093,7 @@ export default class Client {
   }
 
   /**
+   * @remarks
    * Description: 查询流程签署区列表，可以查询指定指定id或者签署人所属的签署区
    * Summary: 查询签署区列表
    */
@@ -39230,6 +43104,7 @@ export default class Client {
   }
 
   /**
+   * @remarks
    * Description: 查询流程签署区列表，可以查询指定指定id或者签署人所属的签署区
    * Summary: 查询签署区列表
    */
@@ -39239,6 +43114,7 @@ export default class Client {
   }
 
   /**
+   * @remarks
    * Description: 使用创建账号返回的账号id查询用户的账号。
    * Summary: 查询个人账号
    */
@@ -39249,6 +43125,7 @@ export default class Client {
   }
 
   /**
+   * @remarks
    * Description: 使用创建账号返回的账号id查询用户的账号。
    * Summary: 查询个人账号
    */
@@ -39258,6 +43135,7 @@ export default class Client {
   }
 
   /**
+   * @remarks
    * Description: 使用创建账号返回的账号id查询机构账号。
    * Summary: 查询机构账号
    */
@@ -39268,6 +43146,7 @@ export default class Client {
   }
 
   /**
+   * @remarks
    * Description: 使用创建账号返回的账号id查询机构账号。
    * Summary: 查询机构账号
    */
@@ -39277,6 +43156,7 @@ export default class Client {
   }
 
   /**
+   * @remarks
    * Description: 查询模板详情，包括文件模板基本信息和输入项组件信息
    * Summary: 查询模板详情详情
    */
@@ -39287,6 +43167,7 @@ export default class Client {
   }
 
   /**
+   * @remarks
    * Description: 查询模板详情，包括文件模板基本信息和输入项组件信息
    * Summary: 查询模板详情详情
    */
@@ -39296,6 +43177,7 @@ export default class Client {
   }
 
   /**
+   * @remarks
    * Description: 平台方制定签约模板和用户，发起手动签署流程，获得签署流程ID
    * Summary: 创建签署流程
    */
@@ -39306,6 +43188,7 @@ export default class Client {
   }
 
   /**
+   * @remarks
    * Description: 平台方制定签约模板和用户，发起手动签署流程，获得签署流程ID
    * Summary: 创建签署流程
    */
@@ -39315,6 +43198,7 @@ export default class Client {
   }
 
   /**
+   * @remarks
    * Description: 商户签署直付通协议
    * Summary: 商户签署直付通协议
    */
@@ -39325,6 +43209,7 @@ export default class Client {
   }
 
   /**
+   * @remarks
    * Description: 商户签署直付通协议
    * Summary: 商户签署直付通协议
    */
@@ -39334,6 +43219,7 @@ export default class Client {
   }
 
   /**
+   * @remarks
    * Description: 创建模板的同时，指定平台方签署信息，完成智能合同模板创建
    * Summary: 创建智能合同模板
    */
@@ -39344,6 +43230,7 @@ export default class Client {
   }
 
   /**
+   * @remarks
    * Description: 创建模板的同时，指定平台方签署信息，完成智能合同模板创建
    * Summary: 创建智能合同模板
    */
@@ -39353,6 +43240,7 @@ export default class Client {
   }
 
   /**
+   * @remarks
    * Description: 查询商户直付通入驻信息
    * Summary: 查询商户直付通入驻信息
    */
@@ -39363,6 +43251,7 @@ export default class Client {
   }
 
   /**
+   * @remarks
    * Description: 查询商户直付通入驻信息
    * Summary: 查询商户直付通入驻信息
    */
@@ -39372,6 +43261,7 @@ export default class Client {
   }
 
   /**
+   * @remarks
    * Description: 列举本租户合同相关交易
    * Summary: 列举本租户合同相关交易
    */
@@ -39382,6 +43272,7 @@ export default class Client {
   }
 
   /**
+   * @remarks
    * Description: 列举本租户合同相关交易
    * Summary: 列举本租户合同相关交易
    */
@@ -39391,6 +43282,7 @@ export default class Client {
   }
 
   /**
+   * @remarks
    * Description: 根据订单id查询订单代扣详情
    * Summary: 根据订单id查询订单代扣详情
    */
@@ -39401,6 +43293,7 @@ export default class Client {
   }
 
   /**
+   * @remarks
    * Description: 根据订单id查询订单代扣详情
    * Summary: 根据订单id查询订单代扣详情
    */
@@ -39410,6 +43303,7 @@ export default class Client {
   }
 
   /**
+   * @remarks
    * Description: 商户根据订单id退款
    * Summary: 商户根据订单id退款
    */
@@ -39420,6 +43314,7 @@ export default class Client {
   }
 
   /**
+   * @remarks
    * Description: 商户根据订单id退款
    * Summary: 商户根据订单id退款
    */
@@ -39429,6 +43324,7 @@ export default class Client {
   }
 
   /**
+   * @remarks
    * Description: 创建蚂蚁区块链账户
    * Summary: 创建蚂蚁区块链账户
    */
@@ -39439,6 +43335,7 @@ export default class Client {
   }
 
   /**
+   * @remarks
    * Description: 创建蚂蚁区块链账户
    * Summary: 创建蚂蚁区块链账户
    */
@@ -39448,6 +43345,7 @@ export default class Client {
   }
 
   /**
+   * @remarks
    * Description: 商户根据合同id列举所有的tradeId
    * Summary: 商户根据合同id列举所有的tradeId
    */
@@ -39458,6 +43356,7 @@ export default class Client {
   }
 
   /**
+   * @remarks
    * Description: 商户根据合同id列举所有的tradeId
    * Summary: 商户根据合同id列举所有的tradeId
    */
@@ -39467,6 +43366,7 @@ export default class Client {
   }
 
   /**
+   * @remarks
    * Description: 商户上传代扣规则
    * Summary: 商户上传代扣规则
    */
@@ -39477,6 +43377,7 @@ export default class Client {
   }
 
   /**
+   * @remarks
    * Description: 商户上传代扣规则
    * Summary: 商户上传代扣规则
    */
@@ -39486,6 +43387,7 @@ export default class Client {
   }
 
   /**
+   * @remarks
    * Description: 商户入驻直付通
    * Summary: 商户入驻直付通
    */
@@ -39496,6 +43398,7 @@ export default class Client {
   }
 
   /**
+   * @remarks
    * Description: 商户入驻直付通
    * Summary: 商户入驻直付通
    */
@@ -39505,6 +43408,7 @@ export default class Client {
   }
 
   /**
+   * @remarks
    * Description: 根据订单id查询直付通商户入驻信息
    * Summary: 根据订单id查询直付通商户入驻信息
    */
@@ -39515,6 +43419,7 @@ export default class Client {
   }
 
   /**
+   * @remarks
    * Description: 根据订单id查询直付通商户入驻信息
    * Summary: 根据订单id查询直付通商户入驻信息
    */
@@ -39524,6 +43429,7 @@ export default class Client {
   }
 
   /**
+   * @remarks
    * Description: 获取支付对账文件的url
    * Summary: 获取支付对账文件的url
    */
@@ -39534,6 +43440,7 @@ export default class Client {
   }
 
   /**
+   * @remarks
    * Description: 获取支付对账文件的url
    * Summary: 获取支付对账文件的url
    */
@@ -39543,6 +43450,7 @@ export default class Client {
   }
 
   /**
+   * @remarks
    * Description: 智能合同图片上传
    * Summary: 智能合同图片上传
    */
@@ -39553,6 +43461,7 @@ export default class Client {
   }
 
   /**
+   * @remarks
    * Description: 智能合同图片上传
    * Summary: 智能合同图片上传
    */
@@ -39562,6 +43471,7 @@ export default class Client {
   }
 
   /**
+   * @remarks
    * Description: 取消智能合同剩余代扣条目
    * Summary: 取消智能合同剩余代扣条目
    */
@@ -39572,6 +43482,7 @@ export default class Client {
   }
 
   /**
+   * @remarks
    * Description: 取消智能合同剩余代扣条目
    * Summary: 取消智能合同剩余代扣条目
    */
@@ -39581,6 +43492,7 @@ export default class Client {
   }
 
   /**
+   * @remarks
    * Description: 创建手动签署流程
    * Summary: 创建手动签署流程
    */
@@ -39591,6 +43503,7 @@ export default class Client {
   }
 
   /**
+   * @remarks
    * Description: 创建手动签署流程
    * Summary: 创建手动签署流程
    */
@@ -39600,8 +43513,9 @@ export default class Client {
   }
 
   /**
-   * Description: 向指定流程中创建签署区，每个签署区视为一个任务，系统会自动按照流程流转。 签署区的添加必须在签署文档添加之后, 签署区信息内部包含签署文档信息。签署区创建完成，流程开启后，通过获取签署地址接口，可获取用户手动签署链接，通过此链接可打开文件签署页面，进行人工确认签署。
-   * Summary: 添加电子合同签署方手动盖章签署区
+   * @remarks
+   * Description: 向指定流程中创建签署区，每个签署区视为一个任务，系统会自动按照流程流转。
+   * Summary: 向指定流程中创建签署区，每个签署区视为一个任务，系统会自动按照流程流转。
    */
   async createContractHandsignfield(request: CreateContractHandsignfieldRequest): Promise<CreateContractHandsignfieldResponse> {
     let runtime = new $Util.RuntimeOptions({ });
@@ -39610,8 +43524,9 @@ export default class Client {
   }
 
   /**
-   * Description: 向指定流程中创建签署区，每个签署区视为一个任务，系统会自动按照流程流转。 签署区的添加必须在签署文档添加之后, 签署区信息内部包含签署文档信息。签署区创建完成，流程开启后，通过获取签署地址接口，可获取用户手动签署链接，通过此链接可打开文件签署页面，进行人工确认签署。
-   * Summary: 添加电子合同签署方手动盖章签署区
+   * @remarks
+   * Description: 向指定流程中创建签署区，每个签署区视为一个任务，系统会自动按照流程流转。
+   * Summary: 向指定流程中创建签署区，每个签署区视为一个任务，系统会自动按照流程流转。
    */
   async createContractHandsignfieldEx(request: CreateContractHandsignfieldRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<CreateContractHandsignfieldResponse> {
     Util.validateModel(request);
@@ -39619,6 +43534,7 @@ export default class Client {
   }
 
   /**
+   * @remarks
    * Description: 流程开启后，获取指定签署人的签署链接地址，如仅传入签署人账号id，则获取的签署任务链接仅包含本人的签署任务；如同时签署人账号id+机构id，则获取的签署任务链接包含机构与个人的签署任务；organizeId传入0，则返回的任务链接包含签署人“本人+所有代签机构”的签署任务。
    * Summary: 获取签署地址
    */
@@ -39629,6 +43545,7 @@ export default class Client {
   }
 
   /**
+   * @remarks
    * Description: 流程开启后，获取指定签署人的签署链接地址，如仅传入签署人账号id，则获取的签署任务链接仅包含本人的签署任务；如同时签署人账号id+机构id，则获取的签署任务链接包含机构与个人的签署任务；organizeId传入0，则返回的任务链接包含签署人“本人+所有代签机构”的签署任务。
    * Summary: 获取签署地址
    */
@@ -39638,6 +43555,7 @@ export default class Client {
   }
 
   /**
+   * @remarks
    * Description: 可信付代扣规则内容创建
    * Summary: 可信付代扣规则内容创建
    */
@@ -39648,6 +43566,7 @@ export default class Client {
   }
 
   /**
+   * @remarks
    * Description: 可信付代扣规则内容创建
    * Summary: 可信付代扣规则内容创建
    */
@@ -39657,6 +43576,7 @@ export default class Client {
   }
 
   /**
+   * @remarks
    * Description: 查询消金代扣协议
    * Summary: 查询可信付代扣协议内容
    */
@@ -39667,6 +43587,7 @@ export default class Client {
   }
 
   /**
+   * @remarks
    * Description: 查询消金代扣协议
    * Summary: 查询可信付代扣协议内容
    */
@@ -39676,6 +43597,7 @@ export default class Client {
   }
 
   /**
+   * @remarks
    * Description: 查询可信付协议的入口
    * Summary: 查询可信付协议的入口
    */
@@ -39686,6 +43608,7 @@ export default class Client {
   }
 
   /**
+   * @remarks
    * Description: 查询可信付协议的入口
    * Summary: 查询可信付协议的入口
    */
@@ -39695,6 +43618,7 @@ export default class Client {
   }
 
   /**
+   * @remarks
    * Description: 后台录入商家的产品的逾期日
    * Summary: 后台录入商家的产品的逾期日
    */
@@ -39705,6 +43629,7 @@ export default class Client {
   }
 
   /**
+   * @remarks
    * Description: 后台录入商家的产品的逾期日
    * Summary: 后台录入商家的产品的逾期日
    */
@@ -39714,6 +43639,7 @@ export default class Client {
   }
 
   /**
+   * @remarks
    * Description: 可信付代扣的扣费请求
    * Summary: 发送代扣请求
    */
@@ -39724,6 +43650,7 @@ export default class Client {
   }
 
   /**
+   * @remarks
    * Description: 可信付代扣的扣费请求
    * Summary: 发送代扣请求
    */
@@ -39733,6 +43660,7 @@ export default class Client {
   }
 
   /**
+   * @remarks
    * Description: 可信付代扣结果查询
    * Summary: 可信付代扣结果查询
    */
@@ -39743,6 +43671,7 @@ export default class Client {
   }
 
   /**
+   * @remarks
    * Description: 可信付代扣结果查询
    * Summary: 可信付代扣结果查询
    */
@@ -39752,6 +43681,7 @@ export default class Client {
   }
 
   /**
+   * @remarks
    * Description: 可信付退款请求
    * Summary: 可信付退款请求
    */
@@ -39762,6 +43692,7 @@ export default class Client {
   }
 
   /**
+   * @remarks
    * Description: 可信付退款请求
    * Summary: 可信付退款请求
    */
@@ -39771,6 +43702,7 @@ export default class Client {
   }
 
   /**
+   * @remarks
    * Description: 创建邀请任务，被邀请人收到通知后需要注册并完成实名认证方可开通电子签名服务。
    * Summary: 创建注册邀请任务
    */
@@ -39781,6 +43713,7 @@ export default class Client {
   }
 
   /**
+   * @remarks
    * Description: 创建邀请任务，被邀请人收到通知后需要注册并完成实名认证方可开通电子签名服务。
    * Summary: 创建注册邀请任务
    */
@@ -39790,6 +43723,7 @@ export default class Client {
   }
 
   /**
+   * @remarks
    * Description: 查询代扣规则
    * Summary: 查询代扣规则
    */
@@ -39800,6 +43734,7 @@ export default class Client {
   }
 
   /**
+   * @remarks
    * Description: 查询代扣规则
    * Summary: 查询代扣规则
    */
@@ -39809,6 +43744,7 @@ export default class Client {
   }
 
   /**
+   * @remarks
    * Description: 获取可信付免签协议的二维码
    * Summary: 获取可信付免签协议的二维码
    */
@@ -39819,6 +43755,7 @@ export default class Client {
   }
 
   /**
+   * @remarks
    * Description: 获取可信付免签协议的二维码
    * Summary: 获取可信付免签协议的二维码
    */
@@ -39828,6 +43765,7 @@ export default class Client {
   }
 
   /**
+   * @remarks
    * Description: 取消某一期的代扣规则
    * Summary: 取消某一期的代扣规则
    */
@@ -39838,6 +43776,7 @@ export default class Client {
   }
 
   /**
+   * @remarks
    * Description: 取消某一期的代扣规则
    * Summary: 取消某一期的代扣规则
    */
@@ -39847,6 +43786,7 @@ export default class Client {
   }
 
   /**
+   * @remarks
    * Description: 使用区块链合同回调服务，需要申请加签时使用的key。该key每个平台方对应一个，不可变更，多次申请结果幂等。
    * Summary: 申请区块链合同回调加签key
    */
@@ -39857,6 +43797,7 @@ export default class Client {
   }
 
   /**
+   * @remarks
    * Description: 使用区块链合同回调服务，需要申请加签时使用的key。该key每个平台方对应一个，不可变更，多次申请结果幂等。
    * Summary: 申请区块链合同回调加签key
    */
@@ -39866,8 +43807,9 @@ export default class Client {
   }
 
   /**
+   * @remarks
    * Description: 快速创建签署流程，完成添加待签文档、流程基本信息、签署方，支持自动开启、自动归档。
-   * Summary: 一步创建签署流程接口
+   * Summary: 快速创建签署流程，完成添加待签文档、流程基本信息、签署方，支持自动开启、自动归档。
    */
   async createContractOnestepflow(request: CreateContractOnestepflowRequest): Promise<CreateContractOnestepflowResponse> {
     let runtime = new $Util.RuntimeOptions({ });
@@ -39876,8 +43818,9 @@ export default class Client {
   }
 
   /**
+   * @remarks
    * Description: 快速创建签署流程，完成添加待签文档、流程基本信息、签署方，支持自动开启、自动归档。
-   * Summary: 一步创建签署流程接口
+   * Summary: 快速创建签署流程，完成添加待签文档、流程基本信息、签署方，支持自动开启、自动归档。
    */
   async createContractOnestepflowEx(request: CreateContractOnestepflowRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<CreateContractOnestepflowResponse> {
     Util.validateModel(request);
@@ -39885,6 +43828,7 @@ export default class Client {
   }
 
   /**
+   * @remarks
    * Description: 通过流程ID查询合同存证信息
    * Summary: 查询合同存证信息
    */
@@ -39895,6 +43839,7 @@ export default class Client {
   }
 
   /**
+   * @remarks
    * Description: 通过流程ID查询合同存证信息
    * Summary: 查询合同存证信息
    */
@@ -39904,6 +43849,7 @@ export default class Client {
   }
 
   /**
+   * @remarks
    * Description: 获取合同存证事务ID
    * Summary: 获取合同存证事务ID
    */
@@ -39914,6 +43860,7 @@ export default class Client {
   }
 
   /**
+   * @remarks
    * Description: 获取合同存证事务ID
    * Summary: 获取合同存证事务ID
    */
@@ -39923,6 +43870,7 @@ export default class Client {
   }
 
   /**
+   * @remarks
    * Description: 合同文本存证
    * Summary: 合同文本存证
    */
@@ -39933,6 +43881,7 @@ export default class Client {
   }
 
   /**
+   * @remarks
    * Description: 合同文本存证
    * Summary: 合同文本存证
    */
@@ -39942,6 +43891,7 @@ export default class Client {
   }
 
   /**
+   * @remarks
    * Description: 搜索关键字坐标，以关键字左下角为原点去查询坐标
    * Summary: 搜索关键字坐标
    */
@@ -39952,6 +43902,7 @@ export default class Client {
   }
 
   /**
+   * @remarks
    * Description: 搜索关键字坐标，以关键字左下角为原点去查询坐标
    * Summary: 搜索关键字坐标
    */
@@ -39961,6 +43912,7 @@ export default class Client {
   }
 
   /**
+   * @remarks
    * Description: 执行签署人删除逻辑
    * Summary: 删除签署人
    */
@@ -39971,6 +43923,7 @@ export default class Client {
   }
 
   /**
+   * @remarks
    * Description: 执行签署人删除逻辑
    * Summary: 删除签署人
    */
@@ -39980,6 +43933,7 @@ export default class Client {
   }
 
   /**
+   * @remarks
    * Description: 获取区块链合同存证证明
    * Summary: 获取区块链合同存证证明
    */
@@ -39990,6 +43944,7 @@ export default class Client {
   }
 
   /**
+   * @remarks
    * Description: 获取区块链合同存证证明
    * Summary: 获取区块链合同存证证明
    */
@@ -39999,6 +43954,7 @@ export default class Client {
   }
 
   /**
+   * @remarks
    * Description: 已归档的合同，支持根据合同流程签署区查询已使用的印章id
    * Summary: 根据合同流程签署区查询已使用的印章id
    */
@@ -40009,6 +43965,7 @@ export default class Client {
   }
 
   /**
+   * @remarks
    * Description: 已归档的合同，支持根据合同流程签署区查询已使用的印章id
    * Summary: 根据合同流程签署区查询已使用的印章id
    */
@@ -40018,6 +43975,7 @@ export default class Client {
   }
 
   /**
+   * @remarks
    * Description: 本接口功能默认不开启，如有需求请联系技术支持。添加手动签署区，并启动签署流程之后，触发通知，提醒签署方执行签署。通知方式以创建流程时的配置为准（目前仅支持短信）。
    * Summary: 通知签署方执行合同签署
    */
@@ -40028,6 +43986,7 @@ export default class Client {
   }
 
   /**
+   * @remarks
    * Description: 本接口功能默认不开启，如有需求请联系技术支持。添加手动签署区，并启动签署流程之后，触发通知，提醒签署方执行签署。通知方式以创建流程时的配置为准（目前仅支持短信）。
    * Summary: 通知签署方执行合同签署
    */
@@ -40037,6 +43996,7 @@ export default class Client {
   }
 
   /**
+   * @remarks
    * Description: 通过配置白名单，临时允许修改证件号/名称等所有字段以及经办人的信息，修改后从白名单中去除
    * Summary: 修改平台方注册信息
    */
@@ -40047,6 +44007,7 @@ export default class Client {
   }
 
   /**
+   * @remarks
    * Description: 通过配置白名单，临时允许修改证件号/名称等所有字段以及经办人的信息，修改后从白名单中去除
    * Summary: 修改平台方注册信息
    */
@@ -40056,6 +44017,7 @@ export default class Client {
   }
 
   /**
+   * @remarks
    * Description: 个人的注册信息中证件信息为空时允许修改姓名、证件等各项信息，如果不为空，则不允许修改
    * Summary: 修改用户注册信息
    */
@@ -40066,6 +44028,7 @@ export default class Client {
   }
 
   /**
+   * @remarks
    * Description: 个人的注册信息中证件信息为空时允许修改姓名、证件等各项信息，如果不为空，则不允许修改
    * Summary: 修改用户注册信息
    */
@@ -40075,6 +44038,7 @@ export default class Client {
   }
 
   /**
+   * @remarks
    * Description: 机构的注册信息中证件信息为空时允许修改机构名、证件等各项信息，但不允许修改经办人信息，如果不为空，则无法修改  
    * Summary: 修改机构用户注册信息
    */
@@ -40085,6 +44049,7 @@ export default class Client {
   }
 
   /**
+   * @remarks
    * Description: 机构的注册信息中证件信息为空时允许修改机构名、证件等各项信息，但不允许修改经办人信息，如果不为空，则无法修改  
    * Summary: 修改机构用户注册信息
    */
@@ -40094,6 +44059,7 @@ export default class Client {
   }
 
   /**
+   * @remarks
    * Description: 商户入驻直付通新接口，通过此接口创建的商户，签约模式默认走单独签约授权模式（即不同商户都需要进行单独的代扣签约授权）。
    * Summary: 商户入驻直付通新接口
    */
@@ -40104,6 +44070,7 @@ export default class Client {
   }
 
   /**
+   * @remarks
    * Description: 商户入驻直付通新接口，通过此接口创建的商户，签约模式默认走单独签约授权模式（即不同商户都需要进行单独的代扣签约授权）。
    * Summary: 商户入驻直付通新接口
    */
@@ -40113,6 +44080,7 @@ export default class Client {
   }
 
   /**
+   * @remarks
    * Description: 直付通商户入驻确认（确认成功则表明入驻成功）
    * Summary: 直付通商户入驻确认
    */
@@ -40123,6 +44091,7 @@ export default class Client {
   }
 
   /**
+   * @remarks
    * Description: 直付通商户入驻确认（确认成功则表明入驻成功）
    * Summary: 直付通商户入驻确认
    */
@@ -40132,6 +44101,7 @@ export default class Client {
   }
 
   /**
+   * @remarks
    * Description: 创建合同存证事务ID。私有云使用。
    * Summary: 创建合同存证事务ID。私有云使用。
    */
@@ -40142,6 +44112,7 @@ export default class Client {
   }
 
   /**
+   * @remarks
    * Description: 创建合同存证事务ID。私有云使用。
    * Summary: 创建合同存证事务ID。私有云使用。
    */
@@ -40151,6 +44122,7 @@ export default class Client {
   }
 
   /**
+   * @remarks
    * Description: 合同文本存证。私有云使用。
    * Summary: 合同文本存证。私有云使用。
    */
@@ -40161,6 +44133,7 @@ export default class Client {
   }
 
   /**
+   * @remarks
    * Description: 合同文本存证。私有云使用。
    * Summary: 合同文本存证。私有云使用。
    */
@@ -40170,6 +44143,7 @@ export default class Client {
   }
 
   /**
+   * @remarks
    * Description: 个人二要素校验
    * Summary: 个人二要素校验
    */
@@ -40180,6 +44154,7 @@ export default class Client {
   }
 
   /**
+   * @remarks
    * Description: 个人二要素校验
    * Summary: 个人二要素校验
    */
@@ -40189,6 +44164,7 @@ export default class Client {
   }
 
   /**
+   * @remarks
    * Description: 企业二要素校验
    * Summary: 企业二要素校验
    */
@@ -40199,6 +44175,7 @@ export default class Client {
   }
 
   /**
+   * @remarks
    * Description: 企业二要素校验
    * Summary: 企业二要素校验
    */
@@ -40208,6 +44185,7 @@ export default class Client {
   }
 
   /**
+   * @remarks
    * Description: 企业四要素校验
    * Summary: 企业四要素校验
    */
@@ -40218,6 +44196,7 @@ export default class Client {
   }
 
   /**
+   * @remarks
    * Description: 企业四要素校验
    * Summary: 企业四要素校验
    */
@@ -40227,6 +44206,7 @@ export default class Client {
   }
 
   /**
+   * @remarks
    * Description: 开放给私有云的外部用户的注册接口.
    * Summary: 私有云的外部用户注册接口.
    */
@@ -40237,6 +44217,7 @@ export default class Client {
   }
 
   /**
+   * @remarks
    * Description: 开放给私有云的外部用户的注册接口.
    * Summary: 私有云的外部用户注册接口.
    */
@@ -40246,6 +44227,7 @@ export default class Client {
   }
 
   /**
+   * @remarks
    * Description: 代扣计划状态查询接口，仅能查询到由新状态机执行的代扣计划，未切换到新状态机的老数据查询不到
    * Summary: 代扣计划状态查询
    */
@@ -40256,6 +44238,7 @@ export default class Client {
   }
 
   /**
+   * @remarks
    * Description: 代扣计划状态查询接口，仅能查询到由新状态机执行的代扣计划，未切换到新状态机的老数据查询不到
    * Summary: 代扣计划状态查询
    */
@@ -40265,6 +44248,7 @@ export default class Client {
   }
 
   /**
+   * @remarks
    * Description: 代扣退款查询，仅支持新代扣状态机处理过的数据，老状态机处理的数据无法查到。
    * Summary: 代扣退款查询
    */
@@ -40275,6 +44259,7 @@ export default class Client {
   }
 
   /**
+   * @remarks
    * Description: 代扣退款查询，仅支持新代扣状态机处理过的数据，老状态机处理的数据无法查到。
    * Summary: 代扣退款查询
    */
@@ -40284,6 +44269,7 @@ export default class Client {
   }
 
   /**
+   * @remarks
    * Description: 私有云合同服务通过调用公有云合同服务，获取可公网访问的外部客户的签署地址
    * Summary: 私有云服务获取外部用户签署地址
    */
@@ -40294,6 +44280,7 @@ export default class Client {
   }
 
   /**
+   * @remarks
    * Description: 私有云合同服务通过调用公有云合同服务，获取可公网访问的外部客户的签署地址
    * Summary: 私有云服务获取外部用户签署地址
    */
@@ -40303,6 +44290,7 @@ export default class Client {
   }
 
   /**
+   * @remarks
    * Description: 商户入驻直付通进度查询，替代twc.notary.contract.merchantindirectzft.query
    * Summary: 商户入驻直付通进度查询
    */
@@ -40313,6 +44301,7 @@ export default class Client {
   }
 
   /**
+   * @remarks
    * Description: 商户入驻直付通进度查询，替代twc.notary.contract.merchantindirectzft.query
    * Summary: 商户入驻直付通进度查询
    */
@@ -40322,6 +44311,7 @@ export default class Client {
   }
 
   /**
+   * @remarks
    * Description: 修改商户进件信息，单商户可能被多个用户代理，信息修改会生效到所有代理用户上。
    * Summary: 商户进件信息修改
    */
@@ -40332,6 +44322,7 @@ export default class Client {
   }
 
   /**
+   * @remarks
    * Description: 修改商户进件信息，单商户可能被多个用户代理，信息修改会生效到所有代理用户上。
    * Summary: 商户进件信息修改
    */
@@ -40341,6 +44332,7 @@ export default class Client {
   }
 
   /**
+   * @remarks
    * Description: 一个二级商户可以挂接多个平台方用户，此接口可以对已进件的商户进行挂接操作。
    * Summary: 二级商户代理挂接接口
    */
@@ -40351,6 +44343,7 @@ export default class Client {
   }
 
   /**
+   * @remarks
    * Description: 一个二级商户可以挂接多个平台方用户，此接口可以对已进件的商户进行挂接操作。
    * Summary: 二级商户代理挂接接口
    */
@@ -40360,6 +44353,7 @@ export default class Client {
   }
 
   /**
+   * @remarks
    * Description: 初始化私有化合同服务实例，生成服务验签的公/私钥，以及回调使用的公/私钥
    * Summary: 初始化新的私有化合同服务实例
    */
@@ -40370,6 +44364,7 @@ export default class Client {
   }
 
   /**
+   * @remarks
    * Description: 初始化私有化合同服务实例，生成服务验签的公/私钥，以及回调使用的公/私钥
    * Summary: 初始化新的私有化合同服务实例
    */
@@ -40379,6 +44374,7 @@ export default class Client {
   }
 
   /**
+   * @remarks
    * Description: 更新已有的私有化合同服务实例信息，如私有化服务地址
    * Summary: 更新私有化合同服务实例信息
    */
@@ -40389,6 +44385,7 @@ export default class Client {
   }
 
   /**
+   * @remarks
    * Description: 更新已有的私有化合同服务实例信息，如私有化服务地址
    * Summary: 更新私有化合同服务实例信息
    */
@@ -40398,6 +44395,7 @@ export default class Client {
   }
 
   /**
+   * @remarks
    * Description: 开放给私有云的外部用户的证书更新接口.
    * Summary: 私有云用户证书更新接口.
    */
@@ -40408,6 +44406,7 @@ export default class Client {
   }
 
   /**
+   * @remarks
    * Description: 开放给私有云的外部用户的证书更新接口.
    * Summary: 私有云用户证书更新接口.
    */
@@ -40417,6 +44416,7 @@ export default class Client {
   }
 
   /**
+   * @remarks
    * Description: 修改商户进件申请信息状态数据，只允许超管租户操作
    * Summary: 商户进件申请信息重置
    */
@@ -40427,6 +44427,7 @@ export default class Client {
   }
 
   /**
+   * @remarks
    * Description: 修改商户进件申请信息状态数据，只允许超管租户操作
    * Summary: 商户进件申请信息重置
    */
@@ -40436,6 +44437,7 @@ export default class Client {
   }
 
   /**
+   * @remarks
    * Description: 内部接口，校验私有化合同服务实例权限状态，可能为开通/释放/恢复/停服等
    * Summary: 校验私有化合同服务实例权限情况
    */
@@ -40446,6 +44448,7 @@ export default class Client {
   }
 
   /**
+   * @remarks
    * Description: 内部接口，校验私有化合同服务实例权限状态，可能为开通/释放/恢复/停服等
    * Summary: 校验私有化合同服务实例权限情况
    */
@@ -40455,6 +44458,7 @@ export default class Client {
   }
 
   /**
+   * @remarks
    * Description: 私有化合同服务实例计量数据推送
    * Summary: 私有化合同服务实例计量数据推送
    */
@@ -40465,6 +44469,7 @@ export default class Client {
   }
 
   /**
+   * @remarks
    * Description: 私有化合同服务实例计量数据推送
    * Summary: 私有化合同服务实例计量数据推送
    */
@@ -40474,6 +44479,7 @@ export default class Client {
   }
 
   /**
+   * @remarks
    * Description: 法院代扣链路，扣款前需要进行账户预校验，验证此接口是否可以进行付款
    * Summary: 法院代扣账户扣款预校验
    */
@@ -40484,6 +44490,7 @@ export default class Client {
   }
 
   /**
+   * @remarks
    * Description: 法院代扣链路，扣款前需要进行账户预校验，验证此接口是否可以进行付款
    * Summary: 法院代扣账户扣款预校验
    */
@@ -40493,6 +44500,7 @@ export default class Client {
   }
 
   /**
+   * @remarks
    * Description: 法院代扣计划创建
    * Summary: 法院代扣计划创建
    */
@@ -40503,6 +44511,7 @@ export default class Client {
   }
 
   /**
+   * @remarks
    * Description: 法院代扣计划创建
    * Summary: 法院代扣计划创建
    */
@@ -40512,6 +44521,7 @@ export default class Client {
   }
 
   /**
+   * @remarks
    * Description: 法院代扣执行扣款
    * Summary: 法院代扣执行扣款
    */
@@ -40522,6 +44532,7 @@ export default class Client {
   }
 
   /**
+   * @remarks
    * Description: 法院代扣执行扣款
    * Summary: 法院代扣执行扣款
    */
@@ -40531,6 +44542,7 @@ export default class Client {
   }
 
   /**
+   * @remarks
    * Description: 文本签名
    * Summary: 文本签接口
    */
@@ -40541,6 +44553,7 @@ export default class Client {
   }
 
   /**
+   * @remarks
    * Description: 文本签名
    * Summary: 文本签接口
    */
@@ -40550,6 +44563,7 @@ export default class Client {
   }
 
   /**
+   * @remarks
    * Description: 文本验签
    * Summary: 文本验签接口
    */
@@ -40560,6 +44574,7 @@ export default class Client {
   }
 
   /**
+   * @remarks
    * Description: 文本验签
    * Summary: 文本验签接口
    */
@@ -40569,6 +44584,7 @@ export default class Client {
   }
 
   /**
+   * @remarks
    * Description: 文件签验签
    * Summary: 文件签验签
    */
@@ -40579,6 +44595,7 @@ export default class Client {
   }
 
   /**
+   * @remarks
    * Description: 文件签验签
    * Summary: 文件签验签
    */
@@ -40588,6 +44605,7 @@ export default class Client {
   }
 
   /**
+   * @remarks
    * Description: 删除签署区
    * Summary: 删除签署区
    */
@@ -40598,6 +44616,7 @@ export default class Client {
   }
 
   /**
+   * @remarks
    * Description: 删除签署区
    * Summary: 删除签署区
    */
@@ -40607,6 +44626,7 @@ export default class Client {
   }
 
   /**
+   * @remarks
    * Description: 创建平台方用户接口twc.notary.contract.user.create加密版
    * Summary: 创建平台方用户加密版
    */
@@ -40617,6 +44637,7 @@ export default class Client {
   }
 
   /**
+   * @remarks
    * Description: 创建平台方用户接口twc.notary.contract.user.create加密版
    * Summary: 创建平台方用户加密版
    */
@@ -40626,6 +44647,7 @@ export default class Client {
   }
 
   /**
+   * @remarks
    * Description: 用户需要同时设置解密密钥与通信秘钥才可使用文件解密服务；
    * Summary: 用户密钥设置接口
    */
@@ -40636,6 +44658,7 @@ export default class Client {
   }
 
   /**
+   * @remarks
    * Description: 用户需要同时设置解密密钥与通信秘钥才可使用文件解密服务；
    * Summary: 用户密钥设置接口
    */
@@ -40645,6 +44668,7 @@ export default class Client {
   }
 
   /**
+   * @remarks
    * Description: 获取加密文件上传链接
    * Summary: 获取加密文件上传链接
    */
@@ -40655,6 +44679,7 @@ export default class Client {
   }
 
   /**
+   * @remarks
    * Description: 获取加密文件上传链接
    * Summary: 获取加密文件上传链接
    */
@@ -40664,6 +44689,7 @@ export default class Client {
   }
 
   /**
+   * @remarks
    * Description: 创建异步任务
    * Summary: 创建任务接口
    */
@@ -40674,6 +44700,7 @@ export default class Client {
   }
 
   /**
+   * @remarks
    * Description: 创建异步任务
    * Summary: 创建任务接口
    */
@@ -40683,6 +44710,7 @@ export default class Client {
   }
 
   /**
+   * @remarks
    * Description: 任务查询接口
    * Summary: 任务查询
    */
@@ -40693,6 +44721,7 @@ export default class Client {
   }
 
   /**
+   * @remarks
    * Description: 任务查询接口
    * Summary: 任务查询
    */
@@ -40702,6 +44731,7 @@ export default class Client {
   }
 
   /**
+   * @remarks
    * Description: 合同代扣触发接口，每笔订单仅一天仅允许触发一次
    * Summary: 合同代扣触发接口
    */
@@ -40712,6 +44742,7 @@ export default class Client {
   }
 
   /**
+   * @remarks
    * Description: 合同代扣触发接口，每笔订单仅一天仅允许触发一次
    * Summary: 合同代扣触发接口
    */
@@ -40721,6 +44752,7 @@ export default class Client {
   }
 
   /**
+   * @remarks
    * Description: 强制帮用户接触代扣协议，未执行成功的代扣会被取消，已执行成功的代扣不变。
    * Summary: 代扣强制解约
    */
@@ -40731,6 +44763,7 @@ export default class Client {
   }
 
   /**
+   * @remarks
    * Description: 强制帮用户接触代扣协议，未执行成功的代扣会被取消，已执行成功的代扣不变。
    * Summary: 代扣强制解约
    */
@@ -40740,6 +44773,7 @@ export default class Client {
   }
 
   /**
+   * @remarks
    * Description: 商户每次收到客户投诉回调通知，商户端均需要通过此接口来查询投诉数据。
    * Summary: 投诉数据查询
    */
@@ -40750,6 +44784,7 @@ export default class Client {
   }
 
   /**
+   * @remarks
    * Description: 商户每次收到客户投诉回调通知，商户端均需要通过此接口来查询投诉数据。
    * Summary: 投诉数据查询
    */
@@ -40759,6 +44794,7 @@ export default class Client {
   }
 
   /**
+   * @remarks
    * Description: 商家收到用户投诉后，可通过此接口进行投诉反馈。注意，只有当投诉单状态为MERCHANT_PROCESSING时，才允许商家进行投诉反馈。
    * Summary: 投诉反馈
    */
@@ -40769,6 +44805,7 @@ export default class Client {
   }
 
   /**
+   * @remarks
    * Description: 商家收到用户投诉后，可通过此接口进行投诉反馈。注意，只有当投诉单状态为MERCHANT_PROCESSING时，才允许商家进行投诉反馈。
    * Summary: 投诉反馈
    */
@@ -40778,6 +44815,7 @@ export default class Client {
   }
 
   /**
+   * @remarks
    * Description: 商户上传处理图片
    * Summary: 商户上传处理图片
    */
@@ -40788,6 +44826,7 @@ export default class Client {
   }
 
   /**
+   * @remarks
    * Description: 商户上传处理图片
    * Summary: 商户上传处理图片
    */
@@ -40797,6 +44836,7 @@ export default class Client {
   }
 
   /**
+   * @remarks
    * Description: 根据起止日期查询体验宝投诉工单
    * Summary: 根据起止日期查询体验宝投诉工单
    */
@@ -40807,6 +44847,7 @@ export default class Client {
   }
 
   /**
+   * @remarks
    * Description: 根据起止日期查询体验宝投诉工单
    * Summary: 根据起止日期查询体验宝投诉工单
    */
@@ -40816,6 +44857,7 @@ export default class Client {
   }
 
   /**
+   * @remarks
    * Description: 对ato等系统提供区块链合同签署流程撤销能力
    * Summary: 区块链合同签署流程撤销
    */
@@ -40826,6 +44868,7 @@ export default class Client {
   }
 
   /**
+   * @remarks
    * Description: 对ato等系统提供区块链合同签署流程撤销能力
    * Summary: 区块链合同签署流程撤销
    */
@@ -40835,6 +44878,7 @@ export default class Client {
   }
 
   /**
+   * @remarks
    * Description: 转化短链接
    * Summary: 转化短链接
    */
@@ -40845,6 +44889,7 @@ export default class Client {
   }
 
   /**
+   * @remarks
    * Description: 转化短链接
    * Summary: 转化短链接
    */
@@ -40854,6 +44899,7 @@ export default class Client {
   }
 
   /**
+   * @remarks
    * Description: 触发合同提交归档
    * Summary: 合同提交归档
    */
@@ -40864,6 +44910,7 @@ export default class Client {
   }
 
   /**
+   * @remarks
    * Description: 触发合同提交归档
    * Summary: 合同提交归档
    */
@@ -40873,6 +44920,7 @@ export default class Client {
   }
 
   /**
+   * @remarks
    * Description: 区块链合同代扣订单列表
    * Summary: 代扣订单列表
    */
@@ -40883,6 +44931,7 @@ export default class Client {
   }
 
   /**
+   * @remarks
    * Description: 区块链合同代扣订单列表
    * Summary: 代扣订单列表
    */
@@ -40892,6 +44941,7 @@ export default class Client {
   }
 
   /**
+   * @remarks
    * Description: 代扣订单详情
    * Summary: 代扣订单详情
    */
@@ -40902,6 +44952,7 @@ export default class Client {
   }
 
   /**
+   * @remarks
    * Description: 代扣订单详情
    * Summary: 代扣订单详情
    */
@@ -40911,6 +44962,7 @@ export default class Client {
   }
 
   /**
+   * @remarks
    * Description: 根据支付宝商家订单号查询交易单
    * Summary: 根据交易号查询订单
    */
@@ -40921,6 +44973,7 @@ export default class Client {
   }
 
   /**
+   * @remarks
    * Description: 根据支付宝商家订单号查询交易单
    * Summary: 根据交易号查询订单
    */
@@ -40930,6 +44983,7 @@ export default class Client {
   }
 
   /**
+   * @remarks
    * Description: 72h代扣解约代扣协议，未执行成功的代扣会被取消，已执行成功的代扣不变。
    * Summary: 72h代扣解约-twc解约
    */
@@ -40940,6 +44994,7 @@ export default class Client {
   }
 
   /**
+   * @remarks
    * Description: 72h代扣解约代扣协议，未执行成功的代扣会被取消，已执行成功的代扣不变。
    * Summary: 72h代扣解约-twc解约
    */
@@ -40949,6 +45004,7 @@ export default class Client {
   }
 
   /**
+   * @remarks
    * Description: 完成手动签署流程
    * Summary: 完成手动签署流程
    */
@@ -40959,6 +45015,7 @@ export default class Client {
   }
 
   /**
+   * @remarks
    * Description: 完成手动签署流程
    * Summary: 完成手动签署流程
    */
@@ -40968,6 +45025,7 @@ export default class Client {
   }
 
   /**
+   * @remarks
    * Description: e签宝合规改造外部账号信息查询
    * Summary: e签宝合规改造外部账号信息查询
    */
@@ -40978,6 +45036,7 @@ export default class Client {
   }
 
   /**
+   * @remarks
    * Description: e签宝合规改造外部账号信息查询
    * Summary: e签宝合规改造外部账号信息查询
    */
@@ -40987,6 +45046,7 @@ export default class Client {
   }
 
   /**
+   * @remarks
    * Description: 用户使用mp4内容，集成方通过该openAPI进行使用上报。
    * Summary: 集成方通过该接口进行使用mp4上报
    */
@@ -40997,6 +45057,7 @@ export default class Client {
   }
 
   /**
+   * @remarks
    * Description: 用户使用mp4内容，集成方通过该openAPI进行使用上报。
    * Summary: 集成方通过该接口进行使用mp4上报
    */
@@ -41006,6 +45067,7 @@ export default class Client {
   }
 
   /**
+   * @remarks
    * Description: 用户使用apk内容，集成方通过该openAPI申请该使用的订单id。
    * Summary: 集成方通过该接口申请apk订单id
    */
@@ -41016,6 +45078,7 @@ export default class Client {
   }
 
   /**
+   * @remarks
    * Description: 用户使用apk内容，集成方通过该openAPI申请该使用的订单id。
    * Summary: 集成方通过该接口申请apk订单id
    */
@@ -41025,6 +45088,7 @@ export default class Client {
   }
 
   /**
+   * @remarks
    * Description: 用户使用apk内容支付后，集成方通过订单id和支付id反馈支付结果，并申请交互token。
    * Summary: 集成方反馈apk订单支付结果
    */
@@ -41035,6 +45099,7 @@ export default class Client {
   }
 
   /**
+   * @remarks
    * Description: 用户使用apk内容支付后，集成方通过订单id和支付id反馈支付结果，并申请交互token。
    * Summary: 集成方反馈apk订单支付结果
    */
@@ -41044,6 +45109,7 @@ export default class Client {
   }
 
   /**
+   * @remarks
    * Description: baas-notary向notarycore同步生成的事务数据，仅做数据同步使用
    * Summary: 向notarycore同步事务数据
    */
@@ -41054,6 +45120,7 @@ export default class Client {
   }
 
   /**
+   * @remarks
    * Description: baas-notary向notarycore同步生成的事务数据，仅做数据同步使用
    * Summary: 向notarycore同步事务数据
    */
@@ -41063,6 +45130,7 @@ export default class Client {
   }
 
   /**
+   * @remarks
    * Description: 从baas-notary向notarycore同步存证数据
    * Summary: 向notarycore同步存证数据
    */
@@ -41073,6 +45141,7 @@ export default class Client {
   }
 
   /**
+   * @remarks
    * Description: 从baas-notary向notarycore同步存证数据
    * Summary: 向notarycore同步存证数据
    */
@@ -41082,6 +45151,7 @@ export default class Client {
   }
 
   /**
+   * @remarks
    * Description: 从baas-notary向notarycore同步自租户信息
    * Summary: 向notarycore同步子租户数据
    */
@@ -41092,6 +45162,7 @@ export default class Client {
   }
 
   /**
+   * @remarks
    * Description: 从baas-notary向notarycore同步自租户信息
    * Summary: 向notarycore同步子租户数据
    */
@@ -41101,6 +45172,7 @@ export default class Client {
   }
 
   /**
+   * @remarks
    * Description: 从baas-notary向notarycore同步租户权限数据
    * Summary: 向notarycore同步租户数据
    */
@@ -41111,6 +45183,7 @@ export default class Client {
   }
 
   /**
+   * @remarks
    * Description: 从baas-notary向notarycore同步租户权限数据
    * Summary: 向notarycore同步租户数据
    */
@@ -41120,6 +45193,7 @@ export default class Client {
   }
 
   /**
+   * @remarks
    * Description: 从baas-notary向notarycore同步tsr数据
    * Summary: 向notarycore同步tsr数据
    */
@@ -41130,6 +45204,7 @@ export default class Client {
   }
 
   /**
+   * @remarks
    * Description: 从baas-notary向notarycore同步tsr数据
    * Summary: 向notarycore同步tsr数据
    */
@@ -41139,6 +45214,7 @@ export default class Client {
   }
 
   /**
+   * @remarks
    * Description: 转化短链接(废弃)
    * Summary: 转化短链接(废弃)
    */
@@ -41149,6 +45225,7 @@ export default class Client {
   }
 
   /**
+   * @remarks
    * Description: 转化短链接(废弃)
    * Summary: 转化短链接(废弃)
    */
@@ -41158,6 +45235,7 @@ export default class Client {
   }
 
   /**
+   * @remarks
    * Description: 宠物比对能力图片资源合格性校验
    * Summary: 宠物合格性校验
    */
@@ -41168,6 +45246,7 @@ export default class Client {
   }
 
   /**
+   * @remarks
    * Description: 宠物比对能力图片资源合格性校验
    * Summary: 宠物合格性校验
    */
@@ -41177,6 +45256,7 @@ export default class Client {
   }
 
   /**
+   * @remarks
    * Description: 宠物比对能力建档注册功能
    * Summary: 宠物建档注册
    */
@@ -41187,6 +45267,7 @@ export default class Client {
   }
 
   /**
+   * @remarks
    * Description: 宠物比对能力建档注册功能
    * Summary: 宠物建档注册
    */
@@ -41196,6 +45277,7 @@ export default class Client {
   }
 
   /**
+   * @remarks
    * Description: 宠物比对能力建档比对
    * Summary: 宠物建档比对
    */
@@ -41206,6 +45288,7 @@ export default class Client {
   }
 
   /**
+   * @remarks
    * Description: 宠物比对能力建档比对
    * Summary: 宠物建档比对
    */
@@ -41215,6 +45298,7 @@ export default class Client {
   }
 
   /**
+   * @remarks
    * Description: 宠物比对能力图片资源直接比对
    * Summary: 宠物资源直接比对
    */
@@ -41225,6 +45309,7 @@ export default class Client {
   }
 
   /**
+   * @remarks
    * Description: 宠物比对能力图片资源直接比对
    * Summary: 宠物资源直接比对
    */
@@ -41234,6 +45319,7 @@ export default class Client {
   }
 
   /**
+   * @remarks
    * Description: 法务电子签发起签署
    * Summary: 法务电子签发起签署
    */
@@ -41244,6 +45330,7 @@ export default class Client {
   }
 
   /**
+   * @remarks
    * Description: 法务电子签发起签署
    * Summary: 法务电子签发起签署
    */
@@ -41253,6 +45340,7 @@ export default class Client {
   }
 
   /**
+   * @remarks
    * Description: 法务电子签查询签署状态
    * Summary: 法务电子签查询签署状态
    */
@@ -41263,6 +45351,7 @@ export default class Client {
   }
 
   /**
+   * @remarks
    * Description: 法务电子签查询签署状态
    * Summary: 法务电子签查询签署状态
    */
@@ -41272,6 +45361,7 @@ export default class Client {
   }
 
   /**
+   * @remarks
    * Description: 法务电子签根据公司名称统代生成印章
    * Summary: 法务电子签根据公司名称统代生成印章
    */
@@ -41282,6 +45372,7 @@ export default class Client {
   }
 
   /**
+   * @remarks
    * Description: 法务电子签根据公司名称统代生成印章
    * Summary: 法务电子签根据公司名称统代生成印章
    */
@@ -41291,6 +45382,7 @@ export default class Client {
   }
 
   /**
+   * @remarks
    * Description: 输入企业名+证件号，发起企业二要素认证请求。
    * Summary: 企业二要素认证
    */
@@ -41301,6 +45393,7 @@ export default class Client {
   }
 
   /**
+   * @remarks
    * Description: 输入企业名+证件号，发起企业二要素认证请求。
    * Summary: 企业二要素认证
    */
@@ -41310,6 +45403,7 @@ export default class Client {
   }
 
   /**
+   * @remarks
    * Description: 输入企业名+证件号+企业法人姓名，发起企业三要素认证请求。
    * Summary: 企业三要素认证
    */
@@ -41320,6 +45414,7 @@ export default class Client {
   }
 
   /**
+   * @remarks
    * Description: 输入企业名+证件号+企业法人姓名，发起企业三要素认证请求。
    * Summary: 企业三要素认证
    */
@@ -41329,6 +45424,7 @@ export default class Client {
   }
 
   /**
+   * @remarks
    * Description: 输入企业名+证件号+企业法人姓+法人证件号，发起企业四要素认证请求。
    * Summary: 企业四要素认证
    */
@@ -41339,6 +45435,7 @@ export default class Client {
   }
 
   /**
+   * @remarks
    * Description: 输入企业名+证件号+企业法人姓+法人证件号，发起企业四要素认证请求。
    * Summary: 企业四要素认证
    */
@@ -41348,6 +45445,7 @@ export default class Client {
   }
 
   /**
+   * @remarks
    * Description: 查询公证订单的有效性
    * Summary: 查询公证订单的有效性
    */
@@ -41358,6 +45456,7 @@ export default class Client {
   }
 
   /**
+   * @remarks
    * Description: 查询公证订单的有效性
    * Summary: 查询公证订单的有效性
    */
@@ -41367,6 +45466,7 @@ export default class Client {
   }
 
   /**
+   * @remarks
    * Description: 更新公证订单状态
    * Summary: 更新公证订单状态
    */
@@ -41377,6 +45477,7 @@ export default class Client {
   }
 
   /**
+   * @remarks
    * Description: 更新公证订单状态
    * Summary: 更新公证订单状态
    */
@@ -41386,6 +45487,7 @@ export default class Client {
   }
 
   /**
+   * @remarks
    * Description: 设置订单属性
    * Summary: 设置订单属性
    */
@@ -41396,6 +45498,7 @@ export default class Client {
   }
 
   /**
+   * @remarks
    * Description: 设置订单属性
    * Summary: 设置订单属性
    */
@@ -41405,6 +45508,7 @@ export default class Client {
   }
 
   /**
+   * @remarks
    * Description: 实人认证初始化
    * Summary: 实人认证初始化
    */
@@ -41415,6 +45519,7 @@ export default class Client {
   }
 
   /**
+   * @remarks
    * Description: 实人认证初始化
    * Summary: 实人认证初始化
    */
@@ -41424,6 +45529,7 @@ export default class Client {
   }
 
   /**
+   * @remarks
    * Description: 发起实人认证
    * Summary: 发起实人认证
    */
@@ -41434,6 +45540,7 @@ export default class Client {
   }
 
   /**
+   * @remarks
    * Description: 发起实人认证
    * Summary: 发起实人认证
    */
@@ -41443,6 +45550,7 @@ export default class Client {
   }
 
   /**
+   * @remarks
    * Description: 查询实人认证结果
    * Summary: 查询实人认证结果
    */
@@ -41453,6 +45561,7 @@ export default class Client {
   }
 
   /**
+   * @remarks
    * Description: 查询实人认证结果
    * Summary: 查询实人认证结果
    */
@@ -41462,6 +45571,7 @@ export default class Client {
   }
 
   /**
+   * @remarks
    * Description: 企业法人认证查询结果接口
    * Summary: 企业法人认证查询
    */
@@ -41472,6 +45582,7 @@ export default class Client {
   }
 
   /**
+   * @remarks
    * Description: 企业法人认证查询结果接口
    * Summary: 企业法人认证查询
    */
@@ -41481,6 +45592,7 @@ export default class Client {
   }
 
   /**
+   * @remarks
    * Description: 企业法人认证初始化接口
    * Summary: 企业法人认证初始化
    */
@@ -41491,6 +45603,7 @@ export default class Client {
   }
 
   /**
+   * @remarks
    * Description: 企业法人认证初始化接口
    * Summary: 企业法人认证初始化
    */
@@ -41500,6 +45613,7 @@ export default class Client {
   }
 
   /**
+   * @remarks
    * Description: 企业法人认证开始接口
    * Summary: 企业法人认证开始
    */
@@ -41510,6 +45624,7 @@ export default class Client {
   }
 
   /**
+   * @remarks
    * Description: 企业法人认证开始接口
    * Summary: 企业法人认证开始
    */
@@ -41519,6 +45634,7 @@ export default class Client {
   }
 
   /**
+   * @remarks
    * Description: 创建租赁订单
    * Summary: 租赁订单创建
    */
@@ -41529,6 +45645,7 @@ export default class Client {
   }
 
   /**
+   * @remarks
    * Description: 创建租赁订单
    * Summary: 租赁订单创建
    */
@@ -41538,6 +45655,7 @@ export default class Client {
   }
 
   /**
+   * @remarks
    * Description: 电子公证或存证证明场景中，用户通过回传相关信息创建收费订单。
    * Summary: 公证场景创建收费订单
    */
@@ -41548,6 +45666,7 @@ export default class Client {
   }
 
   /**
+   * @remarks
    * Description: 电子公证或存证证明场景中，用户通过回传相关信息创建收费订单。
    * Summary: 公证场景创建收费订单
    */
@@ -41557,6 +45676,7 @@ export default class Client {
   }
 
   /**
+   * @remarks
    * Description: 提供必要的存证信息，初始化一个存证证明的订单，提交公证处审核，并返回订单号
    * Summary: 初始化存证证明订单
    */
@@ -41567,6 +45687,7 @@ export default class Client {
   }
 
   /**
+   * @remarks
    * Description: 提供必要的存证信息，初始化一个存证证明的订单，提交公证处审核，并返回订单号
    * Summary: 初始化存证证明订单
    */
@@ -41576,6 +45697,7 @@ export default class Client {
   }
 
   /**
+   * @remarks
    * Description: 输入申请ID，查询存证证明申请状态，成功后返回下载地址等信息
    * Summary: 查询存证证明申请状态
    */
@@ -41586,6 +45708,7 @@ export default class Client {
   }
 
   /**
+   * @remarks
    * Description: 输入申请ID，查询存证证明申请状态，成功后返回下载地址等信息
    * Summary: 查询存证证明申请状态
    */
@@ -41595,6 +45718,7 @@ export default class Client {
   }
 
   /**
+   * @remarks
    * Description: 可以根据存证过程中获得当可信时间戳凭证，获取国家授时中心颁发的PDF格式可信时间证书
    * Summary: 可信时间凭证服务 - 获取时间凭证证书
    */
@@ -41605,6 +45729,7 @@ export default class Client {
   }
 
   /**
+   * @remarks
    * Description: 可以根据存证过程中获得当可信时间戳凭证，获取国家授时中心颁发的PDF格式可信时间证书
    * Summary: 可信时间凭证服务 - 获取时间凭证证书
    */
@@ -41614,6 +45739,7 @@ export default class Client {
   }
 
   /**
+   * @remarks
    * Description: 发起实人认证，这是改造后的接口
    * Summary: 实人认证创建
    */
@@ -41624,6 +45750,7 @@ export default class Client {
   }
 
   /**
+   * @remarks
    * Description: 发起实人认证，这是改造后的接口
    * Summary: 实人认证创建
    */
@@ -41633,6 +45760,7 @@ export default class Client {
   }
 
   /**
+   * @remarks
    * Description: 查询实人认证结果
    * Summary: 查询实人认证结果
    */
@@ -41643,6 +45771,7 @@ export default class Client {
   }
 
   /**
+   * @remarks
    * Description: 查询实人认证结果
    * Summary: 查询实人认证结果
    */
@@ -41652,6 +45781,7 @@ export default class Client {
   }
 
   /**
+   * @remarks
    * Description: 新增/修改履行记录，依据contractCode与contractFulfillmentCode判断唯一性
    * Summary: 联合执行履行记录新增/修改接口
    */
@@ -41662,6 +45792,7 @@ export default class Client {
   }
 
   /**
+   * @remarks
    * Description: 新增/修改履行记录，依据contractCode与contractFulfillmentCode判断唯一性
    * Summary: 联合执行履行记录新增/修改接口
    */
@@ -41671,6 +45802,7 @@ export default class Client {
   }
 
   /**
+   * @remarks
    * Description: 删除履行记录
    * Summary: 履行记录删除接口
    */
@@ -41681,6 +45813,7 @@ export default class Client {
   }
 
   /**
+   * @remarks
    * Description: 删除履行记录
    * Summary: 履行记录删除接口
    */
@@ -41690,6 +45823,7 @@ export default class Client {
   }
 
   /**
+   * @remarks
    * Description: 查询违约记录
    * Summary: 违约记录查询接口
    */
@@ -41700,6 +45834,7 @@ export default class Client {
   }
 
   /**
+   * @remarks
    * Description: 查询违约记录
    * Summary: 违约记录查询接口
    */
@@ -41709,6 +45844,7 @@ export default class Client {
   }
 
   /**
+   * @remarks
    * Description: 提供给第三方调解申请提交
    * Summary: 调解申请
    */
@@ -41719,6 +45855,7 @@ export default class Client {
   }
 
   /**
+   * @remarks
    * Description: 提供给第三方调解申请提交
    * Summary: 调解申请
    */
@@ -41728,6 +45865,7 @@ export default class Client {
   }
 
   /**
+   * @remarks
    * Description: 调解申请进度查询
    * Summary: 调解申请进度查询
    */
@@ -41738,6 +45876,7 @@ export default class Client {
   }
 
   /**
+   * @remarks
    * Description: 调解申请进度查询
    * Summary: 调解申请进度查询
    */
@@ -41747,6 +45886,7 @@ export default class Client {
   }
 
   /**
+   * @remarks
    * Description: 汇裁证据要素查询接口
    * Summary: 汇裁证据要素查询接口
    */
@@ -41757,6 +45897,7 @@ export default class Client {
   }
 
   /**
+   * @remarks
    * Description: 汇裁证据要素查询接口
    * Summary: 汇裁证据要素查询接口
    */
@@ -41766,6 +45907,7 @@ export default class Client {
   }
 
   /**
+   * @remarks
    * Description: 获取oss文件上传路径，返回业务方oss文件上传链接和fileKey
    * Summary: 获取OSS文件上传路径
    */
@@ -41776,6 +45918,7 @@ export default class Client {
   }
 
   /**
+   * @remarks
    * Description: 获取oss文件上传路径，返回业务方oss文件上传链接和fileKey
    * Summary: 获取OSS文件上传路径
    */
@@ -41785,6 +45928,7 @@ export default class Client {
   }
 
   /**
+   * @remarks
    * Description: 纠纷处理平台提供回调接口供业务平台自动插入案件模型中，业务方需要调用回写接口创建案件。
    * Summary: 自动进件案件回写
    */
@@ -41795,6 +45939,7 @@ export default class Client {
   }
 
   /**
+   * @remarks
    * Description: 纠纷处理平台提供回调接口供业务平台自动插入案件模型中，业务方需要调用回写接口创建案件。
    * Summary: 自动进件案件回写
    */
@@ -41804,6 +45949,7 @@ export default class Client {
   }
 
   /**
+   * @remarks
    * Description: 案件基础信息查询
    * Summary: 案件基础信息查询
    */
@@ -41814,6 +45960,7 @@ export default class Client {
   }
 
   /**
+   * @remarks
    * Description: 案件基础信息查询
    * Summary: 案件基础信息查询
    */
@@ -41823,6 +45970,7 @@ export default class Client {
   }
 
   /**
+   * @remarks
    * Description: 案件材料下载
    * Summary: 案件材料下载
    */
@@ -41833,6 +45981,7 @@ export default class Client {
   }
 
   /**
+   * @remarks
    * Description: 案件材料下载
    * Summary: 案件材料下载
    */
@@ -41842,6 +45991,7 @@ export default class Client {
   }
 
   /**
+   * @remarks
    * Description: 开通纠纷平台使用权限
    * Summary: 开通纠纷平台使用权限
    */
@@ -41852,6 +46002,7 @@ export default class Client {
   }
 
   /**
+   * @remarks
    * Description: 开通纠纷平台使用权限
    * Summary: 开通纠纷平台使用权限
    */
@@ -41861,6 +46012,7 @@ export default class Client {
   }
 
   /**
+   * @remarks
    * Description: 案件当事人信息保存
    * Summary: 案件当事人信息保存
    */
@@ -41871,6 +46023,7 @@ export default class Client {
   }
 
   /**
+   * @remarks
    * Description: 案件当事人信息保存
    * Summary: 案件当事人信息保存
    */
@@ -41880,6 +46033,7 @@ export default class Client {
   }
 
   /**
+   * @remarks
    * Description: 普通案件创建
    * Summary: 普通案件创建
    */
@@ -41890,6 +46044,7 @@ export default class Client {
   }
 
   /**
+   * @remarks
    * Description: 普通案件创建
    * Summary: 普通案件创建
    */
@@ -41899,6 +46054,7 @@ export default class Client {
   }
 
   /**
+   * @remarks
    * Description: 链上案件创建
    * Summary: 链上案件创建
    */
@@ -41909,6 +46065,7 @@ export default class Client {
   }
 
   /**
+   * @remarks
    * Description: 链上案件创建
    * Summary: 链上案件创建
    */
@@ -41918,6 +46075,7 @@ export default class Client {
   }
 
   /**
+   * @remarks
    * Description: 案件维权发起
    * Summary: 案件维权发起
    */
@@ -41928,6 +46086,7 @@ export default class Client {
   }
 
   /**
+   * @remarks
    * Description: 案件维权发起
    * Summary: 案件维权发起
    */
@@ -41937,6 +46096,7 @@ export default class Client {
   }
 
   /**
+   * @remarks
    * Description: 案件查询
    * Summary: 案件查询
    */
@@ -41947,6 +46107,7 @@ export default class Client {
   }
 
   /**
+   * @remarks
    * Description: 案件查询
    * Summary: 案件查询
    */
@@ -41956,6 +46117,7 @@ export default class Client {
   }
 
   /**
+   * @remarks
    * Description: 案件事件响应
    * Summary: 案件事件响应
    */
@@ -41966,6 +46128,7 @@ export default class Client {
   }
 
   /**
+   * @remarks
    * Description: 案件事件响应
    * Summary: 案件事件响应
    */
@@ -41975,6 +46138,7 @@ export default class Client {
   }
 
   /**
+   * @remarks
    * Description: 司法解纷平台API服务，创建案件要素模板接口
    * Summary: 创建案件要素模板
    */
@@ -41985,6 +46149,7 @@ export default class Client {
   }
 
   /**
+   * @remarks
    * Description: 司法解纷平台API服务，创建案件要素模板接口
    * Summary: 创建案件要素模板
    */
@@ -41994,6 +46159,7 @@ export default class Client {
   }
 
   /**
+   * @remarks
    * Description: 司法解纷平台API服务，创建维权要素模板接口
    * Summary: 创建维权要素模板
    */
@@ -42004,6 +46170,7 @@ export default class Client {
   }
 
   /**
+   * @remarks
    * Description: 司法解纷平台API服务，创建维权要素模板接口
    * Summary: 创建维权要素模板
    */
@@ -42013,6 +46180,7 @@ export default class Client {
   }
 
   /**
+   * @remarks
    * Description: 获取司法文件上传链接
    * Summary: 获取司法文件上传链接
    */
@@ -42023,6 +46191,7 @@ export default class Client {
   }
 
   /**
+   * @remarks
    * Description: 获取司法文件上传链接
    * Summary: 获取司法文件上传链接
    */
@@ -42032,6 +46201,7 @@ export default class Client {
   }
 
   /**
+   * @remarks
    * Description: 司法解纷平台API服务，创建文书要素模板接口
    * Summary: 创建文书要素模板
    */
@@ -42042,6 +46212,7 @@ export default class Client {
   }
 
   /**
+   * @remarks
    * Description: 司法解纷平台API服务，创建文书要素模板接口
    * Summary: 创建文书要素模板
    */
@@ -42051,6 +46222,7 @@ export default class Client {
   }
 
   /**
+   * @remarks
    * Description: 仲裁-通用版本进件要素信息查询
    * Summary: 仲裁-通用版本进件要素信息查询
    */
@@ -42061,6 +46233,7 @@ export default class Client {
   }
 
   /**
+   * @remarks
    * Description: 仲裁-通用版本进件要素信息查询
    * Summary: 仲裁-通用版本进件要素信息查询
    */
@@ -42070,6 +46243,7 @@ export default class Client {
   }
 
   /**
+   * @remarks
    * Description: 1级商户为2级商户进件
    * Summary: 代理二级商户进件
    */
@@ -42080,6 +46254,7 @@ export default class Client {
   }
 
   /**
+   * @remarks
    * Description: 1级商户为2级商户进件
    * Summary: 代理二级商户进件
    */
@@ -42089,6 +46264,7 @@ export default class Client {
   }
 
   /**
+   * @remarks
    * Description: isv机构-案件要素查询
    * Summary: isv机构-案件要素查询
    */
@@ -42099,6 +46275,7 @@ export default class Client {
   }
 
   /**
+   * @remarks
    * Description: isv机构-案件要素查询
    * Summary: isv机构-案件要素查询
    */
@@ -42108,6 +46285,7 @@ export default class Client {
   }
 
   /**
+   * @remarks
    * Description: isv机构-维权状态更新
    * Summary: isv机构-维权状态更新
    */
@@ -42118,6 +46296,7 @@ export default class Client {
   }
 
   /**
+   * @remarks
    * Description: isv机构-维权状态更新
    * Summary: isv机构-维权状态更新
    */
@@ -42127,6 +46306,7 @@ export default class Client {
   }
 
   /**
+   * @remarks
    * Description: isv机构-案件缴费通知接口
    * Summary: isv机构-案件缴费通知接口
    */
@@ -42137,6 +46317,7 @@ export default class Client {
   }
 
   /**
+   * @remarks
    * Description: isv机构-案件缴费通知接口
    * Summary: isv机构-案件缴费通知接口
    */
@@ -42146,6 +46327,7 @@ export default class Client {
   }
 
   /**
+   * @remarks
    * Description: 融资服务平台上传商品类别信息
    * Summary: 融资服务平台上传商品类别信息
    */
@@ -42156,6 +46338,7 @@ export default class Client {
   }
 
   /**
+   * @remarks
    * Description: 融资服务平台上传商品类别信息
    * Summary: 融资服务平台上传商品类别信息
    */
@@ -42165,6 +46348,7 @@ export default class Client {
   }
 
   /**
+   * @remarks
    * Description: 升级融资租赁合约
    * Summary: 升级融资租赁合约
    */
@@ -42175,6 +46359,7 @@ export default class Client {
   }
 
   /**
+   * @remarks
    * Description: 升级融资租赁合约
    * Summary: 升级融资租赁合约
    */
@@ -42184,6 +46369,7 @@ export default class Client {
   }
 
   /**
+   * @remarks
    * Description: 租赁平台isv模式代理商户入驻
    * Summary: 租赁平台isv模式代理商户入驻
    */
@@ -42194,6 +46380,7 @@ export default class Client {
   }
 
   /**
+   * @remarks
    * Description: 租赁平台isv模式代理商户入驻
    * Summary: 租赁平台isv模式代理商户入驻
    */
@@ -42203,6 +46390,7 @@ export default class Client {
   }
 
   /**
+   * @remarks
    * Description: 融资租赁商品信息查询接口
    * Summary: 融资租赁商品信息查询接口
    */
@@ -42213,6 +46401,7 @@ export default class Client {
   }
 
   /**
+   * @remarks
    * Description: 融资租赁商品信息查询接口
    * Summary: 融资租赁商品信息查询接口
    */
@@ -42222,6 +46411,7 @@ export default class Client {
   }
 
   /**
+   * @remarks
    * Description: 同步采购平台订单状态
    * Summary: 同步采购平台订单状态
    */
@@ -42232,6 +46422,7 @@ export default class Client {
   }
 
   /**
+   * @remarks
    * Description: 同步采购平台订单状态
    * Summary: 同步采购平台订单状态
    */
@@ -42241,8 +46432,9 @@ export default class Client {
   }
 
   /**
+   * @remarks
    * Description: 采购供应商初始化 
-   * Summary: 采购供应商初始化 
+   * Summary: 采购供应商初始化
    */
   async initLeaseSupplier(request: InitLeaseSupplierRequest): Promise<InitLeaseSupplierResponse> {
     let runtime = new $Util.RuntimeOptions({ });
@@ -42251,8 +46443,9 @@ export default class Client {
   }
 
   /**
+   * @remarks
    * Description: 采购供应商初始化 
-   * Summary: 采购供应商初始化 
+   * Summary: 采购供应商初始化
    */
   async initLeaseSupplierEx(request: InitLeaseSupplierRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<InitLeaseSupplierResponse> {
     Util.validateModel(request);
@@ -42260,6 +46453,7 @@ export default class Client {
   }
 
   /**
+   * @remarks
    * Description: 租赁订单接收采购平台的采购状态信息，完成采购流程
    * Summary: 租赁订单接收采购状态信息，完成采购流程
    */
@@ -42270,6 +46464,7 @@ export default class Client {
   }
 
   /**
+   * @remarks
    * Description: 租赁订单接收采购平台的采购状态信息，完成采购流程
    * Summary: 租赁订单接收采购状态信息，完成采购流程
    */
@@ -42279,8 +46474,9 @@ export default class Client {
   }
 
   /**
+   * @remarks
    * Description: 采购商品初始化 
-   * Summary: 采购商品初始化 
+   * Summary: 采购商品初始化
    */
   async createLeaseSupplierproduct(request: CreateLeaseSupplierproductRequest): Promise<CreateLeaseSupplierproductResponse> {
     let runtime = new $Util.RuntimeOptions({ });
@@ -42289,8 +46485,9 @@ export default class Client {
   }
 
   /**
+   * @remarks
    * Description: 采购商品初始化 
-   * Summary: 采购商品初始化 
+   * Summary: 采购商品初始化
    */
   async createLeaseSupplierproductEx(request: CreateLeaseSupplierproductRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<CreateLeaseSupplierproductResponse> {
     Util.validateModel(request);
@@ -42298,6 +46495,7 @@ export default class Client {
   }
 
   /**
+   * @remarks
    * Description: 链上采购申请
    * Summary: 链上采购申请
    */
@@ -42308,6 +46506,7 @@ export default class Client {
   }
 
   /**
+   * @remarks
    * Description: 链上采购申请
    * Summary: 链上采购申请
    */
@@ -42317,6 +46516,7 @@ export default class Client {
   }
 
   /**
+   * @remarks
    * Description: 创建融资租赁提前还款人脸认证信息
    * Summary: 创建融资租赁提前还款人脸认证信息
    */
@@ -42327,6 +46527,7 @@ export default class Client {
   }
 
   /**
+   * @remarks
    * Description: 创建融资租赁提前还款人脸认证信息
    * Summary: 创建融资租赁提前还款人脸认证信息
    */
@@ -42336,6 +46537,7 @@ export default class Client {
   }
 
   /**
+   * @remarks
    * Description: 融资租赁提前还款人脸识别核验
    * Summary: 融资租赁提前还款人脸识别核验
    */
@@ -42346,6 +46548,7 @@ export default class Client {
   }
 
   /**
+   * @remarks
    * Description: 融资租赁提前还款人脸识别核验
    * Summary: 融资租赁提前还款人脸识别核验
    */
@@ -42355,6 +46558,7 @@ export default class Client {
   }
 
   /**
+   * @remarks
    * Description: 查询融资租赁合约内核验结果
    * Summary: 查询融资租赁合约内核验结果
    */
@@ -42365,6 +46569,7 @@ export default class Client {
   }
 
   /**
+   * @remarks
    * Description: 查询融资租赁合约内核验结果
    * Summary: 查询融资租赁合约内核验结果
    */
@@ -42374,6 +46579,7 @@ export default class Client {
   }
 
   /**
+   * @remarks
    * Description: 融资租赁用户信息查询
    * Summary: 融资租赁用户信息查询
    */
@@ -42384,6 +46590,7 @@ export default class Client {
   }
 
   /**
+   * @remarks
    * Description: 融资租赁用户信息查询
    * Summary: 融资租赁用户信息查询
    */
@@ -42393,6 +46600,7 @@ export default class Client {
   }
 
   /**
+   * @remarks
    * Description: 融资租赁订单详情查询
    * Summary: 融资租赁订单详情查询
    */
@@ -42403,6 +46611,7 @@ export default class Client {
   }
 
   /**
+   * @remarks
    * Description: 融资租赁订单详情查询
    * Summary: 融资租赁订单详情查询
    */
@@ -42412,6 +46621,7 @@ export default class Client {
   }
 
   /**
+   * @remarks
    * Description: 融资租赁租赁机构承诺查询
    * Summary: 融资租赁租赁机构承诺查询
    */
@@ -42422,6 +46632,7 @@ export default class Client {
   }
 
   /**
+   * @remarks
    * Description: 融资租赁租赁机构承诺查询
    * Summary: 融资租赁租赁机构承诺查询
    */
@@ -42431,6 +46642,7 @@ export default class Client {
   }
 
   /**
+   * @remarks
    * Description: 融资租赁资方承诺查询
    * Summary: 融资租赁资方承诺查询
    */
@@ -42441,6 +46653,7 @@ export default class Client {
   }
 
   /**
+   * @remarks
    * Description: 融资租赁资方承诺查询
    * Summary: 融资租赁资方承诺查询
    */
@@ -42450,6 +46663,7 @@ export default class Client {
   }
 
   /**
+   * @remarks
    * Description: 融资租赁订单清分信息查询
    * Summary: 融资租赁订单清分信息查询
    */
@@ -42460,6 +46674,7 @@ export default class Client {
   }
 
   /**
+   * @remarks
    * Description: 融资租赁订单清分信息查询
    * Summary: 融资租赁订单清分信息查询
    */
@@ -42469,6 +46684,7 @@ export default class Client {
   }
 
   /**
+   * @remarks
    * Description: 融资租赁用户侧还款信息
    * Summary: 融资租赁用户侧还款信息
    */
@@ -42479,6 +46695,7 @@ export default class Client {
   }
 
   /**
+   * @remarks
    * Description: 融资租赁用户侧还款信息
    * Summary: 融资租赁用户侧还款信息
    */
@@ -42488,6 +46705,7 @@ export default class Client {
   }
 
   /**
+   * @remarks
    * Description: 融资租赁资方还款信息查询
    * Summary: 融资租赁资方还款信息查询
    */
@@ -42498,6 +46716,7 @@ export default class Client {
   }
 
   /**
+   * @remarks
    * Description: 融资租赁资方还款信息查询
    * Summary: 融资租赁资方还款信息查询
    */
@@ -42507,6 +46726,7 @@ export default class Client {
   }
 
   /**
+   * @remarks
    * Description: 查询订单商品信息
    * Summary: 查询订单商品信息
    */
@@ -42517,6 +46737,7 @@ export default class Client {
   }
 
   /**
+   * @remarks
    * Description: 查询订单商品信息
    * Summary: 查询订单商品信息
    */
@@ -42526,6 +46747,7 @@ export default class Client {
   }
 
   /**
+   * @remarks
    * Description: 融资租赁查询资金方信息
    * Summary: 融资租赁查询资金方信息
    */
@@ -42536,6 +46758,7 @@ export default class Client {
   }
 
   /**
+   * @remarks
    * Description: 融资租赁查询资金方信息
    * Summary: 融资租赁查询资金方信息
    */
@@ -42545,6 +46768,7 @@ export default class Client {
   }
 
   /**
+   * @remarks
    * Description: 根据资产包id分页查询再融资订单id
    * Summary: 分页查询再融资订单id
    */
@@ -42555,6 +46779,7 @@ export default class Client {
   }
 
   /**
+   * @remarks
    * Description: 根据资产包id分页查询再融资订单id
    * Summary: 分页查询再融资订单id
    */
@@ -42564,6 +46789,7 @@ export default class Client {
   }
 
   /**
+   * @remarks
    * Description: 资产明细查询
    * Summary: 资产明细
    */
@@ -42574,6 +46800,7 @@ export default class Client {
   }
 
   /**
+   * @remarks
    * Description: 资产明细查询
    * Summary: 资产明细
    */
@@ -42583,6 +46810,7 @@ export default class Client {
   }
 
   /**
+   * @remarks
    * Description: 再融资的商品信息查询
    * Summary: 再融资的商品信息查询
    */
@@ -42593,6 +46821,7 @@ export default class Client {
   }
 
   /**
+   * @remarks
    * Description: 再融资的商品信息查询
    * Summary: 再融资的商品信息查询
    */
@@ -42602,6 +46831,7 @@ export default class Client {
   }
 
   /**
+   * @remarks
    * Description: 资产包的受让/驳回资产包
    * Summary: 资产包的受让/驳回资产包
    */
@@ -42612,6 +46842,7 @@ export default class Client {
   }
 
   /**
+   * @remarks
    * Description: 资产包的受让/驳回资产包
    * Summary: 资产包的受让/驳回资产包
    */
@@ -42621,6 +46852,7 @@ export default class Client {
   }
 
   /**
+   * @remarks
    * Description: 融资租赁查询清分信息
    * Summary: 融资租赁查询清分信息
    */
@@ -42631,6 +46863,7 @@ export default class Client {
   }
 
   /**
+   * @remarks
    * Description: 融资租赁查询清分信息
    * Summary: 融资租赁查询清分信息
    */
@@ -42640,6 +46873,7 @@ export default class Client {
   }
 
   /**
+   * @remarks
    * Description: 融资租赁提前还款详情查询
    * Summary: 融资租赁提前还款详情查询
    */
@@ -42650,6 +46884,7 @@ export default class Client {
   }
 
   /**
+   * @remarks
    * Description: 融资租赁提前还款详情查询
    * Summary: 融资租赁提前还款详情查询
    */
@@ -42659,6 +46894,7 @@ export default class Client {
   }
 
   /**
+   * @remarks
    * Description: 续租过程中，当前资方希望查询用户历史的履约表现
    * Summary: 核验链上用户的履约情况
    */
@@ -42669,6 +46905,7 @@ export default class Client {
   }
 
   /**
+   * @remarks
    * Description: 续租过程中，当前资方希望查询用户历史的履约表现
    * Summary: 核验链上用户的履约情况
    */
@@ -42678,6 +46915,7 @@ export default class Client {
   }
 
   /**
+   * @remarks
    * Description: 履约流水核验查询
    * Summary: 履约流水核验查询
    */
@@ -42688,6 +46926,7 @@ export default class Client {
   }
 
   /**
+   * @remarks
    * Description: 履约流水核验查询
    * Summary: 履约流水核验查询
    */
@@ -42697,6 +46936,7 @@ export default class Client {
   }
 
   /**
+   * @remarks
    * Description: 分期查询用户归还记录 资方还款 清分信息
    * Summary: 分期查询用户归还记录 资方还款 清分信息
    */
@@ -42707,6 +46947,7 @@ export default class Client {
   }
 
   /**
+   * @remarks
    * Description: 分期查询用户归还记录 资方还款 清分信息
    * Summary: 分期查询用户归还记录 资方还款 清分信息
    */
@@ -42716,6 +46957,7 @@ export default class Client {
   }
 
   /**
+   * @remarks
    * Description: 租赁保险退保接口
    * Summary: 租赁保险退保
    */
@@ -42726,6 +46968,7 @@ export default class Client {
   }
 
   /**
+   * @remarks
    * Description: 租赁保险退保接口
    * Summary: 租赁保险退保
    */
@@ -42735,6 +46978,7 @@ export default class Client {
   }
 
   /**
+   * @remarks
    * Description: 二级资方调用，通过此接口将资产包中的无效或者有效资产推送至租赁平台
    * Summary: 再融资资产推送
    */
@@ -42745,6 +46989,7 @@ export default class Client {
   }
 
   /**
+   * @remarks
    * Description: 二级资方调用，通过此接口将资产包中的无效或者有效资产推送至租赁平台
    * Summary: 再融资资产推送
    */
@@ -42754,6 +46999,7 @@ export default class Client {
   }
 
   /**
+   * @remarks
    * Description: 蚂蚁链租赁的风控
    * Summary: 蚂蚁链租赁的风控
    */
@@ -42764,6 +47010,7 @@ export default class Client {
   }
 
   /**
+   * @remarks
    * Description: 蚂蚁链租赁的风控
    * Summary: 蚂蚁链租赁的风控
    */
@@ -42773,6 +47020,7 @@ export default class Client {
   }
 
   /**
+   * @remarks
    * Description: 融资平台上传租赁物购买贷款订单信息，此接口为异步接口，上链结果需调用查询接口来查
    * Summary: 上传租赁物购买贷款订单信息（异步）
    */
@@ -42783,6 +47031,7 @@ export default class Client {
   }
 
   /**
+   * @remarks
    * Description: 融资平台上传租赁物购买贷款订单信息，此接口为异步接口，上链结果需调用查询接口来查
    * Summary: 上传租赁物购买贷款订单信息（异步）
    */
@@ -42792,6 +47041,7 @@ export default class Client {
   }
 
   /**
+   * @remarks
    * Description: 融资方上传承诺信息，此接口异步上合约，合约调用结果需调用查询接口
    * Summary: 融资方上传承诺信息(异步)
    */
@@ -42802,6 +47052,7 @@ export default class Client {
   }
 
   /**
+   * @remarks
    * Description: 融资方上传承诺信息，此接口异步上合约，合约调用结果需调用查询接口
    * Summary: 融资方上传承诺信息(异步)
    */
@@ -42811,6 +47062,7 @@ export default class Client {
   }
 
   /**
+   * @remarks
    * Description: 清分服务机构上传资金清算记录，分期上传。异步上链，上链结果需要调用查询接口。
    * Summary: 清分服务机构上传资金清算记录，分期
    */
@@ -42821,6 +47073,7 @@ export default class Client {
   }
 
   /**
+   * @remarks
    * Description: 清分服务机构上传资金清算记录，分期上传。异步上链，上链结果需要调用查询接口。
    * Summary: 清分服务机构上传资金清算记录，分期
    */
@@ -42830,6 +47083,7 @@ export default class Client {
   }
 
   /**
+   * @remarks
    * Description: 融资金融机构上传还款信息 每期。异步上链，上链结果需要调用查询接口
    * Summary: 融资金融机构上传还款信息 每期
    */
@@ -42840,6 +47094,7 @@ export default class Client {
   }
 
   /**
+   * @remarks
    * Description: 融资金融机构上传还款信息 每期。异步上链，上链结果需要调用查询接口
    * Summary: 融资金融机构上传还款信息 每期
    */
@@ -42849,6 +47104,7 @@ export default class Client {
   }
 
   /**
+   * @remarks
    * Description: 融资平台审核订单信息，异步上链，上链结果可调用查询接口
    * Summary: 融资平台审核订单信息
    */
@@ -42859,6 +47115,7 @@ export default class Client {
   }
 
   /**
+   * @remarks
    * Description: 融资平台审核订单信息，异步上链，上链结果可调用查询接口
    * Summary: 融资平台审核订单信息
    */
@@ -42868,6 +47125,7 @@ export default class Client {
   }
 
   /**
+   * @remarks
    * Description: 租赁平台上传付款通知信息，异步上链，上链结果可调用查询接口
    * Summary: 租赁平台上传付款通知信息
    */
@@ -42878,6 +47136,7 @@ export default class Client {
   }
 
   /**
+   * @remarks
    * Description: 租赁平台上传付款通知信息，异步上链，上链结果可调用查询接口
    * Summary: 租赁平台上传付款通知信息
    */
@@ -42887,6 +47146,7 @@ export default class Client {
   }
 
   /**
+   * @remarks
    * Description: 查询用户等加密信息，返回加密后的结果，用户自己进行解密。此接口为异步查询接口，建议间隔一段时间后再次查询获取结果
    * Summary: 查询用户等加密信息
    */
@@ -42897,6 +47157,7 @@ export default class Client {
   }
 
   /**
+   * @remarks
    * Description: 查询用户等加密信息，返回加密后的结果，用户自己进行解密。此接口为异步查询接口，建议间隔一段时间后再次查询获取结果
    * Summary: 查询用户等加密信息
    */
@@ -42906,6 +47167,7 @@ export default class Client {
   }
 
   /**
+   * @remarks
    * Description: 租赁异步调用上链结果回查
    * Summary: 租赁异步调用上链结果回查
    */
@@ -42916,6 +47178,7 @@ export default class Client {
   }
 
   /**
+   * @remarks
    * Description: 租赁异步调用上链结果回查
    * Summary: 租赁异步调用上链结果回查
    */
@@ -42925,6 +47188,7 @@ export default class Client {
   }
 
   /**
+   * @remarks
    * Description: 创建签署见证流程
    * Summary: 创建见证流程
    */
@@ -42935,6 +47199,7 @@ export default class Client {
   }
 
   /**
+   * @remarks
    * Description: 创建签署见证流程
    * Summary: 创建见证流程
    */
@@ -42944,6 +47209,7 @@ export default class Client {
   }
 
   /**
+   * @remarks
    * Description: 保存见证流程快照数据
    * Summary: 保存见证流程快照数据
    */
@@ -42954,6 +47220,7 @@ export default class Client {
   }
 
   /**
+   * @remarks
    * Description: 保存见证流程快照数据
    * Summary: 保存见证流程快照数据
    */
@@ -42963,6 +47230,7 @@ export default class Client {
   }
 
   /**
+   * @remarks
    * Description: 见证流程签署权限校验
    * Summary: 见证流程签署权限校验
    */
@@ -42973,6 +47241,7 @@ export default class Client {
   }
 
   /**
+   * @remarks
    * Description: 见证流程签署权限校验
    * Summary: 见证流程签署权限校验
    */
@@ -42982,6 +47251,7 @@ export default class Client {
   }
 
   /**
+   * @remarks
    * Description: 见证流程签署
    * Summary: 见证流程签署
    */
@@ -42992,6 +47262,7 @@ export default class Client {
   }
 
   /**
+   * @remarks
    * Description: 见证流程签署
    * Summary: 见证流程签署
    */
@@ -43001,6 +47272,7 @@ export default class Client {
   }
 
   /**
+   * @remarks
    * Description: 见证流程签署确认
    * Summary: 见证流程签署确认
    */
@@ -43011,6 +47283,7 @@ export default class Client {
   }
 
   /**
+   * @remarks
    * Description: 见证流程签署确认
    * Summary: 见证流程签署确认
    */
@@ -43020,6 +47293,7 @@ export default class Client {
   }
 
   /**
+   * @remarks
    * Description: 获取存证事务ID
    * Summary: 获取存证事务ID
    */
@@ -43030,6 +47304,7 @@ export default class Client {
   }
 
   /**
+   * @remarks
    * Description: 获取存证事务ID
    * Summary: 获取存证事务ID
    */
@@ -43039,6 +47314,7 @@ export default class Client {
   }
 
   /**
+   * @remarks
    * Description: 通过存证事务Token，获取事务中所有的存证信息
    * Summary: 获取事务中所有的存证信息
    */
@@ -43049,6 +47325,7 @@ export default class Client {
   }
 
   /**
+   * @remarks
    * Description: 通过存证事务Token，获取事务中所有的存证信息
    * Summary: 获取事务中所有的存证信息
    */
@@ -43058,6 +47335,7 @@ export default class Client {
   }
 
   /**
+   * @remarks
    * Description: 发起文本存证，将文本内容存证上链
    * Summary: 文本存证，将文本内容存证上链
    */
@@ -43068,6 +47346,7 @@ export default class Client {
   }
 
   /**
+   * @remarks
    * Description: 发起文本存证，将文本内容存证上链
    * Summary: 文本存证，将文本内容存证上链
    */
@@ -43077,6 +47356,7 @@ export default class Client {
   }
 
   /**
+   * @remarks
    * Description: 用户通过交易哈希获取自己上传的文本存证内容
    * Summary: 获取文本存证内容
    */
@@ -43087,6 +47367,7 @@ export default class Client {
   }
 
   /**
+   * @remarks
    * Description: 用户通过交易哈希获取自己上传的文本存证内容
    * Summary: 获取文本存证内容
    */
@@ -43096,6 +47377,7 @@ export default class Client {
   }
 
   /**
+   * @remarks
    * Description: 发起文件存证，将文件内容存证上链
    * Summary: 文件内容存证上链
    */
@@ -43106,6 +47388,7 @@ export default class Client {
   }
 
   /**
+   * @remarks
    * Description: 发起文件存证，将文件内容存证上链
    * Summary: 文件内容存证上链
    */
@@ -43115,6 +47398,7 @@ export default class Client {
   }
 
   /**
+   * @remarks
    * Description: 用户通过交易哈希获取自己上传的文件存证oss下载地址
    * Summary: 获取文件存证oss下载地址
    */
@@ -43125,6 +47409,7 @@ export default class Client {
   }
 
   /**
+   * @remarks
    * Description: 用户通过交易哈希获取自己上传的文件存证oss下载地址
    * Summary: 获取文件存证oss下载地址
    */
@@ -43134,6 +47419,7 @@ export default class Client {
   }
 
   /**
+   * @remarks
    * Description: 发起原文存证，将原文内容存证上链
    * Summary: 原文内容存证
    */
@@ -43144,6 +47430,7 @@ export default class Client {
   }
 
   /**
+   * @remarks
    * Description: 发起原文存证，将原文内容存证上链
    * Summary: 原文内容存证
    */
@@ -43153,6 +47440,7 @@ export default class Client {
   }
 
   /**
+   * @remarks
    * Description: 用户通过交易哈希获取自己上传的原文存证oss下载地址
    * Summary: 获取原文存证oss下载地址
    */
@@ -43163,6 +47451,7 @@ export default class Client {
   }
 
   /**
+   * @remarks
    * Description: 用户通过交易哈希获取自己上传的原文存证oss下载地址
    * Summary: 获取原文存证oss下载地址
    */
@@ -43172,6 +47461,7 @@ export default class Client {
   }
 
   /**
+   * @remarks
    * Description: 创建存证后，使用存证凭据核验存证状态。
    * Summary: 存证内容核验
    */
@@ -43182,6 +47472,7 @@ export default class Client {
   }
 
   /**
+   * @remarks
    * Description: 创建存证后，使用存证凭据核验存证状态。
    * Summary: 存证内容核验
    */
@@ -43191,6 +47482,7 @@ export default class Client {
   }
 
   /**
+   * @remarks
    * Description: 融资服务平台部署合约
    * Summary: 融资服务平台部署合约
    */
@@ -43201,6 +47493,7 @@ export default class Client {
   }
 
   /**
+   * @remarks
    * Description: 融资服务平台部署合约
    * Summary: 融资服务平台部署合约
    */
@@ -43210,6 +47503,7 @@ export default class Client {
   }
 
   /**
+   * @remarks
    * Description: 租赁服务平台授权融资服务平台
    * Summary: 租赁服务平台授权融资服务平台
    */
@@ -43220,6 +47514,7 @@ export default class Client {
   }
 
   /**
+   * @remarks
    * Description: 租赁服务平台授权融资服务平台
    * Summary: 租赁服务平台授权融资服务平台
    */
@@ -43229,6 +47524,7 @@ export default class Client {
   }
 
   /**
+   * @remarks
    * Description: 租赁服务平台上传用户信息
    * Summary: 租赁服务平台上传用户信息
    */
@@ -43239,6 +47535,7 @@ export default class Client {
   }
 
   /**
+   * @remarks
    * Description: 租赁服务平台上传用户信息
    * Summary: 租赁服务平台上传用户信息
    */
@@ -43248,6 +47545,7 @@ export default class Client {
   }
 
   /**
+   * @remarks
    * Description: 租赁服务平台上传订单产品/服务信息
    * Summary: 租赁服务平台上传订单产品/服务信息
    */
@@ -43258,6 +47556,7 @@ export default class Client {
   }
 
   /**
+   * @remarks
    * Description: 租赁服务平台上传订单产品/服务信息
    * Summary: 租赁服务平台上传订单产品/服务信息
    */
@@ -43267,6 +47566,7 @@ export default class Client {
   }
 
   /**
+   * @remarks
    * Description: 租赁服务平台上传承诺信息
    * Summary: 租赁服务平台上传承诺信息
    */
@@ -43277,6 +47577,7 @@ export default class Client {
   }
 
   /**
+   * @remarks
    * Description: 租赁服务平台上传承诺信息
    * Summary: 租赁服务平台上传承诺信息
    */
@@ -43286,6 +47587,7 @@ export default class Client {
   }
 
   /**
+   * @remarks
    * Description: 融资平台上传租赁物购买贷款订单信息
    * Summary: 融资平台上传租赁物购买贷款订单信息
    */
@@ -43296,6 +47598,7 @@ export default class Client {
   }
 
   /**
+   * @remarks
    * Description: 融资平台上传租赁物购买贷款订单信息
    * Summary: 融资平台上传租赁物购买贷款订单信息
    */
@@ -43305,6 +47608,7 @@ export default class Client {
   }
 
   /**
+   * @remarks
    * Description: 融资方上传承诺信息
    * Summary: 融资方上传承诺信息
    */
@@ -43315,6 +47619,7 @@ export default class Client {
   }
 
   /**
+   * @remarks
    * Description: 融资方上传承诺信息
    * Summary: 融资方上传承诺信息
    */
@@ -43324,6 +47629,7 @@ export default class Client {
   }
 
   /**
+   * @remarks
    * Description: 租赁平台上传支用/还款信息
    * Summary: 租赁平台上传支用/还款信息
    */
@@ -43334,6 +47640,7 @@ export default class Client {
   }
 
   /**
+   * @remarks
    * Description: 租赁平台上传支用/还款信息
    * Summary: 租赁平台上传支用/还款信息
    */
@@ -43343,6 +47650,7 @@ export default class Client {
   }
 
   /**
+   * @remarks
    * Description:  查询订单详细信息
    * Summary:  查询订单详细信息
    */
@@ -43353,6 +47661,7 @@ export default class Client {
   }
 
   /**
+   * @remarks
    * Description:  查询订单详细信息
    * Summary:  查询订单详细信息
    */
@@ -43362,6 +47671,7 @@ export default class Client {
   }
 
   /**
+   * @remarks
    * Description: 创建金融行业标准文本存证
    * Summary: 创建金融行业文本存证
    */
@@ -43372,6 +47682,7 @@ export default class Client {
   }
 
   /**
+   * @remarks
    * Description: 创建金融行业标准文本存证
    * Summary: 创建金融行业文本存证
    */
@@ -43381,6 +47692,7 @@ export default class Client {
   }
 
   /**
+   * @remarks
    * Description: 获取金融行业文本存证接口描述
    * Summary: 获取金融行业文本存证
    */
@@ -43391,6 +47703,7 @@ export default class Client {
   }
 
   /**
+   * @remarks
    * Description: 获取金融行业文本存证接口描述
    * Summary: 获取金融行业文本存证
    */
@@ -43400,6 +47713,7 @@ export default class Client {
   }
 
   /**
+   * @remarks
    * Description: 创建金融行业文件存证接口描述
    * Summary: 创建金融行业文件存证
    */
@@ -43410,6 +47724,7 @@ export default class Client {
   }
 
   /**
+   * @remarks
    * Description: 创建金融行业文件存证接口描述
    * Summary: 创建金融行业文件存证
    */
@@ -43419,6 +47734,7 @@ export default class Client {
   }
 
   /**
+   * @remarks
    * Description: 获取金融行业文件存证接口描述
    * Summary: 获取金融行业文件存证
    */
@@ -43429,6 +47745,7 @@ export default class Client {
   }
 
   /**
+   * @remarks
    * Description: 获取金融行业文件存证接口描述
    * Summary: 获取金融行业文件存证
    */
@@ -43438,6 +47755,7 @@ export default class Client {
   }
 
   /**
+   * @remarks
    * Description: 统一存证核验接口
    * Summary: 统一存证核验接口（已下架）
    */
@@ -43448,6 +47766,7 @@ export default class Client {
   }
 
   /**
+   * @remarks
    * Description: 统一存证核验接口
    * Summary: 统一存证核验接口（已下架）
    */
@@ -43457,6 +47776,7 @@ export default class Client {
   }
 
   /**
+   * @remarks
    * Description: 违约案件信息提交服务
    * Summary: 违约案件信息提交服务
    */
@@ -43467,6 +47787,7 @@ export default class Client {
   }
 
   /**
+   * @remarks
    * Description: 违约案件信息提交服务
    * Summary: 违约案件信息提交服务
    */
@@ -43476,6 +47797,7 @@ export default class Client {
   }
 
   /**
+   * @remarks
    * Description: 违约案件信息修改服务
    * Summary: 违约案件信息修改服务
    */
@@ -43486,6 +47808,7 @@ export default class Client {
   }
 
   /**
+   * @remarks
    * Description: 违约案件信息修改服务
    * Summary: 违约案件信息修改服务
    */
@@ -43495,6 +47818,7 @@ export default class Client {
   }
 
   /**
+   * @remarks
    * Description: 违约案件信息删除服务
    * Summary: 违约案件信息删除服务
    */
@@ -43505,6 +47829,7 @@ export default class Client {
   }
 
   /**
+   * @remarks
    * Description: 违约案件信息删除服务
    * Summary: 违约案件信息删除服务
    */
@@ -43514,6 +47839,7 @@ export default class Client {
   }
 
   /**
+   * @remarks
    * Description: 查询惩戒信息
    * Summary: 查询惩戒信息
    */
@@ -43524,6 +47850,7 @@ export default class Client {
   }
 
   /**
+   * @remarks
    * Description: 查询惩戒信息
    * Summary: 查询惩戒信息
    */
@@ -43533,6 +47860,7 @@ export default class Client {
   }
 
   /**
+   * @remarks
    * Description: 升级用户管理合约
    * Summary: 升级用户管理合约
    */
@@ -43543,6 +47871,7 @@ export default class Client {
   }
 
   /**
+   * @remarks
    * Description: 升级用户管理合约
    * Summary: 升级用户管理合约
    */
@@ -43552,6 +47881,7 @@ export default class Client {
   }
 
   /**
+   * @remarks
    * Description: 回退用户管理合约
    * Summary: 回退用户管理合约
    */
@@ -43562,6 +47892,7 @@ export default class Client {
   }
 
   /**
+   * @remarks
    * Description: 回退用户管理合约
    * Summary: 回退用户管理合约
    */
@@ -43571,6 +47902,7 @@ export default class Client {
   }
 
   /**
+   * @remarks
    * Description: 融资平台审核订单信息
    * Summary: 融资平台审核订单信息
    */
@@ -43581,6 +47913,7 @@ export default class Client {
   }
 
   /**
+   * @remarks
    * Description: 融资平台审核订单信息
    * Summary: 融资平台审核订单信息
    */
@@ -43590,6 +47923,7 @@ export default class Client {
   }
 
   /**
+   * @remarks
    * Description: 租赁平台上传付款通知信息
    * Summary: 租赁平台上传付款通知信息
    */
@@ -43600,6 +47934,7 @@ export default class Client {
   }
 
   /**
+   * @remarks
    * Description: 租赁平台上传付款通知信息
    * Summary: 租赁平台上传付款通知信息
    */
@@ -43609,6 +47944,7 @@ export default class Client {
   }
 
   /**
+   * @remarks
    * Description: 租赁系统上传租金归还记录 分期调用
    * Summary: 租赁系统上传租金归还记录 分期调用
    */
@@ -43619,6 +47955,7 @@ export default class Client {
   }
 
   /**
+   * @remarks
    * Description: 租赁系统上传租金归还记录 分期调用
    * Summary: 租赁系统上传租金归还记录 分期调用
    */
@@ -43628,6 +47965,7 @@ export default class Client {
   }
 
   /**
+   * @remarks
    * Description: 清分服务机构上传资金清算记录，分期
    * Summary: 清分服务机构上传资金清算记录，分期
    */
@@ -43638,6 +47976,7 @@ export default class Client {
   }
 
   /**
+   * @remarks
    * Description: 清分服务机构上传资金清算记录，分期
    * Summary: 清分服务机构上传资金清算记录，分期
    */
@@ -43647,6 +47986,7 @@ export default class Client {
   }
 
   /**
+   * @remarks
    * Description: 融资金融机构上传还款信息 每期
    * Summary: 融资金融机构上传还款信息 每期
    */
@@ -43657,6 +47997,7 @@ export default class Client {
   }
 
   /**
+   * @remarks
    * Description: 融资金融机构上传还款信息 每期
    * Summary: 融资金融机构上传还款信息 每期
    */
@@ -43666,6 +48007,7 @@ export default class Client {
   }
 
   /**
+   * @remarks
    * Description: 融资租赁通知系统注册
    * Summary: 融资租赁通知系统注册
    */
@@ -43676,6 +48018,7 @@ export default class Client {
   }
 
   /**
+   * @remarks
    * Description: 融资租赁通知系统注册
    * Summary: 融资租赁通知系统注册
    */
@@ -43685,6 +48028,7 @@ export default class Client {
   }
 
   /**
+   * @remarks
    * Description: 根据imeiID查询iot设备的详情
    * Summary: 根据imeiID查询iot设备的详情
    */
@@ -43695,6 +48039,7 @@ export default class Client {
   }
 
   /**
+   * @remarks
    * Description: 根据imeiID查询iot设备的详情
    * Summary: 根据imeiID查询iot设备的详情
    */
@@ -43704,6 +48049,7 @@ export default class Client {
   }
 
   /**
+   * @remarks
    * Description: 创建法院通用文本存证
    * Summary: 法院通用文本存证创建接口
    */
@@ -43714,6 +48060,7 @@ export default class Client {
   }
 
   /**
+   * @remarks
    * Description: 创建法院通用文本存证
    * Summary: 法院通用文本存证创建接口
    */
@@ -43723,6 +48070,7 @@ export default class Client {
   }
 
   /**
+   * @remarks
    * Description: 获取法院通用文本存证
    * Summary: 法院通用文本存证获取接口
    */
@@ -43733,6 +48081,7 @@ export default class Client {
   }
 
   /**
+   * @remarks
    * Description: 获取法院通用文本存证
    * Summary: 法院通用文本存证获取接口
    */
@@ -43742,6 +48091,7 @@ export default class Client {
   }
 
   /**
+   * @remarks
    * Description: 创建法院通用文件存证接口
    * Summary: 法院通用文件存证创建接口
    */
@@ -43752,6 +48102,7 @@ export default class Client {
   }
 
   /**
+   * @remarks
    * Description: 创建法院通用文件存证接口
    * Summary: 法院通用文件存证创建接口
    */
@@ -43761,6 +48112,7 @@ export default class Client {
   }
 
   /**
+   * @remarks
    * Description: 获取法院通用文件存证
    * Summary: 法院通用文件存证获取接口
    */
@@ -43771,6 +48123,7 @@ export default class Client {
   }
 
   /**
+   * @remarks
    * Description: 获取法院通用文件存证
    * Summary: 法院通用文件存证获取接口
    */
@@ -43780,6 +48133,7 @@ export default class Client {
   }
 
   /**
+   * @remarks
    * Description: 融资租赁定制化统一入口
    * Summary: 融资租赁定制化统一入口
    */
@@ -43790,6 +48144,7 @@ export default class Client {
   }
 
   /**
+   * @remarks
    * Description: 融资租赁定制化统一入口
    * Summary: 融资租赁定制化统一入口
    */
@@ -43799,6 +48154,7 @@ export default class Client {
   }
 
   /**
+   * @remarks
    * Description: 查询用户等加密信息，返回加密后的结果，用户自己进行解密
    * Summary: 查询用户等加密信息
    */
@@ -43809,6 +48165,7 @@ export default class Client {
   }
 
   /**
+   * @remarks
    * Description: 查询用户等加密信息，返回加密后的结果，用户自己进行解密
    * Summary: 查询用户等加密信息
    */
@@ -43818,6 +48175,7 @@ export default class Client {
   }
 
   /**
+   * @remarks
    * Description: 电子合同文本存证
    * Summary: 电子合同文本存证
    */
@@ -43828,6 +48186,7 @@ export default class Client {
   }
 
   /**
+   * @remarks
    * Description: 电子合同文本存证
    * Summary: 电子合同文本存证
    */
@@ -43837,6 +48196,7 @@ export default class Client {
   }
 
   /**
+   * @remarks
    * Description: 全流程存证后，批量提交全流程核验信息，申请出证报告授权码。成功后可生成全流程上链报告
    * Summary: 申请电子合同存证报告
    */
@@ -43847,6 +48207,7 @@ export default class Client {
   }
 
   /**
+   * @remarks
    * Description: 全流程存证后，批量提交全流程核验信息，申请出证报告授权码。成功后可生成全流程上链报告
    * Summary: 申请电子合同存证报告
    */
@@ -43856,6 +48217,7 @@ export default class Client {
   }
 
   /**
+   * @remarks
    * Description: 下载合同存证某个环节的内容，得到存证信息对象最终上链的JSON序列化形式，该内容可用于统一核验
    * Summary: 下载合同存证
    */
@@ -43866,6 +48228,7 @@ export default class Client {
   }
 
   /**
+   * @remarks
    * Description: 下载合同存证某个环节的内容，得到存证信息对象最终上链的JSON序列化形式，该内容可用于统一核验
    * Summary: 下载合同存证
    */
@@ -43875,6 +48238,7 @@ export default class Client {
   }
 
   /**
+   * @remarks
    * Description: 获取存证事务ID内部接口
    * Summary: 获取存证事务ID内部接口
    */
@@ -43885,6 +48249,7 @@ export default class Client {
   }
 
   /**
+   * @remarks
    * Description: 获取存证事务ID内部接口
    * Summary: 获取存证事务ID内部接口
    */
@@ -43894,6 +48259,7 @@ export default class Client {
   }
 
   /**
+   * @remarks
    * Description: 文本存证内部接口，将文本内容存证上链
    * Summary: 文本存证内部接口，将文本内容存证上链
    */
@@ -43904,6 +48270,7 @@ export default class Client {
   }
 
   /**
+   * @remarks
    * Description: 文本存证内部接口，将文本内容存证上链
    * Summary: 文本存证内部接口，将文本内容存证上链
    */
@@ -43913,6 +48280,7 @@ export default class Client {
   }
 
   /**
+   * @remarks
    * Description: 发起文本存证，将文本内容存证上链，租赁业务专用。
    * Summary: 租赁业务文本存证，将文本内容存证上链
    */
@@ -43923,6 +48291,7 @@ export default class Client {
   }
 
   /**
+   * @remarks
    * Description: 发起文本存证，将文本内容存证上链，租赁业务专用。
    * Summary: 租赁业务文本存证，将文本内容存证上链
    */
@@ -43932,6 +48301,7 @@ export default class Client {
   }
 
   /**
+   * @remarks
    * Description: 发起文件存证，将文件内容存证上链，租赁业务专用。
    * Summary: 租赁业务文件内容存证上链
    */
@@ -43942,6 +48312,7 @@ export default class Client {
   }
 
   /**
+   * @remarks
    * Description: 发起文件存证，将文件内容存证上链，租赁业务专用。
    * Summary: 租赁业务文件内容存证上链
    */
@@ -43951,6 +48322,7 @@ export default class Client {
   }
 
   /**
+   * @remarks
    * Description: 使用接口查询订单存证的信息，需要在完成订单回传后才可返回。获取到txhash后，用户可使用 获取文本存证、存证核验 等存证服务功能。
    * Summary: 租赁业务获取订单存证列表
    */
@@ -43961,6 +48333,7 @@ export default class Client {
   }
 
   /**
+   * @remarks
    * Description: 使用接口查询订单存证的信息，需要在完成订单回传后才可返回。获取到txhash后，用户可使用 获取文本存证、存证核验 等存证服务功能。
    * Summary: 租赁业务获取订单存证列表
    */
@@ -43970,6 +48343,7 @@ export default class Client {
   }
 
   /**
+   * @remarks
    * Description: 查询融资租赁application
    * Summary: 查询融资租赁application
    */
@@ -43980,6 +48354,7 @@ export default class Client {
   }
 
   /**
+   * @remarks
    * Description: 查询融资租赁application
    * Summary: 查询融资租赁application
    */
@@ -43989,6 +48364,7 @@ export default class Client {
   }
 
   /**
+   * @remarks
    * Description: 查询融资租赁application的定义详情
    * Summary: 查询application的定义详情
    */
@@ -43999,6 +48375,7 @@ export default class Client {
   }
 
   /**
+   * @remarks
    * Description: 查询融资租赁application的定义详情
    * Summary: 查询application的定义详情
    */
@@ -44008,6 +48385,7 @@ export default class Client {
   }
 
   /**
+   * @remarks
    * Description: 融资租赁资方重置订单状态
    * Summary: 融资租赁资方重置订单状态
    */
@@ -44018,6 +48396,7 @@ export default class Client {
   }
 
   /**
+   * @remarks
    * Description: 融资租赁资方重置订单状态
    * Summary: 融资租赁资方重置订单状态
    */
@@ -44027,6 +48406,7 @@ export default class Client {
   }
 
   /**
+   * @remarks
    * Description: 供应商上传采购等相关信息
    * Summary: 供应商上传采购等相关信息
    */
@@ -44037,6 +48417,7 @@ export default class Client {
   }
 
   /**
+   * @remarks
    * Description: 供应商上传采购等相关信息
    * Summary: 供应商上传采购等相关信息
    */
@@ -44046,6 +48427,7 @@ export default class Client {
   }
 
   /**
+   * @remarks
    * Description: mytf的tapp部署
    * Summary: mytf的tapp部署
    */
@@ -44056,6 +48438,7 @@ export default class Client {
   }
 
   /**
+   * @remarks
    * Description: mytf的tapp部署
    * Summary: mytf的tapp部署
    */
@@ -44065,6 +48448,7 @@ export default class Client {
   }
 
   /**
+   * @remarks
    * Description: 供应商更新物流状态、签收记录等信息
    * Summary: 供应商更新物流状态、签收记录等信息
    */
@@ -44075,6 +48459,7 @@ export default class Client {
   }
 
   /**
+   * @remarks
    * Description: 供应商更新物流状态、签收记录等信息
    * Summary: 供应商更新物流状态、签收记录等信息
    */
@@ -44084,6 +48469,7 @@ export default class Client {
   }
 
   /**
+   * @remarks
    * Description: 创建租赁订单相关信息，融资租赁的前置条件
    * Summary: 创建租赁订单相关信息，融资租赁的前置条件
    */
@@ -44094,6 +48480,7 @@ export default class Client {
   }
 
   /**
+   * @remarks
    * Description: 创建租赁订单相关信息，融资租赁的前置条件
    * Summary: 创建租赁订单相关信息，融资租赁的前置条件
    */
@@ -44103,6 +48490,7 @@ export default class Client {
   }
 
   /**
+   * @remarks
    * Description: 查询核验结果
    * Summary: 查询核验结果
    */
@@ -44113,6 +48501,7 @@ export default class Client {
   }
 
   /**
+   * @remarks
    * Description: 查询核验结果
    * Summary: 查询核验结果
    */
@@ -44122,6 +48511,7 @@ export default class Client {
   }
 
   /**
+   * @remarks
    * Description: 发起文件存证，将文件内容存证上链，可存证10M以内的文件
    * Summary: 大文件内容存证接口
    */
@@ -44132,6 +48522,7 @@ export default class Client {
   }
 
   /**
+   * @remarks
    * Description: 发起文件存证，将文件内容存证上链，可存证10M以内的文件
    * Summary: 大文件内容存证接口
    */
@@ -44141,6 +48532,7 @@ export default class Client {
   }
 
   /**
+   * @remarks
    * Description: 租赁平台查询接口
    * Summary: 租赁平台查询接口
    */
@@ -44151,6 +48543,7 @@ export default class Client {
   }
 
   /**
+   * @remarks
    * Description: 租赁平台查询接口
    * Summary: 租赁平台查询接口
    */
@@ -44160,6 +48553,7 @@ export default class Client {
   }
 
   /**
+   * @remarks
    * Description: 租赁宝哈希存证
    * Summary: 租赁宝哈希存证
    */
@@ -44170,6 +48564,7 @@ export default class Client {
   }
 
   /**
+   * @remarks
    * Description: 租赁宝哈希存证
    * Summary: 租赁宝哈希存证
    */
@@ -44179,6 +48574,7 @@ export default class Client {
   }
 
   /**
+   * @remarks
    * Description: 合同内部文本存证
    * Summary: 合同内部文本存证
    */
@@ -44189,6 +48585,7 @@ export default class Client {
   }
 
   /**
+   * @remarks
    * Description: 合同内部文本存证
    * Summary: 合同内部文本存证
    */
@@ -44198,6 +48595,7 @@ export default class Client {
   }
 
   /**
+   * @remarks
    * Description: 资方上传网商直付通代扣协议核验结果
    * Summary: 资方上传网商直付通代扣协议核验结果
    */
@@ -44208,6 +48606,7 @@ export default class Client {
   }
 
   /**
+   * @remarks
    * Description: 资方上传网商直付通代扣协议核验结果
    * Summary: 资方上传网商直付通代扣协议核验结果
    */
@@ -44217,6 +48616,7 @@ export default class Client {
   }
 
   /**
+   * @remarks
    * Description: 资方上传网商直付通代扣协议解约相关信息
    * Summary: 资方上传网商直付通代扣协议解约相关信息
    */
@@ -44227,6 +48627,7 @@ export default class Client {
   }
 
   /**
+   * @remarks
    * Description: 资方上传网商直付通代扣协议解约相关信息
    * Summary: 资方上传网商直付通代扣协议解约相关信息
    */
@@ -44236,6 +48637,7 @@ export default class Client {
   }
 
   /**
+   * @remarks
    * Description: 获取蚂蚁链版存证证明
    * Summary: 获取蚂蚁链版存证证明
    */
@@ -44246,6 +48648,7 @@ export default class Client {
   }
 
   /**
+   * @remarks
    * Description: 获取蚂蚁链版存证证明
    * Summary: 获取蚂蚁链版存证证明
    */
@@ -44255,6 +48658,7 @@ export default class Client {
   }
 
   /**
+   * @remarks
    * Description: 用户通过交易哈希获取自己上传的文本存证内容
    * Summary: 获取文本存证内容
    */
@@ -44265,6 +48669,7 @@ export default class Client {
   }
 
   /**
+   * @remarks
    * Description: 用户通过交易哈希获取自己上传的文本存证内容
    * Summary: 获取文本存证内容
    */
@@ -44274,6 +48679,7 @@ export default class Client {
   }
 
   /**
+   * @remarks
    * Description: 三方服务获取开通权限，标记开通状态。
    * Summary: 三方服务获取开通权限，标记开通状态。
    */
@@ -44284,6 +48690,7 @@ export default class Client {
   }
 
   /**
+   * @remarks
    * Description: 三方服务获取开通权限，标记开通状态。
    * Summary: 三方服务获取开通权限，标记开通状态。
    */
@@ -44293,6 +48700,7 @@ export default class Client {
   }
 
   /**
+   * @remarks
    * Description: 指定节点获取存证事务Id
    * Summary: 指定节点获取存证事务id
    */
@@ -44303,6 +48711,7 @@ export default class Client {
   }
 
   /**
+   * @remarks
    * Description: 指定节点获取存证事务Id
    * Summary: 指定节点获取存证事务id
    */
@@ -44312,6 +48721,7 @@ export default class Client {
   }
 
   /**
+   * @remarks
    * Description: 指定节点文本存证
    * Summary: 指定节点文本存证
    */
@@ -44322,6 +48732,7 @@ export default class Client {
   }
 
   /**
+   * @remarks
    * Description: 指定节点文本存证
    * Summary: 指定节点文本存证
    */
@@ -44331,6 +48742,7 @@ export default class Client {
   }
 
   /**
+   * @remarks
    * Description: 文件存证大租户内部接口
    * Summary: 文件存证内部接口
    */
@@ -44341,6 +48753,7 @@ export default class Client {
   }
 
   /**
+   * @remarks
    * Description: 文件存证大租户内部接口
    * Summary: 文件存证内部接口
    */
@@ -44350,6 +48763,7 @@ export default class Client {
   }
 
   /**
+   * @remarks
    * Description: 获取文件存证内容内部接口
    * Summary: 获取文件存证内容内部接口
    */
@@ -44360,6 +48774,7 @@ export default class Client {
   }
 
   /**
+   * @remarks
    * Description: 获取文件存证内容内部接口
    * Summary: 获取文件存证内容内部接口
    */
@@ -44369,6 +48784,7 @@ export default class Client {
   }
 
   /**
+   * @remarks
    * Description: 数据流转文本存证
    * Summary: 数据流转文本存证
    */
@@ -44379,6 +48795,7 @@ export default class Client {
   }
 
   /**
+   * @remarks
    * Description: 数据流转文本存证
    * Summary: 数据流转文本存证
    */
@@ -44388,6 +48805,7 @@ export default class Client {
   }
 
   /**
+   * @remarks
    * Description: 查询数据流转文本存证内容
    * Summary: 查询数据流转文本存证内容
    */
@@ -44398,6 +48816,7 @@ export default class Client {
   }
 
   /**
+   * @remarks
    * Description: 查询数据流转文本存证内容
    * Summary: 查询数据流转文本存证内容
    */
@@ -44407,6 +48826,7 @@ export default class Client {
   }
 
   /**
+   * @remarks
    * Description: 数据流转存证创建存证事务
    * Summary: 数据流转存证创建存证事务
    */
@@ -44417,6 +48837,7 @@ export default class Client {
   }
 
   /**
+   * @remarks
    * Description: 数据流转存证创建存证事务
    * Summary: 数据流转存证创建存证事务
    */
@@ -44426,6 +48847,7 @@ export default class Client {
   }
 
   /**
+   * @remarks
    * Description: 数据流转存证需要通过存证合约进行授权和流转的管理，存证方可以通过本接口发起管理合约的部署。
    * Summary: 发起管理合约部署
    */
@@ -44436,6 +48858,7 @@ export default class Client {
   }
 
   /**
+   * @remarks
    * Description: 数据流转存证需要通过存证合约进行授权和流转的管理，存证方可以通过本接口发起管理合约的部署。
    * Summary: 发起管理合约部署
    */
@@ -44445,6 +48868,7 @@ export default class Client {
   }
 
   /**
+   * @remarks
    * Description: 存证方对证据的使用方进行各类型的权限授予，允许使用方调用存证合约中的对应方法。
    * Summary: 发起授权
    */
@@ -44455,6 +48879,7 @@ export default class Client {
   }
 
   /**
+   * @remarks
    * Description: 存证方对证据的使用方进行各类型的权限授予，允许使用方调用存证合约中的对应方法。
    * Summary: 发起授权
    */
@@ -44464,6 +48889,7 @@ export default class Client {
   }
 
   /**
+   * @remarks
    * Description: 存证方对撤销已经发起的权限授予。
    * Summary: 撤销授权
    */
@@ -44474,6 +48900,7 @@ export default class Client {
   }
 
   /**
+   * @remarks
    * Description: 存证方对撤销已经发起的权限授予。
    * Summary: 撤销授权
    */
@@ -44483,6 +48910,7 @@ export default class Client {
   }
 
   /**
+   * @remarks
    * Description: 查询存证管理合约的部署/授权/撤销授权/密钥上传等操作的执行结果。
    * Summary: 查询对存证合约的各类操作执行结果
    */
@@ -44493,6 +48921,7 @@ export default class Client {
   }
 
   /**
+   * @remarks
    * Description: 查询存证管理合约的部署/授权/撤销授权/密钥上传等操作的执行结果。
    * Summary: 查询对存证合约的各类操作执行结果
    */
@@ -44502,6 +48931,7 @@ export default class Client {
   }
 
   /**
+   * @remarks
    * Description: 存证的使用方，在获得密钥上传（PUBKEY_UPLOAD）授权后，使用本接口上传信封密钥，后续查询存证时，会使用此信封密钥对存证原文加密，将密文返回，保障数据安全。
    * Summary: 发起信封密钥上传
    */
@@ -44512,6 +48942,7 @@ export default class Client {
   }
 
   /**
+   * @remarks
    * Description: 存证的使用方，在获得密钥上传（PUBKEY_UPLOAD）授权后，使用本接口上传信封密钥，后续查询存证时，会使用此信封密钥对存证原文加密，将密文返回，保障数据安全。
    * Summary: 发起信封密钥上传
    */
@@ -44521,6 +48952,7 @@ export default class Client {
   }
 
   /**
+   * @remarks
    * Description: 数据流转存证创建链上账户
    * Summary: 数据流转存证创建链上账户
    */
@@ -44531,6 +48963,7 @@ export default class Client {
   }
 
   /**
+   * @remarks
    * Description: 数据流转存证创建链上账户
    * Summary: 数据流转存证创建链上账户
    */
@@ -44540,6 +48973,7 @@ export default class Client {
   }
 
   /**
+   * @remarks
    * Description: 发起一体化文件存证
    * Summary: 发起一体化文件存证
    */
@@ -44550,6 +48984,7 @@ export default class Client {
   }
 
   /**
+   * @remarks
    * Description: 发起一体化文件存证
    * Summary: 发起一体化文件存证
    */
@@ -44559,6 +48994,7 @@ export default class Client {
   }
 
   /**
+   * @remarks
    * Description: 完成一体化文件存证
    * Summary: 完成一体化文件存证
    */
@@ -44569,6 +49005,7 @@ export default class Client {
   }
 
   /**
+   * @remarks
    * Description: 完成一体化文件存证
    * Summary: 完成一体化文件存证
    */
@@ -44578,6 +49015,7 @@ export default class Client {
   }
 
   /**
+   * @remarks
    * Description: 查询一体化文件存证
    * Summary: 查询一体化文件存证
    */
@@ -44588,6 +49026,7 @@ export default class Client {
   }
 
   /**
+   * @remarks
    * Description: 查询一体化文件存证
    * Summary: 查询一体化文件存证
    */
@@ -44597,6 +49036,7 @@ export default class Client {
   }
 
   /**
+   * @remarks
    * Description: 一体化文件存证-发起授权
    * Summary: 一体化文件存证-发起授权
    */
@@ -44607,6 +49047,7 @@ export default class Client {
   }
 
   /**
+   * @remarks
    * Description: 一体化文件存证-发起授权
    * Summary: 一体化文件存证-发起授权
    */
@@ -44616,6 +49057,7 @@ export default class Client {
   }
 
   /**
+   * @remarks
    * Description: 一体化文件存证-取消授权
    * Summary: 一体化文件存证-取消授权
    */
@@ -44626,6 +49068,7 @@ export default class Client {
   }
 
   /**
+   * @remarks
    * Description: 一体化文件存证-取消授权
    * Summary: 一体化文件存证-取消授权
    */
@@ -44635,6 +49078,7 @@ export default class Client {
   }
 
   /**
+   * @remarks
    * Description: 创建存证流程实例
    * Summary: 创建存证流程实例
    */
@@ -44645,6 +49089,7 @@ export default class Client {
   }
 
   /**
+   * @remarks
    * Description: 创建存证流程实例
    * Summary: 创建存证流程实例
    */
@@ -44654,6 +49099,7 @@ export default class Client {
   }
 
   /**
+   * @remarks
    * Description: 存证流程实例完结
    * Summary: 存证流程实例完结
    */
@@ -44664,6 +49110,7 @@ export default class Client {
   }
 
   /**
+   * @remarks
    * Description: 存证流程实例完结
    * Summary: 存证流程实例完结
    */
@@ -44673,6 +49120,7 @@ export default class Client {
   }
 
   /**
+   * @remarks
    * Description: 创建阶段存证
    * Summary: 创建阶段存证
    */
@@ -44683,6 +49131,7 @@ export default class Client {
   }
 
   /**
+   * @remarks
    * Description: 创建阶段存证
    * Summary: 创建阶段存证
    */
@@ -44692,6 +49141,7 @@ export default class Client {
   }
 
   /**
+   * @remarks
    * Description: 查询阶段存证结果
    * Summary: 查询阶段存证结果
    */
@@ -44702,6 +49152,7 @@ export default class Client {
   }
 
   /**
+   * @remarks
    * Description: 查询阶段存证结果
    * Summary: 查询阶段存证结果
    */
@@ -44711,6 +49162,7 @@ export default class Client {
   }
 
   /**
+   * @remarks
    * Description: 阶段存证数据详情
    * Summary: 阶段存证数据详情
    */
@@ -44721,6 +49173,7 @@ export default class Client {
   }
 
   /**
+   * @remarks
    * Description: 阶段存证数据详情
    * Summary: 阶段存证数据详情
    */
@@ -44730,6 +49183,7 @@ export default class Client {
   }
 
   /**
+   * @remarks
    * Description: 一键创建全流程存证实例和阶段存证
    * Summary: 一键创建全流程存证实例和阶段存证
    */
@@ -44740,6 +49194,7 @@ export default class Client {
   }
 
   /**
+   * @remarks
    * Description: 一键创建全流程存证实例和阶段存证
    * Summary: 一键创建全流程存证实例和阶段存证
    */
@@ -44749,6 +49204,7 @@ export default class Client {
   }
 
   /**
+   * @remarks
    * Description: 查询一键创建全流程存证进度状态
    * Summary: 查询一键创建全流程存证进度状态
    */
@@ -44759,6 +49215,7 @@ export default class Client {
   }
 
   /**
+   * @remarks
    * Description: 查询一键创建全流程存证进度状态
    * Summary: 查询一键创建全流程存证进度状态
    */
@@ -44768,6 +49225,7 @@ export default class Client {
   }
 
   /**
+   * @remarks
    * Description: 存证全流程证明申请
    * Summary: 存证全流程证明申请
    */
@@ -44778,6 +49236,7 @@ export default class Client {
   }
 
   /**
+   * @remarks
    * Description: 存证全流程证明申请
    * Summary: 存证全流程证明申请
    */
@@ -44787,6 +49246,7 @@ export default class Client {
   }
 
   /**
+   * @remarks
    * Description: 存证全流程证明出证进度查询
    * Summary: 存证全流程证明出证进度查询
    */
@@ -44797,6 +49257,7 @@ export default class Client {
   }
 
   /**
+   * @remarks
    * Description: 存证全流程证明出证进度查询
    * Summary: 存证全流程证明出证进度查询
    */
@@ -44806,6 +49267,7 @@ export default class Client {
   }
 
   /**
+   * @remarks
    * Description: 数字票根全流程出证申请
    * Summary: 数字票根全流程出证申请
    */
@@ -44816,6 +49278,7 @@ export default class Client {
   }
 
   /**
+   * @remarks
    * Description: 数字票根全流程出证申请
    * Summary: 数字票根全流程出证申请
    */
@@ -44825,6 +49288,7 @@ export default class Client {
   }
 
   /**
+   * @remarks
    * Description: 数字票根全流程证明出证进度查询
    * Summary: 数字票根全流程证明出证进度查询
    */
@@ -44835,6 +49299,7 @@ export default class Client {
   }
 
   /**
+   * @remarks
    * Description: 数字票根全流程证明出证进度查询
    * Summary: 数字票根全流程证明出证进度查询
    */
@@ -44844,6 +49309,7 @@ export default class Client {
   }
 
   /**
+   * @remarks
    * Description: 数字票根全流程存证进度查询
    * Summary: 数字票根全流程存证进度查询
    */
@@ -44854,6 +49320,7 @@ export default class Client {
   }
 
   /**
+   * @remarks
    * Description: 数字票根全流程存证进度查询
    * Summary: 数字票根全流程存证进度查询
    */
@@ -44863,6 +49330,7 @@ export default class Client {
   }
 
   /**
+   * @remarks
    * Description: 数字票根全流程存证创建
    * Summary: 数字票根全流程存证创建
    */
@@ -44873,6 +49341,7 @@ export default class Client {
   }
 
   /**
+   * @remarks
    * Description: 数字票根全流程存证创建
    * Summary: 数字票根全流程存证创建
    */
@@ -44882,6 +49351,7 @@ export default class Client {
   }
 
   /**
+   * @remarks
    * Description: 查询数字票根是否存在
    * Summary: 查询数字票根是否存在
    */
@@ -44892,6 +49362,7 @@ export default class Client {
   }
 
   /**
+   * @remarks
    * Description: 查询数字票根是否存在
    * Summary: 查询数字票根是否存在
    */
@@ -44901,6 +49372,7 @@ export default class Client {
   }
 
   /**
+   * @remarks
    * Description: 数字票根-清分接口
    * Summary: 数字票根-清分接口
    */
@@ -44911,6 +49383,7 @@ export default class Client {
   }
 
   /**
+   * @remarks
    * Description: 数字票根-清分接口
    * Summary: 数字票根-清分接口
    */
@@ -44920,6 +49393,7 @@ export default class Client {
   }
 
   /**
+   * @remarks
    * Description: 申请全流程证据包，包括链上证据包和链下证据包
    * Summary: 申请全流程证据包
    */
@@ -44930,6 +49404,7 @@ export default class Client {
   }
 
   /**
+   * @remarks
    * Description: 申请全流程证据包，包括链上证据包和链下证据包
    * Summary: 申请全流程证据包
    */
@@ -44939,6 +49414,7 @@ export default class Client {
   }
 
   /**
+   * @remarks
    * Description: 全流程证据包生成进度查询
    * Summary: 全流程证据包生成进度查询
    */
@@ -44949,6 +49425,7 @@ export default class Client {
   }
 
   /**
+   * @remarks
    * Description: 全流程证据包生成进度查询
    * Summary: 全流程证据包生成进度查询
    */
@@ -44958,6 +49435,7 @@ export default class Client {
   }
 
   /**
+   * @remarks
    * Description: 全流程证据授权码申请
    * Summary: 全流程证据授权码申请
    */
@@ -44968,6 +49446,7 @@ export default class Client {
   }
 
   /**
+   * @remarks
    * Description: 全流程证据授权码申请
    * Summary: 全流程证据授权码申请
    */
@@ -44977,6 +49456,7 @@ export default class Client {
   }
 
   /**
+   * @remarks
    * Description: 全流程详情查询
    * Summary: 全流程详情查询
    */
@@ -44987,6 +49467,7 @@ export default class Client {
   }
 
   /**
+   * @remarks
    * Description: 全流程详情查询
    * Summary: 全流程详情查询
    */
@@ -44996,6 +49477,7 @@ export default class Client {
   }
 
   /**
+   * @remarks
    * Description: 合约校验接口
    * Summary: 合约校验接口
    */
@@ -45006,6 +49488,7 @@ export default class Client {
   }
 
   /**
+   * @remarks
    * Description: 合约校验接口
    * Summary: 合约校验接口
    */
@@ -45015,6 +49498,7 @@ export default class Client {
   }
 
   /**
+   * @remarks
    * Description: 查询合约核验结果
    * Summary: 查询合约核验结果
    */
@@ -45025,6 +49509,7 @@ export default class Client {
   }
 
   /**
+   * @remarks
    * Description: 查询合约核验结果
    * Summary: 查询合约核验结果
    */
@@ -45034,6 +49519,7 @@ export default class Client {
   }
 
   /**
+   * @remarks
    * Description: 根据业务场景码创建raceId
    * Summary: traceId创建接口
    */
@@ -45044,6 +49530,7 @@ export default class Client {
   }
 
   /**
+   * @remarks
    * Description: 根据业务场景码创建raceId
    * Summary: traceId创建接口
    */
@@ -45053,6 +49540,7 @@ export default class Client {
   }
 
   /**
+   * @remarks
    * Description: 业务方操作行为日志传入
    * Summary: 操作行为日志传入
    */
@@ -45063,6 +49551,7 @@ export default class Client {
   }
 
   /**
+   * @remarks
    * Description: 业务方操作行为日志传入
    * Summary: 操作行为日志传入
    */
@@ -45072,6 +49561,7 @@ export default class Client {
   }
 
   /**
+   * @remarks
    * Description: e签宝组织机构外部账号查询开放文档
    * Summary: e签宝组织机构外部账号查询开放文档
    */
@@ -45082,6 +49572,7 @@ export default class Client {
   }
 
   /**
+   * @remarks
    * Description: e签宝组织机构外部账号查询开放文档
    * Summary: e签宝组织机构外部账号查询开放文档
    */
@@ -45091,6 +49582,7 @@ export default class Client {
   }
 
   /**
+   * @remarks
    * Description: e签宝用户信息外部账号查询开放文档
    * Summary: e签宝用户信息外部账号查询开放文档
    */
@@ -45101,6 +49593,7 @@ export default class Client {
   }
 
   /**
+   * @remarks
    * Description: e签宝用户信息外部账号查询开放文档
    * Summary: e签宝用户信息外部账号查询开放文档
    */
@@ -45110,6 +49603,7 @@ export default class Client {
   }
 
   /**
+   * @remarks
    * Description: 测试
    * Summary: 测试
    */
@@ -45120,6 +49614,7 @@ export default class Client {
   }
 
   /**
+   * @remarks
    * Description: 测试
    * Summary: 测试
    */
@@ -45129,6 +49624,7 @@ export default class Client {
   }
 
   /**
+   * @remarks
    * Description: e签宝合规改造外部账号信息查询
    * Summary: e签宝合规改造外部账号信息查询
    */
@@ -45139,6 +49635,7 @@ export default class Client {
   }
 
   /**
+   * @remarks
    * Description: e签宝合规改造外部账号信息查询
    * Summary: e签宝合规改造外部账号信息查询
    */
