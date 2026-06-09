@@ -100,7 +100,7 @@ api doRequest(version: string, action: string, protocol: string, method: string,
     req_msg_id = AntchainUtil.getNonce(),
     access_key = @accessKeyId,
     base_sdk_version = 'TeaSDK-2.0',
-    sdk_version = '1.12.34',
+    sdk_version = '1.12.36',
     _prod_code = 'INSURANCE_SAAS',
     _prod_channel = 'undefined'
   };
@@ -348,7 +348,7 @@ async function getAasButleragentChaturlEx(request: GetAasButleragentChaturlReque
   return doRequest('1.0' ,'antcloud.insurancesaas.butleragent.chaturl.get', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
 }
 
-model CallbackAasMktLiveeffectRequest = {
+model CallbackMktLiveeffectRequest = {
   // OAuth模式下的授权token
   authToken?: string(name='auth_token'),
   // 请求id，每一次请求保持唯一；若重复，则更新原数据；
@@ -358,9 +358,9 @@ model CallbackAasMktLiveeffectRequest = {
   // 营销模式，AI_HANGUP_SMS("AI挂短")， AI_OFFICIAL_ACCOUNT("AI公众号"), BPO_WECHAT("BPO企微"), AI_BPO("AI_BPO")， LIVE_STREAMING("直播")
   marketingMode: string(name='marketing_mode'),
   // 加密类型：MD5，32位[小]
-  encryptionType: string(name='encryption_type'),
+  encryptionType?: string(name='encryption_type'),
   // 加密用户标识
-  encryptedUserId: string(name='encrypted_user_id'),
+  encryptedUserId?: string(name='encrypted_user_id'),
   // 事件完成时间（yyyy-MM-dd HH:mm:ss）
   eventTime: string(name='event_time'),
   // 节点类型
@@ -390,7 +390,7 @@ model CallbackAasMktLiveeffectRequest = {
   liveSessionId?: string(name='live_session_id'),
 }
 
-model CallbackAasMktLiveeffectResponse = {
+model CallbackMktLiveeffectResponse = {
   // 请求唯一ID，用于链路跟踪和问题排查
   reqMsgId?: string(name='req_msg_id'),
   // 结果码，一般OK表示调用成功
@@ -405,19 +405,19 @@ model CallbackAasMktLiveeffectResponse = {
  * Description: 保险营销效果回传接口——直播通道
  * Summary: 保险营销效果回传接口——直播通道
  */
-async function callbackAasMktLiveeffect(request: CallbackAasMktLiveeffectRequest): CallbackAasMktLiveeffectResponse {
+async function callbackMktLiveeffect(request: CallbackMktLiveeffectRequest): CallbackMktLiveeffectResponse {
   var runtime = new Util.RuntimeOptions{};
   var headers : map[string]string= {};
-  return callbackAasMktLiveeffectEx(request, headers, runtime);
+  return callbackMktLiveeffectEx(request, headers, runtime);
 }
 
 /**
  * Description: 保险营销效果回传接口——直播通道
  * Summary: 保险营销效果回传接口——直播通道
  */
-async function callbackAasMktLiveeffectEx(request: CallbackAasMktLiveeffectRequest, headers: map[string]string, runtime: Util.RuntimeOptions): CallbackAasMktLiveeffectResponse {
+async function callbackMktLiveeffectEx(request: CallbackMktLiveeffectRequest, headers: map[string]string, runtime: Util.RuntimeOptions): CallbackMktLiveeffectResponse {
   Util.validateModel(request);
-  return doRequest('1.0' ,'antcloud.insurancesaas.mkt.liveeffect.callback', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+  return doRequest('1.0' ,'antcloud.insurance.mkt.liveeffect.callback', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
 }
 
 model QueryInquiryRequest = {
