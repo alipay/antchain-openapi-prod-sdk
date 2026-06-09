@@ -8,7 +8,7 @@ using Tea;
 
 namespace AntChain.SDK.INSURANCE_SAAS.Models
 {
-    public class CallbackAasMktLiveeffectRequest : TeaModel {
+    public class CallbackMktLiveeffectRequest : TeaModel {
         // OAuth模式下的授权token
         [NameInMap("auth_token")]
         [Validation(Required=false)]
@@ -31,12 +31,12 @@ namespace AntChain.SDK.INSURANCE_SAAS.Models
 
         // 加密类型：MD5，32位[小]
         [NameInMap("encryption_type")]
-        [Validation(Required=true)]
+        [Validation(Required=false)]
         public string EncryptionType { get; set; }
 
         // 加密用户标识
         [NameInMap("encrypted_user_id")]
-        [Validation(Required=true)]
+        [Validation(Required=false)]
         public string EncryptedUserId { get; set; }
 
         // 事件完成时间（yyyy-MM-dd HH:mm:ss）
