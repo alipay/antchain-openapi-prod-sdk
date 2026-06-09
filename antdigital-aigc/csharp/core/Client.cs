@@ -137,7 +137,7 @@ namespace AntChain.SDK.AIGC
                         {"req_msg_id", AntChain.AlipayUtil.AntchainUtils.GetNonce()},
                         {"access_key", _accessKeyId},
                         {"base_sdk_version", "TeaSDK-2.0"},
-                        {"sdk_version", "1.2.2"},
+                        {"sdk_version", "1.3.0"},
                         {"_prod_code", "AIGC"},
                         {"_prod_channel", "default"},
                     };
@@ -263,7 +263,7 @@ namespace AntChain.SDK.AIGC
                         {"req_msg_id", AntChain.AlipayUtil.AntchainUtils.GetNonce()},
                         {"access_key", _accessKeyId},
                         {"base_sdk_version", "TeaSDK-2.0"},
-                        {"sdk_version", "1.2.2"},
+                        {"sdk_version", "1.3.0"},
                         {"_prod_code", "AIGC"},
                         {"_prod_channel", "default"},
                     };
@@ -403,6 +403,90 @@ namespace AntChain.SDK.AIGC
         {
             AlibabaCloud.TeaUtil.Common.ValidateModel(request);
             return TeaModel.ToObject<QueryVideoQuerytaskResponse>(await DoRequestAsync("1.0", "antdigital.aigc.video.querytask.query", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: sd2资产组素材上传
+         * Summary: sd2资产组素材上传
+         */
+        public UploadAssetResponse UploadAsset(UploadAssetRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return UploadAssetEx(request, headers, runtime);
+        }
+
+        /**
+         * Description: sd2资产组素材上传
+         * Summary: sd2资产组素材上传
+         */
+        public async Task<UploadAssetResponse> UploadAssetAsync(UploadAssetRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return await UploadAssetExAsync(request, headers, runtime);
+        }
+
+        /**
+         * Description: sd2资产组素材上传
+         * Summary: sd2资产组素材上传
+         */
+        public UploadAssetResponse UploadAssetEx(UploadAssetRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<UploadAssetResponse>(DoRequest("1.0", "antdigital.aigc.asset.upload", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: sd2资产组素材上传
+         * Summary: sd2资产组素材上传
+         */
+        public async Task<UploadAssetResponse> UploadAssetExAsync(UploadAssetRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<UploadAssetResponse>(await DoRequestAsync("1.0", "antdigital.aigc.asset.upload", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 资产查询接口
+         * Summary: 资产查询接口
+         */
+        public QueryAssetResponse QueryAsset(QueryAssetRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return QueryAssetEx(request, headers, runtime);
+        }
+
+        /**
+         * Description: 资产查询接口
+         * Summary: 资产查询接口
+         */
+        public async Task<QueryAssetResponse> QueryAssetAsync(QueryAssetRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return await QueryAssetExAsync(request, headers, runtime);
+        }
+
+        /**
+         * Description: 资产查询接口
+         * Summary: 资产查询接口
+         */
+        public QueryAssetResponse QueryAssetEx(QueryAssetRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<QueryAssetResponse>(DoRequest("1.0", "antdigital.aigc.asset.query", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 资产查询接口
+         * Summary: 资产查询接口
+         */
+        public async Task<QueryAssetResponse> QueryAssetExAsync(QueryAssetRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<QueryAssetResponse>(await DoRequestAsync("1.0", "antdigital.aigc.asset.query", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
         }
 
         /**
