@@ -53,6 +53,14 @@ public class ContractSignFlowConfig extends TeaModel {
     @NameInMap("free_signature")
     public Boolean freeSignature;
 
+    // 代扣签署回调地址,配合代扣签署一起使用
+    /**
+     * <strong>example:</strong>
+     * <p><a href="http://127.0.0.1:8110/xxx">http://127.0.0.1:8110/xxx</a></p>
+     */
+    @NameInMap("combine_sign_redirect_url")
+    public String combineSignRedirectUrl;
+
     public static ContractSignFlowConfig build(java.util.Map<String, ?> map) throws Exception {
         ContractSignFlowConfig self = new ContractSignFlowConfig();
         return TeaModel.build(map, self);
@@ -104,6 +112,14 @@ public class ContractSignFlowConfig extends TeaModel {
     }
     public Boolean getFreeSignature() {
         return this.freeSignature;
+    }
+
+    public ContractSignFlowConfig setCombineSignRedirectUrl(String combineSignRedirectUrl) {
+        this.combineSignRedirectUrl = combineSignRedirectUrl;
+        return this;
+    }
+    public String getCombineSignRedirectUrl() {
+        return this.combineSignRedirectUrl;
     }
 
 }

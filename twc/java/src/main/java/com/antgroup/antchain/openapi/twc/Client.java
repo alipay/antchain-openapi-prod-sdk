@@ -126,7 +126,7 @@ public class Client {
                     new TeaPair("req_msg_id", com.antgroup.antchain.openapi.antchain.util.AntchainUtils.getNonce()),
                     new TeaPair("access_key", _accessKeyId),
                     new TeaPair("base_sdk_version", "TeaSDK-2.0"),
-                    new TeaPair("sdk_version", "1.13.23"),
+                    new TeaPair("sdk_version", "1.13.26"),
                     new TeaPair("_prod_code", "TWC"),
                     new TeaPair("_prod_channel", "undefined")
                 );
@@ -1769,8 +1769,8 @@ public class Client {
 
     /**
      * <b>description</b> :
-     * <p>Description: 向指定流程中创建签署区，每个签署区视为一个任务，系统会自动按照流程流转。 签署区的添加必须在签署文档添加之后, 签署区信息内部包含签署文档信息。签署区创建完成，流程开启后，通过获取签署地址接口，可获取用户手动签署链接，通过此链接可打开文件签署页面，进行人工确认签署。
-     * Summary: 添加电子合同签署方手动盖章签署区</p>
+     * <p>Description: 向指定流程中创建签署区，每个签署区视为一个任务，系统会自动按照流程流转。
+     * Summary: 向指定流程中创建签署区，每个签署区视为一个任务，系统会自动按照流程流转。</p>
      */
     public CreateContractHandsignfieldResponse createContractHandsignfield(CreateContractHandsignfieldRequest request) throws Exception {
         com.aliyun.teautil.models.RuntimeOptions runtime = new com.aliyun.teautil.models.RuntimeOptions();
@@ -1780,8 +1780,8 @@ public class Client {
 
     /**
      * <b>description</b> :
-     * <p>Description: 向指定流程中创建签署区，每个签署区视为一个任务，系统会自动按照流程流转。 签署区的添加必须在签署文档添加之后, 签署区信息内部包含签署文档信息。签署区创建完成，流程开启后，通过获取签署地址接口，可获取用户手动签署链接，通过此链接可打开文件签署页面，进行人工确认签署。
-     * Summary: 添加电子合同签署方手动盖章签署区</p>
+     * <p>Description: 向指定流程中创建签署区，每个签署区视为一个任务，系统会自动按照流程流转。
+     * Summary: 向指定流程中创建签署区，每个签署区视为一个任务，系统会自动按照流程流转。</p>
      */
     public CreateContractHandsignfieldResponse createContractHandsignfieldEx(CreateContractHandsignfieldRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
         com.aliyun.teautil.Common.validateModel(request);
@@ -2064,7 +2064,7 @@ public class Client {
     /**
      * <b>description</b> :
      * <p>Description: 快速创建签署流程，完成添加待签文档、流程基本信息、签署方，支持自动开启、自动归档。
-     * Summary: 一步创建签署流程接口</p>
+     * Summary: 快速创建签署流程，完成添加待签文档、流程基本信息、签署方，支持自动开启、自动归档。</p>
      */
     public CreateContractOnestepflowResponse createContractOnestepflow(CreateContractOnestepflowRequest request) throws Exception {
         com.aliyun.teautil.models.RuntimeOptions runtime = new com.aliyun.teautil.models.RuntimeOptions();
@@ -2075,7 +2075,7 @@ public class Client {
     /**
      * <b>description</b> :
      * <p>Description: 快速创建签署流程，完成添加待签文档、流程基本信息、签署方，支持自动开启、自动归档。
-     * Summary: 一步创建签署流程接口</p>
+     * Summary: 快速创建签署流程，完成添加待签文档、流程基本信息、签署方，支持自动开启、自动归档。</p>
      */
     public CreateContractOnestepflowResponse createContractOnestepflowEx(CreateContractOnestepflowRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
         com.aliyun.teautil.Common.validateModel(request);

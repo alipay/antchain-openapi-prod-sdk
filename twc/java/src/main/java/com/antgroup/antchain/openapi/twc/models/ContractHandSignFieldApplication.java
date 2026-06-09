@@ -130,6 +130,14 @@ public class ContractHandSignFieldApplication extends TeaModel {
     @NameInMap("sign_field_type")
     public Long signFieldType;
 
+    // 个人用户是否需要静默签署授权,默认false false-不需要,true-需要
+    /**
+     * <strong>example:</strong>
+     * <p>false</p>
+     */
+    @NameInMap("agree_auto_sign")
+    public Boolean agreeAutoSign;
+
     public static ContractHandSignFieldApplication build(java.util.Map<String, ?> map) throws Exception {
         ContractHandSignFieldApplication self = new ContractHandSignFieldApplication();
         return TeaModel.build(map, self);
@@ -277,6 +285,14 @@ public class ContractHandSignFieldApplication extends TeaModel {
     }
     public Long getSignFieldType() {
         return this.signFieldType;
+    }
+
+    public ContractHandSignFieldApplication setAgreeAutoSign(Boolean agreeAutoSign) {
+        this.agreeAutoSign = agreeAutoSign;
+        return this;
+    }
+    public Boolean getAgreeAutoSign() {
+        return this.agreeAutoSign;
     }
 
 }

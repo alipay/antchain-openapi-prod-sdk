@@ -138,6 +138,14 @@ public class OneStepSignField extends TeaModel {
     @NameInMap("auto_execute")
     public Boolean autoExecute;
 
+    // 个人用户是否需要静默签署授权，默认false, false-不需要, true-需要
+    /**
+     * <strong>example:</strong>
+     * <p>flase</p>
+     */
+    @NameInMap("agree_auto_sign")
+    public Boolean agreeAutoSign;
+
     public static OneStepSignField build(java.util.Map<String, ?> map) throws Exception {
         OneStepSignField self = new OneStepSignField();
         return TeaModel.build(map, self);
@@ -277,6 +285,14 @@ public class OneStepSignField extends TeaModel {
     }
     public Boolean getAutoExecute() {
         return this.autoExecute;
+    }
+
+    public OneStepSignField setAgreeAutoSign(Boolean agreeAutoSign) {
+        this.agreeAutoSign = agreeAutoSign;
+        return this;
+    }
+    public Boolean getAgreeAutoSign() {
+        return this.agreeAutoSign;
     }
 
 }
