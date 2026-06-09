@@ -597,7 +597,7 @@ func (s *GetAasButleragentChaturlResponse) SetBizResult(v string) *GetAasButlera
 	return s
 }
 
-type CallbackAasMktLiveeffectRequest struct {
+type CallbackMktLiveeffectRequest struct {
 	// OAuth模式下的授权token
 	AuthToken *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
 	// 请求id，每一次请求保持唯一；若重复，则更新原数据；
@@ -607,9 +607,9 @@ type CallbackAasMktLiveeffectRequest struct {
 	// 营销模式，AI_HANGUP_SMS("AI挂短")， AI_OFFICIAL_ACCOUNT("AI公众号"), BPO_WECHAT("BPO企微"), AI_BPO("AI_BPO")， LIVE_STREAMING("直播")
 	MarketingMode *string `json:"marketing_mode,omitempty" xml:"marketing_mode,omitempty" require:"true"`
 	// 加密类型：MD5，32位[小]
-	EncryptionType *string `json:"encryption_type,omitempty" xml:"encryption_type,omitempty" require:"true"`
+	EncryptionType *string `json:"encryption_type,omitempty" xml:"encryption_type,omitempty"`
 	// 加密用户标识
-	EncryptedUserId *string `json:"encrypted_user_id,omitempty" xml:"encrypted_user_id,omitempty" require:"true"`
+	EncryptedUserId *string `json:"encrypted_user_id,omitempty" xml:"encrypted_user_id,omitempty"`
 	// 事件完成时间（yyyy-MM-dd HH:mm:ss）
 	EventTime *string `json:"event_time,omitempty" xml:"event_time,omitempty" require:"true"`
 	// 节点类型
@@ -639,105 +639,105 @@ type CallbackAasMktLiveeffectRequest struct {
 	LiveSessionId *string `json:"live_session_id,omitempty" xml:"live_session_id,omitempty"`
 }
 
-func (s CallbackAasMktLiveeffectRequest) String() string {
+func (s CallbackMktLiveeffectRequest) String() string {
 	return tea.Prettify(s)
 }
 
-func (s CallbackAasMktLiveeffectRequest) GoString() string {
+func (s CallbackMktLiveeffectRequest) GoString() string {
 	return s.String()
 }
 
-func (s *CallbackAasMktLiveeffectRequest) SetAuthToken(v string) *CallbackAasMktLiveeffectRequest {
+func (s *CallbackMktLiveeffectRequest) SetAuthToken(v string) *CallbackMktLiveeffectRequest {
 	s.AuthToken = &v
 	return s
 }
 
-func (s *CallbackAasMktLiveeffectRequest) SetRequestId(v string) *CallbackAasMktLiveeffectRequest {
+func (s *CallbackMktLiveeffectRequest) SetRequestId(v string) *CallbackMktLiveeffectRequest {
 	s.RequestId = &v
 	return s
 }
 
-func (s *CallbackAasMktLiveeffectRequest) SetProjectId(v string) *CallbackAasMktLiveeffectRequest {
+func (s *CallbackMktLiveeffectRequest) SetProjectId(v string) *CallbackMktLiveeffectRequest {
 	s.ProjectId = &v
 	return s
 }
 
-func (s *CallbackAasMktLiveeffectRequest) SetMarketingMode(v string) *CallbackAasMktLiveeffectRequest {
+func (s *CallbackMktLiveeffectRequest) SetMarketingMode(v string) *CallbackMktLiveeffectRequest {
 	s.MarketingMode = &v
 	return s
 }
 
-func (s *CallbackAasMktLiveeffectRequest) SetEncryptionType(v string) *CallbackAasMktLiveeffectRequest {
+func (s *CallbackMktLiveeffectRequest) SetEncryptionType(v string) *CallbackMktLiveeffectRequest {
 	s.EncryptionType = &v
 	return s
 }
 
-func (s *CallbackAasMktLiveeffectRequest) SetEncryptedUserId(v string) *CallbackAasMktLiveeffectRequest {
+func (s *CallbackMktLiveeffectRequest) SetEncryptedUserId(v string) *CallbackMktLiveeffectRequest {
 	s.EncryptedUserId = &v
 	return s
 }
 
-func (s *CallbackAasMktLiveeffectRequest) SetEventTime(v string) *CallbackAasMktLiveeffectRequest {
+func (s *CallbackMktLiveeffectRequest) SetEventTime(v string) *CallbackMktLiveeffectRequest {
 	s.EventTime = &v
 	return s
 }
 
-func (s *CallbackAasMktLiveeffectRequest) SetNodeType(v string) *CallbackAasMktLiveeffectRequest {
+func (s *CallbackMktLiveeffectRequest) SetNodeType(v string) *CallbackMktLiveeffectRequest {
 	s.NodeType = &v
 	return s
 }
 
-func (s *CallbackAasMktLiveeffectRequest) SetNodeInfo(v string) *CallbackAasMktLiveeffectRequest {
+func (s *CallbackMktLiveeffectRequest) SetNodeInfo(v string) *CallbackMktLiveeffectRequest {
 	s.NodeInfo = &v
 	return s
 }
 
-func (s *CallbackAasMktLiveeffectRequest) SetLandingPageUrl(v string) *CallbackAasMktLiveeffectRequest {
+func (s *CallbackMktLiveeffectRequest) SetLandingPageUrl(v string) *CallbackMktLiveeffectRequest {
 	s.LandingPageUrl = &v
 	return s
 }
 
-func (s *CallbackAasMktLiveeffectRequest) SetClickId(v string) *CallbackAasMktLiveeffectRequest {
+func (s *CallbackMktLiveeffectRequest) SetClickId(v string) *CallbackMktLiveeffectRequest {
 	s.ClickId = &v
 	return s
 }
 
-func (s *CallbackAasMktLiveeffectRequest) SetProductId(v string) *CallbackAasMktLiveeffectRequest {
+func (s *CallbackMktLiveeffectRequest) SetProductId(v string) *CallbackMktLiveeffectRequest {
 	s.ProductId = &v
 	return s
 }
 
-func (s *CallbackAasMktLiveeffectRequest) SetIp(v string) *CallbackAasMktLiveeffectRequest {
+func (s *CallbackMktLiveeffectRequest) SetIp(v string) *CallbackMktLiveeffectRequest {
 	s.Ip = &v
 	return s
 }
 
-func (s *CallbackAasMktLiveeffectRequest) SetUa(v string) *CallbackAasMktLiveeffectRequest {
+func (s *CallbackMktLiveeffectRequest) SetUa(v string) *CallbackMktLiveeffectRequest {
 	s.Ua = &v
 	return s
 }
 
-func (s *CallbackAasMktLiveeffectRequest) SetLiveRoomId(v string) *CallbackAasMktLiveeffectRequest {
+func (s *CallbackMktLiveeffectRequest) SetLiveRoomId(v string) *CallbackMktLiveeffectRequest {
 	s.LiveRoomId = &v
 	return s
 }
 
-func (s *CallbackAasMktLiveeffectRequest) SetLiveStartTime(v string) *CallbackAasMktLiveeffectRequest {
+func (s *CallbackMktLiveeffectRequest) SetLiveStartTime(v string) *CallbackMktLiveeffectRequest {
 	s.LiveStartTime = &v
 	return s
 }
 
-func (s *CallbackAasMktLiveeffectRequest) SetExtInfo(v string) *CallbackAasMktLiveeffectRequest {
+func (s *CallbackMktLiveeffectRequest) SetExtInfo(v string) *CallbackMktLiveeffectRequest {
 	s.ExtInfo = &v
 	return s
 }
 
-func (s *CallbackAasMktLiveeffectRequest) SetLiveSessionId(v string) *CallbackAasMktLiveeffectRequest {
+func (s *CallbackMktLiveeffectRequest) SetLiveSessionId(v string) *CallbackMktLiveeffectRequest {
 	s.LiveSessionId = &v
 	return s
 }
 
-type CallbackAasMktLiveeffectResponse struct {
+type CallbackMktLiveeffectResponse struct {
 	// 请求唯一ID，用于链路跟踪和问题排查
 	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
 	// 结果码，一般OK表示调用成功
@@ -748,30 +748,30 @@ type CallbackAasMktLiveeffectResponse struct {
 	RequestId *string `json:"request_id,omitempty" xml:"request_id,omitempty"`
 }
 
-func (s CallbackAasMktLiveeffectResponse) String() string {
+func (s CallbackMktLiveeffectResponse) String() string {
 	return tea.Prettify(s)
 }
 
-func (s CallbackAasMktLiveeffectResponse) GoString() string {
+func (s CallbackMktLiveeffectResponse) GoString() string {
 	return s.String()
 }
 
-func (s *CallbackAasMktLiveeffectResponse) SetReqMsgId(v string) *CallbackAasMktLiveeffectResponse {
+func (s *CallbackMktLiveeffectResponse) SetReqMsgId(v string) *CallbackMktLiveeffectResponse {
 	s.ReqMsgId = &v
 	return s
 }
 
-func (s *CallbackAasMktLiveeffectResponse) SetResultCode(v string) *CallbackAasMktLiveeffectResponse {
+func (s *CallbackMktLiveeffectResponse) SetResultCode(v string) *CallbackMktLiveeffectResponse {
 	s.ResultCode = &v
 	return s
 }
 
-func (s *CallbackAasMktLiveeffectResponse) SetResultMsg(v string) *CallbackAasMktLiveeffectResponse {
+func (s *CallbackMktLiveeffectResponse) SetResultMsg(v string) *CallbackMktLiveeffectResponse {
 	s.ResultMsg = &v
 	return s
 }
 
-func (s *CallbackAasMktLiveeffectResponse) SetRequestId(v string) *CallbackAasMktLiveeffectResponse {
+func (s *CallbackMktLiveeffectResponse) SetRequestId(v string) *CallbackMktLiveeffectResponse {
 	s.RequestId = &v
 	return s
 }
@@ -5781,7 +5781,7 @@ func (client *Client) DoRequest(version *string, action *string, protocol *strin
 				"req_msg_id":       antchainutil.GetNonce(),
 				"access_key":       client.AccessKeyId,
 				"base_sdk_version": tea.String("TeaSDK-2.0"),
-				"sdk_version":      tea.String("1.12.34"),
+				"sdk_version":      tea.String("1.12.36"),
 				"_prod_code":       tea.String("INSURANCE_SAAS"),
 				"_prod_channel":    tea.String("undefined"),
 			}
@@ -5945,11 +5945,11 @@ func (client *Client) GetAasButleragentChaturlEx(request *GetAasButleragentChatu
  * Description: 保险营销效果回传接口——直播通道
  * Summary: 保险营销效果回传接口——直播通道
  */
-func (client *Client) CallbackAasMktLiveeffect(request *CallbackAasMktLiveeffectRequest) (_result *CallbackAasMktLiveeffectResponse, _err error) {
+func (client *Client) CallbackMktLiveeffect(request *CallbackMktLiveeffectRequest) (_result *CallbackMktLiveeffectResponse, _err error) {
 	runtime := &util.RuntimeOptions{}
 	headers := make(map[string]*string)
-	_result = &CallbackAasMktLiveeffectResponse{}
-	_body, _err := client.CallbackAasMktLiveeffectEx(request, headers, runtime)
+	_result = &CallbackMktLiveeffectResponse{}
+	_body, _err := client.CallbackMktLiveeffectEx(request, headers, runtime)
 	if _err != nil {
 		return _result, _err
 	}
@@ -5961,13 +5961,13 @@ func (client *Client) CallbackAasMktLiveeffect(request *CallbackAasMktLiveeffect
  * Description: 保险营销效果回传接口——直播通道
  * Summary: 保险营销效果回传接口——直播通道
  */
-func (client *Client) CallbackAasMktLiveeffectEx(request *CallbackAasMktLiveeffectRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *CallbackAasMktLiveeffectResponse, _err error) {
+func (client *Client) CallbackMktLiveeffectEx(request *CallbackMktLiveeffectRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *CallbackMktLiveeffectResponse, _err error) {
 	_err = util.ValidateModel(request)
 	if _err != nil {
 		return _result, _err
 	}
-	_result = &CallbackAasMktLiveeffectResponse{}
-	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("antcloud.insurancesaas.mkt.liveeffect.callback"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	_result = &CallbackMktLiveeffectResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("antcloud.insurance.mkt.liveeffect.callback"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
 	if _err != nil {
 		return _result, _err
 	}
