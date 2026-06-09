@@ -4847,6 +4847,8 @@ type ContractSignFlowConfig struct {
 	RedirectUrlOnFailure *string `json:"redirect_url_on_failure,omitempty" xml:"redirect_url_on_failure,omitempty"`
 	// 是否允许自由签署，默认false（配合twc.notary.contract.signflow.create接口使用）
 	FreeSignature *bool `json:"free_signature,omitempty" xml:"free_signature,omitempty"`
+	// 代扣签署回调地址,配合代扣签署一起使用
+	CombineSignRedirectUrl *string `json:"combine_sign_redirect_url,omitempty" xml:"combine_sign_redirect_url,omitempty"`
 }
 
 func (s ContractSignFlowConfig) String() string {
@@ -4884,6 +4886,11 @@ func (s *ContractSignFlowConfig) SetRedirectUrlOnFailure(v string) *ContractSign
 
 func (s *ContractSignFlowConfig) SetFreeSignature(v bool) *ContractSignFlowConfig {
 	s.FreeSignature = &v
+	return s
+}
+
+func (s *ContractSignFlowConfig) SetCombineSignRedirectUrl(v string) *ContractSignFlowConfig {
+	s.CombineSignRedirectUrl = &v
 	return s
 }
 
@@ -6334,6 +6341,8 @@ type ContractHandSignFieldApplication struct {
 	SealIds []*string `json:"seal_ids,omitempty" xml:"seal_ids,omitempty" type:"Repeated"`
 	// 签署区预设xy坐标类型，0：不指定X/Y坐标 1：指定X/Y坐标 默认：指定X/Y坐标 ; 签署区设置时可以不指定XY坐标，签署方在签署时拖拽确定最终签署区域，支持在页面任何区域拖拽，个人和企业签署用印都支持
 	SignFieldType *int64 `json:"sign_field_type,omitempty" xml:"sign_field_type,omitempty"`
+	// 个人用户是否需要静默签署授权,默认false false-不需要,true-需要
+	AgreeAutoSign *bool `json:"agree_auto_sign,omitempty" xml:"agree_auto_sign,omitempty"`
 }
 
 func (s ContractHandSignFieldApplication) String() string {
@@ -6431,6 +6440,11 @@ func (s *ContractHandSignFieldApplication) SetSealIds(v []*string) *ContractHand
 
 func (s *ContractHandSignFieldApplication) SetSignFieldType(v int64) *ContractHandSignFieldApplication {
 	s.SignFieldType = &v
+	return s
+}
+
+func (s *ContractHandSignFieldApplication) SetAgreeAutoSign(v bool) *ContractHandSignFieldApplication {
+	s.AgreeAutoSign = &v
 	return s
 }
 
@@ -8172,6 +8186,8 @@ type OneStepSignField struct {
 	Width *string `json:"width,omitempty" xml:"width,omitempty"`
 	// 是否自动执行签署，默认false，false-手动签署，true-自动签署
 	AutoExecute *bool `json:"auto_execute,omitempty" xml:"auto_execute,omitempty"`
+	// 个人用户是否需要静默签署授权，默认false, false-不需要, true-需要
+	AgreeAutoSign *bool `json:"agree_auto_sign,omitempty" xml:"agree_auto_sign,omitempty"`
 }
 
 func (s OneStepSignField) String() string {
@@ -8264,6 +8280,11 @@ func (s *OneStepSignField) SetWidth(v string) *OneStepSignField {
 
 func (s *OneStepSignField) SetAutoExecute(v bool) *OneStepSignField {
 	s.AutoExecute = &v
+	return s
+}
+
+func (s *OneStepSignField) SetAgreeAutoSign(v bool) *OneStepSignField {
+	s.AgreeAutoSign = &v
 	return s
 }
 
@@ -51198,7 +51219,7 @@ func (client *Client) DoRequest(version *string, action *string, protocol *strin
 				"req_msg_id":       antchainutil.GetNonce(),
 				"access_key":       client.AccessKeyId,
 				"base_sdk_version": tea.String("TeaSDK-2.0"),
-				"sdk_version":      tea.String("1.13.23"),
+				"sdk_version":      tea.String("1.13.26"),
 				"_prod_code":       tea.String("TWC"),
 				"_prod_channel":    tea.String("undefined"),
 			}
@@ -53811,8 +53832,8 @@ func (client *Client) CreateContractHandsignflowEx(request *CreateContractHandsi
 }
 
 /**
- * Description: 向指定流程中创建签署区，每个签署区视为一个任务，系统会自动按照流程流转。 签署区的添加必须在签署文档添加之后, 签署区信息内部包含签署文档信息。签署区创建完成，流程开启后，通过获取签署地址接口，可获取用户手动签署链接，通过此链接可打开文件签署页面，进行人工确认签署。
- * Summary: 添加电子合同签署方手动盖章签署区
+ * Description: 向指定流程中创建签署区，每个签署区视为一个任务，系统会自动按照流程流转。
+ * Summary: 向指定流程中创建签署区，每个签署区视为一个任务，系统会自动按照流程流转。
  */
 func (client *Client) CreateContractHandsignfield(request *CreateContractHandsignfieldRequest) (_result *CreateContractHandsignfieldResponse, _err error) {
 	runtime := &util.RuntimeOptions{}
@@ -53827,8 +53848,8 @@ func (client *Client) CreateContractHandsignfield(request *CreateContractHandsig
 }
 
 /**
- * Description: 向指定流程中创建签署区，每个签署区视为一个任务，系统会自动按照流程流转。 签署区的添加必须在签署文档添加之后, 签署区信息内部包含签署文档信息。签署区创建完成，流程开启后，通过获取签署地址接口，可获取用户手动签署链接，通过此链接可打开文件签署页面，进行人工确认签署。
- * Summary: 添加电子合同签署方手动盖章签署区
+ * Description: 向指定流程中创建签署区，每个签署区视为一个任务，系统会自动按照流程流转。
+ * Summary: 向指定流程中创建签署区，每个签署区视为一个任务，系统会自动按照流程流转。
  */
 func (client *Client) CreateContractHandsignfieldEx(request *CreateContractHandsignfieldRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *CreateContractHandsignfieldResponse, _err error) {
 	_err = util.ValidateModel(request)
@@ -54288,7 +54309,7 @@ func (client *Client) ApplyContractCallbackkeyEx(request *ApplyContractCallbackk
 
 /**
  * Description: 快速创建签署流程，完成添加待签文档、流程基本信息、签署方，支持自动开启、自动归档。
- * Summary: 一步创建签署流程接口
+ * Summary: 快速创建签署流程，完成添加待签文档、流程基本信息、签署方，支持自动开启、自动归档。
  */
 func (client *Client) CreateContractOnestepflow(request *CreateContractOnestepflowRequest) (_result *CreateContractOnestepflowResponse, _err error) {
 	runtime := &util.RuntimeOptions{}
@@ -54304,7 +54325,7 @@ func (client *Client) CreateContractOnestepflow(request *CreateContractOnestepfl
 
 /**
  * Description: 快速创建签署流程，完成添加待签文档、流程基本信息、签署方，支持自动开启、自动归档。
- * Summary: 一步创建签署流程接口
+ * Summary: 快速创建签署流程，完成添加待签文档、流程基本信息、签署方，支持自动开启、自动归档。
  */
 func (client *Client) CreateContractOnestepflowEx(request *CreateContractOnestepflowRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *CreateContractOnestepflowResponse, _err error) {
 	_err = util.ValidateModel(request)
