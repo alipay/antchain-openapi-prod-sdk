@@ -5,26 +5,129 @@ import RPCUtil from '@alicloud/rpc-util';
 import * as $tea from '@alicloud/tea-typescript';
 
 /**
+ * @remarks
  * Model for initing client
  */
 export class Config extends $tea.Model {
+  /**
+   * @remarks
+   * accesskey id
+   */
   accessKeyId?: string;
+  /**
+   * @remarks
+   * accesskey secret
+   */
   accessKeySecret?: string;
+  /**
+   * @remarks
+   * security token
+   */
   securityToken?: string;
+  /**
+   * @remarks
+   * http protocol
+   * 
+   * @example
+   * http
+   */
   protocol?: string;
+  /**
+   * @remarks
+   * read timeout
+   * 
+   * @example
+   * 10
+   */
   readTimeout?: number;
+  /**
+   * @remarks
+   * connect timeout
+   * 
+   * @example
+   * 10
+   */
   connectTimeout?: number;
+  /**
+   * @remarks
+   * http proxy
+   * 
+   * @example
+   * http://localhost
+   */
   httpProxy?: string;
+  /**
+   * @remarks
+   * https proxy
+   * 
+   * @example
+   * https://localhost
+   */
   httpsProxy?: string;
+  /**
+   * @remarks
+   * endpoint
+   * 
+   * @example
+   * cs.aliyuncs.com
+   */
   endpoint?: string;
+  /**
+   * @remarks
+   * proxy white list
+   * 
+   * @example
+   * http://localhost
+   */
   noProxy?: string;
+  /**
+   * @remarks
+   * max idle conns
+   * 
+   * @example
+   * 3
+   */
   maxIdleConns?: number;
+  /**
+   * @remarks
+   * user agent
+   * 
+   * @example
+   * Alibabacloud/1
+   */
   userAgent?: string;
+  /**
+   * @remarks
+   * socks5 proxy
+   */
   socks5Proxy?: string;
+  /**
+   * @remarks
+   * socks5 network
+   * 
+   * @example
+   * TCP
+   */
   socks5NetWork?: string;
+  /**
+   * @remarks
+   * 长链接最大空闲时长
+   */
   maxIdleTimeMillis?: number;
+  /**
+   * @remarks
+   * 长链接最大连接时长
+   */
   keepAliveDurationMillis?: number;
+  /**
+   * @remarks
+   * 最大连接数（长链接最大总数）
+   */
   maxRequests?: number;
+  /**
+   * @remarks
+   * 每个目标主机的最大连接数（分主机域名的长链接最大总数
+   */
   maxRequestsPerHost?: number;
   static names(): { [key: string]: string } {
     return {
@@ -80,24 +183,64 @@ export class Config extends $tea.Model {
 // 子任务列表
 export class SubTasks extends $tea.Model {
   // 子任务ID
+  /**
+   * @example
+   * 子任务ID
+   */
   subTaskId: number;
   // 子任务名称
+  /**
+   * @example
+   * 子任务名称
+   */
   subTaskName: string;
   // 目标翻译语言
+  /**
+   * @example
+   * 目标翻译语言
+   */
   targetLanguage: string;
   // 子任务状态包括：PENDING（待执行）、EXECUTING（执行中）、FAILED（失败）、COMPLETED（已完成）
+  /**
+   * @example
+   * 子任务状态
+   */
   status: string;
   // 源语言
+  /**
+   * @example
+   * 源语言
+   */
   sourceLanguage: string;
   // 翻译后视频地址
+  /**
+   * @example
+   * 翻译后视频地址
+   */
   outputVideoUrl?: string;
   // 翻译前字幕文件地址
+  /**
+   * @example
+   * 翻译前字幕文件地址
+   */
   originalSubtitleUrl?: string;
   // 翻译后字幕文件地址
+  /**
+   * @example
+   * 翻译后字幕文件地址
+   */
   translatedSubtitleUrl?: string;
   // 视频时长（秒）
+  /**
+   * @example
+   * 视频时长（秒）
+   */
   durationSeconds?: number;
   // 错误信息
+  /**
+   * @example
+   * 错误信息
+   */
   errorMessage?: string;
   static names(): { [key: string]: string } {
     return {
@@ -312,6 +455,168 @@ export class QueryVideoQuerytaskResponse extends $tea.Model {
       errorCode: 'string',
       errorMessage: 'string',
       ext: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class UploadAssetRequest extends $tea.Model {
+  // OAuth模式下的授权token
+  authToken?: string;
+  productInstanceId?: string;
+  // 资产类型
+  assetType: string;
+  // 文件公网可访问 URL
+  fileUrl: string;
+  // 测试
+  assetName: string;
+  // 资产分组 ID
+  groupId: string;
+  static names(): { [key: string]: string } {
+    return {
+      authToken: 'auth_token',
+      productInstanceId: 'product_instance_id',
+      assetType: 'asset_type',
+      fileUrl: 'file_url',
+      assetName: 'asset_name',
+      groupId: 'group_id',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      authToken: 'string',
+      productInstanceId: 'string',
+      assetType: 'string',
+      fileUrl: 'string',
+      assetName: 'string',
+      groupId: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class UploadAssetResponse extends $tea.Model {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string;
+  // 结果码，一般OK表示调用成功
+  resultCode?: string;
+  // 异常信息的文本描述
+  resultMsg?: string;
+  // 资产ID
+  assetId?: string;
+  // 任务状态
+  status?: string;
+  // 资产类型
+  assetType?: string;
+  // 扩展信息 JSON
+  extInfo?: string;
+  static names(): { [key: string]: string } {
+    return {
+      reqMsgId: 'req_msg_id',
+      resultCode: 'result_code',
+      resultMsg: 'result_msg',
+      assetId: 'asset_id',
+      status: 'status',
+      assetType: 'asset_type',
+      extInfo: 'ext_info',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      reqMsgId: 'string',
+      resultCode: 'string',
+      resultMsg: 'string',
+      assetId: 'string',
+      status: 'string',
+      assetType: 'string',
+      extInfo: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class QueryAssetRequest extends $tea.Model {
+  // OAuth模式下的授权token
+  authToken?: string;
+  productInstanceId?: string;
+  // 资产ID
+  assetId: string;
+  static names(): { [key: string]: string } {
+    return {
+      authToken: 'auth_token',
+      productInstanceId: 'product_instance_id',
+      assetId: 'asset_id',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      authToken: 'string',
+      productInstanceId: 'string',
+      assetId: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class QueryAssetResponse extends $tea.Model {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string;
+  // 结果码，一般OK表示调用成功
+  resultCode?: string;
+  // 异常信息的文本描述
+  resultMsg?: string;
+  // 资产ID
+  assetId?: string;
+  // 资产状态
+  status?: string;
+  // 资产类型
+  assetType?: string;
+  // 资产访问 URL
+  assetUrl?: string;
+  // 错误信息
+  errorMessage?: string;
+  // 扩展信息 JSON
+  extInfo?: string;
+  static names(): { [key: string]: string } {
+    return {
+      reqMsgId: 'req_msg_id',
+      resultCode: 'result_code',
+      resultMsg: 'result_msg',
+      assetId: 'asset_id',
+      status: 'status',
+      assetType: 'asset_type',
+      assetUrl: 'asset_url',
+      errorMessage: 'error_message',
+      extInfo: 'ext_info',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      reqMsgId: 'string',
+      resultCode: 'string',
+      resultMsg: 'string',
+      assetId: 'string',
+      status: 'string',
+      assetType: 'string',
+      assetUrl: 'string',
+      errorMessage: 'string',
+      extInfo: 'string',
     };
   }
 
@@ -571,8 +876,10 @@ export default class Client {
   _maxRequestsPerHost: number;
 
   /**
+   * @remarks
    * Init client with Config
-   * @param config config contains the necessary information to create a client
+   * 
+   * @param config - config contains the necessary information to create a client
    */
   constructor(config: Config) {
     if (Util.isUnset(config)) {
@@ -603,14 +910,16 @@ export default class Client {
   }
 
   /**
+   * @remarks
    * Encapsulate the request and invoke the network
-   * @param action api name
-   * @param protocol http or https
-   * @param method e.g. GET
-   * @param pathname pathname of every api
-   * @param request which contains request params
-   * @param runtime which controls some details of call api, such as retry times
-   * @return the response
+   * 
+   * @param action - api name
+   * @param protocol - http or https
+   * @param method - e.g. GET
+   * @param pathname - pathname of every api
+   * @param request - which contains request params
+   * @param runtime - which controls some details of call api, such as retry times
+   * @returns the response
    */
   async doRequest(version: string, action: string, protocol: string, method: string, pathname: string, request: {[key: string]: any}, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<{[key: string]: any}> {
     let _runtime: { [key: string]: any } = {
@@ -661,7 +970,7 @@ export default class Client {
           req_msg_id: AntchainUtil.getNonce(),
           access_key: this._accessKeyId,
           base_sdk_version: "TeaSDK-2.0",
-          sdk_version: "1.2.2",
+          sdk_version: "1.3.0",
           _prod_code: "AIGC",
           _prod_channel: "default",
         };
@@ -710,6 +1019,7 @@ export default class Client {
   }
 
   /**
+   * @remarks
    * Description: 创建aigc视频生成任务
    * Summary: 创建aigc视频生成任务
    */
@@ -720,6 +1030,7 @@ export default class Client {
   }
 
   /**
+   * @remarks
    * Description: 创建aigc视频生成任务
    * Summary: 创建aigc视频生成任务
    */
@@ -729,6 +1040,7 @@ export default class Client {
   }
 
   /**
+   * @remarks
    * Description: AIGC视频任务查询
    * Summary: AIGC视频任务查询
    */
@@ -739,6 +1051,7 @@ export default class Client {
   }
 
   /**
+   * @remarks
    * Description: AIGC视频任务查询
    * Summary: AIGC视频任务查询
    */
@@ -748,6 +1061,49 @@ export default class Client {
   }
 
   /**
+   * @remarks
+   * Description: sd2资产组素材上传
+   * Summary: sd2资产组素材上传
+   */
+  async uploadAsset(request: UploadAssetRequest): Promise<UploadAssetResponse> {
+    let runtime = new $Util.RuntimeOptions({ });
+    let headers : {[key: string ]: string} = { };
+    return await this.uploadAssetEx(request, headers, runtime);
+  }
+
+  /**
+   * @remarks
+   * Description: sd2资产组素材上传
+   * Summary: sd2资产组素材上传
+   */
+  async uploadAssetEx(request: UploadAssetRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<UploadAssetResponse> {
+    Util.validateModel(request);
+    return $tea.cast<UploadAssetResponse>(await this.doRequest("1.0", "antdigital.aigc.asset.upload", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new UploadAssetResponse({}));
+  }
+
+  /**
+   * @remarks
+   * Description: 资产查询接口
+   * Summary: 资产查询接口
+   */
+  async queryAsset(request: QueryAssetRequest): Promise<QueryAssetResponse> {
+    let runtime = new $Util.RuntimeOptions({ });
+    let headers : {[key: string ]: string} = { };
+    return await this.queryAssetEx(request, headers, runtime);
+  }
+
+  /**
+   * @remarks
+   * Description: 资产查询接口
+   * Summary: 资产查询接口
+   */
+  async queryAssetEx(request: QueryAssetRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<QueryAssetResponse> {
+    Util.validateModel(request);
+    return $tea.cast<QueryAssetResponse>(await this.doRequest("1.0", "antdigital.aigc.asset.query", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new QueryAssetResponse({}));
+  }
+
+  /**
+   * @remarks
    * Description: 提交视频翻译任务
    * Summary: 提交视频翻译任务
    */
@@ -758,6 +1114,7 @@ export default class Client {
   }
 
   /**
+   * @remarks
    * Description: 提交视频翻译任务
    * Summary: 提交视频翻译任务
    */
@@ -767,6 +1124,7 @@ export default class Client {
   }
 
   /**
+   * @remarks
    * Description: 查询视频翻译任务
    * Summary: 查询视频翻译任务
    */
@@ -777,6 +1135,7 @@ export default class Client {
   }
 
   /**
+   * @remarks
    * Description: 查询视频翻译任务
    * Summary: 查询视频翻译任务
    */
