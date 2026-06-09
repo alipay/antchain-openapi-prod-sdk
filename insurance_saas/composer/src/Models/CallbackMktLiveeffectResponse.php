@@ -6,7 +6,7 @@ namespace AntChain\INSURANCE_SAAS\Models;
 
 use AlibabaCloud\Tea\Model;
 
-class CallbackAasMktLiveeffectResponse extends Model
+class CallbackMktLiveeffectResponse extends Model
 {
     // 请求唯一ID，用于链路跟踪和问题排查
     /**
@@ -64,7 +64,7 @@ class CallbackAasMktLiveeffectResponse extends Model
     /**
      * @param array $map
      *
-     * @return CallbackAasMktLiveeffectResponse
+     * @return CallbackMktLiveeffectResponse
      */
     public static function fromMap($map = [])
     {

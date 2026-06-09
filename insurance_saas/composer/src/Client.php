@@ -21,14 +21,14 @@ use AntChain\INSURANCE_SAAS\Models\ApplyInsureTestRequest;
 use AntChain\INSURANCE_SAAS\Models\ApplyInsureTestResponse;
 use AntChain\INSURANCE_SAAS\Models\ApplyUnderwritingRequest;
 use AntChain\INSURANCE_SAAS\Models\ApplyUnderwritingResponse;
-use AntChain\INSURANCE_SAAS\Models\CallbackAasMktLiveeffectRequest;
-use AntChain\INSURANCE_SAAS\Models\CallbackAasMktLiveeffectResponse;
 use AntChain\INSURANCE_SAAS\Models\CallbackMarketingEventRequest;
 use AntChain\INSURANCE_SAAS\Models\CallbackMarketingEventResponse;
 use AntChain\INSURANCE_SAAS\Models\CallbackMarketingPolicycancelRequest;
 use AntChain\INSURANCE_SAAS\Models\CallbackMarketingPolicycancelResponse;
 use AntChain\INSURANCE_SAAS\Models\CallbackMktEffectRequest;
 use AntChain\INSURANCE_SAAS\Models\CallbackMktEffectResponse;
+use AntChain\INSURANCE_SAAS\Models\CallbackMktLiveeffectRequest;
+use AntChain\INSURANCE_SAAS\Models\CallbackMktLiveeffectResponse;
 use AntChain\INSURANCE_SAAS\Models\CancelClaimRequest;
 use AntChain\INSURANCE_SAAS\Models\CancelClaimResponse;
 use AntChain\INSURANCE_SAAS\Models\ConfirmClaimSettleRequest;
@@ -250,7 +250,7 @@ class Client
                     'req_msg_id'       => UtilClient::getNonce(),
                     'access_key'       => $this->_accessKeyId,
                     'base_sdk_version' => 'TeaSDK-2.0',
-                    'sdk_version'      => '1.12.34',
+                    'sdk_version'      => '1.12.36',
                     '_prod_code'       => 'INSURANCE_SAAS',
                     '_prod_channel'    => 'undefined',
                 ];
@@ -401,33 +401,33 @@ class Client
      * Description: 保险营销效果回传接口——直播通道
      * Summary: 保险营销效果回传接口——直播通道.
      *
-     * @param CallbackAasMktLiveeffectRequest $request
+     * @param CallbackMktLiveeffectRequest $request
      *
-     * @return CallbackAasMktLiveeffectResponse
+     * @return CallbackMktLiveeffectResponse
      */
-    public function callbackAasMktLiveeffect($request)
+    public function callbackMktLiveeffect($request)
     {
         $runtime = new RuntimeOptions([]);
         $headers = [];
 
-        return $this->callbackAasMktLiveeffectEx($request, $headers, $runtime);
+        return $this->callbackMktLiveeffectEx($request, $headers, $runtime);
     }
 
     /**
      * Description: 保险营销效果回传接口——直播通道
      * Summary: 保险营销效果回传接口——直播通道.
      *
-     * @param CallbackAasMktLiveeffectRequest $request
-     * @param string[]                        $headers
-     * @param RuntimeOptions                  $runtime
+     * @param CallbackMktLiveeffectRequest $request
+     * @param string[]                     $headers
+     * @param RuntimeOptions               $runtime
      *
-     * @return CallbackAasMktLiveeffectResponse
+     * @return CallbackMktLiveeffectResponse
      */
-    public function callbackAasMktLiveeffectEx($request, $headers, $runtime)
+    public function callbackMktLiveeffectEx($request, $headers, $runtime)
     {
         Utils::validateModel($request);
 
-        return CallbackAasMktLiveeffectResponse::fromMap($this->doRequest('1.0', 'antcloud.insurancesaas.mkt.liveeffect.callback', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+        return CallbackMktLiveeffectResponse::fromMap($this->doRequest('1.0', 'antcloud.insurance.mkt.liveeffect.callback', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
     }
 
     /**

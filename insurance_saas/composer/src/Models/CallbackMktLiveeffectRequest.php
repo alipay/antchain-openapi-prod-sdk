@@ -6,7 +6,7 @@ namespace AntChain\INSURANCE_SAAS\Models;
 
 use AlibabaCloud\Tea\Model;
 
-class CallbackAasMktLiveeffectRequest extends Model
+class CallbackMktLiveeffectRequest extends Model
 {
     // OAuth模式下的授权token
     /**
@@ -144,8 +144,6 @@ class CallbackAasMktLiveeffectRequest extends Model
         Model::validateRequired('requestId', $this->requestId, true);
         Model::validateRequired('projectId', $this->projectId, true);
         Model::validateRequired('marketingMode', $this->marketingMode, true);
-        Model::validateRequired('encryptionType', $this->encryptionType, true);
-        Model::validateRequired('encryptedUserId', $this->encryptedUserId, true);
         Model::validateRequired('eventTime', $this->eventTime, true);
         Model::validateRequired('nodeType', $this->nodeType, true);
         Model::validateRequired('nodeInfo', $this->nodeInfo, true);
@@ -216,7 +214,7 @@ class CallbackAasMktLiveeffectRequest extends Model
     /**
      * @param array $map
      *
-     * @return CallbackAasMktLiveeffectRequest
+     * @return CallbackMktLiveeffectRequest
      */
     public static function fromMap($map = [])
     {
