@@ -15,10 +15,14 @@ use AntChain\AIGC\Models\PushVideoCreatetaskRequest;
 use AntChain\AIGC\Models\PushVideoCreatetaskResponse;
 use AntChain\AIGC\Models\PushVideotranslateCreatetaskRequest;
 use AntChain\AIGC\Models\PushVideotranslateCreatetaskResponse;
+use AntChain\AIGC\Models\QueryAssetRequest;
+use AntChain\AIGC\Models\QueryAssetResponse;
 use AntChain\AIGC\Models\QueryVideoQuerytaskRequest;
 use AntChain\AIGC\Models\QueryVideoQuerytaskResponse;
 use AntChain\AIGC\Models\QueryVideotranslateQuerytaskRequest;
 use AntChain\AIGC\Models\QueryVideotranslateQuerytaskResponse;
+use AntChain\AIGC\Models\UploadAssetRequest;
+use AntChain\AIGC\Models\UploadAssetResponse;
 use AntChain\Util\UtilClient;
 use Exception;
 
@@ -166,7 +170,7 @@ class Client
                     'req_msg_id'       => UtilClient::getNonce(),
                     'access_key'       => $this->_accessKeyId,
                     'base_sdk_version' => 'TeaSDK-2.0',
-                    'sdk_version'      => '1.2.2',
+                    'sdk_version'      => '1.3.0',
                     '_prod_code'       => 'AIGC',
                     '_prod_channel'    => 'default',
                 ];
@@ -278,6 +282,72 @@ class Client
         Utils::validateModel($request);
 
         return QueryVideoQuerytaskResponse::fromMap($this->doRequest('1.0', 'antdigital.aigc.video.querytask.query', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: sd2资产组素材上传
+     * Summary: sd2资产组素材上传.
+     *
+     * @param UploadAssetRequest $request
+     *
+     * @return UploadAssetResponse
+     */
+    public function uploadAsset($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->uploadAssetEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: sd2资产组素材上传
+     * Summary: sd2资产组素材上传.
+     *
+     * @param UploadAssetRequest $request
+     * @param string[]           $headers
+     * @param RuntimeOptions     $runtime
+     *
+     * @return UploadAssetResponse
+     */
+    public function uploadAssetEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return UploadAssetResponse::fromMap($this->doRequest('1.0', 'antdigital.aigc.asset.upload', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 资产查询接口
+     * Summary: 资产查询接口.
+     *
+     * @param QueryAssetRequest $request
+     *
+     * @return QueryAssetResponse
+     */
+    public function queryAsset($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->queryAssetEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 资产查询接口
+     * Summary: 资产查询接口.
+     *
+     * @param QueryAssetRequest $request
+     * @param string[]          $headers
+     * @param RuntimeOptions    $runtime
+     *
+     * @return QueryAssetResponse
+     */
+    public function queryAssetEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return QueryAssetResponse::fromMap($this->doRequest('1.0', 'antdigital.aigc.asset.query', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
     }
 
     /**
