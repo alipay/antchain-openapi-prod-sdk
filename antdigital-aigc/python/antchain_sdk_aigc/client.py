@@ -135,7 +135,7 @@ class Client:
                     'req_msg_id': AntchainUtils.get_nonce(),
                     'access_key': self._access_key_id,
                     'base_sdk_version': 'TeaSDK-2.0',
-                    'sdk_version': '1.2.2',
+                    'sdk_version': '1.3.0',
                     '_prod_code': 'AIGC',
                     '_prod_channel': 'default'
                 }
@@ -239,7 +239,7 @@ class Client:
                     'req_msg_id': AntchainUtils.get_nonce(),
                     'access_key': self._access_key_id,
                     'base_sdk_version': 'TeaSDK-2.0',
-                    'sdk_version': '1.2.2',
+                    'sdk_version': '1.3.0',
                     '_prod_code': 'AIGC',
                     '_prod_channel': 'default'
                 }
@@ -385,6 +385,118 @@ class Client:
         return TeaCore.from_map(
             aigc_models.QueryVideoQuerytaskResponse(),
             await self.do_request_async('1.0', 'antdigital.aigc.video.querytask.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def upload_asset(
+        self,
+        request: aigc_models.UploadAssetRequest,
+    ) -> aigc_models.UploadAssetResponse:
+        """
+        Description: sd2资产组素材上传
+        Summary: sd2资产组素材上传
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.upload_asset_ex(request, headers, runtime)
+
+    async def upload_asset_async(
+        self,
+        request: aigc_models.UploadAssetRequest,
+    ) -> aigc_models.UploadAssetResponse:
+        """
+        Description: sd2资产组素材上传
+        Summary: sd2资产组素材上传
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.upload_asset_ex_async(request, headers, runtime)
+
+    def upload_asset_ex(
+        self,
+        request: aigc_models.UploadAssetRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> aigc_models.UploadAssetResponse:
+        """
+        Description: sd2资产组素材上传
+        Summary: sd2资产组素材上传
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            aigc_models.UploadAssetResponse(),
+            self.do_request('1.0', 'antdigital.aigc.asset.upload', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def upload_asset_ex_async(
+        self,
+        request: aigc_models.UploadAssetRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> aigc_models.UploadAssetResponse:
+        """
+        Description: sd2资产组素材上传
+        Summary: sd2资产组素材上传
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            aigc_models.UploadAssetResponse(),
+            await self.do_request_async('1.0', 'antdigital.aigc.asset.upload', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def query_asset(
+        self,
+        request: aigc_models.QueryAssetRequest,
+    ) -> aigc_models.QueryAssetResponse:
+        """
+        Description: 资产查询接口
+        Summary: 资产查询接口
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.query_asset_ex(request, headers, runtime)
+
+    async def query_asset_async(
+        self,
+        request: aigc_models.QueryAssetRequest,
+    ) -> aigc_models.QueryAssetResponse:
+        """
+        Description: 资产查询接口
+        Summary: 资产查询接口
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.query_asset_ex_async(request, headers, runtime)
+
+    def query_asset_ex(
+        self,
+        request: aigc_models.QueryAssetRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> aigc_models.QueryAssetResponse:
+        """
+        Description: 资产查询接口
+        Summary: 资产查询接口
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            aigc_models.QueryAssetResponse(),
+            self.do_request('1.0', 'antdigital.aigc.asset.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def query_asset_ex_async(
+        self,
+        request: aigc_models.QueryAssetRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> aigc_models.QueryAssetResponse:
+        """
+        Description: 资产查询接口
+        Summary: 资产查询接口
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            aigc_models.QueryAssetResponse(),
+            await self.do_request_async('1.0', 'antdigital.aigc.asset.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
     def push_videotranslate_createtask(
