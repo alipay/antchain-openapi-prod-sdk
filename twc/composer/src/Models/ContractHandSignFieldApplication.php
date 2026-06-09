@@ -151,6 +151,14 @@ class ContractHandSignFieldApplication extends Model
      * @var int
      */
     public $signFieldType;
+
+    // 个人用户是否需要静默签署授权,默认false false-不需要,true-需要
+    /**
+     * @example false
+     *
+     * @var bool
+     */
+    public $agreeAutoSign;
     protected $_name = [
         'accountId'        => 'account_id',
         'fileId'           => 'file_id',
@@ -170,6 +178,7 @@ class ContractHandSignFieldApplication extends Model
         'width'            => 'width',
         'sealIds'          => 'seal_ids',
         'signFieldType'    => 'sign_field_type',
+        'agreeAutoSign'    => 'agree_auto_sign',
     ];
 
     public function validate()
@@ -234,6 +243,9 @@ class ContractHandSignFieldApplication extends Model
         }
         if (null !== $this->signFieldType) {
             $res['sign_field_type'] = $this->signFieldType;
+        }
+        if (null !== $this->agreeAutoSign) {
+            $res['agree_auto_sign'] = $this->agreeAutoSign;
         }
 
         return $res;
@@ -302,6 +314,9 @@ class ContractHandSignFieldApplication extends Model
         }
         if (isset($map['sign_field_type'])) {
             $model->signFieldType = $map['sign_field_type'];
+        }
+        if (isset($map['agree_auto_sign'])) {
+            $model->agreeAutoSign = $map['agree_auto_sign'];
         }
 
         return $model;

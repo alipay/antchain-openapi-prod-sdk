@@ -143,6 +143,14 @@ class OneStepSignField extends Model
      * @var bool
      */
     public $autoExecute;
+
+    // 个人用户是否需要静默签署授权，默认false, false-不需要, true-需要
+    /**
+     * @example flase
+     *
+     * @var bool
+     */
+    public $agreeAutoSign;
     protected $_name = [
         'accountId'        => 'account_id',
         'fileId'           => 'file_id',
@@ -161,6 +169,7 @@ class OneStepSignField extends Model
         'thirdOrderNo'     => 'third_order_no',
         'width'            => 'width',
         'autoExecute'      => 'auto_execute',
+        'agreeAutoSign'    => 'agree_auto_sign',
     ];
 
     public function validate()
@@ -222,6 +231,9 @@ class OneStepSignField extends Model
         }
         if (null !== $this->autoExecute) {
             $res['auto_execute'] = $this->autoExecute;
+        }
+        if (null !== $this->agreeAutoSign) {
+            $res['agree_auto_sign'] = $this->agreeAutoSign;
         }
 
         return $res;
@@ -285,6 +297,9 @@ class OneStepSignField extends Model
         }
         if (isset($map['auto_execute'])) {
             $model->autoExecute = $map['auto_execute'];
+        }
+        if (isset($map['agree_auto_sign'])) {
+            $model->agreeAutoSign = $map['agree_auto_sign'];
         }
 
         return $model;

@@ -55,13 +55,22 @@ class ContractSignFlowConfig extends Model
      * @var bool
      */
     public $freeSignature;
+
+    // 代扣签署回调地址,配合代扣签署一起使用
+    /**
+     * @example http://127.0.0.1:8110/xxx
+     *
+     * @var string
+     */
+    public $combineSignRedirectUrl;
     protected $_name = [
-        'noticeDeveloperUrl'   => 'notice_developer_url',
-        'noticeType'           => 'notice_type',
-        'redirectUrl'          => 'redirect_url',
-        'signPlatform'         => 'sign_platform',
-        'redirectUrlOnFailure' => 'redirect_url_on_failure',
-        'freeSignature'        => 'free_signature',
+        'noticeDeveloperUrl'     => 'notice_developer_url',
+        'noticeType'             => 'notice_type',
+        'redirectUrl'            => 'redirect_url',
+        'signPlatform'           => 'sign_platform',
+        'redirectUrlOnFailure'   => 'redirect_url_on_failure',
+        'freeSignature'          => 'free_signature',
+        'combineSignRedirectUrl' => 'combine_sign_redirect_url',
     ];
 
     public function validate()
@@ -89,6 +98,9 @@ class ContractSignFlowConfig extends Model
         }
         if (null !== $this->freeSignature) {
             $res['free_signature'] = $this->freeSignature;
+        }
+        if (null !== $this->combineSignRedirectUrl) {
+            $res['combine_sign_redirect_url'] = $this->combineSignRedirectUrl;
         }
 
         return $res;
@@ -119,6 +131,9 @@ class ContractSignFlowConfig extends Model
         }
         if (isset($map['free_signature'])) {
             $model->freeSignature = $map['free_signature'];
+        }
+        if (isset($map['combine_sign_redirect_url'])) {
+            $model->combineSignRedirectUrl = $map['combine_sign_redirect_url'];
         }
 
         return $model;
