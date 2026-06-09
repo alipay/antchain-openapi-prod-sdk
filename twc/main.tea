@@ -100,7 +100,7 @@ api doRequest(version: string, action: string, protocol: string, method: string,
     req_msg_id = AntchainUtil.getNonce(),
     access_key = @accessKeyId,
     base_sdk_version = 'TeaSDK-2.0',
-    sdk_version = '1.13.23',
+    sdk_version = '1.13.26',
     _prod_code = 'TWC',
     _prod_channel = 'undefined'
   };
@@ -1649,6 +1649,8 @@ model ContractSignFlowConfig {
   redirectUrlOnFailure?: string(name='redirect_url_on_failure', example='http://127.0.0.1:8110/h5/forword/failure'),
   // 是否允许自由签署，默认false（配合twc.notary.contract.signflow.create接口使用）
   freeSignature?: boolean(name='free_signature', example='true, false'),
+  // 代扣签署回调地址,配合代扣签署一起使用
+  combineSignRedirectUrl?: string(name='combine_sign_redirect_url', example='http://127.0.0.1:8110/xxx'),
 }
 
 // 融资租赁商品出租详细信息
@@ -2129,6 +2131,8 @@ model ContractHandSignFieldApplication {
   sealIds?: [ string ](name='seal_ids', example='["印章id1","印章id2",....]'),
   // 签署区预设xy坐标类型，0：不指定X/Y坐标 1：指定X/Y坐标 默认：指定X/Y坐标 ; 签署区设置时可以不指定XY坐标，签署方在签署时拖拽确定最终签署区域，支持在页面任何区域拖拽，个人和企业签署用印都支持
   signFieldType?: long(name='sign_field_type', example='0'),
+  // 个人用户是否需要静默签署授权,默认false false-不需要,true-需要
+  agreeAutoSign?: boolean(name='agree_auto_sign', example='false'),
 }
 
 // 再融资订单信息
@@ -2701,6 +2705,8 @@ model OneStepSignField {
   width?: string(name='width', example='100.0'),
   // 是否自动执行签署，默认false，false-手动签署，true-自动签署
   autoExecute?: boolean(name='auto_execute', example='true, false'),
+  // 个人用户是否需要静默签署授权，默认false, false-不需要, true-需要
+  agreeAutoSign?: boolean(name='agree_auto_sign', example='flase'),
 }
 
 // 缴费账户信息
@@ -6954,8 +6960,8 @@ model CreateContractHandsignfieldResponse = {
 }
 
 /**
- * Description: 向指定流程中创建签署区，每个签署区视为一个任务，系统会自动按照流程流转。 签署区的添加必须在签署文档添加之后, 签署区信息内部包含签署文档信息。签署区创建完成，流程开启后，通过获取签署地址接口，可获取用户手动签署链接，通过此链接可打开文件签署页面，进行人工确认签署。
- * Summary: 添加电子合同签署方手动盖章签署区
+ * Description: 向指定流程中创建签署区，每个签署区视为一个任务，系统会自动按照流程流转。
+ * Summary: 向指定流程中创建签署区，每个签署区视为一个任务，系统会自动按照流程流转。
  */
 async function createContractHandsignfield(request: CreateContractHandsignfieldRequest): CreateContractHandsignfieldResponse {
   var runtime = new Util.RuntimeOptions{};
@@ -6964,8 +6970,8 @@ async function createContractHandsignfield(request: CreateContractHandsignfieldR
 }
 
 /**
- * Description: 向指定流程中创建签署区，每个签署区视为一个任务，系统会自动按照流程流转。 签署区的添加必须在签署文档添加之后, 签署区信息内部包含签署文档信息。签署区创建完成，流程开启后，通过获取签署地址接口，可获取用户手动签署链接，通过此链接可打开文件签署页面，进行人工确认签署。
- * Summary: 添加电子合同签署方手动盖章签署区
+ * Description: 向指定流程中创建签署区，每个签署区视为一个任务，系统会自动按照流程流转。
+ * Summary: 向指定流程中创建签署区，每个签署区视为一个任务，系统会自动按照流程流转。
  */
 async function createContractHandsignfieldEx(request: CreateContractHandsignfieldRequest, headers: map[string]string, runtime: Util.RuntimeOptions): CreateContractHandsignfieldResponse {
   Util.validateModel(request);
@@ -7670,7 +7676,7 @@ model CreateContractOnestepflowResponse = {
 
 /**
  * Description: 快速创建签署流程，完成添加待签文档、流程基本信息、签署方，支持自动开启、自动归档。
- * Summary: 一步创建签署流程接口
+ * Summary: 快速创建签署流程，完成添加待签文档、流程基本信息、签署方，支持自动开启、自动归档。
  */
 async function createContractOnestepflow(request: CreateContractOnestepflowRequest): CreateContractOnestepflowResponse {
   var runtime = new Util.RuntimeOptions{};
@@ -7680,7 +7686,7 @@ async function createContractOnestepflow(request: CreateContractOnestepflowReque
 
 /**
  * Description: 快速创建签署流程，完成添加待签文档、流程基本信息、签署方，支持自动开启、自动归档。
- * Summary: 一步创建签署流程接口
+ * Summary: 快速创建签署流程，完成添加待签文档、流程基本信息、签署方，支持自动开启、自动归档。
  */
 async function createContractOnestepflowEx(request: CreateContractOnestepflowRequest, headers: map[string]string, runtime: Util.RuntimeOptions): CreateContractOnestepflowResponse {
   Util.validateModel(request);
