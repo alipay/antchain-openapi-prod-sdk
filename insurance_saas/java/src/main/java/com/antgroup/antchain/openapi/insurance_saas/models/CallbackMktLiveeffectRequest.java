@@ -3,7 +3,7 @@ package com.antgroup.antchain.openapi.insurance_saas.models;
 
 import com.aliyun.tea.*;
 
-public class CallbackAasMktLiveeffectRequest extends TeaModel {
+public class CallbackMktLiveeffectRequest extends TeaModel {
     // OAuth模式下的授权token
     @NameInMap("auth_token")
     public String authToken;
@@ -25,12 +25,10 @@ public class CallbackAasMktLiveeffectRequest extends TeaModel {
 
     // 加密类型：MD5，32位[小]
     @NameInMap("encryption_type")
-    @Validation(required = true)
     public String encryptionType;
 
     // 加密用户标识
     @NameInMap("encrypted_user_id")
-    @Validation(required = true)
     public String encryptedUserId;
 
     // 事件完成时间（yyyy-MM-dd HH:mm:ss）
@@ -88,12 +86,12 @@ public class CallbackAasMktLiveeffectRequest extends TeaModel {
     @NameInMap("live_session_id")
     public String liveSessionId;
 
-    public static CallbackAasMktLiveeffectRequest build(java.util.Map<String, ?> map) throws Exception {
-        CallbackAasMktLiveeffectRequest self = new CallbackAasMktLiveeffectRequest();
+    public static CallbackMktLiveeffectRequest build(java.util.Map<String, ?> map) throws Exception {
+        CallbackMktLiveeffectRequest self = new CallbackMktLiveeffectRequest();
         return TeaModel.build(map, self);
     }
 
-    public CallbackAasMktLiveeffectRequest setAuthToken(String authToken) {
+    public CallbackMktLiveeffectRequest setAuthToken(String authToken) {
         this.authToken = authToken;
         return this;
     }
@@ -101,7 +99,7 @@ public class CallbackAasMktLiveeffectRequest extends TeaModel {
         return this.authToken;
     }
 
-    public CallbackAasMktLiveeffectRequest setRequestId(String requestId) {
+    public CallbackMktLiveeffectRequest setRequestId(String requestId) {
         this.requestId = requestId;
         return this;
     }
@@ -109,7 +107,7 @@ public class CallbackAasMktLiveeffectRequest extends TeaModel {
         return this.requestId;
     }
 
-    public CallbackAasMktLiveeffectRequest setProjectId(String projectId) {
+    public CallbackMktLiveeffectRequest setProjectId(String projectId) {
         this.projectId = projectId;
         return this;
     }
@@ -117,7 +115,7 @@ public class CallbackAasMktLiveeffectRequest extends TeaModel {
         return this.projectId;
     }
 
-    public CallbackAasMktLiveeffectRequest setMarketingMode(String marketingMode) {
+    public CallbackMktLiveeffectRequest setMarketingMode(String marketingMode) {
         this.marketingMode = marketingMode;
         return this;
     }
@@ -125,7 +123,7 @@ public class CallbackAasMktLiveeffectRequest extends TeaModel {
         return this.marketingMode;
     }
 
-    public CallbackAasMktLiveeffectRequest setEncryptionType(String encryptionType) {
+    public CallbackMktLiveeffectRequest setEncryptionType(String encryptionType) {
         this.encryptionType = encryptionType;
         return this;
     }
@@ -133,7 +131,7 @@ public class CallbackAasMktLiveeffectRequest extends TeaModel {
         return this.encryptionType;
     }
 
-    public CallbackAasMktLiveeffectRequest setEncryptedUserId(String encryptedUserId) {
+    public CallbackMktLiveeffectRequest setEncryptedUserId(String encryptedUserId) {
         this.encryptedUserId = encryptedUserId;
         return this;
     }
@@ -141,7 +139,7 @@ public class CallbackAasMktLiveeffectRequest extends TeaModel {
         return this.encryptedUserId;
     }
 
-    public CallbackAasMktLiveeffectRequest setEventTime(String eventTime) {
+    public CallbackMktLiveeffectRequest setEventTime(String eventTime) {
         this.eventTime = eventTime;
         return this;
     }
@@ -149,7 +147,7 @@ public class CallbackAasMktLiveeffectRequest extends TeaModel {
         return this.eventTime;
     }
 
-    public CallbackAasMktLiveeffectRequest setNodeType(String nodeType) {
+    public CallbackMktLiveeffectRequest setNodeType(String nodeType) {
         this.nodeType = nodeType;
         return this;
     }
@@ -157,7 +155,7 @@ public class CallbackAasMktLiveeffectRequest extends TeaModel {
         return this.nodeType;
     }
 
-    public CallbackAasMktLiveeffectRequest setNodeInfo(String nodeInfo) {
+    public CallbackMktLiveeffectRequest setNodeInfo(String nodeInfo) {
         this.nodeInfo = nodeInfo;
         return this;
     }
@@ -165,7 +163,7 @@ public class CallbackAasMktLiveeffectRequest extends TeaModel {
         return this.nodeInfo;
     }
 
-    public CallbackAasMktLiveeffectRequest setLandingPageUrl(String landingPageUrl) {
+    public CallbackMktLiveeffectRequest setLandingPageUrl(String landingPageUrl) {
         this.landingPageUrl = landingPageUrl;
         return this;
     }
@@ -173,7 +171,7 @@ public class CallbackAasMktLiveeffectRequest extends TeaModel {
         return this.landingPageUrl;
     }
 
-    public CallbackAasMktLiveeffectRequest setClickId(String clickId) {
+    public CallbackMktLiveeffectRequest setClickId(String clickId) {
         this.clickId = clickId;
         return this;
     }
@@ -181,7 +179,7 @@ public class CallbackAasMktLiveeffectRequest extends TeaModel {
         return this.clickId;
     }
 
-    public CallbackAasMktLiveeffectRequest setProductId(String productId) {
+    public CallbackMktLiveeffectRequest setProductId(String productId) {
         this.productId = productId;
         return this;
     }
@@ -189,7 +187,7 @@ public class CallbackAasMktLiveeffectRequest extends TeaModel {
         return this.productId;
     }
 
-    public CallbackAasMktLiveeffectRequest setIp(String ip) {
+    public CallbackMktLiveeffectRequest setIp(String ip) {
         this.ip = ip;
         return this;
     }
@@ -197,7 +195,7 @@ public class CallbackAasMktLiveeffectRequest extends TeaModel {
         return this.ip;
     }
 
-    public CallbackAasMktLiveeffectRequest setUa(String ua) {
+    public CallbackMktLiveeffectRequest setUa(String ua) {
         this.ua = ua;
         return this;
     }
@@ -205,7 +203,7 @@ public class CallbackAasMktLiveeffectRequest extends TeaModel {
         return this.ua;
     }
 
-    public CallbackAasMktLiveeffectRequest setLiveRoomId(String liveRoomId) {
+    public CallbackMktLiveeffectRequest setLiveRoomId(String liveRoomId) {
         this.liveRoomId = liveRoomId;
         return this;
     }
@@ -213,7 +211,7 @@ public class CallbackAasMktLiveeffectRequest extends TeaModel {
         return this.liveRoomId;
     }
 
-    public CallbackAasMktLiveeffectRequest setLiveStartTime(String liveStartTime) {
+    public CallbackMktLiveeffectRequest setLiveStartTime(String liveStartTime) {
         this.liveStartTime = liveStartTime;
         return this;
     }
@@ -221,7 +219,7 @@ public class CallbackAasMktLiveeffectRequest extends TeaModel {
         return this.liveStartTime;
     }
 
-    public CallbackAasMktLiveeffectRequest setExtInfo(String extInfo) {
+    public CallbackMktLiveeffectRequest setExtInfo(String extInfo) {
         this.extInfo = extInfo;
         return this;
     }
@@ -229,7 +227,7 @@ public class CallbackAasMktLiveeffectRequest extends TeaModel {
         return this.extInfo;
     }
 
-    public CallbackAasMktLiveeffectRequest setLiveSessionId(String liveSessionId) {
+    public CallbackMktLiveeffectRequest setLiveSessionId(String liveSessionId) {
         this.liveSessionId = liveSessionId;
         return this;
     }

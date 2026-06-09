@@ -3,7 +3,7 @@ package com.antgroup.antchain.openapi.insurance_saas.models;
 
 import com.aliyun.tea.*;
 
-public class CallbackAasMktLiveeffectResponse extends TeaModel {
+public class CallbackMktLiveeffectResponse extends TeaModel {
     // 请求唯一ID，用于链路跟踪和问题排查
     @NameInMap("req_msg_id")
     public String reqMsgId;
@@ -20,12 +20,12 @@ public class CallbackAasMktLiveeffectResponse extends TeaModel {
     @NameInMap("request_id")
     public String requestId;
 
-    public static CallbackAasMktLiveeffectResponse build(java.util.Map<String, ?> map) throws Exception {
-        CallbackAasMktLiveeffectResponse self = new CallbackAasMktLiveeffectResponse();
+    public static CallbackMktLiveeffectResponse build(java.util.Map<String, ?> map) throws Exception {
+        CallbackMktLiveeffectResponse self = new CallbackMktLiveeffectResponse();
         return TeaModel.build(map, self);
     }
 
-    public CallbackAasMktLiveeffectResponse setReqMsgId(String reqMsgId) {
+    public CallbackMktLiveeffectResponse setReqMsgId(String reqMsgId) {
         this.reqMsgId = reqMsgId;
         return this;
     }
@@ -33,7 +33,7 @@ public class CallbackAasMktLiveeffectResponse extends TeaModel {
         return this.reqMsgId;
     }
 
-    public CallbackAasMktLiveeffectResponse setResultCode(String resultCode) {
+    public CallbackMktLiveeffectResponse setResultCode(String resultCode) {
         this.resultCode = resultCode;
         return this;
     }
@@ -41,7 +41,7 @@ public class CallbackAasMktLiveeffectResponse extends TeaModel {
         return this.resultCode;
     }
 
-    public CallbackAasMktLiveeffectResponse setResultMsg(String resultMsg) {
+    public CallbackMktLiveeffectResponse setResultMsg(String resultMsg) {
         this.resultMsg = resultMsg;
         return this;
     }
@@ -49,7 +49,7 @@ public class CallbackAasMktLiveeffectResponse extends TeaModel {
         return this.resultMsg;
     }
 
-    public CallbackAasMktLiveeffectResponse setRequestId(String requestId) {
+    public CallbackMktLiveeffectResponse setRequestId(String requestId) {
         this.requestId = requestId;
         return this;
     }

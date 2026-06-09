@@ -126,7 +126,7 @@ public class Client {
                     new TeaPair("req_msg_id", com.antgroup.antchain.openapi.antchain.util.AntchainUtils.getNonce()),
                     new TeaPair("access_key", _accessKeyId),
                     new TeaPair("base_sdk_version", "TeaSDK-2.0"),
-                    new TeaPair("sdk_version", "1.12.34"),
+                    new TeaPair("sdk_version", "1.12.36"),
                     new TeaPair("_prod_code", "INSURANCE_SAAS"),
                     new TeaPair("_prod_channel", "undefined")
                 );
@@ -256,10 +256,10 @@ public class Client {
      * <p>Description: 保险营销效果回传接口——直播通道
      * Summary: 保险营销效果回传接口——直播通道</p>
      */
-    public CallbackAasMktLiveeffectResponse callbackAasMktLiveeffect(CallbackAasMktLiveeffectRequest request) throws Exception {
+    public CallbackMktLiveeffectResponse callbackMktLiveeffect(CallbackMktLiveeffectRequest request) throws Exception {
         com.aliyun.teautil.models.RuntimeOptions runtime = new com.aliyun.teautil.models.RuntimeOptions();
         java.util.Map<String, String> headers = new java.util.HashMap<>();
-        return this.callbackAasMktLiveeffectEx(request, headers, runtime);
+        return this.callbackMktLiveeffectEx(request, headers, runtime);
     }
 
     /**
@@ -267,9 +267,9 @@ public class Client {
      * <p>Description: 保险营销效果回传接口——直播通道
      * Summary: 保险营销效果回传接口——直播通道</p>
      */
-    public CallbackAasMktLiveeffectResponse callbackAasMktLiveeffectEx(CallbackAasMktLiveeffectRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
+    public CallbackMktLiveeffectResponse callbackMktLiveeffectEx(CallbackMktLiveeffectRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
         com.aliyun.teautil.Common.validateModel(request);
-        return TeaModel.toModel(this.doRequest("1.0", "antcloud.insurancesaas.mkt.liveeffect.callback", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new CallbackAasMktLiveeffectResponse());
+        return TeaModel.toModel(this.doRequest("1.0", "antcloud.insurance.mkt.liveeffect.callback", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new CallbackMktLiveeffectResponse());
     }
 
     /**
