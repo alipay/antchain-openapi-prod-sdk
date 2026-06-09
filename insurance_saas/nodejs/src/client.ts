@@ -622,7 +622,7 @@ export class GetAasButleragentChaturlResponse extends $tea.Model {
   }
 }
 
-export class CallbackAasMktLiveeffectRequest extends $tea.Model {
+export class CallbackMktLiveeffectRequest extends $tea.Model {
   // OAuth模式下的授权token
   authToken?: string;
   // 请求id，每一次请求保持唯一；若重复，则更新原数据；
@@ -632,9 +632,9 @@ export class CallbackAasMktLiveeffectRequest extends $tea.Model {
   // 营销模式，AI_HANGUP_SMS("AI挂短")， AI_OFFICIAL_ACCOUNT("AI公众号"), BPO_WECHAT("BPO企微"), AI_BPO("AI_BPO")， LIVE_STREAMING("直播")
   marketingMode: string;
   // 加密类型：MD5，32位[小]
-  encryptionType: string;
+  encryptionType?: string;
   // 加密用户标识
-  encryptedUserId: string;
+  encryptedUserId?: string;
   // 事件完成时间（yyyy-MM-dd HH:mm:ss）
   eventTime: string;
   // 节点类型
@@ -713,7 +713,7 @@ export class CallbackAasMktLiveeffectRequest extends $tea.Model {
   }
 }
 
-export class CallbackAasMktLiveeffectResponse extends $tea.Model {
+export class CallbackMktLiveeffectResponse extends $tea.Model {
   // 请求唯一ID，用于链路跟踪和问题排查
   reqMsgId?: string;
   // 结果码，一般OK表示调用成功
@@ -4488,7 +4488,7 @@ export default class Client {
           req_msg_id: AntchainUtil.getNonce(),
           access_key: this._accessKeyId,
           base_sdk_version: "TeaSDK-2.0",
-          sdk_version: "1.12.34",
+          sdk_version: "1.12.36",
           _prod_code: "INSURANCE_SAAS",
           _prod_channel: "undefined",
         };
@@ -4604,10 +4604,10 @@ export default class Client {
    * Description: 保险营销效果回传接口——直播通道
    * Summary: 保险营销效果回传接口——直播通道
    */
-  async callbackAasMktLiveeffect(request: CallbackAasMktLiveeffectRequest): Promise<CallbackAasMktLiveeffectResponse> {
+  async callbackMktLiveeffect(request: CallbackMktLiveeffectRequest): Promise<CallbackMktLiveeffectResponse> {
     let runtime = new $Util.RuntimeOptions({ });
     let headers : {[key: string ]: string} = { };
-    return await this.callbackAasMktLiveeffectEx(request, headers, runtime);
+    return await this.callbackMktLiveeffectEx(request, headers, runtime);
   }
 
   /**
@@ -4615,9 +4615,9 @@ export default class Client {
    * Description: 保险营销效果回传接口——直播通道
    * Summary: 保险营销效果回传接口——直播通道
    */
-  async callbackAasMktLiveeffectEx(request: CallbackAasMktLiveeffectRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<CallbackAasMktLiveeffectResponse> {
+  async callbackMktLiveeffectEx(request: CallbackMktLiveeffectRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<CallbackMktLiveeffectResponse> {
     Util.validateModel(request);
-    return $tea.cast<CallbackAasMktLiveeffectResponse>(await this.doRequest("1.0", "antcloud.insurancesaas.mkt.liveeffect.callback", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new CallbackAasMktLiveeffectResponse({}));
+    return $tea.cast<CallbackMktLiveeffectResponse>(await this.doRequest("1.0", "antcloud.insurance.mkt.liveeffect.callback", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new CallbackMktLiveeffectResponse({}));
   }
 
   /**
