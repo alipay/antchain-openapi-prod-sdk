@@ -100,6 +100,11 @@ namespace AntChain.SDK.TWC.Models
         [Validation(Required=false)]
         public long? SignFieldType { get; set; }
 
+        // 个人用户是否需要静默签署授权,默认false false-不需要,true-需要
+        [NameInMap("agree_auto_sign")]
+        [Validation(Required=false)]
+        public bool? AgreeAutoSign { get; set; }
+
     }
 
 }

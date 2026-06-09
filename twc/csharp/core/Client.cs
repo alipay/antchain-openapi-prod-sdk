@@ -137,7 +137,7 @@ namespace AntChain.SDK.TWC
                         {"req_msg_id", AntChain.AlipayUtil.AntchainUtils.GetNonce()},
                         {"access_key", _accessKeyId},
                         {"base_sdk_version", "TeaSDK-2.0"},
-                        {"sdk_version", "1.13.23"},
+                        {"sdk_version", "1.13.26"},
                         {"_prod_code", "TWC"},
                         {"_prod_channel", "undefined"},
                     };
@@ -263,7 +263,7 @@ namespace AntChain.SDK.TWC
                         {"req_msg_id", AntChain.AlipayUtil.AntchainUtils.GetNonce()},
                         {"access_key", _accessKeyId},
                         {"base_sdk_version", "TeaSDK-2.0"},
-                        {"sdk_version", "1.13.23"},
+                        {"sdk_version", "1.13.26"},
                         {"_prod_code", "TWC"},
                         {"_prod_channel", "undefined"},
                     };
@@ -3480,8 +3480,8 @@ namespace AntChain.SDK.TWC
         }
 
         /**
-         * Description: 向指定流程中创建签署区，每个签署区视为一个任务，系统会自动按照流程流转。 签署区的添加必须在签署文档添加之后, 签署区信息内部包含签署文档信息。签署区创建完成，流程开启后，通过获取签署地址接口，可获取用户手动签署链接，通过此链接可打开文件签署页面，进行人工确认签署。
-         * Summary: 添加电子合同签署方手动盖章签署区
+         * Description: 向指定流程中创建签署区，每个签署区视为一个任务，系统会自动按照流程流转。
+         * Summary: 向指定流程中创建签署区，每个签署区视为一个任务，系统会自动按照流程流转。
          */
         public CreateContractHandsignfieldResponse CreateContractHandsignfield(CreateContractHandsignfieldRequest request)
         {
@@ -3491,8 +3491,8 @@ namespace AntChain.SDK.TWC
         }
 
         /**
-         * Description: 向指定流程中创建签署区，每个签署区视为一个任务，系统会自动按照流程流转。 签署区的添加必须在签署文档添加之后, 签署区信息内部包含签署文档信息。签署区创建完成，流程开启后，通过获取签署地址接口，可获取用户手动签署链接，通过此链接可打开文件签署页面，进行人工确认签署。
-         * Summary: 添加电子合同签署方手动盖章签署区
+         * Description: 向指定流程中创建签署区，每个签署区视为一个任务，系统会自动按照流程流转。
+         * Summary: 向指定流程中创建签署区，每个签署区视为一个任务，系统会自动按照流程流转。
          */
         public async Task<CreateContractHandsignfieldResponse> CreateContractHandsignfieldAsync(CreateContractHandsignfieldRequest request)
         {
@@ -3502,8 +3502,8 @@ namespace AntChain.SDK.TWC
         }
 
         /**
-         * Description: 向指定流程中创建签署区，每个签署区视为一个任务，系统会自动按照流程流转。 签署区的添加必须在签署文档添加之后, 签署区信息内部包含签署文档信息。签署区创建完成，流程开启后，通过获取签署地址接口，可获取用户手动签署链接，通过此链接可打开文件签署页面，进行人工确认签署。
-         * Summary: 添加电子合同签署方手动盖章签署区
+         * Description: 向指定流程中创建签署区，每个签署区视为一个任务，系统会自动按照流程流转。
+         * Summary: 向指定流程中创建签署区，每个签署区视为一个任务，系统会自动按照流程流转。
          */
         public CreateContractHandsignfieldResponse CreateContractHandsignfieldEx(CreateContractHandsignfieldRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
         {
@@ -3512,8 +3512,8 @@ namespace AntChain.SDK.TWC
         }
 
         /**
-         * Description: 向指定流程中创建签署区，每个签署区视为一个任务，系统会自动按照流程流转。 签署区的添加必须在签署文档添加之后, 签署区信息内部包含签署文档信息。签署区创建完成，流程开启后，通过获取签署地址接口，可获取用户手动签署链接，通过此链接可打开文件签署页面，进行人工确认签署。
-         * Summary: 添加电子合同签署方手动盖章签署区
+         * Description: 向指定流程中创建签署区，每个签署区视为一个任务，系统会自动按照流程流转。
+         * Summary: 向指定流程中创建签署区，每个签署区视为一个任务，系统会自动按照流程流转。
          */
         public async Task<CreateContractHandsignfieldResponse> CreateContractHandsignfieldExAsync(CreateContractHandsignfieldRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
         {
@@ -4069,7 +4069,7 @@ namespace AntChain.SDK.TWC
 
         /**
          * Description: 快速创建签署流程，完成添加待签文档、流程基本信息、签署方，支持自动开启、自动归档。
-         * Summary: 一步创建签署流程接口
+         * Summary: 快速创建签署流程，完成添加待签文档、流程基本信息、签署方，支持自动开启、自动归档。
          */
         public CreateContractOnestepflowResponse CreateContractOnestepflow(CreateContractOnestepflowRequest request)
         {
@@ -4080,7 +4080,7 @@ namespace AntChain.SDK.TWC
 
         /**
          * Description: 快速创建签署流程，完成添加待签文档、流程基本信息、签署方，支持自动开启、自动归档。
-         * Summary: 一步创建签署流程接口
+         * Summary: 快速创建签署流程，完成添加待签文档、流程基本信息、签署方，支持自动开启、自动归档。
          */
         public async Task<CreateContractOnestepflowResponse> CreateContractOnestepflowAsync(CreateContractOnestepflowRequest request)
         {
@@ -4091,7 +4091,7 @@ namespace AntChain.SDK.TWC
 
         /**
          * Description: 快速创建签署流程，完成添加待签文档、流程基本信息、签署方，支持自动开启、自动归档。
-         * Summary: 一步创建签署流程接口
+         * Summary: 快速创建签署流程，完成添加待签文档、流程基本信息、签署方，支持自动开启、自动归档。
          */
         public CreateContractOnestepflowResponse CreateContractOnestepflowEx(CreateContractOnestepflowRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
         {
@@ -4101,7 +4101,7 @@ namespace AntChain.SDK.TWC
 
         /**
          * Description: 快速创建签署流程，完成添加待签文档、流程基本信息、签署方，支持自动开启、自动归档。
-         * Summary: 一步创建签署流程接口
+         * Summary: 快速创建签署流程，完成添加待签文档、流程基本信息、签署方，支持自动开启、自动归档。
          */
         public async Task<CreateContractOnestepflowResponse> CreateContractOnestepflowExAsync(CreateContractOnestepflowRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
         {

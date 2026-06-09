@@ -40,6 +40,11 @@ namespace AntChain.SDK.TWC.Models
         [Validation(Required=false)]
         public bool? FreeSignature { get; set; }
 
+        // 代扣签署回调地址,配合代扣签署一起使用
+        [NameInMap("combine_sign_redirect_url")]
+        [Validation(Required=false)]
+        public string CombineSignRedirectUrl { get; set; }
+
     }
 
 }
