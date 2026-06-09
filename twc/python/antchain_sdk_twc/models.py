@@ -6022,6 +6022,7 @@ class ContractSignFlowConfig(TeaModel):
         sign_platform: str = None,
         redirect_url_on_failure: str = None,
         free_signature: bool = None,
+        combine_sign_redirect_url: str = None,
     ):
         # 回调通知地址 ,默认取项目配置通知地址
         self.notice_developer_url = notice_developer_url
@@ -6035,6 +6036,8 @@ class ContractSignFlowConfig(TeaModel):
         self.redirect_url_on_failure = redirect_url_on_failure
         # 是否允许自由签署，默认false（配合twc.notary.contract.signflow.create接口使用）
         self.free_signature = free_signature
+        # 代扣签署回调地址,配合代扣签署一起使用
+        self.combine_sign_redirect_url = combine_sign_redirect_url
 
     def validate(self):
         self.validate_required(self.notice_type, 'notice_type')
@@ -6057,6 +6060,8 @@ class ContractSignFlowConfig(TeaModel):
             result['redirect_url_on_failure'] = self.redirect_url_on_failure
         if self.free_signature is not None:
             result['free_signature'] = self.free_signature
+        if self.combine_sign_redirect_url is not None:
+            result['combine_sign_redirect_url'] = self.combine_sign_redirect_url
         return result
 
     def from_map(self, m: dict = None):
@@ -6073,6 +6078,8 @@ class ContractSignFlowConfig(TeaModel):
             self.redirect_url_on_failure = m.get('redirect_url_on_failure')
         if m.get('free_signature') is not None:
             self.free_signature = m.get('free_signature')
+        if m.get('combine_sign_redirect_url') is not None:
+            self.combine_sign_redirect_url = m.get('combine_sign_redirect_url')
         return self
 
 
@@ -7850,6 +7857,7 @@ class ContractHandSignFieldApplication(TeaModel):
         width: str = None,
         seal_ids: List[str] = None,
         sign_field_type: int = None,
+        agree_auto_sign: bool = None,
     ):
         # 签署操作人个人账号标识，即操作本次签署的个人
         self.account_id = account_id
@@ -7887,6 +7895,8 @@ class ContractHandSignFieldApplication(TeaModel):
         self.seal_ids = seal_ids
         # 签署区预设xy坐标类型，0：不指定X/Y坐标 1：指定X/Y坐标 默认：指定X/Y坐标 ; 签署区设置时可以不指定XY坐标，签署方在签署时拖拽确定最终签署区域，支持在页面任何区域拖拽，个人和企业签署用印都支持
         self.sign_field_type = sign_field_type
+        # 个人用户是否需要静默签署授权,默认false false-不需要,true-需要
+        self.agree_auto_sign = agree_auto_sign
 
     def validate(self):
         self.validate_required(self.account_id, 'account_id')
@@ -7934,6 +7944,8 @@ class ContractHandSignFieldApplication(TeaModel):
             result['seal_ids'] = self.seal_ids
         if self.sign_field_type is not None:
             result['sign_field_type'] = self.sign_field_type
+        if self.agree_auto_sign is not None:
+            result['agree_auto_sign'] = self.agree_auto_sign
         return result
 
     def from_map(self, m: dict = None):
@@ -7974,6 +7986,8 @@ class ContractHandSignFieldApplication(TeaModel):
             self.seal_ids = m.get('seal_ids')
         if m.get('sign_field_type') is not None:
             self.sign_field_type = m.get('sign_field_type')
+        if m.get('agree_auto_sign') is not None:
+            self.agree_auto_sign = m.get('agree_auto_sign')
         return self
 
 
@@ -10146,6 +10160,7 @@ class OneStepSignField(TeaModel):
         third_order_no: str = None,
         width: str = None,
         auto_execute: bool = None,
+        agree_auto_sign: bool = None,
     ):
         # 签署操作人个人账号标识，即操作本次签署的个人
         self.account_id = account_id
@@ -10181,6 +10196,8 @@ class OneStepSignField(TeaModel):
         self.width = width
         # 是否自动执行签署，默认false，false-手动签署，true-自动签署
         self.auto_execute = auto_execute
+        # 个人用户是否需要静默签署授权，默认false, false-不需要, true-需要
+        self.agree_auto_sign = agree_auto_sign
 
     def validate(self):
         self.validate_required(self.account_id, 'account_id')
@@ -10226,6 +10243,8 @@ class OneStepSignField(TeaModel):
             result['width'] = self.width
         if self.auto_execute is not None:
             result['auto_execute'] = self.auto_execute
+        if self.agree_auto_sign is not None:
+            result['agree_auto_sign'] = self.agree_auto_sign
         return result
 
     def from_map(self, m: dict = None):
@@ -10264,6 +10283,8 @@ class OneStepSignField(TeaModel):
             self.width = m.get('width')
         if m.get('auto_execute') is not None:
             self.auto_execute = m.get('auto_execute')
+        if m.get('agree_auto_sign') is not None:
+            self.agree_auto_sign = m.get('agree_auto_sign')
         return self
 
 

@@ -135,7 +135,7 @@ class Client:
                     'req_msg_id': AntchainUtils.get_nonce(),
                     'access_key': self._access_key_id,
                     'base_sdk_version': 'TeaSDK-2.0',
-                    'sdk_version': '1.13.23',
+                    'sdk_version': '1.13.26',
                     '_prod_code': 'TWC',
                     '_prod_channel': 'undefined'
                 }
@@ -239,7 +239,7 @@ class Client:
                     'req_msg_id': AntchainUtils.get_nonce(),
                     'access_key': self._access_key_id,
                     'base_sdk_version': 'TeaSDK-2.0',
-                    'sdk_version': '1.13.23',
+                    'sdk_version': '1.13.26',
                     '_prod_code': 'TWC',
                     '_prod_channel': 'undefined'
                 }
@@ -4488,8 +4488,8 @@ class Client:
         request: twc_models.CreateContractHandsignfieldRequest,
     ) -> twc_models.CreateContractHandsignfieldResponse:
         """
-        Description: 向指定流程中创建签署区，每个签署区视为一个任务，系统会自动按照流程流转。 签署区的添加必须在签署文档添加之后, 签署区信息内部包含签署文档信息。签署区创建完成，流程开启后，通过获取签署地址接口，可获取用户手动签署链接，通过此链接可打开文件签署页面，进行人工确认签署。
-        Summary: 添加电子合同签署方手动盖章签署区
+        Description: 向指定流程中创建签署区，每个签署区视为一个任务，系统会自动按照流程流转。
+        Summary: 向指定流程中创建签署区，每个签署区视为一个任务，系统会自动按照流程流转。
         """
         runtime = util_models.RuntimeOptions()
         headers = {}
@@ -4500,8 +4500,8 @@ class Client:
         request: twc_models.CreateContractHandsignfieldRequest,
     ) -> twc_models.CreateContractHandsignfieldResponse:
         """
-        Description: 向指定流程中创建签署区，每个签署区视为一个任务，系统会自动按照流程流转。 签署区的添加必须在签署文档添加之后, 签署区信息内部包含签署文档信息。签署区创建完成，流程开启后，通过获取签署地址接口，可获取用户手动签署链接，通过此链接可打开文件签署页面，进行人工确认签署。
-        Summary: 添加电子合同签署方手动盖章签署区
+        Description: 向指定流程中创建签署区，每个签署区视为一个任务，系统会自动按照流程流转。
+        Summary: 向指定流程中创建签署区，每个签署区视为一个任务，系统会自动按照流程流转。
         """
         runtime = util_models.RuntimeOptions()
         headers = {}
@@ -4514,8 +4514,8 @@ class Client:
         runtime: util_models.RuntimeOptions,
     ) -> twc_models.CreateContractHandsignfieldResponse:
         """
-        Description: 向指定流程中创建签署区，每个签署区视为一个任务，系统会自动按照流程流转。 签署区的添加必须在签署文档添加之后, 签署区信息内部包含签署文档信息。签署区创建完成，流程开启后，通过获取签署地址接口，可获取用户手动签署链接，通过此链接可打开文件签署页面，进行人工确认签署。
-        Summary: 添加电子合同签署方手动盖章签署区
+        Description: 向指定流程中创建签署区，每个签署区视为一个任务，系统会自动按照流程流转。
+        Summary: 向指定流程中创建签署区，每个签署区视为一个任务，系统会自动按照流程流转。
         """
         UtilClient.validate_model(request)
         return TeaCore.from_map(
@@ -4530,8 +4530,8 @@ class Client:
         runtime: util_models.RuntimeOptions,
     ) -> twc_models.CreateContractHandsignfieldResponse:
         """
-        Description: 向指定流程中创建签署区，每个签署区视为一个任务，系统会自动按照流程流转。 签署区的添加必须在签署文档添加之后, 签署区信息内部包含签署文档信息。签署区创建完成，流程开启后，通过获取签署地址接口，可获取用户手动签署链接，通过此链接可打开文件签署页面，进行人工确认签署。
-        Summary: 添加电子合同签署方手动盖章签署区
+        Description: 向指定流程中创建签署区，每个签署区视为一个任务，系统会自动按照流程流转。
+        Summary: 向指定流程中创建签署区，每个签署区视为一个任务，系统会自动按照流程流转。
         """
         UtilClient.validate_model(request)
         return TeaCore.from_map(
@@ -5273,7 +5273,7 @@ class Client:
     ) -> twc_models.CreateContractOnestepflowResponse:
         """
         Description: 快速创建签署流程，完成添加待签文档、流程基本信息、签署方，支持自动开启、自动归档。
-        Summary: 一步创建签署流程接口
+        Summary: 快速创建签署流程，完成添加待签文档、流程基本信息、签署方，支持自动开启、自动归档。
         """
         runtime = util_models.RuntimeOptions()
         headers = {}
@@ -5285,7 +5285,7 @@ class Client:
     ) -> twc_models.CreateContractOnestepflowResponse:
         """
         Description: 快速创建签署流程，完成添加待签文档、流程基本信息、签署方，支持自动开启、自动归档。
-        Summary: 一步创建签署流程接口
+        Summary: 快速创建签署流程，完成添加待签文档、流程基本信息、签署方，支持自动开启、自动归档。
         """
         runtime = util_models.RuntimeOptions()
         headers = {}
@@ -5299,7 +5299,7 @@ class Client:
     ) -> twc_models.CreateContractOnestepflowResponse:
         """
         Description: 快速创建签署流程，完成添加待签文档、流程基本信息、签署方，支持自动开启、自动归档。
-        Summary: 一步创建签署流程接口
+        Summary: 快速创建签署流程，完成添加待签文档、流程基本信息、签署方，支持自动开启、自动归档。
         """
         UtilClient.validate_model(request)
         return TeaCore.from_map(
@@ -5315,7 +5315,7 @@ class Client:
     ) -> twc_models.CreateContractOnestepflowResponse:
         """
         Description: 快速创建签署流程，完成添加待签文档、流程基本信息、签署方，支持自动开启、自动归档。
-        Summary: 一步创建签署流程接口
+        Summary: 快速创建签署流程，完成添加待签文档、流程基本信息、签署方，支持自动开启、自动归档。
         """
         UtilClient.validate_model(request)
         return TeaCore.from_map(
