@@ -489,6 +489,223 @@ func (s *QueryVideoQuerytaskResponse) SetExt(v string) *QueryVideoQuerytaskRespo
 	return s
 }
 
+type UploadAssetRequest struct {
+	// OAuth模式下的授权token
+	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
+	// 资产类型
+	AssetType *string `json:"asset_type,omitempty" xml:"asset_type,omitempty" require:"true"`
+	// 文件公网可访问 URL
+	FileUrl *string `json:"file_url,omitempty" xml:"file_url,omitempty" require:"true"`
+	// 测试
+	AssetName *string `json:"asset_name,omitempty" xml:"asset_name,omitempty" require:"true"`
+	// 资产分组 ID
+	GroupId *string `json:"group_id,omitempty" xml:"group_id,omitempty" require:"true"`
+}
+
+func (s UploadAssetRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s UploadAssetRequest) GoString() string {
+	return s.String()
+}
+
+func (s *UploadAssetRequest) SetAuthToken(v string) *UploadAssetRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *UploadAssetRequest) SetProductInstanceId(v string) *UploadAssetRequest {
+	s.ProductInstanceId = &v
+	return s
+}
+
+func (s *UploadAssetRequest) SetAssetType(v string) *UploadAssetRequest {
+	s.AssetType = &v
+	return s
+}
+
+func (s *UploadAssetRequest) SetFileUrl(v string) *UploadAssetRequest {
+	s.FileUrl = &v
+	return s
+}
+
+func (s *UploadAssetRequest) SetAssetName(v string) *UploadAssetRequest {
+	s.AssetName = &v
+	return s
+}
+
+func (s *UploadAssetRequest) SetGroupId(v string) *UploadAssetRequest {
+	s.GroupId = &v
+	return s
+}
+
+type UploadAssetResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// 资产ID
+	AssetId *string `json:"asset_id,omitempty" xml:"asset_id,omitempty"`
+	// 任务状态
+	Status *string `json:"status,omitempty" xml:"status,omitempty"`
+	// 资产类型
+	AssetType *string `json:"asset_type,omitempty" xml:"asset_type,omitempty"`
+	// 扩展信息 JSON
+	ExtInfo *string `json:"ext_info,omitempty" xml:"ext_info,omitempty"`
+}
+
+func (s UploadAssetResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s UploadAssetResponse) GoString() string {
+	return s.String()
+}
+
+func (s *UploadAssetResponse) SetReqMsgId(v string) *UploadAssetResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *UploadAssetResponse) SetResultCode(v string) *UploadAssetResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *UploadAssetResponse) SetResultMsg(v string) *UploadAssetResponse {
+	s.ResultMsg = &v
+	return s
+}
+
+func (s *UploadAssetResponse) SetAssetId(v string) *UploadAssetResponse {
+	s.AssetId = &v
+	return s
+}
+
+func (s *UploadAssetResponse) SetStatus(v string) *UploadAssetResponse {
+	s.Status = &v
+	return s
+}
+
+func (s *UploadAssetResponse) SetAssetType(v string) *UploadAssetResponse {
+	s.AssetType = &v
+	return s
+}
+
+func (s *UploadAssetResponse) SetExtInfo(v string) *UploadAssetResponse {
+	s.ExtInfo = &v
+	return s
+}
+
+type QueryAssetRequest struct {
+	// OAuth模式下的授权token
+	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
+	// 资产ID
+	AssetId *string `json:"asset_id,omitempty" xml:"asset_id,omitempty" require:"true"`
+}
+
+func (s QueryAssetRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s QueryAssetRequest) GoString() string {
+	return s.String()
+}
+
+func (s *QueryAssetRequest) SetAuthToken(v string) *QueryAssetRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *QueryAssetRequest) SetProductInstanceId(v string) *QueryAssetRequest {
+	s.ProductInstanceId = &v
+	return s
+}
+
+func (s *QueryAssetRequest) SetAssetId(v string) *QueryAssetRequest {
+	s.AssetId = &v
+	return s
+}
+
+type QueryAssetResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// 资产ID
+	AssetId *string `json:"asset_id,omitempty" xml:"asset_id,omitempty"`
+	// 资产状态
+	Status *string `json:"status,omitempty" xml:"status,omitempty"`
+	// 资产类型
+	AssetType *string `json:"asset_type,omitempty" xml:"asset_type,omitempty"`
+	// 资产访问 URL
+	AssetUrl *string `json:"asset_url,omitempty" xml:"asset_url,omitempty"`
+	// 错误信息
+	ErrorMessage *string `json:"error_message,omitempty" xml:"error_message,omitempty"`
+	// 扩展信息 JSON
+	ExtInfo *string `json:"ext_info,omitempty" xml:"ext_info,omitempty"`
+}
+
+func (s QueryAssetResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s QueryAssetResponse) GoString() string {
+	return s.String()
+}
+
+func (s *QueryAssetResponse) SetReqMsgId(v string) *QueryAssetResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *QueryAssetResponse) SetResultCode(v string) *QueryAssetResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *QueryAssetResponse) SetResultMsg(v string) *QueryAssetResponse {
+	s.ResultMsg = &v
+	return s
+}
+
+func (s *QueryAssetResponse) SetAssetId(v string) *QueryAssetResponse {
+	s.AssetId = &v
+	return s
+}
+
+func (s *QueryAssetResponse) SetStatus(v string) *QueryAssetResponse {
+	s.Status = &v
+	return s
+}
+
+func (s *QueryAssetResponse) SetAssetType(v string) *QueryAssetResponse {
+	s.AssetType = &v
+	return s
+}
+
+func (s *QueryAssetResponse) SetAssetUrl(v string) *QueryAssetResponse {
+	s.AssetUrl = &v
+	return s
+}
+
+func (s *QueryAssetResponse) SetErrorMessage(v string) *QueryAssetResponse {
+	s.ErrorMessage = &v
+	return s
+}
+
+func (s *QueryAssetResponse) SetExtInfo(v string) *QueryAssetResponse {
+	s.ExtInfo = &v
+	return s
+}
+
 type PushVideotranslateCreatetaskRequest struct {
 	// OAuth模式下的授权token
 	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
@@ -906,7 +1123,7 @@ func (client *Client) DoRequest(version *string, action *string, protocol *strin
 				"req_msg_id":       antchainutil.GetNonce(),
 				"access_key":       client.AccessKeyId,
 				"base_sdk_version": tea.String("TeaSDK-2.0"),
-				"sdk_version":      tea.String("1.2.2"),
+				"sdk_version":      tea.String("1.3.0"),
 				"_prod_code":       tea.String("AIGC"),
 				"_prod_channel":    tea.String("default"),
 			}
@@ -1025,6 +1242,74 @@ func (client *Client) QueryVideoQuerytaskEx(request *QueryVideoQuerytaskRequest,
 	}
 	_result = &QueryVideoQuerytaskResponse{}
 	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("antdigital.aigc.video.querytask.query"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
+}
+
+/**
+ * Description: sd2资产组素材上传
+ * Summary: sd2资产组素材上传
+ */
+func (client *Client) UploadAsset(request *UploadAssetRequest) (_result *UploadAssetResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &UploadAssetResponse{}
+	_body, _err := client.UploadAssetEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+/**
+ * Description: sd2资产组素材上传
+ * Summary: sd2资产组素材上传
+ */
+func (client *Client) UploadAssetEx(request *UploadAssetRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *UploadAssetResponse, _err error) {
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &UploadAssetResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("antdigital.aigc.asset.upload"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
+}
+
+/**
+ * Description: 资产查询接口
+ * Summary: 资产查询接口
+ */
+func (client *Client) QueryAsset(request *QueryAssetRequest) (_result *QueryAssetResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &QueryAssetResponse{}
+	_body, _err := client.QueryAssetEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+/**
+ * Description: 资产查询接口
+ * Summary: 资产查询接口
+ */
+func (client *Client) QueryAssetEx(request *QueryAssetRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *QueryAssetResponse, _err error) {
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &QueryAssetResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("antdigital.aigc.asset.query"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
 	if _err != nil {
 		return _result, _err
 	}
