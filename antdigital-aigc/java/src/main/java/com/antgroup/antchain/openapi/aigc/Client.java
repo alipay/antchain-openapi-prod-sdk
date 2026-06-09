@@ -126,7 +126,7 @@ public class Client {
                     new TeaPair("req_msg_id", com.antgroup.antchain.openapi.antchain.util.AntchainUtils.getNonce()),
                     new TeaPair("access_key", _accessKeyId),
                     new TeaPair("base_sdk_version", "TeaSDK-2.0"),
-                    new TeaPair("sdk_version", "1.2.2"),
+                    new TeaPair("sdk_version", "1.3.0"),
                     new TeaPair("_prod_code", "AIGC"),
                     new TeaPair("_prod_channel", "default")
                 );
@@ -228,6 +228,48 @@ public class Client {
     public QueryVideoQuerytaskResponse queryVideoQuerytaskEx(QueryVideoQuerytaskRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
         com.aliyun.teautil.Common.validateModel(request);
         return TeaModel.toModel(this.doRequest("1.0", "antdigital.aigc.video.querytask.query", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new QueryVideoQuerytaskResponse());
+    }
+
+    /**
+     * <b>description</b> :
+     * <p>Description: sd2资产组素材上传
+     * Summary: sd2资产组素材上传</p>
+     */
+    public UploadAssetResponse uploadAsset(UploadAssetRequest request) throws Exception {
+        com.aliyun.teautil.models.RuntimeOptions runtime = new com.aliyun.teautil.models.RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.uploadAssetEx(request, headers, runtime);
+    }
+
+    /**
+     * <b>description</b> :
+     * <p>Description: sd2资产组素材上传
+     * Summary: sd2资产组素材上传</p>
+     */
+    public UploadAssetResponse uploadAssetEx(UploadAssetRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "antdigital.aigc.asset.upload", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new UploadAssetResponse());
+    }
+
+    /**
+     * <b>description</b> :
+     * <p>Description: 资产查询接口
+     * Summary: 资产查询接口</p>
+     */
+    public QueryAssetResponse queryAsset(QueryAssetRequest request) throws Exception {
+        com.aliyun.teautil.models.RuntimeOptions runtime = new com.aliyun.teautil.models.RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.queryAssetEx(request, headers, runtime);
+    }
+
+    /**
+     * <b>description</b> :
+     * <p>Description: 资产查询接口
+     * Summary: 资产查询接口</p>
+     */
+    public QueryAssetResponse queryAssetEx(QueryAssetRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "antdigital.aigc.asset.query", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new QueryAssetResponse());
     }
 
     /**
