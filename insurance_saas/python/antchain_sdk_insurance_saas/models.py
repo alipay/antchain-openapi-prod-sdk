@@ -739,7 +739,7 @@ class GetAasButleragentChaturlResponse(TeaModel):
         return self
 
 
-class CallbackAasMktLiveeffectRequest(TeaModel):
+class CallbackMktLiveeffectRequest(TeaModel):
     def __init__(
         self,
         auth_token: str = None,
@@ -805,8 +805,6 @@ class CallbackAasMktLiveeffectRequest(TeaModel):
         self.validate_required(self.request_id, 'request_id')
         self.validate_required(self.project_id, 'project_id')
         self.validate_required(self.marketing_mode, 'marketing_mode')
-        self.validate_required(self.encryption_type, 'encryption_type')
-        self.validate_required(self.encrypted_user_id, 'encrypted_user_id')
         self.validate_required(self.event_time, 'event_time')
         self.validate_required(self.node_type, 'node_type')
         self.validate_required(self.node_info, 'node_info')
@@ -897,7 +895,7 @@ class CallbackAasMktLiveeffectRequest(TeaModel):
         return self
 
 
-class CallbackAasMktLiveeffectResponse(TeaModel):
+class CallbackMktLiveeffectResponse(TeaModel):
     def __init__(
         self,
         req_msg_id: str = None,
