@@ -557,7 +557,6 @@ class UploadAssetRequest(TeaModel):
         asset_type: str = None,
         file_url: str = None,
         asset_name: str = None,
-        group_id: str = None,
     ):
         # OAuth模式下的授权token
         self.auth_token = auth_token
@@ -568,14 +567,11 @@ class UploadAssetRequest(TeaModel):
         self.file_url = file_url
         # 测试
         self.asset_name = asset_name
-        # 资产分组 ID
-        self.group_id = group_id
 
     def validate(self):
         self.validate_required(self.asset_type, 'asset_type')
         self.validate_required(self.file_url, 'file_url')
         self.validate_required(self.asset_name, 'asset_name')
-        self.validate_required(self.group_id, 'group_id')
 
     def to_map(self):
         _map = super().to_map()
@@ -593,8 +589,6 @@ class UploadAssetRequest(TeaModel):
             result['file_url'] = self.file_url
         if self.asset_name is not None:
             result['asset_name'] = self.asset_name
-        if self.group_id is not None:
-            result['group_id'] = self.group_id
         return result
 
     def from_map(self, m: dict = None):
@@ -609,8 +603,6 @@ class UploadAssetRequest(TeaModel):
             self.file_url = m.get('file_url')
         if m.get('asset_name') is not None:
             self.asset_name = m.get('asset_name')
-        if m.get('group_id') is not None:
-            self.group_id = m.get('group_id')
         return self
 
 
