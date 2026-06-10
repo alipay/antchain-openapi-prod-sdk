@@ -23,7 +23,6 @@ public class BatchqueryScenedataTaskresultRequest extends TeaModel {
 
     // 本次同步数量
     @NameInMap("sync_num")
-    @Validation(maximum = 100)
     public Long syncNum;
 
     public static BatchqueryScenedataTaskresultRequest build(java.util.Map<String, ?> map) throws Exception {

@@ -126,7 +126,7 @@ public class Client {
                     new TeaPair("req_msg_id", com.antgroup.antchain.openapi.antchain.util.AntchainUtils.getNonce()),
                     new TeaPair("access_key", _accessKeyId),
                     new TeaPair("base_sdk_version", "TeaSDK-2.0"),
-                    new TeaPair("sdk_version", "1.6.0"),
+                    new TeaPair("sdk_version", "1.7.0"),
                     new TeaPair("_prod_code", "SDS"),
                     new TeaPair("_prod_channel", "default")
                 );
@@ -211,8 +211,8 @@ public class Client {
 
     /**
      * <b>description</b> :
-     * <p>Description: 客户上传文件以及参数，创建任务，获取批次号异步查询处理结果。
-     * Summary: 场景数据批处理任务提交</p>
+     * <p>Description: 创建任务，获取批次号。
+     * Summary: 创建任务，获取批次号。</p>
      */
     public SubmitScenedataTaskResponse submitScenedataTask(SubmitScenedataTaskRequest request) throws Exception {
         com.aliyun.teautil.models.RuntimeOptions runtime = new com.aliyun.teautil.models.RuntimeOptions();
@@ -222,8 +222,8 @@ public class Client {
 
     /**
      * <b>description</b> :
-     * <p>Description: 客户上传文件以及参数，创建任务，获取批次号异步查询处理结果。
-     * Summary: 场景数据批处理任务提交</p>
+     * <p>Description: 创建任务，获取批次号。
+     * Summary: 创建任务，获取批次号。</p>
      */
     public SubmitScenedataTaskResponse submitScenedataTaskEx(SubmitScenedataTaskRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
         com.aliyun.teautil.Common.validateModel(request);
@@ -275,8 +275,8 @@ public class Client {
 
     /**
      * <b>description</b> :
-     * <p>Description: 场景数据SaaS第一天预处理客户提交的文件处理任务，第二天客户调该接口批量查询任务结果
-     * Summary: 场景数据任务结果批量查询</p>
+     * <p>Description: 任务结果查询
+     * Summary: 任务结果查询</p>
      */
     public BatchqueryScenedataTaskresultResponse batchqueryScenedataTaskresult(BatchqueryScenedataTaskresultRequest request) throws Exception {
         com.aliyun.teautil.models.RuntimeOptions runtime = new com.aliyun.teautil.models.RuntimeOptions();
@@ -286,8 +286,8 @@ public class Client {
 
     /**
      * <b>description</b> :
-     * <p>Description: 场景数据SaaS第一天预处理客户提交的文件处理任务，第二天客户调该接口批量查询任务结果
-     * Summary: 场景数据任务结果批量查询</p>
+     * <p>Description: 任务结果查询
+     * Summary: 任务结果查询</p>
      */
     public BatchqueryScenedataTaskresultResponse batchqueryScenedataTaskresultEx(BatchqueryScenedataTaskresultRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
         com.aliyun.teautil.Common.validateModel(request);
@@ -318,7 +318,7 @@ public class Client {
     /**
      * <b>description</b> :
      * <p>Description: 通过批次号查询任务详细信息
-     * Summary: 批次任务信息查询</p>
+     * Summary: 通过批次号查询任务详细信息</p>
      */
     public QueryScenedataTaskinfoResponse queryScenedataTaskinfo(QueryScenedataTaskinfoRequest request) throws Exception {
         com.aliyun.teautil.models.RuntimeOptions runtime = new com.aliyun.teautil.models.RuntimeOptions();
@@ -329,7 +329,7 @@ public class Client {
     /**
      * <b>description</b> :
      * <p>Description: 通过批次号查询任务详细信息
-     * Summary: 批次任务信息查询</p>
+     * Summary: 通过批次号查询任务详细信息</p>
      */
     public QueryScenedataTaskinfoResponse queryScenedataTaskinfoEx(QueryScenedataTaskinfoRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
         com.aliyun.teautil.Common.validateModel(request);
@@ -418,6 +418,27 @@ public class Client {
     public DownloadStockRefundflowResponse downloadStockRefundflowEx(DownloadStockRefundflowRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
         com.aliyun.teautil.Common.validateModel(request);
         return TeaModel.toModel(this.doRequest("1.0", "antchain.sds.stock.refundflow.download", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new DownloadStockRefundflowResponse());
+    }
+
+    /**
+     * <b>description</b> :
+     * <p>Description: 【任务修改】修改任务状态，上线的任务可以下线，下线后能够修改任务的动态参数，下线后才能再上线。
+     * Summary: 【任务修改】修改任务状态，上线的任务可以下线，下线后能够修改任务的动态参数，下线后才能再上线。</p>
+     */
+    public UpdateScenedataTaskResponse updateScenedataTask(UpdateScenedataTaskRequest request) throws Exception {
+        com.aliyun.teautil.models.RuntimeOptions runtime = new com.aliyun.teautil.models.RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.updateScenedataTaskEx(request, headers, runtime);
+    }
+
+    /**
+     * <b>description</b> :
+     * <p>Description: 【任务修改】修改任务状态，上线的任务可以下线，下线后能够修改任务的动态参数，下线后才能再上线。
+     * Summary: 【任务修改】修改任务状态，上线的任务可以下线，下线后能够修改任务的动态参数，下线后才能再上线。</p>
+     */
+    public UpdateScenedataTaskResponse updateScenedataTaskEx(UpdateScenedataTaskRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "antchain.sds.scenedata.task.update", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new UpdateScenedataTaskResponse());
     }
 
     /**
