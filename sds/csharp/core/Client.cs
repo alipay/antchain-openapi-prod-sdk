@@ -137,7 +137,7 @@ namespace AntChain.SDK.SDS
                         {"req_msg_id", AntChain.AlipayUtil.AntchainUtils.GetNonce()},
                         {"access_key", _accessKeyId},
                         {"base_sdk_version", "TeaSDK-2.0"},
-                        {"sdk_version", "1.6.0"},
+                        {"sdk_version", "1.7.0"},
                         {"_prod_code", "SDS"},
                         {"_prod_channel", "default"},
                     };
@@ -263,7 +263,7 @@ namespace AntChain.SDK.SDS
                         {"req_msg_id", AntChain.AlipayUtil.AntchainUtils.GetNonce()},
                         {"access_key", _accessKeyId},
                         {"base_sdk_version", "TeaSDK-2.0"},
-                        {"sdk_version", "1.6.0"},
+                        {"sdk_version", "1.7.0"},
                         {"_prod_code", "SDS"},
                         {"_prod_channel", "default"},
                     };
@@ -364,8 +364,8 @@ namespace AntChain.SDK.SDS
         }
 
         /**
-         * Description: 客户上传文件以及参数，创建任务，获取批次号异步查询处理结果。
-         * Summary: 场景数据批处理任务提交
+         * Description: 创建任务，获取批次号。
+         * Summary: 创建任务，获取批次号。
          */
         public SubmitScenedataTaskResponse SubmitScenedataTask(SubmitScenedataTaskRequest request)
         {
@@ -375,8 +375,8 @@ namespace AntChain.SDK.SDS
         }
 
         /**
-         * Description: 客户上传文件以及参数，创建任务，获取批次号异步查询处理结果。
-         * Summary: 场景数据批处理任务提交
+         * Description: 创建任务，获取批次号。
+         * Summary: 创建任务，获取批次号。
          */
         public async Task<SubmitScenedataTaskResponse> SubmitScenedataTaskAsync(SubmitScenedataTaskRequest request)
         {
@@ -386,8 +386,8 @@ namespace AntChain.SDK.SDS
         }
 
         /**
-         * Description: 客户上传文件以及参数，创建任务，获取批次号异步查询处理结果。
-         * Summary: 场景数据批处理任务提交
+         * Description: 创建任务，获取批次号。
+         * Summary: 创建任务，获取批次号。
          */
         public SubmitScenedataTaskResponse SubmitScenedataTaskEx(SubmitScenedataTaskRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
         {
@@ -396,8 +396,8 @@ namespace AntChain.SDK.SDS
         }
 
         /**
-         * Description: 客户上传文件以及参数，创建任务，获取批次号异步查询处理结果。
-         * Summary: 场景数据批处理任务提交
+         * Description: 创建任务，获取批次号。
+         * Summary: 创建任务，获取批次号。
          */
         public async Task<SubmitScenedataTaskResponse> SubmitScenedataTaskExAsync(SubmitScenedataTaskRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
         {
@@ -496,8 +496,8 @@ namespace AntChain.SDK.SDS
         }
 
         /**
-         * Description: 场景数据SaaS第一天预处理客户提交的文件处理任务，第二天客户调该接口批量查询任务结果
-         * Summary: 场景数据任务结果批量查询
+         * Description: 任务结果查询
+         * Summary: 任务结果查询
          */
         public BatchqueryScenedataTaskresultResponse BatchqueryScenedataTaskresult(BatchqueryScenedataTaskresultRequest request)
         {
@@ -507,8 +507,8 @@ namespace AntChain.SDK.SDS
         }
 
         /**
-         * Description: 场景数据SaaS第一天预处理客户提交的文件处理任务，第二天客户调该接口批量查询任务结果
-         * Summary: 场景数据任务结果批量查询
+         * Description: 任务结果查询
+         * Summary: 任务结果查询
          */
         public async Task<BatchqueryScenedataTaskresultResponse> BatchqueryScenedataTaskresultAsync(BatchqueryScenedataTaskresultRequest request)
         {
@@ -518,8 +518,8 @@ namespace AntChain.SDK.SDS
         }
 
         /**
-         * Description: 场景数据SaaS第一天预处理客户提交的文件处理任务，第二天客户调该接口批量查询任务结果
-         * Summary: 场景数据任务结果批量查询
+         * Description: 任务结果查询
+         * Summary: 任务结果查询
          */
         public BatchqueryScenedataTaskresultResponse BatchqueryScenedataTaskresultEx(BatchqueryScenedataTaskresultRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
         {
@@ -528,8 +528,8 @@ namespace AntChain.SDK.SDS
         }
 
         /**
-         * Description: 场景数据SaaS第一天预处理客户提交的文件处理任务，第二天客户调该接口批量查询任务结果
-         * Summary: 场景数据任务结果批量查询
+         * Description: 任务结果查询
+         * Summary: 任务结果查询
          */
         public async Task<BatchqueryScenedataTaskresultResponse> BatchqueryScenedataTaskresultExAsync(BatchqueryScenedataTaskresultRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
         {
@@ -581,7 +581,7 @@ namespace AntChain.SDK.SDS
 
         /**
          * Description: 通过批次号查询任务详细信息
-         * Summary: 批次任务信息查询
+         * Summary: 通过批次号查询任务详细信息
          */
         public QueryScenedataTaskinfoResponse QueryScenedataTaskinfo(QueryScenedataTaskinfoRequest request)
         {
@@ -592,7 +592,7 @@ namespace AntChain.SDK.SDS
 
         /**
          * Description: 通过批次号查询任务详细信息
-         * Summary: 批次任务信息查询
+         * Summary: 通过批次号查询任务详细信息
          */
         public async Task<QueryScenedataTaskinfoResponse> QueryScenedataTaskinfoAsync(QueryScenedataTaskinfoRequest request)
         {
@@ -603,7 +603,7 @@ namespace AntChain.SDK.SDS
 
         /**
          * Description: 通过批次号查询任务详细信息
-         * Summary: 批次任务信息查询
+         * Summary: 通过批次号查询任务详细信息
          */
         public QueryScenedataTaskinfoResponse QueryScenedataTaskinfoEx(QueryScenedataTaskinfoRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
         {
@@ -613,7 +613,7 @@ namespace AntChain.SDK.SDS
 
         /**
          * Description: 通过批次号查询任务详细信息
-         * Summary: 批次任务信息查询
+         * Summary: 通过批次号查询任务详细信息
          */
         public async Task<QueryScenedataTaskinfoResponse> QueryScenedataTaskinfoExAsync(QueryScenedataTaskinfoRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
         {
@@ -787,6 +787,48 @@ namespace AntChain.SDK.SDS
         {
             AlibabaCloud.TeaUtil.Common.ValidateModel(request);
             return TeaModel.ToObject<DownloadStockRefundflowResponse>(await DoRequestAsync("1.0", "antchain.sds.stock.refundflow.download", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 【任务修改】修改任务状态，上线的任务可以下线，下线后能够修改任务的动态参数，下线后才能再上线。
+         * Summary: 【任务修改】修改任务状态，上线的任务可以下线，下线后能够修改任务的动态参数，下线后才能再上线。
+         */
+        public UpdateScenedataTaskResponse UpdateScenedataTask(UpdateScenedataTaskRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return UpdateScenedataTaskEx(request, headers, runtime);
+        }
+
+        /**
+         * Description: 【任务修改】修改任务状态，上线的任务可以下线，下线后能够修改任务的动态参数，下线后才能再上线。
+         * Summary: 【任务修改】修改任务状态，上线的任务可以下线，下线后能够修改任务的动态参数，下线后才能再上线。
+         */
+        public async Task<UpdateScenedataTaskResponse> UpdateScenedataTaskAsync(UpdateScenedataTaskRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return await UpdateScenedataTaskExAsync(request, headers, runtime);
+        }
+
+        /**
+         * Description: 【任务修改】修改任务状态，上线的任务可以下线，下线后能够修改任务的动态参数，下线后才能再上线。
+         * Summary: 【任务修改】修改任务状态，上线的任务可以下线，下线后能够修改任务的动态参数，下线后才能再上线。
+         */
+        public UpdateScenedataTaskResponse UpdateScenedataTaskEx(UpdateScenedataTaskRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<UpdateScenedataTaskResponse>(DoRequest("1.0", "antchain.sds.scenedata.task.update", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 【任务修改】修改任务状态，上线的任务可以下线，下线后能够修改任务的动态参数，下线后才能再上线。
+         * Summary: 【任务修改】修改任务状态，上线的任务可以下线，下线后能够修改任务的动态参数，下线后才能再上线。
+         */
+        public async Task<UpdateScenedataTaskResponse> UpdateScenedataTaskExAsync(UpdateScenedataTaskRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<UpdateScenedataTaskResponse>(await DoRequestAsync("1.0", "antchain.sds.scenedata.task.update", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
         }
 
         /**
