@@ -33,11 +33,6 @@ namespace AntChain.SDK.AIGC.Models
         [Validation(Required=true)]
         public string AssetName { get; set; }
 
-        // 资产分组 ID
-        [NameInMap("group_id")]
-        [Validation(Required=true)]
-        public string GroupId { get; set; }
-
     }
 
 }
