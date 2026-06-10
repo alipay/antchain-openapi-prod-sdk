@@ -135,7 +135,7 @@ class Client:
                     'req_msg_id': AntchainUtils.get_nonce(),
                     'access_key': self._access_key_id,
                     'base_sdk_version': 'TeaSDK-2.0',
-                    'sdk_version': '1.6.0',
+                    'sdk_version': '1.7.0',
                     '_prod_code': 'SDS',
                     '_prod_channel': 'default'
                 }
@@ -239,7 +239,7 @@ class Client:
                     'req_msg_id': AntchainUtils.get_nonce(),
                     'access_key': self._access_key_id,
                     'base_sdk_version': 'TeaSDK-2.0',
-                    'sdk_version': '1.6.0',
+                    'sdk_version': '1.7.0',
                     '_prod_code': 'SDS',
                     '_prod_channel': 'default'
                 }
@@ -336,8 +336,8 @@ class Client:
         request: sds_models.SubmitScenedataTaskRequest,
     ) -> sds_models.SubmitScenedataTaskResponse:
         """
-        Description: 客户上传文件以及参数，创建任务，获取批次号异步查询处理结果。
-        Summary: 场景数据批处理任务提交
+        Description: 创建任务，获取批次号。
+        Summary: 创建任务，获取批次号。
         """
         runtime = util_models.RuntimeOptions()
         headers = {}
@@ -348,8 +348,8 @@ class Client:
         request: sds_models.SubmitScenedataTaskRequest,
     ) -> sds_models.SubmitScenedataTaskResponse:
         """
-        Description: 客户上传文件以及参数，创建任务，获取批次号异步查询处理结果。
-        Summary: 场景数据批处理任务提交
+        Description: 创建任务，获取批次号。
+        Summary: 创建任务，获取批次号。
         """
         runtime = util_models.RuntimeOptions()
         headers = {}
@@ -362,8 +362,8 @@ class Client:
         runtime: util_models.RuntimeOptions,
     ) -> sds_models.SubmitScenedataTaskResponse:
         """
-        Description: 客户上传文件以及参数，创建任务，获取批次号异步查询处理结果。
-        Summary: 场景数据批处理任务提交
+        Description: 创建任务，获取批次号。
+        Summary: 创建任务，获取批次号。
         """
         UtilClient.validate_model(request)
         return TeaCore.from_map(
@@ -378,8 +378,8 @@ class Client:
         runtime: util_models.RuntimeOptions,
     ) -> sds_models.SubmitScenedataTaskResponse:
         """
-        Description: 客户上传文件以及参数，创建任务，获取批次号异步查询处理结果。
-        Summary: 场景数据批处理任务提交
+        Description: 创建任务，获取批次号。
+        Summary: 创建任务，获取批次号。
         """
         UtilClient.validate_model(request)
         return TeaCore.from_map(
@@ -484,8 +484,8 @@ class Client:
         request: sds_models.BatchqueryScenedataTaskresultRequest,
     ) -> sds_models.BatchqueryScenedataTaskresultResponse:
         """
-        Description: 场景数据SaaS第一天预处理客户提交的文件处理任务，第二天客户调该接口批量查询任务结果
-        Summary: 场景数据任务结果批量查询
+        Description: 任务结果查询
+        Summary: 任务结果查询
         """
         runtime = util_models.RuntimeOptions()
         headers = {}
@@ -496,8 +496,8 @@ class Client:
         request: sds_models.BatchqueryScenedataTaskresultRequest,
     ) -> sds_models.BatchqueryScenedataTaskresultResponse:
         """
-        Description: 场景数据SaaS第一天预处理客户提交的文件处理任务，第二天客户调该接口批量查询任务结果
-        Summary: 场景数据任务结果批量查询
+        Description: 任务结果查询
+        Summary: 任务结果查询
         """
         runtime = util_models.RuntimeOptions()
         headers = {}
@@ -510,8 +510,8 @@ class Client:
         runtime: util_models.RuntimeOptions,
     ) -> sds_models.BatchqueryScenedataTaskresultResponse:
         """
-        Description: 场景数据SaaS第一天预处理客户提交的文件处理任务，第二天客户调该接口批量查询任务结果
-        Summary: 场景数据任务结果批量查询
+        Description: 任务结果查询
+        Summary: 任务结果查询
         """
         UtilClient.validate_model(request)
         return TeaCore.from_map(
@@ -526,8 +526,8 @@ class Client:
         runtime: util_models.RuntimeOptions,
     ) -> sds_models.BatchqueryScenedataTaskresultResponse:
         """
-        Description: 场景数据SaaS第一天预处理客户提交的文件处理任务，第二天客户调该接口批量查询任务结果
-        Summary: 场景数据任务结果批量查询
+        Description: 任务结果查询
+        Summary: 任务结果查询
         """
         UtilClient.validate_model(request)
         return TeaCore.from_map(
@@ -597,7 +597,7 @@ class Client:
     ) -> sds_models.QueryScenedataTaskinfoResponse:
         """
         Description: 通过批次号查询任务详细信息
-        Summary: 批次任务信息查询
+        Summary: 通过批次号查询任务详细信息
         """
         runtime = util_models.RuntimeOptions()
         headers = {}
@@ -609,7 +609,7 @@ class Client:
     ) -> sds_models.QueryScenedataTaskinfoResponse:
         """
         Description: 通过批次号查询任务详细信息
-        Summary: 批次任务信息查询
+        Summary: 通过批次号查询任务详细信息
         """
         runtime = util_models.RuntimeOptions()
         headers = {}
@@ -623,7 +623,7 @@ class Client:
     ) -> sds_models.QueryScenedataTaskinfoResponse:
         """
         Description: 通过批次号查询任务详细信息
-        Summary: 批次任务信息查询
+        Summary: 通过批次号查询任务详细信息
         """
         UtilClient.validate_model(request)
         return TeaCore.from_map(
@@ -639,7 +639,7 @@ class Client:
     ) -> sds_models.QueryScenedataTaskinfoResponse:
         """
         Description: 通过批次号查询任务详细信息
-        Summary: 批次任务信息查询
+        Summary: 通过批次号查询任务详细信息
         """
         UtilClient.validate_model(request)
         return TeaCore.from_map(
@@ -869,6 +869,62 @@ class Client:
         return TeaCore.from_map(
             sds_models.DownloadStockRefundflowResponse(),
             await self.do_request_async('1.0', 'antchain.sds.stock.refundflow.download', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def update_scenedata_task(
+        self,
+        request: sds_models.UpdateScenedataTaskRequest,
+    ) -> sds_models.UpdateScenedataTaskResponse:
+        """
+        Description: 【任务修改】修改任务状态，上线的任务可以下线，下线后能够修改任务的动态参数，下线后才能再上线。
+        Summary: 【任务修改】修改任务状态，上线的任务可以下线，下线后能够修改任务的动态参数，下线后才能再上线。
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.update_scenedata_task_ex(request, headers, runtime)
+
+    async def update_scenedata_task_async(
+        self,
+        request: sds_models.UpdateScenedataTaskRequest,
+    ) -> sds_models.UpdateScenedataTaskResponse:
+        """
+        Description: 【任务修改】修改任务状态，上线的任务可以下线，下线后能够修改任务的动态参数，下线后才能再上线。
+        Summary: 【任务修改】修改任务状态，上线的任务可以下线，下线后能够修改任务的动态参数，下线后才能再上线。
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.update_scenedata_task_ex_async(request, headers, runtime)
+
+    def update_scenedata_task_ex(
+        self,
+        request: sds_models.UpdateScenedataTaskRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> sds_models.UpdateScenedataTaskResponse:
+        """
+        Description: 【任务修改】修改任务状态，上线的任务可以下线，下线后能够修改任务的动态参数，下线后才能再上线。
+        Summary: 【任务修改】修改任务状态，上线的任务可以下线，下线后能够修改任务的动态参数，下线后才能再上线。
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            sds_models.UpdateScenedataTaskResponse(),
+            self.do_request('1.0', 'antchain.sds.scenedata.task.update', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def update_scenedata_task_ex_async(
+        self,
+        request: sds_models.UpdateScenedataTaskRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> sds_models.UpdateScenedataTaskResponse:
+        """
+        Description: 【任务修改】修改任务状态，上线的任务可以下线，下线后能够修改任务的动态参数，下线后才能再上线。
+        Summary: 【任务修改】修改任务状态，上线的任务可以下线，下线后能够修改任务的动态参数，下线后才能再上线。
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            sds_models.UpdateScenedataTaskResponse(),
+            await self.do_request_async('1.0', 'antchain.sds.scenedata.task.update', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
     def create_antcloud_gatewayx_file_upload(

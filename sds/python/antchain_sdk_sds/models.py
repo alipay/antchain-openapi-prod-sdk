@@ -1210,27 +1210,29 @@ class SubmitScenedataTaskRequest(TeaModel):
         biz_no_type: str = None,
         source_mark: str = None,
         expect_condition: List[BizNoCondition] = None,
+        out_batch_no: str = None,
+        task_type: str = None,
     ):
         # OAuth模式下的授权token
         self.auth_token = auth_token
         self.product_instance_id = product_instance_id
-        # 约定的场景枚举
+        # 【场景】约定的场景枚举
         self.scene = scene
-        # 枚举
-        # PHONE_SHA1
-        # PHONE_MD5
+        # 【业务号类型】该字段逐步废弃，枚举-PHONE_SHA1，PHONE_MD5
         self.biz_no_type = biz_no_type
-        # 适配客户的来源
-        # 可能是客户的任务/AK
+        # 【来源标识】适配客户的来源，可能是客户的任务/AK
         self.source_mark = source_mark
-        # 业务号预期条件
+        # 【动态参数】任务动态参数信息
         self.expect_condition = expect_condition
+        # 【外部批次号】和任务类型组成唯一键
+        self.out_batch_no = out_batch_no
+        # 【任务类型】SDS根据类型触发异步处理流程
+        self.task_type = task_type
 
     def validate(self):
         self.validate_required(self.scene, 'scene')
         if self.scene is not None:
             self.validate_max_length(self.scene, 'scene', 32)
-        self.validate_required(self.biz_no_type, 'biz_no_type')
         if self.biz_no_type is not None:
             self.validate_max_length(self.biz_no_type, 'biz_no_type', 32)
         if self.source_mark is not None:
@@ -1260,6 +1262,10 @@ class SubmitScenedataTaskRequest(TeaModel):
         if self.expect_condition is not None:
             for k in self.expect_condition:
                 result['expect_condition'].append(k.to_map() if k else None)
+        if self.out_batch_no is not None:
+            result['out_batch_no'] = self.out_batch_no
+        if self.task_type is not None:
+            result['task_type'] = self.task_type
         return result
 
     def from_map(self, m: dict = None):
@@ -1279,6 +1285,10 @@ class SubmitScenedataTaskRequest(TeaModel):
             for k in m.get('expect_condition'):
                 temp_model = BizNoCondition()
                 self.expect_condition.append(temp_model.from_map(k))
+        if m.get('out_batch_no') is not None:
+            self.out_batch_no = m.get('out_batch_no')
+        if m.get('task_type') is not None:
+            self.task_type = m.get('task_type')
         return self
 
 
@@ -1470,8 +1480,6 @@ class BatchqueryScenedataTaskresultRequest(TeaModel):
             self.validate_max_length(self.batch_no, 'batch_no', 64)
         if self.cursor is not None:
             self.validate_max_length(self.cursor, 'cursor', 256)
-        if self.sync_num is not None:
-            self.validate_maximum(self.sync_num, 'sync_num', 100)
 
     def to_map(self):
         _map = super().to_map()
@@ -2418,6 +2426,113 @@ class DownloadStockRefundflowResponse(TeaModel):
             self.stock_refundflow_hash = m.get('stock_refundflow_hash')
         if m.get('stock_refundflow_count') is not None:
             self.stock_refundflow_count = m.get('stock_refundflow_count')
+        return self
+
+
+class UpdateScenedataTaskRequest(TeaModel):
+    def __init__(
+        self,
+        auth_token: str = None,
+        product_instance_id: str = None,
+        batch_no: str = None,
+        async_task_status: str = None,
+        expect_condition: List[BizNoCondition] = None,
+    ):
+        # OAuth模式下的授权token
+        self.auth_token = auth_token
+        self.product_instance_id = product_instance_id
+        # 【批次号】submit接口返回的批次号
+        self.batch_no = batch_no
+        # 【异步任务上下线】INIT-初始化异步任务，异步任务开始执行，同时可以修改拓展参数，必须先下线才能初始化。INVALID-下线异步任务，停止异步任务执行。传空不修改。一次只能提一个任务状态变更。
+        self.async_task_status = async_task_status
+        # 【拓展参数】下线后，可以修改拓展参数，再次上线后生效。处理该拓展参数的任务，需要对参数做校验，避免参数改动太大，任务恢复异常。
+        self.expect_condition = expect_condition
+
+    def validate(self):
+        self.validate_required(self.batch_no, 'batch_no')
+        self.validate_required(self.async_task_status, 'async_task_status')
+        if self.expect_condition:
+            for k in self.expect_condition:
+                if k:
+                    k.validate()
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.auth_token is not None:
+            result['auth_token'] = self.auth_token
+        if self.product_instance_id is not None:
+            result['product_instance_id'] = self.product_instance_id
+        if self.batch_no is not None:
+            result['batch_no'] = self.batch_no
+        if self.async_task_status is not None:
+            result['async_task_status'] = self.async_task_status
+        result['expect_condition'] = []
+        if self.expect_condition is not None:
+            for k in self.expect_condition:
+                result['expect_condition'].append(k.to_map() if k else None)
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('auth_token') is not None:
+            self.auth_token = m.get('auth_token')
+        if m.get('product_instance_id') is not None:
+            self.product_instance_id = m.get('product_instance_id')
+        if m.get('batch_no') is not None:
+            self.batch_no = m.get('batch_no')
+        if m.get('async_task_status') is not None:
+            self.async_task_status = m.get('async_task_status')
+        self.expect_condition = []
+        if m.get('expect_condition') is not None:
+            for k in m.get('expect_condition'):
+                temp_model = BizNoCondition()
+                self.expect_condition.append(temp_model.from_map(k))
+        return self
+
+
+class UpdateScenedataTaskResponse(TeaModel):
+    def __init__(
+        self,
+        req_msg_id: str = None,
+        result_code: str = None,
+        result_msg: str = None,
+    ):
+        # 请求唯一ID，用于链路跟踪和问题排查
+        self.req_msg_id = req_msg_id
+        # 结果码，一般OK表示调用成功
+        self.result_code = result_code
+        # 异常信息的文本描述
+        self.result_msg = result_msg
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.req_msg_id is not None:
+            result['req_msg_id'] = self.req_msg_id
+        if self.result_code is not None:
+            result['result_code'] = self.result_code
+        if self.result_msg is not None:
+            result['result_msg'] = self.result_msg
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('req_msg_id') is not None:
+            self.req_msg_id = m.get('req_msg_id')
+        if m.get('result_code') is not None:
+            self.result_code = m.get('result_code')
+        if m.get('result_msg') is not None:
+            self.result_msg = m.get('result_msg')
         return self
 
 
