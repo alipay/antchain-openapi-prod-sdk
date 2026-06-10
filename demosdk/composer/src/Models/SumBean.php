@@ -8,26 +8,51 @@ use AlibabaCloud\Tea\Model;
 
 class SumBean extends Model
 {
-    // 1
+    // 元素名称
     /**
-     * @example 1
+     * @example 张三
+     *
+     * @var string
+     */
+    public $eName;
+
+    // 数量
+    /**
+     * @example 23
      *
      * @var int
      */
-    public $a;
+    public $num;
+
+    // test
+    /**
+     * @example undefined
+     *
+     * @var ResultTests
+     */
+    public $info;
     protected $_name = [
-        'a' => 'a',
+        'eName' => 'e_name',
+        'num'   => 'num',
+        'info'  => 'info',
     ];
 
     public function validate()
     {
+        Model::validateRequired('info', $this->info, true);
     }
 
     public function toMap()
     {
         $res = [];
-        if (null !== $this->a) {
-            $res['a'] = $this->a;
+        if (null !== $this->eName) {
+            $res['e_name'] = $this->eName;
+        }
+        if (null !== $this->num) {
+            $res['num'] = $this->num;
+        }
+        if (null !== $this->info) {
+            $res['info'] = null !== $this->info ? $this->info->toMap() : null;
         }
 
         return $res;
@@ -41,8 +66,14 @@ class SumBean extends Model
     public static function fromMap($map = [])
     {
         $model = new self();
-        if (isset($map['a'])) {
-            $model->a = $map['a'];
+        if (isset($map['e_name'])) {
+            $model->eName = $map['e_name'];
+        }
+        if (isset($map['num'])) {
+            $model->num = $map['num'];
+        }
+        if (isset($map['info'])) {
+            $model->info = ResultTests::fromMap($map['info']);
         }
 
         return $model;
