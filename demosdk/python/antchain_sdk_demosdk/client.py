@@ -110,7 +110,7 @@ class Client:
                 'period': UtilClient.default_number(runtime.backoff_period, 1)
             },
             'ignoreSSL': runtime.ignore_ssl,
-            # test
+            # Demo类1
         }
         _last_request = None
         _last_exception = None
@@ -135,7 +135,7 @@ class Client:
                     'req_msg_id': AntchainUtils.get_nonce(),
                     'access_key': self._access_key_id,
                     'base_sdk_version': 'TeaSDK-2.0',
-                    'sdk_version': '1.3.45',
+                    'sdk_version': '1.4.7',
                     '_prod_code': 'DEMOSDK',
                     '_prod_channel': 'default'
                 }
@@ -214,7 +214,7 @@ class Client:
                 'period': UtilClient.default_number(runtime.backoff_period, 1)
             },
             'ignoreSSL': runtime.ignore_ssl,
-            # test
+            # Demo类1
         }
         _last_request = None
         _last_exception = None
@@ -239,7 +239,7 @@ class Client:
                     'req_msg_id': AntchainUtils.get_nonce(),
                     'access_key': self._access_key_id,
                     'base_sdk_version': 'TeaSDK-2.0',
-                    'sdk_version': '1.3.45',
+                    'sdk_version': '1.4.7',
                     '_prod_code': 'DEMOSDK',
                     '_prod_channel': 'default'
                 }
@@ -275,116 +275,1008 @@ class Client:
                 raise e
         raise UnretryableException(_last_request, _last_exception)
 
-    def test_struct_online(
+    def query_testapi(
         self,
-        request: demosdk_models.TestStructOnlineRequest,
-    ) -> demosdk_models.TestStructOnlineResponse:
+        request: demosdk_models.QueryTestapiRequest,
+    ) -> demosdk_models.QueryTestapiResponse:
         """
-        Description: 用于结构体上线测试
-        Summary: 用于结构体上线测试
+        Description: 测试接口
+        Summary: 测试接口
         """
         runtime = util_models.RuntimeOptions()
         headers = {}
-        return self.test_struct_online_ex(request, headers, runtime)
+        return self.query_testapi_ex(request, headers, runtime)
 
-    async def test_struct_online_async(
+    async def query_testapi_async(
         self,
-        request: demosdk_models.TestStructOnlineRequest,
-    ) -> demosdk_models.TestStructOnlineResponse:
+        request: demosdk_models.QueryTestapiRequest,
+    ) -> demosdk_models.QueryTestapiResponse:
         """
-        Description: 用于结构体上线测试
-        Summary: 用于结构体上线测试
+        Description: 测试接口
+        Summary: 测试接口
         """
         runtime = util_models.RuntimeOptions()
         headers = {}
-        return await self.test_struct_online_ex_async(request, headers, runtime)
+        return await self.query_testapi_ex_async(request, headers, runtime)
 
-    def test_struct_online_ex(
+    def query_testapi_ex(
         self,
-        request: demosdk_models.TestStructOnlineRequest,
+        request: demosdk_models.QueryTestapiRequest,
         headers: Dict[str, str],
         runtime: util_models.RuntimeOptions,
-    ) -> demosdk_models.TestStructOnlineResponse:
+    ) -> demosdk_models.QueryTestapiResponse:
         """
-        Description: 用于结构体上线测试
-        Summary: 用于结构体上线测试
+        Description: 测试接口
+        Summary: 测试接口
         """
         UtilClient.validate_model(request)
         return TeaCore.from_map(
-            demosdk_models.TestStructOnlineResponse(),
-            self.do_request('1.0', 'antchain.demosdk.struct.online.test', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+            demosdk_models.QueryTestapiResponse(),
+            self.do_request('1.0', 'antchain.demosdk.testapi.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
-    async def test_struct_online_ex_async(
+    async def query_testapi_ex_async(
         self,
-        request: demosdk_models.TestStructOnlineRequest,
+        request: demosdk_models.QueryTestapiRequest,
         headers: Dict[str, str],
         runtime: util_models.RuntimeOptions,
-    ) -> demosdk_models.TestStructOnlineResponse:
+    ) -> demosdk_models.QueryTestapiResponse:
         """
-        Description: 用于结构体上线测试
-        Summary: 用于结构体上线测试
+        Description: 测试接口
+        Summary: 测试接口
         """
         UtilClient.validate_model(request)
         return TeaCore.from_map(
-            demosdk_models.TestStructOnlineResponse(),
-            await self.do_request_async('1.0', 'antchain.demosdk.struct.online.test', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+            demosdk_models.QueryTestapiResponse(),
+            await self.do_request_async('1.0', 'antchain.demosdk.testapi.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
-    def testa_struct_create(
+    def remark_test(
         self,
-        request: demosdk_models.TestaStructCreateRequest,
-    ) -> demosdk_models.TestaStructCreateResponse:
+        request: demosdk_models.RemarkTestRequest,
+    ) -> demosdk_models.RemarkTestResponse:
         """
-        Description: 结构体测试·edit for test18
-        Summary: 结构体测试·edit for test18
+        Description: 123
+        Summary: 123
         """
         runtime = util_models.RuntimeOptions()
         headers = {}
-        return self.testa_struct_create_ex(request, headers, runtime)
+        return self.remark_test_ex(request, headers, runtime)
 
-    async def testa_struct_create_async(
+    async def remark_test_async(
         self,
-        request: demosdk_models.TestaStructCreateRequest,
-    ) -> demosdk_models.TestaStructCreateResponse:
+        request: demosdk_models.RemarkTestRequest,
+    ) -> demosdk_models.RemarkTestResponse:
         """
-        Description: 结构体测试·edit for test18
-        Summary: 结构体测试·edit for test18
+        Description: 123
+        Summary: 123
         """
         runtime = util_models.RuntimeOptions()
         headers = {}
-        return await self.testa_struct_create_ex_async(request, headers, runtime)
+        return await self.remark_test_ex_async(request, headers, runtime)
 
-    def testa_struct_create_ex(
+    def remark_test_ex(
         self,
-        request: demosdk_models.TestaStructCreateRequest,
+        request: demosdk_models.RemarkTestRequest,
         headers: Dict[str, str],
         runtime: util_models.RuntimeOptions,
-    ) -> demosdk_models.TestaStructCreateResponse:
+    ) -> demosdk_models.RemarkTestResponse:
         """
-        Description: 结构体测试·edit for test18
-        Summary: 结构体测试·edit for test18
+        Description: 123
+        Summary: 123
         """
         UtilClient.validate_model(request)
         return TeaCore.from_map(
-            demosdk_models.TestaStructCreateResponse(),
-            self.do_request('1.0', 'antchain.demosdk.struct.create.testa', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+            demosdk_models.RemarkTestResponse(),
+            self.do_request('1.0', 'antchain.demosdk.test.remark', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
-    async def testa_struct_create_ex_async(
+    async def remark_test_ex_async(
         self,
-        request: demosdk_models.TestaStructCreateRequest,
+        request: demosdk_models.RemarkTestRequest,
         headers: Dict[str, str],
         runtime: util_models.RuntimeOptions,
-    ) -> demosdk_models.TestaStructCreateResponse:
+    ) -> demosdk_models.RemarkTestResponse:
         """
-        Description: 结构体测试·edit for test18
-        Summary: 结构体测试·edit for test18
+        Description: 123
+        Summary: 123
         """
         UtilClient.validate_model(request)
         return TeaCore.from_map(
-            demosdk_models.TestaStructCreateResponse(),
-            await self.do_request_async('1.0', 'antchain.demosdk.struct.create.testa', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+            demosdk_models.RemarkTestResponse(),
+            await self.do_request_async('1.0', 'antchain.demosdk.test.remark', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def test_pre_full(
+        self,
+        request: demosdk_models.TestPreFullRequest,
+    ) -> demosdk_models.TestPreFullResponse:
+        """
+        Description: 1
+        Summary: 1
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.test_pre_full_ex(request, headers, runtime)
+
+    async def test_pre_full_async(
+        self,
+        request: demosdk_models.TestPreFullRequest,
+    ) -> demosdk_models.TestPreFullResponse:
+        """
+        Description: 1
+        Summary: 1
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.test_pre_full_ex_async(request, headers, runtime)
+
+    def test_pre_full_ex(
+        self,
+        request: demosdk_models.TestPreFullRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> demosdk_models.TestPreFullResponse:
+        """
+        Description: 1
+        Summary: 1
+        """
+        if not UtilClient.is_unset(request.file_object):
+            upload_req = demosdk_models.CreateAntcloudGatewayxFileUploadRequest(
+                auth_token=request.auth_token,
+                api_code='antchain.demosdk.pre.full.test',
+                file_name=request.file_object_name
+            )
+            upload_resp = self.create_antcloud_gatewayx_file_upload_ex(upload_req, headers, runtime)
+            if not AntchainUtils.is_success(upload_resp.result_code, 'ok'):
+                test_pre_full_response = demosdk_models.TestPreFullResponse(
+                    req_msg_id=upload_resp.req_msg_id,
+                    result_code=upload_resp.result_code,
+                    result_msg=upload_resp.result_msg
+                )
+                return test_pre_full_response
+            upload_headers = AntchainUtils.parse_upload_headers(upload_resp.upload_headers)
+            AntchainUtils.put_object(request.file_object, upload_headers, upload_resp.upload_url)
+            request.file_id = upload_resp.file_id
+            request.file_object = None
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            demosdk_models.TestPreFullResponse(),
+            self.do_request('1.0', 'antchain.demosdk.pre.full.test', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def test_pre_full_ex_async(
+        self,
+        request: demosdk_models.TestPreFullRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> demosdk_models.TestPreFullResponse:
+        """
+        Description: 1
+        Summary: 1
+        """
+        if not UtilClient.is_unset(request.file_object):
+            upload_req = demosdk_models.CreateAntcloudGatewayxFileUploadRequest(
+                auth_token=request.auth_token,
+                api_code='antchain.demosdk.pre.full.test',
+                file_name=request.file_object_name
+            )
+            upload_resp = await self.create_antcloud_gatewayx_file_upload_ex_async(upload_req, headers, runtime)
+            if not AntchainUtils.is_success(upload_resp.result_code, 'ok'):
+                test_pre_full_response = demosdk_models.TestPreFullResponse(
+                    req_msg_id=upload_resp.req_msg_id,
+                    result_code=upload_resp.result_code,
+                    result_msg=upload_resp.result_msg
+                )
+                return test_pre_full_response
+            upload_headers = AntchainUtils.parse_upload_headers(upload_resp.upload_headers)
+            await AntchainUtils.put_object_async(request.file_object, upload_headers, upload_resp.upload_url)
+            request.file_id = upload_resp.file_id
+            request.file_object = None
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            demosdk_models.TestPreFullResponse(),
+            await self.do_request_async('1.0', 'antchain.demosdk.pre.full.test', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def query_tum(
+        self,
+        request: demosdk_models.QueryTumRequest,
+    ) -> demosdk_models.QueryTumResponse:
+        """
+        Description: 测试
+        Summary: 测试
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.query_tum_ex(request, headers, runtime)
+
+    async def query_tum_async(
+        self,
+        request: demosdk_models.QueryTumRequest,
+    ) -> demosdk_models.QueryTumResponse:
+        """
+        Description: 测试
+        Summary: 测试
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.query_tum_ex_async(request, headers, runtime)
+
+    def query_tum_ex(
+        self,
+        request: demosdk_models.QueryTumRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> demosdk_models.QueryTumResponse:
+        """
+        Description: 测试
+        Summary: 测试
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            demosdk_models.QueryTumResponse(),
+            self.do_request('1.0', 'antchain.demosdk.tum.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def query_tum_ex_async(
+        self,
+        request: demosdk_models.QueryTumRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> demosdk_models.QueryTumResponse:
+        """
+        Description: 测试
+        Summary: 测试
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            demosdk_models.QueryTumResponse(),
+            await self.do_request_async('1.0', 'antchain.demosdk.tum.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def query_tesx(
+        self,
+        request: demosdk_models.QueryTesxRequest,
+    ) -> demosdk_models.QueryTesxResponse:
+        """
+        Description: 测试接口
+        Summary: 测试接口
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.query_tesx_ex(request, headers, runtime)
+
+    async def query_tesx_async(
+        self,
+        request: demosdk_models.QueryTesxRequest,
+    ) -> demosdk_models.QueryTesxResponse:
+        """
+        Description: 测试接口
+        Summary: 测试接口
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.query_tesx_ex_async(request, headers, runtime)
+
+    def query_tesx_ex(
+        self,
+        request: demosdk_models.QueryTesxRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> demosdk_models.QueryTesxResponse:
+        """
+        Description: 测试接口
+        Summary: 测试接口
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            demosdk_models.QueryTesxResponse(),
+            self.do_request('1.0', 'antchain.demosdk.tesx.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def query_tesx_ex_async(
+        self,
+        request: demosdk_models.QueryTesxRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> demosdk_models.QueryTesxResponse:
+        """
+        Description: 测试接口
+        Summary: 测试接口
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            demosdk_models.QueryTesxResponse(),
+            await self.do_request_async('1.0', 'antchain.demosdk.tesx.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def aaav_test_liuyz(
+        self,
+        request: demosdk_models.AaavTestLiuyzRequest,
+    ) -> demosdk_models.AaavTestLiuyzResponse:
+        """
+        Description: 工作台测试接口
+        Summary: 工作台测试接口
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.aaav_test_liuyz_ex(request, headers, runtime)
+
+    async def aaav_test_liuyz_async(
+        self,
+        request: demosdk_models.AaavTestLiuyzRequest,
+    ) -> demosdk_models.AaavTestLiuyzResponse:
+        """
+        Description: 工作台测试接口
+        Summary: 工作台测试接口
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.aaav_test_liuyz_ex_async(request, headers, runtime)
+
+    def aaav_test_liuyz_ex(
+        self,
+        request: demosdk_models.AaavTestLiuyzRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> demosdk_models.AaavTestLiuyzResponse:
+        """
+        Description: 工作台测试接口
+        Summary: 工作台测试接口
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            demosdk_models.AaavTestLiuyzResponse(),
+            self.do_request('1.0', 'antchain.demosdk.test.liuyz.aaav', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def aaav_test_liuyz_ex_async(
+        self,
+        request: demosdk_models.AaavTestLiuyzRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> demosdk_models.AaavTestLiuyzResponse:
+        """
+        Description: 工作台测试接口
+        Summary: 工作台测试接口
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            demosdk_models.AaavTestLiuyzResponse(),
+            await self.do_request_async('1.0', 'antchain.demosdk.test.liuyz.aaav', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def query_syhf(
+        self,
+        request: demosdk_models.QuerySyhfRequest,
+    ) -> demosdk_models.QuerySyhfResponse:
+        """
+        Description: test
+        Summary: test
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.query_syhf_ex(request, headers, runtime)
+
+    async def query_syhf_async(
+        self,
+        request: demosdk_models.QuerySyhfRequest,
+    ) -> demosdk_models.QuerySyhfResponse:
+        """
+        Description: test
+        Summary: test
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.query_syhf_ex_async(request, headers, runtime)
+
+    def query_syhf_ex(
+        self,
+        request: demosdk_models.QuerySyhfRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> demosdk_models.QuerySyhfResponse:
+        """
+        Description: test
+        Summary: test
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            demosdk_models.QuerySyhfResponse(),
+            self.do_request('1.0', 'antchain.demosdk.syhf.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def query_syhf_ex_async(
+        self,
+        request: demosdk_models.QuerySyhfRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> demosdk_models.QuerySyhfResponse:
+        """
+        Description: test
+        Summary: test
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            demosdk_models.QuerySyhfResponse(),
+            await self.do_request_async('1.0', 'antchain.demosdk.syhf.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def query_bbb_ccc(
+        self,
+        request: demosdk_models.QueryBbbCccRequest,
+    ) -> demosdk_models.QueryBbbCccResponse:
+        """
+        Description: 测试sdk打包用
+        Summary: 测试sdk打包用
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.query_bbb_ccc_ex(request, headers, runtime)
+
+    async def query_bbb_ccc_async(
+        self,
+        request: demosdk_models.QueryBbbCccRequest,
+    ) -> demosdk_models.QueryBbbCccResponse:
+        """
+        Description: 测试sdk打包用
+        Summary: 测试sdk打包用
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.query_bbb_ccc_ex_async(request, headers, runtime)
+
+    def query_bbb_ccc_ex(
+        self,
+        request: demosdk_models.QueryBbbCccRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> demosdk_models.QueryBbbCccResponse:
+        """
+        Description: 测试sdk打包用
+        Summary: 测试sdk打包用
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            demosdk_models.QueryBbbCccResponse(),
+            self.do_request('1.0', 'antchain.demosdk.bbb.ccc.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def query_bbb_ccc_ex_async(
+        self,
+        request: demosdk_models.QueryBbbCccRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> demosdk_models.QueryBbbCccResponse:
+        """
+        Description: 测试sdk打包用
+        Summary: 测试sdk打包用
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            demosdk_models.QueryBbbCccResponse(),
+            await self.do_request_async('1.0', 'antchain.demosdk.bbb.ccc.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def import_bbb_cci(
+        self,
+        request: demosdk_models.ImportBbbCciRequest,
+    ) -> demosdk_models.ImportBbbCciResponse:
+        """
+        Description: 测试用
+        Summary: 测试用
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.import_bbb_cci_ex(request, headers, runtime)
+
+    async def import_bbb_cci_async(
+        self,
+        request: demosdk_models.ImportBbbCciRequest,
+    ) -> demosdk_models.ImportBbbCciResponse:
+        """
+        Description: 测试用
+        Summary: 测试用
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.import_bbb_cci_ex_async(request, headers, runtime)
+
+    def import_bbb_cci_ex(
+        self,
+        request: demosdk_models.ImportBbbCciRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> demosdk_models.ImportBbbCciResponse:
+        """
+        Description: 测试用
+        Summary: 测试用
+        """
+        if not UtilClient.is_unset(request.file_object):
+            upload_req = demosdk_models.CreateAntcloudGatewayxFileUploadRequest(
+                auth_token=request.auth_token,
+                api_code='antchain.demosdk.bbb.cci.import',
+                file_name=request.file_object_name
+            )
+            upload_resp = self.create_antcloud_gatewayx_file_upload_ex(upload_req, headers, runtime)
+            if not AntchainUtils.is_success(upload_resp.result_code, 'ok'):
+                import_bbb_cci_response = demosdk_models.ImportBbbCciResponse(
+                    req_msg_id=upload_resp.req_msg_id,
+                    result_code=upload_resp.result_code,
+                    result_msg=upload_resp.result_msg
+                )
+                return import_bbb_cci_response
+            upload_headers = AntchainUtils.parse_upload_headers(upload_resp.upload_headers)
+            AntchainUtils.put_object(request.file_object, upload_headers, upload_resp.upload_url)
+            request.file_id = upload_resp.file_id
+            request.file_object = None
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            demosdk_models.ImportBbbCciResponse(),
+            self.do_request('1.0', 'antchain.demosdk.bbb.cci.import', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def import_bbb_cci_ex_async(
+        self,
+        request: demosdk_models.ImportBbbCciRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> demosdk_models.ImportBbbCciResponse:
+        """
+        Description: 测试用
+        Summary: 测试用
+        """
+        if not UtilClient.is_unset(request.file_object):
+            upload_req = demosdk_models.CreateAntcloudGatewayxFileUploadRequest(
+                auth_token=request.auth_token,
+                api_code='antchain.demosdk.bbb.cci.import',
+                file_name=request.file_object_name
+            )
+            upload_resp = await self.create_antcloud_gatewayx_file_upload_ex_async(upload_req, headers, runtime)
+            if not AntchainUtils.is_success(upload_resp.result_code, 'ok'):
+                import_bbb_cci_response = demosdk_models.ImportBbbCciResponse(
+                    req_msg_id=upload_resp.req_msg_id,
+                    result_code=upload_resp.result_code,
+                    result_msg=upload_resp.result_msg
+                )
+                return import_bbb_cci_response
+            upload_headers = AntchainUtils.parse_upload_headers(upload_resp.upload_headers)
+            await AntchainUtils.put_object_async(request.file_object, upload_headers, upload_resp.upload_url)
+            request.file_id = upload_resp.file_id
+            request.file_object = None
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            demosdk_models.ImportBbbCciResponse(),
+            await self.do_request_async('1.0', 'antchain.demosdk.bbb.cci.import', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def query_time_limit(
+        self,
+        request: demosdk_models.QueryTimeLimitRequest,
+    ) -> demosdk_models.QueryTimeLimitResponse:
+        """
+        Description: 个人工作台二期全链路测试接口1
+        Summary: 个人工作台二期全链路测试接口1
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.query_time_limit_ex(request, headers, runtime)
+
+    async def query_time_limit_async(
+        self,
+        request: demosdk_models.QueryTimeLimitRequest,
+    ) -> demosdk_models.QueryTimeLimitResponse:
+        """
+        Description: 个人工作台二期全链路测试接口1
+        Summary: 个人工作台二期全链路测试接口1
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.query_time_limit_ex_async(request, headers, runtime)
+
+    def query_time_limit_ex(
+        self,
+        request: demosdk_models.QueryTimeLimitRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> demosdk_models.QueryTimeLimitResponse:
+        """
+        Description: 个人工作台二期全链路测试接口1
+        Summary: 个人工作台二期全链路测试接口1
+        """
+        if not UtilClient.is_unset(request.file_object):
+            upload_req = demosdk_models.CreateAntcloudGatewayxFileUploadRequest(
+                auth_token=request.auth_token,
+                api_code='antchain.demosdk.time.limit.query',
+                file_name=request.file_object_name
+            )
+            upload_resp = self.create_antcloud_gatewayx_file_upload_ex(upload_req, headers, runtime)
+            if not AntchainUtils.is_success(upload_resp.result_code, 'ok'):
+                query_time_limit_response = demosdk_models.QueryTimeLimitResponse(
+                    req_msg_id=upload_resp.req_msg_id,
+                    result_code=upload_resp.result_code,
+                    result_msg=upload_resp.result_msg
+                )
+                return query_time_limit_response
+            upload_headers = AntchainUtils.parse_upload_headers(upload_resp.upload_headers)
+            AntchainUtils.put_object(request.file_object, upload_headers, upload_resp.upload_url)
+            request.file_id = upload_resp.file_id
+            request.file_object = None
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            demosdk_models.QueryTimeLimitResponse(),
+            self.do_request('1.0', 'antchain.demosdk.time.limit.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def query_time_limit_ex_async(
+        self,
+        request: demosdk_models.QueryTimeLimitRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> demosdk_models.QueryTimeLimitResponse:
+        """
+        Description: 个人工作台二期全链路测试接口1
+        Summary: 个人工作台二期全链路测试接口1
+        """
+        if not UtilClient.is_unset(request.file_object):
+            upload_req = demosdk_models.CreateAntcloudGatewayxFileUploadRequest(
+                auth_token=request.auth_token,
+                api_code='antchain.demosdk.time.limit.query',
+                file_name=request.file_object_name
+            )
+            upload_resp = await self.create_antcloud_gatewayx_file_upload_ex_async(upload_req, headers, runtime)
+            if not AntchainUtils.is_success(upload_resp.result_code, 'ok'):
+                query_time_limit_response = demosdk_models.QueryTimeLimitResponse(
+                    req_msg_id=upload_resp.req_msg_id,
+                    result_code=upload_resp.result_code,
+                    result_msg=upload_resp.result_msg
+                )
+                return query_time_limit_response
+            upload_headers = AntchainUtils.parse_upload_headers(upload_resp.upload_headers)
+            await AntchainUtils.put_object_async(request.file_object, upload_headers, upload_resp.upload_url)
+            request.file_id = upload_resp.file_id
+            request.file_object = None
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            demosdk_models.QueryTimeLimitResponse(),
+            await self.do_request_async('1.0', 'antchain.demosdk.time.limit.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def query_cache_limit(
+        self,
+        request: demosdk_models.QueryCacheLimitRequest,
+    ) -> demosdk_models.QueryCacheLimitResponse:
+        """
+        Description: 个人工作台二期测试接口2
+        Summary: 个人工作台二期测试接口2
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.query_cache_limit_ex(request, headers, runtime)
+
+    async def query_cache_limit_async(
+        self,
+        request: demosdk_models.QueryCacheLimitRequest,
+    ) -> demosdk_models.QueryCacheLimitResponse:
+        """
+        Description: 个人工作台二期测试接口2
+        Summary: 个人工作台二期测试接口2
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.query_cache_limit_ex_async(request, headers, runtime)
+
+    def query_cache_limit_ex(
+        self,
+        request: demosdk_models.QueryCacheLimitRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> demosdk_models.QueryCacheLimitResponse:
+        """
+        Description: 个人工作台二期测试接口2
+        Summary: 个人工作台二期测试接口2
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            demosdk_models.QueryCacheLimitResponse(),
+            self.do_request('1.0', 'antchain.demosdk.cache.limit.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def query_cache_limit_ex_async(
+        self,
+        request: demosdk_models.QueryCacheLimitRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> demosdk_models.QueryCacheLimitResponse:
+        """
+        Description: 个人工作台二期测试接口2
+        Summary: 个人工作台二期测试接口2
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            demosdk_models.QueryCacheLimitResponse(),
+            await self.do_request_async('1.0', 'antchain.demosdk.cache.limit.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def query_bbb_eee(
+        self,
+        request: demosdk_models.QueryBbbEeeRequest,
+    ) -> demosdk_models.QueryBbbEeeResponse:
+        """
+        Description: 测试接口
+        Summary: 测试接口
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.query_bbb_eee_ex(request, headers, runtime)
+
+    async def query_bbb_eee_async(
+        self,
+        request: demosdk_models.QueryBbbEeeRequest,
+    ) -> demosdk_models.QueryBbbEeeResponse:
+        """
+        Description: 测试接口
+        Summary: 测试接口
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.query_bbb_eee_ex_async(request, headers, runtime)
+
+    def query_bbb_eee_ex(
+        self,
+        request: demosdk_models.QueryBbbEeeRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> demosdk_models.QueryBbbEeeResponse:
+        """
+        Description: 测试接口
+        Summary: 测试接口
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            demosdk_models.QueryBbbEeeResponse(),
+            self.do_request('1.0', 'antchain.demosdk.bbb.eee.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def query_bbb_eee_ex_async(
+        self,
+        request: demosdk_models.QueryBbbEeeRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> demosdk_models.QueryBbbEeeResponse:
+        """
+        Description: 测试接口
+        Summary: 测试接口
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            demosdk_models.QueryBbbEeeResponse(),
+            await self.do_request_async('1.0', 'antchain.demosdk.bbb.eee.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def query_aaa_test(
+        self,
+        request: demosdk_models.QueryAaaTestRequest,
+    ) -> demosdk_models.QueryAaaTestResponse:
+        """
+        Description: 测试用
+        Summary: 测试用
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.query_aaa_test_ex(request, headers, runtime)
+
+    async def query_aaa_test_async(
+        self,
+        request: demosdk_models.QueryAaaTestRequest,
+    ) -> demosdk_models.QueryAaaTestResponse:
+        """
+        Description: 测试用
+        Summary: 测试用
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.query_aaa_test_ex_async(request, headers, runtime)
+
+    def query_aaa_test_ex(
+        self,
+        request: demosdk_models.QueryAaaTestRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> demosdk_models.QueryAaaTestResponse:
+        """
+        Description: 测试用
+        Summary: 测试用
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            demosdk_models.QueryAaaTestResponse(),
+            self.do_request('1.0', 'antchain.demosdk.aaa.test.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def query_aaa_test_ex_async(
+        self,
+        request: demosdk_models.QueryAaaTestRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> demosdk_models.QueryAaaTestResponse:
+        """
+        Description: 测试用
+        Summary: 测试用
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            demosdk_models.QueryAaaTestResponse(),
+            await self.do_request_async('1.0', 'antchain.demosdk.aaa.test.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def stabilize_bbb_ccc(
+        self,
+        request: demosdk_models.StabilizeBbbCccRequest,
+    ) -> demosdk_models.StabilizeBbbCccResponse:
+        """
+        Description: 测试
+        Summary: 测试
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.stabilize_bbb_ccc_ex(request, headers, runtime)
+
+    async def stabilize_bbb_ccc_async(
+        self,
+        request: demosdk_models.StabilizeBbbCccRequest,
+    ) -> demosdk_models.StabilizeBbbCccResponse:
+        """
+        Description: 测试
+        Summary: 测试
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.stabilize_bbb_ccc_ex_async(request, headers, runtime)
+
+    def stabilize_bbb_ccc_ex(
+        self,
+        request: demosdk_models.StabilizeBbbCccRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> demosdk_models.StabilizeBbbCccResponse:
+        """
+        Description: 测试
+        Summary: 测试
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            demosdk_models.StabilizeBbbCccResponse(),
+            self.do_request('1.0', 'antchain.demosdk.bbb.ccc.stabilize', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def stabilize_bbb_ccc_ex_async(
+        self,
+        request: demosdk_models.StabilizeBbbCccRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> demosdk_models.StabilizeBbbCccResponse:
+        """
+        Description: 测试
+        Summary: 测试
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            demosdk_models.StabilizeBbbCccResponse(),
+            await self.do_request_async('1.0', 'antchain.demosdk.bbb.ccc.stabilize', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def query_multi_ccc(
+        self,
+        request: demosdk_models.QueryMultiCccRequest,
+    ) -> demosdk_models.QueryMultiCccResponse:
+        """
+        Description: r
+        Summary: r
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.query_multi_ccc_ex(request, headers, runtime)
+
+    async def query_multi_ccc_async(
+        self,
+        request: demosdk_models.QueryMultiCccRequest,
+    ) -> demosdk_models.QueryMultiCccResponse:
+        """
+        Description: r
+        Summary: r
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.query_multi_ccc_ex_async(request, headers, runtime)
+
+    def query_multi_ccc_ex(
+        self,
+        request: demosdk_models.QueryMultiCccRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> demosdk_models.QueryMultiCccResponse:
+        """
+        Description: r
+        Summary: r
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            demosdk_models.QueryMultiCccResponse(),
+            self.do_request('1.0', 'antchain.demosdk.multi.ccc.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def query_multi_ccc_ex_async(
+        self,
+        request: demosdk_models.QueryMultiCccRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> demosdk_models.QueryMultiCccResponse:
+        """
+        Description: r
+        Summary: r
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            demosdk_models.QueryMultiCccResponse(),
+            await self.do_request_async('1.0', 'antchain.demosdk.multi.ccc.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def query_aaa_cci(
+        self,
+        request: demosdk_models.QueryAaaCciRequest,
+    ) -> demosdk_models.QueryAaaCciResponse:
+        """
+        Description: l
+        Summary: l
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.query_aaa_cci_ex(request, headers, runtime)
+
+    async def query_aaa_cci_async(
+        self,
+        request: demosdk_models.QueryAaaCciRequest,
+    ) -> demosdk_models.QueryAaaCciResponse:
+        """
+        Description: l
+        Summary: l
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.query_aaa_cci_ex_async(request, headers, runtime)
+
+    def query_aaa_cci_ex(
+        self,
+        request: demosdk_models.QueryAaaCciRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> demosdk_models.QueryAaaCciResponse:
+        """
+        Description: l
+        Summary: l
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            demosdk_models.QueryAaaCciResponse(),
+            self.do_request('1.0', 'antchain.demosdk.aaa.cci.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def query_aaa_cci_ex_async(
+        self,
+        request: demosdk_models.QueryAaaCciRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> demosdk_models.QueryAaaCciResponse:
+        """
+        Description: l
+        Summary: l
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            demosdk_models.QueryAaaCciResponse(),
+            await self.do_request_async('1.0', 'antchain.demosdk.aaa.cci.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
     def query_aaa_sdk(
@@ -449,7 +1341,7 @@ class Client:
     ) -> demosdk_models.QueryMultiCciuResponse:
         """
         Description: l
-        Summary: l
+        Summary: 测试
         """
         runtime = util_models.RuntimeOptions()
         headers = {}
@@ -461,7 +1353,7 @@ class Client:
     ) -> demosdk_models.QueryMultiCciuResponse:
         """
         Description: l
-        Summary: l
+        Summary: 测试
         """
         runtime = util_models.RuntimeOptions()
         headers = {}
@@ -475,7 +1367,7 @@ class Client:
     ) -> demosdk_models.QueryMultiCciuResponse:
         """
         Description: l
-        Summary: l
+        Summary: 测试
         """
         UtilClient.validate_model(request)
         return TeaCore.from_map(
@@ -491,7 +1383,7 @@ class Client:
     ) -> demosdk_models.QueryMultiCciuResponse:
         """
         Description: l
-        Summary: l
+        Summary: 测试
         """
         UtilClient.validate_model(request)
         return TeaCore.from_map(
@@ -499,396 +1391,488 @@ class Client:
             await self.do_request_async('1.0', 'antchain.demosdk.multi.cciu.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
-    def query_iam_test(
+    def query_txt(
         self,
-        request: demosdk_models.QueryIamTestRequest,
-    ) -> demosdk_models.QueryIamTestResponse:
+        request: demosdk_models.QueryTxtRequest,
+    ) -> demosdk_models.QueryTxtResponse:
         """
-        Description: a
-        Summary: a
+        Description: 测试
+        Summary: 测试
         """
         runtime = util_models.RuntimeOptions()
         headers = {}
-        return self.query_iam_test_ex(request, headers, runtime)
+        return self.query_txt_ex(request, headers, runtime)
 
-    async def query_iam_test_async(
+    async def query_txt_async(
         self,
-        request: demosdk_models.QueryIamTestRequest,
-    ) -> demosdk_models.QueryIamTestResponse:
+        request: demosdk_models.QueryTxtRequest,
+    ) -> demosdk_models.QueryTxtResponse:
         """
-        Description: a
-        Summary: a
+        Description: 测试
+        Summary: 测试
         """
         runtime = util_models.RuntimeOptions()
         headers = {}
-        return await self.query_iam_test_ex_async(request, headers, runtime)
+        return await self.query_txt_ex_async(request, headers, runtime)
 
-    def query_iam_test_ex(
+    def query_txt_ex(
         self,
-        request: demosdk_models.QueryIamTestRequest,
+        request: demosdk_models.QueryTxtRequest,
         headers: Dict[str, str],
         runtime: util_models.RuntimeOptions,
-    ) -> demosdk_models.QueryIamTestResponse:
+    ) -> demosdk_models.QueryTxtResponse:
         """
-        Description: a
-        Summary: a
+        Description: 测试
+        Summary: 测试
         """
         UtilClient.validate_model(request)
         return TeaCore.from_map(
-            demosdk_models.QueryIamTestResponse(),
-            self.do_request('1.0', 'antchain.demosdk.iam.test.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+            demosdk_models.QueryTxtResponse(),
+            self.do_request('1.0', 'antchain.demosdk.txt.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
-    async def query_iam_test_ex_async(
+    async def query_txt_ex_async(
         self,
-        request: demosdk_models.QueryIamTestRequest,
+        request: demosdk_models.QueryTxtRequest,
         headers: Dict[str, str],
         runtime: util_models.RuntimeOptions,
-    ) -> demosdk_models.QueryIamTestResponse:
+    ) -> demosdk_models.QueryTxtResponse:
         """
-        Description: a
-        Summary: a
+        Description: 测试
+        Summary: 测试
         """
         UtilClient.validate_model(request)
         return TeaCore.from_map(
-            demosdk_models.QueryIamTestResponse(),
-            await self.do_request_async('1.0', 'antchain.demosdk.iam.test.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+            demosdk_models.QueryTxtResponse(),
+            await self.do_request_async('1.0', 'antchain.demosdk.txt.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
-    def test_iam_synchronous(
+    def query_rule(
         self,
-        request: demosdk_models.TestIamSynchronousRequest,
-    ) -> demosdk_models.TestIamSynchronousResponse:
+        request: demosdk_models.QueryRuleRequest,
+    ) -> demosdk_models.QueryRuleResponse:
         """
-        Description: iam同步测试
-        Summary: iam同步测试
+        Description: 测试接口
+        Summary: 测试接口
         """
         runtime = util_models.RuntimeOptions()
         headers = {}
-        return self.test_iam_synchronous_ex(request, headers, runtime)
+        return self.query_rule_ex(request, headers, runtime)
 
-    async def test_iam_synchronous_async(
+    async def query_rule_async(
         self,
-        request: demosdk_models.TestIamSynchronousRequest,
-    ) -> demosdk_models.TestIamSynchronousResponse:
+        request: demosdk_models.QueryRuleRequest,
+    ) -> demosdk_models.QueryRuleResponse:
         """
-        Description: iam同步测试
-        Summary: iam同步测试
+        Description: 测试接口
+        Summary: 测试接口
         """
         runtime = util_models.RuntimeOptions()
         headers = {}
-        return await self.test_iam_synchronous_ex_async(request, headers, runtime)
+        return await self.query_rule_ex_async(request, headers, runtime)
 
-    def test_iam_synchronous_ex(
+    def query_rule_ex(
         self,
-        request: demosdk_models.TestIamSynchronousRequest,
+        request: demosdk_models.QueryRuleRequest,
         headers: Dict[str, str],
         runtime: util_models.RuntimeOptions,
-    ) -> demosdk_models.TestIamSynchronousResponse:
+    ) -> demosdk_models.QueryRuleResponse:
         """
-        Description: iam同步测试
-        Summary: iam同步测试
+        Description: 测试接口
+        Summary: 测试接口
         """
         UtilClient.validate_model(request)
         return TeaCore.from_map(
-            demosdk_models.TestIamSynchronousResponse(),
-            self.do_request('1.0', 'antchain.demosdk.iam.synchronous.test', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+            demosdk_models.QueryRuleResponse(),
+            self.do_request('1.0', 'antchain.demosdk.rule.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
-    async def test_iam_synchronous_ex_async(
+    async def query_rule_ex_async(
         self,
-        request: demosdk_models.TestIamSynchronousRequest,
+        request: demosdk_models.QueryRuleRequest,
         headers: Dict[str, str],
         runtime: util_models.RuntimeOptions,
-    ) -> demosdk_models.TestIamSynchronousResponse:
+    ) -> demosdk_models.QueryRuleResponse:
         """
-        Description: iam同步测试
-        Summary: iam同步测试
+        Description: 测试接口
+        Summary: 测试接口
         """
         UtilClient.validate_model(request)
         return TeaCore.from_map(
-            demosdk_models.TestIamSynchronousResponse(),
-            await self.do_request_async('1.0', 'antchain.demosdk.iam.synchronous.test', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+            demosdk_models.QueryRuleResponse(),
+            await self.do_request_async('1.0', 'antchain.demosdk.rule.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
-    def iam_iam_iam(
+    def api_file_upload(
         self,
-        request: demosdk_models.IamIamIamRequest,
-    ) -> demosdk_models.IamIamIamResponse:
+        request: demosdk_models.ApiFileUploadRequest,
+    ) -> demosdk_models.ApiFileUploadResponse:
         """
-        Description: iam同步测试
-        Summary: iam同步测试
+        Description: 个人工作台二期测试使用
+        Summary: 个人工作台二期测试使用
         """
         runtime = util_models.RuntimeOptions()
         headers = {}
-        return self.iam_iam_iam_ex(request, headers, runtime)
+        return self.api_file_upload_ex(request, headers, runtime)
 
-    async def iam_iam_iam_async(
+    async def api_file_upload_async(
         self,
-        request: demosdk_models.IamIamIamRequest,
-    ) -> demosdk_models.IamIamIamResponse:
+        request: demosdk_models.ApiFileUploadRequest,
+    ) -> demosdk_models.ApiFileUploadResponse:
         """
-        Description: iam同步测试
-        Summary: iam同步测试
+        Description: 个人工作台二期测试使用
+        Summary: 个人工作台二期测试使用
         """
         runtime = util_models.RuntimeOptions()
         headers = {}
-        return await self.iam_iam_iam_ex_async(request, headers, runtime)
+        return await self.api_file_upload_ex_async(request, headers, runtime)
 
-    def iam_iam_iam_ex(
+    def api_file_upload_ex(
         self,
-        request: demosdk_models.IamIamIamRequest,
+        request: demosdk_models.ApiFileUploadRequest,
         headers: Dict[str, str],
         runtime: util_models.RuntimeOptions,
-    ) -> demosdk_models.IamIamIamResponse:
+    ) -> demosdk_models.ApiFileUploadResponse:
         """
-        Description: iam同步测试
-        Summary: iam同步测试
+        Description: 个人工作台二期测试使用
+        Summary: 个人工作台二期测试使用
         """
+        if not UtilClient.is_unset(request.file_object):
+            upload_req = demosdk_models.CreateAntcloudGatewayxFileUploadRequest(
+                auth_token=request.auth_token,
+                api_code='antchain.demosdk.file.upload.api',
+                file_name=request.file_object_name
+            )
+            upload_resp = self.create_antcloud_gatewayx_file_upload_ex(upload_req, headers, runtime)
+            if not AntchainUtils.is_success(upload_resp.result_code, 'ok'):
+                api_file_upload_response = demosdk_models.ApiFileUploadResponse(
+                    req_msg_id=upload_resp.req_msg_id,
+                    result_code=upload_resp.result_code,
+                    result_msg=upload_resp.result_msg
+                )
+                return api_file_upload_response
+            upload_headers = AntchainUtils.parse_upload_headers(upload_resp.upload_headers)
+            AntchainUtils.put_object(request.file_object, upload_headers, upload_resp.upload_url)
+            request.file_id = upload_resp.file_id
+            request.file_object = None
         UtilClient.validate_model(request)
         return TeaCore.from_map(
-            demosdk_models.IamIamIamResponse(),
-            self.do_request('1.0', 'antchain.demosdk.iam.iam.iam', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+            demosdk_models.ApiFileUploadResponse(),
+            self.do_request('1.0', 'antchain.demosdk.file.upload.api', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
-    async def iam_iam_iam_ex_async(
+    async def api_file_upload_ex_async(
         self,
-        request: demosdk_models.IamIamIamRequest,
+        request: demosdk_models.ApiFileUploadRequest,
         headers: Dict[str, str],
         runtime: util_models.RuntimeOptions,
-    ) -> demosdk_models.IamIamIamResponse:
+    ) -> demosdk_models.ApiFileUploadResponse:
         """
-        Description: iam同步测试
-        Summary: iam同步测试
+        Description: 个人工作台二期测试使用
+        Summary: 个人工作台二期测试使用
         """
+        if not UtilClient.is_unset(request.file_object):
+            upload_req = demosdk_models.CreateAntcloudGatewayxFileUploadRequest(
+                auth_token=request.auth_token,
+                api_code='antchain.demosdk.file.upload.api',
+                file_name=request.file_object_name
+            )
+            upload_resp = await self.create_antcloud_gatewayx_file_upload_ex_async(upload_req, headers, runtime)
+            if not AntchainUtils.is_success(upload_resp.result_code, 'ok'):
+                api_file_upload_response = demosdk_models.ApiFileUploadResponse(
+                    req_msg_id=upload_resp.req_msg_id,
+                    result_code=upload_resp.result_code,
+                    result_msg=upload_resp.result_msg
+                )
+                return api_file_upload_response
+            upload_headers = AntchainUtils.parse_upload_headers(upload_resp.upload_headers)
+            await AntchainUtils.put_object_async(request.file_object, upload_headers, upload_resp.upload_url)
+            request.file_id = upload_resp.file_id
+            request.file_object = None
         UtilClient.validate_model(request)
         return TeaCore.from_map(
-            demosdk_models.IamIamIamResponse(),
-            await self.do_request_async('1.0', 'antchain.demosdk.iam.iam.iam', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+            demosdk_models.ApiFileUploadResponse(),
+            await self.do_request_async('1.0', 'antchain.demosdk.file.upload.api', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
-    def test_iam_push(
+    def query_testhfhfhf(
         self,
-        request: demosdk_models.TestIamPushRequest,
-    ) -> demosdk_models.TestIamPushResponse:
-        """
-        Description: iam推送测试
-        Summary: iam推送测试
-        """
-        runtime = util_models.RuntimeOptions()
-        headers = {}
-        return self.test_iam_push_ex(request, headers, runtime)
-
-    async def test_iam_push_async(
-        self,
-        request: demosdk_models.TestIamPushRequest,
-    ) -> demosdk_models.TestIamPushResponse:
-        """
-        Description: iam推送测试
-        Summary: iam推送测试
-        """
-        runtime = util_models.RuntimeOptions()
-        headers = {}
-        return await self.test_iam_push_ex_async(request, headers, runtime)
-
-    def test_iam_push_ex(
-        self,
-        request: demosdk_models.TestIamPushRequest,
-        headers: Dict[str, str],
-        runtime: util_models.RuntimeOptions,
-    ) -> demosdk_models.TestIamPushResponse:
-        """
-        Description: iam推送测试
-        Summary: iam推送测试
-        """
-        UtilClient.validate_model(request)
-        return TeaCore.from_map(
-            demosdk_models.TestIamPushResponse(),
-            self.do_request('1.0', 'antchain.demosdk.iam.push.test', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
-        )
-
-    async def test_iam_push_ex_async(
-        self,
-        request: demosdk_models.TestIamPushRequest,
-        headers: Dict[str, str],
-        runtime: util_models.RuntimeOptions,
-    ) -> demosdk_models.TestIamPushResponse:
-        """
-        Description: iam推送测试
-        Summary: iam推送测试
-        """
-        UtilClient.validate_model(request)
-        return TeaCore.from_map(
-            demosdk_models.TestIamPushResponse(),
-            await self.do_request_async('1.0', 'antchain.demosdk.iam.push.test', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
-        )
-
-    def query_iam_push(
-        self,
-        request: demosdk_models.QueryIamPushRequest,
-    ) -> demosdk_models.QueryIamPushResponse:
+        request: demosdk_models.QueryTesthfhfhfRequest,
+    ) -> demosdk_models.QueryTesthfhfhfResponse:
         """
         Description: test
         Summary: test
         """
         runtime = util_models.RuntimeOptions()
         headers = {}
-        return self.query_iam_push_ex(request, headers, runtime)
+        return self.query_testhfhfhf_ex(request, headers, runtime)
 
-    async def query_iam_push_async(
+    async def query_testhfhfhf_async(
         self,
-        request: demosdk_models.QueryIamPushRequest,
-    ) -> demosdk_models.QueryIamPushResponse:
+        request: demosdk_models.QueryTesthfhfhfRequest,
+    ) -> demosdk_models.QueryTesthfhfhfResponse:
         """
         Description: test
         Summary: test
         """
         runtime = util_models.RuntimeOptions()
         headers = {}
-        return await self.query_iam_push_ex_async(request, headers, runtime)
+        return await self.query_testhfhfhf_ex_async(request, headers, runtime)
 
-    def query_iam_push_ex(
+    def query_testhfhfhf_ex(
         self,
-        request: demosdk_models.QueryIamPushRequest,
+        request: demosdk_models.QueryTesthfhfhfRequest,
         headers: Dict[str, str],
         runtime: util_models.RuntimeOptions,
-    ) -> demosdk_models.QueryIamPushResponse:
+    ) -> demosdk_models.QueryTesthfhfhfResponse:
         """
         Description: test
         Summary: test
         """
         UtilClient.validate_model(request)
         return TeaCore.from_map(
-            demosdk_models.QueryIamPushResponse(),
-            self.do_request('1.0', 'antchain.demosdk.iam.push.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+            demosdk_models.QueryTesthfhfhfResponse(),
+            self.do_request('1.0', 'antchain.demosdk.testhfhfhf.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
-    async def query_iam_push_ex_async(
+    async def query_testhfhfhf_ex_async(
         self,
-        request: demosdk_models.QueryIamPushRequest,
+        request: demosdk_models.QueryTesthfhfhfRequest,
         headers: Dict[str, str],
         runtime: util_models.RuntimeOptions,
-    ) -> demosdk_models.QueryIamPushResponse:
+    ) -> demosdk_models.QueryTesthfhfhfResponse:
         """
         Description: test
         Summary: test
         """
         UtilClient.validate_model(request)
         return TeaCore.from_map(
-            demosdk_models.QueryIamPushResponse(),
-            await self.do_request_async('1.0', 'antchain.demosdk.iam.push.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+            demosdk_models.QueryTesthfhfhfResponse(),
+            await self.do_request_async('1.0', 'antchain.demosdk.testhfhfhf.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
-    def iam_apipush_for(
+    def publish_iterationhf(
         self,
-        request: demosdk_models.IamApipushForRequest,
-    ) -> demosdk_models.IamApipushForResponse:
+        request: demosdk_models.PublishIterationhfRequest,
+    ) -> demosdk_models.PublishIterationhfResponse:
         """
         Description: test
         Summary: test
         """
         runtime = util_models.RuntimeOptions()
         headers = {}
-        return self.iam_apipush_for_ex(request, headers, runtime)
+        return self.publish_iterationhf_ex(request, headers, runtime)
 
-    async def iam_apipush_for_async(
+    async def publish_iterationhf_async(
         self,
-        request: demosdk_models.IamApipushForRequest,
-    ) -> demosdk_models.IamApipushForResponse:
+        request: demosdk_models.PublishIterationhfRequest,
+    ) -> demosdk_models.PublishIterationhfResponse:
         """
         Description: test
         Summary: test
         """
         runtime = util_models.RuntimeOptions()
         headers = {}
-        return await self.iam_apipush_for_ex_async(request, headers, runtime)
+        return await self.publish_iterationhf_ex_async(request, headers, runtime)
 
-    def iam_apipush_for_ex(
+    def publish_iterationhf_ex(
         self,
-        request: demosdk_models.IamApipushForRequest,
+        request: demosdk_models.PublishIterationhfRequest,
         headers: Dict[str, str],
         runtime: util_models.RuntimeOptions,
-    ) -> demosdk_models.IamApipushForResponse:
+    ) -> demosdk_models.PublishIterationhfResponse:
         """
         Description: test
         Summary: test
         """
         UtilClient.validate_model(request)
         return TeaCore.from_map(
-            demosdk_models.IamApipushForResponse(),
-            self.do_request('1.0', 'antchain.demosdk.apipush.for.iam', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+            demosdk_models.PublishIterationhfResponse(),
+            self.do_request('1.0', 'antchain.demosdk.iterationhf.publish', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
-    async def iam_apipush_for_ex_async(
+    async def publish_iterationhf_ex_async(
         self,
-        request: demosdk_models.IamApipushForRequest,
+        request: demosdk_models.PublishIterationhfRequest,
         headers: Dict[str, str],
         runtime: util_models.RuntimeOptions,
-    ) -> demosdk_models.IamApipushForResponse:
+    ) -> demosdk_models.PublishIterationhfResponse:
         """
         Description: test
         Summary: test
         """
         UtilClient.validate_model(request)
         return TeaCore.from_map(
-            demosdk_models.IamApipushForResponse(),
-            await self.do_request_async('1.0', 'antchain.demosdk.apipush.for.iam', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+            demosdk_models.PublishIterationhfResponse(),
+            await self.do_request_async('1.0', 'antchain.demosdk.iterationhf.publish', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
-    def config_query_api(
+    def query_workbench_tests(
         self,
-        request: demosdk_models.ConfigQueryApiRequest,
-    ) -> demosdk_models.ConfigQueryApiResponse:
+        request: demosdk_models.QueryWorkbenchTestsRequest,
+    ) -> demosdk_models.QueryWorkbenchTestsResponse:
         """
-        Description: queryApiConfig接口优化
-        Summary: queryApiConfig接口优化
+        Description: 测试使用
+        Summary: 测试使用
         """
         runtime = util_models.RuntimeOptions()
         headers = {}
-        return self.config_query_api_ex(request, headers, runtime)
+        return self.query_workbench_tests_ex(request, headers, runtime)
 
-    async def config_query_api_async(
+    async def query_workbench_tests_async(
         self,
-        request: demosdk_models.ConfigQueryApiRequest,
-    ) -> demosdk_models.ConfigQueryApiResponse:
+        request: demosdk_models.QueryWorkbenchTestsRequest,
+    ) -> demosdk_models.QueryWorkbenchTestsResponse:
         """
-        Description: queryApiConfig接口优化
-        Summary: queryApiConfig接口优化
+        Description: 测试使用
+        Summary: 测试使用
         """
         runtime = util_models.RuntimeOptions()
         headers = {}
-        return await self.config_query_api_ex_async(request, headers, runtime)
+        return await self.query_workbench_tests_ex_async(request, headers, runtime)
 
-    def config_query_api_ex(
+    def query_workbench_tests_ex(
         self,
-        request: demosdk_models.ConfigQueryApiRequest,
+        request: demosdk_models.QueryWorkbenchTestsRequest,
         headers: Dict[str, str],
         runtime: util_models.RuntimeOptions,
-    ) -> demosdk_models.ConfigQueryApiResponse:
+    ) -> demosdk_models.QueryWorkbenchTestsResponse:
         """
-        Description: queryApiConfig接口优化
-        Summary: queryApiConfig接口优化
+        Description: 测试使用
+        Summary: 测试使用
         """
         UtilClient.validate_model(request)
         return TeaCore.from_map(
-            demosdk_models.ConfigQueryApiResponse(),
-            self.do_request('1.0', 'antchain.demosdk.query.api.config', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+            demosdk_models.QueryWorkbenchTestsResponse(),
+            self.do_request('1.0', 'antchain.demosdk.workbench.tests.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
-    async def config_query_api_ex_async(
+    async def query_workbench_tests_ex_async(
         self,
-        request: demosdk_models.ConfigQueryApiRequest,
+        request: demosdk_models.QueryWorkbenchTestsRequest,
         headers: Dict[str, str],
         runtime: util_models.RuntimeOptions,
-    ) -> demosdk_models.ConfigQueryApiResponse:
+    ) -> demosdk_models.QueryWorkbenchTestsResponse:
         """
-        Description: queryApiConfig接口优化
-        Summary: queryApiConfig接口优化
+        Description: 测试使用
+        Summary: 测试使用
         """
         UtilClient.validate_model(request)
         return TeaCore.from_map(
-            demosdk_models.ConfigQueryApiResponse(),
-            await self.do_request_async('1.0', 'antchain.demosdk.query.api.config', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+            demosdk_models.QueryWorkbenchTestsResponse(),
+            await self.do_request_async('1.0', 'antchain.demosdk.workbench.tests.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def reset_bbb_ccc(
+        self,
+        request: demosdk_models.ResetBbbCccRequest,
+    ) -> demosdk_models.ResetBbbCccResponse:
+        """
+        Description: 测试接口
+        Summary: 测试接口
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.reset_bbb_ccc_ex(request, headers, runtime)
+
+    async def reset_bbb_ccc_async(
+        self,
+        request: demosdk_models.ResetBbbCccRequest,
+    ) -> demosdk_models.ResetBbbCccResponse:
+        """
+        Description: 测试接口
+        Summary: 测试接口
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.reset_bbb_ccc_ex_async(request, headers, runtime)
+
+    def reset_bbb_ccc_ex(
+        self,
+        request: demosdk_models.ResetBbbCccRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> demosdk_models.ResetBbbCccResponse:
+        """
+        Description: 测试接口
+        Summary: 测试接口
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            demosdk_models.ResetBbbCccResponse(),
+            self.do_request('1.0', 'antchain.demosdk.bbb.ccc.reset', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def reset_bbb_ccc_ex_async(
+        self,
+        request: demosdk_models.ResetBbbCccRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> demosdk_models.ResetBbbCccResponse:
+        """
+        Description: 测试接口
+        Summary: 测试接口
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            demosdk_models.ResetBbbCccResponse(),
+            await self.do_request_async('1.0', 'antchain.demosdk.bbb.ccc.reset', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def query_test_sss(
+        self,
+        request: demosdk_models.QueryTestSssRequest,
+    ) -> demosdk_models.QueryTestSssResponse:
+        """
+        Description: 测试接口
+        Summary: 测试接口
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.query_test_sss_ex(request, headers, runtime)
+
+    async def query_test_sss_async(
+        self,
+        request: demosdk_models.QueryTestSssRequest,
+    ) -> demosdk_models.QueryTestSssResponse:
+        """
+        Description: 测试接口
+        Summary: 测试接口
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.query_test_sss_ex_async(request, headers, runtime)
+
+    def query_test_sss_ex(
+        self,
+        request: demosdk_models.QueryTestSssRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> demosdk_models.QueryTestSssResponse:
+        """
+        Description: 测试接口
+        Summary: 测试接口
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            demosdk_models.QueryTestSssResponse(),
+            self.do_request('1.0', 'antchain.demosdk.test.sss.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def query_test_sss_ex_async(
+        self,
+        request: demosdk_models.QueryTestSssRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> demosdk_models.QueryTestSssResponse:
+        """
+        Description: 测试接口
+        Summary: 测试接口
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            demosdk_models.QueryTestSssResponse(),
+            await self.do_request_async('1.0', 'antchain.demosdk.test.sss.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
     def bind_aaa_bbb_ccc(
@@ -953,7 +1937,7 @@ class Client:
     ) -> demosdk_models.QueryAaaCcdResponse:
         """
         Description: 自动化测试创建test，请勿修改、删除
-        Summary: 自动化测试创建test，请勿修改、删除
+        Summary: 自动化测试创建test1
         """
         runtime = util_models.RuntimeOptions()
         headers = {}
@@ -965,7 +1949,7 @@ class Client:
     ) -> demosdk_models.QueryAaaCcdResponse:
         """
         Description: 自动化测试创建test，请勿修改、删除
-        Summary: 自动化测试创建test，请勿修改、删除
+        Summary: 自动化测试创建test1
         """
         runtime = util_models.RuntimeOptions()
         headers = {}
@@ -979,7 +1963,7 @@ class Client:
     ) -> demosdk_models.QueryAaaCcdResponse:
         """
         Description: 自动化测试创建test，请勿修改、删除
-        Summary: 自动化测试创建test，请勿修改、删除
+        Summary: 自动化测试创建test1
         """
         UtilClient.validate_model(request)
         return TeaCore.from_map(
@@ -995,7 +1979,7 @@ class Client:
     ) -> demosdk_models.QueryAaaCcdResponse:
         """
         Description: 自动化测试创建test，请勿修改、删除
-        Summary: 自动化测试创建test，请勿修改、删除
+        Summary: 自动化测试创建test1
         """
         UtilClient.validate_model(request)
         return TeaCore.from_map(
@@ -1059,116 +2043,620 @@ class Client:
             await self.do_request_async('1.0', 'antchain.demosdk.xxx.bind', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
-    def query_txt(
+    def query_cim_run(
         self,
-        request: demosdk_models.QueryTxtRequest,
-    ) -> demosdk_models.QueryTxtResponse:
+        request: demosdk_models.QueryCimRunRequest,
+    ) -> demosdk_models.QueryCimRunResponse:
         """
-        Description: 测试api流程
-        Summary: 测试api流程
+        Description: 测试
+        Summary: 测试
         """
         runtime = util_models.RuntimeOptions()
         headers = {}
-        return self.query_txt_ex(request, headers, runtime)
+        return self.query_cim_run_ex(request, headers, runtime)
 
-    async def query_txt_async(
+    async def query_cim_run_async(
         self,
-        request: demosdk_models.QueryTxtRequest,
-    ) -> demosdk_models.QueryTxtResponse:
+        request: demosdk_models.QueryCimRunRequest,
+    ) -> demosdk_models.QueryCimRunResponse:
         """
-        Description: 测试api流程
-        Summary: 测试api流程
+        Description: 测试
+        Summary: 测试
         """
         runtime = util_models.RuntimeOptions()
         headers = {}
-        return await self.query_txt_ex_async(request, headers, runtime)
+        return await self.query_cim_run_ex_async(request, headers, runtime)
 
-    def query_txt_ex(
+    def query_cim_run_ex(
         self,
-        request: demosdk_models.QueryTxtRequest,
+        request: demosdk_models.QueryCimRunRequest,
         headers: Dict[str, str],
         runtime: util_models.RuntimeOptions,
-    ) -> demosdk_models.QueryTxtResponse:
+    ) -> demosdk_models.QueryCimRunResponse:
         """
-        Description: 测试api流程
-        Summary: 测试api流程
+        Description: 测试
+        Summary: 测试
         """
         UtilClient.validate_model(request)
         return TeaCore.from_map(
-            demosdk_models.QueryTxtResponse(),
-            self.do_request('1.0', 'antchain.demosdk.txt.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+            demosdk_models.QueryCimRunResponse(),
+            self.do_request('1.0', 'antchain.demosdk.cim.run.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
-    async def query_txt_ex_async(
+    async def query_cim_run_ex_async(
         self,
-        request: demosdk_models.QueryTxtRequest,
+        request: demosdk_models.QueryCimRunRequest,
         headers: Dict[str, str],
         runtime: util_models.RuntimeOptions,
-    ) -> demosdk_models.QueryTxtResponse:
+    ) -> demosdk_models.QueryCimRunResponse:
         """
-        Description: 测试api流程
-        Summary: 测试api流程
+        Description: 测试
+        Summary: 测试
         """
         UtilClient.validate_model(request)
         return TeaCore.from_map(
-            demosdk_models.QueryTxtResponse(),
-            await self.do_request_async('1.0', 'antchain.demosdk.txt.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+            demosdk_models.QueryCimRunResponse(),
+            await self.do_request_async('1.0', 'antchain.demosdk.cim.run.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
-    def list_txt(
+    def query_role_list(
         self,
-        request: demosdk_models.ListTxtRequest,
-    ) -> demosdk_models.ListTxtResponse:
+        request: demosdk_models.QueryRoleListRequest,
+    ) -> demosdk_models.QueryRoleListResponse:
         """
-        Description: desc
-        Summary: desc
+        Description: 测试
+        Summary: 测试
         """
         runtime = util_models.RuntimeOptions()
         headers = {}
-        return self.list_txt_ex(request, headers, runtime)
+        return self.query_role_list_ex(request, headers, runtime)
 
-    async def list_txt_async(
+    async def query_role_list_async(
         self,
-        request: demosdk_models.ListTxtRequest,
-    ) -> demosdk_models.ListTxtResponse:
+        request: demosdk_models.QueryRoleListRequest,
+    ) -> demosdk_models.QueryRoleListResponse:
         """
-        Description: desc
-        Summary: desc
+        Description: 测试
+        Summary: 测试
         """
         runtime = util_models.RuntimeOptions()
         headers = {}
-        return await self.list_txt_ex_async(request, headers, runtime)
+        return await self.query_role_list_ex_async(request, headers, runtime)
 
-    def list_txt_ex(
+    def query_role_list_ex(
         self,
-        request: demosdk_models.ListTxtRequest,
+        request: demosdk_models.QueryRoleListRequest,
         headers: Dict[str, str],
         runtime: util_models.RuntimeOptions,
-    ) -> demosdk_models.ListTxtResponse:
+    ) -> demosdk_models.QueryRoleListResponse:
         """
-        Description: desc
-        Summary: desc
+        Description: 测试
+        Summary: 测试
         """
         UtilClient.validate_model(request)
         return TeaCore.from_map(
-            demosdk_models.ListTxtResponse(),
-            self.do_request('1.0', 'antchain.demosdk.txt.list', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+            demosdk_models.QueryRoleListResponse(),
+            self.do_request('1.0', 'antchain.demosdk.role.list.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
-    async def list_txt_ex_async(
+    async def query_role_list_ex_async(
         self,
-        request: demosdk_models.ListTxtRequest,
+        request: demosdk_models.QueryRoleListRequest,
         headers: Dict[str, str],
         runtime: util_models.RuntimeOptions,
-    ) -> demosdk_models.ListTxtResponse:
+    ) -> demosdk_models.QueryRoleListResponse:
         """
-        Description: desc
-        Summary: desc
+        Description: 测试
+        Summary: 测试
         """
         UtilClient.validate_model(request)
         return TeaCore.from_map(
-            demosdk_models.ListTxtResponse(),
-            await self.do_request_async('1.0', 'antchain.demosdk.txt.list', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+            demosdk_models.QueryRoleListResponse(),
+            await self.do_request_async('1.0', 'antchain.demosdk.role.list.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def import_role(
+        self,
+        request: demosdk_models.ImportRoleRequest,
+    ) -> demosdk_models.ImportRoleResponse:
+        """
+        Description: 测试
+        Summary: 测试
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.import_role_ex(request, headers, runtime)
+
+    async def import_role_async(
+        self,
+        request: demosdk_models.ImportRoleRequest,
+    ) -> demosdk_models.ImportRoleResponse:
+        """
+        Description: 测试
+        Summary: 测试
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.import_role_ex_async(request, headers, runtime)
+
+    def import_role_ex(
+        self,
+        request: demosdk_models.ImportRoleRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> demosdk_models.ImportRoleResponse:
+        """
+        Description: 测试
+        Summary: 测试
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            demosdk_models.ImportRoleResponse(),
+            self.do_request('1.0', 'antchain.demosdk.role.import', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def import_role_ex_async(
+        self,
+        request: demosdk_models.ImportRoleRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> demosdk_models.ImportRoleResponse:
+        """
+        Description: 测试
+        Summary: 测试
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            demosdk_models.ImportRoleResponse(),
+            await self.do_request_async('1.0', 'antchain.demosdk.role.import', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def reset_role(
+        self,
+        request: demosdk_models.ResetRoleRequest,
+    ) -> demosdk_models.ResetRoleResponse:
+        """
+        Description: 测试流程
+        Summary: 测试流程
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.reset_role_ex(request, headers, runtime)
+
+    async def reset_role_async(
+        self,
+        request: demosdk_models.ResetRoleRequest,
+    ) -> demosdk_models.ResetRoleResponse:
+        """
+        Description: 测试流程
+        Summary: 测试流程
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.reset_role_ex_async(request, headers, runtime)
+
+    def reset_role_ex(
+        self,
+        request: demosdk_models.ResetRoleRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> demosdk_models.ResetRoleResponse:
+        """
+        Description: 测试流程
+        Summary: 测试流程
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            demosdk_models.ResetRoleResponse(),
+            self.do_request('1.0', 'antchain.demosdk.role.reset', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def reset_role_ex_async(
+        self,
+        request: demosdk_models.ResetRoleRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> demosdk_models.ResetRoleResponse:
+        """
+        Description: 测试流程
+        Summary: 测试流程
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            demosdk_models.ResetRoleResponse(),
+            await self.do_request_async('1.0', 'antchain.demosdk.role.reset', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def publish_role_list(
+        self,
+        request: demosdk_models.PublishRoleListRequest,
+    ) -> demosdk_models.PublishRoleListResponse:
+        """
+        Description: 测试
+        Summary: 测试
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.publish_role_list_ex(request, headers, runtime)
+
+    async def publish_role_list_async(
+        self,
+        request: demosdk_models.PublishRoleListRequest,
+    ) -> demosdk_models.PublishRoleListResponse:
+        """
+        Description: 测试
+        Summary: 测试
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.publish_role_list_ex_async(request, headers, runtime)
+
+    def publish_role_list_ex(
+        self,
+        request: demosdk_models.PublishRoleListRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> demosdk_models.PublishRoleListResponse:
+        """
+        Description: 测试
+        Summary: 测试
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            demosdk_models.PublishRoleListResponse(),
+            self.do_request('1.0', 'antchain.demosdk.role.list.publish', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def publish_role_list_ex_async(
+        self,
+        request: demosdk_models.PublishRoleListRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> demosdk_models.PublishRoleListResponse:
+        """
+        Description: 测试
+        Summary: 测试
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            demosdk_models.PublishRoleListResponse(),
+            await self.do_request_async('1.0', 'antchain.demosdk.role.list.publish', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def init_user_test(
+        self,
+        request: demosdk_models.InitUserTestRequest,
+    ) -> demosdk_models.InitUserTestResponse:
+        """
+        Description: 测试
+        Summary: 测试
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.init_user_test_ex(request, headers, runtime)
+
+    async def init_user_test_async(
+        self,
+        request: demosdk_models.InitUserTestRequest,
+    ) -> demosdk_models.InitUserTestResponse:
+        """
+        Description: 测试
+        Summary: 测试
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.init_user_test_ex_async(request, headers, runtime)
+
+    def init_user_test_ex(
+        self,
+        request: demosdk_models.InitUserTestRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> demosdk_models.InitUserTestResponse:
+        """
+        Description: 测试
+        Summary: 测试
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            demosdk_models.InitUserTestResponse(),
+            self.do_request('1.0', 'antchain.demosdk.user.test.init', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def init_user_test_ex_async(
+        self,
+        request: demosdk_models.InitUserTestRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> demosdk_models.InitUserTestResponse:
+        """
+        Description: 测试
+        Summary: 测试
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            demosdk_models.InitUserTestResponse(),
+            await self.do_request_async('1.0', 'antchain.demosdk.user.test.init', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def exec_cim(
+        self,
+        request: demosdk_models.ExecCimRequest,
+    ) -> demosdk_models.ExecCimResponse:
+        """
+        Description: 测试
+        Summary: 测试
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.exec_cim_ex(request, headers, runtime)
+
+    async def exec_cim_async(
+        self,
+        request: demosdk_models.ExecCimRequest,
+    ) -> demosdk_models.ExecCimResponse:
+        """
+        Description: 测试
+        Summary: 测试
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.exec_cim_ex_async(request, headers, runtime)
+
+    def exec_cim_ex(
+        self,
+        request: demosdk_models.ExecCimRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> demosdk_models.ExecCimResponse:
+        """
+        Description: 测试
+        Summary: 测试
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            demosdk_models.ExecCimResponse(),
+            self.do_request('1.0', 'antchain.demosdk.cim.exec', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def exec_cim_ex_async(
+        self,
+        request: demosdk_models.ExecCimRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> demosdk_models.ExecCimResponse:
+        """
+        Description: 测试
+        Summary: 测试
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            demosdk_models.ExecCimResponse(),
+            await self.do_request_async('1.0', 'antchain.demosdk.cim.exec', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def query_cc_xx(
+        self,
+        request: demosdk_models.QueryCcXxRequest,
+    ) -> demosdk_models.QueryCcXxResponse:
+        """
+        Description: 测试
+        Summary: 测试
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.query_cc_xx_ex(request, headers, runtime)
+
+    async def query_cc_xx_async(
+        self,
+        request: demosdk_models.QueryCcXxRequest,
+    ) -> demosdk_models.QueryCcXxResponse:
+        """
+        Description: 测试
+        Summary: 测试
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.query_cc_xx_ex_async(request, headers, runtime)
+
+    def query_cc_xx_ex(
+        self,
+        request: demosdk_models.QueryCcXxRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> demosdk_models.QueryCcXxResponse:
+        """
+        Description: 测试
+        Summary: 测试
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            demosdk_models.QueryCcXxResponse(),
+            self.do_request('1.0', 'antchain.demosdk.cc.xx.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def query_cc_xx_ex_async(
+        self,
+        request: demosdk_models.QueryCcXxRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> demosdk_models.QueryCcXxResponse:
+        """
+        Description: 测试
+        Summary: 测试
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            demosdk_models.QueryCcXxResponse(),
+            await self.do_request_async('1.0', 'antchain.demosdk.cc.xx.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def lyza_test(
+        self,
+        request: demosdk_models.LyzaTestRequest,
+    ) -> demosdk_models.LyzaTestResponse:
+        """
+        Description: test
+        Summary: test
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.lyza_test_ex(request, headers, runtime)
+
+    async def lyza_test_async(
+        self,
+        request: demosdk_models.LyzaTestRequest,
+    ) -> demosdk_models.LyzaTestResponse:
+        """
+        Description: test
+        Summary: test
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.lyza_test_ex_async(request, headers, runtime)
+
+    def lyza_test_ex(
+        self,
+        request: demosdk_models.LyzaTestRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> demosdk_models.LyzaTestResponse:
+        """
+        Description: test
+        Summary: test
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            demosdk_models.LyzaTestResponse(),
+            self.do_request('1.0', 'antchain.demosdk.test.lyza', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def lyza_test_ex_async(
+        self,
+        request: demosdk_models.LyzaTestRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> demosdk_models.LyzaTestResponse:
+        """
+        Description: test
+        Summary: test
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            demosdk_models.LyzaTestResponse(),
+            await self.do_request_async('1.0', 'antchain.demosdk.test.lyza', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def c_test_liz_aaa(
+        self,
+        request: demosdk_models.CTestLizAaaRequest,
+    ) -> demosdk_models.CTestLizAaaResponse:
+        """
+        Description: test
+        Summary: test
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.c_test_liz_aaa_ex(request, headers, runtime)
+
+    async def c_test_liz_aaa_async(
+        self,
+        request: demosdk_models.CTestLizAaaRequest,
+    ) -> demosdk_models.CTestLizAaaResponse:
+        """
+        Description: test
+        Summary: test
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.c_test_liz_aaa_ex_async(request, headers, runtime)
+
+    def c_test_liz_aaa_ex(
+        self,
+        request: demosdk_models.CTestLizAaaRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> demosdk_models.CTestLizAaaResponse:
+        """
+        Description: test
+        Summary: test
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            demosdk_models.CTestLizAaaResponse(),
+            self.do_request('1.0', 'antchain.demosdk.test.liz.aaa.c', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def c_test_liz_aaa_ex_async(
+        self,
+        request: demosdk_models.CTestLizAaaRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> demosdk_models.CTestLizAaaResponse:
+        """
+        Description: test
+        Summary: test
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            demosdk_models.CTestLizAaaResponse(),
+            await self.do_request_async('1.0', 'antchain.demosdk.test.liz.aaa.c', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def verify_api_list(
+        self,
+        request: demosdk_models.VerifyApiListRequest,
+    ) -> demosdk_models.VerifyApiListResponse:
+        """
+        Description: 用于个人工作台二期测试使用
+        Summary: 用于个人工作台二期测试使用
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.verify_api_list_ex(request, headers, runtime)
+
+    async def verify_api_list_async(
+        self,
+        request: demosdk_models.VerifyApiListRequest,
+    ) -> demosdk_models.VerifyApiListResponse:
+        """
+        Description: 用于个人工作台二期测试使用
+        Summary: 用于个人工作台二期测试使用
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.verify_api_list_ex_async(request, headers, runtime)
+
+    def verify_api_list_ex(
+        self,
+        request: demosdk_models.VerifyApiListRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> demosdk_models.VerifyApiListResponse:
+        """
+        Description: 用于个人工作台二期测试使用
+        Summary: 用于个人工作台二期测试使用
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            demosdk_models.VerifyApiListResponse(),
+            self.do_request('1.0', 'antchain.demosdk.api.list.verify', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def verify_api_list_ex_async(
+        self,
+        request: demosdk_models.VerifyApiListRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> demosdk_models.VerifyApiListResponse:
+        """
+        Description: 用于个人工作台二期测试使用
+        Summary: 用于个人工作台二期测试使用
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            demosdk_models.VerifyApiListResponse(),
+            await self.do_request_async('1.0', 'antchain.demosdk.api.list.verify', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
     def query_workbench_test(
@@ -1177,7 +2665,7 @@ class Client:
     ) -> demosdk_models.QueryWorkbenchTestResponse:
         """
         Description: 用于个人工作台二期测试使用测试test
-        Summary: 用于个人工作台二期测试使用测试test
+        Summary: 用于个人工作台二期测试使用
         """
         runtime = util_models.RuntimeOptions()
         headers = {}
@@ -1189,7 +2677,7 @@ class Client:
     ) -> demosdk_models.QueryWorkbenchTestResponse:
         """
         Description: 用于个人工作台二期测试使用测试test
-        Summary: 用于个人工作台二期测试使用测试test
+        Summary: 用于个人工作台二期测试使用
         """
         runtime = util_models.RuntimeOptions()
         headers = {}
@@ -1203,7 +2691,7 @@ class Client:
     ) -> demosdk_models.QueryWorkbenchTestResponse:
         """
         Description: 用于个人工作台二期测试使用测试test
-        Summary: 用于个人工作台二期测试使用测试test
+        Summary: 用于个人工作台二期测试使用
         """
         UtilClient.validate_model(request)
         return TeaCore.from_map(
@@ -1219,12 +2707,124 @@ class Client:
     ) -> demosdk_models.QueryWorkbenchTestResponse:
         """
         Description: 用于个人工作台二期测试使用测试test
-        Summary: 用于个人工作台二期测试使用测试test
+        Summary: 用于个人工作台二期测试使用
         """
         UtilClient.validate_model(request)
         return TeaCore.from_map(
             demosdk_models.QueryWorkbenchTestResponse(),
             await self.do_request_async('1.0', 'antchain.demosdk.workbench.test.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def import_create_test(
+        self,
+        request: demosdk_models.ImportCreateTestRequest,
+    ) -> demosdk_models.ImportCreateTestResponse:
+        """
+        Description: 用于个人工作台二期测试使用
+        Summary: 用于个人工作台二期测试使用
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.import_create_test_ex(request, headers, runtime)
+
+    async def import_create_test_async(
+        self,
+        request: demosdk_models.ImportCreateTestRequest,
+    ) -> demosdk_models.ImportCreateTestResponse:
+        """
+        Description: 用于个人工作台二期测试使用
+        Summary: 用于个人工作台二期测试使用
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.import_create_test_ex_async(request, headers, runtime)
+
+    def import_create_test_ex(
+        self,
+        request: demosdk_models.ImportCreateTestRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> demosdk_models.ImportCreateTestResponse:
+        """
+        Description: 用于个人工作台二期测试使用
+        Summary: 用于个人工作台二期测试使用
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            demosdk_models.ImportCreateTestResponse(),
+            self.do_request('1.0', 'antchain.demosdk.create.test.import', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def import_create_test_ex_async(
+        self,
+        request: demosdk_models.ImportCreateTestRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> demosdk_models.ImportCreateTestResponse:
+        """
+        Description: 用于个人工作台二期测试使用
+        Summary: 用于个人工作台二期测试使用
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            demosdk_models.ImportCreateTestResponse(),
+            await self.do_request_async('1.0', 'antchain.demosdk.create.test.import', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def query_abcd_one(
+        self,
+        request: demosdk_models.QueryAbcdOneRequest,
+    ) -> demosdk_models.QueryAbcdOneResponse:
+        """
+        Description: 哈哈哈个人工作台二期测试接口test
+        Summary: 个人工作台二期测试接口
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.query_abcd_one_ex(request, headers, runtime)
+
+    async def query_abcd_one_async(
+        self,
+        request: demosdk_models.QueryAbcdOneRequest,
+    ) -> demosdk_models.QueryAbcdOneResponse:
+        """
+        Description: 哈哈哈个人工作台二期测试接口test
+        Summary: 个人工作台二期测试接口
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.query_abcd_one_ex_async(request, headers, runtime)
+
+    def query_abcd_one_ex(
+        self,
+        request: demosdk_models.QueryAbcdOneRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> demosdk_models.QueryAbcdOneResponse:
+        """
+        Description: 哈哈哈个人工作台二期测试接口test
+        Summary: 个人工作台二期测试接口
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            demosdk_models.QueryAbcdOneResponse(),
+            self.do_request('1.0', 'antchain.demosdk.abcd.one.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def query_abcd_one_ex_async(
+        self,
+        request: demosdk_models.QueryAbcdOneRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> demosdk_models.QueryAbcdOneResponse:
+        """
+        Description: 哈哈哈个人工作台二期测试接口test
+        Summary: 个人工作台二期测试接口
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            demosdk_models.QueryAbcdOneResponse(),
+            await self.do_request_async('1.0', 'antchain.demosdk.abcd.one.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
     def import_abcd_one(
@@ -1283,116 +2883,228 @@ class Client:
             await self.do_request_async('1.0', 'antchain.demosdk.abcd.one.import', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
-    def publish_workbench_one(
+    def reset_abcd_limit(
         self,
-        request: demosdk_models.PublishWorkbenchOneRequest,
-    ) -> demosdk_models.PublishWorkbenchOneResponse:
+        request: demosdk_models.ResetAbcdLimitRequest,
+    ) -> demosdk_models.ResetAbcdLimitResponse:
         """
-        Description: 个人工作台测试使用
-        Summary: 个人工作台测试使用
+        Description: 个人工作台二期分组路由灰度测试接口
+        Summary: 个人工作台二期分组路由灰度测试接口
         """
         runtime = util_models.RuntimeOptions()
         headers = {}
-        return self.publish_workbench_one_ex(request, headers, runtime)
+        return self.reset_abcd_limit_ex(request, headers, runtime)
 
-    async def publish_workbench_one_async(
+    async def reset_abcd_limit_async(
         self,
-        request: demosdk_models.PublishWorkbenchOneRequest,
-    ) -> demosdk_models.PublishWorkbenchOneResponse:
+        request: demosdk_models.ResetAbcdLimitRequest,
+    ) -> demosdk_models.ResetAbcdLimitResponse:
         """
-        Description: 个人工作台测试使用
-        Summary: 个人工作台测试使用
+        Description: 个人工作台二期分组路由灰度测试接口
+        Summary: 个人工作台二期分组路由灰度测试接口
         """
         runtime = util_models.RuntimeOptions()
         headers = {}
-        return await self.publish_workbench_one_ex_async(request, headers, runtime)
+        return await self.reset_abcd_limit_ex_async(request, headers, runtime)
 
-    def publish_workbench_one_ex(
+    def reset_abcd_limit_ex(
         self,
-        request: demosdk_models.PublishWorkbenchOneRequest,
+        request: demosdk_models.ResetAbcdLimitRequest,
         headers: Dict[str, str],
         runtime: util_models.RuntimeOptions,
-    ) -> demosdk_models.PublishWorkbenchOneResponse:
+    ) -> demosdk_models.ResetAbcdLimitResponse:
         """
-        Description: 个人工作台测试使用
-        Summary: 个人工作台测试使用
+        Description: 个人工作台二期分组路由灰度测试接口
+        Summary: 个人工作台二期分组路由灰度测试接口
         """
         UtilClient.validate_model(request)
         return TeaCore.from_map(
-            demosdk_models.PublishWorkbenchOneResponse(),
-            self.do_request('1.0', 'antchain.demosdk.workbench.one.publish', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+            demosdk_models.ResetAbcdLimitResponse(),
+            self.do_request('1.0', 'antchain.demosdk.abcd.limit.reset', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
-    async def publish_workbench_one_ex_async(
+    async def reset_abcd_limit_ex_async(
         self,
-        request: demosdk_models.PublishWorkbenchOneRequest,
+        request: demosdk_models.ResetAbcdLimitRequest,
         headers: Dict[str, str],
         runtime: util_models.RuntimeOptions,
-    ) -> demosdk_models.PublishWorkbenchOneResponse:
+    ) -> demosdk_models.ResetAbcdLimitResponse:
         """
-        Description: 个人工作台测试使用
-        Summary: 个人工作台测试使用
+        Description: 个人工作台二期分组路由灰度测试接口
+        Summary: 个人工作台二期分组路由灰度测试接口
         """
         UtilClient.validate_model(request)
         return TeaCore.from_map(
-            demosdk_models.PublishWorkbenchOneResponse(),
-            await self.do_request_async('1.0', 'antchain.demosdk.workbench.one.publish', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+            demosdk_models.ResetAbcdLimitResponse(),
+            await self.do_request_async('1.0', 'antchain.demosdk.abcd.limit.reset', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
-    def publish_workbench_two(
+    def register_abcd_limit(
         self,
-        request: demosdk_models.PublishWorkbenchTwoRequest,
-    ) -> demosdk_models.PublishWorkbenchTwoResponse:
+        request: demosdk_models.RegisterAbcdLimitRequest,
+    ) -> demosdk_models.RegisterAbcdLimitResponse:
         """
-        Description: 个人工作台测试
-        Summary: 个人工作台测试
+        Description: 个人工作台二期分组路由测试接口
+        Summary: 个人工作台二期分组路由测试接口
         """
         runtime = util_models.RuntimeOptions()
         headers = {}
-        return self.publish_workbench_two_ex(request, headers, runtime)
+        return self.register_abcd_limit_ex(request, headers, runtime)
 
-    async def publish_workbench_two_async(
+    async def register_abcd_limit_async(
         self,
-        request: demosdk_models.PublishWorkbenchTwoRequest,
-    ) -> demosdk_models.PublishWorkbenchTwoResponse:
+        request: demosdk_models.RegisterAbcdLimitRequest,
+    ) -> demosdk_models.RegisterAbcdLimitResponse:
         """
-        Description: 个人工作台测试
-        Summary: 个人工作台测试
+        Description: 个人工作台二期分组路由测试接口
+        Summary: 个人工作台二期分组路由测试接口
         """
         runtime = util_models.RuntimeOptions()
         headers = {}
-        return await self.publish_workbench_two_ex_async(request, headers, runtime)
+        return await self.register_abcd_limit_ex_async(request, headers, runtime)
 
-    def publish_workbench_two_ex(
+    def register_abcd_limit_ex(
         self,
-        request: demosdk_models.PublishWorkbenchTwoRequest,
+        request: demosdk_models.RegisterAbcdLimitRequest,
         headers: Dict[str, str],
         runtime: util_models.RuntimeOptions,
-    ) -> demosdk_models.PublishWorkbenchTwoResponse:
+    ) -> demosdk_models.RegisterAbcdLimitResponse:
         """
-        Description: 个人工作台测试
-        Summary: 个人工作台测试
+        Description: 个人工作台二期分组路由测试接口
+        Summary: 个人工作台二期分组路由测试接口
         """
         UtilClient.validate_model(request)
         return TeaCore.from_map(
-            demosdk_models.PublishWorkbenchTwoResponse(),
-            self.do_request('1.0', 'antchain.demosdk.workbench.two.publish', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+            demosdk_models.RegisterAbcdLimitResponse(),
+            self.do_request('1.0', 'antchain.demosdk.abcd.limit.register', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
-    async def publish_workbench_two_ex_async(
+    async def register_abcd_limit_ex_async(
         self,
-        request: demosdk_models.PublishWorkbenchTwoRequest,
+        request: demosdk_models.RegisterAbcdLimitRequest,
         headers: Dict[str, str],
         runtime: util_models.RuntimeOptions,
-    ) -> demosdk_models.PublishWorkbenchTwoResponse:
+    ) -> demosdk_models.RegisterAbcdLimitResponse:
         """
-        Description: 个人工作台测试
-        Summary: 个人工作台测试
+        Description: 个人工作台二期分组路由测试接口
+        Summary: 个人工作台二期分组路由测试接口
         """
         UtilClient.validate_model(request)
         return TeaCore.from_map(
-            demosdk_models.PublishWorkbenchTwoResponse(),
-            await self.do_request_async('1.0', 'antchain.demosdk.workbench.two.publish', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+            demosdk_models.RegisterAbcdLimitResponse(),
+            await self.do_request_async('1.0', 'antchain.demosdk.abcd.limit.register', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def query_twice_one(
+        self,
+        request: demosdk_models.QueryTwiceOneRequest,
+    ) -> demosdk_models.QueryTwiceOneResponse:
+        """
+        Description: 个人工作台预发测试使用
+        Summary: 个人工作台预发测试使用
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.query_twice_one_ex(request, headers, runtime)
+
+    async def query_twice_one_async(
+        self,
+        request: demosdk_models.QueryTwiceOneRequest,
+    ) -> demosdk_models.QueryTwiceOneResponse:
+        """
+        Description: 个人工作台预发测试使用
+        Summary: 个人工作台预发测试使用
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.query_twice_one_ex_async(request, headers, runtime)
+
+    def query_twice_one_ex(
+        self,
+        request: demosdk_models.QueryTwiceOneRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> demosdk_models.QueryTwiceOneResponse:
+        """
+        Description: 个人工作台预发测试使用
+        Summary: 个人工作台预发测试使用
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            demosdk_models.QueryTwiceOneResponse(),
+            self.do_request('1.0', 'antchain.demosdk.twice.one.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def query_twice_one_ex_async(
+        self,
+        request: demosdk_models.QueryTwiceOneRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> demosdk_models.QueryTwiceOneResponse:
+        """
+        Description: 个人工作台预发测试使用
+        Summary: 个人工作台预发测试使用
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            demosdk_models.QueryTwiceOneResponse(),
+            await self.do_request_async('1.0', 'antchain.demosdk.twice.one.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def import_twice_one(
+        self,
+        request: demosdk_models.ImportTwiceOneRequest,
+    ) -> demosdk_models.ImportTwiceOneResponse:
+        """
+        Description: 个人工作台二期预发测试
+        Summary: 个人工作台二期预发测试
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.import_twice_one_ex(request, headers, runtime)
+
+    async def import_twice_one_async(
+        self,
+        request: demosdk_models.ImportTwiceOneRequest,
+    ) -> demosdk_models.ImportTwiceOneResponse:
+        """
+        Description: 个人工作台二期预发测试
+        Summary: 个人工作台二期预发测试
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.import_twice_one_ex_async(request, headers, runtime)
+
+    def import_twice_one_ex(
+        self,
+        request: demosdk_models.ImportTwiceOneRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> demosdk_models.ImportTwiceOneResponse:
+        """
+        Description: 个人工作台二期预发测试
+        Summary: 个人工作台二期预发测试
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            demosdk_models.ImportTwiceOneResponse(),
+            self.do_request('1.0', 'antchain.demosdk.twice.one.import', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def import_twice_one_ex_async(
+        self,
+        request: demosdk_models.ImportTwiceOneRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> demosdk_models.ImportTwiceOneResponse:
+        """
+        Description: 个人工作台二期预发测试
+        Summary: 个人工作台二期预发测试
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            demosdk_models.ImportTwiceOneResponse(),
+            await self.do_request_async('1.0', 'antchain.demosdk.twice.one.import', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
     def publish_twice_one(
@@ -1400,8 +3112,8 @@ class Client:
         request: demosdk_models.PublishTwiceOneRequest,
     ) -> demosdk_models.PublishTwiceOneResponse:
         """
-        Description: 个人工作台二期预发测试1
-        Summary: 个人工作台二期预发测试1
+        Description: 个人工作台二期预发测试
+        Summary: 个人工作台二期预发测试
         """
         runtime = util_models.RuntimeOptions()
         headers = {}
@@ -1412,8 +3124,8 @@ class Client:
         request: demosdk_models.PublishTwiceOneRequest,
     ) -> demosdk_models.PublishTwiceOneResponse:
         """
-        Description: 个人工作台二期预发测试1
-        Summary: 个人工作台二期预发测试1
+        Description: 个人工作台二期预发测试
+        Summary: 个人工作台二期预发测试
         """
         runtime = util_models.RuntimeOptions()
         headers = {}
@@ -1426,8 +3138,8 @@ class Client:
         runtime: util_models.RuntimeOptions,
     ) -> demosdk_models.PublishTwiceOneResponse:
         """
-        Description: 个人工作台二期预发测试1
-        Summary: 个人工作台二期预发测试1
+        Description: 个人工作台二期预发测试
+        Summary: 个人工作台二期预发测试
         """
         UtilClient.validate_model(request)
         return TeaCore.from_map(
@@ -1442,13 +3154,573 @@ class Client:
         runtime: util_models.RuntimeOptions,
     ) -> demosdk_models.PublishTwiceOneResponse:
         """
-        Description: 个人工作台二期预发测试1
-        Summary: 个人工作台二期预发测试1
+        Description: 个人工作台二期预发测试
+        Summary: 个人工作台二期预发测试
         """
         UtilClient.validate_model(request)
         return TeaCore.from_map(
             demosdk_models.PublishTwiceOneResponse(),
             await self.do_request_async('1.0', 'antchain.demosdk.twice.one.publish', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def import_create_one(
+        self,
+        request: demosdk_models.ImportCreateOneRequest,
+    ) -> demosdk_models.ImportCreateOneResponse:
+        """
+        Description: 用于个人工作台二期测试使用
+        Summary: 用于个人工作台二期测试使用
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.import_create_one_ex(request, headers, runtime)
+
+    async def import_create_one_async(
+        self,
+        request: demosdk_models.ImportCreateOneRequest,
+    ) -> demosdk_models.ImportCreateOneResponse:
+        """
+        Description: 用于个人工作台二期测试使用
+        Summary: 用于个人工作台二期测试使用
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.import_create_one_ex_async(request, headers, runtime)
+
+    def import_create_one_ex(
+        self,
+        request: demosdk_models.ImportCreateOneRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> demosdk_models.ImportCreateOneResponse:
+        """
+        Description: 用于个人工作台二期测试使用
+        Summary: 用于个人工作台二期测试使用
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            demosdk_models.ImportCreateOneResponse(),
+            self.do_request('1.0', 'antchain.demosdk.create.one.import', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def import_create_one_ex_async(
+        self,
+        request: demosdk_models.ImportCreateOneRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> demosdk_models.ImportCreateOneResponse:
+        """
+        Description: 用于个人工作台二期测试使用
+        Summary: 用于个人工作台二期测试使用
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            demosdk_models.ImportCreateOneResponse(),
+            await self.do_request_async('1.0', 'antchain.demosdk.create.one.import', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def query_create_two(
+        self,
+        request: demosdk_models.QueryCreateTwoRequest,
+    ) -> demosdk_models.QueryCreateTwoResponse:
+        """
+        Description: 用于个人工作台二期测试使用
+        Summary: 用于个人工作台二期测试使用
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.query_create_two_ex(request, headers, runtime)
+
+    async def query_create_two_async(
+        self,
+        request: demosdk_models.QueryCreateTwoRequest,
+    ) -> demosdk_models.QueryCreateTwoResponse:
+        """
+        Description: 用于个人工作台二期测试使用
+        Summary: 用于个人工作台二期测试使用
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.query_create_two_ex_async(request, headers, runtime)
+
+    def query_create_two_ex(
+        self,
+        request: demosdk_models.QueryCreateTwoRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> demosdk_models.QueryCreateTwoResponse:
+        """
+        Description: 用于个人工作台二期测试使用
+        Summary: 用于个人工作台二期测试使用
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            demosdk_models.QueryCreateTwoResponse(),
+            self.do_request('1.0', 'antchain.demosdk.create.two.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def query_create_two_ex_async(
+        self,
+        request: demosdk_models.QueryCreateTwoRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> demosdk_models.QueryCreateTwoResponse:
+        """
+        Description: 用于个人工作台二期测试使用
+        Summary: 用于个人工作台二期测试使用
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            demosdk_models.QueryCreateTwoResponse(),
+            await self.do_request_async('1.0', 'antchain.demosdk.create.two.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def import_create_three(
+        self,
+        request: demosdk_models.ImportCreateThreeRequest,
+    ) -> demosdk_models.ImportCreateThreeResponse:
+        """
+        Description: 用于个人工作台二期测试使用
+        Summary: 用于个人工作台二期测试使用
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.import_create_three_ex(request, headers, runtime)
+
+    async def import_create_three_async(
+        self,
+        request: demosdk_models.ImportCreateThreeRequest,
+    ) -> demosdk_models.ImportCreateThreeResponse:
+        """
+        Description: 用于个人工作台二期测试使用
+        Summary: 用于个人工作台二期测试使用
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.import_create_three_ex_async(request, headers, runtime)
+
+    def import_create_three_ex(
+        self,
+        request: demosdk_models.ImportCreateThreeRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> demosdk_models.ImportCreateThreeResponse:
+        """
+        Description: 用于个人工作台二期测试使用
+        Summary: 用于个人工作台二期测试使用
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            demosdk_models.ImportCreateThreeResponse(),
+            self.do_request('1.0', 'antchain.demosdk.create.three.import', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def import_create_three_ex_async(
+        self,
+        request: demosdk_models.ImportCreateThreeRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> demosdk_models.ImportCreateThreeResponse:
+        """
+        Description: 用于个人工作台二期测试使用
+        Summary: 用于个人工作台二期测试使用
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            demosdk_models.ImportCreateThreeResponse(),
+            await self.do_request_async('1.0', 'antchain.demosdk.create.three.import', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def withdraw_twice_one(
+        self,
+        request: demosdk_models.WithdrawTwiceOneRequest,
+    ) -> demosdk_models.WithdrawTwiceOneResponse:
+        """
+        Description: 个人工作台二期预发测试
+        Summary: 个人工作台二期预发测试
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.withdraw_twice_one_ex(request, headers, runtime)
+
+    async def withdraw_twice_one_async(
+        self,
+        request: demosdk_models.WithdrawTwiceOneRequest,
+    ) -> demosdk_models.WithdrawTwiceOneResponse:
+        """
+        Description: 个人工作台二期预发测试
+        Summary: 个人工作台二期预发测试
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.withdraw_twice_one_ex_async(request, headers, runtime)
+
+    def withdraw_twice_one_ex(
+        self,
+        request: demosdk_models.WithdrawTwiceOneRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> demosdk_models.WithdrawTwiceOneResponse:
+        """
+        Description: 个人工作台二期预发测试
+        Summary: 个人工作台二期预发测试
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            demosdk_models.WithdrawTwiceOneResponse(),
+            self.do_request('1.0', 'antchain.demosdk.twice.one.withdraw', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def withdraw_twice_one_ex_async(
+        self,
+        request: demosdk_models.WithdrawTwiceOneRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> demosdk_models.WithdrawTwiceOneResponse:
+        """
+        Description: 个人工作台二期预发测试
+        Summary: 个人工作台二期预发测试
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            demosdk_models.WithdrawTwiceOneResponse(),
+            await self.do_request_async('1.0', 'antchain.demosdk.twice.one.withdraw', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def operate_twice_one(
+        self,
+        request: demosdk_models.OperateTwiceOneRequest,
+    ) -> demosdk_models.OperateTwiceOneResponse:
+        """
+        Description: 个人工作台二期预发测试
+        Summary: 个人工作台二期预发测试
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.operate_twice_one_ex(request, headers, runtime)
+
+    async def operate_twice_one_async(
+        self,
+        request: demosdk_models.OperateTwiceOneRequest,
+    ) -> demosdk_models.OperateTwiceOneResponse:
+        """
+        Description: 个人工作台二期预发测试
+        Summary: 个人工作台二期预发测试
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.operate_twice_one_ex_async(request, headers, runtime)
+
+    def operate_twice_one_ex(
+        self,
+        request: demosdk_models.OperateTwiceOneRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> demosdk_models.OperateTwiceOneResponse:
+        """
+        Description: 个人工作台二期预发测试
+        Summary: 个人工作台二期预发测试
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            demosdk_models.OperateTwiceOneResponse(),
+            self.do_request('1.0', 'antchain.demosdk.twice.one.operate', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def operate_twice_one_ex_async(
+        self,
+        request: demosdk_models.OperateTwiceOneRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> demosdk_models.OperateTwiceOneResponse:
+        """
+        Description: 个人工作台二期预发测试
+        Summary: 个人工作台二期预发测试
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            demosdk_models.OperateTwiceOneResponse(),
+            await self.do_request_async('1.0', 'antchain.demosdk.twice.one.operate', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def query_twice_two(
+        self,
+        request: demosdk_models.QueryTwiceTwoRequest,
+    ) -> demosdk_models.QueryTwiceTwoResponse:
+        """
+        Description: 个人工作台二期预发测试
+        Summary: 个人工作台二期预发测试
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.query_twice_two_ex(request, headers, runtime)
+
+    async def query_twice_two_async(
+        self,
+        request: demosdk_models.QueryTwiceTwoRequest,
+    ) -> demosdk_models.QueryTwiceTwoResponse:
+        """
+        Description: 个人工作台二期预发测试
+        Summary: 个人工作台二期预发测试
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.query_twice_two_ex_async(request, headers, runtime)
+
+    def query_twice_two_ex(
+        self,
+        request: demosdk_models.QueryTwiceTwoRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> demosdk_models.QueryTwiceTwoResponse:
+        """
+        Description: 个人工作台二期预发测试
+        Summary: 个人工作台二期预发测试
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            demosdk_models.QueryTwiceTwoResponse(),
+            self.do_request('1.0', 'antchain.demosdk.twice.two.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def query_twice_two_ex_async(
+        self,
+        request: demosdk_models.QueryTwiceTwoRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> demosdk_models.QueryTwiceTwoResponse:
+        """
+        Description: 个人工作台二期预发测试
+        Summary: 个人工作台二期预发测试
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            demosdk_models.QueryTwiceTwoResponse(),
+            await self.do_request_async('1.0', 'antchain.demosdk.twice.two.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def query_test(
+        self,
+        request: demosdk_models.QueryTestRequest,
+    ) -> demosdk_models.QueryTestResponse:
+        """
+        Description: 测试刷新cachekey
+        Summary: 测试刷新cachekey
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.query_test_ex(request, headers, runtime)
+
+    async def query_test_async(
+        self,
+        request: demosdk_models.QueryTestRequest,
+    ) -> demosdk_models.QueryTestResponse:
+        """
+        Description: 测试刷新cachekey
+        Summary: 测试刷新cachekey
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.query_test_ex_async(request, headers, runtime)
+
+    def query_test_ex(
+        self,
+        request: demosdk_models.QueryTestRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> demosdk_models.QueryTestResponse:
+        """
+        Description: 测试刷新cachekey
+        Summary: 测试刷新cachekey
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            demosdk_models.QueryTestResponse(),
+            self.do_request('1.0', 'antchain.demosdk.test.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def query_test_ex_async(
+        self,
+        request: demosdk_models.QueryTestRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> demosdk_models.QueryTestResponse:
+        """
+        Description: 测试刷新cachekey
+        Summary: 测试刷新cachekey
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            demosdk_models.QueryTestResponse(),
+            await self.do_request_async('1.0', 'antchain.demosdk.test.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def import_test(
+        self,
+        request: demosdk_models.ImportTestRequest,
+    ) -> demosdk_models.ImportTestResponse:
+        """
+        Description: 测试刷新cachekey
+        Summary: 测试刷新cachekey
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.import_test_ex(request, headers, runtime)
+
+    async def import_test_async(
+        self,
+        request: demosdk_models.ImportTestRequest,
+    ) -> demosdk_models.ImportTestResponse:
+        """
+        Description: 测试刷新cachekey
+        Summary: 测试刷新cachekey
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.import_test_ex_async(request, headers, runtime)
+
+    def import_test_ex(
+        self,
+        request: demosdk_models.ImportTestRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> demosdk_models.ImportTestResponse:
+        """
+        Description: 测试刷新cachekey
+        Summary: 测试刷新cachekey
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            demosdk_models.ImportTestResponse(),
+            self.do_request('1.0', 'antchain.demosdk.test.import', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def import_test_ex_async(
+        self,
+        request: demosdk_models.ImportTestRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> demosdk_models.ImportTestResponse:
+        """
+        Description: 测试刷新cachekey
+        Summary: 测试刷新cachekey
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            demosdk_models.ImportTestResponse(),
+            await self.do_request_async('1.0', 'antchain.demosdk.test.import', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def stabilize_test(
+        self,
+        request: demosdk_models.StabilizeTestRequest,
+    ) -> demosdk_models.StabilizeTestResponse:
+        """
+        Description: 测试灰度刷新缓存范围
+        Summary: 测试灰度刷新缓存范围
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.stabilize_test_ex(request, headers, runtime)
+
+    async def stabilize_test_async(
+        self,
+        request: demosdk_models.StabilizeTestRequest,
+    ) -> demosdk_models.StabilizeTestResponse:
+        """
+        Description: 测试灰度刷新缓存范围
+        Summary: 测试灰度刷新缓存范围
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.stabilize_test_ex_async(request, headers, runtime)
+
+    def stabilize_test_ex(
+        self,
+        request: demosdk_models.StabilizeTestRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> demosdk_models.StabilizeTestResponse:
+        """
+        Description: 测试灰度刷新缓存范围
+        Summary: 测试灰度刷新缓存范围
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            demosdk_models.StabilizeTestResponse(),
+            self.do_request('1.0', 'antchain.demosdk.test.stabilize', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def stabilize_test_ex_async(
+        self,
+        request: demosdk_models.StabilizeTestRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> demosdk_models.StabilizeTestResponse:
+        """
+        Description: 测试灰度刷新缓存范围
+        Summary: 测试灰度刷新缓存范围
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            demosdk_models.StabilizeTestResponse(),
+            await self.do_request_async('1.0', 'antchain.demosdk.test.stabilize', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def query_twice_three(
+        self,
+        request: demosdk_models.QueryTwiceThreeRequest,
+    ) -> demosdk_models.QueryTwiceThreeResponse:
+        """
+        Description: 个人工作台二期预发测试
+        Summary: 个人工作台二期预发测试
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.query_twice_three_ex(request, headers, runtime)
+
+    async def query_twice_three_async(
+        self,
+        request: demosdk_models.QueryTwiceThreeRequest,
+    ) -> demosdk_models.QueryTwiceThreeResponse:
+        """
+        Description: 个人工作台二期预发测试
+        Summary: 个人工作台二期预发测试
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.query_twice_three_ex_async(request, headers, runtime)
+
+    def query_twice_three_ex(
+        self,
+        request: demosdk_models.QueryTwiceThreeRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> demosdk_models.QueryTwiceThreeResponse:
+        """
+        Description: 个人工作台二期预发测试
+        Summary: 个人工作台二期预发测试
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            demosdk_models.QueryTwiceThreeResponse(),
+            self.do_request('1.0', 'antchain.demosdk.twice.three.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def query_twice_three_ex_async(
+        self,
+        request: demosdk_models.QueryTwiceThreeRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> demosdk_models.QueryTwiceThreeResponse:
+        """
+        Description: 个人工作台二期预发测试
+        Summary: 个人工作台二期预发测试
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            demosdk_models.QueryTwiceThreeResponse(),
+            await self.do_request_async('1.0', 'antchain.demosdk.twice.three.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
     def import_twice_three(
@@ -1507,394 +3779,562 @@ class Client:
             await self.do_request_async('1.0', 'antchain.demosdk.twice.three.import', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
-    def publish_workbench_three(
+    def unstabilize_test(
         self,
-        request: demosdk_models.PublishWorkbenchThreeRequest,
-    ) -> demosdk_models.PublishWorkbenchThreeResponse:
+        request: demosdk_models.UnstabilizeTestRequest,
+    ) -> demosdk_models.UnstabilizeTestResponse:
         """
-        Description: 个人工作台测试使用
-        Summary: 个人工作台测试使用
+        Description: 测试刷新cachekey
+        Summary: 测试刷新cachekey
         """
         runtime = util_models.RuntimeOptions()
         headers = {}
-        return self.publish_workbench_three_ex(request, headers, runtime)
+        return self.unstabilize_test_ex(request, headers, runtime)
 
-    async def publish_workbench_three_async(
+    async def unstabilize_test_async(
         self,
-        request: demosdk_models.PublishWorkbenchThreeRequest,
-    ) -> demosdk_models.PublishWorkbenchThreeResponse:
+        request: demosdk_models.UnstabilizeTestRequest,
+    ) -> demosdk_models.UnstabilizeTestResponse:
         """
-        Description: 个人工作台测试使用
-        Summary: 个人工作台测试使用
+        Description: 测试刷新cachekey
+        Summary: 测试刷新cachekey
         """
         runtime = util_models.RuntimeOptions()
         headers = {}
-        return await self.publish_workbench_three_ex_async(request, headers, runtime)
+        return await self.unstabilize_test_ex_async(request, headers, runtime)
 
-    def publish_workbench_three_ex(
+    def unstabilize_test_ex(
         self,
-        request: demosdk_models.PublishWorkbenchThreeRequest,
+        request: demosdk_models.UnstabilizeTestRequest,
         headers: Dict[str, str],
         runtime: util_models.RuntimeOptions,
-    ) -> demosdk_models.PublishWorkbenchThreeResponse:
+    ) -> demosdk_models.UnstabilizeTestResponse:
         """
-        Description: 个人工作台测试使用
-        Summary: 个人工作台测试使用
+        Description: 测试刷新cachekey
+        Summary: 测试刷新cachekey
         """
         UtilClient.validate_model(request)
         return TeaCore.from_map(
-            demosdk_models.PublishWorkbenchThreeResponse(),
-            self.do_request('1.0', 'antchain.demosdk.workbench.three.publish', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+            demosdk_models.UnstabilizeTestResponse(),
+            self.do_request('1.0', 'antchain.demosdk.test.unstabilize', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
-    async def publish_workbench_three_ex_async(
+    async def unstabilize_test_ex_async(
         self,
-        request: demosdk_models.PublishWorkbenchThreeRequest,
+        request: demosdk_models.UnstabilizeTestRequest,
         headers: Dict[str, str],
         runtime: util_models.RuntimeOptions,
-    ) -> demosdk_models.PublishWorkbenchThreeResponse:
+    ) -> demosdk_models.UnstabilizeTestResponse:
         """
-        Description: 个人工作台测试使用
-        Summary: 个人工作台测试使用
+        Description: 测试刷新cachekey
+        Summary: 测试刷新cachekey
         """
         UtilClient.validate_model(request)
         return TeaCore.from_map(
-            demosdk_models.PublishWorkbenchThreeResponse(),
-            await self.do_request_async('1.0', 'antchain.demosdk.workbench.three.publish', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+            demosdk_models.UnstabilizeTestResponse(),
+            await self.do_request_async('1.0', 'antchain.demosdk.test.unstabilize', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
-    def publish_workbench_four(
+    def query_test_xc(
         self,
-        request: demosdk_models.PublishWorkbenchFourRequest,
-    ) -> demosdk_models.PublishWorkbenchFourResponse:
-        """
-        Description: 个人工作台测试使用
-        Summary: 个人工作台测试使用
-        """
-        runtime = util_models.RuntimeOptions()
-        headers = {}
-        return self.publish_workbench_four_ex(request, headers, runtime)
-
-    async def publish_workbench_four_async(
-        self,
-        request: demosdk_models.PublishWorkbenchFourRequest,
-    ) -> demosdk_models.PublishWorkbenchFourResponse:
-        """
-        Description: 个人工作台测试使用
-        Summary: 个人工作台测试使用
-        """
-        runtime = util_models.RuntimeOptions()
-        headers = {}
-        return await self.publish_workbench_four_ex_async(request, headers, runtime)
-
-    def publish_workbench_four_ex(
-        self,
-        request: demosdk_models.PublishWorkbenchFourRequest,
-        headers: Dict[str, str],
-        runtime: util_models.RuntimeOptions,
-    ) -> demosdk_models.PublishWorkbenchFourResponse:
-        """
-        Description: 个人工作台测试使用
-        Summary: 个人工作台测试使用
-        """
-        UtilClient.validate_model(request)
-        return TeaCore.from_map(
-            demosdk_models.PublishWorkbenchFourResponse(),
-            self.do_request('1.0', 'antchain.demosdk.workbench.four.publish', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
-        )
-
-    async def publish_workbench_four_ex_async(
-        self,
-        request: demosdk_models.PublishWorkbenchFourRequest,
-        headers: Dict[str, str],
-        runtime: util_models.RuntimeOptions,
-    ) -> demosdk_models.PublishWorkbenchFourResponse:
-        """
-        Description: 个人工作台测试使用
-        Summary: 个人工作台测试使用
-        """
-        UtilClient.validate_model(request)
-        return TeaCore.from_map(
-            demosdk_models.PublishWorkbenchFourResponse(),
-            await self.do_request_async('1.0', 'antchain.demosdk.workbench.four.publish', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
-        )
-
-    def query_aaa_qqq(
-        self,
-        request: demosdk_models.QueryAaaQqqRequest,
-    ) -> demosdk_models.QueryAaaQqqResponse:
-        """
-        Description: AAAA
-        Summary: AAAA
-        """
-        runtime = util_models.RuntimeOptions()
-        headers = {}
-        return self.query_aaa_qqq_ex(request, headers, runtime)
-
-    async def query_aaa_qqq_async(
-        self,
-        request: demosdk_models.QueryAaaQqqRequest,
-    ) -> demosdk_models.QueryAaaQqqResponse:
-        """
-        Description: AAAA
-        Summary: AAAA
-        """
-        runtime = util_models.RuntimeOptions()
-        headers = {}
-        return await self.query_aaa_qqq_ex_async(request, headers, runtime)
-
-    def query_aaa_qqq_ex(
-        self,
-        request: demosdk_models.QueryAaaQqqRequest,
-        headers: Dict[str, str],
-        runtime: util_models.RuntimeOptions,
-    ) -> demosdk_models.QueryAaaQqqResponse:
-        """
-        Description: AAAA
-        Summary: AAAA
-        """
-        UtilClient.validate_model(request)
-        return TeaCore.from_map(
-            demosdk_models.QueryAaaQqqResponse(),
-            self.do_request('1.0', 'antchain.demosdk.aaa.qqq.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
-        )
-
-    async def query_aaa_qqq_ex_async(
-        self,
-        request: demosdk_models.QueryAaaQqqRequest,
-        headers: Dict[str, str],
-        runtime: util_models.RuntimeOptions,
-    ) -> demosdk_models.QueryAaaQqqResponse:
-        """
-        Description: AAAA
-        Summary: AAAA
-        """
-        UtilClient.validate_model(request)
-        return TeaCore.from_map(
-            demosdk_models.QueryAaaQqqResponse(),
-            await self.do_request_async('1.0', 'antchain.demosdk.aaa.qqq.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
-        )
-
-    def c_ab(
-        self,
-        request: demosdk_models.CABRequest,
-    ) -> demosdk_models.CABResponse:
-        """
-        Description: a
-        Summary: a
-        """
-        runtime = util_models.RuntimeOptions()
-        headers = {}
-        return self.c_abex(request, headers, runtime)
-
-    async def c_ab_async(
-        self,
-        request: demosdk_models.CABRequest,
-    ) -> demosdk_models.CABResponse:
-        """
-        Description: a
-        Summary: a
-        """
-        runtime = util_models.RuntimeOptions()
-        headers = {}
-        return await self.c_abex_async(request, headers, runtime)
-
-    def c_abex(
-        self,
-        request: demosdk_models.CABRequest,
-        headers: Dict[str, str],
-        runtime: util_models.RuntimeOptions,
-    ) -> demosdk_models.CABResponse:
-        """
-        Description: a
-        Summary: a
-        """
-        UtilClient.validate_model(request)
-        return TeaCore.from_map(
-            demosdk_models.CABResponse(),
-            self.do_request('1.0', 'antchain.demosdk.a.b.c', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
-        )
-
-    async def c_abex_async(
-        self,
-        request: demosdk_models.CABRequest,
-        headers: Dict[str, str],
-        runtime: util_models.RuntimeOptions,
-    ) -> demosdk_models.CABResponse:
-        """
-        Description: a
-        Summary: a
-        """
-        UtilClient.validate_model(request)
-        return TeaCore.from_map(
-            demosdk_models.CABResponse(),
-            await self.do_request_async('1.0', 'antchain.demosdk.a.b.c', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
-        )
-
-    def a_aa(
-        self,
-        request: demosdk_models.AAARequest,
-    ) -> demosdk_models.AAAResponse:
+        request: demosdk_models.QueryTestXcRequest,
+    ) -> demosdk_models.QueryTestXcResponse:
         """
         Description: 测试
         Summary: 测试
         """
         runtime = util_models.RuntimeOptions()
         headers = {}
-        return self.a_aaex(request, headers, runtime)
+        return self.query_test_xc_ex(request, headers, runtime)
 
-    async def a_aa_async(
+    async def query_test_xc_async(
         self,
-        request: demosdk_models.AAARequest,
-    ) -> demosdk_models.AAAResponse:
+        request: demosdk_models.QueryTestXcRequest,
+    ) -> demosdk_models.QueryTestXcResponse:
         """
         Description: 测试
         Summary: 测试
         """
         runtime = util_models.RuntimeOptions()
         headers = {}
-        return await self.a_aaex_async(request, headers, runtime)
+        return await self.query_test_xc_ex_async(request, headers, runtime)
 
-    def a_aaex(
+    def query_test_xc_ex(
         self,
-        request: demosdk_models.AAARequest,
+        request: demosdk_models.QueryTestXcRequest,
         headers: Dict[str, str],
         runtime: util_models.RuntimeOptions,
-    ) -> demosdk_models.AAAResponse:
+    ) -> demosdk_models.QueryTestXcResponse:
         """
         Description: 测试
         Summary: 测试
         """
         UtilClient.validate_model(request)
         return TeaCore.from_map(
-            demosdk_models.AAAResponse(),
-            self.do_request('1.0', 'antchain.demosdk.a.a.a', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+            demosdk_models.QueryTestXcResponse(),
+            self.do_request('1.0', 'antchain.demosdk.test.xc.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
-    async def a_aaex_async(
+    async def query_test_xc_ex_async(
         self,
-        request: demosdk_models.AAARequest,
+        request: demosdk_models.QueryTestXcRequest,
         headers: Dict[str, str],
         runtime: util_models.RuntimeOptions,
-    ) -> demosdk_models.AAAResponse:
+    ) -> demosdk_models.QueryTestXcResponse:
         """
         Description: 测试
         Summary: 测试
         """
         UtilClient.validate_model(request)
         return TeaCore.from_map(
-            demosdk_models.AAAResponse(),
-            await self.do_request_async('1.0', 'antchain.demosdk.a.a.a', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+            demosdk_models.QueryTestXcResponse(),
+            await self.do_request_async('1.0', 'antchain.demosdk.test.xc.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
-    def api_autotest_create(
+    def query_test_sya(
         self,
-        request: demosdk_models.ApiAutotestCreateRequest,
-    ) -> demosdk_models.ApiAutotestCreateResponse:
+        request: demosdk_models.QueryTestSyaRequest,
+    ) -> demosdk_models.QueryTestSyaResponse:
         """
-        Description: 自动化测试使用
-        Summary: 自动化测试使用
+        Description: test
+        Summary: test
         """
         runtime = util_models.RuntimeOptions()
         headers = {}
-        return self.api_autotest_create_ex(request, headers, runtime)
+        return self.query_test_sya_ex(request, headers, runtime)
 
-    async def api_autotest_create_async(
+    async def query_test_sya_async(
         self,
-        request: demosdk_models.ApiAutotestCreateRequest,
-    ) -> demosdk_models.ApiAutotestCreateResponse:
+        request: demosdk_models.QueryTestSyaRequest,
+    ) -> demosdk_models.QueryTestSyaResponse:
         """
-        Description: 自动化测试使用
-        Summary: 自动化测试使用
+        Description: test
+        Summary: test
         """
         runtime = util_models.RuntimeOptions()
         headers = {}
-        return await self.api_autotest_create_ex_async(request, headers, runtime)
+        return await self.query_test_sya_ex_async(request, headers, runtime)
 
-    def api_autotest_create_ex(
+    def query_test_sya_ex(
         self,
-        request: demosdk_models.ApiAutotestCreateRequest,
+        request: demosdk_models.QueryTestSyaRequest,
         headers: Dict[str, str],
         runtime: util_models.RuntimeOptions,
-    ) -> demosdk_models.ApiAutotestCreateResponse:
+    ) -> demosdk_models.QueryTestSyaResponse:
         """
-        Description: 自动化测试使用
-        Summary: 自动化测试使用
+        Description: test
+        Summary: test
         """
         UtilClient.validate_model(request)
         return TeaCore.from_map(
-            demosdk_models.ApiAutotestCreateResponse(),
-            self.do_request('1.0', 'antchain.demosdk.autotest.create.api', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+            demosdk_models.QueryTestSyaResponse(),
+            self.do_request('1.0', 'antchain.demosdk.test.sya.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
-    async def api_autotest_create_ex_async(
+    async def query_test_sya_ex_async(
         self,
-        request: demosdk_models.ApiAutotestCreateRequest,
+        request: demosdk_models.QueryTestSyaRequest,
         headers: Dict[str, str],
         runtime: util_models.RuntimeOptions,
-    ) -> demosdk_models.ApiAutotestCreateResponse:
+    ) -> demosdk_models.QueryTestSyaResponse:
         """
-        Description: 自动化测试使用
-        Summary: 自动化测试使用
+        Description: test
+        Summary: test
         """
         UtilClient.validate_model(request)
         return TeaCore.from_map(
-            demosdk_models.ApiAutotestCreateResponse(),
-            await self.do_request_async('1.0', 'antchain.demosdk.autotest.create.api', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+            demosdk_models.QueryTestSyaResponse(),
+            await self.do_request_async('1.0', 'antchain.demosdk.test.sya.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
-    def zhongyipretestb_zhongyipretestb_zhongyipretestb(
+    def query_qqq_www(
         self,
-        request: demosdk_models.ZhongyipretestbZhongyipretestbZhongyipretestbRequest,
-    ) -> demosdk_models.ZhongyipretestbZhongyipretestbZhongyipretestbResponse:
+        request: demosdk_models.QueryQqqWwwRequest,
+    ) -> demosdk_models.QueryQqqWwwResponse:
         """
-        Description: 这是编辑后的描述
-        Summary: 这是编辑后的描述
+        Description: 用于个人工作台二期测试使用
+        Summary: 用于个人工作台二期测试使用
         """
         runtime = util_models.RuntimeOptions()
         headers = {}
-        return self.zhongyipretestb_zhongyipretestb_zhongyipretestb_ex(request, headers, runtime)
+        return self.query_qqq_www_ex(request, headers, runtime)
 
-    async def zhongyipretestb_zhongyipretestb_zhongyipretestb_async(
+    async def query_qqq_www_async(
         self,
-        request: demosdk_models.ZhongyipretestbZhongyipretestbZhongyipretestbRequest,
-    ) -> demosdk_models.ZhongyipretestbZhongyipretestbZhongyipretestbResponse:
+        request: demosdk_models.QueryQqqWwwRequest,
+    ) -> demosdk_models.QueryQqqWwwResponse:
         """
-        Description: 这是编辑后的描述
-        Summary: 这是编辑后的描述
+        Description: 用于个人工作台二期测试使用
+        Summary: 用于个人工作台二期测试使用
         """
         runtime = util_models.RuntimeOptions()
         headers = {}
-        return await self.zhongyipretestb_zhongyipretestb_zhongyipretestb_ex_async(request, headers, runtime)
+        return await self.query_qqq_www_ex_async(request, headers, runtime)
 
-    def zhongyipretestb_zhongyipretestb_zhongyipretestb_ex(
+    def query_qqq_www_ex(
         self,
-        request: demosdk_models.ZhongyipretestbZhongyipretestbZhongyipretestbRequest,
+        request: demosdk_models.QueryQqqWwwRequest,
         headers: Dict[str, str],
         runtime: util_models.RuntimeOptions,
-    ) -> demosdk_models.ZhongyipretestbZhongyipretestbZhongyipretestbResponse:
+    ) -> demosdk_models.QueryQqqWwwResponse:
         """
-        Description: 这是编辑后的描述
-        Summary: 这是编辑后的描述
+        Description: 用于个人工作台二期测试使用
+        Summary: 用于个人工作台二期测试使用
         """
         UtilClient.validate_model(request)
         return TeaCore.from_map(
-            demosdk_models.ZhongyipretestbZhongyipretestbZhongyipretestbResponse(),
-            self.do_request('1.0', 'antchain.demosdk.zhongyipretestb.zhongyipretestb.zhongyipretestb', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+            demosdk_models.QueryQqqWwwResponse(),
+            self.do_request('1.0', 'antchain.demosdk.qqq.www.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
-    async def zhongyipretestb_zhongyipretestb_zhongyipretestb_ex_async(
+    async def query_qqq_www_ex_async(
         self,
-        request: demosdk_models.ZhongyipretestbZhongyipretestbZhongyipretestbRequest,
+        request: demosdk_models.QueryQqqWwwRequest,
         headers: Dict[str, str],
         runtime: util_models.RuntimeOptions,
-    ) -> demosdk_models.ZhongyipretestbZhongyipretestbZhongyipretestbResponse:
+    ) -> demosdk_models.QueryQqqWwwResponse:
         """
-        Description: 这是编辑后的描述
-        Summary: 这是编辑后的描述
+        Description: 用于个人工作台二期测试使用
+        Summary: 用于个人工作台二期测试使用
         """
         UtilClient.validate_model(request)
         return TeaCore.from_map(
-            demosdk_models.ZhongyipretestbZhongyipretestbZhongyipretestbResponse(),
-            await self.do_request_async('1.0', 'antchain.demosdk.zhongyipretestb.zhongyipretestb.zhongyipretestb', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+            demosdk_models.QueryQqqWwwResponse(),
+            await self.do_request_async('1.0', 'antchain.demosdk.qqq.www.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def stabilize_twice_three(
+        self,
+        request: demosdk_models.StabilizeTwiceThreeRequest,
+    ) -> demosdk_models.StabilizeTwiceThreeResponse:
+        """
+        Description: 个人工作台二期预发测试
+        Summary: 个人工作台二期预发测试
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.stabilize_twice_three_ex(request, headers, runtime)
+
+    async def stabilize_twice_three_async(
+        self,
+        request: demosdk_models.StabilizeTwiceThreeRequest,
+    ) -> demosdk_models.StabilizeTwiceThreeResponse:
+        """
+        Description: 个人工作台二期预发测试
+        Summary: 个人工作台二期预发测试
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.stabilize_twice_three_ex_async(request, headers, runtime)
+
+    def stabilize_twice_three_ex(
+        self,
+        request: demosdk_models.StabilizeTwiceThreeRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> demosdk_models.StabilizeTwiceThreeResponse:
+        """
+        Description: 个人工作台二期预发测试
+        Summary: 个人工作台二期预发测试
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            demosdk_models.StabilizeTwiceThreeResponse(),
+            self.do_request('1.0', 'antchain.demosdk.twice.three.stabilize', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def stabilize_twice_three_ex_async(
+        self,
+        request: demosdk_models.StabilizeTwiceThreeRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> demosdk_models.StabilizeTwiceThreeResponse:
+        """
+        Description: 个人工作台二期预发测试
+        Summary: 个人工作台二期预发测试
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            demosdk_models.StabilizeTwiceThreeResponse(),
+            await self.do_request_async('1.0', 'antchain.demosdk.twice.three.stabilize', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def unstabilize_twice_three(
+        self,
+        request: demosdk_models.UnstabilizeTwiceThreeRequest,
+    ) -> demosdk_models.UnstabilizeTwiceThreeResponse:
+        """
+        Description: 个人工作台二期预发测试
+        Summary: 个人工作台二期预发测试
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.unstabilize_twice_three_ex(request, headers, runtime)
+
+    async def unstabilize_twice_three_async(
+        self,
+        request: demosdk_models.UnstabilizeTwiceThreeRequest,
+    ) -> demosdk_models.UnstabilizeTwiceThreeResponse:
+        """
+        Description: 个人工作台二期预发测试
+        Summary: 个人工作台二期预发测试
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.unstabilize_twice_three_ex_async(request, headers, runtime)
+
+    def unstabilize_twice_three_ex(
+        self,
+        request: demosdk_models.UnstabilizeTwiceThreeRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> demosdk_models.UnstabilizeTwiceThreeResponse:
+        """
+        Description: 个人工作台二期预发测试
+        Summary: 个人工作台二期预发测试
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            demosdk_models.UnstabilizeTwiceThreeResponse(),
+            self.do_request('1.0', 'antchain.demosdk.twice.three.unstabilize', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def unstabilize_twice_three_ex_async(
+        self,
+        request: demosdk_models.UnstabilizeTwiceThreeRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> demosdk_models.UnstabilizeTwiceThreeResponse:
+        """
+        Description: 个人工作台二期预发测试
+        Summary: 个人工作台二期预发测试
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            demosdk_models.UnstabilizeTwiceThreeResponse(),
+            await self.do_request_async('1.0', 'antchain.demosdk.twice.three.unstabilize', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def query_bbb_aatest(
+        self,
+        request: demosdk_models.QueryBbbAatestRequest,
+    ) -> demosdk_models.QueryBbbAatestResponse:
+        """
+        Description: 测试用
+        Summary: 测试用
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.query_bbb_aatest_ex(request, headers, runtime)
+
+    async def query_bbb_aatest_async(
+        self,
+        request: demosdk_models.QueryBbbAatestRequest,
+    ) -> demosdk_models.QueryBbbAatestResponse:
+        """
+        Description: 测试用
+        Summary: 测试用
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.query_bbb_aatest_ex_async(request, headers, runtime)
+
+    def query_bbb_aatest_ex(
+        self,
+        request: demosdk_models.QueryBbbAatestRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> demosdk_models.QueryBbbAatestResponse:
+        """
+        Description: 测试用
+        Summary: 测试用
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            demosdk_models.QueryBbbAatestResponse(),
+            self.do_request('1.0', 'antchain.demosdk.bbb.aatest.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def query_bbb_aatest_ex_async(
+        self,
+        request: demosdk_models.QueryBbbAatestRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> demosdk_models.QueryBbbAatestResponse:
+        """
+        Description: 测试用
+        Summary: 测试用
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            demosdk_models.QueryBbbAatestResponse(),
+            await self.do_request_async('1.0', 'antchain.demosdk.bbb.aatest.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def param_liuyz_test(
+        self,
+        request: demosdk_models.ParamLiuyzTestRequest,
+    ) -> demosdk_models.ParamLiuyzTestResponse:
+        """
+        Description: 测试接口
+        Summary: 测试接口
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.param_liuyz_test_ex(request, headers, runtime)
+
+    async def param_liuyz_test_async(
+        self,
+        request: demosdk_models.ParamLiuyzTestRequest,
+    ) -> demosdk_models.ParamLiuyzTestResponse:
+        """
+        Description: 测试接口
+        Summary: 测试接口
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.param_liuyz_test_ex_async(request, headers, runtime)
+
+    def param_liuyz_test_ex(
+        self,
+        request: demosdk_models.ParamLiuyzTestRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> demosdk_models.ParamLiuyzTestResponse:
+        """
+        Description: 测试接口
+        Summary: 测试接口
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            demosdk_models.ParamLiuyzTestResponse(),
+            self.do_request('1.0', 'antchain.demosdk.liuyz.test.param', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def param_liuyz_test_ex_async(
+        self,
+        request: demosdk_models.ParamLiuyzTestRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> demosdk_models.ParamLiuyzTestResponse:
+        """
+        Description: 测试接口
+        Summary: 测试接口
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            demosdk_models.ParamLiuyzTestResponse(),
+            await self.do_request_async('1.0', 'antchain.demosdk.liuyz.test.param', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def lll_proxy_lyz_test(
+        self,
+        request: demosdk_models.LllProxyLyzTestRequest,
+    ) -> demosdk_models.LllProxyLyzTestResponse:
+        """
+        Description: 测试接口
+        Summary: 测试接口
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.lll_proxy_lyz_test_ex(request, headers, runtime)
+
+    async def lll_proxy_lyz_test_async(
+        self,
+        request: demosdk_models.LllProxyLyzTestRequest,
+    ) -> demosdk_models.LllProxyLyzTestResponse:
+        """
+        Description: 测试接口
+        Summary: 测试接口
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.lll_proxy_lyz_test_ex_async(request, headers, runtime)
+
+    def lll_proxy_lyz_test_ex(
+        self,
+        request: demosdk_models.LllProxyLyzTestRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> demosdk_models.LllProxyLyzTestResponse:
+        """
+        Description: 测试接口
+        Summary: 测试接口
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            demosdk_models.LllProxyLyzTestResponse(),
+            self.do_request('1.0', 'antchain.demosdk.proxy.lyz.test.lll', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def lll_proxy_lyz_test_ex_async(
+        self,
+        request: demosdk_models.LllProxyLyzTestRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> demosdk_models.LllProxyLyzTestResponse:
+        """
+        Description: 测试接口
+        Summary: 测试接口
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            demosdk_models.LllProxyLyzTestResponse(),
+            await self.do_request_async('1.0', 'antchain.demosdk.proxy.lyz.test.lll', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def create_antcloud_gatewayx_file_upload(
+        self,
+        request: demosdk_models.CreateAntcloudGatewayxFileUploadRequest,
+    ) -> demosdk_models.CreateAntcloudGatewayxFileUploadResponse:
+        """
+        Description: 创建HTTP PUT提交的文件上传
+        Summary: 文件上传创建
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.create_antcloud_gatewayx_file_upload_ex(request, headers, runtime)
+
+    async def create_antcloud_gatewayx_file_upload_async(
+        self,
+        request: demosdk_models.CreateAntcloudGatewayxFileUploadRequest,
+    ) -> demosdk_models.CreateAntcloudGatewayxFileUploadResponse:
+        """
+        Description: 创建HTTP PUT提交的文件上传
+        Summary: 文件上传创建
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.create_antcloud_gatewayx_file_upload_ex_async(request, headers, runtime)
+
+    def create_antcloud_gatewayx_file_upload_ex(
+        self,
+        request: demosdk_models.CreateAntcloudGatewayxFileUploadRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> demosdk_models.CreateAntcloudGatewayxFileUploadResponse:
+        """
+        Description: 创建HTTP PUT提交的文件上传
+        Summary: 文件上传创建
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            demosdk_models.CreateAntcloudGatewayxFileUploadResponse(),
+            self.do_request('1.0', 'antcloud.gatewayx.file.upload.create', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def create_antcloud_gatewayx_file_upload_ex_async(
+        self,
+        request: demosdk_models.CreateAntcloudGatewayxFileUploadRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> demosdk_models.CreateAntcloudGatewayxFileUploadResponse:
+        """
+        Description: 创建HTTP PUT提交的文件上传
+        Summary: 文件上传创建
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            demosdk_models.CreateAntcloudGatewayxFileUploadResponse(),
+            await self.do_request_async('1.0', 'antcloud.gatewayx.file.upload.create', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
