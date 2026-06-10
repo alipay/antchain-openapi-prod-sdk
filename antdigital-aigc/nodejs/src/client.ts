@@ -473,8 +473,6 @@ export class UploadAssetRequest extends $tea.Model {
   fileUrl: string;
   // 测试
   assetName: string;
-  // 资产分组 ID
-  groupId: string;
   static names(): { [key: string]: string } {
     return {
       authToken: 'auth_token',
@@ -482,7 +480,6 @@ export class UploadAssetRequest extends $tea.Model {
       assetType: 'asset_type',
       fileUrl: 'file_url',
       assetName: 'asset_name',
-      groupId: 'group_id',
     };
   }
 
@@ -493,7 +490,6 @@ export class UploadAssetRequest extends $tea.Model {
       assetType: 'string',
       fileUrl: 'string',
       assetName: 'string',
-      groupId: 'string',
     };
   }
 
@@ -970,7 +966,7 @@ export default class Client {
           req_msg_id: AntchainUtil.getNonce(),
           access_key: this._accessKeyId,
           base_sdk_version: "TeaSDK-2.0",
-          sdk_version: "1.3.0",
+          sdk_version: "1.3.1",
           _prod_code: "AIGC",
           _prod_channel: "default",
         };
