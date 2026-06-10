@@ -100,7 +100,7 @@ api doRequest(version: string, action: string, protocol: string, method: string,
     req_msg_id = AntchainUtil.getNonce(),
     access_key = @accessKeyId,
     base_sdk_version = 'TeaSDK-2.0',
-    sdk_version = '1.6.0',
+    sdk_version = '1.7.0',
     _prod_code = 'SDS',
     _prod_channel = 'default'
   };
@@ -451,17 +451,18 @@ model SubmitScenedataTaskRequest = {
   // OAuth模式下的授权token
   authToken?: string(name='auth_token'),
   productInstanceId?: string(name='product_instance_id'),
-  // 约定的场景枚举
+  // 【场景】约定的场景枚举
   scene: string(maxLength=32, name='scene'),
-  // 枚举
-  // PHONE_SHA1
-  // PHONE_MD5
-  bizNoType: string(maxLength=32, name='biz_no_type'),
-  // 适配客户的来源
-  // 可能是客户的任务/AK
+  // 【业务号类型】该字段逐步废弃，枚举-PHONE_SHA1，PHONE_MD5
+  bizNoType?: string(maxLength=32, name='biz_no_type'),
+  // 【来源标识】适配客户的来源，可能是客户的任务/AK
   sourceMark?: string(maxLength=32, name='source_mark'),
-  // 业务号预期条件
+  // 【动态参数】任务动态参数信息
   expectCondition?: [ BizNoCondition ](name='expect_condition'),
+  // 【外部批次号】和任务类型组成唯一键
+  outBatchNo?: string(name='out_batch_no'),
+  // 【任务类型】SDS根据类型触发异步处理流程
+  taskType?: string(name='task_type'),
 }
 
 model SubmitScenedataTaskResponse = {
@@ -476,8 +477,8 @@ model SubmitScenedataTaskResponse = {
 }
 
 /**
- * Description: 客户上传文件以及参数，创建任务，获取批次号异步查询处理结果。
- * Summary: 场景数据批处理任务提交
+ * Description: 创建任务，获取批次号。
+ * Summary: 创建任务，获取批次号。
  */
 async function submitScenedataTask(request: SubmitScenedataTaskRequest): SubmitScenedataTaskResponse {
   var runtime = new Util.RuntimeOptions{};
@@ -486,8 +487,8 @@ async function submitScenedataTask(request: SubmitScenedataTaskRequest): SubmitS
 }
 
 /**
- * Description: 客户上传文件以及参数，创建任务，获取批次号异步查询处理结果。
- * Summary: 场景数据批处理任务提交
+ * Description: 创建任务，获取批次号。
+ * Summary: 创建任务，获取批次号。
  */
 async function submitScenedataTaskEx(request: SubmitScenedataTaskRequest, headers: map[string]string, runtime: Util.RuntimeOptions): SubmitScenedataTaskResponse {
   Util.validateModel(request);
@@ -565,7 +566,7 @@ model BatchqueryScenedataTaskresultRequest = {
   // 游标，上一次的最后一条
   cursor?: string(maxLength=256, name='cursor'),
   // 本次同步数量
-  syncNum?: long(maximum=100, name='sync_num'),
+  syncNum?: long(name='sync_num'),
 }
 
 model BatchqueryScenedataTaskresultResponse = {
@@ -586,8 +587,8 @@ model BatchqueryScenedataTaskresultResponse = {
 }
 
 /**
- * Description: 场景数据SaaS第一天预处理客户提交的文件处理任务，第二天客户调该接口批量查询任务结果
- * Summary: 场景数据任务结果批量查询
+ * Description: 任务结果查询
+ * Summary: 任务结果查询
  */
 async function batchqueryScenedataTaskresult(request: BatchqueryScenedataTaskresultRequest): BatchqueryScenedataTaskresultResponse {
   var runtime = new Util.RuntimeOptions{};
@@ -596,8 +597,8 @@ async function batchqueryScenedataTaskresult(request: BatchqueryScenedataTaskres
 }
 
 /**
- * Description: 场景数据SaaS第一天预处理客户提交的文件处理任务，第二天客户调该接口批量查询任务结果
- * Summary: 场景数据任务结果批量查询
+ * Description: 任务结果查询
+ * Summary: 任务结果查询
  */
 async function batchqueryScenedataTaskresultEx(request: BatchqueryScenedataTaskresultRequest, headers: map[string]string, runtime: Util.RuntimeOptions): BatchqueryScenedataTaskresultResponse {
   Util.validateModel(request);
@@ -685,7 +686,7 @@ model QueryScenedataTaskinfoResponse = {
 
 /**
  * Description: 通过批次号查询任务详细信息
- * Summary: 批次任务信息查询
+ * Summary: 通过批次号查询任务详细信息
  */
 async function queryScenedataTaskinfo(request: QueryScenedataTaskinfoRequest): QueryScenedataTaskinfoResponse {
   var runtime = new Util.RuntimeOptions{};
@@ -695,7 +696,7 @@ async function queryScenedataTaskinfo(request: QueryScenedataTaskinfoRequest): Q
 
 /**
  * Description: 通过批次号查询任务详细信息
- * Summary: 批次任务信息查询
+ * Summary: 通过批次号查询任务详细信息
  */
 async function queryScenedataTaskinfoEx(request: QueryScenedataTaskinfoRequest, headers: map[string]string, runtime: Util.RuntimeOptions): QueryScenedataTaskinfoResponse {
   Util.validateModel(request);
@@ -906,6 +907,46 @@ async function downloadStockRefundflow(request: DownloadStockRefundflowRequest):
 async function downloadStockRefundflowEx(request: DownloadStockRefundflowRequest, headers: map[string]string, runtime: Util.RuntimeOptions): DownloadStockRefundflowResponse {
   Util.validateModel(request);
   return doRequest('1.0' ,'antchain.sds.stock.refundflow.download', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model UpdateScenedataTaskRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 【批次号】submit接口返回的批次号
+  batchNo: string(name='batch_no'),
+  // 【异步任务上下线】INIT-初始化异步任务，异步任务开始执行，同时可以修改拓展参数，必须先下线才能初始化。INVALID-下线异步任务，停止异步任务执行。传空不修改。一次只能提一个任务状态变更。
+  asyncTaskStatus: string(name='async_task_status'),
+  // 【拓展参数】下线后，可以修改拓展参数，再次上线后生效。处理该拓展参数的任务，需要对参数做校验，避免参数改动太大，任务恢复异常。
+  expectCondition?: [ BizNoCondition ](name='expect_condition'),
+}
+
+model UpdateScenedataTaskResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+}
+
+/**
+ * Description: 【任务修改】修改任务状态，上线的任务可以下线，下线后能够修改任务的动态参数，下线后才能再上线。
+ * Summary: 【任务修改】修改任务状态，上线的任务可以下线，下线后能够修改任务的动态参数，下线后才能再上线。
+ */
+async function updateScenedataTask(request: UpdateScenedataTaskRequest): UpdateScenedataTaskResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return updateScenedataTaskEx(request, headers, runtime);
+}
+
+/**
+ * Description: 【任务修改】修改任务状态，上线的任务可以下线，下线后能够修改任务的动态参数，下线后才能再上线。
+ * Summary: 【任务修改】修改任务状态，上线的任务可以下线，下线后能够修改任务的动态参数，下线后才能再上线。
+ */
+async function updateScenedataTaskEx(request: UpdateScenedataTaskRequest, headers: map[string]string, runtime: Util.RuntimeOptions): UpdateScenedataTaskResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'antchain.sds.scenedata.task.update', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
 }
 
 model CreateAntcloudGatewayxFileUploadRequest = {
