@@ -6,7 +6,7 @@ namespace AntChain\SDS\Models;
 
 use AlibabaCloud\Tea\Model;
 
-class SubmitScenedataTaskRequest extends Model
+class UpdateScenedataTaskRequest extends Model
 {
     // OAuth模式下的授权token
     /**
@@ -19,58 +19,35 @@ class SubmitScenedataTaskRequest extends Model
      */
     public $productInstanceId;
 
-    // 【场景】约定的场景枚举
+    // 【批次号】submit接口返回的批次号
     /**
      * @var string
      */
-    public $scene;
+    public $batchNo;
 
-    // 【业务号类型】该字段逐步废弃，枚举-PHONE_SHA1，PHONE_MD5
+    // 【异步任务上下线】INIT-初始化异步任务，异步任务开始执行，同时可以修改拓展参数，必须先下线才能初始化。INVALID-下线异步任务，停止异步任务执行。传空不修改。一次只能提一个任务状态变更。
     /**
      * @var string
      */
-    public $bizNoType;
+    public $asyncTaskStatus;
 
-    // 【来源标识】适配客户的来源，可能是客户的任务/AK
-    /**
-     * @var string
-     */
-    public $sourceMark;
-
-    // 【动态参数】任务动态参数信息
+    // 【拓展参数】下线后，可以修改拓展参数，再次上线后生效。处理该拓展参数的任务，需要对参数做校验，避免参数改动太大，任务恢复异常。
     /**
      * @var BizNoCondition[]
      */
     public $expectCondition;
-
-    // 【外部批次号】和任务类型组成唯一键
-    /**
-     * @var string
-     */
-    public $outBatchNo;
-
-    // 【任务类型】SDS根据类型触发异步处理流程
-    /**
-     * @var string
-     */
-    public $taskType;
     protected $_name = [
         'authToken'         => 'auth_token',
         'productInstanceId' => 'product_instance_id',
-        'scene'             => 'scene',
-        'bizNoType'         => 'biz_no_type',
-        'sourceMark'        => 'source_mark',
+        'batchNo'           => 'batch_no',
+        'asyncTaskStatus'   => 'async_task_status',
         'expectCondition'   => 'expect_condition',
-        'outBatchNo'        => 'out_batch_no',
-        'taskType'          => 'task_type',
     ];
 
     public function validate()
     {
-        Model::validateRequired('scene', $this->scene, true);
-        Model::validateMaxLength('scene', $this->scene, 32);
-        Model::validateMaxLength('bizNoType', $this->bizNoType, 32);
-        Model::validateMaxLength('sourceMark', $this->sourceMark, 32);
+        Model::validateRequired('batchNo', $this->batchNo, true);
+        Model::validateRequired('asyncTaskStatus', $this->asyncTaskStatus, true);
     }
 
     public function toMap()
@@ -82,14 +59,11 @@ class SubmitScenedataTaskRequest extends Model
         if (null !== $this->productInstanceId) {
             $res['product_instance_id'] = $this->productInstanceId;
         }
-        if (null !== $this->scene) {
-            $res['scene'] = $this->scene;
+        if (null !== $this->batchNo) {
+            $res['batch_no'] = $this->batchNo;
         }
-        if (null !== $this->bizNoType) {
-            $res['biz_no_type'] = $this->bizNoType;
-        }
-        if (null !== $this->sourceMark) {
-            $res['source_mark'] = $this->sourceMark;
+        if (null !== $this->asyncTaskStatus) {
+            $res['async_task_status'] = $this->asyncTaskStatus;
         }
         if (null !== $this->expectCondition) {
             $res['expect_condition'] = [];
@@ -100,12 +74,6 @@ class SubmitScenedataTaskRequest extends Model
                 }
             }
         }
-        if (null !== $this->outBatchNo) {
-            $res['out_batch_no'] = $this->outBatchNo;
-        }
-        if (null !== $this->taskType) {
-            $res['task_type'] = $this->taskType;
-        }
 
         return $res;
     }
@@ -113,7 +81,7 @@ class SubmitScenedataTaskRequest extends Model
     /**
      * @param array $map
      *
-     * @return SubmitScenedataTaskRequest
+     * @return UpdateScenedataTaskRequest
      */
     public static function fromMap($map = [])
     {
@@ -124,14 +92,11 @@ class SubmitScenedataTaskRequest extends Model
         if (isset($map['product_instance_id'])) {
             $model->productInstanceId = $map['product_instance_id'];
         }
-        if (isset($map['scene'])) {
-            $model->scene = $map['scene'];
+        if (isset($map['batch_no'])) {
+            $model->batchNo = $map['batch_no'];
         }
-        if (isset($map['biz_no_type'])) {
-            $model->bizNoType = $map['biz_no_type'];
-        }
-        if (isset($map['source_mark'])) {
-            $model->sourceMark = $map['source_mark'];
+        if (isset($map['async_task_status'])) {
+            $model->asyncTaskStatus = $map['async_task_status'];
         }
         if (isset($map['expect_condition'])) {
             if (!empty($map['expect_condition'])) {
@@ -141,12 +106,6 @@ class SubmitScenedataTaskRequest extends Model
                     $model->expectCondition[$n++] = null !== $item ? BizNoCondition::fromMap($item) : $item;
                 }
             }
-        }
-        if (isset($map['out_batch_no'])) {
-            $model->outBatchNo = $map['out_batch_no'];
-        }
-        if (isset($map['task_type'])) {
-            $model->taskType = $map['task_type'];
         }
 
         return $model;

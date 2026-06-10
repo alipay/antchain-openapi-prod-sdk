@@ -49,7 +49,6 @@ class BatchqueryScenedataTaskresultRequest extends Model
         Model::validateRequired('batchNo', $this->batchNo, true);
         Model::validateMaxLength('batchNo', $this->batchNo, 64);
         Model::validateMaxLength('cursor', $this->cursor, 256);
-        Model::validateMaximum('syncNum', $this->syncNum, 100);
     }
 
     public function toMap()

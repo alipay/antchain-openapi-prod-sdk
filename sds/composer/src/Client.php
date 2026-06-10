@@ -31,6 +31,8 @@ use AntChain\SDS\Models\QueryScenedataTaskinfoRequest;
 use AntChain\SDS\Models\QueryScenedataTaskinfoResponse;
 use AntChain\SDS\Models\SubmitScenedataTaskRequest;
 use AntChain\SDS\Models\SubmitScenedataTaskResponse;
+use AntChain\SDS\Models\UpdateScenedataTaskRequest;
+use AntChain\SDS\Models\UpdateScenedataTaskResponse;
 use AntChain\SDS\Models\UploadScenedataFileRequest;
 use AntChain\SDS\Models\UploadScenedataFileResponse;
 use AntChain\Util\UtilClient;
@@ -180,7 +182,7 @@ class Client
                     'req_msg_id'       => UtilClient::getNonce(),
                     'access_key'       => $this->_accessKeyId,
                     'base_sdk_version' => 'TeaSDK-2.0',
-                    'sdk_version'      => '1.6.0',
+                    'sdk_version'      => '1.7.0',
                     '_prod_code'       => 'SDS',
                     '_prod_channel'    => 'default',
                 ];
@@ -262,8 +264,8 @@ class Client
     }
 
     /**
-     * Description: 客户上传文件以及参数，创建任务，获取批次号异步查询处理结果。
-     * Summary: 场景数据批处理任务提交.
+     * Description: 创建任务，获取批次号。
+     * Summary: 创建任务，获取批次号。
      *
      * @param SubmitScenedataTaskRequest $request
      *
@@ -278,8 +280,8 @@ class Client
     }
 
     /**
-     * Description: 客户上传文件以及参数，创建任务，获取批次号异步查询处理结果。
-     * Summary: 场景数据批处理任务提交.
+     * Description: 创建任务，获取批次号。
+     * Summary: 创建任务，获取批次号。
      *
      * @param SubmitScenedataTaskRequest $request
      * @param string[]                   $headers
@@ -347,8 +349,8 @@ class Client
     }
 
     /**
-     * Description: 场景数据SaaS第一天预处理客户提交的文件处理任务，第二天客户调该接口批量查询任务结果
-     * Summary: 场景数据任务结果批量查询.
+     * Description: 任务结果查询
+     * Summary: 任务结果查询.
      *
      * @param BatchqueryScenedataTaskresultRequest $request
      *
@@ -363,8 +365,8 @@ class Client
     }
 
     /**
-     * Description: 场景数据SaaS第一天预处理客户提交的文件处理任务，第二天客户调该接口批量查询任务结果
-     * Summary: 场景数据任务结果批量查询.
+     * Description: 任务结果查询
+     * Summary: 任务结果查询.
      *
      * @param BatchqueryScenedataTaskresultRequest $request
      * @param string[]                             $headers
@@ -414,7 +416,7 @@ class Client
 
     /**
      * Description: 通过批次号查询任务详细信息
-     * Summary: 批次任务信息查询.
+     * Summary: 通过批次号查询任务详细信息.
      *
      * @param QueryScenedataTaskinfoRequest $request
      *
@@ -430,7 +432,7 @@ class Client
 
     /**
      * Description: 通过批次号查询任务详细信息
-     * Summary: 批次任务信息查询.
+     * Summary: 通过批次号查询任务详细信息.
      *
      * @param QueryScenedataTaskinfoRequest $request
      * @param string[]                      $headers
@@ -575,6 +577,39 @@ class Client
         Utils::validateModel($request);
 
         return DownloadStockRefundflowResponse::fromMap($this->doRequest('1.0', 'antchain.sds.stock.refundflow.download', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 【任务修改】修改任务状态，上线的任务可以下线，下线后能够修改任务的动态参数，下线后才能再上线。
+     * Summary: 【任务修改】修改任务状态，上线的任务可以下线，下线后能够修改任务的动态参数，下线后才能再上线。
+     *
+     * @param UpdateScenedataTaskRequest $request
+     *
+     * @return UpdateScenedataTaskResponse
+     */
+    public function updateScenedataTask($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->updateScenedataTaskEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 【任务修改】修改任务状态，上线的任务可以下线，下线后能够修改任务的动态参数，下线后才能再上线。
+     * Summary: 【任务修改】修改任务状态，上线的任务可以下线，下线后能够修改任务的动态参数，下线后才能再上线。
+     *
+     * @param UpdateScenedataTaskRequest $request
+     * @param string[]                   $headers
+     * @param RuntimeOptions             $runtime
+     *
+     * @return UpdateScenedataTaskResponse
+     */
+    public function updateScenedataTaskEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return UpdateScenedataTaskResponse::fromMap($this->doRequest('1.0', 'antchain.sds.scenedata.task.update', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
     }
 
     /**
