@@ -959,17 +959,18 @@ type SubmitScenedataTaskRequest struct {
 	// OAuth模式下的授权token
 	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
 	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
-	// 约定的场景枚举
+	// 【场景】约定的场景枚举
 	Scene *string `json:"scene,omitempty" xml:"scene,omitempty" require:"true" maxLength:"32"`
-	// 枚举
-	// PHONE_SHA1
-	// PHONE_MD5
-	BizNoType *string `json:"biz_no_type,omitempty" xml:"biz_no_type,omitempty" require:"true" maxLength:"32"`
-	// 适配客户的来源
-	// 可能是客户的任务/AK
+	// 【业务号类型】该字段逐步废弃，枚举-PHONE_SHA1，PHONE_MD5
+	BizNoType *string `json:"biz_no_type,omitempty" xml:"biz_no_type,omitempty" maxLength:"32"`
+	// 【来源标识】适配客户的来源，可能是客户的任务/AK
 	SourceMark *string `json:"source_mark,omitempty" xml:"source_mark,omitempty" maxLength:"32"`
-	// 业务号预期条件
+	// 【动态参数】任务动态参数信息
 	ExpectCondition []*BizNoCondition `json:"expect_condition,omitempty" xml:"expect_condition,omitempty" type:"Repeated"`
+	// 【外部批次号】和任务类型组成唯一键
+	OutBatchNo *string `json:"out_batch_no,omitempty" xml:"out_batch_no,omitempty"`
+	// 【任务类型】SDS根据类型触发异步处理流程
+	TaskType *string `json:"task_type,omitempty" xml:"task_type,omitempty"`
 }
 
 func (s SubmitScenedataTaskRequest) String() string {
@@ -1007,6 +1008,16 @@ func (s *SubmitScenedataTaskRequest) SetSourceMark(v string) *SubmitScenedataTas
 
 func (s *SubmitScenedataTaskRequest) SetExpectCondition(v []*BizNoCondition) *SubmitScenedataTaskRequest {
 	s.ExpectCondition = v
+	return s
+}
+
+func (s *SubmitScenedataTaskRequest) SetOutBatchNo(v string) *SubmitScenedataTaskRequest {
+	s.OutBatchNo = &v
+	return s
+}
+
+func (s *SubmitScenedataTaskRequest) SetTaskType(v string) *SubmitScenedataTaskRequest {
+	s.TaskType = &v
 	return s
 }
 
@@ -1149,7 +1160,7 @@ type BatchqueryScenedataTaskresultRequest struct {
 	// 游标，上一次的最后一条
 	Cursor *string `json:"cursor,omitempty" xml:"cursor,omitempty" maxLength:"256"`
 	// 本次同步数量
-	SyncNum *int64 `json:"sync_num,omitempty" xml:"sync_num,omitempty" maximum:"100"`
+	SyncNum *int64 `json:"sync_num,omitempty" xml:"sync_num,omitempty"`
 }
 
 func (s BatchqueryScenedataTaskresultRequest) String() string {
@@ -1906,6 +1917,83 @@ func (s *DownloadStockRefundflowResponse) SetStockRefundflowCount(v int64) *Down
 	return s
 }
 
+type UpdateScenedataTaskRequest struct {
+	// OAuth模式下的授权token
+	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
+	// 【批次号】submit接口返回的批次号
+	BatchNo *string `json:"batch_no,omitempty" xml:"batch_no,omitempty" require:"true"`
+	// 【异步任务上下线】INIT-初始化异步任务，异步任务开始执行，同时可以修改拓展参数，必须先下线才能初始化。INVALID-下线异步任务，停止异步任务执行。传空不修改。一次只能提一个任务状态变更。
+	AsyncTaskStatus *string `json:"async_task_status,omitempty" xml:"async_task_status,omitempty" require:"true"`
+	// 【拓展参数】下线后，可以修改拓展参数，再次上线后生效。处理该拓展参数的任务，需要对参数做校验，避免参数改动太大，任务恢复异常。
+	ExpectCondition []*BizNoCondition `json:"expect_condition,omitempty" xml:"expect_condition,omitempty" type:"Repeated"`
+}
+
+func (s UpdateScenedataTaskRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s UpdateScenedataTaskRequest) GoString() string {
+	return s.String()
+}
+
+func (s *UpdateScenedataTaskRequest) SetAuthToken(v string) *UpdateScenedataTaskRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *UpdateScenedataTaskRequest) SetProductInstanceId(v string) *UpdateScenedataTaskRequest {
+	s.ProductInstanceId = &v
+	return s
+}
+
+func (s *UpdateScenedataTaskRequest) SetBatchNo(v string) *UpdateScenedataTaskRequest {
+	s.BatchNo = &v
+	return s
+}
+
+func (s *UpdateScenedataTaskRequest) SetAsyncTaskStatus(v string) *UpdateScenedataTaskRequest {
+	s.AsyncTaskStatus = &v
+	return s
+}
+
+func (s *UpdateScenedataTaskRequest) SetExpectCondition(v []*BizNoCondition) *UpdateScenedataTaskRequest {
+	s.ExpectCondition = v
+	return s
+}
+
+type UpdateScenedataTaskResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+}
+
+func (s UpdateScenedataTaskResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s UpdateScenedataTaskResponse) GoString() string {
+	return s.String()
+}
+
+func (s *UpdateScenedataTaskResponse) SetReqMsgId(v string) *UpdateScenedataTaskResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *UpdateScenedataTaskResponse) SetResultCode(v string) *UpdateScenedataTaskResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *UpdateScenedataTaskResponse) SetResultMsg(v string) *UpdateScenedataTaskResponse {
+	s.ResultMsg = &v
+	return s
+}
+
 type CreateAntcloudGatewayxFileUploadRequest struct {
 	// OAuth模式下的授权token
 	AuthToken *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
@@ -2148,7 +2236,7 @@ func (client *Client) DoRequest(version *string, action *string, protocol *strin
 				"req_msg_id":       antchainutil.GetNonce(),
 				"access_key":       client.AccessKeyId,
 				"base_sdk_version": tea.String("TeaSDK-2.0"),
-				"sdk_version":      tea.String("1.6.0"),
+				"sdk_version":      tea.String("1.7.0"),
 				"_prod_code":       tea.String("SDS"),
 				"_prod_channel":    tea.String("default"),
 			}
@@ -2241,8 +2329,8 @@ func (client *Client) JudgeCrowdPrefermentEx(request *JudgeCrowdPrefermentReques
 }
 
 /**
- * Description: 客户上传文件以及参数，创建任务，获取批次号异步查询处理结果。
- * Summary: 场景数据批处理任务提交
+ * Description: 创建任务，获取批次号。
+ * Summary: 创建任务，获取批次号。
  */
 func (client *Client) SubmitScenedataTask(request *SubmitScenedataTaskRequest) (_result *SubmitScenedataTaskResponse, _err error) {
 	runtime := &util.RuntimeOptions{}
@@ -2257,8 +2345,8 @@ func (client *Client) SubmitScenedataTask(request *SubmitScenedataTaskRequest) (
 }
 
 /**
- * Description: 客户上传文件以及参数，创建任务，获取批次号异步查询处理结果。
- * Summary: 场景数据批处理任务提交
+ * Description: 创建任务，获取批次号。
+ * Summary: 创建任务，获取批次号。
  */
 func (client *Client) SubmitScenedataTaskEx(request *SubmitScenedataTaskRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *SubmitScenedataTaskResponse, _err error) {
 	_err = util.ValidateModel(request)
@@ -2339,8 +2427,8 @@ func (client *Client) UploadScenedataFileEx(request *UploadScenedataFileRequest,
 }
 
 /**
- * Description: 场景数据SaaS第一天预处理客户提交的文件处理任务，第二天客户调该接口批量查询任务结果
- * Summary: 场景数据任务结果批量查询
+ * Description: 任务结果查询
+ * Summary: 任务结果查询
  */
 func (client *Client) BatchqueryScenedataTaskresult(request *BatchqueryScenedataTaskresultRequest) (_result *BatchqueryScenedataTaskresultResponse, _err error) {
 	runtime := &util.RuntimeOptions{}
@@ -2355,8 +2443,8 @@ func (client *Client) BatchqueryScenedataTaskresult(request *BatchqueryScenedata
 }
 
 /**
- * Description: 场景数据SaaS第一天预处理客户提交的文件处理任务，第二天客户调该接口批量查询任务结果
- * Summary: 场景数据任务结果批量查询
+ * Description: 任务结果查询
+ * Summary: 任务结果查询
  */
 func (client *Client) BatchqueryScenedataTaskresultEx(request *BatchqueryScenedataTaskresultRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *BatchqueryScenedataTaskresultResponse, _err error) {
 	_err = util.ValidateModel(request)
@@ -2408,7 +2496,7 @@ func (client *Client) QueryScenedataOnlineEx(request *QueryScenedataOnlineReques
 
 /**
  * Description: 通过批次号查询任务详细信息
- * Summary: 批次任务信息查询
+ * Summary: 通过批次号查询任务详细信息
  */
 func (client *Client) QueryScenedataTaskinfo(request *QueryScenedataTaskinfoRequest) (_result *QueryScenedataTaskinfoResponse, _err error) {
 	runtime := &util.RuntimeOptions{}
@@ -2424,7 +2512,7 @@ func (client *Client) QueryScenedataTaskinfo(request *QueryScenedataTaskinfoRequ
 
 /**
  * Description: 通过批次号查询任务详细信息
- * Summary: 批次任务信息查询
+ * Summary: 通过批次号查询任务详细信息
  */
 func (client *Client) QueryScenedataTaskinfoEx(request *QueryScenedataTaskinfoRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *QueryScenedataTaskinfoResponse, _err error) {
 	_err = util.ValidateModel(request)
@@ -2569,6 +2657,40 @@ func (client *Client) DownloadStockRefundflowEx(request *DownloadStockRefundflow
 	}
 	_result = &DownloadStockRefundflowResponse{}
 	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("antchain.sds.stock.refundflow.download"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
+}
+
+/**
+ * Description: 【任务修改】修改任务状态，上线的任务可以下线，下线后能够修改任务的动态参数，下线后才能再上线。
+ * Summary: 【任务修改】修改任务状态，上线的任务可以下线，下线后能够修改任务的动态参数，下线后才能再上线。
+ */
+func (client *Client) UpdateScenedataTask(request *UpdateScenedataTaskRequest) (_result *UpdateScenedataTaskResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &UpdateScenedataTaskResponse{}
+	_body, _err := client.UpdateScenedataTaskEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+/**
+ * Description: 【任务修改】修改任务状态，上线的任务可以下线，下线后能够修改任务的动态参数，下线后才能再上线。
+ * Summary: 【任务修改】修改任务状态，上线的任务可以下线，下线后能够修改任务的动态参数，下线后才能再上线。
+ */
+func (client *Client) UpdateScenedataTaskEx(request *UpdateScenedataTaskRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *UpdateScenedataTaskResponse, _err error) {
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &UpdateScenedataTaskResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("antchain.sds.scenedata.task.update"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
 	if _err != nil {
 		return _result, _err
 	}
