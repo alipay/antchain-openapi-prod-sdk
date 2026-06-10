@@ -36,19 +36,12 @@ class UploadAssetRequest extends Model
      * @var string
      */
     public $assetName;
-
-    // 资产分组 ID
-    /**
-     * @var string
-     */
-    public $groupId;
     protected $_name = [
         'authToken'         => 'auth_token',
         'productInstanceId' => 'product_instance_id',
         'assetType'         => 'asset_type',
         'fileUrl'           => 'file_url',
         'assetName'         => 'asset_name',
-        'groupId'           => 'group_id',
     ];
 
     public function validate()
@@ -56,7 +49,6 @@ class UploadAssetRequest extends Model
         Model::validateRequired('assetType', $this->assetType, true);
         Model::validateRequired('fileUrl', $this->fileUrl, true);
         Model::validateRequired('assetName', $this->assetName, true);
-        Model::validateRequired('groupId', $this->groupId, true);
     }
 
     public function toMap()
@@ -76,9 +68,6 @@ class UploadAssetRequest extends Model
         }
         if (null !== $this->assetName) {
             $res['asset_name'] = $this->assetName;
-        }
-        if (null !== $this->groupId) {
-            $res['group_id'] = $this->groupId;
         }
 
         return $res;
@@ -106,9 +95,6 @@ class UploadAssetRequest extends Model
         }
         if (isset($map['asset_name'])) {
             $model->assetName = $map['asset_name'];
-        }
-        if (isset($map['group_id'])) {
-            $model->groupId = $map['group_id'];
         }
 
         return $model;
