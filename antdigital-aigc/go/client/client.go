@@ -499,8 +499,6 @@ type UploadAssetRequest struct {
 	FileUrl *string `json:"file_url,omitempty" xml:"file_url,omitempty" require:"true"`
 	// 测试
 	AssetName *string `json:"asset_name,omitempty" xml:"asset_name,omitempty" require:"true"`
-	// 资产分组 ID
-	GroupId *string `json:"group_id,omitempty" xml:"group_id,omitempty" require:"true"`
 }
 
 func (s UploadAssetRequest) String() string {
@@ -533,11 +531,6 @@ func (s *UploadAssetRequest) SetFileUrl(v string) *UploadAssetRequest {
 
 func (s *UploadAssetRequest) SetAssetName(v string) *UploadAssetRequest {
 	s.AssetName = &v
-	return s
-}
-
-func (s *UploadAssetRequest) SetGroupId(v string) *UploadAssetRequest {
-	s.GroupId = &v
 	return s
 }
 
@@ -1123,7 +1116,7 @@ func (client *Client) DoRequest(version *string, action *string, protocol *strin
 				"req_msg_id":       antchainutil.GetNonce(),
 				"access_key":       client.AccessKeyId,
 				"base_sdk_version": tea.String("TeaSDK-2.0"),
-				"sdk_version":      tea.String("1.3.0"),
+				"sdk_version":      tea.String("1.3.1"),
 				"_prod_code":       tea.String("AIGC"),
 				"_prod_channel":    tea.String("default"),
 			}
