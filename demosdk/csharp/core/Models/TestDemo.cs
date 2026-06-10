@@ -8,12 +8,17 @@ using Tea;
 
 namespace AntChain.SDK.DEMOSDK.Models
 {
-    // a
+    // 1
     public class TestDemo : TeaModel {
-        // a
-        [NameInMap("timeout")]
+        // 1
+        [NameInMap("name")]
         [Validation(Required=false)]
-        public string Timeout { get; set; }
+        public string Name { get; set; }
+
+        // 1
+        [NameInMap("number")]
+        [Validation(Required=false)]
+        public long? Number { get; set; }
 
     }
 

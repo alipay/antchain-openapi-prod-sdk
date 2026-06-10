@@ -8,12 +8,17 @@ using Tea;
 
 namespace AntChain.SDK.DEMOSDK.Models
 {
-    // 返回结果测试类-11
+    // 返回结果测试类
     public class ResultTest : TeaModel {
         // 姓名
         [NameInMap("name")]
         [Validation(Required=false)]
         public string Name { get; set; }
+
+        // test
+        [NameInMap("list")]
+        [Validation(Required=true)]
+        public DemoClass List { get; set; }
 
     }
 

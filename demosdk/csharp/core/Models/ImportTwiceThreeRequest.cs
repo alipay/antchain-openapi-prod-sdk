@@ -23,16 +23,6 @@ namespace AntChain.SDK.DEMOSDK.Models
         [Validation(Required=true)]
         public string Timeout { get; set; }
 
-        // 结构体A
-        [NameInMap("struct_a")]
-        [Validation(Required=false)]
-        public TestParamA StructA { get; set; }
-
-        // 结构体B
-        [NameInMap("struct_b")]
-        [Validation(Required=false)]
-        public TestParamB StructB { get; set; }
-
     }
 
 }

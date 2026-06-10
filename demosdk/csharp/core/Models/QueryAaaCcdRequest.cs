@@ -18,16 +18,6 @@ namespace AntChain.SDK.DEMOSDK.Models
         [Validation(Required=false)]
         public string ProductInstanceId { get; set; }
 
-        // 123
-        [NameInMap("test")]
-        [Validation(Required=false)]
-        public string Test { get; set; }
-
-        // 结构体字段
-        [NameInMap("list_params_demosdk")]
-        [Validation(Required=false)]
-        public List<TestParamA> ListParamsDemosdk { get; set; }
-
     }
 
 }

@@ -24,11 +24,6 @@ namespace AntChain.SDK.DEMOSDK.Models
         [Validation(Required=false)]
         public string ResultMsg { get; set; }
 
-        // bbbb
-        [NameInMap("bbbb")]
-        [Validation(Required=false)]
-        public string Bbbb { get; set; }
-
     }
 
 }

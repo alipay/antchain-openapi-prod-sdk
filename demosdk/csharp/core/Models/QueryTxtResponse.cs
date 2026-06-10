@@ -24,10 +24,10 @@ namespace AntChain.SDK.DEMOSDK.Models
         [Validation(Required=false)]
         public string ResultMsg { get; set; }
 
-        // 证件号
+        // imj yaa
         [NameInMap("idcard")]
         [Validation(Required=false)]
-        public string Idcard { get; set; }
+        public ResultTest Idcard { get; set; }
 
     }
 
