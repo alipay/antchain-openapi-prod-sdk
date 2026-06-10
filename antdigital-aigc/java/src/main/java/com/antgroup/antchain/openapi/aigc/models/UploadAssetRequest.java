@@ -26,11 +26,6 @@ public class UploadAssetRequest extends TeaModel {
     @Validation(required = true)
     public String assetName;
 
-    // 资产分组 ID
-    @NameInMap("group_id")
-    @Validation(required = true)
-    public String groupId;
-
     public static UploadAssetRequest build(java.util.Map<String, ?> map) throws Exception {
         UploadAssetRequest self = new UploadAssetRequest();
         return TeaModel.build(map, self);
@@ -74,14 +69,6 @@ public class UploadAssetRequest extends TeaModel {
     }
     public String getAssetName() {
         return this.assetName;
-    }
-
-    public UploadAssetRequest setGroupId(String groupId) {
-        this.groupId = groupId;
-        return this;
-    }
-    public String getGroupId() {
-        return this.groupId;
     }
 
 }
