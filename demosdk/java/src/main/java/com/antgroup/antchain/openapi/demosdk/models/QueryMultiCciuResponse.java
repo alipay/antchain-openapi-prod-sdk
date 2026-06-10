@@ -16,10 +16,6 @@ public class QueryMultiCciuResponse extends TeaModel {
     @NameInMap("result_msg")
     public String resultMsg;
 
-    // bbbb
-    @NameInMap("bbbb")
-    public String bbbb;
-
     public static QueryMultiCciuResponse build(java.util.Map<String, ?> map) throws Exception {
         QueryMultiCciuResponse self = new QueryMultiCciuResponse();
         return TeaModel.build(map, self);
@@ -47,14 +43,6 @@ public class QueryMultiCciuResponse extends TeaModel {
     }
     public String getResultMsg() {
         return this.resultMsg;
-    }
-
-    public QueryMultiCciuResponse setBbbb(String bbbb) {
-        this.bbbb = bbbb;
-        return this;
-    }
-    public String getBbbb() {
-        return this.bbbb;
     }
 
 }

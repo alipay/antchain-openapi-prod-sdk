@@ -4,25 +4,41 @@ package com.antgroup.antchain.openapi.demosdk.models;
 import com.aliyun.tea.*;
 
 public class TestDemo extends TeaModel {
-    // a
+    // 1
     /**
      * <strong>example:</strong>
-     * <p>a</p>
+     * <p>张三</p>
      */
-    @NameInMap("timeout")
-    public String timeout;
+    @NameInMap("name")
+    public String name;
+
+    // 1
+    /**
+     * <strong>example:</strong>
+     * <p>23</p>
+     */
+    @NameInMap("number")
+    public Long number;
 
     public static TestDemo build(java.util.Map<String, ?> map) throws Exception {
         TestDemo self = new TestDemo();
         return TeaModel.build(map, self);
     }
 
-    public TestDemo setTimeout(String timeout) {
-        this.timeout = timeout;
+    public TestDemo setName(String name) {
+        this.name = name;
         return this;
     }
-    public String getTimeout() {
-        return this.timeout;
+    public String getName() {
+        return this.name;
+    }
+
+    public TestDemo setNumber(Long number) {
+        this.number = number;
+        return this;
+    }
+    public Long getNumber() {
+        return this.number;
     }
 
 }

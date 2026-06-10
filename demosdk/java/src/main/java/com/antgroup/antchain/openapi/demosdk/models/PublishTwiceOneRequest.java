@@ -15,10 +15,6 @@ public class PublishTwiceOneRequest extends TeaModel {
     @NameInMap("timeout")
     public String timeout;
 
-    // aa
-    @NameInMap("aaa")
-    public DemoClass aaa;
-
     public static PublishTwiceOneRequest build(java.util.Map<String, ?> map) throws Exception {
         PublishTwiceOneRequest self = new PublishTwiceOneRequest();
         return TeaModel.build(map, self);
@@ -46,14 +42,6 @@ public class PublishTwiceOneRequest extends TeaModel {
     }
     public String getTimeout() {
         return this.timeout;
-    }
-
-    public PublishTwiceOneRequest setAaa(DemoClass aaa) {
-        this.aaa = aaa;
-        return this;
-    }
-    public DemoClass getAaa() {
-        return this.aaa;
     }
 
 }
