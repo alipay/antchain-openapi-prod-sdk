@@ -3,7 +3,7 @@ package com.antgroup.antchain.openapi.ato.models;
 
 import com.aliyun.tea.*;
 
-public class QueryInnerFundassetpackageallocatedetailResponse extends TeaModel {
+public class QueryInnerFundassetpackagerepaymentResponse extends TeaModel {
     // 请求唯一ID，用于链路跟踪和问题排查
     @NameInMap("req_msg_id")
     public String reqMsgId;
@@ -16,16 +16,20 @@ public class QueryInnerFundassetpackageallocatedetailResponse extends TeaModel {
     @NameInMap("result_msg")
     public String resultMsg;
 
-    // 资产包履约计划分配明细
+    // json 结构体
     @NameInMap("data")
-    public java.util.List<AssetPackagePlanAllocateDetail> data;
+    public String data;
 
-    public static QueryInnerFundassetpackageallocatedetailResponse build(java.util.Map<String, ?> map) throws Exception {
-        QueryInnerFundassetpackageallocatedetailResponse self = new QueryInnerFundassetpackageallocatedetailResponse();
+    // 分页总数
+    @NameInMap("total")
+    public Long total;
+
+    public static QueryInnerFundassetpackagerepaymentResponse build(java.util.Map<String, ?> map) throws Exception {
+        QueryInnerFundassetpackagerepaymentResponse self = new QueryInnerFundassetpackagerepaymentResponse();
         return TeaModel.build(map, self);
     }
 
-    public QueryInnerFundassetpackageallocatedetailResponse setReqMsgId(String reqMsgId) {
+    public QueryInnerFundassetpackagerepaymentResponse setReqMsgId(String reqMsgId) {
         this.reqMsgId = reqMsgId;
         return this;
     }
@@ -33,7 +37,7 @@ public class QueryInnerFundassetpackageallocatedetailResponse extends TeaModel {
         return this.reqMsgId;
     }
 
-    public QueryInnerFundassetpackageallocatedetailResponse setResultCode(String resultCode) {
+    public QueryInnerFundassetpackagerepaymentResponse setResultCode(String resultCode) {
         this.resultCode = resultCode;
         return this;
     }
@@ -41,7 +45,7 @@ public class QueryInnerFundassetpackageallocatedetailResponse extends TeaModel {
         return this.resultCode;
     }
 
-    public QueryInnerFundassetpackageallocatedetailResponse setResultMsg(String resultMsg) {
+    public QueryInnerFundassetpackagerepaymentResponse setResultMsg(String resultMsg) {
         this.resultMsg = resultMsg;
         return this;
     }
@@ -49,12 +53,20 @@ public class QueryInnerFundassetpackageallocatedetailResponse extends TeaModel {
         return this.resultMsg;
     }
 
-    public QueryInnerFundassetpackageallocatedetailResponse setData(java.util.List<AssetPackagePlanAllocateDetail> data) {
+    public QueryInnerFundassetpackagerepaymentResponse setData(String data) {
         this.data = data;
         return this;
     }
-    public java.util.List<AssetPackagePlanAllocateDetail> getData() {
+    public String getData() {
         return this.data;
+    }
+
+    public QueryInnerFundassetpackagerepaymentResponse setTotal(Long total) {
+        this.total = total;
+        return this;
+    }
+    public Long getTotal() {
+        return this.total;
     }
 
 }

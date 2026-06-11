@@ -126,7 +126,7 @@ public class Client {
                     new TeaPair("req_msg_id", com.antgroup.antchain.openapi.antchain.util.AntchainUtils.getNonce()),
                     new TeaPair("access_key", _accessKeyId),
                     new TeaPair("base_sdk_version", "TeaSDK-2.0"),
-                    new TeaPair("sdk_version", "1.19.69"),
+                    new TeaPair("sdk_version", "1.19.79"),
                     new TeaPair("_prod_code", "ATO"),
                     new TeaPair("_prod_channel", "undefined")
                 );
@@ -270,6 +270,69 @@ public class Client {
     public QueryTradeSettletocardResponse queryTradeSettletocardEx(QueryTradeSettletocardRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
         com.aliyun.teautil.Common.validateModel(request);
         return TeaModel.toModel(this.doRequest("1.0", "antchain.ato.trade.settletocard.query", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new QueryTradeSettletocardResponse());
+    }
+
+    /**
+     * <b>description</b> :
+     * <p>Description: 资产包还款列表查询
+     * Summary: 资产包还款列表查询</p>
+     */
+    public QueryInnerFundassetpackagerepaymentResponse queryInnerFundassetpackagerepayment(QueryInnerFundassetpackagerepaymentRequest request) throws Exception {
+        com.aliyun.teautil.models.RuntimeOptions runtime = new com.aliyun.teautil.models.RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.queryInnerFundassetpackagerepaymentEx(request, headers, runtime);
+    }
+
+    /**
+     * <b>description</b> :
+     * <p>Description: 资产包还款列表查询
+     * Summary: 资产包还款列表查询</p>
+     */
+    public QueryInnerFundassetpackagerepaymentResponse queryInnerFundassetpackagerepaymentEx(QueryInnerFundassetpackagerepaymentRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "antchain.ato.inner.fundassetpackagerepayment.query", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new QueryInnerFundassetpackagerepaymentResponse());
+    }
+
+    /**
+     * <b>description</b> :
+     * <p>Description: 资产包还款详情查询
+     * Summary: 资产包还款详情查询</p>
+     */
+    public QueryInnerAprepaymentdetailResponse queryInnerAprepaymentdetail(QueryInnerAprepaymentdetailRequest request) throws Exception {
+        com.aliyun.teautil.models.RuntimeOptions runtime = new com.aliyun.teautil.models.RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.queryInnerAprepaymentdetailEx(request, headers, runtime);
+    }
+
+    /**
+     * <b>description</b> :
+     * <p>Description: 资产包还款详情查询
+     * Summary: 资产包还款详情查询</p>
+     */
+    public QueryInnerAprepaymentdetailResponse queryInnerAprepaymentdetailEx(QueryInnerAprepaymentdetailRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "antchain.ato.inner.aprepaymentdetail.query", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new QueryInnerAprepaymentdetailResponse());
+    }
+
+    /**
+     * <b>description</b> :
+     * <p>Description: 本接口提供用户在还款详情中履约计划表格查看单期履约的还款详情
+     * Summary: 本接口提供用户在还款详情中履约计划表格查看单期履约的还款详情</p>
+     */
+    public QueryInnerAprepaymentallocatedetailResponse queryInnerAprepaymentallocatedetail(QueryInnerAprepaymentallocatedetailRequest request) throws Exception {
+        com.aliyun.teautil.models.RuntimeOptions runtime = new com.aliyun.teautil.models.RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.queryInnerAprepaymentallocatedetailEx(request, headers, runtime);
+    }
+
+    /**
+     * <b>description</b> :
+     * <p>Description: 本接口提供用户在还款详情中履约计划表格查看单期履约的还款详情
+     * Summary: 本接口提供用户在还款详情中履约计划表格查看单期履约的还款详情</p>
+     */
+    public QueryInnerAprepaymentallocatedetailResponse queryInnerAprepaymentallocatedetailEx(QueryInnerAprepaymentallocatedetailRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "antchain.ato.inner.aprepaymentallocatedetail.query", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new QueryInnerAprepaymentallocatedetailResponse());
     }
 
     /**

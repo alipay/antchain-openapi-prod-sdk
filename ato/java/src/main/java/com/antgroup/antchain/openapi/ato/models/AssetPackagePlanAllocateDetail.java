@@ -70,6 +70,54 @@ public class AssetPackagePlanAllocateDetail extends TeaModel {
     @NameInMap("divide_amount")
     public Long divideAmount;
 
+    // 分账状态
+    /**
+     * <strong>example:</strong>
+     * <p>SUCCESS/FAILED</p>
+     */
+    @NameInMap("status")
+    public String status;
+
+    // 用户还款方式
+    /**
+     * <strong>example:</strong>
+     * <p>BANK_TRANSFER/ALIPAY/WECHAT</p>
+     */
+    @NameInMap("repay_method")
+    public String repayMethod;
+
+    // 流水单号
+    /**
+     * <strong>example:</strong>
+     * <p>AUTH123456789</p>
+     */
+    @NameInMap("transaction_no")
+    public String transactionNo;
+
+    // 资金到账状态
+    /**
+     * <strong>example:</strong>
+     * <p>SUCCESS/FAILED/PENDING</p>
+     */
+    @NameInMap("repayment_status")
+    public String repaymentStatus;
+
+    // 资金到账方式
+    /**
+     * <strong>example:</strong>
+     * <p>BANK_TRANSFER/ONLINE_PAYMENT</p>
+     */
+    @NameInMap("repayment_method")
+    public String repaymentMethod;
+
+    // 实际到账时间
+    /**
+     * <strong>example:</strong>
+     * <p>yyyy-MM-dd HH:mm:ss</p>
+     */
+    @NameInMap("repayment_time")
+    public String repaymentTime;
+
     public static AssetPackagePlanAllocateDetail build(java.util.Map<String, ?> map) throws Exception {
         AssetPackagePlanAllocateDetail self = new AssetPackagePlanAllocateDetail();
         return TeaModel.build(map, self);
@@ -137,6 +185,54 @@ public class AssetPackagePlanAllocateDetail extends TeaModel {
     }
     public Long getDivideAmount() {
         return this.divideAmount;
+    }
+
+    public AssetPackagePlanAllocateDetail setStatus(String status) {
+        this.status = status;
+        return this;
+    }
+    public String getStatus() {
+        return this.status;
+    }
+
+    public AssetPackagePlanAllocateDetail setRepayMethod(String repayMethod) {
+        this.repayMethod = repayMethod;
+        return this;
+    }
+    public String getRepayMethod() {
+        return this.repayMethod;
+    }
+
+    public AssetPackagePlanAllocateDetail setTransactionNo(String transactionNo) {
+        this.transactionNo = transactionNo;
+        return this;
+    }
+    public String getTransactionNo() {
+        return this.transactionNo;
+    }
+
+    public AssetPackagePlanAllocateDetail setRepaymentStatus(String repaymentStatus) {
+        this.repaymentStatus = repaymentStatus;
+        return this;
+    }
+    public String getRepaymentStatus() {
+        return this.repaymentStatus;
+    }
+
+    public AssetPackagePlanAllocateDetail setRepaymentMethod(String repaymentMethod) {
+        this.repaymentMethod = repaymentMethod;
+        return this;
+    }
+    public String getRepaymentMethod() {
+        return this.repaymentMethod;
+    }
+
+    public AssetPackagePlanAllocateDetail setRepaymentTime(String repaymentTime) {
+        this.repaymentTime = repaymentTime;
+        return this;
+    }
+    public String getRepaymentTime() {
+        return this.repaymentTime;
     }
 
 }

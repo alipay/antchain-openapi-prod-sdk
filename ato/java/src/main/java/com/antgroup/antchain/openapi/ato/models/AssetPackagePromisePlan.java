@@ -52,6 +52,38 @@ public class AssetPackagePromisePlan extends TeaModel {
     @NameInMap("order_count")
     public Long orderCount;
 
+    // 还款状态
+    /**
+     * <strong>example:</strong>
+     * <p>WAIT_PAY/PART_SUCCESS/FINISH</p>
+     */
+    @NameInMap("repayment_status")
+    public String repaymentStatus;
+
+    // 已还本金，单位为分
+    /**
+     * <strong>example:</strong>
+     * <p>100</p>
+     */
+    @NameInMap("paid_principal")
+    public Long paidPrincipal;
+
+    // 已还利息，单位为分
+    /**
+     * <strong>example:</strong>
+     * <p>100</p>
+     */
+    @NameInMap("paid_interest")
+    public Long paidInterest;
+
+    // 已还总额，单位为分
+    /**
+     * <strong>example:</strong>
+     * <p>100</p>
+     */
+    @NameInMap("paid_total")
+    public Long paidTotal;
+
     public static AssetPackagePromisePlan build(java.util.Map<String, ?> map) throws Exception {
         AssetPackagePromisePlan self = new AssetPackagePromisePlan();
         return TeaModel.build(map, self);
@@ -103,6 +135,38 @@ public class AssetPackagePromisePlan extends TeaModel {
     }
     public Long getOrderCount() {
         return this.orderCount;
+    }
+
+    public AssetPackagePromisePlan setRepaymentStatus(String repaymentStatus) {
+        this.repaymentStatus = repaymentStatus;
+        return this;
+    }
+    public String getRepaymentStatus() {
+        return this.repaymentStatus;
+    }
+
+    public AssetPackagePromisePlan setPaidPrincipal(Long paidPrincipal) {
+        this.paidPrincipal = paidPrincipal;
+        return this;
+    }
+    public Long getPaidPrincipal() {
+        return this.paidPrincipal;
+    }
+
+    public AssetPackagePromisePlan setPaidInterest(Long paidInterest) {
+        this.paidInterest = paidInterest;
+        return this;
+    }
+    public Long getPaidInterest() {
+        return this.paidInterest;
+    }
+
+    public AssetPackagePromisePlan setPaidTotal(Long paidTotal) {
+        this.paidTotal = paidTotal;
+        return this;
+    }
+    public Long getPaidTotal() {
+        return this.paidTotal;
     }
 
 }

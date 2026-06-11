@@ -20,6 +20,10 @@ public class QueryTradeSettletocardResponse extends TeaModel {
     @NameInMap("download_url")
     public String downloadUrl;
 
+    // 任务状态：FINISH(成功)、FAILURE(失败)、查询中(EXEC)
+    @NameInMap("task_status")
+    public String taskStatus;
+
     public static QueryTradeSettletocardResponse build(java.util.Map<String, ?> map) throws Exception {
         QueryTradeSettletocardResponse self = new QueryTradeSettletocardResponse();
         return TeaModel.build(map, self);
@@ -55,6 +59,14 @@ public class QueryTradeSettletocardResponse extends TeaModel {
     }
     public String getDownloadUrl() {
         return this.downloadUrl;
+    }
+
+    public QueryTradeSettletocardResponse setTaskStatus(String taskStatus) {
+        this.taskStatus = taskStatus;
+        return this;
+    }
+    public String getTaskStatus() {
+        return this.taskStatus;
     }
 
 }
