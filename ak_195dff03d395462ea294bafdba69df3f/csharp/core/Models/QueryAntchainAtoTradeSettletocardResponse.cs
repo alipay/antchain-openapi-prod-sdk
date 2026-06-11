@@ -29,6 +29,11 @@ namespace AntChain.SDK.Ak_195dff03d395462ea294bafdba69df3f.Models
         [Validation(Required=false)]
         public string DownloadUrl { get; set; }
 
+        // 任务状态：FINISH(成功)、FAILURE(失败)、查询中(EXEC)
+        [NameInMap("task_status")]
+        [Validation(Required=false)]
+        public string TaskStatus { get; set; }
+
     }
 
 }
