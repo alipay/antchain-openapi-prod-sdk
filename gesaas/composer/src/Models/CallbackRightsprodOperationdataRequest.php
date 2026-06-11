@@ -60,6 +60,12 @@ class CallbackRightsprodOperationdataRequest extends Model
      * @var string
      */
     public $fluxAmount;
+
+    // 业务发生时间
+    /**
+     * @var string
+     */
+    public $bizTime;
     protected $_name = [
         'authToken'         => 'auth_token',
         'productInstanceId' => 'product_instance_id',
@@ -70,6 +76,7 @@ class CallbackRightsprodOperationdataRequest extends Model
         'payOrderNo'        => 'pay_order_no',
         'faceAmount'        => 'face_amount',
         'fluxAmount'        => 'flux_amount',
+        'bizTime'           => 'biz_time',
     ];
 
     public function validate()
@@ -78,6 +85,7 @@ class CallbackRightsprodOperationdataRequest extends Model
         Model::validateRequired('rightsCode', $this->rightsCode, true);
         Model::validateRequired('voucherCode', $this->voucherCode, true);
         Model::validateRequired('bizType', $this->bizType, true);
+        Model::validateRequired('bizTime', $this->bizTime, true);
     }
 
     public function toMap()
@@ -109,6 +117,9 @@ class CallbackRightsprodOperationdataRequest extends Model
         }
         if (null !== $this->fluxAmount) {
             $res['flux_amount'] = $this->fluxAmount;
+        }
+        if (null !== $this->bizTime) {
+            $res['biz_time'] = $this->bizTime;
         }
 
         return $res;
@@ -148,6 +159,9 @@ class CallbackRightsprodOperationdataRequest extends Model
         }
         if (isset($map['flux_amount'])) {
             $model->fluxAmount = $map['flux_amount'];
+        }
+        if (isset($map['biz_time'])) {
+            $model->bizTime = $map['biz_time'];
         }
 
         return $model;
