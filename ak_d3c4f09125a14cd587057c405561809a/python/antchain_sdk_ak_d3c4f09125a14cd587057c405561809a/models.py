@@ -1483,6 +1483,7 @@ class ProjectWithRole(TeaModel):
         chain_type: str = None,
         user_operator_list: List[UserOperatorInfoBO] = None,
         participant_infos: List[ParticipantInfo] = None,
+        issue_date: int = None,
     ):
         # 项目id
         self.project_id = project_id
@@ -1510,6 +1511,8 @@ class ProjectWithRole(TeaModel):
         self.user_operator_list = user_operator_list
         # 代销者机构集合
         self.participant_infos = participant_infos
+        # 发行日期（时间戳）
+        self.issue_date = issue_date
 
     def validate(self):
         if self.user_operator_list:
@@ -1557,6 +1560,8 @@ class ProjectWithRole(TeaModel):
         if self.participant_infos is not None:
             for k in self.participant_infos:
                 result['participant_infos'].append(k.to_map() if k else None)
+        if self.issue_date is not None:
+            result['issue_date'] = self.issue_date
         return result
 
     def from_map(self, m: dict = None):
@@ -1593,6 +1598,8 @@ class ProjectWithRole(TeaModel):
             for k in m.get('participant_infos'):
                 temp_model = ParticipantInfo()
                 self.participant_infos.append(temp_model.from_map(k))
+        if m.get('issue_date') is not None:
+            self.issue_date = m.get('issue_date')
         return self
 
 
@@ -2024,6 +2031,7 @@ class ProjectBaseInfoVO(TeaModel):
         capacity: str = None,
         max_subscription_amount: str = None,
         gmt_created: int = None,
+        issue_date: int = None,
     ):
         # 项目id
         self.project_id = project_id
@@ -2048,6 +2056,8 @@ class ProjectBaseInfoVO(TeaModel):
         self.max_subscription_amount = max_subscription_amount
         # 创建时间戳（毫秒）
         self.gmt_created = gmt_created
+        # 发行日期（时间戳）
+        self.issue_date = issue_date
 
     def validate(self):
         self.validate_required(self.project_id, 'project_id')
@@ -2080,6 +2090,8 @@ class ProjectBaseInfoVO(TeaModel):
             result['max_subscription_amount'] = self.max_subscription_amount
         if self.gmt_created is not None:
             result['gmt_created'] = self.gmt_created
+        if self.issue_date is not None:
+            result['issue_date'] = self.issue_date
         return result
 
     def from_map(self, m: dict = None):
@@ -2106,6 +2118,8 @@ class ProjectBaseInfoVO(TeaModel):
             self.max_subscription_amount = m.get('max_subscription_amount')
         if m.get('gmt_created') is not None:
             self.gmt_created = m.get('gmt_created')
+        if m.get('issue_date') is not None:
+            self.issue_date = m.get('issue_date')
         return self
 
 

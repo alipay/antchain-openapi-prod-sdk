@@ -135,7 +135,7 @@ class Client:
                     'req_msg_id': AntchainUtils.get_nonce(),
                     'access_key': self._access_key_id,
                     'base_sdk_version': 'TeaSDK-2.0',
-                    'sdk_version': '1.1.3',
+                    'sdk_version': '1.1.4',
                     '_prod_code': 'ak_d3c4f09125a14cd587057c405561809a',
                     '_prod_channel': 'saas'
                 }
@@ -239,7 +239,7 @@ class Client:
                     'req_msg_id': AntchainUtils.get_nonce(),
                     'access_key': self._access_key_id,
                     'base_sdk_version': 'TeaSDK-2.0',
-                    'sdk_version': '1.1.3',
+                    'sdk_version': '1.1.4',
                     '_prod_code': 'ak_d3c4f09125a14cd587057c405561809a',
                     '_prod_channel': 'saas'
                 }
@@ -1009,7 +1009,7 @@ class Client:
     ) -> ak_d_3c_4f_09125a_14cd_587057c_405561809a_models.ListAntdigitalWebtrwatradeIssuerSubuserResponse:
         """
         Description: 查询发行机构和项目下所有关联的二级用户信息
-        Summary: 查询机构和项目下所有关联的二级用户信息
+        Summary: 查询发行机构和项目下所有关联的二级用户信息
         """
         runtime = util_models.RuntimeOptions()
         headers = {}
@@ -1021,7 +1021,7 @@ class Client:
     ) -> ak_d_3c_4f_09125a_14cd_587057c_405561809a_models.ListAntdigitalWebtrwatradeIssuerSubuserResponse:
         """
         Description: 查询发行机构和项目下所有关联的二级用户信息
-        Summary: 查询机构和项目下所有关联的二级用户信息
+        Summary: 查询发行机构和项目下所有关联的二级用户信息
         """
         runtime = util_models.RuntimeOptions()
         headers = {}
@@ -1035,7 +1035,7 @@ class Client:
     ) -> ak_d_3c_4f_09125a_14cd_587057c_405561809a_models.ListAntdigitalWebtrwatradeIssuerSubuserResponse:
         """
         Description: 查询发行机构和项目下所有关联的二级用户信息
-        Summary: 查询机构和项目下所有关联的二级用户信息
+        Summary: 查询发行机构和项目下所有关联的二级用户信息
         """
         UtilClient.validate_model(request)
         return TeaCore.from_map(
@@ -1051,7 +1051,7 @@ class Client:
     ) -> ak_d_3c_4f_09125a_14cd_587057c_405561809a_models.ListAntdigitalWebtrwatradeIssuerSubuserResponse:
         """
         Description: 查询发行机构和项目下所有关联的二级用户信息
-        Summary: 查询机构和项目下所有关联的二级用户信息
+        Summary: 查询发行机构和项目下所有关联的二级用户信息
         """
         UtilClient.validate_model(request)
         return TeaCore.from_map(
@@ -1065,7 +1065,7 @@ class Client:
     ) -> ak_d_3c_4f_09125a_14cd_587057c_405561809a_models.ListAntdigitalWebtrwatradeDistributorSubuserResponse:
         """
         Description: 查询代销机构和项目下所有关联的二级用户信息
-        Summary: 查询机构和项目下所有关联的二级用户信息
+        Summary: 查询代销机构和项目下所有关联的二级用户信息
         """
         runtime = util_models.RuntimeOptions()
         headers = {}
@@ -1077,7 +1077,7 @@ class Client:
     ) -> ak_d_3c_4f_09125a_14cd_587057c_405561809a_models.ListAntdigitalWebtrwatradeDistributorSubuserResponse:
         """
         Description: 查询代销机构和项目下所有关联的二级用户信息
-        Summary: 查询机构和项目下所有关联的二级用户信息
+        Summary: 查询代销机构和项目下所有关联的二级用户信息
         """
         runtime = util_models.RuntimeOptions()
         headers = {}
@@ -1091,7 +1091,7 @@ class Client:
     ) -> ak_d_3c_4f_09125a_14cd_587057c_405561809a_models.ListAntdigitalWebtrwatradeDistributorSubuserResponse:
         """
         Description: 查询代销机构和项目下所有关联的二级用户信息
-        Summary: 查询机构和项目下所有关联的二级用户信息
+        Summary: 查询代销机构和项目下所有关联的二级用户信息
         """
         UtilClient.validate_model(request)
         return TeaCore.from_map(
@@ -1107,7 +1107,7 @@ class Client:
     ) -> ak_d_3c_4f_09125a_14cd_587057c_405561809a_models.ListAntdigitalWebtrwatradeDistributorSubuserResponse:
         """
         Description: 查询代销机构和项目下所有关联的二级用户信息
-        Summary: 查询机构和项目下所有关联的二级用户信息
+        Summary: 查询代销机构和项目下所有关联的二级用户信息
         """
         UtilClient.validate_model(request)
         return TeaCore.from_map(
