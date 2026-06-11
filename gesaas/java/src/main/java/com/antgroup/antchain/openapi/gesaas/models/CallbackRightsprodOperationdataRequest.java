@@ -43,6 +43,11 @@ public class CallbackRightsprodOperationdataRequest extends TeaModel {
     @NameInMap("flux_amount")
     public String fluxAmount;
 
+    // 业务发生时间
+    @NameInMap("biz_time")
+    @Validation(required = true)
+    public String bizTime;
+
     public static CallbackRightsprodOperationdataRequest build(java.util.Map<String, ?> map) throws Exception {
         CallbackRightsprodOperationdataRequest self = new CallbackRightsprodOperationdataRequest();
         return TeaModel.build(map, self);
@@ -118,6 +123,14 @@ public class CallbackRightsprodOperationdataRequest extends TeaModel {
     }
     public String getFluxAmount() {
         return this.fluxAmount;
+    }
+
+    public CallbackRightsprodOperationdataRequest setBizTime(String bizTime) {
+        this.bizTime = bizTime;
+        return this;
+    }
+    public String getBizTime() {
+        return this.bizTime;
     }
 
 }
