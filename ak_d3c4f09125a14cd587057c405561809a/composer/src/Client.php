@@ -200,7 +200,7 @@ class Client
                     'req_msg_id'       => UtilClient::getNonce(),
                     'access_key'       => $this->_accessKeyId,
                     'base_sdk_version' => 'TeaSDK-2.0',
-                    'sdk_version'      => '1.1.3',
+                    'sdk_version'      => '1.1.4',
                     '_prod_code'       => 'ak_d3c4f09125a14cd587057c405561809a',
                     '_prod_channel'    => 'saas',
                 ];
@@ -679,7 +679,7 @@ class Client
 
     /**
      * Description: 查询发行机构和项目下所有关联的二级用户信息
-     * Summary: 查询机构和项目下所有关联的二级用户信息.
+     * Summary: 查询发行机构和项目下所有关联的二级用户信息.
      *
      * @param ListAntdigitalWebtrwatradeIssuerSubuserRequest $request
      *
@@ -695,7 +695,7 @@ class Client
 
     /**
      * Description: 查询发行机构和项目下所有关联的二级用户信息
-     * Summary: 查询机构和项目下所有关联的二级用户信息.
+     * Summary: 查询发行机构和项目下所有关联的二级用户信息.
      *
      * @param ListAntdigitalWebtrwatradeIssuerSubuserRequest $request
      * @param string[]                                       $headers
@@ -712,7 +712,7 @@ class Client
 
     /**
      * Description: 查询代销机构和项目下所有关联的二级用户信息
-     * Summary: 查询机构和项目下所有关联的二级用户信息.
+     * Summary: 查询代销机构和项目下所有关联的二级用户信息.
      *
      * @param ListAntdigitalWebtrwatradeDistributorSubuserRequest $request
      *
@@ -728,7 +728,7 @@ class Client
 
     /**
      * Description: 查询代销机构和项目下所有关联的二级用户信息
-     * Summary: 查询机构和项目下所有关联的二级用户信息.
+     * Summary: 查询代销机构和项目下所有关联的二级用户信息.
      *
      * @param ListAntdigitalWebtrwatradeDistributorSubuserRequest $request
      * @param string[]                                            $headers

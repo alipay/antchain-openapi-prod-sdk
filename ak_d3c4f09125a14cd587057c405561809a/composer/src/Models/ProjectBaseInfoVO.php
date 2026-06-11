@@ -96,6 +96,14 @@ class ProjectBaseInfoVO extends Model
      * @var int
      */
     public $gmtCreated;
+
+    // 发行日期（时间戳）
+    /**
+     * @example 1531800000
+     *
+     * @var int
+     */
+    public $issueDate;
     protected $_name = [
         'projectId'             => 'project_id',
         'assetProjectAddress'   => 'asset_project_address',
@@ -108,6 +116,7 @@ class ProjectBaseInfoVO extends Model
         'capacity'              => 'capacity',
         'maxSubscriptionAmount' => 'max_subscription_amount',
         'gmtCreated'            => 'gmt_created',
+        'issueDate'             => 'issue_date',
     ];
 
     public function validate()
@@ -150,6 +159,9 @@ class ProjectBaseInfoVO extends Model
         }
         if (null !== $this->gmtCreated) {
             $res['gmt_created'] = $this->gmtCreated;
+        }
+        if (null !== $this->issueDate) {
+            $res['issue_date'] = $this->issueDate;
         }
 
         return $res;
@@ -195,6 +207,9 @@ class ProjectBaseInfoVO extends Model
         }
         if (isset($map['gmt_created'])) {
             $model->gmtCreated = $map['gmt_created'];
+        }
+        if (isset($map['issue_date'])) {
+            $model->issueDate = $map['issue_date'];
         }
 
         return $model;

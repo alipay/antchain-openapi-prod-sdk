@@ -111,6 +111,14 @@ class ProjectWithRole extends Model
      * @var ParticipantInfo[]
      */
     public $participantInfos;
+
+    // 发行日期（时间戳）
+    /**
+     * @example 1531800000
+     *
+     * @var int
+     */
+    public $issueDate;
     protected $_name = [
         'projectId'             => 'project_id',
         'projcetName'           => 'projcet_name',
@@ -125,6 +133,7 @@ class ProjectWithRole extends Model
         'chainType'             => 'chain_type',
         'userOperatorList'      => 'user_operator_list',
         'participantInfos'      => 'participant_infos',
+        'issueDate'             => 'issue_date',
     ];
 
     public function validate()
@@ -184,6 +193,9 @@ class ProjectWithRole extends Model
                     $res['participant_infos'][$n++] = null !== $item ? $item->toMap() : $item;
                 }
             }
+        }
+        if (null !== $this->issueDate) {
+            $res['issue_date'] = $this->issueDate;
         }
 
         return $res;
@@ -247,6 +259,9 @@ class ProjectWithRole extends Model
                     $model->participantInfos[$n++] = null !== $item ? ParticipantInfo::fromMap($item) : $item;
                 }
             }
+        }
+        if (isset($map['issue_date'])) {
+            $model->issueDate = $map['issue_date'];
         }
 
         return $model;
