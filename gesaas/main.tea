@@ -100,7 +100,7 @@ api doRequest(version: string, action: string, protocol: string, method: string,
     req_msg_id = AntchainUtil.getNonce(),
     access_key = @accessKeyId,
     base_sdk_version = 'TeaSDK-2.0',
-    sdk_version = '1.3.4',
+    sdk_version = '1.3.5',
     _prod_code = 'GESAAS',
     _prod_channel = 'default'
   };
@@ -768,6 +768,8 @@ model CallbackRightsprodOperationdataRequest = {
   faceAmount?: string(name='face_amount'),
   // 流通金额（核销、退款时 金额）
   fluxAmount?: string(name='flux_amount'),
+  // 业务发生时间
+  bizTime: string(name='biz_time'),
 }
 
 model CallbackRightsprodOperationdataResponse = {
