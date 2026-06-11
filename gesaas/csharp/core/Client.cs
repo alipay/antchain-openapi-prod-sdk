@@ -137,7 +137,7 @@ namespace AntChain.SDK.GESAAS
                         {"req_msg_id", AntChain.AlipayUtil.AntchainUtils.GetNonce()},
                         {"access_key", _accessKeyId},
                         {"base_sdk_version", "TeaSDK-2.0"},
-                        {"sdk_version", "1.3.2"},
+                        {"sdk_version", "1.3.4"},
                         {"_prod_code", "GESAAS"},
                         {"_prod_channel", "default"},
                     };
@@ -263,7 +263,7 @@ namespace AntChain.SDK.GESAAS
                         {"req_msg_id", AntChain.AlipayUtil.AntchainUtils.GetNonce()},
                         {"access_key", _accessKeyId},
                         {"base_sdk_version", "TeaSDK-2.0"},
-                        {"sdk_version", "1.3.2"},
+                        {"sdk_version", "1.3.4"},
                         {"_prod_code", "GESAAS"},
                         {"_prod_channel", "default"},
                     };
@@ -319,6 +319,132 @@ namespace AntChain.SDK.GESAAS
             }
 
             throw new TeaUnretryableException(_lastRequest, _lastException);
+        }
+
+        /**
+         * Description: 分账订单推送
+         * Summary: 分账订单推送
+         */
+        public PushOrderSettlementResponse PushOrderSettlement(PushOrderSettlementRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return PushOrderSettlementEx(request, headers, runtime);
+        }
+
+        /**
+         * Description: 分账订单推送
+         * Summary: 分账订单推送
+         */
+        public async Task<PushOrderSettlementResponse> PushOrderSettlementAsync(PushOrderSettlementRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return await PushOrderSettlementExAsync(request, headers, runtime);
+        }
+
+        /**
+         * Description: 分账订单推送
+         * Summary: 分账订单推送
+         */
+        public PushOrderSettlementResponse PushOrderSettlementEx(PushOrderSettlementRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<PushOrderSettlementResponse>(DoRequest("1.0", "antdigital.gesaas.order.settlement.push", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 分账订单推送
+         * Summary: 分账订单推送
+         */
+        public async Task<PushOrderSettlementResponse> PushOrderSettlementExAsync(PushOrderSettlementRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<PushOrderSettlementResponse>(await DoRequestAsync("1.0", "antdigital.gesaas.order.settlement.push", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 分账订单查询
+         * Summary: 分账订单查询
+         */
+        public QueryOrderSettlementResponse QueryOrderSettlement(QueryOrderSettlementRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return QueryOrderSettlementEx(request, headers, runtime);
+        }
+
+        /**
+         * Description: 分账订单查询
+         * Summary: 分账订单查询
+         */
+        public async Task<QueryOrderSettlementResponse> QueryOrderSettlementAsync(QueryOrderSettlementRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return await QueryOrderSettlementExAsync(request, headers, runtime);
+        }
+
+        /**
+         * Description: 分账订单查询
+         * Summary: 分账订单查询
+         */
+        public QueryOrderSettlementResponse QueryOrderSettlementEx(QueryOrderSettlementRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<QueryOrderSettlementResponse>(DoRequest("1.0", "antdigital.gesaas.order.settlement.query", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 分账订单查询
+         * Summary: 分账订单查询
+         */
+        public async Task<QueryOrderSettlementResponse> QueryOrderSettlementExAsync(QueryOrderSettlementRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<QueryOrderSettlementResponse>(await DoRequestAsync("1.0", "antdigital.gesaas.order.settlement.query", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 分账退款
+         * Summary: 分账退款
+         */
+        public WithdrawOrderSettlementResponse WithdrawOrderSettlement(WithdrawOrderSettlementRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return WithdrawOrderSettlementEx(request, headers, runtime);
+        }
+
+        /**
+         * Description: 分账退款
+         * Summary: 分账退款
+         */
+        public async Task<WithdrawOrderSettlementResponse> WithdrawOrderSettlementAsync(WithdrawOrderSettlementRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return await WithdrawOrderSettlementExAsync(request, headers, runtime);
+        }
+
+        /**
+         * Description: 分账退款
+         * Summary: 分账退款
+         */
+        public WithdrawOrderSettlementResponse WithdrawOrderSettlementEx(WithdrawOrderSettlementRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<WithdrawOrderSettlementResponse>(DoRequest("1.0", "antdigital.gesaas.order.settlement.withdraw", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 分账退款
+         * Summary: 分账退款
+         */
+        public async Task<WithdrawOrderSettlementResponse> WithdrawOrderSettlementExAsync(WithdrawOrderSettlementRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<WithdrawOrderSettlementResponse>(await DoRequestAsync("1.0", "antdigital.gesaas.order.settlement.withdraw", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
         }
 
         /**
