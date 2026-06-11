@@ -5,26 +5,129 @@ import RPCUtil from '@alicloud/rpc-util';
 import * as $tea from '@alicloud/tea-typescript';
 
 /**
+ * @remarks
  * Model for initing client
  */
 export class Config extends $tea.Model {
+  /**
+   * @remarks
+   * accesskey id
+   */
   accessKeyId?: string;
+  /**
+   * @remarks
+   * accesskey secret
+   */
   accessKeySecret?: string;
+  /**
+   * @remarks
+   * security token
+   */
   securityToken?: string;
+  /**
+   * @remarks
+   * http protocol
+   * 
+   * @example
+   * http
+   */
   protocol?: string;
+  /**
+   * @remarks
+   * read timeout
+   * 
+   * @example
+   * 10
+   */
   readTimeout?: number;
+  /**
+   * @remarks
+   * connect timeout
+   * 
+   * @example
+   * 10
+   */
   connectTimeout?: number;
+  /**
+   * @remarks
+   * http proxy
+   * 
+   * @example
+   * http://localhost
+   */
   httpProxy?: string;
+  /**
+   * @remarks
+   * https proxy
+   * 
+   * @example
+   * https://localhost
+   */
   httpsProxy?: string;
+  /**
+   * @remarks
+   * endpoint
+   * 
+   * @example
+   * cs.aliyuncs.com
+   */
   endpoint?: string;
+  /**
+   * @remarks
+   * proxy white list
+   * 
+   * @example
+   * http://localhost
+   */
   noProxy?: string;
+  /**
+   * @remarks
+   * max idle conns
+   * 
+   * @example
+   * 3
+   */
   maxIdleConns?: number;
+  /**
+   * @remarks
+   * user agent
+   * 
+   * @example
+   * Alibabacloud/1
+   */
   userAgent?: string;
+  /**
+   * @remarks
+   * socks5 proxy
+   */
   socks5Proxy?: string;
+  /**
+   * @remarks
+   * socks5 network
+   * 
+   * @example
+   * TCP
+   */
   socks5NetWork?: string;
+  /**
+   * @remarks
+   * 长链接最大空闲时长
+   */
   maxIdleTimeMillis?: number;
+  /**
+   * @remarks
+   * 长链接最大连接时长
+   */
   keepAliveDurationMillis?: number;
+  /**
+   * @remarks
+   * 最大连接数（长链接最大总数）
+   */
   maxRequests?: number;
+  /**
+   * @remarks
+   * 每个目标主机的最大连接数（分主机域名的长链接最大总数
+   */
   maxRequestsPerHost?: number;
   static names(): { [key: string]: string } {
     return {
@@ -80,22 +183,58 @@ export class Config extends $tea.Model {
 // 跨链账号明细
 export class CrossChainAccountsDetailVO extends $tea.Model {
   // 明细ID
+  /**
+   * @example
+   * 0ef1c7f82ffb44989e8b6e6b6360a3a7
+   */
   id?: string;
   // 交易链上Hash
+  /**
+   * @example
+   * 0xf1ada29c07fd95444030d9001ad09b7fd2111aed063ee0753e181fb2a3f53057
+   */
   transactionHash?: string;
   // 交易前余额
+  /**
+   * @example
+   * 1000.000000000
+   */
   preBalance?: string;
   // 交易数量
+  /**
+   * @example
+   * 1000.000000000
+   */
   transactionAmount?: string;
   // 交易后余额
+  /**
+   * @example
+   * 2000.000000000
+   */
   postBalance?: string;
   // 交易类别(LOCK_MINT/BURN_RETRIEVE/INNER_TRANSFER/OTC_TRANSFER)
+  /**
+   * @example
+   * LOCK_MINT
+   */
   transactionType?: string;
   // 对手地址
+  /**
+   * @example
+   * 0x5639ede048dc910b917b518ae8d3cbb184fc749d
+   */
   counterAddress?: string;
   // 创建时间
+  /**
+   * @example
+   * 1755754919690
+   */
   gmtCreated?: number;
   // 更新时间
+  /**
+   * @example
+   * 1755754919690
+   */
   gmtModified?: number;
   static names(): { [key: string]: string } {
     return {
@@ -133,8 +272,16 @@ export class CrossChainAccountsDetailVO extends $tea.Model {
 // 登录类型
 export class LoginAccountTypeBO extends $tea.Model {
   // 登录类型：EMAIL-邮箱
+  /**
+   * @example
+   * EMAIL
+   */
   userLoginType?: string;
   // 登录名称
+  /**
+   * @example
+   * 123@qq.com
+   */
   loginName?: string;
   static names(): { [key: string]: string } {
     return {
@@ -158,22 +305,58 @@ export class LoginAccountTypeBO extends $tea.Model {
 // 跨链账号红利明细
 export class CrossChainBonusAccountsDetailVO extends $tea.Model {
   // 明细ID
+  /**
+   * @example
+   * 3e695195a5634f0c856a6c30358c9f5b
+   */
   id?: string;
   // 交易链上Hash
+  /**
+   * @example
+   * 0xeede426617346ebe76481ab4a8f0fad46997e8f38f13d1c4cc6135cdc1d7553c
+   */
   transactionHash?: string;
   // 交易前余额
+  /**
+   * @example
+   * 7
+   */
   preBalance?: string;
   // 交易数量
+  /**
+   * @example
+   * 1
+   */
   transactionAmount?: string;
   // 交易后余额
+  /**
+   * @example
+   * 8
+   */
   postBalance?: string;
   // 交易类型(LOCK_MINT_BONUS/BURN_RETRIEVE_BONUS/INNER_TRANSFER_BONUS/OTC_TRANSFER_BONUS)
+  /**
+   * @example
+   * INNER_TRANSFER_BONUS
+   */
   transactionType?: string;
   // 对手地址
+  /**
+   * @example
+   * 0x644081f8086c1e9ad9597d8fef6249f5f2d80563
+   */
   counterAddress?: string;
   // 创建时间
+  /**
+   * @example
+   * 1755754919690
+   */
   gmtCreated?: number;
   // 更新时间
+  /**
+   * @example
+   * 1755754919690
+   */
   gmtModified?: number;
   static names(): { [key: string]: string } {
     return {
@@ -211,24 +394,64 @@ export class CrossChainBonusAccountsDetailVO extends $tea.Model {
 // 资产账户明细VO
 export class SubUserAccountDetailsVO extends $tea.Model {
   // 明细ID
+  /**
+   * @example
+   * 1
+   */
   id: string;
   // 交易链上Hash
+  /**
+   * @example
+   * 0x9fe688e456d3c4b15edceff3c23380300d71b48649ae8d61c6a9e513bb095262
+   */
   transactionHash: string;
   // 交易前余额
+  /**
+   * @example
+   * 1.0
+   */
   preBalance: string;
   // 交易数量
+  /**
+   * @example
+   * 1
+   */
   transactionAmount: string;
   // 交易后余额
+  /**
+   * @example
+   * 1.0
+   */
   postBalance: string;
   // 交易类别
+  /**
+   * @example
+   * ISSUE/REDEEM/TRANSFER/LOCK/UNLOCK/WITHDRAW/OTC_TRANSFER/TRANSFER_TO_VIRTUAL/WITHDRAW_FROM_VIRTUAL
+   */
   transactionType: string;
   // 对手地址
+  /**
+   * @example
+   * 0x9f6a540f4079d29ff5a9c5985e9ee87f3b713117
+   */
   counterAddress: string;
   // 创建时间
+  /**
+   * @example
+   * 1755754919690
+   */
   gmtCreated: number;
   // 更新时间
+  /**
+   * @example
+   * 1755754919690
+   */
   gmtModified: number;
   // 交易状态
+  /**
+   * @example
+   * PENDING/CONFIRMED/INVALID
+   */
   transactionStatus: string;
   static names(): { [key: string]: string } {
     return {
@@ -268,20 +491,52 @@ export class SubUserAccountDetailsVO extends $tea.Model {
 // 虚拟子账户明细
 export class SubUserVirtualAccountDetailVO extends $tea.Model {
   // 明细ID
+  /**
+   * @example
+   * 3e695195a5634f0c856a6c30358c9f5b
+   */
   id?: string;
   // 交易前余额
+  /**
+   * @example
+   * 7
+   */
   preBalance?: string;
   // 交易数量
+  /**
+   * @example
+   * 1
+   */
   transactionAmount?: string;
   // 交易后余额
+  /**
+   * @example
+   * 8
+   */
   postBalance?: string;
   // 交易类型(TRANSFER_IN、TRANSFER_OUT)
+  /**
+   * @example
+   * TRANSFER_IN
+   */
   transactionType?: string;
   // 创建时间
+  /**
+   * @example
+   * 1755754919690
+   */
   gmtCreated?: number;
   // 更新时间
+  /**
+   * @example
+   * 1755754919690
+   */
   gmtModified?: number;
   // 交易状态（PENDING/CONFIRMED/INVALID）
+  /**
+   * @example
+   * PENDING
+   */
   transactionStatus?: string;
   static names(): { [key: string]: string } {
     return {
@@ -317,20 +572,52 @@ export class SubUserVirtualAccountDetailVO extends $tea.Model {
 // 虚拟子账户红利明细
 export class SubUserBonusVirtualAccountDetailVO extends $tea.Model {
   // 明细ID
+  /**
+   * @example
+   * 3e695195a5634f0c856a6c30358c9f5b
+   */
   id?: string;
   // 交易前余额
+  /**
+   * @example
+   * 7
+   */
   preBalance?: string;
   // 交易数量
+  /**
+   * @example
+   * 1
+   */
   transactionAmount?: string;
   // 交易后余额
+  /**
+   * @example
+   * 8
+   */
   postBalance?: string;
   // 交易类型(TRANSFER_IN、TRANSFER_OUT)
+  /**
+   * @example
+   * TRANSFER_IN
+   */
   transactionType?: string;
   // 创建时间
+  /**
+   * @example
+   * 1755754919690
+   */
   gmtCreated?: number;
   // 更新时间
+  /**
+   * @example
+   * 1755754919690
+   */
   gmtModified?: number;
   // 交易状态（PENDING/CONFIRMED/INVALID）
+  /**
+   * @example
+   * PENDING
+   */
   transactionStatus?: string;
   static names(): { [key: string]: string } {
     return {
@@ -366,24 +653,64 @@ export class SubUserBonusVirtualAccountDetailVO extends $tea.Model {
 // 红利账户明细
 export class SubUserBonusAccountDetailVO extends $tea.Model {
   // 明细ID
+  /**
+   * @example
+   * 1
+   */
   id: string;
   // 交易链上Hash
+  /**
+   * @example
+   * 0x9fe688e456d3c4b15edceff3c23380300d71b48649ae8d61c6a9e513bb095262
+   */
   transactionHash: string;
   // 交易前余额
+  /**
+   * @example
+   * 1.0
+   */
   preBalance: string;
   // 交易数量
+  /**
+   * @example
+   * 1
+   */
   transactionAmount: string;
   // 交易后余额
+  /**
+   * @example
+   * 1.0
+   */
   postBalance: string;
   // 交易类别（REPAY/TRANSFER/LOCK/UNLOCK/WITHDRAW/OTC_TRANSFER/TRANSFER_TO_VIRTUAL/WITHDRAW_FROM_VIRTUAL）
+  /**
+   * @example
+   * REPAY
+   */
   transactionType: string;
   // 对手地址
+  /**
+   * @example
+   * 0x9f6a540f4079d29ff5a9c5985e9ee87f3b713117
+   */
   counterAddress: string;
   // 创建时间
+  /**
+   * @example
+   * 1755754919690
+   */
   gmtCreated: number;
   // 更新时间
+  /**
+   * @example
+   * 1755754919690
+   */
   gmtModified: number;
   // 交易状态（PENDING/CONFIRMED/INVALID）
+  /**
+   * @example
+   * PENDING
+   */
   transactionStatus: string;
   static names(): { [key: string]: string } {
     return {
@@ -423,12 +750,28 @@ export class SubUserBonusAccountDetailVO extends $tea.Model {
 // 虚拟子账号信息
 export class SubUserVirtualAccountInfoBO extends $tea.Model {
   // 虚拟子账户ID
+  /**
+   * @example
+   * 34814bfc9b2a40d3889222013228dd02
+   */
   subUserVirtualAccountId?: string;
   // 虚拟子账号对应用户ID
+  /**
+   * @example
+   * 8fa693da457449cf9bce00ef207d7407
+   */
   virtualAccountUserId?: string;
   // 虚拟子账户邮箱
+  /**
+   * @example
+   * test@gamil.com
+   */
   email?: string;
   // 别名
+  /**
+   * @example
+   * alias
+   */
   alias?: string;
   static names(): { [key: string]: string } {
     return {
@@ -456,10 +799,22 @@ export class SubUserVirtualAccountInfoBO extends $tea.Model {
 // 项目参与者信息
 export class ParticipantInfo extends $tea.Model {
   // 机构id
+  /**
+   * @example
+   * 80aee17181634daa9f1c37d787f0ec02
+   */
   id: string;
   // 二级机构类型
+  /**
+   * @example
+   * CHANNEL
+   */
   type: string;
   // 机构名称
+  /**
+   * @example
+   * 代销机构
+   */
   name?: string;
   static names(): { [key: string]: string } {
     return {
@@ -485,14 +840,34 @@ export class ParticipantInfo extends $tea.Model {
 // 跨链账户信息
 export class CrossChainAccountsVO extends $tea.Model {
   // 对侧链用户地址
+  /**
+   * @example
+   * 0xce81adcd4b9b78293c73caed55840c81b4c3b8f5
+   */
   targetUserAddress?: string;
   // 对侧链账户ID
+  /**
+   * @example
+   * 1938129653756694529
+   */
   crossChainUserAccountId?: string;
   // 对侧链红利账户ID
+  /**
+   * @example
+   * 1928364866666541058
+   */
   crossChainUserBonusAccountId?: string;
   // 对侧链资产账户明细
+  /**
+   * @example
+   * 对侧链资产账户明细
+   */
   crossChainUserAccountsDetails?: CrossChainAccountsDetailVO[];
   // 对侧链账户信息
+  /**
+   * @example
+   * 对侧链账户信息
+   */
   crossChainBonusAccountsDetails?: CrossChainBonusAccountsDetailVO[];
   static names(): { [key: string]: string } {
     return {
@@ -522,10 +897,22 @@ export class CrossChainAccountsVO extends $tea.Model {
 // 跨链账号信息
 export class CrossChainSubUserAccountInfoBO extends $tea.Model {
   // 跨链账号Id
+  /**
+   * @example
+   * 34814bfc9b2a40d3889222013228dd02
+   */
   crossChainUserAccountId?: string;
   // 跨链账号地址
+  /**
+   * @example
+   * 0x9f18be920360500f216495cd589895d3917cd9f2
+   */
   targetUserAddress?: string;
   // 目标链所在链
+  /**
+   * @example
+   * CONFLUX_TEST_NET
+   */
   targetChainName?: string;
   static names(): { [key: string]: string } {
     return {
@@ -551,10 +938,22 @@ export class CrossChainSubUserAccountInfoBO extends $tea.Model {
 // 操作角色
 export class UserOperatorInfoBO extends $tea.Model {
   // userId
+  /**
+   * @example
+   * 039d0196752c48f4ad71fcfece5ca459
+   */
   userId?: string;
   // 别名
+  /**
+   * @example
+   * 测试用户
+   */
   alias?: string;
   // 钱包地址
+  /**
+   * @example
+   * 0xf7d48f098440a166e9785ced7073baa6964acc80
+   */
   address?: string;
   // 登录账号类型列表
   userLoginAccountList?: LoginAccountTypeBO[];
@@ -588,42 +987,118 @@ export class UserOperatorInfoBO extends $tea.Model {
 // 所有系统操作日志
 export class OperationLogVO extends $tea.Model {
   // ID主键
+  /**
+   * @example
+   * 0628455d41d044ed97783db554149d4b
+   */
   id: string;
   // 创建时间戳（毫秒）
+  /**
+   * @example
+   * 1755754919690
+   */
   gmtCreated?: number;
   // 更新时间戳（毫秒）
+  /**
+   * @example
+   * 1755754919690
+   */
   gmtModified?: number;
   // 用户id
+  /**
+   * @example
+   * 0628455d41d044ed97783db554149d4b
+   */
   userId?: string;
   // 用户地址
+  /**
+   * @example
+   * 0628455d41d044ed97783db554149d4b
+   */
   userAddress?: string;
   // 发起操作的URL接口
+  /**
+   * @example
+   * /openapi/v1/trade/issuer/project/create
+   */
   requestUrl?: string;
   // 发起操作的URL接口描述code值
+  /**
+   * @example
+   * OPENAPI_ISSUER_PROJECT_CREATE
+   */
   apiDesc?: string;
   // 发起操作的URL接口中文描述
+  /**
+   * @example
+   * openapi创建项目
+   */
   chDesc?: string;
   // 设备信息
+  /**
+   * @example
+   * Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/138.0.0.0 Safari/537.36
+   */
   deviceInfo?: string;
   // 设备Hash
+  /**
+   * @example
+   * 30fdb4cb
+   */
   deviceHash?: string;
   // 操作种类
+  /**
+   * @example
+   * QUERY
+   */
   operationType?: string;
   // 请求输入
+  /**
+   * @example
+   * {"request":{"requestFrom":"inner","operatorBy":null,"projectId":"17cef416378c4f238ec42cdc142b54c7","targetChainName":null}}
+   */
   requestInput?: string;
   // 请求输出
+  /**
+   * @example
+   * {"success":true,"data":[],"total":0,"errorMessage":null,"retry":false,"traceId":"T2ce514e6f60a409f9e3926115f9742dd"}
+   */
   requestOutput?: string;
   // 操作状态：true/false
+  /**
+   * @example
+   * true
+   */
   success?: boolean;
   // 操作来源
+  /**
+   * @example
+   * WEB
+   */
   requestFrom?: string;
   // 发起IP地址
+  /**
+   * @example
+   * 127.0.0.1
+   */
   ip?: string;
   // 扩展字段
+  /**
+   * @example
+   * {}
+   */
   extInfo?: string;
   // 登录名类型(EMAIL)
+  /**
+   * @example
+   * EMAIL
+   */
   loginAccountType?: string;
   // 登录名
+  /**
+   * @example
+   * alice
+   */
   loginAccount?: string;
   static names(): { [key: string]: string } {
     return {
@@ -681,22 +1156,58 @@ export class OperationLogVO extends $tea.Model {
 // 虚拟子账号明细与红利明细
 export class SubUserVirtualAccountListVO extends $tea.Model {
   // 项目ID
+  /**
+   * @example
+   * 0628455d41d044ed97783db554149d4b
+   */
   assetProjectId?: string;
   // 资产项目合约地址
+  /**
+   * @example
+   * 0xf7d48f098440a166e9785ced7073baa6964acc80
+   */
   assetProjectAddress?: string;
   // 红利合约地址
+  /**
+   * @example
+   * 0xc8f15261d4a6022ef48c5d77a55b8d276cd8b41c
+   */
   bonusAddress?: string;
   // 用户ID
+  /**
+   * @example
+   * 0207764086af408990a5479c2320f9ce
+   */
   userId?: string;
   // 代销机构ID
+  /**
+   * @example
+   * b658ce566060409b82c58b710ba869a7
+   */
   distributorInstitutionId?: string;
   // 链名
+  /**
+   * @example
+   * ANTCHAIN
+   */
   chainName?: string;
   // 投资者用户账户ID
+  /**
+   * @example
+   * 4a5297828bfc42ceb57c912cfbca6584
+   */
   subUserAccountId?: string;
   // 虚拟子账户ID
+  /**
+   * @example
+   * 128798fc530249f78296fa97fb03c6f8
+   */
   subUserVirtualAccountId?: string;
   // 虚拟子账户红利账户ID
+  /**
+   * @example
+   * 4311e8e118d848ea9f56731d82e214e8
+   */
   subUserBonusVirtualAccountId?: string;
   // 虚拟子账户明细
   subUserVirtualAccountDetails?: SubUserVirtualAccountDetailVO[];
@@ -742,16 +1253,40 @@ export class SubUserVirtualAccountListVO extends $tea.Model {
 // 二级用户基础信息
 export class SubUserAccountBaseVO extends $tea.Model {
   // 二级用户ID
+  /**
+   * @example
+   * b20167e21a8d4cc2b5f1022d24f43815
+   */
   subUserAccountId: string;
   // 用户地址
+  /**
+   * @example
+   * 0x9f18be920360500f216495cd589895d3917cd9f2
+   */
   userAddress?: string;
   // 用户邮箱
+  /**
+   * @example
+   * test@gamil.com
+   */
   contact?: string;
   // 用户昵称
+  /**
+   * @example
+   * Alice
+   */
   alias?: string;
   // 项目ID
+  /**
+   * @example
+   * 00d00c02fb314212b73a23a0c95df0c7
+   */
   assetProjectId: string;
   // 链名称
+  /**
+   * @example
+   * ANTCHAIN
+   */
   chainName: string;
   // 虚拟子账号信息
   subUserVirtualAccountsInfo?: SubUserVirtualAccountInfoBO[];
@@ -791,32 +1326,88 @@ export class SubUserAccountBaseVO extends $tea.Model {
 // 本侧链持币情况
 export class SubUserAccountCeilingBaseVO extends $tea.Model {
   // 项目ID
+  /**
+   * @example
+   * 0628455d41d044ed97783db554149d4b
+   */
   assetProjectId?: string;
   // 代币名称
+  /**
+   * @example
+   * ETH
+   */
   tokenName?: string;
   // 代币合约地址
+  /**
+   * @example
+   * 0x1753b2e244b1d5e62eaec9a916eaed93c665aec8
+   */
   tokenAddress?: string;
   // 用户ID
+  /**
+   * @example
+   * 0361200fb48a49aea26ea7ca5647888f
+   */
   userId?: string;
   // 用户地址
+  /**
+   * @example
+   * 0x0c4d1a578ef5af9f37cdc251bfa11c660c20d38f
+   */
   userAddress?: string;
   // 登录名
+  /**
+   * @example
+   * test@gmail.com
+   */
   loginName?: string;
   // 登录类型
+  /**
+   * @example
+   * EMAIL
+   */
   loginType?: string;
   // 别名
+  /**
+   * @example
+   * test
+   */
   alias?: string;
   // 实际持有份额
+  /**
+   * @example
+   * 100
+   */
   realShares?: string;
   // 代币名称
+  /**
+   * @example
+   * ETH
+   */
   bonusTokenName?: string;
   // 代币合约名称
+  /**
+   * @example
+   * 0x1753b2e244b1d5e62eaec9a916eaed93c665aec8
+   */
   bonusTokenAddress?: string;
   // 红利份额
+  /**
+   * @example
+   * 100
+   */
   realBonus?: string;
   // 锁定金额
+  /**
+   * @example
+   * 100
+   */
   lockedAmount?: string;
   // 虚拟子账户余额
+  /**
+   * @example
+   * 100
+   */
   virtualAccountBalance?: string;
   static names(): { [key: string]: string } {
     return {
@@ -864,31 +1455,81 @@ export class SubUserAccountCeilingBaseVO extends $tea.Model {
 // 项目角色信息
 export class ProjectWithRole extends $tea.Model {
   // 项目id
+  /**
+   * @example
+   * 0628455d41d044ed97783db554149d4b
+   */
   projectId?: string;
   // 项目名称
+  /**
+   * @example
+   * 测试项目
+   */
   projcetName?: string;
   // 描述
+  /**
+   * @example
+   * 测试
+   */
   description?: string;
   // token名称
+  /**
+   * @example
+   * token
+   */
   tokenName?: string;
   // 最大供应量
+  /**
+   * @example
+   * 1000000
+   */
   capacity?: string;
   // 净值
+  /**
+   * @example
+   * 1
+   */
   netValue?: string;
   // 价格类型：PROJECT_NAV 项目净值 TOKEN_PRICE token
+  /**
+   * @example
+   * TOKEN_PRICE
+   */
   priceType?: string;
   // 项目净值
+  /**
+   * @example
+   * 1
+   */
   projectNetValue?: string;
   // 最大限额
+  /**
+   * @example
+   * 10000
+   */
   maxSubscriptionAmount?: string;
   // 部署类型 DIRECT_PUBLIC_CHAIN 直发公链，NORMAL 普通模式
+  /**
+   * @example
+   * NORMAL
+   */
   deploymentType?: string;
   // 项目所在链
+  /**
+   * @example
+   * ANTCHAIN
+   */
   chainType?: string;
   // 操作角色列表
   userOperatorList?: UserOperatorInfoBO[];
   // 代销者机构集合
   participantInfos?: ParticipantInfo[];
+  // 发行日期（时间戳）
+  /**
+   * @example
+   * 1531800000
+   */
+  issueDate?: number;
   static names(): { [key: string]: string } {
     return {
       projectId: 'project_id',
@@ -904,6 +1545,7 @@ export class ProjectWithRole extends $tea.Model {
       chainType: 'chain_type',
       userOperatorList: 'user_operator_list',
       participantInfos: 'participant_infos',
+      issueDate: 'issue_date',
     };
   }
 
@@ -922,6 +1564,7 @@ export class ProjectWithRole extends $tea.Model {
       chainType: 'string',
       userOperatorList: { 'type': 'array', 'itemType': UserOperatorInfoBO },
       participantInfos: { 'type': 'array', 'itemType': ParticipantInfo },
+      issueDate: 'number',
     };
   }
 
@@ -933,32 +1576,88 @@ export class ProjectWithRole extends $tea.Model {
 // 跨链账号明细
 export class CrossAccountListVO extends $tea.Model {
   // 项目ID
+  /**
+   * @example
+   * 02aa0864b0e347b780f82769d7665baf
+   */
   projectId?: string;
   // 资产项目合约地址
+  /**
+   * @example
+   * 0xc60c23aec15324cd51bf6c291c2768bc7287ada1
+   */
   assetProjectAddress?: string;
   // 红利合约地址
+  /**
+   * @example
+   * 0xb75dd55da39f778f759493a04d5955ba7435f102
+   */
   bonusAddress?: string;
   // 用户ID
+  /**
+   * @example
+   * 8a18b4fc7c8341238bd7eac27f63025a
+   */
   userId?: string;
   // 代销机构ID
+  /**
+   * @example
+   * d9becf0366ff471eb2f3879e5e2f9eb7
+   */
   distributorInstitutionId?: string;
   // 项目代币名称
+  /**
+   * @example
+   * etf
+   */
   tokenName?: string;
   // 项目代币符号
+  /**
+   * @example
+   * Token-S
+   */
   tokenSymbol?: string;
   // 发行链名称
+  /**
+   * @example
+   * ANTCHAIN
+   */
   chainName?: string;
   // 投资者用户账户ID
+  /**
+   * @example
+   * 40809209519a47179b7110ef0b8e9dff
+   */
   subUserAccountId?: string;
   // 投资者用户红利账户ID
+  /**
+   * @example
+   * 043bb2fbcd2947ea8ddea4087eae233f
+   */
   subUserBonusAccountId?: string;
   // 目标链名称
+  /**
+   * @example
+   * CONFLUX_TEST_NET
+   */
   targetChainName?: string;
   // 目标链资产合约地址
+  /**
+   * @example
+   * 0x77038f22e1b3210d455662fe0071dae5d5ad0c97
+   */
   targetChainAssetTokenAddress?: string;
   // 目标链红利合约地址
+  /**
+   * @example
+   * 0x89b7556c61fa90185ab32a99727b2ccdad9fcd36
+   */
   targetChainBonusAddress?: string;
   // 对侧链账户信息
+  /**
+   * @example
+   * 对侧链账户信息
+   */
   crossChainAccountsInfo?: CrossChainAccountsVO[];
   static names(): { [key: string]: string } {
     return {
@@ -1006,16 +1705,40 @@ export class CrossAccountListVO extends $tea.Model {
 // 登入登出接口操作日志回参
 export class LoginOperationLogVO extends $tea.Model {
   // 用户ID
+  /**
+   * @example
+   * 7
+   */
   userId: string;
   // 用户地址
+  /**
+   * @example
+   * 0xe328b8785ff0c1ecb2b52198f5637cc1fdabab20
+   */
   userAddress?: string;
   // 登录名
+  /**
+   * @example
+   * 123@qq.com
+   */
   loginName?: string;
   // 登录类型
+  /**
+   * @example
+   * EMAIL
+   */
   loginAccountType?: string;
   // 请求URL
+  /**
+   * @example
+   * /api/v1/trade/ip/user/login-account/login
+   */
   requestURL: string;
   // 是否成功
+  /**
+   * @example
+   * true, false
+   */
   success: boolean;
   // 创建时间
   gmtCreated: number;
@@ -1051,24 +1774,64 @@ export class LoginOperationLogVO extends $tea.Model {
 // 对侧链持币情况
 export class CrossChainSubUserAccountCeilingBaseVO extends $tea.Model {
   // 项目ID
+  /**
+   * @example
+   * 0628455d41d044ed97783db554149d4b
+   */
   assetProjectId?: string;
   // 代币名称
+  /**
+   * @example
+   * ETH
+   */
   tokenName?: string;
   // 代币合约地址
+  /**
+   * @example
+   * 0x1753b2e244b1d5e62eaec9a916eaed93c665aec8
+   */
   tokenAddress?: string;
   // 别名
+  /**
+   * @example
+   * test
+   */
   alias?: string;
   // 实际持有份额
+  /**
+   * @example
+   * 100
+   */
   realShares?: string;
   // 代币名称
+  /**
+   * @example
+   * ETH
+   */
   bonusTokenName?: string;
   // 代币合约名称
+  /**
+   * @example
+   * 0x1753b2e244b1d5e62eaec9a916eaed93c665aec8
+   */
   bonusTokenAddress?: string;
   // 红利份额
+  /**
+   * @example
+   * 100
+   */
   realBonus?: string;
   // 目标链
+  /**
+   * @example
+   * CONFLUX_TEST_NET
+   */
   tagetChainType?: string;
   // 目标链用户地址
+  /**
+   * @example
+   * 0x0c4d1a578ef5af9f37cdc251bfa11c660c20d38f
+   */
   targetUserAddress?: string;
   static names(): { [key: string]: string } {
     return {
@@ -1108,28 +1871,76 @@ export class CrossChainSubUserAccountCeilingBaseVO extends $tea.Model {
 // 资产账户明细与红利账户明细
 export class SubUserAccountDetailVO extends $tea.Model {
   // 项目ID
+  /**
+   * @example
+   * 1000
+   */
   projectId: string;
   // 资产项目合约地址
+  /**
+   * @example
+   * 0x44b2c05769202f0001ab5beb5d583bb8a630677e
+   */
   assetProjectAddress?: string;
   // 红利合约地址
+  /**
+   * @example
+   * 0x6dd8c1ab208dd3d2b20ff28fe97babb6154ff9db
+   */
   bonusAddress?: string;
   // 用户ID
+  /**
+   * @example
+   * 1
+   */
   userId?: string;
   // 代销机构ID
+  /**
+   * @example
+   * 1000
+   */
   distributorInstitutionId?: string;
   // 项目代币名称
+  /**
+   * @example
+   * etf
+   */
   tokenName?: string;
   // 项目代币符号
+  /**
+   * @example
+   * Token-S
+   */
   tokenSymbol?: string;
   // 发行链名称
+  /**
+   * @example
+   * ANTCHAIN
+   */
   chainName?: string;
   // 投资者用户账户ID
+  /**
+   * @example
+   * 1
+   */
   subUserAccountId?: string;
   // 投资者用户红利账户ID
+  /**
+   * @example
+   * 11
+   */
   subUserBonusAccountId?: string;
   // 资产账户明细
+  /**
+   * @example
+   * 资产账户明细
+   */
   subUserAccountDetails?: SubUserAccountDetailsVO[];
   // 红利账户明细
+  /**
+   * @example
+   * 红利账户明细
+   */
   subUserBonusAccountDetails?: SubUserBonusAccountDetailVO[];
   static names(): { [key: string]: string } {
     return {
@@ -1173,28 +1984,78 @@ export class SubUserAccountDetailVO extends $tea.Model {
 // 项目基础信息
 export class ProjectBaseInfoVO extends $tea.Model {
   // 项目id
+  /**
+   * @example
+   * 0628455d41d044ed97783db554149d4b
+   */
   projectId: string;
   // 资产项目合约地址
   // （Launch Network/Shares token ）
+  /**
+   * @example
+   * 0xf7d48f098440a166e9785ced7073baa6964acc80
+   */
   assetProjectAddress?: string;
   // 项目名称
+  /**
+   * @example
+   * 测试项目
+   */
   projectName?: string;
   // 描述
+  /**
+   * @example
+   * 测试
+   */
   description?: string;
   // 项目状态
+  /**
+   * @example
+   * Active
+   */
   projectStatus?: string;
   // 项目所在链（Launch Network）
+  /**
+   * @example
+   * ANTCHAIN
+   */
   chainType?: string;
   // 代币名称
+  /**
+   * @example
+   * OKB
+   */
   tokenName?: string;
   // 项目代币符号
+  /**
+   * @example
+   * Token-S
+   */
   tokenSymbol?: string;
   // 总发行量
+  /**
+   * @example
+   * 100
+   */
   capacity?: string;
   // 单钱包最大可持有份额
+  /**
+   * @example
+   * 100
+   */
   maxSubscriptionAmount?: string;
   // 创建时间戳（毫秒）
+  /**
+   * @example
+   * 1755754919690
+   */
   gmtCreated?: number;
+  // 发行日期（时间戳）
+  /**
+   * @example
+   * 1531800000
+   */
+  issueDate?: number;
   static names(): { [key: string]: string } {
     return {
       projectId: 'project_id',
@@ -1208,6 +2069,7 @@ export class ProjectBaseInfoVO extends $tea.Model {
       capacity: 'capacity',
       maxSubscriptionAmount: 'max_subscription_amount',
       gmtCreated: 'gmt_created',
+      issueDate: 'issue_date',
     };
   }
 
@@ -1224,6 +2086,7 @@ export class ProjectBaseInfoVO extends $tea.Model {
       capacity: 'string',
       maxSubscriptionAmount: 'string',
       gmtCreated: 'number',
+      issueDate: 'number',
     };
   }
 
@@ -2869,8 +3732,10 @@ export default class Client {
   _maxRequestsPerHost: number;
 
   /**
+   * @remarks
    * Init client with Config
-   * @param config config contains the necessary information to create a client
+   * 
+   * @param config - config contains the necessary information to create a client
    */
   constructor(config: Config) {
     if (Util.isUnset(config)) {
@@ -2901,14 +3766,16 @@ export default class Client {
   }
 
   /**
+   * @remarks
    * Encapsulate the request and invoke the network
-   * @param action api name
-   * @param protocol http or https
-   * @param method e.g. GET
-   * @param pathname pathname of every api
-   * @param request which contains request params
-   * @param runtime which controls some details of call api, such as retry times
-   * @return the response
+   * 
+   * @param action - api name
+   * @param protocol - http or https
+   * @param method - e.g. GET
+   * @param pathname - pathname of every api
+   * @param request - which contains request params
+   * @param runtime - which controls some details of call api, such as retry times
+   * @returns the response
    */
   async doRequest(version: string, action: string, protocol: string, method: string, pathname: string, request: {[key: string]: any}, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<{[key: string]: any}> {
     let _runtime: { [key: string]: any } = {
@@ -2959,7 +3826,7 @@ export default class Client {
           req_msg_id: AntchainUtil.getNonce(),
           access_key: this._accessKeyId,
           base_sdk_version: "TeaSDK-2.0",
-          sdk_version: "1.1.3",
+          sdk_version: "1.1.4",
           _prod_code: "ak_d3c4f09125a14cd587057c405561809a",
           _prod_channel: "saas",
         };
@@ -3008,6 +3875,7 @@ export default class Client {
   }
 
   /**
+   * @remarks
    * Description: 更新项目净值
    * Summary: 更新项目净值
    */
@@ -3018,6 +3886,7 @@ export default class Client {
   }
 
   /**
+   * @remarks
    * Description: 更新项目净值
    * Summary: 更新项目净值
    */
@@ -3027,6 +3896,7 @@ export default class Client {
   }
 
   /**
+   * @remarks
    * Description: 更新二级用户
    * Summary: 更新二级用户
    */
@@ -3037,6 +3907,7 @@ export default class Client {
   }
 
   /**
+   * @remarks
    * Description: 更新二级用户
    * Summary: 更新二级用户
    */
@@ -3046,6 +3917,7 @@ export default class Client {
   }
 
   /**
+   * @remarks
    * Description: 发行机构查询登录登出操作日志
    * Summary: 发行机构查询登录登出操作日志
    */
@@ -3056,6 +3928,7 @@ export default class Client {
   }
 
   /**
+   * @remarks
    * Description: 发行机构查询登录登出操作日志
    * Summary: 发行机构查询登录登出操作日志
    */
@@ -3065,6 +3938,7 @@ export default class Client {
   }
 
   /**
+   * @remarks
    * Description: 代销机构查询登录登出操作日志
    * Summary: 代销机构查询登录登出操作日志
    */
@@ -3075,6 +3949,7 @@ export default class Client {
   }
 
   /**
+   * @remarks
    * Description: 代销机构查询登录登出操作日志
    * Summary: 代销机构查询登录登出操作日志
    */
@@ -3084,6 +3959,7 @@ export default class Client {
   }
 
   /**
+   * @remarks
    * Description: 发行机构获取二级用户详情数据
    * Summary: 发行机构获取二级用户详情数据
    */
@@ -3094,6 +3970,7 @@ export default class Client {
   }
 
   /**
+   * @remarks
    * Description: 发行机构获取二级用户详情数据
    * Summary: 发行机构获取二级用户详情数据
    */
@@ -3103,6 +3980,7 @@ export default class Client {
   }
 
   /**
+   * @remarks
    * Description: 代销机构获取二级用户详情数据
    * Summary: 代销机构获取二级用户详情数据
    */
@@ -3113,6 +3991,7 @@ export default class Client {
   }
 
   /**
+   * @remarks
    * Description: 代销机构获取二级用户详情数据
    * Summary: 代销机构获取二级用户详情数据
    */
@@ -3122,6 +4001,7 @@ export default class Client {
   }
 
   /**
+   * @remarks
    * Description: 发行机构跨链账号明细
    * Summary: 发行机构跨链账号明细
    */
@@ -3132,6 +4012,7 @@ export default class Client {
   }
 
   /**
+   * @remarks
    * Description: 发行机构跨链账号明细
    * Summary: 发行机构跨链账号明细
    */
@@ -3141,6 +4022,7 @@ export default class Client {
   }
 
   /**
+   * @remarks
    * Description: 代销机构跨链账号明细
    * Summary: 代销机构跨链账号明细
    */
@@ -3151,6 +4033,7 @@ export default class Client {
   }
 
   /**
+   * @remarks
    * Description: 代销机构跨链账号明细
    * Summary: 代销机构跨链账号明细
    */
@@ -3160,6 +4043,7 @@ export default class Client {
   }
 
   /**
+   * @remarks
    * Description: 发行机构查询项目及角色信息
    * Summary: 发行机构查询项目及角色信息
    */
@@ -3170,6 +4054,7 @@ export default class Client {
   }
 
   /**
+   * @remarks
    * Description: 发行机构查询项目及角色信息
    * Summary: 发行机构查询项目及角色信息
    */
@@ -3179,6 +4064,7 @@ export default class Client {
   }
 
   /**
+   * @remarks
    * Description: 发行机构查询所有操作员的操作日志
    * Summary: 发行机构查询所有操作员的操作日志
    */
@@ -3189,6 +4075,7 @@ export default class Client {
   }
 
   /**
+   * @remarks
    * Description: 发行机构查询所有操作员的操作日志
    * Summary: 发行机构查询所有操作员的操作日志
    */
@@ -3198,6 +4085,7 @@ export default class Client {
   }
 
   /**
+   * @remarks
    * Description: 代销机构查询所有操作员的操作日志
    * Summary: 代销机构查询所有操作员的操作日志
    */
@@ -3208,6 +4096,7 @@ export default class Client {
   }
 
   /**
+   * @remarks
    * Description: 代销机构查询所有操作员的操作日志
    * Summary: 代销机构查询所有操作员的操作日志
    */
@@ -3217,6 +4106,7 @@ export default class Client {
   }
 
   /**
+   * @remarks
    * Description: 查询发行机构下所有的项目
    * Summary: 查询发行机构下所有的项目
    */
@@ -3227,6 +4117,7 @@ export default class Client {
   }
 
   /**
+   * @remarks
    * Description: 查询发行机构下所有的项目
    * Summary: 查询发行机构下所有的项目
    */
@@ -3236,6 +4127,7 @@ export default class Client {
   }
 
   /**
+   * @remarks
    * Description: 查询代销机构下所有的项目
    * Summary: 查询代销机构下所有的项目
    */
@@ -3246,6 +4138,7 @@ export default class Client {
   }
 
   /**
+   * @remarks
    * Description: 查询代销机构下所有的项目
    * Summary: 查询代销机构下所有的项目
    */
@@ -3255,8 +4148,9 @@ export default class Client {
   }
 
   /**
+   * @remarks
    * Description: 查询发行机构和项目下所有关联的二级用户信息
-   * Summary: 查询机构和项目下所有关联的二级用户信息
+   * Summary: 查询发行机构和项目下所有关联的二级用户信息
    */
   async listAntdigitalWebtrwatradeIssuerSubuser(request: ListAntdigitalWebtrwatradeIssuerSubuserRequest): Promise<ListAntdigitalWebtrwatradeIssuerSubuserResponse> {
     let runtime = new $Util.RuntimeOptions({ });
@@ -3265,8 +4159,9 @@ export default class Client {
   }
 
   /**
+   * @remarks
    * Description: 查询发行机构和项目下所有关联的二级用户信息
-   * Summary: 查询机构和项目下所有关联的二级用户信息
+   * Summary: 查询发行机构和项目下所有关联的二级用户信息
    */
   async listAntdigitalWebtrwatradeIssuerSubuserEx(request: ListAntdigitalWebtrwatradeIssuerSubuserRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<ListAntdigitalWebtrwatradeIssuerSubuserResponse> {
     Util.validateModel(request);
@@ -3274,8 +4169,9 @@ export default class Client {
   }
 
   /**
+   * @remarks
    * Description: 查询代销机构和项目下所有关联的二级用户信息
-   * Summary: 查询机构和项目下所有关联的二级用户信息
+   * Summary: 查询代销机构和项目下所有关联的二级用户信息
    */
   async listAntdigitalWebtrwatradeDistributorSubuser(request: ListAntdigitalWebtrwatradeDistributorSubuserRequest): Promise<ListAntdigitalWebtrwatradeDistributorSubuserResponse> {
     let runtime = new $Util.RuntimeOptions({ });
@@ -3284,8 +4180,9 @@ export default class Client {
   }
 
   /**
+   * @remarks
    * Description: 查询代销机构和项目下所有关联的二级用户信息
-   * Summary: 查询机构和项目下所有关联的二级用户信息
+   * Summary: 查询代销机构和项目下所有关联的二级用户信息
    */
   async listAntdigitalWebtrwatradeDistributorSubuserEx(request: ListAntdigitalWebtrwatradeDistributorSubuserRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<ListAntdigitalWebtrwatradeDistributorSubuserResponse> {
     Util.validateModel(request);
@@ -3293,6 +4190,7 @@ export default class Client {
   }
 
   /**
+   * @remarks
    * Description: 代销机构本侧链持仓情况
    * Summary: 代销机构本侧链持仓情况
    */
@@ -3303,6 +4201,7 @@ export default class Client {
   }
 
   /**
+   * @remarks
    * Description: 代销机构本侧链持仓情况
    * Summary: 代销机构本侧链持仓情况
    */
@@ -3312,6 +4211,7 @@ export default class Client {
   }
 
   /**
+   * @remarks
    * Description: 发行机构本侧链持仓情况
    * Summary: 发行机构本侧链持仓情况
    */
@@ -3322,6 +4222,7 @@ export default class Client {
   }
 
   /**
+   * @remarks
    * Description: 发行机构本侧链持仓情况
    * Summary: 发行机构本侧链持仓情况
    */
@@ -3331,6 +4232,7 @@ export default class Client {
   }
 
   /**
+   * @remarks
    * Description: 代销机构对侧链持仓情况
    * Summary: 代销机构对侧链持仓情况
    */
@@ -3341,6 +4243,7 @@ export default class Client {
   }
 
   /**
+   * @remarks
    * Description: 代销机构对侧链持仓情况
    * Summary: 代销机构对侧链持仓情况
    */
@@ -3350,6 +4253,7 @@ export default class Client {
   }
 
   /**
+   * @remarks
    * Description: 发行机构对侧链持仓情况
    * Summary: 发行机构对侧链持仓情况
    */
@@ -3360,6 +4264,7 @@ export default class Client {
   }
 
   /**
+   * @remarks
    * Description: 发行机构对侧链持仓情况
    * Summary: 发行机构对侧链持仓情况
    */
@@ -3369,6 +4274,7 @@ export default class Client {
   }
 
   /**
+   * @remarks
    * Description: 代销机构虚拟子账号明细
    * Summary: 代销机构虚拟子账号明细
    */
@@ -3379,6 +4285,7 @@ export default class Client {
   }
 
   /**
+   * @remarks
    * Description: 代销机构虚拟子账号明细
    * Summary: 代销机构虚拟子账号明细
    */
@@ -3388,6 +4295,7 @@ export default class Client {
   }
 
   /**
+   * @remarks
    * Description: 发行机构虚拟子账号明细
    * Summary: 发行机构虚拟子账号明细
    */
@@ -3398,6 +4306,7 @@ export default class Client {
   }
 
   /**
+   * @remarks
    * Description: 发行机构虚拟子账号明细
    * Summary: 发行机构虚拟子账号明细
    */
