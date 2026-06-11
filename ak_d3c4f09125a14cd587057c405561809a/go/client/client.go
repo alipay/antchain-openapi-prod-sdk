@@ -1264,6 +1264,8 @@ type ProjectWithRole struct {
 	UserOperatorList []*UserOperatorInfoBO `json:"user_operator_list,omitempty" xml:"user_operator_list,omitempty" type:"Repeated"`
 	// 代销者机构集合
 	ParticipantInfos []*ParticipantInfo `json:"participant_infos,omitempty" xml:"participant_infos,omitempty" type:"Repeated"`
+	// 发行日期（时间戳）
+	IssueDate *int64 `json:"issue_date,omitempty" xml:"issue_date,omitempty"`
 }
 
 func (s ProjectWithRole) String() string {
@@ -1336,6 +1338,11 @@ func (s *ProjectWithRole) SetUserOperatorList(v []*UserOperatorInfoBO) *ProjectW
 
 func (s *ProjectWithRole) SetParticipantInfos(v []*ParticipantInfo) *ProjectWithRole {
 	s.ParticipantInfos = v
+	return s
+}
+
+func (s *ProjectWithRole) SetIssueDate(v int64) *ProjectWithRole {
+	s.IssueDate = &v
 	return s
 }
 
@@ -1713,6 +1720,8 @@ type ProjectBaseInfoVO struct {
 	MaxSubscriptionAmount *string `json:"max_subscription_amount,omitempty" xml:"max_subscription_amount,omitempty"`
 	// 创建时间戳（毫秒）
 	GmtCreated *int64 `json:"gmt_created,omitempty" xml:"gmt_created,omitempty"`
+	// 发行日期（时间戳）
+	IssueDate *int64 `json:"issue_date,omitempty" xml:"issue_date,omitempty"`
 }
 
 func (s ProjectBaseInfoVO) String() string {
@@ -1775,6 +1784,11 @@ func (s *ProjectBaseInfoVO) SetMaxSubscriptionAmount(v string) *ProjectBaseInfoV
 
 func (s *ProjectBaseInfoVO) SetGmtCreated(v int64) *ProjectBaseInfoVO {
 	s.GmtCreated = &v
+	return s
+}
+
+func (s *ProjectBaseInfoVO) SetIssueDate(v int64) *ProjectBaseInfoVO {
+	s.IssueDate = &v
 	return s
 }
 
@@ -4024,7 +4038,7 @@ func (client *Client) DoRequest(version *string, action *string, protocol *strin
 				"req_msg_id":       antchainutil.GetNonce(),
 				"access_key":       client.AccessKeyId,
 				"base_sdk_version": tea.String("TeaSDK-2.0"),
-				"sdk_version":      tea.String("1.1.3"),
+				"sdk_version":      tea.String("1.1.4"),
 				"_prod_code":       tea.String("ak_d3c4f09125a14cd587057c405561809a"),
 				"_prod_channel":    tea.String("saas"),
 			}
@@ -4526,7 +4540,7 @@ func (client *Client) ListAntdigitalWebtrwatradeDistributorProjectEx(request *Li
 
 /**
  * Description: 查询发行机构和项目下所有关联的二级用户信息
- * Summary: 查询机构和项目下所有关联的二级用户信息
+ * Summary: 查询发行机构和项目下所有关联的二级用户信息
  */
 func (client *Client) ListAntdigitalWebtrwatradeIssuerSubuser(request *ListAntdigitalWebtrwatradeIssuerSubuserRequest) (_result *ListAntdigitalWebtrwatradeIssuerSubuserResponse, _err error) {
 	runtime := &util.RuntimeOptions{}
@@ -4542,7 +4556,7 @@ func (client *Client) ListAntdigitalWebtrwatradeIssuerSubuser(request *ListAntdi
 
 /**
  * Description: 查询发行机构和项目下所有关联的二级用户信息
- * Summary: 查询机构和项目下所有关联的二级用户信息
+ * Summary: 查询发行机构和项目下所有关联的二级用户信息
  */
 func (client *Client) ListAntdigitalWebtrwatradeIssuerSubuserEx(request *ListAntdigitalWebtrwatradeIssuerSubuserRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *ListAntdigitalWebtrwatradeIssuerSubuserResponse, _err error) {
 	_err = util.ValidateModel(request)
@@ -4560,7 +4574,7 @@ func (client *Client) ListAntdigitalWebtrwatradeIssuerSubuserEx(request *ListAnt
 
 /**
  * Description: 查询代销机构和项目下所有关联的二级用户信息
- * Summary: 查询机构和项目下所有关联的二级用户信息
+ * Summary: 查询代销机构和项目下所有关联的二级用户信息
  */
 func (client *Client) ListAntdigitalWebtrwatradeDistributorSubuser(request *ListAntdigitalWebtrwatradeDistributorSubuserRequest) (_result *ListAntdigitalWebtrwatradeDistributorSubuserResponse, _err error) {
 	runtime := &util.RuntimeOptions{}
@@ -4576,7 +4590,7 @@ func (client *Client) ListAntdigitalWebtrwatradeDistributorSubuser(request *List
 
 /**
  * Description: 查询代销机构和项目下所有关联的二级用户信息
- * Summary: 查询机构和项目下所有关联的二级用户信息
+ * Summary: 查询代销机构和项目下所有关联的二级用户信息
  */
 func (client *Client) ListAntdigitalWebtrwatradeDistributorSubuserEx(request *ListAntdigitalWebtrwatradeDistributorSubuserRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *ListAntdigitalWebtrwatradeDistributorSubuserResponse, _err error) {
 	_err = util.ValidateModel(request)
