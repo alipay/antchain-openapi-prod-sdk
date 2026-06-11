@@ -1474,6 +1474,8 @@ export class CallbackRightsprodOperationdataRequest extends $tea.Model {
   faceAmount?: string;
   // 流通金额（核销、退款时 金额）
   fluxAmount?: string;
+  // 业务发生时间
+  bizTime: string;
   static names(): { [key: string]: string } {
     return {
       authToken: 'auth_token',
@@ -1485,6 +1487,7 @@ export class CallbackRightsprodOperationdataRequest extends $tea.Model {
       payOrderNo: 'pay_order_no',
       faceAmount: 'face_amount',
       fluxAmount: 'flux_amount',
+      bizTime: 'biz_time',
     };
   }
 
@@ -1499,6 +1502,7 @@ export class CallbackRightsprodOperationdataRequest extends $tea.Model {
       payOrderNo: 'string',
       faceAmount: 'string',
       fluxAmount: 'string',
+      bizTime: 'string',
     };
   }
 
@@ -1656,7 +1660,7 @@ export default class Client {
           req_msg_id: AntchainUtil.getNonce(),
           access_key: this._accessKeyId,
           base_sdk_version: "TeaSDK-2.0",
-          sdk_version: "1.3.4",
+          sdk_version: "1.3.5",
           _prod_code: "GESAAS",
           _prod_channel: "default",
         };
