@@ -16135,6 +16135,7 @@ class QueryAntchainAtoTradeSettletocardResponse(TeaModel):
         result_code: str = None,
         result_msg: str = None,
         download_url: str = None,
+        task_status: str = None,
     ):
         # 请求唯一ID，用于链路跟踪和问题排查
         self.req_msg_id = req_msg_id
@@ -16144,6 +16145,8 @@ class QueryAntchainAtoTradeSettletocardResponse(TeaModel):
         self.result_msg = result_msg
         # 账单下载地址
         self.download_url = download_url
+        # 任务状态：FINISH(成功)、FAILURE(失败)、查询中(EXEC)
+        self.task_status = task_status
 
     def validate(self):
         pass
@@ -16162,6 +16165,8 @@ class QueryAntchainAtoTradeSettletocardResponse(TeaModel):
             result['result_msg'] = self.result_msg
         if self.download_url is not None:
             result['download_url'] = self.download_url
+        if self.task_status is not None:
+            result['task_status'] = self.task_status
         return result
 
     def from_map(self, m: dict = None):
@@ -16174,6 +16179,8 @@ class QueryAntchainAtoTradeSettletocardResponse(TeaModel):
             self.result_msg = m.get('result_msg')
         if m.get('download_url') is not None:
             self.download_url = m.get('download_url')
+        if m.get('task_status') is not None:
+            self.task_status = m.get('task_status')
         return self
 
 
