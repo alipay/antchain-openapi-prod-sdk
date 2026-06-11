@@ -126,7 +126,7 @@ public class Client {
                     new TeaPair("req_msg_id", com.antgroup.antchain.openapi.antchain.util.AntchainUtils.getNonce()),
                     new TeaPair("access_key", _accessKeyId),
                     new TeaPair("base_sdk_version", "TeaSDK-2.0"),
-                    new TeaPair("sdk_version", "1.1.3"),
+                    new TeaPair("sdk_version", "1.1.4"),
                     new TeaPair("_prod_code", "ak_d3c4f09125a14cd587057c405561809a"),
                     new TeaPair("_prod_channel", "saas")
                 );
@@ -464,7 +464,7 @@ public class Client {
     /**
      * <b>description</b> :
      * <p>Description: 查询发行机构和项目下所有关联的二级用户信息
-     * Summary: 查询机构和项目下所有关联的二级用户信息</p>
+     * Summary: 查询发行机构和项目下所有关联的二级用户信息</p>
      */
     public ListAntdigitalWebtrwatradeIssuerSubuserResponse listAntdigitalWebtrwatradeIssuerSubuser(ListAntdigitalWebtrwatradeIssuerSubuserRequest request) throws Exception {
         com.aliyun.teautil.models.RuntimeOptions runtime = new com.aliyun.teautil.models.RuntimeOptions();
@@ -475,7 +475,7 @@ public class Client {
     /**
      * <b>description</b> :
      * <p>Description: 查询发行机构和项目下所有关联的二级用户信息
-     * Summary: 查询机构和项目下所有关联的二级用户信息</p>
+     * Summary: 查询发行机构和项目下所有关联的二级用户信息</p>
      */
     public ListAntdigitalWebtrwatradeIssuerSubuserResponse listAntdigitalWebtrwatradeIssuerSubuserEx(ListAntdigitalWebtrwatradeIssuerSubuserRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
         com.aliyun.teautil.Common.validateModel(request);
@@ -485,7 +485,7 @@ public class Client {
     /**
      * <b>description</b> :
      * <p>Description: 查询代销机构和项目下所有关联的二级用户信息
-     * Summary: 查询机构和项目下所有关联的二级用户信息</p>
+     * Summary: 查询代销机构和项目下所有关联的二级用户信息</p>
      */
     public ListAntdigitalWebtrwatradeDistributorSubuserResponse listAntdigitalWebtrwatradeDistributorSubuser(ListAntdigitalWebtrwatradeDistributorSubuserRequest request) throws Exception {
         com.aliyun.teautil.models.RuntimeOptions runtime = new com.aliyun.teautil.models.RuntimeOptions();
@@ -496,7 +496,7 @@ public class Client {
     /**
      * <b>description</b> :
      * <p>Description: 查询代销机构和项目下所有关联的二级用户信息
-     * Summary: 查询机构和项目下所有关联的二级用户信息</p>
+     * Summary: 查询代销机构和项目下所有关联的二级用户信息</p>
      */
     public ListAntdigitalWebtrwatradeDistributorSubuserResponse listAntdigitalWebtrwatradeDistributorSubuserEx(ListAntdigitalWebtrwatradeDistributorSubuserRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
         com.aliyun.teautil.Common.validateModel(request);

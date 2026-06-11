@@ -94,6 +94,14 @@ public class ProjectBaseInfoVO extends TeaModel {
     @NameInMap("gmt_created")
     public Long gmtCreated;
 
+    // 发行日期（时间戳）
+    /**
+     * <strong>example:</strong>
+     * <p>1531800000</p>
+     */
+    @NameInMap("issue_date")
+    public Long issueDate;
+
     public static ProjectBaseInfoVO build(java.util.Map<String, ?> map) throws Exception {
         ProjectBaseInfoVO self = new ProjectBaseInfoVO();
         return TeaModel.build(map, self);
@@ -185,6 +193,14 @@ public class ProjectBaseInfoVO extends TeaModel {
     }
     public Long getGmtCreated() {
         return this.gmtCreated;
+    }
+
+    public ProjectBaseInfoVO setIssueDate(Long issueDate) {
+        this.issueDate = issueDate;
+        return this;
+    }
+    public Long getIssueDate() {
+        return this.issueDate;
     }
 
 }

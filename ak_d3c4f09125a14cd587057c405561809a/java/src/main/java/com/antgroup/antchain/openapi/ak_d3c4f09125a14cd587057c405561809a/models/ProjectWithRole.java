@@ -100,6 +100,14 @@ public class ProjectWithRole extends TeaModel {
     @NameInMap("participant_infos")
     public java.util.List<ParticipantInfo> participantInfos;
 
+    // 发行日期（时间戳）
+    /**
+     * <strong>example:</strong>
+     * <p>1531800000</p>
+     */
+    @NameInMap("issue_date")
+    public Long issueDate;
+
     public static ProjectWithRole build(java.util.Map<String, ?> map) throws Exception {
         ProjectWithRole self = new ProjectWithRole();
         return TeaModel.build(map, self);
@@ -207,6 +215,14 @@ public class ProjectWithRole extends TeaModel {
     }
     public java.util.List<ParticipantInfo> getParticipantInfos() {
         return this.participantInfos;
+    }
+
+    public ProjectWithRole setIssueDate(Long issueDate) {
+        this.issueDate = issueDate;
+        return this;
+    }
+    public Long getIssueDate() {
+        return this.issueDate;
     }
 
 }
