@@ -100,7 +100,7 @@ api doRequest(version: string, action: string, protocol: string, method: string,
     req_msg_id = AntchainUtil.getNonce(),
     access_key = @accessKeyId,
     base_sdk_version = 'TeaSDK-2.0',
-    sdk_version = '1.3.2',
+    sdk_version = '1.3.4',
     _prod_code = 'GESAAS',
     _prod_channel = 'default'
   };
@@ -233,6 +233,24 @@ model OrderDetail {
   voucherCode: string(name='voucher_code', example='1798234932684395'),
 }
 
+// 结算订单分账明细对象
+model SettleOrderRoyaltyDetail {
+  // 分账金额，单位：分
+  amount?: long(name='amount', example='1000'),
+  // 分账状态，SUCCESS成功，FAIL失败，PROCESSING处理中
+  state?: string(name='state', example='FAIL'),
+  // 分账执行时间
+  executeDt?: string(pattern='\\\\d{4}[-]\\\\d{1,2}[-]\\\\d{1,2}[T]\\\\d{2}:\\\\d{2}:\\\\d{2}([Z]|([\\\\.]\\\\d{1,9})?[\\\\+]\\\\d{2}[\\\\:]?\\\\d{2})', name='execute_dt', example='2021-07-30 12:00:00'),
+  // 分账转出账号
+  transOutAccount?: string(name='trans_out_account', example='2088111111111111'),
+  // 分账失败错误码，只在分账失败时返回
+  errorCode?: string(name='error_code', example='TXN_RESULT_ACCOUNT_BALANCE_NOT_ENOUGH'),
+  // 分账错误描述信息
+  errorDesc?: string(name='error_desc', example='分账余额不足'),
+  // 分账转入账号
+  transInAccount?: string(name='trans_in_account', example='2088111111111111'),
+}
+
 // 订单进件请求参数
 model OrderFullInfoReq {
   // 订单号
@@ -317,6 +335,160 @@ model VoucherBaseInfoVO {
   // INVALID：已失效 
   // NO_NEED_VERIFY：无需核销 
   status: string(name='status', example='WAIT_VERIFY'),
+}
+
+// 退款账户明细信息
+model RefundDetail {
+  // 支出方账户ID，如果是支付宝：以2088开头的纯16位数字
+  transOutAccount?: string(name='trans_out_account', example='2088101126765726'),
+  // 分账的金额，单位为分
+  amount?: long(name='amount', example='990'),
+}
+
+model PushOrderSettlementRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 请求流水号，由商家自定义。64个字符以内，仅可包含字母、数字、下划线。需保证在商户端不重复
+  outRequestNo: string(name='out_request_no'),
+  // 商家产品唯一编码，64个字符以内
+  outProductId: string(name='out_product_id'),
+  // 外部订单号，需保证在商家端不重复
+  outOrderNo: string(name='out_order_no'),
+  // 支付宝/微信/其他  平台订单号
+  tradeNo: string(name='trade_no'),
+  // 支付渠道类型，枚举值：ALIPAY / WECHAT
+  orderType: string(name='order_type'),
+  // 订单金额，单位：分（如 990 表示 9.90元）
+  orderAmount: long(name='order_amount'),
+  // 分账模式，目前有两种分账同步执行sync，分账异步执行async，不传默认同步执行
+  // 同步执行: sync，异步执行: async
+  royaltyMode?: string(name='royalty_mode'),
+  // 扩展信息
+  extInfo?: string(name='ext_info'),
+}
+
+model PushOrderSettlementResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 支付宝/微信/其他 平台订单号
+  tradeNo?: string(name='trade_no'),
+  // 分账单号，可以根据该单号查询单次分账请求执行结果
+  settleNo?: string(name='settle_no'),
+}
+
+/**
+ * Description: 分账订单推送
+ * Summary: 分账订单推送
+ */
+async function pushOrderSettlement(request: PushOrderSettlementRequest): PushOrderSettlementResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return pushOrderSettlementEx(request, headers, runtime);
+}
+
+/**
+ * Description: 分账订单推送
+ * Summary: 分账订单推送
+ */
+async function pushOrderSettlementEx(request: PushOrderSettlementRequest, headers: map[string]string, runtime: Util.RuntimeOptions): PushOrderSettlementResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'antdigital.gesaas.order.settlement.push', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model QueryOrderSettlementRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 分账请求单号
+  settleNo: string(name='settle_no'),
+}
+
+model QueryOrderSettlementResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 2026-06-30 12:00:00
+  operationDt?: string(pattern='\\\\d{4}[-]\\\\d{1,2}[-]\\\\d{1,2}[T]\\\\d{2}:\\\\d{2}:\\\\d{2}([Z]|([\\\\.]\\\\d{1,9})?[\\\\+]\\\\d{2}[\\\\:]?\\\\d{2})', name='operation_dt'),
+  // 分账明细
+  royaltyDetailList?: [ SettleOrderRoyaltyDetail ](name='royalty_detail_list'),
+}
+
+/**
+ * Description: 分账订单查询
+ * Summary: 分账订单查询
+ */
+async function queryOrderSettlement(request: QueryOrderSettlementRequest): QueryOrderSettlementResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return queryOrderSettlementEx(request, headers, runtime);
+}
+
+/**
+ * Description: 分账订单查询
+ * Summary: 分账订单查询
+ */
+async function queryOrderSettlementEx(request: QueryOrderSettlementRequest, headers: map[string]string, runtime: Util.RuntimeOptions): QueryOrderSettlementResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'antdigital.gesaas.order.settlement.query', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model WithdrawOrderSettlementRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 退款金额，单位：分
+  refundAmount: long(name='refund_amount'),
+  // 支付交易号
+  tradeNo: string(name='trade_no'),
+  // 退款原因说明。 商家自定义，将在会在商户和用户的pc退款账单详情中展示
+  refundReason?: string(name='refund_reason'),
+  // 【描述】退款请求号。 标识一次退款请求，需要保证在交易号下唯一，如需部分退款，则此参数必传。 注：针对同一次退款请求，如果调用接口失败或异常了，重试时需要保证退款请求号不能变更，防止该笔交易重复退款。会保证同样的退款请求号多次请求只会退一次。
+  // 【必选条件】部分退款时必选
+  outRequestNo?: string(name='out_request_no'),
+}
+
+model WithdrawOrderSettlementResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 支付交易号
+  tradeNo?: string(name='trade_no'),
+  // 商家订单号
+  outOrderNo?: string(name='out_order_no'),
+  // 退款总金额。单位：分。 指该笔交易累计已经退款成功的金额
+  refundFee?: long(name='refund_fee'),
+  // 退款使用的资金渠道
+  refundDetailItemList?: [ RefundDetail ](name='refund_detail_item_list'),
+}
+
+/**
+ * Description: 分账退款
+ * Summary: 分账退款
+ */
+async function withdrawOrderSettlement(request: WithdrawOrderSettlementRequest): WithdrawOrderSettlementResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return withdrawOrderSettlementEx(request, headers, runtime);
+}
+
+/**
+ * Description: 分账退款
+ * Summary: 分账退款
+ */
+async function withdrawOrderSettlementEx(request: WithdrawOrderSettlementRequest, headers: map[string]string, runtime: Util.RuntimeOptions): WithdrawOrderSettlementResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'antdigital.gesaas.order.settlement.withdraw', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
 }
 
 model CheckOmngRiskRequest = {
