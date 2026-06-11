@@ -20,6 +20,10 @@ public class QueryAntchainAtoTradeSettletocardResponse extends TeaModel {
     @NameInMap("download_url")
     public String downloadUrl;
 
+    // 任务状态：FINISH(成功)、FAILURE(失败)、查询中(EXEC)
+    @NameInMap("task_status")
+    public String taskStatus;
+
     public static QueryAntchainAtoTradeSettletocardResponse build(java.util.Map<String, ?> map) throws Exception {
         QueryAntchainAtoTradeSettletocardResponse self = new QueryAntchainAtoTradeSettletocardResponse();
         return TeaModel.build(map, self);
@@ -55,6 +59,14 @@ public class QueryAntchainAtoTradeSettletocardResponse extends TeaModel {
     }
     public String getDownloadUrl() {
         return this.downloadUrl;
+    }
+
+    public QueryAntchainAtoTradeSettletocardResponse setTaskStatus(String taskStatus) {
+        this.taskStatus = taskStatus;
+        return this;
+    }
+    public String getTaskStatus() {
+        return this.taskStatus;
     }
 
 }
