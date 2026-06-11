@@ -1569,6 +1569,8 @@ type CallbackRightsprodOperationdataRequest struct {
 	FaceAmount *string `json:"face_amount,omitempty" xml:"face_amount,omitempty"`
 	// 流通金额（核销、退款时 金额）
 	FluxAmount *string `json:"flux_amount,omitempty" xml:"flux_amount,omitempty"`
+	// 业务发生时间
+	BizTime *string `json:"biz_time,omitempty" xml:"biz_time,omitempty" require:"true"`
 }
 
 func (s CallbackRightsprodOperationdataRequest) String() string {
@@ -1621,6 +1623,11 @@ func (s *CallbackRightsprodOperationdataRequest) SetFaceAmount(v string) *Callba
 
 func (s *CallbackRightsprodOperationdataRequest) SetFluxAmount(v string) *CallbackRightsprodOperationdataRequest {
 	s.FluxAmount = &v
+	return s
+}
+
+func (s *CallbackRightsprodOperationdataRequest) SetBizTime(v string) *CallbackRightsprodOperationdataRequest {
+	s.BizTime = &v
 	return s
 }
 
@@ -1785,7 +1792,7 @@ func (client *Client) DoRequest(version *string, action *string, protocol *strin
 				"req_msg_id":       antchainutil.GetNonce(),
 				"access_key":       client.AccessKeyId,
 				"base_sdk_version": tea.String("TeaSDK-2.0"),
-				"sdk_version":      tea.String("1.3.4"),
+				"sdk_version":      tea.String("1.3.5"),
 				"_prod_code":       tea.String("GESAAS"),
 				"_prod_channel":    tea.String("default"),
 			}
