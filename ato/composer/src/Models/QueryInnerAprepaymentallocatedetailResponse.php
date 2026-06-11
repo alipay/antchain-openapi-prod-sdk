@@ -6,7 +6,7 @@ namespace AntChain\ATO\Models;
 
 use AlibabaCloud\Tea\Model;
 
-class QueryInnerFundassetpackageallocatedetailResponse extends Model
+class QueryInnerAprepaymentallocatedetailResponse extends Model
 {
     // 请求唯一ID，用于链路跟踪和问题排查
     /**
@@ -70,7 +70,7 @@ class QueryInnerFundassetpackageallocatedetailResponse extends Model
     /**
      * @param array $map
      *
-     * @return QueryInnerFundassetpackageallocatedetailResponse
+     * @return QueryInnerAprepaymentallocatedetailResponse
      */
     public static function fromMap($map = [])
     {

@@ -337,6 +337,10 @@ use AntChain\ATO\Models\QueryInnerAgreementterminateconfigRequest;
 use AntChain\ATO\Models\QueryInnerAgreementterminateconfigResponse;
 use AntChain\ATO\Models\QueryInnerAgreementterminateorderRequest;
 use AntChain\ATO\Models\QueryInnerAgreementterminateorderResponse;
+use AntChain\ATO\Models\QueryInnerAprepaymentallocatedetailRequest;
+use AntChain\ATO\Models\QueryInnerAprepaymentallocatedetailResponse;
+use AntChain\ATO\Models\QueryInnerAprepaymentdetailRequest;
+use AntChain\ATO\Models\QueryInnerAprepaymentdetailResponse;
 use AntChain\ATO\Models\QueryInnerAuthagreementRequest;
 use AntChain\ATO\Models\QueryInnerAuthagreementResponse;
 use AntChain\ATO\Models\QueryInnerAuthorizationRequest;
@@ -349,6 +353,8 @@ use AntChain\ATO\Models\QueryInnerFundassetpackageorderamountRequest;
 use AntChain\ATO\Models\QueryInnerFundassetpackageorderamountResponse;
 use AntChain\ATO\Models\QueryInnerFundassetpackagepromiseplanRequest;
 use AntChain\ATO\Models\QueryInnerFundassetpackagepromiseplanResponse;
+use AntChain\ATO\Models\QueryInnerFundassetpackagerepaymentRequest;
+use AntChain\ATO\Models\QueryInnerFundassetpackagerepaymentResponse;
 use AntChain\ATO\Models\QueryInnerFundassetpackagestatusRequest;
 use AntChain\ATO\Models\QueryInnerFundassetpackagestatusResponse;
 use AntChain\ATO\Models\QueryInnerFunddividerelationRequest;
@@ -776,7 +782,7 @@ class Client
                     'req_msg_id'       => UtilClient::getNonce(),
                     'access_key'       => $this->_accessKeyId,
                     'base_sdk_version' => 'TeaSDK-2.0',
-                    'sdk_version'      => '1.19.69',
+                    'sdk_version'      => '1.19.79',
                     '_prod_code'       => 'ATO',
                     '_prod_channel'    => 'undefined',
                 ];
@@ -954,6 +960,105 @@ class Client
         Utils::validateModel($request);
 
         return QueryTradeSettletocardResponse::fromMap($this->doRequest('1.0', 'antchain.ato.trade.settletocard.query', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 资产包还款列表查询
+     * Summary: 资产包还款列表查询.
+     *
+     * @param QueryInnerFundassetpackagerepaymentRequest $request
+     *
+     * @return QueryInnerFundassetpackagerepaymentResponse
+     */
+    public function queryInnerFundassetpackagerepayment($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->queryInnerFundassetpackagerepaymentEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 资产包还款列表查询
+     * Summary: 资产包还款列表查询.
+     *
+     * @param QueryInnerFundassetpackagerepaymentRequest $request
+     * @param string[]                                   $headers
+     * @param RuntimeOptions                             $runtime
+     *
+     * @return QueryInnerFundassetpackagerepaymentResponse
+     */
+    public function queryInnerFundassetpackagerepaymentEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return QueryInnerFundassetpackagerepaymentResponse::fromMap($this->doRequest('1.0', 'antchain.ato.inner.fundassetpackagerepayment.query', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 资产包还款详情查询
+     * Summary: 资产包还款详情查询.
+     *
+     * @param QueryInnerAprepaymentdetailRequest $request
+     *
+     * @return QueryInnerAprepaymentdetailResponse
+     */
+    public function queryInnerAprepaymentdetail($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->queryInnerAprepaymentdetailEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 资产包还款详情查询
+     * Summary: 资产包还款详情查询.
+     *
+     * @param QueryInnerAprepaymentdetailRequest $request
+     * @param string[]                           $headers
+     * @param RuntimeOptions                     $runtime
+     *
+     * @return QueryInnerAprepaymentdetailResponse
+     */
+    public function queryInnerAprepaymentdetailEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return QueryInnerAprepaymentdetailResponse::fromMap($this->doRequest('1.0', 'antchain.ato.inner.aprepaymentdetail.query', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 本接口提供用户在还款详情中履约计划表格查看单期履约的还款详情
+     * Summary: 本接口提供用户在还款详情中履约计划表格查看单期履约的还款详情.
+     *
+     * @param QueryInnerAprepaymentallocatedetailRequest $request
+     *
+     * @return QueryInnerAprepaymentallocatedetailResponse
+     */
+    public function queryInnerAprepaymentallocatedetail($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->queryInnerAprepaymentallocatedetailEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 本接口提供用户在还款详情中履约计划表格查看单期履约的还款详情
+     * Summary: 本接口提供用户在还款详情中履约计划表格查看单期履约的还款详情.
+     *
+     * @param QueryInnerAprepaymentallocatedetailRequest $request
+     * @param string[]                                   $headers
+     * @param RuntimeOptions                             $runtime
+     *
+     * @return QueryInnerAprepaymentallocatedetailResponse
+     */
+    public function queryInnerAprepaymentallocatedetailEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return QueryInnerAprepaymentallocatedetailResponse::fromMap($this->doRequest('1.0', 'antchain.ato.inner.aprepaymentallocatedetail.query', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
     }
 
     /**

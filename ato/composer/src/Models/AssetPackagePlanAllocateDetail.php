@@ -73,15 +73,69 @@ class AssetPackagePlanAllocateDetail extends Model
      * @var int
      */
     public $divideAmount;
+
+    // 分账状态
+    /**
+     * @example SUCCESS/FAILED
+     *
+     * @var string
+     */
+    public $status;
+
+    // 用户还款方式
+    /**
+     * @example BANK_TRANSFER/ALIPAY/WECHAT
+     *
+     * @var string
+     */
+    public $repayMethod;
+
+    // 流水单号
+    /**
+     * @example AUTH123456789
+     *
+     * @var string
+     */
+    public $transactionNo;
+
+    // 资金到账状态
+    /**
+     * @example SUCCESS/FAILED/PENDING
+     *
+     * @var string
+     */
+    public $repaymentStatus;
+
+    // 资金到账方式
+    /**
+     * @example BANK_TRANSFER/ONLINE_PAYMENT
+     *
+     * @var string
+     */
+    public $repaymentMethod;
+
+    // 实际到账时间
+    /**
+     * @example yyyy-MM-dd HH:mm:ss
+     *
+     * @var string
+     */
+    public $repaymentTime;
     protected $_name = [
-        'orderId'      => 'order_id',
-        'tenantId'     => 'tenant_id',
-        'type'         => 'type',
-        'periodNum'    => 'period_num',
-        'payDay'       => 'pay_day',
-        'payAmount'    => 'pay_amount',
-        'divideRatio'  => 'divide_ratio',
-        'divideAmount' => 'divide_amount',
+        'orderId'         => 'order_id',
+        'tenantId'        => 'tenant_id',
+        'type'            => 'type',
+        'periodNum'       => 'period_num',
+        'payDay'          => 'pay_day',
+        'payAmount'       => 'pay_amount',
+        'divideRatio'     => 'divide_ratio',
+        'divideAmount'    => 'divide_amount',
+        'status'          => 'status',
+        'repayMethod'     => 'repay_method',
+        'transactionNo'   => 'transaction_no',
+        'repaymentStatus' => 'repayment_status',
+        'repaymentMethod' => 'repayment_method',
+        'repaymentTime'   => 'repayment_time',
     ];
 
     public function validate()
@@ -114,6 +168,24 @@ class AssetPackagePlanAllocateDetail extends Model
         }
         if (null !== $this->divideAmount) {
             $res['divide_amount'] = $this->divideAmount;
+        }
+        if (null !== $this->status) {
+            $res['status'] = $this->status;
+        }
+        if (null !== $this->repayMethod) {
+            $res['repay_method'] = $this->repayMethod;
+        }
+        if (null !== $this->transactionNo) {
+            $res['transaction_no'] = $this->transactionNo;
+        }
+        if (null !== $this->repaymentStatus) {
+            $res['repayment_status'] = $this->repaymentStatus;
+        }
+        if (null !== $this->repaymentMethod) {
+            $res['repayment_method'] = $this->repaymentMethod;
+        }
+        if (null !== $this->repaymentTime) {
+            $res['repayment_time'] = $this->repaymentTime;
         }
 
         return $res;
@@ -150,6 +222,24 @@ class AssetPackagePlanAllocateDetail extends Model
         }
         if (isset($map['divide_amount'])) {
             $model->divideAmount = $map['divide_amount'];
+        }
+        if (isset($map['status'])) {
+            $model->status = $map['status'];
+        }
+        if (isset($map['repay_method'])) {
+            $model->repayMethod = $map['repay_method'];
+        }
+        if (isset($map['transaction_no'])) {
+            $model->transactionNo = $map['transaction_no'];
+        }
+        if (isset($map['repayment_status'])) {
+            $model->repaymentStatus = $map['repayment_status'];
+        }
+        if (isset($map['repayment_method'])) {
+            $model->repaymentMethod = $map['repayment_method'];
+        }
+        if (isset($map['repayment_time'])) {
+            $model->repaymentTime = $map['repayment_time'];
         }
 
         return $model;

@@ -31,11 +31,18 @@ class QueryTradeSettletocardResponse extends Model
      * @var string
      */
     public $downloadUrl;
+
+    // 任务状态：FINISH(成功)、FAILURE(失败)、查询中(EXEC)
+    /**
+     * @var string
+     */
+    public $taskStatus;
     protected $_name = [
         'reqMsgId'    => 'req_msg_id',
         'resultCode'  => 'result_code',
         'resultMsg'   => 'result_msg',
         'downloadUrl' => 'download_url',
+        'taskStatus'  => 'task_status',
     ];
 
     public function validate()
@@ -56,6 +63,9 @@ class QueryTradeSettletocardResponse extends Model
         }
         if (null !== $this->downloadUrl) {
             $res['download_url'] = $this->downloadUrl;
+        }
+        if (null !== $this->taskStatus) {
+            $res['task_status'] = $this->taskStatus;
         }
 
         return $res;
@@ -80,6 +90,9 @@ class QueryTradeSettletocardResponse extends Model
         }
         if (isset($map['download_url'])) {
             $model->downloadUrl = $map['download_url'];
+        }
+        if (isset($map['task_status'])) {
+            $model->taskStatus = $map['task_status'];
         }
 
         return $model;

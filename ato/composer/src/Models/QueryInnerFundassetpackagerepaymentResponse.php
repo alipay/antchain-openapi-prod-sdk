@@ -6,7 +6,7 @@ namespace AntChain\ATO\Models;
 
 use AlibabaCloud\Tea\Model;
 
-class QueryInnerFundassetpackageallocatedetailResponse extends Model
+class QueryInnerFundassetpackagerepaymentResponse extends Model
 {
     // 请求唯一ID，用于链路跟踪和问题排查
     /**
@@ -26,16 +26,23 @@ class QueryInnerFundassetpackageallocatedetailResponse extends Model
      */
     public $resultMsg;
 
-    // 资产包履约计划分配明细
+    // json 结构体
     /**
-     * @var AssetPackagePlanAllocateDetail[]
+     * @var string
      */
     public $data;
+
+    // 分页总数
+    /**
+     * @var int
+     */
+    public $total;
     protected $_name = [
         'reqMsgId'   => 'req_msg_id',
         'resultCode' => 'result_code',
         'resultMsg'  => 'result_msg',
         'data'       => 'data',
+        'total'      => 'total',
     ];
 
     public function validate()
@@ -55,13 +62,10 @@ class QueryInnerFundassetpackageallocatedetailResponse extends Model
             $res['result_msg'] = $this->resultMsg;
         }
         if (null !== $this->data) {
-            $res['data'] = [];
-            if (null !== $this->data && \is_array($this->data)) {
-                $n = 0;
-                foreach ($this->data as $item) {
-                    $res['data'][$n++] = null !== $item ? $item->toMap() : $item;
-                }
-            }
+            $res['data'] = $this->data;
+        }
+        if (null !== $this->total) {
+            $res['total'] = $this->total;
         }
 
         return $res;
@@ -70,7 +74,7 @@ class QueryInnerFundassetpackageallocatedetailResponse extends Model
     /**
      * @param array $map
      *
-     * @return QueryInnerFundassetpackageallocatedetailResponse
+     * @return QueryInnerFundassetpackagerepaymentResponse
      */
     public static function fromMap($map = [])
     {
@@ -85,13 +89,10 @@ class QueryInnerFundassetpackageallocatedetailResponse extends Model
             $model->resultMsg = $map['result_msg'];
         }
         if (isset($map['data'])) {
-            if (!empty($map['data'])) {
-                $model->data = [];
-                $n           = 0;
-                foreach ($map['data'] as $item) {
-                    $model->data[$n++] = null !== $item ? AssetPackagePlanAllocateDetail::fromMap($item) : $item;
-                }
-            }
+            $model->data = $map['data'];
+        }
+        if (isset($map['total'])) {
+            $model->total = $map['total'];
         }
 
         return $model;

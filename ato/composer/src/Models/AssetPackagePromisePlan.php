@@ -55,6 +55,38 @@ class AssetPackagePromisePlan extends Model
      * @var int
      */
     public $orderCount;
+
+    // 还款状态
+    /**
+     * @example WAIT_PAY/PART_SUCCESS/FINISH
+     *
+     * @var string
+     */
+    public $repaymentStatus;
+
+    // 已还本金，单位为分
+    /**
+     * @example 100
+     *
+     * @var int
+     */
+    public $paidPrincipal;
+
+    // 已还利息，单位为分
+    /**
+     * @example 100
+     *
+     * @var int
+     */
+    public $paidInterest;
+
+    // 已还总额，单位为分
+    /**
+     * @example 100
+     *
+     * @var int
+     */
+    public $paidTotal;
     protected $_name = [
         'periodNum'       => 'period_num',
         'payDay'          => 'pay_day',
@@ -62,6 +94,10 @@ class AssetPackagePromisePlan extends Model
         'principalAmount' => 'principal_amount',
         'interestAmount'  => 'interest_amount',
         'orderCount'      => 'order_count',
+        'repaymentStatus' => 'repayment_status',
+        'paidPrincipal'   => 'paid_principal',
+        'paidInterest'    => 'paid_interest',
+        'paidTotal'       => 'paid_total',
     ];
 
     public function validate()
@@ -88,6 +124,18 @@ class AssetPackagePromisePlan extends Model
         }
         if (null !== $this->orderCount) {
             $res['order_count'] = $this->orderCount;
+        }
+        if (null !== $this->repaymentStatus) {
+            $res['repayment_status'] = $this->repaymentStatus;
+        }
+        if (null !== $this->paidPrincipal) {
+            $res['paid_principal'] = $this->paidPrincipal;
+        }
+        if (null !== $this->paidInterest) {
+            $res['paid_interest'] = $this->paidInterest;
+        }
+        if (null !== $this->paidTotal) {
+            $res['paid_total'] = $this->paidTotal;
         }
 
         return $res;
@@ -118,6 +166,18 @@ class AssetPackagePromisePlan extends Model
         }
         if (isset($map['order_count'])) {
             $model->orderCount = $map['order_count'];
+        }
+        if (isset($map['repayment_status'])) {
+            $model->repaymentStatus = $map['repayment_status'];
+        }
+        if (isset($map['paid_principal'])) {
+            $model->paidPrincipal = $map['paid_principal'];
+        }
+        if (isset($map['paid_interest'])) {
+            $model->paidInterest = $map['paid_interest'];
+        }
+        if (isset($map['paid_total'])) {
+            $model->paidTotal = $map['paid_total'];
         }
 
         return $model;
