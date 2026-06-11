@@ -40,6 +40,26 @@ namespace AntChain.SDK.ATO.Models
         [Validation(Required=false)]
         public long? OrderCount { get; set; }
 
+        // 还款状态
+        [NameInMap("repayment_status")]
+        [Validation(Required=false)]
+        public string RepaymentStatus { get; set; }
+
+        // 已还本金，单位为分
+        [NameInMap("paid_principal")]
+        [Validation(Required=false)]
+        public long? PaidPrincipal { get; set; }
+
+        // 已还利息，单位为分
+        [NameInMap("paid_interest")]
+        [Validation(Required=false)]
+        public long? PaidInterest { get; set; }
+
+        // 已还总额，单位为分
+        [NameInMap("paid_total")]
+        [Validation(Required=false)]
+        public long? PaidTotal { get; set; }
+
     }
 
 }

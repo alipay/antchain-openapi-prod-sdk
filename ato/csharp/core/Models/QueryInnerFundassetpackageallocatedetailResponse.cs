@@ -25,7 +25,6 @@ namespace AntChain.SDK.ATO.Models
         public string ResultMsg { get; set; }
 
         // 资产包履约计划分配明细
-        // 
         [NameInMap("data")]
         [Validation(Required=false)]
         public List<AssetPackagePlanAllocateDetail> Data { get; set; }

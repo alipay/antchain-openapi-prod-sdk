@@ -8,7 +8,7 @@ using Tea;
 
 namespace AntChain.SDK.ATO.Models
 {
-    public class QueryTradeSettletocardResponse : TeaModel {
+    public class QueryInnerFundassetpackagerepaymentResponse : TeaModel {
         // 请求唯一ID，用于链路跟踪和问题排查
         [NameInMap("req_msg_id")]
         [Validation(Required=false)]
@@ -24,15 +24,15 @@ namespace AntChain.SDK.ATO.Models
         [Validation(Required=false)]
         public string ResultMsg { get; set; }
 
-        // 账单下载地址
-        [NameInMap("download_url")]
+        // json 结构体
+        [NameInMap("data")]
         [Validation(Required=false)]
-        public string DownloadUrl { get; set; }
+        public string Data { get; set; }
 
-        // 任务状态：FINISH(成功)、FAILURE(失败)、查询中(EXEC)
-        [NameInMap("task_status")]
+        // 分页总数
+        [NameInMap("total")]
         [Validation(Required=false)]
-        public string TaskStatus { get; set; }
+        public long? Total { get; set; }
 
     }
 

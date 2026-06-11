@@ -52,6 +52,36 @@ namespace AntChain.SDK.ATO.Models
         [Validation(Required=false)]
         public long? DivideAmount { get; set; }
 
+        // 分账状态
+        [NameInMap("status")]
+        [Validation(Required=false)]
+        public string Status { get; set; }
+
+        // 用户还款方式
+        [NameInMap("repay_method")]
+        [Validation(Required=false)]
+        public string RepayMethod { get; set; }
+
+        // 流水单号
+        [NameInMap("transaction_no")]
+        [Validation(Required=false)]
+        public string TransactionNo { get; set; }
+
+        // 资金到账状态
+        [NameInMap("repayment_status")]
+        [Validation(Required=false)]
+        public string RepaymentStatus { get; set; }
+
+        // 资金到账方式
+        [NameInMap("repayment_method")]
+        [Validation(Required=false)]
+        public string RepaymentMethod { get; set; }
+
+        // 实际到账时间
+        [NameInMap("repayment_time")]
+        [Validation(Required=false)]
+        public string RepaymentTime { get; set; }
+
     }
 
 }

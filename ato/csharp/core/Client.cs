@@ -137,7 +137,7 @@ namespace AntChain.SDK.ATO
                         {"req_msg_id", AntChain.AlipayUtil.AntchainUtils.GetNonce()},
                         {"access_key", _accessKeyId},
                         {"base_sdk_version", "TeaSDK-2.0"},
-                        {"sdk_version", "1.19.69"},
+                        {"sdk_version", "1.19.79"},
                         {"_prod_code", "ATO"},
                         {"_prod_channel", "undefined"},
                     };
@@ -263,7 +263,7 @@ namespace AntChain.SDK.ATO
                         {"req_msg_id", AntChain.AlipayUtil.AntchainUtils.GetNonce()},
                         {"access_key", _accessKeyId},
                         {"base_sdk_version", "TeaSDK-2.0"},
-                        {"sdk_version", "1.19.69"},
+                        {"sdk_version", "1.19.79"},
                         {"_prod_code", "ATO"},
                         {"_prod_channel", "undefined"},
                     };
@@ -487,6 +487,132 @@ namespace AntChain.SDK.ATO
         {
             AlibabaCloud.TeaUtil.Common.ValidateModel(request);
             return TeaModel.ToObject<QueryTradeSettletocardResponse>(await DoRequestAsync("1.0", "antchain.ato.trade.settletocard.query", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 资产包还款列表查询
+         * Summary: 资产包还款列表查询
+         */
+        public QueryInnerFundassetpackagerepaymentResponse QueryInnerFundassetpackagerepayment(QueryInnerFundassetpackagerepaymentRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return QueryInnerFundassetpackagerepaymentEx(request, headers, runtime);
+        }
+
+        /**
+         * Description: 资产包还款列表查询
+         * Summary: 资产包还款列表查询
+         */
+        public async Task<QueryInnerFundassetpackagerepaymentResponse> QueryInnerFundassetpackagerepaymentAsync(QueryInnerFundassetpackagerepaymentRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return await QueryInnerFundassetpackagerepaymentExAsync(request, headers, runtime);
+        }
+
+        /**
+         * Description: 资产包还款列表查询
+         * Summary: 资产包还款列表查询
+         */
+        public QueryInnerFundassetpackagerepaymentResponse QueryInnerFundassetpackagerepaymentEx(QueryInnerFundassetpackagerepaymentRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<QueryInnerFundassetpackagerepaymentResponse>(DoRequest("1.0", "antchain.ato.inner.fundassetpackagerepayment.query", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 资产包还款列表查询
+         * Summary: 资产包还款列表查询
+         */
+        public async Task<QueryInnerFundassetpackagerepaymentResponse> QueryInnerFundassetpackagerepaymentExAsync(QueryInnerFundassetpackagerepaymentRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<QueryInnerFundassetpackagerepaymentResponse>(await DoRequestAsync("1.0", "antchain.ato.inner.fundassetpackagerepayment.query", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 资产包还款详情查询
+         * Summary: 资产包还款详情查询
+         */
+        public QueryInnerAprepaymentdetailResponse QueryInnerAprepaymentdetail(QueryInnerAprepaymentdetailRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return QueryInnerAprepaymentdetailEx(request, headers, runtime);
+        }
+
+        /**
+         * Description: 资产包还款详情查询
+         * Summary: 资产包还款详情查询
+         */
+        public async Task<QueryInnerAprepaymentdetailResponse> QueryInnerAprepaymentdetailAsync(QueryInnerAprepaymentdetailRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return await QueryInnerAprepaymentdetailExAsync(request, headers, runtime);
+        }
+
+        /**
+         * Description: 资产包还款详情查询
+         * Summary: 资产包还款详情查询
+         */
+        public QueryInnerAprepaymentdetailResponse QueryInnerAprepaymentdetailEx(QueryInnerAprepaymentdetailRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<QueryInnerAprepaymentdetailResponse>(DoRequest("1.0", "antchain.ato.inner.aprepaymentdetail.query", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 资产包还款详情查询
+         * Summary: 资产包还款详情查询
+         */
+        public async Task<QueryInnerAprepaymentdetailResponse> QueryInnerAprepaymentdetailExAsync(QueryInnerAprepaymentdetailRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<QueryInnerAprepaymentdetailResponse>(await DoRequestAsync("1.0", "antchain.ato.inner.aprepaymentdetail.query", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 本接口提供用户在还款详情中履约计划表格查看单期履约的还款详情
+         * Summary: 本接口提供用户在还款详情中履约计划表格查看单期履约的还款详情
+         */
+        public QueryInnerAprepaymentallocatedetailResponse QueryInnerAprepaymentallocatedetail(QueryInnerAprepaymentallocatedetailRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return QueryInnerAprepaymentallocatedetailEx(request, headers, runtime);
+        }
+
+        /**
+         * Description: 本接口提供用户在还款详情中履约计划表格查看单期履约的还款详情
+         * Summary: 本接口提供用户在还款详情中履约计划表格查看单期履约的还款详情
+         */
+        public async Task<QueryInnerAprepaymentallocatedetailResponse> QueryInnerAprepaymentallocatedetailAsync(QueryInnerAprepaymentallocatedetailRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return await QueryInnerAprepaymentallocatedetailExAsync(request, headers, runtime);
+        }
+
+        /**
+         * Description: 本接口提供用户在还款详情中履约计划表格查看单期履约的还款详情
+         * Summary: 本接口提供用户在还款详情中履约计划表格查看单期履约的还款详情
+         */
+        public QueryInnerAprepaymentallocatedetailResponse QueryInnerAprepaymentallocatedetailEx(QueryInnerAprepaymentallocatedetailRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<QueryInnerAprepaymentallocatedetailResponse>(DoRequest("1.0", "antchain.ato.inner.aprepaymentallocatedetail.query", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 本接口提供用户在还款详情中履约计划表格查看单期履约的还款详情
+         * Summary: 本接口提供用户在还款详情中履约计划表格查看单期履约的还款详情
+         */
+        public async Task<QueryInnerAprepaymentallocatedetailResponse> QueryInnerAprepaymentallocatedetailExAsync(QueryInnerAprepaymentallocatedetailRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<QueryInnerAprepaymentallocatedetailResponse>(await DoRequestAsync("1.0", "antchain.ato.inner.aprepaymentallocatedetail.query", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
         }
 
         /**
