@@ -137,7 +137,7 @@ namespace AntChain.SDK.Ak_d3c4f09125a14cd587057c405561809a
                         {"req_msg_id", AntChain.AlipayUtil.AntchainUtils.GetNonce()},
                         {"access_key", _accessKeyId},
                         {"base_sdk_version", "TeaSDK-2.0"},
-                        {"sdk_version", "1.1.3"},
+                        {"sdk_version", "1.1.4"},
                         {"_prod_code", "ak_d3c4f09125a14cd587057c405561809a"},
                         {"_prod_channel", "saas"},
                     };
@@ -263,7 +263,7 @@ namespace AntChain.SDK.Ak_d3c4f09125a14cd587057c405561809a
                         {"req_msg_id", AntChain.AlipayUtil.AntchainUtils.GetNonce()},
                         {"access_key", _accessKeyId},
                         {"base_sdk_version", "TeaSDK-2.0"},
-                        {"sdk_version", "1.1.3"},
+                        {"sdk_version", "1.1.4"},
                         {"_prod_code", "ak_d3c4f09125a14cd587057c405561809a"},
                         {"_prod_channel", "saas"},
                     };
@@ -869,7 +869,7 @@ namespace AntChain.SDK.Ak_d3c4f09125a14cd587057c405561809a
 
         /**
          * Description: 查询发行机构和项目下所有关联的二级用户信息
-         * Summary: 查询机构和项目下所有关联的二级用户信息
+         * Summary: 查询发行机构和项目下所有关联的二级用户信息
          */
         public ListAntdigitalWebtrwatradeIssuerSubuserResponse ListAntdigitalWebtrwatradeIssuerSubuser(ListAntdigitalWebtrwatradeIssuerSubuserRequest request)
         {
@@ -880,7 +880,7 @@ namespace AntChain.SDK.Ak_d3c4f09125a14cd587057c405561809a
 
         /**
          * Description: 查询发行机构和项目下所有关联的二级用户信息
-         * Summary: 查询机构和项目下所有关联的二级用户信息
+         * Summary: 查询发行机构和项目下所有关联的二级用户信息
          */
         public async Task<ListAntdigitalWebtrwatradeIssuerSubuserResponse> ListAntdigitalWebtrwatradeIssuerSubuserAsync(ListAntdigitalWebtrwatradeIssuerSubuserRequest request)
         {
@@ -891,7 +891,7 @@ namespace AntChain.SDK.Ak_d3c4f09125a14cd587057c405561809a
 
         /**
          * Description: 查询发行机构和项目下所有关联的二级用户信息
-         * Summary: 查询机构和项目下所有关联的二级用户信息
+         * Summary: 查询发行机构和项目下所有关联的二级用户信息
          */
         public ListAntdigitalWebtrwatradeIssuerSubuserResponse ListAntdigitalWebtrwatradeIssuerSubuserEx(ListAntdigitalWebtrwatradeIssuerSubuserRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
         {
@@ -901,7 +901,7 @@ namespace AntChain.SDK.Ak_d3c4f09125a14cd587057c405561809a
 
         /**
          * Description: 查询发行机构和项目下所有关联的二级用户信息
-         * Summary: 查询机构和项目下所有关联的二级用户信息
+         * Summary: 查询发行机构和项目下所有关联的二级用户信息
          */
         public async Task<ListAntdigitalWebtrwatradeIssuerSubuserResponse> ListAntdigitalWebtrwatradeIssuerSubuserExAsync(ListAntdigitalWebtrwatradeIssuerSubuserRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
         {
@@ -911,7 +911,7 @@ namespace AntChain.SDK.Ak_d3c4f09125a14cd587057c405561809a
 
         /**
          * Description: 查询代销机构和项目下所有关联的二级用户信息
-         * Summary: 查询机构和项目下所有关联的二级用户信息
+         * Summary: 查询代销机构和项目下所有关联的二级用户信息
          */
         public ListAntdigitalWebtrwatradeDistributorSubuserResponse ListAntdigitalWebtrwatradeDistributorSubuser(ListAntdigitalWebtrwatradeDistributorSubuserRequest request)
         {
@@ -922,7 +922,7 @@ namespace AntChain.SDK.Ak_d3c4f09125a14cd587057c405561809a
 
         /**
          * Description: 查询代销机构和项目下所有关联的二级用户信息
-         * Summary: 查询机构和项目下所有关联的二级用户信息
+         * Summary: 查询代销机构和项目下所有关联的二级用户信息
          */
         public async Task<ListAntdigitalWebtrwatradeDistributorSubuserResponse> ListAntdigitalWebtrwatradeDistributorSubuserAsync(ListAntdigitalWebtrwatradeDistributorSubuserRequest request)
         {
@@ -933,7 +933,7 @@ namespace AntChain.SDK.Ak_d3c4f09125a14cd587057c405561809a
 
         /**
          * Description: 查询代销机构和项目下所有关联的二级用户信息
-         * Summary: 查询机构和项目下所有关联的二级用户信息
+         * Summary: 查询代销机构和项目下所有关联的二级用户信息
          */
         public ListAntdigitalWebtrwatradeDistributorSubuserResponse ListAntdigitalWebtrwatradeDistributorSubuserEx(ListAntdigitalWebtrwatradeDistributorSubuserRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
         {
@@ -943,7 +943,7 @@ namespace AntChain.SDK.Ak_d3c4f09125a14cd587057c405561809a
 
         /**
          * Description: 查询代销机构和项目下所有关联的二级用户信息
-         * Summary: 查询机构和项目下所有关联的二级用户信息
+         * Summary: 查询代销机构和项目下所有关联的二级用户信息
          */
         public async Task<ListAntdigitalWebtrwatradeDistributorSubuserResponse> ListAntdigitalWebtrwatradeDistributorSubuserExAsync(ListAntdigitalWebtrwatradeDistributorSubuserRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
         {

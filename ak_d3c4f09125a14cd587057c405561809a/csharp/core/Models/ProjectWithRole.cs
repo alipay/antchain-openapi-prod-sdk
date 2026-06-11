@@ -75,6 +75,11 @@ namespace AntChain.SDK.Ak_d3c4f09125a14cd587057c405561809a.Models
         [Validation(Required=false)]
         public List<ParticipantInfo> ParticipantInfos { get; set; }
 
+        // 发行日期（时间戳）
+        [NameInMap("issue_date")]
+        [Validation(Required=false)]
+        public long? IssueDate { get; set; }
+
     }
 
 }
