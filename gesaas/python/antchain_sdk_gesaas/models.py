@@ -1942,6 +1942,7 @@ class CallbackRightsprodOperationdataRequest(TeaModel):
         pay_order_no: str = None,
         face_amount: str = None,
         flux_amount: str = None,
+        biz_time: str = None,
     ):
         # OAuth模式下的授权token
         self.auth_token = auth_token
@@ -1960,12 +1961,15 @@ class CallbackRightsprodOperationdataRequest(TeaModel):
         self.face_amount = face_amount
         # 流通金额（核销、退款时 金额）
         self.flux_amount = flux_amount
+        # 业务发生时间
+        self.biz_time = biz_time
 
     def validate(self):
         self.validate_required(self.notify_id, 'notify_id')
         self.validate_required(self.rights_code, 'rights_code')
         self.validate_required(self.voucher_code, 'voucher_code')
         self.validate_required(self.biz_type, 'biz_type')
+        self.validate_required(self.biz_time, 'biz_time')
 
     def to_map(self):
         _map = super().to_map()
@@ -1991,6 +1995,8 @@ class CallbackRightsprodOperationdataRequest(TeaModel):
             result['face_amount'] = self.face_amount
         if self.flux_amount is not None:
             result['flux_amount'] = self.flux_amount
+        if self.biz_time is not None:
+            result['biz_time'] = self.biz_time
         return result
 
     def from_map(self, m: dict = None):
@@ -2013,6 +2019,8 @@ class CallbackRightsprodOperationdataRequest(TeaModel):
             self.face_amount = m.get('face_amount')
         if m.get('flux_amount') is not None:
             self.flux_amount = m.get('flux_amount')
+        if m.get('biz_time') is not None:
+            self.biz_time = m.get('biz_time')
         return self
 
 
