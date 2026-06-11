@@ -135,7 +135,7 @@ class Client:
                     'req_msg_id': AntchainUtils.get_nonce(),
                     'access_key': self._access_key_id,
                     'base_sdk_version': 'TeaSDK-2.0',
-                    'sdk_version': '1.3.2',
+                    'sdk_version': '1.3.4',
                     '_prod_code': 'GESAAS',
                     '_prod_channel': 'default'
                 }
@@ -239,7 +239,7 @@ class Client:
                     'req_msg_id': AntchainUtils.get_nonce(),
                     'access_key': self._access_key_id,
                     'base_sdk_version': 'TeaSDK-2.0',
-                    'sdk_version': '1.3.2',
+                    'sdk_version': '1.3.4',
                     '_prod_code': 'GESAAS',
                     '_prod_channel': 'default'
                 }
@@ -274,6 +274,174 @@ class Client:
                     continue
                 raise e
         raise UnretryableException(_last_request, _last_exception)
+
+    def push_order_settlement(
+        self,
+        request: gesaas_models.PushOrderSettlementRequest,
+    ) -> gesaas_models.PushOrderSettlementResponse:
+        """
+        Description: 分账订单推送
+        Summary: 分账订单推送
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.push_order_settlement_ex(request, headers, runtime)
+
+    async def push_order_settlement_async(
+        self,
+        request: gesaas_models.PushOrderSettlementRequest,
+    ) -> gesaas_models.PushOrderSettlementResponse:
+        """
+        Description: 分账订单推送
+        Summary: 分账订单推送
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.push_order_settlement_ex_async(request, headers, runtime)
+
+    def push_order_settlement_ex(
+        self,
+        request: gesaas_models.PushOrderSettlementRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> gesaas_models.PushOrderSettlementResponse:
+        """
+        Description: 分账订单推送
+        Summary: 分账订单推送
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            gesaas_models.PushOrderSettlementResponse(),
+            self.do_request('1.0', 'antdigital.gesaas.order.settlement.push', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def push_order_settlement_ex_async(
+        self,
+        request: gesaas_models.PushOrderSettlementRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> gesaas_models.PushOrderSettlementResponse:
+        """
+        Description: 分账订单推送
+        Summary: 分账订单推送
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            gesaas_models.PushOrderSettlementResponse(),
+            await self.do_request_async('1.0', 'antdigital.gesaas.order.settlement.push', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def query_order_settlement(
+        self,
+        request: gesaas_models.QueryOrderSettlementRequest,
+    ) -> gesaas_models.QueryOrderSettlementResponse:
+        """
+        Description: 分账订单查询
+        Summary: 分账订单查询
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.query_order_settlement_ex(request, headers, runtime)
+
+    async def query_order_settlement_async(
+        self,
+        request: gesaas_models.QueryOrderSettlementRequest,
+    ) -> gesaas_models.QueryOrderSettlementResponse:
+        """
+        Description: 分账订单查询
+        Summary: 分账订单查询
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.query_order_settlement_ex_async(request, headers, runtime)
+
+    def query_order_settlement_ex(
+        self,
+        request: gesaas_models.QueryOrderSettlementRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> gesaas_models.QueryOrderSettlementResponse:
+        """
+        Description: 分账订单查询
+        Summary: 分账订单查询
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            gesaas_models.QueryOrderSettlementResponse(),
+            self.do_request('1.0', 'antdigital.gesaas.order.settlement.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def query_order_settlement_ex_async(
+        self,
+        request: gesaas_models.QueryOrderSettlementRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> gesaas_models.QueryOrderSettlementResponse:
+        """
+        Description: 分账订单查询
+        Summary: 分账订单查询
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            gesaas_models.QueryOrderSettlementResponse(),
+            await self.do_request_async('1.0', 'antdigital.gesaas.order.settlement.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def withdraw_order_settlement(
+        self,
+        request: gesaas_models.WithdrawOrderSettlementRequest,
+    ) -> gesaas_models.WithdrawOrderSettlementResponse:
+        """
+        Description: 分账退款
+        Summary: 分账退款
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.withdraw_order_settlement_ex(request, headers, runtime)
+
+    async def withdraw_order_settlement_async(
+        self,
+        request: gesaas_models.WithdrawOrderSettlementRequest,
+    ) -> gesaas_models.WithdrawOrderSettlementResponse:
+        """
+        Description: 分账退款
+        Summary: 分账退款
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.withdraw_order_settlement_ex_async(request, headers, runtime)
+
+    def withdraw_order_settlement_ex(
+        self,
+        request: gesaas_models.WithdrawOrderSettlementRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> gesaas_models.WithdrawOrderSettlementResponse:
+        """
+        Description: 分账退款
+        Summary: 分账退款
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            gesaas_models.WithdrawOrderSettlementResponse(),
+            self.do_request('1.0', 'antdigital.gesaas.order.settlement.withdraw', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def withdraw_order_settlement_ex_async(
+        self,
+        request: gesaas_models.WithdrawOrderSettlementRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> gesaas_models.WithdrawOrderSettlementResponse:
+        """
+        Description: 分账退款
+        Summary: 分账退款
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            gesaas_models.WithdrawOrderSettlementResponse(),
+            await self.do_request_async('1.0', 'antdigital.gesaas.order.settlement.withdraw', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
 
     def check_omng_risk(
         self,

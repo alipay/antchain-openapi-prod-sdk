@@ -434,6 +434,77 @@ class OrderDetail(TeaModel):
         return self
 
 
+class SettleOrderRoyaltyDetail(TeaModel):
+    def __init__(
+        self,
+        amount: int = None,
+        state: str = None,
+        execute_dt: str = None,
+        trans_out_account: str = None,
+        error_code: str = None,
+        error_desc: str = None,
+        trans_in_account: str = None,
+    ):
+        # 分账金额，单位：分
+        self.amount = amount
+        # 分账状态，SUCCESS成功，FAIL失败，PROCESSING处理中
+        self.state = state
+        # 分账执行时间
+        self.execute_dt = execute_dt
+        # 分账转出账号
+        self.trans_out_account = trans_out_account
+        # 分账失败错误码，只在分账失败时返回
+        self.error_code = error_code
+        # 分账错误描述信息
+        self.error_desc = error_desc
+        # 分账转入账号
+        self.trans_in_account = trans_in_account
+
+    def validate(self):
+        if self.execute_dt is not None:
+            self.validate_pattern(self.execute_dt, 'execute_dt', '\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}([Z]|([\\.]\\d{1,9})?[\\+]\\d{2}[\\:]?\\d{2})')
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.amount is not None:
+            result['amount'] = self.amount
+        if self.state is not None:
+            result['state'] = self.state
+        if self.execute_dt is not None:
+            result['execute_dt'] = self.execute_dt
+        if self.trans_out_account is not None:
+            result['trans_out_account'] = self.trans_out_account
+        if self.error_code is not None:
+            result['error_code'] = self.error_code
+        if self.error_desc is not None:
+            result['error_desc'] = self.error_desc
+        if self.trans_in_account is not None:
+            result['trans_in_account'] = self.trans_in_account
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('amount') is not None:
+            self.amount = m.get('amount')
+        if m.get('state') is not None:
+            self.state = m.get('state')
+        if m.get('execute_dt') is not None:
+            self.execute_dt = m.get('execute_dt')
+        if m.get('trans_out_account') is not None:
+            self.trans_out_account = m.get('trans_out_account')
+        if m.get('error_code') is not None:
+            self.error_code = m.get('error_code')
+        if m.get('error_desc') is not None:
+            self.error_desc = m.get('error_desc')
+        if m.get('trans_in_account') is not None:
+            self.trans_in_account = m.get('trans_in_account')
+        return self
+
+
 class OrderFullInfoReq(TeaModel):
     def __init__(
         self,
@@ -742,6 +813,442 @@ class VoucherBaseInfoVO(TeaModel):
             self.voucher_code = m.get('voucher_code')
         if m.get('status') is not None:
             self.status = m.get('status')
+        return self
+
+
+class RefundDetail(TeaModel):
+    def __init__(
+        self,
+        trans_out_account: str = None,
+        amount: int = None,
+    ):
+        # 支出方账户ID，如果是支付宝：以2088开头的纯16位数字
+        self.trans_out_account = trans_out_account
+        # 分账的金额，单位为分
+        self.amount = amount
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.trans_out_account is not None:
+            result['trans_out_account'] = self.trans_out_account
+        if self.amount is not None:
+            result['amount'] = self.amount
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('trans_out_account') is not None:
+            self.trans_out_account = m.get('trans_out_account')
+        if m.get('amount') is not None:
+            self.amount = m.get('amount')
+        return self
+
+
+class PushOrderSettlementRequest(TeaModel):
+    def __init__(
+        self,
+        auth_token: str = None,
+        product_instance_id: str = None,
+        out_request_no: str = None,
+        out_product_id: str = None,
+        out_order_no: str = None,
+        trade_no: str = None,
+        order_type: str = None,
+        order_amount: int = None,
+        royalty_mode: str = None,
+        ext_info: str = None,
+    ):
+        # OAuth模式下的授权token
+        self.auth_token = auth_token
+        self.product_instance_id = product_instance_id
+        # 请求流水号，由商家自定义。64个字符以内，仅可包含字母、数字、下划线。需保证在商户端不重复
+        self.out_request_no = out_request_no
+        # 商家产品唯一编码，64个字符以内
+        self.out_product_id = out_product_id
+        # 外部订单号，需保证在商家端不重复
+        self.out_order_no = out_order_no
+        # 支付宝/微信/其他  平台订单号
+        self.trade_no = trade_no
+        # 支付渠道类型，枚举值：ALIPAY / WECHAT
+        self.order_type = order_type
+        # 订单金额，单位：分（如 990 表示 9.90元）
+        self.order_amount = order_amount
+        # 分账模式，目前有两种分账同步执行sync，分账异步执行async，不传默认同步执行
+        # 同步执行: sync，异步执行: async
+        self.royalty_mode = royalty_mode
+        # 扩展信息
+        self.ext_info = ext_info
+
+    def validate(self):
+        self.validate_required(self.out_request_no, 'out_request_no')
+        self.validate_required(self.out_product_id, 'out_product_id')
+        self.validate_required(self.out_order_no, 'out_order_no')
+        self.validate_required(self.trade_no, 'trade_no')
+        self.validate_required(self.order_type, 'order_type')
+        self.validate_required(self.order_amount, 'order_amount')
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.auth_token is not None:
+            result['auth_token'] = self.auth_token
+        if self.product_instance_id is not None:
+            result['product_instance_id'] = self.product_instance_id
+        if self.out_request_no is not None:
+            result['out_request_no'] = self.out_request_no
+        if self.out_product_id is not None:
+            result['out_product_id'] = self.out_product_id
+        if self.out_order_no is not None:
+            result['out_order_no'] = self.out_order_no
+        if self.trade_no is not None:
+            result['trade_no'] = self.trade_no
+        if self.order_type is not None:
+            result['order_type'] = self.order_type
+        if self.order_amount is not None:
+            result['order_amount'] = self.order_amount
+        if self.royalty_mode is not None:
+            result['royalty_mode'] = self.royalty_mode
+        if self.ext_info is not None:
+            result['ext_info'] = self.ext_info
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('auth_token') is not None:
+            self.auth_token = m.get('auth_token')
+        if m.get('product_instance_id') is not None:
+            self.product_instance_id = m.get('product_instance_id')
+        if m.get('out_request_no') is not None:
+            self.out_request_no = m.get('out_request_no')
+        if m.get('out_product_id') is not None:
+            self.out_product_id = m.get('out_product_id')
+        if m.get('out_order_no') is not None:
+            self.out_order_no = m.get('out_order_no')
+        if m.get('trade_no') is not None:
+            self.trade_no = m.get('trade_no')
+        if m.get('order_type') is not None:
+            self.order_type = m.get('order_type')
+        if m.get('order_amount') is not None:
+            self.order_amount = m.get('order_amount')
+        if m.get('royalty_mode') is not None:
+            self.royalty_mode = m.get('royalty_mode')
+        if m.get('ext_info') is not None:
+            self.ext_info = m.get('ext_info')
+        return self
+
+
+class PushOrderSettlementResponse(TeaModel):
+    def __init__(
+        self,
+        req_msg_id: str = None,
+        result_code: str = None,
+        result_msg: str = None,
+        trade_no: str = None,
+        settle_no: str = None,
+    ):
+        # 请求唯一ID，用于链路跟踪和问题排查
+        self.req_msg_id = req_msg_id
+        # 结果码，一般OK表示调用成功
+        self.result_code = result_code
+        # 异常信息的文本描述
+        self.result_msg = result_msg
+        # 支付宝/微信/其他 平台订单号
+        self.trade_no = trade_no
+        # 分账单号，可以根据该单号查询单次分账请求执行结果
+        self.settle_no = settle_no
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.req_msg_id is not None:
+            result['req_msg_id'] = self.req_msg_id
+        if self.result_code is not None:
+            result['result_code'] = self.result_code
+        if self.result_msg is not None:
+            result['result_msg'] = self.result_msg
+        if self.trade_no is not None:
+            result['trade_no'] = self.trade_no
+        if self.settle_no is not None:
+            result['settle_no'] = self.settle_no
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('req_msg_id') is not None:
+            self.req_msg_id = m.get('req_msg_id')
+        if m.get('result_code') is not None:
+            self.result_code = m.get('result_code')
+        if m.get('result_msg') is not None:
+            self.result_msg = m.get('result_msg')
+        if m.get('trade_no') is not None:
+            self.trade_no = m.get('trade_no')
+        if m.get('settle_no') is not None:
+            self.settle_no = m.get('settle_no')
+        return self
+
+
+class QueryOrderSettlementRequest(TeaModel):
+    def __init__(
+        self,
+        auth_token: str = None,
+        product_instance_id: str = None,
+        settle_no: str = None,
+    ):
+        # OAuth模式下的授权token
+        self.auth_token = auth_token
+        self.product_instance_id = product_instance_id
+        # 分账请求单号
+        self.settle_no = settle_no
+
+    def validate(self):
+        self.validate_required(self.settle_no, 'settle_no')
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.auth_token is not None:
+            result['auth_token'] = self.auth_token
+        if self.product_instance_id is not None:
+            result['product_instance_id'] = self.product_instance_id
+        if self.settle_no is not None:
+            result['settle_no'] = self.settle_no
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('auth_token') is not None:
+            self.auth_token = m.get('auth_token')
+        if m.get('product_instance_id') is not None:
+            self.product_instance_id = m.get('product_instance_id')
+        if m.get('settle_no') is not None:
+            self.settle_no = m.get('settle_no')
+        return self
+
+
+class QueryOrderSettlementResponse(TeaModel):
+    def __init__(
+        self,
+        req_msg_id: str = None,
+        result_code: str = None,
+        result_msg: str = None,
+        operation_dt: str = None,
+        royalty_detail_list: List[SettleOrderRoyaltyDetail] = None,
+    ):
+        # 请求唯一ID，用于链路跟踪和问题排查
+        self.req_msg_id = req_msg_id
+        # 结果码，一般OK表示调用成功
+        self.result_code = result_code
+        # 异常信息的文本描述
+        self.result_msg = result_msg
+        # 2026-06-30 12:00:00
+        self.operation_dt = operation_dt
+        # 分账明细
+        self.royalty_detail_list = royalty_detail_list
+
+    def validate(self):
+        if self.operation_dt is not None:
+            self.validate_pattern(self.operation_dt, 'operation_dt', '\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}([Z]|([\\.]\\d{1,9})?[\\+]\\d{2}[\\:]?\\d{2})')
+        if self.royalty_detail_list:
+            for k in self.royalty_detail_list:
+                if k:
+                    k.validate()
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.req_msg_id is not None:
+            result['req_msg_id'] = self.req_msg_id
+        if self.result_code is not None:
+            result['result_code'] = self.result_code
+        if self.result_msg is not None:
+            result['result_msg'] = self.result_msg
+        if self.operation_dt is not None:
+            result['operation_dt'] = self.operation_dt
+        result['royalty_detail_list'] = []
+        if self.royalty_detail_list is not None:
+            for k in self.royalty_detail_list:
+                result['royalty_detail_list'].append(k.to_map() if k else None)
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('req_msg_id') is not None:
+            self.req_msg_id = m.get('req_msg_id')
+        if m.get('result_code') is not None:
+            self.result_code = m.get('result_code')
+        if m.get('result_msg') is not None:
+            self.result_msg = m.get('result_msg')
+        if m.get('operation_dt') is not None:
+            self.operation_dt = m.get('operation_dt')
+        self.royalty_detail_list = []
+        if m.get('royalty_detail_list') is not None:
+            for k in m.get('royalty_detail_list'):
+                temp_model = SettleOrderRoyaltyDetail()
+                self.royalty_detail_list.append(temp_model.from_map(k))
+        return self
+
+
+class WithdrawOrderSettlementRequest(TeaModel):
+    def __init__(
+        self,
+        auth_token: str = None,
+        product_instance_id: str = None,
+        refund_amount: int = None,
+        trade_no: str = None,
+        refund_reason: str = None,
+        out_request_no: str = None,
+    ):
+        # OAuth模式下的授权token
+        self.auth_token = auth_token
+        self.product_instance_id = product_instance_id
+        # 退款金额，单位：分
+        self.refund_amount = refund_amount
+        # 支付交易号
+        self.trade_no = trade_no
+        # 退款原因说明。 商家自定义，将在会在商户和用户的pc退款账单详情中展示
+        self.refund_reason = refund_reason
+        # 【描述】退款请求号。 标识一次退款请求，需要保证在交易号下唯一，如需部分退款，则此参数必传。 注：针对同一次退款请求，如果调用接口失败或异常了，重试时需要保证退款请求号不能变更，防止该笔交易重复退款。会保证同样的退款请求号多次请求只会退一次。
+        # 【必选条件】部分退款时必选
+        self.out_request_no = out_request_no
+
+    def validate(self):
+        self.validate_required(self.refund_amount, 'refund_amount')
+        self.validate_required(self.trade_no, 'trade_no')
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.auth_token is not None:
+            result['auth_token'] = self.auth_token
+        if self.product_instance_id is not None:
+            result['product_instance_id'] = self.product_instance_id
+        if self.refund_amount is not None:
+            result['refund_amount'] = self.refund_amount
+        if self.trade_no is not None:
+            result['trade_no'] = self.trade_no
+        if self.refund_reason is not None:
+            result['refund_reason'] = self.refund_reason
+        if self.out_request_no is not None:
+            result['out_request_no'] = self.out_request_no
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('auth_token') is not None:
+            self.auth_token = m.get('auth_token')
+        if m.get('product_instance_id') is not None:
+            self.product_instance_id = m.get('product_instance_id')
+        if m.get('refund_amount') is not None:
+            self.refund_amount = m.get('refund_amount')
+        if m.get('trade_no') is not None:
+            self.trade_no = m.get('trade_no')
+        if m.get('refund_reason') is not None:
+            self.refund_reason = m.get('refund_reason')
+        if m.get('out_request_no') is not None:
+            self.out_request_no = m.get('out_request_no')
+        return self
+
+
+class WithdrawOrderSettlementResponse(TeaModel):
+    def __init__(
+        self,
+        req_msg_id: str = None,
+        result_code: str = None,
+        result_msg: str = None,
+        trade_no: str = None,
+        out_order_no: str = None,
+        refund_fee: int = None,
+        refund_detail_item_list: List[RefundDetail] = None,
+    ):
+        # 请求唯一ID，用于链路跟踪和问题排查
+        self.req_msg_id = req_msg_id
+        # 结果码，一般OK表示调用成功
+        self.result_code = result_code
+        # 异常信息的文本描述
+        self.result_msg = result_msg
+        # 支付交易号
+        self.trade_no = trade_no
+        # 商家订单号
+        self.out_order_no = out_order_no
+        # 退款总金额。单位：分。 指该笔交易累计已经退款成功的金额
+        self.refund_fee = refund_fee
+        # 退款使用的资金渠道
+        self.refund_detail_item_list = refund_detail_item_list
+
+    def validate(self):
+        if self.refund_detail_item_list:
+            for k in self.refund_detail_item_list:
+                if k:
+                    k.validate()
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.req_msg_id is not None:
+            result['req_msg_id'] = self.req_msg_id
+        if self.result_code is not None:
+            result['result_code'] = self.result_code
+        if self.result_msg is not None:
+            result['result_msg'] = self.result_msg
+        if self.trade_no is not None:
+            result['trade_no'] = self.trade_no
+        if self.out_order_no is not None:
+            result['out_order_no'] = self.out_order_no
+        if self.refund_fee is not None:
+            result['refund_fee'] = self.refund_fee
+        result['refund_detail_item_list'] = []
+        if self.refund_detail_item_list is not None:
+            for k in self.refund_detail_item_list:
+                result['refund_detail_item_list'].append(k.to_map() if k else None)
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('req_msg_id') is not None:
+            self.req_msg_id = m.get('req_msg_id')
+        if m.get('result_code') is not None:
+            self.result_code = m.get('result_code')
+        if m.get('result_msg') is not None:
+            self.result_msg = m.get('result_msg')
+        if m.get('trade_no') is not None:
+            self.trade_no = m.get('trade_no')
+        if m.get('out_order_no') is not None:
+            self.out_order_no = m.get('out_order_no')
+        if m.get('refund_fee') is not None:
+            self.refund_fee = m.get('refund_fee')
+        self.refund_detail_item_list = []
+        if m.get('refund_detail_item_list') is not None:
+            for k in m.get('refund_detail_item_list'):
+                temp_model = RefundDetail()
+                self.refund_detail_item_list.append(temp_model.from_map(k))
         return self
 
 
