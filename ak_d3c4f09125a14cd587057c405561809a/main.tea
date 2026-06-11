@@ -100,7 +100,7 @@ api doRequest(version: string, action: string, protocol: string, method: string,
     req_msg_id = AntchainUtil.getNonce(),
     access_key = @accessKeyId,
     base_sdk_version = 'TeaSDK-2.0',
-    sdk_version = '1.1.3',
+    sdk_version = '1.1.4',
     _prod_code = 'ak_d3c4f09125a14cd587057c405561809a',
     _prod_channel = 'saas'
   };
@@ -509,6 +509,8 @@ model ProjectWithRole {
   userOperatorList?: [ UserOperatorInfoBO ](name='user_operator_list', example=''),
   // 代销者机构集合
   participantInfos?: [ ParticipantInfo ](name='participant_infos', example=''),
+  // 发行日期（时间戳）
+  issueDate?: long(name='issue_date', example='1531800000'),
 }
 
 // 跨链账号明细
@@ -638,6 +640,8 @@ model ProjectBaseInfoVO {
   maxSubscriptionAmount?: string(name='max_subscription_amount', example='100'),
   // 创建时间戳（毫秒）
   gmtCreated?: long(name='gmt_created', example='1755754919690'),
+  // 发行日期（时间戳）
+  issueDate?: long(name='issue_date', example='1531800000'),
 }
 
 model UpdateAntdigitalWebtrwatradeIssuerPriceRequest = {
@@ -1280,7 +1284,7 @@ model ListAntdigitalWebtrwatradeIssuerSubuserResponse = {
 
 /**
  * Description: 查询发行机构和项目下所有关联的二级用户信息
- * Summary: 查询机构和项目下所有关联的二级用户信息
+ * Summary: 查询发行机构和项目下所有关联的二级用户信息
  */
 async function listAntdigitalWebtrwatradeIssuerSubuser(request: ListAntdigitalWebtrwatradeIssuerSubuserRequest): ListAntdigitalWebtrwatradeIssuerSubuserResponse {
   var runtime = new Util.RuntimeOptions{};
@@ -1290,7 +1294,7 @@ async function listAntdigitalWebtrwatradeIssuerSubuser(request: ListAntdigitalWe
 
 /**
  * Description: 查询发行机构和项目下所有关联的二级用户信息
- * Summary: 查询机构和项目下所有关联的二级用户信息
+ * Summary: 查询发行机构和项目下所有关联的二级用户信息
  */
 async function listAntdigitalWebtrwatradeIssuerSubuserEx(request: ListAntdigitalWebtrwatradeIssuerSubuserRequest, headers: map[string]string, runtime: Util.RuntimeOptions): ListAntdigitalWebtrwatradeIssuerSubuserResponse {
   Util.validateModel(request);
@@ -1322,7 +1326,7 @@ model ListAntdigitalWebtrwatradeDistributorSubuserResponse = {
 
 /**
  * Description: 查询代销机构和项目下所有关联的二级用户信息
- * Summary: 查询机构和项目下所有关联的二级用户信息
+ * Summary: 查询代销机构和项目下所有关联的二级用户信息
  */
 async function listAntdigitalWebtrwatradeDistributorSubuser(request: ListAntdigitalWebtrwatradeDistributorSubuserRequest): ListAntdigitalWebtrwatradeDistributorSubuserResponse {
   var runtime = new Util.RuntimeOptions{};
@@ -1332,7 +1336,7 @@ async function listAntdigitalWebtrwatradeDistributorSubuser(request: ListAntdigi
 
 /**
  * Description: 查询代销机构和项目下所有关联的二级用户信息
- * Summary: 查询机构和项目下所有关联的二级用户信息
+ * Summary: 查询代销机构和项目下所有关联的二级用户信息
  */
 async function listAntdigitalWebtrwatradeDistributorSubuserEx(request: ListAntdigitalWebtrwatradeDistributorSubuserRequest, headers: map[string]string, runtime: Util.RuntimeOptions): ListAntdigitalWebtrwatradeDistributorSubuserResponse {
   Util.validateModel(request);
