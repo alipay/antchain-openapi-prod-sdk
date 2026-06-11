@@ -53,6 +53,11 @@ namespace AntChain.SDK.GESAAS.Models
         [Validation(Required=false)]
         public string FluxAmount { get; set; }
 
+        // 业务发生时间
+        [NameInMap("biz_time")]
+        [Validation(Required=true)]
+        public string BizTime { get; set; }
+
     }
 
 }
