@@ -6,26 +6,129 @@ import { Readable } from 'stream';
 import * as $tea from '@alicloud/tea-typescript';
 
 /**
+ * @remarks
  * Model for initing client
  */
 export class Config extends $tea.Model {
+  /**
+   * @remarks
+   * accesskey id
+   */
   accessKeyId?: string;
+  /**
+   * @remarks
+   * accesskey secret
+   */
   accessKeySecret?: string;
+  /**
+   * @remarks
+   * security token
+   */
   securityToken?: string;
+  /**
+   * @remarks
+   * http protocol
+   * 
+   * @example
+   * http
+   */
   protocol?: string;
+  /**
+   * @remarks
+   * read timeout
+   * 
+   * @example
+   * 10
+   */
   readTimeout?: number;
+  /**
+   * @remarks
+   * connect timeout
+   * 
+   * @example
+   * 10
+   */
   connectTimeout?: number;
+  /**
+   * @remarks
+   * http proxy
+   * 
+   * @example
+   * http://localhost
+   */
   httpProxy?: string;
+  /**
+   * @remarks
+   * https proxy
+   * 
+   * @example
+   * https://localhost
+   */
   httpsProxy?: string;
+  /**
+   * @remarks
+   * endpoint
+   * 
+   * @example
+   * cs.aliyuncs.com
+   */
   endpoint?: string;
+  /**
+   * @remarks
+   * proxy white list
+   * 
+   * @example
+   * http://localhost
+   */
   noProxy?: string;
+  /**
+   * @remarks
+   * max idle conns
+   * 
+   * @example
+   * 3
+   */
   maxIdleConns?: number;
+  /**
+   * @remarks
+   * user agent
+   * 
+   * @example
+   * Alibabacloud/1
+   */
   userAgent?: string;
+  /**
+   * @remarks
+   * socks5 proxy
+   */
   socks5Proxy?: string;
+  /**
+   * @remarks
+   * socks5 network
+   * 
+   * @example
+   * TCP
+   */
   socks5NetWork?: string;
+  /**
+   * @remarks
+   * 长链接最大空闲时长
+   */
   maxIdleTimeMillis?: number;
+  /**
+   * @remarks
+   * 长链接最大连接时长
+   */
   keepAliveDurationMillis?: number;
+  /**
+   * @remarks
+   * 最大连接数（长链接最大总数）
+   */
   maxRequests?: number;
+  /**
+   * @remarks
+   * 每个目标主机的最大连接数（分主机域名的长链接最大总数
+   */
   maxRequestsPerHost?: number;
   static names(): { [key: string]: string } {
     return {
@@ -81,12 +184,28 @@ export class Config extends $tea.Model {
 // 卡证OCR图片坐标
 export class OcrLocation extends $tea.Model {
   // 表示定位位置的长方形左上顶点的垂直坐标
+  /**
+   * @example
+   * 0
+   */
   top?: string;
   // 表示定位位置的长方形左上顶点的水平坐标
+  /**
+   * @example
+   * 0
+   */
   left?: string;
   // 表示定位位置的长方形的宽度
+  /**
+   * @example
+   * 100
+   */
   width?: string;
   // 表示定位位置的长方形的高度
+  /**
+   * @example
+   * 100
+   */
   height?: string;
   static names(): { [key: string]: string } {
     return {
@@ -116,18 +235,42 @@ export class CardQuality extends $tea.Model {
   // 1-清晰
   // 0-不清晰
   // 
+  /**
+   * @example
+   * 1
+   */
   isClear?: string;
   // 清晰度取值0-1，值越大表示图像质量越好，默认阈值0.5
+  /**
+   * @example
+   * 1
+   */
   isClearPropobility?: string;
   // 1-边框/四角完整
   // 0-边框/四角不完整
+  /**
+   * @example
+   * 1
+   */
   isComplete?: string;
   // 取值0-1，值越大表示图像质量越好，默认阈值0.5
+  /**
+   * @example
+   * 1
+   */
   isCompletePropobility?: string;
   // 1-头像、关键字段无遮挡/马赛克
   // 0-头像、关键字段有遮挡/马赛克
+  /**
+   * @example
+   * 1
+   */
   isNoCover?: string;
   // 有无遮挡propobility-取值0-1，值越大表示图像质量越好，默认阈值0.3
+  /**
+   * @example
+   * 1
+   */
   isNoCoverPropobility?: string;
   static names(): { [key: string]: string } {
     return {
@@ -159,12 +302,28 @@ export class CardQuality extends $tea.Model {
 // 音频元数据
 export class AudioMeta extends $tea.Model {
   // 采样率
+  /**
+   * @example
+   * 16000
+   */
   sampleFreq?: number;
   // 音频道数
+  /**
+   * @example
+   * 1
+   */
   channelsNum?: number;
   // 音频数据采样点所占位数
+  /**
+   * @example
+   * 16
+   */
   bits?: number;
   // 语音信道分离标识
+  /**
+   * @example
+   * 0
+   */
   channel?: number;
   static names(): { [key: string]: string } {
     return {
@@ -192,10 +351,22 @@ export class AudioMeta extends $tea.Model {
 // 音频文件
 export class Audio extends $tea.Model {
   // 音频文件名称（单次请求保持唯一）
+  /**
+   * @example
+   * 81995a7fa2bfc132eb69cdc2028f0619.wav
+   */
   token?: string;
   // 待认证的音频文件，base64编码格式
+  /**
+   * @example
+   * /9j/238sn382l23f4 
+   */
   rawData?: string;
   // 音频文件OSS地址
+  /**
+   * @example
+   * https://xxxxxx.oss-cn-shanghai.aliyuncs.com/12345.wav
+   */
   audioUrl?: string;
   static names(): { [key: string]: string } {
     return {
@@ -221,16 +392,40 @@ export class Audio extends $tea.Model {
 // 银行卡代扣二级租户收支明细
 export class TransactionDetail extends $tea.Model {
   // 交易类型：RECHARGE 入金，TRANSFER 划拨 ，WITHDRAW 出金
+  /**
+   * @example
+   * RECHARGE
+   */
   transType?: string;
   // 余额方向：CR-贷款（收入）/ DR-借款（支出）
+  /**
+   * @example
+   * CR
+   */
   direction?: string;
   // 币种 CNY人民币
+  /**
+   * @example
+   * CNY
+   */
   ccy?: string;
   // 交易金额，单位：元，整数部分最长10位数，保留两位小数
+  /**
+   * @example
+   * 1.11
+   */
   amount?: string;
   // 交易后余额，单位：元，整数部分最长10位数，保留两位小数
+  /**
+   * @example
+   * 2.22
+   */
   afterAmount?: string;
   // 创建时间，格式为：yyyy-MM-dd HH:mm:ss
+  /**
+   * @example
+   * 2026-01-15 09:10:11
+   */
   creatTime?: string;
   // SHARE-分账
   // OFFSET_SHARE-差额分账
@@ -240,6 +435,10 @@ export class TransactionDetail extends $tea.Model {
   // CLEAR-资金清算
   // OTHER-其他
   // WITHDRAW_CANCEL-提现退回
+  /**
+   * @example
+   * SHARE
+   */
   businessType?: string;
   static names(): { [key: string]: string } {
     return {
@@ -273,24 +472,64 @@ export class TransactionDetail extends $tea.Model {
 // 风险咨询设备信息
 export class DeviceInfo extends $tea.Model {
   // 设备指纹
+  /**
+   * @example
+   * eYOIkkL8SJv0Vr6YxZqaLQ/deHNIc00rQr8zp8Upj6djHBW9oC9RJcdG
+   */
   deviceFingerprint?: string;
   // 设备制造商
+  /**
+   * @example
+   * xiaomi
+   */
   deviceBrand?: string;
   // 设备具体型号
+  /**
+   * @example
+   * 2210132C
+   */
   deviceModel?: string;
   // 操作系统类型
+  /**
+   * @example
+   * android
+   */
   os?: string;
   // 操作系统版本
+  /**
+   * @example
+   * android 16
+   */
   osVersion?: string;
   // 设备rom版本
+  /**
+   * @example
+   * 3.0.3.0.WMBCNXM
+   */
   romModel?: string;
   // 设备硬盘信息
+  /**
+   * @example
+   * 246455967744
+   */
   hardDisk?: string;
   // 内存容量
+  /**
+   * @example
+   * 7603436
+   */
   memory?: string;
   // 设备网络ip
+  /**
+   * @example
+   * 127.0.0.1
+   */
   cameraInfo?: string;
   // 网关入口ip
+  /**
+   * @example
+   * 127.0.0.1
+   */
   gatewayIp?: string;
   static names(): { [key: string]: string } {
     return {
@@ -330,15 +569,31 @@ export class DeviceInfo extends $tea.Model {
 // 身份四要素证件及户籍信息
 export class Residency extends $tea.Model {
   // 证件是否最新（1 最新、0非最新）
+  /**
+   * @example
+   * 0
+   */
   isNewest?: string;
   // 证件是否挂失（1 挂失、0非挂失）
+  /**
+   * @example
+   * 0
+   */
   isLosted?: string;
   // 证件是否过期（1 过期、0非过期）
+  /**
+   * @example
+   * 0
+   */
   isExpired?: string;
   // 户籍状态
   // 0 有效
   // 1 有效（户籍迁出，但未迁入）
   // 2 无效（死亡、失踪、迁出、服 兵役、出国境定居、消除重复登记人口、冻结户口、重载注销等）
+  /**
+   * @example
+   * 0
+   */
   residencyStatus?: string;
   static names(): { [key: string]: string } {
     return {
@@ -366,76 +621,220 @@ export class Residency extends $tea.Model {
 // 车辆资产验证详版车辆信息
 export class CarInfoDetail extends $tea.Model {
   // 车辆型号
+  /**
+   * @example
+   * FV7144LBDBG
+   */
   clxh?: string;
   // 发动机号
+  /**
+   * @example
+   * N10514
+   */
   engineCode?: string;
   // 发动机型号
+  /**
+   * @example
+   * CST
+   */
   engineModel?: string;
   // 生产时间
+  /**
+   * @example
+   * 2022-08-17
+   */
   productionTime?: string;
   // 品牌名称
+  /**
+   * @example
+   * 大众
+   */
   brandName?: string;
   // 高尔夫(第七代,2014-)
+  /**
+   * @example
+   * series_name
+   */
   seriesName?: string;
   // 年款
+  /**
+   * @example
+   * 2016
+   */
   modelYear?: string;
   // 款型名称
+  /**
+   * @example
+   * 极狐αT 653S+ 160kW 22款;极狐αT 653S 160kW 22款
+   */
   vehicleName?: string;
   // 指导价
+  /**
+   * @example
+   * 28.23万;26.23万
+   */
   guidePrice?: string;
   // 车身颜色
+  /**
+   * @example
+   * 黑/白
+   */
   color?: string;
   // 车型级别
+  /**
+   * @example
+   * vehicle_level
+   */
   vehicleLevel?: string;
   // 车型种类
+  /**
+   * @example
+   * 多用途乘用车
+   */
   vehicleType?: string;
   // 车身结构
+  /**
+   * @example
+   * 两厢车
+   */
   bodyStruct?: string;
   //  燃料种类
+  /**
+   * @example
+   * 汽油
+   */
   fuelType?: string;
   // 驱动方式
+  /**
+   * @example
+   * 前置前驱
+   */
   driveWay?: string;
   // 底盘型号-商用车用
+  /**
+   * @example
+   * chassis_model
+   */
   chassisModel?: string;
   // 排放标准
+  /**
+   * @example
+   * GB18352.5-2013
+   */
   emissionStandard?: string;
   // 排量
+  /**
+   * @example
+   * 1.4T
+   */
   displacement?: string;
   // 长
+  /**
+   * @example
+   * 4255
+   */
   length?: string;
   // 宽
+  /**
+   * @example
+   * 1799
+   */
   width?: string;
   // 高
+  /**
+   * @example
+   * 1452
+   */
   height?: string;
   // 总质量
+  /**
+   * @example
+   * 1760
+   */
   totalMass?: string;
   // 整备质量
+  /**
+   * @example
+   * 1280
+   */
   curbWeight?: string;
   // 前轮距
+  /**
+   * @example
+   * 1549
+   */
   tireDistanceBefore?: string;
   // 后轮距
+  /**
+   * @example
+   * 1640
+   */
   tireDistanceAfter?: string;
   // 轴数
+  /**
+   * @example
+   * 2
+   */
   axesNumber?: string;
   // 轴距 
+  /**
+   * @example
+   * 2637
+   */
   wheelBase?: string;
   // 座位数
+  /**
+   * @example
+   * 5
+   */
   seatingCapacity?: string;
   // 核定载质量
+  /**
+   * @example
+   * approved_load
+   */
   approvedLoad?: string;
   // 准牵引总质量 
+  /**
+   * @example
+   * quasi_traction
+   */
   quasiTraction?: string;
   // 轮胎规格
+  /**
+   * @example
+   * tire_size
+   */
   tireSize?: string;
   // 轮胎数
+  /**
+   * @example
+   * 4
+   */
   tireNumber?: string;
   //  变速箱
+  /**
+   * @example
+   * 7挡双离合
+   */
   transmission?: string;
   //  功率
+  /**
+   * @example
+   * 额定功率:70/峰值功率:160
+   */
   power?: string;
   // 油耗
+  /**
+   * @example
+   * 5.80
+   */
   fuelConsumption?: string;
   // 环保标准
+  /**
+   * @example
+   * 国IV(国V)
+   */
   environmentalStandards?: string;
   static names(): { [key: string]: string } {
     return {
@@ -527,16 +926,36 @@ export class CarInfoDetail extends $tea.Model {
 // 银行卡代扣一键绑卡账户信息
 export class AccInfo extends $tea.Model {
   // 身份证号
+  /**
+   * @example
+   * 111222190002309999
+   */
   certNo?: string;
   // 持卡人姓名
+  /**
+   * @example
+   * 张三
+   */
   certName?: string;
   // 银行卡号
+  /**
+   * @example
+   * 7881620854713
+   */
   bankCard?: string;
   // 手机号
+  /**
+   * @example
+   * 13900001234
+   */
   mobile?: string;
   // 银行卡类型，
   // 0：借记卡
   // 1：信用卡
+  /**
+   * @example
+   * 0
+   */
   cardType?: string;
   static names(): { [key: string]: string } {
     return {
@@ -566,14 +985,34 @@ export class AccInfo extends $tea.Model {
 // AIGC风险专项检测
 export class AigcRiskResult extends $tea.Model {
   // AIGC风险检测评分
+  /**
+   * @example
+   * safe
+   */
   aigcRiskLevel?: string;
   // 图像伪造分数
+  /**
+   * @example
+   * 0.2
+   */
   deepfakeScore?: string;
   // 图像伪造结论
+  /**
+   * @example
+   * T
+   */
   deepfakeResult?: string;
   // 视频伪造分数
+  /**
+   * @example
+   * 0.2
+   */
   videoForgeryScore?: string;
   // 视频伪造结论
+  /**
+   * @example
+   * T
+   */
   videoForgeryResult?: string;
   static names(): { [key: string]: string } {
     return {
@@ -603,12 +1042,28 @@ export class AigcRiskResult extends $tea.Model {
 // 车辆资产验证旗舰版车辆信息
 export class CarInfo extends $tea.Model {
   // 是否高频使用，格式：YES/NO
+  /**
+   * @example
+   * YES
+   */
   highFrequency?: string;
   // 车辆价值区间，格式：1，2，3...
+  /**
+   * @example
+   * 1
+   */
   value?: string;
   // 车辆类型，格式：1，2，3
+  /**
+   * @example
+   * 1
+   */
   type?: string;
   // 登记时间
+  /**
+   * @example
+   * 1
+   */
   time?: string;
   static names(): { [key: string]: string } {
     return {
@@ -638,28 +1093,76 @@ export class DeviceRiskInfo extends $tea.Model {
   // 设备是否root
   isDeviceRooted?: boolean;
   // 设备是否hook
+  /**
+   * @example
+   * true, false
+   */
   isDeviceHooked?: boolean;
   // 设备是否使用定制rom
+  /**
+   * @example
+   * true, false
+   */
   isCustomRom?: boolean;
   // 设备是否是云手机
+  /**
+   * @example
+   * true, false
+   */
   isCloudPhone?: boolean;
   // 是否为模拟器
+  /**
+   * @example
+   * true, false
+   */
   isEmulator?: boolean;
   // 设备是否支持虚拟摄像头
+  /**
+   * @example
+   * true, false
+   */
   hasVirtualCamera?: boolean;
   // 设备是否使用虚拟摄像头
+  /**
+   * @example
+   * true, false
+   */
   isUsingVirtualCamera?: boolean;
   // 设备是否有重打包风险
+  /**
+   * @example
+   * true, false
+   */
   hasRepackRisk?: boolean;
   // 设备是否多开
+  /**
+   * @example
+   * true, false
+   */
   isMultiInstance?: boolean;
   // 设备是否开启虚拟定位
+  /**
+   * @example
+   * true, false
+   */
   isFakeLocation?: boolean;
   // 有其他注入行为
+  /**
+   * @example
+   * true, false
+   */
   hasOtherInjection?: boolean;
   // 设备是否有其他自动化工具
+  /**
+   * @example
+   * true, false
+   */
   hasAtuomationTools?: boolean;
   // 风险sdk的JSON格式数据
+  /**
+   * @example
+   * {}
+   */
   riskSdkJson?: string;
   static names(): { [key: string]: string } {
     return {
@@ -705,8 +1208,16 @@ export class DeviceRiskInfo extends $tea.Model {
 // 卡证OCR风险结果
 export class RiskInfo extends $tea.Model {
   // 是否为复印件（仅身份证、银行卡含该字段）。0：否，1：是
+  /**
+   * @example
+   * 0
+   */
   copy?: string;
   // 是否翻拍（仅身份证含该字段）。0：否，1：是
+  /**
+   * @example
+   * 0
+   */
   reshoot?: string;
   // normal-识别正常
   // non_idcard-上传的图片中不包含身份证
@@ -715,6 +1226,10 @@ export class RiskInfo extends $tea.Model {
   // over_exposure-身份证关键字段反光或过曝
   // over_dark-身份证欠曝（亮度过低）
   // unknown-未知状态
+  /**
+   * @example
+   * []
+   */
   imageStatus?: string[];
   // 输入参数 risk_info_type=true 时，则返回该字段，判断身份证是否存在风险，返回值：
   // normal-正常身份证；
@@ -723,10 +1238,22 @@ export class RiskInfo extends $tea.Model {
   // screen-翻拍；
   // PS-被PS修改；
   // unknown-其他未知情况
+  /**
+   * @example
+   * []
+   */
   riskType?: string[];
   // 图片质量
+  /**
+   * @example
+   * {}
+   */
   cardQuality?: CardQuality;
   // 证件一致性
+  /**
+   * @example
+   * 1
+   */
   idcardNumberType?: string;
   static names(): { [key: string]: string } {
     return {
@@ -758,8 +1285,16 @@ export class RiskInfo extends $tea.Model {
 // 分账退款信息
 export class ShareRefundInfo extends $tea.Model {
   // 商户id
+  /**
+   * @example
+   * 1000
+   */
   merchantId?: string;
   // 分账金额,整数、单位为分
+  /**
+   * @example
+   * 100
+   */
   amount?: string;
   static names(): { [key: string]: string } {
     return {
@@ -783,8 +1318,16 @@ export class ShareRefundInfo extends $tea.Model {
 // 分账信息
 export class ShareInfo extends $tea.Model {
   // 商户id
+  /**
+   * @example
+   * 1000
+   */
   merchantId?: string;
   // 分账金额,整数、单位为分
+  /**
+   * @example
+   * 100
+   */
   amount?: string;
   static names(): { [key: string]: string } {
     return {
@@ -808,99 +1351,279 @@ export class ShareInfo extends $tea.Model {
 // 卡证OCR识别结果
 export class OcrInfo extends $tea.Model {
   // 当识别到身份证是人像面时返回FACE，国徽面时返回BACK
+  /**
+   * @example
+   * FACE
+   */
   side?: string;
   // 当请求参数 return_photo = true时返回，头像切图的 base64 编码（无编码头，需自行处理）
   // *当服务降级时，返回null
+  /**
+   * @example
+   * BASE64String
+   */
   photo?: string;
   // {}	当请求参数 return_photo = true时返回，头像的位置信息（坐标0点为左上角）
   // *当服务降级时，返回null
+  /**
+   * @example
+   * {}
+   */
   photoLocation?: OcrLocation;
   // 当请求参数 return_card = true时返回，身份证裁剪切图的 base64 编码（无编码头，需自行处理）
   // *当服务降级时，返回null
+  /**
+   * @example
+   * BASE64String
+   */
   cardImage?: string;
   // 当请求参数 return_card = true时返回，身份证裁剪切图的位置信息（坐标0点为左上角）
   // *当服务降级时，返回null
+  /**
+   * @example
+   * {}
+   */
   cardLocation?: OcrLocation;
   // 姓名
+  /**
+   * @example
+   * 张三
+   */
   name?: string;
   // 性别
+  /**
+   * @example
+   * 女
+   */
   sex?: string;
   // 民族
+  /**
+   * @example
+   * 汉
+   */
   nationality?: string;
   // 出生日期（yyyyMMdd格式）
+  /**
+   * @example
+   * 19620710
+   */
   birth?: string;
   // 住址
+  /**
+   * @example
+   * 江苏省睢宁县xxxx
+   */
   address?: string;
   // 身份证号
+  /**
+   * @example
+   * 320324196207101234
+   */
   num?: string;
   // 发证日期（yyyyMMdd格式）
+  /**
+   * @example
+   * 20120912
+   */
   startDate?: string;
   // 到期日（yyyyMMdd格式）。
   // 如果是长期身份证，该字段内容为“长期”（不含引号）。
+  /**
+   * @example
+   * 20220912
+   */
   endDate?: string;
   // 签发机关
+  /**
+   * @example
+   * 宜川县公安局
+   */
   issue?: string;
   // 银行卡类型（CC（贷记卡），SCC（准贷记卡），DCC（存贷合一卡），DC（储蓄卡），PC（预付卡））
+  /**
+   * @example
+   * CC
+   */
   bankCardType?: string;
   // 银行名，不能识别时为空
+  /**
+   * @example
+   * 中国建设银行
+   */
   bankName?: string;
   // 银行卡号
+  /**
+   * @example
+   * 6227001223456784765
+   */
   cardNumber?: string;
   // 有效期至
+  /**
+   * @example
+   * 10/30
+   */
   validToDate?: string;
   // 证件类别
+  /**
+   * @example
+   * 港澳居民来往内地通行证
+   */
   title?: string;
   // 有效期限(yyyy.MM.dd-yyyy.MM.dd格式)
+  /**
+   * @example
+   * 2017.07.13-2027.07.12
+   */
   dateOfExpiry?: string;
   // 换证次数
+  /**
+   * @example
+   * 01
+   */
   changeNum?: string;
   // 初次领证日期
+  /**
+   * @example
+   * 20200202
+   */
   firstIssue?: string;
   // 准驾车型
+  /**
+   * @example
+   * C1
+   */
   driverClass?: string;
   // 档案编号
+  /**
+   * @example
+   * 110012345678
+   */
   docNum?: string;
   // 电子驾驶证生成时间
+  /**
+   * @example
+   * 2021年08月06日
+   */
   issueTime?: string;
   // 当前时间
+  /**
+   * @example
+   * 2021年04月16日14:09:39
+   */
   currentTime?: string;
   // 条形码编号
+  /**
+   * @example
+   * *4360028416316*
+   */
   barCode?: string;
   // 累计记分
+  /**
+   * @example
+   * 0
+   */
   points?: string;
   // 记录
+  /**
+   * @example
+   * 请于每个记分周期结束后三十日接受审验。无记分的，免予本次审验。
+   */
   remark?: string;
   // 状态
+  /**
+   * @example
+   * 正常
+   */
   status?: string;
   // 车辆识别代号
+  /**
+   * @example
+   * SSVUDDTT2J2022558
+   */
   vehicle?: string;
   // 品牌型号
+  /**
+   * @example
+   * 大众汽车牌SVW6474DFD
+   */
   model?: string;
   // 车辆类型
+  /**
+   * @example
+   * 小型普通客车
+   */
   type?: string;
   // 使用性质
+  /**
+   * @example
+   * 非运营
+   */
   useage?: string;
   // 发动机号码
+  /**
+   * @example
+   * 111533
+   */
   engNum?: string;
   // 车牌号码
+  /**
+   * @example
+   * 浙BF12345
+   */
   plate?: string;
   // 检验记录
+  /**
+   * @example
+   * 2018年11月渝A()
+   */
   inspecRecord?: string;
   // 核定载质量
+  /**
+   * @example
+   * 1490kg
+   */
   load?: string;
   // 整备质量
+  /**
+   * @example
+   * 2600kg
+   */
   curbMass?: string;
   // 外廓尺寸
+  /**
+   * @example
+   * 5990X2500X4400mm
+   */
   overallDimension?: string;
   // 核定载人数
+  /**
+   * @example
+   * 5人
+   */
   seating?: string;
   // 总质量
+  /**
+   * @example
+   * 4290kg
+   */
   grossMass?: string;
   // 燃油类型
+  /**
+   * @example
+   * 柴油
+   */
   fuel?: string;
   // 准牵引总质量
+  /**
+   * @example
+   * 2700kg
+   */
   tractionMass?: string;
   // 证芯编号
+  /**
+   * @example
+   * 50027372380230106
+   */
   chipNum?: string;
   static names(): { [key: string]: string } {
     return {
@@ -1010,10 +1733,22 @@ export class OcrInfo extends $tea.Model {
 // 车辆资产验证增强版车辆信息
 export class CarInfoPlus extends $tea.Model {
   // 车牌号
+  /**
+   * @example
+   * 京A123456
+   */
   plateNo?: string;
   // 车辆型号，格式：1，2，3...
+  /**
+   * @example
+   * 1
+   */
   model?: string;
   // 车辆颜色，格式：1，2，3
+  /**
+   * @example
+   * 1
+   */
   color?: string;
   static names(): { [key: string]: string } {
     return {
@@ -1039,68 +1774,196 @@ export class CarInfoPlus extends $tea.Model {
 // 车辆资产验证简版车辆信息
 export class CarInfoBrief extends $tea.Model {
   // 生产时间
+  /**
+   * @example
+   * 2015-11-16
+   */
   productionTime?: string;
   // 品牌名称
+  /**
+   * @example
+   * 大众
+   */
   brandName?: string;
   // 车系名称
+  /**
+   * @example
+   * 高尔夫
+   */
   seriesName?: string;
   // 燃料种类
+  /**
+   * @example
+   * 汽油
+   */
   fuelType?: string;
   // 轴数
+  /**
+   * @example
+   * 2
+   */
   axesNumber?: string;
   // 轴距
+  /**
+   * @example
+   * 2915
+   */
   wheelBase?: string;
   // 排量描述
+  /**
+   * @example
+   * 1.3L
+   */
   engineDescribe?: string;
   // 车身颜色
+  /**
+   * @example
+   * 黑
+   */
   color?: string;
   // 年款
+  /**
+   * @example
+   * 2018
+   */
   yearPattern?: string;
   // 生产厂商
+  /**
+   * @example
+   * 上海通用汽车有限公司
+   */
   manufacturerName?: string;
   // 发布年月
+  /**
+   * @example
+   * 201711
+   */
   publishDate?: string;
   // 款型
+  /**
+   * @example
+   * 赛欧3 1.3L 手动挡 舒适天窗版 18款
+   */
   saleCode?: string;
   // 驱动形式
+  /**
+   * @example
+   * 驱动形式
+   */
   driveForm?: string;
   // 国产/进口/合资
+  /**
+   * @example
+   * 合资
+   */
   importFlag?: string;
   // 后轮距
+  /**
+   * @example
+   * 1468
+   */
   tireDistanceAfter?: string;
   // 排量
+  /**
+   * @example
+   * 1349
+   */
   displacement?: string;
   // 排放标准
+  /**
+   * @example
+   * 国五
+   */
   emissionStandard?: string;
   // 功率
+  /**
+   * @example
+   * 73
+   */
   power?: string;
   // 变速箱类型
+  /**
+   * @example
+   * 手动档
+   */
   gearbox?: string;
   // 车辆类型
+  /**
+   * @example
+   * 轿车
+   */
   vehicleType?: string;
   // 发动机型号
+  /**
+   * @example
+   * LEW
+   */
   engineModel?: string;
   // 轮胎数
+  /**
+   * @example
+   * 4
+   */
   tireCount?: string;
   // 座位数
+  /**
+   * @example
+   * 5
+   */
   ratedPassengers?: string;
   // 指导价
+  /**
+   * @example
+   * 5.69万
+   */
   guidedPrice?: string;
   // 车长
+  /**
+   * @example
+   * 4300
+   */
   length?: string;
   // 车宽
+  /**
+   * @example
+   * 1735
+   */
   width?: string;
   // 车高
+  /**
+   * @example
+   * 1504
+   */
   height?: string;
   // 整备质量
+  /**
+   * @example
+   * 1045
+   */
   curbWeight?: string;
   // 总质量
+  /**
+   * @example
+   * 1460
+   */
   totalWeight?: string;
   // 前轮距
+  /**
+   * @example
+   * 1477
+   */
   tireDistanceBefore?: string;
   // 额定载重量
+  /**
+   * @example
+   * 5
+   */
   ratedPlyload?: string;
   // 牵引总质量
+  /**
+   * @example
+   * 3
+   */
   trailerWeight?: string;
   static names(): { [key: string]: string } {
     return {
@@ -1184,16 +2047,40 @@ export class CarInfoBrief extends $tea.Model {
 // 综合风险
 export class RiskResult extends $tea.Model {
   // 活体检测标签
+  /**
+   * @example
+   * {}
+   */
   imageLabels?: string;
   // 设备风险等级
+  /**
+   * @example
+   * safe
+   */
   deviceRiskLevel?: string;
   // 设备风险标签
+  /**
+   * @example
+   * {}
+   */
   deviceRiskLabels?: string;
   // 行为风险等级
+  /**
+   * @example
+   * safe
+   */
   behaviorRiskLevel?: string;
   // 行为风险标签
+  /**
+   * @example
+   * {}
+   */
   behaviorRiskLabels?: string;
   // 是否关联攻击
+  /**
+   * @example
+   * true, false
+   */
   isCorrelate?: boolean;
   static names(): { [key: string]: string } {
     return {
@@ -1225,8 +2112,16 @@ export class RiskResult extends $tea.Model {
 // 键值对
 export class XNameValuePair extends $tea.Model {
   // 键名
+  /**
+   * @example
+   * key
+   */
   name: string;
   // 键值
+  /**
+   * @example
+   * value
+   */
   value: string;
   static names(): { [key: string]: string } {
     return {
@@ -2026,7 +2921,15 @@ export class CreateVoiceprintServermodeRequest extends $tea.Model {
   // 商户自定义的用户ID
   userId: string;
   // 音频文件流
+  /**
+   * @remarks
+   * 待上传文件
+   */
   fileObject?: Readable;
+  /**
+   * @remarks
+   * 待上传文件名
+   */
   fileObjectName?: string;
   fileId?: string;
   // 音频元数据
@@ -2923,7 +3826,15 @@ export class RecognizeDocIndividualcardRequest extends $tea.Model {
   // 传入的图片的具体内容，需要与data_type的选择保持一致。
   dataContent?: string;
   // 证件图片
+  /**
+   * @remarks
+   * 待上传文件
+   */
   fileObject?: Readable;
+  /**
+   * @remarks
+   * 待上传文件名
+   */
   fileObjectName?: string;
   fileId?: string;
   // 入参data_content是否经AES加密。不填默认不加密。取值约束：0（不加密）；1（加密）
@@ -4364,7 +5275,15 @@ export class ExecFacevrfServermodeRequest extends $tea.Model {
   // 待认证的人脸图像，base64编码格式
   facialPictureAuth?: string;
   // 视频文件
+  /**
+   * @remarks
+   * 待上传文件
+   */
   fileObject?: Readable;
+  /**
+   * @remarks
+   * 待上传文件名
+   */
   fileObjectName?: string;
   fileId?: string;
   static names(): { [key: string]: string } {
@@ -5061,7 +5980,15 @@ export class CreateFaceverifyServerRequest extends $tea.Model {
   // 活体检测的类型
   model?: string;
   // 图片文件
+  /**
+   * @remarks
+   * 待上传文件
+   */
   fileObject?: Readable;
+  /**
+   * @remarks
+   * 待上传文件名
+   */
   fileObjectName?: string;
   fileId?: string;
   // 图片的传入加密模式
@@ -5384,7 +6311,15 @@ export class ExecFaceverifyServermodeRequest extends $tea.Model {
   // 待认证的人脸图像，base64编码格式
   facialPictureAuth?: string;
   // 视频文件
+  /**
+   * @remarks
+   * 待上传文件
+   */
   fileObject?: Readable;
+  /**
+   * @remarks
+   * 待上传文件名
+   */
   fileObjectName?: string;
   fileId?: string;
   // 图片的传入加密模式 0：明文 1：AES加密
@@ -6058,7 +6993,15 @@ export class ScaleinImageRequest extends $tea.Model {
   authToken?: string;
   productInstanceId?: string;
   // 图片
+  /**
+   * @remarks
+   * 待上传文件
+   */
   fileObject?: Readable;
+  /**
+   * @remarks
+   * 待上传文件名
+   */
   fileObjectName?: string;
   fileId: string;
   static names(): { [key: string]: string } {
@@ -6132,7 +7075,15 @@ export class RecognizeOcrIndividualcardRequest extends $tea.Model {
   // 
   dataContent?: string;
   // 证件图片
+  /**
+   * @remarks
+   * 待上传文件
+   */
   fileObject?: Readable;
+  /**
+   * @remarks
+   * 待上传文件名
+   */
   fileObjectName?: string;
   fileId?: string;
   // 入参data_content是否经AES加密。不填默认不加密。取值约束：0（不加密）；1（加密）
@@ -8309,7 +9260,15 @@ export class QueryRiskServerRequest extends $tea.Model {
   // 设备风险信息
   deviceRiskInfo?: DeviceRiskInfo;
   // 视频文件
+  /**
+   * @remarks
+   * 待上传文件
+   */
   fileObject?: Readable;
+  /**
+   * @remarks
+   * 待上传文件名
+   */
   fileObjectName?: string;
   fileId?: string;
   // base64编码最佳人脸图，可加密
@@ -8535,7 +9494,15 @@ export class UploadFileRequest extends $tea.Model {
   authToken?: string;
   productInstanceId?: string;
   // 文件ID
+  /**
+   * @remarks
+   * 待上传文件
+   */
   fileObject?: Readable;
+  /**
+   * @remarks
+   * 待上传文件名
+   */
   fileObjectName?: string;
   fileId: string;
   static names(): { [key: string]: string } {
@@ -8747,7 +9714,15 @@ export class InitServerWillauthRequest extends $tea.Model {
   authToken?: string;
   productInstanceId?: string;
   // string
+  /**
+   * @remarks
+   * 待上传文件
+   */
   fileObject?: Readable;
+  /**
+   * @remarks
+   * 待上传文件名
+   */
   fileObjectName?: string;
   fileId: string;
   // 场景id
@@ -9363,8 +10338,10 @@ export default class Client {
   _maxRequestsPerHost: number;
 
   /**
+   * @remarks
    * Init client with Config
-   * @param config config contains the necessary information to create a client
+   * 
+   * @param config - config contains the necessary information to create a client
    */
   constructor(config: Config) {
     if (Util.isUnset(config)) {
@@ -9395,14 +10372,16 @@ export default class Client {
   }
 
   /**
+   * @remarks
    * Encapsulate the request and invoke the network
-   * @param action api name
-   * @param protocol http or https
-   * @param method e.g. GET
-   * @param pathname pathname of every api
-   * @param request which contains request params
-   * @param runtime which controls some details of call api, such as retry times
-   * @return the response
+   * 
+   * @param action - api name
+   * @param protocol - http or https
+   * @param method - e.g. GET
+   * @param pathname - pathname of every api
+   * @param request - which contains request params
+   * @param runtime - which controls some details of call api, such as retry times
+   * @returns the response
    */
   async doRequest(version: string, action: string, protocol: string, method: string, pathname: string, request: {[key: string]: any}, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<{[key: string]: any}> {
     let _runtime: { [key: string]: any } = {
@@ -9453,7 +10432,7 @@ export default class Client {
           req_msg_id: AntchainUtil.getNonce(),
           access_key: this._accessKeyId,
           base_sdk_version: "TeaSDK-2.0",
-          sdk_version: "1.22.37",
+          sdk_version: "1.22.38",
           _prod_code: "REALPERSON",
           _prod_channel: "undefined",
         };
@@ -9502,6 +10481,7 @@ export default class Client {
   }
 
   /**
+   * @remarks
    * Description: 查询认证的结果和相关信息
    * Summary: 认证查询
    */
@@ -9512,6 +10492,7 @@ export default class Client {
   }
 
   /**
+   * @remarks
    * Description: 查询认证的结果和相关信息
    * Summary: 认证查询
    */
@@ -9521,6 +10502,7 @@ export default class Client {
   }
 
   /**
+   * @remarks
    * Description: 服务端认证创建，传入认证信息，获取认证ID（和url）
    * Summary: 认证创建
    */
@@ -9531,6 +10513,7 @@ export default class Client {
   }
 
   /**
+   * @remarks
    * Description: 服务端认证创建，传入认证信息，获取认证ID（和url）
    * Summary: 认证创建
    */
@@ -9540,6 +10523,7 @@ export default class Client {
   }
 
   /**
+   * @remarks
    * Description: 纯服务端比对，直接输入待比对的图片，返回比对结果
    * Summary: 纯服务端比对
    */
@@ -9550,6 +10534,7 @@ export default class Client {
   }
 
   /**
+   * @remarks
    * Description: 纯服务端比对，直接输入待比对的图片，返回比对结果
    * Summary: 纯服务端比对
    */
@@ -9559,6 +10544,7 @@ export default class Client {
   }
 
   /**
+   * @remarks
    * Description: 传入某次刷脸的certifyID，获得刷脸存证的pdf文件和司法脸统一证据ID，这两份数据可以在司法链的控制台中进行核验存证是否被记录在区块链上从而证实其真实可信。
    * Summary: 商户获取司法链上刷脸存证和统一证据ID
    */
@@ -9569,6 +10555,7 @@ export default class Client {
   }
 
   /**
+   * @remarks
    * Description: 传入某次刷脸的certifyID，获得刷脸存证的pdf文件和司法脸统一证据ID，这两份数据可以在司法链的控制台中进行核验存证是否被记录在区块链上从而证实其真实可信。
    * Summary: 商户获取司法链上刷脸存证和统一证据ID
    */
@@ -9578,6 +10565,7 @@ export default class Client {
   }
 
   /**
+   * @remarks
    * Description: 个人二要素认证
    * Summary: 个人二要素认证
    */
@@ -9588,6 +10576,7 @@ export default class Client {
   }
 
   /**
+   * @remarks
    * Description: 个人二要素认证
    * Summary: 个人二要素认证
    */
@@ -9597,6 +10586,7 @@ export default class Client {
   }
 
   /**
+   * @remarks
    * Description: 个人三要素认证
    * Summary: 个人三要素认证
    */
@@ -9607,6 +10597,7 @@ export default class Client {
   }
 
   /**
+   * @remarks
    * Description: 个人三要素认证
    * Summary: 个人三要素认证
    */
@@ -9616,6 +10607,7 @@ export default class Client {
   }
 
   /**
+   * @remarks
    * Description: 个人四要素认证
    * Summary: 个人四要素认证
    */
@@ -9626,6 +10618,7 @@ export default class Client {
   }
 
   /**
+   * @remarks
    * Description: 个人四要素认证
    * Summary: 个人四要素认证
    */
@@ -9635,6 +10628,7 @@ export default class Client {
   }
 
   /**
+   * @remarks
    * Description: 个人三要素认证（场景路由）
    * Summary: 个人三要素认证（场景路由）
    */
@@ -9645,6 +10639,7 @@ export default class Client {
   }
 
   /**
+   * @remarks
    * Description: 个人三要素认证（场景路由）
    * Summary: 个人三要素认证（场景路由）
    */
@@ -9654,6 +10649,7 @@ export default class Client {
   }
 
   /**
+   * @remarks
    * Description: 纯服务端声纹注册
    * Summary: 纯服务端声纹注册
    */
@@ -9664,6 +10660,7 @@ export default class Client {
   }
 
   /**
+   * @remarks
    * Description: 纯服务端声纹注册
    * Summary: 纯服务端声纹注册
    */
@@ -9695,6 +10692,7 @@ export default class Client {
   }
 
   /**
+   * @remarks
    * Description: 纯服务端声纹比对
    * Summary: 纯服务端声纹比对
    */
@@ -9705,6 +10703,7 @@ export default class Client {
   }
 
   /**
+   * @remarks
    * Description: 纯服务端声纹比对
    * Summary: 纯服务端声纹比对
    */
@@ -9714,6 +10713,7 @@ export default class Client {
   }
 
   /**
+   * @remarks
    * Description: 个人二要素认证（场景路由）
    * Summary: 个人二要素认证（场景路由）
    */
@@ -9724,6 +10724,7 @@ export default class Client {
   }
 
   /**
+   * @remarks
    * Description: 个人二要素认证（场景路由）
    * Summary: 个人二要素认证（场景路由）
    */
@@ -9733,6 +10734,7 @@ export default class Client {
   }
 
   /**
+   * @remarks
    * Description: 通过移动设备身份临时标识查询该设备相关的设备风险信息的服务
    * Summary: 移动风险设备查询
    */
@@ -9743,6 +10745,7 @@ export default class Client {
   }
 
   /**
+   * @remarks
    * Description: 通过移动设备身份临时标识查询该设备相关的设备风险信息的服务
    * Summary: 移动风险设备查询
    */
@@ -9752,6 +10755,7 @@ export default class Client {
   }
 
   /**
+   * @remarks
    * Description: 通过认证ID查询认证人、认证时间等相关信息，供智科内部使用
    * Summary: 查询认证人、认证时间等相关信息
    */
@@ -9762,6 +10766,7 @@ export default class Client {
   }
 
   /**
+   * @remarks
    * Description: 通过认证ID查询认证人、认证时间等相关信息，供智科内部使用
    * Summary: 查询认证人、认证时间等相关信息
    */
@@ -9771,6 +10776,7 @@ export default class Client {
   }
 
   /**
+   * @remarks
    * Description: 临工场景等场景下，通过主体的社保缴纳情况进行的反欺诈校验
    * Summary: 个人反欺诈风险校验
    */
@@ -9781,6 +10787,7 @@ export default class Client {
   }
 
   /**
+   * @remarks
    * Description: 临工场景等场景下，通过主体的社保缴纳情况进行的反欺诈校验
    * Summary: 个人反欺诈风险校验
    */
@@ -9790,6 +10797,7 @@ export default class Client {
   }
 
   /**
+   * @remarks
    * Description: 二要素支持hash主体信息
    * Summary: 个人二要素核验支持hash的主体信息
    */
@@ -9800,6 +10808,7 @@ export default class Client {
   }
 
   /**
+   * @remarks
    * Description: 二要素支持hash主体信息
    * Summary: 个人二要素核验支持hash的主体信息
    */
@@ -9809,6 +10818,7 @@ export default class Client {
   }
 
   /**
+   * @remarks
    * Description: 对接运营商等数据源查询手机号码的在网时长
    * Summary: 三要素在网时长查询接口
    */
@@ -9819,6 +10829,7 @@ export default class Client {
   }
 
   /**
+   * @remarks
    * Description: 对接运营商等数据源查询手机号码的在网时长
    * Summary: 三要素在网时长查询接口
    */
@@ -9828,6 +10839,7 @@ export default class Client {
   }
 
   /**
+   * @remarks
    * Description: 客户端初始化认证(OEM专用)
    * Summary: 客户端初始化认证(OEM专用)
    */
@@ -9838,6 +10850,7 @@ export default class Client {
   }
 
   /**
+   * @remarks
    * Description: 客户端初始化认证(OEM专用)
    * Summary: 客户端初始化认证(OEM专用)
    */
@@ -9847,6 +10860,7 @@ export default class Client {
   }
 
   /**
+   * @remarks
    * Description: 客户端人脸验证(OEM专用)
    * Summary: 客户端人脸验证(OEM专用)
    */
@@ -9857,6 +10871,7 @@ export default class Client {
   }
 
   /**
+   * @remarks
    * Description: 客户端人脸验证(OEM专用)
    * Summary: 客户端人脸验证(OEM专用)
    */
@@ -9866,6 +10881,7 @@ export default class Client {
   }
 
   /**
+   * @remarks
    * Description: 卡证OCR
    * Summary: 卡证OCR
    */
@@ -9876,6 +10892,7 @@ export default class Client {
   }
 
   /**
+   * @remarks
    * Description: 卡证OCR
    * Summary: 卡证OCR
    */
@@ -9907,6 +10924,7 @@ export default class Client {
   }
 
   /**
+   * @remarks
    * Description: 个人银行卡三要素
    * Summary: 个人银行卡三要素
    */
@@ -9917,6 +10935,7 @@ export default class Client {
   }
 
   /**
+   * @remarks
    * Description: 个人银行卡三要素
    * Summary: 个人银行卡三要素
    */
@@ -9926,6 +10945,7 @@ export default class Client {
   }
 
   /**
+   * @remarks
    * Description: deepsec终端安全风险标签查询
    * Summary: deepsec终端安全风险标签查询
    */
@@ -9936,6 +10956,7 @@ export default class Client {
   }
 
   /**
+   * @remarks
    * Description: deepsec终端安全风险标签查询
    * Summary: deepsec终端安全风险标签查询
    */
@@ -9945,6 +10966,7 @@ export default class Client {
   }
 
   /**
+   * @remarks
    * Description: deepsec终端安全api，用于apdid查询
    * Summary: tsbmrq设备id查询入口
    */
@@ -9955,6 +10977,7 @@ export default class Client {
   }
 
   /**
+   * @remarks
    * Description: deepsec终端安全api，用于apdid查询
    * Summary: tsbmrq设备id查询入口
    */
@@ -9964,6 +10987,7 @@ export default class Client {
   }
 
   /**
+   * @remarks
    * Description: 个人运营商二次放号
    * Summary: 个人运营商二次放号
    */
@@ -9974,6 +10998,7 @@ export default class Client {
   }
 
   /**
+   * @remarks
    * Description: 个人运营商二次放号
    * Summary: 个人运营商二次放号
    */
@@ -9983,6 +11008,7 @@ export default class Client {
   }
 
   /**
+   * @remarks
    * Description: 查询设备信息
    * Summary: 设备信息查询for蚁盾
    */
@@ -9993,6 +11019,7 @@ export default class Client {
   }
 
   /**
+   * @remarks
    * Description: 查询设备信息
    * Summary: 设备信息查询for蚁盾
    */
@@ -10002,6 +11029,7 @@ export default class Client {
   }
 
   /**
+   * @remarks
    * Description: 学历验证
    * Summary: 学历验证
    */
@@ -10012,6 +11040,7 @@ export default class Client {
   }
 
   /**
+   * @remarks
    * Description: 学历验证
    * Summary: 学历验证
    */
@@ -10021,6 +11050,7 @@ export default class Client {
   }
 
   /**
+   * @remarks
    * Description: demo用记录查询
    * Summary: demo用记录查询
    */
@@ -10031,6 +11061,7 @@ export default class Client {
   }
 
   /**
+   * @remarks
    * Description: demo用记录查询
    * Summary: demo用记录查询
    */
@@ -10040,6 +11071,7 @@ export default class Client {
   }
 
   /**
+   * @remarks
    * Description: 个人银行卡二要素
    * Summary: 个人银行卡二要素
    */
@@ -10050,6 +11082,7 @@ export default class Client {
   }
 
   /**
+   * @remarks
    * Description: 个人银行卡二要素
    * Summary: 个人银行卡二要素
    */
@@ -10059,6 +11092,7 @@ export default class Client {
   }
 
   /**
+   * @remarks
    * Description: 个人运营商二要素
    * Summary: 个人运营商二要素
    */
@@ -10069,6 +11103,7 @@ export default class Client {
   }
 
   /**
+   * @remarks
    * Description: 个人运营商二要素
    * Summary: 个人运营商二要素
    */
@@ -10078,6 +11113,7 @@ export default class Client {
   }
 
   /**
+   * @remarks
    * Description: NFC实证
    * Summary: NFC实证
    */
@@ -10088,6 +11124,7 @@ export default class Client {
   }
 
   /**
+   * @remarks
    * Description: NFC实证
    * Summary: NFC实证
    */
@@ -10097,6 +11134,7 @@ export default class Client {
   }
 
   /**
+   * @remarks
    * Description: NFC实证
    * Summary: NFC实证
    */
@@ -10107,6 +11145,7 @@ export default class Client {
   }
 
   /**
+   * @remarks
    * Description: NFC实证
    * Summary: NFC实证
    */
@@ -10116,6 +11155,7 @@ export default class Client {
   }
 
   /**
+   * @remarks
    * Description: 社会安全风险
    * Summary: 社会安全风险
    */
@@ -10126,6 +11166,7 @@ export default class Client {
   }
 
   /**
+   * @remarks
    * Description: 社会安全风险
    * Summary: 社会安全风险
    */
@@ -10135,6 +11176,7 @@ export default class Client {
   }
 
   /**
+   * @remarks
    * Description: 运营商在网状态查询
    * Summary: 运营商在网状态查询
    */
@@ -10145,6 +11187,7 @@ export default class Client {
   }
 
   /**
+   * @remarks
    * Description: 运营商在网状态查询
    * Summary: 运营商在网状态查询
    */
@@ -10154,6 +11197,7 @@ export default class Client {
   }
 
   /**
+   * @remarks
    * Description: 社会安全风险（简版）
    * Summary: 社会安全风险（简版）
    */
@@ -10164,6 +11208,7 @@ export default class Client {
   }
 
   /**
+   * @remarks
    * Description: 社会安全风险（简版）
    * Summary: 社会安全风险（简版）
    */
@@ -10173,6 +11218,7 @@ export default class Client {
   }
 
   /**
+   * @remarks
    * Description: 社会安全风险（tob风控版）
    * Summary: 社会安全风险（tob风控版）
    */
@@ -10183,6 +11229,7 @@ export default class Client {
   }
 
   /**
+   * @remarks
    * Description: 社会安全风险（tob风控版）
    * Summary: 社会安全风险（tob风控版）
    */
@@ -10192,6 +11239,7 @@ export default class Client {
   }
 
   /**
+   * @remarks
    * Description: 纯服务端比对，直接输入待比对的图片，返回比对结果
    * Summary: 纯服务端比对V2版本
    */
@@ -10202,6 +11250,7 @@ export default class Client {
   }
 
   /**
+   * @remarks
    * Description: 纯服务端比对，直接输入待比对的图片，返回比对结果
    * Summary: 纯服务端比对V2版本
    */
@@ -10233,6 +11282,7 @@ export default class Client {
   }
 
   /**
+   * @remarks
    * Description: 银行活跃度
    * Summary: 银行活跃度
    */
@@ -10243,6 +11293,7 @@ export default class Client {
   }
 
   /**
+   * @remarks
    * Description: 银行活跃度
    * Summary: 银行活跃度
    */
@@ -10252,6 +11303,7 @@ export default class Client {
   }
 
   /**
+   * @remarks
    * Description: 用于阿里云渠道小程序域名的绑定
    * Summary: 新增场景与域名映射
    */
@@ -10262,6 +11314,7 @@ export default class Client {
   }
 
   /**
+   * @remarks
    * Description: 用于阿里云渠道小程序域名的绑定
    * Summary: 新增场景与域名映射
    */
@@ -10271,6 +11324,7 @@ export default class Client {
   }
 
   /**
+   * @remarks
    * Description: 阿里云控制台删除场景与域名映射
    * Summary: 删除场景与域名映射
    */
@@ -10281,6 +11335,7 @@ export default class Client {
   }
 
   /**
+   * @remarks
    * Description: 阿里云控制台删除场景与域名映射
    * Summary: 删除场景与域名映射
    */
@@ -10290,6 +11345,7 @@ export default class Client {
   }
 
   /**
+   * @remarks
    * Description: 失联修复初始化
    * Summary: 失联修复初始化
    */
@@ -10300,6 +11356,7 @@ export default class Client {
   }
 
   /**
+   * @remarks
    * Description: 失联修复初始化
    * Summary: 失联修复初始化
    */
@@ -10309,6 +11366,7 @@ export default class Client {
   }
 
   /**
+   * @remarks
    * Description: 失联修复查询修复结果
    * Summary: 失联修复查询修复结果
    */
@@ -10319,6 +11377,7 @@ export default class Client {
   }
 
   /**
+   * @remarks
    * Description: 失联修复查询修复结果
    * Summary: 失联修复查询修复结果
    */
@@ -10328,6 +11387,7 @@ export default class Client {
   }
 
   /**
+   * @remarks
    * Description: 失联修复小号绑定
    * Summary: 失联修复小号绑定
    */
@@ -10338,6 +11398,7 @@ export default class Client {
   }
 
   /**
+   * @remarks
    * Description: 失联修复小号绑定
    * Summary: 失联修复小号绑定
    */
@@ -10347,6 +11408,7 @@ export default class Client {
   }
 
   /**
+   * @remarks
    * Description: 外部机构数据上报
    * Summary: 外部机构数据上报
    */
@@ -10357,6 +11419,7 @@ export default class Client {
   }
 
   /**
+   * @remarks
    * Description: 外部机构数据上报
    * Summary: 外部机构数据上报
    */
@@ -10366,6 +11429,7 @@ export default class Client {
   }
 
   /**
+   * @remarks
    * Description: 数科刷脸服务端初始化接口
    * Summary: 数科刷脸服务端初始化接口
    */
@@ -10376,6 +11440,7 @@ export default class Client {
   }
 
   /**
+   * @remarks
    * Description: 数科刷脸服务端初始化接口
    * Summary: 数科刷脸服务端初始化接口
    */
@@ -10407,6 +11472,7 @@ export default class Client {
   }
 
   /**
+   * @remarks
    * Description: 查询认证的结果和相关信息
    * Summary: 认证查询
    */
@@ -10417,6 +11483,7 @@ export default class Client {
   }
 
   /**
+   * @remarks
    * Description: 查询认证的结果和相关信息
    * Summary: 认证查询
    */
@@ -10426,6 +11493,7 @@ export default class Client {
   }
 
   /**
+   * @remarks
    * Description: 个人银行卡状态增强版
    * Summary: 个人银行卡状态增强版
    */
@@ -10436,6 +11504,7 @@ export default class Client {
   }
 
   /**
+   * @remarks
    * Description: 个人银行卡状态增强版
    * Summary: 个人银行卡状态增强版
    */
@@ -10445,6 +11514,7 @@ export default class Client {
   }
 
   /**
+   * @remarks
    * Description: 纯服务端比对基础版本，直接输入待比对的图片，返回比对结果
    * Summary: 纯服务端比对基础版
    */
@@ -10455,6 +11525,7 @@ export default class Client {
   }
 
   /**
+   * @remarks
    * Description: 纯服务端比对基础版本，直接输入待比对的图片，返回比对结果
    * Summary: 纯服务端比对基础版
    */
@@ -10486,6 +11557,7 @@ export default class Client {
   }
 
   /**
+   * @remarks
    * Description: 支付宝实人认证初始化接口
    * Summary: 支付宝实人认证初始化接口
    */
@@ -10496,6 +11568,7 @@ export default class Client {
   }
 
   /**
+   * @remarks
    * Description: 支付宝实人认证初始化接口
    * Summary: 支付宝实人认证初始化接口
    */
@@ -10505,6 +11578,7 @@ export default class Client {
   }
 
   /**
+   * @remarks
    * Description: 支付宝实人认证查询接口
    * Summary: 支付宝实人认证查询接口
    */
@@ -10515,6 +11589,7 @@ export default class Client {
   }
 
   /**
+   * @remarks
    * Description: 支付宝实人认证查询接口
    * Summary: 支付宝实人认证查询接口
    */
@@ -10524,6 +11599,7 @@ export default class Client {
   }
 
   /**
+   * @remarks
    * Description: 车辆资产验证
    * Summary: 车辆资产验证
    */
@@ -10534,6 +11610,7 @@ export default class Client {
   }
 
   /**
+   * @remarks
    * Description: 车辆资产验证
    * Summary: 车辆资产验证
    */
@@ -10543,6 +11620,7 @@ export default class Client {
   }
 
   /**
+   * @remarks
    * Description: 学历验证
    * Summary: 学历验证
    */
@@ -10553,6 +11631,7 @@ export default class Client {
   }
 
   /**
+   * @remarks
    * Description: 学历验证
    * Summary: 学历验证
    */
@@ -10562,6 +11641,7 @@ export default class Client {
   }
 
   /**
+   * @remarks
    * Description: 个人银行卡状态验证 V4.0
    * Summary: 个人银行卡状态验证 V4.0
    */
@@ -10572,6 +11652,7 @@ export default class Client {
   }
 
   /**
+   * @remarks
    * Description: 个人银行卡状态验证 V4.0
    * Summary: 个人银行卡状态验证 V4.0
    */
@@ -10581,6 +11662,7 @@ export default class Client {
   }
 
   /**
+   * @remarks
    * Description: 查询认证的材料信息
    * Summary: 认证材料查询
    */
@@ -10591,6 +11673,7 @@ export default class Client {
   }
 
   /**
+   * @remarks
    * Description: 查询认证的材料信息
    * Summary: 认证材料查询
    */
@@ -10600,6 +11683,7 @@ export default class Client {
   }
 
   /**
+   * @remarks
    * Description: 图片压缩接口
    * Summary: 图片压缩接口
    */
@@ -10610,6 +11694,7 @@ export default class Client {
   }
 
   /**
+   * @remarks
    * Description: 图片压缩接口
    * Summary: 图片压缩接口
    */
@@ -10641,6 +11726,7 @@ export default class Client {
   }
 
   /**
+   * @remarks
    * Description: 要素卡证OCR
    * Summary: 要素卡证OCR
    */
@@ -10651,6 +11737,7 @@ export default class Client {
   }
 
   /**
+   * @remarks
    * Description: 要素卡证OCR
    * Summary: 要素卡证OCR
    */
@@ -10682,6 +11769,7 @@ export default class Client {
   }
 
   /**
+   * @remarks
    * Description: 个人四要素认证
    * Summary: 个人四要素认证
    */
@@ -10692,6 +11780,7 @@ export default class Client {
   }
 
   /**
+   * @remarks
    * Description: 个人四要素认证
    * Summary: 个人四要素认证
    */
@@ -10701,6 +11790,7 @@ export default class Client {
   }
 
   /**
+   * @remarks
    * Description: 车辆资产验证详版
    * Summary: 车辆资产验证详版
    */
@@ -10711,6 +11801,7 @@ export default class Client {
   }
 
   /**
+   * @remarks
    * Description: 车辆资产验证详版
    * Summary: 车辆资产验证详版
    */
@@ -10720,6 +11811,7 @@ export default class Client {
   }
 
   /**
+   * @remarks
    * Description: 车辆资产验证简版
    * Summary: 车辆资产验证简版
    */
@@ -10730,6 +11822,7 @@ export default class Client {
   }
 
   /**
+   * @remarks
    * Description: 车辆资产验证简版
    * Summary: 车辆资产验证简版
    */
@@ -10739,6 +11832,7 @@ export default class Client {
   }
 
   /**
+   * @remarks
    * Description: 银行卡代扣预绑定
    * Summary: 银行卡代扣预绑定
    */
@@ -10749,6 +11843,7 @@ export default class Client {
   }
 
   /**
+   * @remarks
    * Description: 银行卡代扣预绑定
    * Summary: 银行卡代扣预绑定
    */
@@ -10758,6 +11853,7 @@ export default class Client {
   }
 
   /**
+   * @remarks
    * Description: 银行卡代扣绑卡签约
    * Summary: 银行卡代扣绑卡签约
    */
@@ -10768,6 +11864,7 @@ export default class Client {
   }
 
   /**
+   * @remarks
    * Description: 银行卡代扣绑卡签约
    * Summary: 银行卡代扣绑卡签约
    */
@@ -10777,6 +11874,7 @@ export default class Client {
   }
 
   /**
+   * @remarks
    * Description: 银行卡代扣解绑
    * Summary: 银行卡代扣解绑
    */
@@ -10787,6 +11885,7 @@ export default class Client {
   }
 
   /**
+   * @remarks
    * Description: 银行卡代扣解绑
    * Summary: 银行卡代扣解绑
    */
@@ -10796,6 +11895,7 @@ export default class Client {
   }
 
   /**
+   * @remarks
    * Description: 银行卡代扣绑定结果查询
    * Summary: 银行卡代扣绑定结果查询
    */
@@ -10806,6 +11906,7 @@ export default class Client {
   }
 
   /**
+   * @remarks
    * Description: 银行卡代扣绑定结果查询
    * Summary: 银行卡代扣绑定结果查询
    */
@@ -10815,6 +11916,7 @@ export default class Client {
   }
 
   /**
+   * @remarks
    * Description: 银行卡代扣支付分账扣款
    * Summary: 银行卡代扣支付分账扣款
    */
@@ -10825,6 +11927,7 @@ export default class Client {
   }
 
   /**
+   * @remarks
    * Description: 银行卡代扣支付分账扣款
    * Summary: 银行卡代扣支付分账扣款
    */
@@ -10834,6 +11937,7 @@ export default class Client {
   }
 
   /**
+   * @remarks
    * Description: 银行卡代扣支付分账查询
    * Summary: 银行卡代扣支付分账查询
    */
@@ -10844,6 +11948,7 @@ export default class Client {
   }
 
   /**
+   * @remarks
    * Description: 银行卡代扣支付分账查询
    * Summary: 银行卡代扣支付分账查询
    */
@@ -10853,6 +11958,7 @@ export default class Client {
   }
 
   /**
+   * @remarks
    * Description: 银行卡代扣退款申请
    * Summary: 银行卡代扣退款申请
    */
@@ -10863,6 +11969,7 @@ export default class Client {
   }
 
   /**
+   * @remarks
    * Description: 银行卡代扣退款申请
    * Summary: 银行卡代扣退款申请
    */
@@ -10872,6 +11979,7 @@ export default class Client {
   }
 
   /**
+   * @remarks
    * Description: 银行卡代扣退款查询
    * Summary: 银行卡代扣退款查询
    */
@@ -10882,6 +11990,7 @@ export default class Client {
   }
 
   /**
+   * @remarks
    * Description: 银行卡代扣退款查询
    * Summary: 银行卡代扣退款查询
    */
@@ -10891,6 +12000,7 @@ export default class Client {
   }
 
   /**
+   * @remarks
    * Description: 银行卡代扣对账
    * Summary: 银行卡代扣对账
    */
@@ -10901,6 +12011,7 @@ export default class Client {
   }
 
   /**
+   * @remarks
    * Description: 银行卡代扣对账
    * Summary: 银行卡代扣对账
    */
@@ -10910,6 +12021,7 @@ export default class Client {
   }
 
   /**
+   * @remarks
    * Description: 人像、证件号、姓名比对接口
    * Summary: 人像、证件号、姓名比对
    */
@@ -10920,6 +12032,7 @@ export default class Client {
   }
 
   /**
+   * @remarks
    * Description: 人像、证件号、姓名比对接口
    * Summary: 人像、证件号、姓名比对
    */
@@ -10929,6 +12042,7 @@ export default class Client {
   }
 
   /**
+   * @remarks
    * Description: 用户资产验证-车辆资产验证旗舰版
    * Summary: 用户资产验证-车辆资产验证旗舰版
    */
@@ -10939,6 +12053,7 @@ export default class Client {
   }
 
   /**
+   * @remarks
    * Description: 用户资产验证-车辆资产验证旗舰版
    * Summary: 用户资产验证-车辆资产验证旗舰版
    */
@@ -10948,6 +12063,7 @@ export default class Client {
   }
 
   /**
+   * @remarks
    * Description: 用户资产验证-车辆资产验证增强版
    * Summary: 用户资产验证-车辆资产验证增强版
    */
@@ -10958,6 +12074,7 @@ export default class Client {
   }
 
   /**
+   * @remarks
    * Description: 用户资产验证-车辆资产验证增强版
    * Summary: 用户资产验证-车辆资产验证增强版
    */
@@ -10967,6 +12084,7 @@ export default class Client {
   }
 
   /**
+   * @remarks
    * Description: 银行卡代扣二级租户开户
    * Summary: 银行卡代扣二级租户开户
    */
@@ -10977,6 +12095,7 @@ export default class Client {
   }
 
   /**
+   * @remarks
    * Description: 银行卡代扣二级租户开户
    * Summary: 银行卡代扣二级租户开户
    */
@@ -10986,6 +12105,7 @@ export default class Client {
   }
 
   /**
+   * @remarks
    * Description: 银行卡代扣二级租户查询开户状态
    * Summary: 银行卡代扣二级租户查询开户状态
    */
@@ -10996,6 +12116,7 @@ export default class Client {
   }
 
   /**
+   * @remarks
    * Description: 银行卡代扣二级租户查询开户状态
    * Summary: 银行卡代扣二级租户查询开户状态
    */
@@ -11005,6 +12126,7 @@ export default class Client {
   }
 
   /**
+   * @remarks
    * Description: 银行卡代扣二级租户分账
    * Summary: 银行卡代扣二级租户分账
    */
@@ -11015,6 +12137,7 @@ export default class Client {
   }
 
   /**
+   * @remarks
    * Description: 银行卡代扣二级租户分账
    * Summary: 银行卡代扣二级租户分账
    */
@@ -11024,6 +12147,7 @@ export default class Client {
   }
 
   /**
+   * @remarks
    * Description: 银行卡代扣二级租户查询分账
    * Summary: 银行卡代扣二级租户查询分账
    */
@@ -11034,6 +12158,7 @@ export default class Client {
   }
 
   /**
+   * @remarks
    * Description: 银行卡代扣二级租户查询分账
    * Summary: 银行卡代扣二级租户查询分账
    */
@@ -11043,6 +12168,7 @@ export default class Client {
   }
 
   /**
+   * @remarks
    * Description: 银行卡代扣二级租户提现
    * Summary: 银行卡代扣二级租户提现
    */
@@ -11053,6 +12179,7 @@ export default class Client {
   }
 
   /**
+   * @remarks
    * Description: 银行卡代扣二级租户提现
    * Summary: 银行卡代扣二级租户提现
    */
@@ -11062,6 +12189,7 @@ export default class Client {
   }
 
   /**
+   * @remarks
    * Description: 银行卡代扣二级租户提现查询
    * Summary: 银行卡代扣二级租户提现查询
    */
@@ -11072,6 +12200,7 @@ export default class Client {
   }
 
   /**
+   * @remarks
    * Description: 银行卡代扣二级租户提现查询
    * Summary: 银行卡代扣二级租户提现查询
    */
@@ -11081,6 +12210,7 @@ export default class Client {
   }
 
   /**
+   * @remarks
    * Description: 银行卡代扣二级租户查询余额
    * Summary: 银行卡代扣二级租户查询余额
    */
@@ -11091,6 +12221,7 @@ export default class Client {
   }
 
   /**
+   * @remarks
    * Description: 银行卡代扣二级租户查询余额
    * Summary: 银行卡代扣二级租户查询余额
    */
@@ -11100,6 +12231,7 @@ export default class Client {
   }
 
   /**
+   * @remarks
    * Description: 银行卡代扣二级租户查询收支明细
    * Summary: 银行卡代扣二级租户查询收支明细
    */
@@ -11110,6 +12242,7 @@ export default class Client {
   }
 
   /**
+   * @remarks
    * Description: 银行卡代扣二级租户查询收支明细
    * Summary: 银行卡代扣二级租户查询收支明细
    */
@@ -11119,6 +12252,7 @@ export default class Client {
   }
 
   /**
+   * @remarks
    * Description: 提供私有化刷脸的风险咨询
    * Summary: 人脸风险咨询服务
    */
@@ -11129,6 +12263,7 @@ export default class Client {
   }
 
   /**
+   * @remarks
    * Description: 提供私有化刷脸的风险咨询
    * Summary: 人脸风险咨询服务
    */
@@ -11160,6 +12295,7 @@ export default class Client {
   }
 
   /**
+   * @remarks
    * Description: 用户资产验证
    * Summary: 用户资产验证
    */
@@ -11170,6 +12306,7 @@ export default class Client {
   }
 
   /**
+   * @remarks
    * Description: 用户资产验证
    * Summary: 用户资产验证
    */
@@ -11179,6 +12316,7 @@ export default class Client {
   }
 
   /**
+   * @remarks
    * Description: 文件上传接口
    * Summary: 文件上传接口
    */
@@ -11189,6 +12327,7 @@ export default class Client {
   }
 
   /**
+   * @remarks
    * Description: 文件上传接口
    * Summary: 文件上传接口
    */
@@ -11220,6 +12359,7 @@ export default class Client {
   }
 
   /**
+   * @remarks
    * Description: 用户身份核验
    * Summary: 用户身份核验
    */
@@ -11230,6 +12370,7 @@ export default class Client {
   }
 
   /**
+   * @remarks
    * Description: 用户身份核验
    * Summary: 用户身份核验
    */
@@ -11239,6 +12380,7 @@ export default class Client {
   }
 
   /**
+   * @remarks
    * Description: 用户车辆资产验证
    * Summary: 用户车辆资产验证
    */
@@ -11249,6 +12391,7 @@ export default class Client {
   }
 
   /**
+   * @remarks
    * Description: 用户车辆资产验证
    * Summary: 用户车辆资产验证
    */
@@ -11258,6 +12401,7 @@ export default class Client {
   }
 
   /**
+   * @remarks
    * Description: 意愿认证服务端初始化
    * Summary: 意愿认证服务端初始化
    */
@@ -11268,6 +12412,7 @@ export default class Client {
   }
 
   /**
+   * @remarks
    * Description: 意愿认证服务端初始化
    * Summary: 意愿认证服务端初始化
    */
@@ -11299,6 +12444,7 @@ export default class Client {
   }
 
   /**
+   * @remarks
    * Description: 银行卡代扣一键绑卡签约
    * Summary: 银行卡代扣一键绑卡签约
    */
@@ -11309,6 +12455,7 @@ export default class Client {
   }
 
   /**
+   * @remarks
    * Description: 银行卡代扣一键绑卡签约
    * Summary: 银行卡代扣一键绑卡签约
    */
@@ -11318,6 +12465,7 @@ export default class Client {
   }
 
   /**
+   * @remarks
    * Description: 银行卡代扣一键绑卡查询
    * Summary: 银行卡代扣一键绑卡查询
    */
@@ -11328,6 +12476,7 @@ export default class Client {
   }
 
   /**
+   * @remarks
    * Description: 银行卡代扣一键绑卡查询
    * Summary: 银行卡代扣一键绑卡查询
    */
@@ -11337,6 +12486,7 @@ export default class Client {
   }
 
   /**
+   * @remarks
    * Description: 卡状态 y 标回流
    * Summary: 卡状态 y 标回流
    */
@@ -11347,6 +12497,7 @@ export default class Client {
   }
 
   /**
+   * @remarks
    * Description: 卡状态 y 标回流
    * Summary: 卡状态 y 标回流
    */
@@ -11356,6 +12507,7 @@ export default class Client {
   }
 
   /**
+   * @remarks
    * Description: 个人运营商二次放号专业版
    * Summary: 个人运营商二次放号专业版
    */
@@ -11366,6 +12518,7 @@ export default class Client {
   }
 
   /**
+   * @remarks
    * Description: 个人运营商二次放号专业版
    * Summary: 个人运营商二次放号专业版
    */
@@ -11375,6 +12528,7 @@ export default class Client {
   }
 
   /**
+   * @remarks
    * Description: 创建HTTP PUT提交的文件上传
    * Summary: 文件上传创建
    */
@@ -11385,6 +12539,7 @@ export default class Client {
   }
 
   /**
+   * @remarks
    * Description: 创建HTTP PUT提交的文件上传
    * Summary: 文件上传创建
    */
