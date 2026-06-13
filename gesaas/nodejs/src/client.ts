@@ -431,36 +431,18 @@ export class SettleOrderRoyaltyDetail extends $tea.Model {
    * 1000
    */
   amount?: number;
-  // 分账状态，SUCCESS成功，FAIL失败，PROCESSING处理中
-  /**
-   * @example
-   * FAIL
-   */
-  state?: string;
   // 分账执行时间
   /**
    * @example
    * 2021-07-30 12:00:00
    */
-  executeDt?: string;
+  executeTime?: string;
   // 分账转出账号
   /**
    * @example
    * 2088111111111111
    */
   transOutAccount?: string;
-  // 分账失败错误码，只在分账失败时返回
-  /**
-   * @example
-   * TXN_RESULT_ACCOUNT_BALANCE_NOT_ENOUGH
-   */
-  errorCode?: string;
-  // 分账错误描述信息
-  /**
-   * @example
-   * 分账余额不足
-   */
-  errorDesc?: string;
   // 分账转入账号
   /**
    * @example
@@ -470,11 +452,8 @@ export class SettleOrderRoyaltyDetail extends $tea.Model {
   static names(): { [key: string]: string } {
     return {
       amount: 'amount',
-      state: 'state',
-      executeDt: 'execute_dt',
+      executeTime: 'execute_time',
       transOutAccount: 'trans_out_account',
-      errorCode: 'error_code',
-      errorDesc: 'error_desc',
       transInAccount: 'trans_in_account',
     };
   }
@@ -482,11 +461,8 @@ export class SettleOrderRoyaltyDetail extends $tea.Model {
   static types(): { [key: string]: any } {
     return {
       amount: 'number',
-      state: 'string',
-      executeDt: 'string',
+      executeTime: 'string',
       transOutAccount: 'string',
-      errorCode: 'string',
-      errorDesc: 'string',
       transInAccount: 'string',
     };
   }
@@ -805,11 +781,9 @@ export class PushOrderSettlementRequest extends $tea.Model {
   // OAuth模式下的授权token
   authToken?: string;
   productInstanceId?: string;
-  // 请求流水号，由商家自定义。64个字符以内，仅可包含字母、数字、下划线。需保证在商户端不重复
-  outRequestNo: string;
   // 商家产品唯一编码，64个字符以内
   outProductId: string;
-  // 外部订单号，需保证在商家端不重复
+  // 外部订单号，需保证在商家端不重复，64个字符以内，每次发起需定义唯一的outOrderNo(包括重试)
   outOrderNo: string;
   // 支付宝/微信/其他  平台订单号
   tradeNo: string;
@@ -817,23 +791,26 @@ export class PushOrderSettlementRequest extends $tea.Model {
   orderType: string;
   // 订单金额，单位：分（如 990 表示 9.90元）
   orderAmount: number;
-  // 分账模式，目前有两种分账同步执行sync，分账异步执行async，不传默认同步执行
-  // 同步执行: sync，异步执行: async
-  royaltyMode?: string;
-  // 扩展信息
+  // 扩展参数，JSONString格式
   extInfo?: string;
+  // true：是最终分账，分账完成后资金自动解冻
+  // false：非最终分账，资金保持冻结
+  // 默认值：true
+  isFinalSplit?: boolean;
+  // 订单产生时间，格式为yyyy-MM-dd HH:mm:ss
+  outOrderTime: string;
   static names(): { [key: string]: string } {
     return {
       authToken: 'auth_token',
       productInstanceId: 'product_instance_id',
-      outRequestNo: 'out_request_no',
       outProductId: 'out_product_id',
       outOrderNo: 'out_order_no',
       tradeNo: 'trade_no',
       orderType: 'order_type',
       orderAmount: 'order_amount',
-      royaltyMode: 'royalty_mode',
       extInfo: 'ext_info',
+      isFinalSplit: 'is_final_split',
+      outOrderTime: 'out_order_time',
     };
   }
 
@@ -841,14 +818,14 @@ export class PushOrderSettlementRequest extends $tea.Model {
     return {
       authToken: 'string',
       productInstanceId: 'string',
-      outRequestNo: 'string',
       outProductId: 'string',
       outOrderNo: 'string',
       tradeNo: 'string',
       orderType: 'string',
       orderAmount: 'number',
-      royaltyMode: 'string',
       extInfo: 'string',
+      isFinalSplit: 'boolean',
+      outOrderTime: 'string',
     };
   }
 
@@ -868,6 +845,8 @@ export class PushOrderSettlementResponse extends $tea.Model {
   tradeNo?: string;
   // 分账单号，可以根据该单号查询单次分账请求执行结果
   settleNo?: string;
+  // 外部订单号(商家)
+  outOrderNo?: string;
   static names(): { [key: string]: string } {
     return {
       reqMsgId: 'req_msg_id',
@@ -875,6 +854,7 @@ export class PushOrderSettlementResponse extends $tea.Model {
       resultMsg: 'result_msg',
       tradeNo: 'trade_no',
       settleNo: 'settle_no',
+      outOrderNo: 'out_order_no',
     };
   }
 
@@ -885,6 +865,7 @@ export class PushOrderSettlementResponse extends $tea.Model {
       resultMsg: 'string',
       tradeNo: 'string',
       settleNo: 'string',
+      outOrderNo: 'string',
     };
   }
 
@@ -927,17 +908,32 @@ export class QueryOrderSettlementResponse extends $tea.Model {
   resultCode?: string;
   // 异常信息的文本描述
   resultMsg?: string;
-  // 2026-06-30 12:00:00
-  operationDt?: string;
+  // 分账受理时间，格式为yyyy-MM-dd HH:mm:ss
+  splitRequestTime?: string;
   // 分账明细
-  royaltyDetailList?: SettleOrderRoyaltyDetail[];
+  splitDetailList?: SettleOrderRoyaltyDetail[];
+  // 支付宝 平台订单号
+  tradeNo?: string;
+  // 外部订单号(商家)
+  outOrderNo?: string;
+  // 分账状态，SUCCESS成功，FAIL失败，PROCESSING处理中
+  splitStatus?: string;
+  // 分账失败原因
+  splitFailReason?: string;
+  // 分账单号
+  settleNo?: string;
   static names(): { [key: string]: string } {
     return {
       reqMsgId: 'req_msg_id',
       resultCode: 'result_code',
       resultMsg: 'result_msg',
-      operationDt: 'operation_dt',
-      royaltyDetailList: 'royalty_detail_list',
+      splitRequestTime: 'split_request_time',
+      splitDetailList: 'split_detail_list',
+      tradeNo: 'trade_no',
+      outOrderNo: 'out_order_no',
+      splitStatus: 'split_status',
+      splitFailReason: 'split_fail_reason',
+      settleNo: 'settle_no',
     };
   }
 
@@ -946,8 +942,13 @@ export class QueryOrderSettlementResponse extends $tea.Model {
       reqMsgId: 'string',
       resultCode: 'string',
       resultMsg: 'string',
-      operationDt: 'string',
-      royaltyDetailList: { 'type': 'array', 'itemType': SettleOrderRoyaltyDetail },
+      splitRequestTime: 'string',
+      splitDetailList: { 'type': 'array', 'itemType': SettleOrderRoyaltyDetail },
+      tradeNo: 'string',
+      outOrderNo: 'string',
+      splitStatus: 'string',
+      splitFailReason: 'string',
+      settleNo: 'string',
     };
   }
 
@@ -960,23 +961,19 @@ export class WithdrawOrderSettlementRequest extends $tea.Model {
   // OAuth模式下的授权token
   authToken?: string;
   productInstanceId?: string;
-  // 退款金额，单位：分
+  // 退分账金额，单位：分
   refundAmount: number;
-  // 支付交易号
-  tradeNo: string;
+  // 分账单号
+  settleNo: string;
   // 退款原因说明。 商家自定义，将在会在商户和用户的pc退款账单详情中展示
   refundReason?: string;
-  // 【描述】退款请求号。 标识一次退款请求，需要保证在交易号下唯一，如需部分退款，则此参数必传。 注：针对同一次退款请求，如果调用接口失败或异常了，重试时需要保证退款请求号不能变更，防止该笔交易重复退款。会保证同样的退款请求号多次请求只会退一次。
-  // 【必选条件】部分退款时必选
-  outRequestNo?: string;
   static names(): { [key: string]: string } {
     return {
       authToken: 'auth_token',
       productInstanceId: 'product_instance_id',
       refundAmount: 'refund_amount',
-      tradeNo: 'trade_no',
+      settleNo: 'settle_no',
       refundReason: 'refund_reason',
-      outRequestNo: 'out_request_no',
     };
   }
 
@@ -985,9 +982,8 @@ export class WithdrawOrderSettlementRequest extends $tea.Model {
       authToken: 'string',
       productInstanceId: 'string',
       refundAmount: 'number',
-      tradeNo: 'string',
+      settleNo: 'string',
       refundReason: 'string',
-      outRequestNo: 'string',
     };
   }
 
@@ -1007,10 +1003,10 @@ export class WithdrawOrderSettlementResponse extends $tea.Model {
   tradeNo?: string;
   // 商家订单号
   outOrderNo?: string;
-  // 退款总金额。单位：分。 指该笔交易累计已经退款成功的金额
-  refundFee?: number;
-  // 退款使用的资金渠道
-  refundDetailItemList?: RefundDetail[];
+  // 退分账时间，格式为yyyy-MM-dd HH:mm:ss
+  refundTime?: string;
+  // 分账账单
+  settleNo?: string;
   static names(): { [key: string]: string } {
     return {
       reqMsgId: 'req_msg_id',
@@ -1018,8 +1014,8 @@ export class WithdrawOrderSettlementResponse extends $tea.Model {
       resultMsg: 'result_msg',
       tradeNo: 'trade_no',
       outOrderNo: 'out_order_no',
-      refundFee: 'refund_fee',
-      refundDetailItemList: 'refund_detail_item_list',
+      refundTime: 'refund_time',
+      settleNo: 'settle_no',
     };
   }
 
@@ -1030,8 +1026,76 @@ export class WithdrawOrderSettlementResponse extends $tea.Model {
       resultMsg: 'string',
       tradeNo: 'string',
       outOrderNo: 'string',
-      refundFee: 'number',
-      refundDetailItemList: { 'type': 'array', 'itemType': RefundDetail },
+      refundTime: 'string',
+      settleNo: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class QueryOrderWithdrawRequest extends $tea.Model {
+  // OAuth模式下的授权token
+  authToken?: string;
+  productInstanceId?: string;
+  // 支付宝 平台订单号
+  tradeNo: string;
+  static names(): { [key: string]: string } {
+    return {
+      authToken: 'auth_token',
+      productInstanceId: 'product_instance_id',
+      tradeNo: 'trade_no',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      authToken: 'string',
+      productInstanceId: 'string',
+      tradeNo: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class QueryOrderWithdrawResponse extends $tea.Model {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string;
+  // 结果码，一般OK表示调用成功
+  resultCode?: string;
+  // 异常信息的文本描述
+  resultMsg?: string;
+  // 支付交易号
+  tradeNo?: string;
+  // 退分账明细
+  refundDetailItemList?: SettleOrderRoyaltyDetail;
+  // 交易退分账总金额，单位：分
+  // 明细单金额总和
+  tradeRefundAmount?: number;
+  static names(): { [key: string]: string } {
+    return {
+      reqMsgId: 'req_msg_id',
+      resultCode: 'result_code',
+      resultMsg: 'result_msg',
+      tradeNo: 'trade_no',
+      refundDetailItemList: 'refund_detail_item_list',
+      tradeRefundAmount: 'trade_refund_amount',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      reqMsgId: 'string',
+      resultCode: 'string',
+      resultMsg: 'string',
+      tradeNo: 'string',
+      refundDetailItemList: SettleOrderRoyaltyDetail,
+      tradeRefundAmount: 'number',
     };
   }
 
@@ -1660,7 +1724,7 @@ export default class Client {
           req_msg_id: AntchainUtil.getNonce(),
           access_key: this._accessKeyId,
           base_sdk_version: "TeaSDK-2.0",
-          sdk_version: "1.3.5",
+          sdk_version: "1.3.6",
           _prod_code: "GESAAS",
           _prod_channel: "default",
         };
@@ -1752,8 +1816,8 @@ export default class Client {
 
   /**
    * @remarks
-   * Description: 分账退款
-   * Summary: 分账退款
+   * Description: 退分账接口
+   * Summary: 退分账接口
    */
   async withdrawOrderSettlement(request: WithdrawOrderSettlementRequest): Promise<WithdrawOrderSettlementResponse> {
     let runtime = new $Util.RuntimeOptions({ });
@@ -1763,12 +1827,33 @@ export default class Client {
 
   /**
    * @remarks
-   * Description: 分账退款
-   * Summary: 分账退款
+   * Description: 退分账接口
+   * Summary: 退分账接口
    */
   async withdrawOrderSettlementEx(request: WithdrawOrderSettlementRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<WithdrawOrderSettlementResponse> {
     Util.validateModel(request);
     return $tea.cast<WithdrawOrderSettlementResponse>(await this.doRequest("1.0", "antdigital.gesaas.order.settlement.withdraw", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new WithdrawOrderSettlementResponse({}));
+  }
+
+  /**
+   * @remarks
+   * Description: 退分账查询接口
+   * Summary: 退分账查询接口
+   */
+  async queryOrderWithdraw(request: QueryOrderWithdrawRequest): Promise<QueryOrderWithdrawResponse> {
+    let runtime = new $Util.RuntimeOptions({ });
+    let headers : {[key: string ]: string} = { };
+    return await this.queryOrderWithdrawEx(request, headers, runtime);
+  }
+
+  /**
+   * @remarks
+   * Description: 退分账查询接口
+   * Summary: 退分账查询接口
+   */
+  async queryOrderWithdrawEx(request: QueryOrderWithdrawRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<QueryOrderWithdrawResponse> {
+    Util.validateModel(request);
+    return $tea.cast<QueryOrderWithdrawResponse>(await this.doRequest("1.0", "antdigital.gesaas.order.withdraw.query", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new QueryOrderWithdrawResponse({}));
   }
 
   /**
