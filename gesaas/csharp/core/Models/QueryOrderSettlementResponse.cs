@@ -24,15 +24,40 @@ namespace AntChain.SDK.GESAAS.Models
         [Validation(Required=false)]
         public string ResultMsg { get; set; }
 
-        // 2026-06-30 12:00:00
-        [NameInMap("operation_dt")]
-        [Validation(Required=false, Pattern="\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}([Z]|([\\.]\\d{1,9})?[\\+]\\d{2}[\\:]?\\d{2})")]
-        public string OperationDt { get; set; }
+        // 分账受理时间，格式为yyyy-MM-dd HH:mm:ss
+        [NameInMap("split_request_time")]
+        [Validation(Required=false)]
+        public string SplitRequestTime { get; set; }
 
         // 分账明细
-        [NameInMap("royalty_detail_list")]
+        [NameInMap("split_detail_list")]
         [Validation(Required=false)]
-        public List<SettleOrderRoyaltyDetail> RoyaltyDetailList { get; set; }
+        public List<SettleOrderRoyaltyDetail> SplitDetailList { get; set; }
+
+        // 支付宝 平台订单号
+        [NameInMap("trade_no")]
+        [Validation(Required=false)]
+        public string TradeNo { get; set; }
+
+        // 外部订单号(商家)
+        [NameInMap("out_order_no")]
+        [Validation(Required=false)]
+        public string OutOrderNo { get; set; }
+
+        // 分账状态，SUCCESS成功，FAIL失败，PROCESSING处理中
+        [NameInMap("split_status")]
+        [Validation(Required=false)]
+        public string SplitStatus { get; set; }
+
+        // 分账失败原因
+        [NameInMap("split_fail_reason")]
+        [Validation(Required=false)]
+        public string SplitFailReason { get; set; }
+
+        // 分账单号
+        [NameInMap("settle_no")]
+        [Validation(Required=false)]
+        public string SettleNo { get; set; }
 
     }
 

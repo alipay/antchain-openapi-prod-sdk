@@ -8,7 +8,7 @@ using Tea;
 
 namespace AntChain.SDK.GESAAS.Models
 {
-    public class PushOrderSettlementResponse : TeaModel {
+    public class QueryOrderWithdrawResponse : TeaModel {
         // 请求唯一ID，用于链路跟踪和问题排查
         [NameInMap("req_msg_id")]
         [Validation(Required=false)]
@@ -24,20 +24,21 @@ namespace AntChain.SDK.GESAAS.Models
         [Validation(Required=false)]
         public string ResultMsg { get; set; }
 
-        // 支付宝/微信/其他 平台订单号
+        // 支付交易号
         [NameInMap("trade_no")]
         [Validation(Required=false)]
         public string TradeNo { get; set; }
 
-        // 分账单号，可以根据该单号查询单次分账请求执行结果
-        [NameInMap("settle_no")]
+        // 退分账明细
+        [NameInMap("refund_detail_item_list")]
         [Validation(Required=false)]
-        public string SettleNo { get; set; }
+        public SettleOrderRoyaltyDetail RefundDetailItemList { get; set; }
 
-        // 外部订单号(商家)
-        [NameInMap("out_order_no")]
+        // 交易退分账总金额，单位：分
+        // 明细单金额总和
+        [NameInMap("trade_refund_amount")]
         [Validation(Required=false)]
-        public string OutOrderNo { get; set; }
+        public long? TradeRefundAmount { get; set; }
 
     }
 

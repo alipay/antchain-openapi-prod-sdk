@@ -137,7 +137,7 @@ namespace AntChain.SDK.GESAAS
                         {"req_msg_id", AntChain.AlipayUtil.AntchainUtils.GetNonce()},
                         {"access_key", _accessKeyId},
                         {"base_sdk_version", "TeaSDK-2.0"},
-                        {"sdk_version", "1.3.5"},
+                        {"sdk_version", "1.3.6"},
                         {"_prod_code", "GESAAS"},
                         {"_prod_channel", "default"},
                     };
@@ -263,7 +263,7 @@ namespace AntChain.SDK.GESAAS
                         {"req_msg_id", AntChain.AlipayUtil.AntchainUtils.GetNonce()},
                         {"access_key", _accessKeyId},
                         {"base_sdk_version", "TeaSDK-2.0"},
-                        {"sdk_version", "1.3.5"},
+                        {"sdk_version", "1.3.6"},
                         {"_prod_code", "GESAAS"},
                         {"_prod_channel", "default"},
                     };
@@ -406,8 +406,8 @@ namespace AntChain.SDK.GESAAS
         }
 
         /**
-         * Description: 分账退款
-         * Summary: 分账退款
+         * Description: 退分账接口
+         * Summary: 退分账接口
          */
         public WithdrawOrderSettlementResponse WithdrawOrderSettlement(WithdrawOrderSettlementRequest request)
         {
@@ -417,8 +417,8 @@ namespace AntChain.SDK.GESAAS
         }
 
         /**
-         * Description: 分账退款
-         * Summary: 分账退款
+         * Description: 退分账接口
+         * Summary: 退分账接口
          */
         public async Task<WithdrawOrderSettlementResponse> WithdrawOrderSettlementAsync(WithdrawOrderSettlementRequest request)
         {
@@ -428,8 +428,8 @@ namespace AntChain.SDK.GESAAS
         }
 
         /**
-         * Description: 分账退款
-         * Summary: 分账退款
+         * Description: 退分账接口
+         * Summary: 退分账接口
          */
         public WithdrawOrderSettlementResponse WithdrawOrderSettlementEx(WithdrawOrderSettlementRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
         {
@@ -438,13 +438,55 @@ namespace AntChain.SDK.GESAAS
         }
 
         /**
-         * Description: 分账退款
-         * Summary: 分账退款
+         * Description: 退分账接口
+         * Summary: 退分账接口
          */
         public async Task<WithdrawOrderSettlementResponse> WithdrawOrderSettlementExAsync(WithdrawOrderSettlementRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
         {
             AlibabaCloud.TeaUtil.Common.ValidateModel(request);
             return TeaModel.ToObject<WithdrawOrderSettlementResponse>(await DoRequestAsync("1.0", "antdigital.gesaas.order.settlement.withdraw", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 退分账查询接口
+         * Summary: 退分账查询接口
+         */
+        public QueryOrderWithdrawResponse QueryOrderWithdraw(QueryOrderWithdrawRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return QueryOrderWithdrawEx(request, headers, runtime);
+        }
+
+        /**
+         * Description: 退分账查询接口
+         * Summary: 退分账查询接口
+         */
+        public async Task<QueryOrderWithdrawResponse> QueryOrderWithdrawAsync(QueryOrderWithdrawRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return await QueryOrderWithdrawExAsync(request, headers, runtime);
+        }
+
+        /**
+         * Description: 退分账查询接口
+         * Summary: 退分账查询接口
+         */
+        public QueryOrderWithdrawResponse QueryOrderWithdrawEx(QueryOrderWithdrawRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<QueryOrderWithdrawResponse>(DoRequest("1.0", "antdigital.gesaas.order.withdraw.query", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 退分账查询接口
+         * Summary: 退分账查询接口
+         */
+        public async Task<QueryOrderWithdrawResponse> QueryOrderWithdrawExAsync(QueryOrderWithdrawRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<QueryOrderWithdrawResponse>(await DoRequestAsync("1.0", "antdigital.gesaas.order.withdraw.query", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
         }
 
         /**

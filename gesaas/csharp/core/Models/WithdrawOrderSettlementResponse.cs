@@ -34,15 +34,15 @@ namespace AntChain.SDK.GESAAS.Models
         [Validation(Required=false)]
         public string OutOrderNo { get; set; }
 
-        // 退款总金额。单位：分。 指该笔交易累计已经退款成功的金额
-        [NameInMap("refund_fee")]
+        // 退分账时间，格式为yyyy-MM-dd HH:mm:ss
+        [NameInMap("refund_time")]
         [Validation(Required=false)]
-        public long? RefundFee { get; set; }
+        public string RefundTime { get; set; }
 
-        // 退款使用的资金渠道
-        [NameInMap("refund_detail_item_list")]
+        // 分账账单
+        [NameInMap("settle_no")]
         [Validation(Required=false)]
-        public List<RefundDetail> RefundDetailItemList { get; set; }
+        public string SettleNo { get; set; }
 
     }
 
