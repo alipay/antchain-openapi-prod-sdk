@@ -19,19 +19,13 @@ class PushOrderSettlementRequest extends Model
      */
     public $productInstanceId;
 
-    // 请求流水号，由商家自定义。64个字符以内，仅可包含字母、数字、下划线。需保证在商户端不重复
-    /**
-     * @var string
-     */
-    public $outRequestNo;
-
     // 商家产品唯一编码，64个字符以内
     /**
      * @var string
      */
     public $outProductId;
 
-    // 外部订单号，需保证在商家端不重复
+    // 外部订单号，需保证在商家端不重复，64个字符以内，每次发起需定义唯一的outOrderNo(包括重试)
     /**
      * @var string
      */
@@ -55,39 +49,46 @@ class PushOrderSettlementRequest extends Model
      */
     public $orderAmount;
 
-    // 分账模式，目前有两种分账同步执行sync，分账异步执行async，不传默认同步执行
-    // 同步执行: sync，异步执行: async
-    /**
-     * @var string
-     */
-    public $royaltyMode;
-
-    // 扩展信息
+    // 扩展参数，JSONString格式
     /**
      * @var string
      */
     public $extInfo;
+
+    // true：是最终分账，分账完成后资金自动解冻
+    // false：非最终分账，资金保持冻结
+    // 默认值：true
+    /**
+     * @var bool
+     */
+    public $isFinalSplit;
+
+    // 订单产生时间，格式为yyyy-MM-dd HH:mm:ss
+    /**
+     * @var string
+     */
+    public $outOrderTime;
     protected $_name = [
         'authToken'         => 'auth_token',
         'productInstanceId' => 'product_instance_id',
-        'outRequestNo'      => 'out_request_no',
         'outProductId'      => 'out_product_id',
         'outOrderNo'        => 'out_order_no',
         'tradeNo'           => 'trade_no',
         'orderType'         => 'order_type',
         'orderAmount'       => 'order_amount',
-        'royaltyMode'       => 'royalty_mode',
         'extInfo'           => 'ext_info',
+        'isFinalSplit'      => 'is_final_split',
+        'outOrderTime'      => 'out_order_time',
     ];
 
     public function validate()
     {
-        Model::validateRequired('outRequestNo', $this->outRequestNo, true);
         Model::validateRequired('outProductId', $this->outProductId, true);
         Model::validateRequired('outOrderNo', $this->outOrderNo, true);
         Model::validateRequired('tradeNo', $this->tradeNo, true);
         Model::validateRequired('orderType', $this->orderType, true);
         Model::validateRequired('orderAmount', $this->orderAmount, true);
+        Model::validateRequired('outOrderTime', $this->outOrderTime, true);
     }
 
     public function toMap()
@@ -98,9 +99,6 @@ class PushOrderSettlementRequest extends Model
         }
         if (null !== $this->productInstanceId) {
             $res['product_instance_id'] = $this->productInstanceId;
-        }
-        if (null !== $this->outRequestNo) {
-            $res['out_request_no'] = $this->outRequestNo;
         }
         if (null !== $this->outProductId) {
             $res['out_product_id'] = $this->outProductId;
@@ -117,11 +115,14 @@ class PushOrderSettlementRequest extends Model
         if (null !== $this->orderAmount) {
             $res['order_amount'] = $this->orderAmount;
         }
-        if (null !== $this->royaltyMode) {
-            $res['royalty_mode'] = $this->royaltyMode;
-        }
         if (null !== $this->extInfo) {
             $res['ext_info'] = $this->extInfo;
+        }
+        if (null !== $this->isFinalSplit) {
+            $res['is_final_split'] = $this->isFinalSplit;
+        }
+        if (null !== $this->outOrderTime) {
+            $res['out_order_time'] = $this->outOrderTime;
         }
 
         return $res;
@@ -141,9 +142,6 @@ class PushOrderSettlementRequest extends Model
         if (isset($map['product_instance_id'])) {
             $model->productInstanceId = $map['product_instance_id'];
         }
-        if (isset($map['out_request_no'])) {
-            $model->outRequestNo = $map['out_request_no'];
-        }
         if (isset($map['out_product_id'])) {
             $model->outProductId = $map['out_product_id'];
         }
@@ -159,11 +157,14 @@ class PushOrderSettlementRequest extends Model
         if (isset($map['order_amount'])) {
             $model->orderAmount = $map['order_amount'];
         }
-        if (isset($map['royalty_mode'])) {
-            $model->royaltyMode = $map['royalty_mode'];
-        }
         if (isset($map['ext_info'])) {
             $model->extInfo = $map['ext_info'];
+        }
+        if (isset($map['is_final_split'])) {
+            $model->isFinalSplit = $map['is_final_split'];
+        }
+        if (isset($map['out_order_time'])) {
+            $model->outOrderTime = $map['out_order_time'];
         }
 
         return $model;

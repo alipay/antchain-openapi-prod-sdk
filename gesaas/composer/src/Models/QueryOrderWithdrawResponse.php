@@ -6,7 +6,7 @@ namespace AntChain\GESAAS\Models;
 
 use AlibabaCloud\Tea\Model;
 
-class PushOrderSettlementResponse extends Model
+class QueryOrderWithdrawResponse extends Model
 {
     // 请求唯一ID，用于链路跟踪和问题排查
     /**
@@ -26,30 +26,31 @@ class PushOrderSettlementResponse extends Model
      */
     public $resultMsg;
 
-    // 支付宝/微信/其他 平台订单号
+    // 支付交易号
     /**
      * @var string
      */
     public $tradeNo;
 
-    // 分账单号，可以根据该单号查询单次分账请求执行结果
+    // 退分账明细
     /**
-     * @var string
+     * @var SettleOrderRoyaltyDetail
      */
-    public $settleNo;
+    public $refundDetailItemList;
 
-    // 外部订单号(商家)
+    // 交易退分账总金额，单位：分
+    // 明细单金额总和
     /**
-     * @var string
+     * @var int
      */
-    public $outOrderNo;
+    public $tradeRefundAmount;
     protected $_name = [
-        'reqMsgId'   => 'req_msg_id',
-        'resultCode' => 'result_code',
-        'resultMsg'  => 'result_msg',
-        'tradeNo'    => 'trade_no',
-        'settleNo'   => 'settle_no',
-        'outOrderNo' => 'out_order_no',
+        'reqMsgId'             => 'req_msg_id',
+        'resultCode'           => 'result_code',
+        'resultMsg'            => 'result_msg',
+        'tradeNo'              => 'trade_no',
+        'refundDetailItemList' => 'refund_detail_item_list',
+        'tradeRefundAmount'    => 'trade_refund_amount',
     ];
 
     public function validate()
@@ -71,11 +72,11 @@ class PushOrderSettlementResponse extends Model
         if (null !== $this->tradeNo) {
             $res['trade_no'] = $this->tradeNo;
         }
-        if (null !== $this->settleNo) {
-            $res['settle_no'] = $this->settleNo;
+        if (null !== $this->refundDetailItemList) {
+            $res['refund_detail_item_list'] = null !== $this->refundDetailItemList ? $this->refundDetailItemList->toMap() : null;
         }
-        if (null !== $this->outOrderNo) {
-            $res['out_order_no'] = $this->outOrderNo;
+        if (null !== $this->tradeRefundAmount) {
+            $res['trade_refund_amount'] = $this->tradeRefundAmount;
         }
 
         return $res;
@@ -84,7 +85,7 @@ class PushOrderSettlementResponse extends Model
     /**
      * @param array $map
      *
-     * @return PushOrderSettlementResponse
+     * @return QueryOrderWithdrawResponse
      */
     public static function fromMap($map = [])
     {
@@ -101,11 +102,11 @@ class PushOrderSettlementResponse extends Model
         if (isset($map['trade_no'])) {
             $model->tradeNo = $map['trade_no'];
         }
-        if (isset($map['settle_no'])) {
-            $model->settleNo = $map['settle_no'];
+        if (isset($map['refund_detail_item_list'])) {
+            $model->refundDetailItemList = SettleOrderRoyaltyDetail::fromMap($map['refund_detail_item_list']);
         }
-        if (isset($map['out_order_no'])) {
-            $model->outOrderNo = $map['out_order_no'];
+        if (isset($map['trade_refund_amount'])) {
+            $model->tradeRefundAmount = $map['trade_refund_amount'];
         }
 
         return $model;

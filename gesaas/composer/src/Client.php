@@ -23,6 +23,8 @@ use AntChain\GESAAS\Models\PushOrderSettlementRequest;
 use AntChain\GESAAS\Models\PushOrderSettlementResponse;
 use AntChain\GESAAS\Models\QueryOrderSettlementRequest;
 use AntChain\GESAAS\Models\QueryOrderSettlementResponse;
+use AntChain\GESAAS\Models\QueryOrderWithdrawRequest;
+use AntChain\GESAAS\Models\QueryOrderWithdrawResponse;
 use AntChain\GESAAS\Models\QueryRightsprodGrantRequest;
 use AntChain\GESAAS\Models\QueryRightsprodGrantResponse;
 use AntChain\GESAAS\Models\SubmitRightsprodGrantRequest;
@@ -176,7 +178,7 @@ class Client
                     'req_msg_id'       => UtilClient::getNonce(),
                     'access_key'       => $this->_accessKeyId,
                     'base_sdk_version' => 'TeaSDK-2.0',
-                    'sdk_version'      => '1.3.5',
+                    'sdk_version'      => '1.3.6',
                     '_prod_code'       => 'GESAAS',
                     '_prod_channel'    => 'default',
                 ];
@@ -291,8 +293,8 @@ class Client
     }
 
     /**
-     * Description: 分账退款
-     * Summary: 分账退款.
+     * Description: 退分账接口
+     * Summary: 退分账接口.
      *
      * @param WithdrawOrderSettlementRequest $request
      *
@@ -307,8 +309,8 @@ class Client
     }
 
     /**
-     * Description: 分账退款
-     * Summary: 分账退款.
+     * Description: 退分账接口
+     * Summary: 退分账接口.
      *
      * @param WithdrawOrderSettlementRequest $request
      * @param string[]                       $headers
@@ -321,6 +323,39 @@ class Client
         Utils::validateModel($request);
 
         return WithdrawOrderSettlementResponse::fromMap($this->doRequest('1.0', 'antdigital.gesaas.order.settlement.withdraw', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 退分账查询接口
+     * Summary: 退分账查询接口.
+     *
+     * @param QueryOrderWithdrawRequest $request
+     *
+     * @return QueryOrderWithdrawResponse
+     */
+    public function queryOrderWithdraw($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->queryOrderWithdrawEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 退分账查询接口
+     * Summary: 退分账查询接口.
+     *
+     * @param QueryOrderWithdrawRequest $request
+     * @param string[]                  $headers
+     * @param RuntimeOptions            $runtime
+     *
+     * @return QueryOrderWithdrawResponse
+     */
+    public function queryOrderWithdrawEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return QueryOrderWithdrawResponse::fromMap($this->doRequest('1.0', 'antdigital.gesaas.order.withdraw.query', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
     }
 
     /**

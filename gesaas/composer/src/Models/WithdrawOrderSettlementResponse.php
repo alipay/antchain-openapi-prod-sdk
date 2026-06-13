@@ -38,25 +38,25 @@ class WithdrawOrderSettlementResponse extends Model
      */
     public $outOrderNo;
 
-    // 退款总金额。单位：分。 指该笔交易累计已经退款成功的金额
+    // 退分账时间，格式为yyyy-MM-dd HH:mm:ss
     /**
-     * @var int
+     * @var string
      */
-    public $refundFee;
+    public $refundTime;
 
-    // 退款使用的资金渠道
+    // 分账账单
     /**
-     * @var RefundDetail[]
+     * @var string
      */
-    public $refundDetailItemList;
+    public $settleNo;
     protected $_name = [
-        'reqMsgId'             => 'req_msg_id',
-        'resultCode'           => 'result_code',
-        'resultMsg'            => 'result_msg',
-        'tradeNo'              => 'trade_no',
-        'outOrderNo'           => 'out_order_no',
-        'refundFee'            => 'refund_fee',
-        'refundDetailItemList' => 'refund_detail_item_list',
+        'reqMsgId'   => 'req_msg_id',
+        'resultCode' => 'result_code',
+        'resultMsg'  => 'result_msg',
+        'tradeNo'    => 'trade_no',
+        'outOrderNo' => 'out_order_no',
+        'refundTime' => 'refund_time',
+        'settleNo'   => 'settle_no',
     ];
 
     public function validate()
@@ -81,17 +81,11 @@ class WithdrawOrderSettlementResponse extends Model
         if (null !== $this->outOrderNo) {
             $res['out_order_no'] = $this->outOrderNo;
         }
-        if (null !== $this->refundFee) {
-            $res['refund_fee'] = $this->refundFee;
+        if (null !== $this->refundTime) {
+            $res['refund_time'] = $this->refundTime;
         }
-        if (null !== $this->refundDetailItemList) {
-            $res['refund_detail_item_list'] = [];
-            if (null !== $this->refundDetailItemList && \is_array($this->refundDetailItemList)) {
-                $n = 0;
-                foreach ($this->refundDetailItemList as $item) {
-                    $res['refund_detail_item_list'][$n++] = null !== $item ? $item->toMap() : $item;
-                }
-            }
+        if (null !== $this->settleNo) {
+            $res['settle_no'] = $this->settleNo;
         }
 
         return $res;
@@ -120,17 +114,11 @@ class WithdrawOrderSettlementResponse extends Model
         if (isset($map['out_order_no'])) {
             $model->outOrderNo = $map['out_order_no'];
         }
-        if (isset($map['refund_fee'])) {
-            $model->refundFee = $map['refund_fee'];
+        if (isset($map['refund_time'])) {
+            $model->refundTime = $map['refund_time'];
         }
-        if (isset($map['refund_detail_item_list'])) {
-            if (!empty($map['refund_detail_item_list'])) {
-                $model->refundDetailItemList = [];
-                $n                           = 0;
-                foreach ($map['refund_detail_item_list'] as $item) {
-                    $model->refundDetailItemList[$n++] = null !== $item ? RefundDetail::fromMap($item) : $item;
-                }
-            }
+        if (isset($map['settle_no'])) {
+            $model->settleNo = $map['settle_no'];
         }
 
         return $model;
