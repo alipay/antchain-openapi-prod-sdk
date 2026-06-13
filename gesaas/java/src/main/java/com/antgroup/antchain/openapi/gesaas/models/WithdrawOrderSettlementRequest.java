@@ -11,24 +11,19 @@ public class WithdrawOrderSettlementRequest extends TeaModel {
     @NameInMap("product_instance_id")
     public String productInstanceId;
 
-    // 退款金额，单位：分
+    // 退分账金额，单位：分
     @NameInMap("refund_amount")
     @Validation(required = true)
     public Long refundAmount;
 
-    // 支付交易号
-    @NameInMap("trade_no")
+    // 分账单号
+    @NameInMap("settle_no")
     @Validation(required = true)
-    public String tradeNo;
+    public String settleNo;
 
     // 退款原因说明。 商家自定义，将在会在商户和用户的pc退款账单详情中展示
     @NameInMap("refund_reason")
     public String refundReason;
-
-    // 【描述】退款请求号。 标识一次退款请求，需要保证在交易号下唯一，如需部分退款，则此参数必传。 注：针对同一次退款请求，如果调用接口失败或异常了，重试时需要保证退款请求号不能变更，防止该笔交易重复退款。会保证同样的退款请求号多次请求只会退一次。
-    // 【必选条件】部分退款时必选
-    @NameInMap("out_request_no")
-    public String outRequestNo;
 
     public static WithdrawOrderSettlementRequest build(java.util.Map<String, ?> map) throws Exception {
         WithdrawOrderSettlementRequest self = new WithdrawOrderSettlementRequest();
@@ -59,12 +54,12 @@ public class WithdrawOrderSettlementRequest extends TeaModel {
         return this.refundAmount;
     }
 
-    public WithdrawOrderSettlementRequest setTradeNo(String tradeNo) {
-        this.tradeNo = tradeNo;
+    public WithdrawOrderSettlementRequest setSettleNo(String settleNo) {
+        this.settleNo = settleNo;
         return this;
     }
-    public String getTradeNo() {
-        return this.tradeNo;
+    public String getSettleNo() {
+        return this.settleNo;
     }
 
     public WithdrawOrderSettlementRequest setRefundReason(String refundReason) {
@@ -73,14 +68,6 @@ public class WithdrawOrderSettlementRequest extends TeaModel {
     }
     public String getRefundReason() {
         return this.refundReason;
-    }
-
-    public WithdrawOrderSettlementRequest setOutRequestNo(String outRequestNo) {
-        this.outRequestNo = outRequestNo;
-        return this;
-    }
-    public String getOutRequestNo() {
-        return this.outRequestNo;
     }
 
 }

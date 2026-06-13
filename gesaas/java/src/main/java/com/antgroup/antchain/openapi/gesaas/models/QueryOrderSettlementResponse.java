@@ -16,14 +16,33 @@ public class QueryOrderSettlementResponse extends TeaModel {
     @NameInMap("result_msg")
     public String resultMsg;
 
-    // 2026-06-30 12:00:00
-    @NameInMap("operation_dt")
-    @Validation(pattern = "\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}([Z]|([\\.]\\d{1,9})?[\\+]\\d{2}[\\:]?\\d{2})")
-    public String operationDt;
+    // 分账受理时间，格式为yyyy-MM-dd HH:mm:ss
+    @NameInMap("split_request_time")
+    public String splitRequestTime;
 
     // 分账明细
-    @NameInMap("royalty_detail_list")
-    public java.util.List<SettleOrderRoyaltyDetail> royaltyDetailList;
+    @NameInMap("split_detail_list")
+    public java.util.List<SettleOrderRoyaltyDetail> splitDetailList;
+
+    // 支付宝 平台订单号
+    @NameInMap("trade_no")
+    public String tradeNo;
+
+    // 外部订单号(商家)
+    @NameInMap("out_order_no")
+    public String outOrderNo;
+
+    // 分账状态，SUCCESS成功，FAIL失败，PROCESSING处理中
+    @NameInMap("split_status")
+    public String splitStatus;
+
+    // 分账失败原因
+    @NameInMap("split_fail_reason")
+    public String splitFailReason;
+
+    // 分账单号
+    @NameInMap("settle_no")
+    public String settleNo;
 
     public static QueryOrderSettlementResponse build(java.util.Map<String, ?> map) throws Exception {
         QueryOrderSettlementResponse self = new QueryOrderSettlementResponse();
@@ -54,20 +73,60 @@ public class QueryOrderSettlementResponse extends TeaModel {
         return this.resultMsg;
     }
 
-    public QueryOrderSettlementResponse setOperationDt(String operationDt) {
-        this.operationDt = operationDt;
+    public QueryOrderSettlementResponse setSplitRequestTime(String splitRequestTime) {
+        this.splitRequestTime = splitRequestTime;
         return this;
     }
-    public String getOperationDt() {
-        return this.operationDt;
+    public String getSplitRequestTime() {
+        return this.splitRequestTime;
     }
 
-    public QueryOrderSettlementResponse setRoyaltyDetailList(java.util.List<SettleOrderRoyaltyDetail> royaltyDetailList) {
-        this.royaltyDetailList = royaltyDetailList;
+    public QueryOrderSettlementResponse setSplitDetailList(java.util.List<SettleOrderRoyaltyDetail> splitDetailList) {
+        this.splitDetailList = splitDetailList;
         return this;
     }
-    public java.util.List<SettleOrderRoyaltyDetail> getRoyaltyDetailList() {
-        return this.royaltyDetailList;
+    public java.util.List<SettleOrderRoyaltyDetail> getSplitDetailList() {
+        return this.splitDetailList;
+    }
+
+    public QueryOrderSettlementResponse setTradeNo(String tradeNo) {
+        this.tradeNo = tradeNo;
+        return this;
+    }
+    public String getTradeNo() {
+        return this.tradeNo;
+    }
+
+    public QueryOrderSettlementResponse setOutOrderNo(String outOrderNo) {
+        this.outOrderNo = outOrderNo;
+        return this;
+    }
+    public String getOutOrderNo() {
+        return this.outOrderNo;
+    }
+
+    public QueryOrderSettlementResponse setSplitStatus(String splitStatus) {
+        this.splitStatus = splitStatus;
+        return this;
+    }
+    public String getSplitStatus() {
+        return this.splitStatus;
+    }
+
+    public QueryOrderSettlementResponse setSplitFailReason(String splitFailReason) {
+        this.splitFailReason = splitFailReason;
+        return this;
+    }
+    public String getSplitFailReason() {
+        return this.splitFailReason;
+    }
+
+    public QueryOrderSettlementResponse setSettleNo(String settleNo) {
+        this.settleNo = settleNo;
+        return this;
+    }
+    public String getSettleNo() {
+        return this.settleNo;
     }
 
 }

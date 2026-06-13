@@ -24,6 +24,10 @@ public class PushOrderSettlementResponse extends TeaModel {
     @NameInMap("settle_no")
     public String settleNo;
 
+    // 外部订单号(商家)
+    @NameInMap("out_order_no")
+    public String outOrderNo;
+
     public static PushOrderSettlementResponse build(java.util.Map<String, ?> map) throws Exception {
         PushOrderSettlementResponse self = new PushOrderSettlementResponse();
         return TeaModel.build(map, self);
@@ -67,6 +71,14 @@ public class PushOrderSettlementResponse extends TeaModel {
     }
     public String getSettleNo() {
         return this.settleNo;
+    }
+
+    public PushOrderSettlementResponse setOutOrderNo(String outOrderNo) {
+        this.outOrderNo = outOrderNo;
+        return this;
+    }
+    public String getOutOrderNo() {
+        return this.outOrderNo;
     }
 
 }

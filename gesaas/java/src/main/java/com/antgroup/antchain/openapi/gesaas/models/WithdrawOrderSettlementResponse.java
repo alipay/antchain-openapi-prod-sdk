@@ -24,13 +24,13 @@ public class WithdrawOrderSettlementResponse extends TeaModel {
     @NameInMap("out_order_no")
     public String outOrderNo;
 
-    // 退款总金额。单位：分。 指该笔交易累计已经退款成功的金额
-    @NameInMap("refund_fee")
-    public Long refundFee;
+    // 退分账时间，格式为yyyy-MM-dd HH:mm:ss
+    @NameInMap("refund_time")
+    public String refundTime;
 
-    // 退款使用的资金渠道
-    @NameInMap("refund_detail_item_list")
-    public java.util.List<RefundDetail> refundDetailItemList;
+    // 分账账单
+    @NameInMap("settle_no")
+    public String settleNo;
 
     public static WithdrawOrderSettlementResponse build(java.util.Map<String, ?> map) throws Exception {
         WithdrawOrderSettlementResponse self = new WithdrawOrderSettlementResponse();
@@ -77,20 +77,20 @@ public class WithdrawOrderSettlementResponse extends TeaModel {
         return this.outOrderNo;
     }
 
-    public WithdrawOrderSettlementResponse setRefundFee(Long refundFee) {
-        this.refundFee = refundFee;
+    public WithdrawOrderSettlementResponse setRefundTime(String refundTime) {
+        this.refundTime = refundTime;
         return this;
     }
-    public Long getRefundFee() {
-        return this.refundFee;
+    public String getRefundTime() {
+        return this.refundTime;
     }
 
-    public WithdrawOrderSettlementResponse setRefundDetailItemList(java.util.List<RefundDetail> refundDetailItemList) {
-        this.refundDetailItemList = refundDetailItemList;
+    public WithdrawOrderSettlementResponse setSettleNo(String settleNo) {
+        this.settleNo = settleNo;
         return this;
     }
-    public java.util.List<RefundDetail> getRefundDetailItemList() {
-        return this.refundDetailItemList;
+    public String getSettleNo() {
+        return this.settleNo;
     }
 
 }
