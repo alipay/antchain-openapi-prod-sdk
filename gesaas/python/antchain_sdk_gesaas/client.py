@@ -135,7 +135,7 @@ class Client:
                     'req_msg_id': AntchainUtils.get_nonce(),
                     'access_key': self._access_key_id,
                     'base_sdk_version': 'TeaSDK-2.0',
-                    'sdk_version': '1.3.5',
+                    'sdk_version': '1.3.6',
                     '_prod_code': 'GESAAS',
                     '_prod_channel': 'default'
                 }
@@ -239,7 +239,7 @@ class Client:
                     'req_msg_id': AntchainUtils.get_nonce(),
                     'access_key': self._access_key_id,
                     'base_sdk_version': 'TeaSDK-2.0',
-                    'sdk_version': '1.3.5',
+                    'sdk_version': '1.3.6',
                     '_prod_code': 'GESAAS',
                     '_prod_channel': 'default'
                 }
@@ -392,8 +392,8 @@ class Client:
         request: gesaas_models.WithdrawOrderSettlementRequest,
     ) -> gesaas_models.WithdrawOrderSettlementResponse:
         """
-        Description: 分账退款
-        Summary: 分账退款
+        Description: 退分账接口
+        Summary: 退分账接口
         """
         runtime = util_models.RuntimeOptions()
         headers = {}
@@ -404,8 +404,8 @@ class Client:
         request: gesaas_models.WithdrawOrderSettlementRequest,
     ) -> gesaas_models.WithdrawOrderSettlementResponse:
         """
-        Description: 分账退款
-        Summary: 分账退款
+        Description: 退分账接口
+        Summary: 退分账接口
         """
         runtime = util_models.RuntimeOptions()
         headers = {}
@@ -418,8 +418,8 @@ class Client:
         runtime: util_models.RuntimeOptions,
     ) -> gesaas_models.WithdrawOrderSettlementResponse:
         """
-        Description: 分账退款
-        Summary: 分账退款
+        Description: 退分账接口
+        Summary: 退分账接口
         """
         UtilClient.validate_model(request)
         return TeaCore.from_map(
@@ -434,13 +434,69 @@ class Client:
         runtime: util_models.RuntimeOptions,
     ) -> gesaas_models.WithdrawOrderSettlementResponse:
         """
-        Description: 分账退款
-        Summary: 分账退款
+        Description: 退分账接口
+        Summary: 退分账接口
         """
         UtilClient.validate_model(request)
         return TeaCore.from_map(
             gesaas_models.WithdrawOrderSettlementResponse(),
             await self.do_request_async('1.0', 'antdigital.gesaas.order.settlement.withdraw', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def query_order_withdraw(
+        self,
+        request: gesaas_models.QueryOrderWithdrawRequest,
+    ) -> gesaas_models.QueryOrderWithdrawResponse:
+        """
+        Description: 退分账查询接口
+        Summary: 退分账查询接口
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.query_order_withdraw_ex(request, headers, runtime)
+
+    async def query_order_withdraw_async(
+        self,
+        request: gesaas_models.QueryOrderWithdrawRequest,
+    ) -> gesaas_models.QueryOrderWithdrawResponse:
+        """
+        Description: 退分账查询接口
+        Summary: 退分账查询接口
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.query_order_withdraw_ex_async(request, headers, runtime)
+
+    def query_order_withdraw_ex(
+        self,
+        request: gesaas_models.QueryOrderWithdrawRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> gesaas_models.QueryOrderWithdrawResponse:
+        """
+        Description: 退分账查询接口
+        Summary: 退分账查询接口
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            gesaas_models.QueryOrderWithdrawResponse(),
+            self.do_request('1.0', 'antdigital.gesaas.order.withdraw.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def query_order_withdraw_ex_async(
+        self,
+        request: gesaas_models.QueryOrderWithdrawRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> gesaas_models.QueryOrderWithdrawResponse:
+        """
+        Description: 退分账查询接口
+        Summary: 退分账查询接口
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            gesaas_models.QueryOrderWithdrawResponse(),
+            await self.do_request_async('1.0', 'antdigital.gesaas.order.withdraw.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
     def check_omng_risk(
