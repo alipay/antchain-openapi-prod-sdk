@@ -18,23 +18,9 @@ class QueryMultiCciuRequest extends Model
      * @var string
      */
     public $productInstanceId;
-
-    // aaa
-    /**
-     * @var TestParams
-     */
-    public $aaaaa;
-
-    // bbbbb
-    /**
-     * @var string
-     */
-    public $bbbbb;
     protected $_name = [
         'authToken'         => 'auth_token',
         'productInstanceId' => 'product_instance_id',
-        'aaaaa'             => 'aaaaa',
-        'bbbbb'             => 'bbbbb',
     ];
 
     public function validate()
@@ -49,12 +35,6 @@ class QueryMultiCciuRequest extends Model
         }
         if (null !== $this->productInstanceId) {
             $res['product_instance_id'] = $this->productInstanceId;
-        }
-        if (null !== $this->aaaaa) {
-            $res['aaaaa'] = null !== $this->aaaaa ? $this->aaaaa->toMap() : null;
-        }
-        if (null !== $this->bbbbb) {
-            $res['bbbbb'] = $this->bbbbb;
         }
 
         return $res;
@@ -73,12 +53,6 @@ class QueryMultiCciuRequest extends Model
         }
         if (isset($map['product_instance_id'])) {
             $model->productInstanceId = $map['product_instance_id'];
-        }
-        if (isset($map['aaaaa'])) {
-            $model->aaaaa = TestParams::fromMap($map['aaaaa']);
-        }
-        if (isset($map['bbbbb'])) {
-            $model->bbbbb = $map['bbbbb'];
         }
 
         return $model;

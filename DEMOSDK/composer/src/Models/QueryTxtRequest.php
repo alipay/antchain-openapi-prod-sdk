@@ -19,7 +19,7 @@ class QueryTxtRequest extends Model
      */
     public $productInstanceId;
 
-    // 姓名
+    // x
     /**
      * @var string
      */

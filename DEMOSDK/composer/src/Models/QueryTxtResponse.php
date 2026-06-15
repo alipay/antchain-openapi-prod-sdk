@@ -26,9 +26,9 @@ class QueryTxtResponse extends Model
      */
     public $resultMsg;
 
-    // 证件号
+    // imj yaa
     /**
-     * @var string
+     * @var ResultTest
      */
     public $idcard;
     protected $_name = [
@@ -55,7 +55,7 @@ class QueryTxtResponse extends Model
             $res['result_msg'] = $this->resultMsg;
         }
         if (null !== $this->idcard) {
-            $res['idcard'] = $this->idcard;
+            $res['idcard'] = null !== $this->idcard ? $this->idcard->toMap() : null;
         }
 
         return $res;
@@ -79,7 +79,7 @@ class QueryTxtResponse extends Model
             $model->resultMsg = $map['result_msg'];
         }
         if (isset($map['idcard'])) {
-            $model->idcard = $map['idcard'];
+            $model->idcard = ResultTest::fromMap($map['idcard']);
         }
 
         return $model;
