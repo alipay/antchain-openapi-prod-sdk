@@ -6,9 +6,9 @@
 
     <!-- 基础信息 -->
     <groupId>com.antgroup.antchain.openapi</groupId>
-    <!-- 注意：变量 openapi-demosdk 和 1.4.9 需要在命令行或 properties 中定义 -->
+    <!-- 注意：变量 openapi-demosdk 和 1.4.10 需要在命令行或 properties 中定义 -->
     <artifactId>openapi-demosdk</artifactId>
-    <version>1.4.9</version>
+    <version>1.4.10</version>
     <packaging>jar</packaging>
 
     <name>openapi-demosdk</name>
