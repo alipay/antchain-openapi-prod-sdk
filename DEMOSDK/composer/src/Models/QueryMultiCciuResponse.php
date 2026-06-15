@@ -25,17 +25,10 @@ class QueryMultiCciuResponse extends Model
      * @var string
      */
     public $resultMsg;
-
-    // bbbb
-    /**
-     * @var string
-     */
-    public $bbbb;
     protected $_name = [
         'reqMsgId'   => 'req_msg_id',
         'resultCode' => 'result_code',
         'resultMsg'  => 'result_msg',
-        'bbbb'       => 'bbbb',
     ];
 
     public function validate()
@@ -53,9 +46,6 @@ class QueryMultiCciuResponse extends Model
         }
         if (null !== $this->resultMsg) {
             $res['result_msg'] = $this->resultMsg;
-        }
-        if (null !== $this->bbbb) {
-            $res['bbbb'] = $this->bbbb;
         }
 
         return $res;
@@ -77,9 +67,6 @@ class QueryMultiCciuResponse extends Model
         }
         if (isset($map['result_msg'])) {
             $model->resultMsg = $map['result_msg'];
-        }
-        if (isset($map['bbbb'])) {
-            $model->bbbb = $map['bbbb'];
         }
 
         return $model;

@@ -8,15 +8,24 @@ use AlibabaCloud\Tea\Model;
 
 class TestDemo extends Model
 {
-    // a
+    // 1
     /**
-     * @example a
+     * @example 张三
      *
      * @var string
      */
-    public $timeout;
+    public $name;
+
+    // 1
+    /**
+     * @example 23
+     *
+     * @var int
+     */
+    public $number;
     protected $_name = [
-        'timeout' => 'timeout',
+        'name'   => 'name',
+        'number' => 'number',
     ];
 
     public function validate()
@@ -26,8 +35,11 @@ class TestDemo extends Model
     public function toMap()
     {
         $res = [];
-        if (null !== $this->timeout) {
-            $res['timeout'] = $this->timeout;
+        if (null !== $this->name) {
+            $res['name'] = $this->name;
+        }
+        if (null !== $this->number) {
+            $res['number'] = $this->number;
         }
 
         return $res;
@@ -41,8 +53,11 @@ class TestDemo extends Model
     public static function fromMap($map = [])
     {
         $model = new self();
-        if (isset($map['timeout'])) {
-            $model->timeout = $map['timeout'];
+        if (isset($map['name'])) {
+            $model->name = $map['name'];
+        }
+        if (isset($map['number'])) {
+            $model->number = $map['number'];
         }
 
         return $model;

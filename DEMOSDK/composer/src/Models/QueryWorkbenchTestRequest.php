@@ -48,12 +48,6 @@ class QueryWorkbenchTestRequest extends Model
      * @var string
      */
     public $operator;
-
-    // aaaaa
-    /**
-     * @var string
-     */
-    public $aaaaa;
     protected $_name = [
         'authToken'         => 'auth_token',
         'productInstanceId' => 'product_instance_id',
@@ -62,7 +56,6 @@ class QueryWorkbenchTestRequest extends Model
         'time'              => 'time',
         'desc'              => 'desc',
         'operator'          => 'operator',
-        'aaaaa'             => 'aaaaa',
     ];
 
     public function validate()
@@ -92,9 +85,6 @@ class QueryWorkbenchTestRequest extends Model
         }
         if (null !== $this->operator) {
             $res['operator'] = $this->operator;
-        }
-        if (null !== $this->aaaaa) {
-            $res['aaaaa'] = $this->aaaaa;
         }
 
         return $res;
@@ -128,9 +118,6 @@ class QueryWorkbenchTestRequest extends Model
         }
         if (isset($map['operator'])) {
             $model->operator = $map['operator'];
-        }
-        if (isset($map['aaaaa'])) {
-            $model->aaaaa = $map['aaaaa'];
         }
 
         return $model;

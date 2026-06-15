@@ -24,17 +24,10 @@ class PublishTwiceOneRequest extends Model
      * @var string
      */
     public $timeout;
-
-    // aa
-    /**
-     * @var DemoClass
-     */
-    public $aaa;
     protected $_name = [
         'authToken'         => 'auth_token',
         'productInstanceId' => 'product_instance_id',
         'timeout'           => 'timeout',
-        'aaa'               => 'aaa',
     ];
 
     public function validate()
@@ -52,9 +45,6 @@ class PublishTwiceOneRequest extends Model
         }
         if (null !== $this->timeout) {
             $res['timeout'] = $this->timeout;
-        }
-        if (null !== $this->aaa) {
-            $res['aaa'] = null !== $this->aaa ? $this->aaa->toMap() : null;
         }
 
         return $res;
@@ -76,9 +66,6 @@ class PublishTwiceOneRequest extends Model
         }
         if (isset($map['timeout'])) {
             $model->timeout = $map['timeout'];
-        }
-        if (isset($map['aaa'])) {
-            $model->aaa = DemoClass::fromMap($map['aaa']);
         }
 
         return $model;
