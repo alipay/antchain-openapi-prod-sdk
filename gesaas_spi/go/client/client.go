@@ -148,6 +148,46 @@ func (s *Config) SetMaxRequestsPerHost(v int) *Config {
 	return s
 }
 
+// 分账通知明细
+type SettleOrderRoyaltyDetail struct {
+	// 分账金额，单位：分
+	Amount *int64 `json:"amount,omitempty" xml:"amount,omitempty" require:"true"`
+	// 分账执行时间
+	ExecuteTime *string `json:"execute_time,omitempty" xml:"execute_time,omitempty" require:"true"`
+	// 分账转出账号
+	TransOutAccount *string `json:"trans_out_account,omitempty" xml:"trans_out_account,omitempty" require:"true"`
+	// 分账转入账号
+	TransInAccount *string `json:"trans_in_account,omitempty" xml:"trans_in_account,omitempty" require:"true"`
+}
+
+func (s SettleOrderRoyaltyDetail) String() string {
+	return tea.Prettify(s)
+}
+
+func (s SettleOrderRoyaltyDetail) GoString() string {
+	return s.String()
+}
+
+func (s *SettleOrderRoyaltyDetail) SetAmount(v int64) *SettleOrderRoyaltyDetail {
+	s.Amount = &v
+	return s
+}
+
+func (s *SettleOrderRoyaltyDetail) SetExecuteTime(v string) *SettleOrderRoyaltyDetail {
+	s.ExecuteTime = &v
+	return s
+}
+
+func (s *SettleOrderRoyaltyDetail) SetTransOutAccount(v string) *SettleOrderRoyaltyDetail {
+	s.TransOutAccount = &v
+	return s
+}
+
+func (s *SettleOrderRoyaltyDetail) SetTransInAccount(v string) *SettleOrderRoyaltyDetail {
+	s.TransInAccount = &v
+	return s
+}
+
 // 发放订单明细
 type GrantOrderDetail struct {
 	// 券编码
@@ -164,6 +204,146 @@ func (s GrantOrderDetail) GoString() string {
 
 func (s *GrantOrderDetail) SetVoucherCode(v string) *GrantOrderDetail {
 	s.VoucherCode = &v
+	return s
+}
+
+type CallbackOrderSettlementRequest struct {
+	// OAuth模式下的授权token
+	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
+	// ASYNC_SETTLE_RESULT ：异步分账结果
+	MsgType *string `json:"msg_type,omitempty" xml:"msg_type,omitempty" require:"true"`
+	// 支付交易号
+	TradeNo *string `json:"trade_no,omitempty" xml:"trade_no,omitempty" require:"true"`
+	// 分账金额，单位分
+	SplitAmount *int64 `json:"split_amount,omitempty" xml:"split_amount,omitempty" require:"true"`
+	// 分账受理单号
+	SettleNo *string `json:"settle_no,omitempty" xml:"settle_no,omitempty" require:"true"`
+	// 分账受理时间
+	SplitRequestTime *string `json:"split_request_time,omitempty" xml:"split_request_time,omitempty" require:"true"`
+	// 分账通知明细
+	SplitDetailList []*SettleOrderRoyaltyDetail `json:"split_detail_list,omitempty" xml:"split_detail_list,omitempty" require:"true" type:"Repeated"`
+	// 扩展参数
+	ExtInfo *string `json:"ext_info,omitempty" xml:"ext_info,omitempty"`
+	// 消息唯一性判断，重试msgId不变
+	MsgId *string `json:"msg_id,omitempty" xml:"msg_id,omitempty" require:"true"`
+	// 外部订单号(同一个outProductId唯一)
+	OutOrderNo *string `json:"out_order_no,omitempty" xml:"out_order_no,omitempty" require:"true"`
+	// 分账状态，SUCCESS成功，FAIL失败
+	SplitStatus *string `json:"split_status,omitempty" xml:"split_status,omitempty" require:"true"`
+	// 分账失败原因，条件返回：splitStatus=FAIL 返回
+	SplitFailReason *string `json:"split_fail_reason,omitempty" xml:"split_fail_reason,omitempty"`
+}
+
+func (s CallbackOrderSettlementRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s CallbackOrderSettlementRequest) GoString() string {
+	return s.String()
+}
+
+func (s *CallbackOrderSettlementRequest) SetAuthToken(v string) *CallbackOrderSettlementRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *CallbackOrderSettlementRequest) SetProductInstanceId(v string) *CallbackOrderSettlementRequest {
+	s.ProductInstanceId = &v
+	return s
+}
+
+func (s *CallbackOrderSettlementRequest) SetMsgType(v string) *CallbackOrderSettlementRequest {
+	s.MsgType = &v
+	return s
+}
+
+func (s *CallbackOrderSettlementRequest) SetTradeNo(v string) *CallbackOrderSettlementRequest {
+	s.TradeNo = &v
+	return s
+}
+
+func (s *CallbackOrderSettlementRequest) SetSplitAmount(v int64) *CallbackOrderSettlementRequest {
+	s.SplitAmount = &v
+	return s
+}
+
+func (s *CallbackOrderSettlementRequest) SetSettleNo(v string) *CallbackOrderSettlementRequest {
+	s.SettleNo = &v
+	return s
+}
+
+func (s *CallbackOrderSettlementRequest) SetSplitRequestTime(v string) *CallbackOrderSettlementRequest {
+	s.SplitRequestTime = &v
+	return s
+}
+
+func (s *CallbackOrderSettlementRequest) SetSplitDetailList(v []*SettleOrderRoyaltyDetail) *CallbackOrderSettlementRequest {
+	s.SplitDetailList = v
+	return s
+}
+
+func (s *CallbackOrderSettlementRequest) SetExtInfo(v string) *CallbackOrderSettlementRequest {
+	s.ExtInfo = &v
+	return s
+}
+
+func (s *CallbackOrderSettlementRequest) SetMsgId(v string) *CallbackOrderSettlementRequest {
+	s.MsgId = &v
+	return s
+}
+
+func (s *CallbackOrderSettlementRequest) SetOutOrderNo(v string) *CallbackOrderSettlementRequest {
+	s.OutOrderNo = &v
+	return s
+}
+
+func (s *CallbackOrderSettlementRequest) SetSplitStatus(v string) *CallbackOrderSettlementRequest {
+	s.SplitStatus = &v
+	return s
+}
+
+func (s *CallbackOrderSettlementRequest) SetSplitFailReason(v string) *CallbackOrderSettlementRequest {
+	s.SplitFailReason = &v
+	return s
+}
+
+type CallbackOrderSettlementResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// 同步结果 success 同步成功,失败：fail
+	Result *string `json:"result,omitempty" xml:"result,omitempty"`
+}
+
+func (s CallbackOrderSettlementResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s CallbackOrderSettlementResponse) GoString() string {
+	return s.String()
+}
+
+func (s *CallbackOrderSettlementResponse) SetReqMsgId(v string) *CallbackOrderSettlementResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *CallbackOrderSettlementResponse) SetResultCode(v string) *CallbackOrderSettlementResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *CallbackOrderSettlementResponse) SetResultMsg(v string) *CallbackOrderSettlementResponse {
+	s.ResultMsg = &v
+	return s
+}
+
+func (s *CallbackOrderSettlementResponse) SetResult(v string) *CallbackOrderSettlementResponse {
+	s.Result = &v
 	return s
 }
 
@@ -571,9 +751,9 @@ type PushRightsprodGrantrightsResponse struct {
 	// 发放状态：
 	// GRANTING：发放处理中 GRANT_SUCCESS：发放成功 GRANT_FAIL：发放失败
 	GrantStatus *string `json:"grant_status,omitempty" xml:"grant_status,omitempty"`
-	// 过期时间
+	// 过期时间 yyyy-MM-dd HH:mm:ss
 	ExpireTime *string `json:"expire_time,omitempty" xml:"expire_time,omitempty" pattern:"\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}([Z]|([\\.]\\d{1,9})?[\\+]\\d{2}[\\:]?\\d{2})"`
-	// 生效时间
+	// 生效时间 yyyy-MM-dd HH:mm:ss
 	EffectTime *string `json:"effect_time,omitempty" xml:"effect_time,omitempty" pattern:"\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}([Z]|([\\.]\\d{1,9})?[\\+]\\d{2}[\\:]?\\d{2})"`
 	// 发放订单明细数据
 	OrderDetails []*GrantOrderDetail `json:"order_details,omitempty" xml:"order_details,omitempty" type:"Repeated"`
@@ -744,7 +924,7 @@ func (client *Client) DoRequest(version *string, action *string, protocol *strin
 				"req_msg_id":       antchainutil.GetNonce(),
 				"access_key":       client.AccessKeyId,
 				"base_sdk_version": tea.String("TeaSDK-2.0"),
-				"sdk_version":      tea.String("1.1.0"),
+				"sdk_version":      tea.String("1.1.3"),
 				"_prod_code":       tea.String("GESAAS_SPI"),
 				"_prod_channel":    tea.String("default"),
 			}
@@ -800,6 +980,40 @@ func (client *Client) DoRequest(version *string, action *string, protocol *strin
 	}
 
 	return _resp, _err
+}
+
+/**
+ * Description: 分账结果通知第三方
+ * Summary: 分账结果通知第三方
+ */
+func (client *Client) CallbackOrderSettlement(request *CallbackOrderSettlementRequest) (_result *CallbackOrderSettlementResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &CallbackOrderSettlementResponse{}
+	_body, _err := client.CallbackOrderSettlementEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+/**
+ * Description: 分账结果通知第三方
+ * Summary: 分账结果通知第三方
+ */
+func (client *Client) CallbackOrderSettlementEx(request *CallbackOrderSettlementRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *CallbackOrderSettlementResponse, _err error) {
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &CallbackOrderSettlementResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("antdigital.gesaasspi.order.settlement.callback"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
 }
 
 /**
