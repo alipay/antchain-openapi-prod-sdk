@@ -158,7 +158,7 @@ namespace AntChain.SDK.DEMOSDK
                         {"req_msg_id", AntChain.AlipayUtil.AntchainUtils.GetNonce()},
                         {"access_key", _accessKeyId},
                         {"base_sdk_version", "TeaSDK-2.0"},
-                        {"sdk_version", "1.4.9"},
+                        {"sdk_version", "1.4.11"},
                         {"_prod_code", "DEMOSDK"},
                         {"_prod_channel", "default"},
                     };
@@ -301,7 +301,7 @@ namespace AntChain.SDK.DEMOSDK
                         {"req_msg_id", AntChain.AlipayUtil.AntchainUtils.GetNonce()},
                         {"access_key", _accessKeyId},
                         {"base_sdk_version", "TeaSDK-2.0"},
-                        {"sdk_version", "1.4.9"},
+                        {"sdk_version", "1.4.11"},
                         {"_prod_code", "DEMOSDK"},
                         {"_prod_channel", "default"},
                     };
