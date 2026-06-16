@@ -28,7 +28,7 @@ public class QueryOrderSettlementResponse extends TeaModel {
     @NameInMap("trade_no")
     public String tradeNo;
 
-    // 外部订单号(商家)
+    // 外部订单号(同一个outProductId唯一)
     @NameInMap("out_order_no")
     public String outOrderNo;
 

@@ -20,7 +20,7 @@ public class WithdrawOrderSettlementResponse extends TeaModel {
     @NameInMap("trade_no")
     public String tradeNo;
 
-    // 商家订单号
+    // 外部订单号(同一个outProductId唯一)
     @NameInMap("out_order_no")
     public String outOrderNo;
 
@@ -31,6 +31,10 @@ public class WithdrawOrderSettlementResponse extends TeaModel {
     // 分账账单
     @NameInMap("settle_no")
     public String settleNo;
+
+    // 退分账唯一编号
+    @NameInMap("refund_no")
+    public String refundNo;
 
     public static WithdrawOrderSettlementResponse build(java.util.Map<String, ?> map) throws Exception {
         WithdrawOrderSettlementResponse self = new WithdrawOrderSettlementResponse();
@@ -91,6 +95,14 @@ public class WithdrawOrderSettlementResponse extends TeaModel {
     }
     public String getSettleNo() {
         return this.settleNo;
+    }
+
+    public WithdrawOrderSettlementResponse setRefundNo(String refundNo) {
+        this.refundNo = refundNo;
+        return this;
+    }
+    public String getRefundNo() {
+        return this.refundNo;
     }
 
 }

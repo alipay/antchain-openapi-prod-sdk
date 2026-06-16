@@ -16,7 +16,7 @@ public class PushOrderSettlementRequest extends TeaModel {
     @Validation(required = true)
     public String outProductId;
 
-    // 外部订单号，需保证在商家端不重复，64个字符以内，每次发起需定义唯一的outOrderNo(包括重试)
+    // 外部订单号(同一个outProductId保证唯一性)，需保证在商家端不重复，64个字符以内
     @NameInMap("out_order_no")
     @Validation(required = true)
     public String outOrderNo;
@@ -39,17 +39,6 @@ public class PushOrderSettlementRequest extends TeaModel {
     // 扩展参数，JSONString格式
     @NameInMap("ext_info")
     public String extInfo;
-
-    // true：是最终分账，分账完成后资金自动解冻
-    // false：非最终分账，资金保持冻结
-    // 默认值：true
-    @NameInMap("is_final_split")
-    public Boolean isFinalSplit;
-
-    // 订单产生时间，格式为yyyy-MM-dd HH:mm:ss
-    @NameInMap("out_order_time")
-    @Validation(required = true)
-    public String outOrderTime;
 
     public static PushOrderSettlementRequest build(java.util.Map<String, ?> map) throws Exception {
         PushOrderSettlementRequest self = new PushOrderSettlementRequest();
@@ -118,22 +107,6 @@ public class PushOrderSettlementRequest extends TeaModel {
     }
     public String getExtInfo() {
         return this.extInfo;
-    }
-
-    public PushOrderSettlementRequest setIsFinalSplit(Boolean isFinalSplit) {
-        this.isFinalSplit = isFinalSplit;
-        return this;
-    }
-    public Boolean getIsFinalSplit() {
-        return this.isFinalSplit;
-    }
-
-    public PushOrderSettlementRequest setOutOrderTime(String outOrderTime) {
-        this.outOrderTime = outOrderTime;
-        return this;
-    }
-    public String getOutOrderTime() {
-        return this.outOrderTime;
     }
 
 }
