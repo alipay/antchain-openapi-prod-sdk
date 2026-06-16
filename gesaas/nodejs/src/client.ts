@@ -783,7 +783,7 @@ export class PushOrderSettlementRequest extends $tea.Model {
   productInstanceId?: string;
   // 商家产品唯一编码，64个字符以内
   outProductId: string;
-  // 外部订单号，需保证在商家端不重复，64个字符以内，每次发起需定义唯一的outOrderNo(包括重试)
+  // 外部订单号(同一个outProductId保证唯一性)，需保证在商家端不重复，64个字符以内
   outOrderNo: string;
   // 支付宝/微信/其他  平台订单号
   tradeNo: string;
@@ -793,12 +793,6 @@ export class PushOrderSettlementRequest extends $tea.Model {
   orderAmount: number;
   // 扩展参数，JSONString格式
   extInfo?: string;
-  // true：是最终分账，分账完成后资金自动解冻
-  // false：非最终分账，资金保持冻结
-  // 默认值：true
-  isFinalSplit?: boolean;
-  // 订单产生时间，格式为yyyy-MM-dd HH:mm:ss
-  outOrderTime: string;
   static names(): { [key: string]: string } {
     return {
       authToken: 'auth_token',
@@ -809,8 +803,6 @@ export class PushOrderSettlementRequest extends $tea.Model {
       orderType: 'order_type',
       orderAmount: 'order_amount',
       extInfo: 'ext_info',
-      isFinalSplit: 'is_final_split',
-      outOrderTime: 'out_order_time',
     };
   }
 
@@ -824,8 +816,6 @@ export class PushOrderSettlementRequest extends $tea.Model {
       orderType: 'string',
       orderAmount: 'number',
       extInfo: 'string',
-      isFinalSplit: 'boolean',
-      outOrderTime: 'string',
     };
   }
 
@@ -914,7 +904,7 @@ export class QueryOrderSettlementResponse extends $tea.Model {
   splitDetailList?: SettleOrderRoyaltyDetail[];
   // 支付宝 平台订单号
   tradeNo?: string;
-  // 外部订单号(商家)
+  // 外部订单号(同一个outProductId唯一)
   outOrderNo?: string;
   // 分账状态，SUCCESS成功，FAIL失败，PROCESSING处理中
   splitStatus?: string;
@@ -1001,12 +991,14 @@ export class WithdrawOrderSettlementResponse extends $tea.Model {
   resultMsg?: string;
   // 支付交易号
   tradeNo?: string;
-  // 商家订单号
+  // 外部订单号(同一个outProductId唯一)
   outOrderNo?: string;
   // 退分账时间，格式为yyyy-MM-dd HH:mm:ss
   refundTime?: string;
   // 分账账单
   settleNo?: string;
+  // 退分账唯一编号
+  refundNo?: string;
   static names(): { [key: string]: string } {
     return {
       reqMsgId: 'req_msg_id',
@@ -1016,6 +1008,7 @@ export class WithdrawOrderSettlementResponse extends $tea.Model {
       outOrderNo: 'out_order_no',
       refundTime: 'refund_time',
       settleNo: 'settle_no',
+      refundNo: 'refund_no',
     };
   }
 
@@ -1028,6 +1021,7 @@ export class WithdrawOrderSettlementResponse extends $tea.Model {
       outOrderNo: 'string',
       refundTime: 'string',
       settleNo: 'string',
+      refundNo: 'string',
     };
   }
 
@@ -1724,7 +1718,7 @@ export default class Client {
           req_msg_id: AntchainUtil.getNonce(),
           access_key: this._accessKeyId,
           base_sdk_version: "TeaSDK-2.0",
-          sdk_version: "1.3.6",
+          sdk_version: "1.3.7",
           _prod_code: "GESAAS",
           _prod_channel: "default",
         };
