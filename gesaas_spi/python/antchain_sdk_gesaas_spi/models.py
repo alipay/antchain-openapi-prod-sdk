@@ -210,9 +210,12 @@ class GrantOrderDetail(TeaModel):
     def __init__(
         self,
         voucher_code: str = None,
+        ext_info: str = None,
     ):
         # 券编码
         self.voucher_code = voucher_code
+        # 发放扩展信息
+        self.ext_info = ext_info
 
     def validate(self):
         self.validate_required(self.voucher_code, 'voucher_code')
@@ -225,12 +228,16 @@ class GrantOrderDetail(TeaModel):
         result = dict()
         if self.voucher_code is not None:
             result['voucher_code'] = self.voucher_code
+        if self.ext_info is not None:
+            result['ext_info'] = self.ext_info
         return result
 
     def from_map(self, m: dict = None):
         m = m or dict()
         if m.get('voucher_code') is not None:
             self.voucher_code = m.get('voucher_code')
+        if m.get('ext_info') is not None:
+            self.ext_info = m.get('ext_info')
         return self
 
 
