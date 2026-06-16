@@ -237,15 +237,23 @@ export class GrantOrderDetail extends $tea.Model {
    * 1798234932684395
    */
   voucherCode: string;
+  // 发放扩展信息
+  /**
+   * @example
+   * {"supplierSettlePrice": 10.00,"supplierChannelNo": "alipay","rightsName": "28元抵扣券","outRightsCode": "1767506545030770701"}
+   */
+  extInfo?: string;
   static names(): { [key: string]: string } {
     return {
       voucherCode: 'voucher_code',
+      extInfo: 'ext_info',
     };
   }
 
   static types(): { [key: string]: any } {
     return {
       voucherCode: 'string',
+      extInfo: 'string',
     };
   }
 
@@ -812,7 +820,7 @@ export default class Client {
           req_msg_id: AntchainUtil.getNonce(),
           access_key: this._accessKeyId,
           base_sdk_version: "TeaSDK-2.0",
-          sdk_version: "1.1.3",
+          sdk_version: "1.1.4",
           _prod_code: "GESAAS_SPI",
           _prod_channel: "default",
         };
