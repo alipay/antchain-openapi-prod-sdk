@@ -15,8 +15,17 @@ class GrantOrderDetail extends Model
      * @var string
      */
     public $voucherCode;
+
+    // 发放扩展信息
+    /**
+     * @example {"supplierSettlePrice": 10.00,"supplierChannelNo": "alipay","rightsName": "28元抵扣券","outRightsCode": "1767506545030770701"}
+     *
+     * @var string
+     */
+    public $extInfo;
     protected $_name = [
         'voucherCode' => 'voucher_code',
+        'extInfo'     => 'ext_info',
     ];
 
     public function validate()
@@ -29,6 +38,9 @@ class GrantOrderDetail extends Model
         $res = [];
         if (null !== $this->voucherCode) {
             $res['voucher_code'] = $this->voucherCode;
+        }
+        if (null !== $this->extInfo) {
+            $res['ext_info'] = $this->extInfo;
         }
 
         return $res;
@@ -44,6 +56,9 @@ class GrantOrderDetail extends Model
         $model = new self();
         if (isset($map['voucher_code'])) {
             $model->voucherCode = $map['voucher_code'];
+        }
+        if (isset($map['ext_info'])) {
+            $model->extInfo = $map['ext_info'];
         }
 
         return $model;
