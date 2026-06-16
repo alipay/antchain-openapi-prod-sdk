@@ -137,7 +137,7 @@ namespace AntChain.SDK.GESAAS_SPI
                         {"req_msg_id", AntChain.AlipayUtil.AntchainUtils.GetNonce()},
                         {"access_key", _accessKeyId},
                         {"base_sdk_version", "TeaSDK-2.0"},
-                        {"sdk_version", "1.1.0"},
+                        {"sdk_version", "1.1.3"},
                         {"_prod_code", "GESAAS_SPI"},
                         {"_prod_channel", "default"},
                     };
@@ -263,7 +263,7 @@ namespace AntChain.SDK.GESAAS_SPI
                         {"req_msg_id", AntChain.AlipayUtil.AntchainUtils.GetNonce()},
                         {"access_key", _accessKeyId},
                         {"base_sdk_version", "TeaSDK-2.0"},
-                        {"sdk_version", "1.1.0"},
+                        {"sdk_version", "1.1.3"},
                         {"_prod_code", "GESAAS_SPI"},
                         {"_prod_channel", "default"},
                     };
@@ -319,6 +319,48 @@ namespace AntChain.SDK.GESAAS_SPI
             }
 
             throw new TeaUnretryableException(_lastRequest, _lastException);
+        }
+
+        /**
+         * Description: 分账结果通知第三方
+         * Summary: 分账结果通知第三方
+         */
+        public CallbackOrderSettlementResponse CallbackOrderSettlement(CallbackOrderSettlementRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return CallbackOrderSettlementEx(request, headers, runtime);
+        }
+
+        /**
+         * Description: 分账结果通知第三方
+         * Summary: 分账结果通知第三方
+         */
+        public async Task<CallbackOrderSettlementResponse> CallbackOrderSettlementAsync(CallbackOrderSettlementRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return await CallbackOrderSettlementExAsync(request, headers, runtime);
+        }
+
+        /**
+         * Description: 分账结果通知第三方
+         * Summary: 分账结果通知第三方
+         */
+        public CallbackOrderSettlementResponse CallbackOrderSettlementEx(CallbackOrderSettlementRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<CallbackOrderSettlementResponse>(DoRequest("1.0", "antdigital.gesaasspi.order.settlement.callback", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 分账结果通知第三方
+         * Summary: 分账结果通知第三方
+         */
+        public async Task<CallbackOrderSettlementResponse> CallbackOrderSettlementExAsync(CallbackOrderSettlementRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<CallbackOrderSettlementResponse>(await DoRequestAsync("1.0", "antdigital.gesaasspi.order.settlement.callback", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
         }
 
         /**

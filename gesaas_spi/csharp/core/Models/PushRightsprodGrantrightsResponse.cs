@@ -30,12 +30,12 @@ namespace AntChain.SDK.GESAAS_SPI.Models
         [Validation(Required=false)]
         public string GrantStatus { get; set; }
 
-        // 过期时间
+        // 过期时间 yyyy-MM-dd HH:mm:ss
         [NameInMap("expire_time")]
         [Validation(Required=false, Pattern="\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}([Z]|([\\.]\\d{1,9})?[\\+]\\d{2}[\\:]?\\d{2})")]
         public string ExpireTime { get; set; }
 
-        // 生效时间
+        // 生效时间 yyyy-MM-dd HH:mm:ss
         [NameInMap("effect_time")]
         [Validation(Required=false, Pattern="\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}([Z]|([\\.]\\d{1,9})?[\\+]\\d{2}[\\:]?\\d{2})")]
         public string EffectTime { get; set; }
