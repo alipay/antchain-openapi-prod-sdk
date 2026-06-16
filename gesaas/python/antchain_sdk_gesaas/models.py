@@ -840,15 +840,13 @@ class PushOrderSettlementRequest(TeaModel):
         order_type: str = None,
         order_amount: int = None,
         ext_info: str = None,
-        is_final_split: bool = None,
-        out_order_time: str = None,
     ):
         # OAuth模式下的授权token
         self.auth_token = auth_token
         self.product_instance_id = product_instance_id
         # 商家产品唯一编码，64个字符以内
         self.out_product_id = out_product_id
-        # 外部订单号，需保证在商家端不重复，64个字符以内，每次发起需定义唯一的outOrderNo(包括重试)
+        # 外部订单号(同一个outProductId保证唯一性)，需保证在商家端不重复，64个字符以内
         self.out_order_no = out_order_no
         # 支付宝/微信/其他  平台订单号
         self.trade_no = trade_no
@@ -858,12 +856,6 @@ class PushOrderSettlementRequest(TeaModel):
         self.order_amount = order_amount
         # 扩展参数，JSONString格式
         self.ext_info = ext_info
-        # true：是最终分账，分账完成后资金自动解冻
-        # false：非最终分账，资金保持冻结
-        # 默认值：true
-        self.is_final_split = is_final_split
-        # 订单产生时间，格式为yyyy-MM-dd HH:mm:ss
-        self.out_order_time = out_order_time
 
     def validate(self):
         self.validate_required(self.out_product_id, 'out_product_id')
@@ -871,7 +863,6 @@ class PushOrderSettlementRequest(TeaModel):
         self.validate_required(self.trade_no, 'trade_no')
         self.validate_required(self.order_type, 'order_type')
         self.validate_required(self.order_amount, 'order_amount')
-        self.validate_required(self.out_order_time, 'out_order_time')
 
     def to_map(self):
         _map = super().to_map()
@@ -895,10 +886,6 @@ class PushOrderSettlementRequest(TeaModel):
             result['order_amount'] = self.order_amount
         if self.ext_info is not None:
             result['ext_info'] = self.ext_info
-        if self.is_final_split is not None:
-            result['is_final_split'] = self.is_final_split
-        if self.out_order_time is not None:
-            result['out_order_time'] = self.out_order_time
         return result
 
     def from_map(self, m: dict = None):
@@ -919,10 +906,6 @@ class PushOrderSettlementRequest(TeaModel):
             self.order_amount = m.get('order_amount')
         if m.get('ext_info') is not None:
             self.ext_info = m.get('ext_info')
-        if m.get('is_final_split') is not None:
-            self.is_final_split = m.get('is_final_split')
-        if m.get('out_order_time') is not None:
-            self.out_order_time = m.get('out_order_time')
         return self
 
 
@@ -1056,7 +1039,7 @@ class QueryOrderSettlementResponse(TeaModel):
         self.split_detail_list = split_detail_list
         # 支付宝 平台订单号
         self.trade_no = trade_no
-        # 外部订单号(商家)
+        # 外部订单号(同一个outProductId唯一)
         self.out_order_no = out_order_no
         # 分账状态，SUCCESS成功，FAIL失败，PROCESSING处理中
         self.split_status = split_status
@@ -1195,6 +1178,7 @@ class WithdrawOrderSettlementResponse(TeaModel):
         out_order_no: str = None,
         refund_time: str = None,
         settle_no: str = None,
+        refund_no: str = None,
     ):
         # 请求唯一ID，用于链路跟踪和问题排查
         self.req_msg_id = req_msg_id
@@ -1204,12 +1188,14 @@ class WithdrawOrderSettlementResponse(TeaModel):
         self.result_msg = result_msg
         # 支付交易号
         self.trade_no = trade_no
-        # 商家订单号
+        # 外部订单号(同一个outProductId唯一)
         self.out_order_no = out_order_no
         # 退分账时间，格式为yyyy-MM-dd HH:mm:ss
         self.refund_time = refund_time
         # 分账账单
         self.settle_no = settle_no
+        # 退分账唯一编号
+        self.refund_no = refund_no
 
     def validate(self):
         pass
@@ -1234,6 +1220,8 @@ class WithdrawOrderSettlementResponse(TeaModel):
             result['refund_time'] = self.refund_time
         if self.settle_no is not None:
             result['settle_no'] = self.settle_no
+        if self.refund_no is not None:
+            result['refund_no'] = self.refund_no
         return result
 
     def from_map(self, m: dict = None):
@@ -1252,6 +1240,8 @@ class WithdrawOrderSettlementResponse(TeaModel):
             self.refund_time = m.get('refund_time')
         if m.get('settle_no') is not None:
             self.settle_no = m.get('settle_no')
+        if m.get('refund_no') is not None:
+            self.refund_no = m.get('refund_no')
         return self
 
 
