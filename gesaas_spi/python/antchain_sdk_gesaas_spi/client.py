@@ -110,7 +110,7 @@ class Client:
                 'period': UtilClient.default_number(runtime.backoff_period, 1)
             },
             'ignoreSSL': runtime.ignore_ssl,
-            # 发放订单明细
+            # 分账通知明细
         }
         _last_request = None
         _last_exception = None
@@ -135,7 +135,7 @@ class Client:
                     'req_msg_id': AntchainUtils.get_nonce(),
                     'access_key': self._access_key_id,
                     'base_sdk_version': 'TeaSDK-2.0',
-                    'sdk_version': '1.1.0',
+                    'sdk_version': '1.1.3',
                     '_prod_code': 'GESAAS_SPI',
                     '_prod_channel': 'default'
                 }
@@ -214,7 +214,7 @@ class Client:
                 'period': UtilClient.default_number(runtime.backoff_period, 1)
             },
             'ignoreSSL': runtime.ignore_ssl,
-            # 发放订单明细
+            # 分账通知明细
         }
         _last_request = None
         _last_exception = None
@@ -239,7 +239,7 @@ class Client:
                     'req_msg_id': AntchainUtils.get_nonce(),
                     'access_key': self._access_key_id,
                     'base_sdk_version': 'TeaSDK-2.0',
-                    'sdk_version': '1.1.0',
+                    'sdk_version': '1.1.3',
                     '_prod_code': 'GESAAS_SPI',
                     '_prod_channel': 'default'
                 }
@@ -274,6 +274,62 @@ class Client:
                     continue
                 raise e
         raise UnretryableException(_last_request, _last_exception)
+
+    def callback_order_settlement(
+        self,
+        request: gesaas__spi_models.CallbackOrderSettlementRequest,
+    ) -> gesaas__spi_models.CallbackOrderSettlementResponse:
+        """
+        Description: 分账结果通知第三方
+        Summary: 分账结果通知第三方
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.callback_order_settlement_ex(request, headers, runtime)
+
+    async def callback_order_settlement_async(
+        self,
+        request: gesaas__spi_models.CallbackOrderSettlementRequest,
+    ) -> gesaas__spi_models.CallbackOrderSettlementResponse:
+        """
+        Description: 分账结果通知第三方
+        Summary: 分账结果通知第三方
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.callback_order_settlement_ex_async(request, headers, runtime)
+
+    def callback_order_settlement_ex(
+        self,
+        request: gesaas__spi_models.CallbackOrderSettlementRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> gesaas__spi_models.CallbackOrderSettlementResponse:
+        """
+        Description: 分账结果通知第三方
+        Summary: 分账结果通知第三方
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            gesaas__spi_models.CallbackOrderSettlementResponse(),
+            self.do_request('1.0', 'antdigital.gesaasspi.order.settlement.callback', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def callback_order_settlement_ex_async(
+        self,
+        request: gesaas__spi_models.CallbackOrderSettlementRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> gesaas__spi_models.CallbackOrderSettlementResponse:
+        """
+        Description: 分账结果通知第三方
+        Summary: 分账结果通知第三方
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            gesaas__spi_models.CallbackOrderSettlementResponse(),
+            await self.do_request_async('1.0', 'antdigital.gesaasspi.order.settlement.callback', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
 
     def push_rightsprod_voucher(
         self,

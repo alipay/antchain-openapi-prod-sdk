@@ -154,6 +154,58 @@ class Config(TeaModel):
         return self
 
 
+class SettleOrderRoyaltyDetail(TeaModel):
+    def __init__(
+        self,
+        amount: int = None,
+        execute_time: str = None,
+        trans_out_account: str = None,
+        trans_in_account: str = None,
+    ):
+        # 分账金额，单位：分
+        self.amount = amount
+        # 分账执行时间
+        self.execute_time = execute_time
+        # 分账转出账号
+        self.trans_out_account = trans_out_account
+        # 分账转入账号
+        self.trans_in_account = trans_in_account
+
+    def validate(self):
+        self.validate_required(self.amount, 'amount')
+        self.validate_required(self.execute_time, 'execute_time')
+        self.validate_required(self.trans_out_account, 'trans_out_account')
+        self.validate_required(self.trans_in_account, 'trans_in_account')
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.amount is not None:
+            result['amount'] = self.amount
+        if self.execute_time is not None:
+            result['execute_time'] = self.execute_time
+        if self.trans_out_account is not None:
+            result['trans_out_account'] = self.trans_out_account
+        if self.trans_in_account is not None:
+            result['trans_in_account'] = self.trans_in_account
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('amount') is not None:
+            self.amount = m.get('amount')
+        if m.get('execute_time') is not None:
+            self.execute_time = m.get('execute_time')
+        if m.get('trans_out_account') is not None:
+            self.trans_out_account = m.get('trans_out_account')
+        if m.get('trans_in_account') is not None:
+            self.trans_in_account = m.get('trans_in_account')
+        return self
+
+
 class GrantOrderDetail(TeaModel):
     def __init__(
         self,
@@ -179,6 +231,183 @@ class GrantOrderDetail(TeaModel):
         m = m or dict()
         if m.get('voucher_code') is not None:
             self.voucher_code = m.get('voucher_code')
+        return self
+
+
+class CallbackOrderSettlementRequest(TeaModel):
+    def __init__(
+        self,
+        auth_token: str = None,
+        product_instance_id: str = None,
+        msg_type: str = None,
+        trade_no: str = None,
+        split_amount: int = None,
+        settle_no: str = None,
+        split_request_time: str = None,
+        split_detail_list: List[SettleOrderRoyaltyDetail] = None,
+        ext_info: str = None,
+        msg_id: str = None,
+        out_order_no: str = None,
+        split_status: str = None,
+        split_fail_reason: str = None,
+    ):
+        # OAuth模式下的授权token
+        self.auth_token = auth_token
+        self.product_instance_id = product_instance_id
+        # ASYNC_SETTLE_RESULT ：异步分账结果
+        self.msg_type = msg_type
+        # 支付交易号
+        self.trade_no = trade_no
+        # 分账金额，单位分
+        self.split_amount = split_amount
+        # 分账受理单号
+        self.settle_no = settle_no
+        # 分账受理时间
+        self.split_request_time = split_request_time
+        # 分账通知明细
+        self.split_detail_list = split_detail_list
+        # 扩展参数
+        self.ext_info = ext_info
+        # 消息唯一性判断，重试msgId不变
+        self.msg_id = msg_id
+        # 外部订单号(同一个outProductId唯一)
+        self.out_order_no = out_order_no
+        # 分账状态，SUCCESS成功，FAIL失败
+        self.split_status = split_status
+        # 分账失败原因，条件返回：splitStatus=FAIL 返回
+        self.split_fail_reason = split_fail_reason
+
+    def validate(self):
+        self.validate_required(self.msg_type, 'msg_type')
+        self.validate_required(self.trade_no, 'trade_no')
+        self.validate_required(self.split_amount, 'split_amount')
+        self.validate_required(self.settle_no, 'settle_no')
+        self.validate_required(self.split_request_time, 'split_request_time')
+        self.validate_required(self.split_detail_list, 'split_detail_list')
+        if self.split_detail_list:
+            for k in self.split_detail_list:
+                if k:
+                    k.validate()
+        self.validate_required(self.msg_id, 'msg_id')
+        self.validate_required(self.out_order_no, 'out_order_no')
+        self.validate_required(self.split_status, 'split_status')
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.auth_token is not None:
+            result['auth_token'] = self.auth_token
+        if self.product_instance_id is not None:
+            result['product_instance_id'] = self.product_instance_id
+        if self.msg_type is not None:
+            result['msg_type'] = self.msg_type
+        if self.trade_no is not None:
+            result['trade_no'] = self.trade_no
+        if self.split_amount is not None:
+            result['split_amount'] = self.split_amount
+        if self.settle_no is not None:
+            result['settle_no'] = self.settle_no
+        if self.split_request_time is not None:
+            result['split_request_time'] = self.split_request_time
+        result['split_detail_list'] = []
+        if self.split_detail_list is not None:
+            for k in self.split_detail_list:
+                result['split_detail_list'].append(k.to_map() if k else None)
+        if self.ext_info is not None:
+            result['ext_info'] = self.ext_info
+        if self.msg_id is not None:
+            result['msg_id'] = self.msg_id
+        if self.out_order_no is not None:
+            result['out_order_no'] = self.out_order_no
+        if self.split_status is not None:
+            result['split_status'] = self.split_status
+        if self.split_fail_reason is not None:
+            result['split_fail_reason'] = self.split_fail_reason
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('auth_token') is not None:
+            self.auth_token = m.get('auth_token')
+        if m.get('product_instance_id') is not None:
+            self.product_instance_id = m.get('product_instance_id')
+        if m.get('msg_type') is not None:
+            self.msg_type = m.get('msg_type')
+        if m.get('trade_no') is not None:
+            self.trade_no = m.get('trade_no')
+        if m.get('split_amount') is not None:
+            self.split_amount = m.get('split_amount')
+        if m.get('settle_no') is not None:
+            self.settle_no = m.get('settle_no')
+        if m.get('split_request_time') is not None:
+            self.split_request_time = m.get('split_request_time')
+        self.split_detail_list = []
+        if m.get('split_detail_list') is not None:
+            for k in m.get('split_detail_list'):
+                temp_model = SettleOrderRoyaltyDetail()
+                self.split_detail_list.append(temp_model.from_map(k))
+        if m.get('ext_info') is not None:
+            self.ext_info = m.get('ext_info')
+        if m.get('msg_id') is not None:
+            self.msg_id = m.get('msg_id')
+        if m.get('out_order_no') is not None:
+            self.out_order_no = m.get('out_order_no')
+        if m.get('split_status') is not None:
+            self.split_status = m.get('split_status')
+        if m.get('split_fail_reason') is not None:
+            self.split_fail_reason = m.get('split_fail_reason')
+        return self
+
+
+class CallbackOrderSettlementResponse(TeaModel):
+    def __init__(
+        self,
+        req_msg_id: str = None,
+        result_code: str = None,
+        result_msg: str = None,
+        result: str = None,
+    ):
+        # 请求唯一ID，用于链路跟踪和问题排查
+        self.req_msg_id = req_msg_id
+        # 结果码，一般OK表示调用成功
+        self.result_code = result_code
+        # 异常信息的文本描述
+        self.result_msg = result_msg
+        # 同步结果 success 同步成功,失败：fail
+        self.result = result
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.req_msg_id is not None:
+            result['req_msg_id'] = self.req_msg_id
+        if self.result_code is not None:
+            result['result_code'] = self.result_code
+        if self.result_msg is not None:
+            result['result_msg'] = self.result_msg
+        if self.result is not None:
+            result['result'] = self.result
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('req_msg_id') is not None:
+            self.req_msg_id = m.get('req_msg_id')
+        if m.get('result_code') is not None:
+            self.result_code = m.get('result_code')
+        if m.get('result_msg') is not None:
+            self.result_msg = m.get('result_msg')
+        if m.get('result') is not None:
+            self.result = m.get('result')
         return self
 
 
@@ -674,9 +903,9 @@ class PushRightsprodGrantrightsResponse(TeaModel):
         # 发放状态：
         # GRANTING：发放处理中 GRANT_SUCCESS：发放成功 GRANT_FAIL：发放失败
         self.grant_status = grant_status
-        # 过期时间
+        # 过期时间 yyyy-MM-dd HH:mm:ss
         self.expire_time = expire_time
-        # 生效时间
+        # 生效时间 yyyy-MM-dd HH:mm:ss
         self.effect_time = effect_time
         # 发放订单明细数据
         self.order_details = order_details
