@@ -192,6 +192,8 @@ func (s *SettleOrderRoyaltyDetail) SetTransInAccount(v string) *SettleOrderRoyal
 type GrantOrderDetail struct {
 	// 券编码
 	VoucherCode *string `json:"voucher_code,omitempty" xml:"voucher_code,omitempty" require:"true"`
+	// 发放扩展信息
+	ExtInfo *string `json:"ext_info,omitempty" xml:"ext_info,omitempty"`
 }
 
 func (s GrantOrderDetail) String() string {
@@ -204,6 +206,11 @@ func (s GrantOrderDetail) GoString() string {
 
 func (s *GrantOrderDetail) SetVoucherCode(v string) *GrantOrderDetail {
 	s.VoucherCode = &v
+	return s
+}
+
+func (s *GrantOrderDetail) SetExtInfo(v string) *GrantOrderDetail {
+	s.ExtInfo = &v
 	return s
 }
 
@@ -924,7 +931,7 @@ func (client *Client) DoRequest(version *string, action *string, protocol *strin
 				"req_msg_id":       antchainutil.GetNonce(),
 				"access_key":       client.AccessKeyId,
 				"base_sdk_version": tea.String("TeaSDK-2.0"),
-				"sdk_version":      tea.String("1.1.3"),
+				"sdk_version":      tea.String("1.1.4"),
 				"_prod_code":       tea.String("GESAAS_SPI"),
 				"_prod_channel":    tea.String("default"),
 			}
