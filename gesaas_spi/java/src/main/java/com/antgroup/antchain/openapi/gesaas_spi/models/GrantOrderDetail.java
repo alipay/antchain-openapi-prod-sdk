@@ -13,6 +13,14 @@ public class GrantOrderDetail extends TeaModel {
     @Validation(required = true)
     public String voucherCode;
 
+    // 发放扩展信息
+    /**
+     * <strong>example:</strong>
+     * <p>{&quot;supplierSettlePrice&quot;: 10.00,&quot;supplierChannelNo&quot;: &quot;alipay&quot;,&quot;rightsName&quot;: &quot;28元抵扣券&quot;,&quot;outRightsCode&quot;: &quot;1767506545030770701&quot;}</p>
+     */
+    @NameInMap("ext_info")
+    public String extInfo;
+
     public static GrantOrderDetail build(java.util.Map<String, ?> map) throws Exception {
         GrantOrderDetail self = new GrantOrderDetail();
         return TeaModel.build(map, self);
@@ -24,6 +32,14 @@ public class GrantOrderDetail extends TeaModel {
     }
     public String getVoucherCode() {
         return this.voucherCode;
+    }
+
+    public GrantOrderDetail setExtInfo(String extInfo) {
+        this.extInfo = extInfo;
+        return this;
+    }
+    public String getExtInfo() {
+        return this.extInfo;
     }
 
 }
