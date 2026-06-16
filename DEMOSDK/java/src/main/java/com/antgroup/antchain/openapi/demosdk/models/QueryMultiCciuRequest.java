@@ -11,6 +11,14 @@ public class QueryMultiCciuRequest extends TeaModel {
     @NameInMap("product_instance_id")
     public String productInstanceId;
 
+    // aaa
+    @NameInMap("aaaaa")
+    public TestParams aaaaa;
+
+    // bbbbb
+    @NameInMap("bbbbb")
+    public String bbbbb;
+
     public static QueryMultiCciuRequest build(java.util.Map<String, ?> map) throws Exception {
         QueryMultiCciuRequest self = new QueryMultiCciuRequest();
         return TeaModel.build(map, self);
@@ -30,6 +38,22 @@ public class QueryMultiCciuRequest extends TeaModel {
     }
     public String getProductInstanceId() {
         return this.productInstanceId;
+    }
+
+    public QueryMultiCciuRequest setAaaaa(TestParams aaaaa) {
+        this.aaaaa = aaaaa;
+        return this;
+    }
+    public TestParams getAaaaa() {
+        return this.aaaaa;
+    }
+
+    public QueryMultiCciuRequest setBbbbb(String bbbbb) {
+        this.bbbbb = bbbbb;
+        return this;
+    }
+    public String getBbbbb() {
+        return this.bbbbb;
     }
 
 }

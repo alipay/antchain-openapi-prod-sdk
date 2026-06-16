@@ -3,7 +3,7 @@ package com.antgroup.antchain.openapi.demosdk.models;
 
 import com.aliyun.tea.*;
 
-public class PublishTwiceOneRequest extends TeaModel {
+public class TestStructOnlineRequest extends TeaModel {
     // OAuth模式下的授权token
     @NameInMap("auth_token")
     public String authToken;
@@ -15,16 +15,16 @@ public class PublishTwiceOneRequest extends TeaModel {
     @NameInMap("timeout")
     public String timeout;
 
-    // aa
-    @NameInMap("aaa")
-    public DemoClass aaa;
+    // 结构体参数
+    @NameInMap("struct")
+    public TestParams struct;
 
-    public static PublishTwiceOneRequest build(java.util.Map<String, ?> map) throws Exception {
-        PublishTwiceOneRequest self = new PublishTwiceOneRequest();
+    public static TestStructOnlineRequest build(java.util.Map<String, ?> map) throws Exception {
+        TestStructOnlineRequest self = new TestStructOnlineRequest();
         return TeaModel.build(map, self);
     }
 
-    public PublishTwiceOneRequest setAuthToken(String authToken) {
+    public TestStructOnlineRequest setAuthToken(String authToken) {
         this.authToken = authToken;
         return this;
     }
@@ -32,7 +32,7 @@ public class PublishTwiceOneRequest extends TeaModel {
         return this.authToken;
     }
 
-    public PublishTwiceOneRequest setProductInstanceId(String productInstanceId) {
+    public TestStructOnlineRequest setProductInstanceId(String productInstanceId) {
         this.productInstanceId = productInstanceId;
         return this;
     }
@@ -40,7 +40,7 @@ public class PublishTwiceOneRequest extends TeaModel {
         return this.productInstanceId;
     }
 
-    public PublishTwiceOneRequest setTimeout(String timeout) {
+    public TestStructOnlineRequest setTimeout(String timeout) {
         this.timeout = timeout;
         return this;
     }
@@ -48,12 +48,12 @@ public class PublishTwiceOneRequest extends TeaModel {
         return this.timeout;
     }
 
-    public PublishTwiceOneRequest setAaa(DemoClass aaa) {
-        this.aaa = aaa;
+    public TestStructOnlineRequest setStruct(TestParams struct) {
+        this.struct = struct;
         return this;
     }
-    public DemoClass getAaa() {
-        return this.aaa;
+    public TestParams getStruct() {
+        return this.struct;
     }
 
 }

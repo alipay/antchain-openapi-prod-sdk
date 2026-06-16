@@ -3,7 +3,7 @@ package com.antgroup.antchain.openapi.demosdk.models;
 
 import com.aliyun.tea.*;
 
-public class QueryTxtRequest extends TeaModel {
+public class QueryAaaQqqRequest extends TeaModel {
     // OAuth模式下的授权token
     @NameInMap("auth_token")
     public String authToken;
@@ -11,16 +11,16 @@ public class QueryTxtRequest extends TeaModel {
     @NameInMap("product_instance_id")
     public String productInstanceId;
 
-    // 姓名
-    @NameInMap("name")
-    public String name;
+    // 1
+    @NameInMap("timeout")
+    public String timeout;
 
-    public static QueryTxtRequest build(java.util.Map<String, ?> map) throws Exception {
-        QueryTxtRequest self = new QueryTxtRequest();
+    public static QueryAaaQqqRequest build(java.util.Map<String, ?> map) throws Exception {
+        QueryAaaQqqRequest self = new QueryAaaQqqRequest();
         return TeaModel.build(map, self);
     }
 
-    public QueryTxtRequest setAuthToken(String authToken) {
+    public QueryAaaQqqRequest setAuthToken(String authToken) {
         this.authToken = authToken;
         return this;
     }
@@ -28,7 +28,7 @@ public class QueryTxtRequest extends TeaModel {
         return this.authToken;
     }
 
-    public QueryTxtRequest setProductInstanceId(String productInstanceId) {
+    public QueryAaaQqqRequest setProductInstanceId(String productInstanceId) {
         this.productInstanceId = productInstanceId;
         return this;
     }
@@ -36,12 +36,12 @@ public class QueryTxtRequest extends TeaModel {
         return this.productInstanceId;
     }
 
-    public QueryTxtRequest setName(String name) {
-        this.name = name;
+    public QueryAaaQqqRequest setTimeout(String timeout) {
+        this.timeout = timeout;
         return this;
     }
-    public String getName() {
-        return this.name;
+    public String getTimeout() {
+        return this.timeout;
     }
 
 }

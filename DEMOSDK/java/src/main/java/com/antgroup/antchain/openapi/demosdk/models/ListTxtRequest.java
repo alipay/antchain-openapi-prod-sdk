@@ -3,7 +3,7 @@ package com.antgroup.antchain.openapi.demosdk.models;
 
 import com.aliyun.tea.*;
 
-public class QueryTxtRequest extends TeaModel {
+public class ListTxtRequest extends TeaModel {
     // OAuth模式下的授权token
     @NameInMap("auth_token")
     public String authToken;
@@ -11,16 +11,16 @@ public class QueryTxtRequest extends TeaModel {
     @NameInMap("product_instance_id")
     public String productInstanceId;
 
-    // 姓名
-    @NameInMap("name")
-    public String name;
+    // 124
+    @NameInMap("idcard")
+    public String idcard;
 
-    public static QueryTxtRequest build(java.util.Map<String, ?> map) throws Exception {
-        QueryTxtRequest self = new QueryTxtRequest();
+    public static ListTxtRequest build(java.util.Map<String, ?> map) throws Exception {
+        ListTxtRequest self = new ListTxtRequest();
         return TeaModel.build(map, self);
     }
 
-    public QueryTxtRequest setAuthToken(String authToken) {
+    public ListTxtRequest setAuthToken(String authToken) {
         this.authToken = authToken;
         return this;
     }
@@ -28,7 +28,7 @@ public class QueryTxtRequest extends TeaModel {
         return this.authToken;
     }
 
-    public QueryTxtRequest setProductInstanceId(String productInstanceId) {
+    public ListTxtRequest setProductInstanceId(String productInstanceId) {
         this.productInstanceId = productInstanceId;
         return this;
     }
@@ -36,12 +36,12 @@ public class QueryTxtRequest extends TeaModel {
         return this.productInstanceId;
     }
 
-    public QueryTxtRequest setName(String name) {
-        this.name = name;
+    public ListTxtRequest setIdcard(String idcard) {
+        this.idcard = idcard;
         return this;
     }
-    public String getName() {
-        return this.name;
+    public String getIdcard() {
+        return this.idcard;
     }
 
 }

@@ -3,7 +3,7 @@ package com.antgroup.antchain.openapi.demosdk.models;
 
 import com.aliyun.tea.*;
 
-public class QueryTxtResponse extends TeaModel {
+public class ConfigQueryApiResponse extends TeaModel {
     // 请求唯一ID，用于链路跟踪和问题排查
     @NameInMap("req_msg_id")
     public String reqMsgId;
@@ -16,16 +16,20 @@ public class QueryTxtResponse extends TeaModel {
     @NameInMap("result_msg")
     public String resultMsg;
 
-    // 证件号
-    @NameInMap("idcard")
-    public String idcard;
+    // 状态码
+    @NameInMap("stauts")
+    public String stauts;
 
-    public static QueryTxtResponse build(java.util.Map<String, ?> map) throws Exception {
-        QueryTxtResponse self = new QueryTxtResponse();
+    // 状态描述
+    @NameInMap("msg")
+    public String msg;
+
+    public static ConfigQueryApiResponse build(java.util.Map<String, ?> map) throws Exception {
+        ConfigQueryApiResponse self = new ConfigQueryApiResponse();
         return TeaModel.build(map, self);
     }
 
-    public QueryTxtResponse setReqMsgId(String reqMsgId) {
+    public ConfigQueryApiResponse setReqMsgId(String reqMsgId) {
         this.reqMsgId = reqMsgId;
         return this;
     }
@@ -33,7 +37,7 @@ public class QueryTxtResponse extends TeaModel {
         return this.reqMsgId;
     }
 
-    public QueryTxtResponse setResultCode(String resultCode) {
+    public ConfigQueryApiResponse setResultCode(String resultCode) {
         this.resultCode = resultCode;
         return this;
     }
@@ -41,7 +45,7 @@ public class QueryTxtResponse extends TeaModel {
         return this.resultCode;
     }
 
-    public QueryTxtResponse setResultMsg(String resultMsg) {
+    public ConfigQueryApiResponse setResultMsg(String resultMsg) {
         this.resultMsg = resultMsg;
         return this;
     }
@@ -49,12 +53,20 @@ public class QueryTxtResponse extends TeaModel {
         return this.resultMsg;
     }
 
-    public QueryTxtResponse setIdcard(String idcard) {
-        this.idcard = idcard;
+    public ConfigQueryApiResponse setStauts(String stauts) {
+        this.stauts = stauts;
         return this;
     }
-    public String getIdcard() {
-        return this.idcard;
+    public String getStauts() {
+        return this.stauts;
+    }
+
+    public ConfigQueryApiResponse setMsg(String msg) {
+        this.msg = msg;
+        return this;
+    }
+    public String getMsg() {
+        return this.msg;
     }
 
 }
