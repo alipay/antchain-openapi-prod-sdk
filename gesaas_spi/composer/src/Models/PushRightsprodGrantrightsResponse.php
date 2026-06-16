@@ -33,13 +33,13 @@ class PushRightsprodGrantrightsResponse extends Model
      */
     public $grantStatus;
 
-    // 过期时间
+    // 过期时间 yyyy-MM-dd HH:mm:ss
     /**
      * @var string
      */
     public $expireTime;
 
-    // 生效时间
+    // 生效时间 yyyy-MM-dd HH:mm:ss
     /**
      * @var string
      */

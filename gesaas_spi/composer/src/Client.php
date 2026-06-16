@@ -11,6 +11,8 @@ use AlibabaCloud\Tea\RpcUtils\RpcUtils;
 use AlibabaCloud\Tea\Tea;
 use AlibabaCloud\Tea\Utils\Utils;
 use AlibabaCloud\Tea\Utils\Utils\RuntimeOptions;
+use AntChain\GESAAS_SPI\Models\CallbackOrderSettlementRequest;
+use AntChain\GESAAS_SPI\Models\CallbackOrderSettlementResponse;
 use AntChain\GESAAS_SPI\Models\CallbackRightsprodOperationRequest;
 use AntChain\GESAAS_SPI\Models\CallbackRightsprodOperationResponse;
 use AntChain\GESAAS_SPI\Models\CallbackRightsprodStatusRequest;
@@ -138,7 +140,7 @@ class Client
                 'period' => Utils::defaultNumber($runtime->backoffPeriod, 1),
             ],
             'ignoreSSL' => $runtime->ignoreSSL,
-            // 发放订单明细
+            // 分账通知明细
         ];
         $_lastRequest   = null;
         $_lastException = null;
@@ -166,7 +168,7 @@ class Client
                     'req_msg_id'       => UtilClient::getNonce(),
                     'access_key'       => $this->_accessKeyId,
                     'base_sdk_version' => 'TeaSDK-2.0',
-                    'sdk_version'      => '1.1.0',
+                    'sdk_version'      => '1.1.3',
                     '_prod_code'       => 'GESAAS_SPI',
                     '_prod_channel'    => 'default',
                 ];
@@ -212,6 +214,39 @@ class Client
         }
 
         throw new TeaUnableRetryError($_lastRequest, $_lastException);
+    }
+
+    /**
+     * Description: 分账结果通知第三方
+     * Summary: 分账结果通知第三方.
+     *
+     * @param CallbackOrderSettlementRequest $request
+     *
+     * @return CallbackOrderSettlementResponse
+     */
+    public function callbackOrderSettlement($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->callbackOrderSettlementEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 分账结果通知第三方
+     * Summary: 分账结果通知第三方.
+     *
+     * @param CallbackOrderSettlementRequest $request
+     * @param string[]                       $headers
+     * @param RuntimeOptions                 $runtime
+     *
+     * @return CallbackOrderSettlementResponse
+     */
+    public function callbackOrderSettlementEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return CallbackOrderSettlementResponse::fromMap($this->doRequest('1.0', 'antdigital.gesaasspi.order.settlement.callback', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
     }
 
     /**
