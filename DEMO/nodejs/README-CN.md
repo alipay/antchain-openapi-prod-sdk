@@ -1,12 +1,13 @@
-[English](README.md) | 简体中文
+# Ant Chain DEMO SDK for TypeScript
 
-# Ant Chain DEMO SDK for Node.js
+[English](README.md) | 简体中文
 
 ## 安装
 
 ```bash
-npm install @antchain/demo
+npm install @antchain/DEMO
 ```
+
 ## 问题
 
 [提交 Issue](https://github.com/alipay/antchain-openapi-prod-sdk/issues/new)
