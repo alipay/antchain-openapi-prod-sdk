@@ -21,12 +21,12 @@ public class PushRightsprodGrantrightsResponse extends TeaModel {
     @NameInMap("grant_status")
     public String grantStatus;
 
-    // 过期时间
+    // 过期时间 yyyy-MM-dd HH:mm:ss
     @NameInMap("expire_time")
     @Validation(pattern = "\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}([Z]|([\\.]\\d{1,9})?[\\+]\\d{2}[\\:]?\\d{2})")
     public String expireTime;
 
-    // 生效时间
+    // 生效时间 yyyy-MM-dd HH:mm:ss
     @NameInMap("effect_time")
     @Validation(pattern = "\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}([Z]|([\\.]\\d{1,9})?[\\+]\\d{2}[\\:]?\\d{2})")
     public String effectTime;
