@@ -15,6 +15,11 @@ namespace AntChain.SDK.GESAAS_SPI.Models
         [Validation(Required=true)]
         public string VoucherCode { get; set; }
 
+        // 发放扩展信息
+        [NameInMap("ext_info")]
+        [Validation(Required=false)]
+        public string ExtInfo { get; set; }
+
     }
 
 }
