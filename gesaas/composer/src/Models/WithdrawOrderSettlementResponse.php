@@ -32,7 +32,7 @@ class WithdrawOrderSettlementResponse extends Model
      */
     public $tradeNo;
 
-    // 商家订单号
+    // 外部订单号(同一个outProductId唯一)
     /**
      * @var string
      */
@@ -49,6 +49,12 @@ class WithdrawOrderSettlementResponse extends Model
      * @var string
      */
     public $settleNo;
+
+    // 退分账唯一编号
+    /**
+     * @var string
+     */
+    public $refundNo;
     protected $_name = [
         'reqMsgId'   => 'req_msg_id',
         'resultCode' => 'result_code',
@@ -57,6 +63,7 @@ class WithdrawOrderSettlementResponse extends Model
         'outOrderNo' => 'out_order_no',
         'refundTime' => 'refund_time',
         'settleNo'   => 'settle_no',
+        'refundNo'   => 'refund_no',
     ];
 
     public function validate()
@@ -86,6 +93,9 @@ class WithdrawOrderSettlementResponse extends Model
         }
         if (null !== $this->settleNo) {
             $res['settle_no'] = $this->settleNo;
+        }
+        if (null !== $this->refundNo) {
+            $res['refund_no'] = $this->refundNo;
         }
 
         return $res;
@@ -119,6 +129,9 @@ class WithdrawOrderSettlementResponse extends Model
         }
         if (isset($map['settle_no'])) {
             $model->settleNo = $map['settle_no'];
+        }
+        if (isset($map['refund_no'])) {
+            $model->refundNo = $map['refund_no'];
         }
 
         return $model;

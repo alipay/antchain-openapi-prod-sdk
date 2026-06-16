@@ -44,7 +44,7 @@ class QueryOrderSettlementResponse extends Model
      */
     public $tradeNo;
 
-    // 外部订单号(商家)
+    // 外部订单号(同一个outProductId唯一)
     /**
      * @var string
      */
