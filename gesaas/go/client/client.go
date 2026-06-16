@@ -670,7 +670,7 @@ type PushOrderSettlementRequest struct {
 	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
 	// 商家产品唯一编码，64个字符以内
 	OutProductId *string `json:"out_product_id,omitempty" xml:"out_product_id,omitempty" require:"true"`
-	// 外部订单号，需保证在商家端不重复，64个字符以内，每次发起需定义唯一的outOrderNo(包括重试)
+	// 外部订单号(同一个outProductId保证唯一性)，需保证在商家端不重复，64个字符以内
 	OutOrderNo *string `json:"out_order_no,omitempty" xml:"out_order_no,omitempty" require:"true"`
 	// 支付宝/微信/其他  平台订单号
 	TradeNo *string `json:"trade_no,omitempty" xml:"trade_no,omitempty" require:"true"`
@@ -680,12 +680,6 @@ type PushOrderSettlementRequest struct {
 	OrderAmount *int64 `json:"order_amount,omitempty" xml:"order_amount,omitempty" require:"true"`
 	// 扩展参数，JSONString格式
 	ExtInfo *string `json:"ext_info,omitempty" xml:"ext_info,omitempty"`
-	// true：是最终分账，分账完成后资金自动解冻
-	// false：非最终分账，资金保持冻结
-	// 默认值：true
-	IsFinalSplit *bool `json:"is_final_split,omitempty" xml:"is_final_split,omitempty"`
-	// 订单产生时间，格式为yyyy-MM-dd HH:mm:ss
-	OutOrderTime *string `json:"out_order_time,omitempty" xml:"out_order_time,omitempty" require:"true"`
 }
 
 func (s PushOrderSettlementRequest) String() string {
@@ -733,16 +727,6 @@ func (s *PushOrderSettlementRequest) SetOrderAmount(v int64) *PushOrderSettlemen
 
 func (s *PushOrderSettlementRequest) SetExtInfo(v string) *PushOrderSettlementRequest {
 	s.ExtInfo = &v
-	return s
-}
-
-func (s *PushOrderSettlementRequest) SetIsFinalSplit(v bool) *PushOrderSettlementRequest {
-	s.IsFinalSplit = &v
-	return s
-}
-
-func (s *PushOrderSettlementRequest) SetOutOrderTime(v string) *PushOrderSettlementRequest {
-	s.OutOrderTime = &v
 	return s
 }
 
@@ -843,7 +827,7 @@ type QueryOrderSettlementResponse struct {
 	SplitDetailList []*SettleOrderRoyaltyDetail `json:"split_detail_list,omitempty" xml:"split_detail_list,omitempty" type:"Repeated"`
 	// 支付宝 平台订单号
 	TradeNo *string `json:"trade_no,omitempty" xml:"trade_no,omitempty"`
-	// 外部订单号(商家)
+	// 外部订单号(同一个outProductId唯一)
 	OutOrderNo *string `json:"out_order_no,omitempty" xml:"out_order_no,omitempty"`
 	// 分账状态，SUCCESS成功，FAIL失败，PROCESSING处理中
 	SplitStatus *string `json:"split_status,omitempty" xml:"split_status,omitempty"`
@@ -965,12 +949,14 @@ type WithdrawOrderSettlementResponse struct {
 	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
 	// 支付交易号
 	TradeNo *string `json:"trade_no,omitempty" xml:"trade_no,omitempty"`
-	// 商家订单号
+	// 外部订单号(同一个outProductId唯一)
 	OutOrderNo *string `json:"out_order_no,omitempty" xml:"out_order_no,omitempty"`
 	// 退分账时间，格式为yyyy-MM-dd HH:mm:ss
 	RefundTime *string `json:"refund_time,omitempty" xml:"refund_time,omitempty"`
 	// 分账账单
 	SettleNo *string `json:"settle_no,omitempty" xml:"settle_no,omitempty"`
+	// 退分账唯一编号
+	RefundNo *string `json:"refund_no,omitempty" xml:"refund_no,omitempty"`
 }
 
 func (s WithdrawOrderSettlementResponse) String() string {
@@ -1013,6 +999,11 @@ func (s *WithdrawOrderSettlementResponse) SetRefundTime(v string) *WithdrawOrder
 
 func (s *WithdrawOrderSettlementResponse) SetSettleNo(v string) *WithdrawOrderSettlementResponse {
 	s.SettleNo = &v
+	return s
+}
+
+func (s *WithdrawOrderSettlementResponse) SetRefundNo(v string) *WithdrawOrderSettlementResponse {
+	s.RefundNo = &v
 	return s
 }
 
@@ -1891,7 +1882,7 @@ func (client *Client) DoRequest(version *string, action *string, protocol *strin
 				"req_msg_id":       antchainutil.GetNonce(),
 				"access_key":       client.AccessKeyId,
 				"base_sdk_version": tea.String("TeaSDK-2.0"),
-				"sdk_version":      tea.String("1.3.6"),
+				"sdk_version":      tea.String("1.3.7"),
 				"_prod_code":       tea.String("GESAAS"),
 				"_prod_channel":    tea.String("default"),
 			}
