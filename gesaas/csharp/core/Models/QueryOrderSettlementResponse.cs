@@ -39,7 +39,7 @@ namespace AntChain.SDK.GESAAS.Models
         [Validation(Required=false)]
         public string TradeNo { get; set; }
 
-        // 外部订单号(商家)
+        // 外部订单号(同一个outProductId唯一)
         [NameInMap("out_order_no")]
         [Validation(Required=false)]
         public string OutOrderNo { get; set; }

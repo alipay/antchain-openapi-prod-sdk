@@ -23,7 +23,7 @@ namespace AntChain.SDK.GESAAS.Models
         [Validation(Required=true)]
         public string OutProductId { get; set; }
 
-        // 外部订单号，需保证在商家端不重复，64个字符以内，每次发起需定义唯一的outOrderNo(包括重试)
+        // 外部订单号(同一个outProductId保证唯一性)，需保证在商家端不重复，64个字符以内
         [NameInMap("out_order_no")]
         [Validation(Required=true)]
         public string OutOrderNo { get; set; }
@@ -47,18 +47,6 @@ namespace AntChain.SDK.GESAAS.Models
         [NameInMap("ext_info")]
         [Validation(Required=false)]
         public string ExtInfo { get; set; }
-
-        // true：是最终分账，分账完成后资金自动解冻
-        // false：非最终分账，资金保持冻结
-        // 默认值：true
-        [NameInMap("is_final_split")]
-        [Validation(Required=false)]
-        public bool? IsFinalSplit { get; set; }
-
-        // 订单产生时间，格式为yyyy-MM-dd HH:mm:ss
-        [NameInMap("out_order_time")]
-        [Validation(Required=true)]
-        public string OutOrderTime { get; set; }
 
     }
 

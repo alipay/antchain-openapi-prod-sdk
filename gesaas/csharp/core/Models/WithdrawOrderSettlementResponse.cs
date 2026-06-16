@@ -29,7 +29,7 @@ namespace AntChain.SDK.GESAAS.Models
         [Validation(Required=false)]
         public string TradeNo { get; set; }
 
-        // 商家订单号
+        // 外部订单号(同一个outProductId唯一)
         [NameInMap("out_order_no")]
         [Validation(Required=false)]
         public string OutOrderNo { get; set; }
@@ -43,6 +43,11 @@ namespace AntChain.SDK.GESAAS.Models
         [NameInMap("settle_no")]
         [Validation(Required=false)]
         public string SettleNo { get; set; }
+
+        // 退分账唯一编号
+        [NameInMap("refund_no")]
+        [Validation(Required=false)]
+        public string RefundNo { get; set; }
 
     }
 
