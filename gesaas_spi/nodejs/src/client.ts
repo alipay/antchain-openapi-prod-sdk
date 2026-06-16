@@ -180,6 +180,55 @@ export class Config extends $tea.Model {
   }
 }
 
+// 分账通知明细
+export class SettleOrderRoyaltyDetail extends $tea.Model {
+  // 分账金额，单位：分
+  /**
+   * @example
+   * 100
+   */
+  amount: number;
+  // 分账执行时间
+  /**
+   * @example
+   * 2021-07-30 12:00:00
+   */
+  executeTime: string;
+  // 分账转出账号
+  /**
+   * @example
+   * 2088111111111111
+   */
+  transOutAccount: string;
+  // 分账转入账号
+  /**
+   * @example
+   * 2088111111111111
+   */
+  transInAccount: string;
+  static names(): { [key: string]: string } {
+    return {
+      amount: 'amount',
+      executeTime: 'execute_time',
+      transOutAccount: 'trans_out_account',
+      transInAccount: 'trans_in_account',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      amount: 'number',
+      executeTime: 'string',
+      transOutAccount: 'string',
+      transInAccount: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
 // 发放订单明细
 export class GrantOrderDetail extends $tea.Model {
   // 券编码
@@ -197,6 +246,105 @@ export class GrantOrderDetail extends $tea.Model {
   static types(): { [key: string]: any } {
     return {
       voucherCode: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class CallbackOrderSettlementRequest extends $tea.Model {
+  // OAuth模式下的授权token
+  authToken?: string;
+  productInstanceId?: string;
+  // ASYNC_SETTLE_RESULT ：异步分账结果
+  msgType: string;
+  // 支付交易号
+  tradeNo: string;
+  // 分账金额，单位分
+  splitAmount: number;
+  // 分账受理单号
+  settleNo: string;
+  // 分账受理时间
+  splitRequestTime: string;
+  // 分账通知明细
+  splitDetailList: SettleOrderRoyaltyDetail[];
+  // 扩展参数
+  extInfo?: string;
+  // 消息唯一性判断，重试msgId不变
+  msgId: string;
+  // 外部订单号(同一个outProductId唯一)
+  outOrderNo: string;
+  // 分账状态，SUCCESS成功，FAIL失败
+  splitStatus: string;
+  // 分账失败原因，条件返回：splitStatus=FAIL 返回
+  splitFailReason?: string;
+  static names(): { [key: string]: string } {
+    return {
+      authToken: 'auth_token',
+      productInstanceId: 'product_instance_id',
+      msgType: 'msg_type',
+      tradeNo: 'trade_no',
+      splitAmount: 'split_amount',
+      settleNo: 'settle_no',
+      splitRequestTime: 'split_request_time',
+      splitDetailList: 'split_detail_list',
+      extInfo: 'ext_info',
+      msgId: 'msg_id',
+      outOrderNo: 'out_order_no',
+      splitStatus: 'split_status',
+      splitFailReason: 'split_fail_reason',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      authToken: 'string',
+      productInstanceId: 'string',
+      msgType: 'string',
+      tradeNo: 'string',
+      splitAmount: 'number',
+      settleNo: 'string',
+      splitRequestTime: 'string',
+      splitDetailList: { 'type': 'array', 'itemType': SettleOrderRoyaltyDetail },
+      extInfo: 'string',
+      msgId: 'string',
+      outOrderNo: 'string',
+      splitStatus: 'string',
+      splitFailReason: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class CallbackOrderSettlementResponse extends $tea.Model {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string;
+  // 结果码，一般OK表示调用成功
+  resultCode?: string;
+  // 异常信息的文本描述
+  resultMsg?: string;
+  // 同步结果 success 同步成功,失败：fail
+  result?: string;
+  static names(): { [key: string]: string } {
+    return {
+      reqMsgId: 'req_msg_id',
+      resultCode: 'result_code',
+      resultMsg: 'result_msg',
+      result: 'result',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      reqMsgId: 'string',
+      resultCode: 'string',
+      resultMsg: 'string',
+      result: 'string',
     };
   }
 
@@ -512,9 +660,9 @@ export class PushRightsprodGrantrightsResponse extends $tea.Model {
   // 发放状态：
   // GRANTING：发放处理中 GRANT_SUCCESS：发放成功 GRANT_FAIL：发放失败
   grantStatus?: string;
-  // 过期时间
+  // 过期时间 yyyy-MM-dd HH:mm:ss
   expireTime?: string;
-  // 生效时间
+  // 生效时间 yyyy-MM-dd HH:mm:ss
   effectTime?: string;
   // 发放订单明细数据
   orderDetails?: GrantOrderDetail[];
@@ -664,7 +812,7 @@ export default class Client {
           req_msg_id: AntchainUtil.getNonce(),
           access_key: this._accessKeyId,
           base_sdk_version: "TeaSDK-2.0",
-          sdk_version: "1.1.0",
+          sdk_version: "1.1.3",
           _prod_code: "GESAAS_SPI",
           _prod_channel: "default",
         };
@@ -710,6 +858,27 @@ export default class Client {
     }
 
     throw $tea.newUnretryableError(_lastRequest);
+  }
+
+  /**
+   * @remarks
+   * Description: 分账结果通知第三方
+   * Summary: 分账结果通知第三方
+   */
+  async callbackOrderSettlement(request: CallbackOrderSettlementRequest): Promise<CallbackOrderSettlementResponse> {
+    let runtime = new $Util.RuntimeOptions({ });
+    let headers : {[key: string ]: string} = { };
+    return await this.callbackOrderSettlementEx(request, headers, runtime);
+  }
+
+  /**
+   * @remarks
+   * Description: 分账结果通知第三方
+   * Summary: 分账结果通知第三方
+   */
+  async callbackOrderSettlementEx(request: CallbackOrderSettlementRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<CallbackOrderSettlementResponse> {
+    Util.validateModel(request);
+    return $tea.cast<CallbackOrderSettlementResponse>(await this.doRequest("1.0", "antdigital.gesaasspi.order.settlement.callback", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new CallbackOrderSettlementResponse({}));
   }
 
   /**
