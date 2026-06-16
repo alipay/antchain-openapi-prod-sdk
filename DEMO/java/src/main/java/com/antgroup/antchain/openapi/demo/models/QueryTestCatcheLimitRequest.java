@@ -16,10 +16,6 @@ public class QueryTestCatcheLimitRequest extends TeaModel {
     @Validation(required = true)
     public String timeout;
 
-    // 测试
-    @NameInMap("name")
-    public String name;
-
     public static QueryTestCatcheLimitRequest build(java.util.Map<String, ?> map) throws Exception {
         QueryTestCatcheLimitRequest self = new QueryTestCatcheLimitRequest();
         return TeaModel.build(map, self);
@@ -47,14 +43,6 @@ public class QueryTestCatcheLimitRequest extends TeaModel {
     }
     public String getTimeout() {
         return this.timeout;
-    }
-
-    public QueryTestCatcheLimitRequest setName(String name) {
-        this.name = name;
-        return this;
-    }
-    public String getName() {
-        return this.name;
     }
 
 }

@@ -37,7 +37,7 @@ public class DemoClass extends TeaModel {
      * <p>3</p>
      */
     @NameInMap("some_int")
-    @Validation(required = true)
+    @Validation(required = true, maximum = 2000, minimum = 1)
     public Long someInt;
 
     // 列表测试
