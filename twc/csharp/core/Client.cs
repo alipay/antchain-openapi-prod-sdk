@@ -137,7 +137,7 @@ namespace AntChain.SDK.TWC
                         {"req_msg_id", AntChain.AlipayUtil.AntchainUtils.GetNonce()},
                         {"access_key", _accessKeyId},
                         {"base_sdk_version", "TeaSDK-2.0"},
-                        {"sdk_version", "1.13.26"},
+                        {"sdk_version", "1.13.28"},
                         {"_prod_code", "TWC"},
                         {"_prod_channel", "undefined"},
                     };
@@ -263,7 +263,7 @@ namespace AntChain.SDK.TWC
                         {"req_msg_id", AntChain.AlipayUtil.AntchainUtils.GetNonce()},
                         {"access_key", _accessKeyId},
                         {"base_sdk_version", "TeaSDK-2.0"},
-                        {"sdk_version", "1.13.26"},
+                        {"sdk_version", "1.13.28"},
                         {"_prod_code", "TWC"},
                         {"_prod_channel", "undefined"},
                     };
@@ -15741,6 +15741,48 @@ namespace AntChain.SDK.TWC
         {
             AlibabaCloud.TeaUtil.Common.ValidateModel(request);
             return TeaModel.ToObject<QueryEsignAccountResponse>(await DoRequestAsync("1.0", "twc.notary.esign.account.query", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 区块链合同查询授权有效期
+         * Summary: 区块链合同查询授权有效期
+         */
+        public QueryContractSignauthResponse QueryContractSignauth(QueryContractSignauthRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return QueryContractSignauthEx(request, headers, runtime);
+        }
+
+        /**
+         * Description: 区块链合同查询授权有效期
+         * Summary: 区块链合同查询授权有效期
+         */
+        public async Task<QueryContractSignauthResponse> QueryContractSignauthAsync(QueryContractSignauthRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return await QueryContractSignauthExAsync(request, headers, runtime);
+        }
+
+        /**
+         * Description: 区块链合同查询授权有效期
+         * Summary: 区块链合同查询授权有效期
+         */
+        public QueryContractSignauthResponse QueryContractSignauthEx(QueryContractSignauthRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<QueryContractSignauthResponse>(DoRequest("1.0", "twc.notary.contract.signauth.query", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 区块链合同查询授权有效期
+         * Summary: 区块链合同查询授权有效期
+         */
+        public async Task<QueryContractSignauthResponse> QueryContractSignauthExAsync(QueryContractSignauthRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<QueryContractSignauthResponse>(await DoRequestAsync("1.0", "twc.notary.contract.signauth.query", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
         }
 
     }
