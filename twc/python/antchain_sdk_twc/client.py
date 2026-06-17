@@ -135,7 +135,7 @@ class Client:
                     'req_msg_id': AntchainUtils.get_nonce(),
                     'access_key': self._access_key_id,
                     'base_sdk_version': 'TeaSDK-2.0',
-                    'sdk_version': '1.13.26',
+                    'sdk_version': '1.13.28',
                     '_prod_code': 'TWC',
                     '_prod_channel': 'undefined'
                 }
@@ -239,7 +239,7 @@ class Client:
                     'req_msg_id': AntchainUtils.get_nonce(),
                     'access_key': self._access_key_id,
                     'base_sdk_version': 'TeaSDK-2.0',
-                    'sdk_version': '1.13.26',
+                    'sdk_version': '1.13.28',
                     '_prod_code': 'TWC',
                     '_prod_channel': 'undefined'
                 }
@@ -20833,4 +20833,60 @@ class Client:
         return TeaCore.from_map(
             twc_models.QueryEsignAccountResponse(),
             await self.do_request_async('1.0', 'twc.notary.esign.account.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def query_contract_signauth(
+        self,
+        request: twc_models.QueryContractSignauthRequest,
+    ) -> twc_models.QueryContractSignauthResponse:
+        """
+        Description: 区块链合同查询授权有效期
+        Summary: 区块链合同查询授权有效期
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.query_contract_signauth_ex(request, headers, runtime)
+
+    async def query_contract_signauth_async(
+        self,
+        request: twc_models.QueryContractSignauthRequest,
+    ) -> twc_models.QueryContractSignauthResponse:
+        """
+        Description: 区块链合同查询授权有效期
+        Summary: 区块链合同查询授权有效期
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.query_contract_signauth_ex_async(request, headers, runtime)
+
+    def query_contract_signauth_ex(
+        self,
+        request: twc_models.QueryContractSignauthRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> twc_models.QueryContractSignauthResponse:
+        """
+        Description: 区块链合同查询授权有效期
+        Summary: 区块链合同查询授权有效期
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            twc_models.QueryContractSignauthResponse(),
+            self.do_request('1.0', 'twc.notary.contract.signauth.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def query_contract_signauth_ex_async(
+        self,
+        request: twc_models.QueryContractSignauthRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> twc_models.QueryContractSignauthResponse:
+        """
+        Description: 区块链合同查询授权有效期
+        Summary: 区块链合同查询授权有效期
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            twc_models.QueryContractSignauthResponse(),
+            await self.do_request_async('1.0', 'twc.notary.contract.signauth.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
