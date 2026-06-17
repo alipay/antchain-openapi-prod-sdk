@@ -24,7 +24,7 @@ namespace AntChain.SDK.DEMO.Models
         [Validation(Required=false)]
         public string ResultMsg { get; set; }
 
-        // output_demo测试
+        // output_demo
         [NameInMap("output_demo")]
         [Validation(Required=false)]
         public DemoClass OutputDemo { get; set; }
