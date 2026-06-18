@@ -100,7 +100,7 @@ api doRequest(version: string, action: string, protocol: string, method: string,
     req_msg_id = AntchainUtil.getNonce(),
     access_key = @accessKeyId,
     base_sdk_version = 'TeaSDK-2.0',
-    sdk_version = '1.7.5',
+    sdk_version = '1.7.10',
     _prod_code = 'SECURITYTECH',
     _prod_channel = 'undefined'
   };
@@ -177,6 +177,32 @@ model SimSalesInfo {
   salesType: string(name='sales_type', example='TWEV_STORE_MANAGER'),
 }
 
+// 商品供应方信息
+model PoiMallPointSupplierInfo {
+  // 供应方名称
+  supplierName?: string(name='supplier_name', example='爱肯拿'),
+  // 供应方类型 
+  // 门店：STORE
+  // 平台：PLATFORM
+  // 供应商：SUPPLIER
+  supplierType?: string(name='supplier_type', example='STORE'),
+  // 供应方编码
+  supplierCode?: string(name='supplier_code', example='0'),
+}
+
+// 积分商城商品供应方信息
+model PointSupplierInfo {
+  // 供应方名称
+  supplierName?: string(name='supplier_name', example='爱肯拿'),
+  // 供应方类型：
+  // 门店：STORE
+  // 平台：PLATFORM
+  // 供应商：SUPPLIER
+  supplierType?: string(name='supplier_type', example='STORE'),
+  // 供应方编码
+  supplierCode?: string(name='supplier_code', example='0'),
+}
+
 // ekyt响应头
 model ResponseHead {
   // 请求唯一标识
@@ -199,22 +225,6 @@ model SpuPictureInfo {
   detailPic?: [ string ](name='detail_pic', example=''),
 }
 
-// 业务参数
-model BizParam {
-  // 参数类型枚举，mobile、cert、biz_license
-  paramKey: string(name='param_key', example='·'),
-  // 值，如加密后的手机号
-  paramValue: string(name='param_value', example='·'),
-}
-
-// CctSubCheckLabel
-model CctSubCheckLabel {
-  // sub_label
-  subLabel: string(name='sub_label', example='sub_label'),
-  // rate
-  rate: long(name='rate', example=''),
-}
-
 // eKYT风险标签
 model RiskModel {
   // 标签名称
@@ -233,34 +243,20 @@ model RiskResult {
   solutionCode: string(name='solution_code', example='·'),
 }
 
-// 终端安全-Android应用加固-RuntimeProtectConfig
-model RuntimeProtectConfig {
-  // 重打包,签名校验,AndroidManifest防篡改,签名文件保护,0为检测到风险退出,1不处理
-  antiSignature: long(name='anti_signature', example='.'),
-  // 防调试,0为检测到风险退出,1不处理
-  antiDebug: long(name='anti_debug', example='.'),
-  // 防hook,0为检测到风险退出,1不处理
-  antiHook: long(name='anti_hook', example='.'),
-  // 防注入,防内存dump,防内存数据修改,读取,0为检测到风险退出,1不处理
-  antiInject: long(name='anti_inject', example='.'),
-  // 模拟器检查,0为检测到风险退出,1不处理
-  antiEmulator: long(name='anti_emulator', example='.'),
-  // 防root,0为检测到风险退出,1不处理
-  antiRoot: long(name='anti_root', example='.'),
-  // 防多开软件运行,0为检测到风险退出,1不处理
-  antiMultiApp: long(name='anti_multi_app', example='.'),
+// 业务参数
+model BizParam {
+  // 参数类型枚举，mobile、cert、biz_license
+  paramKey: string(name='param_key', example='·'),
+  // 值，如加密后的手机号
+  paramValue: string(name='param_value', example='·'),
 }
 
-// 人脸盾结果
-model FaceShieldResult {
-  // 设备token
-  apdidToken: string(name='apdid_token', example='uYxLZlL5YGpLvdwO5+4pyCkjgf3/FF4XxOqzrmG/XY+jyFilhgEAAA=='),
-  // 风险等级，-1参数异常，0无风险，1-3表示低、中、高
-  riskLevel: long(name='risk_level', example='3'),
-  // 风险描述，对风险等级的补充
-  riskDesc: string(name='risk_desc', example='本次咨询设备风险水平很高,风险编号:10000010.8.0'),
-  // 处理的建议，如PAAS
-  sugAction: string(name='sug_action', example='建议直接拦截'),
+// CctSubCheckLabel
+model CctSubCheckLabel {
+  // sub_label
+  subLabel: string(name='sub_label', example='sub_label'),
+  // rate
+  rate: long(name='rate', example=''),
 }
 
 // 终端安全-Android加固-Response
@@ -303,26 +299,6 @@ model DeviceRiskReportResultData {
   resultType: string(name='result_type', example='result_type'),
 }
 
-// eKYT人脸核身结果数据
-model FaceVerifyResultData {
-  // 请求唯一标识Id
-  requestId: string(name='request_id', example='111111111111111'),
-  // 认证是否通过
-  passed: string(name='passed', example='T、F 或 null'),
-  // faceOcclusion:面部遮挡信息；true为有面部遮挡，false为无面部遮挡
-  materialInfo: string(name='material_info', example='"{\"faceOcclusion\":false}"'),
-}
-
-// 光鉴智能凭证结构体
-model IdentityData {
-  // 风险等级，枚举值： 0：低风险（打扰率＞10%） 1：中风险（5%＜打扰率≤10%） 2：高风险（打扰率≤5%）
-  isRisk: string(name='is_risk', example='1'),
-  // 风险类型，枚举值及对应含义： ● PS：图片被PS篡改 ● SCREEN_PHOTO：屏幕翻拍 ● SCREENSHOT：截屏图片 ● COLOR_PRINT：彩打复印 ● WATERMARK：水印 ● FACE_SIMILAR：人脸相似 ● BACKGROUND_SIMILAR：背景相似 ● SIGNATURE_SIMILAR：证件手写签名相似 格式：以英文逗号分隔，如样例
-  riskType: string(name='risk_type', example='PS,SCREEN_PHOTO'),
-  // 附加字段,json格式字符串
-  extInfo: string(name='ext_info', example='{ "ps_score": "0.0236", "screen_photo_score": "0.1839"}'),
-}
-
 // 安卓加固HardeningTaskResponse
 model HardeningTaskResponse {
   // 加固任务的 ID，后续用来轮询调用
@@ -335,46 +311,30 @@ model HardeningTaskResponse {
   afterSize: long(name='after_size', example=''),
 }
 
-// 行程统计数据
-model TripStatisticInfo {
-  // 总里程
-  totalMileage: string(name='total_mileage', example=' '),
-  // 总时长
-  totalDuration: DurationInfo(name='total_duration', example=' '),
-  // 总条数
-  totalCount: long(name='total_count', example=' '),
-  // 时间码
-  periodCode: long(name='period_code', example=' '),
+// 收货信息
+model PoiMallPointReceiverInfo {
+  // 联系人名称
+  contactName: string(name='contact_name', example='张三'),
+  // 手机号
+  mobile: string(name='mobile', example='13000000000'),
+  // 收货地址
+  address: string(name='address', example='上海市'),
 }
 
-// ETC车辆信息
-model EtcVehicleInfo {
-  // 车辆id
-  vehicleId: string(name='vehicle_id', example='2039029939'),
-  // etc申请单号
-  orderId: string(name='order_id', example='20212424231413243'),
-  // etc平台扣款协议号
-  bizAgreementNo: string(name='biz_agreement_no', example='20211232213232'),
-  // etc申请单状态
-  // ORDER_CREATE:订单创建;ORDER_SYNCED:订单已同步;SUCCESS_ACTIVATE:订单已激活;UNMOUNTING:注销中;UNMOUNTED:已注销;
-  orderStatus: string(name='order_status', example='ORDER_CREATE'),
-  // 用户ETC设备OBU号，当order_status为SUCCESS_ACTIVATE及以后状态时，必选
-  deviceNo?: string(name='device_no', example='32432def'),
-  // 代扣签约状态，当传入waybill_no且匹配到对应运单时，deduct_sign_status必选
-  // 待签约: WAIT_SIGN
-  // 已签约: SIGNED
-  // 已解约: UNSIGN
-  deductSignStatus?: string(name='deduct_sign_status', example='WAIT_SIGN'),
-  // 设备首次激活时间
-  firstActivedTime?: string(pattern='\\\\d{4}[-]\\\\d{1,2}[-]\\\\d{1,2}[T]\\\\d{2}:\\\\d{2}:\\\\d{2}([Z]|([\\\\.]\\\\d{1,9})?[\\\\+]\\\\d{2}[\\\\:]?\\\\d{2})', name='first_actived_time', example='2018-10-10T10:10:00Z'),
-  // 合约到期时间
-  serviceExp?: string(pattern='\\\\d{4}[-]\\\\d{1,2}[-]\\\\d{1,2}[T]\\\\d{2}:\\\\d{2}:\\\\d{2}([Z]|([\\\\.]\\\\d{1,9})?[\\\\+]\\\\d{2}[\\\\:]?\\\\d{2})', name='service_exp', example='2018-10-10T10:10:00Z'),
-  // etc设备状态，USABLE-设备激活可用（可上高速正常使用）PENDING-设备激活挂起（限制消费） UNUSABLE-设备异常不可用
-  deviceStatus?: string(name='device_status', example='USABLE'),
-  // 设备状态明细，能清楚说明etc设备此时状态（/卡签注销/卡签挂失/已过户/维修中/黑名单/卡过期/欠费/标签脱落/设备报警/正常/ETC停用等）
-  deviceStatusDetail?: string(name='device_status_detail', example='卡签挂起'),
-  // 设备状态触发的具体时间
-  deviceBizTime?: string(pattern='\\\\d{4}[-]\\\\d{1,2}[-]\\\\d{1,2}[T]\\\\d{2}:\\\\d{2}:\\\\d{2}([Z]|([\\\\.]\\\\d{1,9})?[\\\\+]\\\\d{2}[\\\\:]?\\\\d{2})', name='device_biz_time', example='2018-10-10T10:10:00Z'),
+// 账户信息列表
+model PoiAccountInfo {
+  // 账户ID
+  accountId?: string(name='account_id', example='0'),
+  // 已消费金额
+  consumeAmount?: string(name='consume_amount', example='0'),
+  // 已还金额
+  repayAmount?: string(name='repay_amount', example='0'),
+  // 解约后剩余应还金额
+  remainingAmount?: string(name='remaining_amount', example='0'),
+  // 可退还用户金额
+  refundAmountToUser?: string(name='refund_amount_to_user', example='0'),
+  // 可退还资方金额
+  refundAmountToInvestor?: string(name='refund_amount_to_investor', example='0'),
 }
 
 // 车辆行程信息
@@ -403,54 +363,30 @@ model SimCarLocationInfo {
   latitude: string(name='latitude', example=' '),
 }
 
-// 车辆信息列表
-model CarInfoVO {
-  // 车辆型号
-  carModel: string(name='car_model', example='E10R'),
-  // 车辆颜色
-  carColor: string(name='car_color', example='红色'),
-  // 车型编号
-  modelNo: string(name='model_no', example='AAA470106'),
-  // 车架号
-  frameNo: string(name='frame_no', example='220922507905000'),
-  // 设备ID
-  tuid: string(name='tuid', example='FF9999995FF1020251009BE8B1B08855'),
-  // tagId
-  tagId: string(name='tag_id', example='4EA1FFFFFFFFFFFFFFFFFFFFE13D02862257'),
-  // 品牌ID
-  brandId: string(name='brand_id', example='SAIGE'),
-  // 协议类型
-  protocolType: string(name='protocol_type', example='ble'),
-}
-
-// eKYT业务响应结果
-model IifaaEkytResponse {
-  // 响应头
-  head: ResponseHead(name='head', example=''),
-  // 业务响应结果
-  bizRes: string(name='biz_res', example='126dncnceicncwuiooo'),
-}
-
-// 行程轨迹点
-model TripPoint {
-  // 经度
-  longitude?: string(name='longitude', example='121.503052'),
-  // 维度
-  latitude?: string(name='latitude', example='31.218412'),
+// 积分账户信息
+model PointAccountInfo {
+  // 门店ID
+  storeId?: string(name='store_id', example='0'),
+  // 账户ID
+  accountId?: string(name='account_id', example='0'),
+  // 总积分
+  totalPoint?: string(name='total_point', example='0'),
+  // 已充值积分
+  rechargedPoint?: string(name='recharged_point', example='0'),
+  // 可用积分
+  availablePoint?: string(name='available_point', example='0'),
+  // 冻结积分
+  frozenPoint?: string(name='frozen_point', example='0'),
+  // 已消费积分
+  consumedPoint?: string(name='consumed_point', example='0'),
+  // 账户状态：ACTIVE-生效, INACTIVE-失效, FROZEN-逾期冻结, CANCEL-解约中
+  accountStatus?: string(name='account_status', example='ACTIVE'),
 }
 
 // 业务请求入参，兼容批量调用
 model BizQueryParam {
   // 参数列表，数组
   bizParams: [ BizParam ](name='biz_params', example=''),
-}
-
-// eKYT可信签约录入准备数据
-model TrustSignInitData {
-  // 请求唯一标识Id
-  requestId: string(name='request_id', example='111111111111111'),
-  // 签约秘钥
-  signUniqueId: string(name='sign_unique_id', example='g9y47yjs'),
 }
 
 // 终端安全-Android应用加固-ClassMethodConfig
@@ -504,76 +440,40 @@ model SimOrderInfo {
   extraInfo?: string(name='extra_info', example='{}'),
 }
 
-// 二轮车一体机车辆SKU
-model SimSkuInfo {
-  // sku对外id
-  skuId: string(name='sku_id', example=' '),
-  // sku名称
-  skuName: string(name='sku_name', example=' '),
-  // sku官方指导价：单位为元
-  price: string(name='price', example='1000.00'),
-  // sku门店优惠价：单位为元
-  storePrice: string(name='store_price', example='1000.00'),
-  // 车型
-  vehicleModel: string(name='vehicle_model', example=' '),
-  // 续航里程
-  rangeKm: string(name='range_km', example='-'),
-  // 关键词，逗号分隔
-  keywords: string(name='keywords', example='A,B,C'),
-  // 颜色，逗号分隔
-  colors: string(name='colors', example='A,B,C'),
-  // 配件信息，逗号分隔
-  accessories: string(name='accessories', example='A,B,C'),
-  // 图片url json
-  images: string(name='images', example='{}'),
-  // 门店id
-  storeId: string(name='store_id', example=' '),
-  // 车型描述
-  skuDescription?: string(name='sku_description', example=' '),
-  // sku价格配置开关 true开/false关
-  priceSwitch: boolean(name='price_switch', example='true, false'),
-  // sku价格配置范围 上限：单位元
-  priceMax?: string(name='price_max', example=' '),
-  // sku价格配置范围 下限：单位元
-  priceMin?: string(name='price_min', example=' '),
+// 积分账户信息
+model PoiMallPointAccountInfo {
+  // 门店ID
+  storeId?: string(name='store_id', example='0'),
+  // 账户ID
+  accountId?: string(name='account_id', example='0'),
+  // 总积分
+  totalPoint?: string(name='total_point', example='0'),
+  // 已充值积分
+  rechargedPoint?: string(name='recharged_point', example='0'),
+  // 可用积分
+  availablePoint?: string(name='available_point', example='0'),
+  // 冻结积分
+  frozenPoint?: string(name='frozen_point', example='0'),
+  // 已消费积分
+  consumedPoint?: string(name='consumed_point', example='0'),
+  // 账户状态
+  accountStatus?: string(name='account_status', example='ACTIVE'),
 }
 
-// eKYT可信签约查询数据
-model TrustSignQueryData {
-  // 请求唯一标识Id
-  requestId: string(name='request_id', example='111111111111111'),
-  // 订单状态
-  orderStatus: string(name='order_status', example='SUCCESS'),
-  // 签约方案码
-  solutionCode: string(name='solution_code', example='011fda32a0046d0e8a8be6b94b367fb3'),
-  // 创建时间
-  gmtCreate: string(name='gmt_create', example='2024-03-20'),
-  // 修改时间
-  gmtModified: string(name='gmt_modified', example='2024-03-20'),
-  // 签约文件列表
-  fileList: [ string ](name='file_list', example=''),
-}
-
-// eKYT请求头
-model RequestHead {
-  // 请求唯一标识
-  requestId: string(name='request_id', example='91440300892305861T'),
-  // 客户身份标识ID
-  secretId: string(name='secret_id', example='91440300892305861T'),
-  // 客户签约产品code
-  productCode: string(name='product_code', example='RDDB04201PR'),
-  // response输出类型，默认json
-  formatType?: string(name='format_type', example='"tlv"'),
-  // false
-  onlineFlag?: boolean(name='online_flag', example='true, false'),
-}
-
-// 车队信息结构体
-model DcpInfo {
-  // 企业入驻租户ID
-  dcpTenantId: string(name='dcp_tenant_id', example='LKPFALCN'),
-  // 企业名称
-  dcpName: string(name='dcp_name', example='曹操出行'),
+// 积分账户信息
+model AccountInfo {
+  // STRING	账户ID
+  accountId: string(name='account_id', example='0'),
+  // 已消费金额
+  consumeAmount?: string(name='consume_amount', example='0'),
+  // 已还金额
+  repayAmount?: string(name='repay_amount', example='0'),
+  // 解约后剩余应还金额
+  remainingAmount?: string(name='remaining_amount', example='0'),
+  // 可退还用户金额
+  refundAmountToUser?: string(name='refund_amount_to_user', example='0'),
+  // 可退还资方金额
+  refundAmountToInvestor?: string(name='refund_amount_to_investor', example='0'),
 }
 
 // 保单信息
@@ -598,14 +498,6 @@ model InsureInfo {
   operateType: string(name='operate_type', example='投保'),
   // 保司信用代码
   insureCompCreditNo: string(name='insure_comp_credit_no', example='91440300892305861T'),
-}
-
-// 设备风险咨询结果
-model RiskQueryData {
-  // 风险评分
-  riskScore: string(name='risk_score', example='.'),
-  // 风险标签
-  riskLabels: [ string ](name='risk_labels', example='.'),
 }
 
 // 两轮车一体机车辆SPU
@@ -644,22 +536,18 @@ model TripDetailInfo {
   lastLocationTime: long(name='last_location_time', example=' '),
 }
 
-// KeyValue对属性
-model KeyValueMap {
-  // key-value中的key
-  key?: string(maxLength=100, minLength=1, name='key', example='key'),
-  // key-value中的value
-  value?: string(maxLength=1000, minLength=1, name='value', example='value'),
-}
-
-// eKYT人脸核身初始化数据
-model FaceVerifyInitData {
-  // 请求唯一标识Id
-  requestId: string(name='request_id', example='111111111111111'),
-  // 可信实人认证的唯一标识
-  certifyId: string(name='certify_id', example='cwek23dw24geor89230hf2rw'),
-  // 认证流程入口 URL
-  certifyUrl: string(name='certify_url', example='https://picker...'),
+// 冻结结果详情
+model PoiMallPointFreezeResult {
+  // 账户ID
+  accountId?: string(name='account_id', example='0'),
+  // 本次冻结总积分
+  totalFreezePoint?: string(name='total_freeze_point', example='0'),
+  // 冻结后剩余可用积分
+  availablePoint?: string(name='available_point', example='0'),
+  // 成功冻结的子订单数
+  freezeOrderCount?: string(name='freeze_order_count', example='0'),
+  // 冻结失败的子订单ID列表
+  failedOrderIds?: [ string ](name='failed_order_ids', example='undefined'),
 }
 
 // 设备风险查询data
@@ -736,16 +624,6 @@ model SignInfo {
   paymentAmount: string(name='payment_amount', example='100'),
 }
 
-// 风险评估结果
-model RiskAssessResult {
-  // 风险评估结果
-  riskValue: string(name='risk_value', example='中风险'),
-  // 风险评估分数
-  riskScore: string(name='risk_score', example='90'),
-  // 风险评估标签
-  modelInfos: RiskModel(name='model_infos', example=''),
-}
-
 // 内容安全response
 model CctDetectCheckLabel {
   // label
@@ -808,6 +686,364 @@ model SimCampaignInfo {
   imageUrl: string(name='image_url', example=' '),
   // 营销活动内容
   content: string(name='content', example='{}'),
+}
+
+// 终端安全-Android应用加固-RuntimeProtectConfig
+model RuntimeProtectConfig {
+  // 重打包,签名校验,AndroidManifest防篡改,签名文件保护,0为检测到风险退出,1不处理
+  antiSignature: long(name='anti_signature', example='.'),
+  // 防调试,0为检测到风险退出,1不处理
+  antiDebug: long(name='anti_debug', example='.'),
+  // 防hook,0为检测到风险退出,1不处理
+  antiHook: long(name='anti_hook', example='.'),
+  // 防注入,防内存dump,防内存数据修改,读取,0为检测到风险退出,1不处理
+  antiInject: long(name='anti_inject', example='.'),
+  // 模拟器检查,0为检测到风险退出,1不处理
+  antiEmulator: long(name='anti_emulator', example='.'),
+  // 防root,0为检测到风险退出,1不处理
+  antiRoot: long(name='anti_root', example='.'),
+  // 防多开软件运行,0为检测到风险退出,1不处理
+  antiMultiApp: long(name='anti_multi_app', example='.'),
+}
+
+// 人脸盾结果
+model FaceShieldResult {
+  // 设备token
+  apdidToken: string(name='apdid_token', example='uYxLZlL5YGpLvdwO5+4pyCkjgf3/FF4XxOqzrmG/XY+jyFilhgEAAA=='),
+  // 风险等级，-1参数异常，0无风险，1-3表示低、中、高
+  riskLevel: long(name='risk_level', example='3'),
+  // 风险描述，对风险等级的补充
+  riskDesc: string(name='risk_desc', example='本次咨询设备风险水平很高,风险编号:10000010.8.0'),
+  // 处理的建议，如PAAS
+  sugAction: string(name='sug_action', example='建议直接拦截'),
+}
+
+// 订单信息
+model PoiMallPointOrderInfo {
+  // 订单号
+  orderId: string(name='order_id', example='0'),
+  // 商品名称
+  goodsName: string(name='goods_name', example='猫粮'),
+  // 商品条码
+  goodsNum: string(name='goods_num', example='0'),
+  // 商品类型
+  goodsType: string(name='goods_type', example='GOODS'),
+  // 商品积分
+  goodsPoint: string(name='goods_point', example='3'),
+  // 商品供应方信息
+  supplierInfo?: PoiMallPointSupplierInfo(name='supplier_info', example='undefined'),
+}
+
+// eKYT人脸核身结果数据
+model FaceVerifyResultData {
+  // 请求唯一标识Id
+  requestId: string(name='request_id', example='111111111111111'),
+  // 认证是否通过
+  passed: string(name='passed', example='T、F 或 null'),
+  // faceOcclusion:面部遮挡信息；true为有面部遮挡，false为无面部遮挡
+  materialInfo: string(name='material_info', example='"{\"faceOcclusion\":false}"'),
+}
+
+// 光鉴智能凭证结构体
+model IdentityData {
+  // 风险等级，枚举值： 0：低风险（打扰率＞10%） 1：中风险（5%＜打扰率≤10%） 2：高风险（打扰率≤5%）
+  isRisk: string(name='is_risk', example='1'),
+  // 风险类型，枚举值及对应含义： ● PS：图片被PS篡改 ● SCREEN_PHOTO：屏幕翻拍 ● SCREENSHOT：截屏图片 ● COLOR_PRINT：彩打复印 ● WATERMARK：水印 ● FACE_SIMILAR：人脸相似 ● BACKGROUND_SIMILAR：背景相似 ● SIGNATURE_SIMILAR：证件手写签名相似 格式：以英文逗号分隔，如样例
+  riskType: string(name='risk_type', example='PS,SCREEN_PHOTO'),
+  // 附加字段,json格式字符串
+  extInfo: string(name='ext_info', example='{ "ps_score": "0.0236", "screen_photo_score": "0.1839"}'),
+}
+
+// 行程统计数据
+model TripStatisticInfo {
+  // 总里程
+  totalMileage: string(name='total_mileage', example=' '),
+  // 总时长
+  totalDuration: DurationInfo(name='total_duration', example=' '),
+  // 总条数
+  totalCount: long(name='total_count', example=' '),
+  // 时间码
+  periodCode: long(name='period_code', example=' '),
+}
+
+// ETC车辆信息
+model EtcVehicleInfo {
+  // 车辆id
+  vehicleId: string(name='vehicle_id', example='2039029939'),
+  // etc申请单号
+  orderId: string(name='order_id', example='20212424231413243'),
+  // etc平台扣款协议号
+  bizAgreementNo: string(name='biz_agreement_no', example='20211232213232'),
+  // etc申请单状态
+  // ORDER_CREATE:订单创建;ORDER_SYNCED:订单已同步;SUCCESS_ACTIVATE:订单已激活;UNMOUNTING:注销中;UNMOUNTED:已注销;
+  orderStatus: string(name='order_status', example='ORDER_CREATE'),
+  // 用户ETC设备OBU号，当order_status为SUCCESS_ACTIVATE及以后状态时，必选
+  deviceNo?: string(name='device_no', example='32432def'),
+  // 代扣签约状态，当传入waybill_no且匹配到对应运单时，deduct_sign_status必选
+  // 待签约: WAIT_SIGN
+  // 已签约: SIGNED
+  // 已解约: UNSIGN
+  deductSignStatus?: string(name='deduct_sign_status', example='WAIT_SIGN'),
+  // 设备首次激活时间
+  firstActivedTime?: string(pattern='\\\\d{4}[-]\\\\d{1,2}[-]\\\\d{1,2}[T]\\\\d{2}:\\\\d{2}:\\\\d{2}([Z]|([\\\\.]\\\\d{1,9})?[\\\\+]\\\\d{2}[\\\\:]?\\\\d{2})', name='first_actived_time', example='2018-10-10T10:10:00Z'),
+  // 合约到期时间
+  serviceExp?: string(pattern='\\\\d{4}[-]\\\\d{1,2}[-]\\\\d{1,2}[T]\\\\d{2}:\\\\d{2}:\\\\d{2}([Z]|([\\\\.]\\\\d{1,9})?[\\\\+]\\\\d{2}[\\\\:]?\\\\d{2})', name='service_exp', example='2018-10-10T10:10:00Z'),
+  // etc设备状态，USABLE-设备激活可用（可上高速正常使用）PENDING-设备激活挂起（限制消费） UNUSABLE-设备异常不可用
+  deviceStatus?: string(name='device_status', example='USABLE'),
+  // 设备状态明细，能清楚说明etc设备此时状态（/卡签注销/卡签挂失/已过户/维修中/黑名单/卡过期/欠费/标签脱落/设备报警/正常/ETC停用等）
+  deviceStatusDetail?: string(name='device_status_detail', example='卡签挂起'),
+  // 设备状态触发的具体时间
+  deviceBizTime?: string(pattern='\\\\d{4}[-]\\\\d{1,2}[-]\\\\d{1,2}[T]\\\\d{2}:\\\\d{2}:\\\\d{2}([Z]|([\\\\.]\\\\d{1,9})?[\\\\+]\\\\d{2}[\\\\:]?\\\\d{2})', name='device_biz_time', example='2018-10-10T10:10:00Z'),
+}
+
+// 扣减结果详情
+model PointDeductResult {
+  // 账户ID
+  accountId?: string(name='account_id', example='0'),
+  // 本次扣减总积分
+  totalDeductPoint?: string(name='total_deduct_point', example='0'),
+  // 账户累计已消费积分
+  consumedPoint?: string(name='consumed_point', example='0'),
+  // 成功扣减的子订单数
+  deductOrderCount?: string(name='deduct_order_count', example='0'),
+  // 扣减失败的子订单ID列表（全部成功时为空）
+  failedOrderIds?: [ string ](name='failed_order_ids', example='undefined'),
+}
+
+// 车辆信息列表
+model CarInfoVO {
+  // 车辆型号
+  carModel: string(name='car_model', example='E10R'),
+  // 车辆颜色
+  carColor: string(name='car_color', example='红色'),
+  // 车型编号
+  modelNo: string(name='model_no', example='AAA470106'),
+  // 车架号
+  frameNo: string(name='frame_no', example='220922507905000'),
+  // 设备ID
+  tuid: string(name='tuid', example='FF9999995FF1020251009BE8B1B08855'),
+  // tagId
+  tagId: string(name='tag_id', example='4EA1FFFFFFFFFFFFFFFFFFFFE13D02862257'),
+  // 品牌ID
+  brandId: string(name='brand_id', example='SAIGE'),
+  // 协议类型
+  protocolType: string(name='protocol_type', example='ble'),
+}
+
+// eKYT业务响应结果
+model IifaaEkytResponse {
+  // 响应头
+  head: ResponseHead(name='head', example=''),
+  // 业务响应结果
+  bizRes: string(name='biz_res', example='126dncnceicncwuiooo'),
+}
+
+// 行程轨迹点
+model TripPoint {
+  // 经度
+  longitude?: string(name='longitude', example='121.503052'),
+  // 维度
+  latitude?: string(name='latitude', example='31.218412'),
+}
+
+// eKYT可信签约录入准备数据
+model TrustSignInitData {
+  // 请求唯一标识Id
+  requestId: string(name='request_id', example='111111111111111'),
+  // 签约秘钥
+  signUniqueId: string(name='sign_unique_id', example='g9y47yjs'),
+}
+
+// 二轮车一体机车辆SKU
+model SimSkuInfo {
+  // sku对外id
+  skuId: string(name='sku_id', example=' '),
+  // sku名称
+  skuName: string(name='sku_name', example=' '),
+  // sku官方指导价：单位为元
+  price: string(name='price', example='1000.00'),
+  // sku门店优惠价：单位为元
+  storePrice: string(name='store_price', example='1000.00'),
+  // 车型
+  vehicleModel: string(name='vehicle_model', example=' '),
+  // 续航里程
+  rangeKm: string(name='range_km', example='-'),
+  // 关键词，逗号分隔
+  keywords: string(name='keywords', example='A,B,C'),
+  // 颜色，逗号分隔
+  colors: string(name='colors', example='A,B,C'),
+  // 配件信息，逗号分隔
+  accessories: string(name='accessories', example='A,B,C'),
+  // 图片url json
+  images: string(name='images', example='{}'),
+  // 门店id
+  storeId: string(name='store_id', example=' '),
+  // 车型描述
+  skuDescription?: string(name='sku_description', example=' '),
+  // sku价格配置开关 true开/false关
+  priceSwitch: boolean(name='price_switch', example='true, false'),
+  // sku价格配置范围 上限：单位元
+  priceMax?: string(name='price_max', example=' '),
+  // sku价格配置范围 下限：单位元
+  priceMin?: string(name='price_min', example=' '),
+}
+
+// eKYT可信签约查询数据
+model TrustSignQueryData {
+  // 请求唯一标识Id
+  requestId: string(name='request_id', example='111111111111111'),
+  // 订单状态
+  orderStatus: string(name='order_status', example='SUCCESS'),
+  // 签约方案码
+  solutionCode: string(name='solution_code', example='011fda32a0046d0e8a8be6b94b367fb3'),
+  // 创建时间
+  gmtCreate: string(name='gmt_create', example='2024-03-20'),
+  // 修改时间
+  gmtModified: string(name='gmt_modified', example='2024-03-20'),
+  // 签约文件列表
+  fileList: [ string ](name='file_list', example=''),
+}
+
+// 扣减结果详情
+model PoiMallPointDeductResult {
+  // 账户ID
+  accountId?: string(name='account_id', example='0'),
+  // 本次扣减总积分
+  totalDeductPoint?: string(name='total_deduct_point', example='0'),
+  // 账户累计已消费积分
+  consumedPoint?: string(name='consumed_point', example='0'),
+  // 成功扣减的子订单数
+  deductOrderCount?: string(name='deduct_order_count', example='0'),
+  // 扣减失败的子订单ID列表
+  failedOrderIds?: [ string ](name='failed_order_ids', example=''),
+}
+
+// eKYT请求头
+model RequestHead {
+  // 请求唯一标识
+  requestId: string(name='request_id', example='91440300892305861T'),
+  // 客户身份标识ID
+  secretId: string(name='secret_id', example='91440300892305861T'),
+  // 客户签约产品code
+  productCode: string(name='product_code', example='RDDB04201PR'),
+  // response输出类型，默认json
+  formatType?: string(name='format_type', example='"tlv"'),
+  // false
+  onlineFlag?: boolean(name='online_flag', example='true, false'),
+}
+
+// 冻结结果详情（成功时返回）
+model PointFreezeResult {
+  // 账户ID
+  accountId?: string(name='account_id', example='0'),
+  // 本次冻结总积分
+  totalFreezePoint?: string(name='total_freeze_point', example='0'),
+  // 冻结后剩余可用积分
+  availablePoint?: string(name='available_point', example='0'),
+  // 成功冻结的子订单数
+  freezeOrderCount?: string(name='freeze_order_count', example='0'),
+  // 冻结失败的子订单ID列表（全部成功时为空）
+  failedOrderIds?: [ string ](name='failed_order_ids', example='undefined'),
+}
+
+// 解冻结果详情（成功时返回）
+model PointUnfreezeResult {
+  // 账户ID
+  accountId?: string(name='account_id', example='0'),
+  // 本次解冻总积分
+  totalUnfreezePoint?: string(name='total_unfreeze_point', example='0'),
+  // 解冻后可用积分
+  availablePoint?: string(name='available_point', example='0'),
+  // 成功解冻的子订单数
+  unfreezeOrderCount?: string(name='unfreeze_order_count', example='0'),
+  // 解冻失败的子订单ID列表（全部成功时为空）
+  failedOrderIds?: [ string ](name='failed_order_ids', example='undefined'),
+}
+
+// 车队信息结构体
+model DcpInfo {
+  // 企业入驻租户ID
+  dcpTenantId: string(name='dcp_tenant_id', example='LKPFALCN'),
+  // 企业名称
+  dcpName: string(name='dcp_name', example='曹操出行'),
+}
+
+// 设备风险咨询结果
+model RiskQueryData {
+  // 风险评分
+  riskScore: string(name='risk_score', example='.'),
+  // 风险标签
+  riskLabels: [ string ](name='risk_labels', example='.'),
+}
+
+// 解冻结果详情
+model PoiMallPointUnfreezeResult {
+  // 账户ID
+  accountId?: string(name='account_id', example='0'),
+  // 本次解冻总积分
+  totalUnfreezePoint?: string(name='total_unfreeze_point', example='0'),
+  // 成功解冻的子订单数
+  availablePoint?: string(name='available_point', example='0'),
+  // 解冻失败的子订单ID列表
+  failedOrderIds?: [ string ](name='failed_order_ids', example='undefined'),
+  // 成功解冻的子订单数
+  unfreezeOrderCount?: string(name='unfreeze_order_count', example='0'),
+}
+
+// KeyValue对属性
+model KeyValueMap {
+  // key-value中的key
+  key?: string(maxLength=100, minLength=1, name='key', example='key'),
+  // key-value中的value
+  value?: string(maxLength=1000, minLength=1, name='value', example='value'),
+}
+
+// eKYT人脸核身初始化数据
+model FaceVerifyInitData {
+  // 请求唯一标识Id
+  requestId: string(name='request_id', example='111111111111111'),
+  // 可信实人认证的唯一标识
+  certifyId: string(name='certify_id', example='cwek23dw24geor89230hf2rw'),
+  // 认证流程入口 URL
+  certifyUrl: string(name='certify_url', example='https://picker...'),
+}
+
+// 积分商城订单信息
+model PointOrderInfo {
+  // 订单号（子）
+  orderId: string(name='order_id', example='0'),
+  // 商品名称
+  goodsName: string(name='goods_name', example='猫粮'),
+  // 商品条码
+  goodsNum: string(name='goods_num', example='0'),
+  // 商品类型
+  // 货物：GOODS
+  // 服务：SERVICE
+  goodsType: string(name='goods_type', example='GOODS'),
+  // 商品积分
+  goodsPoint: string(name='goods_point', example='0'),
+  // 商品供应方信息
+  supplierInfo?: PointSupplierInfo(name='supplier_info', example='undefined'),
+}
+
+// 商城收货信息
+model PointReceiverInfo {
+  // 联系人名称
+  contactName: string(name='contact_name', example='张三'),
+  // 手机号
+  mobile: string(name='mobile', example='13000000000'),
+  // 收货地址
+  address: string(name='address', example='上海市'),
+}
+
+// 风险评估结果
+model RiskAssessResult {
+  // 风险评估结果
+  riskValue: string(name='risk_value', example='中风险'),
+  // 风险评估分数
+  riskScore: string(name='risk_score', example='90'),
+  // 风险评估标签
+  modelInfos: RiskModel(name='model_infos', example=''),
 }
 
 model RunGeneralRequest = {
@@ -2956,6 +3192,901 @@ async function queryDigitalkeyRentaltrippoint(request: QueryDigitalkeyRentaltrip
 async function queryDigitalkeyRentaltrippointEx(request: QueryDigitalkeyRentaltrippointRequest, headers: map[string]string, runtime: Util.RuntimeOptions): QueryDigitalkeyRentaltrippointResponse {
   Util.validateModel(request);
   return doRequest('1.0' ,'antsecuritytech.gateway.digitalkey.rentaltrippoint.query', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model RechargeMallPointRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 支付宝小程序用户唯一ID
+  openId: string(name='open_id'),
+  // 门店ID
+  storeId: string(name='store_id'),
+  // 分期主订单号
+  bizOrderNo: string(name='biz_order_no'),
+  // 商城总余额
+  totalMallAmount: string(name='total_mall_amount'),
+  // 积分换算系数
+  exchangeRate: string(name='exchange_rate'),
+  // 商城充值总期数
+  totalPhase: string(name='total_phase'),
+  // 当前期数编号
+  phaseNo: string(name='phase_no'),
+  // 当期充值金额
+  phaseAmount: string(name='phase_amount'),
+}
+
+model RechargeMallPointResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+}
+
+/**
+ * Description: 积分充值
+ * Summary: 积分充值
+ */
+async function rechargeMallPoint(request: RechargeMallPointRequest): RechargeMallPointResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return rechargeMallPointEx(request, headers, runtime);
+}
+
+/**
+ * Description: 积分充值
+ * Summary: 积分充值
+ */
+async function rechargeMallPointEx(request: RechargeMallPointRequest, headers: map[string]string, runtime: Util.RuntimeOptions): RechargeMallPointResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'antsecuritytech.gateway.mall.point.recharge', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model OverdueTerminationRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 支付宝小程序用户唯一ID
+  openId: string(name='open_id'),
+  // 门店ID
+  storeId: string(name='store_id'),
+  // 天枢分期主订单号
+  bizOrderNo: string(name='biz_order_no'),
+  // OVERDUE_ING	逾期中
+  // OVERDUE_RECOVER	逾期恢复
+  // OVERDUE_FREEZE	逾期冻结
+  // OVERDUE_FREEZE_RECOVER	逾期冻结恢复
+  // OVERDUE_TERMINATE_ING	逾期解约中
+  // TERMINATED	解约完成
+  event: string(name='event'),
+}
+
+model OverdueTerminationResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 用户商城可用余额金额
+  goodsBalance?: string(name='goods_balance'),
+}
+
+/**
+ * Description: 逾期通知
+ * Summary: 逾期通知
+ */
+async function overdueTermination(request: OverdueTerminationRequest): OverdueTerminationResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return overdueTerminationEx(request, headers, runtime);
+}
+
+/**
+ * Description: 逾期通知
+ * Summary: 逾期通知
+ */
+async function overdueTerminationEx(request: OverdueTerminationRequest, headers: map[string]string, runtime: Util.RuntimeOptions): OverdueTerminationResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'antsecuritytech.gateway.termination.overdue', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model QueryMallPointbalanceRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 支付宝小程序用户唯一ID
+  openId: string(name='open_id'),
+  // 门店ID
+  storeId: string(name='store_id'),
+  // 分期主订单号
+  bizOrderNo: string(name='biz_order_no'),
+}
+
+model QueryMallPointbalanceResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 支付宝小程序用户唯一ID
+  openId?: string(name='open_id'),
+  // 门店ID
+  storeId?: string(name='store_id'),
+  // 分期主订单号
+  bizOrderNo?: string(name='biz_order_no'),
+  // 可用余额金额
+  availableBalance?: string(name='available_balance'),
+}
+
+/**
+ * Description: 余额查询
+ * Summary: 余额查询
+ */
+async function queryMallPointbalance(request: QueryMallPointbalanceRequest): QueryMallPointbalanceResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return queryMallPointbalanceEx(request, headers, runtime);
+}
+
+/**
+ * Description: 余额查询
+ * Summary: 余额查询
+ */
+async function queryMallPointbalanceEx(request: QueryMallPointbalanceRequest, headers: map[string]string, runtime: Util.RuntimeOptions): QueryMallPointbalanceResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'antsecuritytech.gateway.mall.pointbalance.query', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model QueryTerminationRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 支付宝小程序用户唯一ID
+  openId: string(name='open_id'),
+  // 门店ID
+  storeId: string(name='store_id'),
+  // 账户ID
+  accountId: string(name='account_id'),
+}
+
+model QueryTerminationResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 账户信息列表
+  accountInfoList?: [ AccountInfo ](name='account_info_list'),
+}
+
+/**
+ * Description: 解约信息查询
+ * Summary: 解约信息查询
+ */
+async function queryTermination(request: QueryTerminationRequest): QueryTerminationResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return queryTerminationEx(request, headers, runtime);
+}
+
+/**
+ * Description: 解约信息查询
+ * Summary: 解约信息查询
+ */
+async function queryTerminationEx(request: QueryTerminationRequest, headers: map[string]string, runtime: Util.RuntimeOptions): QueryTerminationResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'antsecuritytech.gateway.termination.query', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model ApplyTerminationRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 支付宝小程序用户唯一ID
+  openId: string(name='open_id'),
+  // 门店ID
+  storeId: string(name='store_id'),
+  // 账户ID
+  accountId: string(name='account_id'),
+}
+
+model ApplyTerminationResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+}
+
+/**
+ * Description: 解约
+ * Summary: 解约
+ */
+async function applyTermination(request: ApplyTerminationRequest): ApplyTerminationResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return applyTerminationEx(request, headers, runtime);
+}
+
+/**
+ * Description: 解约
+ * Summary: 解约
+ */
+async function applyTerminationEx(request: ApplyTerminationRequest, headers: map[string]string, runtime: Util.RuntimeOptions): ApplyTerminationResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'antsecuritytech.gateway.termination.apply', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model QueryMallPointaccountRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 支付宝小程序用户唯一ID
+  openId: string(name='open_id'),
+  // 门店ID
+  storeId: string(name='store_id'),
+}
+
+model QueryMallPointaccountResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 账户信息列表
+  accountInfoList?: [ PointAccountInfo ](name='account_info_list'),
+}
+
+/**
+ * Description: 账户查询
+ * Summary: 账户查询
+ */
+async function queryMallPointaccount(request: QueryMallPointaccountRequest): QueryMallPointaccountResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return queryMallPointaccountEx(request, headers, runtime);
+}
+
+/**
+ * Description: 账户查询
+ * Summary: 账户查询
+ */
+async function queryMallPointaccountEx(request: QueryMallPointaccountRequest, headers: map[string]string, runtime: Util.RuntimeOptions): QueryMallPointaccountResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'antsecuritytech.gateway.mall.pointaccount.query', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model FreezeMallPointRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 支付宝小程序用户唯一ID
+  openId: string(name='open_id'),
+  // 门店ID
+  storeId: string(name='store_id'),
+  // 账户ID
+  accountId: string(name='account_id'),
+  // 收货信息
+  receiverInfo: PointReceiverInfo(name='receiver_info'),
+  // 订单信息（子）
+  orderInfoList: [ PointOrderInfo ](name='order_info_list'),
+  // 扩展字段
+  extraInfo?: string(name='extra_info'),
+}
+
+model FreezeMallPointResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 冻结结果详情（成功时返回）
+  freezeResult?: PointFreezeResult(name='freeze_result'),
+}
+
+/**
+ * Description: 积分冻结
+ * Summary: 积分冻结
+ */
+async function freezeMallPoint(request: FreezeMallPointRequest): FreezeMallPointResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return freezeMallPointEx(request, headers, runtime);
+}
+
+/**
+ * Description: 积分冻结
+ * Summary: 积分冻结
+ */
+async function freezeMallPointEx(request: FreezeMallPointRequest, headers: map[string]string, runtime: Util.RuntimeOptions): FreezeMallPointResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'antsecuritytech.gateway.mall.point.freeze', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model UnfreezeMallPointRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 支付宝小程序用户唯一ID
+  openId: string(name='open_id'),
+  // 门店ID
+  storeId: string(name='store_id'),
+  // 账户ID
+  accountId: string(name='account_id'),
+  // 订单号列表
+  orderIdList: [ string ](name='order_id_list'),
+}
+
+model UnfreezeMallPointResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 解冻结果详情（成功时返回）
+  unfreezeResult?: PointUnfreezeResult(name='unfreeze_result'),
+}
+
+/**
+ * Description: 积分解冻
+ * Summary: 积分解冻
+ */
+async function unfreezeMallPoint(request: UnfreezeMallPointRequest): UnfreezeMallPointResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return unfreezeMallPointEx(request, headers, runtime);
+}
+
+/**
+ * Description: 积分解冻
+ * Summary: 积分解冻
+ */
+async function unfreezeMallPointEx(request: UnfreezeMallPointRequest, headers: map[string]string, runtime: Util.RuntimeOptions): UnfreezeMallPointResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'antsecuritytech.gateway.mall.point.unfreeze', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model DeductMallPointRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 支付宝小程序用户唯一ID
+  openId: string(name='open_id'),
+  // 门店ID
+  storeId: string(name='store_id'),
+  // 账户ID
+  accountId: string(name='account_id'),
+  // 订单号列表
+  orderIdList: [ string ](name='order_id_list'),
+}
+
+model DeductMallPointResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 扣减结果详情（成功时返回）
+  deductResult?: PointDeductResult(name='deduct_result'),
+}
+
+/**
+ * Description: 积分扣减
+ * Summary: 积分扣减
+ */
+async function deductMallPoint(request: DeductMallPointRequest): DeductMallPointResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return deductMallPointEx(request, headers, runtime);
+}
+
+/**
+ * Description: 积分扣减
+ * Summary: 积分扣减
+ */
+async function deductMallPointEx(request: DeductMallPointRequest, headers: map[string]string, runtime: Util.RuntimeOptions): DeductMallPointResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'antsecuritytech.gateway.mall.point.deduct', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model QueryPoiOrderRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 订单ID
+  orderId: string(name='order_id'),
+}
+
+model QueryPoiOrderResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 订单号
+  orderId?: string(name='order_id'),
+  // 用户openId
+  openId?: string(name='open_id'),
+  // 订单状态
+  orderStatus?: string(name='order_status'),
+  // 订单金额
+  orderAmount?: string(name='order_amount'),
+  // 门店ID
+  storeId?: string(name='store_id'),
+  // 最近状态变更时间（yyyy-MM-dd HH:mm:ss）
+  effectTime?: string(name='effect_time'),
+}
+
+/**
+ * Description: 订单状态查询接口
+ * Summary: 订单状态查询接口
+ */
+async function queryPoiOrder(request: QueryPoiOrderRequest): QueryPoiOrderResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return queryPoiOrderEx(request, headers, runtime);
+}
+
+/**
+ * Description: 订单状态查询接口
+ * Summary: 订单状态查询接口
+ */
+async function queryPoiOrderEx(request: QueryPoiOrderRequest, headers: map[string]string, runtime: Util.RuntimeOptions): QueryPoiOrderResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'antsecuritytech.gateway.poi.order.query', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model RechargePoiMallpointRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 支付宝小程序用户唯一ID
+  openId: string(name='open_id'),
+  // 门店ID
+  storeId: string(name='store_id'),
+  // 分期主订单号
+  bizOrderNo: string(name='biz_order_no'),
+  // 商城总余额
+  totalMallAmount: string(name='total_mall_amount'),
+  // 积分换算系数
+  exchangeRate: string(name='exchange_rate'),
+  // 商城充值总期数
+  totalPhase: string(name='total_phase'),
+  // 当期充值金额
+  phaseAmount: string(name='phase_amount'),
+  // 当前期数编号
+  phaseNo: string(name='phase_no'),
+  // 渠道Code
+  channelCode: string(name='channel_code'),
+}
+
+model RechargePoiMallpointResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+}
+
+/**
+ * Description: 积分充值
+ * Summary: 积分充值
+ */
+async function rechargePoiMallpoint(request: RechargePoiMallpointRequest): RechargePoiMallpointResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return rechargePoiMallpointEx(request, headers, runtime);
+}
+
+/**
+ * Description: 积分充值
+ * Summary: 积分充值
+ */
+async function rechargePoiMallpointEx(request: RechargePoiMallpointRequest, headers: map[string]string, runtime: Util.RuntimeOptions): RechargePoiMallpointResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'antsecuritytech.gateway.poi.mallpoint.recharge', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model OverduePoiTerminationRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 支付宝小程序用户唯一ID
+  openId: string(name='open_id'),
+  // 门店ID
+  storeId: string(name='store_id'),
+  // 分期主订单号
+  bizOrderNo: string(name='biz_order_no'),
+  // 逾期事件类型
+  event: string(name='event'),
+  // 渠道Code
+  channelCode: string(name='channel_code'),
+}
+
+model OverduePoiTerminationResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 商城可用余额金额
+  goodsBalance?: string(name='goods_balance'),
+}
+
+/**
+ * Description: 逾期通知
+ * Summary: 逾期通知
+ */
+async function overduePoiTermination(request: OverduePoiTerminationRequest): OverduePoiTerminationResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return overduePoiTerminationEx(request, headers, runtime);
+}
+
+/**
+ * Description: 逾期通知
+ * Summary: 逾期通知
+ */
+async function overduePoiTerminationEx(request: OverduePoiTerminationRequest, headers: map[string]string, runtime: Util.RuntimeOptions): OverduePoiTerminationResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'antsecuritytech.gateway.poi.termination.overdue', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model QueryPoiMallpointbalanceRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 支付宝小程序用户唯一ID
+  openId: string(name='open_id'),
+  // 门店ID
+  storeId: string(name='store_id'),
+  // 分期主订单号
+  bizOrderNo: string(name='biz_order_no'),
+  // 渠道Code
+  channelCode: string(name='channel_code'),
+}
+
+model QueryPoiMallpointbalanceResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 支付宝小程序用户唯一ID
+  openId?: string(name='open_id'),
+  // 门店ID
+  storeId?: string(name='store_id'),
+  // 分期主订单号
+  bizOrderNo?: string(name='biz_order_no'),
+  // 可用余额金额
+  availableBalance?: string(name='available_balance'),
+}
+
+/**
+ * Description: 余额查询
+ * Summary: 余额查询
+ */
+async function queryPoiMallpointbalance(request: QueryPoiMallpointbalanceRequest): QueryPoiMallpointbalanceResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return queryPoiMallpointbalanceEx(request, headers, runtime);
+}
+
+/**
+ * Description: 余额查询
+ * Summary: 余额查询
+ */
+async function queryPoiMallpointbalanceEx(request: QueryPoiMallpointbalanceRequest, headers: map[string]string, runtime: Util.RuntimeOptions): QueryPoiMallpointbalanceResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'antsecuritytech.gateway.poi.mallpointbalance.query', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model QueryPoiTerminationRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 支付宝小程序用户唯一ID
+  openId: string(name='open_id'),
+  // 门店ID
+  storeId: string(name='store_id'),
+  // 账户ID
+  accountId: string(name='account_id'),
+}
+
+model QueryPoiTerminationResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 账户信息列表
+  accountInfoList?: [ PoiAccountInfo ](name='account_info_list'),
+}
+
+/**
+ * Description: 解约信息查询
+ * Summary: 解约信息查询
+ */
+async function queryPoiTermination(request: QueryPoiTerminationRequest): QueryPoiTerminationResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return queryPoiTerminationEx(request, headers, runtime);
+}
+
+/**
+ * Description: 解约信息查询
+ * Summary: 解约信息查询
+ */
+async function queryPoiTerminationEx(request: QueryPoiTerminationRequest, headers: map[string]string, runtime: Util.RuntimeOptions): QueryPoiTerminationResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'antsecuritytech.gateway.poi.termination.query', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model ApplyPoiTerminationRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 支付宝小程序用户唯一ID
+  openId: string(name='open_id'),
+  // 门店ID
+  storeId: string(name='store_id'),
+  // 账户ID
+  accountId: string(name='account_id'),
+}
+
+model ApplyPoiTerminationResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+}
+
+/**
+ * Description: 解约
+ * Summary: 解约
+ */
+async function applyPoiTermination(request: ApplyPoiTerminationRequest): ApplyPoiTerminationResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return applyPoiTerminationEx(request, headers, runtime);
+}
+
+/**
+ * Description: 解约
+ * Summary: 解约
+ */
+async function applyPoiTerminationEx(request: ApplyPoiTerminationRequest, headers: map[string]string, runtime: Util.RuntimeOptions): ApplyPoiTerminationResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'antsecuritytech.gateway.poi.termination.apply', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model QueryPoiMallpointaccountRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 支付宝小程序用户唯一ID
+  openId: string(name='open_id'),
+  // 门店ID
+  storeId: string(name='store_id'),
+}
+
+model QueryPoiMallpointaccountResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 积分账户信息列表
+  accountInfoList?: [ PoiMallPointAccountInfo ](name='account_info_list'),
+}
+
+/**
+ * Description: 账户查询
+ * Summary: 账户查询
+ */
+async function queryPoiMallpointaccount(request: QueryPoiMallpointaccountRequest): QueryPoiMallpointaccountResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return queryPoiMallpointaccountEx(request, headers, runtime);
+}
+
+/**
+ * Description: 账户查询
+ * Summary: 账户查询
+ */
+async function queryPoiMallpointaccountEx(request: QueryPoiMallpointaccountRequest, headers: map[string]string, runtime: Util.RuntimeOptions): QueryPoiMallpointaccountResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'antsecuritytech.gateway.poi.mallpointaccount.query', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model FreezePoiMallpointRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 支付宝小程序用户唯一ID
+  openId: string(name='open_id'),
+  // 门店ID
+  storeId: string(name='store_id'),
+  // 账户ID
+  accountId: string(name='account_id'),
+  // 收货信息
+  receiverInfo: PoiMallPointReceiverInfo(name='receiver_info'),
+  // 订单信息列表
+  orderInfoList: [ PoiMallPointOrderInfo ](name='order_info_list'),
+  // 扩展字段
+  extraInfo?: string(name='extra_info'),
+}
+
+model FreezePoiMallpointResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 冻结结果详情
+  freezeResult?: PoiMallPointFreezeResult(name='freeze_result'),
+}
+
+/**
+ * Description: 积分冻结
+ * Summary: 积分冻结
+ */
+async function freezePoiMallpoint(request: FreezePoiMallpointRequest): FreezePoiMallpointResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return freezePoiMallpointEx(request, headers, runtime);
+}
+
+/**
+ * Description: 积分冻结
+ * Summary: 积分冻结
+ */
+async function freezePoiMallpointEx(request: FreezePoiMallpointRequest, headers: map[string]string, runtime: Util.RuntimeOptions): FreezePoiMallpointResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'antsecuritytech.gateway.poi.mallpoint.freeze', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model UnfreezePoiMallpointRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 支付宝小程序用户唯一ID
+  openId: string(name='open_id'),
+  // 门店ID
+  storeId: string(name='store_id'),
+  // 账户ID
+  accountId: string(name='account_id'),
+  // 订单号列表
+  orderIdList: [ string ](name='order_id_list'),
+}
+
+model UnfreezePoiMallpointResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 解冻结果详情
+  unfreezeResult?: PoiMallPointUnfreezeResult(name='unfreeze_result'),
+}
+
+/**
+ * Description: 积分解冻
+ * Summary: 积分解冻
+ */
+async function unfreezePoiMallpoint(request: UnfreezePoiMallpointRequest): UnfreezePoiMallpointResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return unfreezePoiMallpointEx(request, headers, runtime);
+}
+
+/**
+ * Description: 积分解冻
+ * Summary: 积分解冻
+ */
+async function unfreezePoiMallpointEx(request: UnfreezePoiMallpointRequest, headers: map[string]string, runtime: Util.RuntimeOptions): UnfreezePoiMallpointResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'antsecuritytech.gateway.poi.mallpoint.unfreeze', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model DeductPoiMallpointRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 支付宝小程序用户唯一ID
+  openId: string(name='open_id'),
+  // 门店ID
+  storeId: string(name='store_id'),
+  // 账户ID
+  accountId: string(name='account_id'),
+  // 订单号列表
+  orderIdList: [ string ](name='order_id_list'),
+}
+
+model DeductPoiMallpointResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 扣减结果详情
+  deductResult?: PoiMallPointDeductResult(name='deduct_result'),
+}
+
+/**
+ * Description: 积分扣减
+ * Summary: 积分扣减
+ */
+async function deductPoiMallpoint(request: DeductPoiMallpointRequest): DeductPoiMallpointResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return deductPoiMallpointEx(request, headers, runtime);
+}
+
+/**
+ * Description: 积分扣减
+ * Summary: 积分扣减
+ */
+async function deductPoiMallpointEx(request: DeductPoiMallpointRequest, headers: map[string]string, runtime: Util.RuntimeOptions): DeductPoiMallpointResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'antsecuritytech.gateway.poi.mallpoint.deduct', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model CancelPoiOrderRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 订单ID
+  orderId: string(name='order_id'),
+}
+
+model CancelPoiOrderResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+}
+
+/**
+ * Description: ISV取消订单接口
+ * Summary: ISV取消订单接口
+ */
+async function cancelPoiOrder(request: CancelPoiOrderRequest): CancelPoiOrderResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return cancelPoiOrderEx(request, headers, runtime);
+}
+
+/**
+ * Description: ISV取消订单接口
+ * Summary: ISV取消订单接口
+ */
+async function cancelPoiOrderEx(request: CancelPoiOrderRequest, headers: map[string]string, runtime: Util.RuntimeOptions): CancelPoiOrderResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'antsecuritytech.gateway.poi.order.cancel', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
 }
 
 model CreateBssecpicRequest = {
