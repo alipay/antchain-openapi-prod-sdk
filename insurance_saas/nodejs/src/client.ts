@@ -385,6 +385,39 @@ export class EntrustGuaranteeProduct extends $tea.Model {
   }
 }
 
+// 实时营销人群
+export class RealtimeMktAudience extends $tea.Model {
+  // 加密用户标识
+  /**
+   * @example
+   * xxxxx
+   */
+  encryptedUserId: string;
+  // 扩展信息
+  /**
+   * @example
+   * {}
+   */
+  extInfo: string;
+  static names(): { [key: string]: string } {
+    return {
+      encryptedUserId: 'encrypted_user_id',
+      extInfo: 'ext_info',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      encryptedUserId: 'string',
+      extInfo: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
 // 键值对
 export class XNameValuePair extends $tea.Model {
   // 键名
@@ -714,6 +747,74 @@ export class CallbackMktLiveeffectRequest extends $tea.Model {
 }
 
 export class CallbackMktLiveeffectResponse extends $tea.Model {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string;
+  // 结果码，一般OK表示调用成功
+  resultCode?: string;
+  // 异常信息的文本描述
+  resultMsg?: string;
+  // 请求id
+  requestId?: string;
+  static names(): { [key: string]: string } {
+    return {
+      reqMsgId: 'req_msg_id',
+      resultCode: 'result_code',
+      resultMsg: 'result_msg',
+      requestId: 'request_id',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      reqMsgId: 'string',
+      resultCode: 'string',
+      resultMsg: 'string',
+      requestId: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class ApplyMktRealtimemktRequest extends $tea.Model {
+  // OAuth模式下的授权token
+  authToken?: string;
+  // 请求id
+  requestId: string;
+  // 项目ID，待蚂蚁分配
+  projectId: string;
+  // 加密类型，MD5，32位[小]
+  encryptionType: string;
+  // 实时营销人群列表
+  realtimeMktAudienceList: RealtimeMktAudience[];
+  static names(): { [key: string]: string } {
+    return {
+      authToken: 'auth_token',
+      requestId: 'request_id',
+      projectId: 'project_id',
+      encryptionType: 'encryption_type',
+      realtimeMktAudienceList: 'realtime_mkt_audience_list',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      authToken: 'string',
+      requestId: 'string',
+      projectId: 'string',
+      encryptionType: 'string',
+      realtimeMktAudienceList: { 'type': 'array', 'itemType': RealtimeMktAudience },
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class ApplyMktRealtimemktResponse extends $tea.Model {
   // 请求唯一ID，用于链路跟踪和问题排查
   reqMsgId?: string;
   // 结果码，一般OK表示调用成功
@@ -4488,7 +4589,7 @@ export default class Client {
           req_msg_id: AntchainUtil.getNonce(),
           access_key: this._accessKeyId,
           base_sdk_version: "TeaSDK-2.0",
-          sdk_version: "1.12.36",
+          sdk_version: "1.12.37",
           _prod_code: "INSURANCE_SAAS",
           _prod_channel: "undefined",
         };
@@ -4618,6 +4719,27 @@ export default class Client {
   async callbackMktLiveeffectEx(request: CallbackMktLiveeffectRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<CallbackMktLiveeffectResponse> {
     Util.validateModel(request);
     return $tea.cast<CallbackMktLiveeffectResponse>(await this.doRequest("1.0", "antcloud.insurance.mkt.liveeffect.callback", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new CallbackMktLiveeffectResponse({}));
+  }
+
+  /**
+   * @remarks
+   * Description: 保险实时营销提交
+   * Summary: 保险实时营销提交
+   */
+  async applyMktRealtimemkt(request: ApplyMktRealtimemktRequest): Promise<ApplyMktRealtimemktResponse> {
+    let runtime = new $Util.RuntimeOptions({ });
+    let headers : {[key: string ]: string} = { };
+    return await this.applyMktRealtimemktEx(request, headers, runtime);
+  }
+
+  /**
+   * @remarks
+   * Description: 保险实时营销提交
+   * Summary: 保险实时营销提交
+   */
+  async applyMktRealtimemktEx(request: ApplyMktRealtimemktRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<ApplyMktRealtimemktResponse> {
+    Util.validateModel(request);
+    return $tea.cast<ApplyMktRealtimemktResponse>(await this.doRequest("1.0", "antcloud.insurance.mkt.realtimemkt.apply", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new ApplyMktRealtimemktResponse({}));
   }
 
   /**
