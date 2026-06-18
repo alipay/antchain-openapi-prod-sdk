@@ -17,6 +17,12 @@ use AntChain\SECURITYTECH\Models\ApplyDigitalkeyCredRequest;
 use AntChain\SECURITYTECH\Models\ApplyDigitalkeyCredResponse;
 use AntChain\SECURITYTECH\Models\ApplyIifaaDevicekeyRequest;
 use AntChain\SECURITYTECH\Models\ApplyIifaaDevicekeyResponse;
+use AntChain\SECURITYTECH\Models\ApplyPoiTerminationRequest;
+use AntChain\SECURITYTECH\Models\ApplyPoiTerminationResponse;
+use AntChain\SECURITYTECH\Models\ApplyTerminationRequest;
+use AntChain\SECURITYTECH\Models\ApplyTerminationResponse;
+use AntChain\SECURITYTECH\Models\CancelPoiOrderRequest;
+use AntChain\SECURITYTECH\Models\CancelPoiOrderResponse;
 use AntChain\SECURITYTECH\Models\CancelSimOrderRequest;
 use AntChain\SECURITYTECH\Models\CancelSimOrderResponse;
 use AntChain\SECURITYTECH\Models\CheckOpticalIdentifyRequest;
@@ -31,6 +37,10 @@ use AntChain\SECURITYTECH\Models\CreateBssecpicRequest;
 use AntChain\SECURITYTECH\Models\CreateBssecpicResponse;
 use AntChain\SECURITYTECH\Models\CreateSimOrderRequest;
 use AntChain\SECURITYTECH\Models\CreateSimOrderResponse;
+use AntChain\SECURITYTECH\Models\DeductMallPointRequest;
+use AntChain\SECURITYTECH\Models\DeductMallPointResponse;
+use AntChain\SECURITYTECH\Models\DeductPoiMallpointRequest;
+use AntChain\SECURITYTECH\Models\DeductPoiMallpointResponse;
 use AntChain\SECURITYTECH\Models\DeleteDigitalkeyCredRequest;
 use AntChain\SECURITYTECH\Models\DeleteDigitalkeyCredResponse;
 use AntChain\SECURITYTECH\Models\DeleteIifaaDigitalkeyRequest;
@@ -41,6 +51,10 @@ use AntChain\SECURITYTECH\Models\ExecEkytInsureRequest;
 use AntChain\SECURITYTECH\Models\ExecEkytInsureResponse;
 use AntChain\SECURITYTECH\Models\ExecIifaaInsureRequest;
 use AntChain\SECURITYTECH\Models\ExecIifaaInsureResponse;
+use AntChain\SECURITYTECH\Models\FreezeMallPointRequest;
+use AntChain\SECURITYTECH\Models\FreezeMallPointResponse;
+use AntChain\SECURITYTECH\Models\FreezePoiMallpointRequest;
+use AntChain\SECURITYTECH\Models\FreezePoiMallpointResponse;
 use AntChain\SECURITYTECH\Models\GetAshieldFiletokenRequest;
 use AntChain\SECURITYTECH\Models\GetAshieldFiletokenResponse;
 use AntChain\SECURITYTECH\Models\GetAshieldHardeninglogRequest;
@@ -79,6 +93,10 @@ use AntChain\SECURITYTECH\Models\OperateTwevPowerRequest;
 use AntChain\SECURITYTECH\Models\OperateTwevPowerResponse;
 use AntChain\SECURITYTECH\Models\OperateTwevSearchRequest;
 use AntChain\SECURITYTECH\Models\OperateTwevSearchResponse;
+use AntChain\SECURITYTECH\Models\OverduePoiTerminationRequest;
+use AntChain\SECURITYTECH\Models\OverduePoiTerminationResponse;
+use AntChain\SECURITYTECH\Models\OverdueTerminationRequest;
+use AntChain\SECURITYTECH\Models\OverdueTerminationResponse;
 use AntChain\SECURITYTECH\Models\PullSimSkuRequest;
 use AntChain\SECURITYTECH\Models\PullSimSkuResponse;
 use AntChain\SECURITYTECH\Models\QueryCctPictureRequest;
@@ -121,6 +139,18 @@ use AntChain\SECURITYTECH\Models\QueryGuardAskRequest;
 use AntChain\SECURITYTECH\Models\QueryGuardAskResponse;
 use AntChain\SECURITYTECH\Models\QueryLoginSignRequest;
 use AntChain\SECURITYTECH\Models\QueryLoginSignResponse;
+use AntChain\SECURITYTECH\Models\QueryMallPointaccountRequest;
+use AntChain\SECURITYTECH\Models\QueryMallPointaccountResponse;
+use AntChain\SECURITYTECH\Models\QueryMallPointbalanceRequest;
+use AntChain\SECURITYTECH\Models\QueryMallPointbalanceResponse;
+use AntChain\SECURITYTECH\Models\QueryPoiMallpointaccountRequest;
+use AntChain\SECURITYTECH\Models\QueryPoiMallpointaccountResponse;
+use AntChain\SECURITYTECH\Models\QueryPoiMallpointbalanceRequest;
+use AntChain\SECURITYTECH\Models\QueryPoiMallpointbalanceResponse;
+use AntChain\SECURITYTECH\Models\QueryPoiOrderRequest;
+use AntChain\SECURITYTECH\Models\QueryPoiOrderResponse;
+use AntChain\SECURITYTECH\Models\QueryPoiTerminationRequest;
+use AntChain\SECURITYTECH\Models\QueryPoiTerminationResponse;
 use AntChain\SECURITYTECH\Models\QueryRiskGeneralRequest;
 use AntChain\SECURITYTECH\Models\QueryRiskGeneralResponse;
 use AntChain\SECURITYTECH\Models\QuerySimLoginRequest;
@@ -131,6 +161,8 @@ use AntChain\SECURITYTECH\Models\QuerySimSkuRequest;
 use AntChain\SECURITYTECH\Models\QuerySimSkuResponse;
 use AntChain\SECURITYTECH\Models\QuerySpuListRequest;
 use AntChain\SECURITYTECH\Models\QuerySpuListResponse;
+use AntChain\SECURITYTECH\Models\QueryTerminationRequest;
+use AntChain\SECURITYTECH\Models\QueryTerminationResponse;
 use AntChain\SECURITYTECH\Models\QueryTwevCardataRequest;
 use AntChain\SECURITYTECH\Models\QueryTwevCardataResponse;
 use AntChain\SECURITYTECH\Models\QueryTwevCarRequest;
@@ -145,6 +177,10 @@ use AntChain\SECURITYTECH\Models\QueryTwevTravelRequest;
 use AntChain\SECURITYTECH\Models\QueryTwevTravelResponse;
 use AntChain\SECURITYTECH\Models\QueryYhllRequest;
 use AntChain\SECURITYTECH\Models\QueryYhllResponse;
+use AntChain\SECURITYTECH\Models\RechargeMallPointRequest;
+use AntChain\SECURITYTECH\Models\RechargeMallPointResponse;
+use AntChain\SECURITYTECH\Models\RechargePoiMallpointRequest;
+use AntChain\SECURITYTECH\Models\RechargePoiMallpointResponse;
 use AntChain\SECURITYTECH\Models\RecognizeCctAnalyzeRequest;
 use AntChain\SECURITYTECH\Models\RecognizeCctAnalyzeResponse;
 use AntChain\SECURITYTECH\Models\RecognizeIifaaDeviceRequest;
@@ -167,6 +203,10 @@ use AntChain\SECURITYTECH\Models\SubmitAshieldPeriodhardeningtaskRequest;
 use AntChain\SECURITYTECH\Models\SubmitAshieldPeriodhardeningtaskResponse;
 use AntChain\SECURITYTECH\Models\SubmitDeviceriskReportRequest;
 use AntChain\SECURITYTECH\Models\SubmitDeviceriskReportResponse;
+use AntChain\SECURITYTECH\Models\UnfreezeMallPointRequest;
+use AntChain\SECURITYTECH\Models\UnfreezeMallPointResponse;
+use AntChain\SECURITYTECH\Models\UnfreezePoiMallpointRequest;
+use AntChain\SECURITYTECH\Models\UnfreezePoiMallpointResponse;
 use AntChain\SECURITYTECH\Models\UpdateSimSkuRequest;
 use AntChain\SECURITYTECH\Models\UpdateSimSkuResponse;
 use AntChain\SECURITYTECH\Models\UploadEtcWaybillRequest;
@@ -324,7 +364,7 @@ class Client
                     'req_msg_id'       => UtilClient::getNonce(),
                     'access_key'       => $this->_accessKeyId,
                     'base_sdk_version' => 'TeaSDK-2.0',
-                    'sdk_version'      => '1.7.5',
+                    'sdk_version'      => '1.7.10',
                     '_prod_code'       => 'SECURITYTECH',
                     '_prod_channel'    => 'undefined',
                 ];
@@ -1857,6 +1897,666 @@ class Client
         Utils::validateModel($request);
 
         return QueryDigitalkeyRentaltrippointResponse::fromMap($this->doRequest('1.0', 'antsecuritytech.gateway.digitalkey.rentaltrippoint.query', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 积分充值
+     * Summary: 积分充值
+     *
+     * @param RechargeMallPointRequest $request
+     *
+     * @return RechargeMallPointResponse
+     */
+    public function rechargeMallPoint($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->rechargeMallPointEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 积分充值
+     * Summary: 积分充值
+     *
+     * @param RechargeMallPointRequest $request
+     * @param string[]                 $headers
+     * @param RuntimeOptions           $runtime
+     *
+     * @return RechargeMallPointResponse
+     */
+    public function rechargeMallPointEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return RechargeMallPointResponse::fromMap($this->doRequest('1.0', 'antsecuritytech.gateway.mall.point.recharge', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 逾期通知
+     * Summary: 逾期通知.
+     *
+     * @param OverdueTerminationRequest $request
+     *
+     * @return OverdueTerminationResponse
+     */
+    public function overdueTermination($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->overdueTerminationEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 逾期通知
+     * Summary: 逾期通知.
+     *
+     * @param OverdueTerminationRequest $request
+     * @param string[]                  $headers
+     * @param RuntimeOptions            $runtime
+     *
+     * @return OverdueTerminationResponse
+     */
+    public function overdueTerminationEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return OverdueTerminationResponse::fromMap($this->doRequest('1.0', 'antsecuritytech.gateway.termination.overdue', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 余额查询
+     * Summary: 余额查询.
+     *
+     * @param QueryMallPointbalanceRequest $request
+     *
+     * @return QueryMallPointbalanceResponse
+     */
+    public function queryMallPointbalance($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->queryMallPointbalanceEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 余额查询
+     * Summary: 余额查询.
+     *
+     * @param QueryMallPointbalanceRequest $request
+     * @param string[]                     $headers
+     * @param RuntimeOptions               $runtime
+     *
+     * @return QueryMallPointbalanceResponse
+     */
+    public function queryMallPointbalanceEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return QueryMallPointbalanceResponse::fromMap($this->doRequest('1.0', 'antsecuritytech.gateway.mall.pointbalance.query', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 解约信息查询
+     * Summary: 解约信息查询.
+     *
+     * @param QueryTerminationRequest $request
+     *
+     * @return QueryTerminationResponse
+     */
+    public function queryTermination($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->queryTerminationEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 解约信息查询
+     * Summary: 解约信息查询.
+     *
+     * @param QueryTerminationRequest $request
+     * @param string[]                $headers
+     * @param RuntimeOptions          $runtime
+     *
+     * @return QueryTerminationResponse
+     */
+    public function queryTerminationEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return QueryTerminationResponse::fromMap($this->doRequest('1.0', 'antsecuritytech.gateway.termination.query', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 解约
+     * Summary: 解约.
+     *
+     * @param ApplyTerminationRequest $request
+     *
+     * @return ApplyTerminationResponse
+     */
+    public function applyTermination($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->applyTerminationEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 解约
+     * Summary: 解约.
+     *
+     * @param ApplyTerminationRequest $request
+     * @param string[]                $headers
+     * @param RuntimeOptions          $runtime
+     *
+     * @return ApplyTerminationResponse
+     */
+    public function applyTerminationEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return ApplyTerminationResponse::fromMap($this->doRequest('1.0', 'antsecuritytech.gateway.termination.apply', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 账户查询
+     * Summary: 账户查询.
+     *
+     * @param QueryMallPointaccountRequest $request
+     *
+     * @return QueryMallPointaccountResponse
+     */
+    public function queryMallPointaccount($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->queryMallPointaccountEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 账户查询
+     * Summary: 账户查询.
+     *
+     * @param QueryMallPointaccountRequest $request
+     * @param string[]                     $headers
+     * @param RuntimeOptions               $runtime
+     *
+     * @return QueryMallPointaccountResponse
+     */
+    public function queryMallPointaccountEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return QueryMallPointaccountResponse::fromMap($this->doRequest('1.0', 'antsecuritytech.gateway.mall.pointaccount.query', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 积分冻结
+     * Summary: 积分冻结.
+     *
+     * @param FreezeMallPointRequest $request
+     *
+     * @return FreezeMallPointResponse
+     */
+    public function freezeMallPoint($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->freezeMallPointEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 积分冻结
+     * Summary: 积分冻结.
+     *
+     * @param FreezeMallPointRequest $request
+     * @param string[]               $headers
+     * @param RuntimeOptions         $runtime
+     *
+     * @return FreezeMallPointResponse
+     */
+    public function freezeMallPointEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return FreezeMallPointResponse::fromMap($this->doRequest('1.0', 'antsecuritytech.gateway.mall.point.freeze', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 积分解冻
+     * Summary: 积分解冻.
+     *
+     * @param UnfreezeMallPointRequest $request
+     *
+     * @return UnfreezeMallPointResponse
+     */
+    public function unfreezeMallPoint($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->unfreezeMallPointEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 积分解冻
+     * Summary: 积分解冻.
+     *
+     * @param UnfreezeMallPointRequest $request
+     * @param string[]                 $headers
+     * @param RuntimeOptions           $runtime
+     *
+     * @return UnfreezeMallPointResponse
+     */
+    public function unfreezeMallPointEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return UnfreezeMallPointResponse::fromMap($this->doRequest('1.0', 'antsecuritytech.gateway.mall.point.unfreeze', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 积分扣减
+     * Summary: 积分扣减.
+     *
+     * @param DeductMallPointRequest $request
+     *
+     * @return DeductMallPointResponse
+     */
+    public function deductMallPoint($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->deductMallPointEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 积分扣减
+     * Summary: 积分扣减.
+     *
+     * @param DeductMallPointRequest $request
+     * @param string[]               $headers
+     * @param RuntimeOptions         $runtime
+     *
+     * @return DeductMallPointResponse
+     */
+    public function deductMallPointEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return DeductMallPointResponse::fromMap($this->doRequest('1.0', 'antsecuritytech.gateway.mall.point.deduct', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 订单状态查询接口
+     * Summary: 订单状态查询接口.
+     *
+     * @param QueryPoiOrderRequest $request
+     *
+     * @return QueryPoiOrderResponse
+     */
+    public function queryPoiOrder($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->queryPoiOrderEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 订单状态查询接口
+     * Summary: 订单状态查询接口.
+     *
+     * @param QueryPoiOrderRequest $request
+     * @param string[]             $headers
+     * @param RuntimeOptions       $runtime
+     *
+     * @return QueryPoiOrderResponse
+     */
+    public function queryPoiOrderEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return QueryPoiOrderResponse::fromMap($this->doRequest('1.0', 'antsecuritytech.gateway.poi.order.query', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 积分充值
+     * Summary: 积分充值
+     *
+     * @param RechargePoiMallpointRequest $request
+     *
+     * @return RechargePoiMallpointResponse
+     */
+    public function rechargePoiMallpoint($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->rechargePoiMallpointEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 积分充值
+     * Summary: 积分充值
+     *
+     * @param RechargePoiMallpointRequest $request
+     * @param string[]                    $headers
+     * @param RuntimeOptions              $runtime
+     *
+     * @return RechargePoiMallpointResponse
+     */
+    public function rechargePoiMallpointEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return RechargePoiMallpointResponse::fromMap($this->doRequest('1.0', 'antsecuritytech.gateway.poi.mallpoint.recharge', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 逾期通知
+     * Summary: 逾期通知.
+     *
+     * @param OverduePoiTerminationRequest $request
+     *
+     * @return OverduePoiTerminationResponse
+     */
+    public function overduePoiTermination($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->overduePoiTerminationEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 逾期通知
+     * Summary: 逾期通知.
+     *
+     * @param OverduePoiTerminationRequest $request
+     * @param string[]                     $headers
+     * @param RuntimeOptions               $runtime
+     *
+     * @return OverduePoiTerminationResponse
+     */
+    public function overduePoiTerminationEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return OverduePoiTerminationResponse::fromMap($this->doRequest('1.0', 'antsecuritytech.gateway.poi.termination.overdue', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 余额查询
+     * Summary: 余额查询.
+     *
+     * @param QueryPoiMallpointbalanceRequest $request
+     *
+     * @return QueryPoiMallpointbalanceResponse
+     */
+    public function queryPoiMallpointbalance($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->queryPoiMallpointbalanceEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 余额查询
+     * Summary: 余额查询.
+     *
+     * @param QueryPoiMallpointbalanceRequest $request
+     * @param string[]                        $headers
+     * @param RuntimeOptions                  $runtime
+     *
+     * @return QueryPoiMallpointbalanceResponse
+     */
+    public function queryPoiMallpointbalanceEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return QueryPoiMallpointbalanceResponse::fromMap($this->doRequest('1.0', 'antsecuritytech.gateway.poi.mallpointbalance.query', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 解约信息查询
+     * Summary: 解约信息查询.
+     *
+     * @param QueryPoiTerminationRequest $request
+     *
+     * @return QueryPoiTerminationResponse
+     */
+    public function queryPoiTermination($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->queryPoiTerminationEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 解约信息查询
+     * Summary: 解约信息查询.
+     *
+     * @param QueryPoiTerminationRequest $request
+     * @param string[]                   $headers
+     * @param RuntimeOptions             $runtime
+     *
+     * @return QueryPoiTerminationResponse
+     */
+    public function queryPoiTerminationEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return QueryPoiTerminationResponse::fromMap($this->doRequest('1.0', 'antsecuritytech.gateway.poi.termination.query', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 解约
+     * Summary: 解约.
+     *
+     * @param ApplyPoiTerminationRequest $request
+     *
+     * @return ApplyPoiTerminationResponse
+     */
+    public function applyPoiTermination($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->applyPoiTerminationEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 解约
+     * Summary: 解约.
+     *
+     * @param ApplyPoiTerminationRequest $request
+     * @param string[]                   $headers
+     * @param RuntimeOptions             $runtime
+     *
+     * @return ApplyPoiTerminationResponse
+     */
+    public function applyPoiTerminationEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return ApplyPoiTerminationResponse::fromMap($this->doRequest('1.0', 'antsecuritytech.gateway.poi.termination.apply', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 账户查询
+     * Summary: 账户查询.
+     *
+     * @param QueryPoiMallpointaccountRequest $request
+     *
+     * @return QueryPoiMallpointaccountResponse
+     */
+    public function queryPoiMallpointaccount($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->queryPoiMallpointaccountEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 账户查询
+     * Summary: 账户查询.
+     *
+     * @param QueryPoiMallpointaccountRequest $request
+     * @param string[]                        $headers
+     * @param RuntimeOptions                  $runtime
+     *
+     * @return QueryPoiMallpointaccountResponse
+     */
+    public function queryPoiMallpointaccountEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return QueryPoiMallpointaccountResponse::fromMap($this->doRequest('1.0', 'antsecuritytech.gateway.poi.mallpointaccount.query', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 积分冻结
+     * Summary: 积分冻结.
+     *
+     * @param FreezePoiMallpointRequest $request
+     *
+     * @return FreezePoiMallpointResponse
+     */
+    public function freezePoiMallpoint($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->freezePoiMallpointEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 积分冻结
+     * Summary: 积分冻结.
+     *
+     * @param FreezePoiMallpointRequest $request
+     * @param string[]                  $headers
+     * @param RuntimeOptions            $runtime
+     *
+     * @return FreezePoiMallpointResponse
+     */
+    public function freezePoiMallpointEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return FreezePoiMallpointResponse::fromMap($this->doRequest('1.0', 'antsecuritytech.gateway.poi.mallpoint.freeze', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 积分解冻
+     * Summary: 积分解冻.
+     *
+     * @param UnfreezePoiMallpointRequest $request
+     *
+     * @return UnfreezePoiMallpointResponse
+     */
+    public function unfreezePoiMallpoint($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->unfreezePoiMallpointEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 积分解冻
+     * Summary: 积分解冻.
+     *
+     * @param UnfreezePoiMallpointRequest $request
+     * @param string[]                    $headers
+     * @param RuntimeOptions              $runtime
+     *
+     * @return UnfreezePoiMallpointResponse
+     */
+    public function unfreezePoiMallpointEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return UnfreezePoiMallpointResponse::fromMap($this->doRequest('1.0', 'antsecuritytech.gateway.poi.mallpoint.unfreeze', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 积分扣减
+     * Summary: 积分扣减.
+     *
+     * @param DeductPoiMallpointRequest $request
+     *
+     * @return DeductPoiMallpointResponse
+     */
+    public function deductPoiMallpoint($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->deductPoiMallpointEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 积分扣减
+     * Summary: 积分扣减.
+     *
+     * @param DeductPoiMallpointRequest $request
+     * @param string[]                  $headers
+     * @param RuntimeOptions            $runtime
+     *
+     * @return DeductPoiMallpointResponse
+     */
+    public function deductPoiMallpointEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return DeductPoiMallpointResponse::fromMap($this->doRequest('1.0', 'antsecuritytech.gateway.poi.mallpoint.deduct', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: ISV取消订单接口
+     * Summary: ISV取消订单接口.
+     *
+     * @param CancelPoiOrderRequest $request
+     *
+     * @return CancelPoiOrderResponse
+     */
+    public function cancelPoiOrder($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->cancelPoiOrderEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: ISV取消订单接口
+     * Summary: ISV取消订单接口.
+     *
+     * @param CancelPoiOrderRequest $request
+     * @param string[]              $headers
+     * @param RuntimeOptions        $runtime
+     *
+     * @return CancelPoiOrderResponse
+     */
+    public function cancelPoiOrderEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return CancelPoiOrderResponse::fromMap($this->doRequest('1.0', 'antsecuritytech.gateway.poi.order.cancel', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
     }
 
     /**
