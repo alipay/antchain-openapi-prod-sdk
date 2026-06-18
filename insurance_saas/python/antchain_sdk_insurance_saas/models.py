@@ -379,6 +379,42 @@ class EntrustGuaranteeProduct(TeaModel):
         return self
 
 
+class RealtimeMktAudience(TeaModel):
+    def __init__(
+        self,
+        encrypted_user_id: str = None,
+        ext_info: str = None,
+    ):
+        # 加密用户标识
+        self.encrypted_user_id = encrypted_user_id
+        # 扩展信息
+        self.ext_info = ext_info
+
+    def validate(self):
+        self.validate_required(self.encrypted_user_id, 'encrypted_user_id')
+        self.validate_required(self.ext_info, 'ext_info')
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.encrypted_user_id is not None:
+            result['encrypted_user_id'] = self.encrypted_user_id
+        if self.ext_info is not None:
+            result['ext_info'] = self.ext_info
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('encrypted_user_id') is not None:
+            self.encrypted_user_id = m.get('encrypted_user_id')
+        if m.get('ext_info') is not None:
+            self.ext_info = m.get('ext_info')
+        return self
+
+
 class XNameValuePair(TeaModel):
     def __init__(
         self,
@@ -896,6 +932,123 @@ class CallbackMktLiveeffectRequest(TeaModel):
 
 
 class CallbackMktLiveeffectResponse(TeaModel):
+    def __init__(
+        self,
+        req_msg_id: str = None,
+        result_code: str = None,
+        result_msg: str = None,
+        request_id: str = None,
+    ):
+        # 请求唯一ID，用于链路跟踪和问题排查
+        self.req_msg_id = req_msg_id
+        # 结果码，一般OK表示调用成功
+        self.result_code = result_code
+        # 异常信息的文本描述
+        self.result_msg = result_msg
+        # 请求id
+        self.request_id = request_id
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.req_msg_id is not None:
+            result['req_msg_id'] = self.req_msg_id
+        if self.result_code is not None:
+            result['result_code'] = self.result_code
+        if self.result_msg is not None:
+            result['result_msg'] = self.result_msg
+        if self.request_id is not None:
+            result['request_id'] = self.request_id
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('req_msg_id') is not None:
+            self.req_msg_id = m.get('req_msg_id')
+        if m.get('result_code') is not None:
+            self.result_code = m.get('result_code')
+        if m.get('result_msg') is not None:
+            self.result_msg = m.get('result_msg')
+        if m.get('request_id') is not None:
+            self.request_id = m.get('request_id')
+        return self
+
+
+class ApplyMktRealtimemktRequest(TeaModel):
+    def __init__(
+        self,
+        auth_token: str = None,
+        request_id: str = None,
+        project_id: str = None,
+        encryption_type: str = None,
+        realtime_mkt_audience_list: List[RealtimeMktAudience] = None,
+    ):
+        # OAuth模式下的授权token
+        self.auth_token = auth_token
+        # 请求id
+        self.request_id = request_id
+        # 项目ID，待蚂蚁分配
+        self.project_id = project_id
+        # 加密类型，MD5，32位[小]
+        self.encryption_type = encryption_type
+        # 实时营销人群列表
+        self.realtime_mkt_audience_list = realtime_mkt_audience_list
+
+    def validate(self):
+        self.validate_required(self.request_id, 'request_id')
+        self.validate_required(self.project_id, 'project_id')
+        self.validate_required(self.encryption_type, 'encryption_type')
+        self.validate_required(self.realtime_mkt_audience_list, 'realtime_mkt_audience_list')
+        if self.realtime_mkt_audience_list:
+            for k in self.realtime_mkt_audience_list:
+                if k:
+                    k.validate()
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.auth_token is not None:
+            result['auth_token'] = self.auth_token
+        if self.request_id is not None:
+            result['request_id'] = self.request_id
+        if self.project_id is not None:
+            result['project_id'] = self.project_id
+        if self.encryption_type is not None:
+            result['encryption_type'] = self.encryption_type
+        result['realtime_mkt_audience_list'] = []
+        if self.realtime_mkt_audience_list is not None:
+            for k in self.realtime_mkt_audience_list:
+                result['realtime_mkt_audience_list'].append(k.to_map() if k else None)
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('auth_token') is not None:
+            self.auth_token = m.get('auth_token')
+        if m.get('request_id') is not None:
+            self.request_id = m.get('request_id')
+        if m.get('project_id') is not None:
+            self.project_id = m.get('project_id')
+        if m.get('encryption_type') is not None:
+            self.encryption_type = m.get('encryption_type')
+        self.realtime_mkt_audience_list = []
+        if m.get('realtime_mkt_audience_list') is not None:
+            for k in m.get('realtime_mkt_audience_list'):
+                temp_model = RealtimeMktAudience()
+                self.realtime_mkt_audience_list.append(temp_model.from_map(k))
+        return self
+
+
+class ApplyMktRealtimemktResponse(TeaModel):
     def __init__(
         self,
         req_msg_id: str = None,
