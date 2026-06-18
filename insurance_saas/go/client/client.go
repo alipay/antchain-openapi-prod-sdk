@@ -316,6 +316,32 @@ func (s *EntrustGuaranteeProduct) SetInsuranceProductName(v string) *EntrustGuar
 	return s
 }
 
+// 实时营销人群
+type RealtimeMktAudience struct {
+	// 加密用户标识
+	EncryptedUserId *string `json:"encrypted_user_id,omitempty" xml:"encrypted_user_id,omitempty" require:"true"`
+	// 扩展信息
+	ExtInfo *string `json:"ext_info,omitempty" xml:"ext_info,omitempty" require:"true"`
+}
+
+func (s RealtimeMktAudience) String() string {
+	return tea.Prettify(s)
+}
+
+func (s RealtimeMktAudience) GoString() string {
+	return s.String()
+}
+
+func (s *RealtimeMktAudience) SetEncryptedUserId(v string) *RealtimeMktAudience {
+	s.EncryptedUserId = &v
+	return s
+}
+
+func (s *RealtimeMktAudience) SetExtInfo(v string) *RealtimeMktAudience {
+	s.ExtInfo = &v
+	return s
+}
+
 // 键值对
 type XNameValuePair struct {
 	// 键名
@@ -772,6 +798,91 @@ func (s *CallbackMktLiveeffectResponse) SetResultMsg(v string) *CallbackMktLivee
 }
 
 func (s *CallbackMktLiveeffectResponse) SetRequestId(v string) *CallbackMktLiveeffectResponse {
+	s.RequestId = &v
+	return s
+}
+
+type ApplyMktRealtimemktRequest struct {
+	// OAuth模式下的授权token
+	AuthToken *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	// 请求id
+	RequestId *string `json:"request_id,omitempty" xml:"request_id,omitempty" require:"true"`
+	// 项目ID，待蚂蚁分配
+	ProjectId *string `json:"project_id,omitempty" xml:"project_id,omitempty" require:"true"`
+	// 加密类型，MD5，32位[小]
+	EncryptionType *string `json:"encryption_type,omitempty" xml:"encryption_type,omitempty" require:"true"`
+	// 实时营销人群列表
+	RealtimeMktAudienceList []*RealtimeMktAudience `json:"realtime_mkt_audience_list,omitempty" xml:"realtime_mkt_audience_list,omitempty" require:"true" type:"Repeated"`
+}
+
+func (s ApplyMktRealtimemktRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s ApplyMktRealtimemktRequest) GoString() string {
+	return s.String()
+}
+
+func (s *ApplyMktRealtimemktRequest) SetAuthToken(v string) *ApplyMktRealtimemktRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *ApplyMktRealtimemktRequest) SetRequestId(v string) *ApplyMktRealtimemktRequest {
+	s.RequestId = &v
+	return s
+}
+
+func (s *ApplyMktRealtimemktRequest) SetProjectId(v string) *ApplyMktRealtimemktRequest {
+	s.ProjectId = &v
+	return s
+}
+
+func (s *ApplyMktRealtimemktRequest) SetEncryptionType(v string) *ApplyMktRealtimemktRequest {
+	s.EncryptionType = &v
+	return s
+}
+
+func (s *ApplyMktRealtimemktRequest) SetRealtimeMktAudienceList(v []*RealtimeMktAudience) *ApplyMktRealtimemktRequest {
+	s.RealtimeMktAudienceList = v
+	return s
+}
+
+type ApplyMktRealtimemktResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// 请求id
+	RequestId *string `json:"request_id,omitempty" xml:"request_id,omitempty"`
+}
+
+func (s ApplyMktRealtimemktResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s ApplyMktRealtimemktResponse) GoString() string {
+	return s.String()
+}
+
+func (s *ApplyMktRealtimemktResponse) SetReqMsgId(v string) *ApplyMktRealtimemktResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *ApplyMktRealtimemktResponse) SetResultCode(v string) *ApplyMktRealtimemktResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *ApplyMktRealtimemktResponse) SetResultMsg(v string) *ApplyMktRealtimemktResponse {
+	s.ResultMsg = &v
+	return s
+}
+
+func (s *ApplyMktRealtimemktResponse) SetRequestId(v string) *ApplyMktRealtimemktResponse {
 	s.RequestId = &v
 	return s
 }
@@ -5781,7 +5892,7 @@ func (client *Client) DoRequest(version *string, action *string, protocol *strin
 				"req_msg_id":       antchainutil.GetNonce(),
 				"access_key":       client.AccessKeyId,
 				"base_sdk_version": tea.String("TeaSDK-2.0"),
-				"sdk_version":      tea.String("1.12.36"),
+				"sdk_version":      tea.String("1.12.37"),
 				"_prod_code":       tea.String("INSURANCE_SAAS"),
 				"_prod_channel":    tea.String("undefined"),
 			}
@@ -5968,6 +6079,40 @@ func (client *Client) CallbackMktLiveeffectEx(request *CallbackMktLiveeffectRequ
 	}
 	_result = &CallbackMktLiveeffectResponse{}
 	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("antcloud.insurance.mkt.liveeffect.callback"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
+}
+
+/**
+ * Description: 保险实时营销提交
+ * Summary: 保险实时营销提交
+ */
+func (client *Client) ApplyMktRealtimemkt(request *ApplyMktRealtimemktRequest) (_result *ApplyMktRealtimemktResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &ApplyMktRealtimemktResponse{}
+	_body, _err := client.ApplyMktRealtimemktEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+/**
+ * Description: 保险实时营销提交
+ * Summary: 保险实时营销提交
+ */
+func (client *Client) ApplyMktRealtimemktEx(request *ApplyMktRealtimemktRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *ApplyMktRealtimemktResponse, _err error) {
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &ApplyMktRealtimemktResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("antcloud.insurance.mkt.realtimemkt.apply"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
 	if _err != nil {
 		return _result, _err
 	}
