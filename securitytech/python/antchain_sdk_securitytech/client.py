@@ -135,7 +135,7 @@ class Client:
                     'req_msg_id': AntchainUtils.get_nonce(),
                     'access_key': self._access_key_id,
                     'base_sdk_version': 'TeaSDK-2.0',
-                    'sdk_version': '1.7.5',
+                    'sdk_version': '1.7.10',
                     '_prod_code': 'SECURITYTECH',
                     '_prod_channel': 'undefined'
                 }
@@ -239,7 +239,7 @@ class Client:
                     'req_msg_id': AntchainUtils.get_nonce(),
                     'access_key': self._access_key_id,
                     'base_sdk_version': 'TeaSDK-2.0',
-                    'sdk_version': '1.7.5',
+                    'sdk_version': '1.7.10',
                     '_prod_code': 'SECURITYTECH',
                     '_prod_channel': 'undefined'
                 }
@@ -2797,6 +2797,1126 @@ class Client:
         return TeaCore.from_map(
             securitytech_models.QueryDigitalkeyRentaltrippointResponse(),
             await self.do_request_async('1.0', 'antsecuritytech.gateway.digitalkey.rentaltrippoint.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def recharge_mall_point(
+        self,
+        request: securitytech_models.RechargeMallPointRequest,
+    ) -> securitytech_models.RechargeMallPointResponse:
+        """
+        Description: 积分充值
+        Summary: 积分充值
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.recharge_mall_point_ex(request, headers, runtime)
+
+    async def recharge_mall_point_async(
+        self,
+        request: securitytech_models.RechargeMallPointRequest,
+    ) -> securitytech_models.RechargeMallPointResponse:
+        """
+        Description: 积分充值
+        Summary: 积分充值
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.recharge_mall_point_ex_async(request, headers, runtime)
+
+    def recharge_mall_point_ex(
+        self,
+        request: securitytech_models.RechargeMallPointRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> securitytech_models.RechargeMallPointResponse:
+        """
+        Description: 积分充值
+        Summary: 积分充值
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            securitytech_models.RechargeMallPointResponse(),
+            self.do_request('1.0', 'antsecuritytech.gateway.mall.point.recharge', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def recharge_mall_point_ex_async(
+        self,
+        request: securitytech_models.RechargeMallPointRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> securitytech_models.RechargeMallPointResponse:
+        """
+        Description: 积分充值
+        Summary: 积分充值
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            securitytech_models.RechargeMallPointResponse(),
+            await self.do_request_async('1.0', 'antsecuritytech.gateway.mall.point.recharge', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def overdue_termination(
+        self,
+        request: securitytech_models.OverdueTerminationRequest,
+    ) -> securitytech_models.OverdueTerminationResponse:
+        """
+        Description: 逾期通知
+        Summary: 逾期通知
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.overdue_termination_ex(request, headers, runtime)
+
+    async def overdue_termination_async(
+        self,
+        request: securitytech_models.OverdueTerminationRequest,
+    ) -> securitytech_models.OverdueTerminationResponse:
+        """
+        Description: 逾期通知
+        Summary: 逾期通知
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.overdue_termination_ex_async(request, headers, runtime)
+
+    def overdue_termination_ex(
+        self,
+        request: securitytech_models.OverdueTerminationRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> securitytech_models.OverdueTerminationResponse:
+        """
+        Description: 逾期通知
+        Summary: 逾期通知
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            securitytech_models.OverdueTerminationResponse(),
+            self.do_request('1.0', 'antsecuritytech.gateway.termination.overdue', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def overdue_termination_ex_async(
+        self,
+        request: securitytech_models.OverdueTerminationRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> securitytech_models.OverdueTerminationResponse:
+        """
+        Description: 逾期通知
+        Summary: 逾期通知
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            securitytech_models.OverdueTerminationResponse(),
+            await self.do_request_async('1.0', 'antsecuritytech.gateway.termination.overdue', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def query_mall_pointbalance(
+        self,
+        request: securitytech_models.QueryMallPointbalanceRequest,
+    ) -> securitytech_models.QueryMallPointbalanceResponse:
+        """
+        Description: 余额查询
+        Summary: 余额查询
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.query_mall_pointbalance_ex(request, headers, runtime)
+
+    async def query_mall_pointbalance_async(
+        self,
+        request: securitytech_models.QueryMallPointbalanceRequest,
+    ) -> securitytech_models.QueryMallPointbalanceResponse:
+        """
+        Description: 余额查询
+        Summary: 余额查询
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.query_mall_pointbalance_ex_async(request, headers, runtime)
+
+    def query_mall_pointbalance_ex(
+        self,
+        request: securitytech_models.QueryMallPointbalanceRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> securitytech_models.QueryMallPointbalanceResponse:
+        """
+        Description: 余额查询
+        Summary: 余额查询
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            securitytech_models.QueryMallPointbalanceResponse(),
+            self.do_request('1.0', 'antsecuritytech.gateway.mall.pointbalance.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def query_mall_pointbalance_ex_async(
+        self,
+        request: securitytech_models.QueryMallPointbalanceRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> securitytech_models.QueryMallPointbalanceResponse:
+        """
+        Description: 余额查询
+        Summary: 余额查询
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            securitytech_models.QueryMallPointbalanceResponse(),
+            await self.do_request_async('1.0', 'antsecuritytech.gateway.mall.pointbalance.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def query_termination(
+        self,
+        request: securitytech_models.QueryTerminationRequest,
+    ) -> securitytech_models.QueryTerminationResponse:
+        """
+        Description: 解约信息查询
+        Summary: 解约信息查询
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.query_termination_ex(request, headers, runtime)
+
+    async def query_termination_async(
+        self,
+        request: securitytech_models.QueryTerminationRequest,
+    ) -> securitytech_models.QueryTerminationResponse:
+        """
+        Description: 解约信息查询
+        Summary: 解约信息查询
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.query_termination_ex_async(request, headers, runtime)
+
+    def query_termination_ex(
+        self,
+        request: securitytech_models.QueryTerminationRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> securitytech_models.QueryTerminationResponse:
+        """
+        Description: 解约信息查询
+        Summary: 解约信息查询
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            securitytech_models.QueryTerminationResponse(),
+            self.do_request('1.0', 'antsecuritytech.gateway.termination.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def query_termination_ex_async(
+        self,
+        request: securitytech_models.QueryTerminationRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> securitytech_models.QueryTerminationResponse:
+        """
+        Description: 解约信息查询
+        Summary: 解约信息查询
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            securitytech_models.QueryTerminationResponse(),
+            await self.do_request_async('1.0', 'antsecuritytech.gateway.termination.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def apply_termination(
+        self,
+        request: securitytech_models.ApplyTerminationRequest,
+    ) -> securitytech_models.ApplyTerminationResponse:
+        """
+        Description: 解约
+        Summary: 解约
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.apply_termination_ex(request, headers, runtime)
+
+    async def apply_termination_async(
+        self,
+        request: securitytech_models.ApplyTerminationRequest,
+    ) -> securitytech_models.ApplyTerminationResponse:
+        """
+        Description: 解约
+        Summary: 解约
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.apply_termination_ex_async(request, headers, runtime)
+
+    def apply_termination_ex(
+        self,
+        request: securitytech_models.ApplyTerminationRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> securitytech_models.ApplyTerminationResponse:
+        """
+        Description: 解约
+        Summary: 解约
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            securitytech_models.ApplyTerminationResponse(),
+            self.do_request('1.0', 'antsecuritytech.gateway.termination.apply', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def apply_termination_ex_async(
+        self,
+        request: securitytech_models.ApplyTerminationRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> securitytech_models.ApplyTerminationResponse:
+        """
+        Description: 解约
+        Summary: 解约
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            securitytech_models.ApplyTerminationResponse(),
+            await self.do_request_async('1.0', 'antsecuritytech.gateway.termination.apply', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def query_mall_pointaccount(
+        self,
+        request: securitytech_models.QueryMallPointaccountRequest,
+    ) -> securitytech_models.QueryMallPointaccountResponse:
+        """
+        Description: 账户查询
+        Summary: 账户查询
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.query_mall_pointaccount_ex(request, headers, runtime)
+
+    async def query_mall_pointaccount_async(
+        self,
+        request: securitytech_models.QueryMallPointaccountRequest,
+    ) -> securitytech_models.QueryMallPointaccountResponse:
+        """
+        Description: 账户查询
+        Summary: 账户查询
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.query_mall_pointaccount_ex_async(request, headers, runtime)
+
+    def query_mall_pointaccount_ex(
+        self,
+        request: securitytech_models.QueryMallPointaccountRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> securitytech_models.QueryMallPointaccountResponse:
+        """
+        Description: 账户查询
+        Summary: 账户查询
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            securitytech_models.QueryMallPointaccountResponse(),
+            self.do_request('1.0', 'antsecuritytech.gateway.mall.pointaccount.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def query_mall_pointaccount_ex_async(
+        self,
+        request: securitytech_models.QueryMallPointaccountRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> securitytech_models.QueryMallPointaccountResponse:
+        """
+        Description: 账户查询
+        Summary: 账户查询
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            securitytech_models.QueryMallPointaccountResponse(),
+            await self.do_request_async('1.0', 'antsecuritytech.gateway.mall.pointaccount.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def freeze_mall_point(
+        self,
+        request: securitytech_models.FreezeMallPointRequest,
+    ) -> securitytech_models.FreezeMallPointResponse:
+        """
+        Description: 积分冻结
+        Summary: 积分冻结
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.freeze_mall_point_ex(request, headers, runtime)
+
+    async def freeze_mall_point_async(
+        self,
+        request: securitytech_models.FreezeMallPointRequest,
+    ) -> securitytech_models.FreezeMallPointResponse:
+        """
+        Description: 积分冻结
+        Summary: 积分冻结
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.freeze_mall_point_ex_async(request, headers, runtime)
+
+    def freeze_mall_point_ex(
+        self,
+        request: securitytech_models.FreezeMallPointRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> securitytech_models.FreezeMallPointResponse:
+        """
+        Description: 积分冻结
+        Summary: 积分冻结
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            securitytech_models.FreezeMallPointResponse(),
+            self.do_request('1.0', 'antsecuritytech.gateway.mall.point.freeze', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def freeze_mall_point_ex_async(
+        self,
+        request: securitytech_models.FreezeMallPointRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> securitytech_models.FreezeMallPointResponse:
+        """
+        Description: 积分冻结
+        Summary: 积分冻结
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            securitytech_models.FreezeMallPointResponse(),
+            await self.do_request_async('1.0', 'antsecuritytech.gateway.mall.point.freeze', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def unfreeze_mall_point(
+        self,
+        request: securitytech_models.UnfreezeMallPointRequest,
+    ) -> securitytech_models.UnfreezeMallPointResponse:
+        """
+        Description: 积分解冻
+        Summary: 积分解冻
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.unfreeze_mall_point_ex(request, headers, runtime)
+
+    async def unfreeze_mall_point_async(
+        self,
+        request: securitytech_models.UnfreezeMallPointRequest,
+    ) -> securitytech_models.UnfreezeMallPointResponse:
+        """
+        Description: 积分解冻
+        Summary: 积分解冻
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.unfreeze_mall_point_ex_async(request, headers, runtime)
+
+    def unfreeze_mall_point_ex(
+        self,
+        request: securitytech_models.UnfreezeMallPointRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> securitytech_models.UnfreezeMallPointResponse:
+        """
+        Description: 积分解冻
+        Summary: 积分解冻
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            securitytech_models.UnfreezeMallPointResponse(),
+            self.do_request('1.0', 'antsecuritytech.gateway.mall.point.unfreeze', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def unfreeze_mall_point_ex_async(
+        self,
+        request: securitytech_models.UnfreezeMallPointRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> securitytech_models.UnfreezeMallPointResponse:
+        """
+        Description: 积分解冻
+        Summary: 积分解冻
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            securitytech_models.UnfreezeMallPointResponse(),
+            await self.do_request_async('1.0', 'antsecuritytech.gateway.mall.point.unfreeze', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def deduct_mall_point(
+        self,
+        request: securitytech_models.DeductMallPointRequest,
+    ) -> securitytech_models.DeductMallPointResponse:
+        """
+        Description: 积分扣减
+        Summary: 积分扣减
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.deduct_mall_point_ex(request, headers, runtime)
+
+    async def deduct_mall_point_async(
+        self,
+        request: securitytech_models.DeductMallPointRequest,
+    ) -> securitytech_models.DeductMallPointResponse:
+        """
+        Description: 积分扣减
+        Summary: 积分扣减
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.deduct_mall_point_ex_async(request, headers, runtime)
+
+    def deduct_mall_point_ex(
+        self,
+        request: securitytech_models.DeductMallPointRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> securitytech_models.DeductMallPointResponse:
+        """
+        Description: 积分扣减
+        Summary: 积分扣减
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            securitytech_models.DeductMallPointResponse(),
+            self.do_request('1.0', 'antsecuritytech.gateway.mall.point.deduct', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def deduct_mall_point_ex_async(
+        self,
+        request: securitytech_models.DeductMallPointRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> securitytech_models.DeductMallPointResponse:
+        """
+        Description: 积分扣减
+        Summary: 积分扣减
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            securitytech_models.DeductMallPointResponse(),
+            await self.do_request_async('1.0', 'antsecuritytech.gateway.mall.point.deduct', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def query_poi_order(
+        self,
+        request: securitytech_models.QueryPoiOrderRequest,
+    ) -> securitytech_models.QueryPoiOrderResponse:
+        """
+        Description: 订单状态查询接口
+        Summary: 订单状态查询接口
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.query_poi_order_ex(request, headers, runtime)
+
+    async def query_poi_order_async(
+        self,
+        request: securitytech_models.QueryPoiOrderRequest,
+    ) -> securitytech_models.QueryPoiOrderResponse:
+        """
+        Description: 订单状态查询接口
+        Summary: 订单状态查询接口
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.query_poi_order_ex_async(request, headers, runtime)
+
+    def query_poi_order_ex(
+        self,
+        request: securitytech_models.QueryPoiOrderRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> securitytech_models.QueryPoiOrderResponse:
+        """
+        Description: 订单状态查询接口
+        Summary: 订单状态查询接口
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            securitytech_models.QueryPoiOrderResponse(),
+            self.do_request('1.0', 'antsecuritytech.gateway.poi.order.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def query_poi_order_ex_async(
+        self,
+        request: securitytech_models.QueryPoiOrderRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> securitytech_models.QueryPoiOrderResponse:
+        """
+        Description: 订单状态查询接口
+        Summary: 订单状态查询接口
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            securitytech_models.QueryPoiOrderResponse(),
+            await self.do_request_async('1.0', 'antsecuritytech.gateway.poi.order.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def recharge_poi_mallpoint(
+        self,
+        request: securitytech_models.RechargePoiMallpointRequest,
+    ) -> securitytech_models.RechargePoiMallpointResponse:
+        """
+        Description: 积分充值
+        Summary: 积分充值
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.recharge_poi_mallpoint_ex(request, headers, runtime)
+
+    async def recharge_poi_mallpoint_async(
+        self,
+        request: securitytech_models.RechargePoiMallpointRequest,
+    ) -> securitytech_models.RechargePoiMallpointResponse:
+        """
+        Description: 积分充值
+        Summary: 积分充值
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.recharge_poi_mallpoint_ex_async(request, headers, runtime)
+
+    def recharge_poi_mallpoint_ex(
+        self,
+        request: securitytech_models.RechargePoiMallpointRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> securitytech_models.RechargePoiMallpointResponse:
+        """
+        Description: 积分充值
+        Summary: 积分充值
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            securitytech_models.RechargePoiMallpointResponse(),
+            self.do_request('1.0', 'antsecuritytech.gateway.poi.mallpoint.recharge', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def recharge_poi_mallpoint_ex_async(
+        self,
+        request: securitytech_models.RechargePoiMallpointRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> securitytech_models.RechargePoiMallpointResponse:
+        """
+        Description: 积分充值
+        Summary: 积分充值
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            securitytech_models.RechargePoiMallpointResponse(),
+            await self.do_request_async('1.0', 'antsecuritytech.gateway.poi.mallpoint.recharge', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def overdue_poi_termination(
+        self,
+        request: securitytech_models.OverduePoiTerminationRequest,
+    ) -> securitytech_models.OverduePoiTerminationResponse:
+        """
+        Description: 逾期通知
+        Summary: 逾期通知
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.overdue_poi_termination_ex(request, headers, runtime)
+
+    async def overdue_poi_termination_async(
+        self,
+        request: securitytech_models.OverduePoiTerminationRequest,
+    ) -> securitytech_models.OverduePoiTerminationResponse:
+        """
+        Description: 逾期通知
+        Summary: 逾期通知
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.overdue_poi_termination_ex_async(request, headers, runtime)
+
+    def overdue_poi_termination_ex(
+        self,
+        request: securitytech_models.OverduePoiTerminationRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> securitytech_models.OverduePoiTerminationResponse:
+        """
+        Description: 逾期通知
+        Summary: 逾期通知
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            securitytech_models.OverduePoiTerminationResponse(),
+            self.do_request('1.0', 'antsecuritytech.gateway.poi.termination.overdue', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def overdue_poi_termination_ex_async(
+        self,
+        request: securitytech_models.OverduePoiTerminationRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> securitytech_models.OverduePoiTerminationResponse:
+        """
+        Description: 逾期通知
+        Summary: 逾期通知
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            securitytech_models.OverduePoiTerminationResponse(),
+            await self.do_request_async('1.0', 'antsecuritytech.gateway.poi.termination.overdue', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def query_poi_mallpointbalance(
+        self,
+        request: securitytech_models.QueryPoiMallpointbalanceRequest,
+    ) -> securitytech_models.QueryPoiMallpointbalanceResponse:
+        """
+        Description: 余额查询
+        Summary: 余额查询
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.query_poi_mallpointbalance_ex(request, headers, runtime)
+
+    async def query_poi_mallpointbalance_async(
+        self,
+        request: securitytech_models.QueryPoiMallpointbalanceRequest,
+    ) -> securitytech_models.QueryPoiMallpointbalanceResponse:
+        """
+        Description: 余额查询
+        Summary: 余额查询
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.query_poi_mallpointbalance_ex_async(request, headers, runtime)
+
+    def query_poi_mallpointbalance_ex(
+        self,
+        request: securitytech_models.QueryPoiMallpointbalanceRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> securitytech_models.QueryPoiMallpointbalanceResponse:
+        """
+        Description: 余额查询
+        Summary: 余额查询
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            securitytech_models.QueryPoiMallpointbalanceResponse(),
+            self.do_request('1.0', 'antsecuritytech.gateway.poi.mallpointbalance.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def query_poi_mallpointbalance_ex_async(
+        self,
+        request: securitytech_models.QueryPoiMallpointbalanceRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> securitytech_models.QueryPoiMallpointbalanceResponse:
+        """
+        Description: 余额查询
+        Summary: 余额查询
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            securitytech_models.QueryPoiMallpointbalanceResponse(),
+            await self.do_request_async('1.0', 'antsecuritytech.gateway.poi.mallpointbalance.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def query_poi_termination(
+        self,
+        request: securitytech_models.QueryPoiTerminationRequest,
+    ) -> securitytech_models.QueryPoiTerminationResponse:
+        """
+        Description: 解约信息查询
+        Summary: 解约信息查询
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.query_poi_termination_ex(request, headers, runtime)
+
+    async def query_poi_termination_async(
+        self,
+        request: securitytech_models.QueryPoiTerminationRequest,
+    ) -> securitytech_models.QueryPoiTerminationResponse:
+        """
+        Description: 解约信息查询
+        Summary: 解约信息查询
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.query_poi_termination_ex_async(request, headers, runtime)
+
+    def query_poi_termination_ex(
+        self,
+        request: securitytech_models.QueryPoiTerminationRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> securitytech_models.QueryPoiTerminationResponse:
+        """
+        Description: 解约信息查询
+        Summary: 解约信息查询
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            securitytech_models.QueryPoiTerminationResponse(),
+            self.do_request('1.0', 'antsecuritytech.gateway.poi.termination.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def query_poi_termination_ex_async(
+        self,
+        request: securitytech_models.QueryPoiTerminationRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> securitytech_models.QueryPoiTerminationResponse:
+        """
+        Description: 解约信息查询
+        Summary: 解约信息查询
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            securitytech_models.QueryPoiTerminationResponse(),
+            await self.do_request_async('1.0', 'antsecuritytech.gateway.poi.termination.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def apply_poi_termination(
+        self,
+        request: securitytech_models.ApplyPoiTerminationRequest,
+    ) -> securitytech_models.ApplyPoiTerminationResponse:
+        """
+        Description: 解约
+        Summary: 解约
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.apply_poi_termination_ex(request, headers, runtime)
+
+    async def apply_poi_termination_async(
+        self,
+        request: securitytech_models.ApplyPoiTerminationRequest,
+    ) -> securitytech_models.ApplyPoiTerminationResponse:
+        """
+        Description: 解约
+        Summary: 解约
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.apply_poi_termination_ex_async(request, headers, runtime)
+
+    def apply_poi_termination_ex(
+        self,
+        request: securitytech_models.ApplyPoiTerminationRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> securitytech_models.ApplyPoiTerminationResponse:
+        """
+        Description: 解约
+        Summary: 解约
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            securitytech_models.ApplyPoiTerminationResponse(),
+            self.do_request('1.0', 'antsecuritytech.gateway.poi.termination.apply', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def apply_poi_termination_ex_async(
+        self,
+        request: securitytech_models.ApplyPoiTerminationRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> securitytech_models.ApplyPoiTerminationResponse:
+        """
+        Description: 解约
+        Summary: 解约
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            securitytech_models.ApplyPoiTerminationResponse(),
+            await self.do_request_async('1.0', 'antsecuritytech.gateway.poi.termination.apply', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def query_poi_mallpointaccount(
+        self,
+        request: securitytech_models.QueryPoiMallpointaccountRequest,
+    ) -> securitytech_models.QueryPoiMallpointaccountResponse:
+        """
+        Description: 账户查询
+        Summary: 账户查询
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.query_poi_mallpointaccount_ex(request, headers, runtime)
+
+    async def query_poi_mallpointaccount_async(
+        self,
+        request: securitytech_models.QueryPoiMallpointaccountRequest,
+    ) -> securitytech_models.QueryPoiMallpointaccountResponse:
+        """
+        Description: 账户查询
+        Summary: 账户查询
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.query_poi_mallpointaccount_ex_async(request, headers, runtime)
+
+    def query_poi_mallpointaccount_ex(
+        self,
+        request: securitytech_models.QueryPoiMallpointaccountRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> securitytech_models.QueryPoiMallpointaccountResponse:
+        """
+        Description: 账户查询
+        Summary: 账户查询
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            securitytech_models.QueryPoiMallpointaccountResponse(),
+            self.do_request('1.0', 'antsecuritytech.gateway.poi.mallpointaccount.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def query_poi_mallpointaccount_ex_async(
+        self,
+        request: securitytech_models.QueryPoiMallpointaccountRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> securitytech_models.QueryPoiMallpointaccountResponse:
+        """
+        Description: 账户查询
+        Summary: 账户查询
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            securitytech_models.QueryPoiMallpointaccountResponse(),
+            await self.do_request_async('1.0', 'antsecuritytech.gateway.poi.mallpointaccount.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def freeze_poi_mallpoint(
+        self,
+        request: securitytech_models.FreezePoiMallpointRequest,
+    ) -> securitytech_models.FreezePoiMallpointResponse:
+        """
+        Description: 积分冻结
+        Summary: 积分冻结
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.freeze_poi_mallpoint_ex(request, headers, runtime)
+
+    async def freeze_poi_mallpoint_async(
+        self,
+        request: securitytech_models.FreezePoiMallpointRequest,
+    ) -> securitytech_models.FreezePoiMallpointResponse:
+        """
+        Description: 积分冻结
+        Summary: 积分冻结
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.freeze_poi_mallpoint_ex_async(request, headers, runtime)
+
+    def freeze_poi_mallpoint_ex(
+        self,
+        request: securitytech_models.FreezePoiMallpointRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> securitytech_models.FreezePoiMallpointResponse:
+        """
+        Description: 积分冻结
+        Summary: 积分冻结
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            securitytech_models.FreezePoiMallpointResponse(),
+            self.do_request('1.0', 'antsecuritytech.gateway.poi.mallpoint.freeze', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def freeze_poi_mallpoint_ex_async(
+        self,
+        request: securitytech_models.FreezePoiMallpointRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> securitytech_models.FreezePoiMallpointResponse:
+        """
+        Description: 积分冻结
+        Summary: 积分冻结
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            securitytech_models.FreezePoiMallpointResponse(),
+            await self.do_request_async('1.0', 'antsecuritytech.gateway.poi.mallpoint.freeze', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def unfreeze_poi_mallpoint(
+        self,
+        request: securitytech_models.UnfreezePoiMallpointRequest,
+    ) -> securitytech_models.UnfreezePoiMallpointResponse:
+        """
+        Description: 积分解冻
+        Summary: 积分解冻
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.unfreeze_poi_mallpoint_ex(request, headers, runtime)
+
+    async def unfreeze_poi_mallpoint_async(
+        self,
+        request: securitytech_models.UnfreezePoiMallpointRequest,
+    ) -> securitytech_models.UnfreezePoiMallpointResponse:
+        """
+        Description: 积分解冻
+        Summary: 积分解冻
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.unfreeze_poi_mallpoint_ex_async(request, headers, runtime)
+
+    def unfreeze_poi_mallpoint_ex(
+        self,
+        request: securitytech_models.UnfreezePoiMallpointRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> securitytech_models.UnfreezePoiMallpointResponse:
+        """
+        Description: 积分解冻
+        Summary: 积分解冻
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            securitytech_models.UnfreezePoiMallpointResponse(),
+            self.do_request('1.0', 'antsecuritytech.gateway.poi.mallpoint.unfreeze', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def unfreeze_poi_mallpoint_ex_async(
+        self,
+        request: securitytech_models.UnfreezePoiMallpointRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> securitytech_models.UnfreezePoiMallpointResponse:
+        """
+        Description: 积分解冻
+        Summary: 积分解冻
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            securitytech_models.UnfreezePoiMallpointResponse(),
+            await self.do_request_async('1.0', 'antsecuritytech.gateway.poi.mallpoint.unfreeze', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def deduct_poi_mallpoint(
+        self,
+        request: securitytech_models.DeductPoiMallpointRequest,
+    ) -> securitytech_models.DeductPoiMallpointResponse:
+        """
+        Description: 积分扣减
+        Summary: 积分扣减
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.deduct_poi_mallpoint_ex(request, headers, runtime)
+
+    async def deduct_poi_mallpoint_async(
+        self,
+        request: securitytech_models.DeductPoiMallpointRequest,
+    ) -> securitytech_models.DeductPoiMallpointResponse:
+        """
+        Description: 积分扣减
+        Summary: 积分扣减
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.deduct_poi_mallpoint_ex_async(request, headers, runtime)
+
+    def deduct_poi_mallpoint_ex(
+        self,
+        request: securitytech_models.DeductPoiMallpointRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> securitytech_models.DeductPoiMallpointResponse:
+        """
+        Description: 积分扣减
+        Summary: 积分扣减
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            securitytech_models.DeductPoiMallpointResponse(),
+            self.do_request('1.0', 'antsecuritytech.gateway.poi.mallpoint.deduct', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def deduct_poi_mallpoint_ex_async(
+        self,
+        request: securitytech_models.DeductPoiMallpointRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> securitytech_models.DeductPoiMallpointResponse:
+        """
+        Description: 积分扣减
+        Summary: 积分扣减
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            securitytech_models.DeductPoiMallpointResponse(),
+            await self.do_request_async('1.0', 'antsecuritytech.gateway.poi.mallpoint.deduct', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def cancel_poi_order(
+        self,
+        request: securitytech_models.CancelPoiOrderRequest,
+    ) -> securitytech_models.CancelPoiOrderResponse:
+        """
+        Description: ISV取消订单接口
+        Summary: ISV取消订单接口
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.cancel_poi_order_ex(request, headers, runtime)
+
+    async def cancel_poi_order_async(
+        self,
+        request: securitytech_models.CancelPoiOrderRequest,
+    ) -> securitytech_models.CancelPoiOrderResponse:
+        """
+        Description: ISV取消订单接口
+        Summary: ISV取消订单接口
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.cancel_poi_order_ex_async(request, headers, runtime)
+
+    def cancel_poi_order_ex(
+        self,
+        request: securitytech_models.CancelPoiOrderRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> securitytech_models.CancelPoiOrderResponse:
+        """
+        Description: ISV取消订单接口
+        Summary: ISV取消订单接口
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            securitytech_models.CancelPoiOrderResponse(),
+            self.do_request('1.0', 'antsecuritytech.gateway.poi.order.cancel', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def cancel_poi_order_ex_async(
+        self,
+        request: securitytech_models.CancelPoiOrderRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> securitytech_models.CancelPoiOrderResponse:
+        """
+        Description: ISV取消订单接口
+        Summary: ISV取消订单接口
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            securitytech_models.CancelPoiOrderResponse(),
+            await self.do_request_async('1.0', 'antsecuritytech.gateway.poi.order.cancel', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
     def create_bssecpic(
