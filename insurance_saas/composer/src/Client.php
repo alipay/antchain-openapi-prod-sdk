@@ -19,6 +19,8 @@ use AntChain\INSURANCE_SAAS\Models\ApplyInsureRequest;
 use AntChain\INSURANCE_SAAS\Models\ApplyInsureResponse;
 use AntChain\INSURANCE_SAAS\Models\ApplyInsureTestRequest;
 use AntChain\INSURANCE_SAAS\Models\ApplyInsureTestResponse;
+use AntChain\INSURANCE_SAAS\Models\ApplyMktRealtimemktRequest;
+use AntChain\INSURANCE_SAAS\Models\ApplyMktRealtimemktResponse;
 use AntChain\INSURANCE_SAAS\Models\ApplyUnderwritingRequest;
 use AntChain\INSURANCE_SAAS\Models\ApplyUnderwritingResponse;
 use AntChain\INSURANCE_SAAS\Models\CallbackMarketingEventRequest;
@@ -250,7 +252,7 @@ class Client
                     'req_msg_id'       => UtilClient::getNonce(),
                     'access_key'       => $this->_accessKeyId,
                     'base_sdk_version' => 'TeaSDK-2.0',
-                    'sdk_version'      => '1.12.36',
+                    'sdk_version'      => '1.12.37',
                     '_prod_code'       => 'INSURANCE_SAAS',
                     '_prod_channel'    => 'undefined',
                 ];
@@ -428,6 +430,39 @@ class Client
         Utils::validateModel($request);
 
         return CallbackMktLiveeffectResponse::fromMap($this->doRequest('1.0', 'antcloud.insurance.mkt.liveeffect.callback', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 保险实时营销提交
+     * Summary: 保险实时营销提交.
+     *
+     * @param ApplyMktRealtimemktRequest $request
+     *
+     * @return ApplyMktRealtimemktResponse
+     */
+    public function applyMktRealtimemkt($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->applyMktRealtimemktEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 保险实时营销提交
+     * Summary: 保险实时营销提交.
+     *
+     * @param ApplyMktRealtimemktRequest $request
+     * @param string[]                   $headers
+     * @param RuntimeOptions             $runtime
+     *
+     * @return ApplyMktRealtimemktResponse
+     */
+    public function applyMktRealtimemktEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return ApplyMktRealtimemktResponse::fromMap($this->doRequest('1.0', 'antcloud.insurance.mkt.realtimemkt.apply', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
     }
 
     /**
