@@ -100,7 +100,7 @@ api doRequest(version: string, action: string, protocol: string, method: string,
     req_msg_id = AntchainUtil.getNonce(),
     access_key = @accessKeyId,
     base_sdk_version = 'TeaSDK-2.0',
-    sdk_version = '1.12.36',
+    sdk_version = '1.12.37',
     _prod_code = 'INSURANCE_SAAS',
     _prod_channel = 'undefined'
   };
@@ -209,6 +209,14 @@ model EntrustGuaranteeProduct {
   insuranceProductCode?: string(name='insurance_product_code', example='保险公司的产品code'),
   // 保险公司的产品描述
   insuranceProductName?: string(name='insurance_product_name', example='保险公司的产品描述'),
+}
+
+// 实时营销人群
+model RealtimeMktAudience {
+  // 加密用户标识
+  encryptedUserId: string(name='encrypted_user_id', example='xxxxx'),
+  // 扩展信息
+  extInfo: string(name='ext_info', example='{}'),
 }
 
 // 键值对
@@ -418,6 +426,49 @@ async function callbackMktLiveeffect(request: CallbackMktLiveeffectRequest): Cal
 async function callbackMktLiveeffectEx(request: CallbackMktLiveeffectRequest, headers: map[string]string, runtime: Util.RuntimeOptions): CallbackMktLiveeffectResponse {
   Util.validateModel(request);
   return doRequest('1.0' ,'antcloud.insurance.mkt.liveeffect.callback', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model ApplyMktRealtimemktRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  // 请求id
+  requestId: string(name='request_id'),
+  // 项目ID，待蚂蚁分配
+  projectId: string(name='project_id'),
+  // 加密类型，MD5，32位[小]
+  encryptionType: string(name='encryption_type'),
+  // 实时营销人群列表
+  realtimeMktAudienceList: [ RealtimeMktAudience ](name='realtime_mkt_audience_list'),
+}
+
+model ApplyMktRealtimemktResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 请求id
+  requestId?: string(name='request_id'),
+}
+
+/**
+ * Description: 保险实时营销提交
+ * Summary: 保险实时营销提交
+ */
+async function applyMktRealtimemkt(request: ApplyMktRealtimemktRequest): ApplyMktRealtimemktResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return applyMktRealtimemktEx(request, headers, runtime);
+}
+
+/**
+ * Description: 保险实时营销提交
+ * Summary: 保险实时营销提交
+ */
+async function applyMktRealtimemktEx(request: ApplyMktRealtimemktRequest, headers: map[string]string, runtime: Util.RuntimeOptions): ApplyMktRealtimemktResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'antcloud.insurance.mkt.realtimemkt.apply', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
 }
 
 model QueryInquiryRequest = {
