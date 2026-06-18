@@ -137,7 +137,7 @@ namespace AntChain.SDK.INSURANCE_SAAS
                         {"req_msg_id", AntChain.AlipayUtil.AntchainUtils.GetNonce()},
                         {"access_key", _accessKeyId},
                         {"base_sdk_version", "TeaSDK-2.0"},
-                        {"sdk_version", "1.12.36"},
+                        {"sdk_version", "1.12.37"},
                         {"_prod_code", "INSURANCE_SAAS"},
                         {"_prod_channel", "undefined"},
                     };
@@ -263,7 +263,7 @@ namespace AntChain.SDK.INSURANCE_SAAS
                         {"req_msg_id", AntChain.AlipayUtil.AntchainUtils.GetNonce()},
                         {"access_key", _accessKeyId},
                         {"base_sdk_version", "TeaSDK-2.0"},
-                        {"sdk_version", "1.12.36"},
+                        {"sdk_version", "1.12.37"},
                         {"_prod_code", "INSURANCE_SAAS"},
                         {"_prod_channel", "undefined"},
                     };
@@ -487,6 +487,48 @@ namespace AntChain.SDK.INSURANCE_SAAS
         {
             AlibabaCloud.TeaUtil.Common.ValidateModel(request);
             return TeaModel.ToObject<CallbackMktLiveeffectResponse>(await DoRequestAsync("1.0", "antcloud.insurance.mkt.liveeffect.callback", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 保险实时营销提交
+         * Summary: 保险实时营销提交
+         */
+        public ApplyMktRealtimemktResponse ApplyMktRealtimemkt(ApplyMktRealtimemktRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return ApplyMktRealtimemktEx(request, headers, runtime);
+        }
+
+        /**
+         * Description: 保险实时营销提交
+         * Summary: 保险实时营销提交
+         */
+        public async Task<ApplyMktRealtimemktResponse> ApplyMktRealtimemktAsync(ApplyMktRealtimemktRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return await ApplyMktRealtimemktExAsync(request, headers, runtime);
+        }
+
+        /**
+         * Description: 保险实时营销提交
+         * Summary: 保险实时营销提交
+         */
+        public ApplyMktRealtimemktResponse ApplyMktRealtimemktEx(ApplyMktRealtimemktRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<ApplyMktRealtimemktResponse>(DoRequest("1.0", "antcloud.insurance.mkt.realtimemkt.apply", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 保险实时营销提交
+         * Summary: 保险实时营销提交
+         */
+        public async Task<ApplyMktRealtimemktResponse> ApplyMktRealtimemktExAsync(ApplyMktRealtimemktRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<ApplyMktRealtimemktResponse>(await DoRequestAsync("1.0", "antcloud.insurance.mkt.realtimemkt.apply", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
         }
 
         /**
