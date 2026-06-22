@@ -25468,6 +25468,99 @@ func (s *QueryContractEsignaccountResponse) SetAuthEndTime(v string) *QueryContr
 	return s
 }
 
+type QueryContractSignauthRequest struct {
+	// OAuth模式下的授权token
+	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
+	// 企业/个人账号ID
+	// 《平台方用户注册》返回的organizationId、userId
+	InitiatorAccountId *string `json:"initiator_account_id,omitempty" xml:"initiator_account_id,omitempty" require:"true"`
+	// 授权至经办人模式下的被授权人个人账号账号ID（平台方用户注册返回的userId）
+	// 注意：若指定授权经办人模式时需传入，查询企业授权经办人的有效期。
+	InitiatorAuthorizedAccountId *string `json:"initiator_authorized_account_id,omitempty" xml:"initiator_authorized_account_id,omitempty"`
+}
+
+func (s QueryContractSignauthRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s QueryContractSignauthRequest) GoString() string {
+	return s.String()
+}
+
+func (s *QueryContractSignauthRequest) SetAuthToken(v string) *QueryContractSignauthRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *QueryContractSignauthRequest) SetProductInstanceId(v string) *QueryContractSignauthRequest {
+	s.ProductInstanceId = &v
+	return s
+}
+
+func (s *QueryContractSignauthRequest) SetInitiatorAccountId(v string) *QueryContractSignauthRequest {
+	s.InitiatorAccountId = &v
+	return s
+}
+
+func (s *QueryContractSignauthRequest) SetInitiatorAuthorizedAccountId(v string) *QueryContractSignauthRequest {
+	s.InitiatorAuthorizedAccountId = &v
+	return s
+}
+
+type QueryContractSignauthResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// 授权生效时间（时间是unix时间戳（毫秒）格式）
+	AuthStartTime *int64 `json:"auth_start_time,omitempty" xml:"auth_start_time,omitempty"`
+	// 授权失效时间（时间是unix时间戳（毫秒）格式）
+	AuthEndTime *int64 `json:"auth_end_time,omitempty" xml:"auth_end_time,omitempty"`
+	// true:在有效期, false:不在有效期
+	Effective *bool `json:"effective,omitempty" xml:"effective,omitempty"`
+}
+
+func (s QueryContractSignauthResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s QueryContractSignauthResponse) GoString() string {
+	return s.String()
+}
+
+func (s *QueryContractSignauthResponse) SetReqMsgId(v string) *QueryContractSignauthResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *QueryContractSignauthResponse) SetResultCode(v string) *QueryContractSignauthResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *QueryContractSignauthResponse) SetResultMsg(v string) *QueryContractSignauthResponse {
+	s.ResultMsg = &v
+	return s
+}
+
+func (s *QueryContractSignauthResponse) SetAuthStartTime(v int64) *QueryContractSignauthResponse {
+	s.AuthStartTime = &v
+	return s
+}
+
+func (s *QueryContractSignauthResponse) SetAuthEndTime(v int64) *QueryContractSignauthResponse {
+	s.AuthEndTime = &v
+	return s
+}
+
+func (s *QueryContractSignauthResponse) SetEffective(v bool) *QueryContractSignauthResponse {
+	s.Effective = &v
+	return s
+}
+
 type PushDigitalcontentUsageRequest struct {
 	// OAuth模式下的授权token
 	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
@@ -51097,92 +51190,6 @@ func (s *QueryEsignAccountResponse) SetEmail(v string) *QueryEsignAccountRespons
 	return s
 }
 
-type QueryContractSignauthRequest struct {
-	// OAuth模式下的授权token
-	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
-	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
-	// 企业/个人账号ID
-	// 《平台方用户注册》返回的organizationId、userId
-	InitiatorAccountId *string `json:"initiator_account_id,omitempty" xml:"initiator_account_id,omitempty" require:"true"`
-	// 授权至经办人模式下的被授权人个人账号账号ID（平台方用户注册返回的userId）
-	// 注意：若指定授权经办人模式时需传入，查询企业授权经办人的有效期。
-	InitiatorAuthorizedAccountId *string `json:"initiator_authorized_account_id,omitempty" xml:"initiator_authorized_account_id,omitempty"`
-}
-
-func (s QueryContractSignauthRequest) String() string {
-	return tea.Prettify(s)
-}
-
-func (s QueryContractSignauthRequest) GoString() string {
-	return s.String()
-}
-
-func (s *QueryContractSignauthRequest) SetAuthToken(v string) *QueryContractSignauthRequest {
-	s.AuthToken = &v
-	return s
-}
-
-func (s *QueryContractSignauthRequest) SetProductInstanceId(v string) *QueryContractSignauthRequest {
-	s.ProductInstanceId = &v
-	return s
-}
-
-func (s *QueryContractSignauthRequest) SetInitiatorAccountId(v string) *QueryContractSignauthRequest {
-	s.InitiatorAccountId = &v
-	return s
-}
-
-func (s *QueryContractSignauthRequest) SetInitiatorAuthorizedAccountId(v string) *QueryContractSignauthRequest {
-	s.InitiatorAuthorizedAccountId = &v
-	return s
-}
-
-type QueryContractSignauthResponse struct {
-	// 请求唯一ID，用于链路跟踪和问题排查
-	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
-	// 结果码，一般OK表示调用成功
-	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
-	// 异常信息的文本描述
-	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
-	// 授权生效时间（时间是unix时间戳（毫秒）格式）
-	AuthStartTime *int64 `json:"auth_start_time,omitempty" xml:"auth_start_time,omitempty"`
-	// 授权失效时间（时间是unix时间戳（毫秒）格式）
-	AuthEndTime *int64 `json:"auth_end_time,omitempty" xml:"auth_end_time,omitempty"`
-}
-
-func (s QueryContractSignauthResponse) String() string {
-	return tea.Prettify(s)
-}
-
-func (s QueryContractSignauthResponse) GoString() string {
-	return s.String()
-}
-
-func (s *QueryContractSignauthResponse) SetReqMsgId(v string) *QueryContractSignauthResponse {
-	s.ReqMsgId = &v
-	return s
-}
-
-func (s *QueryContractSignauthResponse) SetResultCode(v string) *QueryContractSignauthResponse {
-	s.ResultCode = &v
-	return s
-}
-
-func (s *QueryContractSignauthResponse) SetResultMsg(v string) *QueryContractSignauthResponse {
-	s.ResultMsg = &v
-	return s
-}
-
-func (s *QueryContractSignauthResponse) SetAuthStartTime(v int64) *QueryContractSignauthResponse {
-	s.AuthStartTime = &v
-	return s
-}
-
-func (s *QueryContractSignauthResponse) SetAuthEndTime(v int64) *QueryContractSignauthResponse {
-	s.AuthEndTime = &v
-	return s
-}
-
 type Client struct {
 	Endpoint                *string
 	RegionId                *string
@@ -51305,7 +51312,7 @@ func (client *Client) DoRequest(version *string, action *string, protocol *strin
 				"req_msg_id":       antchainutil.GetNonce(),
 				"access_key":       client.AccessKeyId,
 				"base_sdk_version": tea.String("TeaSDK-2.0"),
-				"sdk_version":      tea.String("1.13.28"),
+				"sdk_version":      tea.String("1.13.29"),
 				"_prod_code":       tea.String("TWC"),
 				"_prod_channel":    tea.String("undefined"),
 			}
@@ -56392,6 +56399,40 @@ func (client *Client) QueryContractEsignaccountEx(request *QueryContractEsignacc
 	}
 	_result = &QueryContractEsignaccountResponse{}
 	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("twc.notary.contract.esignaccount.query"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
+}
+
+/**
+ * Description: 区块链合同查询授权有效期
+ * Summary: 区块链合同查询授权有效期
+ */
+func (client *Client) QueryContractSignauth(request *QueryContractSignauthRequest) (_result *QueryContractSignauthResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &QueryContractSignauthResponse{}
+	_body, _err := client.QueryContractSignauthEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+/**
+ * Description: 区块链合同查询授权有效期
+ * Summary: 区块链合同查询授权有效期
+ */
+func (client *Client) QueryContractSignauthEx(request *QueryContractSignauthRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *QueryContractSignauthResponse, _err error) {
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &QueryContractSignauthResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("twc.notary.contract.signauth.query"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
 	if _err != nil {
 		return _result, _err
 	}
@@ -63838,40 +63879,6 @@ func (client *Client) QueryEsignAccountEx(request *QueryEsignAccountRequest, hea
 	}
 	_result = &QueryEsignAccountResponse{}
 	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("twc.notary.esign.account.query"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
-	if _err != nil {
-		return _result, _err
-	}
-	_err = tea.Convert(_body, &_result)
-	return _result, _err
-}
-
-/**
- * Description: 区块链合同查询授权有效期
- * Summary: 区块链合同查询授权有效期
- */
-func (client *Client) QueryContractSignauth(request *QueryContractSignauthRequest) (_result *QueryContractSignauthResponse, _err error) {
-	runtime := &util.RuntimeOptions{}
-	headers := make(map[string]*string)
-	_result = &QueryContractSignauthResponse{}
-	_body, _err := client.QueryContractSignauthEx(request, headers, runtime)
-	if _err != nil {
-		return _result, _err
-	}
-	_result = _body
-	return _result, _err
-}
-
-/**
- * Description: 区块链合同查询授权有效期
- * Summary: 区块链合同查询授权有效期
- */
-func (client *Client) QueryContractSignauthEx(request *QueryContractSignauthRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *QueryContractSignauthResponse, _err error) {
-	_err = util.ValidateModel(request)
-	if _err != nil {
-		return _result, _err
-	}
-	_result = &QueryContractSignauthResponse{}
-	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("twc.notary.contract.signauth.query"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
 	if _err != nil {
 		return _result, _err
 	}
