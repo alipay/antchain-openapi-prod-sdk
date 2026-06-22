@@ -295,6 +295,27 @@ public class Client {
 
     /**
      * <b>description</b> :
+     * <p>Description: 用于个人工作台二期测试使用
+     * Summary: 用于个人工作台二期测试使用</p>
+     */
+    public QueryTestCreateResponse queryTestCreate(QueryTestCreateRequest request) throws Exception {
+        com.aliyun.teautil.models.RuntimeOptions runtime = new com.aliyun.teautil.models.RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.queryTestCreateEx(request, headers, runtime);
+    }
+
+    /**
+     * <b>description</b> :
+     * <p>Description: 用于个人工作台二期测试使用
+     * Summary: 用于个人工作台二期测试使用</p>
+     */
+    public QueryTestCreateResponse queryTestCreateEx(QueryTestCreateRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "antcloud.tritestdemo.test.create.query", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new QueryTestCreateResponse());
+    }
+
+    /**
+     * <b>description</b> :
      * <p>Description: 测试使用
      * Summary: 测试使用</p>
      */
