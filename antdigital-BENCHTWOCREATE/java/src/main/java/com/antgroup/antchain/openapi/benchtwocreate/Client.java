@@ -190,27 +190,6 @@ public class Client {
 
     /**
      * <b>description</b> :
-     * <p>Description: 用于个人工作台二期测试使用
-     * Summary: 用于个人工作台二期测试使用</p>
-     */
-    public ImportAntchainDemosdkCreateThreeResponse importAntchainDemosdkCreateThree(ImportAntchainDemosdkCreateThreeRequest request) throws Exception {
-        com.aliyun.teautil.models.RuntimeOptions runtime = new com.aliyun.teautil.models.RuntimeOptions();
-        java.util.Map<String, String> headers = new java.util.HashMap<>();
-        return this.importAntchainDemosdkCreateThreeEx(request, headers, runtime);
-    }
-
-    /**
-     * <b>description</b> :
-     * <p>Description: 用于个人工作台二期测试使用
-     * Summary: 用于个人工作台二期测试使用</p>
-     */
-    public ImportAntchainDemosdkCreateThreeResponse importAntchainDemosdkCreateThreeEx(ImportAntchainDemosdkCreateThreeRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
-        com.aliyun.teautil.Common.validateModel(request);
-        return TeaModel.toModel(this.doRequest("1.0", "antchain.demosdk.create.three.import", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new ImportAntchainDemosdkCreateThreeResponse());
-    }
-
-    /**
-     * <b>description</b> :
      * <p>Description: 测试使用
      * Summary: 测试使用</p>
      */
@@ -333,6 +312,27 @@ public class Client {
     public SixBenchTestCreateResponse sixBenchTestCreateEx(SixBenchTestCreateRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
         com.aliyun.teautil.Common.validateModel(request);
         return TeaModel.toModel(this.doRequest("1.0", "antdigital.benchtwocreate.bench.test.create.six", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new SixBenchTestCreateResponse());
+    }
+
+    /**
+     * <b>description</b> :
+     * <p>Description: 三期生产验证创建
+     * Summary: 三期生产验证创建</p>
+     */
+    public CreateaProdTestResponse createaProdTest(CreateaProdTestRequest request) throws Exception {
+        com.aliyun.teautil.models.RuntimeOptions runtime = new com.aliyun.teautil.models.RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.createaProdTestEx(request, headers, runtime);
+    }
+
+    /**
+     * <b>description</b> :
+     * <p>Description: 三期生产验证创建
+     * Summary: 三期生产验证创建</p>
+     */
+    public CreateaProdTestResponse createaProdTestEx(CreateaProdTestRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "antdigital.benchtwocreate.prod.test.createa", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new CreateaProdTestResponse());
     }
 
     /**

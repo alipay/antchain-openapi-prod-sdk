@@ -3,7 +3,7 @@ package com.antgroup.antchain.openapi.benchtwocreate.models;
 
 import com.aliyun.tea.*;
 
-public class ImportAntchainDemosdkCreateThreeResponse extends TeaModel {
+public class CreateaProdTestResponse extends TeaModel {
     // 请求唯一ID，用于链路跟踪和问题排查
     @NameInMap("req_msg_id")
     public String reqMsgId;
@@ -16,20 +16,20 @@ public class ImportAntchainDemosdkCreateThreeResponse extends TeaModel {
     @NameInMap("result_msg")
     public String resultMsg;
 
-    // SUCCESS le
-    @NameInMap("msg")
-    public String msg;
-
-    // OK
+    // 状态码
     @NameInMap("status")
     public String status;
 
-    public static ImportAntchainDemosdkCreateThreeResponse build(java.util.Map<String, ?> map) throws Exception {
-        ImportAntchainDemosdkCreateThreeResponse self = new ImportAntchainDemosdkCreateThreeResponse();
+    // 状态描述
+    @NameInMap("msg")
+    public String msg;
+
+    public static CreateaProdTestResponse build(java.util.Map<String, ?> map) throws Exception {
+        CreateaProdTestResponse self = new CreateaProdTestResponse();
         return TeaModel.build(map, self);
     }
 
-    public ImportAntchainDemosdkCreateThreeResponse setReqMsgId(String reqMsgId) {
+    public CreateaProdTestResponse setReqMsgId(String reqMsgId) {
         this.reqMsgId = reqMsgId;
         return this;
     }
@@ -37,7 +37,7 @@ public class ImportAntchainDemosdkCreateThreeResponse extends TeaModel {
         return this.reqMsgId;
     }
 
-    public ImportAntchainDemosdkCreateThreeResponse setResultCode(String resultCode) {
+    public CreateaProdTestResponse setResultCode(String resultCode) {
         this.resultCode = resultCode;
         return this;
     }
@@ -45,7 +45,7 @@ public class ImportAntchainDemosdkCreateThreeResponse extends TeaModel {
         return this.resultCode;
     }
 
-    public ImportAntchainDemosdkCreateThreeResponse setResultMsg(String resultMsg) {
+    public CreateaProdTestResponse setResultMsg(String resultMsg) {
         this.resultMsg = resultMsg;
         return this;
     }
@@ -53,20 +53,20 @@ public class ImportAntchainDemosdkCreateThreeResponse extends TeaModel {
         return this.resultMsg;
     }
 
-    public ImportAntchainDemosdkCreateThreeResponse setMsg(String msg) {
-        this.msg = msg;
-        return this;
-    }
-    public String getMsg() {
-        return this.msg;
-    }
-
-    public ImportAntchainDemosdkCreateThreeResponse setStatus(String status) {
+    public CreateaProdTestResponse setStatus(String status) {
         this.status = status;
         return this;
     }
     public String getStatus() {
         return this.status;
+    }
+
+    public CreateaProdTestResponse setMsg(String msg) {
+        this.msg = msg;
+        return this;
+    }
+    public String getMsg() {
+        return this.msg;
     }
 
 }
