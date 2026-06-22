@@ -100,7 +100,7 @@ api doRequest(version: string, action: string, protocol: string, method: string,
     req_msg_id = AntchainUtil.getNonce(),
     access_key = @accessKeyId,
     base_sdk_version = 'TeaSDK-2.0',
-    sdk_version = '1.13.28',
+    sdk_version = '1.13.29',
     _prod_code = 'TWC',
     _prod_channel = 'undefined'
   };
@@ -10451,6 +10451,52 @@ async function queryContractEsignaccount(request: QueryContractEsignaccountReque
 async function queryContractEsignaccountEx(request: QueryContractEsignaccountRequest, headers: map[string]string, runtime: Util.RuntimeOptions): QueryContractEsignaccountResponse {
   Util.validateModel(request);
   return doRequest('1.0' ,'twc.notary.contract.esignaccount.query', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model QueryContractSignauthRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 企业/个人账号ID
+  // 《平台方用户注册》返回的organizationId、userId
+  initiatorAccountId: string(name='initiator_account_id'),
+  // 授权至经办人模式下的被授权人个人账号账号ID（平台方用户注册返回的userId）
+  // 注意：若指定授权经办人模式时需传入，查询企业授权经办人的有效期。
+  initiatorAuthorizedAccountId?: string(name='initiator_authorized_account_id'),
+}
+
+model QueryContractSignauthResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 授权生效时间（时间是unix时间戳（毫秒）格式）
+  authStartTime?: long(name='auth_start_time'),
+  // 授权失效时间（时间是unix时间戳（毫秒）格式）
+  authEndTime?: long(name='auth_end_time'),
+  // true:在有效期, false:不在有效期
+  effective?: boolean(name='effective'),
+}
+
+/**
+ * Description: 区块链合同查询授权有效期
+ * Summary: 区块链合同查询授权有效期
+ */
+async function queryContractSignauth(request: QueryContractSignauthRequest): QueryContractSignauthResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return queryContractSignauthEx(request, headers, runtime);
+}
+
+/**
+ * Description: 区块链合同查询授权有效期
+ * Summary: 区块链合同查询授权有效期
+ */
+async function queryContractSignauthEx(request: QueryContractSignauthRequest, headers: map[string]string, runtime: Util.RuntimeOptions): QueryContractSignauthResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'twc.notary.contract.signauth.query', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
 }
 
 model PushDigitalcontentUsageRequest = {
@@ -21857,49 +21903,5 @@ async function queryEsignAccount(request: QueryEsignAccountRequest): QueryEsignA
 async function queryEsignAccountEx(request: QueryEsignAccountRequest, headers: map[string]string, runtime: Util.RuntimeOptions): QueryEsignAccountResponse {
   Util.validateModel(request);
   return doRequest('1.0' ,'twc.notary.esign.account.query', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
-}
-
-model QueryContractSignauthRequest = {
-  // OAuth模式下的授权token
-  authToken?: string(name='auth_token'),
-  productInstanceId?: string(name='product_instance_id'),
-  // 企业/个人账号ID
-  // 《平台方用户注册》返回的organizationId、userId
-  initiatorAccountId: string(name='initiator_account_id'),
-  // 授权至经办人模式下的被授权人个人账号账号ID（平台方用户注册返回的userId）
-  // 注意：若指定授权经办人模式时需传入，查询企业授权经办人的有效期。
-  initiatorAuthorizedAccountId?: string(name='initiator_authorized_account_id'),
-}
-
-model QueryContractSignauthResponse = {
-  // 请求唯一ID，用于链路跟踪和问题排查
-  reqMsgId?: string(name='req_msg_id'),
-  // 结果码，一般OK表示调用成功
-  resultCode?: string(name='result_code'),
-  // 异常信息的文本描述
-  resultMsg?: string(name='result_msg'),
-  // 授权生效时间（时间是unix时间戳（毫秒）格式）
-  authStartTime?: long(name='auth_start_time'),
-  // 授权失效时间（时间是unix时间戳（毫秒）格式）
-  authEndTime?: long(name='auth_end_time'),
-}
-
-/**
- * Description: 区块链合同查询授权有效期
- * Summary: 区块链合同查询授权有效期
- */
-async function queryContractSignauth(request: QueryContractSignauthRequest): QueryContractSignauthResponse {
-  var runtime = new Util.RuntimeOptions{};
-  var headers : map[string]string= {};
-  return queryContractSignauthEx(request, headers, runtime);
-}
-
-/**
- * Description: 区块链合同查询授权有效期
- * Summary: 区块链合同查询授权有效期
- */
-async function queryContractSignauthEx(request: QueryContractSignauthRequest, headers: map[string]string, runtime: Util.RuntimeOptions): QueryContractSignauthResponse {
-  Util.validateModel(request);
-  return doRequest('1.0' ,'twc.notary.contract.signauth.query', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
 }
 
