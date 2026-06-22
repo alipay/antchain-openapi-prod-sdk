@@ -31526,6 +31526,119 @@ class QueryContractEsignaccountResponse(TeaModel):
         return self
 
 
+class QueryContractSignauthRequest(TeaModel):
+    def __init__(
+        self,
+        auth_token: str = None,
+        product_instance_id: str = None,
+        initiator_account_id: str = None,
+        initiator_authorized_account_id: str = None,
+    ):
+        # OAuth模式下的授权token
+        self.auth_token = auth_token
+        self.product_instance_id = product_instance_id
+        # 企业/个人账号ID
+        # 《平台方用户注册》返回的organizationId、userId
+        self.initiator_account_id = initiator_account_id
+        # 授权至经办人模式下的被授权人个人账号账号ID（平台方用户注册返回的userId）
+        # 注意：若指定授权经办人模式时需传入，查询企业授权经办人的有效期。
+        self.initiator_authorized_account_id = initiator_authorized_account_id
+
+    def validate(self):
+        self.validate_required(self.initiator_account_id, 'initiator_account_id')
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.auth_token is not None:
+            result['auth_token'] = self.auth_token
+        if self.product_instance_id is not None:
+            result['product_instance_id'] = self.product_instance_id
+        if self.initiator_account_id is not None:
+            result['initiator_account_id'] = self.initiator_account_id
+        if self.initiator_authorized_account_id is not None:
+            result['initiator_authorized_account_id'] = self.initiator_authorized_account_id
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('auth_token') is not None:
+            self.auth_token = m.get('auth_token')
+        if m.get('product_instance_id') is not None:
+            self.product_instance_id = m.get('product_instance_id')
+        if m.get('initiator_account_id') is not None:
+            self.initiator_account_id = m.get('initiator_account_id')
+        if m.get('initiator_authorized_account_id') is not None:
+            self.initiator_authorized_account_id = m.get('initiator_authorized_account_id')
+        return self
+
+
+class QueryContractSignauthResponse(TeaModel):
+    def __init__(
+        self,
+        req_msg_id: str = None,
+        result_code: str = None,
+        result_msg: str = None,
+        auth_start_time: int = None,
+        auth_end_time: int = None,
+        effective: bool = None,
+    ):
+        # 请求唯一ID，用于链路跟踪和问题排查
+        self.req_msg_id = req_msg_id
+        # 结果码，一般OK表示调用成功
+        self.result_code = result_code
+        # 异常信息的文本描述
+        self.result_msg = result_msg
+        # 授权生效时间（时间是unix时间戳（毫秒）格式）
+        self.auth_start_time = auth_start_time
+        # 授权失效时间（时间是unix时间戳（毫秒）格式）
+        self.auth_end_time = auth_end_time
+        # true:在有效期, false:不在有效期
+        self.effective = effective
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.req_msg_id is not None:
+            result['req_msg_id'] = self.req_msg_id
+        if self.result_code is not None:
+            result['result_code'] = self.result_code
+        if self.result_msg is not None:
+            result['result_msg'] = self.result_msg
+        if self.auth_start_time is not None:
+            result['auth_start_time'] = self.auth_start_time
+        if self.auth_end_time is not None:
+            result['auth_end_time'] = self.auth_end_time
+        if self.effective is not None:
+            result['effective'] = self.effective
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('req_msg_id') is not None:
+            self.req_msg_id = m.get('req_msg_id')
+        if m.get('result_code') is not None:
+            self.result_code = m.get('result_code')
+        if m.get('result_msg') is not None:
+            self.result_msg = m.get('result_msg')
+        if m.get('auth_start_time') is not None:
+            self.auth_start_time = m.get('auth_start_time')
+        if m.get('auth_end_time') is not None:
+            self.auth_end_time = m.get('auth_end_time')
+        if m.get('effective') is not None:
+            self.effective = m.get('effective')
+        return self
+
+
 class PushDigitalcontentUsageRequest(TeaModel):
     def __init__(
         self,
@@ -62775,112 +62888,6 @@ class QueryEsignAccountResponse(TeaModel):
             self.mobile = m.get('mobile')
         if m.get('email') is not None:
             self.email = m.get('email')
-        return self
-
-
-class QueryContractSignauthRequest(TeaModel):
-    def __init__(
-        self,
-        auth_token: str = None,
-        product_instance_id: str = None,
-        initiator_account_id: str = None,
-        initiator_authorized_account_id: str = None,
-    ):
-        # OAuth模式下的授权token
-        self.auth_token = auth_token
-        self.product_instance_id = product_instance_id
-        # 企业/个人账号ID
-        # 《平台方用户注册》返回的organizationId、userId
-        self.initiator_account_id = initiator_account_id
-        # 授权至经办人模式下的被授权人个人账号账号ID（平台方用户注册返回的userId）
-        # 注意：若指定授权经办人模式时需传入，查询企业授权经办人的有效期。
-        self.initiator_authorized_account_id = initiator_authorized_account_id
-
-    def validate(self):
-        self.validate_required(self.initiator_account_id, 'initiator_account_id')
-
-    def to_map(self):
-        _map = super().to_map()
-        if _map is not None:
-            return _map
-
-        result = dict()
-        if self.auth_token is not None:
-            result['auth_token'] = self.auth_token
-        if self.product_instance_id is not None:
-            result['product_instance_id'] = self.product_instance_id
-        if self.initiator_account_id is not None:
-            result['initiator_account_id'] = self.initiator_account_id
-        if self.initiator_authorized_account_id is not None:
-            result['initiator_authorized_account_id'] = self.initiator_authorized_account_id
-        return result
-
-    def from_map(self, m: dict = None):
-        m = m or dict()
-        if m.get('auth_token') is not None:
-            self.auth_token = m.get('auth_token')
-        if m.get('product_instance_id') is not None:
-            self.product_instance_id = m.get('product_instance_id')
-        if m.get('initiator_account_id') is not None:
-            self.initiator_account_id = m.get('initiator_account_id')
-        if m.get('initiator_authorized_account_id') is not None:
-            self.initiator_authorized_account_id = m.get('initiator_authorized_account_id')
-        return self
-
-
-class QueryContractSignauthResponse(TeaModel):
-    def __init__(
-        self,
-        req_msg_id: str = None,
-        result_code: str = None,
-        result_msg: str = None,
-        auth_start_time: int = None,
-        auth_end_time: int = None,
-    ):
-        # 请求唯一ID，用于链路跟踪和问题排查
-        self.req_msg_id = req_msg_id
-        # 结果码，一般OK表示调用成功
-        self.result_code = result_code
-        # 异常信息的文本描述
-        self.result_msg = result_msg
-        # 授权生效时间（时间是unix时间戳（毫秒）格式）
-        self.auth_start_time = auth_start_time
-        # 授权失效时间（时间是unix时间戳（毫秒）格式）
-        self.auth_end_time = auth_end_time
-
-    def validate(self):
-        pass
-
-    def to_map(self):
-        _map = super().to_map()
-        if _map is not None:
-            return _map
-
-        result = dict()
-        if self.req_msg_id is not None:
-            result['req_msg_id'] = self.req_msg_id
-        if self.result_code is not None:
-            result['result_code'] = self.result_code
-        if self.result_msg is not None:
-            result['result_msg'] = self.result_msg
-        if self.auth_start_time is not None:
-            result['auth_start_time'] = self.auth_start_time
-        if self.auth_end_time is not None:
-            result['auth_end_time'] = self.auth_end_time
-        return result
-
-    def from_map(self, m: dict = None):
-        m = m or dict()
-        if m.get('req_msg_id') is not None:
-            self.req_msg_id = m.get('req_msg_id')
-        if m.get('result_code') is not None:
-            self.result_code = m.get('result_code')
-        if m.get('result_msg') is not None:
-            self.result_msg = m.get('result_msg')
-        if m.get('auth_start_time') is not None:
-            self.auth_start_time = m.get('auth_start_time')
-        if m.get('auth_end_time') is not None:
-            self.auth_end_time = m.get('auth_end_time')
         return self
 
 
