@@ -34,6 +34,11 @@ namespace AntChain.SDK.TWC.Models
         [Validation(Required=false)]
         public long? AuthEndTime { get; set; }
 
+        // true:在有效期, false:不在有效期
+        [NameInMap("effective")]
+        [Validation(Required=false)]
+        public bool? Effective { get; set; }
+
     }
 
 }
