@@ -22877,6 +22877,79 @@ export class QueryContractEsignaccountResponse extends $tea.Model {
   }
 }
 
+export class QueryContractSignauthRequest extends $tea.Model {
+  // OAuth模式下的授权token
+  authToken?: string;
+  productInstanceId?: string;
+  // 企业/个人账号ID
+  // 《平台方用户注册》返回的organizationId、userId
+  initiatorAccountId: string;
+  // 授权至经办人模式下的被授权人个人账号账号ID（平台方用户注册返回的userId）
+  // 注意：若指定授权经办人模式时需传入，查询企业授权经办人的有效期。
+  initiatorAuthorizedAccountId?: string;
+  static names(): { [key: string]: string } {
+    return {
+      authToken: 'auth_token',
+      productInstanceId: 'product_instance_id',
+      initiatorAccountId: 'initiator_account_id',
+      initiatorAuthorizedAccountId: 'initiator_authorized_account_id',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      authToken: 'string',
+      productInstanceId: 'string',
+      initiatorAccountId: 'string',
+      initiatorAuthorizedAccountId: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class QueryContractSignauthResponse extends $tea.Model {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string;
+  // 结果码，一般OK表示调用成功
+  resultCode?: string;
+  // 异常信息的文本描述
+  resultMsg?: string;
+  // 授权生效时间（时间是unix时间戳（毫秒）格式）
+  authStartTime?: number;
+  // 授权失效时间（时间是unix时间戳（毫秒）格式）
+  authEndTime?: number;
+  // true:在有效期, false:不在有效期
+  effective?: boolean;
+  static names(): { [key: string]: string } {
+    return {
+      reqMsgId: 'req_msg_id',
+      resultCode: 'result_code',
+      resultMsg: 'result_msg',
+      authStartTime: 'auth_start_time',
+      authEndTime: 'auth_end_time',
+      effective: 'effective',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      reqMsgId: 'string',
+      resultCode: 'string',
+      resultMsg: 'string',
+      authStartTime: 'number',
+      authEndTime: 'number',
+      effective: 'boolean',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
 export class PushDigitalcontentUsageRequest extends $tea.Model {
   // OAuth模式下的授权token
   authToken?: string;
@@ -41768,75 +41841,6 @@ export class QueryEsignAccountResponse extends $tea.Model {
   }
 }
 
-export class QueryContractSignauthRequest extends $tea.Model {
-  // OAuth模式下的授权token
-  authToken?: string;
-  productInstanceId?: string;
-  // 企业/个人账号ID
-  // 《平台方用户注册》返回的organizationId、userId
-  initiatorAccountId: string;
-  // 授权至经办人模式下的被授权人个人账号账号ID（平台方用户注册返回的userId）
-  // 注意：若指定授权经办人模式时需传入，查询企业授权经办人的有效期。
-  initiatorAuthorizedAccountId?: string;
-  static names(): { [key: string]: string } {
-    return {
-      authToken: 'auth_token',
-      productInstanceId: 'product_instance_id',
-      initiatorAccountId: 'initiator_account_id',
-      initiatorAuthorizedAccountId: 'initiator_authorized_account_id',
-    };
-  }
-
-  static types(): { [key: string]: any } {
-    return {
-      authToken: 'string',
-      productInstanceId: 'string',
-      initiatorAccountId: 'string',
-      initiatorAuthorizedAccountId: 'string',
-    };
-  }
-
-  constructor(map?: { [key: string]: any }) {
-    super(map);
-  }
-}
-
-export class QueryContractSignauthResponse extends $tea.Model {
-  // 请求唯一ID，用于链路跟踪和问题排查
-  reqMsgId?: string;
-  // 结果码，一般OK表示调用成功
-  resultCode?: string;
-  // 异常信息的文本描述
-  resultMsg?: string;
-  // 授权生效时间（时间是unix时间戳（毫秒）格式）
-  authStartTime?: number;
-  // 授权失效时间（时间是unix时间戳（毫秒）格式）
-  authEndTime?: number;
-  static names(): { [key: string]: string } {
-    return {
-      reqMsgId: 'req_msg_id',
-      resultCode: 'result_code',
-      resultMsg: 'result_msg',
-      authStartTime: 'auth_start_time',
-      authEndTime: 'auth_end_time',
-    };
-  }
-
-  static types(): { [key: string]: any } {
-    return {
-      reqMsgId: 'string',
-      resultCode: 'string',
-      resultMsg: 'string',
-      authStartTime: 'number',
-      authEndTime: 'number',
-    };
-  }
-
-  constructor(map?: { [key: string]: any }) {
-    super(map);
-  }
-}
-
 
 export default class Client {
   _endpoint: string;
@@ -41954,7 +41958,7 @@ export default class Client {
           req_msg_id: AntchainUtil.getNonce(),
           access_key: this._accessKeyId,
           base_sdk_version: "TeaSDK-2.0",
-          sdk_version: "1.13.28",
+          sdk_version: "1.13.29",
           _prod_code: "TWC",
           _prod_channel: "undefined",
         };
@@ -45112,6 +45116,27 @@ export default class Client {
   async queryContractEsignaccountEx(request: QueryContractEsignaccountRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<QueryContractEsignaccountResponse> {
     Util.validateModel(request);
     return $tea.cast<QueryContractEsignaccountResponse>(await this.doRequest("1.0", "twc.notary.contract.esignaccount.query", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new QueryContractEsignaccountResponse({}));
+  }
+
+  /**
+   * @remarks
+   * Description: 区块链合同查询授权有效期
+   * Summary: 区块链合同查询授权有效期
+   */
+  async queryContractSignauth(request: QueryContractSignauthRequest): Promise<QueryContractSignauthResponse> {
+    let runtime = new $Util.RuntimeOptions({ });
+    let headers : {[key: string ]: string} = { };
+    return await this.queryContractSignauthEx(request, headers, runtime);
+  }
+
+  /**
+   * @remarks
+   * Description: 区块链合同查询授权有效期
+   * Summary: 区块链合同查询授权有效期
+   */
+  async queryContractSignauthEx(request: QueryContractSignauthRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<QueryContractSignauthResponse> {
+    Util.validateModel(request);
+    return $tea.cast<QueryContractSignauthResponse>(await this.doRequest("1.0", "twc.notary.contract.signauth.query", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new QueryContractSignauthResponse({}));
   }
 
   /**
@@ -49711,27 +49736,6 @@ export default class Client {
   async queryEsignAccountEx(request: QueryEsignAccountRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<QueryEsignAccountResponse> {
     Util.validateModel(request);
     return $tea.cast<QueryEsignAccountResponse>(await this.doRequest("1.0", "twc.notary.esign.account.query", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new QueryEsignAccountResponse({}));
-  }
-
-  /**
-   * @remarks
-   * Description: 区块链合同查询授权有效期
-   * Summary: 区块链合同查询授权有效期
-   */
-  async queryContractSignauth(request: QueryContractSignauthRequest): Promise<QueryContractSignauthResponse> {
-    let runtime = new $Util.RuntimeOptions({ });
-    let headers : {[key: string ]: string} = { };
-    return await this.queryContractSignauthEx(request, headers, runtime);
-  }
-
-  /**
-   * @remarks
-   * Description: 区块链合同查询授权有效期
-   * Summary: 区块链合同查询授权有效期
-   */
-  async queryContractSignauthEx(request: QueryContractSignauthRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<QueryContractSignauthResponse> {
-    Util.validateModel(request);
-    return $tea.cast<QueryContractSignauthResponse>(await this.doRequest("1.0", "twc.notary.contract.signauth.query", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new QueryContractSignauthResponse({}));
   }
 
 }
