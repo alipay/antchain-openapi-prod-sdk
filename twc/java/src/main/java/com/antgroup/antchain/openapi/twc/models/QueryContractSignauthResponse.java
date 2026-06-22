@@ -24,6 +24,10 @@ public class QueryContractSignauthResponse extends TeaModel {
     @NameInMap("auth_end_time")
     public Long authEndTime;
 
+    // true:在有效期, false:不在有效期
+    @NameInMap("effective")
+    public Boolean effective;
+
     public static QueryContractSignauthResponse build(java.util.Map<String, ?> map) throws Exception {
         QueryContractSignauthResponse self = new QueryContractSignauthResponse();
         return TeaModel.build(map, self);
@@ -67,6 +71,14 @@ public class QueryContractSignauthResponse extends TeaModel {
     }
     public Long getAuthEndTime() {
         return this.authEndTime;
+    }
+
+    public QueryContractSignauthResponse setEffective(Boolean effective) {
+        this.effective = effective;
+        return this;
+    }
+    public Boolean getEffective() {
+        return this.effective;
     }
 
 }
