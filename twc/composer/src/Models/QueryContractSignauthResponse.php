@@ -37,12 +37,19 @@ class QueryContractSignauthResponse extends Model
      * @var int
      */
     public $authEndTime;
+
+    // true:在有效期, false:不在有效期
+    /**
+     * @var bool
+     */
+    public $effective;
     protected $_name = [
         'reqMsgId'      => 'req_msg_id',
         'resultCode'    => 'result_code',
         'resultMsg'     => 'result_msg',
         'authStartTime' => 'auth_start_time',
         'authEndTime'   => 'auth_end_time',
+        'effective'     => 'effective',
     ];
 
     public function validate()
@@ -66,6 +73,9 @@ class QueryContractSignauthResponse extends Model
         }
         if (null !== $this->authEndTime) {
             $res['auth_end_time'] = $this->authEndTime;
+        }
+        if (null !== $this->effective) {
+            $res['effective'] = $this->effective;
         }
 
         return $res;
@@ -93,6 +103,9 @@ class QueryContractSignauthResponse extends Model
         }
         if (isset($map['auth_end_time'])) {
             $model->authEndTime = $map['auth_end_time'];
+        }
+        if (isset($map['effective'])) {
+            $model->effective = $map['effective'];
         }
 
         return $model;

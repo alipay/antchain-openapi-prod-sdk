@@ -894,7 +894,7 @@ class Client
                     'req_msg_id'       => UtilClient::getNonce(),
                     'access_key'       => $this->_accessKeyId,
                     'base_sdk_version' => 'TeaSDK-2.0',
-                    'sdk_version'      => '1.13.28',
+                    'sdk_version'      => '1.13.29',
                     '_prod_code'       => 'TWC',
                     '_prod_channel'    => 'undefined',
                 ];
@@ -5828,6 +5828,39 @@ class Client
         Utils::validateModel($request);
 
         return QueryContractEsignaccountResponse::fromMap($this->doRequest('1.0', 'twc.notary.contract.esignaccount.query', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 区块链合同查询授权有效期
+     * Summary: 区块链合同查询授权有效期
+     *
+     * @param QueryContractSignauthRequest $request
+     *
+     * @return QueryContractSignauthResponse
+     */
+    public function queryContractSignauth($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->queryContractSignauthEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 区块链合同查询授权有效期
+     * Summary: 区块链合同查询授权有效期
+     *
+     * @param QueryContractSignauthRequest $request
+     * @param string[]                     $headers
+     * @param RuntimeOptions               $runtime
+     *
+     * @return QueryContractSignauthResponse
+     */
+    public function queryContractSignauthEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return QueryContractSignauthResponse::fromMap($this->doRequest('1.0', 'twc.notary.contract.signauth.query', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
     }
 
     /**
@@ -13055,38 +13088,5 @@ class Client
         Utils::validateModel($request);
 
         return QueryEsignAccountResponse::fromMap($this->doRequest('1.0', 'twc.notary.esign.account.query', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
-    }
-
-    /**
-     * Description: 区块链合同查询授权有效期
-     * Summary: 区块链合同查询授权有效期
-     *
-     * @param QueryContractSignauthRequest $request
-     *
-     * @return QueryContractSignauthResponse
-     */
-    public function queryContractSignauth($request)
-    {
-        $runtime = new RuntimeOptions([]);
-        $headers = [];
-
-        return $this->queryContractSignauthEx($request, $headers, $runtime);
-    }
-
-    /**
-     * Description: 区块链合同查询授权有效期
-     * Summary: 区块链合同查询授权有效期
-     *
-     * @param QueryContractSignauthRequest $request
-     * @param string[]                     $headers
-     * @param RuntimeOptions               $runtime
-     *
-     * @return QueryContractSignauthResponse
-     */
-    public function queryContractSignauthEx($request, $headers, $runtime)
-    {
-        Utils::validateModel($request);
-
-        return QueryContractSignauthResponse::fromMap($this->doRequest('1.0', 'twc.notary.contract.signauth.query', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
     }
 }
