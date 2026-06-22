@@ -1,0 +1,1128 @@
+// This file is auto-generated, don't edit it. Thanks.
+package client
+
+import (
+	rpcutil "github.com/alibabacloud-go/tea-rpc-utils/service"
+	util "github.com/alibabacloud-go/tea-utils/v2/service"
+	"github.com/alibabacloud-go/tea/tea"
+	antchainutil "github.com/antchain-openapi-sdk-go/antchain-util/service"
+)
+
+// Description:
+//
+// Model for initing client
+type Config struct {
+	// accesskey id
+	AccessKeyId *string `json:"accessKeyId,omitempty" xml:"accessKeyId,omitempty"`
+	// accesskey secret
+	AccessKeySecret *string `json:"accessKeySecret,omitempty" xml:"accessKeySecret,omitempty"`
+	// security token
+	SecurityToken *string `json:"securityToken,omitempty" xml:"securityToken,omitempty"`
+	// http protocol
+	//
+	// example:
+	//
+	// http
+	Protocol *string `json:"protocol,omitempty" xml:"protocol,omitempty"`
+	// read timeout
+	//
+	// example:
+	//
+	// 10
+	ReadTimeout *int `json:"readTimeout,omitempty" xml:"readTimeout,omitempty"`
+	// connect timeout
+	//
+	// example:
+	//
+	// 10
+	ConnectTimeout *int `json:"connectTimeout,omitempty" xml:"connectTimeout,omitempty"`
+	// http proxy
+	//
+	// example:
+	//
+	// http://localhost
+	HttpProxy *string `json:"httpProxy,omitempty" xml:"httpProxy,omitempty"`
+	// https proxy
+	//
+	// example:
+	//
+	// https://localhost
+	HttpsProxy *string `json:"httpsProxy,omitempty" xml:"httpsProxy,omitempty"`
+	// endpoint
+	//
+	// example:
+	//
+	// cs.aliyuncs.com
+	Endpoint *string `json:"endpoint,omitempty" xml:"endpoint,omitempty"`
+	// proxy white list
+	//
+	// example:
+	//
+	// http://localhost
+	NoProxy *string `json:"noProxy,omitempty" xml:"noProxy,omitempty"`
+	// max idle conns
+	//
+	// example:
+	//
+	// 3
+	MaxIdleConns *int `json:"maxIdleConns,omitempty" xml:"maxIdleConns,omitempty"`
+	// user agent
+	//
+	// example:
+	//
+	// Alibabacloud/1
+	UserAgent *string `json:"userAgent,omitempty" xml:"userAgent,omitempty"`
+	// socks5 proxy
+	Socks5Proxy *string `json:"socks5Proxy,omitempty" xml:"socks5Proxy,omitempty"`
+	// socks5 network
+	//
+	// example:
+	//
+	// TCP
+	Socks5NetWork *string `json:"socks5NetWork,omitempty" xml:"socks5NetWork,omitempty"`
+	// 长链接最大空闲时长
+	MaxIdleTimeMillis *int `json:"maxIdleTimeMillis,omitempty" xml:"maxIdleTimeMillis,omitempty"`
+	// 长链接最大连接时长
+	KeepAliveDurationMillis *int `json:"keepAliveDurationMillis,omitempty" xml:"keepAliveDurationMillis,omitempty"`
+	// 最大连接数（长链接最大总数）
+	MaxRequests *int `json:"maxRequests,omitempty" xml:"maxRequests,omitempty"`
+	// 每个目标主机的最大连接数（分主机域名的长链接最大总数
+	MaxRequestsPerHost *int `json:"maxRequestsPerHost,omitempty" xml:"maxRequestsPerHost,omitempty"`
+}
+
+func (s Config) String() string {
+	return tea.Prettify(s)
+}
+
+func (s Config) GoString() string {
+	return s.String()
+}
+
+func (s *Config) SetAccessKeyId(v string) *Config {
+	s.AccessKeyId = &v
+	return s
+}
+
+func (s *Config) SetAccessKeySecret(v string) *Config {
+	s.AccessKeySecret = &v
+	return s
+}
+
+func (s *Config) SetSecurityToken(v string) *Config {
+	s.SecurityToken = &v
+	return s
+}
+
+func (s *Config) SetProtocol(v string) *Config {
+	s.Protocol = &v
+	return s
+}
+
+func (s *Config) SetReadTimeout(v int) *Config {
+	s.ReadTimeout = &v
+	return s
+}
+
+func (s *Config) SetConnectTimeout(v int) *Config {
+	s.ConnectTimeout = &v
+	return s
+}
+
+func (s *Config) SetHttpProxy(v string) *Config {
+	s.HttpProxy = &v
+	return s
+}
+
+func (s *Config) SetHttpsProxy(v string) *Config {
+	s.HttpsProxy = &v
+	return s
+}
+
+func (s *Config) SetEndpoint(v string) *Config {
+	s.Endpoint = &v
+	return s
+}
+
+func (s *Config) SetNoProxy(v string) *Config {
+	s.NoProxy = &v
+	return s
+}
+
+func (s *Config) SetMaxIdleConns(v int) *Config {
+	s.MaxIdleConns = &v
+	return s
+}
+
+func (s *Config) SetUserAgent(v string) *Config {
+	s.UserAgent = &v
+	return s
+}
+
+func (s *Config) SetSocks5Proxy(v string) *Config {
+	s.Socks5Proxy = &v
+	return s
+}
+
+func (s *Config) SetSocks5NetWork(v string) *Config {
+	s.Socks5NetWork = &v
+	return s
+}
+
+func (s *Config) SetMaxIdleTimeMillis(v int) *Config {
+	s.MaxIdleTimeMillis = &v
+	return s
+}
+
+func (s *Config) SetKeepAliveDurationMillis(v int) *Config {
+	s.KeepAliveDurationMillis = &v
+	return s
+}
+
+func (s *Config) SetMaxRequests(v int) *Config {
+	s.MaxRequests = &v
+	return s
+}
+
+func (s *Config) SetMaxRequestsPerHost(v int) *Config {
+	s.MaxRequestsPerHost = &v
+	return s
+}
+
+type GetAgeRequest struct {
+	// OAuth模式下的授权token
+	AuthToken *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	// 猫猫的id
+	Id *string `json:"id,omitempty" xml:"id,omitempty" require:"true"`
+	// a a a
+	Time *string `json:"time,omitempty" xml:"time,omitempty" pattern:"\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}([Z]|([\\.]\\d{1,9})?[\\+]\\d{2}[\\:]?\\d{2})"`
+}
+
+func (s GetAgeRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s GetAgeRequest) GoString() string {
+	return s.String()
+}
+
+func (s *GetAgeRequest) SetAuthToken(v string) *GetAgeRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *GetAgeRequest) SetId(v string) *GetAgeRequest {
+	s.Id = &v
+	return s
+}
+
+func (s *GetAgeRequest) SetTime(v string) *GetAgeRequest {
+	s.Time = &v
+	return s
+}
+
+type GetAgeResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// 猫的年龄
+	Age *string `json:"age,omitempty" xml:"age,omitempty"`
+}
+
+func (s GetAgeResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s GetAgeResponse) GoString() string {
+	return s.String()
+}
+
+func (s *GetAgeResponse) SetReqMsgId(v string) *GetAgeResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *GetAgeResponse) SetResultCode(v string) *GetAgeResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *GetAgeResponse) SetResultMsg(v string) *GetAgeResponse {
+	s.ResultMsg = &v
+	return s
+}
+
+func (s *GetAgeResponse) SetAge(v string) *GetAgeResponse {
+	s.Age = &v
+	return s
+}
+
+type WithdrawLoadtestTestRequest struct {
+	// OAuth模式下的授权token
+	AuthToken *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+}
+
+func (s WithdrawLoadtestTestRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s WithdrawLoadtestTestRequest) GoString() string {
+	return s.String()
+}
+
+func (s *WithdrawLoadtestTestRequest) SetAuthToken(v string) *WithdrawLoadtestTestRequest {
+	s.AuthToken = &v
+	return s
+}
+
+type WithdrawLoadtestTestResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+}
+
+func (s WithdrawLoadtestTestResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s WithdrawLoadtestTestResponse) GoString() string {
+	return s.String()
+}
+
+func (s *WithdrawLoadtestTestResponse) SetReqMsgId(v string) *WithdrawLoadtestTestResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *WithdrawLoadtestTestResponse) SetResultCode(v string) *WithdrawLoadtestTestResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *WithdrawLoadtestTestResponse) SetResultMsg(v string) *WithdrawLoadtestTestResponse {
+	s.ResultMsg = &v
+	return s
+}
+
+type BindHuanyuRequest struct {
+	// OAuth模式下的授权token
+	AuthToken *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	// huanyu
+	Operator *string `json:"operator,omitempty" xml:"operator,omitempty" require:"true"`
+}
+
+func (s BindHuanyuRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s BindHuanyuRequest) GoString() string {
+	return s.String()
+}
+
+func (s *BindHuanyuRequest) SetAuthToken(v string) *BindHuanyuRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *BindHuanyuRequest) SetOperator(v string) *BindHuanyuRequest {
+	s.Operator = &v
+	return s
+}
+
+type BindHuanyuResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// huanyu
+	Yunyou *string `json:"yunyou,omitempty" xml:"yunyou,omitempty"`
+}
+
+func (s BindHuanyuResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s BindHuanyuResponse) GoString() string {
+	return s.String()
+}
+
+func (s *BindHuanyuResponse) SetReqMsgId(v string) *BindHuanyuResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *BindHuanyuResponse) SetResultCode(v string) *BindHuanyuResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *BindHuanyuResponse) SetResultMsg(v string) *BindHuanyuResponse {
+	s.ResultMsg = &v
+	return s
+}
+
+func (s *BindHuanyuResponse) SetYunyou(v string) *BindHuanyuResponse {
+	s.Yunyou = &v
+	return s
+}
+
+type BindTestRequest struct {
+	// OAuth模式下的授权token
+	AuthToken *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+}
+
+func (s BindTestRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s BindTestRequest) GoString() string {
+	return s.String()
+}
+
+func (s *BindTestRequest) SetAuthToken(v string) *BindTestRequest {
+	s.AuthToken = &v
+	return s
+}
+
+type BindTestResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+}
+
+func (s BindTestResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s BindTestResponse) GoString() string {
+	return s.String()
+}
+
+func (s *BindTestResponse) SetReqMsgId(v string) *BindTestResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *BindTestResponse) SetResultCode(v string) *BindTestResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *BindTestResponse) SetResultMsg(v string) *BindTestResponse {
+	s.ResultMsg = &v
+	return s
+}
+
+type QueryTestCccRequest struct {
+	// OAuth模式下的授权token
+	AuthToken *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+}
+
+func (s QueryTestCccRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s QueryTestCccRequest) GoString() string {
+	return s.String()
+}
+
+func (s *QueryTestCccRequest) SetAuthToken(v string) *QueryTestCccRequest {
+	s.AuthToken = &v
+	return s
+}
+
+type QueryTestCccResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+}
+
+func (s QueryTestCccResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s QueryTestCccResponse) GoString() string {
+	return s.String()
+}
+
+func (s *QueryTestCccResponse) SetReqMsgId(v string) *QueryTestCccResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *QueryTestCccResponse) SetResultCode(v string) *QueryTestCccResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *QueryTestCccResponse) SetResultMsg(v string) *QueryTestCccResponse {
+	s.ResultMsg = &v
+	return s
+}
+
+type ImportAbcdRequest struct {
+	// OAuth模式下的授权token
+	AuthToken *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+}
+
+func (s ImportAbcdRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s ImportAbcdRequest) GoString() string {
+	return s.String()
+}
+
+func (s *ImportAbcdRequest) SetAuthToken(v string) *ImportAbcdRequest {
+	s.AuthToken = &v
+	return s
+}
+
+type ImportAbcdResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+}
+
+func (s ImportAbcdResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s ImportAbcdResponse) GoString() string {
+	return s.String()
+}
+
+func (s *ImportAbcdResponse) SetReqMsgId(v string) *ImportAbcdResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *ImportAbcdResponse) SetResultCode(v string) *ImportAbcdResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *ImportAbcdResponse) SetResultMsg(v string) *ImportAbcdResponse {
+	s.ResultMsg = &v
+	return s
+}
+
+type QueryTestaTestbRequest struct {
+	// OAuth模式下的授权token
+	AuthToken *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+}
+
+func (s QueryTestaTestbRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s QueryTestaTestbRequest) GoString() string {
+	return s.String()
+}
+
+func (s *QueryTestaTestbRequest) SetAuthToken(v string) *QueryTestaTestbRequest {
+	s.AuthToken = &v
+	return s
+}
+
+type QueryTestaTestbResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+}
+
+func (s QueryTestaTestbResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s QueryTestaTestbResponse) GoString() string {
+	return s.String()
+}
+
+func (s *QueryTestaTestbResponse) SetReqMsgId(v string) *QueryTestaTestbResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *QueryTestaTestbResponse) SetResultCode(v string) *QueryTestaTestbResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *QueryTestaTestbResponse) SetResultMsg(v string) *QueryTestaTestbResponse {
+	s.ResultMsg = &v
+	return s
+}
+
+type AWorkbenchTestRequest struct {
+	// OAuth模式下的授权token
+	AuthToken *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	// 超时时间
+	Timeout *string `json:"timeout,omitempty" xml:"timeout,omitempty" require:"true"`
+	// param
+	Param *string `json:"param,omitempty" xml:"param,omitempty" require:"true"`
+	// owner
+	Owner *string `json:"owner,omitempty" xml:"owner,omitempty"`
+}
+
+func (s AWorkbenchTestRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s AWorkbenchTestRequest) GoString() string {
+	return s.String()
+}
+
+func (s *AWorkbenchTestRequest) SetAuthToken(v string) *AWorkbenchTestRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *AWorkbenchTestRequest) SetTimeout(v string) *AWorkbenchTestRequest {
+	s.Timeout = &v
+	return s
+}
+
+func (s *AWorkbenchTestRequest) SetParam(v string) *AWorkbenchTestRequest {
+	s.Param = &v
+	return s
+}
+
+func (s *AWorkbenchTestRequest) SetOwner(v string) *AWorkbenchTestRequest {
+	s.Owner = &v
+	return s
+}
+
+type AWorkbenchTestResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// 状态
+	Status *string `json:"status,omitempty" xml:"status,omitempty"`
+}
+
+func (s AWorkbenchTestResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s AWorkbenchTestResponse) GoString() string {
+	return s.String()
+}
+
+func (s *AWorkbenchTestResponse) SetReqMsgId(v string) *AWorkbenchTestResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *AWorkbenchTestResponse) SetResultCode(v string) *AWorkbenchTestResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *AWorkbenchTestResponse) SetResultMsg(v string) *AWorkbenchTestResponse {
+	s.ResultMsg = &v
+	return s
+}
+
+func (s *AWorkbenchTestResponse) SetStatus(v string) *AWorkbenchTestResponse {
+	s.Status = &v
+	return s
+}
+
+type Client struct {
+	Endpoint                *string
+	RegionId                *string
+	AccessKeyId             *string
+	AccessKeySecret         *string
+	Protocol                *string
+	UserAgent               *string
+	ReadTimeout             *int
+	ConnectTimeout          *int
+	HttpProxy               *string
+	HttpsProxy              *string
+	Socks5Proxy             *string
+	Socks5NetWork           *string
+	NoProxy                 *string
+	MaxIdleConns            *int
+	SecurityToken           *string
+	MaxIdleTimeMillis       *int
+	KeepAliveDurationMillis *int
+	MaxRequests             *int
+	MaxRequestsPerHost      *int
+}
+
+// Description:
+//
+// # Init client with Config
+//
+// @param config - config contains the necessary information to create a client
+func NewClient(config *Config) (*Client, error) {
+	client := new(Client)
+	err := client.Init(config)
+	return client, err
+}
+
+func (client *Client) Init(config *Config) (_err error) {
+	if tea.BoolValue(util.IsUnset(config)) {
+		_err = tea.NewSDKError(map[string]interface{}{
+			"code":    "ParameterMissing",
+			"message": "'config' can not be unset",
+		})
+		return _err
+	}
+
+	client.AccessKeyId = config.AccessKeyId
+	client.AccessKeySecret = config.AccessKeySecret
+	client.SecurityToken = config.SecurityToken
+	client.Endpoint = config.Endpoint
+	client.Protocol = config.Protocol
+	client.UserAgent = config.UserAgent
+	client.ReadTimeout = util.DefaultNumber(config.ReadTimeout, tea.Int(20000))
+	client.ConnectTimeout = util.DefaultNumber(config.ConnectTimeout, tea.Int(20000))
+	client.HttpProxy = config.HttpProxy
+	client.HttpsProxy = config.HttpsProxy
+	client.NoProxy = config.NoProxy
+	client.Socks5Proxy = config.Socks5Proxy
+	client.Socks5NetWork = config.Socks5NetWork
+	client.MaxIdleConns = util.DefaultNumber(config.MaxIdleConns, tea.Int(60000))
+	client.MaxIdleTimeMillis = util.DefaultNumber(config.MaxIdleTimeMillis, tea.Int(5))
+	client.KeepAliveDurationMillis = util.DefaultNumber(config.KeepAliveDurationMillis, tea.Int(5000))
+	client.MaxRequests = util.DefaultNumber(config.MaxRequests, tea.Int(100))
+	client.MaxRequestsPerHost = util.DefaultNumber(config.MaxRequestsPerHost, tea.Int(100))
+	return nil
+}
+
+// Description:
+//
+// # Encapsulate the request and invoke the network
+//
+// @param action - api name
+//
+// @param protocol - http or https
+//
+// @param method - e.g. GET
+//
+// @param pathname - pathname of every api
+//
+// @param request - which contains request params
+//
+// @param runtime - which controls some details of call api, such as retry times
+//
+// @return the response
+func (client *Client) DoRequest(version *string, action *string, protocol *string, method *string, pathname *string, request map[string]interface{}, headers map[string]*string, runtime *util.RuntimeOptions) (_result map[string]interface{}, _err error) {
+	_err = tea.Validate(runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_runtime := map[string]interface{}{
+		"timeouted":          "retry",
+		"readTimeout":        tea.IntValue(util.DefaultNumber(runtime.ReadTimeout, client.ReadTimeout)),
+		"connectTimeout":     tea.IntValue(util.DefaultNumber(runtime.ConnectTimeout, client.ConnectTimeout)),
+		"httpProxy":          tea.StringValue(util.DefaultString(runtime.HttpProxy, client.HttpProxy)),
+		"httpsProxy":         tea.StringValue(util.DefaultString(runtime.HttpsProxy, client.HttpsProxy)),
+		"noProxy":            tea.StringValue(util.DefaultString(runtime.NoProxy, client.NoProxy)),
+		"maxIdleConns":       tea.IntValue(util.DefaultNumber(runtime.MaxIdleConns, client.MaxIdleConns)),
+		"maxIdleTimeMillis":  tea.IntValue(client.MaxIdleTimeMillis),
+		"keepAliveDuration":  tea.IntValue(client.KeepAliveDurationMillis),
+		"maxRequests":        tea.IntValue(client.MaxRequests),
+		"maxRequestsPerHost": tea.IntValue(client.MaxRequestsPerHost),
+		"retry": map[string]interface{}{
+			"retryable":   tea.BoolValue(runtime.Autoretry),
+			"maxAttempts": tea.IntValue(util.DefaultNumber(runtime.MaxAttempts, tea.Int(3))),
+		},
+		"backoff": map[string]interface{}{
+			"policy": tea.StringValue(util.DefaultString(runtime.BackoffPolicy, tea.String("no"))),
+			"period": tea.IntValue(util.DefaultNumber(runtime.BackoffPeriod, tea.Int(1))),
+		},
+		"ignoreSSL": tea.BoolValue(runtime.IgnoreSSL),
+	}
+
+	_resp := make(map[string]interface{})
+	for _retryTimes := 0; tea.BoolValue(tea.AllowRetry(_runtime["retry"], tea.Int(_retryTimes))); _retryTimes++ {
+		if _retryTimes > 0 {
+			_backoffTime := tea.GetBackoffTime(_runtime["backoff"], tea.Int(_retryTimes))
+			if tea.IntValue(_backoffTime) > 0 {
+				tea.Sleep(_backoffTime)
+			}
+		}
+
+		_resp, _err = func() (map[string]interface{}, error) {
+			request_ := tea.NewRequest()
+			request_.Protocol = util.DefaultString(client.Protocol, protocol)
+			request_.Method = method
+			request_.Pathname = pathname
+			request_.Query = map[string]*string{
+				"method":           action,
+				"version":          version,
+				"sign_type":        tea.String("HmacSHA1"),
+				"req_time":         antchainutil.GetTimestamp(),
+				"req_msg_id":       antchainutil.GetNonce(),
+				"access_key":       client.AccessKeyId,
+				"base_sdk_version": tea.String("TeaSDK-2.0"),
+				"sdk_version":      tea.String("1.0.5"),
+				"_prod_code":       tea.String("CAT"),
+				"_prod_channel":    tea.String("undefined"),
+			}
+			if !tea.BoolValue(util.Empty(client.SecurityToken)) {
+				request_.Query["security_token"] = client.SecurityToken
+			}
+
+			request_.Headers = tea.Merge(map[string]*string{
+				"host":       util.DefaultString(client.Endpoint, tea.String("openapi.antchain.antgroup.com")),
+				"user-agent": util.GetUserAgent(client.UserAgent),
+			}, headers)
+			tmp := util.AnyifyMapValue(rpcutil.Query(request))
+			request_.Body = tea.ToReader(util.ToFormString(tmp))
+			request_.Headers["content-type"] = tea.String("application/x-www-form-urlencoded")
+			signedParam := tea.Merge(request_.Query,
+				rpcutil.Query(request))
+			request_.Query["sign"] = antchainutil.GetSignature(signedParam, client.AccessKeySecret)
+			response_, _err := tea.DoRequest(request_, _runtime)
+			if _err != nil {
+				return _result, _err
+			}
+			raw, _err := util.ReadAsString(response_.Body)
+			if _err != nil {
+				return _result, _err
+			}
+
+			obj := util.ParseJSON(raw)
+			res, _err := util.AssertAsMap(obj)
+			if _err != nil {
+				return _result, _err
+			}
+
+			resp, _err := util.AssertAsMap(res["response"])
+			if _err != nil {
+				return _result, _err
+			}
+
+			if tea.BoolValue(antchainutil.HasError(raw, client.AccessKeySecret)) {
+				_err = tea.NewSDKError(map[string]interface{}{
+					"message": resp["result_msg"],
+					"data":    resp,
+					"code":    resp["result_code"],
+				})
+				return _result, _err
+			}
+
+			_result = resp
+			return _result, _err
+		}()
+		if !tea.BoolValue(tea.Retryable(_err)) {
+			break
+		}
+	}
+
+	return _resp, _err
+}
+
+// Description:
+//
+// Description: 这接口用于获取猫猫的年龄
+//
+// Summary: 获取猫猫的年龄
+func (client *Client) GetAge(request *GetAgeRequest) (_result *GetAgeResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &GetAgeResponse{}
+	_body, _err := client.GetAgeEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+// Description:
+//
+// Description: 这接口用于获取猫猫的年龄
+//
+// Summary: 获取猫猫的年龄
+func (client *Client) GetAgeEx(request *GetAgeRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *GetAgeResponse, _err error) {
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &GetAgeResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("antcloud.cat.age.get"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
+}
+
+// Description:
+//
+// Description: s d
+//
+// Summary: s d f
+func (client *Client) WithdrawLoadtestTest(request *WithdrawLoadtestTestRequest) (_result *WithdrawLoadtestTestResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &WithdrawLoadtestTestResponse{}
+	_body, _err := client.WithdrawLoadtestTestEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+// Description:
+//
+// Description: s d
+//
+// Summary: s d f
+func (client *Client) WithdrawLoadtestTestEx(request *WithdrawLoadtestTestRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *WithdrawLoadtestTestResponse, _err error) {
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &WithdrawLoadtestTestResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("antcloud.cat.loadtest.test.withdraw"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
+}
+
+// Description:
+//
+// Description: huanyue
+//
+// Summary: huanyu
+func (client *Client) BindHuanyu(request *BindHuanyuRequest) (_result *BindHuanyuResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &BindHuanyuResponse{}
+	_body, _err := client.BindHuanyuEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+// Description:
+//
+// Description: huanyue
+//
+// Summary: huanyu
+func (client *Client) BindHuanyuEx(request *BindHuanyuRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *BindHuanyuResponse, _err error) {
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &BindHuanyuResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("antcloud.cat.huanyu.bind"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
+}
+
+// Description:
+//
+// Description: tests
+//
+// Summary: test
+func (client *Client) BindTest(request *BindTestRequest) (_result *BindTestResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &BindTestResponse{}
+	_body, _err := client.BindTestEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+// Description:
+//
+// Description: tests
+//
+// Summary: test
+func (client *Client) BindTestEx(request *BindTestRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *BindTestResponse, _err error) {
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &BindTestResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("antcloud.cat.test.bind"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
+}
+
+// Description:
+//
+// Description: testt
+//
+// Summary: testt
+func (client *Client) QueryTestCcc(request *QueryTestCccRequest) (_result *QueryTestCccResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &QueryTestCccResponse{}
+	_body, _err := client.QueryTestCccEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+// Description:
+//
+// Description: testt
+//
+// Summary: testt
+func (client *Client) QueryTestCccEx(request *QueryTestCccRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *QueryTestCccResponse, _err error) {
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &QueryTestCccResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("antcloud.cat.test.ccc.query"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
+}
+
+// Description:
+//
+// Description: 1234
+//
+// Summary: 1234
+func (client *Client) ImportAbcd(request *ImportAbcdRequest) (_result *ImportAbcdResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &ImportAbcdResponse{}
+	_body, _err := client.ImportAbcdEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+// Description:
+//
+// Description: 1234
+//
+// Summary: 1234
+func (client *Client) ImportAbcdEx(request *ImportAbcdRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *ImportAbcdResponse, _err error) {
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &ImportAbcdResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("antcloud.cat.abcd.import"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
+}
+
+// Description:
+//
+// Description: cat测试适用，包含能力中心九期打标功能测试1
+//
+// Summary: cat测试1
+func (client *Client) QueryTestaTestb(request *QueryTestaTestbRequest) (_result *QueryTestaTestbResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &QueryTestaTestbResponse{}
+	_body, _err := client.QueryTestaTestbEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+// Description:
+//
+// Description: cat测试适用，包含能力中心九期打标功能测试1
+//
+// Summary: cat测试1
+func (client *Client) QueryTestaTestbEx(request *QueryTestaTestbRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *QueryTestaTestbResponse, _err error) {
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &QueryTestaTestbResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("antcloud.cat.testa.testb.query"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
+}
+
+// Description:
+//
+// Description: 工作台测试产品A
+//
+// Summary: 工作台测试产品A
+func (client *Client) AWorkbenchTest(request *AWorkbenchTestRequest) (_result *AWorkbenchTestResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &AWorkbenchTestResponse{}
+	_body, _err := client.AWorkbenchTestEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+// Description:
+//
+// Description: 工作台测试产品A
+//
+// Summary: 工作台测试产品A
+func (client *Client) AWorkbenchTestEx(request *AWorkbenchTestRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *AWorkbenchTestResponse, _err error) {
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &AWorkbenchTestResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("antcloud.cat.workbench.test.a"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
+}
