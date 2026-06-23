@@ -25,22 +25,46 @@ class ImportIotagentClientRequest extends Model
      */
     public $uidList;
 
-    // 设备pk
+    // 实例Id
     /**
      * @var string
      */
-    public $productKey;
+    public $instanceId;
+
+    // SKU名称
+    /**
+     * @var string
+     */
+    public $skuName;
+
+    // 模版智能体ID
+    /**
+     * @var string
+     */
+    public $templateAgentId;
+
+    // 智能体话题
+    /**
+     * @var string
+     */
+    public $agentTopic;
     protected $_name = [
         'authToken'         => 'auth_token',
         'productInstanceId' => 'product_instance_id',
         'uidList'           => 'uid_list',
-        'productKey'        => 'product_key',
+        'instanceId'        => 'instance_id',
+        'skuName'           => 'sku_name',
+        'templateAgentId'   => 'template_agent_id',
+        'agentTopic'        => 'agent_topic',
     ];
 
     public function validate()
     {
         Model::validateRequired('uidList', $this->uidList, true);
-        Model::validateRequired('productKey', $this->productKey, true);
+        Model::validateRequired('instanceId', $this->instanceId, true);
+        Model::validateRequired('skuName', $this->skuName, true);
+        Model::validateRequired('templateAgentId', $this->templateAgentId, true);
+        Model::validateRequired('agentTopic', $this->agentTopic, true);
     }
 
     public function toMap()
@@ -55,8 +79,17 @@ class ImportIotagentClientRequest extends Model
         if (null !== $this->uidList) {
             $res['uid_list'] = $this->uidList;
         }
-        if (null !== $this->productKey) {
-            $res['product_key'] = $this->productKey;
+        if (null !== $this->instanceId) {
+            $res['instance_id'] = $this->instanceId;
+        }
+        if (null !== $this->skuName) {
+            $res['sku_name'] = $this->skuName;
+        }
+        if (null !== $this->templateAgentId) {
+            $res['template_agent_id'] = $this->templateAgentId;
+        }
+        if (null !== $this->agentTopic) {
+            $res['agent_topic'] = $this->agentTopic;
         }
 
         return $res;
@@ -81,8 +114,17 @@ class ImportIotagentClientRequest extends Model
                 $model->uidList = $map['uid_list'];
             }
         }
-        if (isset($map['product_key'])) {
-            $model->productKey = $map['product_key'];
+        if (isset($map['instance_id'])) {
+            $model->instanceId = $map['instance_id'];
+        }
+        if (isset($map['sku_name'])) {
+            $model->skuName = $map['sku_name'];
+        }
+        if (isset($map['template_agent_id'])) {
+            $model->templateAgentId = $map['template_agent_id'];
+        }
+        if (isset($map['agent_topic'])) {
+            $model->agentTopic = $map['agent_topic'];
         }
 
         return $model;

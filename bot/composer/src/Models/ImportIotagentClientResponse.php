@@ -26,16 +26,30 @@ class ImportIotagentClientResponse extends Model
      */
     public $resultMsg;
 
-    // 是否成功
+    // 成功加白的UID列表
     /**
-     * @var bool
+     * @var string[]
      */
-    public $success;
+    public $successUidList;
+
+    // 已存在的UID列表
+    /**
+     * @var string[]
+     */
+    public $existedUidList;
+
+    // 无效的UID列表
+    /**
+     * @var string[]
+     */
+    public $invalidUidList;
     protected $_name = [
-        'reqMsgId'   => 'req_msg_id',
-        'resultCode' => 'result_code',
-        'resultMsg'  => 'result_msg',
-        'success'    => 'success',
+        'reqMsgId'       => 'req_msg_id',
+        'resultCode'     => 'result_code',
+        'resultMsg'      => 'result_msg',
+        'successUidList' => 'success_uid_list',
+        'existedUidList' => 'existed_uid_list',
+        'invalidUidList' => 'invalid_uid_list',
     ];
 
     public function validate()
@@ -54,8 +68,14 @@ class ImportIotagentClientResponse extends Model
         if (null !== $this->resultMsg) {
             $res['result_msg'] = $this->resultMsg;
         }
-        if (null !== $this->success) {
-            $res['success'] = $this->success;
+        if (null !== $this->successUidList) {
+            $res['success_uid_list'] = $this->successUidList;
+        }
+        if (null !== $this->existedUidList) {
+            $res['existed_uid_list'] = $this->existedUidList;
+        }
+        if (null !== $this->invalidUidList) {
+            $res['invalid_uid_list'] = $this->invalidUidList;
         }
 
         return $res;
@@ -78,8 +98,20 @@ class ImportIotagentClientResponse extends Model
         if (isset($map['result_msg'])) {
             $model->resultMsg = $map['result_msg'];
         }
-        if (isset($map['success'])) {
-            $model->success = $map['success'];
+        if (isset($map['success_uid_list'])) {
+            if (!empty($map['success_uid_list'])) {
+                $model->successUidList = $map['success_uid_list'];
+            }
+        }
+        if (isset($map['existed_uid_list'])) {
+            if (!empty($map['existed_uid_list'])) {
+                $model->existedUidList = $map['existed_uid_list'];
+            }
+        }
+        if (isset($map['invalid_uid_list'])) {
+            if (!empty($map['invalid_uid_list'])) {
+                $model->invalidUidList = $map['invalid_uid_list'];
+            }
         }
 
         return $model;
