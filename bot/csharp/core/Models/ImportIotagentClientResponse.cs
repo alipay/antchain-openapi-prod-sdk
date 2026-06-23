@@ -24,10 +24,20 @@ namespace AntChain.SDK.BOT.Models
         [Validation(Required=false)]
         public string ResultMsg { get; set; }
 
-        // 是否成功
-        [NameInMap("success")]
+        // 成功加白的UID列表
+        [NameInMap("success_uid_list")]
         [Validation(Required=false)]
-        public bool? Success { get; set; }
+        public List<string> SuccessUidList { get; set; }
+
+        // 已存在的UID列表
+        [NameInMap("existed_uid_list")]
+        [Validation(Required=false)]
+        public List<string> ExistedUidList { get; set; }
+
+        // 无效的UID列表
+        [NameInMap("invalid_uid_list")]
+        [Validation(Required=false)]
+        public List<string> InvalidUidList { get; set; }
 
     }
 
