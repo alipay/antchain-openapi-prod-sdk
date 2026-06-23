@@ -32908,14 +32908,23 @@ export class ImportIotagentClientRequest extends $tea.Model {
   productInstanceId?: string;
   // 设备标识列表
   uidList: string[];
-  // 设备pk
-  productKey: string;
+  // 实例Id
+  instanceId: string;
+  // SKU名称
+  skuName: string;
+  // 模版智能体ID
+  templateAgentId: string;
+  // 智能体话题
+  agentTopic: string;
   static names(): { [key: string]: string } {
     return {
       authToken: 'auth_token',
       productInstanceId: 'product_instance_id',
       uidList: 'uid_list',
-      productKey: 'product_key',
+      instanceId: 'instance_id',
+      skuName: 'sku_name',
+      templateAgentId: 'template_agent_id',
+      agentTopic: 'agent_topic',
     };
   }
 
@@ -32924,7 +32933,10 @@ export class ImportIotagentClientRequest extends $tea.Model {
       authToken: 'string',
       productInstanceId: 'string',
       uidList: { 'type': 'array', 'itemType': 'string' },
-      productKey: 'string',
+      instanceId: 'string',
+      skuName: 'string',
+      templateAgentId: 'string',
+      agentTopic: 'string',
     };
   }
 
@@ -32940,14 +32952,20 @@ export class ImportIotagentClientResponse extends $tea.Model {
   resultCode?: string;
   // 异常信息的文本描述
   resultMsg?: string;
-  // 是否成功
-  success?: boolean;
+  // 成功加白的UID列表
+  successUidList?: string[];
+  // 已存在的UID列表
+  existedUidList?: string[];
+  // 无效的UID列表
+  invalidUidList?: string[];
   static names(): { [key: string]: string } {
     return {
       reqMsgId: 'req_msg_id',
       resultCode: 'result_code',
       resultMsg: 'result_msg',
-      success: 'success',
+      successUidList: 'success_uid_list',
+      existedUidList: 'existed_uid_list',
+      invalidUidList: 'invalid_uid_list',
     };
   }
 
@@ -32956,7 +32974,9 @@ export class ImportIotagentClientResponse extends $tea.Model {
       reqMsgId: 'string',
       resultCode: 'string',
       resultMsg: 'string',
-      success: 'boolean',
+      successUidList: { 'type': 'array', 'itemType': 'string' },
+      existedUidList: { 'type': 'array', 'itemType': 'string' },
+      invalidUidList: { 'type': 'array', 'itemType': 'string' },
     };
   }
 
@@ -34809,7 +34829,7 @@ export default class Client {
           req_msg_id: AntchainUtil.getNonce(),
           access_key: this._accessKeyId,
           base_sdk_version: "TeaSDK-2.0",
-          sdk_version: "1.16.1",
+          sdk_version: "1.16.2",
           _prod_code: "BOT",
           _prod_channel: "undefined",
         };
