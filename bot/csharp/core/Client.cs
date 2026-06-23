@@ -137,7 +137,7 @@ namespace AntChain.SDK.BOT
                         {"req_msg_id", AntChain.AlipayUtil.AntchainUtils.GetNonce()},
                         {"access_key", _accessKeyId},
                         {"base_sdk_version", "TeaSDK-2.0"},
-                        {"sdk_version", "1.15.0"},
+                        {"sdk_version", "1.16.1"},
                         {"_prod_code", "BOT"},
                         {"_prod_channel", "undefined"},
                     };
@@ -263,7 +263,7 @@ namespace AntChain.SDK.BOT
                         {"req_msg_id", AntChain.AlipayUtil.AntchainUtils.GetNonce()},
                         {"access_key", _accessKeyId},
                         {"base_sdk_version", "TeaSDK-2.0"},
-                        {"sdk_version", "1.15.0"},
+                        {"sdk_version", "1.16.1"},
                         {"_prod_code", "BOT"},
                         {"_prod_channel", "undefined"},
                     };
@@ -12301,6 +12301,132 @@ namespace AntChain.SDK.BOT
         {
             AlibabaCloud.TeaUtil.Common.ValidateModel(request);
             return TeaModel.ToObject<QueryMcpEndpointResponse>(await DoRequestAsync("1.0", "blockchain.bot.mcp.endpoint.query", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 自主联调平台数据授权接口
+         * Summary: 自主联调平台数据授权接口
+         */
+        public GrantDeviceEmpowerResponse GrantDeviceEmpower(GrantDeviceEmpowerRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return GrantDeviceEmpowerEx(request, headers, runtime);
+        }
+
+        /**
+         * Description: 自主联调平台数据授权接口
+         * Summary: 自主联调平台数据授权接口
+         */
+        public async Task<GrantDeviceEmpowerResponse> GrantDeviceEmpowerAsync(GrantDeviceEmpowerRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return await GrantDeviceEmpowerExAsync(request, headers, runtime);
+        }
+
+        /**
+         * Description: 自主联调平台数据授权接口
+         * Summary: 自主联调平台数据授权接口
+         */
+        public GrantDeviceEmpowerResponse GrantDeviceEmpowerEx(GrantDeviceEmpowerRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<GrantDeviceEmpowerResponse>(DoRequest("1.0", "blockchain.bot.device.empower.grant", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 自主联调平台数据授权接口
+         * Summary: 自主联调平台数据授权接口
+         */
+        public async Task<GrantDeviceEmpowerResponse> GrantDeviceEmpowerExAsync(GrantDeviceEmpowerRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<GrantDeviceEmpowerResponse>(await DoRequestAsync("1.0", "blockchain.bot.device.empower.grant", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 查询授权列表
+         * Summary: 查询授权列表
+         */
+        public QueryDeivceEmpowerResponse QueryDeivceEmpower(QueryDeivceEmpowerRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return QueryDeivceEmpowerEx(request, headers, runtime);
+        }
+
+        /**
+         * Description: 查询授权列表
+         * Summary: 查询授权列表
+         */
+        public async Task<QueryDeivceEmpowerResponse> QueryDeivceEmpowerAsync(QueryDeivceEmpowerRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return await QueryDeivceEmpowerExAsync(request, headers, runtime);
+        }
+
+        /**
+         * Description: 查询授权列表
+         * Summary: 查询授权列表
+         */
+        public QueryDeivceEmpowerResponse QueryDeivceEmpowerEx(QueryDeivceEmpowerRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<QueryDeivceEmpowerResponse>(DoRequest("1.0", "blockchain.bot.deivce.empower.query", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 查询授权列表
+         * Summary: 查询授权列表
+         */
+        public async Task<QueryDeivceEmpowerResponse> QueryDeivceEmpowerExAsync(QueryDeivceEmpowerRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<QueryDeivceEmpowerResponse>(await DoRequestAsync("1.0", "blockchain.bot.deivce.empower.query", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 查询授权记录
+         * Summary: 查询授权记录
+         */
+        public QueryDeviceEmpowerResponse QueryDeviceEmpower(QueryDeviceEmpowerRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return QueryDeviceEmpowerEx(request, headers, runtime);
+        }
+
+        /**
+         * Description: 查询授权记录
+         * Summary: 查询授权记录
+         */
+        public async Task<QueryDeviceEmpowerResponse> QueryDeviceEmpowerAsync(QueryDeviceEmpowerRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return await QueryDeviceEmpowerExAsync(request, headers, runtime);
+        }
+
+        /**
+         * Description: 查询授权记录
+         * Summary: 查询授权记录
+         */
+        public QueryDeviceEmpowerResponse QueryDeviceEmpowerEx(QueryDeviceEmpowerRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<QueryDeviceEmpowerResponse>(DoRequest("1.0", "blockchain.bot.device.empower.query", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 查询授权记录
+         * Summary: 查询授权记录
+         */
+        public async Task<QueryDeviceEmpowerResponse> QueryDeviceEmpowerExAsync(QueryDeviceEmpowerRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<QueryDeviceEmpowerResponse>(await DoRequestAsync("1.0", "blockchain.bot.device.empower.query", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
         }
 
         /**
