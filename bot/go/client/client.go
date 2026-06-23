@@ -2375,6 +2375,32 @@ func (s *PurchaseOrderInfoDetail) SetGoodsIdAndCount(v []*GoodsIdAndCount) *Purc
 	return s
 }
 
+// 授权返回实体
+type GrantDeviceInfo struct {
+	// 授权ID
+	DeviceId *string `json:"device_id,omitempty" xml:"device_id,omitempty" require:"true"`
+	// 授权ID
+	AuthRecordId *string `json:"auth_record_id,omitempty" xml:"auth_record_id,omitempty" require:"true"`
+}
+
+func (s GrantDeviceInfo) String() string {
+	return tea.Prettify(s)
+}
+
+func (s GrantDeviceInfo) GoString() string {
+	return s.String()
+}
+
+func (s *GrantDeviceInfo) SetDeviceId(v string) *GrantDeviceInfo {
+	s.DeviceId = &v
+	return s
+}
+
+func (s *GrantDeviceInfo) SetAuthRecordId(v string) *GrantDeviceInfo {
+	s.AuthRecordId = &v
+	return s
+}
+
 // iotbasic发布批次信息
 type IotbasicReleaseOrderInfo struct {
 	// 应用名称
@@ -4704,6 +4730,39 @@ func (s BaiOcrResponse) GoString() string {
 
 func (s *BaiOcrResponse) SetData(v string) *BaiOcrResponse {
 	s.Data = &v
+	return s
+}
+
+// 获取设备授权返回信息
+type EmpowerDeviceInfo struct {
+	// 设备ID
+	DeviceId *string `json:"device_id,omitempty" xml:"device_id,omitempty" require:"true"`
+	// ACCEPTED(接受)/REVOKED(撤销)
+	AuthStatus *string `json:"auth_status,omitempty" xml:"auth_status,omitempty" require:"true"`
+	// 移除授权时间，毫秒级时间戳
+	RemoveTime *int64 `json:"remove_time,omitempty" xml:"remove_time,omitempty"`
+}
+
+func (s EmpowerDeviceInfo) String() string {
+	return tea.Prettify(s)
+}
+
+func (s EmpowerDeviceInfo) GoString() string {
+	return s.String()
+}
+
+func (s *EmpowerDeviceInfo) SetDeviceId(v string) *EmpowerDeviceInfo {
+	s.DeviceId = &v
+	return s
+}
+
+func (s *EmpowerDeviceInfo) SetAuthStatus(v string) *EmpowerDeviceInfo {
+	s.AuthStatus = &v
+	return s
+}
+
+func (s *EmpowerDeviceInfo) SetRemoveTime(v int64) *EmpowerDeviceInfo {
+	s.RemoveTime = &v
 	return s
 }
 
@@ -37799,16 +37858,10 @@ type ImportIotagentClientRequest struct {
 	// OAuth模式下的授权token
 	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
 	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
-	// 实例ID，由蚂蚁提供
-	InstanceId *string `json:"instance_id,omitempty" xml:"instance_id,omitempty" require:"true"`
-	// SKU名称，由蚂蚁提供
-	SkuName *string `json:"sku_name,omitempty" xml:"sku_name,omitempty" require:"true"`
-	// 模版智能体ID，由蚂蚁提供
-	TemplateAgentId *string `json:"template_agent_id,omitempty" xml:"template_agent_id,omitempty" require:"true"`
-	// 话题，由蚂蚁提供
-	AgentTopic *string `json:"agent_topic,omitempty" xml:"agent_topic,omitempty" require:"true"`
 	// 设备标识列表
 	UidList []*string `json:"uid_list,omitempty" xml:"uid_list,omitempty" require:"true" type:"Repeated"`
+	// 设备pk
+	ProductKey *string `json:"product_key,omitempty" xml:"product_key,omitempty" require:"true"`
 }
 
 func (s ImportIotagentClientRequest) String() string {
@@ -37829,28 +37882,13 @@ func (s *ImportIotagentClientRequest) SetProductInstanceId(v string) *ImportIota
 	return s
 }
 
-func (s *ImportIotagentClientRequest) SetInstanceId(v string) *ImportIotagentClientRequest {
-	s.InstanceId = &v
-	return s
-}
-
-func (s *ImportIotagentClientRequest) SetSkuName(v string) *ImportIotagentClientRequest {
-	s.SkuName = &v
-	return s
-}
-
-func (s *ImportIotagentClientRequest) SetTemplateAgentId(v string) *ImportIotagentClientRequest {
-	s.TemplateAgentId = &v
-	return s
-}
-
-func (s *ImportIotagentClientRequest) SetAgentTopic(v string) *ImportIotagentClientRequest {
-	s.AgentTopic = &v
-	return s
-}
-
 func (s *ImportIotagentClientRequest) SetUidList(v []*string) *ImportIotagentClientRequest {
 	s.UidList = v
+	return s
+}
+
+func (s *ImportIotagentClientRequest) SetProductKey(v string) *ImportIotagentClientRequest {
+	s.ProductKey = &v
 	return s
 }
 
@@ -37861,12 +37899,8 @@ type ImportIotagentClientResponse struct {
 	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
 	// 异常信息的文本描述
 	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
-	// 成功导入的设备标识列表
-	SuccessUidList []*string `json:"success_uid_list,omitempty" xml:"success_uid_list,omitempty" type:"Repeated"`
-	// 已经存在的设备标识列表（不会导入）
-	ExistedUidList []*string `json:"existed_uid_list,omitempty" xml:"existed_uid_list,omitempty" type:"Repeated"`
-	// 不合法的设备标识列表（不会导入）
-	InvalidUidList []*string `json:"invalid_uid_list,omitempty" xml:"invalid_uid_list,omitempty" type:"Repeated"`
+	// 是否成功
+	Success *bool `json:"success,omitempty" xml:"success,omitempty"`
 }
 
 func (s ImportIotagentClientResponse) String() string {
@@ -37892,18 +37926,8 @@ func (s *ImportIotagentClientResponse) SetResultMsg(v string) *ImportIotagentCli
 	return s
 }
 
-func (s *ImportIotagentClientResponse) SetSuccessUidList(v []*string) *ImportIotagentClientResponse {
-	s.SuccessUidList = v
-	return s
-}
-
-func (s *ImportIotagentClientResponse) SetExistedUidList(v []*string) *ImportIotagentClientResponse {
-	s.ExistedUidList = v
-	return s
-}
-
-func (s *ImportIotagentClientResponse) SetInvalidUidList(v []*string) *ImportIotagentClientResponse {
-	s.InvalidUidList = v
+func (s *ImportIotagentClientResponse) SetSuccess(v bool) *ImportIotagentClientResponse {
+	s.Success = &v
 	return s
 }
 
@@ -38212,6 +38236,300 @@ func (s *QueryMcpEndpointResponse) SetResultMsg(v string) *QueryMcpEndpointRespo
 
 func (s *QueryMcpEndpointResponse) SetMcpEndpoint(v string) *QueryMcpEndpointResponse {
 	s.McpEndpoint = &v
+	return s
+}
+
+type GrantDeviceEmpowerRequest struct {
+	// OAuth模式下的授权token
+	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
+	// 设备ID 列表
+	DeviceId *string `json:"device_id,omitempty" xml:"device_id,omitempty" require:"true"`
+	// 用户ID
+	UserId *string `json:"user_id,omitempty" xml:"user_id,omitempty"`
+	// 授权操作: ACCEPTED(接受)/REVOKED(撤销)
+	AuthStatus *string `json:"auth_status,omitempty" xml:"auth_status,omitempty" require:"true"`
+	// 授权时间戳（毫秒）
+	AuthTime *int64 `json:"auth_time,omitempty" xml:"auth_time,omitempty" require:"true"`
+	// 场景码   与科技所属人-统一社会信用代码 （technology_owner_id ）不能同时为空
+	Scene *string `json:"scene,omitempty" xml:"scene,omitempty"`
+	// 科技所属人-统一社会信用代码  与场景码（scene ）不能同时为空
+	TechnologyOwnerId *string `json:"technology_owner_id,omitempty" xml:"technology_owner_id,omitempty"`
+	// 科技所属人-公司名称
+	TechnologyOwnerName *string `json:"technology_owner_name,omitempty" xml:"technology_owner_name,omitempty"`
+}
+
+func (s GrantDeviceEmpowerRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s GrantDeviceEmpowerRequest) GoString() string {
+	return s.String()
+}
+
+func (s *GrantDeviceEmpowerRequest) SetAuthToken(v string) *GrantDeviceEmpowerRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *GrantDeviceEmpowerRequest) SetProductInstanceId(v string) *GrantDeviceEmpowerRequest {
+	s.ProductInstanceId = &v
+	return s
+}
+
+func (s *GrantDeviceEmpowerRequest) SetDeviceId(v string) *GrantDeviceEmpowerRequest {
+	s.DeviceId = &v
+	return s
+}
+
+func (s *GrantDeviceEmpowerRequest) SetUserId(v string) *GrantDeviceEmpowerRequest {
+	s.UserId = &v
+	return s
+}
+
+func (s *GrantDeviceEmpowerRequest) SetAuthStatus(v string) *GrantDeviceEmpowerRequest {
+	s.AuthStatus = &v
+	return s
+}
+
+func (s *GrantDeviceEmpowerRequest) SetAuthTime(v int64) *GrantDeviceEmpowerRequest {
+	s.AuthTime = &v
+	return s
+}
+
+func (s *GrantDeviceEmpowerRequest) SetScene(v string) *GrantDeviceEmpowerRequest {
+	s.Scene = &v
+	return s
+}
+
+func (s *GrantDeviceEmpowerRequest) SetTechnologyOwnerId(v string) *GrantDeviceEmpowerRequest {
+	s.TechnologyOwnerId = &v
+	return s
+}
+
+func (s *GrantDeviceEmpowerRequest) SetTechnologyOwnerName(v string) *GrantDeviceEmpowerRequest {
+	s.TechnologyOwnerName = &v
+	return s
+}
+
+type GrantDeviceEmpowerResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// 授权ID
+	AuthRecordId *string `json:"auth_record_id,omitempty" xml:"auth_record_id,omitempty"`
+}
+
+func (s GrantDeviceEmpowerResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s GrantDeviceEmpowerResponse) GoString() string {
+	return s.String()
+}
+
+func (s *GrantDeviceEmpowerResponse) SetReqMsgId(v string) *GrantDeviceEmpowerResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *GrantDeviceEmpowerResponse) SetResultCode(v string) *GrantDeviceEmpowerResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *GrantDeviceEmpowerResponse) SetResultMsg(v string) *GrantDeviceEmpowerResponse {
+	s.ResultMsg = &v
+	return s
+}
+
+func (s *GrantDeviceEmpowerResponse) SetAuthRecordId(v string) *GrantDeviceEmpowerResponse {
+	s.AuthRecordId = &v
+	return s
+}
+
+type QueryDeivceEmpowerRequest struct {
+	// OAuth模式下的授权token
+	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
+	// 场景码
+	Scene *string `json:"scene,omitempty" xml:"scene,omitempty"`
+	// 统一社会信用代码与场景码不能同时为空
+	OperatorId *string `json:"operator_id,omitempty" xml:"operator_id,omitempty"`
+	// 设备ID
+	DeviceId *string `json:"device_id,omitempty" xml:"device_id,omitempty"`
+	// 查询授权日期 YYYY-MM-DD
+	QueryDate *string `json:"query_date,omitempty" xml:"query_date,omitempty" require:"true"`
+}
+
+func (s QueryDeivceEmpowerRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s QueryDeivceEmpowerRequest) GoString() string {
+	return s.String()
+}
+
+func (s *QueryDeivceEmpowerRequest) SetAuthToken(v string) *QueryDeivceEmpowerRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *QueryDeivceEmpowerRequest) SetProductInstanceId(v string) *QueryDeivceEmpowerRequest {
+	s.ProductInstanceId = &v
+	return s
+}
+
+func (s *QueryDeivceEmpowerRequest) SetScene(v string) *QueryDeivceEmpowerRequest {
+	s.Scene = &v
+	return s
+}
+
+func (s *QueryDeivceEmpowerRequest) SetOperatorId(v string) *QueryDeivceEmpowerRequest {
+	s.OperatorId = &v
+	return s
+}
+
+func (s *QueryDeivceEmpowerRequest) SetDeviceId(v string) *QueryDeivceEmpowerRequest {
+	s.DeviceId = &v
+	return s
+}
+
+func (s *QueryDeivceEmpowerRequest) SetQueryDate(v string) *QueryDeivceEmpowerRequest {
+	s.QueryDate = &v
+	return s
+}
+
+type QueryDeivceEmpowerResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// 授权设备记录列表
+	Devices []*EmpowerDeviceInfo `json:"devices,omitempty" xml:"devices,omitempty" type:"Repeated"`
+}
+
+func (s QueryDeivceEmpowerResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s QueryDeivceEmpowerResponse) GoString() string {
+	return s.String()
+}
+
+func (s *QueryDeivceEmpowerResponse) SetReqMsgId(v string) *QueryDeivceEmpowerResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *QueryDeivceEmpowerResponse) SetResultCode(v string) *QueryDeivceEmpowerResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *QueryDeivceEmpowerResponse) SetResultMsg(v string) *QueryDeivceEmpowerResponse {
+	s.ResultMsg = &v
+	return s
+}
+
+func (s *QueryDeivceEmpowerResponse) SetDevices(v []*EmpowerDeviceInfo) *QueryDeivceEmpowerResponse {
+	s.Devices = v
+	return s
+}
+
+type QueryDeviceEmpowerRequest struct {
+	// OAuth模式下的授权token
+	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
+	// 场景码 场景码与科技所属人-统一社会信用代码（technology_owner_id）不能同时为空
+	Scene *string `json:"scene,omitempty" xml:"scene,omitempty"`
+	// 科技所属人-统一社会信用代码  与场景码（scene）不能同时为空
+	TechnologyOwnerId *string `json:"technology_owner_id,omitempty" xml:"technology_owner_id,omitempty"`
+	// 设备ID
+	DeviceId *string `json:"device_id,omitempty" xml:"device_id,omitempty"`
+	// 授权日期 yyyy-MM-dd 格式
+	QueryDate *string `json:"query_date,omitempty" xml:"query_date,omitempty" require:"true"`
+}
+
+func (s QueryDeviceEmpowerRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s QueryDeviceEmpowerRequest) GoString() string {
+	return s.String()
+}
+
+func (s *QueryDeviceEmpowerRequest) SetAuthToken(v string) *QueryDeviceEmpowerRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *QueryDeviceEmpowerRequest) SetProductInstanceId(v string) *QueryDeviceEmpowerRequest {
+	s.ProductInstanceId = &v
+	return s
+}
+
+func (s *QueryDeviceEmpowerRequest) SetScene(v string) *QueryDeviceEmpowerRequest {
+	s.Scene = &v
+	return s
+}
+
+func (s *QueryDeviceEmpowerRequest) SetTechnologyOwnerId(v string) *QueryDeviceEmpowerRequest {
+	s.TechnologyOwnerId = &v
+	return s
+}
+
+func (s *QueryDeviceEmpowerRequest) SetDeviceId(v string) *QueryDeviceEmpowerRequest {
+	s.DeviceId = &v
+	return s
+}
+
+func (s *QueryDeviceEmpowerRequest) SetQueryDate(v string) *QueryDeviceEmpowerRequest {
+	s.QueryDate = &v
+	return s
+}
+
+type QueryDeviceEmpowerResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// 授权记录列表
+	Devices []*EmpowerDeviceInfo `json:"devices,omitempty" xml:"devices,omitempty" type:"Repeated"`
+}
+
+func (s QueryDeviceEmpowerResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s QueryDeviceEmpowerResponse) GoString() string {
+	return s.String()
+}
+
+func (s *QueryDeviceEmpowerResponse) SetReqMsgId(v string) *QueryDeviceEmpowerResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *QueryDeviceEmpowerResponse) SetResultCode(v string) *QueryDeviceEmpowerResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *QueryDeviceEmpowerResponse) SetResultMsg(v string) *QueryDeviceEmpowerResponse {
+	s.ResultMsg = &v
+	return s
+}
+
+func (s *QueryDeviceEmpowerResponse) SetDevices(v []*EmpowerDeviceInfo) *QueryDeviceEmpowerResponse {
+	s.Devices = v
 	return s
 }
 
@@ -39985,7 +40303,7 @@ func (client *Client) DoRequest(version *string, action *string, protocol *strin
 				"req_msg_id":       antchainutil.GetNonce(),
 				"access_key":       client.AccessKeyId,
 				"base_sdk_version": tea.String("TeaSDK-2.0"),
-				"sdk_version":      tea.String("1.15.0"),
+				"sdk_version":      tea.String("1.16.1"),
 				"_prod_code":       tea.String("BOT"),
 				"_prod_channel":    tea.String("undefined"),
 			}
@@ -49718,6 +50036,108 @@ func (client *Client) QueryMcpEndpointEx(request *QueryMcpEndpointRequest, heade
 	}
 	_result = &QueryMcpEndpointResponse{}
 	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("blockchain.bot.mcp.endpoint.query"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
+}
+
+/**
+ * Description: 自主联调平台数据授权接口
+ * Summary: 自主联调平台数据授权接口
+ */
+func (client *Client) GrantDeviceEmpower(request *GrantDeviceEmpowerRequest) (_result *GrantDeviceEmpowerResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &GrantDeviceEmpowerResponse{}
+	_body, _err := client.GrantDeviceEmpowerEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+/**
+ * Description: 自主联调平台数据授权接口
+ * Summary: 自主联调平台数据授权接口
+ */
+func (client *Client) GrantDeviceEmpowerEx(request *GrantDeviceEmpowerRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *GrantDeviceEmpowerResponse, _err error) {
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &GrantDeviceEmpowerResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("blockchain.bot.device.empower.grant"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
+}
+
+/**
+ * Description: 查询授权列表
+ * Summary: 查询授权列表
+ */
+func (client *Client) QueryDeivceEmpower(request *QueryDeivceEmpowerRequest) (_result *QueryDeivceEmpowerResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &QueryDeivceEmpowerResponse{}
+	_body, _err := client.QueryDeivceEmpowerEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+/**
+ * Description: 查询授权列表
+ * Summary: 查询授权列表
+ */
+func (client *Client) QueryDeivceEmpowerEx(request *QueryDeivceEmpowerRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *QueryDeivceEmpowerResponse, _err error) {
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &QueryDeivceEmpowerResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("blockchain.bot.deivce.empower.query"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
+}
+
+/**
+ * Description: 查询授权记录
+ * Summary: 查询授权记录
+ */
+func (client *Client) QueryDeviceEmpower(request *QueryDeviceEmpowerRequest) (_result *QueryDeviceEmpowerResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &QueryDeviceEmpowerResponse{}
+	_body, _err := client.QueryDeviceEmpowerEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+/**
+ * Description: 查询授权记录
+ * Summary: 查询授权记录
+ */
+func (client *Client) QueryDeviceEmpowerEx(request *QueryDeviceEmpowerRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *QueryDeviceEmpowerResponse, _err error) {
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &QueryDeviceEmpowerResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("blockchain.bot.device.empower.query"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
 	if _err != nil {
 		return _result, _err
 	}
