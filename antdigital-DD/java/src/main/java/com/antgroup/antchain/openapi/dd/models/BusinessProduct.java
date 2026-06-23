@@ -1,0 +1,110 @@
+// This file is auto-generated, don't edit it. Thanks.
+package com.antgroup.antchain.openapi.dd.models;
+
+import com.aliyun.tea.*;
+
+public class BusinessProduct extends TeaModel {
+    // 业务产品code
+    /**
+     * <strong>example:</strong>
+     * <p>BAASPLUS</p>
+     */
+    @NameInMap("code")
+    @Validation(required = true)
+    public String code;
+
+    // 产品线名称
+    /**
+     * <strong>example:</strong>
+     * <p>BaaS增值服务</p>
+     */
+    @NameInMap("name")
+    @Validation(required = true)
+    public String name;
+
+    // 归属业务线
+    /**
+     * <strong>example:</strong>
+     * <p>10010</p>
+     */
+    @NameInMap("business_line")
+    @Validation(required = true)
+    public String businessLine;
+
+    // 归属产品线
+    /**
+     * <strong>example:</strong>
+     * <p>10010</p>
+     */
+    @NameInMap("product_line")
+    @Validation(required = true)
+    public String productLine;
+
+    // spu列表
+    @NameInMap("product_spu")
+    @Validation(required = true)
+    public java.util.List<ProductSpu> productSpu;
+
+    // 短码
+    /**
+     * <strong>example:</strong>
+     * <p>CDXA</p>
+     */
+    @NameInMap("short_code")
+    @Validation(required = true)
+    public String shortCode;
+
+    public static BusinessProduct build(java.util.Map<String, ?> map) throws Exception {
+        BusinessProduct self = new BusinessProduct();
+        return TeaModel.build(map, self);
+    }
+
+    public BusinessProduct setCode(String code) {
+        this.code = code;
+        return this;
+    }
+    public String getCode() {
+        return this.code;
+    }
+
+    public BusinessProduct setName(String name) {
+        this.name = name;
+        return this;
+    }
+    public String getName() {
+        return this.name;
+    }
+
+    public BusinessProduct setBusinessLine(String businessLine) {
+        this.businessLine = businessLine;
+        return this;
+    }
+    public String getBusinessLine() {
+        return this.businessLine;
+    }
+
+    public BusinessProduct setProductLine(String productLine) {
+        this.productLine = productLine;
+        return this;
+    }
+    public String getProductLine() {
+        return this.productLine;
+    }
+
+    public BusinessProduct setProductSpu(java.util.List<ProductSpu> productSpu) {
+        this.productSpu = productSpu;
+        return this;
+    }
+    public java.util.List<ProductSpu> getProductSpu() {
+        return this.productSpu;
+    }
+
+    public BusinessProduct setShortCode(String shortCode) {
+        this.shortCode = shortCode;
+        return this;
+    }
+    public String getShortCode() {
+        return this.shortCode;
+    }
+
+}

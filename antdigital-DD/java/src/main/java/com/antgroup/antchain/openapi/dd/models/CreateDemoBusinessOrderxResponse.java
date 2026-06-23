@@ -1,0 +1,72 @@
+// This file is auto-generated, don't edit it. Thanks.
+package com.antgroup.antchain.openapi.dd.models;
+
+import com.aliyun.tea.*;
+
+public class CreateDemoBusinessOrderxResponse extends TeaModel {
+    // 请求唯一ID，用于链路跟踪和问题排查
+    @NameInMap("req_msg_id")
+    public String reqMsgId;
+
+    // 结果码，一般OK表示调用成功
+    @NameInMap("result_code")
+    public String resultCode;
+
+    // 异常信息的文本描述
+    @NameInMap("result_msg")
+    public String resultMsg;
+
+    // 订单列表
+    @NameInMap("order_list")
+    public java.util.List<OrderDTO> orderList;
+
+    // 总数
+    @NameInMap("total_count")
+    public Long totalCount;
+
+    public static CreateDemoBusinessOrderxResponse build(java.util.Map<String, ?> map) throws Exception {
+        CreateDemoBusinessOrderxResponse self = new CreateDemoBusinessOrderxResponse();
+        return TeaModel.build(map, self);
+    }
+
+    public CreateDemoBusinessOrderxResponse setReqMsgId(String reqMsgId) {
+        this.reqMsgId = reqMsgId;
+        return this;
+    }
+    public String getReqMsgId() {
+        return this.reqMsgId;
+    }
+
+    public CreateDemoBusinessOrderxResponse setResultCode(String resultCode) {
+        this.resultCode = resultCode;
+        return this;
+    }
+    public String getResultCode() {
+        return this.resultCode;
+    }
+
+    public CreateDemoBusinessOrderxResponse setResultMsg(String resultMsg) {
+        this.resultMsg = resultMsg;
+        return this;
+    }
+    public String getResultMsg() {
+        return this.resultMsg;
+    }
+
+    public CreateDemoBusinessOrderxResponse setOrderList(java.util.List<OrderDTO> orderList) {
+        this.orderList = orderList;
+        return this;
+    }
+    public java.util.List<OrderDTO> getOrderList() {
+        return this.orderList;
+    }
+
+    public CreateDemoBusinessOrderxResponse setTotalCount(Long totalCount) {
+        this.totalCount = totalCount;
+        return this;
+    }
+    public Long getTotalCount() {
+        return this.totalCount;
+    }
+
+}
