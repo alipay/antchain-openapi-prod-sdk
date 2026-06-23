@@ -135,7 +135,7 @@ class Client:
                     'req_msg_id': AntchainUtils.get_nonce(),
                     'access_key': self._access_key_id,
                     'base_sdk_version': 'TeaSDK-2.0',
-                    'sdk_version': '1.15.0',
+                    'sdk_version': '1.16.1',
                     '_prod_code': 'BOT',
                     '_prod_channel': 'undefined'
                 }
@@ -239,7 +239,7 @@ class Client:
                     'req_msg_id': AntchainUtils.get_nonce(),
                     'access_key': self._access_key_id,
                     'base_sdk_version': 'TeaSDK-2.0',
-                    'sdk_version': '1.15.0',
+                    'sdk_version': '1.16.1',
                     '_prod_code': 'BOT',
                     '_prod_channel': 'undefined'
                 }
@@ -16193,6 +16193,174 @@ class Client:
         return TeaCore.from_map(
             bot_models.QueryMcpEndpointResponse(),
             await self.do_request_async('1.0', 'blockchain.bot.mcp.endpoint.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def grant_device_empower(
+        self,
+        request: bot_models.GrantDeviceEmpowerRequest,
+    ) -> bot_models.GrantDeviceEmpowerResponse:
+        """
+        Description: 自主联调平台数据授权接口
+        Summary: 自主联调平台数据授权接口
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.grant_device_empower_ex(request, headers, runtime)
+
+    async def grant_device_empower_async(
+        self,
+        request: bot_models.GrantDeviceEmpowerRequest,
+    ) -> bot_models.GrantDeviceEmpowerResponse:
+        """
+        Description: 自主联调平台数据授权接口
+        Summary: 自主联调平台数据授权接口
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.grant_device_empower_ex_async(request, headers, runtime)
+
+    def grant_device_empower_ex(
+        self,
+        request: bot_models.GrantDeviceEmpowerRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> bot_models.GrantDeviceEmpowerResponse:
+        """
+        Description: 自主联调平台数据授权接口
+        Summary: 自主联调平台数据授权接口
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            bot_models.GrantDeviceEmpowerResponse(),
+            self.do_request('1.0', 'blockchain.bot.device.empower.grant', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def grant_device_empower_ex_async(
+        self,
+        request: bot_models.GrantDeviceEmpowerRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> bot_models.GrantDeviceEmpowerResponse:
+        """
+        Description: 自主联调平台数据授权接口
+        Summary: 自主联调平台数据授权接口
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            bot_models.GrantDeviceEmpowerResponse(),
+            await self.do_request_async('1.0', 'blockchain.bot.device.empower.grant', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def query_deivce_empower(
+        self,
+        request: bot_models.QueryDeivceEmpowerRequest,
+    ) -> bot_models.QueryDeivceEmpowerResponse:
+        """
+        Description: 查询授权列表
+        Summary: 查询授权列表
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.query_deivce_empower_ex(request, headers, runtime)
+
+    async def query_deivce_empower_async(
+        self,
+        request: bot_models.QueryDeivceEmpowerRequest,
+    ) -> bot_models.QueryDeivceEmpowerResponse:
+        """
+        Description: 查询授权列表
+        Summary: 查询授权列表
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.query_deivce_empower_ex_async(request, headers, runtime)
+
+    def query_deivce_empower_ex(
+        self,
+        request: bot_models.QueryDeivceEmpowerRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> bot_models.QueryDeivceEmpowerResponse:
+        """
+        Description: 查询授权列表
+        Summary: 查询授权列表
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            bot_models.QueryDeivceEmpowerResponse(),
+            self.do_request('1.0', 'blockchain.bot.deivce.empower.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def query_deivce_empower_ex_async(
+        self,
+        request: bot_models.QueryDeivceEmpowerRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> bot_models.QueryDeivceEmpowerResponse:
+        """
+        Description: 查询授权列表
+        Summary: 查询授权列表
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            bot_models.QueryDeivceEmpowerResponse(),
+            await self.do_request_async('1.0', 'blockchain.bot.deivce.empower.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def query_device_empower(
+        self,
+        request: bot_models.QueryDeviceEmpowerRequest,
+    ) -> bot_models.QueryDeviceEmpowerResponse:
+        """
+        Description: 查询授权记录
+        Summary: 查询授权记录
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.query_device_empower_ex(request, headers, runtime)
+
+    async def query_device_empower_async(
+        self,
+        request: bot_models.QueryDeviceEmpowerRequest,
+    ) -> bot_models.QueryDeviceEmpowerResponse:
+        """
+        Description: 查询授权记录
+        Summary: 查询授权记录
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.query_device_empower_ex_async(request, headers, runtime)
+
+    def query_device_empower_ex(
+        self,
+        request: bot_models.QueryDeviceEmpowerRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> bot_models.QueryDeviceEmpowerResponse:
+        """
+        Description: 查询授权记录
+        Summary: 查询授权记录
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            bot_models.QueryDeviceEmpowerResponse(),
+            self.do_request('1.0', 'blockchain.bot.device.empower.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def query_device_empower_ex_async(
+        self,
+        request: bot_models.QueryDeviceEmpowerRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> bot_models.QueryDeviceEmpowerResponse:
+        """
+        Description: 查询授权记录
+        Summary: 查询授权记录
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            bot_models.QueryDeviceEmpowerResponse(),
+            await self.do_request_async('1.0', 'blockchain.bot.device.empower.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
     def exec_thingsdid_oneapi(
