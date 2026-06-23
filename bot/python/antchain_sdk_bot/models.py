@@ -47318,19 +47318,31 @@ class ImportIotagentClientRequest(TeaModel):
         auth_token: str = None,
         product_instance_id: str = None,
         uid_list: List[str] = None,
-        product_key: str = None,
+        instance_id: str = None,
+        sku_name: str = None,
+        template_agent_id: str = None,
+        agent_topic: str = None,
     ):
         # OAuth模式下的授权token
         self.auth_token = auth_token
         self.product_instance_id = product_instance_id
         # 设备标识列表
         self.uid_list = uid_list
-        # 设备pk
-        self.product_key = product_key
+        # 实例Id
+        self.instance_id = instance_id
+        # SKU名称
+        self.sku_name = sku_name
+        # 模版智能体ID
+        self.template_agent_id = template_agent_id
+        # 智能体话题
+        self.agent_topic = agent_topic
 
     def validate(self):
         self.validate_required(self.uid_list, 'uid_list')
-        self.validate_required(self.product_key, 'product_key')
+        self.validate_required(self.instance_id, 'instance_id')
+        self.validate_required(self.sku_name, 'sku_name')
+        self.validate_required(self.template_agent_id, 'template_agent_id')
+        self.validate_required(self.agent_topic, 'agent_topic')
 
     def to_map(self):
         _map = super().to_map()
@@ -47344,8 +47356,14 @@ class ImportIotagentClientRequest(TeaModel):
             result['product_instance_id'] = self.product_instance_id
         if self.uid_list is not None:
             result['uid_list'] = self.uid_list
-        if self.product_key is not None:
-            result['product_key'] = self.product_key
+        if self.instance_id is not None:
+            result['instance_id'] = self.instance_id
+        if self.sku_name is not None:
+            result['sku_name'] = self.sku_name
+        if self.template_agent_id is not None:
+            result['template_agent_id'] = self.template_agent_id
+        if self.agent_topic is not None:
+            result['agent_topic'] = self.agent_topic
         return result
 
     def from_map(self, m: dict = None):
@@ -47356,8 +47374,14 @@ class ImportIotagentClientRequest(TeaModel):
             self.product_instance_id = m.get('product_instance_id')
         if m.get('uid_list') is not None:
             self.uid_list = m.get('uid_list')
-        if m.get('product_key') is not None:
-            self.product_key = m.get('product_key')
+        if m.get('instance_id') is not None:
+            self.instance_id = m.get('instance_id')
+        if m.get('sku_name') is not None:
+            self.sku_name = m.get('sku_name')
+        if m.get('template_agent_id') is not None:
+            self.template_agent_id = m.get('template_agent_id')
+        if m.get('agent_topic') is not None:
+            self.agent_topic = m.get('agent_topic')
         return self
 
 
@@ -47367,7 +47391,9 @@ class ImportIotagentClientResponse(TeaModel):
         req_msg_id: str = None,
         result_code: str = None,
         result_msg: str = None,
-        success: bool = None,
+        success_uid_list: List[str] = None,
+        existed_uid_list: List[str] = None,
+        invalid_uid_list: List[str] = None,
     ):
         # 请求唯一ID，用于链路跟踪和问题排查
         self.req_msg_id = req_msg_id
@@ -47375,8 +47401,12 @@ class ImportIotagentClientResponse(TeaModel):
         self.result_code = result_code
         # 异常信息的文本描述
         self.result_msg = result_msg
-        # 是否成功
-        self.success = success
+        # 成功加白的UID列表
+        self.success_uid_list = success_uid_list
+        # 已存在的UID列表
+        self.existed_uid_list = existed_uid_list
+        # 无效的UID列表
+        self.invalid_uid_list = invalid_uid_list
 
     def validate(self):
         pass
@@ -47393,8 +47423,12 @@ class ImportIotagentClientResponse(TeaModel):
             result['result_code'] = self.result_code
         if self.result_msg is not None:
             result['result_msg'] = self.result_msg
-        if self.success is not None:
-            result['success'] = self.success
+        if self.success_uid_list is not None:
+            result['success_uid_list'] = self.success_uid_list
+        if self.existed_uid_list is not None:
+            result['existed_uid_list'] = self.existed_uid_list
+        if self.invalid_uid_list is not None:
+            result['invalid_uid_list'] = self.invalid_uid_list
         return result
 
     def from_map(self, m: dict = None):
@@ -47405,8 +47439,12 @@ class ImportIotagentClientResponse(TeaModel):
             self.result_code = m.get('result_code')
         if m.get('result_msg') is not None:
             self.result_msg = m.get('result_msg')
-        if m.get('success') is not None:
-            self.success = m.get('success')
+        if m.get('success_uid_list') is not None:
+            self.success_uid_list = m.get('success_uid_list')
+        if m.get('existed_uid_list') is not None:
+            self.existed_uid_list = m.get('existed_uid_list')
+        if m.get('invalid_uid_list') is not None:
+            self.invalid_uid_list = m.get('invalid_uid_list')
         return self
 
 
