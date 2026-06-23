@@ -100,7 +100,7 @@ api doRequest(version: string, action: string, protocol: string, method: string,
     req_msg_id = AntchainUtil.getNonce(),
     access_key = @accessKeyId,
     base_sdk_version = 'TeaSDK-2.0',
-    sdk_version = '1.16.1',
+    sdk_version = '1.16.2',
     _prod_code = 'BOT',
     _prod_channel = 'undefined'
   };
@@ -16602,8 +16602,14 @@ model ImportIotagentClientRequest = {
   productInstanceId?: string(name='product_instance_id'),
   // 设备标识列表
   uidList: [ string ](name='uid_list'),
-  // 设备pk
-  productKey: string(name='product_key'),
+  // 实例Id
+  instanceId: string(name='instance_id'),
+  // SKU名称
+  skuName: string(name='sku_name'),
+  // 模版智能体ID
+  templateAgentId: string(name='template_agent_id'),
+  // 智能体话题
+  agentTopic: string(name='agent_topic'),
 }
 
 model ImportIotagentClientResponse = {
@@ -16613,8 +16619,12 @@ model ImportIotagentClientResponse = {
   resultCode?: string(name='result_code'),
   // 异常信息的文本描述
   resultMsg?: string(name='result_msg'),
-  // 是否成功
-  success?: boolean(name='success'),
+  // 成功加白的UID列表
+  successUidList?: [ string ](name='success_uid_list'),
+  // 已存在的UID列表
+  existedUidList?: [ string ](name='existed_uid_list'),
+  // 无效的UID列表
+  invalidUidList?: [ string ](name='invalid_uid_list'),
 }
 
 /**
