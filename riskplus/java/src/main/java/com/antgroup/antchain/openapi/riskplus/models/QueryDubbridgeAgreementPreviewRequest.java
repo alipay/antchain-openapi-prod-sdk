@@ -11,6 +11,7 @@ public class QueryDubbridgeAgreementPreviewRequest extends TeaModel {
     @NameInMap("product_instance_id")
     public String productInstanceId;
 
+    // 渠道：home
     // 授信：apply
     // 借款：loan
     // 绑卡：bind
@@ -20,12 +21,10 @@ public class QueryDubbridgeAgreementPreviewRequest extends TeaModel {
 
     // 资金方编号
     @NameInMap("fund_code")
-    @Validation(required = true)
     public String fundCode;
 
     // 客户号
     @NameInMap("customer_no")
-    @Validation(required = true)
     public String customerNo;
 
     // 借款金额
