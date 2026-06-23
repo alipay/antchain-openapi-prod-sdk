@@ -16,9 +16,17 @@ public class ImportIotagentClientResponse extends TeaModel {
     @NameInMap("result_msg")
     public String resultMsg;
 
-    // 是否成功
-    @NameInMap("success")
-    public Boolean success;
+    // 成功加白的UID列表
+    @NameInMap("success_uid_list")
+    public java.util.List<String> successUidList;
+
+    // 已存在的UID列表
+    @NameInMap("existed_uid_list")
+    public java.util.List<String> existedUidList;
+
+    // 无效的UID列表
+    @NameInMap("invalid_uid_list")
+    public java.util.List<String> invalidUidList;
 
     public static ImportIotagentClientResponse build(java.util.Map<String, ?> map) throws Exception {
         ImportIotagentClientResponse self = new ImportIotagentClientResponse();
@@ -49,12 +57,28 @@ public class ImportIotagentClientResponse extends TeaModel {
         return this.resultMsg;
     }
 
-    public ImportIotagentClientResponse setSuccess(Boolean success) {
-        this.success = success;
+    public ImportIotagentClientResponse setSuccessUidList(java.util.List<String> successUidList) {
+        this.successUidList = successUidList;
         return this;
     }
-    public Boolean getSuccess() {
-        return this.success;
+    public java.util.List<String> getSuccessUidList() {
+        return this.successUidList;
+    }
+
+    public ImportIotagentClientResponse setExistedUidList(java.util.List<String> existedUidList) {
+        this.existedUidList = existedUidList;
+        return this;
+    }
+    public java.util.List<String> getExistedUidList() {
+        return this.existedUidList;
+    }
+
+    public ImportIotagentClientResponse setInvalidUidList(java.util.List<String> invalidUidList) {
+        this.invalidUidList = invalidUidList;
+        return this;
+    }
+    public java.util.List<String> getInvalidUidList() {
+        return this.invalidUidList;
     }
 
 }

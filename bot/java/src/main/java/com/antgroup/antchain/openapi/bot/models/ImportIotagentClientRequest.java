@@ -16,10 +16,25 @@ public class ImportIotagentClientRequest extends TeaModel {
     @Validation(required = true)
     public java.util.List<String> uidList;
 
-    // 设备pk
-    @NameInMap("product_key")
+    // 实例Id
+    @NameInMap("instance_id")
     @Validation(required = true)
-    public String productKey;
+    public String instanceId;
+
+    // SKU名称
+    @NameInMap("sku_name")
+    @Validation(required = true)
+    public String skuName;
+
+    // 模版智能体ID
+    @NameInMap("template_agent_id")
+    @Validation(required = true)
+    public String templateAgentId;
+
+    // 智能体话题
+    @NameInMap("agent_topic")
+    @Validation(required = true)
+    public String agentTopic;
 
     public static ImportIotagentClientRequest build(java.util.Map<String, ?> map) throws Exception {
         ImportIotagentClientRequest self = new ImportIotagentClientRequest();
@@ -50,12 +65,36 @@ public class ImportIotagentClientRequest extends TeaModel {
         return this.uidList;
     }
 
-    public ImportIotagentClientRequest setProductKey(String productKey) {
-        this.productKey = productKey;
+    public ImportIotagentClientRequest setInstanceId(String instanceId) {
+        this.instanceId = instanceId;
         return this;
     }
-    public String getProductKey() {
-        return this.productKey;
+    public String getInstanceId() {
+        return this.instanceId;
+    }
+
+    public ImportIotagentClientRequest setSkuName(String skuName) {
+        this.skuName = skuName;
+        return this;
+    }
+    public String getSkuName() {
+        return this.skuName;
+    }
+
+    public ImportIotagentClientRequest setTemplateAgentId(String templateAgentId) {
+        this.templateAgentId = templateAgentId;
+        return this;
+    }
+    public String getTemplateAgentId() {
+        return this.templateAgentId;
+    }
+
+    public ImportIotagentClientRequest setAgentTopic(String agentTopic) {
+        this.agentTopic = agentTopic;
+        return this;
+    }
+    public String getAgentTopic() {
+        return this.agentTopic;
     }
 
 }
