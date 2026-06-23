@@ -100,7 +100,7 @@ api doRequest(version: string, action: string, protocol: string, method: string,
     req_msg_id = AntchainUtil.getNonce(),
     access_key = @accessKeyId,
     base_sdk_version = 'TeaSDK-2.0',
-    sdk_version = '1.15.0',
+    sdk_version = '1.16.1',
     _prod_code = 'BOT',
     _prod_channel = 'undefined'
   };
@@ -848,6 +848,14 @@ model PurchaseOrderInfoDetail {
   goodsIdAndCount: [ GoodsIdAndCount ](name='goods_id_and_count', example=''),
 }
 
+// 授权返回实体
+model GrantDeviceInfo {
+  // 授权ID
+  deviceId: string(name='device_id', example='00000001'),
+  // 授权ID
+  authRecordId: string(name='auth_record_id', example='m6XFxJeTpllXZQ3BEZCyhovWZjoiCqqW'),
+}
+
 // iotbasic发布批次信息
 model IotbasicReleaseOrderInfo {
   // 应用名称
@@ -1589,6 +1597,16 @@ model XrTicketPoolFailList {
 model BaiOcrResponse {
   // 返回的结果体
   data: string(name='data', example='{"backResult":{"issue":"XXXX","endDate":"20231010","startDate":"20131010"}}'),
+}
+
+// 获取设备授权返回信息
+model EmpowerDeviceInfo {
+  // 设备ID
+  deviceId: string(name='device_id', example='00000001'),
+  // ACCEPTED(接受)/REVOKED(撤销)
+  authStatus: string(name='auth_status', example='ACCEPTED'),
+  // 移除授权时间，毫秒级时间戳
+  removeTime?: long(name='remove_time', example='1781690409'),
 }
 
 // 溯源防伪码质检请求的请求数据
@@ -16582,16 +16600,10 @@ model ImportIotagentClientRequest = {
   // OAuth模式下的授权token
   authToken?: string(name='auth_token'),
   productInstanceId?: string(name='product_instance_id'),
-  // 实例ID，由蚂蚁提供
-  instanceId: string(name='instance_id'),
-  // SKU名称，由蚂蚁提供
-  skuName: string(name='sku_name'),
-  // 模版智能体ID，由蚂蚁提供
-  templateAgentId: string(name='template_agent_id'),
-  // 话题，由蚂蚁提供
-  agentTopic: string(name='agent_topic'),
   // 设备标识列表
   uidList: [ string ](name='uid_list'),
+  // 设备pk
+  productKey: string(name='product_key'),
 }
 
 model ImportIotagentClientResponse = {
@@ -16601,12 +16613,8 @@ model ImportIotagentClientResponse = {
   resultCode?: string(name='result_code'),
   // 异常信息的文本描述
   resultMsg?: string(name='result_msg'),
-  // 成功导入的设备标识列表
-  successUidList?: [ string ](name='success_uid_list'),
-  // 已经存在的设备标识列表（不会导入）
-  existedUidList?: [ string ](name='existed_uid_list'),
-  // 不合法的设备标识列表（不会导入）
-  invalidUidList?: [ string ](name='invalid_uid_list'),
+  // 是否成功
+  success?: boolean(name='success'),
 }
 
 /**
@@ -16768,6 +16776,144 @@ async function queryMcpEndpoint(request: QueryMcpEndpointRequest): QueryMcpEndpo
 async function queryMcpEndpointEx(request: QueryMcpEndpointRequest, headers: map[string]string, runtime: Util.RuntimeOptions): QueryMcpEndpointResponse {
   Util.validateModel(request);
   return doRequest('1.0' ,'blockchain.bot.mcp.endpoint.query', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model GrantDeviceEmpowerRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 设备ID 列表
+  deviceId: string(name='device_id'),
+  // 用户ID
+  userId?: string(name='user_id'),
+  // 授权操作: ACCEPTED(接受)/REVOKED(撤销)
+  authStatus: string(name='auth_status'),
+  // 授权时间戳（毫秒）
+  authTime: long(name='auth_time'),
+  // 场景码   与科技所属人-统一社会信用代码 （technology_owner_id ）不能同时为空
+  scene?: string(name='scene'),
+  // 科技所属人-统一社会信用代码  与场景码（scene ）不能同时为空
+  technologyOwnerId?: string(name='technology_owner_id'),
+  // 科技所属人-公司名称
+  technologyOwnerName?: string(name='technology_owner_name'),
+}
+
+model GrantDeviceEmpowerResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 授权ID
+  authRecordId?: string(name='auth_record_id'),
+}
+
+/**
+ * Description: 自主联调平台数据授权接口
+ * Summary: 自主联调平台数据授权接口
+ */
+async function grantDeviceEmpower(request: GrantDeviceEmpowerRequest): GrantDeviceEmpowerResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return grantDeviceEmpowerEx(request, headers, runtime);
+}
+
+/**
+ * Description: 自主联调平台数据授权接口
+ * Summary: 自主联调平台数据授权接口
+ */
+async function grantDeviceEmpowerEx(request: GrantDeviceEmpowerRequest, headers: map[string]string, runtime: Util.RuntimeOptions): GrantDeviceEmpowerResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'blockchain.bot.device.empower.grant', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model QueryDeivceEmpowerRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 场景码
+  scene?: string(name='scene'),
+  // 统一社会信用代码与场景码不能同时为空
+  operatorId?: string(name='operator_id'),
+  // 设备ID
+  deviceId?: string(name='device_id'),
+  // 查询授权日期 YYYY-MM-DD
+  queryDate: string(name='query_date'),
+}
+
+model QueryDeivceEmpowerResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 授权设备记录列表
+  devices?: [ EmpowerDeviceInfo ](name='devices'),
+}
+
+/**
+ * Description: 查询授权列表
+ * Summary: 查询授权列表
+ */
+async function queryDeivceEmpower(request: QueryDeivceEmpowerRequest): QueryDeivceEmpowerResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return queryDeivceEmpowerEx(request, headers, runtime);
+}
+
+/**
+ * Description: 查询授权列表
+ * Summary: 查询授权列表
+ */
+async function queryDeivceEmpowerEx(request: QueryDeivceEmpowerRequest, headers: map[string]string, runtime: Util.RuntimeOptions): QueryDeivceEmpowerResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'blockchain.bot.deivce.empower.query', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model QueryDeviceEmpowerRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 场景码 场景码与科技所属人-统一社会信用代码（technology_owner_id）不能同时为空
+  scene?: string(name='scene'),
+  // 科技所属人-统一社会信用代码  与场景码（scene）不能同时为空
+  technologyOwnerId?: string(name='technology_owner_id'),
+  // 设备ID
+  deviceId?: string(name='device_id'),
+  // 授权日期 yyyy-MM-dd 格式
+  queryDate: string(name='query_date'),
+}
+
+model QueryDeviceEmpowerResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 授权记录列表
+  devices?: [ EmpowerDeviceInfo ](name='devices'),
+}
+
+/**
+ * Description: 查询授权记录
+ * Summary: 查询授权记录
+ */
+async function queryDeviceEmpower(request: QueryDeviceEmpowerRequest): QueryDeviceEmpowerResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return queryDeviceEmpowerEx(request, headers, runtime);
+}
+
+/**
+ * Description: 查询授权记录
+ * Summary: 查询授权记录
+ */
+async function queryDeviceEmpowerEx(request: QueryDeviceEmpowerRequest, headers: map[string]string, runtime: Util.RuntimeOptions): QueryDeviceEmpowerResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'blockchain.bot.device.empower.query', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
 }
 
 model ExecThingsdidOneapiRequest = {
