@@ -16,11 +16,6 @@ public class CreateDemoBusinessOrderbRequest extends TeaModel {
     @Validation(required = true)
     public String orderNo;
 
-    // 订单id
-    @NameInMap("order_id")
-    @Validation(required = true)
-    public String orderId;
-
     public static CreateDemoBusinessOrderbRequest build(java.util.Map<String, ?> map) throws Exception {
         CreateDemoBusinessOrderbRequest self = new CreateDemoBusinessOrderbRequest();
         return TeaModel.build(map, self);
@@ -48,14 +43,6 @@ public class CreateDemoBusinessOrderbRequest extends TeaModel {
     }
     public String getOrderNo() {
         return this.orderNo;
-    }
-
-    public CreateDemoBusinessOrderbRequest setOrderId(String orderId) {
-        this.orderId = orderId;
-        return this;
-    }
-    public String getOrderId() {
-        return this.orderId;
     }
 
 }
