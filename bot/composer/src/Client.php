@@ -203,6 +203,8 @@ use AntChain\BOT\Models\GetPeripheralByperipheralidRequest;
 use AntChain\BOT\Models\GetPeripheralByperipheralidResponse;
 use AntChain\BOT\Models\GetXrUserticketRequest;
 use AntChain\BOT\Models\GetXrUserticketResponse;
+use AntChain\BOT\Models\GrantDeviceEmpowerRequest;
+use AntChain\BOT\Models\GrantDeviceEmpowerResponse;
 use AntChain\BOT\Models\ImportDeviceRequest;
 use AntChain\BOT\Models\ImportDeviceResponse;
 use AntChain\BOT\Models\ImportIotagentClientRequest;
@@ -371,8 +373,12 @@ use AntChain\BOT\Models\QueryCustomerentityServiceRequest;
 use AntChain\BOT\Models\QueryCustomerentityServiceResponse;
 use AntChain\BOT\Models\QueryDataBytxhashRequest;
 use AntChain\BOT\Models\QueryDataBytxhashResponse;
+use AntChain\BOT\Models\QueryDeivceEmpowerRequest;
+use AntChain\BOT\Models\QueryDeivceEmpowerResponse;
 use AntChain\BOT\Models\QueryDevicecorpCustomerregisterresultRequest;
 use AntChain\BOT\Models\QueryDevicecorpCustomerregisterresultResponse;
+use AntChain\BOT\Models\QueryDeviceEmpowerRequest;
+use AntChain\BOT\Models\QueryDeviceEmpowerResponse;
 use AntChain\BOT\Models\QueryDeviceModeldataRequest;
 use AntChain\BOT\Models\QueryDeviceModeldataResponse;
 use AntChain\BOT\Models\QueryDeviceRegisterresultRequest;
@@ -758,7 +764,7 @@ class Client
                     'req_msg_id'       => UtilClient::getNonce(),
                     'access_key'       => $this->_accessKeyId,
                     'base_sdk_version' => 'TeaSDK-2.0',
-                    'sdk_version'      => '1.15.0',
+                    'sdk_version'      => '1.16.1',
                     '_prod_code'       => 'BOT',
                     '_prod_channel'    => 'undefined',
                 ];
@@ -10181,6 +10187,105 @@ class Client
         Utils::validateModel($request);
 
         return QueryMcpEndpointResponse::fromMap($this->doRequest('1.0', 'blockchain.bot.mcp.endpoint.query', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 自主联调平台数据授权接口
+     * Summary: 自主联调平台数据授权接口.
+     *
+     * @param GrantDeviceEmpowerRequest $request
+     *
+     * @return GrantDeviceEmpowerResponse
+     */
+    public function grantDeviceEmpower($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->grantDeviceEmpowerEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 自主联调平台数据授权接口
+     * Summary: 自主联调平台数据授权接口.
+     *
+     * @param GrantDeviceEmpowerRequest $request
+     * @param string[]                  $headers
+     * @param RuntimeOptions            $runtime
+     *
+     * @return GrantDeviceEmpowerResponse
+     */
+    public function grantDeviceEmpowerEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return GrantDeviceEmpowerResponse::fromMap($this->doRequest('1.0', 'blockchain.bot.device.empower.grant', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 查询授权列表
+     * Summary: 查询授权列表.
+     *
+     * @param QueryDeivceEmpowerRequest $request
+     *
+     * @return QueryDeivceEmpowerResponse
+     */
+    public function queryDeivceEmpower($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->queryDeivceEmpowerEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 查询授权列表
+     * Summary: 查询授权列表.
+     *
+     * @param QueryDeivceEmpowerRequest $request
+     * @param string[]                  $headers
+     * @param RuntimeOptions            $runtime
+     *
+     * @return QueryDeivceEmpowerResponse
+     */
+    public function queryDeivceEmpowerEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return QueryDeivceEmpowerResponse::fromMap($this->doRequest('1.0', 'blockchain.bot.deivce.empower.query', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 查询授权记录
+     * Summary: 查询授权记录.
+     *
+     * @param QueryDeviceEmpowerRequest $request
+     *
+     * @return QueryDeviceEmpowerResponse
+     */
+    public function queryDeviceEmpower($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->queryDeviceEmpowerEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 查询授权记录
+     * Summary: 查询授权记录.
+     *
+     * @param QueryDeviceEmpowerRequest $request
+     * @param string[]                  $headers
+     * @param RuntimeOptions            $runtime
+     *
+     * @return QueryDeviceEmpowerResponse
+     */
+    public function queryDeviceEmpowerEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return QueryDeviceEmpowerResponse::fromMap($this->doRequest('1.0', 'blockchain.bot.device.empower.query', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
     }
 
     /**

@@ -6,7 +6,7 @@ namespace AntChain\BOT\Models;
 
 use AlibabaCloud\Tea\Model;
 
-class ImportIotagentClientResponse extends Model
+class QueryDeivceEmpowerResponse extends Model
 {
     // 请求唯一ID，用于链路跟踪和问题排查
     /**
@@ -26,16 +26,16 @@ class ImportIotagentClientResponse extends Model
      */
     public $resultMsg;
 
-    // 是否成功
+    // 授权设备记录列表
     /**
-     * @var bool
+     * @var EmpowerDeviceInfo[]
      */
-    public $success;
+    public $devices;
     protected $_name = [
         'reqMsgId'   => 'req_msg_id',
         'resultCode' => 'result_code',
         'resultMsg'  => 'result_msg',
-        'success'    => 'success',
+        'devices'    => 'devices',
     ];
 
     public function validate()
@@ -54,8 +54,14 @@ class ImportIotagentClientResponse extends Model
         if (null !== $this->resultMsg) {
             $res['result_msg'] = $this->resultMsg;
         }
-        if (null !== $this->success) {
-            $res['success'] = $this->success;
+        if (null !== $this->devices) {
+            $res['devices'] = [];
+            if (null !== $this->devices && \is_array($this->devices)) {
+                $n = 0;
+                foreach ($this->devices as $item) {
+                    $res['devices'][$n++] = null !== $item ? $item->toMap() : $item;
+                }
+            }
         }
 
         return $res;
@@ -64,7 +70,7 @@ class ImportIotagentClientResponse extends Model
     /**
      * @param array $map
      *
-     * @return ImportIotagentClientResponse
+     * @return QueryDeivceEmpowerResponse
      */
     public static function fromMap($map = [])
     {
@@ -78,8 +84,14 @@ class ImportIotagentClientResponse extends Model
         if (isset($map['result_msg'])) {
             $model->resultMsg = $map['result_msg'];
         }
-        if (isset($map['success'])) {
-            $model->success = $map['success'];
+        if (isset($map['devices'])) {
+            if (!empty($map['devices'])) {
+                $model->devices = [];
+                $n              = 0;
+                foreach ($map['devices'] as $item) {
+                    $model->devices[$n++] = null !== $item ? EmpowerDeviceInfo::fromMap($item) : $item;
+                }
+            }
         }
 
         return $model;

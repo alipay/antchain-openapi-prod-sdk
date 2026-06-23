@@ -6,7 +6,7 @@ namespace AntChain\BOT\Models;
 
 use AlibabaCloud\Tea\Model;
 
-class ImportIotagentClientResponse extends Model
+class GrantDeviceEmpowerResponse extends Model
 {
     // 请求唯一ID，用于链路跟踪和问题排查
     /**
@@ -26,16 +26,16 @@ class ImportIotagentClientResponse extends Model
      */
     public $resultMsg;
 
-    // 是否成功
+    // 授权ID
     /**
-     * @var bool
+     * @var string
      */
-    public $success;
+    public $authRecordId;
     protected $_name = [
-        'reqMsgId'   => 'req_msg_id',
-        'resultCode' => 'result_code',
-        'resultMsg'  => 'result_msg',
-        'success'    => 'success',
+        'reqMsgId'     => 'req_msg_id',
+        'resultCode'   => 'result_code',
+        'resultMsg'    => 'result_msg',
+        'authRecordId' => 'auth_record_id',
     ];
 
     public function validate()
@@ -54,8 +54,8 @@ class ImportIotagentClientResponse extends Model
         if (null !== $this->resultMsg) {
             $res['result_msg'] = $this->resultMsg;
         }
-        if (null !== $this->success) {
-            $res['success'] = $this->success;
+        if (null !== $this->authRecordId) {
+            $res['auth_record_id'] = $this->authRecordId;
         }
 
         return $res;
@@ -64,7 +64,7 @@ class ImportIotagentClientResponse extends Model
     /**
      * @param array $map
      *
-     * @return ImportIotagentClientResponse
+     * @return GrantDeviceEmpowerResponse
      */
     public static function fromMap($map = [])
     {
@@ -78,8 +78,8 @@ class ImportIotagentClientResponse extends Model
         if (isset($map['result_msg'])) {
             $model->resultMsg = $map['result_msg'];
         }
-        if (isset($map['success'])) {
-            $model->success = $map['success'];
+        if (isset($map['auth_record_id'])) {
+            $model->authRecordId = $map['auth_record_id'];
         }
 
         return $model;
