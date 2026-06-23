@@ -37860,8 +37860,14 @@ type ImportIotagentClientRequest struct {
 	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
 	// 设备标识列表
 	UidList []*string `json:"uid_list,omitempty" xml:"uid_list,omitempty" require:"true" type:"Repeated"`
-	// 设备pk
-	ProductKey *string `json:"product_key,omitempty" xml:"product_key,omitempty" require:"true"`
+	// 实例Id
+	InstanceId *string `json:"instance_id,omitempty" xml:"instance_id,omitempty" require:"true"`
+	// SKU名称
+	SkuName *string `json:"sku_name,omitempty" xml:"sku_name,omitempty" require:"true"`
+	// 模版智能体ID
+	TemplateAgentId *string `json:"template_agent_id,omitempty" xml:"template_agent_id,omitempty" require:"true"`
+	// 智能体话题
+	AgentTopic *string `json:"agent_topic,omitempty" xml:"agent_topic,omitempty" require:"true"`
 }
 
 func (s ImportIotagentClientRequest) String() string {
@@ -37887,8 +37893,23 @@ func (s *ImportIotagentClientRequest) SetUidList(v []*string) *ImportIotagentCli
 	return s
 }
 
-func (s *ImportIotagentClientRequest) SetProductKey(v string) *ImportIotagentClientRequest {
-	s.ProductKey = &v
+func (s *ImportIotagentClientRequest) SetInstanceId(v string) *ImportIotagentClientRequest {
+	s.InstanceId = &v
+	return s
+}
+
+func (s *ImportIotagentClientRequest) SetSkuName(v string) *ImportIotagentClientRequest {
+	s.SkuName = &v
+	return s
+}
+
+func (s *ImportIotagentClientRequest) SetTemplateAgentId(v string) *ImportIotagentClientRequest {
+	s.TemplateAgentId = &v
+	return s
+}
+
+func (s *ImportIotagentClientRequest) SetAgentTopic(v string) *ImportIotagentClientRequest {
+	s.AgentTopic = &v
 	return s
 }
 
@@ -37899,8 +37920,12 @@ type ImportIotagentClientResponse struct {
 	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
 	// 异常信息的文本描述
 	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
-	// 是否成功
-	Success *bool `json:"success,omitempty" xml:"success,omitempty"`
+	// 成功加白的UID列表
+	SuccessUidList []*string `json:"success_uid_list,omitempty" xml:"success_uid_list,omitempty" type:"Repeated"`
+	// 已存在的UID列表
+	ExistedUidList []*string `json:"existed_uid_list,omitempty" xml:"existed_uid_list,omitempty" type:"Repeated"`
+	// 无效的UID列表
+	InvalidUidList []*string `json:"invalid_uid_list,omitempty" xml:"invalid_uid_list,omitempty" type:"Repeated"`
 }
 
 func (s ImportIotagentClientResponse) String() string {
@@ -37926,8 +37951,18 @@ func (s *ImportIotagentClientResponse) SetResultMsg(v string) *ImportIotagentCli
 	return s
 }
 
-func (s *ImportIotagentClientResponse) SetSuccess(v bool) *ImportIotagentClientResponse {
-	s.Success = &v
+func (s *ImportIotagentClientResponse) SetSuccessUidList(v []*string) *ImportIotagentClientResponse {
+	s.SuccessUidList = v
+	return s
+}
+
+func (s *ImportIotagentClientResponse) SetExistedUidList(v []*string) *ImportIotagentClientResponse {
+	s.ExistedUidList = v
+	return s
+}
+
+func (s *ImportIotagentClientResponse) SetInvalidUidList(v []*string) *ImportIotagentClientResponse {
+	s.InvalidUidList = v
 	return s
 }
 
@@ -40303,7 +40338,7 @@ func (client *Client) DoRequest(version *string, action *string, protocol *strin
 				"req_msg_id":       antchainutil.GetNonce(),
 				"access_key":       client.AccessKeyId,
 				"base_sdk_version": tea.String("TeaSDK-2.0"),
-				"sdk_version":      tea.String("1.16.1"),
+				"sdk_version":      tea.String("1.16.2"),
 				"_prod_code":       tea.String("BOT"),
 				"_prod_channel":    tea.String("undefined"),
 			}
