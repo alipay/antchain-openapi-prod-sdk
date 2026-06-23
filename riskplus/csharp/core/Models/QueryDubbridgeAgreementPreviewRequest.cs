@@ -18,6 +18,7 @@ namespace AntChain.SDK.RISKPLUS.Models
         [Validation(Required=false)]
         public string ProductInstanceId { get; set; }
 
+        // 渠道：home
         // 授信：apply
         // 借款：loan
         // 绑卡：bind
@@ -27,12 +28,12 @@ namespace AntChain.SDK.RISKPLUS.Models
 
         // 资金方编号
         [NameInMap("fund_code")]
-        [Validation(Required=true)]
+        [Validation(Required=false)]
         public string FundCode { get; set; }
 
         // 客户号
         [NameInMap("customer_no")]
-        [Validation(Required=true)]
+        [Validation(Required=false)]
         public string CustomerNo { get; set; }
 
         // 借款金额
