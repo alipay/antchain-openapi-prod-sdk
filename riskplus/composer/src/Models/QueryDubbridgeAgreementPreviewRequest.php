@@ -19,6 +19,7 @@ class QueryDubbridgeAgreementPreviewRequest extends Model
      */
     public $productInstanceId;
 
+    // 渠道：home
     // 授信：apply
     // 借款：loan
     // 绑卡：bind
@@ -126,8 +127,6 @@ class QueryDubbridgeAgreementPreviewRequest extends Model
     public function validate()
     {
         Model::validateRequired('bizType', $this->bizType, true);
-        Model::validateRequired('fundCode', $this->fundCode, true);
-        Model::validateRequired('customerNo', $this->customerNo, true);
     }
 
     public function toMap()

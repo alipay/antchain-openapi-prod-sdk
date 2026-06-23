@@ -85,6 +85,8 @@ use AntChain\RISKPLUS\Models\BatchqueryUmktTenantActionplaninfoRequest;
 use AntChain\RISKPLUS\Models\BatchqueryUmktTenantActionplaninfoResponse;
 use AntChain\RISKPLUS\Models\BindDubbridgeCustomerBankcardRequest;
 use AntChain\RISKPLUS\Models\BindDubbridgeCustomerBankcardResponse;
+use AntChain\RISKPLUS\Models\CallbackCreditshieldPartnerRequest;
+use AntChain\RISKPLUS\Models\CallbackCreditshieldPartnerResponse;
 use AntChain\RISKPLUS\Models\CallbackMdipAuditRequest;
 use AntChain\RISKPLUS\Models\CallbackMdipAuditResponse;
 use AntChain\RISKPLUS\Models\CallbackMdipYunfengdieParamsRequest;
@@ -155,6 +157,8 @@ use AntChain\RISKPLUS\Models\DownloadUmktOfflineCampaignRequest;
 use AntChain\RISKPLUS\Models\DownloadUmktOfflineCampaignResponse;
 use AntChain\RISKPLUS\Models\DownloadUmktOfflinedecisionResultRequest;
 use AntChain\RISKPLUS\Models\DownloadUmktOfflinedecisionResultResponse;
+use AntChain\RISKPLUS\Models\ExecDubbridgePetitemRequest;
+use AntChain\RISKPLUS\Models\ExecDubbridgePetitemResponse;
 use AntChain\RISKPLUS\Models\ExecRbbCompanyGuardRequest;
 use AntChain\RISKPLUS\Models\ExecRbbCompanyGuardResponse;
 use AntChain\RISKPLUS\Models\ExecRtopGenericInvokeRequest;
@@ -207,8 +211,12 @@ use AntChain\RISKPLUS\Models\OperateRbbCreditRequest;
 use AntChain\RISKPLUS\Models\OperateRbbCreditResponse;
 use AntChain\RISKPLUS\Models\PullRegtechNewsRequest;
 use AntChain\RISKPLUS\Models\PullRegtechNewsResponse;
+use AntChain\RISKPLUS\Models\PushDubbridgeContractsignRequest;
+use AntChain\RISKPLUS\Models\PushDubbridgeContractsignResponse;
 use AntChain\RISKPLUS\Models\PushDubbridgeInstallmentSupplementRequest;
 use AntChain\RISKPLUS\Models\PushDubbridgeInstallmentSupplementResponse;
+use AntChain\RISKPLUS\Models\PushDubbridgePetitemRequest;
+use AntChain\RISKPLUS\Models\PushDubbridgePetitemResponse;
 use AntChain\RISKPLUS\Models\PushQmpBackflowEventRequest;
 use AntChain\RISKPLUS\Models\PushQmpBackflowEventResponse;
 use AntChain\RISKPLUS\Models\PushQmpBackflowJsondataRequest;
@@ -245,6 +253,8 @@ use AntChain\RISKPLUS\Models\QueryBenefithubReportEffectiveRequest;
 use AntChain\RISKPLUS\Models\QueryBenefithubReportEffectiveResponse;
 use AntChain\RISKPLUS\Models\QueryBenefithubReportInformationRequest;
 use AntChain\RISKPLUS\Models\QueryBenefithubReportInformationResponse;
+use AntChain\RISKPLUS\Models\QueryCreditshieldAlipayRequest;
+use AntChain\RISKPLUS\Models\QueryCreditshieldAlipayResponse;
 use AntChain\RISKPLUS\Models\QueryCreditshieldFixcontactRequest;
 use AntChain\RISKPLUS\Models\QueryCreditshieldFixcontactResponse;
 use AntChain\RISKPLUS\Models\QueryCreditshieldFixedcontactRequest;
@@ -309,6 +319,8 @@ use AntChain\RISKPLUS\Models\QueryDubbridgeLoanUpgradestatusRequest;
 use AntChain\RISKPLUS\Models\QueryDubbridgeLoanUpgradestatusResponse;
 use AntChain\RISKPLUS\Models\QueryDubbridgeMarketingCouponlistRequest;
 use AntChain\RISKPLUS\Models\QueryDubbridgeMarketingCouponlistResponse;
+use AntChain\RISKPLUS\Models\QueryDubbridgePetitemRequest;
+use AntChain\RISKPLUS\Models\QueryDubbridgePetitemResponse;
 use AntChain\RISKPLUS\Models\QueryDubbridgeReceiptOverdueRequest;
 use AntChain\RISKPLUS\Models\QueryDubbridgeReceiptOverdueResponse;
 use AntChain\RISKPLUS\Models\QueryDubbridgeReceiptStatusRequest;
@@ -505,6 +517,8 @@ use AntChain\RISKPLUS\Models\ReceiveRfcParamsFileRequest;
 use AntChain\RISKPLUS\Models\ReceiveRfcParamsFileResponse;
 use AntChain\RISKPLUS\Models\RefundDubbridgeAlipayTradeRequest;
 use AntChain\RISKPLUS\Models\RefundDubbridgeAlipayTradeResponse;
+use AntChain\RISKPLUS\Models\RefuseDubbridgePetitemRequest;
+use AntChain\RISKPLUS\Models\RefuseDubbridgePetitemResponse;
 use AntChain\RISKPLUS\Models\RegisterRpgwUserEinvoiceRequest;
 use AntChain\RISKPLUS\Models\RegisterRpgwUserEinvoiceResponse;
 use AntChain\RISKPLUS\Models\RepayDubbridgeRepayCheckstandRequest;
@@ -728,7 +742,7 @@ class Client
                     'req_msg_id'       => UtilClient::getNonce(),
                     'access_key'       => $this->_accessKeyId,
                     'base_sdk_version' => 'TeaSDK-2.0',
-                    'sdk_version'      => '1.31.11',
+                    'sdk_version'      => '1.31.15',
                     '_prod_code'       => 'RISKPLUS',
                     '_prod_channel'    => 'undefined',
                 ];
@@ -4789,6 +4803,171 @@ class Client
     }
 
     /**
+     * Description: 用户解约额度信息查询
+     * Summary: 用户解约额度信息查询.
+     *
+     * @param QueryDubbridgePetitemRequest $request
+     *
+     * @return QueryDubbridgePetitemResponse
+     */
+    public function queryDubbridgePetitem($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->queryDubbridgePetitemEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 用户解约额度信息查询
+     * Summary: 用户解约额度信息查询.
+     *
+     * @param QueryDubbridgePetitemRequest $request
+     * @param string[]                     $headers
+     * @param RuntimeOptions               $runtime
+     *
+     * @return QueryDubbridgePetitemResponse
+     */
+    public function queryDubbridgePetitemEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return QueryDubbridgePetitemResponse::fromMap($this->doRequest('1.0', 'riskplus.dubbridge.petitem.query', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 用户解约
+     * Summary: 用户解约.
+     *
+     * @param ExecDubbridgePetitemRequest $request
+     *
+     * @return ExecDubbridgePetitemResponse
+     */
+    public function execDubbridgePetitem($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->execDubbridgePetitemEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 用户解约
+     * Summary: 用户解约.
+     *
+     * @param ExecDubbridgePetitemRequest $request
+     * @param string[]                    $headers
+     * @param RuntimeOptions              $runtime
+     *
+     * @return ExecDubbridgePetitemResponse
+     */
+    public function execDubbridgePetitemEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return ExecDubbridgePetitemResponse::fromMap($this->doRequest('1.0', 'riskplus.dubbridge.petitem.exec', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 用户资金分账
+     * Summary: 用户资金分账.
+     *
+     * @param PushDubbridgePetitemRequest $request
+     *
+     * @return PushDubbridgePetitemResponse
+     */
+    public function pushDubbridgePetitem($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->pushDubbridgePetitemEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 用户资金分账
+     * Summary: 用户资金分账.
+     *
+     * @param PushDubbridgePetitemRequest $request
+     * @param string[]                    $headers
+     * @param RuntimeOptions              $runtime
+     *
+     * @return PushDubbridgePetitemResponse
+     */
+    public function pushDubbridgePetitemEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return PushDubbridgePetitemResponse::fromMap($this->doRequest('1.0', 'riskplus.dubbridge.petitem.push', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 用户逾期退款
+     * Summary: 用户逾期退款.
+     *
+     * @param RefuseDubbridgePetitemRequest $request
+     *
+     * @return RefuseDubbridgePetitemResponse
+     */
+    public function refuseDubbridgePetitem($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->refuseDubbridgePetitemEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 用户逾期退款
+     * Summary: 用户逾期退款.
+     *
+     * @param RefuseDubbridgePetitemRequest $request
+     * @param string[]                      $headers
+     * @param RuntimeOptions                $runtime
+     *
+     * @return RefuseDubbridgePetitemResponse
+     */
+    public function refuseDubbridgePetitemEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return RefuseDubbridgePetitemResponse::fromMap($this->doRequest('1.0', 'riskplus.dubbridge.petitem.refuse', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 电子合同签署结果同步推送
+     * Summary: 电子合同签署结果同步推送
+     *
+     * @param PushDubbridgeContractsignRequest $request
+     *
+     * @return PushDubbridgeContractsignResponse
+     */
+    public function pushDubbridgeContractsign($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->pushDubbridgeContractsignEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 电子合同签署结果同步推送
+     * Summary: 电子合同签署结果同步推送
+     *
+     * @param PushDubbridgeContractsignRequest $request
+     * @param string[]                         $headers
+     * @param RuntimeOptions                   $runtime
+     *
+     * @return PushDubbridgeContractsignResponse
+     */
+    public function pushDubbridgeContractsignEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return PushDubbridgeContractsignResponse::fromMap($this->doRequest('1.0', 'riskplus.dubbridge.contractsign.push', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
      * Description: 四要素认证首先调用此接口
      * Summary: 芝麻四要素接口.
      *
@@ -7366,6 +7545,72 @@ class Client
         Utils::validateModel($request);
 
         return QueryCreditshieldFixedcontactResponse::fromMap($this->doRequest('1.0', 'riskplus.creditshield.fixedcontact.query', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 贷后提供的，纾困助手支付宝流水查询接口
+     * Summary: 贷后提供的，纾困助手支付宝流水查询接口.
+     *
+     * @param QueryCreditshieldAlipayRequest $request
+     *
+     * @return QueryCreditshieldAlipayResponse
+     */
+    public function queryCreditshieldAlipay($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->queryCreditshieldAlipayEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 贷后提供的，纾困助手支付宝流水查询接口
+     * Summary: 贷后提供的，纾困助手支付宝流水查询接口.
+     *
+     * @param QueryCreditshieldAlipayRequest $request
+     * @param string[]                       $headers
+     * @param RuntimeOptions                 $runtime
+     *
+     * @return QueryCreditshieldAlipayResponse
+     */
+    public function queryCreditshieldAlipayEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return QueryCreditshieldAlipayResponse::fromMap($this->doRequest('1.0', 'riskplus.creditshield.alipay.query', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 合作方回调服务
+     * Summary: 合作方回调服务
+     *
+     * @param CallbackCreditshieldPartnerRequest $request
+     *
+     * @return CallbackCreditshieldPartnerResponse
+     */
+    public function callbackCreditshieldPartner($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->callbackCreditshieldPartnerEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 合作方回调服务
+     * Summary: 合作方回调服务
+     *
+     * @param CallbackCreditshieldPartnerRequest $request
+     * @param string[]                           $headers
+     * @param RuntimeOptions                     $runtime
+     *
+     * @return CallbackCreditshieldPartnerResponse
+     */
+    public function callbackCreditshieldPartnerEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return CallbackCreditshieldPartnerResponse::fromMap($this->doRequest('1.0', 'riskplus.creditshield.partner.callback', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
     }
 
     /**
