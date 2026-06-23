@@ -126,7 +126,7 @@ public class Client {
                     new TeaPair("req_msg_id", com.antgroup.antchain.openapi.antchain.util.AntchainUtils.getNonce()),
                     new TeaPair("access_key", _accessKeyId),
                     new TeaPair("base_sdk_version", "TeaSDK-2.0"),
-                    new TeaPair("sdk_version", "1.15.0"),
+                    new TeaPair("sdk_version", "1.16.1"),
                     new TeaPair("_prod_code", "BOT"),
                     new TeaPair("_prod_channel", "undefined")
                 );
@@ -6173,6 +6173,69 @@ public class Client {
     public QueryMcpEndpointResponse queryMcpEndpointEx(QueryMcpEndpointRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
         com.aliyun.teautil.Common.validateModel(request);
         return TeaModel.toModel(this.doRequest("1.0", "blockchain.bot.mcp.endpoint.query", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new QueryMcpEndpointResponse());
+    }
+
+    /**
+     * <b>description</b> :
+     * <p>Description: 自主联调平台数据授权接口
+     * Summary: 自主联调平台数据授权接口</p>
+     */
+    public GrantDeviceEmpowerResponse grantDeviceEmpower(GrantDeviceEmpowerRequest request) throws Exception {
+        com.aliyun.teautil.models.RuntimeOptions runtime = new com.aliyun.teautil.models.RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.grantDeviceEmpowerEx(request, headers, runtime);
+    }
+
+    /**
+     * <b>description</b> :
+     * <p>Description: 自主联调平台数据授权接口
+     * Summary: 自主联调平台数据授权接口</p>
+     */
+    public GrantDeviceEmpowerResponse grantDeviceEmpowerEx(GrantDeviceEmpowerRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "blockchain.bot.device.empower.grant", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new GrantDeviceEmpowerResponse());
+    }
+
+    /**
+     * <b>description</b> :
+     * <p>Description: 查询授权列表
+     * Summary: 查询授权列表</p>
+     */
+    public QueryDeivceEmpowerResponse queryDeivceEmpower(QueryDeivceEmpowerRequest request) throws Exception {
+        com.aliyun.teautil.models.RuntimeOptions runtime = new com.aliyun.teautil.models.RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.queryDeivceEmpowerEx(request, headers, runtime);
+    }
+
+    /**
+     * <b>description</b> :
+     * <p>Description: 查询授权列表
+     * Summary: 查询授权列表</p>
+     */
+    public QueryDeivceEmpowerResponse queryDeivceEmpowerEx(QueryDeivceEmpowerRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "blockchain.bot.deivce.empower.query", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new QueryDeivceEmpowerResponse());
+    }
+
+    /**
+     * <b>description</b> :
+     * <p>Description: 查询授权记录
+     * Summary: 查询授权记录</p>
+     */
+    public QueryDeviceEmpowerResponse queryDeviceEmpower(QueryDeviceEmpowerRequest request) throws Exception {
+        com.aliyun.teautil.models.RuntimeOptions runtime = new com.aliyun.teautil.models.RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.queryDeviceEmpowerEx(request, headers, runtime);
+    }
+
+    /**
+     * <b>description</b> :
+     * <p>Description: 查询授权记录
+     * Summary: 查询授权记录</p>
+     */
+    public QueryDeviceEmpowerResponse queryDeviceEmpowerEx(QueryDeviceEmpowerRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "blockchain.bot.device.empower.query", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new QueryDeviceEmpowerResponse());
     }
 
     /**

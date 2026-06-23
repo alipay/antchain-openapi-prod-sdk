@@ -3,7 +3,7 @@ package com.antgroup.antchain.openapi.bot.models;
 
 import com.aliyun.tea.*;
 
-public class ImportIotagentClientResponse extends TeaModel {
+public class GrantDeviceEmpowerResponse extends TeaModel {
     // 请求唯一ID，用于链路跟踪和问题排查
     @NameInMap("req_msg_id")
     public String reqMsgId;
@@ -16,16 +16,16 @@ public class ImportIotagentClientResponse extends TeaModel {
     @NameInMap("result_msg")
     public String resultMsg;
 
-    // 是否成功
-    @NameInMap("success")
-    public Boolean success;
+    // 授权ID
+    @NameInMap("auth_record_id")
+    public String authRecordId;
 
-    public static ImportIotagentClientResponse build(java.util.Map<String, ?> map) throws Exception {
-        ImportIotagentClientResponse self = new ImportIotagentClientResponse();
+    public static GrantDeviceEmpowerResponse build(java.util.Map<String, ?> map) throws Exception {
+        GrantDeviceEmpowerResponse self = new GrantDeviceEmpowerResponse();
         return TeaModel.build(map, self);
     }
 
-    public ImportIotagentClientResponse setReqMsgId(String reqMsgId) {
+    public GrantDeviceEmpowerResponse setReqMsgId(String reqMsgId) {
         this.reqMsgId = reqMsgId;
         return this;
     }
@@ -33,7 +33,7 @@ public class ImportIotagentClientResponse extends TeaModel {
         return this.reqMsgId;
     }
 
-    public ImportIotagentClientResponse setResultCode(String resultCode) {
+    public GrantDeviceEmpowerResponse setResultCode(String resultCode) {
         this.resultCode = resultCode;
         return this;
     }
@@ -41,7 +41,7 @@ public class ImportIotagentClientResponse extends TeaModel {
         return this.resultCode;
     }
 
-    public ImportIotagentClientResponse setResultMsg(String resultMsg) {
+    public GrantDeviceEmpowerResponse setResultMsg(String resultMsg) {
         this.resultMsg = resultMsg;
         return this;
     }
@@ -49,12 +49,12 @@ public class ImportIotagentClientResponse extends TeaModel {
         return this.resultMsg;
     }
 
-    public ImportIotagentClientResponse setSuccess(Boolean success) {
-        this.success = success;
+    public GrantDeviceEmpowerResponse setAuthRecordId(String authRecordId) {
+        this.authRecordId = authRecordId;
         return this;
     }
-    public Boolean getSuccess() {
-        return this.success;
+    public String getAuthRecordId() {
+        return this.authRecordId;
     }
 
 }
