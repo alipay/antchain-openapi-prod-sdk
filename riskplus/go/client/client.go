@@ -17077,6 +17077,10 @@ type QueryDubbridgeUsecreditStatusRequest struct {
 	OriginalOrderNo *string `json:"original_order_no,omitempty" xml:"original_order_no,omitempty"`
 	// 购物订单号，如二轮车/摩托车订单号
 	BizOrderNo *string `json:"biz_order_no,omitempty" xml:"biz_order_no,omitempty"`
+	// 渠道号
+	ChannelCode *string `json:"channel_code,omitempty" xml:"channel_code,omitempty"`
+	// 导流平台
+	TrafficPlatform *string `json:"traffic_platform,omitempty" xml:"traffic_platform,omitempty"`
 }
 
 func (s QueryDubbridgeUsecreditStatusRequest) String() string {
@@ -17114,6 +17118,16 @@ func (s *QueryDubbridgeUsecreditStatusRequest) SetOriginalOrderNo(v string) *Que
 
 func (s *QueryDubbridgeUsecreditStatusRequest) SetBizOrderNo(v string) *QueryDubbridgeUsecreditStatusRequest {
 	s.BizOrderNo = &v
+	return s
+}
+
+func (s *QueryDubbridgeUsecreditStatusRequest) SetChannelCode(v string) *QueryDubbridgeUsecreditStatusRequest {
+	s.ChannelCode = &v
+	return s
+}
+
+func (s *QueryDubbridgeUsecreditStatusRequest) SetTrafficPlatform(v string) *QueryDubbridgeUsecreditStatusRequest {
+	s.TrafficPlatform = &v
 	return s
 }
 
@@ -18881,6 +18895,8 @@ type QueryDubbridgeInstallmentCreditamtRequest struct {
 	ClickId *string `json:"click_id,omitempty" xml:"click_id,omitempty"`
 	// 取消授信额度
 	CancalCreditLine *string `json:"cancal_credit_line,omitempty" xml:"cancal_credit_line,omitempty"`
+	// 渠道号
+	ChannelCode *string `json:"channel_code,omitempty" xml:"channel_code,omitempty"`
 }
 
 func (s QueryDubbridgeInstallmentCreditamtRequest) String() string {
@@ -18978,6 +18994,11 @@ func (s *QueryDubbridgeInstallmentCreditamtRequest) SetClickId(v string) *QueryD
 
 func (s *QueryDubbridgeInstallmentCreditamtRequest) SetCancalCreditLine(v string) *QueryDubbridgeInstallmentCreditamtRequest {
 	s.CancalCreditLine = &v
+	return s
+}
+
+func (s *QueryDubbridgeInstallmentCreditamtRequest) SetChannelCode(v string) *QueryDubbridgeInstallmentCreditamtRequest {
+	s.ChannelCode = &v
 	return s
 }
 
@@ -19116,6 +19137,10 @@ type CancelDubbridgeInstallmentOrderRequest struct {
 	OpenId *string `json:"open_id,omitempty" xml:"open_id,omitempty"`
 	// 天枢客户号
 	CustomerNo *string `json:"customer_no,omitempty" xml:"customer_no,omitempty"`
+	// 渠道号
+	ChannelCode *string `json:"channel_code,omitempty" xml:"channel_code,omitempty"`
+	// 导流平台
+	TrafficPlatform *string `json:"traffic_platform,omitempty" xml:"traffic_platform,omitempty"`
 }
 
 func (s CancelDubbridgeInstallmentOrderRequest) String() string {
@@ -19158,6 +19183,16 @@ func (s *CancelDubbridgeInstallmentOrderRequest) SetOpenId(v string) *CancelDubb
 
 func (s *CancelDubbridgeInstallmentOrderRequest) SetCustomerNo(v string) *CancelDubbridgeInstallmentOrderRequest {
 	s.CustomerNo = &v
+	return s
+}
+
+func (s *CancelDubbridgeInstallmentOrderRequest) SetChannelCode(v string) *CancelDubbridgeInstallmentOrderRequest {
+	s.ChannelCode = &v
+	return s
+}
+
+func (s *CancelDubbridgeInstallmentOrderRequest) SetTrafficPlatform(v string) *CancelDubbridgeInstallmentOrderRequest {
+	s.TrafficPlatform = &v
 	return s
 }
 
@@ -19224,6 +19259,10 @@ type PushDubbridgeInstallmentSupplementRequest struct {
 	VehicleInfo *VehicleInfo `json:"vehicle_info,omitempty" xml:"vehicle_info,omitempty"`
 	// 补充信息
 	Additional *Additional `json:"additional,omitempty" xml:"additional,omitempty"`
+	// 渠道号
+	ChannelCode *string `json:"channel_code,omitempty" xml:"channel_code,omitempty"`
+	// 导流平台
+	TrafficPlatform *string `json:"traffic_platform,omitempty" xml:"traffic_platform,omitempty"`
 }
 
 func (s PushDubbridgeInstallmentSupplementRequest) String() string {
@@ -19286,6 +19325,16 @@ func (s *PushDubbridgeInstallmentSupplementRequest) SetVehicleInfo(v *VehicleInf
 
 func (s *PushDubbridgeInstallmentSupplementRequest) SetAdditional(v *Additional) *PushDubbridgeInstallmentSupplementRequest {
 	s.Additional = v
+	return s
+}
+
+func (s *PushDubbridgeInstallmentSupplementRequest) SetChannelCode(v string) *PushDubbridgeInstallmentSupplementRequest {
+	s.ChannelCode = &v
+	return s
+}
+
+func (s *PushDubbridgeInstallmentSupplementRequest) SetTrafficPlatform(v string) *PushDubbridgeInstallmentSupplementRequest {
+	s.TrafficPlatform = &v
 	return s
 }
 
@@ -41422,7 +41471,7 @@ func (client *Client) DoRequest(version *string, action *string, protocol *strin
 				"req_msg_id":       antchainutil.GetNonce(),
 				"access_key":       client.AccessKeyId,
 				"base_sdk_version": tea.String("TeaSDK-2.0"),
-				"sdk_version":      tea.String("1.31.15"),
+				"sdk_version":      tea.String("1.31.16"),
 				"_prod_code":       tea.String("RISKPLUS"),
 				"_prod_channel":    tea.String("undefined"),
 			}
@@ -43688,7 +43737,7 @@ func (client *Client) ApplyDubbridgeUsecreditEx(request *ApplyDubbridgeUsecredit
 
 /**
  * Description: 天枢系统用信申请状态查询，返回用信详情及还款计划
- * Summary: 天枢系统用信申请状态查询
+ * Summary: 天枢系统用信申请状态查询，返回用信详情及还款计划
  */
 func (client *Client) QueryDubbridgeUsecreditStatus(request *QueryDubbridgeUsecreditStatusRequest) (_result *QueryDubbridgeUsecreditStatusResponse, _err error) {
 	runtime := &util.RuntimeOptions{}
@@ -43704,7 +43753,7 @@ func (client *Client) QueryDubbridgeUsecreditStatus(request *QueryDubbridgeUsecr
 
 /**
  * Description: 天枢系统用信申请状态查询，返回用信详情及还款计划
- * Summary: 天枢系统用信申请状态查询
+ * Summary: 天枢系统用信申请状态查询，返回用信详情及还款计划
  */
 func (client *Client) QueryDubbridgeUsecreditStatusEx(request *QueryDubbridgeUsecreditStatusRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *QueryDubbridgeUsecreditStatusResponse, _err error) {
 	_err = util.ValidateModel(request)
