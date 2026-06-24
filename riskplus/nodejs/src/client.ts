@@ -16551,6 +16551,10 @@ export class QueryDubbridgeUsecreditStatusRequest extends $tea.Model {
   originalOrderNo?: string;
   // 购物订单号，如二轮车/摩托车订单号
   bizOrderNo?: string;
+  // 渠道号
+  channelCode?: string;
+  // 导流平台
+  trafficPlatform?: string;
   static names(): { [key: string]: string } {
     return {
       authToken: 'auth_token',
@@ -16559,6 +16563,8 @@ export class QueryDubbridgeUsecreditStatusRequest extends $tea.Model {
       prodType: 'prod_type',
       originalOrderNo: 'original_order_no',
       bizOrderNo: 'biz_order_no',
+      channelCode: 'channel_code',
+      trafficPlatform: 'traffic_platform',
     };
   }
 
@@ -16570,6 +16576,8 @@ export class QueryDubbridgeUsecreditStatusRequest extends $tea.Model {
       prodType: 'string',
       originalOrderNo: 'string',
       bizOrderNo: 'string',
+      channelCode: 'string',
+      trafficPlatform: 'string',
     };
   }
 
@@ -17922,6 +17930,8 @@ export class QueryDubbridgeInstallmentCreditamtRequest extends $tea.Model {
   clickId?: string;
   // 取消授信额度
   cancalCreditLine?: string;
+  // 渠道号
+  channelCode?: string;
   static names(): { [key: string]: string } {
     return {
       authToken: 'auth_token',
@@ -17942,6 +17952,7 @@ export class QueryDubbridgeInstallmentCreditamtRequest extends $tea.Model {
       trafficMktId: 'traffic_mkt_id',
       clickId: 'click_id',
       cancalCreditLine: 'cancal_credit_line',
+      channelCode: 'channel_code',
     };
   }
 
@@ -17965,6 +17976,7 @@ export class QueryDubbridgeInstallmentCreditamtRequest extends $tea.Model {
       trafficMktId: 'string',
       clickId: 'string',
       cancalCreditLine: 'string',
+      channelCode: 'string',
     };
   }
 
@@ -18071,6 +18083,10 @@ export class CancelDubbridgeInstallmentOrderRequest extends $tea.Model {
   openId?: string;
   // 天枢客户号
   customerNo?: string;
+  // 渠道号
+  channelCode?: string;
+  // 导流平台
+  trafficPlatform?: string;
   static names(): { [key: string]: string } {
     return {
       authToken: 'auth_token',
@@ -18080,6 +18096,8 @@ export class CancelDubbridgeInstallmentOrderRequest extends $tea.Model {
       bizOrderNo: 'biz_order_no',
       openId: 'open_id',
       customerNo: 'customer_no',
+      channelCode: 'channel_code',
+      trafficPlatform: 'traffic_platform',
     };
   }
 
@@ -18092,6 +18110,8 @@ export class CancelDubbridgeInstallmentOrderRequest extends $tea.Model {
       bizOrderNo: 'string',
       openId: 'string',
       customerNo: 'string',
+      channelCode: 'string',
+      trafficPlatform: 'string',
     };
   }
 
@@ -18156,6 +18176,10 @@ export class PushDubbridgeInstallmentSupplementRequest extends $tea.Model {
   vehicleInfo?: VehicleInfo;
   // 补充信息
   additional?: Additional;
+  // 渠道号
+  channelCode?: string;
+  // 导流平台
+  trafficPlatform?: string;
   static names(): { [key: string]: string } {
     return {
       authToken: 'auth_token',
@@ -18169,6 +18193,8 @@ export class PushDubbridgeInstallmentSupplementRequest extends $tea.Model {
       storeInfo: 'store_info',
       vehicleInfo: 'vehicle_info',
       additional: 'additional',
+      channelCode: 'channel_code',
+      trafficPlatform: 'traffic_platform',
     };
   }
 
@@ -18185,6 +18211,8 @@ export class PushDubbridgeInstallmentSupplementRequest extends $tea.Model {
       storeInfo: StoreInfo,
       vehicleInfo: VehicleInfo,
       additional: Additional,
+      channelCode: 'string',
+      trafficPlatform: 'string',
     };
   }
 
@@ -34957,7 +34985,7 @@ export default class Client {
           req_msg_id: AntchainUtil.getNonce(),
           access_key: this._accessKeyId,
           base_sdk_version: "TeaSDK-2.0",
-          sdk_version: "1.31.15",
+          sdk_version: "1.31.16",
           _prod_code: "RISKPLUS",
           _prod_channel: "undefined",
         };
@@ -36374,7 +36402,7 @@ export default class Client {
   /**
    * @remarks
    * Description: 天枢系统用信申请状态查询，返回用信详情及还款计划
-   * Summary: 天枢系统用信申请状态查询
+   * Summary: 天枢系统用信申请状态查询，返回用信详情及还款计划
    */
   async queryDubbridgeUsecreditStatus(request: QueryDubbridgeUsecreditStatusRequest): Promise<QueryDubbridgeUsecreditStatusResponse> {
     let runtime = new $Util.RuntimeOptions({ });
@@ -36385,7 +36413,7 @@ export default class Client {
   /**
    * @remarks
    * Description: 天枢系统用信申请状态查询，返回用信详情及还款计划
-   * Summary: 天枢系统用信申请状态查询
+   * Summary: 天枢系统用信申请状态查询，返回用信详情及还款计划
    */
   async queryDubbridgeUsecreditStatusEx(request: QueryDubbridgeUsecreditStatusRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<QueryDubbridgeUsecreditStatusResponse> {
     Util.validateModel(request);
