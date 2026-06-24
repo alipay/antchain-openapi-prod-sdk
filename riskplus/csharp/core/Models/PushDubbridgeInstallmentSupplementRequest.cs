@@ -64,6 +64,16 @@ namespace AntChain.SDK.RISKPLUS.Models
         [Validation(Required=false)]
         public Additional Additional { get; set; }
 
+        // 渠道号
+        [NameInMap("channel_code")]
+        [Validation(Required=false)]
+        public string ChannelCode { get; set; }
+
+        // 导流平台
+        [NameInMap("traffic_platform")]
+        [Validation(Required=false)]
+        public string TrafficPlatform { get; set; }
+
     }
 
 }

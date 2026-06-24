@@ -98,6 +98,11 @@ namespace AntChain.SDK.RISKPLUS.Models
         [Validation(Required=false)]
         public string CancalCreditLine { get; set; }
 
+        // 渠道号
+        [NameInMap("channel_code")]
+        [Validation(Required=false)]
+        public string ChannelCode { get; set; }
+
     }
 
 }

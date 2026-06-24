@@ -137,7 +137,7 @@ namespace AntChain.SDK.RISKPLUS
                         {"req_msg_id", AntChain.AlipayUtil.AntchainUtils.GetNonce()},
                         {"access_key", _accessKeyId},
                         {"base_sdk_version", "TeaSDK-2.0"},
-                        {"sdk_version", "1.31.15"},
+                        {"sdk_version", "1.31.16"},
                         {"_prod_code", "RISKPLUS"},
                         {"_prod_channel", "undefined"},
                     };
@@ -263,7 +263,7 @@ namespace AntChain.SDK.RISKPLUS
                         {"req_msg_id", AntChain.AlipayUtil.AntchainUtils.GetNonce()},
                         {"access_key", _accessKeyId},
                         {"base_sdk_version", "TeaSDK-2.0"},
-                        {"sdk_version", "1.31.15"},
+                        {"sdk_version", "1.31.16"},
                         {"_prod_code", "RISKPLUS"},
                         {"_prod_channel", "undefined"},
                     };
@@ -3059,7 +3059,7 @@ namespace AntChain.SDK.RISKPLUS
 
         /**
          * Description: 天枢系统用信申请状态查询，返回用信详情及还款计划
-         * Summary: 天枢系统用信申请状态查询
+         * Summary: 天枢系统用信申请状态查询，返回用信详情及还款计划
          */
         public QueryDubbridgeUsecreditStatusResponse QueryDubbridgeUsecreditStatus(QueryDubbridgeUsecreditStatusRequest request)
         {
@@ -3070,7 +3070,7 @@ namespace AntChain.SDK.RISKPLUS
 
         /**
          * Description: 天枢系统用信申请状态查询，返回用信详情及还款计划
-         * Summary: 天枢系统用信申请状态查询
+         * Summary: 天枢系统用信申请状态查询，返回用信详情及还款计划
          */
         public async Task<QueryDubbridgeUsecreditStatusResponse> QueryDubbridgeUsecreditStatusAsync(QueryDubbridgeUsecreditStatusRequest request)
         {
@@ -3081,7 +3081,7 @@ namespace AntChain.SDK.RISKPLUS
 
         /**
          * Description: 天枢系统用信申请状态查询，返回用信详情及还款计划
-         * Summary: 天枢系统用信申请状态查询
+         * Summary: 天枢系统用信申请状态查询，返回用信详情及还款计划
          */
         public QueryDubbridgeUsecreditStatusResponse QueryDubbridgeUsecreditStatusEx(QueryDubbridgeUsecreditStatusRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
         {
@@ -3091,7 +3091,7 @@ namespace AntChain.SDK.RISKPLUS
 
         /**
          * Description: 天枢系统用信申请状态查询，返回用信详情及还款计划
-         * Summary: 天枢系统用信申请状态查询
+         * Summary: 天枢系统用信申请状态查询，返回用信详情及还款计划
          */
         public async Task<QueryDubbridgeUsecreditStatusResponse> QueryDubbridgeUsecreditStatusExAsync(QueryDubbridgeUsecreditStatusRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
         {
