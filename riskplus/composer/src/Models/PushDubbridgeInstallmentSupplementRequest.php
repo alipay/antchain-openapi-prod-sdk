@@ -73,6 +73,18 @@ class PushDubbridgeInstallmentSupplementRequest extends Model
      * @var Additional
      */
     public $additional;
+
+    // 渠道号
+    /**
+     * @var string
+     */
+    public $channelCode;
+
+    // 导流平台
+    /**
+     * @var string
+     */
+    public $trafficPlatform;
     protected $_name = [
         'authToken'         => 'auth_token',
         'productInstanceId' => 'product_instance_id',
@@ -85,6 +97,8 @@ class PushDubbridgeInstallmentSupplementRequest extends Model
         'storeInfo'         => 'store_info',
         'vehicleInfo'       => 'vehicle_info',
         'additional'        => 'additional',
+        'channelCode'       => 'channel_code',
+        'trafficPlatform'   => 'traffic_platform',
     ];
 
     public function validate()
@@ -136,6 +150,12 @@ class PushDubbridgeInstallmentSupplementRequest extends Model
         if (null !== $this->additional) {
             $res['additional'] = null !== $this->additional ? $this->additional->toMap() : null;
         }
+        if (null !== $this->channelCode) {
+            $res['channel_code'] = $this->channelCode;
+        }
+        if (null !== $this->trafficPlatform) {
+            $res['traffic_platform'] = $this->trafficPlatform;
+        }
 
         return $res;
     }
@@ -186,6 +206,12 @@ class PushDubbridgeInstallmentSupplementRequest extends Model
         }
         if (isset($map['additional'])) {
             $model->additional = Additional::fromMap($map['additional']);
+        }
+        if (isset($map['channel_code'])) {
+            $model->channelCode = $map['channel_code'];
+        }
+        if (isset($map['traffic_platform'])) {
+            $model->trafficPlatform = $map['traffic_platform'];
         }
 
         return $model;

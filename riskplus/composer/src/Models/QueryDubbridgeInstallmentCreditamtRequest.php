@@ -114,6 +114,12 @@ class QueryDubbridgeInstallmentCreditamtRequest extends Model
      * @var string
      */
     public $cancalCreditLine;
+
+    // 渠道号
+    /**
+     * @var string
+     */
+    public $channelCode;
     protected $_name = [
         'authToken'         => 'auth_token',
         'productInstanceId' => 'product_instance_id',
@@ -133,6 +139,7 @@ class QueryDubbridgeInstallmentCreditamtRequest extends Model
         'trafficMktId'      => 'traffic_mkt_id',
         'clickId'           => 'click_id',
         'cancalCreditLine'  => 'cancal_credit_line',
+        'channelCode'       => 'channel_code',
     ];
 
     public function validate()
@@ -202,6 +209,9 @@ class QueryDubbridgeInstallmentCreditamtRequest extends Model
         if (null !== $this->cancalCreditLine) {
             $res['cancal_credit_line'] = $this->cancalCreditLine;
         }
+        if (null !== $this->channelCode) {
+            $res['channel_code'] = $this->channelCode;
+        }
 
         return $res;
     }
@@ -267,6 +277,9 @@ class QueryDubbridgeInstallmentCreditamtRequest extends Model
         }
         if (isset($map['cancal_credit_line'])) {
             $model->cancalCreditLine = $map['cancal_credit_line'];
+        }
+        if (isset($map['channel_code'])) {
+            $model->channelCode = $map['channel_code'];
         }
 
         return $model;

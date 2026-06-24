@@ -43,6 +43,18 @@ class QueryDubbridgeUsecreditStatusRequest extends Model
      * @var string
      */
     public $bizOrderNo;
+
+    // 渠道号
+    /**
+     * @var string
+     */
+    public $channelCode;
+
+    // 导流平台
+    /**
+     * @var string
+     */
+    public $trafficPlatform;
     protected $_name = [
         'authToken'         => 'auth_token',
         'productInstanceId' => 'product_instance_id',
@@ -50,6 +62,8 @@ class QueryDubbridgeUsecreditStatusRequest extends Model
         'prodType'          => 'prod_type',
         'originalOrderNo'   => 'original_order_no',
         'bizOrderNo'        => 'biz_order_no',
+        'channelCode'       => 'channel_code',
+        'trafficPlatform'   => 'traffic_platform',
     ];
 
     public function validate()
@@ -77,6 +91,12 @@ class QueryDubbridgeUsecreditStatusRequest extends Model
         }
         if (null !== $this->bizOrderNo) {
             $res['biz_order_no'] = $this->bizOrderNo;
+        }
+        if (null !== $this->channelCode) {
+            $res['channel_code'] = $this->channelCode;
+        }
+        if (null !== $this->trafficPlatform) {
+            $res['traffic_platform'] = $this->trafficPlatform;
         }
 
         return $res;
@@ -107,6 +127,12 @@ class QueryDubbridgeUsecreditStatusRequest extends Model
         }
         if (isset($map['biz_order_no'])) {
             $model->bizOrderNo = $map['biz_order_no'];
+        }
+        if (isset($map['channel_code'])) {
+            $model->channelCode = $map['channel_code'];
+        }
+        if (isset($map['traffic_platform'])) {
+            $model->trafficPlatform = $map['traffic_platform'];
         }
 
         return $model;

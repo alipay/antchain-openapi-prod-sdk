@@ -49,6 +49,18 @@ class CancelDubbridgeInstallmentOrderRequest extends Model
      * @var string
      */
     public $customerNo;
+
+    // 渠道号
+    /**
+     * @var string
+     */
+    public $channelCode;
+
+    // 导流平台
+    /**
+     * @var string
+     */
+    public $trafficPlatform;
     protected $_name = [
         'authToken'         => 'auth_token',
         'productInstanceId' => 'product_instance_id',
@@ -57,6 +69,8 @@ class CancelDubbridgeInstallmentOrderRequest extends Model
         'bizOrderNo'        => 'biz_order_no',
         'openId'            => 'open_id',
         'customerNo'        => 'customer_no',
+        'channelCode'       => 'channel_code',
+        'trafficPlatform'   => 'traffic_platform',
     ];
 
     public function validate()
@@ -88,6 +102,12 @@ class CancelDubbridgeInstallmentOrderRequest extends Model
         }
         if (null !== $this->customerNo) {
             $res['customer_no'] = $this->customerNo;
+        }
+        if (null !== $this->channelCode) {
+            $res['channel_code'] = $this->channelCode;
+        }
+        if (null !== $this->trafficPlatform) {
+            $res['traffic_platform'] = $this->trafficPlatform;
         }
 
         return $res;
@@ -121,6 +141,12 @@ class CancelDubbridgeInstallmentOrderRequest extends Model
         }
         if (isset($map['customer_no'])) {
             $model->customerNo = $map['customer_no'];
+        }
+        if (isset($map['channel_code'])) {
+            $model->channelCode = $map['channel_code'];
+        }
+        if (isset($map['traffic_platform'])) {
+            $model->trafficPlatform = $map['traffic_platform'];
         }
 
         return $model;
