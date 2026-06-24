@@ -135,7 +135,7 @@ class Client:
                     'req_msg_id': AntchainUtils.get_nonce(),
                     'access_key': self._access_key_id,
                     'base_sdk_version': 'TeaSDK-2.0',
-                    'sdk_version': '1.31.15',
+                    'sdk_version': '1.31.16',
                     '_prod_code': 'RISKPLUS',
                     '_prod_channel': 'undefined'
                 }
@@ -239,7 +239,7 @@ class Client:
                     'req_msg_id': AntchainUtils.get_nonce(),
                     'access_key': self._access_key_id,
                     'base_sdk_version': 'TeaSDK-2.0',
-                    'sdk_version': '1.31.15',
+                    'sdk_version': '1.31.16',
                     '_prod_code': 'RISKPLUS',
                     '_prod_channel': 'undefined'
                 }
@@ -3901,7 +3901,7 @@ class Client:
     ) -> riskplus_models.QueryDubbridgeUsecreditStatusResponse:
         """
         Description: 天枢系统用信申请状态查询，返回用信详情及还款计划
-        Summary: 天枢系统用信申请状态查询
+        Summary: 天枢系统用信申请状态查询，返回用信详情及还款计划
         """
         runtime = util_models.RuntimeOptions()
         headers = {}
@@ -3913,7 +3913,7 @@ class Client:
     ) -> riskplus_models.QueryDubbridgeUsecreditStatusResponse:
         """
         Description: 天枢系统用信申请状态查询，返回用信详情及还款计划
-        Summary: 天枢系统用信申请状态查询
+        Summary: 天枢系统用信申请状态查询，返回用信详情及还款计划
         """
         runtime = util_models.RuntimeOptions()
         headers = {}
@@ -3927,7 +3927,7 @@ class Client:
     ) -> riskplus_models.QueryDubbridgeUsecreditStatusResponse:
         """
         Description: 天枢系统用信申请状态查询，返回用信详情及还款计划
-        Summary: 天枢系统用信申请状态查询
+        Summary: 天枢系统用信申请状态查询，返回用信详情及还款计划
         """
         UtilClient.validate_model(request)
         return TeaCore.from_map(
@@ -3943,7 +3943,7 @@ class Client:
     ) -> riskplus_models.QueryDubbridgeUsecreditStatusResponse:
         """
         Description: 天枢系统用信申请状态查询，返回用信详情及还款计划
-        Summary: 天枢系统用信申请状态查询
+        Summary: 天枢系统用信申请状态查询，返回用信详情及还款计划
         """
         UtilClient.validate_model(request)
         return TeaCore.from_map(

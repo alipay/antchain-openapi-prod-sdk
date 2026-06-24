@@ -21074,6 +21074,8 @@ class QueryDubbridgeUsecreditStatusRequest(TeaModel):
         prod_type: str = None,
         original_order_no: str = None,
         biz_order_no: str = None,
+        channel_code: str = None,
+        traffic_platform: str = None,
     ):
         # OAuth模式下的授权token
         self.auth_token = auth_token
@@ -21087,6 +21089,10 @@ class QueryDubbridgeUsecreditStatusRequest(TeaModel):
         self.original_order_no = original_order_no
         # 购物订单号，如二轮车/摩托车订单号
         self.biz_order_no = biz_order_no
+        # 渠道号
+        self.channel_code = channel_code
+        # 导流平台
+        self.traffic_platform = traffic_platform
 
     def validate(self):
         self.validate_required(self.order_no, 'order_no')
@@ -21109,6 +21115,10 @@ class QueryDubbridgeUsecreditStatusRequest(TeaModel):
             result['original_order_no'] = self.original_order_no
         if self.biz_order_no is not None:
             result['biz_order_no'] = self.biz_order_no
+        if self.channel_code is not None:
+            result['channel_code'] = self.channel_code
+        if self.traffic_platform is not None:
+            result['traffic_platform'] = self.traffic_platform
         return result
 
     def from_map(self, m: dict = None):
@@ -21125,6 +21135,10 @@ class QueryDubbridgeUsecreditStatusRequest(TeaModel):
             self.original_order_no = m.get('original_order_no')
         if m.get('biz_order_no') is not None:
             self.biz_order_no = m.get('biz_order_no')
+        if m.get('channel_code') is not None:
+            self.channel_code = m.get('channel_code')
+        if m.get('traffic_platform') is not None:
+            self.traffic_platform = m.get('traffic_platform')
         return self
 
 
@@ -23304,6 +23318,7 @@ class QueryDubbridgeInstallmentCreditamtRequest(TeaModel):
         traffic_mkt_id: str = None,
         click_id: str = None,
         cancal_credit_line: str = None,
+        channel_code: str = None,
     ):
         # OAuth模式下的授权token
         self.auth_token = auth_token
@@ -23340,6 +23355,8 @@ class QueryDubbridgeInstallmentCreditamtRequest(TeaModel):
         self.click_id = click_id
         # 取消授信额度
         self.cancal_credit_line = cancal_credit_line
+        # 渠道号
+        self.channel_code = channel_code
 
     def validate(self):
         self.validate_required(self.order_no, 'order_no')
@@ -23391,6 +23408,8 @@ class QueryDubbridgeInstallmentCreditamtRequest(TeaModel):
             result['click_id'] = self.click_id
         if self.cancal_credit_line is not None:
             result['cancal_credit_line'] = self.cancal_credit_line
+        if self.channel_code is not None:
+            result['channel_code'] = self.channel_code
         return result
 
     def from_map(self, m: dict = None):
@@ -23431,6 +23450,8 @@ class QueryDubbridgeInstallmentCreditamtRequest(TeaModel):
             self.click_id = m.get('click_id')
         if m.get('cancal_credit_line') is not None:
             self.cancal_credit_line = m.get('cancal_credit_line')
+        if m.get('channel_code') is not None:
+            self.channel_code = m.get('channel_code')
         return self
 
 
@@ -23574,6 +23595,8 @@ class CancelDubbridgeInstallmentOrderRequest(TeaModel):
         biz_order_no: str = None,
         open_id: str = None,
         customer_no: str = None,
+        channel_code: str = None,
+        traffic_platform: str = None,
     ):
         # OAuth模式下的授权token
         self.auth_token = auth_token
@@ -23589,6 +23612,10 @@ class CancelDubbridgeInstallmentOrderRequest(TeaModel):
         self.open_id = open_id
         # 天枢客户号
         self.customer_no = customer_no
+        # 渠道号
+        self.channel_code = channel_code
+        # 导流平台
+        self.traffic_platform = traffic_platform
 
     def validate(self):
         self.validate_required(self.order_no, 'order_no')
@@ -23614,6 +23641,10 @@ class CancelDubbridgeInstallmentOrderRequest(TeaModel):
             result['open_id'] = self.open_id
         if self.customer_no is not None:
             result['customer_no'] = self.customer_no
+        if self.channel_code is not None:
+            result['channel_code'] = self.channel_code
+        if self.traffic_platform is not None:
+            result['traffic_platform'] = self.traffic_platform
         return result
 
     def from_map(self, m: dict = None):
@@ -23632,6 +23663,10 @@ class CancelDubbridgeInstallmentOrderRequest(TeaModel):
             self.open_id = m.get('open_id')
         if m.get('customer_no') is not None:
             self.customer_no = m.get('customer_no')
+        if m.get('channel_code') is not None:
+            self.channel_code = m.get('channel_code')
+        if m.get('traffic_platform') is not None:
+            self.traffic_platform = m.get('traffic_platform')
         return self
 
 
@@ -23699,6 +23734,8 @@ class PushDubbridgeInstallmentSupplementRequest(TeaModel):
         store_info: StoreInfo = None,
         vehicle_info: VehicleInfo = None,
         additional: Additional = None,
+        channel_code: str = None,
+        traffic_platform: str = None,
     ):
         # OAuth模式下的授权token
         self.auth_token = auth_token
@@ -23722,6 +23759,10 @@ class PushDubbridgeInstallmentSupplementRequest(TeaModel):
         self.vehicle_info = vehicle_info
         # 补充信息
         self.additional = additional
+        # 渠道号
+        self.channel_code = channel_code
+        # 导流平台
+        self.traffic_platform = traffic_platform
 
     def validate(self):
         self.validate_required(self.order_no, 'order_no')
@@ -23768,6 +23809,10 @@ class PushDubbridgeInstallmentSupplementRequest(TeaModel):
             result['vehicle_info'] = self.vehicle_info.to_map()
         if self.additional is not None:
             result['additional'] = self.additional.to_map()
+        if self.channel_code is not None:
+            result['channel_code'] = self.channel_code
+        if self.traffic_platform is not None:
+            result['traffic_platform'] = self.traffic_platform
         return result
 
     def from_map(self, m: dict = None):
@@ -23800,6 +23845,10 @@ class PushDubbridgeInstallmentSupplementRequest(TeaModel):
         if m.get('additional') is not None:
             temp_model = Additional()
             self.additional = temp_model.from_map(m['additional'])
+        if m.get('channel_code') is not None:
+            self.channel_code = m.get('channel_code')
+        if m.get('traffic_platform') is not None:
+            self.traffic_platform = m.get('traffic_platform')
         return self
 
 
