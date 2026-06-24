@@ -34,6 +34,14 @@ public class CancelDubbridgeInstallmentOrderRequest extends TeaModel {
     @NameInMap("customer_no")
     public String customerNo;
 
+    // 渠道号
+    @NameInMap("channel_code")
+    public String channelCode;
+
+    // 导流平台
+    @NameInMap("traffic_platform")
+    public String trafficPlatform;
+
     public static CancelDubbridgeInstallmentOrderRequest build(java.util.Map<String, ?> map) throws Exception {
         CancelDubbridgeInstallmentOrderRequest self = new CancelDubbridgeInstallmentOrderRequest();
         return TeaModel.build(map, self);
@@ -93,6 +101,22 @@ public class CancelDubbridgeInstallmentOrderRequest extends TeaModel {
     }
     public String getCustomerNo() {
         return this.customerNo;
+    }
+
+    public CancelDubbridgeInstallmentOrderRequest setChannelCode(String channelCode) {
+        this.channelCode = channelCode;
+        return this;
+    }
+    public String getChannelCode() {
+        return this.channelCode;
+    }
+
+    public CancelDubbridgeInstallmentOrderRequest setTrafficPlatform(String trafficPlatform) {
+        this.trafficPlatform = trafficPlatform;
+        return this;
+    }
+    public String getTrafficPlatform() {
+        return this.trafficPlatform;
     }
 
 }

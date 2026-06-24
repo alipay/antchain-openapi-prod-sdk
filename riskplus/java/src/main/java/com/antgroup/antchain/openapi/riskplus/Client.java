@@ -126,7 +126,7 @@ public class Client {
                     new TeaPair("req_msg_id", com.antgroup.antchain.openapi.antchain.util.AntchainUtils.getNonce()),
                     new TeaPair("access_key", _accessKeyId),
                     new TeaPair("base_sdk_version", "TeaSDK-2.0"),
-                    new TeaPair("sdk_version", "1.31.15"),
+                    new TeaPair("sdk_version", "1.31.16"),
                     new TeaPair("_prod_code", "RISKPLUS"),
                     new TeaPair("_prod_channel", "undefined")
                 );
@@ -1557,7 +1557,7 @@ public class Client {
     /**
      * <b>description</b> :
      * <p>Description: 天枢系统用信申请状态查询，返回用信详情及还款计划
-     * Summary: 天枢系统用信申请状态查询</p>
+     * Summary: 天枢系统用信申请状态查询，返回用信详情及还款计划</p>
      */
     public QueryDubbridgeUsecreditStatusResponse queryDubbridgeUsecreditStatus(QueryDubbridgeUsecreditStatusRequest request) throws Exception {
         com.aliyun.teautil.models.RuntimeOptions runtime = new com.aliyun.teautil.models.RuntimeOptions();
@@ -1568,7 +1568,7 @@ public class Client {
     /**
      * <b>description</b> :
      * <p>Description: 天枢系统用信申请状态查询，返回用信详情及还款计划
-     * Summary: 天枢系统用信申请状态查询</p>
+     * Summary: 天枢系统用信申请状态查询，返回用信详情及还款计划</p>
      */
     public QueryDubbridgeUsecreditStatusResponse queryDubbridgeUsecreditStatusEx(QueryDubbridgeUsecreditStatusRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
         com.aliyun.teautil.Common.validateModel(request);

@@ -51,6 +51,14 @@ public class PushDubbridgeInstallmentSupplementRequest extends TeaModel {
     @NameInMap("additional")
     public Additional additional;
 
+    // 渠道号
+    @NameInMap("channel_code")
+    public String channelCode;
+
+    // 导流平台
+    @NameInMap("traffic_platform")
+    public String trafficPlatform;
+
     public static PushDubbridgeInstallmentSupplementRequest build(java.util.Map<String, ?> map) throws Exception {
         PushDubbridgeInstallmentSupplementRequest self = new PushDubbridgeInstallmentSupplementRequest();
         return TeaModel.build(map, self);
@@ -142,6 +150,22 @@ public class PushDubbridgeInstallmentSupplementRequest extends TeaModel {
     }
     public Additional getAdditional() {
         return this.additional;
+    }
+
+    public PushDubbridgeInstallmentSupplementRequest setChannelCode(String channelCode) {
+        this.channelCode = channelCode;
+        return this;
+    }
+    public String getChannelCode() {
+        return this.channelCode;
+    }
+
+    public PushDubbridgeInstallmentSupplementRequest setTrafficPlatform(String trafficPlatform) {
+        this.trafficPlatform = trafficPlatform;
+        return this;
+    }
+    public String getTrafficPlatform() {
+        return this.trafficPlatform;
     }
 
 }

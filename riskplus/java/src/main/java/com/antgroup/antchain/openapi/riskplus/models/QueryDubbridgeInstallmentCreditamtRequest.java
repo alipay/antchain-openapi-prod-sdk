@@ -81,6 +81,10 @@ public class QueryDubbridgeInstallmentCreditamtRequest extends TeaModel {
     @NameInMap("cancal_credit_line")
     public String cancalCreditLine;
 
+    // 渠道号
+    @NameInMap("channel_code")
+    public String channelCode;
+
     public static QueryDubbridgeInstallmentCreditamtRequest build(java.util.Map<String, ?> map) throws Exception {
         QueryDubbridgeInstallmentCreditamtRequest self = new QueryDubbridgeInstallmentCreditamtRequest();
         return TeaModel.build(map, self);
@@ -228,6 +232,14 @@ public class QueryDubbridgeInstallmentCreditamtRequest extends TeaModel {
     }
     public String getCancalCreditLine() {
         return this.cancalCreditLine;
+    }
+
+    public QueryDubbridgeInstallmentCreditamtRequest setChannelCode(String channelCode) {
+        this.channelCode = channelCode;
+        return this;
+    }
+    public String getChannelCode() {
+        return this.channelCode;
     }
 
 }

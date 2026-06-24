@@ -29,6 +29,14 @@ public class QueryDubbridgeUsecreditStatusRequest extends TeaModel {
     @NameInMap("biz_order_no")
     public String bizOrderNo;
 
+    // 渠道号
+    @NameInMap("channel_code")
+    public String channelCode;
+
+    // 导流平台
+    @NameInMap("traffic_platform")
+    public String trafficPlatform;
+
     public static QueryDubbridgeUsecreditStatusRequest build(java.util.Map<String, ?> map) throws Exception {
         QueryDubbridgeUsecreditStatusRequest self = new QueryDubbridgeUsecreditStatusRequest();
         return TeaModel.build(map, self);
@@ -80,6 +88,22 @@ public class QueryDubbridgeUsecreditStatusRequest extends TeaModel {
     }
     public String getBizOrderNo() {
         return this.bizOrderNo;
+    }
+
+    public QueryDubbridgeUsecreditStatusRequest setChannelCode(String channelCode) {
+        this.channelCode = channelCode;
+        return this;
+    }
+    public String getChannelCode() {
+        return this.channelCode;
+    }
+
+    public QueryDubbridgeUsecreditStatusRequest setTrafficPlatform(String trafficPlatform) {
+        this.trafficPlatform = trafficPlatform;
+        return this;
+    }
+    public String getTrafficPlatform() {
+        return this.trafficPlatform;
     }
 
 }
