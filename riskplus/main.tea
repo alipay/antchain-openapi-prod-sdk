@@ -100,7 +100,7 @@ api doRequest(version: string, action: string, protocol: string, method: string,
     req_msg_id = AntchainUtil.getNonce(),
     access_key = @accessKeyId,
     base_sdk_version = 'TeaSDK-2.0',
-    sdk_version = '1.31.15',
+    sdk_version = '1.31.16',
     _prod_code = 'RISKPLUS',
     _prod_channel = 'undefined'
   };
@@ -6371,6 +6371,10 @@ model QueryDubbridgeUsecreditStatusRequest = {
   originalOrderNo?: string(name='original_order_no'),
   // 购物订单号，如二轮车/摩托车订单号
   bizOrderNo?: string(name='biz_order_no'),
+  // 渠道号
+  channelCode?: string(name='channel_code'),
+  // 导流平台
+  trafficPlatform?: string(name='traffic_platform'),
 }
 
 model QueryDubbridgeUsecreditStatusResponse = {
@@ -6396,7 +6400,7 @@ model QueryDubbridgeUsecreditStatusResponse = {
 
 /**
  * Description: 天枢系统用信申请状态查询，返回用信详情及还款计划
- * Summary: 天枢系统用信申请状态查询
+ * Summary: 天枢系统用信申请状态查询，返回用信详情及还款计划
  */
 async function queryDubbridgeUsecreditStatus(request: QueryDubbridgeUsecreditStatusRequest): QueryDubbridgeUsecreditStatusResponse {
   var runtime = new Util.RuntimeOptions{};
@@ -6406,7 +6410,7 @@ async function queryDubbridgeUsecreditStatus(request: QueryDubbridgeUsecreditSta
 
 /**
  * Description: 天枢系统用信申请状态查询，返回用信详情及还款计划
- * Summary: 天枢系统用信申请状态查询
+ * Summary: 天枢系统用信申请状态查询，返回用信详情及还款计划
  */
 async function queryDubbridgeUsecreditStatusEx(request: QueryDubbridgeUsecreditStatusRequest, headers: map[string]string, runtime: Util.RuntimeOptions): QueryDubbridgeUsecreditStatusResponse {
   Util.validateModel(request);
@@ -7221,6 +7225,8 @@ model QueryDubbridgeInstallmentCreditamtRequest = {
   clickId?: string(name='click_id'),
   // 取消授信额度
   cancalCreditLine?: string(name='cancal_credit_line'),
+  // 渠道号
+  channelCode?: string(name='channel_code'),
 }
 
 model QueryDubbridgeInstallmentCreditamtResponse = {
@@ -7299,6 +7305,10 @@ model CancelDubbridgeInstallmentOrderRequest = {
   openId?: string(name='open_id'),
   // 天枢客户号
   customerNo?: string(name='customer_no'),
+  // 渠道号
+  channelCode?: string(name='channel_code'),
+  // 导流平台
+  trafficPlatform?: string(name='traffic_platform'),
 }
 
 model CancelDubbridgeInstallmentOrderResponse = {
@@ -7355,6 +7365,10 @@ model PushDubbridgeInstallmentSupplementRequest = {
   vehicleInfo?: VehicleInfo(name='vehicle_info'),
   // 补充信息
   additional?: Additional(name='additional'),
+  // 渠道号
+  channelCode?: string(name='channel_code'),
+  // 导流平台
+  trafficPlatform?: string(name='traffic_platform'),
 }
 
 model PushDubbridgeInstallmentSupplementResponse = {
