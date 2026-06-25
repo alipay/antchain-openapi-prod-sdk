@@ -11,6 +11,8 @@ use AlibabaCloud\Tea\RpcUtils\RpcUtils;
 use AlibabaCloud\Tea\Tea;
 use AlibabaCloud\Tea\Utils\Utils;
 use AlibabaCloud\Tea\Utils\Utils\RuntimeOptions;
+use AntChain\CAASPLATFORM\Models\ApplyCertificationNotaryRequest;
+use AntChain\CAASPLATFORM\Models\ApplyCertificationNotaryResponse;
 use AntChain\CAASPLATFORM\Models\ApplyCertificationRequest;
 use AntChain\CAASPLATFORM\Models\ApplyCertificationResponse;
 use AntChain\CAASPLATFORM\Models\BatchqueryGeneralDivideRequest;
@@ -206,7 +208,7 @@ class Client
                 'period' => Utils::defaultNumber($runtime->backoffPeriod, 1),
             ],
             'ignoreSSL' => $runtime->ignoreSSL,
-            // 操作主体
+            // 环节明细信息
         ];
         $_lastRequest   = null;
         $_lastException = null;
@@ -234,7 +236,7 @@ class Client
                     'req_msg_id'       => UtilClient::getNonce(),
                     'access_key'       => $this->_accessKeyId,
                     'base_sdk_version' => 'TeaSDK-2.0',
-                    'sdk_version'      => '1.6.0',
+                    'sdk_version'      => '1.7.0',
                     '_prod_code'       => 'CAASPLATFORM',
                     '_prod_channel'    => 'undefined',
                 ];
@@ -412,6 +414,39 @@ class Client
         Utils::validateModel($request);
 
         return QueryCertificationInfoResponse::fromMap($this->doRequest('1.0', 'antchain.caasplatform.certification.info.query', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 公证处出证申请
+     * Summary: 公证处出证申请.
+     *
+     * @param ApplyCertificationNotaryRequest $request
+     *
+     * @return ApplyCertificationNotaryResponse
+     */
+    public function applyCertificationNotary($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->applyCertificationNotaryEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 公证处出证申请
+     * Summary: 公证处出证申请.
+     *
+     * @param ApplyCertificationNotaryRequest $request
+     * @param string[]                        $headers
+     * @param RuntimeOptions                  $runtime
+     *
+     * @return ApplyCertificationNotaryResponse
+     */
+    public function applyCertificationNotaryEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return ApplyCertificationNotaryResponse::fromMap($this->doRequest('1.0', 'antchain.caasplatform.certification.notary.apply', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
     }
 
     /**
