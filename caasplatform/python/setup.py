@@ -24,7 +24,7 @@ from setuptools import setup, find_packages
 """
 setup module for antchain_caasplatform.
 
-Created on 09/05/2026
+Created on 25/06/2026
 
 @author: Ant Chain SDK
 """

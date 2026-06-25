@@ -110,7 +110,7 @@ class Client:
                 'period': UtilClient.default_number(runtime.backoff_period, 1)
             },
             'ignoreSSL': runtime.ignore_ssl,
-            # 操作主体
+            # 环节明细信息
         }
         _last_request = None
         _last_exception = None
@@ -135,7 +135,7 @@ class Client:
                     'req_msg_id': AntchainUtils.get_nonce(),
                     'access_key': self._access_key_id,
                     'base_sdk_version': 'TeaSDK-2.0',
-                    'sdk_version': '1.6.0',
+                    'sdk_version': '1.7.0',
                     '_prod_code': 'CAASPLATFORM',
                     '_prod_channel': 'undefined'
                 }
@@ -214,7 +214,7 @@ class Client:
                 'period': UtilClient.default_number(runtime.backoff_period, 1)
             },
             'ignoreSSL': runtime.ignore_ssl,
-            # 操作主体
+            # 环节明细信息
         }
         _last_request = None
         _last_exception = None
@@ -239,7 +239,7 @@ class Client:
                     'req_msg_id': AntchainUtils.get_nonce(),
                     'access_key': self._access_key_id,
                     'base_sdk_version': 'TeaSDK-2.0',
-                    'sdk_version': '1.6.0',
+                    'sdk_version': '1.7.0',
                     '_prod_code': 'CAASPLATFORM',
                     '_prod_channel': 'undefined'
                 }
@@ -497,6 +497,62 @@ class Client:
         return TeaCore.from_map(
             caasplatform_models.QueryCertificationInfoResponse(),
             await self.do_request_async('1.0', 'antchain.caasplatform.certification.info.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def apply_certification_notary(
+        self,
+        request: caasplatform_models.ApplyCertificationNotaryRequest,
+    ) -> caasplatform_models.ApplyCertificationNotaryResponse:
+        """
+        Description: 公证处出证申请
+        Summary: 公证处出证申请
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.apply_certification_notary_ex(request, headers, runtime)
+
+    async def apply_certification_notary_async(
+        self,
+        request: caasplatform_models.ApplyCertificationNotaryRequest,
+    ) -> caasplatform_models.ApplyCertificationNotaryResponse:
+        """
+        Description: 公证处出证申请
+        Summary: 公证处出证申请
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.apply_certification_notary_ex_async(request, headers, runtime)
+
+    def apply_certification_notary_ex(
+        self,
+        request: caasplatform_models.ApplyCertificationNotaryRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> caasplatform_models.ApplyCertificationNotaryResponse:
+        """
+        Description: 公证处出证申请
+        Summary: 公证处出证申请
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            caasplatform_models.ApplyCertificationNotaryResponse(),
+            self.do_request('1.0', 'antchain.caasplatform.certification.notary.apply', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def apply_certification_notary_ex_async(
+        self,
+        request: caasplatform_models.ApplyCertificationNotaryRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> caasplatform_models.ApplyCertificationNotaryResponse:
+        """
+        Description: 公证处出证申请
+        Summary: 公证处出证申请
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            caasplatform_models.ApplyCertificationNotaryResponse(),
+            await self.do_request_async('1.0', 'antchain.caasplatform.certification.notary.apply', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
     def create_deposit(

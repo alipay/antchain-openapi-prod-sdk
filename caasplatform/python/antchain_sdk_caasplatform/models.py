@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 # This file is auto-generated, don't edit it. Thanks.
 from Tea.model import TeaModel
-from typing import BinaryIO, List
+from typing import List, BinaryIO
 
 
 class Config(TeaModel):
@@ -154,6 +154,42 @@ class Config(TeaModel):
         return self
 
 
+class StepDetailInfo(TeaModel):
+    def __init__(
+        self,
+        step_no: str = None,
+        meta_content: str = None,
+    ):
+        # 环节编号
+        self.step_no = step_no
+        # 存证时的原始信息明文
+        self.meta_content = meta_content
+
+    def validate(self):
+        self.validate_required(self.step_no, 'step_no')
+        self.validate_required(self.meta_content, 'meta_content')
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.step_no is not None:
+            result['step_no'] = self.step_no
+        if self.meta_content is not None:
+            result['meta_content'] = self.meta_content
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('step_no') is not None:
+            self.step_no = m.get('step_no')
+        if m.get('meta_content') is not None:
+            self.meta_content = m.get('meta_content')
+        return self
+
+
 class OperateSubject(TeaModel):
     def __init__(
         self,
@@ -239,6 +275,100 @@ class RuleItem(TeaModel):
             self.id = m.get('id')
         if m.get('proportion') is not None:
             self.proportion = m.get('proportion')
+        return self
+
+
+class ApplicantInfo(TeaModel):
+    def __init__(
+        self,
+        user_type: str = None,
+        cert_name: str = None,
+        cert_doc_type: str = None,
+        cert_no: str = None,
+        applicant_masking: bool = None,
+        mobile_no: str = None,
+        legal_person: str = None,
+        legal_person_id: str = None,
+        agent: str = None,
+        agent_id: str = None,
+    ):
+        # 用户类型：PERSON / ENTERPRISE
+        self.user_type = user_type
+        # 用户名称
+        self.cert_name = cert_name
+        # 证件类型：IDENTITY_CARD/SOCIAL_CREDIT_CODE/MTP_HM/FOREIGN_PASSPORT/MTP_TW/ENTERPRISE_REGISTERED_NO
+        self.cert_doc_type = cert_doc_type
+        # 证件号码
+        self.cert_no = cert_no
+        # 是否对证件号码脱敏，默认true
+        self.applicant_masking = applicant_masking
+        # 手机号码
+        self.mobile_no = mobile_no
+        # 法人姓名
+        self.legal_person = legal_person
+        # 法人身份证
+        self.legal_person_id = legal_person_id
+        # 经办人姓名
+        self.agent = agent
+        # 经办人身份证
+        self.agent_id = agent_id
+
+    def validate(self):
+        self.validate_required(self.user_type, 'user_type')
+        self.validate_required(self.cert_name, 'cert_name')
+        self.validate_required(self.cert_doc_type, 'cert_doc_type')
+        self.validate_required(self.cert_no, 'cert_no')
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.user_type is not None:
+            result['user_type'] = self.user_type
+        if self.cert_name is not None:
+            result['cert_name'] = self.cert_name
+        if self.cert_doc_type is not None:
+            result['cert_doc_type'] = self.cert_doc_type
+        if self.cert_no is not None:
+            result['cert_no'] = self.cert_no
+        if self.applicant_masking is not None:
+            result['applicant_masking'] = self.applicant_masking
+        if self.mobile_no is not None:
+            result['mobile_no'] = self.mobile_no
+        if self.legal_person is not None:
+            result['legal_person'] = self.legal_person
+        if self.legal_person_id is not None:
+            result['legal_person_id'] = self.legal_person_id
+        if self.agent is not None:
+            result['agent'] = self.agent
+        if self.agent_id is not None:
+            result['agent_id'] = self.agent_id
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('user_type') is not None:
+            self.user_type = m.get('user_type')
+        if m.get('cert_name') is not None:
+            self.cert_name = m.get('cert_name')
+        if m.get('cert_doc_type') is not None:
+            self.cert_doc_type = m.get('cert_doc_type')
+        if m.get('cert_no') is not None:
+            self.cert_no = m.get('cert_no')
+        if m.get('applicant_masking') is not None:
+            self.applicant_masking = m.get('applicant_masking')
+        if m.get('mobile_no') is not None:
+            self.mobile_no = m.get('mobile_no')
+        if m.get('legal_person') is not None:
+            self.legal_person = m.get('legal_person')
+        if m.get('legal_person_id') is not None:
+            self.legal_person_id = m.get('legal_person_id')
+        if m.get('agent') is not None:
+            self.agent = m.get('agent')
+        if m.get('agent_id') is not None:
+            self.agent_id = m.get('agent_id')
         return self
 
 
@@ -778,6 +908,131 @@ class QueryCertificationInfoResponse(TeaModel):
             self.file_url = m.get('file_url')
         if m.get('file_hash') is not None:
             self.file_hash = m.get('file_hash')
+        return self
+
+
+class ApplyCertificationNotaryRequest(TeaModel):
+    def __init__(
+        self,
+        auth_token: str = None,
+        product_instance_id: str = None,
+        biz_id: str = None,
+        applicant: ApplicantInfo = None,
+        step_detail_infos: List[StepDetailInfo] = None,
+    ):
+        # OAuth模式下的授权token
+        self.auth_token = auth_token
+        self.product_instance_id = product_instance_id
+        # 业务流水ID
+        self.biz_id = biz_id
+        # 申请主体信息（公证处Identity结构）
+        self.applicant = applicant
+        # 环节明细列表
+        self.step_detail_infos = step_detail_infos
+
+    def validate(self):
+        self.validate_required(self.biz_id, 'biz_id')
+        self.validate_required(self.applicant, 'applicant')
+        if self.applicant:
+            self.applicant.validate()
+        self.validate_required(self.step_detail_infos, 'step_detail_infos')
+        if self.step_detail_infos:
+            for k in self.step_detail_infos:
+                if k:
+                    k.validate()
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.auth_token is not None:
+            result['auth_token'] = self.auth_token
+        if self.product_instance_id is not None:
+            result['product_instance_id'] = self.product_instance_id
+        if self.biz_id is not None:
+            result['biz_id'] = self.biz_id
+        if self.applicant is not None:
+            result['applicant'] = self.applicant.to_map()
+        result['step_detail_infos'] = []
+        if self.step_detail_infos is not None:
+            for k in self.step_detail_infos:
+                result['step_detail_infos'].append(k.to_map() if k else None)
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('auth_token') is not None:
+            self.auth_token = m.get('auth_token')
+        if m.get('product_instance_id') is not None:
+            self.product_instance_id = m.get('product_instance_id')
+        if m.get('biz_id') is not None:
+            self.biz_id = m.get('biz_id')
+        if m.get('applicant') is not None:
+            temp_model = ApplicantInfo()
+            self.applicant = temp_model.from_map(m['applicant'])
+        self.step_detail_infos = []
+        if m.get('step_detail_infos') is not None:
+            for k in m.get('step_detail_infos'):
+                temp_model = StepDetailInfo()
+                self.step_detail_infos.append(temp_model.from_map(k))
+        return self
+
+
+class ApplyCertificationNotaryResponse(TeaModel):
+    def __init__(
+        self,
+        req_msg_id: str = None,
+        result_code: str = None,
+        result_msg: str = None,
+        task_id: str = None,
+        status: str = None,
+    ):
+        # 请求唯一ID，用于链路跟踪和问题排查
+        self.req_msg_id = req_msg_id
+        # 结果码，一般OK表示调用成功
+        self.result_code = result_code
+        # 异常信息的文本描述
+        self.result_msg = result_msg
+        # 任务ID
+        self.task_id = task_id
+        # 任务状态
+        self.status = status
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.req_msg_id is not None:
+            result['req_msg_id'] = self.req_msg_id
+        if self.result_code is not None:
+            result['result_code'] = self.result_code
+        if self.result_msg is not None:
+            result['result_msg'] = self.result_msg
+        if self.task_id is not None:
+            result['task_id'] = self.task_id
+        if self.status is not None:
+            result['status'] = self.status
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('req_msg_id') is not None:
+            self.req_msg_id = m.get('req_msg_id')
+        if m.get('result_code') is not None:
+            self.result_code = m.get('result_code')
+        if m.get('result_msg') is not None:
+            self.result_msg = m.get('result_msg')
+        if m.get('task_id') is not None:
+            self.task_id = m.get('task_id')
+        if m.get('status') is not None:
+            self.status = m.get('status')
         return self
 
 
