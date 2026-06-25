@@ -137,7 +137,7 @@ namespace AntChain.SDK.TWC
                         {"req_msg_id", AntChain.AlipayUtil.AntchainUtils.GetNonce()},
                         {"access_key", _accessKeyId},
                         {"base_sdk_version", "TeaSDK-2.0"},
-                        {"sdk_version", "1.13.29"},
+                        {"sdk_version", "1.13.30"},
                         {"_prod_code", "TWC"},
                         {"_prod_channel", "undefined"},
                     };
@@ -263,7 +263,7 @@ namespace AntChain.SDK.TWC
                         {"req_msg_id", AntChain.AlipayUtil.AntchainUtils.GetNonce()},
                         {"access_key", _accessKeyId},
                         {"base_sdk_version", "TeaSDK-2.0"},
-                        {"sdk_version", "1.13.29"},
+                        {"sdk_version", "1.13.30"},
                         {"_prod_code", "TWC"},
                         {"_prod_channel", "undefined"},
                     };
@@ -6585,6 +6585,90 @@ namespace AntChain.SDK.TWC
         {
             AlibabaCloud.TeaUtil.Common.ValidateModel(request);
             return TeaModel.ToObject<QueryContractSignauthResponse>(await DoRequestAsync("1.0", "twc.notary.contract.signauth.query", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 区块链合同手动提交签署区
+         * Summary: 区块链合同手动提交签署区
+         */
+        public CreateContractEhandsignfieldResponse CreateContractEhandsignfield(CreateContractEhandsignfieldRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return CreateContractEhandsignfieldEx(request, headers, runtime);
+        }
+
+        /**
+         * Description: 区块链合同手动提交签署区
+         * Summary: 区块链合同手动提交签署区
+         */
+        public async Task<CreateContractEhandsignfieldResponse> CreateContractEhandsignfieldAsync(CreateContractEhandsignfieldRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return await CreateContractEhandsignfieldExAsync(request, headers, runtime);
+        }
+
+        /**
+         * Description: 区块链合同手动提交签署区
+         * Summary: 区块链合同手动提交签署区
+         */
+        public CreateContractEhandsignfieldResponse CreateContractEhandsignfieldEx(CreateContractEhandsignfieldRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<CreateContractEhandsignfieldResponse>(DoRequest("1.0", "twc.notary.contract.ehandsignfield.create", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 区块链合同手动提交签署区
+         * Summary: 区块链合同手动提交签署区
+         */
+        public async Task<CreateContractEhandsignfieldResponse> CreateContractEhandsignfieldExAsync(CreateContractEhandsignfieldRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<CreateContractEhandsignfieldResponse>(await DoRequestAsync("1.0", "twc.notary.contract.ehandsignfield.create", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 区块链合同-获取签署链接
+         * Summary: 区块链合同-获取签署链接
+         */
+        public GetContractEsignurlResponse GetContractEsignurl(GetContractEsignurlRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return GetContractEsignurlEx(request, headers, runtime);
+        }
+
+        /**
+         * Description: 区块链合同-获取签署链接
+         * Summary: 区块链合同-获取签署链接
+         */
+        public async Task<GetContractEsignurlResponse> GetContractEsignurlAsync(GetContractEsignurlRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return await GetContractEsignurlExAsync(request, headers, runtime);
+        }
+
+        /**
+         * Description: 区块链合同-获取签署链接
+         * Summary: 区块链合同-获取签署链接
+         */
+        public GetContractEsignurlResponse GetContractEsignurlEx(GetContractEsignurlRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<GetContractEsignurlResponse>(DoRequest("1.0", "twc.notary.contract.esignurl.get", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 区块链合同-获取签署链接
+         * Summary: 区块链合同-获取签署链接
+         */
+        public async Task<GetContractEsignurlResponse> GetContractEsignurlExAsync(GetContractEsignurlRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<GetContractEsignurlResponse>(await DoRequestAsync("1.0", "twc.notary.contract.esignurl.get", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
         }
 
         /**
