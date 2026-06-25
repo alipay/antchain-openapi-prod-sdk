@@ -137,7 +137,7 @@ namespace AntChain.SDK.CAASPLATFORM
                         {"req_msg_id", AntChain.AlipayUtil.AntchainUtils.GetNonce()},
                         {"access_key", _accessKeyId},
                         {"base_sdk_version", "TeaSDK-2.0"},
-                        {"sdk_version", "1.6.0"},
+                        {"sdk_version", "1.7.0"},
                         {"_prod_code", "CAASPLATFORM"},
                         {"_prod_channel", "undefined"},
                     };
@@ -263,7 +263,7 @@ namespace AntChain.SDK.CAASPLATFORM
                         {"req_msg_id", AntChain.AlipayUtil.AntchainUtils.GetNonce()},
                         {"access_key", _accessKeyId},
                         {"base_sdk_version", "TeaSDK-2.0"},
-                        {"sdk_version", "1.6.0"},
+                        {"sdk_version", "1.7.0"},
                         {"_prod_code", "CAASPLATFORM"},
                         {"_prod_channel", "undefined"},
                     };
@@ -487,6 +487,48 @@ namespace AntChain.SDK.CAASPLATFORM
         {
             AlibabaCloud.TeaUtil.Common.ValidateModel(request);
             return TeaModel.ToObject<QueryCertificationInfoResponse>(await DoRequestAsync("1.0", "antchain.caasplatform.certification.info.query", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 公证处出证申请
+         * Summary: 公证处出证申请
+         */
+        public ApplyCertificationNotaryResponse ApplyCertificationNotary(ApplyCertificationNotaryRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return ApplyCertificationNotaryEx(request, headers, runtime);
+        }
+
+        /**
+         * Description: 公证处出证申请
+         * Summary: 公证处出证申请
+         */
+        public async Task<ApplyCertificationNotaryResponse> ApplyCertificationNotaryAsync(ApplyCertificationNotaryRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return await ApplyCertificationNotaryExAsync(request, headers, runtime);
+        }
+
+        /**
+         * Description: 公证处出证申请
+         * Summary: 公证处出证申请
+         */
+        public ApplyCertificationNotaryResponse ApplyCertificationNotaryEx(ApplyCertificationNotaryRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<ApplyCertificationNotaryResponse>(DoRequest("1.0", "antchain.caasplatform.certification.notary.apply", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 公证处出证申请
+         * Summary: 公证处出证申请
+         */
+        public async Task<ApplyCertificationNotaryResponse> ApplyCertificationNotaryExAsync(ApplyCertificationNotaryRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<ApplyCertificationNotaryResponse>(await DoRequestAsync("1.0", "antchain.caasplatform.certification.notary.apply", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
         }
 
         /**
