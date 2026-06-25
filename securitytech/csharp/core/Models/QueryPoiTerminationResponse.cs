@@ -25,9 +25,9 @@ namespace AntChain.SDK.SECURITYTECH.Models
         public string ResultMsg { get; set; }
 
         // 账户信息列表
-        [NameInMap("account_info_list")]
+        [NameInMap("account_info")]
         [Validation(Required=false)]
-        public List<PoiAccountInfo> AccountInfoList { get; set; }
+        public PoiAccountInfo AccountInfo { get; set; }
 
     }
 

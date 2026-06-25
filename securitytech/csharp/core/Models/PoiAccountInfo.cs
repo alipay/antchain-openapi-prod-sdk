@@ -15,10 +15,25 @@ namespace AntChain.SDK.SECURITYTECH.Models
         [Validation(Required=false)]
         public string AccountId { get; set; }
 
-        // 已消费金额
+        // 用户已支出金额
+        [NameInMap("expense_amount")]
+        [Validation(Required=false)]
+        public string ExpenseAmount { get; set; }
+
+        // 商城已消费金额
         [NameInMap("consume_amount")]
         [Validation(Required=false)]
         public string ConsumeAmount { get; set; }
+
+        // 商城已冻结金额
+        [NameInMap("frozen_amount")]
+        [Validation(Required=false)]
+        public string FrozenAmount { get; set; }
+
+        // 是否逾期
+        [NameInMap("overdue")]
+        [Validation(Required=false)]
+        public string Overdue { get; set; }
 
         // 已还金额
         [NameInMap("repay_amount")]
@@ -30,15 +45,10 @@ namespace AntChain.SDK.SECURITYTECH.Models
         [Validation(Required=false)]
         public string RemainingAmount { get; set; }
 
-        // 可退还用户金额
+        // 解约后退还用户金额
         [NameInMap("refund_amount_to_user")]
         [Validation(Required=false)]
         public string RefundAmountToUser { get; set; }
-
-        // 可退还资方金额
-        [NameInMap("refund_amount_to_investor")]
-        [Validation(Required=false)]
-        public string RefundAmountToInvestor { get; set; }
 
     }
 

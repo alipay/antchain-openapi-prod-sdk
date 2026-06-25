@@ -58,6 +58,11 @@ namespace AntChain.SDK.SECURITYTECH.Models
         [Validation(Required=true)]
         public string PhaseNo { get; set; }
 
+        // 渠道
+        [NameInMap("traffic_platform")]
+        [Validation(Required=true)]
+        public string TrafficPlatform { get; set; }
+
         // 渠道Code
         [NameInMap("channel_code")]
         [Validation(Required=true)]

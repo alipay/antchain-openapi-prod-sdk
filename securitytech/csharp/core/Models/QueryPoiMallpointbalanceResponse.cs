@@ -39,10 +39,15 @@ namespace AntChain.SDK.SECURITYTECH.Models
         [Validation(Required=false)]
         public string BizOrderNo { get; set; }
 
-        // 可用余额金额
+        // 商城可用余额金额
         [NameInMap("available_balance")]
         [Validation(Required=false)]
         public string AvailableBalance { get; set; }
+
+        // 商城已消费金额
+        [NameInMap("consumed_amount")]
+        [Validation(Required=false)]
+        public string ConsumedAmount { get; set; }
 
     }
 
