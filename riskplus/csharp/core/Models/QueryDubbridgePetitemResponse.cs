@@ -29,7 +29,7 @@ namespace AntChain.SDK.RISKPLUS.Models
         [Validation(Required=false)]
         public string OpenId { get; set; }
 
-        // 唯一标识的渠道号
+        // 子渠道号(唯一标识)
         [NameInMap("traffic_platform")]
         [Validation(Required=false)]
         public string TrafficPlatform { get; set; }
@@ -73,6 +73,11 @@ namespace AntChain.SDK.RISKPLUS.Models
         [NameInMap("refund_fund_amount")]
         [Validation(Required=false)]
         public string RefundFundAmount { get; set; }
+
+        // 渠道号
+        [NameInMap("channel_code")]
+        [Validation(Required=false)]
+        public string ChannelCode { get; set; }
 
     }
 

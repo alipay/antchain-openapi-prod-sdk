@@ -91,6 +91,16 @@ namespace AntChain.SDK.RISKPLUS.Models
         [Validation(Required=false)]
         public string LprEffectDate { get; set; }
 
+        // 流量平台，子渠道
+        [NameInMap("traffic_platform")]
+        [Validation(Required=false)]
+        public string TrafficPlatform { get; set; }
+
+        // 渠道方
+        [NameInMap("channel_code")]
+        [Validation(Required=false)]
+        public string ChannelCode { get; set; }
+
     }
 
 }
