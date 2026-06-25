@@ -667,16 +667,20 @@ func (s *PoiMallPointReceiverInfo) SetAddress(v string) *PoiMallPointReceiverInf
 type PoiAccountInfo struct {
 	// 账户ID
 	AccountId *string `json:"account_id,omitempty" xml:"account_id,omitempty"`
-	// 已消费金额
+	// 用户已支出金额
+	ExpenseAmount *string `json:"expense_amount,omitempty" xml:"expense_amount,omitempty"`
+	// 商城已消费金额
 	ConsumeAmount *string `json:"consume_amount,omitempty" xml:"consume_amount,omitempty"`
+	// 商城已冻结金额
+	FrozenAmount *string `json:"frozen_amount,omitempty" xml:"frozen_amount,omitempty"`
+	// 是否逾期
+	Overdue *string `json:"overdue,omitempty" xml:"overdue,omitempty"`
 	// 已还金额
 	RepayAmount *string `json:"repay_amount,omitempty" xml:"repay_amount,omitempty"`
 	// 解约后剩余应还金额
 	RemainingAmount *string `json:"remaining_amount,omitempty" xml:"remaining_amount,omitempty"`
-	// 可退还用户金额
+	// 解约后退还用户金额
 	RefundAmountToUser *string `json:"refund_amount_to_user,omitempty" xml:"refund_amount_to_user,omitempty"`
-	// 可退还资方金额
-	RefundAmountToInvestor *string `json:"refund_amount_to_investor,omitempty" xml:"refund_amount_to_investor,omitempty"`
 }
 
 func (s PoiAccountInfo) String() string {
@@ -692,8 +696,23 @@ func (s *PoiAccountInfo) SetAccountId(v string) *PoiAccountInfo {
 	return s
 }
 
+func (s *PoiAccountInfo) SetExpenseAmount(v string) *PoiAccountInfo {
+	s.ExpenseAmount = &v
+	return s
+}
+
 func (s *PoiAccountInfo) SetConsumeAmount(v string) *PoiAccountInfo {
 	s.ConsumeAmount = &v
+	return s
+}
+
+func (s *PoiAccountInfo) SetFrozenAmount(v string) *PoiAccountInfo {
+	s.FrozenAmount = &v
+	return s
+}
+
+func (s *PoiAccountInfo) SetOverdue(v string) *PoiAccountInfo {
+	s.Overdue = &v
 	return s
 }
 
@@ -709,11 +728,6 @@ func (s *PoiAccountInfo) SetRemainingAmount(v string) *PoiAccountInfo {
 
 func (s *PoiAccountInfo) SetRefundAmountToUser(v string) *PoiAccountInfo {
 	s.RefundAmountToUser = &v
-	return s
-}
-
-func (s *PoiAccountInfo) SetRefundAmountToInvestor(v string) *PoiAccountInfo {
-	s.RefundAmountToInvestor = &v
 	return s
 }
 
@@ -8634,6 +8648,8 @@ type RechargePoiMallpointRequest struct {
 	PhaseAmount *string `json:"phase_amount,omitempty" xml:"phase_amount,omitempty" require:"true"`
 	// 当前期数编号
 	PhaseNo *string `json:"phase_no,omitempty" xml:"phase_no,omitempty" require:"true"`
+	// 渠道
+	TrafficPlatform *string `json:"traffic_platform,omitempty" xml:"traffic_platform,omitempty" require:"true"`
 	// 渠道Code
 	ChannelCode *string `json:"channel_code,omitempty" xml:"channel_code,omitempty" require:"true"`
 }
@@ -8696,6 +8712,11 @@ func (s *RechargePoiMallpointRequest) SetPhaseNo(v string) *RechargePoiMallpoint
 	return s
 }
 
+func (s *RechargePoiMallpointRequest) SetTrafficPlatform(v string) *RechargePoiMallpointRequest {
+	s.TrafficPlatform = &v
+	return s
+}
+
 func (s *RechargePoiMallpointRequest) SetChannelCode(v string) *RechargePoiMallpointRequest {
 	s.ChannelCode = &v
 	return s
@@ -8745,6 +8766,8 @@ type OverduePoiTerminationRequest struct {
 	BizOrderNo *string `json:"biz_order_no,omitempty" xml:"biz_order_no,omitempty" require:"true"`
 	// 逾期事件类型
 	Event *string `json:"event,omitempty" xml:"event,omitempty" require:"true"`
+	// 渠道
+	TrafficPlatform *string `json:"traffic_platform,omitempty" xml:"traffic_platform,omitempty" require:"true"`
 	// 渠道Code
 	ChannelCode *string `json:"channel_code,omitempty" xml:"channel_code,omitempty" require:"true"`
 }
@@ -8784,6 +8807,11 @@ func (s *OverduePoiTerminationRequest) SetBizOrderNo(v string) *OverduePoiTermin
 
 func (s *OverduePoiTerminationRequest) SetEvent(v string) *OverduePoiTerminationRequest {
 	s.Event = &v
+	return s
+}
+
+func (s *OverduePoiTerminationRequest) SetTrafficPlatform(v string) *OverduePoiTerminationRequest {
+	s.TrafficPlatform = &v
 	return s
 }
 
@@ -8841,6 +8869,8 @@ type QueryPoiMallpointbalanceRequest struct {
 	StoreId *string `json:"store_id,omitempty" xml:"store_id,omitempty" require:"true"`
 	// 分期主订单号
 	BizOrderNo *string `json:"biz_order_no,omitempty" xml:"biz_order_no,omitempty" require:"true"`
+	// 渠道
+	TrafficPlatform *string `json:"traffic_platform,omitempty" xml:"traffic_platform,omitempty" require:"true"`
 	// 渠道Code
 	ChannelCode *string `json:"channel_code,omitempty" xml:"channel_code,omitempty" require:"true"`
 }
@@ -8878,6 +8908,11 @@ func (s *QueryPoiMallpointbalanceRequest) SetBizOrderNo(v string) *QueryPoiMallp
 	return s
 }
 
+func (s *QueryPoiMallpointbalanceRequest) SetTrafficPlatform(v string) *QueryPoiMallpointbalanceRequest {
+	s.TrafficPlatform = &v
+	return s
+}
+
 func (s *QueryPoiMallpointbalanceRequest) SetChannelCode(v string) *QueryPoiMallpointbalanceRequest {
 	s.ChannelCode = &v
 	return s
@@ -8896,8 +8931,10 @@ type QueryPoiMallpointbalanceResponse struct {
 	StoreId *string `json:"store_id,omitempty" xml:"store_id,omitempty"`
 	// 分期主订单号
 	BizOrderNo *string `json:"biz_order_no,omitempty" xml:"biz_order_no,omitempty"`
-	// 可用余额金额
+	// 商城可用余额金额
 	AvailableBalance *string `json:"available_balance,omitempty" xml:"available_balance,omitempty"`
+	// 商城已消费金额
+	ConsumedAmount *string `json:"consumed_amount,omitempty" xml:"consumed_amount,omitempty"`
 }
 
 func (s QueryPoiMallpointbalanceResponse) String() string {
@@ -8940,6 +8977,11 @@ func (s *QueryPoiMallpointbalanceResponse) SetBizOrderNo(v string) *QueryPoiMall
 
 func (s *QueryPoiMallpointbalanceResponse) SetAvailableBalance(v string) *QueryPoiMallpointbalanceResponse {
 	s.AvailableBalance = &v
+	return s
+}
+
+func (s *QueryPoiMallpointbalanceResponse) SetConsumedAmount(v string) *QueryPoiMallpointbalanceResponse {
+	s.ConsumedAmount = &v
 	return s
 }
 
@@ -8996,7 +9038,7 @@ type QueryPoiTerminationResponse struct {
 	// 异常信息的文本描述
 	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
 	// 账户信息列表
-	AccountInfoList []*PoiAccountInfo `json:"account_info_list,omitempty" xml:"account_info_list,omitempty" type:"Repeated"`
+	AccountInfo *PoiAccountInfo `json:"account_info,omitempty" xml:"account_info,omitempty"`
 }
 
 func (s QueryPoiTerminationResponse) String() string {
@@ -9022,8 +9064,8 @@ func (s *QueryPoiTerminationResponse) SetResultMsg(v string) *QueryPoiTerminatio
 	return s
 }
 
-func (s *QueryPoiTerminationResponse) SetAccountInfoList(v []*PoiAccountInfo) *QueryPoiTerminationResponse {
-	s.AccountInfoList = v
+func (s *QueryPoiTerminationResponse) SetAccountInfo(v *PoiAccountInfo) *QueryPoiTerminationResponse {
+	s.AccountInfo = v
 	return s
 }
 
@@ -13960,7 +14002,7 @@ func (client *Client) DoRequest(version *string, action *string, protocol *strin
 				"req_msg_id":       antchainutil.GetNonce(),
 				"access_key":       client.AccessKeyId,
 				"base_sdk_version": tea.String("TeaSDK-2.0"),
-				"sdk_version":      tea.String("1.7.10"),
+				"sdk_version":      tea.String("1.7.14"),
 				"_prod_code":       tea.String("SECURITYTECH"),
 				"_prod_channel":    tea.String("undefined"),
 			}
