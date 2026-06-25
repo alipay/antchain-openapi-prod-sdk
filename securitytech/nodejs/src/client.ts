@@ -805,12 +805,30 @@ export class PoiAccountInfo extends $tea.Model {
    * 0
    */
   accountId?: string;
-  // 已消费金额
+  // 用户已支出金额
+  /**
+   * @example
+   * 0
+   */
+  expenseAmount?: string;
+  // 商城已消费金额
   /**
    * @example
    * 0
    */
   consumeAmount?: string;
+  // 商城已冻结金额
+  /**
+   * @example
+   * 0
+   */
+  frozenAmount?: string;
+  // 是否逾期
+  /**
+   * @example
+   * TRUE
+   */
+  overdue?: string;
   // 已还金额
   /**
    * @example
@@ -823,37 +841,35 @@ export class PoiAccountInfo extends $tea.Model {
    * 0
    */
   remainingAmount?: string;
-  // 可退还用户金额
+  // 解约后退还用户金额
   /**
    * @example
    * 0
    */
   refundAmountToUser?: string;
-  // 可退还资方金额
-  /**
-   * @example
-   * 0
-   */
-  refundAmountToInvestor?: string;
   static names(): { [key: string]: string } {
     return {
       accountId: 'account_id',
+      expenseAmount: 'expense_amount',
       consumeAmount: 'consume_amount',
+      frozenAmount: 'frozen_amount',
+      overdue: 'overdue',
       repayAmount: 'repay_amount',
       remainingAmount: 'remaining_amount',
       refundAmountToUser: 'refund_amount_to_user',
-      refundAmountToInvestor: 'refund_amount_to_investor',
     };
   }
 
   static types(): { [key: string]: any } {
     return {
       accountId: 'string',
+      expenseAmount: 'string',
       consumeAmount: 'string',
+      frozenAmount: 'string',
+      overdue: 'string',
       repayAmount: 'string',
       remainingAmount: 'string',
       refundAmountToUser: 'string',
-      refundAmountToInvestor: 'string',
     };
   }
 
@@ -7899,6 +7915,8 @@ export class RechargePoiMallpointRequest extends $tea.Model {
   phaseAmount: string;
   // 当前期数编号
   phaseNo: string;
+  // 渠道
+  trafficPlatform: string;
   // 渠道Code
   channelCode: string;
   static names(): { [key: string]: string } {
@@ -7913,6 +7931,7 @@ export class RechargePoiMallpointRequest extends $tea.Model {
       totalPhase: 'total_phase',
       phaseAmount: 'phase_amount',
       phaseNo: 'phase_no',
+      trafficPlatform: 'traffic_platform',
       channelCode: 'channel_code',
     };
   }
@@ -7929,6 +7948,7 @@ export class RechargePoiMallpointRequest extends $tea.Model {
       totalPhase: 'string',
       phaseAmount: 'string',
       phaseNo: 'string',
+      trafficPlatform: 'string',
       channelCode: 'string',
     };
   }
@@ -7978,6 +7998,8 @@ export class OverduePoiTerminationRequest extends $tea.Model {
   bizOrderNo: string;
   // 逾期事件类型
   event: string;
+  // 渠道
+  trafficPlatform: string;
   // 渠道Code
   channelCode: string;
   static names(): { [key: string]: string } {
@@ -7988,6 +8010,7 @@ export class OverduePoiTerminationRequest extends $tea.Model {
       storeId: 'store_id',
       bizOrderNo: 'biz_order_no',
       event: 'event',
+      trafficPlatform: 'traffic_platform',
       channelCode: 'channel_code',
     };
   }
@@ -8000,6 +8023,7 @@ export class OverduePoiTerminationRequest extends $tea.Model {
       storeId: 'string',
       bizOrderNo: 'string',
       event: 'string',
+      trafficPlatform: 'string',
       channelCode: 'string',
     };
   }
@@ -8051,6 +8075,8 @@ export class QueryPoiMallpointbalanceRequest extends $tea.Model {
   storeId: string;
   // 分期主订单号
   bizOrderNo: string;
+  // 渠道
+  trafficPlatform: string;
   // 渠道Code
   channelCode: string;
   static names(): { [key: string]: string } {
@@ -8060,6 +8086,7 @@ export class QueryPoiMallpointbalanceRequest extends $tea.Model {
       openId: 'open_id',
       storeId: 'store_id',
       bizOrderNo: 'biz_order_no',
+      trafficPlatform: 'traffic_platform',
       channelCode: 'channel_code',
     };
   }
@@ -8071,6 +8098,7 @@ export class QueryPoiMallpointbalanceRequest extends $tea.Model {
       openId: 'string',
       storeId: 'string',
       bizOrderNo: 'string',
+      trafficPlatform: 'string',
       channelCode: 'string',
     };
   }
@@ -8093,8 +8121,10 @@ export class QueryPoiMallpointbalanceResponse extends $tea.Model {
   storeId?: string;
   // 分期主订单号
   bizOrderNo?: string;
-  // 可用余额金额
+  // 商城可用余额金额
   availableBalance?: string;
+  // 商城已消费金额
+  consumedAmount?: string;
   static names(): { [key: string]: string } {
     return {
       reqMsgId: 'req_msg_id',
@@ -8104,6 +8134,7 @@ export class QueryPoiMallpointbalanceResponse extends $tea.Model {
       storeId: 'store_id',
       bizOrderNo: 'biz_order_no',
       availableBalance: 'available_balance',
+      consumedAmount: 'consumed_amount',
     };
   }
 
@@ -8116,6 +8147,7 @@ export class QueryPoiMallpointbalanceResponse extends $tea.Model {
       storeId: 'string',
       bizOrderNo: 'string',
       availableBalance: 'string',
+      consumedAmount: 'string',
     };
   }
 
@@ -8167,13 +8199,13 @@ export class QueryPoiTerminationResponse extends $tea.Model {
   // 异常信息的文本描述
   resultMsg?: string;
   // 账户信息列表
-  accountInfoList?: PoiAccountInfo[];
+  accountInfo?: PoiAccountInfo;
   static names(): { [key: string]: string } {
     return {
       reqMsgId: 'req_msg_id',
       resultCode: 'result_code',
       resultMsg: 'result_msg',
-      accountInfoList: 'account_info_list',
+      accountInfo: 'account_info',
     };
   }
 
@@ -8182,7 +8214,7 @@ export class QueryPoiTerminationResponse extends $tea.Model {
       reqMsgId: 'string',
       resultCode: 'string',
       resultMsg: 'string',
-      accountInfoList: { 'type': 'array', 'itemType': PoiAccountInfo },
+      accountInfo: PoiAccountInfo,
     };
   }
 
@@ -11903,7 +11935,7 @@ export default class Client {
           req_msg_id: AntchainUtil.getNonce(),
           access_key: this._accessKeyId,
           base_sdk_version: "TeaSDK-2.0",
-          sdk_version: "1.7.10",
+          sdk_version: "1.7.14",
           _prod_code: "SECURITYTECH",
           _prod_channel: "undefined",
         };
