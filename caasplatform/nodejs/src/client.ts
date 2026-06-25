@@ -6,26 +6,129 @@ import { Readable } from 'stream';
 import * as $tea from '@alicloud/tea-typescript';
 
 /**
+ * @remarks
  * Model for initing client
  */
 export class Config extends $tea.Model {
+  /**
+   * @remarks
+   * accesskey id
+   */
   accessKeyId?: string;
+  /**
+   * @remarks
+   * accesskey secret
+   */
   accessKeySecret?: string;
+  /**
+   * @remarks
+   * security token
+   */
   securityToken?: string;
+  /**
+   * @remarks
+   * http protocol
+   * 
+   * @example
+   * http
+   */
   protocol?: string;
+  /**
+   * @remarks
+   * read timeout
+   * 
+   * @example
+   * 10
+   */
   readTimeout?: number;
+  /**
+   * @remarks
+   * connect timeout
+   * 
+   * @example
+   * 10
+   */
   connectTimeout?: number;
+  /**
+   * @remarks
+   * http proxy
+   * 
+   * @example
+   * http://localhost
+   */
   httpProxy?: string;
+  /**
+   * @remarks
+   * https proxy
+   * 
+   * @example
+   * https://localhost
+   */
   httpsProxy?: string;
+  /**
+   * @remarks
+   * endpoint
+   * 
+   * @example
+   * cs.aliyuncs.com
+   */
   endpoint?: string;
+  /**
+   * @remarks
+   * proxy white list
+   * 
+   * @example
+   * http://localhost
+   */
   noProxy?: string;
+  /**
+   * @remarks
+   * max idle conns
+   * 
+   * @example
+   * 3
+   */
   maxIdleConns?: number;
+  /**
+   * @remarks
+   * user agent
+   * 
+   * @example
+   * Alibabacloud/1
+   */
   userAgent?: string;
+  /**
+   * @remarks
+   * socks5 proxy
+   */
   socks5Proxy?: string;
+  /**
+   * @remarks
+   * socks5 network
+   * 
+   * @example
+   * TCP
+   */
   socks5NetWork?: string;
+  /**
+   * @remarks
+   * 长链接最大空闲时长
+   */
   maxIdleTimeMillis?: number;
+  /**
+   * @remarks
+   * 长链接最大连接时长
+   */
   keepAliveDurationMillis?: number;
+  /**
+   * @remarks
+   * 最大连接数（长链接最大总数）
+   */
   maxRequests?: number;
+  /**
+   * @remarks
+   * 每个目标主机的最大连接数（分主机域名的长链接最大总数
+   */
   maxRequestsPerHost?: number;
   static names(): { [key: string]: string } {
     return {
@@ -78,15 +181,64 @@ export class Config extends $tea.Model {
   }
 }
 
+// 环节明细信息
+export class StepDetailInfo extends $tea.Model {
+  // 环节编号
+  /**
+   * @example
+   * STEP_1
+   */
+  stepNo: string;
+  // 存证时的原始信息明文
+  /**
+   * @example
+   * {"asda":"asa"}
+   */
+  metaContent: string;
+  static names(): { [key: string]: string } {
+    return {
+      stepNo: 'step_no',
+      metaContent: 'meta_content',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      stepNo: 'string',
+      metaContent: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
 // 操作主体
 export class OperateSubject extends $tea.Model {
   // 主体名称
+  /**
+   * @example
+   * 张*
+   */
   subjectName: string;
   // 证件类型,ID_CARD:身份证;PASSPORT:护照;BUSINESS_LICENSE:营业执照;OTHER:其他
+  /**
+   * @example
+   * ID_CARD
+   */
   certType: string;
   // 证件号码，可以脱敏传输
+  /**
+   * @example
+   * 310***********1234
+   */
   certNo: string;
   // 主体信息明文计算出来的hash数据
+  /**
+   * @example
+   * a1b2c3d4e5f6789012345678901234567890abcd
+   */
   subjectHash: string;
   static names(): { [key: string]: string } {
     return {
@@ -114,8 +266,16 @@ export class OperateSubject extends $tea.Model {
 // 分账明细
 export class RuleItem extends $tea.Model {
   // 分账方Id
+  /**
+   * @example
+   * ea596f28-4ece-406d-a9e1-86fa83cc505f
+   */
   id: string;
   // 分账份额，总份额100，保留2位小数
+  /**
+   * @example
+   * 23.36
+   */
   proportion: string;
   static names(): { [key: string]: string } {
     return {
@@ -136,11 +296,116 @@ export class RuleItem extends $tea.Model {
   }
 }
 
+// 申请主体信息（公证处Identity结构）
+export class ApplicantInfo extends $tea.Model {
+  // 用户类型：PERSON / ENTERPRISE
+  /**
+   * @example
+   * PERSON
+   */
+  userType: string;
+  // 用户名称
+  /**
+   * @example
+   * 张三
+   */
+  certName: string;
+  // 证件类型：IDENTITY_CARD/SOCIAL_CREDIT_CODE/MTP_HM/FOREIGN_PASSPORT/MTP_TW/ENTERPRISE_REGISTERED_NO
+  /**
+   * @example
+   * IDENTITY_CARD
+   */
+  certDocType: string;
+  // 证件号码
+  /**
+   * @example
+   * C1211131
+   */
+  certNo: string;
+  // 是否对证件号码脱敏，默认true
+  /**
+   * @example
+   * true
+   */
+  applicantMasking?: boolean;
+  // 手机号码
+  /**
+   * @example
+   * 13888888888
+   */
+  mobileNo?: string;
+  // 法人姓名
+  /**
+   * @example
+   * 王五
+   */
+  legalPerson?: string;
+  // 法人身份证
+  /**
+   * @example
+   * C1211131
+   */
+  legalPersonId?: string;
+  // 经办人姓名
+  /**
+   * @example
+   * 李四
+   */
+  agent?: string;
+  // 经办人身份证
+  /**
+   * @example
+   * C1211131
+   */
+  agentId?: string;
+  static names(): { [key: string]: string } {
+    return {
+      userType: 'user_type',
+      certName: 'cert_name',
+      certDocType: 'cert_doc_type',
+      certNo: 'cert_no',
+      applicantMasking: 'applicant_masking',
+      mobileNo: 'mobile_no',
+      legalPerson: 'legal_person',
+      legalPersonId: 'legal_person_id',
+      agent: 'agent',
+      agentId: 'agent_id',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      userType: 'string',
+      certName: 'string',
+      certDocType: 'string',
+      certNo: 'string',
+      applicantMasking: 'boolean',
+      mobileNo: 'string',
+      legalPerson: 'string',
+      legalPersonId: 'string',
+      agent: 'string',
+      agentId: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
 // 键值对
 export class XNameValuePair extends $tea.Model {
   // 键名
+  /**
+   * @example
+   * key
+   */
   name: string;
   // 键值
+  /**
+   * @example
+   * value
+   */
   value: string;
   static names(): { [key: string]: string } {
     return {
@@ -473,6 +738,77 @@ export class QueryCertificationInfoResponse extends $tea.Model {
   }
 }
 
+export class ApplyCertificationNotaryRequest extends $tea.Model {
+  // OAuth模式下的授权token
+  authToken?: string;
+  productInstanceId?: string;
+  // 业务流水ID
+  bizId: string;
+  // 申请主体信息（公证处Identity结构）
+  applicant: ApplicantInfo;
+  // 环节明细列表
+  stepDetailInfos: StepDetailInfo[];
+  static names(): { [key: string]: string } {
+    return {
+      authToken: 'auth_token',
+      productInstanceId: 'product_instance_id',
+      bizId: 'biz_id',
+      applicant: 'applicant',
+      stepDetailInfos: 'step_detail_infos',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      authToken: 'string',
+      productInstanceId: 'string',
+      bizId: 'string',
+      applicant: ApplicantInfo,
+      stepDetailInfos: { 'type': 'array', 'itemType': StepDetailInfo },
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class ApplyCertificationNotaryResponse extends $tea.Model {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string;
+  // 结果码，一般OK表示调用成功
+  resultCode?: string;
+  // 异常信息的文本描述
+  resultMsg?: string;
+  // 任务ID
+  taskId?: string;
+  // 任务状态
+  status?: string;
+  static names(): { [key: string]: string } {
+    return {
+      reqMsgId: 'req_msg_id',
+      resultCode: 'result_code',
+      resultMsg: 'result_msg',
+      taskId: 'task_id',
+      status: 'status',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      reqMsgId: 'string',
+      resultCode: 'string',
+      resultMsg: 'string',
+      taskId: 'string',
+      status: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
 export class CreateDepositRequest extends $tea.Model {
   // OAuth模式下的授权token
   authToken?: string;
@@ -486,7 +822,15 @@ export class CreateDepositRequest extends $tea.Model {
   // 额外信息json
   extensionInfoJson?: string;
   // 文件id
+  /**
+   * @remarks
+   * 待上传文件
+   */
   fileObject?: Readable;
+  /**
+   * @remarks
+   * 待上传文件名
+   */
   fileObjectName?: string;
   fileId?: string;
   static names(): { [key: string]: string } {
@@ -769,7 +1113,15 @@ export class CreateDepositCertificateRequest extends $tea.Model {
   // 额外信息json
   extensionInfoJson?: string;
   // 文件id
+  /**
+   * @remarks
+   * 待上传文件
+   */
   fileObject?: Readable;
+  /**
+   * @remarks
+   * 待上传文件名
+   */
   fileObjectName?: string;
   fileId?: string;
   static names(): { [key: string]: string } {
@@ -945,7 +1297,15 @@ export class CreateDepositCharityRequest extends $tea.Model {
   // 额外信息json
   extensionInfoJson?: string;
   // 文件id
+  /**
+   * @remarks
+   * 待上传文件
+   */
   fileObject?: Readable;
+  /**
+   * @remarks
+   * 待上传文件名
+   */
   fileObjectName?: string;
   fileId?: string;
   static names(): { [key: string]: string } {
@@ -1121,7 +1481,15 @@ export class CreateDepositSweepstakesRequest extends $tea.Model {
   // 额外信息json
   extensionInfoJson?: string;
   // 文件id
+  /**
+   * @remarks
+   * 待上传文件
+   */
   fileObject?: Readable;
+  /**
+   * @remarks
+   * 待上传文件名
+   */
   fileObjectName?: string;
   fileId?: string;
   static names(): { [key: string]: string } {
@@ -1431,7 +1799,15 @@ export class UploadExtendRightsRequest extends $tea.Model {
   // 描述
   description?: string;
   // 文件id
+  /**
+   * @remarks
+   * 待上传文件
+   */
   fileObject?: Readable;
+  /**
+   * @remarks
+   * 待上传文件名
+   */
   fileObjectName?: string;
   fileId: string;
   // 扩展字段
@@ -3313,8 +3689,10 @@ export default class Client {
   _maxRequestsPerHost: number;
 
   /**
+   * @remarks
    * Init client with Config
-   * @param config config contains the necessary information to create a client
+   * 
+   * @param config - config contains the necessary information to create a client
    */
   constructor(config: Config) {
     if (Util.isUnset(config)) {
@@ -3345,14 +3723,16 @@ export default class Client {
   }
 
   /**
+   * @remarks
    * Encapsulate the request and invoke the network
-   * @param action api name
-   * @param protocol http or https
-   * @param method e.g. GET
-   * @param pathname pathname of every api
-   * @param request which contains request params
-   * @param runtime which controls some details of call api, such as retry times
-   * @return the response
+   * 
+   * @param action - api name
+   * @param protocol - http or https
+   * @param method - e.g. GET
+   * @param pathname - pathname of every api
+   * @param request - which contains request params
+   * @param runtime - which controls some details of call api, such as retry times
+   * @returns the response
    */
   async doRequest(version: string, action: string, protocol: string, method: string, pathname: string, request: {[key: string]: any}, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<{[key: string]: any}> {
     let _runtime: { [key: string]: any } = {
@@ -3403,7 +3783,7 @@ export default class Client {
           req_msg_id: AntchainUtil.getNonce(),
           access_key: this._accessKeyId,
           base_sdk_version: "TeaSDK-2.0",
-          sdk_version: "1.6.0",
+          sdk_version: "1.7.0",
           _prod_code: "CAASPLATFORM",
           _prod_channel: "undefined",
         };
@@ -3452,6 +3832,7 @@ export default class Client {
   }
 
   /**
+   * @remarks
    * Description: 多环节业务存证
    * Summary: 多环节业务存证
    */
@@ -3462,6 +3843,7 @@ export default class Client {
   }
 
   /**
+   * @remarks
    * Description: 多环节业务存证
    * Summary: 多环节业务存证
    */
@@ -3471,6 +3853,7 @@ export default class Client {
   }
 
   /**
+   * @remarks
    * Description: 存证证明申请
    * Summary: 存证证明申请
    */
@@ -3481,6 +3864,7 @@ export default class Client {
   }
 
   /**
+   * @remarks
    * Description: 存证证明申请
    * Summary: 存证证明申请
    */
@@ -3490,6 +3874,7 @@ export default class Client {
   }
 
   /**
+   * @remarks
    * Description: 证明处理任务状态查询
    * Summary: 证明处理任务状态查询
    */
@@ -3500,6 +3885,7 @@ export default class Client {
   }
 
   /**
+   * @remarks
    * Description: 证明处理任务状态查询
    * Summary: 证明处理任务状态查询
    */
@@ -3509,6 +3895,7 @@ export default class Client {
   }
 
   /**
+   * @remarks
    * Description: 查询出证证明文件信息
    * Summary: 查询出证证明文件信息
    */
@@ -3519,6 +3906,7 @@ export default class Client {
   }
 
   /**
+   * @remarks
    * Description: 查询出证证明文件信息
    * Summary: 查询出证证明文件信息
    */
@@ -3528,6 +3916,28 @@ export default class Client {
   }
 
   /**
+   * @remarks
+   * Description: 公证处出证申请
+   * Summary: 公证处出证申请
+   */
+  async applyCertificationNotary(request: ApplyCertificationNotaryRequest): Promise<ApplyCertificationNotaryResponse> {
+    let runtime = new $Util.RuntimeOptions({ });
+    let headers : {[key: string ]: string} = { };
+    return await this.applyCertificationNotaryEx(request, headers, runtime);
+  }
+
+  /**
+   * @remarks
+   * Description: 公证处出证申请
+   * Summary: 公证处出证申请
+   */
+  async applyCertificationNotaryEx(request: ApplyCertificationNotaryRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<ApplyCertificationNotaryResponse> {
+    Util.validateModel(request);
+    return $tea.cast<ApplyCertificationNotaryResponse>(await this.doRequest("1.0", "antchain.caasplatform.certification.notary.apply", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new ApplyCertificationNotaryResponse({}));
+  }
+
+  /**
+   * @remarks
    * Description: 创建存证
    * Summary: 创建存证
    */
@@ -3538,6 +3948,7 @@ export default class Client {
   }
 
   /**
+   * @remarks
    * Description: 创建存证
    * Summary: 创建存证
    */
@@ -3569,6 +3980,7 @@ export default class Client {
   }
 
   /**
+   * @remarks
    * Description: 存证查询
    * Summary: 存证查询
    */
@@ -3579,6 +3991,7 @@ export default class Client {
   }
 
   /**
+   * @remarks
    * Description: 存证查询
    * Summary: 存证查询
    */
@@ -3588,6 +4001,7 @@ export default class Client {
   }
 
   /**
+   * @remarks
    * Description: 证书存证合约-证书存证查询
    * Summary: 证书存证合约-证书存证查询
    */
@@ -3598,6 +4012,7 @@ export default class Client {
   }
 
   /**
+   * @remarks
    * Description: 证书存证合约-证书存证查询
    * Summary: 证书存证合约-证书存证查询
    */
@@ -3607,6 +4022,7 @@ export default class Client {
   }
 
   /**
+   * @remarks
    * Description: 证书存证合约-创建证书存证
    * Summary: 证书存证合约-创建证书存证
    */
@@ -3617,6 +4033,7 @@ export default class Client {
   }
 
   /**
+   * @remarks
    * Description: 证书存证合约-创建证书存证
    * Summary: 证书存证合约-创建证书存证
    */
@@ -3648,6 +4065,7 @@ export default class Client {
   }
 
   /**
+   * @remarks
    * Description: 捐赠合约-捐赠证明查询
    * Summary: 捐赠合约-捐赠证明查询
    */
@@ -3658,6 +4076,7 @@ export default class Client {
   }
 
   /**
+   * @remarks
    * Description: 捐赠合约-捐赠证明查询
    * Summary: 捐赠合约-捐赠证明查询
    */
@@ -3667,6 +4086,7 @@ export default class Client {
   }
 
   /**
+   * @remarks
    * Description: 捐赠合约-创建捐赠证明
    * Summary: 捐赠合约-创建捐赠证明
    */
@@ -3677,6 +4097,7 @@ export default class Client {
   }
 
   /**
+   * @remarks
    * Description: 捐赠合约-创建捐赠证明
    * Summary: 捐赠合约-创建捐赠证明
    */
@@ -3708,6 +4129,7 @@ export default class Client {
   }
 
   /**
+   * @remarks
    * Description: 抽奖活动审计合约-中奖记录查询
    * Summary: 抽奖活动审计合约-中奖记录查询
    */
@@ -3718,6 +4140,7 @@ export default class Client {
   }
 
   /**
+   * @remarks
    * Description: 抽奖活动审计合约-中奖记录查询
    * Summary: 抽奖活动审计合约-中奖记录查询
    */
@@ -3727,6 +4150,7 @@ export default class Client {
   }
 
   /**
+   * @remarks
    * Description: 抽奖活动审计合约-创建活动记录
    * Summary: 抽奖活动审计合约-创建活动记录
    */
@@ -3737,6 +4161,7 @@ export default class Client {
   }
 
   /**
+   * @remarks
    * Description: 抽奖活动审计合约-创建活动记录
    * Summary: 抽奖活动审计合约-创建活动记录
    */
@@ -3768,6 +4193,7 @@ export default class Client {
   }
 
   /**
+   * @remarks
    * Description: 通用合约调用-结构化存储场景
    * Summary: 通用合约调用-结构化存储场景
    */
@@ -3778,6 +4204,7 @@ export default class Client {
   }
 
   /**
+   * @remarks
    * Description: 通用合约调用-结构化存储场景
    * Summary: 通用合约调用-结构化存储场景
    */
@@ -3787,6 +4214,7 @@ export default class Client {
   }
 
   /**
+   * @remarks
    * Description: 通用合约调用-结构化查询场景
    * Summary: 通用合约调用-结构化查询场景
    */
@@ -3797,6 +4225,7 @@ export default class Client {
   }
 
   /**
+   * @remarks
    * Description: 通用合约调用-结构化查询场景
    * Summary: 通用合约调用-结构化查询场景
    */
@@ -3806,6 +4235,7 @@ export default class Client {
   }
 
   /**
+   * @remarks
    * Description: 通用合约调用-权益-转赠
    * Summary: 通用合约调用-权益-转赠
    */
@@ -3816,6 +4246,7 @@ export default class Client {
   }
 
   /**
+   * @remarks
    * Description: 通用合约调用-权益-转赠
    * Summary: 通用合约调用-权益-转赠
    */
@@ -3825,6 +4256,7 @@ export default class Client {
   }
 
   /**
+   * @remarks
    * Description: 资源文件托管
    * Summary: 资源文件托管
    */
@@ -3835,6 +4267,7 @@ export default class Client {
   }
 
   /**
+   * @remarks
    * Description: 资源文件托管
    * Summary: 资源文件托管
    */
@@ -3866,6 +4299,7 @@ export default class Client {
   }
 
   /**
+   * @remarks
    * Description: 创建链上账户
    * Summary: 创建链上账户
    */
@@ -3876,6 +4310,7 @@ export default class Client {
   }
 
   /**
+   * @remarks
    * Description: 创建链上账户
    * Summary: 创建链上账户
    */
@@ -3885,6 +4320,7 @@ export default class Client {
   }
 
   /**
+   * @remarks
    * Description: 通用合约调用-权益-铸造
    * Summary: 通用合约调用-权益-铸造
    */
@@ -3895,6 +4331,7 @@ export default class Client {
   }
 
   /**
+   * @remarks
    * Description: 通用合约调用-权益-铸造
    * Summary: 通用合约调用-权益-铸造
    */
@@ -3904,6 +4341,7 @@ export default class Client {
   }
 
   /**
+   * @remarks
    * Description: 通用合约调用-权益-URL查询
    * Summary: 通用合约调用-权益- URL查询
    */
@@ -3914,6 +4352,7 @@ export default class Client {
   }
 
   /**
+   * @remarks
    * Description: 通用合约调用-权益-URL查询
    * Summary: 通用合约调用-权益- URL查询
    */
@@ -3923,9 +4362,10 @@ export default class Client {
   }
 
   /**
+   * @remarks
    * Description: 1.分账方最大数量限制50
-  2.id存在则更新分账方
-  3.存在分账记录的分账方不能被更新
+   * 2.id存在则更新分账方
+   * 3.存在分账记录的分账方不能被更新
    * Summary: 分账合约-配置分账方
    */
   async registerGeneralDivide(request: RegisterGeneralDivideRequest): Promise<RegisterGeneralDivideResponse> {
@@ -3935,9 +4375,10 @@ export default class Client {
   }
 
   /**
+   * @remarks
    * Description: 1.分账方最大数量限制50
-  2.id存在则更新分账方
-  3.存在分账记录的分账方不能被更新
+   * 2.id存在则更新分账方
+   * 3.存在分账记录的分账方不能被更新
    * Summary: 分账合约-配置分账方
    */
   async registerGeneralDivideEx(request: RegisterGeneralDivideRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<RegisterGeneralDivideResponse> {
@@ -3946,6 +4387,7 @@ export default class Client {
   }
 
   /**
+   * @remarks
    * Description: 分账合约-查询分账方
    * Summary: 分账合约-查询分账方
    */
@@ -3956,6 +4398,7 @@ export default class Client {
   }
 
   /**
+   * @remarks
    * Description: 分账合约-查询分账方
    * Summary: 分账合约-查询分账方
    */
@@ -3965,12 +4408,13 @@ export default class Client {
   }
 
   /**
+   * @remarks
    * Description: 1.分账规则id不能重复配置
-  2.至少配置一个分账方
-  3.分账方id需要已存在
-  4.分账份额保留2位小数,多余部分舍弃
-  5.分账份额需小于100 且大于0
-  6.总份额不能大于100
+   * 2.至少配置一个分账方
+   * 3.分账方id需要已存在
+   * 4.分账份额保留2位小数,多余部分舍弃
+   * 5.分账份额需小于100且大于0
+   * 6.总份额不能大于100
    * Summary: 分账合约-配置分账规则
    */
   async setGeneralDivide(request: SetGeneralDivideRequest): Promise<SetGeneralDivideResponse> {
@@ -3980,12 +4424,13 @@ export default class Client {
   }
 
   /**
+   * @remarks
    * Description: 1.分账规则id不能重复配置
-  2.至少配置一个分账方
-  3.分账方id需要已存在
-  4.分账份额保留2位小数,多余部分舍弃
-  5.分账份额需小于100 且大于0
-  6.总份额不能大于100
+   * 2.至少配置一个分账方
+   * 3.分账方id需要已存在
+   * 4.分账份额保留2位小数,多余部分舍弃
+   * 5.分账份额需小于100且大于0
+   * 6.总份额不能大于100
    * Summary: 分账合约-配置分账规则
    */
   async setGeneralDivideEx(request: SetGeneralDivideRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<SetGeneralDivideResponse> {
@@ -3994,6 +4439,7 @@ export default class Client {
   }
 
   /**
+   * @remarks
    * Description: 分账合约-查询分账规则
    * Summary: 分账合约-查询分账规则
    */
@@ -4004,6 +4450,7 @@ export default class Client {
   }
 
   /**
+   * @remarks
    * Description: 分账合约-查询分账规则
    * Summary: 分账合约-查询分账规则
    */
@@ -4013,9 +4460,10 @@ export default class Client {
   }
 
   /**
+   * @remarks
    * Description: 1.分账方id需存在
-  2.已分账的分账方不能删除
-  3.已配置分账规则的分账方不能删除
+   * 2.已分账的分账方不能删除
+   * 3.已配置分账规则的分账方不能删除
    * Summary: 分账合约-删除分账方
    */
   async deleteGeneralDivide(request: DeleteGeneralDivideRequest): Promise<DeleteGeneralDivideResponse> {
@@ -4025,9 +4473,10 @@ export default class Client {
   }
 
   /**
+   * @remarks
    * Description: 1.分账方id需存在
-  2.已分账的分账方不能删除
-  3.已配置分账规则的分账方不能删除
+   * 2.已分账的分账方不能删除
+   * 3.已配置分账规则的分账方不能删除
    * Summary: 分账合约-删除分账方
    */
   async deleteGeneralDivideEx(request: DeleteGeneralDivideRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<DeleteGeneralDivideResponse> {
@@ -4036,10 +4485,11 @@ export default class Client {
   }
 
   /**
+   * @remarks
    * Description: 1.订单id不能重复
-  2.金额不能小于0，金额保留3位小数多余部分舍弃
-  3.分账方id需要已存在
-  4.分账规则id需已存在
+   * 2.金额不能小于0，金额保留3位小数多余部分舍弃
+   * 3.分账方id需要已存在
+   * 4.分账规则id需已存在
    * Summary: 分账合约-发起分账
    */
   async payGeneralDivide(request: PayGeneralDivideRequest): Promise<PayGeneralDivideResponse> {
@@ -4049,10 +4499,11 @@ export default class Client {
   }
 
   /**
+   * @remarks
    * Description: 1.订单id不能重复
-  2.金额不能小于0，金额保留3位小数多余部分舍弃
-  3.分账方id需要已存在
-  4.分账规则id需已存在
+   * 2.金额不能小于0，金额保留3位小数多余部分舍弃
+   * 3.分账方id需要已存在
+   * 4.分账规则id需已存在
    * Summary: 分账合约-发起分账
    */
   async payGeneralDivideEx(request: PayGeneralDivideRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<PayGeneralDivideResponse> {
@@ -4061,6 +4512,7 @@ export default class Client {
   }
 
   /**
+   * @remarks
    * Description: 分账合约-获取分账方余额
    * Summary: 分账合约-获取分账方余额
    */
@@ -4071,6 +4523,7 @@ export default class Client {
   }
 
   /**
+   * @remarks
    * Description: 分账合约-获取分账方余额
    * Summary: 分账合约-获取分账方余额
    */
@@ -4080,6 +4533,7 @@ export default class Client {
   }
 
   /**
+   * @remarks
    * Description: 分账合约-获取订单分账信息
    * Summary: 分账合约-获取订单分账信息
    */
@@ -4090,6 +4544,7 @@ export default class Client {
   }
 
   /**
+   * @remarks
    * Description: 分账合约-获取订单分账信息
    * Summary: 分账合约-获取订单分账信息
    */
@@ -4099,6 +4554,7 @@ export default class Client {
   }
 
   /**
+   * @remarks
    * Description: 旅游文创合约-文创URL查询
    * Summary: 旅游文创合约-文创URL查询
    */
@@ -4109,6 +4565,7 @@ export default class Client {
   }
 
   /**
+   * @remarks
    * Description: 旅游文创合约-文创URL查询
    * Summary: 旅游文创合约-文创URL查询
    */
@@ -4118,6 +4575,7 @@ export default class Client {
   }
 
   /**
+   * @remarks
    * Description: 旅游文创合约-铸造文创
    * Summary: 旅游文创合约-铸造文创
    */
@@ -4128,6 +4586,7 @@ export default class Client {
   }
 
   /**
+   * @remarks
    * Description: 旅游文创合约-铸造文创
    * Summary: 旅游文创合约-铸造文创
    */
@@ -4137,6 +4596,7 @@ export default class Client {
   }
 
   /**
+   * @remarks
    * Description: 旅游文创合约-文创转增
    * Summary: 旅游文创合约-文创转增
    */
@@ -4147,6 +4607,7 @@ export default class Client {
   }
 
   /**
+   * @remarks
    * Description: 旅游文创合约-文创转增
    * Summary: 旅游文创合约-文创转增
    */
@@ -4156,6 +4617,7 @@ export default class Client {
   }
 
   /**
+   * @remarks
    * Description: 线下门票合约-门票URL查询
    * Summary: 线下门票合约-门票URL查询
    */
@@ -4166,6 +4628,7 @@ export default class Client {
   }
 
   /**
+   * @remarks
    * Description: 线下门票合约-门票URL查询
    * Summary: 线下门票合约-门票URL查询
    */
@@ -4175,6 +4638,7 @@ export default class Client {
   }
 
   /**
+   * @remarks
    * Description: 线下门票合约-铸造线下买票
    * Summary: 线下门票合约-铸造线下买票
    */
@@ -4185,6 +4649,7 @@ export default class Client {
   }
 
   /**
+   * @remarks
    * Description: 线下门票合约-铸造线下买票
    * Summary: 线下门票合约-铸造线下买票
    */
@@ -4194,6 +4659,7 @@ export default class Client {
   }
 
   /**
+   * @remarks
    * Description: 线下门票合约-门票转增
    * Summary: 线下门票合约-门票转增
    */
@@ -4204,6 +4670,7 @@ export default class Client {
   }
 
   /**
+   * @remarks
    * Description: 线下门票合约-门票转增
    * Summary: 线下门票合约-门票转增
    */
@@ -4213,6 +4680,7 @@ export default class Client {
   }
 
   /**
+   * @remarks
    * Description: 进行分账规则的确认
    * Summary: 分账规则确认接口
    */
@@ -4223,6 +4691,7 @@ export default class Client {
   }
 
   /**
+   * @remarks
    * Description: 进行分账规则的确认
    * Summary: 分账规则确认接口
    */
@@ -4232,6 +4701,7 @@ export default class Client {
   }
 
   /**
+   * @remarks
    * Description: 查询指定分账方的分账明细数据
    * Summary: 分账明细查询
    */
@@ -4242,6 +4712,7 @@ export default class Client {
   }
 
   /**
+   * @remarks
    * Description: 查询指定分账方的分账明细数据
    * Summary: 分账明细查询
    */
@@ -4251,6 +4722,7 @@ export default class Client {
   }
 
   /**
+   * @remarks
    * Description: 查询某个账户下拥有的资产数量
    * Summary: 权证资产合约资产查询
    */
@@ -4261,6 +4733,7 @@ export default class Client {
   }
 
   /**
+   * @remarks
    * Description: 查询某个账户下拥有的资产数量
    * Summary: 权证资产合约资产查询
    */
@@ -4270,6 +4743,7 @@ export default class Client {
   }
 
   /**
+   * @remarks
    * Description: 获取蚂蚁区块链交易二维码
    * Summary: 获取蚂蚁区块链交易二维码
    */
@@ -4280,6 +4754,7 @@ export default class Client {
   }
 
   /**
+   * @remarks
    * Description: 获取蚂蚁区块链交易二维码
    * Summary: 获取蚂蚁区块链交易二维码
    */
@@ -4289,6 +4764,7 @@ export default class Client {
   }
 
   /**
+   * @remarks
    * Description: 创建HTTP PUT提交的文件上传
    * Summary: 文件上传创建
    */
@@ -4299,6 +4775,7 @@ export default class Client {
   }
 
   /**
+   * @remarks
    * Description: 创建HTTP PUT提交的文件上传
    * Summary: 文件上传创建
    */
