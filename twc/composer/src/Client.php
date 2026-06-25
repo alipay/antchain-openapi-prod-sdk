@@ -127,6 +127,8 @@ use AntChain\TWC\Models\CreateContractCommontriggerRequest;
 use AntChain\TWC\Models\CreateContractCommontriggerResponse;
 use AntChain\TWC\Models\CreateContractCourtdeductRequest;
 use AntChain\TWC\Models\CreateContractCourtdeductResponse;
+use AntChain\TWC\Models\CreateContractEhandsignfieldRequest;
+use AntChain\TWC\Models\CreateContractEhandsignfieldResponse;
 use AntChain\TWC\Models\CreateContractEncrypteduserRequest;
 use AntChain\TWC\Models\CreateContractEncrypteduserResponse;
 use AntChain\TWC\Models\CreateContractFlowRequest;
@@ -363,6 +365,8 @@ use AntChain\TWC\Models\GetContractCertificateRequest;
 use AntChain\TWC\Models\GetContractCertificateResponse;
 use AntChain\TWC\Models\GetContractEncryptedfileuploadurlRequest;
 use AntChain\TWC\Models\GetContractEncryptedfileuploadurlResponse;
+use AntChain\TWC\Models\GetContractEsignurlRequest;
+use AntChain\TWC\Models\GetContractEsignurlResponse;
 use AntChain\TWC\Models\GetContractFileRequest;
 use AntChain\TWC\Models\GetContractFileResponse;
 use AntChain\TWC\Models\GetContractFileuploadurlRequest;
@@ -894,7 +898,7 @@ class Client
                     'req_msg_id'       => UtilClient::getNonce(),
                     'access_key'       => $this->_accessKeyId,
                     'base_sdk_version' => 'TeaSDK-2.0',
-                    'sdk_version'      => '1.13.29',
+                    'sdk_version'      => '1.13.30',
                     '_prod_code'       => 'TWC',
                     '_prod_channel'    => 'undefined',
                 ];
@@ -5861,6 +5865,72 @@ class Client
         Utils::validateModel($request);
 
         return QueryContractSignauthResponse::fromMap($this->doRequest('1.0', 'twc.notary.contract.signauth.query', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 区块链合同手动提交签署区
+     * Summary: 区块链合同手动提交签署区.
+     *
+     * @param CreateContractEhandsignfieldRequest $request
+     *
+     * @return CreateContractEhandsignfieldResponse
+     */
+    public function createContractEhandsignfield($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->createContractEhandsignfieldEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 区块链合同手动提交签署区
+     * Summary: 区块链合同手动提交签署区.
+     *
+     * @param CreateContractEhandsignfieldRequest $request
+     * @param string[]                            $headers
+     * @param RuntimeOptions                      $runtime
+     *
+     * @return CreateContractEhandsignfieldResponse
+     */
+    public function createContractEhandsignfieldEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return CreateContractEhandsignfieldResponse::fromMap($this->doRequest('1.0', 'twc.notary.contract.ehandsignfield.create', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 区块链合同-获取签署链接
+     * Summary: 区块链合同-获取签署链接.
+     *
+     * @param GetContractEsignurlRequest $request
+     *
+     * @return GetContractEsignurlResponse
+     */
+    public function getContractEsignurl($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->getContractEsignurlEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 区块链合同-获取签署链接
+     * Summary: 区块链合同-获取签署链接.
+     *
+     * @param GetContractEsignurlRequest $request
+     * @param string[]                   $headers
+     * @param RuntimeOptions             $runtime
+     *
+     * @return GetContractEsignurlResponse
+     */
+    public function getContractEsignurlEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return GetContractEsignurlResponse::fromMap($this->doRequest('1.0', 'twc.notary.contract.esignurl.get', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
     }
 
     /**
