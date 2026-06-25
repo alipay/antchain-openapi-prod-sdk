@@ -149,6 +149,32 @@ func (s *Config) SetMaxRequestsPerHost(v int) *Config {
 	return s
 }
 
+// 环节明细信息
+type StepDetailInfo struct {
+	// 环节编号
+	StepNo *string `json:"step_no,omitempty" xml:"step_no,omitempty" require:"true"`
+	// 存证时的原始信息明文
+	MetaContent *string `json:"meta_content,omitempty" xml:"meta_content,omitempty" require:"true"`
+}
+
+func (s StepDetailInfo) String() string {
+	return tea.Prettify(s)
+}
+
+func (s StepDetailInfo) GoString() string {
+	return s.String()
+}
+
+func (s *StepDetailInfo) SetStepNo(v string) *StepDetailInfo {
+	s.StepNo = &v
+	return s
+}
+
+func (s *StepDetailInfo) SetMetaContent(v string) *StepDetailInfo {
+	s.MetaContent = &v
+	return s
+}
+
 // 操作主体
 type OperateSubject struct {
 	// 主体名称
@@ -212,6 +238,88 @@ func (s *RuleItem) SetId(v string) *RuleItem {
 
 func (s *RuleItem) SetProportion(v string) *RuleItem {
 	s.Proportion = &v
+	return s
+}
+
+// 申请主体信息（公证处Identity结构）
+type ApplicantInfo struct {
+	// 用户类型：PERSON / ENTERPRISE
+	UserType *string `json:"user_type,omitempty" xml:"user_type,omitempty" require:"true"`
+	// 用户名称
+	CertName *string `json:"cert_name,omitempty" xml:"cert_name,omitempty" require:"true"`
+	// 证件类型：IDENTITY_CARD/SOCIAL_CREDIT_CODE/MTP_HM/FOREIGN_PASSPORT/MTP_TW/ENTERPRISE_REGISTERED_NO
+	CertDocType *string `json:"cert_doc_type,omitempty" xml:"cert_doc_type,omitempty" require:"true"`
+	// 证件号码
+	CertNo *string `json:"cert_no,omitempty" xml:"cert_no,omitempty" require:"true"`
+	// 是否对证件号码脱敏，默认true
+	ApplicantMasking *bool `json:"applicant_masking,omitempty" xml:"applicant_masking,omitempty"`
+	// 手机号码
+	MobileNo *string `json:"mobile_no,omitempty" xml:"mobile_no,omitempty"`
+	// 法人姓名
+	LegalPerson *string `json:"legal_person,omitempty" xml:"legal_person,omitempty"`
+	// 法人身份证
+	LegalPersonId *string `json:"legal_person_id,omitempty" xml:"legal_person_id,omitempty"`
+	// 经办人姓名
+	Agent *string `json:"agent,omitempty" xml:"agent,omitempty"`
+	// 经办人身份证
+	AgentId *string `json:"agent_id,omitempty" xml:"agent_id,omitempty"`
+}
+
+func (s ApplicantInfo) String() string {
+	return tea.Prettify(s)
+}
+
+func (s ApplicantInfo) GoString() string {
+	return s.String()
+}
+
+func (s *ApplicantInfo) SetUserType(v string) *ApplicantInfo {
+	s.UserType = &v
+	return s
+}
+
+func (s *ApplicantInfo) SetCertName(v string) *ApplicantInfo {
+	s.CertName = &v
+	return s
+}
+
+func (s *ApplicantInfo) SetCertDocType(v string) *ApplicantInfo {
+	s.CertDocType = &v
+	return s
+}
+
+func (s *ApplicantInfo) SetCertNo(v string) *ApplicantInfo {
+	s.CertNo = &v
+	return s
+}
+
+func (s *ApplicantInfo) SetApplicantMasking(v bool) *ApplicantInfo {
+	s.ApplicantMasking = &v
+	return s
+}
+
+func (s *ApplicantInfo) SetMobileNo(v string) *ApplicantInfo {
+	s.MobileNo = &v
+	return s
+}
+
+func (s *ApplicantInfo) SetLegalPerson(v string) *ApplicantInfo {
+	s.LegalPerson = &v
+	return s
+}
+
+func (s *ApplicantInfo) SetLegalPersonId(v string) *ApplicantInfo {
+	s.LegalPersonId = &v
+	return s
+}
+
+func (s *ApplicantInfo) SetAgent(v string) *ApplicantInfo {
+	s.Agent = &v
+	return s
+}
+
+func (s *ApplicantInfo) SetAgentId(v string) *ApplicantInfo {
+	s.AgentId = &v
 	return s
 }
 
@@ -651,6 +759,97 @@ func (s *QueryCertificationInfoResponse) SetFileUrl(v string) *QueryCertificatio
 
 func (s *QueryCertificationInfoResponse) SetFileHash(v string) *QueryCertificationInfoResponse {
 	s.FileHash = &v
+	return s
+}
+
+type ApplyCertificationNotaryRequest struct {
+	// OAuth模式下的授权token
+	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
+	// 业务流水ID
+	BizId *string `json:"biz_id,omitempty" xml:"biz_id,omitempty" require:"true"`
+	// 申请主体信息（公证处Identity结构）
+	Applicant *ApplicantInfo `json:"applicant,omitempty" xml:"applicant,omitempty" require:"true"`
+	// 环节明细列表
+	StepDetailInfos []*StepDetailInfo `json:"step_detail_infos,omitempty" xml:"step_detail_infos,omitempty" require:"true" type:"Repeated"`
+}
+
+func (s ApplyCertificationNotaryRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s ApplyCertificationNotaryRequest) GoString() string {
+	return s.String()
+}
+
+func (s *ApplyCertificationNotaryRequest) SetAuthToken(v string) *ApplyCertificationNotaryRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *ApplyCertificationNotaryRequest) SetProductInstanceId(v string) *ApplyCertificationNotaryRequest {
+	s.ProductInstanceId = &v
+	return s
+}
+
+func (s *ApplyCertificationNotaryRequest) SetBizId(v string) *ApplyCertificationNotaryRequest {
+	s.BizId = &v
+	return s
+}
+
+func (s *ApplyCertificationNotaryRequest) SetApplicant(v *ApplicantInfo) *ApplyCertificationNotaryRequest {
+	s.Applicant = v
+	return s
+}
+
+func (s *ApplyCertificationNotaryRequest) SetStepDetailInfos(v []*StepDetailInfo) *ApplyCertificationNotaryRequest {
+	s.StepDetailInfos = v
+	return s
+}
+
+type ApplyCertificationNotaryResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// 任务ID
+	TaskId *string `json:"task_id,omitempty" xml:"task_id,omitempty"`
+	// 任务状态
+	Status *string `json:"status,omitempty" xml:"status,omitempty"`
+}
+
+func (s ApplyCertificationNotaryResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s ApplyCertificationNotaryResponse) GoString() string {
+	return s.String()
+}
+
+func (s *ApplyCertificationNotaryResponse) SetReqMsgId(v string) *ApplyCertificationNotaryResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *ApplyCertificationNotaryResponse) SetResultCode(v string) *ApplyCertificationNotaryResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *ApplyCertificationNotaryResponse) SetResultMsg(v string) *ApplyCertificationNotaryResponse {
+	s.ResultMsg = &v
+	return s
+}
+
+func (s *ApplyCertificationNotaryResponse) SetTaskId(v string) *ApplyCertificationNotaryResponse {
+	s.TaskId = &v
+	return s
+}
+
+func (s *ApplyCertificationNotaryResponse) SetStatus(v string) *ApplyCertificationNotaryResponse {
+	s.Status = &v
 	return s
 }
 
@@ -4592,7 +4791,7 @@ func (client *Client) DoRequest(version *string, action *string, protocol *strin
 				"req_msg_id":       antchainutil.GetNonce(),
 				"access_key":       client.AccessKeyId,
 				"base_sdk_version": tea.String("TeaSDK-2.0"),
-				"sdk_version":      tea.String("1.6.0"),
+				"sdk_version":      tea.String("1.7.0"),
 				"_prod_code":       tea.String("CAASPLATFORM"),
 				"_prod_channel":    tea.String("undefined"),
 			}
@@ -4779,6 +4978,40 @@ func (client *Client) QueryCertificationInfoEx(request *QueryCertificationInfoRe
 	}
 	_result = &QueryCertificationInfoResponse{}
 	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("antchain.caasplatform.certification.info.query"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
+}
+
+/**
+ * Description: 公证处出证申请
+ * Summary: 公证处出证申请
+ */
+func (client *Client) ApplyCertificationNotary(request *ApplyCertificationNotaryRequest) (_result *ApplyCertificationNotaryResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &ApplyCertificationNotaryResponse{}
+	_body, _err := client.ApplyCertificationNotaryEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+/**
+ * Description: 公证处出证申请
+ * Summary: 公证处出证申请
+ */
+func (client *Client) ApplyCertificationNotaryEx(request *ApplyCertificationNotaryRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *ApplyCertificationNotaryResponse, _err error) {
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &ApplyCertificationNotaryResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("antchain.caasplatform.certification.notary.apply"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
 	if _err != nil {
 		return _result, _err
 	}
