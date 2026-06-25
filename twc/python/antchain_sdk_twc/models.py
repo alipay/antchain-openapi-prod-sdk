@@ -6531,6 +6531,175 @@ class BclContractFlowInfo(TeaModel):
         return self
 
 
+class ContractEHandSignFieldApplication(TeaModel):
+    def __init__(
+        self,
+        account_id: str = None,
+        authorized_account_id: str = None,
+        actor_indentity_type: int = None,
+        file_id: str = None,
+        order: int = None,
+        pos_page: str = None,
+        pos_x: str = None,
+        pos_y: str = None,
+        seal_id: str = None,
+        sign_date_bean_type: int = None,
+        sign_date_font_size: int = None,
+        sign_date_format: str = None,
+        sign_date_pos_page: int = None,
+        sign_date_pos_x: str = None,
+        sign_date_pos_y: str = None,
+        sign_type: int = None,
+        third_order_no: str = None,
+        width: str = None,
+        seal_ids: List[str] = None,
+        sign_field_type: int = None,
+        agree_auto_sign: bool = None,
+    ):
+        # 签署操作人个人账号标识，即操作本次签署的个人
+        self.account_id = account_id
+        # 签约主体账号标识，即本次签署对应任务的归属方，默认是签署操作人个人
+        self.authorized_account_id = authorized_account_id
+        # 机构签约类别，当签约主体为机构时必传：2-机构盖章；
+        self.actor_indentity_type = actor_indentity_type
+        # 电子合同文件ID
+        self.file_id = file_id
+        # 签署区顺序，默认1,且不小于1，顺序越小越先处理
+        self.order = order
+        # 页码信息：当签署区signType为2时, 页码可以_-_分割, 例如1到15页，填"1-15"； 其他情况只能是数字；不指定xy坐标签署区可不填写
+        self.pos_page = pos_page
+        # x坐标，页面签章必填，骑缝签章不填写
+        self.pos_x = pos_x
+        # y坐标
+        self.pos_y = pos_y
+        # 印章id
+        self.seal_id = seal_id
+        # 是否需要添加签署日期，0-禁止 1-必须 ，默认0
+        self.sign_date_bean_type = sign_date_bean_type
+        # 签章日期字体大小,默认12
+        self.sign_date_font_size = sign_date_font_size
+        # 签章日期格式，yyyy年MM月dd日
+        self.sign_date_format = sign_date_format
+        # 页码信息，当signDateBeanType为1时，代表签署的印章必须展示签署日期，默认放在印章正下方，签署人可拖拽日期到当前页面的其他位置，如果发起方指定签署位置的同时，需要同时指定日期盖章位置，则需传入日期盖章页码（与印章页码相同），在传入X\Y坐标即可。
+        self.sign_date_pos_page = sign_date_pos_page
+        # 签章日期x坐标，默认0
+        self.sign_date_pos_x = sign_date_pos_x
+        # 签章日期y坐标，默认0
+        self.sign_date_pos_y = sign_date_pos_y
+        # 签署类型，1-单页签署，2-骑缝签署，默认1
+        self.sign_type = sign_type
+        # 第三方业务流水号id，保证相同签署人、相同签约主体、相同签署顺序的任务，对应的第三方业务流水id唯一，默认空
+        self.third_order_no = third_order_no
+        # 签署区宽，默认印章宽度
+        self.width = width
+        # 印章ids，只支持企业用户进行印章ID列表的设置；用于手动签署时，指定企业印章进行展示，实现手动选择印章进行签署。
+        self.seal_ids = seal_ids
+        # 签署区预设xy坐标类型，0：不指定X/Y坐标 1：指定X/Y坐标 默认：指定X/Y坐标 ; 签署区设置时可以不指定XY坐标，签署方在签署时拖拽确定最终签署区域，支持在页面任何区域拖拽，个人和企业签署用印都支持
+        self.sign_field_type = sign_field_type
+        # 个人用户是否需要静默签署授权,默认false false-不需要,true-需要
+        self.agree_auto_sign = agree_auto_sign
+
+    def validate(self):
+        self.validate_required(self.account_id, 'account_id')
+        self.validate_required(self.file_id, 'file_id')
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.account_id is not None:
+            result['account_id'] = self.account_id
+        if self.authorized_account_id is not None:
+            result['authorized_account_id'] = self.authorized_account_id
+        if self.actor_indentity_type is not None:
+            result['actor_indentity_type'] = self.actor_indentity_type
+        if self.file_id is not None:
+            result['file_id'] = self.file_id
+        if self.order is not None:
+            result['order'] = self.order
+        if self.pos_page is not None:
+            result['pos_page'] = self.pos_page
+        if self.pos_x is not None:
+            result['pos_x'] = self.pos_x
+        if self.pos_y is not None:
+            result['pos_y'] = self.pos_y
+        if self.seal_id is not None:
+            result['seal_id'] = self.seal_id
+        if self.sign_date_bean_type is not None:
+            result['sign_date_bean_type'] = self.sign_date_bean_type
+        if self.sign_date_font_size is not None:
+            result['sign_date_font_size'] = self.sign_date_font_size
+        if self.sign_date_format is not None:
+            result['sign_date_format'] = self.sign_date_format
+        if self.sign_date_pos_page is not None:
+            result['sign_date_pos_page'] = self.sign_date_pos_page
+        if self.sign_date_pos_x is not None:
+            result['sign_date_pos_x'] = self.sign_date_pos_x
+        if self.sign_date_pos_y is not None:
+            result['sign_date_pos_y'] = self.sign_date_pos_y
+        if self.sign_type is not None:
+            result['sign_type'] = self.sign_type
+        if self.third_order_no is not None:
+            result['third_order_no'] = self.third_order_no
+        if self.width is not None:
+            result['width'] = self.width
+        if self.seal_ids is not None:
+            result['seal_ids'] = self.seal_ids
+        if self.sign_field_type is not None:
+            result['sign_field_type'] = self.sign_field_type
+        if self.agree_auto_sign is not None:
+            result['agree_auto_sign'] = self.agree_auto_sign
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('account_id') is not None:
+            self.account_id = m.get('account_id')
+        if m.get('authorized_account_id') is not None:
+            self.authorized_account_id = m.get('authorized_account_id')
+        if m.get('actor_indentity_type') is not None:
+            self.actor_indentity_type = m.get('actor_indentity_type')
+        if m.get('file_id') is not None:
+            self.file_id = m.get('file_id')
+        if m.get('order') is not None:
+            self.order = m.get('order')
+        if m.get('pos_page') is not None:
+            self.pos_page = m.get('pos_page')
+        if m.get('pos_x') is not None:
+            self.pos_x = m.get('pos_x')
+        if m.get('pos_y') is not None:
+            self.pos_y = m.get('pos_y')
+        if m.get('seal_id') is not None:
+            self.seal_id = m.get('seal_id')
+        if m.get('sign_date_bean_type') is not None:
+            self.sign_date_bean_type = m.get('sign_date_bean_type')
+        if m.get('sign_date_font_size') is not None:
+            self.sign_date_font_size = m.get('sign_date_font_size')
+        if m.get('sign_date_format') is not None:
+            self.sign_date_format = m.get('sign_date_format')
+        if m.get('sign_date_pos_page') is not None:
+            self.sign_date_pos_page = m.get('sign_date_pos_page')
+        if m.get('sign_date_pos_x') is not None:
+            self.sign_date_pos_x = m.get('sign_date_pos_x')
+        if m.get('sign_date_pos_y') is not None:
+            self.sign_date_pos_y = m.get('sign_date_pos_y')
+        if m.get('sign_type') is not None:
+            self.sign_type = m.get('sign_type')
+        if m.get('third_order_no') is not None:
+            self.third_order_no = m.get('third_order_no')
+        if m.get('width') is not None:
+            self.width = m.get('width')
+        if m.get('seal_ids') is not None:
+            self.seal_ids = m.get('seal_ids')
+        if m.get('sign_field_type') is not None:
+            self.sign_field_type = m.get('sign_field_type')
+        if m.get('agree_auto_sign') is not None:
+            self.agree_auto_sign = m.get('agree_auto_sign')
+        return self
+
+
 class PhaseDetail(TeaModel):
     def __init__(
         self,
@@ -31636,6 +31805,261 @@ class QueryContractSignauthResponse(TeaModel):
             self.auth_end_time = m.get('auth_end_time')
         if m.get('effective') is not None:
             self.effective = m.get('effective')
+        return self
+
+
+class CreateContractEhandsignfieldRequest(TeaModel):
+    def __init__(
+        self,
+        auth_token: str = None,
+        product_instance_id: str = None,
+        flow_id: str = None,
+        sign_fields: List[ContractEHandSignFieldApplication] = None,
+    ):
+        # OAuth模式下的授权token
+        self.auth_token = auth_token
+        self.product_instance_id = product_instance_id
+        # 流程id
+        self.flow_id = flow_id
+        # 签署区列表数据
+        self.sign_fields = sign_fields
+
+    def validate(self):
+        self.validate_required(self.flow_id, 'flow_id')
+        self.validate_required(self.sign_fields, 'sign_fields')
+        if self.sign_fields:
+            for k in self.sign_fields:
+                if k:
+                    k.validate()
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.auth_token is not None:
+            result['auth_token'] = self.auth_token
+        if self.product_instance_id is not None:
+            result['product_instance_id'] = self.product_instance_id
+        if self.flow_id is not None:
+            result['flow_id'] = self.flow_id
+        result['sign_fields'] = []
+        if self.sign_fields is not None:
+            for k in self.sign_fields:
+                result['sign_fields'].append(k.to_map() if k else None)
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('auth_token') is not None:
+            self.auth_token = m.get('auth_token')
+        if m.get('product_instance_id') is not None:
+            self.product_instance_id = m.get('product_instance_id')
+        if m.get('flow_id') is not None:
+            self.flow_id = m.get('flow_id')
+        self.sign_fields = []
+        if m.get('sign_fields') is not None:
+            for k in m.get('sign_fields'):
+                temp_model = ContractEHandSignFieldApplication()
+                self.sign_fields.append(temp_model.from_map(k))
+        return self
+
+
+class CreateContractEhandsignfieldResponse(TeaModel):
+    def __init__(
+        self,
+        req_msg_id: str = None,
+        result_code: str = None,
+        result_msg: str = None,
+        code: int = None,
+        message: str = None,
+        signfields: List[ContractSignField] = None,
+    ):
+        # 请求唯一ID，用于链路跟踪和问题排查
+        self.req_msg_id = req_msg_id
+        # 结果码，一般OK表示调用成功
+        self.result_code = result_code
+        # 异常信息的文本描述
+        self.result_msg = result_msg
+        # 业务码，0表示成功
+        self.code = code
+        # 业务码信息
+        self.message = message
+        # 签署区列表数据
+        self.signfields = signfields
+
+    def validate(self):
+        if self.signfields:
+            for k in self.signfields:
+                if k:
+                    k.validate()
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.req_msg_id is not None:
+            result['req_msg_id'] = self.req_msg_id
+        if self.result_code is not None:
+            result['result_code'] = self.result_code
+        if self.result_msg is not None:
+            result['result_msg'] = self.result_msg
+        if self.code is not None:
+            result['code'] = self.code
+        if self.message is not None:
+            result['message'] = self.message
+        result['signfields'] = []
+        if self.signfields is not None:
+            for k in self.signfields:
+                result['signfields'].append(k.to_map() if k else None)
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('req_msg_id') is not None:
+            self.req_msg_id = m.get('req_msg_id')
+        if m.get('result_code') is not None:
+            self.result_code = m.get('result_code')
+        if m.get('result_msg') is not None:
+            self.result_msg = m.get('result_msg')
+        if m.get('code') is not None:
+            self.code = m.get('code')
+        if m.get('message') is not None:
+            self.message = m.get('message')
+        self.signfields = []
+        if m.get('signfields') is not None:
+            for k in m.get('signfields'):
+                temp_model = ContractSignField()
+                self.signfields.append(temp_model.from_map(k))
+        return self
+
+
+class GetContractEsignurlRequest(TeaModel):
+    def __init__(
+        self,
+        auth_token: str = None,
+        product_instance_id: str = None,
+        flow_id: str = None,
+        account_id: str = None,
+        organize_id: str = None,
+    ):
+        # OAuth模式下的授权token
+        self.auth_token = auth_token
+        self.product_instance_id = product_instance_id
+        # 流程id
+        self.flow_id = flow_id
+        # 账户id
+        self.account_id = account_id
+        # 默认为空，返回的任务链接仅包含签署人本人需要签署的任务；  传入0，则返回的任务链接包含签署人“本人+所有代签机构”的签署任务；  传入指定机构id，则返回的任务链接包含签署人“本人+指定代签机构”的签署任务, 注意：当签署是企业签署的情况，该字段必传。建议organizeId直接传0。
+        self.organize_id = organize_id
+
+    def validate(self):
+        self.validate_required(self.flow_id, 'flow_id')
+        self.validate_required(self.account_id, 'account_id')
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.auth_token is not None:
+            result['auth_token'] = self.auth_token
+        if self.product_instance_id is not None:
+            result['product_instance_id'] = self.product_instance_id
+        if self.flow_id is not None:
+            result['flow_id'] = self.flow_id
+        if self.account_id is not None:
+            result['account_id'] = self.account_id
+        if self.organize_id is not None:
+            result['organize_id'] = self.organize_id
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('auth_token') is not None:
+            self.auth_token = m.get('auth_token')
+        if m.get('product_instance_id') is not None:
+            self.product_instance_id = m.get('product_instance_id')
+        if m.get('flow_id') is not None:
+            self.flow_id = m.get('flow_id')
+        if m.get('account_id') is not None:
+            self.account_id = m.get('account_id')
+        if m.get('organize_id') is not None:
+            self.organize_id = m.get('organize_id')
+        return self
+
+
+class GetContractEsignurlResponse(TeaModel):
+    def __init__(
+        self,
+        req_msg_id: str = None,
+        result_code: str = None,
+        result_msg: str = None,
+        code: int = None,
+        message: str = None,
+        url: str = None,
+        short_url: str = None,
+    ):
+        # 请求唯一ID，用于链路跟踪和问题排查
+        self.req_msg_id = req_msg_id
+        # 结果码，一般OK表示调用成功
+        self.result_code = result_code
+        # 异常信息的文本描述
+        self.result_msg = result_msg
+        # 业务码，0表示成功
+        self.code = code
+        # 业务码信息
+        self.message = message
+        # 长链地址
+        self.url = url
+        # 短链地址
+        self.short_url = short_url
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.req_msg_id is not None:
+            result['req_msg_id'] = self.req_msg_id
+        if self.result_code is not None:
+            result['result_code'] = self.result_code
+        if self.result_msg is not None:
+            result['result_msg'] = self.result_msg
+        if self.code is not None:
+            result['code'] = self.code
+        if self.message is not None:
+            result['message'] = self.message
+        if self.url is not None:
+            result['url'] = self.url
+        if self.short_url is not None:
+            result['short_url'] = self.short_url
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('req_msg_id') is not None:
+            self.req_msg_id = m.get('req_msg_id')
+        if m.get('result_code') is not None:
+            self.result_code = m.get('result_code')
+        if m.get('result_msg') is not None:
+            self.result_msg = m.get('result_msg')
+        if m.get('code') is not None:
+            self.code = m.get('code')
+        if m.get('message') is not None:
+            self.message = m.get('message')
+        if m.get('url') is not None:
+            self.url = m.get('url')
+        if m.get('short_url') is not None:
+            self.short_url = m.get('short_url')
         return self
 
 
