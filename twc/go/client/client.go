@@ -5245,6 +5245,165 @@ func (s *BclContractFlowInfo) SetSignMode(v string) *BclContractFlowInfo {
 	return s
 }
 
+// 手动签署区结构体
+type ContractEHandSignFieldApplication struct {
+	// 签署操作人个人账号标识，即操作本次签署的个人
+	AccountId *string `json:"account_id,omitempty" xml:"account_id,omitempty" require:"true"`
+	// 签约主体账号标识，即本次签署对应任务的归属方，默认是签署操作人个人
+	AuthorizedAccountId *string `json:"authorized_account_id,omitempty" xml:"authorized_account_id,omitempty"`
+	// 机构签约类别，当签约主体为机构时必传：2-机构盖章；
+	ActorIndentityType *int64 `json:"actor_indentity_type,omitempty" xml:"actor_indentity_type,omitempty"`
+	// 电子合同文件ID
+	FileId *string `json:"file_id,omitempty" xml:"file_id,omitempty" require:"true"`
+	// 签署区顺序，默认1,且不小于1，顺序越小越先处理
+	Order *int64 `json:"order,omitempty" xml:"order,omitempty"`
+	// 页码信息：当签署区signType为2时, 页码可以_-_分割, 例如1到15页，填"1-15"； 其他情况只能是数字；不指定xy坐标签署区可不填写
+	PosPage *string `json:"pos_page,omitempty" xml:"pos_page,omitempty"`
+	// x坐标，页面签章必填，骑缝签章不填写
+	PosX *string `json:"pos_x,omitempty" xml:"pos_x,omitempty"`
+	// y坐标
+	PosY *string `json:"pos_y,omitempty" xml:"pos_y,omitempty"`
+	// 印章id
+	SealId *string `json:"seal_id,omitempty" xml:"seal_id,omitempty"`
+	// 是否需要添加签署日期，0-禁止 1-必须 ，默认0
+	SignDateBeanType *int64 `json:"sign_date_bean_type,omitempty" xml:"sign_date_bean_type,omitempty"`
+	// 签章日期字体大小,默认12
+	SignDateFontSize *int64 `json:"sign_date_font_size,omitempty" xml:"sign_date_font_size,omitempty"`
+	// 签章日期格式，yyyy年MM月dd日
+	SignDateFormat *string `json:"sign_date_format,omitempty" xml:"sign_date_format,omitempty"`
+	// 页码信息，当signDateBeanType为1时，代表签署的印章必须展示签署日期，默认放在印章正下方，签署人可拖拽日期到当前页面的其他位置，如果发起方指定签署位置的同时，需要同时指定日期盖章位置，则需传入日期盖章页码（与印章页码相同），在传入X\Y坐标即可。
+	SignDatePosPage *int64 `json:"sign_date_pos_page,omitempty" xml:"sign_date_pos_page,omitempty"`
+	// 签章日期x坐标，默认0
+	SignDatePosX *string `json:"sign_date_pos_x,omitempty" xml:"sign_date_pos_x,omitempty"`
+	// 签章日期y坐标，默认0
+	SignDatePosY *string `json:"sign_date_pos_y,omitempty" xml:"sign_date_pos_y,omitempty"`
+	// 签署类型，1-单页签署，2-骑缝签署，默认1
+	SignType *int64 `json:"sign_type,omitempty" xml:"sign_type,omitempty"`
+	// 第三方业务流水号id，保证相同签署人、相同签约主体、相同签署顺序的任务，对应的第三方业务流水id唯一，默认空
+	ThirdOrderNo *string `json:"third_order_no,omitempty" xml:"third_order_no,omitempty"`
+	// 签署区宽，默认印章宽度
+	Width *string `json:"width,omitempty" xml:"width,omitempty"`
+	// 印章ids，只支持企业用户进行印章ID列表的设置；用于手动签署时，指定企业印章进行展示，实现手动选择印章进行签署。
+	SealIds []*string `json:"seal_ids,omitempty" xml:"seal_ids,omitempty" type:"Repeated"`
+	// 签署区预设xy坐标类型，0：不指定X/Y坐标 1：指定X/Y坐标 默认：指定X/Y坐标 ; 签署区设置时可以不指定XY坐标，签署方在签署时拖拽确定最终签署区域，支持在页面任何区域拖拽，个人和企业签署用印都支持
+	SignFieldType *int64 `json:"sign_field_type,omitempty" xml:"sign_field_type,omitempty"`
+	// 个人用户是否需要静默签署授权,默认false false-不需要,true-需要
+	AgreeAutoSign *bool `json:"agree_auto_sign,omitempty" xml:"agree_auto_sign,omitempty"`
+}
+
+func (s ContractEHandSignFieldApplication) String() string {
+	return tea.Prettify(s)
+}
+
+func (s ContractEHandSignFieldApplication) GoString() string {
+	return s.String()
+}
+
+func (s *ContractEHandSignFieldApplication) SetAccountId(v string) *ContractEHandSignFieldApplication {
+	s.AccountId = &v
+	return s
+}
+
+func (s *ContractEHandSignFieldApplication) SetAuthorizedAccountId(v string) *ContractEHandSignFieldApplication {
+	s.AuthorizedAccountId = &v
+	return s
+}
+
+func (s *ContractEHandSignFieldApplication) SetActorIndentityType(v int64) *ContractEHandSignFieldApplication {
+	s.ActorIndentityType = &v
+	return s
+}
+
+func (s *ContractEHandSignFieldApplication) SetFileId(v string) *ContractEHandSignFieldApplication {
+	s.FileId = &v
+	return s
+}
+
+func (s *ContractEHandSignFieldApplication) SetOrder(v int64) *ContractEHandSignFieldApplication {
+	s.Order = &v
+	return s
+}
+
+func (s *ContractEHandSignFieldApplication) SetPosPage(v string) *ContractEHandSignFieldApplication {
+	s.PosPage = &v
+	return s
+}
+
+func (s *ContractEHandSignFieldApplication) SetPosX(v string) *ContractEHandSignFieldApplication {
+	s.PosX = &v
+	return s
+}
+
+func (s *ContractEHandSignFieldApplication) SetPosY(v string) *ContractEHandSignFieldApplication {
+	s.PosY = &v
+	return s
+}
+
+func (s *ContractEHandSignFieldApplication) SetSealId(v string) *ContractEHandSignFieldApplication {
+	s.SealId = &v
+	return s
+}
+
+func (s *ContractEHandSignFieldApplication) SetSignDateBeanType(v int64) *ContractEHandSignFieldApplication {
+	s.SignDateBeanType = &v
+	return s
+}
+
+func (s *ContractEHandSignFieldApplication) SetSignDateFontSize(v int64) *ContractEHandSignFieldApplication {
+	s.SignDateFontSize = &v
+	return s
+}
+
+func (s *ContractEHandSignFieldApplication) SetSignDateFormat(v string) *ContractEHandSignFieldApplication {
+	s.SignDateFormat = &v
+	return s
+}
+
+func (s *ContractEHandSignFieldApplication) SetSignDatePosPage(v int64) *ContractEHandSignFieldApplication {
+	s.SignDatePosPage = &v
+	return s
+}
+
+func (s *ContractEHandSignFieldApplication) SetSignDatePosX(v string) *ContractEHandSignFieldApplication {
+	s.SignDatePosX = &v
+	return s
+}
+
+func (s *ContractEHandSignFieldApplication) SetSignDatePosY(v string) *ContractEHandSignFieldApplication {
+	s.SignDatePosY = &v
+	return s
+}
+
+func (s *ContractEHandSignFieldApplication) SetSignType(v int64) *ContractEHandSignFieldApplication {
+	s.SignType = &v
+	return s
+}
+
+func (s *ContractEHandSignFieldApplication) SetThirdOrderNo(v string) *ContractEHandSignFieldApplication {
+	s.ThirdOrderNo = &v
+	return s
+}
+
+func (s *ContractEHandSignFieldApplication) SetWidth(v string) *ContractEHandSignFieldApplication {
+	s.Width = &v
+	return s
+}
+
+func (s *ContractEHandSignFieldApplication) SetSealIds(v []*string) *ContractEHandSignFieldApplication {
+	s.SealIds = v
+	return s
+}
+
+func (s *ContractEHandSignFieldApplication) SetSignFieldType(v int64) *ContractEHandSignFieldApplication {
+	s.SignFieldType = &v
+	return s
+}
+
+func (s *ContractEHandSignFieldApplication) SetAgreeAutoSign(v bool) *ContractEHandSignFieldApplication {
+	s.AgreeAutoSign = &v
+	return s
+}
+
 // 阶段详情信息
 type PhaseDetail struct {
 	// 阶段id
@@ -25558,6 +25717,202 @@ func (s *QueryContractSignauthResponse) SetAuthEndTime(v int64) *QueryContractSi
 
 func (s *QueryContractSignauthResponse) SetEffective(v bool) *QueryContractSignauthResponse {
 	s.Effective = &v
+	return s
+}
+
+type CreateContractEhandsignfieldRequest struct {
+	// OAuth模式下的授权token
+	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
+	// 流程id
+	FlowId *string `json:"flow_id,omitempty" xml:"flow_id,omitempty" require:"true"`
+	// 签署区列表数据
+	SignFields []*ContractEHandSignFieldApplication `json:"sign_fields,omitempty" xml:"sign_fields,omitempty" require:"true" type:"Repeated"`
+}
+
+func (s CreateContractEhandsignfieldRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s CreateContractEhandsignfieldRequest) GoString() string {
+	return s.String()
+}
+
+func (s *CreateContractEhandsignfieldRequest) SetAuthToken(v string) *CreateContractEhandsignfieldRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *CreateContractEhandsignfieldRequest) SetProductInstanceId(v string) *CreateContractEhandsignfieldRequest {
+	s.ProductInstanceId = &v
+	return s
+}
+
+func (s *CreateContractEhandsignfieldRequest) SetFlowId(v string) *CreateContractEhandsignfieldRequest {
+	s.FlowId = &v
+	return s
+}
+
+func (s *CreateContractEhandsignfieldRequest) SetSignFields(v []*ContractEHandSignFieldApplication) *CreateContractEhandsignfieldRequest {
+	s.SignFields = v
+	return s
+}
+
+type CreateContractEhandsignfieldResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// 业务码，0表示成功
+	Code *int64 `json:"code,omitempty" xml:"code,omitempty"`
+	// 业务码信息
+	Message *string `json:"message,omitempty" xml:"message,omitempty"`
+	// 签署区列表数据
+	Signfields []*ContractSignField `json:"signfields,omitempty" xml:"signfields,omitempty" type:"Repeated"`
+}
+
+func (s CreateContractEhandsignfieldResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s CreateContractEhandsignfieldResponse) GoString() string {
+	return s.String()
+}
+
+func (s *CreateContractEhandsignfieldResponse) SetReqMsgId(v string) *CreateContractEhandsignfieldResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *CreateContractEhandsignfieldResponse) SetResultCode(v string) *CreateContractEhandsignfieldResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *CreateContractEhandsignfieldResponse) SetResultMsg(v string) *CreateContractEhandsignfieldResponse {
+	s.ResultMsg = &v
+	return s
+}
+
+func (s *CreateContractEhandsignfieldResponse) SetCode(v int64) *CreateContractEhandsignfieldResponse {
+	s.Code = &v
+	return s
+}
+
+func (s *CreateContractEhandsignfieldResponse) SetMessage(v string) *CreateContractEhandsignfieldResponse {
+	s.Message = &v
+	return s
+}
+
+func (s *CreateContractEhandsignfieldResponse) SetSignfields(v []*ContractSignField) *CreateContractEhandsignfieldResponse {
+	s.Signfields = v
+	return s
+}
+
+type GetContractEsignurlRequest struct {
+	// OAuth模式下的授权token
+	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
+	// 流程id
+	FlowId *string `json:"flow_id,omitempty" xml:"flow_id,omitempty" require:"true"`
+	// 账户id
+	AccountId *string `json:"account_id,omitempty" xml:"account_id,omitempty" require:"true"`
+	// 默认为空，返回的任务链接仅包含签署人本人需要签署的任务；  传入0，则返回的任务链接包含签署人“本人+所有代签机构”的签署任务；  传入指定机构id，则返回的任务链接包含签署人“本人+指定代签机构”的签署任务, 注意：当签署是企业签署的情况，该字段必传。建议organizeId直接传0。
+	OrganizeId *string `json:"organize_id,omitempty" xml:"organize_id,omitempty"`
+}
+
+func (s GetContractEsignurlRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s GetContractEsignurlRequest) GoString() string {
+	return s.String()
+}
+
+func (s *GetContractEsignurlRequest) SetAuthToken(v string) *GetContractEsignurlRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *GetContractEsignurlRequest) SetProductInstanceId(v string) *GetContractEsignurlRequest {
+	s.ProductInstanceId = &v
+	return s
+}
+
+func (s *GetContractEsignurlRequest) SetFlowId(v string) *GetContractEsignurlRequest {
+	s.FlowId = &v
+	return s
+}
+
+func (s *GetContractEsignurlRequest) SetAccountId(v string) *GetContractEsignurlRequest {
+	s.AccountId = &v
+	return s
+}
+
+func (s *GetContractEsignurlRequest) SetOrganizeId(v string) *GetContractEsignurlRequest {
+	s.OrganizeId = &v
+	return s
+}
+
+type GetContractEsignurlResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// 业务码，0表示成功
+	Code *int64 `json:"code,omitempty" xml:"code,omitempty"`
+	// 业务码信息
+	Message *string `json:"message,omitempty" xml:"message,omitempty"`
+	// 长链地址
+	Url *string `json:"url,omitempty" xml:"url,omitempty"`
+	// 短链地址
+	ShortUrl *string `json:"short_url,omitempty" xml:"short_url,omitempty"`
+}
+
+func (s GetContractEsignurlResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s GetContractEsignurlResponse) GoString() string {
+	return s.String()
+}
+
+func (s *GetContractEsignurlResponse) SetReqMsgId(v string) *GetContractEsignurlResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *GetContractEsignurlResponse) SetResultCode(v string) *GetContractEsignurlResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *GetContractEsignurlResponse) SetResultMsg(v string) *GetContractEsignurlResponse {
+	s.ResultMsg = &v
+	return s
+}
+
+func (s *GetContractEsignurlResponse) SetCode(v int64) *GetContractEsignurlResponse {
+	s.Code = &v
+	return s
+}
+
+func (s *GetContractEsignurlResponse) SetMessage(v string) *GetContractEsignurlResponse {
+	s.Message = &v
+	return s
+}
+
+func (s *GetContractEsignurlResponse) SetUrl(v string) *GetContractEsignurlResponse {
+	s.Url = &v
+	return s
+}
+
+func (s *GetContractEsignurlResponse) SetShortUrl(v string) *GetContractEsignurlResponse {
+	s.ShortUrl = &v
 	return s
 }
 
@@ -51312,7 +51667,7 @@ func (client *Client) DoRequest(version *string, action *string, protocol *strin
 				"req_msg_id":       antchainutil.GetNonce(),
 				"access_key":       client.AccessKeyId,
 				"base_sdk_version": tea.String("TeaSDK-2.0"),
-				"sdk_version":      tea.String("1.13.29"),
+				"sdk_version":      tea.String("1.13.30"),
 				"_prod_code":       tea.String("TWC"),
 				"_prod_channel":    tea.String("undefined"),
 			}
@@ -56433,6 +56788,74 @@ func (client *Client) QueryContractSignauthEx(request *QueryContractSignauthRequ
 	}
 	_result = &QueryContractSignauthResponse{}
 	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("twc.notary.contract.signauth.query"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
+}
+
+/**
+ * Description: 区块链合同手动提交签署区
+ * Summary: 区块链合同手动提交签署区
+ */
+func (client *Client) CreateContractEhandsignfield(request *CreateContractEhandsignfieldRequest) (_result *CreateContractEhandsignfieldResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &CreateContractEhandsignfieldResponse{}
+	_body, _err := client.CreateContractEhandsignfieldEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+/**
+ * Description: 区块链合同手动提交签署区
+ * Summary: 区块链合同手动提交签署区
+ */
+func (client *Client) CreateContractEhandsignfieldEx(request *CreateContractEhandsignfieldRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *CreateContractEhandsignfieldResponse, _err error) {
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &CreateContractEhandsignfieldResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("twc.notary.contract.ehandsignfield.create"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
+}
+
+/**
+ * Description: 区块链合同-获取签署链接
+ * Summary: 区块链合同-获取签署链接
+ */
+func (client *Client) GetContractEsignurl(request *GetContractEsignurlRequest) (_result *GetContractEsignurlResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &GetContractEsignurlResponse{}
+	_body, _err := client.GetContractEsignurlEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+/**
+ * Description: 区块链合同-获取签署链接
+ * Summary: 区块链合同-获取签署链接
+ */
+func (client *Client) GetContractEsignurlEx(request *GetContractEsignurlRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *GetContractEsignurlResponse, _err error) {
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &GetContractEsignurlResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("twc.notary.contract.esignurl.get"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
 	if _err != nil {
 		return _result, _err
 	}
