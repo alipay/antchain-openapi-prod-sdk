@@ -67,6 +67,12 @@ class RechargePoiMallpointRequest extends Model
      */
     public $phaseNo;
 
+    // 渠道
+    /**
+     * @var string
+     */
+    public $trafficPlatform;
+
     // 渠道Code
     /**
      * @var string
@@ -83,6 +89,7 @@ class RechargePoiMallpointRequest extends Model
         'totalPhase'        => 'total_phase',
         'phaseAmount'       => 'phase_amount',
         'phaseNo'           => 'phase_no',
+        'trafficPlatform'   => 'traffic_platform',
         'channelCode'       => 'channel_code',
     ];
 
@@ -96,6 +103,7 @@ class RechargePoiMallpointRequest extends Model
         Model::validateRequired('totalPhase', $this->totalPhase, true);
         Model::validateRequired('phaseAmount', $this->phaseAmount, true);
         Model::validateRequired('phaseNo', $this->phaseNo, true);
+        Model::validateRequired('trafficPlatform', $this->trafficPlatform, true);
         Model::validateRequired('channelCode', $this->channelCode, true);
     }
 
@@ -131,6 +139,9 @@ class RechargePoiMallpointRequest extends Model
         }
         if (null !== $this->phaseNo) {
             $res['phase_no'] = $this->phaseNo;
+        }
+        if (null !== $this->trafficPlatform) {
+            $res['traffic_platform'] = $this->trafficPlatform;
         }
         if (null !== $this->channelCode) {
             $res['channel_code'] = $this->channelCode;
@@ -176,6 +187,9 @@ class RechargePoiMallpointRequest extends Model
         }
         if (isset($map['phase_no'])) {
             $model->phaseNo = $map['phase_no'];
+        }
+        if (isset($map['traffic_platform'])) {
+            $model->trafficPlatform = $map['traffic_platform'];
         }
         if (isset($map['channel_code'])) {
             $model->channelCode = $map['channel_code'];

@@ -37,6 +37,12 @@ class QueryPoiMallpointbalanceRequest extends Model
      */
     public $bizOrderNo;
 
+    // 渠道
+    /**
+     * @var string
+     */
+    public $trafficPlatform;
+
     // 渠道Code
     /**
      * @var string
@@ -48,6 +54,7 @@ class QueryPoiMallpointbalanceRequest extends Model
         'openId'            => 'open_id',
         'storeId'           => 'store_id',
         'bizOrderNo'        => 'biz_order_no',
+        'trafficPlatform'   => 'traffic_platform',
         'channelCode'       => 'channel_code',
     ];
 
@@ -56,6 +63,7 @@ class QueryPoiMallpointbalanceRequest extends Model
         Model::validateRequired('openId', $this->openId, true);
         Model::validateRequired('storeId', $this->storeId, true);
         Model::validateRequired('bizOrderNo', $this->bizOrderNo, true);
+        Model::validateRequired('trafficPlatform', $this->trafficPlatform, true);
         Model::validateRequired('channelCode', $this->channelCode, true);
     }
 
@@ -76,6 +84,9 @@ class QueryPoiMallpointbalanceRequest extends Model
         }
         if (null !== $this->bizOrderNo) {
             $res['biz_order_no'] = $this->bizOrderNo;
+        }
+        if (null !== $this->trafficPlatform) {
+            $res['traffic_platform'] = $this->trafficPlatform;
         }
         if (null !== $this->channelCode) {
             $res['channel_code'] = $this->channelCode;
@@ -106,6 +117,9 @@ class QueryPoiMallpointbalanceRequest extends Model
         }
         if (isset($map['biz_order_no'])) {
             $model->bizOrderNo = $map['biz_order_no'];
+        }
+        if (isset($map['traffic_platform'])) {
+            $model->trafficPlatform = $map['traffic_platform'];
         }
         if (isset($map['channel_code'])) {
             $model->channelCode = $map['channel_code'];

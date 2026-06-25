@@ -44,11 +44,17 @@ class QueryPoiMallpointbalanceResponse extends Model
      */
     public $bizOrderNo;
 
-    // 可用余额金额
+    // 商城可用余额金额
     /**
      * @var string
      */
     public $availableBalance;
+
+    // 商城已消费金额
+    /**
+     * @var string
+     */
+    public $consumedAmount;
     protected $_name = [
         'reqMsgId'         => 'req_msg_id',
         'resultCode'       => 'result_code',
@@ -57,6 +63,7 @@ class QueryPoiMallpointbalanceResponse extends Model
         'storeId'          => 'store_id',
         'bizOrderNo'       => 'biz_order_no',
         'availableBalance' => 'available_balance',
+        'consumedAmount'   => 'consumed_amount',
     ];
 
     public function validate()
@@ -86,6 +93,9 @@ class QueryPoiMallpointbalanceResponse extends Model
         }
         if (null !== $this->availableBalance) {
             $res['available_balance'] = $this->availableBalance;
+        }
+        if (null !== $this->consumedAmount) {
+            $res['consumed_amount'] = $this->consumedAmount;
         }
 
         return $res;
@@ -119,6 +129,9 @@ class QueryPoiMallpointbalanceResponse extends Model
         }
         if (isset($map['available_balance'])) {
             $model->availableBalance = $map['available_balance'];
+        }
+        if (isset($map['consumed_amount'])) {
+            $model->consumedAmount = $map['consumed_amount'];
         }
 
         return $model;

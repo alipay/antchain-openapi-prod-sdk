@@ -28,14 +28,14 @@ class QueryPoiTerminationResponse extends Model
 
     // 账户信息列表
     /**
-     * @var PoiAccountInfo[]
+     * @var PoiAccountInfo
      */
-    public $accountInfoList;
+    public $accountInfo;
     protected $_name = [
-        'reqMsgId'        => 'req_msg_id',
-        'resultCode'      => 'result_code',
-        'resultMsg'       => 'result_msg',
-        'accountInfoList' => 'account_info_list',
+        'reqMsgId'    => 'req_msg_id',
+        'resultCode'  => 'result_code',
+        'resultMsg'   => 'result_msg',
+        'accountInfo' => 'account_info',
     ];
 
     public function validate()
@@ -54,14 +54,8 @@ class QueryPoiTerminationResponse extends Model
         if (null !== $this->resultMsg) {
             $res['result_msg'] = $this->resultMsg;
         }
-        if (null !== $this->accountInfoList) {
-            $res['account_info_list'] = [];
-            if (null !== $this->accountInfoList && \is_array($this->accountInfoList)) {
-                $n = 0;
-                foreach ($this->accountInfoList as $item) {
-                    $res['account_info_list'][$n++] = null !== $item ? $item->toMap() : $item;
-                }
-            }
+        if (null !== $this->accountInfo) {
+            $res['account_info'] = null !== $this->accountInfo ? $this->accountInfo->toMap() : null;
         }
 
         return $res;
@@ -84,14 +78,8 @@ class QueryPoiTerminationResponse extends Model
         if (isset($map['result_msg'])) {
             $model->resultMsg = $map['result_msg'];
         }
-        if (isset($map['account_info_list'])) {
-            if (!empty($map['account_info_list'])) {
-                $model->accountInfoList = [];
-                $n                      = 0;
-                foreach ($map['account_info_list'] as $item) {
-                    $model->accountInfoList[$n++] = null !== $item ? PoiAccountInfo::fromMap($item) : $item;
-                }
-            }
+        if (isset($map['account_info'])) {
+            $model->accountInfo = PoiAccountInfo::fromMap($map['account_info']);
         }
 
         return $model;

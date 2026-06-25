@@ -43,6 +43,12 @@ class OverduePoiTerminationRequest extends Model
      */
     public $event;
 
+    // 渠道
+    /**
+     * @var string
+     */
+    public $trafficPlatform;
+
     // 渠道Code
     /**
      * @var string
@@ -55,6 +61,7 @@ class OverduePoiTerminationRequest extends Model
         'storeId'           => 'store_id',
         'bizOrderNo'        => 'biz_order_no',
         'event'             => 'event',
+        'trafficPlatform'   => 'traffic_platform',
         'channelCode'       => 'channel_code',
     ];
 
@@ -64,6 +71,7 @@ class OverduePoiTerminationRequest extends Model
         Model::validateRequired('storeId', $this->storeId, true);
         Model::validateRequired('bizOrderNo', $this->bizOrderNo, true);
         Model::validateRequired('event', $this->event, true);
+        Model::validateRequired('trafficPlatform', $this->trafficPlatform, true);
         Model::validateRequired('channelCode', $this->channelCode, true);
     }
 
@@ -87,6 +95,9 @@ class OverduePoiTerminationRequest extends Model
         }
         if (null !== $this->event) {
             $res['event'] = $this->event;
+        }
+        if (null !== $this->trafficPlatform) {
+            $res['traffic_platform'] = $this->trafficPlatform;
         }
         if (null !== $this->channelCode) {
             $res['channel_code'] = $this->channelCode;
@@ -120,6 +131,9 @@ class OverduePoiTerminationRequest extends Model
         }
         if (isset($map['event'])) {
             $model->event = $map['event'];
+        }
+        if (isset($map['traffic_platform'])) {
+            $model->trafficPlatform = $map['traffic_platform'];
         }
         if (isset($map['channel_code'])) {
             $model->channelCode = $map['channel_code'];
