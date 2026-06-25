@@ -25,7 +25,7 @@ class QueryDubbridgePetitemRequest extends Model
      */
     public $openId;
 
-    // 唯一标识的渠道号
+    // 子渠道号(唯一标识)
     /**
      * @var string
      */
@@ -42,6 +42,12 @@ class QueryDubbridgePetitemRequest extends Model
      * @var string
      */
     public $bizOrderNo;
+
+    // 渠道号
+    /**
+     * @var string
+     */
+    public $channelCode;
     protected $_name = [
         'authToken'         => 'auth_token',
         'productInstanceId' => 'product_instance_id',
@@ -49,6 +55,7 @@ class QueryDubbridgePetitemRequest extends Model
         'trafficPlatform'   => 'traffic_platform',
         'storeId'           => 'store_id',
         'bizOrderNo'        => 'biz_order_no',
+        'channelCode'       => 'channel_code',
     ];
 
     public function validate()
@@ -57,6 +64,7 @@ class QueryDubbridgePetitemRequest extends Model
         Model::validateRequired('trafficPlatform', $this->trafficPlatform, true);
         Model::validateRequired('storeId', $this->storeId, true);
         Model::validateRequired('bizOrderNo', $this->bizOrderNo, true);
+        Model::validateRequired('channelCode', $this->channelCode, true);
     }
 
     public function toMap()
@@ -79,6 +87,9 @@ class QueryDubbridgePetitemRequest extends Model
         }
         if (null !== $this->bizOrderNo) {
             $res['biz_order_no'] = $this->bizOrderNo;
+        }
+        if (null !== $this->channelCode) {
+            $res['channel_code'] = $this->channelCode;
         }
 
         return $res;
@@ -109,6 +120,9 @@ class QueryDubbridgePetitemRequest extends Model
         }
         if (isset($map['biz_order_no'])) {
             $model->bizOrderNo = $map['biz_order_no'];
+        }
+        if (isset($map['channel_code'])) {
+            $model->channelCode = $map['channel_code'];
         }
 
         return $model;

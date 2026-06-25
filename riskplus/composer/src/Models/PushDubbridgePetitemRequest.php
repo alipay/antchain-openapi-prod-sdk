@@ -25,7 +25,7 @@ class PushDubbridgePetitemRequest extends Model
      */
     public $openId;
 
-    // 唯一标识的渠道号
+    // 子渠道号(唯一标识)
     /**
      * @var string
      */
@@ -60,6 +60,12 @@ class PushDubbridgePetitemRequest extends Model
      * @var StoreAccountInfo
      */
     public $storeAccountInfo;
+
+    // 渠道号
+    /**
+     * @var string
+     */
+    public $channelCode;
     protected $_name = [
         'authToken'         => 'auth_token',
         'productInstanceId' => 'product_instance_id',
@@ -70,6 +76,7 @@ class PushDubbridgePetitemRequest extends Model
         'mailId'            => 'mail_id',
         'goodsOrderInfo'    => 'goods_order_info',
         'storeAccountInfo'  => 'store_account_info',
+        'channelCode'       => 'channel_code',
     ];
 
     public function validate()
@@ -80,6 +87,7 @@ class PushDubbridgePetitemRequest extends Model
         Model::validateRequired('bizOrderNo', $this->bizOrderNo, true);
         Model::validateRequired('goodsOrderInfo', $this->goodsOrderInfo, true);
         Model::validateRequired('storeAccountInfo', $this->storeAccountInfo, true);
+        Model::validateRequired('channelCode', $this->channelCode, true);
     }
 
     public function toMap()
@@ -117,6 +125,9 @@ class PushDubbridgePetitemRequest extends Model
         }
         if (null !== $this->storeAccountInfo) {
             $res['store_account_info'] = null !== $this->storeAccountInfo ? $this->storeAccountInfo->toMap() : null;
+        }
+        if (null !== $this->channelCode) {
+            $res['channel_code'] = $this->channelCode;
         }
 
         return $res;
@@ -162,6 +173,9 @@ class PushDubbridgePetitemRequest extends Model
         }
         if (isset($map['store_account_info'])) {
             $model->storeAccountInfo = StoreAccountInfo::fromMap($map['store_account_info']);
+        }
+        if (isset($map['channel_code'])) {
+            $model->channelCode = $map['channel_code'];
         }
 
         return $model;

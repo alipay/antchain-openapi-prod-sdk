@@ -25,7 +25,7 @@ class RefuseDubbridgePetitemRequest extends Model
      */
     public $openId;
 
-    // 唯一标识的渠道号
+    // 子渠道号(唯一标识)
     /**
      * @var string
      */
@@ -48,6 +48,12 @@ class RefuseDubbridgePetitemRequest extends Model
      * @var string
      */
     public $refundAmount;
+
+    // 渠道号
+    /**
+     * @var string
+     */
+    public $channelCode;
     protected $_name = [
         'authToken'         => 'auth_token',
         'productInstanceId' => 'product_instance_id',
@@ -56,6 +62,7 @@ class RefuseDubbridgePetitemRequest extends Model
         'storeId'           => 'store_id',
         'bizOrderNo'        => 'biz_order_no',
         'refundAmount'      => 'refund_amount',
+        'channelCode'       => 'channel_code',
     ];
 
     public function validate()
@@ -65,6 +72,7 @@ class RefuseDubbridgePetitemRequest extends Model
         Model::validateRequired('storeId', $this->storeId, true);
         Model::validateRequired('bizOrderNo', $this->bizOrderNo, true);
         Model::validateRequired('refundAmount', $this->refundAmount, true);
+        Model::validateRequired('channelCode', $this->channelCode, true);
     }
 
     public function toMap()
@@ -90,6 +98,9 @@ class RefuseDubbridgePetitemRequest extends Model
         }
         if (null !== $this->refundAmount) {
             $res['refund_amount'] = $this->refundAmount;
+        }
+        if (null !== $this->channelCode) {
+            $res['channel_code'] = $this->channelCode;
         }
 
         return $res;
@@ -123,6 +134,9 @@ class RefuseDubbridgePetitemRequest extends Model
         }
         if (isset($map['refund_amount'])) {
             $model->refundAmount = $map['refund_amount'];
+        }
+        if (isset($map['channel_code'])) {
+            $model->channelCode = $map['channel_code'];
         }
 
         return $model;

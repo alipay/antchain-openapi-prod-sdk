@@ -105,6 +105,18 @@ class QueryDubbridgeAgreementPreviewRequest extends Model
      * @var string
      */
     public $lprEffectDate;
+
+    // 流量平台，子渠道
+    /**
+     * @var string
+     */
+    public $trafficPlatform;
+
+    // 渠道方
+    /**
+     * @var string
+     */
+    public $channelCode;
     protected $_name = [
         'authToken'         => 'auth_token',
         'productInstanceId' => 'product_instance_id',
@@ -122,6 +134,8 @@ class QueryDubbridgeAgreementPreviewRequest extends Model
         'lpr'               => 'lpr',
         'lprPoint'          => 'lpr_point',
         'lprEffectDate'     => 'lpr_effect_date',
+        'trafficPlatform'   => 'traffic_platform',
+        'channelCode'       => 'channel_code',
     ];
 
     public function validate()
@@ -179,6 +193,12 @@ class QueryDubbridgeAgreementPreviewRequest extends Model
         }
         if (null !== $this->lprEffectDate) {
             $res['lpr_effect_date'] = $this->lprEffectDate;
+        }
+        if (null !== $this->trafficPlatform) {
+            $res['traffic_platform'] = $this->trafficPlatform;
+        }
+        if (null !== $this->channelCode) {
+            $res['channel_code'] = $this->channelCode;
         }
 
         return $res;
@@ -239,6 +259,12 @@ class QueryDubbridgeAgreementPreviewRequest extends Model
         }
         if (isset($map['lpr_effect_date'])) {
             $model->lprEffectDate = $map['lpr_effect_date'];
+        }
+        if (isset($map['traffic_platform'])) {
+            $model->trafficPlatform = $map['traffic_platform'];
+        }
+        if (isset($map['channel_code'])) {
+            $model->channelCode = $map['channel_code'];
         }
 
         return $model;

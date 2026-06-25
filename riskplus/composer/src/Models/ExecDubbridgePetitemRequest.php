@@ -25,7 +25,7 @@ class ExecDubbridgePetitemRequest extends Model
      */
     public $openId;
 
-    // 唯一标识的渠道号
+    // 子渠道号(唯一标识)
     /**
      * @var string
      */
@@ -48,6 +48,12 @@ class ExecDubbridgePetitemRequest extends Model
      * @var string
      */
     public $goodsBalance;
+
+    // 渠道号
+    /**
+     * @var string
+     */
+    public $channelCode;
     protected $_name = [
         'authToken'         => 'auth_token',
         'productInstanceId' => 'product_instance_id',
@@ -56,6 +62,7 @@ class ExecDubbridgePetitemRequest extends Model
         'storeId'           => 'store_id',
         'bizOrderNo'        => 'biz_order_no',
         'goodsBalance'      => 'goods_balance',
+        'channelCode'       => 'channel_code',
     ];
 
     public function validate()
@@ -65,6 +72,7 @@ class ExecDubbridgePetitemRequest extends Model
         Model::validateRequired('storeId', $this->storeId, true);
         Model::validateRequired('bizOrderNo', $this->bizOrderNo, true);
         Model::validateRequired('goodsBalance', $this->goodsBalance, true);
+        Model::validateRequired('channelCode', $this->channelCode, true);
     }
 
     public function toMap()
@@ -90,6 +98,9 @@ class ExecDubbridgePetitemRequest extends Model
         }
         if (null !== $this->goodsBalance) {
             $res['goods_balance'] = $this->goodsBalance;
+        }
+        if (null !== $this->channelCode) {
+            $res['channel_code'] = $this->channelCode;
         }
 
         return $res;
@@ -123,6 +134,9 @@ class ExecDubbridgePetitemRequest extends Model
         }
         if (isset($map['goods_balance'])) {
             $model->goodsBalance = $map['goods_balance'];
+        }
+        if (isset($map['channel_code'])) {
+            $model->channelCode = $map['channel_code'];
         }
 
         return $model;

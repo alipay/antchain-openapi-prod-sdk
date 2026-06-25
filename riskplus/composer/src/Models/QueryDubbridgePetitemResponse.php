@@ -32,7 +32,7 @@ class QueryDubbridgePetitemResponse extends Model
      */
     public $openId;
 
-    // 唯一标识的渠道号
+    // 子渠道号(唯一标识)
     /**
      * @var string
      */
@@ -85,6 +85,12 @@ class QueryDubbridgePetitemResponse extends Model
      * @var string
      */
     public $refundFundAmount;
+
+    // 渠道号
+    /**
+     * @var string
+     */
+    public $channelCode;
     protected $_name = [
         'reqMsgId'         => 'req_msg_id',
         'resultCode'       => 'result_code',
@@ -99,6 +105,7 @@ class QueryDubbridgePetitemResponse extends Model
         'dueAmount'        => 'due_amount',
         'duePenaltyAmount' => 'due_penalty_amount',
         'refundFundAmount' => 'refund_fund_amount',
+        'channelCode'      => 'channel_code',
     ];
 
     public function validate()
@@ -146,6 +153,9 @@ class QueryDubbridgePetitemResponse extends Model
         }
         if (null !== $this->refundFundAmount) {
             $res['refund_fund_amount'] = $this->refundFundAmount;
+        }
+        if (null !== $this->channelCode) {
+            $res['channel_code'] = $this->channelCode;
         }
 
         return $res;
@@ -197,6 +207,9 @@ class QueryDubbridgePetitemResponse extends Model
         }
         if (isset($map['refund_fund_amount'])) {
             $model->refundFundAmount = $map['refund_fund_amount'];
+        }
+        if (isset($map['channel_code'])) {
+            $model->channelCode = $map['channel_code'];
         }
 
         return $model;
