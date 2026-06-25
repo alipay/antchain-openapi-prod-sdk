@@ -22687,6 +22687,8 @@ class QueryDubbridgeAgreementPreviewRequest(TeaModel):
         lpr: int = None,
         lpr_point: int = None,
         lpr_effect_date: str = None,
+        traffic_platform: str = None,
+        channel_code: str = None,
     ):
         # OAuth模式下的授权token
         self.auth_token = auth_token
@@ -22722,6 +22724,10 @@ class QueryDubbridgeAgreementPreviewRequest(TeaModel):
         self.lpr_point = lpr_point
         # LPR发布日期
         self.lpr_effect_date = lpr_effect_date
+        # 流量平台，子渠道
+        self.traffic_platform = traffic_platform
+        # 渠道方
+        self.channel_code = channel_code
 
     def validate(self):
         self.validate_required(self.biz_type, 'biz_type')
@@ -22764,6 +22770,10 @@ class QueryDubbridgeAgreementPreviewRequest(TeaModel):
             result['lpr_point'] = self.lpr_point
         if self.lpr_effect_date is not None:
             result['lpr_effect_date'] = self.lpr_effect_date
+        if self.traffic_platform is not None:
+            result['traffic_platform'] = self.traffic_platform
+        if self.channel_code is not None:
+            result['channel_code'] = self.channel_code
         return result
 
     def from_map(self, m: dict = None):
@@ -22800,6 +22810,10 @@ class QueryDubbridgeAgreementPreviewRequest(TeaModel):
             self.lpr_point = m.get('lpr_point')
         if m.get('lpr_effect_date') is not None:
             self.lpr_effect_date = m.get('lpr_effect_date')
+        if m.get('traffic_platform') is not None:
+            self.traffic_platform = m.get('traffic_platform')
+        if m.get('channel_code') is not None:
+            self.channel_code = m.get('channel_code')
         return self
 
 
@@ -28870,24 +28884,28 @@ class QueryDubbridgePetitemRequest(TeaModel):
         traffic_platform: str = None,
         store_id: str = None,
         biz_order_no: str = None,
+        channel_code: str = None,
     ):
         # OAuth模式下的授权token
         self.auth_token = auth_token
         self.product_instance_id = product_instance_id
         # 小程序客户号
         self.open_id = open_id
-        # 唯一标识的渠道号
+        # 子渠道号(唯一标识)
         self.traffic_platform = traffic_platform
         # 门店ID
         self.store_id = store_id
         # 分期订单号
         self.biz_order_no = biz_order_no
+        # 渠道号
+        self.channel_code = channel_code
 
     def validate(self):
         self.validate_required(self.open_id, 'open_id')
         self.validate_required(self.traffic_platform, 'traffic_platform')
         self.validate_required(self.store_id, 'store_id')
         self.validate_required(self.biz_order_no, 'biz_order_no')
+        self.validate_required(self.channel_code, 'channel_code')
 
     def to_map(self):
         _map = super().to_map()
@@ -28907,6 +28925,8 @@ class QueryDubbridgePetitemRequest(TeaModel):
             result['store_id'] = self.store_id
         if self.biz_order_no is not None:
             result['biz_order_no'] = self.biz_order_no
+        if self.channel_code is not None:
+            result['channel_code'] = self.channel_code
         return result
 
     def from_map(self, m: dict = None):
@@ -28923,6 +28943,8 @@ class QueryDubbridgePetitemRequest(TeaModel):
             self.store_id = m.get('store_id')
         if m.get('biz_order_no') is not None:
             self.biz_order_no = m.get('biz_order_no')
+        if m.get('channel_code') is not None:
+            self.channel_code = m.get('channel_code')
         return self
 
 
@@ -28942,6 +28964,7 @@ class QueryDubbridgePetitemResponse(TeaModel):
         due_amount: str = None,
         due_penalty_amount: str = None,
         refund_fund_amount: str = None,
+        channel_code: str = None,
     ):
         # 请求唯一ID，用于链路跟踪和问题排查
         self.req_msg_id = req_msg_id
@@ -28951,7 +28974,7 @@ class QueryDubbridgePetitemResponse(TeaModel):
         self.result_msg = result_msg
         # 小程序客户号
         self.open_id = open_id
-        # 唯一标识的渠道号
+        # 子渠道号(唯一标识)
         self.traffic_platform = traffic_platform
         # 门店ID
         self.store_id = store_id
@@ -28969,6 +28992,8 @@ class QueryDubbridgePetitemResponse(TeaModel):
         self.due_penalty_amount = due_penalty_amount
         # 可退还资方金额
         self.refund_fund_amount = refund_fund_amount
+        # 渠道号
+        self.channel_code = channel_code
 
     def validate(self):
         pass
@@ -29005,6 +29030,8 @@ class QueryDubbridgePetitemResponse(TeaModel):
             result['due_penalty_amount'] = self.due_penalty_amount
         if self.refund_fund_amount is not None:
             result['refund_fund_amount'] = self.refund_fund_amount
+        if self.channel_code is not None:
+            result['channel_code'] = self.channel_code
         return result
 
     def from_map(self, m: dict = None):
@@ -29035,6 +29062,8 @@ class QueryDubbridgePetitemResponse(TeaModel):
             self.due_penalty_amount = m.get('due_penalty_amount')
         if m.get('refund_fund_amount') is not None:
             self.refund_fund_amount = m.get('refund_fund_amount')
+        if m.get('channel_code') is not None:
+            self.channel_code = m.get('channel_code')
         return self
 
 
@@ -29048,13 +29077,14 @@ class ExecDubbridgePetitemRequest(TeaModel):
         store_id: str = None,
         biz_order_no: str = None,
         goods_balance: str = None,
+        channel_code: str = None,
     ):
         # OAuth模式下的授权token
         self.auth_token = auth_token
         self.product_instance_id = product_instance_id
         # 小程序客户号
         self.open_id = open_id
-        # 唯一标识的渠道号
+        # 子渠道号(唯一标识)
         self.traffic_platform = traffic_platform
         # 门店ID
         self.store_id = store_id
@@ -29062,6 +29092,8 @@ class ExecDubbridgePetitemRequest(TeaModel):
         self.biz_order_no = biz_order_no
         # 商城余额
         self.goods_balance = goods_balance
+        # 渠道号
+        self.channel_code = channel_code
 
     def validate(self):
         self.validate_required(self.open_id, 'open_id')
@@ -29069,6 +29101,7 @@ class ExecDubbridgePetitemRequest(TeaModel):
         self.validate_required(self.store_id, 'store_id')
         self.validate_required(self.biz_order_no, 'biz_order_no')
         self.validate_required(self.goods_balance, 'goods_balance')
+        self.validate_required(self.channel_code, 'channel_code')
 
     def to_map(self):
         _map = super().to_map()
@@ -29090,6 +29123,8 @@ class ExecDubbridgePetitemRequest(TeaModel):
             result['biz_order_no'] = self.biz_order_no
         if self.goods_balance is not None:
             result['goods_balance'] = self.goods_balance
+        if self.channel_code is not None:
+            result['channel_code'] = self.channel_code
         return result
 
     def from_map(self, m: dict = None):
@@ -29108,6 +29143,8 @@ class ExecDubbridgePetitemRequest(TeaModel):
             self.biz_order_no = m.get('biz_order_no')
         if m.get('goods_balance') is not None:
             self.goods_balance = m.get('goods_balance')
+        if m.get('channel_code') is not None:
+            self.channel_code = m.get('channel_code')
         return self
 
 
@@ -29172,13 +29209,14 @@ class PushDubbridgePetitemRequest(TeaModel):
         mail_id: str = None,
         goods_order_info: List[GoodsOrderInfo] = None,
         store_account_info: StoreAccountInfo = None,
+        channel_code: str = None,
     ):
         # OAuth模式下的授权token
         self.auth_token = auth_token
         self.product_instance_id = product_instance_id
         # 小程序客户号
         self.open_id = open_id
-        # 唯一标识的渠道号
+        # 子渠道号(唯一标识)
         self.traffic_platform = traffic_platform
         # 门店ID
         self.store_id = store_id
@@ -29190,6 +29228,8 @@ class PushDubbridgePetitemRequest(TeaModel):
         self.goods_order_info = goods_order_info
         # 门店账户信息
         self.store_account_info = store_account_info
+        # 渠道号
+        self.channel_code = channel_code
 
     def validate(self):
         self.validate_required(self.open_id, 'open_id')
@@ -29204,6 +29244,7 @@ class PushDubbridgePetitemRequest(TeaModel):
         self.validate_required(self.store_account_info, 'store_account_info')
         if self.store_account_info:
             self.store_account_info.validate()
+        self.validate_required(self.channel_code, 'channel_code')
 
     def to_map(self):
         _map = super().to_map()
@@ -29231,6 +29272,8 @@ class PushDubbridgePetitemRequest(TeaModel):
                 result['goods_order_info'].append(k.to_map() if k else None)
         if self.store_account_info is not None:
             result['store_account_info'] = self.store_account_info.to_map()
+        if self.channel_code is not None:
+            result['channel_code'] = self.channel_code
         return result
 
     def from_map(self, m: dict = None):
@@ -29257,6 +29300,8 @@ class PushDubbridgePetitemRequest(TeaModel):
         if m.get('store_account_info') is not None:
             temp_model = StoreAccountInfo()
             self.store_account_info = temp_model.from_map(m['store_account_info'])
+        if m.get('channel_code') is not None:
+            self.channel_code = m.get('channel_code')
         return self
 
 
@@ -29319,13 +29364,14 @@ class RefuseDubbridgePetitemRequest(TeaModel):
         store_id: str = None,
         biz_order_no: str = None,
         refund_amount: str = None,
+        channel_code: str = None,
     ):
         # OAuth模式下的授权token
         self.auth_token = auth_token
         self.product_instance_id = product_instance_id
         # 小程序客户号
         self.open_id = open_id
-        # 唯一标识的渠道号
+        # 子渠道号(唯一标识)
         self.traffic_platform = traffic_platform
         # 门店ID
         self.store_id = store_id
@@ -29333,6 +29379,8 @@ class RefuseDubbridgePetitemRequest(TeaModel):
         self.biz_order_no = biz_order_no
         # 退款金额
         self.refund_amount = refund_amount
+        # 渠道号
+        self.channel_code = channel_code
 
     def validate(self):
         self.validate_required(self.open_id, 'open_id')
@@ -29340,6 +29388,7 @@ class RefuseDubbridgePetitemRequest(TeaModel):
         self.validate_required(self.store_id, 'store_id')
         self.validate_required(self.biz_order_no, 'biz_order_no')
         self.validate_required(self.refund_amount, 'refund_amount')
+        self.validate_required(self.channel_code, 'channel_code')
 
     def to_map(self):
         _map = super().to_map()
@@ -29361,6 +29410,8 @@ class RefuseDubbridgePetitemRequest(TeaModel):
             result['biz_order_no'] = self.biz_order_no
         if self.refund_amount is not None:
             result['refund_amount'] = self.refund_amount
+        if self.channel_code is not None:
+            result['channel_code'] = self.channel_code
         return result
 
     def from_map(self, m: dict = None):
@@ -29379,6 +29430,8 @@ class RefuseDubbridgePetitemRequest(TeaModel):
             self.biz_order_no = m.get('biz_order_no')
         if m.get('refund_amount') is not None:
             self.refund_amount = m.get('refund_amount')
+        if m.get('channel_code') is not None:
+            self.channel_code = m.get('channel_code')
         return self
 
 
