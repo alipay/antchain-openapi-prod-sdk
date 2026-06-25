@@ -17547,6 +17547,10 @@ export class QueryDubbridgeAgreementPreviewRequest extends $tea.Model {
   lprPoint?: number;
   // LPR发布日期
   lprEffectDate?: string;
+  // 流量平台，子渠道
+  trafficPlatform?: string;
+  // 渠道方
+  channelCode?: string;
   static names(): { [key: string]: string } {
     return {
       authToken: 'auth_token',
@@ -17565,6 +17569,8 @@ export class QueryDubbridgeAgreementPreviewRequest extends $tea.Model {
       lpr: 'lpr',
       lprPoint: 'lpr_point',
       lprEffectDate: 'lpr_effect_date',
+      trafficPlatform: 'traffic_platform',
+      channelCode: 'channel_code',
     };
   }
 
@@ -17586,6 +17592,8 @@ export class QueryDubbridgeAgreementPreviewRequest extends $tea.Model {
       lpr: 'number',
       lprPoint: 'number',
       lprEffectDate: 'string',
+      trafficPlatform: 'string',
+      channelCode: 'string',
     };
   }
 
@@ -21301,12 +21309,14 @@ export class QueryDubbridgePetitemRequest extends $tea.Model {
   productInstanceId?: string;
   // 小程序客户号
   openId: string;
-  // 唯一标识的渠道号
+  // 子渠道号(唯一标识)
   trafficPlatform: string;
   // 门店ID
   storeId: string;
   // 分期订单号
   bizOrderNo: string;
+  // 渠道号
+  channelCode: string;
   static names(): { [key: string]: string } {
     return {
       authToken: 'auth_token',
@@ -21315,6 +21325,7 @@ export class QueryDubbridgePetitemRequest extends $tea.Model {
       trafficPlatform: 'traffic_platform',
       storeId: 'store_id',
       bizOrderNo: 'biz_order_no',
+      channelCode: 'channel_code',
     };
   }
 
@@ -21326,6 +21337,7 @@ export class QueryDubbridgePetitemRequest extends $tea.Model {
       trafficPlatform: 'string',
       storeId: 'string',
       bizOrderNo: 'string',
+      channelCode: 'string',
     };
   }
 
@@ -21343,7 +21355,7 @@ export class QueryDubbridgePetitemResponse extends $tea.Model {
   resultMsg?: string;
   // 小程序客户号
   openId?: string;
-  // 唯一标识的渠道号
+  // 子渠道号(唯一标识)
   trafficPlatform?: string;
   // 门店ID
   storeId?: string;
@@ -21361,6 +21373,8 @@ export class QueryDubbridgePetitemResponse extends $tea.Model {
   duePenaltyAmount?: string;
   // 可退还资方金额
   refundFundAmount?: string;
+  // 渠道号
+  channelCode?: string;
   static names(): { [key: string]: string } {
     return {
       reqMsgId: 'req_msg_id',
@@ -21376,6 +21390,7 @@ export class QueryDubbridgePetitemResponse extends $tea.Model {
       dueAmount: 'due_amount',
       duePenaltyAmount: 'due_penalty_amount',
       refundFundAmount: 'refund_fund_amount',
+      channelCode: 'channel_code',
     };
   }
 
@@ -21394,6 +21409,7 @@ export class QueryDubbridgePetitemResponse extends $tea.Model {
       dueAmount: 'string',
       duePenaltyAmount: 'string',
       refundFundAmount: 'string',
+      channelCode: 'string',
     };
   }
 
@@ -21408,7 +21424,7 @@ export class ExecDubbridgePetitemRequest extends $tea.Model {
   productInstanceId?: string;
   // 小程序客户号
   openId: string;
-  // 唯一标识的渠道号
+  // 子渠道号(唯一标识)
   trafficPlatform: string;
   // 门店ID
   storeId: string;
@@ -21416,6 +21432,8 @@ export class ExecDubbridgePetitemRequest extends $tea.Model {
   bizOrderNo: string;
   // 商城余额
   goodsBalance: string;
+  // 渠道号
+  channelCode: string;
   static names(): { [key: string]: string } {
     return {
       authToken: 'auth_token',
@@ -21425,6 +21443,7 @@ export class ExecDubbridgePetitemRequest extends $tea.Model {
       storeId: 'store_id',
       bizOrderNo: 'biz_order_no',
       goodsBalance: 'goods_balance',
+      channelCode: 'channel_code',
     };
   }
 
@@ -21437,6 +21456,7 @@ export class ExecDubbridgePetitemRequest extends $tea.Model {
       storeId: 'string',
       bizOrderNo: 'string',
       goodsBalance: 'string',
+      channelCode: 'string',
     };
   }
 
@@ -21483,7 +21503,7 @@ export class PushDubbridgePetitemRequest extends $tea.Model {
   productInstanceId?: string;
   // 小程序客户号
   openId: string;
-  // 唯一标识的渠道号
+  // 子渠道号(唯一标识)
   trafficPlatform: string;
   // 门店ID
   storeId: string;
@@ -21495,6 +21515,8 @@ export class PushDubbridgePetitemRequest extends $tea.Model {
   goodsOrderInfo: GoodsOrderInfo[];
   // 门店账户信息
   storeAccountInfo: StoreAccountInfo;
+  // 渠道号
+  channelCode: string;
   static names(): { [key: string]: string } {
     return {
       authToken: 'auth_token',
@@ -21506,6 +21528,7 @@ export class PushDubbridgePetitemRequest extends $tea.Model {
       mailId: 'mail_id',
       goodsOrderInfo: 'goods_order_info',
       storeAccountInfo: 'store_account_info',
+      channelCode: 'channel_code',
     };
   }
 
@@ -21520,6 +21543,7 @@ export class PushDubbridgePetitemRequest extends $tea.Model {
       mailId: 'string',
       goodsOrderInfo: { 'type': 'array', 'itemType': GoodsOrderInfo },
       storeAccountInfo: StoreAccountInfo,
+      channelCode: 'string',
     };
   }
 
@@ -21566,7 +21590,7 @@ export class RefuseDubbridgePetitemRequest extends $tea.Model {
   productInstanceId?: string;
   // 小程序客户号
   openId: string;
-  // 唯一标识的渠道号
+  // 子渠道号(唯一标识)
   trafficPlatform: string;
   // 门店ID
   storeId: string;
@@ -21574,6 +21598,8 @@ export class RefuseDubbridgePetitemRequest extends $tea.Model {
   bizOrderNo: string;
   // 退款金额
   refundAmount: string;
+  // 渠道号
+  channelCode: string;
   static names(): { [key: string]: string } {
     return {
       authToken: 'auth_token',
@@ -21583,6 +21609,7 @@ export class RefuseDubbridgePetitemRequest extends $tea.Model {
       storeId: 'store_id',
       bizOrderNo: 'biz_order_no',
       refundAmount: 'refund_amount',
+      channelCode: 'channel_code',
     };
   }
 
@@ -21595,6 +21622,7 @@ export class RefuseDubbridgePetitemRequest extends $tea.Model {
       storeId: 'string',
       bizOrderNo: 'string',
       refundAmount: 'string',
+      channelCode: 'string',
     };
   }
 
@@ -34985,7 +35013,7 @@ export default class Client {
           req_msg_id: AntchainUtil.getNonce(),
           access_key: this._accessKeyId,
           base_sdk_version: "TeaSDK-2.0",
-          sdk_version: "1.31.16",
+          sdk_version: "1.31.18",
           _prod_code: "RISKPLUS",
           _prod_channel: "undefined",
         };
