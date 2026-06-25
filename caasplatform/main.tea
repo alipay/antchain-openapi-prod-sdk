@@ -100,7 +100,7 @@ api doRequest(version: string, action: string, protocol: string, method: string,
     req_msg_id = AntchainUtil.getNonce(),
     access_key = @accessKeyId,
     base_sdk_version = 'TeaSDK-2.0',
-    sdk_version = '1.6.0',
+    sdk_version = '1.7.0',
     _prod_code = 'CAASPLATFORM',
     _prod_channel = 'undefined'
   };
@@ -161,6 +161,14 @@ api doRequest(version: string, action: string, protocol: string, method: string,
   ignoreSSL = runtime.ignoreSSL
 }
 
+// 环节明细信息
+model StepDetailInfo {
+  // 环节编号
+  stepNo: string(name='step_no', example='STEP_1'),
+  // 存证时的原始信息明文
+  metaContent: string(name='meta_content', example='{"asda":"asa"}'),
+}
+
 // 操作主体
 model OperateSubject {
   // 主体名称
@@ -179,6 +187,30 @@ model RuleItem {
   id: string(name='id', example='ea596f28-4ece-406d-a9e1-86fa83cc505f'),
   // 分账份额，总份额100，保留2位小数
   proportion: string(name='proportion', example='23.36'),
+}
+
+// 申请主体信息（公证处Identity结构）
+model ApplicantInfo {
+  // 用户类型：PERSON / ENTERPRISE
+  userType: string(name='user_type', example='PERSON'),
+  // 用户名称
+  certName: string(name='cert_name', example='张三'),
+  // 证件类型：IDENTITY_CARD/SOCIAL_CREDIT_CODE/MTP_HM/FOREIGN_PASSPORT/MTP_TW/ENTERPRISE_REGISTERED_NO
+  certDocType: string(name='cert_doc_type', example='IDENTITY_CARD'),
+  // 证件号码
+  certNo: string(name='cert_no', example='C1211131'),
+  // 是否对证件号码脱敏，默认true
+  applicantMasking?: boolean(name='applicant_masking', example='true'),
+  // 手机号码
+  mobileNo?: string(name='mobile_no', example='13888888888'),
+  // 法人姓名
+  legalPerson?: string(name='legal_person', example='王五'),
+  // 法人身份证
+  legalPersonId?: string(name='legal_person_id', example='C1211131'),
+  // 经办人姓名
+  agent?: string(name='agent', example='李四'),
+  // 经办人身份证
+  agentId?: string(name='agent_id', example='C1211131'),
 }
 
 // 键值对
@@ -377,6 +409,50 @@ async function queryCertificationInfo(request: QueryCertificationInfoRequest): Q
 async function queryCertificationInfoEx(request: QueryCertificationInfoRequest, headers: map[string]string, runtime: Util.RuntimeOptions): QueryCertificationInfoResponse {
   Util.validateModel(request);
   return doRequest('1.0' ,'antchain.caasplatform.certification.info.query', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model ApplyCertificationNotaryRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 业务流水ID
+  bizId: string(name='biz_id'),
+  // 申请主体信息（公证处Identity结构）
+  applicant: ApplicantInfo(name='applicant'),
+  // 环节明细列表
+  stepDetailInfos: [ StepDetailInfo ](name='step_detail_infos'),
+}
+
+model ApplyCertificationNotaryResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 任务ID
+  taskId?: string(name='task_id'),
+  // 任务状态
+  status?: string(name='status'),
+}
+
+/**
+ * Description: 公证处出证申请
+ * Summary: 公证处出证申请
+ */
+async function applyCertificationNotary(request: ApplyCertificationNotaryRequest): ApplyCertificationNotaryResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return applyCertificationNotaryEx(request, headers, runtime);
+}
+
+/**
+ * Description: 公证处出证申请
+ * Summary: 公证处出证申请
+ */
+async function applyCertificationNotaryEx(request: ApplyCertificationNotaryRequest, headers: map[string]string, runtime: Util.RuntimeOptions): ApplyCertificationNotaryResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'antchain.caasplatform.certification.notary.apply', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
 }
 
 model CreateDepositRequest = {
