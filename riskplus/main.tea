@@ -100,7 +100,7 @@ api doRequest(version: string, action: string, protocol: string, method: string,
     req_msg_id = AntchainUtil.getNonce(),
     access_key = @accessKeyId,
     base_sdk_version = 'TeaSDK-2.0',
-    sdk_version = '1.31.16',
+    sdk_version = '1.31.18',
     _prod_code = 'RISKPLUS',
     _prod_channel = 'undefined'
   };
@@ -6989,6 +6989,10 @@ model QueryDubbridgeAgreementPreviewRequest = {
   lprPoint?: long(name='lpr_point'),
   // LPR发布日期
   lprEffectDate?: string(name='lpr_effect_date'),
+  // 流量平台，子渠道
+  trafficPlatform?: string(name='traffic_platform'),
+  // 渠道方
+  channelCode?: string(name='channel_code'),
 }
 
 model QueryDubbridgeAgreementPreviewResponse = {
@@ -9260,12 +9264,14 @@ model QueryDubbridgePetitemRequest = {
   productInstanceId?: string(name='product_instance_id'),
   // 小程序客户号
   openId: string(name='open_id'),
-  // 唯一标识的渠道号
+  // 子渠道号(唯一标识)
   trafficPlatform: string(name='traffic_platform'),
   // 门店ID
   storeId: string(name='store_id'),
   // 分期订单号
   bizOrderNo: string(name='biz_order_no'),
+  // 渠道号
+  channelCode: string(name='channel_code'),
 }
 
 model QueryDubbridgePetitemResponse = {
@@ -9277,7 +9283,7 @@ model QueryDubbridgePetitemResponse = {
   resultMsg?: string(name='result_msg'),
   // 小程序客户号
   openId?: string(name='open_id'),
-  // 唯一标识的渠道号
+  // 子渠道号(唯一标识)
   trafficPlatform?: string(name='traffic_platform'),
   // 门店ID
   storeId?: string(name='store_id'),
@@ -9295,6 +9301,8 @@ model QueryDubbridgePetitemResponse = {
   duePenaltyAmount?: string(name='due_penalty_amount'),
   // 可退还资方金额
   refundFundAmount?: string(name='refund_fund_amount'),
+  // 渠道号
+  channelCode?: string(name='channel_code'),
 }
 
 /**
@@ -9322,7 +9330,7 @@ model ExecDubbridgePetitemRequest = {
   productInstanceId?: string(name='product_instance_id'),
   // 小程序客户号
   openId: string(name='open_id'),
-  // 唯一标识的渠道号
+  // 子渠道号(唯一标识)
   trafficPlatform: string(name='traffic_platform'),
   // 门店ID
   storeId: string(name='store_id'),
@@ -9330,6 +9338,8 @@ model ExecDubbridgePetitemRequest = {
   bizOrderNo: string(name='biz_order_no'),
   // 商城余额
   goodsBalance: string(name='goods_balance'),
+  // 渠道号
+  channelCode: string(name='channel_code'),
 }
 
 model ExecDubbridgePetitemResponse = {
@@ -9368,7 +9378,7 @@ model PushDubbridgePetitemRequest = {
   productInstanceId?: string(name='product_instance_id'),
   // 小程序客户号
   openId: string(name='open_id'),
-  // 唯一标识的渠道号
+  // 子渠道号(唯一标识)
   trafficPlatform: string(name='traffic_platform'),
   // 门店ID
   storeId: string(name='store_id'),
@@ -9380,6 +9390,8 @@ model PushDubbridgePetitemRequest = {
   goodsOrderInfo: [ GoodsOrderInfo ](name='goods_order_info'),
   // 门店账户信息
   storeAccountInfo: StoreAccountInfo(name='store_account_info'),
+  // 渠道号
+  channelCode: string(name='channel_code'),
 }
 
 model PushDubbridgePetitemResponse = {
@@ -9418,7 +9430,7 @@ model RefuseDubbridgePetitemRequest = {
   productInstanceId?: string(name='product_instance_id'),
   // 小程序客户号
   openId: string(name='open_id'),
-  // 唯一标识的渠道号
+  // 子渠道号(唯一标识)
   trafficPlatform: string(name='traffic_platform'),
   // 门店ID
   storeId: string(name='store_id'),
@@ -9426,6 +9438,8 @@ model RefuseDubbridgePetitemRequest = {
   bizOrderNo: string(name='biz_order_no'),
   // 退款金额
   refundAmount: string(name='refund_amount'),
+  // 渠道号
+  channelCode: string(name='channel_code'),
 }
 
 model RefuseDubbridgePetitemResponse = {
