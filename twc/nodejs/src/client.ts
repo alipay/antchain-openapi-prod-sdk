@@ -6082,6 +6082,191 @@ export class BclContractFlowInfo extends $tea.Model {
   }
 }
 
+// 手动签署区结构体
+export class ContractEHandSignFieldApplication extends $tea.Model {
+  // 签署操作人个人账号标识，即操作本次签署的个人
+  /**
+   * @example
+   * 2c7de24aff3340f5b944ebac49545b8e
+   */
+  accountId: string;
+  // 签约主体账号标识，即本次签署对应任务的归属方，默认是签署操作人个人
+  /**
+   * @example
+   * 签署账号
+   */
+  authorizedAccountId?: string;
+  // 机构签约类别，当签约主体为机构时必传：2-机构盖章；
+  /**
+   * @example
+   * 2
+   */
+  actorIndentityType?: number;
+  // 电子合同文件ID
+  /**
+   * @example
+   * fe7df2f477d649c18ebcfdfffeba253d
+   */
+  fileId: string;
+  // 签署区顺序，默认1,且不小于1，顺序越小越先处理
+  /**
+   * @example
+   * 1
+   */
+  order?: number;
+  // 页码信息：当签署区signType为2时, 页码可以_-_分割, 例如1到15页，填"1-15"； 其他情况只能是数字；不指定xy坐标签署区可不填写
+  /**
+   * @example
+   * 1
+   */
+  posPage?: string;
+  // x坐标，页面签章必填，骑缝签章不填写
+  /**
+   * @example
+   * 1.1
+   */
+  posX?: string;
+  // y坐标
+  /**
+   * @example
+   * 1.1
+   */
+  posY?: string;
+  // 印章id
+  /**
+   * @example
+   * bcd7ffd9-5caf-4342-bd1c-02257229ccd5
+   */
+  sealId?: string;
+  // 是否需要添加签署日期，0-禁止 1-必须 ，默认0
+  /**
+   * @example
+   * -
+   */
+  signDateBeanType?: number;
+  // 签章日期字体大小,默认12
+  /**
+   * @example
+   * -
+   */
+  signDateFontSize?: number;
+  // 签章日期格式，yyyy年MM月dd日
+  /**
+   * @example
+   * yyyy年MM月dd日
+   */
+  signDateFormat?: string;
+  // 页码信息，当signDateBeanType为1时，代表签署的印章必须展示签署日期，默认放在印章正下方，签署人可拖拽日期到当前页面的其他位置，如果发起方指定签署位置的同时，需要同时指定日期盖章位置，则需传入日期盖章页码（与印章页码相同），在传入X\Y坐标即可。
+  /**
+   * @example
+   * -
+   */
+  signDatePosPage?: number;
+  // 签章日期x坐标，默认0
+  /**
+   * @example
+   * 1.1
+   */
+  signDatePosX?: string;
+  // 签章日期y坐标，默认0
+  /**
+   * @example
+   * 1.1
+   */
+  signDatePosY?: string;
+  // 签署类型，1-单页签署，2-骑缝签署，默认1
+  /**
+   * @example
+   * -
+   */
+  signType?: number;
+  // 第三方业务流水号id，保证相同签署人、相同签约主体、相同签署顺序的任务，对应的第三方业务流水id唯一，默认空
+  /**
+   * @example
+   * someordernumber
+   */
+  thirdOrderNo?: string;
+  // 签署区宽，默认印章宽度
+  /**
+   * @example
+   * 100.0
+   */
+  width?: string;
+  // 印章ids，只支持企业用户进行印章ID列表的设置；用于手动签署时，指定企业印章进行展示，实现手动选择印章进行签署。
+  /**
+   * @example
+   * ["印章id1","印章id2",....]
+   */
+  sealIds?: string[];
+  // 签署区预设xy坐标类型，0：不指定X/Y坐标 1：指定X/Y坐标 默认：指定X/Y坐标 ; 签署区设置时可以不指定XY坐标，签署方在签署时拖拽确定最终签署区域，支持在页面任何区域拖拽，个人和企业签署用印都支持
+  /**
+   * @example
+   * 0
+   */
+  signFieldType?: number;
+  // 个人用户是否需要静默签署授权,默认false false-不需要,true-需要
+  /**
+   * @example
+   * false
+   */
+  agreeAutoSign?: boolean;
+  static names(): { [key: string]: string } {
+    return {
+      accountId: 'account_id',
+      authorizedAccountId: 'authorized_account_id',
+      actorIndentityType: 'actor_indentity_type',
+      fileId: 'file_id',
+      order: 'order',
+      posPage: 'pos_page',
+      posX: 'pos_x',
+      posY: 'pos_y',
+      sealId: 'seal_id',
+      signDateBeanType: 'sign_date_bean_type',
+      signDateFontSize: 'sign_date_font_size',
+      signDateFormat: 'sign_date_format',
+      signDatePosPage: 'sign_date_pos_page',
+      signDatePosX: 'sign_date_pos_x',
+      signDatePosY: 'sign_date_pos_y',
+      signType: 'sign_type',
+      thirdOrderNo: 'third_order_no',
+      width: 'width',
+      sealIds: 'seal_ids',
+      signFieldType: 'sign_field_type',
+      agreeAutoSign: 'agree_auto_sign',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      accountId: 'string',
+      authorizedAccountId: 'string',
+      actorIndentityType: 'number',
+      fileId: 'string',
+      order: 'number',
+      posPage: 'string',
+      posX: 'string',
+      posY: 'string',
+      sealId: 'string',
+      signDateBeanType: 'number',
+      signDateFontSize: 'number',
+      signDateFormat: 'string',
+      signDatePosPage: 'number',
+      signDatePosX: 'string',
+      signDatePosY: 'string',
+      signType: 'number',
+      thirdOrderNo: 'string',
+      width: 'string',
+      sealIds: { 'type': 'array', 'itemType': 'string' },
+      signFieldType: 'number',
+      agreeAutoSign: 'boolean',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
 // 阶段详情信息
 export class PhaseDetail extends $tea.Model {
   // 阶段id
@@ -22942,6 +23127,156 @@ export class QueryContractSignauthResponse extends $tea.Model {
       authStartTime: 'number',
       authEndTime: 'number',
       effective: 'boolean',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class CreateContractEhandsignfieldRequest extends $tea.Model {
+  // OAuth模式下的授权token
+  authToken?: string;
+  productInstanceId?: string;
+  // 流程id
+  flowId: string;
+  // 签署区列表数据
+  signFields: ContractEHandSignFieldApplication[];
+  static names(): { [key: string]: string } {
+    return {
+      authToken: 'auth_token',
+      productInstanceId: 'product_instance_id',
+      flowId: 'flow_id',
+      signFields: 'sign_fields',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      authToken: 'string',
+      productInstanceId: 'string',
+      flowId: 'string',
+      signFields: { 'type': 'array', 'itemType': ContractEHandSignFieldApplication },
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class CreateContractEhandsignfieldResponse extends $tea.Model {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string;
+  // 结果码，一般OK表示调用成功
+  resultCode?: string;
+  // 异常信息的文本描述
+  resultMsg?: string;
+  // 业务码，0表示成功
+  code?: number;
+  // 业务码信息
+  message?: string;
+  // 签署区列表数据
+  signfields?: ContractSignField[];
+  static names(): { [key: string]: string } {
+    return {
+      reqMsgId: 'req_msg_id',
+      resultCode: 'result_code',
+      resultMsg: 'result_msg',
+      code: 'code',
+      message: 'message',
+      signfields: 'signfields',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      reqMsgId: 'string',
+      resultCode: 'string',
+      resultMsg: 'string',
+      code: 'number',
+      message: 'string',
+      signfields: { 'type': 'array', 'itemType': ContractSignField },
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class GetContractEsignurlRequest extends $tea.Model {
+  // OAuth模式下的授权token
+  authToken?: string;
+  productInstanceId?: string;
+  // 流程id
+  flowId: string;
+  // 账户id
+  accountId: string;
+  // 默认为空，返回的任务链接仅包含签署人本人需要签署的任务；  传入0，则返回的任务链接包含签署人“本人+所有代签机构”的签署任务；  传入指定机构id，则返回的任务链接包含签署人“本人+指定代签机构”的签署任务, 注意：当签署是企业签署的情况，该字段必传。建议organizeId直接传0。
+  organizeId?: string;
+  static names(): { [key: string]: string } {
+    return {
+      authToken: 'auth_token',
+      productInstanceId: 'product_instance_id',
+      flowId: 'flow_id',
+      accountId: 'account_id',
+      organizeId: 'organize_id',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      authToken: 'string',
+      productInstanceId: 'string',
+      flowId: 'string',
+      accountId: 'string',
+      organizeId: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class GetContractEsignurlResponse extends $tea.Model {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string;
+  // 结果码，一般OK表示调用成功
+  resultCode?: string;
+  // 异常信息的文本描述
+  resultMsg?: string;
+  // 业务码，0表示成功
+  code?: number;
+  // 业务码信息
+  message?: string;
+  // 长链地址
+  url?: string;
+  // 短链地址
+  shortUrl?: string;
+  static names(): { [key: string]: string } {
+    return {
+      reqMsgId: 'req_msg_id',
+      resultCode: 'result_code',
+      resultMsg: 'result_msg',
+      code: 'code',
+      message: 'message',
+      url: 'url',
+      shortUrl: 'short_url',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      reqMsgId: 'string',
+      resultCode: 'string',
+      resultMsg: 'string',
+      code: 'number',
+      message: 'string',
+      url: 'string',
+      shortUrl: 'string',
     };
   }
 
@@ -41958,7 +42293,7 @@ export default class Client {
           req_msg_id: AntchainUtil.getNonce(),
           access_key: this._accessKeyId,
           base_sdk_version: "TeaSDK-2.0",
-          sdk_version: "1.13.29",
+          sdk_version: "1.13.30",
           _prod_code: "TWC",
           _prod_channel: "undefined",
         };
@@ -45137,6 +45472,48 @@ export default class Client {
   async queryContractSignauthEx(request: QueryContractSignauthRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<QueryContractSignauthResponse> {
     Util.validateModel(request);
     return $tea.cast<QueryContractSignauthResponse>(await this.doRequest("1.0", "twc.notary.contract.signauth.query", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new QueryContractSignauthResponse({}));
+  }
+
+  /**
+   * @remarks
+   * Description: 区块链合同手动提交签署区
+   * Summary: 区块链合同手动提交签署区
+   */
+  async createContractEhandsignfield(request: CreateContractEhandsignfieldRequest): Promise<CreateContractEhandsignfieldResponse> {
+    let runtime = new $Util.RuntimeOptions({ });
+    let headers : {[key: string ]: string} = { };
+    return await this.createContractEhandsignfieldEx(request, headers, runtime);
+  }
+
+  /**
+   * @remarks
+   * Description: 区块链合同手动提交签署区
+   * Summary: 区块链合同手动提交签署区
+   */
+  async createContractEhandsignfieldEx(request: CreateContractEhandsignfieldRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<CreateContractEhandsignfieldResponse> {
+    Util.validateModel(request);
+    return $tea.cast<CreateContractEhandsignfieldResponse>(await this.doRequest("1.0", "twc.notary.contract.ehandsignfield.create", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new CreateContractEhandsignfieldResponse({}));
+  }
+
+  /**
+   * @remarks
+   * Description: 区块链合同-获取签署链接
+   * Summary: 区块链合同-获取签署链接
+   */
+  async getContractEsignurl(request: GetContractEsignurlRequest): Promise<GetContractEsignurlResponse> {
+    let runtime = new $Util.RuntimeOptions({ });
+    let headers : {[key: string ]: string} = { };
+    return await this.getContractEsignurlEx(request, headers, runtime);
+  }
+
+  /**
+   * @remarks
+   * Description: 区块链合同-获取签署链接
+   * Summary: 区块链合同-获取签署链接
+   */
+  async getContractEsignurlEx(request: GetContractEsignurlRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<GetContractEsignurlResponse> {
+    Util.validateModel(request);
+    return $tea.cast<GetContractEsignurlResponse>(await this.doRequest("1.0", "twc.notary.contract.esignurl.get", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new GetContractEsignurlResponse({}));
   }
 
   /**
