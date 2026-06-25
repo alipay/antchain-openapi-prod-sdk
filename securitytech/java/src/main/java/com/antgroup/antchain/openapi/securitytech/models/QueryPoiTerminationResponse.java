@@ -17,8 +17,8 @@ public class QueryPoiTerminationResponse extends TeaModel {
     public String resultMsg;
 
     // 账户信息列表
-    @NameInMap("account_info_list")
-    public java.util.List<PoiAccountInfo> accountInfoList;
+    @NameInMap("account_info")
+    public PoiAccountInfo accountInfo;
 
     public static QueryPoiTerminationResponse build(java.util.Map<String, ?> map) throws Exception {
         QueryPoiTerminationResponse self = new QueryPoiTerminationResponse();
@@ -49,12 +49,12 @@ public class QueryPoiTerminationResponse extends TeaModel {
         return this.resultMsg;
     }
 
-    public QueryPoiTerminationResponse setAccountInfoList(java.util.List<PoiAccountInfo> accountInfoList) {
-        this.accountInfoList = accountInfoList;
+    public QueryPoiTerminationResponse setAccountInfo(PoiAccountInfo accountInfo) {
+        this.accountInfo = accountInfo;
         return this;
     }
-    public java.util.List<PoiAccountInfo> getAccountInfoList() {
-        return this.accountInfoList;
+    public PoiAccountInfo getAccountInfo() {
+        return this.accountInfo;
     }
 
 }

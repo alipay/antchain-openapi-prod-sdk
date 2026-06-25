@@ -12,13 +12,37 @@ public class PoiAccountInfo extends TeaModel {
     @NameInMap("account_id")
     public String accountId;
 
-    // 已消费金额
+    // 用户已支出金额
+    /**
+     * <strong>example:</strong>
+     * <p>0</p>
+     */
+    @NameInMap("expense_amount")
+    public String expenseAmount;
+
+    // 商城已消费金额
     /**
      * <strong>example:</strong>
      * <p>0</p>
      */
     @NameInMap("consume_amount")
     public String consumeAmount;
+
+    // 商城已冻结金额
+    /**
+     * <strong>example:</strong>
+     * <p>0</p>
+     */
+    @NameInMap("frozen_amount")
+    public String frozenAmount;
+
+    // 是否逾期
+    /**
+     * <strong>example:</strong>
+     * <p>TRUE</p>
+     */
+    @NameInMap("overdue")
+    public String overdue;
 
     // 已还金额
     /**
@@ -36,21 +60,13 @@ public class PoiAccountInfo extends TeaModel {
     @NameInMap("remaining_amount")
     public String remainingAmount;
 
-    // 可退还用户金额
+    // 解约后退还用户金额
     /**
      * <strong>example:</strong>
      * <p>0</p>
      */
     @NameInMap("refund_amount_to_user")
     public String refundAmountToUser;
-
-    // 可退还资方金额
-    /**
-     * <strong>example:</strong>
-     * <p>0</p>
-     */
-    @NameInMap("refund_amount_to_investor")
-    public String refundAmountToInvestor;
 
     public static PoiAccountInfo build(java.util.Map<String, ?> map) throws Exception {
         PoiAccountInfo self = new PoiAccountInfo();
@@ -65,12 +81,36 @@ public class PoiAccountInfo extends TeaModel {
         return this.accountId;
     }
 
+    public PoiAccountInfo setExpenseAmount(String expenseAmount) {
+        this.expenseAmount = expenseAmount;
+        return this;
+    }
+    public String getExpenseAmount() {
+        return this.expenseAmount;
+    }
+
     public PoiAccountInfo setConsumeAmount(String consumeAmount) {
         this.consumeAmount = consumeAmount;
         return this;
     }
     public String getConsumeAmount() {
         return this.consumeAmount;
+    }
+
+    public PoiAccountInfo setFrozenAmount(String frozenAmount) {
+        this.frozenAmount = frozenAmount;
+        return this;
+    }
+    public String getFrozenAmount() {
+        return this.frozenAmount;
+    }
+
+    public PoiAccountInfo setOverdue(String overdue) {
+        this.overdue = overdue;
+        return this;
+    }
+    public String getOverdue() {
+        return this.overdue;
     }
 
     public PoiAccountInfo setRepayAmount(String repayAmount) {
@@ -95,14 +135,6 @@ public class PoiAccountInfo extends TeaModel {
     }
     public String getRefundAmountToUser() {
         return this.refundAmountToUser;
-    }
-
-    public PoiAccountInfo setRefundAmountToInvestor(String refundAmountToInvestor) {
-        this.refundAmountToInvestor = refundAmountToInvestor;
-        return this;
-    }
-    public String getRefundAmountToInvestor() {
-        return this.refundAmountToInvestor;
     }
 
 }

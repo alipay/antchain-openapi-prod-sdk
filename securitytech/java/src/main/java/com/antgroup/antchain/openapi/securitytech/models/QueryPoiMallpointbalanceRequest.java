@@ -26,6 +26,11 @@ public class QueryPoiMallpointbalanceRequest extends TeaModel {
     @Validation(required = true)
     public String bizOrderNo;
 
+    // 渠道
+    @NameInMap("traffic_platform")
+    @Validation(required = true)
+    public String trafficPlatform;
+
     // 渠道Code
     @NameInMap("channel_code")
     @Validation(required = true)
@@ -74,6 +79,14 @@ public class QueryPoiMallpointbalanceRequest extends TeaModel {
     }
     public String getBizOrderNo() {
         return this.bizOrderNo;
+    }
+
+    public QueryPoiMallpointbalanceRequest setTrafficPlatform(String trafficPlatform) {
+        this.trafficPlatform = trafficPlatform;
+        return this;
+    }
+    public String getTrafficPlatform() {
+        return this.trafficPlatform;
     }
 
     public QueryPoiMallpointbalanceRequest setChannelCode(String channelCode) {

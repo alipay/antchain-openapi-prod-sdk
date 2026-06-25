@@ -51,6 +51,11 @@ public class RechargePoiMallpointRequest extends TeaModel {
     @Validation(required = true)
     public String phaseNo;
 
+    // 渠道
+    @NameInMap("traffic_platform")
+    @Validation(required = true)
+    public String trafficPlatform;
+
     // 渠道Code
     @NameInMap("channel_code")
     @Validation(required = true)
@@ -139,6 +144,14 @@ public class RechargePoiMallpointRequest extends TeaModel {
     }
     public String getPhaseNo() {
         return this.phaseNo;
+    }
+
+    public RechargePoiMallpointRequest setTrafficPlatform(String trafficPlatform) {
+        this.trafficPlatform = trafficPlatform;
+        return this;
+    }
+    public String getTrafficPlatform() {
+        return this.trafficPlatform;
     }
 
     public RechargePoiMallpointRequest setChannelCode(String channelCode) {

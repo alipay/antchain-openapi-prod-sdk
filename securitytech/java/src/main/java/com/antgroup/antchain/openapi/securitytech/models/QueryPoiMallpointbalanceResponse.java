@@ -28,9 +28,13 @@ public class QueryPoiMallpointbalanceResponse extends TeaModel {
     @NameInMap("biz_order_no")
     public String bizOrderNo;
 
-    // 可用余额金额
+    // 商城可用余额金额
     @NameInMap("available_balance")
     public String availableBalance;
+
+    // 商城已消费金额
+    @NameInMap("consumed_amount")
+    public String consumedAmount;
 
     public static QueryPoiMallpointbalanceResponse build(java.util.Map<String, ?> map) throws Exception {
         QueryPoiMallpointbalanceResponse self = new QueryPoiMallpointbalanceResponse();
@@ -91,6 +95,14 @@ public class QueryPoiMallpointbalanceResponse extends TeaModel {
     }
     public String getAvailableBalance() {
         return this.availableBalance;
+    }
+
+    public QueryPoiMallpointbalanceResponse setConsumedAmount(String consumedAmount) {
+        this.consumedAmount = consumedAmount;
+        return this;
+    }
+    public String getConsumedAmount() {
+        return this.consumedAmount;
     }
 
 }

@@ -31,6 +31,11 @@ public class OverduePoiTerminationRequest extends TeaModel {
     @Validation(required = true)
     public String event;
 
+    // 渠道
+    @NameInMap("traffic_platform")
+    @Validation(required = true)
+    public String trafficPlatform;
+
     // 渠道Code
     @NameInMap("channel_code")
     @Validation(required = true)
@@ -87,6 +92,14 @@ public class OverduePoiTerminationRequest extends TeaModel {
     }
     public String getEvent() {
         return this.event;
+    }
+
+    public OverduePoiTerminationRequest setTrafficPlatform(String trafficPlatform) {
+        this.trafficPlatform = trafficPlatform;
+        return this;
+    }
+    public String getTrafficPlatform() {
+        return this.trafficPlatform;
     }
 
     public OverduePoiTerminationRequest setChannelCode(String channelCode) {
