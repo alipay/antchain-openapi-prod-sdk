@@ -844,24 +844,30 @@ class PoiAccountInfo(TeaModel):
     def __init__(
         self,
         account_id: str = None,
+        expense_amount: str = None,
         consume_amount: str = None,
+        frozen_amount: str = None,
+        overdue: str = None,
         repay_amount: str = None,
         remaining_amount: str = None,
         refund_amount_to_user: str = None,
-        refund_amount_to_investor: str = None,
     ):
         # 账户ID
         self.account_id = account_id
-        # 已消费金额
+        # 用户已支出金额
+        self.expense_amount = expense_amount
+        # 商城已消费金额
         self.consume_amount = consume_amount
+        # 商城已冻结金额
+        self.frozen_amount = frozen_amount
+        # 是否逾期
+        self.overdue = overdue
         # 已还金额
         self.repay_amount = repay_amount
         # 解约后剩余应还金额
         self.remaining_amount = remaining_amount
-        # 可退还用户金额
+        # 解约后退还用户金额
         self.refund_amount_to_user = refund_amount_to_user
-        # 可退还资方金额
-        self.refund_amount_to_investor = refund_amount_to_investor
 
     def validate(self):
         pass
@@ -874,32 +880,40 @@ class PoiAccountInfo(TeaModel):
         result = dict()
         if self.account_id is not None:
             result['account_id'] = self.account_id
+        if self.expense_amount is not None:
+            result['expense_amount'] = self.expense_amount
         if self.consume_amount is not None:
             result['consume_amount'] = self.consume_amount
+        if self.frozen_amount is not None:
+            result['frozen_amount'] = self.frozen_amount
+        if self.overdue is not None:
+            result['overdue'] = self.overdue
         if self.repay_amount is not None:
             result['repay_amount'] = self.repay_amount
         if self.remaining_amount is not None:
             result['remaining_amount'] = self.remaining_amount
         if self.refund_amount_to_user is not None:
             result['refund_amount_to_user'] = self.refund_amount_to_user
-        if self.refund_amount_to_investor is not None:
-            result['refund_amount_to_investor'] = self.refund_amount_to_investor
         return result
 
     def from_map(self, m: dict = None):
         m = m or dict()
         if m.get('account_id') is not None:
             self.account_id = m.get('account_id')
+        if m.get('expense_amount') is not None:
+            self.expense_amount = m.get('expense_amount')
         if m.get('consume_amount') is not None:
             self.consume_amount = m.get('consume_amount')
+        if m.get('frozen_amount') is not None:
+            self.frozen_amount = m.get('frozen_amount')
+        if m.get('overdue') is not None:
+            self.overdue = m.get('overdue')
         if m.get('repay_amount') is not None:
             self.repay_amount = m.get('repay_amount')
         if m.get('remaining_amount') is not None:
             self.remaining_amount = m.get('remaining_amount')
         if m.get('refund_amount_to_user') is not None:
             self.refund_amount_to_user = m.get('refund_amount_to_user')
-        if m.get('refund_amount_to_investor') is not None:
-            self.refund_amount_to_investor = m.get('refund_amount_to_investor')
         return self
 
 
@@ -10855,6 +10869,7 @@ class RechargePoiMallpointRequest(TeaModel):
         total_phase: str = None,
         phase_amount: str = None,
         phase_no: str = None,
+        traffic_platform: str = None,
         channel_code: str = None,
     ):
         # OAuth模式下的授权token
@@ -10876,6 +10891,8 @@ class RechargePoiMallpointRequest(TeaModel):
         self.phase_amount = phase_amount
         # 当前期数编号
         self.phase_no = phase_no
+        # 渠道
+        self.traffic_platform = traffic_platform
         # 渠道Code
         self.channel_code = channel_code
 
@@ -10888,6 +10905,7 @@ class RechargePoiMallpointRequest(TeaModel):
         self.validate_required(self.total_phase, 'total_phase')
         self.validate_required(self.phase_amount, 'phase_amount')
         self.validate_required(self.phase_no, 'phase_no')
+        self.validate_required(self.traffic_platform, 'traffic_platform')
         self.validate_required(self.channel_code, 'channel_code')
 
     def to_map(self):
@@ -10916,6 +10934,8 @@ class RechargePoiMallpointRequest(TeaModel):
             result['phase_amount'] = self.phase_amount
         if self.phase_no is not None:
             result['phase_no'] = self.phase_no
+        if self.traffic_platform is not None:
+            result['traffic_platform'] = self.traffic_platform
         if self.channel_code is not None:
             result['channel_code'] = self.channel_code
         return result
@@ -10942,6 +10962,8 @@ class RechargePoiMallpointRequest(TeaModel):
             self.phase_amount = m.get('phase_amount')
         if m.get('phase_no') is not None:
             self.phase_no = m.get('phase_no')
+        if m.get('traffic_platform') is not None:
+            self.traffic_platform = m.get('traffic_platform')
         if m.get('channel_code') is not None:
             self.channel_code = m.get('channel_code')
         return self
@@ -10998,6 +11020,7 @@ class OverduePoiTerminationRequest(TeaModel):
         store_id: str = None,
         biz_order_no: str = None,
         event: str = None,
+        traffic_platform: str = None,
         channel_code: str = None,
     ):
         # OAuth模式下的授权token
@@ -11011,6 +11034,8 @@ class OverduePoiTerminationRequest(TeaModel):
         self.biz_order_no = biz_order_no
         # 逾期事件类型
         self.event = event
+        # 渠道
+        self.traffic_platform = traffic_platform
         # 渠道Code
         self.channel_code = channel_code
 
@@ -11019,6 +11044,7 @@ class OverduePoiTerminationRequest(TeaModel):
         self.validate_required(self.store_id, 'store_id')
         self.validate_required(self.biz_order_no, 'biz_order_no')
         self.validate_required(self.event, 'event')
+        self.validate_required(self.traffic_platform, 'traffic_platform')
         self.validate_required(self.channel_code, 'channel_code')
 
     def to_map(self):
@@ -11039,6 +11065,8 @@ class OverduePoiTerminationRequest(TeaModel):
             result['biz_order_no'] = self.biz_order_no
         if self.event is not None:
             result['event'] = self.event
+        if self.traffic_platform is not None:
+            result['traffic_platform'] = self.traffic_platform
         if self.channel_code is not None:
             result['channel_code'] = self.channel_code
         return result
@@ -11057,6 +11085,8 @@ class OverduePoiTerminationRequest(TeaModel):
             self.biz_order_no = m.get('biz_order_no')
         if m.get('event') is not None:
             self.event = m.get('event')
+        if m.get('traffic_platform') is not None:
+            self.traffic_platform = m.get('traffic_platform')
         if m.get('channel_code') is not None:
             self.channel_code = m.get('channel_code')
         return self
@@ -11119,6 +11149,7 @@ class QueryPoiMallpointbalanceRequest(TeaModel):
         open_id: str = None,
         store_id: str = None,
         biz_order_no: str = None,
+        traffic_platform: str = None,
         channel_code: str = None,
     ):
         # OAuth模式下的授权token
@@ -11130,6 +11161,8 @@ class QueryPoiMallpointbalanceRequest(TeaModel):
         self.store_id = store_id
         # 分期主订单号
         self.biz_order_no = biz_order_no
+        # 渠道
+        self.traffic_platform = traffic_platform
         # 渠道Code
         self.channel_code = channel_code
 
@@ -11137,6 +11170,7 @@ class QueryPoiMallpointbalanceRequest(TeaModel):
         self.validate_required(self.open_id, 'open_id')
         self.validate_required(self.store_id, 'store_id')
         self.validate_required(self.biz_order_no, 'biz_order_no')
+        self.validate_required(self.traffic_platform, 'traffic_platform')
         self.validate_required(self.channel_code, 'channel_code')
 
     def to_map(self):
@@ -11155,6 +11189,8 @@ class QueryPoiMallpointbalanceRequest(TeaModel):
             result['store_id'] = self.store_id
         if self.biz_order_no is not None:
             result['biz_order_no'] = self.biz_order_no
+        if self.traffic_platform is not None:
+            result['traffic_platform'] = self.traffic_platform
         if self.channel_code is not None:
             result['channel_code'] = self.channel_code
         return result
@@ -11171,6 +11207,8 @@ class QueryPoiMallpointbalanceRequest(TeaModel):
             self.store_id = m.get('store_id')
         if m.get('biz_order_no') is not None:
             self.biz_order_no = m.get('biz_order_no')
+        if m.get('traffic_platform') is not None:
+            self.traffic_platform = m.get('traffic_platform')
         if m.get('channel_code') is not None:
             self.channel_code = m.get('channel_code')
         return self
@@ -11186,6 +11224,7 @@ class QueryPoiMallpointbalanceResponse(TeaModel):
         store_id: str = None,
         biz_order_no: str = None,
         available_balance: str = None,
+        consumed_amount: str = None,
     ):
         # 请求唯一ID，用于链路跟踪和问题排查
         self.req_msg_id = req_msg_id
@@ -11199,8 +11238,10 @@ class QueryPoiMallpointbalanceResponse(TeaModel):
         self.store_id = store_id
         # 分期主订单号
         self.biz_order_no = biz_order_no
-        # 可用余额金额
+        # 商城可用余额金额
         self.available_balance = available_balance
+        # 商城已消费金额
+        self.consumed_amount = consumed_amount
 
     def validate(self):
         pass
@@ -11225,6 +11266,8 @@ class QueryPoiMallpointbalanceResponse(TeaModel):
             result['biz_order_no'] = self.biz_order_no
         if self.available_balance is not None:
             result['available_balance'] = self.available_balance
+        if self.consumed_amount is not None:
+            result['consumed_amount'] = self.consumed_amount
         return result
 
     def from_map(self, m: dict = None):
@@ -11243,6 +11286,8 @@ class QueryPoiMallpointbalanceResponse(TeaModel):
             self.biz_order_no = m.get('biz_order_no')
         if m.get('available_balance') is not None:
             self.available_balance = m.get('available_balance')
+        if m.get('consumed_amount') is not None:
+            self.consumed_amount = m.get('consumed_amount')
         return self
 
 
@@ -11309,7 +11354,7 @@ class QueryPoiTerminationResponse(TeaModel):
         req_msg_id: str = None,
         result_code: str = None,
         result_msg: str = None,
-        account_info_list: List[PoiAccountInfo] = None,
+        account_info: PoiAccountInfo = None,
     ):
         # 请求唯一ID，用于链路跟踪和问题排查
         self.req_msg_id = req_msg_id
@@ -11318,13 +11363,11 @@ class QueryPoiTerminationResponse(TeaModel):
         # 异常信息的文本描述
         self.result_msg = result_msg
         # 账户信息列表
-        self.account_info_list = account_info_list
+        self.account_info = account_info
 
     def validate(self):
-        if self.account_info_list:
-            for k in self.account_info_list:
-                if k:
-                    k.validate()
+        if self.account_info:
+            self.account_info.validate()
 
     def to_map(self):
         _map = super().to_map()
@@ -11338,10 +11381,8 @@ class QueryPoiTerminationResponse(TeaModel):
             result['result_code'] = self.result_code
         if self.result_msg is not None:
             result['result_msg'] = self.result_msg
-        result['account_info_list'] = []
-        if self.account_info_list is not None:
-            for k in self.account_info_list:
-                result['account_info_list'].append(k.to_map() if k else None)
+        if self.account_info is not None:
+            result['account_info'] = self.account_info.to_map()
         return result
 
     def from_map(self, m: dict = None):
@@ -11352,11 +11393,9 @@ class QueryPoiTerminationResponse(TeaModel):
             self.result_code = m.get('result_code')
         if m.get('result_msg') is not None:
             self.result_msg = m.get('result_msg')
-        self.account_info_list = []
-        if m.get('account_info_list') is not None:
-            for k in m.get('account_info_list'):
-                temp_model = PoiAccountInfo()
-                self.account_info_list.append(temp_model.from_map(k))
+        if m.get('account_info') is not None:
+            temp_model = PoiAccountInfo()
+            self.account_info = temp_model.from_map(m['account_info'])
         return self
 
 
