@@ -16,7 +16,7 @@ public class RefuseDubbridgePetitemRequest extends TeaModel {
     @Validation(required = true)
     public String openId;
 
-    // 唯一标识的渠道号
+    // 子渠道号(唯一标识)
     @NameInMap("traffic_platform")
     @Validation(required = true)
     public String trafficPlatform;
@@ -35,6 +35,11 @@ public class RefuseDubbridgePetitemRequest extends TeaModel {
     @NameInMap("refund_amount")
     @Validation(required = true)
     public String refundAmount;
+
+    // 渠道号
+    @NameInMap("channel_code")
+    @Validation(required = true)
+    public String channelCode;
 
     public static RefuseDubbridgePetitemRequest build(java.util.Map<String, ?> map) throws Exception {
         RefuseDubbridgePetitemRequest self = new RefuseDubbridgePetitemRequest();
@@ -95,6 +100,14 @@ public class RefuseDubbridgePetitemRequest extends TeaModel {
     }
     public String getRefundAmount() {
         return this.refundAmount;
+    }
+
+    public RefuseDubbridgePetitemRequest setChannelCode(String channelCode) {
+        this.channelCode = channelCode;
+        return this;
+    }
+    public String getChannelCode() {
+        return this.channelCode;
     }
 
 }

@@ -20,7 +20,7 @@ public class QueryDubbridgePetitemResponse extends TeaModel {
     @NameInMap("open_id")
     public String openId;
 
-    // 唯一标识的渠道号
+    // 子渠道号(唯一标识)
     @NameInMap("traffic_platform")
     public String trafficPlatform;
 
@@ -55,6 +55,10 @@ public class QueryDubbridgePetitemResponse extends TeaModel {
     // 可退还资方金额
     @NameInMap("refund_fund_amount")
     public String refundFundAmount;
+
+    // 渠道号
+    @NameInMap("channel_code")
+    public String channelCode;
 
     public static QueryDubbridgePetitemResponse build(java.util.Map<String, ?> map) throws Exception {
         QueryDubbridgePetitemResponse self = new QueryDubbridgePetitemResponse();
@@ -163,6 +167,14 @@ public class QueryDubbridgePetitemResponse extends TeaModel {
     }
     public String getRefundFundAmount() {
         return this.refundFundAmount;
+    }
+
+    public QueryDubbridgePetitemResponse setChannelCode(String channelCode) {
+        this.channelCode = channelCode;
+        return this;
+    }
+    public String getChannelCode() {
+        return this.channelCode;
     }
 
 }

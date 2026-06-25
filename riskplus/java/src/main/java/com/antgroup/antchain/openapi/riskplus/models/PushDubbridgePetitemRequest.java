@@ -16,7 +16,7 @@ public class PushDubbridgePetitemRequest extends TeaModel {
     @Validation(required = true)
     public String openId;
 
-    // 唯一标识的渠道号
+    // 子渠道号(唯一标识)
     @NameInMap("traffic_platform")
     @Validation(required = true)
     public String trafficPlatform;
@@ -44,6 +44,11 @@ public class PushDubbridgePetitemRequest extends TeaModel {
     @NameInMap("store_account_info")
     @Validation(required = true)
     public StoreAccountInfo storeAccountInfo;
+
+    // 渠道号
+    @NameInMap("channel_code")
+    @Validation(required = true)
+    public String channelCode;
 
     public static PushDubbridgePetitemRequest build(java.util.Map<String, ?> map) throws Exception {
         PushDubbridgePetitemRequest self = new PushDubbridgePetitemRequest();
@@ -120,6 +125,14 @@ public class PushDubbridgePetitemRequest extends TeaModel {
     }
     public StoreAccountInfo getStoreAccountInfo() {
         return this.storeAccountInfo;
+    }
+
+    public PushDubbridgePetitemRequest setChannelCode(String channelCode) {
+        this.channelCode = channelCode;
+        return this;
+    }
+    public String getChannelCode() {
+        return this.channelCode;
     }
 
 }

@@ -16,7 +16,7 @@ public class QueryDubbridgePetitemRequest extends TeaModel {
     @Validation(required = true)
     public String openId;
 
-    // 唯一标识的渠道号
+    // 子渠道号(唯一标识)
     @NameInMap("traffic_platform")
     @Validation(required = true)
     public String trafficPlatform;
@@ -30,6 +30,11 @@ public class QueryDubbridgePetitemRequest extends TeaModel {
     @NameInMap("biz_order_no")
     @Validation(required = true)
     public String bizOrderNo;
+
+    // 渠道号
+    @NameInMap("channel_code")
+    @Validation(required = true)
+    public String channelCode;
 
     public static QueryDubbridgePetitemRequest build(java.util.Map<String, ?> map) throws Exception {
         QueryDubbridgePetitemRequest self = new QueryDubbridgePetitemRequest();
@@ -82,6 +87,14 @@ public class QueryDubbridgePetitemRequest extends TeaModel {
     }
     public String getBizOrderNo() {
         return this.bizOrderNo;
+    }
+
+    public QueryDubbridgePetitemRequest setChannelCode(String channelCode) {
+        this.channelCode = channelCode;
+        return this;
+    }
+    public String getChannelCode() {
+        return this.channelCode;
     }
 
 }

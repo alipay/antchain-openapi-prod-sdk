@@ -71,6 +71,14 @@ public class QueryDubbridgeAgreementPreviewRequest extends TeaModel {
     @NameInMap("lpr_effect_date")
     public String lprEffectDate;
 
+    // 流量平台，子渠道
+    @NameInMap("traffic_platform")
+    public String trafficPlatform;
+
+    // 渠道方
+    @NameInMap("channel_code")
+    public String channelCode;
+
     public static QueryDubbridgeAgreementPreviewRequest build(java.util.Map<String, ?> map) throws Exception {
         QueryDubbridgeAgreementPreviewRequest self = new QueryDubbridgeAgreementPreviewRequest();
         return TeaModel.build(map, self);
@@ -202,6 +210,22 @@ public class QueryDubbridgeAgreementPreviewRequest extends TeaModel {
     }
     public String getLprEffectDate() {
         return this.lprEffectDate;
+    }
+
+    public QueryDubbridgeAgreementPreviewRequest setTrafficPlatform(String trafficPlatform) {
+        this.trafficPlatform = trafficPlatform;
+        return this;
+    }
+    public String getTrafficPlatform() {
+        return this.trafficPlatform;
+    }
+
+    public QueryDubbridgeAgreementPreviewRequest setChannelCode(String channelCode) {
+        this.channelCode = channelCode;
+        return this;
+    }
+    public String getChannelCode() {
+        return this.channelCode;
     }
 
 }
