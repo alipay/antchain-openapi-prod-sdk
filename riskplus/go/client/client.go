@@ -18394,6 +18394,10 @@ type QueryDubbridgeAgreementPreviewRequest struct {
 	LprPoint *int64 `json:"lpr_point,omitempty" xml:"lpr_point,omitempty"`
 	// LPR发布日期
 	LprEffectDate *string `json:"lpr_effect_date,omitempty" xml:"lpr_effect_date,omitempty"`
+	// 流量平台，子渠道
+	TrafficPlatform *string `json:"traffic_platform,omitempty" xml:"traffic_platform,omitempty"`
+	// 渠道方
+	ChannelCode *string `json:"channel_code,omitempty" xml:"channel_code,omitempty"`
 }
 
 func (s QueryDubbridgeAgreementPreviewRequest) String() string {
@@ -18481,6 +18485,16 @@ func (s *QueryDubbridgeAgreementPreviewRequest) SetLprPoint(v int64) *QueryDubbr
 
 func (s *QueryDubbridgeAgreementPreviewRequest) SetLprEffectDate(v string) *QueryDubbridgeAgreementPreviewRequest {
 	s.LprEffectDate = &v
+	return s
+}
+
+func (s *QueryDubbridgeAgreementPreviewRequest) SetTrafficPlatform(v string) *QueryDubbridgeAgreementPreviewRequest {
+	s.TrafficPlatform = &v
+	return s
+}
+
+func (s *QueryDubbridgeAgreementPreviewRequest) SetChannelCode(v string) *QueryDubbridgeAgreementPreviewRequest {
+	s.ChannelCode = &v
 	return s
 }
 
@@ -23450,12 +23464,14 @@ type QueryDubbridgePetitemRequest struct {
 	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
 	// 小程序客户号
 	OpenId *string `json:"open_id,omitempty" xml:"open_id,omitempty" require:"true"`
-	// 唯一标识的渠道号
+	// 子渠道号(唯一标识)
 	TrafficPlatform *string `json:"traffic_platform,omitempty" xml:"traffic_platform,omitempty" require:"true"`
 	// 门店ID
 	StoreId *string `json:"store_id,omitempty" xml:"store_id,omitempty" require:"true"`
 	// 分期订单号
 	BizOrderNo *string `json:"biz_order_no,omitempty" xml:"biz_order_no,omitempty" require:"true"`
+	// 渠道号
+	ChannelCode *string `json:"channel_code,omitempty" xml:"channel_code,omitempty" require:"true"`
 }
 
 func (s QueryDubbridgePetitemRequest) String() string {
@@ -23496,6 +23512,11 @@ func (s *QueryDubbridgePetitemRequest) SetBizOrderNo(v string) *QueryDubbridgePe
 	return s
 }
 
+func (s *QueryDubbridgePetitemRequest) SetChannelCode(v string) *QueryDubbridgePetitemRequest {
+	s.ChannelCode = &v
+	return s
+}
+
 type QueryDubbridgePetitemResponse struct {
 	// 请求唯一ID，用于链路跟踪和问题排查
 	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
@@ -23505,7 +23526,7 @@ type QueryDubbridgePetitemResponse struct {
 	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
 	// 小程序客户号
 	OpenId *string `json:"open_id,omitempty" xml:"open_id,omitempty"`
-	// 唯一标识的渠道号
+	// 子渠道号(唯一标识)
 	TrafficPlatform *string `json:"traffic_platform,omitempty" xml:"traffic_platform,omitempty"`
 	// 门店ID
 	StoreId *string `json:"store_id,omitempty" xml:"store_id,omitempty"`
@@ -23523,6 +23544,8 @@ type QueryDubbridgePetitemResponse struct {
 	DuePenaltyAmount *string `json:"due_penalty_amount,omitempty" xml:"due_penalty_amount,omitempty"`
 	// 可退还资方金额
 	RefundFundAmount *string `json:"refund_fund_amount,omitempty" xml:"refund_fund_amount,omitempty"`
+	// 渠道号
+	ChannelCode *string `json:"channel_code,omitempty" xml:"channel_code,omitempty"`
 }
 
 func (s QueryDubbridgePetitemResponse) String() string {
@@ -23598,13 +23621,18 @@ func (s *QueryDubbridgePetitemResponse) SetRefundFundAmount(v string) *QueryDubb
 	return s
 }
 
+func (s *QueryDubbridgePetitemResponse) SetChannelCode(v string) *QueryDubbridgePetitemResponse {
+	s.ChannelCode = &v
+	return s
+}
+
 type ExecDubbridgePetitemRequest struct {
 	// OAuth模式下的授权token
 	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
 	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
 	// 小程序客户号
 	OpenId *string `json:"open_id,omitempty" xml:"open_id,omitempty" require:"true"`
-	// 唯一标识的渠道号
+	// 子渠道号(唯一标识)
 	TrafficPlatform *string `json:"traffic_platform,omitempty" xml:"traffic_platform,omitempty" require:"true"`
 	// 门店ID
 	StoreId *string `json:"store_id,omitempty" xml:"store_id,omitempty" require:"true"`
@@ -23612,6 +23640,8 @@ type ExecDubbridgePetitemRequest struct {
 	BizOrderNo *string `json:"biz_order_no,omitempty" xml:"biz_order_no,omitempty" require:"true"`
 	// 商城余额
 	GoodsBalance *string `json:"goods_balance,omitempty" xml:"goods_balance,omitempty" require:"true"`
+	// 渠道号
+	ChannelCode *string `json:"channel_code,omitempty" xml:"channel_code,omitempty" require:"true"`
 }
 
 func (s ExecDubbridgePetitemRequest) String() string {
@@ -23654,6 +23684,11 @@ func (s *ExecDubbridgePetitemRequest) SetBizOrderNo(v string) *ExecDubbridgePeti
 
 func (s *ExecDubbridgePetitemRequest) SetGoodsBalance(v string) *ExecDubbridgePetitemRequest {
 	s.GoodsBalance = &v
+	return s
+}
+
+func (s *ExecDubbridgePetitemRequest) SetChannelCode(v string) *ExecDubbridgePetitemRequest {
+	s.ChannelCode = &v
 	return s
 }
 
@@ -23702,7 +23737,7 @@ type PushDubbridgePetitemRequest struct {
 	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
 	// 小程序客户号
 	OpenId *string `json:"open_id,omitempty" xml:"open_id,omitempty" require:"true"`
-	// 唯一标识的渠道号
+	// 子渠道号(唯一标识)
 	TrafficPlatform *string `json:"traffic_platform,omitempty" xml:"traffic_platform,omitempty" require:"true"`
 	// 门店ID
 	StoreId *string `json:"store_id,omitempty" xml:"store_id,omitempty" require:"true"`
@@ -23714,6 +23749,8 @@ type PushDubbridgePetitemRequest struct {
 	GoodsOrderInfo []*GoodsOrderInfo `json:"goods_order_info,omitempty" xml:"goods_order_info,omitempty" require:"true" type:"Repeated"`
 	// 门店账户信息
 	StoreAccountInfo *StoreAccountInfo `json:"store_account_info,omitempty" xml:"store_account_info,omitempty" require:"true"`
+	// 渠道号
+	ChannelCode *string `json:"channel_code,omitempty" xml:"channel_code,omitempty" require:"true"`
 }
 
 func (s PushDubbridgePetitemRequest) String() string {
@@ -23769,6 +23806,11 @@ func (s *PushDubbridgePetitemRequest) SetStoreAccountInfo(v *StoreAccountInfo) *
 	return s
 }
 
+func (s *PushDubbridgePetitemRequest) SetChannelCode(v string) *PushDubbridgePetitemRequest {
+	s.ChannelCode = &v
+	return s
+}
+
 type PushDubbridgePetitemResponse struct {
 	// 请求唯一ID，用于链路跟踪和问题排查
 	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
@@ -23814,7 +23856,7 @@ type RefuseDubbridgePetitemRequest struct {
 	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
 	// 小程序客户号
 	OpenId *string `json:"open_id,omitempty" xml:"open_id,omitempty" require:"true"`
-	// 唯一标识的渠道号
+	// 子渠道号(唯一标识)
 	TrafficPlatform *string `json:"traffic_platform,omitempty" xml:"traffic_platform,omitempty" require:"true"`
 	// 门店ID
 	StoreId *string `json:"store_id,omitempty" xml:"store_id,omitempty" require:"true"`
@@ -23822,6 +23864,8 @@ type RefuseDubbridgePetitemRequest struct {
 	BizOrderNo *string `json:"biz_order_no,omitempty" xml:"biz_order_no,omitempty" require:"true"`
 	// 退款金额
 	RefundAmount *string `json:"refund_amount,omitempty" xml:"refund_amount,omitempty" require:"true"`
+	// 渠道号
+	ChannelCode *string `json:"channel_code,omitempty" xml:"channel_code,omitempty" require:"true"`
 }
 
 func (s RefuseDubbridgePetitemRequest) String() string {
@@ -23864,6 +23908,11 @@ func (s *RefuseDubbridgePetitemRequest) SetBizOrderNo(v string) *RefuseDubbridge
 
 func (s *RefuseDubbridgePetitemRequest) SetRefundAmount(v string) *RefuseDubbridgePetitemRequest {
 	s.RefundAmount = &v
+	return s
+}
+
+func (s *RefuseDubbridgePetitemRequest) SetChannelCode(v string) *RefuseDubbridgePetitemRequest {
+	s.ChannelCode = &v
 	return s
 }
 
@@ -41471,7 +41520,7 @@ func (client *Client) DoRequest(version *string, action *string, protocol *strin
 				"req_msg_id":       antchainutil.GetNonce(),
 				"access_key":       client.AccessKeyId,
 				"base_sdk_version": tea.String("TeaSDK-2.0"),
-				"sdk_version":      tea.String("1.31.16"),
+				"sdk_version":      tea.String("1.31.18"),
 				"_prod_code":       tea.String("RISKPLUS"),
 				"_prod_channel":    tea.String("undefined"),
 			}
