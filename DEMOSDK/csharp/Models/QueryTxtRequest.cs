@@ -18,7 +18,7 @@ namespace AntChain.SDK.DEMOSDK.Models
         [Validation(Required=false)]
         public string ProductInstanceId { get; set; }
 
-        // x
+        // 姓名
         [NameInMap("name")]
         [Validation(Required=false)]
         public string Name { get; set; }

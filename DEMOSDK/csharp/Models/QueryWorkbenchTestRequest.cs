@@ -43,6 +43,11 @@ namespace AntChain.SDK.DEMOSDK.Models
         [Validation(Required=false)]
         public string Operator { get; set; }
 
+        // aaaaa
+        [NameInMap("aaaaa")]
+        [Validation(Required=false)]
+        public string Aaaaa { get; set; }
+
     }
 
 }

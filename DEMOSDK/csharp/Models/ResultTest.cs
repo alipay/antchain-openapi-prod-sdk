@@ -8,7 +8,7 @@ using Tea;
 
 namespace AntChain.SDK.DEMOSDK.Models
 {
-    // 返回结果测试类
+    // 返回结果测试类-11
     public class ResultTest : TeaModel {
         // 姓名
         /// <summary>
@@ -18,15 +18,6 @@ namespace AntChain.SDK.DEMOSDK.Models
         [NameInMap("name")]
         [Validation(Required=false)]
         public string Name { get; set; }
-
-        // test
-        /// <summary>
-        /// <b>Example:</b>
-        /// <para>undefined</para>
-        /// </summary>
-        [NameInMap("list")]
-        [Validation(Required=true)]
-        public DemoClass List { get; set; }
 
     }
 

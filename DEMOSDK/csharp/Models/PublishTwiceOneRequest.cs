@@ -23,6 +23,11 @@ namespace AntChain.SDK.DEMOSDK.Models
         [Validation(Required=false)]
         public string Timeout { get; set; }
 
+        // aa
+        [NameInMap("aaa")]
+        [Validation(Required=false)]
+        public DemoClass Aaa { get; set; }
+
     }
 
 }

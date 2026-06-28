@@ -8,16 +8,16 @@ using Tea;
 
 namespace AntChain.SDK.DEMOSDK.Models
 {
-    // a
-    public class TestDemo : TeaModel {
-        // a
+    // aaa
+    public class CreateStructA : TeaModel {
+        // 超时时间
         /// <summary>
         /// <b>Example:</b>
-        /// <para>a</para>
+        /// <para>3000</para>
         /// </summary>
-        [NameInMap("timeout")]
+        [NameInMap("timeouta")]
         [Validation(Required=false)]
-        public string Timeout { get; set; }
+        public string Timeouta { get; set; }
 
     }
 
