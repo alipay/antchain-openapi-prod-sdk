@@ -1,6 +1,6 @@
 {
 	"license":"Apache-2.0",
-	"name":"alipay/demosdk",
+	"name":"antchain/demosdk",
 	"description":"Ant Chain SDK Library for PHP",
 	"autoload":{
 		"psr-4":{
@@ -22,7 +22,7 @@
 		"optimize-autoloader":true,
 		"preferred-install":"dist"
 	},
-	"version":"1.4.11",
+	"version":"1.3.52",
 	"authors":[
 		{
 			"name":"Ant Chain SDK",
