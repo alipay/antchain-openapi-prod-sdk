@@ -6,12 +6,12 @@
 
     <!-- 基础信息 -->
     <groupId>com.antgroup.antchain.openapi</groupId>
-    <!-- 注意：变量 openapi-insurance-saas 和 1.12.41 需要在命令行或 properties 中定义 -->
-    <artifactId>openapi-insurance-saas</artifactId>
+    <!-- 注意：变量 openapi-insurance_saas 和 1.12.41 需要在命令行或 properties 中定义 -->
+    <artifactId>openapi-insurance_saas</artifactId>
     <version>1.12.41</version>
     <packaging>jar</packaging>
 
-    <name>openapi-insurance-saas</name>
+    <name>openapi-insurance_saas</name>
     <description>Ant Chain SDK for Java</description>
     <url>https://github.com/alipay/antchain-openapi-prod-sdk</url>
 
