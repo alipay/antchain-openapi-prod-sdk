@@ -44,7 +44,7 @@ public class QueryDubbridgePetitemRequest extends TeaModel {
     // 商城消费在途未结算订单
     @NameInMap("mall_consume_unsettle_orders")
     @Validation(required = true)
-    public GoodsOrderInfo mallConsumeUnsettleOrders;
+    public java.util.List<GoodsOrderInfo> mallConsumeUnsettleOrders;
 
     public static QueryDubbridgePetitemRequest build(java.util.Map<String, ?> map) throws Exception {
         QueryDubbridgePetitemRequest self = new QueryDubbridgePetitemRequest();
@@ -115,11 +115,11 @@ public class QueryDubbridgePetitemRequest extends TeaModel {
         return this.mallAvailableBalance;
     }
 
-    public QueryDubbridgePetitemRequest setMallConsumeUnsettleOrders(GoodsOrderInfo mallConsumeUnsettleOrders) {
+    public QueryDubbridgePetitemRequest setMallConsumeUnsettleOrders(java.util.List<GoodsOrderInfo> mallConsumeUnsettleOrders) {
         this.mallConsumeUnsettleOrders = mallConsumeUnsettleOrders;
         return this;
     }
-    public GoodsOrderInfo getMallConsumeUnsettleOrders() {
+    public java.util.List<GoodsOrderInfo> getMallConsumeUnsettleOrders() {
         return this.mallConsumeUnsettleOrders;
     }
 
