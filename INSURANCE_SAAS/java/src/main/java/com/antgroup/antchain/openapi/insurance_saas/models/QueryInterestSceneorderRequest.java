@@ -1,0 +1,63 @@
+// This file is auto-generated, don't edit it. Thanks.
+package com.antgroup.antchain.openapi.insurance_saas.models;
+
+import com.aliyun.tea.*;
+
+public class QueryInterestSceneorderRequest extends TeaModel {
+    // OAuth模式下的授权token
+    @NameInMap("auth_token")
+    public String authToken;
+
+    // 请求流水号
+    @NameInMap("request_no")
+    @Validation(required = true)
+    public String requestNo;
+
+    // 我方权益申请流水号
+    @NameInMap("interest_no")
+    @Validation(required = true)
+    public String interestNo;
+
+    // 产品编码
+    @NameInMap("product_code")
+    @Validation(required = true)
+    public String productCode;
+
+    public static QueryInterestSceneorderRequest build(java.util.Map<String, ?> map) throws Exception {
+        QueryInterestSceneorderRequest self = new QueryInterestSceneorderRequest();
+        return TeaModel.build(map, self);
+    }
+
+    public QueryInterestSceneorderRequest setAuthToken(String authToken) {
+        this.authToken = authToken;
+        return this;
+    }
+    public String getAuthToken() {
+        return this.authToken;
+    }
+
+    public QueryInterestSceneorderRequest setRequestNo(String requestNo) {
+        this.requestNo = requestNo;
+        return this;
+    }
+    public String getRequestNo() {
+        return this.requestNo;
+    }
+
+    public QueryInterestSceneorderRequest setInterestNo(String interestNo) {
+        this.interestNo = interestNo;
+        return this;
+    }
+    public String getInterestNo() {
+        return this.interestNo;
+    }
+
+    public QueryInterestSceneorderRequest setProductCode(String productCode) {
+        this.productCode = productCode;
+        return this;
+    }
+    public String getProductCode() {
+        return this.productCode;
+    }
+
+}
