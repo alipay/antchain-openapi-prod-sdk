@@ -4,90 +4,126 @@ package com.antgroup.antchain.openapi.riskplus.models;
 import com.aliyun.tea.*;
 
 public class RiskLabelConfigInfo extends TeaModel {
-    // 创建时间
-    @NameInMap("gmt_create")
-    @Validation(required = true, pattern = "\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}[Z]")
-    public String gmtCreate;
-
-    // 修改时间
-    @NameInMap("gmt_modified")
-    @Validation(required = true, pattern = "\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}[Z]")
-    public String gmtModified;
-
     // id
+    /**
+     * <strong>example:</strong>
+     * <p>1</p>
+     */
     @NameInMap("id")
     @Validation(required = true)
     public Long id;
 
-    // 标记删除
-    @NameInMap("is_delete")
-    @Validation(required = true)
-    public Long isDelete;
-
-    // 操作人ID
-    @NameInMap("operator_id")
-    @Validation(required = true)
-    public String operatorId;
-
-    // 线索类型
-    @NameInMap("risk_detail_type")
-    @Validation(required = true)
-    public String riskDetailType;
-
-    // 风险维度
-    @NameInMap("risk_dimension_type")
-    @Validation(required = true)
-    public String riskDimensionType;
-
     // 线索ID
+    /**
+     * <strong>example:</strong>
+     * <p>124</p>
+     */
     @NameInMap("tag_id")
     @Validation(required = true)
     public String tagId;
 
+    // 标签文本
+    /**
+     * <strong>example:</strong>
+     * <p>233444</p>
+     */
+    @NameInMap("tag_text")
+    @Validation(required = true)
+    public String tagText;
+
+    // 风险维度
+    /**
+     * <strong>example:</strong>
+     * <p>风险维度</p>
+     */
+    @NameInMap("risk_dimension_type")
+    @Validation(required = true)
+    public String riskDimensionType;
+
+    // 线索类型
+    /**
+     * <strong>example:</strong>
+     * <p>列表</p>
+     */
+    @NameInMap("risk_detail_type")
+    @Validation(required = true)
+    public String riskDetailType;
+
+    // 趋势图表名
+    /**
+     * <strong>example:</strong>
+     * <p>XX趋势图</p>
+     */
+    @NameInMap("tag_trend_chart_name")
+    @Validation(required = true)
+    public String tagTrendChartName;
+
     // 线索列表表头，英文逗号分隔
+    /**
+     * <strong>example:</strong>
+     * <p>日期</p>
+     */
     @NameInMap("tag_list_headers")
     @Validation(required = true)
     public String tagListHeaders;
 
     // 标签列表，排序字段
+    /**
+     * <strong>example:</strong>
+     * <p>日期</p>
+     */
     @NameInMap("tag_list_order_column")
     @Validation(required = true)
     public String tagListOrderColumn;
 
     // 标签列表排序方式
+    /**
+     * <strong>example:</strong>
+     * <p>顺序</p>
+     */
     @NameInMap("tag_list_order_type")
     @Validation(required = true)
     public String tagListOrderType;
 
-    // 标签文本
-    @NameInMap("tag_text")
+    // 标记删除
+    /**
+     * <strong>example:</strong>
+     * <p>0</p>
+     */
+    @NameInMap("is_delete")
     @Validation(required = true)
-    public String tagText;
+    public Long isDelete;
 
-    // 趋势图表名
-    @NameInMap("tag_trend_chart_name")
+    // 创建时间
+    /**
+     * <strong>example:</strong>
+     * <p>2018-10-10T10:10:00Z</p>
+     */
+    @NameInMap("gmt_create")
+    @Validation(required = true, pattern = "\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}([Z]|([\\.]\\d{1,9})?[\\+]\\d{2}[\\:]?\\d{2})")
+    public String gmtCreate;
+
+    // 修改时间
+    /**
+     * <strong>example:</strong>
+     * <p>2018-10-10T10:10:00Z</p>
+     */
+    @NameInMap("gmt_modified")
+    @Validation(required = true, pattern = "\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}([Z]|([\\.]\\d{1,9})?[\\+]\\d{2}[\\:]?\\d{2})")
+    public String gmtModified;
+
+    // 操作人ID
+    /**
+     * <strong>example:</strong>
+     * <p>1233</p>
+     */
+    @NameInMap("operator_id")
     @Validation(required = true)
-    public String tagTrendChartName;
+    public String operatorId;
 
     public static RiskLabelConfigInfo build(java.util.Map<String, ?> map) throws Exception {
         RiskLabelConfigInfo self = new RiskLabelConfigInfo();
         return TeaModel.build(map, self);
-    }
-
-    public RiskLabelConfigInfo setGmtCreate(String gmtCreate) {
-        this.gmtCreate = gmtCreate;
-        return this;
-    }
-    public String getGmtCreate() {
-        return this.gmtCreate;
-    }
-
-    public RiskLabelConfigInfo setGmtModified(String gmtModified) {
-        this.gmtModified = gmtModified;
-        return this;
-    }
-    public String getGmtModified() {
-        return this.gmtModified;
     }
 
     public RiskLabelConfigInfo setId(Long id) {
@@ -98,28 +134,20 @@ public class RiskLabelConfigInfo extends TeaModel {
         return this.id;
     }
 
-    public RiskLabelConfigInfo setIsDelete(Long isDelete) {
-        this.isDelete = isDelete;
+    public RiskLabelConfigInfo setTagId(String tagId) {
+        this.tagId = tagId;
         return this;
     }
-    public Long getIsDelete() {
-        return this.isDelete;
+    public String getTagId() {
+        return this.tagId;
     }
 
-    public RiskLabelConfigInfo setOperatorId(String operatorId) {
-        this.operatorId = operatorId;
+    public RiskLabelConfigInfo setTagText(String tagText) {
+        this.tagText = tagText;
         return this;
     }
-    public String getOperatorId() {
-        return this.operatorId;
-    }
-
-    public RiskLabelConfigInfo setRiskDetailType(String riskDetailType) {
-        this.riskDetailType = riskDetailType;
-        return this;
-    }
-    public String getRiskDetailType() {
-        return this.riskDetailType;
+    public String getTagText() {
+        return this.tagText;
     }
 
     public RiskLabelConfigInfo setRiskDimensionType(String riskDimensionType) {
@@ -130,12 +158,20 @@ public class RiskLabelConfigInfo extends TeaModel {
         return this.riskDimensionType;
     }
 
-    public RiskLabelConfigInfo setTagId(String tagId) {
-        this.tagId = tagId;
+    public RiskLabelConfigInfo setRiskDetailType(String riskDetailType) {
+        this.riskDetailType = riskDetailType;
         return this;
     }
-    public String getTagId() {
-        return this.tagId;
+    public String getRiskDetailType() {
+        return this.riskDetailType;
+    }
+
+    public RiskLabelConfigInfo setTagTrendChartName(String tagTrendChartName) {
+        this.tagTrendChartName = tagTrendChartName;
+        return this;
+    }
+    public String getTagTrendChartName() {
+        return this.tagTrendChartName;
     }
 
     public RiskLabelConfigInfo setTagListHeaders(String tagListHeaders) {
@@ -162,20 +198,36 @@ public class RiskLabelConfigInfo extends TeaModel {
         return this.tagListOrderType;
     }
 
-    public RiskLabelConfigInfo setTagText(String tagText) {
-        this.tagText = tagText;
+    public RiskLabelConfigInfo setIsDelete(Long isDelete) {
+        this.isDelete = isDelete;
         return this;
     }
-    public String getTagText() {
-        return this.tagText;
+    public Long getIsDelete() {
+        return this.isDelete;
     }
 
-    public RiskLabelConfigInfo setTagTrendChartName(String tagTrendChartName) {
-        this.tagTrendChartName = tagTrendChartName;
+    public RiskLabelConfigInfo setGmtCreate(String gmtCreate) {
+        this.gmtCreate = gmtCreate;
         return this;
     }
-    public String getTagTrendChartName() {
-        return this.tagTrendChartName;
+    public String getGmtCreate() {
+        return this.gmtCreate;
+    }
+
+    public RiskLabelConfigInfo setGmtModified(String gmtModified) {
+        this.gmtModified = gmtModified;
+        return this;
+    }
+    public String getGmtModified() {
+        return this.gmtModified;
+    }
+
+    public RiskLabelConfigInfo setOperatorId(String operatorId) {
+        this.operatorId = operatorId;
+        return this;
+    }
+    public String getOperatorId() {
+        return this.operatorId;
     }
 
 }

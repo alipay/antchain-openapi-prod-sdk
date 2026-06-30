@@ -4,25 +4,26 @@ package com.antgroup.antchain.openapi.riskplus.models;
 import com.aliyun.tea.*;
 
 public class GetRbbLoginTokenRequest extends TeaModel {
+    // OAuth模式下的授权token
     @NameInMap("auth_token")
     public String authToken;
 
     @NameInMap("product_instance_id")
     public String productInstanceId;
 
-    // 扩展json字符串
-    @NameInMap("extension")
-    public String extension;
+    // 用户名
+    @NameInMap("username")
+    @Validation(required = true)
+    public String username;
 
     // 密码
     @NameInMap("password")
     @Validation(required = true)
     public String password;
 
-    // 用户名
-    @NameInMap("username")
-    @Validation(required = true)
-    public String username;
+    // 扩展json字符串
+    @NameInMap("extension")
+    public String extension;
 
     public static GetRbbLoginTokenRequest build(java.util.Map<String, ?> map) throws Exception {
         GetRbbLoginTokenRequest self = new GetRbbLoginTokenRequest();
@@ -45,12 +46,12 @@ public class GetRbbLoginTokenRequest extends TeaModel {
         return this.productInstanceId;
     }
 
-    public GetRbbLoginTokenRequest setExtension(String extension) {
-        this.extension = extension;
+    public GetRbbLoginTokenRequest setUsername(String username) {
+        this.username = username;
         return this;
     }
-    public String getExtension() {
-        return this.extension;
+    public String getUsername() {
+        return this.username;
     }
 
     public GetRbbLoginTokenRequest setPassword(String password) {
@@ -61,12 +62,12 @@ public class GetRbbLoginTokenRequest extends TeaModel {
         return this.password;
     }
 
-    public GetRbbLoginTokenRequest setUsername(String username) {
-        this.username = username;
+    public GetRbbLoginTokenRequest setExtension(String extension) {
+        this.extension = extension;
         return this;
     }
-    public String getUsername() {
-        return this.username;
+    public String getExtension() {
+        return this.extension;
     }
 
 }

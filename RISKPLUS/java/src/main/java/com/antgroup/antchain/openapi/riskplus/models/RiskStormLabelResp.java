@@ -5,16 +5,28 @@ import com.aliyun.tea.*;
 
 public class RiskStormLabelResp extends TeaModel {
     // 标签次数
+    /**
+     * <strong>example:</strong>
+     * <p>10</p>
+     */
     @NameInMap("label_count")
     @Validation(required = true)
     public Integer labelCount;
 
     // 标签id
+    /**
+     * <strong>example:</strong>
+     * <p>cancelled</p>
+     */
     @NameInMap("label_id")
     @Validation(required = true)
     public String labelId;
 
     // 标签名称
+    /**
+     * <strong>example:</strong>
+     * <p>注销</p>
+     */
     @NameInMap("label_name")
     @Validation(required = true)
     public String labelName;

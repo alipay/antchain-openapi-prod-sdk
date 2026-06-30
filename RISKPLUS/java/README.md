@@ -1,27 +1,33 @@
-English | [简体中文](README-CN.md)
+[English](README.md) | 简体中文
 
-## Ant Chain Cloud RISKPLUS SDK for Java
+# Ant Chain RISKPLUS SDK for Java
 
-## Installation
+## 安装
 
 ```xml
 <dependency>
-   <groupId>com.alipay</groupId>
-   <artifactId>openapi-riskplus</artifactId>
-   <version>Use the version shown in the maven badge</version>
+   <groupId>com.antgroup.antchain.openapi</groupId>
+   <artifactId>riskplus</artifactId>
+   <version>1.31.21</version>
 </dependency>
 ```
 
-## Issues
-[Opening an Issue](https://github.com/alipay/antchain-openapi-prod-sdk/issues/new), Issues not conforming to the guidelines may be closed immediately.
+## 问题
 
-## Changelog
-Detailed changes for each release are documented in the [release notes](./ChangeLog.txt).
+[提交 Issue](https://github.com/alipay/antchain-openapi-prod-sdk/issues/new)，不符合指南的问题可能会立即关闭。
 
-## References
-* [Latest Release](https://github.com/alipay/antchain-openapi-prod-sdk/tree/master/java)
+## 使用说明
 
-## License
+[快速使用](https://github.com/alipay/antchain-openapi-prod-sdk)
+
+## 发行说明
+
+每个版本的详细更改记录在[发行说明](./ChangeLog.txt)中。
+
+## 相关
+
+- [最新源码](https://github.com/alipay/antchain-openapi-prod-sdk/)
+
+## 许可证
+
 [Apache-2.0](http://www.apache.org/licenses/LICENSE-2.0)
-
-Copyright (c) 2009-present, Alibaba Cloud All rights reserved.

@@ -4,6 +4,7 @@ package com.antgroup.antchain.openapi.riskplus.models;
 import com.aliyun.tea.*;
 
 public class QueryRtopCrowdriskStatisticRequest extends TeaModel {
+    // OAuth模式下的授权token
     @NameInMap("auth_token")
     public String authToken;
 
@@ -12,7 +13,7 @@ public class QueryRtopCrowdriskStatisticRequest extends TeaModel {
 
     // 结束时间
     @NameInMap("end_time")
-    @Validation(pattern = "\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}[Z]")
+    @Validation(pattern = "\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}([Z]|([\\.]\\d{1,9})?[\\+]\\d{2}[\\:]?\\d{2})")
     public String endTime;
 
     // 所在地的名称
@@ -25,7 +26,7 @@ public class QueryRtopCrowdriskStatisticRequest extends TeaModel {
 
     // 开始时间
     @NameInMap("start_time")
-    @Validation(pattern = "\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}[Z]")
+    @Validation(pattern = "\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}([Z]|([\\.]\\d{1,9})?[\\+]\\d{2}[\\:]?\\d{2})")
     public String startTime;
 
     public static QueryRtopCrowdriskStatisticRequest build(java.util.Map<String, ?> map) throws Exception {

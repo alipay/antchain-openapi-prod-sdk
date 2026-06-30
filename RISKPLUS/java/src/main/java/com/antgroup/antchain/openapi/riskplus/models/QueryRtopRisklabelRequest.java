@@ -4,15 +4,12 @@ package com.antgroup.antchain.openapi.riskplus.models;
 import com.aliyun.tea.*;
 
 public class QueryRtopRisklabelRequest extends TeaModel {
+    // OAuth模式下的授权token
     @NameInMap("auth_token")
     public String authToken;
 
     @NameInMap("product_instance_id")
     public String productInstanceId;
-
-    // mct_one_id  -- search after使用
-    @NameInMap("mct_one_id")
-    public String mctOneId;
 
     // pageNo
     @NameInMap("page_no")
@@ -28,14 +25,18 @@ public class QueryRtopRisklabelRequest extends TeaModel {
     @NameInMap("scroll_id")
     public String scrollId;
 
-    // tag_id  -- search after使用
-    @NameInMap("tag_id")
-    public String tagId;
+    // mct_one_id  -- search after使用
+    @NameInMap("mct_one_id")
+    public String mctOneId;
 
     // 数据更新日期
     @NameInMap("update_date")
     @Validation(required = true)
     public String updateDate;
+
+    // tag_id  -- search after使用
+    @NameInMap("tag_id")
+    public String tagId;
 
     public static QueryRtopRisklabelRequest build(java.util.Map<String, ?> map) throws Exception {
         QueryRtopRisklabelRequest self = new QueryRtopRisklabelRequest();
@@ -56,14 +57,6 @@ public class QueryRtopRisklabelRequest extends TeaModel {
     }
     public String getProductInstanceId() {
         return this.productInstanceId;
-    }
-
-    public QueryRtopRisklabelRequest setMctOneId(String mctOneId) {
-        this.mctOneId = mctOneId;
-        return this;
-    }
-    public String getMctOneId() {
-        return this.mctOneId;
     }
 
     public QueryRtopRisklabelRequest setPageNo(Long pageNo) {
@@ -90,12 +83,12 @@ public class QueryRtopRisklabelRequest extends TeaModel {
         return this.scrollId;
     }
 
-    public QueryRtopRisklabelRequest setTagId(String tagId) {
-        this.tagId = tagId;
+    public QueryRtopRisklabelRequest setMctOneId(String mctOneId) {
+        this.mctOneId = mctOneId;
         return this;
     }
-    public String getTagId() {
-        return this.tagId;
+    public String getMctOneId() {
+        return this.mctOneId;
     }
 
     public QueryRtopRisklabelRequest setUpdateDate(String updateDate) {
@@ -104,6 +97,14 @@ public class QueryRtopRisklabelRequest extends TeaModel {
     }
     public String getUpdateDate() {
         return this.updateDate;
+    }
+
+    public QueryRtopRisklabelRequest setTagId(String tagId) {
+        this.tagId = tagId;
+        return this;
+    }
+    public String getTagId() {
+        return this.tagId;
     }
 
 }

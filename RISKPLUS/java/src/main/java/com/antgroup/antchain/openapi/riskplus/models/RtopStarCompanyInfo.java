@@ -9,22 +9,42 @@ public class RtopStarCompanyInfo extends TeaModel {
     public java.util.List<String> categories;
 
     // 经营地址
+    /**
+     * <strong>example:</strong>
+     * <p>广东省珠海市前山金鸡西路</p>
+     */
     @NameInMap("operating_place")
     public String operatingPlace;
 
     // 经营省份
+    /**
+     * <strong>example:</strong>
+     * <p>湖北省</p>
+     */
     @NameInMap("operating_province")
     public String operatingProvince;
 
     // 企业名称
+    /**
+     * <strong>example:</strong>
+     * <p>珠海格力电器股份有限公司</p>
+     */
     @NameInMap("org_name")
     public String orgName;
 
     // 风险分数
+    /**
+     * <strong>example:</strong>
+     * <p>80</p>
+     */
     @NameInMap("risk_score")
     public Long riskScore;
 
     // 风险标签
+    /**
+     * <strong>example:</strong>
+     * <p>[&quot;内部被投诉&quot;,&quot;法定代表人名下企业超过6家&quot;]</p>
+     */
     @NameInMap("risk_tags")
     public java.util.List<String> riskTags;
 
@@ -33,10 +53,18 @@ public class RtopStarCompanyInfo extends TeaModel {
     public java.util.List<RtopRiskTag> riskTagDetails;
 
     // 风险标签Id集合
+    /**
+     * <strong>example:</strong>
+     * <p>[&quot;CMN00025&quot;, &quot;CMN00011&quot;]</p>
+     */
     @NameInMap("risk_tag_ids")
     public java.util.List<String> riskTagIds;
 
     // 统一社会信用代码
+    /**
+     * <strong>example:</strong>
+     * <p>91440400192548256N</p>
+     */
     @NameInMap("uc_code")
     public String ucCode;
 

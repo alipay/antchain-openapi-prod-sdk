@@ -4,12 +4,15 @@ package com.antgroup.antchain.openapi.riskplus.models;
 import com.aliyun.tea.*;
 
 public class QueryRpSecurityPolicyResponse extends TeaModel {
+    // 请求唯一ID，用于链路跟踪和问题排查
     @NameInMap("req_msg_id")
     public String reqMsgId;
 
+    // 结果码，一般OK表示调用成功
     @NameInMap("result_code")
     public String resultCode;
 
+    // 异常信息的文本描述
     @NameInMap("result_msg")
     public String resultMsg;
 
@@ -30,6 +33,10 @@ public class QueryRpSecurityPolicyResponse extends TeaModel {
     // 
     @NameInMap("strategy_details")
     public java.util.List<StrategyDetails> strategyDetails;
+
+    // 决策流信息
+    @NameInMap("df_scene_infos")
+    public DfSceneInfos dfSceneInfos;
 
     public static QueryRpSecurityPolicyResponse build(java.util.Map<String, ?> map) throws Exception {
         QueryRpSecurityPolicyResponse self = new QueryRpSecurityPolicyResponse();
@@ -90,6 +97,14 @@ public class QueryRpSecurityPolicyResponse extends TeaModel {
     }
     public java.util.List<StrategyDetails> getStrategyDetails() {
         return this.strategyDetails;
+    }
+
+    public QueryRpSecurityPolicyResponse setDfSceneInfos(DfSceneInfos dfSceneInfos) {
+        this.dfSceneInfos = dfSceneInfos;
+        return this;
+    }
+    public DfSceneInfos getDfSceneInfos() {
+        return this.dfSceneInfos;
     }
 
 }

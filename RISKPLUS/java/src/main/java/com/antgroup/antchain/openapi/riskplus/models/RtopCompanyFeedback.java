@@ -4,42 +4,58 @@ package com.antgroup.antchain.openapi.riskplus.models;
 import com.aliyun.tea.*;
 
 public class RtopCompanyFeedback extends TeaModel {
-    // 评论
-    @NameInMap("comment")
+    // 主键
+    @NameInMap("id")
     @Validation(required = true)
-    public String comment;
+    public Long id;
 
     // 企业ID
+    /**
+     * <strong>example:</strong>
+     * <p>1</p>
+     */
     @NameInMap("company_id")
     @Validation(required = true)
     public String companyId;
 
     // 反馈原因
+    /**
+     * <strong>example:</strong>
+     * <p>1</p>
+     */
     @NameInMap("feedback_reason")
     @Validation(required = true)
     public String feedbackReason;
 
     // 反馈原因详情
+    /**
+     * <strong>example:</strong>
+     * <p>1</p>
+     */
     @NameInMap("feedback_reason_detail")
     @Validation(required = true)
     public String feedbackReasonDetail;
 
-    // 主键
-    @NameInMap("id")
+    // 评论
+    /**
+     * <strong>example:</strong>
+     * <p>1</p>
+     */
+    @NameInMap("comment")
     @Validation(required = true)
-    public Long id;
+    public String comment;
 
     public static RtopCompanyFeedback build(java.util.Map<String, ?> map) throws Exception {
         RtopCompanyFeedback self = new RtopCompanyFeedback();
         return TeaModel.build(map, self);
     }
 
-    public RtopCompanyFeedback setComment(String comment) {
-        this.comment = comment;
+    public RtopCompanyFeedback setId(Long id) {
+        this.id = id;
         return this;
     }
-    public String getComment() {
-        return this.comment;
+    public Long getId() {
+        return this.id;
     }
 
     public RtopCompanyFeedback setCompanyId(String companyId) {
@@ -66,12 +82,12 @@ public class RtopCompanyFeedback extends TeaModel {
         return this.feedbackReasonDetail;
     }
 
-    public RtopCompanyFeedback setId(Long id) {
-        this.id = id;
+    public RtopCompanyFeedback setComment(String comment) {
+        this.comment = comment;
         return this;
     }
-    public Long getId() {
-        return this.id;
+    public String getComment() {
+        return this.comment;
     }
 
 }

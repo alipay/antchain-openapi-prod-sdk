@@ -4,6 +4,7 @@ package com.antgroup.antchain.openapi.riskplus.models;
 import com.aliyun.tea.*;
 
 public class CreateRbbTenantRequest extends TeaModel {
+    // OAuth模式下的授权token
     @NameInMap("auth_token")
     public String authToken;
 
@@ -12,7 +13,7 @@ public class CreateRbbTenantRequest extends TeaModel {
 
     // 租户过期时间，不填表示永不过期
     @NameInMap("effective_end_date")
-    @Validation(pattern = "\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}[Z]")
+    @Validation(pattern = "\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}([Z]|([\\.]\\d{1,9})?[\\+]\\d{2}[\\:]?\\d{2})")
     public String effectiveEndDate;
 
     // 租户编码，必须全局唯一

@@ -4,6 +4,7 @@ package com.antgroup.antchain.openapi.riskplus.models;
 import com.aliyun.tea.*;
 
 public class QueryRbbGeneralRequest extends TeaModel {
+    // OAuth模式下的授权token
     @NameInMap("auth_token")
     public String authToken;
 
@@ -22,6 +23,10 @@ public class QueryRbbGeneralRequest extends TeaModel {
     // 查询参数JSON字符串
     @NameInMap("queryparas")
     public String queryparas;
+
+    // 虚拟云租户code
+    @NameInMap("virtual_cloud_tenant_code")
+    public String virtualCloudTenantCode;
 
     public static QueryRbbGeneralRequest build(java.util.Map<String, ?> map) throws Exception {
         QueryRbbGeneralRequest self = new QueryRbbGeneralRequest();
@@ -66,6 +71,14 @@ public class QueryRbbGeneralRequest extends TeaModel {
     }
     public String getQueryparas() {
         return this.queryparas;
+    }
+
+    public QueryRbbGeneralRequest setVirtualCloudTenantCode(String virtualCloudTenantCode) {
+        this.virtualCloudTenantCode = virtualCloudTenantCode;
+        return this;
+    }
+    public String getVirtualCloudTenantCode() {
+        return this.virtualCloudTenantCode;
     }
 
 }

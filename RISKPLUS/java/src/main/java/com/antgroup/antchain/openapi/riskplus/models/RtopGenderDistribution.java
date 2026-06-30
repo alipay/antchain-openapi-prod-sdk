@@ -5,11 +5,19 @@ import com.aliyun.tea.*;
 
 public class RtopGenderDistribution extends TeaModel {
     // 统计值
+    /**
+     * <strong>example:</strong>
+     * <p>10</p>
+     */
     @NameInMap("count")
     @Validation(required = true)
     public Integer count;
 
     // 性别
+    /**
+     * <strong>example:</strong>
+     * <p>MALE</p>
+     */
     @NameInMap("gender")
     @Validation(required = true)
     public String gender;

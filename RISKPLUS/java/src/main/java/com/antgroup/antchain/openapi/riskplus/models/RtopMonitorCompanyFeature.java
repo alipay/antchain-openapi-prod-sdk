@@ -5,10 +5,18 @@ import com.aliyun.tea.*;
 
 public class RtopMonitorCompanyFeature extends TeaModel {
     // 特征的描述
+    /**
+     * <strong>example:</strong>
+     * <p>有企业地址变更历史，变更过经营范围</p>
+     */
     @NameInMap("description")
     public String description;
 
     // 特征的名称
+    /**
+     * <strong>example:</strong>
+     * <p>关联风险</p>
+     */
     @NameInMap("name")
     @Validation(required = true)
     public String name;
@@ -18,6 +26,10 @@ public class RtopMonitorCompanyFeature extends TeaModel {
     public java.util.List<String> riskTags;
 
     // 特征的评分
+    /**
+     * <strong>example:</strong>
+     * <p>80</p>
+     */
     @NameInMap("score")
     @Validation(required = true)
     public Integer score;

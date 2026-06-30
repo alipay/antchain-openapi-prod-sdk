@@ -4,18 +4,17 @@ package com.antgroup.antchain.openapi.riskplus.models;
 import com.aliyun.tea.*;
 
 public class QuerySecurityPolicyResponse extends TeaModel {
+    // 请求唯一ID，用于链路跟踪和问题排查
     @NameInMap("req_msg_id")
     public String reqMsgId;
 
+    // 结果码，一般OK表示调用成功
     @NameInMap("result_code")
     public String resultCode;
 
+    // 异常信息的文本描述
     @NameInMap("result_msg")
     public String resultMsg;
-
-    // 风险咨询情况下返回的风险等级，风险处理不会返回该值
-    @NameInMap("level")
-    public Integer level;
 
     // 反馈成功之后的id
     @NameInMap("security_id")
@@ -30,14 +29,6 @@ public class QuerySecurityPolicyResponse extends TeaModel {
     @Validation(required = true)
     public String success;
 
-    // 有风险需要失败业务情况下的返回码
-    @NameInMap("template_code")
-    public String templateCode;
-
-    // 有风险需要失败业务情况下的返回码描述
-    @NameInMap("template_desc")
-    public String templateDesc;
-
     // native场景下的核身id
     @NameInMap("verify_id")
     public String verifyId;
@@ -45,6 +36,22 @@ public class QuerySecurityPolicyResponse extends TeaModel {
     // h5场景下的核身地址
     @NameInMap("verify_url")
     public String verifyUrl;
+
+    // 场景分
+    @NameInMap("model_details")
+    public ModelDetails modelDetails;
+
+    // 输出变量
+    @NameInMap("variable_details")
+    public VariableDetails variableDetails;
+
+    // 策略详情
+    @NameInMap("strategy_details")
+    public StrategyDetails strategyDetails;
+
+    // 场景决策
+    @NameInMap("scene_infos")
+    public SceneInfos sceneInfos;
 
     public static QuerySecurityPolicyResponse build(java.util.Map<String, ?> map) throws Exception {
         QuerySecurityPolicyResponse self = new QuerySecurityPolicyResponse();
@@ -75,14 +82,6 @@ public class QuerySecurityPolicyResponse extends TeaModel {
         return this.resultMsg;
     }
 
-    public QuerySecurityPolicyResponse setLevel(Integer level) {
-        this.level = level;
-        return this;
-    }
-    public Integer getLevel() {
-        return this.level;
-    }
-
     public QuerySecurityPolicyResponse setSecurityId(String securityId) {
         this.securityId = securityId;
         return this;
@@ -107,22 +106,6 @@ public class QuerySecurityPolicyResponse extends TeaModel {
         return this.success;
     }
 
-    public QuerySecurityPolicyResponse setTemplateCode(String templateCode) {
-        this.templateCode = templateCode;
-        return this;
-    }
-    public String getTemplateCode() {
-        return this.templateCode;
-    }
-
-    public QuerySecurityPolicyResponse setTemplateDesc(String templateDesc) {
-        this.templateDesc = templateDesc;
-        return this;
-    }
-    public String getTemplateDesc() {
-        return this.templateDesc;
-    }
-
     public QuerySecurityPolicyResponse setVerifyId(String verifyId) {
         this.verifyId = verifyId;
         return this;
@@ -137,6 +120,38 @@ public class QuerySecurityPolicyResponse extends TeaModel {
     }
     public String getVerifyUrl() {
         return this.verifyUrl;
+    }
+
+    public QuerySecurityPolicyResponse setModelDetails(ModelDetails modelDetails) {
+        this.modelDetails = modelDetails;
+        return this;
+    }
+    public ModelDetails getModelDetails() {
+        return this.modelDetails;
+    }
+
+    public QuerySecurityPolicyResponse setVariableDetails(VariableDetails variableDetails) {
+        this.variableDetails = variableDetails;
+        return this;
+    }
+    public VariableDetails getVariableDetails() {
+        return this.variableDetails;
+    }
+
+    public QuerySecurityPolicyResponse setStrategyDetails(StrategyDetails strategyDetails) {
+        this.strategyDetails = strategyDetails;
+        return this;
+    }
+    public StrategyDetails getStrategyDetails() {
+        return this.strategyDetails;
+    }
+
+    public QuerySecurityPolicyResponse setSceneInfos(SceneInfos sceneInfos) {
+        this.sceneInfos = sceneInfos;
+        return this;
+    }
+    public SceneInfos getSceneInfos() {
+        return this.sceneInfos;
     }
 
 }
