@@ -192,6 +192,10 @@ export class QueryKnowledgeagentSseRequest extends $tea.Model {
   msgId: string;
   // 问题
   query: string;
+  // 客户侧租户Code
+  customCode?: string;
+  // 设备ID
+  deviceId?: string;
   static names(): { [key: string]: string } {
     return {
       authToken: 'auth_token',
@@ -200,6 +204,8 @@ export class QueryKnowledgeagentSseRequest extends $tea.Model {
       sessionId: 'session_id',
       msgId: 'msg_id',
       query: 'query',
+      customCode: 'custom_code',
+      deviceId: 'device_id',
     };
   }
 
@@ -211,6 +217,8 @@ export class QueryKnowledgeagentSseRequest extends $tea.Model {
       sessionId: 'string',
       msgId: 'string',
       query: 'string',
+      customCode: 'string',
+      deviceId: 'string',
     };
   }
 
@@ -368,7 +376,7 @@ export default class Client {
           req_msg_id: AntchainUtil.getNonce(),
           access_key: this._accessKeyId,
           base_sdk_version: "TeaSDK-2.0",
-          sdk_version: "1.0.0",
+          sdk_version: "1.1.0",
           _prod_code: "INTELLIDOCTOR",
           _prod_channel: "default",
         };
@@ -418,8 +426,8 @@ export default class Client {
 
   /**
    * @remarks
-   * Description: 医学知识问答sse流式接口
-   * Summary: 知识问答sse
+   * Description: 医学知识问答sse流式接口（推送）
+   * Summary: 医学知识问答sse流式接口（推送）
    */
   async queryKnowledgeagentSse(request: QueryKnowledgeagentSseRequest): Promise<QueryKnowledgeagentSseResponse> {
     let runtime = new $Util.RuntimeOptions({ });
@@ -429,8 +437,8 @@ export default class Client {
 
   /**
    * @remarks
-   * Description: 医学知识问答sse流式接口
-   * Summary: 知识问答sse
+   * Description: 医学知识问答sse流式接口（推送）
+   * Summary: 医学知识问答sse流式接口（推送）
    */
   async queryKnowledgeagentSseEx(request: QueryKnowledgeagentSseRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<QueryKnowledgeagentSseResponse> {
     Util.validateModel(request);
