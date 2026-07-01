@@ -16,6 +16,11 @@ public class CompleteapplyformsealCopyrightregistrationDigitalregistrationRespon
     @NameInMap("result_msg")
     public String resultMsg;
 
+    // true:完成
+    // false：未完成
+    @NameInMap("completed")
+    public Boolean completed;
+
     public static CompleteapplyformsealCopyrightregistrationDigitalregistrationResponse build(java.util.Map<String, ?> map) throws Exception {
         CompleteapplyformsealCopyrightregistrationDigitalregistrationResponse self = new CompleteapplyformsealCopyrightregistrationDigitalregistrationResponse();
         return TeaModel.build(map, self);
@@ -43,6 +48,14 @@ public class CompleteapplyformsealCopyrightregistrationDigitalregistrationRespon
     }
     public String getResultMsg() {
         return this.resultMsg;
+    }
+
+    public CompleteapplyformsealCopyrightregistrationDigitalregistrationResponse setCompleted(Boolean completed) {
+        this.completed = completed;
+        return this;
+    }
+    public Boolean getCompleted() {
+        return this.completed;
     }
 
 }

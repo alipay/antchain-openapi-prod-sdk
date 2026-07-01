@@ -14,7 +14,7 @@ public class QueryapplyformCopyrightregistrationDigitalregistrationRequest exten
     // 数登ID
     @NameInMap("digital_register_id")
     @Validation(required = true)
-    public Long digitalRegisterId;
+    public String digitalRegisterId;
 
     public static QueryapplyformCopyrightregistrationDigitalregistrationRequest build(java.util.Map<String, ?> map) throws Exception {
         QueryapplyformCopyrightregistrationDigitalregistrationRequest self = new QueryapplyformCopyrightregistrationDigitalregistrationRequest();
@@ -37,11 +37,11 @@ public class QueryapplyformCopyrightregistrationDigitalregistrationRequest exten
         return this.productInstanceId;
     }
 
-    public QueryapplyformCopyrightregistrationDigitalregistrationRequest setDigitalRegisterId(Long digitalRegisterId) {
+    public QueryapplyformCopyrightregistrationDigitalregistrationRequest setDigitalRegisterId(String digitalRegisterId) {
         this.digitalRegisterId = digitalRegisterId;
         return this;
     }
-    public Long getDigitalRegisterId() {
+    public String getDigitalRegisterId() {
         return this.digitalRegisterId;
     }
 

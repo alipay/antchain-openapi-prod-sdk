@@ -17,8 +17,8 @@ public class QueryapplyformsealurlCopyrightregistrationDigitalregistrationRespon
     public String resultMsg;
 
     // 签署链接
-    @NameInMap("sign_url")
-    public String signUrl;
+    @NameInMap("seal_url")
+    public String sealUrl;
 
     public static QueryapplyformsealurlCopyrightregistrationDigitalregistrationResponse build(java.util.Map<String, ?> map) throws Exception {
         QueryapplyformsealurlCopyrightregistrationDigitalregistrationResponse self = new QueryapplyformsealurlCopyrightregistrationDigitalregistrationResponse();
@@ -49,12 +49,12 @@ public class QueryapplyformsealurlCopyrightregistrationDigitalregistrationRespon
         return this.resultMsg;
     }
 
-    public QueryapplyformsealurlCopyrightregistrationDigitalregistrationResponse setSignUrl(String signUrl) {
-        this.signUrl = signUrl;
+    public QueryapplyformsealurlCopyrightregistrationDigitalregistrationResponse setSealUrl(String sealUrl) {
+        this.sealUrl = sealUrl;
         return this;
     }
-    public String getSignUrl() {
-        return this.signUrl;
+    public String getSealUrl() {
+        return this.sealUrl;
     }
 
 }
