@@ -63,7 +63,7 @@ public class CallbackMktEffectRequest extends TeaModel {
 
     // 节点详细信息
     @NameInMap("node_info")
-    @Validation(maxLength = 1024)
+    @Validation(maxLength = 2048)
     public String nodeInfo;
 
     // 产品 ID
