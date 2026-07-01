@@ -1,0 +1,523 @@
+<?php
+
+// This file is auto-generated, don't edit it. Thanks.
+
+namespace AntChain\MORSERTA;
+
+use AlibabaCloud\Tea\Exception\TeaError;
+use AlibabaCloud\Tea\Exception\TeaUnableRetryError;
+use AlibabaCloud\Tea\Request;
+use AlibabaCloud\Tea\RpcUtils\RpcUtils;
+use AlibabaCloud\Tea\Tea;
+use AlibabaCloud\Tea\Utils\Utils;
+use AlibabaCloud\Tea\Utils\Utils\RuntimeOptions;
+use AntChain\MORSERTA\Models\ClickAdDataRequest;
+use AntChain\MORSERTA\Models\ClickAdDataResponse;
+use AntChain\MORSERTA\Models\ConversionAdDataAttributedRequest;
+use AntChain\MORSERTA\Models\ConversionAdDataAttributedResponse;
+use AntChain\MORSERTA\Models\ConversionAdDataRequest;
+use AntChain\MORSERTA\Models\ConversionAdDataResponse;
+use AntChain\MORSERTA\Models\ConvertAdDataRequest;
+use AntChain\MORSERTA\Models\ConvertAdDataResponse;
+use AntChain\MORSERTA\Models\DataAdDataExportExperimentRequest;
+use AntChain\MORSERTA\Models\DataAdDataExportExperimentResponse;
+use AntChain\MORSERTA\Models\FeedbackReportDataRequest;
+use AntChain\MORSERTA\Models\FeedbackReportDataResponse;
+use AntChain\MORSERTA\Models\OcpxAdDataRequest;
+use AntChain\MORSERTA\Models\OcpxAdDataResponse;
+use AntChain\MORSERTA\Models\ReportAdDataRequest;
+use AntChain\MORSERTA\Models\ReportAdDataResponse;
+use AntChain\MORSERTA\Models\SaveDataConversionRequest;
+use AntChain\MORSERTA\Models\SaveDataConversionResponse;
+use AntChain\Util\UtilClient;
+use Exception;
+
+class Client
+{
+    protected $_endpoint;
+
+    protected $_regionId;
+
+    protected $_accessKeyId;
+
+    protected $_accessKeySecret;
+
+    protected $_protocol;
+
+    protected $_userAgent;
+
+    protected $_readTimeout;
+
+    protected $_connectTimeout;
+
+    protected $_httpProxy;
+
+    protected $_httpsProxy;
+
+    protected $_socks5Proxy;
+
+    protected $_socks5NetWork;
+
+    protected $_noProxy;
+
+    protected $_maxIdleConns;
+
+    protected $_securityToken;
+
+    protected $_maxIdleTimeMillis;
+
+    protected $_keepAliveDurationMillis;
+
+    protected $_maxRequests;
+
+    protected $_maxRequestsPerHost;
+
+    /**
+     * Init client with Config.
+     *
+     * @param config config contains the necessary information to create a client
+     * @param mixed $config
+     */
+    public function __construct($config)
+    {
+        if (Utils::isUnset($config)) {
+            throw new TeaError([
+                'code'    => 'ParameterMissing',
+                'message' => "'config' can not be unset",
+            ]);
+        }
+        $this->_accessKeyId             = $config->accessKeyId;
+        $this->_accessKeySecret         = $config->accessKeySecret;
+        $this->_securityToken           = $config->securityToken;
+        $this->_endpoint                = $config->endpoint;
+        $this->_protocol                = $config->protocol;
+        $this->_userAgent               = $config->userAgent;
+        $this->_readTimeout             = Utils::defaultNumber($config->readTimeout, 20000);
+        $this->_connectTimeout          = Utils::defaultNumber($config->connectTimeout, 20000);
+        $this->_httpProxy               = $config->httpProxy;
+        $this->_httpsProxy              = $config->httpsProxy;
+        $this->_noProxy                 = $config->noProxy;
+        $this->_socks5Proxy             = $config->socks5Proxy;
+        $this->_socks5NetWork           = $config->socks5NetWork;
+        $this->_maxIdleConns            = Utils::defaultNumber($config->maxIdleConns, 60000);
+        $this->_maxIdleTimeMillis       = Utils::defaultNumber($config->maxIdleTimeMillis, 5);
+        $this->_keepAliveDurationMillis = Utils::defaultNumber($config->keepAliveDurationMillis, 5000);
+        $this->_maxRequests             = Utils::defaultNumber($config->maxRequests, 100);
+        $this->_maxRequestsPerHost      = Utils::defaultNumber($config->maxRequestsPerHost, 100);
+    }
+
+    /**
+     * Encapsulate the request and invoke the network.
+     *
+     * @param string         $version
+     * @param string         $action   api name
+     * @param string         $protocol http or https
+     * @param string         $method   e.g. GET
+     * @param string         $pathname pathname of every api
+     * @param mixed[]        $request  which contains request params
+     * @param string[]       $headers
+     * @param RuntimeOptions $runtime  which controls some details of call api, such as retry times
+     *
+     * @throws TeaError
+     * @throws Exception
+     * @throws TeaUnableRetryError
+     *
+     * @return array the response
+     */
+    public function doRequest($version, $action, $protocol, $method, $pathname, $request, $headers, $runtime)
+    {
+        $runtime->validate();
+        $_runtime = [
+            'timeouted'          => 'retry',
+            'readTimeout'        => Utils::defaultNumber($runtime->readTimeout, $this->_readTimeout),
+            'connectTimeout'     => Utils::defaultNumber($runtime->connectTimeout, $this->_connectTimeout),
+            'httpProxy'          => Utils::defaultString($runtime->httpProxy, $this->_httpProxy),
+            'httpsProxy'         => Utils::defaultString($runtime->httpsProxy, $this->_httpsProxy),
+            'noProxy'            => Utils::defaultString($runtime->noProxy, $this->_noProxy),
+            'maxIdleConns'       => Utils::defaultNumber($runtime->maxIdleConns, $this->_maxIdleConns),
+            'maxIdleTimeMillis'  => $this->_maxIdleTimeMillis,
+            'keepAliveDuration'  => $this->_keepAliveDurationMillis,
+            'maxRequests'        => $this->_maxRequests,
+            'maxRequestsPerHost' => $this->_maxRequestsPerHost,
+            'retry'              => [
+                'retryable'   => $runtime->autoretry,
+                'maxAttempts' => Utils::defaultNumber($runtime->maxAttempts, 3),
+            ],
+            'backoff' => [
+                'policy' => Utils::defaultString($runtime->backoffPolicy, 'no'),
+                'period' => Utils::defaultNumber($runtime->backoffPeriod, 1),
+            ],
+            'ignoreSSL' => $runtime->ignoreSSL,
+            // 用户/设备标识
+        ];
+        $_lastRequest   = null;
+        $_lastException = null;
+        $_now           = time();
+        $_retryTimes    = 0;
+        while (Tea::allowRetry(@$_runtime['retry'], $_retryTimes, $_now)) {
+            if ($_retryTimes > 0) {
+                $_backoffTime = Tea::getBackoffTime(@$_runtime['backoff'], $_retryTimes);
+                if ($_backoffTime > 0) {
+                    Tea::sleep($_backoffTime);
+                }
+            }
+            $_retryTimes = $_retryTimes + 1;
+
+            try {
+                $_request           = new Request();
+                $_request->protocol = Utils::defaultString($this->_protocol, $protocol);
+                $_request->method   = $method;
+                $_request->pathname = $pathname;
+                $_request->query    = [
+                    'method'           => $action,
+                    'version'          => $version,
+                    'sign_type'        => 'HmacSHA1',
+                    'req_time'         => UtilClient::getTimestamp(),
+                    'req_msg_id'       => UtilClient::getNonce(),
+                    'access_key'       => $this->_accessKeyId,
+                    'base_sdk_version' => 'TeaSDK-2.0',
+                    'sdk_version'      => '7.2.4',
+                    '_prod_code'       => 'MORSERTA',
+                    '_prod_channel'    => 'default',
+                ];
+                if (!Utils::empty_($this->_securityToken)) {
+                    $_request->query['security_token'] = $this->_securityToken;
+                }
+                $_request->headers = Tea::merge([
+                    'host'       => Utils::defaultString($this->_endpoint, 'openapi.antchain.antgroup.com'),
+                    'user-agent' => Utils::getUserAgent($this->_userAgent),
+                ], $headers);
+                $tmp                               = Utils::anyifyMapValue(RpcUtils::query($request));
+                $_request->body                    = Utils::toFormString($tmp);
+                $_request->headers['content-type'] = 'application/x-www-form-urlencoded';
+                $signedParam                       = Tea::merge($_request->query, RpcUtils::query($request));
+                $_request->query['sign']           = UtilClient::getSignature($signedParam, $this->_accessKeySecret);
+                $_lastRequest                      = $_request;
+                $_response                         = Tea::send($_request, $_runtime);
+                $raw                               = Utils::readAsString($_response->body);
+                $obj                               = Utils::parseJSON($raw);
+                $res                               = Utils::assertAsMap($obj);
+                $resp                              = Utils::assertAsMap(@$res['response']);
+                if (UtilClient::hasError($raw, $this->_accessKeySecret)) {
+                    throw new TeaError([
+                        'message' => @$resp['result_msg'],
+                        'data'    => $resp,
+                        'code'    => @$resp['result_code'],
+                    ]);
+                }
+
+                return $resp;
+            } catch (Exception $e) {
+                if (!($e instanceof TeaError)) {
+                    $e = new TeaError([], $e->getMessage(), $e->getCode(), $e);
+                }
+                if (Tea::isRetryable($e)) {
+                    $_lastException = $e;
+
+                    continue;
+                }
+
+                throw $e;
+            }
+        }
+
+        throw new TeaUnableRetryError($_lastRequest, $_lastException);
+    }
+
+    /**
+     * Description: RTA广告主数据回传
+     * Summary: RTA广告主数据回传.
+     *
+     * @param FeedbackReportDataRequest $request
+     *
+     * @return FeedbackReportDataResponse
+     */
+    public function feedbackReportData($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->feedbackReportDataEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: RTA广告主数据回传
+     * Summary: RTA广告主数据回传.
+     *
+     * @param FeedbackReportDataRequest $request
+     * @param string[]                  $headers
+     * @param RuntimeOptions            $runtime
+     *
+     * @return FeedbackReportDataResponse
+     */
+    public function feedbackReportDataEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return FeedbackReportDataResponse::fromMap($this->doRequest('1.0', 'antcloud.morserta.report.data.feedback', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 转化数据回传接口
+     * Summary: 转化数据回传接口.
+     *
+     * @param ConvertAdDataRequest $request
+     *
+     * @return ConvertAdDataResponse
+     */
+    public function convertAdData($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->convertAdDataEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 转化数据回传接口
+     * Summary: 转化数据回传接口.
+     *
+     * @param ConvertAdDataRequest $request
+     * @param string[]             $headers
+     * @param RuntimeOptions       $runtime
+     *
+     * @return ConvertAdDataResponse
+     */
+    public function convertAdDataEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return ConvertAdDataResponse::fromMap($this->doRequest('1.0', 'antcloud.morserta.ad.data.convert', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 曝光/点击数据回传接口
+     * Summary: 曝光/点击数据回传接口.
+     *
+     * @param ClickAdDataRequest $request
+     *
+     * @return ClickAdDataResponse
+     */
+    public function clickAdData($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->clickAdDataEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 曝光/点击数据回传接口
+     * Summary: 曝光/点击数据回传接口.
+     *
+     * @param ClickAdDataRequest $request
+     * @param string[]           $headers
+     * @param RuntimeOptions     $runtime
+     *
+     * @return ClickAdDataResponse
+     */
+    public function clickAdDataEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return ClickAdDataResponse::fromMap($this->doRequest('1.0', 'antcloud.morserta.ad.data.click', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 广告汇总数据
+     * Summary: 广告汇总数据.
+     *
+     * @param ReportAdDataRequest $request
+     *
+     * @return ReportAdDataResponse
+     */
+    public function reportAdData($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->reportAdDataEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 广告汇总数据
+     * Summary: 广告汇总数据.
+     *
+     * @param ReportAdDataRequest $request
+     * @param string[]            $headers
+     * @param RuntimeOptions      $runtime
+     *
+     * @return ReportAdDataResponse
+     */
+    public function reportAdDataEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return ReportAdDataResponse::fromMap($this->doRequest('1.0', 'antcloud.morserta.ad.data.report', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 广告主通过该接口将归因后的转化数据回传给数科，数科回传至广告主
+     * Summary: 广告主通过该接口将归因后的转化数据回传给数科，数科回传至广告主.
+     *
+     * @param OcpxAdDataRequest $request
+     *
+     * @return OcpxAdDataResponse
+     */
+    public function ocpxAdData($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->ocpxAdDataEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 广告主通过该接口将归因后的转化数据回传给数科，数科回传至广告主
+     * Summary: 广告主通过该接口将归因后的转化数据回传给数科，数科回传至广告主.
+     *
+     * @param OcpxAdDataRequest $request
+     * @param string[]          $headers
+     * @param RuntimeOptions    $runtime
+     *
+     * @return OcpxAdDataResponse
+     */
+    public function ocpxAdDataEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return OcpxAdDataResponse::fromMap($this->doRequest('1.0', 'antcloud.morserta.ad.data.ocpx', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 实验效果数据拉取接口
+     * Summary: 实验效果数据拉取接口.
+     *
+     * @param DataAdDataExportExperimentRequest $request
+     *
+     * @return DataAdDataExportExperimentResponse
+     */
+    public function dataAdDataExportExperiment($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->dataAdDataExportExperimentEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 实验效果数据拉取接口
+     * Summary: 实验效果数据拉取接口.
+     *
+     * @param DataAdDataExportExperimentRequest $request
+     * @param string[]                          $headers
+     * @param RuntimeOptions                    $runtime
+     *
+     * @return DataAdDataExportExperimentResponse
+     */
+    public function dataAdDataExportExperimentEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return DataAdDataExportExperimentResponse::fromMap($this->doRequest('1.0', 'antcloud.morserta.ad.data.export.experiment.data', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 接收未归因的转化数据
+     * Summary: 接收未归因的转化数据.
+     *
+     * @param ConversionAdDataRequest $request
+     *
+     * @return ConversionAdDataResponse
+     */
+    public function conversionAdData($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->conversionAdDataEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 接收未归因的转化数据
+     * Summary: 接收未归因的转化数据.
+     *
+     * @param ConversionAdDataRequest $request
+     * @param string[]                $headers
+     * @param RuntimeOptions          $runtime
+     *
+     * @return ConversionAdDataResponse
+     */
+    public function conversionAdDataEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return ConversionAdDataResponse::fromMap($this->doRequest('1.0', 'antcloud.morserta.ad.data.conversion', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 接收客户已归因转化事件
+     * Summary: 接收客户已归因转化事件.
+     *
+     * @param ConversionAdDataAttributedRequest $request
+     *
+     * @return ConversionAdDataAttributedResponse
+     */
+    public function conversionAdDataAttributed($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->conversionAdDataAttributedEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 接收客户已归因转化事件
+     * Summary: 接收客户已归因转化事件.
+     *
+     * @param ConversionAdDataAttributedRequest $request
+     * @param string[]                          $headers
+     * @param RuntimeOptions                    $runtime
+     *
+     * @return ConversionAdDataAttributedResponse
+     */
+    public function conversionAdDataAttributedEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return ConversionAdDataAttributedResponse::fromMap($this->doRequest('1.0', 'antcloud.morserta.ad.data.attributed.conversion', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 新版转化回传接口
+     * Summary: 新版转化回传接口.
+     *
+     * @param SaveDataConversionRequest $request
+     *
+     * @return SaveDataConversionResponse
+     */
+    public function saveDataConversion($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->saveDataConversionEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 新版转化回传接口
+     * Summary: 新版转化回传接口.
+     *
+     * @param SaveDataConversionRequest $request
+     * @param string[]                  $headers
+     * @param RuntimeOptions            $runtime
+     *
+     * @return SaveDataConversionResponse
+     */
+    public function saveDataConversionEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return SaveDataConversionResponse::fromMap($this->doRequest('1.0', 'antcloud.morserta.data.conversion.save', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+}
