@@ -8,7 +8,7 @@
 <dependency>
    <groupId>com.antgroup.antchain.openapi</groupId>
    <artifactId>insurance-saas</artifactId>
-   <version>1.12.44</version>
+   <version>1.12.45</version>
 </dependency>
 ```
 
