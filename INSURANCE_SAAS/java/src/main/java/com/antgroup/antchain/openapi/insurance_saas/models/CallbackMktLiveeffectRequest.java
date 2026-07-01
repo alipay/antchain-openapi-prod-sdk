@@ -43,7 +43,6 @@ public class CallbackMktLiveeffectRequest extends TeaModel {
 
     // 节点详细信息
     @NameInMap("node_info")
-    @Validation(required = true)
     public String nodeInfo;
 
     // 用户转化的落地页 URL，H5 类落地页
