@@ -38,6 +38,16 @@ namespace AntChain.SDK.INTELLIDOCTOR.Models
         [Validation(Required=true)]
         public string Query { get; set; }
 
+        // 客户侧租户Code
+        [NameInMap("custom_code")]
+        [Validation(Required=false)]
+        public string CustomCode { get; set; }
+
+        // 设备ID
+        [NameInMap("device_id")]
+        [Validation(Required=false)]
+        public string DeviceId { get; set; }
+
     }
 
 }

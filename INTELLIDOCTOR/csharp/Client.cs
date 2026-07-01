@@ -158,7 +158,7 @@ namespace AntChain.SDK.INTELLIDOCTOR
                         {"req_msg_id", AntChain.AlipayUtil.AntchainUtils.GetNonce()},
                         {"access_key", _accessKeyId},
                         {"base_sdk_version", "TeaSDK-2.0"},
-                        {"sdk_version", "1.0.0"},
+                        {"sdk_version", "1.1.0"},
                         {"_prod_code", "INTELLIDOCTOR"},
                         {"_prod_channel", "default"},
                     };
@@ -301,7 +301,7 @@ namespace AntChain.SDK.INTELLIDOCTOR
                         {"req_msg_id", AntChain.AlipayUtil.AntchainUtils.GetNonce()},
                         {"access_key", _accessKeyId},
                         {"base_sdk_version", "TeaSDK-2.0"},
-                        {"sdk_version", "1.0.0"},
+                        {"sdk_version", "1.1.0"},
                         {"_prod_code", "INTELLIDOCTOR"},
                         {"_prod_channel", "default"},
                     };
@@ -361,8 +361,8 @@ namespace AntChain.SDK.INTELLIDOCTOR
 
         /// <term><b>Description:</b></term>
         /// <description>
-        /// <para>Description: 医学知识问答sse流式接口
-        /// Summary: 知识问答sse</para>
+        /// <para>Description: 医学知识问答sse流式接口（推送）
+        /// Summary: 医学知识问答sse流式接口（推送）</para>
         /// </description>
         public QueryKnowledgeagentSseResponse QueryKnowledgeagentSse(QueryKnowledgeagentSseRequest request)
         {
@@ -373,8 +373,8 @@ namespace AntChain.SDK.INTELLIDOCTOR
 
         /// <term><b>Description:</b></term>
         /// <description>
-        /// <para>Description: 医学知识问答sse流式接口
-        /// Summary: 知识问答sse</para>
+        /// <para>Description: 医学知识问答sse流式接口（推送）
+        /// Summary: 医学知识问答sse流式接口（推送）</para>
         /// </description>
         public async Task<QueryKnowledgeagentSseResponse> QueryKnowledgeagentSseAsync(QueryKnowledgeagentSseRequest request)
         {
@@ -385,8 +385,8 @@ namespace AntChain.SDK.INTELLIDOCTOR
 
         /// <term><b>Description:</b></term>
         /// <description>
-        /// <para>Description: 医学知识问答sse流式接口
-        /// Summary: 知识问答sse</para>
+        /// <para>Description: 医学知识问答sse流式接口（推送）
+        /// Summary: 医学知识问答sse流式接口（推送）</para>
         /// </description>
         public QueryKnowledgeagentSseResponse QueryKnowledgeagentSseEx(QueryKnowledgeagentSseRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
         {
@@ -396,8 +396,8 @@ namespace AntChain.SDK.INTELLIDOCTOR
 
         /// <term><b>Description:</b></term>
         /// <description>
-        /// <para>Description: 医学知识问答sse流式接口
-        /// Summary: 知识问答sse</para>
+        /// <para>Description: 医学知识问答sse流式接口（推送）
+        /// Summary: 医学知识问答sse流式接口（推送）</para>
         /// </description>
         public async Task<QueryKnowledgeagentSseResponse> QueryKnowledgeagentSseExAsync(QueryKnowledgeagentSseRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
         {
