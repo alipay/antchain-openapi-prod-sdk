@@ -200,6 +200,10 @@ type QueryKnowledgeagentSseRequest struct {
 	MsgId *string `json:"msg_id,omitempty" xml:"msg_id,omitempty" require:"true"`
 	// 问题
 	Query *string `json:"query,omitempty" xml:"query,omitempty" require:"true"`
+	// 客户侧租户Code
+	CustomCode *string `json:"custom_code,omitempty" xml:"custom_code,omitempty"`
+	// 设备ID
+	DeviceId *string `json:"device_id,omitempty" xml:"device_id,omitempty"`
 }
 
 func (s QueryKnowledgeagentSseRequest) String() string {
@@ -237,6 +241,16 @@ func (s *QueryKnowledgeagentSseRequest) SetMsgId(v string) *QueryKnowledgeagentS
 
 func (s *QueryKnowledgeagentSseRequest) SetQuery(v string) *QueryKnowledgeagentSseRequest {
 	s.Query = &v
+	return s
+}
+
+func (s *QueryKnowledgeagentSseRequest) SetCustomCode(v string) *QueryKnowledgeagentSseRequest {
+	s.CustomCode = &v
+	return s
+}
+
+func (s *QueryKnowledgeagentSseRequest) SetDeviceId(v string) *QueryKnowledgeagentSseRequest {
+	s.DeviceId = &v
 	return s
 }
 
@@ -409,7 +423,7 @@ func (client *Client) DoRequest(version *string, action *string, protocol *strin
 				"req_msg_id":       antchainutil.GetNonce(),
 				"access_key":       client.AccessKeyId,
 				"base_sdk_version": tea.String("TeaSDK-2.0"),
-				"sdk_version":      tea.String("1.0.0"),
+				"sdk_version":      tea.String("1.1.0"),
 				"_prod_code":       tea.String("INTELLIDOCTOR"),
 				"_prod_channel":    tea.String("default"),
 			}
@@ -469,9 +483,9 @@ func (client *Client) DoRequest(version *string, action *string, protocol *strin
 
 // Description:
 //
-// Description: 医学知识问答sse流式接口
+// Description: 医学知识问答sse流式接口（推送）
 //
-// Summary: 知识问答sse
+// Summary: 医学知识问答sse流式接口（推送）
 func (client *Client) QueryKnowledgeagentSse(request *QueryKnowledgeagentSseRequest) (_result *QueryKnowledgeagentSseResponse, _err error) {
 	runtime := &util.RuntimeOptions{}
 	headers := make(map[string]*string)
@@ -486,9 +500,9 @@ func (client *Client) QueryKnowledgeagentSse(request *QueryKnowledgeagentSseRequ
 
 // Description:
 //
-// Description: 医学知识问答sse流式接口
+// Description: 医学知识问答sse流式接口（推送）
 //
-// Summary: 知识问答sse
+// Summary: 医学知识问答sse流式接口（推送）
 func (client *Client) QueryKnowledgeagentSseEx(request *QueryKnowledgeagentSseRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *QueryKnowledgeagentSseResponse, _err error) {
 	_err = util.ValidateModel(request)
 	if _err != nil {
