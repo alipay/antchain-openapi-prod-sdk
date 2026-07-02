@@ -16,6 +16,11 @@ public class CreateDigitalregistrationApplyformsealflowRequest extends TeaModel 
     @Validation(required = true)
     public String digitalRegisterId;
 
+    // ewrwrwerwr
+    @NameInMap("client_token")
+    @Validation(required = true)
+    public String clientToken;
+
     public static CreateDigitalregistrationApplyformsealflowRequest build(java.util.Map<String, ?> map) throws Exception {
         CreateDigitalregistrationApplyformsealflowRequest self = new CreateDigitalregistrationApplyformsealflowRequest();
         return TeaModel.build(map, self);
@@ -43,6 +48,14 @@ public class CreateDigitalregistrationApplyformsealflowRequest extends TeaModel 
     }
     public String getDigitalRegisterId() {
         return this.digitalRegisterId;
+    }
+
+    public CreateDigitalregistrationApplyformsealflowRequest setClientToken(String clientToken) {
+        this.clientToken = clientToken;
+        return this;
+    }
+    public String getClientToken() {
+        return this.clientToken;
     }
 
 }
