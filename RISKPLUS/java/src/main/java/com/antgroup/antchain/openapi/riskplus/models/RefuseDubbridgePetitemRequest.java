@@ -41,6 +41,11 @@ public class RefuseDubbridgePetitemRequest extends TeaModel {
     @Validation(required = true)
     public String channelCode;
 
+    // 请求流水号(通过此流水号幂等判断是否是同一个请求)
+    @NameInMap("request_no")
+    @Validation(required = true)
+    public String requestNo;
+
     public static RefuseDubbridgePetitemRequest build(java.util.Map<String, ?> map) throws Exception {
         RefuseDubbridgePetitemRequest self = new RefuseDubbridgePetitemRequest();
         return TeaModel.build(map, self);
@@ -108,6 +113,14 @@ public class RefuseDubbridgePetitemRequest extends TeaModel {
     }
     public String getChannelCode() {
         return this.channelCode;
+    }
+
+    public RefuseDubbridgePetitemRequest setRequestNo(String requestNo) {
+        this.requestNo = requestNo;
+        return this;
+    }
+    public String getRequestNo() {
+        return this.requestNo;
     }
 
 }

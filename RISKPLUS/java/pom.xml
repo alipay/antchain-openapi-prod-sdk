@@ -6,9 +6,9 @@
 
     <!-- 基础信息 -->
     <groupId>com.antgroup.antchain.openapi</groupId>
-    <!-- 注意：变量 openapi-riskplus 和 1.31.23 需要在命令行或 properties 中定义 -->
+    <!-- 注意：变量 openapi-riskplus 和 1.31.24 需要在命令行或 properties 中定义 -->
     <artifactId>openapi-riskplus</artifactId>
-    <version>1.31.23</version>
+    <version>1.31.24</version>
     <packaging>jar</packaging>
 
     <name>openapi-riskplus</name>

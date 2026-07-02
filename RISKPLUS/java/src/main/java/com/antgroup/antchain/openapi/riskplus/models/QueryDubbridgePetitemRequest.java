@@ -46,6 +46,11 @@ public class QueryDubbridgePetitemRequest extends TeaModel {
     @Validation(required = true)
     public java.util.List<GoodsOrderInfo> mallConsumeUnsettleOrders;
 
+    // 请求流水号(通过此流水号幂等判断是否是同一个请求)
+    @NameInMap("request_no")
+    @Validation(required = true)
+    public String requestNo;
+
     public static QueryDubbridgePetitemRequest build(java.util.Map<String, ?> map) throws Exception {
         QueryDubbridgePetitemRequest self = new QueryDubbridgePetitemRequest();
         return TeaModel.build(map, self);
@@ -121,6 +126,14 @@ public class QueryDubbridgePetitemRequest extends TeaModel {
     }
     public java.util.List<GoodsOrderInfo> getMallConsumeUnsettleOrders() {
         return this.mallConsumeUnsettleOrders;
+    }
+
+    public QueryDubbridgePetitemRequest setRequestNo(String requestNo) {
+        this.requestNo = requestNo;
+        return this;
+    }
+    public String getRequestNo() {
+        return this.requestNo;
     }
 
 }
