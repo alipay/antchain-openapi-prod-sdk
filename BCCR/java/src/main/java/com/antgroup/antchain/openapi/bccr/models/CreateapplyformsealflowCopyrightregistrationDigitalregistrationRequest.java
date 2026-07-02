@@ -15,6 +15,11 @@ public class CreateapplyformsealflowCopyrightregistrationDigitalregistrationRequ
     @NameInMap("digital_register_id")
     public String digitalRegisterId;
 
+    // 客户端幂等号
+    @NameInMap("client_token")
+    @Validation(required = true)
+    public String clientToken;
+
     public static CreateapplyformsealflowCopyrightregistrationDigitalregistrationRequest build(java.util.Map<String, ?> map) throws Exception {
         CreateapplyformsealflowCopyrightregistrationDigitalregistrationRequest self = new CreateapplyformsealflowCopyrightregistrationDigitalregistrationRequest();
         return TeaModel.build(map, self);
@@ -42,6 +47,14 @@ public class CreateapplyformsealflowCopyrightregistrationDigitalregistrationRequ
     }
     public String getDigitalRegisterId() {
         return this.digitalRegisterId;
+    }
+
+    public CreateapplyformsealflowCopyrightregistrationDigitalregistrationRequest setClientToken(String clientToken) {
+        this.clientToken = clientToken;
+        return this;
+    }
+    public String getClientToken() {
+        return this.clientToken;
     }
 
 }
