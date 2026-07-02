@@ -8,7 +8,7 @@
 <dependency>
    <groupId>com.antgroup.antchain.openapi</groupId>
    <artifactId>bccr</artifactId>
-   <version>1.20.8</version>
+   <version>1.21.0</version>
 </dependency>
 ```
 
