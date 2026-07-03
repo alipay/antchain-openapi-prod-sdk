@@ -1,0 +1,33 @@
+// This file is auto-generated, don't edit it. Thanks.
+
+using System;
+using System.Collections.Generic;
+using System.IO;
+
+using Tea;
+
+namespace AntChain.SDK.IOTAGENT.Models
+{
+    // 订单同步成功列表
+    public class DeviceOrderResult : TeaModel {
+        // 上链id
+        /// <summary>
+        /// <b>Example:</b>
+        /// <para>amdfgs</para>
+        /// </summary>
+        [NameInMap("antchain_id")]
+        [Validation(Required=true)]
+        public string AntchainId { get; set; }
+
+        // 订单id
+        /// <summary>
+        /// <b>Example:</b>
+        /// <para>34</para>
+        /// </summary>
+        [NameInMap("order_id")]
+        [Validation(Required=true)]
+        public string OrderId { get; set; }
+
+    }
+
+}
