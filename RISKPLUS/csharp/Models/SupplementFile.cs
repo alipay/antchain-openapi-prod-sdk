@@ -1,0 +1,55 @@
+// This file is auto-generated, don't edit it. Thanks.
+
+using System;
+using System.Collections.Generic;
+using System.IO;
+
+using Tea;
+
+namespace AntChain.SDK.RISKPLUS.Models
+{
+    // 补充材料
+    public class SupplementFile : TeaModel {
+        // 材料类型：
+        // 301-行驶证正本
+        // 302-行驶证副本
+        // 303-车辆产证（摩托车二手车）
+        // 
+        /// <summary>
+        /// <b>Example:</b>
+        /// <para>xxx</para>
+        /// </summary>
+        [NameInMap("file_type")]
+        [Validation(Required=true)]
+        public string FileType { get; set; }
+
+        // 材料url
+        /// <summary>
+        /// <b>Example:</b>
+        /// <para>xxx</para>
+        /// </summary>
+        [NameInMap("file_url")]
+        [Validation(Required=true)]
+        public string FileUrl { get; set; }
+
+        // 材料名称/描述
+        /// <summary>
+        /// <b>Example:</b>
+        /// <para>xxx</para>
+        /// </summary>
+        [NameInMap("file_desc")]
+        [Validation(Required=false)]
+        public string FileDesc { get; set; }
+
+        // 材料后缀，如png/jpg/jpeg
+        /// <summary>
+        /// <b>Example:</b>
+        /// <para>png</para>
+        /// </summary>
+        [NameInMap("file_suffix")]
+        [Validation(Required=false)]
+        public string FileSuffix { get; set; }
+
+    }
+
+}
