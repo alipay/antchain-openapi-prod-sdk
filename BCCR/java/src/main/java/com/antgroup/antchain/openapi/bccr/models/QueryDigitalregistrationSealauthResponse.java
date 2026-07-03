@@ -18,7 +18,7 @@ public class QueryDigitalregistrationSealauthResponse extends TeaModel {
 
     // 是否支持静默授权
     @NameInMap("is_auto_seal")
-    public String isAutoSeal;
+    public Boolean isAutoSeal;
 
     public static QueryDigitalregistrationSealauthResponse build(java.util.Map<String, ?> map) throws Exception {
         QueryDigitalregistrationSealauthResponse self = new QueryDigitalregistrationSealauthResponse();
@@ -49,11 +49,11 @@ public class QueryDigitalregistrationSealauthResponse extends TeaModel {
         return this.resultMsg;
     }
 
-    public QueryDigitalregistrationSealauthResponse setIsAutoSeal(String isAutoSeal) {
+    public QueryDigitalregistrationSealauthResponse setIsAutoSeal(Boolean isAutoSeal) {
         this.isAutoSeal = isAutoSeal;
         return this;
     }
-    public String getIsAutoSeal() {
+    public Boolean getIsAutoSeal() {
         return this.isAutoSeal;
     }
 
