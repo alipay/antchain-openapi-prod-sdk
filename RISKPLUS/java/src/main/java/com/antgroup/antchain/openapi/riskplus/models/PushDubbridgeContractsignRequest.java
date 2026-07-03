@@ -11,9 +11,8 @@ public class PushDubbridgeContractsignRequest extends TeaModel {
     @NameInMap("product_instance_id")
     public String productInstanceId;
 
-    // 合同签署事件id
+    // 合同签署事件id，《蚂蚁侧主导签署》时必填
     @NameInMap("sign_event_id")
-    @Validation(required = true)
     public String signEventId;
 
     // 合同签署状态：
@@ -35,7 +34,12 @@ public class PushDubbridgeContractsignRequest extends TeaModel {
 
     // 签署合同的业务订单号
     @NameInMap("biz_order_no")
+    @Validation(required = true)
     public String bizOrderNo;
+
+    // 支付宝小程序用户唯一ID，《isv侧主导签署》时必填
+    @NameInMap("open_id")
+    public String openId;
 
     public static PushDubbridgeContractsignRequest build(java.util.Map<String, ?> map) throws Exception {
         PushDubbridgeContractsignRequest self = new PushDubbridgeContractsignRequest();
@@ -88,6 +92,14 @@ public class PushDubbridgeContractsignRequest extends TeaModel {
     }
     public String getBizOrderNo() {
         return this.bizOrderNo;
+    }
+
+    public PushDubbridgeContractsignRequest setOpenId(String openId) {
+        this.openId = openId;
+        return this;
+    }
+    public String getOpenId() {
+        return this.openId;
     }
 
 }
