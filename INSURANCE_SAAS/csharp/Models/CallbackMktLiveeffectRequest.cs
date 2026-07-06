@@ -51,7 +51,7 @@ namespace AntChain.SDK.INSURANCE_SAAS.Models
 
         // 节点详细信息
         [NameInMap("node_info")]
-        [Validation(Required=true)]
+        [Validation(Required=false)]
         public string NodeInfo { get; set; }
 
         // 用户转化的落地页 URL，H5 类落地页

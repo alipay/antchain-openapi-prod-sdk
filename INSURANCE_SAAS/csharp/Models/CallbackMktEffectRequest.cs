@@ -69,7 +69,7 @@ namespace AntChain.SDK.INSURANCE_SAAS.Models
 
         // 节点详细信息
         [NameInMap("node_info")]
-        [Validation(Required=false, MaxLength=1024)]
+        [Validation(Required=false, MaxLength=2048)]
         public string NodeInfo { get; set; }
 
         // 产品 ID
