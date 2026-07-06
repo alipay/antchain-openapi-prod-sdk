@@ -667,7 +667,7 @@ export class InitPacks extends $tea.Model {
 }
 
 // 键值对
-export class XNameValuePair extends $tea.Model {
+export class NameValuePair extends $tea.Model {
   // 键名
   /**
    * @example
@@ -1322,6 +1322,8 @@ export class QuerySsResponse extends $tea.Model {
 export class CreateAntcloudGatewayxFileUploadRequest extends $tea.Model {
   // OAuth模式下的授权token
   authToken?: string;
+  // 产品方的api归属集群，即productInstanceId
+  apiCluster?: string;
   // 上传文件作用的openapi method
   apiCode: string;
   // 文件标签，多个标签;分割
@@ -1332,29 +1334,27 @@ export class CreateAntcloudGatewayxFileUploadRequest extends $tea.Model {
   fileName?: string;
   // 文件的多媒体类型
   mimeType?: string;
-  // 产品方的api归属集群，即productInstanceId
-  apiCluster?: string;
   static names(): { [key: string]: string } {
     return {
       authToken: 'auth_token',
+      apiCluster: 'api_cluster',
       apiCode: 'api_code',
       fileLabel: 'file_label',
       fileMetadata: 'file_metadata',
       fileName: 'file_name',
       mimeType: 'mime_type',
-      apiCluster: 'api_cluster',
     };
   }
 
   static types(): { [key: string]: any } {
     return {
       authToken: 'string',
+      apiCluster: 'string',
       apiCode: 'string',
       fileLabel: 'string',
       fileMetadata: 'string',
       fileName: 'string',
       mimeType: 'string',
-      apiCluster: 'string',
     };
   }
 
@@ -1375,7 +1375,7 @@ export class CreateAntcloudGatewayxFileUploadResponse extends $tea.Model {
   // 32位文件唯一id
   fileId?: string;
   // 放入http请求头里
-  uploadHeaders?: XNameValuePair[];
+  uploadHeaders?: NameValuePair[];
   // 文件上传地址
   uploadUrl?: string;
   static names(): { [key: string]: string } {
@@ -1397,7 +1397,7 @@ export class CreateAntcloudGatewayxFileUploadResponse extends $tea.Model {
       resultMsg: 'string',
       expiredTime: 'string',
       fileId: 'string',
-      uploadHeaders: { 'type': 'array', 'itemType': XNameValuePair },
+      uploadHeaders: { 'type': 'array', 'itemType': NameValuePair },
       uploadUrl: 'string',
     };
   }
@@ -1524,7 +1524,7 @@ export default class Client {
           req_msg_id: AntchainUtil.getNonce(),
           access_key: this._accessKeyId,
           base_sdk_version: "TeaSDK-2.0",
-          sdk_version: "1.0.15",
+          sdk_version: "1.0.16",
           _prod_code: "TESTJZQ",
           _prod_channel: "default",
         };
