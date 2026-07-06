@@ -721,7 +721,7 @@ class InitPacks(TeaModel):
         return self
 
 
-class XNameValuePair(TeaModel):
+class NameValuePair(TeaModel):
     def __init__(
         self,
         name: str = None,
@@ -1758,15 +1758,17 @@ class CreateAntcloudGatewayxFileUploadRequest(TeaModel):
     def __init__(
         self,
         auth_token: str = None,
+        api_cluster: str = None,
         api_code: str = None,
         file_label: str = None,
         file_metadata: str = None,
         file_name: str = None,
         mime_type: str = None,
-        api_cluster: str = None,
     ):
         # OAuth模式下的授权token
         self.auth_token = auth_token
+        # 产品方的api归属集群，即productInstanceId
+        self.api_cluster = api_cluster
         # 上传文件作用的openapi method
         self.api_code = api_code
         # 文件标签，多个标签;分割
@@ -1777,8 +1779,6 @@ class CreateAntcloudGatewayxFileUploadRequest(TeaModel):
         self.file_name = file_name
         # 文件的多媒体类型
         self.mime_type = mime_type
-        # 产品方的api归属集群，即productInstanceId
-        self.api_cluster = api_cluster
 
     def validate(self):
         self.validate_required(self.api_code, 'api_code')
@@ -1797,6 +1797,8 @@ class CreateAntcloudGatewayxFileUploadRequest(TeaModel):
         result = dict()
         if self.auth_token is not None:
             result['auth_token'] = self.auth_token
+        if self.api_cluster is not None:
+            result['api_cluster'] = self.api_cluster
         if self.api_code is not None:
             result['api_code'] = self.api_code
         if self.file_label is not None:
@@ -1807,14 +1809,14 @@ class CreateAntcloudGatewayxFileUploadRequest(TeaModel):
             result['file_name'] = self.file_name
         if self.mime_type is not None:
             result['mime_type'] = self.mime_type
-        if self.api_cluster is not None:
-            result['api_cluster'] = self.api_cluster
         return result
 
     def from_map(self, m: dict = None):
         m = m or dict()
         if m.get('auth_token') is not None:
             self.auth_token = m.get('auth_token')
+        if m.get('api_cluster') is not None:
+            self.api_cluster = m.get('api_cluster')
         if m.get('api_code') is not None:
             self.api_code = m.get('api_code')
         if m.get('file_label') is not None:
@@ -1825,8 +1827,6 @@ class CreateAntcloudGatewayxFileUploadRequest(TeaModel):
             self.file_name = m.get('file_name')
         if m.get('mime_type') is not None:
             self.mime_type = m.get('mime_type')
-        if m.get('api_cluster') is not None:
-            self.api_cluster = m.get('api_cluster')
         return self
 
 
@@ -1838,7 +1838,7 @@ class CreateAntcloudGatewayxFileUploadResponse(TeaModel):
         result_msg: str = None,
         expired_time: str = None,
         file_id: str = None,
-        upload_headers: List[XNameValuePair] = None,
+        upload_headers: List[NameValuePair] = None,
         upload_url: str = None,
     ):
         # 请求唯一ID，用于链路跟踪和问题排查
@@ -1903,7 +1903,7 @@ class CreateAntcloudGatewayxFileUploadResponse(TeaModel):
         self.upload_headers = []
         if m.get('upload_headers') is not None:
             for k in m.get('upload_headers'):
-                temp_model = XNameValuePair()
+                temp_model = NameValuePair()
                 self.upload_headers.append(temp_model.from_map(k))
         if m.get('upload_url') is not None:
             self.upload_url = m.get('upload_url')
