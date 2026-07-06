@@ -9,7 +9,7 @@ using Tea;
 namespace AntChain.SDK.TESTJZQ.Models
 {
     // 键值对
-    public class XNameValuePair : TeaModel {
+    public class NameValuePair : TeaModel {
         // 键名
         /// <summary>
         /// <b>Example:</b>

@@ -37,7 +37,7 @@ namespace AntChain.SDK.TESTJZQ.Models
         // 放入http请求头里
         [NameInMap("upload_headers")]
         [Validation(Required=false)]
-        public List<XNameValuePair> UploadHeaders { get; set; }
+        public List<NameValuePair> UploadHeaders { get; set; }
 
         // 文件上传地址
         [NameInMap("upload_url")]
