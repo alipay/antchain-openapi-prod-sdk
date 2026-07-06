@@ -843,7 +843,6 @@ class CallbackMktLiveeffectRequest(TeaModel):
         self.validate_required(self.marketing_mode, 'marketing_mode')
         self.validate_required(self.event_time, 'event_time')
         self.validate_required(self.node_type, 'node_type')
-        self.validate_required(self.node_info, 'node_info')
         self.validate_required(self.landing_page_url, 'landing_page_url')
 
     def to_map(self):
@@ -6899,7 +6898,7 @@ class CallbackMktEffectRequest(TeaModel):
         if self.node_type is not None:
             self.validate_max_length(self.node_type, 'node_type', 64)
         if self.node_info is not None:
-            self.validate_max_length(self.node_info, 'node_info', 1024)
+            self.validate_max_length(self.node_info, 'node_info', 2048)
 
     def to_map(self):
         _map = super().to_map()
