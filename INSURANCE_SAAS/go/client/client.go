@@ -744,7 +744,7 @@ type CallbackMktLiveeffectRequest struct {
 	// 节点类型
 	NodeType *string `json:"node_type,omitempty" xml:"node_type,omitempty" require:"true"`
 	// 节点详细信息
-	NodeInfo *string `json:"node_info,omitempty" xml:"node_info,omitempty"`
+	NodeInfo *string `json:"node_info,omitempty" xml:"node_info,omitempty" require:"true"`
 	// 用户转化的落地页 URL，H5 类落地页
 	LandingPageUrl *string `json:"landing_page_url,omitempty" xml:"landing_page_url,omitempty" require:"true"`
 	// N	点击 ID，来自落地页 URL、小程序 path 的埋点
@@ -5643,7 +5643,7 @@ type CallbackMktEffectRequest struct {
 	// 节点类型
 	NodeType *string `json:"node_type,omitempty" xml:"node_type,omitempty" require:"true" maxLength:"64"`
 	// 节点详细信息
-	NodeInfo *string `json:"node_info,omitempty" xml:"node_info,omitempty" maxLength:"2048"`
+	NodeInfo *string `json:"node_info,omitempty" xml:"node_info,omitempty" maxLength:"1024"`
 	// 产品 ID
 	ProductId *string `json:"product_id,omitempty" xml:"product_id,omitempty"`
 }
@@ -6095,7 +6095,7 @@ func (client *Client) DoRequest(version *string, action *string, protocol *strin
 				"req_msg_id":       antchainutil.GetNonce(),
 				"access_key":       client.AccessKeyId,
 				"base_sdk_version": tea.String("TeaSDK-2.0"),
-				"sdk_version":      tea.String("1.12.45"),
+				"sdk_version":      tea.String("1.12.41"),
 				"_prod_code":       tea.String("INSURANCE_SAAS"),
 				"_prod_channel":    tea.String("undefined"),
 			}
