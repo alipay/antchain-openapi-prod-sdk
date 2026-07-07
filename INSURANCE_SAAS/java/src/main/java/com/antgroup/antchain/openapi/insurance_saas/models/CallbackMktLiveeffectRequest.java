@@ -88,8 +88,8 @@ public class CallbackMktLiveeffectRequest extends TeaModel {
     public String liveSessionId;
 
     // 媒体渠道
-    @NameInMap("maeket_channel")
-    public String maeketChannel;
+    @NameInMap("marketing_channel")
+    public String marketingChannel;
 
     // 256	rta追踪 ID
     @NameInMap("rta_trace_id")
@@ -252,12 +252,12 @@ public class CallbackMktLiveeffectRequest extends TeaModel {
         return this.liveSessionId;
     }
 
-    public CallbackMktLiveeffectRequest setMaeketChannel(String maeketChannel) {
-        this.maeketChannel = maeketChannel;
+    public CallbackMktLiveeffectRequest setMarketingChannel(String marketingChannel) {
+        this.marketingChannel = marketingChannel;
         return this;
     }
-    public String getMaeketChannel() {
-        return this.maeketChannel;
+    public String getMarketingChannel() {
+        return this.marketingChannel;
     }
 
     public CallbackMktLiveeffectRequest setRtaTraceId(String rtaTraceId) {
