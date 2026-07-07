@@ -126,7 +126,7 @@ public class Client {
                     new TeaPair("req_msg_id", com.antgroup.antchain.openapi.antchain.util.AntchainUtils.getNonce()),
                     new TeaPair("access_key", _accessKeyId),
                     new TeaPair("base_sdk_version", "TeaSDK-2.0"),
-                    new TeaPair("sdk_version", "1.21.2"),
+                    new TeaPair("sdk_version", "1.21.3"),
                     new TeaPair("_prod_code", "BCCR"),
                     new TeaPair("_prod_channel", "undefined")
                 );
@@ -333,111 +333,6 @@ public class Client {
     public CompleteapplyformsealCopyrightregistrationDigitalregistrationResponse completeapplyformsealCopyrightregistrationDigitalregistrationEx(CompleteapplyformsealCopyrightregistrationDigitalregistrationRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
         com.aliyun.teautil.Common.validateModel(request);
         return TeaModel.toModel(this.doRequest("1.0", "blockchain.bccr.copyrightregistration.digitalregistration.completeapplyformseal", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new CompleteapplyformsealCopyrightregistrationDigitalregistrationResponse());
-    }
-
-    /**
-     * <b>description</b> :
-     * <p>Description: 版权登记-数登申请-查询数登申请表
-     * Summary: 版权登记-数登申请-查询数登申请表</p>
-     */
-    public QueryDigitalregistrationApplyformResponse queryDigitalregistrationApplyform(QueryDigitalregistrationApplyformRequest request) throws Exception {
-        com.aliyun.teautil.models.RuntimeOptions runtime = new com.aliyun.teautil.models.RuntimeOptions();
-        java.util.Map<String, String> headers = new java.util.HashMap<>();
-        return this.queryDigitalregistrationApplyformEx(request, headers, runtime);
-    }
-
-    /**
-     * <b>description</b> :
-     * <p>Description: 版权登记-数登申请-查询数登申请表
-     * Summary: 版权登记-数登申请-查询数登申请表</p>
-     */
-    public QueryDigitalregistrationApplyformResponse queryDigitalregistrationApplyformEx(QueryDigitalregistrationApplyformRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
-        com.aliyun.teautil.Common.validateModel(request);
-        return TeaModel.toModel(this.doRequest("1.0", "blockchain.bccr.digitalregistration.applyform.query", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new QueryDigitalregistrationApplyformResponse());
-    }
-
-    /**
-     * <b>description</b> :
-     * <p>Description: 数登申请表签章静默授权查询
-     * Summary: 数登申请表签章静默授权查询</p>
-     */
-    public QueryDigitalregistrationSealauthResponse queryDigitalregistrationSealauth(QueryDigitalregistrationSealauthRequest request) throws Exception {
-        com.aliyun.teautil.models.RuntimeOptions runtime = new com.aliyun.teautil.models.RuntimeOptions();
-        java.util.Map<String, String> headers = new java.util.HashMap<>();
-        return this.queryDigitalregistrationSealauthEx(request, headers, runtime);
-    }
-
-    /**
-     * <b>description</b> :
-     * <p>Description: 数登申请表签章静默授权查询
-     * Summary: 数登申请表签章静默授权查询</p>
-     */
-    public QueryDigitalregistrationSealauthResponse queryDigitalregistrationSealauthEx(QueryDigitalregistrationSealauthRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
-        com.aliyun.teautil.Common.validateModel(request);
-        return TeaModel.toModel(this.doRequest("1.0", "blockchain.bccr.digitalregistration.sealauth.query", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new QueryDigitalregistrationSealauthResponse());
-    }
-
-    /**
-     * <b>description</b> :
-     * <p>Description: 数登申请表创建签署流程
-     * Summary: 数登申请表创建签署流程</p>
-     */
-    public CreateDigitalregistrationApplyformsealflowResponse createDigitalregistrationApplyformsealflow(CreateDigitalregistrationApplyformsealflowRequest request) throws Exception {
-        com.aliyun.teautil.models.RuntimeOptions runtime = new com.aliyun.teautil.models.RuntimeOptions();
-        java.util.Map<String, String> headers = new java.util.HashMap<>();
-        return this.createDigitalregistrationApplyformsealflowEx(request, headers, runtime);
-    }
-
-    /**
-     * <b>description</b> :
-     * <p>Description: 数登申请表创建签署流程
-     * Summary: 数登申请表创建签署流程</p>
-     */
-    public CreateDigitalregistrationApplyformsealflowResponse createDigitalregistrationApplyformsealflowEx(CreateDigitalregistrationApplyformsealflowRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
-        com.aliyun.teautil.Common.validateModel(request);
-        return TeaModel.toModel(this.doRequest("1.0", "blockchain.bccr.digitalregistration.applyformsealflow.create", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new CreateDigitalregistrationApplyformsealflowResponse());
-    }
-
-    /**
-     * <b>description</b> :
-     * <p>Description: 查询数登申请表签章url
-     * Summary: 查询数登申请表签章url</p>
-     */
-    public QueryDigitalregistrationApplyformsealurlResponse queryDigitalregistrationApplyformsealurl(QueryDigitalregistrationApplyformsealurlRequest request) throws Exception {
-        com.aliyun.teautil.models.RuntimeOptions runtime = new com.aliyun.teautil.models.RuntimeOptions();
-        java.util.Map<String, String> headers = new java.util.HashMap<>();
-        return this.queryDigitalregistrationApplyformsealurlEx(request, headers, runtime);
-    }
-
-    /**
-     * <b>description</b> :
-     * <p>Description: 查询数登申请表签章url
-     * Summary: 查询数登申请表签章url</p>
-     */
-    public QueryDigitalregistrationApplyformsealurlResponse queryDigitalregistrationApplyformsealurlEx(QueryDigitalregistrationApplyformsealurlRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
-        com.aliyun.teautil.Common.validateModel(request);
-        return TeaModel.toModel(this.doRequest("1.0", "blockchain.bccr.digitalregistration.applyformsealurl.query", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new QueryDigitalregistrationApplyformsealurlResponse());
-    }
-
-    /**
-     * <b>description</b> :
-     * <p>Description: 完成数登申请表签署
-     * Summary: 完成数登申请表签署</p>
-     */
-    public CompleteDigitalregistrationApplyformsealResponse completeDigitalregistrationApplyformseal(CompleteDigitalregistrationApplyformsealRequest request) throws Exception {
-        com.aliyun.teautil.models.RuntimeOptions runtime = new com.aliyun.teautil.models.RuntimeOptions();
-        java.util.Map<String, String> headers = new java.util.HashMap<>();
-        return this.completeDigitalregistrationApplyformsealEx(request, headers, runtime);
-    }
-
-    /**
-     * <b>description</b> :
-     * <p>Description: 完成数登申请表签署
-     * Summary: 完成数登申请表签署</p>
-     */
-    public CompleteDigitalregistrationApplyformsealResponse completeDigitalregistrationApplyformsealEx(CompleteDigitalregistrationApplyformsealRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
-        com.aliyun.teautil.Common.validateModel(request);
-        return TeaModel.toModel(this.doRequest("1.0", "blockchain.bccr.digitalregistration.applyformseal.complete", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new CompleteDigitalregistrationApplyformsealResponse());
     }
 
     /**
@@ -2223,6 +2118,111 @@ public class Client {
     public QueryDciCertificateresultResponse queryDciCertificateresultEx(QueryDciCertificateresultRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
         com.aliyun.teautil.Common.validateModel(request);
         return TeaModel.toModel(this.doRequest("1.0", "blockchain.bccr.dci.certificateresult.query", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new QueryDciCertificateresultResponse());
+    }
+
+    /**
+     * <b>description</b> :
+     * <p>Description: 版权登记-数登申请-查询数登申请表
+     * Summary: 版权登记-数登申请-查询数登申请表</p>
+     */
+    public QueryDigitalregistrationApplyformResponse queryDigitalregistrationApplyform(QueryDigitalregistrationApplyformRequest request) throws Exception {
+        com.aliyun.teautil.models.RuntimeOptions runtime = new com.aliyun.teautil.models.RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.queryDigitalregistrationApplyformEx(request, headers, runtime);
+    }
+
+    /**
+     * <b>description</b> :
+     * <p>Description: 版权登记-数登申请-查询数登申请表
+     * Summary: 版权登记-数登申请-查询数登申请表</p>
+     */
+    public QueryDigitalregistrationApplyformResponse queryDigitalregistrationApplyformEx(QueryDigitalregistrationApplyformRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "blockchain.bccr.digitalregistration.applyform.query", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new QueryDigitalregistrationApplyformResponse());
+    }
+
+    /**
+     * <b>description</b> :
+     * <p>Description: 数登申请表签章静默授权查询
+     * Summary: 数登申请表签章静默授权查询</p>
+     */
+    public QueryDigitalregistrationSealauthResponse queryDigitalregistrationSealauth(QueryDigitalregistrationSealauthRequest request) throws Exception {
+        com.aliyun.teautil.models.RuntimeOptions runtime = new com.aliyun.teautil.models.RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.queryDigitalregistrationSealauthEx(request, headers, runtime);
+    }
+
+    /**
+     * <b>description</b> :
+     * <p>Description: 数登申请表签章静默授权查询
+     * Summary: 数登申请表签章静默授权查询</p>
+     */
+    public QueryDigitalregistrationSealauthResponse queryDigitalregistrationSealauthEx(QueryDigitalregistrationSealauthRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "blockchain.bccr.digitalregistration.sealauth.query", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new QueryDigitalregistrationSealauthResponse());
+    }
+
+    /**
+     * <b>description</b> :
+     * <p>Description: 数登申请表创建签署流程
+     * Summary: 数登申请表创建签署流程</p>
+     */
+    public CreateDigitalregistrationApplyformsealflowResponse createDigitalregistrationApplyformsealflow(CreateDigitalregistrationApplyformsealflowRequest request) throws Exception {
+        com.aliyun.teautil.models.RuntimeOptions runtime = new com.aliyun.teautil.models.RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.createDigitalregistrationApplyformsealflowEx(request, headers, runtime);
+    }
+
+    /**
+     * <b>description</b> :
+     * <p>Description: 数登申请表创建签署流程
+     * Summary: 数登申请表创建签署流程</p>
+     */
+    public CreateDigitalregistrationApplyformsealflowResponse createDigitalregistrationApplyformsealflowEx(CreateDigitalregistrationApplyformsealflowRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "blockchain.bccr.digitalregistration.applyformsealflow.create", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new CreateDigitalregistrationApplyformsealflowResponse());
+    }
+
+    /**
+     * <b>description</b> :
+     * <p>Description: 查询数登申请表签章url
+     * Summary: 查询数登申请表签章url</p>
+     */
+    public QueryDigitalregistrationApplyformsealurlResponse queryDigitalregistrationApplyformsealurl(QueryDigitalregistrationApplyformsealurlRequest request) throws Exception {
+        com.aliyun.teautil.models.RuntimeOptions runtime = new com.aliyun.teautil.models.RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.queryDigitalregistrationApplyformsealurlEx(request, headers, runtime);
+    }
+
+    /**
+     * <b>description</b> :
+     * <p>Description: 查询数登申请表签章url
+     * Summary: 查询数登申请表签章url</p>
+     */
+    public QueryDigitalregistrationApplyformsealurlResponse queryDigitalregistrationApplyformsealurlEx(QueryDigitalregistrationApplyformsealurlRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "blockchain.bccr.digitalregistration.applyformsealurl.query", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new QueryDigitalregistrationApplyformsealurlResponse());
+    }
+
+    /**
+     * <b>description</b> :
+     * <p>Description: 完成数登申请表签署
+     * Summary: 完成数登申请表签署</p>
+     */
+    public CompleteDigitalregistrationApplyformsealResponse completeDigitalregistrationApplyformseal(CompleteDigitalregistrationApplyformsealRequest request) throws Exception {
+        com.aliyun.teautil.models.RuntimeOptions runtime = new com.aliyun.teautil.models.RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.completeDigitalregistrationApplyformsealEx(request, headers, runtime);
+    }
+
+    /**
+     * <b>description</b> :
+     * <p>Description: 完成数登申请表签署
+     * Summary: 完成数登申请表签署</p>
+     */
+    public CompleteDigitalregistrationApplyformsealResponse completeDigitalregistrationApplyformsealEx(CompleteDigitalregistrationApplyformsealRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "blockchain.bccr.digitalregistration.applyformseal.complete", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new CompleteDigitalregistrationApplyformsealResponse());
     }
 
     /**

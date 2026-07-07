@@ -21,6 +21,14 @@ public class CreateDigitalregistrationApplyformsealflowRequest extends TeaModel 
     @Validation(required = true)
     public String clientToken;
 
+    // 签章经办人身份证号（数登申请人是企业的场景下必填）
+    @NameInMap("agent_cert_no")
+    public String agentCertNo;
+
+    // 签章经办人姓名（数登申请人是企业的场景下必填）
+    @NameInMap("agent_cert_mame")
+    public String agentCertMame;
+
     public static CreateDigitalregistrationApplyformsealflowRequest build(java.util.Map<String, ?> map) throws Exception {
         CreateDigitalregistrationApplyformsealflowRequest self = new CreateDigitalregistrationApplyformsealflowRequest();
         return TeaModel.build(map, self);
@@ -56,6 +64,22 @@ public class CreateDigitalregistrationApplyformsealflowRequest extends TeaModel 
     }
     public String getClientToken() {
         return this.clientToken;
+    }
+
+    public CreateDigitalregistrationApplyformsealflowRequest setAgentCertNo(String agentCertNo) {
+        this.agentCertNo = agentCertNo;
+        return this;
+    }
+    public String getAgentCertNo() {
+        return this.agentCertNo;
+    }
+
+    public CreateDigitalregistrationApplyformsealflowRequest setAgentCertMame(String agentCertMame) {
+        this.agentCertMame = agentCertMame;
+        return this;
+    }
+    public String getAgentCertMame() {
+        return this.agentCertMame;
     }
 
 }
