@@ -89,6 +89,25 @@ public class CreateAntdigitalCorlabFeatureminingPlanRequest extends TeaModel {
     @Validation(required = true)
     public String basicModel;
 
+    // baseLine信息
+    @NameInMap("base_line_ids")
+    @Validation(required = true)
+    public java.util.List<Long> baseLineIds;
+
+    // 结果判断，后期使用
+    @NameInMap("direction")
+    public String direction;
+
+    // 计划开始时间
+    @NameInMap("start_date")
+    @Validation(required = true, pattern = "\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}([Z]|([\\.]\\d{1,9})?[\\+]\\d{2}[\\:]?\\d{2})")
+    public String startDate;
+
+    // 结束时间
+    @NameInMap("end_date")
+    @Validation(pattern = "\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}([Z]|([\\.]\\d{1,9})?[\\+]\\d{2}[\\:]?\\d{2})")
+    public String endDate;
+
     public static CreateAntdigitalCorlabFeatureminingPlanRequest build(java.util.Map<String, ?> map) throws Exception {
         CreateAntdigitalCorlabFeatureminingPlanRequest self = new CreateAntdigitalCorlabFeatureminingPlanRequest();
         return TeaModel.build(map, self);
@@ -236,6 +255,38 @@ public class CreateAntdigitalCorlabFeatureminingPlanRequest extends TeaModel {
     }
     public String getBasicModel() {
         return this.basicModel;
+    }
+
+    public CreateAntdigitalCorlabFeatureminingPlanRequest setBaseLineIds(java.util.List<Long> baseLineIds) {
+        this.baseLineIds = baseLineIds;
+        return this;
+    }
+    public java.util.List<Long> getBaseLineIds() {
+        return this.baseLineIds;
+    }
+
+    public CreateAntdigitalCorlabFeatureminingPlanRequest setDirection(String direction) {
+        this.direction = direction;
+        return this;
+    }
+    public String getDirection() {
+        return this.direction;
+    }
+
+    public CreateAntdigitalCorlabFeatureminingPlanRequest setStartDate(String startDate) {
+        this.startDate = startDate;
+        return this;
+    }
+    public String getStartDate() {
+        return this.startDate;
+    }
+
+    public CreateAntdigitalCorlabFeatureminingPlanRequest setEndDate(String endDate) {
+        this.endDate = endDate;
+        return this;
+    }
+    public String getEndDate() {
+        return this.endDate;
     }
 
 }

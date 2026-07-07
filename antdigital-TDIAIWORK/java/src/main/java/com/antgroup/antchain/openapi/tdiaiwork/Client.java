@@ -126,7 +126,7 @@ public class Client {
                     new TeaPair("req_msg_id", com.antgroup.antchain.openapi.antchain.util.AntchainUtils.getNonce()),
                     new TeaPair("access_key", _accessKeyId),
                     new TeaPair("base_sdk_version", "TeaSDK-2.0"),
-                    new TeaPair("sdk_version", "1.1.2"),
+                    new TeaPair("sdk_version", "1.1.3"),
                     new TeaPair("_prod_code", "TDIAIWORK"),
                     new TeaPair("_prod_channel", "default")
                 );
@@ -190,8 +190,8 @@ public class Client {
 
     /**
      * <b>description</b> :
-     * <p>Description: 特征
-     * Summary: 特征</p>
+     * <p>Description: 特征智探openAPI接口
+     * Summary: 特征智探openAPI接口</p>
      */
     public CreateAntdigitalCorlabFeatureminingPlanResponse createAntdigitalCorlabFeatureminingPlan(CreateAntdigitalCorlabFeatureminingPlanRequest request) throws Exception {
         com.aliyun.teautil.models.RuntimeOptions runtime = new com.aliyun.teautil.models.RuntimeOptions();
@@ -201,8 +201,8 @@ public class Client {
 
     /**
      * <b>description</b> :
-     * <p>Description: 特征
-     * Summary: 特征</p>
+     * <p>Description: 特征智探openAPI接口
+     * Summary: 特征智探openAPI接口</p>
      */
     public CreateAntdigitalCorlabFeatureminingPlanResponse createAntdigitalCorlabFeatureminingPlanEx(CreateAntdigitalCorlabFeatureminingPlanRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
         com.aliyun.teautil.Common.validateModel(request);
