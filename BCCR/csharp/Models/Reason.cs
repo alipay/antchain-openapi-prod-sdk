@@ -1,0 +1,60 @@
+// This file is auto-generated, don't edit it. Thanks.
+
+using System;
+using System.Collections.Generic;
+using System.IO;
+
+using Tea;
+
+namespace AntChain.SDK.BCCR.Models
+{
+    // 事由
+    public class Reason : TeaModel {
+        // 事由ID
+        /// <summary>
+        /// <b>Example:</b>
+        /// <para>123</para>
+        /// </summary>
+        [NameInMap("reason_id")]
+        [Validation(Required=true)]
+        public string ReasonId { get; set; }
+
+        // 事由名称
+        /// <summary>
+        /// <b>Example:</b>
+        /// <para>商标权/名誉权/著作权</para>
+        /// </summary>
+        [NameInMap("reason_name")]
+        [Validation(Required=true)]
+        public string ReasonName { get; set; }
+
+        // 附件文字说明
+        /// <summary>
+        /// <b>Example:</b>
+        /// <para>这是一个说明</para>
+        /// </summary>
+        [NameInMap("comment")]
+        [Validation(Required=true)]
+        public string Comment { get; set; }
+
+        // 排序
+        /// <summary>
+        /// <b>Example:</b>
+        /// <para>1</para>
+        /// </summary>
+        [NameInMap("sort")]
+        [Validation(Required=true)]
+        public long? Sort { get; set; }
+
+        // 是否必须上传附件
+        /// <summary>
+        /// <b>Example:</b>
+        /// <para>true, false</para>
+        /// </summary>
+        [NameInMap("is_need_attachment")]
+        [Validation(Required=true)]
+        public bool? IsNeedAttachment { get; set; }
+
+    }
+
+}
