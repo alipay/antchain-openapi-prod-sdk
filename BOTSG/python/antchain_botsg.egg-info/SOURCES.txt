@@ -1,0 +1,9 @@
+setup.py
+antchain_botsg.egg-info/PKG-INFO
+antchain_botsg.egg-info/SOURCES.txt
+antchain_botsg.egg-info/dependency_links.txt
+antchain_botsg.egg-info/requires.txt
+antchain_botsg.egg-info/top_level.txt
+antchain_sdk_botsg/__init__.py
+antchain_sdk_botsg/client.py
+antchain_sdk_botsg/models.py
