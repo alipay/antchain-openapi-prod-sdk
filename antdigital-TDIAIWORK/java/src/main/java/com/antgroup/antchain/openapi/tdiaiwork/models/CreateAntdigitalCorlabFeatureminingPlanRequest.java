@@ -100,12 +100,11 @@ public class CreateAntdigitalCorlabFeatureminingPlanRequest extends TeaModel {
 
     // 计划开始时间
     @NameInMap("start_date")
-    @Validation(required = true, pattern = "\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}([Z]|([\\.]\\d{1,9})?[\\+]\\d{2}[\\:]?\\d{2})")
+    @Validation(required = true)
     public String startDate;
 
     // 结束时间
     @NameInMap("end_date")
-    @Validation(pattern = "\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}([Z]|([\\.]\\d{1,9})?[\\+]\\d{2}[\\:]?\\d{2})")
     public String endDate;
 
     public static CreateAntdigitalCorlabFeatureminingPlanRequest build(java.util.Map<String, ?> map) throws Exception {

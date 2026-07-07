@@ -8,7 +8,7 @@
 <dependency>
    <groupId>com.antgroup.antchain.openapi</groupId>
    <artifactId>antdigital-tdiaiwork</artifactId>
-   <version>1.1.4</version>
+   <version>1.1.5</version>
 </dependency>
 ```
 
