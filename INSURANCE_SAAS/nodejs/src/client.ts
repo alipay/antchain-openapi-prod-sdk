@@ -673,7 +673,7 @@ export class CallbackMktLiveeffectRequest extends $tea.Model {
   // 节点类型
   nodeType: string;
   // 节点详细信息
-  nodeInfo?: string;
+  nodeInfo: string;
   // 用户转化的落地页 URL，H5 类落地页
   landingPageUrl: string;
   // N	点击 ID，来自落地页 URL、小程序 path 的埋点
@@ -4661,7 +4661,7 @@ export default class Client {
           req_msg_id: AntchainUtil.getNonce(),
           access_key: this._accessKeyId,
           base_sdk_version: "TeaSDK-2.0",
-          sdk_version: "1.12.45",
+          sdk_version: "1.12.41",
           _prod_code: "INSURANCE_SAAS",
           _prod_channel: "undefined",
         };
