@@ -10,7 +10,7 @@ public class BestModelReport extends TeaModel {
      * <p>0.52</p>
      */
     @NameInMap("ks")
-    public Long ks;
+    public String ks;
 
     // auc指标
     /**
@@ -18,7 +18,7 @@ public class BestModelReport extends TeaModel {
      * <p>0.8</p>
      */
     @NameInMap("auc")
-    public Long auc;
+    public String auc;
 
     // lift指标
     /**
@@ -26,34 +26,34 @@ public class BestModelReport extends TeaModel {
      * <p>3.2</p>
      */
     @NameInMap("lift")
-    public Long lift;
+    public String lift;
 
     public static BestModelReport build(java.util.Map<String, ?> map) throws Exception {
         BestModelReport self = new BestModelReport();
         return TeaModel.build(map, self);
     }
 
-    public BestModelReport setKs(Long ks) {
+    public BestModelReport setKs(String ks) {
         this.ks = ks;
         return this;
     }
-    public Long getKs() {
+    public String getKs() {
         return this.ks;
     }
 
-    public BestModelReport setAuc(Long auc) {
+    public BestModelReport setAuc(String auc) {
         this.auc = auc;
         return this;
     }
-    public Long getAuc() {
+    public String getAuc() {
         return this.auc;
     }
 
-    public BestModelReport setLift(Long lift) {
+    public BestModelReport setLift(String lift) {
         this.lift = lift;
         return this;
     }
-    public Long getLift() {
+    public String getLift() {
         return this.lift;
     }
 

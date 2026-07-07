@@ -56,7 +56,7 @@ public class CreateAntdigitalCorlabFeatureminingPlanRequest extends TeaModel {
 
     // iv要求
     @NameInMap("iv")
-    public Long iv;
+    public String iv;
 
     // 1702
     /**
@@ -201,11 +201,11 @@ public class CreateAntdigitalCorlabFeatureminingPlanRequest extends TeaModel {
         return this.featureNum;
     }
 
-    public CreateAntdigitalCorlabFeatureminingPlanRequest setIv(Long iv) {
+    public CreateAntdigitalCorlabFeatureminingPlanRequest setIv(String iv) {
         this.iv = iv;
         return this;
     }
-    public Long getIv() {
+    public String getIv() {
         return this.iv;
     }
 
