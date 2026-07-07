@@ -18,7 +18,9 @@ public class CallbackMktLiveeffectRequest extends TeaModel {
     @Validation(required = true)
     public String projectId;
 
-    // 营销模式，AI_HANGUP_SMS("AI挂短")， AI_OFFICIAL_ACCOUNT("AI公众号"), BPO_WECHAT("BPO企微"), AI_BPO("AI_BPO")， LIVE_STREAMING("直播")
+    // 营销模式
+    // LIVE_STREAMING("直播")
+    // ADVERTISING_TRAFFIC（"广告投流")
     @NameInMap("marketing_mode")
     @Validation(required = true)
     public String marketingMode;
@@ -45,7 +47,7 @@ public class CallbackMktLiveeffectRequest extends TeaModel {
     @NameInMap("node_info")
     public String nodeInfo;
 
-    // 用户转化的落地页 URL，H5 类落地页
+    // 只需要传输母链
     @NameInMap("landing_page_url")
     @Validation(required = true)
     public String landingPageUrl;
@@ -84,6 +86,22 @@ public class CallbackMktLiveeffectRequest extends TeaModel {
     // ）
     @NameInMap("live_session_id")
     public String liveSessionId;
+
+    // 媒体渠道
+    @NameInMap("maeket_channel")
+    public String maeketChannel;
+
+    // 256	rta追踪 ID
+    @NameInMap("rta_trace_id")
+    public String rtaTraceId;
+
+    // rta 实验 ID
+    @NameInMap("rta_exp_id")
+    public String rtaExpId;
+
+    // RTB追踪ID
+    @NameInMap("rtb_trace_id")
+    public String rtbTraceId;
 
     public static CallbackMktLiveeffectRequest build(java.util.Map<String, ?> map) throws Exception {
         CallbackMktLiveeffectRequest self = new CallbackMktLiveeffectRequest();
@@ -232,6 +250,38 @@ public class CallbackMktLiveeffectRequest extends TeaModel {
     }
     public String getLiveSessionId() {
         return this.liveSessionId;
+    }
+
+    public CallbackMktLiveeffectRequest setMaeketChannel(String maeketChannel) {
+        this.maeketChannel = maeketChannel;
+        return this;
+    }
+    public String getMaeketChannel() {
+        return this.maeketChannel;
+    }
+
+    public CallbackMktLiveeffectRequest setRtaTraceId(String rtaTraceId) {
+        this.rtaTraceId = rtaTraceId;
+        return this;
+    }
+    public String getRtaTraceId() {
+        return this.rtaTraceId;
+    }
+
+    public CallbackMktLiveeffectRequest setRtaExpId(String rtaExpId) {
+        this.rtaExpId = rtaExpId;
+        return this;
+    }
+    public String getRtaExpId() {
+        return this.rtaExpId;
+    }
+
+    public CallbackMktLiveeffectRequest setRtbTraceId(String rtbTraceId) {
+        this.rtbTraceId = rtbTraceId;
+        return this;
+    }
+    public String getRtbTraceId() {
+        return this.rtbTraceId;
     }
 
 }
