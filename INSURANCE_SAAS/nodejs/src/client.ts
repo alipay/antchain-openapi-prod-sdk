@@ -662,7 +662,9 @@ export class CallbackMktLiveeffectRequest extends $tea.Model {
   requestId: string;
   // 项目ID，待蚂蚁分配
   projectId: string;
-  // 营销模式，AI_HANGUP_SMS("AI挂短")， AI_OFFICIAL_ACCOUNT("AI公众号"), BPO_WECHAT("BPO企微"), AI_BPO("AI_BPO")， LIVE_STREAMING("直播")
+  // 营销模式
+  // LIVE_STREAMING("直播")
+  // ADVERTISING_TRAFFIC（"广告投流")
   marketingMode: string;
   // 加密类型：MD5，32位[小]
   encryptionType?: string;
@@ -673,8 +675,8 @@ export class CallbackMktLiveeffectRequest extends $tea.Model {
   // 节点类型
   nodeType: string;
   // 节点详细信息
-  nodeInfo: string;
-  // 用户转化的落地页 URL，H5 类落地页
+  nodeInfo?: string;
+  // 只需要传输母链
   landingPageUrl: string;
   // N	点击 ID，来自落地页 URL、小程序 path 的埋点
   clickId?: string;
@@ -695,6 +697,14 @@ export class CallbackMktLiveeffectRequest extends $tea.Model {
   // 举例：若直播间 ID 为 kxz123456，开播时间为 2026-06-18 17：22，此时唯一 ID 为：562606181722
   // ）
   liveSessionId?: string;
+  // 媒体渠道
+  marketingChannel?: string;
+  // 256	rta追踪 ID
+  rtaTraceId?: string;
+  // rta 实验 ID
+  rtaExpId?: string;
+  // RTB追踪ID
+  rtbTraceId?: string;
   static names(): { [key: string]: string } {
     return {
       authToken: 'auth_token',
@@ -715,6 +725,10 @@ export class CallbackMktLiveeffectRequest extends $tea.Model {
       liveStartTime: 'live_start_time',
       extInfo: 'ext_info',
       liveSessionId: 'live_session_id',
+      marketingChannel: 'marketing_channel',
+      rtaTraceId: 'rta_trace_id',
+      rtaExpId: 'rta_exp_id',
+      rtbTraceId: 'rtb_trace_id',
     };
   }
 
@@ -738,6 +752,10 @@ export class CallbackMktLiveeffectRequest extends $tea.Model {
       liveStartTime: 'string',
       extInfo: 'string',
       liveSessionId: 'string',
+      marketingChannel: 'string',
+      rtaTraceId: 'string',
+      rtaExpId: 'string',
+      rtbTraceId: 'string',
     };
   }
 
@@ -906,6 +924,82 @@ export class CallbackMktMonitordataResponse extends $tea.Model {
       resultCode: 'string',
       resultMsg: 'string',
       requestId: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class NotifyEmbedoemautoinsuranceEventRequest extends $tea.Model {
+  // OAuth模式下的授权token
+  authToken?: string;
+  // 请求唯一标识
+  requestNo: string;
+  // 事件类型
+  eventType: string;
+  // 事件发生时间，格式：yyyy-MM-dd HH:mm:ss
+  eventTime: string;
+  // 事件业务数据，JSON格式字符串
+  data: string;
+  static names(): { [key: string]: string } {
+    return {
+      authToken: 'auth_token',
+      requestNo: 'request_no',
+      eventType: 'event_type',
+      eventTime: 'event_time',
+      data: 'data',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      authToken: 'string',
+      requestNo: 'string',
+      eventType: 'string',
+      eventTime: 'string',
+      data: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class NotifyEmbedoemautoinsuranceEventResponse extends $tea.Model {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string;
+  // 结果码，一般OK表示调用成功
+  resultCode?: string;
+  // 异常信息的文本描述
+  resultMsg?: string;
+  // 0=成功，非0=失败
+  code?: number;
+  // 返回消息
+  message?: string;
+  // 是否成功
+  success?: boolean;
+  static names(): { [key: string]: string } {
+    return {
+      reqMsgId: 'req_msg_id',
+      resultCode: 'result_code',
+      resultMsg: 'result_msg',
+      code: 'code',
+      message: 'message',
+      success: 'success',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      reqMsgId: 'string',
+      resultCode: 'string',
+      resultMsg: 'string',
+      code: 'number',
+      message: 'string',
+      success: 'boolean',
     };
   }
 
@@ -4661,7 +4755,7 @@ export default class Client {
           req_msg_id: AntchainUtil.getNonce(),
           access_key: this._accessKeyId,
           base_sdk_version: "TeaSDK-2.0",
-          sdk_version: "1.12.41",
+          sdk_version: "1.12.49",
           _prod_code: "INSURANCE_SAAS",
           _prod_channel: "undefined",
         };
@@ -4833,6 +4927,27 @@ export default class Client {
   async callbackMktMonitordataEx(request: CallbackMktMonitordataRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<CallbackMktMonitordataResponse> {
     Util.validateModel(request);
     return $tea.cast<CallbackMktMonitordataResponse>(await this.doRequest("1.0", "antcloud.insurance.mkt.monitordata.callback", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new CallbackMktMonitordataResponse({}));
+  }
+
+  /**
+   * @remarks
+   * Description: 理想蚂蚁保项目
+   * Summary: 理想蚂蚁保项目
+   */
+  async notifyEmbedoemautoinsuranceEvent(request: NotifyEmbedoemautoinsuranceEventRequest): Promise<NotifyEmbedoemautoinsuranceEventResponse> {
+    let runtime = new $Util.RuntimeOptions({ });
+    let headers : {[key: string ]: string} = { };
+    return await this.notifyEmbedoemautoinsuranceEventEx(request, headers, runtime);
+  }
+
+  /**
+   * @remarks
+   * Description: 理想蚂蚁保项目
+   * Summary: 理想蚂蚁保项目
+   */
+  async notifyEmbedoemautoinsuranceEventEx(request: NotifyEmbedoemautoinsuranceEventRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<NotifyEmbedoemautoinsuranceEventResponse> {
+    Util.validateModel(request);
+    return $tea.cast<NotifyEmbedoemautoinsuranceEventResponse>(await this.doRequest("1.0", "antcloud.insurance.embedoemautoinsurance.event.notify", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new NotifyEmbedoemautoinsuranceEventResponse({}));
   }
 
   /**
