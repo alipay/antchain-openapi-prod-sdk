@@ -22,6 +22,15 @@ public class MonthDataDetail extends TeaModel {
     @Validation(required = true)
     public String amount;
 
+    // 产量单位
+    /**
+     * <strong>example:</strong>
+     * <p>xxxx</p>
+     */
+    @NameInMap("dosage_unit")
+    @Validation(required = true)
+    public String dosageUnit;
+
     public static MonthDataDetail build(java.util.Map<String, ?> map) throws Exception {
         MonthDataDetail self = new MonthDataDetail();
         return TeaModel.build(map, self);
@@ -41,6 +50,14 @@ public class MonthDataDetail extends TeaModel {
     }
     public String getAmount() {
         return this.amount;
+    }
+
+    public MonthDataDetail setDosageUnit(String dosageUnit) {
+        this.dosageUnit = dosageUnit;
+        return this;
+    }
+    public String getDosageUnit() {
+        return this.dosageUnit;
     }
 
 }

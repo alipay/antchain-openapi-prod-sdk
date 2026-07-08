@@ -28,13 +28,16 @@ public class PushActiveDataRequest extends TeaModel {
 
     // 是否按照单元过程录入
     @NameInMap("input_by_process")
-    @Validation(required = true)
     public Boolean inputByProcess;
 
     // lca活动数据项列表
     @NameInMap("item_list")
     @Validation(required = true)
     public java.util.List<ActiveDataItem> itemList;
+
+    // 填报维度，PRODUCT，UNIT
+    @NameInMap("data_dimension")
+    public String dataDimension;
 
     public static PushActiveDataRequest build(java.util.Map<String, ?> map) throws Exception {
         PushActiveDataRequest self = new PushActiveDataRequest();
@@ -95,6 +98,14 @@ public class PushActiveDataRequest extends TeaModel {
     }
     public java.util.List<ActiveDataItem> getItemList() {
         return this.itemList;
+    }
+
+    public PushActiveDataRequest setDataDimension(String dataDimension) {
+        this.dataDimension = dataDimension;
+        return this;
+    }
+    public String getDataDimension() {
+        return this.dataDimension;
     }
 
 }

@@ -24,6 +24,10 @@ public class PushActiveDataResponse extends TeaModel {
     @NameInMap("abnormal_item_list")
     public java.util.List<GclAbnormalItem> abnormalItemList;
 
+    // 成功条数，失败为0
+    @NameInMap("success_count")
+    public String successCount;
+
     public static PushActiveDataResponse build(java.util.Map<String, ?> map) throws Exception {
         PushActiveDataResponse self = new PushActiveDataResponse();
         return TeaModel.build(map, self);
@@ -67,6 +71,14 @@ public class PushActiveDataResponse extends TeaModel {
     }
     public java.util.List<GclAbnormalItem> getAbnormalItemList() {
         return this.abnormalItemList;
+    }
+
+    public PushActiveDataResponse setSuccessCount(String successCount) {
+        this.successCount = successCount;
+        return this;
+    }
+    public String getSuccessCount() {
+        return this.successCount;
     }
 
 }

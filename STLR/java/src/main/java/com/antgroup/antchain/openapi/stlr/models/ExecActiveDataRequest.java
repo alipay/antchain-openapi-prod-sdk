@@ -28,12 +28,10 @@ public class ExecActiveDataRequest extends TeaModel {
 
     // 填报维度，`PRODUCT` 表示产品维度，`UNIT` 表示单元维度
     @NameInMap("data_dimension")
-    @Validation(required = true)
     public String dataDimension;
 
     // 是否按照单元过程录入；`true` 表示按单元过程，`false` 表示汇总录入
     @NameInMap("input_by_process")
-    @Validation(required = true)
     public Boolean inputByProcess;
 
     // 活动数据项列表

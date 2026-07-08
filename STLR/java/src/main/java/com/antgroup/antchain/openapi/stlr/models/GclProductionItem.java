@@ -39,15 +39,6 @@ public class GclProductionItem extends TeaModel {
     @Validation(required = true)
     public String specification;
 
-    // 产量单位
-    /**
-     * <strong>example:</strong>
-     * <p>xxxx</p>
-     */
-    @NameInMap("dosage_unit")
-    @Validation(required = true)
-    public String dosageUnit;
-
     // 月度产量明细
     /**
      * <strong>example:</strong>
@@ -92,14 +83,6 @@ public class GclProductionItem extends TeaModel {
     }
     public String getSpecification() {
         return this.specification;
-    }
-
-    public GclProductionItem setDosageUnit(String dosageUnit) {
-        this.dosageUnit = dosageUnit;
-        return this;
-    }
-    public String getDosageUnit() {
-        return this.dosageUnit;
     }
 
     public GclProductionItem setProductionDataList(MonthDataDetail productionDataList) {

@@ -6,9 +6,9 @@
 
     <!-- 基础信息 -->
     <groupId>com.antgroup.antchain.openapi</groupId>
-    <!-- 注意：变量 openapi-stlr 和 2.11.8 需要在命令行或 properties 中定义 -->
+    <!-- 注意：变量 openapi-stlr 和 2.11.9 需要在命令行或 properties 中定义 -->
     <artifactId>openapi-stlr</artifactId>
-    <version>2.11.8</version>
+    <version>2.11.9</version>
     <packaging>jar</packaging>
 
     <name>openapi-stlr</name>

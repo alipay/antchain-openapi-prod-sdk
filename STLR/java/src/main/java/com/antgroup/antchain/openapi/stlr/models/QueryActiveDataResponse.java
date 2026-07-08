@@ -20,10 +20,6 @@ public class QueryActiveDataResponse extends TeaModel {
     @NameInMap("success")
     public Boolean success;
 
-    // 查询年份
-    @NameInMap("year")
-    public String year;
-
     // 填报维度
     @NameInMap("data_dimension")
     public String dataDimension;
@@ -32,7 +28,7 @@ public class QueryActiveDataResponse extends TeaModel {
     @NameInMap("input_by_process")
     public Boolean inputByProcess;
 
-    // 过程列表
+    // 过程模型列表
     @NameInMap("process_list")
     public java.util.List<ProcessDetail> processList;
 
@@ -71,14 +67,6 @@ public class QueryActiveDataResponse extends TeaModel {
     }
     public Boolean getSuccess() {
         return this.success;
-    }
-
-    public QueryActiveDataResponse setYear(String year) {
-        this.year = year;
-        return this;
-    }
-    public String getYear() {
-        return this.year;
     }
 
     public QueryActiveDataResponse setDataDimension(String dataDimension) {

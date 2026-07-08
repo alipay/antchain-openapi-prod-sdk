@@ -12,13 +12,13 @@ public class ProcessDetail extends TeaModel {
     @NameInMap("process_name")
     public String processName;
 
-    // 物料详情列表
+    // 过程编码
     /**
      * <strong>example:</strong>
-     * <p>undefined</p>
+     * <p>xxxx</p>
      */
-    @NameInMap("material_type_list")
-    public java.util.List<MaterialTypeDetail> materialTypeList;
+    @NameInMap("process_no")
+    public String processNo;
 
     public static ProcessDetail build(java.util.Map<String, ?> map) throws Exception {
         ProcessDetail self = new ProcessDetail();
@@ -33,12 +33,12 @@ public class ProcessDetail extends TeaModel {
         return this.processName;
     }
 
-    public ProcessDetail setMaterialTypeList(java.util.List<MaterialTypeDetail> materialTypeList) {
-        this.materialTypeList = materialTypeList;
+    public ProcessDetail setProcessNo(String processNo) {
+        this.processNo = processNo;
         return this;
     }
-    public java.util.List<MaterialTypeDetail> getMaterialTypeList() {
-        return this.materialTypeList;
+    public String getProcessNo() {
+        return this.processNo;
     }
 
 }

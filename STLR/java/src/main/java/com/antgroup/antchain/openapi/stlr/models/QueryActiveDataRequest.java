@@ -26,14 +26,8 @@ public class QueryActiveDataRequest extends TeaModel {
     @Validation(required = true)
     public String specification;
 
-    // 查询年份，格式 yyyy
-    @NameInMap("year")
-    @Validation(required = true)
-    public String year;
-
     // 填报维度，`PRODUCT` 表示产品维度，`UNIT` 表示单元维度
     @NameInMap("data_dimension")
-    @Validation(required = true)
     public String dataDimension;
 
     // 是否按照单元过程查询，true标识按照，false标识不按照
@@ -84,14 +78,6 @@ public class QueryActiveDataRequest extends TeaModel {
     }
     public String getSpecification() {
         return this.specification;
-    }
-
-    public QueryActiveDataRequest setYear(String year) {
-        this.year = year;
-        return this;
-    }
-    public String getYear() {
-        return this.year;
     }
 
     public QueryActiveDataRequest setDataDimension(String dataDimension) {

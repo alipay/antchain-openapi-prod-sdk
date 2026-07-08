@@ -12,15 +12,6 @@ public class ActiveDataItem extends TeaModel {
     @NameInMap("external_item_code")
     public String externalItemCode;
 
-    // 物料类型，取 options 返回的 `materialType`，`RAW`、`ENERGY`、`WASTE`、`PRODUCT`、`MIDDLE_PRODUCT`
-    /**
-     * <strong>example:</strong>
-     * <p>xxxx</p>
-     */
-    @NameInMap("material_type")
-    @Validation(required = true)
-    public String materialType;
-
     // 单元过程名称；`inputByProcess = true` 时必填，取 options 返回的 `processList[].processName`
     /**
      * <strong>example:</strong>
@@ -54,15 +45,6 @@ public class ActiveDataItem extends TeaModel {
     @NameInMap("supplier_product_name")
     public String supplierProductName;
 
-    // 活动数据单位
-    /**
-     * <strong>example:</strong>
-     * <p>xxxx</p>
-     */
-    @NameInMap("dosage_unit")
-    @Validation(required = true)
-    public String dosageUnit;
-
     // 月度活动数据明细，包含多个月份
     /**
      * <strong>example:</strong>
@@ -71,6 +53,22 @@ public class ActiveDataItem extends TeaModel {
     @NameInMap("active_data_list")
     @Validation(required = true)
     public java.util.List<MonthDataDetail> activeDataList;
+
+    // 单元过程编码
+    /**
+     * <strong>example:</strong>
+     * <p>xxxx</p>
+     */
+    @NameInMap("process_no")
+    public String processNo;
+
+    // 物料类型，默认为RAW原辅料数据
+    /**
+     * <strong>example:</strong>
+     * <p>xxxx</p>
+     */
+    @NameInMap("material_type")
+    public String materialType;
 
     public static ActiveDataItem build(java.util.Map<String, ?> map) throws Exception {
         ActiveDataItem self = new ActiveDataItem();
@@ -83,14 +81,6 @@ public class ActiveDataItem extends TeaModel {
     }
     public String getExternalItemCode() {
         return this.externalItemCode;
-    }
-
-    public ActiveDataItem setMaterialType(String materialType) {
-        this.materialType = materialType;
-        return this;
-    }
-    public String getMaterialType() {
-        return this.materialType;
     }
 
     public ActiveDataItem setProcessName(String processName) {
@@ -125,20 +115,28 @@ public class ActiveDataItem extends TeaModel {
         return this.supplierProductName;
     }
 
-    public ActiveDataItem setDosageUnit(String dosageUnit) {
-        this.dosageUnit = dosageUnit;
-        return this;
-    }
-    public String getDosageUnit() {
-        return this.dosageUnit;
-    }
-
     public ActiveDataItem setActiveDataList(java.util.List<MonthDataDetail> activeDataList) {
         this.activeDataList = activeDataList;
         return this;
     }
     public java.util.List<MonthDataDetail> getActiveDataList() {
         return this.activeDataList;
+    }
+
+    public ActiveDataItem setProcessNo(String processNo) {
+        this.processNo = processNo;
+        return this;
+    }
+    public String getProcessNo() {
+        return this.processNo;
+    }
+
+    public ActiveDataItem setMaterialType(String materialType) {
+        this.materialType = materialType;
+        return this;
+    }
+    public String getMaterialType() {
+        return this.materialType;
     }
 
 }
