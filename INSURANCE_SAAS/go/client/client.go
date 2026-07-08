@@ -733,7 +733,9 @@ type CallbackMktLiveeffectRequest struct {
 	RequestId *string `json:"request_id,omitempty" xml:"request_id,omitempty" require:"true"`
 	// 项目ID，待蚂蚁分配
 	ProjectId *string `json:"project_id,omitempty" xml:"project_id,omitempty" require:"true"`
-	// 营销模式，AI_HANGUP_SMS("AI挂短")， AI_OFFICIAL_ACCOUNT("AI公众号"), BPO_WECHAT("BPO企微"), AI_BPO("AI_BPO")， LIVE_STREAMING("直播")
+	// 营销模式
+	// LIVE_STREAMING("直播")
+	// ADVERTISING_TRAFFIC（"广告投流")
 	MarketingMode *string `json:"marketing_mode,omitempty" xml:"marketing_mode,omitempty" require:"true"`
 	// 加密类型：MD5，32位[小]
 	EncryptionType *string `json:"encryption_type,omitempty" xml:"encryption_type,omitempty"`
@@ -744,8 +746,8 @@ type CallbackMktLiveeffectRequest struct {
 	// 节点类型
 	NodeType *string `json:"node_type,omitempty" xml:"node_type,omitempty" require:"true"`
 	// 节点详细信息
-	NodeInfo *string `json:"node_info,omitempty" xml:"node_info,omitempty" require:"true"`
-	// 用户转化的落地页 URL，H5 类落地页
+	NodeInfo *string `json:"node_info,omitempty" xml:"node_info,omitempty"`
+	// 只需要传输母链
 	LandingPageUrl *string `json:"landing_page_url,omitempty" xml:"landing_page_url,omitempty" require:"true"`
 	// N	点击 ID，来自落地页 URL、小程序 path 的埋点
 	ClickId *string `json:"click_id,omitempty" xml:"click_id,omitempty"`
@@ -766,6 +768,14 @@ type CallbackMktLiveeffectRequest struct {
 	// 举例：若直播间 ID 为 kxz123456，开播时间为 2026-06-18 17：22，此时唯一 ID 为：562606181722
 	// ）
 	LiveSessionId *string `json:"live_session_id,omitempty" xml:"live_session_id,omitempty"`
+	// 媒体渠道
+	MarketingChannel *string `json:"marketing_channel,omitempty" xml:"marketing_channel,omitempty"`
+	// 256	rta追踪 ID
+	RtaTraceId *string `json:"rta_trace_id,omitempty" xml:"rta_trace_id,omitempty"`
+	// rta 实验 ID
+	RtaExpId *string `json:"rta_exp_id,omitempty" xml:"rta_exp_id,omitempty"`
+	// RTB追踪ID
+	RtbTraceId *string `json:"rtb_trace_id,omitempty" xml:"rtb_trace_id,omitempty"`
 }
 
 func (s CallbackMktLiveeffectRequest) String() string {
@@ -863,6 +873,26 @@ func (s *CallbackMktLiveeffectRequest) SetExtInfo(v string) *CallbackMktLiveeffe
 
 func (s *CallbackMktLiveeffectRequest) SetLiveSessionId(v string) *CallbackMktLiveeffectRequest {
 	s.LiveSessionId = &v
+	return s
+}
+
+func (s *CallbackMktLiveeffectRequest) SetMarketingChannel(v string) *CallbackMktLiveeffectRequest {
+	s.MarketingChannel = &v
+	return s
+}
+
+func (s *CallbackMktLiveeffectRequest) SetRtaTraceId(v string) *CallbackMktLiveeffectRequest {
+	s.RtaTraceId = &v
+	return s
+}
+
+func (s *CallbackMktLiveeffectRequest) SetRtaExpId(v string) *CallbackMktLiveeffectRequest {
+	s.RtaExpId = &v
+	return s
+}
+
+func (s *CallbackMktLiveeffectRequest) SetRtbTraceId(v string) *CallbackMktLiveeffectRequest {
+	s.RtbTraceId = &v
 	return s
 }
 
@@ -1072,6 +1102,105 @@ func (s *CallbackMktMonitordataResponse) SetResultMsg(v string) *CallbackMktMoni
 
 func (s *CallbackMktMonitordataResponse) SetRequestId(v string) *CallbackMktMonitordataResponse {
 	s.RequestId = &v
+	return s
+}
+
+type NotifyEmbedoemautoinsuranceEventRequest struct {
+	// OAuth模式下的授权token
+	AuthToken *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	// 请求唯一标识
+	RequestNo *string `json:"request_no,omitempty" xml:"request_no,omitempty" require:"true"`
+	// 事件类型
+	EventType *string `json:"event_type,omitempty" xml:"event_type,omitempty" require:"true"`
+	// 事件发生时间，格式：yyyy-MM-dd HH:mm:ss
+	EventTime *string `json:"event_time,omitempty" xml:"event_time,omitempty" require:"true"`
+	// 事件业务数据，JSON格式字符串
+	Data *string `json:"data,omitempty" xml:"data,omitempty" require:"true"`
+}
+
+func (s NotifyEmbedoemautoinsuranceEventRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s NotifyEmbedoemautoinsuranceEventRequest) GoString() string {
+	return s.String()
+}
+
+func (s *NotifyEmbedoemautoinsuranceEventRequest) SetAuthToken(v string) *NotifyEmbedoemautoinsuranceEventRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *NotifyEmbedoemautoinsuranceEventRequest) SetRequestNo(v string) *NotifyEmbedoemautoinsuranceEventRequest {
+	s.RequestNo = &v
+	return s
+}
+
+func (s *NotifyEmbedoemautoinsuranceEventRequest) SetEventType(v string) *NotifyEmbedoemautoinsuranceEventRequest {
+	s.EventType = &v
+	return s
+}
+
+func (s *NotifyEmbedoemautoinsuranceEventRequest) SetEventTime(v string) *NotifyEmbedoemautoinsuranceEventRequest {
+	s.EventTime = &v
+	return s
+}
+
+func (s *NotifyEmbedoemautoinsuranceEventRequest) SetData(v string) *NotifyEmbedoemautoinsuranceEventRequest {
+	s.Data = &v
+	return s
+}
+
+type NotifyEmbedoemautoinsuranceEventResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// 0=成功，非0=失败
+	Code *int64 `json:"code,omitempty" xml:"code,omitempty"`
+	// 返回消息
+	Message *string `json:"message,omitempty" xml:"message,omitempty"`
+	// 是否成功
+	Success *bool `json:"success,omitempty" xml:"success,omitempty"`
+}
+
+func (s NotifyEmbedoemautoinsuranceEventResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s NotifyEmbedoemautoinsuranceEventResponse) GoString() string {
+	return s.String()
+}
+
+func (s *NotifyEmbedoemautoinsuranceEventResponse) SetReqMsgId(v string) *NotifyEmbedoemautoinsuranceEventResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *NotifyEmbedoemautoinsuranceEventResponse) SetResultCode(v string) *NotifyEmbedoemautoinsuranceEventResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *NotifyEmbedoemautoinsuranceEventResponse) SetResultMsg(v string) *NotifyEmbedoemautoinsuranceEventResponse {
+	s.ResultMsg = &v
+	return s
+}
+
+func (s *NotifyEmbedoemautoinsuranceEventResponse) SetCode(v int64) *NotifyEmbedoemautoinsuranceEventResponse {
+	s.Code = &v
+	return s
+}
+
+func (s *NotifyEmbedoemautoinsuranceEventResponse) SetMessage(v string) *NotifyEmbedoemautoinsuranceEventResponse {
+	s.Message = &v
+	return s
+}
+
+func (s *NotifyEmbedoemautoinsuranceEventResponse) SetSuccess(v bool) *NotifyEmbedoemautoinsuranceEventResponse {
+	s.Success = &v
 	return s
 }
 
@@ -5643,7 +5772,7 @@ type CallbackMktEffectRequest struct {
 	// 节点类型
 	NodeType *string `json:"node_type,omitempty" xml:"node_type,omitempty" require:"true" maxLength:"64"`
 	// 节点详细信息
-	NodeInfo *string `json:"node_info,omitempty" xml:"node_info,omitempty" maxLength:"1024"`
+	NodeInfo *string `json:"node_info,omitempty" xml:"node_info,omitempty" maxLength:"2048"`
 	// 产品 ID
 	ProductId *string `json:"product_id,omitempty" xml:"product_id,omitempty"`
 }
@@ -6095,7 +6224,7 @@ func (client *Client) DoRequest(version *string, action *string, protocol *strin
 				"req_msg_id":       antchainutil.GetNonce(),
 				"access_key":       client.AccessKeyId,
 				"base_sdk_version": tea.String("TeaSDK-2.0"),
-				"sdk_version":      tea.String("1.12.41"),
+				"sdk_version":      tea.String("1.12.49"),
 				"_prod_code":       tea.String("INSURANCE_SAAS"),
 				"_prod_channel":    tea.String("undefined"),
 			}
@@ -6362,6 +6491,42 @@ func (client *Client) CallbackMktMonitordataEx(request *CallbackMktMonitordataRe
 	}
 	_result = &CallbackMktMonitordataResponse{}
 	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("antcloud.insurance.mkt.monitordata.callback"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
+}
+
+// Description:
+//
+// Description: 理想蚂蚁保项目
+//
+// Summary: 理想蚂蚁保项目
+func (client *Client) NotifyEmbedoemautoinsuranceEvent(request *NotifyEmbedoemautoinsuranceEventRequest) (_result *NotifyEmbedoemautoinsuranceEventResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &NotifyEmbedoemautoinsuranceEventResponse{}
+	_body, _err := client.NotifyEmbedoemautoinsuranceEventEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+// Description:
+//
+// Description: 理想蚂蚁保项目
+//
+// Summary: 理想蚂蚁保项目
+func (client *Client) NotifyEmbedoemautoinsuranceEventEx(request *NotifyEmbedoemautoinsuranceEventRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *NotifyEmbedoemautoinsuranceEventResponse, _err error) {
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &NotifyEmbedoemautoinsuranceEventResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("antcloud.insurance.embedoemautoinsurance.event.notify"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
 	if _err != nil {
 		return _result, _err
 	}
