@@ -46,8 +46,8 @@ public class InitServerWillauthRequest extends TeaModel {
     public String encType;
 
     // 无源比对图片base64
-    @NameInMap("face_picture_ref")
-    public String facePictureRef;
+    @NameInMap("facial_picture_auth")
+    public String facialPictureAuth;
 
     // 业务回跳地址
     @NameInMap("return_url")
@@ -69,6 +69,18 @@ public class InitServerWillauthRequest extends TeaModel {
     // 证件类型，当前仅支持身份证类型证件，包括：二代身份证、港澳居住证、台湾居住证（IDENTITY_CARD）
     @NameInMap("cert_type")
     public String certType;
+
+    // 要进行活体检测的类型
+    @NameInMap("model")
+    public String model;
+
+    // 图片/视频的传入加密模式
+    @NameInMap("material_enc_type")
+    public String materialEncType;
+
+    // RSA/SM2公钥加密后的AES/SM4密钥（Base64编码），用于传入的加密图片/视频。
+    @NameInMap("material_enc_token")
+    public String materialEncToken;
 
     public static InitServerWillauthRequest build(java.util.Map<String, ?> map) throws Exception {
         InitServerWillauthRequest self = new InitServerWillauthRequest();
@@ -147,12 +159,12 @@ public class InitServerWillauthRequest extends TeaModel {
         return this.encType;
     }
 
-    public InitServerWillauthRequest setFacePictureRef(String facePictureRef) {
-        this.facePictureRef = facePictureRef;
+    public InitServerWillauthRequest setFacialPictureAuth(String facialPictureAuth) {
+        this.facialPictureAuth = facialPictureAuth;
         return this;
     }
-    public String getFacePictureRef() {
-        return this.facePictureRef;
+    public String getFacialPictureAuth() {
+        return this.facialPictureAuth;
     }
 
     public InitServerWillauthRequest setReturnUrl(String returnUrl) {
@@ -193,6 +205,30 @@ public class InitServerWillauthRequest extends TeaModel {
     }
     public String getCertType() {
         return this.certType;
+    }
+
+    public InitServerWillauthRequest setModel(String model) {
+        this.model = model;
+        return this;
+    }
+    public String getModel() {
+        return this.model;
+    }
+
+    public InitServerWillauthRequest setMaterialEncType(String materialEncType) {
+        this.materialEncType = materialEncType;
+        return this;
+    }
+    public String getMaterialEncType() {
+        return this.materialEncType;
+    }
+
+    public InitServerWillauthRequest setMaterialEncToken(String materialEncToken) {
+        this.materialEncToken = materialEncToken;
+        return this;
+    }
+    public String getMaterialEncToken() {
+        return this.materialEncToken;
     }
 
 }

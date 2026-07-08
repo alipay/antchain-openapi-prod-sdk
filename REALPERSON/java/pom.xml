@@ -6,9 +6,9 @@
 
     <!-- 基础信息 -->
     <groupId>com.antgroup.antchain.openapi</groupId>
-    <!-- 注意：变量 openapi-realperson 和 1.22.41 需要在命令行或 properties 中定义 -->
+    <!-- 注意：变量 openapi-realperson 和 1.22.42 需要在命令行或 properties 中定义 -->
     <artifactId>openapi-realperson</artifactId>
-    <version>1.22.41</version>
+    <version>1.22.42</version>
     <packaging>jar</packaging>
 
     <name>openapi-realperson</name>
