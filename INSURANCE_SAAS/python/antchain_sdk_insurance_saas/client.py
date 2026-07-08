@@ -135,7 +135,7 @@ class Client:
                     'req_msg_id': AntchainUtils.get_nonce(),
                     'access_key': self._access_key_id,
                     'base_sdk_version': 'TeaSDK-2.0',
-                    'sdk_version': '1.12.45',
+                    'sdk_version': '1.12.49',
                     '_prod_code': 'INSURANCE_SAAS',
                     '_prod_channel': 'undefined'
                 }
@@ -239,7 +239,7 @@ class Client:
                     'req_msg_id': AntchainUtils.get_nonce(),
                     'access_key': self._access_key_id,
                     'base_sdk_version': 'TeaSDK-2.0',
-                    'sdk_version': '1.12.45',
+                    'sdk_version': '1.12.49',
                     '_prod_code': 'INSURANCE_SAAS',
                     '_prod_channel': 'undefined'
                 }
@@ -609,6 +609,62 @@ class Client:
         return TeaCore.from_map(
             insurance__saas_models.CallbackMktMonitordataResponse(),
             await self.do_request_async('1.0', 'antcloud.insurance.mkt.monitordata.callback', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def notify_embedoemautoinsurance_event(
+        self,
+        request: insurance__saas_models.NotifyEmbedoemautoinsuranceEventRequest,
+    ) -> insurance__saas_models.NotifyEmbedoemautoinsuranceEventResponse:
+        """
+        Description: 理想蚂蚁保项目
+        Summary: 理想蚂蚁保项目
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.notify_embedoemautoinsurance_event_ex(request, headers, runtime)
+
+    async def notify_embedoemautoinsurance_event_async(
+        self,
+        request: insurance__saas_models.NotifyEmbedoemautoinsuranceEventRequest,
+    ) -> insurance__saas_models.NotifyEmbedoemautoinsuranceEventResponse:
+        """
+        Description: 理想蚂蚁保项目
+        Summary: 理想蚂蚁保项目
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.notify_embedoemautoinsurance_event_ex_async(request, headers, runtime)
+
+    def notify_embedoemautoinsurance_event_ex(
+        self,
+        request: insurance__saas_models.NotifyEmbedoemautoinsuranceEventRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> insurance__saas_models.NotifyEmbedoemautoinsuranceEventResponse:
+        """
+        Description: 理想蚂蚁保项目
+        Summary: 理想蚂蚁保项目
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            insurance__saas_models.NotifyEmbedoemautoinsuranceEventResponse(),
+            self.do_request('1.0', 'antcloud.insurance.embedoemautoinsurance.event.notify', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def notify_embedoemautoinsurance_event_ex_async(
+        self,
+        request: insurance__saas_models.NotifyEmbedoemautoinsuranceEventRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> insurance__saas_models.NotifyEmbedoemautoinsuranceEventResponse:
+        """
+        Description: 理想蚂蚁保项目
+        Summary: 理想蚂蚁保项目
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            insurance__saas_models.NotifyEmbedoemautoinsuranceEventResponse(),
+            await self.do_request_async('1.0', 'antcloud.insurance.embedoemautoinsurance.event.notify', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
     def query_inquiry(

@@ -796,6 +796,10 @@ class CallbackMktLiveeffectRequest(TeaModel):
         live_start_time: str = None,
         ext_info: str = None,
         live_session_id: str = None,
+        marketing_channel: str = None,
+        rta_trace_id: str = None,
+        rta_exp_id: str = None,
+        rtb_trace_id: str = None,
     ):
         # OAuth模式下的授权token
         self.auth_token = auth_token
@@ -803,7 +807,9 @@ class CallbackMktLiveeffectRequest(TeaModel):
         self.request_id = request_id
         # 项目ID，待蚂蚁分配
         self.project_id = project_id
-        # 营销模式，AI_HANGUP_SMS("AI挂短")， AI_OFFICIAL_ACCOUNT("AI公众号"), BPO_WECHAT("BPO企微"), AI_BPO("AI_BPO")， LIVE_STREAMING("直播")
+        # 营销模式
+        # LIVE_STREAMING("直播")
+        # ADVERTISING_TRAFFIC（"广告投流")
         self.marketing_mode = marketing_mode
         # 加密类型：MD5，32位[小]
         self.encryption_type = encryption_type
@@ -815,7 +821,7 @@ class CallbackMktLiveeffectRequest(TeaModel):
         self.node_type = node_type
         # 节点详细信息
         self.node_info = node_info
-        # 用户转化的落地页 URL，H5 类落地页
+        # 只需要传输母链
         self.landing_page_url = landing_page_url
         # N	点击 ID，来自落地页 URL、小程序 path 的埋点
         self.click_id = click_id
@@ -836,6 +842,14 @@ class CallbackMktLiveeffectRequest(TeaModel):
         # 举例：若直播间 ID 为 kxz123456，开播时间为 2026-06-18 17：22，此时唯一 ID 为：562606181722
         # ）
         self.live_session_id = live_session_id
+        # 媒体渠道
+        self.marketing_channel = marketing_channel
+        # 256	rta追踪 ID
+        self.rta_trace_id = rta_trace_id
+        # rta 实验 ID
+        self.rta_exp_id = rta_exp_id
+        # RTB追踪ID
+        self.rtb_trace_id = rtb_trace_id
 
     def validate(self):
         self.validate_required(self.request_id, 'request_id')
@@ -887,6 +901,14 @@ class CallbackMktLiveeffectRequest(TeaModel):
             result['ext_info'] = self.ext_info
         if self.live_session_id is not None:
             result['live_session_id'] = self.live_session_id
+        if self.marketing_channel is not None:
+            result['marketing_channel'] = self.marketing_channel
+        if self.rta_trace_id is not None:
+            result['rta_trace_id'] = self.rta_trace_id
+        if self.rta_exp_id is not None:
+            result['rta_exp_id'] = self.rta_exp_id
+        if self.rtb_trace_id is not None:
+            result['rtb_trace_id'] = self.rtb_trace_id
         return result
 
     def from_map(self, m: dict = None):
@@ -927,6 +949,14 @@ class CallbackMktLiveeffectRequest(TeaModel):
             self.ext_info = m.get('ext_info')
         if m.get('live_session_id') is not None:
             self.live_session_id = m.get('live_session_id')
+        if m.get('marketing_channel') is not None:
+            self.marketing_channel = m.get('marketing_channel')
+        if m.get('rta_trace_id') is not None:
+            self.rta_trace_id = m.get('rta_trace_id')
+        if m.get('rta_exp_id') is not None:
+            self.rta_exp_id = m.get('rta_exp_id')
+        if m.get('rtb_trace_id') is not None:
+            self.rtb_trace_id = m.get('rtb_trace_id')
         return self
 
 
@@ -1201,6 +1231,128 @@ class CallbackMktMonitordataResponse(TeaModel):
             self.result_msg = m.get('result_msg')
         if m.get('request_id') is not None:
             self.request_id = m.get('request_id')
+        return self
+
+
+class NotifyEmbedoemautoinsuranceEventRequest(TeaModel):
+    def __init__(
+        self,
+        auth_token: str = None,
+        request_no: str = None,
+        event_type: str = None,
+        event_time: str = None,
+        data: str = None,
+    ):
+        # OAuth模式下的授权token
+        self.auth_token = auth_token
+        # 请求唯一标识
+        self.request_no = request_no
+        # 事件类型
+        self.event_type = event_type
+        # 事件发生时间，格式：yyyy-MM-dd HH:mm:ss
+        self.event_time = event_time
+        # 事件业务数据，JSON格式字符串
+        self.data = data
+
+    def validate(self):
+        self.validate_required(self.request_no, 'request_no')
+        self.validate_required(self.event_type, 'event_type')
+        self.validate_required(self.event_time, 'event_time')
+        self.validate_required(self.data, 'data')
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.auth_token is not None:
+            result['auth_token'] = self.auth_token
+        if self.request_no is not None:
+            result['request_no'] = self.request_no
+        if self.event_type is not None:
+            result['event_type'] = self.event_type
+        if self.event_time is not None:
+            result['event_time'] = self.event_time
+        if self.data is not None:
+            result['data'] = self.data
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('auth_token') is not None:
+            self.auth_token = m.get('auth_token')
+        if m.get('request_no') is not None:
+            self.request_no = m.get('request_no')
+        if m.get('event_type') is not None:
+            self.event_type = m.get('event_type')
+        if m.get('event_time') is not None:
+            self.event_time = m.get('event_time')
+        if m.get('data') is not None:
+            self.data = m.get('data')
+        return self
+
+
+class NotifyEmbedoemautoinsuranceEventResponse(TeaModel):
+    def __init__(
+        self,
+        req_msg_id: str = None,
+        result_code: str = None,
+        result_msg: str = None,
+        code: int = None,
+        message: str = None,
+        success: bool = None,
+    ):
+        # 请求唯一ID，用于链路跟踪和问题排查
+        self.req_msg_id = req_msg_id
+        # 结果码，一般OK表示调用成功
+        self.result_code = result_code
+        # 异常信息的文本描述
+        self.result_msg = result_msg
+        # 0=成功，非0=失败
+        self.code = code
+        # 返回消息
+        self.message = message
+        # 是否成功
+        self.success = success
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.req_msg_id is not None:
+            result['req_msg_id'] = self.req_msg_id
+        if self.result_code is not None:
+            result['result_code'] = self.result_code
+        if self.result_msg is not None:
+            result['result_msg'] = self.result_msg
+        if self.code is not None:
+            result['code'] = self.code
+        if self.message is not None:
+            result['message'] = self.message
+        if self.success is not None:
+            result['success'] = self.success
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('req_msg_id') is not None:
+            self.req_msg_id = m.get('req_msg_id')
+        if m.get('result_code') is not None:
+            self.result_code = m.get('result_code')
+        if m.get('result_msg') is not None:
+            self.result_msg = m.get('result_msg')
+        if m.get('code') is not None:
+            self.code = m.get('code')
+        if m.get('message') is not None:
+            self.message = m.get('message')
+        if m.get('success') is not None:
+            self.success = m.get('success')
         return self
 
 
