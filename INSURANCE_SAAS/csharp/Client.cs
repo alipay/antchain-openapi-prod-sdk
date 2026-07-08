@@ -158,7 +158,7 @@ namespace AntChain.SDK.INSURANCE_SAAS
                         {"req_msg_id", AntChain.AlipayUtil.AntchainUtils.GetNonce()},
                         {"access_key", _accessKeyId},
                         {"base_sdk_version", "TeaSDK-2.0"},
-                        {"sdk_version", "1.12.41"},
+                        {"sdk_version", "1.12.49"},
                         {"_prod_code", "INSURANCE_SAAS"},
                         {"_prod_channel", "undefined"},
                     };
@@ -301,7 +301,7 @@ namespace AntChain.SDK.INSURANCE_SAAS
                         {"req_msg_id", AntChain.AlipayUtil.AntchainUtils.GetNonce()},
                         {"access_key", _accessKeyId},
                         {"base_sdk_version", "TeaSDK-2.0"},
-                        {"sdk_version", "1.12.41"},
+                        {"sdk_version", "1.12.49"},
                         {"_prod_code", "INSURANCE_SAAS"},
                         {"_prod_channel", "undefined"},
                     };
@@ -633,6 +633,52 @@ namespace AntChain.SDK.INSURANCE_SAAS
         {
             AlibabaCloud.TeaUtil.Common.ValidateModel(request);
             return TeaModel.ToObject<CallbackMktMonitordataResponse>(await DoRequestAsync("1.0", "antcloud.insurance.mkt.monitordata.callback", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /// <term><b>Description:</b></term>
+        /// <description>
+        /// <para>Description: 理想蚂蚁保项目
+        /// Summary: 理想蚂蚁保项目</para>
+        /// </description>
+        public NotifyEmbedoemautoinsuranceEventResponse NotifyEmbedoemautoinsuranceEvent(NotifyEmbedoemautoinsuranceEventRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return NotifyEmbedoemautoinsuranceEventEx(request, headers, runtime);
+        }
+
+        /// <term><b>Description:</b></term>
+        /// <description>
+        /// <para>Description: 理想蚂蚁保项目
+        /// Summary: 理想蚂蚁保项目</para>
+        /// </description>
+        public async Task<NotifyEmbedoemautoinsuranceEventResponse> NotifyEmbedoemautoinsuranceEventAsync(NotifyEmbedoemautoinsuranceEventRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return await NotifyEmbedoemautoinsuranceEventExAsync(request, headers, runtime);
+        }
+
+        /// <term><b>Description:</b></term>
+        /// <description>
+        /// <para>Description: 理想蚂蚁保项目
+        /// Summary: 理想蚂蚁保项目</para>
+        /// </description>
+        public NotifyEmbedoemautoinsuranceEventResponse NotifyEmbedoemautoinsuranceEventEx(NotifyEmbedoemautoinsuranceEventRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<NotifyEmbedoemautoinsuranceEventResponse>(DoRequest("1.0", "antcloud.insurance.embedoemautoinsurance.event.notify", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /// <term><b>Description:</b></term>
+        /// <description>
+        /// <para>Description: 理想蚂蚁保项目
+        /// Summary: 理想蚂蚁保项目</para>
+        /// </description>
+        public async Task<NotifyEmbedoemautoinsuranceEventResponse> NotifyEmbedoemautoinsuranceEventExAsync(NotifyEmbedoemautoinsuranceEventRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<NotifyEmbedoemautoinsuranceEventResponse>(await DoRequestAsync("1.0", "antcloud.insurance.embedoemautoinsurance.event.notify", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
         }
 
         /// <term><b>Description:</b></term>
