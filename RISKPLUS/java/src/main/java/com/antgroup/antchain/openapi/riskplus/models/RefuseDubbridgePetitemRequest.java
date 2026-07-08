@@ -31,11 +31,6 @@ public class RefuseDubbridgePetitemRequest extends TeaModel {
     @Validation(required = true)
     public String bizOrderNo;
 
-    // 退款金额
-    @NameInMap("refund_amount")
-    @Validation(required = true)
-    public String refundAmount;
-
     // 渠道号
     @NameInMap("channel_code")
     @Validation(required = true)
@@ -45,6 +40,11 @@ public class RefuseDubbridgePetitemRequest extends TeaModel {
     @NameInMap("request_no")
     @Validation(required = true)
     public String requestNo;
+
+    // 退款订单信息 列表
+    @NameInMap("goods_order_info")
+    @Validation(required = true)
+    public java.util.List<GoodsOrderInfo> goodsOrderInfo;
 
     public static RefuseDubbridgePetitemRequest build(java.util.Map<String, ?> map) throws Exception {
         RefuseDubbridgePetitemRequest self = new RefuseDubbridgePetitemRequest();
@@ -99,14 +99,6 @@ public class RefuseDubbridgePetitemRequest extends TeaModel {
         return this.bizOrderNo;
     }
 
-    public RefuseDubbridgePetitemRequest setRefundAmount(String refundAmount) {
-        this.refundAmount = refundAmount;
-        return this;
-    }
-    public String getRefundAmount() {
-        return this.refundAmount;
-    }
-
     public RefuseDubbridgePetitemRequest setChannelCode(String channelCode) {
         this.channelCode = channelCode;
         return this;
@@ -121,6 +113,14 @@ public class RefuseDubbridgePetitemRequest extends TeaModel {
     }
     public String getRequestNo() {
         return this.requestNo;
+    }
+
+    public RefuseDubbridgePetitemRequest setGoodsOrderInfo(java.util.List<GoodsOrderInfo> goodsOrderInfo) {
+        this.goodsOrderInfo = goodsOrderInfo;
+        return this;
+    }
+    public java.util.List<GoodsOrderInfo> getGoodsOrderInfo() {
+        return this.goodsOrderInfo;
     }
 
 }

@@ -18,7 +18,6 @@ public class UploadDubbridgeAlipayImageRequest extends TeaModel {
 
     // 门店Id
     @NameInMap("store_id")
-    @Validation(required = true)
     public String storeId;
 
     // 门店所属子品牌，
@@ -53,6 +52,16 @@ public class UploadDubbridgeAlipayImageRequest extends TeaModel {
     @NameInMap("image_type")
     @Validation(required = true)
     public String imageType;
+
+    // 入驻类型: 001-支付宝入驻、004-数科入驻
+    @NameInMap("enter_type")
+    @Validation(required = true)
+    public String enterType;
+
+    // 统一社会信用代码
+    @NameInMap("usci")
+    @Validation(required = true)
+    public String usci;
 
     public static UploadDubbridgeAlipayImageRequest build(java.util.Map<String, ?> map) throws Exception {
         UploadDubbridgeAlipayImageRequest self = new UploadDubbridgeAlipayImageRequest();
@@ -129,6 +138,22 @@ public class UploadDubbridgeAlipayImageRequest extends TeaModel {
     }
     public String getImageType() {
         return this.imageType;
+    }
+
+    public UploadDubbridgeAlipayImageRequest setEnterType(String enterType) {
+        this.enterType = enterType;
+        return this;
+    }
+    public String getEnterType() {
+        return this.enterType;
+    }
+
+    public UploadDubbridgeAlipayImageRequest setUsci(String usci) {
+        this.usci = usci;
+        return this;
+    }
+    public String getUsci() {
+        return this.usci;
     }
 
 }
