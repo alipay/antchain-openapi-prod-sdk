@@ -18,7 +18,7 @@ public class QueryAntdigitalCorlabFeatureminingPlanResponse extends TeaModel {
 
     // IV信息，包含每轮信息和特征挖掘报告下载链接
     @NameInMap("iv_info")
-    public IvInfo ivInfo;
+    public java.util.List<IvInfo> ivInfo;
 
     // 最好模型效果报告
     @NameInMap("best_model_report")
@@ -53,11 +53,11 @@ public class QueryAntdigitalCorlabFeatureminingPlanResponse extends TeaModel {
         return this.resultMsg;
     }
 
-    public QueryAntdigitalCorlabFeatureminingPlanResponse setIvInfo(IvInfo ivInfo) {
+    public QueryAntdigitalCorlabFeatureminingPlanResponse setIvInfo(java.util.List<IvInfo> ivInfo) {
         this.ivInfo = ivInfo;
         return this;
     }
-    public IvInfo getIvInfo() {
+    public java.util.List<IvInfo> getIvInfo() {
         return this.ivInfo;
     }
 
