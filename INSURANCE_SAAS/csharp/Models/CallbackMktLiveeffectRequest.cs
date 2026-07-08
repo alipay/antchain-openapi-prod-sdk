@@ -24,7 +24,9 @@ namespace AntChain.SDK.INSURANCE_SAAS.Models
         [Validation(Required=true)]
         public string ProjectId { get; set; }
 
-        // 营销模式，AI_HANGUP_SMS("AI挂短")， AI_OFFICIAL_ACCOUNT("AI公众号"), BPO_WECHAT("BPO企微"), AI_BPO("AI_BPO")， LIVE_STREAMING("直播")
+        // 营销模式
+        // LIVE_STREAMING("直播")
+        // ADVERTISING_TRAFFIC（"广告投流")
         [NameInMap("marketing_mode")]
         [Validation(Required=true)]
         public string MarketingMode { get; set; }
@@ -51,10 +53,10 @@ namespace AntChain.SDK.INSURANCE_SAAS.Models
 
         // 节点详细信息
         [NameInMap("node_info")]
-        [Validation(Required=true)]
+        [Validation(Required=false)]
         public string NodeInfo { get; set; }
 
-        // 用户转化的落地页 URL，H5 类落地页
+        // 只需要传输母链
         [NameInMap("landing_page_url")]
         [Validation(Required=true)]
         public string LandingPageUrl { get; set; }
@@ -101,6 +103,26 @@ namespace AntChain.SDK.INSURANCE_SAAS.Models
         [NameInMap("live_session_id")]
         [Validation(Required=false)]
         public string LiveSessionId { get; set; }
+
+        // 媒体渠道
+        [NameInMap("marketing_channel")]
+        [Validation(Required=false)]
+        public string MarketingChannel { get; set; }
+
+        // 256	rta追踪 ID
+        [NameInMap("rta_trace_id")]
+        [Validation(Required=false)]
+        public string RtaTraceId { get; set; }
+
+        // rta 实验 ID
+        [NameInMap("rta_exp_id")]
+        [Validation(Required=false)]
+        public string RtaExpId { get; set; }
+
+        // RTB追踪ID
+        [NameInMap("rtb_trace_id")]
+        [Validation(Required=false)]
+        public string RtbTraceId { get; set; }
 
     }
 
