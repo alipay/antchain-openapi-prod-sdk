@@ -46,8 +46,8 @@ public class InitServerWillauthRequest extends TeaModel {
     public String encType;
 
     // 无源比对图片base64
-    @NameInMap("facial_picture_auth")
-    public String facialPictureAuth;
+    @NameInMap("facial_picture_ref")
+    public String facialPictureRef;
 
     // 业务回跳地址
     @NameInMap("return_url")
@@ -159,12 +159,12 @@ public class InitServerWillauthRequest extends TeaModel {
         return this.encType;
     }
 
-    public InitServerWillauthRequest setFacialPictureAuth(String facialPictureAuth) {
-        this.facialPictureAuth = facialPictureAuth;
+    public InitServerWillauthRequest setFacialPictureRef(String facialPictureRef) {
+        this.facialPictureRef = facialPictureRef;
         return this;
     }
-    public String getFacialPictureAuth() {
-        return this.facialPictureAuth;
+    public String getFacialPictureRef() {
+        return this.facialPictureRef;
     }
 
     public InitServerWillauthRequest setReturnUrl(String returnUrl) {
