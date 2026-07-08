@@ -66,6 +66,10 @@ public class InitServerWillauthRequest extends TeaModel {
     @NameInMap("identity_type")
     public String identityType;
 
+    // 证件类型，当前仅支持身份证类型证件，包括：二代身份证、港澳居住证、台湾居住证（IDENTITY_CARD）
+    @NameInMap("cert_type")
+    public String certType;
+
     public static InitServerWillauthRequest build(java.util.Map<String, ?> map) throws Exception {
         InitServerWillauthRequest self = new InitServerWillauthRequest();
         return TeaModel.build(map, self);
@@ -181,6 +185,14 @@ public class InitServerWillauthRequest extends TeaModel {
     }
     public String getIdentityType() {
         return this.identityType;
+    }
+
+    public InitServerWillauthRequest setCertType(String certType) {
+        this.certType = certType;
+        return this;
+    }
+    public String getCertType() {
+        return this.certType;
     }
 
 }
