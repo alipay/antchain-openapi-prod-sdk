@@ -10,7 +10,6 @@ public class IvInfo extends TeaModel {
      * <p>基线</p>
      */
     @NameInMap("round")
-    @Validation(required = true)
     public String round;
 
     // oss下载链接
@@ -19,7 +18,6 @@ public class IvInfo extends TeaModel {
      * <p><a href="https://antchain-joint-modeling-poc-sh.oss-cn-shanghai.aliyuncs.com/poc">https://antchain-joint-modeling-poc-sh.oss-cn-shanghai.aliyuncs.com/poc</a></p>
      */
     @NameInMap("feature_report")
-    @Validation(required = true)
     public String featureReport;
 
     public static IvInfo build(java.util.Map<String, ?> map) throws Exception {

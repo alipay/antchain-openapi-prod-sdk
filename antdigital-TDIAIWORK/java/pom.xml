@@ -6,9 +6,9 @@
 
     <!-- 基础信息 -->
     <groupId>com.antgroup.antchain.openapi</groupId>
-    <!-- 注意：变量 openapi-antdigital-tdiaiwork 和 1.1.5 需要在命令行或 properties 中定义 -->
+    <!-- 注意：变量 openapi-antdigital-tdiaiwork 和 1.1.6 需要在命令行或 properties 中定义 -->
     <artifactId>openapi-antdigital-tdiaiwork</artifactId>
-    <version>1.1.5</version>
+    <version>1.1.6</version>
     <packaging>jar</packaging>
 
     <name>openapi-antdigital-tdiaiwork</name>
