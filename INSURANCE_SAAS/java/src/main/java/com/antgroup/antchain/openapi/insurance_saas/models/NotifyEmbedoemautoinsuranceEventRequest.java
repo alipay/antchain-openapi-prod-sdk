@@ -9,14 +9,9 @@ public class NotifyEmbedoemautoinsuranceEventRequest extends TeaModel {
     public String authToken;
 
     // 请求唯一标识
-    @NameInMap("request_id")
+    @NameInMap("request_no")
     @Validation(required = true)
-    public String requestId;
-
-    // 产品码
-    @NameInMap("product_code")
-    @Validation(required = true)
-    public String productCode;
+    public String requestNo;
 
     // 事件类型
     @NameInMap("event_type")
@@ -46,20 +41,12 @@ public class NotifyEmbedoemautoinsuranceEventRequest extends TeaModel {
         return this.authToken;
     }
 
-    public NotifyEmbedoemautoinsuranceEventRequest setRequestId(String requestId) {
-        this.requestId = requestId;
+    public NotifyEmbedoemautoinsuranceEventRequest setRequestNo(String requestNo) {
+        this.requestNo = requestNo;
         return this;
     }
-    public String getRequestId() {
-        return this.requestId;
-    }
-
-    public NotifyEmbedoemautoinsuranceEventRequest setProductCode(String productCode) {
-        this.productCode = productCode;
-        return this;
-    }
-    public String getProductCode() {
-        return this.productCode;
+    public String getRequestNo() {
+        return this.requestNo;
     }
 
     public NotifyEmbedoemautoinsuranceEventRequest setEventType(String eventType) {
