@@ -13,8 +13,11 @@ public class QueryIoaAgentRequest extends TeaModel {
 
     // 智能体ID
     @NameInMap("agent_id")
-    @Validation(required = true)
     public String agentId;
+
+    // 客户端ID，一般是设备MAC地址，若没有agentId时可传入client_id查询对应的agent_id
+    @NameInMap("client_id")
+    public String clientId;
 
     public static QueryIoaAgentRequest build(java.util.Map<String, ?> map) throws Exception {
         QueryIoaAgentRequest self = new QueryIoaAgentRequest();
@@ -43,6 +46,14 @@ public class QueryIoaAgentRequest extends TeaModel {
     }
     public String getAgentId() {
         return this.agentId;
+    }
+
+    public QueryIoaAgentRequest setClientId(String clientId) {
+        this.clientId = clientId;
+        return this;
+    }
+    public String getClientId() {
+        return this.clientId;
     }
 
 }

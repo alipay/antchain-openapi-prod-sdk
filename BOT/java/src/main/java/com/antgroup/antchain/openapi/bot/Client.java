@@ -126,7 +126,7 @@ public class Client {
                     new TeaPair("req_msg_id", com.antgroup.antchain.openapi.antchain.util.AntchainUtils.getNonce()),
                     new TeaPair("access_key", _accessKeyId),
                     new TeaPair("base_sdk_version", "TeaSDK-2.0"),
-                    new TeaPair("sdk_version", "1.16.3"),
+                    new TeaPair("sdk_version", "1.17.0"),
                     new TeaPair("_prod_code", "BOT"),
                     new TeaPair("_prod_channel", "undefined")
                 );
@@ -3548,6 +3548,111 @@ public class Client {
     public QueryElectrocarDeviceinfospageResponse queryElectrocarDeviceinfospageEx(QueryElectrocarDeviceinfospageRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
         com.aliyun.teautil.Common.validateModel(request);
         return TeaModel.toModel(this.doRequest("1.0", "blockchain.bot.electrocar.deviceinfospage.query", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new QueryElectrocarDeviceinfospageResponse());
+    }
+
+    /**
+     * <b>description</b> :
+     * <p>Description: OTA上报版本并查询升级状态
+     * Summary: OTA上报版本并查询升级状态</p>
+     */
+    public QueryElectrocarOtaupgradecheckResponse queryElectrocarOtaupgradecheck(QueryElectrocarOtaupgradecheckRequest request) throws Exception {
+        com.aliyun.teautil.models.RuntimeOptions runtime = new com.aliyun.teautil.models.RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.queryElectrocarOtaupgradecheckEx(request, headers, runtime);
+    }
+
+    /**
+     * <b>description</b> :
+     * <p>Description: OTA上报版本并查询升级状态
+     * Summary: OTA上报版本并查询升级状态</p>
+     */
+    public QueryElectrocarOtaupgradecheckResponse queryElectrocarOtaupgradecheckEx(QueryElectrocarOtaupgradecheckRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "blockchain.bot.electrocar.otaupgradecheck.query", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new QueryElectrocarOtaupgradecheckResponse());
+    }
+
+    /**
+     * <b>description</b> :
+     * <p>Description: 取消OTA任务
+     * Summary: 取消OTA任务</p>
+     */
+    public ExecElectrocarOtataskcancelResponse execElectrocarOtataskcancel(ExecElectrocarOtataskcancelRequest request) throws Exception {
+        com.aliyun.teautil.models.RuntimeOptions runtime = new com.aliyun.teautil.models.RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.execElectrocarOtataskcancelEx(request, headers, runtime);
+    }
+
+    /**
+     * <b>description</b> :
+     * <p>Description: 取消OTA任务
+     * Summary: 取消OTA任务</p>
+     */
+    public ExecElectrocarOtataskcancelResponse execElectrocarOtataskcancelEx(ExecElectrocarOtataskcancelRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "blockchain.bot.electrocar.otataskcancel.exec", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new ExecElectrocarOtataskcancelResponse());
+    }
+
+    /**
+     * <b>description</b> :
+     * <p>Description: 重试OTA任务
+     * Summary: 重试OTA任务</p>
+     */
+    public ExecElectrocarOtataskretryResponse execElectrocarOtataskretry(ExecElectrocarOtataskretryRequest request) throws Exception {
+        com.aliyun.teautil.models.RuntimeOptions runtime = new com.aliyun.teautil.models.RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.execElectrocarOtataskretryEx(request, headers, runtime);
+    }
+
+    /**
+     * <b>description</b> :
+     * <p>Description: 重试OTA任务
+     * Summary: 重试OTA任务</p>
+     */
+    public ExecElectrocarOtataskretryResponse execElectrocarOtataskretryEx(ExecElectrocarOtataskretryRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "blockchain.bot.electrocar.otataskretry.exec", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new ExecElectrocarOtataskretryResponse());
+    }
+
+    /**
+     * <b>description</b> :
+     * <p>Description: 确认OTA升级任务
+     * Summary: 确认OTA升级任务</p>
+     */
+    public ExecElectrocarOtataskconfirmResponse execElectrocarOtataskconfirm(ExecElectrocarOtataskconfirmRequest request) throws Exception {
+        com.aliyun.teautil.models.RuntimeOptions runtime = new com.aliyun.teautil.models.RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.execElectrocarOtataskconfirmEx(request, headers, runtime);
+    }
+
+    /**
+     * <b>description</b> :
+     * <p>Description: 确认OTA升级任务
+     * Summary: 确认OTA升级任务</p>
+     */
+    public ExecElectrocarOtataskconfirmResponse execElectrocarOtataskconfirmEx(ExecElectrocarOtataskconfirmRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "blockchain.bot.electrocar.otataskconfirm.exec", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new ExecElectrocarOtataskconfirmResponse());
+    }
+
+    /**
+     * <b>description</b> :
+     * <p>Description: 永久取消OTA任务
+     * Summary: 永久取消OTA任务</p>
+     */
+    public ExecElectrocarOtataskpermanentcancelResponse execElectrocarOtataskpermanentcancel(ExecElectrocarOtataskpermanentcancelRequest request) throws Exception {
+        com.aliyun.teautil.models.RuntimeOptions runtime = new com.aliyun.teautil.models.RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.execElectrocarOtataskpermanentcancelEx(request, headers, runtime);
+    }
+
+    /**
+     * <b>description</b> :
+     * <p>Description: 永久取消OTA任务
+     * Summary: 永久取消OTA任务</p>
+     */
+    public ExecElectrocarOtataskpermanentcancelResponse execElectrocarOtataskpermanentcancelEx(ExecElectrocarOtataskpermanentcancelRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "blockchain.bot.electrocar.otataskpermanentcancel.exec", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new ExecElectrocarOtataskpermanentcancelResponse());
     }
 
     /**
