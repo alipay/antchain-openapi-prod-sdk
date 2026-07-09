@@ -1,0 +1,115 @@
+<?php
+
+// This file is auto-generated, don't edit it. Thanks.
+
+namespace AntChain\BOT\Models;
+
+use AlibabaCloud\Tea\Model;
+
+class RegisterElectrocarDeviceRequest extends Model
+{
+    // OAuth模式下的授权token
+    /**
+     * @var string
+     */
+    public $authToken;
+
+    /**
+     * @var string
+     */
+    public $productInstanceId;
+
+    // 设备名称
+    /**
+     * @var string
+     */
+    public $deviceName;
+
+    // 产品key
+    /**
+     * @var string
+     */
+    public $trustProductKey;
+
+    // 凭证申请参数
+    /**
+     * @var KytApplyParams
+     */
+    public $kytApplyParams;
+
+    // 是否支持重复烧录
+    /**
+     * @var int
+     */
+    public $repeatedBurning;
+    protected $_name = [
+        'authToken'         => 'auth_token',
+        'productInstanceId' => 'product_instance_id',
+        'deviceName'        => 'device_name',
+        'trustProductKey'   => 'trust_product_key',
+        'kytApplyParams'    => 'kyt_apply_params',
+        'repeatedBurning'   => 'repeated_burning',
+    ];
+
+    public function validate()
+    {
+        Model::validateRequired('deviceName', $this->deviceName, true);
+        Model::validateRequired('trustProductKey', $this->trustProductKey, true);
+        Model::validateRequired('kytApplyParams', $this->kytApplyParams, true);
+    }
+
+    public function toMap()
+    {
+        $res = [];
+        if (null !== $this->authToken) {
+            $res['auth_token'] = $this->authToken;
+        }
+        if (null !== $this->productInstanceId) {
+            $res['product_instance_id'] = $this->productInstanceId;
+        }
+        if (null !== $this->deviceName) {
+            $res['device_name'] = $this->deviceName;
+        }
+        if (null !== $this->trustProductKey) {
+            $res['trust_product_key'] = $this->trustProductKey;
+        }
+        if (null !== $this->kytApplyParams) {
+            $res['kyt_apply_params'] = null !== $this->kytApplyParams ? $this->kytApplyParams->toMap() : null;
+        }
+        if (null !== $this->repeatedBurning) {
+            $res['repeated_burning'] = $this->repeatedBurning;
+        }
+
+        return $res;
+    }
+
+    /**
+     * @param array $map
+     *
+     * @return RegisterElectrocarDeviceRequest
+     */
+    public static function fromMap($map = [])
+    {
+        $model = new self();
+        if (isset($map['auth_token'])) {
+            $model->authToken = $map['auth_token'];
+        }
+        if (isset($map['product_instance_id'])) {
+            $model->productInstanceId = $map['product_instance_id'];
+        }
+        if (isset($map['device_name'])) {
+            $model->deviceName = $map['device_name'];
+        }
+        if (isset($map['trust_product_key'])) {
+            $model->trustProductKey = $map['trust_product_key'];
+        }
+        if (isset($map['kyt_apply_params'])) {
+            $model->kytApplyParams = KytApplyParams::fromMap($map['kyt_apply_params']);
+        }
+        if (isset($map['repeated_burning'])) {
+            $model->repeatedBurning = $map['repeated_burning'];
+        }
+
+        return $model;
+    }
+}
