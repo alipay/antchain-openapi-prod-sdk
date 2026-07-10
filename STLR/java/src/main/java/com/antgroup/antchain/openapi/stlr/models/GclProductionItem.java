@@ -46,7 +46,7 @@ public class GclProductionItem extends TeaModel {
      */
     @NameInMap("production_data_list")
     @Validation(required = true)
-    public MonthDataDetail productionDataList;
+    public java.util.List<MonthDataDetail> productionDataList;
 
     public static GclProductionItem build(java.util.Map<String, ?> map) throws Exception {
         GclProductionItem self = new GclProductionItem();
@@ -85,11 +85,11 @@ public class GclProductionItem extends TeaModel {
         return this.specification;
     }
 
-    public GclProductionItem setProductionDataList(MonthDataDetail productionDataList) {
+    public GclProductionItem setProductionDataList(java.util.List<MonthDataDetail> productionDataList) {
         this.productionDataList = productionDataList;
         return this;
     }
-    public MonthDataDetail getProductionDataList() {
+    public java.util.List<MonthDataDetail> getProductionDataList() {
         return this.productionDataList;
     }
 

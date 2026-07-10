@@ -114,6 +114,14 @@ public class GclAbnormalItem extends TeaModel {
     @NameInMap("supplier_product_name")
     public String supplierProductName;
 
+    // 过程编码
+    /**
+     * <strong>example:</strong>
+     * <p>xxxx</p>
+     */
+    @NameInMap("process_no")
+    public String processNo;
+
     public static GclAbnormalItem build(java.util.Map<String, ?> map) throws Exception {
         GclAbnormalItem self = new GclAbnormalItem();
         return TeaModel.build(map, self);
@@ -221,6 +229,14 @@ public class GclAbnormalItem extends TeaModel {
     }
     public String getSupplierProductName() {
         return this.supplierProductName;
+    }
+
+    public GclAbnormalItem setProcessNo(String processNo) {
+        this.processNo = processNo;
+        return this;
+    }
+    public String getProcessNo() {
+        return this.processNo;
     }
 
 }

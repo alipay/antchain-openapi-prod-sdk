@@ -30,7 +30,7 @@ public class QueryActiveDataResponse extends TeaModel {
 
     // 过程模型列表
     @NameInMap("process_list")
-    public java.util.List<ProcessDetail> processList;
+    public java.util.List<GclLcaModel> processList;
 
     public static QueryActiveDataResponse build(java.util.Map<String, ?> map) throws Exception {
         QueryActiveDataResponse self = new QueryActiveDataResponse();
@@ -85,11 +85,11 @@ public class QueryActiveDataResponse extends TeaModel {
         return this.inputByProcess;
     }
 
-    public QueryActiveDataResponse setProcessList(java.util.List<ProcessDetail> processList) {
+    public QueryActiveDataResponse setProcessList(java.util.List<GclLcaModel> processList) {
         this.processList = processList;
         return this;
     }
-    public java.util.List<ProcessDetail> getProcessList() {
+    public java.util.List<GclLcaModel> getProcessList() {
         return this.processList;
     }
 
