@@ -1,13 +1,68 @@
 <?php
 
 // This file is auto-generated, don't edit it. Thanks.
-
 namespace AntChain\BCCR\Models;
 
 use AlibabaCloud\Tea\Model;
 
-class QueryGoodsPublishResponse extends Model
-{
+class QueryGoodsPublishResponse extends Model {
+    protected $_name = [
+        'reqMsgId' => 'req_msg_id',
+        'resultCode' => 'result_code',
+        'resultMsg' => 'result_msg',
+        'pubilshId' => 'pubilsh_id',
+        'publishStatus' => 'publish_status',
+        'goodsId' => 'goods_id',
+    ];
+    public function validate() {}
+    public function toMap() {
+        $res = [];
+        if (null !== $this->reqMsgId) {
+            $res['req_msg_id'] = $this->reqMsgId;
+        }
+        if (null !== $this->resultCode) {
+            $res['result_code'] = $this->resultCode;
+        }
+        if (null !== $this->resultMsg) {
+            $res['result_msg'] = $this->resultMsg;
+        }
+        if (null !== $this->pubilshId) {
+            $res['pubilsh_id'] = $this->pubilshId;
+        }
+        if (null !== $this->publishStatus) {
+            $res['publish_status'] = $this->publishStatus;
+        }
+        if (null !== $this->goodsId) {
+            $res['goods_id'] = $this->goodsId;
+        }
+        return $res;
+    }
+    /**
+     * @param array $map
+     * @return QueryGoodsPublishResponse
+     */
+    public static function fromMap($map = []) {
+        $model = new self();
+        if(isset($map['req_msg_id'])){
+            $model->reqMsgId = $map['req_msg_id'];
+        }
+        if(isset($map['result_code'])){
+            $model->resultCode = $map['result_code'];
+        }
+        if(isset($map['result_msg'])){
+            $model->resultMsg = $map['result_msg'];
+        }
+        if(isset($map['pubilsh_id'])){
+            $model->pubilshId = $map['pubilsh_id'];
+        }
+        if(isset($map['publish_status'])){
+            $model->publishStatus = $map['publish_status'];
+        }
+        if(isset($map['goods_id'])){
+            $model->goodsId = $map['goods_id'];
+        }
+        return $model;
+    }
     // 请求唯一ID，用于链路跟踪和问题排查
     /**
      * @var string
@@ -43,71 +98,5 @@ class QueryGoodsPublishResponse extends Model
      * @var string
      */
     public $goodsId;
-    protected $_name = [
-        'reqMsgId'      => 'req_msg_id',
-        'resultCode'    => 'result_code',
-        'resultMsg'     => 'result_msg',
-        'pubilshId'     => 'pubilsh_id',
-        'publishStatus' => 'publish_status',
-        'goodsId'       => 'goods_id',
-    ];
 
-    public function validate()
-    {
-    }
-
-    public function toMap()
-    {
-        $res = [];
-        if (null !== $this->reqMsgId) {
-            $res['req_msg_id'] = $this->reqMsgId;
-        }
-        if (null !== $this->resultCode) {
-            $res['result_code'] = $this->resultCode;
-        }
-        if (null !== $this->resultMsg) {
-            $res['result_msg'] = $this->resultMsg;
-        }
-        if (null !== $this->pubilshId) {
-            $res['pubilsh_id'] = $this->pubilshId;
-        }
-        if (null !== $this->publishStatus) {
-            $res['publish_status'] = $this->publishStatus;
-        }
-        if (null !== $this->goodsId) {
-            $res['goods_id'] = $this->goodsId;
-        }
-
-        return $res;
-    }
-
-    /**
-     * @param array $map
-     *
-     * @return QueryGoodsPublishResponse
-     */
-    public static function fromMap($map = [])
-    {
-        $model = new self();
-        if (isset($map['req_msg_id'])) {
-            $model->reqMsgId = $map['req_msg_id'];
-        }
-        if (isset($map['result_code'])) {
-            $model->resultCode = $map['result_code'];
-        }
-        if (isset($map['result_msg'])) {
-            $model->resultMsg = $map['result_msg'];
-        }
-        if (isset($map['pubilsh_id'])) {
-            $model->pubilshId = $map['pubilsh_id'];
-        }
-        if (isset($map['publish_status'])) {
-            $model->publishStatus = $map['publish_status'];
-        }
-        if (isset($map['goods_id'])) {
-            $model->goodsId = $map['goods_id'];
-        }
-
-        return $model;
-    }
 }

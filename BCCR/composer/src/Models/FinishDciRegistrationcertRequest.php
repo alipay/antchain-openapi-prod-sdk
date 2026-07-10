@@ -1,13 +1,87 @@
 <?php
 
 // This file is auto-generated, don't edit it. Thanks.
-
 namespace AntChain\BCCR\Models;
 
 use AlibabaCloud\Tea\Model;
 
-class FinishDciRegistrationcertRequest extends Model
-{
+class FinishDciRegistrationcertRequest extends Model {
+    protected $_name = [
+        'authToken' => 'auth_token',
+        'productInstanceId' => 'product_instance_id',
+        'taskId' => 'task_id',
+        'regNumber' => 'reg_number',
+        'certificateUrl' => 'certificate_url',
+        'sampleUrl' => 'sample_url',
+        'clientToken' => 'client_token',
+        'registrationTime' => 'registration_time',
+    ];
+    public function validate() {
+        Model::validateRequired('taskId', $this->taskId, true);
+        Model::validateRequired('regNumber', $this->regNumber, true);
+        Model::validateRequired('clientToken', $this->clientToken, true);
+        Model::validatePattern('registrationTime', $this->registrationTime, '\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}([Z]|([\\.]\\d{1,9})?[\\+]\\d{2}[\\:]?\\d{2})');
+    }
+    public function toMap() {
+        $res = [];
+        if (null !== $this->authToken) {
+            $res['auth_token'] = $this->authToken;
+        }
+        if (null !== $this->productInstanceId) {
+            $res['product_instance_id'] = $this->productInstanceId;
+        }
+        if (null !== $this->taskId) {
+            $res['task_id'] = $this->taskId;
+        }
+        if (null !== $this->regNumber) {
+            $res['reg_number'] = $this->regNumber;
+        }
+        if (null !== $this->certificateUrl) {
+            $res['certificate_url'] = $this->certificateUrl;
+        }
+        if (null !== $this->sampleUrl) {
+            $res['sample_url'] = $this->sampleUrl;
+        }
+        if (null !== $this->clientToken) {
+            $res['client_token'] = $this->clientToken;
+        }
+        if (null !== $this->registrationTime) {
+            $res['registration_time'] = $this->registrationTime;
+        }
+        return $res;
+    }
+    /**
+     * @param array $map
+     * @return FinishDciRegistrationcertRequest
+     */
+    public static function fromMap($map = []) {
+        $model = new self();
+        if(isset($map['auth_token'])){
+            $model->authToken = $map['auth_token'];
+        }
+        if(isset($map['product_instance_id'])){
+            $model->productInstanceId = $map['product_instance_id'];
+        }
+        if(isset($map['task_id'])){
+            $model->taskId = $map['task_id'];
+        }
+        if(isset($map['reg_number'])){
+            $model->regNumber = $map['reg_number'];
+        }
+        if(isset($map['certificate_url'])){
+            $model->certificateUrl = $map['certificate_url'];
+        }
+        if(isset($map['sample_url'])){
+            $model->sampleUrl = $map['sample_url'];
+        }
+        if(isset($map['client_token'])){
+            $model->clientToken = $map['client_token'];
+        }
+        if(isset($map['registration_time'])){
+            $model->registrationTime = $map['registration_time'];
+        }
+        return $model;
+    }
     // OAuth模式下的授权token
     /**
      * @var string
@@ -54,89 +128,5 @@ class FinishDciRegistrationcertRequest extends Model
      * @var string
      */
     public $registrationTime;
-    protected $_name = [
-        'authToken'         => 'auth_token',
-        'productInstanceId' => 'product_instance_id',
-        'taskId'            => 'task_id',
-        'regNumber'         => 'reg_number',
-        'certificateUrl'    => 'certificate_url',
-        'sampleUrl'         => 'sample_url',
-        'clientToken'       => 'client_token',
-        'registrationTime'  => 'registration_time',
-    ];
 
-    public function validate()
-    {
-        Model::validateRequired('taskId', $this->taskId, true);
-        Model::validateRequired('regNumber', $this->regNumber, true);
-        Model::validateRequired('clientToken', $this->clientToken, true);
-        Model::validatePattern('registrationTime', $this->registrationTime, '\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}([Z]|([\\.]\\d{1,9})?[\\+]\\d{2}[\\:]?\\d{2})');
-    }
-
-    public function toMap()
-    {
-        $res = [];
-        if (null !== $this->authToken) {
-            $res['auth_token'] = $this->authToken;
-        }
-        if (null !== $this->productInstanceId) {
-            $res['product_instance_id'] = $this->productInstanceId;
-        }
-        if (null !== $this->taskId) {
-            $res['task_id'] = $this->taskId;
-        }
-        if (null !== $this->regNumber) {
-            $res['reg_number'] = $this->regNumber;
-        }
-        if (null !== $this->certificateUrl) {
-            $res['certificate_url'] = $this->certificateUrl;
-        }
-        if (null !== $this->sampleUrl) {
-            $res['sample_url'] = $this->sampleUrl;
-        }
-        if (null !== $this->clientToken) {
-            $res['client_token'] = $this->clientToken;
-        }
-        if (null !== $this->registrationTime) {
-            $res['registration_time'] = $this->registrationTime;
-        }
-
-        return $res;
-    }
-
-    /**
-     * @param array $map
-     *
-     * @return FinishDciRegistrationcertRequest
-     */
-    public static function fromMap($map = [])
-    {
-        $model = new self();
-        if (isset($map['auth_token'])) {
-            $model->authToken = $map['auth_token'];
-        }
-        if (isset($map['product_instance_id'])) {
-            $model->productInstanceId = $map['product_instance_id'];
-        }
-        if (isset($map['task_id'])) {
-            $model->taskId = $map['task_id'];
-        }
-        if (isset($map['reg_number'])) {
-            $model->regNumber = $map['reg_number'];
-        }
-        if (isset($map['certificate_url'])) {
-            $model->certificateUrl = $map['certificate_url'];
-        }
-        if (isset($map['sample_url'])) {
-            $model->sampleUrl = $map['sample_url'];
-        }
-        if (isset($map['client_token'])) {
-            $model->clientToken = $map['client_token'];
-        }
-        if (isset($map['registration_time'])) {
-            $model->registrationTime = $map['registration_time'];
-        }
-
-        return $model;
-    }
 }

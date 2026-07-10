@@ -1,13 +1,61 @@
 <?php
 
 // This file is auto-generated, don't edit it. Thanks.
-
 namespace AntChain\BCCR\Models;
 
 use AlibabaCloud\Tea\Model;
 
-class QueryDciPayResponse extends Model
-{
+class QueryDciPayResponse extends Model {
+    protected $_name = [
+        'reqMsgId' => 'req_msg_id',
+        'resultCode' => 'result_code',
+        'resultMsg' => 'result_msg',
+        'payStatus' => 'pay_status',
+        'payState' => 'pay_state',
+    ];
+    public function validate() {}
+    public function toMap() {
+        $res = [];
+        if (null !== $this->reqMsgId) {
+            $res['req_msg_id'] = $this->reqMsgId;
+        }
+        if (null !== $this->resultCode) {
+            $res['result_code'] = $this->resultCode;
+        }
+        if (null !== $this->resultMsg) {
+            $res['result_msg'] = $this->resultMsg;
+        }
+        if (null !== $this->payStatus) {
+            $res['pay_status'] = $this->payStatus;
+        }
+        if (null !== $this->payState) {
+            $res['pay_state'] = $this->payState;
+        }
+        return $res;
+    }
+    /**
+     * @param array $map
+     * @return QueryDciPayResponse
+     */
+    public static function fromMap($map = []) {
+        $model = new self();
+        if(isset($map['req_msg_id'])){
+            $model->reqMsgId = $map['req_msg_id'];
+        }
+        if(isset($map['result_code'])){
+            $model->resultCode = $map['result_code'];
+        }
+        if(isset($map['result_msg'])){
+            $model->resultMsg = $map['result_msg'];
+        }
+        if(isset($map['pay_status'])){
+            $model->payStatus = $map['pay_status'];
+        }
+        if(isset($map['pay_state'])){
+            $model->payState = $map['pay_state'];
+        }
+        return $model;
+    }
     // 请求唯一ID，用于链路跟踪和问题排查
     /**
      * @var string
@@ -38,64 +86,5 @@ class QueryDciPayResponse extends Model
      * @var string
      */
     public $payState;
-    protected $_name = [
-        'reqMsgId'   => 'req_msg_id',
-        'resultCode' => 'result_code',
-        'resultMsg'  => 'result_msg',
-        'payStatus'  => 'pay_status',
-        'payState'   => 'pay_state',
-    ];
 
-    public function validate()
-    {
-    }
-
-    public function toMap()
-    {
-        $res = [];
-        if (null !== $this->reqMsgId) {
-            $res['req_msg_id'] = $this->reqMsgId;
-        }
-        if (null !== $this->resultCode) {
-            $res['result_code'] = $this->resultCode;
-        }
-        if (null !== $this->resultMsg) {
-            $res['result_msg'] = $this->resultMsg;
-        }
-        if (null !== $this->payStatus) {
-            $res['pay_status'] = $this->payStatus;
-        }
-        if (null !== $this->payState) {
-            $res['pay_state'] = $this->payState;
-        }
-
-        return $res;
-    }
-
-    /**
-     * @param array $map
-     *
-     * @return QueryDciPayResponse
-     */
-    public static function fromMap($map = [])
-    {
-        $model = new self();
-        if (isset($map['req_msg_id'])) {
-            $model->reqMsgId = $map['req_msg_id'];
-        }
-        if (isset($map['result_code'])) {
-            $model->resultCode = $map['result_code'];
-        }
-        if (isset($map['result_msg'])) {
-            $model->resultMsg = $map['result_msg'];
-        }
-        if (isset($map['pay_status'])) {
-            $model->payStatus = $map['pay_status'];
-        }
-        if (isset($map['pay_state'])) {
-            $model->payState = $map['pay_state'];
-        }
-
-        return $model;
-    }
 }

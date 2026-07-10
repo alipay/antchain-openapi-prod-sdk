@@ -1,13 +1,130 @@
 <?php
 
 // This file is auto-generated, don't edit it. Thanks.
-
 namespace AntChain\BCCR\Models;
 
 use AlibabaCloud\Tea\Model;
 
-class QueryDciPreviewResponse extends Model
-{
+class QueryDciPreviewResponse extends Model {
+    protected $_name = [
+        'reqMsgId' => 'req_msg_id',
+        'resultCode' => 'result_code',
+        'resultMsg' => 'result_msg',
+        'filePreviewStatus' => 'file_preview_status',
+        'filePartPreviewStatus' => 'file_part_preview_status',
+        'filePreviewUrl' => 'file_preview_url',
+        'filePartPreviewUrl' => 'file_part_preview_url',
+        'workName' => 'work_name',
+        'dciCode' => 'dci_code',
+        'fileType' => 'file_type',
+        'queryTime' => 'query_time',
+        'regNumber' => 'reg_number',
+        'copyrightOwnerNames' => 'copyright_owner_names',
+        'seriesDiagramPreviewList' => 'series_diagram_preview_list',
+    ];
+    public function validate() {
+        Model::validatePattern('queryTime', $this->queryTime, '\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}([Z]|([\\.]\\d{1,9})?[\\+]\\d{2}[\\:]?\\d{2})');
+    }
+    public function toMap() {
+        $res = [];
+        if (null !== $this->reqMsgId) {
+            $res['req_msg_id'] = $this->reqMsgId;
+        }
+        if (null !== $this->resultCode) {
+            $res['result_code'] = $this->resultCode;
+        }
+        if (null !== $this->resultMsg) {
+            $res['result_msg'] = $this->resultMsg;
+        }
+        if (null !== $this->filePreviewStatus) {
+            $res['file_preview_status'] = $this->filePreviewStatus;
+        }
+        if (null !== $this->filePartPreviewStatus) {
+            $res['file_part_preview_status'] = $this->filePartPreviewStatus;
+        }
+        if (null !== $this->filePreviewUrl) {
+            $res['file_preview_url'] = $this->filePreviewUrl;
+        }
+        if (null !== $this->filePartPreviewUrl) {
+            $res['file_part_preview_url'] = $this->filePartPreviewUrl;
+        }
+        if (null !== $this->workName) {
+            $res['work_name'] = $this->workName;
+        }
+        if (null !== $this->dciCode) {
+            $res['dci_code'] = $this->dciCode;
+        }
+        if (null !== $this->fileType) {
+            $res['file_type'] = $this->fileType;
+        }
+        if (null !== $this->queryTime) {
+            $res['query_time'] = $this->queryTime;
+        }
+        if (null !== $this->regNumber) {
+            $res['reg_number'] = $this->regNumber;
+        }
+        if (null !== $this->copyrightOwnerNames) {
+            $res['copyright_owner_names'] = $this->copyrightOwnerNames;
+        }
+        if (null !== $this->seriesDiagramPreviewList) {
+            $res['series_diagram_preview_list'] = $this->seriesDiagramPreviewList;
+        }
+        return $res;
+    }
+    /**
+     * @param array $map
+     * @return QueryDciPreviewResponse
+     */
+    public static function fromMap($map = []) {
+        $model = new self();
+        if(isset($map['req_msg_id'])){
+            $model->reqMsgId = $map['req_msg_id'];
+        }
+        if(isset($map['result_code'])){
+            $model->resultCode = $map['result_code'];
+        }
+        if(isset($map['result_msg'])){
+            $model->resultMsg = $map['result_msg'];
+        }
+        if(isset($map['file_preview_status'])){
+            $model->filePreviewStatus = $map['file_preview_status'];
+        }
+        if(isset($map['file_part_preview_status'])){
+            $model->filePartPreviewStatus = $map['file_part_preview_status'];
+        }
+        if(isset($map['file_preview_url'])){
+            $model->filePreviewUrl = $map['file_preview_url'];
+        }
+        if(isset($map['file_part_preview_url'])){
+            $model->filePartPreviewUrl = $map['file_part_preview_url'];
+        }
+        if(isset($map['work_name'])){
+            $model->workName = $map['work_name'];
+        }
+        if(isset($map['dci_code'])){
+            $model->dciCode = $map['dci_code'];
+        }
+        if(isset($map['file_type'])){
+            $model->fileType = $map['file_type'];
+        }
+        if(isset($map['query_time'])){
+            $model->queryTime = $map['query_time'];
+        }
+        if(isset($map['reg_number'])){
+            $model->regNumber = $map['reg_number'];
+        }
+        if(isset($map['copyright_owner_names'])){
+            if(!empty($map['copyright_owner_names'])){
+                $model->copyrightOwnerNames = $map['copyright_owner_names'];
+            }
+        }
+        if(isset($map['series_diagram_preview_list'])){
+            if(!empty($map['series_diagram_preview_list'])){
+                $model->seriesDiagramPreviewList = $map['series_diagram_preview_list'];
+            }
+        }
+        return $model;
+    }
     // 请求唯一ID，用于链路跟踪和问题排查
     /**
      * @var string
@@ -91,132 +208,5 @@ class QueryDciPreviewResponse extends Model
      * @var string[]
      */
     public $seriesDiagramPreviewList;
-    protected $_name = [
-        'reqMsgId'                 => 'req_msg_id',
-        'resultCode'               => 'result_code',
-        'resultMsg'                => 'result_msg',
-        'filePreviewStatus'        => 'file_preview_status',
-        'filePartPreviewStatus'    => 'file_part_preview_status',
-        'filePreviewUrl'           => 'file_preview_url',
-        'filePartPreviewUrl'       => 'file_part_preview_url',
-        'workName'                 => 'work_name',
-        'dciCode'                  => 'dci_code',
-        'fileType'                 => 'file_type',
-        'queryTime'                => 'query_time',
-        'regNumber'                => 'reg_number',
-        'copyrightOwnerNames'      => 'copyright_owner_names',
-        'seriesDiagramPreviewList' => 'series_diagram_preview_list',
-    ];
 
-    public function validate()
-    {
-        Model::validatePattern('queryTime', $this->queryTime, '\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}([Z]|([\\.]\\d{1,9})?[\\+]\\d{2}[\\:]?\\d{2})');
-    }
-
-    public function toMap()
-    {
-        $res = [];
-        if (null !== $this->reqMsgId) {
-            $res['req_msg_id'] = $this->reqMsgId;
-        }
-        if (null !== $this->resultCode) {
-            $res['result_code'] = $this->resultCode;
-        }
-        if (null !== $this->resultMsg) {
-            $res['result_msg'] = $this->resultMsg;
-        }
-        if (null !== $this->filePreviewStatus) {
-            $res['file_preview_status'] = $this->filePreviewStatus;
-        }
-        if (null !== $this->filePartPreviewStatus) {
-            $res['file_part_preview_status'] = $this->filePartPreviewStatus;
-        }
-        if (null !== $this->filePreviewUrl) {
-            $res['file_preview_url'] = $this->filePreviewUrl;
-        }
-        if (null !== $this->filePartPreviewUrl) {
-            $res['file_part_preview_url'] = $this->filePartPreviewUrl;
-        }
-        if (null !== $this->workName) {
-            $res['work_name'] = $this->workName;
-        }
-        if (null !== $this->dciCode) {
-            $res['dci_code'] = $this->dciCode;
-        }
-        if (null !== $this->fileType) {
-            $res['file_type'] = $this->fileType;
-        }
-        if (null !== $this->queryTime) {
-            $res['query_time'] = $this->queryTime;
-        }
-        if (null !== $this->regNumber) {
-            $res['reg_number'] = $this->regNumber;
-        }
-        if (null !== $this->copyrightOwnerNames) {
-            $res['copyright_owner_names'] = $this->copyrightOwnerNames;
-        }
-        if (null !== $this->seriesDiagramPreviewList) {
-            $res['series_diagram_preview_list'] = $this->seriesDiagramPreviewList;
-        }
-
-        return $res;
-    }
-
-    /**
-     * @param array $map
-     *
-     * @return QueryDciPreviewResponse
-     */
-    public static function fromMap($map = [])
-    {
-        $model = new self();
-        if (isset($map['req_msg_id'])) {
-            $model->reqMsgId = $map['req_msg_id'];
-        }
-        if (isset($map['result_code'])) {
-            $model->resultCode = $map['result_code'];
-        }
-        if (isset($map['result_msg'])) {
-            $model->resultMsg = $map['result_msg'];
-        }
-        if (isset($map['file_preview_status'])) {
-            $model->filePreviewStatus = $map['file_preview_status'];
-        }
-        if (isset($map['file_part_preview_status'])) {
-            $model->filePartPreviewStatus = $map['file_part_preview_status'];
-        }
-        if (isset($map['file_preview_url'])) {
-            $model->filePreviewUrl = $map['file_preview_url'];
-        }
-        if (isset($map['file_part_preview_url'])) {
-            $model->filePartPreviewUrl = $map['file_part_preview_url'];
-        }
-        if (isset($map['work_name'])) {
-            $model->workName = $map['work_name'];
-        }
-        if (isset($map['dci_code'])) {
-            $model->dciCode = $map['dci_code'];
-        }
-        if (isset($map['file_type'])) {
-            $model->fileType = $map['file_type'];
-        }
-        if (isset($map['query_time'])) {
-            $model->queryTime = $map['query_time'];
-        }
-        if (isset($map['reg_number'])) {
-            $model->regNumber = $map['reg_number'];
-        }
-        if (isset($map['copyright_owner_names'])) {
-            if (!empty($map['copyright_owner_names'])) {
-                $model->copyrightOwnerNames = $map['copyright_owner_names'];
-            }
-        }
-        if (isset($map['series_diagram_preview_list'])) {
-            if (!empty($map['series_diagram_preview_list'])) {
-                $model->seriesDiagramPreviewList = $map['series_diagram_preview_list'];
-            }
-        }
-
-        return $model;
-    }
 }

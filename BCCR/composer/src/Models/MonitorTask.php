@@ -1,225 +1,33 @@
 <?php
 
 // This file is auto-generated, don't edit it. Thanks.
-
 namespace AntChain\BCCR\Models;
 
 use AlibabaCloud\Tea\Model;
 
-class MonitorTask extends Model
-{
-    // 内容表述
-    //
-    //
-    /**
-     * @example wert
-     *
-     * @var string
-     */
-    public $contentDesc;
-
-    // 监测任务标题
-    //
-    //
-    /**
-     * @example awe
-     *
-     * @var string
-     */
-    public $contentTitle;
-
-    // 监测文件时长，主要用于视频监测、音频监测的时长记录
-    /**
-     * @example 200
-     *
-     * @var int
-     */
-    public $fileLengthInSecond;
-
-    // 监测关键字
-    //
-    //
-    /**
-     * @example 111111111111111111
-     *
-     * @var string[]
-     */
-    public $keywords;
-
-    // 监测任务ID
-    //
-    /**
-     * @example 111111111111111111
-     *
-     * @var string
-     */
-    public $monitorTaskId;
-
-    // 任务名称
-    //
-    //
-    /**
-     * @example 111111111111111111
-     *
-     * @var string
-     */
-    public $name;
-
-    // 监测供应商id
-    /**
-     * @example GOODEYE
-     *
-     * @var string
-     */
-    public $providerId;
-
-    // 监测结果数量
-    //
-    //
-    /**
-     * @example 1
-     *
-     * @var int
-     */
-    public $resultCount;
-
-    // 监测范围
-    //
-    //
-    /**
-     * @example 111111111111111111
-     *
-     * @var string[]
-     */
-    public $scopes;
-
-    // 任务状态
-    //
-    // INIT
-    //
-    // WORKING
-    //
-    // FINISH
-    //
-    // FAILURE
-    //
-    // DELETE
-    /**
-     * @example WORKING
-     *
-     * @var string
-     */
-    public $status;
-
-    // 监测时长(天)
-    //
-    //
-    /**
-     * @example 1
-     *
-     * @var int
-     */
-    public $taskDuration;
-
-    // 任务结束时间
-    //
-    //
-    /**
-     * @example 1592807928
-     *
-     * @var int
-     */
-    public $taskEnd;
-
-    // 任务开始时间
-    //
-    //
-    /**
-     * @example 1592807928
-     *
-     * @var int
-     */
-    public $taskStart;
-
-    // 文件类别
-    //
-    // IMAGE
-    //
-    // TEXT
-    //
-    // VIDEO
-    /**
-     * @example IMAGE
-     *
-     * @var string
-     */
-    public $fileType;
-
-    // 文件大小
-    /**
-     * @example 111111
-     *
-     * @var int
-     */
-    public $fileSize;
-
-    // submitType是url就是url地址 submitType 是file就是oss fileId
-    /**
-     * @example https://xxxx
-     *
-     * @var string
-     */
-    public $submitContent;
-
-    // 提交任务的类型:FILE/URL
-    // 不填为FILE
-    // FILE表示文件上传素材，URL表示上传URL
-    /**
-     * @example FILE
-     *
-     * @var string
-     */
-    public $submitType;
-
-    // 当status为failure时的具体错误信息（中文描述）
-    /**
-     * @example error
-     *
-     * @var string
-     */
-    public $failureMsg;
-
-    // 当status为failure时的具体错误信息（错误枚举）
-    /**
-     * @example SERVER_ERROR
-     *
-     * @var string
-     */
-    public $failureCode;
+class MonitorTask extends Model {
     protected $_name = [
-        'contentDesc'        => 'content_desc',
-        'contentTitle'       => 'content_title',
+        'contentDesc' => 'content_desc',
+        'contentTitle' => 'content_title',
         'fileLengthInSecond' => 'file_length_in_second',
-        'keywords'           => 'keywords',
-        'monitorTaskId'      => 'monitor_task_id',
-        'name'               => 'name',
-        'providerId'         => 'provider_id',
-        'resultCount'        => 'result_count',
-        'scopes'             => 'scopes',
-        'status'             => 'status',
-        'taskDuration'       => 'task_duration',
-        'taskEnd'            => 'task_end',
-        'taskStart'          => 'task_start',
-        'fileType'           => 'file_type',
-        'fileSize'           => 'file_size',
-        'submitContent'      => 'submit_content',
-        'submitType'         => 'submit_type',
-        'failureMsg'         => 'failure_msg',
-        'failureCode'        => 'failure_code',
+        'keywords' => 'keywords',
+        'monitorTaskId' => 'monitor_task_id',
+        'name' => 'name',
+        'providerId' => 'provider_id',
+        'resultCount' => 'result_count',
+        'scopes' => 'scopes',
+        'status' => 'status',
+        'taskDuration' => 'task_duration',
+        'taskEnd' => 'task_end',
+        'taskStart' => 'task_start',
+        'fileType' => 'file_type',
+        'fileSize' => 'file_size',
+        'submitContent' => 'submit_content',
+        'submitType' => 'submit_type',
+        'failureMsg' => 'failure_msg',
+        'failureCode' => 'failure_code',
     ];
-
-    public function validate()
-    {
+    public function validate() {
         Model::validateRequired('keywords', $this->keywords, true);
         Model::validateRequired('monitorTaskId', $this->monitorTaskId, true);
         Model::validateRequired('name', $this->name, true);
@@ -229,9 +37,7 @@ class MonitorTask extends Model
         Model::validateRequired('fileType', $this->fileType, true);
         Model::validateRequired('submitContent', $this->submitContent, true);
     }
-
-    public function toMap()
-    {
+    public function toMap() {
         $res = [];
         if (null !== $this->contentDesc) {
             $res['content_desc'] = $this->contentDesc;
@@ -290,80 +96,245 @@ class MonitorTask extends Model
         if (null !== $this->failureCode) {
             $res['failure_code'] = $this->failureCode;
         }
-
         return $res;
     }
-
     /**
      * @param array $map
-     *
      * @return MonitorTask
      */
-    public static function fromMap($map = [])
-    {
+    public static function fromMap($map = []) {
         $model = new self();
-        if (isset($map['content_desc'])) {
+        if(isset($map['content_desc'])){
             $model->contentDesc = $map['content_desc'];
         }
-        if (isset($map['content_title'])) {
+        if(isset($map['content_title'])){
             $model->contentTitle = $map['content_title'];
         }
-        if (isset($map['file_length_in_second'])) {
+        if(isset($map['file_length_in_second'])){
             $model->fileLengthInSecond = $map['file_length_in_second'];
         }
-        if (isset($map['keywords'])) {
-            if (!empty($map['keywords'])) {
+        if(isset($map['keywords'])){
+            if(!empty($map['keywords'])){
                 $model->keywords = $map['keywords'];
             }
         }
-        if (isset($map['monitor_task_id'])) {
+        if(isset($map['monitor_task_id'])){
             $model->monitorTaskId = $map['monitor_task_id'];
         }
-        if (isset($map['name'])) {
+        if(isset($map['name'])){
             $model->name = $map['name'];
         }
-        if (isset($map['provider_id'])) {
+        if(isset($map['provider_id'])){
             $model->providerId = $map['provider_id'];
         }
-        if (isset($map['result_count'])) {
+        if(isset($map['result_count'])){
             $model->resultCount = $map['result_count'];
         }
-        if (isset($map['scopes'])) {
-            if (!empty($map['scopes'])) {
+        if(isset($map['scopes'])){
+            if(!empty($map['scopes'])){
                 $model->scopes = $map['scopes'];
             }
         }
-        if (isset($map['status'])) {
+        if(isset($map['status'])){
             $model->status = $map['status'];
         }
-        if (isset($map['task_duration'])) {
+        if(isset($map['task_duration'])){
             $model->taskDuration = $map['task_duration'];
         }
-        if (isset($map['task_end'])) {
+        if(isset($map['task_end'])){
             $model->taskEnd = $map['task_end'];
         }
-        if (isset($map['task_start'])) {
+        if(isset($map['task_start'])){
             $model->taskStart = $map['task_start'];
         }
-        if (isset($map['file_type'])) {
+        if(isset($map['file_type'])){
             $model->fileType = $map['file_type'];
         }
-        if (isset($map['file_size'])) {
+        if(isset($map['file_size'])){
             $model->fileSize = $map['file_size'];
         }
-        if (isset($map['submit_content'])) {
+        if(isset($map['submit_content'])){
             $model->submitContent = $map['submit_content'];
         }
-        if (isset($map['submit_type'])) {
+        if(isset($map['submit_type'])){
             $model->submitType = $map['submit_type'];
         }
-        if (isset($map['failure_msg'])) {
+        if(isset($map['failure_msg'])){
             $model->failureMsg = $map['failure_msg'];
         }
-        if (isset($map['failure_code'])) {
+        if(isset($map['failure_code'])){
             $model->failureCode = $map['failure_code'];
         }
-
         return $model;
     }
+    // 内容表述
+    // 
+    // 
+    /**
+     * @example wert
+     * @var string
+     */
+    public $contentDesc;
+
+    // 监测任务标题
+    // 
+    // 
+    /**
+     * @example awe
+     * @var string
+     */
+    public $contentTitle;
+
+    // 监测文件时长，主要用于视频监测、音频监测的时长记录
+    /**
+     * @example 200
+     * @var int
+     */
+    public $fileLengthInSecond;
+
+    // 监测关键字
+    // 
+    // 
+    /**
+     * @example 111111111111111111
+     * @var string[]
+     */
+    public $keywords;
+
+    // 监测任务ID
+    // 
+    /**
+     * @example 111111111111111111
+     * @var string
+     */
+    public $monitorTaskId;
+
+    // 任务名称
+    // 
+    // 
+    /**
+     * @example 111111111111111111
+     * @var string
+     */
+    public $name;
+
+    // 监测供应商id
+    /**
+     * @example GOODEYE
+     * @var string
+     */
+    public $providerId;
+
+    // 监测结果数量
+    // 
+    // 
+    /**
+     * @example 1
+     * @var int
+     */
+    public $resultCount;
+
+    // 监测范围
+    // 
+    // 
+    /**
+     * @example 111111111111111111
+     * @var string[]
+     */
+    public $scopes;
+
+    // 任务状态
+    // 
+    // INIT
+    // 
+    // WORKING
+    // 
+    // FINISH
+    // 
+    // FAILURE
+    // 
+    // DELETE
+    /**
+     * @example WORKING
+     * @var string
+     */
+    public $status;
+
+    // 监测时长(天)
+    // 
+    // 
+    /**
+     * @example 1
+     * @var int
+     */
+    public $taskDuration;
+
+    // 任务结束时间
+    // 
+    // 
+    /**
+     * @example 1592807928
+     * @var int
+     */
+    public $taskEnd;
+
+    // 任务开始时间
+    // 
+    // 
+    /**
+     * @example 1592807928
+     * @var int
+     */
+    public $taskStart;
+
+    // 文件类别
+    // 
+    // IMAGE
+    // 
+    // TEXT
+    // 
+    // VIDEO
+    /**
+     * @example IMAGE
+     * @var string
+     */
+    public $fileType;
+
+    // 文件大小
+    /**
+     * @example 111111
+     * @var int
+     */
+    public $fileSize;
+
+    // submitType是url就是url地址 submitType 是file就是oss fileId
+    /**
+     * @example https://xxxx
+     * @var string
+     */
+    public $submitContent;
+
+    // 提交任务的类型:FILE/URL
+    // 不填为FILE
+    // FILE表示文件上传素材，URL表示上传URL
+    /**
+     * @example FILE
+     * @var string
+     */
+    public $submitType;
+
+    // 当status为failure时的具体错误信息（中文描述）
+    /**
+     * @example error
+     * @var string
+     */
+    public $failureMsg;
+
+    // 当status为failure时的具体错误信息（错误枚举）
+    /**
+     * @example SERVER_ERROR
+     * @var string
+     */
+    public $failureCode;
+
 }

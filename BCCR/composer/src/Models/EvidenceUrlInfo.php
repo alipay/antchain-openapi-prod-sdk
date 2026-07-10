@@ -1,40 +1,19 @@
 <?php
 
 // This file is auto-generated, don't edit it. Thanks.
-
 namespace AntChain\BCCR\Models;
 
 use AlibabaCloud\Tea\Model;
 
-class EvidenceUrlInfo extends Model
-{
-    // 取证网址
-    /**
-     * @example www.baidu.com
-     *
-     * @var string
-     */
-    public $url;
-
-    // 音视频取证时间
-    /**
-     * @example 10
-     *
-     * @var int
-     */
-    public $autoSurfingMinute;
+class EvidenceUrlInfo extends Model {
     protected $_name = [
-        'url'               => 'url',
+        'url' => 'url',
         'autoSurfingMinute' => 'auto_surfing_minute',
     ];
-
-    public function validate()
-    {
+    public function validate() {
         Model::validateRequired('url', $this->url, true);
     }
-
-    public function toMap()
-    {
+    public function toMap() {
         $res = [];
         if (null !== $this->url) {
             $res['url'] = $this->url;
@@ -42,25 +21,34 @@ class EvidenceUrlInfo extends Model
         if (null !== $this->autoSurfingMinute) {
             $res['auto_surfing_minute'] = $this->autoSurfingMinute;
         }
-
         return $res;
     }
-
     /**
      * @param array $map
-     *
      * @return EvidenceUrlInfo
      */
-    public static function fromMap($map = [])
-    {
+    public static function fromMap($map = []) {
         $model = new self();
-        if (isset($map['url'])) {
+        if(isset($map['url'])){
             $model->url = $map['url'];
         }
-        if (isset($map['auto_surfing_minute'])) {
+        if(isset($map['auto_surfing_minute'])){
             $model->autoSurfingMinute = $map['auto_surfing_minute'];
         }
-
         return $model;
     }
+    // 取证网址
+    /**
+     * @example www.baidu.com
+     * @var string
+     */
+    public $url;
+
+    // 音视频取证时间
+    /**
+     * @example 10
+     * @var int
+     */
+    public $autoSurfingMinute;
+
 }

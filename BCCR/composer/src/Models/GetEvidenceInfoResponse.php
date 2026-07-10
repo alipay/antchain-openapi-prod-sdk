@@ -1,13 +1,134 @@
 <?php
 
 // This file is auto-generated, don't edit it. Thanks.
-
 namespace AntChain\BCCR\Models;
 
 use AlibabaCloud\Tea\Model;
 
-class GetEvidenceInfoResponse extends Model
-{
+use AntChain\BCCR\Models\EvidenceWebUrlInfo;
+use AntChain\BCCR\Models\EvidenceCertificateInfo;
+
+class GetEvidenceInfoResponse extends Model {
+    protected $_name = [
+        'reqMsgId' => 'req_msg_id',
+        'resultCode' => 'result_code',
+        'resultMsg' => 'result_msg',
+        'evidenceId' => 'evidence_id',
+        'evidenceType' => 'evidence_type',
+        'status' => 'status',
+        'notaryOffice' => 'notary_office',
+        'evidenceUrl' => 'evidence_url',
+        'evidenceResultUrl' => 'evidence_result_url',
+        'certificateInfo' => 'certificate_info',
+        'evidenceErrorCode' => 'evidence_error_code',
+        'evidenceErrorMsg' => 'evidence_error_msg',
+        'startTime' => 'start_time',
+        'finishTime' => 'finish_time',
+        'platformDynamicParams' => 'platform_dynamic_params',
+    ];
+    public function validate() {}
+    public function toMap() {
+        $res = [];
+        if (null !== $this->reqMsgId) {
+            $res['req_msg_id'] = $this->reqMsgId;
+        }
+        if (null !== $this->resultCode) {
+            $res['result_code'] = $this->resultCode;
+        }
+        if (null !== $this->resultMsg) {
+            $res['result_msg'] = $this->resultMsg;
+        }
+        if (null !== $this->evidenceId) {
+            $res['evidence_id'] = $this->evidenceId;
+        }
+        if (null !== $this->evidenceType) {
+            $res['evidence_type'] = $this->evidenceType;
+        }
+        if (null !== $this->status) {
+            $res['status'] = $this->status;
+        }
+        if (null !== $this->notaryOffice) {
+            $res['notary_office'] = $this->notaryOffice;
+        }
+        if (null !== $this->evidenceUrl) {
+            $res['evidence_url'] = null !== $this->evidenceUrl ? $this->evidenceUrl->toMap() : null;
+        }
+        if (null !== $this->evidenceResultUrl) {
+            $res['evidence_result_url'] = $this->evidenceResultUrl;
+        }
+        if (null !== $this->certificateInfo) {
+            $res['certificate_info'] = null !== $this->certificateInfo ? $this->certificateInfo->toMap() : null;
+        }
+        if (null !== $this->evidenceErrorCode) {
+            $res['evidence_error_code'] = $this->evidenceErrorCode;
+        }
+        if (null !== $this->evidenceErrorMsg) {
+            $res['evidence_error_msg'] = $this->evidenceErrorMsg;
+        }
+        if (null !== $this->startTime) {
+            $res['start_time'] = $this->startTime;
+        }
+        if (null !== $this->finishTime) {
+            $res['finish_time'] = $this->finishTime;
+        }
+        if (null !== $this->platformDynamicParams) {
+            $res['platform_dynamic_params'] = $this->platformDynamicParams;
+        }
+        return $res;
+    }
+    /**
+     * @param array $map
+     * @return GetEvidenceInfoResponse
+     */
+    public static function fromMap($map = []) {
+        $model = new self();
+        if(isset($map['req_msg_id'])){
+            $model->reqMsgId = $map['req_msg_id'];
+        }
+        if(isset($map['result_code'])){
+            $model->resultCode = $map['result_code'];
+        }
+        if(isset($map['result_msg'])){
+            $model->resultMsg = $map['result_msg'];
+        }
+        if(isset($map['evidence_id'])){
+            $model->evidenceId = $map['evidence_id'];
+        }
+        if(isset($map['evidence_type'])){
+            $model->evidenceType = $map['evidence_type'];
+        }
+        if(isset($map['status'])){
+            $model->status = $map['status'];
+        }
+        if(isset($map['notary_office'])){
+            $model->notaryOffice = $map['notary_office'];
+        }
+        if(isset($map['evidence_url'])){
+            $model->evidenceUrl = EvidenceWebUrlInfo::fromMap($map['evidence_url']);
+        }
+        if(isset($map['evidence_result_url'])){
+            $model->evidenceResultUrl = $map['evidence_result_url'];
+        }
+        if(isset($map['certificate_info'])){
+            $model->certificateInfo = EvidenceCertificateInfo::fromMap($map['certificate_info']);
+        }
+        if(isset($map['evidence_error_code'])){
+            $model->evidenceErrorCode = $map['evidence_error_code'];
+        }
+        if(isset($map['evidence_error_msg'])){
+            $model->evidenceErrorMsg = $map['evidence_error_msg'];
+        }
+        if(isset($map['start_time'])){
+            $model->startTime = $map['start_time'];
+        }
+        if(isset($map['finish_time'])){
+            $model->finishTime = $map['finish_time'];
+        }
+        if(isset($map['platform_dynamic_params'])){
+            $model->platformDynamicParams = $map['platform_dynamic_params'];
+        }
+        return $model;
+    }
     // 请求唯一ID，用于链路跟踪和问题排查
     /**
      * @var string
@@ -97,134 +218,5 @@ class GetEvidenceInfoResponse extends Model
      * @var string
      */
     public $platformDynamicParams;
-    protected $_name = [
-        'reqMsgId'              => 'req_msg_id',
-        'resultCode'            => 'result_code',
-        'resultMsg'             => 'result_msg',
-        'evidenceId'            => 'evidence_id',
-        'evidenceType'          => 'evidence_type',
-        'status'                => 'status',
-        'notaryOffice'          => 'notary_office',
-        'evidenceUrl'           => 'evidence_url',
-        'evidenceResultUrl'     => 'evidence_result_url',
-        'certificateInfo'       => 'certificate_info',
-        'evidenceErrorCode'     => 'evidence_error_code',
-        'evidenceErrorMsg'      => 'evidence_error_msg',
-        'startTime'             => 'start_time',
-        'finishTime'            => 'finish_time',
-        'platformDynamicParams' => 'platform_dynamic_params',
-    ];
 
-    public function validate()
-    {
-    }
-
-    public function toMap()
-    {
-        $res = [];
-        if (null !== $this->reqMsgId) {
-            $res['req_msg_id'] = $this->reqMsgId;
-        }
-        if (null !== $this->resultCode) {
-            $res['result_code'] = $this->resultCode;
-        }
-        if (null !== $this->resultMsg) {
-            $res['result_msg'] = $this->resultMsg;
-        }
-        if (null !== $this->evidenceId) {
-            $res['evidence_id'] = $this->evidenceId;
-        }
-        if (null !== $this->evidenceType) {
-            $res['evidence_type'] = $this->evidenceType;
-        }
-        if (null !== $this->status) {
-            $res['status'] = $this->status;
-        }
-        if (null !== $this->notaryOffice) {
-            $res['notary_office'] = $this->notaryOffice;
-        }
-        if (null !== $this->evidenceUrl) {
-            $res['evidence_url'] = null !== $this->evidenceUrl ? $this->evidenceUrl->toMap() : null;
-        }
-        if (null !== $this->evidenceResultUrl) {
-            $res['evidence_result_url'] = $this->evidenceResultUrl;
-        }
-        if (null !== $this->certificateInfo) {
-            $res['certificate_info'] = null !== $this->certificateInfo ? $this->certificateInfo->toMap() : null;
-        }
-        if (null !== $this->evidenceErrorCode) {
-            $res['evidence_error_code'] = $this->evidenceErrorCode;
-        }
-        if (null !== $this->evidenceErrorMsg) {
-            $res['evidence_error_msg'] = $this->evidenceErrorMsg;
-        }
-        if (null !== $this->startTime) {
-            $res['start_time'] = $this->startTime;
-        }
-        if (null !== $this->finishTime) {
-            $res['finish_time'] = $this->finishTime;
-        }
-        if (null !== $this->platformDynamicParams) {
-            $res['platform_dynamic_params'] = $this->platformDynamicParams;
-        }
-
-        return $res;
-    }
-
-    /**
-     * @param array $map
-     *
-     * @return GetEvidenceInfoResponse
-     */
-    public static function fromMap($map = [])
-    {
-        $model = new self();
-        if (isset($map['req_msg_id'])) {
-            $model->reqMsgId = $map['req_msg_id'];
-        }
-        if (isset($map['result_code'])) {
-            $model->resultCode = $map['result_code'];
-        }
-        if (isset($map['result_msg'])) {
-            $model->resultMsg = $map['result_msg'];
-        }
-        if (isset($map['evidence_id'])) {
-            $model->evidenceId = $map['evidence_id'];
-        }
-        if (isset($map['evidence_type'])) {
-            $model->evidenceType = $map['evidence_type'];
-        }
-        if (isset($map['status'])) {
-            $model->status = $map['status'];
-        }
-        if (isset($map['notary_office'])) {
-            $model->notaryOffice = $map['notary_office'];
-        }
-        if (isset($map['evidence_url'])) {
-            $model->evidenceUrl = EvidenceWebUrlInfo::fromMap($map['evidence_url']);
-        }
-        if (isset($map['evidence_result_url'])) {
-            $model->evidenceResultUrl = $map['evidence_result_url'];
-        }
-        if (isset($map['certificate_info'])) {
-            $model->certificateInfo = EvidenceCertificateInfo::fromMap($map['certificate_info']);
-        }
-        if (isset($map['evidence_error_code'])) {
-            $model->evidenceErrorCode = $map['evidence_error_code'];
-        }
-        if (isset($map['evidence_error_msg'])) {
-            $model->evidenceErrorMsg = $map['evidence_error_msg'];
-        }
-        if (isset($map['start_time'])) {
-            $model->startTime = $map['start_time'];
-        }
-        if (isset($map['finish_time'])) {
-            $model->finishTime = $map['finish_time'];
-        }
-        if (isset($map['platform_dynamic_params'])) {
-            $model->platformDynamicParams = $map['platform_dynamic_params'];
-        }
-
-        return $model;
-    }
 }
