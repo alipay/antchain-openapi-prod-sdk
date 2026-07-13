@@ -126,7 +126,7 @@ public class Client {
                     new TeaPair("req_msg_id", com.antgroup.antchain.openapi.antchain.util.AntchainUtils.getNonce()),
                     new TeaPair("access_key", _accessKeyId),
                     new TeaPair("base_sdk_version", "TeaSDK-2.0"),
-                    new TeaPair("sdk_version", "1.0.3"),
+                    new TeaPair("sdk_version", "1.0.4"),
                     new TeaPair("_prod_code", "CLIPRODUCT"),
                     new TeaPair("_prod_channel", "default")
                 );
@@ -312,6 +312,48 @@ public class Client {
     public ApieCliCreateResponse apieCliCreateEx(ApieCliCreateRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
         com.aliyun.teautil.Common.validateModel(request);
         return TeaModel.toModel(this.doRequest("1.0", "antdigital.cliproduct.cli.create.apie", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new ApieCliCreateResponse());
+    }
+
+    /**
+     * <b>description</b> :
+     * <p>Description: 创建订单
+     * Summary: 创建订单</p>
+     */
+    public CreateBusinessOrderaaaResponse createBusinessOrderaaa(CreateBusinessOrderaaaRequest request) throws Exception {
+        com.aliyun.teautil.models.RuntimeOptions runtime = new com.aliyun.teautil.models.RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.createBusinessOrderaaaEx(request, headers, runtime);
+    }
+
+    /**
+     * <b>description</b> :
+     * <p>Description: 创建订单
+     * Summary: 创建订单</p>
+     */
+    public CreateBusinessOrderaaaResponse createBusinessOrderaaaEx(CreateBusinessOrderaaaRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "antdigital.cliproduct.business.orderaaa.create", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new CreateBusinessOrderaaaResponse());
+    }
+
+    /**
+     * <b>description</b> :
+     * <p>Description: 创建订单
+     * Summary: 创建订单</p>
+     */
+    public CreateBusinessOrderbbbResponse createBusinessOrderbbb(CreateBusinessOrderbbbRequest request) throws Exception {
+        com.aliyun.teautil.models.RuntimeOptions runtime = new com.aliyun.teautil.models.RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.createBusinessOrderbbbEx(request, headers, runtime);
+    }
+
+    /**
+     * <b>description</b> :
+     * <p>Description: 创建订单
+     * Summary: 创建订单</p>
+     */
+    public CreateBusinessOrderbbbResponse createBusinessOrderbbbEx(CreateBusinessOrderbbbRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "antdigital.cliproduct.business.orderbbb.create", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new CreateBusinessOrderbbbResponse());
     }
 
     /**
