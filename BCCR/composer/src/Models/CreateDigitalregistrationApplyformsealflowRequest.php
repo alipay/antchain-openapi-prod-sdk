@@ -11,6 +11,8 @@ class CreateDigitalregistrationApplyformsealflowRequest extends Model {
         'productInstanceId' => 'product_instance_id',
         'digitalRegisterId' => 'digital_register_id',
         'clientToken' => 'client_token',
+        'agentCertNo' => 'agent_cert_no',
+        'agentCertMame' => 'agent_cert_mame',
     ];
     public function validate() {
         Model::validateRequired('digitalRegisterId', $this->digitalRegisterId, true);
@@ -29,6 +31,12 @@ class CreateDigitalregistrationApplyformsealflowRequest extends Model {
         }
         if (null !== $this->clientToken) {
             $res['client_token'] = $this->clientToken;
+        }
+        if (null !== $this->agentCertNo) {
+            $res['agent_cert_no'] = $this->agentCertNo;
+        }
+        if (null !== $this->agentCertMame) {
+            $res['agent_cert_mame'] = $this->agentCertMame;
         }
         return $res;
     }
@@ -49,6 +57,12 @@ class CreateDigitalregistrationApplyformsealflowRequest extends Model {
         }
         if(isset($map['client_token'])){
             $model->clientToken = $map['client_token'];
+        }
+        if(isset($map['agent_cert_no'])){
+            $model->agentCertNo = $map['agent_cert_no'];
+        }
+        if(isset($map['agent_cert_mame'])){
+            $model->agentCertMame = $map['agent_cert_mame'];
         }
         return $model;
     }
@@ -74,5 +88,17 @@ class CreateDigitalregistrationApplyformsealflowRequest extends Model {
      * @var string
      */
     public $clientToken;
+
+    // 签章经办人身份证号（数登申请人是企业的场景下必填）
+    /**
+     * @var string
+     */
+    public $agentCertNo;
+
+    // 签章经办人姓名（数登申请人是企业的场景下必填）
+    /**
+     * @var string
+     */
+    public $agentCertMame;
 
 }

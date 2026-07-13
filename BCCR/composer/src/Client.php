@@ -27,16 +27,6 @@ use AntChain\BCCR\Models\QueryapplyformsealurlCopyrightregistrationDigitalregist
 use AntChain\BCCR\Models\QueryapplyformsealurlCopyrightregistrationDigitalregistrationResponse;
 use AntChain\BCCR\Models\CompleteapplyformsealCopyrightregistrationDigitalregistrationRequest;
 use AntChain\BCCR\Models\CompleteapplyformsealCopyrightregistrationDigitalregistrationResponse;
-use AntChain\BCCR\Models\QueryDigitalregistrationApplyformRequest;
-use AntChain\BCCR\Models\QueryDigitalregistrationApplyformResponse;
-use AntChain\BCCR\Models\QueryDigitalregistrationSealauthRequest;
-use AntChain\BCCR\Models\QueryDigitalregistrationSealauthResponse;
-use AntChain\BCCR\Models\CreateDigitalregistrationApplyformsealflowRequest;
-use AntChain\BCCR\Models\CreateDigitalregistrationApplyformsealflowResponse;
-use AntChain\BCCR\Models\QueryDigitalregistrationApplyformsealurlRequest;
-use AntChain\BCCR\Models\QueryDigitalregistrationApplyformsealurlResponse;
-use AntChain\BCCR\Models\CompleteDigitalregistrationApplyformsealRequest;
-use AntChain\BCCR\Models\CompleteDigitalregistrationApplyformsealResponse;
 use AntChain\BCCR\Models\GetUploadurlRequest;
 use AntChain\BCCR\Models\GetUploadurlResponse;
 use AntChain\BCCR\Models\AddHashregisterRequest;
@@ -207,6 +197,16 @@ use AntChain\BCCR\Models\VerifyDciCertificateRequest;
 use AntChain\BCCR\Models\VerifyDciCertificateResponse;
 use AntChain\BCCR\Models\QueryDciCertificateresultRequest;
 use AntChain\BCCR\Models\QueryDciCertificateresultResponse;
+use AntChain\BCCR\Models\QueryDigitalregistrationApplyformRequest;
+use AntChain\BCCR\Models\QueryDigitalregistrationApplyformResponse;
+use AntChain\BCCR\Models\QueryDigitalregistrationSealauthRequest;
+use AntChain\BCCR\Models\QueryDigitalregistrationSealauthResponse;
+use AntChain\BCCR\Models\CreateDigitalregistrationApplyformsealflowRequest;
+use AntChain\BCCR\Models\CreateDigitalregistrationApplyformsealflowResponse;
+use AntChain\BCCR\Models\QueryDigitalregistrationApplyformsealurlRequest;
+use AntChain\BCCR\Models\QueryDigitalregistrationApplyformsealurlResponse;
+use AntChain\BCCR\Models\CompleteDigitalregistrationApplyformsealRequest;
+use AntChain\BCCR\Models\CompleteDigitalregistrationApplyformsealResponse;
 use AntChain\BCCR\Models\AddContentRequest;
 use AntChain\BCCR\Models\AddContentResponse;
 use AntChain\BCCR\Models\QueryContentStatusRequest;
@@ -359,7 +359,7 @@ class Client {
                     "req_msg_id" => UtilClient::getNonce(),
                     "access_key" => $this->_accessKeyId,
                     "base_sdk_version" => "TeaSDK-2.0",
-                    "sdk_version" => "1.21.2",
+                    "sdk_version" => "1.21.4",
                     "_prod_code" => "BCCR",
                     "_prod_channel" => "undefined"
                 ];
@@ -577,131 +577,6 @@ class Client {
     public function completeapplyformsealCopyrightregistrationDigitalregistrationEx($request, $headers, $runtime){
         Utils::validateModel($request);
         return CompleteapplyformsealCopyrightregistrationDigitalregistrationResponse::fromMap($this->doRequest("1.0", "blockchain.bccr.copyrightregistration.digitalregistration.completeapplyformseal", "HTTPS", "POST", "/gateway.do", Tea::merge($request), $headers, $runtime));
-    }
-
-    /**
-     * Description: 版权登记-数登申请-查询数登申请表
-     * Summary: 版权登记-数登申请-查询数登申请表
-     * @param QueryDigitalregistrationApplyformRequest $request
-     * @return QueryDigitalregistrationApplyformResponse
-     */
-    public function queryDigitalregistrationApplyform($request){
-        $runtime = new RuntimeOptions([]);
-        $headers = [];
-        return $this->queryDigitalregistrationApplyformEx($request, $headers, $runtime);
-    }
-
-    /**
-     * Description: 版权登记-数登申请-查询数登申请表
-     * Summary: 版权登记-数登申请-查询数登申请表
-     * @param QueryDigitalregistrationApplyformRequest $request
-     * @param string[] $headers
-     * @param RuntimeOptions $runtime
-     * @return QueryDigitalregistrationApplyformResponse
-     */
-    public function queryDigitalregistrationApplyformEx($request, $headers, $runtime){
-        Utils::validateModel($request);
-        return QueryDigitalregistrationApplyformResponse::fromMap($this->doRequest("1.0", "blockchain.bccr.digitalregistration.applyform.query", "HTTPS", "POST", "/gateway.do", Tea::merge($request), $headers, $runtime));
-    }
-
-    /**
-     * Description: 数登申请表签章静默授权查询
-     * Summary: 数登申请表签章静默授权查询
-     * @param QueryDigitalregistrationSealauthRequest $request
-     * @return QueryDigitalregistrationSealauthResponse
-     */
-    public function queryDigitalregistrationSealauth($request){
-        $runtime = new RuntimeOptions([]);
-        $headers = [];
-        return $this->queryDigitalregistrationSealauthEx($request, $headers, $runtime);
-    }
-
-    /**
-     * Description: 数登申请表签章静默授权查询
-     * Summary: 数登申请表签章静默授权查询
-     * @param QueryDigitalregistrationSealauthRequest $request
-     * @param string[] $headers
-     * @param RuntimeOptions $runtime
-     * @return QueryDigitalregistrationSealauthResponse
-     */
-    public function queryDigitalregistrationSealauthEx($request, $headers, $runtime){
-        Utils::validateModel($request);
-        return QueryDigitalregistrationSealauthResponse::fromMap($this->doRequest("1.0", "blockchain.bccr.digitalregistration.sealauth.query", "HTTPS", "POST", "/gateway.do", Tea::merge($request), $headers, $runtime));
-    }
-
-    /**
-     * Description: 数登申请表创建签署流程
-     * Summary: 数登申请表创建签署流程
-     * @param CreateDigitalregistrationApplyformsealflowRequest $request
-     * @return CreateDigitalregistrationApplyformsealflowResponse
-     */
-    public function createDigitalregistrationApplyformsealflow($request){
-        $runtime = new RuntimeOptions([]);
-        $headers = [];
-        return $this->createDigitalregistrationApplyformsealflowEx($request, $headers, $runtime);
-    }
-
-    /**
-     * Description: 数登申请表创建签署流程
-     * Summary: 数登申请表创建签署流程
-     * @param CreateDigitalregistrationApplyformsealflowRequest $request
-     * @param string[] $headers
-     * @param RuntimeOptions $runtime
-     * @return CreateDigitalregistrationApplyformsealflowResponse
-     */
-    public function createDigitalregistrationApplyformsealflowEx($request, $headers, $runtime){
-        Utils::validateModel($request);
-        return CreateDigitalregistrationApplyformsealflowResponse::fromMap($this->doRequest("1.0", "blockchain.bccr.digitalregistration.applyformsealflow.create", "HTTPS", "POST", "/gateway.do", Tea::merge($request), $headers, $runtime));
-    }
-
-    /**
-     * Description: 查询数登申请表签章url
-     * Summary: 查询数登申请表签章url
-     * @param QueryDigitalregistrationApplyformsealurlRequest $request
-     * @return QueryDigitalregistrationApplyformsealurlResponse
-     */
-    public function queryDigitalregistrationApplyformsealurl($request){
-        $runtime = new RuntimeOptions([]);
-        $headers = [];
-        return $this->queryDigitalregistrationApplyformsealurlEx($request, $headers, $runtime);
-    }
-
-    /**
-     * Description: 查询数登申请表签章url
-     * Summary: 查询数登申请表签章url
-     * @param QueryDigitalregistrationApplyformsealurlRequest $request
-     * @param string[] $headers
-     * @param RuntimeOptions $runtime
-     * @return QueryDigitalregistrationApplyformsealurlResponse
-     */
-    public function queryDigitalregistrationApplyformsealurlEx($request, $headers, $runtime){
-        Utils::validateModel($request);
-        return QueryDigitalregistrationApplyformsealurlResponse::fromMap($this->doRequest("1.0", "blockchain.bccr.digitalregistration.applyformsealurl.query", "HTTPS", "POST", "/gateway.do", Tea::merge($request), $headers, $runtime));
-    }
-
-    /**
-     * Description: 完成数登申请表签署
-     * Summary: 完成数登申请表签署
-     * @param CompleteDigitalregistrationApplyformsealRequest $request
-     * @return CompleteDigitalregistrationApplyformsealResponse
-     */
-    public function completeDigitalregistrationApplyformseal($request){
-        $runtime = new RuntimeOptions([]);
-        $headers = [];
-        return $this->completeDigitalregistrationApplyformsealEx($request, $headers, $runtime);
-    }
-
-    /**
-     * Description: 完成数登申请表签署
-     * Summary: 完成数登申请表签署
-     * @param CompleteDigitalregistrationApplyformsealRequest $request
-     * @param string[] $headers
-     * @param RuntimeOptions $runtime
-     * @return CompleteDigitalregistrationApplyformsealResponse
-     */
-    public function completeDigitalregistrationApplyformsealEx($request, $headers, $runtime){
-        Utils::validateModel($request);
-        return CompleteDigitalregistrationApplyformsealResponse::fromMap($this->doRequest("1.0", "blockchain.bccr.digitalregistration.applyformseal.complete", "HTTPS", "POST", "/gateway.do", Tea::merge($request), $headers, $runtime));
     }
 
     /**
@@ -2827,6 +2702,131 @@ class Client {
     public function queryDciCertificateresultEx($request, $headers, $runtime){
         Utils::validateModel($request);
         return QueryDciCertificateresultResponse::fromMap($this->doRequest("1.0", "blockchain.bccr.dci.certificateresult.query", "HTTPS", "POST", "/gateway.do", Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 版权登记-数登申请-查询数登申请表
+     * Summary: 版权登记-数登申请-查询数登申请表
+     * @param QueryDigitalregistrationApplyformRequest $request
+     * @return QueryDigitalregistrationApplyformResponse
+     */
+    public function queryDigitalregistrationApplyform($request){
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+        return $this->queryDigitalregistrationApplyformEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 版权登记-数登申请-查询数登申请表
+     * Summary: 版权登记-数登申请-查询数登申请表
+     * @param QueryDigitalregistrationApplyformRequest $request
+     * @param string[] $headers
+     * @param RuntimeOptions $runtime
+     * @return QueryDigitalregistrationApplyformResponse
+     */
+    public function queryDigitalregistrationApplyformEx($request, $headers, $runtime){
+        Utils::validateModel($request);
+        return QueryDigitalregistrationApplyformResponse::fromMap($this->doRequest("1.0", "blockchain.bccr.digitalregistration.applyform.query", "HTTPS", "POST", "/gateway.do", Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 数登申请表签章静默授权查询
+     * Summary: 数登申请表签章静默授权查询
+     * @param QueryDigitalregistrationSealauthRequest $request
+     * @return QueryDigitalregistrationSealauthResponse
+     */
+    public function queryDigitalregistrationSealauth($request){
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+        return $this->queryDigitalregistrationSealauthEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 数登申请表签章静默授权查询
+     * Summary: 数登申请表签章静默授权查询
+     * @param QueryDigitalregistrationSealauthRequest $request
+     * @param string[] $headers
+     * @param RuntimeOptions $runtime
+     * @return QueryDigitalregistrationSealauthResponse
+     */
+    public function queryDigitalregistrationSealauthEx($request, $headers, $runtime){
+        Utils::validateModel($request);
+        return QueryDigitalregistrationSealauthResponse::fromMap($this->doRequest("1.0", "blockchain.bccr.digitalregistration.sealauth.query", "HTTPS", "POST", "/gateway.do", Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 数登申请表创建签署流程
+     * Summary: 数登申请表创建签署流程
+     * @param CreateDigitalregistrationApplyformsealflowRequest $request
+     * @return CreateDigitalregistrationApplyformsealflowResponse
+     */
+    public function createDigitalregistrationApplyformsealflow($request){
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+        return $this->createDigitalregistrationApplyformsealflowEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 数登申请表创建签署流程
+     * Summary: 数登申请表创建签署流程
+     * @param CreateDigitalregistrationApplyformsealflowRequest $request
+     * @param string[] $headers
+     * @param RuntimeOptions $runtime
+     * @return CreateDigitalregistrationApplyformsealflowResponse
+     */
+    public function createDigitalregistrationApplyformsealflowEx($request, $headers, $runtime){
+        Utils::validateModel($request);
+        return CreateDigitalregistrationApplyformsealflowResponse::fromMap($this->doRequest("1.0", "blockchain.bccr.digitalregistration.applyformsealflow.create", "HTTPS", "POST", "/gateway.do", Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 查询数登申请表签章url
+     * Summary: 查询数登申请表签章url
+     * @param QueryDigitalregistrationApplyformsealurlRequest $request
+     * @return QueryDigitalregistrationApplyformsealurlResponse
+     */
+    public function queryDigitalregistrationApplyformsealurl($request){
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+        return $this->queryDigitalregistrationApplyformsealurlEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 查询数登申请表签章url
+     * Summary: 查询数登申请表签章url
+     * @param QueryDigitalregistrationApplyformsealurlRequest $request
+     * @param string[] $headers
+     * @param RuntimeOptions $runtime
+     * @return QueryDigitalregistrationApplyformsealurlResponse
+     */
+    public function queryDigitalregistrationApplyformsealurlEx($request, $headers, $runtime){
+        Utils::validateModel($request);
+        return QueryDigitalregistrationApplyformsealurlResponse::fromMap($this->doRequest("1.0", "blockchain.bccr.digitalregistration.applyformsealurl.query", "HTTPS", "POST", "/gateway.do", Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 完成数登申请表签署
+     * Summary: 完成数登申请表签署
+     * @param CompleteDigitalregistrationApplyformsealRequest $request
+     * @return CompleteDigitalregistrationApplyformsealResponse
+     */
+    public function completeDigitalregistrationApplyformseal($request){
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+        return $this->completeDigitalregistrationApplyformsealEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 完成数登申请表签署
+     * Summary: 完成数登申请表签署
+     * @param CompleteDigitalregistrationApplyformsealRequest $request
+     * @param string[] $headers
+     * @param RuntimeOptions $runtime
+     * @return CompleteDigitalregistrationApplyformsealResponse
+     */
+    public function completeDigitalregistrationApplyformsealEx($request, $headers, $runtime){
+        Utils::validateModel($request);
+        return CompleteDigitalregistrationApplyformsealResponse::fromMap($this->doRequest("1.0", "blockchain.bccr.digitalregistration.applyformseal.complete", "HTTPS", "POST", "/gateway.do", Tea::merge($request), $headers, $runtime));
     }
 
     /**
