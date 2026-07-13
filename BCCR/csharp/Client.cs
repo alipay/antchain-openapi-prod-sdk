@@ -158,7 +158,7 @@ namespace AntChain.SDK.BCCR
                         {"req_msg_id", AntChain.AlipayUtil.AntchainUtils.GetNonce()},
                         {"access_key", _accessKeyId},
                         {"base_sdk_version", "TeaSDK-2.0"},
-                        {"sdk_version", "1.21.2"},
+                        {"sdk_version", "1.21.4"},
                         {"_prod_code", "BCCR"},
                         {"_prod_channel", "undefined"},
                     };
@@ -301,7 +301,7 @@ namespace AntChain.SDK.BCCR
                         {"req_msg_id", AntChain.AlipayUtil.AntchainUtils.GetNonce()},
                         {"access_key", _accessKeyId},
                         {"base_sdk_version", "TeaSDK-2.0"},
-                        {"sdk_version", "1.21.2"},
+                        {"sdk_version", "1.21.4"},
                         {"_prod_code", "BCCR"},
                         {"_prod_channel", "undefined"},
                     };
@@ -679,236 +679,6 @@ namespace AntChain.SDK.BCCR
         {
             AlibabaCloud.TeaUtil.Common.ValidateModel(request);
             return TeaModel.ToObject<CompleteapplyformsealCopyrightregistrationDigitalregistrationResponse>(await DoRequestAsync("1.0", "blockchain.bccr.copyrightregistration.digitalregistration.completeapplyformseal", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
-        }
-
-        /// <term><b>Description:</b></term>
-        /// <description>
-        /// <para>Description: 版权登记-数登申请-查询数登申请表
-        /// Summary: 版权登记-数登申请-查询数登申请表</para>
-        /// </description>
-        public QueryDigitalregistrationApplyformResponse QueryDigitalregistrationApplyform(QueryDigitalregistrationApplyformRequest request)
-        {
-            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
-            Dictionary<string, string> headers = new Dictionary<string, string>(){};
-            return QueryDigitalregistrationApplyformEx(request, headers, runtime);
-        }
-
-        /// <term><b>Description:</b></term>
-        /// <description>
-        /// <para>Description: 版权登记-数登申请-查询数登申请表
-        /// Summary: 版权登记-数登申请-查询数登申请表</para>
-        /// </description>
-        public async Task<QueryDigitalregistrationApplyformResponse> QueryDigitalregistrationApplyformAsync(QueryDigitalregistrationApplyformRequest request)
-        {
-            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
-            Dictionary<string, string> headers = new Dictionary<string, string>(){};
-            return await QueryDigitalregistrationApplyformExAsync(request, headers, runtime);
-        }
-
-        /// <term><b>Description:</b></term>
-        /// <description>
-        /// <para>Description: 版权登记-数登申请-查询数登申请表
-        /// Summary: 版权登记-数登申请-查询数登申请表</para>
-        /// </description>
-        public QueryDigitalregistrationApplyformResponse QueryDigitalregistrationApplyformEx(QueryDigitalregistrationApplyformRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
-        {
-            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
-            return TeaModel.ToObject<QueryDigitalregistrationApplyformResponse>(DoRequest("1.0", "blockchain.bccr.digitalregistration.applyform.query", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
-        }
-
-        /// <term><b>Description:</b></term>
-        /// <description>
-        /// <para>Description: 版权登记-数登申请-查询数登申请表
-        /// Summary: 版权登记-数登申请-查询数登申请表</para>
-        /// </description>
-        public async Task<QueryDigitalregistrationApplyformResponse> QueryDigitalregistrationApplyformExAsync(QueryDigitalregistrationApplyformRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
-        {
-            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
-            return TeaModel.ToObject<QueryDigitalregistrationApplyformResponse>(await DoRequestAsync("1.0", "blockchain.bccr.digitalregistration.applyform.query", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
-        }
-
-        /// <term><b>Description:</b></term>
-        /// <description>
-        /// <para>Description: 数登申请表签章静默授权查询
-        /// Summary: 数登申请表签章静默授权查询</para>
-        /// </description>
-        public QueryDigitalregistrationSealauthResponse QueryDigitalregistrationSealauth(QueryDigitalregistrationSealauthRequest request)
-        {
-            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
-            Dictionary<string, string> headers = new Dictionary<string, string>(){};
-            return QueryDigitalregistrationSealauthEx(request, headers, runtime);
-        }
-
-        /// <term><b>Description:</b></term>
-        /// <description>
-        /// <para>Description: 数登申请表签章静默授权查询
-        /// Summary: 数登申请表签章静默授权查询</para>
-        /// </description>
-        public async Task<QueryDigitalregistrationSealauthResponse> QueryDigitalregistrationSealauthAsync(QueryDigitalregistrationSealauthRequest request)
-        {
-            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
-            Dictionary<string, string> headers = new Dictionary<string, string>(){};
-            return await QueryDigitalregistrationSealauthExAsync(request, headers, runtime);
-        }
-
-        /// <term><b>Description:</b></term>
-        /// <description>
-        /// <para>Description: 数登申请表签章静默授权查询
-        /// Summary: 数登申请表签章静默授权查询</para>
-        /// </description>
-        public QueryDigitalregistrationSealauthResponse QueryDigitalregistrationSealauthEx(QueryDigitalregistrationSealauthRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
-        {
-            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
-            return TeaModel.ToObject<QueryDigitalregistrationSealauthResponse>(DoRequest("1.0", "blockchain.bccr.digitalregistration.sealauth.query", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
-        }
-
-        /// <term><b>Description:</b></term>
-        /// <description>
-        /// <para>Description: 数登申请表签章静默授权查询
-        /// Summary: 数登申请表签章静默授权查询</para>
-        /// </description>
-        public async Task<QueryDigitalregistrationSealauthResponse> QueryDigitalregistrationSealauthExAsync(QueryDigitalregistrationSealauthRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
-        {
-            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
-            return TeaModel.ToObject<QueryDigitalregistrationSealauthResponse>(await DoRequestAsync("1.0", "blockchain.bccr.digitalregistration.sealauth.query", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
-        }
-
-        /// <term><b>Description:</b></term>
-        /// <description>
-        /// <para>Description: 数登申请表创建签署流程
-        /// Summary: 数登申请表创建签署流程</para>
-        /// </description>
-        public CreateDigitalregistrationApplyformsealflowResponse CreateDigitalregistrationApplyformsealflow(CreateDigitalregistrationApplyformsealflowRequest request)
-        {
-            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
-            Dictionary<string, string> headers = new Dictionary<string, string>(){};
-            return CreateDigitalregistrationApplyformsealflowEx(request, headers, runtime);
-        }
-
-        /// <term><b>Description:</b></term>
-        /// <description>
-        /// <para>Description: 数登申请表创建签署流程
-        /// Summary: 数登申请表创建签署流程</para>
-        /// </description>
-        public async Task<CreateDigitalregistrationApplyformsealflowResponse> CreateDigitalregistrationApplyformsealflowAsync(CreateDigitalregistrationApplyformsealflowRequest request)
-        {
-            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
-            Dictionary<string, string> headers = new Dictionary<string, string>(){};
-            return await CreateDigitalregistrationApplyformsealflowExAsync(request, headers, runtime);
-        }
-
-        /// <term><b>Description:</b></term>
-        /// <description>
-        /// <para>Description: 数登申请表创建签署流程
-        /// Summary: 数登申请表创建签署流程</para>
-        /// </description>
-        public CreateDigitalregistrationApplyformsealflowResponse CreateDigitalregistrationApplyformsealflowEx(CreateDigitalregistrationApplyformsealflowRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
-        {
-            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
-            return TeaModel.ToObject<CreateDigitalregistrationApplyformsealflowResponse>(DoRequest("1.0", "blockchain.bccr.digitalregistration.applyformsealflow.create", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
-        }
-
-        /// <term><b>Description:</b></term>
-        /// <description>
-        /// <para>Description: 数登申请表创建签署流程
-        /// Summary: 数登申请表创建签署流程</para>
-        /// </description>
-        public async Task<CreateDigitalregistrationApplyformsealflowResponse> CreateDigitalregistrationApplyformsealflowExAsync(CreateDigitalregistrationApplyformsealflowRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
-        {
-            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
-            return TeaModel.ToObject<CreateDigitalregistrationApplyformsealflowResponse>(await DoRequestAsync("1.0", "blockchain.bccr.digitalregistration.applyformsealflow.create", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
-        }
-
-        /// <term><b>Description:</b></term>
-        /// <description>
-        /// <para>Description: 查询数登申请表签章url
-        /// Summary: 查询数登申请表签章url</para>
-        /// </description>
-        public QueryDigitalregistrationApplyformsealurlResponse QueryDigitalregistrationApplyformsealurl(QueryDigitalregistrationApplyformsealurlRequest request)
-        {
-            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
-            Dictionary<string, string> headers = new Dictionary<string, string>(){};
-            return QueryDigitalregistrationApplyformsealurlEx(request, headers, runtime);
-        }
-
-        /// <term><b>Description:</b></term>
-        /// <description>
-        /// <para>Description: 查询数登申请表签章url
-        /// Summary: 查询数登申请表签章url</para>
-        /// </description>
-        public async Task<QueryDigitalregistrationApplyformsealurlResponse> QueryDigitalregistrationApplyformsealurlAsync(QueryDigitalregistrationApplyformsealurlRequest request)
-        {
-            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
-            Dictionary<string, string> headers = new Dictionary<string, string>(){};
-            return await QueryDigitalregistrationApplyformsealurlExAsync(request, headers, runtime);
-        }
-
-        /// <term><b>Description:</b></term>
-        /// <description>
-        /// <para>Description: 查询数登申请表签章url
-        /// Summary: 查询数登申请表签章url</para>
-        /// </description>
-        public QueryDigitalregistrationApplyformsealurlResponse QueryDigitalregistrationApplyformsealurlEx(QueryDigitalregistrationApplyformsealurlRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
-        {
-            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
-            return TeaModel.ToObject<QueryDigitalregistrationApplyformsealurlResponse>(DoRequest("1.0", "blockchain.bccr.digitalregistration.applyformsealurl.query", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
-        }
-
-        /// <term><b>Description:</b></term>
-        /// <description>
-        /// <para>Description: 查询数登申请表签章url
-        /// Summary: 查询数登申请表签章url</para>
-        /// </description>
-        public async Task<QueryDigitalregistrationApplyformsealurlResponse> QueryDigitalregistrationApplyformsealurlExAsync(QueryDigitalregistrationApplyformsealurlRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
-        {
-            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
-            return TeaModel.ToObject<QueryDigitalregistrationApplyformsealurlResponse>(await DoRequestAsync("1.0", "blockchain.bccr.digitalregistration.applyformsealurl.query", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
-        }
-
-        /// <term><b>Description:</b></term>
-        /// <description>
-        /// <para>Description: 完成数登申请表签署
-        /// Summary: 完成数登申请表签署</para>
-        /// </description>
-        public CompleteDigitalregistrationApplyformsealResponse CompleteDigitalregistrationApplyformseal(CompleteDigitalregistrationApplyformsealRequest request)
-        {
-            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
-            Dictionary<string, string> headers = new Dictionary<string, string>(){};
-            return CompleteDigitalregistrationApplyformsealEx(request, headers, runtime);
-        }
-
-        /// <term><b>Description:</b></term>
-        /// <description>
-        /// <para>Description: 完成数登申请表签署
-        /// Summary: 完成数登申请表签署</para>
-        /// </description>
-        public async Task<CompleteDigitalregistrationApplyformsealResponse> CompleteDigitalregistrationApplyformsealAsync(CompleteDigitalregistrationApplyformsealRequest request)
-        {
-            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
-            Dictionary<string, string> headers = new Dictionary<string, string>(){};
-            return await CompleteDigitalregistrationApplyformsealExAsync(request, headers, runtime);
-        }
-
-        /// <term><b>Description:</b></term>
-        /// <description>
-        /// <para>Description: 完成数登申请表签署
-        /// Summary: 完成数登申请表签署</para>
-        /// </description>
-        public CompleteDigitalregistrationApplyformsealResponse CompleteDigitalregistrationApplyformsealEx(CompleteDigitalregistrationApplyformsealRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
-        {
-            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
-            return TeaModel.ToObject<CompleteDigitalregistrationApplyformsealResponse>(DoRequest("1.0", "blockchain.bccr.digitalregistration.applyformseal.complete", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
-        }
-
-        /// <term><b>Description:</b></term>
-        /// <description>
-        /// <para>Description: 完成数登申请表签署
-        /// Summary: 完成数登申请表签署</para>
-        /// </description>
-        public async Task<CompleteDigitalregistrationApplyformsealResponse> CompleteDigitalregistrationApplyformsealExAsync(CompleteDigitalregistrationApplyformsealRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
-        {
-            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
-            return TeaModel.ToObject<CompleteDigitalregistrationApplyformsealResponse>(await DoRequestAsync("1.0", "blockchain.bccr.digitalregistration.applyformseal.complete", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
         }
 
         /// <term><b>Description:</b></term>
@@ -4819,6 +4589,236 @@ namespace AntChain.SDK.BCCR
         {
             AlibabaCloud.TeaUtil.Common.ValidateModel(request);
             return TeaModel.ToObject<QueryDciCertificateresultResponse>(await DoRequestAsync("1.0", "blockchain.bccr.dci.certificateresult.query", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /// <term><b>Description:</b></term>
+        /// <description>
+        /// <para>Description: 版权登记-数登申请-查询数登申请表
+        /// Summary: 版权登记-数登申请-查询数登申请表</para>
+        /// </description>
+        public QueryDigitalregistrationApplyformResponse QueryDigitalregistrationApplyform(QueryDigitalregistrationApplyformRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return QueryDigitalregistrationApplyformEx(request, headers, runtime);
+        }
+
+        /// <term><b>Description:</b></term>
+        /// <description>
+        /// <para>Description: 版权登记-数登申请-查询数登申请表
+        /// Summary: 版权登记-数登申请-查询数登申请表</para>
+        /// </description>
+        public async Task<QueryDigitalregistrationApplyformResponse> QueryDigitalregistrationApplyformAsync(QueryDigitalregistrationApplyformRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return await QueryDigitalregistrationApplyformExAsync(request, headers, runtime);
+        }
+
+        /// <term><b>Description:</b></term>
+        /// <description>
+        /// <para>Description: 版权登记-数登申请-查询数登申请表
+        /// Summary: 版权登记-数登申请-查询数登申请表</para>
+        /// </description>
+        public QueryDigitalregistrationApplyformResponse QueryDigitalregistrationApplyformEx(QueryDigitalregistrationApplyformRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<QueryDigitalregistrationApplyformResponse>(DoRequest("1.0", "blockchain.bccr.digitalregistration.applyform.query", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /// <term><b>Description:</b></term>
+        /// <description>
+        /// <para>Description: 版权登记-数登申请-查询数登申请表
+        /// Summary: 版权登记-数登申请-查询数登申请表</para>
+        /// </description>
+        public async Task<QueryDigitalregistrationApplyformResponse> QueryDigitalregistrationApplyformExAsync(QueryDigitalregistrationApplyformRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<QueryDigitalregistrationApplyformResponse>(await DoRequestAsync("1.0", "blockchain.bccr.digitalregistration.applyform.query", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /// <term><b>Description:</b></term>
+        /// <description>
+        /// <para>Description: 数登申请表签章静默授权查询
+        /// Summary: 数登申请表签章静默授权查询</para>
+        /// </description>
+        public QueryDigitalregistrationSealauthResponse QueryDigitalregistrationSealauth(QueryDigitalregistrationSealauthRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return QueryDigitalregistrationSealauthEx(request, headers, runtime);
+        }
+
+        /// <term><b>Description:</b></term>
+        /// <description>
+        /// <para>Description: 数登申请表签章静默授权查询
+        /// Summary: 数登申请表签章静默授权查询</para>
+        /// </description>
+        public async Task<QueryDigitalregistrationSealauthResponse> QueryDigitalregistrationSealauthAsync(QueryDigitalregistrationSealauthRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return await QueryDigitalregistrationSealauthExAsync(request, headers, runtime);
+        }
+
+        /// <term><b>Description:</b></term>
+        /// <description>
+        /// <para>Description: 数登申请表签章静默授权查询
+        /// Summary: 数登申请表签章静默授权查询</para>
+        /// </description>
+        public QueryDigitalregistrationSealauthResponse QueryDigitalregistrationSealauthEx(QueryDigitalregistrationSealauthRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<QueryDigitalregistrationSealauthResponse>(DoRequest("1.0", "blockchain.bccr.digitalregistration.sealauth.query", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /// <term><b>Description:</b></term>
+        /// <description>
+        /// <para>Description: 数登申请表签章静默授权查询
+        /// Summary: 数登申请表签章静默授权查询</para>
+        /// </description>
+        public async Task<QueryDigitalregistrationSealauthResponse> QueryDigitalregistrationSealauthExAsync(QueryDigitalregistrationSealauthRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<QueryDigitalregistrationSealauthResponse>(await DoRequestAsync("1.0", "blockchain.bccr.digitalregistration.sealauth.query", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /// <term><b>Description:</b></term>
+        /// <description>
+        /// <para>Description: 数登申请表创建签署流程
+        /// Summary: 数登申请表创建签署流程</para>
+        /// </description>
+        public CreateDigitalregistrationApplyformsealflowResponse CreateDigitalregistrationApplyformsealflow(CreateDigitalregistrationApplyformsealflowRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return CreateDigitalregistrationApplyformsealflowEx(request, headers, runtime);
+        }
+
+        /// <term><b>Description:</b></term>
+        /// <description>
+        /// <para>Description: 数登申请表创建签署流程
+        /// Summary: 数登申请表创建签署流程</para>
+        /// </description>
+        public async Task<CreateDigitalregistrationApplyformsealflowResponse> CreateDigitalregistrationApplyformsealflowAsync(CreateDigitalregistrationApplyformsealflowRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return await CreateDigitalregistrationApplyformsealflowExAsync(request, headers, runtime);
+        }
+
+        /// <term><b>Description:</b></term>
+        /// <description>
+        /// <para>Description: 数登申请表创建签署流程
+        /// Summary: 数登申请表创建签署流程</para>
+        /// </description>
+        public CreateDigitalregistrationApplyformsealflowResponse CreateDigitalregistrationApplyformsealflowEx(CreateDigitalregistrationApplyformsealflowRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<CreateDigitalregistrationApplyformsealflowResponse>(DoRequest("1.0", "blockchain.bccr.digitalregistration.applyformsealflow.create", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /// <term><b>Description:</b></term>
+        /// <description>
+        /// <para>Description: 数登申请表创建签署流程
+        /// Summary: 数登申请表创建签署流程</para>
+        /// </description>
+        public async Task<CreateDigitalregistrationApplyformsealflowResponse> CreateDigitalregistrationApplyformsealflowExAsync(CreateDigitalregistrationApplyformsealflowRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<CreateDigitalregistrationApplyformsealflowResponse>(await DoRequestAsync("1.0", "blockchain.bccr.digitalregistration.applyformsealflow.create", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /// <term><b>Description:</b></term>
+        /// <description>
+        /// <para>Description: 查询数登申请表签章url
+        /// Summary: 查询数登申请表签章url</para>
+        /// </description>
+        public QueryDigitalregistrationApplyformsealurlResponse QueryDigitalregistrationApplyformsealurl(QueryDigitalregistrationApplyformsealurlRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return QueryDigitalregistrationApplyformsealurlEx(request, headers, runtime);
+        }
+
+        /// <term><b>Description:</b></term>
+        /// <description>
+        /// <para>Description: 查询数登申请表签章url
+        /// Summary: 查询数登申请表签章url</para>
+        /// </description>
+        public async Task<QueryDigitalregistrationApplyformsealurlResponse> QueryDigitalregistrationApplyformsealurlAsync(QueryDigitalregistrationApplyformsealurlRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return await QueryDigitalregistrationApplyformsealurlExAsync(request, headers, runtime);
+        }
+
+        /// <term><b>Description:</b></term>
+        /// <description>
+        /// <para>Description: 查询数登申请表签章url
+        /// Summary: 查询数登申请表签章url</para>
+        /// </description>
+        public QueryDigitalregistrationApplyformsealurlResponse QueryDigitalregistrationApplyformsealurlEx(QueryDigitalregistrationApplyformsealurlRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<QueryDigitalregistrationApplyformsealurlResponse>(DoRequest("1.0", "blockchain.bccr.digitalregistration.applyformsealurl.query", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /// <term><b>Description:</b></term>
+        /// <description>
+        /// <para>Description: 查询数登申请表签章url
+        /// Summary: 查询数登申请表签章url</para>
+        /// </description>
+        public async Task<QueryDigitalregistrationApplyformsealurlResponse> QueryDigitalregistrationApplyformsealurlExAsync(QueryDigitalregistrationApplyformsealurlRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<QueryDigitalregistrationApplyformsealurlResponse>(await DoRequestAsync("1.0", "blockchain.bccr.digitalregistration.applyformsealurl.query", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /// <term><b>Description:</b></term>
+        /// <description>
+        /// <para>Description: 完成数登申请表签署
+        /// Summary: 完成数登申请表签署</para>
+        /// </description>
+        public CompleteDigitalregistrationApplyformsealResponse CompleteDigitalregistrationApplyformseal(CompleteDigitalregistrationApplyformsealRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return CompleteDigitalregistrationApplyformsealEx(request, headers, runtime);
+        }
+
+        /// <term><b>Description:</b></term>
+        /// <description>
+        /// <para>Description: 完成数登申请表签署
+        /// Summary: 完成数登申请表签署</para>
+        /// </description>
+        public async Task<CompleteDigitalregistrationApplyformsealResponse> CompleteDigitalregistrationApplyformsealAsync(CompleteDigitalregistrationApplyformsealRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return await CompleteDigitalregistrationApplyformsealExAsync(request, headers, runtime);
+        }
+
+        /// <term><b>Description:</b></term>
+        /// <description>
+        /// <para>Description: 完成数登申请表签署
+        /// Summary: 完成数登申请表签署</para>
+        /// </description>
+        public CompleteDigitalregistrationApplyformsealResponse CompleteDigitalregistrationApplyformsealEx(CompleteDigitalregistrationApplyformsealRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<CompleteDigitalregistrationApplyformsealResponse>(DoRequest("1.0", "blockchain.bccr.digitalregistration.applyformseal.complete", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /// <term><b>Description:</b></term>
+        /// <description>
+        /// <para>Description: 完成数登申请表签署
+        /// Summary: 完成数登申请表签署</para>
+        /// </description>
+        public async Task<CompleteDigitalregistrationApplyformsealResponse> CompleteDigitalregistrationApplyformsealExAsync(CompleteDigitalregistrationApplyformsealRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<CompleteDigitalregistrationApplyformsealResponse>(await DoRequestAsync("1.0", "blockchain.bccr.digitalregistration.applyformseal.complete", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
         }
 
         /// <term><b>Description:</b></term>

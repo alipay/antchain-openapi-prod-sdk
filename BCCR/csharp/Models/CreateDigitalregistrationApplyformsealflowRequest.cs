@@ -28,6 +28,16 @@ namespace AntChain.SDK.BCCR.Models
         [Validation(Required=true)]
         public string ClientToken { get; set; }
 
+        // 签章经办人身份证号（数登申请人是企业的场景下必填）
+        [NameInMap("agent_cert_no")]
+        [Validation(Required=false)]
+        public string AgentCertNo { get; set; }
+
+        // 签章经办人姓名（数登申请人是企业的场景下必填）
+        [NameInMap("agent_cert_mame")]
+        [Validation(Required=false)]
+        public string AgentCertMame { get; set; }
+
     }
 
 }
