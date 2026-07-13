@@ -5809,305 +5809,6 @@ export class CompleteapplyformsealCopyrightregistrationDigitalregistrationRespon
   }
 }
 
-export class QueryDigitalregistrationApplyformRequest extends $tea.Model {
-  // OAuth模式下的授权token
-  authToken?: string;
-  productInstanceId?: string;
-  // 数登ID
-  digitalRegisterId: string;
-  static names(): { [key: string]: string } {
-    return {
-      authToken: 'auth_token',
-      productInstanceId: 'product_instance_id',
-      digitalRegisterId: 'digital_register_id',
-    };
-  }
-
-  static types(): { [key: string]: any } {
-    return {
-      authToken: 'string',
-      productInstanceId: 'string',
-      digitalRegisterId: 'string',
-    };
-  }
-
-  constructor(map?: { [key: string]: any }) {
-    super(map);
-  }
-}
-
-export class QueryDigitalregistrationApplyformResponse extends $tea.Model {
-  // 请求唯一ID，用于链路跟踪和问题排查
-  reqMsgId?: string;
-  // 结果码，一般OK表示调用成功
-  resultCode?: string;
-  // 异常信息的文本描述
-  resultMsg?: string;
-  // 数登申请表OSS下载链接
-  fileUrl?: string;
-  static names(): { [key: string]: string } {
-    return {
-      reqMsgId: 'req_msg_id',
-      resultCode: 'result_code',
-      resultMsg: 'result_msg',
-      fileUrl: 'file_url',
-    };
-  }
-
-  static types(): { [key: string]: any } {
-    return {
-      reqMsgId: 'string',
-      resultCode: 'string',
-      resultMsg: 'string',
-      fileUrl: 'string',
-    };
-  }
-
-  constructor(map?: { [key: string]: any }) {
-    super(map);
-  }
-}
-
-export class QueryDigitalregistrationSealauthRequest extends $tea.Model {
-  // OAuth模式下的授权token
-  authToken?: string;
-  productInstanceId?: string;
-  // 数登ID
-  digitalRegisterId: string;
-  static names(): { [key: string]: string } {
-    return {
-      authToken: 'auth_token',
-      productInstanceId: 'product_instance_id',
-      digitalRegisterId: 'digital_register_id',
-    };
-  }
-
-  static types(): { [key: string]: any } {
-    return {
-      authToken: 'string',
-      productInstanceId: 'string',
-      digitalRegisterId: 'string',
-    };
-  }
-
-  constructor(map?: { [key: string]: any }) {
-    super(map);
-  }
-}
-
-export class QueryDigitalregistrationSealauthResponse extends $tea.Model {
-  // 请求唯一ID，用于链路跟踪和问题排查
-  reqMsgId?: string;
-  // 结果码，一般OK表示调用成功
-  resultCode?: string;
-  // 异常信息的文本描述
-  resultMsg?: string;
-  // 是否支持静默授权
-  isAutoSeal?: boolean;
-  static names(): { [key: string]: string } {
-    return {
-      reqMsgId: 'req_msg_id',
-      resultCode: 'result_code',
-      resultMsg: 'result_msg',
-      isAutoSeal: 'is_auto_seal',
-    };
-  }
-
-  static types(): { [key: string]: any } {
-    return {
-      reqMsgId: 'string',
-      resultCode: 'string',
-      resultMsg: 'string',
-      isAutoSeal: 'boolean',
-    };
-  }
-
-  constructor(map?: { [key: string]: any }) {
-    super(map);
-  }
-}
-
-export class CreateDigitalregistrationApplyformsealflowRequest extends $tea.Model {
-  // OAuth模式下的授权token
-  authToken?: string;
-  productInstanceId?: string;
-  // 数登ID
-  digitalRegisterId: string;
-  // ewrwrwerwr
-  clientToken: string;
-  static names(): { [key: string]: string } {
-    return {
-      authToken: 'auth_token',
-      productInstanceId: 'product_instance_id',
-      digitalRegisterId: 'digital_register_id',
-      clientToken: 'client_token',
-    };
-  }
-
-  static types(): { [key: string]: any } {
-    return {
-      authToken: 'string',
-      productInstanceId: 'string',
-      digitalRegisterId: 'string',
-      clientToken: 'string',
-    };
-  }
-
-  constructor(map?: { [key: string]: any }) {
-    super(map);
-  }
-}
-
-export class CreateDigitalregistrationApplyformsealflowResponse extends $tea.Model {
-  // 请求唯一ID，用于链路跟踪和问题排查
-  reqMsgId?: string;
-  // 结果码，一般OK表示调用成功
-  resultCode?: string;
-  // 异常信息的文本描述
-  resultMsg?: string;
-  // 是否创建签署流程成功
-  completed?: boolean;
-  static names(): { [key: string]: string } {
-    return {
-      reqMsgId: 'req_msg_id',
-      resultCode: 'result_code',
-      resultMsg: 'result_msg',
-      completed: 'completed',
-    };
-  }
-
-  static types(): { [key: string]: any } {
-    return {
-      reqMsgId: 'string',
-      resultCode: 'string',
-      resultMsg: 'string',
-      completed: 'boolean',
-    };
-  }
-
-  constructor(map?: { [key: string]: any }) {
-    super(map);
-  }
-}
-
-export class QueryDigitalregistrationApplyformsealurlRequest extends $tea.Model {
-  // OAuth模式下的授权token
-  authToken?: string;
-  productInstanceId?: string;
-  // 数登ID
-  digitalRegisterId: string;
-  static names(): { [key: string]: string } {
-    return {
-      authToken: 'auth_token',
-      productInstanceId: 'product_instance_id',
-      digitalRegisterId: 'digital_register_id',
-    };
-  }
-
-  static types(): { [key: string]: any } {
-    return {
-      authToken: 'string',
-      productInstanceId: 'string',
-      digitalRegisterId: 'string',
-    };
-  }
-
-  constructor(map?: { [key: string]: any }) {
-    super(map);
-  }
-}
-
-export class QueryDigitalregistrationApplyformsealurlResponse extends $tea.Model {
-  // 请求唯一ID，用于链路跟踪和问题排查
-  reqMsgId?: string;
-  // 结果码，一般OK表示调用成功
-  resultCode?: string;
-  // 异常信息的文本描述
-  resultMsg?: string;
-  // 数登申请表签署url
-  sealUrl?: string;
-  static names(): { [key: string]: string } {
-    return {
-      reqMsgId: 'req_msg_id',
-      resultCode: 'result_code',
-      resultMsg: 'result_msg',
-      sealUrl: 'seal_url',
-    };
-  }
-
-  static types(): { [key: string]: any } {
-    return {
-      reqMsgId: 'string',
-      resultCode: 'string',
-      resultMsg: 'string',
-      sealUrl: 'string',
-    };
-  }
-
-  constructor(map?: { [key: string]: any }) {
-    super(map);
-  }
-}
-
-export class CompleteDigitalregistrationApplyformsealRequest extends $tea.Model {
-  // OAuth模式下的授权token
-  authToken?: string;
-  productInstanceId?: string;
-  // 数登申请ID
-  digitalRegisterId: string;
-  static names(): { [key: string]: string } {
-    return {
-      authToken: 'auth_token',
-      productInstanceId: 'product_instance_id',
-      digitalRegisterId: 'digital_register_id',
-    };
-  }
-
-  static types(): { [key: string]: any } {
-    return {
-      authToken: 'string',
-      productInstanceId: 'string',
-      digitalRegisterId: 'string',
-    };
-  }
-
-  constructor(map?: { [key: string]: any }) {
-    super(map);
-  }
-}
-
-export class CompleteDigitalregistrationApplyformsealResponse extends $tea.Model {
-  // 请求唯一ID，用于链路跟踪和问题排查
-  reqMsgId?: string;
-  // 结果码，一般OK表示调用成功
-  resultCode?: string;
-  // 异常信息的文本描述
-  resultMsg?: string;
-  // 是否完成签署
-  completed?: boolean;
-  static names(): { [key: string]: string } {
-    return {
-      reqMsgId: 'req_msg_id',
-      resultCode: 'result_code',
-      resultMsg: 'result_msg',
-      completed: 'completed',
-    };
-  }
-
-  static types(): { [key: string]: any } {
-    return {
-      reqMsgId: 'string',
-      resultCode: 'string',
-      resultMsg: 'string',
-      completed: 'boolean',
-    };
-  }
-
-  constructor(map?: { [key: string]: any }) {
-    super(map);
-  }
-}
-
 export class GetUploadurlRequest extends $tea.Model {
   // OAuth模式下的授权token
   authToken?: string;
@@ -13533,6 +13234,313 @@ export class QueryDciCertificateresultResponse extends $tea.Model {
   }
 }
 
+export class QueryDigitalregistrationApplyformRequest extends $tea.Model {
+  // OAuth模式下的授权token
+  authToken?: string;
+  productInstanceId?: string;
+  // 数登ID
+  digitalRegisterId: string;
+  static names(): { [key: string]: string } {
+    return {
+      authToken: 'auth_token',
+      productInstanceId: 'product_instance_id',
+      digitalRegisterId: 'digital_register_id',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      authToken: 'string',
+      productInstanceId: 'string',
+      digitalRegisterId: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class QueryDigitalregistrationApplyformResponse extends $tea.Model {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string;
+  // 结果码，一般OK表示调用成功
+  resultCode?: string;
+  // 异常信息的文本描述
+  resultMsg?: string;
+  // 数登申请表OSS下载链接
+  fileUrl?: string;
+  static names(): { [key: string]: string } {
+    return {
+      reqMsgId: 'req_msg_id',
+      resultCode: 'result_code',
+      resultMsg: 'result_msg',
+      fileUrl: 'file_url',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      reqMsgId: 'string',
+      resultCode: 'string',
+      resultMsg: 'string',
+      fileUrl: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class QueryDigitalregistrationSealauthRequest extends $tea.Model {
+  // OAuth模式下的授权token
+  authToken?: string;
+  productInstanceId?: string;
+  // 数登ID
+  digitalRegisterId: string;
+  static names(): { [key: string]: string } {
+    return {
+      authToken: 'auth_token',
+      productInstanceId: 'product_instance_id',
+      digitalRegisterId: 'digital_register_id',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      authToken: 'string',
+      productInstanceId: 'string',
+      digitalRegisterId: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class QueryDigitalregistrationSealauthResponse extends $tea.Model {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string;
+  // 结果码，一般OK表示调用成功
+  resultCode?: string;
+  // 异常信息的文本描述
+  resultMsg?: string;
+  // 是否支持静默授权
+  isAutoSeal?: boolean;
+  static names(): { [key: string]: string } {
+    return {
+      reqMsgId: 'req_msg_id',
+      resultCode: 'result_code',
+      resultMsg: 'result_msg',
+      isAutoSeal: 'is_auto_seal',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      reqMsgId: 'string',
+      resultCode: 'string',
+      resultMsg: 'string',
+      isAutoSeal: 'boolean',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class CreateDigitalregistrationApplyformsealflowRequest extends $tea.Model {
+  // OAuth模式下的授权token
+  authToken?: string;
+  productInstanceId?: string;
+  // 数登ID
+  digitalRegisterId: string;
+  // ewrwrwerwr
+  clientToken: string;
+  // 签章经办人身份证号（数登申请人是企业的场景下必填）
+  agentCertNo?: string;
+  // 签章经办人姓名（数登申请人是企业的场景下必填）
+  agentCertMame?: string;
+  static names(): { [key: string]: string } {
+    return {
+      authToken: 'auth_token',
+      productInstanceId: 'product_instance_id',
+      digitalRegisterId: 'digital_register_id',
+      clientToken: 'client_token',
+      agentCertNo: 'agent_cert_no',
+      agentCertMame: 'agent_cert_mame',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      authToken: 'string',
+      productInstanceId: 'string',
+      digitalRegisterId: 'string',
+      clientToken: 'string',
+      agentCertNo: 'string',
+      agentCertMame: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class CreateDigitalregistrationApplyformsealflowResponse extends $tea.Model {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string;
+  // 结果码，一般OK表示调用成功
+  resultCode?: string;
+  // 异常信息的文本描述
+  resultMsg?: string;
+  // 是否创建签署流程成功
+  completed?: boolean;
+  static names(): { [key: string]: string } {
+    return {
+      reqMsgId: 'req_msg_id',
+      resultCode: 'result_code',
+      resultMsg: 'result_msg',
+      completed: 'completed',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      reqMsgId: 'string',
+      resultCode: 'string',
+      resultMsg: 'string',
+      completed: 'boolean',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class QueryDigitalregistrationApplyformsealurlRequest extends $tea.Model {
+  // OAuth模式下的授权token
+  authToken?: string;
+  productInstanceId?: string;
+  // 数登ID
+  digitalRegisterId: string;
+  static names(): { [key: string]: string } {
+    return {
+      authToken: 'auth_token',
+      productInstanceId: 'product_instance_id',
+      digitalRegisterId: 'digital_register_id',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      authToken: 'string',
+      productInstanceId: 'string',
+      digitalRegisterId: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class QueryDigitalregistrationApplyformsealurlResponse extends $tea.Model {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string;
+  // 结果码，一般OK表示调用成功
+  resultCode?: string;
+  // 异常信息的文本描述
+  resultMsg?: string;
+  // 数登申请表签署url
+  sealUrl?: string;
+  static names(): { [key: string]: string } {
+    return {
+      reqMsgId: 'req_msg_id',
+      resultCode: 'result_code',
+      resultMsg: 'result_msg',
+      sealUrl: 'seal_url',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      reqMsgId: 'string',
+      resultCode: 'string',
+      resultMsg: 'string',
+      sealUrl: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class CompleteDigitalregistrationApplyformsealRequest extends $tea.Model {
+  // OAuth模式下的授权token
+  authToken?: string;
+  productInstanceId?: string;
+  // 数登申请ID
+  digitalRegisterId: string;
+  static names(): { [key: string]: string } {
+    return {
+      authToken: 'auth_token',
+      productInstanceId: 'product_instance_id',
+      digitalRegisterId: 'digital_register_id',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      authToken: 'string',
+      productInstanceId: 'string',
+      digitalRegisterId: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class CompleteDigitalregistrationApplyformsealResponse extends $tea.Model {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string;
+  // 结果码，一般OK表示调用成功
+  resultCode?: string;
+  // 异常信息的文本描述
+  resultMsg?: string;
+  // 是否完成签署
+  completed?: boolean;
+  static names(): { [key: string]: string } {
+    return {
+      reqMsgId: 'req_msg_id',
+      resultCode: 'result_code',
+      resultMsg: 'result_msg',
+      completed: 'completed',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      reqMsgId: 'string',
+      resultCode: 'string',
+      resultMsg: 'string',
+      completed: 'boolean',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
 export class AddContentRequest extends $tea.Model {
   // OAuth模式下的授权token
   authToken?: string;
@@ -14282,7 +14290,7 @@ export default class Client {
           req_msg_id: AntchainUtil.getNonce(),
           access_key: this._accessKeyId,
           base_sdk_version: "TeaSDK-2.0",
-          sdk_version: "1.21.2",
+          sdk_version: "1.21.4",
           _prod_code: "BCCR",
           _prod_channel: "undefined",
         };
@@ -14475,111 +14483,6 @@ export default class Client {
   async completeapplyformsealCopyrightregistrationDigitalregistrationEx(request: CompleteapplyformsealCopyrightregistrationDigitalregistrationRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<CompleteapplyformsealCopyrightregistrationDigitalregistrationResponse> {
     Util.validateModel(request);
     return $tea.cast<CompleteapplyformsealCopyrightregistrationDigitalregistrationResponse>(await this.doRequest("1.0", "blockchain.bccr.copyrightregistration.digitalregistration.completeapplyformseal", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new CompleteapplyformsealCopyrightregistrationDigitalregistrationResponse({}));
-  }
-
-  /**
-   * @remarks
-   * Description: 版权登记-数登申请-查询数登申请表
-   * Summary: 版权登记-数登申请-查询数登申请表
-   */
-  async queryDigitalregistrationApplyform(request: QueryDigitalregistrationApplyformRequest): Promise<QueryDigitalregistrationApplyformResponse> {
-    let runtime = new $Util.RuntimeOptions({ });
-    let headers : {[key: string ]: string} = { };
-    return await this.queryDigitalregistrationApplyformEx(request, headers, runtime);
-  }
-
-  /**
-   * @remarks
-   * Description: 版权登记-数登申请-查询数登申请表
-   * Summary: 版权登记-数登申请-查询数登申请表
-   */
-  async queryDigitalregistrationApplyformEx(request: QueryDigitalregistrationApplyformRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<QueryDigitalregistrationApplyformResponse> {
-    Util.validateModel(request);
-    return $tea.cast<QueryDigitalregistrationApplyformResponse>(await this.doRequest("1.0", "blockchain.bccr.digitalregistration.applyform.query", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new QueryDigitalregistrationApplyformResponse({}));
-  }
-
-  /**
-   * @remarks
-   * Description: 数登申请表签章静默授权查询
-   * Summary: 数登申请表签章静默授权查询
-   */
-  async queryDigitalregistrationSealauth(request: QueryDigitalregistrationSealauthRequest): Promise<QueryDigitalregistrationSealauthResponse> {
-    let runtime = new $Util.RuntimeOptions({ });
-    let headers : {[key: string ]: string} = { };
-    return await this.queryDigitalregistrationSealauthEx(request, headers, runtime);
-  }
-
-  /**
-   * @remarks
-   * Description: 数登申请表签章静默授权查询
-   * Summary: 数登申请表签章静默授权查询
-   */
-  async queryDigitalregistrationSealauthEx(request: QueryDigitalregistrationSealauthRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<QueryDigitalregistrationSealauthResponse> {
-    Util.validateModel(request);
-    return $tea.cast<QueryDigitalregistrationSealauthResponse>(await this.doRequest("1.0", "blockchain.bccr.digitalregistration.sealauth.query", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new QueryDigitalregistrationSealauthResponse({}));
-  }
-
-  /**
-   * @remarks
-   * Description: 数登申请表创建签署流程
-   * Summary: 数登申请表创建签署流程
-   */
-  async createDigitalregistrationApplyformsealflow(request: CreateDigitalregistrationApplyformsealflowRequest): Promise<CreateDigitalregistrationApplyformsealflowResponse> {
-    let runtime = new $Util.RuntimeOptions({ });
-    let headers : {[key: string ]: string} = { };
-    return await this.createDigitalregistrationApplyformsealflowEx(request, headers, runtime);
-  }
-
-  /**
-   * @remarks
-   * Description: 数登申请表创建签署流程
-   * Summary: 数登申请表创建签署流程
-   */
-  async createDigitalregistrationApplyformsealflowEx(request: CreateDigitalregistrationApplyformsealflowRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<CreateDigitalregistrationApplyformsealflowResponse> {
-    Util.validateModel(request);
-    return $tea.cast<CreateDigitalregistrationApplyformsealflowResponse>(await this.doRequest("1.0", "blockchain.bccr.digitalregistration.applyformsealflow.create", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new CreateDigitalregistrationApplyformsealflowResponse({}));
-  }
-
-  /**
-   * @remarks
-   * Description: 查询数登申请表签章url
-   * Summary: 查询数登申请表签章url
-   */
-  async queryDigitalregistrationApplyformsealurl(request: QueryDigitalregistrationApplyformsealurlRequest): Promise<QueryDigitalregistrationApplyformsealurlResponse> {
-    let runtime = new $Util.RuntimeOptions({ });
-    let headers : {[key: string ]: string} = { };
-    return await this.queryDigitalregistrationApplyformsealurlEx(request, headers, runtime);
-  }
-
-  /**
-   * @remarks
-   * Description: 查询数登申请表签章url
-   * Summary: 查询数登申请表签章url
-   */
-  async queryDigitalregistrationApplyformsealurlEx(request: QueryDigitalregistrationApplyformsealurlRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<QueryDigitalregistrationApplyformsealurlResponse> {
-    Util.validateModel(request);
-    return $tea.cast<QueryDigitalregistrationApplyformsealurlResponse>(await this.doRequest("1.0", "blockchain.bccr.digitalregistration.applyformsealurl.query", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new QueryDigitalregistrationApplyformsealurlResponse({}));
-  }
-
-  /**
-   * @remarks
-   * Description: 完成数登申请表签署
-   * Summary: 完成数登申请表签署
-   */
-  async completeDigitalregistrationApplyformseal(request: CompleteDigitalregistrationApplyformsealRequest): Promise<CompleteDigitalregistrationApplyformsealResponse> {
-    let runtime = new $Util.RuntimeOptions({ });
-    let headers : {[key: string ]: string} = { };
-    return await this.completeDigitalregistrationApplyformsealEx(request, headers, runtime);
-  }
-
-  /**
-   * @remarks
-   * Description: 完成数登申请表签署
-   * Summary: 完成数登申请表签署
-   */
-  async completeDigitalregistrationApplyformsealEx(request: CompleteDigitalregistrationApplyformsealRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<CompleteDigitalregistrationApplyformsealResponse> {
-    Util.validateModel(request);
-    return $tea.cast<CompleteDigitalregistrationApplyformsealResponse>(await this.doRequest("1.0", "blockchain.bccr.digitalregistration.applyformseal.complete", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new CompleteDigitalregistrationApplyformsealResponse({}));
   }
 
   /**
@@ -16365,6 +16268,111 @@ export default class Client {
   async queryDciCertificateresultEx(request: QueryDciCertificateresultRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<QueryDciCertificateresultResponse> {
     Util.validateModel(request);
     return $tea.cast<QueryDciCertificateresultResponse>(await this.doRequest("1.0", "blockchain.bccr.dci.certificateresult.query", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new QueryDciCertificateresultResponse({}));
+  }
+
+  /**
+   * @remarks
+   * Description: 版权登记-数登申请-查询数登申请表
+   * Summary: 版权登记-数登申请-查询数登申请表
+   */
+  async queryDigitalregistrationApplyform(request: QueryDigitalregistrationApplyformRequest): Promise<QueryDigitalregistrationApplyformResponse> {
+    let runtime = new $Util.RuntimeOptions({ });
+    let headers : {[key: string ]: string} = { };
+    return await this.queryDigitalregistrationApplyformEx(request, headers, runtime);
+  }
+
+  /**
+   * @remarks
+   * Description: 版权登记-数登申请-查询数登申请表
+   * Summary: 版权登记-数登申请-查询数登申请表
+   */
+  async queryDigitalregistrationApplyformEx(request: QueryDigitalregistrationApplyformRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<QueryDigitalregistrationApplyformResponse> {
+    Util.validateModel(request);
+    return $tea.cast<QueryDigitalregistrationApplyformResponse>(await this.doRequest("1.0", "blockchain.bccr.digitalregistration.applyform.query", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new QueryDigitalregistrationApplyformResponse({}));
+  }
+
+  /**
+   * @remarks
+   * Description: 数登申请表签章静默授权查询
+   * Summary: 数登申请表签章静默授权查询
+   */
+  async queryDigitalregistrationSealauth(request: QueryDigitalregistrationSealauthRequest): Promise<QueryDigitalregistrationSealauthResponse> {
+    let runtime = new $Util.RuntimeOptions({ });
+    let headers : {[key: string ]: string} = { };
+    return await this.queryDigitalregistrationSealauthEx(request, headers, runtime);
+  }
+
+  /**
+   * @remarks
+   * Description: 数登申请表签章静默授权查询
+   * Summary: 数登申请表签章静默授权查询
+   */
+  async queryDigitalregistrationSealauthEx(request: QueryDigitalregistrationSealauthRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<QueryDigitalregistrationSealauthResponse> {
+    Util.validateModel(request);
+    return $tea.cast<QueryDigitalregistrationSealauthResponse>(await this.doRequest("1.0", "blockchain.bccr.digitalregistration.sealauth.query", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new QueryDigitalregistrationSealauthResponse({}));
+  }
+
+  /**
+   * @remarks
+   * Description: 数登申请表创建签署流程
+   * Summary: 数登申请表创建签署流程
+   */
+  async createDigitalregistrationApplyformsealflow(request: CreateDigitalregistrationApplyformsealflowRequest): Promise<CreateDigitalregistrationApplyformsealflowResponse> {
+    let runtime = new $Util.RuntimeOptions({ });
+    let headers : {[key: string ]: string} = { };
+    return await this.createDigitalregistrationApplyformsealflowEx(request, headers, runtime);
+  }
+
+  /**
+   * @remarks
+   * Description: 数登申请表创建签署流程
+   * Summary: 数登申请表创建签署流程
+   */
+  async createDigitalregistrationApplyformsealflowEx(request: CreateDigitalregistrationApplyformsealflowRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<CreateDigitalregistrationApplyformsealflowResponse> {
+    Util.validateModel(request);
+    return $tea.cast<CreateDigitalregistrationApplyformsealflowResponse>(await this.doRequest("1.0", "blockchain.bccr.digitalregistration.applyformsealflow.create", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new CreateDigitalregistrationApplyformsealflowResponse({}));
+  }
+
+  /**
+   * @remarks
+   * Description: 查询数登申请表签章url
+   * Summary: 查询数登申请表签章url
+   */
+  async queryDigitalregistrationApplyformsealurl(request: QueryDigitalregistrationApplyformsealurlRequest): Promise<QueryDigitalregistrationApplyformsealurlResponse> {
+    let runtime = new $Util.RuntimeOptions({ });
+    let headers : {[key: string ]: string} = { };
+    return await this.queryDigitalregistrationApplyformsealurlEx(request, headers, runtime);
+  }
+
+  /**
+   * @remarks
+   * Description: 查询数登申请表签章url
+   * Summary: 查询数登申请表签章url
+   */
+  async queryDigitalregistrationApplyformsealurlEx(request: QueryDigitalregistrationApplyformsealurlRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<QueryDigitalregistrationApplyformsealurlResponse> {
+    Util.validateModel(request);
+    return $tea.cast<QueryDigitalregistrationApplyformsealurlResponse>(await this.doRequest("1.0", "blockchain.bccr.digitalregistration.applyformsealurl.query", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new QueryDigitalregistrationApplyformsealurlResponse({}));
+  }
+
+  /**
+   * @remarks
+   * Description: 完成数登申请表签署
+   * Summary: 完成数登申请表签署
+   */
+  async completeDigitalregistrationApplyformseal(request: CompleteDigitalregistrationApplyformsealRequest): Promise<CompleteDigitalregistrationApplyformsealResponse> {
+    let runtime = new $Util.RuntimeOptions({ });
+    let headers : {[key: string ]: string} = { };
+    return await this.completeDigitalregistrationApplyformsealEx(request, headers, runtime);
+  }
+
+  /**
+   * @remarks
+   * Description: 完成数登申请表签署
+   * Summary: 完成数登申请表签署
+   */
+  async completeDigitalregistrationApplyformsealEx(request: CompleteDigitalregistrationApplyformsealRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<CompleteDigitalregistrationApplyformsealResponse> {
+    Util.validateModel(request);
+    return $tea.cast<CompleteDigitalregistrationApplyformsealResponse>(await this.doRequest("1.0", "blockchain.bccr.digitalregistration.applyformseal.complete", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new CompleteDigitalregistrationApplyformsealResponse({}));
   }
 
   /**
