@@ -135,7 +135,7 @@ class Client:
                     'req_msg_id': AntchainUtils.get_nonce(),
                     'access_key': self._access_key_id,
                     'base_sdk_version': 'TeaSDK-2.0',
-                    'sdk_version': '1.21.2',
+                    'sdk_version': '1.21.4',
                     '_prod_code': 'BCCR',
                     '_prod_channel': 'undefined'
                 }
@@ -239,7 +239,7 @@ class Client:
                     'req_msg_id': AntchainUtils.get_nonce(),
                     'access_key': self._access_key_id,
                     'base_sdk_version': 'TeaSDK-2.0',
-                    'sdk_version': '1.21.2',
+                    'sdk_version': '1.21.4',
                     '_prod_code': 'BCCR',
                     '_prod_channel': 'undefined'
                 }
@@ -665,286 +665,6 @@ class Client:
         return TeaCore.from_map(
             bccr_models.CompleteapplyformsealCopyrightregistrationDigitalregistrationResponse(),
             await self.do_request_async('1.0', 'blockchain.bccr.copyrightregistration.digitalregistration.completeapplyformseal', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
-        )
-
-    def query_digitalregistration_applyform(
-        self,
-        request: bccr_models.QueryDigitalregistrationApplyformRequest,
-    ) -> bccr_models.QueryDigitalregistrationApplyformResponse:
-        """
-        Description: 版权登记-数登申请-查询数登申请表
-        Summary: 版权登记-数登申请-查询数登申请表
-        """
-        runtime = util_models.RuntimeOptions()
-        headers = {}
-        return self.query_digitalregistration_applyform_ex(request, headers, runtime)
-
-    async def query_digitalregistration_applyform_async(
-        self,
-        request: bccr_models.QueryDigitalregistrationApplyformRequest,
-    ) -> bccr_models.QueryDigitalregistrationApplyformResponse:
-        """
-        Description: 版权登记-数登申请-查询数登申请表
-        Summary: 版权登记-数登申请-查询数登申请表
-        """
-        runtime = util_models.RuntimeOptions()
-        headers = {}
-        return await self.query_digitalregistration_applyform_ex_async(request, headers, runtime)
-
-    def query_digitalregistration_applyform_ex(
-        self,
-        request: bccr_models.QueryDigitalregistrationApplyformRequest,
-        headers: Dict[str, str],
-        runtime: util_models.RuntimeOptions,
-    ) -> bccr_models.QueryDigitalregistrationApplyformResponse:
-        """
-        Description: 版权登记-数登申请-查询数登申请表
-        Summary: 版权登记-数登申请-查询数登申请表
-        """
-        UtilClient.validate_model(request)
-        return TeaCore.from_map(
-            bccr_models.QueryDigitalregistrationApplyformResponse(),
-            self.do_request('1.0', 'blockchain.bccr.digitalregistration.applyform.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
-        )
-
-    async def query_digitalregistration_applyform_ex_async(
-        self,
-        request: bccr_models.QueryDigitalregistrationApplyformRequest,
-        headers: Dict[str, str],
-        runtime: util_models.RuntimeOptions,
-    ) -> bccr_models.QueryDigitalregistrationApplyformResponse:
-        """
-        Description: 版权登记-数登申请-查询数登申请表
-        Summary: 版权登记-数登申请-查询数登申请表
-        """
-        UtilClient.validate_model(request)
-        return TeaCore.from_map(
-            bccr_models.QueryDigitalregistrationApplyformResponse(),
-            await self.do_request_async('1.0', 'blockchain.bccr.digitalregistration.applyform.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
-        )
-
-    def query_digitalregistration_sealauth(
-        self,
-        request: bccr_models.QueryDigitalregistrationSealauthRequest,
-    ) -> bccr_models.QueryDigitalregistrationSealauthResponse:
-        """
-        Description: 数登申请表签章静默授权查询
-        Summary: 数登申请表签章静默授权查询
-        """
-        runtime = util_models.RuntimeOptions()
-        headers = {}
-        return self.query_digitalregistration_sealauth_ex(request, headers, runtime)
-
-    async def query_digitalregistration_sealauth_async(
-        self,
-        request: bccr_models.QueryDigitalregistrationSealauthRequest,
-    ) -> bccr_models.QueryDigitalregistrationSealauthResponse:
-        """
-        Description: 数登申请表签章静默授权查询
-        Summary: 数登申请表签章静默授权查询
-        """
-        runtime = util_models.RuntimeOptions()
-        headers = {}
-        return await self.query_digitalregistration_sealauth_ex_async(request, headers, runtime)
-
-    def query_digitalregistration_sealauth_ex(
-        self,
-        request: bccr_models.QueryDigitalregistrationSealauthRequest,
-        headers: Dict[str, str],
-        runtime: util_models.RuntimeOptions,
-    ) -> bccr_models.QueryDigitalregistrationSealauthResponse:
-        """
-        Description: 数登申请表签章静默授权查询
-        Summary: 数登申请表签章静默授权查询
-        """
-        UtilClient.validate_model(request)
-        return TeaCore.from_map(
-            bccr_models.QueryDigitalregistrationSealauthResponse(),
-            self.do_request('1.0', 'blockchain.bccr.digitalregistration.sealauth.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
-        )
-
-    async def query_digitalregistration_sealauth_ex_async(
-        self,
-        request: bccr_models.QueryDigitalregistrationSealauthRequest,
-        headers: Dict[str, str],
-        runtime: util_models.RuntimeOptions,
-    ) -> bccr_models.QueryDigitalregistrationSealauthResponse:
-        """
-        Description: 数登申请表签章静默授权查询
-        Summary: 数登申请表签章静默授权查询
-        """
-        UtilClient.validate_model(request)
-        return TeaCore.from_map(
-            bccr_models.QueryDigitalregistrationSealauthResponse(),
-            await self.do_request_async('1.0', 'blockchain.bccr.digitalregistration.sealauth.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
-        )
-
-    def create_digitalregistration_applyformsealflow(
-        self,
-        request: bccr_models.CreateDigitalregistrationApplyformsealflowRequest,
-    ) -> bccr_models.CreateDigitalregistrationApplyformsealflowResponse:
-        """
-        Description: 数登申请表创建签署流程
-        Summary: 数登申请表创建签署流程
-        """
-        runtime = util_models.RuntimeOptions()
-        headers = {}
-        return self.create_digitalregistration_applyformsealflow_ex(request, headers, runtime)
-
-    async def create_digitalregistration_applyformsealflow_async(
-        self,
-        request: bccr_models.CreateDigitalregistrationApplyformsealflowRequest,
-    ) -> bccr_models.CreateDigitalregistrationApplyformsealflowResponse:
-        """
-        Description: 数登申请表创建签署流程
-        Summary: 数登申请表创建签署流程
-        """
-        runtime = util_models.RuntimeOptions()
-        headers = {}
-        return await self.create_digitalregistration_applyformsealflow_ex_async(request, headers, runtime)
-
-    def create_digitalregistration_applyformsealflow_ex(
-        self,
-        request: bccr_models.CreateDigitalregistrationApplyformsealflowRequest,
-        headers: Dict[str, str],
-        runtime: util_models.RuntimeOptions,
-    ) -> bccr_models.CreateDigitalregistrationApplyformsealflowResponse:
-        """
-        Description: 数登申请表创建签署流程
-        Summary: 数登申请表创建签署流程
-        """
-        UtilClient.validate_model(request)
-        return TeaCore.from_map(
-            bccr_models.CreateDigitalregistrationApplyformsealflowResponse(),
-            self.do_request('1.0', 'blockchain.bccr.digitalregistration.applyformsealflow.create', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
-        )
-
-    async def create_digitalregistration_applyformsealflow_ex_async(
-        self,
-        request: bccr_models.CreateDigitalregistrationApplyformsealflowRequest,
-        headers: Dict[str, str],
-        runtime: util_models.RuntimeOptions,
-    ) -> bccr_models.CreateDigitalregistrationApplyformsealflowResponse:
-        """
-        Description: 数登申请表创建签署流程
-        Summary: 数登申请表创建签署流程
-        """
-        UtilClient.validate_model(request)
-        return TeaCore.from_map(
-            bccr_models.CreateDigitalregistrationApplyformsealflowResponse(),
-            await self.do_request_async('1.0', 'blockchain.bccr.digitalregistration.applyformsealflow.create', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
-        )
-
-    def query_digitalregistration_applyformsealurl(
-        self,
-        request: bccr_models.QueryDigitalregistrationApplyformsealurlRequest,
-    ) -> bccr_models.QueryDigitalregistrationApplyformsealurlResponse:
-        """
-        Description: 查询数登申请表签章url
-        Summary: 查询数登申请表签章url
-        """
-        runtime = util_models.RuntimeOptions()
-        headers = {}
-        return self.query_digitalregistration_applyformsealurl_ex(request, headers, runtime)
-
-    async def query_digitalregistration_applyformsealurl_async(
-        self,
-        request: bccr_models.QueryDigitalregistrationApplyformsealurlRequest,
-    ) -> bccr_models.QueryDigitalregistrationApplyformsealurlResponse:
-        """
-        Description: 查询数登申请表签章url
-        Summary: 查询数登申请表签章url
-        """
-        runtime = util_models.RuntimeOptions()
-        headers = {}
-        return await self.query_digitalregistration_applyformsealurl_ex_async(request, headers, runtime)
-
-    def query_digitalregistration_applyformsealurl_ex(
-        self,
-        request: bccr_models.QueryDigitalregistrationApplyformsealurlRequest,
-        headers: Dict[str, str],
-        runtime: util_models.RuntimeOptions,
-    ) -> bccr_models.QueryDigitalregistrationApplyformsealurlResponse:
-        """
-        Description: 查询数登申请表签章url
-        Summary: 查询数登申请表签章url
-        """
-        UtilClient.validate_model(request)
-        return TeaCore.from_map(
-            bccr_models.QueryDigitalregistrationApplyformsealurlResponse(),
-            self.do_request('1.0', 'blockchain.bccr.digitalregistration.applyformsealurl.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
-        )
-
-    async def query_digitalregistration_applyformsealurl_ex_async(
-        self,
-        request: bccr_models.QueryDigitalregistrationApplyformsealurlRequest,
-        headers: Dict[str, str],
-        runtime: util_models.RuntimeOptions,
-    ) -> bccr_models.QueryDigitalregistrationApplyformsealurlResponse:
-        """
-        Description: 查询数登申请表签章url
-        Summary: 查询数登申请表签章url
-        """
-        UtilClient.validate_model(request)
-        return TeaCore.from_map(
-            bccr_models.QueryDigitalregistrationApplyformsealurlResponse(),
-            await self.do_request_async('1.0', 'blockchain.bccr.digitalregistration.applyformsealurl.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
-        )
-
-    def complete_digitalregistration_applyformseal(
-        self,
-        request: bccr_models.CompleteDigitalregistrationApplyformsealRequest,
-    ) -> bccr_models.CompleteDigitalregistrationApplyformsealResponse:
-        """
-        Description: 完成数登申请表签署
-        Summary: 完成数登申请表签署
-        """
-        runtime = util_models.RuntimeOptions()
-        headers = {}
-        return self.complete_digitalregistration_applyformseal_ex(request, headers, runtime)
-
-    async def complete_digitalregistration_applyformseal_async(
-        self,
-        request: bccr_models.CompleteDigitalregistrationApplyformsealRequest,
-    ) -> bccr_models.CompleteDigitalregistrationApplyformsealResponse:
-        """
-        Description: 完成数登申请表签署
-        Summary: 完成数登申请表签署
-        """
-        runtime = util_models.RuntimeOptions()
-        headers = {}
-        return await self.complete_digitalregistration_applyformseal_ex_async(request, headers, runtime)
-
-    def complete_digitalregistration_applyformseal_ex(
-        self,
-        request: bccr_models.CompleteDigitalregistrationApplyformsealRequest,
-        headers: Dict[str, str],
-        runtime: util_models.RuntimeOptions,
-    ) -> bccr_models.CompleteDigitalregistrationApplyformsealResponse:
-        """
-        Description: 完成数登申请表签署
-        Summary: 完成数登申请表签署
-        """
-        UtilClient.validate_model(request)
-        return TeaCore.from_map(
-            bccr_models.CompleteDigitalregistrationApplyformsealResponse(),
-            self.do_request('1.0', 'blockchain.bccr.digitalregistration.applyformseal.complete', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
-        )
-
-    async def complete_digitalregistration_applyformseal_ex_async(
-        self,
-        request: bccr_models.CompleteDigitalregistrationApplyformsealRequest,
-        headers: Dict[str, str],
-        runtime: util_models.RuntimeOptions,
-    ) -> bccr_models.CompleteDigitalregistrationApplyformsealResponse:
-        """
-        Description: 完成数登申请表签署
-        Summary: 完成数登申请表签署
-        """
-        UtilClient.validate_model(request)
-        return TeaCore.from_map(
-            bccr_models.CompleteDigitalregistrationApplyformsealResponse(),
-            await self.do_request_async('1.0', 'blockchain.bccr.digitalregistration.applyformseal.complete', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
     def get_uploadurl(
@@ -5705,6 +5425,286 @@ class Client:
         return TeaCore.from_map(
             bccr_models.QueryDciCertificateresultResponse(),
             await self.do_request_async('1.0', 'blockchain.bccr.dci.certificateresult.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def query_digitalregistration_applyform(
+        self,
+        request: bccr_models.QueryDigitalregistrationApplyformRequest,
+    ) -> bccr_models.QueryDigitalregistrationApplyformResponse:
+        """
+        Description: 版权登记-数登申请-查询数登申请表
+        Summary: 版权登记-数登申请-查询数登申请表
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.query_digitalregistration_applyform_ex(request, headers, runtime)
+
+    async def query_digitalregistration_applyform_async(
+        self,
+        request: bccr_models.QueryDigitalregistrationApplyformRequest,
+    ) -> bccr_models.QueryDigitalregistrationApplyformResponse:
+        """
+        Description: 版权登记-数登申请-查询数登申请表
+        Summary: 版权登记-数登申请-查询数登申请表
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.query_digitalregistration_applyform_ex_async(request, headers, runtime)
+
+    def query_digitalregistration_applyform_ex(
+        self,
+        request: bccr_models.QueryDigitalregistrationApplyformRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> bccr_models.QueryDigitalregistrationApplyformResponse:
+        """
+        Description: 版权登记-数登申请-查询数登申请表
+        Summary: 版权登记-数登申请-查询数登申请表
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            bccr_models.QueryDigitalregistrationApplyformResponse(),
+            self.do_request('1.0', 'blockchain.bccr.digitalregistration.applyform.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def query_digitalregistration_applyform_ex_async(
+        self,
+        request: bccr_models.QueryDigitalregistrationApplyformRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> bccr_models.QueryDigitalregistrationApplyformResponse:
+        """
+        Description: 版权登记-数登申请-查询数登申请表
+        Summary: 版权登记-数登申请-查询数登申请表
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            bccr_models.QueryDigitalregistrationApplyformResponse(),
+            await self.do_request_async('1.0', 'blockchain.bccr.digitalregistration.applyform.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def query_digitalregistration_sealauth(
+        self,
+        request: bccr_models.QueryDigitalregistrationSealauthRequest,
+    ) -> bccr_models.QueryDigitalregistrationSealauthResponse:
+        """
+        Description: 数登申请表签章静默授权查询
+        Summary: 数登申请表签章静默授权查询
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.query_digitalregistration_sealauth_ex(request, headers, runtime)
+
+    async def query_digitalregistration_sealauth_async(
+        self,
+        request: bccr_models.QueryDigitalregistrationSealauthRequest,
+    ) -> bccr_models.QueryDigitalregistrationSealauthResponse:
+        """
+        Description: 数登申请表签章静默授权查询
+        Summary: 数登申请表签章静默授权查询
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.query_digitalregistration_sealauth_ex_async(request, headers, runtime)
+
+    def query_digitalregistration_sealauth_ex(
+        self,
+        request: bccr_models.QueryDigitalregistrationSealauthRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> bccr_models.QueryDigitalregistrationSealauthResponse:
+        """
+        Description: 数登申请表签章静默授权查询
+        Summary: 数登申请表签章静默授权查询
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            bccr_models.QueryDigitalregistrationSealauthResponse(),
+            self.do_request('1.0', 'blockchain.bccr.digitalregistration.sealauth.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def query_digitalregistration_sealauth_ex_async(
+        self,
+        request: bccr_models.QueryDigitalregistrationSealauthRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> bccr_models.QueryDigitalregistrationSealauthResponse:
+        """
+        Description: 数登申请表签章静默授权查询
+        Summary: 数登申请表签章静默授权查询
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            bccr_models.QueryDigitalregistrationSealauthResponse(),
+            await self.do_request_async('1.0', 'blockchain.bccr.digitalregistration.sealauth.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def create_digitalregistration_applyformsealflow(
+        self,
+        request: bccr_models.CreateDigitalregistrationApplyformsealflowRequest,
+    ) -> bccr_models.CreateDigitalregistrationApplyformsealflowResponse:
+        """
+        Description: 数登申请表创建签署流程
+        Summary: 数登申请表创建签署流程
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.create_digitalregistration_applyformsealflow_ex(request, headers, runtime)
+
+    async def create_digitalregistration_applyformsealflow_async(
+        self,
+        request: bccr_models.CreateDigitalregistrationApplyformsealflowRequest,
+    ) -> bccr_models.CreateDigitalregistrationApplyformsealflowResponse:
+        """
+        Description: 数登申请表创建签署流程
+        Summary: 数登申请表创建签署流程
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.create_digitalregistration_applyformsealflow_ex_async(request, headers, runtime)
+
+    def create_digitalregistration_applyformsealflow_ex(
+        self,
+        request: bccr_models.CreateDigitalregistrationApplyformsealflowRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> bccr_models.CreateDigitalregistrationApplyformsealflowResponse:
+        """
+        Description: 数登申请表创建签署流程
+        Summary: 数登申请表创建签署流程
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            bccr_models.CreateDigitalregistrationApplyformsealflowResponse(),
+            self.do_request('1.0', 'blockchain.bccr.digitalregistration.applyformsealflow.create', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def create_digitalregistration_applyformsealflow_ex_async(
+        self,
+        request: bccr_models.CreateDigitalregistrationApplyformsealflowRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> bccr_models.CreateDigitalregistrationApplyformsealflowResponse:
+        """
+        Description: 数登申请表创建签署流程
+        Summary: 数登申请表创建签署流程
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            bccr_models.CreateDigitalregistrationApplyformsealflowResponse(),
+            await self.do_request_async('1.0', 'blockchain.bccr.digitalregistration.applyformsealflow.create', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def query_digitalregistration_applyformsealurl(
+        self,
+        request: bccr_models.QueryDigitalregistrationApplyformsealurlRequest,
+    ) -> bccr_models.QueryDigitalregistrationApplyformsealurlResponse:
+        """
+        Description: 查询数登申请表签章url
+        Summary: 查询数登申请表签章url
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.query_digitalregistration_applyformsealurl_ex(request, headers, runtime)
+
+    async def query_digitalregistration_applyformsealurl_async(
+        self,
+        request: bccr_models.QueryDigitalregistrationApplyformsealurlRequest,
+    ) -> bccr_models.QueryDigitalregistrationApplyformsealurlResponse:
+        """
+        Description: 查询数登申请表签章url
+        Summary: 查询数登申请表签章url
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.query_digitalregistration_applyformsealurl_ex_async(request, headers, runtime)
+
+    def query_digitalregistration_applyformsealurl_ex(
+        self,
+        request: bccr_models.QueryDigitalregistrationApplyformsealurlRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> bccr_models.QueryDigitalregistrationApplyformsealurlResponse:
+        """
+        Description: 查询数登申请表签章url
+        Summary: 查询数登申请表签章url
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            bccr_models.QueryDigitalregistrationApplyformsealurlResponse(),
+            self.do_request('1.0', 'blockchain.bccr.digitalregistration.applyformsealurl.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def query_digitalregistration_applyformsealurl_ex_async(
+        self,
+        request: bccr_models.QueryDigitalregistrationApplyformsealurlRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> bccr_models.QueryDigitalregistrationApplyformsealurlResponse:
+        """
+        Description: 查询数登申请表签章url
+        Summary: 查询数登申请表签章url
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            bccr_models.QueryDigitalregistrationApplyformsealurlResponse(),
+            await self.do_request_async('1.0', 'blockchain.bccr.digitalregistration.applyformsealurl.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def complete_digitalregistration_applyformseal(
+        self,
+        request: bccr_models.CompleteDigitalregistrationApplyformsealRequest,
+    ) -> bccr_models.CompleteDigitalregistrationApplyformsealResponse:
+        """
+        Description: 完成数登申请表签署
+        Summary: 完成数登申请表签署
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.complete_digitalregistration_applyformseal_ex(request, headers, runtime)
+
+    async def complete_digitalregistration_applyformseal_async(
+        self,
+        request: bccr_models.CompleteDigitalregistrationApplyformsealRequest,
+    ) -> bccr_models.CompleteDigitalregistrationApplyformsealResponse:
+        """
+        Description: 完成数登申请表签署
+        Summary: 完成数登申请表签署
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.complete_digitalregistration_applyformseal_ex_async(request, headers, runtime)
+
+    def complete_digitalregistration_applyformseal_ex(
+        self,
+        request: bccr_models.CompleteDigitalregistrationApplyformsealRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> bccr_models.CompleteDigitalregistrationApplyformsealResponse:
+        """
+        Description: 完成数登申请表签署
+        Summary: 完成数登申请表签署
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            bccr_models.CompleteDigitalregistrationApplyformsealResponse(),
+            self.do_request('1.0', 'blockchain.bccr.digitalregistration.applyformseal.complete', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def complete_digitalregistration_applyformseal_ex_async(
+        self,
+        request: bccr_models.CompleteDigitalregistrationApplyformsealRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> bccr_models.CompleteDigitalregistrationApplyformsealResponse:
+        """
+        Description: 完成数登申请表签署
+        Summary: 完成数登申请表签署
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            bccr_models.CompleteDigitalregistrationApplyformsealResponse(),
+            await self.do_request_async('1.0', 'blockchain.bccr.digitalregistration.applyformseal.complete', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
     def add_content(
