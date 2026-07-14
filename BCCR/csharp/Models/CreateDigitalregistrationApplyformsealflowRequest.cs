@@ -34,9 +34,9 @@ namespace AntChain.SDK.BCCR.Models
         public string AgentCertNo { get; set; }
 
         // 签章经办人姓名（数登申请人是企业的场景下必填）
-        [NameInMap("agent_cert_mame")]
+        [NameInMap("agent_cert_name")]
         [Validation(Required=false)]
-        public string AgentCertMame { get; set; }
+        public string AgentCertName { get; set; }
 
     }
 
