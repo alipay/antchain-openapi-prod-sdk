@@ -1,98 +1,23 @@
 <?php
 
 // This file is auto-generated, don't edit it. Thanks.
-
 namespace AntChain\STLR\Models;
 
 use AlibabaCloud\Tea\Model;
 
-class EmissionsCityStatistics extends Model
-{
-    // 城市编码
-    /**
-     * @example 637401
-     *
-     * @var string
-     */
-    public $cityNo;
-
-    // 城市名称
-    /**
-     * @example 南充市
-     *
-     * @var string
-     */
-    public $cityName;
-
-    // 累计排放量
-    /**
-     * @example 222.22
-     *
-     * @var string
-     */
-    public $emissionAmount;
-
-    // 今日新增碳排放量
-    /**
-     * @example 22.22
-     *
-     * @var string
-     */
-    public $emissionAmountToday;
-
-    // 总减碳量
-    /**
-     * @example 21.11
-     *
-     * @var string
-     */
-    public $reductionAmount;
-
-    // 今日减碳量
-    /**
-     * @example 9.11
-     *
-     * @var string
-     */
-    public $reductionAmountToday;
-
-    // 总抵消量
-    /**
-     * @example 9.11
-     *
-     * @var string
-     */
-    public $counteractionAmount;
-
-    // 今日抵消量
-    /**
-     * @example 2.11
-     *
-     * @var string
-     */
-    public $counteractionAmountToday;
-
-    // 排放量单位，默认为：
-    /**
-     * @example tCO2e
-     *
-     * @var string
-     */
-    public $dataUnit;
+class EmissionsCityStatistics extends Model {
     protected $_name = [
-        'cityNo'                   => 'city_no',
-        'cityName'                 => 'city_name',
-        'emissionAmount'           => 'emission_amount',
-        'emissionAmountToday'      => 'emission_amount_today',
-        'reductionAmount'          => 'reduction_amount',
-        'reductionAmountToday'     => 'reduction_amount_today',
-        'counteractionAmount'      => 'counteraction_amount',
+        'cityNo' => 'city_no',
+        'cityName' => 'city_name',
+        'emissionAmount' => 'emission_amount',
+        'emissionAmountToday' => 'emission_amount_today',
+        'reductionAmount' => 'reduction_amount',
+        'reductionAmountToday' => 'reduction_amount_today',
+        'counteractionAmount' => 'counteraction_amount',
         'counteractionAmountToday' => 'counteraction_amount_today',
-        'dataUnit'                 => 'data_unit',
+        'dataUnit' => 'data_unit',
     ];
-
-    public function validate()
-    {
+    public function validate() {
         Model::validateRequired('cityNo', $this->cityNo, true);
         Model::validateRequired('cityName', $this->cityName, true);
         Model::validateRequired('emissionAmount', $this->emissionAmount, true);
@@ -103,9 +28,7 @@ class EmissionsCityStatistics extends Model
         Model::validateRequired('counteractionAmountToday', $this->counteractionAmountToday, true);
         Model::validateRequired('dataUnit', $this->dataUnit, true);
     }
-
-    public function toMap()
-    {
+    public function toMap() {
         $res = [];
         if (null !== $this->cityNo) {
             $res['city_no'] = $this->cityNo;
@@ -134,46 +57,104 @@ class EmissionsCityStatistics extends Model
         if (null !== $this->dataUnit) {
             $res['data_unit'] = $this->dataUnit;
         }
-
         return $res;
     }
-
     /**
      * @param array $map
-     *
      * @return EmissionsCityStatistics
      */
-    public static function fromMap($map = [])
-    {
+    public static function fromMap($map = []) {
         $model = new self();
-        if (isset($map['city_no'])) {
+        if(isset($map['city_no'])){
             $model->cityNo = $map['city_no'];
         }
-        if (isset($map['city_name'])) {
+        if(isset($map['city_name'])){
             $model->cityName = $map['city_name'];
         }
-        if (isset($map['emission_amount'])) {
+        if(isset($map['emission_amount'])){
             $model->emissionAmount = $map['emission_amount'];
         }
-        if (isset($map['emission_amount_today'])) {
+        if(isset($map['emission_amount_today'])){
             $model->emissionAmountToday = $map['emission_amount_today'];
         }
-        if (isset($map['reduction_amount'])) {
+        if(isset($map['reduction_amount'])){
             $model->reductionAmount = $map['reduction_amount'];
         }
-        if (isset($map['reduction_amount_today'])) {
+        if(isset($map['reduction_amount_today'])){
             $model->reductionAmountToday = $map['reduction_amount_today'];
         }
-        if (isset($map['counteraction_amount'])) {
+        if(isset($map['counteraction_amount'])){
             $model->counteractionAmount = $map['counteraction_amount'];
         }
-        if (isset($map['counteraction_amount_today'])) {
+        if(isset($map['counteraction_amount_today'])){
             $model->counteractionAmountToday = $map['counteraction_amount_today'];
         }
-        if (isset($map['data_unit'])) {
+        if(isset($map['data_unit'])){
             $model->dataUnit = $map['data_unit'];
         }
-
         return $model;
     }
+    // 城市编码
+    /**
+     * @example 637401
+     * @var string
+     */
+    public $cityNo;
+
+    // 城市名称
+    /**
+     * @example 南充市
+     * @var string
+     */
+    public $cityName;
+
+    // 累计排放量
+    /**
+     * @example 222.22
+     * @var string
+     */
+    public $emissionAmount;
+
+    // 今日新增碳排放量
+    /**
+     * @example 22.22
+     * @var string
+     */
+    public $emissionAmountToday;
+
+    // 总减碳量
+    /**
+     * @example 21.11
+     * @var string
+     */
+    public $reductionAmount;
+
+    // 今日减碳量
+    /**
+     * @example 9.11
+     * @var string
+     */
+    public $reductionAmountToday;
+
+    // 总抵消量
+    /**
+     * @example 9.11
+     * @var string
+     */
+    public $counteractionAmount;
+
+    // 今日抵消量
+    /**
+     * @example 2.11
+     * @var string
+     */
+    public $counteractionAmountToday;
+
+    // 排放量单位，默认为：
+    /**
+     * @example tCO2e
+     * @var string
+     */
+    public $dataUnit;
+
 }

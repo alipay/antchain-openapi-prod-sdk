@@ -1,13 +1,75 @@
 <?php
 
 // This file is auto-generated, don't edit it. Thanks.
-
 namespace AntChain\STLR\Models;
 
 use AlibabaCloud\Tea\Model;
 
-class SubmitEcarLcaorderwithcustomerResponse extends Model
-{
+class SubmitEcarLcaorderwithcustomerResponse extends Model {
+    protected $_name = [
+        'reqMsgId' => 'req_msg_id',
+        'resultCode' => 'result_code',
+        'resultMsg' => 'result_msg',
+        'orderNo' => 'order_no',
+        'sourceOrderNo' => 'source_order_no',
+        'carbonAccountNo' => 'carbon_account_no',
+        'orderStatus' => 'order_status',
+    ];
+    public function validate() {}
+    public function toMap() {
+        $res = [];
+        if (null !== $this->reqMsgId) {
+            $res['req_msg_id'] = $this->reqMsgId;
+        }
+        if (null !== $this->resultCode) {
+            $res['result_code'] = $this->resultCode;
+        }
+        if (null !== $this->resultMsg) {
+            $res['result_msg'] = $this->resultMsg;
+        }
+        if (null !== $this->orderNo) {
+            $res['order_no'] = $this->orderNo;
+        }
+        if (null !== $this->sourceOrderNo) {
+            $res['source_order_no'] = $this->sourceOrderNo;
+        }
+        if (null !== $this->carbonAccountNo) {
+            $res['carbon_account_no'] = $this->carbonAccountNo;
+        }
+        if (null !== $this->orderStatus) {
+            $res['order_status'] = $this->orderStatus;
+        }
+        return $res;
+    }
+    /**
+     * @param array $map
+     * @return SubmitEcarLcaorderwithcustomerResponse
+     */
+    public static function fromMap($map = []) {
+        $model = new self();
+        if(isset($map['req_msg_id'])){
+            $model->reqMsgId = $map['req_msg_id'];
+        }
+        if(isset($map['result_code'])){
+            $model->resultCode = $map['result_code'];
+        }
+        if(isset($map['result_msg'])){
+            $model->resultMsg = $map['result_msg'];
+        }
+        if(isset($map['order_no'])){
+            $model->orderNo = $map['order_no'];
+        }
+        if(isset($map['source_order_no'])){
+            $model->sourceOrderNo = $map['source_order_no'];
+        }
+        if(isset($map['carbon_account_no'])){
+            $model->carbonAccountNo = $map['carbon_account_no'];
+        }
+        if(isset($map['order_status'])){
+            $model->orderStatus = $map['order_status'];
+        }
+        return $model;
+    }
     // 请求唯一ID，用于链路跟踪和问题排查
     /**
      * @var string
@@ -49,78 +111,5 @@ class SubmitEcarLcaorderwithcustomerResponse extends Model
      * @var string
      */
     public $orderStatus;
-    protected $_name = [
-        'reqMsgId'        => 'req_msg_id',
-        'resultCode'      => 'result_code',
-        'resultMsg'       => 'result_msg',
-        'orderNo'         => 'order_no',
-        'sourceOrderNo'   => 'source_order_no',
-        'carbonAccountNo' => 'carbon_account_no',
-        'orderStatus'     => 'order_status',
-    ];
 
-    public function validate()
-    {
-    }
-
-    public function toMap()
-    {
-        $res = [];
-        if (null !== $this->reqMsgId) {
-            $res['req_msg_id'] = $this->reqMsgId;
-        }
-        if (null !== $this->resultCode) {
-            $res['result_code'] = $this->resultCode;
-        }
-        if (null !== $this->resultMsg) {
-            $res['result_msg'] = $this->resultMsg;
-        }
-        if (null !== $this->orderNo) {
-            $res['order_no'] = $this->orderNo;
-        }
-        if (null !== $this->sourceOrderNo) {
-            $res['source_order_no'] = $this->sourceOrderNo;
-        }
-        if (null !== $this->carbonAccountNo) {
-            $res['carbon_account_no'] = $this->carbonAccountNo;
-        }
-        if (null !== $this->orderStatus) {
-            $res['order_status'] = $this->orderStatus;
-        }
-
-        return $res;
-    }
-
-    /**
-     * @param array $map
-     *
-     * @return SubmitEcarLcaorderwithcustomerResponse
-     */
-    public static function fromMap($map = [])
-    {
-        $model = new self();
-        if (isset($map['req_msg_id'])) {
-            $model->reqMsgId = $map['req_msg_id'];
-        }
-        if (isset($map['result_code'])) {
-            $model->resultCode = $map['result_code'];
-        }
-        if (isset($map['result_msg'])) {
-            $model->resultMsg = $map['result_msg'];
-        }
-        if (isset($map['order_no'])) {
-            $model->orderNo = $map['order_no'];
-        }
-        if (isset($map['source_order_no'])) {
-            $model->sourceOrderNo = $map['source_order_no'];
-        }
-        if (isset($map['carbon_account_no'])) {
-            $model->carbonAccountNo = $map['carbon_account_no'];
-        }
-        if (isset($map['order_status'])) {
-            $model->orderStatus = $map['order_status'];
-        }
-
-        return $model;
-    }
 }

@@ -1,13 +1,103 @@
 <?php
 
 // This file is auto-generated, don't edit it. Thanks.
-
 namespace AntChain\STLR\Models;
 
 use AlibabaCloud\Tea\Model;
 
-class QueryEcarLcacalcResponse extends Model
-{
+use AntChain\STLR\Models\LcaCalcResult;
+
+class QueryEcarLcacalcResponse extends Model {
+    protected $_name = [
+        'reqMsgId' => 'req_msg_id',
+        'resultCode' => 'result_code',
+        'resultMsg' => 'result_msg',
+        'current' => 'current',
+        'pageSize' => 'page_size',
+        'total' => 'total',
+        'startDate' => 'start_date',
+        'endDate' => 'end_date',
+        'list' => 'list',
+    ];
+    public function validate() {}
+    public function toMap() {
+        $res = [];
+        if (null !== $this->reqMsgId) {
+            $res['req_msg_id'] = $this->reqMsgId;
+        }
+        if (null !== $this->resultCode) {
+            $res['result_code'] = $this->resultCode;
+        }
+        if (null !== $this->resultMsg) {
+            $res['result_msg'] = $this->resultMsg;
+        }
+        if (null !== $this->current) {
+            $res['current'] = $this->current;
+        }
+        if (null !== $this->pageSize) {
+            $res['page_size'] = $this->pageSize;
+        }
+        if (null !== $this->total) {
+            $res['total'] = $this->total;
+        }
+        if (null !== $this->startDate) {
+            $res['start_date'] = $this->startDate;
+        }
+        if (null !== $this->endDate) {
+            $res['end_date'] = $this->endDate;
+        }
+        if (null !== $this->list) {
+            $res['list'] = [];
+            if(null !== $this->list && is_array($this->list)){
+                $n = 0;
+                foreach($this->list as $item){
+                    $res['list'][$n++] = null !== $item ? $item->toMap() : $item;
+                }
+            }
+        }
+        return $res;
+    }
+    /**
+     * @param array $map
+     * @return QueryEcarLcacalcResponse
+     */
+    public static function fromMap($map = []) {
+        $model = new self();
+        if(isset($map['req_msg_id'])){
+            $model->reqMsgId = $map['req_msg_id'];
+        }
+        if(isset($map['result_code'])){
+            $model->resultCode = $map['result_code'];
+        }
+        if(isset($map['result_msg'])){
+            $model->resultMsg = $map['result_msg'];
+        }
+        if(isset($map['current'])){
+            $model->current = $map['current'];
+        }
+        if(isset($map['page_size'])){
+            $model->pageSize = $map['page_size'];
+        }
+        if(isset($map['total'])){
+            $model->total = $map['total'];
+        }
+        if(isset($map['start_date'])){
+            $model->startDate = $map['start_date'];
+        }
+        if(isset($map['end_date'])){
+            $model->endDate = $map['end_date'];
+        }
+        if(isset($map['list'])){
+            if(!empty($map['list'])){
+                $model->list = [];
+                $n = 0;
+                foreach($map['list'] as $item) {
+                    $model->list[$n++] = null !== $item ? LcaCalcResult::fromMap($item) : $item;
+                }
+            }
+        }
+        return $model;
+    }
     // 请求唯一ID，用于链路跟踪和问题排查
     /**
      * @var string
@@ -61,104 +151,5 @@ class QueryEcarLcacalcResponse extends Model
      * @var LcaCalcResult[]
      */
     public $list;
-    protected $_name = [
-        'reqMsgId'   => 'req_msg_id',
-        'resultCode' => 'result_code',
-        'resultMsg'  => 'result_msg',
-        'current'    => 'current',
-        'pageSize'   => 'page_size',
-        'total'      => 'total',
-        'startDate'  => 'start_date',
-        'endDate'    => 'end_date',
-        'list'       => 'list',
-    ];
 
-    public function validate()
-    {
-    }
-
-    public function toMap()
-    {
-        $res = [];
-        if (null !== $this->reqMsgId) {
-            $res['req_msg_id'] = $this->reqMsgId;
-        }
-        if (null !== $this->resultCode) {
-            $res['result_code'] = $this->resultCode;
-        }
-        if (null !== $this->resultMsg) {
-            $res['result_msg'] = $this->resultMsg;
-        }
-        if (null !== $this->current) {
-            $res['current'] = $this->current;
-        }
-        if (null !== $this->pageSize) {
-            $res['page_size'] = $this->pageSize;
-        }
-        if (null !== $this->total) {
-            $res['total'] = $this->total;
-        }
-        if (null !== $this->startDate) {
-            $res['start_date'] = $this->startDate;
-        }
-        if (null !== $this->endDate) {
-            $res['end_date'] = $this->endDate;
-        }
-        if (null !== $this->list) {
-            $res['list'] = [];
-            if (null !== $this->list && \is_array($this->list)) {
-                $n = 0;
-                foreach ($this->list as $item) {
-                    $res['list'][$n++] = null !== $item ? $item->toMap() : $item;
-                }
-            }
-        }
-
-        return $res;
-    }
-
-    /**
-     * @param array $map
-     *
-     * @return QueryEcarLcacalcResponse
-     */
-    public static function fromMap($map = [])
-    {
-        $model = new self();
-        if (isset($map['req_msg_id'])) {
-            $model->reqMsgId = $map['req_msg_id'];
-        }
-        if (isset($map['result_code'])) {
-            $model->resultCode = $map['result_code'];
-        }
-        if (isset($map['result_msg'])) {
-            $model->resultMsg = $map['result_msg'];
-        }
-        if (isset($map['current'])) {
-            $model->current = $map['current'];
-        }
-        if (isset($map['page_size'])) {
-            $model->pageSize = $map['page_size'];
-        }
-        if (isset($map['total'])) {
-            $model->total = $map['total'];
-        }
-        if (isset($map['start_date'])) {
-            $model->startDate = $map['start_date'];
-        }
-        if (isset($map['end_date'])) {
-            $model->endDate = $map['end_date'];
-        }
-        if (isset($map['list'])) {
-            if (!empty($map['list'])) {
-                $model->list = [];
-                $n           = 0;
-                foreach ($map['list'] as $item) {
-                    $model->list[$n++] = null !== $item ? LcaCalcResult::fromMap($item) : $item;
-                }
-            }
-        }
-
-        return $model;
-    }
 }

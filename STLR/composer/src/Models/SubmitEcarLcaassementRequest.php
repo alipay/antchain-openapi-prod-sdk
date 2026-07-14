@@ -1,13 +1,92 @@
 <?php
 
 // This file is auto-generated, don't edit it. Thanks.
-
 namespace AntChain\STLR\Models;
 
 use AlibabaCloud\Tea\Model;
 
-class SubmitEcarLcaassementRequest extends Model
-{
+class SubmitEcarLcaassementRequest extends Model {
+    protected $_name = [
+        'authToken' => 'auth_token',
+        'productInstanceId' => 'product_instance_id',
+        'orderNo' => 'order_no',
+        'status' => 'status',
+        'projectSummary' => 'project_summary',
+        'processDatum' => 'process_datum',
+        'assementResult' => 'assement_result',
+        'assementReport' => 'assement_report',
+        'extraDatum' => 'extra_datum',
+    ];
+    public function validate() {
+        Model::validateRequired('orderNo', $this->orderNo, true);
+        Model::validateRequired('status', $this->status, true);
+    }
+    public function toMap() {
+        $res = [];
+        if (null !== $this->authToken) {
+            $res['auth_token'] = $this->authToken;
+        }
+        if (null !== $this->productInstanceId) {
+            $res['product_instance_id'] = $this->productInstanceId;
+        }
+        if (null !== $this->orderNo) {
+            $res['order_no'] = $this->orderNo;
+        }
+        if (null !== $this->status) {
+            $res['status'] = $this->status;
+        }
+        if (null !== $this->projectSummary) {
+            $res['project_summary'] = $this->projectSummary;
+        }
+        if (null !== $this->processDatum) {
+            $res['process_datum'] = $this->processDatum;
+        }
+        if (null !== $this->assementResult) {
+            $res['assement_result'] = $this->assementResult;
+        }
+        if (null !== $this->assementReport) {
+            $res['assement_report'] = $this->assementReport;
+        }
+        if (null !== $this->extraDatum) {
+            $res['extra_datum'] = $this->extraDatum;
+        }
+        return $res;
+    }
+    /**
+     * @param array $map
+     * @return SubmitEcarLcaassementRequest
+     */
+    public static function fromMap($map = []) {
+        $model = new self();
+        if(isset($map['auth_token'])){
+            $model->authToken = $map['auth_token'];
+        }
+        if(isset($map['product_instance_id'])){
+            $model->productInstanceId = $map['product_instance_id'];
+        }
+        if(isset($map['order_no'])){
+            $model->orderNo = $map['order_no'];
+        }
+        if(isset($map['status'])){
+            $model->status = $map['status'];
+        }
+        if(isset($map['project_summary'])){
+            $model->projectSummary = $map['project_summary'];
+        }
+        if(isset($map['process_datum'])){
+            $model->processDatum = $map['process_datum'];
+        }
+        if(isset($map['assement_result'])){
+            $model->assementResult = $map['assement_result'];
+        }
+        if(isset($map['assement_report'])){
+            $model->assementReport = $map['assement_report'];
+        }
+        if(isset($map['extra_datum'])){
+            $model->extraDatum = $map['extra_datum'];
+        }
+        return $model;
+    }
     // OAuth模式下的授权token
     /**
      * @var string
@@ -60,94 +139,5 @@ class SubmitEcarLcaassementRequest extends Model
      * @var string
      */
     public $extraDatum;
-    protected $_name = [
-        'authToken'         => 'auth_token',
-        'productInstanceId' => 'product_instance_id',
-        'orderNo'           => 'order_no',
-        'status'            => 'status',
-        'projectSummary'    => 'project_summary',
-        'processDatum'      => 'process_datum',
-        'assementResult'    => 'assement_result',
-        'assementReport'    => 'assement_report',
-        'extraDatum'        => 'extra_datum',
-    ];
 
-    public function validate()
-    {
-        Model::validateRequired('orderNo', $this->orderNo, true);
-        Model::validateRequired('status', $this->status, true);
-    }
-
-    public function toMap()
-    {
-        $res = [];
-        if (null !== $this->authToken) {
-            $res['auth_token'] = $this->authToken;
-        }
-        if (null !== $this->productInstanceId) {
-            $res['product_instance_id'] = $this->productInstanceId;
-        }
-        if (null !== $this->orderNo) {
-            $res['order_no'] = $this->orderNo;
-        }
-        if (null !== $this->status) {
-            $res['status'] = $this->status;
-        }
-        if (null !== $this->projectSummary) {
-            $res['project_summary'] = $this->projectSummary;
-        }
-        if (null !== $this->processDatum) {
-            $res['process_datum'] = $this->processDatum;
-        }
-        if (null !== $this->assementResult) {
-            $res['assement_result'] = $this->assementResult;
-        }
-        if (null !== $this->assementReport) {
-            $res['assement_report'] = $this->assementReport;
-        }
-        if (null !== $this->extraDatum) {
-            $res['extra_datum'] = $this->extraDatum;
-        }
-
-        return $res;
-    }
-
-    /**
-     * @param array $map
-     *
-     * @return SubmitEcarLcaassementRequest
-     */
-    public static function fromMap($map = [])
-    {
-        $model = new self();
-        if (isset($map['auth_token'])) {
-            $model->authToken = $map['auth_token'];
-        }
-        if (isset($map['product_instance_id'])) {
-            $model->productInstanceId = $map['product_instance_id'];
-        }
-        if (isset($map['order_no'])) {
-            $model->orderNo = $map['order_no'];
-        }
-        if (isset($map['status'])) {
-            $model->status = $map['status'];
-        }
-        if (isset($map['project_summary'])) {
-            $model->projectSummary = $map['project_summary'];
-        }
-        if (isset($map['process_datum'])) {
-            $model->processDatum = $map['process_datum'];
-        }
-        if (isset($map['assement_result'])) {
-            $model->assementResult = $map['assement_result'];
-        }
-        if (isset($map['assement_report'])) {
-            $model->assementReport = $map['assement_report'];
-        }
-        if (isset($map['extra_datum'])) {
-            $model->extraDatum = $map['extra_datum'];
-        }
-
-        return $model;
-    }
 }

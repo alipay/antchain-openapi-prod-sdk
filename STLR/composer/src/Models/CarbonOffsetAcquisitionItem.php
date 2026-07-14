@@ -1,107 +1,26 @@
 <?php
 
 // This file is auto-generated, don't edit it. Thanks.
-
 namespace AntChain\STLR\Models;
 
 use AlibabaCloud\Tea\Model;
 
-class CarbonOffsetAcquisitionItem extends Model
-{
-    // 采集数据单号
-    /**
-     * @example 123456789abcdefghi
-     *
-     * @var string
-     */
-    public $acquisitionItemNo;
+use AntChain\STLR\Models\AnyAmountItem;
 
-    // 碳补偿项目编号
-    /**
-     * @example 13222
-     *
-     * @var string
-     */
-    public $projectNo;
-
-    // 参与账户DID
-    /**
-     * @example 123456789abcdefghi
-     *
-     * @var string
-     */
-    public $accountDid;
-
-    // 发生时间
-    /**
-     * @example 2023-05-23 12:11:32:33
-     *
-     * @var string
-     */
-    public $occurrentTime;
-
-    // 发生场景编码
-    /**
-     * @example xingzou
-     *
-     * @var string
-     */
-    public $scenarioCode;
-
-    // 发生场景名称
-    /**
-     * @example 出行
-     *
-     * @var string
-     */
-    public $scenarioName;
-
-    // 碳普惠平台编码，如果非平台采集数据，则显示为自采编码：Self
-    /**
-     * @example Antforest
-     *
-     * @var string
-     */
-    public $platformNo;
-
-    // 活动数据原始值，多个活动数据列表
-    /**
-     * @example
-     *
-     * @var AnyAmountItem[]
-     */
-    public $activeDatum;
-
-    // 减碳量
-    /**
-     * @example 122.22
-     *
-     * @var string
-     */
-    public $offsetVolume;
-
-    // 碳能量值
-    /**
-     * @example 229
-     *
-     * @var int
-     */
-    public $carbonEnergy;
+class CarbonOffsetAcquisitionItem extends Model {
     protected $_name = [
         'acquisitionItemNo' => 'acquisition_item_no',
-        'projectNo'         => 'project_no',
-        'accountDid'        => 'account_did',
-        'occurrentTime'     => 'occurrent_time',
-        'scenarioCode'      => 'scenario_code',
-        'scenarioName'      => 'scenario_name',
-        'platformNo'        => 'platform_no',
-        'activeDatum'       => 'active_datum',
-        'offsetVolume'      => 'offset_volume',
-        'carbonEnergy'      => 'carbon_energy',
+        'projectNo' => 'project_no',
+        'accountDid' => 'account_did',
+        'occurrentTime' => 'occurrent_time',
+        'scenarioCode' => 'scenario_code',
+        'scenarioName' => 'scenario_name',
+        'platformNo' => 'platform_no',
+        'activeDatum' => 'active_datum',
+        'offsetVolume' => 'offset_volume',
+        'carbonEnergy' => 'carbon_energy',
     ];
-
-    public function validate()
-    {
+    public function validate() {
         Model::validateRequired('acquisitionItemNo', $this->acquisitionItemNo, true);
         Model::validateRequired('projectNo', $this->projectNo, true);
         Model::validateRequired('accountDid', $this->accountDid, true);
@@ -110,9 +29,7 @@ class CarbonOffsetAcquisitionItem extends Model
         Model::validateRequired('scenarioName', $this->scenarioName, true);
         Model::validateRequired('platformNo', $this->platformNo, true);
     }
-
-    public function toMap()
-    {
+    public function toMap() {
         $res = [];
         if (null !== $this->acquisitionItemNo) {
             $res['acquisition_item_no'] = $this->acquisitionItemNo;
@@ -137,9 +54,9 @@ class CarbonOffsetAcquisitionItem extends Model
         }
         if (null !== $this->activeDatum) {
             $res['active_datum'] = [];
-            if (null !== $this->activeDatum && \is_array($this->activeDatum)) {
+            if(null !== $this->activeDatum && is_array($this->activeDatum)){
                 $n = 0;
-                foreach ($this->activeDatum as $item) {
+                foreach($this->activeDatum as $item){
                     $res['active_datum'][$n++] = null !== $item ? $item->toMap() : $item;
                 }
             }
@@ -150,55 +67,120 @@ class CarbonOffsetAcquisitionItem extends Model
         if (null !== $this->carbonEnergy) {
             $res['carbon_energy'] = $this->carbonEnergy;
         }
-
         return $res;
     }
-
     /**
      * @param array $map
-     *
      * @return CarbonOffsetAcquisitionItem
      */
-    public static function fromMap($map = [])
-    {
+    public static function fromMap($map = []) {
         $model = new self();
-        if (isset($map['acquisition_item_no'])) {
+        if(isset($map['acquisition_item_no'])){
             $model->acquisitionItemNo = $map['acquisition_item_no'];
         }
-        if (isset($map['project_no'])) {
+        if(isset($map['project_no'])){
             $model->projectNo = $map['project_no'];
         }
-        if (isset($map['account_did'])) {
+        if(isset($map['account_did'])){
             $model->accountDid = $map['account_did'];
         }
-        if (isset($map['occurrent_time'])) {
+        if(isset($map['occurrent_time'])){
             $model->occurrentTime = $map['occurrent_time'];
         }
-        if (isset($map['scenario_code'])) {
+        if(isset($map['scenario_code'])){
             $model->scenarioCode = $map['scenario_code'];
         }
-        if (isset($map['scenario_name'])) {
+        if(isset($map['scenario_name'])){
             $model->scenarioName = $map['scenario_name'];
         }
-        if (isset($map['platform_no'])) {
+        if(isset($map['platform_no'])){
             $model->platformNo = $map['platform_no'];
         }
-        if (isset($map['active_datum'])) {
-            if (!empty($map['active_datum'])) {
+        if(isset($map['active_datum'])){
+            if(!empty($map['active_datum'])){
                 $model->activeDatum = [];
-                $n                  = 0;
-                foreach ($map['active_datum'] as $item) {
+                $n = 0;
+                foreach($map['active_datum'] as $item) {
                     $model->activeDatum[$n++] = null !== $item ? AnyAmountItem::fromMap($item) : $item;
                 }
             }
         }
-        if (isset($map['offset_volume'])) {
+        if(isset($map['offset_volume'])){
             $model->offsetVolume = $map['offset_volume'];
         }
-        if (isset($map['carbon_energy'])) {
+        if(isset($map['carbon_energy'])){
             $model->carbonEnergy = $map['carbon_energy'];
         }
-
         return $model;
     }
+    // 采集数据单号
+    /**
+     * @example 123456789abcdefghi
+     * @var string
+     */
+    public $acquisitionItemNo;
+
+    // 碳补偿项目编号
+    /**
+     * @example 13222
+     * @var string
+     */
+    public $projectNo;
+
+    // 参与账户DID
+    /**
+     * @example 123456789abcdefghi
+     * @var string
+     */
+    public $accountDid;
+
+    // 发生时间
+    /**
+     * @example 2023-05-23 12:11:32:33
+     * @var string
+     */
+    public $occurrentTime;
+
+    // 发生场景编码
+    /**
+     * @example xingzou
+     * @var string
+     */
+    public $scenarioCode;
+
+    // 发生场景名称
+    /**
+     * @example 出行
+     * @var string
+     */
+    public $scenarioName;
+
+    // 碳普惠平台编码，如果非平台采集数据，则显示为自采编码：Self
+    /**
+     * @example Antforest
+     * @var string
+     */
+    public $platformNo;
+
+    // 活动数据原始值，多个活动数据列表
+    /**
+     * @example 
+     * @var AnyAmountItem[]
+     */
+    public $activeDatum;
+
+    // 减碳量
+    /**
+     * @example 122.22
+     * @var string
+     */
+    public $offsetVolume;
+
+    // 碳能量值
+    /**
+     * @example 229
+     * @var int
+     */
+    public $carbonEnergy;
+
 }

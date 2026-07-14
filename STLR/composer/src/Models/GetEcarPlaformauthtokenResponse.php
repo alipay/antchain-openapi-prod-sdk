@@ -1,13 +1,68 @@
 <?php
 
 // This file is auto-generated, don't edit it. Thanks.
-
 namespace AntChain\STLR\Models;
 
 use AlibabaCloud\Tea\Model;
 
-class GetEcarPlaformauthtokenResponse extends Model
-{
+class GetEcarPlaformauthtokenResponse extends Model {
+    protected $_name = [
+        'reqMsgId' => 'req_msg_id',
+        'resultCode' => 'result_code',
+        'resultMsg' => 'result_msg',
+        'customerId' => 'customer_id',
+        'carbonAccountNo' => 'carbon_account_no',
+        'accessToken' => 'access_token',
+    ];
+    public function validate() {}
+    public function toMap() {
+        $res = [];
+        if (null !== $this->reqMsgId) {
+            $res['req_msg_id'] = $this->reqMsgId;
+        }
+        if (null !== $this->resultCode) {
+            $res['result_code'] = $this->resultCode;
+        }
+        if (null !== $this->resultMsg) {
+            $res['result_msg'] = $this->resultMsg;
+        }
+        if (null !== $this->customerId) {
+            $res['customer_id'] = $this->customerId;
+        }
+        if (null !== $this->carbonAccountNo) {
+            $res['carbon_account_no'] = $this->carbonAccountNo;
+        }
+        if (null !== $this->accessToken) {
+            $res['access_token'] = $this->accessToken;
+        }
+        return $res;
+    }
+    /**
+     * @param array $map
+     * @return GetEcarPlaformauthtokenResponse
+     */
+    public static function fromMap($map = []) {
+        $model = new self();
+        if(isset($map['req_msg_id'])){
+            $model->reqMsgId = $map['req_msg_id'];
+        }
+        if(isset($map['result_code'])){
+            $model->resultCode = $map['result_code'];
+        }
+        if(isset($map['result_msg'])){
+            $model->resultMsg = $map['result_msg'];
+        }
+        if(isset($map['customer_id'])){
+            $model->customerId = $map['customer_id'];
+        }
+        if(isset($map['carbon_account_no'])){
+            $model->carbonAccountNo = $map['carbon_account_no'];
+        }
+        if(isset($map['access_token'])){
+            $model->accessToken = $map['access_token'];
+        }
+        return $model;
+    }
     // 请求唯一ID，用于链路跟踪和问题排查
     /**
      * @var string
@@ -43,71 +98,5 @@ class GetEcarPlaformauthtokenResponse extends Model
      * @var string
      */
     public $accessToken;
-    protected $_name = [
-        'reqMsgId'        => 'req_msg_id',
-        'resultCode'      => 'result_code',
-        'resultMsg'       => 'result_msg',
-        'customerId'      => 'customer_id',
-        'carbonAccountNo' => 'carbon_account_no',
-        'accessToken'     => 'access_token',
-    ];
 
-    public function validate()
-    {
-    }
-
-    public function toMap()
-    {
-        $res = [];
-        if (null !== $this->reqMsgId) {
-            $res['req_msg_id'] = $this->reqMsgId;
-        }
-        if (null !== $this->resultCode) {
-            $res['result_code'] = $this->resultCode;
-        }
-        if (null !== $this->resultMsg) {
-            $res['result_msg'] = $this->resultMsg;
-        }
-        if (null !== $this->customerId) {
-            $res['customer_id'] = $this->customerId;
-        }
-        if (null !== $this->carbonAccountNo) {
-            $res['carbon_account_no'] = $this->carbonAccountNo;
-        }
-        if (null !== $this->accessToken) {
-            $res['access_token'] = $this->accessToken;
-        }
-
-        return $res;
-    }
-
-    /**
-     * @param array $map
-     *
-     * @return GetEcarPlaformauthtokenResponse
-     */
-    public static function fromMap($map = [])
-    {
-        $model = new self();
-        if (isset($map['req_msg_id'])) {
-            $model->reqMsgId = $map['req_msg_id'];
-        }
-        if (isset($map['result_code'])) {
-            $model->resultCode = $map['result_code'];
-        }
-        if (isset($map['result_msg'])) {
-            $model->resultMsg = $map['result_msg'];
-        }
-        if (isset($map['customer_id'])) {
-            $model->customerId = $map['customer_id'];
-        }
-        if (isset($map['carbon_account_no'])) {
-            $model->carbonAccountNo = $map['carbon_account_no'];
-        }
-        if (isset($map['access_token'])) {
-            $model->accessToken = $map['access_token'];
-        }
-
-        return $model;
-    }
 }

@@ -1,13 +1,124 @@
 <?php
 
 // This file is auto-generated, don't edit it. Thanks.
-
 namespace AntChain\STLR\Models;
 
 use AlibabaCloud\Tea\Model;
 
-class CountEcarActivedataRequest extends Model
-{
+use AntChain\STLR\Models\AnyKeywordItem;
+
+class CountEcarActivedataRequest extends Model {
+    protected $_name = [
+        'authToken' => 'auth_token',
+        'productInstanceId' => 'product_instance_id',
+        'inventoryItemNo' => 'inventory_item_no',
+        'occurrenceStartTime' => 'occurrence_start_time',
+        'occurrenceEndTime' => 'occurrence_end_time',
+        'emissionSourceElementList' => 'emission_source_element_list',
+        'extensionValueList' => 'extension_value_list',
+        'extraStatisticItemList' => 'extra_statistic_item_list',
+    ];
+    public function validate() {
+        Model::validateRequired('inventoryItemNo', $this->inventoryItemNo, true);
+        Model::validateRequired('occurrenceStartTime', $this->occurrenceStartTime, true);
+        Model::validateRequired('occurrenceEndTime', $this->occurrenceEndTime, true);
+    }
+    public function toMap() {
+        $res = [];
+        if (null !== $this->authToken) {
+            $res['auth_token'] = $this->authToken;
+        }
+        if (null !== $this->productInstanceId) {
+            $res['product_instance_id'] = $this->productInstanceId;
+        }
+        if (null !== $this->inventoryItemNo) {
+            $res['inventory_item_no'] = $this->inventoryItemNo;
+        }
+        if (null !== $this->occurrenceStartTime) {
+            $res['occurrence_start_time'] = $this->occurrenceStartTime;
+        }
+        if (null !== $this->occurrenceEndTime) {
+            $res['occurrence_end_time'] = $this->occurrenceEndTime;
+        }
+        if (null !== $this->emissionSourceElementList) {
+            $res['emission_source_element_list'] = [];
+            if(null !== $this->emissionSourceElementList && is_array($this->emissionSourceElementList)){
+                $n = 0;
+                foreach($this->emissionSourceElementList as $item){
+                    $res['emission_source_element_list'][$n++] = null !== $item ? $item->toMap() : $item;
+                }
+            }
+        }
+        if (null !== $this->extensionValueList) {
+            $res['extension_value_list'] = [];
+            if(null !== $this->extensionValueList && is_array($this->extensionValueList)){
+                $n = 0;
+                foreach($this->extensionValueList as $item){
+                    $res['extension_value_list'][$n++] = null !== $item ? $item->toMap() : $item;
+                }
+            }
+        }
+        if (null !== $this->extraStatisticItemList) {
+            $res['extra_statistic_item_list'] = [];
+            if(null !== $this->extraStatisticItemList && is_array($this->extraStatisticItemList)){
+                $n = 0;
+                foreach($this->extraStatisticItemList as $item){
+                    $res['extra_statistic_item_list'][$n++] = null !== $item ? $item->toMap() : $item;
+                }
+            }
+        }
+        return $res;
+    }
+    /**
+     * @param array $map
+     * @return CountEcarActivedataRequest
+     */
+    public static function fromMap($map = []) {
+        $model = new self();
+        if(isset($map['auth_token'])){
+            $model->authToken = $map['auth_token'];
+        }
+        if(isset($map['product_instance_id'])){
+            $model->productInstanceId = $map['product_instance_id'];
+        }
+        if(isset($map['inventory_item_no'])){
+            $model->inventoryItemNo = $map['inventory_item_no'];
+        }
+        if(isset($map['occurrence_start_time'])){
+            $model->occurrenceStartTime = $map['occurrence_start_time'];
+        }
+        if(isset($map['occurrence_end_time'])){
+            $model->occurrenceEndTime = $map['occurrence_end_time'];
+        }
+        if(isset($map['emission_source_element_list'])){
+            if(!empty($map['emission_source_element_list'])){
+                $model->emissionSourceElementList = [];
+                $n = 0;
+                foreach($map['emission_source_element_list'] as $item) {
+                    $model->emissionSourceElementList[$n++] = null !== $item ? AnyKeywordItem::fromMap($item) : $item;
+                }
+            }
+        }
+        if(isset($map['extension_value_list'])){
+            if(!empty($map['extension_value_list'])){
+                $model->extensionValueList = [];
+                $n = 0;
+                foreach($map['extension_value_list'] as $item) {
+                    $model->extensionValueList[$n++] = null !== $item ? AnyKeywordItem::fromMap($item) : $item;
+                }
+            }
+        }
+        if(isset($map['extra_statistic_item_list'])){
+            if(!empty($map['extra_statistic_item_list'])){
+                $model->extraStatisticItemList = [];
+                $n = 0;
+                foreach($map['extra_statistic_item_list'] as $item) {
+                    $model->extraStatisticItemList[$n++] = null !== $item ? AnyKeywordItem::fromMap($item) : $item;
+                }
+            }
+        }
+        return $model;
+    }
     // OAuth模式下的授权token
     /**
      * @var string
@@ -56,124 +167,5 @@ class CountEcarActivedataRequest extends Model
      * @var AnyKeywordItem[]
      */
     public $extraStatisticItemList;
-    protected $_name = [
-        'authToken'                 => 'auth_token',
-        'productInstanceId'         => 'product_instance_id',
-        'inventoryItemNo'           => 'inventory_item_no',
-        'occurrenceStartTime'       => 'occurrence_start_time',
-        'occurrenceEndTime'         => 'occurrence_end_time',
-        'emissionSourceElementList' => 'emission_source_element_list',
-        'extensionValueList'        => 'extension_value_list',
-        'extraStatisticItemList'    => 'extra_statistic_item_list',
-    ];
 
-    public function validate()
-    {
-        Model::validateRequired('inventoryItemNo', $this->inventoryItemNo, true);
-        Model::validateRequired('occurrenceStartTime', $this->occurrenceStartTime, true);
-        Model::validateRequired('occurrenceEndTime', $this->occurrenceEndTime, true);
-    }
-
-    public function toMap()
-    {
-        $res = [];
-        if (null !== $this->authToken) {
-            $res['auth_token'] = $this->authToken;
-        }
-        if (null !== $this->productInstanceId) {
-            $res['product_instance_id'] = $this->productInstanceId;
-        }
-        if (null !== $this->inventoryItemNo) {
-            $res['inventory_item_no'] = $this->inventoryItemNo;
-        }
-        if (null !== $this->occurrenceStartTime) {
-            $res['occurrence_start_time'] = $this->occurrenceStartTime;
-        }
-        if (null !== $this->occurrenceEndTime) {
-            $res['occurrence_end_time'] = $this->occurrenceEndTime;
-        }
-        if (null !== $this->emissionSourceElementList) {
-            $res['emission_source_element_list'] = [];
-            if (null !== $this->emissionSourceElementList && \is_array($this->emissionSourceElementList)) {
-                $n = 0;
-                foreach ($this->emissionSourceElementList as $item) {
-                    $res['emission_source_element_list'][$n++] = null !== $item ? $item->toMap() : $item;
-                }
-            }
-        }
-        if (null !== $this->extensionValueList) {
-            $res['extension_value_list'] = [];
-            if (null !== $this->extensionValueList && \is_array($this->extensionValueList)) {
-                $n = 0;
-                foreach ($this->extensionValueList as $item) {
-                    $res['extension_value_list'][$n++] = null !== $item ? $item->toMap() : $item;
-                }
-            }
-        }
-        if (null !== $this->extraStatisticItemList) {
-            $res['extra_statistic_item_list'] = [];
-            if (null !== $this->extraStatisticItemList && \is_array($this->extraStatisticItemList)) {
-                $n = 0;
-                foreach ($this->extraStatisticItemList as $item) {
-                    $res['extra_statistic_item_list'][$n++] = null !== $item ? $item->toMap() : $item;
-                }
-            }
-        }
-
-        return $res;
-    }
-
-    /**
-     * @param array $map
-     *
-     * @return CountEcarActivedataRequest
-     */
-    public static function fromMap($map = [])
-    {
-        $model = new self();
-        if (isset($map['auth_token'])) {
-            $model->authToken = $map['auth_token'];
-        }
-        if (isset($map['product_instance_id'])) {
-            $model->productInstanceId = $map['product_instance_id'];
-        }
-        if (isset($map['inventory_item_no'])) {
-            $model->inventoryItemNo = $map['inventory_item_no'];
-        }
-        if (isset($map['occurrence_start_time'])) {
-            $model->occurrenceStartTime = $map['occurrence_start_time'];
-        }
-        if (isset($map['occurrence_end_time'])) {
-            $model->occurrenceEndTime = $map['occurrence_end_time'];
-        }
-        if (isset($map['emission_source_element_list'])) {
-            if (!empty($map['emission_source_element_list'])) {
-                $model->emissionSourceElementList = [];
-                $n                                = 0;
-                foreach ($map['emission_source_element_list'] as $item) {
-                    $model->emissionSourceElementList[$n++] = null !== $item ? AnyKeywordItem::fromMap($item) : $item;
-                }
-            }
-        }
-        if (isset($map['extension_value_list'])) {
-            if (!empty($map['extension_value_list'])) {
-                $model->extensionValueList = [];
-                $n                         = 0;
-                foreach ($map['extension_value_list'] as $item) {
-                    $model->extensionValueList[$n++] = null !== $item ? AnyKeywordItem::fromMap($item) : $item;
-                }
-            }
-        }
-        if (isset($map['extra_statistic_item_list'])) {
-            if (!empty($map['extra_statistic_item_list'])) {
-                $model->extraStatisticItemList = [];
-                $n                             = 0;
-                foreach ($map['extra_statistic_item_list'] as $item) {
-                    $model->extraStatisticItemList[$n++] = null !== $item ? AnyKeywordItem::fromMap($item) : $item;
-                }
-            }
-        }
-
-        return $model;
-    }
 }

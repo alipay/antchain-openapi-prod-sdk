@@ -1,13 +1,72 @@
 <?php
 
 // This file is auto-generated, don't edit it. Thanks.
-
 namespace AntChain\STLR\Models;
 
 use AlibabaCloud\Tea\Model;
 
-class AddEcarGreenoperationRequest extends Model
-{
+class AddEcarGreenoperationRequest extends Model {
+    protected $_name = [
+        'authToken' => 'auth_token',
+        'productInstanceId' => 'product_instance_id',
+        'greenOperationType' => 'green_operation_type',
+        'enterpriseBizNo' => 'enterprise_biz_no',
+        'occurrenceTime' => 'occurrence_time',
+        'extInfo' => 'ext_info',
+    ];
+    public function validate() {
+        Model::validateRequired('greenOperationType', $this->greenOperationType, true);
+        Model::validateRequired('enterpriseBizNo', $this->enterpriseBizNo, true);
+        Model::validateRequired('occurrenceTime', $this->occurrenceTime, true);
+    }
+    public function toMap() {
+        $res = [];
+        if (null !== $this->authToken) {
+            $res['auth_token'] = $this->authToken;
+        }
+        if (null !== $this->productInstanceId) {
+            $res['product_instance_id'] = $this->productInstanceId;
+        }
+        if (null !== $this->greenOperationType) {
+            $res['green_operation_type'] = $this->greenOperationType;
+        }
+        if (null !== $this->enterpriseBizNo) {
+            $res['enterprise_biz_no'] = $this->enterpriseBizNo;
+        }
+        if (null !== $this->occurrenceTime) {
+            $res['occurrence_time'] = $this->occurrenceTime;
+        }
+        if (null !== $this->extInfo) {
+            $res['ext_info'] = $this->extInfo;
+        }
+        return $res;
+    }
+    /**
+     * @param array $map
+     * @return AddEcarGreenoperationRequest
+     */
+    public static function fromMap($map = []) {
+        $model = new self();
+        if(isset($map['auth_token'])){
+            $model->authToken = $map['auth_token'];
+        }
+        if(isset($map['product_instance_id'])){
+            $model->productInstanceId = $map['product_instance_id'];
+        }
+        if(isset($map['green_operation_type'])){
+            $model->greenOperationType = $map['green_operation_type'];
+        }
+        if(isset($map['enterprise_biz_no'])){
+            $model->enterpriseBizNo = $map['enterprise_biz_no'];
+        }
+        if(isset($map['occurrence_time'])){
+            $model->occurrenceTime = $map['occurrence_time'];
+        }
+        if(isset($map['ext_info'])){
+            $model->extInfo = $map['ext_info'];
+        }
+        return $model;
+    }
     // OAuth模式下的授权token
     /**
      * @var string
@@ -47,74 +106,5 @@ class AddEcarGreenoperationRequest extends Model
      * @var string
      */
     public $extInfo;
-    protected $_name = [
-        'authToken'          => 'auth_token',
-        'productInstanceId'  => 'product_instance_id',
-        'greenOperationType' => 'green_operation_type',
-        'enterpriseBizNo'    => 'enterprise_biz_no',
-        'occurrenceTime'     => 'occurrence_time',
-        'extInfo'            => 'ext_info',
-    ];
 
-    public function validate()
-    {
-        Model::validateRequired('greenOperationType', $this->greenOperationType, true);
-        Model::validateRequired('enterpriseBizNo', $this->enterpriseBizNo, true);
-        Model::validateRequired('occurrenceTime', $this->occurrenceTime, true);
-    }
-
-    public function toMap()
-    {
-        $res = [];
-        if (null !== $this->authToken) {
-            $res['auth_token'] = $this->authToken;
-        }
-        if (null !== $this->productInstanceId) {
-            $res['product_instance_id'] = $this->productInstanceId;
-        }
-        if (null !== $this->greenOperationType) {
-            $res['green_operation_type'] = $this->greenOperationType;
-        }
-        if (null !== $this->enterpriseBizNo) {
-            $res['enterprise_biz_no'] = $this->enterpriseBizNo;
-        }
-        if (null !== $this->occurrenceTime) {
-            $res['occurrence_time'] = $this->occurrenceTime;
-        }
-        if (null !== $this->extInfo) {
-            $res['ext_info'] = $this->extInfo;
-        }
-
-        return $res;
-    }
-
-    /**
-     * @param array $map
-     *
-     * @return AddEcarGreenoperationRequest
-     */
-    public static function fromMap($map = [])
-    {
-        $model = new self();
-        if (isset($map['auth_token'])) {
-            $model->authToken = $map['auth_token'];
-        }
-        if (isset($map['product_instance_id'])) {
-            $model->productInstanceId = $map['product_instance_id'];
-        }
-        if (isset($map['green_operation_type'])) {
-            $model->greenOperationType = $map['green_operation_type'];
-        }
-        if (isset($map['enterprise_biz_no'])) {
-            $model->enterpriseBizNo = $map['enterprise_biz_no'];
-        }
-        if (isset($map['occurrence_time'])) {
-            $model->occurrenceTime = $map['occurrence_time'];
-        }
-        if (isset($map['ext_info'])) {
-            $model->extInfo = $map['ext_info'];
-        }
-
-        return $model;
-    }
 }

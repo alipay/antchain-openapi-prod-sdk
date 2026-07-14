@@ -1,13 +1,116 @@
 <?php
 
 // This file is auto-generated, don't edit it. Thanks.
-
 namespace AntChain\STLR\Models;
 
 use AlibabaCloud\Tea\Model;
 
-class CountEcarActivedataResponse extends Model
-{
+use AntChain\STLR\Models\AnyStatisticalItem;
+use AntChain\STLR\Models\AnyAmountItem;
+
+class CountEcarActivedataResponse extends Model {
+    protected $_name = [
+        'reqMsgId' => 'req_msg_id',
+        'resultCode' => 'result_code',
+        'resultMsg' => 'result_msg',
+        'dataEntryCount' => 'data_entry_count',
+        'totalEmissions' => 'total_emissions',
+        'activeDataAmountList' => 'active_data_amount_list',
+        'emissionsIntensity' => 'emissions_intensity',
+        'eachMonthEmissions' => 'each_month_emissions',
+        'extraStatisticDatumList' => 'extra_statistic_datum_list',
+    ];
+    public function validate() {}
+    public function toMap() {
+        $res = [];
+        if (null !== $this->reqMsgId) {
+            $res['req_msg_id'] = $this->reqMsgId;
+        }
+        if (null !== $this->resultCode) {
+            $res['result_code'] = $this->resultCode;
+        }
+        if (null !== $this->resultMsg) {
+            $res['result_msg'] = $this->resultMsg;
+        }
+        if (null !== $this->dataEntryCount) {
+            $res['data_entry_count'] = $this->dataEntryCount;
+        }
+        if (null !== $this->totalEmissions) {
+            $res['total_emissions'] = $this->totalEmissions;
+        }
+        if (null !== $this->activeDataAmountList) {
+            $res['active_data_amount_list'] = [];
+            if(null !== $this->activeDataAmountList && is_array($this->activeDataAmountList)){
+                $n = 0;
+                foreach($this->activeDataAmountList as $item){
+                    $res['active_data_amount_list'][$n++] = null !== $item ? $item->toMap() : $item;
+                }
+            }
+        }
+        if (null !== $this->emissionsIntensity) {
+            $res['emissions_intensity'] = $this->emissionsIntensity;
+        }
+        if (null !== $this->eachMonthEmissions) {
+            $res['each_month_emissions'] = $this->eachMonthEmissions;
+        }
+        if (null !== $this->extraStatisticDatumList) {
+            $res['extra_statistic_datum_list'] = [];
+            if(null !== $this->extraStatisticDatumList && is_array($this->extraStatisticDatumList)){
+                $n = 0;
+                foreach($this->extraStatisticDatumList as $item){
+                    $res['extra_statistic_datum_list'][$n++] = null !== $item ? $item->toMap() : $item;
+                }
+            }
+        }
+        return $res;
+    }
+    /**
+     * @param array $map
+     * @return CountEcarActivedataResponse
+     */
+    public static function fromMap($map = []) {
+        $model = new self();
+        if(isset($map['req_msg_id'])){
+            $model->reqMsgId = $map['req_msg_id'];
+        }
+        if(isset($map['result_code'])){
+            $model->resultCode = $map['result_code'];
+        }
+        if(isset($map['result_msg'])){
+            $model->resultMsg = $map['result_msg'];
+        }
+        if(isset($map['data_entry_count'])){
+            $model->dataEntryCount = $map['data_entry_count'];
+        }
+        if(isset($map['total_emissions'])){
+            $model->totalEmissions = $map['total_emissions'];
+        }
+        if(isset($map['active_data_amount_list'])){
+            if(!empty($map['active_data_amount_list'])){
+                $model->activeDataAmountList = [];
+                $n = 0;
+                foreach($map['active_data_amount_list'] as $item) {
+                    $model->activeDataAmountList[$n++] = null !== $item ? AnyStatisticalItem::fromMap($item) : $item;
+                }
+            }
+        }
+        if(isset($map['emissions_intensity'])){
+            $model->emissionsIntensity = $map['emissions_intensity'];
+        }
+        if(isset($map['each_month_emissions'])){
+            $model->eachMonthEmissions = $map['each_month_emissions'];
+        }
+        if(isset($map['extra_statistic_datum_list'])){
+            if(!empty($map['extra_statistic_datum_list'])){
+                $model->extraStatisticDatumList = [];
+                $n = 0;
+                foreach($map['extra_statistic_datum_list'] as $item) {
+                    $model->extraStatisticDatumList[$n++] = null !== $item ? AnyAmountItem::fromMap($item) : $item;
+                }
+            }
+        }
+        return $model;
+    }
     // 请求唯一ID，用于链路跟踪和问题排查
     /**
      * @var string
@@ -61,116 +164,5 @@ class CountEcarActivedataResponse extends Model
      * @var AnyAmountItem[]
      */
     public $extraStatisticDatumList;
-    protected $_name = [
-        'reqMsgId'                => 'req_msg_id',
-        'resultCode'              => 'result_code',
-        'resultMsg'               => 'result_msg',
-        'dataEntryCount'          => 'data_entry_count',
-        'totalEmissions'          => 'total_emissions',
-        'activeDataAmountList'    => 'active_data_amount_list',
-        'emissionsIntensity'      => 'emissions_intensity',
-        'eachMonthEmissions'      => 'each_month_emissions',
-        'extraStatisticDatumList' => 'extra_statistic_datum_list',
-    ];
 
-    public function validate()
-    {
-    }
-
-    public function toMap()
-    {
-        $res = [];
-        if (null !== $this->reqMsgId) {
-            $res['req_msg_id'] = $this->reqMsgId;
-        }
-        if (null !== $this->resultCode) {
-            $res['result_code'] = $this->resultCode;
-        }
-        if (null !== $this->resultMsg) {
-            $res['result_msg'] = $this->resultMsg;
-        }
-        if (null !== $this->dataEntryCount) {
-            $res['data_entry_count'] = $this->dataEntryCount;
-        }
-        if (null !== $this->totalEmissions) {
-            $res['total_emissions'] = $this->totalEmissions;
-        }
-        if (null !== $this->activeDataAmountList) {
-            $res['active_data_amount_list'] = [];
-            if (null !== $this->activeDataAmountList && \is_array($this->activeDataAmountList)) {
-                $n = 0;
-                foreach ($this->activeDataAmountList as $item) {
-                    $res['active_data_amount_list'][$n++] = null !== $item ? $item->toMap() : $item;
-                }
-            }
-        }
-        if (null !== $this->emissionsIntensity) {
-            $res['emissions_intensity'] = $this->emissionsIntensity;
-        }
-        if (null !== $this->eachMonthEmissions) {
-            $res['each_month_emissions'] = $this->eachMonthEmissions;
-        }
-        if (null !== $this->extraStatisticDatumList) {
-            $res['extra_statistic_datum_list'] = [];
-            if (null !== $this->extraStatisticDatumList && \is_array($this->extraStatisticDatumList)) {
-                $n = 0;
-                foreach ($this->extraStatisticDatumList as $item) {
-                    $res['extra_statistic_datum_list'][$n++] = null !== $item ? $item->toMap() : $item;
-                }
-            }
-        }
-
-        return $res;
-    }
-
-    /**
-     * @param array $map
-     *
-     * @return CountEcarActivedataResponse
-     */
-    public static function fromMap($map = [])
-    {
-        $model = new self();
-        if (isset($map['req_msg_id'])) {
-            $model->reqMsgId = $map['req_msg_id'];
-        }
-        if (isset($map['result_code'])) {
-            $model->resultCode = $map['result_code'];
-        }
-        if (isset($map['result_msg'])) {
-            $model->resultMsg = $map['result_msg'];
-        }
-        if (isset($map['data_entry_count'])) {
-            $model->dataEntryCount = $map['data_entry_count'];
-        }
-        if (isset($map['total_emissions'])) {
-            $model->totalEmissions = $map['total_emissions'];
-        }
-        if (isset($map['active_data_amount_list'])) {
-            if (!empty($map['active_data_amount_list'])) {
-                $model->activeDataAmountList = [];
-                $n                           = 0;
-                foreach ($map['active_data_amount_list'] as $item) {
-                    $model->activeDataAmountList[$n++] = null !== $item ? AnyStatisticalItem::fromMap($item) : $item;
-                }
-            }
-        }
-        if (isset($map['emissions_intensity'])) {
-            $model->emissionsIntensity = $map['emissions_intensity'];
-        }
-        if (isset($map['each_month_emissions'])) {
-            $model->eachMonthEmissions = $map['each_month_emissions'];
-        }
-        if (isset($map['extra_statistic_datum_list'])) {
-            if (!empty($map['extra_statistic_datum_list'])) {
-                $model->extraStatisticDatumList = [];
-                $n                              = 0;
-                foreach ($map['extra_statistic_datum_list'] as $item) {
-                    $model->extraStatisticDatumList[$n++] = null !== $item ? AnyAmountItem::fromMap($item) : $item;
-                }
-            }
-        }
-
-        return $model;
-    }
 }

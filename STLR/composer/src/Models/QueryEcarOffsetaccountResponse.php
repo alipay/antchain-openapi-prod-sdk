@@ -1,13 +1,68 @@
 <?php
 
 // This file is auto-generated, don't edit it. Thanks.
-
 namespace AntChain\STLR\Models;
 
 use AlibabaCloud\Tea\Model;
 
-class QueryEcarOffsetaccountResponse extends Model
-{
+class QueryEcarOffsetaccountResponse extends Model {
+    protected $_name = [
+        'reqMsgId' => 'req_msg_id',
+        'resultCode' => 'result_code',
+        'resultMsg' => 'result_msg',
+        'projectNo' => 'project_no',
+        'accountDid' => 'account_did',
+        'offsetBalance' => 'offset_balance',
+    ];
+    public function validate() {}
+    public function toMap() {
+        $res = [];
+        if (null !== $this->reqMsgId) {
+            $res['req_msg_id'] = $this->reqMsgId;
+        }
+        if (null !== $this->resultCode) {
+            $res['result_code'] = $this->resultCode;
+        }
+        if (null !== $this->resultMsg) {
+            $res['result_msg'] = $this->resultMsg;
+        }
+        if (null !== $this->projectNo) {
+            $res['project_no'] = $this->projectNo;
+        }
+        if (null !== $this->accountDid) {
+            $res['account_did'] = $this->accountDid;
+        }
+        if (null !== $this->offsetBalance) {
+            $res['offset_balance'] = $this->offsetBalance;
+        }
+        return $res;
+    }
+    /**
+     * @param array $map
+     * @return QueryEcarOffsetaccountResponse
+     */
+    public static function fromMap($map = []) {
+        $model = new self();
+        if(isset($map['req_msg_id'])){
+            $model->reqMsgId = $map['req_msg_id'];
+        }
+        if(isset($map['result_code'])){
+            $model->resultCode = $map['result_code'];
+        }
+        if(isset($map['result_msg'])){
+            $model->resultMsg = $map['result_msg'];
+        }
+        if(isset($map['project_no'])){
+            $model->projectNo = $map['project_no'];
+        }
+        if(isset($map['account_did'])){
+            $model->accountDid = $map['account_did'];
+        }
+        if(isset($map['offset_balance'])){
+            $model->offsetBalance = $map['offset_balance'];
+        }
+        return $model;
+    }
     // 请求唯一ID，用于链路跟踪和问题排查
     /**
      * @var string
@@ -43,71 +98,5 @@ class QueryEcarOffsetaccountResponse extends Model
      * @var string
      */
     public $offsetBalance;
-    protected $_name = [
-        'reqMsgId'      => 'req_msg_id',
-        'resultCode'    => 'result_code',
-        'resultMsg'     => 'result_msg',
-        'projectNo'     => 'project_no',
-        'accountDid'    => 'account_did',
-        'offsetBalance' => 'offset_balance',
-    ];
 
-    public function validate()
-    {
-    }
-
-    public function toMap()
-    {
-        $res = [];
-        if (null !== $this->reqMsgId) {
-            $res['req_msg_id'] = $this->reqMsgId;
-        }
-        if (null !== $this->resultCode) {
-            $res['result_code'] = $this->resultCode;
-        }
-        if (null !== $this->resultMsg) {
-            $res['result_msg'] = $this->resultMsg;
-        }
-        if (null !== $this->projectNo) {
-            $res['project_no'] = $this->projectNo;
-        }
-        if (null !== $this->accountDid) {
-            $res['account_did'] = $this->accountDid;
-        }
-        if (null !== $this->offsetBalance) {
-            $res['offset_balance'] = $this->offsetBalance;
-        }
-
-        return $res;
-    }
-
-    /**
-     * @param array $map
-     *
-     * @return QueryEcarOffsetaccountResponse
-     */
-    public static function fromMap($map = [])
-    {
-        $model = new self();
-        if (isset($map['req_msg_id'])) {
-            $model->reqMsgId = $map['req_msg_id'];
-        }
-        if (isset($map['result_code'])) {
-            $model->resultCode = $map['result_code'];
-        }
-        if (isset($map['result_msg'])) {
-            $model->resultMsg = $map['result_msg'];
-        }
-        if (isset($map['project_no'])) {
-            $model->projectNo = $map['project_no'];
-        }
-        if (isset($map['account_did'])) {
-            $model->accountDid = $map['account_did'];
-        }
-        if (isset($map['offset_balance'])) {
-            $model->offsetBalance = $map['offset_balance'];
-        }
-
-        return $model;
-    }
 }

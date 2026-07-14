@@ -1,13 +1,182 @@
 <?php
 
 // This file is auto-generated, don't edit it. Thanks.
-
 namespace AntChain\STLR\Models;
 
 use AlibabaCloud\Tea\Model;
 
-class DescribeAcarLastemissiondataResponse extends Model
-{
+class DescribeAcarLastemissiondataResponse extends Model {
+    protected $_name = [
+        'reqMsgId' => 'req_msg_id',
+        'resultCode' => 'result_code',
+        'resultMsg' => 'result_msg',
+        'enterpriseNo' => 'enterprise_no',
+        'inventoryScopeNo' => 'inventory_scope_no',
+        'inventoryScopeName' => 'inventory_scope_name',
+        'emissionCategoryNo' => 'emission_category_no',
+        'emissionCategoryName' => 'emission_category_name',
+        'emissionSourceNo' => 'emission_source_no',
+        'emissionSourceName' => 'emission_source_name',
+        'enterpriseWorkspaceNo' => 'enterprise_workspace_no',
+        'enterpriseWorkspaceName' => 'enterprise_workspace_name',
+        'emissionsAnalysisFactorNo' => 'emissions_analysis_factor_no',
+        'emissionsAnalysisFactorValue' => 'emissions_analysis_factor_value',
+        'occurrenceDate' => 'occurrence_date',
+        'emissionDataEntryItemNo' => 'emission_data_entry_item_no',
+        'emissionDourceDosage' => 'emission_dource_dosage',
+        'dosageUnit' => 'dosage_unit',
+        'submitterNo' => 'submitter_no',
+        'submitterName' => 'submitter_name',
+        'submissionTime' => 'submission_time',
+        'dataEntryType' => 'data_entry_type',
+    ];
+    public function validate() {
+        Model::validatePattern('submissionTime', $this->submissionTime, '\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}([Z]|([\\.]\\d{1,9})?[\\+]\\d{2}[\\:]?\\d{2})');
+    }
+    public function toMap() {
+        $res = [];
+        if (null !== $this->reqMsgId) {
+            $res['req_msg_id'] = $this->reqMsgId;
+        }
+        if (null !== $this->resultCode) {
+            $res['result_code'] = $this->resultCode;
+        }
+        if (null !== $this->resultMsg) {
+            $res['result_msg'] = $this->resultMsg;
+        }
+        if (null !== $this->enterpriseNo) {
+            $res['enterprise_no'] = $this->enterpriseNo;
+        }
+        if (null !== $this->inventoryScopeNo) {
+            $res['inventory_scope_no'] = $this->inventoryScopeNo;
+        }
+        if (null !== $this->inventoryScopeName) {
+            $res['inventory_scope_name'] = $this->inventoryScopeName;
+        }
+        if (null !== $this->emissionCategoryNo) {
+            $res['emission_category_no'] = $this->emissionCategoryNo;
+        }
+        if (null !== $this->emissionCategoryName) {
+            $res['emission_category_name'] = $this->emissionCategoryName;
+        }
+        if (null !== $this->emissionSourceNo) {
+            $res['emission_source_no'] = $this->emissionSourceNo;
+        }
+        if (null !== $this->emissionSourceName) {
+            $res['emission_source_name'] = $this->emissionSourceName;
+        }
+        if (null !== $this->enterpriseWorkspaceNo) {
+            $res['enterprise_workspace_no'] = $this->enterpriseWorkspaceNo;
+        }
+        if (null !== $this->enterpriseWorkspaceName) {
+            $res['enterprise_workspace_name'] = $this->enterpriseWorkspaceName;
+        }
+        if (null !== $this->emissionsAnalysisFactorNo) {
+            $res['emissions_analysis_factor_no'] = $this->emissionsAnalysisFactorNo;
+        }
+        if (null !== $this->emissionsAnalysisFactorValue) {
+            $res['emissions_analysis_factor_value'] = $this->emissionsAnalysisFactorValue;
+        }
+        if (null !== $this->occurrenceDate) {
+            $res['occurrence_date'] = $this->occurrenceDate;
+        }
+        if (null !== $this->emissionDataEntryItemNo) {
+            $res['emission_data_entry_item_no'] = $this->emissionDataEntryItemNo;
+        }
+        if (null !== $this->emissionDourceDosage) {
+            $res['emission_dource_dosage'] = $this->emissionDourceDosage;
+        }
+        if (null !== $this->dosageUnit) {
+            $res['dosage_unit'] = $this->dosageUnit;
+        }
+        if (null !== $this->submitterNo) {
+            $res['submitter_no'] = $this->submitterNo;
+        }
+        if (null !== $this->submitterName) {
+            $res['submitter_name'] = $this->submitterName;
+        }
+        if (null !== $this->submissionTime) {
+            $res['submission_time'] = $this->submissionTime;
+        }
+        if (null !== $this->dataEntryType) {
+            $res['data_entry_type'] = $this->dataEntryType;
+        }
+        return $res;
+    }
+    /**
+     * @param array $map
+     * @return DescribeAcarLastemissiondataResponse
+     */
+    public static function fromMap($map = []) {
+        $model = new self();
+        if(isset($map['req_msg_id'])){
+            $model->reqMsgId = $map['req_msg_id'];
+        }
+        if(isset($map['result_code'])){
+            $model->resultCode = $map['result_code'];
+        }
+        if(isset($map['result_msg'])){
+            $model->resultMsg = $map['result_msg'];
+        }
+        if(isset($map['enterprise_no'])){
+            $model->enterpriseNo = $map['enterprise_no'];
+        }
+        if(isset($map['inventory_scope_no'])){
+            $model->inventoryScopeNo = $map['inventory_scope_no'];
+        }
+        if(isset($map['inventory_scope_name'])){
+            $model->inventoryScopeName = $map['inventory_scope_name'];
+        }
+        if(isset($map['emission_category_no'])){
+            $model->emissionCategoryNo = $map['emission_category_no'];
+        }
+        if(isset($map['emission_category_name'])){
+            $model->emissionCategoryName = $map['emission_category_name'];
+        }
+        if(isset($map['emission_source_no'])){
+            $model->emissionSourceNo = $map['emission_source_no'];
+        }
+        if(isset($map['emission_source_name'])){
+            $model->emissionSourceName = $map['emission_source_name'];
+        }
+        if(isset($map['enterprise_workspace_no'])){
+            $model->enterpriseWorkspaceNo = $map['enterprise_workspace_no'];
+        }
+        if(isset($map['enterprise_workspace_name'])){
+            $model->enterpriseWorkspaceName = $map['enterprise_workspace_name'];
+        }
+        if(isset($map['emissions_analysis_factor_no'])){
+            $model->emissionsAnalysisFactorNo = $map['emissions_analysis_factor_no'];
+        }
+        if(isset($map['emissions_analysis_factor_value'])){
+            $model->emissionsAnalysisFactorValue = $map['emissions_analysis_factor_value'];
+        }
+        if(isset($map['occurrence_date'])){
+            $model->occurrenceDate = $map['occurrence_date'];
+        }
+        if(isset($map['emission_data_entry_item_no'])){
+            $model->emissionDataEntryItemNo = $map['emission_data_entry_item_no'];
+        }
+        if(isset($map['emission_dource_dosage'])){
+            $model->emissionDourceDosage = $map['emission_dource_dosage'];
+        }
+        if(isset($map['dosage_unit'])){
+            $model->dosageUnit = $map['dosage_unit'];
+        }
+        if(isset($map['submitter_no'])){
+            $model->submitterNo = $map['submitter_no'];
+        }
+        if(isset($map['submitter_name'])){
+            $model->submitterName = $map['submitter_name'];
+        }
+        if(isset($map['submission_time'])){
+            $model->submissionTime = $map['submission_time'];
+        }
+        if(isset($map['data_entry_type'])){
+            $model->dataEntryType = $map['data_entry_type'];
+        }
+        return $model;
+    }
     // 请求唯一ID，用于链路跟踪和问题排查
     /**
      * @var string
@@ -149,184 +318,5 @@ class DescribeAcarLastemissiondataResponse extends Model
      * @var string
      */
     public $dataEntryType;
-    protected $_name = [
-        'reqMsgId'                     => 'req_msg_id',
-        'resultCode'                   => 'result_code',
-        'resultMsg'                    => 'result_msg',
-        'enterpriseNo'                 => 'enterprise_no',
-        'inventoryScopeNo'             => 'inventory_scope_no',
-        'inventoryScopeName'           => 'inventory_scope_name',
-        'emissionCategoryNo'           => 'emission_category_no',
-        'emissionCategoryName'         => 'emission_category_name',
-        'emissionSourceNo'             => 'emission_source_no',
-        'emissionSourceName'           => 'emission_source_name',
-        'enterpriseWorkspaceNo'        => 'enterprise_workspace_no',
-        'enterpriseWorkspaceName'      => 'enterprise_workspace_name',
-        'emissionsAnalysisFactorNo'    => 'emissions_analysis_factor_no',
-        'emissionsAnalysisFactorValue' => 'emissions_analysis_factor_value',
-        'occurrenceDate'               => 'occurrence_date',
-        'emissionDataEntryItemNo'      => 'emission_data_entry_item_no',
-        'emissionDourceDosage'         => 'emission_dource_dosage',
-        'dosageUnit'                   => 'dosage_unit',
-        'submitterNo'                  => 'submitter_no',
-        'submitterName'                => 'submitter_name',
-        'submissionTime'               => 'submission_time',
-        'dataEntryType'                => 'data_entry_type',
-    ];
 
-    public function validate()
-    {
-        Model::validatePattern('submissionTime', $this->submissionTime, '\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}([Z]|([\\.]\\d{1,9})?[\\+]\\d{2}[\\:]?\\d{2})');
-    }
-
-    public function toMap()
-    {
-        $res = [];
-        if (null !== $this->reqMsgId) {
-            $res['req_msg_id'] = $this->reqMsgId;
-        }
-        if (null !== $this->resultCode) {
-            $res['result_code'] = $this->resultCode;
-        }
-        if (null !== $this->resultMsg) {
-            $res['result_msg'] = $this->resultMsg;
-        }
-        if (null !== $this->enterpriseNo) {
-            $res['enterprise_no'] = $this->enterpriseNo;
-        }
-        if (null !== $this->inventoryScopeNo) {
-            $res['inventory_scope_no'] = $this->inventoryScopeNo;
-        }
-        if (null !== $this->inventoryScopeName) {
-            $res['inventory_scope_name'] = $this->inventoryScopeName;
-        }
-        if (null !== $this->emissionCategoryNo) {
-            $res['emission_category_no'] = $this->emissionCategoryNo;
-        }
-        if (null !== $this->emissionCategoryName) {
-            $res['emission_category_name'] = $this->emissionCategoryName;
-        }
-        if (null !== $this->emissionSourceNo) {
-            $res['emission_source_no'] = $this->emissionSourceNo;
-        }
-        if (null !== $this->emissionSourceName) {
-            $res['emission_source_name'] = $this->emissionSourceName;
-        }
-        if (null !== $this->enterpriseWorkspaceNo) {
-            $res['enterprise_workspace_no'] = $this->enterpriseWorkspaceNo;
-        }
-        if (null !== $this->enterpriseWorkspaceName) {
-            $res['enterprise_workspace_name'] = $this->enterpriseWorkspaceName;
-        }
-        if (null !== $this->emissionsAnalysisFactorNo) {
-            $res['emissions_analysis_factor_no'] = $this->emissionsAnalysisFactorNo;
-        }
-        if (null !== $this->emissionsAnalysisFactorValue) {
-            $res['emissions_analysis_factor_value'] = $this->emissionsAnalysisFactorValue;
-        }
-        if (null !== $this->occurrenceDate) {
-            $res['occurrence_date'] = $this->occurrenceDate;
-        }
-        if (null !== $this->emissionDataEntryItemNo) {
-            $res['emission_data_entry_item_no'] = $this->emissionDataEntryItemNo;
-        }
-        if (null !== $this->emissionDourceDosage) {
-            $res['emission_dource_dosage'] = $this->emissionDourceDosage;
-        }
-        if (null !== $this->dosageUnit) {
-            $res['dosage_unit'] = $this->dosageUnit;
-        }
-        if (null !== $this->submitterNo) {
-            $res['submitter_no'] = $this->submitterNo;
-        }
-        if (null !== $this->submitterName) {
-            $res['submitter_name'] = $this->submitterName;
-        }
-        if (null !== $this->submissionTime) {
-            $res['submission_time'] = $this->submissionTime;
-        }
-        if (null !== $this->dataEntryType) {
-            $res['data_entry_type'] = $this->dataEntryType;
-        }
-
-        return $res;
-    }
-
-    /**
-     * @param array $map
-     *
-     * @return DescribeAcarLastemissiondataResponse
-     */
-    public static function fromMap($map = [])
-    {
-        $model = new self();
-        if (isset($map['req_msg_id'])) {
-            $model->reqMsgId = $map['req_msg_id'];
-        }
-        if (isset($map['result_code'])) {
-            $model->resultCode = $map['result_code'];
-        }
-        if (isset($map['result_msg'])) {
-            $model->resultMsg = $map['result_msg'];
-        }
-        if (isset($map['enterprise_no'])) {
-            $model->enterpriseNo = $map['enterprise_no'];
-        }
-        if (isset($map['inventory_scope_no'])) {
-            $model->inventoryScopeNo = $map['inventory_scope_no'];
-        }
-        if (isset($map['inventory_scope_name'])) {
-            $model->inventoryScopeName = $map['inventory_scope_name'];
-        }
-        if (isset($map['emission_category_no'])) {
-            $model->emissionCategoryNo = $map['emission_category_no'];
-        }
-        if (isset($map['emission_category_name'])) {
-            $model->emissionCategoryName = $map['emission_category_name'];
-        }
-        if (isset($map['emission_source_no'])) {
-            $model->emissionSourceNo = $map['emission_source_no'];
-        }
-        if (isset($map['emission_source_name'])) {
-            $model->emissionSourceName = $map['emission_source_name'];
-        }
-        if (isset($map['enterprise_workspace_no'])) {
-            $model->enterpriseWorkspaceNo = $map['enterprise_workspace_no'];
-        }
-        if (isset($map['enterprise_workspace_name'])) {
-            $model->enterpriseWorkspaceName = $map['enterprise_workspace_name'];
-        }
-        if (isset($map['emissions_analysis_factor_no'])) {
-            $model->emissionsAnalysisFactorNo = $map['emissions_analysis_factor_no'];
-        }
-        if (isset($map['emissions_analysis_factor_value'])) {
-            $model->emissionsAnalysisFactorValue = $map['emissions_analysis_factor_value'];
-        }
-        if (isset($map['occurrence_date'])) {
-            $model->occurrenceDate = $map['occurrence_date'];
-        }
-        if (isset($map['emission_data_entry_item_no'])) {
-            $model->emissionDataEntryItemNo = $map['emission_data_entry_item_no'];
-        }
-        if (isset($map['emission_dource_dosage'])) {
-            $model->emissionDourceDosage = $map['emission_dource_dosage'];
-        }
-        if (isset($map['dosage_unit'])) {
-            $model->dosageUnit = $map['dosage_unit'];
-        }
-        if (isset($map['submitter_no'])) {
-            $model->submitterNo = $map['submitter_no'];
-        }
-        if (isset($map['submitter_name'])) {
-            $model->submitterName = $map['submitter_name'];
-        }
-        if (isset($map['submission_time'])) {
-            $model->submissionTime = $map['submission_time'];
-        }
-        if (isset($map['data_entry_type'])) {
-            $model->dataEntryType = $map['data_entry_type'];
-        }
-
-        return $model;
-    }
 }
