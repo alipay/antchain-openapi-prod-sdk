@@ -16747,7 +16747,7 @@ type CreateDigitalregistrationApplyformsealflowRequest struct {
 	// 签章经办人身份证号（数登申请人是企业的场景下必填）
 	AgentCertNo *string `json:"agent_cert_no,omitempty" xml:"agent_cert_no,omitempty"`
 	// 签章经办人姓名（数登申请人是企业的场景下必填）
-	AgentCertMame *string `json:"agent_cert_mame,omitempty" xml:"agent_cert_mame,omitempty"`
+	AgentCertName *string `json:"agent_cert_name,omitempty" xml:"agent_cert_name,omitempty"`
 }
 
 func (s CreateDigitalregistrationApplyformsealflowRequest) String() string {
@@ -16783,8 +16783,8 @@ func (s *CreateDigitalregistrationApplyformsealflowRequest) SetAgentCertNo(v str
 	return s
 }
 
-func (s *CreateDigitalregistrationApplyformsealflowRequest) SetAgentCertMame(v string) *CreateDigitalregistrationApplyformsealflowRequest {
-	s.AgentCertMame = &v
+func (s *CreateDigitalregistrationApplyformsealflowRequest) SetAgentCertName(v string) *CreateDigitalregistrationApplyformsealflowRequest {
+	s.AgentCertName = &v
 	return s
 }
 
@@ -17937,7 +17937,7 @@ func (client *Client) DoRequest(version *string, action *string, protocol *strin
 				"req_msg_id":       antchainutil.GetNonce(),
 				"access_key":       client.AccessKeyId,
 				"base_sdk_version": tea.String("TeaSDK-2.0"),
-				"sdk_version":      tea.String("1.21.4"),
+				"sdk_version":      tea.String("1.21.6"),
 				"_prod_code":       tea.String("BCCR"),
 				"_prod_channel":    tea.String("undefined"),
 			}
