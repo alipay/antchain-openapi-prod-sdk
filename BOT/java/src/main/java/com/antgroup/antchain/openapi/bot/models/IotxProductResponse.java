@@ -230,6 +230,14 @@ public class IotxProductResponse extends TeaModel {
     @Validation(pattern = "\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}([Z]|([\\.]\\d{1,9})?[\\+]\\d{2}[\\:]?\\d{2})")
     public String gmtModified;
 
+    // 租户名称
+    /**
+     * <strong>example:</strong>
+     * <p>租户名称</p>
+     */
+    @NameInMap("tenant_name")
+    public String tenantName;
+
     public static IotxProductResponse build(java.util.Map<String, ?> map) throws Exception {
         IotxProductResponse self = new IotxProductResponse();
         return TeaModel.build(map, self);
@@ -457,6 +465,14 @@ public class IotxProductResponse extends TeaModel {
     }
     public String getGmtModified() {
         return this.gmtModified;
+    }
+
+    public IotxProductResponse setTenantName(String tenantName) {
+        this.tenantName = tenantName;
+        return this;
+    }
+    public String getTenantName() {
+        return this.tenantName;
     }
 
 }
