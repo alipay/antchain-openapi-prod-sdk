@@ -8,7 +8,7 @@
 <dependency>
    <groupId>com.antgroup.antchain.openapi</groupId>
    <artifactId>bot</artifactId>
-   <version>1.17.3</version>
+   <version>1.17.4</version>
 </dependency>
 ```
 

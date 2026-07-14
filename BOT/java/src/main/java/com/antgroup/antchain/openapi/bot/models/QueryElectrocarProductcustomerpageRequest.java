@@ -43,6 +43,7 @@ public class QueryElectrocarProductcustomerpageRequest extends TeaModel {
 
     // 客户id
     @NameInMap("customer_id")
+    @Validation(required = true)
     public String customerId;
 
     public static QueryElectrocarProductcustomerpageRequest build(java.util.Map<String, ?> map) throws Exception {
