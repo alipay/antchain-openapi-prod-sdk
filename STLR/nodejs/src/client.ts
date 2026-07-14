@@ -817,6 +817,39 @@ export class EmissionsCategoryStatistics extends $tea.Model {
   }
 }
 
+// 过程详情
+export class ProcessDetail extends $tea.Model {
+  // 单元过程名称
+  /**
+   * @example
+   * xxxx
+   */
+  processName?: string;
+  // 过程编码
+  /**
+   * @example
+   * xxxx
+   */
+  processNo?: string;
+  static names(): { [key: string]: string } {
+    return {
+      processName: 'process_name',
+      processNo: 'process_no',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      processName: 'string',
+      processNo: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
 // 按绿色行为类型统计的绿色行为明细
 export class GreenOperationStatisticsByType extends $tea.Model {
   // 绿色行为类型
@@ -1621,7 +1654,7 @@ export class GclProductionItem extends $tea.Model {
    * @example
    * undefined
    */
-  productionDataList: MonthDataDetail;
+  productionDataList: MonthDataDetail[];
   static names(): { [key: string]: string } {
     return {
       externalItemCode: 'external_item_code',
@@ -1638,7 +1671,7 @@ export class GclProductionItem extends $tea.Model {
       locationName: 'string',
       productName: 'string',
       specification: 'string',
-      productionDataList: MonthDataDetail,
+      productionDataList: { 'type': 'array', 'itemType': MonthDataDetail },
     };
   }
 
@@ -2141,6 +2174,12 @@ export class GclAbnormalItem extends $tea.Model {
    * xxxx
    */
   supplierProductName?: string;
+  // 过程编码
+  /**
+   * @example
+   * xxxx
+   */
+  processNo?: string;
   static names(): { [key: string]: string } {
     return {
       externalItemCode: 'external_item_code',
@@ -2156,6 +2195,7 @@ export class GclAbnormalItem extends $tea.Model {
       materialName: 'material_name',
       supplierName: 'supplier_name',
       supplierProductName: 'supplier_product_name',
+      processNo: 'process_no',
     };
   }
 
@@ -2174,6 +2214,7 @@ export class GclAbnormalItem extends $tea.Model {
       materialName: 'string',
       supplierName: 'string',
       supplierProductName: 'string',
+      processNo: 'string',
     };
   }
 
@@ -3020,6 +3061,39 @@ export class LcaStageActiveData extends $tea.Model {
   }
 }
 
+// gcl开放接口模型
+export class GclLcaModel extends $tea.Model {
+  // 模型名称
+  /**
+   * @example
+   * xxxx
+   */
+  modelName?: string;
+  // 过程信息
+  /**
+   * @example
+   * undefined
+   */
+  processList?: ProcessDetail[];
+  static names(): { [key: string]: string } {
+    return {
+      modelName: 'model_name',
+      processList: 'process_list',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      modelName: 'string',
+      processList: { 'type': 'array', 'itemType': ProcessDetail },
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
 // 按频率统计的绿色行为明细
 export class GreenOperationStatisticsByFrequence extends $tea.Model {
   // 绿色行为发生时期
@@ -3053,39 +3127,6 @@ export class GreenOperationStatisticsByFrequence extends $tea.Model {
       occurrencePeriod: 'string',
       greenEnergyAmount: 'number',
       greenOperationRecords: 'number',
-    };
-  }
-
-  constructor(map?: { [key: string]: any }) {
-    super(map);
-  }
-}
-
-// 过程详情
-export class ProcessDetail extends $tea.Model {
-  // 单元过程名称
-  /**
-   * @example
-   * xxxx
-   */
-  processName?: string;
-  // 过程编码
-  /**
-   * @example
-   * xxxx
-   */
-  processNo?: string;
-  static names(): { [key: string]: string } {
-    return {
-      processName: 'process_name',
-      processNo: 'process_no',
-    };
-  }
-
-  static types(): { [key: string]: any } {
-    return {
-      processName: 'string',
-      processNo: 'string',
     };
   }
 
@@ -8913,7 +8954,7 @@ export class QueryActiveDataResponse extends $tea.Model {
   // 是否按照单元过程录入
   inputByProcess?: boolean;
   // 过程模型列表
-  processList?: ProcessDetail[];
+  processList?: GclLcaModel[];
   static names(): { [key: string]: string } {
     return {
       reqMsgId: 'req_msg_id',
@@ -8934,7 +8975,7 @@ export class QueryActiveDataResponse extends $tea.Model {
       success: 'boolean',
       dataDimension: 'string',
       inputByProcess: 'boolean',
-      processList: { 'type': 'array', 'itemType': ProcessDetail },
+      processList: { 'type': 'array', 'itemType': GclLcaModel },
     };
   }
 
@@ -9399,7 +9440,7 @@ export default class Client {
           req_msg_id: AntchainUtil.getNonce(),
           access_key: this._accessKeyId,
           base_sdk_version: "TeaSDK-2.0",
-          sdk_version: "2.11.9",
+          sdk_version: "2.11.10",
           _prod_code: "STLR",
           _prod_channel: "undefined",
         };
