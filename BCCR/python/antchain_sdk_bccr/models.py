@@ -18944,7 +18944,7 @@ class CreateDigitalregistrationApplyformsealflowRequest(TeaModel):
         digital_register_id: str = None,
         client_token: str = None,
         agent_cert_no: str = None,
-        agent_cert_mame: str = None,
+        agent_cert_name: str = None,
     ):
         # OAuth模式下的授权token
         self.auth_token = auth_token
@@ -18956,7 +18956,7 @@ class CreateDigitalregistrationApplyformsealflowRequest(TeaModel):
         # 签章经办人身份证号（数登申请人是企业的场景下必填）
         self.agent_cert_no = agent_cert_no
         # 签章经办人姓名（数登申请人是企业的场景下必填）
-        self.agent_cert_mame = agent_cert_mame
+        self.agent_cert_name = agent_cert_name
 
     def validate(self):
         self.validate_required(self.digital_register_id, 'digital_register_id')
@@ -18978,8 +18978,8 @@ class CreateDigitalregistrationApplyformsealflowRequest(TeaModel):
             result['client_token'] = self.client_token
         if self.agent_cert_no is not None:
             result['agent_cert_no'] = self.agent_cert_no
-        if self.agent_cert_mame is not None:
-            result['agent_cert_mame'] = self.agent_cert_mame
+        if self.agent_cert_name is not None:
+            result['agent_cert_name'] = self.agent_cert_name
         return result
 
     def from_map(self, m: dict = None):
@@ -18994,8 +18994,8 @@ class CreateDigitalregistrationApplyformsealflowRequest(TeaModel):
             self.client_token = m.get('client_token')
         if m.get('agent_cert_no') is not None:
             self.agent_cert_no = m.get('agent_cert_no')
-        if m.get('agent_cert_mame') is not None:
-            self.agent_cert_mame = m.get('agent_cert_mame')
+        if m.get('agent_cert_name') is not None:
+            self.agent_cert_name = m.get('agent_cert_name')
         return self
 
 
