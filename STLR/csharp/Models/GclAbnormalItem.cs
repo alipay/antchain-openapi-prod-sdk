@@ -133,6 +133,15 @@ namespace AntChain.SDK.STLR.Models
         [Validation(Required=false)]
         public string SupplierProductName { get; set; }
 
+        // 过程编码
+        /// <summary>
+        /// <b>Example:</b>
+        /// <para>xxxx</para>
+        /// </summary>
+        [NameInMap("process_no")]
+        [Validation(Required=false)]
+        public string ProcessNo { get; set; }
+
     }
 
 }

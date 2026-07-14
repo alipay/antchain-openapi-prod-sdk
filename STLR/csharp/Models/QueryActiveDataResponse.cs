@@ -42,7 +42,7 @@ namespace AntChain.SDK.STLR.Models
         // 过程模型列表
         [NameInMap("process_list")]
         [Validation(Required=false)]
-        public List<ProcessDetail> ProcessList { get; set; }
+        public List<GclLcaModel> ProcessList { get; set; }
 
     }
 
