@@ -12,7 +12,7 @@ class CreateDigitalregistrationApplyformsealflowRequest extends Model {
         'digitalRegisterId' => 'digital_register_id',
         'clientToken' => 'client_token',
         'agentCertNo' => 'agent_cert_no',
-        'agentCertMame' => 'agent_cert_mame',
+        'agentCertName' => 'agent_cert_name',
     ];
     public function validate() {
         Model::validateRequired('digitalRegisterId', $this->digitalRegisterId, true);
@@ -35,8 +35,8 @@ class CreateDigitalregistrationApplyformsealflowRequest extends Model {
         if (null !== $this->agentCertNo) {
             $res['agent_cert_no'] = $this->agentCertNo;
         }
-        if (null !== $this->agentCertMame) {
-            $res['agent_cert_mame'] = $this->agentCertMame;
+        if (null !== $this->agentCertName) {
+            $res['agent_cert_name'] = $this->agentCertName;
         }
         return $res;
     }
@@ -61,8 +61,8 @@ class CreateDigitalregistrationApplyformsealflowRequest extends Model {
         if(isset($map['agent_cert_no'])){
             $model->agentCertNo = $map['agent_cert_no'];
         }
-        if(isset($map['agent_cert_mame'])){
-            $model->agentCertMame = $map['agent_cert_mame'];
+        if(isset($map['agent_cert_name'])){
+            $model->agentCertName = $map['agent_cert_name'];
         }
         return $model;
     }
@@ -99,6 +99,6 @@ class CreateDigitalregistrationApplyformsealflowRequest extends Model {
     /**
      * @var string
      */
-    public $agentCertMame;
+    public $agentCertName;
 
 }
