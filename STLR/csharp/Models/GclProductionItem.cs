@@ -53,7 +53,7 @@ namespace AntChain.SDK.STLR.Models
         /// </summary>
         [NameInMap("production_data_list")]
         [Validation(Required=true)]
-        public MonthDataDetail ProductionDataList { get; set; }
+        public List<MonthDataDetail> ProductionDataList { get; set; }
 
     }
 
