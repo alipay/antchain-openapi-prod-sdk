@@ -126,7 +126,7 @@ public class Client {
                     new TeaPair("req_msg_id", com.antgroup.antchain.openapi.antchain.util.AntchainUtils.getNonce()),
                     new TeaPair("access_key", _accessKeyId),
                     new TeaPair("base_sdk_version", "TeaSDK-2.0"),
-                    new TeaPair("sdk_version", "1.17.2"),
+                    new TeaPair("sdk_version", "1.17.3"),
                     new TeaPair("_prod_code", "BOT"),
                     new TeaPair("_prod_channel", "undefined")
                 );
@@ -3695,6 +3695,174 @@ public class Client {
     public QueryElectrocarTaskstatusResponse queryElectrocarTaskstatusEx(QueryElectrocarTaskstatusRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
         com.aliyun.teautil.Common.validateModel(request);
         return TeaModel.toModel(this.doRequest("1.0", "blockchain.bot.electrocar.taskstatus.query", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new QueryElectrocarTaskstatusResponse());
+    }
+
+    /**
+     * <b>description</b> :
+     * <p>Description: 查询客户的产品分页列表
+     * Summary: 查询客户的产品分页列表</p>
+     */
+    public QueryElectrocarProductcustomerpageResponse queryElectrocarProductcustomerpage(QueryElectrocarProductcustomerpageRequest request) throws Exception {
+        com.aliyun.teautil.models.RuntimeOptions runtime = new com.aliyun.teautil.models.RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.queryElectrocarProductcustomerpageEx(request, headers, runtime);
+    }
+
+    /**
+     * <b>description</b> :
+     * <p>Description: 查询客户的产品分页列表
+     * Summary: 查询客户的产品分页列表</p>
+     */
+    public QueryElectrocarProductcustomerpageResponse queryElectrocarProductcustomerpageEx(QueryElectrocarProductcustomerpageRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "blockchain.bot.electrocar.productcustomerpage.query", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new QueryElectrocarProductcustomerpageResponse());
+    }
+
+    /**
+     * <b>description</b> :
+     * <p>Description: 创建OTA升级任务
+     * Summary: 创建OTA升级任务</p>
+     */
+    public PushElectrocarOtajobResponse pushElectrocarOtajob(PushElectrocarOtajobRequest request) throws Exception {
+        com.aliyun.teautil.models.RuntimeOptions runtime = new com.aliyun.teautil.models.RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.pushElectrocarOtajobEx(request, headers, runtime);
+    }
+
+    /**
+     * <b>description</b> :
+     * <p>Description: 创建OTA升级任务
+     * Summary: 创建OTA升级任务</p>
+     */
+    public PushElectrocarOtajobResponse pushElectrocarOtajobEx(PushElectrocarOtajobRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "blockchain.bot.electrocar.otajob.push", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new PushElectrocarOtajobResponse());
+    }
+
+    /**
+     * <b>description</b> :
+     * <p>Description: 查询OTA模块分页列表
+     * Summary: 查询OTA模块分页列表</p>
+     */
+    public QueryElectrocarOtamodulepageResponse queryElectrocarOtamodulepage(QueryElectrocarOtamodulepageRequest request) throws Exception {
+        com.aliyun.teautil.models.RuntimeOptions runtime = new com.aliyun.teautil.models.RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.queryElectrocarOtamodulepageEx(request, headers, runtime);
+    }
+
+    /**
+     * <b>description</b> :
+     * <p>Description: 查询OTA模块分页列表
+     * Summary: 查询OTA模块分页列表</p>
+     */
+    public QueryElectrocarOtamodulepageResponse queryElectrocarOtamodulepageEx(QueryElectrocarOtamodulepageRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "blockchain.bot.electrocar.otamodulepage.query", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new QueryElectrocarOtamodulepageResponse());
+    }
+
+    /**
+     * <b>description</b> :
+     * <p>Description: 查询固件升级包分页列表
+     * Summary: 查询固件升级包分页列表</p>
+     */
+    public QueryElectrocarOtafirmwarepageResponse queryElectrocarOtafirmwarepage(QueryElectrocarOtafirmwarepageRequest request) throws Exception {
+        com.aliyun.teautil.models.RuntimeOptions runtime = new com.aliyun.teautil.models.RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.queryElectrocarOtafirmwarepageEx(request, headers, runtime);
+    }
+
+    /**
+     * <b>description</b> :
+     * <p>Description: 查询固件升级包分页列表
+     * Summary: 查询固件升级包分页列表</p>
+     */
+    public QueryElectrocarOtafirmwarepageResponse queryElectrocarOtafirmwarepageEx(QueryElectrocarOtafirmwarepageRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "blockchain.bot.electrocar.otafirmwarepage.query", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new QueryElectrocarOtafirmwarepageResponse());
+    }
+
+    /**
+     * <b>description</b> :
+     * <p>Description: 查询固件包详情
+     * Summary: 查询固件包详情</p>
+     */
+    public QueryElectrocarOtafirmwaredetailResponse queryElectrocarOtafirmwaredetail(QueryElectrocarOtafirmwaredetailRequest request) throws Exception {
+        com.aliyun.teautil.models.RuntimeOptions runtime = new com.aliyun.teautil.models.RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.queryElectrocarOtafirmwaredetailEx(request, headers, runtime);
+    }
+
+    /**
+     * <b>description</b> :
+     * <p>Description: 查询固件包详情
+     * Summary: 查询固件包详情</p>
+     */
+    public QueryElectrocarOtafirmwaredetailResponse queryElectrocarOtafirmwaredetailEx(QueryElectrocarOtafirmwaredetailRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "blockchain.bot.electrocar.otafirmwaredetail.query", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new QueryElectrocarOtafirmwaredetailResponse());
+    }
+
+    /**
+     * <b>description</b> :
+     * <p>Description: 查询OTA固件升级批次分页列表
+     * Summary: 查询OTA固件升级批次分页列表</p>
+     */
+    public QueryElectrocarOtajobpageResponse queryElectrocarOtajobpage(QueryElectrocarOtajobpageRequest request) throws Exception {
+        com.aliyun.teautil.models.RuntimeOptions runtime = new com.aliyun.teautil.models.RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.queryElectrocarOtajobpageEx(request, headers, runtime);
+    }
+
+    /**
+     * <b>description</b> :
+     * <p>Description: 查询OTA固件升级批次分页列表
+     * Summary: 查询OTA固件升级批次分页列表</p>
+     */
+    public QueryElectrocarOtajobpageResponse queryElectrocarOtajobpageEx(QueryElectrocarOtajobpageRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "blockchain.bot.electrocar.otajobpage.query", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new QueryElectrocarOtajobpageResponse());
+    }
+
+    /**
+     * <b>description</b> :
+     * <p>Description: OTA升级批次详情查询
+     * Summary: OTA升级批次详情查询</p>
+     */
+    public QueryElectrocarOtajobdetailResponse queryElectrocarOtajobdetail(QueryElectrocarOtajobdetailRequest request) throws Exception {
+        com.aliyun.teautil.models.RuntimeOptions runtime = new com.aliyun.teautil.models.RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.queryElectrocarOtajobdetailEx(request, headers, runtime);
+    }
+
+    /**
+     * <b>description</b> :
+     * <p>Description: OTA升级批次详情查询
+     * Summary: OTA升级批次详情查询</p>
+     */
+    public QueryElectrocarOtajobdetailResponse queryElectrocarOtajobdetailEx(QueryElectrocarOtajobdetailRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "blockchain.bot.electrocar.otajobdetail.query", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new QueryElectrocarOtajobdetailResponse());
+    }
+
+    /**
+     * <b>description</b> :
+     * <p>Description: 查询OTA升级任务分页列表
+     * Summary: 查询OTA升级任务分页列表</p>
+     */
+    public QueryElectrocarOtataskpageResponse queryElectrocarOtataskpage(QueryElectrocarOtataskpageRequest request) throws Exception {
+        com.aliyun.teautil.models.RuntimeOptions runtime = new com.aliyun.teautil.models.RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.queryElectrocarOtataskpageEx(request, headers, runtime);
+    }
+
+    /**
+     * <b>description</b> :
+     * <p>Description: 查询OTA升级任务分页列表
+     * Summary: 查询OTA升级任务分页列表</p>
+     */
+    public QueryElectrocarOtataskpageResponse queryElectrocarOtataskpageEx(QueryElectrocarOtataskpageRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "blockchain.bot.electrocar.otataskpage.query", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new QueryElectrocarOtataskpageResponse());
     }
 
     /**
