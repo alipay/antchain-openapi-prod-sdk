@@ -851,6 +851,38 @@ func (s *EmissionsCategoryStatistics) SetUnit(v string) *EmissionsCategoryStatis
 	return s
 }
 
+// 过程详情
+type ProcessDetail struct {
+	// 单元过程名称
+	// example:
+	//
+	// xxxx
+	ProcessName *string `json:"process_name,omitempty" xml:"process_name,omitempty"`
+	// 过程编码
+	// example:
+	//
+	// xxxx
+	ProcessNo *string `json:"process_no,omitempty" xml:"process_no,omitempty"`
+}
+
+func (s ProcessDetail) String() string {
+	return tea.Prettify(s)
+}
+
+func (s ProcessDetail) GoString() string {
+	return s.String()
+}
+
+func (s *ProcessDetail) SetProcessName(v string) *ProcessDetail {
+	s.ProcessName = &v
+	return s
+}
+
+func (s *ProcessDetail) SetProcessNo(v string) *ProcessDetail {
+	s.ProcessNo = &v
+	return s
+}
+
 // 按绿色行为类型统计的绿色行为明细
 type GreenOperationStatisticsByType struct {
 	// 绿色行为类型
@@ -1710,7 +1742,7 @@ type GclProductionItem struct {
 	// example:
 	//
 	// undefined
-	ProductionDataList *MonthDataDetail `json:"production_data_list,omitempty" xml:"production_data_list,omitempty" require:"true"`
+	ProductionDataList []*MonthDataDetail `json:"production_data_list,omitempty" xml:"production_data_list,omitempty" require:"true" type:"Repeated"`
 }
 
 func (s GclProductionItem) String() string {
@@ -1741,7 +1773,7 @@ func (s *GclProductionItem) SetSpecification(v string) *GclProductionItem {
 	return s
 }
 
-func (s *GclProductionItem) SetProductionDataList(v *MonthDataDetail) *GclProductionItem {
+func (s *GclProductionItem) SetProductionDataList(v []*MonthDataDetail) *GclProductionItem {
 	s.ProductionDataList = v
 	return s
 }
@@ -2279,6 +2311,11 @@ type GclAbnormalItem struct {
 	//
 	// xxxx
 	SupplierProductName *string `json:"supplier_product_name,omitempty" xml:"supplier_product_name,omitempty"`
+	// 过程编码
+	// example:
+	//
+	// xxxx
+	ProcessNo *string `json:"process_no,omitempty" xml:"process_no,omitempty"`
 }
 
 func (s GclAbnormalItem) String() string {
@@ -2351,6 +2388,11 @@ func (s *GclAbnormalItem) SetSupplierName(v string) *GclAbnormalItem {
 
 func (s *GclAbnormalItem) SetSupplierProductName(v string) *GclAbnormalItem {
 	s.SupplierProductName = &v
+	return s
+}
+
+func (s *GclAbnormalItem) SetProcessNo(v string) *GclAbnormalItem {
+	s.ProcessNo = &v
 	return s
 }
 
@@ -3288,6 +3330,38 @@ func (s *LcaStageActiveData) SetOutputStreamList(v []*OutputStreamActiveData) *L
 	return s
 }
 
+// gcl开放接口模型
+type GclLcaModel struct {
+	// 模型名称
+	// example:
+	//
+	// xxxx
+	ModelName *string `json:"model_name,omitempty" xml:"model_name,omitempty"`
+	// 过程信息
+	// example:
+	//
+	// undefined
+	ProcessList []*ProcessDetail `json:"process_list,omitempty" xml:"process_list,omitempty" type:"Repeated"`
+}
+
+func (s GclLcaModel) String() string {
+	return tea.Prettify(s)
+}
+
+func (s GclLcaModel) GoString() string {
+	return s.String()
+}
+
+func (s *GclLcaModel) SetModelName(v string) *GclLcaModel {
+	s.ModelName = &v
+	return s
+}
+
+func (s *GclLcaModel) SetProcessList(v []*ProcessDetail) *GclLcaModel {
+	s.ProcessList = v
+	return s
+}
+
 // 按频率统计的绿色行为明细
 type GreenOperationStatisticsByFrequence struct {
 	// 绿色行为发生时期
@@ -3327,38 +3401,6 @@ func (s *GreenOperationStatisticsByFrequence) SetGreenEnergyAmount(v int64) *Gre
 
 func (s *GreenOperationStatisticsByFrequence) SetGreenOperationRecords(v int64) *GreenOperationStatisticsByFrequence {
 	s.GreenOperationRecords = &v
-	return s
-}
-
-// 过程详情
-type ProcessDetail struct {
-	// 单元过程名称
-	// example:
-	//
-	// xxxx
-	ProcessName *string `json:"process_name,omitempty" xml:"process_name,omitempty"`
-	// 过程编码
-	// example:
-	//
-	// xxxx
-	ProcessNo *string `json:"process_no,omitempty" xml:"process_no,omitempty"`
-}
-
-func (s ProcessDetail) String() string {
-	return tea.Prettify(s)
-}
-
-func (s ProcessDetail) GoString() string {
-	return s.String()
-}
-
-func (s *ProcessDetail) SetProcessName(v string) *ProcessDetail {
-	s.ProcessName = &v
-	return s
-}
-
-func (s *ProcessDetail) SetProcessNo(v string) *ProcessDetail {
-	s.ProcessNo = &v
 	return s
 }
 
@@ -10914,7 +10956,7 @@ type QueryActiveDataResponse struct {
 	// 是否按照单元过程录入
 	InputByProcess *bool `json:"input_by_process,omitempty" xml:"input_by_process,omitempty"`
 	// 过程模型列表
-	ProcessList []*ProcessDetail `json:"process_list,omitempty" xml:"process_list,omitempty" type:"Repeated"`
+	ProcessList []*GclLcaModel `json:"process_list,omitempty" xml:"process_list,omitempty" type:"Repeated"`
 }
 
 func (s QueryActiveDataResponse) String() string {
@@ -10955,7 +10997,7 @@ func (s *QueryActiveDataResponse) SetInputByProcess(v bool) *QueryActiveDataResp
 	return s
 }
 
-func (s *QueryActiveDataResponse) SetProcessList(v []*ProcessDetail) *QueryActiveDataResponse {
+func (s *QueryActiveDataResponse) SetProcessList(v []*GclLcaModel) *QueryActiveDataResponse {
 	s.ProcessList = v
 	return s
 }
@@ -11548,7 +11590,7 @@ func (client *Client) DoRequest(version *string, action *string, protocol *strin
 				"req_msg_id":       antchainutil.GetNonce(),
 				"access_key":       client.AccessKeyId,
 				"base_sdk_version": tea.String("TeaSDK-2.0"),
-				"sdk_version":      tea.String("2.11.9"),
+				"sdk_version":      tea.String("2.11.10"),
 				"_prod_code":       tea.String("STLR"),
 				"_prod_channel":    tea.String("undefined"),
 			}
