@@ -867,6 +867,41 @@ class EmissionsCategoryStatistics(TeaModel):
         return self
 
 
+class ProcessDetail(TeaModel):
+    def __init__(
+        self,
+        process_name: str = None,
+        process_no: str = None,
+    ):
+        # 单元过程名称
+        self.process_name = process_name
+        # 过程编码
+        self.process_no = process_no
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.process_name is not None:
+            result['process_name'] = self.process_name
+        if self.process_no is not None:
+            result['process_no'] = self.process_no
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('process_name') is not None:
+            self.process_name = m.get('process_name')
+        if m.get('process_no') is not None:
+            self.process_no = m.get('process_no')
+        return self
+
+
 class GreenOperationStatisticsByType(TeaModel):
     def __init__(
         self,
@@ -1721,7 +1756,7 @@ class GclProductionItem(TeaModel):
         location_name: str = None,
         product_name: str = None,
         specification: str = None,
-        production_data_list: MonthDataDetail = None,
+        production_data_list: List[MonthDataDetail] = None,
     ):
         # 用户侧传入明细编码，用于异常回传和排查
         self.external_item_code = external_item_code
@@ -1740,7 +1775,9 @@ class GclProductionItem(TeaModel):
         self.validate_required(self.specification, 'specification')
         self.validate_required(self.production_data_list, 'production_data_list')
         if self.production_data_list:
-            self.production_data_list.validate()
+            for k in self.production_data_list:
+                if k:
+                    k.validate()
 
     def to_map(self):
         _map = super().to_map()
@@ -1756,8 +1793,10 @@ class GclProductionItem(TeaModel):
             result['product_name'] = self.product_name
         if self.specification is not None:
             result['specification'] = self.specification
+        result['production_data_list'] = []
         if self.production_data_list is not None:
-            result['production_data_list'] = self.production_data_list.to_map()
+            for k in self.production_data_list:
+                result['production_data_list'].append(k.to_map() if k else None)
         return result
 
     def from_map(self, m: dict = None):
@@ -1770,9 +1809,11 @@ class GclProductionItem(TeaModel):
             self.product_name = m.get('product_name')
         if m.get('specification') is not None:
             self.specification = m.get('specification')
+        self.production_data_list = []
         if m.get('production_data_list') is not None:
-            temp_model = MonthDataDetail()
-            self.production_data_list = temp_model.from_map(m['production_data_list'])
+            for k in m.get('production_data_list'):
+                temp_model = MonthDataDetail()
+                self.production_data_list.append(temp_model.from_map(k))
         return self
 
 
@@ -2243,6 +2284,7 @@ class GclAbnormalItem(TeaModel):
         material_name: str = None,
         supplier_name: str = None,
         supplier_product_name: str = None,
+        process_no: str = None,
     ):
         # 明细编码
         self.external_item_code = external_item_code
@@ -2270,6 +2312,8 @@ class GclAbnormalItem(TeaModel):
         self.supplier_name = supplier_name
         # 供应商产品名称
         self.supplier_product_name = supplier_product_name
+        # 过程编码
+        self.process_no = process_no
 
     def validate(self):
         pass
@@ -2306,6 +2350,8 @@ class GclAbnormalItem(TeaModel):
             result['supplier_name'] = self.supplier_name
         if self.supplier_product_name is not None:
             result['supplier_product_name'] = self.supplier_product_name
+        if self.process_no is not None:
+            result['process_no'] = self.process_no
         return result
 
     def from_map(self, m: dict = None):
@@ -2336,6 +2382,8 @@ class GclAbnormalItem(TeaModel):
             self.supplier_name = m.get('supplier_name')
         if m.get('supplier_product_name') is not None:
             self.supplier_product_name = m.get('supplier_product_name')
+        if m.get('process_no') is not None:
+            self.process_no = m.get('process_no')
         return self
 
 
@@ -3312,6 +3360,49 @@ class LcaStageActiveData(TeaModel):
         return self
 
 
+class GclLcaModel(TeaModel):
+    def __init__(
+        self,
+        model_name: str = None,
+        process_list: List[ProcessDetail] = None,
+    ):
+        # 模型名称
+        self.model_name = model_name
+        # 过程信息
+        self.process_list = process_list
+
+    def validate(self):
+        if self.process_list:
+            for k in self.process_list:
+                if k:
+                    k.validate()
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.model_name is not None:
+            result['model_name'] = self.model_name
+        result['process_list'] = []
+        if self.process_list is not None:
+            for k in self.process_list:
+                result['process_list'].append(k.to_map() if k else None)
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('model_name') is not None:
+            self.model_name = m.get('model_name')
+        self.process_list = []
+        if m.get('process_list') is not None:
+            for k in m.get('process_list'):
+                temp_model = ProcessDetail()
+                self.process_list.append(temp_model.from_map(k))
+        return self
+
+
 class GreenOperationStatisticsByFrequence(TeaModel):
     def __init__(
         self,
@@ -3353,41 +3444,6 @@ class GreenOperationStatisticsByFrequence(TeaModel):
             self.green_energy_amount = m.get('green_energy_amount')
         if m.get('green_operation_records') is not None:
             self.green_operation_records = m.get('green_operation_records')
-        return self
-
-
-class ProcessDetail(TeaModel):
-    def __init__(
-        self,
-        process_name: str = None,
-        process_no: str = None,
-    ):
-        # 单元过程名称
-        self.process_name = process_name
-        # 过程编码
-        self.process_no = process_no
-
-    def validate(self):
-        pass
-
-    def to_map(self):
-        _map = super().to_map()
-        if _map is not None:
-            return _map
-
-        result = dict()
-        if self.process_name is not None:
-            result['process_name'] = self.process_name
-        if self.process_no is not None:
-            result['process_no'] = self.process_no
-        return result
-
-    def from_map(self, m: dict = None):
-        m = m or dict()
-        if m.get('process_name') is not None:
-            self.process_name = m.get('process_name')
-        if m.get('process_no') is not None:
-            self.process_no = m.get('process_no')
         return self
 
 
@@ -12959,7 +13015,7 @@ class QueryActiveDataResponse(TeaModel):
         success: bool = None,
         data_dimension: str = None,
         input_by_process: bool = None,
-        process_list: List[ProcessDetail] = None,
+        process_list: List[GclLcaModel] = None,
     ):
         # 请求唯一ID，用于链路跟踪和问题排查
         self.req_msg_id = req_msg_id
@@ -13023,7 +13079,7 @@ class QueryActiveDataResponse(TeaModel):
         self.process_list = []
         if m.get('process_list') is not None:
             for k in m.get('process_list'):
-                temp_model = ProcessDetail()
+                temp_model = GclLcaModel()
                 self.process_list.append(temp_model.from_map(k))
         return self
 
