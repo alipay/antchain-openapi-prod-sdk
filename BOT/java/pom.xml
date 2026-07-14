@@ -6,9 +6,9 @@
 
     <!-- 基础信息 -->
     <groupId>com.antgroup.antchain.openapi</groupId>
-    <!-- 注意：变量 openapi-bot 和 1.17.4 需要在命令行或 properties 中定义 -->
+    <!-- 注意：变量 openapi-bot 和 1.17.5 需要在命令行或 properties 中定义 -->
     <artifactId>openapi-bot</artifactId>
-    <version>1.17.4</version>
+    <version>1.17.5</version>
     <packaging>jar</packaging>
 
     <name>openapi-bot</name>
