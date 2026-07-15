@@ -1,13 +1,104 @@
 <?php
 
 // This file is auto-generated, don't edit it. Thanks.
-
 namespace AntChain\BOT\Models;
 
 use AlibabaCloud\Tea\Model;
 
-class PagequeryDataverifyFailureRequest extends Model
-{
+class PagequeryDataverifyFailureRequest extends Model {
+    protected $_name = [
+        'authToken' => 'auth_token',
+        'productInstanceId' => 'product_instance_id',
+        'pageIndex' => 'page_index',
+        'pageSize' => 'page_size',
+        'scene' => 'scene',
+        'startDate' => 'start_date',
+        'endDate' => 'end_date',
+        'deviceId' => 'device_id',
+        'source' => 'source',
+        'type' => 'type',
+    ];
+    public function validate() {
+        Model::validateRequired('pageIndex', $this->pageIndex, true);
+        Model::validateRequired('pageSize', $this->pageSize, true);
+        Model::validateRequired('scene', $this->scene, true);
+        Model::validateRequired('startDate', $this->startDate, true);
+        Model::validateRequired('endDate', $this->endDate, true);
+        Model::validatePattern('startDate', $this->startDate, '\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}([Z]|([\\.]\\d{1,9})?[\\+]\\d{2}[\\:]?\\d{2})');
+        Model::validatePattern('endDate', $this->endDate, '\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}([Z]|([\\.]\\d{1,9})?[\\+]\\d{2}[\\:]?\\d{2})');
+    }
+    public function toMap() {
+        $res = [];
+        if (null !== $this->authToken) {
+            $res['auth_token'] = $this->authToken;
+        }
+        if (null !== $this->productInstanceId) {
+            $res['product_instance_id'] = $this->productInstanceId;
+        }
+        if (null !== $this->pageIndex) {
+            $res['page_index'] = $this->pageIndex;
+        }
+        if (null !== $this->pageSize) {
+            $res['page_size'] = $this->pageSize;
+        }
+        if (null !== $this->scene) {
+            $res['scene'] = $this->scene;
+        }
+        if (null !== $this->startDate) {
+            $res['start_date'] = $this->startDate;
+        }
+        if (null !== $this->endDate) {
+            $res['end_date'] = $this->endDate;
+        }
+        if (null !== $this->deviceId) {
+            $res['device_id'] = $this->deviceId;
+        }
+        if (null !== $this->source) {
+            $res['source'] = $this->source;
+        }
+        if (null !== $this->type) {
+            $res['type'] = $this->type;
+        }
+        return $res;
+    }
+    /**
+     * @param array $map
+     * @return PagequeryDataverifyFailureRequest
+     */
+    public static function fromMap($map = []) {
+        $model = new self();
+        if(isset($map['auth_token'])){
+            $model->authToken = $map['auth_token'];
+        }
+        if(isset($map['product_instance_id'])){
+            $model->productInstanceId = $map['product_instance_id'];
+        }
+        if(isset($map['page_index'])){
+            $model->pageIndex = $map['page_index'];
+        }
+        if(isset($map['page_size'])){
+            $model->pageSize = $map['page_size'];
+        }
+        if(isset($map['scene'])){
+            $model->scene = $map['scene'];
+        }
+        if(isset($map['start_date'])){
+            $model->startDate = $map['start_date'];
+        }
+        if(isset($map['end_date'])){
+            $model->endDate = $map['end_date'];
+        }
+        if(isset($map['device_id'])){
+            $model->deviceId = $map['device_id'];
+        }
+        if(isset($map['source'])){
+            $model->source = $map['source'];
+        }
+        if(isset($map['type'])){
+            $model->type = $map['type'];
+        }
+        return $model;
+    }
     // OAuth模式下的授权token
     /**
      * @var string
@@ -32,7 +123,7 @@ class PagequeryDataverifyFailureRequest extends Model
     public $pageSize;
 
     // 场景码
-    //
+    // 
     /**
      * @var string
      */
@@ -67,106 +158,5 @@ class PagequeryDataverifyFailureRequest extends Model
      * @var int
      */
     public $type;
-    protected $_name = [
-        'authToken'         => 'auth_token',
-        'productInstanceId' => 'product_instance_id',
-        'pageIndex'         => 'page_index',
-        'pageSize'          => 'page_size',
-        'scene'             => 'scene',
-        'startDate'         => 'start_date',
-        'endDate'           => 'end_date',
-        'deviceId'          => 'device_id',
-        'source'            => 'source',
-        'type'              => 'type',
-    ];
 
-    public function validate()
-    {
-        Model::validateRequired('pageIndex', $this->pageIndex, true);
-        Model::validateRequired('pageSize', $this->pageSize, true);
-        Model::validateRequired('scene', $this->scene, true);
-        Model::validateRequired('startDate', $this->startDate, true);
-        Model::validateRequired('endDate', $this->endDate, true);
-        Model::validatePattern('startDate', $this->startDate, '\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}([Z]|([\\.]\\d{1,9})?[\\+]\\d{2}[\\:]?\\d{2})');
-        Model::validatePattern('endDate', $this->endDate, '\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}([Z]|([\\.]\\d{1,9})?[\\+]\\d{2}[\\:]?\\d{2})');
-    }
-
-    public function toMap()
-    {
-        $res = [];
-        if (null !== $this->authToken) {
-            $res['auth_token'] = $this->authToken;
-        }
-        if (null !== $this->productInstanceId) {
-            $res['product_instance_id'] = $this->productInstanceId;
-        }
-        if (null !== $this->pageIndex) {
-            $res['page_index'] = $this->pageIndex;
-        }
-        if (null !== $this->pageSize) {
-            $res['page_size'] = $this->pageSize;
-        }
-        if (null !== $this->scene) {
-            $res['scene'] = $this->scene;
-        }
-        if (null !== $this->startDate) {
-            $res['start_date'] = $this->startDate;
-        }
-        if (null !== $this->endDate) {
-            $res['end_date'] = $this->endDate;
-        }
-        if (null !== $this->deviceId) {
-            $res['device_id'] = $this->deviceId;
-        }
-        if (null !== $this->source) {
-            $res['source'] = $this->source;
-        }
-        if (null !== $this->type) {
-            $res['type'] = $this->type;
-        }
-
-        return $res;
-    }
-
-    /**
-     * @param array $map
-     *
-     * @return PagequeryDataverifyFailureRequest
-     */
-    public static function fromMap($map = [])
-    {
-        $model = new self();
-        if (isset($map['auth_token'])) {
-            $model->authToken = $map['auth_token'];
-        }
-        if (isset($map['product_instance_id'])) {
-            $model->productInstanceId = $map['product_instance_id'];
-        }
-        if (isset($map['page_index'])) {
-            $model->pageIndex = $map['page_index'];
-        }
-        if (isset($map['page_size'])) {
-            $model->pageSize = $map['page_size'];
-        }
-        if (isset($map['scene'])) {
-            $model->scene = $map['scene'];
-        }
-        if (isset($map['start_date'])) {
-            $model->startDate = $map['start_date'];
-        }
-        if (isset($map['end_date'])) {
-            $model->endDate = $map['end_date'];
-        }
-        if (isset($map['device_id'])) {
-            $model->deviceId = $map['device_id'];
-        }
-        if (isset($map['source'])) {
-            $model->source = $map['source'];
-        }
-        if (isset($map['type'])) {
-            $model->type = $map['type'];
-        }
-
-        return $model;
-    }
 }

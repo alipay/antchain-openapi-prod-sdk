@@ -1,70 +1,27 @@
 <?php
 
 // This file is auto-generated, don't edit it. Thanks.
-
 namespace AntChain\BOT\Models;
 
 use AlibabaCloud\Tea\Model;
 
-class BaiGoodsComparisonReqData extends Model
-{
-    // 品类
-    /**
-     * @example 奢侈品
-     *
-     * @var string
-     */
-    public $category;
+use AntChain\BOT\Models\BaiGoodsPoint;
 
-    // 品牌
-    /**
-     * @example GUCCI
-     *
-     * @var string
-     */
-    public $brand;
-
-    // 款式
-    /**
-     * @example Gucci Diana
-     *
-     * @var string
-     */
-    public $style;
-
-    // 商品鉴定点列表
-    /**
-     * @example
-     *
-     * @var BaiGoodsPoint[]
-     */
-    public $goodsPoints;
-
-    // 用户自定义字符串，系统不做处理，会在响应体中带回
-    /**
-     * @example state
-     *
-     * @var string
-     */
-    public $outState;
+class BaiGoodsComparisonReqData extends Model {
     protected $_name = [
-        'category'    => 'category',
-        'brand'       => 'brand',
-        'style'       => 'style',
+        'category' => 'category',
+        'brand' => 'brand',
+        'style' => 'style',
         'goodsPoints' => 'goods_points',
-        'outState'    => 'out_state',
+        'outState' => 'out_state',
     ];
-
-    public function validate()
-    {
+    public function validate() {
         Model::validateRequired('category', $this->category, true);
         Model::validateRequired('brand', $this->brand, true);
         Model::validateRequired('style', $this->style, true);
         Model::validateRequired('goodsPoints', $this->goodsPoints, true);
     }
-
-    public function toMap()
-    {
+    public function toMap() {
         $res = [];
         if (null !== $this->category) {
             $res['category'] = $this->category;
@@ -77,9 +34,9 @@ class BaiGoodsComparisonReqData extends Model
         }
         if (null !== $this->goodsPoints) {
             $res['goods_points'] = [];
-            if (null !== $this->goodsPoints && \is_array($this->goodsPoints)) {
+            if(null !== $this->goodsPoints && is_array($this->goodsPoints)){
                 $n = 0;
-                foreach ($this->goodsPoints as $item) {
+                foreach($this->goodsPoints as $item){
                     $res['goods_points'][$n++] = null !== $item ? $item->toMap() : $item;
                 }
             }
@@ -87,40 +44,70 @@ class BaiGoodsComparisonReqData extends Model
         if (null !== $this->outState) {
             $res['out_state'] = $this->outState;
         }
-
         return $res;
     }
-
     /**
      * @param array $map
-     *
      * @return BaiGoodsComparisonReqData
      */
-    public static function fromMap($map = [])
-    {
+    public static function fromMap($map = []) {
         $model = new self();
-        if (isset($map['category'])) {
+        if(isset($map['category'])){
             $model->category = $map['category'];
         }
-        if (isset($map['brand'])) {
+        if(isset($map['brand'])){
             $model->brand = $map['brand'];
         }
-        if (isset($map['style'])) {
+        if(isset($map['style'])){
             $model->style = $map['style'];
         }
-        if (isset($map['goods_points'])) {
-            if (!empty($map['goods_points'])) {
+        if(isset($map['goods_points'])){
+            if(!empty($map['goods_points'])){
                 $model->goodsPoints = [];
-                $n                  = 0;
-                foreach ($map['goods_points'] as $item) {
+                $n = 0;
+                foreach($map['goods_points'] as $item) {
                     $model->goodsPoints[$n++] = null !== $item ? BaiGoodsPoint::fromMap($item) : $item;
                 }
             }
         }
-        if (isset($map['out_state'])) {
+        if(isset($map['out_state'])){
             $model->outState = $map['out_state'];
         }
-
         return $model;
     }
+    // 品类
+    /**
+     * @example 奢侈品
+     * @var string
+     */
+    public $category;
+
+    // 品牌
+    /**
+     * @example GUCCI
+     * @var string
+     */
+    public $brand;
+
+    // 款式
+    /**
+     * @example Gucci Diana
+     * @var string
+     */
+    public $style;
+
+    // 商品鉴定点列表
+    /**
+     * @example 
+     * @var BaiGoodsPoint[]
+     */
+    public $goodsPoints;
+
+    // 用户自定义字符串，系统不做处理，会在响应体中带回
+    /**
+     * @example state
+     * @var string
+     */
+    public $outState;
+
 }

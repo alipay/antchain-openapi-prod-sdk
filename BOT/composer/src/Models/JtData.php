@@ -1,17 +1,90 @@
 <?php
 
 // This file is auto-generated, don't edit it. Thanks.
-
 namespace AntChain\BOT\Models;
 
 use AlibabaCloud\Tea\Model;
 
-class JtData extends Model
-{
+class JtData extends Model {
+    protected $_name = [
+        'trustiotId' => 'trustiot_id',
+        'trustiotEntityId' => 'trustiot_entity_id',
+        'processedContent' => 'processed_content',
+        'deltaMileage' => 'delta_mileage',
+        'bizType' => 'biz_type',
+        'alarmSubType' => 'alarm_sub_type',
+        'relatedTrustEntityId' => 'related_trust_entity_id',
+        'reportDate' => 'report_date',
+    ];
+    public function validate() {
+        Model::validateRequired('trustiotId', $this->trustiotId, true);
+        Model::validateRequired('trustiotEntityId', $this->trustiotEntityId, true);
+        Model::validateRequired('processedContent', $this->processedContent, true);
+        Model::validateRequired('bizType', $this->bizType, true);
+    }
+    public function toMap() {
+        $res = [];
+        if (null !== $this->trustiotId) {
+            $res['trustiot_id'] = $this->trustiotId;
+        }
+        if (null !== $this->trustiotEntityId) {
+            $res['trustiot_entity_id'] = $this->trustiotEntityId;
+        }
+        if (null !== $this->processedContent) {
+            $res['processed_content'] = $this->processedContent;
+        }
+        if (null !== $this->deltaMileage) {
+            $res['delta_mileage'] = $this->deltaMileage;
+        }
+        if (null !== $this->bizType) {
+            $res['biz_type'] = $this->bizType;
+        }
+        if (null !== $this->alarmSubType) {
+            $res['alarm_sub_type'] = $this->alarmSubType;
+        }
+        if (null !== $this->relatedTrustEntityId) {
+            $res['related_trust_entity_id'] = $this->relatedTrustEntityId;
+        }
+        if (null !== $this->reportDate) {
+            $res['report_date'] = $this->reportDate;
+        }
+        return $res;
+    }
+    /**
+     * @param array $map
+     * @return JtData
+     */
+    public static function fromMap($map = []) {
+        $model = new self();
+        if(isset($map['trustiot_id'])){
+            $model->trustiotId = $map['trustiot_id'];
+        }
+        if(isset($map['trustiot_entity_id'])){
+            $model->trustiotEntityId = $map['trustiot_entity_id'];
+        }
+        if(isset($map['processed_content'])){
+            $model->processedContent = $map['processed_content'];
+        }
+        if(isset($map['delta_mileage'])){
+            $model->deltaMileage = $map['delta_mileage'];
+        }
+        if(isset($map['biz_type'])){
+            $model->bizType = $map['biz_type'];
+        }
+        if(isset($map['alarm_sub_type'])){
+            $model->alarmSubType = $map['alarm_sub_type'];
+        }
+        if(isset($map['related_trust_entity_id'])){
+            $model->relatedTrustEntityId = $map['related_trust_entity_id'];
+        }
+        if(isset($map['report_date'])){
+            $model->reportDate = $map['report_date'];
+        }
+        return $model;
+    }
     // 数据的可信平台唯一ID
     /**
      * @example 123
-     *
      * @var int
      */
     public $trustiotId;
@@ -19,7 +92,6 @@ class JtData extends Model
     // IoT可信平台设备唯一ID
     /**
      * @example 123
-     *
      * @var int
      */
     public $trustiotEntityId;
@@ -27,7 +99,6 @@ class JtData extends Model
     // 上报原文解析处理之后的数据
     /**
      * @example processed_content
-     *
      * @var string
      */
     public $processedContent;
@@ -35,7 +106,6 @@ class JtData extends Model
     // 和上一次上报数据里程对比，新增的里程数
     /**
      * @example 123
-     *
      * @var int
      */
     public $deltaMileage;
@@ -44,7 +114,6 @@ class JtData extends Model
     // 告警信息：ALARM_BASIC、 ALARM_ADAS、 ALARM_DSM、 ALARM_ACCELEROMETER
     /**
      * @example 数据标识
-     *
      * @var string
      */
     public $bizType;
@@ -74,7 +143,6 @@ class JtData extends Model
     // 11703: 急转弯
     /**
      * @example 10001
-     *
      * @var int
      */
     public $alarmSubType;
@@ -82,7 +150,6 @@ class JtData extends Model
     // 关联设备唯一ID
     /**
      * @example 123
-     *
      * @var string
      */
     public $relatedTrustEntityId;
@@ -90,93 +157,8 @@ class JtData extends Model
     // 日报日期
     /**
      * @example 2023-12-01
-     *
      * @var string
      */
     public $reportDate;
-    protected $_name = [
-        'trustiotId'           => 'trustiot_id',
-        'trustiotEntityId'     => 'trustiot_entity_id',
-        'processedContent'     => 'processed_content',
-        'deltaMileage'         => 'delta_mileage',
-        'bizType'              => 'biz_type',
-        'alarmSubType'         => 'alarm_sub_type',
-        'relatedTrustEntityId' => 'related_trust_entity_id',
-        'reportDate'           => 'report_date',
-    ];
 
-    public function validate()
-    {
-        Model::validateRequired('trustiotId', $this->trustiotId, true);
-        Model::validateRequired('trustiotEntityId', $this->trustiotEntityId, true);
-        Model::validateRequired('processedContent', $this->processedContent, true);
-        Model::validateRequired('bizType', $this->bizType, true);
-    }
-
-    public function toMap()
-    {
-        $res = [];
-        if (null !== $this->trustiotId) {
-            $res['trustiot_id'] = $this->trustiotId;
-        }
-        if (null !== $this->trustiotEntityId) {
-            $res['trustiot_entity_id'] = $this->trustiotEntityId;
-        }
-        if (null !== $this->processedContent) {
-            $res['processed_content'] = $this->processedContent;
-        }
-        if (null !== $this->deltaMileage) {
-            $res['delta_mileage'] = $this->deltaMileage;
-        }
-        if (null !== $this->bizType) {
-            $res['biz_type'] = $this->bizType;
-        }
-        if (null !== $this->alarmSubType) {
-            $res['alarm_sub_type'] = $this->alarmSubType;
-        }
-        if (null !== $this->relatedTrustEntityId) {
-            $res['related_trust_entity_id'] = $this->relatedTrustEntityId;
-        }
-        if (null !== $this->reportDate) {
-            $res['report_date'] = $this->reportDate;
-        }
-
-        return $res;
-    }
-
-    /**
-     * @param array $map
-     *
-     * @return JtData
-     */
-    public static function fromMap($map = [])
-    {
-        $model = new self();
-        if (isset($map['trustiot_id'])) {
-            $model->trustiotId = $map['trustiot_id'];
-        }
-        if (isset($map['trustiot_entity_id'])) {
-            $model->trustiotEntityId = $map['trustiot_entity_id'];
-        }
-        if (isset($map['processed_content'])) {
-            $model->processedContent = $map['processed_content'];
-        }
-        if (isset($map['delta_mileage'])) {
-            $model->deltaMileage = $map['delta_mileage'];
-        }
-        if (isset($map['biz_type'])) {
-            $model->bizType = $map['biz_type'];
-        }
-        if (isset($map['alarm_sub_type'])) {
-            $model->alarmSubType = $map['alarm_sub_type'];
-        }
-        if (isset($map['related_trust_entity_id'])) {
-            $model->relatedTrustEntityId = $map['related_trust_entity_id'];
-        }
-        if (isset($map['report_date'])) {
-            $model->reportDate = $map['report_date'];
-        }
-
-        return $model;
-    }
 }

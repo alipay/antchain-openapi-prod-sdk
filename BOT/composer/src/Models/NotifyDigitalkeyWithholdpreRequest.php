@@ -1,13 +1,65 @@
 <?php
 
 // This file is auto-generated, don't edit it. Thanks.
-
 namespace AntChain\BOT\Models;
 
 use AlibabaCloud\Tea\Model;
 
-class NotifyDigitalkeyWithholdpreRequest extends Model
-{
+class NotifyDigitalkeyWithholdpreRequest extends Model {
+    protected $_name = [
+        'authToken' => 'auth_token',
+        'productInstanceId' => 'product_instance_id',
+        'outRequestNo' => 'out_request_no',
+        'totalAmount' => 'total_amount',
+        'externalAgreementNo' => 'external_agreement_no',
+    ];
+    public function validate() {
+        Model::validateRequired('outRequestNo', $this->outRequestNo, true);
+        Model::validateRequired('totalAmount', $this->totalAmount, true);
+        Model::validateRequired('externalAgreementNo', $this->externalAgreementNo, true);
+    }
+    public function toMap() {
+        $res = [];
+        if (null !== $this->authToken) {
+            $res['auth_token'] = $this->authToken;
+        }
+        if (null !== $this->productInstanceId) {
+            $res['product_instance_id'] = $this->productInstanceId;
+        }
+        if (null !== $this->outRequestNo) {
+            $res['out_request_no'] = $this->outRequestNo;
+        }
+        if (null !== $this->totalAmount) {
+            $res['total_amount'] = $this->totalAmount;
+        }
+        if (null !== $this->externalAgreementNo) {
+            $res['external_agreement_no'] = $this->externalAgreementNo;
+        }
+        return $res;
+    }
+    /**
+     * @param array $map
+     * @return NotifyDigitalkeyWithholdpreRequest
+     */
+    public static function fromMap($map = []) {
+        $model = new self();
+        if(isset($map['auth_token'])){
+            $model->authToken = $map['auth_token'];
+        }
+        if(isset($map['product_instance_id'])){
+            $model->productInstanceId = $map['product_instance_id'];
+        }
+        if(isset($map['out_request_no'])){
+            $model->outRequestNo = $map['out_request_no'];
+        }
+        if(isset($map['total_amount'])){
+            $model->totalAmount = $map['total_amount'];
+        }
+        if(isset($map['external_agreement_no'])){
+            $model->externalAgreementNo = $map['external_agreement_no'];
+        }
+        return $model;
+    }
     // OAuth模式下的授权token
     /**
      * @var string
@@ -36,67 +88,5 @@ class NotifyDigitalkeyWithholdpreRequest extends Model
      * @var string
      */
     public $externalAgreementNo;
-    protected $_name = [
-        'authToken'           => 'auth_token',
-        'productInstanceId'   => 'product_instance_id',
-        'outRequestNo'        => 'out_request_no',
-        'totalAmount'         => 'total_amount',
-        'externalAgreementNo' => 'external_agreement_no',
-    ];
 
-    public function validate()
-    {
-        Model::validateRequired('outRequestNo', $this->outRequestNo, true);
-        Model::validateRequired('totalAmount', $this->totalAmount, true);
-        Model::validateRequired('externalAgreementNo', $this->externalAgreementNo, true);
-    }
-
-    public function toMap()
-    {
-        $res = [];
-        if (null !== $this->authToken) {
-            $res['auth_token'] = $this->authToken;
-        }
-        if (null !== $this->productInstanceId) {
-            $res['product_instance_id'] = $this->productInstanceId;
-        }
-        if (null !== $this->outRequestNo) {
-            $res['out_request_no'] = $this->outRequestNo;
-        }
-        if (null !== $this->totalAmount) {
-            $res['total_amount'] = $this->totalAmount;
-        }
-        if (null !== $this->externalAgreementNo) {
-            $res['external_agreement_no'] = $this->externalAgreementNo;
-        }
-
-        return $res;
-    }
-
-    /**
-     * @param array $map
-     *
-     * @return NotifyDigitalkeyWithholdpreRequest
-     */
-    public static function fromMap($map = [])
-    {
-        $model = new self();
-        if (isset($map['auth_token'])) {
-            $model->authToken = $map['auth_token'];
-        }
-        if (isset($map['product_instance_id'])) {
-            $model->productInstanceId = $map['product_instance_id'];
-        }
-        if (isset($map['out_request_no'])) {
-            $model->outRequestNo = $map['out_request_no'];
-        }
-        if (isset($map['total_amount'])) {
-            $model->totalAmount = $map['total_amount'];
-        }
-        if (isset($map['external_agreement_no'])) {
-            $model->externalAgreementNo = $map['external_agreement_no'];
-        }
-
-        return $model;
-    }
 }

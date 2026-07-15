@@ -1,41 +1,20 @@
 <?php
 
 // This file is auto-generated, don't edit it. Thanks.
-
 namespace AntChain\BOT\Models;
 
 use AlibabaCloud\Tea\Model;
 
-class TripDuration extends Model
-{
-    // 时间
-    /**
-     * @example "1.2"
-     *
-     * @var string
-     */
-    public $value;
-
-    // 时间单位
-    /**
-     * @example "h"
-     *
-     * @var string
-     */
-    public $unit;
+class TripDuration extends Model {
     protected $_name = [
         'value' => 'value',
-        'unit'  => 'unit',
+        'unit' => 'unit',
     ];
-
-    public function validate()
-    {
+    public function validate() {
         Model::validateRequired('value', $this->value, true);
         Model::validateRequired('unit', $this->unit, true);
     }
-
-    public function toMap()
-    {
+    public function toMap() {
         $res = [];
         if (null !== $this->value) {
             $res['value'] = $this->value;
@@ -43,25 +22,34 @@ class TripDuration extends Model
         if (null !== $this->unit) {
             $res['unit'] = $this->unit;
         }
-
         return $res;
     }
-
     /**
      * @param array $map
-     *
      * @return TripDuration
      */
-    public static function fromMap($map = [])
-    {
+    public static function fromMap($map = []) {
         $model = new self();
-        if (isset($map['value'])) {
+        if(isset($map['value'])){
             $model->value = $map['value'];
         }
-        if (isset($map['unit'])) {
+        if(isset($map['unit'])){
             $model->unit = $map['unit'];
         }
-
         return $model;
     }
+    // 时间
+    /**
+     * @example "1.2"
+     * @var string
+     */
+    public $value;
+
+    // 时间单位
+    /**
+     * @example "h"
+     * @var string
+     */
+    public $unit;
+
 }

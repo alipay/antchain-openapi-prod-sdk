@@ -1,13 +1,72 @@
 <?php
 
 // This file is auto-generated, don't edit it. Thanks.
-
 namespace AntChain\BOT\Models;
 
 use AlibabaCloud\Tea\Model;
 
-class AddLabelAssetRequest extends Model
-{
+class AddLabelAssetRequest extends Model {
+    protected $_name = [
+        'authToken' => 'auth_token',
+        'productInstanceId' => 'product_instance_id',
+        'scene' => 'scene',
+        'labelId' => 'label_id',
+        'assetId' => 'asset_id',
+        'deviceTypeCode' => 'device_type_code',
+    ];
+    public function validate() {
+        Model::validateRequired('scene', $this->scene, true);
+        Model::validateRequired('labelId', $this->labelId, true);
+        Model::validateRequired('assetId', $this->assetId, true);
+    }
+    public function toMap() {
+        $res = [];
+        if (null !== $this->authToken) {
+            $res['auth_token'] = $this->authToken;
+        }
+        if (null !== $this->productInstanceId) {
+            $res['product_instance_id'] = $this->productInstanceId;
+        }
+        if (null !== $this->scene) {
+            $res['scene'] = $this->scene;
+        }
+        if (null !== $this->labelId) {
+            $res['label_id'] = $this->labelId;
+        }
+        if (null !== $this->assetId) {
+            $res['asset_id'] = $this->assetId;
+        }
+        if (null !== $this->deviceTypeCode) {
+            $res['device_type_code'] = $this->deviceTypeCode;
+        }
+        return $res;
+    }
+    /**
+     * @param array $map
+     * @return AddLabelAssetRequest
+     */
+    public static function fromMap($map = []) {
+        $model = new self();
+        if(isset($map['auth_token'])){
+            $model->authToken = $map['auth_token'];
+        }
+        if(isset($map['product_instance_id'])){
+            $model->productInstanceId = $map['product_instance_id'];
+        }
+        if(isset($map['scene'])){
+            $model->scene = $map['scene'];
+        }
+        if(isset($map['label_id'])){
+            $model->labelId = $map['label_id'];
+        }
+        if(isset($map['asset_id'])){
+            $model->assetId = $map['asset_id'];
+        }
+        if(isset($map['device_type_code'])){
+            $model->deviceTypeCode = $map['device_type_code'];
+        }
+        return $model;
+    }
     // OAuth模式下的授权token
     /**
      * @var string
@@ -42,74 +101,5 @@ class AddLabelAssetRequest extends Model
      * @var int
      */
     public $deviceTypeCode;
-    protected $_name = [
-        'authToken'         => 'auth_token',
-        'productInstanceId' => 'product_instance_id',
-        'scene'             => 'scene',
-        'labelId'           => 'label_id',
-        'assetId'           => 'asset_id',
-        'deviceTypeCode'    => 'device_type_code',
-    ];
 
-    public function validate()
-    {
-        Model::validateRequired('scene', $this->scene, true);
-        Model::validateRequired('labelId', $this->labelId, true);
-        Model::validateRequired('assetId', $this->assetId, true);
-    }
-
-    public function toMap()
-    {
-        $res = [];
-        if (null !== $this->authToken) {
-            $res['auth_token'] = $this->authToken;
-        }
-        if (null !== $this->productInstanceId) {
-            $res['product_instance_id'] = $this->productInstanceId;
-        }
-        if (null !== $this->scene) {
-            $res['scene'] = $this->scene;
-        }
-        if (null !== $this->labelId) {
-            $res['label_id'] = $this->labelId;
-        }
-        if (null !== $this->assetId) {
-            $res['asset_id'] = $this->assetId;
-        }
-        if (null !== $this->deviceTypeCode) {
-            $res['device_type_code'] = $this->deviceTypeCode;
-        }
-
-        return $res;
-    }
-
-    /**
-     * @param array $map
-     *
-     * @return AddLabelAssetRequest
-     */
-    public static function fromMap($map = [])
-    {
-        $model = new self();
-        if (isset($map['auth_token'])) {
-            $model->authToken = $map['auth_token'];
-        }
-        if (isset($map['product_instance_id'])) {
-            $model->productInstanceId = $map['product_instance_id'];
-        }
-        if (isset($map['scene'])) {
-            $model->scene = $map['scene'];
-        }
-        if (isset($map['label_id'])) {
-            $model->labelId = $map['label_id'];
-        }
-        if (isset($map['asset_id'])) {
-            $model->assetId = $map['asset_id'];
-        }
-        if (isset($map['device_type_code'])) {
-            $model->deviceTypeCode = $map['device_type_code'];
-        }
-
-        return $model;
-    }
 }

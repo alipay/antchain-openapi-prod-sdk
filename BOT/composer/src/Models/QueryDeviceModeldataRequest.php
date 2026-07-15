@@ -1,13 +1,119 @@
 <?php
 
 // This file is auto-generated, don't edit it. Thanks.
-
 namespace AntChain\BOT\Models;
 
 use AlibabaCloud\Tea\Model;
 
-class QueryDeviceModeldataRequest extends Model
-{
+class QueryDeviceModeldataRequest extends Model {
+    protected $_name = [
+        'authToken' => 'auth_token',
+        'productInstanceId' => 'product_instance_id',
+        'deviceDid' => 'device_did',
+        'signature' => 'signature',
+        'dataType' => 'data_type',
+        'asc' => 'asc',
+        'startTime' => 'start_time',
+        'endTime' => 'end_time',
+        'identifier' => 'identifier',
+        'pageSize' => 'page_size',
+        'userTopic' => 'user_topic',
+        'nextPageToken' => 'next_page_token',
+    ];
+    public function validate() {
+        Model::validateRequired('deviceDid', $this->deviceDid, true);
+        Model::validateRequired('signature', $this->signature, true);
+        Model::validateRequired('dataType', $this->dataType, true);
+        Model::validateRequired('asc', $this->asc, true);
+        Model::validateRequired('startTime', $this->startTime, true);
+        Model::validateRequired('endTime', $this->endTime, true);
+        Model::validateRequired('identifier', $this->identifier, true);
+        Model::validateRequired('pageSize', $this->pageSize, true);
+    }
+    public function toMap() {
+        $res = [];
+        if (null !== $this->authToken) {
+            $res['auth_token'] = $this->authToken;
+        }
+        if (null !== $this->productInstanceId) {
+            $res['product_instance_id'] = $this->productInstanceId;
+        }
+        if (null !== $this->deviceDid) {
+            $res['device_did'] = $this->deviceDid;
+        }
+        if (null !== $this->signature) {
+            $res['signature'] = $this->signature;
+        }
+        if (null !== $this->dataType) {
+            $res['data_type'] = $this->dataType;
+        }
+        if (null !== $this->asc) {
+            $res['asc'] = $this->asc;
+        }
+        if (null !== $this->startTime) {
+            $res['start_time'] = $this->startTime;
+        }
+        if (null !== $this->endTime) {
+            $res['end_time'] = $this->endTime;
+        }
+        if (null !== $this->identifier) {
+            $res['identifier'] = $this->identifier;
+        }
+        if (null !== $this->pageSize) {
+            $res['page_size'] = $this->pageSize;
+        }
+        if (null !== $this->userTopic) {
+            $res['user_topic'] = $this->userTopic;
+        }
+        if (null !== $this->nextPageToken) {
+            $res['next_page_token'] = $this->nextPageToken;
+        }
+        return $res;
+    }
+    /**
+     * @param array $map
+     * @return QueryDeviceModeldataRequest
+     */
+    public static function fromMap($map = []) {
+        $model = new self();
+        if(isset($map['auth_token'])){
+            $model->authToken = $map['auth_token'];
+        }
+        if(isset($map['product_instance_id'])){
+            $model->productInstanceId = $map['product_instance_id'];
+        }
+        if(isset($map['device_did'])){
+            $model->deviceDid = $map['device_did'];
+        }
+        if(isset($map['signature'])){
+            $model->signature = $map['signature'];
+        }
+        if(isset($map['data_type'])){
+            $model->dataType = $map['data_type'];
+        }
+        if(isset($map['asc'])){
+            $model->asc = $map['asc'];
+        }
+        if(isset($map['start_time'])){
+            $model->startTime = $map['start_time'];
+        }
+        if(isset($map['end_time'])){
+            $model->endTime = $map['end_time'];
+        }
+        if(isset($map['identifier'])){
+            $model->identifier = $map['identifier'];
+        }
+        if(isset($map['page_size'])){
+            $model->pageSize = $map['page_size'];
+        }
+        if(isset($map['user_topic'])){
+            $model->userTopic = $map['user_topic'];
+        }
+        if(isset($map['next_page_token'])){
+            $model->nextPageToken = $map['next_page_token'];
+        }
+        return $model;
+    }
     // OAuth模式下的授权token
     /**
      * @var string
@@ -90,121 +196,5 @@ class QueryDeviceModeldataRequest extends Model
      * @var string
      */
     public $nextPageToken;
-    protected $_name = [
-        'authToken'         => 'auth_token',
-        'productInstanceId' => 'product_instance_id',
-        'deviceDid'         => 'device_did',
-        'signature'         => 'signature',
-        'dataType'          => 'data_type',
-        'asc'               => 'asc',
-        'startTime'         => 'start_time',
-        'endTime'           => 'end_time',
-        'identifier'        => 'identifier',
-        'pageSize'          => 'page_size',
-        'userTopic'         => 'user_topic',
-        'nextPageToken'     => 'next_page_token',
-    ];
 
-    public function validate()
-    {
-        Model::validateRequired('deviceDid', $this->deviceDid, true);
-        Model::validateRequired('signature', $this->signature, true);
-        Model::validateRequired('dataType', $this->dataType, true);
-        Model::validateRequired('asc', $this->asc, true);
-        Model::validateRequired('startTime', $this->startTime, true);
-        Model::validateRequired('endTime', $this->endTime, true);
-        Model::validateRequired('identifier', $this->identifier, true);
-        Model::validateRequired('pageSize', $this->pageSize, true);
-    }
-
-    public function toMap()
-    {
-        $res = [];
-        if (null !== $this->authToken) {
-            $res['auth_token'] = $this->authToken;
-        }
-        if (null !== $this->productInstanceId) {
-            $res['product_instance_id'] = $this->productInstanceId;
-        }
-        if (null !== $this->deviceDid) {
-            $res['device_did'] = $this->deviceDid;
-        }
-        if (null !== $this->signature) {
-            $res['signature'] = $this->signature;
-        }
-        if (null !== $this->dataType) {
-            $res['data_type'] = $this->dataType;
-        }
-        if (null !== $this->asc) {
-            $res['asc'] = $this->asc;
-        }
-        if (null !== $this->startTime) {
-            $res['start_time'] = $this->startTime;
-        }
-        if (null !== $this->endTime) {
-            $res['end_time'] = $this->endTime;
-        }
-        if (null !== $this->identifier) {
-            $res['identifier'] = $this->identifier;
-        }
-        if (null !== $this->pageSize) {
-            $res['page_size'] = $this->pageSize;
-        }
-        if (null !== $this->userTopic) {
-            $res['user_topic'] = $this->userTopic;
-        }
-        if (null !== $this->nextPageToken) {
-            $res['next_page_token'] = $this->nextPageToken;
-        }
-
-        return $res;
-    }
-
-    /**
-     * @param array $map
-     *
-     * @return QueryDeviceModeldataRequest
-     */
-    public static function fromMap($map = [])
-    {
-        $model = new self();
-        if (isset($map['auth_token'])) {
-            $model->authToken = $map['auth_token'];
-        }
-        if (isset($map['product_instance_id'])) {
-            $model->productInstanceId = $map['product_instance_id'];
-        }
-        if (isset($map['device_did'])) {
-            $model->deviceDid = $map['device_did'];
-        }
-        if (isset($map['signature'])) {
-            $model->signature = $map['signature'];
-        }
-        if (isset($map['data_type'])) {
-            $model->dataType = $map['data_type'];
-        }
-        if (isset($map['asc'])) {
-            $model->asc = $map['asc'];
-        }
-        if (isset($map['start_time'])) {
-            $model->startTime = $map['start_time'];
-        }
-        if (isset($map['end_time'])) {
-            $model->endTime = $map['end_time'];
-        }
-        if (isset($map['identifier'])) {
-            $model->identifier = $map['identifier'];
-        }
-        if (isset($map['page_size'])) {
-            $model->pageSize = $map['page_size'];
-        }
-        if (isset($map['user_topic'])) {
-            $model->userTopic = $map['user_topic'];
-        }
-        if (isset($map['next_page_token'])) {
-            $model->nextPageToken = $map['next_page_token'];
-        }
-
-        return $model;
-    }
 }

@@ -1,13 +1,68 @@
 <?php
 
 // This file is auto-generated, don't edit it. Thanks.
-
 namespace AntChain\BOT\Models;
 
 use AlibabaCloud\Tea\Model;
 
-class StartThingsdidRegisterResponse extends Model
-{
+class StartThingsdidRegisterResponse extends Model {
+    protected $_name = [
+        'reqMsgId' => 'req_msg_id',
+        'resultCode' => 'result_code',
+        'resultMsg' => 'result_msg',
+        'executed' => 'executed',
+        'nonce' => 'nonce',
+        'thingDid' => 'thing_did',
+    ];
+    public function validate() {}
+    public function toMap() {
+        $res = [];
+        if (null !== $this->reqMsgId) {
+            $res['req_msg_id'] = $this->reqMsgId;
+        }
+        if (null !== $this->resultCode) {
+            $res['result_code'] = $this->resultCode;
+        }
+        if (null !== $this->resultMsg) {
+            $res['result_msg'] = $this->resultMsg;
+        }
+        if (null !== $this->executed) {
+            $res['executed'] = $this->executed;
+        }
+        if (null !== $this->nonce) {
+            $res['nonce'] = $this->nonce;
+        }
+        if (null !== $this->thingDid) {
+            $res['thing_did'] = $this->thingDid;
+        }
+        return $res;
+    }
+    /**
+     * @param array $map
+     * @return StartThingsdidRegisterResponse
+     */
+    public static function fromMap($map = []) {
+        $model = new self();
+        if(isset($map['req_msg_id'])){
+            $model->reqMsgId = $map['req_msg_id'];
+        }
+        if(isset($map['result_code'])){
+            $model->resultCode = $map['result_code'];
+        }
+        if(isset($map['result_msg'])){
+            $model->resultMsg = $map['result_msg'];
+        }
+        if(isset($map['executed'])){
+            $model->executed = $map['executed'];
+        }
+        if(isset($map['nonce'])){
+            $model->nonce = $map['nonce'];
+        }
+        if(isset($map['thing_did'])){
+            $model->thingDid = $map['thing_did'];
+        }
+        return $model;
+    }
     // 请求唯一ID，用于链路跟踪和问题排查
     /**
      * @var string
@@ -45,71 +100,5 @@ class StartThingsdidRegisterResponse extends Model
      * @var string
      */
     public $thingDid;
-    protected $_name = [
-        'reqMsgId'   => 'req_msg_id',
-        'resultCode' => 'result_code',
-        'resultMsg'  => 'result_msg',
-        'executed'   => 'executed',
-        'nonce'      => 'nonce',
-        'thingDid'   => 'thing_did',
-    ];
 
-    public function validate()
-    {
-    }
-
-    public function toMap()
-    {
-        $res = [];
-        if (null !== $this->reqMsgId) {
-            $res['req_msg_id'] = $this->reqMsgId;
-        }
-        if (null !== $this->resultCode) {
-            $res['result_code'] = $this->resultCode;
-        }
-        if (null !== $this->resultMsg) {
-            $res['result_msg'] = $this->resultMsg;
-        }
-        if (null !== $this->executed) {
-            $res['executed'] = $this->executed;
-        }
-        if (null !== $this->nonce) {
-            $res['nonce'] = $this->nonce;
-        }
-        if (null !== $this->thingDid) {
-            $res['thing_did'] = $this->thingDid;
-        }
-
-        return $res;
-    }
-
-    /**
-     * @param array $map
-     *
-     * @return StartThingsdidRegisterResponse
-     */
-    public static function fromMap($map = [])
-    {
-        $model = new self();
-        if (isset($map['req_msg_id'])) {
-            $model->reqMsgId = $map['req_msg_id'];
-        }
-        if (isset($map['result_code'])) {
-            $model->resultCode = $map['result_code'];
-        }
-        if (isset($map['result_msg'])) {
-            $model->resultMsg = $map['result_msg'];
-        }
-        if (isset($map['executed'])) {
-            $model->executed = $map['executed'];
-        }
-        if (isset($map['nonce'])) {
-            $model->nonce = $map['nonce'];
-        }
-        if (isset($map['thing_did'])) {
-            $model->thingDid = $map['thing_did'];
-        }
-
-        return $model;
-    }
 }

@@ -1,13 +1,139 @@
 <?php
 
 // This file is auto-generated, don't edit it. Thanks.
-
 namespace AntChain\BOT\Models;
 
 use AlibabaCloud\Tea\Model;
 
-class PayDigitalkeyWithholdRequest extends Model
-{
+use AntChain\BOT\Models\SubMerchantParams;
+
+class PayDigitalkeyWithholdRequest extends Model {
+    protected $_name = [
+        'authToken' => 'auth_token',
+        'productInstanceId' => 'product_instance_id',
+        'outTradeNo' => 'out_trade_no',
+        'subject' => 'subject',
+        'alipayUserId' => 'alipay_user_id',
+        'productCode' => 'product_code',
+        'totalAmount' => 'total_amount',
+        'deductPermission' => 'deduct_permission',
+        'externalAgreementNo' => 'external_agreement_no',
+        'timeoutExpress' => 'timeout_express',
+        'asyncType' => 'async_type',
+        'discountableAmount' => 'discountable_amount',
+        'subMerchant' => 'sub_merchant',
+        'body' => 'body',
+        'outAuthNo' => 'out_auth_no',
+    ];
+    public function validate() {
+        Model::validateRequired('outTradeNo', $this->outTradeNo, true);
+        Model::validateRequired('subject', $this->subject, true);
+        Model::validateRequired('productCode', $this->productCode, true);
+        Model::validateRequired('totalAmount', $this->totalAmount, true);
+        Model::validateRequired('asyncType', $this->asyncType, true);
+    }
+    public function toMap() {
+        $res = [];
+        if (null !== $this->authToken) {
+            $res['auth_token'] = $this->authToken;
+        }
+        if (null !== $this->productInstanceId) {
+            $res['product_instance_id'] = $this->productInstanceId;
+        }
+        if (null !== $this->outTradeNo) {
+            $res['out_trade_no'] = $this->outTradeNo;
+        }
+        if (null !== $this->subject) {
+            $res['subject'] = $this->subject;
+        }
+        if (null !== $this->alipayUserId) {
+            $res['alipay_user_id'] = $this->alipayUserId;
+        }
+        if (null !== $this->productCode) {
+            $res['product_code'] = $this->productCode;
+        }
+        if (null !== $this->totalAmount) {
+            $res['total_amount'] = $this->totalAmount;
+        }
+        if (null !== $this->deductPermission) {
+            $res['deduct_permission'] = $this->deductPermission;
+        }
+        if (null !== $this->externalAgreementNo) {
+            $res['external_agreement_no'] = $this->externalAgreementNo;
+        }
+        if (null !== $this->timeoutExpress) {
+            $res['timeout_express'] = $this->timeoutExpress;
+        }
+        if (null !== $this->asyncType) {
+            $res['async_type'] = $this->asyncType;
+        }
+        if (null !== $this->discountableAmount) {
+            $res['discountable_amount'] = $this->discountableAmount;
+        }
+        if (null !== $this->subMerchant) {
+            $res['sub_merchant'] = null !== $this->subMerchant ? $this->subMerchant->toMap() : null;
+        }
+        if (null !== $this->body) {
+            $res['body'] = $this->body;
+        }
+        if (null !== $this->outAuthNo) {
+            $res['out_auth_no'] = $this->outAuthNo;
+        }
+        return $res;
+    }
+    /**
+     * @param array $map
+     * @return PayDigitalkeyWithholdRequest
+     */
+    public static function fromMap($map = []) {
+        $model = new self();
+        if(isset($map['auth_token'])){
+            $model->authToken = $map['auth_token'];
+        }
+        if(isset($map['product_instance_id'])){
+            $model->productInstanceId = $map['product_instance_id'];
+        }
+        if(isset($map['out_trade_no'])){
+            $model->outTradeNo = $map['out_trade_no'];
+        }
+        if(isset($map['subject'])){
+            $model->subject = $map['subject'];
+        }
+        if(isset($map['alipay_user_id'])){
+            $model->alipayUserId = $map['alipay_user_id'];
+        }
+        if(isset($map['product_code'])){
+            $model->productCode = $map['product_code'];
+        }
+        if(isset($map['total_amount'])){
+            $model->totalAmount = $map['total_amount'];
+        }
+        if(isset($map['deduct_permission'])){
+            $model->deductPermission = $map['deduct_permission'];
+        }
+        if(isset($map['external_agreement_no'])){
+            $model->externalAgreementNo = $map['external_agreement_no'];
+        }
+        if(isset($map['timeout_express'])){
+            $model->timeoutExpress = $map['timeout_express'];
+        }
+        if(isset($map['async_type'])){
+            $model->asyncType = $map['async_type'];
+        }
+        if(isset($map['discountable_amount'])){
+            $model->discountableAmount = $map['discountable_amount'];
+        }
+        if(isset($map['sub_merchant'])){
+            $model->subMerchant = SubMerchantParams::fromMap($map['sub_merchant']);
+        }
+        if(isset($map['body'])){
+            $model->body = $map['body'];
+        }
+        if(isset($map['out_auth_no'])){
+            $model->outAuthNo = $map['out_auth_no'];
+        }
+        return $model;
+    }
     // OAuth模式下的授权token
     /**
      * @var string
@@ -99,139 +225,5 @@ class PayDigitalkeyWithholdRequest extends Model
      * @var string
      */
     public $outAuthNo;
-    protected $_name = [
-        'authToken'           => 'auth_token',
-        'productInstanceId'   => 'product_instance_id',
-        'outTradeNo'          => 'out_trade_no',
-        'subject'             => 'subject',
-        'alipayUserId'        => 'alipay_user_id',
-        'productCode'         => 'product_code',
-        'totalAmount'         => 'total_amount',
-        'deductPermission'    => 'deduct_permission',
-        'externalAgreementNo' => 'external_agreement_no',
-        'timeoutExpress'      => 'timeout_express',
-        'asyncType'           => 'async_type',
-        'discountableAmount'  => 'discountable_amount',
-        'subMerchant'         => 'sub_merchant',
-        'body'                => 'body',
-        'outAuthNo'           => 'out_auth_no',
-    ];
 
-    public function validate()
-    {
-        Model::validateRequired('outTradeNo', $this->outTradeNo, true);
-        Model::validateRequired('subject', $this->subject, true);
-        Model::validateRequired('productCode', $this->productCode, true);
-        Model::validateRequired('totalAmount', $this->totalAmount, true);
-        Model::validateRequired('asyncType', $this->asyncType, true);
-    }
-
-    public function toMap()
-    {
-        $res = [];
-        if (null !== $this->authToken) {
-            $res['auth_token'] = $this->authToken;
-        }
-        if (null !== $this->productInstanceId) {
-            $res['product_instance_id'] = $this->productInstanceId;
-        }
-        if (null !== $this->outTradeNo) {
-            $res['out_trade_no'] = $this->outTradeNo;
-        }
-        if (null !== $this->subject) {
-            $res['subject'] = $this->subject;
-        }
-        if (null !== $this->alipayUserId) {
-            $res['alipay_user_id'] = $this->alipayUserId;
-        }
-        if (null !== $this->productCode) {
-            $res['product_code'] = $this->productCode;
-        }
-        if (null !== $this->totalAmount) {
-            $res['total_amount'] = $this->totalAmount;
-        }
-        if (null !== $this->deductPermission) {
-            $res['deduct_permission'] = $this->deductPermission;
-        }
-        if (null !== $this->externalAgreementNo) {
-            $res['external_agreement_no'] = $this->externalAgreementNo;
-        }
-        if (null !== $this->timeoutExpress) {
-            $res['timeout_express'] = $this->timeoutExpress;
-        }
-        if (null !== $this->asyncType) {
-            $res['async_type'] = $this->asyncType;
-        }
-        if (null !== $this->discountableAmount) {
-            $res['discountable_amount'] = $this->discountableAmount;
-        }
-        if (null !== $this->subMerchant) {
-            $res['sub_merchant'] = null !== $this->subMerchant ? $this->subMerchant->toMap() : null;
-        }
-        if (null !== $this->body) {
-            $res['body'] = $this->body;
-        }
-        if (null !== $this->outAuthNo) {
-            $res['out_auth_no'] = $this->outAuthNo;
-        }
-
-        return $res;
-    }
-
-    /**
-     * @param array $map
-     *
-     * @return PayDigitalkeyWithholdRequest
-     */
-    public static function fromMap($map = [])
-    {
-        $model = new self();
-        if (isset($map['auth_token'])) {
-            $model->authToken = $map['auth_token'];
-        }
-        if (isset($map['product_instance_id'])) {
-            $model->productInstanceId = $map['product_instance_id'];
-        }
-        if (isset($map['out_trade_no'])) {
-            $model->outTradeNo = $map['out_trade_no'];
-        }
-        if (isset($map['subject'])) {
-            $model->subject = $map['subject'];
-        }
-        if (isset($map['alipay_user_id'])) {
-            $model->alipayUserId = $map['alipay_user_id'];
-        }
-        if (isset($map['product_code'])) {
-            $model->productCode = $map['product_code'];
-        }
-        if (isset($map['total_amount'])) {
-            $model->totalAmount = $map['total_amount'];
-        }
-        if (isset($map['deduct_permission'])) {
-            $model->deductPermission = $map['deduct_permission'];
-        }
-        if (isset($map['external_agreement_no'])) {
-            $model->externalAgreementNo = $map['external_agreement_no'];
-        }
-        if (isset($map['timeout_express'])) {
-            $model->timeoutExpress = $map['timeout_express'];
-        }
-        if (isset($map['async_type'])) {
-            $model->asyncType = $map['async_type'];
-        }
-        if (isset($map['discountable_amount'])) {
-            $model->discountableAmount = $map['discountable_amount'];
-        }
-        if (isset($map['sub_merchant'])) {
-            $model->subMerchant = SubMerchantParams::fromMap($map['sub_merchant']);
-        }
-        if (isset($map['body'])) {
-            $model->body = $map['body'];
-        }
-        if (isset($map['out_auth_no'])) {
-            $model->outAuthNo = $map['out_auth_no'];
-        }
-
-        return $model;
-    }
 }

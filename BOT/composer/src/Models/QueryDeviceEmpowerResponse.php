@@ -1,13 +1,68 @@
 <?php
 
 // This file is auto-generated, don't edit it. Thanks.
-
 namespace AntChain\BOT\Models;
 
 use AlibabaCloud\Tea\Model;
 
-class QueryDeviceEmpowerResponse extends Model
-{
+use AntChain\BOT\Models\EmpowerDeviceInfo;
+
+class QueryDeviceEmpowerResponse extends Model {
+    protected $_name = [
+        'reqMsgId' => 'req_msg_id',
+        'resultCode' => 'result_code',
+        'resultMsg' => 'result_msg',
+        'devices' => 'devices',
+    ];
+    public function validate() {}
+    public function toMap() {
+        $res = [];
+        if (null !== $this->reqMsgId) {
+            $res['req_msg_id'] = $this->reqMsgId;
+        }
+        if (null !== $this->resultCode) {
+            $res['result_code'] = $this->resultCode;
+        }
+        if (null !== $this->resultMsg) {
+            $res['result_msg'] = $this->resultMsg;
+        }
+        if (null !== $this->devices) {
+            $res['devices'] = [];
+            if(null !== $this->devices && is_array($this->devices)){
+                $n = 0;
+                foreach($this->devices as $item){
+                    $res['devices'][$n++] = null !== $item ? $item->toMap() : $item;
+                }
+            }
+        }
+        return $res;
+    }
+    /**
+     * @param array $map
+     * @return QueryDeviceEmpowerResponse
+     */
+    public static function fromMap($map = []) {
+        $model = new self();
+        if(isset($map['req_msg_id'])){
+            $model->reqMsgId = $map['req_msg_id'];
+        }
+        if(isset($map['result_code'])){
+            $model->resultCode = $map['result_code'];
+        }
+        if(isset($map['result_msg'])){
+            $model->resultMsg = $map['result_msg'];
+        }
+        if(isset($map['devices'])){
+            if(!empty($map['devices'])){
+                $model->devices = [];
+                $n = 0;
+                foreach($map['devices'] as $item) {
+                    $model->devices[$n++] = null !== $item ? EmpowerDeviceInfo::fromMap($item) : $item;
+                }
+            }
+        }
+        return $model;
+    }
     // 请求唯一ID，用于链路跟踪和问题排查
     /**
      * @var string
@@ -31,69 +86,5 @@ class QueryDeviceEmpowerResponse extends Model
      * @var EmpowerDeviceInfo[]
      */
     public $devices;
-    protected $_name = [
-        'reqMsgId'   => 'req_msg_id',
-        'resultCode' => 'result_code',
-        'resultMsg'  => 'result_msg',
-        'devices'    => 'devices',
-    ];
 
-    public function validate()
-    {
-    }
-
-    public function toMap()
-    {
-        $res = [];
-        if (null !== $this->reqMsgId) {
-            $res['req_msg_id'] = $this->reqMsgId;
-        }
-        if (null !== $this->resultCode) {
-            $res['result_code'] = $this->resultCode;
-        }
-        if (null !== $this->resultMsg) {
-            $res['result_msg'] = $this->resultMsg;
-        }
-        if (null !== $this->devices) {
-            $res['devices'] = [];
-            if (null !== $this->devices && \is_array($this->devices)) {
-                $n = 0;
-                foreach ($this->devices as $item) {
-                    $res['devices'][$n++] = null !== $item ? $item->toMap() : $item;
-                }
-            }
-        }
-
-        return $res;
-    }
-
-    /**
-     * @param array $map
-     *
-     * @return QueryDeviceEmpowerResponse
-     */
-    public static function fromMap($map = [])
-    {
-        $model = new self();
-        if (isset($map['req_msg_id'])) {
-            $model->reqMsgId = $map['req_msg_id'];
-        }
-        if (isset($map['result_code'])) {
-            $model->resultCode = $map['result_code'];
-        }
-        if (isset($map['result_msg'])) {
-            $model->resultMsg = $map['result_msg'];
-        }
-        if (isset($map['devices'])) {
-            if (!empty($map['devices'])) {
-                $model->devices = [];
-                $n              = 0;
-                foreach ($map['devices'] as $item) {
-                    $model->devices[$n++] = null !== $item ? EmpowerDeviceInfo::fromMap($item) : $item;
-                }
-            }
-        }
-
-        return $model;
-    }
 }

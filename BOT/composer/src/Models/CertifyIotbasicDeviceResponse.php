@@ -1,13 +1,124 @@
 <?php
 
 // This file is auto-generated, don't edit it. Thanks.
-
 namespace AntChain\BOT\Models;
 
 use AlibabaCloud\Tea\Model;
 
-class CertifyIotbasicDeviceResponse extends Model
-{
+class CertifyIotbasicDeviceResponse extends Model {
+    protected $_name = [
+        'reqMsgId' => 'req_msg_id',
+        'resultCode' => 'result_code',
+        'resultMsg' => 'result_msg',
+        'deviceName' => 'device_name',
+        'deviceModel' => 'device_model',
+        'deviceStatus' => 'device_status',
+        'registerTime' => 'register_time',
+        'customerName' => 'customer_name',
+        'tenantId' => 'tenant_id',
+        'appVersion' => 'app_version',
+        'serviceStatus' => 'service_status',
+        'accountId' => 'account_id',
+        'accountName' => 'account_name',
+        'userRole' => 'user_role',
+    ];
+    public function validate() {}
+    public function toMap() {
+        $res = [];
+        if (null !== $this->reqMsgId) {
+            $res['req_msg_id'] = $this->reqMsgId;
+        }
+        if (null !== $this->resultCode) {
+            $res['result_code'] = $this->resultCode;
+        }
+        if (null !== $this->resultMsg) {
+            $res['result_msg'] = $this->resultMsg;
+        }
+        if (null !== $this->deviceName) {
+            $res['device_name'] = $this->deviceName;
+        }
+        if (null !== $this->deviceModel) {
+            $res['device_model'] = $this->deviceModel;
+        }
+        if (null !== $this->deviceStatus) {
+            $res['device_status'] = $this->deviceStatus;
+        }
+        if (null !== $this->registerTime) {
+            $res['register_time'] = $this->registerTime;
+        }
+        if (null !== $this->customerName) {
+            $res['customer_name'] = $this->customerName;
+        }
+        if (null !== $this->tenantId) {
+            $res['tenant_id'] = $this->tenantId;
+        }
+        if (null !== $this->appVersion) {
+            $res['app_version'] = $this->appVersion;
+        }
+        if (null !== $this->serviceStatus) {
+            $res['service_status'] = $this->serviceStatus;
+        }
+        if (null !== $this->accountId) {
+            $res['account_id'] = $this->accountId;
+        }
+        if (null !== $this->accountName) {
+            $res['account_name'] = $this->accountName;
+        }
+        if (null !== $this->userRole) {
+            $res['user_role'] = $this->userRole;
+        }
+        return $res;
+    }
+    /**
+     * @param array $map
+     * @return CertifyIotbasicDeviceResponse
+     */
+    public static function fromMap($map = []) {
+        $model = new self();
+        if(isset($map['req_msg_id'])){
+            $model->reqMsgId = $map['req_msg_id'];
+        }
+        if(isset($map['result_code'])){
+            $model->resultCode = $map['result_code'];
+        }
+        if(isset($map['result_msg'])){
+            $model->resultMsg = $map['result_msg'];
+        }
+        if(isset($map['device_name'])){
+            $model->deviceName = $map['device_name'];
+        }
+        if(isset($map['device_model'])){
+            $model->deviceModel = $map['device_model'];
+        }
+        if(isset($map['device_status'])){
+            $model->deviceStatus = $map['device_status'];
+        }
+        if(isset($map['register_time'])){
+            $model->registerTime = $map['register_time'];
+        }
+        if(isset($map['customer_name'])){
+            $model->customerName = $map['customer_name'];
+        }
+        if(isset($map['tenant_id'])){
+            $model->tenantId = $map['tenant_id'];
+        }
+        if(isset($map['app_version'])){
+            $model->appVersion = $map['app_version'];
+        }
+        if(isset($map['service_status'])){
+            $model->serviceStatus = $map['service_status'];
+        }
+        if(isset($map['account_id'])){
+            $model->accountId = $map['account_id'];
+        }
+        if(isset($map['account_name'])){
+            $model->accountName = $map['account_name'];
+        }
+        if(isset($map['user_role'])){
+            $model->userRole = $map['user_role'];
+        }
+        return $model;
+    }
     // 请求唯一ID，用于链路跟踪和问题排查
     /**
      * @var string
@@ -91,127 +202,5 @@ class CertifyIotbasicDeviceResponse extends Model
      * @var string
      */
     public $userRole;
-    protected $_name = [
-        'reqMsgId'      => 'req_msg_id',
-        'resultCode'    => 'result_code',
-        'resultMsg'     => 'result_msg',
-        'deviceName'    => 'device_name',
-        'deviceModel'   => 'device_model',
-        'deviceStatus'  => 'device_status',
-        'registerTime'  => 'register_time',
-        'customerName'  => 'customer_name',
-        'tenantId'      => 'tenant_id',
-        'appVersion'    => 'app_version',
-        'serviceStatus' => 'service_status',
-        'accountId'     => 'account_id',
-        'accountName'   => 'account_name',
-        'userRole'      => 'user_role',
-    ];
 
-    public function validate()
-    {
-    }
-
-    public function toMap()
-    {
-        $res = [];
-        if (null !== $this->reqMsgId) {
-            $res['req_msg_id'] = $this->reqMsgId;
-        }
-        if (null !== $this->resultCode) {
-            $res['result_code'] = $this->resultCode;
-        }
-        if (null !== $this->resultMsg) {
-            $res['result_msg'] = $this->resultMsg;
-        }
-        if (null !== $this->deviceName) {
-            $res['device_name'] = $this->deviceName;
-        }
-        if (null !== $this->deviceModel) {
-            $res['device_model'] = $this->deviceModel;
-        }
-        if (null !== $this->deviceStatus) {
-            $res['device_status'] = $this->deviceStatus;
-        }
-        if (null !== $this->registerTime) {
-            $res['register_time'] = $this->registerTime;
-        }
-        if (null !== $this->customerName) {
-            $res['customer_name'] = $this->customerName;
-        }
-        if (null !== $this->tenantId) {
-            $res['tenant_id'] = $this->tenantId;
-        }
-        if (null !== $this->appVersion) {
-            $res['app_version'] = $this->appVersion;
-        }
-        if (null !== $this->serviceStatus) {
-            $res['service_status'] = $this->serviceStatus;
-        }
-        if (null !== $this->accountId) {
-            $res['account_id'] = $this->accountId;
-        }
-        if (null !== $this->accountName) {
-            $res['account_name'] = $this->accountName;
-        }
-        if (null !== $this->userRole) {
-            $res['user_role'] = $this->userRole;
-        }
-
-        return $res;
-    }
-
-    /**
-     * @param array $map
-     *
-     * @return CertifyIotbasicDeviceResponse
-     */
-    public static function fromMap($map = [])
-    {
-        $model = new self();
-        if (isset($map['req_msg_id'])) {
-            $model->reqMsgId = $map['req_msg_id'];
-        }
-        if (isset($map['result_code'])) {
-            $model->resultCode = $map['result_code'];
-        }
-        if (isset($map['result_msg'])) {
-            $model->resultMsg = $map['result_msg'];
-        }
-        if (isset($map['device_name'])) {
-            $model->deviceName = $map['device_name'];
-        }
-        if (isset($map['device_model'])) {
-            $model->deviceModel = $map['device_model'];
-        }
-        if (isset($map['device_status'])) {
-            $model->deviceStatus = $map['device_status'];
-        }
-        if (isset($map['register_time'])) {
-            $model->registerTime = $map['register_time'];
-        }
-        if (isset($map['customer_name'])) {
-            $model->customerName = $map['customer_name'];
-        }
-        if (isset($map['tenant_id'])) {
-            $model->tenantId = $map['tenant_id'];
-        }
-        if (isset($map['app_version'])) {
-            $model->appVersion = $map['app_version'];
-        }
-        if (isset($map['service_status'])) {
-            $model->serviceStatus = $map['service_status'];
-        }
-        if (isset($map['account_id'])) {
-            $model->accountId = $map['account_id'];
-        }
-        if (isset($map['account_name'])) {
-            $model->accountName = $map['account_name'];
-        }
-        if (isset($map['user_role'])) {
-            $model->userRole = $map['user_role'];
-        }
-
-        return $model;
-    }
 }

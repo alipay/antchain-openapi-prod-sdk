@@ -1,13 +1,85 @@
 <?php
 
 // This file is auto-generated, don't edit it. Thanks.
-
 namespace AntChain\BOT\Models;
 
 use AlibabaCloud\Tea\Model;
 
-class ImportPurchaseorderThirdpartyResponse extends Model
-{
+use AntChain\BOT\Models\InsertPurchaseOrderFailInfo;
+use AntChain\BOT\Models\PurchaseOrderInfoDetail;
+
+class ImportPurchaseorderThirdpartyResponse extends Model {
+    protected $_name = [
+        'reqMsgId' => 'req_msg_id',
+        'resultCode' => 'result_code',
+        'resultMsg' => 'result_msg',
+        'purchaseOrderId' => 'purchase_order_id',
+        'status' => 'status',
+        'failMap' => 'fail_map',
+        'purchaseOrderInfoDetail' => 'purchase_order_info_detail',
+        'idempotId' => 'idempot_id',
+    ];
+    public function validate() {}
+    public function toMap() {
+        $res = [];
+        if (null !== $this->reqMsgId) {
+            $res['req_msg_id'] = $this->reqMsgId;
+        }
+        if (null !== $this->resultCode) {
+            $res['result_code'] = $this->resultCode;
+        }
+        if (null !== $this->resultMsg) {
+            $res['result_msg'] = $this->resultMsg;
+        }
+        if (null !== $this->purchaseOrderId) {
+            $res['purchase_order_id'] = $this->purchaseOrderId;
+        }
+        if (null !== $this->status) {
+            $res['status'] = $this->status;
+        }
+        if (null !== $this->failMap) {
+            $res['fail_map'] = null !== $this->failMap ? $this->failMap->toMap() : null;
+        }
+        if (null !== $this->purchaseOrderInfoDetail) {
+            $res['purchase_order_info_detail'] = null !== $this->purchaseOrderInfoDetail ? $this->purchaseOrderInfoDetail->toMap() : null;
+        }
+        if (null !== $this->idempotId) {
+            $res['idempot_id'] = $this->idempotId;
+        }
+        return $res;
+    }
+    /**
+     * @param array $map
+     * @return ImportPurchaseorderThirdpartyResponse
+     */
+    public static function fromMap($map = []) {
+        $model = new self();
+        if(isset($map['req_msg_id'])){
+            $model->reqMsgId = $map['req_msg_id'];
+        }
+        if(isset($map['result_code'])){
+            $model->resultCode = $map['result_code'];
+        }
+        if(isset($map['result_msg'])){
+            $model->resultMsg = $map['result_msg'];
+        }
+        if(isset($map['purchase_order_id'])){
+            $model->purchaseOrderId = $map['purchase_order_id'];
+        }
+        if(isset($map['status'])){
+            $model->status = $map['status'];
+        }
+        if(isset($map['fail_map'])){
+            $model->failMap = InsertPurchaseOrderFailInfo::fromMap($map['fail_map']);
+        }
+        if(isset($map['purchase_order_info_detail'])){
+            $model->purchaseOrderInfoDetail = PurchaseOrderInfoDetail::fromMap($map['purchase_order_info_detail']);
+        }
+        if(isset($map['idempot_id'])){
+            $model->idempotId = $map['idempot_id'];
+        }
+        return $model;
+    }
     // 请求唯一ID，用于链路跟踪和问题排查
     /**
      * @var string
@@ -38,7 +110,7 @@ class ImportPurchaseorderThirdpartyResponse extends Model
     // REFUSED(2, "已拒发"),
     // CANCELED(4, "已取消"),
     // REFUNDED(5, "已退货");
-    //
+    // 
     /**
      * @var string
      */
@@ -51,7 +123,7 @@ class ImportPurchaseorderThirdpartyResponse extends Model
     public $failMap;
 
     // 真实订单信息，成功不返回
-    //
+    // 
     /**
      * @var PurchaseOrderInfoDetail
      */
@@ -62,85 +134,5 @@ class ImportPurchaseorderThirdpartyResponse extends Model
      * @var string
      */
     public $idempotId;
-    protected $_name = [
-        'reqMsgId'                => 'req_msg_id',
-        'resultCode'              => 'result_code',
-        'resultMsg'               => 'result_msg',
-        'purchaseOrderId'         => 'purchase_order_id',
-        'status'                  => 'status',
-        'failMap'                 => 'fail_map',
-        'purchaseOrderInfoDetail' => 'purchase_order_info_detail',
-        'idempotId'               => 'idempot_id',
-    ];
 
-    public function validate()
-    {
-    }
-
-    public function toMap()
-    {
-        $res = [];
-        if (null !== $this->reqMsgId) {
-            $res['req_msg_id'] = $this->reqMsgId;
-        }
-        if (null !== $this->resultCode) {
-            $res['result_code'] = $this->resultCode;
-        }
-        if (null !== $this->resultMsg) {
-            $res['result_msg'] = $this->resultMsg;
-        }
-        if (null !== $this->purchaseOrderId) {
-            $res['purchase_order_id'] = $this->purchaseOrderId;
-        }
-        if (null !== $this->status) {
-            $res['status'] = $this->status;
-        }
-        if (null !== $this->failMap) {
-            $res['fail_map'] = null !== $this->failMap ? $this->failMap->toMap() : null;
-        }
-        if (null !== $this->purchaseOrderInfoDetail) {
-            $res['purchase_order_info_detail'] = null !== $this->purchaseOrderInfoDetail ? $this->purchaseOrderInfoDetail->toMap() : null;
-        }
-        if (null !== $this->idempotId) {
-            $res['idempot_id'] = $this->idempotId;
-        }
-
-        return $res;
-    }
-
-    /**
-     * @param array $map
-     *
-     * @return ImportPurchaseorderThirdpartyResponse
-     */
-    public static function fromMap($map = [])
-    {
-        $model = new self();
-        if (isset($map['req_msg_id'])) {
-            $model->reqMsgId = $map['req_msg_id'];
-        }
-        if (isset($map['result_code'])) {
-            $model->resultCode = $map['result_code'];
-        }
-        if (isset($map['result_msg'])) {
-            $model->resultMsg = $map['result_msg'];
-        }
-        if (isset($map['purchase_order_id'])) {
-            $model->purchaseOrderId = $map['purchase_order_id'];
-        }
-        if (isset($map['status'])) {
-            $model->status = $map['status'];
-        }
-        if (isset($map['fail_map'])) {
-            $model->failMap = InsertPurchaseOrderFailInfo::fromMap($map['fail_map']);
-        }
-        if (isset($map['purchase_order_info_detail'])) {
-            $model->purchaseOrderInfoDetail = PurchaseOrderInfoDetail::fromMap($map['purchase_order_info_detail']);
-        }
-        if (isset($map['idempot_id'])) {
-            $model->idempotId = $map['idempot_id'];
-        }
-
-        return $model;
-    }
 }

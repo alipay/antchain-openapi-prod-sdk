@@ -1,13 +1,71 @@
 <?php
 
 // This file is auto-generated, don't edit it. Thanks.
-
 namespace AntChain\BOT\Models;
 
 use AlibabaCloud\Tea\Model;
 
-class CreateIotlinkOtamoduleRequest extends Model
-{
+class CreateIotlinkOtamoduleRequest extends Model {
+    protected $_name = [
+        'authToken' => 'auth_token',
+        'productInstanceId' => 'product_instance_id',
+        'categoryCode' => 'category_code',
+        'moduleName' => 'module_name',
+        'aliasName' => 'alias_name',
+        'desc' => 'desc',
+    ];
+    public function validate() {
+        Model::validateRequired('categoryCode', $this->categoryCode, true);
+        Model::validateRequired('moduleName', $this->moduleName, true);
+    }
+    public function toMap() {
+        $res = [];
+        if (null !== $this->authToken) {
+            $res['auth_token'] = $this->authToken;
+        }
+        if (null !== $this->productInstanceId) {
+            $res['product_instance_id'] = $this->productInstanceId;
+        }
+        if (null !== $this->categoryCode) {
+            $res['category_code'] = $this->categoryCode;
+        }
+        if (null !== $this->moduleName) {
+            $res['module_name'] = $this->moduleName;
+        }
+        if (null !== $this->aliasName) {
+            $res['alias_name'] = $this->aliasName;
+        }
+        if (null !== $this->desc) {
+            $res['desc'] = $this->desc;
+        }
+        return $res;
+    }
+    /**
+     * @param array $map
+     * @return CreateIotlinkOtamoduleRequest
+     */
+    public static function fromMap($map = []) {
+        $model = new self();
+        if(isset($map['auth_token'])){
+            $model->authToken = $map['auth_token'];
+        }
+        if(isset($map['product_instance_id'])){
+            $model->productInstanceId = $map['product_instance_id'];
+        }
+        if(isset($map['category_code'])){
+            $model->categoryCode = $map['category_code'];
+        }
+        if(isset($map['module_name'])){
+            $model->moduleName = $map['module_name'];
+        }
+        if(isset($map['alias_name'])){
+            $model->aliasName = $map['alias_name'];
+        }
+        if(isset($map['desc'])){
+            $model->desc = $map['desc'];
+        }
+        return $model;
+    }
     // OAuth模式下的授权token
     /**
      * @var string
@@ -43,73 +101,5 @@ class CreateIotlinkOtamoduleRequest extends Model
      * @var string
      */
     public $desc;
-    protected $_name = [
-        'authToken'         => 'auth_token',
-        'productInstanceId' => 'product_instance_id',
-        'categoryCode'      => 'category_code',
-        'moduleName'        => 'module_name',
-        'aliasName'         => 'alias_name',
-        'desc'              => 'desc',
-    ];
 
-    public function validate()
-    {
-        Model::validateRequired('categoryCode', $this->categoryCode, true);
-        Model::validateRequired('moduleName', $this->moduleName, true);
-    }
-
-    public function toMap()
-    {
-        $res = [];
-        if (null !== $this->authToken) {
-            $res['auth_token'] = $this->authToken;
-        }
-        if (null !== $this->productInstanceId) {
-            $res['product_instance_id'] = $this->productInstanceId;
-        }
-        if (null !== $this->categoryCode) {
-            $res['category_code'] = $this->categoryCode;
-        }
-        if (null !== $this->moduleName) {
-            $res['module_name'] = $this->moduleName;
-        }
-        if (null !== $this->aliasName) {
-            $res['alias_name'] = $this->aliasName;
-        }
-        if (null !== $this->desc) {
-            $res['desc'] = $this->desc;
-        }
-
-        return $res;
-    }
-
-    /**
-     * @param array $map
-     *
-     * @return CreateIotlinkOtamoduleRequest
-     */
-    public static function fromMap($map = [])
-    {
-        $model = new self();
-        if (isset($map['auth_token'])) {
-            $model->authToken = $map['auth_token'];
-        }
-        if (isset($map['product_instance_id'])) {
-            $model->productInstanceId = $map['product_instance_id'];
-        }
-        if (isset($map['category_code'])) {
-            $model->categoryCode = $map['category_code'];
-        }
-        if (isset($map['module_name'])) {
-            $model->moduleName = $map['module_name'];
-        }
-        if (isset($map['alias_name'])) {
-            $model->aliasName = $map['alias_name'];
-        }
-        if (isset($map['desc'])) {
-            $model->desc = $map['desc'];
-        }
-
-        return $model;
-    }
 }

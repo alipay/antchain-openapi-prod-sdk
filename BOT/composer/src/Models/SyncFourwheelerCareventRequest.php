@@ -1,13 +1,84 @@
 <?php
 
 // This file is auto-generated, don't edit it. Thanks.
-
 namespace AntChain\BOT\Models;
 
 use AlibabaCloud\Tea\Model;
 
-class SyncFourwheelerCareventRequest extends Model
-{
+use AntChain\BOT\Models\FourWheelerCarEvent;
+
+class SyncFourwheelerCareventRequest extends Model {
+    protected $_name = [
+        'authToken' => 'auth_token',
+        'productInstanceId' => 'product_instance_id',
+        'deviceDid' => 'device_did',
+        'deviceSn' => 'device_sn',
+        'deviceCorp' => 'device_corp',
+        'items' => 'items',
+    ];
+    public function validate() {
+        Model::validateRequired('items', $this->items, true);
+    }
+    public function toMap() {
+        $res = [];
+        if (null !== $this->authToken) {
+            $res['auth_token'] = $this->authToken;
+        }
+        if (null !== $this->productInstanceId) {
+            $res['product_instance_id'] = $this->productInstanceId;
+        }
+        if (null !== $this->deviceDid) {
+            $res['device_did'] = $this->deviceDid;
+        }
+        if (null !== $this->deviceSn) {
+            $res['device_sn'] = $this->deviceSn;
+        }
+        if (null !== $this->deviceCorp) {
+            $res['device_corp'] = $this->deviceCorp;
+        }
+        if (null !== $this->items) {
+            $res['items'] = [];
+            if(null !== $this->items && is_array($this->items)){
+                $n = 0;
+                foreach($this->items as $item){
+                    $res['items'][$n++] = null !== $item ? $item->toMap() : $item;
+                }
+            }
+        }
+        return $res;
+    }
+    /**
+     * @param array $map
+     * @return SyncFourwheelerCareventRequest
+     */
+    public static function fromMap($map = []) {
+        $model = new self();
+        if(isset($map['auth_token'])){
+            $model->authToken = $map['auth_token'];
+        }
+        if(isset($map['product_instance_id'])){
+            $model->productInstanceId = $map['product_instance_id'];
+        }
+        if(isset($map['device_did'])){
+            $model->deviceDid = $map['device_did'];
+        }
+        if(isset($map['device_sn'])){
+            $model->deviceSn = $map['device_sn'];
+        }
+        if(isset($map['device_corp'])){
+            $model->deviceCorp = $map['device_corp'];
+        }
+        if(isset($map['items'])){
+            if(!empty($map['items'])){
+                $model->items = [];
+                $n = 0;
+                foreach($map['items'] as $item) {
+                    $model->items[$n++] = null !== $item ? FourWheelerCarEvent::fromMap($item) : $item;
+                }
+            }
+        }
+        return $model;
+    }
     // OAuth模式下的授权token
     /**
      * @var string
@@ -45,84 +116,5 @@ class SyncFourwheelerCareventRequest extends Model
      * @var FourWheelerCarEvent[]
      */
     public $items;
-    protected $_name = [
-        'authToken'         => 'auth_token',
-        'productInstanceId' => 'product_instance_id',
-        'deviceDid'         => 'device_did',
-        'deviceSn'          => 'device_sn',
-        'deviceCorp'        => 'device_corp',
-        'items'             => 'items',
-    ];
 
-    public function validate()
-    {
-        Model::validateRequired('items', $this->items, true);
-    }
-
-    public function toMap()
-    {
-        $res = [];
-        if (null !== $this->authToken) {
-            $res['auth_token'] = $this->authToken;
-        }
-        if (null !== $this->productInstanceId) {
-            $res['product_instance_id'] = $this->productInstanceId;
-        }
-        if (null !== $this->deviceDid) {
-            $res['device_did'] = $this->deviceDid;
-        }
-        if (null !== $this->deviceSn) {
-            $res['device_sn'] = $this->deviceSn;
-        }
-        if (null !== $this->deviceCorp) {
-            $res['device_corp'] = $this->deviceCorp;
-        }
-        if (null !== $this->items) {
-            $res['items'] = [];
-            if (null !== $this->items && \is_array($this->items)) {
-                $n = 0;
-                foreach ($this->items as $item) {
-                    $res['items'][$n++] = null !== $item ? $item->toMap() : $item;
-                }
-            }
-        }
-
-        return $res;
-    }
-
-    /**
-     * @param array $map
-     *
-     * @return SyncFourwheelerCareventRequest
-     */
-    public static function fromMap($map = [])
-    {
-        $model = new self();
-        if (isset($map['auth_token'])) {
-            $model->authToken = $map['auth_token'];
-        }
-        if (isset($map['product_instance_id'])) {
-            $model->productInstanceId = $map['product_instance_id'];
-        }
-        if (isset($map['device_did'])) {
-            $model->deviceDid = $map['device_did'];
-        }
-        if (isset($map['device_sn'])) {
-            $model->deviceSn = $map['device_sn'];
-        }
-        if (isset($map['device_corp'])) {
-            $model->deviceCorp = $map['device_corp'];
-        }
-        if (isset($map['items'])) {
-            if (!empty($map['items'])) {
-                $model->items = [];
-                $n            = 0;
-                foreach ($map['items'] as $item) {
-                    $model->items[$n++] = null !== $item ? FourWheelerCarEvent::fromMap($item) : $item;
-                }
-            }
-        }
-
-        return $model;
-    }
 }

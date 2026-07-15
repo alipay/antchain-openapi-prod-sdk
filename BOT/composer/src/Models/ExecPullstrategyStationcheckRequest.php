@@ -1,13 +1,81 @@
 <?php
 
 // This file is auto-generated, don't edit it. Thanks.
-
 namespace AntChain\BOT\Models;
 
 use AlibabaCloud\Tea\Model;
 
-class ExecPullstrategyStationcheckRequest extends Model
-{
+class ExecPullstrategyStationcheckRequest extends Model {
+    protected $_name = [
+        'authToken' => 'auth_token',
+        'productInstanceId' => 'product_instance_id',
+        'operatorId' => 'operator_id',
+        'data' => 'data',
+        'timeStamp' => 'time_stamp',
+        'seq' => 'seq',
+        'sig' => 'sig',
+    ];
+    public function validate() {
+        Model::validateRequired('operatorId', $this->operatorId, true);
+        Model::validateRequired('data', $this->data, true);
+        Model::validateRequired('timeStamp', $this->timeStamp, true);
+        Model::validateRequired('seq', $this->seq, true);
+        Model::validateRequired('sig', $this->sig, true);
+    }
+    public function toMap() {
+        $res = [];
+        if (null !== $this->authToken) {
+            $res['auth_token'] = $this->authToken;
+        }
+        if (null !== $this->productInstanceId) {
+            $res['product_instance_id'] = $this->productInstanceId;
+        }
+        if (null !== $this->operatorId) {
+            $res['operator_id'] = $this->operatorId;
+        }
+        if (null !== $this->data) {
+            $res['data'] = $this->data;
+        }
+        if (null !== $this->timeStamp) {
+            $res['time_stamp'] = $this->timeStamp;
+        }
+        if (null !== $this->seq) {
+            $res['seq'] = $this->seq;
+        }
+        if (null !== $this->sig) {
+            $res['sig'] = $this->sig;
+        }
+        return $res;
+    }
+    /**
+     * @param array $map
+     * @return ExecPullstrategyStationcheckRequest
+     */
+    public static function fromMap($map = []) {
+        $model = new self();
+        if(isset($map['auth_token'])){
+            $model->authToken = $map['auth_token'];
+        }
+        if(isset($map['product_instance_id'])){
+            $model->productInstanceId = $map['product_instance_id'];
+        }
+        if(isset($map['operator_id'])){
+            $model->operatorId = $map['operator_id'];
+        }
+        if(isset($map['data'])){
+            $model->data = $map['data'];
+        }
+        if(isset($map['time_stamp'])){
+            $model->timeStamp = $map['time_stamp'];
+        }
+        if(isset($map['seq'])){
+            $model->seq = $map['seq'];
+        }
+        if(isset($map['sig'])){
+            $model->sig = $map['sig'];
+        }
+        return $model;
+    }
     // OAuth模式下的授权token
     /**
      * @var string
@@ -48,83 +116,5 @@ class ExecPullstrategyStationcheckRequest extends Model
      * @var string
      */
     public $sig;
-    protected $_name = [
-        'authToken'         => 'auth_token',
-        'productInstanceId' => 'product_instance_id',
-        'operatorId'        => 'operator_id',
-        'data'              => 'data',
-        'timeStamp'         => 'time_stamp',
-        'seq'               => 'seq',
-        'sig'               => 'sig',
-    ];
 
-    public function validate()
-    {
-        Model::validateRequired('operatorId', $this->operatorId, true);
-        Model::validateRequired('data', $this->data, true);
-        Model::validateRequired('timeStamp', $this->timeStamp, true);
-        Model::validateRequired('seq', $this->seq, true);
-        Model::validateRequired('sig', $this->sig, true);
-    }
-
-    public function toMap()
-    {
-        $res = [];
-        if (null !== $this->authToken) {
-            $res['auth_token'] = $this->authToken;
-        }
-        if (null !== $this->productInstanceId) {
-            $res['product_instance_id'] = $this->productInstanceId;
-        }
-        if (null !== $this->operatorId) {
-            $res['operator_id'] = $this->operatorId;
-        }
-        if (null !== $this->data) {
-            $res['data'] = $this->data;
-        }
-        if (null !== $this->timeStamp) {
-            $res['time_stamp'] = $this->timeStamp;
-        }
-        if (null !== $this->seq) {
-            $res['seq'] = $this->seq;
-        }
-        if (null !== $this->sig) {
-            $res['sig'] = $this->sig;
-        }
-
-        return $res;
-    }
-
-    /**
-     * @param array $map
-     *
-     * @return ExecPullstrategyStationcheckRequest
-     */
-    public static function fromMap($map = [])
-    {
-        $model = new self();
-        if (isset($map['auth_token'])) {
-            $model->authToken = $map['auth_token'];
-        }
-        if (isset($map['product_instance_id'])) {
-            $model->productInstanceId = $map['product_instance_id'];
-        }
-        if (isset($map['operator_id'])) {
-            $model->operatorId = $map['operator_id'];
-        }
-        if (isset($map['data'])) {
-            $model->data = $map['data'];
-        }
-        if (isset($map['time_stamp'])) {
-            $model->timeStamp = $map['time_stamp'];
-        }
-        if (isset($map['seq'])) {
-            $model->seq = $map['seq'];
-        }
-        if (isset($map['sig'])) {
-            $model->sig = $map['sig'];
-        }
-
-        return $model;
-    }
 }

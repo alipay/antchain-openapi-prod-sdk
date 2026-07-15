@@ -1,80 +1,21 @@
 <?php
 
 // This file is auto-generated, don't edit it. Thanks.
-
 namespace AntChain\BOT\Models;
 
 use AlibabaCloud\Tea\Model;
 
-class IotbasicDigitalKeyDeviceNoShipInfo extends Model
-{
-    // 设备id
-    /**
-     * @example 125839
-     *
-     * @var string
-     */
-    public $devid;
-
-    // 设备sn
-    /**
-     * @example 9726001010008SC30N96
-     *
-     * @var string
-     */
-    public $sn;
-
-    // ccid
-    /**
-     * @example 898602B1191870002179
-     *
-     * @var string
-     */
-    public $ccid;
-
-    // imei
-    /**
-     * @example 866311069827503
-     *
-     * @var string
-     */
-    public $imei;
-
-    // tbox固件版本号(16进制)
-    /**
-     * @example 80000109
-     *
-     * @var string
-     */
-    public $ver;
-
-    // PEPS系统固件版本号(16进制)
-    /**
-     * @example 81070205
-     *
-     * @var string
-     */
-    public $pepsVer;
-
-    // 蓝牙固件版本号(16进制)
-    /**
-     * @example 80090204
-     *
-     * @var string
-     */
-    public $bleVer;
+class IotbasicDigitalKeyDeviceNoShipInfo extends Model {
     protected $_name = [
-        'devid'   => 'devid',
-        'sn'      => 'sn',
-        'ccid'    => 'ccid',
-        'imei'    => 'imei',
-        'ver'     => 'ver',
+        'devid' => 'devid',
+        'sn' => 'sn',
+        'ccid' => 'ccid',
+        'imei' => 'imei',
+        'ver' => 'ver',
         'pepsVer' => 'peps_ver',
-        'bleVer'  => 'ble_ver',
+        'bleVer' => 'ble_ver',
     ];
-
-    public function validate()
-    {
+    public function validate() {
         Model::validateRequired('devid', $this->devid, true);
         Model::validateRequired('sn', $this->sn, true);
         Model::validateRequired('ccid', $this->ccid, true);
@@ -83,9 +24,7 @@ class IotbasicDigitalKeyDeviceNoShipInfo extends Model
         Model::validateRequired('pepsVer', $this->pepsVer, true);
         Model::validateRequired('bleVer', $this->bleVer, true);
     }
-
-    public function toMap()
-    {
+    public function toMap() {
         $res = [];
         if (null !== $this->devid) {
             $res['devid'] = $this->devid;
@@ -108,40 +47,84 @@ class IotbasicDigitalKeyDeviceNoShipInfo extends Model
         if (null !== $this->bleVer) {
             $res['ble_ver'] = $this->bleVer;
         }
-
         return $res;
     }
-
     /**
      * @param array $map
-     *
      * @return IotbasicDigitalKeyDeviceNoShipInfo
      */
-    public static function fromMap($map = [])
-    {
+    public static function fromMap($map = []) {
         $model = new self();
-        if (isset($map['devid'])) {
+        if(isset($map['devid'])){
             $model->devid = $map['devid'];
         }
-        if (isset($map['sn'])) {
+        if(isset($map['sn'])){
             $model->sn = $map['sn'];
         }
-        if (isset($map['ccid'])) {
+        if(isset($map['ccid'])){
             $model->ccid = $map['ccid'];
         }
-        if (isset($map['imei'])) {
+        if(isset($map['imei'])){
             $model->imei = $map['imei'];
         }
-        if (isset($map['ver'])) {
+        if(isset($map['ver'])){
             $model->ver = $map['ver'];
         }
-        if (isset($map['peps_ver'])) {
+        if(isset($map['peps_ver'])){
             $model->pepsVer = $map['peps_ver'];
         }
-        if (isset($map['ble_ver'])) {
+        if(isset($map['ble_ver'])){
             $model->bleVer = $map['ble_ver'];
         }
-
         return $model;
     }
+    // 设备id
+    /**
+     * @example 125839
+     * @var string
+     */
+    public $devid;
+
+    // 设备sn
+    /**
+     * @example 9726001010008SC30N96
+     * @var string
+     */
+    public $sn;
+
+    // ccid
+    /**
+     * @example 898602B1191870002179
+     * @var string
+     */
+    public $ccid;
+
+    // imei
+    /**
+     * @example 866311069827503
+     * @var string
+     */
+    public $imei;
+
+    // tbox固件版本号(16进制)
+    /**
+     * @example 80000109
+     * @var string
+     */
+    public $ver;
+
+    // PEPS系统固件版本号(16进制)
+    /**
+     * @example 81070205
+     * @var string
+     */
+    public $pepsVer;
+
+    // 蓝牙固件版本号(16进制)
+    /**
+     * @example 80090204
+     * @var string
+     */
+    public $bleVer;
+
 }

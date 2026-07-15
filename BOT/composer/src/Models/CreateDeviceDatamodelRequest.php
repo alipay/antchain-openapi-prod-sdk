@@ -1,13 +1,77 @@
 <?php
 
 // This file is auto-generated, don't edit it. Thanks.
-
 namespace AntChain\BOT\Models;
 
 use AlibabaCloud\Tea\Model;
 
-class CreateDeviceDatamodelRequest extends Model
-{
+class CreateDeviceDatamodelRequest extends Model {
+    protected $_name = [
+        'authToken' => 'auth_token',
+        'productInstanceId' => 'product_instance_id',
+        'dataModel' => 'data_model',
+        'dataModelName' => 'data_model_name',
+        'bizType' => 'biz_type',
+        'customerVersion' => 'customer_version',
+        'dataDemo' => 'data_demo',
+    ];
+    public function validate() {
+        Model::validateRequired('dataModel', $this->dataModel, true);
+    }
+    public function toMap() {
+        $res = [];
+        if (null !== $this->authToken) {
+            $res['auth_token'] = $this->authToken;
+        }
+        if (null !== $this->productInstanceId) {
+            $res['product_instance_id'] = $this->productInstanceId;
+        }
+        if (null !== $this->dataModel) {
+            $res['data_model'] = $this->dataModel;
+        }
+        if (null !== $this->dataModelName) {
+            $res['data_model_name'] = $this->dataModelName;
+        }
+        if (null !== $this->bizType) {
+            $res['biz_type'] = $this->bizType;
+        }
+        if (null !== $this->customerVersion) {
+            $res['customer_version'] = $this->customerVersion;
+        }
+        if (null !== $this->dataDemo) {
+            $res['data_demo'] = $this->dataDemo;
+        }
+        return $res;
+    }
+    /**
+     * @param array $map
+     * @return CreateDeviceDatamodelRequest
+     */
+    public static function fromMap($map = []) {
+        $model = new self();
+        if(isset($map['auth_token'])){
+            $model->authToken = $map['auth_token'];
+        }
+        if(isset($map['product_instance_id'])){
+            $model->productInstanceId = $map['product_instance_id'];
+        }
+        if(isset($map['data_model'])){
+            $model->dataModel = $map['data_model'];
+        }
+        if(isset($map['data_model_name'])){
+            $model->dataModelName = $map['data_model_name'];
+        }
+        if(isset($map['biz_type'])){
+            $model->bizType = $map['biz_type'];
+        }
+        if(isset($map['customer_version'])){
+            $model->customerVersion = $map['customer_version'];
+        }
+        if(isset($map['data_demo'])){
+            $model->dataDemo = $map['data_demo'];
+        }
+        return $model;
+    }
     // OAuth模式下的授权token
     /**
      * @var string
@@ -48,79 +112,5 @@ class CreateDeviceDatamodelRequest extends Model
      * @var string
      */
     public $dataDemo;
-    protected $_name = [
-        'authToken'         => 'auth_token',
-        'productInstanceId' => 'product_instance_id',
-        'dataModel'         => 'data_model',
-        'dataModelName'     => 'data_model_name',
-        'bizType'           => 'biz_type',
-        'customerVersion'   => 'customer_version',
-        'dataDemo'          => 'data_demo',
-    ];
 
-    public function validate()
-    {
-        Model::validateRequired('dataModel', $this->dataModel, true);
-    }
-
-    public function toMap()
-    {
-        $res = [];
-        if (null !== $this->authToken) {
-            $res['auth_token'] = $this->authToken;
-        }
-        if (null !== $this->productInstanceId) {
-            $res['product_instance_id'] = $this->productInstanceId;
-        }
-        if (null !== $this->dataModel) {
-            $res['data_model'] = $this->dataModel;
-        }
-        if (null !== $this->dataModelName) {
-            $res['data_model_name'] = $this->dataModelName;
-        }
-        if (null !== $this->bizType) {
-            $res['biz_type'] = $this->bizType;
-        }
-        if (null !== $this->customerVersion) {
-            $res['customer_version'] = $this->customerVersion;
-        }
-        if (null !== $this->dataDemo) {
-            $res['data_demo'] = $this->dataDemo;
-        }
-
-        return $res;
-    }
-
-    /**
-     * @param array $map
-     *
-     * @return CreateDeviceDatamodelRequest
-     */
-    public static function fromMap($map = [])
-    {
-        $model = new self();
-        if (isset($map['auth_token'])) {
-            $model->authToken = $map['auth_token'];
-        }
-        if (isset($map['product_instance_id'])) {
-            $model->productInstanceId = $map['product_instance_id'];
-        }
-        if (isset($map['data_model'])) {
-            $model->dataModel = $map['data_model'];
-        }
-        if (isset($map['data_model_name'])) {
-            $model->dataModelName = $map['data_model_name'];
-        }
-        if (isset($map['biz_type'])) {
-            $model->bizType = $map['biz_type'];
-        }
-        if (isset($map['customer_version'])) {
-            $model->customerVersion = $map['customer_version'];
-        }
-        if (isset($map['data_demo'])) {
-            $model->dataDemo = $map['data_demo'];
-        }
-
-        return $model;
-    }
 }

@@ -1,13 +1,75 @@
 <?php
 
 // This file is auto-generated, don't edit it. Thanks.
-
 namespace AntChain\BOT\Models;
 
 use AlibabaCloud\Tea\Model;
 
-class OperateIotbasicPermissionResponse extends Model
-{
+use AntChain\BOT\Models\IotBasicRolePermission;
+
+class OperateIotbasicPermissionResponse extends Model {
+    protected $_name = [
+        'reqMsgId' => 'req_msg_id',
+        'resultCode' => 'result_code',
+        'resultMsg' => 'result_msg',
+        'success' => 'success',
+        'roleList' => 'role_list',
+    ];
+    public function validate() {}
+    public function toMap() {
+        $res = [];
+        if (null !== $this->reqMsgId) {
+            $res['req_msg_id'] = $this->reqMsgId;
+        }
+        if (null !== $this->resultCode) {
+            $res['result_code'] = $this->resultCode;
+        }
+        if (null !== $this->resultMsg) {
+            $res['result_msg'] = $this->resultMsg;
+        }
+        if (null !== $this->success) {
+            $res['success'] = $this->success;
+        }
+        if (null !== $this->roleList) {
+            $res['role_list'] = [];
+            if(null !== $this->roleList && is_array($this->roleList)){
+                $n = 0;
+                foreach($this->roleList as $item){
+                    $res['role_list'][$n++] = null !== $item ? $item->toMap() : $item;
+                }
+            }
+        }
+        return $res;
+    }
+    /**
+     * @param array $map
+     * @return OperateIotbasicPermissionResponse
+     */
+    public static function fromMap($map = []) {
+        $model = new self();
+        if(isset($map['req_msg_id'])){
+            $model->reqMsgId = $map['req_msg_id'];
+        }
+        if(isset($map['result_code'])){
+            $model->resultCode = $map['result_code'];
+        }
+        if(isset($map['result_msg'])){
+            $model->resultMsg = $map['result_msg'];
+        }
+        if(isset($map['success'])){
+            $model->success = $map['success'];
+        }
+        if(isset($map['role_list'])){
+            if(!empty($map['role_list'])){
+                $model->roleList = [];
+                $n = 0;
+                foreach($map['role_list'] as $item) {
+                    $model->roleList[$n++] = null !== $item ? IotBasicRolePermission::fromMap($item) : $item;
+                }
+            }
+        }
+        return $model;
+    }
     // 请求唯一ID，用于链路跟踪和问题排查
     /**
      * @var string
@@ -37,76 +99,5 @@ class OperateIotbasicPermissionResponse extends Model
      * @var IotBasicRolePermission[]
      */
     public $roleList;
-    protected $_name = [
-        'reqMsgId'   => 'req_msg_id',
-        'resultCode' => 'result_code',
-        'resultMsg'  => 'result_msg',
-        'success'    => 'success',
-        'roleList'   => 'role_list',
-    ];
 
-    public function validate()
-    {
-    }
-
-    public function toMap()
-    {
-        $res = [];
-        if (null !== $this->reqMsgId) {
-            $res['req_msg_id'] = $this->reqMsgId;
-        }
-        if (null !== $this->resultCode) {
-            $res['result_code'] = $this->resultCode;
-        }
-        if (null !== $this->resultMsg) {
-            $res['result_msg'] = $this->resultMsg;
-        }
-        if (null !== $this->success) {
-            $res['success'] = $this->success;
-        }
-        if (null !== $this->roleList) {
-            $res['role_list'] = [];
-            if (null !== $this->roleList && \is_array($this->roleList)) {
-                $n = 0;
-                foreach ($this->roleList as $item) {
-                    $res['role_list'][$n++] = null !== $item ? $item->toMap() : $item;
-                }
-            }
-        }
-
-        return $res;
-    }
-
-    /**
-     * @param array $map
-     *
-     * @return OperateIotbasicPermissionResponse
-     */
-    public static function fromMap($map = [])
-    {
-        $model = new self();
-        if (isset($map['req_msg_id'])) {
-            $model->reqMsgId = $map['req_msg_id'];
-        }
-        if (isset($map['result_code'])) {
-            $model->resultCode = $map['result_code'];
-        }
-        if (isset($map['result_msg'])) {
-            $model->resultMsg = $map['result_msg'];
-        }
-        if (isset($map['success'])) {
-            $model->success = $map['success'];
-        }
-        if (isset($map['role_list'])) {
-            if (!empty($map['role_list'])) {
-                $model->roleList = [];
-                $n               = 0;
-                foreach ($map['role_list'] as $item) {
-                    $model->roleList[$n++] = null !== $item ? IotBasicRolePermission::fromMap($item) : $item;
-                }
-            }
-        }
-
-        return $model;
-    }
 }

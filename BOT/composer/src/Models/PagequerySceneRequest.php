@@ -1,13 +1,78 @@
 <?php
 
 // This file is auto-generated, don't edit it. Thanks.
-
 namespace AntChain\BOT\Models;
 
 use AlibabaCloud\Tea\Model;
 
-class PagequerySceneRequest extends Model
-{
+class PagequerySceneRequest extends Model {
+    protected $_name = [
+        'authToken' => 'auth_token',
+        'productInstanceId' => 'product_instance_id',
+        'pageIndex' => 'page_index',
+        'pageSize' => 'page_size',
+        'sceneName' => 'scene_name',
+        'tenantName' => 'tenant_name',
+        'mock' => 'mock',
+    ];
+    public function validate() {
+        Model::validateRequired('pageIndex', $this->pageIndex, true);
+        Model::validateRequired('pageSize', $this->pageSize, true);
+    }
+    public function toMap() {
+        $res = [];
+        if (null !== $this->authToken) {
+            $res['auth_token'] = $this->authToken;
+        }
+        if (null !== $this->productInstanceId) {
+            $res['product_instance_id'] = $this->productInstanceId;
+        }
+        if (null !== $this->pageIndex) {
+            $res['page_index'] = $this->pageIndex;
+        }
+        if (null !== $this->pageSize) {
+            $res['page_size'] = $this->pageSize;
+        }
+        if (null !== $this->sceneName) {
+            $res['scene_name'] = $this->sceneName;
+        }
+        if (null !== $this->tenantName) {
+            $res['tenant_name'] = $this->tenantName;
+        }
+        if (null !== $this->mock) {
+            $res['mock'] = $this->mock;
+        }
+        return $res;
+    }
+    /**
+     * @param array $map
+     * @return PagequerySceneRequest
+     */
+    public static function fromMap($map = []) {
+        $model = new self();
+        if(isset($map['auth_token'])){
+            $model->authToken = $map['auth_token'];
+        }
+        if(isset($map['product_instance_id'])){
+            $model->productInstanceId = $map['product_instance_id'];
+        }
+        if(isset($map['page_index'])){
+            $model->pageIndex = $map['page_index'];
+        }
+        if(isset($map['page_size'])){
+            $model->pageSize = $map['page_size'];
+        }
+        if(isset($map['scene_name'])){
+            $model->sceneName = $map['scene_name'];
+        }
+        if(isset($map['tenant_name'])){
+            $model->tenantName = $map['tenant_name'];
+        }
+        if(isset($map['mock'])){
+            $model->mock = $map['mock'];
+        }
+        return $model;
+    }
     // OAuth模式下的授权token
     /**
      * @var string
@@ -48,80 +113,5 @@ class PagequerySceneRequest extends Model
      * @var bool
      */
     public $mock;
-    protected $_name = [
-        'authToken'         => 'auth_token',
-        'productInstanceId' => 'product_instance_id',
-        'pageIndex'         => 'page_index',
-        'pageSize'          => 'page_size',
-        'sceneName'         => 'scene_name',
-        'tenantName'        => 'tenant_name',
-        'mock'              => 'mock',
-    ];
 
-    public function validate()
-    {
-        Model::validateRequired('pageIndex', $this->pageIndex, true);
-        Model::validateRequired('pageSize', $this->pageSize, true);
-    }
-
-    public function toMap()
-    {
-        $res = [];
-        if (null !== $this->authToken) {
-            $res['auth_token'] = $this->authToken;
-        }
-        if (null !== $this->productInstanceId) {
-            $res['product_instance_id'] = $this->productInstanceId;
-        }
-        if (null !== $this->pageIndex) {
-            $res['page_index'] = $this->pageIndex;
-        }
-        if (null !== $this->pageSize) {
-            $res['page_size'] = $this->pageSize;
-        }
-        if (null !== $this->sceneName) {
-            $res['scene_name'] = $this->sceneName;
-        }
-        if (null !== $this->tenantName) {
-            $res['tenant_name'] = $this->tenantName;
-        }
-        if (null !== $this->mock) {
-            $res['mock'] = $this->mock;
-        }
-
-        return $res;
-    }
-
-    /**
-     * @param array $map
-     *
-     * @return PagequerySceneRequest
-     */
-    public static function fromMap($map = [])
-    {
-        $model = new self();
-        if (isset($map['auth_token'])) {
-            $model->authToken = $map['auth_token'];
-        }
-        if (isset($map['product_instance_id'])) {
-            $model->productInstanceId = $map['product_instance_id'];
-        }
-        if (isset($map['page_index'])) {
-            $model->pageIndex = $map['page_index'];
-        }
-        if (isset($map['page_size'])) {
-            $model->pageSize = $map['page_size'];
-        }
-        if (isset($map['scene_name'])) {
-            $model->sceneName = $map['scene_name'];
-        }
-        if (isset($map['tenant_name'])) {
-            $model->tenantName = $map['tenant_name'];
-        }
-        if (isset($map['mock'])) {
-            $model->mock = $map['mock'];
-        }
-
-        return $model;
-    }
 }

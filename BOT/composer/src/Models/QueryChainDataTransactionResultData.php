@@ -1,80 +1,27 @@
 <?php
 
 // This file is auto-generated, don't edit it. Thanks.
-
 namespace AntChain\BOT\Models;
 
 use AlibabaCloud\Tea\Model;
 
-class QueryChainDataTransactionResultData extends Model
-{
-    // 所属业务
-    /**
-     * @example SMART_CAR_KEY
-     *
-     * @var string
-     */
-    public $bizScene;
-
-    // 数据资产类型
-    /**
-     * @example 123
-     *
-     * @var string
-     */
-    public $dataScene;
-
-    // 资产ID
-    /**
-     * @example 123
-     *
-     * @var string
-     */
-    public $assetId;
-
-    // 租户id
-    /**
-     * @example ASDFGHJK
-     *
-     * @var string
-     */
-    public $tenantId;
-
-    // 业务数据hash
-    /**
-     * @example 123
-     *
-     * @var string
-     */
-    public $textHash;
-
-    // 时间
-    /**
-     * @example
-     *
-     * @var int
-     */
-    public $timestamp;
+class QueryChainDataTransactionResultData extends Model {
     protected $_name = [
-        'bizScene'  => 'biz_scene',
+        'bizScene' => 'biz_scene',
         'dataScene' => 'data_scene',
-        'assetId'   => 'asset_id',
-        'tenantId'  => 'tenant_id',
-        'textHash'  => 'text_hash',
+        'assetId' => 'asset_id',
+        'tenantId' => 'tenant_id',
+        'textHash' => 'text_hash',
         'timestamp' => 'timestamp',
     ];
-
-    public function validate()
-    {
+    public function validate() {
         Model::validateRequired('bizScene', $this->bizScene, true);
         Model::validateRequired('dataScene', $this->dataScene, true);
         Model::validateRequired('assetId', $this->assetId, true);
         Model::validateRequired('tenantId', $this->tenantId, true);
         Model::validateRequired('textHash', $this->textHash, true);
     }
-
-    public function toMap()
-    {
+    public function toMap() {
         $res = [];
         if (null !== $this->bizScene) {
             $res['biz_scene'] = $this->bizScene;
@@ -94,37 +41,74 @@ class QueryChainDataTransactionResultData extends Model
         if (null !== $this->timestamp) {
             $res['timestamp'] = $this->timestamp;
         }
-
         return $res;
     }
-
     /**
      * @param array $map
-     *
      * @return QueryChainDataTransactionResultData
      */
-    public static function fromMap($map = [])
-    {
+    public static function fromMap($map = []) {
         $model = new self();
-        if (isset($map['biz_scene'])) {
+        if(isset($map['biz_scene'])){
             $model->bizScene = $map['biz_scene'];
         }
-        if (isset($map['data_scene'])) {
+        if(isset($map['data_scene'])){
             $model->dataScene = $map['data_scene'];
         }
-        if (isset($map['asset_id'])) {
+        if(isset($map['asset_id'])){
             $model->assetId = $map['asset_id'];
         }
-        if (isset($map['tenant_id'])) {
+        if(isset($map['tenant_id'])){
             $model->tenantId = $map['tenant_id'];
         }
-        if (isset($map['text_hash'])) {
+        if(isset($map['text_hash'])){
             $model->textHash = $map['text_hash'];
         }
-        if (isset($map['timestamp'])) {
+        if(isset($map['timestamp'])){
             $model->timestamp = $map['timestamp'];
         }
-
         return $model;
     }
+    // 所属业务
+    /**
+     * @example SMART_CAR_KEY
+     * @var string
+     */
+    public $bizScene;
+
+    // 数据资产类型
+    /**
+     * @example 123
+     * @var string
+     */
+    public $dataScene;
+
+    // 资产ID
+    /**
+     * @example 123
+     * @var string
+     */
+    public $assetId;
+
+    // 租户id
+    /**
+     * @example ASDFGHJK
+     * @var string
+     */
+    public $tenantId;
+
+    // 业务数据hash
+    /**
+     * @example 123
+     * @var string
+     */
+    public $textHash;
+
+    // 时间
+    /**
+     * @example 
+     * @var int
+     */
+    public $timestamp;
+
 }

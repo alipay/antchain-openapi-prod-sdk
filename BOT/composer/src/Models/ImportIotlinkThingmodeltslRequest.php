@@ -1,13 +1,57 @@
 <?php
 
 // This file is auto-generated, don't edit it. Thanks.
-
 namespace AntChain\BOT\Models;
 
 use AlibabaCloud\Tea\Model;
 
-class ImportIotlinkThingmodeltslRequest extends Model
-{
+class ImportIotlinkThingmodeltslRequest extends Model {
+    protected $_name = [
+        'authToken' => 'auth_token',
+        'productInstanceId' => 'product_instance_id',
+        'categoryCode' => 'category_code',
+        'tslStr' => 'tsl_str',
+    ];
+    public function validate() {
+        Model::validateRequired('categoryCode', $this->categoryCode, true);
+        Model::validateRequired('tslStr', $this->tslStr, true);
+    }
+    public function toMap() {
+        $res = [];
+        if (null !== $this->authToken) {
+            $res['auth_token'] = $this->authToken;
+        }
+        if (null !== $this->productInstanceId) {
+            $res['product_instance_id'] = $this->productInstanceId;
+        }
+        if (null !== $this->categoryCode) {
+            $res['category_code'] = $this->categoryCode;
+        }
+        if (null !== $this->tslStr) {
+            $res['tsl_str'] = $this->tslStr;
+        }
+        return $res;
+    }
+    /**
+     * @param array $map
+     * @return ImportIotlinkThingmodeltslRequest
+     */
+    public static function fromMap($map = []) {
+        $model = new self();
+        if(isset($map['auth_token'])){
+            $model->authToken = $map['auth_token'];
+        }
+        if(isset($map['product_instance_id'])){
+            $model->productInstanceId = $map['product_instance_id'];
+        }
+        if(isset($map['category_code'])){
+            $model->categoryCode = $map['category_code'];
+        }
+        if(isset($map['tsl_str'])){
+            $model->tslStr = $map['tsl_str'];
+        }
+        return $model;
+    }
     // OAuth模式下的授权token
     /**
      * @var string
@@ -30,59 +74,5 @@ class ImportIotlinkThingmodeltslRequest extends Model
      * @var string
      */
     public $tslStr;
-    protected $_name = [
-        'authToken'         => 'auth_token',
-        'productInstanceId' => 'product_instance_id',
-        'categoryCode'      => 'category_code',
-        'tslStr'            => 'tsl_str',
-    ];
 
-    public function validate()
-    {
-        Model::validateRequired('categoryCode', $this->categoryCode, true);
-        Model::validateRequired('tslStr', $this->tslStr, true);
-    }
-
-    public function toMap()
-    {
-        $res = [];
-        if (null !== $this->authToken) {
-            $res['auth_token'] = $this->authToken;
-        }
-        if (null !== $this->productInstanceId) {
-            $res['product_instance_id'] = $this->productInstanceId;
-        }
-        if (null !== $this->categoryCode) {
-            $res['category_code'] = $this->categoryCode;
-        }
-        if (null !== $this->tslStr) {
-            $res['tsl_str'] = $this->tslStr;
-        }
-
-        return $res;
-    }
-
-    /**
-     * @param array $map
-     *
-     * @return ImportIotlinkThingmodeltslRequest
-     */
-    public static function fromMap($map = [])
-    {
-        $model = new self();
-        if (isset($map['auth_token'])) {
-            $model->authToken = $map['auth_token'];
-        }
-        if (isset($map['product_instance_id'])) {
-            $model->productInstanceId = $map['product_instance_id'];
-        }
-        if (isset($map['category_code'])) {
-            $model->categoryCode = $map['category_code'];
-        }
-        if (isset($map['tsl_str'])) {
-            $model->tslStr = $map['tsl_str'];
-        }
-
-        return $model;
-    }
 }

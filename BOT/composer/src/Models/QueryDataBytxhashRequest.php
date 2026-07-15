@@ -1,13 +1,65 @@
 <?php
 
 // This file is auto-generated, don't edit it. Thanks.
-
 namespace AntChain\BOT\Models;
 
 use AlibabaCloud\Tea\Model;
 
-class QueryDataBytxhashRequest extends Model
-{
+class QueryDataBytxhashRequest extends Model {
+    protected $_name = [
+        'authToken' => 'auth_token',
+        'productInstanceId' => 'product_instance_id',
+        'scene' => 'scene',
+        'txHash' => 'tx_hash',
+        'contractMethod' => 'contract_method',
+    ];
+    public function validate() {
+        Model::validateRequired('scene', $this->scene, true);
+        Model::validateRequired('txHash', $this->txHash, true);
+        Model::validateRequired('contractMethod', $this->contractMethod, true);
+    }
+    public function toMap() {
+        $res = [];
+        if (null !== $this->authToken) {
+            $res['auth_token'] = $this->authToken;
+        }
+        if (null !== $this->productInstanceId) {
+            $res['product_instance_id'] = $this->productInstanceId;
+        }
+        if (null !== $this->scene) {
+            $res['scene'] = $this->scene;
+        }
+        if (null !== $this->txHash) {
+            $res['tx_hash'] = $this->txHash;
+        }
+        if (null !== $this->contractMethod) {
+            $res['contract_method'] = $this->contractMethod;
+        }
+        return $res;
+    }
+    /**
+     * @param array $map
+     * @return QueryDataBytxhashRequest
+     */
+    public static function fromMap($map = []) {
+        $model = new self();
+        if(isset($map['auth_token'])){
+            $model->authToken = $map['auth_token'];
+        }
+        if(isset($map['product_instance_id'])){
+            $model->productInstanceId = $map['product_instance_id'];
+        }
+        if(isset($map['scene'])){
+            $model->scene = $map['scene'];
+        }
+        if(isset($map['tx_hash'])){
+            $model->txHash = $map['tx_hash'];
+        }
+        if(isset($map['contract_method'])){
+            $model->contractMethod = $map['contract_method'];
+        }
+        return $model;
+    }
     // OAuth模式下的授权token
     /**
      * @var string
@@ -42,67 +94,5 @@ class QueryDataBytxhashRequest extends Model
      * @var string
      */
     public $contractMethod;
-    protected $_name = [
-        'authToken'         => 'auth_token',
-        'productInstanceId' => 'product_instance_id',
-        'scene'             => 'scene',
-        'txHash'            => 'tx_hash',
-        'contractMethod'    => 'contract_method',
-    ];
 
-    public function validate()
-    {
-        Model::validateRequired('scene', $this->scene, true);
-        Model::validateRequired('txHash', $this->txHash, true);
-        Model::validateRequired('contractMethod', $this->contractMethod, true);
-    }
-
-    public function toMap()
-    {
-        $res = [];
-        if (null !== $this->authToken) {
-            $res['auth_token'] = $this->authToken;
-        }
-        if (null !== $this->productInstanceId) {
-            $res['product_instance_id'] = $this->productInstanceId;
-        }
-        if (null !== $this->scene) {
-            $res['scene'] = $this->scene;
-        }
-        if (null !== $this->txHash) {
-            $res['tx_hash'] = $this->txHash;
-        }
-        if (null !== $this->contractMethod) {
-            $res['contract_method'] = $this->contractMethod;
-        }
-
-        return $res;
-    }
-
-    /**
-     * @param array $map
-     *
-     * @return QueryDataBytxhashRequest
-     */
-    public static function fromMap($map = [])
-    {
-        $model = new self();
-        if (isset($map['auth_token'])) {
-            $model->authToken = $map['auth_token'];
-        }
-        if (isset($map['product_instance_id'])) {
-            $model->productInstanceId = $map['product_instance_id'];
-        }
-        if (isset($map['scene'])) {
-            $model->scene = $map['scene'];
-        }
-        if (isset($map['tx_hash'])) {
-            $model->txHash = $map['tx_hash'];
-        }
-        if (isset($map['contract_method'])) {
-            $model->contractMethod = $map['contract_method'];
-        }
-
-        return $model;
-    }
 }

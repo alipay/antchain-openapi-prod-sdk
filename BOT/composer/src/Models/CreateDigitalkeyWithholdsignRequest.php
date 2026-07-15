@@ -1,13 +1,127 @@
 <?php
 
 // This file is auto-generated, don't edit it. Thanks.
-
 namespace AntChain\BOT\Models;
 
 use AlibabaCloud\Tea\Model;
 
-class CreateDigitalkeyWithholdsignRequest extends Model
-{
+use AntChain\BOT\Models\SubMerchantParams;
+
+class CreateDigitalkeyWithholdsignRequest extends Model {
+    protected $_name = [
+        'authToken' => 'auth_token',
+        'productInstanceId' => 'product_instance_id',
+        'personalProductCode' => 'personal_product_code',
+        'productCode' => 'product_code',
+        'channel' => 'channel',
+        'returnUrl' => 'return_url',
+        'externalLogonId' => 'external_logon_id',
+        'alipayUserId' => 'alipay_user_id',
+        'signScene' => 'sign_scene',
+        'externalAgreementNo' => 'external_agreement_no',
+        'subMerchant' => 'sub_merchant',
+        'signValidityPeriod' => 'sign_validity_period',
+        'effectTime' => 'effect_time',
+    ];
+    public function validate() {
+        Model::validateRequired('personalProductCode', $this->personalProductCode, true);
+        Model::validateRequired('productCode', $this->productCode, true);
+        Model::validateRequired('channel', $this->channel, true);
+        Model::validateRequired('returnUrl', $this->returnUrl, true);
+        Model::validateRequired('externalLogonId', $this->externalLogonId, true);
+        Model::validateRequired('signScene', $this->signScene, true);
+        Model::validateRequired('externalAgreementNo', $this->externalAgreementNo, true);
+    }
+    public function toMap() {
+        $res = [];
+        if (null !== $this->authToken) {
+            $res['auth_token'] = $this->authToken;
+        }
+        if (null !== $this->productInstanceId) {
+            $res['product_instance_id'] = $this->productInstanceId;
+        }
+        if (null !== $this->personalProductCode) {
+            $res['personal_product_code'] = $this->personalProductCode;
+        }
+        if (null !== $this->productCode) {
+            $res['product_code'] = $this->productCode;
+        }
+        if (null !== $this->channel) {
+            $res['channel'] = $this->channel;
+        }
+        if (null !== $this->returnUrl) {
+            $res['return_url'] = $this->returnUrl;
+        }
+        if (null !== $this->externalLogonId) {
+            $res['external_logon_id'] = $this->externalLogonId;
+        }
+        if (null !== $this->alipayUserId) {
+            $res['alipay_user_id'] = $this->alipayUserId;
+        }
+        if (null !== $this->signScene) {
+            $res['sign_scene'] = $this->signScene;
+        }
+        if (null !== $this->externalAgreementNo) {
+            $res['external_agreement_no'] = $this->externalAgreementNo;
+        }
+        if (null !== $this->subMerchant) {
+            $res['sub_merchant'] = null !== $this->subMerchant ? $this->subMerchant->toMap() : null;
+        }
+        if (null !== $this->signValidityPeriod) {
+            $res['sign_validity_period'] = $this->signValidityPeriod;
+        }
+        if (null !== $this->effectTime) {
+            $res['effect_time'] = $this->effectTime;
+        }
+        return $res;
+    }
+    /**
+     * @param array $map
+     * @return CreateDigitalkeyWithholdsignRequest
+     */
+    public static function fromMap($map = []) {
+        $model = new self();
+        if(isset($map['auth_token'])){
+            $model->authToken = $map['auth_token'];
+        }
+        if(isset($map['product_instance_id'])){
+            $model->productInstanceId = $map['product_instance_id'];
+        }
+        if(isset($map['personal_product_code'])){
+            $model->personalProductCode = $map['personal_product_code'];
+        }
+        if(isset($map['product_code'])){
+            $model->productCode = $map['product_code'];
+        }
+        if(isset($map['channel'])){
+            $model->channel = $map['channel'];
+        }
+        if(isset($map['return_url'])){
+            $model->returnUrl = $map['return_url'];
+        }
+        if(isset($map['external_logon_id'])){
+            $model->externalLogonId = $map['external_logon_id'];
+        }
+        if(isset($map['alipay_user_id'])){
+            $model->alipayUserId = $map['alipay_user_id'];
+        }
+        if(isset($map['sign_scene'])){
+            $model->signScene = $map['sign_scene'];
+        }
+        if(isset($map['external_agreement_no'])){
+            $model->externalAgreementNo = $map['external_agreement_no'];
+        }
+        if(isset($map['sub_merchant'])){
+            $model->subMerchant = SubMerchantParams::fromMap($map['sub_merchant']);
+        }
+        if(isset($map['sign_validity_period'])){
+            $model->signValidityPeriod = $map['sign_validity_period'];
+        }
+        if(isset($map['effect_time'])){
+            $model->effectTime = $map['effect_time'];
+        }
+        return $model;
+    }
     // OAuth模式下的授权token
     /**
      * @var string
@@ -84,127 +198,5 @@ class CreateDigitalkeyWithholdsignRequest extends Model
      * @var int
      */
     public $effectTime;
-    protected $_name = [
-        'authToken'           => 'auth_token',
-        'productInstanceId'   => 'product_instance_id',
-        'personalProductCode' => 'personal_product_code',
-        'productCode'         => 'product_code',
-        'channel'             => 'channel',
-        'returnUrl'           => 'return_url',
-        'externalLogonId'     => 'external_logon_id',
-        'alipayUserId'        => 'alipay_user_id',
-        'signScene'           => 'sign_scene',
-        'externalAgreementNo' => 'external_agreement_no',
-        'subMerchant'         => 'sub_merchant',
-        'signValidityPeriod'  => 'sign_validity_period',
-        'effectTime'          => 'effect_time',
-    ];
 
-    public function validate()
-    {
-        Model::validateRequired('personalProductCode', $this->personalProductCode, true);
-        Model::validateRequired('productCode', $this->productCode, true);
-        Model::validateRequired('channel', $this->channel, true);
-        Model::validateRequired('returnUrl', $this->returnUrl, true);
-        Model::validateRequired('externalLogonId', $this->externalLogonId, true);
-        Model::validateRequired('signScene', $this->signScene, true);
-        Model::validateRequired('externalAgreementNo', $this->externalAgreementNo, true);
-    }
-
-    public function toMap()
-    {
-        $res = [];
-        if (null !== $this->authToken) {
-            $res['auth_token'] = $this->authToken;
-        }
-        if (null !== $this->productInstanceId) {
-            $res['product_instance_id'] = $this->productInstanceId;
-        }
-        if (null !== $this->personalProductCode) {
-            $res['personal_product_code'] = $this->personalProductCode;
-        }
-        if (null !== $this->productCode) {
-            $res['product_code'] = $this->productCode;
-        }
-        if (null !== $this->channel) {
-            $res['channel'] = $this->channel;
-        }
-        if (null !== $this->returnUrl) {
-            $res['return_url'] = $this->returnUrl;
-        }
-        if (null !== $this->externalLogonId) {
-            $res['external_logon_id'] = $this->externalLogonId;
-        }
-        if (null !== $this->alipayUserId) {
-            $res['alipay_user_id'] = $this->alipayUserId;
-        }
-        if (null !== $this->signScene) {
-            $res['sign_scene'] = $this->signScene;
-        }
-        if (null !== $this->externalAgreementNo) {
-            $res['external_agreement_no'] = $this->externalAgreementNo;
-        }
-        if (null !== $this->subMerchant) {
-            $res['sub_merchant'] = null !== $this->subMerchant ? $this->subMerchant->toMap() : null;
-        }
-        if (null !== $this->signValidityPeriod) {
-            $res['sign_validity_period'] = $this->signValidityPeriod;
-        }
-        if (null !== $this->effectTime) {
-            $res['effect_time'] = $this->effectTime;
-        }
-
-        return $res;
-    }
-
-    /**
-     * @param array $map
-     *
-     * @return CreateDigitalkeyWithholdsignRequest
-     */
-    public static function fromMap($map = [])
-    {
-        $model = new self();
-        if (isset($map['auth_token'])) {
-            $model->authToken = $map['auth_token'];
-        }
-        if (isset($map['product_instance_id'])) {
-            $model->productInstanceId = $map['product_instance_id'];
-        }
-        if (isset($map['personal_product_code'])) {
-            $model->personalProductCode = $map['personal_product_code'];
-        }
-        if (isset($map['product_code'])) {
-            $model->productCode = $map['product_code'];
-        }
-        if (isset($map['channel'])) {
-            $model->channel = $map['channel'];
-        }
-        if (isset($map['return_url'])) {
-            $model->returnUrl = $map['return_url'];
-        }
-        if (isset($map['external_logon_id'])) {
-            $model->externalLogonId = $map['external_logon_id'];
-        }
-        if (isset($map['alipay_user_id'])) {
-            $model->alipayUserId = $map['alipay_user_id'];
-        }
-        if (isset($map['sign_scene'])) {
-            $model->signScene = $map['sign_scene'];
-        }
-        if (isset($map['external_agreement_no'])) {
-            $model->externalAgreementNo = $map['external_agreement_no'];
-        }
-        if (isset($map['sub_merchant'])) {
-            $model->subMerchant = SubMerchantParams::fromMap($map['sub_merchant']);
-        }
-        if (isset($map['sign_validity_period'])) {
-            $model->signValidityPeriod = $map['sign_validity_period'];
-        }
-        if (isset($map['effect_time'])) {
-            $model->effectTime = $map['effect_time'];
-        }
-
-        return $model;
-    }
 }

@@ -1,13 +1,86 @@
 <?php
 
 // This file is auto-generated, don't edit it. Thanks.
-
 namespace AntChain\BOT\Models;
 
 use AlibabaCloud\Tea\Model;
 
-class OperateIotbasicDeviceRequest extends Model
-{
+use AntChain\BOT\Models\DeviceDisableData;
+
+class OperateIotbasicDeviceRequest extends Model {
+    protected $_name = [
+        'authToken' => 'auth_token',
+        'productInstanceId' => 'product_instance_id',
+        'deviceDisableList' => 'device_disable_list',
+        'disableOperateType' => 'disable_operate_type',
+        'status' => 'status',
+        'message' => 'message',
+    ];
+    public function validate() {
+        Model::validateRequired('deviceDisableList', $this->deviceDisableList, true);
+        Model::validateRequired('disableOperateType', $this->disableOperateType, true);
+        Model::validateRequired('status', $this->status, true);
+    }
+    public function toMap() {
+        $res = [];
+        if (null !== $this->authToken) {
+            $res['auth_token'] = $this->authToken;
+        }
+        if (null !== $this->productInstanceId) {
+            $res['product_instance_id'] = $this->productInstanceId;
+        }
+        if (null !== $this->deviceDisableList) {
+            $res['device_disable_list'] = [];
+            if(null !== $this->deviceDisableList && is_array($this->deviceDisableList)){
+                $n = 0;
+                foreach($this->deviceDisableList as $item){
+                    $res['device_disable_list'][$n++] = null !== $item ? $item->toMap() : $item;
+                }
+            }
+        }
+        if (null !== $this->disableOperateType) {
+            $res['disable_operate_type'] = $this->disableOperateType;
+        }
+        if (null !== $this->status) {
+            $res['status'] = $this->status;
+        }
+        if (null !== $this->message) {
+            $res['message'] = $this->message;
+        }
+        return $res;
+    }
+    /**
+     * @param array $map
+     * @return OperateIotbasicDeviceRequest
+     */
+    public static function fromMap($map = []) {
+        $model = new self();
+        if(isset($map['auth_token'])){
+            $model->authToken = $map['auth_token'];
+        }
+        if(isset($map['product_instance_id'])){
+            $model->productInstanceId = $map['product_instance_id'];
+        }
+        if(isset($map['device_disable_list'])){
+            if(!empty($map['device_disable_list'])){
+                $model->deviceDisableList = [];
+                $n = 0;
+                foreach($map['device_disable_list'] as $item) {
+                    $model->deviceDisableList[$n++] = null !== $item ? DeviceDisableData::fromMap($item) : $item;
+                }
+            }
+        }
+        if(isset($map['disable_operate_type'])){
+            $model->disableOperateType = $map['disable_operate_type'];
+        }
+        if(isset($map['status'])){
+            $model->status = $map['status'];
+        }
+        if(isset($map['message'])){
+            $model->message = $map['message'];
+        }
+        return $model;
+    }
     // OAuth模式下的授权token
     /**
      * @var string
@@ -45,86 +118,5 @@ class OperateIotbasicDeviceRequest extends Model
      * @var string
      */
     public $message;
-    protected $_name = [
-        'authToken'          => 'auth_token',
-        'productInstanceId'  => 'product_instance_id',
-        'deviceDisableList'  => 'device_disable_list',
-        'disableOperateType' => 'disable_operate_type',
-        'status'             => 'status',
-        'message'            => 'message',
-    ];
 
-    public function validate()
-    {
-        Model::validateRequired('deviceDisableList', $this->deviceDisableList, true);
-        Model::validateRequired('disableOperateType', $this->disableOperateType, true);
-        Model::validateRequired('status', $this->status, true);
-    }
-
-    public function toMap()
-    {
-        $res = [];
-        if (null !== $this->authToken) {
-            $res['auth_token'] = $this->authToken;
-        }
-        if (null !== $this->productInstanceId) {
-            $res['product_instance_id'] = $this->productInstanceId;
-        }
-        if (null !== $this->deviceDisableList) {
-            $res['device_disable_list'] = [];
-            if (null !== $this->deviceDisableList && \is_array($this->deviceDisableList)) {
-                $n = 0;
-                foreach ($this->deviceDisableList as $item) {
-                    $res['device_disable_list'][$n++] = null !== $item ? $item->toMap() : $item;
-                }
-            }
-        }
-        if (null !== $this->disableOperateType) {
-            $res['disable_operate_type'] = $this->disableOperateType;
-        }
-        if (null !== $this->status) {
-            $res['status'] = $this->status;
-        }
-        if (null !== $this->message) {
-            $res['message'] = $this->message;
-        }
-
-        return $res;
-    }
-
-    /**
-     * @param array $map
-     *
-     * @return OperateIotbasicDeviceRequest
-     */
-    public static function fromMap($map = [])
-    {
-        $model = new self();
-        if (isset($map['auth_token'])) {
-            $model->authToken = $map['auth_token'];
-        }
-        if (isset($map['product_instance_id'])) {
-            $model->productInstanceId = $map['product_instance_id'];
-        }
-        if (isset($map['device_disable_list'])) {
-            if (!empty($map['device_disable_list'])) {
-                $model->deviceDisableList = [];
-                $n                        = 0;
-                foreach ($map['device_disable_list'] as $item) {
-                    $model->deviceDisableList[$n++] = null !== $item ? DeviceDisableData::fromMap($item) : $item;
-                }
-            }
-        }
-        if (isset($map['disable_operate_type'])) {
-            $model->disableOperateType = $map['disable_operate_type'];
-        }
-        if (isset($map['status'])) {
-            $model->status = $map['status'];
-        }
-        if (isset($map['message'])) {
-            $model->message = $map['message'];
-        }
-
-        return $model;
-    }
 }

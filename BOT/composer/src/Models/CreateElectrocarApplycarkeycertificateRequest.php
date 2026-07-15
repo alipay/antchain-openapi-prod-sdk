@@ -1,13 +1,146 @@
 <?php
 
 // This file is auto-generated, don't edit it. Thanks.
-
 namespace AntChain\BOT\Models;
 
 use AlibabaCloud\Tea\Model;
 
-class CreateElectrocarApplycarkeycertificateRequest extends Model
-{
+class CreateElectrocarApplycarkeycertificateRequest extends Model {
+    protected $_name = [
+        'authToken' => 'auth_token',
+        'productInstanceId' => 'product_instance_id',
+        'requestId' => 'request_id',
+        'onlineFlag' => 'online_flag',
+        'deviceType' => 'device_type',
+        'credType' => 'cred_type',
+        'brandId' => 'brand_id',
+        'generateCode' => 'generate_code',
+        'protocolType' => 'protocol_type',
+        'keyLess' => 'key_less',
+        'mac' => 'mac',
+        'bleName' => 'ble_name',
+        'deviceSn' => 'device_sn',
+        'accessScene' => 'access_scene',
+        'aliyunIotEnabled' => 'aliyun_iot_enabled',
+        'channel' => 'channel',
+    ];
+    public function validate() {
+        Model::validateRequired('requestId', $this->requestId, true);
+        Model::validateRequired('brandId', $this->brandId, true);
+        Model::validateRequired('protocolType', $this->protocolType, true);
+        Model::validateRequired('mac', $this->mac, true);
+        Model::validateRequired('bleName', $this->bleName, true);
+        Model::validateRequired('deviceSn', $this->deviceSn, true);
+        Model::validateRequired('accessScene', $this->accessScene, true);
+    }
+    public function toMap() {
+        $res = [];
+        if (null !== $this->authToken) {
+            $res['auth_token'] = $this->authToken;
+        }
+        if (null !== $this->productInstanceId) {
+            $res['product_instance_id'] = $this->productInstanceId;
+        }
+        if (null !== $this->requestId) {
+            $res['request_id'] = $this->requestId;
+        }
+        if (null !== $this->onlineFlag) {
+            $res['online_flag'] = $this->onlineFlag;
+        }
+        if (null !== $this->deviceType) {
+            $res['device_type'] = $this->deviceType;
+        }
+        if (null !== $this->credType) {
+            $res['cred_type'] = $this->credType;
+        }
+        if (null !== $this->brandId) {
+            $res['brand_id'] = $this->brandId;
+        }
+        if (null !== $this->generateCode) {
+            $res['generate_code'] = $this->generateCode;
+        }
+        if (null !== $this->protocolType) {
+            $res['protocol_type'] = $this->protocolType;
+        }
+        if (null !== $this->keyLess) {
+            $res['key_less'] = $this->keyLess;
+        }
+        if (null !== $this->mac) {
+            $res['mac'] = $this->mac;
+        }
+        if (null !== $this->bleName) {
+            $res['ble_name'] = $this->bleName;
+        }
+        if (null !== $this->deviceSn) {
+            $res['device_sn'] = $this->deviceSn;
+        }
+        if (null !== $this->accessScene) {
+            $res['access_scene'] = $this->accessScene;
+        }
+        if (null !== $this->aliyunIotEnabled) {
+            $res['aliyun_iot_enabled'] = $this->aliyunIotEnabled;
+        }
+        if (null !== $this->channel) {
+            $res['channel'] = $this->channel;
+        }
+        return $res;
+    }
+    /**
+     * @param array $map
+     * @return CreateElectrocarApplycarkeycertificateRequest
+     */
+    public static function fromMap($map = []) {
+        $model = new self();
+        if(isset($map['auth_token'])){
+            $model->authToken = $map['auth_token'];
+        }
+        if(isset($map['product_instance_id'])){
+            $model->productInstanceId = $map['product_instance_id'];
+        }
+        if(isset($map['request_id'])){
+            $model->requestId = $map['request_id'];
+        }
+        if(isset($map['online_flag'])){
+            $model->onlineFlag = $map['online_flag'];
+        }
+        if(isset($map['device_type'])){
+            $model->deviceType = $map['device_type'];
+        }
+        if(isset($map['cred_type'])){
+            $model->credType = $map['cred_type'];
+        }
+        if(isset($map['brand_id'])){
+            $model->brandId = $map['brand_id'];
+        }
+        if(isset($map['generate_code'])){
+            $model->generateCode = $map['generate_code'];
+        }
+        if(isset($map['protocol_type'])){
+            $model->protocolType = $map['protocol_type'];
+        }
+        if(isset($map['key_less'])){
+            $model->keyLess = $map['key_less'];
+        }
+        if(isset($map['mac'])){
+            $model->mac = $map['mac'];
+        }
+        if(isset($map['ble_name'])){
+            $model->bleName = $map['ble_name'];
+        }
+        if(isset($map['device_sn'])){
+            $model->deviceSn = $map['device_sn'];
+        }
+        if(isset($map['access_scene'])){
+            $model->accessScene = $map['access_scene'];
+        }
+        if(isset($map['aliyun_iot_enabled'])){
+            $model->aliyunIotEnabled = $map['aliyun_iot_enabled'];
+        }
+        if(isset($map['channel'])){
+            $model->channel = $map['channel'];
+        }
+        return $model;
+    }
     // OAuth模式下的授权token
     /**
      * @var string
@@ -112,148 +245,5 @@ class CreateElectrocarApplycarkeycertificateRequest extends Model
      * @var string
      */
     public $channel;
-    protected $_name = [
-        'authToken'         => 'auth_token',
-        'productInstanceId' => 'product_instance_id',
-        'requestId'         => 'request_id',
-        'onlineFlag'        => 'online_flag',
-        'deviceType'        => 'device_type',
-        'credType'          => 'cred_type',
-        'brandId'           => 'brand_id',
-        'generateCode'      => 'generate_code',
-        'protocolType'      => 'protocol_type',
-        'keyLess'           => 'key_less',
-        'mac'               => 'mac',
-        'bleName'           => 'ble_name',
-        'deviceSn'          => 'device_sn',
-        'accessScene'       => 'access_scene',
-        'aliyunIotEnabled'  => 'aliyun_iot_enabled',
-        'channel'           => 'channel',
-    ];
 
-    public function validate()
-    {
-        Model::validateRequired('requestId', $this->requestId, true);
-        Model::validateRequired('brandId', $this->brandId, true);
-        Model::validateRequired('protocolType', $this->protocolType, true);
-        Model::validateRequired('mac', $this->mac, true);
-        Model::validateRequired('bleName', $this->bleName, true);
-        Model::validateRequired('deviceSn', $this->deviceSn, true);
-        Model::validateRequired('accessScene', $this->accessScene, true);
-    }
-
-    public function toMap()
-    {
-        $res = [];
-        if (null !== $this->authToken) {
-            $res['auth_token'] = $this->authToken;
-        }
-        if (null !== $this->productInstanceId) {
-            $res['product_instance_id'] = $this->productInstanceId;
-        }
-        if (null !== $this->requestId) {
-            $res['request_id'] = $this->requestId;
-        }
-        if (null !== $this->onlineFlag) {
-            $res['online_flag'] = $this->onlineFlag;
-        }
-        if (null !== $this->deviceType) {
-            $res['device_type'] = $this->deviceType;
-        }
-        if (null !== $this->credType) {
-            $res['cred_type'] = $this->credType;
-        }
-        if (null !== $this->brandId) {
-            $res['brand_id'] = $this->brandId;
-        }
-        if (null !== $this->generateCode) {
-            $res['generate_code'] = $this->generateCode;
-        }
-        if (null !== $this->protocolType) {
-            $res['protocol_type'] = $this->protocolType;
-        }
-        if (null !== $this->keyLess) {
-            $res['key_less'] = $this->keyLess;
-        }
-        if (null !== $this->mac) {
-            $res['mac'] = $this->mac;
-        }
-        if (null !== $this->bleName) {
-            $res['ble_name'] = $this->bleName;
-        }
-        if (null !== $this->deviceSn) {
-            $res['device_sn'] = $this->deviceSn;
-        }
-        if (null !== $this->accessScene) {
-            $res['access_scene'] = $this->accessScene;
-        }
-        if (null !== $this->aliyunIotEnabled) {
-            $res['aliyun_iot_enabled'] = $this->aliyunIotEnabled;
-        }
-        if (null !== $this->channel) {
-            $res['channel'] = $this->channel;
-        }
-
-        return $res;
-    }
-
-    /**
-     * @param array $map
-     *
-     * @return CreateElectrocarApplycarkeycertificateRequest
-     */
-    public static function fromMap($map = [])
-    {
-        $model = new self();
-        if (isset($map['auth_token'])) {
-            $model->authToken = $map['auth_token'];
-        }
-        if (isset($map['product_instance_id'])) {
-            $model->productInstanceId = $map['product_instance_id'];
-        }
-        if (isset($map['request_id'])) {
-            $model->requestId = $map['request_id'];
-        }
-        if (isset($map['online_flag'])) {
-            $model->onlineFlag = $map['online_flag'];
-        }
-        if (isset($map['device_type'])) {
-            $model->deviceType = $map['device_type'];
-        }
-        if (isset($map['cred_type'])) {
-            $model->credType = $map['cred_type'];
-        }
-        if (isset($map['brand_id'])) {
-            $model->brandId = $map['brand_id'];
-        }
-        if (isset($map['generate_code'])) {
-            $model->generateCode = $map['generate_code'];
-        }
-        if (isset($map['protocol_type'])) {
-            $model->protocolType = $map['protocol_type'];
-        }
-        if (isset($map['key_less'])) {
-            $model->keyLess = $map['key_less'];
-        }
-        if (isset($map['mac'])) {
-            $model->mac = $map['mac'];
-        }
-        if (isset($map['ble_name'])) {
-            $model->bleName = $map['ble_name'];
-        }
-        if (isset($map['device_sn'])) {
-            $model->deviceSn = $map['device_sn'];
-        }
-        if (isset($map['access_scene'])) {
-            $model->accessScene = $map['access_scene'];
-        }
-        if (isset($map['aliyun_iot_enabled'])) {
-            $model->aliyunIotEnabled = $map['aliyun_iot_enabled'];
-        }
-        if (isset($map['channel'])) {
-            $model->channel = $map['channel'];
-        }
-
-        return $model;
-    }
 }

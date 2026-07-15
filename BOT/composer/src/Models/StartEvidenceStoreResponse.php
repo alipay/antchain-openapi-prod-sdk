@@ -1,13 +1,96 @@
 <?php
 
 // This file is auto-generated, don't edit it. Thanks.
-
 namespace AntChain\BOT\Models;
 
 use AlibabaCloud\Tea\Model;
 
-class StartEvidenceStoreResponse extends Model
-{
+class StartEvidenceStoreResponse extends Model {
+    protected $_name = [
+        'reqMsgId' => 'req_msg_id',
+        'resultCode' => 'result_code',
+        'resultMsg' => 'result_msg',
+        'costMillis' => 'cost_millis',
+        'dataIndex' => 'data_index',
+        'extInfo' => 'ext_info',
+        'nonce' => 'nonce',
+        'timestamp' => 'timestamp',
+        'txTimestamp' => 'tx_timestamp',
+        'txHash' => 'tx_hash',
+    ];
+    public function validate() {}
+    public function toMap() {
+        $res = [];
+        if (null !== $this->reqMsgId) {
+            $res['req_msg_id'] = $this->reqMsgId;
+        }
+        if (null !== $this->resultCode) {
+            $res['result_code'] = $this->resultCode;
+        }
+        if (null !== $this->resultMsg) {
+            $res['result_msg'] = $this->resultMsg;
+        }
+        if (null !== $this->costMillis) {
+            $res['cost_millis'] = $this->costMillis;
+        }
+        if (null !== $this->dataIndex) {
+            $res['data_index'] = $this->dataIndex;
+        }
+        if (null !== $this->extInfo) {
+            $res['ext_info'] = $this->extInfo;
+        }
+        if (null !== $this->nonce) {
+            $res['nonce'] = $this->nonce;
+        }
+        if (null !== $this->timestamp) {
+            $res['timestamp'] = $this->timestamp;
+        }
+        if (null !== $this->txTimestamp) {
+            $res['tx_timestamp'] = $this->txTimestamp;
+        }
+        if (null !== $this->txHash) {
+            $res['tx_hash'] = $this->txHash;
+        }
+        return $res;
+    }
+    /**
+     * @param array $map
+     * @return StartEvidenceStoreResponse
+     */
+    public static function fromMap($map = []) {
+        $model = new self();
+        if(isset($map['req_msg_id'])){
+            $model->reqMsgId = $map['req_msg_id'];
+        }
+        if(isset($map['result_code'])){
+            $model->resultCode = $map['result_code'];
+        }
+        if(isset($map['result_msg'])){
+            $model->resultMsg = $map['result_msg'];
+        }
+        if(isset($map['cost_millis'])){
+            $model->costMillis = $map['cost_millis'];
+        }
+        if(isset($map['data_index'])){
+            $model->dataIndex = $map['data_index'];
+        }
+        if(isset($map['ext_info'])){
+            $model->extInfo = $map['ext_info'];
+        }
+        if(isset($map['nonce'])){
+            $model->nonce = $map['nonce'];
+        }
+        if(isset($map['timestamp'])){
+            $model->timestamp = $map['timestamp'];
+        }
+        if(isset($map['tx_timestamp'])){
+            $model->txTimestamp = $map['tx_timestamp'];
+        }
+        if(isset($map['tx_hash'])){
+            $model->txHash = $map['tx_hash'];
+        }
+        return $model;
+    }
     // 请求唯一ID，用于链路跟踪和问题排查
     /**
      * @var string
@@ -67,99 +150,5 @@ class StartEvidenceStoreResponse extends Model
      * @var string
      */
     public $txHash;
-    protected $_name = [
-        'reqMsgId'    => 'req_msg_id',
-        'resultCode'  => 'result_code',
-        'resultMsg'   => 'result_msg',
-        'costMillis'  => 'cost_millis',
-        'dataIndex'   => 'data_index',
-        'extInfo'     => 'ext_info',
-        'nonce'       => 'nonce',
-        'timestamp'   => 'timestamp',
-        'txTimestamp' => 'tx_timestamp',
-        'txHash'      => 'tx_hash',
-    ];
 
-    public function validate()
-    {
-    }
-
-    public function toMap()
-    {
-        $res = [];
-        if (null !== $this->reqMsgId) {
-            $res['req_msg_id'] = $this->reqMsgId;
-        }
-        if (null !== $this->resultCode) {
-            $res['result_code'] = $this->resultCode;
-        }
-        if (null !== $this->resultMsg) {
-            $res['result_msg'] = $this->resultMsg;
-        }
-        if (null !== $this->costMillis) {
-            $res['cost_millis'] = $this->costMillis;
-        }
-        if (null !== $this->dataIndex) {
-            $res['data_index'] = $this->dataIndex;
-        }
-        if (null !== $this->extInfo) {
-            $res['ext_info'] = $this->extInfo;
-        }
-        if (null !== $this->nonce) {
-            $res['nonce'] = $this->nonce;
-        }
-        if (null !== $this->timestamp) {
-            $res['timestamp'] = $this->timestamp;
-        }
-        if (null !== $this->txTimestamp) {
-            $res['tx_timestamp'] = $this->txTimestamp;
-        }
-        if (null !== $this->txHash) {
-            $res['tx_hash'] = $this->txHash;
-        }
-
-        return $res;
-    }
-
-    /**
-     * @param array $map
-     *
-     * @return StartEvidenceStoreResponse
-     */
-    public static function fromMap($map = [])
-    {
-        $model = new self();
-        if (isset($map['req_msg_id'])) {
-            $model->reqMsgId = $map['req_msg_id'];
-        }
-        if (isset($map['result_code'])) {
-            $model->resultCode = $map['result_code'];
-        }
-        if (isset($map['result_msg'])) {
-            $model->resultMsg = $map['result_msg'];
-        }
-        if (isset($map['cost_millis'])) {
-            $model->costMillis = $map['cost_millis'];
-        }
-        if (isset($map['data_index'])) {
-            $model->dataIndex = $map['data_index'];
-        }
-        if (isset($map['ext_info'])) {
-            $model->extInfo = $map['ext_info'];
-        }
-        if (isset($map['nonce'])) {
-            $model->nonce = $map['nonce'];
-        }
-        if (isset($map['timestamp'])) {
-            $model->timestamp = $map['timestamp'];
-        }
-        if (isset($map['tx_timestamp'])) {
-            $model->txTimestamp = $map['tx_timestamp'];
-        }
-        if (isset($map['tx_hash'])) {
-            $model->txHash = $map['tx_hash'];
-        }
-
-        return $model;
-    }
 }

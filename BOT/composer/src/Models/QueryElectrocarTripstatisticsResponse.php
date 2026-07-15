@@ -1,13 +1,75 @@
 <?php
 
 // This file is auto-generated, don't edit it. Thanks.
-
 namespace AntChain\BOT\Models;
 
 use AlibabaCloud\Tea\Model;
 
-class QueryElectrocarTripstatisticsResponse extends Model
-{
+use AntChain\BOT\Models\TripStatistics;
+
+class QueryElectrocarTripstatisticsResponse extends Model {
+    protected $_name = [
+        'reqMsgId' => 'req_msg_id',
+        'resultCode' => 'result_code',
+        'resultMsg' => 'result_msg',
+        'success' => 'success',
+        'tripStatistics' => 'trip_statistics',
+    ];
+    public function validate() {}
+    public function toMap() {
+        $res = [];
+        if (null !== $this->reqMsgId) {
+            $res['req_msg_id'] = $this->reqMsgId;
+        }
+        if (null !== $this->resultCode) {
+            $res['result_code'] = $this->resultCode;
+        }
+        if (null !== $this->resultMsg) {
+            $res['result_msg'] = $this->resultMsg;
+        }
+        if (null !== $this->success) {
+            $res['success'] = $this->success;
+        }
+        if (null !== $this->tripStatistics) {
+            $res['trip_statistics'] = [];
+            if(null !== $this->tripStatistics && is_array($this->tripStatistics)){
+                $n = 0;
+                foreach($this->tripStatistics as $item){
+                    $res['trip_statistics'][$n++] = null !== $item ? $item->toMap() : $item;
+                }
+            }
+        }
+        return $res;
+    }
+    /**
+     * @param array $map
+     * @return QueryElectrocarTripstatisticsResponse
+     */
+    public static function fromMap($map = []) {
+        $model = new self();
+        if(isset($map['req_msg_id'])){
+            $model->reqMsgId = $map['req_msg_id'];
+        }
+        if(isset($map['result_code'])){
+            $model->resultCode = $map['result_code'];
+        }
+        if(isset($map['result_msg'])){
+            $model->resultMsg = $map['result_msg'];
+        }
+        if(isset($map['success'])){
+            $model->success = $map['success'];
+        }
+        if(isset($map['trip_statistics'])){
+            if(!empty($map['trip_statistics'])){
+                $model->tripStatistics = [];
+                $n = 0;
+                foreach($map['trip_statistics'] as $item) {
+                    $model->tripStatistics[$n++] = null !== $item ? TripStatistics::fromMap($item) : $item;
+                }
+            }
+        }
+        return $model;
+    }
     // 请求唯一ID，用于链路跟踪和问题排查
     /**
      * @var string
@@ -48,76 +110,5 @@ class QueryElectrocarTripstatisticsResponse extends Model
      * @var TripStatistics[]
      */
     public $tripStatistics;
-    protected $_name = [
-        'reqMsgId'       => 'req_msg_id',
-        'resultCode'     => 'result_code',
-        'resultMsg'      => 'result_msg',
-        'success'        => 'success',
-        'tripStatistics' => 'trip_statistics',
-    ];
 
-    public function validate()
-    {
-    }
-
-    public function toMap()
-    {
-        $res = [];
-        if (null !== $this->reqMsgId) {
-            $res['req_msg_id'] = $this->reqMsgId;
-        }
-        if (null !== $this->resultCode) {
-            $res['result_code'] = $this->resultCode;
-        }
-        if (null !== $this->resultMsg) {
-            $res['result_msg'] = $this->resultMsg;
-        }
-        if (null !== $this->success) {
-            $res['success'] = $this->success;
-        }
-        if (null !== $this->tripStatistics) {
-            $res['trip_statistics'] = [];
-            if (null !== $this->tripStatistics && \is_array($this->tripStatistics)) {
-                $n = 0;
-                foreach ($this->tripStatistics as $item) {
-                    $res['trip_statistics'][$n++] = null !== $item ? $item->toMap() : $item;
-                }
-            }
-        }
-
-        return $res;
-    }
-
-    /**
-     * @param array $map
-     *
-     * @return QueryElectrocarTripstatisticsResponse
-     */
-    public static function fromMap($map = [])
-    {
-        $model = new self();
-        if (isset($map['req_msg_id'])) {
-            $model->reqMsgId = $map['req_msg_id'];
-        }
-        if (isset($map['result_code'])) {
-            $model->resultCode = $map['result_code'];
-        }
-        if (isset($map['result_msg'])) {
-            $model->resultMsg = $map['result_msg'];
-        }
-        if (isset($map['success'])) {
-            $model->success = $map['success'];
-        }
-        if (isset($map['trip_statistics'])) {
-            if (!empty($map['trip_statistics'])) {
-                $model->tripStatistics = [];
-                $n                     = 0;
-                foreach ($map['trip_statistics'] as $item) {
-                    $model->tripStatistics[$n++] = null !== $item ? TripStatistics::fromMap($item) : $item;
-                }
-            }
-        }
-
-        return $model;
-    }
 }

@@ -1,107 +1,24 @@
 <?php
 
 // This file is auto-generated, don't edit it. Thanks.
-
 namespace AntChain\BOT\Models;
 
 use AlibabaCloud\Tea\Model;
 
-class SceneModel extends Model
-{
-    // 主键id
-    /**
-     * @example 1
-     *
-     * @var int
-     */
-    public $id;
-
-    // 创建时间
-    /**
-     * @example 2018-10-10T10:10:00Z
-     *
-     * @var string
-     */
-    public $gmtCreate;
-
-    // 修改时间
-    /**
-     * @example 2018-10-10T10:10:00Z
-     *
-     * @var string
-     */
-    public $gmtModified;
-
-    // 场景名
-    /**
-     * @example testScene
-     *
-     * @var string
-     */
-    public $sceneName;
-
-    // 是否托管
-    /**
-     * @example ESCROWED
-     *
-     * @var string
-     */
-    public $escrowed;
-
-    // 私钥密码
-    /**
-     * @example MEUCI..
-     *
-     * @var string
-     */
-    public $privateKeyPassword;
-
-    // 租户
-    /**
-     * @example testTenant
-     *
-     * @var string
-     */
-    public $tenantName;
-
-    // 场景类型
-    /**
-     * @example 共享单车
-     *
-     * @var string
-     */
-    public $sceneType;
-
-    // 是否跳过中台数据校验处理
-    /**
-     * @example true, false
-     *
-     * @var bool
-     */
-    public $skipPegasus;
-
-    // 定制数据处理类 , 使用用逗号分隔
-    /**
-     * @example XXX_GPS_PROCESSOR
-     *
-     * @var string
-     */
-    public $customerProcessor;
+class SceneModel extends Model {
     protected $_name = [
-        'id'                 => 'id',
-        'gmtCreate'          => 'gmt_create',
-        'gmtModified'        => 'gmt_modified',
-        'sceneName'          => 'scene_name',
-        'escrowed'           => 'escrowed',
+        'id' => 'id',
+        'gmtCreate' => 'gmt_create',
+        'gmtModified' => 'gmt_modified',
+        'sceneName' => 'scene_name',
+        'escrowed' => 'escrowed',
         'privateKeyPassword' => 'private_key_password',
-        'tenantName'         => 'tenant_name',
-        'sceneType'          => 'scene_type',
-        'skipPegasus'        => 'skip_pegasus',
-        'customerProcessor'  => 'customer_processor',
+        'tenantName' => 'tenant_name',
+        'sceneType' => 'scene_type',
+        'skipPegasus' => 'skip_pegasus',
+        'customerProcessor' => 'customer_processor',
     ];
-
-    public function validate()
-    {
+    public function validate() {
         Model::validateRequired('id', $this->id, true);
         Model::validateRequired('gmtCreate', $this->gmtCreate, true);
         Model::validateRequired('gmtModified', $this->gmtModified, true);
@@ -109,9 +26,7 @@ class SceneModel extends Model
         Model::validatePattern('gmtCreate', $this->gmtCreate, '\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}([Z]|([\\.]\\d{1,9})?[\\+]\\d{2}[\\:]?\\d{2})');
         Model::validatePattern('gmtModified', $this->gmtModified, '\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}([Z]|([\\.]\\d{1,9})?[\\+]\\d{2}[\\:]?\\d{2})');
     }
-
-    public function toMap()
-    {
+    public function toMap() {
         $res = [];
         if (null !== $this->id) {
             $res['id'] = $this->id;
@@ -143,49 +58,114 @@ class SceneModel extends Model
         if (null !== $this->customerProcessor) {
             $res['customer_processor'] = $this->customerProcessor;
         }
-
         return $res;
     }
-
     /**
      * @param array $map
-     *
      * @return SceneModel
      */
-    public static function fromMap($map = [])
-    {
+    public static function fromMap($map = []) {
         $model = new self();
-        if (isset($map['id'])) {
+        if(isset($map['id'])){
             $model->id = $map['id'];
         }
-        if (isset($map['gmt_create'])) {
+        if(isset($map['gmt_create'])){
             $model->gmtCreate = $map['gmt_create'];
         }
-        if (isset($map['gmt_modified'])) {
+        if(isset($map['gmt_modified'])){
             $model->gmtModified = $map['gmt_modified'];
         }
-        if (isset($map['scene_name'])) {
+        if(isset($map['scene_name'])){
             $model->sceneName = $map['scene_name'];
         }
-        if (isset($map['escrowed'])) {
+        if(isset($map['escrowed'])){
             $model->escrowed = $map['escrowed'];
         }
-        if (isset($map['private_key_password'])) {
+        if(isset($map['private_key_password'])){
             $model->privateKeyPassword = $map['private_key_password'];
         }
-        if (isset($map['tenant_name'])) {
+        if(isset($map['tenant_name'])){
             $model->tenantName = $map['tenant_name'];
         }
-        if (isset($map['scene_type'])) {
+        if(isset($map['scene_type'])){
             $model->sceneType = $map['scene_type'];
         }
-        if (isset($map['skip_pegasus'])) {
+        if(isset($map['skip_pegasus'])){
             $model->skipPegasus = $map['skip_pegasus'];
         }
-        if (isset($map['customer_processor'])) {
+        if(isset($map['customer_processor'])){
             $model->customerProcessor = $map['customer_processor'];
         }
-
         return $model;
     }
+    // 主键id
+    /**
+     * @example 1
+     * @var int
+     */
+    public $id;
+
+    // 创建时间
+    /**
+     * @example 2018-10-10T10:10:00Z
+     * @var string
+     */
+    public $gmtCreate;
+
+    // 修改时间
+    /**
+     * @example 2018-10-10T10:10:00Z
+     * @var string
+     */
+    public $gmtModified;
+
+    // 场景名
+    /**
+     * @example testScene
+     * @var string
+     */
+    public $sceneName;
+
+    // 是否托管
+    /**
+     * @example ESCROWED
+     * @var string
+     */
+    public $escrowed;
+
+    // 私钥密码
+    /**
+     * @example MEUCI..
+     * @var string
+     */
+    public $privateKeyPassword;
+
+    // 租户
+    /**
+     * @example testTenant
+     * @var string
+     */
+    public $tenantName;
+
+    // 场景类型
+    /**
+     * @example 共享单车
+     * @var string
+     */
+    public $sceneType;
+
+    // 是否跳过中台数据校验处理
+    /**
+     * @example true, false
+     * @var bool
+     */
+    public $skipPegasus;
+
+    // 定制数据处理类 , 使用用逗号分隔
+    /**
+     * @example XXX_GPS_PROCESSOR
+     * @var string
+     */
+    public $customerProcessor;
+
 }

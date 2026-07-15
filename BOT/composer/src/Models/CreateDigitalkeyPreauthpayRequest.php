@@ -1,13 +1,95 @@
 <?php
 
 // This file is auto-generated, don't edit it. Thanks.
-
 namespace AntChain\BOT\Models;
 
 use AlibabaCloud\Tea\Model;
 
-class CreateDigitalkeyPreauthpayRequest extends Model
-{
+class CreateDigitalkeyPreauthpayRequest extends Model {
+    protected $_name = [
+        'authToken' => 'auth_token',
+        'productInstanceId' => 'product_instance_id',
+        'outRequestNo' => 'out_request_no',
+        'outOrderNo' => 'out_order_no',
+        'orderTitle' => 'order_title',
+        'amount' => 'amount',
+        'payeeLogonId' => 'payee_logon_id',
+        'enablePayChannels' => 'enable_pay_channels',
+        'subMerchantId' => 'sub_merchant_id',
+    ];
+    public function validate() {
+        Model::validateRequired('outRequestNo', $this->outRequestNo, true);
+        Model::validateRequired('outOrderNo', $this->outOrderNo, true);
+        Model::validateRequired('orderTitle', $this->orderTitle, true);
+        Model::validateRequired('amount', $this->amount, true);
+        Model::validateRequired('payeeLogonId', $this->payeeLogonId, true);
+    }
+    public function toMap() {
+        $res = [];
+        if (null !== $this->authToken) {
+            $res['auth_token'] = $this->authToken;
+        }
+        if (null !== $this->productInstanceId) {
+            $res['product_instance_id'] = $this->productInstanceId;
+        }
+        if (null !== $this->outRequestNo) {
+            $res['out_request_no'] = $this->outRequestNo;
+        }
+        if (null !== $this->outOrderNo) {
+            $res['out_order_no'] = $this->outOrderNo;
+        }
+        if (null !== $this->orderTitle) {
+            $res['order_title'] = $this->orderTitle;
+        }
+        if (null !== $this->amount) {
+            $res['amount'] = $this->amount;
+        }
+        if (null !== $this->payeeLogonId) {
+            $res['payee_logon_id'] = $this->payeeLogonId;
+        }
+        if (null !== $this->enablePayChannels) {
+            $res['enable_pay_channels'] = $this->enablePayChannels;
+        }
+        if (null !== $this->subMerchantId) {
+            $res['sub_merchant_id'] = $this->subMerchantId;
+        }
+        return $res;
+    }
+    /**
+     * @param array $map
+     * @return CreateDigitalkeyPreauthpayRequest
+     */
+    public static function fromMap($map = []) {
+        $model = new self();
+        if(isset($map['auth_token'])){
+            $model->authToken = $map['auth_token'];
+        }
+        if(isset($map['product_instance_id'])){
+            $model->productInstanceId = $map['product_instance_id'];
+        }
+        if(isset($map['out_request_no'])){
+            $model->outRequestNo = $map['out_request_no'];
+        }
+        if(isset($map['out_order_no'])){
+            $model->outOrderNo = $map['out_order_no'];
+        }
+        if(isset($map['order_title'])){
+            $model->orderTitle = $map['order_title'];
+        }
+        if(isset($map['amount'])){
+            $model->amount = $map['amount'];
+        }
+        if(isset($map['payee_logon_id'])){
+            $model->payeeLogonId = $map['payee_logon_id'];
+        }
+        if(isset($map['enable_pay_channels'])){
+            $model->enablePayChannels = $map['enable_pay_channels'];
+        }
+        if(isset($map['sub_merchant_id'])){
+            $model->subMerchantId = $map['sub_merchant_id'];
+        }
+        return $model;
+    }
     // OAuth模式下的授权token
     /**
      * @var string
@@ -62,97 +144,5 @@ class CreateDigitalkeyPreauthpayRequest extends Model
      * @var string
      */
     public $subMerchantId;
-    protected $_name = [
-        'authToken'         => 'auth_token',
-        'productInstanceId' => 'product_instance_id',
-        'outRequestNo'      => 'out_request_no',
-        'outOrderNo'        => 'out_order_no',
-        'orderTitle'        => 'order_title',
-        'amount'            => 'amount',
-        'payeeLogonId'      => 'payee_logon_id',
-        'enablePayChannels' => 'enable_pay_channels',
-        'subMerchantId'     => 'sub_merchant_id',
-    ];
 
-    public function validate()
-    {
-        Model::validateRequired('outRequestNo', $this->outRequestNo, true);
-        Model::validateRequired('outOrderNo', $this->outOrderNo, true);
-        Model::validateRequired('orderTitle', $this->orderTitle, true);
-        Model::validateRequired('amount', $this->amount, true);
-        Model::validateRequired('payeeLogonId', $this->payeeLogonId, true);
-    }
-
-    public function toMap()
-    {
-        $res = [];
-        if (null !== $this->authToken) {
-            $res['auth_token'] = $this->authToken;
-        }
-        if (null !== $this->productInstanceId) {
-            $res['product_instance_id'] = $this->productInstanceId;
-        }
-        if (null !== $this->outRequestNo) {
-            $res['out_request_no'] = $this->outRequestNo;
-        }
-        if (null !== $this->outOrderNo) {
-            $res['out_order_no'] = $this->outOrderNo;
-        }
-        if (null !== $this->orderTitle) {
-            $res['order_title'] = $this->orderTitle;
-        }
-        if (null !== $this->amount) {
-            $res['amount'] = $this->amount;
-        }
-        if (null !== $this->payeeLogonId) {
-            $res['payee_logon_id'] = $this->payeeLogonId;
-        }
-        if (null !== $this->enablePayChannels) {
-            $res['enable_pay_channels'] = $this->enablePayChannels;
-        }
-        if (null !== $this->subMerchantId) {
-            $res['sub_merchant_id'] = $this->subMerchantId;
-        }
-
-        return $res;
-    }
-
-    /**
-     * @param array $map
-     *
-     * @return CreateDigitalkeyPreauthpayRequest
-     */
-    public static function fromMap($map = [])
-    {
-        $model = new self();
-        if (isset($map['auth_token'])) {
-            $model->authToken = $map['auth_token'];
-        }
-        if (isset($map['product_instance_id'])) {
-            $model->productInstanceId = $map['product_instance_id'];
-        }
-        if (isset($map['out_request_no'])) {
-            $model->outRequestNo = $map['out_request_no'];
-        }
-        if (isset($map['out_order_no'])) {
-            $model->outOrderNo = $map['out_order_no'];
-        }
-        if (isset($map['order_title'])) {
-            $model->orderTitle = $map['order_title'];
-        }
-        if (isset($map['amount'])) {
-            $model->amount = $map['amount'];
-        }
-        if (isset($map['payee_logon_id'])) {
-            $model->payeeLogonId = $map['payee_logon_id'];
-        }
-        if (isset($map['enable_pay_channels'])) {
-            $model->enablePayChannels = $map['enable_pay_channels'];
-        }
-        if (isset($map['sub_merchant_id'])) {
-            $model->subMerchantId = $map['sub_merchant_id'];
-        }
-
-        return $model;
-    }
 }

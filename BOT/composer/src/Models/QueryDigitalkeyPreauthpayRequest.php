@@ -1,13 +1,49 @@
 <?php
 
 // This file is auto-generated, don't edit it. Thanks.
-
 namespace AntChain\BOT\Models;
 
 use AlibabaCloud\Tea\Model;
 
-class QueryDigitalkeyPreauthpayRequest extends Model
-{
+class QueryDigitalkeyPreauthpayRequest extends Model {
+    protected $_name = [
+        'authToken' => 'auth_token',
+        'productInstanceId' => 'product_instance_id',
+        'outOrderNo' => 'out_order_no',
+    ];
+    public function validate() {
+        Model::validateRequired('outOrderNo', $this->outOrderNo, true);
+    }
+    public function toMap() {
+        $res = [];
+        if (null !== $this->authToken) {
+            $res['auth_token'] = $this->authToken;
+        }
+        if (null !== $this->productInstanceId) {
+            $res['product_instance_id'] = $this->productInstanceId;
+        }
+        if (null !== $this->outOrderNo) {
+            $res['out_order_no'] = $this->outOrderNo;
+        }
+        return $res;
+    }
+    /**
+     * @param array $map
+     * @return QueryDigitalkeyPreauthpayRequest
+     */
+    public static function fromMap($map = []) {
+        $model = new self();
+        if(isset($map['auth_token'])){
+            $model->authToken = $map['auth_token'];
+        }
+        if(isset($map['product_instance_id'])){
+            $model->productInstanceId = $map['product_instance_id'];
+        }
+        if(isset($map['out_order_no'])){
+            $model->outOrderNo = $map['out_order_no'];
+        }
+        return $model;
+    }
     // OAuth模式下的授权token
     /**
      * @var string
@@ -24,51 +60,5 @@ class QueryDigitalkeyPreauthpayRequest extends Model
      * @var string
      */
     public $outOrderNo;
-    protected $_name = [
-        'authToken'         => 'auth_token',
-        'productInstanceId' => 'product_instance_id',
-        'outOrderNo'        => 'out_order_no',
-    ];
 
-    public function validate()
-    {
-        Model::validateRequired('outOrderNo', $this->outOrderNo, true);
-    }
-
-    public function toMap()
-    {
-        $res = [];
-        if (null !== $this->authToken) {
-            $res['auth_token'] = $this->authToken;
-        }
-        if (null !== $this->productInstanceId) {
-            $res['product_instance_id'] = $this->productInstanceId;
-        }
-        if (null !== $this->outOrderNo) {
-            $res['out_order_no'] = $this->outOrderNo;
-        }
-
-        return $res;
-    }
-
-    /**
-     * @param array $map
-     *
-     * @return QueryDigitalkeyPreauthpayRequest
-     */
-    public static function fromMap($map = [])
-    {
-        $model = new self();
-        if (isset($map['auth_token'])) {
-            $model->authToken = $map['auth_token'];
-        }
-        if (isset($map['product_instance_id'])) {
-            $model->productInstanceId = $map['product_instance_id'];
-        }
-        if (isset($map['out_order_no'])) {
-            $model->outOrderNo = $map['out_order_no'];
-        }
-
-        return $model;
-    }
 }

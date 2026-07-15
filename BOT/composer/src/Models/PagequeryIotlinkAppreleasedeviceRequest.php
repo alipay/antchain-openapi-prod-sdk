@@ -1,13 +1,92 @@
 <?php
 
 // This file is auto-generated, don't edit it. Thanks.
-
 namespace AntChain\BOT\Models;
 
 use AlibabaCloud\Tea\Model;
 
-class PagequeryIotlinkAppreleasedeviceRequest extends Model
-{
+class PagequeryIotlinkAppreleasedeviceRequest extends Model {
+    protected $_name = [
+        'authToken' => 'auth_token',
+        'productInstanceId' => 'product_instance_id',
+        'apkName' => 'apk_name',
+        'apkVersion' => 'apk_version',
+        'orderId' => 'order_id',
+        'deviceSn' => 'device_sn',
+        'status' => 'status',
+        'current' => 'current',
+        'pageSize' => 'page_size',
+    ];
+    public function validate() {
+        Model::validateRequired('current', $this->current, true);
+        Model::validateRequired('pageSize', $this->pageSize, true);
+    }
+    public function toMap() {
+        $res = [];
+        if (null !== $this->authToken) {
+            $res['auth_token'] = $this->authToken;
+        }
+        if (null !== $this->productInstanceId) {
+            $res['product_instance_id'] = $this->productInstanceId;
+        }
+        if (null !== $this->apkName) {
+            $res['apk_name'] = $this->apkName;
+        }
+        if (null !== $this->apkVersion) {
+            $res['apk_version'] = $this->apkVersion;
+        }
+        if (null !== $this->orderId) {
+            $res['order_id'] = $this->orderId;
+        }
+        if (null !== $this->deviceSn) {
+            $res['device_sn'] = $this->deviceSn;
+        }
+        if (null !== $this->status) {
+            $res['status'] = $this->status;
+        }
+        if (null !== $this->current) {
+            $res['current'] = $this->current;
+        }
+        if (null !== $this->pageSize) {
+            $res['page_size'] = $this->pageSize;
+        }
+        return $res;
+    }
+    /**
+     * @param array $map
+     * @return PagequeryIotlinkAppreleasedeviceRequest
+     */
+    public static function fromMap($map = []) {
+        $model = new self();
+        if(isset($map['auth_token'])){
+            $model->authToken = $map['auth_token'];
+        }
+        if(isset($map['product_instance_id'])){
+            $model->productInstanceId = $map['product_instance_id'];
+        }
+        if(isset($map['apk_name'])){
+            $model->apkName = $map['apk_name'];
+        }
+        if(isset($map['apk_version'])){
+            $model->apkVersion = $map['apk_version'];
+        }
+        if(isset($map['order_id'])){
+            $model->orderId = $map['order_id'];
+        }
+        if(isset($map['device_sn'])){
+            $model->deviceSn = $map['device_sn'];
+        }
+        if(isset($map['status'])){
+            $model->status = $map['status'];
+        }
+        if(isset($map['current'])){
+            $model->current = $map['current'];
+        }
+        if(isset($map['page_size'])){
+            $model->pageSize = $map['page_size'];
+        }
+        return $model;
+    }
     // OAuth模式下的授权token
     /**
      * @var string
@@ -68,94 +147,5 @@ class PagequeryIotlinkAppreleasedeviceRequest extends Model
      * @var int
      */
     public $pageSize;
-    protected $_name = [
-        'authToken'         => 'auth_token',
-        'productInstanceId' => 'product_instance_id',
-        'apkName'           => 'apk_name',
-        'apkVersion'        => 'apk_version',
-        'orderId'           => 'order_id',
-        'deviceSn'          => 'device_sn',
-        'status'            => 'status',
-        'current'           => 'current',
-        'pageSize'          => 'page_size',
-    ];
 
-    public function validate()
-    {
-        Model::validateRequired('current', $this->current, true);
-        Model::validateRequired('pageSize', $this->pageSize, true);
-    }
-
-    public function toMap()
-    {
-        $res = [];
-        if (null !== $this->authToken) {
-            $res['auth_token'] = $this->authToken;
-        }
-        if (null !== $this->productInstanceId) {
-            $res['product_instance_id'] = $this->productInstanceId;
-        }
-        if (null !== $this->apkName) {
-            $res['apk_name'] = $this->apkName;
-        }
-        if (null !== $this->apkVersion) {
-            $res['apk_version'] = $this->apkVersion;
-        }
-        if (null !== $this->orderId) {
-            $res['order_id'] = $this->orderId;
-        }
-        if (null !== $this->deviceSn) {
-            $res['device_sn'] = $this->deviceSn;
-        }
-        if (null !== $this->status) {
-            $res['status'] = $this->status;
-        }
-        if (null !== $this->current) {
-            $res['current'] = $this->current;
-        }
-        if (null !== $this->pageSize) {
-            $res['page_size'] = $this->pageSize;
-        }
-
-        return $res;
-    }
-
-    /**
-     * @param array $map
-     *
-     * @return PagequeryIotlinkAppreleasedeviceRequest
-     */
-    public static function fromMap($map = [])
-    {
-        $model = new self();
-        if (isset($map['auth_token'])) {
-            $model->authToken = $map['auth_token'];
-        }
-        if (isset($map['product_instance_id'])) {
-            $model->productInstanceId = $map['product_instance_id'];
-        }
-        if (isset($map['apk_name'])) {
-            $model->apkName = $map['apk_name'];
-        }
-        if (isset($map['apk_version'])) {
-            $model->apkVersion = $map['apk_version'];
-        }
-        if (isset($map['order_id'])) {
-            $model->orderId = $map['order_id'];
-        }
-        if (isset($map['device_sn'])) {
-            $model->deviceSn = $map['device_sn'];
-        }
-        if (isset($map['status'])) {
-            $model->status = $map['status'];
-        }
-        if (isset($map['current'])) {
-            $model->current = $map['current'];
-        }
-        if (isset($map['page_size'])) {
-            $model->pageSize = $map['page_size'];
-        }
-
-        return $model;
-    }
 }

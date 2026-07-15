@@ -1,13 +1,82 @@
 <?php
 
 // This file is auto-generated, don't edit it. Thanks.
-
 namespace AntChain\BOT\Models;
 
 use AlibabaCloud\Tea\Model;
 
-class QueryThingsdidAsyncprocessResponse extends Model
-{
+class QueryThingsdidAsyncprocessResponse extends Model {
+    protected $_name = [
+        'reqMsgId' => 'req_msg_id',
+        'resultCode' => 'result_code',
+        'resultMsg' => 'result_msg',
+        'thingDid' => 'thing_did',
+        'nonce' => 'nonce',
+        'asyncStatus' => 'async_status',
+        'asyncCode' => 'async_code',
+        'asyncSubcode' => 'async_subcode',
+    ];
+    public function validate() {}
+    public function toMap() {
+        $res = [];
+        if (null !== $this->reqMsgId) {
+            $res['req_msg_id'] = $this->reqMsgId;
+        }
+        if (null !== $this->resultCode) {
+            $res['result_code'] = $this->resultCode;
+        }
+        if (null !== $this->resultMsg) {
+            $res['result_msg'] = $this->resultMsg;
+        }
+        if (null !== $this->thingDid) {
+            $res['thing_did'] = $this->thingDid;
+        }
+        if (null !== $this->nonce) {
+            $res['nonce'] = $this->nonce;
+        }
+        if (null !== $this->asyncStatus) {
+            $res['async_status'] = $this->asyncStatus;
+        }
+        if (null !== $this->asyncCode) {
+            $res['async_code'] = $this->asyncCode;
+        }
+        if (null !== $this->asyncSubcode) {
+            $res['async_subcode'] = $this->asyncSubcode;
+        }
+        return $res;
+    }
+    /**
+     * @param array $map
+     * @return QueryThingsdidAsyncprocessResponse
+     */
+    public static function fromMap($map = []) {
+        $model = new self();
+        if(isset($map['req_msg_id'])){
+            $model->reqMsgId = $map['req_msg_id'];
+        }
+        if(isset($map['result_code'])){
+            $model->resultCode = $map['result_code'];
+        }
+        if(isset($map['result_msg'])){
+            $model->resultMsg = $map['result_msg'];
+        }
+        if(isset($map['thing_did'])){
+            $model->thingDid = $map['thing_did'];
+        }
+        if(isset($map['nonce'])){
+            $model->nonce = $map['nonce'];
+        }
+        if(isset($map['async_status'])){
+            $model->asyncStatus = $map['async_status'];
+        }
+        if(isset($map['async_code'])){
+            $model->asyncCode = $map['async_code'];
+        }
+        if(isset($map['async_subcode'])){
+            $model->asyncSubcode = $map['async_subcode'];
+        }
+        return $model;
+    }
     // 请求唯一ID，用于链路跟踪和问题排查
     /**
      * @var string
@@ -55,85 +124,5 @@ class QueryThingsdidAsyncprocessResponse extends Model
      * @var string
      */
     public $asyncSubcode;
-    protected $_name = [
-        'reqMsgId'     => 'req_msg_id',
-        'resultCode'   => 'result_code',
-        'resultMsg'    => 'result_msg',
-        'thingDid'     => 'thing_did',
-        'nonce'        => 'nonce',
-        'asyncStatus'  => 'async_status',
-        'asyncCode'    => 'async_code',
-        'asyncSubcode' => 'async_subcode',
-    ];
 
-    public function validate()
-    {
-    }
-
-    public function toMap()
-    {
-        $res = [];
-        if (null !== $this->reqMsgId) {
-            $res['req_msg_id'] = $this->reqMsgId;
-        }
-        if (null !== $this->resultCode) {
-            $res['result_code'] = $this->resultCode;
-        }
-        if (null !== $this->resultMsg) {
-            $res['result_msg'] = $this->resultMsg;
-        }
-        if (null !== $this->thingDid) {
-            $res['thing_did'] = $this->thingDid;
-        }
-        if (null !== $this->nonce) {
-            $res['nonce'] = $this->nonce;
-        }
-        if (null !== $this->asyncStatus) {
-            $res['async_status'] = $this->asyncStatus;
-        }
-        if (null !== $this->asyncCode) {
-            $res['async_code'] = $this->asyncCode;
-        }
-        if (null !== $this->asyncSubcode) {
-            $res['async_subcode'] = $this->asyncSubcode;
-        }
-
-        return $res;
-    }
-
-    /**
-     * @param array $map
-     *
-     * @return QueryThingsdidAsyncprocessResponse
-     */
-    public static function fromMap($map = [])
-    {
-        $model = new self();
-        if (isset($map['req_msg_id'])) {
-            $model->reqMsgId = $map['req_msg_id'];
-        }
-        if (isset($map['result_code'])) {
-            $model->resultCode = $map['result_code'];
-        }
-        if (isset($map['result_msg'])) {
-            $model->resultMsg = $map['result_msg'];
-        }
-        if (isset($map['thing_did'])) {
-            $model->thingDid = $map['thing_did'];
-        }
-        if (isset($map['nonce'])) {
-            $model->nonce = $map['nonce'];
-        }
-        if (isset($map['async_status'])) {
-            $model->asyncStatus = $map['async_status'];
-        }
-        if (isset($map['async_code'])) {
-            $model->asyncCode = $map['async_code'];
-        }
-        if (isset($map['async_subcode'])) {
-            $model->asyncSubcode = $map['async_subcode'];
-        }
-
-        return $model;
-    }
 }

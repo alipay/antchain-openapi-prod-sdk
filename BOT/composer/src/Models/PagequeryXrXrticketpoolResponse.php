@@ -1,13 +1,103 @@
 <?php
 
 // This file is auto-generated, don't edit it. Thanks.
-
 namespace AntChain\BOT\Models;
 
 use AlibabaCloud\Tea\Model;
 
-class PagequeryXrXrticketpoolResponse extends Model
-{
+use AntChain\BOT\Models\XrTicketPoolItem;
+
+class PagequeryXrXrticketpoolResponse extends Model {
+    protected $_name = [
+        'reqMsgId' => 'req_msg_id',
+        'resultCode' => 'result_code',
+        'resultMsg' => 'result_msg',
+        'xrTicketPoolList' => 'xr_ticket_pool_list',
+        'success' => 'success',
+        'current' => 'current',
+        'pageSize' => 'page_size',
+        'total' => 'total',
+        'totalPage' => 'total_page',
+    ];
+    public function validate() {}
+    public function toMap() {
+        $res = [];
+        if (null !== $this->reqMsgId) {
+            $res['req_msg_id'] = $this->reqMsgId;
+        }
+        if (null !== $this->resultCode) {
+            $res['result_code'] = $this->resultCode;
+        }
+        if (null !== $this->resultMsg) {
+            $res['result_msg'] = $this->resultMsg;
+        }
+        if (null !== $this->xrTicketPoolList) {
+            $res['xr_ticket_pool_list'] = [];
+            if(null !== $this->xrTicketPoolList && is_array($this->xrTicketPoolList)){
+                $n = 0;
+                foreach($this->xrTicketPoolList as $item){
+                    $res['xr_ticket_pool_list'][$n++] = null !== $item ? $item->toMap() : $item;
+                }
+            }
+        }
+        if (null !== $this->success) {
+            $res['success'] = $this->success;
+        }
+        if (null !== $this->current) {
+            $res['current'] = $this->current;
+        }
+        if (null !== $this->pageSize) {
+            $res['page_size'] = $this->pageSize;
+        }
+        if (null !== $this->total) {
+            $res['total'] = $this->total;
+        }
+        if (null !== $this->totalPage) {
+            $res['total_page'] = $this->totalPage;
+        }
+        return $res;
+    }
+    /**
+     * @param array $map
+     * @return PagequeryXrXrticketpoolResponse
+     */
+    public static function fromMap($map = []) {
+        $model = new self();
+        if(isset($map['req_msg_id'])){
+            $model->reqMsgId = $map['req_msg_id'];
+        }
+        if(isset($map['result_code'])){
+            $model->resultCode = $map['result_code'];
+        }
+        if(isset($map['result_msg'])){
+            $model->resultMsg = $map['result_msg'];
+        }
+        if(isset($map['xr_ticket_pool_list'])){
+            if(!empty($map['xr_ticket_pool_list'])){
+                $model->xrTicketPoolList = [];
+                $n = 0;
+                foreach($map['xr_ticket_pool_list'] as $item) {
+                    $model->xrTicketPoolList[$n++] = null !== $item ? XrTicketPoolItem::fromMap($item) : $item;
+                }
+            }
+        }
+        if(isset($map['success'])){
+            $model->success = $map['success'];
+        }
+        if(isset($map['current'])){
+            $model->current = $map['current'];
+        }
+        if(isset($map['page_size'])){
+            $model->pageSize = $map['page_size'];
+        }
+        if(isset($map['total'])){
+            $model->total = $map['total'];
+        }
+        if(isset($map['total_page'])){
+            $model->totalPage = $map['total_page'];
+        }
+        return $model;
+    }
     // 请求唯一ID，用于链路跟踪和问题排查
     /**
      * @var string
@@ -61,104 +151,5 @@ class PagequeryXrXrticketpoolResponse extends Model
      * @var int
      */
     public $totalPage;
-    protected $_name = [
-        'reqMsgId'         => 'req_msg_id',
-        'resultCode'       => 'result_code',
-        'resultMsg'        => 'result_msg',
-        'xrTicketPoolList' => 'xr_ticket_pool_list',
-        'success'          => 'success',
-        'current'          => 'current',
-        'pageSize'         => 'page_size',
-        'total'            => 'total',
-        'totalPage'        => 'total_page',
-    ];
 
-    public function validate()
-    {
-    }
-
-    public function toMap()
-    {
-        $res = [];
-        if (null !== $this->reqMsgId) {
-            $res['req_msg_id'] = $this->reqMsgId;
-        }
-        if (null !== $this->resultCode) {
-            $res['result_code'] = $this->resultCode;
-        }
-        if (null !== $this->resultMsg) {
-            $res['result_msg'] = $this->resultMsg;
-        }
-        if (null !== $this->xrTicketPoolList) {
-            $res['xr_ticket_pool_list'] = [];
-            if (null !== $this->xrTicketPoolList && \is_array($this->xrTicketPoolList)) {
-                $n = 0;
-                foreach ($this->xrTicketPoolList as $item) {
-                    $res['xr_ticket_pool_list'][$n++] = null !== $item ? $item->toMap() : $item;
-                }
-            }
-        }
-        if (null !== $this->success) {
-            $res['success'] = $this->success;
-        }
-        if (null !== $this->current) {
-            $res['current'] = $this->current;
-        }
-        if (null !== $this->pageSize) {
-            $res['page_size'] = $this->pageSize;
-        }
-        if (null !== $this->total) {
-            $res['total'] = $this->total;
-        }
-        if (null !== $this->totalPage) {
-            $res['total_page'] = $this->totalPage;
-        }
-
-        return $res;
-    }
-
-    /**
-     * @param array $map
-     *
-     * @return PagequeryXrXrticketpoolResponse
-     */
-    public static function fromMap($map = [])
-    {
-        $model = new self();
-        if (isset($map['req_msg_id'])) {
-            $model->reqMsgId = $map['req_msg_id'];
-        }
-        if (isset($map['result_code'])) {
-            $model->resultCode = $map['result_code'];
-        }
-        if (isset($map['result_msg'])) {
-            $model->resultMsg = $map['result_msg'];
-        }
-        if (isset($map['xr_ticket_pool_list'])) {
-            if (!empty($map['xr_ticket_pool_list'])) {
-                $model->xrTicketPoolList = [];
-                $n                       = 0;
-                foreach ($map['xr_ticket_pool_list'] as $item) {
-                    $model->xrTicketPoolList[$n++] = null !== $item ? XrTicketPoolItem::fromMap($item) : $item;
-                }
-            }
-        }
-        if (isset($map['success'])) {
-            $model->success = $map['success'];
-        }
-        if (isset($map['current'])) {
-            $model->current = $map['current'];
-        }
-        if (isset($map['page_size'])) {
-            $model->pageSize = $map['page_size'];
-        }
-        if (isset($map['total'])) {
-            $model->total = $map['total'];
-        }
-        if (isset($map['total_page'])) {
-            $model->totalPage = $map['total_page'];
-        }
-
-        return $model;
-    }
 }
