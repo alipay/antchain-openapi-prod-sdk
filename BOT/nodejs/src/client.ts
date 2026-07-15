@@ -3034,6 +3034,191 @@ export class GrantDeviceInfo extends $tea.Model {
   }
 }
 
+// 统一物联设备响应体
+export class IotxDeviceResponse extends $tea.Model {
+  // 主键id
+  /**
+   * @example
+   * 656431049086242816
+   */
+  id?: string;
+  // 创建时间
+  /**
+   * @example
+   * 2026-07-14 15:54:45
+   */
+  gmtCreate?: string;
+  // 更新时间
+  /**
+   * @example
+   * 2026-07-14 15:54:45
+   */
+  gmtModified?: string;
+  // 租户id
+  /**
+   * @example
+   * XQBKTRQV
+   */
+  tenantId?: string;
+  // 使用租户id
+  /**
+   * @example
+   * XQBKTRQV
+   */
+  usageTenantId?: string;
+  // 设备名称
+  /**
+   * @example
+   * FF9999995FF1020260409B6305762869
+   */
+  deviceName?: string;
+  // 产品key
+  /**
+   * @example
+   * iiH0DAhcM46xR1Bm
+   */
+  productKey?: string;
+  // 产品名称
+  /**
+   * @example
+   * 产品名称
+   */
+  productName?: string;
+  // 设备昵称
+  /**
+   * @example
+   * 604C6472CDA911149D5F88D869452848
+   */
+  nickName?: string;
+  // 设备秘钥
+  /**
+   * @example
+   * 7f0f205e13d2a3fbe6e2117dc0771745
+   */
+  deviceSecret?: string;
+  // 设备状态
+  /**
+   * @example
+   * ONLINE
+   */
+  deviceStatus?: string;
+  // 禁用状态：0-未禁用；1-已禁用
+  /**
+   * @example
+   * 0
+   */
+  disableStatus?: string;
+  // ekyt设备唯一标识
+  /**
+   * @example
+   * FF9999995FF1020260409A0C53CC331F
+   */
+  tuid?: string;
+  // 可信产品唯一标识
+  /**
+   * @example
+   * rSJhq6L0DcALjUlEW0
+   */
+  trustProductKey?: string;
+  // 可信物联唯一设备标识
+  /**
+   * @example
+   * device_7447891005096624128
+   */
+  trustDeviceId?: string;
+  // ota固件版本号
+  /**
+   * @example
+   * {"CAT1_OTA":"1.0.4","BLE":"1.0.2"}
+   */
+  otaVersion?: string;
+  // 设备注册时间
+  /**
+   * @example
+   * 2026-04-09 14:21:14
+   */
+  registTime?: string;
+  // 设备激活时间
+  /**
+   * @example
+   * 2026-04-14 12:40:24
+   */
+  activeTime?: string;
+  // 最近在线时间
+  /**
+   * @example
+   * 2026-04-15 09:51:48
+   */
+  lastOnlineTime?: string;
+  // 最近离线时间
+  /**
+   * @example
+   * 2026-04-15 09:51:49
+   */
+  lastOfflineTime?: string;
+  // 最近通讯时间
+  /**
+   * @example
+   * 2026-04-15 09:51:47
+   */
+  lastCommunicationTime?: string;
+  static names(): { [key: string]: string } {
+    return {
+      id: 'id',
+      gmtCreate: 'gmt_create',
+      gmtModified: 'gmt_modified',
+      tenantId: 'tenant_id',
+      usageTenantId: 'usage_tenant_id',
+      deviceName: 'device_name',
+      productKey: 'product_key',
+      productName: 'product_name',
+      nickName: 'nick_name',
+      deviceSecret: 'device_secret',
+      deviceStatus: 'device_status',
+      disableStatus: 'disable_status',
+      tuid: 'tuid',
+      trustProductKey: 'trust_product_key',
+      trustDeviceId: 'trust_device_id',
+      otaVersion: 'ota_version',
+      registTime: 'regist_time',
+      activeTime: 'active_time',
+      lastOnlineTime: 'last_online_time',
+      lastOfflineTime: 'last_offline_time',
+      lastCommunicationTime: 'last_communication_time',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      id: 'string',
+      gmtCreate: 'string',
+      gmtModified: 'string',
+      tenantId: 'string',
+      usageTenantId: 'string',
+      deviceName: 'string',
+      productKey: 'string',
+      productName: 'string',
+      nickName: 'string',
+      deviceSecret: 'string',
+      deviceStatus: 'string',
+      disableStatus: 'string',
+      tuid: 'string',
+      trustProductKey: 'string',
+      trustDeviceId: 'string',
+      otaVersion: 'string',
+      registTime: 'string',
+      activeTime: 'string',
+      lastOnlineTime: 'string',
+      lastOfflineTime: 'string',
+      lastCommunicationTime: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
 // iotbasic发布批次信息
 export class IotbasicReleaseOrderInfo extends $tea.Model {
   // 应用名称
@@ -4763,6 +4948,255 @@ export class DeviceRegisterReqModel extends $tea.Model {
   }
 }
 
+// 统一物联产品响应
+export class IotxProductResponse extends $tea.Model {
+  // 主键id
+  /**
+   * @example
+   * 636804107650338816
+   */
+  id?: string;
+  // 租户id
+  /**
+   * @example
+   * POPVPRVV
+   */
+  tenantId?: string;
+  // 行业id
+  /**
+   * @example
+   * 607848084638142464
+   */
+  industryId?: string;
+  // 行业名称
+  /**
+   * @example
+   * 行业名称
+   */
+  industryName?: string;
+  // 品类id
+  /**
+   * @example
+   * 607848648444874752
+   */
+  categoryId?: string;
+  // 品类名称
+  /**
+   * @example
+   * 品类名称
+   */
+  categoryName?: string;
+  // 可信物联唯一产品标识
+  /**
+   * @example
+   * B7uwSpw2dAaxhZ8nJt
+   */
+  trustProductKey?: string;
+  // 三方物联网平台产品productKey
+  /**
+   * @example
+   * k03iddJl20m
+   */
+  productKey?: string;
+  // 产品名称
+  /**
+   * @example
+   * 产品名称
+   */
+  productName?: string;
+  // 产品秘钥
+  /**
+   * @example
+   * 1wugvASuxxxxxxxxxx
+   */
+  productSecret?: string;
+  // 节点类型：0-直连设备、1-网关设备、2-网关子设备
+  /**
+   * @example
+   * 0
+   */
+  nodeType?: number;
+  // 联网方式：0-wifi、1-蜂窝、2-以太网、3-蓝牙、4-蓝牙+蜂窝网络
+  /**
+   * @example
+   * 0
+   */
+  netType?: number;
+  // 产品协议：MQTT\CoAP
+  /**
+   * @example
+   * MQTT
+   */
+  productProtocol?: string;
+  // 接入网关协议:0-ZigBee协议、1-BLE协议、2-Modbus
+  /**
+   * @example
+   * 0
+   */
+  protocolType?: string;
+  // 数据格式：0-Alink Json、1-自定义透传
+  /**
+   * @example
+   * 0
+   */
+  dataFormat?: string;
+  // 认证类型：默认不认证
+  /**
+   * @example
+   * 0
+   */
+  authType?: number;
+  // 数据校验级别：0-免校验、1-弱校验
+  /**
+   * @example
+   * 0
+   */
+  validateType?: number;
+  // 发布状态：0-未发布、1-已发布
+  /**
+   * @example
+   * 0
+   */
+  publishStatus?: number;
+  // 业务来源：ekyt-数字钥匙、trust-可信上链、ai_hardware-AI硬件
+  /**
+   * @example
+   * ekyt
+   */
+  bizSource?: string;
+  // 产品的状态：0-开发中、1-已发布
+  /**
+   * @example
+   * 0
+   */
+  productStatus?: number;
+  // 关联客户id
+  /**
+   * @example
+   * SAIGE
+   */
+  customerId?: string;
+  // 可信物联实例Id
+  /**
+   * @example
+   * 8ws7jeelei
+   */
+  trustInstanceId?: string;
+  // 平台类型：0-alicloud、1-tuyaAli、2-自管
+  /**
+   * @example
+   * 1
+   */
+  iotPlatform?: number;
+  // 产品描述
+  /**
+   * @example
+   * 产品描述
+   */
+  description?: string;
+  // 产品物模型
+  /**
+   * @example
+   * 产品物模型
+   */
+  thingModel?: string;
+  // 是否启用动态注册：0-关闭动态注册、1-启用动态注册(仅支持涂鸦平台)
+  /**
+   * @example
+   * 0
+   */
+  enableDynReg?: number;
+  // 创建时间
+  /**
+   * @example
+   * 1783389225000
+   */
+  gmtCreate?: string;
+  // 更新时间
+  /**
+   * @example
+   * 1783389225000
+   */
+  gmtModified?: string;
+  // 租户名称
+  /**
+   * @example
+   * 租户名称
+   */
+  tenantName?: string;
+  static names(): { [key: string]: string } {
+    return {
+      id: 'id',
+      tenantId: 'tenant_id',
+      industryId: 'industry_id',
+      industryName: 'industry_name',
+      categoryId: 'category_id',
+      categoryName: 'category_name',
+      trustProductKey: 'trust_product_key',
+      productKey: 'product_key',
+      productName: 'product_name',
+      productSecret: 'product_secret',
+      nodeType: 'node_type',
+      netType: 'net_type',
+      productProtocol: 'product_protocol',
+      protocolType: 'protocol_type',
+      dataFormat: 'data_format',
+      authType: 'auth_type',
+      validateType: 'validate_type',
+      publishStatus: 'publish_status',
+      bizSource: 'biz_source',
+      productStatus: 'product_status',
+      customerId: 'customer_id',
+      trustInstanceId: 'trust_instance_id',
+      iotPlatform: 'iot_platform',
+      description: 'description',
+      thingModel: 'thing_model',
+      enableDynReg: 'enable_dyn_reg',
+      gmtCreate: 'gmt_create',
+      gmtModified: 'gmt_modified',
+      tenantName: 'tenant_name',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      id: 'string',
+      tenantId: 'string',
+      industryId: 'string',
+      industryName: 'string',
+      categoryId: 'string',
+      categoryName: 'string',
+      trustProductKey: 'string',
+      productKey: 'string',
+      productName: 'string',
+      productSecret: 'string',
+      nodeType: 'number',
+      netType: 'number',
+      productProtocol: 'string',
+      protocolType: 'string',
+      dataFormat: 'string',
+      authType: 'number',
+      validateType: 'number',
+      publishStatus: 'number',
+      bizSource: 'string',
+      productStatus: 'number',
+      customerId: 'string',
+      trustInstanceId: 'string',
+      iotPlatform: 'number',
+      description: 'string',
+      thingModel: 'string',
+      enableDynReg: 'number',
+      gmtCreate: 'string',
+      gmtModified: 'string',
+      tenantName: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
 // 设备远程操作对象
 export class DeviceOperateInfo extends $tea.Model {
   // 蚂蚁链iot平台设备ID
@@ -5944,6 +6378,199 @@ export class BaiOcrResponse extends $tea.Model {
   }
 }
 
+// 统一物联OTA固件信息响应
+export class IotxOTAFirmwareResponse extends $tea.Model {
+  // 主键id
+  /**
+   * @example
+   * 632909854293495808
+   */
+  id?: string;
+  // 创建时间
+  /**
+   * @example
+   * 1783934538000
+   */
+  gmtCreate?: string;
+  // 更新时间
+  /**
+   * @example
+   * 1783934538000
+   */
+  gmtModified?: string;
+  // 租户id
+  /**
+   * @example
+   * POPVPRVV
+   */
+  tenantId?: string;
+  // 可信物联唯一产品标识
+  /**
+   * @example
+   * FuPsO4bwFbyLSrQIiL
+   */
+  trustProductKey?: string;
+  // 产品名称
+  /**
+   * @example
+   * 产品名称
+   */
+  productName?: string;
+  // 固件包id
+  /**
+   * @example
+   * kzDuv4OzIInE0VH5z2x5030100
+   */
+  firmwareId?: string;
+  // OTA升级包名称
+  /**
+   * @example
+   * OTA升级包名称
+   */
+  firmwareName?: string;
+  // 固件包URL
+  /**
+   * @example
+   * two_wheel_car/ota/GdzHGreIr4yBhJYHEg/jf_V1.0.65_hws-26-04-23_636999bb.bin
+   */
+  firmwareUrl?: string;
+  // 当前OTA升级包版本号
+  /**
+   * @example
+   * 1.0.0
+   */
+  destVersion?: string;
+  // OTA升级包内容的签名值
+  /**
+   * @example
+   * -
+   */
+  firmwareSign?: string;
+  // 升级包签名方法
+  /**
+   * @example
+   * MD5
+   */
+  signMethod?: string;
+  // OTA升级包描述信息
+  /**
+   * @example
+   * OTA升级包描述信息
+   */
+  firmwareDesc?: string;
+  // 升级包文件大小
+  /**
+   * @example
+   * 2204591
+   */
+  firmwareSize?: number;
+  // 升级包类型  0：整包升级包, 1: 差分升级包
+  /**
+   * @example
+   * 0
+   */
+  firmwareType?: number;
+  // 待升级OTA模块版本号
+  /**
+   * @example
+   * 1.0.0
+   */
+  srcVersion?: string;
+  // OTA模块名称
+  /**
+   * @example
+   * CAT1_OTA
+   */
+  moduleName?: string;
+  // 是否需要在创建批量升级任务前通过升级包验证：0-不需要；1-需要
+  /**
+   * @example
+   * 0
+   */
+  needToVerify?: number;
+  // 推送给设备的自定义信息
+  /**
+   * @example
+   * 推送给设备的自定义信息
+   */
+  udi?: string;
+  // 升级包验证状态：0-未验证、1-已验证
+  /**
+   * @example
+   * 1
+   */
+  verifyStatus?: number;
+  // 发布状态：0-未发布、1-已发布
+  /**
+   * @example
+   * 1
+   */
+  publishStatus?: number;
+  // 固件包支持通道列表
+  /**
+   * @example
+   * undefined
+   */
+  supportChannels?: string[];
+  static names(): { [key: string]: string } {
+    return {
+      id: 'id',
+      gmtCreate: 'gmt_create',
+      gmtModified: 'gmt_modified',
+      tenantId: 'tenant_id',
+      trustProductKey: 'trust_product_key',
+      productName: 'product_name',
+      firmwareId: 'firmware_id',
+      firmwareName: 'firmware_name',
+      firmwareUrl: 'firmware_url',
+      destVersion: 'dest_version',
+      firmwareSign: 'firmware_sign',
+      signMethod: 'sign_method',
+      firmwareDesc: 'firmware_desc',
+      firmwareSize: 'firmware_size',
+      firmwareType: 'firmware_type',
+      srcVersion: 'src_version',
+      moduleName: 'module_name',
+      needToVerify: 'need_to_verify',
+      udi: 'udi',
+      verifyStatus: 'verify_status',
+      publishStatus: 'publish_status',
+      supportChannels: 'support_channels',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      id: 'string',
+      gmtCreate: 'string',
+      gmtModified: 'string',
+      tenantId: 'string',
+      trustProductKey: 'string',
+      productName: 'string',
+      firmwareId: 'string',
+      firmwareName: 'string',
+      firmwareUrl: 'string',
+      destVersion: 'string',
+      firmwareSign: 'string',
+      signMethod: 'string',
+      firmwareDesc: 'string',
+      firmwareSize: 'number',
+      firmwareType: 'number',
+      srcVersion: 'string',
+      moduleName: 'string',
+      needToVerify: 'number',
+      udi: 'string',
+      verifyStatus: 'number',
+      publishStatus: 'number',
+      supportChannels: { 'type': 'array', 'itemType': 'string' },
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
 // 获取设备授权返回信息
 export class EmpowerDeviceInfo extends $tea.Model {
   // 设备ID
@@ -6292,6 +6919,135 @@ export class ThingsDidRegisterReq extends $tea.Model {
       thingType: 'number',
       thingVersion: 'string',
       userDid: { 'type': 'array', 'itemType': 'string' },
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+// 统一物联OTA升级任务响应
+export class IotxOTATaskResponse extends $tea.Model {
+  // 任务ID
+  /**
+   * @example
+   * 785c56486ff14f72aa53c0aff20b1760
+   */
+  taskId?: string;
+  // 设备名称
+  /**
+   * @example
+   * FF9999995FF10202603252F71EC54393
+   */
+  deviceName?: string;
+  // OTA批次ID
+  /**
+   * @example
+   * cef4fc962ee7456985d011d30d3f448f
+   */
+  jobId?: string;
+  // 固件ID
+  /**
+   * @example
+   * 84a1f449422946d2a4e87c1c23503f6b
+   */
+  firmwareId?: string;
+  // 可信物联唯一产品标识
+  /**
+   * @example
+   * A7njznJkBrCCDdeIKl
+   */
+  trustProductKey?: string;
+  // 产品名称
+  /**
+   * @example
+   * 产品名称
+   */
+  productName?: string;
+  // 源版本
+  /**
+   * @example
+   * -
+   */
+  srcVersion?: string;
+  // 目标版本
+  /**
+   * @example
+   * 1.0.0
+   */
+  destVersion?: string;
+  // 任务状态：CONFIRM, QUEUED, NOTIFIED, IN_PROGRESS, SUCCEEDED, FAILED, CANCELED
+  /**
+   * @example
+   * CONFIRM
+   */
+  taskStatus?: string;
+  // 升级进度
+  /**
+   * @example
+   * 10
+   */
+  progress?: string;
+  // 任务描述
+  /**
+   * @example
+   * 任务描述
+   */
+  taskDesc?: string;
+  // 超时时间
+  /**
+   * @example
+   * 10
+   */
+  timeout?: string;
+  // 创建时间
+  /**
+   * @example
+   * 1783948258774
+   */
+  utcCreate?: string;
+  // 修改时间
+  /**
+   * @example
+   * 1783948258774
+   */
+  utcModified?: string;
+  static names(): { [key: string]: string } {
+    return {
+      taskId: 'task_id',
+      deviceName: 'device_name',
+      jobId: 'job_id',
+      firmwareId: 'firmware_id',
+      trustProductKey: 'trust_product_key',
+      productName: 'product_name',
+      srcVersion: 'src_version',
+      destVersion: 'dest_version',
+      taskStatus: 'task_status',
+      progress: 'progress',
+      taskDesc: 'task_desc',
+      timeout: 'timeout',
+      utcCreate: 'utc_create',
+      utcModified: 'utc_modified',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      taskId: 'string',
+      deviceName: 'string',
+      jobId: 'string',
+      firmwareId: 'string',
+      trustProductKey: 'string',
+      productName: 'string',
+      srcVersion: 'string',
+      destVersion: 'string',
+      taskStatus: 'string',
+      progress: 'string',
+      taskDesc: 'string',
+      timeout: 'string',
+      utcCreate: 'string',
+      utcModified: 'string',
     };
   }
 
@@ -8952,6 +9708,195 @@ export class TrustiotDeviceIdMap extends $tea.Model {
   }
 }
 
+// 统一物联OTA任务查询响应
+export class IotxOTAJobResponse extends $tea.Model {
+  // 批次id
+  /**
+   * @example
+   * 2c692f39bbaf43b08590d6daede5895f
+   */
+  jobId?: string;
+  // 任务状态：PLANNED：计划中；IN_PROGRESS：执行中；COMPLETED：已完成；CANCELED：已取消；
+  /**
+   * @example
+   * PLANNED
+   */
+  jobStatus?: string;
+  // 任务类型：VERIFY：升级包验证批次。 STATIC_UPGRADE：批量升级批次。
+  /**
+   * @example
+   * STATIC_UPGRADE
+   */
+  jobType?: string;
+  // 产品唯一标识
+  /**
+   * @example
+   * FuPsO4bwFbyLSrQIiL
+   */
+  trustOroductKey?: string;
+  // OTA固件包ID
+  /**
+   * @example
+   * 563785f86a6144e2838b3bd1f077f652
+   */
+  firmwareId?: string;
+  // 升级目标版本号
+  /**
+   * @example
+   * 1.0.0
+   */
+  destVersion?: string;
+  // 下载协议
+  /**
+   * @example
+   * -
+   */
+  downloadProtocol?: string;
+  // 升级批次描述
+  /**
+   * @example
+   * 升级批次描述
+   */
+  jobDesc?: string;
+  // 升级策略：VERIFY、STATIC
+  /**
+   * @example
+   * STATIC
+   */
+  selectionType?: string;
+  // 升级范围 ALL：全量升级、SPECIFIC：定向升级
+  /**
+   * @example
+   * ALL
+   */
+  targetSelection?: string;
+  // 待升级版本号列表
+  srcVersion?: string[];
+  // 升级失败后自动重试间隔：0：立即重试、10：10分钟后重试、30：30分钟后重试、60：60分钟（即1小时）后重试、1440：1,440分钟（即24小时）后重试。不传入此参数，则表示不重试。
+  /**
+   * @example
+   * 10
+   */
+  retryInterval?: number;
+  // 自动重试次数：1：1次、2：2次、5：5次。如果传入RetryInterval参数，则需传入该参数
+  /**
+   * @example
+   * 1
+   */
+  retryCount?: number;
+  // 升级超时时间：0-1440
+  /**
+   * @example
+   * 10
+   */
+  timeoutInMinutes?: number;
+  // 定向升级的设备名称列表
+  /**
+   * @example
+   * undefined
+   */
+  targetDeviceName?: string[];
+  // 是否需App确认升级
+  /**
+   * @example
+   * true
+   */
+  needConfirm?: boolean;
+  // 创建时间
+  /**
+   * @example
+   * 1783948258716
+   */
+  gmtCreate?: string;
+  // 更新时间
+  /**
+   * @example
+   * 1783948258716
+   */
+  gmtModified?: string;
+  // 批次实际执行通道：TUYA_4G、EKYT_BLE
+  /**
+   * @example
+   * TUYA_4G
+   */
+  channel?: string;
+  // 同设备同模块覆盖策略
+  /**
+   * @example
+   * OVERRIDE
+   */
+  overrideMode?: string;
+  // 多模块并发策略
+  /**
+   * @example
+   * ALLOW
+   */
+  multiModuleMode?: string;
+  // 批次升级方式
+  /**
+   * @example
+   * REMIND
+   */
+  upgradeMode?: string;
+  static names(): { [key: string]: string } {
+    return {
+      jobId: 'job_id',
+      jobStatus: 'job_status',
+      jobType: 'job_type',
+      trustOroductKey: 'trust_oroduct_key',
+      firmwareId: 'firmware_id',
+      destVersion: 'dest_version',
+      downloadProtocol: 'download_protocol',
+      jobDesc: 'job_desc',
+      selectionType: 'selection_type',
+      targetSelection: 'target_selection',
+      srcVersion: 'src_version',
+      retryInterval: 'retry_interval',
+      retryCount: 'retry_count',
+      timeoutInMinutes: 'timeout_in_minutes',
+      targetDeviceName: 'target_device_name',
+      needConfirm: 'need_confirm',
+      gmtCreate: 'gmt_create',
+      gmtModified: 'gmt_modified',
+      channel: 'channel',
+      overrideMode: 'override_mode',
+      multiModuleMode: 'multi_module_mode',
+      upgradeMode: 'upgrade_mode',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      jobId: 'string',
+      jobStatus: 'string',
+      jobType: 'string',
+      trustOroductKey: 'string',
+      firmwareId: 'string',
+      destVersion: 'string',
+      downloadProtocol: 'string',
+      jobDesc: 'string',
+      selectionType: 'string',
+      targetSelection: 'string',
+      srcVersion: { 'type': 'array', 'itemType': 'string' },
+      retryInterval: 'number',
+      retryCount: 'number',
+      timeoutInMinutes: 'number',
+      targetDeviceName: { 'type': 'array', 'itemType': 'string' },
+      needConfirm: 'boolean',
+      gmtCreate: 'string',
+      gmtModified: 'string',
+      channel: 'string',
+      overrideMode: 'string',
+      multiModuleMode: 'string',
+      upgradeMode: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
 // ProductKey分页查询结果
 export class ProductKeyPageResponse extends $tea.Model {
   // 页数
@@ -11155,6 +12100,103 @@ export class CollectLabelRawContent extends $tea.Model {
     return {
       content: 'string',
       dataModelId: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+// OTA升级包模块响应
+export class OTAModuleResponse extends $tea.Model {
+  // 主键id
+  /**
+   * @example
+   * 636804107650338816
+   */
+  id?: string;
+  // 租户id
+  /**
+   * @example
+   * POPVPRVV
+   */
+  tenantId?: string;
+  // 可信物联唯一产品标识
+  /**
+   * @example
+   * B7uwSpw2dAaxhZ8nJt
+   */
+  trustProductKey?: string;
+  // 产品名称
+  /**
+   * @example
+   * 产品名称
+   */
+  productName?: string;
+  // 模块名称
+  /**
+   * @example
+   * CAT1_OTA
+   */
+  moduleName?: string;
+  // 模块别名
+  /**
+   * @example
+   * 模块别名
+   */
+  aliasName?: string;
+  // 模块描述
+  /**
+   * @example
+   * 模块描述
+   */
+  description?: string;
+  // KYT模块唯一标识
+  /**
+   * @example
+   * 2bace9c5bdd54b2781a5d325055ada57
+   */
+  mid?: string;
+  // 创建时间
+  /**
+   * @example
+   * 1773998631000
+   */
+  gmtCreate?: string;
+  // 更新时间
+  /**
+   * @example
+   * 1773998631000
+   */
+  gmtModified?: string;
+  static names(): { [key: string]: string } {
+    return {
+      id: 'id',
+      tenantId: 'tenant_id',
+      trustProductKey: 'trust_product_key',
+      productName: 'product_name',
+      moduleName: 'module_name',
+      aliasName: 'alias_name',
+      description: 'description',
+      mid: 'mid',
+      gmtCreate: 'gmt_create',
+      gmtModified: 'gmt_modified',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      id: 'string',
+      tenantId: 'string',
+      trustProductKey: 'string',
+      productName: 'string',
+      moduleName: 'string',
+      aliasName: 'string',
+      description: 'string',
+      mid: 'string',
+      gmtCreate: 'string',
+      gmtModified: 'string',
     };
   }
 
@@ -24982,6 +26024,1063 @@ export class QueryElectrocarTaskstatusResponse extends $tea.Model {
   }
 }
 
+export class QueryElectrocarProductcustomerpageRequest extends $tea.Model {
+  // OAuth模式下的授权token
+  authToken?: string;
+  productInstanceId?: string;
+  // 当前页码
+  current: number;
+  // 每页显示条数
+  pageSize: number;
+  // 产品名称
+  productName?: string;
+  // 产品key
+  productKey?: string;
+  // 行业id
+  industryId?: string;
+  // 品类id
+  categoryId?: string;
+  // 联网方式：0-WIFI、1-蜂窝、2-以太网、3-蓝牙、4-蓝牙+蜂窝网络
+  netType?: number;
+  // 客户id
+  customerId: string;
+  static names(): { [key: string]: string } {
+    return {
+      authToken: 'auth_token',
+      productInstanceId: 'product_instance_id',
+      current: 'current',
+      pageSize: 'page_size',
+      productName: 'product_name',
+      productKey: 'product_key',
+      industryId: 'industry_id',
+      categoryId: 'category_id',
+      netType: 'net_type',
+      customerId: 'customer_id',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      authToken: 'string',
+      productInstanceId: 'string',
+      current: 'number',
+      pageSize: 'number',
+      productName: 'string',
+      productKey: 'string',
+      industryId: 'string',
+      categoryId: 'string',
+      netType: 'number',
+      customerId: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class QueryElectrocarProductcustomerpageResponse extends $tea.Model {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string;
+  // 结果码，一般OK表示调用成功
+  resultCode?: string;
+  // 异常信息的文本描述
+  resultMsg?: string;
+  // 是否请求成功
+  success?: boolean;
+  // 分页页码
+  pageIndex?: number;
+  // 每页展示大小
+  pageSize?: number;
+  // 总页数
+  totalPages?: number;
+  // 总数量
+  totalSize?: number;
+  // 分页数据
+  pageData?: IotxProductResponse[];
+  static names(): { [key: string]: string } {
+    return {
+      reqMsgId: 'req_msg_id',
+      resultCode: 'result_code',
+      resultMsg: 'result_msg',
+      success: 'success',
+      pageIndex: 'page_index',
+      pageSize: 'page_size',
+      totalPages: 'total_pages',
+      totalSize: 'total_size',
+      pageData: 'page_data',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      reqMsgId: 'string',
+      resultCode: 'string',
+      resultMsg: 'string',
+      success: 'boolean',
+      pageIndex: 'number',
+      pageSize: 'number',
+      totalPages: 'number',
+      totalSize: 'number',
+      pageData: { 'type': 'array', 'itemType': IotxProductResponse },
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class PushElectrocarOtajobRequest extends $tea.Model {
+  // OAuth模式下的授权token
+  authToken?: string;
+  productInstanceId?: string;
+  // 任务类型：STATIC_UPGRADE-静态升级批次、VERIFY-升级验证任务
+  jobType: string;
+  // 可信物联产品唯一标识
+  trustProductKey: string;
+  // OTA固件包ID
+  firmwareId: string;
+  // 升级范围：ALL-全量升级、SPECIFIC-定向升级
+  targetSelection: string;
+  // 待升级版本号列表
+  srcVersion?: string[];
+  // 升级失败后自动重试间隔
+  //      * 0：立即重试、
+  //      * 10：10分钟后重试、
+  //      * 30：30分钟后重试、
+  //      * 60：60分钟（即1小时）后重试、
+  //      * 1440：1,440分钟（即24小时）后重试
+  //      * 不传入此参数，则表示不重试。
+  retryInterval?: number;
+  // 自动重试次数：1：1次、2：2次、5：5次。如果传入RetryInterval参数，则需传入该参数。
+  retryCount?: number;
+  // 升级超时时间
+  timeoutInMinutes?: number;
+  // 定向升级的deviceName列表（和targetTrustDeviceIds、dnListFileUrl三选一）
+  targetTrustDeviceIds?: string[];
+  // 设备列表文件URL，与targetTrustDeviceIds、targetDeviceNames三选一，仅当targetSelection=SPECIFIC时生效。用于大批量设备定向升级场景，文件URL通过GenerateDeviceNameListURL接口获取
+  dnListFileUrl?: string;
+  // 定向升级的deviceName列表（和targetTrustDeviceIds、dnListFileUrl三选一）
+  targetDeviceNames?: string[];
+  // 是否需要 APP 确认升级：TUYA_4G 通道：true 表示批次创建后等待 APP/端侧确认，再触发 Hub 下发；false 表示不需要 APP 确认。若 upgradeMode=SILENT，该字段固定为 false，调用方无需传入。
+  // BLE 通道：服务端默认按 APP 确认拉取升级材料处理。
+  needConfirm?: boolean;
+  // 升级文案
+  upgradeCopy?: string;
+  // 本次批次实际执行通道：TUYA_4G，涂鸦 4G/MQTT 通道；EKYT_BLE：数字钥匙 BLE 通道；
+  channel: string;
+  // 同设备同模块任务覆盖策略：OVERRIDE-覆盖旧任务，创建新任务前取消同设备同模块可取消的旧任务；REJECT-存在可取消旧任务时拒绝创建；COEXIST-允许并存的预留策略，本期同模块 APP 确认型升级不推荐使用。不传时默认 OVERRIDE。
+  overrideMode?: string;
+  // 多模块并发策略：ALLOW-允许同一设备多个模块同时存在未完成升级任务；DENY-同一设备已有其他模块未完成升级任务时拒绝创建。
+  multiModuleMode?: string;
+  // 批次升级方式：CHECK-检测升级；REMIND-提醒升级；FORCE-强制升级；SILENT-静默升级；
+  upgradeMode?: string;
+  // 4G Hub 是否主动推送：TUYA_4G 通道：true 表示批次创建后由 Hub 主动向设备推送；false 表示不主动推送，通常需要配合 needConfirm=true 由 APP 确认后触发。若 upgradeMode=SILENT，该字段固定为 true，调用方无需传入。BLE 通道：不支持服务端主动推送；传 true 会被拒绝。
+  needPush?: boolean;
+  static names(): { [key: string]: string } {
+    return {
+      authToken: 'auth_token',
+      productInstanceId: 'product_instance_id',
+      jobType: 'job_type',
+      trustProductKey: 'trust_product_key',
+      firmwareId: 'firmware_id',
+      targetSelection: 'target_selection',
+      srcVersion: 'src_version',
+      retryInterval: 'retry_interval',
+      retryCount: 'retry_count',
+      timeoutInMinutes: 'timeout_in_minutes',
+      targetTrustDeviceIds: 'target_trust_device_ids',
+      dnListFileUrl: 'dn_list_file_url',
+      targetDeviceNames: 'target_device_names',
+      needConfirm: 'need_confirm',
+      upgradeCopy: 'upgrade_copy',
+      channel: 'channel',
+      overrideMode: 'override_mode',
+      multiModuleMode: 'multi_module_mode',
+      upgradeMode: 'upgrade_mode',
+      needPush: 'need_push',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      authToken: 'string',
+      productInstanceId: 'string',
+      jobType: 'string',
+      trustProductKey: 'string',
+      firmwareId: 'string',
+      targetSelection: 'string',
+      srcVersion: { 'type': 'array', 'itemType': 'string' },
+      retryInterval: 'number',
+      retryCount: 'number',
+      timeoutInMinutes: 'number',
+      targetTrustDeviceIds: { 'type': 'array', 'itemType': 'string' },
+      dnListFileUrl: 'string',
+      targetDeviceNames: { 'type': 'array', 'itemType': 'string' },
+      needConfirm: 'boolean',
+      upgradeCopy: 'string',
+      channel: 'string',
+      overrideMode: 'string',
+      multiModuleMode: 'string',
+      upgradeMode: 'string',
+      needPush: 'boolean',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class PushElectrocarOtajobResponse extends $tea.Model {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string;
+  // 结果码，一般OK表示调用成功
+  resultCode?: string;
+  // 异常信息的文本描述
+  resultMsg?: string;
+  // 是否请求成功
+  success?: boolean;
+  // 响应码
+  code?: string;
+  // 响应消息
+  message?: string;
+  static names(): { [key: string]: string } {
+    return {
+      reqMsgId: 'req_msg_id',
+      resultCode: 'result_code',
+      resultMsg: 'result_msg',
+      success: 'success',
+      code: 'code',
+      message: 'message',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      reqMsgId: 'string',
+      resultCode: 'string',
+      resultMsg: 'string',
+      success: 'boolean',
+      code: 'string',
+      message: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class QueryElectrocarOtamodulepageRequest extends $tea.Model {
+  // OAuth模式下的授权token
+  authToken?: string;
+  productInstanceId?: string;
+  // 可信物联唯一产品标识
+  trustProductKey: string;
+  // 模块名称
+  moduleName?: string;
+  // 当前页码
+  current: number;
+  // 每页显示条数
+  pageSize: number;
+  static names(): { [key: string]: string } {
+    return {
+      authToken: 'auth_token',
+      productInstanceId: 'product_instance_id',
+      trustProductKey: 'trust_product_key',
+      moduleName: 'module_name',
+      current: 'current',
+      pageSize: 'page_size',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      authToken: 'string',
+      productInstanceId: 'string',
+      trustProductKey: 'string',
+      moduleName: 'string',
+      current: 'number',
+      pageSize: 'number',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class QueryElectrocarOtamodulepageResponse extends $tea.Model {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string;
+  // 结果码，一般OK表示调用成功
+  resultCode?: string;
+  // 异常信息的文本描述
+  resultMsg?: string;
+  // 当前页码
+  pageIndex?: number;
+  // 单页数量
+  pageSize?: number;
+  // 记录总数
+  totalSize?: number;
+  // 页总数
+  totalPages?: number;
+  // 分页数据
+  pageData?: OTAModuleResponse[];
+  // 是否操作成功
+  success?: boolean;
+  // 响应编码
+  code?: string;
+  // 响应内容
+  message?: string;
+  static names(): { [key: string]: string } {
+    return {
+      reqMsgId: 'req_msg_id',
+      resultCode: 'result_code',
+      resultMsg: 'result_msg',
+      pageIndex: 'page_index',
+      pageSize: 'page_size',
+      totalSize: 'total_size',
+      totalPages: 'total_pages',
+      pageData: 'page_data',
+      success: 'success',
+      code: 'code',
+      message: 'message',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      reqMsgId: 'string',
+      resultCode: 'string',
+      resultMsg: 'string',
+      pageIndex: 'number',
+      pageSize: 'number',
+      totalSize: 'number',
+      totalPages: 'number',
+      pageData: { 'type': 'array', 'itemType': OTAModuleResponse },
+      success: 'boolean',
+      code: 'string',
+      message: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class QueryElectrocarOtafirmwarepageRequest extends $tea.Model {
+  // OAuth模式下的授权token
+  authToken?: string;
+  productInstanceId?: string;
+  // 当前页码
+  current: number;
+  // 每页显示条数
+  pageSize: number;
+  // 可信物联唯一产品标识
+  trustProductKey: string;
+  // OTA升级包版本号
+  destVersion?: string;
+  // 模块名称
+  moduleName: string;
+  static names(): { [key: string]: string } {
+    return {
+      authToken: 'auth_token',
+      productInstanceId: 'product_instance_id',
+      current: 'current',
+      pageSize: 'page_size',
+      trustProductKey: 'trust_product_key',
+      destVersion: 'dest_version',
+      moduleName: 'module_name',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      authToken: 'string',
+      productInstanceId: 'string',
+      current: 'number',
+      pageSize: 'number',
+      trustProductKey: 'string',
+      destVersion: 'string',
+      moduleName: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class QueryElectrocarOtafirmwarepageResponse extends $tea.Model {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string;
+  // 结果码，一般OK表示调用成功
+  resultCode?: string;
+  // 异常信息的文本描述
+  resultMsg?: string;
+  // 当前页码
+  pageIndex?: number;
+  // 单页数量
+  pageSize?: number;
+  // 记录总数
+  totalSize?: number;
+  // 页总数
+  totalPages?: number;
+  // 分页数据
+  pageData?: IotxOTAFirmwareResponse[];
+  // 是否操作成功
+  success?: boolean;
+  // 响应编码
+  code?: boolean;
+  // 响应内容
+  message?: string;
+  static names(): { [key: string]: string } {
+    return {
+      reqMsgId: 'req_msg_id',
+      resultCode: 'result_code',
+      resultMsg: 'result_msg',
+      pageIndex: 'page_index',
+      pageSize: 'page_size',
+      totalSize: 'total_size',
+      totalPages: 'total_pages',
+      pageData: 'page_data',
+      success: 'success',
+      code: 'code',
+      message: 'message',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      reqMsgId: 'string',
+      resultCode: 'string',
+      resultMsg: 'string',
+      pageIndex: 'number',
+      pageSize: 'number',
+      totalSize: 'number',
+      totalPages: 'number',
+      pageData: { 'type': 'array', 'itemType': IotxOTAFirmwareResponse },
+      success: 'boolean',
+      code: 'boolean',
+      message: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class QueryElectrocarOtafirmwaredetailRequest extends $tea.Model {
+  // OAuth模式下的授权token
+  authToken?: string;
+  productInstanceId?: string;
+  // 固件包id
+  firmwareId: string;
+  // 可信物联唯一产品标识
+  trustProductKey?: string;
+  static names(): { [key: string]: string } {
+    return {
+      authToken: 'auth_token',
+      productInstanceId: 'product_instance_id',
+      firmwareId: 'firmware_id',
+      trustProductKey: 'trust_product_key',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      authToken: 'string',
+      productInstanceId: 'string',
+      firmwareId: 'string',
+      trustProductKey: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class QueryElectrocarOtafirmwaredetailResponse extends $tea.Model {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string;
+  // 结果码，一般OK表示调用成功
+  resultCode?: string;
+  // 异常信息的文本描述
+  resultMsg?: string;
+  // 是否请求成功
+  success?: boolean;
+  // 固件包详情
+  firmwareDetail?: IotxOTAFirmwareResponse;
+  // 响应编码
+  code?: string;
+  // 响应内容
+  message?: string;
+  static names(): { [key: string]: string } {
+    return {
+      reqMsgId: 'req_msg_id',
+      resultCode: 'result_code',
+      resultMsg: 'result_msg',
+      success: 'success',
+      firmwareDetail: 'firmware_detail',
+      code: 'code',
+      message: 'message',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      reqMsgId: 'string',
+      resultCode: 'string',
+      resultMsg: 'string',
+      success: 'boolean',
+      firmwareDetail: IotxOTAFirmwareResponse,
+      code: 'string',
+      message: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class QueryElectrocarOtajobpageRequest extends $tea.Model {
+  // OAuth模式下的授权token
+  authToken?: string;
+  productInstanceId?: string;
+  // 当前页码
+  current: number;
+  // 每页显示条数
+  pageSize: number;
+  // 可信物联唯一产品标识
+  trustProductKey: string;
+  // OTA固件包id不能为空
+  firmwareId: string;
+  static names(): { [key: string]: string } {
+    return {
+      authToken: 'auth_token',
+      productInstanceId: 'product_instance_id',
+      current: 'current',
+      pageSize: 'page_size',
+      trustProductKey: 'trust_product_key',
+      firmwareId: 'firmware_id',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      authToken: 'string',
+      productInstanceId: 'string',
+      current: 'number',
+      pageSize: 'number',
+      trustProductKey: 'string',
+      firmwareId: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class QueryElectrocarOtajobpageResponse extends $tea.Model {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string;
+  // 结果码，一般OK表示调用成功
+  resultCode?: string;
+  // 异常信息的文本描述
+  resultMsg?: string;
+  // 是否请求成功
+  success?: boolean;
+  // 响应编码
+  code?: string;
+  // 响应内容
+  message?: string;
+  // 当前页码
+  pageIndex?: number;
+  // 单页数量
+  pageSize?: number;
+  // 记录总数
+  totalSize?: number;
+  // 页总数
+  totalPages?: number;
+  // 分页数据
+  pageData?: IotxOTAJobResponse[];
+  static names(): { [key: string]: string } {
+    return {
+      reqMsgId: 'req_msg_id',
+      resultCode: 'result_code',
+      resultMsg: 'result_msg',
+      success: 'success',
+      code: 'code',
+      message: 'message',
+      pageIndex: 'page_index',
+      pageSize: 'page_size',
+      totalSize: 'total_size',
+      totalPages: 'total_pages',
+      pageData: 'page_data',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      reqMsgId: 'string',
+      resultCode: 'string',
+      resultMsg: 'string',
+      success: 'boolean',
+      code: 'string',
+      message: 'string',
+      pageIndex: 'number',
+      pageSize: 'number',
+      totalSize: 'number',
+      totalPages: 'number',
+      pageData: { 'type': 'array', 'itemType': IotxOTAJobResponse },
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class QueryElectrocarOtajobdetailRequest extends $tea.Model {
+  // OAuth模式下的授权token
+  authToken?: string;
+  productInstanceId?: string;
+  // OTA任务ID
+  jobId: string;
+  static names(): { [key: string]: string } {
+    return {
+      authToken: 'auth_token',
+      productInstanceId: 'product_instance_id',
+      jobId: 'job_id',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      authToken: 'string',
+      productInstanceId: 'string',
+      jobId: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class QueryElectrocarOtajobdetailResponse extends $tea.Model {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string;
+  // 结果码，一般OK表示调用成功
+  resultCode?: string;
+  // 异常信息的文本描述
+  resultMsg?: string;
+  // 是否操作成功
+  success?: boolean;
+  // 响应编码
+  code?: string;
+  // 响应消息
+  message?: string;
+  // 详情数据
+  detailData?: IotxOTAJobResponse;
+  static names(): { [key: string]: string } {
+    return {
+      reqMsgId: 'req_msg_id',
+      resultCode: 'result_code',
+      resultMsg: 'result_msg',
+      success: 'success',
+      code: 'code',
+      message: 'message',
+      detailData: 'detail_data',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      reqMsgId: 'string',
+      resultCode: 'string',
+      resultMsg: 'string',
+      success: 'boolean',
+      code: 'string',
+      message: 'string',
+      detailData: IotxOTAJobResponse,
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class QueryElectrocarOtataskpageRequest extends $tea.Model {
+  // OAuth模式下的授权token
+  authToken?: string;
+  productInstanceId?: string;
+  // 当前页码
+  current: number;
+  // 每页显示条数
+  pageSize: number;
+  // 可信物联产品唯一标识
+  trustProductKey: string;
+  // OTA任务id
+  jobId: string;
+  // OTA固件id
+  firmwareId?: string;
+  // 任务状态：CONFIRM, QUEUED, NOTIFIED, IN_PROGRESS, SUCCEEDED, FAILED, CANCELED
+  taskStatus?: string;
+  // 设备名称列表
+  deviceNames?: string[];
+  static names(): { [key: string]: string } {
+    return {
+      authToken: 'auth_token',
+      productInstanceId: 'product_instance_id',
+      current: 'current',
+      pageSize: 'page_size',
+      trustProductKey: 'trust_product_key',
+      jobId: 'job_id',
+      firmwareId: 'firmware_id',
+      taskStatus: 'task_status',
+      deviceNames: 'device_names',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      authToken: 'string',
+      productInstanceId: 'string',
+      current: 'number',
+      pageSize: 'number',
+      trustProductKey: 'string',
+      jobId: 'string',
+      firmwareId: 'string',
+      taskStatus: 'string',
+      deviceNames: { 'type': 'array', 'itemType': 'string' },
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class QueryElectrocarOtataskpageResponse extends $tea.Model {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string;
+  // 结果码，一般OK表示调用成功
+  resultCode?: string;
+  // 异常信息的文本描述
+  resultMsg?: string;
+  // 是否请求成功
+  success?: boolean;
+  // 响应编码
+  code?: string;
+  // 响应消息
+  message?: string;
+  // 当前页码
+  pageIndex?: number;
+  // 单页数量
+  pageSize?: number;
+  // 记录总数
+  totalSize?: number;
+  // 页总数
+  totalPages?: number;
+  // 分页数据
+  pageData?: IotxOTATaskResponse[];
+  static names(): { [key: string]: string } {
+    return {
+      reqMsgId: 'req_msg_id',
+      resultCode: 'result_code',
+      resultMsg: 'result_msg',
+      success: 'success',
+      code: 'code',
+      message: 'message',
+      pageIndex: 'page_index',
+      pageSize: 'page_size',
+      totalSize: 'total_size',
+      totalPages: 'total_pages',
+      pageData: 'page_data',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      reqMsgId: 'string',
+      resultCode: 'string',
+      resultMsg: 'string',
+      success: 'boolean',
+      code: 'string',
+      message: 'string',
+      pageIndex: 'number',
+      pageSize: 'number',
+      totalSize: 'number',
+      totalPages: 'number',
+      pageData: { 'type': 'array', 'itemType': IotxOTATaskResponse },
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class QueryElectrocarDevicepageRequest extends $tea.Model {
+  // OAuth模式下的授权token
+  authToken?: string;
+  productInstanceId?: string;
+  // 当前页码
+  current: number;
+  // 每页显示条数
+  pageSize: number;
+  // 可信物联产品唯一标识
+  trustProductKey: string;
+  // 设备名称/设备备注名称/可信物联唯一设备标识
+  deviceQueryStr?: string;
+  // 设备状态过滤: ONLINE/OFFLINE/UNACTIVE
+  deviceStatus?: string;
+  // OTA模块名称
+  moduleName?: string;
+  // OTA模块版本号（可选，配合moduleName使用）
+  version?: string;
+  static names(): { [key: string]: string } {
+    return {
+      authToken: 'auth_token',
+      productInstanceId: 'product_instance_id',
+      current: 'current',
+      pageSize: 'page_size',
+      trustProductKey: 'trust_product_key',
+      deviceQueryStr: 'device_query_str',
+      deviceStatus: 'device_status',
+      moduleName: 'module_name',
+      version: 'version',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      authToken: 'string',
+      productInstanceId: 'string',
+      current: 'number',
+      pageSize: 'number',
+      trustProductKey: 'string',
+      deviceQueryStr: 'string',
+      deviceStatus: 'string',
+      moduleName: 'string',
+      version: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class QueryElectrocarDevicepageResponse extends $tea.Model {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string;
+  // 结果码，一般OK表示调用成功
+  resultCode?: string;
+  // 异常信息的文本描述
+  resultMsg?: string;
+  // 是否请求成功
+  success?: boolean;
+  // 响应编码
+  code?: string;
+  // 响应内容
+  message?: string;
+  // 当前页码
+  pageIndex?: number;
+  // 单页数量
+  pageSize?: number;
+  // 记录总数
+  totalSize?: number;
+  // 页总数
+  totalPages?: number;
+  // 分页数据
+  pageData?: IotxDeviceResponse[];
+  static names(): { [key: string]: string } {
+    return {
+      reqMsgId: 'req_msg_id',
+      resultCode: 'result_code',
+      resultMsg: 'result_msg',
+      success: 'success',
+      code: 'code',
+      message: 'message',
+      pageIndex: 'page_index',
+      pageSize: 'page_size',
+      totalSize: 'total_size',
+      totalPages: 'total_pages',
+      pageData: 'page_data',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      reqMsgId: 'string',
+      resultCode: 'string',
+      resultMsg: 'string',
+      success: 'boolean',
+      code: 'string',
+      message: 'string',
+      pageIndex: 'number',
+      pageSize: 'number',
+      totalSize: 'number',
+      totalPages: 'number',
+      pageData: { 'type': 'array', 'itemType': IotxDeviceResponse },
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class PushElectrocarOtajobbymoduleRequest extends $tea.Model {
+  // OAuth模式下的授权token
+  authToken?: string;
+  productInstanceId?: string;
+  // 任务类型：默认STATIC_UPGRADE
+  jobType: string;
+  // 可信物联产品唯一标识
+  trustProductKey: string;
+  // OTA固件包ID
+  firmwareId: string;
+  // 升级范围：默认SPECIFIC，不支持其他
+  targetSelection: string;
+  // 升级失败后自动重试间隔：0：立即重试、10：10分钟后重试、30：30分钟后重试、60：60分钟（即1小时）后重试、1440：1,440分钟（即24小时）后重试。不传入此参数，则表示不重试。
+  retryInterval?: number;
+  // 自动重试次数：1：1次、2：2次、5：5次。如果传入RetryInterval参数，则需传入该参数。
+  retryCount?: number;
+  // 升级超时时间
+  timeoutInMinutes?: number;
+  // 是否需要 APP 确认升级：TUYA_4G 通道：true 表示批次创建后等待 APP/端侧确认，再触发 Hub 下发；false 表示不需要 APP 确认。若 upgradeMode=SILENT，该字段固定为 false，调用方无需传入。BLE 通道：服务端默认按 APP 确认拉取升级材料处理。
+  needConfirm?: boolean;
+  // 升级文案
+  upgradeCopy?: string;
+  // 本次批次实际执行通道：TUYA_4G：涂鸦 4G/MQTT 通道；EKYT_BLE：数字钥匙 BLE 通道；IOT_AGENT_BLE：AI 硬件 BLE 通道；
+  channel: string;
+  // 同设备同模块任务覆盖策略：OVERRIDE：覆盖旧任务创建新任务前取消同设备同模块可取消的旧任务；REJECT：存在可取消旧任务时拒绝创建；COEXIST：允许并存的预留策略，本期同模块 APP 确认型升级不推荐使用。不传时默认 OVERRIDE。
+  overrideMode?: string;
+  // 多模块并发策略：ALLOW：允许同一设备多个模块同时存在未完成升级任务；DENY：同一设备已有其他模块未完成升级任务时拒绝创建。不传时默认 ALLOW。
+  multiModuleMode?: string;
+  // 批次升级方式：CHECK：检测升级，只在用户主动检查升级入口展示；REMIND：提醒升级，进入待确认列表并可提示用户升级；FORCE：强制升级，APP 侧应展示强提示或不可跳过交互；SILENT：静默升级，仅后台 4G 通道可用，不进入 APP 待确认列表。
+  upgradeMode?: string;
+  // 4G Hub 是否主动推送。TUYA_4G 通道：true 表示批次创建后由 Hub 主动向设备推送；false 表示不主动推送，通常需要配合 needConfirm=true 由 APP 确认后触发。若 upgradeMode=SILENT，该字段固定为 true，调用方无需传入。BLE 通道：不支持服务端主动推送；传 true 会被拒绝。
+  needPush?: boolean;
+  // 用于筛选目标设备的模块名称；
+  moduleName: string;
+  // 用于筛选目标设备的模块版本；不传时仅按模块名称筛选。
+  version?: string;
+  static names(): { [key: string]: string } {
+    return {
+      authToken: 'auth_token',
+      productInstanceId: 'product_instance_id',
+      jobType: 'job_type',
+      trustProductKey: 'trust_product_key',
+      firmwareId: 'firmware_id',
+      targetSelection: 'target_selection',
+      retryInterval: 'retry_interval',
+      retryCount: 'retry_count',
+      timeoutInMinutes: 'timeout_in_minutes',
+      needConfirm: 'need_confirm',
+      upgradeCopy: 'upgrade_copy',
+      channel: 'channel',
+      overrideMode: 'override_mode',
+      multiModuleMode: 'multi_module_mode',
+      upgradeMode: 'upgrade_mode',
+      needPush: 'need_push',
+      moduleName: 'module_name',
+      version: 'version',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      authToken: 'string',
+      productInstanceId: 'string',
+      jobType: 'string',
+      trustProductKey: 'string',
+      firmwareId: 'string',
+      targetSelection: 'string',
+      retryInterval: 'number',
+      retryCount: 'number',
+      timeoutInMinutes: 'number',
+      needConfirm: 'boolean',
+      upgradeCopy: 'string',
+      channel: 'string',
+      overrideMode: 'string',
+      multiModuleMode: 'string',
+      upgradeMode: 'string',
+      needPush: 'boolean',
+      moduleName: 'string',
+      version: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class PushElectrocarOtajobbymoduleResponse extends $tea.Model {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string;
+  // 结果码，一般OK表示调用成功
+  resultCode?: string;
+  // 异常信息的文本描述
+  resultMsg?: string;
+  // 是否请求成功
+  success?: boolean;
+  // 响应编码
+  code?: boolean;
+  // 响应消息
+  message?: string;
+  // 去重后的目标设备总数
+  totalDeviceCount?: number;
+  // 实际创建的OTA批次数量
+  batchCount?: number;
+  // 创建成功的OTA任务ID列表
+  jobIds?: string[];
+  static names(): { [key: string]: string } {
+    return {
+      reqMsgId: 'req_msg_id',
+      resultCode: 'result_code',
+      resultMsg: 'result_msg',
+      success: 'success',
+      code: 'code',
+      message: 'message',
+      totalDeviceCount: 'total_device_count',
+      batchCount: 'batch_count',
+      jobIds: 'job_ids',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      reqMsgId: 'string',
+      resultCode: 'string',
+      resultMsg: 'string',
+      success: 'boolean',
+      code: 'boolean',
+      message: 'string',
+      totalDeviceCount: 'number',
+      batchCount: 'number',
+      jobIds: { 'type': 'array', 'itemType': 'string' },
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
 export class QueryIotplatformPurchaseorderRequest extends $tea.Model {
   // OAuth模式下的授权token
   authToken?: string;
@@ -36647,7 +38746,7 @@ export default class Client {
           req_msg_id: AntchainUtil.getNonce(),
           access_key: this._accessKeyId,
           base_sdk_version: "TeaSDK-2.0",
-          sdk_version: "1.17.1",
+          sdk_version: "1.17.7",
           _prod_code: "BOT",
           _prod_channel: "undefined",
         };
@@ -40202,6 +42301,216 @@ export default class Client {
   async queryElectrocarTaskstatusEx(request: QueryElectrocarTaskstatusRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<QueryElectrocarTaskstatusResponse> {
     Util.validateModel(request);
     return $tea.cast<QueryElectrocarTaskstatusResponse>(await this.doRequest("1.0", "blockchain.bot.electrocar.taskstatus.query", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new QueryElectrocarTaskstatusResponse({}));
+  }
+
+  /**
+   * @remarks
+   * Description: 查询客户的产品分页列表
+   * Summary: 查询客户的产品分页列表
+   */
+  async queryElectrocarProductcustomerpage(request: QueryElectrocarProductcustomerpageRequest): Promise<QueryElectrocarProductcustomerpageResponse> {
+    let runtime = new $Util.RuntimeOptions({ });
+    let headers : {[key: string ]: string} = { };
+    return await this.queryElectrocarProductcustomerpageEx(request, headers, runtime);
+  }
+
+  /**
+   * @remarks
+   * Description: 查询客户的产品分页列表
+   * Summary: 查询客户的产品分页列表
+   */
+  async queryElectrocarProductcustomerpageEx(request: QueryElectrocarProductcustomerpageRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<QueryElectrocarProductcustomerpageResponse> {
+    Util.validateModel(request);
+    return $tea.cast<QueryElectrocarProductcustomerpageResponse>(await this.doRequest("1.0", "blockchain.bot.electrocar.productcustomerpage.query", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new QueryElectrocarProductcustomerpageResponse({}));
+  }
+
+  /**
+   * @remarks
+   * Description: 创建OTA升级任务
+   * Summary: 创建OTA升级任务
+   */
+  async pushElectrocarOtajob(request: PushElectrocarOtajobRequest): Promise<PushElectrocarOtajobResponse> {
+    let runtime = new $Util.RuntimeOptions({ });
+    let headers : {[key: string ]: string} = { };
+    return await this.pushElectrocarOtajobEx(request, headers, runtime);
+  }
+
+  /**
+   * @remarks
+   * Description: 创建OTA升级任务
+   * Summary: 创建OTA升级任务
+   */
+  async pushElectrocarOtajobEx(request: PushElectrocarOtajobRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<PushElectrocarOtajobResponse> {
+    Util.validateModel(request);
+    return $tea.cast<PushElectrocarOtajobResponse>(await this.doRequest("1.0", "blockchain.bot.electrocar.otajob.push", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new PushElectrocarOtajobResponse({}));
+  }
+
+  /**
+   * @remarks
+   * Description: 查询OTA模块分页列表
+   * Summary: 查询OTA模块分页列表
+   */
+  async queryElectrocarOtamodulepage(request: QueryElectrocarOtamodulepageRequest): Promise<QueryElectrocarOtamodulepageResponse> {
+    let runtime = new $Util.RuntimeOptions({ });
+    let headers : {[key: string ]: string} = { };
+    return await this.queryElectrocarOtamodulepageEx(request, headers, runtime);
+  }
+
+  /**
+   * @remarks
+   * Description: 查询OTA模块分页列表
+   * Summary: 查询OTA模块分页列表
+   */
+  async queryElectrocarOtamodulepageEx(request: QueryElectrocarOtamodulepageRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<QueryElectrocarOtamodulepageResponse> {
+    Util.validateModel(request);
+    return $tea.cast<QueryElectrocarOtamodulepageResponse>(await this.doRequest("1.0", "blockchain.bot.electrocar.otamodulepage.query", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new QueryElectrocarOtamodulepageResponse({}));
+  }
+
+  /**
+   * @remarks
+   * Description: 查询固件升级包分页列表
+   * Summary: 查询固件升级包分页列表
+   */
+  async queryElectrocarOtafirmwarepage(request: QueryElectrocarOtafirmwarepageRequest): Promise<QueryElectrocarOtafirmwarepageResponse> {
+    let runtime = new $Util.RuntimeOptions({ });
+    let headers : {[key: string ]: string} = { };
+    return await this.queryElectrocarOtafirmwarepageEx(request, headers, runtime);
+  }
+
+  /**
+   * @remarks
+   * Description: 查询固件升级包分页列表
+   * Summary: 查询固件升级包分页列表
+   */
+  async queryElectrocarOtafirmwarepageEx(request: QueryElectrocarOtafirmwarepageRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<QueryElectrocarOtafirmwarepageResponse> {
+    Util.validateModel(request);
+    return $tea.cast<QueryElectrocarOtafirmwarepageResponse>(await this.doRequest("1.0", "blockchain.bot.electrocar.otafirmwarepage.query", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new QueryElectrocarOtafirmwarepageResponse({}));
+  }
+
+  /**
+   * @remarks
+   * Description: 查询固件包详情
+   * Summary: 查询固件包详情
+   */
+  async queryElectrocarOtafirmwaredetail(request: QueryElectrocarOtafirmwaredetailRequest): Promise<QueryElectrocarOtafirmwaredetailResponse> {
+    let runtime = new $Util.RuntimeOptions({ });
+    let headers : {[key: string ]: string} = { };
+    return await this.queryElectrocarOtafirmwaredetailEx(request, headers, runtime);
+  }
+
+  /**
+   * @remarks
+   * Description: 查询固件包详情
+   * Summary: 查询固件包详情
+   */
+  async queryElectrocarOtafirmwaredetailEx(request: QueryElectrocarOtafirmwaredetailRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<QueryElectrocarOtafirmwaredetailResponse> {
+    Util.validateModel(request);
+    return $tea.cast<QueryElectrocarOtafirmwaredetailResponse>(await this.doRequest("1.0", "blockchain.bot.electrocar.otafirmwaredetail.query", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new QueryElectrocarOtafirmwaredetailResponse({}));
+  }
+
+  /**
+   * @remarks
+   * Description: 查询OTA固件升级批次分页列表
+   * Summary: 查询OTA固件升级批次分页列表
+   */
+  async queryElectrocarOtajobpage(request: QueryElectrocarOtajobpageRequest): Promise<QueryElectrocarOtajobpageResponse> {
+    let runtime = new $Util.RuntimeOptions({ });
+    let headers : {[key: string ]: string} = { };
+    return await this.queryElectrocarOtajobpageEx(request, headers, runtime);
+  }
+
+  /**
+   * @remarks
+   * Description: 查询OTA固件升级批次分页列表
+   * Summary: 查询OTA固件升级批次分页列表
+   */
+  async queryElectrocarOtajobpageEx(request: QueryElectrocarOtajobpageRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<QueryElectrocarOtajobpageResponse> {
+    Util.validateModel(request);
+    return $tea.cast<QueryElectrocarOtajobpageResponse>(await this.doRequest("1.0", "blockchain.bot.electrocar.otajobpage.query", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new QueryElectrocarOtajobpageResponse({}));
+  }
+
+  /**
+   * @remarks
+   * Description: OTA升级批次详情查询
+   * Summary: OTA升级批次详情查询
+   */
+  async queryElectrocarOtajobdetail(request: QueryElectrocarOtajobdetailRequest): Promise<QueryElectrocarOtajobdetailResponse> {
+    let runtime = new $Util.RuntimeOptions({ });
+    let headers : {[key: string ]: string} = { };
+    return await this.queryElectrocarOtajobdetailEx(request, headers, runtime);
+  }
+
+  /**
+   * @remarks
+   * Description: OTA升级批次详情查询
+   * Summary: OTA升级批次详情查询
+   */
+  async queryElectrocarOtajobdetailEx(request: QueryElectrocarOtajobdetailRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<QueryElectrocarOtajobdetailResponse> {
+    Util.validateModel(request);
+    return $tea.cast<QueryElectrocarOtajobdetailResponse>(await this.doRequest("1.0", "blockchain.bot.electrocar.otajobdetail.query", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new QueryElectrocarOtajobdetailResponse({}));
+  }
+
+  /**
+   * @remarks
+   * Description: 查询OTA升级任务分页列表
+   * Summary: 查询OTA升级任务分页列表
+   */
+  async queryElectrocarOtataskpage(request: QueryElectrocarOtataskpageRequest): Promise<QueryElectrocarOtataskpageResponse> {
+    let runtime = new $Util.RuntimeOptions({ });
+    let headers : {[key: string ]: string} = { };
+    return await this.queryElectrocarOtataskpageEx(request, headers, runtime);
+  }
+
+  /**
+   * @remarks
+   * Description: 查询OTA升级任务分页列表
+   * Summary: 查询OTA升级任务分页列表
+   */
+  async queryElectrocarOtataskpageEx(request: QueryElectrocarOtataskpageRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<QueryElectrocarOtataskpageResponse> {
+    Util.validateModel(request);
+    return $tea.cast<QueryElectrocarOtataskpageResponse>(await this.doRequest("1.0", "blockchain.bot.electrocar.otataskpage.query", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new QueryElectrocarOtataskpageResponse({}));
+  }
+
+  /**
+   * @remarks
+   * Description: 统一物联设备分页列表查询
+   * Summary: 统一物联设备分页列表查询
+   */
+  async queryElectrocarDevicepage(request: QueryElectrocarDevicepageRequest): Promise<QueryElectrocarDevicepageResponse> {
+    let runtime = new $Util.RuntimeOptions({ });
+    let headers : {[key: string ]: string} = { };
+    return await this.queryElectrocarDevicepageEx(request, headers, runtime);
+  }
+
+  /**
+   * @remarks
+   * Description: 统一物联设备分页列表查询
+   * Summary: 统一物联设备分页列表查询
+   */
+  async queryElectrocarDevicepageEx(request: QueryElectrocarDevicepageRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<QueryElectrocarDevicepageResponse> {
+    Util.validateModel(request);
+    return $tea.cast<QueryElectrocarDevicepageResponse>(await this.doRequest("1.0", "blockchain.bot.electrocar.devicepage.query", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new QueryElectrocarDevicepageResponse({}));
+  }
+
+  /**
+   * @remarks
+   * Description: 根据设备模块创建定向OTA批次
+   * Summary: 根据设备模块创建定向OTA批次
+   */
+  async pushElectrocarOtajobbymodule(request: PushElectrocarOtajobbymoduleRequest): Promise<PushElectrocarOtajobbymoduleResponse> {
+    let runtime = new $Util.RuntimeOptions({ });
+    let headers : {[key: string ]: string} = { };
+    return await this.pushElectrocarOtajobbymoduleEx(request, headers, runtime);
+  }
+
+  /**
+   * @remarks
+   * Description: 根据设备模块创建定向OTA批次
+   * Summary: 根据设备模块创建定向OTA批次
+   */
+  async pushElectrocarOtajobbymoduleEx(request: PushElectrocarOtajobbymoduleRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<PushElectrocarOtajobbymoduleResponse> {
+    Util.validateModel(request);
+    return $tea.cast<PushElectrocarOtajobbymoduleResponse>(await this.doRequest("1.0", "blockchain.bot.electrocar.otajobbymodule.push", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new PushElectrocarOtajobbymoduleResponse({}));
   }
 
   /**
