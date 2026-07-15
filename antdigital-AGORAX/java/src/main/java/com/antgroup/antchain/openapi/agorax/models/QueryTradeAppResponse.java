@@ -38,7 +38,7 @@ public class QueryTradeAppResponse extends TeaModel {
 
     // 退款记录
     @NameInMap("refund_list")
-    public RefundList refundList;
+    public java.util.List<RefundInfo> refundList;
 
     // 累计退款金额
     @NameInMap("total_refund_amount")
@@ -113,11 +113,11 @@ public class QueryTradeAppResponse extends TeaModel {
         return this.receiptAmount;
     }
 
-    public QueryTradeAppResponse setRefundList(RefundList refundList) {
+    public QueryTradeAppResponse setRefundList(java.util.List<RefundInfo> refundList) {
         this.refundList = refundList;
         return this;
     }
-    public RefundList getRefundList() {
+    public java.util.List<RefundInfo> getRefundList() {
         return this.refundList;
     }
 
