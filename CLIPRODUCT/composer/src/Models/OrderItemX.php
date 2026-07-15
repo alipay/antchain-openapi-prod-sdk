@@ -1,0 +1,40 @@
+<?php
+
+// This file is auto-generated, don't edit it. Thanks.
+namespace AntChain\CLIPRODUCT\Models;
+
+use AlibabaCloud\Tea\Model;
+
+class OrderItemX extends Model {
+    protected $_name = [
+        'a' => 'a',
+    ];
+    public function validate() {
+        Model::validateRequired('a', $this->a, true);
+    }
+    public function toMap() {
+        $res = [];
+        if (null !== $this->a) {
+            $res['a'] = $this->a;
+        }
+        return $res;
+    }
+    /**
+     * @param array $map
+     * @return OrderItemX
+     */
+    public static function fromMap($map = []) {
+        $model = new self();
+        if(isset($map['a'])){
+            $model->a = $map['a'];
+        }
+        return $model;
+    }
+    // a
+    /**
+     * @example 1
+     * @var string
+     */
+    public $a;
+
+}
