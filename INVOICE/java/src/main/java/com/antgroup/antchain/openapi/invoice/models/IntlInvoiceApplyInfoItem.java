@@ -27,9 +27,9 @@ public class IntlInvoiceApplyInfoItem extends TeaModel {
      * <strong>example:</strong>
      * <p>13.44</p>
      */
-    @NameInMap("inovice_amt")
+    @NameInMap("invoice_amt")
     @Validation(required = true)
-    public String inoviceAmt;
+    public String invoiceAmt;
 
     // 发票币种
     /**
@@ -114,12 +114,12 @@ public class IntlInvoiceApplyInfoItem extends TeaModel {
         return this.invoiceApplyId;
     }
 
-    public IntlInvoiceApplyInfoItem setInoviceAmt(String inoviceAmt) {
-        this.inoviceAmt = inoviceAmt;
+    public IntlInvoiceApplyInfoItem setInvoiceAmt(String invoiceAmt) {
+        this.invoiceAmt = invoiceAmt;
         return this;
     }
-    public String getInoviceAmt() {
-        return this.inoviceAmt;
+    public String getInvoiceAmt() {
+        return this.invoiceAmt;
     }
 
     public IntlInvoiceApplyInfoItem setInvoiceCcy(String invoiceCcy) {
