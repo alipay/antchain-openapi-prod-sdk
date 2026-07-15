@@ -5,7 +5,7 @@ namespace AntChain\AGORAX\Models;
 
 use AlibabaCloud\Tea\Model;
 
-use AntChain\AGORAX\Models\RefundList;
+use AntChain\AGORAX\Models\RefundInfo;
 
 class QueryTradeAppResponse extends Model {
     protected $_name = [
@@ -48,7 +48,13 @@ class QueryTradeAppResponse extends Model {
             $res['receipt_amount'] = $this->receiptAmount;
         }
         if (null !== $this->refundList) {
-            $res['refund_list'] = null !== $this->refundList ? $this->refundList->toMap() : null;
+            $res['refund_list'] = [];
+            if(null !== $this->refundList && is_array($this->refundList)){
+                $n = 0;
+                foreach($this->refundList as $item){
+                    $res['refund_list'][$n++] = null !== $item ? $item->toMap() : $item;
+                }
+            }
         }
         if (null !== $this->totalRefundAmount) {
             $res['total_refund_amount'] = $this->totalRefundAmount;
@@ -86,7 +92,13 @@ class QueryTradeAppResponse extends Model {
             $model->receiptAmount = $map['receipt_amount'];
         }
         if(isset($map['refund_list'])){
-            $model->refundList = RefundList::fromMap($map['refund_list']);
+            if(!empty($map['refund_list'])){
+                $model->refundList = [];
+                $n = 0;
+                foreach($map['refund_list'] as $item) {
+                    $model->refundList[$n++] = null !== $item ? RefundInfo::fromMap($item) : $item;
+                }
+            }
         }
         if(isset($map['total_refund_amount'])){
             $model->totalRefundAmount = $map['total_refund_amount'];
@@ -143,7 +155,7 @@ class QueryTradeAppResponse extends Model {
 
     // 退款记录
     /**
-     * @var RefundList
+     * @var RefundInfo[]
      */
     public $refundList;
 
