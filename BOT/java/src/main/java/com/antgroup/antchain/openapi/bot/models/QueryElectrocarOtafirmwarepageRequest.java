@@ -32,7 +32,6 @@ public class QueryElectrocarOtafirmwarepageRequest extends TeaModel {
 
     // 模块名称
     @NameInMap("module_name")
-    @Validation(required = true)
     public String moduleName;
 
     public static QueryElectrocarOtafirmwarepageRequest build(java.util.Map<String, ?> map) throws Exception {

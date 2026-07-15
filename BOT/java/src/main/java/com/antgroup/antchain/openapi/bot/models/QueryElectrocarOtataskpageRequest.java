@@ -33,6 +33,7 @@ public class QueryElectrocarOtataskpageRequest extends TeaModel {
 
     // OTA固件id
     @NameInMap("firmware_id")
+    @Validation(required = true)
     public String firmwareId;
 
     // 任务状态：CONFIRM, QUEUED, NOTIFIED, IN_PROGRESS, SUCCEEDED, FAILED, CANCELED

@@ -18,6 +18,7 @@ public class QueryElectrocarOtafirmwaredetailRequest extends TeaModel {
 
     // 可信物联唯一产品标识
     @NameInMap("trust_product_key")
+    @Validation(required = true)
     public String trustProductKey;
 
     public static QueryElectrocarOtafirmwaredetailRequest build(java.util.Map<String, ?> map) throws Exception {
