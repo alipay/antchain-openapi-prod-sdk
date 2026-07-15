@@ -3159,6 +3159,187 @@ class GrantDeviceInfo(TeaModel):
         return self
 
 
+class IotxDeviceResponse(TeaModel):
+    def __init__(
+        self,
+        id: str = None,
+        gmt_create: str = None,
+        gmt_modified: str = None,
+        tenant_id: str = None,
+        usage_tenant_id: str = None,
+        device_name: str = None,
+        product_key: str = None,
+        product_name: str = None,
+        nick_name: str = None,
+        device_secret: str = None,
+        device_status: str = None,
+        disable_status: str = None,
+        tuid: str = None,
+        trust_product_key: str = None,
+        trust_device_id: str = None,
+        ota_version: str = None,
+        regist_time: str = None,
+        active_time: str = None,
+        last_online_time: str = None,
+        last_offline_time: str = None,
+        last_communication_time: str = None,
+    ):
+        # 主键id
+        self.id = id
+        # 创建时间
+        self.gmt_create = gmt_create
+        # 更新时间
+        self.gmt_modified = gmt_modified
+        # 租户id
+        self.tenant_id = tenant_id
+        # 使用租户id
+        self.usage_tenant_id = usage_tenant_id
+        # 设备名称
+        self.device_name = device_name
+        # 产品key
+        self.product_key = product_key
+        # 产品名称
+        self.product_name = product_name
+        # 设备昵称
+        self.nick_name = nick_name
+        # 设备秘钥
+        self.device_secret = device_secret
+        # 设备状态
+        self.device_status = device_status
+        # 禁用状态：0-未禁用；1-已禁用
+        self.disable_status = disable_status
+        # ekyt设备唯一标识
+        self.tuid = tuid
+        # 可信产品唯一标识
+        self.trust_product_key = trust_product_key
+        # 可信物联唯一设备标识
+        self.trust_device_id = trust_device_id
+        # ota固件版本号
+        self.ota_version = ota_version
+        # 设备注册时间
+        self.regist_time = regist_time
+        # 设备激活时间
+        self.active_time = active_time
+        # 最近在线时间
+        self.last_online_time = last_online_time
+        # 最近离线时间
+        self.last_offline_time = last_offline_time
+        # 最近通讯时间
+        self.last_communication_time = last_communication_time
+
+    def validate(self):
+        if self.gmt_create is not None:
+            self.validate_pattern(self.gmt_create, 'gmt_create', '\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}([Z]|([\\.]\\d{1,9})?[\\+]\\d{2}[\\:]?\\d{2})')
+        if self.gmt_modified is not None:
+            self.validate_pattern(self.gmt_modified, 'gmt_modified', '\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}([Z]|([\\.]\\d{1,9})?[\\+]\\d{2}[\\:]?\\d{2})')
+        if self.regist_time is not None:
+            self.validate_pattern(self.regist_time, 'regist_time', '\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}([Z]|([\\.]\\d{1,9})?[\\+]\\d{2}[\\:]?\\d{2})')
+        if self.active_time is not None:
+            self.validate_pattern(self.active_time, 'active_time', '\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}([Z]|([\\.]\\d{1,9})?[\\+]\\d{2}[\\:]?\\d{2})')
+        if self.last_online_time is not None:
+            self.validate_pattern(self.last_online_time, 'last_online_time', '\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}([Z]|([\\.]\\d{1,9})?[\\+]\\d{2}[\\:]?\\d{2})')
+        if self.last_offline_time is not None:
+            self.validate_pattern(self.last_offline_time, 'last_offline_time', '\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}([Z]|([\\.]\\d{1,9})?[\\+]\\d{2}[\\:]?\\d{2})')
+        if self.last_communication_time is not None:
+            self.validate_pattern(self.last_communication_time, 'last_communication_time', '\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}([Z]|([\\.]\\d{1,9})?[\\+]\\d{2}[\\:]?\\d{2})')
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.id is not None:
+            result['id'] = self.id
+        if self.gmt_create is not None:
+            result['gmt_create'] = self.gmt_create
+        if self.gmt_modified is not None:
+            result['gmt_modified'] = self.gmt_modified
+        if self.tenant_id is not None:
+            result['tenant_id'] = self.tenant_id
+        if self.usage_tenant_id is not None:
+            result['usage_tenant_id'] = self.usage_tenant_id
+        if self.device_name is not None:
+            result['device_name'] = self.device_name
+        if self.product_key is not None:
+            result['product_key'] = self.product_key
+        if self.product_name is not None:
+            result['product_name'] = self.product_name
+        if self.nick_name is not None:
+            result['nick_name'] = self.nick_name
+        if self.device_secret is not None:
+            result['device_secret'] = self.device_secret
+        if self.device_status is not None:
+            result['device_status'] = self.device_status
+        if self.disable_status is not None:
+            result['disable_status'] = self.disable_status
+        if self.tuid is not None:
+            result['tuid'] = self.tuid
+        if self.trust_product_key is not None:
+            result['trust_product_key'] = self.trust_product_key
+        if self.trust_device_id is not None:
+            result['trust_device_id'] = self.trust_device_id
+        if self.ota_version is not None:
+            result['ota_version'] = self.ota_version
+        if self.regist_time is not None:
+            result['regist_time'] = self.regist_time
+        if self.active_time is not None:
+            result['active_time'] = self.active_time
+        if self.last_online_time is not None:
+            result['last_online_time'] = self.last_online_time
+        if self.last_offline_time is not None:
+            result['last_offline_time'] = self.last_offline_time
+        if self.last_communication_time is not None:
+            result['last_communication_time'] = self.last_communication_time
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('id') is not None:
+            self.id = m.get('id')
+        if m.get('gmt_create') is not None:
+            self.gmt_create = m.get('gmt_create')
+        if m.get('gmt_modified') is not None:
+            self.gmt_modified = m.get('gmt_modified')
+        if m.get('tenant_id') is not None:
+            self.tenant_id = m.get('tenant_id')
+        if m.get('usage_tenant_id') is not None:
+            self.usage_tenant_id = m.get('usage_tenant_id')
+        if m.get('device_name') is not None:
+            self.device_name = m.get('device_name')
+        if m.get('product_key') is not None:
+            self.product_key = m.get('product_key')
+        if m.get('product_name') is not None:
+            self.product_name = m.get('product_name')
+        if m.get('nick_name') is not None:
+            self.nick_name = m.get('nick_name')
+        if m.get('device_secret') is not None:
+            self.device_secret = m.get('device_secret')
+        if m.get('device_status') is not None:
+            self.device_status = m.get('device_status')
+        if m.get('disable_status') is not None:
+            self.disable_status = m.get('disable_status')
+        if m.get('tuid') is not None:
+            self.tuid = m.get('tuid')
+        if m.get('trust_product_key') is not None:
+            self.trust_product_key = m.get('trust_product_key')
+        if m.get('trust_device_id') is not None:
+            self.trust_device_id = m.get('trust_device_id')
+        if m.get('ota_version') is not None:
+            self.ota_version = m.get('ota_version')
+        if m.get('regist_time') is not None:
+            self.regist_time = m.get('regist_time')
+        if m.get('active_time') is not None:
+            self.active_time = m.get('active_time')
+        if m.get('last_online_time') is not None:
+            self.last_online_time = m.get('last_online_time')
+        if m.get('last_offline_time') is not None:
+            self.last_offline_time = m.get('last_offline_time')
+        if m.get('last_communication_time') is not None:
+            self.last_communication_time = m.get('last_communication_time')
+        return self
+
+
 class IotbasicReleaseOrderInfo(TeaModel):
     def __init__(
         self,
@@ -4950,6 +5131,233 @@ class DeviceRegisterReqModel(TeaModel):
         return self
 
 
+class IotxProductResponse(TeaModel):
+    def __init__(
+        self,
+        id: str = None,
+        tenant_id: str = None,
+        industry_id: str = None,
+        industry_name: str = None,
+        category_id: str = None,
+        category_name: str = None,
+        trust_product_key: str = None,
+        product_key: str = None,
+        product_name: str = None,
+        product_secret: str = None,
+        node_type: int = None,
+        net_type: int = None,
+        product_protocol: str = None,
+        protocol_type: str = None,
+        data_format: str = None,
+        auth_type: int = None,
+        validate_type: int = None,
+        publish_status: int = None,
+        biz_source: str = None,
+        product_status: int = None,
+        customer_id: str = None,
+        trust_instance_id: str = None,
+        iot_platform: int = None,
+        description: str = None,
+        thing_model: str = None,
+        enable_dyn_reg: int = None,
+        gmt_create: str = None,
+        gmt_modified: str = None,
+        tenant_name: str = None,
+    ):
+        # 主键id
+        self.id = id
+        # 租户id
+        self.tenant_id = tenant_id
+        # 行业id
+        self.industry_id = industry_id
+        # 行业名称
+        self.industry_name = industry_name
+        # 品类id
+        self.category_id = category_id
+        # 品类名称
+        self.category_name = category_name
+        # 可信物联唯一产品标识
+        self.trust_product_key = trust_product_key
+        # 三方物联网平台产品productKey
+        self.product_key = product_key
+        # 产品名称
+        self.product_name = product_name
+        # 产品秘钥
+        self.product_secret = product_secret
+        # 节点类型：0-直连设备、1-网关设备、2-网关子设备
+        self.node_type = node_type
+        # 联网方式：0-wifi、1-蜂窝、2-以太网、3-蓝牙、4-蓝牙+蜂窝网络
+        self.net_type = net_type
+        # 产品协议：MQTT\CoAP
+        self.product_protocol = product_protocol
+        # 接入网关协议:0-ZigBee协议、1-BLE协议、2-Modbus
+        self.protocol_type = protocol_type
+        # 数据格式：0-Alink Json、1-自定义透传
+        self.data_format = data_format
+        # 认证类型：默认不认证
+        self.auth_type = auth_type
+        # 数据校验级别：0-免校验、1-弱校验
+        self.validate_type = validate_type
+        # 发布状态：0-未发布、1-已发布
+        self.publish_status = publish_status
+        # 业务来源：ekyt-数字钥匙、trust-可信上链、ai_hardware-AI硬件
+        self.biz_source = biz_source
+        # 产品的状态：0-开发中、1-已发布
+        self.product_status = product_status
+        # 关联客户id
+        self.customer_id = customer_id
+        # 可信物联实例Id
+        self.trust_instance_id = trust_instance_id
+        # 平台类型：0-alicloud、1-tuyaAli、2-自管
+        self.iot_platform = iot_platform
+        # 产品描述
+        self.description = description
+        # 产品物模型
+        self.thing_model = thing_model
+        # 是否启用动态注册：0-关闭动态注册、1-启用动态注册(仅支持涂鸦平台)
+        self.enable_dyn_reg = enable_dyn_reg
+        # 创建时间
+        self.gmt_create = gmt_create
+        # 更新时间
+        self.gmt_modified = gmt_modified
+        # 租户名称
+        self.tenant_name = tenant_name
+
+    def validate(self):
+        if self.gmt_create is not None:
+            self.validate_pattern(self.gmt_create, 'gmt_create', '\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}([Z]|([\\.]\\d{1,9})?[\\+]\\d{2}[\\:]?\\d{2})')
+        if self.gmt_modified is not None:
+            self.validate_pattern(self.gmt_modified, 'gmt_modified', '\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}([Z]|([\\.]\\d{1,9})?[\\+]\\d{2}[\\:]?\\d{2})')
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.id is not None:
+            result['id'] = self.id
+        if self.tenant_id is not None:
+            result['tenant_id'] = self.tenant_id
+        if self.industry_id is not None:
+            result['industry_id'] = self.industry_id
+        if self.industry_name is not None:
+            result['industry_name'] = self.industry_name
+        if self.category_id is not None:
+            result['category_id'] = self.category_id
+        if self.category_name is not None:
+            result['category_name'] = self.category_name
+        if self.trust_product_key is not None:
+            result['trust_product_key'] = self.trust_product_key
+        if self.product_key is not None:
+            result['product_key'] = self.product_key
+        if self.product_name is not None:
+            result['product_name'] = self.product_name
+        if self.product_secret is not None:
+            result['product_secret'] = self.product_secret
+        if self.node_type is not None:
+            result['node_type'] = self.node_type
+        if self.net_type is not None:
+            result['net_type'] = self.net_type
+        if self.product_protocol is not None:
+            result['product_protocol'] = self.product_protocol
+        if self.protocol_type is not None:
+            result['protocol_type'] = self.protocol_type
+        if self.data_format is not None:
+            result['data_format'] = self.data_format
+        if self.auth_type is not None:
+            result['auth_type'] = self.auth_type
+        if self.validate_type is not None:
+            result['validate_type'] = self.validate_type
+        if self.publish_status is not None:
+            result['publish_status'] = self.publish_status
+        if self.biz_source is not None:
+            result['biz_source'] = self.biz_source
+        if self.product_status is not None:
+            result['product_status'] = self.product_status
+        if self.customer_id is not None:
+            result['customer_id'] = self.customer_id
+        if self.trust_instance_id is not None:
+            result['trust_instance_id'] = self.trust_instance_id
+        if self.iot_platform is not None:
+            result['iot_platform'] = self.iot_platform
+        if self.description is not None:
+            result['description'] = self.description
+        if self.thing_model is not None:
+            result['thing_model'] = self.thing_model
+        if self.enable_dyn_reg is not None:
+            result['enable_dyn_reg'] = self.enable_dyn_reg
+        if self.gmt_create is not None:
+            result['gmt_create'] = self.gmt_create
+        if self.gmt_modified is not None:
+            result['gmt_modified'] = self.gmt_modified
+        if self.tenant_name is not None:
+            result['tenant_name'] = self.tenant_name
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('id') is not None:
+            self.id = m.get('id')
+        if m.get('tenant_id') is not None:
+            self.tenant_id = m.get('tenant_id')
+        if m.get('industry_id') is not None:
+            self.industry_id = m.get('industry_id')
+        if m.get('industry_name') is not None:
+            self.industry_name = m.get('industry_name')
+        if m.get('category_id') is not None:
+            self.category_id = m.get('category_id')
+        if m.get('category_name') is not None:
+            self.category_name = m.get('category_name')
+        if m.get('trust_product_key') is not None:
+            self.trust_product_key = m.get('trust_product_key')
+        if m.get('product_key') is not None:
+            self.product_key = m.get('product_key')
+        if m.get('product_name') is not None:
+            self.product_name = m.get('product_name')
+        if m.get('product_secret') is not None:
+            self.product_secret = m.get('product_secret')
+        if m.get('node_type') is not None:
+            self.node_type = m.get('node_type')
+        if m.get('net_type') is not None:
+            self.net_type = m.get('net_type')
+        if m.get('product_protocol') is not None:
+            self.product_protocol = m.get('product_protocol')
+        if m.get('protocol_type') is not None:
+            self.protocol_type = m.get('protocol_type')
+        if m.get('data_format') is not None:
+            self.data_format = m.get('data_format')
+        if m.get('auth_type') is not None:
+            self.auth_type = m.get('auth_type')
+        if m.get('validate_type') is not None:
+            self.validate_type = m.get('validate_type')
+        if m.get('publish_status') is not None:
+            self.publish_status = m.get('publish_status')
+        if m.get('biz_source') is not None:
+            self.biz_source = m.get('biz_source')
+        if m.get('product_status') is not None:
+            self.product_status = m.get('product_status')
+        if m.get('customer_id') is not None:
+            self.customer_id = m.get('customer_id')
+        if m.get('trust_instance_id') is not None:
+            self.trust_instance_id = m.get('trust_instance_id')
+        if m.get('iot_platform') is not None:
+            self.iot_platform = m.get('iot_platform')
+        if m.get('description') is not None:
+            self.description = m.get('description')
+        if m.get('thing_model') is not None:
+            self.thing_model = m.get('thing_model')
+        if m.get('enable_dyn_reg') is not None:
+            self.enable_dyn_reg = m.get('enable_dyn_reg')
+        if m.get('gmt_create') is not None:
+            self.gmt_create = m.get('gmt_create')
+        if m.get('gmt_modified') is not None:
+            self.gmt_modified = m.get('gmt_modified')
+        if m.get('tenant_name') is not None:
+            self.tenant_name = m.get('tenant_name')
+        return self
+
+
 class DeviceOperateInfo(TeaModel):
     def __init__(
         self,
@@ -6230,6 +6638,184 @@ class BaiOcrResponse(TeaModel):
         return self
 
 
+class IotxOTAFirmwareResponse(TeaModel):
+    def __init__(
+        self,
+        id: str = None,
+        gmt_create: str = None,
+        gmt_modified: str = None,
+        tenant_id: str = None,
+        trust_product_key: str = None,
+        product_name: str = None,
+        firmware_id: str = None,
+        firmware_name: str = None,
+        firmware_url: str = None,
+        dest_version: str = None,
+        firmware_sign: str = None,
+        sign_method: str = None,
+        firmware_desc: str = None,
+        firmware_size: int = None,
+        firmware_type: int = None,
+        src_version: str = None,
+        module_name: str = None,
+        need_to_verify: int = None,
+        udi: str = None,
+        verify_status: int = None,
+        publish_status: int = None,
+        support_channels: List[str] = None,
+    ):
+        # 主键id
+        self.id = id
+        # 创建时间
+        self.gmt_create = gmt_create
+        # 更新时间
+        self.gmt_modified = gmt_modified
+        # 租户id
+        self.tenant_id = tenant_id
+        # 可信物联唯一产品标识
+        self.trust_product_key = trust_product_key
+        # 产品名称
+        self.product_name = product_name
+        # 固件包id
+        self.firmware_id = firmware_id
+        # OTA升级包名称
+        self.firmware_name = firmware_name
+        # 固件包URL
+        self.firmware_url = firmware_url
+        # 当前OTA升级包版本号
+        self.dest_version = dest_version
+        # OTA升级包内容的签名值
+        self.firmware_sign = firmware_sign
+        # 升级包签名方法
+        self.sign_method = sign_method
+        # OTA升级包描述信息
+        self.firmware_desc = firmware_desc
+        # 升级包文件大小
+        self.firmware_size = firmware_size
+        # 升级包类型  0：整包升级包, 1: 差分升级包
+        self.firmware_type = firmware_type
+        # 待升级OTA模块版本号
+        self.src_version = src_version
+        # OTA模块名称
+        self.module_name = module_name
+        # 是否需要在创建批量升级任务前通过升级包验证：0-不需要；1-需要
+        self.need_to_verify = need_to_verify
+        # 推送给设备的自定义信息
+        self.udi = udi
+        # 升级包验证状态：0-未验证、1-已验证
+        self.verify_status = verify_status
+        # 发布状态：0-未发布、1-已发布
+        self.publish_status = publish_status
+        # 固件包支持通道列表
+        self.support_channels = support_channels
+
+    def validate(self):
+        if self.gmt_create is not None:
+            self.validate_pattern(self.gmt_create, 'gmt_create', '\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}([Z]|([\\.]\\d{1,9})?[\\+]\\d{2}[\\:]?\\d{2})')
+        if self.gmt_modified is not None:
+            self.validate_pattern(self.gmt_modified, 'gmt_modified', '\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}([Z]|([\\.]\\d{1,9})?[\\+]\\d{2}[\\:]?\\d{2})')
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.id is not None:
+            result['id'] = self.id
+        if self.gmt_create is not None:
+            result['gmt_create'] = self.gmt_create
+        if self.gmt_modified is not None:
+            result['gmt_modified'] = self.gmt_modified
+        if self.tenant_id is not None:
+            result['tenant_id'] = self.tenant_id
+        if self.trust_product_key is not None:
+            result['trust_product_key'] = self.trust_product_key
+        if self.product_name is not None:
+            result['product_name'] = self.product_name
+        if self.firmware_id is not None:
+            result['firmware_id'] = self.firmware_id
+        if self.firmware_name is not None:
+            result['firmware_name'] = self.firmware_name
+        if self.firmware_url is not None:
+            result['firmware_url'] = self.firmware_url
+        if self.dest_version is not None:
+            result['dest_version'] = self.dest_version
+        if self.firmware_sign is not None:
+            result['firmware_sign'] = self.firmware_sign
+        if self.sign_method is not None:
+            result['sign_method'] = self.sign_method
+        if self.firmware_desc is not None:
+            result['firmware_desc'] = self.firmware_desc
+        if self.firmware_size is not None:
+            result['firmware_size'] = self.firmware_size
+        if self.firmware_type is not None:
+            result['firmware_type'] = self.firmware_type
+        if self.src_version is not None:
+            result['src_version'] = self.src_version
+        if self.module_name is not None:
+            result['module_name'] = self.module_name
+        if self.need_to_verify is not None:
+            result['need_to_verify'] = self.need_to_verify
+        if self.udi is not None:
+            result['udi'] = self.udi
+        if self.verify_status is not None:
+            result['verify_status'] = self.verify_status
+        if self.publish_status is not None:
+            result['publish_status'] = self.publish_status
+        if self.support_channels is not None:
+            result['support_channels'] = self.support_channels
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('id') is not None:
+            self.id = m.get('id')
+        if m.get('gmt_create') is not None:
+            self.gmt_create = m.get('gmt_create')
+        if m.get('gmt_modified') is not None:
+            self.gmt_modified = m.get('gmt_modified')
+        if m.get('tenant_id') is not None:
+            self.tenant_id = m.get('tenant_id')
+        if m.get('trust_product_key') is not None:
+            self.trust_product_key = m.get('trust_product_key')
+        if m.get('product_name') is not None:
+            self.product_name = m.get('product_name')
+        if m.get('firmware_id') is not None:
+            self.firmware_id = m.get('firmware_id')
+        if m.get('firmware_name') is not None:
+            self.firmware_name = m.get('firmware_name')
+        if m.get('firmware_url') is not None:
+            self.firmware_url = m.get('firmware_url')
+        if m.get('dest_version') is not None:
+            self.dest_version = m.get('dest_version')
+        if m.get('firmware_sign') is not None:
+            self.firmware_sign = m.get('firmware_sign')
+        if m.get('sign_method') is not None:
+            self.sign_method = m.get('sign_method')
+        if m.get('firmware_desc') is not None:
+            self.firmware_desc = m.get('firmware_desc')
+        if m.get('firmware_size') is not None:
+            self.firmware_size = m.get('firmware_size')
+        if m.get('firmware_type') is not None:
+            self.firmware_type = m.get('firmware_type')
+        if m.get('src_version') is not None:
+            self.src_version = m.get('src_version')
+        if m.get('module_name') is not None:
+            self.module_name = m.get('module_name')
+        if m.get('need_to_verify') is not None:
+            self.need_to_verify = m.get('need_to_verify')
+        if m.get('udi') is not None:
+            self.udi = m.get('udi')
+        if m.get('verify_status') is not None:
+            self.verify_status = m.get('verify_status')
+        if m.get('publish_status') is not None:
+            self.publish_status = m.get('publish_status')
+        if m.get('support_channels') is not None:
+            self.support_channels = m.get('support_channels')
+        return self
+
+
 class EmpowerDeviceInfo(TeaModel):
     def __init__(
         self,
@@ -6590,6 +7176,128 @@ class ThingsDidRegisterReq(TeaModel):
             self.thing_version = m.get('thing_version')
         if m.get('user_did') is not None:
             self.user_did = m.get('user_did')
+        return self
+
+
+class IotxOTATaskResponse(TeaModel):
+    def __init__(
+        self,
+        task_id: str = None,
+        device_name: str = None,
+        job_id: str = None,
+        firmware_id: str = None,
+        trust_product_key: str = None,
+        product_name: str = None,
+        src_version: str = None,
+        dest_version: str = None,
+        task_status: str = None,
+        progress: str = None,
+        task_desc: str = None,
+        timeout: str = None,
+        utc_create: str = None,
+        utc_modified: str = None,
+    ):
+        # 任务ID
+        self.task_id = task_id
+        # 设备名称
+        self.device_name = device_name
+        # OTA批次ID
+        self.job_id = job_id
+        # 固件ID
+        self.firmware_id = firmware_id
+        # 可信物联唯一产品标识
+        self.trust_product_key = trust_product_key
+        # 产品名称
+        self.product_name = product_name
+        # 源版本
+        self.src_version = src_version
+        # 目标版本
+        self.dest_version = dest_version
+        # 任务状态：CONFIRM, QUEUED, NOTIFIED, IN_PROGRESS, SUCCEEDED, FAILED, CANCELED
+        self.task_status = task_status
+        # 升级进度
+        self.progress = progress
+        # 任务描述
+        self.task_desc = task_desc
+        # 超时时间
+        self.timeout = timeout
+        # 创建时间
+        self.utc_create = utc_create
+        # 修改时间
+        self.utc_modified = utc_modified
+
+    def validate(self):
+        if self.utc_create is not None:
+            self.validate_pattern(self.utc_create, 'utc_create', '\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}([Z]|([\\.]\\d{1,9})?[\\+]\\d{2}[\\:]?\\d{2})')
+        if self.utc_modified is not None:
+            self.validate_pattern(self.utc_modified, 'utc_modified', '\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}([Z]|([\\.]\\d{1,9})?[\\+]\\d{2}[\\:]?\\d{2})')
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.task_id is not None:
+            result['task_id'] = self.task_id
+        if self.device_name is not None:
+            result['device_name'] = self.device_name
+        if self.job_id is not None:
+            result['job_id'] = self.job_id
+        if self.firmware_id is not None:
+            result['firmware_id'] = self.firmware_id
+        if self.trust_product_key is not None:
+            result['trust_product_key'] = self.trust_product_key
+        if self.product_name is not None:
+            result['product_name'] = self.product_name
+        if self.src_version is not None:
+            result['src_version'] = self.src_version
+        if self.dest_version is not None:
+            result['dest_version'] = self.dest_version
+        if self.task_status is not None:
+            result['task_status'] = self.task_status
+        if self.progress is not None:
+            result['progress'] = self.progress
+        if self.task_desc is not None:
+            result['task_desc'] = self.task_desc
+        if self.timeout is not None:
+            result['timeout'] = self.timeout
+        if self.utc_create is not None:
+            result['utc_create'] = self.utc_create
+        if self.utc_modified is not None:
+            result['utc_modified'] = self.utc_modified
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('task_id') is not None:
+            self.task_id = m.get('task_id')
+        if m.get('device_name') is not None:
+            self.device_name = m.get('device_name')
+        if m.get('job_id') is not None:
+            self.job_id = m.get('job_id')
+        if m.get('firmware_id') is not None:
+            self.firmware_id = m.get('firmware_id')
+        if m.get('trust_product_key') is not None:
+            self.trust_product_key = m.get('trust_product_key')
+        if m.get('product_name') is not None:
+            self.product_name = m.get('product_name')
+        if m.get('src_version') is not None:
+            self.src_version = m.get('src_version')
+        if m.get('dest_version') is not None:
+            self.dest_version = m.get('dest_version')
+        if m.get('task_status') is not None:
+            self.task_status = m.get('task_status')
+        if m.get('progress') is not None:
+            self.progress = m.get('progress')
+        if m.get('task_desc') is not None:
+            self.task_desc = m.get('task_desc')
+        if m.get('timeout') is not None:
+            self.timeout = m.get('timeout')
+        if m.get('utc_create') is not None:
+            self.utc_create = m.get('utc_create')
+        if m.get('utc_modified') is not None:
+            self.utc_modified = m.get('utc_modified')
         return self
 
 
@@ -9367,6 +10075,184 @@ class TrustiotDeviceIdMap(TeaModel):
         return self
 
 
+class IotxOTAJobResponse(TeaModel):
+    def __init__(
+        self,
+        job_id: str = None,
+        job_status: str = None,
+        job_type: str = None,
+        trust_oroduct_key: str = None,
+        firmware_id: str = None,
+        dest_version: str = None,
+        download_protocol: str = None,
+        job_desc: str = None,
+        selection_type: str = None,
+        target_selection: str = None,
+        src_version: List[str] = None,
+        retry_interval: int = None,
+        retry_count: int = None,
+        timeout_in_minutes: int = None,
+        target_device_name: List[str] = None,
+        need_confirm: bool = None,
+        gmt_create: str = None,
+        gmt_modified: str = None,
+        channel: str = None,
+        override_mode: str = None,
+        multi_module_mode: str = None,
+        upgrade_mode: str = None,
+    ):
+        # 批次id
+        self.job_id = job_id
+        # 任务状态：PLANNED：计划中；IN_PROGRESS：执行中；COMPLETED：已完成；CANCELED：已取消；
+        self.job_status = job_status
+        # 任务类型：VERIFY：升级包验证批次。 STATIC_UPGRADE：批量升级批次。
+        self.job_type = job_type
+        # 产品唯一标识
+        self.trust_oroduct_key = trust_oroduct_key
+        # OTA固件包ID
+        self.firmware_id = firmware_id
+        # 升级目标版本号
+        self.dest_version = dest_version
+        # 下载协议
+        self.download_protocol = download_protocol
+        # 升级批次描述
+        self.job_desc = job_desc
+        # 升级策略：VERIFY、STATIC
+        self.selection_type = selection_type
+        # 升级范围 ALL：全量升级、SPECIFIC：定向升级
+        self.target_selection = target_selection
+        # 待升级版本号列表
+        self.src_version = src_version
+        # 升级失败后自动重试间隔：0：立即重试、10：10分钟后重试、30：30分钟后重试、60：60分钟（即1小时）后重试、1440：1,440分钟（即24小时）后重试。不传入此参数，则表示不重试。
+        self.retry_interval = retry_interval
+        # 自动重试次数：1：1次、2：2次、5：5次。如果传入RetryInterval参数，则需传入该参数
+        self.retry_count = retry_count
+        # 升级超时时间：0-1440
+        self.timeout_in_minutes = timeout_in_minutes
+        # 定向升级的设备名称列表
+        self.target_device_name = target_device_name
+        # 是否需App确认升级
+        self.need_confirm = need_confirm
+        # 创建时间
+        self.gmt_create = gmt_create
+        # 更新时间
+        self.gmt_modified = gmt_modified
+        # 批次实际执行通道：TUYA_4G、EKYT_BLE
+        self.channel = channel
+        # 同设备同模块覆盖策略
+        self.override_mode = override_mode
+        # 多模块并发策略
+        self.multi_module_mode = multi_module_mode
+        # 批次升级方式
+        self.upgrade_mode = upgrade_mode
+
+    def validate(self):
+        if self.gmt_create is not None:
+            self.validate_pattern(self.gmt_create, 'gmt_create', '\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}([Z]|([\\.]\\d{1,9})?[\\+]\\d{2}[\\:]?\\d{2})')
+        if self.gmt_modified is not None:
+            self.validate_pattern(self.gmt_modified, 'gmt_modified', '\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}([Z]|([\\.]\\d{1,9})?[\\+]\\d{2}[\\:]?\\d{2})')
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.job_id is not None:
+            result['job_id'] = self.job_id
+        if self.job_status is not None:
+            result['job_status'] = self.job_status
+        if self.job_type is not None:
+            result['job_type'] = self.job_type
+        if self.trust_oroduct_key is not None:
+            result['trust_oroduct_key'] = self.trust_oroduct_key
+        if self.firmware_id is not None:
+            result['firmware_id'] = self.firmware_id
+        if self.dest_version is not None:
+            result['dest_version'] = self.dest_version
+        if self.download_protocol is not None:
+            result['download_protocol'] = self.download_protocol
+        if self.job_desc is not None:
+            result['job_desc'] = self.job_desc
+        if self.selection_type is not None:
+            result['selection_type'] = self.selection_type
+        if self.target_selection is not None:
+            result['target_selection'] = self.target_selection
+        if self.src_version is not None:
+            result['src_version'] = self.src_version
+        if self.retry_interval is not None:
+            result['retry_interval'] = self.retry_interval
+        if self.retry_count is not None:
+            result['retry_count'] = self.retry_count
+        if self.timeout_in_minutes is not None:
+            result['timeout_in_minutes'] = self.timeout_in_minutes
+        if self.target_device_name is not None:
+            result['target_device_name'] = self.target_device_name
+        if self.need_confirm is not None:
+            result['need_confirm'] = self.need_confirm
+        if self.gmt_create is not None:
+            result['gmt_create'] = self.gmt_create
+        if self.gmt_modified is not None:
+            result['gmt_modified'] = self.gmt_modified
+        if self.channel is not None:
+            result['channel'] = self.channel
+        if self.override_mode is not None:
+            result['override_mode'] = self.override_mode
+        if self.multi_module_mode is not None:
+            result['multi_module_mode'] = self.multi_module_mode
+        if self.upgrade_mode is not None:
+            result['upgrade_mode'] = self.upgrade_mode
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('job_id') is not None:
+            self.job_id = m.get('job_id')
+        if m.get('job_status') is not None:
+            self.job_status = m.get('job_status')
+        if m.get('job_type') is not None:
+            self.job_type = m.get('job_type')
+        if m.get('trust_oroduct_key') is not None:
+            self.trust_oroduct_key = m.get('trust_oroduct_key')
+        if m.get('firmware_id') is not None:
+            self.firmware_id = m.get('firmware_id')
+        if m.get('dest_version') is not None:
+            self.dest_version = m.get('dest_version')
+        if m.get('download_protocol') is not None:
+            self.download_protocol = m.get('download_protocol')
+        if m.get('job_desc') is not None:
+            self.job_desc = m.get('job_desc')
+        if m.get('selection_type') is not None:
+            self.selection_type = m.get('selection_type')
+        if m.get('target_selection') is not None:
+            self.target_selection = m.get('target_selection')
+        if m.get('src_version') is not None:
+            self.src_version = m.get('src_version')
+        if m.get('retry_interval') is not None:
+            self.retry_interval = m.get('retry_interval')
+        if m.get('retry_count') is not None:
+            self.retry_count = m.get('retry_count')
+        if m.get('timeout_in_minutes') is not None:
+            self.timeout_in_minutes = m.get('timeout_in_minutes')
+        if m.get('target_device_name') is not None:
+            self.target_device_name = m.get('target_device_name')
+        if m.get('need_confirm') is not None:
+            self.need_confirm = m.get('need_confirm')
+        if m.get('gmt_create') is not None:
+            self.gmt_create = m.get('gmt_create')
+        if m.get('gmt_modified') is not None:
+            self.gmt_modified = m.get('gmt_modified')
+        if m.get('channel') is not None:
+            self.channel = m.get('channel')
+        if m.get('override_mode') is not None:
+            self.override_mode = m.get('override_mode')
+        if m.get('multi_module_mode') is not None:
+            self.multi_module_mode = m.get('multi_module_mode')
+        if m.get('upgrade_mode') is not None:
+            self.upgrade_mode = m.get('upgrade_mode')
+        return self
+
+
 class ProductKeyPageResponse(TeaModel):
     def __init__(
         self,
@@ -11638,6 +12524,100 @@ class CollectLabelRawContent(TeaModel):
             self.content = m.get('content')
         if m.get('data_model_id') is not None:
             self.data_model_id = m.get('data_model_id')
+        return self
+
+
+class OTAModuleResponse(TeaModel):
+    def __init__(
+        self,
+        id: str = None,
+        tenant_id: str = None,
+        trust_product_key: str = None,
+        product_name: str = None,
+        module_name: str = None,
+        alias_name: str = None,
+        description: str = None,
+        mid: str = None,
+        gmt_create: str = None,
+        gmt_modified: str = None,
+    ):
+        # 主键id
+        self.id = id
+        # 租户id
+        self.tenant_id = tenant_id
+        # 可信物联唯一产品标识
+        self.trust_product_key = trust_product_key
+        # 产品名称
+        self.product_name = product_name
+        # 模块名称
+        self.module_name = module_name
+        # 模块别名
+        self.alias_name = alias_name
+        # 模块描述
+        self.description = description
+        # KYT模块唯一标识
+        self.mid = mid
+        # 创建时间
+        self.gmt_create = gmt_create
+        # 更新时间
+        self.gmt_modified = gmt_modified
+
+    def validate(self):
+        if self.gmt_create is not None:
+            self.validate_pattern(self.gmt_create, 'gmt_create', '\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}([Z]|([\\.]\\d{1,9})?[\\+]\\d{2}[\\:]?\\d{2})')
+        if self.gmt_modified is not None:
+            self.validate_pattern(self.gmt_modified, 'gmt_modified', '\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}([Z]|([\\.]\\d{1,9})?[\\+]\\d{2}[\\:]?\\d{2})')
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.id is not None:
+            result['id'] = self.id
+        if self.tenant_id is not None:
+            result['tenant_id'] = self.tenant_id
+        if self.trust_product_key is not None:
+            result['trust_product_key'] = self.trust_product_key
+        if self.product_name is not None:
+            result['product_name'] = self.product_name
+        if self.module_name is not None:
+            result['module_name'] = self.module_name
+        if self.alias_name is not None:
+            result['alias_name'] = self.alias_name
+        if self.description is not None:
+            result['description'] = self.description
+        if self.mid is not None:
+            result['mid'] = self.mid
+        if self.gmt_create is not None:
+            result['gmt_create'] = self.gmt_create
+        if self.gmt_modified is not None:
+            result['gmt_modified'] = self.gmt_modified
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('id') is not None:
+            self.id = m.get('id')
+        if m.get('tenant_id') is not None:
+            self.tenant_id = m.get('tenant_id')
+        if m.get('trust_product_key') is not None:
+            self.trust_product_key = m.get('trust_product_key')
+        if m.get('product_name') is not None:
+            self.product_name = m.get('product_name')
+        if m.get('module_name') is not None:
+            self.module_name = m.get('module_name')
+        if m.get('alias_name') is not None:
+            self.alias_name = m.get('alias_name')
+        if m.get('description') is not None:
+            self.description = m.get('description')
+        if m.get('mid') is not None:
+            self.mid = m.get('mid')
+        if m.get('gmt_create') is not None:
+            self.gmt_create = m.get('gmt_create')
+        if m.get('gmt_modified') is not None:
+            self.gmt_modified = m.get('gmt_modified')
         return self
 
 
@@ -34135,6 +35115,1794 @@ class QueryElectrocarTaskstatusResponse(TeaModel):
             self.local_query_failed = m.get('local_query_failed')
         if m.get('version_report_failed') is not None:
             self.version_report_failed = m.get('version_report_failed')
+        return self
+
+
+class QueryElectrocarProductcustomerpageRequest(TeaModel):
+    def __init__(
+        self,
+        auth_token: str = None,
+        product_instance_id: str = None,
+        current: int = None,
+        page_size: int = None,
+        product_name: str = None,
+        product_key: str = None,
+        industry_id: str = None,
+        category_id: str = None,
+        net_type: int = None,
+        customer_id: str = None,
+    ):
+        # OAuth模式下的授权token
+        self.auth_token = auth_token
+        self.product_instance_id = product_instance_id
+        # 当前页码
+        self.current = current
+        # 每页显示条数
+        self.page_size = page_size
+        # 产品名称
+        self.product_name = product_name
+        # 产品key
+        self.product_key = product_key
+        # 行业id
+        self.industry_id = industry_id
+        # 品类id
+        self.category_id = category_id
+        # 联网方式：0-WIFI、1-蜂窝、2-以太网、3-蓝牙、4-蓝牙+蜂窝网络
+        self.net_type = net_type
+        # 客户id
+        self.customer_id = customer_id
+
+    def validate(self):
+        self.validate_required(self.current, 'current')
+        self.validate_required(self.page_size, 'page_size')
+        self.validate_required(self.customer_id, 'customer_id')
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.auth_token is not None:
+            result['auth_token'] = self.auth_token
+        if self.product_instance_id is not None:
+            result['product_instance_id'] = self.product_instance_id
+        if self.current is not None:
+            result['current'] = self.current
+        if self.page_size is not None:
+            result['page_size'] = self.page_size
+        if self.product_name is not None:
+            result['product_name'] = self.product_name
+        if self.product_key is not None:
+            result['product_key'] = self.product_key
+        if self.industry_id is not None:
+            result['industry_id'] = self.industry_id
+        if self.category_id is not None:
+            result['category_id'] = self.category_id
+        if self.net_type is not None:
+            result['net_type'] = self.net_type
+        if self.customer_id is not None:
+            result['customer_id'] = self.customer_id
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('auth_token') is not None:
+            self.auth_token = m.get('auth_token')
+        if m.get('product_instance_id') is not None:
+            self.product_instance_id = m.get('product_instance_id')
+        if m.get('current') is not None:
+            self.current = m.get('current')
+        if m.get('page_size') is not None:
+            self.page_size = m.get('page_size')
+        if m.get('product_name') is not None:
+            self.product_name = m.get('product_name')
+        if m.get('product_key') is not None:
+            self.product_key = m.get('product_key')
+        if m.get('industry_id') is not None:
+            self.industry_id = m.get('industry_id')
+        if m.get('category_id') is not None:
+            self.category_id = m.get('category_id')
+        if m.get('net_type') is not None:
+            self.net_type = m.get('net_type')
+        if m.get('customer_id') is not None:
+            self.customer_id = m.get('customer_id')
+        return self
+
+
+class QueryElectrocarProductcustomerpageResponse(TeaModel):
+    def __init__(
+        self,
+        req_msg_id: str = None,
+        result_code: str = None,
+        result_msg: str = None,
+        success: bool = None,
+        page_index: int = None,
+        page_size: int = None,
+        total_pages: int = None,
+        total_size: int = None,
+        page_data: List[IotxProductResponse] = None,
+    ):
+        # 请求唯一ID，用于链路跟踪和问题排查
+        self.req_msg_id = req_msg_id
+        # 结果码，一般OK表示调用成功
+        self.result_code = result_code
+        # 异常信息的文本描述
+        self.result_msg = result_msg
+        # 是否请求成功
+        self.success = success
+        # 分页页码
+        self.page_index = page_index
+        # 每页展示大小
+        self.page_size = page_size
+        # 总页数
+        self.total_pages = total_pages
+        # 总数量
+        self.total_size = total_size
+        # 分页数据
+        self.page_data = page_data
+
+    def validate(self):
+        if self.page_data:
+            for k in self.page_data:
+                if k:
+                    k.validate()
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.req_msg_id is not None:
+            result['req_msg_id'] = self.req_msg_id
+        if self.result_code is not None:
+            result['result_code'] = self.result_code
+        if self.result_msg is not None:
+            result['result_msg'] = self.result_msg
+        if self.success is not None:
+            result['success'] = self.success
+        if self.page_index is not None:
+            result['page_index'] = self.page_index
+        if self.page_size is not None:
+            result['page_size'] = self.page_size
+        if self.total_pages is not None:
+            result['total_pages'] = self.total_pages
+        if self.total_size is not None:
+            result['total_size'] = self.total_size
+        result['page_data'] = []
+        if self.page_data is not None:
+            for k in self.page_data:
+                result['page_data'].append(k.to_map() if k else None)
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('req_msg_id') is not None:
+            self.req_msg_id = m.get('req_msg_id')
+        if m.get('result_code') is not None:
+            self.result_code = m.get('result_code')
+        if m.get('result_msg') is not None:
+            self.result_msg = m.get('result_msg')
+        if m.get('success') is not None:
+            self.success = m.get('success')
+        if m.get('page_index') is not None:
+            self.page_index = m.get('page_index')
+        if m.get('page_size') is not None:
+            self.page_size = m.get('page_size')
+        if m.get('total_pages') is not None:
+            self.total_pages = m.get('total_pages')
+        if m.get('total_size') is not None:
+            self.total_size = m.get('total_size')
+        self.page_data = []
+        if m.get('page_data') is not None:
+            for k in m.get('page_data'):
+                temp_model = IotxProductResponse()
+                self.page_data.append(temp_model.from_map(k))
+        return self
+
+
+class PushElectrocarOtajobRequest(TeaModel):
+    def __init__(
+        self,
+        auth_token: str = None,
+        product_instance_id: str = None,
+        job_type: str = None,
+        trust_product_key: str = None,
+        firmware_id: str = None,
+        target_selection: str = None,
+        src_version: List[str] = None,
+        retry_interval: int = None,
+        retry_count: int = None,
+        timeout_in_minutes: int = None,
+        target_trust_device_ids: List[str] = None,
+        dn_list_file_url: str = None,
+        target_device_names: List[str] = None,
+        need_confirm: bool = None,
+        upgrade_copy: str = None,
+        channel: str = None,
+        override_mode: str = None,
+        multi_module_mode: str = None,
+        upgrade_mode: str = None,
+        need_push: bool = None,
+    ):
+        # OAuth模式下的授权token
+        self.auth_token = auth_token
+        self.product_instance_id = product_instance_id
+        # 任务类型：STATIC_UPGRADE-静态升级批次、VERIFY-升级验证任务
+        self.job_type = job_type
+        # 可信物联产品唯一标识
+        self.trust_product_key = trust_product_key
+        # OTA固件包ID
+        self.firmware_id = firmware_id
+        # 升级范围：ALL-全量升级、SPECIFIC-定向升级
+        self.target_selection = target_selection
+        # 待升级版本号列表
+        self.src_version = src_version
+        # 升级失败后自动重试间隔
+        # * 0：立即重试、
+        # * 10：10分钟后重试、
+        # * 30：30分钟后重试、
+        # * 60：60分钟（即1小时）后重试、
+        # * 1440：1,440分钟（即24小时）后重试
+        # * 不传入此参数，则表示不重试。
+        self.retry_interval = retry_interval
+        # 自动重试次数：1：1次、2：2次、5：5次。如果传入RetryInterval参数，则需传入该参数。
+        self.retry_count = retry_count
+        # 升级超时时间
+        self.timeout_in_minutes = timeout_in_minutes
+        # 定向升级的deviceName列表（和targetTrustDeviceIds、dnListFileUrl三选一）
+        self.target_trust_device_ids = target_trust_device_ids
+        # 设备列表文件URL，与targetTrustDeviceIds、targetDeviceNames三选一，仅当targetSelection=SPECIFIC时生效。用于大批量设备定向升级场景，文件URL通过GenerateDeviceNameListURL接口获取
+        self.dn_list_file_url = dn_list_file_url
+        # 定向升级的deviceName列表（和targetTrustDeviceIds、dnListFileUrl三选一）
+        self.target_device_names = target_device_names
+        # 是否需要 APP 确认升级：TUYA_4G 通道：true 表示批次创建后等待 APP/端侧确认，再触发 Hub 下发；false 表示不需要 APP 确认。若 upgradeMode=SILENT，该字段固定为 false，调用方无需传入。
+        # BLE 通道：服务端默认按 APP 确认拉取升级材料处理。
+        self.need_confirm = need_confirm
+        # 升级文案
+        self.upgrade_copy = upgrade_copy
+        # 本次批次实际执行通道：TUYA_4G，涂鸦 4G/MQTT 通道；EKYT_BLE：数字钥匙 BLE 通道；
+        self.channel = channel
+        # 同设备同模块任务覆盖策略：OVERRIDE-覆盖旧任务，创建新任务前取消同设备同模块可取消的旧任务；REJECT-存在可取消旧任务时拒绝创建；COEXIST-允许并存的预留策略，本期同模块 APP 确认型升级不推荐使用。不传时默认 OVERRIDE。
+        self.override_mode = override_mode
+        # 多模块并发策略：ALLOW-允许同一设备多个模块同时存在未完成升级任务；DENY-同一设备已有其他模块未完成升级任务时拒绝创建。
+        self.multi_module_mode = multi_module_mode
+        # 批次升级方式：CHECK-检测升级；REMIND-提醒升级；FORCE-强制升级；SILENT-静默升级；
+        self.upgrade_mode = upgrade_mode
+        # 4G Hub 是否主动推送：TUYA_4G 通道：true 表示批次创建后由 Hub 主动向设备推送；false 表示不主动推送，通常需要配合 needConfirm=true 由 APP 确认后触发。若 upgradeMode=SILENT，该字段固定为 true，调用方无需传入。BLE 通道：不支持服务端主动推送；传 true 会被拒绝。
+        self.need_push = need_push
+
+    def validate(self):
+        self.validate_required(self.job_type, 'job_type')
+        self.validate_required(self.trust_product_key, 'trust_product_key')
+        self.validate_required(self.firmware_id, 'firmware_id')
+        self.validate_required(self.target_selection, 'target_selection')
+        self.validate_required(self.channel, 'channel')
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.auth_token is not None:
+            result['auth_token'] = self.auth_token
+        if self.product_instance_id is not None:
+            result['product_instance_id'] = self.product_instance_id
+        if self.job_type is not None:
+            result['job_type'] = self.job_type
+        if self.trust_product_key is not None:
+            result['trust_product_key'] = self.trust_product_key
+        if self.firmware_id is not None:
+            result['firmware_id'] = self.firmware_id
+        if self.target_selection is not None:
+            result['target_selection'] = self.target_selection
+        if self.src_version is not None:
+            result['src_version'] = self.src_version
+        if self.retry_interval is not None:
+            result['retry_interval'] = self.retry_interval
+        if self.retry_count is not None:
+            result['retry_count'] = self.retry_count
+        if self.timeout_in_minutes is not None:
+            result['timeout_in_minutes'] = self.timeout_in_minutes
+        if self.target_trust_device_ids is not None:
+            result['target_trust_device_ids'] = self.target_trust_device_ids
+        if self.dn_list_file_url is not None:
+            result['dn_list_file_url'] = self.dn_list_file_url
+        if self.target_device_names is not None:
+            result['target_device_names'] = self.target_device_names
+        if self.need_confirm is not None:
+            result['need_confirm'] = self.need_confirm
+        if self.upgrade_copy is not None:
+            result['upgrade_copy'] = self.upgrade_copy
+        if self.channel is not None:
+            result['channel'] = self.channel
+        if self.override_mode is not None:
+            result['override_mode'] = self.override_mode
+        if self.multi_module_mode is not None:
+            result['multi_module_mode'] = self.multi_module_mode
+        if self.upgrade_mode is not None:
+            result['upgrade_mode'] = self.upgrade_mode
+        if self.need_push is not None:
+            result['need_push'] = self.need_push
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('auth_token') is not None:
+            self.auth_token = m.get('auth_token')
+        if m.get('product_instance_id') is not None:
+            self.product_instance_id = m.get('product_instance_id')
+        if m.get('job_type') is not None:
+            self.job_type = m.get('job_type')
+        if m.get('trust_product_key') is not None:
+            self.trust_product_key = m.get('trust_product_key')
+        if m.get('firmware_id') is not None:
+            self.firmware_id = m.get('firmware_id')
+        if m.get('target_selection') is not None:
+            self.target_selection = m.get('target_selection')
+        if m.get('src_version') is not None:
+            self.src_version = m.get('src_version')
+        if m.get('retry_interval') is not None:
+            self.retry_interval = m.get('retry_interval')
+        if m.get('retry_count') is not None:
+            self.retry_count = m.get('retry_count')
+        if m.get('timeout_in_minutes') is not None:
+            self.timeout_in_minutes = m.get('timeout_in_minutes')
+        if m.get('target_trust_device_ids') is not None:
+            self.target_trust_device_ids = m.get('target_trust_device_ids')
+        if m.get('dn_list_file_url') is not None:
+            self.dn_list_file_url = m.get('dn_list_file_url')
+        if m.get('target_device_names') is not None:
+            self.target_device_names = m.get('target_device_names')
+        if m.get('need_confirm') is not None:
+            self.need_confirm = m.get('need_confirm')
+        if m.get('upgrade_copy') is not None:
+            self.upgrade_copy = m.get('upgrade_copy')
+        if m.get('channel') is not None:
+            self.channel = m.get('channel')
+        if m.get('override_mode') is not None:
+            self.override_mode = m.get('override_mode')
+        if m.get('multi_module_mode') is not None:
+            self.multi_module_mode = m.get('multi_module_mode')
+        if m.get('upgrade_mode') is not None:
+            self.upgrade_mode = m.get('upgrade_mode')
+        if m.get('need_push') is not None:
+            self.need_push = m.get('need_push')
+        return self
+
+
+class PushElectrocarOtajobResponse(TeaModel):
+    def __init__(
+        self,
+        req_msg_id: str = None,
+        result_code: str = None,
+        result_msg: str = None,
+        success: bool = None,
+        code: str = None,
+        message: str = None,
+    ):
+        # 请求唯一ID，用于链路跟踪和问题排查
+        self.req_msg_id = req_msg_id
+        # 结果码，一般OK表示调用成功
+        self.result_code = result_code
+        # 异常信息的文本描述
+        self.result_msg = result_msg
+        # 是否请求成功
+        self.success = success
+        # 响应码
+        self.code = code
+        # 响应消息
+        self.message = message
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.req_msg_id is not None:
+            result['req_msg_id'] = self.req_msg_id
+        if self.result_code is not None:
+            result['result_code'] = self.result_code
+        if self.result_msg is not None:
+            result['result_msg'] = self.result_msg
+        if self.success is not None:
+            result['success'] = self.success
+        if self.code is not None:
+            result['code'] = self.code
+        if self.message is not None:
+            result['message'] = self.message
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('req_msg_id') is not None:
+            self.req_msg_id = m.get('req_msg_id')
+        if m.get('result_code') is not None:
+            self.result_code = m.get('result_code')
+        if m.get('result_msg') is not None:
+            self.result_msg = m.get('result_msg')
+        if m.get('success') is not None:
+            self.success = m.get('success')
+        if m.get('code') is not None:
+            self.code = m.get('code')
+        if m.get('message') is not None:
+            self.message = m.get('message')
+        return self
+
+
+class QueryElectrocarOtamodulepageRequest(TeaModel):
+    def __init__(
+        self,
+        auth_token: str = None,
+        product_instance_id: str = None,
+        trust_product_key: str = None,
+        module_name: str = None,
+        current: int = None,
+        page_size: int = None,
+    ):
+        # OAuth模式下的授权token
+        self.auth_token = auth_token
+        self.product_instance_id = product_instance_id
+        # 可信物联唯一产品标识
+        self.trust_product_key = trust_product_key
+        # 模块名称
+        self.module_name = module_name
+        # 当前页码
+        self.current = current
+        # 每页显示条数
+        self.page_size = page_size
+
+    def validate(self):
+        self.validate_required(self.trust_product_key, 'trust_product_key')
+        self.validate_required(self.current, 'current')
+        self.validate_required(self.page_size, 'page_size')
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.auth_token is not None:
+            result['auth_token'] = self.auth_token
+        if self.product_instance_id is not None:
+            result['product_instance_id'] = self.product_instance_id
+        if self.trust_product_key is not None:
+            result['trust_product_key'] = self.trust_product_key
+        if self.module_name is not None:
+            result['module_name'] = self.module_name
+        if self.current is not None:
+            result['current'] = self.current
+        if self.page_size is not None:
+            result['page_size'] = self.page_size
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('auth_token') is not None:
+            self.auth_token = m.get('auth_token')
+        if m.get('product_instance_id') is not None:
+            self.product_instance_id = m.get('product_instance_id')
+        if m.get('trust_product_key') is not None:
+            self.trust_product_key = m.get('trust_product_key')
+        if m.get('module_name') is not None:
+            self.module_name = m.get('module_name')
+        if m.get('current') is not None:
+            self.current = m.get('current')
+        if m.get('page_size') is not None:
+            self.page_size = m.get('page_size')
+        return self
+
+
+class QueryElectrocarOtamodulepageResponse(TeaModel):
+    def __init__(
+        self,
+        req_msg_id: str = None,
+        result_code: str = None,
+        result_msg: str = None,
+        page_index: int = None,
+        page_size: int = None,
+        total_size: int = None,
+        total_pages: int = None,
+        page_data: List[OTAModuleResponse] = None,
+        success: bool = None,
+        code: str = None,
+        message: str = None,
+    ):
+        # 请求唯一ID，用于链路跟踪和问题排查
+        self.req_msg_id = req_msg_id
+        # 结果码，一般OK表示调用成功
+        self.result_code = result_code
+        # 异常信息的文本描述
+        self.result_msg = result_msg
+        # 当前页码
+        self.page_index = page_index
+        # 单页数量
+        self.page_size = page_size
+        # 记录总数
+        self.total_size = total_size
+        # 页总数
+        self.total_pages = total_pages
+        # 分页数据
+        self.page_data = page_data
+        # 是否操作成功
+        self.success = success
+        # 响应编码
+        self.code = code
+        # 响应内容
+        self.message = message
+
+    def validate(self):
+        if self.page_data:
+            for k in self.page_data:
+                if k:
+                    k.validate()
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.req_msg_id is not None:
+            result['req_msg_id'] = self.req_msg_id
+        if self.result_code is not None:
+            result['result_code'] = self.result_code
+        if self.result_msg is not None:
+            result['result_msg'] = self.result_msg
+        if self.page_index is not None:
+            result['page_index'] = self.page_index
+        if self.page_size is not None:
+            result['page_size'] = self.page_size
+        if self.total_size is not None:
+            result['total_size'] = self.total_size
+        if self.total_pages is not None:
+            result['total_pages'] = self.total_pages
+        result['page_data'] = []
+        if self.page_data is not None:
+            for k in self.page_data:
+                result['page_data'].append(k.to_map() if k else None)
+        if self.success is not None:
+            result['success'] = self.success
+        if self.code is not None:
+            result['code'] = self.code
+        if self.message is not None:
+            result['message'] = self.message
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('req_msg_id') is not None:
+            self.req_msg_id = m.get('req_msg_id')
+        if m.get('result_code') is not None:
+            self.result_code = m.get('result_code')
+        if m.get('result_msg') is not None:
+            self.result_msg = m.get('result_msg')
+        if m.get('page_index') is not None:
+            self.page_index = m.get('page_index')
+        if m.get('page_size') is not None:
+            self.page_size = m.get('page_size')
+        if m.get('total_size') is not None:
+            self.total_size = m.get('total_size')
+        if m.get('total_pages') is not None:
+            self.total_pages = m.get('total_pages')
+        self.page_data = []
+        if m.get('page_data') is not None:
+            for k in m.get('page_data'):
+                temp_model = OTAModuleResponse()
+                self.page_data.append(temp_model.from_map(k))
+        if m.get('success') is not None:
+            self.success = m.get('success')
+        if m.get('code') is not None:
+            self.code = m.get('code')
+        if m.get('message') is not None:
+            self.message = m.get('message')
+        return self
+
+
+class QueryElectrocarOtafirmwarepageRequest(TeaModel):
+    def __init__(
+        self,
+        auth_token: str = None,
+        product_instance_id: str = None,
+        current: int = None,
+        page_size: int = None,
+        trust_product_key: str = None,
+        dest_version: str = None,
+        module_name: str = None,
+    ):
+        # OAuth模式下的授权token
+        self.auth_token = auth_token
+        self.product_instance_id = product_instance_id
+        # 当前页码
+        self.current = current
+        # 每页显示条数
+        self.page_size = page_size
+        # 可信物联唯一产品标识
+        self.trust_product_key = trust_product_key
+        # OTA升级包版本号
+        self.dest_version = dest_version
+        # 模块名称
+        self.module_name = module_name
+
+    def validate(self):
+        self.validate_required(self.current, 'current')
+        self.validate_required(self.page_size, 'page_size')
+        self.validate_required(self.trust_product_key, 'trust_product_key')
+        self.validate_required(self.module_name, 'module_name')
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.auth_token is not None:
+            result['auth_token'] = self.auth_token
+        if self.product_instance_id is not None:
+            result['product_instance_id'] = self.product_instance_id
+        if self.current is not None:
+            result['current'] = self.current
+        if self.page_size is not None:
+            result['page_size'] = self.page_size
+        if self.trust_product_key is not None:
+            result['trust_product_key'] = self.trust_product_key
+        if self.dest_version is not None:
+            result['dest_version'] = self.dest_version
+        if self.module_name is not None:
+            result['module_name'] = self.module_name
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('auth_token') is not None:
+            self.auth_token = m.get('auth_token')
+        if m.get('product_instance_id') is not None:
+            self.product_instance_id = m.get('product_instance_id')
+        if m.get('current') is not None:
+            self.current = m.get('current')
+        if m.get('page_size') is not None:
+            self.page_size = m.get('page_size')
+        if m.get('trust_product_key') is not None:
+            self.trust_product_key = m.get('trust_product_key')
+        if m.get('dest_version') is not None:
+            self.dest_version = m.get('dest_version')
+        if m.get('module_name') is not None:
+            self.module_name = m.get('module_name')
+        return self
+
+
+class QueryElectrocarOtafirmwarepageResponse(TeaModel):
+    def __init__(
+        self,
+        req_msg_id: str = None,
+        result_code: str = None,
+        result_msg: str = None,
+        page_index: int = None,
+        page_size: int = None,
+        total_size: int = None,
+        total_pages: int = None,
+        page_data: List[IotxOTAFirmwareResponse] = None,
+        success: bool = None,
+        code: bool = None,
+        message: str = None,
+    ):
+        # 请求唯一ID，用于链路跟踪和问题排查
+        self.req_msg_id = req_msg_id
+        # 结果码，一般OK表示调用成功
+        self.result_code = result_code
+        # 异常信息的文本描述
+        self.result_msg = result_msg
+        # 当前页码
+        self.page_index = page_index
+        # 单页数量
+        self.page_size = page_size
+        # 记录总数
+        self.total_size = total_size
+        # 页总数
+        self.total_pages = total_pages
+        # 分页数据
+        self.page_data = page_data
+        # 是否操作成功
+        self.success = success
+        # 响应编码
+        self.code = code
+        # 响应内容
+        self.message = message
+
+    def validate(self):
+        if self.page_data:
+            for k in self.page_data:
+                if k:
+                    k.validate()
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.req_msg_id is not None:
+            result['req_msg_id'] = self.req_msg_id
+        if self.result_code is not None:
+            result['result_code'] = self.result_code
+        if self.result_msg is not None:
+            result['result_msg'] = self.result_msg
+        if self.page_index is not None:
+            result['page_index'] = self.page_index
+        if self.page_size is not None:
+            result['page_size'] = self.page_size
+        if self.total_size is not None:
+            result['total_size'] = self.total_size
+        if self.total_pages is not None:
+            result['total_pages'] = self.total_pages
+        result['page_data'] = []
+        if self.page_data is not None:
+            for k in self.page_data:
+                result['page_data'].append(k.to_map() if k else None)
+        if self.success is not None:
+            result['success'] = self.success
+        if self.code is not None:
+            result['code'] = self.code
+        if self.message is not None:
+            result['message'] = self.message
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('req_msg_id') is not None:
+            self.req_msg_id = m.get('req_msg_id')
+        if m.get('result_code') is not None:
+            self.result_code = m.get('result_code')
+        if m.get('result_msg') is not None:
+            self.result_msg = m.get('result_msg')
+        if m.get('page_index') is not None:
+            self.page_index = m.get('page_index')
+        if m.get('page_size') is not None:
+            self.page_size = m.get('page_size')
+        if m.get('total_size') is not None:
+            self.total_size = m.get('total_size')
+        if m.get('total_pages') is not None:
+            self.total_pages = m.get('total_pages')
+        self.page_data = []
+        if m.get('page_data') is not None:
+            for k in m.get('page_data'):
+                temp_model = IotxOTAFirmwareResponse()
+                self.page_data.append(temp_model.from_map(k))
+        if m.get('success') is not None:
+            self.success = m.get('success')
+        if m.get('code') is not None:
+            self.code = m.get('code')
+        if m.get('message') is not None:
+            self.message = m.get('message')
+        return self
+
+
+class QueryElectrocarOtafirmwaredetailRequest(TeaModel):
+    def __init__(
+        self,
+        auth_token: str = None,
+        product_instance_id: str = None,
+        firmware_id: str = None,
+        trust_product_key: str = None,
+    ):
+        # OAuth模式下的授权token
+        self.auth_token = auth_token
+        self.product_instance_id = product_instance_id
+        # 固件包id
+        self.firmware_id = firmware_id
+        # 可信物联唯一产品标识
+        self.trust_product_key = trust_product_key
+
+    def validate(self):
+        self.validate_required(self.firmware_id, 'firmware_id')
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.auth_token is not None:
+            result['auth_token'] = self.auth_token
+        if self.product_instance_id is not None:
+            result['product_instance_id'] = self.product_instance_id
+        if self.firmware_id is not None:
+            result['firmware_id'] = self.firmware_id
+        if self.trust_product_key is not None:
+            result['trust_product_key'] = self.trust_product_key
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('auth_token') is not None:
+            self.auth_token = m.get('auth_token')
+        if m.get('product_instance_id') is not None:
+            self.product_instance_id = m.get('product_instance_id')
+        if m.get('firmware_id') is not None:
+            self.firmware_id = m.get('firmware_id')
+        if m.get('trust_product_key') is not None:
+            self.trust_product_key = m.get('trust_product_key')
+        return self
+
+
+class QueryElectrocarOtafirmwaredetailResponse(TeaModel):
+    def __init__(
+        self,
+        req_msg_id: str = None,
+        result_code: str = None,
+        result_msg: str = None,
+        success: bool = None,
+        firmware_detail: IotxOTAFirmwareResponse = None,
+        code: str = None,
+        message: str = None,
+    ):
+        # 请求唯一ID，用于链路跟踪和问题排查
+        self.req_msg_id = req_msg_id
+        # 结果码，一般OK表示调用成功
+        self.result_code = result_code
+        # 异常信息的文本描述
+        self.result_msg = result_msg
+        # 是否请求成功
+        self.success = success
+        # 固件包详情
+        self.firmware_detail = firmware_detail
+        # 响应编码
+        self.code = code
+        # 响应内容
+        self.message = message
+
+    def validate(self):
+        if self.firmware_detail:
+            self.firmware_detail.validate()
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.req_msg_id is not None:
+            result['req_msg_id'] = self.req_msg_id
+        if self.result_code is not None:
+            result['result_code'] = self.result_code
+        if self.result_msg is not None:
+            result['result_msg'] = self.result_msg
+        if self.success is not None:
+            result['success'] = self.success
+        if self.firmware_detail is not None:
+            result['firmware_detail'] = self.firmware_detail.to_map()
+        if self.code is not None:
+            result['code'] = self.code
+        if self.message is not None:
+            result['message'] = self.message
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('req_msg_id') is not None:
+            self.req_msg_id = m.get('req_msg_id')
+        if m.get('result_code') is not None:
+            self.result_code = m.get('result_code')
+        if m.get('result_msg') is not None:
+            self.result_msg = m.get('result_msg')
+        if m.get('success') is not None:
+            self.success = m.get('success')
+        if m.get('firmware_detail') is not None:
+            temp_model = IotxOTAFirmwareResponse()
+            self.firmware_detail = temp_model.from_map(m['firmware_detail'])
+        if m.get('code') is not None:
+            self.code = m.get('code')
+        if m.get('message') is not None:
+            self.message = m.get('message')
+        return self
+
+
+class QueryElectrocarOtajobpageRequest(TeaModel):
+    def __init__(
+        self,
+        auth_token: str = None,
+        product_instance_id: str = None,
+        current: int = None,
+        page_size: int = None,
+        trust_product_key: str = None,
+        firmware_id: str = None,
+    ):
+        # OAuth模式下的授权token
+        self.auth_token = auth_token
+        self.product_instance_id = product_instance_id
+        # 当前页码
+        self.current = current
+        # 每页显示条数
+        self.page_size = page_size
+        # 可信物联唯一产品标识
+        self.trust_product_key = trust_product_key
+        # OTA固件包id不能为空
+        self.firmware_id = firmware_id
+
+    def validate(self):
+        self.validate_required(self.current, 'current')
+        self.validate_required(self.page_size, 'page_size')
+        self.validate_required(self.trust_product_key, 'trust_product_key')
+        self.validate_required(self.firmware_id, 'firmware_id')
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.auth_token is not None:
+            result['auth_token'] = self.auth_token
+        if self.product_instance_id is not None:
+            result['product_instance_id'] = self.product_instance_id
+        if self.current is not None:
+            result['current'] = self.current
+        if self.page_size is not None:
+            result['page_size'] = self.page_size
+        if self.trust_product_key is not None:
+            result['trust_product_key'] = self.trust_product_key
+        if self.firmware_id is not None:
+            result['firmware_id'] = self.firmware_id
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('auth_token') is not None:
+            self.auth_token = m.get('auth_token')
+        if m.get('product_instance_id') is not None:
+            self.product_instance_id = m.get('product_instance_id')
+        if m.get('current') is not None:
+            self.current = m.get('current')
+        if m.get('page_size') is not None:
+            self.page_size = m.get('page_size')
+        if m.get('trust_product_key') is not None:
+            self.trust_product_key = m.get('trust_product_key')
+        if m.get('firmware_id') is not None:
+            self.firmware_id = m.get('firmware_id')
+        return self
+
+
+class QueryElectrocarOtajobpageResponse(TeaModel):
+    def __init__(
+        self,
+        req_msg_id: str = None,
+        result_code: str = None,
+        result_msg: str = None,
+        success: bool = None,
+        code: str = None,
+        message: str = None,
+        page_index: int = None,
+        page_size: int = None,
+        total_size: int = None,
+        total_pages: int = None,
+        page_data: List[IotxOTAJobResponse] = None,
+    ):
+        # 请求唯一ID，用于链路跟踪和问题排查
+        self.req_msg_id = req_msg_id
+        # 结果码，一般OK表示调用成功
+        self.result_code = result_code
+        # 异常信息的文本描述
+        self.result_msg = result_msg
+        # 是否请求成功
+        self.success = success
+        # 响应编码
+        self.code = code
+        # 响应内容
+        self.message = message
+        # 当前页码
+        self.page_index = page_index
+        # 单页数量
+        self.page_size = page_size
+        # 记录总数
+        self.total_size = total_size
+        # 页总数
+        self.total_pages = total_pages
+        # 分页数据
+        self.page_data = page_data
+
+    def validate(self):
+        if self.page_data:
+            for k in self.page_data:
+                if k:
+                    k.validate()
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.req_msg_id is not None:
+            result['req_msg_id'] = self.req_msg_id
+        if self.result_code is not None:
+            result['result_code'] = self.result_code
+        if self.result_msg is not None:
+            result['result_msg'] = self.result_msg
+        if self.success is not None:
+            result['success'] = self.success
+        if self.code is not None:
+            result['code'] = self.code
+        if self.message is not None:
+            result['message'] = self.message
+        if self.page_index is not None:
+            result['page_index'] = self.page_index
+        if self.page_size is not None:
+            result['page_size'] = self.page_size
+        if self.total_size is not None:
+            result['total_size'] = self.total_size
+        if self.total_pages is not None:
+            result['total_pages'] = self.total_pages
+        result['page_data'] = []
+        if self.page_data is not None:
+            for k in self.page_data:
+                result['page_data'].append(k.to_map() if k else None)
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('req_msg_id') is not None:
+            self.req_msg_id = m.get('req_msg_id')
+        if m.get('result_code') is not None:
+            self.result_code = m.get('result_code')
+        if m.get('result_msg') is not None:
+            self.result_msg = m.get('result_msg')
+        if m.get('success') is not None:
+            self.success = m.get('success')
+        if m.get('code') is not None:
+            self.code = m.get('code')
+        if m.get('message') is not None:
+            self.message = m.get('message')
+        if m.get('page_index') is not None:
+            self.page_index = m.get('page_index')
+        if m.get('page_size') is not None:
+            self.page_size = m.get('page_size')
+        if m.get('total_size') is not None:
+            self.total_size = m.get('total_size')
+        if m.get('total_pages') is not None:
+            self.total_pages = m.get('total_pages')
+        self.page_data = []
+        if m.get('page_data') is not None:
+            for k in m.get('page_data'):
+                temp_model = IotxOTAJobResponse()
+                self.page_data.append(temp_model.from_map(k))
+        return self
+
+
+class QueryElectrocarOtajobdetailRequest(TeaModel):
+    def __init__(
+        self,
+        auth_token: str = None,
+        product_instance_id: str = None,
+        job_id: str = None,
+    ):
+        # OAuth模式下的授权token
+        self.auth_token = auth_token
+        self.product_instance_id = product_instance_id
+        # OTA任务ID
+        self.job_id = job_id
+
+    def validate(self):
+        self.validate_required(self.job_id, 'job_id')
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.auth_token is not None:
+            result['auth_token'] = self.auth_token
+        if self.product_instance_id is not None:
+            result['product_instance_id'] = self.product_instance_id
+        if self.job_id is not None:
+            result['job_id'] = self.job_id
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('auth_token') is not None:
+            self.auth_token = m.get('auth_token')
+        if m.get('product_instance_id') is not None:
+            self.product_instance_id = m.get('product_instance_id')
+        if m.get('job_id') is not None:
+            self.job_id = m.get('job_id')
+        return self
+
+
+class QueryElectrocarOtajobdetailResponse(TeaModel):
+    def __init__(
+        self,
+        req_msg_id: str = None,
+        result_code: str = None,
+        result_msg: str = None,
+        success: bool = None,
+        code: str = None,
+        message: str = None,
+        detail_data: IotxOTAJobResponse = None,
+    ):
+        # 请求唯一ID，用于链路跟踪和问题排查
+        self.req_msg_id = req_msg_id
+        # 结果码，一般OK表示调用成功
+        self.result_code = result_code
+        # 异常信息的文本描述
+        self.result_msg = result_msg
+        # 是否操作成功
+        self.success = success
+        # 响应编码
+        self.code = code
+        # 响应消息
+        self.message = message
+        # 详情数据
+        self.detail_data = detail_data
+
+    def validate(self):
+        if self.detail_data:
+            self.detail_data.validate()
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.req_msg_id is not None:
+            result['req_msg_id'] = self.req_msg_id
+        if self.result_code is not None:
+            result['result_code'] = self.result_code
+        if self.result_msg is not None:
+            result['result_msg'] = self.result_msg
+        if self.success is not None:
+            result['success'] = self.success
+        if self.code is not None:
+            result['code'] = self.code
+        if self.message is not None:
+            result['message'] = self.message
+        if self.detail_data is not None:
+            result['detail_data'] = self.detail_data.to_map()
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('req_msg_id') is not None:
+            self.req_msg_id = m.get('req_msg_id')
+        if m.get('result_code') is not None:
+            self.result_code = m.get('result_code')
+        if m.get('result_msg') is not None:
+            self.result_msg = m.get('result_msg')
+        if m.get('success') is not None:
+            self.success = m.get('success')
+        if m.get('code') is not None:
+            self.code = m.get('code')
+        if m.get('message') is not None:
+            self.message = m.get('message')
+        if m.get('detail_data') is not None:
+            temp_model = IotxOTAJobResponse()
+            self.detail_data = temp_model.from_map(m['detail_data'])
+        return self
+
+
+class QueryElectrocarOtataskpageRequest(TeaModel):
+    def __init__(
+        self,
+        auth_token: str = None,
+        product_instance_id: str = None,
+        current: int = None,
+        page_size: int = None,
+        trust_product_key: str = None,
+        job_id: str = None,
+        firmware_id: str = None,
+        task_status: str = None,
+        device_names: List[str] = None,
+    ):
+        # OAuth模式下的授权token
+        self.auth_token = auth_token
+        self.product_instance_id = product_instance_id
+        # 当前页码
+        self.current = current
+        # 每页显示条数
+        self.page_size = page_size
+        # 可信物联产品唯一标识
+        self.trust_product_key = trust_product_key
+        # OTA任务id
+        self.job_id = job_id
+        # OTA固件id
+        self.firmware_id = firmware_id
+        # 任务状态：CONFIRM, QUEUED, NOTIFIED, IN_PROGRESS, SUCCEEDED, FAILED, CANCELED
+        self.task_status = task_status
+        # 设备名称列表
+        self.device_names = device_names
+
+    def validate(self):
+        self.validate_required(self.current, 'current')
+        self.validate_required(self.page_size, 'page_size')
+        self.validate_required(self.trust_product_key, 'trust_product_key')
+        self.validate_required(self.job_id, 'job_id')
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.auth_token is not None:
+            result['auth_token'] = self.auth_token
+        if self.product_instance_id is not None:
+            result['product_instance_id'] = self.product_instance_id
+        if self.current is not None:
+            result['current'] = self.current
+        if self.page_size is not None:
+            result['page_size'] = self.page_size
+        if self.trust_product_key is not None:
+            result['trust_product_key'] = self.trust_product_key
+        if self.job_id is not None:
+            result['job_id'] = self.job_id
+        if self.firmware_id is not None:
+            result['firmware_id'] = self.firmware_id
+        if self.task_status is not None:
+            result['task_status'] = self.task_status
+        if self.device_names is not None:
+            result['device_names'] = self.device_names
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('auth_token') is not None:
+            self.auth_token = m.get('auth_token')
+        if m.get('product_instance_id') is not None:
+            self.product_instance_id = m.get('product_instance_id')
+        if m.get('current') is not None:
+            self.current = m.get('current')
+        if m.get('page_size') is not None:
+            self.page_size = m.get('page_size')
+        if m.get('trust_product_key') is not None:
+            self.trust_product_key = m.get('trust_product_key')
+        if m.get('job_id') is not None:
+            self.job_id = m.get('job_id')
+        if m.get('firmware_id') is not None:
+            self.firmware_id = m.get('firmware_id')
+        if m.get('task_status') is not None:
+            self.task_status = m.get('task_status')
+        if m.get('device_names') is not None:
+            self.device_names = m.get('device_names')
+        return self
+
+
+class QueryElectrocarOtataskpageResponse(TeaModel):
+    def __init__(
+        self,
+        req_msg_id: str = None,
+        result_code: str = None,
+        result_msg: str = None,
+        success: bool = None,
+        code: str = None,
+        message: str = None,
+        page_index: int = None,
+        page_size: int = None,
+        total_size: int = None,
+        total_pages: int = None,
+        page_data: List[IotxOTATaskResponse] = None,
+    ):
+        # 请求唯一ID，用于链路跟踪和问题排查
+        self.req_msg_id = req_msg_id
+        # 结果码，一般OK表示调用成功
+        self.result_code = result_code
+        # 异常信息的文本描述
+        self.result_msg = result_msg
+        # 是否请求成功
+        self.success = success
+        # 响应编码
+        self.code = code
+        # 响应消息
+        self.message = message
+        # 当前页码
+        self.page_index = page_index
+        # 单页数量
+        self.page_size = page_size
+        # 记录总数
+        self.total_size = total_size
+        # 页总数
+        self.total_pages = total_pages
+        # 分页数据
+        self.page_data = page_data
+
+    def validate(self):
+        if self.page_data:
+            for k in self.page_data:
+                if k:
+                    k.validate()
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.req_msg_id is not None:
+            result['req_msg_id'] = self.req_msg_id
+        if self.result_code is not None:
+            result['result_code'] = self.result_code
+        if self.result_msg is not None:
+            result['result_msg'] = self.result_msg
+        if self.success is not None:
+            result['success'] = self.success
+        if self.code is not None:
+            result['code'] = self.code
+        if self.message is not None:
+            result['message'] = self.message
+        if self.page_index is not None:
+            result['page_index'] = self.page_index
+        if self.page_size is not None:
+            result['page_size'] = self.page_size
+        if self.total_size is not None:
+            result['total_size'] = self.total_size
+        if self.total_pages is not None:
+            result['total_pages'] = self.total_pages
+        result['page_data'] = []
+        if self.page_data is not None:
+            for k in self.page_data:
+                result['page_data'].append(k.to_map() if k else None)
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('req_msg_id') is not None:
+            self.req_msg_id = m.get('req_msg_id')
+        if m.get('result_code') is not None:
+            self.result_code = m.get('result_code')
+        if m.get('result_msg') is not None:
+            self.result_msg = m.get('result_msg')
+        if m.get('success') is not None:
+            self.success = m.get('success')
+        if m.get('code') is not None:
+            self.code = m.get('code')
+        if m.get('message') is not None:
+            self.message = m.get('message')
+        if m.get('page_index') is not None:
+            self.page_index = m.get('page_index')
+        if m.get('page_size') is not None:
+            self.page_size = m.get('page_size')
+        if m.get('total_size') is not None:
+            self.total_size = m.get('total_size')
+        if m.get('total_pages') is not None:
+            self.total_pages = m.get('total_pages')
+        self.page_data = []
+        if m.get('page_data') is not None:
+            for k in m.get('page_data'):
+                temp_model = IotxOTATaskResponse()
+                self.page_data.append(temp_model.from_map(k))
+        return self
+
+
+class QueryElectrocarDevicepageRequest(TeaModel):
+    def __init__(
+        self,
+        auth_token: str = None,
+        product_instance_id: str = None,
+        current: int = None,
+        page_size: int = None,
+        trust_product_key: str = None,
+        device_query_str: str = None,
+        device_status: str = None,
+        module_name: str = None,
+        version: str = None,
+    ):
+        # OAuth模式下的授权token
+        self.auth_token = auth_token
+        self.product_instance_id = product_instance_id
+        # 当前页码
+        self.current = current
+        # 每页显示条数
+        self.page_size = page_size
+        # 可信物联产品唯一标识
+        self.trust_product_key = trust_product_key
+        # 设备名称/设备备注名称/可信物联唯一设备标识
+        self.device_query_str = device_query_str
+        # 设备状态过滤: ONLINE/OFFLINE/UNACTIVE
+        self.device_status = device_status
+        # OTA模块名称
+        self.module_name = module_name
+        # OTA模块版本号（可选，配合moduleName使用）
+        self.version = version
+
+    def validate(self):
+        self.validate_required(self.current, 'current')
+        self.validate_required(self.page_size, 'page_size')
+        self.validate_required(self.trust_product_key, 'trust_product_key')
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.auth_token is not None:
+            result['auth_token'] = self.auth_token
+        if self.product_instance_id is not None:
+            result['product_instance_id'] = self.product_instance_id
+        if self.current is not None:
+            result['current'] = self.current
+        if self.page_size is not None:
+            result['page_size'] = self.page_size
+        if self.trust_product_key is not None:
+            result['trust_product_key'] = self.trust_product_key
+        if self.device_query_str is not None:
+            result['device_query_str'] = self.device_query_str
+        if self.device_status is not None:
+            result['device_status'] = self.device_status
+        if self.module_name is not None:
+            result['module_name'] = self.module_name
+        if self.version is not None:
+            result['version'] = self.version
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('auth_token') is not None:
+            self.auth_token = m.get('auth_token')
+        if m.get('product_instance_id') is not None:
+            self.product_instance_id = m.get('product_instance_id')
+        if m.get('current') is not None:
+            self.current = m.get('current')
+        if m.get('page_size') is not None:
+            self.page_size = m.get('page_size')
+        if m.get('trust_product_key') is not None:
+            self.trust_product_key = m.get('trust_product_key')
+        if m.get('device_query_str') is not None:
+            self.device_query_str = m.get('device_query_str')
+        if m.get('device_status') is not None:
+            self.device_status = m.get('device_status')
+        if m.get('module_name') is not None:
+            self.module_name = m.get('module_name')
+        if m.get('version') is not None:
+            self.version = m.get('version')
+        return self
+
+
+class QueryElectrocarDevicepageResponse(TeaModel):
+    def __init__(
+        self,
+        req_msg_id: str = None,
+        result_code: str = None,
+        result_msg: str = None,
+        success: bool = None,
+        code: str = None,
+        message: str = None,
+        page_index: int = None,
+        page_size: int = None,
+        total_size: int = None,
+        total_pages: int = None,
+        page_data: List[IotxDeviceResponse] = None,
+    ):
+        # 请求唯一ID，用于链路跟踪和问题排查
+        self.req_msg_id = req_msg_id
+        # 结果码，一般OK表示调用成功
+        self.result_code = result_code
+        # 异常信息的文本描述
+        self.result_msg = result_msg
+        # 是否请求成功
+        self.success = success
+        # 响应编码
+        self.code = code
+        # 响应内容
+        self.message = message
+        # 当前页码
+        self.page_index = page_index
+        # 单页数量
+        self.page_size = page_size
+        # 记录总数
+        self.total_size = total_size
+        # 页总数
+        self.total_pages = total_pages
+        # 分页数据
+        self.page_data = page_data
+
+    def validate(self):
+        if self.page_data:
+            for k in self.page_data:
+                if k:
+                    k.validate()
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.req_msg_id is not None:
+            result['req_msg_id'] = self.req_msg_id
+        if self.result_code is not None:
+            result['result_code'] = self.result_code
+        if self.result_msg is not None:
+            result['result_msg'] = self.result_msg
+        if self.success is not None:
+            result['success'] = self.success
+        if self.code is not None:
+            result['code'] = self.code
+        if self.message is not None:
+            result['message'] = self.message
+        if self.page_index is not None:
+            result['page_index'] = self.page_index
+        if self.page_size is not None:
+            result['page_size'] = self.page_size
+        if self.total_size is not None:
+            result['total_size'] = self.total_size
+        if self.total_pages is not None:
+            result['total_pages'] = self.total_pages
+        result['page_data'] = []
+        if self.page_data is not None:
+            for k in self.page_data:
+                result['page_data'].append(k.to_map() if k else None)
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('req_msg_id') is not None:
+            self.req_msg_id = m.get('req_msg_id')
+        if m.get('result_code') is not None:
+            self.result_code = m.get('result_code')
+        if m.get('result_msg') is not None:
+            self.result_msg = m.get('result_msg')
+        if m.get('success') is not None:
+            self.success = m.get('success')
+        if m.get('code') is not None:
+            self.code = m.get('code')
+        if m.get('message') is not None:
+            self.message = m.get('message')
+        if m.get('page_index') is not None:
+            self.page_index = m.get('page_index')
+        if m.get('page_size') is not None:
+            self.page_size = m.get('page_size')
+        if m.get('total_size') is not None:
+            self.total_size = m.get('total_size')
+        if m.get('total_pages') is not None:
+            self.total_pages = m.get('total_pages')
+        self.page_data = []
+        if m.get('page_data') is not None:
+            for k in m.get('page_data'):
+                temp_model = IotxDeviceResponse()
+                self.page_data.append(temp_model.from_map(k))
+        return self
+
+
+class PushElectrocarOtajobbymoduleRequest(TeaModel):
+    def __init__(
+        self,
+        auth_token: str = None,
+        product_instance_id: str = None,
+        job_type: str = None,
+        trust_product_key: str = None,
+        firmware_id: str = None,
+        target_selection: str = None,
+        retry_interval: int = None,
+        retry_count: int = None,
+        timeout_in_minutes: int = None,
+        need_confirm: bool = None,
+        upgrade_copy: str = None,
+        channel: str = None,
+        override_mode: str = None,
+        multi_module_mode: str = None,
+        upgrade_mode: str = None,
+        need_push: bool = None,
+        module_name: str = None,
+        version: str = None,
+    ):
+        # OAuth模式下的授权token
+        self.auth_token = auth_token
+        self.product_instance_id = product_instance_id
+        # 任务类型：默认STATIC_UPGRADE
+        self.job_type = job_type
+        # 可信物联产品唯一标识
+        self.trust_product_key = trust_product_key
+        # OTA固件包ID
+        self.firmware_id = firmware_id
+        # 升级范围：默认SPECIFIC，不支持其他
+        self.target_selection = target_selection
+        # 升级失败后自动重试间隔：0：立即重试、10：10分钟后重试、30：30分钟后重试、60：60分钟（即1小时）后重试、1440：1,440分钟（即24小时）后重试。不传入此参数，则表示不重试。
+        self.retry_interval = retry_interval
+        # 自动重试次数：1：1次、2：2次、5：5次。如果传入RetryInterval参数，则需传入该参数。
+        self.retry_count = retry_count
+        # 升级超时时间
+        self.timeout_in_minutes = timeout_in_minutes
+        # 是否需要 APP 确认升级：TUYA_4G 通道：true 表示批次创建后等待 APP/端侧确认，再触发 Hub 下发；false 表示不需要 APP 确认。若 upgradeMode=SILENT，该字段固定为 false，调用方无需传入。BLE 通道：服务端默认按 APP 确认拉取升级材料处理。
+        self.need_confirm = need_confirm
+        # 升级文案
+        self.upgrade_copy = upgrade_copy
+        # 本次批次实际执行通道：TUYA_4G：涂鸦 4G/MQTT 通道；EKYT_BLE：数字钥匙 BLE 通道；IOT_AGENT_BLE：AI 硬件 BLE 通道；
+        self.channel = channel
+        # 同设备同模块任务覆盖策略：OVERRIDE：覆盖旧任务创建新任务前取消同设备同模块可取消的旧任务；REJECT：存在可取消旧任务时拒绝创建；COEXIST：允许并存的预留策略，本期同模块 APP 确认型升级不推荐使用。不传时默认 OVERRIDE。
+        self.override_mode = override_mode
+        # 多模块并发策略：ALLOW：允许同一设备多个模块同时存在未完成升级任务；DENY：同一设备已有其他模块未完成升级任务时拒绝创建。不传时默认 ALLOW。
+        self.multi_module_mode = multi_module_mode
+        # 批次升级方式：CHECK：检测升级，只在用户主动检查升级入口展示；REMIND：提醒升级，进入待确认列表并可提示用户升级；FORCE：强制升级，APP 侧应展示强提示或不可跳过交互；SILENT：静默升级，仅后台 4G 通道可用，不进入 APP 待确认列表。
+        self.upgrade_mode = upgrade_mode
+        # 4G Hub 是否主动推送。TUYA_4G 通道：true 表示批次创建后由 Hub 主动向设备推送；false 表示不主动推送，通常需要配合 needConfirm=true 由 APP 确认后触发。若 upgradeMode=SILENT，该字段固定为 true，调用方无需传入。BLE 通道：不支持服务端主动推送；传 true 会被拒绝。
+        self.need_push = need_push
+        # 用于筛选目标设备的模块名称；
+        self.module_name = module_name
+        # 用于筛选目标设备的模块版本；不传时仅按模块名称筛选。
+        self.version = version
+
+    def validate(self):
+        self.validate_required(self.job_type, 'job_type')
+        self.validate_required(self.trust_product_key, 'trust_product_key')
+        self.validate_required(self.firmware_id, 'firmware_id')
+        self.validate_required(self.target_selection, 'target_selection')
+        self.validate_required(self.channel, 'channel')
+        self.validate_required(self.module_name, 'module_name')
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.auth_token is not None:
+            result['auth_token'] = self.auth_token
+        if self.product_instance_id is not None:
+            result['product_instance_id'] = self.product_instance_id
+        if self.job_type is not None:
+            result['job_type'] = self.job_type
+        if self.trust_product_key is not None:
+            result['trust_product_key'] = self.trust_product_key
+        if self.firmware_id is not None:
+            result['firmware_id'] = self.firmware_id
+        if self.target_selection is not None:
+            result['target_selection'] = self.target_selection
+        if self.retry_interval is not None:
+            result['retry_interval'] = self.retry_interval
+        if self.retry_count is not None:
+            result['retry_count'] = self.retry_count
+        if self.timeout_in_minutes is not None:
+            result['timeout_in_minutes'] = self.timeout_in_minutes
+        if self.need_confirm is not None:
+            result['need_confirm'] = self.need_confirm
+        if self.upgrade_copy is not None:
+            result['upgrade_copy'] = self.upgrade_copy
+        if self.channel is not None:
+            result['channel'] = self.channel
+        if self.override_mode is not None:
+            result['override_mode'] = self.override_mode
+        if self.multi_module_mode is not None:
+            result['multi_module_mode'] = self.multi_module_mode
+        if self.upgrade_mode is not None:
+            result['upgrade_mode'] = self.upgrade_mode
+        if self.need_push is not None:
+            result['need_push'] = self.need_push
+        if self.module_name is not None:
+            result['module_name'] = self.module_name
+        if self.version is not None:
+            result['version'] = self.version
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('auth_token') is not None:
+            self.auth_token = m.get('auth_token')
+        if m.get('product_instance_id') is not None:
+            self.product_instance_id = m.get('product_instance_id')
+        if m.get('job_type') is not None:
+            self.job_type = m.get('job_type')
+        if m.get('trust_product_key') is not None:
+            self.trust_product_key = m.get('trust_product_key')
+        if m.get('firmware_id') is not None:
+            self.firmware_id = m.get('firmware_id')
+        if m.get('target_selection') is not None:
+            self.target_selection = m.get('target_selection')
+        if m.get('retry_interval') is not None:
+            self.retry_interval = m.get('retry_interval')
+        if m.get('retry_count') is not None:
+            self.retry_count = m.get('retry_count')
+        if m.get('timeout_in_minutes') is not None:
+            self.timeout_in_minutes = m.get('timeout_in_minutes')
+        if m.get('need_confirm') is not None:
+            self.need_confirm = m.get('need_confirm')
+        if m.get('upgrade_copy') is not None:
+            self.upgrade_copy = m.get('upgrade_copy')
+        if m.get('channel') is not None:
+            self.channel = m.get('channel')
+        if m.get('override_mode') is not None:
+            self.override_mode = m.get('override_mode')
+        if m.get('multi_module_mode') is not None:
+            self.multi_module_mode = m.get('multi_module_mode')
+        if m.get('upgrade_mode') is not None:
+            self.upgrade_mode = m.get('upgrade_mode')
+        if m.get('need_push') is not None:
+            self.need_push = m.get('need_push')
+        if m.get('module_name') is not None:
+            self.module_name = m.get('module_name')
+        if m.get('version') is not None:
+            self.version = m.get('version')
+        return self
+
+
+class PushElectrocarOtajobbymoduleResponse(TeaModel):
+    def __init__(
+        self,
+        req_msg_id: str = None,
+        result_code: str = None,
+        result_msg: str = None,
+        success: bool = None,
+        code: bool = None,
+        message: str = None,
+        total_device_count: int = None,
+        batch_count: int = None,
+        job_ids: List[str] = None,
+    ):
+        # 请求唯一ID，用于链路跟踪和问题排查
+        self.req_msg_id = req_msg_id
+        # 结果码，一般OK表示调用成功
+        self.result_code = result_code
+        # 异常信息的文本描述
+        self.result_msg = result_msg
+        # 是否请求成功
+        self.success = success
+        # 响应编码
+        self.code = code
+        # 响应消息
+        self.message = message
+        # 去重后的目标设备总数
+        self.total_device_count = total_device_count
+        # 实际创建的OTA批次数量
+        self.batch_count = batch_count
+        # 创建成功的OTA任务ID列表
+        self.job_ids = job_ids
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.req_msg_id is not None:
+            result['req_msg_id'] = self.req_msg_id
+        if self.result_code is not None:
+            result['result_code'] = self.result_code
+        if self.result_msg is not None:
+            result['result_msg'] = self.result_msg
+        if self.success is not None:
+            result['success'] = self.success
+        if self.code is not None:
+            result['code'] = self.code
+        if self.message is not None:
+            result['message'] = self.message
+        if self.total_device_count is not None:
+            result['total_device_count'] = self.total_device_count
+        if self.batch_count is not None:
+            result['batch_count'] = self.batch_count
+        if self.job_ids is not None:
+            result['job_ids'] = self.job_ids
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('req_msg_id') is not None:
+            self.req_msg_id = m.get('req_msg_id')
+        if m.get('result_code') is not None:
+            self.result_code = m.get('result_code')
+        if m.get('result_msg') is not None:
+            self.result_msg = m.get('result_msg')
+        if m.get('success') is not None:
+            self.success = m.get('success')
+        if m.get('code') is not None:
+            self.code = m.get('code')
+        if m.get('message') is not None:
+            self.message = m.get('message')
+        if m.get('total_device_count') is not None:
+            self.total_device_count = m.get('total_device_count')
+        if m.get('batch_count') is not None:
+            self.batch_count = m.get('batch_count')
+        if m.get('job_ids') is not None:
+            self.job_ids = m.get('job_ids')
         return self
 
 

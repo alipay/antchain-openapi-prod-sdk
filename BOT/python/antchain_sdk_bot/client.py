@@ -135,7 +135,7 @@ class Client:
                     'req_msg_id': AntchainUtils.get_nonce(),
                     'access_key': self._access_key_id,
                     'base_sdk_version': 'TeaSDK-2.0',
-                    'sdk_version': '1.17.1',
+                    'sdk_version': '1.17.7',
                     '_prod_code': 'BOT',
                     '_prod_channel': 'undefined'
                 }
@@ -239,7 +239,7 @@ class Client:
                     'req_msg_id': AntchainUtils.get_nonce(),
                     'access_key': self._access_key_id,
                     'base_sdk_version': 'TeaSDK-2.0',
-                    'sdk_version': '1.17.1',
+                    'sdk_version': '1.17.7',
                     '_prod_code': 'BOT',
                     '_prod_channel': 'undefined'
                 }
@@ -9585,6 +9585,566 @@ class Client:
         return TeaCore.from_map(
             bot_models.QueryElectrocarTaskstatusResponse(),
             await self.do_request_async('1.0', 'blockchain.bot.electrocar.taskstatus.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def query_electrocar_productcustomerpage(
+        self,
+        request: bot_models.QueryElectrocarProductcustomerpageRequest,
+    ) -> bot_models.QueryElectrocarProductcustomerpageResponse:
+        """
+        Description: 查询客户的产品分页列表
+        Summary: 查询客户的产品分页列表
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.query_electrocar_productcustomerpage_ex(request, headers, runtime)
+
+    async def query_electrocar_productcustomerpage_async(
+        self,
+        request: bot_models.QueryElectrocarProductcustomerpageRequest,
+    ) -> bot_models.QueryElectrocarProductcustomerpageResponse:
+        """
+        Description: 查询客户的产品分页列表
+        Summary: 查询客户的产品分页列表
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.query_electrocar_productcustomerpage_ex_async(request, headers, runtime)
+
+    def query_electrocar_productcustomerpage_ex(
+        self,
+        request: bot_models.QueryElectrocarProductcustomerpageRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> bot_models.QueryElectrocarProductcustomerpageResponse:
+        """
+        Description: 查询客户的产品分页列表
+        Summary: 查询客户的产品分页列表
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            bot_models.QueryElectrocarProductcustomerpageResponse(),
+            self.do_request('1.0', 'blockchain.bot.electrocar.productcustomerpage.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def query_electrocar_productcustomerpage_ex_async(
+        self,
+        request: bot_models.QueryElectrocarProductcustomerpageRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> bot_models.QueryElectrocarProductcustomerpageResponse:
+        """
+        Description: 查询客户的产品分页列表
+        Summary: 查询客户的产品分页列表
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            bot_models.QueryElectrocarProductcustomerpageResponse(),
+            await self.do_request_async('1.0', 'blockchain.bot.electrocar.productcustomerpage.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def push_electrocar_otajob(
+        self,
+        request: bot_models.PushElectrocarOtajobRequest,
+    ) -> bot_models.PushElectrocarOtajobResponse:
+        """
+        Description: 创建OTA升级任务
+        Summary: 创建OTA升级任务
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.push_electrocar_otajob_ex(request, headers, runtime)
+
+    async def push_electrocar_otajob_async(
+        self,
+        request: bot_models.PushElectrocarOtajobRequest,
+    ) -> bot_models.PushElectrocarOtajobResponse:
+        """
+        Description: 创建OTA升级任务
+        Summary: 创建OTA升级任务
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.push_electrocar_otajob_ex_async(request, headers, runtime)
+
+    def push_electrocar_otajob_ex(
+        self,
+        request: bot_models.PushElectrocarOtajobRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> bot_models.PushElectrocarOtajobResponse:
+        """
+        Description: 创建OTA升级任务
+        Summary: 创建OTA升级任务
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            bot_models.PushElectrocarOtajobResponse(),
+            self.do_request('1.0', 'blockchain.bot.electrocar.otajob.push', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def push_electrocar_otajob_ex_async(
+        self,
+        request: bot_models.PushElectrocarOtajobRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> bot_models.PushElectrocarOtajobResponse:
+        """
+        Description: 创建OTA升级任务
+        Summary: 创建OTA升级任务
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            bot_models.PushElectrocarOtajobResponse(),
+            await self.do_request_async('1.0', 'blockchain.bot.electrocar.otajob.push', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def query_electrocar_otamodulepage(
+        self,
+        request: bot_models.QueryElectrocarOtamodulepageRequest,
+    ) -> bot_models.QueryElectrocarOtamodulepageResponse:
+        """
+        Description: 查询OTA模块分页列表
+        Summary: 查询OTA模块分页列表
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.query_electrocar_otamodulepage_ex(request, headers, runtime)
+
+    async def query_electrocar_otamodulepage_async(
+        self,
+        request: bot_models.QueryElectrocarOtamodulepageRequest,
+    ) -> bot_models.QueryElectrocarOtamodulepageResponse:
+        """
+        Description: 查询OTA模块分页列表
+        Summary: 查询OTA模块分页列表
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.query_electrocar_otamodulepage_ex_async(request, headers, runtime)
+
+    def query_electrocar_otamodulepage_ex(
+        self,
+        request: bot_models.QueryElectrocarOtamodulepageRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> bot_models.QueryElectrocarOtamodulepageResponse:
+        """
+        Description: 查询OTA模块分页列表
+        Summary: 查询OTA模块分页列表
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            bot_models.QueryElectrocarOtamodulepageResponse(),
+            self.do_request('1.0', 'blockchain.bot.electrocar.otamodulepage.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def query_electrocar_otamodulepage_ex_async(
+        self,
+        request: bot_models.QueryElectrocarOtamodulepageRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> bot_models.QueryElectrocarOtamodulepageResponse:
+        """
+        Description: 查询OTA模块分页列表
+        Summary: 查询OTA模块分页列表
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            bot_models.QueryElectrocarOtamodulepageResponse(),
+            await self.do_request_async('1.0', 'blockchain.bot.electrocar.otamodulepage.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def query_electrocar_otafirmwarepage(
+        self,
+        request: bot_models.QueryElectrocarOtafirmwarepageRequest,
+    ) -> bot_models.QueryElectrocarOtafirmwarepageResponse:
+        """
+        Description: 查询固件升级包分页列表
+        Summary: 查询固件升级包分页列表
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.query_electrocar_otafirmwarepage_ex(request, headers, runtime)
+
+    async def query_electrocar_otafirmwarepage_async(
+        self,
+        request: bot_models.QueryElectrocarOtafirmwarepageRequest,
+    ) -> bot_models.QueryElectrocarOtafirmwarepageResponse:
+        """
+        Description: 查询固件升级包分页列表
+        Summary: 查询固件升级包分页列表
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.query_electrocar_otafirmwarepage_ex_async(request, headers, runtime)
+
+    def query_electrocar_otafirmwarepage_ex(
+        self,
+        request: bot_models.QueryElectrocarOtafirmwarepageRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> bot_models.QueryElectrocarOtafirmwarepageResponse:
+        """
+        Description: 查询固件升级包分页列表
+        Summary: 查询固件升级包分页列表
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            bot_models.QueryElectrocarOtafirmwarepageResponse(),
+            self.do_request('1.0', 'blockchain.bot.electrocar.otafirmwarepage.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def query_electrocar_otafirmwarepage_ex_async(
+        self,
+        request: bot_models.QueryElectrocarOtafirmwarepageRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> bot_models.QueryElectrocarOtafirmwarepageResponse:
+        """
+        Description: 查询固件升级包分页列表
+        Summary: 查询固件升级包分页列表
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            bot_models.QueryElectrocarOtafirmwarepageResponse(),
+            await self.do_request_async('1.0', 'blockchain.bot.electrocar.otafirmwarepage.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def query_electrocar_otafirmwaredetail(
+        self,
+        request: bot_models.QueryElectrocarOtafirmwaredetailRequest,
+    ) -> bot_models.QueryElectrocarOtafirmwaredetailResponse:
+        """
+        Description: 查询固件包详情
+        Summary: 查询固件包详情
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.query_electrocar_otafirmwaredetail_ex(request, headers, runtime)
+
+    async def query_electrocar_otafirmwaredetail_async(
+        self,
+        request: bot_models.QueryElectrocarOtafirmwaredetailRequest,
+    ) -> bot_models.QueryElectrocarOtafirmwaredetailResponse:
+        """
+        Description: 查询固件包详情
+        Summary: 查询固件包详情
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.query_electrocar_otafirmwaredetail_ex_async(request, headers, runtime)
+
+    def query_electrocar_otafirmwaredetail_ex(
+        self,
+        request: bot_models.QueryElectrocarOtafirmwaredetailRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> bot_models.QueryElectrocarOtafirmwaredetailResponse:
+        """
+        Description: 查询固件包详情
+        Summary: 查询固件包详情
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            bot_models.QueryElectrocarOtafirmwaredetailResponse(),
+            self.do_request('1.0', 'blockchain.bot.electrocar.otafirmwaredetail.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def query_electrocar_otafirmwaredetail_ex_async(
+        self,
+        request: bot_models.QueryElectrocarOtafirmwaredetailRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> bot_models.QueryElectrocarOtafirmwaredetailResponse:
+        """
+        Description: 查询固件包详情
+        Summary: 查询固件包详情
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            bot_models.QueryElectrocarOtafirmwaredetailResponse(),
+            await self.do_request_async('1.0', 'blockchain.bot.electrocar.otafirmwaredetail.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def query_electrocar_otajobpage(
+        self,
+        request: bot_models.QueryElectrocarOtajobpageRequest,
+    ) -> bot_models.QueryElectrocarOtajobpageResponse:
+        """
+        Description: 查询OTA固件升级批次分页列表
+        Summary: 查询OTA固件升级批次分页列表
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.query_electrocar_otajobpage_ex(request, headers, runtime)
+
+    async def query_electrocar_otajobpage_async(
+        self,
+        request: bot_models.QueryElectrocarOtajobpageRequest,
+    ) -> bot_models.QueryElectrocarOtajobpageResponse:
+        """
+        Description: 查询OTA固件升级批次分页列表
+        Summary: 查询OTA固件升级批次分页列表
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.query_electrocar_otajobpage_ex_async(request, headers, runtime)
+
+    def query_electrocar_otajobpage_ex(
+        self,
+        request: bot_models.QueryElectrocarOtajobpageRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> bot_models.QueryElectrocarOtajobpageResponse:
+        """
+        Description: 查询OTA固件升级批次分页列表
+        Summary: 查询OTA固件升级批次分页列表
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            bot_models.QueryElectrocarOtajobpageResponse(),
+            self.do_request('1.0', 'blockchain.bot.electrocar.otajobpage.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def query_electrocar_otajobpage_ex_async(
+        self,
+        request: bot_models.QueryElectrocarOtajobpageRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> bot_models.QueryElectrocarOtajobpageResponse:
+        """
+        Description: 查询OTA固件升级批次分页列表
+        Summary: 查询OTA固件升级批次分页列表
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            bot_models.QueryElectrocarOtajobpageResponse(),
+            await self.do_request_async('1.0', 'blockchain.bot.electrocar.otajobpage.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def query_electrocar_otajobdetail(
+        self,
+        request: bot_models.QueryElectrocarOtajobdetailRequest,
+    ) -> bot_models.QueryElectrocarOtajobdetailResponse:
+        """
+        Description: OTA升级批次详情查询
+        Summary: OTA升级批次详情查询
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.query_electrocar_otajobdetail_ex(request, headers, runtime)
+
+    async def query_electrocar_otajobdetail_async(
+        self,
+        request: bot_models.QueryElectrocarOtajobdetailRequest,
+    ) -> bot_models.QueryElectrocarOtajobdetailResponse:
+        """
+        Description: OTA升级批次详情查询
+        Summary: OTA升级批次详情查询
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.query_electrocar_otajobdetail_ex_async(request, headers, runtime)
+
+    def query_electrocar_otajobdetail_ex(
+        self,
+        request: bot_models.QueryElectrocarOtajobdetailRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> bot_models.QueryElectrocarOtajobdetailResponse:
+        """
+        Description: OTA升级批次详情查询
+        Summary: OTA升级批次详情查询
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            bot_models.QueryElectrocarOtajobdetailResponse(),
+            self.do_request('1.0', 'blockchain.bot.electrocar.otajobdetail.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def query_electrocar_otajobdetail_ex_async(
+        self,
+        request: bot_models.QueryElectrocarOtajobdetailRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> bot_models.QueryElectrocarOtajobdetailResponse:
+        """
+        Description: OTA升级批次详情查询
+        Summary: OTA升级批次详情查询
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            bot_models.QueryElectrocarOtajobdetailResponse(),
+            await self.do_request_async('1.0', 'blockchain.bot.electrocar.otajobdetail.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def query_electrocar_otataskpage(
+        self,
+        request: bot_models.QueryElectrocarOtataskpageRequest,
+    ) -> bot_models.QueryElectrocarOtataskpageResponse:
+        """
+        Description: 查询OTA升级任务分页列表
+        Summary: 查询OTA升级任务分页列表
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.query_electrocar_otataskpage_ex(request, headers, runtime)
+
+    async def query_electrocar_otataskpage_async(
+        self,
+        request: bot_models.QueryElectrocarOtataskpageRequest,
+    ) -> bot_models.QueryElectrocarOtataskpageResponse:
+        """
+        Description: 查询OTA升级任务分页列表
+        Summary: 查询OTA升级任务分页列表
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.query_electrocar_otataskpage_ex_async(request, headers, runtime)
+
+    def query_electrocar_otataskpage_ex(
+        self,
+        request: bot_models.QueryElectrocarOtataskpageRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> bot_models.QueryElectrocarOtataskpageResponse:
+        """
+        Description: 查询OTA升级任务分页列表
+        Summary: 查询OTA升级任务分页列表
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            bot_models.QueryElectrocarOtataskpageResponse(),
+            self.do_request('1.0', 'blockchain.bot.electrocar.otataskpage.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def query_electrocar_otataskpage_ex_async(
+        self,
+        request: bot_models.QueryElectrocarOtataskpageRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> bot_models.QueryElectrocarOtataskpageResponse:
+        """
+        Description: 查询OTA升级任务分页列表
+        Summary: 查询OTA升级任务分页列表
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            bot_models.QueryElectrocarOtataskpageResponse(),
+            await self.do_request_async('1.0', 'blockchain.bot.electrocar.otataskpage.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def query_electrocar_devicepage(
+        self,
+        request: bot_models.QueryElectrocarDevicepageRequest,
+    ) -> bot_models.QueryElectrocarDevicepageResponse:
+        """
+        Description: 统一物联设备分页列表查询
+        Summary: 统一物联设备分页列表查询
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.query_electrocar_devicepage_ex(request, headers, runtime)
+
+    async def query_electrocar_devicepage_async(
+        self,
+        request: bot_models.QueryElectrocarDevicepageRequest,
+    ) -> bot_models.QueryElectrocarDevicepageResponse:
+        """
+        Description: 统一物联设备分页列表查询
+        Summary: 统一物联设备分页列表查询
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.query_electrocar_devicepage_ex_async(request, headers, runtime)
+
+    def query_electrocar_devicepage_ex(
+        self,
+        request: bot_models.QueryElectrocarDevicepageRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> bot_models.QueryElectrocarDevicepageResponse:
+        """
+        Description: 统一物联设备分页列表查询
+        Summary: 统一物联设备分页列表查询
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            bot_models.QueryElectrocarDevicepageResponse(),
+            self.do_request('1.0', 'blockchain.bot.electrocar.devicepage.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def query_electrocar_devicepage_ex_async(
+        self,
+        request: bot_models.QueryElectrocarDevicepageRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> bot_models.QueryElectrocarDevicepageResponse:
+        """
+        Description: 统一物联设备分页列表查询
+        Summary: 统一物联设备分页列表查询
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            bot_models.QueryElectrocarDevicepageResponse(),
+            await self.do_request_async('1.0', 'blockchain.bot.electrocar.devicepage.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def push_electrocar_otajobbymodule(
+        self,
+        request: bot_models.PushElectrocarOtajobbymoduleRequest,
+    ) -> bot_models.PushElectrocarOtajobbymoduleResponse:
+        """
+        Description: 根据设备模块创建定向OTA批次
+        Summary: 根据设备模块创建定向OTA批次
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.push_electrocar_otajobbymodule_ex(request, headers, runtime)
+
+    async def push_electrocar_otajobbymodule_async(
+        self,
+        request: bot_models.PushElectrocarOtajobbymoduleRequest,
+    ) -> bot_models.PushElectrocarOtajobbymoduleResponse:
+        """
+        Description: 根据设备模块创建定向OTA批次
+        Summary: 根据设备模块创建定向OTA批次
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.push_electrocar_otajobbymodule_ex_async(request, headers, runtime)
+
+    def push_electrocar_otajobbymodule_ex(
+        self,
+        request: bot_models.PushElectrocarOtajobbymoduleRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> bot_models.PushElectrocarOtajobbymoduleResponse:
+        """
+        Description: 根据设备模块创建定向OTA批次
+        Summary: 根据设备模块创建定向OTA批次
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            bot_models.PushElectrocarOtajobbymoduleResponse(),
+            self.do_request('1.0', 'blockchain.bot.electrocar.otajobbymodule.push', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def push_electrocar_otajobbymodule_ex_async(
+        self,
+        request: bot_models.PushElectrocarOtajobbymoduleRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> bot_models.PushElectrocarOtajobbymoduleResponse:
+        """
+        Description: 根据设备模块创建定向OTA批次
+        Summary: 根据设备模块创建定向OTA批次
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            bot_models.PushElectrocarOtajobbymoduleResponse(),
+            await self.do_request_async('1.0', 'blockchain.bot.electrocar.otajobbymodule.push', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
     def query_iotplatform_purchaseorder(
