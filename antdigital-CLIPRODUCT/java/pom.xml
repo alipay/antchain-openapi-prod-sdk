@@ -6,9 +6,9 @@
 
     <!-- 基础信息 -->
     <groupId>com.antgroup.antchain.openapi</groupId>
-    <!-- 注意：变量 openapi-antdigital-cliproduct 和 1.0.8 需要在命令行或 properties 中定义 -->
+    <!-- 注意：变量 openapi-antdigital-cliproduct 和 1.0.9 需要在命令行或 properties 中定义 -->
     <artifactId>openapi-antdigital-cliproduct</artifactId>
-    <version>1.0.8</version>
+    <version>1.0.9</version>
     <packaging>jar</packaging>
 
     <name>openapi-antdigital-cliproduct</name>
