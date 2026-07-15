@@ -56,6 +56,10 @@ public class QueryPriceRequest extends TeaModel {
     @NameInMap("instance_id")
     public String instanceId;
 
+    // 售卖市场编码，用于识别国际场景的税商类型、币种
+    @NameInMap("sale_market")
+    public String saleMarket;
+
     public static QueryPriceRequest build(java.util.Map<String, ?> map) throws Exception {
         QueryPriceRequest self = new QueryPriceRequest();
         return TeaModel.build(map, self);
@@ -155,6 +159,14 @@ public class QueryPriceRequest extends TeaModel {
     }
     public String getInstanceId() {
         return this.instanceId;
+    }
+
+    public QueryPriceRequest setSaleMarket(String saleMarket) {
+        this.saleMarket = saleMarket;
+        return this;
+    }
+    public String getSaleMarket() {
+        return this.saleMarket;
     }
 
 }

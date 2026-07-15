@@ -126,7 +126,7 @@ public class Client {
                     new TeaPair("req_msg_id", com.antgroup.antchain.openapi.antchain.util.AntchainUtils.getNonce()),
                     new TeaPair("access_key", _accessKeyId),
                     new TeaPair("base_sdk_version", "TeaSDK-2.0"),
-                    new TeaPair("sdk_version", "3.17.0"),
+                    new TeaPair("sdk_version", "3.17.1"),
                     new TeaPair("_prod_code", "TRADE"),
                     new TeaPair("_prod_channel", "undefined")
                 );
@@ -611,7 +611,7 @@ public class Client {
     /**
      * <b>description</b> :
      * <p>Description: 单商品询价接口，支持抵扣优惠券和命中折扣活动
-     * Summary: 商品询价接口</p>
+     * Summary: 单商品询价接口，支持抵扣优惠券和命中折扣活动</p>
      */
     public QueryPriceResponse queryPrice(QueryPriceRequest request) throws Exception {
         com.aliyun.teautil.models.RuntimeOptions runtime = new com.aliyun.teautil.models.RuntimeOptions();
@@ -622,7 +622,7 @@ public class Client {
     /**
      * <b>description</b> :
      * <p>Description: 单商品询价接口，支持抵扣优惠券和命中折扣活动
-     * Summary: 商品询价接口</p>
+     * Summary: 单商品询价接口，支持抵扣优惠券和命中折扣活动</p>
      */
     public QueryPriceResponse queryPriceEx(QueryPriceRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
         com.aliyun.teautil.Common.validateModel(request);
