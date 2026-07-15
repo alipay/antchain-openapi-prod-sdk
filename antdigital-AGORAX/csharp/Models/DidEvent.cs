@@ -1,0 +1,78 @@
+// This file is auto-generated, don't edit it. Thanks.
+
+using System;
+using System.Collections.Generic;
+using System.IO;
+
+using Tea;
+
+namespace AntChain.SDK.AGORAX.Models
+{
+    // did更新事件
+    public class DidEvent : TeaModel {
+        // 事件对应的合约方法
+        /// <summary>
+        /// <b>Example:</b>
+        /// <para>add</para>
+        /// </summary>
+        [NameInMap("action")]
+        [Validation(Required=true)]
+        public string Action { get; set; }
+
+        // 对应did
+        /// <summary>
+        /// <b>Example:</b>
+        /// <para>did:mychain:XXXX</para>
+        /// </summary>
+        [NameInMap("did")]
+        [Validation(Required=true)]
+        public string Did { get; set; }
+
+        // did对应doc
+        /// <summary>
+        /// <b>Example:</b>
+        /// <para>{}</para>
+        /// </summary>
+        [NameInMap("did_doc")]
+        [Validation(Required=true)]
+        public string DidDoc { get; set; }
+
+        // 本次事件的触发者
+        /// <summary>
+        /// <b>Example:</b>
+        /// <para>XXXXXXXXX</para>
+        /// </summary>
+        [NameInMap("from")]
+        [Validation(Required=true)]
+        public string From { get; set; }
+
+        // 6500
+        /// <summary>
+        /// <b>Example:</b>
+        /// <para>事件在区块的高度</para>
+        /// </summary>
+        [NameInMap("height")]
+        [Validation(Required=true)]
+        public long? Height { get; set; }
+
+        // 交易hash
+        /// <summary>
+        /// <b>Example:</b>
+        /// <para>xxxxxx</para>
+        /// </summary>
+        [NameInMap("tx_hash")]
+        [Validation(Required=true)]
+        public string TxHash { get; set; }
+
+        // 交易在区块中的index
+        /// <summary>
+        /// <b>Example:</b>
+        /// <para>1</para>
+        /// </summary>
+        [NameInMap("tx_index")]
+        [Validation(Required=true)]
+        public long? TxIndex { get; set; }
+
+    }
+
+}

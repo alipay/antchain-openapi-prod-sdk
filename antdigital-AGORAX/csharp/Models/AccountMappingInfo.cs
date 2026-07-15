@@ -1,0 +1,51 @@
+// This file is auto-generated, don't edit it. Thanks.
+
+using System;
+using System.Collections.Generic;
+using System.IO;
+
+using Tea;
+
+namespace AntChain.SDK.AGORAX.Models
+{
+    // 账户映射情况
+    public class AccountMappingInfo : TeaModel {
+        // 链上账户id
+        /// <summary>
+        /// <b>Example:</b>
+        /// <para>xxxxxxx</para>
+        /// </summary>
+        [NameInMap("bc_account")]
+        [Validation(Required=true)]
+        public string BcAccount { get; set; }
+
+        // 账户绑定状态，1为未绑定，2为绑定成功
+        /// <summary>
+        /// <b>Example:</b>
+        /// <para>1</para>
+        /// </summary>
+        [NameInMap("binding_status")]
+        [Validation(Required=true)]
+        public long? BindingStatus { get; set; }
+
+        // 1是激活状态，2是冻结状态
+        /// <summary>
+        /// <b>Example:</b>
+        /// <para>1</para>
+        /// </summary>
+        [NameInMap("status")]
+        [Validation(Required=true)]
+        public long? Status { get; set; }
+
+        // 账户唯一标示
+        /// <summary>
+        /// <b>Example:</b>
+        /// <para>userid</para>
+        /// </summary>
+        [NameInMap("uid")]
+        [Validation(Required=true)]
+        public string Uid { get; set; }
+
+    }
+
+}

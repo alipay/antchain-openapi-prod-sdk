@@ -1,0 +1,29 @@
+// This file is auto-generated, don't edit it. Thanks.
+
+using System;
+using System.Collections.Generic;
+using System.IO;
+
+using Tea;
+
+namespace AntChain.SDK.AGORAX.Models
+{
+    // 关联应用
+    public class ContractBindAppReq : TeaModel {
+        // 应用ID
+        /// <summary>
+        /// <b>Example:</b>
+        /// <para>app20230725115808679d4f</para>
+        /// </summary>
+        [NameInMap("application_id")]
+        [Validation(Required=true, MaxLength=64)]
+        public string ApplicationId { get; set; }
+
+        // 合约服务标识集合
+        [NameInMap("service_ids")]
+        [Validation(Required=false)]
+        public List<string> ServiceIds { get; set; }
+
+    }
+
+}
