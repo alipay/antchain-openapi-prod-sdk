@@ -15138,6 +15138,50 @@ class RefundList(TeaModel):
         return self
 
 
+class RefundInfo(TeaModel):
+    def __init__(
+        self,
+        out_request_no: str = None,
+        refund_amount: str = None,
+        refund_status: str = None,
+    ):
+        # 退款业务号
+        self.out_request_no = out_request_no
+        # 本次退款金额
+        self.refund_amount = refund_amount
+        # 退款状态
+        self.refund_status = refund_status
+
+    def validate(self):
+        self.validate_required(self.out_request_no, 'out_request_no')
+        self.validate_required(self.refund_amount, 'refund_amount')
+        self.validate_required(self.refund_status, 'refund_status')
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.out_request_no is not None:
+            result['out_request_no'] = self.out_request_no
+        if self.refund_amount is not None:
+            result['refund_amount'] = self.refund_amount
+        if self.refund_status is not None:
+            result['refund_status'] = self.refund_status
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('out_request_no') is not None:
+            self.out_request_no = m.get('out_request_no')
+        if m.get('refund_amount') is not None:
+            self.refund_amount = m.get('refund_amount')
+        if m.get('refund_status') is not None:
+            self.refund_status = m.get('refund_status')
+        return self
+
+
 class QueryBaasPromotionActivityRequest(TeaModel):
     def __init__(
         self,
@@ -16156,7 +16200,7 @@ class QueryTradeAppResponse(TeaModel):
         trade_status: str = None,
         total_amount: str = None,
         receipt_amount: str = None,
-        refund_list: RefundList = None,
+        refund_list: List[RefundInfo] = None,
         total_refund_amount: str = None,
     ):
         # 请求唯一ID，用于链路跟踪和问题排查
@@ -16182,7 +16226,9 @@ class QueryTradeAppResponse(TeaModel):
 
     def validate(self):
         if self.refund_list:
-            self.refund_list.validate()
+            for k in self.refund_list:
+                if k:
+                    k.validate()
 
     def to_map(self):
         _map = super().to_map()
@@ -16206,8 +16252,10 @@ class QueryTradeAppResponse(TeaModel):
             result['total_amount'] = self.total_amount
         if self.receipt_amount is not None:
             result['receipt_amount'] = self.receipt_amount
+        result['refund_list'] = []
         if self.refund_list is not None:
-            result['refund_list'] = self.refund_list.to_map()
+            for k in self.refund_list:
+                result['refund_list'].append(k.to_map() if k else None)
         if self.total_refund_amount is not None:
             result['total_refund_amount'] = self.total_refund_amount
         return result
@@ -16230,9 +16278,11 @@ class QueryTradeAppResponse(TeaModel):
             self.total_amount = m.get('total_amount')
         if m.get('receipt_amount') is not None:
             self.receipt_amount = m.get('receipt_amount')
+        self.refund_list = []
         if m.get('refund_list') is not None:
-            temp_model = RefundList()
-            self.refund_list = temp_model.from_map(m['refund_list'])
+            for k in m.get('refund_list'):
+                temp_model = RefundInfo()
+                self.refund_list.append(temp_model.from_map(k))
         if m.get('total_refund_amount') is not None:
             self.total_refund_amount = m.get('total_refund_amount')
         return self
