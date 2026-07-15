@@ -8,34 +8,28 @@ public class QueryElectricCommondataRequest extends TeaModel {
     @NameInMap("auth_token")
     public String authToken;
 
-    // 市场码
-    @NameInMap("market_code")
+    // 主数据实体稳定编码
+    @NameInMap("entity_code")
     @Validation(required = true)
-    public String marketCode;
+    public String entityCode;
 
-    // 日前预测 / 实时
-    @NameInMap("query_type_list")
+    // 实体结构版本
+    @NameInMap("schema_version")
     @Validation(required = true)
-    public java.util.List<String> queryTypeList;
+    public String schemaVersion;
 
-    // 与 query_date_end 配套闭区间，≤7 天
-    @NameInMap("query_date_start")
-    public String queryDateStart;
+    // JSON 查询条件；无条件时传 {}
+    @NameInMap("query_json")
+    @Validation(required = true)
+    public String queryJson;
 
-    @NameInMap("query_date_end")
-    public String queryDateEnd;
+    // 页码，默认1，最小1
+    @NameInMap("page_no")
+    public Long pageNo;
 
-    // 与 start/end 二选一，≤7 个
-    @NameInMap("query_date_list")
-    public java.util.List<String> queryDateList;
-
-    // 默认 1
-    @NameInMap("period_start")
-    public String periodStart;
-
-    // 默认96
-    @NameInMap("period_end")
-    public String periodEnd;
+    // 每页数量，默认200，最大1000
+    @NameInMap("page_size")
+    public Long pageSize;
 
     public static QueryElectricCommondataRequest build(java.util.Map<String, ?> map) throws Exception {
         QueryElectricCommondataRequest self = new QueryElectricCommondataRequest();
@@ -50,60 +44,44 @@ public class QueryElectricCommondataRequest extends TeaModel {
         return this.authToken;
     }
 
-    public QueryElectricCommondataRequest setMarketCode(String marketCode) {
-        this.marketCode = marketCode;
+    public QueryElectricCommondataRequest setEntityCode(String entityCode) {
+        this.entityCode = entityCode;
         return this;
     }
-    public String getMarketCode() {
-        return this.marketCode;
+    public String getEntityCode() {
+        return this.entityCode;
     }
 
-    public QueryElectricCommondataRequest setQueryTypeList(java.util.List<String> queryTypeList) {
-        this.queryTypeList = queryTypeList;
+    public QueryElectricCommondataRequest setSchemaVersion(String schemaVersion) {
+        this.schemaVersion = schemaVersion;
         return this;
     }
-    public java.util.List<String> getQueryTypeList() {
-        return this.queryTypeList;
+    public String getSchemaVersion() {
+        return this.schemaVersion;
     }
 
-    public QueryElectricCommondataRequest setQueryDateStart(String queryDateStart) {
-        this.queryDateStart = queryDateStart;
+    public QueryElectricCommondataRequest setQueryJson(String queryJson) {
+        this.queryJson = queryJson;
         return this;
     }
-    public String getQueryDateStart() {
-        return this.queryDateStart;
+    public String getQueryJson() {
+        return this.queryJson;
     }
 
-    public QueryElectricCommondataRequest setQueryDateEnd(String queryDateEnd) {
-        this.queryDateEnd = queryDateEnd;
+    public QueryElectricCommondataRequest setPageNo(Long pageNo) {
+        this.pageNo = pageNo;
         return this;
     }
-    public String getQueryDateEnd() {
-        return this.queryDateEnd;
+    public Long getPageNo() {
+        return this.pageNo;
     }
 
-    public QueryElectricCommondataRequest setQueryDateList(java.util.List<String> queryDateList) {
-        this.queryDateList = queryDateList;
+    public QueryElectricCommondataRequest setPageSize(Long pageSize) {
+        this.pageSize = pageSize;
         return this;
     }
-    public java.util.List<String> getQueryDateList() {
-        return this.queryDateList;
-    }
-
-    public QueryElectricCommondataRequest setPeriodStart(String periodStart) {
-        this.periodStart = periodStart;
-        return this;
-    }
-    public String getPeriodStart() {
-        return this.periodStart;
-    }
-
-    public QueryElectricCommondataRequest setPeriodEnd(String periodEnd) {
-        this.periodEnd = periodEnd;
-        return this;
-    }
-    public String getPeriodEnd() {
-        return this.periodEnd;
+    public Long getPageSize() {
+        return this.pageSize;
     }
 
 }
