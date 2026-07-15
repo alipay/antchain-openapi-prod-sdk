@@ -41,7 +41,7 @@ public class PushIntlinvoicesProformainvoiceRequest extends TeaModel {
     // 开票申请项列表
     @NameInMap("invoice_apply_item_list")
     @Validation(required = true)
-    public java.util.List<IntlInvoiceApplyInfoItem> invoiceApplyItemList;
+    public java.util.List<InvoiceApplyItem> invoiceApplyItemList;
 
     // 开票日期
     @NameInMap("invoice_date")
@@ -161,11 +161,11 @@ public class PushIntlinvoicesProformainvoiceRequest extends TeaModel {
         return this.taxRate;
     }
 
-    public PushIntlinvoicesProformainvoiceRequest setInvoiceApplyItemList(java.util.List<IntlInvoiceApplyInfoItem> invoiceApplyItemList) {
+    public PushIntlinvoicesProformainvoiceRequest setInvoiceApplyItemList(java.util.List<InvoiceApplyItem> invoiceApplyItemList) {
         this.invoiceApplyItemList = invoiceApplyItemList;
         return this;
     }
-    public java.util.List<IntlInvoiceApplyInfoItem> getInvoiceApplyItemList() {
+    public java.util.List<InvoiceApplyItem> getInvoiceApplyItemList() {
         return this.invoiceApplyItemList;
     }
 
