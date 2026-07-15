@@ -103,6 +103,15 @@ public class IntlRcptDetailItem extends TeaModel {
     @Validation(required = true)
     public String ccy;
 
+    // 税率
+    /**
+     * <strong>example:</strong>
+     * <p>0.09</p>
+     */
+    @NameInMap("rate")
+    @Validation(required = true)
+    public String rate;
+
     public static IntlRcptDetailItem build(java.util.Map<String, ?> map) throws Exception {
         IntlRcptDetailItem self = new IntlRcptDetailItem();
         return TeaModel.build(map, self);
@@ -194,6 +203,14 @@ public class IntlRcptDetailItem extends TeaModel {
     }
     public String getCcy() {
         return this.ccy;
+    }
+
+    public IntlRcptDetailItem setRate(String rate) {
+        this.rate = rate;
+        return this;
+    }
+    public String getRate() {
+        return this.rate;
     }
 
 }

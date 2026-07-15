@@ -9,9 +9,9 @@ public class IntlInvoiceInfoItem extends TeaModel {
      * <strong>example:</strong>
      * <p>34555</p>
      */
-    @NameInMap("inovice_no")
+    @NameInMap("invoice_no")
     @Validation(required = true)
-    public String inoviceNo;
+    public String invoiceNo;
 
     // 发票金额
     /**
@@ -63,12 +63,12 @@ public class IntlInvoiceInfoItem extends TeaModel {
         return TeaModel.build(map, self);
     }
 
-    public IntlInvoiceInfoItem setInoviceNo(String inoviceNo) {
-        this.inoviceNo = inoviceNo;
+    public IntlInvoiceInfoItem setInvoiceNo(String invoiceNo) {
+        this.invoiceNo = invoiceNo;
         return this;
     }
-    public String getInoviceNo() {
-        return this.inoviceNo;
+    public String getInvoiceNo() {
+        return this.invoiceNo;
     }
 
     public IntlInvoiceInfoItem setInvoiceAmt(String invoiceAmt) {
