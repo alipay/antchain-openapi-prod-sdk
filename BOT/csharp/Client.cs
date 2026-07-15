@@ -158,7 +158,7 @@ namespace AntChain.SDK.BOT
                         {"req_msg_id", AntChain.AlipayUtil.AntchainUtils.GetNonce()},
                         {"access_key", _accessKeyId},
                         {"base_sdk_version", "TeaSDK-2.0"},
-                        {"sdk_version", "1.17.1"},
+                        {"sdk_version", "1.17.7"},
                         {"_prod_code", "BOT"},
                         {"_prod_channel", "undefined"},
                     };
@@ -301,7 +301,7 @@ namespace AntChain.SDK.BOT
                         {"req_msg_id", AntChain.AlipayUtil.AntchainUtils.GetNonce()},
                         {"access_key", _accessKeyId},
                         {"base_sdk_version", "TeaSDK-2.0"},
-                        {"sdk_version", "1.17.1"},
+                        {"sdk_version", "1.17.7"},
                         {"_prod_code", "BOT"},
                         {"_prod_channel", "undefined"},
                     };
@@ -8043,6 +8043,466 @@ namespace AntChain.SDK.BOT
         {
             AlibabaCloud.TeaUtil.Common.ValidateModel(request);
             return TeaModel.ToObject<QueryElectrocarTaskstatusResponse>(await DoRequestAsync("1.0", "blockchain.bot.electrocar.taskstatus.query", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /// <term><b>Description:</b></term>
+        /// <description>
+        /// <para>Description: 查询客户的产品分页列表
+        /// Summary: 查询客户的产品分页列表</para>
+        /// </description>
+        public QueryElectrocarProductcustomerpageResponse QueryElectrocarProductcustomerpage(QueryElectrocarProductcustomerpageRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return QueryElectrocarProductcustomerpageEx(request, headers, runtime);
+        }
+
+        /// <term><b>Description:</b></term>
+        /// <description>
+        /// <para>Description: 查询客户的产品分页列表
+        /// Summary: 查询客户的产品分页列表</para>
+        /// </description>
+        public async Task<QueryElectrocarProductcustomerpageResponse> QueryElectrocarProductcustomerpageAsync(QueryElectrocarProductcustomerpageRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return await QueryElectrocarProductcustomerpageExAsync(request, headers, runtime);
+        }
+
+        /// <term><b>Description:</b></term>
+        /// <description>
+        /// <para>Description: 查询客户的产品分页列表
+        /// Summary: 查询客户的产品分页列表</para>
+        /// </description>
+        public QueryElectrocarProductcustomerpageResponse QueryElectrocarProductcustomerpageEx(QueryElectrocarProductcustomerpageRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<QueryElectrocarProductcustomerpageResponse>(DoRequest("1.0", "blockchain.bot.electrocar.productcustomerpage.query", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /// <term><b>Description:</b></term>
+        /// <description>
+        /// <para>Description: 查询客户的产品分页列表
+        /// Summary: 查询客户的产品分页列表</para>
+        /// </description>
+        public async Task<QueryElectrocarProductcustomerpageResponse> QueryElectrocarProductcustomerpageExAsync(QueryElectrocarProductcustomerpageRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<QueryElectrocarProductcustomerpageResponse>(await DoRequestAsync("1.0", "blockchain.bot.electrocar.productcustomerpage.query", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /// <term><b>Description:</b></term>
+        /// <description>
+        /// <para>Description: 创建OTA升级任务
+        /// Summary: 创建OTA升级任务</para>
+        /// </description>
+        public PushElectrocarOtajobResponse PushElectrocarOtajob(PushElectrocarOtajobRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return PushElectrocarOtajobEx(request, headers, runtime);
+        }
+
+        /// <term><b>Description:</b></term>
+        /// <description>
+        /// <para>Description: 创建OTA升级任务
+        /// Summary: 创建OTA升级任务</para>
+        /// </description>
+        public async Task<PushElectrocarOtajobResponse> PushElectrocarOtajobAsync(PushElectrocarOtajobRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return await PushElectrocarOtajobExAsync(request, headers, runtime);
+        }
+
+        /// <term><b>Description:</b></term>
+        /// <description>
+        /// <para>Description: 创建OTA升级任务
+        /// Summary: 创建OTA升级任务</para>
+        /// </description>
+        public PushElectrocarOtajobResponse PushElectrocarOtajobEx(PushElectrocarOtajobRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<PushElectrocarOtajobResponse>(DoRequest("1.0", "blockchain.bot.electrocar.otajob.push", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /// <term><b>Description:</b></term>
+        /// <description>
+        /// <para>Description: 创建OTA升级任务
+        /// Summary: 创建OTA升级任务</para>
+        /// </description>
+        public async Task<PushElectrocarOtajobResponse> PushElectrocarOtajobExAsync(PushElectrocarOtajobRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<PushElectrocarOtajobResponse>(await DoRequestAsync("1.0", "blockchain.bot.electrocar.otajob.push", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /// <term><b>Description:</b></term>
+        /// <description>
+        /// <para>Description: 查询OTA模块分页列表
+        /// Summary: 查询OTA模块分页列表</para>
+        /// </description>
+        public QueryElectrocarOtamodulepageResponse QueryElectrocarOtamodulepage(QueryElectrocarOtamodulepageRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return QueryElectrocarOtamodulepageEx(request, headers, runtime);
+        }
+
+        /// <term><b>Description:</b></term>
+        /// <description>
+        /// <para>Description: 查询OTA模块分页列表
+        /// Summary: 查询OTA模块分页列表</para>
+        /// </description>
+        public async Task<QueryElectrocarOtamodulepageResponse> QueryElectrocarOtamodulepageAsync(QueryElectrocarOtamodulepageRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return await QueryElectrocarOtamodulepageExAsync(request, headers, runtime);
+        }
+
+        /// <term><b>Description:</b></term>
+        /// <description>
+        /// <para>Description: 查询OTA模块分页列表
+        /// Summary: 查询OTA模块分页列表</para>
+        /// </description>
+        public QueryElectrocarOtamodulepageResponse QueryElectrocarOtamodulepageEx(QueryElectrocarOtamodulepageRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<QueryElectrocarOtamodulepageResponse>(DoRequest("1.0", "blockchain.bot.electrocar.otamodulepage.query", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /// <term><b>Description:</b></term>
+        /// <description>
+        /// <para>Description: 查询OTA模块分页列表
+        /// Summary: 查询OTA模块分页列表</para>
+        /// </description>
+        public async Task<QueryElectrocarOtamodulepageResponse> QueryElectrocarOtamodulepageExAsync(QueryElectrocarOtamodulepageRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<QueryElectrocarOtamodulepageResponse>(await DoRequestAsync("1.0", "blockchain.bot.electrocar.otamodulepage.query", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /// <term><b>Description:</b></term>
+        /// <description>
+        /// <para>Description: 查询固件升级包分页列表
+        /// Summary: 查询固件升级包分页列表</para>
+        /// </description>
+        public QueryElectrocarOtafirmwarepageResponse QueryElectrocarOtafirmwarepage(QueryElectrocarOtafirmwarepageRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return QueryElectrocarOtafirmwarepageEx(request, headers, runtime);
+        }
+
+        /// <term><b>Description:</b></term>
+        /// <description>
+        /// <para>Description: 查询固件升级包分页列表
+        /// Summary: 查询固件升级包分页列表</para>
+        /// </description>
+        public async Task<QueryElectrocarOtafirmwarepageResponse> QueryElectrocarOtafirmwarepageAsync(QueryElectrocarOtafirmwarepageRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return await QueryElectrocarOtafirmwarepageExAsync(request, headers, runtime);
+        }
+
+        /// <term><b>Description:</b></term>
+        /// <description>
+        /// <para>Description: 查询固件升级包分页列表
+        /// Summary: 查询固件升级包分页列表</para>
+        /// </description>
+        public QueryElectrocarOtafirmwarepageResponse QueryElectrocarOtafirmwarepageEx(QueryElectrocarOtafirmwarepageRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<QueryElectrocarOtafirmwarepageResponse>(DoRequest("1.0", "blockchain.bot.electrocar.otafirmwarepage.query", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /// <term><b>Description:</b></term>
+        /// <description>
+        /// <para>Description: 查询固件升级包分页列表
+        /// Summary: 查询固件升级包分页列表</para>
+        /// </description>
+        public async Task<QueryElectrocarOtafirmwarepageResponse> QueryElectrocarOtafirmwarepageExAsync(QueryElectrocarOtafirmwarepageRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<QueryElectrocarOtafirmwarepageResponse>(await DoRequestAsync("1.0", "blockchain.bot.electrocar.otafirmwarepage.query", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /// <term><b>Description:</b></term>
+        /// <description>
+        /// <para>Description: 查询固件包详情
+        /// Summary: 查询固件包详情</para>
+        /// </description>
+        public QueryElectrocarOtafirmwaredetailResponse QueryElectrocarOtafirmwaredetail(QueryElectrocarOtafirmwaredetailRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return QueryElectrocarOtafirmwaredetailEx(request, headers, runtime);
+        }
+
+        /// <term><b>Description:</b></term>
+        /// <description>
+        /// <para>Description: 查询固件包详情
+        /// Summary: 查询固件包详情</para>
+        /// </description>
+        public async Task<QueryElectrocarOtafirmwaredetailResponse> QueryElectrocarOtafirmwaredetailAsync(QueryElectrocarOtafirmwaredetailRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return await QueryElectrocarOtafirmwaredetailExAsync(request, headers, runtime);
+        }
+
+        /// <term><b>Description:</b></term>
+        /// <description>
+        /// <para>Description: 查询固件包详情
+        /// Summary: 查询固件包详情</para>
+        /// </description>
+        public QueryElectrocarOtafirmwaredetailResponse QueryElectrocarOtafirmwaredetailEx(QueryElectrocarOtafirmwaredetailRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<QueryElectrocarOtafirmwaredetailResponse>(DoRequest("1.0", "blockchain.bot.electrocar.otafirmwaredetail.query", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /// <term><b>Description:</b></term>
+        /// <description>
+        /// <para>Description: 查询固件包详情
+        /// Summary: 查询固件包详情</para>
+        /// </description>
+        public async Task<QueryElectrocarOtafirmwaredetailResponse> QueryElectrocarOtafirmwaredetailExAsync(QueryElectrocarOtafirmwaredetailRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<QueryElectrocarOtafirmwaredetailResponse>(await DoRequestAsync("1.0", "blockchain.bot.electrocar.otafirmwaredetail.query", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /// <term><b>Description:</b></term>
+        /// <description>
+        /// <para>Description: 查询OTA固件升级批次分页列表
+        /// Summary: 查询OTA固件升级批次分页列表</para>
+        /// </description>
+        public QueryElectrocarOtajobpageResponse QueryElectrocarOtajobpage(QueryElectrocarOtajobpageRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return QueryElectrocarOtajobpageEx(request, headers, runtime);
+        }
+
+        /// <term><b>Description:</b></term>
+        /// <description>
+        /// <para>Description: 查询OTA固件升级批次分页列表
+        /// Summary: 查询OTA固件升级批次分页列表</para>
+        /// </description>
+        public async Task<QueryElectrocarOtajobpageResponse> QueryElectrocarOtajobpageAsync(QueryElectrocarOtajobpageRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return await QueryElectrocarOtajobpageExAsync(request, headers, runtime);
+        }
+
+        /// <term><b>Description:</b></term>
+        /// <description>
+        /// <para>Description: 查询OTA固件升级批次分页列表
+        /// Summary: 查询OTA固件升级批次分页列表</para>
+        /// </description>
+        public QueryElectrocarOtajobpageResponse QueryElectrocarOtajobpageEx(QueryElectrocarOtajobpageRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<QueryElectrocarOtajobpageResponse>(DoRequest("1.0", "blockchain.bot.electrocar.otajobpage.query", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /// <term><b>Description:</b></term>
+        /// <description>
+        /// <para>Description: 查询OTA固件升级批次分页列表
+        /// Summary: 查询OTA固件升级批次分页列表</para>
+        /// </description>
+        public async Task<QueryElectrocarOtajobpageResponse> QueryElectrocarOtajobpageExAsync(QueryElectrocarOtajobpageRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<QueryElectrocarOtajobpageResponse>(await DoRequestAsync("1.0", "blockchain.bot.electrocar.otajobpage.query", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /// <term><b>Description:</b></term>
+        /// <description>
+        /// <para>Description: OTA升级批次详情查询
+        /// Summary: OTA升级批次详情查询</para>
+        /// </description>
+        public QueryElectrocarOtajobdetailResponse QueryElectrocarOtajobdetail(QueryElectrocarOtajobdetailRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return QueryElectrocarOtajobdetailEx(request, headers, runtime);
+        }
+
+        /// <term><b>Description:</b></term>
+        /// <description>
+        /// <para>Description: OTA升级批次详情查询
+        /// Summary: OTA升级批次详情查询</para>
+        /// </description>
+        public async Task<QueryElectrocarOtajobdetailResponse> QueryElectrocarOtajobdetailAsync(QueryElectrocarOtajobdetailRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return await QueryElectrocarOtajobdetailExAsync(request, headers, runtime);
+        }
+
+        /// <term><b>Description:</b></term>
+        /// <description>
+        /// <para>Description: OTA升级批次详情查询
+        /// Summary: OTA升级批次详情查询</para>
+        /// </description>
+        public QueryElectrocarOtajobdetailResponse QueryElectrocarOtajobdetailEx(QueryElectrocarOtajobdetailRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<QueryElectrocarOtajobdetailResponse>(DoRequest("1.0", "blockchain.bot.electrocar.otajobdetail.query", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /// <term><b>Description:</b></term>
+        /// <description>
+        /// <para>Description: OTA升级批次详情查询
+        /// Summary: OTA升级批次详情查询</para>
+        /// </description>
+        public async Task<QueryElectrocarOtajobdetailResponse> QueryElectrocarOtajobdetailExAsync(QueryElectrocarOtajobdetailRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<QueryElectrocarOtajobdetailResponse>(await DoRequestAsync("1.0", "blockchain.bot.electrocar.otajobdetail.query", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /// <term><b>Description:</b></term>
+        /// <description>
+        /// <para>Description: 查询OTA升级任务分页列表
+        /// Summary: 查询OTA升级任务分页列表</para>
+        /// </description>
+        public QueryElectrocarOtataskpageResponse QueryElectrocarOtataskpage(QueryElectrocarOtataskpageRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return QueryElectrocarOtataskpageEx(request, headers, runtime);
+        }
+
+        /// <term><b>Description:</b></term>
+        /// <description>
+        /// <para>Description: 查询OTA升级任务分页列表
+        /// Summary: 查询OTA升级任务分页列表</para>
+        /// </description>
+        public async Task<QueryElectrocarOtataskpageResponse> QueryElectrocarOtataskpageAsync(QueryElectrocarOtataskpageRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return await QueryElectrocarOtataskpageExAsync(request, headers, runtime);
+        }
+
+        /// <term><b>Description:</b></term>
+        /// <description>
+        /// <para>Description: 查询OTA升级任务分页列表
+        /// Summary: 查询OTA升级任务分页列表</para>
+        /// </description>
+        public QueryElectrocarOtataskpageResponse QueryElectrocarOtataskpageEx(QueryElectrocarOtataskpageRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<QueryElectrocarOtataskpageResponse>(DoRequest("1.0", "blockchain.bot.electrocar.otataskpage.query", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /// <term><b>Description:</b></term>
+        /// <description>
+        /// <para>Description: 查询OTA升级任务分页列表
+        /// Summary: 查询OTA升级任务分页列表</para>
+        /// </description>
+        public async Task<QueryElectrocarOtataskpageResponse> QueryElectrocarOtataskpageExAsync(QueryElectrocarOtataskpageRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<QueryElectrocarOtataskpageResponse>(await DoRequestAsync("1.0", "blockchain.bot.electrocar.otataskpage.query", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /// <term><b>Description:</b></term>
+        /// <description>
+        /// <para>Description: 统一物联设备分页列表查询
+        /// Summary: 统一物联设备分页列表查询</para>
+        /// </description>
+        public QueryElectrocarDevicepageResponse QueryElectrocarDevicepage(QueryElectrocarDevicepageRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return QueryElectrocarDevicepageEx(request, headers, runtime);
+        }
+
+        /// <term><b>Description:</b></term>
+        /// <description>
+        /// <para>Description: 统一物联设备分页列表查询
+        /// Summary: 统一物联设备分页列表查询</para>
+        /// </description>
+        public async Task<QueryElectrocarDevicepageResponse> QueryElectrocarDevicepageAsync(QueryElectrocarDevicepageRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return await QueryElectrocarDevicepageExAsync(request, headers, runtime);
+        }
+
+        /// <term><b>Description:</b></term>
+        /// <description>
+        /// <para>Description: 统一物联设备分页列表查询
+        /// Summary: 统一物联设备分页列表查询</para>
+        /// </description>
+        public QueryElectrocarDevicepageResponse QueryElectrocarDevicepageEx(QueryElectrocarDevicepageRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<QueryElectrocarDevicepageResponse>(DoRequest("1.0", "blockchain.bot.electrocar.devicepage.query", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /// <term><b>Description:</b></term>
+        /// <description>
+        /// <para>Description: 统一物联设备分页列表查询
+        /// Summary: 统一物联设备分页列表查询</para>
+        /// </description>
+        public async Task<QueryElectrocarDevicepageResponse> QueryElectrocarDevicepageExAsync(QueryElectrocarDevicepageRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<QueryElectrocarDevicepageResponse>(await DoRequestAsync("1.0", "blockchain.bot.electrocar.devicepage.query", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /// <term><b>Description:</b></term>
+        /// <description>
+        /// <para>Description: 根据设备模块创建定向OTA批次
+        /// Summary: 根据设备模块创建定向OTA批次</para>
+        /// </description>
+        public PushElectrocarOtajobbymoduleResponse PushElectrocarOtajobbymodule(PushElectrocarOtajobbymoduleRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return PushElectrocarOtajobbymoduleEx(request, headers, runtime);
+        }
+
+        /// <term><b>Description:</b></term>
+        /// <description>
+        /// <para>Description: 根据设备模块创建定向OTA批次
+        /// Summary: 根据设备模块创建定向OTA批次</para>
+        /// </description>
+        public async Task<PushElectrocarOtajobbymoduleResponse> PushElectrocarOtajobbymoduleAsync(PushElectrocarOtajobbymoduleRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return await PushElectrocarOtajobbymoduleExAsync(request, headers, runtime);
+        }
+
+        /// <term><b>Description:</b></term>
+        /// <description>
+        /// <para>Description: 根据设备模块创建定向OTA批次
+        /// Summary: 根据设备模块创建定向OTA批次</para>
+        /// </description>
+        public PushElectrocarOtajobbymoduleResponse PushElectrocarOtajobbymoduleEx(PushElectrocarOtajobbymoduleRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<PushElectrocarOtajobbymoduleResponse>(DoRequest("1.0", "blockchain.bot.electrocar.otajobbymodule.push", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /// <term><b>Description:</b></term>
+        /// <description>
+        /// <para>Description: 根据设备模块创建定向OTA批次
+        /// Summary: 根据设备模块创建定向OTA批次</para>
+        /// </description>
+        public async Task<PushElectrocarOtajobbymoduleResponse> PushElectrocarOtajobbymoduleExAsync(PushElectrocarOtajobbymoduleRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<PushElectrocarOtajobbymoduleResponse>(await DoRequestAsync("1.0", "blockchain.bot.electrocar.otajobbymodule.push", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
         }
 
         /// <term><b>Description:</b></term>
