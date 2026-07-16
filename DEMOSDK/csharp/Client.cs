@@ -158,7 +158,7 @@ namespace AntChain.SDK.DEMOSDK
                         {"req_msg_id", AntChain.AlipayUtil.AntchainUtils.GetNonce()},
                         {"access_key", _accessKeyId},
                         {"base_sdk_version", "TeaSDK-2.0"},
-                        {"sdk_version", "1.3.52"},
+                        {"sdk_version", "1.3.57"},
                         {"_prod_code", "DEMOSDK"},
                         {"_prod_channel", "default"},
                     };
@@ -301,7 +301,7 @@ namespace AntChain.SDK.DEMOSDK
                         {"req_msg_id", AntChain.AlipayUtil.AntchainUtils.GetNonce()},
                         {"access_key", _accessKeyId},
                         {"base_sdk_version", "TeaSDK-2.0"},
-                        {"sdk_version", "1.3.52"},
+                        {"sdk_version", "1.3.57"},
                         {"_prod_code", "DEMOSDK"},
                         {"_prod_channel", "default"},
                     };
@@ -863,6 +863,52 @@ namespace AntChain.SDK.DEMOSDK
         {
             AlibabaCloud.TeaUtil.Common.ValidateModel(request);
             return TeaModel.ToObject<ConfigQueryApiResponse>(await DoRequestAsync("1.0", "antchain.demosdk.query.api.config", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /// <term><b>Description:</b></term>
+        /// <description>
+        /// <para>Description: 自动化创建接口a
+        /// Summary: 自动化创建接口a</para>
+        /// </description>
+        public ApiaAciCreateResponse ApiaAciCreate(ApiaAciCreateRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return ApiaAciCreateEx(request, headers, runtime);
+        }
+
+        /// <term><b>Description:</b></term>
+        /// <description>
+        /// <para>Description: 自动化创建接口a
+        /// Summary: 自动化创建接口a</para>
+        /// </description>
+        public async Task<ApiaAciCreateResponse> ApiaAciCreateAsync(ApiaAciCreateRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return await ApiaAciCreateExAsync(request, headers, runtime);
+        }
+
+        /// <term><b>Description:</b></term>
+        /// <description>
+        /// <para>Description: 自动化创建接口a
+        /// Summary: 自动化创建接口a</para>
+        /// </description>
+        public ApiaAciCreateResponse ApiaAciCreateEx(ApiaAciCreateRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<ApiaAciCreateResponse>(DoRequest("1.0", "antchain.demosdk.aci.create.apia", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /// <term><b>Description:</b></term>
+        /// <description>
+        /// <para>Description: 自动化创建接口a
+        /// Summary: 自动化创建接口a</para>
+        /// </description>
+        public async Task<ApiaAciCreateResponse> ApiaAciCreateExAsync(ApiaAciCreateRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<ApiaAciCreateResponse>(await DoRequestAsync("1.0", "antchain.demosdk.aci.create.apia", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
         }
 
         /// <term><b>Description:</b></term>
