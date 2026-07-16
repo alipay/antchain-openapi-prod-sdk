@@ -1747,6 +1747,76 @@ func (s *CreateBusinessOrdersResponse) SetItemList(v []*OrderItem) *CreateBusine
 	return s
 }
 
+type CreateBusinessOrdertRequest struct {
+	// OAuth模式下的授权token
+	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
+	// 订单编号
+	OrderId *string `json:"order_id,omitempty" xml:"order_id,omitempty" require:"true"`
+}
+
+func (s CreateBusinessOrdertRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s CreateBusinessOrdertRequest) GoString() string {
+	return s.String()
+}
+
+func (s *CreateBusinessOrdertRequest) SetAuthToken(v string) *CreateBusinessOrdertRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *CreateBusinessOrdertRequest) SetProductInstanceId(v string) *CreateBusinessOrdertRequest {
+	s.ProductInstanceId = &v
+	return s
+}
+
+func (s *CreateBusinessOrdertRequest) SetOrderId(v string) *CreateBusinessOrdertRequest {
+	s.OrderId = &v
+	return s
+}
+
+type CreateBusinessOrdertResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// 商品明细
+	ItemList []*OrderItem `json:"item_list,omitempty" xml:"item_list,omitempty" type:"Repeated"`
+}
+
+func (s CreateBusinessOrdertResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s CreateBusinessOrdertResponse) GoString() string {
+	return s.String()
+}
+
+func (s *CreateBusinessOrdertResponse) SetReqMsgId(v string) *CreateBusinessOrdertResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *CreateBusinessOrdertResponse) SetResultCode(v string) *CreateBusinessOrdertResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *CreateBusinessOrdertResponse) SetResultMsg(v string) *CreateBusinessOrdertResponse {
+	s.ResultMsg = &v
+	return s
+}
+
+func (s *CreateBusinessOrdertResponse) SetItemList(v []*OrderItem) *CreateBusinessOrdertResponse {
+	s.ItemList = v
+	return s
+}
+
 type ApifCliCreateRequest struct {
 	// OAuth模式下的授权token
 	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
@@ -2055,6 +2125,83 @@ func (s *ApihCliCreateResponse) SetStatus(v string) *ApihCliCreateResponse {
 	return s
 }
 
+type ApiiCliCreateRequest struct {
+	// OAuth模式下的授权token
+	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
+	// 超时时间
+	Timeout *string `json:"timeout,omitempty" xml:"timeout,omitempty" require:"true"`
+}
+
+func (s ApiiCliCreateRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s ApiiCliCreateRequest) GoString() string {
+	return s.String()
+}
+
+func (s *ApiiCliCreateRequest) SetAuthToken(v string) *ApiiCliCreateRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *ApiiCliCreateRequest) SetProductInstanceId(v string) *ApiiCliCreateRequest {
+	s.ProductInstanceId = &v
+	return s
+}
+
+func (s *ApiiCliCreateRequest) SetTimeout(v string) *ApiiCliCreateRequest {
+	s.Timeout = &v
+	return s
+}
+
+type ApiiCliCreateResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// 结果描述
+	Msg *string `json:"msg,omitempty" xml:"msg,omitempty"`
+	// 结果码
+	Status *string `json:"status,omitempty" xml:"status,omitempty"`
+}
+
+func (s ApiiCliCreateResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s ApiiCliCreateResponse) GoString() string {
+	return s.String()
+}
+
+func (s *ApiiCliCreateResponse) SetReqMsgId(v string) *ApiiCliCreateResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *ApiiCliCreateResponse) SetResultCode(v string) *ApiiCliCreateResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *ApiiCliCreateResponse) SetResultMsg(v string) *ApiiCliCreateResponse {
+	s.ResultMsg = &v
+	return s
+}
+
+func (s *ApiiCliCreateResponse) SetMsg(v string) *ApiiCliCreateResponse {
+	s.Msg = &v
+	return s
+}
+
+func (s *ApiiCliCreateResponse) SetStatus(v string) *ApiiCliCreateResponse {
+	s.Status = &v
+	return s
+}
+
 type Client struct {
 	Endpoint                *string
 	RegionId                *string
@@ -2185,7 +2332,7 @@ func (client *Client) DoRequest(version *string, action *string, protocol *strin
 				"req_msg_id":       antchainutil.GetNonce(),
 				"access_key":       client.AccessKeyId,
 				"base_sdk_version": tea.String("TeaSDK-2.0"),
-				"sdk_version":      tea.String("1.0.0"),
+				"sdk_version":      tea.String("1.0.1"),
 				"_prod_code":       tea.String("CLIPRODUCT"),
 				"_prod_channel":    tea.String("default"),
 			}
@@ -3001,6 +3148,42 @@ func (client *Client) CreateBusinessOrdersEx(request *CreateBusinessOrdersReques
 
 // Description:
 //
+// Description: 创建订单
+//
+// Summary: 创建订单
+func (client *Client) CreateBusinessOrdert(request *CreateBusinessOrdertRequest) (_result *CreateBusinessOrdertResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &CreateBusinessOrdertResponse{}
+	_body, _err := client.CreateBusinessOrdertEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+// Description:
+//
+// Description: 创建订单
+//
+// Summary: 创建订单
+func (client *Client) CreateBusinessOrdertEx(request *CreateBusinessOrdertRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *CreateBusinessOrdertResponse, _err error) {
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &CreateBusinessOrdertResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("antdigital.cliproduct.business.ordert.create"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
+}
+
+// Description:
+//
 // Description: cli创建测试接口D
 //
 // Summary: cli创建测试接口D
@@ -3136,6 +3319,42 @@ func (client *Client) ApihCliCreateEx(request *ApihCliCreateRequest, headers map
 	}
 	_result = &ApihCliCreateResponse{}
 	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("antdigital.cliproduct.cli.create.apih"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
+}
+
+// Description:
+//
+// Description: cli创建测试接口i
+//
+// Summary: cli创建测试接口i
+func (client *Client) ApiiCliCreate(request *ApiiCliCreateRequest) (_result *ApiiCliCreateResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &ApiiCliCreateResponse{}
+	_body, _err := client.ApiiCliCreateEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+// Description:
+//
+// Description: cli创建测试接口i
+//
+// Summary: cli创建测试接口i
+func (client *Client) ApiiCliCreateEx(request *ApiiCliCreateRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *ApiiCliCreateResponse, _err error) {
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &ApiiCliCreateResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("antdigital.cliproduct.cli.create.apii"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
 	if _err != nil {
 		return _result, _err
 	}
