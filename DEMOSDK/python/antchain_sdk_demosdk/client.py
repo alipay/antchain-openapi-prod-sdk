@@ -135,7 +135,7 @@ class Client:
                     'req_msg_id': AntchainUtils.get_nonce(),
                     'access_key': self._access_key_id,
                     'base_sdk_version': 'TeaSDK-2.0',
-                    'sdk_version': '1.3.52',
+                    'sdk_version': '1.3.57',
                     '_prod_code': 'DEMOSDK',
                     '_prod_channel': 'default'
                 }
@@ -239,7 +239,7 @@ class Client:
                     'req_msg_id': AntchainUtils.get_nonce(),
                     'access_key': self._access_key_id,
                     'base_sdk_version': 'TeaSDK-2.0',
-                    'sdk_version': '1.3.52',
+                    'sdk_version': '1.3.57',
                     '_prod_code': 'DEMOSDK',
                     '_prod_channel': 'default'
                 }
@@ -889,6 +889,62 @@ class Client:
         return TeaCore.from_map(
             demosdk_models.ConfigQueryApiResponse(),
             await self.do_request_async('1.0', 'antchain.demosdk.query.api.config', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def apia_aci_create(
+        self,
+        request: demosdk_models.ApiaAciCreateRequest,
+    ) -> demosdk_models.ApiaAciCreateResponse:
+        """
+        Description: 自动化创建接口a
+        Summary: 自动化创建接口a
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.apia_aci_create_ex(request, headers, runtime)
+
+    async def apia_aci_create_async(
+        self,
+        request: demosdk_models.ApiaAciCreateRequest,
+    ) -> demosdk_models.ApiaAciCreateResponse:
+        """
+        Description: 自动化创建接口a
+        Summary: 自动化创建接口a
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.apia_aci_create_ex_async(request, headers, runtime)
+
+    def apia_aci_create_ex(
+        self,
+        request: demosdk_models.ApiaAciCreateRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> demosdk_models.ApiaAciCreateResponse:
+        """
+        Description: 自动化创建接口a
+        Summary: 自动化创建接口a
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            demosdk_models.ApiaAciCreateResponse(),
+            self.do_request('1.0', 'antchain.demosdk.aci.create.apia', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def apia_aci_create_ex_async(
+        self,
+        request: demosdk_models.ApiaAciCreateRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> demosdk_models.ApiaAciCreateResponse:
+        """
+        Description: 自动化创建接口a
+        Summary: 自动化创建接口a
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            demosdk_models.ApiaAciCreateResponse(),
+            await self.do_request_async('1.0', 'antchain.demosdk.aci.create.apia', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
     def bind_aaa_bbb_ccc(
