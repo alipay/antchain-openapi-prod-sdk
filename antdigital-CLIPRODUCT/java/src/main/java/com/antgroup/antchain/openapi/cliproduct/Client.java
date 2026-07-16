@@ -126,7 +126,7 @@ public class Client {
                     new TeaPair("req_msg_id", com.antgroup.antchain.openapi.antchain.util.AntchainUtils.getNonce()),
                     new TeaPair("access_key", _accessKeyId),
                     new TeaPair("base_sdk_version", "TeaSDK-2.0"),
-                    new TeaPair("sdk_version", "1.0.14"),
+                    new TeaPair("sdk_version", "1.0.15"),
                     new TeaPair("_prod_code", "CLIPRODUCT"),
                     new TeaPair("_prod_channel", "default")
                 );
@@ -795,5 +795,26 @@ public class Client {
     public ApijCliCreateResponse apijCliCreateEx(ApijCliCreateRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
         com.aliyun.teautil.Common.validateModel(request);
         return TeaModel.toModel(this.doRequest("1.0", "antdigital.cliproduct.cli.create.apij", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new ApijCliCreateResponse());
+    }
+
+    /**
+     * <b>description</b> :
+     * <p>Description: cli创建测试接口K
+     * Summary: cli创建测试接口K</p>
+     */
+    public ApikCliCreateResponse apikCliCreate(ApikCliCreateRequest request) throws Exception {
+        com.aliyun.teautil.models.RuntimeOptions runtime = new com.aliyun.teautil.models.RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.apikCliCreateEx(request, headers, runtime);
+    }
+
+    /**
+     * <b>description</b> :
+     * <p>Description: cli创建测试接口K
+     * Summary: cli创建测试接口K</p>
+     */
+    public ApikCliCreateResponse apikCliCreateEx(ApikCliCreateRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "antdigital.cliproduct.cli.create.apik", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new ApikCliCreateResponse());
     }
 }
