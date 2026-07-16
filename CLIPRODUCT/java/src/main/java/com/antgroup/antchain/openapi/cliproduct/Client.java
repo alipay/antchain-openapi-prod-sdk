@@ -126,7 +126,7 @@ public class Client {
                     new TeaPair("req_msg_id", com.antgroup.antchain.openapi.antchain.util.AntchainUtils.getNonce()),
                     new TeaPair("access_key", _accessKeyId),
                     new TeaPair("base_sdk_version", "TeaSDK-2.0"),
-                    new TeaPair("sdk_version", "1.0.1"),
+                    new TeaPair("sdk_version", "1.0.2"),
                     new TeaPair("_prod_code", "CLIPRODUCT"),
                     new TeaPair("_prod_channel", "default")
                 );
@@ -652,6 +652,48 @@ public class Client {
 
     /**
      * <b>description</b> :
+     * <p>Description: 创建订单
+     * Summary: 创建订单</p>
+     */
+    public CreateBusinessOrderuResponse createBusinessOrderu(CreateBusinessOrderuRequest request) throws Exception {
+        com.aliyun.teautil.models.RuntimeOptions runtime = new com.aliyun.teautil.models.RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.createBusinessOrderuEx(request, headers, runtime);
+    }
+
+    /**
+     * <b>description</b> :
+     * <p>Description: 创建订单
+     * Summary: 创建订单</p>
+     */
+    public CreateBusinessOrderuResponse createBusinessOrderuEx(CreateBusinessOrderuRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "antdigital.cliproduct.business.orderu.create", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new CreateBusinessOrderuResponse());
+    }
+
+    /**
+     * <b>description</b> :
+     * <p>Description: 创建订单
+     * Summary: 创建订单</p>
+     */
+    public CreateBusinessOrdervResponse createBusinessOrderv(CreateBusinessOrdervRequest request) throws Exception {
+        com.aliyun.teautil.models.RuntimeOptions runtime = new com.aliyun.teautil.models.RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.createBusinessOrdervEx(request, headers, runtime);
+    }
+
+    /**
+     * <b>description</b> :
+     * <p>Description: 创建订单
+     * Summary: 创建订单</p>
+     */
+    public CreateBusinessOrdervResponse createBusinessOrdervEx(CreateBusinessOrdervRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "antdigital.cliproduct.business.orderv.create", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new CreateBusinessOrdervResponse());
+    }
+
+    /**
+     * <b>description</b> :
      * <p>Description: cli创建测试接口D
      * Summary: cli创建测试接口D</p>
      */
@@ -753,5 +795,68 @@ public class Client {
     public ApiiCliCreateResponse apiiCliCreateEx(ApiiCliCreateRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
         com.aliyun.teautil.Common.validateModel(request);
         return TeaModel.toModel(this.doRequest("1.0", "antdigital.cliproduct.cli.create.apii", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new ApiiCliCreateResponse());
+    }
+
+    /**
+     * <b>description</b> :
+     * <p>Description: cli创建测试接口j
+     * Summary: cli创建测试接口j</p>
+     */
+    public ApijCliCreateResponse apijCliCreate(ApijCliCreateRequest request) throws Exception {
+        com.aliyun.teautil.models.RuntimeOptions runtime = new com.aliyun.teautil.models.RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.apijCliCreateEx(request, headers, runtime);
+    }
+
+    /**
+     * <b>description</b> :
+     * <p>Description: cli创建测试接口j
+     * Summary: cli创建测试接口j</p>
+     */
+    public ApijCliCreateResponse apijCliCreateEx(ApijCliCreateRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "antdigital.cliproduct.cli.create.apij", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new ApijCliCreateResponse());
+    }
+
+    /**
+     * <b>description</b> :
+     * <p>Description: cli创建测试接口K
+     * Summary: cli创建测试接口K</p>
+     */
+    public ApikCliCreateResponse apikCliCreate(ApikCliCreateRequest request) throws Exception {
+        com.aliyun.teautil.models.RuntimeOptions runtime = new com.aliyun.teautil.models.RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.apikCliCreateEx(request, headers, runtime);
+    }
+
+    /**
+     * <b>description</b> :
+     * <p>Description: cli创建测试接口K
+     * Summary: cli创建测试接口K</p>
+     */
+    public ApikCliCreateResponse apikCliCreateEx(ApikCliCreateRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "antdigital.cliproduct.cli.create.apik", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new ApikCliCreateResponse());
+    }
+
+    /**
+     * <b>description</b> :
+     * <p>Description: cli创建测试接口L
+     * Summary: cli创建测试接口L</p>
+     */
+    public ApilCliCreateResponse apilCliCreate(ApilCliCreateRequest request) throws Exception {
+        com.aliyun.teautil.models.RuntimeOptions runtime = new com.aliyun.teautil.models.RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.apilCliCreateEx(request, headers, runtime);
+    }
+
+    /**
+     * <b>description</b> :
+     * <p>Description: cli创建测试接口L
+     * Summary: cli创建测试接口L</p>
+     */
+    public ApilCliCreateResponse apilCliCreateEx(ApilCliCreateRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "antdigital.cliproduct.cli.create.apil", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new ApilCliCreateResponse());
     }
 }
