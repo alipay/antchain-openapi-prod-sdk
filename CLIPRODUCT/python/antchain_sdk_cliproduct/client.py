@@ -135,7 +135,7 @@ class Client:
                     'req_msg_id': AntchainUtils.get_nonce(),
                     'access_key': self._access_key_id,
                     'base_sdk_version': 'TeaSDK-2.0',
-                    'sdk_version': '1.0.0',
+                    'sdk_version': '1.0.1',
                     '_prod_code': 'CLIPRODUCT',
                     '_prod_channel': 'default'
                 }
@@ -239,7 +239,7 @@ class Client:
                     'req_msg_id': AntchainUtils.get_nonce(),
                     'access_key': self._access_key_id,
                     'base_sdk_version': 'TeaSDK-2.0',
-                    'sdk_version': '1.0.0',
+                    'sdk_version': '1.0.1',
                     '_prod_code': 'CLIPRODUCT',
                     '_prod_channel': 'default'
                 }
@@ -1451,6 +1451,62 @@ class Client:
             await self.do_request_async('1.0', 'antdigital.cliproduct.business.orders.create', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
+    def create_business_ordert(
+        self,
+        request: cliproduct_models.CreateBusinessOrdertRequest,
+    ) -> cliproduct_models.CreateBusinessOrdertResponse:
+        """
+        Description: 创建订单
+        Summary: 创建订单
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.create_business_ordert_ex(request, headers, runtime)
+
+    async def create_business_ordert_async(
+        self,
+        request: cliproduct_models.CreateBusinessOrdertRequest,
+    ) -> cliproduct_models.CreateBusinessOrdertResponse:
+        """
+        Description: 创建订单
+        Summary: 创建订单
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.create_business_ordert_ex_async(request, headers, runtime)
+
+    def create_business_ordert_ex(
+        self,
+        request: cliproduct_models.CreateBusinessOrdertRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> cliproduct_models.CreateBusinessOrdertResponse:
+        """
+        Description: 创建订单
+        Summary: 创建订单
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            cliproduct_models.CreateBusinessOrdertResponse(),
+            self.do_request('1.0', 'antdigital.cliproduct.business.ordert.create', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def create_business_ordert_ex_async(
+        self,
+        request: cliproduct_models.CreateBusinessOrdertRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> cliproduct_models.CreateBusinessOrdertResponse:
+        """
+        Description: 创建订单
+        Summary: 创建订单
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            cliproduct_models.CreateBusinessOrdertResponse(),
+            await self.do_request_async('1.0', 'antdigital.cliproduct.business.ordert.create', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
     def apif_cli_create(
         self,
         request: cliproduct_models.ApifCliCreateRequest,
@@ -1673,4 +1729,60 @@ class Client:
         return TeaCore.from_map(
             cliproduct_models.ApihCliCreateResponse(),
             await self.do_request_async('1.0', 'antdigital.cliproduct.cli.create.apih', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def apii_cli_create(
+        self,
+        request: cliproduct_models.ApiiCliCreateRequest,
+    ) -> cliproduct_models.ApiiCliCreateResponse:
+        """
+        Description: cli创建测试接口i
+        Summary: cli创建测试接口i
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.apii_cli_create_ex(request, headers, runtime)
+
+    async def apii_cli_create_async(
+        self,
+        request: cliproduct_models.ApiiCliCreateRequest,
+    ) -> cliproduct_models.ApiiCliCreateResponse:
+        """
+        Description: cli创建测试接口i
+        Summary: cli创建测试接口i
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.apii_cli_create_ex_async(request, headers, runtime)
+
+    def apii_cli_create_ex(
+        self,
+        request: cliproduct_models.ApiiCliCreateRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> cliproduct_models.ApiiCliCreateResponse:
+        """
+        Description: cli创建测试接口i
+        Summary: cli创建测试接口i
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            cliproduct_models.ApiiCliCreateResponse(),
+            self.do_request('1.0', 'antdigital.cliproduct.cli.create.apii', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def apii_cli_create_ex_async(
+        self,
+        request: cliproduct_models.ApiiCliCreateRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> cliproduct_models.ApiiCliCreateResponse:
+        """
+        Description: cli创建测试接口i
+        Summary: cli创建测试接口i
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            cliproduct_models.ApiiCliCreateResponse(),
+            await self.do_request_async('1.0', 'antdigital.cliproduct.cli.create.apii', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
