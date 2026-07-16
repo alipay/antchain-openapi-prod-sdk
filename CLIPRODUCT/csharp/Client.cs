@@ -158,7 +158,7 @@ namespace AntChain.SDK.CLIPRODUCT
                         {"req_msg_id", AntChain.AlipayUtil.AntchainUtils.GetNonce()},
                         {"access_key", _accessKeyId},
                         {"base_sdk_version", "TeaSDK-2.0"},
-                        {"sdk_version", "1.0.0"},
+                        {"sdk_version", "1.0.1"},
                         {"_prod_code", "CLIPRODUCT"},
                         {"_prod_channel", "default"},
                     };
@@ -301,7 +301,7 @@ namespace AntChain.SDK.CLIPRODUCT
                         {"req_msg_id", AntChain.AlipayUtil.AntchainUtils.GetNonce()},
                         {"access_key", _accessKeyId},
                         {"base_sdk_version", "TeaSDK-2.0"},
-                        {"sdk_version", "1.0.0"},
+                        {"sdk_version", "1.0.1"},
                         {"_prod_code", "CLIPRODUCT"},
                         {"_prod_channel", "default"},
                     };
@@ -1327,6 +1327,52 @@ namespace AntChain.SDK.CLIPRODUCT
 
         /// <term><b>Description:</b></term>
         /// <description>
+        /// <para>Description: 创建订单
+        /// Summary: 创建订单</para>
+        /// </description>
+        public CreateBusinessOrdertResponse CreateBusinessOrdert(CreateBusinessOrdertRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return CreateBusinessOrdertEx(request, headers, runtime);
+        }
+
+        /// <term><b>Description:</b></term>
+        /// <description>
+        /// <para>Description: 创建订单
+        /// Summary: 创建订单</para>
+        /// </description>
+        public async Task<CreateBusinessOrdertResponse> CreateBusinessOrdertAsync(CreateBusinessOrdertRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return await CreateBusinessOrdertExAsync(request, headers, runtime);
+        }
+
+        /// <term><b>Description:</b></term>
+        /// <description>
+        /// <para>Description: 创建订单
+        /// Summary: 创建订单</para>
+        /// </description>
+        public CreateBusinessOrdertResponse CreateBusinessOrdertEx(CreateBusinessOrdertRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<CreateBusinessOrdertResponse>(DoRequest("1.0", "antdigital.cliproduct.business.ordert.create", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /// <term><b>Description:</b></term>
+        /// <description>
+        /// <para>Description: 创建订单
+        /// Summary: 创建订单</para>
+        /// </description>
+        public async Task<CreateBusinessOrdertResponse> CreateBusinessOrdertExAsync(CreateBusinessOrdertRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<CreateBusinessOrdertResponse>(await DoRequestAsync("1.0", "antdigital.cliproduct.business.ordert.create", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /// <term><b>Description:</b></term>
+        /// <description>
         /// <para>Description: cli创建测试接口D
         /// Summary: cli创建测试接口D</para>
         /// </description>
@@ -1507,6 +1553,52 @@ namespace AntChain.SDK.CLIPRODUCT
         {
             AlibabaCloud.TeaUtil.Common.ValidateModel(request);
             return TeaModel.ToObject<ApihCliCreateResponse>(await DoRequestAsync("1.0", "antdigital.cliproduct.cli.create.apih", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /// <term><b>Description:</b></term>
+        /// <description>
+        /// <para>Description: cli创建测试接口i
+        /// Summary: cli创建测试接口i</para>
+        /// </description>
+        public ApiiCliCreateResponse ApiiCliCreate(ApiiCliCreateRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return ApiiCliCreateEx(request, headers, runtime);
+        }
+
+        /// <term><b>Description:</b></term>
+        /// <description>
+        /// <para>Description: cli创建测试接口i
+        /// Summary: cli创建测试接口i</para>
+        /// </description>
+        public async Task<ApiiCliCreateResponse> ApiiCliCreateAsync(ApiiCliCreateRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return await ApiiCliCreateExAsync(request, headers, runtime);
+        }
+
+        /// <term><b>Description:</b></term>
+        /// <description>
+        /// <para>Description: cli创建测试接口i
+        /// Summary: cli创建测试接口i</para>
+        /// </description>
+        public ApiiCliCreateResponse ApiiCliCreateEx(ApiiCliCreateRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<ApiiCliCreateResponse>(DoRequest("1.0", "antdigital.cliproduct.cli.create.apii", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /// <term><b>Description:</b></term>
+        /// <description>
+        /// <para>Description: cli创建测试接口i
+        /// Summary: cli创建测试接口i</para>
+        /// </description>
+        public async Task<ApiiCliCreateResponse> ApiiCliCreateExAsync(ApiiCliCreateRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<ApiiCliCreateResponse>(await DoRequestAsync("1.0", "antdigital.cliproduct.cli.create.apii", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
         }
 
     }
