@@ -1497,6 +1497,65 @@ export class CreateBusinessOrdersResponse extends $tea.Model {
   }
 }
 
+export class CreateBusinessOrdertRequest extends $tea.Model {
+  // OAuth模式下的授权token
+  authToken?: string;
+  productInstanceId?: string;
+  // 订单编号
+  orderId: string;
+  static names(): { [key: string]: string } {
+    return {
+      authToken: 'auth_token',
+      productInstanceId: 'product_instance_id',
+      orderId: 'order_id',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      authToken: 'string',
+      productInstanceId: 'string',
+      orderId: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class CreateBusinessOrdertResponse extends $tea.Model {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string;
+  // 结果码，一般OK表示调用成功
+  resultCode?: string;
+  // 异常信息的文本描述
+  resultMsg?: string;
+  // 商品明细
+  itemList?: OrderItem[];
+  static names(): { [key: string]: string } {
+    return {
+      reqMsgId: 'req_msg_id',
+      resultCode: 'result_code',
+      resultMsg: 'result_msg',
+      itemList: 'item_list',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      reqMsgId: 'string',
+      resultCode: 'string',
+      resultMsg: 'string',
+      itemList: { 'type': 'array', 'itemType': OrderItem },
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
 export class ApifCliCreateRequest extends $tea.Model {
   // OAuth模式下的授权token
   authToken?: string;
@@ -1749,6 +1808,69 @@ export class ApihCliCreateResponse extends $tea.Model {
   }
 }
 
+export class ApiiCliCreateRequest extends $tea.Model {
+  // OAuth模式下的授权token
+  authToken?: string;
+  productInstanceId?: string;
+  // 超时时间
+  timeout: string;
+  static names(): { [key: string]: string } {
+    return {
+      authToken: 'auth_token',
+      productInstanceId: 'product_instance_id',
+      timeout: 'timeout',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      authToken: 'string',
+      productInstanceId: 'string',
+      timeout: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class ApiiCliCreateResponse extends $tea.Model {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string;
+  // 结果码，一般OK表示调用成功
+  resultCode?: string;
+  // 异常信息的文本描述
+  resultMsg?: string;
+  // 结果描述
+  msg?: string;
+  // 结果码
+  status?: string;
+  static names(): { [key: string]: string } {
+    return {
+      reqMsgId: 'req_msg_id',
+      resultCode: 'result_code',
+      resultMsg: 'result_msg',
+      msg: 'msg',
+      status: 'status',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      reqMsgId: 'string',
+      resultCode: 'string',
+      resultMsg: 'string',
+      msg: 'string',
+      status: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
 
 export default class Client {
   _endpoint: string;
@@ -1866,7 +1988,7 @@ export default class Client {
           req_msg_id: AntchainUtil.getNonce(),
           access_key: this._accessKeyId,
           base_sdk_version: "TeaSDK-2.0",
-          sdk_version: "1.0.0",
+          sdk_version: "1.0.1",
           _prod_code: "CLIPRODUCT",
           _prod_channel: "default",
         };
@@ -2357,6 +2479,27 @@ export default class Client {
 
   /**
    * @remarks
+   * Description: 创建订单
+   * Summary: 创建订单
+   */
+  async createBusinessOrdert(request: CreateBusinessOrdertRequest): Promise<CreateBusinessOrdertResponse> {
+    let runtime = new $Util.RuntimeOptions({ });
+    let headers : {[key: string ]: string} = { };
+    return await this.createBusinessOrdertEx(request, headers, runtime);
+  }
+
+  /**
+   * @remarks
+   * Description: 创建订单
+   * Summary: 创建订单
+   */
+  async createBusinessOrdertEx(request: CreateBusinessOrdertRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<CreateBusinessOrdertResponse> {
+    Util.validateModel(request);
+    return $tea.cast<CreateBusinessOrdertResponse>(await this.doRequest("1.0", "antdigital.cliproduct.business.ordert.create", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new CreateBusinessOrdertResponse({}));
+  }
+
+  /**
+   * @remarks
    * Description: cli创建测试接口D
    * Summary: cli创建测试接口D
    */
@@ -2437,6 +2580,27 @@ export default class Client {
   async apihCliCreateEx(request: ApihCliCreateRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<ApihCliCreateResponse> {
     Util.validateModel(request);
     return $tea.cast<ApihCliCreateResponse>(await this.doRequest("1.0", "antdigital.cliproduct.cli.create.apih", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new ApihCliCreateResponse({}));
+  }
+
+  /**
+   * @remarks
+   * Description: cli创建测试接口i
+   * Summary: cli创建测试接口i
+   */
+  async apiiCliCreate(request: ApiiCliCreateRequest): Promise<ApiiCliCreateResponse> {
+    let runtime = new $Util.RuntimeOptions({ });
+    let headers : {[key: string ]: string} = { };
+    return await this.apiiCliCreateEx(request, headers, runtime);
+  }
+
+  /**
+   * @remarks
+   * Description: cli创建测试接口i
+   * Summary: cli创建测试接口i
+   */
+  async apiiCliCreateEx(request: ApiiCliCreateRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<ApiiCliCreateResponse> {
+    Util.validateModel(request);
+    return $tea.cast<ApiiCliCreateResponse>(await this.doRequest("1.0", "antdigital.cliproduct.cli.create.apii", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new ApiiCliCreateResponse({}));
   }
 
 }
