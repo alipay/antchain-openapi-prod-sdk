@@ -57,6 +57,10 @@ use AntChain\CLIPRODUCT\Models\CreateBusinessOrdersRequest;
 use AntChain\CLIPRODUCT\Models\CreateBusinessOrdersResponse;
 use AntChain\CLIPRODUCT\Models\CreateBusinessOrdertRequest;
 use AntChain\CLIPRODUCT\Models\CreateBusinessOrdertResponse;
+use AntChain\CLIPRODUCT\Models\CreateBusinessOrderuRequest;
+use AntChain\CLIPRODUCT\Models\CreateBusinessOrderuResponse;
+use AntChain\CLIPRODUCT\Models\CreateBusinessOrdervRequest;
+use AntChain\CLIPRODUCT\Models\CreateBusinessOrdervResponse;
 use AntChain\CLIPRODUCT\Models\ApifCliCreateRequest;
 use AntChain\CLIPRODUCT\Models\ApifCliCreateResponse;
 use AntChain\CLIPRODUCT\Models\ApigCliCreateRequest;
@@ -67,6 +71,12 @@ use AntChain\CLIPRODUCT\Models\ApihCliCreateRequest;
 use AntChain\CLIPRODUCT\Models\ApihCliCreateResponse;
 use AntChain\CLIPRODUCT\Models\ApiiCliCreateRequest;
 use AntChain\CLIPRODUCT\Models\ApiiCliCreateResponse;
+use AntChain\CLIPRODUCT\Models\ApijCliCreateRequest;
+use AntChain\CLIPRODUCT\Models\ApijCliCreateResponse;
+use AntChain\CLIPRODUCT\Models\ApikCliCreateRequest;
+use AntChain\CLIPRODUCT\Models\ApikCliCreateResponse;
+use AntChain\CLIPRODUCT\Models\ApilCliCreateRequest;
+use AntChain\CLIPRODUCT\Models\ApilCliCreateResponse;
 
 class Client {
     protected $_endpoint;
@@ -203,7 +213,7 @@ class Client {
                     "req_msg_id" => UtilClient::getNonce(),
                     "access_key" => $this->_accessKeyId,
                     "base_sdk_version" => "TeaSDK-2.0",
-                    "sdk_version" => "1.0.1",
+                    "sdk_version" => "1.0.5",
                     "_prod_code" => "CLIPRODUCT",
                     "_prod_channel" => "default"
                 ];
@@ -799,6 +809,56 @@ class Client {
     }
 
     /**
+     * Description: 创建订单
+     * Summary: 创建订单
+     * @param CreateBusinessOrderuRequest $request
+     * @return CreateBusinessOrderuResponse
+     */
+    public function createBusinessOrderu($request){
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+        return $this->createBusinessOrderuEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 创建订单
+     * Summary: 创建订单
+     * @param CreateBusinessOrderuRequest $request
+     * @param string[] $headers
+     * @param RuntimeOptions $runtime
+     * @return CreateBusinessOrderuResponse
+     */
+    public function createBusinessOrderuEx($request, $headers, $runtime){
+        Utils::validateModel($request);
+        return CreateBusinessOrderuResponse::fromMap($this->doRequest("1.0", "antdigital.cliproduct.business.orderu.create", "HTTPS", "POST", "/gateway.do", Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 创建订单
+     * Summary: 创建订单
+     * @param CreateBusinessOrdervRequest $request
+     * @return CreateBusinessOrdervResponse
+     */
+    public function createBusinessOrderv($request){
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+        return $this->createBusinessOrdervEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 创建订单
+     * Summary: 创建订单
+     * @param CreateBusinessOrdervRequest $request
+     * @param string[] $headers
+     * @param RuntimeOptions $runtime
+     * @return CreateBusinessOrdervResponse
+     */
+    public function createBusinessOrdervEx($request, $headers, $runtime){
+        Utils::validateModel($request);
+        return CreateBusinessOrdervResponse::fromMap($this->doRequest("1.0", "antdigital.cliproduct.business.orderv.create", "HTTPS", "POST", "/gateway.do", Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
      * Description: cli创建测试接口D
      * Summary: cli创建测试接口D
      * @param ApifCliCreateRequest $request
@@ -921,5 +981,80 @@ class Client {
     public function apiiCliCreateEx($request, $headers, $runtime){
         Utils::validateModel($request);
         return ApiiCliCreateResponse::fromMap($this->doRequest("1.0", "antdigital.cliproduct.cli.create.apii", "HTTPS", "POST", "/gateway.do", Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: cli创建测试接口j
+     * Summary: cli创建测试接口j
+     * @param ApijCliCreateRequest $request
+     * @return ApijCliCreateResponse
+     */
+    public function apijCliCreate($request){
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+        return $this->apijCliCreateEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: cli创建测试接口j
+     * Summary: cli创建测试接口j
+     * @param ApijCliCreateRequest $request
+     * @param string[] $headers
+     * @param RuntimeOptions $runtime
+     * @return ApijCliCreateResponse
+     */
+    public function apijCliCreateEx($request, $headers, $runtime){
+        Utils::validateModel($request);
+        return ApijCliCreateResponse::fromMap($this->doRequest("1.0", "antdigital.cliproduct.cli.create.apij", "HTTPS", "POST", "/gateway.do", Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: cli创建测试接口K
+     * Summary: cli创建测试接口K
+     * @param ApikCliCreateRequest $request
+     * @return ApikCliCreateResponse
+     */
+    public function apikCliCreate($request){
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+        return $this->apikCliCreateEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: cli创建测试接口K
+     * Summary: cli创建测试接口K
+     * @param ApikCliCreateRequest $request
+     * @param string[] $headers
+     * @param RuntimeOptions $runtime
+     * @return ApikCliCreateResponse
+     */
+    public function apikCliCreateEx($request, $headers, $runtime){
+        Utils::validateModel($request);
+        return ApikCliCreateResponse::fromMap($this->doRequest("1.0", "antdigital.cliproduct.cli.create.apik", "HTTPS", "POST", "/gateway.do", Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: cli创建测试接口L
+     * Summary: cli创建测试接口L
+     * @param ApilCliCreateRequest $request
+     * @return ApilCliCreateResponse
+     */
+    public function apilCliCreate($request){
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+        return $this->apilCliCreateEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: cli创建测试接口L
+     * Summary: cli创建测试接口L
+     * @param ApilCliCreateRequest $request
+     * @param string[] $headers
+     * @param RuntimeOptions $runtime
+     * @return ApilCliCreateResponse
+     */
+    public function apilCliCreateEx($request, $headers, $runtime){
+        Utils::validateModel($request);
+        return ApilCliCreateResponse::fromMap($this->doRequest("1.0", "antdigital.cliproduct.cli.create.apil", "HTTPS", "POST", "/gateway.do", Tea::merge($request), $headers, $runtime));
     }
 }
