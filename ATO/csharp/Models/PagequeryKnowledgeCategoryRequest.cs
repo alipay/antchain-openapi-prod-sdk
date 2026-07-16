@@ -1,0 +1,48 @@
+// This file is auto-generated, don't edit it. Thanks.
+
+using System;
+using System.Collections.Generic;
+using System.IO;
+
+using Tea;
+
+namespace AntChain.SDK.ATO.Models
+{
+    public class PagequeryKnowledgeCategoryRequest : TeaModel {
+        // OAuth模式下的授权token
+        [NameInMap("auth_token")]
+        [Validation(Required=false)]
+        public string AuthToken { get; set; }
+
+        [NameInMap("product_instance_id")]
+        [Validation(Required=false)]
+        public string ProductInstanceId { get; set; }
+
+        // 租户id
+        [NameInMap("tenant_id")]
+        [Validation(Required=true)]
+        public string TenantId { get; set; }
+
+        // 类型
+        [NameInMap("type")]
+        [Validation(Required=false)]
+        public string Type { get; set; }
+
+        // 问题
+        [NameInMap("question")]
+        [Validation(Required=false)]
+        public string Question { get; set; }
+
+        // 状态
+        [NameInMap("status")]
+        [Validation(Required=false)]
+        public string Status { get; set; }
+
+        // 分页信息
+        [NameInMap("page_info")]
+        [Validation(Required=true)]
+        public PageQuery PageInfo { get; set; }
+
+    }
+
+}
