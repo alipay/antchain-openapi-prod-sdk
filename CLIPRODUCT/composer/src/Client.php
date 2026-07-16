@@ -55,6 +55,8 @@ use AntChain\CLIPRODUCT\Models\CreateBusinessOrderrRequest;
 use AntChain\CLIPRODUCT\Models\CreateBusinessOrderrResponse;
 use AntChain\CLIPRODUCT\Models\CreateBusinessOrdersRequest;
 use AntChain\CLIPRODUCT\Models\CreateBusinessOrdersResponse;
+use AntChain\CLIPRODUCT\Models\CreateBusinessOrdertRequest;
+use AntChain\CLIPRODUCT\Models\CreateBusinessOrdertResponse;
 use AntChain\CLIPRODUCT\Models\ApifCliCreateRequest;
 use AntChain\CLIPRODUCT\Models\ApifCliCreateResponse;
 use AntChain\CLIPRODUCT\Models\ApigCliCreateRequest;
@@ -63,6 +65,8 @@ use AntChain\CLIPRODUCT\Models\ApiCliCreateRequest;
 use AntChain\CLIPRODUCT\Models\ApiCliCreateResponse;
 use AntChain\CLIPRODUCT\Models\ApihCliCreateRequest;
 use AntChain\CLIPRODUCT\Models\ApihCliCreateResponse;
+use AntChain\CLIPRODUCT\Models\ApiiCliCreateRequest;
+use AntChain\CLIPRODUCT\Models\ApiiCliCreateResponse;
 
 class Client {
     protected $_endpoint;
@@ -199,7 +203,7 @@ class Client {
                     "req_msg_id" => UtilClient::getNonce(),
                     "access_key" => $this->_accessKeyId,
                     "base_sdk_version" => "TeaSDK-2.0",
-                    "sdk_version" => "1.0.0",
+                    "sdk_version" => "1.0.1",
                     "_prod_code" => "CLIPRODUCT",
                     "_prod_channel" => "default"
                 ];
@@ -770,6 +774,31 @@ class Client {
     }
 
     /**
+     * Description: 创建订单
+     * Summary: 创建订单
+     * @param CreateBusinessOrdertRequest $request
+     * @return CreateBusinessOrdertResponse
+     */
+    public function createBusinessOrdert($request){
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+        return $this->createBusinessOrdertEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 创建订单
+     * Summary: 创建订单
+     * @param CreateBusinessOrdertRequest $request
+     * @param string[] $headers
+     * @param RuntimeOptions $runtime
+     * @return CreateBusinessOrdertResponse
+     */
+    public function createBusinessOrdertEx($request, $headers, $runtime){
+        Utils::validateModel($request);
+        return CreateBusinessOrdertResponse::fromMap($this->doRequest("1.0", "antdigital.cliproduct.business.ordert.create", "HTTPS", "POST", "/gateway.do", Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
      * Description: cli创建测试接口D
      * Summary: cli创建测试接口D
      * @param ApifCliCreateRequest $request
@@ -867,5 +896,30 @@ class Client {
     public function apihCliCreateEx($request, $headers, $runtime){
         Utils::validateModel($request);
         return ApihCliCreateResponse::fromMap($this->doRequest("1.0", "antdigital.cliproduct.cli.create.apih", "HTTPS", "POST", "/gateway.do", Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: cli创建测试接口i
+     * Summary: cli创建测试接口i
+     * @param ApiiCliCreateRequest $request
+     * @return ApiiCliCreateResponse
+     */
+    public function apiiCliCreate($request){
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+        return $this->apiiCliCreateEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: cli创建测试接口i
+     * Summary: cli创建测试接口i
+     * @param ApiiCliCreateRequest $request
+     * @param string[] $headers
+     * @param RuntimeOptions $runtime
+     * @return ApiiCliCreateResponse
+     */
+    public function apiiCliCreateEx($request, $headers, $runtime){
+        Utils::validateModel($request);
+        return ApiiCliCreateResponse::fromMap($this->doRequest("1.0", "antdigital.cliproduct.cli.create.apii", "HTTPS", "POST", "/gateway.do", Tea::merge($request), $headers, $runtime));
     }
 }
