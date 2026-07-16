@@ -1,13 +1,82 @@
 <?php
 
 // This file is auto-generated, don't edit it. Thanks.
-
 namespace AntChain\DEMOSDK\Models;
 
 use AlibabaCloud\Tea\Model;
 
-class QueryWorkbenchTestRequest extends Model
-{
+class QueryWorkbenchTestRequest extends Model {
+    protected $_name = [
+        'authToken' => 'auth_token',
+        'productInstanceId' => 'product_instance_id',
+        'timeout' => 'timeout',
+        'count' => 'count',
+        'time' => 'time',
+        'desc' => 'desc',
+        'operator' => 'operator',
+        'aaaaa' => 'aaaaa',
+    ];
+    public function validate() {}
+    public function toMap() {
+        $res = [];
+        if (null !== $this->authToken) {
+            $res['auth_token'] = $this->authToken;
+        }
+        if (null !== $this->productInstanceId) {
+            $res['product_instance_id'] = $this->productInstanceId;
+        }
+        if (null !== $this->timeout) {
+            $res['timeout'] = $this->timeout;
+        }
+        if (null !== $this->count) {
+            $res['count'] = $this->count;
+        }
+        if (null !== $this->time) {
+            $res['time'] = $this->time;
+        }
+        if (null !== $this->desc) {
+            $res['desc'] = $this->desc;
+        }
+        if (null !== $this->operator) {
+            $res['operator'] = $this->operator;
+        }
+        if (null !== $this->aaaaa) {
+            $res['aaaaa'] = $this->aaaaa;
+        }
+        return $res;
+    }
+    /**
+     * @param array $map
+     * @return QueryWorkbenchTestRequest
+     */
+    public static function fromMap($map = []) {
+        $model = new self();
+        if(isset($map['auth_token'])){
+            $model->authToken = $map['auth_token'];
+        }
+        if(isset($map['product_instance_id'])){
+            $model->productInstanceId = $map['product_instance_id'];
+        }
+        if(isset($map['timeout'])){
+            $model->timeout = $map['timeout'];
+        }
+        if(isset($map['count'])){
+            $model->count = $map['count'];
+        }
+        if(isset($map['time'])){
+            $model->time = $map['time'];
+        }
+        if(isset($map['desc'])){
+            $model->desc = $map['desc'];
+        }
+        if(isset($map['operator'])){
+            $model->operator = $map['operator'];
+        }
+        if(isset($map['aaaaa'])){
+            $model->aaaaa = $map['aaaaa'];
+        }
+        return $model;
+    }
     // OAuth模式下的授权token
     /**
      * @var string
@@ -48,78 +117,11 @@ class QueryWorkbenchTestRequest extends Model
      * @var string
      */
     public $operator;
-    protected $_name = [
-        'authToken'         => 'auth_token',
-        'productInstanceId' => 'product_instance_id',
-        'timeout'           => 'timeout',
-        'count'             => 'count',
-        'time'              => 'time',
-        'desc'              => 'desc',
-        'operator'          => 'operator',
-    ];
 
-    public function validate()
-    {
-    }
-
-    public function toMap()
-    {
-        $res = [];
-        if (null !== $this->authToken) {
-            $res['auth_token'] = $this->authToken;
-        }
-        if (null !== $this->productInstanceId) {
-            $res['product_instance_id'] = $this->productInstanceId;
-        }
-        if (null !== $this->timeout) {
-            $res['timeout'] = $this->timeout;
-        }
-        if (null !== $this->count) {
-            $res['count'] = $this->count;
-        }
-        if (null !== $this->time) {
-            $res['time'] = $this->time;
-        }
-        if (null !== $this->desc) {
-            $res['desc'] = $this->desc;
-        }
-        if (null !== $this->operator) {
-            $res['operator'] = $this->operator;
-        }
-
-        return $res;
-    }
-
+    // aaaaa
     /**
-     * @param array $map
-     *
-     * @return QueryWorkbenchTestRequest
+     * @var string
      */
-    public static function fromMap($map = [])
-    {
-        $model = new self();
-        if (isset($map['auth_token'])) {
-            $model->authToken = $map['auth_token'];
-        }
-        if (isset($map['product_instance_id'])) {
-            $model->productInstanceId = $map['product_instance_id'];
-        }
-        if (isset($map['timeout'])) {
-            $model->timeout = $map['timeout'];
-        }
-        if (isset($map['count'])) {
-            $model->count = $map['count'];
-        }
-        if (isset($map['time'])) {
-            $model->time = $map['time'];
-        }
-        if (isset($map['desc'])) {
-            $model->desc = $map['desc'];
-        }
-        if (isset($map['operator'])) {
-            $model->operator = $map['operator'];
-        }
+    public $aaaaa;
 
-        return $model;
-    }
 }
