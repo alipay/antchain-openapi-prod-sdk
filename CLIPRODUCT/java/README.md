@@ -8,7 +8,7 @@
 <dependency>
    <groupId>com.antgroup.antchain.openapi</groupId>
    <artifactId>cliproduct</artifactId>
-   <version>1.0.2</version>
+   <version>1.0.5</version>
 </dependency>
 ```
 
