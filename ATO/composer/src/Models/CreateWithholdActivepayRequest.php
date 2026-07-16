@@ -1,0 +1,224 @@
+<?php
+
+// This file is auto-generated, don't edit it. Thanks.
+namespace AntChain\ATO\Models;
+
+use AlibabaCloud\Tea\Model;
+
+use AntChain\ATO\Models\OperationDivideTransInModel;
+use AntChain\ATO\Models\SingleTermDetail;
+
+class CreateWithholdActivepayRequest extends Model {
+    protected $_name = [
+        'authToken' => 'auth_token',
+        'productInstanceId' => 'product_instance_id',
+        'orderId' => 'order_id',
+        'periodNum' => 'period_num',
+        'payType' => 'pay_type',
+        'payChannel' => 'pay_channel',
+        'payAmount' => 'pay_amount',
+        'operationDivideFlag' => 'operation_divide_flag',
+        'operationDivideTransInList' => 'operation_divide_trans_in_list',
+        'multiPayDetail' => 'multi_pay_detail',
+        'payApplyNo' => 'pay_apply_no',
+        'returnUrl' => 'return_url',
+    ];
+    public function validate() {
+        Model::validateRequired('orderId', $this->orderId, true);
+        Model::validateMaxLength('orderId', $this->orderId, 50);
+        Model::validateMaxLength('payType', $this->payType, 64);
+        Model::validateMaxLength('payChannel', $this->payChannel, 64);
+        Model::validateMaxLength('operationDivideFlag', $this->operationDivideFlag, 1);
+        Model::validateMinimum('periodNum', $this->periodNum, 1);
+        Model::validateMinimum('payAmount', $this->payAmount, 1);
+        Model::validateMinimum('payApplyNo', $this->payApplyNo, 1);
+        Model::validateMinLength('payType', $this->payType, 1);
+        Model::validateMinLength('payChannel', $this->payChannel, 1);
+        Model::validateMinLength('operationDivideFlag', $this->operationDivideFlag, 1);
+        Model::validateMaximum('payApplyNo', $this->payApplyNo, 10);
+    }
+    public function toMap() {
+        $res = [];
+        if (null !== $this->authToken) {
+            $res['auth_token'] = $this->authToken;
+        }
+        if (null !== $this->productInstanceId) {
+            $res['product_instance_id'] = $this->productInstanceId;
+        }
+        if (null !== $this->orderId) {
+            $res['order_id'] = $this->orderId;
+        }
+        if (null !== $this->periodNum) {
+            $res['period_num'] = $this->periodNum;
+        }
+        if (null !== $this->payType) {
+            $res['pay_type'] = $this->payType;
+        }
+        if (null !== $this->payChannel) {
+            $res['pay_channel'] = $this->payChannel;
+        }
+        if (null !== $this->payAmount) {
+            $res['pay_amount'] = $this->payAmount;
+        }
+        if (null !== $this->operationDivideFlag) {
+            $res['operation_divide_flag'] = $this->operationDivideFlag;
+        }
+        if (null !== $this->operationDivideTransInList) {
+            $res['operation_divide_trans_in_list'] = [];
+            if(null !== $this->operationDivideTransInList && is_array($this->operationDivideTransInList)){
+                $n = 0;
+                foreach($this->operationDivideTransInList as $item){
+                    $res['operation_divide_trans_in_list'][$n++] = null !== $item ? $item->toMap() : $item;
+                }
+            }
+        }
+        if (null !== $this->multiPayDetail) {
+            $res['multi_pay_detail'] = [];
+            if(null !== $this->multiPayDetail && is_array($this->multiPayDetail)){
+                $n = 0;
+                foreach($this->multiPayDetail as $item){
+                    $res['multi_pay_detail'][$n++] = null !== $item ? $item->toMap() : $item;
+                }
+            }
+        }
+        if (null !== $this->payApplyNo) {
+            $res['pay_apply_no'] = $this->payApplyNo;
+        }
+        if (null !== $this->returnUrl) {
+            $res['return_url'] = $this->returnUrl;
+        }
+        return $res;
+    }
+    /**
+     * @param array $map
+     * @return CreateWithholdActivepayRequest
+     */
+    public static function fromMap($map = []) {
+        $model = new self();
+        if(isset($map['auth_token'])){
+            $model->authToken = $map['auth_token'];
+        }
+        if(isset($map['product_instance_id'])){
+            $model->productInstanceId = $map['product_instance_id'];
+        }
+        if(isset($map['order_id'])){
+            $model->orderId = $map['order_id'];
+        }
+        if(isset($map['period_num'])){
+            $model->periodNum = $map['period_num'];
+        }
+        if(isset($map['pay_type'])){
+            $model->payType = $map['pay_type'];
+        }
+        if(isset($map['pay_channel'])){
+            $model->payChannel = $map['pay_channel'];
+        }
+        if(isset($map['pay_amount'])){
+            $model->payAmount = $map['pay_amount'];
+        }
+        if(isset($map['operation_divide_flag'])){
+            $model->operationDivideFlag = $map['operation_divide_flag'];
+        }
+        if(isset($map['operation_divide_trans_in_list'])){
+            if(!empty($map['operation_divide_trans_in_list'])){
+                $model->operationDivideTransInList = [];
+                $n = 0;
+                foreach($map['operation_divide_trans_in_list'] as $item) {
+                    $model->operationDivideTransInList[$n++] = null !== $item ? OperationDivideTransInModel::fromMap($item) : $item;
+                }
+            }
+        }
+        if(isset($map['multi_pay_detail'])){
+            if(!empty($map['multi_pay_detail'])){
+                $model->multiPayDetail = [];
+                $n = 0;
+                foreach($map['multi_pay_detail'] as $item) {
+                    $model->multiPayDetail[$n++] = null !== $item ? SingleTermDetail::fromMap($item) : $item;
+                }
+            }
+        }
+        if(isset($map['pay_apply_no'])){
+            $model->payApplyNo = $map['pay_apply_no'];
+        }
+        if(isset($map['return_url'])){
+            $model->returnUrl = $map['return_url'];
+        }
+        return $model;
+    }
+    // OAuth模式下的授权token
+    /**
+     * @var string
+     */
+    public $authToken;
+
+    /**
+     * @var string
+     */
+    public $productInstanceId;
+
+    // 订单id 长度不可超过50
+    /**
+     * @var string
+     */
+    public $orderId;
+
+    // 第几期,当支付类型为PERFORMANCE或为空必填
+    /**
+     * @var int
+     */
+    public $periodNum;
+
+    // 支付类型
+    /**
+     * @var string
+     */
+    public $payType;
+
+    // 支付渠道，非必填。可选值：JSAPI-JSAPI支付，APP-APP支付。默认值：JSAPI
+    /**
+     * @var string
+     */
+    public $payChannel;
+
+    // 支付金额，单位为分
+    // 当支付类型非PERFORMANCE或为空必填
+    /**
+     * @var int
+     */
+    public $payAmount;
+
+    // 经营分账标识Y/N
+    // 当pay_type=BUYOUT、PENALTY、MULTI_PAY必填。
+    /**
+     * @var string
+     */
+    public $operationDivideFlag;
+
+    // 当operation_divide_flag=Y 必填
+    // 经营分账收入列表，最多10条，分账比例与正常限制一致。
+    /**
+     * @var OperationDivideTransInModel[]
+     */
+    public $operationDivideTransInList;
+
+    // 单期支付明细列表
+    // 当pay_type=MULTI_PAY必填。
+    /**
+     * @var SingleTermDetail[]
+     */
+    public $multiPayDetail;
+
+    // 支付申请号，用于区分在一笔订单同一支付类型的多笔支付请求。
+    // 当支付类型非MULTI_PAY或为空时必填
+    /**
+     * @var int
+     */
+    public $payApplyNo;
+
+    // 回调地址
+    /**
+     * @var string
+     */
+    public $returnUrl;
+
+}
