@@ -126,7 +126,7 @@ public class Client {
                     new TeaPair("req_msg_id", com.antgroup.antchain.openapi.antchain.util.AntchainUtils.getNonce()),
                     new TeaPair("access_key", _accessKeyId),
                     new TeaPair("base_sdk_version", "TeaSDK-2.0"),
-                    new TeaPair("sdk_version", "1.0.16"),
+                    new TeaPair("sdk_version", "1.0.17"),
                     new TeaPair("_prod_code", "CLIPRODUCT"),
                     new TeaPair("_prod_channel", "default")
                 );
@@ -837,5 +837,26 @@ public class Client {
     public ApikCliCreateResponse apikCliCreateEx(ApikCliCreateRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
         com.aliyun.teautil.Common.validateModel(request);
         return TeaModel.toModel(this.doRequest("1.0", "antdigital.cliproduct.cli.create.apik", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new ApikCliCreateResponse());
+    }
+
+    /**
+     * <b>description</b> :
+     * <p>Description: cli创建测试接口L
+     * Summary: cli创建测试接口L</p>
+     */
+    public ApilCliCreateResponse apilCliCreate(ApilCliCreateRequest request) throws Exception {
+        com.aliyun.teautil.models.RuntimeOptions runtime = new com.aliyun.teautil.models.RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.apilCliCreateEx(request, headers, runtime);
+    }
+
+    /**
+     * <b>description</b> :
+     * <p>Description: cli创建测试接口L
+     * Summary: cli创建测试接口L</p>
+     */
+    public ApilCliCreateResponse apilCliCreateEx(ApilCliCreateRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "antdigital.cliproduct.cli.create.apil", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new ApilCliCreateResponse());
     }
 }
