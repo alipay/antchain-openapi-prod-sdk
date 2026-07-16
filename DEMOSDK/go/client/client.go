@@ -498,6 +498,28 @@ func (s *TestParams) SetString_(v string) *TestParams {
 	return s
 }
 
+// aa
+type OrderA struct {
+	// aa
+	// example:
+	//
+	// a
+	Aaa *string `json:"aaa,omitempty" xml:"aaa,omitempty"`
+}
+
+func (s OrderA) String() string {
+	return tea.Prettify(s)
+}
+
+func (s OrderA) GoString() string {
+	return s.String()
+}
+
+func (s *OrderA) SetAaa(v string) *OrderA {
+	s.Aaa = &v
+	return s
+}
+
 // DEMOSDK结构体A·edit for test18
 type DemosdkStructA struct {
 	// 【公司名称】
@@ -1379,6 +1401,83 @@ func (s *ConfigQueryApiResponse) SetStauts(v string) *ConfigQueryApiResponse {
 
 func (s *ConfigQueryApiResponse) SetMsg(v string) *ConfigQueryApiResponse {
 	s.Msg = &v
+	return s
+}
+
+type ApiaAciCreateRequest struct {
+	// OAuth模式下的授权token
+	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
+	// 超时时间
+	Timeout *string `json:"timeout,omitempty" xml:"timeout,omitempty" require:"true"`
+}
+
+func (s ApiaAciCreateRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s ApiaAciCreateRequest) GoString() string {
+	return s.String()
+}
+
+func (s *ApiaAciCreateRequest) SetAuthToken(v string) *ApiaAciCreateRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *ApiaAciCreateRequest) SetProductInstanceId(v string) *ApiaAciCreateRequest {
+	s.ProductInstanceId = &v
+	return s
+}
+
+func (s *ApiaAciCreateRequest) SetTimeout(v string) *ApiaAciCreateRequest {
+	s.Timeout = &v
+	return s
+}
+
+type ApiaAciCreateResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// 状态描述
+	Msg *string `json:"msg,omitempty" xml:"msg,omitempty"`
+	// 状态码
+	Status *string `json:"status,omitempty" xml:"status,omitempty"`
+}
+
+func (s ApiaAciCreateResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s ApiaAciCreateResponse) GoString() string {
+	return s.String()
+}
+
+func (s *ApiaAciCreateResponse) SetReqMsgId(v string) *ApiaAciCreateResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *ApiaAciCreateResponse) SetResultCode(v string) *ApiaAciCreateResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *ApiaAciCreateResponse) SetResultMsg(v string) *ApiaAciCreateResponse {
+	s.ResultMsg = &v
+	return s
+}
+
+func (s *ApiaAciCreateResponse) SetMsg(v string) *ApiaAciCreateResponse {
+	s.Msg = &v
+	return s
+}
+
+func (s *ApiaAciCreateResponse) SetStatus(v string) *ApiaAciCreateResponse {
+	s.Status = &v
 	return s
 }
 
@@ -2912,7 +3011,7 @@ func (client *Client) DoRequest(version *string, action *string, protocol *strin
 				"req_msg_id":       antchainutil.GetNonce(),
 				"access_key":       client.AccessKeyId,
 				"base_sdk_version": tea.String("TeaSDK-2.0"),
-				"sdk_version":      tea.String("1.3.52"),
+				"sdk_version":      tea.String("1.3.57"),
 				"_prod_code":       tea.String("DEMOSDK"),
 				"_prod_channel":    tea.String("default"),
 			}
@@ -3359,6 +3458,42 @@ func (client *Client) ConfigQueryApiEx(request *ConfigQueryApiRequest, headers m
 	}
 	_result = &ConfigQueryApiResponse{}
 	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("antchain.demosdk.query.api.config"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
+}
+
+// Description:
+//
+// Description: 自动化创建接口a
+//
+// Summary: 自动化创建接口a
+func (client *Client) ApiaAciCreate(request *ApiaAciCreateRequest) (_result *ApiaAciCreateResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &ApiaAciCreateResponse{}
+	_body, _err := client.ApiaAciCreateEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+// Description:
+//
+// Description: 自动化创建接口a
+//
+// Summary: 自动化创建接口a
+func (client *Client) ApiaAciCreateEx(request *ApiaAciCreateRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *ApiaAciCreateResponse, _err error) {
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &ApiaAciCreateResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("antchain.demosdk.aci.create.apia"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
 	if _err != nil {
 		return _result, _err
 	}
