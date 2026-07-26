@@ -466,6 +466,31 @@ export class TestParams extends $tea.Model {
   }
 }
 
+// aa
+export class OrderA extends $tea.Model {
+  // aa
+  /**
+   * @example
+   * a
+   */
+  aaa?: string;
+  static names(): { [key: string]: string } {
+    return {
+      aaa: 'aaa',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      aaa: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
 // DEMOSDK结构体A·edit for test18
 export class DemosdkStructA extends $tea.Model {
   // 【公司名称】
@@ -2578,7 +2603,7 @@ export default class Client {
           req_msg_id: AntchainUtil.getNonce(),
           access_key: this._accessKeyId,
           base_sdk_version: "TeaSDK-2.0",
-          sdk_version: "1.3.53",
+          sdk_version: "1.3.60",
           _prod_code: "DEMOSDK",
           _prod_channel: "default",
         };
