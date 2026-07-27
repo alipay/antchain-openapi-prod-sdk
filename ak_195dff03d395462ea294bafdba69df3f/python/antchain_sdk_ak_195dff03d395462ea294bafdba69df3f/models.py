@@ -3215,6 +3215,7 @@ class AuthAntchainAtoSignFlowResponse(TeaModel):
         result_code: str = None,
         result_msg: str = None,
         sign_field_ids: str = None,
+        org_sign_url: str = None,
     ):
         # 请求唯一ID，用于链路跟踪和问题排查
         self.req_msg_id = req_msg_id
@@ -3224,6 +3225,9 @@ class AuthAntchainAtoSignFlowResponse(TeaModel):
         self.result_msg = result_msg
         # 签署最后落签的签署区域id列表
         self.sign_field_ids = sign_field_ids
+        # 手动签署链接，区块链合同签署方式，企业未进行静默授权，会返回一个手动签署链接
+        # 如果已授权或者不是区块链签署方式，该字段为空
+        self.org_sign_url = org_sign_url
 
     def validate(self):
         pass
@@ -3242,6 +3246,8 @@ class AuthAntchainAtoSignFlowResponse(TeaModel):
             result['result_msg'] = self.result_msg
         if self.sign_field_ids is not None:
             result['sign_field_ids'] = self.sign_field_ids
+        if self.org_sign_url is not None:
+            result['org_sign_url'] = self.org_sign_url
         return result
 
     def from_map(self, m: dict = None):
@@ -3254,6 +3260,8 @@ class AuthAntchainAtoSignFlowResponse(TeaModel):
             self.result_msg = m.get('result_msg')
         if m.get('sign_field_ids') is not None:
             self.sign_field_ids = m.get('sign_field_ids')
+        if m.get('org_sign_url') is not None:
+            self.org_sign_url = m.get('org_sign_url')
         return self
 
 

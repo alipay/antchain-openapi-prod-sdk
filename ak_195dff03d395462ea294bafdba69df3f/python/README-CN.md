@@ -1,6 +1,6 @@
 [English](README.md) | 简体中文
 
-## Ant Chain ak_195dff03d395462ea294bafdba69df3f SDK for Python
+## Ant Chain ABC SDK for Python
 
 ## 要求
 

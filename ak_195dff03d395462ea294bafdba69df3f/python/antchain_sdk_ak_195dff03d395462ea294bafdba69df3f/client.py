@@ -135,7 +135,7 @@ class Client:
                     'req_msg_id': AntchainUtils.get_nonce(),
                     'access_key': self._access_key_id,
                     'base_sdk_version': 'TeaSDK-2.0',
-                    'sdk_version': '1.7.10',
+                    'sdk_version': '1.8.0',
                     '_prod_code': 'ak_195dff03d395462ea294bafdba69df3f',
                     '_prod_channel': 'saas'
                 }
@@ -239,7 +239,7 @@ class Client:
                     'req_msg_id': AntchainUtils.get_nonce(),
                     'access_key': self._access_key_id,
                     'base_sdk_version': 'TeaSDK-2.0',
-                    'sdk_version': '1.7.10',
+                    'sdk_version': '1.8.0',
                     '_prod_code': 'ak_195dff03d395462ea294bafdba69df3f',
                     '_prod_channel': 'saas'
                 }
@@ -785,7 +785,7 @@ class Client:
     ) -> ak__195dff_03d_395462ea_294bafdba_69df_3f_models.AuthAntchainAtoSignFlowResponse:
         """
         Description: 电子合同签署模块，机构调用这个接口进行签署的授权落签
-        Summary: 电子合同签署流程落签操作
+        Summary: 电子合同签署模块，机构调用这个接口进行签署的授权落签
         """
         runtime = util_models.RuntimeOptions()
         headers = {}
@@ -797,7 +797,7 @@ class Client:
     ) -> ak__195dff_03d_395462ea_294bafdba_69df_3f_models.AuthAntchainAtoSignFlowResponse:
         """
         Description: 电子合同签署模块，机构调用这个接口进行签署的授权落签
-        Summary: 电子合同签署流程落签操作
+        Summary: 电子合同签署模块，机构调用这个接口进行签署的授权落签
         """
         runtime = util_models.RuntimeOptions()
         headers = {}
@@ -811,7 +811,7 @@ class Client:
     ) -> ak__195dff_03d_395462ea_294bafdba_69df_3f_models.AuthAntchainAtoSignFlowResponse:
         """
         Description: 电子合同签署模块，机构调用这个接口进行签署的授权落签
-        Summary: 电子合同签署流程落签操作
+        Summary: 电子合同签署模块，机构调用这个接口进行签署的授权落签
         """
         UtilClient.validate_model(request)
         return TeaCore.from_map(
@@ -827,7 +827,7 @@ class Client:
     ) -> ak__195dff_03d_395462ea_294bafdba_69df_3f_models.AuthAntchainAtoSignFlowResponse:
         """
         Description: 电子合同签署模块，机构调用这个接口进行签署的授权落签
-        Summary: 电子合同签署流程落签操作
+        Summary: 电子合同签署模块，机构调用这个接口进行签署的授权落签
         """
         UtilClient.validate_model(request)
         return TeaCore.from_map(

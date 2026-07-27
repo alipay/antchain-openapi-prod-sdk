@@ -24,13 +24,13 @@ from setuptools import setup, find_packages
 """
 setup module for antchain_ak_195dff03d395462ea294bafdba69df3f.
 
-Created on 11/06/2026
+Created on 27/07/2026
 
 @author: Ant Chain SDK
 """
 
 PACKAGE = "antchain_sdk_ak_195dff03d395462ea294bafdba69df3f"
-NAME = "antchain_ak_195dff03d395462ea294bafdba69df3f" or "alibabacloud-package"
+NAME = 'antchain_ak_195dff03d395462ea294bafdba69df3f' or "alibabacloud-package"
 DESCRIPTION = "Ant Chain Ak_195dff03d395462ea294bafdba69df3f SDK Library for Python"
 AUTHOR = "Ant Chain SDK"
 AUTHOR_EMAIL = "sdk-team@alibabacloud.com"
