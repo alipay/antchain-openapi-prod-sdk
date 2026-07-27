@@ -126,7 +126,7 @@ public class Client {
                     new TeaPair("req_msg_id", com.antgroup.antchain.openapi.antchain.util.AntchainUtils.getNonce()),
                     new TeaPair("access_key", _accessKeyId),
                     new TeaPair("base_sdk_version", "TeaSDK-2.0"),
-                    new TeaPair("sdk_version", "1.19.80"),
+                    new TeaPair("sdk_version", "1.19.83"),
                     new TeaPair("_prod_code", "ATO"),
                     new TeaPair("_prod_channel", "undefined")
                 );
@@ -270,6 +270,165 @@ public class Client {
     public QueryTradeSettletocardResponse queryTradeSettletocardEx(QueryTradeSettletocardRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
         com.aliyun.teautil.Common.validateModel(request);
         return TeaModel.toModel(this.doRequest("1.0", "antchain.ato.trade.settletocard.query", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new QueryTradeSettletocardResponse());
+    }
+
+    /**
+     * <b>description</b> :
+     * <p>Description: 一次性支付订单创建
+     * 接口信息
+     * Summary: 一次性支付订单创建
+     * 接口信息</p>
+     */
+    public SyncOnetimeOrderResponse syncOnetimeOrder(SyncOnetimeOrderRequest request) throws Exception {
+        com.aliyun.teautil.models.RuntimeOptions runtime = new com.aliyun.teautil.models.RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.syncOnetimeOrderEx(request, headers, runtime);
+    }
+
+    /**
+     * <b>description</b> :
+     * <p>Description: 一次性支付订单创建
+     * 接口信息
+     * Summary: 一次性支付订单创建
+     * 接口信息</p>
+     */
+    public SyncOnetimeOrderResponse syncOnetimeOrderEx(SyncOnetimeOrderRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "antchain.ato.onetime.order.sync", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new SyncOnetimeOrderResponse());
+    }
+
+    /**
+     * <b>description</b> :
+     * <p>Description: 一次性支付订单信息查询
+     * Summary: 一次性支付订单信息查询</p>
+     */
+    public QueryOnetimeOrderResponse queryOnetimeOrder(QueryOnetimeOrderRequest request) throws Exception {
+        com.aliyun.teautil.models.RuntimeOptions runtime = new com.aliyun.teautil.models.RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.queryOnetimeOrderEx(request, headers, runtime);
+    }
+
+    /**
+     * <b>description</b> :
+     * <p>Description: 一次性支付订单信息查询
+     * Summary: 一次性支付订单信息查询</p>
+     */
+    public QueryOnetimeOrderResponse queryOnetimeOrderEx(QueryOnetimeOrderRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "antchain.ato.onetime.order.query", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new QueryOnetimeOrderResponse());
+    }
+
+    /**
+     * <b>description</b> :
+     * <p>Description: 一次性支付订单资金流水信息查询
+     * Summary: 一次性支付订单资金流水信息查询</p>
+     */
+    public QueryOnetimePerformanceResponse queryOnetimePerformance(QueryOnetimePerformanceRequest request) throws Exception {
+        com.aliyun.teautil.models.RuntimeOptions runtime = new com.aliyun.teautil.models.RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.queryOnetimePerformanceEx(request, headers, runtime);
+    }
+
+    /**
+     * <b>description</b> :
+     * <p>Description: 一次性支付订单资金流水信息查询
+     * Summary: 一次性支付订单资金流水信息查询</p>
+     */
+    public QueryOnetimePerformanceResponse queryOnetimePerformanceEx(QueryOnetimePerformanceRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "antchain.ato.onetime.performance.query", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new QueryOnetimePerformanceResponse());
+    }
+
+    /**
+     * <b>description</b> :
+     * <p>Description: 一次性支付退款查询
+     * 接口信息
+     * Summary: 一次性支付退款查询
+     * 接口信息</p>
+     */
+    public QueryOnetimeRefundResponse queryOnetimeRefund(QueryOnetimeRefundRequest request) throws Exception {
+        com.aliyun.teautil.models.RuntimeOptions runtime = new com.aliyun.teautil.models.RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.queryOnetimeRefundEx(request, headers, runtime);
+    }
+
+    /**
+     * <b>description</b> :
+     * <p>Description: 一次性支付退款查询
+     * 接口信息
+     * Summary: 一次性支付退款查询
+     * 接口信息</p>
+     */
+    public QueryOnetimeRefundResponse queryOnetimeRefundEx(QueryOnetimeRefundRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "antchain.ato.onetime.refund.query", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new QueryOnetimeRefundResponse());
+    }
+
+    /**
+     * <b>description</b> :
+     * <p>Description: 一次性支付创建
+     * Summary: 一次性支付创建</p>
+     */
+    public InitOnetimeActivepayResponse initOnetimeActivepay(InitOnetimeActivepayRequest request) throws Exception {
+        com.aliyun.teautil.models.RuntimeOptions runtime = new com.aliyun.teautil.models.RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.initOnetimeActivepayEx(request, headers, runtime);
+    }
+
+    /**
+     * <b>description</b> :
+     * <p>Description: 一次性支付创建
+     * Summary: 一次性支付创建</p>
+     */
+    public InitOnetimeActivepayResponse initOnetimeActivepayEx(InitOnetimeActivepayRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "antchain.ato.onetime.activepay.init", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new InitOnetimeActivepayResponse());
+    }
+
+    /**
+     * <b>description</b> :
+     * <p>Description: 一次性支付查询
+     * Summary: 一次性支付查询</p>
+     */
+    public QueryOnetimeActivepayResponse queryOnetimeActivepay(QueryOnetimeActivepayRequest request) throws Exception {
+        com.aliyun.teautil.models.RuntimeOptions runtime = new com.aliyun.teautil.models.RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.queryOnetimeActivepayEx(request, headers, runtime);
+    }
+
+    /**
+     * <b>description</b> :
+     * <p>Description: 一次性支付查询
+     * Summary: 一次性支付查询</p>
+     */
+    public QueryOnetimeActivepayResponse queryOnetimeActivepayEx(QueryOnetimeActivepayRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "antchain.ato.onetime.activepay.query", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new QueryOnetimeActivepayResponse());
+    }
+
+    /**
+     * <b>description</b> :
+     * <p>Description: 一次性支付退款创建
+     * 接口信息
+     * Summary: 一次性支付退款创建
+     * 接口信息</p>
+     */
+    public CreateOnetimeRefundResponse createOnetimeRefund(CreateOnetimeRefundRequest request) throws Exception {
+        com.aliyun.teautil.models.RuntimeOptions runtime = new com.aliyun.teautil.models.RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.createOnetimeRefundEx(request, headers, runtime);
+    }
+
+    /**
+     * <b>description</b> :
+     * <p>Description: 一次性支付退款创建
+     * 接口信息
+     * Summary: 一次性支付退款创建
+     * 接口信息</p>
+     */
+    public CreateOnetimeRefundResponse createOnetimeRefundEx(CreateOnetimeRefundRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "antchain.ato.onetime.refund.create", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new CreateOnetimeRefundResponse());
     }
 
     /**

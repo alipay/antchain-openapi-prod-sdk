@@ -18,7 +18,6 @@ public class CreateInnerWithholdjdsignurlRequest extends TeaModel {
 
     // 签约人
     @NameInMap("account_id")
-    @Validation(required = true)
     public String accountId;
 
     public static CreateInnerWithholdjdsignurlRequest build(java.util.Map<String, ?> map) throws Exception {
