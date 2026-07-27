@@ -7,8 +7,8 @@
 ```xml
 <dependency>
    <groupId>com.antgroup.antchain.openapi</groupId>
-   <artifactId>insurance-saas</artifactId>
-   <version>1.12.49</version>
+   <artifactId>insurance_saas</artifactId>
+   <version>1.12.52</version>
 </dependency>
 ```
 
