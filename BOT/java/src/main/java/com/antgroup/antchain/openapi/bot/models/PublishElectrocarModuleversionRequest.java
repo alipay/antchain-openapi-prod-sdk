@@ -21,9 +21,9 @@ public class PublishElectrocarModuleversionRequest extends TeaModel {
     public ModuleLocator moduleLocator;
 
     // 当前模块版本号
-    @NameInMap("version")
+    @NameInMap("version_no")
     @Validation(required = true)
-    public String version;
+    public String versionNo;
 
     public static PublishElectrocarModuleversionRequest build(java.util.Map<String, ?> map) throws Exception {
         PublishElectrocarModuleversionRequest self = new PublishElectrocarModuleversionRequest();
@@ -62,12 +62,12 @@ public class PublishElectrocarModuleversionRequest extends TeaModel {
         return this.moduleLocator;
     }
 
-    public PublishElectrocarModuleversionRequest setVersion(String version) {
-        this.version = version;
+    public PublishElectrocarModuleversionRequest setVersionNo(String versionNo) {
+        this.versionNo = versionNo;
         return this;
     }
-    public String getVersion() {
-        return this.version;
+    public String getVersionNo() {
+        return this.versionNo;
     }
 
 }

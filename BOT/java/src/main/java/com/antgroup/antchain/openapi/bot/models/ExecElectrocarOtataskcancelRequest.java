@@ -35,6 +35,11 @@ public class ExecElectrocarOtataskcancelRequest extends TeaModel {
     @NameInMap("cancel_reason")
     public String cancelReason;
 
+    // ota升级任务id
+    @NameInMap("task_id")
+    @Validation(required = true)
+    public String taskId;
+
     public static ExecElectrocarOtataskcancelRequest build(java.util.Map<String, ?> map) throws Exception {
         ExecElectrocarOtataskcancelRequest self = new ExecElectrocarOtataskcancelRequest();
         return TeaModel.build(map, self);
@@ -94,6 +99,14 @@ public class ExecElectrocarOtataskcancelRequest extends TeaModel {
     }
     public String getCancelReason() {
         return this.cancelReason;
+    }
+
+    public ExecElectrocarOtataskcancelRequest setTaskId(String taskId) {
+        this.taskId = taskId;
+        return this;
+    }
+    public String getTaskId() {
+        return this.taskId;
     }
 
 }

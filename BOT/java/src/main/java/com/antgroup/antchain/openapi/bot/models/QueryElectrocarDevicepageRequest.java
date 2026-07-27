@@ -39,8 +39,8 @@ public class QueryElectrocarDevicepageRequest extends TeaModel {
     public String moduleName;
 
     // OTA模块版本号（可选，配合moduleName使用）
-    @NameInMap("version")
-    public String version;
+    @NameInMap("version_no")
+    public String versionNo;
 
     public static QueryElectrocarDevicepageRequest build(java.util.Map<String, ?> map) throws Exception {
         QueryElectrocarDevicepageRequest self = new QueryElectrocarDevicepageRequest();
@@ -111,12 +111,12 @@ public class QueryElectrocarDevicepageRequest extends TeaModel {
         return this.moduleName;
     }
 
-    public QueryElectrocarDevicepageRequest setVersion(String version) {
-        this.version = version;
+    public QueryElectrocarDevicepageRequest setVersionNo(String versionNo) {
+        this.versionNo = versionNo;
         return this;
     }
-    public String getVersion() {
-        return this.version;
+    public String getVersionNo() {
+        return this.versionNo;
     }
 
 }

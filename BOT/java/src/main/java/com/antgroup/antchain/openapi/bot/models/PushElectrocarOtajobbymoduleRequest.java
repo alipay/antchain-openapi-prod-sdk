@@ -78,8 +78,23 @@ public class PushElectrocarOtajobbymoduleRequest extends TeaModel {
     public String moduleName;
 
     // 用于筛选目标设备的模块版本；不传时仅按模块名称筛选。
-    @NameInMap("version")
-    public String version;
+    @NameInMap("version_no")
+    public String versionNo;
+
+    // 用于筛选源设备版本的结构化谓词，支持 ANY、EXACT 和 RANGE。
+    @NameInMap("version_predicate")
+    @Validation(required = true)
+    public ContinuousOtaVersionPredicate versionPredicate;
+
+    // 自动创建的连续推送规则生效范围：ALL_DEVICES 或 WHITELIST。
+    @NameInMap("device_scope_type")
+    @Validation(required = true)
+    public String deviceScopeType;
+
+    // 规则命中后的延迟执行时间，单位秒，范围 0～600。
+    @NameInMap("delay_in_seconds")
+    @Validation(required = true)
+    public Long delayInSeconds;
 
     public static PushElectrocarOtajobbymoduleRequest build(java.util.Map<String, ?> map) throws Exception {
         PushElectrocarOtajobbymoduleRequest self = new PushElectrocarOtajobbymoduleRequest();
@@ -222,12 +237,36 @@ public class PushElectrocarOtajobbymoduleRequest extends TeaModel {
         return this.moduleName;
     }
 
-    public PushElectrocarOtajobbymoduleRequest setVersion(String version) {
-        this.version = version;
+    public PushElectrocarOtajobbymoduleRequest setVersionNo(String versionNo) {
+        this.versionNo = versionNo;
         return this;
     }
-    public String getVersion() {
-        return this.version;
+    public String getVersionNo() {
+        return this.versionNo;
+    }
+
+    public PushElectrocarOtajobbymoduleRequest setVersionPredicate(ContinuousOtaVersionPredicate versionPredicate) {
+        this.versionPredicate = versionPredicate;
+        return this;
+    }
+    public ContinuousOtaVersionPredicate getVersionPredicate() {
+        return this.versionPredicate;
+    }
+
+    public PushElectrocarOtajobbymoduleRequest setDeviceScopeType(String deviceScopeType) {
+        this.deviceScopeType = deviceScopeType;
+        return this;
+    }
+    public String getDeviceScopeType() {
+        return this.deviceScopeType;
+    }
+
+    public PushElectrocarOtajobbymoduleRequest setDelayInSeconds(Long delayInSeconds) {
+        this.delayInSeconds = delayInSeconds;
+        return this;
+    }
+    public Long getDelayInSeconds() {
+        return this.delayInSeconds;
     }
 
 }
