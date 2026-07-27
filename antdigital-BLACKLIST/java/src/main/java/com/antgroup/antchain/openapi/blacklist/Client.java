@@ -126,9 +126,9 @@ public class Client {
                     new TeaPair("req_msg_id", com.antgroup.antchain.openapi.antchain.util.AntchainUtils.getNonce()),
                     new TeaPair("access_key", _accessKeyId),
                     new TeaPair("base_sdk_version", "TeaSDK-2.0"),
-                    new TeaPair("sdk_version", "1.1.6"),
+                    new TeaPair("sdk_version", "1.1.7"),
                     new TeaPair("_prod_code", "BLACKLIST"),
-                    new TeaPair("_prod_channel", "undefined")
+                    new TeaPair("_prod_channel", "default")
                 );
                 if (!com.aliyun.teautil.Common.empty(_securityToken)) {
                     request_.query.put("security_token", _securityToken);
@@ -627,5 +627,194 @@ public class Client {
     public CreateZolozsgRaasSharetokenResponse createZolozsgRaasSharetokenEx(CreateZolozsgRaasSharetokenRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
         com.aliyun.teautil.Common.validateModel(request);
         return TeaModel.toModel(this.doRequest("1.0", "zolozsg.raas.sharetoken.create", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new CreateZolozsgRaasSharetokenResponse());
+    }
+
+    /**
+     * <b>description</b> :
+     * <p>Description: 创建申请人，幂等创建 KYC 身份容器并生成全局唯一 applicantId
+     * Summary: 创建申请人，幂等创建 KYC 身份容器并生成全局唯一 applicantId</p>
+     */
+    public CreateZolozmyRaasApplicantResponse createZolozmyRaasApplicant(CreateZolozmyRaasApplicantRequest request) throws Exception {
+        com.aliyun.teautil.models.RuntimeOptions runtime = new com.aliyun.teautil.models.RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.createZolozmyRaasApplicantEx(request, headers, runtime);
+    }
+
+    /**
+     * <b>description</b> :
+     * <p>Description: 创建申请人，幂等创建 KYC 身份容器并生成全局唯一 applicantId
+     * Summary: 创建申请人，幂等创建 KYC 身份容器并生成全局唯一 applicantId</p>
+     */
+    public CreateZolozmyRaasApplicantResponse createZolozmyRaasApplicantEx(CreateZolozmyRaasApplicantRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "zolozmy.raas.applicant.create", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new CreateZolozmyRaasApplicantResponse());
+    }
+
+    /**
+     * <b>description</b> :
+     * <p>Description: 挂载已有 RealID 交易的证件和人脸数据到申请人名下
+     * Summary: 挂载已有 RealID 交易的证件和人脸数据到申请人名下</p>
+     */
+    public AttachZolozmyRaasApplicantResponse attachZolozmyRaasApplicant(AttachZolozmyRaasApplicantRequest request) throws Exception {
+        com.aliyun.teautil.models.RuntimeOptions runtime = new com.aliyun.teautil.models.RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.attachZolozmyRaasApplicantEx(request, headers, runtime);
+    }
+
+    /**
+     * <b>description</b> :
+     * <p>Description: 挂载已有 RealID 交易的证件和人脸数据到申请人名下
+     * Summary: 挂载已有 RealID 交易的证件和人脸数据到申请人名下</p>
+     */
+    public AttachZolozmyRaasApplicantResponse attachZolozmyRaasApplicantEx(AttachZolozmyRaasApplicantRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "zolozmy.raas.applicant.attach", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new AttachZolozmyRaasApplicantResponse());
+    }
+
+    /**
+     * <b>description</b> :
+     * <p>Description: 查询申请人信息及 ACTIVE 状态的 KYC 数据
+     * Summary: 查询申请人信息及 ACTIVE 状态的 KYC 数据</p>
+     */
+    public QueryZolozmyRaasApplicantResponse queryZolozmyRaasApplicant(QueryZolozmyRaasApplicantRequest request) throws Exception {
+        com.aliyun.teautil.models.RuntimeOptions runtime = new com.aliyun.teautil.models.RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.queryZolozmyRaasApplicantEx(request, headers, runtime);
+    }
+
+    /**
+     * <b>description</b> :
+     * <p>Description: 查询申请人信息及 ACTIVE 状态的 KYC 数据
+     * Summary: 查询申请人信息及 ACTIVE 状态的 KYC 数据</p>
+     */
+    public QueryZolozmyRaasApplicantResponse queryZolozmyRaasApplicantEx(QueryZolozmyRaasApplicantRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "zolozmy.raas.applicant.query", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new QueryZolozmyRaasApplicantResponse());
+    }
+
+    /**
+     * <b>description</b> :
+     * <p>Description: 更新申请人邮箱和电话（非空 PATCH 语义）
+     * Summary: 更新申请人邮箱和电话（非空 PATCH 语义）</p>
+     */
+    public UpdateZolozmyRaasApplicantResponse updateZolozmyRaasApplicant(UpdateZolozmyRaasApplicantRequest request) throws Exception {
+        com.aliyun.teautil.models.RuntimeOptions runtime = new com.aliyun.teautil.models.RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.updateZolozmyRaasApplicantEx(request, headers, runtime);
+    }
+
+    /**
+     * <b>description</b> :
+     * <p>Description: 更新申请人邮箱和电话（非空 PATCH 语义）
+     * Summary: 更新申请人邮箱和电话（非空 PATCH 语义）</p>
+     */
+    public UpdateZolozmyRaasApplicantResponse updateZolozmyRaasApplicantEx(UpdateZolozmyRaasApplicantRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "zolozmy.raas.applicant.update", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new UpdateZolozmyRaasApplicantResponse());
+    }
+
+    /**
+     * <b>description</b> :
+     * <p>Description: 物理删除申请人及全部 KYC 数据（GDPR 撤回场景）
+     * Summary: 物理删除申请人及全部 KYC 数据（GDPR 撤回场景）</p>
+     */
+    public DeleteZolozmyRaasApplicantResponse deleteZolozmyRaasApplicant(DeleteZolozmyRaasApplicantRequest request) throws Exception {
+        com.aliyun.teautil.models.RuntimeOptions runtime = new com.aliyun.teautil.models.RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.deleteZolozmyRaasApplicantEx(request, headers, runtime);
+    }
+
+    /**
+     * <b>description</b> :
+     * <p>Description: 物理删除申请人及全部 KYC 数据（GDPR 撤回场景）
+     * Summary: 物理删除申请人及全部 KYC 数据（GDPR 撤回场景）</p>
+     */
+    public DeleteZolozmyRaasApplicantResponse deleteZolozmyRaasApplicantEx(DeleteZolozmyRaasApplicantRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "zolozmy.raas.applicant.delete", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new DeleteZolozmyRaasApplicantResponse());
+    }
+
+    /**
+     * <b>description</b> :
+     * <p>Description: 生成一次性跨商户 KYC 数据分享令牌
+     * Summary: 生成一次性跨商户 KYC 数据分享令牌</p>
+     */
+    public CreateZolozmyRaasSharetokenResponse createZolozmyRaasSharetoken(CreateZolozmyRaasSharetokenRequest request) throws Exception {
+        com.aliyun.teautil.models.RuntimeOptions runtime = new com.aliyun.teautil.models.RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.createZolozmyRaasSharetokenEx(request, headers, runtime);
+    }
+
+    /**
+     * <b>description</b> :
+     * <p>Description: 生成一次性跨商户 KYC 数据分享令牌
+     * Summary: 生成一次性跨商户 KYC 数据分享令牌</p>
+     */
+    public CreateZolozmyRaasSharetokenResponse createZolozmyRaasSharetokenEx(CreateZolozmyRaasSharetokenRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "zolozmy.raas.sharetoken.create", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new CreateZolozmyRaasSharetokenResponse());
+    }
+
+    /**
+     * <b>description</b> :
+     * <p>Description: 复用认证初始化，令牌校验+donor 数据加载+EKYC 初始化
+     * Summary: 复用认证初始化，令牌校验+donor 数据加载+EKYC 初始化</p>
+     */
+    public InitializeZolozmyRaasRealidReusableResponse initializeZolozmyRaasRealidReusable(InitializeZolozmyRaasRealidReusableRequest request) throws Exception {
+        com.aliyun.teautil.models.RuntimeOptions runtime = new com.aliyun.teautil.models.RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.initializeZolozmyRaasRealidReusableEx(request, headers, runtime);
+    }
+
+    /**
+     * <b>description</b> :
+     * <p>Description: 复用认证初始化，令牌校验+donor 数据加载+EKYC 初始化
+     * Summary: 复用认证初始化，令牌校验+donor 数据加载+EKYC 初始化</p>
+     */
+    public InitializeZolozmyRaasRealidReusableResponse initializeZolozmyRaasRealidReusableEx(InitializeZolozmyRaasRealidReusableRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "zolozmy.raas.realid.reusable.initialize", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new InitializeZolozmyRaasRealidReusableResponse());
+    }
+
+    /**
+     * <b>description</b> :
+     * <p>Description: 查询复用认证结果，返回认证状态和结果信息
+     * Summary: 查询复用认证结果，返回认证状态和结果信息</p>
+     */
+    public CheckresultZolozmyRaasRealidReusableResponse checkresultZolozmyRaasRealidReusable(CheckresultZolozmyRaasRealidReusableRequest request) throws Exception {
+        com.aliyun.teautil.models.RuntimeOptions runtime = new com.aliyun.teautil.models.RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.checkresultZolozmyRaasRealidReusableEx(request, headers, runtime);
+    }
+
+    /**
+     * <b>description</b> :
+     * <p>Description: 查询复用认证结果，返回认证状态和结果信息
+     * Summary: 查询复用认证结果，返回认证状态和结果信息</p>
+     */
+    public CheckresultZolozmyRaasRealidReusableResponse checkresultZolozmyRaasRealidReusableEx(CheckresultZolozmyRaasRealidReusableRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "zolozmy.raas.realid.reusable.checkresult", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new CheckresultZolozmyRaasRealidReusableResponse());
+    }
+
+    /**
+     * <b>description</b> :
+     * <p>Description: 数据转移，异步归户 donor KYC 数据到 recipient
+     * Summary: 数据转移，异步归户 donor KYC 数据到 recipient</p>
+     */
+    public TransferZolozmyRaasRealidReusableResponse transferZolozmyRaasRealidReusable(TransferZolozmyRaasRealidReusableRequest request) throws Exception {
+        com.aliyun.teautil.models.RuntimeOptions runtime = new com.aliyun.teautil.models.RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.transferZolozmyRaasRealidReusableEx(request, headers, runtime);
+    }
+
+    /**
+     * <b>description</b> :
+     * <p>Description: 数据转移，异步归户 donor KYC 数据到 recipient
+     * Summary: 数据转移，异步归户 donor KYC 数据到 recipient</p>
+     */
+    public TransferZolozmyRaasRealidReusableResponse transferZolozmyRaasRealidReusableEx(TransferZolozmyRaasRealidReusableRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "zolozmy.raas.realid.reusable.transfer", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new TransferZolozmyRaasRealidReusableResponse());
     }
 }
