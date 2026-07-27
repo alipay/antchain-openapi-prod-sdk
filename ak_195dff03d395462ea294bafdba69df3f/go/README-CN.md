@@ -1,6 +1,6 @@
 [English](README.md) | 简体中文
 
-# Ant Chain ak_195dff03d395462ea294bafdba69df3f SDK for Go
+# Ant Chain ABC SDK for Go
 
 ## 要求
 - 您需要确保本地安装的 go 环境版本大于 1.12.0.
