@@ -16,37 +16,9 @@ public class QueryEnergyknowledgeRagrecallResponse extends TeaModel {
     @NameInMap("result_msg")
     public String resultMsg;
 
-    // 文件名
-    @NameInMap("docname")
-    public String docname;
-
-    // 片段内容
-    @NameInMap("content")
-    public String content;
-
-    // 重排得分
-    @NameInMap("rerankscore")
-    public Long rerankscore;
-
-    // 重排位次
-    @NameInMap("rerankrank")
-    public Long rerankrank;
-
-    // 综合得分
-    @NameInMap("score")
-    public Long score;
-
-    // chunk标题
-    @NameInMap("title")
-    public String title;
-
-    // 知识库id
-    @NameInMap("knowledgebaseids")
-    public String knowledgebaseids;
-
-    // official 官方知识库、custom个人知识库
-    @NameInMap("knowledgebasetag")
-    public String knowledgebasetag;
+    // 出参数据
+    @NameInMap("datalist")
+    public java.util.List<RecallDataDetail> datalist;
 
     public static QueryEnergyknowledgeRagrecallResponse build(java.util.Map<String, ?> map) throws Exception {
         QueryEnergyknowledgeRagrecallResponse self = new QueryEnergyknowledgeRagrecallResponse();
@@ -77,68 +49,12 @@ public class QueryEnergyknowledgeRagrecallResponse extends TeaModel {
         return this.resultMsg;
     }
 
-    public QueryEnergyknowledgeRagrecallResponse setDocname(String docname) {
-        this.docname = docname;
+    public QueryEnergyknowledgeRagrecallResponse setDatalist(java.util.List<RecallDataDetail> datalist) {
+        this.datalist = datalist;
         return this;
     }
-    public String getDocname() {
-        return this.docname;
-    }
-
-    public QueryEnergyknowledgeRagrecallResponse setContent(String content) {
-        this.content = content;
-        return this;
-    }
-    public String getContent() {
-        return this.content;
-    }
-
-    public QueryEnergyknowledgeRagrecallResponse setRerankscore(Long rerankscore) {
-        this.rerankscore = rerankscore;
-        return this;
-    }
-    public Long getRerankscore() {
-        return this.rerankscore;
-    }
-
-    public QueryEnergyknowledgeRagrecallResponse setRerankrank(Long rerankrank) {
-        this.rerankrank = rerankrank;
-        return this;
-    }
-    public Long getRerankrank() {
-        return this.rerankrank;
-    }
-
-    public QueryEnergyknowledgeRagrecallResponse setScore(Long score) {
-        this.score = score;
-        return this;
-    }
-    public Long getScore() {
-        return this.score;
-    }
-
-    public QueryEnergyknowledgeRagrecallResponse setTitle(String title) {
-        this.title = title;
-        return this;
-    }
-    public String getTitle() {
-        return this.title;
-    }
-
-    public QueryEnergyknowledgeRagrecallResponse setKnowledgebaseids(String knowledgebaseids) {
-        this.knowledgebaseids = knowledgebaseids;
-        return this;
-    }
-    public String getKnowledgebaseids() {
-        return this.knowledgebaseids;
-    }
-
-    public QueryEnergyknowledgeRagrecallResponse setKnowledgebasetag(String knowledgebasetag) {
-        this.knowledgebasetag = knowledgebasetag;
-        return this;
-    }
-    public String getKnowledgebasetag() {
-        return this.knowledgebasetag;
+    public java.util.List<RecallDataDetail> getDatalist() {
+        return this.datalist;
     }
 
 }
