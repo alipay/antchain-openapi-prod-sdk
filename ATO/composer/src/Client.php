@@ -21,6 +21,20 @@ use AntChain\ATO\Models\InitTradeSettletocardRequest;
 use AntChain\ATO\Models\InitTradeSettletocardResponse;
 use AntChain\ATO\Models\QueryTradeSettletocardRequest;
 use AntChain\ATO\Models\QueryTradeSettletocardResponse;
+use AntChain\ATO\Models\SyncOnetimeOrderRequest;
+use AntChain\ATO\Models\SyncOnetimeOrderResponse;
+use AntChain\ATO\Models\QueryOnetimeOrderRequest;
+use AntChain\ATO\Models\QueryOnetimeOrderResponse;
+use AntChain\ATO\Models\QueryOnetimePerformanceRequest;
+use AntChain\ATO\Models\QueryOnetimePerformanceResponse;
+use AntChain\ATO\Models\QueryOnetimeRefundRequest;
+use AntChain\ATO\Models\QueryOnetimeRefundResponse;
+use AntChain\ATO\Models\InitOnetimeActivepayRequest;
+use AntChain\ATO\Models\InitOnetimeActivepayResponse;
+use AntChain\ATO\Models\QueryOnetimeActivepayRequest;
+use AntChain\ATO\Models\QueryOnetimeActivepayResponse;
+use AntChain\ATO\Models\CreateOnetimeRefundRequest;
+use AntChain\ATO\Models\CreateOnetimeRefundResponse;
 use AntChain\ATO\Models\QueryInnerFundassetpackagerepaymentRequest;
 use AntChain\ATO\Models\QueryInnerFundassetpackagerepaymentResponse;
 use AntChain\ATO\Models\QueryInnerAprepaymentdetailRequest;
@@ -773,7 +787,7 @@ class Client {
                     "req_msg_id" => UtilClient::getNonce(),
                     "access_key" => $this->_accessKeyId,
                     "base_sdk_version" => "TeaSDK-2.0",
-                    "sdk_version" => "1.19.80",
+                    "sdk_version" => "1.19.82",
                     "_prod_code" => "ATO",
                     "_prod_channel" => "undefined"
                 ];
@@ -916,6 +930,193 @@ class Client {
     public function queryTradeSettletocardEx($request, $headers, $runtime){
         Utils::validateModel($request);
         return QueryTradeSettletocardResponse::fromMap($this->doRequest("1.0", "antchain.ato.trade.settletocard.query", "HTTPS", "POST", "/gateway.do", Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 一次性支付订单创建
+     * 接口信息
+     * Summary: 一次性支付订单创建
+     * 接口信息
+     * @param SyncOnetimeOrderRequest $request
+     * @return SyncOnetimeOrderResponse
+     */
+    public function syncOnetimeOrder($request){
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+        return $this->syncOnetimeOrderEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 一次性支付订单创建
+     * 接口信息
+     * Summary: 一次性支付订单创建
+     * 接口信息
+     * @param SyncOnetimeOrderRequest $request
+     * @param string[] $headers
+     * @param RuntimeOptions $runtime
+     * @return SyncOnetimeOrderResponse
+     */
+    public function syncOnetimeOrderEx($request, $headers, $runtime){
+        Utils::validateModel($request);
+        return SyncOnetimeOrderResponse::fromMap($this->doRequest("1.0", "antchain.ato.onetime.order.sync", "HTTPS", "POST", "/gateway.do", Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 一次性支付订单信息查询
+     * Summary: 一次性支付订单信息查询
+     * @param QueryOnetimeOrderRequest $request
+     * @return QueryOnetimeOrderResponse
+     */
+    public function queryOnetimeOrder($request){
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+        return $this->queryOnetimeOrderEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 一次性支付订单信息查询
+     * Summary: 一次性支付订单信息查询
+     * @param QueryOnetimeOrderRequest $request
+     * @param string[] $headers
+     * @param RuntimeOptions $runtime
+     * @return QueryOnetimeOrderResponse
+     */
+    public function queryOnetimeOrderEx($request, $headers, $runtime){
+        Utils::validateModel($request);
+        return QueryOnetimeOrderResponse::fromMap($this->doRequest("1.0", "antchain.ato.onetime.order.query", "HTTPS", "POST", "/gateway.do", Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 一次性支付订单资金流水信息查询
+     * Summary: 一次性支付订单资金流水信息查询
+     * @param QueryOnetimePerformanceRequest $request
+     * @return QueryOnetimePerformanceResponse
+     */
+    public function queryOnetimePerformance($request){
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+        return $this->queryOnetimePerformanceEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 一次性支付订单资金流水信息查询
+     * Summary: 一次性支付订单资金流水信息查询
+     * @param QueryOnetimePerformanceRequest $request
+     * @param string[] $headers
+     * @param RuntimeOptions $runtime
+     * @return QueryOnetimePerformanceResponse
+     */
+    public function queryOnetimePerformanceEx($request, $headers, $runtime){
+        Utils::validateModel($request);
+        return QueryOnetimePerformanceResponse::fromMap($this->doRequest("1.0", "antchain.ato.onetime.performance.query", "HTTPS", "POST", "/gateway.do", Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 一次性支付退款查询
+     * 接口信息
+     * Summary: 一次性支付退款查询
+     * 接口信息
+     * @param QueryOnetimeRefundRequest $request
+     * @return QueryOnetimeRefundResponse
+     */
+    public function queryOnetimeRefund($request){
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+        return $this->queryOnetimeRefundEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 一次性支付退款查询
+     * 接口信息
+     * Summary: 一次性支付退款查询
+     * 接口信息
+     * @param QueryOnetimeRefundRequest $request
+     * @param string[] $headers
+     * @param RuntimeOptions $runtime
+     * @return QueryOnetimeRefundResponse
+     */
+    public function queryOnetimeRefundEx($request, $headers, $runtime){
+        Utils::validateModel($request);
+        return QueryOnetimeRefundResponse::fromMap($this->doRequest("1.0", "antchain.ato.onetime.refund.query", "HTTPS", "POST", "/gateway.do", Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 一次性支付创建
+     * Summary: 一次性支付创建
+     * @param InitOnetimeActivepayRequest $request
+     * @return InitOnetimeActivepayResponse
+     */
+    public function initOnetimeActivepay($request){
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+        return $this->initOnetimeActivepayEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 一次性支付创建
+     * Summary: 一次性支付创建
+     * @param InitOnetimeActivepayRequest $request
+     * @param string[] $headers
+     * @param RuntimeOptions $runtime
+     * @return InitOnetimeActivepayResponse
+     */
+    public function initOnetimeActivepayEx($request, $headers, $runtime){
+        Utils::validateModel($request);
+        return InitOnetimeActivepayResponse::fromMap($this->doRequest("1.0", "antchain.ato.onetime.activepay.init", "HTTPS", "POST", "/gateway.do", Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 一次性支付查询
+     * Summary: 一次性支付查询
+     * @param QueryOnetimeActivepayRequest $request
+     * @return QueryOnetimeActivepayResponse
+     */
+    public function queryOnetimeActivepay($request){
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+        return $this->queryOnetimeActivepayEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 一次性支付查询
+     * Summary: 一次性支付查询
+     * @param QueryOnetimeActivepayRequest $request
+     * @param string[] $headers
+     * @param RuntimeOptions $runtime
+     * @return QueryOnetimeActivepayResponse
+     */
+    public function queryOnetimeActivepayEx($request, $headers, $runtime){
+        Utils::validateModel($request);
+        return QueryOnetimeActivepayResponse::fromMap($this->doRequest("1.0", "antchain.ato.onetime.activepay.query", "HTTPS", "POST", "/gateway.do", Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 一次性支付退款创建
+     * 接口信息
+     * Summary: 一次性支付退款创建
+     * 接口信息
+     * @param CreateOnetimeRefundRequest $request
+     * @return CreateOnetimeRefundResponse
+     */
+    public function createOnetimeRefund($request){
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+        return $this->createOnetimeRefundEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 一次性支付退款创建
+     * 接口信息
+     * Summary: 一次性支付退款创建
+     * 接口信息
+     * @param CreateOnetimeRefundRequest $request
+     * @param string[] $headers
+     * @param RuntimeOptions $runtime
+     * @return CreateOnetimeRefundResponse
+     */
+    public function createOnetimeRefundEx($request, $headers, $runtime){
+        Utils::validateModel($request);
+        return CreateOnetimeRefundResponse::fromMap($this->doRequest("1.0", "antchain.ato.onetime.refund.create", "HTTPS", "POST", "/gateway.do", Tea::merge($request), $headers, $runtime));
     }
 
     /**
