@@ -20,6 +20,11 @@ public class AuthAntchainAtoSignFlowResponse extends TeaModel {
     @NameInMap("sign_field_ids")
     public String signFieldIds;
 
+    // 手动签署链接，区块链合同签署方式，企业未进行静默授权，会返回一个手动签署链接
+    // 如果已授权或者不是区块链签署方式，该字段为空
+    @NameInMap("org_sign_url")
+    public String orgSignUrl;
+
     public static AuthAntchainAtoSignFlowResponse build(java.util.Map<String, ?> map) throws Exception {
         AuthAntchainAtoSignFlowResponse self = new AuthAntchainAtoSignFlowResponse();
         return TeaModel.build(map, self);
@@ -55,6 +60,14 @@ public class AuthAntchainAtoSignFlowResponse extends TeaModel {
     }
     public String getSignFieldIds() {
         return this.signFieldIds;
+    }
+
+    public AuthAntchainAtoSignFlowResponse setOrgSignUrl(String orgSignUrl) {
+        this.orgSignUrl = orgSignUrl;
+        return this;
+    }
+    public String getOrgSignUrl() {
+        return this.orgSignUrl;
     }
 
 }

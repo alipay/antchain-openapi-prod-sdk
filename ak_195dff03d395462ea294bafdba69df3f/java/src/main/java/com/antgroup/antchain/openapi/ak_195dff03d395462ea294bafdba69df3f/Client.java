@@ -126,7 +126,7 @@ public class Client {
                     new TeaPair("req_msg_id", com.antgroup.antchain.openapi.antchain.util.AntchainUtils.getNonce()),
                     new TeaPair("access_key", _accessKeyId),
                     new TeaPair("base_sdk_version", "TeaSDK-2.0"),
-                    new TeaPair("sdk_version", "1.7.10"),
+                    new TeaPair("sdk_version", "1.8.0"),
                     new TeaPair("_prod_code", "ak_195dff03d395462ea294bafdba69df3f"),
                     new TeaPair("_prod_channel", "saas")
                 );
@@ -380,7 +380,7 @@ public class Client {
     /**
      * <b>description</b> :
      * <p>Description: 电子合同签署模块，机构调用这个接口进行签署的授权落签
-     * Summary: 电子合同签署流程落签操作</p>
+     * Summary: 电子合同签署模块，机构调用这个接口进行签署的授权落签</p>
      */
     public AuthAntchainAtoSignFlowResponse authAntchainAtoSignFlow(AuthAntchainAtoSignFlowRequest request) throws Exception {
         com.aliyun.teautil.models.RuntimeOptions runtime = new com.aliyun.teautil.models.RuntimeOptions();
@@ -391,7 +391,7 @@ public class Client {
     /**
      * <b>description</b> :
      * <p>Description: 电子合同签署模块，机构调用这个接口进行签署的授权落签
-     * Summary: 电子合同签署流程落签操作</p>
+     * Summary: 电子合同签署模块，机构调用这个接口进行签署的授权落签</p>
      */
     public AuthAntchainAtoSignFlowResponse authAntchainAtoSignFlowEx(AuthAntchainAtoSignFlowRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
         com.aliyun.teautil.Common.validateModel(request);
