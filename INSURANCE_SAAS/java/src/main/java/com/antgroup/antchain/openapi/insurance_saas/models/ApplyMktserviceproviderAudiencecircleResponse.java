@@ -3,7 +3,7 @@ package com.antgroup.antchain.openapi.insurance_saas.models;
 
 import com.aliyun.tea.*;
 
-public class CallbackMktStatisticaldataResponse extends TeaModel {
+public class ApplyMktserviceproviderAudiencecircleResponse extends TeaModel {
     // 请求唯一ID，用于链路跟踪和问题排查
     @NameInMap("req_msg_id")
     public String reqMsgId;
@@ -16,16 +16,16 @@ public class CallbackMktStatisticaldataResponse extends TeaModel {
     @NameInMap("result_msg")
     public String resultMsg;
 
-    // 请求id
+    // 请求id，每一次请求保持唯一；
     @NameInMap("request_id")
     public String requestId;
 
-    public static CallbackMktStatisticaldataResponse build(java.util.Map<String, ?> map) throws Exception {
-        CallbackMktStatisticaldataResponse self = new CallbackMktStatisticaldataResponse();
+    public static ApplyMktserviceproviderAudiencecircleResponse build(java.util.Map<String, ?> map) throws Exception {
+        ApplyMktserviceproviderAudiencecircleResponse self = new ApplyMktserviceproviderAudiencecircleResponse();
         return TeaModel.build(map, self);
     }
 
-    public CallbackMktStatisticaldataResponse setReqMsgId(String reqMsgId) {
+    public ApplyMktserviceproviderAudiencecircleResponse setReqMsgId(String reqMsgId) {
         this.reqMsgId = reqMsgId;
         return this;
     }
@@ -33,7 +33,7 @@ public class CallbackMktStatisticaldataResponse extends TeaModel {
         return this.reqMsgId;
     }
 
-    public CallbackMktStatisticaldataResponse setResultCode(String resultCode) {
+    public ApplyMktserviceproviderAudiencecircleResponse setResultCode(String resultCode) {
         this.resultCode = resultCode;
         return this;
     }
@@ -41,7 +41,7 @@ public class CallbackMktStatisticaldataResponse extends TeaModel {
         return this.resultCode;
     }
 
-    public CallbackMktStatisticaldataResponse setResultMsg(String resultMsg) {
+    public ApplyMktserviceproviderAudiencecircleResponse setResultMsg(String resultMsg) {
         this.resultMsg = resultMsg;
         return this;
     }
@@ -49,7 +49,7 @@ public class CallbackMktStatisticaldataResponse extends TeaModel {
         return this.resultMsg;
     }
 
-    public CallbackMktStatisticaldataResponse setRequestId(String requestId) {
+    public ApplyMktserviceproviderAudiencecircleResponse setRequestId(String requestId) {
         this.requestId = requestId;
         return this;
     }

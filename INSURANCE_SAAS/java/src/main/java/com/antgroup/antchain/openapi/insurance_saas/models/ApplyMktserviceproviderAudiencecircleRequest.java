@@ -3,7 +3,7 @@ package com.antgroup.antchain.openapi.insurance_saas.models;
 
 import com.aliyun.tea.*;
 
-public class ApplyAudiencecircleServiceproviderRequest extends TeaModel {
+public class ApplyMktserviceproviderAudiencecircleRequest extends TeaModel {
     // OAuth模式下的授权token
     @NameInMap("auth_token")
     public String authToken;
@@ -33,12 +33,12 @@ public class ApplyAudiencecircleServiceproviderRequest extends TeaModel {
     @Validation(required = true)
     public java.util.List<String> encryptedUserIds;
 
-    public static ApplyAudiencecircleServiceproviderRequest build(java.util.Map<String, ?> map) throws Exception {
-        ApplyAudiencecircleServiceproviderRequest self = new ApplyAudiencecircleServiceproviderRequest();
+    public static ApplyMktserviceproviderAudiencecircleRequest build(java.util.Map<String, ?> map) throws Exception {
+        ApplyMktserviceproviderAudiencecircleRequest self = new ApplyMktserviceproviderAudiencecircleRequest();
         return TeaModel.build(map, self);
     }
 
-    public ApplyAudiencecircleServiceproviderRequest setAuthToken(String authToken) {
+    public ApplyMktserviceproviderAudiencecircleRequest setAuthToken(String authToken) {
         this.authToken = authToken;
         return this;
     }
@@ -46,7 +46,7 @@ public class ApplyAudiencecircleServiceproviderRequest extends TeaModel {
         return this.authToken;
     }
 
-    public ApplyAudiencecircleServiceproviderRequest setRequestId(String requestId) {
+    public ApplyMktserviceproviderAudiencecircleRequest setRequestId(String requestId) {
         this.requestId = requestId;
         return this;
     }
@@ -54,7 +54,7 @@ public class ApplyAudiencecircleServiceproviderRequest extends TeaModel {
         return this.requestId;
     }
 
-    public ApplyAudiencecircleServiceproviderRequest setProjectId(String projectId) {
+    public ApplyMktserviceproviderAudiencecircleRequest setProjectId(String projectId) {
         this.projectId = projectId;
         return this;
     }
@@ -62,7 +62,7 @@ public class ApplyAudiencecircleServiceproviderRequest extends TeaModel {
         return this.projectId;
     }
 
-    public ApplyAudiencecircleServiceproviderRequest setBizScene(String bizScene) {
+    public ApplyMktserviceproviderAudiencecircleRequest setBizScene(String bizScene) {
         this.bizScene = bizScene;
         return this;
     }
@@ -70,7 +70,7 @@ public class ApplyAudiencecircleServiceproviderRequest extends TeaModel {
         return this.bizScene;
     }
 
-    public ApplyAudiencecircleServiceproviderRequest setEncryptionType(String encryptionType) {
+    public ApplyMktserviceproviderAudiencecircleRequest setEncryptionType(String encryptionType) {
         this.encryptionType = encryptionType;
         return this;
     }
@@ -78,7 +78,7 @@ public class ApplyAudiencecircleServiceproviderRequest extends TeaModel {
         return this.encryptionType;
     }
 
-    public ApplyAudiencecircleServiceproviderRequest setEncryptedUserIds(java.util.List<String> encryptedUserIds) {
+    public ApplyMktserviceproviderAudiencecircleRequest setEncryptedUserIds(java.util.List<String> encryptedUserIds) {
         this.encryptedUserIds = encryptedUserIds;
         return this;
     }

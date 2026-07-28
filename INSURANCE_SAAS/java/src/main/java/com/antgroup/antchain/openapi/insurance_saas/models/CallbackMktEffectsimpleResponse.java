@@ -16,6 +16,10 @@ public class CallbackMktEffectsimpleResponse extends TeaModel {
     @NameInMap("result_msg")
     public String resultMsg;
 
+    // 请求id，每一次请求保持唯一；
+    @NameInMap("request_id")
+    public String requestId;
+
     public static CallbackMktEffectsimpleResponse build(java.util.Map<String, ?> map) throws Exception {
         CallbackMktEffectsimpleResponse self = new CallbackMktEffectsimpleResponse();
         return TeaModel.build(map, self);
@@ -43,6 +47,14 @@ public class CallbackMktEffectsimpleResponse extends TeaModel {
     }
     public String getResultMsg() {
         return this.resultMsg;
+    }
+
+    public CallbackMktEffectsimpleResponse setRequestId(String requestId) {
+        this.requestId = requestId;
+        return this;
+    }
+    public String getRequestId() {
+        return this.requestId;
     }
 
 }

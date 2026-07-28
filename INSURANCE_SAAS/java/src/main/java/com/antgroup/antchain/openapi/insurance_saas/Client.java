@@ -126,7 +126,7 @@ public class Client {
                     new TeaPair("req_msg_id", com.antgroup.antchain.openapi.antchain.util.AntchainUtils.getNonce()),
                     new TeaPair("access_key", _accessKeyId),
                     new TeaPair("base_sdk_version", "TeaSDK-2.0"),
-                    new TeaPair("sdk_version", "1.12.52"),
+                    new TeaPair("sdk_version", "1.12.53"),
                     new TeaPair("_prod_code", "INSURANCE_SAAS"),
                     new TeaPair("_prod_channel", "undefined")
                 );
@@ -337,48 +337,6 @@ public class Client {
 
     /**
      * <b>description</b> :
-     * <p>Description: 供广告主使用
-     * Summary: 供广告主使用</p>
-     */
-    public CallbackMktAdvertiserdataResponse callbackMktAdvertiserdata(CallbackMktAdvertiserdataRequest request) throws Exception {
-        com.aliyun.teautil.models.RuntimeOptions runtime = new com.aliyun.teautil.models.RuntimeOptions();
-        java.util.Map<String, String> headers = new java.util.HashMap<>();
-        return this.callbackMktAdvertiserdataEx(request, headers, runtime);
-    }
-
-    /**
-     * <b>description</b> :
-     * <p>Description: 供广告主使用
-     * Summary: 供广告主使用</p>
-     */
-    public CallbackMktAdvertiserdataResponse callbackMktAdvertiserdataEx(CallbackMktAdvertiserdataRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
-        com.aliyun.teautil.Common.validateModel(request);
-        return TeaModel.toModel(this.doRequest("1.0", "antcloud.insurance.mkt.advertiserdata.callback", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new CallbackMktAdvertiserdataResponse());
-    }
-
-    /**
-     * <b>description</b> :
-     * <p>Description: 点击统计数据回传接口
-     * Summary: 点击统计数据回传接口</p>
-     */
-    public CallbackMktStatisticaldataResponse callbackMktStatisticaldata(CallbackMktStatisticaldataRequest request) throws Exception {
-        com.aliyun.teautil.models.RuntimeOptions runtime = new com.aliyun.teautil.models.RuntimeOptions();
-        java.util.Map<String, String> headers = new java.util.HashMap<>();
-        return this.callbackMktStatisticaldataEx(request, headers, runtime);
-    }
-
-    /**
-     * <b>description</b> :
-     * <p>Description: 点击统计数据回传接口
-     * Summary: 点击统计数据回传接口</p>
-     */
-    public CallbackMktStatisticaldataResponse callbackMktStatisticaldataEx(CallbackMktStatisticaldataRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
-        com.aliyun.teautil.Common.validateModel(request);
-        return TeaModel.toModel(this.doRequest("1.0", "antcloud.insurance.mkt.statisticaldata.callback", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new CallbackMktStatisticaldataResponse());
-    }
-
-    /**
-     * <b>description</b> :
      * <p>Description: 1
      * Summary: 1</p>
      */
@@ -400,27 +358,6 @@ public class Client {
 
     /**
      * <b>description</b> :
-     * <p>Description: 服务商人群圈选
-     * Summary: 服务商人群圈选</p>
-     */
-    public ApplyAudiencecircleServiceproviderResponse applyAudiencecircleServiceprovider(ApplyAudiencecircleServiceproviderRequest request) throws Exception {
-        com.aliyun.teautil.models.RuntimeOptions runtime = new com.aliyun.teautil.models.RuntimeOptions();
-        java.util.Map<String, String> headers = new java.util.HashMap<>();
-        return this.applyAudiencecircleServiceproviderEx(request, headers, runtime);
-    }
-
-    /**
-     * <b>description</b> :
-     * <p>Description: 服务商人群圈选
-     * Summary: 服务商人群圈选</p>
-     */
-    public ApplyAudiencecircleServiceproviderResponse applyAudiencecircleServiceproviderEx(ApplyAudiencecircleServiceproviderRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
-        com.aliyun.teautil.Common.validateModel(request);
-        return TeaModel.toModel(this.doRequest("1.0", "antcloud.insurance.audiencecircle.serviceprovider.apply", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new ApplyAudiencecircleServiceproviderResponse());
-    }
-
-    /**
-     * <b>description</b> :
      * <p>Description: 营销效果节点数据（简版）
      * Summary: 营销效果节点数据（简版）</p>
      */
@@ -438,6 +375,27 @@ public class Client {
     public CallbackMktEffectsimpleResponse callbackMktEffectsimpleEx(CallbackMktEffectsimpleRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
         com.aliyun.teautil.Common.validateModel(request);
         return TeaModel.toModel(this.doRequest("1.0", "antcloud.insurance.mkt.effectsimple.callback", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new CallbackMktEffectsimpleResponse());
+    }
+
+    /**
+     * <b>description</b> :
+     * <p>Description: 保险营销服务商人群圈选
+     * Summary: 保险营销服务商人群圈选</p>
+     */
+    public ApplyMktserviceproviderAudiencecircleResponse applyMktserviceproviderAudiencecircle(ApplyMktserviceproviderAudiencecircleRequest request) throws Exception {
+        com.aliyun.teautil.models.RuntimeOptions runtime = new com.aliyun.teautil.models.RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.applyMktserviceproviderAudiencecircleEx(request, headers, runtime);
+    }
+
+    /**
+     * <b>description</b> :
+     * <p>Description: 保险营销服务商人群圈选
+     * Summary: 保险营销服务商人群圈选</p>
+     */
+    public ApplyMktserviceproviderAudiencecircleResponse applyMktserviceproviderAudiencecircleEx(ApplyMktserviceproviderAudiencecircleRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "antcloud.insurance.mktserviceprovider.audiencecircle.apply", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new ApplyMktserviceproviderAudiencecircleResponse());
     }
 
     /**
