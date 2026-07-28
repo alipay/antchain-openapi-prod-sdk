@@ -126,7 +126,7 @@ public class Client {
                     new TeaPair("req_msg_id", com.antgroup.antchain.openapi.antchain.util.AntchainUtils.getNonce()),
                     new TeaPair("access_key", _accessKeyId),
                     new TeaPair("base_sdk_version", "TeaSDK-2.0"),
-                    new TeaPair("sdk_version", "1.19.83"),
+                    new TeaPair("sdk_version", "1.19.84"),
                     new TeaPair("_prod_code", "ATO"),
                     new TeaPair("_prod_channel", "undefined")
                 );
@@ -492,6 +492,27 @@ public class Client {
     public QueryInnerAprepaymentallocatedetailResponse queryInnerAprepaymentallocatedetailEx(QueryInnerAprepaymentallocatedetailRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
         com.aliyun.teautil.Common.validateModel(request);
         return TeaModel.toModel(this.doRequest("1.0", "antchain.ato.inner.aprepaymentallocatedetail.query", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new QueryInnerAprepaymentallocatedetailResponse());
+    }
+
+    /**
+     * <b>description</b> :
+     * <p>Description: 商户管理demo接口
+     * Summary: 商户管理demo接口</p>
+     */
+    public QueryInnerMermngdemoResponse queryInnerMermngdemo(QueryInnerMermngdemoRequest request) throws Exception {
+        com.aliyun.teautil.models.RuntimeOptions runtime = new com.aliyun.teautil.models.RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.queryInnerMermngdemoEx(request, headers, runtime);
+    }
+
+    /**
+     * <b>description</b> :
+     * <p>Description: 商户管理demo接口
+     * Summary: 商户管理demo接口</p>
+     */
+    public QueryInnerMermngdemoResponse queryInnerMermngdemoEx(QueryInnerMermngdemoRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "antchain.ato.inner.mermngdemo.query", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new QueryInnerMermngdemoResponse());
     }
 
     /**
