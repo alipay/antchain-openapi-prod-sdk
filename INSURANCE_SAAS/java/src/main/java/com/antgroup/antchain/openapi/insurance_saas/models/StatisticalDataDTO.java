@@ -83,7 +83,7 @@ public class StatisticalDataDTO extends TeaModel {
      */
     @NameInMap("conversion_data_list")
     @Validation(required = true)
-    public ConversionDataDTO conversionDataList;
+    public java.util.List<ConversionDataDTO> conversionDataList;
 
     public static StatisticalDataDTO build(java.util.Map<String, ?> map) throws Exception {
         StatisticalDataDTO self = new StatisticalDataDTO();
@@ -154,11 +154,11 @@ public class StatisticalDataDTO extends TeaModel {
         return this.mediaClickCount;
     }
 
-    public StatisticalDataDTO setConversionDataList(ConversionDataDTO conversionDataList) {
+    public StatisticalDataDTO setConversionDataList(java.util.List<ConversionDataDTO> conversionDataList) {
         this.conversionDataList = conversionDataList;
         return this;
     }
-    public ConversionDataDTO getConversionDataList() {
+    public java.util.List<ConversionDataDTO> getConversionDataList() {
         return this.conversionDataList;
     }
 
