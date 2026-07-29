@@ -14,11 +14,13 @@ class CallbackRiskplusMdipFileRequest extends Model {
         'serviceCode' => 'service_code',
         'caller' => 'caller',
         'extend' => 'extend',
+        'taskId' => 'task_id',
     ];
     public function validate() {
         Model::validateRequired('fileId', $this->fileId, true);
         Model::validateRequired('serviceCode', $this->serviceCode, true);
         Model::validateRequired('caller', $this->caller, true);
+        Model::validateRequired('taskId', $this->taskId, true);
     }
     public function toMap() {
         $res = [];
@@ -45,6 +47,9 @@ class CallbackRiskplusMdipFileRequest extends Model {
         }
         if (null !== $this->extend) {
             $res['extend'] = $this->extend;
+        }
+        if (null !== $this->taskId) {
+            $res['task_id'] = $this->taskId;
         }
         return $res;
     }
@@ -77,6 +82,9 @@ class CallbackRiskplusMdipFileRequest extends Model {
         }
         if(isset($map['extend'])){
             $model->extend = $map['extend'];
+        }
+        if(isset($map['task_id'])){
+            $model->taskId = $map['task_id'];
         }
         return $model;
     }
@@ -126,5 +134,11 @@ class CallbackRiskplusMdipFileRequest extends Model {
      * @var string
      */
     public $extend;
+
+    // 任务ID
+    /**
+     * @var string
+     */
+    public $taskId;
 
 }
