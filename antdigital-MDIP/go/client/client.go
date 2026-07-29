@@ -12971,6 +12971,8 @@ type CallbackRiskplusMdipFileRequest struct {
 	Caller *string `json:"caller,omitempty" xml:"caller,omitempty" require:"true"`
 	// 扩展字段
 	Extend *string `json:"extend,omitempty" xml:"extend,omitempty"`
+	// 任务ID
+	TaskId *string `json:"task_id,omitempty" xml:"task_id,omitempty" require:"true"`
 }
 
 func (s CallbackRiskplusMdipFileRequest) String() string {
@@ -13018,6 +13020,11 @@ func (s *CallbackRiskplusMdipFileRequest) SetCaller(v string) *CallbackRiskplusM
 
 func (s *CallbackRiskplusMdipFileRequest) SetExtend(v string) *CallbackRiskplusMdipFileRequest {
 	s.Extend = &v
+	return s
+}
+
+func (s *CallbackRiskplusMdipFileRequest) SetTaskId(v string) *CallbackRiskplusMdipFileRequest {
+	s.TaskId = &v
 	return s
 }
 
@@ -13303,7 +13310,7 @@ func (client *Client) DoRequest(version *string, action *string, protocol *strin
 				"req_msg_id":       antchainutil.GetNonce(),
 				"access_key":       client.AccessKeyId,
 				"base_sdk_version": tea.String("TeaSDK-2.0"),
-				"sdk_version":      tea.String("1.0.4"),
+				"sdk_version":      tea.String("1.0.5"),
 				"_prod_code":       tea.String("MDIP"),
 				"_prod_channel":    tea.String("undefined"),
 			}
