@@ -11429,6 +11429,8 @@ export class CallbackRiskplusMdipFileRequest extends $tea.Model {
   caller: string;
   // 扩展字段
   extend?: string;
+  // 任务ID
+  taskId: string;
   static names(): { [key: string]: string } {
     return {
       authToken: 'auth_token',
@@ -11439,6 +11441,7 @@ export class CallbackRiskplusMdipFileRequest extends $tea.Model {
       serviceCode: 'service_code',
       caller: 'caller',
       extend: 'extend',
+      taskId: 'task_id',
     };
   }
 
@@ -11452,6 +11455,7 @@ export class CallbackRiskplusMdipFileRequest extends $tea.Model {
       serviceCode: 'string',
       caller: 'string',
       extend: 'string',
+      taskId: 'string',
     };
   }
 
@@ -11693,7 +11697,7 @@ export default class Client {
           req_msg_id: AntchainUtil.getNonce(),
           access_key: this._accessKeyId,
           base_sdk_version: "TeaSDK-2.0",
-          sdk_version: "1.0.4",
+          sdk_version: "1.0.5",
           _prod_code: "MDIP",
           _prod_channel: "undefined",
         };
