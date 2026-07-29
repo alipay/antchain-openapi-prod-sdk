@@ -31,7 +31,7 @@ public class CallbackMktMediastatisticaldataRequest extends TeaModel {
     // 统计数据
     @NameInMap("statistical_data_list")
     @Validation(required = true)
-    public StatisticalDataDTO statisticalDataList;
+    public java.util.List<StatisticalDataDTO> statisticalDataList;
 
     public static CallbackMktMediastatisticaldataRequest build(java.util.Map<String, ?> map) throws Exception {
         CallbackMktMediastatisticaldataRequest self = new CallbackMktMediastatisticaldataRequest();
@@ -78,11 +78,11 @@ public class CallbackMktMediastatisticaldataRequest extends TeaModel {
         return this.dimension;
     }
 
-    public CallbackMktMediastatisticaldataRequest setStatisticalDataList(StatisticalDataDTO statisticalDataList) {
+    public CallbackMktMediastatisticaldataRequest setStatisticalDataList(java.util.List<StatisticalDataDTO> statisticalDataList) {
         this.statisticalDataList = statisticalDataList;
         return this;
     }
-    public StatisticalDataDTO getStatisticalDataList() {
+    public java.util.List<StatisticalDataDTO> getStatisticalDataList() {
         return this.statisticalDataList;
     }
 
