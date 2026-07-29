@@ -52,6 +52,11 @@ namespace AntChain.SDK.MDIP.Models
         [Validation(Required=false)]
         public string Extend { get; set; }
 
+        // 任务ID
+        [NameInMap("task_id")]
+        [Validation(Required=true)]
+        public string TaskId { get; set; }
+
     }
 
 }
