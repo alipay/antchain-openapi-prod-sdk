@@ -1,4 +1,4 @@
-module github.com/alipay/antdigital-mscene
+module github.com/antchain-openapi-sdk-go/antdigital-mscene
 
 go 1.22.1
 
