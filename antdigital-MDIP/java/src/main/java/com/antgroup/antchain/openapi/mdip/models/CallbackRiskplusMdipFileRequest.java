@@ -42,6 +42,11 @@ public class CallbackRiskplusMdipFileRequest extends TeaModel {
     @NameInMap("extend")
     public String extend;
 
+    // 任务ID
+    @NameInMap("task_id")
+    @Validation(required = true)
+    public String taskId;
+
     public static CallbackRiskplusMdipFileRequest build(java.util.Map<String, ?> map) throws Exception {
         CallbackRiskplusMdipFileRequest self = new CallbackRiskplusMdipFileRequest();
         return TeaModel.build(map, self);
@@ -109,6 +114,14 @@ public class CallbackRiskplusMdipFileRequest extends TeaModel {
     }
     public String getExtend() {
         return this.extend;
+    }
+
+    public CallbackRiskplusMdipFileRequest setTaskId(String taskId) {
+        this.taskId = taskId;
+        return this;
+    }
+    public String getTaskId() {
+        return this.taskId;
     }
 
 }
