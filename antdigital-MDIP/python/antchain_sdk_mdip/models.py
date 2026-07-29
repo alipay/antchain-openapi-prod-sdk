@@ -12321,6 +12321,7 @@ class CallbackRiskplusMdipFileRequest(TeaModel):
         service_code: str = None,
         caller: str = None,
         extend: str = None,
+        task_id: str = None,
     ):
         # OAuth模式下的授权token
         self.auth_token = auth_token
@@ -12337,11 +12338,14 @@ class CallbackRiskplusMdipFileRequest(TeaModel):
         self.caller = caller
         # 扩展字段
         self.extend = extend
+        # 任务ID
+        self.task_id = task_id
 
     def validate(self):
         self.validate_required(self.file_id, 'file_id')
         self.validate_required(self.service_code, 'service_code')
         self.validate_required(self.caller, 'caller')
+        self.validate_required(self.task_id, 'task_id')
 
     def to_map(self):
         _map = super().to_map()
@@ -12365,6 +12369,8 @@ class CallbackRiskplusMdipFileRequest(TeaModel):
             result['caller'] = self.caller
         if self.extend is not None:
             result['extend'] = self.extend
+        if self.task_id is not None:
+            result['task_id'] = self.task_id
         return result
 
     def from_map(self, m: dict = None):
@@ -12385,6 +12391,8 @@ class CallbackRiskplusMdipFileRequest(TeaModel):
             self.caller = m.get('caller')
         if m.get('extend') is not None:
             self.extend = m.get('extend')
+        if m.get('task_id') is not None:
+            self.task_id = m.get('task_id')
         return self
 
 
