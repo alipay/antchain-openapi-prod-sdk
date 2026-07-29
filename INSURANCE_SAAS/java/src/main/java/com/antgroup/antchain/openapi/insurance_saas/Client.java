@@ -126,7 +126,7 @@ public class Client {
                     new TeaPair("req_msg_id", com.antgroup.antchain.openapi.antchain.util.AntchainUtils.getNonce()),
                     new TeaPair("access_key", _accessKeyId),
                     new TeaPair("base_sdk_version", "TeaSDK-2.0"),
-                    new TeaPair("sdk_version", "1.12.53"),
+                    new TeaPair("sdk_version", "1.12.54"),
                     new TeaPair("_prod_code", "INSURANCE_SAAS"),
                     new TeaPair("_prod_channel", "undefined")
                 );
@@ -337,8 +337,8 @@ public class Client {
 
     /**
      * <b>description</b> :
-     * <p>Description: 1
-     * Summary: 1</p>
+     * <p>Description: 媒体点击统计数据回传
+     * Summary: 媒体点击统计数据回传</p>
      */
     public CallbackMktMediastatisticaldataResponse callbackMktMediastatisticaldata(CallbackMktMediastatisticaldataRequest request) throws Exception {
         com.aliyun.teautil.models.RuntimeOptions runtime = new com.aliyun.teautil.models.RuntimeOptions();
@@ -348,8 +348,8 @@ public class Client {
 
     /**
      * <b>description</b> :
-     * <p>Description: 1
-     * Summary: 1</p>
+     * <p>Description: 媒体点击统计数据回传
+     * Summary: 媒体点击统计数据回传</p>
      */
     public CallbackMktMediastatisticaldataResponse callbackMktMediastatisticaldataEx(CallbackMktMediastatisticaldataRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
         com.aliyun.teautil.Common.validateModel(request);
