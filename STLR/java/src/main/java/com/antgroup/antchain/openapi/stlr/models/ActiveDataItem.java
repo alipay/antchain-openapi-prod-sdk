@@ -70,6 +70,14 @@ public class ActiveDataItem extends TeaModel {
     @NameInMap("material_type")
     public String materialType;
 
+    // 供应商企业信用代码
+    /**
+     * <strong>example:</strong>
+     * <p>xxxx</p>
+     */
+    @NameInMap("social_credit_code")
+    public String socialCreditCode;
+
     public static ActiveDataItem build(java.util.Map<String, ?> map) throws Exception {
         ActiveDataItem self = new ActiveDataItem();
         return TeaModel.build(map, self);
@@ -137,6 +145,14 @@ public class ActiveDataItem extends TeaModel {
     }
     public String getMaterialType() {
         return this.materialType;
+    }
+
+    public ActiveDataItem setSocialCreditCode(String socialCreditCode) {
+        this.socialCreditCode = socialCreditCode;
+        return this;
+    }
+    public String getSocialCreditCode() {
+        return this.socialCreditCode;
     }
 
 }

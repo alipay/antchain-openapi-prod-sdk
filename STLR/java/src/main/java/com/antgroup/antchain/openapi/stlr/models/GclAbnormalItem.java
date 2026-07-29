@@ -122,6 +122,14 @@ public class GclAbnormalItem extends TeaModel {
     @NameInMap("process_no")
     public String processNo;
 
+    // 供应商企业社会信用代码
+    /**
+     * <strong>example:</strong>
+     * <p>xxxx</p>
+     */
+    @NameInMap("social_credit_code")
+    public String socialCreditCode;
+
     public static GclAbnormalItem build(java.util.Map<String, ?> map) throws Exception {
         GclAbnormalItem self = new GclAbnormalItem();
         return TeaModel.build(map, self);
@@ -237,6 +245,14 @@ public class GclAbnormalItem extends TeaModel {
     }
     public String getProcessNo() {
         return this.processNo;
+    }
+
+    public GclAbnormalItem setSocialCreditCode(String socialCreditCode) {
+        this.socialCreditCode = socialCreditCode;
+        return this;
+    }
+    public String getSocialCreditCode() {
+        return this.socialCreditCode;
     }
 
 }
