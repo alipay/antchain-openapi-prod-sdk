@@ -8,7 +8,7 @@ using Tea;
 
 namespace AntChain.SDK.ATO.Models
 {
-    public class CreateInnerWithholdjdsignurlRequest : TeaModel {
+    public class QueryOnetimeRefundRequest : TeaModel {
         // OAuth模式下的授权token
         [NameInMap("auth_token")]
         [Validation(Required=false)]
@@ -18,15 +18,15 @@ namespace AntChain.SDK.ATO.Models
         [Validation(Required=false)]
         public string ProductInstanceId { get; set; }
 
-        // 流程id
-        [NameInMap("flow_id")]
+        // 订单id
+        [NameInMap("order_id")]
         [Validation(Required=true)]
-        public string FlowId { get; set; }
+        public string OrderId { get; set; }
 
-        // 签约人
-        [NameInMap("account_id")]
-        [Validation(Required=false)]
-        public string AccountId { get; set; }
+        // 外部系统传入的退款请求号
+        [NameInMap("refund_request_no")]
+        [Validation(Required=true)]
+        public string RefundRequestNo { get; set; }
 
     }
 

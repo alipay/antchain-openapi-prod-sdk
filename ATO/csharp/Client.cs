@@ -158,7 +158,7 @@ namespace AntChain.SDK.ATO
                         {"req_msg_id", AntChain.AlipayUtil.AntchainUtils.GetNonce()},
                         {"access_key", _accessKeyId},
                         {"base_sdk_version", "TeaSDK-2.0"},
-                        {"sdk_version", "1.19.80"},
+                        {"sdk_version", "1.19.86"},
                         {"_prod_code", "ATO"},
                         {"_prod_channel", "undefined"},
                     };
@@ -301,7 +301,7 @@ namespace AntChain.SDK.ATO
                         {"req_msg_id", AntChain.AlipayUtil.AntchainUtils.GetNonce()},
                         {"access_key", _accessKeyId},
                         {"base_sdk_version", "TeaSDK-2.0"},
-                        {"sdk_version", "1.19.80"},
+                        {"sdk_version", "1.19.86"},
                         {"_prod_code", "ATO"},
                         {"_prod_channel", "undefined"},
                     };
@@ -545,6 +545,352 @@ namespace AntChain.SDK.ATO
 
         /// <term><b>Description:</b></term>
         /// <description>
+        /// <para>Description: 一次性支付订单创建
+        /// 接口信息
+        /// Summary: 一次性支付订单创建
+        /// 接口信息</para>
+        /// </description>
+        public SyncOnetimeOrderResponse SyncOnetimeOrder(SyncOnetimeOrderRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return SyncOnetimeOrderEx(request, headers, runtime);
+        }
+
+        /// <term><b>Description:</b></term>
+        /// <description>
+        /// <para>Description: 一次性支付订单创建
+        /// 接口信息
+        /// Summary: 一次性支付订单创建
+        /// 接口信息</para>
+        /// </description>
+        public async Task<SyncOnetimeOrderResponse> SyncOnetimeOrderAsync(SyncOnetimeOrderRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return await SyncOnetimeOrderExAsync(request, headers, runtime);
+        }
+
+        /// <term><b>Description:</b></term>
+        /// <description>
+        /// <para>Description: 一次性支付订单创建
+        /// 接口信息
+        /// Summary: 一次性支付订单创建
+        /// 接口信息</para>
+        /// </description>
+        public SyncOnetimeOrderResponse SyncOnetimeOrderEx(SyncOnetimeOrderRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<SyncOnetimeOrderResponse>(DoRequest("1.0", "antchain.ato.onetime.order.sync", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /// <term><b>Description:</b></term>
+        /// <description>
+        /// <para>Description: 一次性支付订单创建
+        /// 接口信息
+        /// Summary: 一次性支付订单创建
+        /// 接口信息</para>
+        /// </description>
+        public async Task<SyncOnetimeOrderResponse> SyncOnetimeOrderExAsync(SyncOnetimeOrderRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<SyncOnetimeOrderResponse>(await DoRequestAsync("1.0", "antchain.ato.onetime.order.sync", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /// <term><b>Description:</b></term>
+        /// <description>
+        /// <para>Description: 一次性支付订单信息查询
+        /// Summary: 一次性支付订单信息查询</para>
+        /// </description>
+        public QueryOnetimeOrderResponse QueryOnetimeOrder(QueryOnetimeOrderRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return QueryOnetimeOrderEx(request, headers, runtime);
+        }
+
+        /// <term><b>Description:</b></term>
+        /// <description>
+        /// <para>Description: 一次性支付订单信息查询
+        /// Summary: 一次性支付订单信息查询</para>
+        /// </description>
+        public async Task<QueryOnetimeOrderResponse> QueryOnetimeOrderAsync(QueryOnetimeOrderRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return await QueryOnetimeOrderExAsync(request, headers, runtime);
+        }
+
+        /// <term><b>Description:</b></term>
+        /// <description>
+        /// <para>Description: 一次性支付订单信息查询
+        /// Summary: 一次性支付订单信息查询</para>
+        /// </description>
+        public QueryOnetimeOrderResponse QueryOnetimeOrderEx(QueryOnetimeOrderRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<QueryOnetimeOrderResponse>(DoRequest("1.0", "antchain.ato.onetime.order.query", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /// <term><b>Description:</b></term>
+        /// <description>
+        /// <para>Description: 一次性支付订单信息查询
+        /// Summary: 一次性支付订单信息查询</para>
+        /// </description>
+        public async Task<QueryOnetimeOrderResponse> QueryOnetimeOrderExAsync(QueryOnetimeOrderRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<QueryOnetimeOrderResponse>(await DoRequestAsync("1.0", "antchain.ato.onetime.order.query", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /// <term><b>Description:</b></term>
+        /// <description>
+        /// <para>Description: 一次性支付订单资金流水信息查询
+        /// Summary: 一次性支付订单资金流水信息查询</para>
+        /// </description>
+        public QueryOnetimePerformanceResponse QueryOnetimePerformance(QueryOnetimePerformanceRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return QueryOnetimePerformanceEx(request, headers, runtime);
+        }
+
+        /// <term><b>Description:</b></term>
+        /// <description>
+        /// <para>Description: 一次性支付订单资金流水信息查询
+        /// Summary: 一次性支付订单资金流水信息查询</para>
+        /// </description>
+        public async Task<QueryOnetimePerformanceResponse> QueryOnetimePerformanceAsync(QueryOnetimePerformanceRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return await QueryOnetimePerformanceExAsync(request, headers, runtime);
+        }
+
+        /// <term><b>Description:</b></term>
+        /// <description>
+        /// <para>Description: 一次性支付订单资金流水信息查询
+        /// Summary: 一次性支付订单资金流水信息查询</para>
+        /// </description>
+        public QueryOnetimePerformanceResponse QueryOnetimePerformanceEx(QueryOnetimePerformanceRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<QueryOnetimePerformanceResponse>(DoRequest("1.0", "antchain.ato.onetime.performance.query", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /// <term><b>Description:</b></term>
+        /// <description>
+        /// <para>Description: 一次性支付订单资金流水信息查询
+        /// Summary: 一次性支付订单资金流水信息查询</para>
+        /// </description>
+        public async Task<QueryOnetimePerformanceResponse> QueryOnetimePerformanceExAsync(QueryOnetimePerformanceRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<QueryOnetimePerformanceResponse>(await DoRequestAsync("1.0", "antchain.ato.onetime.performance.query", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /// <term><b>Description:</b></term>
+        /// <description>
+        /// <para>Description: 一次性支付退款查询
+        /// 接口信息
+        /// Summary: 一次性支付退款查询
+        /// 接口信息</para>
+        /// </description>
+        public QueryOnetimeRefundResponse QueryOnetimeRefund(QueryOnetimeRefundRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return QueryOnetimeRefundEx(request, headers, runtime);
+        }
+
+        /// <term><b>Description:</b></term>
+        /// <description>
+        /// <para>Description: 一次性支付退款查询
+        /// 接口信息
+        /// Summary: 一次性支付退款查询
+        /// 接口信息</para>
+        /// </description>
+        public async Task<QueryOnetimeRefundResponse> QueryOnetimeRefundAsync(QueryOnetimeRefundRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return await QueryOnetimeRefundExAsync(request, headers, runtime);
+        }
+
+        /// <term><b>Description:</b></term>
+        /// <description>
+        /// <para>Description: 一次性支付退款查询
+        /// 接口信息
+        /// Summary: 一次性支付退款查询
+        /// 接口信息</para>
+        /// </description>
+        public QueryOnetimeRefundResponse QueryOnetimeRefundEx(QueryOnetimeRefundRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<QueryOnetimeRefundResponse>(DoRequest("1.0", "antchain.ato.onetime.refund.query", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /// <term><b>Description:</b></term>
+        /// <description>
+        /// <para>Description: 一次性支付退款查询
+        /// 接口信息
+        /// Summary: 一次性支付退款查询
+        /// 接口信息</para>
+        /// </description>
+        public async Task<QueryOnetimeRefundResponse> QueryOnetimeRefundExAsync(QueryOnetimeRefundRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<QueryOnetimeRefundResponse>(await DoRequestAsync("1.0", "antchain.ato.onetime.refund.query", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /// <term><b>Description:</b></term>
+        /// <description>
+        /// <para>Description: 一次性支付创建
+        /// Summary: 一次性支付创建</para>
+        /// </description>
+        public InitOnetimeActivepayResponse InitOnetimeActivepay(InitOnetimeActivepayRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return InitOnetimeActivepayEx(request, headers, runtime);
+        }
+
+        /// <term><b>Description:</b></term>
+        /// <description>
+        /// <para>Description: 一次性支付创建
+        /// Summary: 一次性支付创建</para>
+        /// </description>
+        public async Task<InitOnetimeActivepayResponse> InitOnetimeActivepayAsync(InitOnetimeActivepayRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return await InitOnetimeActivepayExAsync(request, headers, runtime);
+        }
+
+        /// <term><b>Description:</b></term>
+        /// <description>
+        /// <para>Description: 一次性支付创建
+        /// Summary: 一次性支付创建</para>
+        /// </description>
+        public InitOnetimeActivepayResponse InitOnetimeActivepayEx(InitOnetimeActivepayRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<InitOnetimeActivepayResponse>(DoRequest("1.0", "antchain.ato.onetime.activepay.init", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /// <term><b>Description:</b></term>
+        /// <description>
+        /// <para>Description: 一次性支付创建
+        /// Summary: 一次性支付创建</para>
+        /// </description>
+        public async Task<InitOnetimeActivepayResponse> InitOnetimeActivepayExAsync(InitOnetimeActivepayRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<InitOnetimeActivepayResponse>(await DoRequestAsync("1.0", "antchain.ato.onetime.activepay.init", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /// <term><b>Description:</b></term>
+        /// <description>
+        /// <para>Description: 一次性支付查询
+        /// Summary: 一次性支付查询</para>
+        /// </description>
+        public QueryOnetimeActivepayResponse QueryOnetimeActivepay(QueryOnetimeActivepayRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return QueryOnetimeActivepayEx(request, headers, runtime);
+        }
+
+        /// <term><b>Description:</b></term>
+        /// <description>
+        /// <para>Description: 一次性支付查询
+        /// Summary: 一次性支付查询</para>
+        /// </description>
+        public async Task<QueryOnetimeActivepayResponse> QueryOnetimeActivepayAsync(QueryOnetimeActivepayRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return await QueryOnetimeActivepayExAsync(request, headers, runtime);
+        }
+
+        /// <term><b>Description:</b></term>
+        /// <description>
+        /// <para>Description: 一次性支付查询
+        /// Summary: 一次性支付查询</para>
+        /// </description>
+        public QueryOnetimeActivepayResponse QueryOnetimeActivepayEx(QueryOnetimeActivepayRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<QueryOnetimeActivepayResponse>(DoRequest("1.0", "antchain.ato.onetime.activepay.query", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /// <term><b>Description:</b></term>
+        /// <description>
+        /// <para>Description: 一次性支付查询
+        /// Summary: 一次性支付查询</para>
+        /// </description>
+        public async Task<QueryOnetimeActivepayResponse> QueryOnetimeActivepayExAsync(QueryOnetimeActivepayRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<QueryOnetimeActivepayResponse>(await DoRequestAsync("1.0", "antchain.ato.onetime.activepay.query", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /// <term><b>Description:</b></term>
+        /// <description>
+        /// <para>Description: 一次性支付退款创建
+        /// 接口信息
+        /// Summary: 一次性支付退款创建
+        /// 接口信息</para>
+        /// </description>
+        public CreateOnetimeRefundResponse CreateOnetimeRefund(CreateOnetimeRefundRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return CreateOnetimeRefundEx(request, headers, runtime);
+        }
+
+        /// <term><b>Description:</b></term>
+        /// <description>
+        /// <para>Description: 一次性支付退款创建
+        /// 接口信息
+        /// Summary: 一次性支付退款创建
+        /// 接口信息</para>
+        /// </description>
+        public async Task<CreateOnetimeRefundResponse> CreateOnetimeRefundAsync(CreateOnetimeRefundRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return await CreateOnetimeRefundExAsync(request, headers, runtime);
+        }
+
+        /// <term><b>Description:</b></term>
+        /// <description>
+        /// <para>Description: 一次性支付退款创建
+        /// 接口信息
+        /// Summary: 一次性支付退款创建
+        /// 接口信息</para>
+        /// </description>
+        public CreateOnetimeRefundResponse CreateOnetimeRefundEx(CreateOnetimeRefundRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<CreateOnetimeRefundResponse>(DoRequest("1.0", "antchain.ato.onetime.refund.create", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /// <term><b>Description:</b></term>
+        /// <description>
+        /// <para>Description: 一次性支付退款创建
+        /// 接口信息
+        /// Summary: 一次性支付退款创建
+        /// 接口信息</para>
+        /// </description>
+        public async Task<CreateOnetimeRefundResponse> CreateOnetimeRefundExAsync(CreateOnetimeRefundRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<CreateOnetimeRefundResponse>(await DoRequestAsync("1.0", "antchain.ato.onetime.refund.create", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /// <term><b>Description:</b></term>
+        /// <description>
         /// <para>Description: 资产包还款列表查询
         /// Summary: 资产包还款列表查询</para>
         /// </description>
@@ -679,6 +1025,144 @@ namespace AntChain.SDK.ATO
         {
             AlibabaCloud.TeaUtil.Common.ValidateModel(request);
             return TeaModel.ToObject<QueryInnerAprepaymentallocatedetailResponse>(await DoRequestAsync("1.0", "antchain.ato.inner.aprepaymentallocatedetail.query", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /// <term><b>Description:</b></term>
+        /// <description>
+        /// <para>Description: 商户管理demo接口
+        /// Summary: 商户管理demo接口</para>
+        /// </description>
+        public QueryInnerMermngdemoResponse QueryInnerMermngdemo(QueryInnerMermngdemoRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return QueryInnerMermngdemoEx(request, headers, runtime);
+        }
+
+        /// <term><b>Description:</b></term>
+        /// <description>
+        /// <para>Description: 商户管理demo接口
+        /// Summary: 商户管理demo接口</para>
+        /// </description>
+        public async Task<QueryInnerMermngdemoResponse> QueryInnerMermngdemoAsync(QueryInnerMermngdemoRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return await QueryInnerMermngdemoExAsync(request, headers, runtime);
+        }
+
+        /// <term><b>Description:</b></term>
+        /// <description>
+        /// <para>Description: 商户管理demo接口
+        /// Summary: 商户管理demo接口</para>
+        /// </description>
+        public QueryInnerMermngdemoResponse QueryInnerMermngdemoEx(QueryInnerMermngdemoRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<QueryInnerMermngdemoResponse>(DoRequest("1.0", "antchain.ato.inner.mermngdemo.query", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /// <term><b>Description:</b></term>
+        /// <description>
+        /// <para>Description: 商户管理demo接口
+        /// Summary: 商户管理demo接口</para>
+        /// </description>
+        public async Task<QueryInnerMermngdemoResponse> QueryInnerMermngdemoExAsync(QueryInnerMermngdemoRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<QueryInnerMermngdemoResponse>(await DoRequestAsync("1.0", "antchain.ato.inner.mermngdemo.query", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /// <term><b>Description:</b></term>
+        /// <description>
+        /// <para>Description: 立场提取查询
+        /// Summary: 立场提取查询</para>
+        /// </description>
+        public QueryInnerMermngcontractextractResponse QueryInnerMermngcontractextract(QueryInnerMermngcontractextractRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return QueryInnerMermngcontractextractEx(request, headers, runtime);
+        }
+
+        /// <term><b>Description:</b></term>
+        /// <description>
+        /// <para>Description: 立场提取查询
+        /// Summary: 立场提取查询</para>
+        /// </description>
+        public async Task<QueryInnerMermngcontractextractResponse> QueryInnerMermngcontractextractAsync(QueryInnerMermngcontractextractRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return await QueryInnerMermngcontractextractExAsync(request, headers, runtime);
+        }
+
+        /// <term><b>Description:</b></term>
+        /// <description>
+        /// <para>Description: 立场提取查询
+        /// Summary: 立场提取查询</para>
+        /// </description>
+        public QueryInnerMermngcontractextractResponse QueryInnerMermngcontractextractEx(QueryInnerMermngcontractextractRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<QueryInnerMermngcontractextractResponse>(DoRequest("1.0", "antchain.ato.inner.mermngcontractextract.query", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /// <term><b>Description:</b></term>
+        /// <description>
+        /// <para>Description: 立场提取查询
+        /// Summary: 立场提取查询</para>
+        /// </description>
+        public async Task<QueryInnerMermngcontractextractResponse> QueryInnerMermngcontractextractExAsync(QueryInnerMermngcontractextractRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<QueryInnerMermngcontractextractResponse>(await DoRequestAsync("1.0", "antchain.ato.inner.mermngcontractextract.query", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /// <term><b>Description:</b></term>
+        /// <description>
+        /// <para>Description: 合同立场提取
+        /// Summary: 合同立场提取</para>
+        /// </description>
+        public SumbitInnerMermngcontractextractResponse SumbitInnerMermngcontractextract(SumbitInnerMermngcontractextractRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return SumbitInnerMermngcontractextractEx(request, headers, runtime);
+        }
+
+        /// <term><b>Description:</b></term>
+        /// <description>
+        /// <para>Description: 合同立场提取
+        /// Summary: 合同立场提取</para>
+        /// </description>
+        public async Task<SumbitInnerMermngcontractextractResponse> SumbitInnerMermngcontractextractAsync(SumbitInnerMermngcontractextractRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return await SumbitInnerMermngcontractextractExAsync(request, headers, runtime);
+        }
+
+        /// <term><b>Description:</b></term>
+        /// <description>
+        /// <para>Description: 合同立场提取
+        /// Summary: 合同立场提取</para>
+        /// </description>
+        public SumbitInnerMermngcontractextractResponse SumbitInnerMermngcontractextractEx(SumbitInnerMermngcontractextractRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<SumbitInnerMermngcontractextractResponse>(DoRequest("1.0", "antchain.ato.inner.mermngcontractextract.sumbit", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /// <term><b>Description:</b></term>
+        /// <description>
+        /// <para>Description: 合同立场提取
+        /// Summary: 合同立场提取</para>
+        /// </description>
+        public async Task<SumbitInnerMermngcontractextractResponse> SumbitInnerMermngcontractextractExAsync(SumbitInnerMermngcontractextractRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<SumbitInnerMermngcontractextractResponse>(await DoRequestAsync("1.0", "antchain.ato.inner.mermngcontractextract.sumbit", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
         }
 
         /// <term><b>Description:</b></term>
