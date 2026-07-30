@@ -21,6 +21,7 @@ class GclAbnormalItem extends Model {
         'supplierName' => 'supplier_name',
         'supplierProductName' => 'supplier_product_name',
         'processNo' => 'process_no',
+        'socialCreditCode' => 'social_credit_code',
     ];
     public function validate() {}
     public function toMap() {
@@ -66,6 +67,9 @@ class GclAbnormalItem extends Model {
         }
         if (null !== $this->processNo) {
             $res['process_no'] = $this->processNo;
+        }
+        if (null !== $this->socialCreditCode) {
+            $res['social_credit_code'] = $this->socialCreditCode;
         }
         return $res;
     }
@@ -116,6 +120,9 @@ class GclAbnormalItem extends Model {
         }
         if(isset($map['process_no'])){
             $model->processNo = $map['process_no'];
+        }
+        if(isset($map['social_credit_code'])){
+            $model->socialCreditCode = $map['social_credit_code'];
         }
         return $model;
     }
@@ -216,5 +223,12 @@ class GclAbnormalItem extends Model {
      * @var string
      */
     public $processNo;
+
+    // 供应商企业社会信用代码
+    /**
+     * @example xxxx
+     * @var string
+     */
+    public $socialCreditCode;
 
 }
