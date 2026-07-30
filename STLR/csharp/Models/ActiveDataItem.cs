@@ -82,6 +82,15 @@ namespace AntChain.SDK.STLR.Models
         [Validation(Required=false)]
         public string MaterialType { get; set; }
 
+        // 供应商企业信用代码
+        /// <summary>
+        /// <b>Example:</b>
+        /// <para>xxxx</para>
+        /// </summary>
+        [NameInMap("social_credit_code")]
+        [Validation(Required=false)]
+        public string SocialCreditCode { get; set; }
+
     }
 
 }
