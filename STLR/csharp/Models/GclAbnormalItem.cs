@@ -142,6 +142,15 @@ namespace AntChain.SDK.STLR.Models
         [Validation(Required=false)]
         public string ProcessNo { get; set; }
 
+        // 供应商企业社会信用代码
+        /// <summary>
+        /// <b>Example:</b>
+        /// <para>xxxx</para>
+        /// </summary>
+        [NameInMap("social_credit_code")]
+        [Validation(Required=false)]
+        public string SocialCreditCode { get; set; }
+
     }
 
 }
