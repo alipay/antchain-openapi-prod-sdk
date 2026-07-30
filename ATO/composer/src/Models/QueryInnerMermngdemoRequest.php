@@ -5,15 +5,14 @@ namespace AntChain\ATO\Models;
 
 use AlibabaCloud\Tea\Model;
 
-class CreateInnerWithholdjdsignurlRequest extends Model {
+class QueryInnerMermngdemoRequest extends Model {
     protected $_name = [
         'authToken' => 'auth_token',
         'productInstanceId' => 'product_instance_id',
-        'flowId' => 'flow_id',
-        'accountId' => 'account_id',
+        'tenantId' => 'tenant_id',
     ];
     public function validate() {
-        Model::validateRequired('flowId', $this->flowId, true);
+        Model::validateRequired('tenantId', $this->tenantId, true);
     }
     public function toMap() {
         $res = [];
@@ -23,17 +22,14 @@ class CreateInnerWithholdjdsignurlRequest extends Model {
         if (null !== $this->productInstanceId) {
             $res['product_instance_id'] = $this->productInstanceId;
         }
-        if (null !== $this->flowId) {
-            $res['flow_id'] = $this->flowId;
-        }
-        if (null !== $this->accountId) {
-            $res['account_id'] = $this->accountId;
+        if (null !== $this->tenantId) {
+            $res['tenant_id'] = $this->tenantId;
         }
         return $res;
     }
     /**
      * @param array $map
-     * @return CreateInnerWithholdjdsignurlRequest
+     * @return QueryInnerMermngdemoRequest
      */
     public static function fromMap($map = []) {
         $model = new self();
@@ -43,11 +39,8 @@ class CreateInnerWithholdjdsignurlRequest extends Model {
         if(isset($map['product_instance_id'])){
             $model->productInstanceId = $map['product_instance_id'];
         }
-        if(isset($map['flow_id'])){
-            $model->flowId = $map['flow_id'];
-        }
-        if(isset($map['account_id'])){
-            $model->accountId = $map['account_id'];
+        if(isset($map['tenant_id'])){
+            $model->tenantId = $map['tenant_id'];
         }
         return $model;
     }
@@ -62,16 +55,10 @@ class CreateInnerWithholdjdsignurlRequest extends Model {
      */
     public $productInstanceId;
 
-    // 流程id
+    // 租户id
     /**
      * @var string
      */
-    public $flowId;
-
-    // 签约人
-    /**
-     * @var string
-     */
-    public $accountId;
+    public $tenantId;
 
 }

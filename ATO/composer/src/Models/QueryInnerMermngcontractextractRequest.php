@@ -5,15 +5,18 @@ namespace AntChain\ATO\Models;
 
 use AlibabaCloud\Tea\Model;
 
-class CreateInnerWithholdjdsignurlRequest extends Model {
+class QueryInnerMermngcontractextractRequest extends Model {
     protected $_name = [
         'authToken' => 'auth_token',
         'productInstanceId' => 'product_instance_id',
-        'flowId' => 'flow_id',
-        'accountId' => 'account_id',
+        'traceId' => 'trace_id',
+        'tenantId' => 'tenant_id',
+        'taskInstantId' => 'task_instant_id',
     ];
     public function validate() {
-        Model::validateRequired('flowId', $this->flowId, true);
+        Model::validateRequired('traceId', $this->traceId, true);
+        Model::validateRequired('tenantId', $this->tenantId, true);
+        Model::validateRequired('taskInstantId', $this->taskInstantId, true);
     }
     public function toMap() {
         $res = [];
@@ -23,17 +26,20 @@ class CreateInnerWithholdjdsignurlRequest extends Model {
         if (null !== $this->productInstanceId) {
             $res['product_instance_id'] = $this->productInstanceId;
         }
-        if (null !== $this->flowId) {
-            $res['flow_id'] = $this->flowId;
+        if (null !== $this->traceId) {
+            $res['trace_id'] = $this->traceId;
         }
-        if (null !== $this->accountId) {
-            $res['account_id'] = $this->accountId;
+        if (null !== $this->tenantId) {
+            $res['tenant_id'] = $this->tenantId;
+        }
+        if (null !== $this->taskInstantId) {
+            $res['task_instant_id'] = $this->taskInstantId;
         }
         return $res;
     }
     /**
      * @param array $map
-     * @return CreateInnerWithholdjdsignurlRequest
+     * @return QueryInnerMermngcontractextractRequest
      */
     public static function fromMap($map = []) {
         $model = new self();
@@ -43,11 +49,14 @@ class CreateInnerWithholdjdsignurlRequest extends Model {
         if(isset($map['product_instance_id'])){
             $model->productInstanceId = $map['product_instance_id'];
         }
-        if(isset($map['flow_id'])){
-            $model->flowId = $map['flow_id'];
+        if(isset($map['trace_id'])){
+            $model->traceId = $map['trace_id'];
         }
-        if(isset($map['account_id'])){
-            $model->accountId = $map['account_id'];
+        if(isset($map['tenant_id'])){
+            $model->tenantId = $map['tenant_id'];
+        }
+        if(isset($map['task_instant_id'])){
+            $model->taskInstantId = $map['task_instant_id'];
         }
         return $model;
     }
@@ -62,16 +71,22 @@ class CreateInnerWithholdjdsignurlRequest extends Model {
      */
     public $productInstanceId;
 
-    // 流程id
+    // traceid
     /**
      * @var string
      */
-    public $flowId;
+    public $traceId;
 
-    // 签约人
+    // 商户租户id
     /**
      * @var string
      */
-    public $accountId;
+    public $tenantId;
+
+    // 任务id
+    /**
+     * @var string
+     */
+    public $taskInstantId;
 
 }

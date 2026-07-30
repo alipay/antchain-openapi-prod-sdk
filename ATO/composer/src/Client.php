@@ -41,6 +41,12 @@ use AntChain\ATO\Models\QueryInnerAprepaymentdetailRequest;
 use AntChain\ATO\Models\QueryInnerAprepaymentdetailResponse;
 use AntChain\ATO\Models\QueryInnerAprepaymentallocatedetailRequest;
 use AntChain\ATO\Models\QueryInnerAprepaymentallocatedetailResponse;
+use AntChain\ATO\Models\QueryInnerMermngdemoRequest;
+use AntChain\ATO\Models\QueryInnerMermngdemoResponse;
+use AntChain\ATO\Models\QueryInnerMermngcontractextractRequest;
+use AntChain\ATO\Models\QueryInnerMermngcontractextractResponse;
+use AntChain\ATO\Models\SumbitInnerMermngcontractextractRequest;
+use AntChain\ATO\Models\SumbitInnerMermngcontractextractResponse;
 use AntChain\ATO\Models\TransferBrokerUserdataRequest;
 use AntChain\ATO\Models\TransferBrokerUserdataResponse;
 use AntChain\ATO\Models\CreateJdFunddividerelationRequest;
@@ -787,7 +793,7 @@ class Client {
                     "req_msg_id" => UtilClient::getNonce(),
                     "access_key" => $this->_accessKeyId,
                     "base_sdk_version" => "TeaSDK-2.0",
-                    "sdk_version" => "1.19.82",
+                    "sdk_version" => "1.19.86",
                     "_prod_code" => "ATO",
                     "_prod_channel" => "undefined"
                 ];
@@ -1192,6 +1198,81 @@ class Client {
     public function queryInnerAprepaymentallocatedetailEx($request, $headers, $runtime){
         Utils::validateModel($request);
         return QueryInnerAprepaymentallocatedetailResponse::fromMap($this->doRequest("1.0", "antchain.ato.inner.aprepaymentallocatedetail.query", "HTTPS", "POST", "/gateway.do", Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 商户管理demo接口
+     * Summary: 商户管理demo接口
+     * @param QueryInnerMermngdemoRequest $request
+     * @return QueryInnerMermngdemoResponse
+     */
+    public function queryInnerMermngdemo($request){
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+        return $this->queryInnerMermngdemoEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 商户管理demo接口
+     * Summary: 商户管理demo接口
+     * @param QueryInnerMermngdemoRequest $request
+     * @param string[] $headers
+     * @param RuntimeOptions $runtime
+     * @return QueryInnerMermngdemoResponse
+     */
+    public function queryInnerMermngdemoEx($request, $headers, $runtime){
+        Utils::validateModel($request);
+        return QueryInnerMermngdemoResponse::fromMap($this->doRequest("1.0", "antchain.ato.inner.mermngdemo.query", "HTTPS", "POST", "/gateway.do", Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 立场提取查询
+     * Summary: 立场提取查询
+     * @param QueryInnerMermngcontractextractRequest $request
+     * @return QueryInnerMermngcontractextractResponse
+     */
+    public function queryInnerMermngcontractextract($request){
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+        return $this->queryInnerMermngcontractextractEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 立场提取查询
+     * Summary: 立场提取查询
+     * @param QueryInnerMermngcontractextractRequest $request
+     * @param string[] $headers
+     * @param RuntimeOptions $runtime
+     * @return QueryInnerMermngcontractextractResponse
+     */
+    public function queryInnerMermngcontractextractEx($request, $headers, $runtime){
+        Utils::validateModel($request);
+        return QueryInnerMermngcontractextractResponse::fromMap($this->doRequest("1.0", "antchain.ato.inner.mermngcontractextract.query", "HTTPS", "POST", "/gateway.do", Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 合同立场提取
+     * Summary: 合同立场提取
+     * @param SumbitInnerMermngcontractextractRequest $request
+     * @return SumbitInnerMermngcontractextractResponse
+     */
+    public function sumbitInnerMermngcontractextract($request){
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+        return $this->sumbitInnerMermngcontractextractEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 合同立场提取
+     * Summary: 合同立场提取
+     * @param SumbitInnerMermngcontractextractRequest $request
+     * @param string[] $headers
+     * @param RuntimeOptions $runtime
+     * @return SumbitInnerMermngcontractextractResponse
+     */
+    public function sumbitInnerMermngcontractextractEx($request, $headers, $runtime){
+        Utils::validateModel($request);
+        return SumbitInnerMermngcontractextractResponse::fromMap($this->doRequest("1.0", "antchain.ato.inner.mermngcontractextract.sumbit", "HTTPS", "POST", "/gateway.do", Tea::merge($request), $headers, $runtime));
     }
 
     /**
