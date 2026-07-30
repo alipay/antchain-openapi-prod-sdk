@@ -2180,6 +2180,12 @@ export class GclAbnormalItem extends $tea.Model {
    * xxxx
    */
   processNo?: string;
+  // 供应商企业社会信用代码
+  /**
+   * @example
+   * xxxx
+   */
+  socialCreditCode?: string;
   static names(): { [key: string]: string } {
     return {
       externalItemCode: 'external_item_code',
@@ -2196,6 +2202,7 @@ export class GclAbnormalItem extends $tea.Model {
       supplierName: 'supplier_name',
       supplierProductName: 'supplier_product_name',
       processNo: 'process_no',
+      socialCreditCode: 'social_credit_code',
     };
   }
 
@@ -2215,6 +2222,7 @@ export class GclAbnormalItem extends $tea.Model {
       supplierName: 'string',
       supplierProductName: 'string',
       processNo: 'string',
+      socialCreditCode: 'string',
     };
   }
 
@@ -2390,6 +2398,12 @@ export class ActiveDataItem extends $tea.Model {
    * xxxx
    */
   materialType?: string;
+  // 供应商企业信用代码
+  /**
+   * @example
+   * xxxx
+   */
+  socialCreditCode?: string;
   static names(): { [key: string]: string } {
     return {
       externalItemCode: 'external_item_code',
@@ -2400,6 +2414,7 @@ export class ActiveDataItem extends $tea.Model {
       activeDataList: 'active_data_list',
       processNo: 'process_no',
       materialType: 'material_type',
+      socialCreditCode: 'social_credit_code',
     };
   }
 
@@ -2413,6 +2428,7 @@ export class ActiveDataItem extends $tea.Model {
       activeDataList: { 'type': 'array', 'itemType': MonthDataDetail },
       processNo: 'string',
       materialType: 'string',
+      socialCreditCode: 'string',
     };
   }
 
@@ -9440,7 +9456,7 @@ export default class Client {
           req_msg_id: AntchainUtil.getNonce(),
           access_key: this._accessKeyId,
           base_sdk_version: "TeaSDK-2.0",
-          sdk_version: "2.11.10",
+          sdk_version: "2.11.11",
           _prod_code: "STLR",
           _prod_channel: "undefined",
         };
