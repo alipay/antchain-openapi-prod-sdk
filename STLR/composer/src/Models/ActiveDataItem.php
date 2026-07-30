@@ -17,6 +17,7 @@ class ActiveDataItem extends Model {
         'activeDataList' => 'active_data_list',
         'processNo' => 'process_no',
         'materialType' => 'material_type',
+        'socialCreditCode' => 'social_credit_code',
     ];
     public function validate() {
         Model::validateRequired('materialName', $this->materialName, true);
@@ -53,6 +54,9 @@ class ActiveDataItem extends Model {
         }
         if (null !== $this->materialType) {
             $res['material_type'] = $this->materialType;
+        }
+        if (null !== $this->socialCreditCode) {
+            $res['social_credit_code'] = $this->socialCreditCode;
         }
         return $res;
     }
@@ -91,6 +95,9 @@ class ActiveDataItem extends Model {
         }
         if(isset($map['material_type'])){
             $model->materialType = $map['material_type'];
+        }
+        if(isset($map['social_credit_code'])){
+            $model->socialCreditCode = $map['social_credit_code'];
         }
         return $model;
     }
@@ -149,5 +156,12 @@ class ActiveDataItem extends Model {
      * @var string
      */
     public $materialType;
+
+    // 供应商企业信用代码
+    /**
+     * @example xxxx
+     * @var string
+     */
+    public $socialCreditCode;
 
 }
