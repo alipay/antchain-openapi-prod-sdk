@@ -2316,6 +2316,11 @@ type GclAbnormalItem struct {
 	//
 	// xxxx
 	ProcessNo *string `json:"process_no,omitempty" xml:"process_no,omitempty"`
+	// 供应商企业社会信用代码
+	// example:
+	//
+	// xxxx
+	SocialCreditCode *string `json:"social_credit_code,omitempty" xml:"social_credit_code,omitempty"`
 }
 
 func (s GclAbnormalItem) String() string {
@@ -2393,6 +2398,11 @@ func (s *GclAbnormalItem) SetSupplierProductName(v string) *GclAbnormalItem {
 
 func (s *GclAbnormalItem) SetProcessNo(v string) *GclAbnormalItem {
 	s.ProcessNo = &v
+	return s
+}
+
+func (s *GclAbnormalItem) SetSocialCreditCode(v string) *GclAbnormalItem {
+	s.SocialCreditCode = &v
 	return s
 }
 
@@ -2577,6 +2587,11 @@ type ActiveDataItem struct {
 	//
 	// xxxx
 	MaterialType *string `json:"material_type,omitempty" xml:"material_type,omitempty"`
+	// 供应商企业信用代码
+	// example:
+	//
+	// xxxx
+	SocialCreditCode *string `json:"social_credit_code,omitempty" xml:"social_credit_code,omitempty"`
 }
 
 func (s ActiveDataItem) String() string {
@@ -2624,6 +2639,11 @@ func (s *ActiveDataItem) SetProcessNo(v string) *ActiveDataItem {
 
 func (s *ActiveDataItem) SetMaterialType(v string) *ActiveDataItem {
 	s.MaterialType = &v
+	return s
+}
+
+func (s *ActiveDataItem) SetSocialCreditCode(v string) *ActiveDataItem {
+	s.SocialCreditCode = &v
 	return s
 }
 
@@ -11590,7 +11610,7 @@ func (client *Client) DoRequest(version *string, action *string, protocol *strin
 				"req_msg_id":       antchainutil.GetNonce(),
 				"access_key":       client.AccessKeyId,
 				"base_sdk_version": tea.String("TeaSDK-2.0"),
-				"sdk_version":      tea.String("2.11.10"),
+				"sdk_version":      tea.String("2.11.11"),
 				"_prod_code":       tea.String("STLR"),
 				"_prod_channel":    tea.String("undefined"),
 			}
