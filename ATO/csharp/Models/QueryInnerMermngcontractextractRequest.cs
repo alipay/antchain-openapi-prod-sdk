@@ -8,7 +8,7 @@ using Tea;
 
 namespace AntChain.SDK.ATO.Models
 {
-    public class CreateInnerWithholdjdsignurlRequest : TeaModel {
+    public class QueryInnerMermngcontractextractRequest : TeaModel {
         // OAuth模式下的授权token
         [NameInMap("auth_token")]
         [Validation(Required=false)]
@@ -18,15 +18,20 @@ namespace AntChain.SDK.ATO.Models
         [Validation(Required=false)]
         public string ProductInstanceId { get; set; }
 
-        // 流程id
-        [NameInMap("flow_id")]
+        // traceid
+        [NameInMap("trace_id")]
         [Validation(Required=true)]
-        public string FlowId { get; set; }
+        public string TraceId { get; set; }
 
-        // 签约人
-        [NameInMap("account_id")]
-        [Validation(Required=false)]
-        public string AccountId { get; set; }
+        // 商户租户id
+        [NameInMap("tenant_id")]
+        [Validation(Required=true)]
+        public string TenantId { get; set; }
+
+        // 任务id
+        [NameInMap("task_instant_id")]
+        [Validation(Required=true)]
+        public string TaskInstantId { get; set; }
 
     }
 
