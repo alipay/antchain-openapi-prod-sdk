@@ -126,7 +126,7 @@ public class Client {
                     new TeaPair("req_msg_id", com.antgroup.antchain.openapi.antchain.util.AntchainUtils.getNonce()),
                     new TeaPair("access_key", _accessKeyId),
                     new TeaPair("base_sdk_version", "TeaSDK-2.0"),
-                    new TeaPair("sdk_version", "1.31.26"),
+                    new TeaPair("sdk_version", "1.31.28"),
                     new TeaPair("_prod_code", "RISKPLUS"),
                     new TeaPair("_prod_channel", "undefined")
                 );
@@ -186,6 +186,48 @@ public class Client {
 
     public void addResponseInterceptor(ResponseInterceptor interceptor) {
         interceptorChain.addResponseInterceptor(interceptor);
+    }
+
+    /**
+     * <b>description</b> :
+     * <p>Description: 发起 agent flow 的执行
+     * Summary: 发起 agent flow 的执行</p>
+     */
+    public ExecFlowRunResponse execFlowRun(ExecFlowRunRequest request) throws Exception {
+        com.aliyun.teautil.models.RuntimeOptions runtime = new com.aliyun.teautil.models.RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.execFlowRunEx(request, headers, runtime);
+    }
+
+    /**
+     * <b>description</b> :
+     * <p>Description: 发起 agent flow 的执行
+     * Summary: 发起 agent flow 的执行</p>
+     */
+    public ExecFlowRunResponse execFlowRunEx(ExecFlowRunRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "riskplus.flow.run.exec", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new ExecFlowRunResponse());
+    }
+
+    /**
+     * <b>description</b> :
+     * <p>Description: 查询任务执行状态或者结果
+     * Summary: 查询任务执行状态或者结果</p>
+     */
+    public QueryFlowRunResponse queryFlowRun(QueryFlowRunRequest request) throws Exception {
+        com.aliyun.teautil.models.RuntimeOptions runtime = new com.aliyun.teautil.models.RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.queryFlowRunEx(request, headers, runtime);
+    }
+
+    /**
+     * <b>description</b> :
+     * <p>Description: 查询任务执行状态或者结果
+     * Summary: 查询任务执行状态或者结果</p>
+     */
+    public QueryFlowRunResponse queryFlowRunEx(QueryFlowRunRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "riskplus.flow.run.query", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new QueryFlowRunResponse());
     }
 
     /**
@@ -2858,6 +2900,48 @@ public class Client {
 
     /**
      * <b>description</b> :
+     * <p>Description: 聚合收银台申请
+     * Summary: 聚合收银台申请</p>
+     */
+    public ApplyDubbridgePetcashierResponse applyDubbridgePetcashier(ApplyDubbridgePetcashierRequest request) throws Exception {
+        com.aliyun.teautil.models.RuntimeOptions runtime = new com.aliyun.teautil.models.RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.applyDubbridgePetcashierEx(request, headers, runtime);
+    }
+
+    /**
+     * <b>description</b> :
+     * <p>Description: 聚合收银台申请
+     * Summary: 聚合收银台申请</p>
+     */
+    public ApplyDubbridgePetcashierResponse applyDubbridgePetcashierEx(ApplyDubbridgePetcashierRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "riskplus.dubbridge.petcashier.apply", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new ApplyDubbridgePetcashierResponse());
+    }
+
+    /**
+     * <b>description</b> :
+     * <p>Description: 交易订单查询
+     * Summary: 交易订单查询</p>
+     */
+    public QueryDubbridgePetorderResponse queryDubbridgePetorder(QueryDubbridgePetorderRequest request) throws Exception {
+        com.aliyun.teautil.models.RuntimeOptions runtime = new com.aliyun.teautil.models.RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.queryDubbridgePetorderEx(request, headers, runtime);
+    }
+
+    /**
+     * <b>description</b> :
+     * <p>Description: 交易订单查询
+     * Summary: 交易订单查询</p>
+     */
+    public QueryDubbridgePetorderResponse queryDubbridgePetorderEx(QueryDubbridgePetorderRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "riskplus.dubbridge.petorder.query", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new QueryDubbridgePetorderResponse());
+    }
+
+    /**
+     * <b>description</b> :
      * <p>Description: 四要素认证首先调用此接口
      * Summary: 芝麻四要素接口</p>
      */
@@ -3085,6 +3169,49 @@ public class Client {
     public CallbackMdipYunfengdieParamsResponse callbackMdipYunfengdieParamsEx(CallbackMdipYunfengdieParamsRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
         com.aliyun.teautil.Common.validateModel(request);
         return TeaModel.toModel(this.doRequest("1.0", "riskplus.mdip.yunfengdie.params.callback", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new CallbackMdipYunfengdieParamsResponse());
+    }
+
+    /**
+     * <b>description</b> :
+     * <p>Description: 支持异步回传文件
+     * Summary: 支持异步回传文件</p>
+     */
+    public CallbackMdipFileResponse callbackMdipFile(CallbackMdipFileRequest request) throws Exception {
+        com.aliyun.teautil.models.RuntimeOptions runtime = new com.aliyun.teautil.models.RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.callbackMdipFileEx(request, headers, runtime);
+    }
+
+    /**
+     * <b>description</b> :
+     * <p>Description: 支持异步回传文件
+     * Summary: 支持异步回传文件</p>
+     */
+    public CallbackMdipFileResponse callbackMdipFileEx(CallbackMdipFileRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
+        if (!com.aliyun.teautil.Common.isUnset(request.fileObject)) {
+            CreateAntcloudGatewayxFileUploadRequest uploadReq = CreateAntcloudGatewayxFileUploadRequest.build(TeaConverter.buildMap(
+                new TeaPair("authToken", request.authToken),
+                new TeaPair("apiCode", "riskplus.mdip.file.callback"),
+                new TeaPair("fileName", request.fileObjectName)
+            ));
+            CreateAntcloudGatewayxFileUploadResponse uploadResp = this.createAntcloudGatewayxFileUploadEx(uploadReq, headers, runtime);
+            if (!com.antgroup.antchain.openapi.antchain.util.AntchainUtils.isSuccess(uploadResp.resultCode, "ok")) {
+                CallbackMdipFileResponse callbackMdipFileResponse = CallbackMdipFileResponse.build(TeaConverter.buildMap(
+                    new TeaPair("reqMsgId", uploadResp.reqMsgId),
+                    new TeaPair("resultCode", uploadResp.resultCode),
+                    new TeaPair("resultMsg", uploadResp.resultMsg)
+                ));
+                return callbackMdipFileResponse;
+            }
+
+            java.util.Map<String, String> uploadHeaders = com.antgroup.antchain.openapi.antchain.util.AntchainUtils.parseUploadHeaders(uploadResp.uploadHeaders);
+            com.antgroup.antchain.openapi.antchain.util.AntchainUtils.putObject(request.fileObject, uploadHeaders, uploadResp.uploadUrl);
+            request.fileId = uploadResp.fileId;
+            request.fileObject = null;
+        }
+
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "riskplus.mdip.file.callback", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new CallbackMdipFileResponse());
     }
 
     /**
@@ -5425,6 +5552,69 @@ public class Client {
     public QuerySnapshotEventResponse querySnapshotEventEx(QuerySnapshotEventRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
         com.aliyun.teautil.Common.validateModel(request);
         return TeaModel.toModel(this.doRequest("1.0", "riskplus.snapshot.event.query", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new QuerySnapshotEventResponse());
+    }
+
+    /**
+     * <b>description</b> :
+     * <p>Description: 接口创建测试
+     * Summary: 接口创建测试</p>
+     */
+    public PushTdiaiworkshopcloudTestResponse pushTdiaiworkshopcloudTest(PushTdiaiworkshopcloudTestRequest request) throws Exception {
+        com.aliyun.teautil.models.RuntimeOptions runtime = new com.aliyun.teautil.models.RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.pushTdiaiworkshopcloudTestEx(request, headers, runtime);
+    }
+
+    /**
+     * <b>description</b> :
+     * <p>Description: 接口创建测试
+     * Summary: 接口创建测试</p>
+     */
+    public PushTdiaiworkshopcloudTestResponse pushTdiaiworkshopcloudTestEx(PushTdiaiworkshopcloudTestRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "riskplus.tdiaiworkshopcloud.test.push", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new PushTdiaiworkshopcloudTestResponse());
+    }
+
+    /**
+     * <b>description</b> :
+     * <p>Description: 风控离线批量样本数据查询接口
+     * Summary: 风控离线批量样本数据查询接口</p>
+     */
+    public QueryTdiaiworkshopcloudBatchResponse queryTdiaiworkshopcloudBatch(QueryTdiaiworkshopcloudBatchRequest request) throws Exception {
+        com.aliyun.teautil.models.RuntimeOptions runtime = new com.aliyun.teautil.models.RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.queryTdiaiworkshopcloudBatchEx(request, headers, runtime);
+    }
+
+    /**
+     * <b>description</b> :
+     * <p>Description: 风控离线批量样本数据查询接口
+     * Summary: 风控离线批量样本数据查询接口</p>
+     */
+    public QueryTdiaiworkshopcloudBatchResponse queryTdiaiworkshopcloudBatchEx(QueryTdiaiworkshopcloudBatchRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "riskplus.tdiaiworkshopcloud.batch.query", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new QueryTdiaiworkshopcloudBatchResponse());
+    }
+
+    /**
+     * <b>description</b> :
+     * <p>Description: 风控离线批量样本数据上传接口
+     * Summary: 风控离线批量样本数据上传接口</p>
+     */
+    public PushTdiaiworkshopcloudBatchResponse pushTdiaiworkshopcloudBatch(PushTdiaiworkshopcloudBatchRequest request) throws Exception {
+        com.aliyun.teautil.models.RuntimeOptions runtime = new com.aliyun.teautil.models.RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.pushTdiaiworkshopcloudBatchEx(request, headers, runtime);
+    }
+
+    /**
+     * <b>description</b> :
+     * <p>Description: 风控离线批量样本数据上传接口
+     * Summary: 风控离线批量样本数据上传接口</p>
+     */
+    public PushTdiaiworkshopcloudBatchResponse pushTdiaiworkshopcloudBatchEx(PushTdiaiworkshopcloudBatchRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "riskplus.tdiaiworkshopcloud.batch.push", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new PushTdiaiworkshopcloudBatchResponse());
     }
 
     /**

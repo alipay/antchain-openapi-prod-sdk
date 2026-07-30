@@ -49,6 +49,14 @@ public class DecisionInfo extends TeaModel {
     @Validation(required = true)
     public String fileUrl;
 
+    // 返回结果节点id
+    /**
+     * <strong>example:</strong>
+     * <p>123</p>
+     */
+    @NameInMap("return_result_id")
+    public Long returnResultId;
+
     public static DecisionInfo build(java.util.Map<String, ?> map) throws Exception {
         DecisionInfo self = new DecisionInfo();
         return TeaModel.build(map, self);
@@ -92,6 +100,14 @@ public class DecisionInfo extends TeaModel {
     }
     public String getFileUrl() {
         return this.fileUrl;
+    }
+
+    public DecisionInfo setReturnResultId(Long returnResultId) {
+        this.returnResultId = returnResultId;
+        return this;
+    }
+    public Long getReturnResultId() {
+        return this.returnResultId;
     }
 
 }
