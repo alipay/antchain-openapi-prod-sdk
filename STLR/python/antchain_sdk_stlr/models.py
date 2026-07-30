@@ -2285,6 +2285,7 @@ class GclAbnormalItem(TeaModel):
         supplier_name: str = None,
         supplier_product_name: str = None,
         process_no: str = None,
+        social_credit_code: str = None,
     ):
         # 明细编码
         self.external_item_code = external_item_code
@@ -2314,6 +2315,8 @@ class GclAbnormalItem(TeaModel):
         self.supplier_product_name = supplier_product_name
         # 过程编码
         self.process_no = process_no
+        # 供应商企业社会信用代码
+        self.social_credit_code = social_credit_code
 
     def validate(self):
         pass
@@ -2352,6 +2355,8 @@ class GclAbnormalItem(TeaModel):
             result['supplier_product_name'] = self.supplier_product_name
         if self.process_no is not None:
             result['process_no'] = self.process_no
+        if self.social_credit_code is not None:
+            result['social_credit_code'] = self.social_credit_code
         return result
 
     def from_map(self, m: dict = None):
@@ -2384,6 +2389,8 @@ class GclAbnormalItem(TeaModel):
             self.supplier_product_name = m.get('supplier_product_name')
         if m.get('process_no') is not None:
             self.process_no = m.get('process_no')
+        if m.get('social_credit_code') is not None:
+            self.social_credit_code = m.get('social_credit_code')
         return self
 
 
@@ -2525,6 +2532,7 @@ class ActiveDataItem(TeaModel):
         active_data_list: List[MonthDataDetail] = None,
         process_no: str = None,
         material_type: str = None,
+        social_credit_code: str = None,
     ):
         # 明细编码，用于异常回传和排查
         self.external_item_code = external_item_code
@@ -2542,6 +2550,8 @@ class ActiveDataItem(TeaModel):
         self.process_no = process_no
         # 物料类型，默认为RAW原辅料数据
         self.material_type = material_type
+        # 供应商企业信用代码
+        self.social_credit_code = social_credit_code
 
     def validate(self):
         self.validate_required(self.material_name, 'material_name')
@@ -2575,6 +2585,8 @@ class ActiveDataItem(TeaModel):
             result['process_no'] = self.process_no
         if self.material_type is not None:
             result['material_type'] = self.material_type
+        if self.social_credit_code is not None:
+            result['social_credit_code'] = self.social_credit_code
         return result
 
     def from_map(self, m: dict = None):
@@ -2598,6 +2610,8 @@ class ActiveDataItem(TeaModel):
             self.process_no = m.get('process_no')
         if m.get('material_type') is not None:
             self.material_type = m.get('material_type')
+        if m.get('social_credit_code') is not None:
+            self.social_credit_code = m.get('social_credit_code')
         return self
 
 
