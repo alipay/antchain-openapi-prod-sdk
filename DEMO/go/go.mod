@@ -1,6 +1,6 @@
 module github.com/alipay/demo
 
-go 1.22.1
+go 1.23.0
 
 require (
 	github.com/alibabacloud-go/tea v1.2.2
@@ -17,6 +17,6 @@ require (
 	github.com/modern-go/concurrent v0.0.0-20180228061459-e0a39a4cb421 // indirect
 	github.com/modern-go/reflect2 v1.0.2 // indirect
 	github.com/satori/go.uuid v1.2.0 // indirect
-	golang.org/x/net v0.20.0 // indirect
+	golang.org/x/net v0.38.0 // indirect
 	golang.org/x/time v0.0.0-20200416051211-89c76fbcd5d1 // indirect
 )
