@@ -1,0 +1,33 @@
+// This file is auto-generated, don't edit it. Thanks.
+
+using System;
+using System.Collections.Generic;
+using System.IO;
+
+using Tea;
+
+namespace AntChain.SDK.GESAAS_SPI.Models
+{
+    public class QueryRightsprodVoucherRequest : TeaModel {
+        // OAuth模式下的授权token
+        [NameInMap("auth_token")]
+        [Validation(Required=false)]
+        public string AuthToken { get; set; }
+
+        [NameInMap("product_instance_id")]
+        [Validation(Required=false)]
+        public string ProductInstanceId { get; set; }
+
+        // 供应商权益编码
+        [NameInMap("supply_rights_code")]
+        [Validation(Required=true)]
+        public string SupplyRightsCode { get; set; }
+
+        // 权益实例
+        [NameInMap("voucher_code")]
+        [Validation(Required=true)]
+        public string VoucherCode { get; set; }
+
+    }
+
+}

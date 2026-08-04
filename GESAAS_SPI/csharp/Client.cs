@@ -158,7 +158,7 @@ namespace AntChain.SDK.GESAAS_SPI
                         {"req_msg_id", AntChain.AlipayUtil.AntchainUtils.GetNonce()},
                         {"access_key", _accessKeyId},
                         {"base_sdk_version", "TeaSDK-2.0"},
-                        {"sdk_version", "1.1.10"},
+                        {"sdk_version", "1.1.11"},
                         {"_prod_code", "GESAAS_SPI"},
                         {"_prod_channel", "default"},
                     };
@@ -301,7 +301,7 @@ namespace AntChain.SDK.GESAAS_SPI
                         {"req_msg_id", AntChain.AlipayUtil.AntchainUtils.GetNonce()},
                         {"access_key", _accessKeyId},
                         {"base_sdk_version", "TeaSDK-2.0"},
-                        {"sdk_version", "1.1.10"},
+                        {"sdk_version", "1.1.11"},
                         {"_prod_code", "GESAAS_SPI"},
                         {"_prod_channel", "default"},
                     };
@@ -679,6 +679,52 @@ namespace AntChain.SDK.GESAAS_SPI
         {
             AlibabaCloud.TeaUtil.Common.ValidateModel(request);
             return TeaModel.ToObject<QueryRightsprodConfigResponse>(await DoRequestAsync("1.0", "antdigital.gesaasspi.rightsprod.config.query", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /// <term><b>Description:</b></term>
+        /// <description>
+        /// <para>Description: 获取具体权益实例的实时状态与基本信息
+        /// Summary: 获取具体权益实例的实时状态与基本信息</para>
+        /// </description>
+        public QueryRightsprodVoucherResponse QueryRightsprodVoucher(QueryRightsprodVoucherRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return QueryRightsprodVoucherEx(request, headers, runtime);
+        }
+
+        /// <term><b>Description:</b></term>
+        /// <description>
+        /// <para>Description: 获取具体权益实例的实时状态与基本信息
+        /// Summary: 获取具体权益实例的实时状态与基本信息</para>
+        /// </description>
+        public async Task<QueryRightsprodVoucherResponse> QueryRightsprodVoucherAsync(QueryRightsprodVoucherRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return await QueryRightsprodVoucherExAsync(request, headers, runtime);
+        }
+
+        /// <term><b>Description:</b></term>
+        /// <description>
+        /// <para>Description: 获取具体权益实例的实时状态与基本信息
+        /// Summary: 获取具体权益实例的实时状态与基本信息</para>
+        /// </description>
+        public QueryRightsprodVoucherResponse QueryRightsprodVoucherEx(QueryRightsprodVoucherRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<QueryRightsprodVoucherResponse>(DoRequest("1.0", "antdigital.gesaasspi.rightsprod.voucher.query", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /// <term><b>Description:</b></term>
+        /// <description>
+        /// <para>Description: 获取具体权益实例的实时状态与基本信息
+        /// Summary: 获取具体权益实例的实时状态与基本信息</para>
+        /// </description>
+        public async Task<QueryRightsprodVoucherResponse> QueryRightsprodVoucherExAsync(QueryRightsprodVoucherRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<QueryRightsprodVoucherResponse>(await DoRequestAsync("1.0", "antdigital.gesaasspi.rightsprod.voucher.query", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
         }
 
     }
