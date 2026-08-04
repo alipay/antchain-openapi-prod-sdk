@@ -1,0 +1,64 @@
+<?php
+
+// This file is auto-generated, don't edit it. Thanks.
+namespace AntChain\GESAAS_SPI\Models;
+
+use AlibabaCloud\Tea\Model;
+
+class QueryRightsprodConfigRequest extends Model {
+    protected $_name = [
+        'authToken' => 'auth_token',
+        'productInstanceId' => 'product_instance_id',
+        'supplyRightsCode' => 'supply_rights_code',
+    ];
+    public function validate() {
+        Model::validateRequired('supplyRightsCode', $this->supplyRightsCode, true);
+    }
+    public function toMap() {
+        $res = [];
+        if (null !== $this->authToken) {
+            $res['auth_token'] = $this->authToken;
+        }
+        if (null !== $this->productInstanceId) {
+            $res['product_instance_id'] = $this->productInstanceId;
+        }
+        if (null !== $this->supplyRightsCode) {
+            $res['supply_rights_code'] = $this->supplyRightsCode;
+        }
+        return $res;
+    }
+    /**
+     * @param array $map
+     * @return QueryRightsprodConfigRequest
+     */
+    public static function fromMap($map = []) {
+        $model = new self();
+        if(isset($map['auth_token'])){
+            $model->authToken = $map['auth_token'];
+        }
+        if(isset($map['product_instance_id'])){
+            $model->productInstanceId = $map['product_instance_id'];
+        }
+        if(isset($map['supply_rights_code'])){
+            $model->supplyRightsCode = $map['supply_rights_code'];
+        }
+        return $model;
+    }
+    // OAuth模式下的授权token
+    /**
+     * @var string
+     */
+    public $authToken;
+
+    /**
+     * @var string
+     */
+    public $productInstanceId;
+
+    // 权益供应商供应权益编码
+    /**
+     * @var string
+     */
+    public $supplyRightsCode;
+
+}
