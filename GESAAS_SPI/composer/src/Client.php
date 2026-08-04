@@ -27,6 +27,8 @@ use AntChain\GESAAS_SPI\Models\PushRightsprodGrantrightsRequest;
 use AntChain\GESAAS_SPI\Models\PushRightsprodGrantrightsResponse;
 use AntChain\GESAAS_SPI\Models\QueryRightsprodConfigRequest;
 use AntChain\GESAAS_SPI\Models\QueryRightsprodConfigResponse;
+use AntChain\GESAAS_SPI\Models\QueryRightsprodVoucherRequest;
+use AntChain\GESAAS_SPI\Models\QueryRightsprodVoucherResponse;
 
 class Client {
     protected $_endpoint;
@@ -163,7 +165,7 @@ class Client {
                     "req_msg_id" => UtilClient::getNonce(),
                     "access_key" => $this->_accessKeyId,
                     "base_sdk_version" => "TeaSDK-2.0",
-                    "sdk_version" => "1.1.10",
+                    "sdk_version" => "1.1.11",
                     "_prod_code" => "GESAAS_SPI",
                     "_prod_channel" => "default"
                 ];
@@ -381,5 +383,30 @@ class Client {
     public function queryRightsprodConfigEx($request, $headers, $runtime){
         Utils::validateModel($request);
         return QueryRightsprodConfigResponse::fromMap($this->doRequest("1.0", "antdigital.gesaasspi.rightsprod.config.query", "HTTPS", "POST", "/gateway.do", Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 获取具体权益实例的实时状态与基本信息
+     * Summary: 获取具体权益实例的实时状态与基本信息
+     * @param QueryRightsprodVoucherRequest $request
+     * @return QueryRightsprodVoucherResponse
+     */
+    public function queryRightsprodVoucher($request){
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+        return $this->queryRightsprodVoucherEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 获取具体权益实例的实时状态与基本信息
+     * Summary: 获取具体权益实例的实时状态与基本信息
+     * @param QueryRightsprodVoucherRequest $request
+     * @param string[] $headers
+     * @param RuntimeOptions $runtime
+     * @return QueryRightsprodVoucherResponse
+     */
+    public function queryRightsprodVoucherEx($request, $headers, $runtime){
+        Utils::validateModel($request);
+        return QueryRightsprodVoucherResponse::fromMap($this->doRequest("1.0", "antdigital.gesaasspi.rightsprod.voucher.query", "HTTPS", "POST", "/gateway.do", Tea::merge($request), $headers, $runtime));
     }
 }
