@@ -1,0 +1,1004 @@
+# -*- coding: utf-8 -*-
+# This file is auto-generated, don't edit it. Thanks.
+import time
+
+from Tea.exceptions import TeaException, UnretryableException
+from Tea.request import TeaRequest
+from Tea.core import TeaCore
+from antchain_alipay_util.antchain_utils import AntchainUtils
+from typing import Dict
+
+from antchain_sdk_gesaas import models as gesaas_models
+from alibabacloud_tea_util.client import Client as UtilClient
+from alibabacloud_tea_util import models as util_models
+from alibabacloud_rpc_util.client import Client as RPCUtilClient
+
+
+class Client:
+    _endpoint: str = None
+    _region_id: str = None
+    _access_key_id: str = None
+    _access_key_secret: str = None
+    _protocol: str = None
+    _user_agent: str = None
+    _read_timeout: int = None
+    _connect_timeout: int = None
+    _http_proxy: str = None
+    _https_proxy: str = None
+    _socks_5proxy: str = None
+    _socks_5net_work: str = None
+    _no_proxy: str = None
+    _max_idle_conns: int = None
+    _security_token: str = None
+    _max_idle_time_millis: int = None
+    _keep_alive_duration_millis: int = None
+    _max_requests: int = None
+    _max_requests_per_host: int = None
+
+    def __init__(
+        self, 
+        config: gesaas_models.Config,
+    ):
+        """
+        Init client with Config
+        @param config: config contains the necessary information to create a client
+        """
+        if UtilClient.is_unset(config):
+            raise TeaException({
+                'code': 'ParameterMissing',
+                'message': "'config' can not be unset"
+            })
+        self._access_key_id = config.access_key_id
+        self._access_key_secret = config.access_key_secret
+        self._security_token = config.security_token
+        self._endpoint = config.endpoint
+        self._protocol = config.protocol
+        self._user_agent = config.user_agent
+        self._read_timeout = UtilClient.default_number(config.read_timeout, 20000)
+        self._connect_timeout = UtilClient.default_number(config.connect_timeout, 20000)
+        self._http_proxy = config.http_proxy
+        self._https_proxy = config.https_proxy
+        self._no_proxy = config.no_proxy
+        self._socks_5proxy = config.socks_5proxy
+        self._socks_5net_work = config.socks_5net_work
+        self._max_idle_conns = UtilClient.default_number(config.max_idle_conns, 60000)
+        self._max_idle_time_millis = UtilClient.default_number(config.max_idle_time_millis, 5)
+        self._keep_alive_duration_millis = UtilClient.default_number(config.keep_alive_duration_millis, 5000)
+        self._max_requests = UtilClient.default_number(config.max_requests, 100)
+        self._max_requests_per_host = UtilClient.default_number(config.max_requests_per_host, 100)
+
+    def do_request(
+        self,
+        version: str,
+        action: str,
+        protocol: str,
+        method: str,
+        pathname: str,
+        request: dict,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> dict:
+        """
+        Encapsulate the request and invoke the network
+        @param action: api name
+        @param protocol: http or https
+        @param method: e.g. GET
+        @param pathname: pathname of every api
+        @param request: which contains request params
+        @param runtime: which controls some details of call api, such as retry times
+        @return: the response
+        """
+        runtime.validate()
+        _runtime = {
+            'timeouted': 'retry',
+            'readTimeout': UtilClient.default_number(runtime.read_timeout, self._read_timeout),
+            'connectTimeout': UtilClient.default_number(runtime.connect_timeout, self._connect_timeout),
+            'httpProxy': UtilClient.default_string(runtime.http_proxy, self._http_proxy),
+            'httpsProxy': UtilClient.default_string(runtime.https_proxy, self._https_proxy),
+            'noProxy': UtilClient.default_string(runtime.no_proxy, self._no_proxy),
+            'maxIdleConns': UtilClient.default_number(runtime.max_idle_conns, self._max_idle_conns),
+            'maxIdleTimeMillis': self._max_idle_time_millis,
+            'keepAliveDuration': self._keep_alive_duration_millis,
+            'maxRequests': self._max_requests,
+            'maxRequestsPerHost': self._max_requests_per_host,
+            'retry': {
+                'retryable': runtime.autoretry,
+                'maxAttempts': UtilClient.default_number(runtime.max_attempts, 3)
+            },
+            'backoff': {
+                'policy': UtilClient.default_string(runtime.backoff_policy, 'no'),
+                'period': UtilClient.default_number(runtime.backoff_period, 1)
+            },
+            'ignoreSSL': runtime.ignore_ssl,
+            # 经营分账收入方列表
+        }
+        _last_request = None
+        _last_exception = None
+        _now = time.time()
+        _retry_times = 0
+        while TeaCore.allow_retry(_runtime.get('retry'), _retry_times, _now):
+            if _retry_times > 0:
+                _backoff_time = TeaCore.get_backoff_time(_runtime.get('backoff'), _retry_times)
+                if _backoff_time > 0:
+                    TeaCore.sleep(_backoff_time)
+            _retry_times = _retry_times + 1
+            try:
+                _request = TeaRequest()
+                _request.protocol = UtilClient.default_string(self._protocol, protocol)
+                _request.method = method
+                _request.pathname = pathname
+                _request.query = {
+                    'method': action,
+                    'version': version,
+                    'sign_type': 'HmacSHA1',
+                    'req_time': AntchainUtils.get_timestamp(),
+                    'req_msg_id': AntchainUtils.get_nonce(),
+                    'access_key': self._access_key_id,
+                    'base_sdk_version': 'TeaSDK-2.0',
+                    'sdk_version': '1.3.14',
+                    '_prod_code': 'GESAAS',
+                    '_prod_channel': 'default'
+                }
+                if not UtilClient.empty(self._security_token):
+                    _request.query['security_token'] = self._security_token
+                _request.headers = TeaCore.merge({
+                    'host': UtilClient.default_string(self._endpoint, 'openapi.antchain.antgroup.com'),
+                    'user-agent': UtilClient.get_user_agent(self._user_agent)
+                }, headers)
+                tmp = UtilClient.anyify_map_value(RPCUtilClient.query(request))
+                _request.body = UtilClient.to_form_string(tmp)
+                _request.headers['content-type'] = 'application/x-www-form-urlencoded'
+                signed_param = TeaCore.merge(_request.query,
+                    RPCUtilClient.query(request))
+                _request.query['sign'] = AntchainUtils.get_signature(signed_param, self._access_key_secret)
+                _last_request = _request
+                _response = TeaCore.do_action(_request, _runtime)
+                raw = UtilClient.read_as_string(_response.body)
+                obj = UtilClient.parse_json(raw)
+                res = UtilClient.assert_as_map(obj)
+                resp = UtilClient.assert_as_map(res.get('response'))
+                if AntchainUtils.has_error(raw, self._access_key_secret):
+                    raise TeaException({
+                        'message': resp.get('result_msg'),
+                        'data': resp,
+                        'code': resp.get('result_code')
+                    })
+                return resp
+            except Exception as e:
+                if TeaCore.is_retryable(e):
+                    _last_exception = e
+                    continue
+                raise e
+        raise UnretryableException(_last_request, _last_exception)
+
+    async def do_request_async(
+        self,
+        version: str,
+        action: str,
+        protocol: str,
+        method: str,
+        pathname: str,
+        request: dict,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> dict:
+        """
+        Encapsulate the request and invoke the network
+        @param action: api name
+        @param protocol: http or https
+        @param method: e.g. GET
+        @param pathname: pathname of every api
+        @param request: which contains request params
+        @param runtime: which controls some details of call api, such as retry times
+        @return: the response
+        """
+        runtime.validate()
+        _runtime = {
+            'timeouted': 'retry',
+            'readTimeout': UtilClient.default_number(runtime.read_timeout, self._read_timeout),
+            'connectTimeout': UtilClient.default_number(runtime.connect_timeout, self._connect_timeout),
+            'httpProxy': UtilClient.default_string(runtime.http_proxy, self._http_proxy),
+            'httpsProxy': UtilClient.default_string(runtime.https_proxy, self._https_proxy),
+            'noProxy': UtilClient.default_string(runtime.no_proxy, self._no_proxy),
+            'maxIdleConns': UtilClient.default_number(runtime.max_idle_conns, self._max_idle_conns),
+            'maxIdleTimeMillis': self._max_idle_time_millis,
+            'keepAliveDuration': self._keep_alive_duration_millis,
+            'maxRequests': self._max_requests,
+            'maxRequestsPerHost': self._max_requests_per_host,
+            'retry': {
+                'retryable': runtime.autoretry,
+                'maxAttempts': UtilClient.default_number(runtime.max_attempts, 3)
+            },
+            'backoff': {
+                'policy': UtilClient.default_string(runtime.backoff_policy, 'no'),
+                'period': UtilClient.default_number(runtime.backoff_period, 1)
+            },
+            'ignoreSSL': runtime.ignore_ssl,
+            # 经营分账收入方列表
+        }
+        _last_request = None
+        _last_exception = None
+        _now = time.time()
+        _retry_times = 0
+        while TeaCore.allow_retry(_runtime.get('retry'), _retry_times, _now):
+            if _retry_times > 0:
+                _backoff_time = TeaCore.get_backoff_time(_runtime.get('backoff'), _retry_times)
+                if _backoff_time > 0:
+                    TeaCore.sleep(_backoff_time)
+            _retry_times = _retry_times + 1
+            try:
+                _request = TeaRequest()
+                _request.protocol = UtilClient.default_string(self._protocol, protocol)
+                _request.method = method
+                _request.pathname = pathname
+                _request.query = {
+                    'method': action,
+                    'version': version,
+                    'sign_type': 'HmacSHA1',
+                    'req_time': AntchainUtils.get_timestamp(),
+                    'req_msg_id': AntchainUtils.get_nonce(),
+                    'access_key': self._access_key_id,
+                    'base_sdk_version': 'TeaSDK-2.0',
+                    'sdk_version': '1.3.14',
+                    '_prod_code': 'GESAAS',
+                    '_prod_channel': 'default'
+                }
+                if not UtilClient.empty(self._security_token):
+                    _request.query['security_token'] = self._security_token
+                _request.headers = TeaCore.merge({
+                    'host': UtilClient.default_string(self._endpoint, 'openapi.antchain.antgroup.com'),
+                    'user-agent': UtilClient.get_user_agent(self._user_agent)
+                }, headers)
+                tmp = UtilClient.anyify_map_value(RPCUtilClient.query(request))
+                _request.body = UtilClient.to_form_string(tmp)
+                _request.headers['content-type'] = 'application/x-www-form-urlencoded'
+                signed_param = TeaCore.merge(_request.query,
+                    RPCUtilClient.query(request))
+                _request.query['sign'] = AntchainUtils.get_signature(signed_param, self._access_key_secret)
+                _last_request = _request
+                _response = await TeaCore.async_do_action(_request, _runtime)
+                raw = await UtilClient.read_as_string_async(_response.body)
+                obj = UtilClient.parse_json(raw)
+                res = UtilClient.assert_as_map(obj)
+                resp = UtilClient.assert_as_map(res.get('response'))
+                if AntchainUtils.has_error(raw, self._access_key_secret):
+                    raise TeaException({
+                        'message': resp.get('result_msg'),
+                        'data': resp,
+                        'code': resp.get('result_code')
+                    })
+                return resp
+            except Exception as e:
+                if TeaCore.is_retryable(e):
+                    _last_exception = e
+                    continue
+                raise e
+        raise UnretryableException(_last_request, _last_exception)
+
+    def push_order_settlement(
+        self,
+        request: gesaas_models.PushOrderSettlementRequest,
+    ) -> gesaas_models.PushOrderSettlementResponse:
+        """
+        Description: 支付+分账订单推送(创建)
+        Summary: 支付+分账订单推送(创建)
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.push_order_settlement_ex(request, headers, runtime)
+
+    async def push_order_settlement_async(
+        self,
+        request: gesaas_models.PushOrderSettlementRequest,
+    ) -> gesaas_models.PushOrderSettlementResponse:
+        """
+        Description: 支付+分账订单推送(创建)
+        Summary: 支付+分账订单推送(创建)
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.push_order_settlement_ex_async(request, headers, runtime)
+
+    def push_order_settlement_ex(
+        self,
+        request: gesaas_models.PushOrderSettlementRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> gesaas_models.PushOrderSettlementResponse:
+        """
+        Description: 支付+分账订单推送(创建)
+        Summary: 支付+分账订单推送(创建)
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            gesaas_models.PushOrderSettlementResponse(),
+            self.do_request('1.0', 'antdigital.gesaas.order.settlement.push', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def push_order_settlement_ex_async(
+        self,
+        request: gesaas_models.PushOrderSettlementRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> gesaas_models.PushOrderSettlementResponse:
+        """
+        Description: 支付+分账订单推送(创建)
+        Summary: 支付+分账订单推送(创建)
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            gesaas_models.PushOrderSettlementResponse(),
+            await self.do_request_async('1.0', 'antdigital.gesaas.order.settlement.push', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def query_order_settlement(
+        self,
+        request: gesaas_models.QueryOrderSettlementRequest,
+    ) -> gesaas_models.QueryOrderSettlementResponse:
+        """
+        Description: 订单结果查询(支付+分账)
+        Summary: 订单结果查询(支付+分账)
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.query_order_settlement_ex(request, headers, runtime)
+
+    async def query_order_settlement_async(
+        self,
+        request: gesaas_models.QueryOrderSettlementRequest,
+    ) -> gesaas_models.QueryOrderSettlementResponse:
+        """
+        Description: 订单结果查询(支付+分账)
+        Summary: 订单结果查询(支付+分账)
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.query_order_settlement_ex_async(request, headers, runtime)
+
+    def query_order_settlement_ex(
+        self,
+        request: gesaas_models.QueryOrderSettlementRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> gesaas_models.QueryOrderSettlementResponse:
+        """
+        Description: 订单结果查询(支付+分账)
+        Summary: 订单结果查询(支付+分账)
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            gesaas_models.QueryOrderSettlementResponse(),
+            self.do_request('1.0', 'antdigital.gesaas.order.settlement.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def query_order_settlement_ex_async(
+        self,
+        request: gesaas_models.QueryOrderSettlementRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> gesaas_models.QueryOrderSettlementResponse:
+        """
+        Description: 订单结果查询(支付+分账)
+        Summary: 订单结果查询(支付+分账)
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            gesaas_models.QueryOrderSettlementResponse(),
+            await self.do_request_async('1.0', 'antdigital.gesaas.order.settlement.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def withdraw_order_settlement(
+        self,
+        request: gesaas_models.WithdrawOrderSettlementRequest,
+    ) -> gesaas_models.WithdrawOrderSettlementResponse:
+        """
+        Description: 退分账接口(废弃)
+        Summary: 退分账接口(废弃)
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.withdraw_order_settlement_ex(request, headers, runtime)
+
+    async def withdraw_order_settlement_async(
+        self,
+        request: gesaas_models.WithdrawOrderSettlementRequest,
+    ) -> gesaas_models.WithdrawOrderSettlementResponse:
+        """
+        Description: 退分账接口(废弃)
+        Summary: 退分账接口(废弃)
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.withdraw_order_settlement_ex_async(request, headers, runtime)
+
+    def withdraw_order_settlement_ex(
+        self,
+        request: gesaas_models.WithdrawOrderSettlementRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> gesaas_models.WithdrawOrderSettlementResponse:
+        """
+        Description: 退分账接口(废弃)
+        Summary: 退分账接口(废弃)
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            gesaas_models.WithdrawOrderSettlementResponse(),
+            self.do_request('1.0', 'antdigital.gesaas.order.settlement.withdraw', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def withdraw_order_settlement_ex_async(
+        self,
+        request: gesaas_models.WithdrawOrderSettlementRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> gesaas_models.WithdrawOrderSettlementResponse:
+        """
+        Description: 退分账接口(废弃)
+        Summary: 退分账接口(废弃)
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            gesaas_models.WithdrawOrderSettlementResponse(),
+            await self.do_request_async('1.0', 'antdigital.gesaas.order.settlement.withdraw', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def query_order_withdraw(
+        self,
+        request: gesaas_models.QueryOrderWithdrawRequest,
+    ) -> gesaas_models.QueryOrderWithdrawResponse:
+        """
+        Description: 退分账查询接口(废弃)
+        Summary: 退分账查询接口(废弃)
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.query_order_withdraw_ex(request, headers, runtime)
+
+    async def query_order_withdraw_async(
+        self,
+        request: gesaas_models.QueryOrderWithdrawRequest,
+    ) -> gesaas_models.QueryOrderWithdrawResponse:
+        """
+        Description: 退分账查询接口(废弃)
+        Summary: 退分账查询接口(废弃)
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.query_order_withdraw_ex_async(request, headers, runtime)
+
+    def query_order_withdraw_ex(
+        self,
+        request: gesaas_models.QueryOrderWithdrawRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> gesaas_models.QueryOrderWithdrawResponse:
+        """
+        Description: 退分账查询接口(废弃)
+        Summary: 退分账查询接口(废弃)
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            gesaas_models.QueryOrderWithdrawResponse(),
+            self.do_request('1.0', 'antdigital.gesaas.order.withdraw.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def query_order_withdraw_ex_async(
+        self,
+        request: gesaas_models.QueryOrderWithdrawRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> gesaas_models.QueryOrderWithdrawResponse:
+        """
+        Description: 退分账查询接口(废弃)
+        Summary: 退分账查询接口(废弃)
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            gesaas_models.QueryOrderWithdrawResponse(),
+            await self.do_request_async('1.0', 'antdigital.gesaas.order.withdraw.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def push_order_refund(
+        self,
+        request: gesaas_models.PushOrderRefundRequest,
+    ) -> gesaas_models.PushOrderRefundResponse:
+        """
+        Description: 退款退分账发起(创建)
+        Summary: 退款退分账发起(创建)
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.push_order_refund_ex(request, headers, runtime)
+
+    async def push_order_refund_async(
+        self,
+        request: gesaas_models.PushOrderRefundRequest,
+    ) -> gesaas_models.PushOrderRefundResponse:
+        """
+        Description: 退款退分账发起(创建)
+        Summary: 退款退分账发起(创建)
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.push_order_refund_ex_async(request, headers, runtime)
+
+    def push_order_refund_ex(
+        self,
+        request: gesaas_models.PushOrderRefundRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> gesaas_models.PushOrderRefundResponse:
+        """
+        Description: 退款退分账发起(创建)
+        Summary: 退款退分账发起(创建)
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            gesaas_models.PushOrderRefundResponse(),
+            self.do_request('1.0', 'antdigital.gesaas.order.refund.push', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def push_order_refund_ex_async(
+        self,
+        request: gesaas_models.PushOrderRefundRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> gesaas_models.PushOrderRefundResponse:
+        """
+        Description: 退款退分账发起(创建)
+        Summary: 退款退分账发起(创建)
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            gesaas_models.PushOrderRefundResponse(),
+            await self.do_request_async('1.0', 'antdigital.gesaas.order.refund.push', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def query_order_refund(
+        self,
+        request: gesaas_models.QueryOrderRefundRequest,
+    ) -> gesaas_models.QueryOrderRefundResponse:
+        """
+        Description: 退款退分账查询
+        Summary: 退款退分账查询
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.query_order_refund_ex(request, headers, runtime)
+
+    async def query_order_refund_async(
+        self,
+        request: gesaas_models.QueryOrderRefundRequest,
+    ) -> gesaas_models.QueryOrderRefundResponse:
+        """
+        Description: 退款退分账查询
+        Summary: 退款退分账查询
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.query_order_refund_ex_async(request, headers, runtime)
+
+    def query_order_refund_ex(
+        self,
+        request: gesaas_models.QueryOrderRefundRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> gesaas_models.QueryOrderRefundResponse:
+        """
+        Description: 退款退分账查询
+        Summary: 退款退分账查询
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            gesaas_models.QueryOrderRefundResponse(),
+            self.do_request('1.0', 'antdigital.gesaas.order.refund.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def query_order_refund_ex_async(
+        self,
+        request: gesaas_models.QueryOrderRefundRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> gesaas_models.QueryOrderRefundResponse:
+        """
+        Description: 退款退分账查询
+        Summary: 退款退分账查询
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            gesaas_models.QueryOrderRefundResponse(),
+            await self.do_request_async('1.0', 'antdigital.gesaas.order.refund.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def check_omng_risk(
+        self,
+        request: gesaas_models.CheckOmngRiskRequest,
+    ) -> gesaas_models.CheckOmngRiskResponse:
+        """
+        Description: 品牌会员签约鉴权产品链路风控鉴权
+        Summary: 风控鉴权
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.check_omng_risk_ex(request, headers, runtime)
+
+    async def check_omng_risk_async(
+        self,
+        request: gesaas_models.CheckOmngRiskRequest,
+    ) -> gesaas_models.CheckOmngRiskResponse:
+        """
+        Description: 品牌会员签约鉴权产品链路风控鉴权
+        Summary: 风控鉴权
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.check_omng_risk_ex_async(request, headers, runtime)
+
+    def check_omng_risk_ex(
+        self,
+        request: gesaas_models.CheckOmngRiskRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> gesaas_models.CheckOmngRiskResponse:
+        """
+        Description: 品牌会员签约鉴权产品链路风控鉴权
+        Summary: 风控鉴权
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            gesaas_models.CheckOmngRiskResponse(),
+            self.do_request('1.0', 'antdigital.gesaas.omng.risk.check', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def check_omng_risk_ex_async(
+        self,
+        request: gesaas_models.CheckOmngRiskRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> gesaas_models.CheckOmngRiskResponse:
+        """
+        Description: 品牌会员签约鉴权产品链路风控鉴权
+        Summary: 风控鉴权
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            gesaas_models.CheckOmngRiskResponse(),
+            await self.do_request_async('1.0', 'antdigital.gesaas.omng.risk.check', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def submit_rightsprod_grant(
+        self,
+        request: gesaas_models.SubmitRightsprodGrantRequest,
+    ) -> gesaas_models.SubmitRightsprodGrantResponse:
+        """
+        Description: 权益中心权益发放
+        Summary: 权益中心权益发放
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.submit_rightsprod_grant_ex(request, headers, runtime)
+
+    async def submit_rightsprod_grant_async(
+        self,
+        request: gesaas_models.SubmitRightsprodGrantRequest,
+    ) -> gesaas_models.SubmitRightsprodGrantResponse:
+        """
+        Description: 权益中心权益发放
+        Summary: 权益中心权益发放
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.submit_rightsprod_grant_ex_async(request, headers, runtime)
+
+    def submit_rightsprod_grant_ex(
+        self,
+        request: gesaas_models.SubmitRightsprodGrantRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> gesaas_models.SubmitRightsprodGrantResponse:
+        """
+        Description: 权益中心权益发放
+        Summary: 权益中心权益发放
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            gesaas_models.SubmitRightsprodGrantResponse(),
+            self.do_request('1.0', 'antdigital.gesaas.rightsprod.grant.submit', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def submit_rightsprod_grant_ex_async(
+        self,
+        request: gesaas_models.SubmitRightsprodGrantRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> gesaas_models.SubmitRightsprodGrantResponse:
+        """
+        Description: 权益中心权益发放
+        Summary: 权益中心权益发放
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            gesaas_models.SubmitRightsprodGrantResponse(),
+            await self.do_request_async('1.0', 'antdigital.gesaas.rightsprod.grant.submit', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def query_rightsprod_grant(
+        self,
+        request: gesaas_models.QueryRightsprodGrantRequest,
+    ) -> gesaas_models.QueryRightsprodGrantResponse:
+        """
+        Description: 权益发放结果查询
+        Summary: 权益发放结果查询
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.query_rightsprod_grant_ex(request, headers, runtime)
+
+    async def query_rightsprod_grant_async(
+        self,
+        request: gesaas_models.QueryRightsprodGrantRequest,
+    ) -> gesaas_models.QueryRightsprodGrantResponse:
+        """
+        Description: 权益发放结果查询
+        Summary: 权益发放结果查询
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.query_rightsprod_grant_ex_async(request, headers, runtime)
+
+    def query_rightsprod_grant_ex(
+        self,
+        request: gesaas_models.QueryRightsprodGrantRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> gesaas_models.QueryRightsprodGrantResponse:
+        """
+        Description: 权益发放结果查询
+        Summary: 权益发放结果查询
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            gesaas_models.QueryRightsprodGrantResponse(),
+            self.do_request('1.0', 'antdigital.gesaas.rightsprod.grant.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def query_rightsprod_grant_ex_async(
+        self,
+        request: gesaas_models.QueryRightsprodGrantRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> gesaas_models.QueryRightsprodGrantResponse:
+        """
+        Description: 权益发放结果查询
+        Summary: 权益发放结果查询
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            gesaas_models.QueryRightsprodGrantResponse(),
+            await self.do_request_async('1.0', 'antdigital.gesaas.rightsprod.grant.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def batchquery_rightsprod_voucher(
+        self,
+        request: gesaas_models.BatchqueryRightsprodVoucherRequest,
+    ) -> gesaas_models.BatchqueryRightsprodVoucherResponse:
+        """
+        Description: 券基本信息批量查询
+        Summary: 券基本信息批量查询
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.batchquery_rightsprod_voucher_ex(request, headers, runtime)
+
+    async def batchquery_rightsprod_voucher_async(
+        self,
+        request: gesaas_models.BatchqueryRightsprodVoucherRequest,
+    ) -> gesaas_models.BatchqueryRightsprodVoucherResponse:
+        """
+        Description: 券基本信息批量查询
+        Summary: 券基本信息批量查询
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.batchquery_rightsprod_voucher_ex_async(request, headers, runtime)
+
+    def batchquery_rightsprod_voucher_ex(
+        self,
+        request: gesaas_models.BatchqueryRightsprodVoucherRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> gesaas_models.BatchqueryRightsprodVoucherResponse:
+        """
+        Description: 券基本信息批量查询
+        Summary: 券基本信息批量查询
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            gesaas_models.BatchqueryRightsprodVoucherResponse(),
+            self.do_request('1.0', 'antdigital.gesaas.rightsprod.voucher.batchquery', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def batchquery_rightsprod_voucher_ex_async(
+        self,
+        request: gesaas_models.BatchqueryRightsprodVoucherRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> gesaas_models.BatchqueryRightsprodVoucherResponse:
+        """
+        Description: 券基本信息批量查询
+        Summary: 券基本信息批量查询
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            gesaas_models.BatchqueryRightsprodVoucherResponse(),
+            await self.do_request_async('1.0', 'antdigital.gesaas.rightsprod.voucher.batchquery', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def callback_rightsprod_operation(
+        self,
+        request: gesaas_models.CallbackRightsprodOperationRequest,
+    ) -> gesaas_models.CallbackRightsprodOperationResponse:
+        """
+        Description: 权益中心数据流回调 API
+        Summary: 权益中心数据流回调 API
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.callback_rightsprod_operation_ex(request, headers, runtime)
+
+    async def callback_rightsprod_operation_async(
+        self,
+        request: gesaas_models.CallbackRightsprodOperationRequest,
+    ) -> gesaas_models.CallbackRightsprodOperationResponse:
+        """
+        Description: 权益中心数据流回调 API
+        Summary: 权益中心数据流回调 API
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.callback_rightsprod_operation_ex_async(request, headers, runtime)
+
+    def callback_rightsprod_operation_ex(
+        self,
+        request: gesaas_models.CallbackRightsprodOperationRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> gesaas_models.CallbackRightsprodOperationResponse:
+        """
+        Description: 权益中心数据流回调 API
+        Summary: 权益中心数据流回调 API
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            gesaas_models.CallbackRightsprodOperationResponse(),
+            self.do_request('1.0', 'antdigital.gesaas.rightsprod.operation.callback', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def callback_rightsprod_operation_ex_async(
+        self,
+        request: gesaas_models.CallbackRightsprodOperationRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> gesaas_models.CallbackRightsprodOperationResponse:
+        """
+        Description: 权益中心数据流回调 API
+        Summary: 权益中心数据流回调 API
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            gesaas_models.CallbackRightsprodOperationResponse(),
+            await self.do_request_async('1.0', 'antdigital.gesaas.rightsprod.operation.callback', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def callback_rightsprod_operationdata(
+        self,
+        request: gesaas_models.CallbackRightsprodOperationdataRequest,
+    ) -> gesaas_models.CallbackRightsprodOperationdataResponse:
+        """
+        Description: 权益中心API
+        Summary: 权益中心API
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.callback_rightsprod_operationdata_ex(request, headers, runtime)
+
+    async def callback_rightsprod_operationdata_async(
+        self,
+        request: gesaas_models.CallbackRightsprodOperationdataRequest,
+    ) -> gesaas_models.CallbackRightsprodOperationdataResponse:
+        """
+        Description: 权益中心API
+        Summary: 权益中心API
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.callback_rightsprod_operationdata_ex_async(request, headers, runtime)
+
+    def callback_rightsprod_operationdata_ex(
+        self,
+        request: gesaas_models.CallbackRightsprodOperationdataRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> gesaas_models.CallbackRightsprodOperationdataResponse:
+        """
+        Description: 权益中心API
+        Summary: 权益中心API
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            gesaas_models.CallbackRightsprodOperationdataResponse(),
+            self.do_request('1.0', 'antdigital.gesaas.rightsprod.operationdata.callback', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def callback_rightsprod_operationdata_ex_async(
+        self,
+        request: gesaas_models.CallbackRightsprodOperationdataRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> gesaas_models.CallbackRightsprodOperationdataResponse:
+        """
+        Description: 权益中心API
+        Summary: 权益中心API
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            gesaas_models.CallbackRightsprodOperationdataResponse(),
+            await self.do_request_async('1.0', 'antdigital.gesaas.rightsprod.operationdata.callback', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def query_rightsprod_voucher(
+        self,
+        request: gesaas_models.QueryRightsprodVoucherRequest,
+    ) -> gesaas_models.QueryRightsprodVoucherResponse:
+        """
+        Description: 券实例信息查询
+        Summary: 券实例信息查询
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.query_rightsprod_voucher_ex(request, headers, runtime)
+
+    async def query_rightsprod_voucher_async(
+        self,
+        request: gesaas_models.QueryRightsprodVoucherRequest,
+    ) -> gesaas_models.QueryRightsprodVoucherResponse:
+        """
+        Description: 券实例信息查询
+        Summary: 券实例信息查询
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.query_rightsprod_voucher_ex_async(request, headers, runtime)
+
+    def query_rightsprod_voucher_ex(
+        self,
+        request: gesaas_models.QueryRightsprodVoucherRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> gesaas_models.QueryRightsprodVoucherResponse:
+        """
+        Description: 券实例信息查询
+        Summary: 券实例信息查询
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            gesaas_models.QueryRightsprodVoucherResponse(),
+            self.do_request('1.0', 'antdigital.gesaas.rightsprod.voucher.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def query_rightsprod_voucher_ex_async(
+        self,
+        request: gesaas_models.QueryRightsprodVoucherRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> gesaas_models.QueryRightsprodVoucherResponse:
+        """
+        Description: 券实例信息查询
+        Summary: 券实例信息查询
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            gesaas_models.QueryRightsprodVoucherResponse(),
+            await self.do_request_async('1.0', 'antdigital.gesaas.rightsprod.voucher.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
