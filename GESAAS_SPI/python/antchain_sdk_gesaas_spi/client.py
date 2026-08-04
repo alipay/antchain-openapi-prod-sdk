@@ -135,7 +135,7 @@ class Client:
                     'req_msg_id': AntchainUtils.get_nonce(),
                     'access_key': self._access_key_id,
                     'base_sdk_version': 'TeaSDK-2.0',
-                    'sdk_version': '1.1.10',
+                    'sdk_version': '1.1.11',
                     '_prod_code': 'GESAAS_SPI',
                     '_prod_channel': 'default'
                 }
@@ -239,7 +239,7 @@ class Client:
                     'req_msg_id': AntchainUtils.get_nonce(),
                     'access_key': self._access_key_id,
                     'base_sdk_version': 'TeaSDK-2.0',
-                    'sdk_version': '1.1.10',
+                    'sdk_version': '1.1.11',
                     '_prod_code': 'GESAAS_SPI',
                     '_prod_channel': 'default'
                 }
@@ -665,4 +665,60 @@ class Client:
         return TeaCore.from_map(
             gesaas__spi_models.QueryRightsprodConfigResponse(),
             await self.do_request_async('1.0', 'antdigital.gesaasspi.rightsprod.config.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def query_rightsprod_voucher(
+        self,
+        request: gesaas__spi_models.QueryRightsprodVoucherRequest,
+    ) -> gesaas__spi_models.QueryRightsprodVoucherResponse:
+        """
+        Description: 获取具体权益实例的实时状态与基本信息
+        Summary: 获取具体权益实例的实时状态与基本信息
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.query_rightsprod_voucher_ex(request, headers, runtime)
+
+    async def query_rightsprod_voucher_async(
+        self,
+        request: gesaas__spi_models.QueryRightsprodVoucherRequest,
+    ) -> gesaas__spi_models.QueryRightsprodVoucherResponse:
+        """
+        Description: 获取具体权益实例的实时状态与基本信息
+        Summary: 获取具体权益实例的实时状态与基本信息
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.query_rightsprod_voucher_ex_async(request, headers, runtime)
+
+    def query_rightsprod_voucher_ex(
+        self,
+        request: gesaas__spi_models.QueryRightsprodVoucherRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> gesaas__spi_models.QueryRightsprodVoucherResponse:
+        """
+        Description: 获取具体权益实例的实时状态与基本信息
+        Summary: 获取具体权益实例的实时状态与基本信息
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            gesaas__spi_models.QueryRightsprodVoucherResponse(),
+            self.do_request('1.0', 'antdigital.gesaasspi.rightsprod.voucher.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def query_rightsprod_voucher_ex_async(
+        self,
+        request: gesaas__spi_models.QueryRightsprodVoucherRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> gesaas__spi_models.QueryRightsprodVoucherResponse:
+        """
+        Description: 获取具体权益实例的实时状态与基本信息
+        Summary: 获取具体权益实例的实时状态与基本信息
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            gesaas__spi_models.QueryRightsprodVoucherResponse(),
+            await self.do_request_async('1.0', 'antdigital.gesaasspi.rightsprod.voucher.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )

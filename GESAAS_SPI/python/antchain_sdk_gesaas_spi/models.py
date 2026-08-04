@@ -1240,3 +1240,164 @@ class QueryRightsprodConfigResponse(TeaModel):
         return self
 
 
+class QueryRightsprodVoucherRequest(TeaModel):
+    def __init__(
+        self,
+        auth_token: str = None,
+        product_instance_id: str = None,
+        supply_rights_code: str = None,
+        voucher_code: str = None,
+    ):
+        # OAuth模式下的授权token
+        self.auth_token = auth_token
+        self.product_instance_id = product_instance_id
+        # 供应商权益编码
+        self.supply_rights_code = supply_rights_code
+        # 权益实例
+        self.voucher_code = voucher_code
+
+    def validate(self):
+        self.validate_required(self.supply_rights_code, 'supply_rights_code')
+        self.validate_required(self.voucher_code, 'voucher_code')
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.auth_token is not None:
+            result['auth_token'] = self.auth_token
+        if self.product_instance_id is not None:
+            result['product_instance_id'] = self.product_instance_id
+        if self.supply_rights_code is not None:
+            result['supply_rights_code'] = self.supply_rights_code
+        if self.voucher_code is not None:
+            result['voucher_code'] = self.voucher_code
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('auth_token') is not None:
+            self.auth_token = m.get('auth_token')
+        if m.get('product_instance_id') is not None:
+            self.product_instance_id = m.get('product_instance_id')
+        if m.get('supply_rights_code') is not None:
+            self.supply_rights_code = m.get('supply_rights_code')
+        if m.get('voucher_code') is not None:
+            self.voucher_code = m.get('voucher_code')
+        return self
+
+
+class QueryRightsprodVoucherResponse(TeaModel):
+    def __init__(
+        self,
+        req_msg_id: str = None,
+        result_code: str = None,
+        result_msg: str = None,
+        user_id: str = None,
+        phone_number: str = None,
+        open_id: str = None,
+        app_id: str = None,
+        supply_rights_code: str = None,
+        voucher_code: str = None,
+        rights_name: str = None,
+        face_amount: str = None,
+        available_amount: str = None,
+        status: str = None,
+    ):
+        # 请求唯一ID，用于链路跟踪和问题排查
+        self.req_msg_id = req_msg_id
+        # 结果码，一般OK表示调用成功
+        self.result_code = result_code
+        # 异常信息的文本描述
+        self.result_msg = result_msg
+        # 用户ID
+        self.user_id = user_id
+        # 用户手机号
+        self.phone_number = phone_number
+        # 用户openId
+        self.open_id = open_id
+        # 应用ID
+        self.app_id = app_id
+        # 供应商权益编码
+        self.supply_rights_code = supply_rights_code
+        # 权益实例ID
+        self.voucher_code = voucher_code
+        # 权益名称
+        self.rights_name = rights_name
+        # 权益面额
+        self.face_amount = face_amount
+        # 剩余可用金额
+        self.available_amount = available_amount
+        # 权益实例状态
+        self.status = status
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.req_msg_id is not None:
+            result['req_msg_id'] = self.req_msg_id
+        if self.result_code is not None:
+            result['result_code'] = self.result_code
+        if self.result_msg is not None:
+            result['result_msg'] = self.result_msg
+        if self.user_id is not None:
+            result['user_id'] = self.user_id
+        if self.phone_number is not None:
+            result['phone_number'] = self.phone_number
+        if self.open_id is not None:
+            result['open_id'] = self.open_id
+        if self.app_id is not None:
+            result['app_id'] = self.app_id
+        if self.supply_rights_code is not None:
+            result['supply_rights_code'] = self.supply_rights_code
+        if self.voucher_code is not None:
+            result['voucher_code'] = self.voucher_code
+        if self.rights_name is not None:
+            result['rights_name'] = self.rights_name
+        if self.face_amount is not None:
+            result['face_amount'] = self.face_amount
+        if self.available_amount is not None:
+            result['available_amount'] = self.available_amount
+        if self.status is not None:
+            result['status'] = self.status
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('req_msg_id') is not None:
+            self.req_msg_id = m.get('req_msg_id')
+        if m.get('result_code') is not None:
+            self.result_code = m.get('result_code')
+        if m.get('result_msg') is not None:
+            self.result_msg = m.get('result_msg')
+        if m.get('user_id') is not None:
+            self.user_id = m.get('user_id')
+        if m.get('phone_number') is not None:
+            self.phone_number = m.get('phone_number')
+        if m.get('open_id') is not None:
+            self.open_id = m.get('open_id')
+        if m.get('app_id') is not None:
+            self.app_id = m.get('app_id')
+        if m.get('supply_rights_code') is not None:
+            self.supply_rights_code = m.get('supply_rights_code')
+        if m.get('voucher_code') is not None:
+            self.voucher_code = m.get('voucher_code')
+        if m.get('rights_name') is not None:
+            self.rights_name = m.get('rights_name')
+        if m.get('face_amount') is not None:
+            self.face_amount = m.get('face_amount')
+        if m.get('available_amount') is not None:
+            self.available_amount = m.get('available_amount')
+        if m.get('status') is not None:
+            self.status = m.get('status')
+        return self
+
+
