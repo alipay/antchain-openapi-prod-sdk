@@ -14,11 +14,11 @@ class PublishElectrocarModuleversionRequest extends Model {
         'productInstanceId' => 'product_instance_id',
         'deviceLocator' => 'device_locator',
         'moduleLocator' => 'module_locator',
-        'version' => 'version',
+        'versionNo' => 'version_no',
     ];
     public function validate() {
         Model::validateRequired('moduleLocator', $this->moduleLocator, true);
-        Model::validateRequired('version', $this->version, true);
+        Model::validateRequired('versionNo', $this->versionNo, true);
     }
     public function toMap() {
         $res = [];
@@ -34,8 +34,8 @@ class PublishElectrocarModuleversionRequest extends Model {
         if (null !== $this->moduleLocator) {
             $res['module_locator'] = null !== $this->moduleLocator ? $this->moduleLocator->toMap() : null;
         }
-        if (null !== $this->version) {
-            $res['version'] = $this->version;
+        if (null !== $this->versionNo) {
+            $res['version_no'] = $this->versionNo;
         }
         return $res;
     }
@@ -57,8 +57,8 @@ class PublishElectrocarModuleversionRequest extends Model {
         if(isset($map['module_locator'])){
             $model->moduleLocator = ModuleLocator::fromMap($map['module_locator']);
         }
-        if(isset($map['version'])){
-            $model->version = $map['version'];
+        if(isset($map['version_no'])){
+            $model->versionNo = $map['version_no'];
         }
         return $model;
     }
@@ -89,6 +89,6 @@ class PublishElectrocarModuleversionRequest extends Model {
     /**
      * @var string
      */
-    public $version;
+    public $versionNo;
 
 }

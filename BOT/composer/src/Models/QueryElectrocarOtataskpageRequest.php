@@ -22,6 +22,7 @@ class QueryElectrocarOtataskpageRequest extends Model {
         Model::validateRequired('pageSize', $this->pageSize, true);
         Model::validateRequired('trustProductKey', $this->trustProductKey, true);
         Model::validateRequired('jobId', $this->jobId, true);
+        Model::validateRequired('firmwareId', $this->firmwareId, true);
     }
     public function toMap() {
         $res = [];

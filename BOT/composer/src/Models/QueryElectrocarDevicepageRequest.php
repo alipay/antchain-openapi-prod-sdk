@@ -15,7 +15,7 @@ class QueryElectrocarDevicepageRequest extends Model {
         'deviceQueryStr' => 'device_query_str',
         'deviceStatus' => 'device_status',
         'moduleName' => 'module_name',
-        'version' => 'version',
+        'versionNo' => 'version_no',
     ];
     public function validate() {
         Model::validateRequired('current', $this->current, true);
@@ -48,8 +48,8 @@ class QueryElectrocarDevicepageRequest extends Model {
         if (null !== $this->moduleName) {
             $res['module_name'] = $this->moduleName;
         }
-        if (null !== $this->version) {
-            $res['version'] = $this->version;
+        if (null !== $this->versionNo) {
+            $res['version_no'] = $this->versionNo;
         }
         return $res;
     }
@@ -83,8 +83,8 @@ class QueryElectrocarDevicepageRequest extends Model {
         if(isset($map['module_name'])){
             $model->moduleName = $map['module_name'];
         }
-        if(isset($map['version'])){
-            $model->version = $map['version'];
+        if(isset($map['version_no'])){
+            $model->versionNo = $map['version_no'];
         }
         return $model;
     }
@@ -139,6 +139,6 @@ class QueryElectrocarDevicepageRequest extends Model {
     /**
      * @var string
      */
-    public $version;
+    public $versionNo;
 
 }

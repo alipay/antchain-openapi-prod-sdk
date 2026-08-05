@@ -16,12 +16,14 @@ class ExecElectrocarOtataskcancelRequest extends Model {
         'jobId' => 'job_id',
         'firmwareId' => 'firmware_id',
         'cancelReason' => 'cancel_reason',
+        'taskId' => 'task_id',
     ];
     public function validate() {
         Model::validateRequired('deviceLocator', $this->deviceLocator, true);
         Model::validateRequired('channel', $this->channel, true);
         Model::validateRequired('jobId', $this->jobId, true);
         Model::validateRequired('firmwareId', $this->firmwareId, true);
+        Model::validateRequired('taskId', $this->taskId, true);
     }
     public function toMap() {
         $res = [];
@@ -45,6 +47,9 @@ class ExecElectrocarOtataskcancelRequest extends Model {
         }
         if (null !== $this->cancelReason) {
             $res['cancel_reason'] = $this->cancelReason;
+        }
+        if (null !== $this->taskId) {
+            $res['task_id'] = $this->taskId;
         }
         return $res;
     }
@@ -74,6 +79,9 @@ class ExecElectrocarOtataskcancelRequest extends Model {
         }
         if(isset($map['cancel_reason'])){
             $model->cancelReason = $map['cancel_reason'];
+        }
+        if(isset($map['task_id'])){
+            $model->taskId = $map['task_id'];
         }
         return $model;
     }
@@ -117,5 +125,11 @@ class ExecElectrocarOtataskcancelRequest extends Model {
      * @var string
      */
     public $cancelReason;
+
+    // ota升级任务id
+    /**
+     * @var string
+     */
+    public $taskId;
 
 }

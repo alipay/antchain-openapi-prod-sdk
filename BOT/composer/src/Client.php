@@ -364,6 +364,18 @@ use AntChain\BOT\Models\QueryElectrocarDevicepageRequest;
 use AntChain\BOT\Models\QueryElectrocarDevicepageResponse;
 use AntChain\BOT\Models\PushElectrocarOtajobbymoduleRequest;
 use AntChain\BOT\Models\PushElectrocarOtajobbymoduleResponse;
+use AntChain\BOT\Models\QueryElectrocarModuleversiontreeRequest;
+use AntChain\BOT\Models\QueryElectrocarModuleversiontreeResponse;
+use AntChain\BOT\Models\QueryElectrocarOtacontinuouspushconfigRequest;
+use AntChain\BOT\Models\QueryElectrocarOtacontinuouspushconfigResponse;
+use AntChain\BOT\Models\ExecElectrocarOtacontinuouspushrulesenabledRequest;
+use AntChain\BOT\Models\ExecElectrocarOtacontinuouspushrulesenabledResponse;
+use AntChain\BOT\Models\QueryElectrocarDeviceotamoduleversionRequest;
+use AntChain\BOT\Models\QueryElectrocarDeviceotamoduleversionResponse;
+use AntChain\BOT\Models\DeleteElectrocarOtacontinuouspushrulesRequest;
+use AntChain\BOT\Models\DeleteElectrocarOtacontinuouspushrulesResponse;
+use AntChain\BOT\Models\QueryElectrocarOtafirmwarelastestRequest;
+use AntChain\BOT\Models\QueryElectrocarOtafirmwarelastestResponse;
 use AntChain\BOT\Models\QueryIotplatformPurchaseorderRequest;
 use AntChain\BOT\Models\QueryIotplatformPurchaseorderResponse;
 use AntChain\BOT\Models\ImportIotplatformMeshidRequest;
@@ -634,6 +646,8 @@ use AntChain\BOT\Models\GetIdsquaredOtpRequest;
 use AntChain\BOT\Models\GetIdsquaredOtpResponse;
 use AntChain\BOT\Models\EncryptIdsquaredAuthRequest;
 use AntChain\BOT\Models\EncryptIdsquaredAuthResponse;
+use AntChain\BOT\Models\QueryTrustiotMiniappRequest;
+use AntChain\BOT\Models\QueryTrustiotMiniappResponse;
 use AntChain\BOT\Models\ExecThingsdidOneapiRequest;
 use AntChain\BOT\Models\ExecThingsdidOneapiResponse;
 use AntChain\BOT\Models\StartEvidenceStoreRequest;
@@ -776,7 +790,7 @@ class Client {
                 "period" => Utils::defaultNumber($runtime->backoffPeriod, 1)
             ],
             "ignoreSSL" => $runtime->ignoreSSL,
-            // 资源定位信息
+            // 版本范围边界定义
         ];
         $_lastRequest = null;
         $_lastException = null;
@@ -803,7 +817,7 @@ class Client {
                     "req_msg_id" => UtilClient::getNonce(),
                     "access_key" => $this->_accessKeyId,
                     "base_sdk_version" => "TeaSDK-2.0",
-                    "sdk_version" => "1.17.7",
+                    "sdk_version" => "1.18.8",
                     "_prod_code" => "BOT",
                     "_prod_channel" => "undefined"
                 ];
@@ -5264,6 +5278,156 @@ class Client {
     }
 
     /**
+     * Description: 查询产品下所有模块及版本号
+     * Summary: 查询产品下所有模块及版本号
+     * @param QueryElectrocarModuleversiontreeRequest $request
+     * @return QueryElectrocarModuleversiontreeResponse
+     */
+    public function queryElectrocarModuleversiontree($request){
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+        return $this->queryElectrocarModuleversiontreeEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 查询产品下所有模块及版本号
+     * Summary: 查询产品下所有模块及版本号
+     * @param QueryElectrocarModuleversiontreeRequest $request
+     * @param string[] $headers
+     * @param RuntimeOptions $runtime
+     * @return QueryElectrocarModuleversiontreeResponse
+     */
+    public function queryElectrocarModuleversiontreeEx($request, $headers, $runtime){
+        Utils::validateModel($request);
+        return QueryElectrocarModuleversiontreeResponse::fromMap($this->doRequest("1.0", "blockchain.bot.electrocar.moduleversiontree.query", "HTTPS", "POST", "/gateway.do", Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 查询指定租户的连续推送总设置及全部产品策略
+     * Summary: 查询指定租户的连续推送总设置及全部产品策略
+     * @param QueryElectrocarOtacontinuouspushconfigRequest $request
+     * @return QueryElectrocarOtacontinuouspushconfigResponse
+     */
+    public function queryElectrocarOtacontinuouspushconfig($request){
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+        return $this->queryElectrocarOtacontinuouspushconfigEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 查询指定租户的连续推送总设置及全部产品策略
+     * Summary: 查询指定租户的连续推送总设置及全部产品策略
+     * @param QueryElectrocarOtacontinuouspushconfigRequest $request
+     * @param string[] $headers
+     * @param RuntimeOptions $runtime
+     * @return QueryElectrocarOtacontinuouspushconfigResponse
+     */
+    public function queryElectrocarOtacontinuouspushconfigEx($request, $headers, $runtime){
+        Utils::validateModel($request);
+        return QueryElectrocarOtacontinuouspushconfigResponse::fromMap($this->doRequest("1.0", "blockchain.bot.electrocar.otacontinuouspushconfig.query", "HTTPS", "POST", "/gateway.do", Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 独立启用或停用一条 READY 规则。
+     * Summary: 独立启用或停用一条 READY 规则。
+     * @param ExecElectrocarOtacontinuouspushrulesenabledRequest $request
+     * @return ExecElectrocarOtacontinuouspushrulesenabledResponse
+     */
+    public function execElectrocarOtacontinuouspushrulesenabled($request){
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+        return $this->execElectrocarOtacontinuouspushrulesenabledEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 独立启用或停用一条 READY 规则。
+     * Summary: 独立启用或停用一条 READY 规则。
+     * @param ExecElectrocarOtacontinuouspushrulesenabledRequest $request
+     * @param string[] $headers
+     * @param RuntimeOptions $runtime
+     * @return ExecElectrocarOtacontinuouspushrulesenabledResponse
+     */
+    public function execElectrocarOtacontinuouspushrulesenabledEx($request, $headers, $runtime){
+        Utils::validateModel($request);
+        return ExecElectrocarOtacontinuouspushrulesenabledResponse::fromMap($this->doRequest("1.0", "blockchain.bot.electrocar.otacontinuouspushrulesenabled.exec", "HTTPS", "POST", "/gateway.do", Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 查询设备最新模块版本号
+     * Summary: 查询设备最新模块版本号
+     * @param QueryElectrocarDeviceotamoduleversionRequest $request
+     * @return QueryElectrocarDeviceotamoduleversionResponse
+     */
+    public function queryElectrocarDeviceotamoduleversion($request){
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+        return $this->queryElectrocarDeviceotamoduleversionEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 查询设备最新模块版本号
+     * Summary: 查询设备最新模块版本号
+     * @param QueryElectrocarDeviceotamoduleversionRequest $request
+     * @param string[] $headers
+     * @param RuntimeOptions $runtime
+     * @return QueryElectrocarDeviceotamoduleversionResponse
+     */
+    public function queryElectrocarDeviceotamoduleversionEx($request, $headers, $runtime){
+        Utils::validateModel($request);
+        return QueryElectrocarDeviceotamoduleversionResponse::fromMap($this->doRequest("1.0", "blockchain.bot.electrocar.deviceotamoduleversion.query", "HTTPS", "POST", "/gateway.do", Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 删除单条连续推送规则
+     * Summary: 删除单条连续推送规则
+     * @param DeleteElectrocarOtacontinuouspushrulesRequest $request
+     * @return DeleteElectrocarOtacontinuouspushrulesResponse
+     */
+    public function deleteElectrocarOtacontinuouspushrules($request){
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+        return $this->deleteElectrocarOtacontinuouspushrulesEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 删除单条连续推送规则
+     * Summary: 删除单条连续推送规则
+     * @param DeleteElectrocarOtacontinuouspushrulesRequest $request
+     * @param string[] $headers
+     * @param RuntimeOptions $runtime
+     * @return DeleteElectrocarOtacontinuouspushrulesResponse
+     */
+    public function deleteElectrocarOtacontinuouspushrulesEx($request, $headers, $runtime){
+        Utils::validateModel($request);
+        return DeleteElectrocarOtacontinuouspushrulesResponse::fromMap($this->doRequest("1.0", "blockchain.bot.electrocar.otacontinuouspushrules.delete", "HTTPS", "POST", "/gateway.do", Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 查询产品模块版本号最高的已发布固件包
+     * Summary: 查询产品模块版本号最高的已发布固件包
+     * @param QueryElectrocarOtafirmwarelastestRequest $request
+     * @return QueryElectrocarOtafirmwarelastestResponse
+     */
+    public function queryElectrocarOtafirmwarelastest($request){
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+        return $this->queryElectrocarOtafirmwarelastestEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 查询产品模块版本号最高的已发布固件包
+     * Summary: 查询产品模块版本号最高的已发布固件包
+     * @param QueryElectrocarOtafirmwarelastestRequest $request
+     * @param string[] $headers
+     * @param RuntimeOptions $runtime
+     * @return QueryElectrocarOtafirmwarelastestResponse
+     */
+    public function queryElectrocarOtafirmwarelastestEx($request, $headers, $runtime){
+        Utils::validateModel($request);
+        return QueryElectrocarOtafirmwarelastestResponse::fromMap($this->doRequest("1.0", "blockchain.bot.electrocar.otafirmwarelastest.query", "HTTPS", "POST", "/gateway.do", Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
      * Description: 根据设备串号查询采购设备
      * Summary: 根据设备串号查询采购设备
      * @param QueryIotplatformPurchaseorderRequest $request
@@ -8636,6 +8800,31 @@ class Client {
     public function encryptIdsquaredAuthEx($request, $headers, $runtime){
         Utils::validateModel($request);
         return EncryptIdsquaredAuthResponse::fromMap($this->doRequest("1.0", "blockchain.bot.idsquared.auth.encrypt", "HTTPS", "POST", "/gateway.do", Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 可信上链小程序跳转链接查询接口
+     * Summary: 可信上链小程序跳转链接查询接口
+     * @param QueryTrustiotMiniappRequest $request
+     * @return QueryTrustiotMiniappResponse
+     */
+    public function queryTrustiotMiniapp($request){
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+        return $this->queryTrustiotMiniappEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 可信上链小程序跳转链接查询接口
+     * Summary: 可信上链小程序跳转链接查询接口
+     * @param QueryTrustiotMiniappRequest $request
+     * @param string[] $headers
+     * @param RuntimeOptions $runtime
+     * @return QueryTrustiotMiniappResponse
+     */
+    public function queryTrustiotMiniappEx($request, $headers, $runtime){
+        Utils::validateModel($request);
+        return QueryTrustiotMiniappResponse::fromMap($this->doRequest("1.0", "blockchain.bot.trustiot.miniapp.query", "HTTPS", "POST", "/gateway.do", Tea::merge($request), $headers, $runtime));
     }
 
     /**

@@ -5,15 +5,13 @@ namespace AntChain\BOT\Models;
 
 use AlibabaCloud\Tea\Model;
 
-class QueryElectrocarOtafirmwaredetailRequest extends Model {
+class QueryElectrocarModuleversiontreeRequest extends Model {
     protected $_name = [
         'authToken' => 'auth_token',
         'productInstanceId' => 'product_instance_id',
-        'firmwareId' => 'firmware_id',
         'trustProductKey' => 'trust_product_key',
     ];
     public function validate() {
-        Model::validateRequired('firmwareId', $this->firmwareId, true);
         Model::validateRequired('trustProductKey', $this->trustProductKey, true);
     }
     public function toMap() {
@@ -24,9 +22,6 @@ class QueryElectrocarOtafirmwaredetailRequest extends Model {
         if (null !== $this->productInstanceId) {
             $res['product_instance_id'] = $this->productInstanceId;
         }
-        if (null !== $this->firmwareId) {
-            $res['firmware_id'] = $this->firmwareId;
-        }
         if (null !== $this->trustProductKey) {
             $res['trust_product_key'] = $this->trustProductKey;
         }
@@ -34,7 +29,7 @@ class QueryElectrocarOtafirmwaredetailRequest extends Model {
     }
     /**
      * @param array $map
-     * @return QueryElectrocarOtafirmwaredetailRequest
+     * @return QueryElectrocarModuleversiontreeRequest
      */
     public static function fromMap($map = []) {
         $model = new self();
@@ -43,9 +38,6 @@ class QueryElectrocarOtafirmwaredetailRequest extends Model {
         }
         if(isset($map['product_instance_id'])){
             $model->productInstanceId = $map['product_instance_id'];
-        }
-        if(isset($map['firmware_id'])){
-            $model->firmwareId = $map['firmware_id'];
         }
         if(isset($map['trust_product_key'])){
             $model->trustProductKey = $map['trust_product_key'];
@@ -62,12 +54,6 @@ class QueryElectrocarOtafirmwaredetailRequest extends Model {
      * @var string
      */
     public $productInstanceId;
-
-    // 固件包id
-    /**
-     * @var string
-     */
-    public $firmwareId;
 
     // 可信物联唯一产品标识
     /**

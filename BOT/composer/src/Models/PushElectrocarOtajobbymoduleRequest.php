@@ -5,6 +5,8 @@ namespace AntChain\BOT\Models;
 
 use AlibabaCloud\Tea\Model;
 
+use AntChain\BOT\Models\ContinuousOtaVersionPredicate;
+
 class PushElectrocarOtajobbymoduleRequest extends Model {
     protected $_name = [
         'authToken' => 'auth_token',
@@ -24,7 +26,10 @@ class PushElectrocarOtajobbymoduleRequest extends Model {
         'upgradeMode' => 'upgrade_mode',
         'needPush' => 'need_push',
         'moduleName' => 'module_name',
-        'version' => 'version',
+        'versionNo' => 'version_no',
+        'versionPredicate' => 'version_predicate',
+        'deviceScopeType' => 'device_scope_type',
+        'delayInSeconds' => 'delay_in_seconds',
     ];
     public function validate() {
         Model::validateRequired('jobType', $this->jobType, true);
@@ -33,6 +38,9 @@ class PushElectrocarOtajobbymoduleRequest extends Model {
         Model::validateRequired('targetSelection', $this->targetSelection, true);
         Model::validateRequired('channel', $this->channel, true);
         Model::validateRequired('moduleName', $this->moduleName, true);
+        Model::validateRequired('versionPredicate', $this->versionPredicate, true);
+        Model::validateRequired('deviceScopeType', $this->deviceScopeType, true);
+        Model::validateRequired('delayInSeconds', $this->delayInSeconds, true);
     }
     public function toMap() {
         $res = [];
@@ -87,8 +95,17 @@ class PushElectrocarOtajobbymoduleRequest extends Model {
         if (null !== $this->moduleName) {
             $res['module_name'] = $this->moduleName;
         }
-        if (null !== $this->version) {
-            $res['version'] = $this->version;
+        if (null !== $this->versionNo) {
+            $res['version_no'] = $this->versionNo;
+        }
+        if (null !== $this->versionPredicate) {
+            $res['version_predicate'] = null !== $this->versionPredicate ? $this->versionPredicate->toMap() : null;
+        }
+        if (null !== $this->deviceScopeType) {
+            $res['device_scope_type'] = $this->deviceScopeType;
+        }
+        if (null !== $this->delayInSeconds) {
+            $res['delay_in_seconds'] = $this->delayInSeconds;
         }
         return $res;
     }
@@ -149,8 +166,17 @@ class PushElectrocarOtajobbymoduleRequest extends Model {
         if(isset($map['module_name'])){
             $model->moduleName = $map['module_name'];
         }
-        if(isset($map['version'])){
-            $model->version = $map['version'];
+        if(isset($map['version_no'])){
+            $model->versionNo = $map['version_no'];
+        }
+        if(isset($map['version_predicate'])){
+            $model->versionPredicate = ContinuousOtaVersionPredicate::fromMap($map['version_predicate']);
+        }
+        if(isset($map['device_scope_type'])){
+            $model->deviceScopeType = $map['device_scope_type'];
+        }
+        if(isset($map['delay_in_seconds'])){
+            $model->delayInSeconds = $map['delay_in_seconds'];
         }
         return $model;
     }
@@ -259,6 +285,24 @@ class PushElectrocarOtajobbymoduleRequest extends Model {
     /**
      * @var string
      */
-    public $version;
+    public $versionNo;
+
+    // 用于筛选源设备版本的结构化谓词，支持 ANY、EXACT 和 RANGE。
+    /**
+     * @var ContinuousOtaVersionPredicate
+     */
+    public $versionPredicate;
+
+    // 自动创建的连续推送规则生效范围：ALL_DEVICES 或 WHITELIST。
+    /**
+     * @var string
+     */
+    public $deviceScopeType;
+
+    // 规则命中后的延迟执行时间，单位秒，范围 0～600。
+    /**
+     * @var int
+     */
+    public $delayInSeconds;
 
 }

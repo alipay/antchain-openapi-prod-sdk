@@ -5,16 +5,14 @@ namespace AntChain\BOT\Models;
 
 use AlibabaCloud\Tea\Model;
 
-class QueryElectrocarOtafirmwaredetailRequest extends Model {
+class QueryElectrocarOtacontinuouspushconfigRequest extends Model {
     protected $_name = [
         'authToken' => 'auth_token',
         'productInstanceId' => 'product_instance_id',
-        'firmwareId' => 'firmware_id',
-        'trustProductKey' => 'trust_product_key',
+        'tenantId' => 'tenant_id',
     ];
     public function validate() {
-        Model::validateRequired('firmwareId', $this->firmwareId, true);
-        Model::validateRequired('trustProductKey', $this->trustProductKey, true);
+        Model::validateRequired('tenantId', $this->tenantId, true);
     }
     public function toMap() {
         $res = [];
@@ -24,17 +22,14 @@ class QueryElectrocarOtafirmwaredetailRequest extends Model {
         if (null !== $this->productInstanceId) {
             $res['product_instance_id'] = $this->productInstanceId;
         }
-        if (null !== $this->firmwareId) {
-            $res['firmware_id'] = $this->firmwareId;
-        }
-        if (null !== $this->trustProductKey) {
-            $res['trust_product_key'] = $this->trustProductKey;
+        if (null !== $this->tenantId) {
+            $res['tenant_id'] = $this->tenantId;
         }
         return $res;
     }
     /**
      * @param array $map
-     * @return QueryElectrocarOtafirmwaredetailRequest
+     * @return QueryElectrocarOtacontinuouspushconfigRequest
      */
     public static function fromMap($map = []) {
         $model = new self();
@@ -44,11 +39,8 @@ class QueryElectrocarOtafirmwaredetailRequest extends Model {
         if(isset($map['product_instance_id'])){
             $model->productInstanceId = $map['product_instance_id'];
         }
-        if(isset($map['firmware_id'])){
-            $model->firmwareId = $map['firmware_id'];
-        }
-        if(isset($map['trust_product_key'])){
-            $model->trustProductKey = $map['trust_product_key'];
+        if(isset($map['tenant_id'])){
+            $model->tenantId = $map['tenant_id'];
         }
         return $model;
     }
@@ -63,16 +55,10 @@ class QueryElectrocarOtafirmwaredetailRequest extends Model {
      */
     public $productInstanceId;
 
-    // 固件包id
+    // 查询的目标租户id
     /**
      * @var string
      */
-    public $firmwareId;
-
-    // 可信物联唯一产品标识
-    /**
-     * @var string
-     */
-    public $trustProductKey;
+    public $tenantId;
 
 }

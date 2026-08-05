@@ -21,6 +21,8 @@ class IotxOTATaskResponse extends Model {
         'timeout' => 'timeout',
         'utcCreate' => 'utc_create',
         'utcModified' => 'utc_modified',
+        'effectiveStatus' => 'effective_status',
+        'effectiveTaskDesc' => 'effective_task_desc',
     ];
     public function validate() {
         Model::validatePattern('utcCreate', $this->utcCreate, '\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}([Z]|([\\.]\\d{1,9})?[\\+]\\d{2}[\\:]?\\d{2})');
@@ -69,6 +71,12 @@ class IotxOTATaskResponse extends Model {
         }
         if (null !== $this->utcModified) {
             $res['utc_modified'] = $this->utcModified;
+        }
+        if (null !== $this->effectiveStatus) {
+            $res['effective_status'] = $this->effectiveStatus;
+        }
+        if (null !== $this->effectiveTaskDesc) {
+            $res['effective_task_desc'] = $this->effectiveTaskDesc;
         }
         return $res;
     }
@@ -119,6 +127,12 @@ class IotxOTATaskResponse extends Model {
         }
         if(isset($map['utc_modified'])){
             $model->utcModified = $map['utc_modified'];
+        }
+        if(isset($map['effective_status'])){
+            $model->effectiveStatus = $map['effective_status'];
+        }
+        if(isset($map['effective_task_desc'])){
+            $model->effectiveTaskDesc = $map['effective_task_desc'];
         }
         return $model;
     }
@@ -219,5 +233,19 @@ class IotxOTATaskResponse extends Model {
      * @var string
      */
     public $utcModified;
+
+    // 任务当前有效状态；历史任务统一为已失效；
+    /**
+     * @example PERMANENT_CANCELED
+     * @var string
+     */
+    public $effectiveStatus;
+
+    // 与任务当前有效状态对应的展示描述；历史成功任务不返回描述。
+    /**
+     * @example 与任务当前有效状态对应的展示描述；历史成功任务不返回描述。
+     * @var string
+     */
+    public $effectiveTaskDesc;
 
 }
