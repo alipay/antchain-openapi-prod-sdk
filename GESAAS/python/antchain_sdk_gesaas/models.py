@@ -1694,7 +1694,6 @@ class QueryOrderRefundResponse(TeaModel):
         refund_request_no: str = None,
         refund_status: str = None,
         refund_amount: int = None,
-        send_back_amount: int = None,
         refund_failed_reason: str = None,
         refund_time: str = None,
         refund_detail_item_list: List[RefundDetailItemList] = None,
@@ -1717,9 +1716,6 @@ class QueryOrderRefundResponse(TeaModel):
         self.refund_status = refund_status
         # 退款退分账申请金额
         self.refund_amount = refund_amount
-        # 本次退款申请的实际退款金额，单位：分
-        # 条件返回：refundStatus=SUCCESS 返回
-        self.send_back_amount = send_back_amount
         # 退款退分账失败原因，条件返回：refundStatus=FAILED 返回
         self.refund_failed_reason = refund_failed_reason
         # 退款退分账时间，格式为yyyy-MM-dd HH:mm:ss
@@ -1755,8 +1751,6 @@ class QueryOrderRefundResponse(TeaModel):
             result['refund_status'] = self.refund_status
         if self.refund_amount is not None:
             result['refund_amount'] = self.refund_amount
-        if self.send_back_amount is not None:
-            result['send_back_amount'] = self.send_back_amount
         if self.refund_failed_reason is not None:
             result['refund_failed_reason'] = self.refund_failed_reason
         if self.refund_time is not None:
@@ -1783,8 +1777,6 @@ class QueryOrderRefundResponse(TeaModel):
             self.refund_status = m.get('refund_status')
         if m.get('refund_amount') is not None:
             self.refund_amount = m.get('refund_amount')
-        if m.get('send_back_amount') is not None:
-            self.send_back_amount = m.get('send_back_amount')
         if m.get('refund_failed_reason') is not None:
             self.refund_failed_reason = m.get('refund_failed_reason')
         if m.get('refund_time') is not None:
