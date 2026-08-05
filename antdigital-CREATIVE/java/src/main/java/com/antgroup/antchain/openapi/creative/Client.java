@@ -126,7 +126,7 @@ public class Client {
                     new TeaPair("req_msg_id", com.antgroup.antchain.openapi.antchain.util.AntchainUtils.getNonce()),
                     new TeaPair("access_key", _accessKeyId),
                     new TeaPair("base_sdk_version", "TeaSDK-2.0"),
-                    new TeaPair("sdk_version", "1.0.1"),
+                    new TeaPair("sdk_version", "1.0.2"),
                     new TeaPair("_prod_code", "CREATIVE"),
                     new TeaPair("_prod_channel", "default")
                 );
@@ -207,5 +207,68 @@ public class Client {
     public PushVideogenerationResponse pushVideogenerationEx(PushVideogenerationRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
         com.aliyun.teautil.Common.validateModel(request);
         return TeaModel.toModel(this.doRequest("1.0", "antdigital.creative.videogeneration.push", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new PushVideogenerationResponse());
+    }
+
+    /**
+     * <b>description</b> :
+     * <p>Description: 视频创作接口查询
+     * Summary: 视频创作接口查询</p>
+     */
+    public QueryVideogenerationResponse queryVideogeneration(QueryVideogenerationRequest request) throws Exception {
+        com.aliyun.teautil.models.RuntimeOptions runtime = new com.aliyun.teautil.models.RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.queryVideogenerationEx(request, headers, runtime);
+    }
+
+    /**
+     * <b>description</b> :
+     * <p>Description: 视频创作接口查询
+     * Summary: 视频创作接口查询</p>
+     */
+    public QueryVideogenerationResponse queryVideogenerationEx(QueryVideogenerationRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "antdigital.creative.videogeneration.query", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new QueryVideogenerationResponse());
+    }
+
+    /**
+     * <b>description</b> :
+     * <p>Description: 资产上传接口
+     * Summary: 资产上传接口</p>
+     */
+    public UploadAssetResponse uploadAsset(UploadAssetRequest request) throws Exception {
+        com.aliyun.teautil.models.RuntimeOptions runtime = new com.aliyun.teautil.models.RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.uploadAssetEx(request, headers, runtime);
+    }
+
+    /**
+     * <b>description</b> :
+     * <p>Description: 资产上传接口
+     * Summary: 资产上传接口</p>
+     */
+    public UploadAssetResponse uploadAssetEx(UploadAssetRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "antdigital.creative.asset.upload", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new UploadAssetResponse());
+    }
+
+    /**
+     * <b>description</b> :
+     * <p>Description: 资产查询接口
+     * Summary: 资产查询接口</p>
+     */
+    public QueryAssetResponse queryAsset(QueryAssetRequest request) throws Exception {
+        com.aliyun.teautil.models.RuntimeOptions runtime = new com.aliyun.teautil.models.RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.queryAssetEx(request, headers, runtime);
+    }
+
+    /**
+     * <b>description</b> :
+     * <p>Description: 资产查询接口
+     * Summary: 资产查询接口</p>
+     */
+    public QueryAssetResponse queryAssetEx(QueryAssetRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "antdigital.creative.asset.query", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new QueryAssetResponse());
     }
 }
