@@ -126,7 +126,7 @@ public class Client {
                     new TeaPair("req_msg_id", com.antgroup.antchain.openapi.antchain.util.AntchainUtils.getNonce()),
                     new TeaPair("access_key", _accessKeyId),
                     new TeaPair("base_sdk_version", "TeaSDK-2.0"),
-                    new TeaPair("sdk_version", "1.0.6"),
+                    new TeaPair("sdk_version", "1.0.7"),
                     new TeaPair("_prod_code", "DTKYA"),
                     new TeaPair("_prod_channel", "undefined")
                 );
@@ -417,5 +417,47 @@ public class Client {
     public VerifyAntchainDasKyaVpResponse verifyAntchainDasKyaVpEx(VerifyAntchainDasKyaVpRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
         com.aliyun.teautil.Common.validateModel(request);
         return TeaModel.toModel(this.doRequest("1.0", "antchain.das.kya.vp.verify", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new VerifyAntchainDasKyaVpResponse());
+    }
+
+    /**
+     * <b>description</b> :
+     * <p>Description: 自定义did注册
+     * Summary: 自定义did注册</p>
+     */
+    public CustomregisterAntchainDasKyaDidResponse customregisterAntchainDasKyaDid(CustomregisterAntchainDasKyaDidRequest request) throws Exception {
+        com.aliyun.teautil.models.RuntimeOptions runtime = new com.aliyun.teautil.models.RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.customregisterAntchainDasKyaDidEx(request, headers, runtime);
+    }
+
+    /**
+     * <b>description</b> :
+     * <p>Description: 自定义did注册
+     * Summary: 自定义did注册</p>
+     */
+    public CustomregisterAntchainDasKyaDidResponse customregisterAntchainDasKyaDidEx(CustomregisterAntchainDasKyaDidRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "antchain.das.kya.did.customregister", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new CustomregisterAntchainDasKyaDidResponse());
+    }
+
+    /**
+     * <b>description</b> :
+     * <p>Description: 停用did
+     * Summary: 停用did</p>
+     */
+    public DeactivateAntchainDasKyaDidResponse deactivateAntchainDasKyaDid(DeactivateAntchainDasKyaDidRequest request) throws Exception {
+        com.aliyun.teautil.models.RuntimeOptions runtime = new com.aliyun.teautil.models.RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.deactivateAntchainDasKyaDidEx(request, headers, runtime);
+    }
+
+    /**
+     * <b>description</b> :
+     * <p>Description: 停用did
+     * Summary: 停用did</p>
+     */
+    public DeactivateAntchainDasKyaDidResponse deactivateAntchainDasKyaDidEx(DeactivateAntchainDasKyaDidRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "antchain.das.kya.did.deactivate", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new DeactivateAntchainDasKyaDidResponse());
     }
 }
