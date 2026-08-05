@@ -1,0 +1,547 @@
+<?php
+
+// This file is auto-generated, don't edit it. Thanks.
+namespace AntChain\GESAAS;
+
+use AlibabaCloud\Tea\Utils\Utils;
+use AlibabaCloud\Tea\Exception\TeaError;
+use \Exception;
+use AlibabaCloud\Tea\Exception\TeaUnableRetryError;
+use AlibabaCloud\Tea\Tea;
+use AlibabaCloud\Tea\Request;
+use AntChain\Util\UtilClient;
+use AlibabaCloud\Tea\RpcUtils\RpcUtils;
+
+use AlibabaCloud\Tea\Utils\Utils\RuntimeOptions;
+use AntChain\GESAAS\Models\PushOrderSettlementRequest;
+use AntChain\GESAAS\Models\PushOrderSettlementResponse;
+use AntChain\GESAAS\Models\QueryOrderSettlementRequest;
+use AntChain\GESAAS\Models\QueryOrderSettlementResponse;
+use AntChain\GESAAS\Models\WithdrawOrderSettlementRequest;
+use AntChain\GESAAS\Models\WithdrawOrderSettlementResponse;
+use AntChain\GESAAS\Models\QueryOrderWithdrawRequest;
+use AntChain\GESAAS\Models\QueryOrderWithdrawResponse;
+use AntChain\GESAAS\Models\PushOrderRefundRequest;
+use AntChain\GESAAS\Models\PushOrderRefundResponse;
+use AntChain\GESAAS\Models\QueryOrderRefundRequest;
+use AntChain\GESAAS\Models\QueryOrderRefundResponse;
+use AntChain\GESAAS\Models\CheckOmngRiskRequest;
+use AntChain\GESAAS\Models\CheckOmngRiskResponse;
+use AntChain\GESAAS\Models\SubmitRightsprodGrantRequest;
+use AntChain\GESAAS\Models\SubmitRightsprodGrantResponse;
+use AntChain\GESAAS\Models\QueryRightsprodGrantRequest;
+use AntChain\GESAAS\Models\QueryRightsprodGrantResponse;
+use AntChain\GESAAS\Models\BatchqueryRightsprodVoucherRequest;
+use AntChain\GESAAS\Models\BatchqueryRightsprodVoucherResponse;
+use AntChain\GESAAS\Models\CallbackRightsprodOperationRequest;
+use AntChain\GESAAS\Models\CallbackRightsprodOperationResponse;
+use AntChain\GESAAS\Models\CallbackRightsprodOperationdataRequest;
+use AntChain\GESAAS\Models\CallbackRightsprodOperationdataResponse;
+use AntChain\GESAAS\Models\QueryRightsprodVoucherRequest;
+use AntChain\GESAAS\Models\QueryRightsprodVoucherResponse;
+
+class Client {
+    protected $_endpoint;
+
+    protected $_regionId;
+
+    protected $_accessKeyId;
+
+    protected $_accessKeySecret;
+
+    protected $_protocol;
+
+    protected $_userAgent;
+
+    protected $_readTimeout;
+
+    protected $_connectTimeout;
+
+    protected $_httpProxy;
+
+    protected $_httpsProxy;
+
+    protected $_socks5Proxy;
+
+    protected $_socks5NetWork;
+
+    protected $_noProxy;
+
+    protected $_maxIdleConns;
+
+    protected $_securityToken;
+
+    protected $_maxIdleTimeMillis;
+
+    protected $_keepAliveDurationMillis;
+
+    protected $_maxRequests;
+
+    protected $_maxRequestsPerHost;
+
+    /**
+     * Init client with Config
+     * @param config config contains the necessary information to create a client
+     */
+    public function __construct($config){
+        if (Utils::isUnset($config)) {
+            throw new TeaError([
+                "code" => "ParameterMissing",
+                "message" => "'config' can not be unset"
+            ]);
+        }
+        $this->_accessKeyId = $config->accessKeyId;
+        $this->_accessKeySecret = $config->accessKeySecret;
+        $this->_securityToken = $config->securityToken;
+        $this->_endpoint = $config->endpoint;
+        $this->_protocol = $config->protocol;
+        $this->_userAgent = $config->userAgent;
+        $this->_readTimeout = Utils::defaultNumber($config->readTimeout, 20000);
+        $this->_connectTimeout = Utils::defaultNumber($config->connectTimeout, 20000);
+        $this->_httpProxy = $config->httpProxy;
+        $this->_httpsProxy = $config->httpsProxy;
+        $this->_noProxy = $config->noProxy;
+        $this->_socks5Proxy = $config->socks5Proxy;
+        $this->_socks5NetWork = $config->socks5NetWork;
+        $this->_maxIdleConns = Utils::defaultNumber($config->maxIdleConns, 60000);
+        $this->_maxIdleTimeMillis = Utils::defaultNumber($config->maxIdleTimeMillis, 5);
+        $this->_keepAliveDurationMillis = Utils::defaultNumber($config->keepAliveDurationMillis, 5000);
+        $this->_maxRequests = Utils::defaultNumber($config->maxRequests, 100);
+        $this->_maxRequestsPerHost = Utils::defaultNumber($config->maxRequestsPerHost, 100);
+    }
+
+    /**
+     * Encapsulate the request and invoke the network
+     * @param string $version
+     * @param string $action api name
+     * @param string $protocol http or https
+     * @param string $method e.g. GET
+     * @param string $pathname pathname of every api
+     * @param mixed[] $request which contains request params
+     * @param string[] $headers
+     * @param RuntimeOptions $runtime which controls some details of call api, such as retry times
+     * @return array the response
+     * @throws TeaError
+     * @throws Exception
+     * @throws TeaUnableRetryError
+     */
+    public function doRequest($version, $action, $protocol, $method, $pathname, $request, $headers, $runtime){
+        $runtime->validate();
+        $_runtime = [
+            "timeouted" => "retry",
+            "readTimeout" => Utils::defaultNumber($runtime->readTimeout, $this->_readTimeout),
+            "connectTimeout" => Utils::defaultNumber($runtime->connectTimeout, $this->_connectTimeout),
+            "httpProxy" => Utils::defaultString($runtime->httpProxy, $this->_httpProxy),
+            "httpsProxy" => Utils::defaultString($runtime->httpsProxy, $this->_httpsProxy),
+            "noProxy" => Utils::defaultString($runtime->noProxy, $this->_noProxy),
+            "maxIdleConns" => Utils::defaultNumber($runtime->maxIdleConns, $this->_maxIdleConns),
+            "maxIdleTimeMillis" => $this->_maxIdleTimeMillis,
+            "keepAliveDuration" => $this->_keepAliveDurationMillis,
+            "maxRequests" => $this->_maxRequests,
+            "maxRequestsPerHost" => $this->_maxRequestsPerHost,
+            "retry" => [
+                "retryable" => $runtime->autoretry,
+                "maxAttempts" => Utils::defaultNumber($runtime->maxAttempts, 3)
+            ],
+            "backoff" => [
+                "policy" => Utils::defaultString($runtime->backoffPolicy, "no"),
+                "period" => Utils::defaultNumber($runtime->backoffPeriod, 1)
+            ],
+            "ignoreSSL" => $runtime->ignoreSSL,
+            // 经营分账收入方列表
+        ];
+        $_lastRequest = null;
+        $_lastException = null;
+        $_now = time();
+        $_retryTimes = 0;
+        while (Tea::allowRetry(@$_runtime["retry"], $_retryTimes, $_now)) {
+            if ($_retryTimes > 0) {
+                $_backoffTime = Tea::getBackoffTime(@$_runtime["backoff"], $_retryTimes);
+                if ($_backoffTime > 0) {
+                    Tea::sleep($_backoffTime);
+                }
+            }
+            $_retryTimes = $_retryTimes + 1;
+            try {
+                $_request = new Request();
+                $_request->protocol = Utils::defaultString($this->_protocol, $protocol);
+                $_request->method = $method;
+                $_request->pathname = $pathname;
+                $_request->query = [
+                    "method" => $action,
+                    "version" => $version,
+                    "sign_type" => "HmacSHA1",
+                    "req_time" => UtilClient::getTimestamp(),
+                    "req_msg_id" => UtilClient::getNonce(),
+                    "access_key" => $this->_accessKeyId,
+                    "base_sdk_version" => "TeaSDK-2.0",
+                    "sdk_version" => "1.3.16",
+                    "_prod_code" => "GESAAS",
+                    "_prod_channel" => "default"
+                ];
+                if (!Utils::empty_($this->_securityToken)) {
+                    $_request->query["security_token"] = $this->_securityToken;
+                }
+                $_request->headers = Tea::merge([
+                    "host" => Utils::defaultString($this->_endpoint, "openapi.antchain.antgroup.com"),
+                    "user-agent" => Utils::getUserAgent($this->_userAgent)
+                ], $headers);
+                $tmp = Utils::anyifyMapValue(RpcUtils::query($request));
+                $_request->body = Utils::toFormString($tmp);
+                $_request->headers["content-type"] = "application/x-www-form-urlencoded";
+                $signedParam = Tea::merge($_request->query, RpcUtils::query($request));
+                $_request->query["sign"] = UtilClient::getSignature($signedParam, $this->_accessKeySecret);
+                $_lastRequest = $_request;
+                $_response= Tea::send($_request, $_runtime);
+                $raw = Utils::readAsString($_response->body);
+                $obj = Utils::parseJSON($raw);
+                $res = Utils::assertAsMap($obj);
+                $resp = Utils::assertAsMap(@$res["response"]);
+                if (UtilClient::hasError($raw, $this->_accessKeySecret)) {
+                    throw new TeaError([
+                        "message" => @$resp["result_msg"],
+                        "data" => $resp,
+                        "code" => @$resp["result_code"]
+                    ]);
+                }
+                return $resp;
+            }
+            catch (Exception $e) {
+                if (!($e instanceof TeaError)) {
+                    $e = new TeaError([], $e->getMessage(), $e->getCode(), $e);
+                }
+                if (Tea::isRetryable($e)) {
+                    $_lastException = $e;
+                    continue;
+                }
+                throw $e;
+            }
+        }
+        throw new TeaUnableRetryError($_lastRequest, $_lastException);
+    }
+
+    /**
+     * Description: 支付+分账订单推送(创建)
+     * Summary: 支付+分账订单推送(创建)
+     * @param PushOrderSettlementRequest $request
+     * @return PushOrderSettlementResponse
+     */
+    public function pushOrderSettlement($request){
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+        return $this->pushOrderSettlementEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 支付+分账订单推送(创建)
+     * Summary: 支付+分账订单推送(创建)
+     * @param PushOrderSettlementRequest $request
+     * @param string[] $headers
+     * @param RuntimeOptions $runtime
+     * @return PushOrderSettlementResponse
+     */
+    public function pushOrderSettlementEx($request, $headers, $runtime){
+        Utils::validateModel($request);
+        return PushOrderSettlementResponse::fromMap($this->doRequest("1.0", "antdigital.gesaas.order.settlement.push", "HTTPS", "POST", "/gateway.do", Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 订单结果查询(支付+分账)
+     * Summary: 订单结果查询(支付+分账)
+     * @param QueryOrderSettlementRequest $request
+     * @return QueryOrderSettlementResponse
+     */
+    public function queryOrderSettlement($request){
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+        return $this->queryOrderSettlementEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 订单结果查询(支付+分账)
+     * Summary: 订单结果查询(支付+分账)
+     * @param QueryOrderSettlementRequest $request
+     * @param string[] $headers
+     * @param RuntimeOptions $runtime
+     * @return QueryOrderSettlementResponse
+     */
+    public function queryOrderSettlementEx($request, $headers, $runtime){
+        Utils::validateModel($request);
+        return QueryOrderSettlementResponse::fromMap($this->doRequest("1.0", "antdigital.gesaas.order.settlement.query", "HTTPS", "POST", "/gateway.do", Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 退分账接口(废弃)
+     * Summary: 退分账接口(废弃)
+     * @param WithdrawOrderSettlementRequest $request
+     * @return WithdrawOrderSettlementResponse
+     */
+    public function withdrawOrderSettlement($request){
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+        return $this->withdrawOrderSettlementEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 退分账接口(废弃)
+     * Summary: 退分账接口(废弃)
+     * @param WithdrawOrderSettlementRequest $request
+     * @param string[] $headers
+     * @param RuntimeOptions $runtime
+     * @return WithdrawOrderSettlementResponse
+     */
+    public function withdrawOrderSettlementEx($request, $headers, $runtime){
+        Utils::validateModel($request);
+        return WithdrawOrderSettlementResponse::fromMap($this->doRequest("1.0", "antdigital.gesaas.order.settlement.withdraw", "HTTPS", "POST", "/gateway.do", Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 退分账查询接口(废弃)
+     * Summary: 退分账查询接口(废弃)
+     * @param QueryOrderWithdrawRequest $request
+     * @return QueryOrderWithdrawResponse
+     */
+    public function queryOrderWithdraw($request){
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+        return $this->queryOrderWithdrawEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 退分账查询接口(废弃)
+     * Summary: 退分账查询接口(废弃)
+     * @param QueryOrderWithdrawRequest $request
+     * @param string[] $headers
+     * @param RuntimeOptions $runtime
+     * @return QueryOrderWithdrawResponse
+     */
+    public function queryOrderWithdrawEx($request, $headers, $runtime){
+        Utils::validateModel($request);
+        return QueryOrderWithdrawResponse::fromMap($this->doRequest("1.0", "antdigital.gesaas.order.withdraw.query", "HTTPS", "POST", "/gateway.do", Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 退款退分账发起(创建)
+     * Summary: 退款退分账发起(创建)
+     * @param PushOrderRefundRequest $request
+     * @return PushOrderRefundResponse
+     */
+    public function pushOrderRefund($request){
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+        return $this->pushOrderRefundEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 退款退分账发起(创建)
+     * Summary: 退款退分账发起(创建)
+     * @param PushOrderRefundRequest $request
+     * @param string[] $headers
+     * @param RuntimeOptions $runtime
+     * @return PushOrderRefundResponse
+     */
+    public function pushOrderRefundEx($request, $headers, $runtime){
+        Utils::validateModel($request);
+        return PushOrderRefundResponse::fromMap($this->doRequest("1.0", "antdigital.gesaas.order.refund.push", "HTTPS", "POST", "/gateway.do", Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 退款退分账查询
+     * Summary: 退款退分账查询
+     * @param QueryOrderRefundRequest $request
+     * @return QueryOrderRefundResponse
+     */
+    public function queryOrderRefund($request){
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+        return $this->queryOrderRefundEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 退款退分账查询
+     * Summary: 退款退分账查询
+     * @param QueryOrderRefundRequest $request
+     * @param string[] $headers
+     * @param RuntimeOptions $runtime
+     * @return QueryOrderRefundResponse
+     */
+    public function queryOrderRefundEx($request, $headers, $runtime){
+        Utils::validateModel($request);
+        return QueryOrderRefundResponse::fromMap($this->doRequest("1.0", "antdigital.gesaas.order.refund.query", "HTTPS", "POST", "/gateway.do", Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 品牌会员签约鉴权产品链路风控鉴权
+     * Summary: 风控鉴权
+     * @param CheckOmngRiskRequest $request
+     * @return CheckOmngRiskResponse
+     */
+    public function checkOmngRisk($request){
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+        return $this->checkOmngRiskEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 品牌会员签约鉴权产品链路风控鉴权
+     * Summary: 风控鉴权
+     * @param CheckOmngRiskRequest $request
+     * @param string[] $headers
+     * @param RuntimeOptions $runtime
+     * @return CheckOmngRiskResponse
+     */
+    public function checkOmngRiskEx($request, $headers, $runtime){
+        Utils::validateModel($request);
+        return CheckOmngRiskResponse::fromMap($this->doRequest("1.0", "antdigital.gesaas.omng.risk.check", "HTTPS", "POST", "/gateway.do", Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 权益中心权益发放
+     * Summary: 权益中心权益发放
+     * @param SubmitRightsprodGrantRequest $request
+     * @return SubmitRightsprodGrantResponse
+     */
+    public function submitRightsprodGrant($request){
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+        return $this->submitRightsprodGrantEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 权益中心权益发放
+     * Summary: 权益中心权益发放
+     * @param SubmitRightsprodGrantRequest $request
+     * @param string[] $headers
+     * @param RuntimeOptions $runtime
+     * @return SubmitRightsprodGrantResponse
+     */
+    public function submitRightsprodGrantEx($request, $headers, $runtime){
+        Utils::validateModel($request);
+        return SubmitRightsprodGrantResponse::fromMap($this->doRequest("1.0", "antdigital.gesaas.rightsprod.grant.submit", "HTTPS", "POST", "/gateway.do", Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 权益发放结果查询
+     * Summary: 权益发放结果查询
+     * @param QueryRightsprodGrantRequest $request
+     * @return QueryRightsprodGrantResponse
+     */
+    public function queryRightsprodGrant($request){
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+        return $this->queryRightsprodGrantEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 权益发放结果查询
+     * Summary: 权益发放结果查询
+     * @param QueryRightsprodGrantRequest $request
+     * @param string[] $headers
+     * @param RuntimeOptions $runtime
+     * @return QueryRightsprodGrantResponse
+     */
+    public function queryRightsprodGrantEx($request, $headers, $runtime){
+        Utils::validateModel($request);
+        return QueryRightsprodGrantResponse::fromMap($this->doRequest("1.0", "antdigital.gesaas.rightsprod.grant.query", "HTTPS", "POST", "/gateway.do", Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 券基本信息批量查询
+     * Summary: 券基本信息批量查询
+     * @param BatchqueryRightsprodVoucherRequest $request
+     * @return BatchqueryRightsprodVoucherResponse
+     */
+    public function batchqueryRightsprodVoucher($request){
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+        return $this->batchqueryRightsprodVoucherEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 券基本信息批量查询
+     * Summary: 券基本信息批量查询
+     * @param BatchqueryRightsprodVoucherRequest $request
+     * @param string[] $headers
+     * @param RuntimeOptions $runtime
+     * @return BatchqueryRightsprodVoucherResponse
+     */
+    public function batchqueryRightsprodVoucherEx($request, $headers, $runtime){
+        Utils::validateModel($request);
+        return BatchqueryRightsprodVoucherResponse::fromMap($this->doRequest("1.0", "antdigital.gesaas.rightsprod.voucher.batchquery", "HTTPS", "POST", "/gateway.do", Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 权益中心数据流回调 API
+     * Summary: 权益中心数据流回调 API
+     * @param CallbackRightsprodOperationRequest $request
+     * @return CallbackRightsprodOperationResponse
+     */
+    public function callbackRightsprodOperation($request){
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+        return $this->callbackRightsprodOperationEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 权益中心数据流回调 API
+     * Summary: 权益中心数据流回调 API
+     * @param CallbackRightsprodOperationRequest $request
+     * @param string[] $headers
+     * @param RuntimeOptions $runtime
+     * @return CallbackRightsprodOperationResponse
+     */
+    public function callbackRightsprodOperationEx($request, $headers, $runtime){
+        Utils::validateModel($request);
+        return CallbackRightsprodOperationResponse::fromMap($this->doRequest("1.0", "antdigital.gesaas.rightsprod.operation.callback", "HTTPS", "POST", "/gateway.do", Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 权益中心API
+     * Summary: 权益中心API
+     * @param CallbackRightsprodOperationdataRequest $request
+     * @return CallbackRightsprodOperationdataResponse
+     */
+    public function callbackRightsprodOperationdata($request){
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+        return $this->callbackRightsprodOperationdataEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 权益中心API
+     * Summary: 权益中心API
+     * @param CallbackRightsprodOperationdataRequest $request
+     * @param string[] $headers
+     * @param RuntimeOptions $runtime
+     * @return CallbackRightsprodOperationdataResponse
+     */
+    public function callbackRightsprodOperationdataEx($request, $headers, $runtime){
+        Utils::validateModel($request);
+        return CallbackRightsprodOperationdataResponse::fromMap($this->doRequest("1.0", "antdigital.gesaas.rightsprod.operationdata.callback", "HTTPS", "POST", "/gateway.do", Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 券实例信息查询
+     * Summary: 券实例信息查询
+     * @param QueryRightsprodVoucherRequest $request
+     * @return QueryRightsprodVoucherResponse
+     */
+    public function queryRightsprodVoucher($request){
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+        return $this->queryRightsprodVoucherEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 券实例信息查询
+     * Summary: 券实例信息查询
+     * @param QueryRightsprodVoucherRequest $request
+     * @param string[] $headers
+     * @param RuntimeOptions $runtime
+     * @return QueryRightsprodVoucherResponse
+     */
+    public function queryRightsprodVoucherEx($request, $headers, $runtime){
+        Utils::validateModel($request);
+        return QueryRightsprodVoucherResponse::fromMap($this->doRequest("1.0", "antdigital.gesaas.rightsprod.voucher.query", "HTTPS", "POST", "/gateway.do", Tea::merge($request), $headers, $runtime));
+    }
+}
