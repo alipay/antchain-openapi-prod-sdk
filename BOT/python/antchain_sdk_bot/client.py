@@ -110,7 +110,7 @@ class Client:
                 'period': UtilClient.default_number(runtime.backoff_period, 1)
             },
             'ignoreSSL': runtime.ignore_ssl,
-            # 资源定位信息
+            # 版本范围边界定义
         }
         _last_request = None
         _last_exception = None
@@ -135,7 +135,7 @@ class Client:
                     'req_msg_id': AntchainUtils.get_nonce(),
                     'access_key': self._access_key_id,
                     'base_sdk_version': 'TeaSDK-2.0',
-                    'sdk_version': '1.17.7',
+                    'sdk_version': '1.18.8',
                     '_prod_code': 'BOT',
                     '_prod_channel': 'undefined'
                 }
@@ -214,7 +214,7 @@ class Client:
                 'period': UtilClient.default_number(runtime.backoff_period, 1)
             },
             'ignoreSSL': runtime.ignore_ssl,
-            # 资源定位信息
+            # 版本范围边界定义
         }
         _last_request = None
         _last_exception = None
@@ -239,7 +239,7 @@ class Client:
                     'req_msg_id': AntchainUtils.get_nonce(),
                     'access_key': self._access_key_id,
                     'base_sdk_version': 'TeaSDK-2.0',
-                    'sdk_version': '1.17.7',
+                    'sdk_version': '1.18.8',
                     '_prod_code': 'BOT',
                     '_prod_channel': 'undefined'
                 }
@@ -10147,6 +10147,342 @@ class Client:
             await self.do_request_async('1.0', 'blockchain.bot.electrocar.otajobbymodule.push', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
+    def query_electrocar_moduleversiontree(
+        self,
+        request: bot_models.QueryElectrocarModuleversiontreeRequest,
+    ) -> bot_models.QueryElectrocarModuleversiontreeResponse:
+        """
+        Description: 查询产品下所有模块及版本号
+        Summary: 查询产品下所有模块及版本号
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.query_electrocar_moduleversiontree_ex(request, headers, runtime)
+
+    async def query_electrocar_moduleversiontree_async(
+        self,
+        request: bot_models.QueryElectrocarModuleversiontreeRequest,
+    ) -> bot_models.QueryElectrocarModuleversiontreeResponse:
+        """
+        Description: 查询产品下所有模块及版本号
+        Summary: 查询产品下所有模块及版本号
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.query_electrocar_moduleversiontree_ex_async(request, headers, runtime)
+
+    def query_electrocar_moduleversiontree_ex(
+        self,
+        request: bot_models.QueryElectrocarModuleversiontreeRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> bot_models.QueryElectrocarModuleversiontreeResponse:
+        """
+        Description: 查询产品下所有模块及版本号
+        Summary: 查询产品下所有模块及版本号
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            bot_models.QueryElectrocarModuleversiontreeResponse(),
+            self.do_request('1.0', 'blockchain.bot.electrocar.moduleversiontree.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def query_electrocar_moduleversiontree_ex_async(
+        self,
+        request: bot_models.QueryElectrocarModuleversiontreeRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> bot_models.QueryElectrocarModuleversiontreeResponse:
+        """
+        Description: 查询产品下所有模块及版本号
+        Summary: 查询产品下所有模块及版本号
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            bot_models.QueryElectrocarModuleversiontreeResponse(),
+            await self.do_request_async('1.0', 'blockchain.bot.electrocar.moduleversiontree.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def query_electrocar_otacontinuouspushconfig(
+        self,
+        request: bot_models.QueryElectrocarOtacontinuouspushconfigRequest,
+    ) -> bot_models.QueryElectrocarOtacontinuouspushconfigResponse:
+        """
+        Description: 查询指定租户的连续推送总设置及全部产品策略
+        Summary: 查询指定租户的连续推送总设置及全部产品策略
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.query_electrocar_otacontinuouspushconfig_ex(request, headers, runtime)
+
+    async def query_electrocar_otacontinuouspushconfig_async(
+        self,
+        request: bot_models.QueryElectrocarOtacontinuouspushconfigRequest,
+    ) -> bot_models.QueryElectrocarOtacontinuouspushconfigResponse:
+        """
+        Description: 查询指定租户的连续推送总设置及全部产品策略
+        Summary: 查询指定租户的连续推送总设置及全部产品策略
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.query_electrocar_otacontinuouspushconfig_ex_async(request, headers, runtime)
+
+    def query_electrocar_otacontinuouspushconfig_ex(
+        self,
+        request: bot_models.QueryElectrocarOtacontinuouspushconfigRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> bot_models.QueryElectrocarOtacontinuouspushconfigResponse:
+        """
+        Description: 查询指定租户的连续推送总设置及全部产品策略
+        Summary: 查询指定租户的连续推送总设置及全部产品策略
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            bot_models.QueryElectrocarOtacontinuouspushconfigResponse(),
+            self.do_request('1.0', 'blockchain.bot.electrocar.otacontinuouspushconfig.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def query_electrocar_otacontinuouspushconfig_ex_async(
+        self,
+        request: bot_models.QueryElectrocarOtacontinuouspushconfigRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> bot_models.QueryElectrocarOtacontinuouspushconfigResponse:
+        """
+        Description: 查询指定租户的连续推送总设置及全部产品策略
+        Summary: 查询指定租户的连续推送总设置及全部产品策略
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            bot_models.QueryElectrocarOtacontinuouspushconfigResponse(),
+            await self.do_request_async('1.0', 'blockchain.bot.electrocar.otacontinuouspushconfig.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def exec_electrocar_otacontinuouspushrulesenabled(
+        self,
+        request: bot_models.ExecElectrocarOtacontinuouspushrulesenabledRequest,
+    ) -> bot_models.ExecElectrocarOtacontinuouspushrulesenabledResponse:
+        """
+        Description: 独立启用或停用一条 READY 规则。
+        Summary: 独立启用或停用一条 READY 规则。
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.exec_electrocar_otacontinuouspushrulesenabled_ex(request, headers, runtime)
+
+    async def exec_electrocar_otacontinuouspushrulesenabled_async(
+        self,
+        request: bot_models.ExecElectrocarOtacontinuouspushrulesenabledRequest,
+    ) -> bot_models.ExecElectrocarOtacontinuouspushrulesenabledResponse:
+        """
+        Description: 独立启用或停用一条 READY 规则。
+        Summary: 独立启用或停用一条 READY 规则。
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.exec_electrocar_otacontinuouspushrulesenabled_ex_async(request, headers, runtime)
+
+    def exec_electrocar_otacontinuouspushrulesenabled_ex(
+        self,
+        request: bot_models.ExecElectrocarOtacontinuouspushrulesenabledRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> bot_models.ExecElectrocarOtacontinuouspushrulesenabledResponse:
+        """
+        Description: 独立启用或停用一条 READY 规则。
+        Summary: 独立启用或停用一条 READY 规则。
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            bot_models.ExecElectrocarOtacontinuouspushrulesenabledResponse(),
+            self.do_request('1.0', 'blockchain.bot.electrocar.otacontinuouspushrulesenabled.exec', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def exec_electrocar_otacontinuouspushrulesenabled_ex_async(
+        self,
+        request: bot_models.ExecElectrocarOtacontinuouspushrulesenabledRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> bot_models.ExecElectrocarOtacontinuouspushrulesenabledResponse:
+        """
+        Description: 独立启用或停用一条 READY 规则。
+        Summary: 独立启用或停用一条 READY 规则。
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            bot_models.ExecElectrocarOtacontinuouspushrulesenabledResponse(),
+            await self.do_request_async('1.0', 'blockchain.bot.electrocar.otacontinuouspushrulesenabled.exec', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def query_electrocar_deviceotamoduleversion(
+        self,
+        request: bot_models.QueryElectrocarDeviceotamoduleversionRequest,
+    ) -> bot_models.QueryElectrocarDeviceotamoduleversionResponse:
+        """
+        Description: 查询设备最新模块版本号
+        Summary: 查询设备最新模块版本号
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.query_electrocar_deviceotamoduleversion_ex(request, headers, runtime)
+
+    async def query_electrocar_deviceotamoduleversion_async(
+        self,
+        request: bot_models.QueryElectrocarDeviceotamoduleversionRequest,
+    ) -> bot_models.QueryElectrocarDeviceotamoduleversionResponse:
+        """
+        Description: 查询设备最新模块版本号
+        Summary: 查询设备最新模块版本号
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.query_electrocar_deviceotamoduleversion_ex_async(request, headers, runtime)
+
+    def query_electrocar_deviceotamoduleversion_ex(
+        self,
+        request: bot_models.QueryElectrocarDeviceotamoduleversionRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> bot_models.QueryElectrocarDeviceotamoduleversionResponse:
+        """
+        Description: 查询设备最新模块版本号
+        Summary: 查询设备最新模块版本号
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            bot_models.QueryElectrocarDeviceotamoduleversionResponse(),
+            self.do_request('1.0', 'blockchain.bot.electrocar.deviceotamoduleversion.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def query_electrocar_deviceotamoduleversion_ex_async(
+        self,
+        request: bot_models.QueryElectrocarDeviceotamoduleversionRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> bot_models.QueryElectrocarDeviceotamoduleversionResponse:
+        """
+        Description: 查询设备最新模块版本号
+        Summary: 查询设备最新模块版本号
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            bot_models.QueryElectrocarDeviceotamoduleversionResponse(),
+            await self.do_request_async('1.0', 'blockchain.bot.electrocar.deviceotamoduleversion.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def delete_electrocar_otacontinuouspushrules(
+        self,
+        request: bot_models.DeleteElectrocarOtacontinuouspushrulesRequest,
+    ) -> bot_models.DeleteElectrocarOtacontinuouspushrulesResponse:
+        """
+        Description: 删除单条连续推送规则
+        Summary: 删除单条连续推送规则
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.delete_electrocar_otacontinuouspushrules_ex(request, headers, runtime)
+
+    async def delete_electrocar_otacontinuouspushrules_async(
+        self,
+        request: bot_models.DeleteElectrocarOtacontinuouspushrulesRequest,
+    ) -> bot_models.DeleteElectrocarOtacontinuouspushrulesResponse:
+        """
+        Description: 删除单条连续推送规则
+        Summary: 删除单条连续推送规则
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.delete_electrocar_otacontinuouspushrules_ex_async(request, headers, runtime)
+
+    def delete_electrocar_otacontinuouspushrules_ex(
+        self,
+        request: bot_models.DeleteElectrocarOtacontinuouspushrulesRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> bot_models.DeleteElectrocarOtacontinuouspushrulesResponse:
+        """
+        Description: 删除单条连续推送规则
+        Summary: 删除单条连续推送规则
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            bot_models.DeleteElectrocarOtacontinuouspushrulesResponse(),
+            self.do_request('1.0', 'blockchain.bot.electrocar.otacontinuouspushrules.delete', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def delete_electrocar_otacontinuouspushrules_ex_async(
+        self,
+        request: bot_models.DeleteElectrocarOtacontinuouspushrulesRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> bot_models.DeleteElectrocarOtacontinuouspushrulesResponse:
+        """
+        Description: 删除单条连续推送规则
+        Summary: 删除单条连续推送规则
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            bot_models.DeleteElectrocarOtacontinuouspushrulesResponse(),
+            await self.do_request_async('1.0', 'blockchain.bot.electrocar.otacontinuouspushrules.delete', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def query_electrocar_otafirmwarelastest(
+        self,
+        request: bot_models.QueryElectrocarOtafirmwarelastestRequest,
+    ) -> bot_models.QueryElectrocarOtafirmwarelastestResponse:
+        """
+        Description: 查询产品模块版本号最高的已发布固件包
+        Summary: 查询产品模块版本号最高的已发布固件包
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.query_electrocar_otafirmwarelastest_ex(request, headers, runtime)
+
+    async def query_electrocar_otafirmwarelastest_async(
+        self,
+        request: bot_models.QueryElectrocarOtafirmwarelastestRequest,
+    ) -> bot_models.QueryElectrocarOtafirmwarelastestResponse:
+        """
+        Description: 查询产品模块版本号最高的已发布固件包
+        Summary: 查询产品模块版本号最高的已发布固件包
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.query_electrocar_otafirmwarelastest_ex_async(request, headers, runtime)
+
+    def query_electrocar_otafirmwarelastest_ex(
+        self,
+        request: bot_models.QueryElectrocarOtafirmwarelastestRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> bot_models.QueryElectrocarOtafirmwarelastestResponse:
+        """
+        Description: 查询产品模块版本号最高的已发布固件包
+        Summary: 查询产品模块版本号最高的已发布固件包
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            bot_models.QueryElectrocarOtafirmwarelastestResponse(),
+            self.do_request('1.0', 'blockchain.bot.electrocar.otafirmwarelastest.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def query_electrocar_otafirmwarelastest_ex_async(
+        self,
+        request: bot_models.QueryElectrocarOtafirmwarelastestRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> bot_models.QueryElectrocarOtafirmwarelastestResponse:
+        """
+        Description: 查询产品模块版本号最高的已发布固件包
+        Summary: 查询产品模块版本号最高的已发布固件包
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            bot_models.QueryElectrocarOtafirmwarelastestResponse(),
+            await self.do_request_async('1.0', 'blockchain.bot.electrocar.otafirmwarelastest.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
     def query_iotplatform_purchaseorder(
         self,
         request: bot_models.QueryIotplatformPurchaseorderRequest,
@@ -17705,6 +18041,62 @@ class Client:
         return TeaCore.from_map(
             bot_models.EncryptIdsquaredAuthResponse(),
             await self.do_request_async('1.0', 'blockchain.bot.idsquared.auth.encrypt', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def query_trustiot_miniapp(
+        self,
+        request: bot_models.QueryTrustiotMiniappRequest,
+    ) -> bot_models.QueryTrustiotMiniappResponse:
+        """
+        Description: 可信上链小程序跳转链接查询接口
+        Summary: 可信上链小程序跳转链接查询接口
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.query_trustiot_miniapp_ex(request, headers, runtime)
+
+    async def query_trustiot_miniapp_async(
+        self,
+        request: bot_models.QueryTrustiotMiniappRequest,
+    ) -> bot_models.QueryTrustiotMiniappResponse:
+        """
+        Description: 可信上链小程序跳转链接查询接口
+        Summary: 可信上链小程序跳转链接查询接口
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.query_trustiot_miniapp_ex_async(request, headers, runtime)
+
+    def query_trustiot_miniapp_ex(
+        self,
+        request: bot_models.QueryTrustiotMiniappRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> bot_models.QueryTrustiotMiniappResponse:
+        """
+        Description: 可信上链小程序跳转链接查询接口
+        Summary: 可信上链小程序跳转链接查询接口
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            bot_models.QueryTrustiotMiniappResponse(),
+            self.do_request('1.0', 'blockchain.bot.trustiot.miniapp.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def query_trustiot_miniapp_ex_async(
+        self,
+        request: bot_models.QueryTrustiotMiniappRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> bot_models.QueryTrustiotMiniappResponse:
+        """
+        Description: 可信上链小程序跳转链接查询接口
+        Summary: 可信上链小程序跳转链接查询接口
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            bot_models.QueryTrustiotMiniappResponse(),
+            await self.do_request_async('1.0', 'blockchain.bot.trustiot.miniapp.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
     def exec_thingsdid_oneapi(
