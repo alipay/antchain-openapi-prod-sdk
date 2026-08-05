@@ -6,9 +6,9 @@
 
     <!-- 基础信息 -->
     <groupId>com.antgroup.antchain.openapi</groupId>
-    <!-- 注意：变量 openapi-acm 和 1.6.11 需要在命令行或 properties 中定义 -->
+    <!-- 注意：变量 openapi-acm 和 1.6.16 需要在命令行或 properties 中定义 -->
     <artifactId>openapi-acm</artifactId>
-    <version>1.6.11</version>
+    <version>1.6.16</version>
     <packaging>jar</packaging>
 
     <name>openapi-acm</name>

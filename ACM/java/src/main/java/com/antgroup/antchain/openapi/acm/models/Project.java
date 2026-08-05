@@ -57,6 +57,15 @@ public class Project extends TeaModel {
     @Validation(required = true, pattern = "\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}([Z]|([\\.]\\d{1,9})?[\\+]\\d{2}[\\:]?\\d{2})")
     public String gmtModified;
 
+    // 状态(false代表禁用，true代表启用)
+    /**
+     * <strong>example:</strong>
+     * <p>true</p>
+     */
+    @NameInMap("status")
+    @Validation(required = true)
+    public Boolean status;
+
     public static Project build(java.util.Map<String, ?> map) throws Exception {
         Project self = new Project();
         return TeaModel.build(map, self);
@@ -108,6 +117,14 @@ public class Project extends TeaModel {
     }
     public String getGmtModified() {
         return this.gmtModified;
+    }
+
+    public Project setStatus(Boolean status) {
+        this.status = status;
+        return this;
+    }
+    public Boolean getStatus() {
+        return this.status;
     }
 
 }

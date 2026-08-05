@@ -52,6 +52,10 @@ public class UpdateCustomerIdentityRequest extends TeaModel {
     @NameInMap("bussiness_role")
     public String bussinessRole;
 
+    // 国家代码
+    @NameInMap("country_code")
+    public String countryCode;
+
     public static UpdateCustomerIdentityRequest build(java.util.Map<String, ?> map) throws Exception {
         UpdateCustomerIdentityRequest self = new UpdateCustomerIdentityRequest();
         return TeaModel.build(map, self);
@@ -143,6 +147,14 @@ public class UpdateCustomerIdentityRequest extends TeaModel {
     }
     public String getBussinessRole() {
         return this.bussinessRole;
+    }
+
+    public UpdateCustomerIdentityRequest setCountryCode(String countryCode) {
+        this.countryCode = countryCode;
+        return this;
+    }
+    public String getCountryCode() {
+        return this.countryCode;
     }
 
 }

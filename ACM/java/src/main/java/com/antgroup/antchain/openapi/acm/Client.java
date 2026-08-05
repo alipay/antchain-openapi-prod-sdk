@@ -126,7 +126,7 @@ public class Client {
                     new TeaPair("req_msg_id", com.antgroup.antchain.openapi.antchain.util.AntchainUtils.getNonce()),
                     new TeaPair("access_key", _accessKeyId),
                     new TeaPair("base_sdk_version", "TeaSDK-2.0"),
-                    new TeaPair("sdk_version", "1.6.11"),
+                    new TeaPair("sdk_version", "1.6.16"),
                     new TeaPair("_prod_code", "acm"),
                     new TeaPair("_prod_channel", "undefined")
                 );
@@ -207,6 +207,195 @@ public class Client {
     public QueryUserProjectResponse queryUserProjectEx(QueryUserProjectRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
         com.aliyun.teautil.Common.validateModel(request);
         return TeaModel.toModel(this.doRequest("1.0", "antcloud.acm.user.project.query", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new QueryUserProjectResponse());
+    }
+
+    /**
+     * <b>description</b> :
+     * <p>Description: 更新蚂蚁链账号的国家代码
+     * Summary: 更新蚂蚁链账号的国家代码</p>
+     */
+    public UpdateTenantCountryResponse updateTenantCountry(UpdateTenantCountryRequest request) throws Exception {
+        com.aliyun.teautil.models.RuntimeOptions runtime = new com.aliyun.teautil.models.RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.updateTenantCountryEx(request, headers, runtime);
+    }
+
+    /**
+     * <b>description</b> :
+     * <p>Description: 更新蚂蚁链账号的国家代码
+     * Summary: 更新蚂蚁链账号的国家代码</p>
+     */
+    public UpdateTenantCountryResponse updateTenantCountryEx(UpdateTenantCountryRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "antcloud.acm.tenant.country.update", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new UpdateTenantCountryResponse());
+    }
+
+    /**
+     * <b>description</b> :
+     * <p>Description: 查询租户下项目列表
+     * Summary: 查询租户下项目列表</p>
+     */
+    public QueryTenantProjectResponse queryTenantProject(QueryTenantProjectRequest request) throws Exception {
+        com.aliyun.teautil.models.RuntimeOptions runtime = new com.aliyun.teautil.models.RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.queryTenantProjectEx(request, headers, runtime);
+    }
+
+    /**
+     * <b>description</b> :
+     * <p>Description: 查询租户下项目列表
+     * Summary: 查询租户下项目列表</p>
+     */
+    public QueryTenantProjectResponse queryTenantProjectEx(QueryTenantProjectRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "antcloud.acm.tenant.project.query", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new QueryTenantProjectResponse());
+    }
+
+    /**
+     * <b>description</b> :
+     * <p>Description: 创建项目
+     * Summary: 创建项目</p>
+     */
+    public CreateTenantProjectResponse createTenantProject(CreateTenantProjectRequest request) throws Exception {
+        com.aliyun.teautil.models.RuntimeOptions runtime = new com.aliyun.teautil.models.RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.createTenantProjectEx(request, headers, runtime);
+    }
+
+    /**
+     * <b>description</b> :
+     * <p>Description: 创建项目
+     * Summary: 创建项目</p>
+     */
+    public CreateTenantProjectResponse createTenantProjectEx(CreateTenantProjectRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "antcloud.acm.tenant.project.create", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new CreateTenantProjectResponse());
+    }
+
+    /**
+     * <b>description</b> :
+     * <p>Description: 编辑项目
+     * Summary: 编辑项目</p>
+     */
+    public UpdateTenantProjectResponse updateTenantProject(UpdateTenantProjectRequest request) throws Exception {
+        com.aliyun.teautil.models.RuntimeOptions runtime = new com.aliyun.teautil.models.RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.updateTenantProjectEx(request, headers, runtime);
+    }
+
+    /**
+     * <b>description</b> :
+     * <p>Description: 编辑项目
+     * Summary: 编辑项目</p>
+     */
+    public UpdateTenantProjectResponse updateTenantProjectEx(UpdateTenantProjectRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "antcloud.acm.tenant.project.update", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new UpdateTenantProjectResponse());
+    }
+
+    /**
+     * <b>description</b> :
+     * <p>Description: 更新项目状态
+     * Summary: 更新项目状态</p>
+     */
+    public UpdateProjectStatusResponse updateProjectStatus(UpdateProjectStatusRequest request) throws Exception {
+        com.aliyun.teautil.models.RuntimeOptions runtime = new com.aliyun.teautil.models.RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.updateProjectStatusEx(request, headers, runtime);
+    }
+
+    /**
+     * <b>description</b> :
+     * <p>Description: 更新项目状态
+     * Summary: 更新项目状态</p>
+     */
+    public UpdateProjectStatusResponse updateProjectStatusEx(UpdateProjectStatusRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "antcloud.acm.project.status.update", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new UpdateProjectStatusResponse());
+    }
+
+    /**
+     * <b>description</b> :
+     * <p>Description: 分页查询项目成员列表
+     * Summary: 分页查询项目成员列表</p>
+     */
+    public QueryProjectMemberResponse queryProjectMember(QueryProjectMemberRequest request) throws Exception {
+        com.aliyun.teautil.models.RuntimeOptions runtime = new com.aliyun.teautil.models.RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.queryProjectMemberEx(request, headers, runtime);
+    }
+
+    /**
+     * <b>description</b> :
+     * <p>Description: 分页查询项目成员列表
+     * Summary: 分页查询项目成员列表</p>
+     */
+    public QueryProjectMemberResponse queryProjectMemberEx(QueryProjectMemberRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "antcloud.acm.project.member.query", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new QueryProjectMemberResponse());
+    }
+
+    /**
+     * <b>description</b> :
+     * <p>Description: 批量添加项目成员
+     * Summary: 批量添加项目成员</p>
+     */
+    public AddProjectMemberResponse addProjectMember(AddProjectMemberRequest request) throws Exception {
+        com.aliyun.teautil.models.RuntimeOptions runtime = new com.aliyun.teautil.models.RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.addProjectMemberEx(request, headers, runtime);
+    }
+
+    /**
+     * <b>description</b> :
+     * <p>Description: 批量添加项目成员
+     * Summary: 批量添加项目成员</p>
+     */
+    public AddProjectMemberResponse addProjectMemberEx(AddProjectMemberRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "antcloud.acm.project.member.add", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new AddProjectMemberResponse());
+    }
+
+    /**
+     * <b>description</b> :
+     * <p>Description: 移除项目成员
+     * Summary: 移除项目成员</p>
+     */
+    public RemoveProjectMemberResponse removeProjectMember(RemoveProjectMemberRequest request) throws Exception {
+        com.aliyun.teautil.models.RuntimeOptions runtime = new com.aliyun.teautil.models.RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.removeProjectMemberEx(request, headers, runtime);
+    }
+
+    /**
+     * <b>description</b> :
+     * <p>Description: 移除项目成员
+     * Summary: 移除项目成员</p>
+     */
+    public RemoveProjectMemberResponse removeProjectMemberEx(RemoveProjectMemberRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "antcloud.acm.project.member.remove", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new RemoveProjectMemberResponse());
+    }
+
+    /**
+     * <b>description</b> :
+     * <p>Description: 查询尚未加入该项目的用户列表
+     * Summary: 查询尚未加入该项目的用户列表</p>
+     */
+    public QueryProjectUserResponse queryProjectUser(QueryProjectUserRequest request) throws Exception {
+        com.aliyun.teautil.models.RuntimeOptions runtime = new com.aliyun.teautil.models.RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.queryProjectUserEx(request, headers, runtime);
+    }
+
+    /**
+     * <b>description</b> :
+     * <p>Description: 查询尚未加入该项目的用户列表
+     * Summary: 查询尚未加入该项目的用户列表</p>
+     */
+    public QueryProjectUserResponse queryProjectUserEx(QueryProjectUserRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "antcloud.acm.project.user.query", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new QueryProjectUserResponse());
     }
 
     /**
