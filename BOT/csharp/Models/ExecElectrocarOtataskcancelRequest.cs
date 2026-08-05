@@ -43,6 +43,11 @@ namespace AntChain.SDK.BOT.Models
         [Validation(Required=false)]
         public string CancelReason { get; set; }
 
+        // ota升级任务id
+        [NameInMap("task_id")]
+        [Validation(Required=true)]
+        public string TaskId { get; set; }
+
     }
 
 }

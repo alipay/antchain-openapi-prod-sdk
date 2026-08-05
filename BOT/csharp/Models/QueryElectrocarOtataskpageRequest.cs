@@ -40,7 +40,7 @@ namespace AntChain.SDK.BOT.Models
 
         // OTA固件id
         [NameInMap("firmware_id")]
-        [Validation(Required=false)]
+        [Validation(Required=true)]
         public string FirmwareId { get; set; }
 
         // 任务状态：CONFIRM, QUEUED, NOTIFIED, IN_PROGRESS, SUCCEEDED, FAILED, CANCELED

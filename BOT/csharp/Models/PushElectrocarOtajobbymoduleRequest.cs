@@ -94,9 +94,24 @@ namespace AntChain.SDK.BOT.Models
         public string ModuleName { get; set; }
 
         // 用于筛选目标设备的模块版本；不传时仅按模块名称筛选。
-        [NameInMap("version")]
+        [NameInMap("version_no")]
         [Validation(Required=false)]
-        public string Version { get; set; }
+        public string VersionNo { get; set; }
+
+        // 用于筛选源设备版本的结构化谓词，支持 ANY、EXACT 和 RANGE。
+        [NameInMap("version_predicate")]
+        [Validation(Required=true)]
+        public ContinuousOtaVersionPredicate VersionPredicate { get; set; }
+
+        // 自动创建的连续推送规则生效范围：ALL_DEVICES 或 WHITELIST。
+        [NameInMap("device_scope_type")]
+        [Validation(Required=true)]
+        public string DeviceScopeType { get; set; }
+
+        // 规则命中后的延迟执行时间，单位秒，范围 0～600。
+        [NameInMap("delay_in_seconds")]
+        [Validation(Required=true)]
+        public long? DelayInSeconds { get; set; }
 
     }
 

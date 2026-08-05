@@ -40,8 +40,13 @@ namespace AntChain.SDK.BOT.Models
 
         // 模块名称
         [NameInMap("module_name")]
-        [Validation(Required=true)]
+        [Validation(Required=false)]
         public string ModuleName { get; set; }
+
+        // 发布状态：0-未发布，1-已发布；为空时查询全部。
+        [NameInMap("publish_status")]
+        [Validation(Required=false)]
+        public long? PublishStatus { get; set; }
 
     }
 

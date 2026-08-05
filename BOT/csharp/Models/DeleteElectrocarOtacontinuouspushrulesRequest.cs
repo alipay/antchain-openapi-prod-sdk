@@ -8,7 +8,7 @@ using Tea;
 
 namespace AntChain.SDK.BOT.Models
 {
-    public class QueryElectrocarOtafirmwaredetailRequest : TeaModel {
+    public class DeleteElectrocarOtacontinuouspushrulesRequest : TeaModel {
         // OAuth模式下的授权token
         [NameInMap("auth_token")]
         [Validation(Required=false)]
@@ -18,15 +18,25 @@ namespace AntChain.SDK.BOT.Models
         [Validation(Required=false)]
         public string ProductInstanceId { get; set; }
 
-        // 固件包id
-        [NameInMap("firmware_id")]
+        // 租户id
+        [NameInMap("tenant_id")]
         [Validation(Required=true)]
-        public string FirmwareId { get; set; }
+        public string TenantId { get; set; }
 
-        // 可信物联唯一产品标识
+        // 规则所属产品可信标识
         [NameInMap("trust_product_key")]
         [Validation(Required=true)]
         public string TrustProductKey { get; set; }
+
+        // 待删除规则 ID
+        [NameInMap("rule_id")]
+        [Validation(Required=true)]
+        public long? RuleId { get; set; }
+
+        // 规则当前乐观锁版本
+        [NameInMap("expected_lock_version")]
+        [Validation(Required=true)]
+        public long? ExpectedLockVersion { get; set; }
 
     }
 

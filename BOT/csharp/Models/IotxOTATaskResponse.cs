@@ -138,6 +138,24 @@ namespace AntChain.SDK.BOT.Models
         [Validation(Required=false, Pattern="\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}([Z]|([\\.]\\d{1,9})?[\\+]\\d{2}[\\:]?\\d{2})")]
         public string UtcModified { get; set; }
 
+        // 任务当前有效状态；历史任务统一为已失效；
+        /// <summary>
+        /// <b>Example:</b>
+        /// <para>PERMANENT_CANCELED</para>
+        /// </summary>
+        [NameInMap("effective_status")]
+        [Validation(Required=false)]
+        public string EffectiveStatus { get; set; }
+
+        // 与任务当前有效状态对应的展示描述；历史成功任务不返回描述。
+        /// <summary>
+        /// <b>Example:</b>
+        /// <para>与任务当前有效状态对应的展示描述；历史成功任务不返回描述。</para>
+        /// </summary>
+        [NameInMap("effective_task_desc")]
+        [Validation(Required=false)]
+        public string EffectiveTaskDesc { get; set; }
+
     }
 
 }
