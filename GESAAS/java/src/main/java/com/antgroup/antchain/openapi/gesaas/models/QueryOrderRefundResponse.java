@@ -36,11 +36,6 @@ public class QueryOrderRefundResponse extends TeaModel {
     @NameInMap("refund_amount")
     public Long refundAmount;
 
-    // 本次退款申请的实际退款金额，单位：分
-    // 条件返回：refundStatus=SUCCESS 返回
-    @NameInMap("send_back_amount")
-    public Long sendBackAmount;
-
     // 退款退分账失败原因，条件返回：refundStatus=FAILED 返回
     @NameInMap("refund_failed_reason")
     public String refundFailedReason;
@@ -114,14 +109,6 @@ public class QueryOrderRefundResponse extends TeaModel {
     }
     public Long getRefundAmount() {
         return this.refundAmount;
-    }
-
-    public QueryOrderRefundResponse setSendBackAmount(Long sendBackAmount) {
-        this.sendBackAmount = sendBackAmount;
-        return this;
-    }
-    public Long getSendBackAmount() {
-        return this.sendBackAmount;
     }
 
     public QueryOrderRefundResponse setRefundFailedReason(String refundFailedReason) {
