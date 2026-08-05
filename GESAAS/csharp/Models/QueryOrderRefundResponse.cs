@@ -48,12 +48,6 @@ namespace AntChain.SDK.GESAAS.Models
         [Validation(Required=false)]
         public long? RefundAmount { get; set; }
 
-        // 本次退款申请的实际退款金额，单位：分
-        // 条件返回：refundStatus=SUCCESS 返回
-        [NameInMap("send_back_amount")]
-        [Validation(Required=false)]
-        public long? SendBackAmount { get; set; }
-
         // 退款退分账失败原因，条件返回：refundStatus=FAILED 返回
         [NameInMap("refund_failed_reason")]
         [Validation(Required=false)]
