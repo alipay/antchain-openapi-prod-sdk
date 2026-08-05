@@ -1593,9 +1593,6 @@ type QueryOrderRefundResponse struct {
 	RefundStatus *string `json:"refund_status,omitempty" xml:"refund_status,omitempty"`
 	// 退款退分账申请金额
 	RefundAmount *int64 `json:"refund_amount,omitempty" xml:"refund_amount,omitempty"`
-	// 本次退款申请的实际退款金额，单位：分
-	// 条件返回：refundStatus=SUCCESS 返回
-	SendBackAmount *int64 `json:"send_back_amount,omitempty" xml:"send_back_amount,omitempty"`
 	// 退款退分账失败原因，条件返回：refundStatus=FAILED 返回
 	RefundFailedReason *string `json:"refund_failed_reason,omitempty" xml:"refund_failed_reason,omitempty"`
 	// 退款退分账时间，格式为yyyy-MM-dd HH:mm:ss
@@ -1646,11 +1643,6 @@ func (s *QueryOrderRefundResponse) SetRefundStatus(v string) *QueryOrderRefundRe
 
 func (s *QueryOrderRefundResponse) SetRefundAmount(v int64) *QueryOrderRefundResponse {
 	s.RefundAmount = &v
-	return s
-}
-
-func (s *QueryOrderRefundResponse) SetSendBackAmount(v int64) *QueryOrderRefundResponse {
-	s.SendBackAmount = &v
 	return s
 }
 
@@ -2625,7 +2617,7 @@ func (client *Client) DoRequest(version *string, action *string, protocol *strin
 				"req_msg_id":       antchainutil.GetNonce(),
 				"access_key":       client.AccessKeyId,
 				"base_sdk_version": tea.String("TeaSDK-2.0"),
-				"sdk_version":      tea.String("1.3.15"),
+				"sdk_version":      tea.String("1.3.16"),
 				"_prod_code":       tea.String("GESAAS"),
 				"_prod_channel":    tea.String("default"),
 			}
