@@ -49,9 +49,9 @@ namespace AntChain.SDK.BOT.Models
         public string ModuleName { get; set; }
 
         // OTA模块版本号（可选，配合moduleName使用）
-        [NameInMap("version")]
+        [NameInMap("version_no")]
         [Validation(Required=false)]
-        public string Version { get; set; }
+        public string VersionNo { get; set; }
 
     }
 

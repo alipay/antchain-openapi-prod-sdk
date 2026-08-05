@@ -29,9 +29,9 @@ namespace AntChain.SDK.BOT.Models
         public ModuleLocator ModuleLocator { get; set; }
 
         // 当前模块版本号
-        [NameInMap("version")]
+        [NameInMap("version_no")]
         [Validation(Required=true)]
-        public string Version { get; set; }
+        public string VersionNo { get; set; }
 
     }
 

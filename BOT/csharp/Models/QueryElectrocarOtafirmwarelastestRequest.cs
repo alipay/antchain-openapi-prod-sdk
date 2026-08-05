@@ -8,7 +8,7 @@ using Tea;
 
 namespace AntChain.SDK.BOT.Models
 {
-    public class QueryElectrocarOtafirmwaredetailRequest : TeaModel {
+    public class QueryElectrocarOtafirmwarelastestRequest : TeaModel {
         // OAuth模式下的授权token
         [NameInMap("auth_token")]
         [Validation(Required=false)]
@@ -18,15 +18,15 @@ namespace AntChain.SDK.BOT.Models
         [Validation(Required=false)]
         public string ProductInstanceId { get; set; }
 
-        // 固件包id
-        [NameInMap("firmware_id")]
-        [Validation(Required=true)]
-        public string FirmwareId { get; set; }
-
-        // 可信物联唯一产品标识
+        // 可信产品唯一标识
         [NameInMap("trust_product_key")]
         [Validation(Required=true)]
         public string TrustProductKey { get; set; }
+
+        // OTA 模块名称
+        [NameInMap("module_name")]
+        [Validation(Required=true)]
+        public string ModuleName { get; set; }
 
     }
 
