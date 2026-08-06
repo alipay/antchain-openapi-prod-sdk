@@ -1305,6 +1305,8 @@ class QueryRightsprodVoucherResponse(TeaModel):
         face_amount: str = None,
         available_amount: str = None,
         status: str = None,
+        expire_time: str = None,
+        effect_time: str = None,
     ):
         # 请求唯一ID，用于链路跟踪和问题排查
         self.req_msg_id = req_msg_id
@@ -1332,6 +1334,10 @@ class QueryRightsprodVoucherResponse(TeaModel):
         self.available_amount = available_amount
         # 权益实例状态
         self.status = status
+        # 过期时间
+        self.expire_time = expire_time
+        # 生效时间
+        self.effect_time = effect_time
 
     def validate(self):
         pass
@@ -1368,6 +1374,10 @@ class QueryRightsprodVoucherResponse(TeaModel):
             result['available_amount'] = self.available_amount
         if self.status is not None:
             result['status'] = self.status
+        if self.expire_time is not None:
+            result['expire_time'] = self.expire_time
+        if self.effect_time is not None:
+            result['effect_time'] = self.effect_time
         return result
 
     def from_map(self, m: dict = None):
@@ -1398,6 +1408,10 @@ class QueryRightsprodVoucherResponse(TeaModel):
             self.available_amount = m.get('available_amount')
         if m.get('status') is not None:
             self.status = m.get('status')
+        if m.get('expire_time') is not None:
+            self.expire_time = m.get('expire_time')
+        if m.get('effect_time') is not None:
+            self.effect_time = m.get('effect_time')
         return self
 
 
