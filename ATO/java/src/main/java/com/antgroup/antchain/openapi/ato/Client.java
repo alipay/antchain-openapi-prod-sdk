@@ -126,7 +126,7 @@ public class Client {
                     new TeaPair("req_msg_id", com.antgroup.antchain.openapi.antchain.util.AntchainUtils.getNonce()),
                     new TeaPair("access_key", _accessKeyId),
                     new TeaPair("base_sdk_version", "TeaSDK-2.0"),
-                    new TeaPair("sdk_version", "1.19.86"),
+                    new TeaPair("sdk_version", "1.19.89"),
                     new TeaPair("_prod_code", "ATO"),
                     new TeaPair("_prod_channel", "undefined")
                 );
@@ -555,6 +555,195 @@ public class Client {
     public SumbitInnerMermngcontractextractResponse sumbitInnerMermngcontractextractEx(SumbitInnerMermngcontractextractRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
         com.aliyun.teautil.Common.validateModel(request);
         return TeaModel.toModel(this.doRequest("1.0", "antchain.ato.inner.mermngcontractextract.sumbit", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new SumbitInnerMermngcontractextractResponse());
+    }
+
+    /**
+     * <b>description</b> :
+     * <p>Description: 提交合同审核
+     * Summary: 提交合同审核</p>
+     */
+    public SumbitInnerMermngcontractauditResponse sumbitInnerMermngcontractaudit(SumbitInnerMermngcontractauditRequest request) throws Exception {
+        com.aliyun.teautil.models.RuntimeOptions runtime = new com.aliyun.teautil.models.RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.sumbitInnerMermngcontractauditEx(request, headers, runtime);
+    }
+
+    /**
+     * <b>description</b> :
+     * <p>Description: 提交合同审核
+     * Summary: 提交合同审核</p>
+     */
+    public SumbitInnerMermngcontractauditResponse sumbitInnerMermngcontractauditEx(SumbitInnerMermngcontractauditRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "antchain.ato.inner.mermngcontractaudit.sumbit", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new SumbitInnerMermngcontractauditResponse());
+    }
+
+    /**
+     * <b>description</b> :
+     * <p>Description: 合同审核查询
+     * Summary: 合同审核查询</p>
+     */
+    public QueryInnerMermngcontractauditResponse queryInnerMermngcontractaudit(QueryInnerMermngcontractauditRequest request) throws Exception {
+        com.aliyun.teautil.models.RuntimeOptions runtime = new com.aliyun.teautil.models.RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.queryInnerMermngcontractauditEx(request, headers, runtime);
+    }
+
+    /**
+     * <b>description</b> :
+     * <p>Description: 合同审核查询
+     * Summary: 合同审核查询</p>
+     */
+    public QueryInnerMermngcontractauditResponse queryInnerMermngcontractauditEx(QueryInnerMermngcontractauditRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "antchain.ato.inner.mermngcontractaudit.query", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new QueryInnerMermngcontractauditResponse());
+    }
+
+    /**
+     * <b>description</b> :
+     * <p>Description: 审核完结
+     * Summary: 审核完结</p>
+     */
+    public FinishInnerMermngcontractauditResponse finishInnerMermngcontractaudit(FinishInnerMermngcontractauditRequest request) throws Exception {
+        com.aliyun.teautil.models.RuntimeOptions runtime = new com.aliyun.teautil.models.RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.finishInnerMermngcontractauditEx(request, headers, runtime);
+    }
+
+    /**
+     * <b>description</b> :
+     * <p>Description: 审核完结
+     * Summary: 审核完结</p>
+     */
+    public FinishInnerMermngcontractauditResponse finishInnerMermngcontractauditEx(FinishInnerMermngcontractauditRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "antchain.ato.inner.mermngcontractaudit.finish", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new FinishInnerMermngcontractauditResponse());
+    }
+
+    /**
+     * <b>description</b> :
+     * <p>Description: 审核详情编辑
+     * Summary: 审核详情编辑</p>
+     */
+    public EditInnerMermngcontractauditdetailResponse editInnerMermngcontractauditdetail(EditInnerMermngcontractauditdetailRequest request) throws Exception {
+        com.aliyun.teautil.models.RuntimeOptions runtime = new com.aliyun.teautil.models.RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.editInnerMermngcontractauditdetailEx(request, headers, runtime);
+    }
+
+    /**
+     * <b>description</b> :
+     * <p>Description: 审核详情编辑
+     * Summary: 审核详情编辑</p>
+     */
+    public EditInnerMermngcontractauditdetailResponse editInnerMermngcontractauditdetailEx(EditInnerMermngcontractauditdetailRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "antchain.ato.inner.mermngcontractauditdetail.edit", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new EditInnerMermngcontractauditdetailResponse());
+    }
+
+    /**
+     * <b>description</b> :
+     * <p>Description: 审核反馈
+     * Summary: 审核反馈</p>
+     */
+    public FeedbackInnerMermngcontractauditResponse feedbackInnerMermngcontractaudit(FeedbackInnerMermngcontractauditRequest request) throws Exception {
+        com.aliyun.teautil.models.RuntimeOptions runtime = new com.aliyun.teautil.models.RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.feedbackInnerMermngcontractauditEx(request, headers, runtime);
+    }
+
+    /**
+     * <b>description</b> :
+     * <p>Description: 审核反馈
+     * Summary: 审核反馈</p>
+     */
+    public FeedbackInnerMermngcontractauditResponse feedbackInnerMermngcontractauditEx(FeedbackInnerMermngcontractauditRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "antchain.ato.inner.mermngcontractaudit.feedback", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new FeedbackInnerMermngcontractauditResponse());
+    }
+
+    /**
+     * <b>description</b> :
+     * <p>Description: 审核反馈查询
+     * Summary: 审核反馈查询</p>
+     */
+    public QueryInnerMermngcontractfeedbackResponse queryInnerMermngcontractfeedback(QueryInnerMermngcontractfeedbackRequest request) throws Exception {
+        com.aliyun.teautil.models.RuntimeOptions runtime = new com.aliyun.teautil.models.RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.queryInnerMermngcontractfeedbackEx(request, headers, runtime);
+    }
+
+    /**
+     * <b>description</b> :
+     * <p>Description: 审核反馈查询
+     * Summary: 审核反馈查询</p>
+     */
+    public QueryInnerMermngcontractfeedbackResponse queryInnerMermngcontractfeedbackEx(QueryInnerMermngcontractfeedbackRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "antchain.ato.inner.mermngcontractfeedback.query", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new QueryInnerMermngcontractfeedbackResponse());
+    }
+
+    /**
+     * <b>description</b> :
+     * <p>Description: 提交漏审信息
+     * Summary: 提交漏审信息</p>
+     */
+    public FeedbackInnerMermngcontractauditincompleteResponse feedbackInnerMermngcontractauditincomplete(FeedbackInnerMermngcontractauditincompleteRequest request) throws Exception {
+        com.aliyun.teautil.models.RuntimeOptions runtime = new com.aliyun.teautil.models.RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.feedbackInnerMermngcontractauditincompleteEx(request, headers, runtime);
+    }
+
+    /**
+     * <b>description</b> :
+     * <p>Description: 提交漏审信息
+     * Summary: 提交漏审信息</p>
+     */
+    public FeedbackInnerMermngcontractauditincompleteResponse feedbackInnerMermngcontractauditincompleteEx(FeedbackInnerMermngcontractauditincompleteRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "antchain.ato.inner.mermngcontractauditincomplete.feedback", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new FeedbackInnerMermngcontractauditincompleteResponse());
+    }
+
+    /**
+     * <b>description</b> :
+     * <p>Description: 生成weboffice编辑token
+     * Summary: 生成weboffice编辑token</p>
+     */
+    public QueryInnerMermngcontractwebofficetokenResponse queryInnerMermngcontractwebofficetoken(QueryInnerMermngcontractwebofficetokenRequest request) throws Exception {
+        com.aliyun.teautil.models.RuntimeOptions runtime = new com.aliyun.teautil.models.RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.queryInnerMermngcontractwebofficetokenEx(request, headers, runtime);
+    }
+
+    /**
+     * <b>description</b> :
+     * <p>Description: 生成weboffice编辑token
+     * Summary: 生成weboffice编辑token</p>
+     */
+    public QueryInnerMermngcontractwebofficetokenResponse queryInnerMermngcontractwebofficetokenEx(QueryInnerMermngcontractwebofficetokenRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "antchain.ato.inner.mermngcontractwebofficetoken.query", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new QueryInnerMermngcontractwebofficetokenResponse());
+    }
+
+    /**
+     * <b>description</b> :
+     * <p>Description: 刷新编辑token
+     * Summary: 刷新编辑token</p>
+     */
+    public ResetInnerMermngcontractwebofficetokenResponse resetInnerMermngcontractwebofficetoken(ResetInnerMermngcontractwebofficetokenRequest request) throws Exception {
+        com.aliyun.teautil.models.RuntimeOptions runtime = new com.aliyun.teautil.models.RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.resetInnerMermngcontractwebofficetokenEx(request, headers, runtime);
+    }
+
+    /**
+     * <b>description</b> :
+     * <p>Description: 刷新编辑token
+     * Summary: 刷新编辑token</p>
+     */
+    public ResetInnerMermngcontractwebofficetokenResponse resetInnerMermngcontractwebofficetokenEx(ResetInnerMermngcontractwebofficetokenRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "antchain.ato.inner.mermngcontractwebofficetoken.reset", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new ResetInnerMermngcontractwebofficetokenResponse());
     }
 
     /**
