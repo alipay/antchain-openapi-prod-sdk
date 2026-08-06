@@ -6385,8 +6385,8 @@ public class Client {
 
     /**
      * <b>description</b> :
-     * <p>Description: 门户性能测试
-     * Summary: 门户性能测试</p>
+     * <p>Description: 门户性能测试1
+     * Summary: 门户性能测试1</p>
      */
     public QueryPreformanceLjbjmkResponse queryPreformanceLjbjmk(QueryPreformanceLjbjmkRequest request) throws Exception {
         com.aliyun.teautil.models.RuntimeOptions runtime = new com.aliyun.teautil.models.RuntimeOptions();
@@ -6396,8 +6396,8 @@ public class Client {
 
     /**
      * <b>description</b> :
-     * <p>Description: 门户性能测试
-     * Summary: 门户性能测试</p>
+     * <p>Description: 门户性能测试1
+     * Summary: 门户性能测试1</p>
      */
     public QueryPreformanceLjbjmkResponse queryPreformanceLjbjmkEx(QueryPreformanceLjbjmkRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
         com.aliyun.teautil.Common.validateModel(request);
@@ -6549,5 +6549,26 @@ public class Client {
     public ApiCreateHttpResponse apiCreateHttpEx(ApiCreateHttpRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
         com.aliyun.teautil.Common.validateModel(request);
         return TeaModel.toModel(this.doRequest("1.0", "antdigital.jzqproducta.create.http.api", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new ApiCreateHttpResponse());
+    }
+
+    /**
+     * <b>description</b> :
+     * <p>Description: 测试使用创建
+     * Summary: 测试使用创建</p>
+     */
+    public CreatePreTestResponse createPreTest(CreatePreTestRequest request) throws Exception {
+        com.aliyun.teautil.models.RuntimeOptions runtime = new com.aliyun.teautil.models.RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.createPreTestEx(request, headers, runtime);
+    }
+
+    /**
+     * <b>description</b> :
+     * <p>Description: 测试使用创建
+     * Summary: 测试使用创建</p>
+     */
+    public CreatePreTestResponse createPreTestEx(CreatePreTestRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "antdigital.jzqproducta.pre.test.create", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new CreatePreTestResponse());
     }
 }

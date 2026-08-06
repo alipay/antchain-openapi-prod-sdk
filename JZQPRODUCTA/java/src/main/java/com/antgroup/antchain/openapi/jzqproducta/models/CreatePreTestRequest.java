@@ -3,7 +3,7 @@ package com.antgroup.antchain.openapi.jzqproducta.models;
 
 import com.aliyun.tea.*;
 
-public class QueryPreformanceWtxvtjRequest extends TeaModel {
+public class CreatePreTestRequest extends TeaModel {
     // OAuth模式下的授权token
     @NameInMap("auth_token")
     public String authToken;
@@ -16,12 +16,12 @@ public class QueryPreformanceWtxvtjRequest extends TeaModel {
     @Validation(required = true)
     public String timeout;
 
-    public static QueryPreformanceWtxvtjRequest build(java.util.Map<String, ?> map) throws Exception {
-        QueryPreformanceWtxvtjRequest self = new QueryPreformanceWtxvtjRequest();
+    public static CreatePreTestRequest build(java.util.Map<String, ?> map) throws Exception {
+        CreatePreTestRequest self = new CreatePreTestRequest();
         return TeaModel.build(map, self);
     }
 
-    public QueryPreformanceWtxvtjRequest setAuthToken(String authToken) {
+    public CreatePreTestRequest setAuthToken(String authToken) {
         this.authToken = authToken;
         return this;
     }
@@ -29,7 +29,7 @@ public class QueryPreformanceWtxvtjRequest extends TeaModel {
         return this.authToken;
     }
 
-    public QueryPreformanceWtxvtjRequest setProductInstanceId(String productInstanceId) {
+    public CreatePreTestRequest setProductInstanceId(String productInstanceId) {
         this.productInstanceId = productInstanceId;
         return this;
     }
@@ -37,7 +37,7 @@ public class QueryPreformanceWtxvtjRequest extends TeaModel {
         return this.productInstanceId;
     }
 
-    public QueryPreformanceWtxvtjRequest setTimeout(String timeout) {
+    public CreatePreTestRequest setTimeout(String timeout) {
         this.timeout = timeout;
         return this;
     }
