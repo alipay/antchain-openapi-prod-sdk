@@ -1,13 +1,75 @@
 <?php
 
 // This file is auto-generated, don't edit it. Thanks.
-
 namespace AntChain\TWC\Models;
 
 use AlibabaCloud\Tea\Model;
 
-class InitCertificationResponse extends Model
-{
+class InitCertificationResponse extends Model {
+    protected $_name = [
+        'reqMsgId' => 'req_msg_id',
+        'resultCode' => 'result_code',
+        'resultMsg' => 'result_msg',
+        'code' => 'code',
+        'message' => 'message',
+        'orderId' => 'order_id',
+        'payContent' => 'pay_content',
+    ];
+    public function validate() {}
+    public function toMap() {
+        $res = [];
+        if (null !== $this->reqMsgId) {
+            $res['req_msg_id'] = $this->reqMsgId;
+        }
+        if (null !== $this->resultCode) {
+            $res['result_code'] = $this->resultCode;
+        }
+        if (null !== $this->resultMsg) {
+            $res['result_msg'] = $this->resultMsg;
+        }
+        if (null !== $this->code) {
+            $res['code'] = $this->code;
+        }
+        if (null !== $this->message) {
+            $res['message'] = $this->message;
+        }
+        if (null !== $this->orderId) {
+            $res['order_id'] = $this->orderId;
+        }
+        if (null !== $this->payContent) {
+            $res['pay_content'] = $this->payContent;
+        }
+        return $res;
+    }
+    /**
+     * @param array $map
+     * @return InitCertificationResponse
+     */
+    public static function fromMap($map = []) {
+        $model = new self();
+        if(isset($map['req_msg_id'])){
+            $model->reqMsgId = $map['req_msg_id'];
+        }
+        if(isset($map['result_code'])){
+            $model->resultCode = $map['result_code'];
+        }
+        if(isset($map['result_msg'])){
+            $model->resultMsg = $map['result_msg'];
+        }
+        if(isset($map['code'])){
+            $model->code = $map['code'];
+        }
+        if(isset($map['message'])){
+            $model->message = $map['message'];
+        }
+        if(isset($map['order_id'])){
+            $model->orderId = $map['order_id'];
+        }
+        if(isset($map['pay_content'])){
+            $model->payContent = $map['pay_content'];
+        }
+        return $model;
+    }
     // 请求唯一ID，用于链路跟踪和问题排查
     /**
      * @var string
@@ -49,78 +111,5 @@ class InitCertificationResponse extends Model
      * @var string
      */
     public $payContent;
-    protected $_name = [
-        'reqMsgId'   => 'req_msg_id',
-        'resultCode' => 'result_code',
-        'resultMsg'  => 'result_msg',
-        'code'       => 'code',
-        'message'    => 'message',
-        'orderId'    => 'order_id',
-        'payContent' => 'pay_content',
-    ];
 
-    public function validate()
-    {
-    }
-
-    public function toMap()
-    {
-        $res = [];
-        if (null !== $this->reqMsgId) {
-            $res['req_msg_id'] = $this->reqMsgId;
-        }
-        if (null !== $this->resultCode) {
-            $res['result_code'] = $this->resultCode;
-        }
-        if (null !== $this->resultMsg) {
-            $res['result_msg'] = $this->resultMsg;
-        }
-        if (null !== $this->code) {
-            $res['code'] = $this->code;
-        }
-        if (null !== $this->message) {
-            $res['message'] = $this->message;
-        }
-        if (null !== $this->orderId) {
-            $res['order_id'] = $this->orderId;
-        }
-        if (null !== $this->payContent) {
-            $res['pay_content'] = $this->payContent;
-        }
-
-        return $res;
-    }
-
-    /**
-     * @param array $map
-     *
-     * @return InitCertificationResponse
-     */
-    public static function fromMap($map = [])
-    {
-        $model = new self();
-        if (isset($map['req_msg_id'])) {
-            $model->reqMsgId = $map['req_msg_id'];
-        }
-        if (isset($map['result_code'])) {
-            $model->resultCode = $map['result_code'];
-        }
-        if (isset($map['result_msg'])) {
-            $model->resultMsg = $map['result_msg'];
-        }
-        if (isset($map['code'])) {
-            $model->code = $map['code'];
-        }
-        if (isset($map['message'])) {
-            $model->message = $map['message'];
-        }
-        if (isset($map['order_id'])) {
-            $model->orderId = $map['order_id'];
-        }
-        if (isset($map['pay_content'])) {
-            $model->payContent = $map['pay_content'];
-        }
-
-        return $model;
-    }
 }

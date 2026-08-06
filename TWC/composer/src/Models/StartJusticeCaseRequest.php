@@ -1,13 +1,111 @@
 <?php
 
 // This file is auto-generated, don't edit it. Thanks.
-
 namespace AntChain\TWC\Models;
 
 use AlibabaCloud\Tea\Model;
 
-class StartJusticeCaseRequest extends Model
-{
+use AntChain\TWC\Models\JudicialMediationBaseParamInfo;
+use AntChain\TWC\Models\ContactInfo;
+use AntChain\TWC\Models\BankAccountInfo;
+
+class StartJusticeCaseRequest extends Model {
+    protected $_name = [
+        'authToken' => 'auth_token',
+        'productInstanceId' => 'product_instance_id',
+        'caseId' => 'case_id',
+        'isvTenantId' => 'isv_tenant_id',
+        'judicialBizType' => 'judicial_biz_type',
+        'judicialMediationParam' => 'judicial_mediation_param',
+        'contactInfo' => 'contact_info',
+        'bankAccountInfo' => 'bank_account_info',
+        'signMethod' => 'sign_method',
+        'courtCode' => 'court_code',
+        'amount' => 'amount',
+    ];
+    public function validate() {
+        Model::validateRequired('caseId', $this->caseId, true);
+        Model::validateRequired('isvTenantId', $this->isvTenantId, true);
+        Model::validateRequired('judicialBizType', $this->judicialBizType, true);
+    }
+    public function toMap() {
+        $res = [];
+        if (null !== $this->authToken) {
+            $res['auth_token'] = $this->authToken;
+        }
+        if (null !== $this->productInstanceId) {
+            $res['product_instance_id'] = $this->productInstanceId;
+        }
+        if (null !== $this->caseId) {
+            $res['case_id'] = $this->caseId;
+        }
+        if (null !== $this->isvTenantId) {
+            $res['isv_tenant_id'] = $this->isvTenantId;
+        }
+        if (null !== $this->judicialBizType) {
+            $res['judicial_biz_type'] = $this->judicialBizType;
+        }
+        if (null !== $this->judicialMediationParam) {
+            $res['judicial_mediation_param'] = null !== $this->judicialMediationParam ? $this->judicialMediationParam->toMap() : null;
+        }
+        if (null !== $this->contactInfo) {
+            $res['contact_info'] = null !== $this->contactInfo ? $this->contactInfo->toMap() : null;
+        }
+        if (null !== $this->bankAccountInfo) {
+            $res['bank_account_info'] = null !== $this->bankAccountInfo ? $this->bankAccountInfo->toMap() : null;
+        }
+        if (null !== $this->signMethod) {
+            $res['sign_method'] = $this->signMethod;
+        }
+        if (null !== $this->courtCode) {
+            $res['court_code'] = $this->courtCode;
+        }
+        if (null !== $this->amount) {
+            $res['amount'] = $this->amount;
+        }
+        return $res;
+    }
+    /**
+     * @param array $map
+     * @return StartJusticeCaseRequest
+     */
+    public static function fromMap($map = []) {
+        $model = new self();
+        if(isset($map['auth_token'])){
+            $model->authToken = $map['auth_token'];
+        }
+        if(isset($map['product_instance_id'])){
+            $model->productInstanceId = $map['product_instance_id'];
+        }
+        if(isset($map['case_id'])){
+            $model->caseId = $map['case_id'];
+        }
+        if(isset($map['isv_tenant_id'])){
+            $model->isvTenantId = $map['isv_tenant_id'];
+        }
+        if(isset($map['judicial_biz_type'])){
+            $model->judicialBizType = $map['judicial_biz_type'];
+        }
+        if(isset($map['judicial_mediation_param'])){
+            $model->judicialMediationParam = JudicialMediationBaseParamInfo::fromMap($map['judicial_mediation_param']);
+        }
+        if(isset($map['contact_info'])){
+            $model->contactInfo = ContactInfo::fromMap($map['contact_info']);
+        }
+        if(isset($map['bank_account_info'])){
+            $model->bankAccountInfo = BankAccountInfo::fromMap($map['bank_account_info']);
+        }
+        if(isset($map['sign_method'])){
+            $model->signMethod = $map['sign_method'];
+        }
+        if(isset($map['court_code'])){
+            $model->courtCode = $map['court_code'];
+        }
+        if(isset($map['amount'])){
+            $model->amount = $map['amount'];
+        }
+        return $model;
+    }
     // OAuth模式下的授权token
     /**
      * @var string
@@ -73,109 +171,5 @@ class StartJusticeCaseRequest extends Model
      * @var string
      */
     public $amount;
-    protected $_name = [
-        'authToken'              => 'auth_token',
-        'productInstanceId'      => 'product_instance_id',
-        'caseId'                 => 'case_id',
-        'isvTenantId'            => 'isv_tenant_id',
-        'judicialBizType'        => 'judicial_biz_type',
-        'judicialMediationParam' => 'judicial_mediation_param',
-        'contactInfo'            => 'contact_info',
-        'bankAccountInfo'        => 'bank_account_info',
-        'signMethod'             => 'sign_method',
-        'courtCode'              => 'court_code',
-        'amount'                 => 'amount',
-    ];
 
-    public function validate()
-    {
-        Model::validateRequired('caseId', $this->caseId, true);
-        Model::validateRequired('isvTenantId', $this->isvTenantId, true);
-        Model::validateRequired('judicialBizType', $this->judicialBizType, true);
-    }
-
-    public function toMap()
-    {
-        $res = [];
-        if (null !== $this->authToken) {
-            $res['auth_token'] = $this->authToken;
-        }
-        if (null !== $this->productInstanceId) {
-            $res['product_instance_id'] = $this->productInstanceId;
-        }
-        if (null !== $this->caseId) {
-            $res['case_id'] = $this->caseId;
-        }
-        if (null !== $this->isvTenantId) {
-            $res['isv_tenant_id'] = $this->isvTenantId;
-        }
-        if (null !== $this->judicialBizType) {
-            $res['judicial_biz_type'] = $this->judicialBizType;
-        }
-        if (null !== $this->judicialMediationParam) {
-            $res['judicial_mediation_param'] = null !== $this->judicialMediationParam ? $this->judicialMediationParam->toMap() : null;
-        }
-        if (null !== $this->contactInfo) {
-            $res['contact_info'] = null !== $this->contactInfo ? $this->contactInfo->toMap() : null;
-        }
-        if (null !== $this->bankAccountInfo) {
-            $res['bank_account_info'] = null !== $this->bankAccountInfo ? $this->bankAccountInfo->toMap() : null;
-        }
-        if (null !== $this->signMethod) {
-            $res['sign_method'] = $this->signMethod;
-        }
-        if (null !== $this->courtCode) {
-            $res['court_code'] = $this->courtCode;
-        }
-        if (null !== $this->amount) {
-            $res['amount'] = $this->amount;
-        }
-
-        return $res;
-    }
-
-    /**
-     * @param array $map
-     *
-     * @return StartJusticeCaseRequest
-     */
-    public static function fromMap($map = [])
-    {
-        $model = new self();
-        if (isset($map['auth_token'])) {
-            $model->authToken = $map['auth_token'];
-        }
-        if (isset($map['product_instance_id'])) {
-            $model->productInstanceId = $map['product_instance_id'];
-        }
-        if (isset($map['case_id'])) {
-            $model->caseId = $map['case_id'];
-        }
-        if (isset($map['isv_tenant_id'])) {
-            $model->isvTenantId = $map['isv_tenant_id'];
-        }
-        if (isset($map['judicial_biz_type'])) {
-            $model->judicialBizType = $map['judicial_biz_type'];
-        }
-        if (isset($map['judicial_mediation_param'])) {
-            $model->judicialMediationParam = JudicialMediationBaseParamInfo::fromMap($map['judicial_mediation_param']);
-        }
-        if (isset($map['contact_info'])) {
-            $model->contactInfo = ContactInfo::fromMap($map['contact_info']);
-        }
-        if (isset($map['bank_account_info'])) {
-            $model->bankAccountInfo = BankAccountInfo::fromMap($map['bank_account_info']);
-        }
-        if (isset($map['sign_method'])) {
-            $model->signMethod = $map['sign_method'];
-        }
-        if (isset($map['court_code'])) {
-            $model->courtCode = $map['court_code'];
-        }
-        if (isset($map['amount'])) {
-            $model->amount = $map['amount'];
-        }
-
-        return $model;
-    }
 }

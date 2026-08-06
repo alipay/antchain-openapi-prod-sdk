@@ -1,13 +1,68 @@
 <?php
 
 // This file is auto-generated, don't edit it. Thanks.
-
 namespace AntChain\TWC\Models;
 
 use AlibabaCloud\Tea\Model;
 
-class QueryBclMerchantResponse extends Model
-{
+class QueryBclMerchantResponse extends Model {
+    protected $_name = [
+        'reqMsgId' => 'req_msg_id',
+        'resultCode' => 'result_code',
+        'resultMsg' => 'result_msg',
+        'status' => 'status',
+        'needProxyWithholding' => 'need_proxy_withholding',
+        'reason' => 'reason',
+    ];
+    public function validate() {}
+    public function toMap() {
+        $res = [];
+        if (null !== $this->reqMsgId) {
+            $res['req_msg_id'] = $this->reqMsgId;
+        }
+        if (null !== $this->resultCode) {
+            $res['result_code'] = $this->resultCode;
+        }
+        if (null !== $this->resultMsg) {
+            $res['result_msg'] = $this->resultMsg;
+        }
+        if (null !== $this->status) {
+            $res['status'] = $this->status;
+        }
+        if (null !== $this->needProxyWithholding) {
+            $res['need_proxy_withholding'] = $this->needProxyWithholding;
+        }
+        if (null !== $this->reason) {
+            $res['reason'] = $this->reason;
+        }
+        return $res;
+    }
+    /**
+     * @param array $map
+     * @return QueryBclMerchantResponse
+     */
+    public static function fromMap($map = []) {
+        $model = new self();
+        if(isset($map['req_msg_id'])){
+            $model->reqMsgId = $map['req_msg_id'];
+        }
+        if(isset($map['result_code'])){
+            $model->resultCode = $map['result_code'];
+        }
+        if(isset($map['result_msg'])){
+            $model->resultMsg = $map['result_msg'];
+        }
+        if(isset($map['status'])){
+            $model->status = $map['status'];
+        }
+        if(isset($map['need_proxy_withholding'])){
+            $model->needProxyWithholding = $map['need_proxy_withholding'];
+        }
+        if(isset($map['reason'])){
+            $model->reason = $map['reason'];
+        }
+        return $model;
+    }
     // 请求唯一ID，用于链路跟踪和问题排查
     /**
      * @var string
@@ -43,71 +98,5 @@ class QueryBclMerchantResponse extends Model
      * @var string
      */
     public $reason;
-    protected $_name = [
-        'reqMsgId'             => 'req_msg_id',
-        'resultCode'           => 'result_code',
-        'resultMsg'            => 'result_msg',
-        'status'               => 'status',
-        'needProxyWithholding' => 'need_proxy_withholding',
-        'reason'               => 'reason',
-    ];
 
-    public function validate()
-    {
-    }
-
-    public function toMap()
-    {
-        $res = [];
-        if (null !== $this->reqMsgId) {
-            $res['req_msg_id'] = $this->reqMsgId;
-        }
-        if (null !== $this->resultCode) {
-            $res['result_code'] = $this->resultCode;
-        }
-        if (null !== $this->resultMsg) {
-            $res['result_msg'] = $this->resultMsg;
-        }
-        if (null !== $this->status) {
-            $res['status'] = $this->status;
-        }
-        if (null !== $this->needProxyWithholding) {
-            $res['need_proxy_withholding'] = $this->needProxyWithholding;
-        }
-        if (null !== $this->reason) {
-            $res['reason'] = $this->reason;
-        }
-
-        return $res;
-    }
-
-    /**
-     * @param array $map
-     *
-     * @return QueryBclMerchantResponse
-     */
-    public static function fromMap($map = [])
-    {
-        $model = new self();
-        if (isset($map['req_msg_id'])) {
-            $model->reqMsgId = $map['req_msg_id'];
-        }
-        if (isset($map['result_code'])) {
-            $model->resultCode = $map['result_code'];
-        }
-        if (isset($map['result_msg'])) {
-            $model->resultMsg = $map['result_msg'];
-        }
-        if (isset($map['status'])) {
-            $model->status = $map['status'];
-        }
-        if (isset($map['need_proxy_withholding'])) {
-            $model->needProxyWithholding = $map['need_proxy_withholding'];
-        }
-        if (isset($map['reason'])) {
-            $model->reason = $map['reason'];
-        }
-
-        return $model;
-    }
 }

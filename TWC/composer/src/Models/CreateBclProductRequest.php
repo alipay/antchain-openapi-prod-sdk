@@ -1,13 +1,192 @@
 <?php
 
 // This file is auto-generated, don't edit it. Thanks.
-
 namespace AntChain\TWC\Models;
 
 use AlibabaCloud\Tea\Model;
 
-class CreateBclProductRequest extends Model
-{
+class CreateBclProductRequest extends Model {
+    protected $_name = [
+        'authToken' => 'auth_token',
+        'productInstanceId' => 'product_instance_id',
+        'productOuterId' => 'product_outer_id',
+        'productVersion' => 'product_version',
+        'productName' => 'product_name',
+        'productPrice' => 'product_price',
+        'mainClass' => 'main_class',
+        'subClass' => 'sub_class',
+        'supplierName' => 'supplier_name',
+        'supplierId' => 'supplier_id',
+        'installPrice' => 'install_price',
+        'productOrigin' => 'product_origin',
+        'realStock' => 'real_stock',
+        'estimatedShipment' => 'estimated_shipment',
+        'productDetailInfo' => 'product_detail_info',
+        'productUrl' => 'product_url',
+        'productBrand' => 'product_brand',
+        'productModel' => 'product_model',
+        'depositPrice' => 'deposit_price',
+    ];
+    public function validate() {
+        Model::validateRequired('productOuterId', $this->productOuterId, true);
+        Model::validateRequired('productVersion', $this->productVersion, true);
+        Model::validateRequired('productName', $this->productName, true);
+        Model::validateRequired('productPrice', $this->productPrice, true);
+        Model::validateRequired('mainClass', $this->mainClass, true);
+        Model::validateRequired('subClass', $this->subClass, true);
+        Model::validateRequired('supplierName', $this->supplierName, true);
+        Model::validateRequired('supplierId', $this->supplierId, true);
+        Model::validateRequired('productOrigin', $this->productOrigin, true);
+        Model::validateRequired('realStock', $this->realStock, true);
+        Model::validateRequired('estimatedShipment', $this->estimatedShipment, true);
+        Model::validateRequired('productDetailInfo', $this->productDetailInfo, true);
+        Model::validateRequired('productUrl', $this->productUrl, true);
+        Model::validateRequired('productBrand', $this->productBrand, true);
+        Model::validateRequired('productModel', $this->productModel, true);
+        Model::validateMaxLength('productOuterId', $this->productOuterId, 32);
+        Model::validateMaxLength('productVersion', $this->productVersion, 8);
+        Model::validateMaxLength('productName', $this->productName, 64);
+        Model::validateMaxLength('mainClass', $this->mainClass, 32);
+        Model::validateMaxLength('subClass', $this->subClass, 32);
+        Model::validateMaxLength('supplierName', $this->supplierName, 64);
+        Model::validateMaxLength('supplierId', $this->supplierId, 8);
+        Model::validateMaxLength('productOrigin', $this->productOrigin, 32);
+        Model::validateMaxLength('productDetailInfo', $this->productDetailInfo, 256);
+        Model::validateMaxLength('productUrl', $this->productUrl, 256);
+        Model::validateMaxLength('productBrand', $this->productBrand, 64);
+        Model::validateMaxLength('productModel', $this->productModel, 256);
+        Model::validateMinimum('productPrice', $this->productPrice, 1);
+        Model::validateMinimum('installPrice', $this->installPrice, 1);
+        Model::validateMinimum('realStock', $this->realStock, 1);
+        Model::validateMinimum('estimatedShipment', $this->estimatedShipment, 1);
+        Model::validateMinimum('depositPrice', $this->depositPrice, 1);
+    }
+    public function toMap() {
+        $res = [];
+        if (null !== $this->authToken) {
+            $res['auth_token'] = $this->authToken;
+        }
+        if (null !== $this->productInstanceId) {
+            $res['product_instance_id'] = $this->productInstanceId;
+        }
+        if (null !== $this->productOuterId) {
+            $res['product_outer_id'] = $this->productOuterId;
+        }
+        if (null !== $this->productVersion) {
+            $res['product_version'] = $this->productVersion;
+        }
+        if (null !== $this->productName) {
+            $res['product_name'] = $this->productName;
+        }
+        if (null !== $this->productPrice) {
+            $res['product_price'] = $this->productPrice;
+        }
+        if (null !== $this->mainClass) {
+            $res['main_class'] = $this->mainClass;
+        }
+        if (null !== $this->subClass) {
+            $res['sub_class'] = $this->subClass;
+        }
+        if (null !== $this->supplierName) {
+            $res['supplier_name'] = $this->supplierName;
+        }
+        if (null !== $this->supplierId) {
+            $res['supplier_id'] = $this->supplierId;
+        }
+        if (null !== $this->installPrice) {
+            $res['install_price'] = $this->installPrice;
+        }
+        if (null !== $this->productOrigin) {
+            $res['product_origin'] = $this->productOrigin;
+        }
+        if (null !== $this->realStock) {
+            $res['real_stock'] = $this->realStock;
+        }
+        if (null !== $this->estimatedShipment) {
+            $res['estimated_shipment'] = $this->estimatedShipment;
+        }
+        if (null !== $this->productDetailInfo) {
+            $res['product_detail_info'] = $this->productDetailInfo;
+        }
+        if (null !== $this->productUrl) {
+            $res['product_url'] = $this->productUrl;
+        }
+        if (null !== $this->productBrand) {
+            $res['product_brand'] = $this->productBrand;
+        }
+        if (null !== $this->productModel) {
+            $res['product_model'] = $this->productModel;
+        }
+        if (null !== $this->depositPrice) {
+            $res['deposit_price'] = $this->depositPrice;
+        }
+        return $res;
+    }
+    /**
+     * @param array $map
+     * @return CreateBclProductRequest
+     */
+    public static function fromMap($map = []) {
+        $model = new self();
+        if(isset($map['auth_token'])){
+            $model->authToken = $map['auth_token'];
+        }
+        if(isset($map['product_instance_id'])){
+            $model->productInstanceId = $map['product_instance_id'];
+        }
+        if(isset($map['product_outer_id'])){
+            $model->productOuterId = $map['product_outer_id'];
+        }
+        if(isset($map['product_version'])){
+            $model->productVersion = $map['product_version'];
+        }
+        if(isset($map['product_name'])){
+            $model->productName = $map['product_name'];
+        }
+        if(isset($map['product_price'])){
+            $model->productPrice = $map['product_price'];
+        }
+        if(isset($map['main_class'])){
+            $model->mainClass = $map['main_class'];
+        }
+        if(isset($map['sub_class'])){
+            $model->subClass = $map['sub_class'];
+        }
+        if(isset($map['supplier_name'])){
+            $model->supplierName = $map['supplier_name'];
+        }
+        if(isset($map['supplier_id'])){
+            $model->supplierId = $map['supplier_id'];
+        }
+        if(isset($map['install_price'])){
+            $model->installPrice = $map['install_price'];
+        }
+        if(isset($map['product_origin'])){
+            $model->productOrigin = $map['product_origin'];
+        }
+        if(isset($map['real_stock'])){
+            $model->realStock = $map['real_stock'];
+        }
+        if(isset($map['estimated_shipment'])){
+            $model->estimatedShipment = $map['estimated_shipment'];
+        }
+        if(isset($map['product_detail_info'])){
+            $model->productDetailInfo = $map['product_detail_info'];
+        }
+        if(isset($map['product_url'])){
+            $model->productUrl = $map['product_url'];
+        }
+        if(isset($map['product_brand'])){
+            $model->productBrand = $map['product_brand'];
+        }
+        if(isset($map['product_model'])){
+            $model->productModel = $map['product_model'];
+        }
+        if(isset($map['deposit_price'])){
+            $model->depositPrice = $map['deposit_price'];
+        }
+        return $model;
+    }
     // OAuth模式下的授权token
     /**
      * @var string
@@ -140,194 +319,5 @@ class CreateBclProductRequest extends Model
      * @var int
      */
     public $depositPrice;
-    protected $_name = [
-        'authToken'         => 'auth_token',
-        'productInstanceId' => 'product_instance_id',
-        'productOuterId'    => 'product_outer_id',
-        'productVersion'    => 'product_version',
-        'productName'       => 'product_name',
-        'productPrice'      => 'product_price',
-        'mainClass'         => 'main_class',
-        'subClass'          => 'sub_class',
-        'supplierName'      => 'supplier_name',
-        'supplierId'        => 'supplier_id',
-        'installPrice'      => 'install_price',
-        'productOrigin'     => 'product_origin',
-        'realStock'         => 'real_stock',
-        'estimatedShipment' => 'estimated_shipment',
-        'productDetailInfo' => 'product_detail_info',
-        'productUrl'        => 'product_url',
-        'productBrand'      => 'product_brand',
-        'productModel'      => 'product_model',
-        'depositPrice'      => 'deposit_price',
-    ];
 
-    public function validate()
-    {
-        Model::validateRequired('productOuterId', $this->productOuterId, true);
-        Model::validateRequired('productVersion', $this->productVersion, true);
-        Model::validateRequired('productName', $this->productName, true);
-        Model::validateRequired('productPrice', $this->productPrice, true);
-        Model::validateRequired('mainClass', $this->mainClass, true);
-        Model::validateRequired('subClass', $this->subClass, true);
-        Model::validateRequired('supplierName', $this->supplierName, true);
-        Model::validateRequired('supplierId', $this->supplierId, true);
-        Model::validateRequired('productOrigin', $this->productOrigin, true);
-        Model::validateRequired('realStock', $this->realStock, true);
-        Model::validateRequired('estimatedShipment', $this->estimatedShipment, true);
-        Model::validateRequired('productDetailInfo', $this->productDetailInfo, true);
-        Model::validateRequired('productUrl', $this->productUrl, true);
-        Model::validateRequired('productBrand', $this->productBrand, true);
-        Model::validateRequired('productModel', $this->productModel, true);
-        Model::validateMaxLength('productOuterId', $this->productOuterId, 32);
-        Model::validateMaxLength('productVersion', $this->productVersion, 8);
-        Model::validateMaxLength('productName', $this->productName, 64);
-        Model::validateMaxLength('mainClass', $this->mainClass, 32);
-        Model::validateMaxLength('subClass', $this->subClass, 32);
-        Model::validateMaxLength('supplierName', $this->supplierName, 64);
-        Model::validateMaxLength('supplierId', $this->supplierId, 8);
-        Model::validateMaxLength('productOrigin', $this->productOrigin, 32);
-        Model::validateMaxLength('productDetailInfo', $this->productDetailInfo, 256);
-        Model::validateMaxLength('productUrl', $this->productUrl, 256);
-        Model::validateMaxLength('productBrand', $this->productBrand, 64);
-        Model::validateMaxLength('productModel', $this->productModel, 256);
-        Model::validateMinimum('productPrice', $this->productPrice, 1);
-        Model::validateMinimum('installPrice', $this->installPrice, 1);
-        Model::validateMinimum('realStock', $this->realStock, 1);
-        Model::validateMinimum('estimatedShipment', $this->estimatedShipment, 1);
-        Model::validateMinimum('depositPrice', $this->depositPrice, 1);
-    }
-
-    public function toMap()
-    {
-        $res = [];
-        if (null !== $this->authToken) {
-            $res['auth_token'] = $this->authToken;
-        }
-        if (null !== $this->productInstanceId) {
-            $res['product_instance_id'] = $this->productInstanceId;
-        }
-        if (null !== $this->productOuterId) {
-            $res['product_outer_id'] = $this->productOuterId;
-        }
-        if (null !== $this->productVersion) {
-            $res['product_version'] = $this->productVersion;
-        }
-        if (null !== $this->productName) {
-            $res['product_name'] = $this->productName;
-        }
-        if (null !== $this->productPrice) {
-            $res['product_price'] = $this->productPrice;
-        }
-        if (null !== $this->mainClass) {
-            $res['main_class'] = $this->mainClass;
-        }
-        if (null !== $this->subClass) {
-            $res['sub_class'] = $this->subClass;
-        }
-        if (null !== $this->supplierName) {
-            $res['supplier_name'] = $this->supplierName;
-        }
-        if (null !== $this->supplierId) {
-            $res['supplier_id'] = $this->supplierId;
-        }
-        if (null !== $this->installPrice) {
-            $res['install_price'] = $this->installPrice;
-        }
-        if (null !== $this->productOrigin) {
-            $res['product_origin'] = $this->productOrigin;
-        }
-        if (null !== $this->realStock) {
-            $res['real_stock'] = $this->realStock;
-        }
-        if (null !== $this->estimatedShipment) {
-            $res['estimated_shipment'] = $this->estimatedShipment;
-        }
-        if (null !== $this->productDetailInfo) {
-            $res['product_detail_info'] = $this->productDetailInfo;
-        }
-        if (null !== $this->productUrl) {
-            $res['product_url'] = $this->productUrl;
-        }
-        if (null !== $this->productBrand) {
-            $res['product_brand'] = $this->productBrand;
-        }
-        if (null !== $this->productModel) {
-            $res['product_model'] = $this->productModel;
-        }
-        if (null !== $this->depositPrice) {
-            $res['deposit_price'] = $this->depositPrice;
-        }
-
-        return $res;
-    }
-
-    /**
-     * @param array $map
-     *
-     * @return CreateBclProductRequest
-     */
-    public static function fromMap($map = [])
-    {
-        $model = new self();
-        if (isset($map['auth_token'])) {
-            $model->authToken = $map['auth_token'];
-        }
-        if (isset($map['product_instance_id'])) {
-            $model->productInstanceId = $map['product_instance_id'];
-        }
-        if (isset($map['product_outer_id'])) {
-            $model->productOuterId = $map['product_outer_id'];
-        }
-        if (isset($map['product_version'])) {
-            $model->productVersion = $map['product_version'];
-        }
-        if (isset($map['product_name'])) {
-            $model->productName = $map['product_name'];
-        }
-        if (isset($map['product_price'])) {
-            $model->productPrice = $map['product_price'];
-        }
-        if (isset($map['main_class'])) {
-            $model->mainClass = $map['main_class'];
-        }
-        if (isset($map['sub_class'])) {
-            $model->subClass = $map['sub_class'];
-        }
-        if (isset($map['supplier_name'])) {
-            $model->supplierName = $map['supplier_name'];
-        }
-        if (isset($map['supplier_id'])) {
-            $model->supplierId = $map['supplier_id'];
-        }
-        if (isset($map['install_price'])) {
-            $model->installPrice = $map['install_price'];
-        }
-        if (isset($map['product_origin'])) {
-            $model->productOrigin = $map['product_origin'];
-        }
-        if (isset($map['real_stock'])) {
-            $model->realStock = $map['real_stock'];
-        }
-        if (isset($map['estimated_shipment'])) {
-            $model->estimatedShipment = $map['estimated_shipment'];
-        }
-        if (isset($map['product_detail_info'])) {
-            $model->productDetailInfo = $map['product_detail_info'];
-        }
-        if (isset($map['product_url'])) {
-            $model->productUrl = $map['product_url'];
-        }
-        if (isset($map['product_brand'])) {
-            $model->productBrand = $map['product_brand'];
-        }
-        if (isset($map['product_model'])) {
-            $model->productModel = $map['product_model'];
-        }
-        if (isset($map['deposit_price'])) {
-            $model->depositPrice = $map['deposit_price'];
-        }
-
-        return $model;
-    }
 }

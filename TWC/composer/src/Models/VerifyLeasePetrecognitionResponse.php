@@ -1,13 +1,68 @@
 <?php
 
 // This file is auto-generated, don't edit it. Thanks.
-
 namespace AntChain\TWC\Models;
 
 use AlibabaCloud\Tea\Model;
 
-class VerifyLeasePetrecognitionResponse extends Model
-{
+class VerifyLeasePetrecognitionResponse extends Model {
+    protected $_name = [
+        'reqMsgId' => 'req_msg_id',
+        'resultCode' => 'result_code',
+        'resultMsg' => 'result_msg',
+        'traceId' => 'trace_id',
+        'verifyCode' => 'verify_code',
+        'confidence' => 'confidence',
+    ];
+    public function validate() {}
+    public function toMap() {
+        $res = [];
+        if (null !== $this->reqMsgId) {
+            $res['req_msg_id'] = $this->reqMsgId;
+        }
+        if (null !== $this->resultCode) {
+            $res['result_code'] = $this->resultCode;
+        }
+        if (null !== $this->resultMsg) {
+            $res['result_msg'] = $this->resultMsg;
+        }
+        if (null !== $this->traceId) {
+            $res['trace_id'] = $this->traceId;
+        }
+        if (null !== $this->verifyCode) {
+            $res['verify_code'] = $this->verifyCode;
+        }
+        if (null !== $this->confidence) {
+            $res['confidence'] = $this->confidence;
+        }
+        return $res;
+    }
+    /**
+     * @param array $map
+     * @return VerifyLeasePetrecognitionResponse
+     */
+    public static function fromMap($map = []) {
+        $model = new self();
+        if(isset($map['req_msg_id'])){
+            $model->reqMsgId = $map['req_msg_id'];
+        }
+        if(isset($map['result_code'])){
+            $model->resultCode = $map['result_code'];
+        }
+        if(isset($map['result_msg'])){
+            $model->resultMsg = $map['result_msg'];
+        }
+        if(isset($map['trace_id'])){
+            $model->traceId = $map['trace_id'];
+        }
+        if(isset($map['verify_code'])){
+            $model->verifyCode = $map['verify_code'];
+        }
+        if(isset($map['confidence'])){
+            $model->confidence = $map['confidence'];
+        }
+        return $model;
+    }
     // 请求唯一ID，用于链路跟踪和问题排查
     /**
      * @var string
@@ -43,71 +98,5 @@ class VerifyLeasePetrecognitionResponse extends Model
      * @var string
      */
     public $confidence;
-    protected $_name = [
-        'reqMsgId'   => 'req_msg_id',
-        'resultCode' => 'result_code',
-        'resultMsg'  => 'result_msg',
-        'traceId'    => 'trace_id',
-        'verifyCode' => 'verify_code',
-        'confidence' => 'confidence',
-    ];
 
-    public function validate()
-    {
-    }
-
-    public function toMap()
-    {
-        $res = [];
-        if (null !== $this->reqMsgId) {
-            $res['req_msg_id'] = $this->reqMsgId;
-        }
-        if (null !== $this->resultCode) {
-            $res['result_code'] = $this->resultCode;
-        }
-        if (null !== $this->resultMsg) {
-            $res['result_msg'] = $this->resultMsg;
-        }
-        if (null !== $this->traceId) {
-            $res['trace_id'] = $this->traceId;
-        }
-        if (null !== $this->verifyCode) {
-            $res['verify_code'] = $this->verifyCode;
-        }
-        if (null !== $this->confidence) {
-            $res['confidence'] = $this->confidence;
-        }
-
-        return $res;
-    }
-
-    /**
-     * @param array $map
-     *
-     * @return VerifyLeasePetrecognitionResponse
-     */
-    public static function fromMap($map = [])
-    {
-        $model = new self();
-        if (isset($map['req_msg_id'])) {
-            $model->reqMsgId = $map['req_msg_id'];
-        }
-        if (isset($map['result_code'])) {
-            $model->resultCode = $map['result_code'];
-        }
-        if (isset($map['result_msg'])) {
-            $model->resultMsg = $map['result_msg'];
-        }
-        if (isset($map['trace_id'])) {
-            $model->traceId = $map['trace_id'];
-        }
-        if (isset($map['verify_code'])) {
-            $model->verifyCode = $map['verify_code'];
-        }
-        if (isset($map['confidence'])) {
-            $model->confidence = $map['confidence'];
-        }
-
-        return $model;
-    }
 }

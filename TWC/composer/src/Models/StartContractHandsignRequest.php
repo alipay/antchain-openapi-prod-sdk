@@ -1,13 +1,173 @@
 <?php
 
 // This file is auto-generated, don't edit it. Thanks.
-
 namespace AntChain\TWC\Models;
 
 use AlibabaCloud\Tea\Model;
 
-class StartContractHandsignRequest extends Model
-{
+use AntChain\TWC\Models\ContractSignFlowConfig;
+use AntChain\TWC\Models\RepaymentOrderRequest;
+
+class StartContractHandsignRequest extends Model {
+    protected $_name = [
+        'authToken' => 'auth_token',
+        'productInstanceId' => 'product_instance_id',
+        'agentAccountId' => 'agent_account_id',
+        'autoArchive' => 'auto_archive',
+        'businessScene' => 'business_scene',
+        'contractRemind' => 'contract_remind',
+        'contractSignFlowConfig' => 'contract_sign_flow_config',
+        'contractValidity' => 'contract_validity',
+        'initiatorAccountId' => 'initiator_account_id',
+        'initiatorAuthorizedAccountId' => 'initiator_authorized_account_id',
+        'repaymentOrderInfo' => 'repayment_order_info',
+        'signPlatform' => 'sign_platform',
+        'signValidity' => 'sign_validity',
+        'simpleFormFields' => 'simple_form_fields',
+        'template' => 'template',
+        'userAccount' => 'user_account',
+        'shortUrl' => 'short_url',
+        'bclOrderId' => 'bcl_order_id',
+    ];
+    public function validate() {
+        Model::validateRequired('businessScene', $this->businessScene, true);
+        Model::validateRequired('simpleFormFields', $this->simpleFormFields, true);
+        Model::validateRequired('template', $this->template, true);
+        Model::validateRequired('userAccount', $this->userAccount, true);
+        Model::validateMaxLength('bclOrderId', $this->bclOrderId, 32);
+    }
+    public function toMap() {
+        $res = [];
+        if (null !== $this->authToken) {
+            $res['auth_token'] = $this->authToken;
+        }
+        if (null !== $this->productInstanceId) {
+            $res['product_instance_id'] = $this->productInstanceId;
+        }
+        if (null !== $this->agentAccountId) {
+            $res['agent_account_id'] = $this->agentAccountId;
+        }
+        if (null !== $this->autoArchive) {
+            $res['auto_archive'] = $this->autoArchive;
+        }
+        if (null !== $this->businessScene) {
+            $res['business_scene'] = $this->businessScene;
+        }
+        if (null !== $this->contractRemind) {
+            $res['contract_remind'] = $this->contractRemind;
+        }
+        if (null !== $this->contractSignFlowConfig) {
+            $res['contract_sign_flow_config'] = null !== $this->contractSignFlowConfig ? $this->contractSignFlowConfig->toMap() : null;
+        }
+        if (null !== $this->contractValidity) {
+            $res['contract_validity'] = $this->contractValidity;
+        }
+        if (null !== $this->initiatorAccountId) {
+            $res['initiator_account_id'] = $this->initiatorAccountId;
+        }
+        if (null !== $this->initiatorAuthorizedAccountId) {
+            $res['initiator_authorized_account_id'] = $this->initiatorAuthorizedAccountId;
+        }
+        if (null !== $this->repaymentOrderInfo) {
+            $res['repayment_order_info'] = [];
+            if(null !== $this->repaymentOrderInfo && is_array($this->repaymentOrderInfo)){
+                $n = 0;
+                foreach($this->repaymentOrderInfo as $item){
+                    $res['repayment_order_info'][$n++] = null !== $item ? $item->toMap() : $item;
+                }
+            }
+        }
+        if (null !== $this->signPlatform) {
+            $res['sign_platform'] = $this->signPlatform;
+        }
+        if (null !== $this->signValidity) {
+            $res['sign_validity'] = $this->signValidity;
+        }
+        if (null !== $this->simpleFormFields) {
+            $res['simple_form_fields'] = $this->simpleFormFields;
+        }
+        if (null !== $this->template) {
+            $res['template'] = $this->template;
+        }
+        if (null !== $this->userAccount) {
+            $res['user_account'] = $this->userAccount;
+        }
+        if (null !== $this->shortUrl) {
+            $res['short_url'] = $this->shortUrl;
+        }
+        if (null !== $this->bclOrderId) {
+            $res['bcl_order_id'] = $this->bclOrderId;
+        }
+        return $res;
+    }
+    /**
+     * @param array $map
+     * @return StartContractHandsignRequest
+     */
+    public static function fromMap($map = []) {
+        $model = new self();
+        if(isset($map['auth_token'])){
+            $model->authToken = $map['auth_token'];
+        }
+        if(isset($map['product_instance_id'])){
+            $model->productInstanceId = $map['product_instance_id'];
+        }
+        if(isset($map['agent_account_id'])){
+            $model->agentAccountId = $map['agent_account_id'];
+        }
+        if(isset($map['auto_archive'])){
+            $model->autoArchive = $map['auto_archive'];
+        }
+        if(isset($map['business_scene'])){
+            $model->businessScene = $map['business_scene'];
+        }
+        if(isset($map['contract_remind'])){
+            $model->contractRemind = $map['contract_remind'];
+        }
+        if(isset($map['contract_sign_flow_config'])){
+            $model->contractSignFlowConfig = ContractSignFlowConfig::fromMap($map['contract_sign_flow_config']);
+        }
+        if(isset($map['contract_validity'])){
+            $model->contractValidity = $map['contract_validity'];
+        }
+        if(isset($map['initiator_account_id'])){
+            $model->initiatorAccountId = $map['initiator_account_id'];
+        }
+        if(isset($map['initiator_authorized_account_id'])){
+            $model->initiatorAuthorizedAccountId = $map['initiator_authorized_account_id'];
+        }
+        if(isset($map['repayment_order_info'])){
+            if(!empty($map['repayment_order_info'])){
+                $model->repaymentOrderInfo = [];
+                $n = 0;
+                foreach($map['repayment_order_info'] as $item) {
+                    $model->repaymentOrderInfo[$n++] = null !== $item ? RepaymentOrderRequest::fromMap($item) : $item;
+                }
+            }
+        }
+        if(isset($map['sign_platform'])){
+            $model->signPlatform = $map['sign_platform'];
+        }
+        if(isset($map['sign_validity'])){
+            $model->signValidity = $map['sign_validity'];
+        }
+        if(isset($map['simple_form_fields'])){
+            $model->simpleFormFields = $map['simple_form_fields'];
+        }
+        if(isset($map['template'])){
+            $model->template = $map['template'];
+        }
+        if(isset($map['user_account'])){
+            $model->userAccount = $map['user_account'];
+        }
+        if(isset($map['short_url'])){
+            $model->shortUrl = $map['short_url'];
+        }
+        if(isset($map['bcl_order_id'])){
+            $model->bclOrderId = $map['bcl_order_id'];
+        }
+        return $model;
+    }
     // OAuth模式下的授权token
     /**
      * @var string
@@ -62,8 +222,8 @@ class StartContractHandsignRequest extends Model
     public $initiatorAccountId;
 
     // 发起方主体id，如存在个人代机构发起签约，则需传入机构id；如不传，则默认是对接平台
-    //
-    //
+    // 
+    // 
     /**
      * @var string
      */
@@ -116,172 +276,5 @@ class StartContractHandsignRequest extends Model
      * @var string
      */
     public $bclOrderId;
-    protected $_name = [
-        'authToken'                    => 'auth_token',
-        'productInstanceId'            => 'product_instance_id',
-        'agentAccountId'               => 'agent_account_id',
-        'autoArchive'                  => 'auto_archive',
-        'businessScene'                => 'business_scene',
-        'contractRemind'               => 'contract_remind',
-        'contractSignFlowConfig'       => 'contract_sign_flow_config',
-        'contractValidity'             => 'contract_validity',
-        'initiatorAccountId'           => 'initiator_account_id',
-        'initiatorAuthorizedAccountId' => 'initiator_authorized_account_id',
-        'repaymentOrderInfo'           => 'repayment_order_info',
-        'signPlatform'                 => 'sign_platform',
-        'signValidity'                 => 'sign_validity',
-        'simpleFormFields'             => 'simple_form_fields',
-        'template'                     => 'template',
-        'userAccount'                  => 'user_account',
-        'shortUrl'                     => 'short_url',
-        'bclOrderId'                   => 'bcl_order_id',
-    ];
 
-    public function validate()
-    {
-        Model::validateRequired('businessScene', $this->businessScene, true);
-        Model::validateRequired('simpleFormFields', $this->simpleFormFields, true);
-        Model::validateRequired('template', $this->template, true);
-        Model::validateRequired('userAccount', $this->userAccount, true);
-        Model::validateMaxLength('bclOrderId', $this->bclOrderId, 32);
-    }
-
-    public function toMap()
-    {
-        $res = [];
-        if (null !== $this->authToken) {
-            $res['auth_token'] = $this->authToken;
-        }
-        if (null !== $this->productInstanceId) {
-            $res['product_instance_id'] = $this->productInstanceId;
-        }
-        if (null !== $this->agentAccountId) {
-            $res['agent_account_id'] = $this->agentAccountId;
-        }
-        if (null !== $this->autoArchive) {
-            $res['auto_archive'] = $this->autoArchive;
-        }
-        if (null !== $this->businessScene) {
-            $res['business_scene'] = $this->businessScene;
-        }
-        if (null !== $this->contractRemind) {
-            $res['contract_remind'] = $this->contractRemind;
-        }
-        if (null !== $this->contractSignFlowConfig) {
-            $res['contract_sign_flow_config'] = null !== $this->contractSignFlowConfig ? $this->contractSignFlowConfig->toMap() : null;
-        }
-        if (null !== $this->contractValidity) {
-            $res['contract_validity'] = $this->contractValidity;
-        }
-        if (null !== $this->initiatorAccountId) {
-            $res['initiator_account_id'] = $this->initiatorAccountId;
-        }
-        if (null !== $this->initiatorAuthorizedAccountId) {
-            $res['initiator_authorized_account_id'] = $this->initiatorAuthorizedAccountId;
-        }
-        if (null !== $this->repaymentOrderInfo) {
-            $res['repayment_order_info'] = [];
-            if (null !== $this->repaymentOrderInfo && \is_array($this->repaymentOrderInfo)) {
-                $n = 0;
-                foreach ($this->repaymentOrderInfo as $item) {
-                    $res['repayment_order_info'][$n++] = null !== $item ? $item->toMap() : $item;
-                }
-            }
-        }
-        if (null !== $this->signPlatform) {
-            $res['sign_platform'] = $this->signPlatform;
-        }
-        if (null !== $this->signValidity) {
-            $res['sign_validity'] = $this->signValidity;
-        }
-        if (null !== $this->simpleFormFields) {
-            $res['simple_form_fields'] = $this->simpleFormFields;
-        }
-        if (null !== $this->template) {
-            $res['template'] = $this->template;
-        }
-        if (null !== $this->userAccount) {
-            $res['user_account'] = $this->userAccount;
-        }
-        if (null !== $this->shortUrl) {
-            $res['short_url'] = $this->shortUrl;
-        }
-        if (null !== $this->bclOrderId) {
-            $res['bcl_order_id'] = $this->bclOrderId;
-        }
-
-        return $res;
-    }
-
-    /**
-     * @param array $map
-     *
-     * @return StartContractHandsignRequest
-     */
-    public static function fromMap($map = [])
-    {
-        $model = new self();
-        if (isset($map['auth_token'])) {
-            $model->authToken = $map['auth_token'];
-        }
-        if (isset($map['product_instance_id'])) {
-            $model->productInstanceId = $map['product_instance_id'];
-        }
-        if (isset($map['agent_account_id'])) {
-            $model->agentAccountId = $map['agent_account_id'];
-        }
-        if (isset($map['auto_archive'])) {
-            $model->autoArchive = $map['auto_archive'];
-        }
-        if (isset($map['business_scene'])) {
-            $model->businessScene = $map['business_scene'];
-        }
-        if (isset($map['contract_remind'])) {
-            $model->contractRemind = $map['contract_remind'];
-        }
-        if (isset($map['contract_sign_flow_config'])) {
-            $model->contractSignFlowConfig = ContractSignFlowConfig::fromMap($map['contract_sign_flow_config']);
-        }
-        if (isset($map['contract_validity'])) {
-            $model->contractValidity = $map['contract_validity'];
-        }
-        if (isset($map['initiator_account_id'])) {
-            $model->initiatorAccountId = $map['initiator_account_id'];
-        }
-        if (isset($map['initiator_authorized_account_id'])) {
-            $model->initiatorAuthorizedAccountId = $map['initiator_authorized_account_id'];
-        }
-        if (isset($map['repayment_order_info'])) {
-            if (!empty($map['repayment_order_info'])) {
-                $model->repaymentOrderInfo = [];
-                $n                         = 0;
-                foreach ($map['repayment_order_info'] as $item) {
-                    $model->repaymentOrderInfo[$n++] = null !== $item ? RepaymentOrderRequest::fromMap($item) : $item;
-                }
-            }
-        }
-        if (isset($map['sign_platform'])) {
-            $model->signPlatform = $map['sign_platform'];
-        }
-        if (isset($map['sign_validity'])) {
-            $model->signValidity = $map['sign_validity'];
-        }
-        if (isset($map['simple_form_fields'])) {
-            $model->simpleFormFields = $map['simple_form_fields'];
-        }
-        if (isset($map['template'])) {
-            $model->template = $map['template'];
-        }
-        if (isset($map['user_account'])) {
-            $model->userAccount = $map['user_account'];
-        }
-        if (isset($map['short_url'])) {
-            $model->shortUrl = $map['short_url'];
-        }
-        if (isset($map['bcl_order_id'])) {
-            $model->bclOrderId = $map['bcl_order_id'];
-        }
-
-        return $model;
-    }
 }

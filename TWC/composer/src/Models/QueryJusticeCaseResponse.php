@@ -1,13 +1,124 @@
 <?php
 
 // This file is auto-generated, don't edit it. Thanks.
-
 namespace AntChain\TWC\Models;
 
 use AlibabaCloud\Tea\Model;
 
-class QueryJusticeCaseResponse extends Model
-{
+use AntChain\TWC\Models\JudicialFileInfo;
+
+class QueryJusticeCaseResponse extends Model {
+    protected $_name = [
+        'reqMsgId' => 'req_msg_id',
+        'resultCode' => 'result_code',
+        'resultMsg' => 'result_msg',
+        'caseId' => 'case_id',
+        'recordId' => 'record_id',
+        'externalBizId' => 'external_biz_id',
+        'casePhaseDesc' => 'case_phase_desc',
+        'judicialRecordTypeDesc' => 'judicial_record_type_desc',
+        'judicialRecordStatusDesc' => 'judicial_record_status_desc',
+        'judicialRecordStatusTime' => 'judicial_record_status_time',
+        'judicialFiles' => 'judicial_files',
+        'submitErrorMsg' => 'submit_error_msg',
+    ];
+    public function validate() {}
+    public function toMap() {
+        $res = [];
+        if (null !== $this->reqMsgId) {
+            $res['req_msg_id'] = $this->reqMsgId;
+        }
+        if (null !== $this->resultCode) {
+            $res['result_code'] = $this->resultCode;
+        }
+        if (null !== $this->resultMsg) {
+            $res['result_msg'] = $this->resultMsg;
+        }
+        if (null !== $this->caseId) {
+            $res['case_id'] = $this->caseId;
+        }
+        if (null !== $this->recordId) {
+            $res['record_id'] = $this->recordId;
+        }
+        if (null !== $this->externalBizId) {
+            $res['external_biz_id'] = $this->externalBizId;
+        }
+        if (null !== $this->casePhaseDesc) {
+            $res['case_phase_desc'] = $this->casePhaseDesc;
+        }
+        if (null !== $this->judicialRecordTypeDesc) {
+            $res['judicial_record_type_desc'] = $this->judicialRecordTypeDesc;
+        }
+        if (null !== $this->judicialRecordStatusDesc) {
+            $res['judicial_record_status_desc'] = $this->judicialRecordStatusDesc;
+        }
+        if (null !== $this->judicialRecordStatusTime) {
+            $res['judicial_record_status_time'] = $this->judicialRecordStatusTime;
+        }
+        if (null !== $this->judicialFiles) {
+            $res['judicial_files'] = [];
+            if(null !== $this->judicialFiles && is_array($this->judicialFiles)){
+                $n = 0;
+                foreach($this->judicialFiles as $item){
+                    $res['judicial_files'][$n++] = null !== $item ? $item->toMap() : $item;
+                }
+            }
+        }
+        if (null !== $this->submitErrorMsg) {
+            $res['submit_error_msg'] = $this->submitErrorMsg;
+        }
+        return $res;
+    }
+    /**
+     * @param array $map
+     * @return QueryJusticeCaseResponse
+     */
+    public static function fromMap($map = []) {
+        $model = new self();
+        if(isset($map['req_msg_id'])){
+            $model->reqMsgId = $map['req_msg_id'];
+        }
+        if(isset($map['result_code'])){
+            $model->resultCode = $map['result_code'];
+        }
+        if(isset($map['result_msg'])){
+            $model->resultMsg = $map['result_msg'];
+        }
+        if(isset($map['case_id'])){
+            $model->caseId = $map['case_id'];
+        }
+        if(isset($map['record_id'])){
+            $model->recordId = $map['record_id'];
+        }
+        if(isset($map['external_biz_id'])){
+            $model->externalBizId = $map['external_biz_id'];
+        }
+        if(isset($map['case_phase_desc'])){
+            $model->casePhaseDesc = $map['case_phase_desc'];
+        }
+        if(isset($map['judicial_record_type_desc'])){
+            $model->judicialRecordTypeDesc = $map['judicial_record_type_desc'];
+        }
+        if(isset($map['judicial_record_status_desc'])){
+            $model->judicialRecordStatusDesc = $map['judicial_record_status_desc'];
+        }
+        if(isset($map['judicial_record_status_time'])){
+            $model->judicialRecordStatusTime = $map['judicial_record_status_time'];
+        }
+        if(isset($map['judicial_files'])){
+            if(!empty($map['judicial_files'])){
+                $model->judicialFiles = [];
+                $n = 0;
+                foreach($map['judicial_files'] as $item) {
+                    $model->judicialFiles[$n++] = null !== $item ? JudicialFileInfo::fromMap($item) : $item;
+                }
+            }
+        }
+        if(isset($map['submit_error_msg'])){
+            $model->submitErrorMsg = $map['submit_error_msg'];
+        }
+        return $model;
+    }
     // 请求唯一ID，用于链路跟踪和问题排查
     /**
      * @var string
@@ -66,7 +177,7 @@ class QueryJusticeCaseResponse extends Model
     public $judicialRecordTypeDesc;
 
     // 维权状态字段描述.
-    //
+    // 
     /**
      * @var string
      */
@@ -89,125 +200,5 @@ class QueryJusticeCaseResponse extends Model
      * @var string
      */
     public $submitErrorMsg;
-    protected $_name = [
-        'reqMsgId'                 => 'req_msg_id',
-        'resultCode'               => 'result_code',
-        'resultMsg'                => 'result_msg',
-        'caseId'                   => 'case_id',
-        'recordId'                 => 'record_id',
-        'externalBizId'            => 'external_biz_id',
-        'casePhaseDesc'            => 'case_phase_desc',
-        'judicialRecordTypeDesc'   => 'judicial_record_type_desc',
-        'judicialRecordStatusDesc' => 'judicial_record_status_desc',
-        'judicialRecordStatusTime' => 'judicial_record_status_time',
-        'judicialFiles'            => 'judicial_files',
-        'submitErrorMsg'           => 'submit_error_msg',
-    ];
 
-    public function validate()
-    {
-    }
-
-    public function toMap()
-    {
-        $res = [];
-        if (null !== $this->reqMsgId) {
-            $res['req_msg_id'] = $this->reqMsgId;
-        }
-        if (null !== $this->resultCode) {
-            $res['result_code'] = $this->resultCode;
-        }
-        if (null !== $this->resultMsg) {
-            $res['result_msg'] = $this->resultMsg;
-        }
-        if (null !== $this->caseId) {
-            $res['case_id'] = $this->caseId;
-        }
-        if (null !== $this->recordId) {
-            $res['record_id'] = $this->recordId;
-        }
-        if (null !== $this->externalBizId) {
-            $res['external_biz_id'] = $this->externalBizId;
-        }
-        if (null !== $this->casePhaseDesc) {
-            $res['case_phase_desc'] = $this->casePhaseDesc;
-        }
-        if (null !== $this->judicialRecordTypeDesc) {
-            $res['judicial_record_type_desc'] = $this->judicialRecordTypeDesc;
-        }
-        if (null !== $this->judicialRecordStatusDesc) {
-            $res['judicial_record_status_desc'] = $this->judicialRecordStatusDesc;
-        }
-        if (null !== $this->judicialRecordStatusTime) {
-            $res['judicial_record_status_time'] = $this->judicialRecordStatusTime;
-        }
-        if (null !== $this->judicialFiles) {
-            $res['judicial_files'] = [];
-            if (null !== $this->judicialFiles && \is_array($this->judicialFiles)) {
-                $n = 0;
-                foreach ($this->judicialFiles as $item) {
-                    $res['judicial_files'][$n++] = null !== $item ? $item->toMap() : $item;
-                }
-            }
-        }
-        if (null !== $this->submitErrorMsg) {
-            $res['submit_error_msg'] = $this->submitErrorMsg;
-        }
-
-        return $res;
-    }
-
-    /**
-     * @param array $map
-     *
-     * @return QueryJusticeCaseResponse
-     */
-    public static function fromMap($map = [])
-    {
-        $model = new self();
-        if (isset($map['req_msg_id'])) {
-            $model->reqMsgId = $map['req_msg_id'];
-        }
-        if (isset($map['result_code'])) {
-            $model->resultCode = $map['result_code'];
-        }
-        if (isset($map['result_msg'])) {
-            $model->resultMsg = $map['result_msg'];
-        }
-        if (isset($map['case_id'])) {
-            $model->caseId = $map['case_id'];
-        }
-        if (isset($map['record_id'])) {
-            $model->recordId = $map['record_id'];
-        }
-        if (isset($map['external_biz_id'])) {
-            $model->externalBizId = $map['external_biz_id'];
-        }
-        if (isset($map['case_phase_desc'])) {
-            $model->casePhaseDesc = $map['case_phase_desc'];
-        }
-        if (isset($map['judicial_record_type_desc'])) {
-            $model->judicialRecordTypeDesc = $map['judicial_record_type_desc'];
-        }
-        if (isset($map['judicial_record_status_desc'])) {
-            $model->judicialRecordStatusDesc = $map['judicial_record_status_desc'];
-        }
-        if (isset($map['judicial_record_status_time'])) {
-            $model->judicialRecordStatusTime = $map['judicial_record_status_time'];
-        }
-        if (isset($map['judicial_files'])) {
-            if (!empty($map['judicial_files'])) {
-                $model->judicialFiles = [];
-                $n                    = 0;
-                foreach ($map['judicial_files'] as $item) {
-                    $model->judicialFiles[$n++] = null !== $item ? JudicialFileInfo::fromMap($item) : $item;
-                }
-            }
-        }
-        if (isset($map['submit_error_msg'])) {
-            $model->submitErrorMsg = $map['submit_error_msg'];
-        }
-
-        return $model;
-    }
 }

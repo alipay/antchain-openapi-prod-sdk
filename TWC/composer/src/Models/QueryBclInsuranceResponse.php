@@ -1,13 +1,68 @@
 <?php
 
 // This file is auto-generated, don't edit it. Thanks.
-
 namespace AntChain\TWC\Models;
 
 use AlibabaCloud\Tea\Model;
 
-class QueryBclInsuranceResponse extends Model
-{
+use AntChain\TWC\Models\InsuranceRecordInfo;
+
+class QueryBclInsuranceResponse extends Model {
+    protected $_name = [
+        'reqMsgId' => 'req_msg_id',
+        'resultCode' => 'result_code',
+        'resultMsg' => 'result_msg',
+        'insuranceRecordList' => 'insurance_record_list',
+    ];
+    public function validate() {}
+    public function toMap() {
+        $res = [];
+        if (null !== $this->reqMsgId) {
+            $res['req_msg_id'] = $this->reqMsgId;
+        }
+        if (null !== $this->resultCode) {
+            $res['result_code'] = $this->resultCode;
+        }
+        if (null !== $this->resultMsg) {
+            $res['result_msg'] = $this->resultMsg;
+        }
+        if (null !== $this->insuranceRecordList) {
+            $res['insurance_record_list'] = [];
+            if(null !== $this->insuranceRecordList && is_array($this->insuranceRecordList)){
+                $n = 0;
+                foreach($this->insuranceRecordList as $item){
+                    $res['insurance_record_list'][$n++] = null !== $item ? $item->toMap() : $item;
+                }
+            }
+        }
+        return $res;
+    }
+    /**
+     * @param array $map
+     * @return QueryBclInsuranceResponse
+     */
+    public static function fromMap($map = []) {
+        $model = new self();
+        if(isset($map['req_msg_id'])){
+            $model->reqMsgId = $map['req_msg_id'];
+        }
+        if(isset($map['result_code'])){
+            $model->resultCode = $map['result_code'];
+        }
+        if(isset($map['result_msg'])){
+            $model->resultMsg = $map['result_msg'];
+        }
+        if(isset($map['insurance_record_list'])){
+            if(!empty($map['insurance_record_list'])){
+                $model->insuranceRecordList = [];
+                $n = 0;
+                foreach($map['insurance_record_list'] as $item) {
+                    $model->insuranceRecordList[$n++] = null !== $item ? InsuranceRecordInfo::fromMap($item) : $item;
+                }
+            }
+        }
+        return $model;
+    }
     // 请求唯一ID，用于链路跟踪和问题排查
     /**
      * @var string
@@ -31,69 +86,5 @@ class QueryBclInsuranceResponse extends Model
      * @var InsuranceRecordInfo[]
      */
     public $insuranceRecordList;
-    protected $_name = [
-        'reqMsgId'            => 'req_msg_id',
-        'resultCode'          => 'result_code',
-        'resultMsg'           => 'result_msg',
-        'insuranceRecordList' => 'insurance_record_list',
-    ];
 
-    public function validate()
-    {
-    }
-
-    public function toMap()
-    {
-        $res = [];
-        if (null !== $this->reqMsgId) {
-            $res['req_msg_id'] = $this->reqMsgId;
-        }
-        if (null !== $this->resultCode) {
-            $res['result_code'] = $this->resultCode;
-        }
-        if (null !== $this->resultMsg) {
-            $res['result_msg'] = $this->resultMsg;
-        }
-        if (null !== $this->insuranceRecordList) {
-            $res['insurance_record_list'] = [];
-            if (null !== $this->insuranceRecordList && \is_array($this->insuranceRecordList)) {
-                $n = 0;
-                foreach ($this->insuranceRecordList as $item) {
-                    $res['insurance_record_list'][$n++] = null !== $item ? $item->toMap() : $item;
-                }
-            }
-        }
-
-        return $res;
-    }
-
-    /**
-     * @param array $map
-     *
-     * @return QueryBclInsuranceResponse
-     */
-    public static function fromMap($map = [])
-    {
-        $model = new self();
-        if (isset($map['req_msg_id'])) {
-            $model->reqMsgId = $map['req_msg_id'];
-        }
-        if (isset($map['result_code'])) {
-            $model->resultCode = $map['result_code'];
-        }
-        if (isset($map['result_msg'])) {
-            $model->resultMsg = $map['result_msg'];
-        }
-        if (isset($map['insurance_record_list'])) {
-            if (!empty($map['insurance_record_list'])) {
-                $model->insuranceRecordList = [];
-                $n                          = 0;
-                foreach ($map['insurance_record_list'] as $item) {
-                    $model->insuranceRecordList[$n++] = null !== $item ? InsuranceRecordInfo::fromMap($item) : $item;
-                }
-            }
-        }
-
-        return $model;
-    }
 }

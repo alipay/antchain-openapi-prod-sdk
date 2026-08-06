@@ -1,13 +1,376 @@
 <?php
 
 // This file is auto-generated, don't edit it. Thanks.
-
 namespace AntChain\TWC\Models;
 
 use AlibabaCloud\Tea\Model;
 
-class CreateContractRegisterzftRequest extends Model
-{
+class CreateContractRegisterzftRequest extends Model {
+    protected $_name = [
+        'authToken' => 'auth_token',
+        'productInstanceId' => 'product_instance_id',
+        'address' => 'address',
+        'agentAccountId' => 'agent_account_id',
+        'aliasName' => 'alias_name',
+        'alipayLogonId' => 'alipay_logon_id',
+        'applyTime' => 'apply_time',
+        'bindingAlipayLogonId' => 'binding_alipay_logon_id',
+        'cardAliasNo' => 'card_alias_no',
+        'certImage' => 'cert_image',
+        'certNo' => 'cert_no',
+        'certType' => 'cert_type',
+        'cityCode' => 'city_code',
+        'contactEmail' => 'contact_email',
+        'contactMobile' => 'contact_mobile',
+        'contactName' => 'contact_name',
+        'contactPhone' => 'contact_phone',
+        'contactTag' => 'contact_tag',
+        'contactType' => 'contact_type',
+        'districtCode' => 'district_code',
+        'extInfo' => 'ext_info',
+        'ipRoleId' => 'ip_role_id',
+        'legalCertBackImage' => 'legal_cert_back_image',
+        'legalCertFrontImage' => 'legal_cert_front_image',
+        'legalCertNo' => 'legal_cert_no',
+        'legalName' => 'legal_name',
+        'mcc' => 'mcc',
+        'merchantName' => 'merchant_name',
+        'merchantType' => 'merchant_type',
+        'name' => 'name',
+        'orderId' => 'order_id',
+        'outBizNo' => 'out_biz_no',
+        'outDoorImage' => 'out_door_image',
+        'platformTuid' => 'platform_tuid',
+        'provinceCode' => 'province_code',
+        'service' => 'service',
+        'servicePhone' => 'service_phone',
+        'signTimeWithIsv' => 'sign_time_with_isv',
+        'siteName' => 'site_name',
+        'siteType' => 'site_type',
+        'siteUrl' => 'site_url',
+        'smid' => 'smid',
+        'status' => 'status',
+        'update' => 'update',
+    ];
+    public function validate() {
+        Model::validateRequired('address', $this->address, true);
+        Model::validateRequired('aliasName', $this->aliasName, true);
+        Model::validateRequired('alipayLogonId', $this->alipayLogonId, true);
+        Model::validateRequired('applyTime', $this->applyTime, true);
+        Model::validateRequired('bindingAlipayLogonId', $this->bindingAlipayLogonId, true);
+        Model::validateRequired('certImage', $this->certImage, true);
+        Model::validateRequired('certNo', $this->certNo, true);
+        Model::validateRequired('certType', $this->certType, true);
+        Model::validateRequired('cityCode', $this->cityCode, true);
+        Model::validateRequired('contactEmail', $this->contactEmail, true);
+        Model::validateRequired('contactMobile', $this->contactMobile, true);
+        Model::validateRequired('contactName', $this->contactName, true);
+        Model::validateRequired('contactPhone', $this->contactPhone, true);
+        Model::validateRequired('contactTag', $this->contactTag, true);
+        Model::validateRequired('contactType', $this->contactType, true);
+        Model::validateRequired('districtCode', $this->districtCode, true);
+        Model::validateRequired('extInfo', $this->extInfo, true);
+        Model::validateRequired('ipRoleId', $this->ipRoleId, true);
+        Model::validateRequired('legalCertBackImage', $this->legalCertBackImage, true);
+        Model::validateRequired('legalCertFrontImage', $this->legalCertFrontImage, true);
+        Model::validateRequired('legalCertNo', $this->legalCertNo, true);
+        Model::validateRequired('legalName', $this->legalName, true);
+        Model::validateRequired('mcc', $this->mcc, true);
+        Model::validateRequired('merchantName', $this->merchantName, true);
+        Model::validateRequired('merchantType', $this->merchantType, true);
+        Model::validateRequired('name', $this->name, true);
+        Model::validateRequired('orderId', $this->orderId, true);
+        Model::validateRequired('outBizNo', $this->outBizNo, true);
+        Model::validateRequired('outDoorImage', $this->outDoorImage, true);
+        Model::validateRequired('platformTuid', $this->platformTuid, true);
+        Model::validateRequired('provinceCode', $this->provinceCode, true);
+        Model::validateRequired('service', $this->service, true);
+        Model::validateRequired('servicePhone', $this->servicePhone, true);
+        Model::validateRequired('signTimeWithIsv', $this->signTimeWithIsv, true);
+        Model::validateRequired('siteName', $this->siteName, true);
+        Model::validateRequired('siteType', $this->siteType, true);
+        Model::validateRequired('siteUrl', $this->siteUrl, true);
+        Model::validateRequired('smid', $this->smid, true);
+        Model::validateRequired('status', $this->status, true);
+        Model::validateRequired('update', $this->update, true);
+        Model::validatePattern('applyTime', $this->applyTime, '\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}([Z]|([\\.]\\d{1,9})?[\\+]\\d{2}[\\:]?\\d{2})');
+    }
+    public function toMap() {
+        $res = [];
+        if (null !== $this->authToken) {
+            $res['auth_token'] = $this->authToken;
+        }
+        if (null !== $this->productInstanceId) {
+            $res['product_instance_id'] = $this->productInstanceId;
+        }
+        if (null !== $this->address) {
+            $res['address'] = $this->address;
+        }
+        if (null !== $this->agentAccountId) {
+            $res['agent_account_id'] = $this->agentAccountId;
+        }
+        if (null !== $this->aliasName) {
+            $res['alias_name'] = $this->aliasName;
+        }
+        if (null !== $this->alipayLogonId) {
+            $res['alipay_logon_id'] = $this->alipayLogonId;
+        }
+        if (null !== $this->applyTime) {
+            $res['apply_time'] = $this->applyTime;
+        }
+        if (null !== $this->bindingAlipayLogonId) {
+            $res['binding_alipay_logon_id'] = $this->bindingAlipayLogonId;
+        }
+        if (null !== $this->cardAliasNo) {
+            $res['card_alias_no'] = $this->cardAliasNo;
+        }
+        if (null !== $this->certImage) {
+            $res['cert_image'] = $this->certImage;
+        }
+        if (null !== $this->certNo) {
+            $res['cert_no'] = $this->certNo;
+        }
+        if (null !== $this->certType) {
+            $res['cert_type'] = $this->certType;
+        }
+        if (null !== $this->cityCode) {
+            $res['city_code'] = $this->cityCode;
+        }
+        if (null !== $this->contactEmail) {
+            $res['contact_email'] = $this->contactEmail;
+        }
+        if (null !== $this->contactMobile) {
+            $res['contact_mobile'] = $this->contactMobile;
+        }
+        if (null !== $this->contactName) {
+            $res['contact_name'] = $this->contactName;
+        }
+        if (null !== $this->contactPhone) {
+            $res['contact_phone'] = $this->contactPhone;
+        }
+        if (null !== $this->contactTag) {
+            $res['contact_tag'] = $this->contactTag;
+        }
+        if (null !== $this->contactType) {
+            $res['contact_type'] = $this->contactType;
+        }
+        if (null !== $this->districtCode) {
+            $res['district_code'] = $this->districtCode;
+        }
+        if (null !== $this->extInfo) {
+            $res['ext_info'] = $this->extInfo;
+        }
+        if (null !== $this->ipRoleId) {
+            $res['ip_role_id'] = $this->ipRoleId;
+        }
+        if (null !== $this->legalCertBackImage) {
+            $res['legal_cert_back_image'] = $this->legalCertBackImage;
+        }
+        if (null !== $this->legalCertFrontImage) {
+            $res['legal_cert_front_image'] = $this->legalCertFrontImage;
+        }
+        if (null !== $this->legalCertNo) {
+            $res['legal_cert_no'] = $this->legalCertNo;
+        }
+        if (null !== $this->legalName) {
+            $res['legal_name'] = $this->legalName;
+        }
+        if (null !== $this->mcc) {
+            $res['mcc'] = $this->mcc;
+        }
+        if (null !== $this->merchantName) {
+            $res['merchant_name'] = $this->merchantName;
+        }
+        if (null !== $this->merchantType) {
+            $res['merchant_type'] = $this->merchantType;
+        }
+        if (null !== $this->name) {
+            $res['name'] = $this->name;
+        }
+        if (null !== $this->orderId) {
+            $res['order_id'] = $this->orderId;
+        }
+        if (null !== $this->outBizNo) {
+            $res['out_biz_no'] = $this->outBizNo;
+        }
+        if (null !== $this->outDoorImage) {
+            $res['out_door_image'] = $this->outDoorImage;
+        }
+        if (null !== $this->platformTuid) {
+            $res['platform_tuid'] = $this->platformTuid;
+        }
+        if (null !== $this->provinceCode) {
+            $res['province_code'] = $this->provinceCode;
+        }
+        if (null !== $this->service) {
+            $res['service'] = $this->service;
+        }
+        if (null !== $this->servicePhone) {
+            $res['service_phone'] = $this->servicePhone;
+        }
+        if (null !== $this->signTimeWithIsv) {
+            $res['sign_time_with_isv'] = $this->signTimeWithIsv;
+        }
+        if (null !== $this->siteName) {
+            $res['site_name'] = $this->siteName;
+        }
+        if (null !== $this->siteType) {
+            $res['site_type'] = $this->siteType;
+        }
+        if (null !== $this->siteUrl) {
+            $res['site_url'] = $this->siteUrl;
+        }
+        if (null !== $this->smid) {
+            $res['smid'] = $this->smid;
+        }
+        if (null !== $this->status) {
+            $res['status'] = $this->status;
+        }
+        if (null !== $this->update) {
+            $res['update'] = $this->update;
+        }
+        return $res;
+    }
+    /**
+     * @param array $map
+     * @return CreateContractRegisterzftRequest
+     */
+    public static function fromMap($map = []) {
+        $model = new self();
+        if(isset($map['auth_token'])){
+            $model->authToken = $map['auth_token'];
+        }
+        if(isset($map['product_instance_id'])){
+            $model->productInstanceId = $map['product_instance_id'];
+        }
+        if(isset($map['address'])){
+            $model->address = $map['address'];
+        }
+        if(isset($map['agent_account_id'])){
+            $model->agentAccountId = $map['agent_account_id'];
+        }
+        if(isset($map['alias_name'])){
+            $model->aliasName = $map['alias_name'];
+        }
+        if(isset($map['alipay_logon_id'])){
+            $model->alipayLogonId = $map['alipay_logon_id'];
+        }
+        if(isset($map['apply_time'])){
+            $model->applyTime = $map['apply_time'];
+        }
+        if(isset($map['binding_alipay_logon_id'])){
+            $model->bindingAlipayLogonId = $map['binding_alipay_logon_id'];
+        }
+        if(isset($map['card_alias_no'])){
+            $model->cardAliasNo = $map['card_alias_no'];
+        }
+        if(isset($map['cert_image'])){
+            $model->certImage = $map['cert_image'];
+        }
+        if(isset($map['cert_no'])){
+            $model->certNo = $map['cert_no'];
+        }
+        if(isset($map['cert_type'])){
+            $model->certType = $map['cert_type'];
+        }
+        if(isset($map['city_code'])){
+            $model->cityCode = $map['city_code'];
+        }
+        if(isset($map['contact_email'])){
+            $model->contactEmail = $map['contact_email'];
+        }
+        if(isset($map['contact_mobile'])){
+            $model->contactMobile = $map['contact_mobile'];
+        }
+        if(isset($map['contact_name'])){
+            $model->contactName = $map['contact_name'];
+        }
+        if(isset($map['contact_phone'])){
+            $model->contactPhone = $map['contact_phone'];
+        }
+        if(isset($map['contact_tag'])){
+            $model->contactTag = $map['contact_tag'];
+        }
+        if(isset($map['contact_type'])){
+            $model->contactType = $map['contact_type'];
+        }
+        if(isset($map['district_code'])){
+            $model->districtCode = $map['district_code'];
+        }
+        if(isset($map['ext_info'])){
+            $model->extInfo = $map['ext_info'];
+        }
+        if(isset($map['ip_role_id'])){
+            $model->ipRoleId = $map['ip_role_id'];
+        }
+        if(isset($map['legal_cert_back_image'])){
+            $model->legalCertBackImage = $map['legal_cert_back_image'];
+        }
+        if(isset($map['legal_cert_front_image'])){
+            $model->legalCertFrontImage = $map['legal_cert_front_image'];
+        }
+        if(isset($map['legal_cert_no'])){
+            $model->legalCertNo = $map['legal_cert_no'];
+        }
+        if(isset($map['legal_name'])){
+            $model->legalName = $map['legal_name'];
+        }
+        if(isset($map['mcc'])){
+            $model->mcc = $map['mcc'];
+        }
+        if(isset($map['merchant_name'])){
+            $model->merchantName = $map['merchant_name'];
+        }
+        if(isset($map['merchant_type'])){
+            $model->merchantType = $map['merchant_type'];
+        }
+        if(isset($map['name'])){
+            $model->name = $map['name'];
+        }
+        if(isset($map['order_id'])){
+            $model->orderId = $map['order_id'];
+        }
+        if(isset($map['out_biz_no'])){
+            $model->outBizNo = $map['out_biz_no'];
+        }
+        if(isset($map['out_door_image'])){
+            $model->outDoorImage = $map['out_door_image'];
+        }
+        if(isset($map['platform_tuid'])){
+            $model->platformTuid = $map['platform_tuid'];
+        }
+        if(isset($map['province_code'])){
+            $model->provinceCode = $map['province_code'];
+        }
+        if(isset($map['service'])){
+            $model->service = $map['service'];
+        }
+        if(isset($map['service_phone'])){
+            $model->servicePhone = $map['service_phone'];
+        }
+        if(isset($map['sign_time_with_isv'])){
+            $model->signTimeWithIsv = $map['sign_time_with_isv'];
+        }
+        if(isset($map['site_name'])){
+            $model->siteName = $map['site_name'];
+        }
+        if(isset($map['site_type'])){
+            $model->siteType = $map['site_type'];
+        }
+        if(isset($map['site_url'])){
+            $model->siteUrl = $map['site_url'];
+        }
+        if(isset($map['smid'])){
+            $model->smid = $map['smid'];
+        }
+        if(isset($map['status'])){
+            $model->status = $map['status'];
+        }
+        if(isset($map['update'])){
+            $model->update = $map['update'];
+        }
+        return $model;
+    }
     // OAuth模式下的授权token
     /**
      * @var string
@@ -281,378 +644,5 @@ class CreateContractRegisterzftRequest extends Model
      * @var int
      */
     public $update;
-    protected $_name = [
-        'authToken'            => 'auth_token',
-        'productInstanceId'    => 'product_instance_id',
-        'address'              => 'address',
-        'agentAccountId'       => 'agent_account_id',
-        'aliasName'            => 'alias_name',
-        'alipayLogonId'        => 'alipay_logon_id',
-        'applyTime'            => 'apply_time',
-        'bindingAlipayLogonId' => 'binding_alipay_logon_id',
-        'cardAliasNo'          => 'card_alias_no',
-        'certImage'            => 'cert_image',
-        'certNo'               => 'cert_no',
-        'certType'             => 'cert_type',
-        'cityCode'             => 'city_code',
-        'contactEmail'         => 'contact_email',
-        'contactMobile'        => 'contact_mobile',
-        'contactName'          => 'contact_name',
-        'contactPhone'         => 'contact_phone',
-        'contactTag'           => 'contact_tag',
-        'contactType'          => 'contact_type',
-        'districtCode'         => 'district_code',
-        'extInfo'              => 'ext_info',
-        'ipRoleId'             => 'ip_role_id',
-        'legalCertBackImage'   => 'legal_cert_back_image',
-        'legalCertFrontImage'  => 'legal_cert_front_image',
-        'legalCertNo'          => 'legal_cert_no',
-        'legalName'            => 'legal_name',
-        'mcc'                  => 'mcc',
-        'merchantName'         => 'merchant_name',
-        'merchantType'         => 'merchant_type',
-        'name'                 => 'name',
-        'orderId'              => 'order_id',
-        'outBizNo'             => 'out_biz_no',
-        'outDoorImage'         => 'out_door_image',
-        'platformTuid'         => 'platform_tuid',
-        'provinceCode'         => 'province_code',
-        'service'              => 'service',
-        'servicePhone'         => 'service_phone',
-        'signTimeWithIsv'      => 'sign_time_with_isv',
-        'siteName'             => 'site_name',
-        'siteType'             => 'site_type',
-        'siteUrl'              => 'site_url',
-        'smid'                 => 'smid',
-        'status'               => 'status',
-        'update'               => 'update',
-    ];
 
-    public function validate()
-    {
-        Model::validateRequired('address', $this->address, true);
-        Model::validateRequired('aliasName', $this->aliasName, true);
-        Model::validateRequired('alipayLogonId', $this->alipayLogonId, true);
-        Model::validateRequired('applyTime', $this->applyTime, true);
-        Model::validateRequired('bindingAlipayLogonId', $this->bindingAlipayLogonId, true);
-        Model::validateRequired('certImage', $this->certImage, true);
-        Model::validateRequired('certNo', $this->certNo, true);
-        Model::validateRequired('certType', $this->certType, true);
-        Model::validateRequired('cityCode', $this->cityCode, true);
-        Model::validateRequired('contactEmail', $this->contactEmail, true);
-        Model::validateRequired('contactMobile', $this->contactMobile, true);
-        Model::validateRequired('contactName', $this->contactName, true);
-        Model::validateRequired('contactPhone', $this->contactPhone, true);
-        Model::validateRequired('contactTag', $this->contactTag, true);
-        Model::validateRequired('contactType', $this->contactType, true);
-        Model::validateRequired('districtCode', $this->districtCode, true);
-        Model::validateRequired('extInfo', $this->extInfo, true);
-        Model::validateRequired('ipRoleId', $this->ipRoleId, true);
-        Model::validateRequired('legalCertBackImage', $this->legalCertBackImage, true);
-        Model::validateRequired('legalCertFrontImage', $this->legalCertFrontImage, true);
-        Model::validateRequired('legalCertNo', $this->legalCertNo, true);
-        Model::validateRequired('legalName', $this->legalName, true);
-        Model::validateRequired('mcc', $this->mcc, true);
-        Model::validateRequired('merchantName', $this->merchantName, true);
-        Model::validateRequired('merchantType', $this->merchantType, true);
-        Model::validateRequired('name', $this->name, true);
-        Model::validateRequired('orderId', $this->orderId, true);
-        Model::validateRequired('outBizNo', $this->outBizNo, true);
-        Model::validateRequired('outDoorImage', $this->outDoorImage, true);
-        Model::validateRequired('platformTuid', $this->platformTuid, true);
-        Model::validateRequired('provinceCode', $this->provinceCode, true);
-        Model::validateRequired('service', $this->service, true);
-        Model::validateRequired('servicePhone', $this->servicePhone, true);
-        Model::validateRequired('signTimeWithIsv', $this->signTimeWithIsv, true);
-        Model::validateRequired('siteName', $this->siteName, true);
-        Model::validateRequired('siteType', $this->siteType, true);
-        Model::validateRequired('siteUrl', $this->siteUrl, true);
-        Model::validateRequired('smid', $this->smid, true);
-        Model::validateRequired('status', $this->status, true);
-        Model::validateRequired('update', $this->update, true);
-        Model::validatePattern('applyTime', $this->applyTime, '\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}([Z]|([\\.]\\d{1,9})?[\\+]\\d{2}[\\:]?\\d{2})');
-    }
-
-    public function toMap()
-    {
-        $res = [];
-        if (null !== $this->authToken) {
-            $res['auth_token'] = $this->authToken;
-        }
-        if (null !== $this->productInstanceId) {
-            $res['product_instance_id'] = $this->productInstanceId;
-        }
-        if (null !== $this->address) {
-            $res['address'] = $this->address;
-        }
-        if (null !== $this->agentAccountId) {
-            $res['agent_account_id'] = $this->agentAccountId;
-        }
-        if (null !== $this->aliasName) {
-            $res['alias_name'] = $this->aliasName;
-        }
-        if (null !== $this->alipayLogonId) {
-            $res['alipay_logon_id'] = $this->alipayLogonId;
-        }
-        if (null !== $this->applyTime) {
-            $res['apply_time'] = $this->applyTime;
-        }
-        if (null !== $this->bindingAlipayLogonId) {
-            $res['binding_alipay_logon_id'] = $this->bindingAlipayLogonId;
-        }
-        if (null !== $this->cardAliasNo) {
-            $res['card_alias_no'] = $this->cardAliasNo;
-        }
-        if (null !== $this->certImage) {
-            $res['cert_image'] = $this->certImage;
-        }
-        if (null !== $this->certNo) {
-            $res['cert_no'] = $this->certNo;
-        }
-        if (null !== $this->certType) {
-            $res['cert_type'] = $this->certType;
-        }
-        if (null !== $this->cityCode) {
-            $res['city_code'] = $this->cityCode;
-        }
-        if (null !== $this->contactEmail) {
-            $res['contact_email'] = $this->contactEmail;
-        }
-        if (null !== $this->contactMobile) {
-            $res['contact_mobile'] = $this->contactMobile;
-        }
-        if (null !== $this->contactName) {
-            $res['contact_name'] = $this->contactName;
-        }
-        if (null !== $this->contactPhone) {
-            $res['contact_phone'] = $this->contactPhone;
-        }
-        if (null !== $this->contactTag) {
-            $res['contact_tag'] = $this->contactTag;
-        }
-        if (null !== $this->contactType) {
-            $res['contact_type'] = $this->contactType;
-        }
-        if (null !== $this->districtCode) {
-            $res['district_code'] = $this->districtCode;
-        }
-        if (null !== $this->extInfo) {
-            $res['ext_info'] = $this->extInfo;
-        }
-        if (null !== $this->ipRoleId) {
-            $res['ip_role_id'] = $this->ipRoleId;
-        }
-        if (null !== $this->legalCertBackImage) {
-            $res['legal_cert_back_image'] = $this->legalCertBackImage;
-        }
-        if (null !== $this->legalCertFrontImage) {
-            $res['legal_cert_front_image'] = $this->legalCertFrontImage;
-        }
-        if (null !== $this->legalCertNo) {
-            $res['legal_cert_no'] = $this->legalCertNo;
-        }
-        if (null !== $this->legalName) {
-            $res['legal_name'] = $this->legalName;
-        }
-        if (null !== $this->mcc) {
-            $res['mcc'] = $this->mcc;
-        }
-        if (null !== $this->merchantName) {
-            $res['merchant_name'] = $this->merchantName;
-        }
-        if (null !== $this->merchantType) {
-            $res['merchant_type'] = $this->merchantType;
-        }
-        if (null !== $this->name) {
-            $res['name'] = $this->name;
-        }
-        if (null !== $this->orderId) {
-            $res['order_id'] = $this->orderId;
-        }
-        if (null !== $this->outBizNo) {
-            $res['out_biz_no'] = $this->outBizNo;
-        }
-        if (null !== $this->outDoorImage) {
-            $res['out_door_image'] = $this->outDoorImage;
-        }
-        if (null !== $this->platformTuid) {
-            $res['platform_tuid'] = $this->platformTuid;
-        }
-        if (null !== $this->provinceCode) {
-            $res['province_code'] = $this->provinceCode;
-        }
-        if (null !== $this->service) {
-            $res['service'] = $this->service;
-        }
-        if (null !== $this->servicePhone) {
-            $res['service_phone'] = $this->servicePhone;
-        }
-        if (null !== $this->signTimeWithIsv) {
-            $res['sign_time_with_isv'] = $this->signTimeWithIsv;
-        }
-        if (null !== $this->siteName) {
-            $res['site_name'] = $this->siteName;
-        }
-        if (null !== $this->siteType) {
-            $res['site_type'] = $this->siteType;
-        }
-        if (null !== $this->siteUrl) {
-            $res['site_url'] = $this->siteUrl;
-        }
-        if (null !== $this->smid) {
-            $res['smid'] = $this->smid;
-        }
-        if (null !== $this->status) {
-            $res['status'] = $this->status;
-        }
-        if (null !== $this->update) {
-            $res['update'] = $this->update;
-        }
-
-        return $res;
-    }
-
-    /**
-     * @param array $map
-     *
-     * @return CreateContractRegisterzftRequest
-     */
-    public static function fromMap($map = [])
-    {
-        $model = new self();
-        if (isset($map['auth_token'])) {
-            $model->authToken = $map['auth_token'];
-        }
-        if (isset($map['product_instance_id'])) {
-            $model->productInstanceId = $map['product_instance_id'];
-        }
-        if (isset($map['address'])) {
-            $model->address = $map['address'];
-        }
-        if (isset($map['agent_account_id'])) {
-            $model->agentAccountId = $map['agent_account_id'];
-        }
-        if (isset($map['alias_name'])) {
-            $model->aliasName = $map['alias_name'];
-        }
-        if (isset($map['alipay_logon_id'])) {
-            $model->alipayLogonId = $map['alipay_logon_id'];
-        }
-        if (isset($map['apply_time'])) {
-            $model->applyTime = $map['apply_time'];
-        }
-        if (isset($map['binding_alipay_logon_id'])) {
-            $model->bindingAlipayLogonId = $map['binding_alipay_logon_id'];
-        }
-        if (isset($map['card_alias_no'])) {
-            $model->cardAliasNo = $map['card_alias_no'];
-        }
-        if (isset($map['cert_image'])) {
-            $model->certImage = $map['cert_image'];
-        }
-        if (isset($map['cert_no'])) {
-            $model->certNo = $map['cert_no'];
-        }
-        if (isset($map['cert_type'])) {
-            $model->certType = $map['cert_type'];
-        }
-        if (isset($map['city_code'])) {
-            $model->cityCode = $map['city_code'];
-        }
-        if (isset($map['contact_email'])) {
-            $model->contactEmail = $map['contact_email'];
-        }
-        if (isset($map['contact_mobile'])) {
-            $model->contactMobile = $map['contact_mobile'];
-        }
-        if (isset($map['contact_name'])) {
-            $model->contactName = $map['contact_name'];
-        }
-        if (isset($map['contact_phone'])) {
-            $model->contactPhone = $map['contact_phone'];
-        }
-        if (isset($map['contact_tag'])) {
-            $model->contactTag = $map['contact_tag'];
-        }
-        if (isset($map['contact_type'])) {
-            $model->contactType = $map['contact_type'];
-        }
-        if (isset($map['district_code'])) {
-            $model->districtCode = $map['district_code'];
-        }
-        if (isset($map['ext_info'])) {
-            $model->extInfo = $map['ext_info'];
-        }
-        if (isset($map['ip_role_id'])) {
-            $model->ipRoleId = $map['ip_role_id'];
-        }
-        if (isset($map['legal_cert_back_image'])) {
-            $model->legalCertBackImage = $map['legal_cert_back_image'];
-        }
-        if (isset($map['legal_cert_front_image'])) {
-            $model->legalCertFrontImage = $map['legal_cert_front_image'];
-        }
-        if (isset($map['legal_cert_no'])) {
-            $model->legalCertNo = $map['legal_cert_no'];
-        }
-        if (isset($map['legal_name'])) {
-            $model->legalName = $map['legal_name'];
-        }
-        if (isset($map['mcc'])) {
-            $model->mcc = $map['mcc'];
-        }
-        if (isset($map['merchant_name'])) {
-            $model->merchantName = $map['merchant_name'];
-        }
-        if (isset($map['merchant_type'])) {
-            $model->merchantType = $map['merchant_type'];
-        }
-        if (isset($map['name'])) {
-            $model->name = $map['name'];
-        }
-        if (isset($map['order_id'])) {
-            $model->orderId = $map['order_id'];
-        }
-        if (isset($map['out_biz_no'])) {
-            $model->outBizNo = $map['out_biz_no'];
-        }
-        if (isset($map['out_door_image'])) {
-            $model->outDoorImage = $map['out_door_image'];
-        }
-        if (isset($map['platform_tuid'])) {
-            $model->platformTuid = $map['platform_tuid'];
-        }
-        if (isset($map['province_code'])) {
-            $model->provinceCode = $map['province_code'];
-        }
-        if (isset($map['service'])) {
-            $model->service = $map['service'];
-        }
-        if (isset($map['service_phone'])) {
-            $model->servicePhone = $map['service_phone'];
-        }
-        if (isset($map['sign_time_with_isv'])) {
-            $model->signTimeWithIsv = $map['sign_time_with_isv'];
-        }
-        if (isset($map['site_name'])) {
-            $model->siteName = $map['site_name'];
-        }
-        if (isset($map['site_type'])) {
-            $model->siteType = $map['site_type'];
-        }
-        if (isset($map['site_url'])) {
-            $model->siteUrl = $map['site_url'];
-        }
-        if (isset($map['smid'])) {
-            $model->smid = $map['smid'];
-        }
-        if (isset($map['status'])) {
-            $model->status = $map['status'];
-        }
-        if (isset($map['update'])) {
-            $model->update = $map['update'];
-        }
-
-        return $model;
-    }
 }

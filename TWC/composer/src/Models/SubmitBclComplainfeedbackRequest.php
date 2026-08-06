@@ -1,13 +1,86 @@
 <?php
 
 // This file is auto-generated, don't edit it. Thanks.
-
 namespace AntChain\TWC\Models;
 
 use AlibabaCloud\Tea\Model;
 
-class SubmitBclComplainfeedbackRequest extends Model
-{
+class SubmitBclComplainfeedbackRequest extends Model {
+    protected $_name = [
+        'authToken' => 'auth_token',
+        'productInstanceId' => 'product_instance_id',
+        'complainEventId' => 'complain_event_id',
+        'feedbackCode' => 'feedback_code',
+        'feedbackContent' => 'feedback_content',
+        'feedbackImages' => 'feedback_images',
+        'operator' => 'operator',
+    ];
+    public function validate() {
+        Model::validateRequired('complainEventId', $this->complainEventId, true);
+        Model::validateRequired('feedbackCode', $this->feedbackCode, true);
+        Model::validateRequired('feedbackContent', $this->feedbackContent, true);
+        Model::validateRequired('feedbackImages', $this->feedbackImages, true);
+        Model::validateRequired('operator', $this->operator, true);
+        Model::validateMaxLength('complainEventId', $this->complainEventId, 64);
+        Model::validateMaxLength('feedbackCode', $this->feedbackCode, 32);
+        Model::validateMaxLength('feedbackContent', $this->feedbackContent, 1024);
+        Model::validateMaxLength('feedbackImages', $this->feedbackImages, 1024);
+        Model::validateMaxLength('operator', $this->operator, 32);
+    }
+    public function toMap() {
+        $res = [];
+        if (null !== $this->authToken) {
+            $res['auth_token'] = $this->authToken;
+        }
+        if (null !== $this->productInstanceId) {
+            $res['product_instance_id'] = $this->productInstanceId;
+        }
+        if (null !== $this->complainEventId) {
+            $res['complain_event_id'] = $this->complainEventId;
+        }
+        if (null !== $this->feedbackCode) {
+            $res['feedback_code'] = $this->feedbackCode;
+        }
+        if (null !== $this->feedbackContent) {
+            $res['feedback_content'] = $this->feedbackContent;
+        }
+        if (null !== $this->feedbackImages) {
+            $res['feedback_images'] = $this->feedbackImages;
+        }
+        if (null !== $this->operator) {
+            $res['operator'] = $this->operator;
+        }
+        return $res;
+    }
+    /**
+     * @param array $map
+     * @return SubmitBclComplainfeedbackRequest
+     */
+    public static function fromMap($map = []) {
+        $model = new self();
+        if(isset($map['auth_token'])){
+            $model->authToken = $map['auth_token'];
+        }
+        if(isset($map['product_instance_id'])){
+            $model->productInstanceId = $map['product_instance_id'];
+        }
+        if(isset($map['complain_event_id'])){
+            $model->complainEventId = $map['complain_event_id'];
+        }
+        if(isset($map['feedback_code'])){
+            $model->feedbackCode = $map['feedback_code'];
+        }
+        if(isset($map['feedback_content'])){
+            $model->feedbackContent = $map['feedback_content'];
+        }
+        if(isset($map['feedback_images'])){
+            $model->feedbackImages = $map['feedback_images'];
+        }
+        if(isset($map['operator'])){
+            $model->operator = $map['operator'];
+        }
+        return $model;
+    }
     // OAuth模式下的授权token
     /**
      * @var string
@@ -44,7 +117,7 @@ class SubmitBclComplainfeedbackRequest extends Model
     public $feedbackContent;
 
     // 商家处理投诉时反馈凭证的图片id，多个逗号隔开（图片id可以通过"商户上传处理图片"接口获取）
-    //
+    // 
     /**
      * @var string
      */
@@ -55,88 +128,5 @@ class SubmitBclComplainfeedbackRequest extends Model
      * @var string
      */
     public $operator;
-    protected $_name = [
-        'authToken'         => 'auth_token',
-        'productInstanceId' => 'product_instance_id',
-        'complainEventId'   => 'complain_event_id',
-        'feedbackCode'      => 'feedback_code',
-        'feedbackContent'   => 'feedback_content',
-        'feedbackImages'    => 'feedback_images',
-        'operator'          => 'operator',
-    ];
 
-    public function validate()
-    {
-        Model::validateRequired('complainEventId', $this->complainEventId, true);
-        Model::validateRequired('feedbackCode', $this->feedbackCode, true);
-        Model::validateRequired('feedbackContent', $this->feedbackContent, true);
-        Model::validateRequired('feedbackImages', $this->feedbackImages, true);
-        Model::validateRequired('operator', $this->operator, true);
-        Model::validateMaxLength('complainEventId', $this->complainEventId, 64);
-        Model::validateMaxLength('feedbackCode', $this->feedbackCode, 32);
-        Model::validateMaxLength('feedbackContent', $this->feedbackContent, 1024);
-        Model::validateMaxLength('feedbackImages', $this->feedbackImages, 1024);
-        Model::validateMaxLength('operator', $this->operator, 32);
-    }
-
-    public function toMap()
-    {
-        $res = [];
-        if (null !== $this->authToken) {
-            $res['auth_token'] = $this->authToken;
-        }
-        if (null !== $this->productInstanceId) {
-            $res['product_instance_id'] = $this->productInstanceId;
-        }
-        if (null !== $this->complainEventId) {
-            $res['complain_event_id'] = $this->complainEventId;
-        }
-        if (null !== $this->feedbackCode) {
-            $res['feedback_code'] = $this->feedbackCode;
-        }
-        if (null !== $this->feedbackContent) {
-            $res['feedback_content'] = $this->feedbackContent;
-        }
-        if (null !== $this->feedbackImages) {
-            $res['feedback_images'] = $this->feedbackImages;
-        }
-        if (null !== $this->operator) {
-            $res['operator'] = $this->operator;
-        }
-
-        return $res;
-    }
-
-    /**
-     * @param array $map
-     *
-     * @return SubmitBclComplainfeedbackRequest
-     */
-    public static function fromMap($map = [])
-    {
-        $model = new self();
-        if (isset($map['auth_token'])) {
-            $model->authToken = $map['auth_token'];
-        }
-        if (isset($map['product_instance_id'])) {
-            $model->productInstanceId = $map['product_instance_id'];
-        }
-        if (isset($map['complain_event_id'])) {
-            $model->complainEventId = $map['complain_event_id'];
-        }
-        if (isset($map['feedback_code'])) {
-            $model->feedbackCode = $map['feedback_code'];
-        }
-        if (isset($map['feedback_content'])) {
-            $model->feedbackContent = $map['feedback_content'];
-        }
-        if (isset($map['feedback_images'])) {
-            $model->feedbackImages = $map['feedback_images'];
-        }
-        if (isset($map['operator'])) {
-            $model->operator = $map['operator'];
-        }
-
-        return $model;
-    }
 }

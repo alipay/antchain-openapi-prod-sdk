@@ -1,13 +1,89 @@
 <?php
 
 // This file is auto-generated, don't edit it. Thanks.
-
 namespace AntChain\TWC\Models;
 
 use AlibabaCloud\Tea\Model;
 
-class QueryLeaseAsynccallResponse extends Model
-{
+class QueryLeaseAsynccallResponse extends Model {
+    protected $_name = [
+        'reqMsgId' => 'req_msg_id',
+        'resultCode' => 'result_code',
+        'resultMsg' => 'result_msg',
+        'status' => 'status',
+        'txHash' => 'tx_hash',
+        'chainFailMessage' => 'chain_fail_message',
+        'code' => 'code',
+        'message' => 'message',
+        'responseData' => 'response_data',
+    ];
+    public function validate() {}
+    public function toMap() {
+        $res = [];
+        if (null !== $this->reqMsgId) {
+            $res['req_msg_id'] = $this->reqMsgId;
+        }
+        if (null !== $this->resultCode) {
+            $res['result_code'] = $this->resultCode;
+        }
+        if (null !== $this->resultMsg) {
+            $res['result_msg'] = $this->resultMsg;
+        }
+        if (null !== $this->status) {
+            $res['status'] = $this->status;
+        }
+        if (null !== $this->txHash) {
+            $res['tx_hash'] = $this->txHash;
+        }
+        if (null !== $this->chainFailMessage) {
+            $res['chain_fail_message'] = $this->chainFailMessage;
+        }
+        if (null !== $this->code) {
+            $res['code'] = $this->code;
+        }
+        if (null !== $this->message) {
+            $res['message'] = $this->message;
+        }
+        if (null !== $this->responseData) {
+            $res['response_data'] = $this->responseData;
+        }
+        return $res;
+    }
+    /**
+     * @param array $map
+     * @return QueryLeaseAsynccallResponse
+     */
+    public static function fromMap($map = []) {
+        $model = new self();
+        if(isset($map['req_msg_id'])){
+            $model->reqMsgId = $map['req_msg_id'];
+        }
+        if(isset($map['result_code'])){
+            $model->resultCode = $map['result_code'];
+        }
+        if(isset($map['result_msg'])){
+            $model->resultMsg = $map['result_msg'];
+        }
+        if(isset($map['status'])){
+            $model->status = $map['status'];
+        }
+        if(isset($map['tx_hash'])){
+            $model->txHash = $map['tx_hash'];
+        }
+        if(isset($map['chain_fail_message'])){
+            $model->chainFailMessage = $map['chain_fail_message'];
+        }
+        if(isset($map['code'])){
+            $model->code = $map['code'];
+        }
+        if(isset($map['message'])){
+            $model->message = $map['message'];
+        }
+        if(isset($map['response_data'])){
+            $model->responseData = $map['response_data'];
+        }
+        return $model;
+    }
     // 请求唯一ID，用于链路跟踪和问题排查
     /**
      * @var string
@@ -64,92 +140,5 @@ class QueryLeaseAsynccallResponse extends Model
      * @var string
      */
     public $responseData;
-    protected $_name = [
-        'reqMsgId'         => 'req_msg_id',
-        'resultCode'       => 'result_code',
-        'resultMsg'        => 'result_msg',
-        'status'           => 'status',
-        'txHash'           => 'tx_hash',
-        'chainFailMessage' => 'chain_fail_message',
-        'code'             => 'code',
-        'message'          => 'message',
-        'responseData'     => 'response_data',
-    ];
 
-    public function validate()
-    {
-    }
-
-    public function toMap()
-    {
-        $res = [];
-        if (null !== $this->reqMsgId) {
-            $res['req_msg_id'] = $this->reqMsgId;
-        }
-        if (null !== $this->resultCode) {
-            $res['result_code'] = $this->resultCode;
-        }
-        if (null !== $this->resultMsg) {
-            $res['result_msg'] = $this->resultMsg;
-        }
-        if (null !== $this->status) {
-            $res['status'] = $this->status;
-        }
-        if (null !== $this->txHash) {
-            $res['tx_hash'] = $this->txHash;
-        }
-        if (null !== $this->chainFailMessage) {
-            $res['chain_fail_message'] = $this->chainFailMessage;
-        }
-        if (null !== $this->code) {
-            $res['code'] = $this->code;
-        }
-        if (null !== $this->message) {
-            $res['message'] = $this->message;
-        }
-        if (null !== $this->responseData) {
-            $res['response_data'] = $this->responseData;
-        }
-
-        return $res;
-    }
-
-    /**
-     * @param array $map
-     *
-     * @return QueryLeaseAsynccallResponse
-     */
-    public static function fromMap($map = [])
-    {
-        $model = new self();
-        if (isset($map['req_msg_id'])) {
-            $model->reqMsgId = $map['req_msg_id'];
-        }
-        if (isset($map['result_code'])) {
-            $model->resultCode = $map['result_code'];
-        }
-        if (isset($map['result_msg'])) {
-            $model->resultMsg = $map['result_msg'];
-        }
-        if (isset($map['status'])) {
-            $model->status = $map['status'];
-        }
-        if (isset($map['tx_hash'])) {
-            $model->txHash = $map['tx_hash'];
-        }
-        if (isset($map['chain_fail_message'])) {
-            $model->chainFailMessage = $map['chain_fail_message'];
-        }
-        if (isset($map['code'])) {
-            $model->code = $map['code'];
-        }
-        if (isset($map['message'])) {
-            $model->message = $map['message'];
-        }
-        if (isset($map['response_data'])) {
-            $model->responseData = $map['response_data'];
-        }
-
-        return $model;
-    }
 }

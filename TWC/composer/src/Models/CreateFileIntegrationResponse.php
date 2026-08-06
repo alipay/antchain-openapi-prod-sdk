@@ -1,13 +1,61 @@
 <?php
 
 // This file is auto-generated, don't edit it. Thanks.
-
 namespace AntChain\TWC\Models;
 
 use AlibabaCloud\Tea\Model;
 
-class CreateFileIntegrationResponse extends Model
-{
+class CreateFileIntegrationResponse extends Model {
+    protected $_name = [
+        'reqMsgId' => 'req_msg_id',
+        'resultCode' => 'result_code',
+        'resultMsg' => 'result_msg',
+        'objectName' => 'object_name',
+        'uploadLink' => 'upload_link',
+    ];
+    public function validate() {}
+    public function toMap() {
+        $res = [];
+        if (null !== $this->reqMsgId) {
+            $res['req_msg_id'] = $this->reqMsgId;
+        }
+        if (null !== $this->resultCode) {
+            $res['result_code'] = $this->resultCode;
+        }
+        if (null !== $this->resultMsg) {
+            $res['result_msg'] = $this->resultMsg;
+        }
+        if (null !== $this->objectName) {
+            $res['object_name'] = $this->objectName;
+        }
+        if (null !== $this->uploadLink) {
+            $res['upload_link'] = $this->uploadLink;
+        }
+        return $res;
+    }
+    /**
+     * @param array $map
+     * @return CreateFileIntegrationResponse
+     */
+    public static function fromMap($map = []) {
+        $model = new self();
+        if(isset($map['req_msg_id'])){
+            $model->reqMsgId = $map['req_msg_id'];
+        }
+        if(isset($map['result_code'])){
+            $model->resultCode = $map['result_code'];
+        }
+        if(isset($map['result_msg'])){
+            $model->resultMsg = $map['result_msg'];
+        }
+        if(isset($map['object_name'])){
+            $model->objectName = $map['object_name'];
+        }
+        if(isset($map['upload_link'])){
+            $model->uploadLink = $map['upload_link'];
+        }
+        return $model;
+    }
     // 请求唯一ID，用于链路跟踪和问题排查
     /**
      * @var string
@@ -37,64 +85,5 @@ class CreateFileIntegrationResponse extends Model
      * @var string
      */
     public $uploadLink;
-    protected $_name = [
-        'reqMsgId'   => 'req_msg_id',
-        'resultCode' => 'result_code',
-        'resultMsg'  => 'result_msg',
-        'objectName' => 'object_name',
-        'uploadLink' => 'upload_link',
-    ];
 
-    public function validate()
-    {
-    }
-
-    public function toMap()
-    {
-        $res = [];
-        if (null !== $this->reqMsgId) {
-            $res['req_msg_id'] = $this->reqMsgId;
-        }
-        if (null !== $this->resultCode) {
-            $res['result_code'] = $this->resultCode;
-        }
-        if (null !== $this->resultMsg) {
-            $res['result_msg'] = $this->resultMsg;
-        }
-        if (null !== $this->objectName) {
-            $res['object_name'] = $this->objectName;
-        }
-        if (null !== $this->uploadLink) {
-            $res['upload_link'] = $this->uploadLink;
-        }
-
-        return $res;
-    }
-
-    /**
-     * @param array $map
-     *
-     * @return CreateFileIntegrationResponse
-     */
-    public static function fromMap($map = [])
-    {
-        $model = new self();
-        if (isset($map['req_msg_id'])) {
-            $model->reqMsgId = $map['req_msg_id'];
-        }
-        if (isset($map['result_code'])) {
-            $model->resultCode = $map['result_code'];
-        }
-        if (isset($map['result_msg'])) {
-            $model->resultMsg = $map['result_msg'];
-        }
-        if (isset($map['object_name'])) {
-            $model->objectName = $map['object_name'];
-        }
-        if (isset($map['upload_link'])) {
-            $model->uploadLink = $map['upload_link'];
-        }
-
-        return $model;
-    }
 }

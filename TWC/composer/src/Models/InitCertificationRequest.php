@@ -1,13 +1,79 @@
 <?php
 
 // This file is auto-generated, don't edit it. Thanks.
-
 namespace AntChain\TWC\Models;
 
 use AlibabaCloud\Tea\Model;
 
-class InitCertificationRequest extends Model
-{
+use AntChain\TWC\Models\Identity;
+use AntChain\TWC\Models\NotaryInfo;
+
+class InitCertificationRequest extends Model {
+    protected $_name = [
+        'authToken' => 'auth_token',
+        'productInstanceId' => 'product_instance_id',
+        'applier' => 'applier',
+        'notaryInfo' => 'notary_info',
+        'type' => 'type',
+    ];
+    public function validate() {
+        Model::validateRequired('applier', $this->applier, true);
+        Model::validateRequired('notaryInfo', $this->notaryInfo, true);
+    }
+    public function toMap() {
+        $res = [];
+        if (null !== $this->authToken) {
+            $res['auth_token'] = $this->authToken;
+        }
+        if (null !== $this->productInstanceId) {
+            $res['product_instance_id'] = $this->productInstanceId;
+        }
+        if (null !== $this->applier) {
+            $res['applier'] = null !== $this->applier ? $this->applier->toMap() : null;
+        }
+        if (null !== $this->notaryInfo) {
+            $res['notary_info'] = [];
+            if(null !== $this->notaryInfo && is_array($this->notaryInfo)){
+                $n = 0;
+                foreach($this->notaryInfo as $item){
+                    $res['notary_info'][$n++] = null !== $item ? $item->toMap() : $item;
+                }
+            }
+        }
+        if (null !== $this->type) {
+            $res['type'] = $this->type;
+        }
+        return $res;
+    }
+    /**
+     * @param array $map
+     * @return InitCertificationRequest
+     */
+    public static function fromMap($map = []) {
+        $model = new self();
+        if(isset($map['auth_token'])){
+            $model->authToken = $map['auth_token'];
+        }
+        if(isset($map['product_instance_id'])){
+            $model->productInstanceId = $map['product_instance_id'];
+        }
+        if(isset($map['applier'])){
+            $model->applier = Identity::fromMap($map['applier']);
+        }
+        if(isset($map['notary_info'])){
+            if(!empty($map['notary_info'])){
+                $model->notaryInfo = [];
+                $n = 0;
+                foreach($map['notary_info'] as $item) {
+                    $model->notaryInfo[$n++] = null !== $item ? NotaryInfo::fromMap($item) : $item;
+                }
+            }
+        }
+        if(isset($map['type'])){
+            $model->type = $map['type'];
+        }
+        return $model;
+    }
     // OAuth模式下的授权token
     /**
      * @var string
@@ -36,78 +102,5 @@ class InitCertificationRequest extends Model
      * @var string
      */
     public $type;
-    protected $_name = [
-        'authToken'         => 'auth_token',
-        'productInstanceId' => 'product_instance_id',
-        'applier'           => 'applier',
-        'notaryInfo'        => 'notary_info',
-        'type'              => 'type',
-    ];
 
-    public function validate()
-    {
-        Model::validateRequired('applier', $this->applier, true);
-        Model::validateRequired('notaryInfo', $this->notaryInfo, true);
-    }
-
-    public function toMap()
-    {
-        $res = [];
-        if (null !== $this->authToken) {
-            $res['auth_token'] = $this->authToken;
-        }
-        if (null !== $this->productInstanceId) {
-            $res['product_instance_id'] = $this->productInstanceId;
-        }
-        if (null !== $this->applier) {
-            $res['applier'] = null !== $this->applier ? $this->applier->toMap() : null;
-        }
-        if (null !== $this->notaryInfo) {
-            $res['notary_info'] = [];
-            if (null !== $this->notaryInfo && \is_array($this->notaryInfo)) {
-                $n = 0;
-                foreach ($this->notaryInfo as $item) {
-                    $res['notary_info'][$n++] = null !== $item ? $item->toMap() : $item;
-                }
-            }
-        }
-        if (null !== $this->type) {
-            $res['type'] = $this->type;
-        }
-
-        return $res;
-    }
-
-    /**
-     * @param array $map
-     *
-     * @return InitCertificationRequest
-     */
-    public static function fromMap($map = [])
-    {
-        $model = new self();
-        if (isset($map['auth_token'])) {
-            $model->authToken = $map['auth_token'];
-        }
-        if (isset($map['product_instance_id'])) {
-            $model->productInstanceId = $map['product_instance_id'];
-        }
-        if (isset($map['applier'])) {
-            $model->applier = Identity::fromMap($map['applier']);
-        }
-        if (isset($map['notary_info'])) {
-            if (!empty($map['notary_info'])) {
-                $model->notaryInfo = [];
-                $n                 = 0;
-                foreach ($map['notary_info'] as $item) {
-                    $model->notaryInfo[$n++] = null !== $item ? NotaryInfo::fromMap($item) : $item;
-                }
-            }
-        }
-        if (isset($map['type'])) {
-            $model->type = $map['type'];
-        }
-
-        return $model;
-    }
 }

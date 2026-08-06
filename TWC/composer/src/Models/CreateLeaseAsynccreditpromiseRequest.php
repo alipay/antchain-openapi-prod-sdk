@@ -1,13 +1,171 @@
 <?php
 
 // This file is auto-generated, don't edit it. Thanks.
-
 namespace AntChain\TWC\Models;
 
 use AlibabaCloud\Tea\Model;
 
-class CreateLeaseAsynccreditpromiseRequest extends Model
-{
+class CreateLeaseAsynccreditpromiseRequest extends Model {
+    protected $_name = [
+        'authToken' => 'auth_token',
+        'productInstanceId' => 'product_instance_id',
+        'applicationId' => 'application_id',
+        'creditPromiseExtraInfoList' => 'credit_promise_extra_info_list',
+        'leaseId' => 'lease_id',
+        'orderId' => 'order_id',
+        'payInAdvanceMoney' => 'pay_in_advance_money',
+        'payInAdvanceMoneyList' => 'pay_in_advance_money_list',
+        'payInAdvanceTime' => 'pay_in_advance_time',
+        'payInAdvanceTimeList' => 'pay_in_advance_time_list',
+        'promiseHash' => 'promise_hash',
+        'promiseTxHash' => 'promise_tx_hash',
+        'returnMoney' => 'return_money',
+        'returnMoneyList' => 'return_money_list',
+        'returnRate' => 'return_rate',
+        'returnTime' => 'return_time',
+        'returnTimeList' => 'return_time_list',
+    ];
+    public function validate() {
+        Model::validateRequired('leaseId', $this->leaseId, true);
+        Model::validateRequired('orderId', $this->orderId, true);
+        Model::validateRequired('payInAdvanceTimeList', $this->payInAdvanceTimeList, true);
+        Model::validateRequired('promiseHash', $this->promiseHash, true);
+        Model::validateRequired('promiseTxHash', $this->promiseTxHash, true);
+        Model::validateRequired('returnMoneyList', $this->returnMoneyList, true);
+        Model::validateRequired('returnTimeList', $this->returnTimeList, true);
+        Model::validateMaxLength('leaseId', $this->leaseId, 32);
+        Model::validateMaxLength('orderId', $this->orderId, 50);
+        Model::validateMaxLength('promiseHash', $this->promiseHash, 70);
+        Model::validateMaxLength('promiseTxHash', $this->promiseTxHash, 70);
+        Model::validateMinLength('leaseId', $this->leaseId, 1);
+        Model::validateMinLength('promiseHash', $this->promiseHash, 1);
+        Model::validateMinLength('promiseTxHash', $this->promiseTxHash, 1);
+        Model::validateMinimum('returnRate', $this->returnRate, 0);
+    }
+    public function toMap() {
+        $res = [];
+        if (null !== $this->authToken) {
+            $res['auth_token'] = $this->authToken;
+        }
+        if (null !== $this->productInstanceId) {
+            $res['product_instance_id'] = $this->productInstanceId;
+        }
+        if (null !== $this->applicationId) {
+            $res['application_id'] = $this->applicationId;
+        }
+        if (null !== $this->creditPromiseExtraInfoList) {
+            $res['credit_promise_extra_info_list'] = $this->creditPromiseExtraInfoList;
+        }
+        if (null !== $this->leaseId) {
+            $res['lease_id'] = $this->leaseId;
+        }
+        if (null !== $this->orderId) {
+            $res['order_id'] = $this->orderId;
+        }
+        if (null !== $this->payInAdvanceMoney) {
+            $res['pay_in_advance_money'] = $this->payInAdvanceMoney;
+        }
+        if (null !== $this->payInAdvanceMoneyList) {
+            $res['pay_in_advance_money_list'] = $this->payInAdvanceMoneyList;
+        }
+        if (null !== $this->payInAdvanceTime) {
+            $res['pay_in_advance_time'] = $this->payInAdvanceTime;
+        }
+        if (null !== $this->payInAdvanceTimeList) {
+            $res['pay_in_advance_time_list'] = $this->payInAdvanceTimeList;
+        }
+        if (null !== $this->promiseHash) {
+            $res['promise_hash'] = $this->promiseHash;
+        }
+        if (null !== $this->promiseTxHash) {
+            $res['promise_tx_hash'] = $this->promiseTxHash;
+        }
+        if (null !== $this->returnMoney) {
+            $res['return_money'] = $this->returnMoney;
+        }
+        if (null !== $this->returnMoneyList) {
+            $res['return_money_list'] = $this->returnMoneyList;
+        }
+        if (null !== $this->returnRate) {
+            $res['return_rate'] = $this->returnRate;
+        }
+        if (null !== $this->returnTime) {
+            $res['return_time'] = $this->returnTime;
+        }
+        if (null !== $this->returnTimeList) {
+            $res['return_time_list'] = $this->returnTimeList;
+        }
+        return $res;
+    }
+    /**
+     * @param array $map
+     * @return CreateLeaseAsynccreditpromiseRequest
+     */
+    public static function fromMap($map = []) {
+        $model = new self();
+        if(isset($map['auth_token'])){
+            $model->authToken = $map['auth_token'];
+        }
+        if(isset($map['product_instance_id'])){
+            $model->productInstanceId = $map['product_instance_id'];
+        }
+        if(isset($map['application_id'])){
+            $model->applicationId = $map['application_id'];
+        }
+        if(isset($map['credit_promise_extra_info_list'])){
+            if(!empty($map['credit_promise_extra_info_list'])){
+                $model->creditPromiseExtraInfoList = $map['credit_promise_extra_info_list'];
+            }
+        }
+        if(isset($map['lease_id'])){
+            $model->leaseId = $map['lease_id'];
+        }
+        if(isset($map['order_id'])){
+            $model->orderId = $map['order_id'];
+        }
+        if(isset($map['pay_in_advance_money'])){
+            $model->payInAdvanceMoney = $map['pay_in_advance_money'];
+        }
+        if(isset($map['pay_in_advance_money_list'])){
+            if(!empty($map['pay_in_advance_money_list'])){
+                $model->payInAdvanceMoneyList = $map['pay_in_advance_money_list'];
+            }
+        }
+        if(isset($map['pay_in_advance_time'])){
+            $model->payInAdvanceTime = $map['pay_in_advance_time'];
+        }
+        if(isset($map['pay_in_advance_time_list'])){
+            if(!empty($map['pay_in_advance_time_list'])){
+                $model->payInAdvanceTimeList = $map['pay_in_advance_time_list'];
+            }
+        }
+        if(isset($map['promise_hash'])){
+            $model->promiseHash = $map['promise_hash'];
+        }
+        if(isset($map['promise_tx_hash'])){
+            $model->promiseTxHash = $map['promise_tx_hash'];
+        }
+        if(isset($map['return_money'])){
+            $model->returnMoney = $map['return_money'];
+        }
+        if(isset($map['return_money_list'])){
+            if(!empty($map['return_money_list'])){
+                $model->returnMoneyList = $map['return_money_list'];
+            }
+        }
+        if(isset($map['return_rate'])){
+            $model->returnRate = $map['return_rate'];
+        }
+        if(isset($map['return_time'])){
+            $model->returnTime = $map['return_time'];
+        }
+        if(isset($map['return_time_list'])){
+            if(!empty($map['return_time_list'])){
+                $model->returnTimeList = $map['return_time_list'];
+            }
+        }
+        return $model;
+    }
     // OAuth模式下的授权token
     /**
      * @var string
@@ -108,173 +266,5 @@ class CreateLeaseAsynccreditpromiseRequest extends Model
      * @var string[]
      */
     public $returnTimeList;
-    protected $_name = [
-        'authToken'                  => 'auth_token',
-        'productInstanceId'          => 'product_instance_id',
-        'applicationId'              => 'application_id',
-        'creditPromiseExtraInfoList' => 'credit_promise_extra_info_list',
-        'leaseId'                    => 'lease_id',
-        'orderId'                    => 'order_id',
-        'payInAdvanceMoney'          => 'pay_in_advance_money',
-        'payInAdvanceMoneyList'      => 'pay_in_advance_money_list',
-        'payInAdvanceTime'           => 'pay_in_advance_time',
-        'payInAdvanceTimeList'       => 'pay_in_advance_time_list',
-        'promiseHash'                => 'promise_hash',
-        'promiseTxHash'              => 'promise_tx_hash',
-        'returnMoney'                => 'return_money',
-        'returnMoneyList'            => 'return_money_list',
-        'returnRate'                 => 'return_rate',
-        'returnTime'                 => 'return_time',
-        'returnTimeList'             => 'return_time_list',
-    ];
 
-    public function validate()
-    {
-        Model::validateRequired('leaseId', $this->leaseId, true);
-        Model::validateRequired('orderId', $this->orderId, true);
-        Model::validateRequired('payInAdvanceTimeList', $this->payInAdvanceTimeList, true);
-        Model::validateRequired('promiseHash', $this->promiseHash, true);
-        Model::validateRequired('promiseTxHash', $this->promiseTxHash, true);
-        Model::validateRequired('returnMoneyList', $this->returnMoneyList, true);
-        Model::validateRequired('returnTimeList', $this->returnTimeList, true);
-        Model::validateMaxLength('leaseId', $this->leaseId, 32);
-        Model::validateMaxLength('orderId', $this->orderId, 50);
-        Model::validateMaxLength('promiseHash', $this->promiseHash, 70);
-        Model::validateMaxLength('promiseTxHash', $this->promiseTxHash, 70);
-        Model::validateMinLength('leaseId', $this->leaseId, 1);
-        Model::validateMinLength('promiseHash', $this->promiseHash, 1);
-        Model::validateMinLength('promiseTxHash', $this->promiseTxHash, 1);
-        Model::validateMinimum('returnRate', $this->returnRate, 0);
-    }
-
-    public function toMap()
-    {
-        $res = [];
-        if (null !== $this->authToken) {
-            $res['auth_token'] = $this->authToken;
-        }
-        if (null !== $this->productInstanceId) {
-            $res['product_instance_id'] = $this->productInstanceId;
-        }
-        if (null !== $this->applicationId) {
-            $res['application_id'] = $this->applicationId;
-        }
-        if (null !== $this->creditPromiseExtraInfoList) {
-            $res['credit_promise_extra_info_list'] = $this->creditPromiseExtraInfoList;
-        }
-        if (null !== $this->leaseId) {
-            $res['lease_id'] = $this->leaseId;
-        }
-        if (null !== $this->orderId) {
-            $res['order_id'] = $this->orderId;
-        }
-        if (null !== $this->payInAdvanceMoney) {
-            $res['pay_in_advance_money'] = $this->payInAdvanceMoney;
-        }
-        if (null !== $this->payInAdvanceMoneyList) {
-            $res['pay_in_advance_money_list'] = $this->payInAdvanceMoneyList;
-        }
-        if (null !== $this->payInAdvanceTime) {
-            $res['pay_in_advance_time'] = $this->payInAdvanceTime;
-        }
-        if (null !== $this->payInAdvanceTimeList) {
-            $res['pay_in_advance_time_list'] = $this->payInAdvanceTimeList;
-        }
-        if (null !== $this->promiseHash) {
-            $res['promise_hash'] = $this->promiseHash;
-        }
-        if (null !== $this->promiseTxHash) {
-            $res['promise_tx_hash'] = $this->promiseTxHash;
-        }
-        if (null !== $this->returnMoney) {
-            $res['return_money'] = $this->returnMoney;
-        }
-        if (null !== $this->returnMoneyList) {
-            $res['return_money_list'] = $this->returnMoneyList;
-        }
-        if (null !== $this->returnRate) {
-            $res['return_rate'] = $this->returnRate;
-        }
-        if (null !== $this->returnTime) {
-            $res['return_time'] = $this->returnTime;
-        }
-        if (null !== $this->returnTimeList) {
-            $res['return_time_list'] = $this->returnTimeList;
-        }
-
-        return $res;
-    }
-
-    /**
-     * @param array $map
-     *
-     * @return CreateLeaseAsynccreditpromiseRequest
-     */
-    public static function fromMap($map = [])
-    {
-        $model = new self();
-        if (isset($map['auth_token'])) {
-            $model->authToken = $map['auth_token'];
-        }
-        if (isset($map['product_instance_id'])) {
-            $model->productInstanceId = $map['product_instance_id'];
-        }
-        if (isset($map['application_id'])) {
-            $model->applicationId = $map['application_id'];
-        }
-        if (isset($map['credit_promise_extra_info_list'])) {
-            if (!empty($map['credit_promise_extra_info_list'])) {
-                $model->creditPromiseExtraInfoList = $map['credit_promise_extra_info_list'];
-            }
-        }
-        if (isset($map['lease_id'])) {
-            $model->leaseId = $map['lease_id'];
-        }
-        if (isset($map['order_id'])) {
-            $model->orderId = $map['order_id'];
-        }
-        if (isset($map['pay_in_advance_money'])) {
-            $model->payInAdvanceMoney = $map['pay_in_advance_money'];
-        }
-        if (isset($map['pay_in_advance_money_list'])) {
-            if (!empty($map['pay_in_advance_money_list'])) {
-                $model->payInAdvanceMoneyList = $map['pay_in_advance_money_list'];
-            }
-        }
-        if (isset($map['pay_in_advance_time'])) {
-            $model->payInAdvanceTime = $map['pay_in_advance_time'];
-        }
-        if (isset($map['pay_in_advance_time_list'])) {
-            if (!empty($map['pay_in_advance_time_list'])) {
-                $model->payInAdvanceTimeList = $map['pay_in_advance_time_list'];
-            }
-        }
-        if (isset($map['promise_hash'])) {
-            $model->promiseHash = $map['promise_hash'];
-        }
-        if (isset($map['promise_tx_hash'])) {
-            $model->promiseTxHash = $map['promise_tx_hash'];
-        }
-        if (isset($map['return_money'])) {
-            $model->returnMoney = $map['return_money'];
-        }
-        if (isset($map['return_money_list'])) {
-            if (!empty($map['return_money_list'])) {
-                $model->returnMoneyList = $map['return_money_list'];
-            }
-        }
-        if (isset($map['return_rate'])) {
-            $model->returnRate = $map['return_rate'];
-        }
-        if (isset($map['return_time'])) {
-            $model->returnTime = $map['return_time'];
-        }
-        if (isset($map['return_time_list'])) {
-            if (!empty($map['return_time_list'])) {
-                $model->returnTimeList = $map['return_time_list'];
-            }
-        }
-
-        return $model;
-    }
 }

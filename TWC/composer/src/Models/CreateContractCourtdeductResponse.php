@@ -1,13 +1,75 @@
 <?php
 
 // This file is auto-generated, don't edit it. Thanks.
-
 namespace AntChain\TWC\Models;
 
 use AlibabaCloud\Tea\Model;
 
-class CreateContractCourtdeductResponse extends Model
-{
+class CreateContractCourtdeductResponse extends Model {
+    protected $_name = [
+        'reqMsgId' => 'req_msg_id',
+        'resultCode' => 'result_code',
+        'resultMsg' => 'result_msg',
+        'fileName' => 'file_name',
+        'txHash' => 'tx_hash',
+        'notaryContent' => 'notary_content',
+        'notaryContentHash' => 'notary_content_hash',
+    ];
+    public function validate() {}
+    public function toMap() {
+        $res = [];
+        if (null !== $this->reqMsgId) {
+            $res['req_msg_id'] = $this->reqMsgId;
+        }
+        if (null !== $this->resultCode) {
+            $res['result_code'] = $this->resultCode;
+        }
+        if (null !== $this->resultMsg) {
+            $res['result_msg'] = $this->resultMsg;
+        }
+        if (null !== $this->fileName) {
+            $res['file_name'] = $this->fileName;
+        }
+        if (null !== $this->txHash) {
+            $res['tx_hash'] = $this->txHash;
+        }
+        if (null !== $this->notaryContent) {
+            $res['notary_content'] = $this->notaryContent;
+        }
+        if (null !== $this->notaryContentHash) {
+            $res['notary_content_hash'] = $this->notaryContentHash;
+        }
+        return $res;
+    }
+    /**
+     * @param array $map
+     * @return CreateContractCourtdeductResponse
+     */
+    public static function fromMap($map = []) {
+        $model = new self();
+        if(isset($map['req_msg_id'])){
+            $model->reqMsgId = $map['req_msg_id'];
+        }
+        if(isset($map['result_code'])){
+            $model->resultCode = $map['result_code'];
+        }
+        if(isset($map['result_msg'])){
+            $model->resultMsg = $map['result_msg'];
+        }
+        if(isset($map['file_name'])){
+            $model->fileName = $map['file_name'];
+        }
+        if(isset($map['tx_hash'])){
+            $model->txHash = $map['tx_hash'];
+        }
+        if(isset($map['notary_content'])){
+            $model->notaryContent = $map['notary_content'];
+        }
+        if(isset($map['notary_content_hash'])){
+            $model->notaryContentHash = $map['notary_content_hash'];
+        }
+        return $model;
+    }
     // 请求唯一ID，用于链路跟踪和问题排查
     /**
      * @var string
@@ -49,78 +111,5 @@ class CreateContractCourtdeductResponse extends Model
      * @var string
      */
     public $notaryContentHash;
-    protected $_name = [
-        'reqMsgId'          => 'req_msg_id',
-        'resultCode'        => 'result_code',
-        'resultMsg'         => 'result_msg',
-        'fileName'          => 'file_name',
-        'txHash'            => 'tx_hash',
-        'notaryContent'     => 'notary_content',
-        'notaryContentHash' => 'notary_content_hash',
-    ];
 
-    public function validate()
-    {
-    }
-
-    public function toMap()
-    {
-        $res = [];
-        if (null !== $this->reqMsgId) {
-            $res['req_msg_id'] = $this->reqMsgId;
-        }
-        if (null !== $this->resultCode) {
-            $res['result_code'] = $this->resultCode;
-        }
-        if (null !== $this->resultMsg) {
-            $res['result_msg'] = $this->resultMsg;
-        }
-        if (null !== $this->fileName) {
-            $res['file_name'] = $this->fileName;
-        }
-        if (null !== $this->txHash) {
-            $res['tx_hash'] = $this->txHash;
-        }
-        if (null !== $this->notaryContent) {
-            $res['notary_content'] = $this->notaryContent;
-        }
-        if (null !== $this->notaryContentHash) {
-            $res['notary_content_hash'] = $this->notaryContentHash;
-        }
-
-        return $res;
-    }
-
-    /**
-     * @param array $map
-     *
-     * @return CreateContractCourtdeductResponse
-     */
-    public static function fromMap($map = [])
-    {
-        $model = new self();
-        if (isset($map['req_msg_id'])) {
-            $model->reqMsgId = $map['req_msg_id'];
-        }
-        if (isset($map['result_code'])) {
-            $model->resultCode = $map['result_code'];
-        }
-        if (isset($map['result_msg'])) {
-            $model->resultMsg = $map['result_msg'];
-        }
-        if (isset($map['file_name'])) {
-            $model->fileName = $map['file_name'];
-        }
-        if (isset($map['tx_hash'])) {
-            $model->txHash = $map['tx_hash'];
-        }
-        if (isset($map['notary_content'])) {
-            $model->notaryContent = $map['notary_content'];
-        }
-        if (isset($map['notary_content_hash'])) {
-            $model->notaryContentHash = $map['notary_content_hash'];
-        }
-
-        return $model;
-    }
 }

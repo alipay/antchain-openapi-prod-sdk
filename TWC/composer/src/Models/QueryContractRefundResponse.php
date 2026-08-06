@@ -1,13 +1,84 @@
 <?php
 
 // This file is auto-generated, don't edit it. Thanks.
-
 namespace AntChain\TWC\Models;
 
 use AlibabaCloud\Tea\Model;
 
-class QueryContractRefundResponse extends Model
-{
+class QueryContractRefundResponse extends Model {
+    protected $_name = [
+        'reqMsgId' => 'req_msg_id',
+        'resultCode' => 'result_code',
+        'resultMsg' => 'result_msg',
+        'refundId' => 'refund_id',
+        'refundTime' => 'refund_time',
+        'refundAmount' => 'refund_amount',
+        'status' => 'status',
+        'errMsg' => 'err_msg',
+    ];
+    public function validate() {
+        Model::validatePattern('refundTime', $this->refundTime, '\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}([Z]|([\\.]\\d{1,9})?[\\+]\\d{2}[\\:]?\\d{2})');
+    }
+    public function toMap() {
+        $res = [];
+        if (null !== $this->reqMsgId) {
+            $res['req_msg_id'] = $this->reqMsgId;
+        }
+        if (null !== $this->resultCode) {
+            $res['result_code'] = $this->resultCode;
+        }
+        if (null !== $this->resultMsg) {
+            $res['result_msg'] = $this->resultMsg;
+        }
+        if (null !== $this->refundId) {
+            $res['refund_id'] = $this->refundId;
+        }
+        if (null !== $this->refundTime) {
+            $res['refund_time'] = $this->refundTime;
+        }
+        if (null !== $this->refundAmount) {
+            $res['refund_amount'] = $this->refundAmount;
+        }
+        if (null !== $this->status) {
+            $res['status'] = $this->status;
+        }
+        if (null !== $this->errMsg) {
+            $res['err_msg'] = $this->errMsg;
+        }
+        return $res;
+    }
+    /**
+     * @param array $map
+     * @return QueryContractRefundResponse
+     */
+    public static function fromMap($map = []) {
+        $model = new self();
+        if(isset($map['req_msg_id'])){
+            $model->reqMsgId = $map['req_msg_id'];
+        }
+        if(isset($map['result_code'])){
+            $model->resultCode = $map['result_code'];
+        }
+        if(isset($map['result_msg'])){
+            $model->resultMsg = $map['result_msg'];
+        }
+        if(isset($map['refund_id'])){
+            $model->refundId = $map['refund_id'];
+        }
+        if(isset($map['refund_time'])){
+            $model->refundTime = $map['refund_time'];
+        }
+        if(isset($map['refund_amount'])){
+            $model->refundAmount = $map['refund_amount'];
+        }
+        if(isset($map['status'])){
+            $model->status = $map['status'];
+        }
+        if(isset($map['err_msg'])){
+            $model->errMsg = $map['err_msg'];
+        }
+        return $model;
+    }
     // 请求唯一ID，用于链路跟踪和问题排查
     /**
      * @var string
@@ -58,86 +129,5 @@ class QueryContractRefundResponse extends Model
      * @var string
      */
     public $errMsg;
-    protected $_name = [
-        'reqMsgId'     => 'req_msg_id',
-        'resultCode'   => 'result_code',
-        'resultMsg'    => 'result_msg',
-        'refundId'     => 'refund_id',
-        'refundTime'   => 'refund_time',
-        'refundAmount' => 'refund_amount',
-        'status'       => 'status',
-        'errMsg'       => 'err_msg',
-    ];
 
-    public function validate()
-    {
-        Model::validatePattern('refundTime', $this->refundTime, '\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}([Z]|([\\.]\\d{1,9})?[\\+]\\d{2}[\\:]?\\d{2})');
-    }
-
-    public function toMap()
-    {
-        $res = [];
-        if (null !== $this->reqMsgId) {
-            $res['req_msg_id'] = $this->reqMsgId;
-        }
-        if (null !== $this->resultCode) {
-            $res['result_code'] = $this->resultCode;
-        }
-        if (null !== $this->resultMsg) {
-            $res['result_msg'] = $this->resultMsg;
-        }
-        if (null !== $this->refundId) {
-            $res['refund_id'] = $this->refundId;
-        }
-        if (null !== $this->refundTime) {
-            $res['refund_time'] = $this->refundTime;
-        }
-        if (null !== $this->refundAmount) {
-            $res['refund_amount'] = $this->refundAmount;
-        }
-        if (null !== $this->status) {
-            $res['status'] = $this->status;
-        }
-        if (null !== $this->errMsg) {
-            $res['err_msg'] = $this->errMsg;
-        }
-
-        return $res;
-    }
-
-    /**
-     * @param array $map
-     *
-     * @return QueryContractRefundResponse
-     */
-    public static function fromMap($map = [])
-    {
-        $model = new self();
-        if (isset($map['req_msg_id'])) {
-            $model->reqMsgId = $map['req_msg_id'];
-        }
-        if (isset($map['result_code'])) {
-            $model->resultCode = $map['result_code'];
-        }
-        if (isset($map['result_msg'])) {
-            $model->resultMsg = $map['result_msg'];
-        }
-        if (isset($map['refund_id'])) {
-            $model->refundId = $map['refund_id'];
-        }
-        if (isset($map['refund_time'])) {
-            $model->refundTime = $map['refund_time'];
-        }
-        if (isset($map['refund_amount'])) {
-            $model->refundAmount = $map['refund_amount'];
-        }
-        if (isset($map['status'])) {
-            $model->status = $map['status'];
-        }
-        if (isset($map['err_msg'])) {
-            $model->errMsg = $map['err_msg'];
-        }
-
-        return $model;
-    }
 }

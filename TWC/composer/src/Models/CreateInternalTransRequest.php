@@ -1,13 +1,93 @@
 <?php
 
 // This file is auto-generated, don't edit it. Thanks.
-
 namespace AntChain\TWC\Models;
 
 use AlibabaCloud\Tea\Model;
 
-class CreateInternalTransRequest extends Model
-{
+use AntChain\TWC\Models\Identity;
+
+class CreateInternalTransRequest extends Model {
+    protected $_name = [
+        'authToken' => 'auth_token',
+        'productInstanceId' => 'product_instance_id',
+        'customer' => 'customer',
+        'properties' => 'properties',
+        'subBizId' => 'sub_biz_id',
+        'tsr' => 'tsr',
+        'realTenant' => 'real_tenant',
+        'authCode' => 'auth_code',
+        'product' => 'product',
+    ];
+    public function validate() {
+        Model::validateRequired('customer', $this->customer, true);
+    }
+    public function toMap() {
+        $res = [];
+        if (null !== $this->authToken) {
+            $res['auth_token'] = $this->authToken;
+        }
+        if (null !== $this->productInstanceId) {
+            $res['product_instance_id'] = $this->productInstanceId;
+        }
+        if (null !== $this->customer) {
+            $res['customer'] = null !== $this->customer ? $this->customer->toMap() : null;
+        }
+        if (null !== $this->properties) {
+            $res['properties'] = $this->properties;
+        }
+        if (null !== $this->subBizId) {
+            $res['sub_biz_id'] = $this->subBizId;
+        }
+        if (null !== $this->tsr) {
+            $res['tsr'] = $this->tsr;
+        }
+        if (null !== $this->realTenant) {
+            $res['real_tenant'] = $this->realTenant;
+        }
+        if (null !== $this->authCode) {
+            $res['auth_code'] = $this->authCode;
+        }
+        if (null !== $this->product) {
+            $res['product'] = $this->product;
+        }
+        return $res;
+    }
+    /**
+     * @param array $map
+     * @return CreateInternalTransRequest
+     */
+    public static function fromMap($map = []) {
+        $model = new self();
+        if(isset($map['auth_token'])){
+            $model->authToken = $map['auth_token'];
+        }
+        if(isset($map['product_instance_id'])){
+            $model->productInstanceId = $map['product_instance_id'];
+        }
+        if(isset($map['customer'])){
+            $model->customer = Identity::fromMap($map['customer']);
+        }
+        if(isset($map['properties'])){
+            $model->properties = $map['properties'];
+        }
+        if(isset($map['sub_biz_id'])){
+            $model->subBizId = $map['sub_biz_id'];
+        }
+        if(isset($map['tsr'])){
+            $model->tsr = $map['tsr'];
+        }
+        if(isset($map['real_tenant'])){
+            $model->realTenant = $map['real_tenant'];
+        }
+        if(isset($map['auth_code'])){
+            $model->authCode = $map['auth_code'];
+        }
+        if(isset($map['product'])){
+            $model->product = $map['product'];
+        }
+        return $model;
+    }
     // OAuth模式下的授权token
     /**
      * @var string
@@ -60,93 +140,5 @@ class CreateInternalTransRequest extends Model
      * @var string
      */
     public $product;
-    protected $_name = [
-        'authToken'         => 'auth_token',
-        'productInstanceId' => 'product_instance_id',
-        'customer'          => 'customer',
-        'properties'        => 'properties',
-        'subBizId'          => 'sub_biz_id',
-        'tsr'               => 'tsr',
-        'realTenant'        => 'real_tenant',
-        'authCode'          => 'auth_code',
-        'product'           => 'product',
-    ];
 
-    public function validate()
-    {
-        Model::validateRequired('customer', $this->customer, true);
-    }
-
-    public function toMap()
-    {
-        $res = [];
-        if (null !== $this->authToken) {
-            $res['auth_token'] = $this->authToken;
-        }
-        if (null !== $this->productInstanceId) {
-            $res['product_instance_id'] = $this->productInstanceId;
-        }
-        if (null !== $this->customer) {
-            $res['customer'] = null !== $this->customer ? $this->customer->toMap() : null;
-        }
-        if (null !== $this->properties) {
-            $res['properties'] = $this->properties;
-        }
-        if (null !== $this->subBizId) {
-            $res['sub_biz_id'] = $this->subBizId;
-        }
-        if (null !== $this->tsr) {
-            $res['tsr'] = $this->tsr;
-        }
-        if (null !== $this->realTenant) {
-            $res['real_tenant'] = $this->realTenant;
-        }
-        if (null !== $this->authCode) {
-            $res['auth_code'] = $this->authCode;
-        }
-        if (null !== $this->product) {
-            $res['product'] = $this->product;
-        }
-
-        return $res;
-    }
-
-    /**
-     * @param array $map
-     *
-     * @return CreateInternalTransRequest
-     */
-    public static function fromMap($map = [])
-    {
-        $model = new self();
-        if (isset($map['auth_token'])) {
-            $model->authToken = $map['auth_token'];
-        }
-        if (isset($map['product_instance_id'])) {
-            $model->productInstanceId = $map['product_instance_id'];
-        }
-        if (isset($map['customer'])) {
-            $model->customer = Identity::fromMap($map['customer']);
-        }
-        if (isset($map['properties'])) {
-            $model->properties = $map['properties'];
-        }
-        if (isset($map['sub_biz_id'])) {
-            $model->subBizId = $map['sub_biz_id'];
-        }
-        if (isset($map['tsr'])) {
-            $model->tsr = $map['tsr'];
-        }
-        if (isset($map['real_tenant'])) {
-            $model->realTenant = $map['real_tenant'];
-        }
-        if (isset($map['auth_code'])) {
-            $model->authCode = $map['auth_code'];
-        }
-        if (isset($map['product'])) {
-            $model->product = $map['product'];
-        }
-
-        return $model;
-    }
 }

@@ -1,13 +1,177 @@
 <?php
 
 // This file is auto-generated, don't edit it. Thanks.
-
 namespace AntChain\TWC\Models;
 
 use AlibabaCloud\Tea\Model;
 
-class CreateLeaseDisburseinfoRequest extends Model
-{
+class CreateLeaseDisburseinfoRequest extends Model {
+    protected $_name = [
+        'authToken' => 'auth_token',
+        'productInstanceId' => 'product_instance_id',
+        'activeAccount' => 'active_account',
+        'activeResultDesc' => 'active_result_desc',
+        'activeResultStatus' => 'active_result_status',
+        'activeReturnDate' => 'active_return_date',
+        'activeReturnMoney' => 'active_return_money',
+        'disburseLimit' => 'disburse_limit',
+        'disburseMoney' => 'disburse_money',
+        'disburseService' => 'disburse_service',
+        'exceedDuration' => 'exceed_duration',
+        'exceedPayBackStatus' => 'exceed_pay_back_status',
+        'exceedRate' => 'exceed_rate',
+        'exceedReturnMoney' => 'exceed_return_money',
+        'loanRate' => 'loan_rate',
+        'orderId' => 'order_id',
+        'payBackDate' => 'pay_back_date',
+        'payBackMoney' => 'pay_back_money',
+        'returnInterest' => 'return_interest',
+    ];
+    public function validate() {
+        Model::validateRequired('activeAccount', $this->activeAccount, true);
+        Model::validateRequired('activeResultDesc', $this->activeResultDesc, true);
+        Model::validateRequired('activeResultStatus', $this->activeResultStatus, true);
+        Model::validateRequired('activeReturnDate', $this->activeReturnDate, true);
+        Model::validateRequired('activeReturnMoney', $this->activeReturnMoney, true);
+        Model::validateRequired('disburseLimit', $this->disburseLimit, true);
+        Model::validateRequired('disburseMoney', $this->disburseMoney, true);
+        Model::validateRequired('disburseService', $this->disburseService, true);
+        Model::validateRequired('exceedDuration', $this->exceedDuration, true);
+        Model::validateRequired('exceedPayBackStatus', $this->exceedPayBackStatus, true);
+        Model::validateRequired('exceedRate', $this->exceedRate, true);
+        Model::validateRequired('exceedReturnMoney', $this->exceedReturnMoney, true);
+        Model::validateRequired('loanRate', $this->loanRate, true);
+        Model::validateRequired('orderId', $this->orderId, true);
+        Model::validateRequired('payBackDate', $this->payBackDate, true);
+        Model::validateRequired('payBackMoney', $this->payBackMoney, true);
+        Model::validateRequired('returnInterest', $this->returnInterest, true);
+    }
+    public function toMap() {
+        $res = [];
+        if (null !== $this->authToken) {
+            $res['auth_token'] = $this->authToken;
+        }
+        if (null !== $this->productInstanceId) {
+            $res['product_instance_id'] = $this->productInstanceId;
+        }
+        if (null !== $this->activeAccount) {
+            $res['active_account'] = $this->activeAccount;
+        }
+        if (null !== $this->activeResultDesc) {
+            $res['active_result_desc'] = $this->activeResultDesc;
+        }
+        if (null !== $this->activeResultStatus) {
+            $res['active_result_status'] = $this->activeResultStatus;
+        }
+        if (null !== $this->activeReturnDate) {
+            $res['active_return_date'] = $this->activeReturnDate;
+        }
+        if (null !== $this->activeReturnMoney) {
+            $res['active_return_money'] = $this->activeReturnMoney;
+        }
+        if (null !== $this->disburseLimit) {
+            $res['disburse_limit'] = $this->disburseLimit;
+        }
+        if (null !== $this->disburseMoney) {
+            $res['disburse_money'] = $this->disburseMoney;
+        }
+        if (null !== $this->disburseService) {
+            $res['disburse_service'] = $this->disburseService;
+        }
+        if (null !== $this->exceedDuration) {
+            $res['exceed_duration'] = $this->exceedDuration;
+        }
+        if (null !== $this->exceedPayBackStatus) {
+            $res['exceed_pay_back_status'] = $this->exceedPayBackStatus;
+        }
+        if (null !== $this->exceedRate) {
+            $res['exceed_rate'] = $this->exceedRate;
+        }
+        if (null !== $this->exceedReturnMoney) {
+            $res['exceed_return_money'] = $this->exceedReturnMoney;
+        }
+        if (null !== $this->loanRate) {
+            $res['loan_rate'] = $this->loanRate;
+        }
+        if (null !== $this->orderId) {
+            $res['order_id'] = $this->orderId;
+        }
+        if (null !== $this->payBackDate) {
+            $res['pay_back_date'] = $this->payBackDate;
+        }
+        if (null !== $this->payBackMoney) {
+            $res['pay_back_money'] = $this->payBackMoney;
+        }
+        if (null !== $this->returnInterest) {
+            $res['return_interest'] = $this->returnInterest;
+        }
+        return $res;
+    }
+    /**
+     * @param array $map
+     * @return CreateLeaseDisburseinfoRequest
+     */
+    public static function fromMap($map = []) {
+        $model = new self();
+        if(isset($map['auth_token'])){
+            $model->authToken = $map['auth_token'];
+        }
+        if(isset($map['product_instance_id'])){
+            $model->productInstanceId = $map['product_instance_id'];
+        }
+        if(isset($map['active_account'])){
+            $model->activeAccount = $map['active_account'];
+        }
+        if(isset($map['active_result_desc'])){
+            $model->activeResultDesc = $map['active_result_desc'];
+        }
+        if(isset($map['active_result_status'])){
+            $model->activeResultStatus = $map['active_result_status'];
+        }
+        if(isset($map['active_return_date'])){
+            $model->activeReturnDate = $map['active_return_date'];
+        }
+        if(isset($map['active_return_money'])){
+            $model->activeReturnMoney = $map['active_return_money'];
+        }
+        if(isset($map['disburse_limit'])){
+            $model->disburseLimit = $map['disburse_limit'];
+        }
+        if(isset($map['disburse_money'])){
+            $model->disburseMoney = $map['disburse_money'];
+        }
+        if(isset($map['disburse_service'])){
+            $model->disburseService = $map['disburse_service'];
+        }
+        if(isset($map['exceed_duration'])){
+            $model->exceedDuration = $map['exceed_duration'];
+        }
+        if(isset($map['exceed_pay_back_status'])){
+            $model->exceedPayBackStatus = $map['exceed_pay_back_status'];
+        }
+        if(isset($map['exceed_rate'])){
+            $model->exceedRate = $map['exceed_rate'];
+        }
+        if(isset($map['exceed_return_money'])){
+            $model->exceedReturnMoney = $map['exceed_return_money'];
+        }
+        if(isset($map['loan_rate'])){
+            $model->loanRate = $map['loan_rate'];
+        }
+        if(isset($map['order_id'])){
+            $model->orderId = $map['order_id'];
+        }
+        if(isset($map['pay_back_date'])){
+            $model->payBackDate = $map['pay_back_date'];
+        }
+        if(isset($map['pay_back_money'])){
+            $model->payBackMoney = $map['pay_back_money'];
+        }
+        if(isset($map['return_interest'])){
+            $model->returnInterest = $map['return_interest'];
+        }
+        return $model;
+    }
     // OAuth模式下的授权token
     /**
      * @var string
@@ -120,179 +284,5 @@ class CreateLeaseDisburseinfoRequest extends Model
      * @var int
      */
     public $returnInterest;
-    protected $_name = [
-        'authToken'           => 'auth_token',
-        'productInstanceId'   => 'product_instance_id',
-        'activeAccount'       => 'active_account',
-        'activeResultDesc'    => 'active_result_desc',
-        'activeResultStatus'  => 'active_result_status',
-        'activeReturnDate'    => 'active_return_date',
-        'activeReturnMoney'   => 'active_return_money',
-        'disburseLimit'       => 'disburse_limit',
-        'disburseMoney'       => 'disburse_money',
-        'disburseService'     => 'disburse_service',
-        'exceedDuration'      => 'exceed_duration',
-        'exceedPayBackStatus' => 'exceed_pay_back_status',
-        'exceedRate'          => 'exceed_rate',
-        'exceedReturnMoney'   => 'exceed_return_money',
-        'loanRate'            => 'loan_rate',
-        'orderId'             => 'order_id',
-        'payBackDate'         => 'pay_back_date',
-        'payBackMoney'        => 'pay_back_money',
-        'returnInterest'      => 'return_interest',
-    ];
 
-    public function validate()
-    {
-        Model::validateRequired('activeAccount', $this->activeAccount, true);
-        Model::validateRequired('activeResultDesc', $this->activeResultDesc, true);
-        Model::validateRequired('activeResultStatus', $this->activeResultStatus, true);
-        Model::validateRequired('activeReturnDate', $this->activeReturnDate, true);
-        Model::validateRequired('activeReturnMoney', $this->activeReturnMoney, true);
-        Model::validateRequired('disburseLimit', $this->disburseLimit, true);
-        Model::validateRequired('disburseMoney', $this->disburseMoney, true);
-        Model::validateRequired('disburseService', $this->disburseService, true);
-        Model::validateRequired('exceedDuration', $this->exceedDuration, true);
-        Model::validateRequired('exceedPayBackStatus', $this->exceedPayBackStatus, true);
-        Model::validateRequired('exceedRate', $this->exceedRate, true);
-        Model::validateRequired('exceedReturnMoney', $this->exceedReturnMoney, true);
-        Model::validateRequired('loanRate', $this->loanRate, true);
-        Model::validateRequired('orderId', $this->orderId, true);
-        Model::validateRequired('payBackDate', $this->payBackDate, true);
-        Model::validateRequired('payBackMoney', $this->payBackMoney, true);
-        Model::validateRequired('returnInterest', $this->returnInterest, true);
-    }
-
-    public function toMap()
-    {
-        $res = [];
-        if (null !== $this->authToken) {
-            $res['auth_token'] = $this->authToken;
-        }
-        if (null !== $this->productInstanceId) {
-            $res['product_instance_id'] = $this->productInstanceId;
-        }
-        if (null !== $this->activeAccount) {
-            $res['active_account'] = $this->activeAccount;
-        }
-        if (null !== $this->activeResultDesc) {
-            $res['active_result_desc'] = $this->activeResultDesc;
-        }
-        if (null !== $this->activeResultStatus) {
-            $res['active_result_status'] = $this->activeResultStatus;
-        }
-        if (null !== $this->activeReturnDate) {
-            $res['active_return_date'] = $this->activeReturnDate;
-        }
-        if (null !== $this->activeReturnMoney) {
-            $res['active_return_money'] = $this->activeReturnMoney;
-        }
-        if (null !== $this->disburseLimit) {
-            $res['disburse_limit'] = $this->disburseLimit;
-        }
-        if (null !== $this->disburseMoney) {
-            $res['disburse_money'] = $this->disburseMoney;
-        }
-        if (null !== $this->disburseService) {
-            $res['disburse_service'] = $this->disburseService;
-        }
-        if (null !== $this->exceedDuration) {
-            $res['exceed_duration'] = $this->exceedDuration;
-        }
-        if (null !== $this->exceedPayBackStatus) {
-            $res['exceed_pay_back_status'] = $this->exceedPayBackStatus;
-        }
-        if (null !== $this->exceedRate) {
-            $res['exceed_rate'] = $this->exceedRate;
-        }
-        if (null !== $this->exceedReturnMoney) {
-            $res['exceed_return_money'] = $this->exceedReturnMoney;
-        }
-        if (null !== $this->loanRate) {
-            $res['loan_rate'] = $this->loanRate;
-        }
-        if (null !== $this->orderId) {
-            $res['order_id'] = $this->orderId;
-        }
-        if (null !== $this->payBackDate) {
-            $res['pay_back_date'] = $this->payBackDate;
-        }
-        if (null !== $this->payBackMoney) {
-            $res['pay_back_money'] = $this->payBackMoney;
-        }
-        if (null !== $this->returnInterest) {
-            $res['return_interest'] = $this->returnInterest;
-        }
-
-        return $res;
-    }
-
-    /**
-     * @param array $map
-     *
-     * @return CreateLeaseDisburseinfoRequest
-     */
-    public static function fromMap($map = [])
-    {
-        $model = new self();
-        if (isset($map['auth_token'])) {
-            $model->authToken = $map['auth_token'];
-        }
-        if (isset($map['product_instance_id'])) {
-            $model->productInstanceId = $map['product_instance_id'];
-        }
-        if (isset($map['active_account'])) {
-            $model->activeAccount = $map['active_account'];
-        }
-        if (isset($map['active_result_desc'])) {
-            $model->activeResultDesc = $map['active_result_desc'];
-        }
-        if (isset($map['active_result_status'])) {
-            $model->activeResultStatus = $map['active_result_status'];
-        }
-        if (isset($map['active_return_date'])) {
-            $model->activeReturnDate = $map['active_return_date'];
-        }
-        if (isset($map['active_return_money'])) {
-            $model->activeReturnMoney = $map['active_return_money'];
-        }
-        if (isset($map['disburse_limit'])) {
-            $model->disburseLimit = $map['disburse_limit'];
-        }
-        if (isset($map['disburse_money'])) {
-            $model->disburseMoney = $map['disburse_money'];
-        }
-        if (isset($map['disburse_service'])) {
-            $model->disburseService = $map['disburse_service'];
-        }
-        if (isset($map['exceed_duration'])) {
-            $model->exceedDuration = $map['exceed_duration'];
-        }
-        if (isset($map['exceed_pay_back_status'])) {
-            $model->exceedPayBackStatus = $map['exceed_pay_back_status'];
-        }
-        if (isset($map['exceed_rate'])) {
-            $model->exceedRate = $map['exceed_rate'];
-        }
-        if (isset($map['exceed_return_money'])) {
-            $model->exceedReturnMoney = $map['exceed_return_money'];
-        }
-        if (isset($map['loan_rate'])) {
-            $model->loanRate = $map['loan_rate'];
-        }
-        if (isset($map['order_id'])) {
-            $model->orderId = $map['order_id'];
-        }
-        if (isset($map['pay_back_date'])) {
-            $model->payBackDate = $map['pay_back_date'];
-        }
-        if (isset($map['pay_back_money'])) {
-            $model->payBackMoney = $map['pay_back_money'];
-        }
-        if (isset($map['return_interest'])) {
-            $model->returnInterest = $map['return_interest'];
-        }
-
-        return $model;
-    }
 }
