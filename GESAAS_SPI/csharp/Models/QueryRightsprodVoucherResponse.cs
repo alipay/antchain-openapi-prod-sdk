@@ -74,6 +74,16 @@ namespace AntChain.SDK.GESAAS_SPI.Models
         [Validation(Required=false)]
         public string Status { get; set; }
 
+        // 过期时间
+        [NameInMap("expire_time")]
+        [Validation(Required=false)]
+        public string ExpireTime { get; set; }
+
+        // 生效时间
+        [NameInMap("effect_time")]
+        [Validation(Required=false)]
+        public string EffectTime { get; set; }
+
     }
 
 }
