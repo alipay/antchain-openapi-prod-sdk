@@ -56,6 +56,14 @@ public class QueryRightsprodVoucherResponse extends TeaModel {
     @NameInMap("status")
     public String status;
 
+    // 过期时间
+    @NameInMap("expire_time")
+    public String expireTime;
+
+    // 生效时间
+    @NameInMap("effect_time")
+    public String effectTime;
+
     public static QueryRightsprodVoucherResponse build(java.util.Map<String, ?> map) throws Exception {
         QueryRightsprodVoucherResponse self = new QueryRightsprodVoucherResponse();
         return TeaModel.build(map, self);
@@ -163,6 +171,22 @@ public class QueryRightsprodVoucherResponse extends TeaModel {
     }
     public String getStatus() {
         return this.status;
+    }
+
+    public QueryRightsprodVoucherResponse setExpireTime(String expireTime) {
+        this.expireTime = expireTime;
+        return this;
+    }
+    public String getExpireTime() {
+        return this.expireTime;
+    }
+
+    public QueryRightsprodVoucherResponse setEffectTime(String effectTime) {
+        this.effectTime = effectTime;
+        return this;
+    }
+    public String getEffectTime() {
+        return this.effectTime;
     }
 
 }
