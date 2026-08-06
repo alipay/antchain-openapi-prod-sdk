@@ -1,13 +1,64 @@
 <?php
 
 // This file is auto-generated, don't edit it. Thanks.
-
 namespace AntChain\TWC\Models;
 
 use AlibabaCloud\Tea\Model;
 
-class ApplyFlowAuthRequest extends Model
-{
+class ApplyFlowAuthRequest extends Model {
+    protected $_name = [
+        'authToken' => 'auth_token',
+        'productInstanceId' => 'product_instance_id',
+        'flowId' => 'flow_id',
+        'chainPackTxHash' => 'chain_pack_tx_hash',
+        'authTimePeriod' => 'auth_time_period',
+    ];
+    public function validate() {
+        Model::validateRequired('flowId', $this->flowId, true);
+        Model::validateRequired('chainPackTxHash', $this->chainPackTxHash, true);
+    }
+    public function toMap() {
+        $res = [];
+        if (null !== $this->authToken) {
+            $res['auth_token'] = $this->authToken;
+        }
+        if (null !== $this->productInstanceId) {
+            $res['product_instance_id'] = $this->productInstanceId;
+        }
+        if (null !== $this->flowId) {
+            $res['flow_id'] = $this->flowId;
+        }
+        if (null !== $this->chainPackTxHash) {
+            $res['chain_pack_tx_hash'] = $this->chainPackTxHash;
+        }
+        if (null !== $this->authTimePeriod) {
+            $res['auth_time_period'] = $this->authTimePeriod;
+        }
+        return $res;
+    }
+    /**
+     * @param array $map
+     * @return ApplyFlowAuthRequest
+     */
+    public static function fromMap($map = []) {
+        $model = new self();
+        if(isset($map['auth_token'])){
+            $model->authToken = $map['auth_token'];
+        }
+        if(isset($map['product_instance_id'])){
+            $model->productInstanceId = $map['product_instance_id'];
+        }
+        if(isset($map['flow_id'])){
+            $model->flowId = $map['flow_id'];
+        }
+        if(isset($map['chain_pack_tx_hash'])){
+            $model->chainPackTxHash = $map['chain_pack_tx_hash'];
+        }
+        if(isset($map['auth_time_period'])){
+            $model->authTimePeriod = $map['auth_time_period'];
+        }
+        return $model;
+    }
     // OAuth模式下的授权token
     /**
      * @var string
@@ -36,66 +87,5 @@ class ApplyFlowAuthRequest extends Model
      * @var int
      */
     public $authTimePeriod;
-    protected $_name = [
-        'authToken'         => 'auth_token',
-        'productInstanceId' => 'product_instance_id',
-        'flowId'            => 'flow_id',
-        'chainPackTxHash'   => 'chain_pack_tx_hash',
-        'authTimePeriod'    => 'auth_time_period',
-    ];
 
-    public function validate()
-    {
-        Model::validateRequired('flowId', $this->flowId, true);
-        Model::validateRequired('chainPackTxHash', $this->chainPackTxHash, true);
-    }
-
-    public function toMap()
-    {
-        $res = [];
-        if (null !== $this->authToken) {
-            $res['auth_token'] = $this->authToken;
-        }
-        if (null !== $this->productInstanceId) {
-            $res['product_instance_id'] = $this->productInstanceId;
-        }
-        if (null !== $this->flowId) {
-            $res['flow_id'] = $this->flowId;
-        }
-        if (null !== $this->chainPackTxHash) {
-            $res['chain_pack_tx_hash'] = $this->chainPackTxHash;
-        }
-        if (null !== $this->authTimePeriod) {
-            $res['auth_time_period'] = $this->authTimePeriod;
-        }
-
-        return $res;
-    }
-
-    /**
-     * @param array $map
-     *
-     * @return ApplyFlowAuthRequest
-     */
-    public static function fromMap($map = [])
-    {
-        $model = new self();
-        if (isset($map['auth_token'])) {
-            $model->authToken = $map['auth_token'];
-        }
-        if (isset($map['product_instance_id'])) {
-            $model->productInstanceId = $map['product_instance_id'];
-        }
-        if (isset($map['flow_id'])) {
-            $model->flowId = $map['flow_id'];
-        }
-        if (isset($map['chain_pack_tx_hash'])) {
-            $model->chainPackTxHash = $map['chain_pack_tx_hash'];
-        }
-        if (isset($map['auth_time_period'])) {
-            $model->authTimePeriod = $map['auth_time_period'];
-        }
-
-        return $model;
-    }
 }

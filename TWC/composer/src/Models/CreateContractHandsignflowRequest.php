@@ -1,13 +1,100 @@
 <?php
 
 // This file is auto-generated, don't edit it. Thanks.
-
 namespace AntChain\TWC\Models;
 
 use AlibabaCloud\Tea\Model;
 
-class CreateContractHandsignflowRequest extends Model
-{
+use AntChain\TWC\Models\ContractSignFlowConfig;
+
+class CreateContractHandsignflowRequest extends Model {
+    protected $_name = [
+        'authToken' => 'auth_token',
+        'productInstanceId' => 'product_instance_id',
+        'autoArchive' => 'auto_archive',
+        'businessScene' => 'business_scene',
+        'configInfo' => 'config_info',
+        'contractRemind' => 'contract_remind',
+        'contractValidity' => 'contract_validity',
+        'initiatorAccountId' => 'initiator_account_id',
+        'initiatorAuthorizedAccountId' => 'initiator_authorized_account_id',
+        'signValidity' => 'sign_validity',
+    ];
+    public function validate() {
+        Model::validateRequired('businessScene', $this->businessScene, true);
+    }
+    public function toMap() {
+        $res = [];
+        if (null !== $this->authToken) {
+            $res['auth_token'] = $this->authToken;
+        }
+        if (null !== $this->productInstanceId) {
+            $res['product_instance_id'] = $this->productInstanceId;
+        }
+        if (null !== $this->autoArchive) {
+            $res['auto_archive'] = $this->autoArchive;
+        }
+        if (null !== $this->businessScene) {
+            $res['business_scene'] = $this->businessScene;
+        }
+        if (null !== $this->configInfo) {
+            $res['config_info'] = null !== $this->configInfo ? $this->configInfo->toMap() : null;
+        }
+        if (null !== $this->contractRemind) {
+            $res['contract_remind'] = $this->contractRemind;
+        }
+        if (null !== $this->contractValidity) {
+            $res['contract_validity'] = $this->contractValidity;
+        }
+        if (null !== $this->initiatorAccountId) {
+            $res['initiator_account_id'] = $this->initiatorAccountId;
+        }
+        if (null !== $this->initiatorAuthorizedAccountId) {
+            $res['initiator_authorized_account_id'] = $this->initiatorAuthorizedAccountId;
+        }
+        if (null !== $this->signValidity) {
+            $res['sign_validity'] = $this->signValidity;
+        }
+        return $res;
+    }
+    /**
+     * @param array $map
+     * @return CreateContractHandsignflowRequest
+     */
+    public static function fromMap($map = []) {
+        $model = new self();
+        if(isset($map['auth_token'])){
+            $model->authToken = $map['auth_token'];
+        }
+        if(isset($map['product_instance_id'])){
+            $model->productInstanceId = $map['product_instance_id'];
+        }
+        if(isset($map['auto_archive'])){
+            $model->autoArchive = $map['auto_archive'];
+        }
+        if(isset($map['business_scene'])){
+            $model->businessScene = $map['business_scene'];
+        }
+        if(isset($map['config_info'])){
+            $model->configInfo = ContractSignFlowConfig::fromMap($map['config_info']);
+        }
+        if(isset($map['contract_remind'])){
+            $model->contractRemind = $map['contract_remind'];
+        }
+        if(isset($map['contract_validity'])){
+            $model->contractValidity = $map['contract_validity'];
+        }
+        if(isset($map['initiator_account_id'])){
+            $model->initiatorAccountId = $map['initiator_account_id'];
+        }
+        if(isset($map['initiator_authorized_account_id'])){
+            $model->initiatorAuthorizedAccountId = $map['initiator_authorized_account_id'];
+        }
+        if(isset($map['sign_validity'])){
+            $model->signValidity = $map['sign_validity'];
+        }
+        return $model;
+    }
     // OAuth模式下的授权token
     /**
      * @var string
@@ -66,100 +153,5 @@ class CreateContractHandsignflowRequest extends Model
      * @var int
      */
     public $signValidity;
-    protected $_name = [
-        'authToken'                    => 'auth_token',
-        'productInstanceId'            => 'product_instance_id',
-        'autoArchive'                  => 'auto_archive',
-        'businessScene'                => 'business_scene',
-        'configInfo'                   => 'config_info',
-        'contractRemind'               => 'contract_remind',
-        'contractValidity'             => 'contract_validity',
-        'initiatorAccountId'           => 'initiator_account_id',
-        'initiatorAuthorizedAccountId' => 'initiator_authorized_account_id',
-        'signValidity'                 => 'sign_validity',
-    ];
 
-    public function validate()
-    {
-        Model::validateRequired('businessScene', $this->businessScene, true);
-    }
-
-    public function toMap()
-    {
-        $res = [];
-        if (null !== $this->authToken) {
-            $res['auth_token'] = $this->authToken;
-        }
-        if (null !== $this->productInstanceId) {
-            $res['product_instance_id'] = $this->productInstanceId;
-        }
-        if (null !== $this->autoArchive) {
-            $res['auto_archive'] = $this->autoArchive;
-        }
-        if (null !== $this->businessScene) {
-            $res['business_scene'] = $this->businessScene;
-        }
-        if (null !== $this->configInfo) {
-            $res['config_info'] = null !== $this->configInfo ? $this->configInfo->toMap() : null;
-        }
-        if (null !== $this->contractRemind) {
-            $res['contract_remind'] = $this->contractRemind;
-        }
-        if (null !== $this->contractValidity) {
-            $res['contract_validity'] = $this->contractValidity;
-        }
-        if (null !== $this->initiatorAccountId) {
-            $res['initiator_account_id'] = $this->initiatorAccountId;
-        }
-        if (null !== $this->initiatorAuthorizedAccountId) {
-            $res['initiator_authorized_account_id'] = $this->initiatorAuthorizedAccountId;
-        }
-        if (null !== $this->signValidity) {
-            $res['sign_validity'] = $this->signValidity;
-        }
-
-        return $res;
-    }
-
-    /**
-     * @param array $map
-     *
-     * @return CreateContractHandsignflowRequest
-     */
-    public static function fromMap($map = [])
-    {
-        $model = new self();
-        if (isset($map['auth_token'])) {
-            $model->authToken = $map['auth_token'];
-        }
-        if (isset($map['product_instance_id'])) {
-            $model->productInstanceId = $map['product_instance_id'];
-        }
-        if (isset($map['auto_archive'])) {
-            $model->autoArchive = $map['auto_archive'];
-        }
-        if (isset($map['business_scene'])) {
-            $model->businessScene = $map['business_scene'];
-        }
-        if (isset($map['config_info'])) {
-            $model->configInfo = ContractSignFlowConfig::fromMap($map['config_info']);
-        }
-        if (isset($map['contract_remind'])) {
-            $model->contractRemind = $map['contract_remind'];
-        }
-        if (isset($map['contract_validity'])) {
-            $model->contractValidity = $map['contract_validity'];
-        }
-        if (isset($map['initiator_account_id'])) {
-            $model->initiatorAccountId = $map['initiator_account_id'];
-        }
-        if (isset($map['initiator_authorized_account_id'])) {
-            $model->initiatorAuthorizedAccountId = $map['initiator_authorized_account_id'];
-        }
-        if (isset($map['sign_validity'])) {
-            $model->signValidity = $map['sign_validity'];
-        }
-
-        return $model;
-    }
 }

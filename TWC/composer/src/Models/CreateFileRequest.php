@@ -1,13 +1,110 @@
 <?php
 
 // This file is auto-generated, don't edit it. Thanks.
-
 namespace AntChain\TWC\Models;
 
 use AlibabaCloud\Tea\Model;
 
-class CreateFileRequest extends Model
-{
+use AntChain\TWC\Models\Location;
+
+class CreateFileRequest extends Model {
+    protected $_name = [
+        'authToken' => 'auth_token',
+        'productInstanceId' => 'product_instance_id',
+        'fileNotaryType' => 'file_notary_type',
+        'hashAlgorithm' => 'hash_algorithm',
+        'location' => 'location',
+        'notaryFile' => 'notary_file',
+        'notaryName' => 'notary_name',
+        'phase' => 'phase',
+        'properties' => 'properties',
+        'transactionId' => 'transaction_id',
+        'tsr' => 'tsr',
+    ];
+    public function validate() {
+        Model::validateRequired('notaryFile', $this->notaryFile, true);
+        Model::validateRequired('notaryName', $this->notaryName, true);
+        Model::validateRequired('phase', $this->phase, true);
+        Model::validateRequired('transactionId', $this->transactionId, true);
+    }
+    public function toMap() {
+        $res = [];
+        if (null !== $this->authToken) {
+            $res['auth_token'] = $this->authToken;
+        }
+        if (null !== $this->productInstanceId) {
+            $res['product_instance_id'] = $this->productInstanceId;
+        }
+        if (null !== $this->fileNotaryType) {
+            $res['file_notary_type'] = $this->fileNotaryType;
+        }
+        if (null !== $this->hashAlgorithm) {
+            $res['hash_algorithm'] = $this->hashAlgorithm;
+        }
+        if (null !== $this->location) {
+            $res['location'] = null !== $this->location ? $this->location->toMap() : null;
+        }
+        if (null !== $this->notaryFile) {
+            $res['notary_file'] = $this->notaryFile;
+        }
+        if (null !== $this->notaryName) {
+            $res['notary_name'] = $this->notaryName;
+        }
+        if (null !== $this->phase) {
+            $res['phase'] = $this->phase;
+        }
+        if (null !== $this->properties) {
+            $res['properties'] = $this->properties;
+        }
+        if (null !== $this->transactionId) {
+            $res['transaction_id'] = $this->transactionId;
+        }
+        if (null !== $this->tsr) {
+            $res['tsr'] = $this->tsr;
+        }
+        return $res;
+    }
+    /**
+     * @param array $map
+     * @return CreateFileRequest
+     */
+    public static function fromMap($map = []) {
+        $model = new self();
+        if(isset($map['auth_token'])){
+            $model->authToken = $map['auth_token'];
+        }
+        if(isset($map['product_instance_id'])){
+            $model->productInstanceId = $map['product_instance_id'];
+        }
+        if(isset($map['file_notary_type'])){
+            $model->fileNotaryType = $map['file_notary_type'];
+        }
+        if(isset($map['hash_algorithm'])){
+            $model->hashAlgorithm = $map['hash_algorithm'];
+        }
+        if(isset($map['location'])){
+            $model->location = Location::fromMap($map['location']);
+        }
+        if(isset($map['notary_file'])){
+            $model->notaryFile = $map['notary_file'];
+        }
+        if(isset($map['notary_name'])){
+            $model->notaryName = $map['notary_name'];
+        }
+        if(isset($map['phase'])){
+            $model->phase = $map['phase'];
+        }
+        if(isset($map['properties'])){
+            $model->properties = $map['properties'];
+        }
+        if(isset($map['transaction_id'])){
+            $model->transactionId = $map['transaction_id'];
+        }
+        if(isset($map['tsr'])){
+            $model->tsr = $map['tsr'];
+        }
+        return $model;
+    }
     // OAuth模式下的授权token
     /**
      * @var string
@@ -72,110 +169,5 @@ class CreateFileRequest extends Model
      * @var bool
      */
     public $tsr;
-    protected $_name = [
-        'authToken'         => 'auth_token',
-        'productInstanceId' => 'product_instance_id',
-        'fileNotaryType'    => 'file_notary_type',
-        'hashAlgorithm'     => 'hash_algorithm',
-        'location'          => 'location',
-        'notaryFile'        => 'notary_file',
-        'notaryName'        => 'notary_name',
-        'phase'             => 'phase',
-        'properties'        => 'properties',
-        'transactionId'     => 'transaction_id',
-        'tsr'               => 'tsr',
-    ];
 
-    public function validate()
-    {
-        Model::validateRequired('notaryFile', $this->notaryFile, true);
-        Model::validateRequired('notaryName', $this->notaryName, true);
-        Model::validateRequired('phase', $this->phase, true);
-        Model::validateRequired('transactionId', $this->transactionId, true);
-    }
-
-    public function toMap()
-    {
-        $res = [];
-        if (null !== $this->authToken) {
-            $res['auth_token'] = $this->authToken;
-        }
-        if (null !== $this->productInstanceId) {
-            $res['product_instance_id'] = $this->productInstanceId;
-        }
-        if (null !== $this->fileNotaryType) {
-            $res['file_notary_type'] = $this->fileNotaryType;
-        }
-        if (null !== $this->hashAlgorithm) {
-            $res['hash_algorithm'] = $this->hashAlgorithm;
-        }
-        if (null !== $this->location) {
-            $res['location'] = null !== $this->location ? $this->location->toMap() : null;
-        }
-        if (null !== $this->notaryFile) {
-            $res['notary_file'] = $this->notaryFile;
-        }
-        if (null !== $this->notaryName) {
-            $res['notary_name'] = $this->notaryName;
-        }
-        if (null !== $this->phase) {
-            $res['phase'] = $this->phase;
-        }
-        if (null !== $this->properties) {
-            $res['properties'] = $this->properties;
-        }
-        if (null !== $this->transactionId) {
-            $res['transaction_id'] = $this->transactionId;
-        }
-        if (null !== $this->tsr) {
-            $res['tsr'] = $this->tsr;
-        }
-
-        return $res;
-    }
-
-    /**
-     * @param array $map
-     *
-     * @return CreateFileRequest
-     */
-    public static function fromMap($map = [])
-    {
-        $model = new self();
-        if (isset($map['auth_token'])) {
-            $model->authToken = $map['auth_token'];
-        }
-        if (isset($map['product_instance_id'])) {
-            $model->productInstanceId = $map['product_instance_id'];
-        }
-        if (isset($map['file_notary_type'])) {
-            $model->fileNotaryType = $map['file_notary_type'];
-        }
-        if (isset($map['hash_algorithm'])) {
-            $model->hashAlgorithm = $map['hash_algorithm'];
-        }
-        if (isset($map['location'])) {
-            $model->location = Location::fromMap($map['location']);
-        }
-        if (isset($map['notary_file'])) {
-            $model->notaryFile = $map['notary_file'];
-        }
-        if (isset($map['notary_name'])) {
-            $model->notaryName = $map['notary_name'];
-        }
-        if (isset($map['phase'])) {
-            $model->phase = $map['phase'];
-        }
-        if (isset($map['properties'])) {
-            $model->properties = $map['properties'];
-        }
-        if (isset($map['transaction_id'])) {
-            $model->transactionId = $map['transaction_id'];
-        }
-        if (isset($map['tsr'])) {
-            $model->tsr = $map['tsr'];
-        }
-
-        return $model;
-    }
 }

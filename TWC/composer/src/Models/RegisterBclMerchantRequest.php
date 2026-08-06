@@ -1,13 +1,140 @@
 <?php
 
 // This file is auto-generated, don't edit it. Thanks.
-
 namespace AntChain\TWC\Models;
 
 use AlibabaCloud\Tea\Model;
 
-class RegisterBclMerchantRequest extends Model
-{
+use AntChain\TWC\Models\BclContactInfo;
+
+class RegisterBclMerchantRequest extends Model {
+    protected $_name = [
+        'authToken' => 'auth_token',
+        'productInstanceId' => 'product_instance_id',
+        'name' => 'name',
+        'aliasName' => 'alias_name',
+        'merchantType' => 'merchant_type',
+        'certNo' => 'cert_no',
+        'legalName' => 'legal_name',
+        'legalCertNo' => 'legal_cert_no',
+        'contactInfos' => 'contact_infos',
+        'alipayLogonId' => 'alipay_logon_id',
+        'managementType' => 'management_type',
+        'needProxyWithholding' => 'need_proxy_withholding',
+        'clientToken' => 'client_token',
+    ];
+    public function validate() {
+        Model::validateRequired('name', $this->name, true);
+        Model::validateRequired('merchantType', $this->merchantType, true);
+        Model::validateRequired('certNo', $this->certNo, true);
+        Model::validateRequired('legalName', $this->legalName, true);
+        Model::validateRequired('legalCertNo', $this->legalCertNo, true);
+        Model::validateRequired('managementType', $this->managementType, true);
+        Model::validateRequired('needProxyWithholding', $this->needProxyWithholding, true);
+        Model::validateRequired('clientToken', $this->clientToken, true);
+    }
+    public function toMap() {
+        $res = [];
+        if (null !== $this->authToken) {
+            $res['auth_token'] = $this->authToken;
+        }
+        if (null !== $this->productInstanceId) {
+            $res['product_instance_id'] = $this->productInstanceId;
+        }
+        if (null !== $this->name) {
+            $res['name'] = $this->name;
+        }
+        if (null !== $this->aliasName) {
+            $res['alias_name'] = $this->aliasName;
+        }
+        if (null !== $this->merchantType) {
+            $res['merchant_type'] = $this->merchantType;
+        }
+        if (null !== $this->certNo) {
+            $res['cert_no'] = $this->certNo;
+        }
+        if (null !== $this->legalName) {
+            $res['legal_name'] = $this->legalName;
+        }
+        if (null !== $this->legalCertNo) {
+            $res['legal_cert_no'] = $this->legalCertNo;
+        }
+        if (null !== $this->contactInfos) {
+            $res['contact_infos'] = [];
+            if(null !== $this->contactInfos && is_array($this->contactInfos)){
+                $n = 0;
+                foreach($this->contactInfos as $item){
+                    $res['contact_infos'][$n++] = null !== $item ? $item->toMap() : $item;
+                }
+            }
+        }
+        if (null !== $this->alipayLogonId) {
+            $res['alipay_logon_id'] = $this->alipayLogonId;
+        }
+        if (null !== $this->managementType) {
+            $res['management_type'] = $this->managementType;
+        }
+        if (null !== $this->needProxyWithholding) {
+            $res['need_proxy_withholding'] = $this->needProxyWithholding;
+        }
+        if (null !== $this->clientToken) {
+            $res['client_token'] = $this->clientToken;
+        }
+        return $res;
+    }
+    /**
+     * @param array $map
+     * @return RegisterBclMerchantRequest
+     */
+    public static function fromMap($map = []) {
+        $model = new self();
+        if(isset($map['auth_token'])){
+            $model->authToken = $map['auth_token'];
+        }
+        if(isset($map['product_instance_id'])){
+            $model->productInstanceId = $map['product_instance_id'];
+        }
+        if(isset($map['name'])){
+            $model->name = $map['name'];
+        }
+        if(isset($map['alias_name'])){
+            $model->aliasName = $map['alias_name'];
+        }
+        if(isset($map['merchant_type'])){
+            $model->merchantType = $map['merchant_type'];
+        }
+        if(isset($map['cert_no'])){
+            $model->certNo = $map['cert_no'];
+        }
+        if(isset($map['legal_name'])){
+            $model->legalName = $map['legal_name'];
+        }
+        if(isset($map['legal_cert_no'])){
+            $model->legalCertNo = $map['legal_cert_no'];
+        }
+        if(isset($map['contact_infos'])){
+            if(!empty($map['contact_infos'])){
+                $model->contactInfos = [];
+                $n = 0;
+                foreach($map['contact_infos'] as $item) {
+                    $model->contactInfos[$n++] = null !== $item ? BclContactInfo::fromMap($item) : $item;
+                }
+            }
+        }
+        if(isset($map['alipay_logon_id'])){
+            $model->alipayLogonId = $map['alipay_logon_id'];
+        }
+        if(isset($map['management_type'])){
+            $model->managementType = $map['management_type'];
+        }
+        if(isset($map['need_proxy_withholding'])){
+            $model->needProxyWithholding = $map['need_proxy_withholding'];
+        }
+        if(isset($map['client_token'])){
+            $model->clientToken = $map['client_token'];
+        }
+        return $model;
+    }
     // OAuth模式下的授权token
     /**
      * @var string
@@ -103,140 +230,5 @@ class RegisterBclMerchantRequest extends Model
      * @var string
      */
     public $clientToken;
-    protected $_name = [
-        'authToken'            => 'auth_token',
-        'productInstanceId'    => 'product_instance_id',
-        'name'                 => 'name',
-        'aliasName'            => 'alias_name',
-        'merchantType'         => 'merchant_type',
-        'certNo'               => 'cert_no',
-        'legalName'            => 'legal_name',
-        'legalCertNo'          => 'legal_cert_no',
-        'contactInfos'         => 'contact_infos',
-        'alipayLogonId'        => 'alipay_logon_id',
-        'managementType'       => 'management_type',
-        'needProxyWithholding' => 'need_proxy_withholding',
-        'clientToken'          => 'client_token',
-    ];
 
-    public function validate()
-    {
-        Model::validateRequired('name', $this->name, true);
-        Model::validateRequired('merchantType', $this->merchantType, true);
-        Model::validateRequired('certNo', $this->certNo, true);
-        Model::validateRequired('legalName', $this->legalName, true);
-        Model::validateRequired('legalCertNo', $this->legalCertNo, true);
-        Model::validateRequired('managementType', $this->managementType, true);
-        Model::validateRequired('needProxyWithholding', $this->needProxyWithholding, true);
-        Model::validateRequired('clientToken', $this->clientToken, true);
-    }
-
-    public function toMap()
-    {
-        $res = [];
-        if (null !== $this->authToken) {
-            $res['auth_token'] = $this->authToken;
-        }
-        if (null !== $this->productInstanceId) {
-            $res['product_instance_id'] = $this->productInstanceId;
-        }
-        if (null !== $this->name) {
-            $res['name'] = $this->name;
-        }
-        if (null !== $this->aliasName) {
-            $res['alias_name'] = $this->aliasName;
-        }
-        if (null !== $this->merchantType) {
-            $res['merchant_type'] = $this->merchantType;
-        }
-        if (null !== $this->certNo) {
-            $res['cert_no'] = $this->certNo;
-        }
-        if (null !== $this->legalName) {
-            $res['legal_name'] = $this->legalName;
-        }
-        if (null !== $this->legalCertNo) {
-            $res['legal_cert_no'] = $this->legalCertNo;
-        }
-        if (null !== $this->contactInfos) {
-            $res['contact_infos'] = [];
-            if (null !== $this->contactInfos && \is_array($this->contactInfos)) {
-                $n = 0;
-                foreach ($this->contactInfos as $item) {
-                    $res['contact_infos'][$n++] = null !== $item ? $item->toMap() : $item;
-                }
-            }
-        }
-        if (null !== $this->alipayLogonId) {
-            $res['alipay_logon_id'] = $this->alipayLogonId;
-        }
-        if (null !== $this->managementType) {
-            $res['management_type'] = $this->managementType;
-        }
-        if (null !== $this->needProxyWithholding) {
-            $res['need_proxy_withholding'] = $this->needProxyWithholding;
-        }
-        if (null !== $this->clientToken) {
-            $res['client_token'] = $this->clientToken;
-        }
-
-        return $res;
-    }
-
-    /**
-     * @param array $map
-     *
-     * @return RegisterBclMerchantRequest
-     */
-    public static function fromMap($map = [])
-    {
-        $model = new self();
-        if (isset($map['auth_token'])) {
-            $model->authToken = $map['auth_token'];
-        }
-        if (isset($map['product_instance_id'])) {
-            $model->productInstanceId = $map['product_instance_id'];
-        }
-        if (isset($map['name'])) {
-            $model->name = $map['name'];
-        }
-        if (isset($map['alias_name'])) {
-            $model->aliasName = $map['alias_name'];
-        }
-        if (isset($map['merchant_type'])) {
-            $model->merchantType = $map['merchant_type'];
-        }
-        if (isset($map['cert_no'])) {
-            $model->certNo = $map['cert_no'];
-        }
-        if (isset($map['legal_name'])) {
-            $model->legalName = $map['legal_name'];
-        }
-        if (isset($map['legal_cert_no'])) {
-            $model->legalCertNo = $map['legal_cert_no'];
-        }
-        if (isset($map['contact_infos'])) {
-            if (!empty($map['contact_infos'])) {
-                $model->contactInfos = [];
-                $n                   = 0;
-                foreach ($map['contact_infos'] as $item) {
-                    $model->contactInfos[$n++] = null !== $item ? BclContactInfo::fromMap($item) : $item;
-                }
-            }
-        }
-        if (isset($map['alipay_logon_id'])) {
-            $model->alipayLogonId = $map['alipay_logon_id'];
-        }
-        if (isset($map['management_type'])) {
-            $model->managementType = $map['management_type'];
-        }
-        if (isset($map['need_proxy_withholding'])) {
-            $model->needProxyWithholding = $map['need_proxy_withholding'];
-        }
-        if (isset($map['client_token'])) {
-            $model->clientToken = $map['client_token'];
-        }
-
-        return $model;
-    }
 }

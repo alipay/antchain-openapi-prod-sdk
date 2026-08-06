@@ -1,13 +1,89 @@
 <?php
 
 // This file is auto-generated, don't edit it. Thanks.
-
 namespace AntChain\TWC\Models;
 
 use AlibabaCloud\Tea\Model;
 
-class ApplyContractMerchantResponse extends Model
-{
+class ApplyContractMerchantResponse extends Model {
+    protected $_name = [
+        'reqMsgId' => 'req_msg_id',
+        'resultCode' => 'result_code',
+        'resultMsg' => 'result_msg',
+        'success' => 'success',
+        'subCode' => 'sub_code',
+        'subMsg' => 'sub_msg',
+        'merchantInfo' => 'merchant_info',
+        'smid' => 'smid',
+        'orderId' => 'order_id',
+    ];
+    public function validate() {}
+    public function toMap() {
+        $res = [];
+        if (null !== $this->reqMsgId) {
+            $res['req_msg_id'] = $this->reqMsgId;
+        }
+        if (null !== $this->resultCode) {
+            $res['result_code'] = $this->resultCode;
+        }
+        if (null !== $this->resultMsg) {
+            $res['result_msg'] = $this->resultMsg;
+        }
+        if (null !== $this->success) {
+            $res['success'] = $this->success;
+        }
+        if (null !== $this->subCode) {
+            $res['sub_code'] = $this->subCode;
+        }
+        if (null !== $this->subMsg) {
+            $res['sub_msg'] = $this->subMsg;
+        }
+        if (null !== $this->merchantInfo) {
+            $res['merchant_info'] = $this->merchantInfo;
+        }
+        if (null !== $this->smid) {
+            $res['smid'] = $this->smid;
+        }
+        if (null !== $this->orderId) {
+            $res['order_id'] = $this->orderId;
+        }
+        return $res;
+    }
+    /**
+     * @param array $map
+     * @return ApplyContractMerchantResponse
+     */
+    public static function fromMap($map = []) {
+        $model = new self();
+        if(isset($map['req_msg_id'])){
+            $model->reqMsgId = $map['req_msg_id'];
+        }
+        if(isset($map['result_code'])){
+            $model->resultCode = $map['result_code'];
+        }
+        if(isset($map['result_msg'])){
+            $model->resultMsg = $map['result_msg'];
+        }
+        if(isset($map['success'])){
+            $model->success = $map['success'];
+        }
+        if(isset($map['sub_code'])){
+            $model->subCode = $map['sub_code'];
+        }
+        if(isset($map['sub_msg'])){
+            $model->subMsg = $map['sub_msg'];
+        }
+        if(isset($map['merchant_info'])){
+            $model->merchantInfo = $map['merchant_info'];
+        }
+        if(isset($map['smid'])){
+            $model->smid = $map['smid'];
+        }
+        if(isset($map['order_id'])){
+            $model->orderId = $map['order_id'];
+        }
+        return $model;
+    }
     // 请求唯一ID，用于链路跟踪和问题排查
     /**
      * @var string
@@ -61,92 +137,5 @@ class ApplyContractMerchantResponse extends Model
      * @var string
      */
     public $orderId;
-    protected $_name = [
-        'reqMsgId'     => 'req_msg_id',
-        'resultCode'   => 'result_code',
-        'resultMsg'    => 'result_msg',
-        'success'      => 'success',
-        'subCode'      => 'sub_code',
-        'subMsg'       => 'sub_msg',
-        'merchantInfo' => 'merchant_info',
-        'smid'         => 'smid',
-        'orderId'      => 'order_id',
-    ];
 
-    public function validate()
-    {
-    }
-
-    public function toMap()
-    {
-        $res = [];
-        if (null !== $this->reqMsgId) {
-            $res['req_msg_id'] = $this->reqMsgId;
-        }
-        if (null !== $this->resultCode) {
-            $res['result_code'] = $this->resultCode;
-        }
-        if (null !== $this->resultMsg) {
-            $res['result_msg'] = $this->resultMsg;
-        }
-        if (null !== $this->success) {
-            $res['success'] = $this->success;
-        }
-        if (null !== $this->subCode) {
-            $res['sub_code'] = $this->subCode;
-        }
-        if (null !== $this->subMsg) {
-            $res['sub_msg'] = $this->subMsg;
-        }
-        if (null !== $this->merchantInfo) {
-            $res['merchant_info'] = $this->merchantInfo;
-        }
-        if (null !== $this->smid) {
-            $res['smid'] = $this->smid;
-        }
-        if (null !== $this->orderId) {
-            $res['order_id'] = $this->orderId;
-        }
-
-        return $res;
-    }
-
-    /**
-     * @param array $map
-     *
-     * @return ApplyContractMerchantResponse
-     */
-    public static function fromMap($map = [])
-    {
-        $model = new self();
-        if (isset($map['req_msg_id'])) {
-            $model->reqMsgId = $map['req_msg_id'];
-        }
-        if (isset($map['result_code'])) {
-            $model->resultCode = $map['result_code'];
-        }
-        if (isset($map['result_msg'])) {
-            $model->resultMsg = $map['result_msg'];
-        }
-        if (isset($map['success'])) {
-            $model->success = $map['success'];
-        }
-        if (isset($map['sub_code'])) {
-            $model->subCode = $map['sub_code'];
-        }
-        if (isset($map['sub_msg'])) {
-            $model->subMsg = $map['sub_msg'];
-        }
-        if (isset($map['merchant_info'])) {
-            $model->merchantInfo = $map['merchant_info'];
-        }
-        if (isset($map['smid'])) {
-            $model->smid = $map['smid'];
-        }
-        if (isset($map['order_id'])) {
-            $model->orderId = $map['order_id'];
-        }
-
-        return $model;
-    }
 }

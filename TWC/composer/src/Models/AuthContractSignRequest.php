@@ -1,13 +1,56 @@
 <?php
 
 // This file is auto-generated, don't edit it. Thanks.
-
 namespace AntChain\TWC\Models;
 
 use AlibabaCloud\Tea\Model;
 
-class AuthContractSignRequest extends Model
-{
+class AuthContractSignRequest extends Model {
+    protected $_name = [
+        'authToken' => 'auth_token',
+        'productInstanceId' => 'product_instance_id',
+        'accountId' => 'account_id',
+        'deadline' => 'deadline',
+    ];
+    public function validate() {
+        Model::validateRequired('accountId', $this->accountId, true);
+    }
+    public function toMap() {
+        $res = [];
+        if (null !== $this->authToken) {
+            $res['auth_token'] = $this->authToken;
+        }
+        if (null !== $this->productInstanceId) {
+            $res['product_instance_id'] = $this->productInstanceId;
+        }
+        if (null !== $this->accountId) {
+            $res['account_id'] = $this->accountId;
+        }
+        if (null !== $this->deadline) {
+            $res['deadline'] = $this->deadline;
+        }
+        return $res;
+    }
+    /**
+     * @param array $map
+     * @return AuthContractSignRequest
+     */
+    public static function fromMap($map = []) {
+        $model = new self();
+        if(isset($map['auth_token'])){
+            $model->authToken = $map['auth_token'];
+        }
+        if(isset($map['product_instance_id'])){
+            $model->productInstanceId = $map['product_instance_id'];
+        }
+        if(isset($map['account_id'])){
+            $model->accountId = $map['account_id'];
+        }
+        if(isset($map['deadline'])){
+            $model->deadline = $map['deadline'];
+        }
+        return $model;
+    }
     // OAuth模式下的授权token
     /**
      * @var string
@@ -30,58 +73,5 @@ class AuthContractSignRequest extends Model
      * @var string
      */
     public $deadline;
-    protected $_name = [
-        'authToken'         => 'auth_token',
-        'productInstanceId' => 'product_instance_id',
-        'accountId'         => 'account_id',
-        'deadline'          => 'deadline',
-    ];
 
-    public function validate()
-    {
-        Model::validateRequired('accountId', $this->accountId, true);
-    }
-
-    public function toMap()
-    {
-        $res = [];
-        if (null !== $this->authToken) {
-            $res['auth_token'] = $this->authToken;
-        }
-        if (null !== $this->productInstanceId) {
-            $res['product_instance_id'] = $this->productInstanceId;
-        }
-        if (null !== $this->accountId) {
-            $res['account_id'] = $this->accountId;
-        }
-        if (null !== $this->deadline) {
-            $res['deadline'] = $this->deadline;
-        }
-
-        return $res;
-    }
-
-    /**
-     * @param array $map
-     *
-     * @return AuthContractSignRequest
-     */
-    public static function fromMap($map = [])
-    {
-        $model = new self();
-        if (isset($map['auth_token'])) {
-            $model->authToken = $map['auth_token'];
-        }
-        if (isset($map['product_instance_id'])) {
-            $model->productInstanceId = $map['product_instance_id'];
-        }
-        if (isset($map['account_id'])) {
-            $model->accountId = $map['account_id'];
-        }
-        if (isset($map['deadline'])) {
-            $model->deadline = $map['deadline'];
-        }
-
-        return $model;
-    }
 }

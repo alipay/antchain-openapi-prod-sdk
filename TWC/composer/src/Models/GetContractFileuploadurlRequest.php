@@ -1,13 +1,95 @@
 <?php
 
 // This file is auto-generated, don't edit it. Thanks.
-
 namespace AntChain\TWC\Models;
 
 use AlibabaCloud\Tea\Model;
 
-class GetContractFileuploadurlRequest extends Model
-{
+class GetContractFileuploadurlRequest extends Model {
+    protected $_name = [
+        'authToken' => 'auth_token',
+        'productInstanceId' => 'product_instance_id',
+        'accountId' => 'account_id',
+        'contentMd5' => 'content_md5',
+        'contentType' => 'content_type',
+        'convert2Pdf' => 'convert_2_pdf',
+        'fileSize' => 'file_size',
+        'fileName' => 'file_name',
+        'subTenantId' => 'sub_tenant_id',
+    ];
+    public function validate() {
+        Model::validateRequired('contentMd5', $this->contentMd5, true);
+        Model::validateRequired('contentType', $this->contentType, true);
+        Model::validateRequired('convert2Pdf', $this->convert2Pdf, true);
+        Model::validateRequired('fileSize', $this->fileSize, true);
+        Model::validateRequired('fileName', $this->fileName, true);
+    }
+    public function toMap() {
+        $res = [];
+        if (null !== $this->authToken) {
+            $res['auth_token'] = $this->authToken;
+        }
+        if (null !== $this->productInstanceId) {
+            $res['product_instance_id'] = $this->productInstanceId;
+        }
+        if (null !== $this->accountId) {
+            $res['account_id'] = $this->accountId;
+        }
+        if (null !== $this->contentMd5) {
+            $res['content_md5'] = $this->contentMd5;
+        }
+        if (null !== $this->contentType) {
+            $res['content_type'] = $this->contentType;
+        }
+        if (null !== $this->convert2Pdf) {
+            $res['convert_2_pdf'] = $this->convert2Pdf;
+        }
+        if (null !== $this->fileSize) {
+            $res['file_size'] = $this->fileSize;
+        }
+        if (null !== $this->fileName) {
+            $res['file_name'] = $this->fileName;
+        }
+        if (null !== $this->subTenantId) {
+            $res['sub_tenant_id'] = $this->subTenantId;
+        }
+        return $res;
+    }
+    /**
+     * @param array $map
+     * @return GetContractFileuploadurlRequest
+     */
+    public static function fromMap($map = []) {
+        $model = new self();
+        if(isset($map['auth_token'])){
+            $model->authToken = $map['auth_token'];
+        }
+        if(isset($map['product_instance_id'])){
+            $model->productInstanceId = $map['product_instance_id'];
+        }
+        if(isset($map['account_id'])){
+            $model->accountId = $map['account_id'];
+        }
+        if(isset($map['content_md5'])){
+            $model->contentMd5 = $map['content_md5'];
+        }
+        if(isset($map['content_type'])){
+            $model->contentType = $map['content_type'];
+        }
+        if(isset($map['convert_2_pdf'])){
+            $model->convert2Pdf = $map['convert_2_pdf'];
+        }
+        if(isset($map['file_size'])){
+            $model->fileSize = $map['file_size'];
+        }
+        if(isset($map['file_name'])){
+            $model->fileName = $map['file_name'];
+        }
+        if(isset($map['sub_tenant_id'])){
+            $model->subTenantId = $map['sub_tenant_id'];
+        }
+        return $model;
+    }
     // OAuth模式下的授权token
     /**
      * @var string
@@ -60,97 +142,5 @@ class GetContractFileuploadurlRequest extends Model
      * @var string
      */
     public $subTenantId;
-    protected $_name = [
-        'authToken'         => 'auth_token',
-        'productInstanceId' => 'product_instance_id',
-        'accountId'         => 'account_id',
-        'contentMd5'        => 'content_md5',
-        'contentType'       => 'content_type',
-        'convert2Pdf'       => 'convert_2_pdf',
-        'fileSize'          => 'file_size',
-        'fileName'          => 'file_name',
-        'subTenantId'       => 'sub_tenant_id',
-    ];
 
-    public function validate()
-    {
-        Model::validateRequired('contentMd5', $this->contentMd5, true);
-        Model::validateRequired('contentType', $this->contentType, true);
-        Model::validateRequired('convert2Pdf', $this->convert2Pdf, true);
-        Model::validateRequired('fileSize', $this->fileSize, true);
-        Model::validateRequired('fileName', $this->fileName, true);
-    }
-
-    public function toMap()
-    {
-        $res = [];
-        if (null !== $this->authToken) {
-            $res['auth_token'] = $this->authToken;
-        }
-        if (null !== $this->productInstanceId) {
-            $res['product_instance_id'] = $this->productInstanceId;
-        }
-        if (null !== $this->accountId) {
-            $res['account_id'] = $this->accountId;
-        }
-        if (null !== $this->contentMd5) {
-            $res['content_md5'] = $this->contentMd5;
-        }
-        if (null !== $this->contentType) {
-            $res['content_type'] = $this->contentType;
-        }
-        if (null !== $this->convert2Pdf) {
-            $res['convert_2_pdf'] = $this->convert2Pdf;
-        }
-        if (null !== $this->fileSize) {
-            $res['file_size'] = $this->fileSize;
-        }
-        if (null !== $this->fileName) {
-            $res['file_name'] = $this->fileName;
-        }
-        if (null !== $this->subTenantId) {
-            $res['sub_tenant_id'] = $this->subTenantId;
-        }
-
-        return $res;
-    }
-
-    /**
-     * @param array $map
-     *
-     * @return GetContractFileuploadurlRequest
-     */
-    public static function fromMap($map = [])
-    {
-        $model = new self();
-        if (isset($map['auth_token'])) {
-            $model->authToken = $map['auth_token'];
-        }
-        if (isset($map['product_instance_id'])) {
-            $model->productInstanceId = $map['product_instance_id'];
-        }
-        if (isset($map['account_id'])) {
-            $model->accountId = $map['account_id'];
-        }
-        if (isset($map['content_md5'])) {
-            $model->contentMd5 = $map['content_md5'];
-        }
-        if (isset($map['content_type'])) {
-            $model->contentType = $map['content_type'];
-        }
-        if (isset($map['convert_2_pdf'])) {
-            $model->convert2Pdf = $map['convert_2_pdf'];
-        }
-        if (isset($map['file_size'])) {
-            $model->fileSize = $map['file_size'];
-        }
-        if (isset($map['file_name'])) {
-            $model->fileName = $map['file_name'];
-        }
-        if (isset($map['sub_tenant_id'])) {
-            $model->subTenantId = $map['sub_tenant_id'];
-        }
-
-        return $model;
-    }
 }

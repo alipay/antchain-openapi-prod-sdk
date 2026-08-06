@@ -1,13 +1,213 @@
 <?php
 
 // This file is auto-generated, don't edit it. Thanks.
-
 namespace AntChain\TWC\Models;
 
 use AlibabaCloud\Tea\Model;
 
-class CreateLeaseAsyncrepaymentRequest extends Model
-{
+class CreateLeaseAsyncrepaymentRequest extends Model {
+    protected $_name = [
+        'authToken' => 'auth_token',
+        'productInstanceId' => 'product_instance_id',
+        'applicationId' => 'application_id',
+        'extraInfo' => 'extra_info',
+        'isFinish' => 'is_finish',
+        'leaseId' => 'lease_id',
+        'orderId' => 'order_id',
+        'overdueDay' => 'overdue_day',
+        'overdueMoney' => 'overdue_money',
+        'overdueRate' => 'overdue_rate',
+        'overdueStatus' => 'overdue_status',
+        'remainReturnMoney' => 'remain_return_money',
+        'remainReturnTerm' => 'remain_return_term',
+        'repaymentUniqueId' => 'repayment_unique_id',
+        'returnDescription' => 'return_description',
+        'returnIndex' => 'return_index',
+        'returnMoney' => 'return_money',
+        'returnStatus' => 'return_status',
+        'returnTime' => 'return_time',
+        'source' => 'source',
+        'status' => 'status',
+        'oldOwnershipId' => 'old_ownership_id',
+        'newOwnershipId' => 'new_ownership_id',
+    ];
+    public function validate() {
+        Model::validateRequired('isFinish', $this->isFinish, true);
+        Model::validateRequired('leaseId', $this->leaseId, true);
+        Model::validateRequired('orderId', $this->orderId, true);
+        Model::validateRequired('remainReturnMoney', $this->remainReturnMoney, true);
+        Model::validateRequired('remainReturnTerm', $this->remainReturnTerm, true);
+        Model::validateRequired('repaymentUniqueId', $this->repaymentUniqueId, true);
+        Model::validateRequired('returnDescription', $this->returnDescription, true);
+        Model::validateRequired('returnIndex', $this->returnIndex, true);
+        Model::validateRequired('returnMoney', $this->returnMoney, true);
+        Model::validateRequired('returnStatus', $this->returnStatus, true);
+        Model::validateRequired('returnTime', $this->returnTime, true);
+        Model::validateRequired('source', $this->source, true);
+        Model::validateMaxLength('leaseId', $this->leaseId, 50);
+        Model::validateMaxLength('orderId', $this->orderId, 50);
+        Model::validateMaxLength('returnDescription', $this->returnDescription, 256);
+        Model::validateMinLength('leaseId', $this->leaseId, 1);
+        Model::validateMinLength('returnDescription', $this->returnDescription, 1);
+        Model::validateMinimum('remainReturnMoney', $this->remainReturnMoney, 0);
+        Model::validateMinimum('remainReturnTerm', $this->remainReturnTerm, 0);
+        Model::validateMinimum('returnIndex', $this->returnIndex, 1);
+        Model::validateMinimum('returnMoney', $this->returnMoney, 0);
+        Model::validateMinimum('source', $this->source, 1);
+        Model::validateMaximum('remainReturnTerm', $this->remainReturnTerm, 1024);
+        Model::validateMaximum('returnIndex', $this->returnIndex, 1024);
+        Model::validateMaximum('source', $this->source, 2);
+    }
+    public function toMap() {
+        $res = [];
+        if (null !== $this->authToken) {
+            $res['auth_token'] = $this->authToken;
+        }
+        if (null !== $this->productInstanceId) {
+            $res['product_instance_id'] = $this->productInstanceId;
+        }
+        if (null !== $this->applicationId) {
+            $res['application_id'] = $this->applicationId;
+        }
+        if (null !== $this->extraInfo) {
+            $res['extra_info'] = $this->extraInfo;
+        }
+        if (null !== $this->isFinish) {
+            $res['is_finish'] = $this->isFinish;
+        }
+        if (null !== $this->leaseId) {
+            $res['lease_id'] = $this->leaseId;
+        }
+        if (null !== $this->orderId) {
+            $res['order_id'] = $this->orderId;
+        }
+        if (null !== $this->overdueDay) {
+            $res['overdue_day'] = $this->overdueDay;
+        }
+        if (null !== $this->overdueMoney) {
+            $res['overdue_money'] = $this->overdueMoney;
+        }
+        if (null !== $this->overdueRate) {
+            $res['overdue_rate'] = $this->overdueRate;
+        }
+        if (null !== $this->overdueStatus) {
+            $res['overdue_status'] = $this->overdueStatus;
+        }
+        if (null !== $this->remainReturnMoney) {
+            $res['remain_return_money'] = $this->remainReturnMoney;
+        }
+        if (null !== $this->remainReturnTerm) {
+            $res['remain_return_term'] = $this->remainReturnTerm;
+        }
+        if (null !== $this->repaymentUniqueId) {
+            $res['repayment_unique_id'] = $this->repaymentUniqueId;
+        }
+        if (null !== $this->returnDescription) {
+            $res['return_description'] = $this->returnDescription;
+        }
+        if (null !== $this->returnIndex) {
+            $res['return_index'] = $this->returnIndex;
+        }
+        if (null !== $this->returnMoney) {
+            $res['return_money'] = $this->returnMoney;
+        }
+        if (null !== $this->returnStatus) {
+            $res['return_status'] = $this->returnStatus;
+        }
+        if (null !== $this->returnTime) {
+            $res['return_time'] = $this->returnTime;
+        }
+        if (null !== $this->source) {
+            $res['source'] = $this->source;
+        }
+        if (null !== $this->status) {
+            $res['status'] = $this->status;
+        }
+        if (null !== $this->oldOwnershipId) {
+            $res['old_ownership_id'] = $this->oldOwnershipId;
+        }
+        if (null !== $this->newOwnershipId) {
+            $res['new_ownership_id'] = $this->newOwnershipId;
+        }
+        return $res;
+    }
+    /**
+     * @param array $map
+     * @return CreateLeaseAsyncrepaymentRequest
+     */
+    public static function fromMap($map = []) {
+        $model = new self();
+        if(isset($map['auth_token'])){
+            $model->authToken = $map['auth_token'];
+        }
+        if(isset($map['product_instance_id'])){
+            $model->productInstanceId = $map['product_instance_id'];
+        }
+        if(isset($map['application_id'])){
+            $model->applicationId = $map['application_id'];
+        }
+        if(isset($map['extra_info'])){
+            $model->extraInfo = $map['extra_info'];
+        }
+        if(isset($map['is_finish'])){
+            $model->isFinish = $map['is_finish'];
+        }
+        if(isset($map['lease_id'])){
+            $model->leaseId = $map['lease_id'];
+        }
+        if(isset($map['order_id'])){
+            $model->orderId = $map['order_id'];
+        }
+        if(isset($map['overdue_day'])){
+            $model->overdueDay = $map['overdue_day'];
+        }
+        if(isset($map['overdue_money'])){
+            $model->overdueMoney = $map['overdue_money'];
+        }
+        if(isset($map['overdue_rate'])){
+            $model->overdueRate = $map['overdue_rate'];
+        }
+        if(isset($map['overdue_status'])){
+            $model->overdueStatus = $map['overdue_status'];
+        }
+        if(isset($map['remain_return_money'])){
+            $model->remainReturnMoney = $map['remain_return_money'];
+        }
+        if(isset($map['remain_return_term'])){
+            $model->remainReturnTerm = $map['remain_return_term'];
+        }
+        if(isset($map['repayment_unique_id'])){
+            $model->repaymentUniqueId = $map['repayment_unique_id'];
+        }
+        if(isset($map['return_description'])){
+            $model->returnDescription = $map['return_description'];
+        }
+        if(isset($map['return_index'])){
+            $model->returnIndex = $map['return_index'];
+        }
+        if(isset($map['return_money'])){
+            $model->returnMoney = $map['return_money'];
+        }
+        if(isset($map['return_status'])){
+            $model->returnStatus = $map['return_status'];
+        }
+        if(isset($map['return_time'])){
+            $model->returnTime = $map['return_time'];
+        }
+        if(isset($map['source'])){
+            $model->source = $map['source'];
+        }
+        if(isset($map['status'])){
+            $model->status = $map['status'];
+        }
+        if(isset($map['old_ownership_id'])){
+            $model->oldOwnershipId = $map['old_ownership_id'];
+        }
+        if(isset($map['new_ownership_id'])){
+            $model->newOwnershipId = $map['new_ownership_id'];
+        }
+        return $model;
+    }
     // OAuth模式下的授权token
     /**
      * @var string
@@ -144,215 +344,5 @@ class CreateLeaseAsyncrepaymentRequest extends Model
      * @var string
      */
     public $newOwnershipId;
-    protected $_name = [
-        'authToken'         => 'auth_token',
-        'productInstanceId' => 'product_instance_id',
-        'applicationId'     => 'application_id',
-        'extraInfo'         => 'extra_info',
-        'isFinish'          => 'is_finish',
-        'leaseId'           => 'lease_id',
-        'orderId'           => 'order_id',
-        'overdueDay'        => 'overdue_day',
-        'overdueMoney'      => 'overdue_money',
-        'overdueRate'       => 'overdue_rate',
-        'overdueStatus'     => 'overdue_status',
-        'remainReturnMoney' => 'remain_return_money',
-        'remainReturnTerm'  => 'remain_return_term',
-        'repaymentUniqueId' => 'repayment_unique_id',
-        'returnDescription' => 'return_description',
-        'returnIndex'       => 'return_index',
-        'returnMoney'       => 'return_money',
-        'returnStatus'      => 'return_status',
-        'returnTime'        => 'return_time',
-        'source'            => 'source',
-        'status'            => 'status',
-        'oldOwnershipId'    => 'old_ownership_id',
-        'newOwnershipId'    => 'new_ownership_id',
-    ];
 
-    public function validate()
-    {
-        Model::validateRequired('isFinish', $this->isFinish, true);
-        Model::validateRequired('leaseId', $this->leaseId, true);
-        Model::validateRequired('orderId', $this->orderId, true);
-        Model::validateRequired('remainReturnMoney', $this->remainReturnMoney, true);
-        Model::validateRequired('remainReturnTerm', $this->remainReturnTerm, true);
-        Model::validateRequired('repaymentUniqueId', $this->repaymentUniqueId, true);
-        Model::validateRequired('returnDescription', $this->returnDescription, true);
-        Model::validateRequired('returnIndex', $this->returnIndex, true);
-        Model::validateRequired('returnMoney', $this->returnMoney, true);
-        Model::validateRequired('returnStatus', $this->returnStatus, true);
-        Model::validateRequired('returnTime', $this->returnTime, true);
-        Model::validateRequired('source', $this->source, true);
-        Model::validateMaxLength('leaseId', $this->leaseId, 50);
-        Model::validateMaxLength('orderId', $this->orderId, 50);
-        Model::validateMaxLength('returnDescription', $this->returnDescription, 256);
-        Model::validateMinLength('leaseId', $this->leaseId, 1);
-        Model::validateMinLength('returnDescription', $this->returnDescription, 1);
-        Model::validateMinimum('remainReturnMoney', $this->remainReturnMoney, 0);
-        Model::validateMinimum('remainReturnTerm', $this->remainReturnTerm, 0);
-        Model::validateMinimum('returnIndex', $this->returnIndex, 1);
-        Model::validateMinimum('returnMoney', $this->returnMoney, 0);
-        Model::validateMinimum('source', $this->source, 1);
-        Model::validateMaximum('remainReturnTerm', $this->remainReturnTerm, 1024);
-        Model::validateMaximum('returnIndex', $this->returnIndex, 1024);
-        Model::validateMaximum('source', $this->source, 2);
-    }
-
-    public function toMap()
-    {
-        $res = [];
-        if (null !== $this->authToken) {
-            $res['auth_token'] = $this->authToken;
-        }
-        if (null !== $this->productInstanceId) {
-            $res['product_instance_id'] = $this->productInstanceId;
-        }
-        if (null !== $this->applicationId) {
-            $res['application_id'] = $this->applicationId;
-        }
-        if (null !== $this->extraInfo) {
-            $res['extra_info'] = $this->extraInfo;
-        }
-        if (null !== $this->isFinish) {
-            $res['is_finish'] = $this->isFinish;
-        }
-        if (null !== $this->leaseId) {
-            $res['lease_id'] = $this->leaseId;
-        }
-        if (null !== $this->orderId) {
-            $res['order_id'] = $this->orderId;
-        }
-        if (null !== $this->overdueDay) {
-            $res['overdue_day'] = $this->overdueDay;
-        }
-        if (null !== $this->overdueMoney) {
-            $res['overdue_money'] = $this->overdueMoney;
-        }
-        if (null !== $this->overdueRate) {
-            $res['overdue_rate'] = $this->overdueRate;
-        }
-        if (null !== $this->overdueStatus) {
-            $res['overdue_status'] = $this->overdueStatus;
-        }
-        if (null !== $this->remainReturnMoney) {
-            $res['remain_return_money'] = $this->remainReturnMoney;
-        }
-        if (null !== $this->remainReturnTerm) {
-            $res['remain_return_term'] = $this->remainReturnTerm;
-        }
-        if (null !== $this->repaymentUniqueId) {
-            $res['repayment_unique_id'] = $this->repaymentUniqueId;
-        }
-        if (null !== $this->returnDescription) {
-            $res['return_description'] = $this->returnDescription;
-        }
-        if (null !== $this->returnIndex) {
-            $res['return_index'] = $this->returnIndex;
-        }
-        if (null !== $this->returnMoney) {
-            $res['return_money'] = $this->returnMoney;
-        }
-        if (null !== $this->returnStatus) {
-            $res['return_status'] = $this->returnStatus;
-        }
-        if (null !== $this->returnTime) {
-            $res['return_time'] = $this->returnTime;
-        }
-        if (null !== $this->source) {
-            $res['source'] = $this->source;
-        }
-        if (null !== $this->status) {
-            $res['status'] = $this->status;
-        }
-        if (null !== $this->oldOwnershipId) {
-            $res['old_ownership_id'] = $this->oldOwnershipId;
-        }
-        if (null !== $this->newOwnershipId) {
-            $res['new_ownership_id'] = $this->newOwnershipId;
-        }
-
-        return $res;
-    }
-
-    /**
-     * @param array $map
-     *
-     * @return CreateLeaseAsyncrepaymentRequest
-     */
-    public static function fromMap($map = [])
-    {
-        $model = new self();
-        if (isset($map['auth_token'])) {
-            $model->authToken = $map['auth_token'];
-        }
-        if (isset($map['product_instance_id'])) {
-            $model->productInstanceId = $map['product_instance_id'];
-        }
-        if (isset($map['application_id'])) {
-            $model->applicationId = $map['application_id'];
-        }
-        if (isset($map['extra_info'])) {
-            $model->extraInfo = $map['extra_info'];
-        }
-        if (isset($map['is_finish'])) {
-            $model->isFinish = $map['is_finish'];
-        }
-        if (isset($map['lease_id'])) {
-            $model->leaseId = $map['lease_id'];
-        }
-        if (isset($map['order_id'])) {
-            $model->orderId = $map['order_id'];
-        }
-        if (isset($map['overdue_day'])) {
-            $model->overdueDay = $map['overdue_day'];
-        }
-        if (isset($map['overdue_money'])) {
-            $model->overdueMoney = $map['overdue_money'];
-        }
-        if (isset($map['overdue_rate'])) {
-            $model->overdueRate = $map['overdue_rate'];
-        }
-        if (isset($map['overdue_status'])) {
-            $model->overdueStatus = $map['overdue_status'];
-        }
-        if (isset($map['remain_return_money'])) {
-            $model->remainReturnMoney = $map['remain_return_money'];
-        }
-        if (isset($map['remain_return_term'])) {
-            $model->remainReturnTerm = $map['remain_return_term'];
-        }
-        if (isset($map['repayment_unique_id'])) {
-            $model->repaymentUniqueId = $map['repayment_unique_id'];
-        }
-        if (isset($map['return_description'])) {
-            $model->returnDescription = $map['return_description'];
-        }
-        if (isset($map['return_index'])) {
-            $model->returnIndex = $map['return_index'];
-        }
-        if (isset($map['return_money'])) {
-            $model->returnMoney = $map['return_money'];
-        }
-        if (isset($map['return_status'])) {
-            $model->returnStatus = $map['return_status'];
-        }
-        if (isset($map['return_time'])) {
-            $model->returnTime = $map['return_time'];
-        }
-        if (isset($map['source'])) {
-            $model->source = $map['source'];
-        }
-        if (isset($map['status'])) {
-            $model->status = $map['status'];
-        }
-        if (isset($map['old_ownership_id'])) {
-            $model->oldOwnershipId = $map['old_ownership_id'];
-        }
-        if (isset($map['new_ownership_id'])) {
-            $model->newOwnershipId = $map['new_ownership_id'];
-        }
-
-        return $model;
-    }
 }

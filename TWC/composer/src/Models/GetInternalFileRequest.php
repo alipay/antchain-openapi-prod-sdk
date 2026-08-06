@@ -1,13 +1,100 @@
 <?php
 
 // This file is auto-generated, don't edit it. Thanks.
-
 namespace AntChain\TWC\Models;
 
 use AlibabaCloud\Tea\Model;
 
-class GetInternalFileRequest extends Model
-{
+use AntChain\TWC\Models\Location;
+
+class GetInternalFileRequest extends Model {
+    protected $_name = [
+        'authToken' => 'auth_token',
+        'productInstanceId' => 'product_instance_id',
+        'txHash' => 'tx_hash',
+        'phase' => 'phase',
+        'transactionId' => 'transaction_id',
+        'location' => 'location',
+        'properties' => 'properties',
+        'realTenant' => 'real_tenant',
+        'authCode' => 'auth_code',
+        'product' => 'product',
+    ];
+    public function validate() {
+        Model::validateRequired('txHash', $this->txHash, true);
+    }
+    public function toMap() {
+        $res = [];
+        if (null !== $this->authToken) {
+            $res['auth_token'] = $this->authToken;
+        }
+        if (null !== $this->productInstanceId) {
+            $res['product_instance_id'] = $this->productInstanceId;
+        }
+        if (null !== $this->txHash) {
+            $res['tx_hash'] = $this->txHash;
+        }
+        if (null !== $this->phase) {
+            $res['phase'] = $this->phase;
+        }
+        if (null !== $this->transactionId) {
+            $res['transaction_id'] = $this->transactionId;
+        }
+        if (null !== $this->location) {
+            $res['location'] = null !== $this->location ? $this->location->toMap() : null;
+        }
+        if (null !== $this->properties) {
+            $res['properties'] = $this->properties;
+        }
+        if (null !== $this->realTenant) {
+            $res['real_tenant'] = $this->realTenant;
+        }
+        if (null !== $this->authCode) {
+            $res['auth_code'] = $this->authCode;
+        }
+        if (null !== $this->product) {
+            $res['product'] = $this->product;
+        }
+        return $res;
+    }
+    /**
+     * @param array $map
+     * @return GetInternalFileRequest
+     */
+    public static function fromMap($map = []) {
+        $model = new self();
+        if(isset($map['auth_token'])){
+            $model->authToken = $map['auth_token'];
+        }
+        if(isset($map['product_instance_id'])){
+            $model->productInstanceId = $map['product_instance_id'];
+        }
+        if(isset($map['tx_hash'])){
+            $model->txHash = $map['tx_hash'];
+        }
+        if(isset($map['phase'])){
+            $model->phase = $map['phase'];
+        }
+        if(isset($map['transaction_id'])){
+            $model->transactionId = $map['transaction_id'];
+        }
+        if(isset($map['location'])){
+            $model->location = Location::fromMap($map['location']);
+        }
+        if(isset($map['properties'])){
+            $model->properties = $map['properties'];
+        }
+        if(isset($map['real_tenant'])){
+            $model->realTenant = $map['real_tenant'];
+        }
+        if(isset($map['auth_code'])){
+            $model->authCode = $map['auth_code'];
+        }
+        if(isset($map['product'])){
+            $model->product = $map['product'];
+        }
+        return $model;
+    }
     // OAuth模式下的授权token
     /**
      * @var string
@@ -56,7 +143,7 @@ class GetInternalFileRequest extends Model
     public $realTenant;
 
     // 授权码
-    //
+    // 
     /**
      * @var string
      */
@@ -67,100 +154,5 @@ class GetInternalFileRequest extends Model
      * @var string
      */
     public $product;
-    protected $_name = [
-        'authToken'         => 'auth_token',
-        'productInstanceId' => 'product_instance_id',
-        'txHash'            => 'tx_hash',
-        'phase'             => 'phase',
-        'transactionId'     => 'transaction_id',
-        'location'          => 'location',
-        'properties'        => 'properties',
-        'realTenant'        => 'real_tenant',
-        'authCode'          => 'auth_code',
-        'product'           => 'product',
-    ];
 
-    public function validate()
-    {
-        Model::validateRequired('txHash', $this->txHash, true);
-    }
-
-    public function toMap()
-    {
-        $res = [];
-        if (null !== $this->authToken) {
-            $res['auth_token'] = $this->authToken;
-        }
-        if (null !== $this->productInstanceId) {
-            $res['product_instance_id'] = $this->productInstanceId;
-        }
-        if (null !== $this->txHash) {
-            $res['tx_hash'] = $this->txHash;
-        }
-        if (null !== $this->phase) {
-            $res['phase'] = $this->phase;
-        }
-        if (null !== $this->transactionId) {
-            $res['transaction_id'] = $this->transactionId;
-        }
-        if (null !== $this->location) {
-            $res['location'] = null !== $this->location ? $this->location->toMap() : null;
-        }
-        if (null !== $this->properties) {
-            $res['properties'] = $this->properties;
-        }
-        if (null !== $this->realTenant) {
-            $res['real_tenant'] = $this->realTenant;
-        }
-        if (null !== $this->authCode) {
-            $res['auth_code'] = $this->authCode;
-        }
-        if (null !== $this->product) {
-            $res['product'] = $this->product;
-        }
-
-        return $res;
-    }
-
-    /**
-     * @param array $map
-     *
-     * @return GetInternalFileRequest
-     */
-    public static function fromMap($map = [])
-    {
-        $model = new self();
-        if (isset($map['auth_token'])) {
-            $model->authToken = $map['auth_token'];
-        }
-        if (isset($map['product_instance_id'])) {
-            $model->productInstanceId = $map['product_instance_id'];
-        }
-        if (isset($map['tx_hash'])) {
-            $model->txHash = $map['tx_hash'];
-        }
-        if (isset($map['phase'])) {
-            $model->phase = $map['phase'];
-        }
-        if (isset($map['transaction_id'])) {
-            $model->transactionId = $map['transaction_id'];
-        }
-        if (isset($map['location'])) {
-            $model->location = Location::fromMap($map['location']);
-        }
-        if (isset($map['properties'])) {
-            $model->properties = $map['properties'];
-        }
-        if (isset($map['real_tenant'])) {
-            $model->realTenant = $map['real_tenant'];
-        }
-        if (isset($map['auth_code'])) {
-            $model->authCode = $map['auth_code'];
-        }
-        if (isset($map['product'])) {
-            $model->product = $map['product'];
-        }
-
-        return $model;
-    }
 }

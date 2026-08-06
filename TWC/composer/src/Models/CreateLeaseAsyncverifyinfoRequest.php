@@ -1,13 +1,191 @@
 <?php
 
 // This file is auto-generated, don't edit it. Thanks.
-
 namespace AntChain\TWC\Models;
 
 use AlibabaCloud\Tea\Model;
 
-class CreateLeaseAsyncverifyinfoRequest extends Model
-{
+class CreateLeaseAsyncverifyinfoRequest extends Model {
+    protected $_name = [
+        'authToken' => 'auth_token',
+        'productInstanceId' => 'product_instance_id',
+        'applicationId' => 'application_id',
+        'cardNumber' => 'card_number',
+        'creditEndTime' => 'credit_end_time',
+        'creditLimit' => 'credit_limit',
+        'creditStartTime' => 'credit_start_time',
+        'extraInfo' => 'extra_info',
+        'leaseCorpId' => 'lease_corp_id',
+        'leaseCorpName' => 'lease_corp_name',
+        'leaseCorpOwnerName' => 'lease_corp_owner_name',
+        'leaseId' => 'lease_id',
+        'loan' => 'loan',
+        'orderId' => 'order_id',
+        'payBackHash' => 'pay_back_hash',
+        'payBackTxHash' => 'pay_back_tx_hash',
+        'userId' => 'user_id',
+        'userName' => 'user_name',
+        'userPhoneNumber' => 'user_phone_number',
+        'verifyRefuseDesc' => 'verify_refuse_desc',
+        'verifyResult' => 'verify_result',
+        'voucher' => 'voucher',
+    ];
+    public function validate() {
+        Model::validateMaxLength('leaseCorpId', $this->leaseCorpId, 50);
+        Model::validateMaxLength('leaseCorpName', $this->leaseCorpName, 50);
+        Model::validateMaxLength('leaseCorpOwnerName', $this->leaseCorpOwnerName, 50);
+        Model::validateMaxLength('leaseId', $this->leaseId, 32);
+        Model::validateMaxLength('orderId', $this->orderId, 50);
+        Model::validateMaxLength('userName', $this->userName, 10);
+        Model::validateRequired('leaseId', $this->leaseId, true);
+        Model::validateRequired('orderId', $this->orderId, true);
+        Model::validateRequired('verifyResult', $this->verifyResult, true);
+        Model::validateMinLength('leaseId', $this->leaseId, 1);
+    }
+    public function toMap() {
+        $res = [];
+        if (null !== $this->authToken) {
+            $res['auth_token'] = $this->authToken;
+        }
+        if (null !== $this->productInstanceId) {
+            $res['product_instance_id'] = $this->productInstanceId;
+        }
+        if (null !== $this->applicationId) {
+            $res['application_id'] = $this->applicationId;
+        }
+        if (null !== $this->cardNumber) {
+            $res['card_number'] = $this->cardNumber;
+        }
+        if (null !== $this->creditEndTime) {
+            $res['credit_end_time'] = $this->creditEndTime;
+        }
+        if (null !== $this->creditLimit) {
+            $res['credit_limit'] = $this->creditLimit;
+        }
+        if (null !== $this->creditStartTime) {
+            $res['credit_start_time'] = $this->creditStartTime;
+        }
+        if (null !== $this->extraInfo) {
+            $res['extra_info'] = $this->extraInfo;
+        }
+        if (null !== $this->leaseCorpId) {
+            $res['lease_corp_id'] = $this->leaseCorpId;
+        }
+        if (null !== $this->leaseCorpName) {
+            $res['lease_corp_name'] = $this->leaseCorpName;
+        }
+        if (null !== $this->leaseCorpOwnerName) {
+            $res['lease_corp_owner_name'] = $this->leaseCorpOwnerName;
+        }
+        if (null !== $this->leaseId) {
+            $res['lease_id'] = $this->leaseId;
+        }
+        if (null !== $this->loan) {
+            $res['loan'] = $this->loan;
+        }
+        if (null !== $this->orderId) {
+            $res['order_id'] = $this->orderId;
+        }
+        if (null !== $this->payBackHash) {
+            $res['pay_back_hash'] = $this->payBackHash;
+        }
+        if (null !== $this->payBackTxHash) {
+            $res['pay_back_tx_hash'] = $this->payBackTxHash;
+        }
+        if (null !== $this->userId) {
+            $res['user_id'] = $this->userId;
+        }
+        if (null !== $this->userName) {
+            $res['user_name'] = $this->userName;
+        }
+        if (null !== $this->userPhoneNumber) {
+            $res['user_phone_number'] = $this->userPhoneNumber;
+        }
+        if (null !== $this->verifyRefuseDesc) {
+            $res['verify_refuse_desc'] = $this->verifyRefuseDesc;
+        }
+        if (null !== $this->verifyResult) {
+            $res['verify_result'] = $this->verifyResult;
+        }
+        if (null !== $this->voucher) {
+            $res['voucher'] = $this->voucher;
+        }
+        return $res;
+    }
+    /**
+     * @param array $map
+     * @return CreateLeaseAsyncverifyinfoRequest
+     */
+    public static function fromMap($map = []) {
+        $model = new self();
+        if(isset($map['auth_token'])){
+            $model->authToken = $map['auth_token'];
+        }
+        if(isset($map['product_instance_id'])){
+            $model->productInstanceId = $map['product_instance_id'];
+        }
+        if(isset($map['application_id'])){
+            $model->applicationId = $map['application_id'];
+        }
+        if(isset($map['card_number'])){
+            $model->cardNumber = $map['card_number'];
+        }
+        if(isset($map['credit_end_time'])){
+            $model->creditEndTime = $map['credit_end_time'];
+        }
+        if(isset($map['credit_limit'])){
+            $model->creditLimit = $map['credit_limit'];
+        }
+        if(isset($map['credit_start_time'])){
+            $model->creditStartTime = $map['credit_start_time'];
+        }
+        if(isset($map['extra_info'])){
+            $model->extraInfo = $map['extra_info'];
+        }
+        if(isset($map['lease_corp_id'])){
+            $model->leaseCorpId = $map['lease_corp_id'];
+        }
+        if(isset($map['lease_corp_name'])){
+            $model->leaseCorpName = $map['lease_corp_name'];
+        }
+        if(isset($map['lease_corp_owner_name'])){
+            $model->leaseCorpOwnerName = $map['lease_corp_owner_name'];
+        }
+        if(isset($map['lease_id'])){
+            $model->leaseId = $map['lease_id'];
+        }
+        if(isset($map['loan'])){
+            $model->loan = $map['loan'];
+        }
+        if(isset($map['order_id'])){
+            $model->orderId = $map['order_id'];
+        }
+        if(isset($map['pay_back_hash'])){
+            $model->payBackHash = $map['pay_back_hash'];
+        }
+        if(isset($map['pay_back_tx_hash'])){
+            $model->payBackTxHash = $map['pay_back_tx_hash'];
+        }
+        if(isset($map['user_id'])){
+            $model->userId = $map['user_id'];
+        }
+        if(isset($map['user_name'])){
+            $model->userName = $map['user_name'];
+        }
+        if(isset($map['user_phone_number'])){
+            $model->userPhoneNumber = $map['user_phone_number'];
+        }
+        if(isset($map['verify_refuse_desc'])){
+            $model->verifyRefuseDesc = $map['verify_refuse_desc'];
+        }
+        if(isset($map['verify_result'])){
+            $model->verifyResult = $map['verify_result'];
+        }
+        if(isset($map['voucher'])){
+            $model->voucher = $map['voucher'];
+        }
+        return $model;
+    }
     // OAuth模式下的授权token
     /**
      * @var string
@@ -138,193 +316,5 @@ class CreateLeaseAsyncverifyinfoRequest extends Model
      * @var string
      */
     public $voucher;
-    protected $_name = [
-        'authToken'          => 'auth_token',
-        'productInstanceId'  => 'product_instance_id',
-        'applicationId'      => 'application_id',
-        'cardNumber'         => 'card_number',
-        'creditEndTime'      => 'credit_end_time',
-        'creditLimit'        => 'credit_limit',
-        'creditStartTime'    => 'credit_start_time',
-        'extraInfo'          => 'extra_info',
-        'leaseCorpId'        => 'lease_corp_id',
-        'leaseCorpName'      => 'lease_corp_name',
-        'leaseCorpOwnerName' => 'lease_corp_owner_name',
-        'leaseId'            => 'lease_id',
-        'loan'               => 'loan',
-        'orderId'            => 'order_id',
-        'payBackHash'        => 'pay_back_hash',
-        'payBackTxHash'      => 'pay_back_tx_hash',
-        'userId'             => 'user_id',
-        'userName'           => 'user_name',
-        'userPhoneNumber'    => 'user_phone_number',
-        'verifyRefuseDesc'   => 'verify_refuse_desc',
-        'verifyResult'       => 'verify_result',
-        'voucher'            => 'voucher',
-    ];
 
-    public function validate()
-    {
-        Model::validateMaxLength('leaseCorpId', $this->leaseCorpId, 50);
-        Model::validateMaxLength('leaseCorpName', $this->leaseCorpName, 50);
-        Model::validateMaxLength('leaseCorpOwnerName', $this->leaseCorpOwnerName, 50);
-        Model::validateMaxLength('leaseId', $this->leaseId, 32);
-        Model::validateMaxLength('orderId', $this->orderId, 50);
-        Model::validateMaxLength('userName', $this->userName, 10);
-        Model::validateRequired('leaseId', $this->leaseId, true);
-        Model::validateRequired('orderId', $this->orderId, true);
-        Model::validateRequired('verifyResult', $this->verifyResult, true);
-        Model::validateMinLength('leaseId', $this->leaseId, 1);
-    }
-
-    public function toMap()
-    {
-        $res = [];
-        if (null !== $this->authToken) {
-            $res['auth_token'] = $this->authToken;
-        }
-        if (null !== $this->productInstanceId) {
-            $res['product_instance_id'] = $this->productInstanceId;
-        }
-        if (null !== $this->applicationId) {
-            $res['application_id'] = $this->applicationId;
-        }
-        if (null !== $this->cardNumber) {
-            $res['card_number'] = $this->cardNumber;
-        }
-        if (null !== $this->creditEndTime) {
-            $res['credit_end_time'] = $this->creditEndTime;
-        }
-        if (null !== $this->creditLimit) {
-            $res['credit_limit'] = $this->creditLimit;
-        }
-        if (null !== $this->creditStartTime) {
-            $res['credit_start_time'] = $this->creditStartTime;
-        }
-        if (null !== $this->extraInfo) {
-            $res['extra_info'] = $this->extraInfo;
-        }
-        if (null !== $this->leaseCorpId) {
-            $res['lease_corp_id'] = $this->leaseCorpId;
-        }
-        if (null !== $this->leaseCorpName) {
-            $res['lease_corp_name'] = $this->leaseCorpName;
-        }
-        if (null !== $this->leaseCorpOwnerName) {
-            $res['lease_corp_owner_name'] = $this->leaseCorpOwnerName;
-        }
-        if (null !== $this->leaseId) {
-            $res['lease_id'] = $this->leaseId;
-        }
-        if (null !== $this->loan) {
-            $res['loan'] = $this->loan;
-        }
-        if (null !== $this->orderId) {
-            $res['order_id'] = $this->orderId;
-        }
-        if (null !== $this->payBackHash) {
-            $res['pay_back_hash'] = $this->payBackHash;
-        }
-        if (null !== $this->payBackTxHash) {
-            $res['pay_back_tx_hash'] = $this->payBackTxHash;
-        }
-        if (null !== $this->userId) {
-            $res['user_id'] = $this->userId;
-        }
-        if (null !== $this->userName) {
-            $res['user_name'] = $this->userName;
-        }
-        if (null !== $this->userPhoneNumber) {
-            $res['user_phone_number'] = $this->userPhoneNumber;
-        }
-        if (null !== $this->verifyRefuseDesc) {
-            $res['verify_refuse_desc'] = $this->verifyRefuseDesc;
-        }
-        if (null !== $this->verifyResult) {
-            $res['verify_result'] = $this->verifyResult;
-        }
-        if (null !== $this->voucher) {
-            $res['voucher'] = $this->voucher;
-        }
-
-        return $res;
-    }
-
-    /**
-     * @param array $map
-     *
-     * @return CreateLeaseAsyncverifyinfoRequest
-     */
-    public static function fromMap($map = [])
-    {
-        $model = new self();
-        if (isset($map['auth_token'])) {
-            $model->authToken = $map['auth_token'];
-        }
-        if (isset($map['product_instance_id'])) {
-            $model->productInstanceId = $map['product_instance_id'];
-        }
-        if (isset($map['application_id'])) {
-            $model->applicationId = $map['application_id'];
-        }
-        if (isset($map['card_number'])) {
-            $model->cardNumber = $map['card_number'];
-        }
-        if (isset($map['credit_end_time'])) {
-            $model->creditEndTime = $map['credit_end_time'];
-        }
-        if (isset($map['credit_limit'])) {
-            $model->creditLimit = $map['credit_limit'];
-        }
-        if (isset($map['credit_start_time'])) {
-            $model->creditStartTime = $map['credit_start_time'];
-        }
-        if (isset($map['extra_info'])) {
-            $model->extraInfo = $map['extra_info'];
-        }
-        if (isset($map['lease_corp_id'])) {
-            $model->leaseCorpId = $map['lease_corp_id'];
-        }
-        if (isset($map['lease_corp_name'])) {
-            $model->leaseCorpName = $map['lease_corp_name'];
-        }
-        if (isset($map['lease_corp_owner_name'])) {
-            $model->leaseCorpOwnerName = $map['lease_corp_owner_name'];
-        }
-        if (isset($map['lease_id'])) {
-            $model->leaseId = $map['lease_id'];
-        }
-        if (isset($map['loan'])) {
-            $model->loan = $map['loan'];
-        }
-        if (isset($map['order_id'])) {
-            $model->orderId = $map['order_id'];
-        }
-        if (isset($map['pay_back_hash'])) {
-            $model->payBackHash = $map['pay_back_hash'];
-        }
-        if (isset($map['pay_back_tx_hash'])) {
-            $model->payBackTxHash = $map['pay_back_tx_hash'];
-        }
-        if (isset($map['user_id'])) {
-            $model->userId = $map['user_id'];
-        }
-        if (isset($map['user_name'])) {
-            $model->userName = $map['user_name'];
-        }
-        if (isset($map['user_phone_number'])) {
-            $model->userPhoneNumber = $map['user_phone_number'];
-        }
-        if (isset($map['verify_refuse_desc'])) {
-            $model->verifyRefuseDesc = $map['verify_refuse_desc'];
-        }
-        if (isset($map['verify_result'])) {
-            $model->verifyResult = $map['verify_result'];
-        }
-        if (isset($map['voucher'])) {
-            $model->voucher = $map['voucher'];
-        }
-
-        return $model;
-    }
 }

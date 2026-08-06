@@ -1,13 +1,166 @@
 <?php
 
 // This file is auto-generated, don't edit it. Thanks.
-
 namespace AntChain\TWC\Models;
 
 use AlibabaCloud\Tea\Model;
 
-class CreateContractSignflowRequest extends Model
-{
+use AntChain\TWC\Models\ContractSignFlowConfig;
+use AntChain\TWC\Models\RepaymentOrderRequest;
+
+class CreateContractSignflowRequest extends Model {
+    protected $_name = [
+        'authToken' => 'auth_token',
+        'productInstanceId' => 'product_instance_id',
+        'payerTuid' => 'payer_tuid',
+        'autoArchive' => 'auto_archive',
+        'payeeTuid' => 'payee_tuid',
+        'autoDeductionForce' => 'auto_deduction_force',
+        'bclOrderId' => 'bcl_order_id',
+        'businessScene' => 'business_scene',
+        'productId' => 'product_id',
+        'contractSignFlowConfig' => 'contract_sign_flow_config',
+        'merchantId' => 'merchant_id',
+        'initiatorAccountId' => 'initiator_account_id',
+        'productVersion' => 'product_version',
+        'initiatorAuthorizedAccountId' => 'initiator_authorized_account_id',
+        'repaymentOrderInfo' => 'repayment_order_info',
+        'signPlatform' => 'sign_platform',
+        'signValidity' => 'sign_validity',
+    ];
+    public function validate() {
+        Model::validateMaxLength('bclOrderId', $this->bclOrderId, 32);
+        Model::validateMaxLength('productId', $this->productId, 32);
+        Model::validateMaxLength('merchantId', $this->merchantId, 199);
+        Model::validateMaxLength('productVersion', $this->productVersion, 10);
+        Model::validateRequired('businessScene', $this->businessScene, true);
+    }
+    public function toMap() {
+        $res = [];
+        if (null !== $this->authToken) {
+            $res['auth_token'] = $this->authToken;
+        }
+        if (null !== $this->productInstanceId) {
+            $res['product_instance_id'] = $this->productInstanceId;
+        }
+        if (null !== $this->payerTuid) {
+            $res['payer_tuid'] = $this->payerTuid;
+        }
+        if (null !== $this->autoArchive) {
+            $res['auto_archive'] = $this->autoArchive;
+        }
+        if (null !== $this->payeeTuid) {
+            $res['payee_tuid'] = $this->payeeTuid;
+        }
+        if (null !== $this->autoDeductionForce) {
+            $res['auto_deduction_force'] = $this->autoDeductionForce;
+        }
+        if (null !== $this->bclOrderId) {
+            $res['bcl_order_id'] = $this->bclOrderId;
+        }
+        if (null !== $this->businessScene) {
+            $res['business_scene'] = $this->businessScene;
+        }
+        if (null !== $this->productId) {
+            $res['product_id'] = $this->productId;
+        }
+        if (null !== $this->contractSignFlowConfig) {
+            $res['contract_sign_flow_config'] = null !== $this->contractSignFlowConfig ? $this->contractSignFlowConfig->toMap() : null;
+        }
+        if (null !== $this->merchantId) {
+            $res['merchant_id'] = $this->merchantId;
+        }
+        if (null !== $this->initiatorAccountId) {
+            $res['initiator_account_id'] = $this->initiatorAccountId;
+        }
+        if (null !== $this->productVersion) {
+            $res['product_version'] = $this->productVersion;
+        }
+        if (null !== $this->initiatorAuthorizedAccountId) {
+            $res['initiator_authorized_account_id'] = $this->initiatorAuthorizedAccountId;
+        }
+        if (null !== $this->repaymentOrderInfo) {
+            $res['repayment_order_info'] = [];
+            if(null !== $this->repaymentOrderInfo && is_array($this->repaymentOrderInfo)){
+                $n = 0;
+                foreach($this->repaymentOrderInfo as $item){
+                    $res['repayment_order_info'][$n++] = null !== $item ? $item->toMap() : $item;
+                }
+            }
+        }
+        if (null !== $this->signPlatform) {
+            $res['sign_platform'] = $this->signPlatform;
+        }
+        if (null !== $this->signValidity) {
+            $res['sign_validity'] = $this->signValidity;
+        }
+        return $res;
+    }
+    /**
+     * @param array $map
+     * @return CreateContractSignflowRequest
+     */
+    public static function fromMap($map = []) {
+        $model = new self();
+        if(isset($map['auth_token'])){
+            $model->authToken = $map['auth_token'];
+        }
+        if(isset($map['product_instance_id'])){
+            $model->productInstanceId = $map['product_instance_id'];
+        }
+        if(isset($map['payer_tuid'])){
+            $model->payerTuid = $map['payer_tuid'];
+        }
+        if(isset($map['auto_archive'])){
+            $model->autoArchive = $map['auto_archive'];
+        }
+        if(isset($map['payee_tuid'])){
+            $model->payeeTuid = $map['payee_tuid'];
+        }
+        if(isset($map['auto_deduction_force'])){
+            $model->autoDeductionForce = $map['auto_deduction_force'];
+        }
+        if(isset($map['bcl_order_id'])){
+            $model->bclOrderId = $map['bcl_order_id'];
+        }
+        if(isset($map['business_scene'])){
+            $model->businessScene = $map['business_scene'];
+        }
+        if(isset($map['product_id'])){
+            $model->productId = $map['product_id'];
+        }
+        if(isset($map['contract_sign_flow_config'])){
+            $model->contractSignFlowConfig = ContractSignFlowConfig::fromMap($map['contract_sign_flow_config']);
+        }
+        if(isset($map['merchant_id'])){
+            $model->merchantId = $map['merchant_id'];
+        }
+        if(isset($map['initiator_account_id'])){
+            $model->initiatorAccountId = $map['initiator_account_id'];
+        }
+        if(isset($map['product_version'])){
+            $model->productVersion = $map['product_version'];
+        }
+        if(isset($map['initiator_authorized_account_id'])){
+            $model->initiatorAuthorizedAccountId = $map['initiator_authorized_account_id'];
+        }
+        if(isset($map['repayment_order_info'])){
+            if(!empty($map['repayment_order_info'])){
+                $model->repaymentOrderInfo = [];
+                $n = 0;
+                foreach($map['repayment_order_info'] as $item) {
+                    $model->repaymentOrderInfo[$n++] = null !== $item ? RepaymentOrderRequest::fromMap($item) : $item;
+                }
+            }
+        }
+        if(isset($map['sign_platform'])){
+            $model->signPlatform = $map['sign_platform'];
+        }
+        if(isset($map['sign_validity'])){
+            $model->signValidity = $map['sign_validity'];
+        }
+        return $model;
+    }
     // OAuth模式下的授权token
     /**
      * @var string
@@ -108,165 +261,5 @@ class CreateContractSignflowRequest extends Model
      * @var int
      */
     public $signValidity;
-    protected $_name = [
-        'authToken'                    => 'auth_token',
-        'productInstanceId'            => 'product_instance_id',
-        'payerTuid'                    => 'payer_tuid',
-        'autoArchive'                  => 'auto_archive',
-        'payeeTuid'                    => 'payee_tuid',
-        'autoDeductionForce'           => 'auto_deduction_force',
-        'bclOrderId'                   => 'bcl_order_id',
-        'businessScene'                => 'business_scene',
-        'productId'                    => 'product_id',
-        'contractSignFlowConfig'       => 'contract_sign_flow_config',
-        'merchantId'                   => 'merchant_id',
-        'initiatorAccountId'           => 'initiator_account_id',
-        'productVersion'               => 'product_version',
-        'initiatorAuthorizedAccountId' => 'initiator_authorized_account_id',
-        'repaymentOrderInfo'           => 'repayment_order_info',
-        'signPlatform'                 => 'sign_platform',
-        'signValidity'                 => 'sign_validity',
-    ];
 
-    public function validate()
-    {
-        Model::validateMaxLength('bclOrderId', $this->bclOrderId, 32);
-        Model::validateMaxLength('productId', $this->productId, 32);
-        Model::validateMaxLength('merchantId', $this->merchantId, 199);
-        Model::validateMaxLength('productVersion', $this->productVersion, 10);
-        Model::validateRequired('businessScene', $this->businessScene, true);
-    }
-
-    public function toMap()
-    {
-        $res = [];
-        if (null !== $this->authToken) {
-            $res['auth_token'] = $this->authToken;
-        }
-        if (null !== $this->productInstanceId) {
-            $res['product_instance_id'] = $this->productInstanceId;
-        }
-        if (null !== $this->payerTuid) {
-            $res['payer_tuid'] = $this->payerTuid;
-        }
-        if (null !== $this->autoArchive) {
-            $res['auto_archive'] = $this->autoArchive;
-        }
-        if (null !== $this->payeeTuid) {
-            $res['payee_tuid'] = $this->payeeTuid;
-        }
-        if (null !== $this->autoDeductionForce) {
-            $res['auto_deduction_force'] = $this->autoDeductionForce;
-        }
-        if (null !== $this->bclOrderId) {
-            $res['bcl_order_id'] = $this->bclOrderId;
-        }
-        if (null !== $this->businessScene) {
-            $res['business_scene'] = $this->businessScene;
-        }
-        if (null !== $this->productId) {
-            $res['product_id'] = $this->productId;
-        }
-        if (null !== $this->contractSignFlowConfig) {
-            $res['contract_sign_flow_config'] = null !== $this->contractSignFlowConfig ? $this->contractSignFlowConfig->toMap() : null;
-        }
-        if (null !== $this->merchantId) {
-            $res['merchant_id'] = $this->merchantId;
-        }
-        if (null !== $this->initiatorAccountId) {
-            $res['initiator_account_id'] = $this->initiatorAccountId;
-        }
-        if (null !== $this->productVersion) {
-            $res['product_version'] = $this->productVersion;
-        }
-        if (null !== $this->initiatorAuthorizedAccountId) {
-            $res['initiator_authorized_account_id'] = $this->initiatorAuthorizedAccountId;
-        }
-        if (null !== $this->repaymentOrderInfo) {
-            $res['repayment_order_info'] = [];
-            if (null !== $this->repaymentOrderInfo && \is_array($this->repaymentOrderInfo)) {
-                $n = 0;
-                foreach ($this->repaymentOrderInfo as $item) {
-                    $res['repayment_order_info'][$n++] = null !== $item ? $item->toMap() : $item;
-                }
-            }
-        }
-        if (null !== $this->signPlatform) {
-            $res['sign_platform'] = $this->signPlatform;
-        }
-        if (null !== $this->signValidity) {
-            $res['sign_validity'] = $this->signValidity;
-        }
-
-        return $res;
-    }
-
-    /**
-     * @param array $map
-     *
-     * @return CreateContractSignflowRequest
-     */
-    public static function fromMap($map = [])
-    {
-        $model = new self();
-        if (isset($map['auth_token'])) {
-            $model->authToken = $map['auth_token'];
-        }
-        if (isset($map['product_instance_id'])) {
-            $model->productInstanceId = $map['product_instance_id'];
-        }
-        if (isset($map['payer_tuid'])) {
-            $model->payerTuid = $map['payer_tuid'];
-        }
-        if (isset($map['auto_archive'])) {
-            $model->autoArchive = $map['auto_archive'];
-        }
-        if (isset($map['payee_tuid'])) {
-            $model->payeeTuid = $map['payee_tuid'];
-        }
-        if (isset($map['auto_deduction_force'])) {
-            $model->autoDeductionForce = $map['auto_deduction_force'];
-        }
-        if (isset($map['bcl_order_id'])) {
-            $model->bclOrderId = $map['bcl_order_id'];
-        }
-        if (isset($map['business_scene'])) {
-            $model->businessScene = $map['business_scene'];
-        }
-        if (isset($map['product_id'])) {
-            $model->productId = $map['product_id'];
-        }
-        if (isset($map['contract_sign_flow_config'])) {
-            $model->contractSignFlowConfig = ContractSignFlowConfig::fromMap($map['contract_sign_flow_config']);
-        }
-        if (isset($map['merchant_id'])) {
-            $model->merchantId = $map['merchant_id'];
-        }
-        if (isset($map['initiator_account_id'])) {
-            $model->initiatorAccountId = $map['initiator_account_id'];
-        }
-        if (isset($map['product_version'])) {
-            $model->productVersion = $map['product_version'];
-        }
-        if (isset($map['initiator_authorized_account_id'])) {
-            $model->initiatorAuthorizedAccountId = $map['initiator_authorized_account_id'];
-        }
-        if (isset($map['repayment_order_info'])) {
-            if (!empty($map['repayment_order_info'])) {
-                $model->repaymentOrderInfo = [];
-                $n                         = 0;
-                foreach ($map['repayment_order_info'] as $item) {
-                    $model->repaymentOrderInfo[$n++] = null !== $item ? RepaymentOrderRequest::fromMap($item) : $item;
-                }
-            }
-        }
-        if (isset($map['sign_platform'])) {
-            $model->signPlatform = $map['sign_platform'];
-        }
-        if (isset($map['sign_validity'])) {
-            $model->signValidity = $map['sign_validity'];
-        }
-
-        return $model;
-    }
 }

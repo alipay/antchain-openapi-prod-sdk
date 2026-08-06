@@ -1,82 +1,23 @@
 <?php
 
 // This file is auto-generated, don't edit it. Thanks.
-
 namespace AntChain\TWC\Models;
 
 use AlibabaCloud\Tea\Model;
 
-class UpdatePrivatecontractCertRequest extends Model
-{
-    // OAuth模式下的授权token
-    /**
-     * @var string
-     */
-    public $authToken;
-
-    /**
-     * @var string
-     */
-    public $productInstanceId;
-
-    // 私有云实例id
-    /**
-     * @var string
-     */
-    public $instanceId;
-
-    // 私有云系统内部生成的用户id
-    //
-    /**
-     * @var string
-     */
-    public $userInnerId;
-
-    // 用户类型,个人PERSON，企业ORG
-    /**
-     * @var string
-     */
-    public $userType;
-
-    // 用户名称, 个人为个人名称，企业为企业名称
-    //
-    /**
-     * @var string
-     */
-    public $userName;
-
-    // 用户证件类型，默认个人,身份证CRED_PSN_CH_IDCARD； 企业,统一社会信用代码,CRED_ORG_USCC
-    //
-    /**
-     * @var string
-     */
-    public $userCertType;
-
-    // 证件号码
-    /**
-     * @var string
-     */
-    public $userCertNumber;
-
-    // 是否需要更新机构印模
-    /**
-     * @var bool
-     */
-    public $updateOrgSeal;
+class UpdatePrivatecontractCertRequest extends Model {
     protected $_name = [
-        'authToken'         => 'auth_token',
+        'authToken' => 'auth_token',
         'productInstanceId' => 'product_instance_id',
-        'instanceId'        => 'instance_id',
-        'userInnerId'       => 'user_inner_id',
-        'userType'          => 'user_type',
-        'userName'          => 'user_name',
-        'userCertType'      => 'user_cert_type',
-        'userCertNumber'    => 'user_cert_number',
-        'updateOrgSeal'     => 'update_org_seal',
+        'instanceId' => 'instance_id',
+        'userInnerId' => 'user_inner_id',
+        'userType' => 'user_type',
+        'userName' => 'user_name',
+        'userCertType' => 'user_cert_type',
+        'userCertNumber' => 'user_cert_number',
+        'updateOrgSeal' => 'update_org_seal',
     ];
-
-    public function validate()
-    {
+    public function validate() {
         Model::validateRequired('instanceId', $this->instanceId, true);
         Model::validateRequired('userInnerId', $this->userInnerId, true);
         Model::validateRequired('userType', $this->userType, true);
@@ -85,9 +26,7 @@ class UpdatePrivatecontractCertRequest extends Model
         Model::validateRequired('userCertNumber', $this->userCertNumber, true);
         Model::validateRequired('updateOrgSeal', $this->updateOrgSeal, true);
     }
-
-    public function toMap()
-    {
+    public function toMap() {
         $res = [];
         if (null !== $this->authToken) {
             $res['auth_token'] = $this->authToken;
@@ -116,46 +55,97 @@ class UpdatePrivatecontractCertRequest extends Model
         if (null !== $this->updateOrgSeal) {
             $res['update_org_seal'] = $this->updateOrgSeal;
         }
-
         return $res;
     }
-
     /**
      * @param array $map
-     *
      * @return UpdatePrivatecontractCertRequest
      */
-    public static function fromMap($map = [])
-    {
+    public static function fromMap($map = []) {
         $model = new self();
-        if (isset($map['auth_token'])) {
+        if(isset($map['auth_token'])){
             $model->authToken = $map['auth_token'];
         }
-        if (isset($map['product_instance_id'])) {
+        if(isset($map['product_instance_id'])){
             $model->productInstanceId = $map['product_instance_id'];
         }
-        if (isset($map['instance_id'])) {
+        if(isset($map['instance_id'])){
             $model->instanceId = $map['instance_id'];
         }
-        if (isset($map['user_inner_id'])) {
+        if(isset($map['user_inner_id'])){
             $model->userInnerId = $map['user_inner_id'];
         }
-        if (isset($map['user_type'])) {
+        if(isset($map['user_type'])){
             $model->userType = $map['user_type'];
         }
-        if (isset($map['user_name'])) {
+        if(isset($map['user_name'])){
             $model->userName = $map['user_name'];
         }
-        if (isset($map['user_cert_type'])) {
+        if(isset($map['user_cert_type'])){
             $model->userCertType = $map['user_cert_type'];
         }
-        if (isset($map['user_cert_number'])) {
+        if(isset($map['user_cert_number'])){
             $model->userCertNumber = $map['user_cert_number'];
         }
-        if (isset($map['update_org_seal'])) {
+        if(isset($map['update_org_seal'])){
             $model->updateOrgSeal = $map['update_org_seal'];
         }
-
         return $model;
     }
+    // OAuth模式下的授权token
+    /**
+     * @var string
+     */
+    public $authToken;
+
+    /**
+     * @var string
+     */
+    public $productInstanceId;
+
+    // 私有云实例id
+    /**
+     * @var string
+     */
+    public $instanceId;
+
+    // 私有云系统内部生成的用户id
+    // 
+    /**
+     * @var string
+     */
+    public $userInnerId;
+
+    // 用户类型,个人PERSON，企业ORG
+    /**
+     * @var string
+     */
+    public $userType;
+
+    // 用户名称, 个人为个人名称，企业为企业名称
+    // 
+    /**
+     * @var string
+     */
+    public $userName;
+
+    // 用户证件类型，默认个人,身份证CRED_PSN_CH_IDCARD； 企业,统一社会信用代码,CRED_ORG_USCC
+    // 
+    /**
+     * @var string
+     */
+    public $userCertType;
+
+    // 证件号码
+    /**
+     * @var string
+     */
+    public $userCertNumber;
+
+    // 是否需要更新机构印模
+    /**
+     * @var bool
+     */
+    public $updateOrgSeal;
+
 }

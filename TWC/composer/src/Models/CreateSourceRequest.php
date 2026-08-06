@@ -1,13 +1,104 @@
 <?php
 
 // This file is auto-generated, don't edit it. Thanks.
-
 namespace AntChain\TWC\Models;
 
 use AlibabaCloud\Tea\Model;
 
-class CreateSourceRequest extends Model
-{
+use AntChain\TWC\Models\Location;
+
+class CreateSourceRequest extends Model {
+    protected $_name = [
+        'authToken' => 'auth_token',
+        'productInstanceId' => 'product_instance_id',
+        'location' => 'location',
+        'phase' => 'phase',
+        'properties' => 'properties',
+        'sourceDesc' => 'source_desc',
+        'sourceFile' => 'source_file',
+        'sourceName' => 'source_name',
+        'transactionId' => 'transaction_id',
+        'tsr' => 'tsr',
+    ];
+    public function validate() {
+        Model::validateRequired('phase', $this->phase, true);
+        Model::validateRequired('sourceDesc', $this->sourceDesc, true);
+        Model::validateRequired('sourceFile', $this->sourceFile, true);
+        Model::validateRequired('sourceName', $this->sourceName, true);
+        Model::validateRequired('transactionId', $this->transactionId, true);
+    }
+    public function toMap() {
+        $res = [];
+        if (null !== $this->authToken) {
+            $res['auth_token'] = $this->authToken;
+        }
+        if (null !== $this->productInstanceId) {
+            $res['product_instance_id'] = $this->productInstanceId;
+        }
+        if (null !== $this->location) {
+            $res['location'] = null !== $this->location ? $this->location->toMap() : null;
+        }
+        if (null !== $this->phase) {
+            $res['phase'] = $this->phase;
+        }
+        if (null !== $this->properties) {
+            $res['properties'] = $this->properties;
+        }
+        if (null !== $this->sourceDesc) {
+            $res['source_desc'] = $this->sourceDesc;
+        }
+        if (null !== $this->sourceFile) {
+            $res['source_file'] = $this->sourceFile;
+        }
+        if (null !== $this->sourceName) {
+            $res['source_name'] = $this->sourceName;
+        }
+        if (null !== $this->transactionId) {
+            $res['transaction_id'] = $this->transactionId;
+        }
+        if (null !== $this->tsr) {
+            $res['tsr'] = $this->tsr;
+        }
+        return $res;
+    }
+    /**
+     * @param array $map
+     * @return CreateSourceRequest
+     */
+    public static function fromMap($map = []) {
+        $model = new self();
+        if(isset($map['auth_token'])){
+            $model->authToken = $map['auth_token'];
+        }
+        if(isset($map['product_instance_id'])){
+            $model->productInstanceId = $map['product_instance_id'];
+        }
+        if(isset($map['location'])){
+            $model->location = Location::fromMap($map['location']);
+        }
+        if(isset($map['phase'])){
+            $model->phase = $map['phase'];
+        }
+        if(isset($map['properties'])){
+            $model->properties = $map['properties'];
+        }
+        if(isset($map['source_desc'])){
+            $model->sourceDesc = $map['source_desc'];
+        }
+        if(isset($map['source_file'])){
+            $model->sourceFile = $map['source_file'];
+        }
+        if(isset($map['source_name'])){
+            $model->sourceName = $map['source_name'];
+        }
+        if(isset($map['transaction_id'])){
+            $model->transactionId = $map['transaction_id'];
+        }
+        if(isset($map['tsr'])){
+            $model->tsr = $map['tsr'];
+        }
+        return $model;
+    }
     // OAuth模式下的授权token
     /**
      * @var string
@@ -66,104 +157,5 @@ class CreateSourceRequest extends Model
      * @var bool
      */
     public $tsr;
-    protected $_name = [
-        'authToken'         => 'auth_token',
-        'productInstanceId' => 'product_instance_id',
-        'location'          => 'location',
-        'phase'             => 'phase',
-        'properties'        => 'properties',
-        'sourceDesc'        => 'source_desc',
-        'sourceFile'        => 'source_file',
-        'sourceName'        => 'source_name',
-        'transactionId'     => 'transaction_id',
-        'tsr'               => 'tsr',
-    ];
 
-    public function validate()
-    {
-        Model::validateRequired('phase', $this->phase, true);
-        Model::validateRequired('sourceDesc', $this->sourceDesc, true);
-        Model::validateRequired('sourceFile', $this->sourceFile, true);
-        Model::validateRequired('sourceName', $this->sourceName, true);
-        Model::validateRequired('transactionId', $this->transactionId, true);
-    }
-
-    public function toMap()
-    {
-        $res = [];
-        if (null !== $this->authToken) {
-            $res['auth_token'] = $this->authToken;
-        }
-        if (null !== $this->productInstanceId) {
-            $res['product_instance_id'] = $this->productInstanceId;
-        }
-        if (null !== $this->location) {
-            $res['location'] = null !== $this->location ? $this->location->toMap() : null;
-        }
-        if (null !== $this->phase) {
-            $res['phase'] = $this->phase;
-        }
-        if (null !== $this->properties) {
-            $res['properties'] = $this->properties;
-        }
-        if (null !== $this->sourceDesc) {
-            $res['source_desc'] = $this->sourceDesc;
-        }
-        if (null !== $this->sourceFile) {
-            $res['source_file'] = $this->sourceFile;
-        }
-        if (null !== $this->sourceName) {
-            $res['source_name'] = $this->sourceName;
-        }
-        if (null !== $this->transactionId) {
-            $res['transaction_id'] = $this->transactionId;
-        }
-        if (null !== $this->tsr) {
-            $res['tsr'] = $this->tsr;
-        }
-
-        return $res;
-    }
-
-    /**
-     * @param array $map
-     *
-     * @return CreateSourceRequest
-     */
-    public static function fromMap($map = [])
-    {
-        $model = new self();
-        if (isset($map['auth_token'])) {
-            $model->authToken = $map['auth_token'];
-        }
-        if (isset($map['product_instance_id'])) {
-            $model->productInstanceId = $map['product_instance_id'];
-        }
-        if (isset($map['location'])) {
-            $model->location = Location::fromMap($map['location']);
-        }
-        if (isset($map['phase'])) {
-            $model->phase = $map['phase'];
-        }
-        if (isset($map['properties'])) {
-            $model->properties = $map['properties'];
-        }
-        if (isset($map['source_desc'])) {
-            $model->sourceDesc = $map['source_desc'];
-        }
-        if (isset($map['source_file'])) {
-            $model->sourceFile = $map['source_file'];
-        }
-        if (isset($map['source_name'])) {
-            $model->sourceName = $map['source_name'];
-        }
-        if (isset($map['transaction_id'])) {
-            $model->transactionId = $map['transaction_id'];
-        }
-        if (isset($map['tsr'])) {
-            $model->tsr = $map['tsr'];
-        }
-
-        return $model;
-    }
 }

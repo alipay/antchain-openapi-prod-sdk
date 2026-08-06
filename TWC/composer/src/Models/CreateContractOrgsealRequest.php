@@ -1,13 +1,108 @@
 <?php
 
 // This file is auto-generated, don't edit it. Thanks.
-
 namespace AntChain\TWC\Models;
 
 use AlibabaCloud\Tea\Model;
 
-class CreateContractOrgsealRequest extends Model
-{
+class CreateContractOrgsealRequest extends Model {
+    protected $_name = [
+        'authToken' => 'auth_token',
+        'productInstanceId' => 'product_instance_id',
+        'alias' => 'alias',
+        'central' => 'central',
+        'color' => 'color',
+        'height' => 'height',
+        'htext' => 'htext',
+        'orgId' => 'org_id',
+        'qtext' => 'qtext',
+        'type' => 'type',
+        'width' => 'width',
+    ];
+    public function validate() {
+        Model::validateRequired('central', $this->central, true);
+        Model::validateRequired('color', $this->color, true);
+        Model::validateRequired('orgId', $this->orgId, true);
+        Model::validateRequired('type', $this->type, true);
+    }
+    public function toMap() {
+        $res = [];
+        if (null !== $this->authToken) {
+            $res['auth_token'] = $this->authToken;
+        }
+        if (null !== $this->productInstanceId) {
+            $res['product_instance_id'] = $this->productInstanceId;
+        }
+        if (null !== $this->alias) {
+            $res['alias'] = $this->alias;
+        }
+        if (null !== $this->central) {
+            $res['central'] = $this->central;
+        }
+        if (null !== $this->color) {
+            $res['color'] = $this->color;
+        }
+        if (null !== $this->height) {
+            $res['height'] = $this->height;
+        }
+        if (null !== $this->htext) {
+            $res['htext'] = $this->htext;
+        }
+        if (null !== $this->orgId) {
+            $res['org_id'] = $this->orgId;
+        }
+        if (null !== $this->qtext) {
+            $res['qtext'] = $this->qtext;
+        }
+        if (null !== $this->type) {
+            $res['type'] = $this->type;
+        }
+        if (null !== $this->width) {
+            $res['width'] = $this->width;
+        }
+        return $res;
+    }
+    /**
+     * @param array $map
+     * @return CreateContractOrgsealRequest
+     */
+    public static function fromMap($map = []) {
+        $model = new self();
+        if(isset($map['auth_token'])){
+            $model->authToken = $map['auth_token'];
+        }
+        if(isset($map['product_instance_id'])){
+            $model->productInstanceId = $map['product_instance_id'];
+        }
+        if(isset($map['alias'])){
+            $model->alias = $map['alias'];
+        }
+        if(isset($map['central'])){
+            $model->central = $map['central'];
+        }
+        if(isset($map['color'])){
+            $model->color = $map['color'];
+        }
+        if(isset($map['height'])){
+            $model->height = $map['height'];
+        }
+        if(isset($map['htext'])){
+            $model->htext = $map['htext'];
+        }
+        if(isset($map['org_id'])){
+            $model->orgId = $map['org_id'];
+        }
+        if(isset($map['qtext'])){
+            $model->qtext = $map['qtext'];
+        }
+        if(isset($map['type'])){
+            $model->type = $map['type'];
+        }
+        if(isset($map['width'])){
+            $model->width = $map['width'];
+        }
+        return $model;
+    }
     // OAuth模式下的授权token
     /**
      * @var string
@@ -72,110 +167,5 @@ class CreateContractOrgsealRequest extends Model
      * @var int
      */
     public $width;
-    protected $_name = [
-        'authToken'         => 'auth_token',
-        'productInstanceId' => 'product_instance_id',
-        'alias'             => 'alias',
-        'central'           => 'central',
-        'color'             => 'color',
-        'height'            => 'height',
-        'htext'             => 'htext',
-        'orgId'             => 'org_id',
-        'qtext'             => 'qtext',
-        'type'              => 'type',
-        'width'             => 'width',
-    ];
 
-    public function validate()
-    {
-        Model::validateRequired('central', $this->central, true);
-        Model::validateRequired('color', $this->color, true);
-        Model::validateRequired('orgId', $this->orgId, true);
-        Model::validateRequired('type', $this->type, true);
-    }
-
-    public function toMap()
-    {
-        $res = [];
-        if (null !== $this->authToken) {
-            $res['auth_token'] = $this->authToken;
-        }
-        if (null !== $this->productInstanceId) {
-            $res['product_instance_id'] = $this->productInstanceId;
-        }
-        if (null !== $this->alias) {
-            $res['alias'] = $this->alias;
-        }
-        if (null !== $this->central) {
-            $res['central'] = $this->central;
-        }
-        if (null !== $this->color) {
-            $res['color'] = $this->color;
-        }
-        if (null !== $this->height) {
-            $res['height'] = $this->height;
-        }
-        if (null !== $this->htext) {
-            $res['htext'] = $this->htext;
-        }
-        if (null !== $this->orgId) {
-            $res['org_id'] = $this->orgId;
-        }
-        if (null !== $this->qtext) {
-            $res['qtext'] = $this->qtext;
-        }
-        if (null !== $this->type) {
-            $res['type'] = $this->type;
-        }
-        if (null !== $this->width) {
-            $res['width'] = $this->width;
-        }
-
-        return $res;
-    }
-
-    /**
-     * @param array $map
-     *
-     * @return CreateContractOrgsealRequest
-     */
-    public static function fromMap($map = [])
-    {
-        $model = new self();
-        if (isset($map['auth_token'])) {
-            $model->authToken = $map['auth_token'];
-        }
-        if (isset($map['product_instance_id'])) {
-            $model->productInstanceId = $map['product_instance_id'];
-        }
-        if (isset($map['alias'])) {
-            $model->alias = $map['alias'];
-        }
-        if (isset($map['central'])) {
-            $model->central = $map['central'];
-        }
-        if (isset($map['color'])) {
-            $model->color = $map['color'];
-        }
-        if (isset($map['height'])) {
-            $model->height = $map['height'];
-        }
-        if (isset($map['htext'])) {
-            $model->htext = $map['htext'];
-        }
-        if (isset($map['org_id'])) {
-            $model->orgId = $map['org_id'];
-        }
-        if (isset($map['qtext'])) {
-            $model->qtext = $map['qtext'];
-        }
-        if (isset($map['type'])) {
-            $model->type = $map['type'];
-        }
-        if (isset($map['width'])) {
-            $model->width = $map['width'];
-        }
-
-        return $model;
-    }
 }

@@ -1,13 +1,182 @@
 <?php
 
 // This file is auto-generated, don't edit it. Thanks.
-
 namespace AntChain\TWC\Models;
 
 use AlibabaCloud\Tea\Model;
 
-class CreateContractOnestepflowRequest extends Model
-{
+use AntChain\TWC\Models\ContractSignFlowConfig;
+use AntChain\TWC\Models\ContractDoc;
+use AntChain\TWC\Models\OneStepSignField;
+
+class CreateContractOnestepflowRequest extends Model {
+    protected $_name = [
+        'authToken' => 'auth_token',
+        'productInstanceId' => 'product_instance_id',
+        'autoArchive' => 'auto_archive',
+        'autoInitiate' => 'auto_initiate',
+        'businessScene' => 'business_scene',
+        'comment' => 'comment',
+        'contractSignFlowConfig' => 'contract_sign_flow_config',
+        'docs' => 'docs',
+        'initiatorAccountId' => 'initiator_account_id',
+        'initiatorAuthorizedAccountId' => 'initiator_authorized_account_id',
+        'signFields' => 'sign_fields',
+        'signPlatform' => 'sign_platform',
+        'signValidity' => 'sign_validity',
+        'combineSignModel' => 'combine_sign_model',
+        'needFace' => 'need_face',
+        'sealType' => 'seal_type',
+        'newAppId' => 'new_app_id',
+        'newPath' => 'new_path',
+    ];
+    public function validate() {
+        Model::validateRequired('businessScene', $this->businessScene, true);
+    }
+    public function toMap() {
+        $res = [];
+        if (null !== $this->authToken) {
+            $res['auth_token'] = $this->authToken;
+        }
+        if (null !== $this->productInstanceId) {
+            $res['product_instance_id'] = $this->productInstanceId;
+        }
+        if (null !== $this->autoArchive) {
+            $res['auto_archive'] = $this->autoArchive;
+        }
+        if (null !== $this->autoInitiate) {
+            $res['auto_initiate'] = $this->autoInitiate;
+        }
+        if (null !== $this->businessScene) {
+            $res['business_scene'] = $this->businessScene;
+        }
+        if (null !== $this->comment) {
+            $res['comment'] = $this->comment;
+        }
+        if (null !== $this->contractSignFlowConfig) {
+            $res['contract_sign_flow_config'] = null !== $this->contractSignFlowConfig ? $this->contractSignFlowConfig->toMap() : null;
+        }
+        if (null !== $this->docs) {
+            $res['docs'] = [];
+            if(null !== $this->docs && is_array($this->docs)){
+                $n = 0;
+                foreach($this->docs as $item){
+                    $res['docs'][$n++] = null !== $item ? $item->toMap() : $item;
+                }
+            }
+        }
+        if (null !== $this->initiatorAccountId) {
+            $res['initiator_account_id'] = $this->initiatorAccountId;
+        }
+        if (null !== $this->initiatorAuthorizedAccountId) {
+            $res['initiator_authorized_account_id'] = $this->initiatorAuthorizedAccountId;
+        }
+        if (null !== $this->signFields) {
+            $res['sign_fields'] = [];
+            if(null !== $this->signFields && is_array($this->signFields)){
+                $n = 0;
+                foreach($this->signFields as $item){
+                    $res['sign_fields'][$n++] = null !== $item ? $item->toMap() : $item;
+                }
+            }
+        }
+        if (null !== $this->signPlatform) {
+            $res['sign_platform'] = $this->signPlatform;
+        }
+        if (null !== $this->signValidity) {
+            $res['sign_validity'] = $this->signValidity;
+        }
+        if (null !== $this->combineSignModel) {
+            $res['combine_sign_model'] = $this->combineSignModel;
+        }
+        if (null !== $this->needFace) {
+            $res['need_face'] = $this->needFace;
+        }
+        if (null !== $this->sealType) {
+            $res['seal_type'] = $this->sealType;
+        }
+        if (null !== $this->newAppId) {
+            $res['new_app_id'] = $this->newAppId;
+        }
+        if (null !== $this->newPath) {
+            $res['new_path'] = $this->newPath;
+        }
+        return $res;
+    }
+    /**
+     * @param array $map
+     * @return CreateContractOnestepflowRequest
+     */
+    public static function fromMap($map = []) {
+        $model = new self();
+        if(isset($map['auth_token'])){
+            $model->authToken = $map['auth_token'];
+        }
+        if(isset($map['product_instance_id'])){
+            $model->productInstanceId = $map['product_instance_id'];
+        }
+        if(isset($map['auto_archive'])){
+            $model->autoArchive = $map['auto_archive'];
+        }
+        if(isset($map['auto_initiate'])){
+            $model->autoInitiate = $map['auto_initiate'];
+        }
+        if(isset($map['business_scene'])){
+            $model->businessScene = $map['business_scene'];
+        }
+        if(isset($map['comment'])){
+            $model->comment = $map['comment'];
+        }
+        if(isset($map['contract_sign_flow_config'])){
+            $model->contractSignFlowConfig = ContractSignFlowConfig::fromMap($map['contract_sign_flow_config']);
+        }
+        if(isset($map['docs'])){
+            if(!empty($map['docs'])){
+                $model->docs = [];
+                $n = 0;
+                foreach($map['docs'] as $item) {
+                    $model->docs[$n++] = null !== $item ? ContractDoc::fromMap($item) : $item;
+                }
+            }
+        }
+        if(isset($map['initiator_account_id'])){
+            $model->initiatorAccountId = $map['initiator_account_id'];
+        }
+        if(isset($map['initiator_authorized_account_id'])){
+            $model->initiatorAuthorizedAccountId = $map['initiator_authorized_account_id'];
+        }
+        if(isset($map['sign_fields'])){
+            if(!empty($map['sign_fields'])){
+                $model->signFields = [];
+                $n = 0;
+                foreach($map['sign_fields'] as $item) {
+                    $model->signFields[$n++] = null !== $item ? OneStepSignField::fromMap($item) : $item;
+                }
+            }
+        }
+        if(isset($map['sign_platform'])){
+            $model->signPlatform = $map['sign_platform'];
+        }
+        if(isset($map['sign_validity'])){
+            $model->signValidity = $map['sign_validity'];
+        }
+        if(isset($map['combine_sign_model'])){
+            $model->combineSignModel = $map['combine_sign_model'];
+        }
+        if(isset($map['need_face'])){
+            $model->needFace = $map['need_face'];
+        }
+        if(isset($map['seal_type'])){
+            $model->sealType = $map['seal_type'];
+        }
+        if(isset($map['new_app_id'])){
+            $model->newAppId = $map['new_app_id'];
+        }
+        if(isset($map['new_path'])){
+            $model->newPath = $map['new_path'];
+        }
+        return $model;
+    }
     // OAuth模式下的授权token
     /**
      * @var string
@@ -92,7 +261,7 @@ class CreateContractOnestepflowRequest extends Model
     public $combineSignModel;
 
     // 合并签署是否开启人脸识别(默认true-开启),非合并签署无需设值
-    //
+    // 
     /**
      * @var bool
      */
@@ -105,166 +274,17 @@ class CreateContractOnestepflowRequest extends Model
      * @var string
      */
     public $sealType;
-    protected $_name = [
-        'authToken'                    => 'auth_token',
-        'productInstanceId'            => 'product_instance_id',
-        'autoArchive'                  => 'auto_archive',
-        'autoInitiate'                 => 'auto_initiate',
-        'businessScene'                => 'business_scene',
-        'comment'                      => 'comment',
-        'contractSignFlowConfig'       => 'contract_sign_flow_config',
-        'docs'                         => 'docs',
-        'initiatorAccountId'           => 'initiator_account_id',
-        'initiatorAuthorizedAccountId' => 'initiator_authorized_account_id',
-        'signFields'                   => 'sign_fields',
-        'signPlatform'                 => 'sign_platform',
-        'signValidity'                 => 'sign_validity',
-        'combineSignModel'             => 'combine_sign_model',
-        'needFace'                     => 'need_face',
-        'sealType'                     => 'seal_type',
-    ];
 
-    public function validate()
-    {
-        Model::validateRequired('businessScene', $this->businessScene, true);
-    }
-
-    public function toMap()
-    {
-        $res = [];
-        if (null !== $this->authToken) {
-            $res['auth_token'] = $this->authToken;
-        }
-        if (null !== $this->productInstanceId) {
-            $res['product_instance_id'] = $this->productInstanceId;
-        }
-        if (null !== $this->autoArchive) {
-            $res['auto_archive'] = $this->autoArchive;
-        }
-        if (null !== $this->autoInitiate) {
-            $res['auto_initiate'] = $this->autoInitiate;
-        }
-        if (null !== $this->businessScene) {
-            $res['business_scene'] = $this->businessScene;
-        }
-        if (null !== $this->comment) {
-            $res['comment'] = $this->comment;
-        }
-        if (null !== $this->contractSignFlowConfig) {
-            $res['contract_sign_flow_config'] = null !== $this->contractSignFlowConfig ? $this->contractSignFlowConfig->toMap() : null;
-        }
-        if (null !== $this->docs) {
-            $res['docs'] = [];
-            if (null !== $this->docs && \is_array($this->docs)) {
-                $n = 0;
-                foreach ($this->docs as $item) {
-                    $res['docs'][$n++] = null !== $item ? $item->toMap() : $item;
-                }
-            }
-        }
-        if (null !== $this->initiatorAccountId) {
-            $res['initiator_account_id'] = $this->initiatorAccountId;
-        }
-        if (null !== $this->initiatorAuthorizedAccountId) {
-            $res['initiator_authorized_account_id'] = $this->initiatorAuthorizedAccountId;
-        }
-        if (null !== $this->signFields) {
-            $res['sign_fields'] = [];
-            if (null !== $this->signFields && \is_array($this->signFields)) {
-                $n = 0;
-                foreach ($this->signFields as $item) {
-                    $res['sign_fields'][$n++] = null !== $item ? $item->toMap() : $item;
-                }
-            }
-        }
-        if (null !== $this->signPlatform) {
-            $res['sign_platform'] = $this->signPlatform;
-        }
-        if (null !== $this->signValidity) {
-            $res['sign_validity'] = $this->signValidity;
-        }
-        if (null !== $this->combineSignModel) {
-            $res['combine_sign_model'] = $this->combineSignModel;
-        }
-        if (null !== $this->needFace) {
-            $res['need_face'] = $this->needFace;
-        }
-        if (null !== $this->sealType) {
-            $res['seal_type'] = $this->sealType;
-        }
-
-        return $res;
-    }
-
+    // 是否走新AppId true-是 false-否
     /**
-     * @param array $map
-     *
-     * @return CreateContractOnestepflowRequest
+     * @var bool
      */
-    public static function fromMap($map = [])
-    {
-        $model = new self();
-        if (isset($map['auth_token'])) {
-            $model->authToken = $map['auth_token'];
-        }
-        if (isset($map['product_instance_id'])) {
-            $model->productInstanceId = $map['product_instance_id'];
-        }
-        if (isset($map['auto_archive'])) {
-            $model->autoArchive = $map['auto_archive'];
-        }
-        if (isset($map['auto_initiate'])) {
-            $model->autoInitiate = $map['auto_initiate'];
-        }
-        if (isset($map['business_scene'])) {
-            $model->businessScene = $map['business_scene'];
-        }
-        if (isset($map['comment'])) {
-            $model->comment = $map['comment'];
-        }
-        if (isset($map['contract_sign_flow_config'])) {
-            $model->contractSignFlowConfig = ContractSignFlowConfig::fromMap($map['contract_sign_flow_config']);
-        }
-        if (isset($map['docs'])) {
-            if (!empty($map['docs'])) {
-                $model->docs = [];
-                $n           = 0;
-                foreach ($map['docs'] as $item) {
-                    $model->docs[$n++] = null !== $item ? ContractDoc::fromMap($item) : $item;
-                }
-            }
-        }
-        if (isset($map['initiator_account_id'])) {
-            $model->initiatorAccountId = $map['initiator_account_id'];
-        }
-        if (isset($map['initiator_authorized_account_id'])) {
-            $model->initiatorAuthorizedAccountId = $map['initiator_authorized_account_id'];
-        }
-        if (isset($map['sign_fields'])) {
-            if (!empty($map['sign_fields'])) {
-                $model->signFields = [];
-                $n                 = 0;
-                foreach ($map['sign_fields'] as $item) {
-                    $model->signFields[$n++] = null !== $item ? OneStepSignField::fromMap($item) : $item;
-                }
-            }
-        }
-        if (isset($map['sign_platform'])) {
-            $model->signPlatform = $map['sign_platform'];
-        }
-        if (isset($map['sign_validity'])) {
-            $model->signValidity = $map['sign_validity'];
-        }
-        if (isset($map['combine_sign_model'])) {
-            $model->combineSignModel = $map['combine_sign_model'];
-        }
-        if (isset($map['need_face'])) {
-            $model->needFace = $map['need_face'];
-        }
-        if (isset($map['seal_type'])) {
-            $model->sealType = $map['seal_type'];
-        }
+    public $newAppId;
 
-        return $model;
-    }
+    // 是否走新链路 true-是 false-否
+    /**
+     * @var bool
+     */
+    public $newPath;
+
 }

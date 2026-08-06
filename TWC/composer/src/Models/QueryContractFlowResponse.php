@@ -1,13 +1,154 @@
 <?php
 
 // This file is auto-generated, don't edit it. Thanks.
-
 namespace AntChain\TWC\Models;
 
 use AlibabaCloud\Tea\Model;
 
-class QueryContractFlowResponse extends Model
-{
+use AntChain\TWC\Models\ContractSignFlowConfig;
+
+class QueryContractFlowResponse extends Model {
+    protected $_name = [
+        'reqMsgId' => 'req_msg_id',
+        'resultCode' => 'result_code',
+        'resultMsg' => 'result_msg',
+        'autoArchive' => 'auto_archive',
+        'businessScene' => 'business_scene',
+        'code' => 'code',
+        'configInfo' => 'config_info',
+        'contractRemind' => 'contract_remind',
+        'contractValidity' => 'contract_validity',
+        'flowDesc' => 'flow_desc',
+        'flowEndTime' => 'flow_end_time',
+        'flowId' => 'flow_id',
+        'flowStartTime' => 'flow_start_time',
+        'flowStatus' => 'flow_status',
+        'initiatorAccountId' => 'initiator_account_id',
+        'initiatorAuthorizedAccountId' => 'initiator_authorized_account_id',
+        'message' => 'message',
+        'signValidity' => 'sign_validity',
+    ];
+    public function validate() {}
+    public function toMap() {
+        $res = [];
+        if (null !== $this->reqMsgId) {
+            $res['req_msg_id'] = $this->reqMsgId;
+        }
+        if (null !== $this->resultCode) {
+            $res['result_code'] = $this->resultCode;
+        }
+        if (null !== $this->resultMsg) {
+            $res['result_msg'] = $this->resultMsg;
+        }
+        if (null !== $this->autoArchive) {
+            $res['auto_archive'] = $this->autoArchive;
+        }
+        if (null !== $this->businessScene) {
+            $res['business_scene'] = $this->businessScene;
+        }
+        if (null !== $this->code) {
+            $res['code'] = $this->code;
+        }
+        if (null !== $this->configInfo) {
+            $res['config_info'] = null !== $this->configInfo ? $this->configInfo->toMap() : null;
+        }
+        if (null !== $this->contractRemind) {
+            $res['contract_remind'] = $this->contractRemind;
+        }
+        if (null !== $this->contractValidity) {
+            $res['contract_validity'] = $this->contractValidity;
+        }
+        if (null !== $this->flowDesc) {
+            $res['flow_desc'] = $this->flowDesc;
+        }
+        if (null !== $this->flowEndTime) {
+            $res['flow_end_time'] = $this->flowEndTime;
+        }
+        if (null !== $this->flowId) {
+            $res['flow_id'] = $this->flowId;
+        }
+        if (null !== $this->flowStartTime) {
+            $res['flow_start_time'] = $this->flowStartTime;
+        }
+        if (null !== $this->flowStatus) {
+            $res['flow_status'] = $this->flowStatus;
+        }
+        if (null !== $this->initiatorAccountId) {
+            $res['initiator_account_id'] = $this->initiatorAccountId;
+        }
+        if (null !== $this->initiatorAuthorizedAccountId) {
+            $res['initiator_authorized_account_id'] = $this->initiatorAuthorizedAccountId;
+        }
+        if (null !== $this->message) {
+            $res['message'] = $this->message;
+        }
+        if (null !== $this->signValidity) {
+            $res['sign_validity'] = $this->signValidity;
+        }
+        return $res;
+    }
+    /**
+     * @param array $map
+     * @return QueryContractFlowResponse
+     */
+    public static function fromMap($map = []) {
+        $model = new self();
+        if(isset($map['req_msg_id'])){
+            $model->reqMsgId = $map['req_msg_id'];
+        }
+        if(isset($map['result_code'])){
+            $model->resultCode = $map['result_code'];
+        }
+        if(isset($map['result_msg'])){
+            $model->resultMsg = $map['result_msg'];
+        }
+        if(isset($map['auto_archive'])){
+            $model->autoArchive = $map['auto_archive'];
+        }
+        if(isset($map['business_scene'])){
+            $model->businessScene = $map['business_scene'];
+        }
+        if(isset($map['code'])){
+            $model->code = $map['code'];
+        }
+        if(isset($map['config_info'])){
+            $model->configInfo = ContractSignFlowConfig::fromMap($map['config_info']);
+        }
+        if(isset($map['contract_remind'])){
+            $model->contractRemind = $map['contract_remind'];
+        }
+        if(isset($map['contract_validity'])){
+            $model->contractValidity = $map['contract_validity'];
+        }
+        if(isset($map['flow_desc'])){
+            $model->flowDesc = $map['flow_desc'];
+        }
+        if(isset($map['flow_end_time'])){
+            $model->flowEndTime = $map['flow_end_time'];
+        }
+        if(isset($map['flow_id'])){
+            $model->flowId = $map['flow_id'];
+        }
+        if(isset($map['flow_start_time'])){
+            $model->flowStartTime = $map['flow_start_time'];
+        }
+        if(isset($map['flow_status'])){
+            $model->flowStatus = $map['flow_status'];
+        }
+        if(isset($map['initiator_account_id'])){
+            $model->initiatorAccountId = $map['initiator_account_id'];
+        }
+        if(isset($map['initiator_authorized_account_id'])){
+            $model->initiatorAuthorizedAccountId = $map['initiator_authorized_account_id'];
+        }
+        if(isset($map['message'])){
+            $model->message = $map['message'];
+        }
+        if(isset($map['sign_validity'])){
+            $model->signValidity = $map['sign_validity'];
+        }
+        return $model;
+    }
     // 请求唯一ID，用于链路跟踪和问题排查
     /**
      * @var string
@@ -115,155 +256,5 @@ class QueryContractFlowResponse extends Model
      * @var string
      */
     public $signValidity;
-    protected $_name = [
-        'reqMsgId'                     => 'req_msg_id',
-        'resultCode'                   => 'result_code',
-        'resultMsg'                    => 'result_msg',
-        'autoArchive'                  => 'auto_archive',
-        'businessScene'                => 'business_scene',
-        'code'                         => 'code',
-        'configInfo'                   => 'config_info',
-        'contractRemind'               => 'contract_remind',
-        'contractValidity'             => 'contract_validity',
-        'flowDesc'                     => 'flow_desc',
-        'flowEndTime'                  => 'flow_end_time',
-        'flowId'                       => 'flow_id',
-        'flowStartTime'                => 'flow_start_time',
-        'flowStatus'                   => 'flow_status',
-        'initiatorAccountId'           => 'initiator_account_id',
-        'initiatorAuthorizedAccountId' => 'initiator_authorized_account_id',
-        'message'                      => 'message',
-        'signValidity'                 => 'sign_validity',
-    ];
 
-    public function validate()
-    {
-    }
-
-    public function toMap()
-    {
-        $res = [];
-        if (null !== $this->reqMsgId) {
-            $res['req_msg_id'] = $this->reqMsgId;
-        }
-        if (null !== $this->resultCode) {
-            $res['result_code'] = $this->resultCode;
-        }
-        if (null !== $this->resultMsg) {
-            $res['result_msg'] = $this->resultMsg;
-        }
-        if (null !== $this->autoArchive) {
-            $res['auto_archive'] = $this->autoArchive;
-        }
-        if (null !== $this->businessScene) {
-            $res['business_scene'] = $this->businessScene;
-        }
-        if (null !== $this->code) {
-            $res['code'] = $this->code;
-        }
-        if (null !== $this->configInfo) {
-            $res['config_info'] = null !== $this->configInfo ? $this->configInfo->toMap() : null;
-        }
-        if (null !== $this->contractRemind) {
-            $res['contract_remind'] = $this->contractRemind;
-        }
-        if (null !== $this->contractValidity) {
-            $res['contract_validity'] = $this->contractValidity;
-        }
-        if (null !== $this->flowDesc) {
-            $res['flow_desc'] = $this->flowDesc;
-        }
-        if (null !== $this->flowEndTime) {
-            $res['flow_end_time'] = $this->flowEndTime;
-        }
-        if (null !== $this->flowId) {
-            $res['flow_id'] = $this->flowId;
-        }
-        if (null !== $this->flowStartTime) {
-            $res['flow_start_time'] = $this->flowStartTime;
-        }
-        if (null !== $this->flowStatus) {
-            $res['flow_status'] = $this->flowStatus;
-        }
-        if (null !== $this->initiatorAccountId) {
-            $res['initiator_account_id'] = $this->initiatorAccountId;
-        }
-        if (null !== $this->initiatorAuthorizedAccountId) {
-            $res['initiator_authorized_account_id'] = $this->initiatorAuthorizedAccountId;
-        }
-        if (null !== $this->message) {
-            $res['message'] = $this->message;
-        }
-        if (null !== $this->signValidity) {
-            $res['sign_validity'] = $this->signValidity;
-        }
-
-        return $res;
-    }
-
-    /**
-     * @param array $map
-     *
-     * @return QueryContractFlowResponse
-     */
-    public static function fromMap($map = [])
-    {
-        $model = new self();
-        if (isset($map['req_msg_id'])) {
-            $model->reqMsgId = $map['req_msg_id'];
-        }
-        if (isset($map['result_code'])) {
-            $model->resultCode = $map['result_code'];
-        }
-        if (isset($map['result_msg'])) {
-            $model->resultMsg = $map['result_msg'];
-        }
-        if (isset($map['auto_archive'])) {
-            $model->autoArchive = $map['auto_archive'];
-        }
-        if (isset($map['business_scene'])) {
-            $model->businessScene = $map['business_scene'];
-        }
-        if (isset($map['code'])) {
-            $model->code = $map['code'];
-        }
-        if (isset($map['config_info'])) {
-            $model->configInfo = ContractSignFlowConfig::fromMap($map['config_info']);
-        }
-        if (isset($map['contract_remind'])) {
-            $model->contractRemind = $map['contract_remind'];
-        }
-        if (isset($map['contract_validity'])) {
-            $model->contractValidity = $map['contract_validity'];
-        }
-        if (isset($map['flow_desc'])) {
-            $model->flowDesc = $map['flow_desc'];
-        }
-        if (isset($map['flow_end_time'])) {
-            $model->flowEndTime = $map['flow_end_time'];
-        }
-        if (isset($map['flow_id'])) {
-            $model->flowId = $map['flow_id'];
-        }
-        if (isset($map['flow_start_time'])) {
-            $model->flowStartTime = $map['flow_start_time'];
-        }
-        if (isset($map['flow_status'])) {
-            $model->flowStatus = $map['flow_status'];
-        }
-        if (isset($map['initiator_account_id'])) {
-            $model->initiatorAccountId = $map['initiator_account_id'];
-        }
-        if (isset($map['initiator_authorized_account_id'])) {
-            $model->initiatorAuthorizedAccountId = $map['initiator_authorized_account_id'];
-        }
-        if (isset($map['message'])) {
-            $model->message = $map['message'];
-        }
-        if (isset($map['sign_validity'])) {
-            $model->signValidity = $map['sign_validity'];
-        }
-
-        return $model;
-    }
 }

@@ -1,13 +1,84 @@
 <?php
 
 // This file is auto-generated, don't edit it. Thanks.
-
 namespace AntChain\TWC\Models;
 
 use AlibabaCloud\Tea\Model;
 
-class ConfirmContractMerchantResponse extends Model
-{
+class ConfirmContractMerchantResponse extends Model {
+    protected $_name = [
+        'reqMsgId' => 'req_msg_id',
+        'resultCode' => 'result_code',
+        'resultMsg' => 'result_msg',
+        'extInfo' => 'ext_info',
+        'ipRoleId' => 'ip_role_id',
+        'applyId' => 'apply_id',
+        'merchantName' => 'merchant_name',
+        'status' => 'status',
+    ];
+    public function validate() {}
+    public function toMap() {
+        $res = [];
+        if (null !== $this->reqMsgId) {
+            $res['req_msg_id'] = $this->reqMsgId;
+        }
+        if (null !== $this->resultCode) {
+            $res['result_code'] = $this->resultCode;
+        }
+        if (null !== $this->resultMsg) {
+            $res['result_msg'] = $this->resultMsg;
+        }
+        if (null !== $this->extInfo) {
+            $res['ext_info'] = $this->extInfo;
+        }
+        if (null !== $this->ipRoleId) {
+            $res['ip_role_id'] = $this->ipRoleId;
+        }
+        if (null !== $this->applyId) {
+            $res['apply_id'] = $this->applyId;
+        }
+        if (null !== $this->merchantName) {
+            $res['merchant_name'] = $this->merchantName;
+        }
+        if (null !== $this->status) {
+            $res['status'] = $this->status;
+        }
+        return $res;
+    }
+    /**
+     * @param array $map
+     * @return ConfirmContractMerchantResponse
+     */
+    public static function fromMap($map = []) {
+        $model = new self();
+        if(isset($map['req_msg_id'])){
+            $model->reqMsgId = $map['req_msg_id'];
+        }
+        if(isset($map['result_code'])){
+            $model->resultCode = $map['result_code'];
+        }
+        if(isset($map['result_msg'])){
+            $model->resultMsg = $map['result_msg'];
+        }
+        if(isset($map['ext_info'])){
+            $model->extInfo = $map['ext_info'];
+        }
+        if(isset($map['ip_role_id'])){
+            if(!empty($map['ip_role_id'])){
+                $model->ipRoleId = $map['ip_role_id'];
+            }
+        }
+        if(isset($map['apply_id'])){
+            $model->applyId = $map['apply_id'];
+        }
+        if(isset($map['merchant_name'])){
+            $model->merchantName = $map['merchant_name'];
+        }
+        if(isset($map['status'])){
+            $model->status = $map['status'];
+        }
+        return $model;
+    }
     // 请求唯一ID，用于链路跟踪和问题排查
     /**
      * @var string
@@ -55,87 +126,5 @@ class ConfirmContractMerchantResponse extends Model
      * @var string
      */
     public $status;
-    protected $_name = [
-        'reqMsgId'     => 'req_msg_id',
-        'resultCode'   => 'result_code',
-        'resultMsg'    => 'result_msg',
-        'extInfo'      => 'ext_info',
-        'ipRoleId'     => 'ip_role_id',
-        'applyId'      => 'apply_id',
-        'merchantName' => 'merchant_name',
-        'status'       => 'status',
-    ];
 
-    public function validate()
-    {
-    }
-
-    public function toMap()
-    {
-        $res = [];
-        if (null !== $this->reqMsgId) {
-            $res['req_msg_id'] = $this->reqMsgId;
-        }
-        if (null !== $this->resultCode) {
-            $res['result_code'] = $this->resultCode;
-        }
-        if (null !== $this->resultMsg) {
-            $res['result_msg'] = $this->resultMsg;
-        }
-        if (null !== $this->extInfo) {
-            $res['ext_info'] = $this->extInfo;
-        }
-        if (null !== $this->ipRoleId) {
-            $res['ip_role_id'] = $this->ipRoleId;
-        }
-        if (null !== $this->applyId) {
-            $res['apply_id'] = $this->applyId;
-        }
-        if (null !== $this->merchantName) {
-            $res['merchant_name'] = $this->merchantName;
-        }
-        if (null !== $this->status) {
-            $res['status'] = $this->status;
-        }
-
-        return $res;
-    }
-
-    /**
-     * @param array $map
-     *
-     * @return ConfirmContractMerchantResponse
-     */
-    public static function fromMap($map = [])
-    {
-        $model = new self();
-        if (isset($map['req_msg_id'])) {
-            $model->reqMsgId = $map['req_msg_id'];
-        }
-        if (isset($map['result_code'])) {
-            $model->resultCode = $map['result_code'];
-        }
-        if (isset($map['result_msg'])) {
-            $model->resultMsg = $map['result_msg'];
-        }
-        if (isset($map['ext_info'])) {
-            $model->extInfo = $map['ext_info'];
-        }
-        if (isset($map['ip_role_id'])) {
-            if (!empty($map['ip_role_id'])) {
-                $model->ipRoleId = $map['ip_role_id'];
-            }
-        }
-        if (isset($map['apply_id'])) {
-            $model->applyId = $map['apply_id'];
-        }
-        if (isset($map['merchant_name'])) {
-            $model->merchantName = $map['merchant_name'];
-        }
-        if (isset($map['status'])) {
-            $model->status = $map['status'];
-        }
-
-        return $model;
-    }
 }

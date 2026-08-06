@@ -1,13 +1,95 @@
 <?php
 
 // This file is auto-generated, don't edit it. Thanks.
-
 namespace AntChain\TWC\Models;
 
 use AlibabaCloud\Tea\Model;
 
-class CreateJusticeDocumenttemplateRequest extends Model
-{
+class CreateJusticeDocumenttemplateRequest extends Model {
+    protected $_name = [
+        'authToken' => 'auth_token',
+        'productInstanceId' => 'product_instance_id',
+        'documentTemplateId' => 'document_template_id',
+        'rightProtectTemplateId' => 'right_protect_template_id',
+        'templateName' => 'template_name',
+        'outputType' => 'output_type',
+        'inputType' => 'input_type',
+        'downloadUrl' => 'download_url',
+        'textContent' => 'text_content',
+    ];
+    public function validate() {
+        Model::validateRequired('documentTemplateId', $this->documentTemplateId, true);
+        Model::validateRequired('rightProtectTemplateId', $this->rightProtectTemplateId, true);
+        Model::validateRequired('templateName', $this->templateName, true);
+        Model::validateRequired('outputType', $this->outputType, true);
+        Model::validateRequired('inputType', $this->inputType, true);
+    }
+    public function toMap() {
+        $res = [];
+        if (null !== $this->authToken) {
+            $res['auth_token'] = $this->authToken;
+        }
+        if (null !== $this->productInstanceId) {
+            $res['product_instance_id'] = $this->productInstanceId;
+        }
+        if (null !== $this->documentTemplateId) {
+            $res['document_template_id'] = $this->documentTemplateId;
+        }
+        if (null !== $this->rightProtectTemplateId) {
+            $res['right_protect_template_id'] = $this->rightProtectTemplateId;
+        }
+        if (null !== $this->templateName) {
+            $res['template_name'] = $this->templateName;
+        }
+        if (null !== $this->outputType) {
+            $res['output_type'] = $this->outputType;
+        }
+        if (null !== $this->inputType) {
+            $res['input_type'] = $this->inputType;
+        }
+        if (null !== $this->downloadUrl) {
+            $res['download_url'] = $this->downloadUrl;
+        }
+        if (null !== $this->textContent) {
+            $res['text_content'] = $this->textContent;
+        }
+        return $res;
+    }
+    /**
+     * @param array $map
+     * @return CreateJusticeDocumenttemplateRequest
+     */
+    public static function fromMap($map = []) {
+        $model = new self();
+        if(isset($map['auth_token'])){
+            $model->authToken = $map['auth_token'];
+        }
+        if(isset($map['product_instance_id'])){
+            $model->productInstanceId = $map['product_instance_id'];
+        }
+        if(isset($map['document_template_id'])){
+            $model->documentTemplateId = $map['document_template_id'];
+        }
+        if(isset($map['right_protect_template_id'])){
+            $model->rightProtectTemplateId = $map['right_protect_template_id'];
+        }
+        if(isset($map['template_name'])){
+            $model->templateName = $map['template_name'];
+        }
+        if(isset($map['output_type'])){
+            $model->outputType = $map['output_type'];
+        }
+        if(isset($map['input_type'])){
+            $model->inputType = $map['input_type'];
+        }
+        if(isset($map['download_url'])){
+            $model->downloadUrl = $map['download_url'];
+        }
+        if(isset($map['text_content'])){
+            $model->textContent = $map['text_content'];
+        }
+        return $model;
+    }
     // OAuth模式下的授权token
     /**
      * @var string
@@ -67,97 +149,5 @@ class CreateJusticeDocumenttemplateRequest extends Model
      * @var string
      */
     public $textContent;
-    protected $_name = [
-        'authToken'              => 'auth_token',
-        'productInstanceId'      => 'product_instance_id',
-        'documentTemplateId'     => 'document_template_id',
-        'rightProtectTemplateId' => 'right_protect_template_id',
-        'templateName'           => 'template_name',
-        'outputType'             => 'output_type',
-        'inputType'              => 'input_type',
-        'downloadUrl'            => 'download_url',
-        'textContent'            => 'text_content',
-    ];
 
-    public function validate()
-    {
-        Model::validateRequired('documentTemplateId', $this->documentTemplateId, true);
-        Model::validateRequired('rightProtectTemplateId', $this->rightProtectTemplateId, true);
-        Model::validateRequired('templateName', $this->templateName, true);
-        Model::validateRequired('outputType', $this->outputType, true);
-        Model::validateRequired('inputType', $this->inputType, true);
-    }
-
-    public function toMap()
-    {
-        $res = [];
-        if (null !== $this->authToken) {
-            $res['auth_token'] = $this->authToken;
-        }
-        if (null !== $this->productInstanceId) {
-            $res['product_instance_id'] = $this->productInstanceId;
-        }
-        if (null !== $this->documentTemplateId) {
-            $res['document_template_id'] = $this->documentTemplateId;
-        }
-        if (null !== $this->rightProtectTemplateId) {
-            $res['right_protect_template_id'] = $this->rightProtectTemplateId;
-        }
-        if (null !== $this->templateName) {
-            $res['template_name'] = $this->templateName;
-        }
-        if (null !== $this->outputType) {
-            $res['output_type'] = $this->outputType;
-        }
-        if (null !== $this->inputType) {
-            $res['input_type'] = $this->inputType;
-        }
-        if (null !== $this->downloadUrl) {
-            $res['download_url'] = $this->downloadUrl;
-        }
-        if (null !== $this->textContent) {
-            $res['text_content'] = $this->textContent;
-        }
-
-        return $res;
-    }
-
-    /**
-     * @param array $map
-     *
-     * @return CreateJusticeDocumenttemplateRequest
-     */
-    public static function fromMap($map = [])
-    {
-        $model = new self();
-        if (isset($map['auth_token'])) {
-            $model->authToken = $map['auth_token'];
-        }
-        if (isset($map['product_instance_id'])) {
-            $model->productInstanceId = $map['product_instance_id'];
-        }
-        if (isset($map['document_template_id'])) {
-            $model->documentTemplateId = $map['document_template_id'];
-        }
-        if (isset($map['right_protect_template_id'])) {
-            $model->rightProtectTemplateId = $map['right_protect_template_id'];
-        }
-        if (isset($map['template_name'])) {
-            $model->templateName = $map['template_name'];
-        }
-        if (isset($map['output_type'])) {
-            $model->outputType = $map['output_type'];
-        }
-        if (isset($map['input_type'])) {
-            $model->inputType = $map['input_type'];
-        }
-        if (isset($map['download_url'])) {
-            $model->downloadUrl = $map['download_url'];
-        }
-        if (isset($map['text_content'])) {
-            $model->textContent = $map['text_content'];
-        }
-
-        return $model;
-    }
 }

@@ -1,13 +1,116 @@
 <?php
 
 // This file is auto-generated, don't edit it. Thanks.
-
 namespace AntChain\TWC\Models;
 
 use AlibabaCloud\Tea\Model;
 
-class NotifyJusticeRightspaymentRequest extends Model
-{
+use AntChain\TWC\Models\FileInfo;
+use AntChain\TWC\Models\PaymentInfo;
+
+class NotifyJusticeRightspaymentRequest extends Model {
+    protected $_name = [
+        'authToken' => 'auth_token',
+        'productInstanceId' => 'product_instance_id',
+        'recordId' => 'record_id',
+        'amount' => 'amount',
+        'paymentType' => 'payment_type',
+        'paymentStatus' => 'payment_status',
+        'paymentRemark' => 'payment_remark',
+        'paymentFileInfos' => 'payment_file_infos',
+        'paymentInfo' => 'payment_info',
+        'paymentStatusSuccessDate' => 'payment_status_success_date',
+    ];
+    public function validate() {
+        Model::validateRequired('recordId', $this->recordId, true);
+        Model::validateRequired('amount', $this->amount, true);
+        Model::validateRequired('paymentType', $this->paymentType, true);
+        Model::validateRequired('paymentStatus', $this->paymentStatus, true);
+    }
+    public function toMap() {
+        $res = [];
+        if (null !== $this->authToken) {
+            $res['auth_token'] = $this->authToken;
+        }
+        if (null !== $this->productInstanceId) {
+            $res['product_instance_id'] = $this->productInstanceId;
+        }
+        if (null !== $this->recordId) {
+            $res['record_id'] = $this->recordId;
+        }
+        if (null !== $this->amount) {
+            $res['amount'] = $this->amount;
+        }
+        if (null !== $this->paymentType) {
+            $res['payment_type'] = $this->paymentType;
+        }
+        if (null !== $this->paymentStatus) {
+            $res['payment_status'] = $this->paymentStatus;
+        }
+        if (null !== $this->paymentRemark) {
+            $res['payment_remark'] = $this->paymentRemark;
+        }
+        if (null !== $this->paymentFileInfos) {
+            $res['payment_file_infos'] = [];
+            if(null !== $this->paymentFileInfos && is_array($this->paymentFileInfos)){
+                $n = 0;
+                foreach($this->paymentFileInfos as $item){
+                    $res['payment_file_infos'][$n++] = null !== $item ? $item->toMap() : $item;
+                }
+            }
+        }
+        if (null !== $this->paymentInfo) {
+            $res['payment_info'] = null !== $this->paymentInfo ? $this->paymentInfo->toMap() : null;
+        }
+        if (null !== $this->paymentStatusSuccessDate) {
+            $res['payment_status_success_date'] = $this->paymentStatusSuccessDate;
+        }
+        return $res;
+    }
+    /**
+     * @param array $map
+     * @return NotifyJusticeRightspaymentRequest
+     */
+    public static function fromMap($map = []) {
+        $model = new self();
+        if(isset($map['auth_token'])){
+            $model->authToken = $map['auth_token'];
+        }
+        if(isset($map['product_instance_id'])){
+            $model->productInstanceId = $map['product_instance_id'];
+        }
+        if(isset($map['record_id'])){
+            $model->recordId = $map['record_id'];
+        }
+        if(isset($map['amount'])){
+            $model->amount = $map['amount'];
+        }
+        if(isset($map['payment_type'])){
+            $model->paymentType = $map['payment_type'];
+        }
+        if(isset($map['payment_status'])){
+            $model->paymentStatus = $map['payment_status'];
+        }
+        if(isset($map['payment_remark'])){
+            $model->paymentRemark = $map['payment_remark'];
+        }
+        if(isset($map['payment_file_infos'])){
+            if(!empty($map['payment_file_infos'])){
+                $model->paymentFileInfos = [];
+                $n = 0;
+                foreach($map['payment_file_infos'] as $item) {
+                    $model->paymentFileInfos[$n++] = null !== $item ? FileInfo::fromMap($item) : $item;
+                }
+            }
+        }
+        if(isset($map['payment_info'])){
+            $model->paymentInfo = PaymentInfo::fromMap($map['payment_info']);
+        }
+        if(isset($map['payment_status_success_date'])){
+            $model->paymentStatusSuccessDate = $map['payment_status_success_date'];
+        }
+        return $model;
+    }
     // OAuth模式下的授权token
     /**
      * @var string
@@ -71,115 +174,5 @@ class NotifyJusticeRightspaymentRequest extends Model
      * @var string
      */
     public $paymentStatusSuccessDate;
-    protected $_name = [
-        'authToken'                => 'auth_token',
-        'productInstanceId'        => 'product_instance_id',
-        'recordId'                 => 'record_id',
-        'amount'                   => 'amount',
-        'paymentType'              => 'payment_type',
-        'paymentStatus'            => 'payment_status',
-        'paymentRemark'            => 'payment_remark',
-        'paymentFileInfos'         => 'payment_file_infos',
-        'paymentInfo'              => 'payment_info',
-        'paymentStatusSuccessDate' => 'payment_status_success_date',
-    ];
 
-    public function validate()
-    {
-        Model::validateRequired('recordId', $this->recordId, true);
-        Model::validateRequired('amount', $this->amount, true);
-        Model::validateRequired('paymentType', $this->paymentType, true);
-        Model::validateRequired('paymentStatus', $this->paymentStatus, true);
-    }
-
-    public function toMap()
-    {
-        $res = [];
-        if (null !== $this->authToken) {
-            $res['auth_token'] = $this->authToken;
-        }
-        if (null !== $this->productInstanceId) {
-            $res['product_instance_id'] = $this->productInstanceId;
-        }
-        if (null !== $this->recordId) {
-            $res['record_id'] = $this->recordId;
-        }
-        if (null !== $this->amount) {
-            $res['amount'] = $this->amount;
-        }
-        if (null !== $this->paymentType) {
-            $res['payment_type'] = $this->paymentType;
-        }
-        if (null !== $this->paymentStatus) {
-            $res['payment_status'] = $this->paymentStatus;
-        }
-        if (null !== $this->paymentRemark) {
-            $res['payment_remark'] = $this->paymentRemark;
-        }
-        if (null !== $this->paymentFileInfos) {
-            $res['payment_file_infos'] = [];
-            if (null !== $this->paymentFileInfos && \is_array($this->paymentFileInfos)) {
-                $n = 0;
-                foreach ($this->paymentFileInfos as $item) {
-                    $res['payment_file_infos'][$n++] = null !== $item ? $item->toMap() : $item;
-                }
-            }
-        }
-        if (null !== $this->paymentInfo) {
-            $res['payment_info'] = null !== $this->paymentInfo ? $this->paymentInfo->toMap() : null;
-        }
-        if (null !== $this->paymentStatusSuccessDate) {
-            $res['payment_status_success_date'] = $this->paymentStatusSuccessDate;
-        }
-
-        return $res;
-    }
-
-    /**
-     * @param array $map
-     *
-     * @return NotifyJusticeRightspaymentRequest
-     */
-    public static function fromMap($map = [])
-    {
-        $model = new self();
-        if (isset($map['auth_token'])) {
-            $model->authToken = $map['auth_token'];
-        }
-        if (isset($map['product_instance_id'])) {
-            $model->productInstanceId = $map['product_instance_id'];
-        }
-        if (isset($map['record_id'])) {
-            $model->recordId = $map['record_id'];
-        }
-        if (isset($map['amount'])) {
-            $model->amount = $map['amount'];
-        }
-        if (isset($map['payment_type'])) {
-            $model->paymentType = $map['payment_type'];
-        }
-        if (isset($map['payment_status'])) {
-            $model->paymentStatus = $map['payment_status'];
-        }
-        if (isset($map['payment_remark'])) {
-            $model->paymentRemark = $map['payment_remark'];
-        }
-        if (isset($map['payment_file_infos'])) {
-            if (!empty($map['payment_file_infos'])) {
-                $model->paymentFileInfos = [];
-                $n                       = 0;
-                foreach ($map['payment_file_infos'] as $item) {
-                    $model->paymentFileInfos[$n++] = null !== $item ? FileInfo::fromMap($item) : $item;
-                }
-            }
-        }
-        if (isset($map['payment_info'])) {
-            $model->paymentInfo = PaymentInfo::fromMap($map['payment_info']);
-        }
-        if (isset($map['payment_status_success_date'])) {
-            $model->paymentStatusSuccessDate = $map['payment_status_success_date'];
-        }
-
-        return $model;
-    }
 }

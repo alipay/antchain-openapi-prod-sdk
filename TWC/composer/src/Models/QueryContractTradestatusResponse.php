@@ -1,13 +1,92 @@
 <?php
 
 // This file is auto-generated, don't edit it. Thanks.
-
 namespace AntChain\TWC\Models;
 
 use AlibabaCloud\Tea\Model;
 
-class QueryContractTradestatusResponse extends Model
-{
+class QueryContractTradestatusResponse extends Model {
+    protected $_name = [
+        'reqMsgId' => 'req_msg_id',
+        'resultCode' => 'result_code',
+        'resultMsg' => 'result_msg',
+        'outTradeNo' => 'out_trade_no',
+        'deductTime' => 'deduct_time',
+        'payDate' => 'pay_date',
+        'payMoney' => 'pay_money',
+        'status' => 'status',
+        'payIndex' => 'pay_index',
+    ];
+    public function validate() {
+        Model::validatePattern('deductTime', $this->deductTime, '\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}([Z]|([\\.]\\d{1,9})?[\\+]\\d{2}[\\:]?\\d{2})');
+        Model::validatePattern('payDate', $this->payDate, '\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}([Z]|([\\.]\\d{1,9})?[\\+]\\d{2}[\\:]?\\d{2})');
+    }
+    public function toMap() {
+        $res = [];
+        if (null !== $this->reqMsgId) {
+            $res['req_msg_id'] = $this->reqMsgId;
+        }
+        if (null !== $this->resultCode) {
+            $res['result_code'] = $this->resultCode;
+        }
+        if (null !== $this->resultMsg) {
+            $res['result_msg'] = $this->resultMsg;
+        }
+        if (null !== $this->outTradeNo) {
+            $res['out_trade_no'] = $this->outTradeNo;
+        }
+        if (null !== $this->deductTime) {
+            $res['deduct_time'] = $this->deductTime;
+        }
+        if (null !== $this->payDate) {
+            $res['pay_date'] = $this->payDate;
+        }
+        if (null !== $this->payMoney) {
+            $res['pay_money'] = $this->payMoney;
+        }
+        if (null !== $this->status) {
+            $res['status'] = $this->status;
+        }
+        if (null !== $this->payIndex) {
+            $res['pay_index'] = $this->payIndex;
+        }
+        return $res;
+    }
+    /**
+     * @param array $map
+     * @return QueryContractTradestatusResponse
+     */
+    public static function fromMap($map = []) {
+        $model = new self();
+        if(isset($map['req_msg_id'])){
+            $model->reqMsgId = $map['req_msg_id'];
+        }
+        if(isset($map['result_code'])){
+            $model->resultCode = $map['result_code'];
+        }
+        if(isset($map['result_msg'])){
+            $model->resultMsg = $map['result_msg'];
+        }
+        if(isset($map['out_trade_no'])){
+            $model->outTradeNo = $map['out_trade_no'];
+        }
+        if(isset($map['deduct_time'])){
+            $model->deductTime = $map['deduct_time'];
+        }
+        if(isset($map['pay_date'])){
+            $model->payDate = $map['pay_date'];
+        }
+        if(isset($map['pay_money'])){
+            $model->payMoney = $map['pay_money'];
+        }
+        if(isset($map['status'])){
+            $model->status = $map['status'];
+        }
+        if(isset($map['pay_index'])){
+            $model->payIndex = $map['pay_index'];
+        }
+        return $model;
+    }
     // 请求唯一ID，用于链路跟踪和问题排查
     /**
      * @var string
@@ -71,94 +150,5 @@ class QueryContractTradestatusResponse extends Model
      * @var string
      */
     public $payIndex;
-    protected $_name = [
-        'reqMsgId'   => 'req_msg_id',
-        'resultCode' => 'result_code',
-        'resultMsg'  => 'result_msg',
-        'outTradeNo' => 'out_trade_no',
-        'deductTime' => 'deduct_time',
-        'payDate'    => 'pay_date',
-        'payMoney'   => 'pay_money',
-        'status'     => 'status',
-        'payIndex'   => 'pay_index',
-    ];
 
-    public function validate()
-    {
-        Model::validatePattern('deductTime', $this->deductTime, '\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}([Z]|([\\.]\\d{1,9})?[\\+]\\d{2}[\\:]?\\d{2})');
-        Model::validatePattern('payDate', $this->payDate, '\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}([Z]|([\\.]\\d{1,9})?[\\+]\\d{2}[\\:]?\\d{2})');
-    }
-
-    public function toMap()
-    {
-        $res = [];
-        if (null !== $this->reqMsgId) {
-            $res['req_msg_id'] = $this->reqMsgId;
-        }
-        if (null !== $this->resultCode) {
-            $res['result_code'] = $this->resultCode;
-        }
-        if (null !== $this->resultMsg) {
-            $res['result_msg'] = $this->resultMsg;
-        }
-        if (null !== $this->outTradeNo) {
-            $res['out_trade_no'] = $this->outTradeNo;
-        }
-        if (null !== $this->deductTime) {
-            $res['deduct_time'] = $this->deductTime;
-        }
-        if (null !== $this->payDate) {
-            $res['pay_date'] = $this->payDate;
-        }
-        if (null !== $this->payMoney) {
-            $res['pay_money'] = $this->payMoney;
-        }
-        if (null !== $this->status) {
-            $res['status'] = $this->status;
-        }
-        if (null !== $this->payIndex) {
-            $res['pay_index'] = $this->payIndex;
-        }
-
-        return $res;
-    }
-
-    /**
-     * @param array $map
-     *
-     * @return QueryContractTradestatusResponse
-     */
-    public static function fromMap($map = [])
-    {
-        $model = new self();
-        if (isset($map['req_msg_id'])) {
-            $model->reqMsgId = $map['req_msg_id'];
-        }
-        if (isset($map['result_code'])) {
-            $model->resultCode = $map['result_code'];
-        }
-        if (isset($map['result_msg'])) {
-            $model->resultMsg = $map['result_msg'];
-        }
-        if (isset($map['out_trade_no'])) {
-            $model->outTradeNo = $map['out_trade_no'];
-        }
-        if (isset($map['deduct_time'])) {
-            $model->deductTime = $map['deduct_time'];
-        }
-        if (isset($map['pay_date'])) {
-            $model->payDate = $map['pay_date'];
-        }
-        if (isset($map['pay_money'])) {
-            $model->payMoney = $map['pay_money'];
-        }
-        if (isset($map['status'])) {
-            $model->status = $map['status'];
-        }
-        if (isset($map['pay_index'])) {
-            $model->payIndex = $map['pay_index'];
-        }
-
-        return $model;
-    }
 }

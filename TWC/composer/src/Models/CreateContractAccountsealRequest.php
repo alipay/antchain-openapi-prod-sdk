@@ -1,13 +1,86 @@
 <?php
 
 // This file is auto-generated, don't edit it. Thanks.
-
 namespace AntChain\TWC\Models;
 
 use AlibabaCloud\Tea\Model;
 
-class CreateContractAccountsealRequest extends Model
-{
+class CreateContractAccountsealRequest extends Model {
+    protected $_name = [
+        'authToken' => 'auth_token',
+        'productInstanceId' => 'product_instance_id',
+        'accountId' => 'account_id',
+        'alias' => 'alias',
+        'color' => 'color',
+        'height' => 'height',
+        'width' => 'width',
+        'type' => 'type',
+    ];
+    public function validate() {
+        Model::validateRequired('accountId', $this->accountId, true);
+        Model::validateRequired('color', $this->color, true);
+        Model::validateRequired('type', $this->type, true);
+    }
+    public function toMap() {
+        $res = [];
+        if (null !== $this->authToken) {
+            $res['auth_token'] = $this->authToken;
+        }
+        if (null !== $this->productInstanceId) {
+            $res['product_instance_id'] = $this->productInstanceId;
+        }
+        if (null !== $this->accountId) {
+            $res['account_id'] = $this->accountId;
+        }
+        if (null !== $this->alias) {
+            $res['alias'] = $this->alias;
+        }
+        if (null !== $this->color) {
+            $res['color'] = $this->color;
+        }
+        if (null !== $this->height) {
+            $res['height'] = $this->height;
+        }
+        if (null !== $this->width) {
+            $res['width'] = $this->width;
+        }
+        if (null !== $this->type) {
+            $res['type'] = $this->type;
+        }
+        return $res;
+    }
+    /**
+     * @param array $map
+     * @return CreateContractAccountsealRequest
+     */
+    public static function fromMap($map = []) {
+        $model = new self();
+        if(isset($map['auth_token'])){
+            $model->authToken = $map['auth_token'];
+        }
+        if(isset($map['product_instance_id'])){
+            $model->productInstanceId = $map['product_instance_id'];
+        }
+        if(isset($map['account_id'])){
+            $model->accountId = $map['account_id'];
+        }
+        if(isset($map['alias'])){
+            $model->alias = $map['alias'];
+        }
+        if(isset($map['color'])){
+            $model->color = $map['color'];
+        }
+        if(isset($map['height'])){
+            $model->height = $map['height'];
+        }
+        if(isset($map['width'])){
+            $model->width = $map['width'];
+        }
+        if(isset($map['type'])){
+            $model->type = $map['type'];
+        }
+        return $model;
+    }
     // OAuth模式下的授权token
     /**
      * @var string
@@ -54,88 +127,5 @@ class CreateContractAccountsealRequest extends Model
      * @var string
      */
     public $type;
-    protected $_name = [
-        'authToken'         => 'auth_token',
-        'productInstanceId' => 'product_instance_id',
-        'accountId'         => 'account_id',
-        'alias'             => 'alias',
-        'color'             => 'color',
-        'height'            => 'height',
-        'width'             => 'width',
-        'type'              => 'type',
-    ];
 
-    public function validate()
-    {
-        Model::validateRequired('accountId', $this->accountId, true);
-        Model::validateRequired('color', $this->color, true);
-        Model::validateRequired('type', $this->type, true);
-    }
-
-    public function toMap()
-    {
-        $res = [];
-        if (null !== $this->authToken) {
-            $res['auth_token'] = $this->authToken;
-        }
-        if (null !== $this->productInstanceId) {
-            $res['product_instance_id'] = $this->productInstanceId;
-        }
-        if (null !== $this->accountId) {
-            $res['account_id'] = $this->accountId;
-        }
-        if (null !== $this->alias) {
-            $res['alias'] = $this->alias;
-        }
-        if (null !== $this->color) {
-            $res['color'] = $this->color;
-        }
-        if (null !== $this->height) {
-            $res['height'] = $this->height;
-        }
-        if (null !== $this->width) {
-            $res['width'] = $this->width;
-        }
-        if (null !== $this->type) {
-            $res['type'] = $this->type;
-        }
-
-        return $res;
-    }
-
-    /**
-     * @param array $map
-     *
-     * @return CreateContractAccountsealRequest
-     */
-    public static function fromMap($map = [])
-    {
-        $model = new self();
-        if (isset($map['auth_token'])) {
-            $model->authToken = $map['auth_token'];
-        }
-        if (isset($map['product_instance_id'])) {
-            $model->productInstanceId = $map['product_instance_id'];
-        }
-        if (isset($map['account_id'])) {
-            $model->accountId = $map['account_id'];
-        }
-        if (isset($map['alias'])) {
-            $model->alias = $map['alias'];
-        }
-        if (isset($map['color'])) {
-            $model->color = $map['color'];
-        }
-        if (isset($map['height'])) {
-            $model->height = $map['height'];
-        }
-        if (isset($map['width'])) {
-            $model->width = $map['width'];
-        }
-        if (isset($map['type'])) {
-            $model->type = $map['type'];
-        }
-
-        return $model;
-    }
 }

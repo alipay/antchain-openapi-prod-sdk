@@ -1,13 +1,95 @@
 <?php
 
 // This file is auto-generated, don't edit it. Thanks.
-
 namespace AntChain\TWC\Models;
 
 use AlibabaCloud\Tea\Model;
 
-class CreateContractOrganizationRequest extends Model
-{
+class CreateContractOrganizationRequest extends Model {
+    protected $_name = [
+        'authToken' => 'auth_token',
+        'productInstanceId' => 'product_instance_id',
+        'creator' => 'creator',
+        'idNumber' => 'id_number',
+        'idType' => 'id_type',
+        'legalPerson' => 'legal_person',
+        'legalPersonId' => 'legal_person_id',
+        'name' => 'name',
+        'userId' => 'user_id',
+    ];
+    public function validate() {
+        Model::validateRequired('creator', $this->creator, true);
+        Model::validateRequired('idNumber', $this->idNumber, true);
+        Model::validateRequired('idType', $this->idType, true);
+        Model::validateRequired('name', $this->name, true);
+        Model::validateRequired('userId', $this->userId, true);
+    }
+    public function toMap() {
+        $res = [];
+        if (null !== $this->authToken) {
+            $res['auth_token'] = $this->authToken;
+        }
+        if (null !== $this->productInstanceId) {
+            $res['product_instance_id'] = $this->productInstanceId;
+        }
+        if (null !== $this->creator) {
+            $res['creator'] = $this->creator;
+        }
+        if (null !== $this->idNumber) {
+            $res['id_number'] = $this->idNumber;
+        }
+        if (null !== $this->idType) {
+            $res['id_type'] = $this->idType;
+        }
+        if (null !== $this->legalPerson) {
+            $res['legal_person'] = $this->legalPerson;
+        }
+        if (null !== $this->legalPersonId) {
+            $res['legal_person_id'] = $this->legalPersonId;
+        }
+        if (null !== $this->name) {
+            $res['name'] = $this->name;
+        }
+        if (null !== $this->userId) {
+            $res['user_id'] = $this->userId;
+        }
+        return $res;
+    }
+    /**
+     * @param array $map
+     * @return CreateContractOrganizationRequest
+     */
+    public static function fromMap($map = []) {
+        $model = new self();
+        if(isset($map['auth_token'])){
+            $model->authToken = $map['auth_token'];
+        }
+        if(isset($map['product_instance_id'])){
+            $model->productInstanceId = $map['product_instance_id'];
+        }
+        if(isset($map['creator'])){
+            $model->creator = $map['creator'];
+        }
+        if(isset($map['id_number'])){
+            $model->idNumber = $map['id_number'];
+        }
+        if(isset($map['id_type'])){
+            $model->idType = $map['id_type'];
+        }
+        if(isset($map['legal_person'])){
+            $model->legalPerson = $map['legal_person'];
+        }
+        if(isset($map['legal_person_id'])){
+            $model->legalPersonId = $map['legal_person_id'];
+        }
+        if(isset($map['name'])){
+            $model->name = $map['name'];
+        }
+        if(isset($map['user_id'])){
+            $model->userId = $map['user_id'];
+        }
+        return $model;
+    }
     // OAuth模式下的授权token
     /**
      * @var string
@@ -61,97 +143,5 @@ class CreateContractOrganizationRequest extends Model
      * @var string
      */
     public $userId;
-    protected $_name = [
-        'authToken'         => 'auth_token',
-        'productInstanceId' => 'product_instance_id',
-        'creator'           => 'creator',
-        'idNumber'          => 'id_number',
-        'idType'            => 'id_type',
-        'legalPerson'       => 'legal_person',
-        'legalPersonId'     => 'legal_person_id',
-        'name'              => 'name',
-        'userId'            => 'user_id',
-    ];
 
-    public function validate()
-    {
-        Model::validateRequired('creator', $this->creator, true);
-        Model::validateRequired('idNumber', $this->idNumber, true);
-        Model::validateRequired('idType', $this->idType, true);
-        Model::validateRequired('name', $this->name, true);
-        Model::validateRequired('userId', $this->userId, true);
-    }
-
-    public function toMap()
-    {
-        $res = [];
-        if (null !== $this->authToken) {
-            $res['auth_token'] = $this->authToken;
-        }
-        if (null !== $this->productInstanceId) {
-            $res['product_instance_id'] = $this->productInstanceId;
-        }
-        if (null !== $this->creator) {
-            $res['creator'] = $this->creator;
-        }
-        if (null !== $this->idNumber) {
-            $res['id_number'] = $this->idNumber;
-        }
-        if (null !== $this->idType) {
-            $res['id_type'] = $this->idType;
-        }
-        if (null !== $this->legalPerson) {
-            $res['legal_person'] = $this->legalPerson;
-        }
-        if (null !== $this->legalPersonId) {
-            $res['legal_person_id'] = $this->legalPersonId;
-        }
-        if (null !== $this->name) {
-            $res['name'] = $this->name;
-        }
-        if (null !== $this->userId) {
-            $res['user_id'] = $this->userId;
-        }
-
-        return $res;
-    }
-
-    /**
-     * @param array $map
-     *
-     * @return CreateContractOrganizationRequest
-     */
-    public static function fromMap($map = [])
-    {
-        $model = new self();
-        if (isset($map['auth_token'])) {
-            $model->authToken = $map['auth_token'];
-        }
-        if (isset($map['product_instance_id'])) {
-            $model->productInstanceId = $map['product_instance_id'];
-        }
-        if (isset($map['creator'])) {
-            $model->creator = $map['creator'];
-        }
-        if (isset($map['id_number'])) {
-            $model->idNumber = $map['id_number'];
-        }
-        if (isset($map['id_type'])) {
-            $model->idType = $map['id_type'];
-        }
-        if (isset($map['legal_person'])) {
-            $model->legalPerson = $map['legal_person'];
-        }
-        if (isset($map['legal_person_id'])) {
-            $model->legalPersonId = $map['legal_person_id'];
-        }
-        if (isset($map['name'])) {
-            $model->name = $map['name'];
-        }
-        if (isset($map['user_id'])) {
-            $model->userId = $map['user_id'];
-        }
-
-        return $model;
-    }
 }
