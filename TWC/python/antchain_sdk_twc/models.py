@@ -63343,3 +63343,245 @@ class QueryEsignAccountResponse(TeaModel):
         return self
 
 
+class DeleteAccountEsignRequest(TeaModel):
+    def __init__(
+        self,
+        auth_token: str = None,
+        product_instance_id: str = None,
+        third_party_user_id: str = None,
+        user_type: str = None,
+    ):
+        # OAuth模式下的授权token
+        self.auth_token = auth_token
+        self.product_instance_id = product_instance_id
+        # 三方账号id
+        self.third_party_user_id = third_party_user_id
+        # 用户类型 ORGANIZATION-机构 PERSON
+        self.user_type = user_type
+
+    def validate(self):
+        self.validate_required(self.third_party_user_id, 'third_party_user_id')
+        self.validate_required(self.user_type, 'user_type')
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.auth_token is not None:
+            result['auth_token'] = self.auth_token
+        if self.product_instance_id is not None:
+            result['product_instance_id'] = self.product_instance_id
+        if self.third_party_user_id is not None:
+            result['third_party_user_id'] = self.third_party_user_id
+        if self.user_type is not None:
+            result['user_type'] = self.user_type
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('auth_token') is not None:
+            self.auth_token = m.get('auth_token')
+        if m.get('product_instance_id') is not None:
+            self.product_instance_id = m.get('product_instance_id')
+        if m.get('third_party_user_id') is not None:
+            self.third_party_user_id = m.get('third_party_user_id')
+        if m.get('user_type') is not None:
+            self.user_type = m.get('user_type')
+        return self
+
+
+class DeleteAccountEsignResponse(TeaModel):
+    def __init__(
+        self,
+        req_msg_id: str = None,
+        result_code: str = None,
+        result_msg: str = None,
+        success: bool = None,
+    ):
+        # 请求唯一ID，用于链路跟踪和问题排查
+        self.req_msg_id = req_msg_id
+        # 结果码，一般OK表示调用成功
+        self.result_code = result_code
+        # 异常信息的文本描述
+        self.result_msg = result_msg
+        # 删除结果 true-成功 false-失败
+        self.success = success
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.req_msg_id is not None:
+            result['req_msg_id'] = self.req_msg_id
+        if self.result_code is not None:
+            result['result_code'] = self.result_code
+        if self.result_msg is not None:
+            result['result_msg'] = self.result_msg
+        if self.success is not None:
+            result['success'] = self.success
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('req_msg_id') is not None:
+            self.req_msg_id = m.get('req_msg_id')
+        if m.get('result_code') is not None:
+            self.result_code = m.get('result_code')
+        if m.get('result_msg') is not None:
+            self.result_msg = m.get('result_msg')
+        if m.get('success') is not None:
+            self.success = m.get('success')
+        return self
+
+
+class QueryContractCompanyfourmetacheckRequest(TeaModel):
+    def __init__(
+        self,
+        auth_token: str = None,
+        product_instance_id: str = None,
+        company_cert_name: str = None,
+        company_cert_no: str = None,
+        certify_type: str = None,
+        company_cert_type: str = None,
+        legal_person_cert_name: str = None,
+        legal_person_cert_no: str = None,
+        legal_person_cert_type: str = None,
+    ):
+        # OAuth模式下的授权token
+        self.auth_token = auth_token
+        self.product_instance_id = product_instance_id
+        # 企业名称
+        self.company_cert_name = company_cert_name
+        # 企业证件号码
+        self.company_cert_no = company_cert_no
+        # 认证类型:ENTERPRISE-企业, PERSON-个人
+        self.certify_type = certify_type
+        # 企业证件号码类型:统一社会信用代码:CRED_ORG_USCC,PERSON_CERT_TYPE:CRED_PSN_CH_IDCARD
+        self.company_cert_type = company_cert_type
+        # 企业法人名称
+        self.legal_person_cert_name = legal_person_cert_name
+        # 企业法人证件号
+        self.legal_person_cert_no = legal_person_cert_no
+        # 企业法人证件类型:RESIDENT:居民身份证号,PASSPORT:护照,MILITARY:军官证
+        self.legal_person_cert_type = legal_person_cert_type
+
+    def validate(self):
+        self.validate_required(self.company_cert_name, 'company_cert_name')
+        self.validate_required(self.company_cert_no, 'company_cert_no')
+        self.validate_required(self.company_cert_type, 'company_cert_type')
+        self.validate_required(self.legal_person_cert_name, 'legal_person_cert_name')
+        self.validate_required(self.legal_person_cert_no, 'legal_person_cert_no')
+        self.validate_required(self.legal_person_cert_type, 'legal_person_cert_type')
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.auth_token is not None:
+            result['auth_token'] = self.auth_token
+        if self.product_instance_id is not None:
+            result['product_instance_id'] = self.product_instance_id
+        if self.company_cert_name is not None:
+            result['company_cert_name'] = self.company_cert_name
+        if self.company_cert_no is not None:
+            result['company_cert_no'] = self.company_cert_no
+        if self.certify_type is not None:
+            result['certify_type'] = self.certify_type
+        if self.company_cert_type is not None:
+            result['company_cert_type'] = self.company_cert_type
+        if self.legal_person_cert_name is not None:
+            result['legal_person_cert_name'] = self.legal_person_cert_name
+        if self.legal_person_cert_no is not None:
+            result['legal_person_cert_no'] = self.legal_person_cert_no
+        if self.legal_person_cert_type is not None:
+            result['legal_person_cert_type'] = self.legal_person_cert_type
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('auth_token') is not None:
+            self.auth_token = m.get('auth_token')
+        if m.get('product_instance_id') is not None:
+            self.product_instance_id = m.get('product_instance_id')
+        if m.get('company_cert_name') is not None:
+            self.company_cert_name = m.get('company_cert_name')
+        if m.get('company_cert_no') is not None:
+            self.company_cert_no = m.get('company_cert_no')
+        if m.get('certify_type') is not None:
+            self.certify_type = m.get('certify_type')
+        if m.get('company_cert_type') is not None:
+            self.company_cert_type = m.get('company_cert_type')
+        if m.get('legal_person_cert_name') is not None:
+            self.legal_person_cert_name = m.get('legal_person_cert_name')
+        if m.get('legal_person_cert_no') is not None:
+            self.legal_person_cert_no = m.get('legal_person_cert_no')
+        if m.get('legal_person_cert_type') is not None:
+            self.legal_person_cert_type = m.get('legal_person_cert_type')
+        return self
+
+
+class QueryContractCompanyfourmetacheckResponse(TeaModel):
+    def __init__(
+        self,
+        req_msg_id: str = None,
+        result_code: str = None,
+        result_msg: str = None,
+        pass_: bool = None,
+        message: str = None,
+    ):
+        # 请求唯一ID，用于链路跟踪和问题排查
+        self.req_msg_id = req_msg_id
+        # 结果码，一般OK表示调用成功
+        self.result_code = result_code
+        # 异常信息的文本描述
+        self.result_msg = result_msg
+        # 是否验证通过: true-通过, false-不通过
+        self.pass_ = pass_
+        # 验证信息: pass=false生效
+        self.message = message
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.req_msg_id is not None:
+            result['req_msg_id'] = self.req_msg_id
+        if self.result_code is not None:
+            result['result_code'] = self.result_code
+        if self.result_msg is not None:
+            result['result_msg'] = self.result_msg
+        if self.pass_ is not None:
+            result['pass'] = self.pass_
+        if self.message is not None:
+            result['message'] = self.message
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('req_msg_id') is not None:
+            self.req_msg_id = m.get('req_msg_id')
+        if m.get('result_code') is not None:
+            self.result_code = m.get('result_code')
+        if m.get('result_msg') is not None:
+            self.result_msg = m.get('result_msg')
+        if m.get('pass') is not None:
+            self.pass_ = m.get('pass')
+        if m.get('message') is not None:
+            self.message = m.get('message')
+        return self
+
+

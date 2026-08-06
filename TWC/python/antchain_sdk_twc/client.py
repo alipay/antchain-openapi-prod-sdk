@@ -135,7 +135,7 @@ class Client:
                     'req_msg_id': AntchainUtils.get_nonce(),
                     'access_key': self._access_key_id,
                     'base_sdk_version': 'TeaSDK-2.0',
-                    'sdk_version': '1.13.32',
+                    'sdk_version': '1.13.35',
                     '_prod_code': 'TWC',
                     '_prod_channel': 'undefined'
                 }
@@ -239,7 +239,7 @@ class Client:
                     'req_msg_id': AntchainUtils.get_nonce(),
                     'access_key': self._access_key_id,
                     'base_sdk_version': 'TeaSDK-2.0',
-                    'sdk_version': '1.13.32',
+                    'sdk_version': '1.13.35',
                     '_prod_code': 'TWC',
                     '_prod_channel': 'undefined'
                 }
@@ -21001,4 +21001,116 @@ class Client:
         return TeaCore.from_map(
             twc_models.QueryEsignAccountResponse(),
             await self.do_request_async('1.0', 'twc.notary.esign.account.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def delete_account_esign(
+        self,
+        request: twc_models.DeleteAccountEsignRequest,
+    ) -> twc_models.DeleteAccountEsignResponse:
+        """
+        Description: 注销e签宝账号（个人&企业）
+        Summary: 注销e签宝账号（个人&企业）
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.delete_account_esign_ex(request, headers, runtime)
+
+    async def delete_account_esign_async(
+        self,
+        request: twc_models.DeleteAccountEsignRequest,
+    ) -> twc_models.DeleteAccountEsignResponse:
+        """
+        Description: 注销e签宝账号（个人&企业）
+        Summary: 注销e签宝账号（个人&企业）
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.delete_account_esign_ex_async(request, headers, runtime)
+
+    def delete_account_esign_ex(
+        self,
+        request: twc_models.DeleteAccountEsignRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> twc_models.DeleteAccountEsignResponse:
+        """
+        Description: 注销e签宝账号（个人&企业）
+        Summary: 注销e签宝账号（个人&企业）
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            twc_models.DeleteAccountEsignResponse(),
+            self.do_request('1.0', 'twc.notary.account.esign.delete', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def delete_account_esign_ex_async(
+        self,
+        request: twc_models.DeleteAccountEsignRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> twc_models.DeleteAccountEsignResponse:
+        """
+        Description: 注销e签宝账号（个人&企业）
+        Summary: 注销e签宝账号（个人&企业）
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            twc_models.DeleteAccountEsignResponse(),
+            await self.do_request_async('1.0', 'twc.notary.account.esign.delete', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def query_contract_companyfourmetacheck(
+        self,
+        request: twc_models.QueryContractCompanyfourmetacheckRequest,
+    ) -> twc_models.QueryContractCompanyfourmetacheckResponse:
+        """
+        Description: 合同模板四要素校验
+        Summary: 合同模板四要素校验
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.query_contract_companyfourmetacheck_ex(request, headers, runtime)
+
+    async def query_contract_companyfourmetacheck_async(
+        self,
+        request: twc_models.QueryContractCompanyfourmetacheckRequest,
+    ) -> twc_models.QueryContractCompanyfourmetacheckResponse:
+        """
+        Description: 合同模板四要素校验
+        Summary: 合同模板四要素校验
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.query_contract_companyfourmetacheck_ex_async(request, headers, runtime)
+
+    def query_contract_companyfourmetacheck_ex(
+        self,
+        request: twc_models.QueryContractCompanyfourmetacheckRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> twc_models.QueryContractCompanyfourmetacheckResponse:
+        """
+        Description: 合同模板四要素校验
+        Summary: 合同模板四要素校验
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            twc_models.QueryContractCompanyfourmetacheckResponse(),
+            self.do_request('1.0', 'twc.notary.contract.companyfourmetacheck.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def query_contract_companyfourmetacheck_ex_async(
+        self,
+        request: twc_models.QueryContractCompanyfourmetacheckRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> twc_models.QueryContractCompanyfourmetacheckResponse:
+        """
+        Description: 合同模板四要素校验
+        Summary: 合同模板四要素校验
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            twc_models.QueryContractCompanyfourmetacheckResponse(),
+            await self.do_request_async('1.0', 'twc.notary.contract.companyfourmetacheck.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
