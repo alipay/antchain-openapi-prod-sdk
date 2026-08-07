@@ -126,7 +126,7 @@ public class Client {
                     new TeaPair("req_msg_id", com.antgroup.antchain.openapi.antchain.util.AntchainUtils.getNonce()),
                     new TeaPair("access_key", _accessKeyId),
                     new TeaPair("base_sdk_version", "TeaSDK-2.0"),
-                    new TeaPair("sdk_version", "2.0.1"),
+                    new TeaPair("sdk_version", "2.0.2"),
                     new TeaPair("_prod_code", "CREATIVERENDER"),
                     new TeaPair("_prod_channel", "default")
                 );
@@ -228,5 +228,26 @@ public class Client {
     public ExecAntcloudMarketingagentCreativeChatResponse execAntcloudMarketingagentCreativeChatEx(ExecAntcloudMarketingagentCreativeChatRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
         com.aliyun.teautil.Common.validateModel(request);
         return TeaModel.toModel(this.doRequest("1.0", "antcloud.marketingagent.creative.chat.exec", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new ExecAntcloudMarketingagentCreativeChatResponse());
+    }
+
+    /**
+     * <b>description</b> :
+     * <p>Description: chat结果查询接口
+     * Summary: chat结果查询接口</p>
+     */
+    public QueryAntcloudMarketingagentCreativeResultResponse queryAntcloudMarketingagentCreativeResult(QueryAntcloudMarketingagentCreativeResultRequest request) throws Exception {
+        com.aliyun.teautil.models.RuntimeOptions runtime = new com.aliyun.teautil.models.RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.queryAntcloudMarketingagentCreativeResultEx(request, headers, runtime);
+    }
+
+    /**
+     * <b>description</b> :
+     * <p>Description: chat结果查询接口
+     * Summary: chat结果查询接口</p>
+     */
+    public QueryAntcloudMarketingagentCreativeResultResponse queryAntcloudMarketingagentCreativeResultEx(QueryAntcloudMarketingagentCreativeResultRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "antcloud.marketingagent.creative.result.query", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new QueryAntcloudMarketingagentCreativeResultResponse());
     }
 }
