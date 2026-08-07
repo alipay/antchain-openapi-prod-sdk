@@ -32,6 +32,15 @@ public class PayComboOrderResponse extends TeaModel {
     @NameInMap("pay_status")
     public String payStatus;
 
+    // 支付链接超时时间 单位：分钟
+    @NameInMap("timeout_minutes")
+    public Long timeoutMinutes;
+
+    // 支付链接过期时间
+    @NameInMap("expire_time")
+    @Validation(pattern = "\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}([Z]|([\\.]\\d{1,9})?[\\+]\\d{2}[\\:]?\\d{2})")
+    public String expireTime;
+
     public static PayComboOrderResponse build(java.util.Map<String, ?> map) throws Exception {
         PayComboOrderResponse self = new PayComboOrderResponse();
         return TeaModel.build(map, self);
@@ -83,6 +92,22 @@ public class PayComboOrderResponse extends TeaModel {
     }
     public String getPayStatus() {
         return this.payStatus;
+    }
+
+    public PayComboOrderResponse setTimeoutMinutes(Long timeoutMinutes) {
+        this.timeoutMinutes = timeoutMinutes;
+        return this;
+    }
+    public Long getTimeoutMinutes() {
+        return this.timeoutMinutes;
+    }
+
+    public PayComboOrderResponse setExpireTime(String expireTime) {
+        this.expireTime = expireTime;
+        return this;
+    }
+    public String getExpireTime() {
+        return this.expireTime;
     }
 
 }
