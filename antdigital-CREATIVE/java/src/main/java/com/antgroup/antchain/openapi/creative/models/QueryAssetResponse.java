@@ -36,6 +36,10 @@ public class QueryAssetResponse extends TeaModel {
     @NameInMap("error_message")
     public String errorMessage;
 
+    // 错误码
+    @NameInMap("error_code")
+    public String errorCode;
+
     public static QueryAssetResponse build(java.util.Map<String, ?> map) throws Exception {
         QueryAssetResponse self = new QueryAssetResponse();
         return TeaModel.build(map, self);
@@ -103,6 +107,14 @@ public class QueryAssetResponse extends TeaModel {
     }
     public String getErrorMessage() {
         return this.errorMessage;
+    }
+
+    public QueryAssetResponse setErrorCode(String errorCode) {
+        this.errorCode = errorCode;
+        return this;
+    }
+    public String getErrorCode() {
+        return this.errorCode;
     }
 
 }
