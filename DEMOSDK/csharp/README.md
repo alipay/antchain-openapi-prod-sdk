@@ -1,13 +1,13 @@
 English | [简体中文](README-CN.md)
 
-# Ant Chain ABC SDK for C#
+# Ant Chain DEMOSDK SDK for C#
 
 ## Installation
 
 ### .NET
 
 ```bash
-donet add package AntChain.SDK.DEMOSDK
+dotnet add package AntChain.SDK.DEMOSDK
 ```
 
 ## Issues
