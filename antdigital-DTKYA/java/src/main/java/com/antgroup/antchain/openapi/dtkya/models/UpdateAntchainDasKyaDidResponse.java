@@ -3,7 +3,7 @@ package com.antgroup.antchain.openapi.dtkya.models;
 
 import com.aliyun.tea.*;
 
-public class CustomregisterAntchainDasKyaDidResponse extends TeaModel {
+public class UpdateAntchainDasKyaDidResponse extends TeaModel {
     // 请求唯一ID，用于链路跟踪和问题排查
     @NameInMap("req_msg_id")
     public String reqMsgId;
@@ -16,16 +16,16 @@ public class CustomregisterAntchainDasKyaDidResponse extends TeaModel {
     @NameInMap("result_msg")
     public String resultMsg;
 
-    // 注册的did
+    // did
     @NameInMap("did")
     public String did;
 
-    public static CustomregisterAntchainDasKyaDidResponse build(java.util.Map<String, ?> map) throws Exception {
-        CustomregisterAntchainDasKyaDidResponse self = new CustomregisterAntchainDasKyaDidResponse();
+    public static UpdateAntchainDasKyaDidResponse build(java.util.Map<String, ?> map) throws Exception {
+        UpdateAntchainDasKyaDidResponse self = new UpdateAntchainDasKyaDidResponse();
         return TeaModel.build(map, self);
     }
 
-    public CustomregisterAntchainDasKyaDidResponse setReqMsgId(String reqMsgId) {
+    public UpdateAntchainDasKyaDidResponse setReqMsgId(String reqMsgId) {
         this.reqMsgId = reqMsgId;
         return this;
     }
@@ -33,7 +33,7 @@ public class CustomregisterAntchainDasKyaDidResponse extends TeaModel {
         return this.reqMsgId;
     }
 
-    public CustomregisterAntchainDasKyaDidResponse setResultCode(String resultCode) {
+    public UpdateAntchainDasKyaDidResponse setResultCode(String resultCode) {
         this.resultCode = resultCode;
         return this;
     }
@@ -41,7 +41,7 @@ public class CustomregisterAntchainDasKyaDidResponse extends TeaModel {
         return this.resultCode;
     }
 
-    public CustomregisterAntchainDasKyaDidResponse setResultMsg(String resultMsg) {
+    public UpdateAntchainDasKyaDidResponse setResultMsg(String resultMsg) {
         this.resultMsg = resultMsg;
         return this;
     }
@@ -49,7 +49,7 @@ public class CustomregisterAntchainDasKyaDidResponse extends TeaModel {
         return this.resultMsg;
     }
 
-    public CustomregisterAntchainDasKyaDidResponse setDid(String did) {
+    public UpdateAntchainDasKyaDidResponse setDid(String did) {
         this.did = did;
         return this;
     }

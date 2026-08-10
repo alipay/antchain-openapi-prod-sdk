@@ -20,14 +20,6 @@ public class DeactivateAntchainDasKyaDidResponse extends TeaModel {
     @NameInMap("did")
     public String did;
 
-    // resolver 权威版本号
-    @NameInMap("version_id")
-    public String versionId;
-
-    // 是否停用
-    @NameInMap("deactivated")
-    public Boolean deactivated;
-
     public static DeactivateAntchainDasKyaDidResponse build(java.util.Map<String, ?> map) throws Exception {
         DeactivateAntchainDasKyaDidResponse self = new DeactivateAntchainDasKyaDidResponse();
         return TeaModel.build(map, self);
@@ -63,22 +55,6 @@ public class DeactivateAntchainDasKyaDidResponse extends TeaModel {
     }
     public String getDid() {
         return this.did;
-    }
-
-    public DeactivateAntchainDasKyaDidResponse setVersionId(String versionId) {
-        this.versionId = versionId;
-        return this;
-    }
-    public String getVersionId() {
-        return this.versionId;
-    }
-
-    public DeactivateAntchainDasKyaDidResponse setDeactivated(Boolean deactivated) {
-        this.deactivated = deactivated;
-        return this;
-    }
-    public Boolean getDeactivated() {
-        return this.deactivated;
     }
 
 }
