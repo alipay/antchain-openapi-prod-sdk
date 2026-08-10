@@ -1,13 +1,13 @@
 English | [简体中文](README-CN.md)
 
-# Ant Chain ABC SDK for C#
+# Ant Chain STLR SDK for C#
 
 ## Installation
 
 ### .NET
 
 ```bash
-donet add package AntChain.SDK.STLR
+dotnet add package AntChain.SDK.STLR
 ```
 
 ## Issues

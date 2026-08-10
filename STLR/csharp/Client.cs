@@ -158,7 +158,7 @@ namespace AntChain.SDK.STLR
                         {"req_msg_id", AntChain.AlipayUtil.AntchainUtils.GetNonce()},
                         {"access_key", _accessKeyId},
                         {"base_sdk_version", "TeaSDK-2.0"},
-                        {"sdk_version", "2.11.11"},
+                        {"sdk_version", "2.11.12"},
                         {"_prod_code", "STLR"},
                         {"_prod_channel", "undefined"},
                     };
@@ -301,7 +301,7 @@ namespace AntChain.SDK.STLR
                         {"req_msg_id", AntChain.AlipayUtil.AntchainUtils.GetNonce()},
                         {"access_key", _accessKeyId},
                         {"base_sdk_version", "TeaSDK-2.0"},
-                        {"sdk_version", "2.11.11"},
+                        {"sdk_version", "2.11.12"},
                         {"_prod_code", "STLR"},
                         {"_prod_channel", "undefined"},
                     };
@@ -4135,6 +4135,190 @@ namespace AntChain.SDK.STLR
         {
             AlibabaCloud.TeaUtil.Common.ValidateModel(request);
             return TeaModel.ToObject<PushActiveDataResponse>(await DoRequestAsync("1.0", "antchain.carbon.active.data.push", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /// <term><b>Description:</b></term>
+        /// <description>
+        /// <para>Description: 核验并消费一次性凭证，返回碳矩阵当前登录信息。
+        /// Summary: 核验并消费一次性凭证，返回碳矩阵当前登录信息。</para>
+        /// </description>
+        public ExecEsgVerifytokenResponse ExecEsgVerifytoken(ExecEsgVerifytokenRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return ExecEsgVerifytokenEx(request, headers, runtime);
+        }
+
+        /// <term><b>Description:</b></term>
+        /// <description>
+        /// <para>Description: 核验并消费一次性凭证，返回碳矩阵当前登录信息。
+        /// Summary: 核验并消费一次性凭证，返回碳矩阵当前登录信息。</para>
+        /// </description>
+        public async Task<ExecEsgVerifytokenResponse> ExecEsgVerifytokenAsync(ExecEsgVerifytokenRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return await ExecEsgVerifytokenExAsync(request, headers, runtime);
+        }
+
+        /// <term><b>Description:</b></term>
+        /// <description>
+        /// <para>Description: 核验并消费一次性凭证，返回碳矩阵当前登录信息。
+        /// Summary: 核验并消费一次性凭证，返回碳矩阵当前登录信息。</para>
+        /// </description>
+        public ExecEsgVerifytokenResponse ExecEsgVerifytokenEx(ExecEsgVerifytokenRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<ExecEsgVerifytokenResponse>(DoRequest("1.0", "antchain.carbon.esg.verifytoken.exec", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /// <term><b>Description:</b></term>
+        /// <description>
+        /// <para>Description: 核验并消费一次性凭证，返回碳矩阵当前登录信息。
+        /// Summary: 核验并消费一次性凭证，返回碳矩阵当前登录信息。</para>
+        /// </description>
+        public async Task<ExecEsgVerifytokenResponse> ExecEsgVerifytokenExAsync(ExecEsgVerifytokenRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<ExecEsgVerifytokenResponse>(await DoRequestAsync("1.0", "antchain.carbon.esg.verifytoken.exec", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /// <term><b>Description:</b></term>
+        /// <description>
+        /// <para>Description: 当前企业已落库的全部角色
+        /// Summary: 当前企业已落库的全部角色</para>
+        /// </description>
+        public QueryEsgListrolesResponse QueryEsgListroles(QueryEsgListrolesRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return QueryEsgListrolesEx(request, headers, runtime);
+        }
+
+        /// <term><b>Description:</b></term>
+        /// <description>
+        /// <para>Description: 当前企业已落库的全部角色
+        /// Summary: 当前企业已落库的全部角色</para>
+        /// </description>
+        public async Task<QueryEsgListrolesResponse> QueryEsgListrolesAsync(QueryEsgListrolesRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return await QueryEsgListrolesExAsync(request, headers, runtime);
+        }
+
+        /// <term><b>Description:</b></term>
+        /// <description>
+        /// <para>Description: 当前企业已落库的全部角色
+        /// Summary: 当前企业已落库的全部角色</para>
+        /// </description>
+        public QueryEsgListrolesResponse QueryEsgListrolesEx(QueryEsgListrolesRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<QueryEsgListrolesResponse>(DoRequest("1.0", "antchain.carbon.esg.listroles.query", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /// <term><b>Description:</b></term>
+        /// <description>
+        /// <para>Description: 当前企业已落库的全部角色
+        /// Summary: 当前企业已落库的全部角色</para>
+        /// </description>
+        public async Task<QueryEsgListrolesResponse> QueryEsgListrolesExAsync(QueryEsgListrolesRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<QueryEsgListrolesResponse>(await DoRequestAsync("1.0", "antchain.carbon.esg.listroles.query", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /// <term><b>Description:</b></term>
+        /// <description>
+        /// <para>Description: 查询组织单元树
+        /// Summary: 查询组织单元树</para>
+        /// </description>
+        public QueryEsgOrganizationunittreeResponse QueryEsgOrganizationunittree(QueryEsgOrganizationunittreeRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return QueryEsgOrganizationunittreeEx(request, headers, runtime);
+        }
+
+        /// <term><b>Description:</b></term>
+        /// <description>
+        /// <para>Description: 查询组织单元树
+        /// Summary: 查询组织单元树</para>
+        /// </description>
+        public async Task<QueryEsgOrganizationunittreeResponse> QueryEsgOrganizationunittreeAsync(QueryEsgOrganizationunittreeRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return await QueryEsgOrganizationunittreeExAsync(request, headers, runtime);
+        }
+
+        /// <term><b>Description:</b></term>
+        /// <description>
+        /// <para>Description: 查询组织单元树
+        /// Summary: 查询组织单元树</para>
+        /// </description>
+        public QueryEsgOrganizationunittreeResponse QueryEsgOrganizationunittreeEx(QueryEsgOrganizationunittreeRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<QueryEsgOrganizationunittreeResponse>(DoRequest("1.0", "antchain.carbon.esg.organizationunittree.query", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /// <term><b>Description:</b></term>
+        /// <description>
+        /// <para>Description: 查询组织单元树
+        /// Summary: 查询组织单元树</para>
+        /// </description>
+        public async Task<QueryEsgOrganizationunittreeResponse> QueryEsgOrganizationunittreeExAsync(QueryEsgOrganizationunittreeRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<QueryEsgOrganizationunittreeResponse>(await DoRequestAsync("1.0", "antchain.carbon.esg.organizationunittree.query", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /// <term><b>Description:</b></term>
+        /// <description>
+        /// <para>Description: 按角色分页查询操作员
+        /// Summary: 按角色分页查询操作员</para>
+        /// </description>
+        public QueryEsgListbyroleResponse QueryEsgListbyrole(QueryEsgListbyroleRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return QueryEsgListbyroleEx(request, headers, runtime);
+        }
+
+        /// <term><b>Description:</b></term>
+        /// <description>
+        /// <para>Description: 按角色分页查询操作员
+        /// Summary: 按角色分页查询操作员</para>
+        /// </description>
+        public async Task<QueryEsgListbyroleResponse> QueryEsgListbyroleAsync(QueryEsgListbyroleRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return await QueryEsgListbyroleExAsync(request, headers, runtime);
+        }
+
+        /// <term><b>Description:</b></term>
+        /// <description>
+        /// <para>Description: 按角色分页查询操作员
+        /// Summary: 按角色分页查询操作员</para>
+        /// </description>
+        public QueryEsgListbyroleResponse QueryEsgListbyroleEx(QueryEsgListbyroleRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<QueryEsgListbyroleResponse>(DoRequest("1.0", "antchain.carbon.esg.listbyrole.query", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /// <term><b>Description:</b></term>
+        /// <description>
+        /// <para>Description: 按角色分页查询操作员
+        /// Summary: 按角色分页查询操作员</para>
+        /// </description>
+        public async Task<QueryEsgListbyroleResponse> QueryEsgListbyroleExAsync(QueryEsgListbyroleRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<QueryEsgListbyroleResponse>(await DoRequestAsync("1.0", "antchain.carbon.esg.listbyrole.query", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
         }
 
         /// <term><b>Description:</b></term>
