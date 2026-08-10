@@ -154,269 +154,20 @@ class Config(TeaModel):
         return self
 
 
-class SupplierProductDetail(TeaModel):
+class DailyEmissions(TeaModel):
     def __init__(
         self,
-        supplier_name: str = None,
-        supplier_product_name: str = None,
-        dosage_unit: str = None,
+        date: str = None,
+        value: int = None,
     ):
-        # 供应商名称
-        self.supplier_name = supplier_name
-        # 供应商产品名称
-        self.supplier_product_name = supplier_product_name
-        # 填报单位
-        self.dosage_unit = dosage_unit
-
-    def validate(self):
-        pass
-
-    def to_map(self):
-        _map = super().to_map()
-        if _map is not None:
-            return _map
-
-        result = dict()
-        if self.supplier_name is not None:
-            result['supplier_name'] = self.supplier_name
-        if self.supplier_product_name is not None:
-            result['supplier_product_name'] = self.supplier_product_name
-        if self.dosage_unit is not None:
-            result['dosage_unit'] = self.dosage_unit
-        return result
-
-    def from_map(self, m: dict = None):
-        m = m or dict()
-        if m.get('supplier_name') is not None:
-            self.supplier_name = m.get('supplier_name')
-        if m.get('supplier_product_name') is not None:
-            self.supplier_product_name = m.get('supplier_product_name')
-        if m.get('dosage_unit') is not None:
-            self.dosage_unit = m.get('dosage_unit')
-        return self
-
-
-class EnterpriseLcaAssessmentItem(TeaModel):
-    def __init__(
-        self,
-        material_code: str = None,
-        assessment_item_name: str = None,
-        emission_amount: str = None,
-        transport_emission_amount: str = None,
-    ):
-        # 物料编码
-        self.material_code = material_code
-        # 数据明细名称
-        self.assessment_item_name = assessment_item_name
-        # 物料直接碳排放评估量
-        self.emission_amount = emission_amount
-        # 物料运输碳排放评估量
-        self.transport_emission_amount = transport_emission_amount
-
-    def validate(self):
-        self.validate_required(self.material_code, 'material_code')
-        self.validate_required(self.assessment_item_name, 'assessment_item_name')
-        self.validate_required(self.emission_amount, 'emission_amount')
-        self.validate_required(self.transport_emission_amount, 'transport_emission_amount')
-
-    def to_map(self):
-        _map = super().to_map()
-        if _map is not None:
-            return _map
-
-        result = dict()
-        if self.material_code is not None:
-            result['material_code'] = self.material_code
-        if self.assessment_item_name is not None:
-            result['assessment_item_name'] = self.assessment_item_name
-        if self.emission_amount is not None:
-            result['emission_amount'] = self.emission_amount
-        if self.transport_emission_amount is not None:
-            result['transport_emission_amount'] = self.transport_emission_amount
-        return result
-
-    def from_map(self, m: dict = None):
-        m = m or dict()
-        if m.get('material_code') is not None:
-            self.material_code = m.get('material_code')
-        if m.get('assessment_item_name') is not None:
-            self.assessment_item_name = m.get('assessment_item_name')
-        if m.get('emission_amount') is not None:
-            self.emission_amount = m.get('emission_amount')
-        if m.get('transport_emission_amount') is not None:
-            self.transport_emission_amount = m.get('transport_emission_amount')
-        return self
-
-
-class TransportActiveData(TeaModel):
-    def __init__(
-        self,
-        transport_code: str = None,
-        equipment: str = None,
-        distance: str = None,
-        is_empty_load: bool = None,
-    ):
-        # 运输方式编码
-        self.transport_code = transport_code
-        # 运输设备
-        self.equipment = equipment
-        # 运输里程
-        self.distance = distance
-        # 是否空载
-        self.is_empty_load = is_empty_load
-
-    def validate(self):
-        self.validate_required(self.transport_code, 'transport_code')
-        self.validate_required(self.equipment, 'equipment')
-        self.validate_required(self.distance, 'distance')
-
-    def to_map(self):
-        _map = super().to_map()
-        if _map is not None:
-            return _map
-
-        result = dict()
-        if self.transport_code is not None:
-            result['transport_code'] = self.transport_code
-        if self.equipment is not None:
-            result['equipment'] = self.equipment
-        if self.distance is not None:
-            result['distance'] = self.distance
-        if self.is_empty_load is not None:
-            result['is_empty_load'] = self.is_empty_load
-        return result
-
-    def from_map(self, m: dict = None):
-        m = m or dict()
-        if m.get('transport_code') is not None:
-            self.transport_code = m.get('transport_code')
-        if m.get('equipment') is not None:
-            self.equipment = m.get('equipment')
-        if m.get('distance') is not None:
-            self.distance = m.get('distance')
-        if m.get('is_empty_load') is not None:
-            self.is_empty_load = m.get('is_empty_load')
-        return self
-
-
-class EnterpriseLcaStageAssessmentItem(TeaModel):
-    def __init__(
-        self,
-        lca_stage: str = None,
-        lca_stage_carbon_rate: str = None,
-        lca_stage_carbon_emissions: str = None,
-        lca_assessment_datum: List[EnterpriseLcaAssessmentItem] = None,
-    ):
-        # LCA阶段
-        self.lca_stage = lca_stage
-        # 阶段排放占比
-        self.lca_stage_carbon_rate = lca_stage_carbon_rate
-        # 阶段排放量
-        self.lca_stage_carbon_emissions = lca_stage_carbon_emissions
-        # 阶段评估明细数据
-        self.lca_assessment_datum = lca_assessment_datum
-
-    def validate(self):
-        self.validate_required(self.lca_stage, 'lca_stage')
-        self.validate_required(self.lca_stage_carbon_rate, 'lca_stage_carbon_rate')
-        self.validate_required(self.lca_stage_carbon_emissions, 'lca_stage_carbon_emissions')
-        self.validate_required(self.lca_assessment_datum, 'lca_assessment_datum')
-        if self.lca_assessment_datum:
-            for k in self.lca_assessment_datum:
-                if k:
-                    k.validate()
-
-    def to_map(self):
-        _map = super().to_map()
-        if _map is not None:
-            return _map
-
-        result = dict()
-        if self.lca_stage is not None:
-            result['lca_stage'] = self.lca_stage
-        if self.lca_stage_carbon_rate is not None:
-            result['lca_stage_carbon_rate'] = self.lca_stage_carbon_rate
-        if self.lca_stage_carbon_emissions is not None:
-            result['lca_stage_carbon_emissions'] = self.lca_stage_carbon_emissions
-        result['lca_assessment_datum'] = []
-        if self.lca_assessment_datum is not None:
-            for k in self.lca_assessment_datum:
-                result['lca_assessment_datum'].append(k.to_map() if k else None)
-        return result
-
-    def from_map(self, m: dict = None):
-        m = m or dict()
-        if m.get('lca_stage') is not None:
-            self.lca_stage = m.get('lca_stage')
-        if m.get('lca_stage_carbon_rate') is not None:
-            self.lca_stage_carbon_rate = m.get('lca_stage_carbon_rate')
-        if m.get('lca_stage_carbon_emissions') is not None:
-            self.lca_stage_carbon_emissions = m.get('lca_stage_carbon_emissions')
-        self.lca_assessment_datum = []
-        if m.get('lca_assessment_datum') is not None:
-            for k in m.get('lca_assessment_datum'):
-                temp_model = EnterpriseLcaAssessmentItem()
-                self.lca_assessment_datum.append(temp_model.from_map(k))
-        return self
-
-
-class MonthDataDetail(TeaModel):
-    def __init__(
-        self,
-        occur_date: str = None,
-        amount: str = None,
-        dosage_unit: str = None,
-    ):
-        # 发生月份，格式 yyyy-MM
-        self.occur_date = occur_date
-        # 产量数据
-        self.amount = amount
-        # 产量单位
-        self.dosage_unit = dosage_unit
-
-    def validate(self):
-        self.validate_required(self.occur_date, 'occur_date')
-        self.validate_required(self.amount, 'amount')
-        self.validate_required(self.dosage_unit, 'dosage_unit')
-
-    def to_map(self):
-        _map = super().to_map()
-        if _map is not None:
-            return _map
-
-        result = dict()
-        if self.occur_date is not None:
-            result['occur_date'] = self.occur_date
-        if self.amount is not None:
-            result['amount'] = self.amount
-        if self.dosage_unit is not None:
-            result['dosage_unit'] = self.dosage_unit
-        return result
-
-    def from_map(self, m: dict = None):
-        m = m or dict()
-        if m.get('occur_date') is not None:
-            self.occur_date = m.get('occur_date')
-        if m.get('amount') is not None:
-            self.amount = m.get('amount')
-        if m.get('dosage_unit') is not None:
-            self.dosage_unit = m.get('dosage_unit')
-        return self
-
-
-class DepositFieldValue(TeaModel):
-    def __init__(
-        self,
-        name: str = None,
-        value: str = None,
-    ):
-        # 存证数据字段名
-        self.name = name
-        # 存证数据字段值
+        # 日期
+        self.date = date
+        # 排放量值
         self.value = value
 
     def validate(self):
-        self.validate_required(self.name, 'name')
+        self.validate_required(self.date, 'date')
+        self.validate_required(self.value, 'value')
 
     def to_map(self):
         _map = super().to_map()
@@ -424,386 +175,18 @@ class DepositFieldValue(TeaModel):
             return _map
 
         result = dict()
-        if self.name is not None:
-            result['name'] = self.name
+        if self.date is not None:
+            result['date'] = self.date
         if self.value is not None:
             result['value'] = self.value
         return result
 
     def from_map(self, m: dict = None):
         m = m or dict()
-        if m.get('name') is not None:
-            self.name = m.get('name')
+        if m.get('date') is not None:
+            self.date = m.get('date')
         if m.get('value') is not None:
             self.value = m.get('value')
-        return self
-
-
-class InputStreamActiveData(TeaModel):
-    def __init__(
-        self,
-        material_code: str = None,
-        amount: str = None,
-        unit: str = None,
-        transport_list: List[TransportActiveData] = None,
-    ):
-        # 物料编码
-        self.material_code = material_code
-        # 用量，非负，最多6位小数
-        self.amount = amount
-        # 单位
-        self.unit = unit
-        # 运输信息列表
-        self.transport_list = transport_list
-
-    def validate(self):
-        self.validate_required(self.material_code, 'material_code')
-        self.validate_required(self.amount, 'amount')
-        self.validate_required(self.unit, 'unit')
-        if self.transport_list:
-            for k in self.transport_list:
-                if k:
-                    k.validate()
-
-    def to_map(self):
-        _map = super().to_map()
-        if _map is not None:
-            return _map
-
-        result = dict()
-        if self.material_code is not None:
-            result['material_code'] = self.material_code
-        if self.amount is not None:
-            result['amount'] = self.amount
-        if self.unit is not None:
-            result['unit'] = self.unit
-        result['transport_list'] = []
-        if self.transport_list is not None:
-            for k in self.transport_list:
-                result['transport_list'].append(k.to_map() if k else None)
-        return result
-
-    def from_map(self, m: dict = None):
-        m = m or dict()
-        if m.get('material_code') is not None:
-            self.material_code = m.get('material_code')
-        if m.get('amount') is not None:
-            self.amount = m.get('amount')
-        if m.get('unit') is not None:
-            self.unit = m.get('unit')
-        self.transport_list = []
-        if m.get('transport_list') is not None:
-            for k in m.get('transport_list'):
-                temp_model = TransportActiveData()
-                self.transport_list.append(temp_model.from_map(k))
-        return self
-
-
-class AnyAmountItem(TeaModel):
-    def __init__(
-        self,
-        item_code: str = None,
-        item_amount: str = None,
-    ):
-        # 数据项编码
-        self.item_code = item_code
-        # 数据值，按字符串输出，最多保留6位小数
-        self.item_amount = item_amount
-
-    def validate(self):
-        self.validate_required(self.item_code, 'item_code')
-        self.validate_required(self.item_amount, 'item_amount')
-
-    def to_map(self):
-        _map = super().to_map()
-        if _map is not None:
-            return _map
-
-        result = dict()
-        if self.item_code is not None:
-            result['item_code'] = self.item_code
-        if self.item_amount is not None:
-            result['item_amount'] = self.item_amount
-        return result
-
-    def from_map(self, m: dict = None):
-        m = m or dict()
-        if m.get('item_code') is not None:
-            self.item_code = m.get('item_code')
-        if m.get('item_amount') is not None:
-            self.item_amount = m.get('item_amount')
-        return self
-
-
-class MaterialDetail(TeaModel):
-    def __init__(
-        self,
-        material_name: str = None,
-        supplier_product_list: SupplierProductDetail = None,
-    ):
-        # 物料名称
-        self.material_name = material_name
-        # 供应商产品详情列表
-        self.supplier_product_list = supplier_product_list
-
-    def validate(self):
-        if self.supplier_product_list:
-            self.supplier_product_list.validate()
-
-    def to_map(self):
-        _map = super().to_map()
-        if _map is not None:
-            return _map
-
-        result = dict()
-        if self.material_name is not None:
-            result['material_name'] = self.material_name
-        if self.supplier_product_list is not None:
-            result['supplier_product_list'] = self.supplier_product_list.to_map()
-        return result
-
-    def from_map(self, m: dict = None):
-        m = m or dict()
-        if m.get('material_name') is not None:
-            self.material_name = m.get('material_name')
-        if m.get('supplier_product_list') is not None:
-            temp_model = SupplierProductDetail()
-            self.supplier_product_list = temp_model.from_map(m['supplier_product_list'])
-        return self
-
-
-class InverterGeneration(TeaModel):
-    def __init__(
-        self,
-        inv_sn: str = None,
-        manufacturer: str = None,
-        daily: str = None,
-        total: str = None,
-    ):
-        # 逆变器SN
-        self.inv_sn = inv_sn
-        # 生产商名称
-        self.manufacturer = manufacturer
-        # 当日发电量，最多3位小数
-        self.daily = daily
-        # 累计发电量，最多3位小数
-        self.total = total
-
-    def validate(self):
-        self.validate_required(self.inv_sn, 'inv_sn')
-        self.validate_required(self.manufacturer, 'manufacturer')
-        self.validate_required(self.daily, 'daily')
-        self.validate_required(self.total, 'total')
-
-    def to_map(self):
-        _map = super().to_map()
-        if _map is not None:
-            return _map
-
-        result = dict()
-        if self.inv_sn is not None:
-            result['inv_sn'] = self.inv_sn
-        if self.manufacturer is not None:
-            result['manufacturer'] = self.manufacturer
-        if self.daily is not None:
-            result['daily'] = self.daily
-        if self.total is not None:
-            result['total'] = self.total
-        return result
-
-    def from_map(self, m: dict = None):
-        m = m or dict()
-        if m.get('inv_sn') is not None:
-            self.inv_sn = m.get('inv_sn')
-        if m.get('manufacturer') is not None:
-            self.manufacturer = m.get('manufacturer')
-        if m.get('daily') is not None:
-            self.daily = m.get('daily')
-        if m.get('total') is not None:
-            self.total = m.get('total')
-        return self
-
-
-class LcaStageCarbonItem(TeaModel):
-    def __init__(
-        self,
-        lca_stage_code: str = None,
-        lca_stage_carbon_amount: str = None,
-    ):
-        # 生命周期阶段：
-        # [MaterialPurchase]-原材料，[ProductManufacture]-生产制造，[ProductSale]-分销，[ProductUsage]-产品使用，[ProductWithdraw]-处置/再生利用
-        self.lca_stage_code = lca_stage_code
-        # 阶段碳排放量
-        self.lca_stage_carbon_amount = lca_stage_carbon_amount
-
-    def validate(self):
-        self.validate_required(self.lca_stage_code, 'lca_stage_code')
-        self.validate_required(self.lca_stage_carbon_amount, 'lca_stage_carbon_amount')
-
-    def to_map(self):
-        _map = super().to_map()
-        if _map is not None:
-            return _map
-
-        result = dict()
-        if self.lca_stage_code is not None:
-            result['lca_stage_code'] = self.lca_stage_code
-        if self.lca_stage_carbon_amount is not None:
-            result['lca_stage_carbon_amount'] = self.lca_stage_carbon_amount
-        return result
-
-    def from_map(self, m: dict = None):
-        m = m or dict()
-        if m.get('lca_stage_code') is not None:
-            self.lca_stage_code = m.get('lca_stage_code')
-        if m.get('lca_stage_carbon_amount') is not None:
-            self.lca_stage_carbon_amount = m.get('lca_stage_carbon_amount')
-        return self
-
-
-class CertProductAuthDO(TeaModel):
-    def __init__(
-        self,
-        product_id: str = None,
-        product_name: str = None,
-    ):
-        # 三方平台产品ID
-        self.product_id = product_id
-        # 三方平台产品名称
-        self.product_name = product_name
-
-    def validate(self):
-        self.validate_required(self.product_id, 'product_id')
-        self.validate_required(self.product_name, 'product_name')
-
-    def to_map(self):
-        _map = super().to_map()
-        if _map is not None:
-            return _map
-
-        result = dict()
-        if self.product_id is not None:
-            result['product_id'] = self.product_id
-        if self.product_name is not None:
-            result['product_name'] = self.product_name
-        return result
-
-    def from_map(self, m: dict = None):
-        m = m or dict()
-        if m.get('product_id') is not None:
-            self.product_id = m.get('product_id')
-        if m.get('product_name') is not None:
-            self.product_name = m.get('product_name')
-        return self
-
-
-class OutputStreamActiveData(TeaModel):
-    def __init__(
-        self,
-        material_code: str = None,
-        amount: str = None,
-        unit: str = None,
-        unit_price: str = None,
-        disposal_type_code: str = None,
-        transport_list: List[TransportActiveData] = None,
-    ):
-        # 物料编码
-        self.material_code = material_code
-        # 用量，非负，最多6位小数
-        self.amount = amount
-        # 单位
-        self.unit = unit
-        # 单价（仅产品用，产品不传时默认为空）
-        self.unit_price = unit_price
-        # 处置方式编码（仅废弃物用）
-        self.disposal_type_code = disposal_type_code
-        # 运输信息列表（仅废弃物用）
-        self.transport_list = transport_list
-
-    def validate(self):
-        self.validate_required(self.material_code, 'material_code')
-        self.validate_required(self.amount, 'amount')
-        self.validate_required(self.unit, 'unit')
-        if self.transport_list:
-            for k in self.transport_list:
-                if k:
-                    k.validate()
-
-    def to_map(self):
-        _map = super().to_map()
-        if _map is not None:
-            return _map
-
-        result = dict()
-        if self.material_code is not None:
-            result['material_code'] = self.material_code
-        if self.amount is not None:
-            result['amount'] = self.amount
-        if self.unit is not None:
-            result['unit'] = self.unit
-        if self.unit_price is not None:
-            result['unit_price'] = self.unit_price
-        if self.disposal_type_code is not None:
-            result['disposal_type_code'] = self.disposal_type_code
-        result['transport_list'] = []
-        if self.transport_list is not None:
-            for k in self.transport_list:
-                result['transport_list'].append(k.to_map() if k else None)
-        return result
-
-    def from_map(self, m: dict = None):
-        m = m or dict()
-        if m.get('material_code') is not None:
-            self.material_code = m.get('material_code')
-        if m.get('amount') is not None:
-            self.amount = m.get('amount')
-        if m.get('unit') is not None:
-            self.unit = m.get('unit')
-        if m.get('unit_price') is not None:
-            self.unit_price = m.get('unit_price')
-        if m.get('disposal_type_code') is not None:
-            self.disposal_type_code = m.get('disposal_type_code')
-        self.transport_list = []
-        if m.get('transport_list') is not None:
-            for k in m.get('transport_list'):
-                temp_model = TransportActiveData()
-                self.transport_list.append(temp_model.from_map(k))
-        return self
-
-
-class EnterpriseDocumentFile(TeaModel):
-    def __init__(
-        self,
-        document_name: str = None,
-        document_address: str = None,
-    ):
-        # 文档名称
-        self.document_name = document_name
-        # 文件地址
-        self.document_address = document_address
-
-    def validate(self):
-        self.validate_required(self.document_name, 'document_name')
-        self.validate_required(self.document_address, 'document_address')
-
-    def to_map(self):
-        _map = super().to_map()
-        if _map is not None:
-            return _map
-
-        result = dict()
-        if self.document_name is not None:
-            result['document_name'] = self.document_name
-        if self.document_address is not None:
-            result['document_address'] = self.document_address
-        return result
-
-    def from_map(self, m: dict = None):
-        m = m or dict()
-        if m.get('document_name') is not None:
-            self.document_name = m.get('document_name')
-        if m.get('document_address') is not None:
-            self.document_address = m.get('document_address')
         return self
 
 
@@ -867,93 +250,6 @@ class EmissionsCategoryStatistics(TeaModel):
         return self
 
 
-class ProcessDetail(TeaModel):
-    def __init__(
-        self,
-        process_name: str = None,
-        process_no: str = None,
-    ):
-        # 单元过程名称
-        self.process_name = process_name
-        # 过程编码
-        self.process_no = process_no
-
-    def validate(self):
-        pass
-
-    def to_map(self):
-        _map = super().to_map()
-        if _map is not None:
-            return _map
-
-        result = dict()
-        if self.process_name is not None:
-            result['process_name'] = self.process_name
-        if self.process_no is not None:
-            result['process_no'] = self.process_no
-        return result
-
-    def from_map(self, m: dict = None):
-        m = m or dict()
-        if m.get('process_name') is not None:
-            self.process_name = m.get('process_name')
-        if m.get('process_no') is not None:
-            self.process_no = m.get('process_no')
-        return self
-
-
-class GreenOperationStatisticsByType(TeaModel):
-    def __init__(
-        self,
-        green_operation_type: str = None,
-        green_operation_type_name: str = None,
-        green_energy_amount: int = None,
-        green_operation_records: int = None,
-    ):
-        # 绿色行为类型
-        self.green_operation_type = green_operation_type
-        # 绿色行为类型名称
-        self.green_operation_type_name = green_operation_type_name
-        # 绿色行为产生的绿色能量值
-        self.green_energy_amount = green_energy_amount
-        # 相关类型的绿色行为记录数
-        self.green_operation_records = green_operation_records
-
-    def validate(self):
-        self.validate_required(self.green_operation_type, 'green_operation_type')
-        self.validate_required(self.green_operation_type_name, 'green_operation_type_name')
-        self.validate_required(self.green_energy_amount, 'green_energy_amount')
-        self.validate_required(self.green_operation_records, 'green_operation_records')
-
-    def to_map(self):
-        _map = super().to_map()
-        if _map is not None:
-            return _map
-
-        result = dict()
-        if self.green_operation_type is not None:
-            result['green_operation_type'] = self.green_operation_type
-        if self.green_operation_type_name is not None:
-            result['green_operation_type_name'] = self.green_operation_type_name
-        if self.green_energy_amount is not None:
-            result['green_energy_amount'] = self.green_energy_amount
-        if self.green_operation_records is not None:
-            result['green_operation_records'] = self.green_operation_records
-        return result
-
-    def from_map(self, m: dict = None):
-        m = m or dict()
-        if m.get('green_operation_type') is not None:
-            self.green_operation_type = m.get('green_operation_type')
-        if m.get('green_operation_type_name') is not None:
-            self.green_operation_type_name = m.get('green_operation_type_name')
-        if m.get('green_energy_amount') is not None:
-            self.green_energy_amount = m.get('green_energy_amount')
-        if m.get('green_operation_records') is not None:
-            self.green_operation_records = m.get('green_operation_records')
-        return self
-
-
 class EmissionsReductionStatistics(TeaModel):
     def __init__(
         self,
@@ -1014,162 +310,34 @@ class EmissionsReductionStatistics(TeaModel):
         return self
 
 
-class DailyEmissions(TeaModel):
+class EmissionsScopeStatistics(TeaModel):
     def __init__(
         self,
-        date: str = None,
-        value: int = None,
+        inventory_scope_no: str = None,
+        inventory_scope_name: str = None,
+        emissions: int = None,
+        percentage: int = None,
+        category_emissions_list: List[EmissionsCategoryStatistics] = None,
     ):
-        # 日期
-        self.date = date
-        # 排放量值
-        self.value = value
+        # 盘查范围编码
+        self.inventory_scope_no = inventory_scope_no
+        # 盘查范围名称
+        self.inventory_scope_name = inventory_scope_name
+        # 碳排放量
+        self.emissions = emissions
+        # 排放占比
+        self.percentage = percentage
+        # 范围下各分类排放数据
+        self.category_emissions_list = category_emissions_list
 
     def validate(self):
-        self.validate_required(self.date, 'date')
-        self.validate_required(self.value, 'value')
-
-    def to_map(self):
-        _map = super().to_map()
-        if _map is not None:
-            return _map
-
-        result = dict()
-        if self.date is not None:
-            result['date'] = self.date
-        if self.value is not None:
-            result['value'] = self.value
-        return result
-
-    def from_map(self, m: dict = None):
-        m = m or dict()
-        if m.get('date') is not None:
-            self.date = m.get('date')
-        if m.get('value') is not None:
-            self.value = m.get('value')
-        return self
-
-
-class DataAssetInfo(TeaModel):
-    def __init__(
-        self,
-        dataset_did: str = None,
-        user_did: str = None,
-        dataset_name: str = None,
-        data_type: str = None,
-    ):
-        # 数据资产DID
-        self.dataset_did = dataset_did
-        # 数据资产所有方DID
-        self.user_did = user_did
-        # 数据资产名称
-        self.dataset_name = dataset_name
-        # 数据类型
-        self.data_type = data_type
-
-    def validate(self):
-        self.validate_required(self.dataset_did, 'dataset_did')
-        self.validate_required(self.user_did, 'user_did')
-        self.validate_required(self.dataset_name, 'dataset_name')
-        self.validate_required(self.data_type, 'data_type')
-
-    def to_map(self):
-        _map = super().to_map()
-        if _map is not None:
-            return _map
-
-        result = dict()
-        if self.dataset_did is not None:
-            result['dataset_did'] = self.dataset_did
-        if self.user_did is not None:
-            result['user_did'] = self.user_did
-        if self.dataset_name is not None:
-            result['dataset_name'] = self.dataset_name
-        if self.data_type is not None:
-            result['data_type'] = self.data_type
-        return result
-
-    def from_map(self, m: dict = None):
-        m = m or dict()
-        if m.get('dataset_did') is not None:
-            self.dataset_did = m.get('dataset_did')
-        if m.get('user_did') is not None:
-            self.user_did = m.get('user_did')
-        if m.get('dataset_name') is not None:
-            self.dataset_name = m.get('dataset_name')
-        if m.get('data_type') is not None:
-            self.data_type = m.get('data_type')
-        return self
-
-
-class EmissionCounteractionStatistics(TeaModel):
-    def __init__(
-        self,
-        assert_type: str = None,
-        assert_type_name: str = None,
-        counteraction_amount: str = None,
-        data_unit: str = None,
-    ):
-        # 碳抵消类别
-        self.assert_type = assert_type
-        # 碳抵消类别名称
-        self.assert_type_name = assert_type_name
-        # 抵消量
-        self.counteraction_amount = counteraction_amount
-        # 排放量单位，默认为：tCO2e
-        self.data_unit = data_unit
-
-    def validate(self):
-        self.validate_required(self.assert_type, 'assert_type')
-        self.validate_required(self.assert_type_name, 'assert_type_name')
-        self.validate_required(self.counteraction_amount, 'counteraction_amount')
-        self.validate_required(self.data_unit, 'data_unit')
-
-    def to_map(self):
-        _map = super().to_map()
-        if _map is not None:
-            return _map
-
-        result = dict()
-        if self.assert_type is not None:
-            result['assert_type'] = self.assert_type
-        if self.assert_type_name is not None:
-            result['assert_type_name'] = self.assert_type_name
-        if self.counteraction_amount is not None:
-            result['counteraction_amount'] = self.counteraction_amount
-        if self.data_unit is not None:
-            result['data_unit'] = self.data_unit
-        return result
-
-    def from_map(self, m: dict = None):
-        m = m or dict()
-        if m.get('assert_type') is not None:
-            self.assert_type = m.get('assert_type')
-        if m.get('assert_type_name') is not None:
-            self.assert_type_name = m.get('assert_type_name')
-        if m.get('counteraction_amount') is not None:
-            self.counteraction_amount = m.get('counteraction_amount')
-        if m.get('data_unit') is not None:
-            self.data_unit = m.get('data_unit')
-        return self
-
-
-class DeviceGeneration(TeaModel):
-    def __init__(
-        self,
-        device_no: str = None,
-        inverter_generations: List[InverterGeneration] = None,
-    ):
-        # 设备内部编号，注册设备后获取
-        self.device_no = device_no
-        # 逆变器发电量列表
-        self.inverter_generations = inverter_generations
-
-    def validate(self):
-        self.validate_required(self.device_no, 'device_no')
-        self.validate_required(self.inverter_generations, 'inverter_generations')
-        if self.inverter_generations:
-            for k in self.inverter_generations:
+        self.validate_required(self.inventory_scope_no, 'inventory_scope_no')
+        self.validate_required(self.inventory_scope_name, 'inventory_scope_name')
+        self.validate_required(self.emissions, 'emissions')
+        self.validate_required(self.percentage, 'percentage')
+        self.validate_required(self.category_emissions_list, 'category_emissions_list')
+        if self.category_emissions_list:
+            for k in self.category_emissions_list:
                 if k:
                     k.validate()
 
@@ -1179,431 +347,52 @@ class DeviceGeneration(TeaModel):
             return _map
 
         result = dict()
-        if self.device_no is not None:
-            result['device_no'] = self.device_no
-        result['inverter_generations'] = []
-        if self.inverter_generations is not None:
-            for k in self.inverter_generations:
-                result['inverter_generations'].append(k.to_map() if k else None)
+        if self.inventory_scope_no is not None:
+            result['inventory_scope_no'] = self.inventory_scope_no
+        if self.inventory_scope_name is not None:
+            result['inventory_scope_name'] = self.inventory_scope_name
+        if self.emissions is not None:
+            result['emissions'] = self.emissions
+        if self.percentage is not None:
+            result['percentage'] = self.percentage
+        result['category_emissions_list'] = []
+        if self.category_emissions_list is not None:
+            for k in self.category_emissions_list:
+                result['category_emissions_list'].append(k.to_map() if k else None)
         return result
 
     def from_map(self, m: dict = None):
         m = m or dict()
-        if m.get('device_no') is not None:
-            self.device_no = m.get('device_no')
-        self.inverter_generations = []
-        if m.get('inverter_generations') is not None:
-            for k in m.get('inverter_generations'):
-                temp_model = InverterGeneration()
-                self.inverter_generations.append(temp_model.from_map(k))
+        if m.get('inventory_scope_no') is not None:
+            self.inventory_scope_no = m.get('inventory_scope_no')
+        if m.get('inventory_scope_name') is not None:
+            self.inventory_scope_name = m.get('inventory_scope_name')
+        if m.get('emissions') is not None:
+            self.emissions = m.get('emissions')
+        if m.get('percentage') is not None:
+            self.percentage = m.get('percentage')
+        self.category_emissions_list = []
+        if m.get('category_emissions_list') is not None:
+            for k in m.get('category_emissions_list'):
+                temp_model = EmissionsCategoryStatistics()
+                self.category_emissions_list.append(temp_model.from_map(k))
         return self
 
 
-class AccountRegisterResponse(TeaModel):
+class CertProductAuthDO(TeaModel):
     def __init__(
         self,
-        user_did: str = None,
-    ):
-        # 账户did
-        self.user_did = user_did
-
-    def validate(self):
-        self.validate_required(self.user_did, 'user_did')
-
-    def to_map(self):
-        _map = super().to_map()
-        if _map is not None:
-            return _map
-
-        result = dict()
-        if self.user_did is not None:
-            result['user_did'] = self.user_did
-        return result
-
-    def from_map(self, m: dict = None):
-        m = m or dict()
-        if m.get('user_did') is not None:
-            self.user_did = m.get('user_did')
-        return self
-
-
-class CarbonOffsetAcquisitionItem(TeaModel):
-    def __init__(
-        self,
-        acquisition_item_no: str = None,
-        project_no: str = None,
-        account_did: str = None,
-        occurrent_time: str = None,
-        scenario_code: str = None,
-        scenario_name: str = None,
-        platform_no: str = None,
-        active_datum: List[AnyAmountItem] = None,
-        offset_volume: str = None,
-        carbon_energy: int = None,
-    ):
-        # 采集数据单号
-        self.acquisition_item_no = acquisition_item_no
-        # 碳补偿项目编号
-        self.project_no = project_no
-        # 参与账户DID
-        self.account_did = account_did
-        # 发生时间
-        self.occurrent_time = occurrent_time
-        # 发生场景编码
-        self.scenario_code = scenario_code
-        # 发生场景名称
-        self.scenario_name = scenario_name
-        # 碳普惠平台编码，如果非平台采集数据，则显示为自采编码：Self
-        self.platform_no = platform_no
-        # 活动数据原始值，多个活动数据列表
-        self.active_datum = active_datum
-        # 减碳量
-        self.offset_volume = offset_volume
-        # 碳能量值
-        self.carbon_energy = carbon_energy
-
-    def validate(self):
-        self.validate_required(self.acquisition_item_no, 'acquisition_item_no')
-        self.validate_required(self.project_no, 'project_no')
-        self.validate_required(self.account_did, 'account_did')
-        self.validate_required(self.occurrent_time, 'occurrent_time')
-        self.validate_required(self.scenario_code, 'scenario_code')
-        self.validate_required(self.scenario_name, 'scenario_name')
-        self.validate_required(self.platform_no, 'platform_no')
-        if self.active_datum:
-            for k in self.active_datum:
-                if k:
-                    k.validate()
-
-    def to_map(self):
-        _map = super().to_map()
-        if _map is not None:
-            return _map
-
-        result = dict()
-        if self.acquisition_item_no is not None:
-            result['acquisition_item_no'] = self.acquisition_item_no
-        if self.project_no is not None:
-            result['project_no'] = self.project_no
-        if self.account_did is not None:
-            result['account_did'] = self.account_did
-        if self.occurrent_time is not None:
-            result['occurrent_time'] = self.occurrent_time
-        if self.scenario_code is not None:
-            result['scenario_code'] = self.scenario_code
-        if self.scenario_name is not None:
-            result['scenario_name'] = self.scenario_name
-        if self.platform_no is not None:
-            result['platform_no'] = self.platform_no
-        result['active_datum'] = []
-        if self.active_datum is not None:
-            for k in self.active_datum:
-                result['active_datum'].append(k.to_map() if k else None)
-        if self.offset_volume is not None:
-            result['offset_volume'] = self.offset_volume
-        if self.carbon_energy is not None:
-            result['carbon_energy'] = self.carbon_energy
-        return result
-
-    def from_map(self, m: dict = None):
-        m = m or dict()
-        if m.get('acquisition_item_no') is not None:
-            self.acquisition_item_no = m.get('acquisition_item_no')
-        if m.get('project_no') is not None:
-            self.project_no = m.get('project_no')
-        if m.get('account_did') is not None:
-            self.account_did = m.get('account_did')
-        if m.get('occurrent_time') is not None:
-            self.occurrent_time = m.get('occurrent_time')
-        if m.get('scenario_code') is not None:
-            self.scenario_code = m.get('scenario_code')
-        if m.get('scenario_name') is not None:
-            self.scenario_name = m.get('scenario_name')
-        if m.get('platform_no') is not None:
-            self.platform_no = m.get('platform_no')
-        self.active_datum = []
-        if m.get('active_datum') is not None:
-            for k in m.get('active_datum'):
-                temp_model = AnyAmountItem()
-                self.active_datum.append(temp_model.from_map(k))
-        if m.get('offset_volume') is not None:
-            self.offset_volume = m.get('offset_volume')
-        if m.get('carbon_energy') is not None:
-            self.carbon_energy = m.get('carbon_energy')
-        return self
-
-
-class DataTypeInfo(TeaModel):
-    def __init__(
-        self,
-        data_type_no: str = None,
-        data_type_name: str = None,
-        data_type_config: str = None,
-        data_json_schema: str = None,
-    ):
-        # 数据类型编码
-        self.data_type_no = data_type_no
-        # 数据类型名称
-        self.data_type_name = data_type_name
-        # 数据类型配置
-        self.data_type_config = data_type_config
-        # 数据JSON格式检查
-        self.data_json_schema = data_json_schema
-
-    def validate(self):
-        self.validate_required(self.data_type_no, 'data_type_no')
-        self.validate_required(self.data_type_name, 'data_type_name')
-        self.validate_required(self.data_type_config, 'data_type_config')
-        self.validate_required(self.data_json_schema, 'data_json_schema')
-
-    def to_map(self):
-        _map = super().to_map()
-        if _map is not None:
-            return _map
-
-        result = dict()
-        if self.data_type_no is not None:
-            result['data_type_no'] = self.data_type_no
-        if self.data_type_name is not None:
-            result['data_type_name'] = self.data_type_name
-        if self.data_type_config is not None:
-            result['data_type_config'] = self.data_type_config
-        if self.data_json_schema is not None:
-            result['data_json_schema'] = self.data_json_schema
-        return result
-
-    def from_map(self, m: dict = None):
-        m = m or dict()
-        if m.get('data_type_no') is not None:
-            self.data_type_no = m.get('data_type_no')
-        if m.get('data_type_name') is not None:
-            self.data_type_name = m.get('data_type_name')
-        if m.get('data_type_config') is not None:
-            self.data_type_config = m.get('data_type_config')
-        if m.get('data_json_schema') is not None:
-            self.data_json_schema = m.get('data_json_schema')
-        return self
-
-
-class LcaCarbonDatum(TeaModel):
-    def __init__(
-        self,
-        lca_carbon_amount: str = None,
-        lca_report_file_url: str = None,
-        lca_detail_file_url: str = None,
-        life_cycle_boundary: str = None,
-        lca_start_date: str = None,
-        lca_end_date: str = None,
-        lca_stage_carbon_datum: List[LcaStageCarbonItem] = None,
-    ):
-        # LCA碳排放总量
-        self.lca_carbon_amount = lca_carbon_amount
-        # 足迹报告pdf文件下载地址（30分钟内下载有效）
-        self.lca_report_file_url = lca_report_file_url
-        # 足迹分析结果详情文件地址（30分钟内下载有效）
-        self.lca_detail_file_url = lca_detail_file_url
-        # B2B-从摇篮到大门，B2C-从摇篮到坟墓
-        self.life_cycle_boundary = life_cycle_boundary
-        # 足迹开始时间，格式：yyyyMMdd
-        self.lca_start_date = lca_start_date
-        # 足迹结束时间 格式：yyyyMMdd
-        self.lca_end_date = lca_end_date
-        # 分阶段碳排放量列表
-        self.lca_stage_carbon_datum = lca_stage_carbon_datum
-
-    def validate(self):
-        self.validate_required(self.lca_carbon_amount, 'lca_carbon_amount')
-        self.validate_required(self.lca_report_file_url, 'lca_report_file_url')
-        self.validate_required(self.lca_detail_file_url, 'lca_detail_file_url')
-        self.validate_required(self.life_cycle_boundary, 'life_cycle_boundary')
-        self.validate_required(self.lca_start_date, 'lca_start_date')
-        self.validate_required(self.lca_end_date, 'lca_end_date')
-        self.validate_required(self.lca_stage_carbon_datum, 'lca_stage_carbon_datum')
-        if self.lca_stage_carbon_datum:
-            for k in self.lca_stage_carbon_datum:
-                if k:
-                    k.validate()
-
-    def to_map(self):
-        _map = super().to_map()
-        if _map is not None:
-            return _map
-
-        result = dict()
-        if self.lca_carbon_amount is not None:
-            result['lca_carbon_amount'] = self.lca_carbon_amount
-        if self.lca_report_file_url is not None:
-            result['lca_report_file_url'] = self.lca_report_file_url
-        if self.lca_detail_file_url is not None:
-            result['lca_detail_file_url'] = self.lca_detail_file_url
-        if self.life_cycle_boundary is not None:
-            result['life_cycle_boundary'] = self.life_cycle_boundary
-        if self.lca_start_date is not None:
-            result['lca_start_date'] = self.lca_start_date
-        if self.lca_end_date is not None:
-            result['lca_end_date'] = self.lca_end_date
-        result['lca_stage_carbon_datum'] = []
-        if self.lca_stage_carbon_datum is not None:
-            for k in self.lca_stage_carbon_datum:
-                result['lca_stage_carbon_datum'].append(k.to_map() if k else None)
-        return result
-
-    def from_map(self, m: dict = None):
-        m = m or dict()
-        if m.get('lca_carbon_amount') is not None:
-            self.lca_carbon_amount = m.get('lca_carbon_amount')
-        if m.get('lca_report_file_url') is not None:
-            self.lca_report_file_url = m.get('lca_report_file_url')
-        if m.get('lca_detail_file_url') is not None:
-            self.lca_detail_file_url = m.get('lca_detail_file_url')
-        if m.get('life_cycle_boundary') is not None:
-            self.life_cycle_boundary = m.get('life_cycle_boundary')
-        if m.get('lca_start_date') is not None:
-            self.lca_start_date = m.get('lca_start_date')
-        if m.get('lca_end_date') is not None:
-            self.lca_end_date = m.get('lca_end_date')
-        self.lca_stage_carbon_datum = []
-        if m.get('lca_stage_carbon_datum') is not None:
-            for k in m.get('lca_stage_carbon_datum'):
-                temp_model = LcaStageCarbonItem()
-                self.lca_stage_carbon_datum.append(temp_model.from_map(k))
-        return self
-
-
-class TransferPathAnalysis(TeaModel):
-    def __init__(
-        self,
-        field: str = None,
-        index_number: str = None,
-        index_content: str = None,
-        detail: str = None,
-        target: str = None,
-    ):
-        # 所属领域
-        self.field = field
-        # 目录编号
-        self.index_number = index_number
-        # 目录内容
-        self.index_content = index_content
-        # 技术标准说明
-        self.detail = detail
-        # 企业是否采取该路径
-        self.target = target
-
-    def validate(self):
-        self.validate_required(self.field, 'field')
-        self.validate_required(self.index_number, 'index_number')
-        self.validate_required(self.index_content, 'index_content')
-        self.validate_required(self.detail, 'detail')
-        self.validate_required(self.target, 'target')
-
-    def to_map(self):
-        _map = super().to_map()
-        if _map is not None:
-            return _map
-
-        result = dict()
-        if self.field is not None:
-            result['field'] = self.field
-        if self.index_number is not None:
-            result['index_number'] = self.index_number
-        if self.index_content is not None:
-            result['index_content'] = self.index_content
-        if self.detail is not None:
-            result['detail'] = self.detail
-        if self.target is not None:
-            result['target'] = self.target
-        return result
-
-    def from_map(self, m: dict = None):
-        m = m or dict()
-        if m.get('field') is not None:
-            self.field = m.get('field')
-        if m.get('index_number') is not None:
-            self.index_number = m.get('index_number')
-        if m.get('index_content') is not None:
-            self.index_content = m.get('index_content')
-        if m.get('detail') is not None:
-            self.detail = m.get('detail')
-        if m.get('target') is not None:
-            self.target = m.get('target')
-        return self
-
-
-class AuthorizePolicy(TeaModel):
-    def __init__(
-        self,
-        policy_id: str = None,
-        description: str = None,
-        authorize_config: str = None,
-    ):
-        # 授权策略ID
-        self.policy_id = policy_id
-        # 授权策略描述
-        self.description = description
-        # 授权策略配置
-        self.authorize_config = authorize_config
-
-    def validate(self):
-        self.validate_required(self.policy_id, 'policy_id')
-        self.validate_required(self.description, 'description')
-        self.validate_required(self.authorize_config, 'authorize_config')
-
-    def to_map(self):
-        _map = super().to_map()
-        if _map is not None:
-            return _map
-
-        result = dict()
-        if self.policy_id is not None:
-            result['policy_id'] = self.policy_id
-        if self.description is not None:
-            result['description'] = self.description
-        if self.authorize_config is not None:
-            result['authorize_config'] = self.authorize_config
-        return result
-
-    def from_map(self, m: dict = None):
-        m = m or dict()
-        if m.get('policy_id') is not None:
-            self.policy_id = m.get('policy_id')
-        if m.get('description') is not None:
-            self.description = m.get('description')
-        if m.get('authorize_config') is not None:
-            self.authorize_config = m.get('authorize_config')
-        return self
-
-
-class EnterpriseProductOutline(TeaModel):
-    def __init__(
-        self,
-        enterprise_custom_code: str = None,
+        product_id: str = None,
         product_name: str = None,
-        specification: str = None,
-        product_description: str = None,
-        product_category_name: str = None,
-        brand_information: str = None,
     ):
-        # 产品自定义编码
-        # 
-        self.enterprise_custom_code = enterprise_custom_code
-        # 产品名称
-        # 
+        # 三方平台产品ID
+        self.product_id = product_id
+        # 三方平台产品名称
         self.product_name = product_name
-        # 规格型号
-        self.specification = specification
-        # 产品描述
-        self.product_description = product_description
-        # 产品分类名称
-        self.product_category_name = product_category_name
-        # 品牌信息
-        self.brand_information = brand_information
 
     def validate(self):
-        self.validate_required(self.enterprise_custom_code, 'enterprise_custom_code')
+        self.validate_required(self.product_id, 'product_id')
         self.validate_required(self.product_name, 'product_name')
-        self.validate_required(self.specification, 'specification')
-        self.validate_required(self.product_category_name, 'product_category_name')
 
     def to_map(self):
         _map = super().to_map()
@@ -1611,457 +400,18 @@ class EnterpriseProductOutline(TeaModel):
             return _map
 
         result = dict()
-        if self.enterprise_custom_code is not None:
-            result['enterprise_custom_code'] = self.enterprise_custom_code
+        if self.product_id is not None:
+            result['product_id'] = self.product_id
         if self.product_name is not None:
             result['product_name'] = self.product_name
-        if self.specification is not None:
-            result['specification'] = self.specification
-        if self.product_description is not None:
-            result['product_description'] = self.product_description
-        if self.product_category_name is not None:
-            result['product_category_name'] = self.product_category_name
-        if self.brand_information is not None:
-            result['brand_information'] = self.brand_information
         return result
 
     def from_map(self, m: dict = None):
         m = m or dict()
-        if m.get('enterprise_custom_code') is not None:
-            self.enterprise_custom_code = m.get('enterprise_custom_code')
+        if m.get('product_id') is not None:
+            self.product_id = m.get('product_id')
         if m.get('product_name') is not None:
             self.product_name = m.get('product_name')
-        if m.get('specification') is not None:
-            self.specification = m.get('specification')
-        if m.get('product_description') is not None:
-            self.product_description = m.get('product_description')
-        if m.get('product_category_name') is not None:
-            self.product_category_name = m.get('product_category_name')
-        if m.get('brand_information') is not None:
-            self.brand_information = m.get('brand_information')
-        return self
-
-
-class CarbonOffsetActiveDataDetail(TeaModel):
-    def __init__(
-        self,
-        active_data_no: str = None,
-        active_data_name: str = None,
-        active_data_unit: str = None,
-        description: str = None,
-        active_data_value: str = None,
-    ):
-        # 活动数据编号
-        self.active_data_no = active_data_no
-        # 活动数据名称
-        self.active_data_name = active_data_name
-        # 活动数据单位
-        self.active_data_unit = active_data_unit
-        # 活动数据描述文案
-        self.description = description
-        # 活动数据值
-        self.active_data_value = active_data_value
-
-    def validate(self):
-        self.validate_required(self.active_data_no, 'active_data_no')
-        self.validate_required(self.active_data_value, 'active_data_value')
-
-    def to_map(self):
-        _map = super().to_map()
-        if _map is not None:
-            return _map
-
-        result = dict()
-        if self.active_data_no is not None:
-            result['active_data_no'] = self.active_data_no
-        if self.active_data_name is not None:
-            result['active_data_name'] = self.active_data_name
-        if self.active_data_unit is not None:
-            result['active_data_unit'] = self.active_data_unit
-        if self.description is not None:
-            result['description'] = self.description
-        if self.active_data_value is not None:
-            result['active_data_value'] = self.active_data_value
-        return result
-
-    def from_map(self, m: dict = None):
-        m = m or dict()
-        if m.get('active_data_no') is not None:
-            self.active_data_no = m.get('active_data_no')
-        if m.get('active_data_name') is not None:
-            self.active_data_name = m.get('active_data_name')
-        if m.get('active_data_unit') is not None:
-            self.active_data_unit = m.get('active_data_unit')
-        if m.get('description') is not None:
-            self.description = m.get('description')
-        if m.get('active_data_value') is not None:
-            self.active_data_value = m.get('active_data_value')
-        return self
-
-
-class EnterpriseMemberSummary(TeaModel):
-    def __init__(
-        self,
-        account_did: str = None,
-        name: str = None,
-        mobile: str = None,
-        register_time: str = None,
-    ):
-        # 机构会员DID
-        self.account_did = account_did
-        # 会员姓名，数据脱敏处理返回
-        self.name = name
-        # 会员手机号码，数据脱敏处理返回
-        self.mobile = mobile
-        # 会员注册时间
-        self.register_time = register_time
-
-    def validate(self):
-        self.validate_required(self.account_did, 'account_did')
-        self.validate_required(self.register_time, 'register_time')
-
-    def to_map(self):
-        _map = super().to_map()
-        if _map is not None:
-            return _map
-
-        result = dict()
-        if self.account_did is not None:
-            result['account_did'] = self.account_did
-        if self.name is not None:
-            result['name'] = self.name
-        if self.mobile is not None:
-            result['mobile'] = self.mobile
-        if self.register_time is not None:
-            result['register_time'] = self.register_time
-        return result
-
-    def from_map(self, m: dict = None):
-        m = m or dict()
-        if m.get('account_did') is not None:
-            self.account_did = m.get('account_did')
-        if m.get('name') is not None:
-            self.name = m.get('name')
-        if m.get('mobile') is not None:
-            self.mobile = m.get('mobile')
-        if m.get('register_time') is not None:
-            self.register_time = m.get('register_time')
-        return self
-
-
-class GclProductionItem(TeaModel):
-    def __init__(
-        self,
-        external_item_code: str = None,
-        location_name: str = None,
-        product_name: str = None,
-        specification: str = None,
-        production_data_list: List[MonthDataDetail] = None,
-    ):
-        # 用户侧传入明细编码，用于异常回传和排查
-        self.external_item_code = external_item_code
-        # 生产单元名称
-        self.location_name = location_name
-        # 产品名称
-        self.product_name = product_name
-        # 产品规格
-        self.specification = specification
-        # 月度产量明细
-        self.production_data_list = production_data_list
-
-    def validate(self):
-        self.validate_required(self.location_name, 'location_name')
-        self.validate_required(self.product_name, 'product_name')
-        self.validate_required(self.specification, 'specification')
-        self.validate_required(self.production_data_list, 'production_data_list')
-        if self.production_data_list:
-            for k in self.production_data_list:
-                if k:
-                    k.validate()
-
-    def to_map(self):
-        _map = super().to_map()
-        if _map is not None:
-            return _map
-
-        result = dict()
-        if self.external_item_code is not None:
-            result['external_item_code'] = self.external_item_code
-        if self.location_name is not None:
-            result['location_name'] = self.location_name
-        if self.product_name is not None:
-            result['product_name'] = self.product_name
-        if self.specification is not None:
-            result['specification'] = self.specification
-        result['production_data_list'] = []
-        if self.production_data_list is not None:
-            for k in self.production_data_list:
-                result['production_data_list'].append(k.to_map() if k else None)
-        return result
-
-    def from_map(self, m: dict = None):
-        m = m or dict()
-        if m.get('external_item_code') is not None:
-            self.external_item_code = m.get('external_item_code')
-        if m.get('location_name') is not None:
-            self.location_name = m.get('location_name')
-        if m.get('product_name') is not None:
-            self.product_name = m.get('product_name')
-        if m.get('specification') is not None:
-            self.specification = m.get('specification')
-        self.production_data_list = []
-        if m.get('production_data_list') is not None:
-            for k in m.get('production_data_list'):
-                temp_model = MonthDataDetail()
-                self.production_data_list.append(temp_model.from_map(k))
-        return self
-
-
-class AnyStatisticalItem(TeaModel):
-    def __init__(
-        self,
-        item_code: str = None,
-        amount: str = None,
-        unit: str = None,
-        unit_label: str = None,
-    ):
-        # 统计项目编码
-        self.item_code = item_code
-        # 数据值，按字符串输出，最多保留6位小数
-        self.amount = amount
-        # 单位编码
-        self.unit = unit
-        # 单位标签
-        self.unit_label = unit_label
-
-    def validate(self):
-        self.validate_required(self.item_code, 'item_code')
-        self.validate_required(self.amount, 'amount')
-        self.validate_required(self.unit, 'unit')
-        self.validate_required(self.unit_label, 'unit_label')
-
-    def to_map(self):
-        _map = super().to_map()
-        if _map is not None:
-            return _map
-
-        result = dict()
-        if self.item_code is not None:
-            result['item_code'] = self.item_code
-        if self.amount is not None:
-            result['amount'] = self.amount
-        if self.unit is not None:
-            result['unit'] = self.unit
-        if self.unit_label is not None:
-            result['unit_label'] = self.unit_label
-        return result
-
-    def from_map(self, m: dict = None):
-        m = m or dict()
-        if m.get('item_code') is not None:
-            self.item_code = m.get('item_code')
-        if m.get('amount') is not None:
-            self.amount = m.get('amount')
-        if m.get('unit') is not None:
-            self.unit = m.get('unit')
-        if m.get('unit_label') is not None:
-            self.unit_label = m.get('unit_label')
-        return self
-
-
-class BlockchainDTO(TeaModel):
-    def __init__(
-        self,
-        tx_hash: str = None,
-        block_number: int = None,
-    ):
-        # 交易hash
-        self.tx_hash = tx_hash
-        # 当前块高
-        self.block_number = block_number
-
-    def validate(self):
-        self.validate_required(self.tx_hash, 'tx_hash')
-        self.validate_required(self.block_number, 'block_number')
-
-    def to_map(self):
-        _map = super().to_map()
-        if _map is not None:
-            return _map
-
-        result = dict()
-        if self.tx_hash is not None:
-            result['tx_hash'] = self.tx_hash
-        if self.block_number is not None:
-            result['block_number'] = self.block_number
-        return result
-
-    def from_map(self, m: dict = None):
-        m = m or dict()
-        if m.get('tx_hash') is not None:
-            self.tx_hash = m.get('tx_hash')
-        if m.get('block_number') is not None:
-            self.block_number = m.get('block_number')
-        return self
-
-
-class LcaProjectTrace(TeaModel):
-    def __init__(
-        self,
-        project_no: str = None,
-        life_cycle_boundary: str = None,
-        product_no: str = None,
-        lca_carbon_amount: str = None,
-        product_name: str = None,
-        specification: str = None,
-        lca_start_date: str = None,
-        lca_end_date: str = None,
-        trace_status: str = None,
-    ):
-        # 碳足迹编码
-        self.project_no = project_no
-        # 碳足迹生命周期边界
-        self.life_cycle_boundary = life_cycle_boundary
-        # 产品编码
-        self.product_no = product_no
-        # 碳足迹项目排放量
-        self.lca_carbon_amount = lca_carbon_amount
-        # 产品名称
-        self.product_name = product_name
-        # 产品规格型号
-        self.specification = specification
-        # 碳足迹开始时间
-        self.lca_start_date = lca_start_date
-        # 碳足迹结束时间
-        self.lca_end_date = lca_end_date
-        # 溯源状态
-        self.trace_status = trace_status
-
-    def validate(self):
-        self.validate_required(self.project_no, 'project_no')
-        self.validate_required(self.life_cycle_boundary, 'life_cycle_boundary')
-        self.validate_required(self.product_no, 'product_no')
-        self.validate_required(self.lca_carbon_amount, 'lca_carbon_amount')
-        self.validate_required(self.product_name, 'product_name')
-        self.validate_required(self.specification, 'specification')
-        self.validate_required(self.lca_start_date, 'lca_start_date')
-        self.validate_required(self.lca_end_date, 'lca_end_date')
-        self.validate_required(self.trace_status, 'trace_status')
-
-    def to_map(self):
-        _map = super().to_map()
-        if _map is not None:
-            return _map
-
-        result = dict()
-        if self.project_no is not None:
-            result['project_no'] = self.project_no
-        if self.life_cycle_boundary is not None:
-            result['life_cycle_boundary'] = self.life_cycle_boundary
-        if self.product_no is not None:
-            result['product_no'] = self.product_no
-        if self.lca_carbon_amount is not None:
-            result['lca_carbon_amount'] = self.lca_carbon_amount
-        if self.product_name is not None:
-            result['product_name'] = self.product_name
-        if self.specification is not None:
-            result['specification'] = self.specification
-        if self.lca_start_date is not None:
-            result['lca_start_date'] = self.lca_start_date
-        if self.lca_end_date is not None:
-            result['lca_end_date'] = self.lca_end_date
-        if self.trace_status is not None:
-            result['trace_status'] = self.trace_status
-        return result
-
-    def from_map(self, m: dict = None):
-        m = m or dict()
-        if m.get('project_no') is not None:
-            self.project_no = m.get('project_no')
-        if m.get('life_cycle_boundary') is not None:
-            self.life_cycle_boundary = m.get('life_cycle_boundary')
-        if m.get('product_no') is not None:
-            self.product_no = m.get('product_no')
-        if m.get('lca_carbon_amount') is not None:
-            self.lca_carbon_amount = m.get('lca_carbon_amount')
-        if m.get('product_name') is not None:
-            self.product_name = m.get('product_name')
-        if m.get('specification') is not None:
-            self.specification = m.get('specification')
-        if m.get('lca_start_date') is not None:
-            self.lca_start_date = m.get('lca_start_date')
-        if m.get('lca_end_date') is not None:
-            self.lca_end_date = m.get('lca_end_date')
-        if m.get('trace_status') is not None:
-            self.trace_status = m.get('trace_status')
-        return self
-
-
-class GreenOperationRecordSummary(TeaModel):
-    def __init__(
-        self,
-        green_operation_no: str = None,
-        green_operation_type: str = None,
-        green_operation_type_name: str = None,
-        enterprise_biz_no: str = None,
-        occurrence_time: str = None,
-        green_energy_amount: int = None,
-    ):
-        # 绿色行为记录编码
-        self.green_operation_no = green_operation_no
-        # 绿色行为类型
-        self.green_operation_type = green_operation_type
-        # 绿色行为类型名称
-        self.green_operation_type_name = green_operation_type_name
-        # 发生绿色行为的相关业务单号
-        self.enterprise_biz_no = enterprise_biz_no
-        # 绿色行为发生时间，格式应如：2021-07-21 12:11:11
-        self.occurrence_time = occurrence_time
-        # 绿色行为的绿色能量值
-        self.green_energy_amount = green_energy_amount
-
-    def validate(self):
-        self.validate_required(self.green_operation_no, 'green_operation_no')
-        self.validate_required(self.green_operation_type, 'green_operation_type')
-        self.validate_required(self.green_operation_type_name, 'green_operation_type_name')
-        self.validate_required(self.enterprise_biz_no, 'enterprise_biz_no')
-        self.validate_required(self.occurrence_time, 'occurrence_time')
-        self.validate_required(self.green_energy_amount, 'green_energy_amount')
-
-    def to_map(self):
-        _map = super().to_map()
-        if _map is not None:
-            return _map
-
-        result = dict()
-        if self.green_operation_no is not None:
-            result['green_operation_no'] = self.green_operation_no
-        if self.green_operation_type is not None:
-            result['green_operation_type'] = self.green_operation_type
-        if self.green_operation_type_name is not None:
-            result['green_operation_type_name'] = self.green_operation_type_name
-        if self.enterprise_biz_no is not None:
-            result['enterprise_biz_no'] = self.enterprise_biz_no
-        if self.occurrence_time is not None:
-            result['occurrence_time'] = self.occurrence_time
-        if self.green_energy_amount is not None:
-            result['green_energy_amount'] = self.green_energy_amount
-        return result
-
-    def from_map(self, m: dict = None):
-        m = m or dict()
-        if m.get('green_operation_no') is not None:
-            self.green_operation_no = m.get('green_operation_no')
-        if m.get('green_operation_type') is not None:
-            self.green_operation_type = m.get('green_operation_type')
-        if m.get('green_operation_type_name') is not None:
-            self.green_operation_type_name = m.get('green_operation_type_name')
-        if m.get('enterprise_biz_no') is not None:
-            self.enterprise_biz_no = m.get('enterprise_biz_no')
-        if m.get('occurrence_time') is not None:
-            self.occurrence_time = m.get('occurrence_time')
-        if m.get('green_energy_amount') is not None:
-            self.green_energy_amount = m.get('green_energy_amount')
         return self
 
 
@@ -2200,6 +550,2038 @@ class CertProductInfoDO(TeaModel):
         return self
 
 
+class AnyAmountItem(TeaModel):
+    def __init__(
+        self,
+        item_code: str = None,
+        item_amount: str = None,
+    ):
+        # 数据项编码
+        self.item_code = item_code
+        # 数据值，按字符串输出，最多保留6位小数
+        self.item_amount = item_amount
+
+    def validate(self):
+        self.validate_required(self.item_code, 'item_code')
+        self.validate_required(self.item_amount, 'item_amount')
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.item_code is not None:
+            result['item_code'] = self.item_code
+        if self.item_amount is not None:
+            result['item_amount'] = self.item_amount
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('item_code') is not None:
+            self.item_code = m.get('item_code')
+        if m.get('item_amount') is not None:
+            self.item_amount = m.get('item_amount')
+        return self
+
+
+class AnyKeywordItem(TeaModel):
+    def __init__(
+        self,
+        item_code: str = None,
+        item_value: str = None,
+    ):
+        # 项目编码
+        self.item_code = item_code
+        # 项目值
+        self.item_value = item_value
+
+    def validate(self):
+        self.validate_required(self.item_code, 'item_code')
+        self.validate_required(self.item_value, 'item_value')
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.item_code is not None:
+            result['item_code'] = self.item_code
+        if self.item_value is not None:
+            result['item_value'] = self.item_value
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('item_code') is not None:
+            self.item_code = m.get('item_code')
+        if m.get('item_value') is not None:
+            self.item_value = m.get('item_value')
+        return self
+
+
+class EnterpriseDocumentFile(TeaModel):
+    def __init__(
+        self,
+        document_name: str = None,
+        document_address: str = None,
+    ):
+        # 文档名称
+        self.document_name = document_name
+        # 文件地址
+        self.document_address = document_address
+
+    def validate(self):
+        self.validate_required(self.document_name, 'document_name')
+        self.validate_required(self.document_address, 'document_address')
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.document_name is not None:
+            result['document_name'] = self.document_name
+        if self.document_address is not None:
+            result['document_address'] = self.document_address
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('document_name') is not None:
+            self.document_name = m.get('document_name')
+        if m.get('document_address') is not None:
+            self.document_address = m.get('document_address')
+        return self
+
+
+class AnyStatisticalItem(TeaModel):
+    def __init__(
+        self,
+        item_code: str = None,
+        amount: str = None,
+        unit: str = None,
+        unit_label: str = None,
+    ):
+        # 统计项目编码
+        self.item_code = item_code
+        # 数据值，按字符串输出，最多保留6位小数
+        self.amount = amount
+        # 单位编码
+        self.unit = unit
+        # 单位标签
+        self.unit_label = unit_label
+
+    def validate(self):
+        self.validate_required(self.item_code, 'item_code')
+        self.validate_required(self.amount, 'amount')
+        self.validate_required(self.unit, 'unit')
+        self.validate_required(self.unit_label, 'unit_label')
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.item_code is not None:
+            result['item_code'] = self.item_code
+        if self.amount is not None:
+            result['amount'] = self.amount
+        if self.unit is not None:
+            result['unit'] = self.unit
+        if self.unit_label is not None:
+            result['unit_label'] = self.unit_label
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('item_code') is not None:
+            self.item_code = m.get('item_code')
+        if m.get('amount') is not None:
+            self.amount = m.get('amount')
+        if m.get('unit') is not None:
+            self.unit = m.get('unit')
+        if m.get('unit_label') is not None:
+            self.unit_label = m.get('unit_label')
+        return self
+
+
+class GreenOperationRecordSummary(TeaModel):
+    def __init__(
+        self,
+        green_operation_no: str = None,
+        green_operation_type: str = None,
+        green_operation_type_name: str = None,
+        enterprise_biz_no: str = None,
+        occurrence_time: str = None,
+        green_energy_amount: int = None,
+    ):
+        # 绿色行为记录编码
+        self.green_operation_no = green_operation_no
+        # 绿色行为类型
+        self.green_operation_type = green_operation_type
+        # 绿色行为类型名称
+        self.green_operation_type_name = green_operation_type_name
+        # 发生绿色行为的相关业务单号
+        self.enterprise_biz_no = enterprise_biz_no
+        # 绿色行为发生时间，格式应如：2021-07-21 12:11:11
+        self.occurrence_time = occurrence_time
+        # 绿色行为的绿色能量值
+        self.green_energy_amount = green_energy_amount
+
+    def validate(self):
+        self.validate_required(self.green_operation_no, 'green_operation_no')
+        self.validate_required(self.green_operation_type, 'green_operation_type')
+        self.validate_required(self.green_operation_type_name, 'green_operation_type_name')
+        self.validate_required(self.enterprise_biz_no, 'enterprise_biz_no')
+        self.validate_required(self.occurrence_time, 'occurrence_time')
+        self.validate_required(self.green_energy_amount, 'green_energy_amount')
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.green_operation_no is not None:
+            result['green_operation_no'] = self.green_operation_no
+        if self.green_operation_type is not None:
+            result['green_operation_type'] = self.green_operation_type
+        if self.green_operation_type_name is not None:
+            result['green_operation_type_name'] = self.green_operation_type_name
+        if self.enterprise_biz_no is not None:
+            result['enterprise_biz_no'] = self.enterprise_biz_no
+        if self.occurrence_time is not None:
+            result['occurrence_time'] = self.occurrence_time
+        if self.green_energy_amount is not None:
+            result['green_energy_amount'] = self.green_energy_amount
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('green_operation_no') is not None:
+            self.green_operation_no = m.get('green_operation_no')
+        if m.get('green_operation_type') is not None:
+            self.green_operation_type = m.get('green_operation_type')
+        if m.get('green_operation_type_name') is not None:
+            self.green_operation_type_name = m.get('green_operation_type_name')
+        if m.get('enterprise_biz_no') is not None:
+            self.enterprise_biz_no = m.get('enterprise_biz_no')
+        if m.get('occurrence_time') is not None:
+            self.occurrence_time = m.get('occurrence_time')
+        if m.get('green_energy_amount') is not None:
+            self.green_energy_amount = m.get('green_energy_amount')
+        return self
+
+
+class GreenOperationStatisticsByFrequence(TeaModel):
+    def __init__(
+        self,
+        occurrence_period: str = None,
+        green_energy_amount: int = None,
+        green_operation_records: int = None,
+    ):
+        # 绿色行为发生时期
+        self.occurrence_period = occurrence_period
+        # 绿色行为产生的绿色能量值
+        self.green_energy_amount = green_energy_amount
+        # 时期内发生绿色行为的记录条数
+        self.green_operation_records = green_operation_records
+
+    def validate(self):
+        self.validate_required(self.occurrence_period, 'occurrence_period')
+        self.validate_required(self.green_energy_amount, 'green_energy_amount')
+        self.validate_required(self.green_operation_records, 'green_operation_records')
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.occurrence_period is not None:
+            result['occurrence_period'] = self.occurrence_period
+        if self.green_energy_amount is not None:
+            result['green_energy_amount'] = self.green_energy_amount
+        if self.green_operation_records is not None:
+            result['green_operation_records'] = self.green_operation_records
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('occurrence_period') is not None:
+            self.occurrence_period = m.get('occurrence_period')
+        if m.get('green_energy_amount') is not None:
+            self.green_energy_amount = m.get('green_energy_amount')
+        if m.get('green_operation_records') is not None:
+            self.green_operation_records = m.get('green_operation_records')
+        return self
+
+
+class GreenOperationStatisticsByType(TeaModel):
+    def __init__(
+        self,
+        green_operation_type: str = None,
+        green_operation_type_name: str = None,
+        green_energy_amount: int = None,
+        green_operation_records: int = None,
+    ):
+        # 绿色行为类型
+        self.green_operation_type = green_operation_type
+        # 绿色行为类型名称
+        self.green_operation_type_name = green_operation_type_name
+        # 绿色行为产生的绿色能量值
+        self.green_energy_amount = green_energy_amount
+        # 相关类型的绿色行为记录数
+        self.green_operation_records = green_operation_records
+
+    def validate(self):
+        self.validate_required(self.green_operation_type, 'green_operation_type')
+        self.validate_required(self.green_operation_type_name, 'green_operation_type_name')
+        self.validate_required(self.green_energy_amount, 'green_energy_amount')
+        self.validate_required(self.green_operation_records, 'green_operation_records')
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.green_operation_type is not None:
+            result['green_operation_type'] = self.green_operation_type
+        if self.green_operation_type_name is not None:
+            result['green_operation_type_name'] = self.green_operation_type_name
+        if self.green_energy_amount is not None:
+            result['green_energy_amount'] = self.green_energy_amount
+        if self.green_operation_records is not None:
+            result['green_operation_records'] = self.green_operation_records
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('green_operation_type') is not None:
+            self.green_operation_type = m.get('green_operation_type')
+        if m.get('green_operation_type_name') is not None:
+            self.green_operation_type_name = m.get('green_operation_type_name')
+        if m.get('green_energy_amount') is not None:
+            self.green_energy_amount = m.get('green_energy_amount')
+        if m.get('green_operation_records') is not None:
+            self.green_operation_records = m.get('green_operation_records')
+        return self
+
+
+class AnnualMonthEmissionDatum(TeaModel):
+    def __init__(
+        self,
+        year: str = None,
+        month: str = None,
+        value: str = None,
+    ):
+        # 统计的年份
+        self.year = year
+        # 统计的月份
+        self.month = month
+        # 统计排放量
+        self.value = value
+
+    def validate(self):
+        self.validate_required(self.year, 'year')
+        self.validate_required(self.month, 'month')
+        self.validate_required(self.value, 'value')
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.year is not None:
+            result['year'] = self.year
+        if self.month is not None:
+            result['month'] = self.month
+        if self.value is not None:
+            result['value'] = self.value
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('year') is not None:
+            self.year = m.get('year')
+        if m.get('month') is not None:
+            self.month = m.get('month')
+        if m.get('value') is not None:
+            self.value = m.get('value')
+        return self
+
+
+class AccountRegisterResponse(TeaModel):
+    def __init__(
+        self,
+        user_did: str = None,
+    ):
+        # 账户did
+        self.user_did = user_did
+
+    def validate(self):
+        self.validate_required(self.user_did, 'user_did')
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.user_did is not None:
+            result['user_did'] = self.user_did
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('user_did') is not None:
+            self.user_did = m.get('user_did')
+        return self
+
+
+class BlockchainDTO(TeaModel):
+    def __init__(
+        self,
+        tx_hash: str = None,
+        block_number: int = None,
+    ):
+        # 交易hash
+        self.tx_hash = tx_hash
+        # 当前块高
+        self.block_number = block_number
+
+    def validate(self):
+        self.validate_required(self.tx_hash, 'tx_hash')
+        self.validate_required(self.block_number, 'block_number')
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.tx_hash is not None:
+            result['tx_hash'] = self.tx_hash
+        if self.block_number is not None:
+            result['block_number'] = self.block_number
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('tx_hash') is not None:
+            self.tx_hash = m.get('tx_hash')
+        if m.get('block_number') is not None:
+            self.block_number = m.get('block_number')
+        return self
+
+
+class EmissionsLocationStatistics(TeaModel):
+    def __init__(
+        self,
+        location_no: str = None,
+        location_name: str = None,
+        emission_amount: str = None,
+        data_unit: str = None,
+    ):
+        # 盘查单元编码
+        self.location_no = location_no
+        # 盘查单元名称
+        self.location_name = location_name
+        # 盘查单元排放量
+        self.emission_amount = emission_amount
+        # 排放量单位，默认为：tCO2e
+        self.data_unit = data_unit
+
+    def validate(self):
+        self.validate_required(self.location_no, 'location_no')
+        self.validate_required(self.location_name, 'location_name')
+        self.validate_required(self.emission_amount, 'emission_amount')
+        self.validate_required(self.data_unit, 'data_unit')
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.location_no is not None:
+            result['location_no'] = self.location_no
+        if self.location_name is not None:
+            result['location_name'] = self.location_name
+        if self.emission_amount is not None:
+            result['emission_amount'] = self.emission_amount
+        if self.data_unit is not None:
+            result['data_unit'] = self.data_unit
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('location_no') is not None:
+            self.location_no = m.get('location_no')
+        if m.get('location_name') is not None:
+            self.location_name = m.get('location_name')
+        if m.get('emission_amount') is not None:
+            self.emission_amount = m.get('emission_amount')
+        if m.get('data_unit') is not None:
+            self.data_unit = m.get('data_unit')
+        return self
+
+
+class EmissionsCityStatistics(TeaModel):
+    def __init__(
+        self,
+        city_no: str = None,
+        city_name: str = None,
+        emission_amount: str = None,
+        emission_amount_today: str = None,
+        reduction_amount: str = None,
+        reduction_amount_today: str = None,
+        counteraction_amount: str = None,
+        counteraction_amount_today: str = None,
+        data_unit: str = None,
+    ):
+        # 城市编码
+        self.city_no = city_no
+        # 城市名称
+        self.city_name = city_name
+        # 累计排放量
+        self.emission_amount = emission_amount
+        # 今日新增碳排放量
+        self.emission_amount_today = emission_amount_today
+        # 总减碳量
+        self.reduction_amount = reduction_amount
+        # 今日减碳量
+        self.reduction_amount_today = reduction_amount_today
+        # 总抵消量
+        self.counteraction_amount = counteraction_amount
+        # 今日抵消量
+        self.counteraction_amount_today = counteraction_amount_today
+        # 排放量单位，默认为：
+        self.data_unit = data_unit
+
+    def validate(self):
+        self.validate_required(self.city_no, 'city_no')
+        self.validate_required(self.city_name, 'city_name')
+        self.validate_required(self.emission_amount, 'emission_amount')
+        self.validate_required(self.emission_amount_today, 'emission_amount_today')
+        self.validate_required(self.reduction_amount, 'reduction_amount')
+        self.validate_required(self.reduction_amount_today, 'reduction_amount_today')
+        self.validate_required(self.counteraction_amount, 'counteraction_amount')
+        self.validate_required(self.counteraction_amount_today, 'counteraction_amount_today')
+        self.validate_required(self.data_unit, 'data_unit')
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.city_no is not None:
+            result['city_no'] = self.city_no
+        if self.city_name is not None:
+            result['city_name'] = self.city_name
+        if self.emission_amount is not None:
+            result['emission_amount'] = self.emission_amount
+        if self.emission_amount_today is not None:
+            result['emission_amount_today'] = self.emission_amount_today
+        if self.reduction_amount is not None:
+            result['reduction_amount'] = self.reduction_amount
+        if self.reduction_amount_today is not None:
+            result['reduction_amount_today'] = self.reduction_amount_today
+        if self.counteraction_amount is not None:
+            result['counteraction_amount'] = self.counteraction_amount
+        if self.counteraction_amount_today is not None:
+            result['counteraction_amount_today'] = self.counteraction_amount_today
+        if self.data_unit is not None:
+            result['data_unit'] = self.data_unit
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('city_no') is not None:
+            self.city_no = m.get('city_no')
+        if m.get('city_name') is not None:
+            self.city_name = m.get('city_name')
+        if m.get('emission_amount') is not None:
+            self.emission_amount = m.get('emission_amount')
+        if m.get('emission_amount_today') is not None:
+            self.emission_amount_today = m.get('emission_amount_today')
+        if m.get('reduction_amount') is not None:
+            self.reduction_amount = m.get('reduction_amount')
+        if m.get('reduction_amount_today') is not None:
+            self.reduction_amount_today = m.get('reduction_amount_today')
+        if m.get('counteraction_amount') is not None:
+            self.counteraction_amount = m.get('counteraction_amount')
+        if m.get('counteraction_amount_today') is not None:
+            self.counteraction_amount_today = m.get('counteraction_amount_today')
+        if m.get('data_unit') is not None:
+            self.data_unit = m.get('data_unit')
+        return self
+
+
+class EmissionCounteractionStatistics(TeaModel):
+    def __init__(
+        self,
+        assert_type: str = None,
+        assert_type_name: str = None,
+        counteraction_amount: str = None,
+        data_unit: str = None,
+    ):
+        # 碳抵消类别
+        self.assert_type = assert_type
+        # 碳抵消类别名称
+        self.assert_type_name = assert_type_name
+        # 抵消量
+        self.counteraction_amount = counteraction_amount
+        # 排放量单位，默认为：tCO2e
+        self.data_unit = data_unit
+
+    def validate(self):
+        self.validate_required(self.assert_type, 'assert_type')
+        self.validate_required(self.assert_type_name, 'assert_type_name')
+        self.validate_required(self.counteraction_amount, 'counteraction_amount')
+        self.validate_required(self.data_unit, 'data_unit')
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.assert_type is not None:
+            result['assert_type'] = self.assert_type
+        if self.assert_type_name is not None:
+            result['assert_type_name'] = self.assert_type_name
+        if self.counteraction_amount is not None:
+            result['counteraction_amount'] = self.counteraction_amount
+        if self.data_unit is not None:
+            result['data_unit'] = self.data_unit
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('assert_type') is not None:
+            self.assert_type = m.get('assert_type')
+        if m.get('assert_type_name') is not None:
+            self.assert_type_name = m.get('assert_type_name')
+        if m.get('counteraction_amount') is not None:
+            self.counteraction_amount = m.get('counteraction_amount')
+        if m.get('data_unit') is not None:
+            self.data_unit = m.get('data_unit')
+        return self
+
+
+class CarbonAccountInfo(TeaModel):
+    def __init__(
+        self,
+        user_did: str = None,
+        user_name: str = None,
+    ):
+        # 账户did
+        self.user_did = user_did
+        # 账户名称
+        self.user_name = user_name
+
+    def validate(self):
+        self.validate_required(self.user_did, 'user_did')
+        self.validate_required(self.user_name, 'user_name')
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.user_did is not None:
+            result['user_did'] = self.user_did
+        if self.user_name is not None:
+            result['user_name'] = self.user_name
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('user_did') is not None:
+            self.user_did = m.get('user_did')
+        if m.get('user_name') is not None:
+            self.user_name = m.get('user_name')
+        return self
+
+
+class AuthenticationInfoVO(TeaModel):
+    def __init__(
+        self,
+        authentication_no: str = None,
+        authorizer_did: str = None,
+        authorizer_name: str = None,
+        authorized_did: str = None,
+        authorized_name: str = None,
+        data_transfer_type: str = None,
+        authentication_deetail: str = None,
+        status: str = None,
+    ):
+        # 授权记录编码
+        self.authentication_no = authentication_no
+        # 收取方did
+        self.authorizer_did = authorizer_did
+        # 授权方名称
+        self.authorizer_name = authorizer_name
+        # 被授权方did
+        self.authorized_did = authorized_did
+        # 被授权方名称
+        self.authorized_name = authorized_name
+        # 数据协作类型
+        self.data_transfer_type = data_transfer_type
+        # 授权详情
+        self.authentication_deetail = authentication_deetail
+        # 授权状态
+        self.status = status
+
+    def validate(self):
+        self.validate_required(self.authentication_no, 'authentication_no')
+        self.validate_required(self.authorizer_did, 'authorizer_did')
+        self.validate_required(self.authorizer_name, 'authorizer_name')
+        self.validate_required(self.authorized_did, 'authorized_did')
+        self.validate_required(self.authorized_name, 'authorized_name')
+        self.validate_required(self.data_transfer_type, 'data_transfer_type')
+        self.validate_required(self.authentication_deetail, 'authentication_deetail')
+        self.validate_required(self.status, 'status')
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.authentication_no is not None:
+            result['authentication_no'] = self.authentication_no
+        if self.authorizer_did is not None:
+            result['authorizer_did'] = self.authorizer_did
+        if self.authorizer_name is not None:
+            result['authorizer_name'] = self.authorizer_name
+        if self.authorized_did is not None:
+            result['authorized_did'] = self.authorized_did
+        if self.authorized_name is not None:
+            result['authorized_name'] = self.authorized_name
+        if self.data_transfer_type is not None:
+            result['data_transfer_type'] = self.data_transfer_type
+        if self.authentication_deetail is not None:
+            result['authentication_deetail'] = self.authentication_deetail
+        if self.status is not None:
+            result['status'] = self.status
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('authentication_no') is not None:
+            self.authentication_no = m.get('authentication_no')
+        if m.get('authorizer_did') is not None:
+            self.authorizer_did = m.get('authorizer_did')
+        if m.get('authorizer_name') is not None:
+            self.authorizer_name = m.get('authorizer_name')
+        if m.get('authorized_did') is not None:
+            self.authorized_did = m.get('authorized_did')
+        if m.get('authorized_name') is not None:
+            self.authorized_name = m.get('authorized_name')
+        if m.get('data_transfer_type') is not None:
+            self.data_transfer_type = m.get('data_transfer_type')
+        if m.get('authentication_deetail') is not None:
+            self.authentication_deetail = m.get('authentication_deetail')
+        if m.get('status') is not None:
+            self.status = m.get('status')
+        return self
+
+
+class CarbonOffsetAcquisitionItem(TeaModel):
+    def __init__(
+        self,
+        acquisition_item_no: str = None,
+        project_no: str = None,
+        account_did: str = None,
+        occurrent_time: str = None,
+        scenario_code: str = None,
+        scenario_name: str = None,
+        platform_no: str = None,
+        active_datum: List[AnyAmountItem] = None,
+        offset_volume: str = None,
+        carbon_energy: int = None,
+    ):
+        # 采集数据单号
+        self.acquisition_item_no = acquisition_item_no
+        # 碳补偿项目编号
+        self.project_no = project_no
+        # 参与账户DID
+        self.account_did = account_did
+        # 发生时间
+        self.occurrent_time = occurrent_time
+        # 发生场景编码
+        self.scenario_code = scenario_code
+        # 发生场景名称
+        self.scenario_name = scenario_name
+        # 碳普惠平台编码，如果非平台采集数据，则显示为自采编码：Self
+        self.platform_no = platform_no
+        # 活动数据原始值，多个活动数据列表
+        self.active_datum = active_datum
+        # 减碳量
+        self.offset_volume = offset_volume
+        # 碳能量值
+        self.carbon_energy = carbon_energy
+
+    def validate(self):
+        self.validate_required(self.acquisition_item_no, 'acquisition_item_no')
+        self.validate_required(self.project_no, 'project_no')
+        self.validate_required(self.account_did, 'account_did')
+        self.validate_required(self.occurrent_time, 'occurrent_time')
+        self.validate_required(self.scenario_code, 'scenario_code')
+        self.validate_required(self.scenario_name, 'scenario_name')
+        self.validate_required(self.platform_no, 'platform_no')
+        if self.active_datum:
+            for k in self.active_datum:
+                if k:
+                    k.validate()
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.acquisition_item_no is not None:
+            result['acquisition_item_no'] = self.acquisition_item_no
+        if self.project_no is not None:
+            result['project_no'] = self.project_no
+        if self.account_did is not None:
+            result['account_did'] = self.account_did
+        if self.occurrent_time is not None:
+            result['occurrent_time'] = self.occurrent_time
+        if self.scenario_code is not None:
+            result['scenario_code'] = self.scenario_code
+        if self.scenario_name is not None:
+            result['scenario_name'] = self.scenario_name
+        if self.platform_no is not None:
+            result['platform_no'] = self.platform_no
+        result['active_datum'] = []
+        if self.active_datum is not None:
+            for k in self.active_datum:
+                result['active_datum'].append(k.to_map() if k else None)
+        if self.offset_volume is not None:
+            result['offset_volume'] = self.offset_volume
+        if self.carbon_energy is not None:
+            result['carbon_energy'] = self.carbon_energy
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('acquisition_item_no') is not None:
+            self.acquisition_item_no = m.get('acquisition_item_no')
+        if m.get('project_no') is not None:
+            self.project_no = m.get('project_no')
+        if m.get('account_did') is not None:
+            self.account_did = m.get('account_did')
+        if m.get('occurrent_time') is not None:
+            self.occurrent_time = m.get('occurrent_time')
+        if m.get('scenario_code') is not None:
+            self.scenario_code = m.get('scenario_code')
+        if m.get('scenario_name') is not None:
+            self.scenario_name = m.get('scenario_name')
+        if m.get('platform_no') is not None:
+            self.platform_no = m.get('platform_no')
+        self.active_datum = []
+        if m.get('active_datum') is not None:
+            for k in m.get('active_datum'):
+                temp_model = AnyAmountItem()
+                self.active_datum.append(temp_model.from_map(k))
+        if m.get('offset_volume') is not None:
+            self.offset_volume = m.get('offset_volume')
+        if m.get('carbon_energy') is not None:
+            self.carbon_energy = m.get('carbon_energy')
+        return self
+
+
+class EnterpriseMemberSummary(TeaModel):
+    def __init__(
+        self,
+        account_did: str = None,
+        name: str = None,
+        mobile: str = None,
+        register_time: str = None,
+    ):
+        # 机构会员DID
+        self.account_did = account_did
+        # 会员姓名，数据脱敏处理返回
+        self.name = name
+        # 会员手机号码，数据脱敏处理返回
+        self.mobile = mobile
+        # 会员注册时间
+        self.register_time = register_time
+
+    def validate(self):
+        self.validate_required(self.account_did, 'account_did')
+        self.validate_required(self.register_time, 'register_time')
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.account_did is not None:
+            result['account_did'] = self.account_did
+        if self.name is not None:
+            result['name'] = self.name
+        if self.mobile is not None:
+            result['mobile'] = self.mobile
+        if self.register_time is not None:
+            result['register_time'] = self.register_time
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('account_did') is not None:
+            self.account_did = m.get('account_did')
+        if m.get('name') is not None:
+            self.name = m.get('name')
+        if m.get('mobile') is not None:
+            self.mobile = m.get('mobile')
+        if m.get('register_time') is not None:
+            self.register_time = m.get('register_time')
+        return self
+
+
+class CarbonOffsetActiveDataDetail(TeaModel):
+    def __init__(
+        self,
+        active_data_no: str = None,
+        active_data_name: str = None,
+        active_data_unit: str = None,
+        description: str = None,
+        active_data_value: str = None,
+    ):
+        # 活动数据编号
+        self.active_data_no = active_data_no
+        # 活动数据名称
+        self.active_data_name = active_data_name
+        # 活动数据单位
+        self.active_data_unit = active_data_unit
+        # 活动数据描述文案
+        self.description = description
+        # 活动数据值
+        self.active_data_value = active_data_value
+
+    def validate(self):
+        self.validate_required(self.active_data_no, 'active_data_no')
+        self.validate_required(self.active_data_value, 'active_data_value')
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.active_data_no is not None:
+            result['active_data_no'] = self.active_data_no
+        if self.active_data_name is not None:
+            result['active_data_name'] = self.active_data_name
+        if self.active_data_unit is not None:
+            result['active_data_unit'] = self.active_data_unit
+        if self.description is not None:
+            result['description'] = self.description
+        if self.active_data_value is not None:
+            result['active_data_value'] = self.active_data_value
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('active_data_no') is not None:
+            self.active_data_no = m.get('active_data_no')
+        if m.get('active_data_name') is not None:
+            self.active_data_name = m.get('active_data_name')
+        if m.get('active_data_unit') is not None:
+            self.active_data_unit = m.get('active_data_unit')
+        if m.get('description') is not None:
+            self.description = m.get('description')
+        if m.get('active_data_value') is not None:
+            self.active_data_value = m.get('active_data_value')
+        return self
+
+
+class PlatformCustomerSummary(TeaModel):
+    def __init__(
+        self,
+        customer_id: str = None,
+        customer_name: str = None,
+        contact_person: str = None,
+        contact_telephone: str = None,
+        contact_email: str = None,
+        social_credit_code: str = None,
+    ):
+        # 三方平台的客户ID
+        self.customer_id = customer_id
+        # 三方平台客户名称
+        self.customer_name = customer_name
+        # 联系人
+        self.contact_person = contact_person
+        # 联系电话
+        self.contact_telephone = contact_telephone
+        # 联系邮箱
+        self.contact_email = contact_email
+        # 统一社会信用代码
+        self.social_credit_code = social_credit_code
+
+    def validate(self):
+        self.validate_required(self.customer_id, 'customer_id')
+        self.validate_required(self.customer_name, 'customer_name')
+        self.validate_required(self.contact_person, 'contact_person')
+        self.validate_required(self.contact_telephone, 'contact_telephone')
+        self.validate_required(self.social_credit_code, 'social_credit_code')
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.customer_id is not None:
+            result['customer_id'] = self.customer_id
+        if self.customer_name is not None:
+            result['customer_name'] = self.customer_name
+        if self.contact_person is not None:
+            result['contact_person'] = self.contact_person
+        if self.contact_telephone is not None:
+            result['contact_telephone'] = self.contact_telephone
+        if self.contact_email is not None:
+            result['contact_email'] = self.contact_email
+        if self.social_credit_code is not None:
+            result['social_credit_code'] = self.social_credit_code
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('customer_id') is not None:
+            self.customer_id = m.get('customer_id')
+        if m.get('customer_name') is not None:
+            self.customer_name = m.get('customer_name')
+        if m.get('contact_person') is not None:
+            self.contact_person = m.get('contact_person')
+        if m.get('contact_telephone') is not None:
+            self.contact_telephone = m.get('contact_telephone')
+        if m.get('contact_email') is not None:
+            self.contact_email = m.get('contact_email')
+        if m.get('social_credit_code') is not None:
+            self.social_credit_code = m.get('social_credit_code')
+        return self
+
+
+class EnterpriseProductSummary(TeaModel):
+    def __init__(
+        self,
+        enterprise_custom_code: str = None,
+        product_name: str = None,
+        specification: str = None,
+        product_description: str = None,
+        product_category_name: str = None,
+        brand_information: str = None,
+        process_flow_file_list: List[EnterpriseDocumentFile] = None,
+        product_picture_file_list: List[EnterpriseDocumentFile] = None,
+    ):
+        # 产品自定义编码
+        self.enterprise_custom_code = enterprise_custom_code
+        # 产品名称
+        self.product_name = product_name
+        # 规格型号
+        self.specification = specification
+        # 产品描述
+        self.product_description = product_description
+        # 产品分类名称
+        self.product_category_name = product_category_name
+        # 品牌信息
+        self.brand_information = brand_information
+        # 工艺流程文件路径，上传文件后由上传文件接口提供，最多支持上传3个工艺流程文件
+        self.process_flow_file_list = process_flow_file_list
+        # 产品图片文件路径，上传文件后由上传文件接口提供，最多支持上传8个产品图片文件
+        self.product_picture_file_list = product_picture_file_list
+
+    def validate(self):
+        self.validate_required(self.enterprise_custom_code, 'enterprise_custom_code')
+        self.validate_required(self.product_name, 'product_name')
+        self.validate_required(self.specification, 'specification')
+        self.validate_required(self.product_category_name, 'product_category_name')
+        if self.process_flow_file_list:
+            for k in self.process_flow_file_list:
+                if k:
+                    k.validate()
+        if self.product_picture_file_list:
+            for k in self.product_picture_file_list:
+                if k:
+                    k.validate()
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.enterprise_custom_code is not None:
+            result['enterprise_custom_code'] = self.enterprise_custom_code
+        if self.product_name is not None:
+            result['product_name'] = self.product_name
+        if self.specification is not None:
+            result['specification'] = self.specification
+        if self.product_description is not None:
+            result['product_description'] = self.product_description
+        if self.product_category_name is not None:
+            result['product_category_name'] = self.product_category_name
+        if self.brand_information is not None:
+            result['brand_information'] = self.brand_information
+        result['process_flow_file_list'] = []
+        if self.process_flow_file_list is not None:
+            for k in self.process_flow_file_list:
+                result['process_flow_file_list'].append(k.to_map() if k else None)
+        result['product_picture_file_list'] = []
+        if self.product_picture_file_list is not None:
+            for k in self.product_picture_file_list:
+                result['product_picture_file_list'].append(k.to_map() if k else None)
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('enterprise_custom_code') is not None:
+            self.enterprise_custom_code = m.get('enterprise_custom_code')
+        if m.get('product_name') is not None:
+            self.product_name = m.get('product_name')
+        if m.get('specification') is not None:
+            self.specification = m.get('specification')
+        if m.get('product_description') is not None:
+            self.product_description = m.get('product_description')
+        if m.get('product_category_name') is not None:
+            self.product_category_name = m.get('product_category_name')
+        if m.get('brand_information') is not None:
+            self.brand_information = m.get('brand_information')
+        self.process_flow_file_list = []
+        if m.get('process_flow_file_list') is not None:
+            for k in m.get('process_flow_file_list'):
+                temp_model = EnterpriseDocumentFile()
+                self.process_flow_file_list.append(temp_model.from_map(k))
+        self.product_picture_file_list = []
+        if m.get('product_picture_file_list') is not None:
+            for k in m.get('product_picture_file_list'):
+                temp_model = EnterpriseDocumentFile()
+                self.product_picture_file_list.append(temp_model.from_map(k))
+        return self
+
+
+class LcaStageCarbonItem(TeaModel):
+    def __init__(
+        self,
+        lca_stage_code: str = None,
+        lca_stage_carbon_amount: str = None,
+    ):
+        # 生命周期阶段：
+        # [MaterialPurchase]-原材料，[ProductManufacture]-生产制造，[ProductSale]-分销，[ProductUsage]-产品使用，[ProductWithdraw]-处置/再生利用
+        self.lca_stage_code = lca_stage_code
+        # 阶段碳排放量
+        self.lca_stage_carbon_amount = lca_stage_carbon_amount
+
+    def validate(self):
+        self.validate_required(self.lca_stage_code, 'lca_stage_code')
+        self.validate_required(self.lca_stage_carbon_amount, 'lca_stage_carbon_amount')
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.lca_stage_code is not None:
+            result['lca_stage_code'] = self.lca_stage_code
+        if self.lca_stage_carbon_amount is not None:
+            result['lca_stage_carbon_amount'] = self.lca_stage_carbon_amount
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('lca_stage_code') is not None:
+            self.lca_stage_code = m.get('lca_stage_code')
+        if m.get('lca_stage_carbon_amount') is not None:
+            self.lca_stage_carbon_amount = m.get('lca_stage_carbon_amount')
+        return self
+
+
+class EnterpriseProductOutline(TeaModel):
+    def __init__(
+        self,
+        enterprise_custom_code: str = None,
+        product_name: str = None,
+        specification: str = None,
+        product_description: str = None,
+        product_category_name: str = None,
+        brand_information: str = None,
+    ):
+        # 产品自定义编码
+        # 
+        self.enterprise_custom_code = enterprise_custom_code
+        # 产品名称
+        # 
+        self.product_name = product_name
+        # 规格型号
+        self.specification = specification
+        # 产品描述
+        self.product_description = product_description
+        # 产品分类名称
+        self.product_category_name = product_category_name
+        # 品牌信息
+        self.brand_information = brand_information
+
+    def validate(self):
+        self.validate_required(self.enterprise_custom_code, 'enterprise_custom_code')
+        self.validate_required(self.product_name, 'product_name')
+        self.validate_required(self.specification, 'specification')
+        self.validate_required(self.product_category_name, 'product_category_name')
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.enterprise_custom_code is not None:
+            result['enterprise_custom_code'] = self.enterprise_custom_code
+        if self.product_name is not None:
+            result['product_name'] = self.product_name
+        if self.specification is not None:
+            result['specification'] = self.specification
+        if self.product_description is not None:
+            result['product_description'] = self.product_description
+        if self.product_category_name is not None:
+            result['product_category_name'] = self.product_category_name
+        if self.brand_information is not None:
+            result['brand_information'] = self.brand_information
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('enterprise_custom_code') is not None:
+            self.enterprise_custom_code = m.get('enterprise_custom_code')
+        if m.get('product_name') is not None:
+            self.product_name = m.get('product_name')
+        if m.get('specification') is not None:
+            self.specification = m.get('specification')
+        if m.get('product_description') is not None:
+            self.product_description = m.get('product_description')
+        if m.get('product_category_name') is not None:
+            self.product_category_name = m.get('product_category_name')
+        if m.get('brand_information') is not None:
+            self.brand_information = m.get('brand_information')
+        return self
+
+
+class LcaCarbonDatum(TeaModel):
+    def __init__(
+        self,
+        lca_carbon_amount: str = None,
+        lca_report_file_url: str = None,
+        lca_detail_file_url: str = None,
+        life_cycle_boundary: str = None,
+        lca_start_date: str = None,
+        lca_end_date: str = None,
+        lca_stage_carbon_datum: List[LcaStageCarbonItem] = None,
+    ):
+        # LCA碳排放总量
+        self.lca_carbon_amount = lca_carbon_amount
+        # 足迹报告pdf文件下载地址（30分钟内下载有效）
+        self.lca_report_file_url = lca_report_file_url
+        # 足迹分析结果详情文件地址（30分钟内下载有效）
+        self.lca_detail_file_url = lca_detail_file_url
+        # B2B-从摇篮到大门，B2C-从摇篮到坟墓
+        self.life_cycle_boundary = life_cycle_boundary
+        # 足迹开始时间，格式：yyyyMMdd
+        self.lca_start_date = lca_start_date
+        # 足迹结束时间 格式：yyyyMMdd
+        self.lca_end_date = lca_end_date
+        # 分阶段碳排放量列表
+        self.lca_stage_carbon_datum = lca_stage_carbon_datum
+
+    def validate(self):
+        self.validate_required(self.lca_carbon_amount, 'lca_carbon_amount')
+        self.validate_required(self.lca_report_file_url, 'lca_report_file_url')
+        self.validate_required(self.lca_detail_file_url, 'lca_detail_file_url')
+        self.validate_required(self.life_cycle_boundary, 'life_cycle_boundary')
+        self.validate_required(self.lca_start_date, 'lca_start_date')
+        self.validate_required(self.lca_end_date, 'lca_end_date')
+        self.validate_required(self.lca_stage_carbon_datum, 'lca_stage_carbon_datum')
+        if self.lca_stage_carbon_datum:
+            for k in self.lca_stage_carbon_datum:
+                if k:
+                    k.validate()
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.lca_carbon_amount is not None:
+            result['lca_carbon_amount'] = self.lca_carbon_amount
+        if self.lca_report_file_url is not None:
+            result['lca_report_file_url'] = self.lca_report_file_url
+        if self.lca_detail_file_url is not None:
+            result['lca_detail_file_url'] = self.lca_detail_file_url
+        if self.life_cycle_boundary is not None:
+            result['life_cycle_boundary'] = self.life_cycle_boundary
+        if self.lca_start_date is not None:
+            result['lca_start_date'] = self.lca_start_date
+        if self.lca_end_date is not None:
+            result['lca_end_date'] = self.lca_end_date
+        result['lca_stage_carbon_datum'] = []
+        if self.lca_stage_carbon_datum is not None:
+            for k in self.lca_stage_carbon_datum:
+                result['lca_stage_carbon_datum'].append(k.to_map() if k else None)
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('lca_carbon_amount') is not None:
+            self.lca_carbon_amount = m.get('lca_carbon_amount')
+        if m.get('lca_report_file_url') is not None:
+            self.lca_report_file_url = m.get('lca_report_file_url')
+        if m.get('lca_detail_file_url') is not None:
+            self.lca_detail_file_url = m.get('lca_detail_file_url')
+        if m.get('life_cycle_boundary') is not None:
+            self.life_cycle_boundary = m.get('life_cycle_boundary')
+        if m.get('lca_start_date') is not None:
+            self.lca_start_date = m.get('lca_start_date')
+        if m.get('lca_end_date') is not None:
+            self.lca_end_date = m.get('lca_end_date')
+        self.lca_stage_carbon_datum = []
+        if m.get('lca_stage_carbon_datum') is not None:
+            for k in m.get('lca_stage_carbon_datum'):
+                temp_model = LcaStageCarbonItem()
+                self.lca_stage_carbon_datum.append(temp_model.from_map(k))
+        return self
+
+
+class InverterGeneration(TeaModel):
+    def __init__(
+        self,
+        inv_sn: str = None,
+        manufacturer: str = None,
+        daily: str = None,
+        total: str = None,
+    ):
+        # 逆变器SN
+        self.inv_sn = inv_sn
+        # 生产商名称
+        self.manufacturer = manufacturer
+        # 当日发电量，最多3位小数
+        self.daily = daily
+        # 累计发电量，最多3位小数
+        self.total = total
+
+    def validate(self):
+        self.validate_required(self.inv_sn, 'inv_sn')
+        self.validate_required(self.manufacturer, 'manufacturer')
+        self.validate_required(self.daily, 'daily')
+        self.validate_required(self.total, 'total')
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.inv_sn is not None:
+            result['inv_sn'] = self.inv_sn
+        if self.manufacturer is not None:
+            result['manufacturer'] = self.manufacturer
+        if self.daily is not None:
+            result['daily'] = self.daily
+        if self.total is not None:
+            result['total'] = self.total
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('inv_sn') is not None:
+            self.inv_sn = m.get('inv_sn')
+        if m.get('manufacturer') is not None:
+            self.manufacturer = m.get('manufacturer')
+        if m.get('daily') is not None:
+            self.daily = m.get('daily')
+        if m.get('total') is not None:
+            self.total = m.get('total')
+        return self
+
+
+class DeviceGeneration(TeaModel):
+    def __init__(
+        self,
+        device_no: str = None,
+        inverter_generations: List[InverterGeneration] = None,
+    ):
+        # 设备内部编号，注册设备后获取
+        self.device_no = device_no
+        # 逆变器发电量列表
+        self.inverter_generations = inverter_generations
+
+    def validate(self):
+        self.validate_required(self.device_no, 'device_no')
+        self.validate_required(self.inverter_generations, 'inverter_generations')
+        if self.inverter_generations:
+            for k in self.inverter_generations:
+                if k:
+                    k.validate()
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.device_no is not None:
+            result['device_no'] = self.device_no
+        result['inverter_generations'] = []
+        if self.inverter_generations is not None:
+            for k in self.inverter_generations:
+                result['inverter_generations'].append(k.to_map() if k else None)
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('device_no') is not None:
+            self.device_no = m.get('device_no')
+        self.inverter_generations = []
+        if m.get('inverter_generations') is not None:
+            for k in m.get('inverter_generations'):
+                temp_model = InverterGeneration()
+                self.inverter_generations.append(temp_model.from_map(k))
+        return self
+
+
+class DepositFieldValue(TeaModel):
+    def __init__(
+        self,
+        name: str = None,
+        value: str = None,
+    ):
+        # 存证数据字段名
+        self.name = name
+        # 存证数据字段值
+        self.value = value
+
+    def validate(self):
+        self.validate_required(self.name, 'name')
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.name is not None:
+            result['name'] = self.name
+        if self.value is not None:
+            result['value'] = self.value
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('name') is not None:
+            self.name = m.get('name')
+        if m.get('value') is not None:
+            self.value = m.get('value')
+        return self
+
+
+class DataDepositInfo(TeaModel):
+    def __init__(
+        self,
+        data_value: List[DepositFieldValue] = None,
+        tx_id: str = None,
+        user_id: str = None,
+        deposit_content: str = None,
+        status: str = None,
+        timestamp: int = None,
+    ):
+        # 存证字段值
+        self.data_value = data_value
+        # 数据存证区块链交易ID
+        self.tx_id = tx_id
+        # 数据存证操作用户ID
+        self.user_id = user_id
+        # 存证数据内容
+        self.deposit_content = deposit_content
+        # 存证执行状态
+        self.status = status
+        # 存证执行(发起)时间
+        self.timestamp = timestamp
+
+    def validate(self):
+        self.validate_required(self.data_value, 'data_value')
+        if self.data_value:
+            for k in self.data_value:
+                if k:
+                    k.validate()
+        self.validate_required(self.user_id, 'user_id')
+        self.validate_required(self.deposit_content, 'deposit_content')
+        self.validate_required(self.status, 'status')
+        self.validate_required(self.timestamp, 'timestamp')
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        result['data_value'] = []
+        if self.data_value is not None:
+            for k in self.data_value:
+                result['data_value'].append(k.to_map() if k else None)
+        if self.tx_id is not None:
+            result['tx_id'] = self.tx_id
+        if self.user_id is not None:
+            result['user_id'] = self.user_id
+        if self.deposit_content is not None:
+            result['deposit_content'] = self.deposit_content
+        if self.status is not None:
+            result['status'] = self.status
+        if self.timestamp is not None:
+            result['timestamp'] = self.timestamp
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        self.data_value = []
+        if m.get('data_value') is not None:
+            for k in m.get('data_value'):
+                temp_model = DepositFieldValue()
+                self.data_value.append(temp_model.from_map(k))
+        if m.get('tx_id') is not None:
+            self.tx_id = m.get('tx_id')
+        if m.get('user_id') is not None:
+            self.user_id = m.get('user_id')
+        if m.get('deposit_content') is not None:
+            self.deposit_content = m.get('deposit_content')
+        if m.get('status') is not None:
+            self.status = m.get('status')
+        if m.get('timestamp') is not None:
+            self.timestamp = m.get('timestamp')
+        return self
+
+
+class DataAssetInfo(TeaModel):
+    def __init__(
+        self,
+        dataset_did: str = None,
+        user_did: str = None,
+        dataset_name: str = None,
+        data_type: str = None,
+    ):
+        # 数据资产DID
+        self.dataset_did = dataset_did
+        # 数据资产所有方DID
+        self.user_did = user_did
+        # 数据资产名称
+        self.dataset_name = dataset_name
+        # 数据类型
+        self.data_type = data_type
+
+    def validate(self):
+        self.validate_required(self.dataset_did, 'dataset_did')
+        self.validate_required(self.user_did, 'user_did')
+        self.validate_required(self.dataset_name, 'dataset_name')
+        self.validate_required(self.data_type, 'data_type')
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.dataset_did is not None:
+            result['dataset_did'] = self.dataset_did
+        if self.user_did is not None:
+            result['user_did'] = self.user_did
+        if self.dataset_name is not None:
+            result['dataset_name'] = self.dataset_name
+        if self.data_type is not None:
+            result['data_type'] = self.data_type
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('dataset_did') is not None:
+            self.dataset_did = m.get('dataset_did')
+        if m.get('user_did') is not None:
+            self.user_did = m.get('user_did')
+        if m.get('dataset_name') is not None:
+            self.dataset_name = m.get('dataset_name')
+        if m.get('data_type') is not None:
+            self.data_type = m.get('data_type')
+        return self
+
+
+class AuthorizePolicy(TeaModel):
+    def __init__(
+        self,
+        policy_id: str = None,
+        description: str = None,
+        authorize_config: str = None,
+    ):
+        # 授权策略ID
+        self.policy_id = policy_id
+        # 授权策略描述
+        self.description = description
+        # 授权策略配置
+        self.authorize_config = authorize_config
+
+    def validate(self):
+        self.validate_required(self.policy_id, 'policy_id')
+        self.validate_required(self.description, 'description')
+        self.validate_required(self.authorize_config, 'authorize_config')
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.policy_id is not None:
+            result['policy_id'] = self.policy_id
+        if self.description is not None:
+            result['description'] = self.description
+        if self.authorize_config is not None:
+            result['authorize_config'] = self.authorize_config
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('policy_id') is not None:
+            self.policy_id = m.get('policy_id')
+        if m.get('description') is not None:
+            self.description = m.get('description')
+        if m.get('authorize_config') is not None:
+            self.authorize_config = m.get('authorize_config')
+        return self
+
+
+class DataTypeInfo(TeaModel):
+    def __init__(
+        self,
+        data_type_no: str = None,
+        data_type_name: str = None,
+        data_type_config: str = None,
+        data_json_schema: str = None,
+    ):
+        # 数据类型编码
+        self.data_type_no = data_type_no
+        # 数据类型名称
+        self.data_type_name = data_type_name
+        # 数据类型配置
+        self.data_type_config = data_type_config
+        # 数据JSON格式检查
+        self.data_json_schema = data_json_schema
+
+    def validate(self):
+        self.validate_required(self.data_type_no, 'data_type_no')
+        self.validate_required(self.data_type_name, 'data_type_name')
+        self.validate_required(self.data_type_config, 'data_type_config')
+        self.validate_required(self.data_json_schema, 'data_json_schema')
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.data_type_no is not None:
+            result['data_type_no'] = self.data_type_no
+        if self.data_type_name is not None:
+            result['data_type_name'] = self.data_type_name
+        if self.data_type_config is not None:
+            result['data_type_config'] = self.data_type_config
+        if self.data_json_schema is not None:
+            result['data_json_schema'] = self.data_json_schema
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('data_type_no') is not None:
+            self.data_type_no = m.get('data_type_no')
+        if m.get('data_type_name') is not None:
+            self.data_type_name = m.get('data_type_name')
+        if m.get('data_type_config') is not None:
+            self.data_type_config = m.get('data_type_config')
+        if m.get('data_json_schema') is not None:
+            self.data_json_schema = m.get('data_json_schema')
+        return self
+
+
+class TransportActiveData(TeaModel):
+    def __init__(
+        self,
+        transport_code: str = None,
+        equipment: str = None,
+        distance: str = None,
+        is_empty_load: bool = None,
+    ):
+        # 运输方式编码
+        self.transport_code = transport_code
+        # 运输设备
+        self.equipment = equipment
+        # 运输里程
+        self.distance = distance
+        # 是否空载
+        self.is_empty_load = is_empty_load
+
+    def validate(self):
+        self.validate_required(self.transport_code, 'transport_code')
+        self.validate_required(self.equipment, 'equipment')
+        self.validate_required(self.distance, 'distance')
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.transport_code is not None:
+            result['transport_code'] = self.transport_code
+        if self.equipment is not None:
+            result['equipment'] = self.equipment
+        if self.distance is not None:
+            result['distance'] = self.distance
+        if self.is_empty_load is not None:
+            result['is_empty_load'] = self.is_empty_load
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('transport_code') is not None:
+            self.transport_code = m.get('transport_code')
+        if m.get('equipment') is not None:
+            self.equipment = m.get('equipment')
+        if m.get('distance') is not None:
+            self.distance = m.get('distance')
+        if m.get('is_empty_load') is not None:
+            self.is_empty_load = m.get('is_empty_load')
+        return self
+
+
+class InputStreamActiveData(TeaModel):
+    def __init__(
+        self,
+        material_code: str = None,
+        amount: str = None,
+        unit: str = None,
+        transport_list: List[TransportActiveData] = None,
+    ):
+        # 物料编码
+        self.material_code = material_code
+        # 用量，非负，最多6位小数
+        self.amount = amount
+        # 单位
+        self.unit = unit
+        # 运输信息列表
+        self.transport_list = transport_list
+
+    def validate(self):
+        self.validate_required(self.material_code, 'material_code')
+        self.validate_required(self.amount, 'amount')
+        self.validate_required(self.unit, 'unit')
+        if self.transport_list:
+            for k in self.transport_list:
+                if k:
+                    k.validate()
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.material_code is not None:
+            result['material_code'] = self.material_code
+        if self.amount is not None:
+            result['amount'] = self.amount
+        if self.unit is not None:
+            result['unit'] = self.unit
+        result['transport_list'] = []
+        if self.transport_list is not None:
+            for k in self.transport_list:
+                result['transport_list'].append(k.to_map() if k else None)
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('material_code') is not None:
+            self.material_code = m.get('material_code')
+        if m.get('amount') is not None:
+            self.amount = m.get('amount')
+        if m.get('unit') is not None:
+            self.unit = m.get('unit')
+        self.transport_list = []
+        if m.get('transport_list') is not None:
+            for k in m.get('transport_list'):
+                temp_model = TransportActiveData()
+                self.transport_list.append(temp_model.from_map(k))
+        return self
+
+
+class OutputStreamActiveData(TeaModel):
+    def __init__(
+        self,
+        material_code: str = None,
+        amount: str = None,
+        unit: str = None,
+        unit_price: str = None,
+        disposal_type_code: str = None,
+        transport_list: List[TransportActiveData] = None,
+    ):
+        # 物料编码
+        self.material_code = material_code
+        # 用量，非负，最多6位小数
+        self.amount = amount
+        # 单位
+        self.unit = unit
+        # 单价（仅产品用，产品不传时默认为空）
+        self.unit_price = unit_price
+        # 处置方式编码（仅废弃物用）
+        self.disposal_type_code = disposal_type_code
+        # 运输信息列表（仅废弃物用）
+        self.transport_list = transport_list
+
+    def validate(self):
+        self.validate_required(self.material_code, 'material_code')
+        self.validate_required(self.amount, 'amount')
+        self.validate_required(self.unit, 'unit')
+        if self.transport_list:
+            for k in self.transport_list:
+                if k:
+                    k.validate()
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.material_code is not None:
+            result['material_code'] = self.material_code
+        if self.amount is not None:
+            result['amount'] = self.amount
+        if self.unit is not None:
+            result['unit'] = self.unit
+        if self.unit_price is not None:
+            result['unit_price'] = self.unit_price
+        if self.disposal_type_code is not None:
+            result['disposal_type_code'] = self.disposal_type_code
+        result['transport_list'] = []
+        if self.transport_list is not None:
+            for k in self.transport_list:
+                result['transport_list'].append(k.to_map() if k else None)
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('material_code') is not None:
+            self.material_code = m.get('material_code')
+        if m.get('amount') is not None:
+            self.amount = m.get('amount')
+        if m.get('unit') is not None:
+            self.unit = m.get('unit')
+        if m.get('unit_price') is not None:
+            self.unit_price = m.get('unit_price')
+        if m.get('disposal_type_code') is not None:
+            self.disposal_type_code = m.get('disposal_type_code')
+        self.transport_list = []
+        if m.get('transport_list') is not None:
+            for k in m.get('transport_list'):
+                temp_model = TransportActiveData()
+                self.transport_list.append(temp_model.from_map(k))
+        return self
+
+
+class LcaStageActiveData(TeaModel):
+    def __init__(
+        self,
+        lca_stage: str = None,
+        input_stream_list: List[InputStreamActiveData] = None,
+        output_stream_list: List[OutputStreamActiveData] = None,
+    ):
+        # LCA阶段
+        self.lca_stage = lca_stage
+        # 输入流活动数据列表
+        self.input_stream_list = input_stream_list
+        # 输出流活动数据列表
+        self.output_stream_list = output_stream_list
+
+    def validate(self):
+        self.validate_required(self.lca_stage, 'lca_stage')
+        self.validate_required(self.input_stream_list, 'input_stream_list')
+        if self.input_stream_list:
+            for k in self.input_stream_list:
+                if k:
+                    k.validate()
+        self.validate_required(self.output_stream_list, 'output_stream_list')
+        if self.output_stream_list:
+            for k in self.output_stream_list:
+                if k:
+                    k.validate()
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.lca_stage is not None:
+            result['lca_stage'] = self.lca_stage
+        result['input_stream_list'] = []
+        if self.input_stream_list is not None:
+            for k in self.input_stream_list:
+                result['input_stream_list'].append(k.to_map() if k else None)
+        result['output_stream_list'] = []
+        if self.output_stream_list is not None:
+            for k in self.output_stream_list:
+                result['output_stream_list'].append(k.to_map() if k else None)
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('lca_stage') is not None:
+            self.lca_stage = m.get('lca_stage')
+        self.input_stream_list = []
+        if m.get('input_stream_list') is not None:
+            for k in m.get('input_stream_list'):
+                temp_model = InputStreamActiveData()
+                self.input_stream_list.append(temp_model.from_map(k))
+        self.output_stream_list = []
+        if m.get('output_stream_list') is not None:
+            for k in m.get('output_stream_list'):
+                temp_model = OutputStreamActiveData()
+                self.output_stream_list.append(temp_model.from_map(k))
+        return self
+
+
+class EnterpriseLcaAssessmentItem(TeaModel):
+    def __init__(
+        self,
+        material_code: str = None,
+        assessment_item_name: str = None,
+        emission_amount: str = None,
+        transport_emission_amount: str = None,
+    ):
+        # 物料编码
+        self.material_code = material_code
+        # 数据明细名称
+        self.assessment_item_name = assessment_item_name
+        # 物料直接碳排放评估量
+        self.emission_amount = emission_amount
+        # 物料运输碳排放评估量
+        self.transport_emission_amount = transport_emission_amount
+
+    def validate(self):
+        self.validate_required(self.material_code, 'material_code')
+        self.validate_required(self.assessment_item_name, 'assessment_item_name')
+        self.validate_required(self.emission_amount, 'emission_amount')
+        self.validate_required(self.transport_emission_amount, 'transport_emission_amount')
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.material_code is not None:
+            result['material_code'] = self.material_code
+        if self.assessment_item_name is not None:
+            result['assessment_item_name'] = self.assessment_item_name
+        if self.emission_amount is not None:
+            result['emission_amount'] = self.emission_amount
+        if self.transport_emission_amount is not None:
+            result['transport_emission_amount'] = self.transport_emission_amount
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('material_code') is not None:
+            self.material_code = m.get('material_code')
+        if m.get('assessment_item_name') is not None:
+            self.assessment_item_name = m.get('assessment_item_name')
+        if m.get('emission_amount') is not None:
+            self.emission_amount = m.get('emission_amount')
+        if m.get('transport_emission_amount') is not None:
+            self.transport_emission_amount = m.get('transport_emission_amount')
+        return self
+
+
+class EnterpriseLcaStageAssessmentItem(TeaModel):
+    def __init__(
+        self,
+        lca_stage: str = None,
+        lca_stage_carbon_rate: str = None,
+        lca_stage_carbon_emissions: str = None,
+        lca_assessment_datum: List[EnterpriseLcaAssessmentItem] = None,
+    ):
+        # LCA阶段
+        self.lca_stage = lca_stage
+        # 阶段排放占比
+        self.lca_stage_carbon_rate = lca_stage_carbon_rate
+        # 阶段排放量
+        self.lca_stage_carbon_emissions = lca_stage_carbon_emissions
+        # 阶段评估明细数据
+        self.lca_assessment_datum = lca_assessment_datum
+
+    def validate(self):
+        self.validate_required(self.lca_stage, 'lca_stage')
+        self.validate_required(self.lca_stage_carbon_rate, 'lca_stage_carbon_rate')
+        self.validate_required(self.lca_stage_carbon_emissions, 'lca_stage_carbon_emissions')
+        self.validate_required(self.lca_assessment_datum, 'lca_assessment_datum')
+        if self.lca_assessment_datum:
+            for k in self.lca_assessment_datum:
+                if k:
+                    k.validate()
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.lca_stage is not None:
+            result['lca_stage'] = self.lca_stage
+        if self.lca_stage_carbon_rate is not None:
+            result['lca_stage_carbon_rate'] = self.lca_stage_carbon_rate
+        if self.lca_stage_carbon_emissions is not None:
+            result['lca_stage_carbon_emissions'] = self.lca_stage_carbon_emissions
+        result['lca_assessment_datum'] = []
+        if self.lca_assessment_datum is not None:
+            for k in self.lca_assessment_datum:
+                result['lca_assessment_datum'].append(k.to_map() if k else None)
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('lca_stage') is not None:
+            self.lca_stage = m.get('lca_stage')
+        if m.get('lca_stage_carbon_rate') is not None:
+            self.lca_stage_carbon_rate = m.get('lca_stage_carbon_rate')
+        if m.get('lca_stage_carbon_emissions') is not None:
+            self.lca_stage_carbon_emissions = m.get('lca_stage_carbon_emissions')
+        self.lca_assessment_datum = []
+        if m.get('lca_assessment_datum') is not None:
+            for k in m.get('lca_assessment_datum'):
+                temp_model = EnterpriseLcaAssessmentItem()
+                self.lca_assessment_datum.append(temp_model.from_map(k))
+        return self
+
+
 class LcaCalcResult(TeaModel):
     def __init__(
         self,
@@ -2268,58 +2650,48 @@ class LcaCalcResult(TeaModel):
         return self
 
 
-class GclAbnormalItem(TeaModel):
+class LcaProjectTrace(TeaModel):
     def __init__(
         self,
-        external_item_code: str = None,
-        location_name: str = None,
-        specification: str = None,
+        project_no: str = None,
+        life_cycle_boundary: str = None,
+        product_no: str = None,
+        lca_carbon_amount: str = None,
         product_name: str = None,
-        occur_date: str = None,
-        dosage_unit: str = None,
-        error_code: str = None,
-        error_msg: str = None,
-        process_name: str = None,
-        material_type: str = None,
-        material_name: str = None,
-        supplier_name: str = None,
-        supplier_product_name: str = None,
-        process_no: str = None,
-        social_credit_code: str = None,
+        specification: str = None,
+        lca_start_date: str = None,
+        lca_end_date: str = None,
+        trace_status: str = None,
     ):
-        # 明细编码
-        self.external_item_code = external_item_code
-        # 生产单元名称
-        self.location_name = location_name
-        # 产品规格
-        self.specification = specification
+        # 碳足迹编码
+        self.project_no = project_no
+        # 碳足迹生命周期边界
+        self.life_cycle_boundary = life_cycle_boundary
+        # 产品编码
+        self.product_no = product_no
+        # 碳足迹项目排放量
+        self.lca_carbon_amount = lca_carbon_amount
         # 产品名称
         self.product_name = product_name
-        # 发生月份
-        self.occur_date = occur_date
-        # 请求单位
-        self.dosage_unit = dosage_unit
-        # 业务错误码
-        self.error_code = error_code
-        # 错误描述
-        self.error_msg = error_msg
-        # 单元过程名称
-        self.process_name = process_name
-        # 物料类型
-        self.material_type = material_type
-        # 物料名称
-        self.material_name = material_name
-        # 供应商名称
-        self.supplier_name = supplier_name
-        # 供应商产品名称
-        self.supplier_product_name = supplier_product_name
-        # 过程编码
-        self.process_no = process_no
-        # 供应商企业社会信用代码
-        self.social_credit_code = social_credit_code
+        # 产品规格型号
+        self.specification = specification
+        # 碳足迹开始时间
+        self.lca_start_date = lca_start_date
+        # 碳足迹结束时间
+        self.lca_end_date = lca_end_date
+        # 溯源状态
+        self.trace_status = trace_status
 
     def validate(self):
-        pass
+        self.validate_required(self.project_no, 'project_no')
+        self.validate_required(self.life_cycle_boundary, 'life_cycle_boundary')
+        self.validate_required(self.product_no, 'product_no')
+        self.validate_required(self.lca_carbon_amount, 'lca_carbon_amount')
+        self.validate_required(self.product_name, 'product_name')
+        self.validate_required(self.specification, 'specification')
+        self.validate_required(self.lca_start_date, 'lca_start_date')
+        self.validate_required(self.lca_end_date, 'lca_end_date')
+        self.validate_required(self.trace_status, 'trace_status')
 
     def to_map(self):
         _map = super().to_map()
@@ -2327,70 +2699,46 @@ class GclAbnormalItem(TeaModel):
             return _map
 
         result = dict()
-        if self.external_item_code is not None:
-            result['external_item_code'] = self.external_item_code
-        if self.location_name is not None:
-            result['location_name'] = self.location_name
-        if self.specification is not None:
-            result['specification'] = self.specification
+        if self.project_no is not None:
+            result['project_no'] = self.project_no
+        if self.life_cycle_boundary is not None:
+            result['life_cycle_boundary'] = self.life_cycle_boundary
+        if self.product_no is not None:
+            result['product_no'] = self.product_no
+        if self.lca_carbon_amount is not None:
+            result['lca_carbon_amount'] = self.lca_carbon_amount
         if self.product_name is not None:
             result['product_name'] = self.product_name
-        if self.occur_date is not None:
-            result['occur_date'] = self.occur_date
-        if self.dosage_unit is not None:
-            result['dosage_unit'] = self.dosage_unit
-        if self.error_code is not None:
-            result['error_code'] = self.error_code
-        if self.error_msg is not None:
-            result['error_msg'] = self.error_msg
-        if self.process_name is not None:
-            result['process_name'] = self.process_name
-        if self.material_type is not None:
-            result['material_type'] = self.material_type
-        if self.material_name is not None:
-            result['material_name'] = self.material_name
-        if self.supplier_name is not None:
-            result['supplier_name'] = self.supplier_name
-        if self.supplier_product_name is not None:
-            result['supplier_product_name'] = self.supplier_product_name
-        if self.process_no is not None:
-            result['process_no'] = self.process_no
-        if self.social_credit_code is not None:
-            result['social_credit_code'] = self.social_credit_code
+        if self.specification is not None:
+            result['specification'] = self.specification
+        if self.lca_start_date is not None:
+            result['lca_start_date'] = self.lca_start_date
+        if self.lca_end_date is not None:
+            result['lca_end_date'] = self.lca_end_date
+        if self.trace_status is not None:
+            result['trace_status'] = self.trace_status
         return result
 
     def from_map(self, m: dict = None):
         m = m or dict()
-        if m.get('external_item_code') is not None:
-            self.external_item_code = m.get('external_item_code')
-        if m.get('location_name') is not None:
-            self.location_name = m.get('location_name')
-        if m.get('specification') is not None:
-            self.specification = m.get('specification')
+        if m.get('project_no') is not None:
+            self.project_no = m.get('project_no')
+        if m.get('life_cycle_boundary') is not None:
+            self.life_cycle_boundary = m.get('life_cycle_boundary')
+        if m.get('product_no') is not None:
+            self.product_no = m.get('product_no')
+        if m.get('lca_carbon_amount') is not None:
+            self.lca_carbon_amount = m.get('lca_carbon_amount')
         if m.get('product_name') is not None:
             self.product_name = m.get('product_name')
-        if m.get('occur_date') is not None:
-            self.occur_date = m.get('occur_date')
-        if m.get('dosage_unit') is not None:
-            self.dosage_unit = m.get('dosage_unit')
-        if m.get('error_code') is not None:
-            self.error_code = m.get('error_code')
-        if m.get('error_msg') is not None:
-            self.error_msg = m.get('error_msg')
-        if m.get('process_name') is not None:
-            self.process_name = m.get('process_name')
-        if m.get('material_type') is not None:
-            self.material_type = m.get('material_type')
-        if m.get('material_name') is not None:
-            self.material_name = m.get('material_name')
-        if m.get('supplier_name') is not None:
-            self.supplier_name = m.get('supplier_name')
-        if m.get('supplier_product_name') is not None:
-            self.supplier_product_name = m.get('supplier_product_name')
-        if m.get('process_no') is not None:
-            self.process_no = m.get('process_no')
-        if m.get('social_credit_code') is not None:
-            self.social_credit_code = m.get('social_credit_code')
+        if m.get('specification') is not None:
+            self.specification = m.get('specification')
+        if m.get('lca_start_date') is not None:
+            self.lca_start_date = m.get('lca_start_date')
+        if m.get('lca_end_date') is not None:
+            self.lca_end_date = m.get('lca_end_date')
+        if m.get('trace_status') is not None:
+            self.trace_status = m.get('trace_status')
         return self
 
 
@@ -2521,6 +2869,461 @@ class FinanceReportDetail(TeaModel):
         return self
 
 
+class TransferPathAnalysis(TeaModel):
+    def __init__(
+        self,
+        field: str = None,
+        index_number: str = None,
+        index_content: str = None,
+        detail: str = None,
+        target: str = None,
+    ):
+        # 所属领域
+        self.field = field
+        # 目录编号
+        self.index_number = index_number
+        # 目录内容
+        self.index_content = index_content
+        # 技术标准说明
+        self.detail = detail
+        # 企业是否采取该路径
+        self.target = target
+
+    def validate(self):
+        self.validate_required(self.field, 'field')
+        self.validate_required(self.index_number, 'index_number')
+        self.validate_required(self.index_content, 'index_content')
+        self.validate_required(self.detail, 'detail')
+        self.validate_required(self.target, 'target')
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.field is not None:
+            result['field'] = self.field
+        if self.index_number is not None:
+            result['index_number'] = self.index_number
+        if self.index_content is not None:
+            result['index_content'] = self.index_content
+        if self.detail is not None:
+            result['detail'] = self.detail
+        if self.target is not None:
+            result['target'] = self.target
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('field') is not None:
+            self.field = m.get('field')
+        if m.get('index_number') is not None:
+            self.index_number = m.get('index_number')
+        if m.get('index_content') is not None:
+            self.index_content = m.get('index_content')
+        if m.get('detail') is not None:
+            self.detail = m.get('detail')
+        if m.get('target') is not None:
+            self.target = m.get('target')
+        return self
+
+
+class MonthDataDetail(TeaModel):
+    def __init__(
+        self,
+        occur_date: str = None,
+        amount: str = None,
+        dosage_unit: str = None,
+    ):
+        # 发生月份，格式 yyyy-MM
+        self.occur_date = occur_date
+        # 产量数据
+        self.amount = amount
+        # 产量单位
+        self.dosage_unit = dosage_unit
+
+    def validate(self):
+        self.validate_required(self.occur_date, 'occur_date')
+        self.validate_required(self.amount, 'amount')
+        self.validate_required(self.dosage_unit, 'dosage_unit')
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.occur_date is not None:
+            result['occur_date'] = self.occur_date
+        if self.amount is not None:
+            result['amount'] = self.amount
+        if self.dosage_unit is not None:
+            result['dosage_unit'] = self.dosage_unit
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('occur_date') is not None:
+            self.occur_date = m.get('occur_date')
+        if m.get('amount') is not None:
+            self.amount = m.get('amount')
+        if m.get('dosage_unit') is not None:
+            self.dosage_unit = m.get('dosage_unit')
+        return self
+
+
+class GclProductionItem(TeaModel):
+    def __init__(
+        self,
+        external_item_code: str = None,
+        location_name: str = None,
+        product_name: str = None,
+        specification: str = None,
+        production_data_list: List[MonthDataDetail] = None,
+    ):
+        # 用户侧传入明细编码，用于异常回传和排查
+        self.external_item_code = external_item_code
+        # 生产单元名称
+        self.location_name = location_name
+        # 产品名称
+        self.product_name = product_name
+        # 产品规格
+        self.specification = specification
+        # 月度产量明细
+        self.production_data_list = production_data_list
+
+    def validate(self):
+        self.validate_required(self.location_name, 'location_name')
+        self.validate_required(self.product_name, 'product_name')
+        self.validate_required(self.specification, 'specification')
+        self.validate_required(self.production_data_list, 'production_data_list')
+        if self.production_data_list:
+            for k in self.production_data_list:
+                if k:
+                    k.validate()
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.external_item_code is not None:
+            result['external_item_code'] = self.external_item_code
+        if self.location_name is not None:
+            result['location_name'] = self.location_name
+        if self.product_name is not None:
+            result['product_name'] = self.product_name
+        if self.specification is not None:
+            result['specification'] = self.specification
+        result['production_data_list'] = []
+        if self.production_data_list is not None:
+            for k in self.production_data_list:
+                result['production_data_list'].append(k.to_map() if k else None)
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('external_item_code') is not None:
+            self.external_item_code = m.get('external_item_code')
+        if m.get('location_name') is not None:
+            self.location_name = m.get('location_name')
+        if m.get('product_name') is not None:
+            self.product_name = m.get('product_name')
+        if m.get('specification') is not None:
+            self.specification = m.get('specification')
+        self.production_data_list = []
+        if m.get('production_data_list') is not None:
+            for k in m.get('production_data_list'):
+                temp_model = MonthDataDetail()
+                self.production_data_list.append(temp_model.from_map(k))
+        return self
+
+
+class GclAbnormalItem(TeaModel):
+    def __init__(
+        self,
+        external_item_code: str = None,
+        location_name: str = None,
+        specification: str = None,
+        product_name: str = None,
+        occur_date: str = None,
+        dosage_unit: str = None,
+        error_code: str = None,
+        error_msg: str = None,
+        process_name: str = None,
+        material_type: str = None,
+        material_name: str = None,
+        supplier_name: str = None,
+        supplier_product_name: str = None,
+        process_no: str = None,
+        social_credit_code: str = None,
+    ):
+        # 明细编码
+        self.external_item_code = external_item_code
+        # 生产单元名称
+        self.location_name = location_name
+        # 产品规格
+        self.specification = specification
+        # 产品名称
+        self.product_name = product_name
+        # 发生月份
+        self.occur_date = occur_date
+        # 请求单位
+        self.dosage_unit = dosage_unit
+        # 业务错误码
+        self.error_code = error_code
+        # 错误描述
+        self.error_msg = error_msg
+        # 单元过程名称
+        self.process_name = process_name
+        # 物料类型
+        self.material_type = material_type
+        # 物料名称
+        self.material_name = material_name
+        # 供应商名称
+        self.supplier_name = supplier_name
+        # 供应商产品名称
+        self.supplier_product_name = supplier_product_name
+        # 过程编码
+        self.process_no = process_no
+        # 供应商企业社会信用代码
+        self.social_credit_code = social_credit_code
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.external_item_code is not None:
+            result['external_item_code'] = self.external_item_code
+        if self.location_name is not None:
+            result['location_name'] = self.location_name
+        if self.specification is not None:
+            result['specification'] = self.specification
+        if self.product_name is not None:
+            result['product_name'] = self.product_name
+        if self.occur_date is not None:
+            result['occur_date'] = self.occur_date
+        if self.dosage_unit is not None:
+            result['dosage_unit'] = self.dosage_unit
+        if self.error_code is not None:
+            result['error_code'] = self.error_code
+        if self.error_msg is not None:
+            result['error_msg'] = self.error_msg
+        if self.process_name is not None:
+            result['process_name'] = self.process_name
+        if self.material_type is not None:
+            result['material_type'] = self.material_type
+        if self.material_name is not None:
+            result['material_name'] = self.material_name
+        if self.supplier_name is not None:
+            result['supplier_name'] = self.supplier_name
+        if self.supplier_product_name is not None:
+            result['supplier_product_name'] = self.supplier_product_name
+        if self.process_no is not None:
+            result['process_no'] = self.process_no
+        if self.social_credit_code is not None:
+            result['social_credit_code'] = self.social_credit_code
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('external_item_code') is not None:
+            self.external_item_code = m.get('external_item_code')
+        if m.get('location_name') is not None:
+            self.location_name = m.get('location_name')
+        if m.get('specification') is not None:
+            self.specification = m.get('specification')
+        if m.get('product_name') is not None:
+            self.product_name = m.get('product_name')
+        if m.get('occur_date') is not None:
+            self.occur_date = m.get('occur_date')
+        if m.get('dosage_unit') is not None:
+            self.dosage_unit = m.get('dosage_unit')
+        if m.get('error_code') is not None:
+            self.error_code = m.get('error_code')
+        if m.get('error_msg') is not None:
+            self.error_msg = m.get('error_msg')
+        if m.get('process_name') is not None:
+            self.process_name = m.get('process_name')
+        if m.get('material_type') is not None:
+            self.material_type = m.get('material_type')
+        if m.get('material_name') is not None:
+            self.material_name = m.get('material_name')
+        if m.get('supplier_name') is not None:
+            self.supplier_name = m.get('supplier_name')
+        if m.get('supplier_product_name') is not None:
+            self.supplier_product_name = m.get('supplier_product_name')
+        if m.get('process_no') is not None:
+            self.process_no = m.get('process_no')
+        if m.get('social_credit_code') is not None:
+            self.social_credit_code = m.get('social_credit_code')
+        return self
+
+
+class SupplierProductDetail(TeaModel):
+    def __init__(
+        self,
+        supplier_name: str = None,
+        supplier_product_name: str = None,
+        dosage_unit: str = None,
+    ):
+        # 供应商名称
+        self.supplier_name = supplier_name
+        # 供应商产品名称
+        self.supplier_product_name = supplier_product_name
+        # 填报单位
+        self.dosage_unit = dosage_unit
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.supplier_name is not None:
+            result['supplier_name'] = self.supplier_name
+        if self.supplier_product_name is not None:
+            result['supplier_product_name'] = self.supplier_product_name
+        if self.dosage_unit is not None:
+            result['dosage_unit'] = self.dosage_unit
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('supplier_name') is not None:
+            self.supplier_name = m.get('supplier_name')
+        if m.get('supplier_product_name') is not None:
+            self.supplier_product_name = m.get('supplier_product_name')
+        if m.get('dosage_unit') is not None:
+            self.dosage_unit = m.get('dosage_unit')
+        return self
+
+
+class MaterialDetail(TeaModel):
+    def __init__(
+        self,
+        material_name: str = None,
+        supplier_product_list: SupplierProductDetail = None,
+    ):
+        # 物料名称
+        self.material_name = material_name
+        # 供应商产品详情列表
+        self.supplier_product_list = supplier_product_list
+
+    def validate(self):
+        if self.supplier_product_list:
+            self.supplier_product_list.validate()
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.material_name is not None:
+            result['material_name'] = self.material_name
+        if self.supplier_product_list is not None:
+            result['supplier_product_list'] = self.supplier_product_list.to_map()
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('material_name') is not None:
+            self.material_name = m.get('material_name')
+        if m.get('supplier_product_list') is not None:
+            temp_model = SupplierProductDetail()
+            self.supplier_product_list = temp_model.from_map(m['supplier_product_list'])
+        return self
+
+
+class MaterialTypeDetail(TeaModel):
+    def __init__(
+        self,
+        material_type: str = None,
+        material_list: List[MaterialDetail] = None,
+    ):
+        # 物料类型名称
+        self.material_type = material_type
+        # 物料产品详情表
+        self.material_list = material_list
+
+    def validate(self):
+        if self.material_list:
+            for k in self.material_list:
+                if k:
+                    k.validate()
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.material_type is not None:
+            result['material_type'] = self.material_type
+        result['material_list'] = []
+        if self.material_list is not None:
+            for k in self.material_list:
+                result['material_list'].append(k.to_map() if k else None)
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('material_type') is not None:
+            self.material_type = m.get('material_type')
+        self.material_list = []
+        if m.get('material_list') is not None:
+            for k in m.get('material_list'):
+                temp_model = MaterialDetail()
+                self.material_list.append(temp_model.from_map(k))
+        return self
+
+
+class ProcessDetail(TeaModel):
+    def __init__(
+        self,
+        process_name: str = None,
+        process_no: str = None,
+    ):
+        # 单元过程名称
+        self.process_name = process_name
+        # 过程编码
+        self.process_no = process_no
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.process_name is not None:
+            result['process_name'] = self.process_name
+        if self.process_no is not None:
+            result['process_no'] = self.process_no
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('process_name') is not None:
+            self.process_name = m.get('process_name')
+        if m.get('process_no') is not None:
+            self.process_no = m.get('process_no')
+        return self
+
+
 class ActiveDataItem(TeaModel):
     def __init__(
         self,
@@ -2615,765 +3418,6 @@ class ActiveDataItem(TeaModel):
         return self
 
 
-class AnnualMonthEmissionDatum(TeaModel):
-    def __init__(
-        self,
-        year: str = None,
-        month: str = None,
-        value: str = None,
-    ):
-        # 统计的年份
-        self.year = year
-        # 统计的月份
-        self.month = month
-        # 统计排放量
-        self.value = value
-
-    def validate(self):
-        self.validate_required(self.year, 'year')
-        self.validate_required(self.month, 'month')
-        self.validate_required(self.value, 'value')
-
-    def to_map(self):
-        _map = super().to_map()
-        if _map is not None:
-            return _map
-
-        result = dict()
-        if self.year is not None:
-            result['year'] = self.year
-        if self.month is not None:
-            result['month'] = self.month
-        if self.value is not None:
-            result['value'] = self.value
-        return result
-
-    def from_map(self, m: dict = None):
-        m = m or dict()
-        if m.get('year') is not None:
-            self.year = m.get('year')
-        if m.get('month') is not None:
-            self.month = m.get('month')
-        if m.get('value') is not None:
-            self.value = m.get('value')
-        return self
-
-
-class CarbonAccountInfo(TeaModel):
-    def __init__(
-        self,
-        user_did: str = None,
-        user_name: str = None,
-    ):
-        # 账户did
-        self.user_did = user_did
-        # 账户名称
-        self.user_name = user_name
-
-    def validate(self):
-        self.validate_required(self.user_did, 'user_did')
-        self.validate_required(self.user_name, 'user_name')
-
-    def to_map(self):
-        _map = super().to_map()
-        if _map is not None:
-            return _map
-
-        result = dict()
-        if self.user_did is not None:
-            result['user_did'] = self.user_did
-        if self.user_name is not None:
-            result['user_name'] = self.user_name
-        return result
-
-    def from_map(self, m: dict = None):
-        m = m or dict()
-        if m.get('user_did') is not None:
-            self.user_did = m.get('user_did')
-        if m.get('user_name') is not None:
-            self.user_name = m.get('user_name')
-        return self
-
-
-class DataDepositInfo(TeaModel):
-    def __init__(
-        self,
-        data_value: List[DepositFieldValue] = None,
-        tx_id: str = None,
-        user_id: str = None,
-        deposit_content: str = None,
-        status: str = None,
-        timestamp: int = None,
-    ):
-        # 存证字段值
-        self.data_value = data_value
-        # 数据存证区块链交易ID
-        self.tx_id = tx_id
-        # 数据存证操作用户ID
-        self.user_id = user_id
-        # 存证数据内容
-        self.deposit_content = deposit_content
-        # 存证执行状态
-        self.status = status
-        # 存证执行(发起)时间
-        self.timestamp = timestamp
-
-    def validate(self):
-        self.validate_required(self.data_value, 'data_value')
-        if self.data_value:
-            for k in self.data_value:
-                if k:
-                    k.validate()
-        self.validate_required(self.user_id, 'user_id')
-        self.validate_required(self.deposit_content, 'deposit_content')
-        self.validate_required(self.status, 'status')
-        self.validate_required(self.timestamp, 'timestamp')
-
-    def to_map(self):
-        _map = super().to_map()
-        if _map is not None:
-            return _map
-
-        result = dict()
-        result['data_value'] = []
-        if self.data_value is not None:
-            for k in self.data_value:
-                result['data_value'].append(k.to_map() if k else None)
-        if self.tx_id is not None:
-            result['tx_id'] = self.tx_id
-        if self.user_id is not None:
-            result['user_id'] = self.user_id
-        if self.deposit_content is not None:
-            result['deposit_content'] = self.deposit_content
-        if self.status is not None:
-            result['status'] = self.status
-        if self.timestamp is not None:
-            result['timestamp'] = self.timestamp
-        return result
-
-    def from_map(self, m: dict = None):
-        m = m or dict()
-        self.data_value = []
-        if m.get('data_value') is not None:
-            for k in m.get('data_value'):
-                temp_model = DepositFieldValue()
-                self.data_value.append(temp_model.from_map(k))
-        if m.get('tx_id') is not None:
-            self.tx_id = m.get('tx_id')
-        if m.get('user_id') is not None:
-            self.user_id = m.get('user_id')
-        if m.get('deposit_content') is not None:
-            self.deposit_content = m.get('deposit_content')
-        if m.get('status') is not None:
-            self.status = m.get('status')
-        if m.get('timestamp') is not None:
-            self.timestamp = m.get('timestamp')
-        return self
-
-
-class EmissionsCityStatistics(TeaModel):
-    def __init__(
-        self,
-        city_no: str = None,
-        city_name: str = None,
-        emission_amount: str = None,
-        emission_amount_today: str = None,
-        reduction_amount: str = None,
-        reduction_amount_today: str = None,
-        counteraction_amount: str = None,
-        counteraction_amount_today: str = None,
-        data_unit: str = None,
-    ):
-        # 城市编码
-        self.city_no = city_no
-        # 城市名称
-        self.city_name = city_name
-        # 累计排放量
-        self.emission_amount = emission_amount
-        # 今日新增碳排放量
-        self.emission_amount_today = emission_amount_today
-        # 总减碳量
-        self.reduction_amount = reduction_amount
-        # 今日减碳量
-        self.reduction_amount_today = reduction_amount_today
-        # 总抵消量
-        self.counteraction_amount = counteraction_amount
-        # 今日抵消量
-        self.counteraction_amount_today = counteraction_amount_today
-        # 排放量单位，默认为：
-        self.data_unit = data_unit
-
-    def validate(self):
-        self.validate_required(self.city_no, 'city_no')
-        self.validate_required(self.city_name, 'city_name')
-        self.validate_required(self.emission_amount, 'emission_amount')
-        self.validate_required(self.emission_amount_today, 'emission_amount_today')
-        self.validate_required(self.reduction_amount, 'reduction_amount')
-        self.validate_required(self.reduction_amount_today, 'reduction_amount_today')
-        self.validate_required(self.counteraction_amount, 'counteraction_amount')
-        self.validate_required(self.counteraction_amount_today, 'counteraction_amount_today')
-        self.validate_required(self.data_unit, 'data_unit')
-
-    def to_map(self):
-        _map = super().to_map()
-        if _map is not None:
-            return _map
-
-        result = dict()
-        if self.city_no is not None:
-            result['city_no'] = self.city_no
-        if self.city_name is not None:
-            result['city_name'] = self.city_name
-        if self.emission_amount is not None:
-            result['emission_amount'] = self.emission_amount
-        if self.emission_amount_today is not None:
-            result['emission_amount_today'] = self.emission_amount_today
-        if self.reduction_amount is not None:
-            result['reduction_amount'] = self.reduction_amount
-        if self.reduction_amount_today is not None:
-            result['reduction_amount_today'] = self.reduction_amount_today
-        if self.counteraction_amount is not None:
-            result['counteraction_amount'] = self.counteraction_amount
-        if self.counteraction_amount_today is not None:
-            result['counteraction_amount_today'] = self.counteraction_amount_today
-        if self.data_unit is not None:
-            result['data_unit'] = self.data_unit
-        return result
-
-    def from_map(self, m: dict = None):
-        m = m or dict()
-        if m.get('city_no') is not None:
-            self.city_no = m.get('city_no')
-        if m.get('city_name') is not None:
-            self.city_name = m.get('city_name')
-        if m.get('emission_amount') is not None:
-            self.emission_amount = m.get('emission_amount')
-        if m.get('emission_amount_today') is not None:
-            self.emission_amount_today = m.get('emission_amount_today')
-        if m.get('reduction_amount') is not None:
-            self.reduction_amount = m.get('reduction_amount')
-        if m.get('reduction_amount_today') is not None:
-            self.reduction_amount_today = m.get('reduction_amount_today')
-        if m.get('counteraction_amount') is not None:
-            self.counteraction_amount = m.get('counteraction_amount')
-        if m.get('counteraction_amount_today') is not None:
-            self.counteraction_amount_today = m.get('counteraction_amount_today')
-        if m.get('data_unit') is not None:
-            self.data_unit = m.get('data_unit')
-        return self
-
-
-class AuthenticationInfoVO(TeaModel):
-    def __init__(
-        self,
-        authentication_no: str = None,
-        authorizer_did: str = None,
-        authorizer_name: str = None,
-        authorized_did: str = None,
-        authorized_name: str = None,
-        data_transfer_type: str = None,
-        authentication_deetail: str = None,
-        status: str = None,
-    ):
-        # 授权记录编码
-        self.authentication_no = authentication_no
-        # 收取方did
-        self.authorizer_did = authorizer_did
-        # 授权方名称
-        self.authorizer_name = authorizer_name
-        # 被授权方did
-        self.authorized_did = authorized_did
-        # 被授权方名称
-        self.authorized_name = authorized_name
-        # 数据协作类型
-        self.data_transfer_type = data_transfer_type
-        # 授权详情
-        self.authentication_deetail = authentication_deetail
-        # 授权状态
-        self.status = status
-
-    def validate(self):
-        self.validate_required(self.authentication_no, 'authentication_no')
-        self.validate_required(self.authorizer_did, 'authorizer_did')
-        self.validate_required(self.authorizer_name, 'authorizer_name')
-        self.validate_required(self.authorized_did, 'authorized_did')
-        self.validate_required(self.authorized_name, 'authorized_name')
-        self.validate_required(self.data_transfer_type, 'data_transfer_type')
-        self.validate_required(self.authentication_deetail, 'authentication_deetail')
-        self.validate_required(self.status, 'status')
-
-    def to_map(self):
-        _map = super().to_map()
-        if _map is not None:
-            return _map
-
-        result = dict()
-        if self.authentication_no is not None:
-            result['authentication_no'] = self.authentication_no
-        if self.authorizer_did is not None:
-            result['authorizer_did'] = self.authorizer_did
-        if self.authorizer_name is not None:
-            result['authorizer_name'] = self.authorizer_name
-        if self.authorized_did is not None:
-            result['authorized_did'] = self.authorized_did
-        if self.authorized_name is not None:
-            result['authorized_name'] = self.authorized_name
-        if self.data_transfer_type is not None:
-            result['data_transfer_type'] = self.data_transfer_type
-        if self.authentication_deetail is not None:
-            result['authentication_deetail'] = self.authentication_deetail
-        if self.status is not None:
-            result['status'] = self.status
-        return result
-
-    def from_map(self, m: dict = None):
-        m = m or dict()
-        if m.get('authentication_no') is not None:
-            self.authentication_no = m.get('authentication_no')
-        if m.get('authorizer_did') is not None:
-            self.authorizer_did = m.get('authorizer_did')
-        if m.get('authorizer_name') is not None:
-            self.authorizer_name = m.get('authorizer_name')
-        if m.get('authorized_did') is not None:
-            self.authorized_did = m.get('authorized_did')
-        if m.get('authorized_name') is not None:
-            self.authorized_name = m.get('authorized_name')
-        if m.get('data_transfer_type') is not None:
-            self.data_transfer_type = m.get('data_transfer_type')
-        if m.get('authentication_deetail') is not None:
-            self.authentication_deetail = m.get('authentication_deetail')
-        if m.get('status') is not None:
-            self.status = m.get('status')
-        return self
-
-
-class PlatformCustomerSummary(TeaModel):
-    def __init__(
-        self,
-        customer_id: str = None,
-        customer_name: str = None,
-        contact_person: str = None,
-        contact_telephone: str = None,
-        contact_email: str = None,
-        social_credit_code: str = None,
-    ):
-        # 三方平台的客户ID
-        self.customer_id = customer_id
-        # 三方平台客户名称
-        self.customer_name = customer_name
-        # 联系人
-        self.contact_person = contact_person
-        # 联系电话
-        self.contact_telephone = contact_telephone
-        # 联系邮箱
-        self.contact_email = contact_email
-        # 统一社会信用代码
-        self.social_credit_code = social_credit_code
-
-    def validate(self):
-        self.validate_required(self.customer_id, 'customer_id')
-        self.validate_required(self.customer_name, 'customer_name')
-        self.validate_required(self.contact_person, 'contact_person')
-        self.validate_required(self.contact_telephone, 'contact_telephone')
-        self.validate_required(self.social_credit_code, 'social_credit_code')
-
-    def to_map(self):
-        _map = super().to_map()
-        if _map is not None:
-            return _map
-
-        result = dict()
-        if self.customer_id is not None:
-            result['customer_id'] = self.customer_id
-        if self.customer_name is not None:
-            result['customer_name'] = self.customer_name
-        if self.contact_person is not None:
-            result['contact_person'] = self.contact_person
-        if self.contact_telephone is not None:
-            result['contact_telephone'] = self.contact_telephone
-        if self.contact_email is not None:
-            result['contact_email'] = self.contact_email
-        if self.social_credit_code is not None:
-            result['social_credit_code'] = self.social_credit_code
-        return result
-
-    def from_map(self, m: dict = None):
-        m = m or dict()
-        if m.get('customer_id') is not None:
-            self.customer_id = m.get('customer_id')
-        if m.get('customer_name') is not None:
-            self.customer_name = m.get('customer_name')
-        if m.get('contact_person') is not None:
-            self.contact_person = m.get('contact_person')
-        if m.get('contact_telephone') is not None:
-            self.contact_telephone = m.get('contact_telephone')
-        if m.get('contact_email') is not None:
-            self.contact_email = m.get('contact_email')
-        if m.get('social_credit_code') is not None:
-            self.social_credit_code = m.get('social_credit_code')
-        return self
-
-
-class EmissionsLocationStatistics(TeaModel):
-    def __init__(
-        self,
-        location_no: str = None,
-        location_name: str = None,
-        emission_amount: str = None,
-        data_unit: str = None,
-    ):
-        # 盘查单元编码
-        self.location_no = location_no
-        # 盘查单元名称
-        self.location_name = location_name
-        # 盘查单元排放量
-        self.emission_amount = emission_amount
-        # 排放量单位，默认为：tCO2e
-        self.data_unit = data_unit
-
-    def validate(self):
-        self.validate_required(self.location_no, 'location_no')
-        self.validate_required(self.location_name, 'location_name')
-        self.validate_required(self.emission_amount, 'emission_amount')
-        self.validate_required(self.data_unit, 'data_unit')
-
-    def to_map(self):
-        _map = super().to_map()
-        if _map is not None:
-            return _map
-
-        result = dict()
-        if self.location_no is not None:
-            result['location_no'] = self.location_no
-        if self.location_name is not None:
-            result['location_name'] = self.location_name
-        if self.emission_amount is not None:
-            result['emission_amount'] = self.emission_amount
-        if self.data_unit is not None:
-            result['data_unit'] = self.data_unit
-        return result
-
-    def from_map(self, m: dict = None):
-        m = m or dict()
-        if m.get('location_no') is not None:
-            self.location_no = m.get('location_no')
-        if m.get('location_name') is not None:
-            self.location_name = m.get('location_name')
-        if m.get('emission_amount') is not None:
-            self.emission_amount = m.get('emission_amount')
-        if m.get('data_unit') is not None:
-            self.data_unit = m.get('data_unit')
-        return self
-
-
-class AnyKeywordItem(TeaModel):
-    def __init__(
-        self,
-        item_code: str = None,
-        item_value: str = None,
-    ):
-        # 项目编码
-        self.item_code = item_code
-        # 项目值
-        self.item_value = item_value
-
-    def validate(self):
-        self.validate_required(self.item_code, 'item_code')
-        self.validate_required(self.item_value, 'item_value')
-
-    def to_map(self):
-        _map = super().to_map()
-        if _map is not None:
-            return _map
-
-        result = dict()
-        if self.item_code is not None:
-            result['item_code'] = self.item_code
-        if self.item_value is not None:
-            result['item_value'] = self.item_value
-        return result
-
-    def from_map(self, m: dict = None):
-        m = m or dict()
-        if m.get('item_code') is not None:
-            self.item_code = m.get('item_code')
-        if m.get('item_value') is not None:
-            self.item_value = m.get('item_value')
-        return self
-
-
-class MaterialTypeDetail(TeaModel):
-    def __init__(
-        self,
-        material_type: str = None,
-        material_list: List[MaterialDetail] = None,
-    ):
-        # 物料类型名称
-        self.material_type = material_type
-        # 物料产品详情表
-        self.material_list = material_list
-
-    def validate(self):
-        if self.material_list:
-            for k in self.material_list:
-                if k:
-                    k.validate()
-
-    def to_map(self):
-        _map = super().to_map()
-        if _map is not None:
-            return _map
-
-        result = dict()
-        if self.material_type is not None:
-            result['material_type'] = self.material_type
-        result['material_list'] = []
-        if self.material_list is not None:
-            for k in self.material_list:
-                result['material_list'].append(k.to_map() if k else None)
-        return result
-
-    def from_map(self, m: dict = None):
-        m = m or dict()
-        if m.get('material_type') is not None:
-            self.material_type = m.get('material_type')
-        self.material_list = []
-        if m.get('material_list') is not None:
-            for k in m.get('material_list'):
-                temp_model = MaterialDetail()
-                self.material_list.append(temp_model.from_map(k))
-        return self
-
-
-class EnterpriseProductSummary(TeaModel):
-    def __init__(
-        self,
-        enterprise_custom_code: str = None,
-        product_name: str = None,
-        specification: str = None,
-        product_description: str = None,
-        product_category_name: str = None,
-        brand_information: str = None,
-        process_flow_file_list: List[EnterpriseDocumentFile] = None,
-        product_picture_file_list: List[EnterpriseDocumentFile] = None,
-    ):
-        # 产品自定义编码
-        self.enterprise_custom_code = enterprise_custom_code
-        # 产品名称
-        self.product_name = product_name
-        # 规格型号
-        self.specification = specification
-        # 产品描述
-        self.product_description = product_description
-        # 产品分类名称
-        self.product_category_name = product_category_name
-        # 品牌信息
-        self.brand_information = brand_information
-        # 工艺流程文件路径，上传文件后由上传文件接口提供，最多支持上传3个工艺流程文件
-        self.process_flow_file_list = process_flow_file_list
-        # 产品图片文件路径，上传文件后由上传文件接口提供，最多支持上传8个产品图片文件
-        self.product_picture_file_list = product_picture_file_list
-
-    def validate(self):
-        self.validate_required(self.enterprise_custom_code, 'enterprise_custom_code')
-        self.validate_required(self.product_name, 'product_name')
-        self.validate_required(self.specification, 'specification')
-        self.validate_required(self.product_category_name, 'product_category_name')
-        if self.process_flow_file_list:
-            for k in self.process_flow_file_list:
-                if k:
-                    k.validate()
-        if self.product_picture_file_list:
-            for k in self.product_picture_file_list:
-                if k:
-                    k.validate()
-
-    def to_map(self):
-        _map = super().to_map()
-        if _map is not None:
-            return _map
-
-        result = dict()
-        if self.enterprise_custom_code is not None:
-            result['enterprise_custom_code'] = self.enterprise_custom_code
-        if self.product_name is not None:
-            result['product_name'] = self.product_name
-        if self.specification is not None:
-            result['specification'] = self.specification
-        if self.product_description is not None:
-            result['product_description'] = self.product_description
-        if self.product_category_name is not None:
-            result['product_category_name'] = self.product_category_name
-        if self.brand_information is not None:
-            result['brand_information'] = self.brand_information
-        result['process_flow_file_list'] = []
-        if self.process_flow_file_list is not None:
-            for k in self.process_flow_file_list:
-                result['process_flow_file_list'].append(k.to_map() if k else None)
-        result['product_picture_file_list'] = []
-        if self.product_picture_file_list is not None:
-            for k in self.product_picture_file_list:
-                result['product_picture_file_list'].append(k.to_map() if k else None)
-        return result
-
-    def from_map(self, m: dict = None):
-        m = m or dict()
-        if m.get('enterprise_custom_code') is not None:
-            self.enterprise_custom_code = m.get('enterprise_custom_code')
-        if m.get('product_name') is not None:
-            self.product_name = m.get('product_name')
-        if m.get('specification') is not None:
-            self.specification = m.get('specification')
-        if m.get('product_description') is not None:
-            self.product_description = m.get('product_description')
-        if m.get('product_category_name') is not None:
-            self.product_category_name = m.get('product_category_name')
-        if m.get('brand_information') is not None:
-            self.brand_information = m.get('brand_information')
-        self.process_flow_file_list = []
-        if m.get('process_flow_file_list') is not None:
-            for k in m.get('process_flow_file_list'):
-                temp_model = EnterpriseDocumentFile()
-                self.process_flow_file_list.append(temp_model.from_map(k))
-        self.product_picture_file_list = []
-        if m.get('product_picture_file_list') is not None:
-            for k in m.get('product_picture_file_list'):
-                temp_model = EnterpriseDocumentFile()
-                self.product_picture_file_list.append(temp_model.from_map(k))
-        return self
-
-
-class EmissionsScopeStatistics(TeaModel):
-    def __init__(
-        self,
-        inventory_scope_no: str = None,
-        inventory_scope_name: str = None,
-        emissions: int = None,
-        percentage: int = None,
-        category_emissions_list: List[EmissionsCategoryStatistics] = None,
-    ):
-        # 盘查范围编码
-        self.inventory_scope_no = inventory_scope_no
-        # 盘查范围名称
-        self.inventory_scope_name = inventory_scope_name
-        # 碳排放量
-        self.emissions = emissions
-        # 排放占比
-        self.percentage = percentage
-        # 范围下各分类排放数据
-        self.category_emissions_list = category_emissions_list
-
-    def validate(self):
-        self.validate_required(self.inventory_scope_no, 'inventory_scope_no')
-        self.validate_required(self.inventory_scope_name, 'inventory_scope_name')
-        self.validate_required(self.emissions, 'emissions')
-        self.validate_required(self.percentage, 'percentage')
-        self.validate_required(self.category_emissions_list, 'category_emissions_list')
-        if self.category_emissions_list:
-            for k in self.category_emissions_list:
-                if k:
-                    k.validate()
-
-    def to_map(self):
-        _map = super().to_map()
-        if _map is not None:
-            return _map
-
-        result = dict()
-        if self.inventory_scope_no is not None:
-            result['inventory_scope_no'] = self.inventory_scope_no
-        if self.inventory_scope_name is not None:
-            result['inventory_scope_name'] = self.inventory_scope_name
-        if self.emissions is not None:
-            result['emissions'] = self.emissions
-        if self.percentage is not None:
-            result['percentage'] = self.percentage
-        result['category_emissions_list'] = []
-        if self.category_emissions_list is not None:
-            for k in self.category_emissions_list:
-                result['category_emissions_list'].append(k.to_map() if k else None)
-        return result
-
-    def from_map(self, m: dict = None):
-        m = m or dict()
-        if m.get('inventory_scope_no') is not None:
-            self.inventory_scope_no = m.get('inventory_scope_no')
-        if m.get('inventory_scope_name') is not None:
-            self.inventory_scope_name = m.get('inventory_scope_name')
-        if m.get('emissions') is not None:
-            self.emissions = m.get('emissions')
-        if m.get('percentage') is not None:
-            self.percentage = m.get('percentage')
-        self.category_emissions_list = []
-        if m.get('category_emissions_list') is not None:
-            for k in m.get('category_emissions_list'):
-                temp_model = EmissionsCategoryStatistics()
-                self.category_emissions_list.append(temp_model.from_map(k))
-        return self
-
-
-class LcaStageActiveData(TeaModel):
-    def __init__(
-        self,
-        lca_stage: str = None,
-        input_stream_list: List[InputStreamActiveData] = None,
-        output_stream_list: List[OutputStreamActiveData] = None,
-    ):
-        # LCA阶段
-        self.lca_stage = lca_stage
-        # 输入流活动数据列表
-        self.input_stream_list = input_stream_list
-        # 输出流活动数据列表
-        self.output_stream_list = output_stream_list
-
-    def validate(self):
-        self.validate_required(self.lca_stage, 'lca_stage')
-        self.validate_required(self.input_stream_list, 'input_stream_list')
-        if self.input_stream_list:
-            for k in self.input_stream_list:
-                if k:
-                    k.validate()
-        self.validate_required(self.output_stream_list, 'output_stream_list')
-        if self.output_stream_list:
-            for k in self.output_stream_list:
-                if k:
-                    k.validate()
-
-    def to_map(self):
-        _map = super().to_map()
-        if _map is not None:
-            return _map
-
-        result = dict()
-        if self.lca_stage is not None:
-            result['lca_stage'] = self.lca_stage
-        result['input_stream_list'] = []
-        if self.input_stream_list is not None:
-            for k in self.input_stream_list:
-                result['input_stream_list'].append(k.to_map() if k else None)
-        result['output_stream_list'] = []
-        if self.output_stream_list is not None:
-            for k in self.output_stream_list:
-                result['output_stream_list'].append(k.to_map() if k else None)
-        return result
-
-    def from_map(self, m: dict = None):
-        m = m or dict()
-        if m.get('lca_stage') is not None:
-            self.lca_stage = m.get('lca_stage')
-        self.input_stream_list = []
-        if m.get('input_stream_list') is not None:
-            for k in m.get('input_stream_list'):
-                temp_model = InputStreamActiveData()
-                self.input_stream_list.append(temp_model.from_map(k))
-        self.output_stream_list = []
-        if m.get('output_stream_list') is not None:
-            for k in m.get('output_stream_list'):
-                temp_model = OutputStreamActiveData()
-                self.output_stream_list.append(temp_model.from_map(k))
-        return self
-
-
 class GclLcaModel(TeaModel):
     def __init__(
         self,
@@ -3417,24 +3461,29 @@ class GclLcaModel(TeaModel):
         return self
 
 
-class GreenOperationStatisticsByFrequence(TeaModel):
+class EsgUser(TeaModel):
     def __init__(
         self,
-        occurrence_period: str = None,
-        green_energy_amount: int = None,
-        green_operation_records: int = None,
+        user_id: str = None,
+        user_name: str = None,
+        nick_name: str = None,
+        real_name: str = None,
+        phone_number: str = None,
     ):
-        # 绿色行为发生时期
-        self.occurrence_period = occurrence_period
-        # 绿色行为产生的绿色能量值
-        self.green_energy_amount = green_energy_amount
-        # 时期内发生绿色行为的记录条数
-        self.green_operation_records = green_operation_records
+        # 当前操作员 ID
+        self.user_id = user_id
+        # 当前登录账号。
+        self.user_name = user_name
+        # 操作员昵称
+        self.nick_name = nick_name
+        # 操作员真实姓名
+        self.real_name = real_name
+        # 操作员手机号
+        self.phone_number = phone_number
 
     def validate(self):
-        self.validate_required(self.occurrence_period, 'occurrence_period')
-        self.validate_required(self.green_energy_amount, 'green_energy_amount')
-        self.validate_required(self.green_operation_records, 'green_operation_records')
+        self.validate_required(self.user_id, 'user_id')
+        self.validate_required(self.user_name, 'user_name')
 
     def to_map(self):
         _map = super().to_map()
@@ -3442,22 +3491,308 @@ class GreenOperationStatisticsByFrequence(TeaModel):
             return _map
 
         result = dict()
-        if self.occurrence_period is not None:
-            result['occurrence_period'] = self.occurrence_period
-        if self.green_energy_amount is not None:
-            result['green_energy_amount'] = self.green_energy_amount
-        if self.green_operation_records is not None:
-            result['green_operation_records'] = self.green_operation_records
+        if self.user_id is not None:
+            result['user_id'] = self.user_id
+        if self.user_name is not None:
+            result['user_name'] = self.user_name
+        if self.nick_name is not None:
+            result['nick_name'] = self.nick_name
+        if self.real_name is not None:
+            result['real_name'] = self.real_name
+        if self.phone_number is not None:
+            result['phone_number'] = self.phone_number
         return result
 
     def from_map(self, m: dict = None):
         m = m or dict()
-        if m.get('occurrence_period') is not None:
-            self.occurrence_period = m.get('occurrence_period')
-        if m.get('green_energy_amount') is not None:
-            self.green_energy_amount = m.get('green_energy_amount')
-        if m.get('green_operation_records') is not None:
-            self.green_operation_records = m.get('green_operation_records')
+        if m.get('user_id') is not None:
+            self.user_id = m.get('user_id')
+        if m.get('user_name') is not None:
+            self.user_name = m.get('user_name')
+        if m.get('nick_name') is not None:
+            self.nick_name = m.get('nick_name')
+        if m.get('real_name') is not None:
+            self.real_name = m.get('real_name')
+        if m.get('phone_number') is not None:
+            self.phone_number = m.get('phone_number')
+        return self
+
+
+class RoleList(TeaModel):
+    def __init__(
+        self,
+        role_no: str = None,
+        name: str = None,
+        description: str = None,
+        permission_list: List[str] = None,
+    ):
+        # 角色编码
+        self.role_no = role_no
+        # 角色名称
+        self.name = name
+        # 角色描述
+        self.description = description
+        # 角色权限编码
+        self.permission_list = permission_list
+
+    def validate(self):
+        self.validate_required(self.role_no, 'role_no')
+        self.validate_required(self.name, 'name')
+        self.validate_required(self.permission_list, 'permission_list')
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.role_no is not None:
+            result['role_no'] = self.role_no
+        if self.name is not None:
+            result['name'] = self.name
+        if self.description is not None:
+            result['description'] = self.description
+        if self.permission_list is not None:
+            result['permission_list'] = self.permission_list
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('role_no') is not None:
+            self.role_no = m.get('role_no')
+        if m.get('name') is not None:
+            self.name = m.get('name')
+        if m.get('description') is not None:
+            self.description = m.get('description')
+        if m.get('permission_list') is not None:
+            self.permission_list = m.get('permission_list')
+        return self
+
+
+class OrganizationUnitSubTree(TeaModel):
+    def __init__(
+        self,
+        organization_no: str = None,
+        organization_name: str = None,
+        parent_organization_no_list: List[str] = None,
+        parent_organization_name: str = None,
+        gmt_modified: str = None,
+        children: List[OrganizationUnitTree] = None,
+    ):
+        # 组织单元编码。
+        self.organization_no = organization_no
+        # 组织单元名称。
+        self.organization_name = organization_name
+        # 从根到直接父级的组织编码链；根节点为空。
+        self.parent_organization_no_list = parent_organization_no_list
+        # 直接父级组织名称；根节点为空。
+        self.parent_organization_name = parent_organization_name
+        # 最后更新时间
+        self.gmt_modified = gmt_modified
+        # 重复结构体
+        self.children = children
+
+    def validate(self):
+        self.validate_required(self.organization_no, 'organization_no')
+        self.validate_required(self.organization_name, 'organization_name')
+        self.validate_required(self.gmt_modified, 'gmt_modified')
+        self.validate_required(self.children, 'children')
+        if self.children:
+            for k in self.children:
+                if k:
+                    k.validate()
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.organization_no is not None:
+            result['organization_no'] = self.organization_no
+        if self.organization_name is not None:
+            result['organization_name'] = self.organization_name
+        if self.parent_organization_no_list is not None:
+            result['parent_organization_no_list'] = self.parent_organization_no_list
+        if self.parent_organization_name is not None:
+            result['parent_organization_name'] = self.parent_organization_name
+        if self.gmt_modified is not None:
+            result['gmt_modified'] = self.gmt_modified
+        result['children'] = []
+        if self.children is not None:
+            for k in self.children:
+                result['children'].append(k.to_map() if k else None)
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('organization_no') is not None:
+            self.organization_no = m.get('organization_no')
+        if m.get('organization_name') is not None:
+            self.organization_name = m.get('organization_name')
+        if m.get('parent_organization_no_list') is not None:
+            self.parent_organization_no_list = m.get('parent_organization_no_list')
+        if m.get('parent_organization_name') is not None:
+            self.parent_organization_name = m.get('parent_organization_name')
+        if m.get('gmt_modified') is not None:
+            self.gmt_modified = m.get('gmt_modified')
+        self.children = []
+        if m.get('children') is not None:
+            for k in m.get('children'):
+                temp_model = OrganizationUnitTree()
+                self.children.append(temp_model.from_map(k))
+        return self
+
+
+class OrganizationUnitTree(TeaModel):
+    def __init__(
+        self,
+        organization_no: str = None,
+        organization_name: str = None,
+        parent_organization_no_list: List[str] = None,
+        parent_organization_name: str = None,
+        gmt_modified: str = None,
+        children: List[OrganizationUnitSubTree] = None,
+    ):
+        # 组织单元编码
+        self.organization_no = organization_no
+        # 组织单元名称
+        self.organization_name = organization_name
+        # 从根到直接父级的组织编码链；根节点为空
+        self.parent_organization_no_list = parent_organization_no_list
+        # 直接父级组织名称；根节点为空
+        self.parent_organization_name = parent_organization_name
+        # 最后更新时间
+        self.gmt_modified = gmt_modified
+        # 重复结构体
+        self.children = children
+
+    def validate(self):
+        self.validate_required(self.organization_no, 'organization_no')
+        self.validate_required(self.organization_name, 'organization_name')
+        self.validate_required(self.gmt_modified, 'gmt_modified')
+        self.validate_required(self.children, 'children')
+        if self.children:
+            for k in self.children:
+                if k:
+                    k.validate()
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.organization_no is not None:
+            result['organization_no'] = self.organization_no
+        if self.organization_name is not None:
+            result['organization_name'] = self.organization_name
+        if self.parent_organization_no_list is not None:
+            result['parent_organization_no_list'] = self.parent_organization_no_list
+        if self.parent_organization_name is not None:
+            result['parent_organization_name'] = self.parent_organization_name
+        if self.gmt_modified is not None:
+            result['gmt_modified'] = self.gmt_modified
+        result['children'] = []
+        if self.children is not None:
+            for k in self.children:
+                result['children'].append(k.to_map() if k else None)
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('organization_no') is not None:
+            self.organization_no = m.get('organization_no')
+        if m.get('organization_name') is not None:
+            self.organization_name = m.get('organization_name')
+        if m.get('parent_organization_no_list') is not None:
+            self.parent_organization_no_list = m.get('parent_organization_no_list')
+        if m.get('parent_organization_name') is not None:
+            self.parent_organization_name = m.get('parent_organization_name')
+        if m.get('gmt_modified') is not None:
+            self.gmt_modified = m.get('gmt_modified')
+        self.children = []
+        if m.get('children') is not None:
+            for k in m.get('children'):
+                temp_model = OrganizationUnitSubTree()
+                self.children.append(temp_model.from_map(k))
+        return self
+
+
+class OperatorList(TeaModel):
+    def __init__(
+        self,
+        operator_id: str = None,
+        operator_name: str = None,
+        email: str = None,
+        cell_phone: str = None,
+        nick_name: str = None,
+        create_time: str = None,
+        status: str = None,
+        supervisor: bool = None,
+    ):
+        # 操作员 ID。
+        self.operator_id = operator_id
+        # 操作员姓名。
+        self.operator_name = operator_name
+        # 登录邮箱。
+        self.email = email
+        # 手机号。
+        self.cell_phone = cell_phone
+        # 昵称。
+        self.nick_name = nick_name
+        # 创建时间
+        self.create_time = create_time
+        # 操作员状态。
+        self.status = status
+        # 是否为超级管理员。
+        self.supervisor = supervisor
+
+    def validate(self):
+        self.validate_required(self.operator_id, 'operator_id')
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.operator_id is not None:
+            result['operator_id'] = self.operator_id
+        if self.operator_name is not None:
+            result['operator_name'] = self.operator_name
+        if self.email is not None:
+            result['email'] = self.email
+        if self.cell_phone is not None:
+            result['cell_phone'] = self.cell_phone
+        if self.nick_name is not None:
+            result['nick_name'] = self.nick_name
+        if self.create_time is not None:
+            result['create_time'] = self.create_time
+        if self.status is not None:
+            result['status'] = self.status
+        if self.supervisor is not None:
+            result['supervisor'] = self.supervisor
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('operator_id') is not None:
+            self.operator_id = m.get('operator_id')
+        if m.get('operator_name') is not None:
+            self.operator_name = m.get('operator_name')
+        if m.get('email') is not None:
+            self.email = m.get('email')
+        if m.get('cell_phone') is not None:
+            self.cell_phone = m.get('cell_phone')
+        if m.get('nick_name') is not None:
+            self.nick_name = m.get('nick_name')
+        if m.get('create_time') is not None:
+            self.create_time = m.get('create_time')
+        if m.get('status') is not None:
+            self.status = m.get('status')
+        if m.get('supervisor') is not None:
+            self.supervisor = m.get('supervisor')
         return self
 
 
@@ -13406,6 +13741,546 @@ class PushActiveDataResponse(TeaModel):
                 self.abnormal_item_list.append(temp_model.from_map(k))
         if m.get('success_count') is not None:
             self.success_count = m.get('success_count')
+        return self
+
+
+class ExecEsgVerifytokenRequest(TeaModel):
+    def __init__(
+        self,
+        auth_token: str = None,
+        product_instance_id: str = None,
+        carbon_token: str = None,
+    ):
+        # OAuth模式下的授权token
+        self.auth_token = auth_token
+        self.product_instance_id = product_instance_id
+        # 碳矩阵签发的一次性凭证。
+        self.carbon_token = carbon_token
+
+    def validate(self):
+        self.validate_required(self.carbon_token, 'carbon_token')
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.auth_token is not None:
+            result['auth_token'] = self.auth_token
+        if self.product_instance_id is not None:
+            result['product_instance_id'] = self.product_instance_id
+        if self.carbon_token is not None:
+            result['carbon_token'] = self.carbon_token
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('auth_token') is not None:
+            self.auth_token = m.get('auth_token')
+        if m.get('product_instance_id') is not None:
+            self.product_instance_id = m.get('product_instance_id')
+        if m.get('carbon_token') is not None:
+            self.carbon_token = m.get('carbon_token')
+        return self
+
+
+class ExecEsgVerifytokenResponse(TeaModel):
+    def __init__(
+        self,
+        req_msg_id: str = None,
+        result_code: str = None,
+        result_msg: str = None,
+        role_nos: List[str] = None,
+        user_id: str = None,
+        user_name: str = None,
+        nick_name: str = None,
+        real_name: str = None,
+        phone_number: str = None,
+        enterprise_no: str = None,
+    ):
+        # 请求唯一ID，用于链路跟踪和问题排查
+        self.req_msg_id = req_msg_id
+        # 结果码，一般OK表示调用成功
+        self.result_code = result_code
+        # 异常信息的文本描述
+        self.result_msg = result_msg
+        # 当前操作员全部去重后的角色编码
+        self.role_nos = role_nos
+        # 当前碳矩阵操作员 ID。
+        self.user_id = user_id
+        # 当前碳矩阵登录账号名称。
+        self.user_name = user_name
+        # 操作员昵称
+        self.nick_name = nick_name
+        # 操作员真实姓名
+        self.real_name = real_name
+        # 操作员手机号
+        self.phone_number = phone_number
+        # 企业编码
+        self.enterprise_no = enterprise_no
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.req_msg_id is not None:
+            result['req_msg_id'] = self.req_msg_id
+        if self.result_code is not None:
+            result['result_code'] = self.result_code
+        if self.result_msg is not None:
+            result['result_msg'] = self.result_msg
+        if self.role_nos is not None:
+            result['role_nos'] = self.role_nos
+        if self.user_id is not None:
+            result['user_id'] = self.user_id
+        if self.user_name is not None:
+            result['user_name'] = self.user_name
+        if self.nick_name is not None:
+            result['nick_name'] = self.nick_name
+        if self.real_name is not None:
+            result['real_name'] = self.real_name
+        if self.phone_number is not None:
+            result['phone_number'] = self.phone_number
+        if self.enterprise_no is not None:
+            result['enterprise_no'] = self.enterprise_no
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('req_msg_id') is not None:
+            self.req_msg_id = m.get('req_msg_id')
+        if m.get('result_code') is not None:
+            self.result_code = m.get('result_code')
+        if m.get('result_msg') is not None:
+            self.result_msg = m.get('result_msg')
+        if m.get('role_nos') is not None:
+            self.role_nos = m.get('role_nos')
+        if m.get('user_id') is not None:
+            self.user_id = m.get('user_id')
+        if m.get('user_name') is not None:
+            self.user_name = m.get('user_name')
+        if m.get('nick_name') is not None:
+            self.nick_name = m.get('nick_name')
+        if m.get('real_name') is not None:
+            self.real_name = m.get('real_name')
+        if m.get('phone_number') is not None:
+            self.phone_number = m.get('phone_number')
+        if m.get('enterprise_no') is not None:
+            self.enterprise_no = m.get('enterprise_no')
+        return self
+
+
+class QueryEsgListrolesRequest(TeaModel):
+    def __init__(
+        self,
+        auth_token: str = None,
+        product_instance_id: str = None,
+        current: int = None,
+        page_size: int = None,
+        name: str = None,
+        enterprise_no: str = None,
+    ):
+        # OAuth模式下的授权token
+        self.auth_token = auth_token
+        self.product_instance_id = product_instance_id
+        # 当前默认为1的页码
+        self.current = current
+        # 页数 默认为20
+        self.page_size = page_size
+        # 角色名称搜索条件
+        self.name = name
+        # verifyToken中的企业编码
+        self.enterprise_no = enterprise_no
+
+    def validate(self):
+        self.validate_required(self.enterprise_no, 'enterprise_no')
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.auth_token is not None:
+            result['auth_token'] = self.auth_token
+        if self.product_instance_id is not None:
+            result['product_instance_id'] = self.product_instance_id
+        if self.current is not None:
+            result['current'] = self.current
+        if self.page_size is not None:
+            result['page_size'] = self.page_size
+        if self.name is not None:
+            result['name'] = self.name
+        if self.enterprise_no is not None:
+            result['enterprise_no'] = self.enterprise_no
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('auth_token') is not None:
+            self.auth_token = m.get('auth_token')
+        if m.get('product_instance_id') is not None:
+            self.product_instance_id = m.get('product_instance_id')
+        if m.get('current') is not None:
+            self.current = m.get('current')
+        if m.get('page_size') is not None:
+            self.page_size = m.get('page_size')
+        if m.get('name') is not None:
+            self.name = m.get('name')
+        if m.get('enterprise_no') is not None:
+            self.enterprise_no = m.get('enterprise_no')
+        return self
+
+
+class QueryEsgListrolesResponse(TeaModel):
+    def __init__(
+        self,
+        req_msg_id: str = None,
+        result_code: str = None,
+        result_msg: str = None,
+        current: int = None,
+        page_size: int = None,
+        total: int = None,
+        list: RoleList = None,
+    ):
+        # 请求唯一ID，用于链路跟踪和问题排查
+        self.req_msg_id = req_msg_id
+        # 结果码，一般OK表示调用成功
+        self.result_code = result_code
+        # 异常信息的文本描述
+        self.result_msg = result_msg
+        # 页码
+        self.current = current
+        # 页数
+        self.page_size = page_size
+        # 符合条件的角色总数
+        self.total = total
+        # 当前页角色列表
+        self.list = list
+
+    def validate(self):
+        if self.list:
+            self.list.validate()
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.req_msg_id is not None:
+            result['req_msg_id'] = self.req_msg_id
+        if self.result_code is not None:
+            result['result_code'] = self.result_code
+        if self.result_msg is not None:
+            result['result_msg'] = self.result_msg
+        if self.current is not None:
+            result['current'] = self.current
+        if self.page_size is not None:
+            result['page_size'] = self.page_size
+        if self.total is not None:
+            result['total'] = self.total
+        if self.list is not None:
+            result['list'] = self.list.to_map()
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('req_msg_id') is not None:
+            self.req_msg_id = m.get('req_msg_id')
+        if m.get('result_code') is not None:
+            self.result_code = m.get('result_code')
+        if m.get('result_msg') is not None:
+            self.result_msg = m.get('result_msg')
+        if m.get('current') is not None:
+            self.current = m.get('current')
+        if m.get('page_size') is not None:
+            self.page_size = m.get('page_size')
+        if m.get('total') is not None:
+            self.total = m.get('total')
+        if m.get('list') is not None:
+            temp_model = RoleList()
+            self.list = temp_model.from_map(m['list'])
+        return self
+
+
+class QueryEsgOrganizationunittreeRequest(TeaModel):
+    def __init__(
+        self,
+        auth_token: str = None,
+        product_instance_id: str = None,
+        enterprise_no: str = None,
+    ):
+        # OAuth模式下的授权token
+        self.auth_token = auth_token
+        self.product_instance_id = product_instance_id
+        # verifyToken中的企业编码
+        self.enterprise_no = enterprise_no
+
+    def validate(self):
+        self.validate_required(self.enterprise_no, 'enterprise_no')
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.auth_token is not None:
+            result['auth_token'] = self.auth_token
+        if self.product_instance_id is not None:
+            result['product_instance_id'] = self.product_instance_id
+        if self.enterprise_no is not None:
+            result['enterprise_no'] = self.enterprise_no
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('auth_token') is not None:
+            self.auth_token = m.get('auth_token')
+        if m.get('product_instance_id') is not None:
+            self.product_instance_id = m.get('product_instance_id')
+        if m.get('enterprise_no') is not None:
+            self.enterprise_no = m.get('enterprise_no')
+        return self
+
+
+class QueryEsgOrganizationunittreeResponse(TeaModel):
+    def __init__(
+        self,
+        req_msg_id: str = None,
+        result_code: str = None,
+        result_msg: str = None,
+        organization_no: str = None,
+        organization_name: str = None,
+        parent_organization_no_list: List[str] = None,
+        parent_organization_name: str = None,
+        gmt_modified: str = None,
+        children: List[OrganizationUnitTree] = None,
+    ):
+        # 请求唯一ID，用于链路跟踪和问题排查
+        self.req_msg_id = req_msg_id
+        # 结果码，一般OK表示调用成功
+        self.result_code = result_code
+        # 异常信息的文本描述
+        self.result_msg = result_msg
+        # 组织单元编码
+        self.organization_no = organization_no
+        # 组织单元名称
+        self.organization_name = organization_name
+        # 从根到直接父级的组织编码链
+        self.parent_organization_no_list = parent_organization_no_list
+        # 直接父级组织名称；根节点为空
+        self.parent_organization_name = parent_organization_name
+        # 最后更新时间
+        self.gmt_modified = gmt_modified
+        # 重复结构体
+        self.children = children
+
+    def validate(self):
+        if self.children:
+            for k in self.children:
+                if k:
+                    k.validate()
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.req_msg_id is not None:
+            result['req_msg_id'] = self.req_msg_id
+        if self.result_code is not None:
+            result['result_code'] = self.result_code
+        if self.result_msg is not None:
+            result['result_msg'] = self.result_msg
+        if self.organization_no is not None:
+            result['organization_no'] = self.organization_no
+        if self.organization_name is not None:
+            result['organization_name'] = self.organization_name
+        if self.parent_organization_no_list is not None:
+            result['parent_organization_no_list'] = self.parent_organization_no_list
+        if self.parent_organization_name is not None:
+            result['parent_organization_name'] = self.parent_organization_name
+        if self.gmt_modified is not None:
+            result['gmt_modified'] = self.gmt_modified
+        result['children'] = []
+        if self.children is not None:
+            for k in self.children:
+                result['children'].append(k.to_map() if k else None)
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('req_msg_id') is not None:
+            self.req_msg_id = m.get('req_msg_id')
+        if m.get('result_code') is not None:
+            self.result_code = m.get('result_code')
+        if m.get('result_msg') is not None:
+            self.result_msg = m.get('result_msg')
+        if m.get('organization_no') is not None:
+            self.organization_no = m.get('organization_no')
+        if m.get('organization_name') is not None:
+            self.organization_name = m.get('organization_name')
+        if m.get('parent_organization_no_list') is not None:
+            self.parent_organization_no_list = m.get('parent_organization_no_list')
+        if m.get('parent_organization_name') is not None:
+            self.parent_organization_name = m.get('parent_organization_name')
+        if m.get('gmt_modified') is not None:
+            self.gmt_modified = m.get('gmt_modified')
+        self.children = []
+        if m.get('children') is not None:
+            for k in m.get('children'):
+                temp_model = OrganizationUnitTree()
+                self.children.append(temp_model.from_map(k))
+        return self
+
+
+class QueryEsgListbyroleRequest(TeaModel):
+    def __init__(
+        self,
+        auth_token: str = None,
+        product_instance_id: str = None,
+        role_no: str = None,
+        current: int = None,
+        page_size: int = None,
+        enterprise_no: str = None,
+    ):
+        # OAuth模式下的授权token
+        self.auth_token = auth_token
+        self.product_instance_id = product_instance_id
+        # 不能为空，且必须属于当前企业
+        self.role_no = role_no
+        # 页码 默认1
+        self.current = current
+        # 页数 默认20
+        self.page_size = page_size
+        # verifyToken中的企业编码
+        self.enterprise_no = enterprise_no
+
+    def validate(self):
+        self.validate_required(self.role_no, 'role_no')
+        self.validate_required(self.enterprise_no, 'enterprise_no')
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.auth_token is not None:
+            result['auth_token'] = self.auth_token
+        if self.product_instance_id is not None:
+            result['product_instance_id'] = self.product_instance_id
+        if self.role_no is not None:
+            result['role_no'] = self.role_no
+        if self.current is not None:
+            result['current'] = self.current
+        if self.page_size is not None:
+            result['page_size'] = self.page_size
+        if self.enterprise_no is not None:
+            result['enterprise_no'] = self.enterprise_no
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('auth_token') is not None:
+            self.auth_token = m.get('auth_token')
+        if m.get('product_instance_id') is not None:
+            self.product_instance_id = m.get('product_instance_id')
+        if m.get('role_no') is not None:
+            self.role_no = m.get('role_no')
+        if m.get('current') is not None:
+            self.current = m.get('current')
+        if m.get('page_size') is not None:
+            self.page_size = m.get('page_size')
+        if m.get('enterprise_no') is not None:
+            self.enterprise_no = m.get('enterprise_no')
+        return self
+
+
+class QueryEsgListbyroleResponse(TeaModel):
+    def __init__(
+        self,
+        req_msg_id: str = None,
+        result_code: str = None,
+        result_msg: str = None,
+        current: int = None,
+        page_size: int = None,
+        total: int = None,
+        list: List[OperatorList] = None,
+    ):
+        # 请求唯一ID，用于链路跟踪和问题排查
+        self.req_msg_id = req_msg_id
+        # 结果码，一般OK表示调用成功
+        self.result_code = result_code
+        # 异常信息的文本描述
+        self.result_msg = result_msg
+        # 实际页码
+        self.current = current
+        # 实际页数大小
+        self.page_size = page_size
+        # 符合角色条件的去重操作员总数
+        self.total = total
+        # 当前页操作员列表
+        self.list = list
+
+    def validate(self):
+        if self.list:
+            for k in self.list:
+                if k:
+                    k.validate()
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.req_msg_id is not None:
+            result['req_msg_id'] = self.req_msg_id
+        if self.result_code is not None:
+            result['result_code'] = self.result_code
+        if self.result_msg is not None:
+            result['result_msg'] = self.result_msg
+        if self.current is not None:
+            result['current'] = self.current
+        if self.page_size is not None:
+            result['page_size'] = self.page_size
+        if self.total is not None:
+            result['total'] = self.total
+        result['list'] = []
+        if self.list is not None:
+            for k in self.list:
+                result['list'].append(k.to_map() if k else None)
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('req_msg_id') is not None:
+            self.req_msg_id = m.get('req_msg_id')
+        if m.get('result_code') is not None:
+            self.result_code = m.get('result_code')
+        if m.get('result_msg') is not None:
+            self.result_msg = m.get('result_msg')
+        if m.get('current') is not None:
+            self.current = m.get('current')
+        if m.get('page_size') is not None:
+            self.page_size = m.get('page_size')
+        if m.get('total') is not None:
+            self.total = m.get('total')
+        self.list = []
+        if m.get('list') is not None:
+            for k in m.get('list'):
+                temp_model = OperatorList()
+                self.list.append(temp_model.from_map(k))
         return self
 
 

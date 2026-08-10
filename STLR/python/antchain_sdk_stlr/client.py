@@ -110,7 +110,7 @@ class Client:
                 'period': UtilClient.default_number(runtime.backoff_period, 1)
             },
             'ignoreSSL': runtime.ignore_ssl,
-            # 供应商产品详情
+            # 每日碳排放量
         }
         _last_request = None
         _last_exception = None
@@ -135,7 +135,7 @@ class Client:
                     'req_msg_id': AntchainUtils.get_nonce(),
                     'access_key': self._access_key_id,
                     'base_sdk_version': 'TeaSDK-2.0',
-                    'sdk_version': '2.11.11',
+                    'sdk_version': '2.11.12',
                     '_prod_code': 'STLR',
                     '_prod_channel': 'undefined'
                 }
@@ -214,7 +214,7 @@ class Client:
                 'period': UtilClient.default_number(runtime.backoff_period, 1)
             },
             'ignoreSSL': runtime.ignore_ssl,
-            # 供应商产品详情
+            # 每日碳排放量
         }
         _last_request = None
         _last_exception = None
@@ -239,7 +239,7 @@ class Client:
                     'req_msg_id': AntchainUtils.get_nonce(),
                     'access_key': self._access_key_id,
                     'base_sdk_version': 'TeaSDK-2.0',
-                    'sdk_version': '2.11.11',
+                    'sdk_version': '2.11.12',
                     '_prod_code': 'STLR',
                     '_prod_channel': 'undefined'
                 }
@@ -4805,6 +4805,230 @@ class Client:
         return TeaCore.from_map(
             stlr_models.PushActiveDataResponse(),
             await self.do_request_async('1.0', 'antchain.carbon.active.data.push', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def exec_esg_verifytoken(
+        self,
+        request: stlr_models.ExecEsgVerifytokenRequest,
+    ) -> stlr_models.ExecEsgVerifytokenResponse:
+        """
+        Description: 核验并消费一次性凭证，返回碳矩阵当前登录信息。
+        Summary: 核验并消费一次性凭证，返回碳矩阵当前登录信息。
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.exec_esg_verifytoken_ex(request, headers, runtime)
+
+    async def exec_esg_verifytoken_async(
+        self,
+        request: stlr_models.ExecEsgVerifytokenRequest,
+    ) -> stlr_models.ExecEsgVerifytokenResponse:
+        """
+        Description: 核验并消费一次性凭证，返回碳矩阵当前登录信息。
+        Summary: 核验并消费一次性凭证，返回碳矩阵当前登录信息。
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.exec_esg_verifytoken_ex_async(request, headers, runtime)
+
+    def exec_esg_verifytoken_ex(
+        self,
+        request: stlr_models.ExecEsgVerifytokenRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> stlr_models.ExecEsgVerifytokenResponse:
+        """
+        Description: 核验并消费一次性凭证，返回碳矩阵当前登录信息。
+        Summary: 核验并消费一次性凭证，返回碳矩阵当前登录信息。
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            stlr_models.ExecEsgVerifytokenResponse(),
+            self.do_request('1.0', 'antchain.carbon.esg.verifytoken.exec', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def exec_esg_verifytoken_ex_async(
+        self,
+        request: stlr_models.ExecEsgVerifytokenRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> stlr_models.ExecEsgVerifytokenResponse:
+        """
+        Description: 核验并消费一次性凭证，返回碳矩阵当前登录信息。
+        Summary: 核验并消费一次性凭证，返回碳矩阵当前登录信息。
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            stlr_models.ExecEsgVerifytokenResponse(),
+            await self.do_request_async('1.0', 'antchain.carbon.esg.verifytoken.exec', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def query_esg_listroles(
+        self,
+        request: stlr_models.QueryEsgListrolesRequest,
+    ) -> stlr_models.QueryEsgListrolesResponse:
+        """
+        Description: 当前企业已落库的全部角色
+        Summary: 当前企业已落库的全部角色
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.query_esg_listroles_ex(request, headers, runtime)
+
+    async def query_esg_listroles_async(
+        self,
+        request: stlr_models.QueryEsgListrolesRequest,
+    ) -> stlr_models.QueryEsgListrolesResponse:
+        """
+        Description: 当前企业已落库的全部角色
+        Summary: 当前企业已落库的全部角色
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.query_esg_listroles_ex_async(request, headers, runtime)
+
+    def query_esg_listroles_ex(
+        self,
+        request: stlr_models.QueryEsgListrolesRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> stlr_models.QueryEsgListrolesResponse:
+        """
+        Description: 当前企业已落库的全部角色
+        Summary: 当前企业已落库的全部角色
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            stlr_models.QueryEsgListrolesResponse(),
+            self.do_request('1.0', 'antchain.carbon.esg.listroles.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def query_esg_listroles_ex_async(
+        self,
+        request: stlr_models.QueryEsgListrolesRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> stlr_models.QueryEsgListrolesResponse:
+        """
+        Description: 当前企业已落库的全部角色
+        Summary: 当前企业已落库的全部角色
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            stlr_models.QueryEsgListrolesResponse(),
+            await self.do_request_async('1.0', 'antchain.carbon.esg.listroles.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def query_esg_organizationunittree(
+        self,
+        request: stlr_models.QueryEsgOrganizationunittreeRequest,
+    ) -> stlr_models.QueryEsgOrganizationunittreeResponse:
+        """
+        Description: 查询组织单元树
+        Summary: 查询组织单元树
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.query_esg_organizationunittree_ex(request, headers, runtime)
+
+    async def query_esg_organizationunittree_async(
+        self,
+        request: stlr_models.QueryEsgOrganizationunittreeRequest,
+    ) -> stlr_models.QueryEsgOrganizationunittreeResponse:
+        """
+        Description: 查询组织单元树
+        Summary: 查询组织单元树
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.query_esg_organizationunittree_ex_async(request, headers, runtime)
+
+    def query_esg_organizationunittree_ex(
+        self,
+        request: stlr_models.QueryEsgOrganizationunittreeRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> stlr_models.QueryEsgOrganizationunittreeResponse:
+        """
+        Description: 查询组织单元树
+        Summary: 查询组织单元树
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            stlr_models.QueryEsgOrganizationunittreeResponse(),
+            self.do_request('1.0', 'antchain.carbon.esg.organizationunittree.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def query_esg_organizationunittree_ex_async(
+        self,
+        request: stlr_models.QueryEsgOrganizationunittreeRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> stlr_models.QueryEsgOrganizationunittreeResponse:
+        """
+        Description: 查询组织单元树
+        Summary: 查询组织单元树
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            stlr_models.QueryEsgOrganizationunittreeResponse(),
+            await self.do_request_async('1.0', 'antchain.carbon.esg.organizationunittree.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def query_esg_listbyrole(
+        self,
+        request: stlr_models.QueryEsgListbyroleRequest,
+    ) -> stlr_models.QueryEsgListbyroleResponse:
+        """
+        Description: 按角色分页查询操作员
+        Summary: 按角色分页查询操作员
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.query_esg_listbyrole_ex(request, headers, runtime)
+
+    async def query_esg_listbyrole_async(
+        self,
+        request: stlr_models.QueryEsgListbyroleRequest,
+    ) -> stlr_models.QueryEsgListbyroleResponse:
+        """
+        Description: 按角色分页查询操作员
+        Summary: 按角色分页查询操作员
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.query_esg_listbyrole_ex_async(request, headers, runtime)
+
+    def query_esg_listbyrole_ex(
+        self,
+        request: stlr_models.QueryEsgListbyroleRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> stlr_models.QueryEsgListbyroleResponse:
+        """
+        Description: 按角色分页查询操作员
+        Summary: 按角色分页查询操作员
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            stlr_models.QueryEsgListbyroleResponse(),
+            self.do_request('1.0', 'antchain.carbon.esg.listbyrole.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def query_esg_listbyrole_ex_async(
+        self,
+        request: stlr_models.QueryEsgListbyroleRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> stlr_models.QueryEsgListbyroleResponse:
+        """
+        Description: 按角色分页查询操作员
+        Summary: 按角色分页查询操作员
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            stlr_models.QueryEsgListbyroleResponse(),
+            await self.do_request_async('1.0', 'antchain.carbon.esg.listbyrole.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
     def query_third_cert(
