@@ -126,7 +126,7 @@ public class Client {
                     new TeaPair("req_msg_id", com.antgroup.antchain.openapi.antchain.util.AntchainUtils.getNonce()),
                     new TeaPair("access_key", _accessKeyId),
                     new TeaPair("base_sdk_version", "TeaSDK-2.0"),
-                    new TeaPair("sdk_version", "2.11.11"),
+                    new TeaPair("sdk_version", "2.11.12"),
                     new TeaPair("_prod_code", "STLR"),
                     new TeaPair("_prod_channel", "undefined")
                 );
@@ -1911,6 +1911,90 @@ public class Client {
     public PushActiveDataResponse pushActiveDataEx(PushActiveDataRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
         com.aliyun.teautil.Common.validateModel(request);
         return TeaModel.toModel(this.doRequest("1.0", "antchain.carbon.active.data.push", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new PushActiveDataResponse());
+    }
+
+    /**
+     * <b>description</b> :
+     * <p>Description: 核验并消费一次性凭证，返回碳矩阵当前登录信息。
+     * Summary: 核验并消费一次性凭证，返回碳矩阵当前登录信息。</p>
+     */
+    public ExecEsgVerifytokenResponse execEsgVerifytoken(ExecEsgVerifytokenRequest request) throws Exception {
+        com.aliyun.teautil.models.RuntimeOptions runtime = new com.aliyun.teautil.models.RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.execEsgVerifytokenEx(request, headers, runtime);
+    }
+
+    /**
+     * <b>description</b> :
+     * <p>Description: 核验并消费一次性凭证，返回碳矩阵当前登录信息。
+     * Summary: 核验并消费一次性凭证，返回碳矩阵当前登录信息。</p>
+     */
+    public ExecEsgVerifytokenResponse execEsgVerifytokenEx(ExecEsgVerifytokenRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "antchain.carbon.esg.verifytoken.exec", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new ExecEsgVerifytokenResponse());
+    }
+
+    /**
+     * <b>description</b> :
+     * <p>Description: 当前企业已落库的全部角色
+     * Summary: 当前企业已落库的全部角色</p>
+     */
+    public QueryEsgListrolesResponse queryEsgListroles(QueryEsgListrolesRequest request) throws Exception {
+        com.aliyun.teautil.models.RuntimeOptions runtime = new com.aliyun.teautil.models.RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.queryEsgListrolesEx(request, headers, runtime);
+    }
+
+    /**
+     * <b>description</b> :
+     * <p>Description: 当前企业已落库的全部角色
+     * Summary: 当前企业已落库的全部角色</p>
+     */
+    public QueryEsgListrolesResponse queryEsgListrolesEx(QueryEsgListrolesRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "antchain.carbon.esg.listroles.query", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new QueryEsgListrolesResponse());
+    }
+
+    /**
+     * <b>description</b> :
+     * <p>Description: 查询组织单元树
+     * Summary: 查询组织单元树</p>
+     */
+    public QueryEsgOrganizationunittreeResponse queryEsgOrganizationunittree(QueryEsgOrganizationunittreeRequest request) throws Exception {
+        com.aliyun.teautil.models.RuntimeOptions runtime = new com.aliyun.teautil.models.RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.queryEsgOrganizationunittreeEx(request, headers, runtime);
+    }
+
+    /**
+     * <b>description</b> :
+     * <p>Description: 查询组织单元树
+     * Summary: 查询组织单元树</p>
+     */
+    public QueryEsgOrganizationunittreeResponse queryEsgOrganizationunittreeEx(QueryEsgOrganizationunittreeRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "antchain.carbon.esg.organizationunittree.query", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new QueryEsgOrganizationunittreeResponse());
+    }
+
+    /**
+     * <b>description</b> :
+     * <p>Description: 按角色分页查询操作员
+     * Summary: 按角色分页查询操作员</p>
+     */
+    public QueryEsgListbyroleResponse queryEsgListbyrole(QueryEsgListbyroleRequest request) throws Exception {
+        com.aliyun.teautil.models.RuntimeOptions runtime = new com.aliyun.teautil.models.RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.queryEsgListbyroleEx(request, headers, runtime);
+    }
+
+    /**
+     * <b>description</b> :
+     * <p>Description: 按角色分页查询操作员
+     * Summary: 按角色分页查询操作员</p>
+     */
+    public QueryEsgListbyroleResponse queryEsgListbyroleEx(QueryEsgListbyroleRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "antchain.carbon.esg.listbyrole.query", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new QueryEsgListbyroleResponse());
     }
 
     /**
