@@ -38,9 +38,9 @@ public class CreateComboOptionsRequest extends TeaModel {
     @Validation(required = true)
     public String saleMarket;
 
-    // 是否确认下单，默认false。true：订单状态会从待确认扭转已下单，可直接发起支付。false：不可直接发起支付，需确认后才可发起支付
-    @NameInMap("is_confirm_ordered")
-    public Boolean isConfirmOrdered;
+    // 组合单下单配置项
+    @NameInMap("combo_order_options")
+    public ComboOrderOptions comboOrderOptions;
 
     public static CreateComboOptionsRequest build(java.util.Map<String, ?> map) throws Exception {
         CreateComboOptionsRequest self = new CreateComboOptionsRequest();
@@ -103,12 +103,12 @@ public class CreateComboOptionsRequest extends TeaModel {
         return this.saleMarket;
     }
 
-    public CreateComboOptionsRequest setIsConfirmOrdered(Boolean isConfirmOrdered) {
-        this.isConfirmOrdered = isConfirmOrdered;
+    public CreateComboOptionsRequest setComboOrderOptions(ComboOrderOptions comboOrderOptions) {
+        this.comboOrderOptions = comboOrderOptions;
         return this;
     }
-    public Boolean getIsConfirmOrdered() {
-        return this.isConfirmOrdered;
+    public ComboOrderOptions getComboOrderOptions() {
+        return this.comboOrderOptions;
     }
 
 }
