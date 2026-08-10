@@ -172,6 +172,14 @@ use AntChain\STLR\Models\ExecActiveDataRequest;
 use AntChain\STLR\Models\ExecActiveDataResponse;
 use AntChain\STLR\Models\PushActiveDataRequest;
 use AntChain\STLR\Models\PushActiveDataResponse;
+use AntChain\STLR\Models\ExecEsgVerifytokenRequest;
+use AntChain\STLR\Models\ExecEsgVerifytokenResponse;
+use AntChain\STLR\Models\QueryEsgListrolesRequest;
+use AntChain\STLR\Models\QueryEsgListrolesResponse;
+use AntChain\STLR\Models\QueryEsgOrganizationunittreeRequest;
+use AntChain\STLR\Models\QueryEsgOrganizationunittreeResponse;
+use AntChain\STLR\Models\QueryEsgListbyroleRequest;
+use AntChain\STLR\Models\QueryEsgListbyroleResponse;
 use AntChain\STLR\Models\QueryThirdCertRequest;
 use AntChain\STLR\Models\QueryThirdCertResponse;
 use AntChain\STLR\Models\CreateAntcloudGatewayxFileUploadResponse;
@@ -284,7 +292,7 @@ class Client {
                 "period" => Utils::defaultNumber($runtime->backoffPeriod, 1)
             ],
             "ignoreSSL" => $runtime->ignoreSSL,
-            // 供应商产品详情
+            // 每日碳排放量
         ];
         $_lastRequest = null;
         $_lastException = null;
@@ -311,7 +319,7 @@ class Client {
                     "req_msg_id" => UtilClient::getNonce(),
                     "access_key" => $this->_accessKeyId,
                     "base_sdk_version" => "TeaSDK-2.0",
-                    "sdk_version" => "2.11.11",
+                    "sdk_version" => "2.11.12",
                     "_prod_code" => "STLR",
                     "_prod_channel" => "undefined"
                 ];
@@ -2389,6 +2397,106 @@ class Client {
     public function pushActiveDataEx($request, $headers, $runtime){
         Utils::validateModel($request);
         return PushActiveDataResponse::fromMap($this->doRequest("1.0", "antchain.carbon.active.data.push", "HTTPS", "POST", "/gateway.do", Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 核验并消费一次性凭证，返回碳矩阵当前登录信息。
+     * Summary: 核验并消费一次性凭证，返回碳矩阵当前登录信息。
+     * @param ExecEsgVerifytokenRequest $request
+     * @return ExecEsgVerifytokenResponse
+     */
+    public function execEsgVerifytoken($request){
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+        return $this->execEsgVerifytokenEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 核验并消费一次性凭证，返回碳矩阵当前登录信息。
+     * Summary: 核验并消费一次性凭证，返回碳矩阵当前登录信息。
+     * @param ExecEsgVerifytokenRequest $request
+     * @param string[] $headers
+     * @param RuntimeOptions $runtime
+     * @return ExecEsgVerifytokenResponse
+     */
+    public function execEsgVerifytokenEx($request, $headers, $runtime){
+        Utils::validateModel($request);
+        return ExecEsgVerifytokenResponse::fromMap($this->doRequest("1.0", "antchain.carbon.esg.verifytoken.exec", "HTTPS", "POST", "/gateway.do", Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 当前企业已落库的全部角色
+     * Summary: 当前企业已落库的全部角色
+     * @param QueryEsgListrolesRequest $request
+     * @return QueryEsgListrolesResponse
+     */
+    public function queryEsgListroles($request){
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+        return $this->queryEsgListrolesEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 当前企业已落库的全部角色
+     * Summary: 当前企业已落库的全部角色
+     * @param QueryEsgListrolesRequest $request
+     * @param string[] $headers
+     * @param RuntimeOptions $runtime
+     * @return QueryEsgListrolesResponse
+     */
+    public function queryEsgListrolesEx($request, $headers, $runtime){
+        Utils::validateModel($request);
+        return QueryEsgListrolesResponse::fromMap($this->doRequest("1.0", "antchain.carbon.esg.listroles.query", "HTTPS", "POST", "/gateway.do", Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 查询组织单元树
+     * Summary: 查询组织单元树
+     * @param QueryEsgOrganizationunittreeRequest $request
+     * @return QueryEsgOrganizationunittreeResponse
+     */
+    public function queryEsgOrganizationunittree($request){
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+        return $this->queryEsgOrganizationunittreeEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 查询组织单元树
+     * Summary: 查询组织单元树
+     * @param QueryEsgOrganizationunittreeRequest $request
+     * @param string[] $headers
+     * @param RuntimeOptions $runtime
+     * @return QueryEsgOrganizationunittreeResponse
+     */
+    public function queryEsgOrganizationunittreeEx($request, $headers, $runtime){
+        Utils::validateModel($request);
+        return QueryEsgOrganizationunittreeResponse::fromMap($this->doRequest("1.0", "antchain.carbon.esg.organizationunittree.query", "HTTPS", "POST", "/gateway.do", Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 按角色分页查询操作员
+     * Summary: 按角色分页查询操作员
+     * @param QueryEsgListbyroleRequest $request
+     * @return QueryEsgListbyroleResponse
+     */
+    public function queryEsgListbyrole($request){
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+        return $this->queryEsgListbyroleEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 按角色分页查询操作员
+     * Summary: 按角色分页查询操作员
+     * @param QueryEsgListbyroleRequest $request
+     * @param string[] $headers
+     * @param RuntimeOptions $runtime
+     * @return QueryEsgListbyroleResponse
+     */
+    public function queryEsgListbyroleEx($request, $headers, $runtime){
+        Utils::validateModel($request);
+        return QueryEsgListbyroleResponse::fromMap($this->doRequest("1.0", "antchain.carbon.esg.listbyrole.query", "HTTPS", "POST", "/gateway.do", Tea::merge($request), $headers, $runtime));
     }
 
     /**
