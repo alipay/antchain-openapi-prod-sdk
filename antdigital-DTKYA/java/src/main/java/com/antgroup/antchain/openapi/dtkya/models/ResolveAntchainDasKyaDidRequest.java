@@ -18,7 +18,6 @@ public class ResolveAntchainDasKyaDidRequest extends TeaModel {
 
     // 版本号
     @NameInMap("version_id")
-    @Validation(required = true)
     public String versionId;
 
     public static ResolveAntchainDasKyaDidRequest build(java.util.Map<String, ?> map) throws Exception {
