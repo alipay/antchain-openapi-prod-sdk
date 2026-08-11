@@ -14726,6 +14726,10 @@ export class ExecPromotionCouponRequest extends $tea.Model {
   activityId: string;
   // 奖品ID，需要指定奖品抽奖时传入
   prizeId?: string;
+  // 外部订单号
+  outTradeNo?: string;
+  // 支付宝订单号
+  tradeNo?: string;
   static names(): { [key: string]: string } {
     return {
       authToken: 'auth_token',
@@ -14735,6 +14739,8 @@ export class ExecPromotionCouponRequest extends $tea.Model {
       appId: 'app_id',
       activityId: 'activity_id',
       prizeId: 'prize_id',
+      outTradeNo: 'out_trade_no',
+      tradeNo: 'trade_no',
     };
   }
 
@@ -14747,6 +14753,8 @@ export class ExecPromotionCouponRequest extends $tea.Model {
       appId: 'string',
       activityId: 'string',
       prizeId: 'string',
+      outTradeNo: 'string',
+      tradeNo: 'string',
     };
   }
 
@@ -15266,12 +15274,15 @@ export class QueryBenefitAppRequest extends $tea.Model {
   authToken?: string;
   productInstanceId?: string;
   // 用户open_id
-  openId: string;
+  openId?: string;
+  // 用户手机号
+  registeredMobile?: string;
   static names(): { [key: string]: string } {
     return {
       authToken: 'auth_token',
       productInstanceId: 'product_instance_id',
       openId: 'open_id',
+      registeredMobile: 'registered_mobile',
     };
   }
 
@@ -15280,6 +15291,7 @@ export class QueryBenefitAppRequest extends $tea.Model {
       authToken: 'string',
       productInstanceId: 'string',
       openId: 'string',
+      registeredMobile: 'string',
     };
   }
 
@@ -15316,6 +15328,330 @@ export class QueryBenefitAppResponse extends $tea.Model {
       resultMsg: 'string',
       tierId: 'string',
       tierName: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class RefundTradeAppRequest extends $tea.Model {
+  // OAuth模式下的授权token
+  authToken?: string;
+  productInstanceId?: string;
+  // 原支付业务订单号
+  outTradeNo: string;
+  // 退款业务号，当前调用方内唯一，作为退款幂等键
+  outRequestNo: string;
+  // 本次退款金额，单位：元，大于 0，最多两位小数
+  refundAmount: string;
+  // 退款原因
+  refundReason: string;
+  // 订单创建时登记的中国大陆 11 位手机号
+  registeredMobile?: string;
+  static names(): { [key: string]: string } {
+    return {
+      authToken: 'auth_token',
+      productInstanceId: 'product_instance_id',
+      outTradeNo: 'out_trade_no',
+      outRequestNo: 'out_request_no',
+      refundAmount: 'refund_amount',
+      refundReason: 'refund_reason',
+      registeredMobile: 'registered_mobile',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      authToken: 'string',
+      productInstanceId: 'string',
+      outTradeNo: 'string',
+      outRequestNo: 'string',
+      refundAmount: 'string',
+      refundReason: 'string',
+      registeredMobile: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class RefundTradeAppResponse extends $tea.Model {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string;
+  // 结果码，一般OK表示调用成功
+  resultCode?: string;
+  // 异常信息的文本描述
+  resultMsg?: string;
+  // 原支付业务订单号
+  outTradeNo?: string;
+  // 本次退款业务号
+  outRequestNo?: string;
+  // 本次退款金额，单位：元
+  refundAmount?: string;
+  // 当前累计成功退款金额，单位：元
+  totalRefundAmount?: string;
+  // 退款状态
+  refundStatus?: string;
+  static names(): { [key: string]: string } {
+    return {
+      reqMsgId: 'req_msg_id',
+      resultCode: 'result_code',
+      resultMsg: 'result_msg',
+      outTradeNo: 'out_trade_no',
+      outRequestNo: 'out_request_no',
+      refundAmount: 'refund_amount',
+      totalRefundAmount: 'total_refund_amount',
+      refundStatus: 'refund_status',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      reqMsgId: 'string',
+      resultCode: 'string',
+      resultMsg: 'string',
+      outTradeNo: 'string',
+      outRequestNo: 'string',
+      refundAmount: 'string',
+      totalRefundAmount: 'string',
+      refundStatus: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class SignAgreementAppRequest extends $tea.Model {
+  // OAuth模式下的授权token
+  authToken?: string;
+  productInstanceId?: string;
+  // 隐私协议号
+  privacyAgreementNo?: string;
+  // 用户协议号
+  userAgreementNo?: string;
+  // 小程序用户openId
+  openId: string;
+  // 签署时间
+  signTime?: string;
+  static names(): { [key: string]: string } {
+    return {
+      authToken: 'auth_token',
+      productInstanceId: 'product_instance_id',
+      privacyAgreementNo: 'privacy_agreement_no',
+      userAgreementNo: 'user_agreement_no',
+      openId: 'open_id',
+      signTime: 'sign_time',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      authToken: 'string',
+      productInstanceId: 'string',
+      privacyAgreementNo: 'string',
+      userAgreementNo: 'string',
+      openId: 'string',
+      signTime: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class SignAgreementAppResponse extends $tea.Model {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string;
+  // 结果码，一般OK表示调用成功
+  resultCode?: string;
+  // 异常信息的文本描述
+  resultMsg?: string;
+  static names(): { [key: string]: string } {
+    return {
+      reqMsgId: 'req_msg_id',
+      resultCode: 'result_code',
+      resultMsg: 'result_msg',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      reqMsgId: 'string',
+      resultCode: 'string',
+      resultMsg: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class QueryAgreementAppRequest extends $tea.Model {
+  // OAuth模式下的授权token
+  authToken?: string;
+  productInstanceId?: string;
+  // 小程序用户open_id
+  openId?: string;
+  // 关联小程序appId
+  associatedAppId?: string;
+  // 关联的小程序用户openId
+  associatedOpenId?: string;
+  static names(): { [key: string]: string } {
+    return {
+      authToken: 'auth_token',
+      productInstanceId: 'product_instance_id',
+      openId: 'open_id',
+      associatedAppId: 'associated_app_id',
+      associatedOpenId: 'associated_open_id',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      authToken: 'string',
+      productInstanceId: 'string',
+      openId: 'string',
+      associatedAppId: 'string',
+      associatedOpenId: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class QueryAgreementAppResponse extends $tea.Model {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string;
+  // 结果码，一般OK表示调用成功
+  resultCode?: string;
+  // 异常信息的文本描述
+  resultMsg?: string;
+  // 隐私协议版本号
+  privacyAgreementNo?: string;
+  // 用户协议版本号
+  userAgreementNo?: string;
+  // 隐私协议签署时间
+  privacyAgreementSignTime?: string;
+  // 用户协议签署时间
+  userAgreementSignTime?: string;
+  static names(): { [key: string]: string } {
+    return {
+      reqMsgId: 'req_msg_id',
+      resultCode: 'result_code',
+      resultMsg: 'result_msg',
+      privacyAgreementNo: 'privacy_agreement_no',
+      userAgreementNo: 'user_agreement_no',
+      privacyAgreementSignTime: 'privacy_agreement_sign_time',
+      userAgreementSignTime: 'user_agreement_sign_time',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      reqMsgId: 'string',
+      resultCode: 'string',
+      resultMsg: 'string',
+      privacyAgreementNo: 'string',
+      userAgreementNo: 'string',
+      privacyAgreementSignTime: 'string',
+      userAgreementSignTime: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class QueryReportAppRequest extends $tea.Model {
+  // OAuth模式下的授权token
+  authToken?: string;
+  productInstanceId?: string;
+  // 报表类型
+  type: string;
+  // 查询条件 JSON 序列化字符串，JSON 格式由type决定
+  queryJson: string;
+  static names(): { [key: string]: string } {
+    return {
+      authToken: 'auth_token',
+      productInstanceId: 'product_instance_id',
+      type: 'type',
+      queryJson: 'query_json',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      authToken: 'string',
+      productInstanceId: 'string',
+      type: 'string',
+      queryJson: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class QueryReportAppResponse extends $tea.Model {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string;
+  // 结果码，一般OK表示调用成功
+  resultCode?: string;
+  // 异常信息的文本描述
+  resultMsg?: string;
+  // 报表类型
+  type?: string;
+  // dataList使用的 JSON 结构版本
+  schemaVersion?: string;
+  // 总条数
+  totalCount?: number;
+  // 页码
+  pageNum?: number;
+  // 每页条数
+  pageSize?: number;
+  // 是否存在下一页
+  hasNext?: boolean;
+  // JSON 数据列表；每一项为一个合法 JSON 对象的序列化字符串；无数据时返回空列表
+  dataList?: string;
+  static names(): { [key: string]: string } {
+    return {
+      reqMsgId: 'req_msg_id',
+      resultCode: 'result_code',
+      resultMsg: 'result_msg',
+      type: 'type',
+      schemaVersion: 'schema_version',
+      totalCount: 'total_count',
+      pageNum: 'page_num',
+      pageSize: 'page_size',
+      hasNext: 'has_next',
+      dataList: 'data_list',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      reqMsgId: 'string',
+      resultCode: 'string',
+      resultMsg: 'string',
+      type: 'string',
+      schemaVersion: 'string',
+      totalCount: 'number',
+      pageNum: 'number',
+      pageSize: 'number',
+      hasNext: 'boolean',
+      dataList: 'string',
     };
   }
 
@@ -15441,7 +15777,7 @@ export default class Client {
           req_msg_id: AntchainUtil.getNonce(),
           access_key: this._accessKeyId,
           base_sdk_version: "TeaSDK-2.0",
-          sdk_version: "1.4.1",
+          sdk_version: "1.6.0",
           _prod_code: "AGORAX",
           _prod_channel: "default",
         };
@@ -15739,6 +16075,90 @@ export default class Client {
   async queryBenefitAppEx(request: QueryBenefitAppRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<QueryBenefitAppResponse> {
     Util.validateModel(request);
     return $tea.cast<QueryBenefitAppResponse>(await this.doRequest("1.0", "antdigital.agorax.benefit.app.query", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new QueryBenefitAppResponse({}));
+  }
+
+  /**
+   * @remarks
+   * Description: 权益卡退款
+   * Summary: 权益卡退款
+   */
+  async refundTradeApp(request: RefundTradeAppRequest): Promise<RefundTradeAppResponse> {
+    let runtime = new $Util.RuntimeOptions({ });
+    let headers : {[key: string ]: string} = { };
+    return await this.refundTradeAppEx(request, headers, runtime);
+  }
+
+  /**
+   * @remarks
+   * Description: 权益卡退款
+   * Summary: 权益卡退款
+   */
+  async refundTradeAppEx(request: RefundTradeAppRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<RefundTradeAppResponse> {
+    Util.validateModel(request);
+    return $tea.cast<RefundTradeAppResponse>(await this.doRequest("1.0", "antdigital.agorax.trade.app.refund", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new RefundTradeAppResponse({}));
+  }
+
+  /**
+   * @remarks
+   * Description: 协议签署接口
+   * Summary: 协议签署接口
+   */
+  async signAgreementApp(request: SignAgreementAppRequest): Promise<SignAgreementAppResponse> {
+    let runtime = new $Util.RuntimeOptions({ });
+    let headers : {[key: string ]: string} = { };
+    return await this.signAgreementAppEx(request, headers, runtime);
+  }
+
+  /**
+   * @remarks
+   * Description: 协议签署接口
+   * Summary: 协议签署接口
+   */
+  async signAgreementAppEx(request: SignAgreementAppRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<SignAgreementAppResponse> {
+    Util.validateModel(request);
+    return $tea.cast<SignAgreementAppResponse>(await this.doRequest("1.0", "antdigital.agorax.agreement.app.sign", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new SignAgreementAppResponse({}));
+  }
+
+  /**
+   * @remarks
+   * Description: 查询签署结果
+   * Summary: 查询签署结果
+   */
+  async queryAgreementApp(request: QueryAgreementAppRequest): Promise<QueryAgreementAppResponse> {
+    let runtime = new $Util.RuntimeOptions({ });
+    let headers : {[key: string ]: string} = { };
+    return await this.queryAgreementAppEx(request, headers, runtime);
+  }
+
+  /**
+   * @remarks
+   * Description: 查询签署结果
+   * Summary: 查询签署结果
+   */
+  async queryAgreementAppEx(request: QueryAgreementAppRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<QueryAgreementAppResponse> {
+    Util.validateModel(request);
+    return $tea.cast<QueryAgreementAppResponse>(await this.doRequest("1.0", "antdigital.agorax.agreement.app.query", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new QueryAgreementAppResponse({}));
+  }
+
+  /**
+   * @remarks
+   * Description: 运营数据大盘
+   * Summary: 运营数据大盘
+   */
+  async queryReportApp(request: QueryReportAppRequest): Promise<QueryReportAppResponse> {
+    let runtime = new $Util.RuntimeOptions({ });
+    let headers : {[key: string ]: string} = { };
+    return await this.queryReportAppEx(request, headers, runtime);
+  }
+
+  /**
+   * @remarks
+   * Description: 运营数据大盘
+   * Summary: 运营数据大盘
+   */
+  async queryReportAppEx(request: QueryReportAppRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<QueryReportAppResponse> {
+    Util.validateModel(request);
+    return $tea.cast<QueryReportAppResponse>(await this.doRequest("1.0", "antdigital.agorax.report.app.query", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new QueryReportAppResponse({}));
   }
 
 }
