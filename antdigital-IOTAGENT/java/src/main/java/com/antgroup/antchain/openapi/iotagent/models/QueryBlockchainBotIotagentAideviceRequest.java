@@ -11,13 +11,19 @@ public class QueryBlockchainBotIotagentAideviceRequest extends TeaModel {
     @NameInMap("product_instance_id")
     public String productInstanceId;
 
+    // 保留字段，暂时不使用
     @NameInMap("device_id")
-    @Validation(required = true)
     public String deviceId;
 
+    // 用户ID
     @NameInMap("user_id")
     @Validation(required = true)
     public String userId;
+
+    // 客户租户ID
+    @NameInMap("tenant_id")
+    @Validation(required = true)
+    public String tenantId;
 
     public static QueryBlockchainBotIotagentAideviceRequest build(java.util.Map<String, ?> map) throws Exception {
         QueryBlockchainBotIotagentAideviceRequest self = new QueryBlockchainBotIotagentAideviceRequest();
@@ -54,6 +60,14 @@ public class QueryBlockchainBotIotagentAideviceRequest extends TeaModel {
     }
     public String getUserId() {
         return this.userId;
+    }
+
+    public QueryBlockchainBotIotagentAideviceRequest setTenantId(String tenantId) {
+        this.tenantId = tenantId;
+        return this;
+    }
+    public String getTenantId() {
+        return this.tenantId;
     }
 
 }

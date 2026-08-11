@@ -36,6 +36,11 @@ public class QueryBlockchainBotIotagentThingmodeldataRequest extends TeaModel {
     @NameInMap("page_size")
     public Long pageSize;
 
+    // 租户ID
+    @NameInMap("tenant_id")
+    @Validation(required = true)
+    public String tenantId;
+
     public static QueryBlockchainBotIotagentThingmodeldataRequest build(java.util.Map<String, ?> map) throws Exception {
         QueryBlockchainBotIotagentThingmodeldataRequest self = new QueryBlockchainBotIotagentThingmodeldataRequest();
         return TeaModel.build(map, self);
@@ -111,6 +116,14 @@ public class QueryBlockchainBotIotagentThingmodeldataRequest extends TeaModel {
     }
     public Long getPageSize() {
         return this.pageSize;
+    }
+
+    public QueryBlockchainBotIotagentThingmodeldataRequest setTenantId(String tenantId) {
+        this.tenantId = tenantId;
+        return this;
+    }
+    public String getTenantId() {
+        return this.tenantId;
     }
 
 }
