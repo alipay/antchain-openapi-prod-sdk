@@ -16,6 +16,20 @@ public class CreateBusinessOrdervRequest extends TeaModel {
     @Validation(required = true)
     public String orderId;
 
+    // 订单名称
+    @NameInMap("order_name")
+    @Validation(required = true)
+    public String orderName;
+
+    // 订单金额
+    @NameInMap("order_amount")
+    public Long orderAmount;
+
+    // 订单名称
+    @NameInMap("order_namez")
+    @Validation(required = true)
+    public String orderNamez;
+
     public static CreateBusinessOrdervRequest build(java.util.Map<String, ?> map) throws Exception {
         CreateBusinessOrdervRequest self = new CreateBusinessOrdervRequest();
         return TeaModel.build(map, self);
@@ -43,6 +57,30 @@ public class CreateBusinessOrdervRequest extends TeaModel {
     }
     public String getOrderId() {
         return this.orderId;
+    }
+
+    public CreateBusinessOrdervRequest setOrderName(String orderName) {
+        this.orderName = orderName;
+        return this;
+    }
+    public String getOrderName() {
+        return this.orderName;
+    }
+
+    public CreateBusinessOrdervRequest setOrderAmount(Long orderAmount) {
+        this.orderAmount = orderAmount;
+        return this;
+    }
+    public Long getOrderAmount() {
+        return this.orderAmount;
+    }
+
+    public CreateBusinessOrdervRequest setOrderNamez(String orderNamez) {
+        this.orderNamez = orderNamez;
+        return this;
+    }
+    public String getOrderNamez() {
+        return this.orderNamez;
     }
 
 }
