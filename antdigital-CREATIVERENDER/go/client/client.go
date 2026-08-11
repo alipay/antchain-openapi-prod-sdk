@@ -632,9 +632,9 @@ type ExecAntcloudMarketingagentCreativeChatRequest struct {
 	// 使用场景
 	Scene *string `json:"scene,omitempty" xml:"scene,omitempty"`
 	// 生图宽度
-	Width *string `json:"width,omitempty" xml:"width,omitempty"`
+	Width *int64 `json:"width,omitempty" xml:"width,omitempty"`
 	// 生图高度
-	Height *string `json:"height,omitempty" xml:"height,omitempty"`
+	Height *int64 `json:"height,omitempty" xml:"height,omitempty"`
 }
 
 func (s ExecAntcloudMarketingagentCreativeChatRequest) String() string {
@@ -680,12 +680,12 @@ func (s *ExecAntcloudMarketingagentCreativeChatRequest) SetScene(v string) *Exec
 	return s
 }
 
-func (s *ExecAntcloudMarketingagentCreativeChatRequest) SetWidth(v string) *ExecAntcloudMarketingagentCreativeChatRequest {
+func (s *ExecAntcloudMarketingagentCreativeChatRequest) SetWidth(v int64) *ExecAntcloudMarketingagentCreativeChatRequest {
 	s.Width = &v
 	return s
 }
 
-func (s *ExecAntcloudMarketingagentCreativeChatRequest) SetHeight(v string) *ExecAntcloudMarketingagentCreativeChatRequest {
+func (s *ExecAntcloudMarketingagentCreativeChatRequest) SetHeight(v int64) *ExecAntcloudMarketingagentCreativeChatRequest {
 	s.Height = &v
 	return s
 }
@@ -986,7 +986,7 @@ func (client *Client) DoRequest(version *string, action *string, protocol *strin
 				"req_msg_id":       antchainutil.GetNonce(),
 				"access_key":       client.AccessKeyId,
 				"base_sdk_version": tea.String("TeaSDK-2.0"),
-				"sdk_version":      tea.String("2.0.3"),
+				"sdk_version":      tea.String("2.0.4"),
 				"_prod_code":       tea.String("CREATIVERENDER"),
 				"_prod_channel":    tea.String("default"),
 			}
