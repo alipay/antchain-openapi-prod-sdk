@@ -35,11 +35,11 @@ public class ExecAntcloudMarketingagentCreativeChatRequest extends TeaModel {
 
     // 生图宽度
     @NameInMap("width")
-    public String width;
+    public Long width;
 
     // 生图高度
     @NameInMap("height")
-    public String height;
+    public Long height;
 
     public static ExecAntcloudMarketingagentCreativeChatRequest build(java.util.Map<String, ?> map) throws Exception {
         ExecAntcloudMarketingagentCreativeChatRequest self = new ExecAntcloudMarketingagentCreativeChatRequest();
@@ -102,19 +102,19 @@ public class ExecAntcloudMarketingagentCreativeChatRequest extends TeaModel {
         return this.scene;
     }
 
-    public ExecAntcloudMarketingagentCreativeChatRequest setWidth(String width) {
+    public ExecAntcloudMarketingagentCreativeChatRequest setWidth(Long width) {
         this.width = width;
         return this;
     }
-    public String getWidth() {
+    public Long getWidth() {
         return this.width;
     }
 
-    public ExecAntcloudMarketingagentCreativeChatRequest setHeight(String height) {
+    public ExecAntcloudMarketingagentCreativeChatRequest setHeight(Long height) {
         this.height = height;
         return this;
     }
-    public String getHeight() {
+    public Long getHeight() {
         return this.height;
     }
 
