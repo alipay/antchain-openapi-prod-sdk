@@ -24,6 +24,10 @@ public class SumbitInnerMermngcontractauditResponse extends TeaModel {
     @NameInMap("audit_id")
     public String auditId;
 
+    // 审核后合同文件
+    @NameInMap("contract_audit_final_file")
+    public FileInfo contractAuditFinalFile;
+
     public static SumbitInnerMermngcontractauditResponse build(java.util.Map<String, ?> map) throws Exception {
         SumbitInnerMermngcontractauditResponse self = new SumbitInnerMermngcontractauditResponse();
         return TeaModel.build(map, self);
@@ -67,6 +71,14 @@ public class SumbitInnerMermngcontractauditResponse extends TeaModel {
     }
     public String getAuditId() {
         return this.auditId;
+    }
+
+    public SumbitInnerMermngcontractauditResponse setContractAuditFinalFile(FileInfo contractAuditFinalFile) {
+        this.contractAuditFinalFile = contractAuditFinalFile;
+        return this;
+    }
+    public FileInfo getContractAuditFinalFile() {
+        return this.contractAuditFinalFile;
     }
 
 }

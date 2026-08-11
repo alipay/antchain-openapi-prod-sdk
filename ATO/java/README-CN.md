@@ -8,7 +8,7 @@
 <dependency>
    <groupId>com.antgroup.antchain.openapi</groupId>
    <artifactId>ato</artifactId>
-   <version>1.19.89</version>
+   <version>1.19.90</version>
 </dependency>
 ```
 
