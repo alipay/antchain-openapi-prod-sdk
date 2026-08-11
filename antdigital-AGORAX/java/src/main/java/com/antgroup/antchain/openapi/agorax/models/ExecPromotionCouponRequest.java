@@ -35,6 +35,14 @@ public class ExecPromotionCouponRequest extends TeaModel {
     @NameInMap("prize_id")
     public String prizeId;
 
+    // 外部订单号
+    @NameInMap("out_trade_no")
+    public String outTradeNo;
+
+    // 支付宝订单号
+    @NameInMap("trade_no")
+    public String tradeNo;
+
     public static ExecPromotionCouponRequest build(java.util.Map<String, ?> map) throws Exception {
         ExecPromotionCouponRequest self = new ExecPromotionCouponRequest();
         return TeaModel.build(map, self);
@@ -94,6 +102,22 @@ public class ExecPromotionCouponRequest extends TeaModel {
     }
     public String getPrizeId() {
         return this.prizeId;
+    }
+
+    public ExecPromotionCouponRequest setOutTradeNo(String outTradeNo) {
+        this.outTradeNo = outTradeNo;
+        return this;
+    }
+    public String getOutTradeNo() {
+        return this.outTradeNo;
+    }
+
+    public ExecPromotionCouponRequest setTradeNo(String tradeNo) {
+        this.tradeNo = tradeNo;
+        return this;
+    }
+    public String getTradeNo() {
+        return this.tradeNo;
     }
 
 }

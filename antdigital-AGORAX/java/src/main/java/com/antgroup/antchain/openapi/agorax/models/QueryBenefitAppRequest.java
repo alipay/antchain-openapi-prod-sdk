@@ -13,8 +13,11 @@ public class QueryBenefitAppRequest extends TeaModel {
 
     // 用户open_id
     @NameInMap("open_id")
-    @Validation(required = true)
     public String openId;
+
+    // 用户手机号
+    @NameInMap("registered_mobile")
+    public String registeredMobile;
 
     public static QueryBenefitAppRequest build(java.util.Map<String, ?> map) throws Exception {
         QueryBenefitAppRequest self = new QueryBenefitAppRequest();
@@ -43,6 +46,14 @@ public class QueryBenefitAppRequest extends TeaModel {
     }
     public String getOpenId() {
         return this.openId;
+    }
+
+    public QueryBenefitAppRequest setRegisteredMobile(String registeredMobile) {
+        this.registeredMobile = registeredMobile;
+        return this;
+    }
+    public String getRegisteredMobile() {
+        return this.registeredMobile;
     }
 
 }
