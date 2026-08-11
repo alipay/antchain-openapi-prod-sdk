@@ -126,7 +126,7 @@ public class Client {
                     new TeaPair("req_msg_id", com.antgroup.antchain.openapi.antchain.util.AntchainUtils.getNonce()),
                     new TeaPair("access_key", _accessKeyId),
                     new TeaPair("base_sdk_version", "TeaSDK-2.0"),
-                    new TeaPair("sdk_version", "1.1.4"),
+                    new TeaPair("sdk_version", "1.2.0"),
                     new TeaPair("_prod_code", "IOTAGENT"),
                     new TeaPair("_prod_channel", "undefined")
                 );
@@ -291,5 +291,68 @@ public class Client {
     public QueryBlockchainBotAgentSessionsResponse queryBlockchainBotAgentSessionsEx(QueryBlockchainBotAgentSessionsRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
         com.aliyun.teautil.Common.validateModel(request);
         return TeaModel.toModel(this.doRequest("1.0", "blockchain.bot.agent.sessions.query", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new QueryBlockchainBotAgentSessionsResponse());
+    }
+
+    /**
+     * <b>description</b> :
+     * <p>Description: 查询ai设备可用状态
+     * Summary: 查询ai设备可用状态</p>
+     */
+    public QueryBlockchainBotIotagentAideviceResponse queryBlockchainBotIotagentAidevice(QueryBlockchainBotIotagentAideviceRequest request) throws Exception {
+        com.aliyun.teautil.models.RuntimeOptions runtime = new com.aliyun.teautil.models.RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.queryBlockchainBotIotagentAideviceEx(request, headers, runtime);
+    }
+
+    /**
+     * <b>description</b> :
+     * <p>Description: 查询ai设备可用状态
+     * Summary: 查询ai设备可用状态</p>
+     */
+    public QueryBlockchainBotIotagentAideviceResponse queryBlockchainBotIotagentAideviceEx(QueryBlockchainBotIotagentAideviceRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "blockchain.bot.iotagent.aidevice.query", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new QueryBlockchainBotIotagentAideviceResponse());
+    }
+
+    /**
+     * <b>description</b> :
+     * <p>Description: 查询物模型上报数据时间范围
+     * Summary: 查询物模型上报数据时间范围</p>
+     */
+    public QueryBlockchainBotIotagentThingmodelrangeResponse queryBlockchainBotIotagentThingmodelrange(QueryBlockchainBotIotagentThingmodelrangeRequest request) throws Exception {
+        com.aliyun.teautil.models.RuntimeOptions runtime = new com.aliyun.teautil.models.RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.queryBlockchainBotIotagentThingmodelrangeEx(request, headers, runtime);
+    }
+
+    /**
+     * <b>description</b> :
+     * <p>Description: 查询物模型上报数据时间范围
+     * Summary: 查询物模型上报数据时间范围</p>
+     */
+    public QueryBlockchainBotIotagentThingmodelrangeResponse queryBlockchainBotIotagentThingmodelrangeEx(QueryBlockchainBotIotagentThingmodelrangeRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "blockchain.bot.iotagent.thingmodelrange.query", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new QueryBlockchainBotIotagentThingmodelrangeResponse());
+    }
+
+    /**
+     * <b>description</b> :
+     * <p>Description: 查询物模型上报数据
+     * Summary: 查询物模型上报数据</p>
+     */
+    public QueryBlockchainBotIotagentThingmodeldataResponse queryBlockchainBotIotagentThingmodeldata(QueryBlockchainBotIotagentThingmodeldataRequest request) throws Exception {
+        com.aliyun.teautil.models.RuntimeOptions runtime = new com.aliyun.teautil.models.RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.queryBlockchainBotIotagentThingmodeldataEx(request, headers, runtime);
+    }
+
+    /**
+     * <b>description</b> :
+     * <p>Description: 查询物模型上报数据
+     * Summary: 查询物模型上报数据</p>
+     */
+    public QueryBlockchainBotIotagentThingmodeldataResponse queryBlockchainBotIotagentThingmodeldataEx(QueryBlockchainBotIotagentThingmodeldataRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "blockchain.bot.iotagent.thingmodeldata.query", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new QueryBlockchainBotIotagentThingmodeldataResponse());
     }
 }
