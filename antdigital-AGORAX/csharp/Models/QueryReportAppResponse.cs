@@ -8,7 +8,7 @@ using Tea;
 
 namespace AntChain.SDK.AGORAX.Models
 {
-    public class QueryTradeAppResponse : TeaModel {
+    public class QueryReportAppResponse : TeaModel {
         // 请求唯一ID，用于链路跟踪和问题排查
         [NameInMap("req_msg_id")]
         [Validation(Required=false)]
@@ -24,40 +24,40 @@ namespace AntChain.SDK.AGORAX.Models
         [Validation(Required=false)]
         public string ResultMsg { get; set; }
 
-        // 接入方外部业务订单号
-        [NameInMap("out_trade_no")]
+        // 报表类型
+        [NameInMap("type")]
         [Validation(Required=false)]
-        public string OutTradeNo { get; set; }
+        public string Type { get; set; }
 
-        // 支付宝交易号
-        [NameInMap("trade_no")]
+        // dataList使用的 JSON 结构版本
+        [NameInMap("schema_version")]
         [Validation(Required=false)]
-        public string TradeNo { get; set; }
+        public string SchemaVersion { get; set; }
 
-        // 支付状态
-        [NameInMap("trade_status")]
+        // 总条数
+        [NameInMap("total_count")]
         [Validation(Required=false)]
-        public string TradeStatus { get; set; }
+        public long? TotalCount { get; set; }
 
-        // 订单金额，单位：元
-        [NameInMap("total_amount")]
+        // 页码
+        [NameInMap("page_num")]
         [Validation(Required=false)]
-        public string TotalAmount { get; set; }
+        public long? PageNum { get; set; }
 
-        // 实付金额，单位：元
-        [NameInMap("receipt_amount")]
+        // 每页条数
+        [NameInMap("page_size")]
         [Validation(Required=false)]
-        public string ReceiptAmount { get; set; }
+        public long? PageSize { get; set; }
 
-        // 退款记录
-        [NameInMap("refund_list")]
+        // 是否存在下一页
+        [NameInMap("has_next")]
         [Validation(Required=false)]
-        public List<RefundInfo> RefundList { get; set; }
+        public bool? HasNext { get; set; }
 
-        // 累计退款金额
-        [NameInMap("total_refund_amount")]
+        // JSON 数据列表；每一项为一个合法 JSON 对象的序列化字符串；无数据时返回空列表
+        [NameInMap("data_list")]
         [Validation(Required=false)]
-        public string TotalRefundAmount { get; set; }
+        public string DataList { get; set; }
 
     }
 

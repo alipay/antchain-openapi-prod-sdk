@@ -8,7 +8,7 @@ using Tea;
 
 namespace AntChain.SDK.AGORAX.Models
 {
-    public class QueryBenefitAppRequest : TeaModel {
+    public class QueryReportAppRequest : TeaModel {
         // OAuth模式下的授权token
         [NameInMap("auth_token")]
         [Validation(Required=false)]
@@ -18,15 +18,15 @@ namespace AntChain.SDK.AGORAX.Models
         [Validation(Required=false)]
         public string ProductInstanceId { get; set; }
 
-        // 用户open_id
-        [NameInMap("open_id")]
-        [Validation(Required=false)]
-        public string OpenId { get; set; }
+        // 报表类型
+        [NameInMap("type")]
+        [Validation(Required=true)]
+        public string Type { get; set; }
 
-        // 用户手机号
-        [NameInMap("registered_mobile")]
-        [Validation(Required=false)]
-        public string RegisteredMobile { get; set; }
+        // 查询条件 JSON 序列化字符串，JSON 格式由type决定
+        [NameInMap("query_json")]
+        [Validation(Required=true)]
+        public string QueryJson { get; set; }
 
     }
 

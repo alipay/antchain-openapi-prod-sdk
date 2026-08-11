@@ -8,7 +8,7 @@ using Tea;
 
 namespace AntChain.SDK.AGORAX.Models
 {
-    public class QueryBenefitAppRequest : TeaModel {
+    public class SignAgreementAppRequest : TeaModel {
         // OAuth模式下的授权token
         [NameInMap("auth_token")]
         [Validation(Required=false)]
@@ -18,15 +18,25 @@ namespace AntChain.SDK.AGORAX.Models
         [Validation(Required=false)]
         public string ProductInstanceId { get; set; }
 
-        // 用户open_id
-        [NameInMap("open_id")]
+        // 隐私协议号
+        [NameInMap("privacy_agreement_no")]
         [Validation(Required=false)]
+        public string PrivacyAgreementNo { get; set; }
+
+        // 用户协议号
+        [NameInMap("user_agreement_no")]
+        [Validation(Required=false)]
+        public string UserAgreementNo { get; set; }
+
+        // 小程序用户openId
+        [NameInMap("open_id")]
+        [Validation(Required=true)]
         public string OpenId { get; set; }
 
-        // 用户手机号
-        [NameInMap("registered_mobile")]
+        // 签署时间
+        [NameInMap("sign_time")]
         [Validation(Required=false)]
-        public string RegisteredMobile { get; set; }
+        public string SignTime { get; set; }
 
     }
 
