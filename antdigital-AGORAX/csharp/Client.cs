@@ -158,7 +158,7 @@ namespace AntChain.SDK.AGORAX
                         {"req_msg_id", AntChain.AlipayUtil.AntchainUtils.GetNonce()},
                         {"access_key", _accessKeyId},
                         {"base_sdk_version", "TeaSDK-2.0"},
-                        {"sdk_version", "1.4.0"},
+                        {"sdk_version", "1.6.0"},
                         {"_prod_code", "AGORAX"},
                         {"_prod_channel", "default"},
                     };
@@ -301,7 +301,7 @@ namespace AntChain.SDK.AGORAX
                         {"req_msg_id", AntChain.AlipayUtil.AntchainUtils.GetNonce()},
                         {"access_key", _accessKeyId},
                         {"base_sdk_version", "TeaSDK-2.0"},
-                        {"sdk_version", "1.4.0"},
+                        {"sdk_version", "1.6.0"},
                         {"_prod_code", "AGORAX"},
                         {"_prod_channel", "default"},
                     };
@@ -909,6 +909,190 @@ namespace AntChain.SDK.AGORAX
         {
             AlibabaCloud.TeaUtil.Common.ValidateModel(request);
             return TeaModel.ToObject<QueryBenefitAppResponse>(await DoRequestAsync("1.0", "antdigital.agorax.benefit.app.query", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /// <term><b>Description:</b></term>
+        /// <description>
+        /// <para>Description: 权益卡退款
+        /// Summary: 权益卡退款</para>
+        /// </description>
+        public RefundTradeAppResponse RefundTradeApp(RefundTradeAppRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return RefundTradeAppEx(request, headers, runtime);
+        }
+
+        /// <term><b>Description:</b></term>
+        /// <description>
+        /// <para>Description: 权益卡退款
+        /// Summary: 权益卡退款</para>
+        /// </description>
+        public async Task<RefundTradeAppResponse> RefundTradeAppAsync(RefundTradeAppRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return await RefundTradeAppExAsync(request, headers, runtime);
+        }
+
+        /// <term><b>Description:</b></term>
+        /// <description>
+        /// <para>Description: 权益卡退款
+        /// Summary: 权益卡退款</para>
+        /// </description>
+        public RefundTradeAppResponse RefundTradeAppEx(RefundTradeAppRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<RefundTradeAppResponse>(DoRequest("1.0", "antdigital.agorax.trade.app.refund", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /// <term><b>Description:</b></term>
+        /// <description>
+        /// <para>Description: 权益卡退款
+        /// Summary: 权益卡退款</para>
+        /// </description>
+        public async Task<RefundTradeAppResponse> RefundTradeAppExAsync(RefundTradeAppRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<RefundTradeAppResponse>(await DoRequestAsync("1.0", "antdigital.agorax.trade.app.refund", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /// <term><b>Description:</b></term>
+        /// <description>
+        /// <para>Description: 协议签署接口
+        /// Summary: 协议签署接口</para>
+        /// </description>
+        public SignAgreementAppResponse SignAgreementApp(SignAgreementAppRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return SignAgreementAppEx(request, headers, runtime);
+        }
+
+        /// <term><b>Description:</b></term>
+        /// <description>
+        /// <para>Description: 协议签署接口
+        /// Summary: 协议签署接口</para>
+        /// </description>
+        public async Task<SignAgreementAppResponse> SignAgreementAppAsync(SignAgreementAppRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return await SignAgreementAppExAsync(request, headers, runtime);
+        }
+
+        /// <term><b>Description:</b></term>
+        /// <description>
+        /// <para>Description: 协议签署接口
+        /// Summary: 协议签署接口</para>
+        /// </description>
+        public SignAgreementAppResponse SignAgreementAppEx(SignAgreementAppRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<SignAgreementAppResponse>(DoRequest("1.0", "antdigital.agorax.agreement.app.sign", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /// <term><b>Description:</b></term>
+        /// <description>
+        /// <para>Description: 协议签署接口
+        /// Summary: 协议签署接口</para>
+        /// </description>
+        public async Task<SignAgreementAppResponse> SignAgreementAppExAsync(SignAgreementAppRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<SignAgreementAppResponse>(await DoRequestAsync("1.0", "antdigital.agorax.agreement.app.sign", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /// <term><b>Description:</b></term>
+        /// <description>
+        /// <para>Description: 查询签署结果
+        /// Summary: 查询签署结果</para>
+        /// </description>
+        public QueryAgreementAppResponse QueryAgreementApp(QueryAgreementAppRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return QueryAgreementAppEx(request, headers, runtime);
+        }
+
+        /// <term><b>Description:</b></term>
+        /// <description>
+        /// <para>Description: 查询签署结果
+        /// Summary: 查询签署结果</para>
+        /// </description>
+        public async Task<QueryAgreementAppResponse> QueryAgreementAppAsync(QueryAgreementAppRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return await QueryAgreementAppExAsync(request, headers, runtime);
+        }
+
+        /// <term><b>Description:</b></term>
+        /// <description>
+        /// <para>Description: 查询签署结果
+        /// Summary: 查询签署结果</para>
+        /// </description>
+        public QueryAgreementAppResponse QueryAgreementAppEx(QueryAgreementAppRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<QueryAgreementAppResponse>(DoRequest("1.0", "antdigital.agorax.agreement.app.query", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /// <term><b>Description:</b></term>
+        /// <description>
+        /// <para>Description: 查询签署结果
+        /// Summary: 查询签署结果</para>
+        /// </description>
+        public async Task<QueryAgreementAppResponse> QueryAgreementAppExAsync(QueryAgreementAppRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<QueryAgreementAppResponse>(await DoRequestAsync("1.0", "antdigital.agorax.agreement.app.query", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /// <term><b>Description:</b></term>
+        /// <description>
+        /// <para>Description: 运营数据大盘
+        /// Summary: 运营数据大盘</para>
+        /// </description>
+        public QueryReportAppResponse QueryReportApp(QueryReportAppRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return QueryReportAppEx(request, headers, runtime);
+        }
+
+        /// <term><b>Description:</b></term>
+        /// <description>
+        /// <para>Description: 运营数据大盘
+        /// Summary: 运营数据大盘</para>
+        /// </description>
+        public async Task<QueryReportAppResponse> QueryReportAppAsync(QueryReportAppRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return await QueryReportAppExAsync(request, headers, runtime);
+        }
+
+        /// <term><b>Description:</b></term>
+        /// <description>
+        /// <para>Description: 运营数据大盘
+        /// Summary: 运营数据大盘</para>
+        /// </description>
+        public QueryReportAppResponse QueryReportAppEx(QueryReportAppRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<QueryReportAppResponse>(DoRequest("1.0", "antdigital.agorax.report.app.query", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /// <term><b>Description:</b></term>
+        /// <description>
+        /// <para>Description: 运营数据大盘
+        /// Summary: 运营数据大盘</para>
+        /// </description>
+        public async Task<QueryReportAppResponse> QueryReportAppExAsync(QueryReportAppRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<QueryReportAppResponse>(await DoRequestAsync("1.0", "antdigital.agorax.report.app.query", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
         }
 
     }

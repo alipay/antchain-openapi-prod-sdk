@@ -43,6 +43,16 @@ namespace AntChain.SDK.AGORAX.Models
         [Validation(Required=false)]
         public string PrizeId { get; set; }
 
+        // 外部订单号
+        [NameInMap("out_trade_no")]
+        [Validation(Required=false)]
+        public string OutTradeNo { get; set; }
+
+        // 支付宝订单号
+        [NameInMap("trade_no")]
+        [Validation(Required=false)]
+        public string TradeNo { get; set; }
+
     }
 
 }

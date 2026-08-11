@@ -1,13 +1,13 @@
 [English](README.md) | 简体中文
 
-# Ant Chain ABC SDK for C#
+# Ant Chain antdigital-AGORAX SDK for C#
 
 ## 安装
 
 ### .NET
 
 ```bash
-donet add package AntChain.SDK.antdigital-AGORAX
+dotnet add package AntChain.SDK.antdigital-AGORAX
 ```
 
 ## 问题

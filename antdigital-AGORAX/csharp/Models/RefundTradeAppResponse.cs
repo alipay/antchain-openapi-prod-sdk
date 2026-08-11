@@ -8,7 +8,7 @@ using Tea;
 
 namespace AntChain.SDK.AGORAX.Models
 {
-    public class QueryTradeAppResponse : TeaModel {
+    public class RefundTradeAppResponse : TeaModel {
         // 请求唯一ID，用于链路跟踪和问题排查
         [NameInMap("req_msg_id")]
         [Validation(Required=false)]
@@ -24,40 +24,30 @@ namespace AntChain.SDK.AGORAX.Models
         [Validation(Required=false)]
         public string ResultMsg { get; set; }
 
-        // 接入方外部业务订单号
+        // 原支付业务订单号
         [NameInMap("out_trade_no")]
         [Validation(Required=false)]
         public string OutTradeNo { get; set; }
 
-        // 支付宝交易号
-        [NameInMap("trade_no")]
+        // 本次退款业务号
+        [NameInMap("out_request_no")]
         [Validation(Required=false)]
-        public string TradeNo { get; set; }
+        public string OutRequestNo { get; set; }
 
-        // 支付状态
-        [NameInMap("trade_status")]
+        // 本次退款金额，单位：元
+        [NameInMap("refund_amount")]
         [Validation(Required=false)]
-        public string TradeStatus { get; set; }
+        public string RefundAmount { get; set; }
 
-        // 订单金额，单位：元
-        [NameInMap("total_amount")]
-        [Validation(Required=false)]
-        public string TotalAmount { get; set; }
-
-        // 实付金额，单位：元
-        [NameInMap("receipt_amount")]
-        [Validation(Required=false)]
-        public string ReceiptAmount { get; set; }
-
-        // 退款记录
-        [NameInMap("refund_list")]
-        [Validation(Required=false)]
-        public List<RefundInfo> RefundList { get; set; }
-
-        // 累计退款金额
+        // 当前累计成功退款金额，单位：元
         [NameInMap("total_refund_amount")]
         [Validation(Required=false)]
         public string TotalRefundAmount { get; set; }
+
+        // 退款状态
+        [NameInMap("refund_status")]
+        [Validation(Required=false)]
+        public string RefundStatus { get; set; }
 
     }
 
