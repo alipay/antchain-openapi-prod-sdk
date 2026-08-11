@@ -24,7 +24,7 @@ from setuptools import setup, find_packages
 """
 setup module for antchain_agorax.
 
-Created on 15/07/2026
+Created on 11/08/2026
 
 @author: Ant Chain SDK
 """

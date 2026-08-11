@@ -1,6 +1,6 @@
 English | [简体中文](README-CN.md)
 
-## Ant Chain ABC SDK for Python
+## Ant Chain antdigital-AGORAX SDK for Python
 
 ## Requirements
 

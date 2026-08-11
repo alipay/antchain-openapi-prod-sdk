@@ -135,7 +135,7 @@ class Client:
                     'req_msg_id': AntchainUtils.get_nonce(),
                     'access_key': self._access_key_id,
                     'base_sdk_version': 'TeaSDK-2.0',
-                    'sdk_version': '1.4.1',
+                    'sdk_version': '1.6.0',
                     '_prod_code': 'AGORAX',
                     '_prod_channel': 'default'
                 }
@@ -239,7 +239,7 @@ class Client:
                     'req_msg_id': AntchainUtils.get_nonce(),
                     'access_key': self._access_key_id,
                     'base_sdk_version': 'TeaSDK-2.0',
-                    'sdk_version': '1.4.1',
+                    'sdk_version': '1.6.0',
                     '_prod_code': 'AGORAX',
                     '_prod_channel': 'default'
                 }
@@ -945,4 +945,228 @@ class Client:
         return TeaCore.from_map(
             agorax_models.QueryBenefitAppResponse(),
             await self.do_request_async('1.0', 'antdigital.agorax.benefit.app.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def refund_trade_app(
+        self,
+        request: agorax_models.RefundTradeAppRequest,
+    ) -> agorax_models.RefundTradeAppResponse:
+        """
+        Description: 权益卡退款
+        Summary: 权益卡退款
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.refund_trade_app_ex(request, headers, runtime)
+
+    async def refund_trade_app_async(
+        self,
+        request: agorax_models.RefundTradeAppRequest,
+    ) -> agorax_models.RefundTradeAppResponse:
+        """
+        Description: 权益卡退款
+        Summary: 权益卡退款
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.refund_trade_app_ex_async(request, headers, runtime)
+
+    def refund_trade_app_ex(
+        self,
+        request: agorax_models.RefundTradeAppRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> agorax_models.RefundTradeAppResponse:
+        """
+        Description: 权益卡退款
+        Summary: 权益卡退款
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            agorax_models.RefundTradeAppResponse(),
+            self.do_request('1.0', 'antdigital.agorax.trade.app.refund', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def refund_trade_app_ex_async(
+        self,
+        request: agorax_models.RefundTradeAppRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> agorax_models.RefundTradeAppResponse:
+        """
+        Description: 权益卡退款
+        Summary: 权益卡退款
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            agorax_models.RefundTradeAppResponse(),
+            await self.do_request_async('1.0', 'antdigital.agorax.trade.app.refund', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def sign_agreement_app(
+        self,
+        request: agorax_models.SignAgreementAppRequest,
+    ) -> agorax_models.SignAgreementAppResponse:
+        """
+        Description: 协议签署接口
+        Summary: 协议签署接口
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.sign_agreement_app_ex(request, headers, runtime)
+
+    async def sign_agreement_app_async(
+        self,
+        request: agorax_models.SignAgreementAppRequest,
+    ) -> agorax_models.SignAgreementAppResponse:
+        """
+        Description: 协议签署接口
+        Summary: 协议签署接口
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.sign_agreement_app_ex_async(request, headers, runtime)
+
+    def sign_agreement_app_ex(
+        self,
+        request: agorax_models.SignAgreementAppRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> agorax_models.SignAgreementAppResponse:
+        """
+        Description: 协议签署接口
+        Summary: 协议签署接口
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            agorax_models.SignAgreementAppResponse(),
+            self.do_request('1.0', 'antdigital.agorax.agreement.app.sign', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def sign_agreement_app_ex_async(
+        self,
+        request: agorax_models.SignAgreementAppRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> agorax_models.SignAgreementAppResponse:
+        """
+        Description: 协议签署接口
+        Summary: 协议签署接口
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            agorax_models.SignAgreementAppResponse(),
+            await self.do_request_async('1.0', 'antdigital.agorax.agreement.app.sign', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def query_agreement_app(
+        self,
+        request: agorax_models.QueryAgreementAppRequest,
+    ) -> agorax_models.QueryAgreementAppResponse:
+        """
+        Description: 查询签署结果
+        Summary: 查询签署结果
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.query_agreement_app_ex(request, headers, runtime)
+
+    async def query_agreement_app_async(
+        self,
+        request: agorax_models.QueryAgreementAppRequest,
+    ) -> agorax_models.QueryAgreementAppResponse:
+        """
+        Description: 查询签署结果
+        Summary: 查询签署结果
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.query_agreement_app_ex_async(request, headers, runtime)
+
+    def query_agreement_app_ex(
+        self,
+        request: agorax_models.QueryAgreementAppRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> agorax_models.QueryAgreementAppResponse:
+        """
+        Description: 查询签署结果
+        Summary: 查询签署结果
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            agorax_models.QueryAgreementAppResponse(),
+            self.do_request('1.0', 'antdigital.agorax.agreement.app.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def query_agreement_app_ex_async(
+        self,
+        request: agorax_models.QueryAgreementAppRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> agorax_models.QueryAgreementAppResponse:
+        """
+        Description: 查询签署结果
+        Summary: 查询签署结果
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            agorax_models.QueryAgreementAppResponse(),
+            await self.do_request_async('1.0', 'antdigital.agorax.agreement.app.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def query_report_app(
+        self,
+        request: agorax_models.QueryReportAppRequest,
+    ) -> agorax_models.QueryReportAppResponse:
+        """
+        Description: 运营数据大盘
+        Summary: 运营数据大盘
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.query_report_app_ex(request, headers, runtime)
+
+    async def query_report_app_async(
+        self,
+        request: agorax_models.QueryReportAppRequest,
+    ) -> agorax_models.QueryReportAppResponse:
+        """
+        Description: 运营数据大盘
+        Summary: 运营数据大盘
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.query_report_app_ex_async(request, headers, runtime)
+
+    def query_report_app_ex(
+        self,
+        request: agorax_models.QueryReportAppRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> agorax_models.QueryReportAppResponse:
+        """
+        Description: 运营数据大盘
+        Summary: 运营数据大盘
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            agorax_models.QueryReportAppResponse(),
+            self.do_request('1.0', 'antdigital.agorax.report.app.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def query_report_app_ex_async(
+        self,
+        request: agorax_models.QueryReportAppRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> agorax_models.QueryReportAppResponse:
+        """
+        Description: 运营数据大盘
+        Summary: 运营数据大盘
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            agorax_models.QueryReportAppResponse(),
+            await self.do_request_async('1.0', 'antdigital.agorax.report.app.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
