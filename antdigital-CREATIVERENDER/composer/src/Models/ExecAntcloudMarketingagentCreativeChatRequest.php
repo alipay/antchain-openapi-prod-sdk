@@ -145,13 +145,13 @@ class ExecAntcloudMarketingagentCreativeChatRequest extends Model {
 
     // 生图宽度
     /**
-     * @var string
+     * @var int
      */
     public $width;
 
     // 生图高度
     /**
-     * @var string
+     * @var int
      */
     public $height;
 
