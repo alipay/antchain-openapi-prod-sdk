@@ -5,12 +5,13 @@ namespace AntChain\AGORAX\Models;
 
 use AlibabaCloud\Tea\Model;
 
-class QueryBenefitAppRequest extends Model {
+class QueryAgreementAppRequest extends Model {
     protected $_name = [
         'authToken' => 'auth_token',
         'productInstanceId' => 'product_instance_id',
         'openId' => 'open_id',
-        'registeredMobile' => 'registered_mobile',
+        'associatedAppId' => 'associated_app_id',
+        'associatedOpenId' => 'associated_open_id',
     ];
     public function validate() {}
     public function toMap() {
@@ -24,14 +25,17 @@ class QueryBenefitAppRequest extends Model {
         if (null !== $this->openId) {
             $res['open_id'] = $this->openId;
         }
-        if (null !== $this->registeredMobile) {
-            $res['registered_mobile'] = $this->registeredMobile;
+        if (null !== $this->associatedAppId) {
+            $res['associated_app_id'] = $this->associatedAppId;
+        }
+        if (null !== $this->associatedOpenId) {
+            $res['associated_open_id'] = $this->associatedOpenId;
         }
         return $res;
     }
     /**
      * @param array $map
-     * @return QueryBenefitAppRequest
+     * @return QueryAgreementAppRequest
      */
     public static function fromMap($map = []) {
         $model = new self();
@@ -44,8 +48,11 @@ class QueryBenefitAppRequest extends Model {
         if(isset($map['open_id'])){
             $model->openId = $map['open_id'];
         }
-        if(isset($map['registered_mobile'])){
-            $model->registeredMobile = $map['registered_mobile'];
+        if(isset($map['associated_app_id'])){
+            $model->associatedAppId = $map['associated_app_id'];
+        }
+        if(isset($map['associated_open_id'])){
+            $model->associatedOpenId = $map['associated_open_id'];
         }
         return $model;
     }
@@ -60,16 +67,22 @@ class QueryBenefitAppRequest extends Model {
      */
     public $productInstanceId;
 
-    // 用户open_id
+    // 小程序用户open_id
     /**
      * @var string
      */
     public $openId;
 
-    // 用户手机号
+    // 关联小程序appId
     /**
      * @var string
      */
-    public $registeredMobile;
+    public $associatedAppId;
+
+    // 关联的小程序用户openId
+    /**
+     * @var string
+     */
+    public $associatedOpenId;
 
 }

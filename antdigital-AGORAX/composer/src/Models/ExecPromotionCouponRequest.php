@@ -14,6 +14,8 @@ class ExecPromotionCouponRequest extends Model {
         'appId' => 'app_id',
         'activityId' => 'activity_id',
         'prizeId' => 'prize_id',
+        'outTradeNo' => 'out_trade_no',
+        'tradeNo' => 'trade_no',
     ];
     public function validate() {
         Model::validateRequired('bizId', $this->bizId, true);
@@ -44,6 +46,12 @@ class ExecPromotionCouponRequest extends Model {
         if (null !== $this->prizeId) {
             $res['prize_id'] = $this->prizeId;
         }
+        if (null !== $this->outTradeNo) {
+            $res['out_trade_no'] = $this->outTradeNo;
+        }
+        if (null !== $this->tradeNo) {
+            $res['trade_no'] = $this->tradeNo;
+        }
         return $res;
     }
     /**
@@ -72,6 +80,12 @@ class ExecPromotionCouponRequest extends Model {
         }
         if(isset($map['prize_id'])){
             $model->prizeId = $map['prize_id'];
+        }
+        if(isset($map['out_trade_no'])){
+            $model->outTradeNo = $map['out_trade_no'];
+        }
+        if(isset($map['trade_no'])){
+            $model->tradeNo = $map['trade_no'];
         }
         return $model;
     }
@@ -115,5 +129,17 @@ class ExecPromotionCouponRequest extends Model {
      * @var string
      */
     public $prizeId;
+
+    // 外部订单号
+    /**
+     * @var string
+     */
+    public $outTradeNo;
+
+    // 支付宝订单号
+    /**
+     * @var string
+     */
+    public $tradeNo;
 
 }

@@ -5,14 +5,17 @@ namespace AntChain\AGORAX\Models;
 
 use AlibabaCloud\Tea\Model;
 
-class QueryBenefitAppRequest extends Model {
+class QueryReportAppRequest extends Model {
     protected $_name = [
         'authToken' => 'auth_token',
         'productInstanceId' => 'product_instance_id',
-        'openId' => 'open_id',
-        'registeredMobile' => 'registered_mobile',
+        'type' => 'type',
+        'queryJson' => 'query_json',
     ];
-    public function validate() {}
+    public function validate() {
+        Model::validateRequired('type', $this->type, true);
+        Model::validateRequired('queryJson', $this->queryJson, true);
+    }
     public function toMap() {
         $res = [];
         if (null !== $this->authToken) {
@@ -21,17 +24,17 @@ class QueryBenefitAppRequest extends Model {
         if (null !== $this->productInstanceId) {
             $res['product_instance_id'] = $this->productInstanceId;
         }
-        if (null !== $this->openId) {
-            $res['open_id'] = $this->openId;
+        if (null !== $this->type) {
+            $res['type'] = $this->type;
         }
-        if (null !== $this->registeredMobile) {
-            $res['registered_mobile'] = $this->registeredMobile;
+        if (null !== $this->queryJson) {
+            $res['query_json'] = $this->queryJson;
         }
         return $res;
     }
     /**
      * @param array $map
-     * @return QueryBenefitAppRequest
+     * @return QueryReportAppRequest
      */
     public static function fromMap($map = []) {
         $model = new self();
@@ -41,11 +44,11 @@ class QueryBenefitAppRequest extends Model {
         if(isset($map['product_instance_id'])){
             $model->productInstanceId = $map['product_instance_id'];
         }
-        if(isset($map['open_id'])){
-            $model->openId = $map['open_id'];
+        if(isset($map['type'])){
+            $model->type = $map['type'];
         }
-        if(isset($map['registered_mobile'])){
-            $model->registeredMobile = $map['registered_mobile'];
+        if(isset($map['query_json'])){
+            $model->queryJson = $map['query_json'];
         }
         return $model;
     }
@@ -60,16 +63,16 @@ class QueryBenefitAppRequest extends Model {
      */
     public $productInstanceId;
 
-    // 用户open_id
+    // 报表类型
     /**
      * @var string
      */
-    public $openId;
+    public $type;
 
-    // 用户手机号
+    // 查询条件 JSON 序列化字符串，JSON 格式由type决定
     /**
      * @var string
      */
-    public $registeredMobile;
+    public $queryJson;
 
 }

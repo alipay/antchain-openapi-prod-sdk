@@ -37,6 +37,14 @@ use AntChain\AGORAX\Models\ExecPromotionConsultRequest;
 use AntChain\AGORAX\Models\ExecPromotionConsultResponse;
 use AntChain\AGORAX\Models\QueryBenefitAppRequest;
 use AntChain\AGORAX\Models\QueryBenefitAppResponse;
+use AntChain\AGORAX\Models\RefundTradeAppRequest;
+use AntChain\AGORAX\Models\RefundTradeAppResponse;
+use AntChain\AGORAX\Models\SignAgreementAppRequest;
+use AntChain\AGORAX\Models\SignAgreementAppResponse;
+use AntChain\AGORAX\Models\QueryAgreementAppRequest;
+use AntChain\AGORAX\Models\QueryAgreementAppResponse;
+use AntChain\AGORAX\Models\QueryReportAppRequest;
+use AntChain\AGORAX\Models\QueryReportAppResponse;
 
 class Client {
     protected $_endpoint;
@@ -173,7 +181,7 @@ class Client {
                     "req_msg_id" => UtilClient::getNonce(),
                     "access_key" => $this->_accessKeyId,
                     "base_sdk_version" => "TeaSDK-2.0",
-                    "sdk_version" => "1.4.1",
+                    "sdk_version" => "1.6.0",
                     "_prod_code" => "AGORAX",
                     "_prod_channel" => "default"
                 ];
@@ -516,5 +524,105 @@ class Client {
     public function queryBenefitAppEx($request, $headers, $runtime){
         Utils::validateModel($request);
         return QueryBenefitAppResponse::fromMap($this->doRequest("1.0", "antdigital.agorax.benefit.app.query", "HTTPS", "POST", "/gateway.do", Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 权益卡退款
+     * Summary: 权益卡退款
+     * @param RefundTradeAppRequest $request
+     * @return RefundTradeAppResponse
+     */
+    public function refundTradeApp($request){
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+        return $this->refundTradeAppEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 权益卡退款
+     * Summary: 权益卡退款
+     * @param RefundTradeAppRequest $request
+     * @param string[] $headers
+     * @param RuntimeOptions $runtime
+     * @return RefundTradeAppResponse
+     */
+    public function refundTradeAppEx($request, $headers, $runtime){
+        Utils::validateModel($request);
+        return RefundTradeAppResponse::fromMap($this->doRequest("1.0", "antdigital.agorax.trade.app.refund", "HTTPS", "POST", "/gateway.do", Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 协议签署接口
+     * Summary: 协议签署接口
+     * @param SignAgreementAppRequest $request
+     * @return SignAgreementAppResponse
+     */
+    public function signAgreementApp($request){
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+        return $this->signAgreementAppEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 协议签署接口
+     * Summary: 协议签署接口
+     * @param SignAgreementAppRequest $request
+     * @param string[] $headers
+     * @param RuntimeOptions $runtime
+     * @return SignAgreementAppResponse
+     */
+    public function signAgreementAppEx($request, $headers, $runtime){
+        Utils::validateModel($request);
+        return SignAgreementAppResponse::fromMap($this->doRequest("1.0", "antdigital.agorax.agreement.app.sign", "HTTPS", "POST", "/gateway.do", Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 查询签署结果
+     * Summary: 查询签署结果
+     * @param QueryAgreementAppRequest $request
+     * @return QueryAgreementAppResponse
+     */
+    public function queryAgreementApp($request){
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+        return $this->queryAgreementAppEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 查询签署结果
+     * Summary: 查询签署结果
+     * @param QueryAgreementAppRequest $request
+     * @param string[] $headers
+     * @param RuntimeOptions $runtime
+     * @return QueryAgreementAppResponse
+     */
+    public function queryAgreementAppEx($request, $headers, $runtime){
+        Utils::validateModel($request);
+        return QueryAgreementAppResponse::fromMap($this->doRequest("1.0", "antdigital.agorax.agreement.app.query", "HTTPS", "POST", "/gateway.do", Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 运营数据大盘
+     * Summary: 运营数据大盘
+     * @param QueryReportAppRequest $request
+     * @return QueryReportAppResponse
+     */
+    public function queryReportApp($request){
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+        return $this->queryReportAppEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 运营数据大盘
+     * Summary: 运营数据大盘
+     * @param QueryReportAppRequest $request
+     * @param string[] $headers
+     * @param RuntimeOptions $runtime
+     * @return QueryReportAppResponse
+     */
+    public function queryReportAppEx($request, $headers, $runtime){
+        Utils::validateModel($request);
+        return QueryReportAppResponse::fromMap($this->doRequest("1.0", "antdigital.agorax.report.app.query", "HTTPS", "POST", "/gateway.do", Tea::merge($request), $headers, $runtime));
     }
 }
