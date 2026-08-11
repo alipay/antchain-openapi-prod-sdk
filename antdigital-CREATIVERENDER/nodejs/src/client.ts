@@ -574,9 +574,9 @@ export class ExecAntcloudMarketingagentCreativeChatRequest extends $tea.Model {
   // 使用场景
   scene?: string;
   // 生图宽度
-  width?: string;
+  width?: number;
   // 生图高度
-  height?: string;
+  height?: number;
   static names(): { [key: string]: string } {
     return {
       authToken: 'auth_token',
@@ -600,8 +600,8 @@ export class ExecAntcloudMarketingagentCreativeChatRequest extends $tea.Model {
       referenceStyle: CreativeAssetRef,
       inputElements: { 'type': 'array', 'itemType': AssistantExtra },
       scene: 'string',
-      width: 'string',
-      height: 'string',
+      width: 'number',
+      height: 'number',
     };
   }
 
@@ -851,7 +851,7 @@ export default class Client {
           req_msg_id: AntchainUtil.getNonce(),
           access_key: this._accessKeyId,
           base_sdk_version: "TeaSDK-2.0",
-          sdk_version: "2.0.3",
+          sdk_version: "2.0.4",
           _prod_code: "CREATIVERENDER",
           _prod_channel: "default",
         };
