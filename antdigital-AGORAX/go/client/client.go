@@ -16251,6 +16251,10 @@ type ExecPromotionCouponRequest struct {
 	ActivityId *string `json:"activity_id,omitempty" xml:"activity_id,omitempty" require:"true"`
 	// 奖品ID，需要指定奖品抽奖时传入
 	PrizeId *string `json:"prize_id,omitempty" xml:"prize_id,omitempty"`
+	// 外部订单号
+	OutTradeNo *string `json:"out_trade_no,omitempty" xml:"out_trade_no,omitempty"`
+	// 支付宝订单号
+	TradeNo *string `json:"trade_no,omitempty" xml:"trade_no,omitempty"`
 }
 
 func (s ExecPromotionCouponRequest) String() string {
@@ -16293,6 +16297,16 @@ func (s *ExecPromotionCouponRequest) SetActivityId(v string) *ExecPromotionCoupo
 
 func (s *ExecPromotionCouponRequest) SetPrizeId(v string) *ExecPromotionCouponRequest {
 	s.PrizeId = &v
+	return s
+}
+
+func (s *ExecPromotionCouponRequest) SetOutTradeNo(v string) *ExecPromotionCouponRequest {
+	s.OutTradeNo = &v
+	return s
+}
+
+func (s *ExecPromotionCouponRequest) SetTradeNo(v string) *ExecPromotionCouponRequest {
+	s.TradeNo = &v
 	return s
 }
 
@@ -16970,7 +16984,9 @@ type QueryBenefitAppRequest struct {
 	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
 	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
 	// 用户open_id
-	OpenId *string `json:"open_id,omitempty" xml:"open_id,omitempty" require:"true"`
+	OpenId *string `json:"open_id,omitempty" xml:"open_id,omitempty"`
+	// 用户手机号
+	RegisteredMobile *string `json:"registered_mobile,omitempty" xml:"registered_mobile,omitempty"`
 }
 
 func (s QueryBenefitAppRequest) String() string {
@@ -16993,6 +17009,11 @@ func (s *QueryBenefitAppRequest) SetProductInstanceId(v string) *QueryBenefitApp
 
 func (s *QueryBenefitAppRequest) SetOpenId(v string) *QueryBenefitAppRequest {
 	s.OpenId = &v
+	return s
+}
+
+func (s *QueryBenefitAppRequest) SetRegisteredMobile(v string) *QueryBenefitAppRequest {
+	s.RegisteredMobile = &v
 	return s
 }
 
@@ -17039,6 +17060,440 @@ func (s *QueryBenefitAppResponse) SetTierId(v string) *QueryBenefitAppResponse {
 
 func (s *QueryBenefitAppResponse) SetTierName(v string) *QueryBenefitAppResponse {
 	s.TierName = &v
+	return s
+}
+
+type RefundTradeAppRequest struct {
+	// OAuth模式下的授权token
+	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
+	// 原支付业务订单号
+	OutTradeNo *string `json:"out_trade_no,omitempty" xml:"out_trade_no,omitempty" require:"true"`
+	// 退款业务号，当前调用方内唯一，作为退款幂等键
+	OutRequestNo *string `json:"out_request_no,omitempty" xml:"out_request_no,omitempty" require:"true"`
+	// 本次退款金额，单位：元，大于 0，最多两位小数
+	RefundAmount *string `json:"refund_amount,omitempty" xml:"refund_amount,omitempty" require:"true"`
+	// 退款原因
+	RefundReason *string `json:"refund_reason,omitempty" xml:"refund_reason,omitempty" require:"true"`
+	// 订单创建时登记的中国大陆 11 位手机号
+	RegisteredMobile *string `json:"registered_mobile,omitempty" xml:"registered_mobile,omitempty"`
+}
+
+func (s RefundTradeAppRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s RefundTradeAppRequest) GoString() string {
+	return s.String()
+}
+
+func (s *RefundTradeAppRequest) SetAuthToken(v string) *RefundTradeAppRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *RefundTradeAppRequest) SetProductInstanceId(v string) *RefundTradeAppRequest {
+	s.ProductInstanceId = &v
+	return s
+}
+
+func (s *RefundTradeAppRequest) SetOutTradeNo(v string) *RefundTradeAppRequest {
+	s.OutTradeNo = &v
+	return s
+}
+
+func (s *RefundTradeAppRequest) SetOutRequestNo(v string) *RefundTradeAppRequest {
+	s.OutRequestNo = &v
+	return s
+}
+
+func (s *RefundTradeAppRequest) SetRefundAmount(v string) *RefundTradeAppRequest {
+	s.RefundAmount = &v
+	return s
+}
+
+func (s *RefundTradeAppRequest) SetRefundReason(v string) *RefundTradeAppRequest {
+	s.RefundReason = &v
+	return s
+}
+
+func (s *RefundTradeAppRequest) SetRegisteredMobile(v string) *RefundTradeAppRequest {
+	s.RegisteredMobile = &v
+	return s
+}
+
+type RefundTradeAppResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// 原支付业务订单号
+	OutTradeNo *string `json:"out_trade_no,omitempty" xml:"out_trade_no,omitempty"`
+	// 本次退款业务号
+	OutRequestNo *string `json:"out_request_no,omitempty" xml:"out_request_no,omitempty"`
+	// 本次退款金额，单位：元
+	RefundAmount *string `json:"refund_amount,omitempty" xml:"refund_amount,omitempty"`
+	// 当前累计成功退款金额，单位：元
+	TotalRefundAmount *string `json:"total_refund_amount,omitempty" xml:"total_refund_amount,omitempty"`
+	// 退款状态
+	RefundStatus *string `json:"refund_status,omitempty" xml:"refund_status,omitempty"`
+}
+
+func (s RefundTradeAppResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s RefundTradeAppResponse) GoString() string {
+	return s.String()
+}
+
+func (s *RefundTradeAppResponse) SetReqMsgId(v string) *RefundTradeAppResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *RefundTradeAppResponse) SetResultCode(v string) *RefundTradeAppResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *RefundTradeAppResponse) SetResultMsg(v string) *RefundTradeAppResponse {
+	s.ResultMsg = &v
+	return s
+}
+
+func (s *RefundTradeAppResponse) SetOutTradeNo(v string) *RefundTradeAppResponse {
+	s.OutTradeNo = &v
+	return s
+}
+
+func (s *RefundTradeAppResponse) SetOutRequestNo(v string) *RefundTradeAppResponse {
+	s.OutRequestNo = &v
+	return s
+}
+
+func (s *RefundTradeAppResponse) SetRefundAmount(v string) *RefundTradeAppResponse {
+	s.RefundAmount = &v
+	return s
+}
+
+func (s *RefundTradeAppResponse) SetTotalRefundAmount(v string) *RefundTradeAppResponse {
+	s.TotalRefundAmount = &v
+	return s
+}
+
+func (s *RefundTradeAppResponse) SetRefundStatus(v string) *RefundTradeAppResponse {
+	s.RefundStatus = &v
+	return s
+}
+
+type SignAgreementAppRequest struct {
+	// OAuth模式下的授权token
+	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
+	// 隐私协议号
+	PrivacyAgreementNo *string `json:"privacy_agreement_no,omitempty" xml:"privacy_agreement_no,omitempty"`
+	// 用户协议号
+	UserAgreementNo *string `json:"user_agreement_no,omitempty" xml:"user_agreement_no,omitempty"`
+	// 小程序用户openId
+	OpenId *string `json:"open_id,omitempty" xml:"open_id,omitempty" require:"true"`
+	// 签署时间
+	SignTime *string `json:"sign_time,omitempty" xml:"sign_time,omitempty"`
+}
+
+func (s SignAgreementAppRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s SignAgreementAppRequest) GoString() string {
+	return s.String()
+}
+
+func (s *SignAgreementAppRequest) SetAuthToken(v string) *SignAgreementAppRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *SignAgreementAppRequest) SetProductInstanceId(v string) *SignAgreementAppRequest {
+	s.ProductInstanceId = &v
+	return s
+}
+
+func (s *SignAgreementAppRequest) SetPrivacyAgreementNo(v string) *SignAgreementAppRequest {
+	s.PrivacyAgreementNo = &v
+	return s
+}
+
+func (s *SignAgreementAppRequest) SetUserAgreementNo(v string) *SignAgreementAppRequest {
+	s.UserAgreementNo = &v
+	return s
+}
+
+func (s *SignAgreementAppRequest) SetOpenId(v string) *SignAgreementAppRequest {
+	s.OpenId = &v
+	return s
+}
+
+func (s *SignAgreementAppRequest) SetSignTime(v string) *SignAgreementAppRequest {
+	s.SignTime = &v
+	return s
+}
+
+type SignAgreementAppResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+}
+
+func (s SignAgreementAppResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s SignAgreementAppResponse) GoString() string {
+	return s.String()
+}
+
+func (s *SignAgreementAppResponse) SetReqMsgId(v string) *SignAgreementAppResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *SignAgreementAppResponse) SetResultCode(v string) *SignAgreementAppResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *SignAgreementAppResponse) SetResultMsg(v string) *SignAgreementAppResponse {
+	s.ResultMsg = &v
+	return s
+}
+
+type QueryAgreementAppRequest struct {
+	// OAuth模式下的授权token
+	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
+	// 小程序用户open_id
+	OpenId *string `json:"open_id,omitempty" xml:"open_id,omitempty"`
+	// 关联小程序appId
+	AssociatedAppId *string `json:"associated_app_id,omitempty" xml:"associated_app_id,omitempty"`
+	// 关联的小程序用户openId
+	AssociatedOpenId *string `json:"associated_open_id,omitempty" xml:"associated_open_id,omitempty"`
+}
+
+func (s QueryAgreementAppRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s QueryAgreementAppRequest) GoString() string {
+	return s.String()
+}
+
+func (s *QueryAgreementAppRequest) SetAuthToken(v string) *QueryAgreementAppRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *QueryAgreementAppRequest) SetProductInstanceId(v string) *QueryAgreementAppRequest {
+	s.ProductInstanceId = &v
+	return s
+}
+
+func (s *QueryAgreementAppRequest) SetOpenId(v string) *QueryAgreementAppRequest {
+	s.OpenId = &v
+	return s
+}
+
+func (s *QueryAgreementAppRequest) SetAssociatedAppId(v string) *QueryAgreementAppRequest {
+	s.AssociatedAppId = &v
+	return s
+}
+
+func (s *QueryAgreementAppRequest) SetAssociatedOpenId(v string) *QueryAgreementAppRequest {
+	s.AssociatedOpenId = &v
+	return s
+}
+
+type QueryAgreementAppResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// 隐私协议版本号
+	PrivacyAgreementNo *string `json:"privacy_agreement_no,omitempty" xml:"privacy_agreement_no,omitempty"`
+	// 用户协议版本号
+	UserAgreementNo *string `json:"user_agreement_no,omitempty" xml:"user_agreement_no,omitempty"`
+	// 隐私协议签署时间
+	PrivacyAgreementSignTime *string `json:"privacy_agreement_sign_time,omitempty" xml:"privacy_agreement_sign_time,omitempty"`
+	// 用户协议签署时间
+	UserAgreementSignTime *string `json:"user_agreement_sign_time,omitempty" xml:"user_agreement_sign_time,omitempty"`
+}
+
+func (s QueryAgreementAppResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s QueryAgreementAppResponse) GoString() string {
+	return s.String()
+}
+
+func (s *QueryAgreementAppResponse) SetReqMsgId(v string) *QueryAgreementAppResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *QueryAgreementAppResponse) SetResultCode(v string) *QueryAgreementAppResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *QueryAgreementAppResponse) SetResultMsg(v string) *QueryAgreementAppResponse {
+	s.ResultMsg = &v
+	return s
+}
+
+func (s *QueryAgreementAppResponse) SetPrivacyAgreementNo(v string) *QueryAgreementAppResponse {
+	s.PrivacyAgreementNo = &v
+	return s
+}
+
+func (s *QueryAgreementAppResponse) SetUserAgreementNo(v string) *QueryAgreementAppResponse {
+	s.UserAgreementNo = &v
+	return s
+}
+
+func (s *QueryAgreementAppResponse) SetPrivacyAgreementSignTime(v string) *QueryAgreementAppResponse {
+	s.PrivacyAgreementSignTime = &v
+	return s
+}
+
+func (s *QueryAgreementAppResponse) SetUserAgreementSignTime(v string) *QueryAgreementAppResponse {
+	s.UserAgreementSignTime = &v
+	return s
+}
+
+type QueryReportAppRequest struct {
+	// OAuth模式下的授权token
+	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
+	// 报表类型
+	Type *string `json:"type,omitempty" xml:"type,omitempty" require:"true"`
+	// 查询条件 JSON 序列化字符串，JSON 格式由type决定
+	QueryJson *string `json:"query_json,omitempty" xml:"query_json,omitempty" require:"true"`
+}
+
+func (s QueryReportAppRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s QueryReportAppRequest) GoString() string {
+	return s.String()
+}
+
+func (s *QueryReportAppRequest) SetAuthToken(v string) *QueryReportAppRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *QueryReportAppRequest) SetProductInstanceId(v string) *QueryReportAppRequest {
+	s.ProductInstanceId = &v
+	return s
+}
+
+func (s *QueryReportAppRequest) SetType(v string) *QueryReportAppRequest {
+	s.Type = &v
+	return s
+}
+
+func (s *QueryReportAppRequest) SetQueryJson(v string) *QueryReportAppRequest {
+	s.QueryJson = &v
+	return s
+}
+
+type QueryReportAppResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// 报表类型
+	Type *string `json:"type,omitempty" xml:"type,omitempty"`
+	// dataList使用的 JSON 结构版本
+	SchemaVersion *string `json:"schema_version,omitempty" xml:"schema_version,omitempty"`
+	// 总条数
+	TotalCount *int64 `json:"total_count,omitempty" xml:"total_count,omitempty"`
+	// 页码
+	PageNum *int64 `json:"page_num,omitempty" xml:"page_num,omitempty"`
+	// 每页条数
+	PageSize *int64 `json:"page_size,omitempty" xml:"page_size,omitempty"`
+	// 是否存在下一页
+	HasNext *bool `json:"has_next,omitempty" xml:"has_next,omitempty"`
+	// JSON 数据列表；每一项为一个合法 JSON 对象的序列化字符串；无数据时返回空列表
+	DataList *string `json:"data_list,omitempty" xml:"data_list,omitempty"`
+}
+
+func (s QueryReportAppResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s QueryReportAppResponse) GoString() string {
+	return s.String()
+}
+
+func (s *QueryReportAppResponse) SetReqMsgId(v string) *QueryReportAppResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *QueryReportAppResponse) SetResultCode(v string) *QueryReportAppResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *QueryReportAppResponse) SetResultMsg(v string) *QueryReportAppResponse {
+	s.ResultMsg = &v
+	return s
+}
+
+func (s *QueryReportAppResponse) SetType(v string) *QueryReportAppResponse {
+	s.Type = &v
+	return s
+}
+
+func (s *QueryReportAppResponse) SetSchemaVersion(v string) *QueryReportAppResponse {
+	s.SchemaVersion = &v
+	return s
+}
+
+func (s *QueryReportAppResponse) SetTotalCount(v int64) *QueryReportAppResponse {
+	s.TotalCount = &v
+	return s
+}
+
+func (s *QueryReportAppResponse) SetPageNum(v int64) *QueryReportAppResponse {
+	s.PageNum = &v
+	return s
+}
+
+func (s *QueryReportAppResponse) SetPageSize(v int64) *QueryReportAppResponse {
+	s.PageSize = &v
+	return s
+}
+
+func (s *QueryReportAppResponse) SetHasNext(v bool) *QueryReportAppResponse {
+	s.HasNext = &v
+	return s
+}
+
+func (s *QueryReportAppResponse) SetDataList(v string) *QueryReportAppResponse {
+	s.DataList = &v
 	return s
 }
 
@@ -17172,7 +17627,7 @@ func (client *Client) DoRequest(version *string, action *string, protocol *strin
 				"req_msg_id":       antchainutil.GetNonce(),
 				"access_key":       client.AccessKeyId,
 				"base_sdk_version": tea.String("TeaSDK-2.0"),
-				"sdk_version":      tea.String("1.4.1"),
+				"sdk_version":      tea.String("1.6.0"),
 				"_prod_code":       tea.String("AGORAX"),
 				"_prod_channel":    tea.String("default"),
 			}
@@ -17655,6 +18110,150 @@ func (client *Client) QueryBenefitAppEx(request *QueryBenefitAppRequest, headers
 	}
 	_result = &QueryBenefitAppResponse{}
 	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("antdigital.agorax.benefit.app.query"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
+}
+
+// Description:
+//
+// Description: 权益卡退款
+//
+// Summary: 权益卡退款
+func (client *Client) RefundTradeApp(request *RefundTradeAppRequest) (_result *RefundTradeAppResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &RefundTradeAppResponse{}
+	_body, _err := client.RefundTradeAppEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+// Description:
+//
+// Description: 权益卡退款
+//
+// Summary: 权益卡退款
+func (client *Client) RefundTradeAppEx(request *RefundTradeAppRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *RefundTradeAppResponse, _err error) {
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &RefundTradeAppResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("antdigital.agorax.trade.app.refund"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
+}
+
+// Description:
+//
+// Description: 协议签署接口
+//
+// Summary: 协议签署接口
+func (client *Client) SignAgreementApp(request *SignAgreementAppRequest) (_result *SignAgreementAppResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &SignAgreementAppResponse{}
+	_body, _err := client.SignAgreementAppEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+// Description:
+//
+// Description: 协议签署接口
+//
+// Summary: 协议签署接口
+func (client *Client) SignAgreementAppEx(request *SignAgreementAppRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *SignAgreementAppResponse, _err error) {
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &SignAgreementAppResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("antdigital.agorax.agreement.app.sign"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
+}
+
+// Description:
+//
+// Description: 查询签署结果
+//
+// Summary: 查询签署结果
+func (client *Client) QueryAgreementApp(request *QueryAgreementAppRequest) (_result *QueryAgreementAppResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &QueryAgreementAppResponse{}
+	_body, _err := client.QueryAgreementAppEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+// Description:
+//
+// Description: 查询签署结果
+//
+// Summary: 查询签署结果
+func (client *Client) QueryAgreementAppEx(request *QueryAgreementAppRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *QueryAgreementAppResponse, _err error) {
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &QueryAgreementAppResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("antdigital.agorax.agreement.app.query"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
+}
+
+// Description:
+//
+// Description: 运营数据大盘
+//
+// Summary: 运营数据大盘
+func (client *Client) QueryReportApp(request *QueryReportAppRequest) (_result *QueryReportAppResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &QueryReportAppResponse{}
+	_body, _err := client.QueryReportAppEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+// Description:
+//
+// Description: 运营数据大盘
+//
+// Summary: 运营数据大盘
+func (client *Client) QueryReportAppEx(request *QueryReportAppRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *QueryReportAppResponse, _err error) {
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &QueryReportAppResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("antdigital.agorax.report.app.query"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
 	if _err != nil {
 		return _result, _err
 	}

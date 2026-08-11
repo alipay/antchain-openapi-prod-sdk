@@ -1,4 +1,4 @@
-module github.com/alipay/antdigital-agorax
+module github.com/antchain-openapi-sdk-go/antdigital-agorax
 
 go 1.22.1
 
