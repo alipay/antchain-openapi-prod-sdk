@@ -692,8 +692,8 @@ class ExecAntcloudMarketingagentCreativeChatRequest(TeaModel):
         reference_style: CreativeAssetRef = None,
         input_elements: List[AssistantExtra] = None,
         scene: str = None,
-        width: str = None,
-        height: str = None,
+        width: int = None,
+        height: int = None,
     ):
         # OAuth模式下的授权token
         self.auth_token = auth_token
