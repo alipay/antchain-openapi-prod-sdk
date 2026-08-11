@@ -34,6 +34,10 @@ public class QueryElectrocarOtafirmwarepageRequest extends TeaModel {
     @NameInMap("module_name")
     public String moduleName;
 
+    // 发布状态：0-未发布，1-已发布；为空时查询全部。
+    @NameInMap("publish_status")
+    public Long publishStatus;
+
     public static QueryElectrocarOtafirmwarepageRequest build(java.util.Map<String, ?> map) throws Exception {
         QueryElectrocarOtafirmwarepageRequest self = new QueryElectrocarOtafirmwarepageRequest();
         return TeaModel.build(map, self);
@@ -93,6 +97,14 @@ public class QueryElectrocarOtafirmwarepageRequest extends TeaModel {
     }
     public String getModuleName() {
         return this.moduleName;
+    }
+
+    public QueryElectrocarOtafirmwarepageRequest setPublishStatus(Long publishStatus) {
+        this.publishStatus = publishStatus;
+        return this;
+    }
+    public Long getPublishStatus() {
+        return this.publishStatus;
     }
 
 }

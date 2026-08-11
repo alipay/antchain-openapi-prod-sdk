@@ -126,7 +126,7 @@ public class Client {
                     new TeaPair("req_msg_id", com.antgroup.antchain.openapi.antchain.util.AntchainUtils.getNonce()),
                     new TeaPair("access_key", _accessKeyId),
                     new TeaPair("base_sdk_version", "TeaSDK-2.0"),
-                    new TeaPair("sdk_version", "1.18.4"),
+                    new TeaPair("sdk_version", "1.19.0"),
                     new TeaPair("_prod_code", "BOT"),
                     new TeaPair("_prod_channel", "undefined")
                 );
@@ -1090,6 +1090,69 @@ public class Client {
     public QueryAgentSessionsResponse queryAgentSessionsEx(QueryAgentSessionsRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
         com.aliyun.teautil.Common.validateModel(request);
         return TeaModel.toModel(this.doRequest("1.0", "blockchain.bot.agent.sessions.query", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new QueryAgentSessionsResponse());
+    }
+
+    /**
+     * <b>description</b> :
+     * <p>Description: 查询ai设备可用状态
+     * Summary: 查询ai设备可用状态</p>
+     */
+    public QueryIotagentAideviceResponse queryIotagentAidevice(QueryIotagentAideviceRequest request) throws Exception {
+        com.aliyun.teautil.models.RuntimeOptions runtime = new com.aliyun.teautil.models.RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.queryIotagentAideviceEx(request, headers, runtime);
+    }
+
+    /**
+     * <b>description</b> :
+     * <p>Description: 查询ai设备可用状态
+     * Summary: 查询ai设备可用状态</p>
+     */
+    public QueryIotagentAideviceResponse queryIotagentAideviceEx(QueryIotagentAideviceRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "blockchain.bot.iotagent.aidevice.query", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new QueryIotagentAideviceResponse());
+    }
+
+    /**
+     * <b>description</b> :
+     * <p>Description: 查询物模型上报数据时间范围
+     * Summary: 查询物模型上报数据时间范围</p>
+     */
+    public QueryIotagentThingmodelrangeResponse queryIotagentThingmodelrange(QueryIotagentThingmodelrangeRequest request) throws Exception {
+        com.aliyun.teautil.models.RuntimeOptions runtime = new com.aliyun.teautil.models.RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.queryIotagentThingmodelrangeEx(request, headers, runtime);
+    }
+
+    /**
+     * <b>description</b> :
+     * <p>Description: 查询物模型上报数据时间范围
+     * Summary: 查询物模型上报数据时间范围</p>
+     */
+    public QueryIotagentThingmodelrangeResponse queryIotagentThingmodelrangeEx(QueryIotagentThingmodelrangeRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "blockchain.bot.iotagent.thingmodelrange.query", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new QueryIotagentThingmodelrangeResponse());
+    }
+
+    /**
+     * <b>description</b> :
+     * <p>Description: 查询物模型上报数据
+     * Summary: 查询物模型上报数据</p>
+     */
+    public QueryIotagentThingmodeldataResponse queryIotagentThingmodeldata(QueryIotagentThingmodeldataRequest request) throws Exception {
+        com.aliyun.teautil.models.RuntimeOptions runtime = new com.aliyun.teautil.models.RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.queryIotagentThingmodeldataEx(request, headers, runtime);
+    }
+
+    /**
+     * <b>description</b> :
+     * <p>Description: 查询物模型上报数据
+     * Summary: 查询物模型上报数据</p>
+     */
+    public QueryIotagentThingmodeldataResponse queryIotagentThingmodeldataEx(QueryIotagentThingmodeldataRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "blockchain.bot.iotagent.thingmodeldata.query", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new QueryIotagentThingmodeldataResponse());
     }
 
     /**
@@ -3968,6 +4031,69 @@ public class Client {
     public ExecElectrocarOtacontinuouspushrulesenabledResponse execElectrocarOtacontinuouspushrulesenabledEx(ExecElectrocarOtacontinuouspushrulesenabledRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
         com.aliyun.teautil.Common.validateModel(request);
         return TeaModel.toModel(this.doRequest("1.0", "blockchain.bot.electrocar.otacontinuouspushrulesenabled.exec", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new ExecElectrocarOtacontinuouspushrulesenabledResponse());
+    }
+
+    /**
+     * <b>description</b> :
+     * <p>Description: 查询设备最新模块版本号
+     * Summary: 查询设备最新模块版本号</p>
+     */
+    public QueryElectrocarDeviceotamoduleversionResponse queryElectrocarDeviceotamoduleversion(QueryElectrocarDeviceotamoduleversionRequest request) throws Exception {
+        com.aliyun.teautil.models.RuntimeOptions runtime = new com.aliyun.teautil.models.RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.queryElectrocarDeviceotamoduleversionEx(request, headers, runtime);
+    }
+
+    /**
+     * <b>description</b> :
+     * <p>Description: 查询设备最新模块版本号
+     * Summary: 查询设备最新模块版本号</p>
+     */
+    public QueryElectrocarDeviceotamoduleversionResponse queryElectrocarDeviceotamoduleversionEx(QueryElectrocarDeviceotamoduleversionRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "blockchain.bot.electrocar.deviceotamoduleversion.query", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new QueryElectrocarDeviceotamoduleversionResponse());
+    }
+
+    /**
+     * <b>description</b> :
+     * <p>Description: 删除单条连续推送规则
+     * Summary: 删除单条连续推送规则</p>
+     */
+    public DeleteElectrocarOtacontinuouspushrulesResponse deleteElectrocarOtacontinuouspushrules(DeleteElectrocarOtacontinuouspushrulesRequest request) throws Exception {
+        com.aliyun.teautil.models.RuntimeOptions runtime = new com.aliyun.teautil.models.RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.deleteElectrocarOtacontinuouspushrulesEx(request, headers, runtime);
+    }
+
+    /**
+     * <b>description</b> :
+     * <p>Description: 删除单条连续推送规则
+     * Summary: 删除单条连续推送规则</p>
+     */
+    public DeleteElectrocarOtacontinuouspushrulesResponse deleteElectrocarOtacontinuouspushrulesEx(DeleteElectrocarOtacontinuouspushrulesRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "blockchain.bot.electrocar.otacontinuouspushrules.delete", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new DeleteElectrocarOtacontinuouspushrulesResponse());
+    }
+
+    /**
+     * <b>description</b> :
+     * <p>Description: 查询产品模块版本号最高的已发布固件包
+     * Summary: 查询产品模块版本号最高的已发布固件包</p>
+     */
+    public QueryElectrocarOtafirmwarelastestResponse queryElectrocarOtafirmwarelastest(QueryElectrocarOtafirmwarelastestRequest request) throws Exception {
+        com.aliyun.teautil.models.RuntimeOptions runtime = new com.aliyun.teautil.models.RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.queryElectrocarOtafirmwarelastestEx(request, headers, runtime);
+    }
+
+    /**
+     * <b>description</b> :
+     * <p>Description: 查询产品模块版本号最高的已发布固件包
+     * Summary: 查询产品模块版本号最高的已发布固件包</p>
+     */
+    public QueryElectrocarOtafirmwarelastestResponse queryElectrocarOtafirmwarelastestEx(QueryElectrocarOtafirmwarelastestRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "blockchain.bot.electrocar.otafirmwarelastest.query", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new QueryElectrocarOtafirmwarelastestResponse());
     }
 
     /**

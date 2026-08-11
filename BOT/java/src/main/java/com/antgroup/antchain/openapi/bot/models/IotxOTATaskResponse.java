@@ -120,6 +120,22 @@ public class IotxOTATaskResponse extends TeaModel {
     @Validation(pattern = "\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}([Z]|([\\.]\\d{1,9})?[\\+]\\d{2}[\\:]?\\d{2})")
     public String utcModified;
 
+    // 任务当前有效状态；历史任务统一为已失效；
+    /**
+     * <strong>example:</strong>
+     * <p>PERMANENT_CANCELED</p>
+     */
+    @NameInMap("effective_status")
+    public String effectiveStatus;
+
+    // 与任务当前有效状态对应的展示描述；历史成功任务不返回描述。
+    /**
+     * <strong>example:</strong>
+     * <p>与任务当前有效状态对应的展示描述；历史成功任务不返回描述。</p>
+     */
+    @NameInMap("effective_task_desc")
+    public String effectiveTaskDesc;
+
     public static IotxOTATaskResponse build(java.util.Map<String, ?> map) throws Exception {
         IotxOTATaskResponse self = new IotxOTATaskResponse();
         return TeaModel.build(map, self);
@@ -235,6 +251,22 @@ public class IotxOTATaskResponse extends TeaModel {
     }
     public String getUtcModified() {
         return this.utcModified;
+    }
+
+    public IotxOTATaskResponse setEffectiveStatus(String effectiveStatus) {
+        this.effectiveStatus = effectiveStatus;
+        return this;
+    }
+    public String getEffectiveStatus() {
+        return this.effectiveStatus;
+    }
+
+    public IotxOTATaskResponse setEffectiveTaskDesc(String effectiveTaskDesc) {
+        this.effectiveTaskDesc = effectiveTaskDesc;
+        return this;
+    }
+    public String getEffectiveTaskDesc() {
+        return this.effectiveTaskDesc;
     }
 
 }
