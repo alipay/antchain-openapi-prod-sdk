@@ -47,12 +47,12 @@ namespace AntChain.SDK.CREATIVERENDER.Models
         // 生图宽度
         [NameInMap("width")]
         [Validation(Required=false)]
-        public string Width { get; set; }
+        public long? Width { get; set; }
 
         // 生图高度
         [NameInMap("height")]
         [Validation(Required=false)]
-        public string Height { get; set; }
+        public long? Height { get; set; }
 
     }
 
