@@ -1,4 +1,4 @@
-module github.com/alipay/demosdk
+module github.com/antchain-openapi-sdk-go/demosdk
 
 go 1.22.1
 
