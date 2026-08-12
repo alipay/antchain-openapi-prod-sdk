@@ -1,4 +1,4 @@
-module github.com/alipay/stlr
+module github.com/antchain-openapi-sdk-go/stlr
 
 go 1.22.1
 
