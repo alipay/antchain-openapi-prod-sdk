@@ -3503,11 +3503,6 @@ type RoleList struct {
 	//
 	// xxxxx
 	Description *string `json:"description,omitempty" xml:"description,omitempty"`
-	// 角色权限编码
-	// example:
-	//
-	// xxxxx
-	PermissionList []*string `json:"permission_list,omitempty" xml:"permission_list,omitempty" require:"true" type:"Repeated"`
 }
 
 func (s RoleList) String() string {
@@ -3530,11 +3525,6 @@ func (s *RoleList) SetName(v string) *RoleList {
 
 func (s *RoleList) SetDescription(v string) *RoleList {
 	s.Description = &v
-	return s
-}
-
-func (s *RoleList) SetPermissionList(v []*string) *RoleList {
-	s.PermissionList = v
 	return s
 }
 
@@ -3719,11 +3709,6 @@ type OperatorList struct {
 	//
 	// xxxxxx
 	Status *string `json:"status,omitempty" xml:"status,omitempty"`
-	// 是否为超级管理员。
-	// example:
-	//
-	// xxxxxx
-	Supervisor *bool `json:"supervisor,omitempty" xml:"supervisor,omitempty"`
 }
 
 func (s OperatorList) String() string {
@@ -3766,11 +3751,6 @@ func (s *OperatorList) SetCreateTime(v string) *OperatorList {
 
 func (s *OperatorList) SetStatus(v string) *OperatorList {
 	s.Status = &v
-	return s
-}
-
-func (s *OperatorList) SetSupervisor(v bool) *OperatorList {
-	s.Supervisor = &v
 	return s
 }
 
@@ -12562,7 +12542,7 @@ func (client *Client) DoRequest(version *string, action *string, protocol *strin
 				"req_msg_id":       antchainutil.GetNonce(),
 				"access_key":       client.AccessKeyId,
 				"base_sdk_version": tea.String("TeaSDK-2.0"),
-				"sdk_version":      tea.String("2.11.14"),
+				"sdk_version":      tea.String("2.11.15"),
 				"_prod_code":       tea.String("STLR"),
 				"_prod_channel":    tea.String("undefined"),
 			}
