@@ -2,7 +2,7 @@
 
 ![](https://aliyunsdk-pages.alicdn.com/icons/AlibabaCloud.svg)
 
-# Ant Chain ABC SDK for PHP
+# Ant Chain GESAAS_SPI SDK for PHP
 
 ## 安装
 

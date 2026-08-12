@@ -20,6 +20,8 @@ class QueryRightsprodVoucherResponse extends Model {
         'faceAmount' => 'face_amount',
         'availableAmount' => 'available_amount',
         'status' => 'status',
+        'expireTime' => 'expire_time',
+        'effectTime' => 'effect_time',
     ];
     public function validate() {}
     public function toMap() {
@@ -62,6 +64,12 @@ class QueryRightsprodVoucherResponse extends Model {
         }
         if (null !== $this->status) {
             $res['status'] = $this->status;
+        }
+        if (null !== $this->expireTime) {
+            $res['expire_time'] = $this->expireTime;
+        }
+        if (null !== $this->effectTime) {
+            $res['effect_time'] = $this->effectTime;
         }
         return $res;
     }
@@ -109,6 +117,12 @@ class QueryRightsprodVoucherResponse extends Model {
         }
         if(isset($map['status'])){
             $model->status = $map['status'];
+        }
+        if(isset($map['expire_time'])){
+            $model->expireTime = $map['expire_time'];
+        }
+        if(isset($map['effect_time'])){
+            $model->effectTime = $map['effect_time'];
         }
         return $model;
     }
@@ -189,5 +203,17 @@ class QueryRightsprodVoucherResponse extends Model {
      * @var string
      */
     public $status;
+
+    // 过期时间
+    /**
+     * @var string
+     */
+    public $expireTime;
+
+    // 生效时间
+    /**
+     * @var string
+     */
+    public $effectTime;
 
 }
