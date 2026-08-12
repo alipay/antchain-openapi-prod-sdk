@@ -126,7 +126,7 @@ public class Client {
                     new TeaPair("req_msg_id", com.antgroup.antchain.openapi.antchain.util.AntchainUtils.getNonce()),
                     new TeaPair("access_key", _accessKeyId),
                     new TeaPair("base_sdk_version", "TeaSDK-2.0"),
-                    new TeaPair("sdk_version", "1.2.1"),
+                    new TeaPair("sdk_version", "1.2.2"),
                     new TeaPair("_prod_code", "IOTAGENT"),
                     new TeaPair("_prod_channel", "undefined")
                 );
@@ -354,5 +354,47 @@ public class Client {
     public QueryBlockchainBotIotagentThingmodeldataResponse queryBlockchainBotIotagentThingmodeldataEx(QueryBlockchainBotIotagentThingmodeldataRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
         com.aliyun.teautil.Common.validateModel(request);
         return TeaModel.toModel(this.doRequest("1.0", "blockchain.bot.iotagent.thingmodeldata.query", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new QueryBlockchainBotIotagentThingmodeldataResponse());
+    }
+
+    /**
+     * <b>description</b> :
+     * <p>Description: IoT智能体插件签约URL获取接口
+     * Summary: IoT智能体插件签约URL获取接口</p>
+     */
+    public GetsignurlBlockchainBotIotagentPlugincontractResponse getsignurlBlockchainBotIotagentPlugincontract(GetsignurlBlockchainBotIotagentPlugincontractRequest request) throws Exception {
+        com.aliyun.teautil.models.RuntimeOptions runtime = new com.aliyun.teautil.models.RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.getsignurlBlockchainBotIotagentPlugincontractEx(request, headers, runtime);
+    }
+
+    /**
+     * <b>description</b> :
+     * <p>Description: IoT智能体插件签约URL获取接口
+     * Summary: IoT智能体插件签约URL获取接口</p>
+     */
+    public GetsignurlBlockchainBotIotagentPlugincontractResponse getsignurlBlockchainBotIotagentPlugincontractEx(GetsignurlBlockchainBotIotagentPlugincontractRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "blockchain.bot.iotagent.plugincontract.getsignurl", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new GetsignurlBlockchainBotIotagentPlugincontractResponse());
+    }
+
+    /**
+     * <b>description</b> :
+     * <p>Description: IoT智能体插件签约查询接口
+     * Summary: IoT智能体插件签约查询接口</p>
+     */
+    public QueryBlockchainBotIotagentPlugincontractResponse queryBlockchainBotIotagentPlugincontract(QueryBlockchainBotIotagentPlugincontractRequest request) throws Exception {
+        com.aliyun.teautil.models.RuntimeOptions runtime = new com.aliyun.teautil.models.RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.queryBlockchainBotIotagentPlugincontractEx(request, headers, runtime);
+    }
+
+    /**
+     * <b>description</b> :
+     * <p>Description: IoT智能体插件签约查询接口
+     * Summary: IoT智能体插件签约查询接口</p>
+     */
+    public QueryBlockchainBotIotagentPlugincontractResponse queryBlockchainBotIotagentPlugincontractEx(QueryBlockchainBotIotagentPlugincontractRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "blockchain.bot.iotagent.plugincontract.query", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new QueryBlockchainBotIotagentPlugincontractResponse());
     }
 }

@@ -8,7 +8,7 @@
 <dependency>
    <groupId>com.antgroup.antchain.openapi</groupId>
    <artifactId>antdigital-iotagent</artifactId>
-   <version>1.2.1</version>
+   <version>1.2.2</version>
 </dependency>
 ```
 
