@@ -158,7 +158,7 @@ namespace AntChain.SDK.STLR
                         {"req_msg_id", AntChain.AlipayUtil.AntchainUtils.GetNonce()},
                         {"access_key", _accessKeyId},
                         {"base_sdk_version", "TeaSDK-2.0"},
-                        {"sdk_version", "2.11.12"},
+                        {"sdk_version", "2.11.14"},
                         {"_prod_code", "STLR"},
                         {"_prod_channel", "undefined"},
                     };
@@ -301,7 +301,7 @@ namespace AntChain.SDK.STLR
                         {"req_msg_id", AntChain.AlipayUtil.AntchainUtils.GetNonce()},
                         {"access_key", _accessKeyId},
                         {"base_sdk_version", "TeaSDK-2.0"},
-                        {"sdk_version", "2.11.12"},
+                        {"sdk_version", "2.11.14"},
                         {"_prod_code", "STLR"},
                         {"_prod_channel", "undefined"},
                     };
@@ -4319,6 +4319,52 @@ namespace AntChain.SDK.STLR
         {
             AlibabaCloud.TeaUtil.Common.ValidateModel(request);
             return TeaModel.ToObject<QueryEsgListbyroleResponse>(await DoRequestAsync("1.0", "antchain.carbon.esg.listbyrole.query", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /// <term><b>Description:</b></term>
+        /// <description>
+        /// <para>Description: 按用户 ID 查询指定操作员的档案信息及角色信息
+        /// Summary: 按用户 ID 查询指定操作员的档案信息及角色信息</para>
+        /// </description>
+        public QueryEsgOperatordetailResponse QueryEsgOperatordetail(QueryEsgOperatordetailRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return QueryEsgOperatordetailEx(request, headers, runtime);
+        }
+
+        /// <term><b>Description:</b></term>
+        /// <description>
+        /// <para>Description: 按用户 ID 查询指定操作员的档案信息及角色信息
+        /// Summary: 按用户 ID 查询指定操作员的档案信息及角色信息</para>
+        /// </description>
+        public async Task<QueryEsgOperatordetailResponse> QueryEsgOperatordetailAsync(QueryEsgOperatordetailRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return await QueryEsgOperatordetailExAsync(request, headers, runtime);
+        }
+
+        /// <term><b>Description:</b></term>
+        /// <description>
+        /// <para>Description: 按用户 ID 查询指定操作员的档案信息及角色信息
+        /// Summary: 按用户 ID 查询指定操作员的档案信息及角色信息</para>
+        /// </description>
+        public QueryEsgOperatordetailResponse QueryEsgOperatordetailEx(QueryEsgOperatordetailRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<QueryEsgOperatordetailResponse>(DoRequest("1.0", "antchain.carbon.esg.operatordetail.query", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /// <term><b>Description:</b></term>
+        /// <description>
+        /// <para>Description: 按用户 ID 查询指定操作员的档案信息及角色信息
+        /// Summary: 按用户 ID 查询指定操作员的档案信息及角色信息</para>
+        /// </description>
+        public async Task<QueryEsgOperatordetailResponse> QueryEsgOperatordetailExAsync(QueryEsgOperatordetailRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<QueryEsgOperatordetailResponse>(await DoRequestAsync("1.0", "antchain.carbon.esg.operatordetail.query", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
         }
 
         /// <term><b>Description:</b></term>
