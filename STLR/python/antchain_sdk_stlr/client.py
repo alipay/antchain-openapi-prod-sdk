@@ -135,7 +135,7 @@ class Client:
                     'req_msg_id': AntchainUtils.get_nonce(),
                     'access_key': self._access_key_id,
                     'base_sdk_version': 'TeaSDK-2.0',
-                    'sdk_version': '2.11.12',
+                    'sdk_version': '2.11.14',
                     '_prod_code': 'STLR',
                     '_prod_channel': 'undefined'
                 }
@@ -239,7 +239,7 @@ class Client:
                     'req_msg_id': AntchainUtils.get_nonce(),
                     'access_key': self._access_key_id,
                     'base_sdk_version': 'TeaSDK-2.0',
-                    'sdk_version': '2.11.12',
+                    'sdk_version': '2.11.14',
                     '_prod_code': 'STLR',
                     '_prod_channel': 'undefined'
                 }
@@ -5029,6 +5029,62 @@ class Client:
         return TeaCore.from_map(
             stlr_models.QueryEsgListbyroleResponse(),
             await self.do_request_async('1.0', 'antchain.carbon.esg.listbyrole.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def query_esg_operatordetail(
+        self,
+        request: stlr_models.QueryEsgOperatordetailRequest,
+    ) -> stlr_models.QueryEsgOperatordetailResponse:
+        """
+        Description: 按用户 ID 查询指定操作员的档案信息及角色信息
+        Summary: 按用户 ID 查询指定操作员的档案信息及角色信息
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.query_esg_operatordetail_ex(request, headers, runtime)
+
+    async def query_esg_operatordetail_async(
+        self,
+        request: stlr_models.QueryEsgOperatordetailRequest,
+    ) -> stlr_models.QueryEsgOperatordetailResponse:
+        """
+        Description: 按用户 ID 查询指定操作员的档案信息及角色信息
+        Summary: 按用户 ID 查询指定操作员的档案信息及角色信息
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.query_esg_operatordetail_ex_async(request, headers, runtime)
+
+    def query_esg_operatordetail_ex(
+        self,
+        request: stlr_models.QueryEsgOperatordetailRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> stlr_models.QueryEsgOperatordetailResponse:
+        """
+        Description: 按用户 ID 查询指定操作员的档案信息及角色信息
+        Summary: 按用户 ID 查询指定操作员的档案信息及角色信息
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            stlr_models.QueryEsgOperatordetailResponse(),
+            self.do_request('1.0', 'antchain.carbon.esg.operatordetail.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def query_esg_operatordetail_ex_async(
+        self,
+        request: stlr_models.QueryEsgOperatordetailRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> stlr_models.QueryEsgOperatordetailResponse:
+        """
+        Description: 按用户 ID 查询指定操作员的档案信息及角色信息
+        Summary: 按用户 ID 查询指定操作员的档案信息及角色信息
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            stlr_models.QueryEsgOperatordetailResponse(),
+            await self.do_request_async('1.0', 'antchain.carbon.esg.operatordetail.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
     def query_third_cert(

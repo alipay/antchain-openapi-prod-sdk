@@ -24,7 +24,7 @@ from setuptools import setup, find_packages
 """
 setup module for antchain_stlr.
 
-Created on 10/08/2026
+Created on 12/08/2026
 
 @author: Ant Chain SDK
 """

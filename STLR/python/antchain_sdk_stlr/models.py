@@ -3796,6 +3796,49 @@ class OperatorList(TeaModel):
         return self
 
 
+class RoleDetailList(TeaModel):
+    def __init__(
+        self,
+        role_no: str = None,
+        name: str = None,
+        description: str = None,
+    ):
+        # 角色编码
+        self.role_no = role_no
+        # 角色名称
+        self.name = name
+        # 角色描述
+        self.description = description
+
+    def validate(self):
+        self.validate_required(self.role_no, 'role_no')
+        self.validate_required(self.name, 'name')
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.role_no is not None:
+            result['role_no'] = self.role_no
+        if self.name is not None:
+            result['name'] = self.name
+        if self.description is not None:
+            result['description'] = self.description
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('role_no') is not None:
+            self.role_no = m.get('role_no')
+        if m.get('name') is not None:
+            self.name = m.get('name')
+        if m.get('description') is not None:
+            self.description = m.get('description')
+        return self
+
+
 class XNameValuePair(TeaModel):
     def __init__(
         self,
@@ -14281,6 +14324,154 @@ class QueryEsgListbyroleResponse(TeaModel):
             for k in m.get('list'):
                 temp_model = OperatorList()
                 self.list.append(temp_model.from_map(k))
+        return self
+
+
+class QueryEsgOperatordetailRequest(TeaModel):
+    def __init__(
+        self,
+        auth_token: str = None,
+        product_instance_id: str = None,
+        enterprise_no: str = None,
+        user_id: str = None,
+    ):
+        # OAuth模式下的授权token
+        self.auth_token = auth_token
+        self.product_instance_id = product_instance_id
+        # 企业编码
+        self.enterprise_no = enterprise_no
+        # 操作员 ID
+        self.user_id = user_id
+
+    def validate(self):
+        self.validate_required(self.enterprise_no, 'enterprise_no')
+        self.validate_required(self.user_id, 'user_id')
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.auth_token is not None:
+            result['auth_token'] = self.auth_token
+        if self.product_instance_id is not None:
+            result['product_instance_id'] = self.product_instance_id
+        if self.enterprise_no is not None:
+            result['enterprise_no'] = self.enterprise_no
+        if self.user_id is not None:
+            result['user_id'] = self.user_id
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('auth_token') is not None:
+            self.auth_token = m.get('auth_token')
+        if m.get('product_instance_id') is not None:
+            self.product_instance_id = m.get('product_instance_id')
+        if m.get('enterprise_no') is not None:
+            self.enterprise_no = m.get('enterprise_no')
+        if m.get('user_id') is not None:
+            self.user_id = m.get('user_id')
+        return self
+
+
+class QueryEsgOperatordetailResponse(TeaModel):
+    def __init__(
+        self,
+        req_msg_id: str = None,
+        result_code: str = None,
+        result_msg: str = None,
+        user_id: str = None,
+        user_name: str = None,
+        enterprise_no: str = None,
+        nick_name: str = None,
+        real_name: str = None,
+        phone_number: str = None,
+        role_list: List[RoleDetailList] = None,
+    ):
+        # 请求唯一ID，用于链路跟踪和问题排查
+        self.req_msg_id = req_msg_id
+        # 结果码，一般OK表示调用成功
+        self.result_code = result_code
+        # 异常信息的文本描述
+        self.result_msg = result_msg
+        # 操作员 ID。
+        self.user_id = user_id
+        # 登录账号
+        self.user_name = user_name
+        # 企业编码
+        self.enterprise_no = enterprise_no
+        # 昵称
+        self.nick_name = nick_name
+        # 真实姓名
+        self.real_name = real_name
+        # 手机号
+        self.phone_number = phone_number
+        # 角色列表
+        self.role_list = role_list
+
+    def validate(self):
+        if self.role_list:
+            for k in self.role_list:
+                if k:
+                    k.validate()
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.req_msg_id is not None:
+            result['req_msg_id'] = self.req_msg_id
+        if self.result_code is not None:
+            result['result_code'] = self.result_code
+        if self.result_msg is not None:
+            result['result_msg'] = self.result_msg
+        if self.user_id is not None:
+            result['user_id'] = self.user_id
+        if self.user_name is not None:
+            result['user_name'] = self.user_name
+        if self.enterprise_no is not None:
+            result['enterprise_no'] = self.enterprise_no
+        if self.nick_name is not None:
+            result['nick_name'] = self.nick_name
+        if self.real_name is not None:
+            result['real_name'] = self.real_name
+        if self.phone_number is not None:
+            result['phone_number'] = self.phone_number
+        result['role_list'] = []
+        if self.role_list is not None:
+            for k in self.role_list:
+                result['role_list'].append(k.to_map() if k else None)
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('req_msg_id') is not None:
+            self.req_msg_id = m.get('req_msg_id')
+        if m.get('result_code') is not None:
+            self.result_code = m.get('result_code')
+        if m.get('result_msg') is not None:
+            self.result_msg = m.get('result_msg')
+        if m.get('user_id') is not None:
+            self.user_id = m.get('user_id')
+        if m.get('user_name') is not None:
+            self.user_name = m.get('user_name')
+        if m.get('enterprise_no') is not None:
+            self.enterprise_no = m.get('enterprise_no')
+        if m.get('nick_name') is not None:
+            self.nick_name = m.get('nick_name')
+        if m.get('real_name') is not None:
+            self.real_name = m.get('real_name')
+        if m.get('phone_number') is not None:
+            self.phone_number = m.get('phone_number')
+        self.role_list = []
+        if m.get('role_list') is not None:
+            for k in m.get('role_list'):
+                temp_model = RoleDetailList()
+                self.role_list.append(temp_model.from_map(k))
         return self
 
 
