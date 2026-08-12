@@ -10,12 +10,10 @@ class RoleList extends Model {
         'roleNo' => 'role_no',
         'name' => 'name',
         'description' => 'description',
-        'permissionList' => 'permission_list',
     ];
     public function validate() {
         Model::validateRequired('roleNo', $this->roleNo, true);
         Model::validateRequired('name', $this->name, true);
-        Model::validateRequired('permissionList', $this->permissionList, true);
     }
     public function toMap() {
         $res = [];
@@ -27,9 +25,6 @@ class RoleList extends Model {
         }
         if (null !== $this->description) {
             $res['description'] = $this->description;
-        }
-        if (null !== $this->permissionList) {
-            $res['permission_list'] = $this->permissionList;
         }
         return $res;
     }
@@ -47,11 +42,6 @@ class RoleList extends Model {
         }
         if(isset($map['description'])){
             $model->description = $map['description'];
-        }
-        if(isset($map['permission_list'])){
-            if(!empty($map['permission_list'])){
-                $model->permissionList = $map['permission_list'];
-            }
         }
         return $model;
     }
@@ -75,12 +65,5 @@ class RoleList extends Model {
      * @var string
      */
     public $description;
-
-    // 角色权限编码
-    /**
-     * @example xxxxx
-     * @var string[]
-     */
-    public $permissionList;
 
 }

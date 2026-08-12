@@ -14,7 +14,6 @@ class OperatorList extends Model {
         'nickName' => 'nick_name',
         'createTime' => 'create_time',
         'status' => 'status',
-        'supervisor' => 'supervisor',
     ];
     public function validate() {
         Model::validateRequired('operatorId', $this->operatorId, true);
@@ -41,9 +40,6 @@ class OperatorList extends Model {
         }
         if (null !== $this->status) {
             $res['status'] = $this->status;
-        }
-        if (null !== $this->supervisor) {
-            $res['supervisor'] = $this->supervisor;
         }
         return $res;
     }
@@ -73,9 +69,6 @@ class OperatorList extends Model {
         }
         if(isset($map['status'])){
             $model->status = $map['status'];
-        }
-        if(isset($map['supervisor'])){
-            $model->supervisor = $map['supervisor'];
         }
         return $model;
     }
@@ -127,12 +120,5 @@ class OperatorList extends Model {
      * @var string
      */
     public $status;
-
-    // 是否为超级管理员。
-    /**
-     * @example xxxxxx
-     * @var bool
-     */
-    public $supervisor;
 
 }
