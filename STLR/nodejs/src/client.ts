@@ -3228,18 +3228,11 @@ export class RoleList extends $tea.Model {
    * xxxxx
    */
   description?: string;
-  // 角色权限编码
-  /**
-   * @example
-   * xxxxx
-   */
-  permissionList: string[];
   static names(): { [key: string]: string } {
     return {
       roleNo: 'role_no',
       name: 'name',
       description: 'description',
-      permissionList: 'permission_list',
     };
   }
 
@@ -3248,7 +3241,6 @@ export class RoleList extends $tea.Model {
       roleNo: 'string',
       name: 'string',
       description: 'string',
-      permissionList: { 'type': 'array', 'itemType': 'string' },
     };
   }
 
@@ -3431,12 +3423,6 @@ export class OperatorList extends $tea.Model {
    * xxxxxx
    */
   status?: string;
-  // 是否为超级管理员。
-  /**
-   * @example
-   * xxxxxx
-   */
-  supervisor?: boolean;
   static names(): { [key: string]: string } {
     return {
       operatorId: 'operator_id',
@@ -3446,7 +3432,6 @@ export class OperatorList extends $tea.Model {
       nickName: 'nick_name',
       createTime: 'create_time',
       status: 'status',
-      supervisor: 'supervisor',
     };
   }
 
@@ -3459,7 +3444,6 @@ export class OperatorList extends $tea.Model {
       nickName: 'string',
       createTime: 'string',
       status: 'string',
-      supervisor: 'boolean',
     };
   }
 
@@ -10229,7 +10213,7 @@ export default class Client {
           req_msg_id: AntchainUtil.getNonce(),
           access_key: this._accessKeyId,
           base_sdk_version: "TeaSDK-2.0",
-          sdk_version: "2.11.14",
+          sdk_version: "2.11.15",
           _prod_code: "STLR",
           _prod_channel: "undefined",
         };
