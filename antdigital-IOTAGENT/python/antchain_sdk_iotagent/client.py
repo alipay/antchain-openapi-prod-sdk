@@ -110,7 +110,7 @@ class Client:
                 'period': UtilClient.default_number(runtime.backoff_period, 1)
             },
             'ignoreSSL': runtime.ignore_ssl,
-            # 资源定位信息
+            # 版本范围边界定义
         }
         _last_request = None
         _last_exception = None
@@ -135,7 +135,7 @@ class Client:
                     'req_msg_id': AntchainUtils.get_nonce(),
                     'access_key': self._access_key_id,
                     'base_sdk_version': 'TeaSDK-2.0',
-                    'sdk_version': '1.1.5',
+                    'sdk_version': '1.2.3',
                     '_prod_code': 'IOTAGENT',
                     '_prod_channel': 'undefined'
                 }
@@ -214,7 +214,7 @@ class Client:
                 'period': UtilClient.default_number(runtime.backoff_period, 1)
             },
             'ignoreSSL': runtime.ignore_ssl,
-            # 资源定位信息
+            # 版本范围边界定义
         }
         _last_request = None
         _last_exception = None
@@ -239,7 +239,7 @@ class Client:
                     'req_msg_id': AntchainUtils.get_nonce(),
                     'access_key': self._access_key_id,
                     'base_sdk_version': 'TeaSDK-2.0',
-                    'sdk_version': '1.1.5',
+                    'sdk_version': '1.2.3',
                     '_prod_code': 'IOTAGENT',
                     '_prod_channel': 'undefined'
                 }
@@ -553,4 +553,284 @@ class Client:
         return TeaCore.from_map(
             iotagent_models.QueryBlockchainBotAgentSessionsResponse(),
             await self.do_request_async('1.0', 'blockchain.bot.agent.sessions.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def query_blockchain_bot_iotagent_aidevice(
+        self,
+        request: iotagent_models.QueryBlockchainBotIotagentAideviceRequest,
+    ) -> iotagent_models.QueryBlockchainBotIotagentAideviceResponse:
+        """
+        Description: 查询ai设备可用状态
+        Summary: 查询ai设备可用状态
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.query_blockchain_bot_iotagent_aidevice_ex(request, headers, runtime)
+
+    async def query_blockchain_bot_iotagent_aidevice_async(
+        self,
+        request: iotagent_models.QueryBlockchainBotIotagentAideviceRequest,
+    ) -> iotagent_models.QueryBlockchainBotIotagentAideviceResponse:
+        """
+        Description: 查询ai设备可用状态
+        Summary: 查询ai设备可用状态
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.query_blockchain_bot_iotagent_aidevice_ex_async(request, headers, runtime)
+
+    def query_blockchain_bot_iotagent_aidevice_ex(
+        self,
+        request: iotagent_models.QueryBlockchainBotIotagentAideviceRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> iotagent_models.QueryBlockchainBotIotagentAideviceResponse:
+        """
+        Description: 查询ai设备可用状态
+        Summary: 查询ai设备可用状态
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            iotagent_models.QueryBlockchainBotIotagentAideviceResponse(),
+            self.do_request('1.0', 'blockchain.bot.iotagent.aidevice.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def query_blockchain_bot_iotagent_aidevice_ex_async(
+        self,
+        request: iotagent_models.QueryBlockchainBotIotagentAideviceRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> iotagent_models.QueryBlockchainBotIotagentAideviceResponse:
+        """
+        Description: 查询ai设备可用状态
+        Summary: 查询ai设备可用状态
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            iotagent_models.QueryBlockchainBotIotagentAideviceResponse(),
+            await self.do_request_async('1.0', 'blockchain.bot.iotagent.aidevice.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def query_blockchain_bot_iotagent_thingmodelrange(
+        self,
+        request: iotagent_models.QueryBlockchainBotIotagentThingmodelrangeRequest,
+    ) -> iotagent_models.QueryBlockchainBotIotagentThingmodelrangeResponse:
+        """
+        Description: 查询物模型上报数据时间范围
+        Summary: 查询物模型上报数据时间范围
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.query_blockchain_bot_iotagent_thingmodelrange_ex(request, headers, runtime)
+
+    async def query_blockchain_bot_iotagent_thingmodelrange_async(
+        self,
+        request: iotagent_models.QueryBlockchainBotIotagentThingmodelrangeRequest,
+    ) -> iotagent_models.QueryBlockchainBotIotagentThingmodelrangeResponse:
+        """
+        Description: 查询物模型上报数据时间范围
+        Summary: 查询物模型上报数据时间范围
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.query_blockchain_bot_iotagent_thingmodelrange_ex_async(request, headers, runtime)
+
+    def query_blockchain_bot_iotagent_thingmodelrange_ex(
+        self,
+        request: iotagent_models.QueryBlockchainBotIotagentThingmodelrangeRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> iotagent_models.QueryBlockchainBotIotagentThingmodelrangeResponse:
+        """
+        Description: 查询物模型上报数据时间范围
+        Summary: 查询物模型上报数据时间范围
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            iotagent_models.QueryBlockchainBotIotagentThingmodelrangeResponse(),
+            self.do_request('1.0', 'blockchain.bot.iotagent.thingmodelrange.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def query_blockchain_bot_iotagent_thingmodelrange_ex_async(
+        self,
+        request: iotagent_models.QueryBlockchainBotIotagentThingmodelrangeRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> iotagent_models.QueryBlockchainBotIotagentThingmodelrangeResponse:
+        """
+        Description: 查询物模型上报数据时间范围
+        Summary: 查询物模型上报数据时间范围
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            iotagent_models.QueryBlockchainBotIotagentThingmodelrangeResponse(),
+            await self.do_request_async('1.0', 'blockchain.bot.iotagent.thingmodelrange.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def query_blockchain_bot_iotagent_thingmodeldata(
+        self,
+        request: iotagent_models.QueryBlockchainBotIotagentThingmodeldataRequest,
+    ) -> iotagent_models.QueryBlockchainBotIotagentThingmodeldataResponse:
+        """
+        Description: 查询物模型上报数据
+        Summary: 查询物模型上报数据
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.query_blockchain_bot_iotagent_thingmodeldata_ex(request, headers, runtime)
+
+    async def query_blockchain_bot_iotagent_thingmodeldata_async(
+        self,
+        request: iotagent_models.QueryBlockchainBotIotagentThingmodeldataRequest,
+    ) -> iotagent_models.QueryBlockchainBotIotagentThingmodeldataResponse:
+        """
+        Description: 查询物模型上报数据
+        Summary: 查询物模型上报数据
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.query_blockchain_bot_iotagent_thingmodeldata_ex_async(request, headers, runtime)
+
+    def query_blockchain_bot_iotagent_thingmodeldata_ex(
+        self,
+        request: iotagent_models.QueryBlockchainBotIotagentThingmodeldataRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> iotagent_models.QueryBlockchainBotIotagentThingmodeldataResponse:
+        """
+        Description: 查询物模型上报数据
+        Summary: 查询物模型上报数据
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            iotagent_models.QueryBlockchainBotIotagentThingmodeldataResponse(),
+            self.do_request('1.0', 'blockchain.bot.iotagent.thingmodeldata.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def query_blockchain_bot_iotagent_thingmodeldata_ex_async(
+        self,
+        request: iotagent_models.QueryBlockchainBotIotagentThingmodeldataRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> iotagent_models.QueryBlockchainBotIotagentThingmodeldataResponse:
+        """
+        Description: 查询物模型上报数据
+        Summary: 查询物模型上报数据
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            iotagent_models.QueryBlockchainBotIotagentThingmodeldataResponse(),
+            await self.do_request_async('1.0', 'blockchain.bot.iotagent.thingmodeldata.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def getsignurl_blockchain_bot_iotagent_plugincontract(
+        self,
+        request: iotagent_models.GetsignurlBlockchainBotIotagentPlugincontractRequest,
+    ) -> iotagent_models.GetsignurlBlockchainBotIotagentPlugincontractResponse:
+        """
+        Description: IoT智能体插件签约URL获取接口
+        Summary: IoT智能体插件签约URL获取接口
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.getsignurl_blockchain_bot_iotagent_plugincontract_ex(request, headers, runtime)
+
+    async def getsignurl_blockchain_bot_iotagent_plugincontract_async(
+        self,
+        request: iotagent_models.GetsignurlBlockchainBotIotagentPlugincontractRequest,
+    ) -> iotagent_models.GetsignurlBlockchainBotIotagentPlugincontractResponse:
+        """
+        Description: IoT智能体插件签约URL获取接口
+        Summary: IoT智能体插件签约URL获取接口
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.getsignurl_blockchain_bot_iotagent_plugincontract_ex_async(request, headers, runtime)
+
+    def getsignurl_blockchain_bot_iotagent_plugincontract_ex(
+        self,
+        request: iotagent_models.GetsignurlBlockchainBotIotagentPlugincontractRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> iotagent_models.GetsignurlBlockchainBotIotagentPlugincontractResponse:
+        """
+        Description: IoT智能体插件签约URL获取接口
+        Summary: IoT智能体插件签约URL获取接口
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            iotagent_models.GetsignurlBlockchainBotIotagentPlugincontractResponse(),
+            self.do_request('1.0', 'blockchain.bot.iotagent.plugincontract.getsignurl', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def getsignurl_blockchain_bot_iotagent_plugincontract_ex_async(
+        self,
+        request: iotagent_models.GetsignurlBlockchainBotIotagentPlugincontractRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> iotagent_models.GetsignurlBlockchainBotIotagentPlugincontractResponse:
+        """
+        Description: IoT智能体插件签约URL获取接口
+        Summary: IoT智能体插件签约URL获取接口
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            iotagent_models.GetsignurlBlockchainBotIotagentPlugincontractResponse(),
+            await self.do_request_async('1.0', 'blockchain.bot.iotagent.plugincontract.getsignurl', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def query_blockchain_bot_iotagent_plugincontract(
+        self,
+        request: iotagent_models.QueryBlockchainBotIotagentPlugincontractRequest,
+    ) -> iotagent_models.QueryBlockchainBotIotagentPlugincontractResponse:
+        """
+        Description: IoT智能体插件签约查询接口
+        Summary: IoT智能体插件签约查询接口
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.query_blockchain_bot_iotagent_plugincontract_ex(request, headers, runtime)
+
+    async def query_blockchain_bot_iotagent_plugincontract_async(
+        self,
+        request: iotagent_models.QueryBlockchainBotIotagentPlugincontractRequest,
+    ) -> iotagent_models.QueryBlockchainBotIotagentPlugincontractResponse:
+        """
+        Description: IoT智能体插件签约查询接口
+        Summary: IoT智能体插件签约查询接口
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.query_blockchain_bot_iotagent_plugincontract_ex_async(request, headers, runtime)
+
+    def query_blockchain_bot_iotagent_plugincontract_ex(
+        self,
+        request: iotagent_models.QueryBlockchainBotIotagentPlugincontractRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> iotagent_models.QueryBlockchainBotIotagentPlugincontractResponse:
+        """
+        Description: IoT智能体插件签约查询接口
+        Summary: IoT智能体插件签约查询接口
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            iotagent_models.QueryBlockchainBotIotagentPlugincontractResponse(),
+            self.do_request('1.0', 'blockchain.bot.iotagent.plugincontract.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def query_blockchain_bot_iotagent_plugincontract_ex_async(
+        self,
+        request: iotagent_models.QueryBlockchainBotIotagentPlugincontractRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> iotagent_models.QueryBlockchainBotIotagentPlugincontractResponse:
+        """
+        Description: IoT智能体插件签约查询接口
+        Summary: IoT智能体插件签约查询接口
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            iotagent_models.QueryBlockchainBotIotagentPlugincontractResponse(),
+            await self.do_request_async('1.0', 'blockchain.bot.iotagent.plugincontract.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
