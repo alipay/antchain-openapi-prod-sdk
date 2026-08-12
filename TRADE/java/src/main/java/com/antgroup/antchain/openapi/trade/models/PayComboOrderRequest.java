@@ -28,6 +28,10 @@ public class PayComboOrderRequest extends TeaModel {
     @NameInMap("pay_return_url")
     public String payReturnUrl;
 
+    // 组合下单支付配置项
+    @NameInMap("combo_order_pay_options")
+    public ComboOrderPayOptions comboOrderPayOptions;
+
     public static PayComboOrderRequest build(java.util.Map<String, ?> map) throws Exception {
         PayComboOrderRequest self = new PayComboOrderRequest();
         return TeaModel.build(map, self);
@@ -71,6 +75,14 @@ public class PayComboOrderRequest extends TeaModel {
     }
     public String getPayReturnUrl() {
         return this.payReturnUrl;
+    }
+
+    public PayComboOrderRequest setComboOrderPayOptions(ComboOrderPayOptions comboOrderPayOptions) {
+        this.comboOrderPayOptions = comboOrderPayOptions;
+        return this;
+    }
+    public ComboOrderPayOptions getComboOrderPayOptions() {
+        return this.comboOrderPayOptions;
     }
 
 }
