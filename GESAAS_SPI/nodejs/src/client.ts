@@ -885,6 +885,113 @@ export class QueryRightsprodConfigResponse extends $tea.Model {
   }
 }
 
+export class QueryRightsprodVoucherRequest extends $tea.Model {
+  // OAuth模式下的授权token
+  authToken?: string;
+  productInstanceId?: string;
+  // 供应商权益编码
+  supplyRightsCode: string;
+  // 权益实例
+  voucherCode: string;
+  static names(): { [key: string]: string } {
+    return {
+      authToken: 'auth_token',
+      productInstanceId: 'product_instance_id',
+      supplyRightsCode: 'supply_rights_code',
+      voucherCode: 'voucher_code',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      authToken: 'string',
+      productInstanceId: 'string',
+      supplyRightsCode: 'string',
+      voucherCode: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class QueryRightsprodVoucherResponse extends $tea.Model {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string;
+  // 结果码，一般OK表示调用成功
+  resultCode?: string;
+  // 异常信息的文本描述
+  resultMsg?: string;
+  // 用户ID
+  userId?: string;
+  // 用户手机号
+  phoneNumber?: string;
+  // 用户openId
+  openId?: string;
+  // 应用ID
+  appId?: string;
+  // 供应商权益编码
+  supplyRightsCode?: string;
+  // 权益实例ID
+  voucherCode?: string;
+  // 权益名称
+  rightsName?: string;
+  // 权益面额
+  faceAmount?: string;
+  // 剩余可用金额
+  availableAmount?: string;
+  // 权益实例状态
+  status?: string;
+  // 过期时间
+  expireTime?: string;
+  // 生效时间
+  effectTime?: string;
+  static names(): { [key: string]: string } {
+    return {
+      reqMsgId: 'req_msg_id',
+      resultCode: 'result_code',
+      resultMsg: 'result_msg',
+      userId: 'user_id',
+      phoneNumber: 'phone_number',
+      openId: 'open_id',
+      appId: 'app_id',
+      supplyRightsCode: 'supply_rights_code',
+      voucherCode: 'voucher_code',
+      rightsName: 'rights_name',
+      faceAmount: 'face_amount',
+      availableAmount: 'available_amount',
+      status: 'status',
+      expireTime: 'expire_time',
+      effectTime: 'effect_time',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      reqMsgId: 'string',
+      resultCode: 'string',
+      resultMsg: 'string',
+      userId: 'string',
+      phoneNumber: 'string',
+      openId: 'string',
+      appId: 'string',
+      supplyRightsCode: 'string',
+      voucherCode: 'string',
+      rightsName: 'string',
+      faceAmount: 'string',
+      availableAmount: 'string',
+      status: 'string',
+      expireTime: 'string',
+      effectTime: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
 
 export default class Client {
   _endpoint: string;
@@ -1002,7 +1109,7 @@ export default class Client {
           req_msg_id: AntchainUtil.getNonce(),
           access_key: this._accessKeyId,
           base_sdk_version: "TeaSDK-2.0",
-          sdk_version: "1.1.10",
+          sdk_version: "1.1.12",
           _prod_code: "GESAAS_SPI",
           _prod_channel: "default",
         };
@@ -1195,6 +1302,27 @@ export default class Client {
   async queryRightsprodConfigEx(request: QueryRightsprodConfigRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<QueryRightsprodConfigResponse> {
     Util.validateModel(request);
     return $tea.cast<QueryRightsprodConfigResponse>(await this.doRequest("1.0", "antdigital.gesaasspi.rightsprod.config.query", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new QueryRightsprodConfigResponse({}));
+  }
+
+  /**
+   * @remarks
+   * Description: 获取具体权益实例的实时状态与基本信息
+   * Summary: 获取具体权益实例的实时状态与基本信息
+   */
+  async queryRightsprodVoucher(request: QueryRightsprodVoucherRequest): Promise<QueryRightsprodVoucherResponse> {
+    let runtime = new $Util.RuntimeOptions({ });
+    let headers : {[key: string ]: string} = { };
+    return await this.queryRightsprodVoucherEx(request, headers, runtime);
+  }
+
+  /**
+   * @remarks
+   * Description: 获取具体权益实例的实时状态与基本信息
+   * Summary: 获取具体权益实例的实时状态与基本信息
+   */
+  async queryRightsprodVoucherEx(request: QueryRightsprodVoucherRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<QueryRightsprodVoucherResponse> {
+    Util.validateModel(request);
+    return $tea.cast<QueryRightsprodVoucherResponse>(await this.doRequest("1.0", "antdigital.gesaasspi.rightsprod.voucher.query", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new QueryRightsprodVoucherResponse({}));
   }
 
 }
