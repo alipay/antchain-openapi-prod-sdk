@@ -61,14 +61,6 @@ public class OperatorList extends TeaModel {
     @NameInMap("status")
     public String status;
 
-    // 是否为超级管理员。
-    /**
-     * <strong>example:</strong>
-     * <p>xxxxxx</p>
-     */
-    @NameInMap("supervisor")
-    public Boolean supervisor;
-
     public static OperatorList build(java.util.Map<String, ?> map) throws Exception {
         OperatorList self = new OperatorList();
         return TeaModel.build(map, self);
@@ -128,14 +120,6 @@ public class OperatorList extends TeaModel {
     }
     public String getStatus() {
         return this.status;
-    }
-
-    public OperatorList setSupervisor(Boolean supervisor) {
-        this.supervisor = supervisor;
-        return this;
-    }
-    public Boolean getSupervisor() {
-        return this.supervisor;
     }
 
 }

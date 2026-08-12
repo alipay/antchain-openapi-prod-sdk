@@ -30,15 +30,6 @@ public class RoleList extends TeaModel {
     @NameInMap("description")
     public String description;
 
-    // 角色权限编码
-    /**
-     * <strong>example:</strong>
-     * <p>xxxxx</p>
-     */
-    @NameInMap("permission_list")
-    @Validation(required = true)
-    public java.util.List<String> permissionList;
-
     public static RoleList build(java.util.Map<String, ?> map) throws Exception {
         RoleList self = new RoleList();
         return TeaModel.build(map, self);
@@ -66,14 +57,6 @@ public class RoleList extends TeaModel {
     }
     public String getDescription() {
         return this.description;
-    }
-
-    public RoleList setPermissionList(java.util.List<String> permissionList) {
-        this.permissionList = permissionList;
-        return this;
-    }
-    public java.util.List<String> getPermissionList() {
-        return this.permissionList;
     }
 
 }
