@@ -3468,6 +3468,47 @@ export class OperatorList extends $tea.Model {
   }
 }
 
+// 角色列表；
+export class RoleDetailList extends $tea.Model {
+  // 角色编码
+  /**
+   * @example
+   * xxxxxx
+   */
+  roleNo: string;
+  // 角色名称
+  /**
+   * @example
+   * xxxxxx
+   */
+  name: string;
+  // 角色描述
+  /**
+   * @example
+   * xxxxxx
+   */
+  description?: string;
+  static names(): { [key: string]: string } {
+    return {
+      roleNo: 'role_no',
+      name: 'name',
+      description: 'description',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      roleNo: 'string',
+      name: 'string',
+      description: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
 // 键值对
 export class XNameValuePair extends $tea.Model {
   // 键名
@@ -9815,6 +9856,93 @@ export class QueryEsgListbyroleResponse extends $tea.Model {
   }
 }
 
+export class QueryEsgOperatordetailRequest extends $tea.Model {
+  // OAuth模式下的授权token
+  authToken?: string;
+  productInstanceId?: string;
+  // 企业编码
+  enterpriseNo: string;
+  // 操作员 ID
+  userId: string;
+  static names(): { [key: string]: string } {
+    return {
+      authToken: 'auth_token',
+      productInstanceId: 'product_instance_id',
+      enterpriseNo: 'enterprise_no',
+      userId: 'user_id',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      authToken: 'string',
+      productInstanceId: 'string',
+      enterpriseNo: 'string',
+      userId: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class QueryEsgOperatordetailResponse extends $tea.Model {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string;
+  // 结果码，一般OK表示调用成功
+  resultCode?: string;
+  // 异常信息的文本描述
+  resultMsg?: string;
+  // 操作员 ID。
+  userId?: string;
+  // 登录账号
+  userName?: string;
+  // 企业编码
+  enterpriseNo?: string;
+  // 昵称
+  nickName?: string;
+  // 真实姓名
+  realName?: string;
+  // 手机号
+  phoneNumber?: string;
+  // 角色列表
+  roleList?: RoleDetailList[];
+  static names(): { [key: string]: string } {
+    return {
+      reqMsgId: 'req_msg_id',
+      resultCode: 'result_code',
+      resultMsg: 'result_msg',
+      userId: 'user_id',
+      userName: 'user_name',
+      enterpriseNo: 'enterprise_no',
+      nickName: 'nick_name',
+      realName: 'real_name',
+      phoneNumber: 'phone_number',
+      roleList: 'role_list',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      reqMsgId: 'string',
+      resultCode: 'string',
+      resultMsg: 'string',
+      userId: 'string',
+      userName: 'string',
+      enterpriseNo: 'string',
+      nickName: 'string',
+      realName: 'string',
+      phoneNumber: 'string',
+      roleList: { 'type': 'array', 'itemType': RoleDetailList },
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
 export class QueryThirdCertRequest extends $tea.Model {
   // OAuth模式下的授权token
   authToken?: string;
@@ -10101,7 +10229,7 @@ export default class Client {
           req_msg_id: AntchainUtil.getNonce(),
           access_key: this._accessKeyId,
           base_sdk_version: "TeaSDK-2.0",
-          sdk_version: "2.11.12",
+          sdk_version: "2.11.14",
           _prod_code: "STLR",
           _prod_channel: "undefined",
         };
@@ -11956,6 +12084,27 @@ export default class Client {
   async queryEsgListbyroleEx(request: QueryEsgListbyroleRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<QueryEsgListbyroleResponse> {
     Util.validateModel(request);
     return $tea.cast<QueryEsgListbyroleResponse>(await this.doRequest("1.0", "antchain.carbon.esg.listbyrole.query", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new QueryEsgListbyroleResponse({}));
+  }
+
+  /**
+   * @remarks
+   * Description: 按用户 ID 查询指定操作员的档案信息及角色信息
+   * Summary: 按用户 ID 查询指定操作员的档案信息及角色信息
+   */
+  async queryEsgOperatordetail(request: QueryEsgOperatordetailRequest): Promise<QueryEsgOperatordetailResponse> {
+    let runtime = new $Util.RuntimeOptions({ });
+    let headers : {[key: string ]: string} = { };
+    return await this.queryEsgOperatordetailEx(request, headers, runtime);
+  }
+
+  /**
+   * @remarks
+   * Description: 按用户 ID 查询指定操作员的档案信息及角色信息
+   * Summary: 按用户 ID 查询指定操作员的档案信息及角色信息
+   */
+  async queryEsgOperatordetailEx(request: QueryEsgOperatordetailRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<QueryEsgOperatordetailResponse> {
+    Util.validateModel(request);
+    return $tea.cast<QueryEsgOperatordetailResponse>(await this.doRequest("1.0", "antchain.carbon.esg.operatordetail.query", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new QueryEsgOperatordetailResponse({}));
   }
 
   /**
