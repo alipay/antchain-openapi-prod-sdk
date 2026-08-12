@@ -1,4 +1,4 @@
-module github.com/alipay/antdigital-iotagent
+module github.com/antchain-openapi-sdk-go/antdigital-iotagent
 
 go 1.22.1
 
