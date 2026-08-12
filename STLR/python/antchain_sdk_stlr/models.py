@@ -3524,7 +3524,6 @@ class RoleList(TeaModel):
         role_no: str = None,
         name: str = None,
         description: str = None,
-        permission_list: List[str] = None,
     ):
         # 角色编码
         self.role_no = role_no
@@ -3532,13 +3531,10 @@ class RoleList(TeaModel):
         self.name = name
         # 角色描述
         self.description = description
-        # 角色权限编码
-        self.permission_list = permission_list
 
     def validate(self):
         self.validate_required(self.role_no, 'role_no')
         self.validate_required(self.name, 'name')
-        self.validate_required(self.permission_list, 'permission_list')
 
     def to_map(self):
         _map = super().to_map()
@@ -3552,8 +3548,6 @@ class RoleList(TeaModel):
             result['name'] = self.name
         if self.description is not None:
             result['description'] = self.description
-        if self.permission_list is not None:
-            result['permission_list'] = self.permission_list
         return result
 
     def from_map(self, m: dict = None):
@@ -3564,8 +3558,6 @@ class RoleList(TeaModel):
             self.name = m.get('name')
         if m.get('description') is not None:
             self.description = m.get('description')
-        if m.get('permission_list') is not None:
-            self.permission_list = m.get('permission_list')
         return self
 
 
@@ -3729,7 +3721,6 @@ class OperatorList(TeaModel):
         nick_name: str = None,
         create_time: str = None,
         status: str = None,
-        supervisor: bool = None,
     ):
         # 操作员 ID。
         self.operator_id = operator_id
@@ -3745,8 +3736,6 @@ class OperatorList(TeaModel):
         self.create_time = create_time
         # 操作员状态。
         self.status = status
-        # 是否为超级管理员。
-        self.supervisor = supervisor
 
     def validate(self):
         self.validate_required(self.operator_id, 'operator_id')
@@ -3771,8 +3760,6 @@ class OperatorList(TeaModel):
             result['create_time'] = self.create_time
         if self.status is not None:
             result['status'] = self.status
-        if self.supervisor is not None:
-            result['supervisor'] = self.supervisor
         return result
 
     def from_map(self, m: dict = None):
@@ -3791,8 +3778,6 @@ class OperatorList(TeaModel):
             self.create_time = m.get('create_time')
         if m.get('status') is not None:
             self.status = m.get('status')
-        if m.get('supervisor') is not None:
-            self.supervisor = m.get('supervisor')
         return self
 
 
