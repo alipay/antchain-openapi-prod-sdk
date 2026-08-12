@@ -15,7 +15,6 @@ public class SendAntcloudMarketingPartnerCouponRequest extends TeaModel {
 
     // 支付宝登录名称
     @NameInMap("alipay_login_name")
-    @Validation(required = true)
     public String alipayLoginName;
 
     // 业务唯一幂等标识，可以是订单号
@@ -26,6 +25,10 @@ public class SendAntcloudMarketingPartnerCouponRequest extends TeaModel {
     // 备注
     @NameInMap("remark")
     public String remark;
+
+    // 租户id
+    @NameInMap("tenant_id")
+    public String tenantId;
 
     public static SendAntcloudMarketingPartnerCouponRequest build(java.util.Map<String, ?> map) throws Exception {
         SendAntcloudMarketingPartnerCouponRequest self = new SendAntcloudMarketingPartnerCouponRequest();
@@ -70,6 +73,14 @@ public class SendAntcloudMarketingPartnerCouponRequest extends TeaModel {
     }
     public String getRemark() {
         return this.remark;
+    }
+
+    public SendAntcloudMarketingPartnerCouponRequest setTenantId(String tenantId) {
+        this.tenantId = tenantId;
+        return this;
+    }
+    public String getTenantId() {
+        return this.tenantId;
     }
 
 }

@@ -14,8 +14,11 @@ public class OmsDataComponentDeductDetailResultVO extends TeaModel {
     public String resourcePackageLogId;
 
     // 资源包抵扣量
+    /**
+     * <strong>example:</strong>
+     * <p>123</p>
+     */
     @NameInMap("deduct_amount")
-    @Validation(required = true)
     public Long deductAmount;
 
     // 资源包抵扣价值
@@ -53,6 +56,14 @@ public class OmsDataComponentDeductDetailResultVO extends TeaModel {
     @NameInMap("resource_package_instance_id")
     @Validation(required = true)
     public String resourcePackageInstanceId;
+
+    // 高精度抵扣量
+    /**
+     * <strong>example:</strong>
+     * <p>0.09</p>
+     */
+    @NameInMap("deduct_amount_str")
+    public String deductAmountStr;
 
     public static OmsDataComponentDeductDetailResultVO build(java.util.Map<String, ?> map) throws Exception {
         OmsDataComponentDeductDetailResultVO self = new OmsDataComponentDeductDetailResultVO();
@@ -105,6 +116,14 @@ public class OmsDataComponentDeductDetailResultVO extends TeaModel {
     }
     public String getResourcePackageInstanceId() {
         return this.resourcePackageInstanceId;
+    }
+
+    public OmsDataComponentDeductDetailResultVO setDeductAmountStr(String deductAmountStr) {
+        this.deductAmountStr = deductAmountStr;
+        return this;
+    }
+    public String getDeductAmountStr() {
+        return this.deductAmountStr;
     }
 
 }

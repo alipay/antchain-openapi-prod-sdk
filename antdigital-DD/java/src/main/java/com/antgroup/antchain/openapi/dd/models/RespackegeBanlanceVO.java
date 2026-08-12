@@ -60,6 +60,14 @@ public class RespackegeBanlanceVO extends TeaModel {
     @Validation(required = true)
     public MultiCurrencyMoney remainFund;
 
+    // 高精度余量
+    /**
+     * <strong>example:</strong>
+     * <p>0.09</p>
+     */
+    @NameInMap("decimal_current_capacity")
+    public String decimalCurrentCapacity;
+
     public static RespackegeBanlanceVO build(java.util.Map<String, ?> map) throws Exception {
         RespackegeBanlanceVO self = new RespackegeBanlanceVO();
         return TeaModel.build(map, self);
@@ -119,6 +127,14 @@ public class RespackegeBanlanceVO extends TeaModel {
     }
     public MultiCurrencyMoney getRemainFund() {
         return this.remainFund;
+    }
+
+    public RespackegeBanlanceVO setDecimalCurrentCapacity(String decimalCurrentCapacity) {
+        this.decimalCurrentCapacity = decimalCurrentCapacity;
+        return this;
+    }
+    public String getDecimalCurrentCapacity() {
+        return this.decimalCurrentCapacity;
     }
 
 }

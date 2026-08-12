@@ -38,6 +38,10 @@ public class CreateAntcloudTradeComboOptionsRequest extends TeaModel {
     @Validation(required = true)
     public String saleMarket;
 
+    // 组合单下单配置项
+    @NameInMap("combo_order_options")
+    public ComboOrderOptions comboOrderOptions;
+
     public static CreateAntcloudTradeComboOptionsRequest build(java.util.Map<String, ?> map) throws Exception {
         CreateAntcloudTradeComboOptionsRequest self = new CreateAntcloudTradeComboOptionsRequest();
         return TeaModel.build(map, self);
@@ -97,6 +101,14 @@ public class CreateAntcloudTradeComboOptionsRequest extends TeaModel {
     }
     public String getSaleMarket() {
         return this.saleMarket;
+    }
+
+    public CreateAntcloudTradeComboOptionsRequest setComboOrderOptions(ComboOrderOptions comboOrderOptions) {
+        this.comboOrderOptions = comboOrderOptions;
+        return this;
+    }
+    public ComboOrderOptions getComboOrderOptions() {
+        return this.comboOrderOptions;
     }
 
 }

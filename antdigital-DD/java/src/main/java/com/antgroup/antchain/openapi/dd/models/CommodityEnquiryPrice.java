@@ -141,6 +141,22 @@ public class CommodityEnquiryPrice extends TeaModel {
     @NameInMap("original_cost_amount")
     public String originalCostAmount;
 
+    // 税前应收价
+    /**
+     * <strong>example:</strong>
+     * <p>123.45</p>
+     */
+    @NameInMap("pay_amount_before_gst")
+    public String payAmountBeforeGst;
+
+    // 税额
+    /**
+     * <strong>example:</strong>
+     * <p>3.45</p>
+     */
+    @NameInMap("pay_amount_of_gst")
+    public String payAmountOfGst;
+
     public static CommodityEnquiryPrice build(java.util.Map<String, ?> map) throws Exception {
         CommodityEnquiryPrice self = new CommodityEnquiryPrice();
         return TeaModel.build(map, self);
@@ -272,6 +288,22 @@ public class CommodityEnquiryPrice extends TeaModel {
     }
     public String getOriginalCostAmount() {
         return this.originalCostAmount;
+    }
+
+    public CommodityEnquiryPrice setPayAmountBeforeGst(String payAmountBeforeGst) {
+        this.payAmountBeforeGst = payAmountBeforeGst;
+        return this;
+    }
+    public String getPayAmountBeforeGst() {
+        return this.payAmountBeforeGst;
+    }
+
+    public CommodityEnquiryPrice setPayAmountOfGst(String payAmountOfGst) {
+        this.payAmountOfGst = payAmountOfGst;
+        return this;
+    }
+    public String getPayAmountOfGst() {
+        return this.payAmountOfGst;
     }
 
 }
