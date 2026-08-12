@@ -180,6 +180,8 @@ use AntChain\STLR\Models\QueryEsgOrganizationunittreeRequest;
 use AntChain\STLR\Models\QueryEsgOrganizationunittreeResponse;
 use AntChain\STLR\Models\QueryEsgListbyroleRequest;
 use AntChain\STLR\Models\QueryEsgListbyroleResponse;
+use AntChain\STLR\Models\QueryEsgOperatordetailRequest;
+use AntChain\STLR\Models\QueryEsgOperatordetailResponse;
 use AntChain\STLR\Models\QueryThirdCertRequest;
 use AntChain\STLR\Models\QueryThirdCertResponse;
 use AntChain\STLR\Models\CreateAntcloudGatewayxFileUploadResponse;
@@ -319,7 +321,7 @@ class Client {
                     "req_msg_id" => UtilClient::getNonce(),
                     "access_key" => $this->_accessKeyId,
                     "base_sdk_version" => "TeaSDK-2.0",
-                    "sdk_version" => "2.11.12",
+                    "sdk_version" => "2.11.14",
                     "_prod_code" => "STLR",
                     "_prod_channel" => "undefined"
                 ];
@@ -2497,6 +2499,31 @@ class Client {
     public function queryEsgListbyroleEx($request, $headers, $runtime){
         Utils::validateModel($request);
         return QueryEsgListbyroleResponse::fromMap($this->doRequest("1.0", "antchain.carbon.esg.listbyrole.query", "HTTPS", "POST", "/gateway.do", Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 按用户 ID 查询指定操作员的档案信息及角色信息
+     * Summary: 按用户 ID 查询指定操作员的档案信息及角色信息
+     * @param QueryEsgOperatordetailRequest $request
+     * @return QueryEsgOperatordetailResponse
+     */
+    public function queryEsgOperatordetail($request){
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+        return $this->queryEsgOperatordetailEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 按用户 ID 查询指定操作员的档案信息及角色信息
+     * Summary: 按用户 ID 查询指定操作员的档案信息及角色信息
+     * @param QueryEsgOperatordetailRequest $request
+     * @param string[] $headers
+     * @param RuntimeOptions $runtime
+     * @return QueryEsgOperatordetailResponse
+     */
+    public function queryEsgOperatordetailEx($request, $headers, $runtime){
+        Utils::validateModel($request);
+        return QueryEsgOperatordetailResponse::fromMap($this->doRequest("1.0", "antchain.carbon.esg.operatordetail.query", "HTTPS", "POST", "/gateway.do", Tea::merge($request), $headers, $runtime));
     }
 
     /**
