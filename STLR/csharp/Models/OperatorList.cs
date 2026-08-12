@@ -73,15 +73,6 @@ namespace AntChain.SDK.STLR.Models
         [Validation(Required=false)]
         public string Status { get; set; }
 
-        // 是否为超级管理员。
-        /// <summary>
-        /// <b>Example:</b>
-        /// <para>xxxxxx</para>
-        /// </summary>
-        [NameInMap("supervisor")]
-        [Validation(Required=false)]
-        public bool? Supervisor { get; set; }
-
     }
 
 }

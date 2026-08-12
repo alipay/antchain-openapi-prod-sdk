@@ -37,15 +37,6 @@ namespace AntChain.SDK.STLR.Models
         [Validation(Required=false)]
         public string Description { get; set; }
 
-        // 角色权限编码
-        /// <summary>
-        /// <b>Example:</b>
-        /// <para>xxxxx</para>
-        /// </summary>
-        [NameInMap("permission_list")]
-        [Validation(Required=true)]
-        public List<string> PermissionList { get; set; }
-
     }
 
 }
