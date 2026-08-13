@@ -16,14 +16,16 @@ public class QueryIotagentAideviceResponse extends TeaModel {
     @NameInMap("result_msg")
     public String resultMsg;
 
+    // 用户ID
     @NameInMap("user_id")
     public String userId;
 
-    @NameInMap("device_id")
-    public String deviceId;
-
     @NameInMap("status")
     public Long status;
+
+    // 客户租户ID
+    @NameInMap("tenant_id")
+    public String tenantId;
 
     public static QueryIotagentAideviceResponse build(java.util.Map<String, ?> map) throws Exception {
         QueryIotagentAideviceResponse self = new QueryIotagentAideviceResponse();
@@ -62,20 +64,20 @@ public class QueryIotagentAideviceResponse extends TeaModel {
         return this.userId;
     }
 
-    public QueryIotagentAideviceResponse setDeviceId(String deviceId) {
-        this.deviceId = deviceId;
-        return this;
-    }
-    public String getDeviceId() {
-        return this.deviceId;
-    }
-
     public QueryIotagentAideviceResponse setStatus(Long status) {
         this.status = status;
         return this;
     }
     public Long getStatus() {
         return this.status;
+    }
+
+    public QueryIotagentAideviceResponse setTenantId(String tenantId) {
+        this.tenantId = tenantId;
+        return this;
+    }
+    public String getTenantId() {
+        return this.tenantId;
     }
 
 }

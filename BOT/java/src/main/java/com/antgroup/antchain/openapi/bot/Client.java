@@ -126,7 +126,7 @@ public class Client {
                     new TeaPair("req_msg_id", com.antgroup.antchain.openapi.antchain.util.AntchainUtils.getNonce()),
                     new TeaPair("access_key", _accessKeyId),
                     new TeaPair("base_sdk_version", "TeaSDK-2.0"),
-                    new TeaPair("sdk_version", "1.19.0"),
+                    new TeaPair("sdk_version", "1.19.1"),
                     new TeaPair("_prod_code", "BOT"),
                     new TeaPair("_prod_channel", "undefined")
                 );
@@ -1153,6 +1153,69 @@ public class Client {
     public QueryIotagentThingmodeldataResponse queryIotagentThingmodeldataEx(QueryIotagentThingmodeldataRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
         com.aliyun.teautil.Common.validateModel(request);
         return TeaModel.toModel(this.doRequest("1.0", "blockchain.bot.iotagent.thingmodeldata.query", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new QueryIotagentThingmodeldataResponse());
+    }
+
+    /**
+     * <b>description</b> :
+     * <p>Description: IoT智能体插件签约URL获取接口
+     * Summary: IoT智能体插件签约URL获取接口</p>
+     */
+    public GetsignurlIotagentPlugincontractResponse getsignurlIotagentPlugincontract(GetsignurlIotagentPlugincontractRequest request) throws Exception {
+        com.aliyun.teautil.models.RuntimeOptions runtime = new com.aliyun.teautil.models.RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.getsignurlIotagentPlugincontractEx(request, headers, runtime);
+    }
+
+    /**
+     * <b>description</b> :
+     * <p>Description: IoT智能体插件签约URL获取接口
+     * Summary: IoT智能体插件签约URL获取接口</p>
+     */
+    public GetsignurlIotagentPlugincontractResponse getsignurlIotagentPlugincontractEx(GetsignurlIotagentPlugincontractRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "blockchain.bot.iotagent.plugincontract.getsignurl", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new GetsignurlIotagentPlugincontractResponse());
+    }
+
+    /**
+     * <b>description</b> :
+     * <p>Description: IoT智能体插件签约查询接口
+     * Summary: IoT智能体插件签约查询接口</p>
+     */
+    public QueryIotagentPlugincontractResponse queryIotagentPlugincontract(QueryIotagentPlugincontractRequest request) throws Exception {
+        com.aliyun.teautil.models.RuntimeOptions runtime = new com.aliyun.teautil.models.RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.queryIotagentPlugincontractEx(request, headers, runtime);
+    }
+
+    /**
+     * <b>description</b> :
+     * <p>Description: IoT智能体插件签约查询接口
+     * Summary: IoT智能体插件签约查询接口</p>
+     */
+    public QueryIotagentPlugincontractResponse queryIotagentPlugincontractEx(QueryIotagentPlugincontractRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "blockchain.bot.iotagent.plugincontract.query", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new QueryIotagentPlugincontractResponse());
+    }
+
+    /**
+     * <b>description</b> :
+     * <p>Description: 根据tenant获取tenant下的userId
+     * Summary: 根据tenant获取tenant下的userId</p>
+     */
+    public QueryIotagentUseridResponse queryIotagentUserid(QueryIotagentUseridRequest request) throws Exception {
+        com.aliyun.teautil.models.RuntimeOptions runtime = new com.aliyun.teautil.models.RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.queryIotagentUseridEx(request, headers, runtime);
+    }
+
+    /**
+     * <b>description</b> :
+     * <p>Description: 根据tenant获取tenant下的userId
+     * Summary: 根据tenant获取tenant下的userId</p>
+     */
+    public QueryIotagentUseridResponse queryIotagentUseridEx(QueryIotagentUseridRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "blockchain.bot.iotagent.userid.query", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new QueryIotagentUseridResponse());
     }
 
     /**
@@ -4098,6 +4161,27 @@ public class Client {
 
     /**
      * <b>description</b> :
+     * <p>Description: AI仪表皮肤包下发
+     * Summary: AI仪表皮肤包下发</p>
+     */
+    public PushElectrocarAipanelskinResponse pushElectrocarAipanelskin(PushElectrocarAipanelskinRequest request) throws Exception {
+        com.aliyun.teautil.models.RuntimeOptions runtime = new com.aliyun.teautil.models.RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.pushElectrocarAipanelskinEx(request, headers, runtime);
+    }
+
+    /**
+     * <b>description</b> :
+     * <p>Description: AI仪表皮肤包下发
+     * Summary: AI仪表皮肤包下发</p>
+     */
+    public PushElectrocarAipanelskinResponse pushElectrocarAipanelskinEx(PushElectrocarAipanelskinRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "blockchain.bot.electrocar.aipanelskin.push", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new PushElectrocarAipanelskinResponse());
+    }
+
+    /**
+     * <b>description</b> :
      * <p>Description: 根据设备串号查询采购设备
      * Summary: 根据设备串号查询采购设备</p>
      */
@@ -6950,6 +7034,27 @@ public class Client {
     public QueryTrustiotMiniappResponse queryTrustiotMiniappEx(QueryTrustiotMiniappRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
         com.aliyun.teautil.Common.validateModel(request);
         return TeaModel.toModel(this.doRequest("1.0", "blockchain.bot.trustiot.miniapp.query", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new QueryTrustiotMiniappResponse());
+    }
+
+    /**
+     * <b>description</b> :
+     * <p>Description: 查询租户下的userid
+     * Summary: 查询租户下的userid</p>
+     */
+    public QueryIotagentUseridsResponse queryIotagentUserids(QueryIotagentUseridsRequest request) throws Exception {
+        com.aliyun.teautil.models.RuntimeOptions runtime = new com.aliyun.teautil.models.RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.queryIotagentUseridsEx(request, headers, runtime);
+    }
+
+    /**
+     * <b>description</b> :
+     * <p>Description: 查询租户下的userid
+     * Summary: 查询租户下的userid</p>
+     */
+    public QueryIotagentUseridsResponse queryIotagentUseridsEx(QueryIotagentUseridsRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "blockchain.bot.iotagent.userids.query", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new QueryIotagentUseridsResponse());
     }
 
     /**

@@ -36,6 +36,11 @@ public class QueryIotagentThingmodeldataRequest extends TeaModel {
     @NameInMap("page_size")
     public Long pageSize;
 
+    // 租户ID
+    @NameInMap("tenant_id")
+    @Validation(required = true)
+    public String tenantId;
+
     public static QueryIotagentThingmodeldataRequest build(java.util.Map<String, ?> map) throws Exception {
         QueryIotagentThingmodeldataRequest self = new QueryIotagentThingmodeldataRequest();
         return TeaModel.build(map, self);
@@ -111,6 +116,14 @@ public class QueryIotagentThingmodeldataRequest extends TeaModel {
     }
     public Long getPageSize() {
         return this.pageSize;
+    }
+
+    public QueryIotagentThingmodeldataRequest setTenantId(String tenantId) {
+        this.tenantId = tenantId;
+        return this;
+    }
+    public String getTenantId() {
+        return this.tenantId;
     }
 
 }
