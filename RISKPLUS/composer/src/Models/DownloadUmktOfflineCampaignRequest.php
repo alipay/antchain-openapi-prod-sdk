@@ -1,13 +1,79 @@
 <?php
 
 // This file is auto-generated, don't edit it. Thanks.
-
 namespace AntChain\RISKPLUS\Models;
 
 use AlibabaCloud\Tea\Model;
 
-class DownloadUmktOfflineCampaignRequest extends Model
-{
+class DownloadUmktOfflineCampaignRequest extends Model {
+    protected $_name = [
+        'authToken' => 'auth_token',
+        'productInstanceId' => 'product_instance_id',
+        'campaignId' => 'campaign_id',
+        'nodeId' => 'node_id',
+        'decisionPlanId' => 'decision_plan_id',
+        'taskId' => 'task_id',
+        'resourceId' => 'resource_id',
+    ];
+    public function validate() {
+        Model::validateRequired('campaignId', $this->campaignId, true);
+        Model::validateRequired('nodeId', $this->nodeId, true);
+        Model::validateRequired('taskId', $this->taskId, true);
+    }
+    public function toMap() {
+        $res = [];
+        if (null !== $this->authToken) {
+            $res['auth_token'] = $this->authToken;
+        }
+        if (null !== $this->productInstanceId) {
+            $res['product_instance_id'] = $this->productInstanceId;
+        }
+        if (null !== $this->campaignId) {
+            $res['campaign_id'] = $this->campaignId;
+        }
+        if (null !== $this->nodeId) {
+            $res['node_id'] = $this->nodeId;
+        }
+        if (null !== $this->decisionPlanId) {
+            $res['decision_plan_id'] = $this->decisionPlanId;
+        }
+        if (null !== $this->taskId) {
+            $res['task_id'] = $this->taskId;
+        }
+        if (null !== $this->resourceId) {
+            $res['resource_id'] = $this->resourceId;
+        }
+        return $res;
+    }
+    /**
+     * @param array $map
+     * @return DownloadUmktOfflineCampaignRequest
+     */
+    public static function fromMap($map = []) {
+        $model = new self();
+        if(isset($map['auth_token'])){
+            $model->authToken = $map['auth_token'];
+        }
+        if(isset($map['product_instance_id'])){
+            $model->productInstanceId = $map['product_instance_id'];
+        }
+        if(isset($map['campaign_id'])){
+            $model->campaignId = $map['campaign_id'];
+        }
+        if(isset($map['node_id'])){
+            $model->nodeId = $map['node_id'];
+        }
+        if(isset($map['decision_plan_id'])){
+            $model->decisionPlanId = $map['decision_plan_id'];
+        }
+        if(isset($map['task_id'])){
+            $model->taskId = $map['task_id'];
+        }
+        if(isset($map['resource_id'])){
+            $model->resourceId = $map['resource_id'];
+        }
+        return $model;
+    }
     // OAuth模式下的授权token
     /**
      * @var string
@@ -48,81 +114,5 @@ class DownloadUmktOfflineCampaignRequest extends Model
      * @var string
      */
     public $resourceId;
-    protected $_name = [
-        'authToken'         => 'auth_token',
-        'productInstanceId' => 'product_instance_id',
-        'campaignId'        => 'campaign_id',
-        'nodeId'            => 'node_id',
-        'decisionPlanId'    => 'decision_plan_id',
-        'taskId'            => 'task_id',
-        'resourceId'        => 'resource_id',
-    ];
 
-    public function validate()
-    {
-        Model::validateRequired('campaignId', $this->campaignId, true);
-        Model::validateRequired('nodeId', $this->nodeId, true);
-        Model::validateRequired('taskId', $this->taskId, true);
-    }
-
-    public function toMap()
-    {
-        $res = [];
-        if (null !== $this->authToken) {
-            $res['auth_token'] = $this->authToken;
-        }
-        if (null !== $this->productInstanceId) {
-            $res['product_instance_id'] = $this->productInstanceId;
-        }
-        if (null !== $this->campaignId) {
-            $res['campaign_id'] = $this->campaignId;
-        }
-        if (null !== $this->nodeId) {
-            $res['node_id'] = $this->nodeId;
-        }
-        if (null !== $this->decisionPlanId) {
-            $res['decision_plan_id'] = $this->decisionPlanId;
-        }
-        if (null !== $this->taskId) {
-            $res['task_id'] = $this->taskId;
-        }
-        if (null !== $this->resourceId) {
-            $res['resource_id'] = $this->resourceId;
-        }
-
-        return $res;
-    }
-
-    /**
-     * @param array $map
-     *
-     * @return DownloadUmktOfflineCampaignRequest
-     */
-    public static function fromMap($map = [])
-    {
-        $model = new self();
-        if (isset($map['auth_token'])) {
-            $model->authToken = $map['auth_token'];
-        }
-        if (isset($map['product_instance_id'])) {
-            $model->productInstanceId = $map['product_instance_id'];
-        }
-        if (isset($map['campaign_id'])) {
-            $model->campaignId = $map['campaign_id'];
-        }
-        if (isset($map['node_id'])) {
-            $model->nodeId = $map['node_id'];
-        }
-        if (isset($map['decision_plan_id'])) {
-            $model->decisionPlanId = $map['decision_plan_id'];
-        }
-        if (isset($map['task_id'])) {
-            $model->taskId = $map['task_id'];
-        }
-        if (isset($map['resource_id'])) {
-            $model->resourceId = $map['resource_id'];
-        }
-
-        return $model;
-    }
 }

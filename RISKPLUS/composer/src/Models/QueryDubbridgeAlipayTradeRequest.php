@@ -1,13 +1,57 @@
 <?php
 
 // This file is auto-generated, don't edit it. Thanks.
-
 namespace AntChain\RISKPLUS\Models;
 
 use AlibabaCloud\Tea\Model;
 
-class QueryDubbridgeAlipayTradeRequest extends Model
-{
+class QueryDubbridgeAlipayTradeRequest extends Model {
+    protected $_name = [
+        'authToken' => 'auth_token',
+        'productInstanceId' => 'product_instance_id',
+        'bizOrderNo' => 'biz_order_no',
+        'trafficPlatform' => 'traffic_platform',
+    ];
+    public function validate() {
+        Model::validateRequired('bizOrderNo', $this->bizOrderNo, true);
+        Model::validateRequired('trafficPlatform', $this->trafficPlatform, true);
+    }
+    public function toMap() {
+        $res = [];
+        if (null !== $this->authToken) {
+            $res['auth_token'] = $this->authToken;
+        }
+        if (null !== $this->productInstanceId) {
+            $res['product_instance_id'] = $this->productInstanceId;
+        }
+        if (null !== $this->bizOrderNo) {
+            $res['biz_order_no'] = $this->bizOrderNo;
+        }
+        if (null !== $this->trafficPlatform) {
+            $res['traffic_platform'] = $this->trafficPlatform;
+        }
+        return $res;
+    }
+    /**
+     * @param array $map
+     * @return QueryDubbridgeAlipayTradeRequest
+     */
+    public static function fromMap($map = []) {
+        $model = new self();
+        if(isset($map['auth_token'])){
+            $model->authToken = $map['auth_token'];
+        }
+        if(isset($map['product_instance_id'])){
+            $model->productInstanceId = $map['product_instance_id'];
+        }
+        if(isset($map['biz_order_no'])){
+            $model->bizOrderNo = $map['biz_order_no'];
+        }
+        if(isset($map['traffic_platform'])){
+            $model->trafficPlatform = $map['traffic_platform'];
+        }
+        return $model;
+    }
     // OAuth模式下的授权token
     /**
      * @var string
@@ -30,59 +74,5 @@ class QueryDubbridgeAlipayTradeRequest extends Model
      * @var string
      */
     public $trafficPlatform;
-    protected $_name = [
-        'authToken'         => 'auth_token',
-        'productInstanceId' => 'product_instance_id',
-        'bizOrderNo'        => 'biz_order_no',
-        'trafficPlatform'   => 'traffic_platform',
-    ];
 
-    public function validate()
-    {
-        Model::validateRequired('bizOrderNo', $this->bizOrderNo, true);
-        Model::validateRequired('trafficPlatform', $this->trafficPlatform, true);
-    }
-
-    public function toMap()
-    {
-        $res = [];
-        if (null !== $this->authToken) {
-            $res['auth_token'] = $this->authToken;
-        }
-        if (null !== $this->productInstanceId) {
-            $res['product_instance_id'] = $this->productInstanceId;
-        }
-        if (null !== $this->bizOrderNo) {
-            $res['biz_order_no'] = $this->bizOrderNo;
-        }
-        if (null !== $this->trafficPlatform) {
-            $res['traffic_platform'] = $this->trafficPlatform;
-        }
-
-        return $res;
-    }
-
-    /**
-     * @param array $map
-     *
-     * @return QueryDubbridgeAlipayTradeRequest
-     */
-    public static function fromMap($map = [])
-    {
-        $model = new self();
-        if (isset($map['auth_token'])) {
-            $model->authToken = $map['auth_token'];
-        }
-        if (isset($map['product_instance_id'])) {
-            $model->productInstanceId = $map['product_instance_id'];
-        }
-        if (isset($map['biz_order_no'])) {
-            $model->bizOrderNo = $map['biz_order_no'];
-        }
-        if (isset($map['traffic_platform'])) {
-            $model->trafficPlatform = $map['traffic_platform'];
-        }
-
-        return $model;
-    }
 }

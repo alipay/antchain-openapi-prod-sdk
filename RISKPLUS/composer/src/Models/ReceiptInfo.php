@@ -1,179 +1,32 @@
 <?php
 
 // This file is auto-generated, don't edit it. Thanks.
-
 namespace AntChain\RISKPLUS\Models;
 
 use AlibabaCloud\Tea\Model;
 
-class ReceiptInfo extends Model
-{
-    // 客户名
-    /**
-     * @example XXX
-     *
-     * @var string
-     */
-    public $customName;
-
-    // 证件号码
-    /**
-     * @example xxx
-     *
-     * @var string
-     */
-    public $cardNo;
-
-    // 手机号
-    /**
-     * @example 166****1234
-     *
-     * @var string
-     */
-    public $mobile;
-
-    // 贷款金额
-    /**
-     * @example 1234
-     *
-     * @var int
-     */
-    public $applyAmount;
-
-    // 发放金额
-    /**
-     * @example 1234
-     *
-     * @var int
-     */
-    public $loanAmount;
-
-    // 期数
-    /**
-     * @example 12
-     *
-     * @var int
-     */
-    public $period;
-
-    // 当前期数
-    /**
-     * @example 12
-     *
-     * @var int
-     */
-    public $curPeriod;
-
-    // 还款方式1：等额本息，2：等额本金，3：按月付息到期还本，4：利随本清，5：自由还款
-    /**
-     * @example 1
-     *
-     * @var string
-     */
-    public $repayType;
-
-    // 还款日
-    /**
-     * @example XXXX.XX.XX
-     *
-     * @var string
-     */
-    public $repayDate;
-
-    // 放款时间
-    /**
-     * @example 2018-10-10T10:10:00Z
-     *
-     * @var string
-     */
-    public $loanTime;
-
-    // 借据状态0：未还清，1：已还清，2：已提前还清
-    /**
-     * @example 0
-     *
-     * @var string
-     */
-    public $status;
-
-    // 已还本金
-    /**
-     * @example 1234
-     *
-     * @var int
-     */
-    public $alreadyCorpus;
-
-    // 已还利息
-    /**
-     * @example 50
-     *
-     * @var int
-     */
-    public $alreadyAccrual;
-
-    // 结清日期
-    /**
-     * @example 2018-10-10T10:10:00Z
-     *
-     * @var string
-     */
-    public $alreadyDate;
-
-    // 审批状态0：通过 1：拒绝 2：审批中 3：失败
-    /**
-     * @example 0
-     *
-     * @var string
-     */
-    public $workflowStatus;
-
-    // 借据编号
-    /**
-     * @example 145785
-     *
-     * @var string
-     */
-    public $receiptNo;
-
-    // 放款状态(0：放款成功 1：放款失败 2：放款异常 3：放款中）
-    /**
-     * @example 0
-     *
-     * @var string
-     */
-    public $loanStatus;
-
-    // 业务类型 1：现金贷（默认）、2：分期付
-    /**
-     * @example 1
-     *
-     * @var string
-     */
-    public $prodType;
+class ReceiptInfo extends Model {
     protected $_name = [
-        'customName'     => 'custom_name',
-        'cardNo'         => 'card_no',
-        'mobile'         => 'mobile',
-        'applyAmount'    => 'apply_amount',
-        'loanAmount'     => 'loan_amount',
-        'period'         => 'period',
-        'curPeriod'      => 'cur_period',
-        'repayType'      => 'repay_type',
-        'repayDate'      => 'repay_date',
-        'loanTime'       => 'loan_time',
-        'status'         => 'status',
-        'alreadyCorpus'  => 'already_corpus',
+        'customName' => 'custom_name',
+        'cardNo' => 'card_no',
+        'mobile' => 'mobile',
+        'applyAmount' => 'apply_amount',
+        'loanAmount' => 'loan_amount',
+        'period' => 'period',
+        'curPeriod' => 'cur_period',
+        'repayType' => 'repay_type',
+        'repayDate' => 'repay_date',
+        'loanTime' => 'loan_time',
+        'status' => 'status',
+        'alreadyCorpus' => 'already_corpus',
         'alreadyAccrual' => 'already_accrual',
-        'alreadyDate'    => 'already_date',
+        'alreadyDate' => 'already_date',
         'workflowStatus' => 'workflow_status',
-        'receiptNo'      => 'receipt_no',
-        'loanStatus'     => 'loan_status',
-        'prodType'       => 'prod_type',
+        'receiptNo' => 'receipt_no',
+        'loanStatus' => 'loan_status',
+        'prodType' => 'prod_type',
     ];
-
-    public function validate()
-    {
+    public function validate() {
         Model::validateRequired('customName', $this->customName, true);
         Model::validateRequired('cardNo', $this->cardNo, true);
         Model::validateRequired('mobile', $this->mobile, true);
@@ -193,9 +46,7 @@ class ReceiptInfo extends Model
         Model::validatePattern('loanTime', $this->loanTime, '\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}([Z]|([\\.]\\d{1,9})?[\\+]\\d{2}[\\:]?\\d{2})');
         Model::validatePattern('alreadyDate', $this->alreadyDate, '\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}([Z]|([\\.]\\d{1,9})?[\\+]\\d{2}[\\:]?\\d{2})');
     }
-
-    public function toMap()
-    {
+    public function toMap() {
         $res = [];
         if (null !== $this->customName) {
             $res['custom_name'] = $this->customName;
@@ -251,73 +102,194 @@ class ReceiptInfo extends Model
         if (null !== $this->prodType) {
             $res['prod_type'] = $this->prodType;
         }
-
         return $res;
     }
-
     /**
      * @param array $map
-     *
      * @return ReceiptInfo
      */
-    public static function fromMap($map = [])
-    {
+    public static function fromMap($map = []) {
         $model = new self();
-        if (isset($map['custom_name'])) {
+        if(isset($map['custom_name'])){
             $model->customName = $map['custom_name'];
         }
-        if (isset($map['card_no'])) {
+        if(isset($map['card_no'])){
             $model->cardNo = $map['card_no'];
         }
-        if (isset($map['mobile'])) {
+        if(isset($map['mobile'])){
             $model->mobile = $map['mobile'];
         }
-        if (isset($map['apply_amount'])) {
+        if(isset($map['apply_amount'])){
             $model->applyAmount = $map['apply_amount'];
         }
-        if (isset($map['loan_amount'])) {
+        if(isset($map['loan_amount'])){
             $model->loanAmount = $map['loan_amount'];
         }
-        if (isset($map['period'])) {
+        if(isset($map['period'])){
             $model->period = $map['period'];
         }
-        if (isset($map['cur_period'])) {
+        if(isset($map['cur_period'])){
             $model->curPeriod = $map['cur_period'];
         }
-        if (isset($map['repay_type'])) {
+        if(isset($map['repay_type'])){
             $model->repayType = $map['repay_type'];
         }
-        if (isset($map['repay_date'])) {
+        if(isset($map['repay_date'])){
             $model->repayDate = $map['repay_date'];
         }
-        if (isset($map['loan_time'])) {
+        if(isset($map['loan_time'])){
             $model->loanTime = $map['loan_time'];
         }
-        if (isset($map['status'])) {
+        if(isset($map['status'])){
             $model->status = $map['status'];
         }
-        if (isset($map['already_corpus'])) {
+        if(isset($map['already_corpus'])){
             $model->alreadyCorpus = $map['already_corpus'];
         }
-        if (isset($map['already_accrual'])) {
+        if(isset($map['already_accrual'])){
             $model->alreadyAccrual = $map['already_accrual'];
         }
-        if (isset($map['already_date'])) {
+        if(isset($map['already_date'])){
             $model->alreadyDate = $map['already_date'];
         }
-        if (isset($map['workflow_status'])) {
+        if(isset($map['workflow_status'])){
             $model->workflowStatus = $map['workflow_status'];
         }
-        if (isset($map['receipt_no'])) {
+        if(isset($map['receipt_no'])){
             $model->receiptNo = $map['receipt_no'];
         }
-        if (isset($map['loan_status'])) {
+        if(isset($map['loan_status'])){
             $model->loanStatus = $map['loan_status'];
         }
-        if (isset($map['prod_type'])) {
+        if(isset($map['prod_type'])){
             $model->prodType = $map['prod_type'];
         }
-
         return $model;
     }
+    // 客户名
+    /**
+     * @example XXX
+     * @var string
+     */
+    public $customName;
+
+    // 证件号码
+    /**
+     * @example xxx
+     * @var string
+     */
+    public $cardNo;
+
+    // 手机号
+    /**
+     * @example 166****1234
+     * @var string
+     */
+    public $mobile;
+
+    // 贷款金额
+    /**
+     * @example 1234
+     * @var int
+     */
+    public $applyAmount;
+
+    // 发放金额
+    /**
+     * @example 1234
+     * @var int
+     */
+    public $loanAmount;
+
+    // 期数
+    /**
+     * @example 12
+     * @var int
+     */
+    public $period;
+
+    // 当前期数
+    /**
+     * @example 12
+     * @var int
+     */
+    public $curPeriod;
+
+    // 还款方式1：等额本息，2：等额本金，3：按月付息到期还本，4：利随本清，5：自由还款
+    /**
+     * @example 1
+     * @var string
+     */
+    public $repayType;
+
+    // 还款日
+    /**
+     * @example XXXX.XX.XX
+     * @var string
+     */
+    public $repayDate;
+
+    // 放款时间
+    /**
+     * @example 2018-10-10T10:10:00Z
+     * @var string
+     */
+    public $loanTime;
+
+    // 借据状态0：未还清，1：已还清，2：已提前还清
+    /**
+     * @example 0
+     * @var string
+     */
+    public $status;
+
+    // 已还本金
+    /**
+     * @example 1234
+     * @var int
+     */
+    public $alreadyCorpus;
+
+    // 已还利息
+    /**
+     * @example 50
+     * @var int
+     */
+    public $alreadyAccrual;
+
+    // 结清日期
+    /**
+     * @example 2018-10-10T10:10:00Z
+     * @var string
+     */
+    public $alreadyDate;
+
+    // 审批状态0：通过 1：拒绝 2：审批中 3：失败
+    /**
+     * @example 0
+     * @var string
+     */
+    public $workflowStatus;
+
+    // 借据编号
+    /**
+     * @example 145785
+     * @var string
+     */
+    public $receiptNo;
+
+    // 放款状态(0：放款成功 1：放款失败 2：放款异常 3：放款中）
+    /**
+     * @example 0
+     * @var string
+     */
+    public $loanStatus;
+
+    // 业务类型 1：现金贷（默认）、2：分期付
+    /**
+     * @example 1
+     * @var string
+     */
+    public $prodType;
+
 }

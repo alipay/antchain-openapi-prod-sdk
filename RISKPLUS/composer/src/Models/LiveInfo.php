@@ -1,75 +1,21 @@
 <?php
 
 // This file is auto-generated, don't edit it. Thanks.
-
 namespace AntChain\RISKPLUS\Models;
 
 use AlibabaCloud\Tea\Model;
 
-class LiveInfo extends Model
-{
-    // 居住省份
-    /**
-     * @example 居住省份
-     *
-     * @var string
-     */
-    public $liveProvince;
-
-    // 居住城市
-    /**
-     * @example 居住城市
-     *
-     * @var string
-     */
-    public $liveCity;
-
-    // 居住区域
-    /**
-     * @example 居住区域
-     *
-     * @var string
-     */
-    public $liveArea;
-
-    // 居住街道
-    /**
-     * @example 居住街道
-     *
-     * @var string
-     */
-    public $liveStreet;
-
-    // 居住详细地址
-    /**
-     * @example 居住详细地址
-     *
-     * @var string
-     */
-    public $liveAddress;
-
-    // 居住年限
-    /**
-     * @example 居住年限
-     *
-     * @var int
-     */
-    public $liveYears;
+class LiveInfo extends Model {
     protected $_name = [
         'liveProvince' => 'live_province',
-        'liveCity'     => 'live_city',
-        'liveArea'     => 'live_area',
-        'liveStreet'   => 'live_street',
-        'liveAddress'  => 'live_address',
-        'liveYears'    => 'live_years',
+        'liveCity' => 'live_city',
+        'liveArea' => 'live_area',
+        'liveStreet' => 'live_street',
+        'liveAddress' => 'live_address',
+        'liveYears' => 'live_years',
     ];
-
-    public function validate()
-    {
-    }
-
-    public function toMap()
-    {
+    public function validate() {}
+    public function toMap() {
         $res = [];
         if (null !== $this->liveProvince) {
             $res['live_province'] = $this->liveProvince;
@@ -89,37 +35,74 @@ class LiveInfo extends Model
         if (null !== $this->liveYears) {
             $res['live_years'] = $this->liveYears;
         }
-
         return $res;
     }
-
     /**
      * @param array $map
-     *
      * @return LiveInfo
      */
-    public static function fromMap($map = [])
-    {
+    public static function fromMap($map = []) {
         $model = new self();
-        if (isset($map['live_province'])) {
+        if(isset($map['live_province'])){
             $model->liveProvince = $map['live_province'];
         }
-        if (isset($map['live_city'])) {
+        if(isset($map['live_city'])){
             $model->liveCity = $map['live_city'];
         }
-        if (isset($map['live_area'])) {
+        if(isset($map['live_area'])){
             $model->liveArea = $map['live_area'];
         }
-        if (isset($map['live_street'])) {
+        if(isset($map['live_street'])){
             $model->liveStreet = $map['live_street'];
         }
-        if (isset($map['live_address'])) {
+        if(isset($map['live_address'])){
             $model->liveAddress = $map['live_address'];
         }
-        if (isset($map['live_years'])) {
+        if(isset($map['live_years'])){
             $model->liveYears = $map['live_years'];
         }
-
         return $model;
     }
+    // 居住省份
+    /**
+     * @example 居住省份
+     * @var string
+     */
+    public $liveProvince;
+
+    // 居住城市
+    /**
+     * @example 居住城市
+     * @var string
+     */
+    public $liveCity;
+
+    // 居住区域
+    /**
+     * @example 居住区域
+     * @var string
+     */
+    public $liveArea;
+
+    // 居住街道
+    /**
+     * @example 居住街道
+     * @var string
+     */
+    public $liveStreet;
+
+    // 居住详细地址
+    /**
+     * @example 居住详细地址
+     * @var string
+     */
+    public $liveAddress;
+
+    // 居住年限
+    /**
+     * @example 居住年限
+     * @var int
+     */
+    public $liveYears;
+
 }

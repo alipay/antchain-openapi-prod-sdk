@@ -1,0 +1,82 @@
+<?php
+
+// This file is auto-generated, don't edit it. Thanks.
+namespace AntChain\RISKPLUS\Models;
+
+use AlibabaCloud\Tea\Model;
+
+class QueryCreditshieldFundcallbackRequest extends Model {
+    protected $_name = [
+        'authToken' => 'auth_token',
+        'productInstanceId' => 'product_instance_id',
+        'queryCode' => 'query_code',
+        'queryInfos' => 'query_infos',
+    ];
+    public function validate() {
+        Model::validateRequired('queryCode', $this->queryCode, true);
+        Model::validateRequired('queryInfos', $this->queryInfos, true);
+    }
+    public function toMap() {
+        $res = [];
+        if (null !== $this->authToken) {
+            $res['auth_token'] = $this->authToken;
+        }
+        if (null !== $this->productInstanceId) {
+            $res['product_instance_id'] = $this->productInstanceId;
+        }
+        if (null !== $this->queryCode) {
+            $res['query_code'] = $this->queryCode;
+        }
+        if (null !== $this->queryInfos) {
+            $res['query_infos'] = $this->queryInfos;
+        }
+        return $res;
+    }
+    /**
+     * @param array $map
+     * @return QueryCreditshieldFundcallbackRequest
+     */
+    public static function fromMap($map = []) {
+        $model = new self();
+        if(isset($map['auth_token'])){
+            $model->authToken = $map['auth_token'];
+        }
+        if(isset($map['product_instance_id'])){
+            $model->productInstanceId = $map['product_instance_id'];
+        }
+        if(isset($map['query_code'])){
+            $model->queryCode = $map['query_code'];
+        }
+        if(isset($map['query_infos'])){
+            if(!empty($map['query_infos'])){
+                $model->queryInfos = $map['query_infos'];
+            }
+        }
+        return $model;
+    }
+    // OAuth模式下的授权token
+    /**
+     * @var string
+     */
+    public $authToken;
+
+    /**
+     * @var string
+     */
+    public $productInstanceId;
+
+    // ALLOCATE_CASE_FILE -案件信息查询
+    // REDUCE_RESULT_NOTIFICATION - 减免结果通知
+    // REPAYMENT_RESULT_NOTIFICATION -入账通知
+    /**
+     * @var string
+     */
+    public $queryCode;
+
+    // 请求信息json
+    /**
+     * @var string[]
+     */
+    public $queryInfos;
+
+}

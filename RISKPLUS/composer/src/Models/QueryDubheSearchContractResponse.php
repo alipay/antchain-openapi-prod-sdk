@@ -1,13 +1,96 @@
 <?php
 
 // This file is auto-generated, don't edit it. Thanks.
-
 namespace AntChain\RISKPLUS\Models;
 
 use AlibabaCloud\Tea\Model;
 
-class QueryDubheSearchContractResponse extends Model
-{
+class QueryDubheSearchContractResponse extends Model {
+    protected $_name = [
+        'reqMsgId' => 'req_msg_id',
+        'resultCode' => 'result_code',
+        'resultMsg' => 'result_msg',
+        'relationNo' => 'relation_no',
+        'contractNo' => 'contract_no',
+        'contractName' => 'contract_name',
+        'contractType' => 'contract_type',
+        'customNo' => 'custom_no',
+        'savePath' => 'save_path',
+        'contractAmount' => 'contract_amount',
+    ];
+    public function validate() {}
+    public function toMap() {
+        $res = [];
+        if (null !== $this->reqMsgId) {
+            $res['req_msg_id'] = $this->reqMsgId;
+        }
+        if (null !== $this->resultCode) {
+            $res['result_code'] = $this->resultCode;
+        }
+        if (null !== $this->resultMsg) {
+            $res['result_msg'] = $this->resultMsg;
+        }
+        if (null !== $this->relationNo) {
+            $res['relation_no'] = $this->relationNo;
+        }
+        if (null !== $this->contractNo) {
+            $res['contract_no'] = $this->contractNo;
+        }
+        if (null !== $this->contractName) {
+            $res['contract_name'] = $this->contractName;
+        }
+        if (null !== $this->contractType) {
+            $res['contract_type'] = $this->contractType;
+        }
+        if (null !== $this->customNo) {
+            $res['custom_no'] = $this->customNo;
+        }
+        if (null !== $this->savePath) {
+            $res['save_path'] = $this->savePath;
+        }
+        if (null !== $this->contractAmount) {
+            $res['contract_amount'] = $this->contractAmount;
+        }
+        return $res;
+    }
+    /**
+     * @param array $map
+     * @return QueryDubheSearchContractResponse
+     */
+    public static function fromMap($map = []) {
+        $model = new self();
+        if(isset($map['req_msg_id'])){
+            $model->reqMsgId = $map['req_msg_id'];
+        }
+        if(isset($map['result_code'])){
+            $model->resultCode = $map['result_code'];
+        }
+        if(isset($map['result_msg'])){
+            $model->resultMsg = $map['result_msg'];
+        }
+        if(isset($map['relation_no'])){
+            $model->relationNo = $map['relation_no'];
+        }
+        if(isset($map['contract_no'])){
+            $model->contractNo = $map['contract_no'];
+        }
+        if(isset($map['contract_name'])){
+            $model->contractName = $map['contract_name'];
+        }
+        if(isset($map['contract_type'])){
+            $model->contractType = $map['contract_type'];
+        }
+        if(isset($map['custom_no'])){
+            $model->customNo = $map['custom_no'];
+        }
+        if(isset($map['save_path'])){
+            $model->savePath = $map['save_path'];
+        }
+        if(isset($map['contract_amount'])){
+            $model->contractAmount = $map['contract_amount'];
+        }
+        return $model;
+    }
     // 请求唯一ID，用于链路跟踪和问题排查
     /**
      * @var string
@@ -67,99 +150,5 @@ class QueryDubheSearchContractResponse extends Model
      * @var int
      */
     public $contractAmount;
-    protected $_name = [
-        'reqMsgId'       => 'req_msg_id',
-        'resultCode'     => 'result_code',
-        'resultMsg'      => 'result_msg',
-        'relationNo'     => 'relation_no',
-        'contractNo'     => 'contract_no',
-        'contractName'   => 'contract_name',
-        'contractType'   => 'contract_type',
-        'customNo'       => 'custom_no',
-        'savePath'       => 'save_path',
-        'contractAmount' => 'contract_amount',
-    ];
 
-    public function validate()
-    {
-    }
-
-    public function toMap()
-    {
-        $res = [];
-        if (null !== $this->reqMsgId) {
-            $res['req_msg_id'] = $this->reqMsgId;
-        }
-        if (null !== $this->resultCode) {
-            $res['result_code'] = $this->resultCode;
-        }
-        if (null !== $this->resultMsg) {
-            $res['result_msg'] = $this->resultMsg;
-        }
-        if (null !== $this->relationNo) {
-            $res['relation_no'] = $this->relationNo;
-        }
-        if (null !== $this->contractNo) {
-            $res['contract_no'] = $this->contractNo;
-        }
-        if (null !== $this->contractName) {
-            $res['contract_name'] = $this->contractName;
-        }
-        if (null !== $this->contractType) {
-            $res['contract_type'] = $this->contractType;
-        }
-        if (null !== $this->customNo) {
-            $res['custom_no'] = $this->customNo;
-        }
-        if (null !== $this->savePath) {
-            $res['save_path'] = $this->savePath;
-        }
-        if (null !== $this->contractAmount) {
-            $res['contract_amount'] = $this->contractAmount;
-        }
-
-        return $res;
-    }
-
-    /**
-     * @param array $map
-     *
-     * @return QueryDubheSearchContractResponse
-     */
-    public static function fromMap($map = [])
-    {
-        $model = new self();
-        if (isset($map['req_msg_id'])) {
-            $model->reqMsgId = $map['req_msg_id'];
-        }
-        if (isset($map['result_code'])) {
-            $model->resultCode = $map['result_code'];
-        }
-        if (isset($map['result_msg'])) {
-            $model->resultMsg = $map['result_msg'];
-        }
-        if (isset($map['relation_no'])) {
-            $model->relationNo = $map['relation_no'];
-        }
-        if (isset($map['contract_no'])) {
-            $model->contractNo = $map['contract_no'];
-        }
-        if (isset($map['contract_name'])) {
-            $model->contractName = $map['contract_name'];
-        }
-        if (isset($map['contract_type'])) {
-            $model->contractType = $map['contract_type'];
-        }
-        if (isset($map['custom_no'])) {
-            $model->customNo = $map['custom_no'];
-        }
-        if (isset($map['save_path'])) {
-            $model->savePath = $map['save_path'];
-        }
-        if (isset($map['contract_amount'])) {
-            $model->contractAmount = $map['contract_amount'];
-        }
-
-        return $model;
-    }
 }

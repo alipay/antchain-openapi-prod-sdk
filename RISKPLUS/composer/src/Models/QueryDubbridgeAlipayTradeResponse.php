@@ -1,13 +1,82 @@
 <?php
 
 // This file is auto-generated, don't edit it. Thanks.
-
 namespace AntChain\RISKPLUS\Models;
 
 use AlibabaCloud\Tea\Model;
 
-class QueryDubbridgeAlipayTradeResponse extends Model
-{
+class QueryDubbridgeAlipayTradeResponse extends Model {
+    protected $_name = [
+        'reqMsgId' => 'req_msg_id',
+        'resultCode' => 'result_code',
+        'resultMsg' => 'result_msg',
+        'tradeStatus' => 'trade_status',
+        'tradeNo' => 'trade_no',
+        'buyerLogonId' => 'buyer_logon_id',
+        'payAmount' => 'pay_amount',
+        'payDate' => 'pay_date',
+    ];
+    public function validate() {}
+    public function toMap() {
+        $res = [];
+        if (null !== $this->reqMsgId) {
+            $res['req_msg_id'] = $this->reqMsgId;
+        }
+        if (null !== $this->resultCode) {
+            $res['result_code'] = $this->resultCode;
+        }
+        if (null !== $this->resultMsg) {
+            $res['result_msg'] = $this->resultMsg;
+        }
+        if (null !== $this->tradeStatus) {
+            $res['trade_status'] = $this->tradeStatus;
+        }
+        if (null !== $this->tradeNo) {
+            $res['trade_no'] = $this->tradeNo;
+        }
+        if (null !== $this->buyerLogonId) {
+            $res['buyer_logon_id'] = $this->buyerLogonId;
+        }
+        if (null !== $this->payAmount) {
+            $res['pay_amount'] = $this->payAmount;
+        }
+        if (null !== $this->payDate) {
+            $res['pay_date'] = $this->payDate;
+        }
+        return $res;
+    }
+    /**
+     * @param array $map
+     * @return QueryDubbridgeAlipayTradeResponse
+     */
+    public static function fromMap($map = []) {
+        $model = new self();
+        if(isset($map['req_msg_id'])){
+            $model->reqMsgId = $map['req_msg_id'];
+        }
+        if(isset($map['result_code'])){
+            $model->resultCode = $map['result_code'];
+        }
+        if(isset($map['result_msg'])){
+            $model->resultMsg = $map['result_msg'];
+        }
+        if(isset($map['trade_status'])){
+            $model->tradeStatus = $map['trade_status'];
+        }
+        if(isset($map['trade_no'])){
+            $model->tradeNo = $map['trade_no'];
+        }
+        if(isset($map['buyer_logon_id'])){
+            $model->buyerLogonId = $map['buyer_logon_id'];
+        }
+        if(isset($map['pay_amount'])){
+            $model->payAmount = $map['pay_amount'];
+        }
+        if(isset($map['pay_date'])){
+            $model->payDate = $map['pay_date'];
+        }
+        return $model;
+    }
     // 请求唯一ID，用于链路跟踪和问题排查
     /**
      * @var string
@@ -59,85 +128,5 @@ class QueryDubbridgeAlipayTradeResponse extends Model
      * @var string
      */
     public $payDate;
-    protected $_name = [
-        'reqMsgId'     => 'req_msg_id',
-        'resultCode'   => 'result_code',
-        'resultMsg'    => 'result_msg',
-        'tradeStatus'  => 'trade_status',
-        'tradeNo'      => 'trade_no',
-        'buyerLogonId' => 'buyer_logon_id',
-        'payAmount'    => 'pay_amount',
-        'payDate'      => 'pay_date',
-    ];
 
-    public function validate()
-    {
-    }
-
-    public function toMap()
-    {
-        $res = [];
-        if (null !== $this->reqMsgId) {
-            $res['req_msg_id'] = $this->reqMsgId;
-        }
-        if (null !== $this->resultCode) {
-            $res['result_code'] = $this->resultCode;
-        }
-        if (null !== $this->resultMsg) {
-            $res['result_msg'] = $this->resultMsg;
-        }
-        if (null !== $this->tradeStatus) {
-            $res['trade_status'] = $this->tradeStatus;
-        }
-        if (null !== $this->tradeNo) {
-            $res['trade_no'] = $this->tradeNo;
-        }
-        if (null !== $this->buyerLogonId) {
-            $res['buyer_logon_id'] = $this->buyerLogonId;
-        }
-        if (null !== $this->payAmount) {
-            $res['pay_amount'] = $this->payAmount;
-        }
-        if (null !== $this->payDate) {
-            $res['pay_date'] = $this->payDate;
-        }
-
-        return $res;
-    }
-
-    /**
-     * @param array $map
-     *
-     * @return QueryDubbridgeAlipayTradeResponse
-     */
-    public static function fromMap($map = [])
-    {
-        $model = new self();
-        if (isset($map['req_msg_id'])) {
-            $model->reqMsgId = $map['req_msg_id'];
-        }
-        if (isset($map['result_code'])) {
-            $model->resultCode = $map['result_code'];
-        }
-        if (isset($map['result_msg'])) {
-            $model->resultMsg = $map['result_msg'];
-        }
-        if (isset($map['trade_status'])) {
-            $model->tradeStatus = $map['trade_status'];
-        }
-        if (isset($map['trade_no'])) {
-            $model->tradeNo = $map['trade_no'];
-        }
-        if (isset($map['buyer_logon_id'])) {
-            $model->buyerLogonId = $map['buyer_logon_id'];
-        }
-        if (isset($map['pay_amount'])) {
-            $model->payAmount = $map['pay_amount'];
-        }
-        if (isset($map['pay_date'])) {
-            $model->payDate = $map['pay_date'];
-        }
-
-        return $model;
-    }
 }

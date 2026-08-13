@@ -1,48 +1,20 @@
 <?php
 
 // This file is auto-generated, don't edit it. Thanks.
-
 namespace AntChain\RISKPLUS\Models;
 
 use AlibabaCloud\Tea\Model;
 
-class AirDfSceneInfos extends Model
-{
-    // 决策场景结果
-    /**
-     * @example review
-     *
-     * @var string
-     */
-    public $sceneDecision;
+use AntChain\RISKPLUS\Models\AirDomainInfos;
 
-    // 决策场景
-    /**
-     * @example air_scene
-     *
-     * @var string
-     */
-    public $sceneCode;
-
-    // 决策域信息
-    /**
-     * @example [{"decision_flows":[{"decision":"review","name":"租赁测试策略"}],"domain_decision":"review","domain_code":"lease_domain"}]
-     *
-     * @var AirDomainInfos[]
-     */
-    public $domainInfos;
+class AirDfSceneInfos extends Model {
     protected $_name = [
         'sceneDecision' => 'scene_decision',
-        'sceneCode'     => 'scene_code',
-        'domainInfos'   => 'domain_infos',
+        'sceneCode' => 'scene_code',
+        'domainInfos' => 'domain_infos',
     ];
-
-    public function validate()
-    {
-    }
-
-    public function toMap()
-    {
+    public function validate() {}
+    public function toMap() {
         $res = [];
         if (null !== $this->sceneDecision) {
             $res['scene_decision'] = $this->sceneDecision;
@@ -52,41 +24,57 @@ class AirDfSceneInfos extends Model
         }
         if (null !== $this->domainInfos) {
             $res['domain_infos'] = [];
-            if (null !== $this->domainInfos && \is_array($this->domainInfos)) {
+            if(null !== $this->domainInfos && is_array($this->domainInfos)){
                 $n = 0;
-                foreach ($this->domainInfos as $item) {
+                foreach($this->domainInfos as $item){
                     $res['domain_infos'][$n++] = null !== $item ? $item->toMap() : $item;
                 }
             }
         }
-
         return $res;
     }
-
     /**
      * @param array $map
-     *
      * @return AirDfSceneInfos
      */
-    public static function fromMap($map = [])
-    {
+    public static function fromMap($map = []) {
         $model = new self();
-        if (isset($map['scene_decision'])) {
+        if(isset($map['scene_decision'])){
             $model->sceneDecision = $map['scene_decision'];
         }
-        if (isset($map['scene_code'])) {
+        if(isset($map['scene_code'])){
             $model->sceneCode = $map['scene_code'];
         }
-        if (isset($map['domain_infos'])) {
-            if (!empty($map['domain_infos'])) {
+        if(isset($map['domain_infos'])){
+            if(!empty($map['domain_infos'])){
                 $model->domainInfos = [];
-                $n                  = 0;
-                foreach ($map['domain_infos'] as $item) {
+                $n = 0;
+                foreach($map['domain_infos'] as $item) {
                     $model->domainInfos[$n++] = null !== $item ? AirDomainInfos::fromMap($item) : $item;
                 }
             }
         }
-
         return $model;
     }
+    // 决策场景结果
+    /**
+     * @example review
+     * @var string
+     */
+    public $sceneDecision;
+
+    // 决策场景
+    /**
+     * @example air_scene
+     * @var string
+     */
+    public $sceneCode;
+
+    // 决策域信息
+    /**
+     * @example [{"decision_flows":[{"decision":"review","name":"租赁测试策略"}],"domain_decision":"review","domain_code":"lease_domain"}]
+     * @var AirDomainInfos[]
+     */
+    public $domainInfos;
+
 }

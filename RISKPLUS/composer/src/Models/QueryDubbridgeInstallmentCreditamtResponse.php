@@ -1,13 +1,124 @@
 <?php
 
 // This file is auto-generated, don't edit it. Thanks.
-
 namespace AntChain\RISKPLUS\Models;
 
 use AlibabaCloud\Tea\Model;
 
-class QueryDubbridgeInstallmentCreditamtResponse extends Model
-{
+class QueryDubbridgeInstallmentCreditamtResponse extends Model {
+    protected $_name = [
+        'reqMsgId' => 'req_msg_id',
+        'resultCode' => 'result_code',
+        'resultMsg' => 'result_msg',
+        'prodType' => 'prod_type',
+        'status' => 'status',
+        'fundCode' => 'fund_code',
+        'abbreFundName' => 'abbre_fund_name',
+        'restAmount' => 'rest_amount',
+        'creditAmount' => 'credit_amount',
+        'rateValue' => 'rate_value',
+        'applyStatus' => 'apply_status',
+        'creditStatus' => 'credit_status',
+        'payDate' => 'pay_date',
+        'expireDate' => 'expire_date',
+    ];
+    public function validate() {}
+    public function toMap() {
+        $res = [];
+        if (null !== $this->reqMsgId) {
+            $res['req_msg_id'] = $this->reqMsgId;
+        }
+        if (null !== $this->resultCode) {
+            $res['result_code'] = $this->resultCode;
+        }
+        if (null !== $this->resultMsg) {
+            $res['result_msg'] = $this->resultMsg;
+        }
+        if (null !== $this->prodType) {
+            $res['prod_type'] = $this->prodType;
+        }
+        if (null !== $this->status) {
+            $res['status'] = $this->status;
+        }
+        if (null !== $this->fundCode) {
+            $res['fund_code'] = $this->fundCode;
+        }
+        if (null !== $this->abbreFundName) {
+            $res['abbre_fund_name'] = $this->abbreFundName;
+        }
+        if (null !== $this->restAmount) {
+            $res['rest_amount'] = $this->restAmount;
+        }
+        if (null !== $this->creditAmount) {
+            $res['credit_amount'] = $this->creditAmount;
+        }
+        if (null !== $this->rateValue) {
+            $res['rate_value'] = $this->rateValue;
+        }
+        if (null !== $this->applyStatus) {
+            $res['apply_status'] = $this->applyStatus;
+        }
+        if (null !== $this->creditStatus) {
+            $res['credit_status'] = $this->creditStatus;
+        }
+        if (null !== $this->payDate) {
+            $res['pay_date'] = $this->payDate;
+        }
+        if (null !== $this->expireDate) {
+            $res['expire_date'] = $this->expireDate;
+        }
+        return $res;
+    }
+    /**
+     * @param array $map
+     * @return QueryDubbridgeInstallmentCreditamtResponse
+     */
+    public static function fromMap($map = []) {
+        $model = new self();
+        if(isset($map['req_msg_id'])){
+            $model->reqMsgId = $map['req_msg_id'];
+        }
+        if(isset($map['result_code'])){
+            $model->resultCode = $map['result_code'];
+        }
+        if(isset($map['result_msg'])){
+            $model->resultMsg = $map['result_msg'];
+        }
+        if(isset($map['prod_type'])){
+            $model->prodType = $map['prod_type'];
+        }
+        if(isset($map['status'])){
+            $model->status = $map['status'];
+        }
+        if(isset($map['fund_code'])){
+            $model->fundCode = $map['fund_code'];
+        }
+        if(isset($map['abbre_fund_name'])){
+            $model->abbreFundName = $map['abbre_fund_name'];
+        }
+        if(isset($map['rest_amount'])){
+            $model->restAmount = $map['rest_amount'];
+        }
+        if(isset($map['credit_amount'])){
+            $model->creditAmount = $map['credit_amount'];
+        }
+        if(isset($map['rate_value'])){
+            $model->rateValue = $map['rate_value'];
+        }
+        if(isset($map['apply_status'])){
+            $model->applyStatus = $map['apply_status'];
+        }
+        if(isset($map['credit_status'])){
+            $model->creditStatus = $map['credit_status'];
+        }
+        if(isset($map['pay_date'])){
+            $model->payDate = $map['pay_date'];
+        }
+        if(isset($map['expire_date'])){
+            $model->expireDate = $map['expire_date'];
+        }
+        return $model;
+    }
     // 请求唯一ID，用于链路跟踪和问题排查
     /**
      * @var string
@@ -102,127 +213,5 @@ class QueryDubbridgeInstallmentCreditamtResponse extends Model
      * @var string
      */
     public $expireDate;
-    protected $_name = [
-        'reqMsgId'      => 'req_msg_id',
-        'resultCode'    => 'result_code',
-        'resultMsg'     => 'result_msg',
-        'prodType'      => 'prod_type',
-        'status'        => 'status',
-        'fundCode'      => 'fund_code',
-        'abbreFundName' => 'abbre_fund_name',
-        'restAmount'    => 'rest_amount',
-        'creditAmount'  => 'credit_amount',
-        'rateValue'     => 'rate_value',
-        'applyStatus'   => 'apply_status',
-        'creditStatus'  => 'credit_status',
-        'payDate'       => 'pay_date',
-        'expireDate'    => 'expire_date',
-    ];
 
-    public function validate()
-    {
-    }
-
-    public function toMap()
-    {
-        $res = [];
-        if (null !== $this->reqMsgId) {
-            $res['req_msg_id'] = $this->reqMsgId;
-        }
-        if (null !== $this->resultCode) {
-            $res['result_code'] = $this->resultCode;
-        }
-        if (null !== $this->resultMsg) {
-            $res['result_msg'] = $this->resultMsg;
-        }
-        if (null !== $this->prodType) {
-            $res['prod_type'] = $this->prodType;
-        }
-        if (null !== $this->status) {
-            $res['status'] = $this->status;
-        }
-        if (null !== $this->fundCode) {
-            $res['fund_code'] = $this->fundCode;
-        }
-        if (null !== $this->abbreFundName) {
-            $res['abbre_fund_name'] = $this->abbreFundName;
-        }
-        if (null !== $this->restAmount) {
-            $res['rest_amount'] = $this->restAmount;
-        }
-        if (null !== $this->creditAmount) {
-            $res['credit_amount'] = $this->creditAmount;
-        }
-        if (null !== $this->rateValue) {
-            $res['rate_value'] = $this->rateValue;
-        }
-        if (null !== $this->applyStatus) {
-            $res['apply_status'] = $this->applyStatus;
-        }
-        if (null !== $this->creditStatus) {
-            $res['credit_status'] = $this->creditStatus;
-        }
-        if (null !== $this->payDate) {
-            $res['pay_date'] = $this->payDate;
-        }
-        if (null !== $this->expireDate) {
-            $res['expire_date'] = $this->expireDate;
-        }
-
-        return $res;
-    }
-
-    /**
-     * @param array $map
-     *
-     * @return QueryDubbridgeInstallmentCreditamtResponse
-     */
-    public static function fromMap($map = [])
-    {
-        $model = new self();
-        if (isset($map['req_msg_id'])) {
-            $model->reqMsgId = $map['req_msg_id'];
-        }
-        if (isset($map['result_code'])) {
-            $model->resultCode = $map['result_code'];
-        }
-        if (isset($map['result_msg'])) {
-            $model->resultMsg = $map['result_msg'];
-        }
-        if (isset($map['prod_type'])) {
-            $model->prodType = $map['prod_type'];
-        }
-        if (isset($map['status'])) {
-            $model->status = $map['status'];
-        }
-        if (isset($map['fund_code'])) {
-            $model->fundCode = $map['fund_code'];
-        }
-        if (isset($map['abbre_fund_name'])) {
-            $model->abbreFundName = $map['abbre_fund_name'];
-        }
-        if (isset($map['rest_amount'])) {
-            $model->restAmount = $map['rest_amount'];
-        }
-        if (isset($map['credit_amount'])) {
-            $model->creditAmount = $map['credit_amount'];
-        }
-        if (isset($map['rate_value'])) {
-            $model->rateValue = $map['rate_value'];
-        }
-        if (isset($map['apply_status'])) {
-            $model->applyStatus = $map['apply_status'];
-        }
-        if (isset($map['credit_status'])) {
-            $model->creditStatus = $map['credit_status'];
-        }
-        if (isset($map['pay_date'])) {
-            $model->payDate = $map['pay_date'];
-        }
-        if (isset($map['expire_date'])) {
-            $model->expireDate = $map['expire_date'];
-        }
-
-        return $model;
-    }
 }
