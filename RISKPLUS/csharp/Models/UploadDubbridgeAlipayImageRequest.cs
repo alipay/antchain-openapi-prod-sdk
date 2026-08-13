@@ -25,7 +25,7 @@ namespace AntChain.SDK.RISKPLUS.Models
 
         // 门店Id
         [NameInMap("store_id")]
-        [Validation(Required=true)]
+        [Validation(Required=false)]
         public string StoreId { get; set; }
 
         // 门店所属子品牌，
@@ -62,6 +62,16 @@ namespace AntChain.SDK.RISKPLUS.Models
         [NameInMap("image_type")]
         [Validation(Required=true)]
         public string ImageType { get; set; }
+
+        // 入驻类型: 001-支付宝入驻、004-数科入驻
+        [NameInMap("enter_type")]
+        [Validation(Required=true)]
+        public string EnterType { get; set; }
+
+        // 统一社会信用代码
+        [NameInMap("usci")]
+        [Validation(Required=true)]
+        public string Usci { get; set; }
 
     }
 
