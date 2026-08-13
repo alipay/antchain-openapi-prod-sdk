@@ -24,22 +24,22 @@ from setuptools import setup, find_packages
 """
 setup module for antchain_riskplus.
 
-Created on 24/02/2021
+Created on 13/08/2026
 
 @author: Ant Chain SDK
 """
 
 PACKAGE = "antchain_sdk_riskplus"
-NAME = "antchain_riskplus" or "alibabacloud-package"
+NAME = 'antchain_riskplus' or "alibabacloud-package"
 DESCRIPTION = "Ant Chain RISKPLUS SDK Library for Python"
 AUTHOR = "Ant Chain SDK"
 AUTHOR_EMAIL = "sdk-team@alibabacloud.com"
 URL = "https://github.com/alipay/antchain-openapi-prod-sdk"
 VERSION = __import__(PACKAGE).__version__
 REQUIRES = [
-    "antchain_alipay_util>=0.0.6, <1.0.0",
-    "alibabacloud_tea_util>=0.3.3, <1.0.0",
-    "alibabacloud_rpc_util>=0.0.3, <1.0.0"
+    "antchain_alipay_util>=1.0.1, <2.0.0",
+    "alibabacloud_tea_util>=0.3.14, <1.0.0",
+    "alibabacloud_rpc_util>=0.0.4, <1.0.0"
 ]
 
 LONG_DESCRIPTION = ''
