@@ -1,13 +1,54 @@
 <?php
 
 // This file is auto-generated, don't edit it. Thanks.
-
 namespace AntChain\RISKPLUS\Models;
 
 use AlibabaCloud\Tea\Model;
 
-class QueryDubbridgeLoanUpgradestatusRequest extends Model
-{
+class QueryDubbridgeLoanUpgradestatusRequest extends Model {
+    protected $_name = [
+        'authToken' => 'auth_token',
+        'productInstanceId' => 'product_instance_id',
+        'originalOrderNo' => 'original_order_no',
+        'receiptNo' => 'receipt_no',
+    ];
+    public function validate() {}
+    public function toMap() {
+        $res = [];
+        if (null !== $this->authToken) {
+            $res['auth_token'] = $this->authToken;
+        }
+        if (null !== $this->productInstanceId) {
+            $res['product_instance_id'] = $this->productInstanceId;
+        }
+        if (null !== $this->originalOrderNo) {
+            $res['original_order_no'] = $this->originalOrderNo;
+        }
+        if (null !== $this->receiptNo) {
+            $res['receipt_no'] = $this->receiptNo;
+        }
+        return $res;
+    }
+    /**
+     * @param array $map
+     * @return QueryDubbridgeLoanUpgradestatusRequest
+     */
+    public static function fromMap($map = []) {
+        $model = new self();
+        if(isset($map['auth_token'])){
+            $model->authToken = $map['auth_token'];
+        }
+        if(isset($map['product_instance_id'])){
+            $model->productInstanceId = $map['product_instance_id'];
+        }
+        if(isset($map['original_order_no'])){
+            $model->originalOrderNo = $map['original_order_no'];
+        }
+        if(isset($map['receipt_no'])){
+            $model->receiptNo = $map['receipt_no'];
+        }
+        return $model;
+    }
     // OAuth模式下的授权token
     /**
      * @var string
@@ -30,57 +71,5 @@ class QueryDubbridgeLoanUpgradestatusRequest extends Model
      * @var string
      */
     public $receiptNo;
-    protected $_name = [
-        'authToken'         => 'auth_token',
-        'productInstanceId' => 'product_instance_id',
-        'originalOrderNo'   => 'original_order_no',
-        'receiptNo'         => 'receipt_no',
-    ];
 
-    public function validate()
-    {
-    }
-
-    public function toMap()
-    {
-        $res = [];
-        if (null !== $this->authToken) {
-            $res['auth_token'] = $this->authToken;
-        }
-        if (null !== $this->productInstanceId) {
-            $res['product_instance_id'] = $this->productInstanceId;
-        }
-        if (null !== $this->originalOrderNo) {
-            $res['original_order_no'] = $this->originalOrderNo;
-        }
-        if (null !== $this->receiptNo) {
-            $res['receipt_no'] = $this->receiptNo;
-        }
-
-        return $res;
-    }
-
-    /**
-     * @param array $map
-     *
-     * @return QueryDubbridgeLoanUpgradestatusRequest
-     */
-    public static function fromMap($map = [])
-    {
-        $model = new self();
-        if (isset($map['auth_token'])) {
-            $model->authToken = $map['auth_token'];
-        }
-        if (isset($map['product_instance_id'])) {
-            $model->productInstanceId = $map['product_instance_id'];
-        }
-        if (isset($map['original_order_no'])) {
-            $model->originalOrderNo = $map['original_order_no'];
-        }
-        if (isset($map['receipt_no'])) {
-            $model->receiptNo = $map['receipt_no'];
-        }
-
-        return $model;
-    }
 }

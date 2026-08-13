@@ -1,13 +1,78 @@
 <?php
 
 // This file is auto-generated, don't edit it. Thanks.
-
 namespace AntChain\RISKPLUS\Models;
 
 use AlibabaCloud\Tea\Model;
 
-class PushDubbridgeContractsignRequest extends Model
-{
+class PushDubbridgeContractsignRequest extends Model {
+    protected $_name = [
+        'authToken' => 'auth_token',
+        'productInstanceId' => 'product_instance_id',
+        'signEventId' => 'sign_event_id',
+        'signStatus' => 'sign_status',
+        'contractDownUrl' => 'contract_down_url',
+        'bizOrderNo' => 'biz_order_no',
+        'openId' => 'open_id',
+    ];
+    public function validate() {
+        Model::validateRequired('signStatus', $this->signStatus, true);
+        Model::validateRequired('bizOrderNo', $this->bizOrderNo, true);
+    }
+    public function toMap() {
+        $res = [];
+        if (null !== $this->authToken) {
+            $res['auth_token'] = $this->authToken;
+        }
+        if (null !== $this->productInstanceId) {
+            $res['product_instance_id'] = $this->productInstanceId;
+        }
+        if (null !== $this->signEventId) {
+            $res['sign_event_id'] = $this->signEventId;
+        }
+        if (null !== $this->signStatus) {
+            $res['sign_status'] = $this->signStatus;
+        }
+        if (null !== $this->contractDownUrl) {
+            $res['contract_down_url'] = $this->contractDownUrl;
+        }
+        if (null !== $this->bizOrderNo) {
+            $res['biz_order_no'] = $this->bizOrderNo;
+        }
+        if (null !== $this->openId) {
+            $res['open_id'] = $this->openId;
+        }
+        return $res;
+    }
+    /**
+     * @param array $map
+     * @return PushDubbridgeContractsignRequest
+     */
+    public static function fromMap($map = []) {
+        $model = new self();
+        if(isset($map['auth_token'])){
+            $model->authToken = $map['auth_token'];
+        }
+        if(isset($map['product_instance_id'])){
+            $model->productInstanceId = $map['product_instance_id'];
+        }
+        if(isset($map['sign_event_id'])){
+            $model->signEventId = $map['sign_event_id'];
+        }
+        if(isset($map['sign_status'])){
+            $model->signStatus = $map['sign_status'];
+        }
+        if(isset($map['contract_down_url'])){
+            $model->contractDownUrl = $map['contract_down_url'];
+        }
+        if(isset($map['biz_order_no'])){
+            $model->bizOrderNo = $map['biz_order_no'];
+        }
+        if(isset($map['open_id'])){
+            $model->openId = $map['open_id'];
+        }
+        return $model;
+    }
     // OAuth模式下的授权token
     /**
      * @var string
@@ -19,7 +84,7 @@ class PushDubbridgeContractsignRequest extends Model
      */
     public $productInstanceId;
 
-    // 合同签署事件id
+    // 合同签署事件id，《蚂蚁侧主导签署》时必填
     /**
      * @var string
      */
@@ -50,73 +115,11 @@ class PushDubbridgeContractsignRequest extends Model
      * @var string
      */
     public $bizOrderNo;
-    protected $_name = [
-        'authToken'         => 'auth_token',
-        'productInstanceId' => 'product_instance_id',
-        'signEventId'       => 'sign_event_id',
-        'signStatus'        => 'sign_status',
-        'contractDownUrl'   => 'contract_down_url',
-        'bizOrderNo'        => 'biz_order_no',
-    ];
 
-    public function validate()
-    {
-        Model::validateRequired('signEventId', $this->signEventId, true);
-        Model::validateRequired('signStatus', $this->signStatus, true);
-    }
-
-    public function toMap()
-    {
-        $res = [];
-        if (null !== $this->authToken) {
-            $res['auth_token'] = $this->authToken;
-        }
-        if (null !== $this->productInstanceId) {
-            $res['product_instance_id'] = $this->productInstanceId;
-        }
-        if (null !== $this->signEventId) {
-            $res['sign_event_id'] = $this->signEventId;
-        }
-        if (null !== $this->signStatus) {
-            $res['sign_status'] = $this->signStatus;
-        }
-        if (null !== $this->contractDownUrl) {
-            $res['contract_down_url'] = $this->contractDownUrl;
-        }
-        if (null !== $this->bizOrderNo) {
-            $res['biz_order_no'] = $this->bizOrderNo;
-        }
-
-        return $res;
-    }
-
+    // 支付宝小程序用户唯一ID，《isv侧主导签署》时必填
     /**
-     * @param array $map
-     *
-     * @return PushDubbridgeContractsignRequest
+     * @var string
      */
-    public static function fromMap($map = [])
-    {
-        $model = new self();
-        if (isset($map['auth_token'])) {
-            $model->authToken = $map['auth_token'];
-        }
-        if (isset($map['product_instance_id'])) {
-            $model->productInstanceId = $map['product_instance_id'];
-        }
-        if (isset($map['sign_event_id'])) {
-            $model->signEventId = $map['sign_event_id'];
-        }
-        if (isset($map['sign_status'])) {
-            $model->signStatus = $map['sign_status'];
-        }
-        if (isset($map['contract_down_url'])) {
-            $model->contractDownUrl = $map['contract_down_url'];
-        }
-        if (isset($map['biz_order_no'])) {
-            $model->bizOrderNo = $map['biz_order_no'];
-        }
+    public $openId;
 
-        return $model;
-    }
 }

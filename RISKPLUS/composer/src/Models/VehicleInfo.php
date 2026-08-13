@@ -1,233 +1,44 @@
 <?php
 
 // This file is auto-generated, don't edit it. Thanks.
-
 namespace AntChain\RISKPLUS\Models;
 
 use AlibabaCloud\Tea\Model;
 
-class VehicleInfo extends Model
-{
-    // 流量方购物订单号
-    /**
-     * @example xxxx
-     *
-     * @var string
-     */
-    public $bizOrderNo;
-
-    // 订单[分期]金额，单位：元
-    /**
-     * @example 199.88
-     *
-     * @var string
-     */
-    public $tradeAmount;
-
-    // 订单分期金额，单位：元
-    /**
-     * @example 188.88
-     *
-     * @var string
-     */
-    public $installmentAmount;
-
-    // 首付金额，单位：元
-    /**
-     * @example 199.00
-     *
-     * @var string
-     */
-    public $downPayment;
-
-    // pad设备提供
-    /**
-     * @example xxx
-     *
-     * @var string
-     */
-    public $wifiMac;
-
-    // pad-经度
-    /**
-     * @example xxxx
-     *
-     * @var string
-     */
-    public $longitude;
-
-    // pad-纬度
-    /**
-     * @example xxx
-     *
-     * @var string
-     */
-    public $latitude;
-
-    // 车辆类型（摩托车）：1-新车、0-二手车
-    /**
-     * @example 0
-     *
-     * @var string
-     */
-    public $vehicleType;
-
-    // SN码/中控号(授信后放款前)
-    /**
-     * @example xxx
-     *
-     * @var string
-     */
-    public $sn;
-
-    // 车驾号(授信后放款前)
-    /**
-     * @example xxx
-     *
-     * @var string
-     */
-    public $frameNo;
-
-    // SKU ID
-    /**
-     * @example xxxx
-     *
-     * @var string
-     */
-    public $sku;
-
-    // 颜色
-    /**
-     * @example xxxx
-     *
-     * @var string
-     */
-    public $color;
-
-    // 车型关键词
-    /**
-     * @example xxx
-     *
-     * @var string
-     */
-    public $modelKeyword;
-
-    // 续航里程
-    /**
-     * @example 1024
-     *
-     * @var string
-     */
-    public $range;
-
-    // 新车指导价，单位：元
-    /**
-     * @example 199.88
-     *
-     * @var string
-     */
-    public $guidePrice;
-
-    // 售价，单位：元
-    /**
-     * @example 1999.98
-     *
-     * @var string
-     */
-    public $sellingPrice;
-
-    // 品牌
-    /**
-     * @example xxxx
-     *
-     * @var string
-     */
-    public $brand;
-
-    // 车型
-    /**
-     * @example xxxx
-     *
-     * @var string
-     */
-    public $model;
-
-    // 年款，yyyy
-    /**
-     * @example yyyy
-     *
-     * @var string
-     */
-    public $modelYear;
-
-    // 公里数，Odometer
-    /**
-     * @example xxxx
-     *
-     * @var string
-     */
-    public $odo;
-
-    // 首次上牌时间
-    /**
-     * @example xxxx
-     *
-     * @var string
-     */
-    public $firstRegDate;
-
-    // 过户次数，Ownership Transfer Records
-    /**
-     * @example xxxx
-     *
-     * @var string
-     */
-    public $otr;
-
-    // 配件信息
-    /**
-     * @example xxxx
-     *
-     * @var string
-     */
-    public $parts;
+class VehicleInfo extends Model {
     protected $_name = [
-        'bizOrderNo'        => 'biz_order_no',
-        'tradeAmount'       => 'trade_amount',
+        'bizOrderNo' => 'biz_order_no',
+        'tradeAmount' => 'trade_amount',
         'installmentAmount' => 'installment_amount',
-        'downPayment'       => 'down_payment',
-        'wifiMac'           => 'wifi_mac',
-        'longitude'         => 'longitude',
-        'latitude'          => 'latitude',
-        'vehicleType'       => 'vehicle_type',
-        'sn'                => 'sn',
-        'frameNo'           => 'frame_no',
-        'sku'               => 'sku',
-        'color'             => 'color',
-        'modelKeyword'      => 'model_keyword',
-        'range'             => 'range',
-        'guidePrice'        => 'guide_price',
-        'sellingPrice'      => 'selling_price',
-        'brand'             => 'brand',
-        'model'             => 'model',
-        'modelYear'         => 'model_year',
-        'odo'               => 'odo',
-        'firstRegDate'      => 'first_reg_date',
-        'otr'               => 'otr',
-        'parts'             => 'parts',
+        'downPayment' => 'down_payment',
+        'wifiMac' => 'wifi_mac',
+        'longitude' => 'longitude',
+        'latitude' => 'latitude',
+        'vehicleType' => 'vehicle_type',
+        'sn' => 'sn',
+        'frameNo' => 'frame_no',
+        'sku' => 'sku',
+        'color' => 'color',
+        'modelKeyword' => 'model_keyword',
+        'range' => 'range',
+        'guidePrice' => 'guide_price',
+        'sellingPrice' => 'selling_price',
+        'brand' => 'brand',
+        'model' => 'model',
+        'modelYear' => 'model_year',
+        'odo' => 'odo',
+        'firstRegDate' => 'first_reg_date',
+        'otr' => 'otr',
+        'parts' => 'parts',
     ];
-
-    public function validate()
-    {
+    public function validate() {
         Model::validateRequired('bizOrderNo', $this->bizOrderNo, true);
         Model::validateRequired('tradeAmount', $this->tradeAmount, true);
         Model::validateRequired('sku', $this->sku, true);
         Model::validateRequired('guidePrice', $this->guidePrice, true);
         Model::validateRequired('sellingPrice', $this->sellingPrice, true);
     }
-
-    public function toMap()
-    {
+    public function toMap() {
         $res = [];
         if (null !== $this->bizOrderNo) {
             $res['biz_order_no'] = $this->bizOrderNo;
@@ -298,88 +109,244 @@ class VehicleInfo extends Model
         if (null !== $this->parts) {
             $res['parts'] = $this->parts;
         }
-
         return $res;
     }
-
     /**
      * @param array $map
-     *
      * @return VehicleInfo
      */
-    public static function fromMap($map = [])
-    {
+    public static function fromMap($map = []) {
         $model = new self();
-        if (isset($map['biz_order_no'])) {
+        if(isset($map['biz_order_no'])){
             $model->bizOrderNo = $map['biz_order_no'];
         }
-        if (isset($map['trade_amount'])) {
+        if(isset($map['trade_amount'])){
             $model->tradeAmount = $map['trade_amount'];
         }
-        if (isset($map['installment_amount'])) {
+        if(isset($map['installment_amount'])){
             $model->installmentAmount = $map['installment_amount'];
         }
-        if (isset($map['down_payment'])) {
+        if(isset($map['down_payment'])){
             $model->downPayment = $map['down_payment'];
         }
-        if (isset($map['wifi_mac'])) {
+        if(isset($map['wifi_mac'])){
             $model->wifiMac = $map['wifi_mac'];
         }
-        if (isset($map['longitude'])) {
+        if(isset($map['longitude'])){
             $model->longitude = $map['longitude'];
         }
-        if (isset($map['latitude'])) {
+        if(isset($map['latitude'])){
             $model->latitude = $map['latitude'];
         }
-        if (isset($map['vehicle_type'])) {
+        if(isset($map['vehicle_type'])){
             $model->vehicleType = $map['vehicle_type'];
         }
-        if (isset($map['sn'])) {
+        if(isset($map['sn'])){
             $model->sn = $map['sn'];
         }
-        if (isset($map['frame_no'])) {
+        if(isset($map['frame_no'])){
             $model->frameNo = $map['frame_no'];
         }
-        if (isset($map['sku'])) {
+        if(isset($map['sku'])){
             $model->sku = $map['sku'];
         }
-        if (isset($map['color'])) {
+        if(isset($map['color'])){
             $model->color = $map['color'];
         }
-        if (isset($map['model_keyword'])) {
+        if(isset($map['model_keyword'])){
             $model->modelKeyword = $map['model_keyword'];
         }
-        if (isset($map['range'])) {
+        if(isset($map['range'])){
             $model->range = $map['range'];
         }
-        if (isset($map['guide_price'])) {
+        if(isset($map['guide_price'])){
             $model->guidePrice = $map['guide_price'];
         }
-        if (isset($map['selling_price'])) {
+        if(isset($map['selling_price'])){
             $model->sellingPrice = $map['selling_price'];
         }
-        if (isset($map['brand'])) {
+        if(isset($map['brand'])){
             $model->brand = $map['brand'];
         }
-        if (isset($map['model'])) {
+        if(isset($map['model'])){
             $model->model = $map['model'];
         }
-        if (isset($map['model_year'])) {
+        if(isset($map['model_year'])){
             $model->modelYear = $map['model_year'];
         }
-        if (isset($map['odo'])) {
+        if(isset($map['odo'])){
             $model->odo = $map['odo'];
         }
-        if (isset($map['first_reg_date'])) {
+        if(isset($map['first_reg_date'])){
             $model->firstRegDate = $map['first_reg_date'];
         }
-        if (isset($map['otr'])) {
+        if(isset($map['otr'])){
             $model->otr = $map['otr'];
         }
-        if (isset($map['parts'])) {
+        if(isset($map['parts'])){
             $model->parts = $map['parts'];
         }
-
         return $model;
     }
+    // 流量方购物订单号
+    /**
+     * @example xxxx
+     * @var string
+     */
+    public $bizOrderNo;
+
+    // 订单[分期]金额，单位：元
+    /**
+     * @example 199.88
+     * @var string
+     */
+    public $tradeAmount;
+
+    // 订单分期金额，单位：元
+    /**
+     * @example 188.88
+     * @var string
+     */
+    public $installmentAmount;
+
+    // 首付金额，单位：元
+    /**
+     * @example 199.00
+     * @var string
+     */
+    public $downPayment;
+
+    // pad设备提供
+    /**
+     * @example xxx
+     * @var string
+     */
+    public $wifiMac;
+
+    // pad-经度
+    /**
+     * @example xxxx
+     * @var string
+     */
+    public $longitude;
+
+    // pad-纬度
+    /**
+     * @example xxx
+     * @var string
+     */
+    public $latitude;
+
+    // 车辆类型（摩托车）：1-新车、0-二手车
+    /**
+     * @example 0
+     * @var string
+     */
+    public $vehicleType;
+
+    // SN码/中控号(授信后放款前)
+    /**
+     * @example xxx
+     * @var string
+     */
+    public $sn;
+
+    // 车驾号(授信后放款前)
+    /**
+     * @example xxx
+     * @var string
+     */
+    public $frameNo;
+
+    // SKU ID
+    /**
+     * @example xxxx
+     * @var string
+     */
+    public $sku;
+
+    // 颜色
+    /**
+     * @example xxxx
+     * @var string
+     */
+    public $color;
+
+    // 车型关键词
+    /**
+     * @example xxx
+     * @var string
+     */
+    public $modelKeyword;
+
+    // 续航里程
+    /**
+     * @example 1024
+     * @var string
+     */
+    public $range;
+
+    // 新车指导价，单位：元
+    /**
+     * @example 199.88
+     * @var string
+     */
+    public $guidePrice;
+
+    // 售价，单位：元
+    /**
+     * @example 1999.98
+     * @var string
+     */
+    public $sellingPrice;
+
+    // 品牌
+    /**
+     * @example xxxx
+     * @var string
+     */
+    public $brand;
+
+    // 车型
+    /**
+     * @example xxxx
+     * @var string
+     */
+    public $model;
+
+    // 年款，yyyy
+    /**
+     * @example yyyy
+     * @var string
+     */
+    public $modelYear;
+
+    // 公里数，Odometer
+    /**
+     * @example xxxx
+     * @var string
+     */
+    public $odo;
+
+    // 首次上牌时间
+    /**
+     * @example xxxx
+     * @var string
+     */
+    public $firstRegDate;
+
+    // 过户次数，Ownership Transfer Records
+    /**
+     * @example xxxx
+     * @var string
+     */
+    public $otr;
+
+    // 配件信息
+    /**
+     * @example xxxx
+     * @var string
+     */
+    public $parts;
+
 }

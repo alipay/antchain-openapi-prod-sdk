@@ -1,13 +1,61 @@
 <?php
 
 // This file is auto-generated, don't edit it. Thanks.
-
 namespace AntChain\RISKPLUS\Models;
 
 use AlibabaCloud\Tea\Model;
 
-class QueryRbbCompanyGuardResponse extends Model
-{
+class QueryRbbCompanyGuardResponse extends Model {
+    protected $_name = [
+        'reqMsgId' => 'req_msg_id',
+        'resultCode' => 'result_code',
+        'resultMsg' => 'result_msg',
+        'decision' => 'decision',
+        'results' => 'results',
+    ];
+    public function validate() {}
+    public function toMap() {
+        $res = [];
+        if (null !== $this->reqMsgId) {
+            $res['req_msg_id'] = $this->reqMsgId;
+        }
+        if (null !== $this->resultCode) {
+            $res['result_code'] = $this->resultCode;
+        }
+        if (null !== $this->resultMsg) {
+            $res['result_msg'] = $this->resultMsg;
+        }
+        if (null !== $this->decision) {
+            $res['decision'] = $this->decision;
+        }
+        if (null !== $this->results) {
+            $res['results'] = $this->results;
+        }
+        return $res;
+    }
+    /**
+     * @param array $map
+     * @return QueryRbbCompanyGuardResponse
+     */
+    public static function fromMap($map = []) {
+        $model = new self();
+        if(isset($map['req_msg_id'])){
+            $model->reqMsgId = $map['req_msg_id'];
+        }
+        if(isset($map['result_code'])){
+            $model->resultCode = $map['result_code'];
+        }
+        if(isset($map['result_msg'])){
+            $model->resultMsg = $map['result_msg'];
+        }
+        if(isset($map['decision'])){
+            $model->decision = $map['decision'];
+        }
+        if(isset($map['results'])){
+            $model->results = $map['results'];
+        }
+        return $model;
+    }
     // 请求唯一ID，用于链路跟踪和问题排查
     /**
      * @var string
@@ -27,76 +75,17 @@ class QueryRbbCompanyGuardResponse extends Model
     public $resultMsg;
 
     // 决策结果，ACCEPT/REJECT/TBD
-    //
+    // 
     /**
      * @var string
      */
     public $decision;
 
     // 准入执行结果的快照
-    //
+    // 
     /**
      * @var string
      */
     public $results;
-    protected $_name = [
-        'reqMsgId'   => 'req_msg_id',
-        'resultCode' => 'result_code',
-        'resultMsg'  => 'result_msg',
-        'decision'   => 'decision',
-        'results'    => 'results',
-    ];
 
-    public function validate()
-    {
-    }
-
-    public function toMap()
-    {
-        $res = [];
-        if (null !== $this->reqMsgId) {
-            $res['req_msg_id'] = $this->reqMsgId;
-        }
-        if (null !== $this->resultCode) {
-            $res['result_code'] = $this->resultCode;
-        }
-        if (null !== $this->resultMsg) {
-            $res['result_msg'] = $this->resultMsg;
-        }
-        if (null !== $this->decision) {
-            $res['decision'] = $this->decision;
-        }
-        if (null !== $this->results) {
-            $res['results'] = $this->results;
-        }
-
-        return $res;
-    }
-
-    /**
-     * @param array $map
-     *
-     * @return QueryRbbCompanyGuardResponse
-     */
-    public static function fromMap($map = [])
-    {
-        $model = new self();
-        if (isset($map['req_msg_id'])) {
-            $model->reqMsgId = $map['req_msg_id'];
-        }
-        if (isset($map['result_code'])) {
-            $model->resultCode = $map['result_code'];
-        }
-        if (isset($map['result_msg'])) {
-            $model->resultMsg = $map['result_msg'];
-        }
-        if (isset($map['decision'])) {
-            $model->decision = $map['decision'];
-        }
-        if (isset($map['results'])) {
-            $model->results = $map['results'];
-        }
-
-        return $model;
-    }
 }

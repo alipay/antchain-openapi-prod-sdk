@@ -1,13 +1,75 @@
 <?php
 
 // This file is auto-generated, don't edit it. Thanks.
-
 namespace AntChain\RISKPLUS\Models;
 
 use AlibabaCloud\Tea\Model;
 
-class QueryQmpOfflinehostplanDecisionresultsResponse extends Model
-{
+use AntChain\RISKPLUS\Models\DecisionInfo;
+
+class QueryQmpOfflinehostplanDecisionresultsResponse extends Model {
+    protected $_name = [
+        'reqMsgId' => 'req_msg_id',
+        'resultCode' => 'result_code',
+        'resultMsg' => 'result_msg',
+        'planCode' => 'plan_code',
+        'decisionInfo' => 'decision_info',
+    ];
+    public function validate() {}
+    public function toMap() {
+        $res = [];
+        if (null !== $this->reqMsgId) {
+            $res['req_msg_id'] = $this->reqMsgId;
+        }
+        if (null !== $this->resultCode) {
+            $res['result_code'] = $this->resultCode;
+        }
+        if (null !== $this->resultMsg) {
+            $res['result_msg'] = $this->resultMsg;
+        }
+        if (null !== $this->planCode) {
+            $res['plan_code'] = $this->planCode;
+        }
+        if (null !== $this->decisionInfo) {
+            $res['decision_info'] = [];
+            if(null !== $this->decisionInfo && is_array($this->decisionInfo)){
+                $n = 0;
+                foreach($this->decisionInfo as $item){
+                    $res['decision_info'][$n++] = null !== $item ? $item->toMap() : $item;
+                }
+            }
+        }
+        return $res;
+    }
+    /**
+     * @param array $map
+     * @return QueryQmpOfflinehostplanDecisionresultsResponse
+     */
+    public static function fromMap($map = []) {
+        $model = new self();
+        if(isset($map['req_msg_id'])){
+            $model->reqMsgId = $map['req_msg_id'];
+        }
+        if(isset($map['result_code'])){
+            $model->resultCode = $map['result_code'];
+        }
+        if(isset($map['result_msg'])){
+            $model->resultMsg = $map['result_msg'];
+        }
+        if(isset($map['plan_code'])){
+            $model->planCode = $map['plan_code'];
+        }
+        if(isset($map['decision_info'])){
+            if(!empty($map['decision_info'])){
+                $model->decisionInfo = [];
+                $n = 0;
+                foreach($map['decision_info'] as $item) {
+                    $model->decisionInfo[$n++] = null !== $item ? DecisionInfo::fromMap($item) : $item;
+                }
+            }
+        }
+        return $model;
+    }
     // 请求唯一ID，用于链路跟踪和问题排查
     /**
      * @var string
@@ -37,76 +99,5 @@ class QueryQmpOfflinehostplanDecisionresultsResponse extends Model
      * @var DecisionInfo[]
      */
     public $decisionInfo;
-    protected $_name = [
-        'reqMsgId'     => 'req_msg_id',
-        'resultCode'   => 'result_code',
-        'resultMsg'    => 'result_msg',
-        'planCode'     => 'plan_code',
-        'decisionInfo' => 'decision_info',
-    ];
 
-    public function validate()
-    {
-    }
-
-    public function toMap()
-    {
-        $res = [];
-        if (null !== $this->reqMsgId) {
-            $res['req_msg_id'] = $this->reqMsgId;
-        }
-        if (null !== $this->resultCode) {
-            $res['result_code'] = $this->resultCode;
-        }
-        if (null !== $this->resultMsg) {
-            $res['result_msg'] = $this->resultMsg;
-        }
-        if (null !== $this->planCode) {
-            $res['plan_code'] = $this->planCode;
-        }
-        if (null !== $this->decisionInfo) {
-            $res['decision_info'] = [];
-            if (null !== $this->decisionInfo && \is_array($this->decisionInfo)) {
-                $n = 0;
-                foreach ($this->decisionInfo as $item) {
-                    $res['decision_info'][$n++] = null !== $item ? $item->toMap() : $item;
-                }
-            }
-        }
-
-        return $res;
-    }
-
-    /**
-     * @param array $map
-     *
-     * @return QueryQmpOfflinehostplanDecisionresultsResponse
-     */
-    public static function fromMap($map = [])
-    {
-        $model = new self();
-        if (isset($map['req_msg_id'])) {
-            $model->reqMsgId = $map['req_msg_id'];
-        }
-        if (isset($map['result_code'])) {
-            $model->resultCode = $map['result_code'];
-        }
-        if (isset($map['result_msg'])) {
-            $model->resultMsg = $map['result_msg'];
-        }
-        if (isset($map['plan_code'])) {
-            $model->planCode = $map['plan_code'];
-        }
-        if (isset($map['decision_info'])) {
-            if (!empty($map['decision_info'])) {
-                $model->decisionInfo = [];
-                $n                   = 0;
-                foreach ($map['decision_info'] as $item) {
-                    $model->decisionInfo[$n++] = null !== $item ? DecisionInfo::fromMap($item) : $item;
-                }
-            }
-        }
-
-        return $model;
-    }
 }

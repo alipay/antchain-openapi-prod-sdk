@@ -1,13 +1,96 @@
 <?php
 
 // This file is auto-generated, don't edit it. Thanks.
-
 namespace AntChain\RISKPLUS\Models;
 
 use AlibabaCloud\Tea\Model;
 
-class BatchqueryQmpTaskDetailRequest extends Model
-{
+class BatchqueryQmpTaskDetailRequest extends Model {
+    protected $_name = [
+        'authToken' => 'auth_token',
+        'productInstanceId' => 'product_instance_id',
+        'bizId' => 'biz_id',
+        'customerKeys' => 'customer_keys',
+        'keyTemplate' => 'key_template',
+        'sceneStrategyId' => 'scene_strategy_id',
+        'callDate' => 'call_date',
+        'endCallDate' => 'end_call_date',
+        'industryTag' => 'industry_tag',
+    ];
+    public function validate() {
+        Model::validateRequired('bizId', $this->bizId, true);
+        Model::validateRequired('customerKeys', $this->customerKeys, true);
+        Model::validateRequired('keyTemplate', $this->keyTemplate, true);
+        Model::validateRequired('sceneStrategyId', $this->sceneStrategyId, true);
+    }
+    public function toMap() {
+        $res = [];
+        if (null !== $this->authToken) {
+            $res['auth_token'] = $this->authToken;
+        }
+        if (null !== $this->productInstanceId) {
+            $res['product_instance_id'] = $this->productInstanceId;
+        }
+        if (null !== $this->bizId) {
+            $res['biz_id'] = $this->bizId;
+        }
+        if (null !== $this->customerKeys) {
+            $res['customer_keys'] = $this->customerKeys;
+        }
+        if (null !== $this->keyTemplate) {
+            $res['key_template'] = $this->keyTemplate;
+        }
+        if (null !== $this->sceneStrategyId) {
+            $res['scene_strategy_id'] = $this->sceneStrategyId;
+        }
+        if (null !== $this->callDate) {
+            $res['call_date'] = $this->callDate;
+        }
+        if (null !== $this->endCallDate) {
+            $res['end_call_date'] = $this->endCallDate;
+        }
+        if (null !== $this->industryTag) {
+            $res['industry_tag'] = $this->industryTag;
+        }
+        return $res;
+    }
+    /**
+     * @param array $map
+     * @return BatchqueryQmpTaskDetailRequest
+     */
+    public static function fromMap($map = []) {
+        $model = new self();
+        if(isset($map['auth_token'])){
+            $model->authToken = $map['auth_token'];
+        }
+        if(isset($map['product_instance_id'])){
+            $model->productInstanceId = $map['product_instance_id'];
+        }
+        if(isset($map['biz_id'])){
+            $model->bizId = $map['biz_id'];
+        }
+        if(isset($map['customer_keys'])){
+            if(!empty($map['customer_keys'])){
+                $model->customerKeys = $map['customer_keys'];
+            }
+        }
+        if(isset($map['key_template'])){
+            $model->keyTemplate = $map['key_template'];
+        }
+        if(isset($map['scene_strategy_id'])){
+            $model->sceneStrategyId = $map['scene_strategy_id'];
+        }
+        if(isset($map['call_date'])){
+            $model->callDate = $map['call_date'];
+        }
+        if(isset($map['end_call_date'])){
+            $model->endCallDate = $map['end_call_date'];
+        }
+        if(isset($map['industry_tag'])){
+            $model->industryTag = $map['industry_tag'];
+        }
+        return $model;
+    }
     // OAuth模式下的授权token
     /**
      * @var string
@@ -60,98 +143,5 @@ class BatchqueryQmpTaskDetailRequest extends Model
      * @var string
      */
     public $industryTag;
-    protected $_name = [
-        'authToken'         => 'auth_token',
-        'productInstanceId' => 'product_instance_id',
-        'bizId'             => 'biz_id',
-        'customerKeys'      => 'customer_keys',
-        'keyTemplate'       => 'key_template',
-        'sceneStrategyId'   => 'scene_strategy_id',
-        'callDate'          => 'call_date',
-        'endCallDate'       => 'end_call_date',
-        'industryTag'       => 'industry_tag',
-    ];
 
-    public function validate()
-    {
-        Model::validateRequired('bizId', $this->bizId, true);
-        Model::validateRequired('customerKeys', $this->customerKeys, true);
-        Model::validateRequired('keyTemplate', $this->keyTemplate, true);
-        Model::validateRequired('sceneStrategyId', $this->sceneStrategyId, true);
-    }
-
-    public function toMap()
-    {
-        $res = [];
-        if (null !== $this->authToken) {
-            $res['auth_token'] = $this->authToken;
-        }
-        if (null !== $this->productInstanceId) {
-            $res['product_instance_id'] = $this->productInstanceId;
-        }
-        if (null !== $this->bizId) {
-            $res['biz_id'] = $this->bizId;
-        }
-        if (null !== $this->customerKeys) {
-            $res['customer_keys'] = $this->customerKeys;
-        }
-        if (null !== $this->keyTemplate) {
-            $res['key_template'] = $this->keyTemplate;
-        }
-        if (null !== $this->sceneStrategyId) {
-            $res['scene_strategy_id'] = $this->sceneStrategyId;
-        }
-        if (null !== $this->callDate) {
-            $res['call_date'] = $this->callDate;
-        }
-        if (null !== $this->endCallDate) {
-            $res['end_call_date'] = $this->endCallDate;
-        }
-        if (null !== $this->industryTag) {
-            $res['industry_tag'] = $this->industryTag;
-        }
-
-        return $res;
-    }
-
-    /**
-     * @param array $map
-     *
-     * @return BatchqueryQmpTaskDetailRequest
-     */
-    public static function fromMap($map = [])
-    {
-        $model = new self();
-        if (isset($map['auth_token'])) {
-            $model->authToken = $map['auth_token'];
-        }
-        if (isset($map['product_instance_id'])) {
-            $model->productInstanceId = $map['product_instance_id'];
-        }
-        if (isset($map['biz_id'])) {
-            $model->bizId = $map['biz_id'];
-        }
-        if (isset($map['customer_keys'])) {
-            if (!empty($map['customer_keys'])) {
-                $model->customerKeys = $map['customer_keys'];
-            }
-        }
-        if (isset($map['key_template'])) {
-            $model->keyTemplate = $map['key_template'];
-        }
-        if (isset($map['scene_strategy_id'])) {
-            $model->sceneStrategyId = $map['scene_strategy_id'];
-        }
-        if (isset($map['call_date'])) {
-            $model->callDate = $map['call_date'];
-        }
-        if (isset($map['end_call_date'])) {
-            $model->endCallDate = $map['end_call_date'];
-        }
-        if (isset($map['industry_tag'])) {
-            $model->industryTag = $map['industry_tag'];
-        }
-
-        return $model;
-    }
 }

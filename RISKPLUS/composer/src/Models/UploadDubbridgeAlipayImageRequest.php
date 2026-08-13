@@ -1,13 +1,110 @@
 <?php
 
 // This file is auto-generated, don't edit it. Thanks.
-
 namespace AntChain\RISKPLUS\Models;
 
 use AlibabaCloud\Tea\Model;
 
-class UploadDubbridgeAlipayImageRequest extends Model
-{
+class UploadDubbridgeAlipayImageRequest extends Model {
+    protected $_name = [
+        'authToken' => 'auth_token',
+        'productInstanceId' => 'product_instance_id',
+        'orderNo' => 'order_no',
+        'storeId' => 'store_id',
+        'trafficPlatform' => 'traffic_platform',
+        'imageCategory' => 'image_category',
+        'imageContent' => 'image_content',
+        'imagePath' => 'image_path',
+        'imageType' => 'image_type',
+        'enterType' => 'enter_type',
+        'usci' => 'usci',
+    ];
+    public function validate() {
+        Model::validateRequired('orderNo', $this->orderNo, true);
+        Model::validateRequired('trafficPlatform', $this->trafficPlatform, true);
+        Model::validateRequired('imageCategory', $this->imageCategory, true);
+        Model::validateRequired('imageType', $this->imageType, true);
+        Model::validateRequired('enterType', $this->enterType, true);
+        Model::validateRequired('usci', $this->usci, true);
+    }
+    public function toMap() {
+        $res = [];
+        if (null !== $this->authToken) {
+            $res['auth_token'] = $this->authToken;
+        }
+        if (null !== $this->productInstanceId) {
+            $res['product_instance_id'] = $this->productInstanceId;
+        }
+        if (null !== $this->orderNo) {
+            $res['order_no'] = $this->orderNo;
+        }
+        if (null !== $this->storeId) {
+            $res['store_id'] = $this->storeId;
+        }
+        if (null !== $this->trafficPlatform) {
+            $res['traffic_platform'] = $this->trafficPlatform;
+        }
+        if (null !== $this->imageCategory) {
+            $res['image_category'] = $this->imageCategory;
+        }
+        if (null !== $this->imageContent) {
+            $res['image_content'] = $this->imageContent;
+        }
+        if (null !== $this->imagePath) {
+            $res['image_path'] = $this->imagePath;
+        }
+        if (null !== $this->imageType) {
+            $res['image_type'] = $this->imageType;
+        }
+        if (null !== $this->enterType) {
+            $res['enter_type'] = $this->enterType;
+        }
+        if (null !== $this->usci) {
+            $res['usci'] = $this->usci;
+        }
+        return $res;
+    }
+    /**
+     * @param array $map
+     * @return UploadDubbridgeAlipayImageRequest
+     */
+    public static function fromMap($map = []) {
+        $model = new self();
+        if(isset($map['auth_token'])){
+            $model->authToken = $map['auth_token'];
+        }
+        if(isset($map['product_instance_id'])){
+            $model->productInstanceId = $map['product_instance_id'];
+        }
+        if(isset($map['order_no'])){
+            $model->orderNo = $map['order_no'];
+        }
+        if(isset($map['store_id'])){
+            $model->storeId = $map['store_id'];
+        }
+        if(isset($map['traffic_platform'])){
+            $model->trafficPlatform = $map['traffic_platform'];
+        }
+        if(isset($map['image_category'])){
+            $model->imageCategory = $map['image_category'];
+        }
+        if(isset($map['image_content'])){
+            $model->imageContent = $map['image_content'];
+        }
+        if(isset($map['image_path'])){
+            $model->imagePath = $map['image_path'];
+        }
+        if(isset($map['image_type'])){
+            $model->imageType = $map['image_type'];
+        }
+        if(isset($map['enter_type'])){
+            $model->enterType = $map['enter_type'];
+        }
+        if(isset($map['usci'])){
+            $model->usci = $map['usci'];
+        }
+        return $model;
+    }
     // OAuth模式下的授权token
     /**
      * @var string
@@ -70,97 +167,17 @@ class UploadDubbridgeAlipayImageRequest extends Model
      * @var string
      */
     public $imageType;
-    protected $_name = [
-        'authToken'         => 'auth_token',
-        'productInstanceId' => 'product_instance_id',
-        'orderNo'           => 'order_no',
-        'storeId'           => 'store_id',
-        'trafficPlatform'   => 'traffic_platform',
-        'imageCategory'     => 'image_category',
-        'imageContent'      => 'image_content',
-        'imagePath'         => 'image_path',
-        'imageType'         => 'image_type',
-    ];
 
-    public function validate()
-    {
-        Model::validateRequired('orderNo', $this->orderNo, true);
-        Model::validateRequired('storeId', $this->storeId, true);
-        Model::validateRequired('trafficPlatform', $this->trafficPlatform, true);
-        Model::validateRequired('imageCategory', $this->imageCategory, true);
-        Model::validateRequired('imageType', $this->imageType, true);
-    }
-
-    public function toMap()
-    {
-        $res = [];
-        if (null !== $this->authToken) {
-            $res['auth_token'] = $this->authToken;
-        }
-        if (null !== $this->productInstanceId) {
-            $res['product_instance_id'] = $this->productInstanceId;
-        }
-        if (null !== $this->orderNo) {
-            $res['order_no'] = $this->orderNo;
-        }
-        if (null !== $this->storeId) {
-            $res['store_id'] = $this->storeId;
-        }
-        if (null !== $this->trafficPlatform) {
-            $res['traffic_platform'] = $this->trafficPlatform;
-        }
-        if (null !== $this->imageCategory) {
-            $res['image_category'] = $this->imageCategory;
-        }
-        if (null !== $this->imageContent) {
-            $res['image_content'] = $this->imageContent;
-        }
-        if (null !== $this->imagePath) {
-            $res['image_path'] = $this->imagePath;
-        }
-        if (null !== $this->imageType) {
-            $res['image_type'] = $this->imageType;
-        }
-
-        return $res;
-    }
-
+    // 入驻类型: 001-支付宝入驻、004-数科入驻
     /**
-     * @param array $map
-     *
-     * @return UploadDubbridgeAlipayImageRequest
+     * @var string
      */
-    public static function fromMap($map = [])
-    {
-        $model = new self();
-        if (isset($map['auth_token'])) {
-            $model->authToken = $map['auth_token'];
-        }
-        if (isset($map['product_instance_id'])) {
-            $model->productInstanceId = $map['product_instance_id'];
-        }
-        if (isset($map['order_no'])) {
-            $model->orderNo = $map['order_no'];
-        }
-        if (isset($map['store_id'])) {
-            $model->storeId = $map['store_id'];
-        }
-        if (isset($map['traffic_platform'])) {
-            $model->trafficPlatform = $map['traffic_platform'];
-        }
-        if (isset($map['image_category'])) {
-            $model->imageCategory = $map['image_category'];
-        }
-        if (isset($map['image_content'])) {
-            $model->imageContent = $map['image_content'];
-        }
-        if (isset($map['image_path'])) {
-            $model->imagePath = $map['image_path'];
-        }
-        if (isset($map['image_type'])) {
-            $model->imageType = $map['image_type'];
-        }
+    public $enterType;
 
-        return $model;
-    }
+    // 统一社会信用代码
+    /**
+     * @var string
+     */
+    public $usci;
+
 }

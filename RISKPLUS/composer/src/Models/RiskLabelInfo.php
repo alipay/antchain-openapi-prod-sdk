@@ -1,200 +1,34 @@
 <?php
 
 // This file is auto-generated, don't edit it. Thanks.
-
 namespace AntChain\RISKPLUS\Models;
 
 use AlibabaCloud\Tea\Model;
 
-class RiskLabelInfo extends Model
-{
-    // 线索明细类型(字段停用)
-    /**
-     * @example s d d f d f
-     *
-     * @var string
-     */
-    public $clueDetailType;
-
-    // odps数据产出时间，冗余字段，业务上不需要，以备错误排查
-    /**
-     * @example 20190823
-     *
-     * @var string
-     */
-    public $dt;
-
-    // 数据产生时间
-    /**
-     * @example yyyy-MM-dd hh:mm:ss
-     *
-     * @var string
-     */
-    public $gmtCreate;
-
-    // 记录唯一ID
-    /**
-     * @example 1
-     *
-     * @var int
-     */
-    public $id;
-
-    // 0-正常 1-删除
-    /**
-     * @example is_deleted
-     *
-     * @var int
-     */
-    public $isDeleted;
-
-    // 企业ID
-    /**
-     * @example A123445
-     *
-     * @var string
-     */
-    public $mctOneId;
-
-    // 操作人ID
-    /**
-     * @example 123
-     *
-     * @var string
-     */
-    public $operatorId;
-
-    // 操作类型
-    // add、delete、update
-    /**
-     * @example add
-     *
-     * @var string
-     */
-    public $opType;
-
-    // 企业名称
-    /**
-     * @example 东方财富公司
-     *
-     * @var string
-     */
-    public $orgName;
-
-    // 线索类型
-    /**
-     * @example 列表
-     *
-     * @var string
-     */
-    public $riskDetailType;
-
-    // 风险维度
-    //
-    /**
-     * @example 风险维度
-     *
-     * @var string
-     */
-    public $riskDimensionType;
-
-    // 线索概览
-    /**
-     * @example s d f g
-     *
-     * @var string
-     */
-    public $tagClue;
-
-    // 线索明细
-    /**
-     * @example 11
-     *
-     * @var string
-     */
-    public $tagClueDetail;
-
-    // 标签ID
-    /**
-     * @example NM23
-     *
-     * @var string
-     */
-    public $tagId;
-
-    // 线索列表表头，英文逗号分隔
-    //
-    /**
-     * @example 日期
-     *
-     * @var string
-     */
-    public $tagListHeaders;
-
-    // 标签列表，排序字段
-    /**
-     * @example 日期
-     *
-     * @var string
-     */
-    public $tagListOrderColumn;
-
-    // 标签列表排序方式
-    /**
-     * @example 顺序
-     *
-     * @var string
-     */
-    public $tagListOrderType;
-
-    // 标签文本
-    /**
-     * @example 1233
-     *
-     * @var string
-     */
-    public $tagText;
-
-    // 趋势图表名
-    /**
-     * @example XX趋势图
-     *
-     * @var string
-     */
-    public $tagTrendChartName;
-
-    // 数据同步到公有云时间(业务上赋值当天)
-    /**
-     * @example 20190823
-     *
-     * @var string
-     */
-    public $updateDate;
+class RiskLabelInfo extends Model {
     protected $_name = [
-        'clueDetailType'     => 'clue_detail_type',
-        'dt'                 => 'dt',
-        'gmtCreate'          => 'gmt_create',
-        'id'                 => 'id',
-        'isDeleted'          => 'is_deleted',
-        'mctOneId'           => 'mct_one_id',
-        'operatorId'         => 'operator_id',
-        'opType'             => 'op_type',
-        'orgName'            => 'org_name',
-        'riskDetailType'     => 'risk_detail_type',
-        'riskDimensionType'  => 'risk_dimension_type',
-        'tagClue'            => 'tag_clue',
-        'tagClueDetail'      => 'tag_clue_detail',
-        'tagId'              => 'tag_id',
-        'tagListHeaders'     => 'tag_list_headers',
+        'clueDetailType' => 'clue_detail_type',
+        'dt' => 'dt',
+        'gmtCreate' => 'gmt_create',
+        'id' => 'id',
+        'isDeleted' => 'is_deleted',
+        'mctOneId' => 'mct_one_id',
+        'operatorId' => 'operator_id',
+        'opType' => 'op_type',
+        'orgName' => 'org_name',
+        'riskDetailType' => 'risk_detail_type',
+        'riskDimensionType' => 'risk_dimension_type',
+        'tagClue' => 'tag_clue',
+        'tagClueDetail' => 'tag_clue_detail',
+        'tagId' => 'tag_id',
+        'tagListHeaders' => 'tag_list_headers',
         'tagListOrderColumn' => 'tag_list_order_column',
-        'tagListOrderType'   => 'tag_list_order_type',
-        'tagText'            => 'tag_text',
-        'tagTrendChartName'  => 'tag_trend_chart_name',
-        'updateDate'         => 'update_date',
+        'tagListOrderType' => 'tag_list_order_type',
+        'tagText' => 'tag_text',
+        'tagTrendChartName' => 'tag_trend_chart_name',
+        'updateDate' => 'update_date',
     ];
-
-    public function validate()
-    {
+    public function validate() {
         Model::validateRequired('clueDetailType', $this->clueDetailType, true);
         Model::validateRequired('gmtCreate', $this->gmtCreate, true);
         Model::validateRequired('id', $this->id, true);
@@ -215,9 +49,7 @@ class RiskLabelInfo extends Model
         Model::validateRequired('tagTrendChartName', $this->tagTrendChartName, true);
         Model::validateRequired('updateDate', $this->updateDate, true);
     }
-
-    public function toMap()
-    {
+    public function toMap() {
         $res = [];
         if (null !== $this->clueDetailType) {
             $res['clue_detail_type'] = $this->clueDetailType;
@@ -279,79 +111,217 @@ class RiskLabelInfo extends Model
         if (null !== $this->updateDate) {
             $res['update_date'] = $this->updateDate;
         }
-
         return $res;
     }
-
     /**
      * @param array $map
-     *
      * @return RiskLabelInfo
      */
-    public static function fromMap($map = [])
-    {
+    public static function fromMap($map = []) {
         $model = new self();
-        if (isset($map['clue_detail_type'])) {
+        if(isset($map['clue_detail_type'])){
             $model->clueDetailType = $map['clue_detail_type'];
         }
-        if (isset($map['dt'])) {
+        if(isset($map['dt'])){
             $model->dt = $map['dt'];
         }
-        if (isset($map['gmt_create'])) {
+        if(isset($map['gmt_create'])){
             $model->gmtCreate = $map['gmt_create'];
         }
-        if (isset($map['id'])) {
+        if(isset($map['id'])){
             $model->id = $map['id'];
         }
-        if (isset($map['is_deleted'])) {
+        if(isset($map['is_deleted'])){
             $model->isDeleted = $map['is_deleted'];
         }
-        if (isset($map['mct_one_id'])) {
+        if(isset($map['mct_one_id'])){
             $model->mctOneId = $map['mct_one_id'];
         }
-        if (isset($map['operator_id'])) {
+        if(isset($map['operator_id'])){
             $model->operatorId = $map['operator_id'];
         }
-        if (isset($map['op_type'])) {
+        if(isset($map['op_type'])){
             $model->opType = $map['op_type'];
         }
-        if (isset($map['org_name'])) {
+        if(isset($map['org_name'])){
             $model->orgName = $map['org_name'];
         }
-        if (isset($map['risk_detail_type'])) {
+        if(isset($map['risk_detail_type'])){
             $model->riskDetailType = $map['risk_detail_type'];
         }
-        if (isset($map['risk_dimension_type'])) {
+        if(isset($map['risk_dimension_type'])){
             $model->riskDimensionType = $map['risk_dimension_type'];
         }
-        if (isset($map['tag_clue'])) {
+        if(isset($map['tag_clue'])){
             $model->tagClue = $map['tag_clue'];
         }
-        if (isset($map['tag_clue_detail'])) {
+        if(isset($map['tag_clue_detail'])){
             $model->tagClueDetail = $map['tag_clue_detail'];
         }
-        if (isset($map['tag_id'])) {
+        if(isset($map['tag_id'])){
             $model->tagId = $map['tag_id'];
         }
-        if (isset($map['tag_list_headers'])) {
+        if(isset($map['tag_list_headers'])){
             $model->tagListHeaders = $map['tag_list_headers'];
         }
-        if (isset($map['tag_list_order_column'])) {
+        if(isset($map['tag_list_order_column'])){
             $model->tagListOrderColumn = $map['tag_list_order_column'];
         }
-        if (isset($map['tag_list_order_type'])) {
+        if(isset($map['tag_list_order_type'])){
             $model->tagListOrderType = $map['tag_list_order_type'];
         }
-        if (isset($map['tag_text'])) {
+        if(isset($map['tag_text'])){
             $model->tagText = $map['tag_text'];
         }
-        if (isset($map['tag_trend_chart_name'])) {
+        if(isset($map['tag_trend_chart_name'])){
             $model->tagTrendChartName = $map['tag_trend_chart_name'];
         }
-        if (isset($map['update_date'])) {
+        if(isset($map['update_date'])){
             $model->updateDate = $map['update_date'];
         }
-
         return $model;
     }
+    // 线索明细类型(字段停用)
+    /**
+     * @example s d d f d f
+     * @var string
+     */
+    public $clueDetailType;
+
+    // odps数据产出时间，冗余字段，业务上不需要，以备错误排查
+    /**
+     * @example 20190823
+     * @var string
+     */
+    public $dt;
+
+    // 数据产生时间
+    /**
+     * @example yyyy-MM-dd hh:mm:ss
+     * @var string
+     */
+    public $gmtCreate;
+
+    // 记录唯一ID
+    /**
+     * @example 1
+     * @var int
+     */
+    public $id;
+
+    // 0-正常 1-删除
+    /**
+     * @example is_deleted
+     * @var int
+     */
+    public $isDeleted;
+
+    // 企业ID
+    /**
+     * @example A123445
+     * @var string
+     */
+    public $mctOneId;
+
+    // 操作人ID
+    /**
+     * @example 123
+     * @var string
+     */
+    public $operatorId;
+
+    // 操作类型
+    // add、delete、update
+    /**
+     * @example add
+     * @var string
+     */
+    public $opType;
+
+    // 企业名称
+    /**
+     * @example 东方财富公司
+     * @var string
+     */
+    public $orgName;
+
+    // 线索类型
+    /**
+     * @example 列表
+     * @var string
+     */
+    public $riskDetailType;
+
+    // 风险维度
+    // 
+    /**
+     * @example 风险维度
+     * @var string
+     */
+    public $riskDimensionType;
+
+    // 线索概览
+    /**
+     * @example s d f g
+     * @var string
+     */
+    public $tagClue;
+
+    // 线索明细
+    /**
+     * @example 11
+     * @var string
+     */
+    public $tagClueDetail;
+
+    // 标签ID
+    /**
+     * @example NM23
+     * @var string
+     */
+    public $tagId;
+
+    // 线索列表表头，英文逗号分隔
+    // 
+    /**
+     * @example 日期
+     * @var string
+     */
+    public $tagListHeaders;
+
+    // 标签列表，排序字段
+    /**
+     * @example 日期
+     * @var string
+     */
+    public $tagListOrderColumn;
+
+    // 标签列表排序方式
+    /**
+     * @example 顺序
+     * @var string
+     */
+    public $tagListOrderType;
+
+    // 标签文本
+    /**
+     * @example 1233
+     * @var string
+     */
+    public $tagText;
+
+    // 趋势图表名
+    /**
+     * @example XX趋势图 
+     * @var string
+     */
+    public $tagTrendChartName;
+
+    // 数据同步到公有云时间(业务上赋值当天)
+    /**
+     * @example 20190823
+     * @var string
+     */
+    public $updateDate;
+
 }

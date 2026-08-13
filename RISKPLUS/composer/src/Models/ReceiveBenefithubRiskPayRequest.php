@@ -1,13 +1,81 @@
 <?php
 
 // This file is auto-generated, don't edit it. Thanks.
-
 namespace AntChain\RISKPLUS\Models;
 
 use AlibabaCloud\Tea\Model;
 
-class ReceiveBenefithubRiskPayRequest extends Model
-{
+class ReceiveBenefithubRiskPayRequest extends Model {
+    protected $_name = [
+        'authToken' => 'auth_token',
+        'productInstanceId' => 'product_instance_id',
+        'platformCode' => 'platform_code',
+        'productCode' => 'product_code',
+        'userUniqueId' => 'user_unique_id',
+        'resultType' => 'result_type',
+        'callbackResult' => 'callback_result',
+    ];
+    public function validate() {
+        Model::validateRequired('platformCode', $this->platformCode, true);
+        Model::validateRequired('productCode', $this->productCode, true);
+        Model::validateRequired('userUniqueId', $this->userUniqueId, true);
+        Model::validateRequired('resultType', $this->resultType, true);
+        Model::validateRequired('callbackResult', $this->callbackResult, true);
+    }
+    public function toMap() {
+        $res = [];
+        if (null !== $this->authToken) {
+            $res['auth_token'] = $this->authToken;
+        }
+        if (null !== $this->productInstanceId) {
+            $res['product_instance_id'] = $this->productInstanceId;
+        }
+        if (null !== $this->platformCode) {
+            $res['platform_code'] = $this->platformCode;
+        }
+        if (null !== $this->productCode) {
+            $res['product_code'] = $this->productCode;
+        }
+        if (null !== $this->userUniqueId) {
+            $res['user_unique_id'] = $this->userUniqueId;
+        }
+        if (null !== $this->resultType) {
+            $res['result_type'] = $this->resultType;
+        }
+        if (null !== $this->callbackResult) {
+            $res['callback_result'] = $this->callbackResult;
+        }
+        return $res;
+    }
+    /**
+     * @param array $map
+     * @return ReceiveBenefithubRiskPayRequest
+     */
+    public static function fromMap($map = []) {
+        $model = new self();
+        if(isset($map['auth_token'])){
+            $model->authToken = $map['auth_token'];
+        }
+        if(isset($map['product_instance_id'])){
+            $model->productInstanceId = $map['product_instance_id'];
+        }
+        if(isset($map['platform_code'])){
+            $model->platformCode = $map['platform_code'];
+        }
+        if(isset($map['product_code'])){
+            $model->productCode = $map['product_code'];
+        }
+        if(isset($map['user_unique_id'])){
+            $model->userUniqueId = $map['user_unique_id'];
+        }
+        if(isset($map['result_type'])){
+            $model->resultType = $map['result_type'];
+        }
+        if(isset($map['callback_result'])){
+            $model->callbackResult = $map['callback_result'];
+        }
+        return $model;
+    }
     // OAuth模式下的授权token
     /**
      * @var string
@@ -52,83 +120,5 @@ class ReceiveBenefithubRiskPayRequest extends Model
      * @var string
      */
     public $callbackResult;
-    protected $_name = [
-        'authToken'         => 'auth_token',
-        'productInstanceId' => 'product_instance_id',
-        'platformCode'      => 'platform_code',
-        'productCode'       => 'product_code',
-        'userUniqueId'      => 'user_unique_id',
-        'resultType'        => 'result_type',
-        'callbackResult'    => 'callback_result',
-    ];
 
-    public function validate()
-    {
-        Model::validateRequired('platformCode', $this->platformCode, true);
-        Model::validateRequired('productCode', $this->productCode, true);
-        Model::validateRequired('userUniqueId', $this->userUniqueId, true);
-        Model::validateRequired('resultType', $this->resultType, true);
-        Model::validateRequired('callbackResult', $this->callbackResult, true);
-    }
-
-    public function toMap()
-    {
-        $res = [];
-        if (null !== $this->authToken) {
-            $res['auth_token'] = $this->authToken;
-        }
-        if (null !== $this->productInstanceId) {
-            $res['product_instance_id'] = $this->productInstanceId;
-        }
-        if (null !== $this->platformCode) {
-            $res['platform_code'] = $this->platformCode;
-        }
-        if (null !== $this->productCode) {
-            $res['product_code'] = $this->productCode;
-        }
-        if (null !== $this->userUniqueId) {
-            $res['user_unique_id'] = $this->userUniqueId;
-        }
-        if (null !== $this->resultType) {
-            $res['result_type'] = $this->resultType;
-        }
-        if (null !== $this->callbackResult) {
-            $res['callback_result'] = $this->callbackResult;
-        }
-
-        return $res;
-    }
-
-    /**
-     * @param array $map
-     *
-     * @return ReceiveBenefithubRiskPayRequest
-     */
-    public static function fromMap($map = [])
-    {
-        $model = new self();
-        if (isset($map['auth_token'])) {
-            $model->authToken = $map['auth_token'];
-        }
-        if (isset($map['product_instance_id'])) {
-            $model->productInstanceId = $map['product_instance_id'];
-        }
-        if (isset($map['platform_code'])) {
-            $model->platformCode = $map['platform_code'];
-        }
-        if (isset($map['product_code'])) {
-            $model->productCode = $map['product_code'];
-        }
-        if (isset($map['user_unique_id'])) {
-            $model->userUniqueId = $map['user_unique_id'];
-        }
-        if (isset($map['result_type'])) {
-            $model->resultType = $map['result_type'];
-        }
-        if (isset($map['callback_result'])) {
-            $model->callbackResult = $map['callback_result'];
-        }
-
-        return $model;
-    }
 }
