@@ -242,13 +242,13 @@ export class QueryGwdefaultChatstreamResponse extends $tea.Model {
   sessionId?: string;
   // 整体成功标志，默认 true
   success?: boolean;
-  // 固定 "chat_result"（由输出层注入，不在信封 dataclass 内）
+  // 固定chat_result
   type?: string;
   // 查询 ID；多为空串
   queryId?: string;
   // true=流式中间批次；false=收尾批次
   hasStream?: boolean;
-  // 正文流（TEXT/CARD/COT_*/CONTENT_*/HORSE_RIDE_*/CUSTOM_CARD_*/WITHDRAW/FORBIDDEN/TASK）
+  // 正文流
   chatList?: string;
   // 推荐问题（SUG），仅收尾批次非空
   sugList?: string;
@@ -515,7 +515,7 @@ export default class Client {
           req_msg_id: AntchainUtil.getNonce(),
           access_key: this._accessKeyId,
           base_sdk_version: "TeaSDK-2.0",
-          sdk_version: "1.0.1",
+          sdk_version: "1.0.2",
           _prod_code: "AIOSPRODUCT",
           _prod_channel: "default",
         };
