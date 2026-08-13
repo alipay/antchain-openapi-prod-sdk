@@ -142,7 +142,7 @@ class QueryGwdefaultChatstreamResponse extends Model {
      */
     public $success;
 
-    // 固定 "chat_result"（由输出层注入，不在信封 dataclass 内）
+    // 固定chat_result
     /**
      * @var string
      */
@@ -160,7 +160,7 @@ class QueryGwdefaultChatstreamResponse extends Model {
      */
     public $hasStream;
 
-    // 正文流（TEXT/CARD/COT_*/CONTENT_*/HORSE_RIDE_*/CUSTOM_CARD_*/WITHDRAW/FORBIDDEN/TASK）
+    // 正文流
     /**
      * @var string
      */
