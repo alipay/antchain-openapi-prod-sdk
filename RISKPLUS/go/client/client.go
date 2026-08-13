@@ -1290,6 +1290,67 @@ func (s *RpspInfoModel) SetRpspOutPutInfo(v string) *RpspInfoModel {
 	return s
 }
 
+// 客户历史交易信息
+type HisTranInfo struct {
+	// 维修单号
+	RepairNo *string `json:"repair_no,omitempty" xml:"repair_no,omitempty"`
+	// 购买日期
+	BuyDate *string `json:"buy_date,omitempty" xml:"buy_date,omitempty"`
+	// 商品型号
+	CommType *string `json:"comm_type,omitempty" xml:"comm_type,omitempty"`
+	// 商品金额
+	CommAmount *string `json:"comm_amount,omitempty" xml:"comm_amount,omitempty"`
+	// 维修时间
+	RepairTime *string `json:"repair_time,omitempty" xml:"repair_time,omitempty"`
+	// 是否联保
+	IsJoint *string `json:"is_joint,omitempty" xml:"is_joint,omitempty"`
+	// 合计费用(每笔历史交易的合计费用)
+	TotalCost *string `json:"total_cost,omitempty" xml:"total_cost,omitempty"`
+}
+
+func (s HisTranInfo) String() string {
+	return tea.Prettify(s)
+}
+
+func (s HisTranInfo) GoString() string {
+	return s.String()
+}
+
+func (s *HisTranInfo) SetRepairNo(v string) *HisTranInfo {
+	s.RepairNo = &v
+	return s
+}
+
+func (s *HisTranInfo) SetBuyDate(v string) *HisTranInfo {
+	s.BuyDate = &v
+	return s
+}
+
+func (s *HisTranInfo) SetCommType(v string) *HisTranInfo {
+	s.CommType = &v
+	return s
+}
+
+func (s *HisTranInfo) SetCommAmount(v string) *HisTranInfo {
+	s.CommAmount = &v
+	return s
+}
+
+func (s *HisTranInfo) SetRepairTime(v string) *HisTranInfo {
+	s.RepairTime = &v
+	return s
+}
+
+func (s *HisTranInfo) SetIsJoint(v string) *HisTranInfo {
+	s.IsJoint = &v
+	return s
+}
+
+func (s *HisTranInfo) SetTotalCost(v string) *HisTranInfo {
+	s.TotalCost = &v
+	return s
+}
+
 // 优惠券信息
 type CouponInfo struct {
 	// 优惠券Id
@@ -1810,6 +1871,48 @@ func (s *RuleDetail) SetName(v string) *RuleDetail {
 }
 
 func (s *RuleDetail) SetValue(v string) *RuleDetail {
+	s.Value = &v
+	return s
+}
+
+// Flow 成功后的产出列表。运行中或失败时为空。
+type FlowRunOutput struct {
+	// Flow 输出定义中的稳定字段标识。
+	// example:
+	//
+	// summary
+	OutputKey *string `json:"output_key,omitempty" xml:"output_key,omitempty" require:"true"`
+	// 输出类型，支持 STRING、NUMBER、BOOLEAN、JSON、FILE。
+	// example:
+	//
+	// STRING
+	OutputType *string `json:"output_type,omitempty" xml:"output_type,omitempty" require:"true"`
+	// 输出值。FILE 类型直接返回短期下载地址；JSON 类型返回 JSON 字符串；其他类型返回对应值的字符串形式。
+	// example:
+	//
+	// 风险较低
+	Value *string `json:"value,omitempty" xml:"value,omitempty" require:"true"`
+}
+
+func (s FlowRunOutput) String() string {
+	return tea.Prettify(s)
+}
+
+func (s FlowRunOutput) GoString() string {
+	return s.String()
+}
+
+func (s *FlowRunOutput) SetOutputKey(v string) *FlowRunOutput {
+	s.OutputKey = &v
+	return s
+}
+
+func (s *FlowRunOutput) SetOutputType(v string) *FlowRunOutput {
+	s.OutputType = &v
+	return s
+}
+
+func (s *FlowRunOutput) SetValue(v string) *FlowRunOutput {
 	s.Value = &v
 	return s
 }
@@ -3353,6 +3456,11 @@ type DecisionInfo struct {
 	//
 	// https://test-oss.oss-cn-shang
 	FileUrl *string `json:"file_url,omitempty" xml:"file_url,omitempty" require:"true"`
+	// 返回结果节点id
+	// example:
+	//
+	// 123
+	ReturnResultId *int64 `json:"return_result_id,omitempty" xml:"return_result_id,omitempty"`
 }
 
 func (s DecisionInfo) String() string {
@@ -3385,6 +3493,11 @@ func (s *DecisionInfo) SetDecisionNum(v int64) *DecisionInfo {
 
 func (s *DecisionInfo) SetFileUrl(v string) *DecisionInfo {
 	s.FileUrl = &v
+	return s
+}
+
+func (s *DecisionInfo) SetReturnResultId(v int64) *DecisionInfo {
+	s.ReturnResultId = &v
 	return s
 }
 
@@ -5343,6 +5456,116 @@ func (s *RpcommonResp) SetData(v string) *RpcommonResp {
 	return s
 }
 
+// 渠道扩展信息
+type PetCashierApplyExtInfo struct {
+	// 门店名称
+	StoreName *string `json:"store_name,omitempty" xml:"store_name,omitempty"`
+	// 门店id
+	StoreId *string `json:"store_id,omitempty" xml:"store_id,omitempty"`
+	// 门店社会统一信用代码
+	StoreSocialCode *string `json:"store_social_code,omitempty" xml:"store_social_code,omitempty"`
+	// 门店地址
+	StoreAddress *string `json:"store_address,omitempty" xml:"store_address,omitempty"`
+	// 门店地址省
+	StoreAddrProv *string `json:"store_addr_prov,omitempty" xml:"store_addr_prov,omitempty"`
+	// 门店地址市
+	StoreAddrCity *string `json:"store_addr_city,omitempty" xml:"store_addr_city,omitempty"`
+	// 门店地址区
+	StoreAddrDstc *string `json:"store_addr_dstc,omitempty" xml:"store_addr_dstc,omitempty"`
+	// 厂商社会信用代码
+	VendorSocialCode *string `json:"vendor_social_code,omitempty" xml:"vendor_social_code,omitempty" require:"true"`
+	// 厂商名称
+	VendorName *string `json:"vendor_name,omitempty" xml:"vendor_name,omitempty" require:"true"`
+	// 商品型号
+	CommModel *string `json:"comm_model,omitempty" xml:"comm_model,omitempty" require:"true"`
+	// 商品总价(包含定金)	String
+	TotalPrice *string `json:"total_price,omitempty" xml:"total_price,omitempty"`
+	// 已付定金
+	FirstPayAmount *string `json:"first_pay_amount,omitempty" xml:"first_pay_amount,omitempty"`
+	// 已付货款
+	OrderPaidAmount *string `json:"order_paid_amount,omitempty" xml:"order_paid_amount,omitempty"`
+	// 客户历史交易信息
+	HisTranInfo []*HisTranInfo `json:"his_tran_info,omitempty" xml:"his_tran_info,omitempty" type:"Repeated"`
+}
+
+func (s PetCashierApplyExtInfo) String() string {
+	return tea.Prettify(s)
+}
+
+func (s PetCashierApplyExtInfo) GoString() string {
+	return s.String()
+}
+
+func (s *PetCashierApplyExtInfo) SetStoreName(v string) *PetCashierApplyExtInfo {
+	s.StoreName = &v
+	return s
+}
+
+func (s *PetCashierApplyExtInfo) SetStoreId(v string) *PetCashierApplyExtInfo {
+	s.StoreId = &v
+	return s
+}
+
+func (s *PetCashierApplyExtInfo) SetStoreSocialCode(v string) *PetCashierApplyExtInfo {
+	s.StoreSocialCode = &v
+	return s
+}
+
+func (s *PetCashierApplyExtInfo) SetStoreAddress(v string) *PetCashierApplyExtInfo {
+	s.StoreAddress = &v
+	return s
+}
+
+func (s *PetCashierApplyExtInfo) SetStoreAddrProv(v string) *PetCashierApplyExtInfo {
+	s.StoreAddrProv = &v
+	return s
+}
+
+func (s *PetCashierApplyExtInfo) SetStoreAddrCity(v string) *PetCashierApplyExtInfo {
+	s.StoreAddrCity = &v
+	return s
+}
+
+func (s *PetCashierApplyExtInfo) SetStoreAddrDstc(v string) *PetCashierApplyExtInfo {
+	s.StoreAddrDstc = &v
+	return s
+}
+
+func (s *PetCashierApplyExtInfo) SetVendorSocialCode(v string) *PetCashierApplyExtInfo {
+	s.VendorSocialCode = &v
+	return s
+}
+
+func (s *PetCashierApplyExtInfo) SetVendorName(v string) *PetCashierApplyExtInfo {
+	s.VendorName = &v
+	return s
+}
+
+func (s *PetCashierApplyExtInfo) SetCommModel(v string) *PetCashierApplyExtInfo {
+	s.CommModel = &v
+	return s
+}
+
+func (s *PetCashierApplyExtInfo) SetTotalPrice(v string) *PetCashierApplyExtInfo {
+	s.TotalPrice = &v
+	return s
+}
+
+func (s *PetCashierApplyExtInfo) SetFirstPayAmount(v string) *PetCashierApplyExtInfo {
+	s.FirstPayAmount = &v
+	return s
+}
+
+func (s *PetCashierApplyExtInfo) SetOrderPaidAmount(v string) *PetCashierApplyExtInfo {
+	s.OrderPaidAmount = &v
+	return s
+}
+
+func (s *PetCashierApplyExtInfo) SetHisTranInfo(v []*HisTranInfo) *PetCashierApplyExtInfo {
+	s.HisTranInfo = v
+	return s
+}
+
 // 申请人信息
 type ApplicantPersonInfo struct {
 	// 申请人姓名
@@ -5657,6 +5880,38 @@ func (s *ApplyInfo) SetTotalAmount(v int64) *ApplyInfo {
 
 func (s *ApplyInfo) SetBalanceAmount(v int64) *ApplyInfo {
 	s.BalanceAmount = &v
+	return s
+}
+
+// 退款订单信息
+type RefoundGoodOrderInfo struct {
+	// 商城订单号
+	// example:
+	//
+	// 2023343380112
+	GoodsOrderNo *string `json:"goods_order_no,omitempty" xml:"goods_order_no,omitempty" require:"true"`
+	// 退款金额
+	// example:
+	//
+	// 1000.00
+	Amount *string `json:"amount,omitempty" xml:"amount,omitempty" require:"true"`
+}
+
+func (s RefoundGoodOrderInfo) String() string {
+	return tea.Prettify(s)
+}
+
+func (s RefoundGoodOrderInfo) GoString() string {
+	return s.String()
+}
+
+func (s *RefoundGoodOrderInfo) SetGoodsOrderNo(v string) *RefoundGoodOrderInfo {
+	s.GoodsOrderNo = &v
+	return s
+}
+
+func (s *RefoundGoodOrderInfo) SetAmount(v string) *RefoundGoodOrderInfo {
+	s.Amount = &v
 	return s
 }
 
@@ -9231,6 +9486,69 @@ func (s *StoreInfo) SetBindingAlipayLogonId(v string) *StoreInfo {
 	return s
 }
 
+// 批量回溯结果内容
+type ResultItem struct {
+	// dataId
+	// example:
+	//
+	// 46052e46721417297df682ef88a8ab91
+	DataId *string `json:"data_id,omitempty" xml:"data_id,omitempty" require:"true"`
+	// 分值
+	// example:
+	//
+	// 0.32223
+	Score *string `json:"score,omitempty" xml:"score,omitempty" require:"true"`
+	// 特征值
+	// example:
+	//
+	// {"feature1":0.223,"feature2":0.33,"feature3":0.323}
+	FeatureJson *string `json:"feature_json,omitempty" xml:"feature_json,omitempty"`
+	// 单调样本数据处理结果
+	// 初始化/处理中/成功/失败
+	// example:
+	//
+	// INIT/PROCESS/SUCCESS/FAIL
+	Status *string `json:"status,omitempty" xml:"status,omitempty"`
+	// 各个子分
+	// example:
+	//
+	// {"score1":0.22233,"score2":0.34234,"score3":0.34343}
+	ScoreJson *string `json:"score_json,omitempty" xml:"score_json,omitempty" require:"true"`
+}
+
+func (s ResultItem) String() string {
+	return tea.Prettify(s)
+}
+
+func (s ResultItem) GoString() string {
+	return s.String()
+}
+
+func (s *ResultItem) SetDataId(v string) *ResultItem {
+	s.DataId = &v
+	return s
+}
+
+func (s *ResultItem) SetScore(v string) *ResultItem {
+	s.Score = &v
+	return s
+}
+
+func (s *ResultItem) SetFeatureJson(v string) *ResultItem {
+	s.FeatureJson = &v
+	return s
+}
+
+func (s *ResultItem) SetStatus(v string) *ResultItem {
+	s.Status = &v
+	return s
+}
+
+func (s *ResultItem) SetScoreJson(v string) *ResultItem {
+	s.ScoreJson = &v
+	return s
+}
+
 // 批量决策单主体查询结果
 type BatchQueryResult struct {
 	// 查询主体
@@ -9892,6 +10210,38 @@ func (s *Contract) SetDisburseContractNo(v string) *Contract {
 
 func (s *Contract) SetCreditContractNo(v string) *Contract {
 	s.CreditContractNo = &v
+	return s
+}
+
+// 批量请求响应的结构体
+type ResItem struct {
+	// 客户侧样本唯一id用于映射
+	// example:
+	//
+	// 077e5fc68135bd8e8223a094029d4cee
+	SampleId *string `json:"sample_id,omitempty" xml:"sample_id,omitempty" require:"true"`
+	// 蚂蚁侧对应样本唯一id，与客户侧形成映射关系，查询时需要携带该id
+	// example:
+	//
+	// 46052e46721417297df682ef88a8ab91
+	DataId *string `json:"data_id,omitempty" xml:"data_id,omitempty" require:"true"`
+}
+
+func (s ResItem) String() string {
+	return tea.Prettify(s)
+}
+
+func (s ResItem) GoString() string {
+	return s.String()
+}
+
+func (s *ResItem) SetSampleId(v string) *ResItem {
+	s.SampleId = &v
+	return s
+}
+
+func (s *ResItem) SetDataId(v string) *ResItem {
+	s.DataId = &v
 	return s
 }
 
@@ -11922,6 +12272,58 @@ func (s *OfflineDecisionPlanDetail) SetDecisionResultStatus(v string) *OfflineDe
 	return s
 }
 
+// 批量样本三要素
+type Item struct {
+	// 样本唯一id
+	// example:
+	//
+	// 7ef15c83-57b4-4932-9180-35b11b102075
+	SampleId *string `json:"sample_id,omitempty" xml:"sample_id,omitempty" require:"true"`
+	// 小写加密身份证（身份证如果有X，要大写再生成MD5）
+	// example:
+	//
+	// 51db170b113f8c57533ae28605f2b76b
+	CertNo *string `json:"cert_no,omitempty" xml:"cert_no,omitempty" require:"true"`
+	// 手机号加密
+	// example:
+	//
+	// 077e5fc68135bd8e8223a094029d4cee
+	Mobile *string `json:"mobile,omitempty" xml:"mobile,omitempty" require:"true"`
+	// 回溯日期（yyyyMMdd格式）
+	// example:
+	//
+	// 20260620
+	SampleBackDate *string `json:"sample_back_date,omitempty" xml:"sample_back_date,omitempty"`
+}
+
+func (s Item) String() string {
+	return tea.Prettify(s)
+}
+
+func (s Item) GoString() string {
+	return s.String()
+}
+
+func (s *Item) SetSampleId(v string) *Item {
+	s.SampleId = &v
+	return s
+}
+
+func (s *Item) SetCertNo(v string) *Item {
+	s.CertNo = &v
+	return s
+}
+
+func (s *Item) SetMobile(v string) *Item {
+	s.Mobile = &v
+	return s
+}
+
+func (s *Item) SetSampleBackDate(v string) *Item {
+	s.SampleBackDate = &v
+	return s
+}
+
 // 用户分层信息
 type UserClassifyInfo struct {
 	// 版本号
@@ -12550,6 +12952,195 @@ func (s *XNameValuePair) SetName(v string) *XNameValuePair {
 
 func (s *XNameValuePair) SetValue(v string) *XNameValuePair {
 	s.Value = &v
+	return s
+}
+
+type ExecFlowRunRequest struct {
+	// OAuth模式下的授权token
+	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
+	// 需要执行的任务唯一 code
+	FlowCode *string `json:"flow_code,omitempty" xml:"flow_code,omitempty" require:"true"`
+	// 调用方生成的业务订单号，用于请求幂等。同一云租户内必须唯一；请求重试时须使用相同订单号。可使用调用方已有业务单号或 UUID。大小写敏感，建议统一使用大写。
+	ClientOrderNo *string `json:"client_order_no,omitempty" xml:"client_order_no,omitempty" require:"true"`
+	// Flow 执行入参，使用 JSON 字符串传递，顶层必须为 JSON Object。具体字段、类型和必填要求由已发布 Flow 的输入定义决定。无入参的 Flow 可不传或传 {}，未传时服务端按 {} 处理；如果 Flow 定义了必填字段但实际未提供，将返回参数校验错误。
+	InputJson *string `json:"input_json,omitempty" xml:"input_json,omitempty"`
+}
+
+func (s ExecFlowRunRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s ExecFlowRunRequest) GoString() string {
+	return s.String()
+}
+
+func (s *ExecFlowRunRequest) SetAuthToken(v string) *ExecFlowRunRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *ExecFlowRunRequest) SetProductInstanceId(v string) *ExecFlowRunRequest {
+	s.ProductInstanceId = &v
+	return s
+}
+
+func (s *ExecFlowRunRequest) SetFlowCode(v string) *ExecFlowRunRequest {
+	s.FlowCode = &v
+	return s
+}
+
+func (s *ExecFlowRunRequest) SetClientOrderNo(v string) *ExecFlowRunRequest {
+	s.ClientOrderNo = &v
+	return s
+}
+
+func (s *ExecFlowRunRequest) SetInputJson(v string) *ExecFlowRunRequest {
+	s.InputJson = &v
+	return s
+}
+
+type ExecFlowRunResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// 生成的 Flow 执行单号，用于后续内部执行和问题排查。
+	RunNo *string `json:"run_no,omitempty" xml:"run_no,omitempty"`
+	// 本次执行对应的已发布 Flow 编码。
+	FlowCode *string `json:"flow_code,omitempty" xml:"flow_code,omitempty"`
+	// 创建完成后的执行状态，固定返回 RUNNING。
+	Status *string `json:"status,omitempty" xml:"status,omitempty"`
+}
+
+func (s ExecFlowRunResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s ExecFlowRunResponse) GoString() string {
+	return s.String()
+}
+
+func (s *ExecFlowRunResponse) SetReqMsgId(v string) *ExecFlowRunResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *ExecFlowRunResponse) SetResultCode(v string) *ExecFlowRunResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *ExecFlowRunResponse) SetResultMsg(v string) *ExecFlowRunResponse {
+	s.ResultMsg = &v
+	return s
+}
+
+func (s *ExecFlowRunResponse) SetRunNo(v string) *ExecFlowRunResponse {
+	s.RunNo = &v
+	return s
+}
+
+func (s *ExecFlowRunResponse) SetFlowCode(v string) *ExecFlowRunResponse {
+	s.FlowCode = &v
+	return s
+}
+
+func (s *ExecFlowRunResponse) SetStatus(v string) *ExecFlowRunResponse {
+	s.Status = &v
+	return s
+}
+
+type QueryFlowRunRequest struct {
+	// OAuth模式下的授权token
+	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
+	// 创建 Flow Run 时传入的业务订单号，必须唯一，用于定位本次执行。
+	ClientOrderNo *string `json:"client_order_no,omitempty" xml:"client_order_no,omitempty" require:"true"`
+}
+
+func (s QueryFlowRunRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s QueryFlowRunRequest) GoString() string {
+	return s.String()
+}
+
+func (s *QueryFlowRunRequest) SetAuthToken(v string) *QueryFlowRunRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *QueryFlowRunRequest) SetProductInstanceId(v string) *QueryFlowRunRequest {
+	s.ProductInstanceId = &v
+	return s
+}
+
+func (s *QueryFlowRunRequest) SetClientOrderNo(v string) *QueryFlowRunRequest {
+	s.ClientOrderNo = &v
+	return s
+}
+
+type QueryFlowRunResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// 内部 flow 执行单号，Flow 执行单号，问题定位时使用。
+	RunNo *string `json:"run_no,omitempty" xml:"run_no,omitempty"`
+	// 本次执行对应的 Flow code。
+	FlowCode *string `json:"flow_code,omitempty" xml:"flow_code,omitempty"`
+	// Flow 状态，仅支持 RUNNING、SUCCESS、FAILED。
+	Status *string `json:"status,omitempty" xml:"status,omitempty"`
+	// Flow 执行产出列表，每个元素为 FlowRunOutput 结构。仅当 status=SUCCESS 时返回产出内容；可包含文本、数字、布尔值、JSON 和文件。FILE 类型的 value 为短期有效的 HTTPS 下载地址。存在多个产出或多个文件时返回多个列表元素；RUNNING 或 FAILED 状态下返回空列表。
+	Outputs []*FlowRunOutput `json:"outputs,omitempty" xml:"outputs,omitempty" type:"Repeated"`
+}
+
+func (s QueryFlowRunResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s QueryFlowRunResponse) GoString() string {
+	return s.String()
+}
+
+func (s *QueryFlowRunResponse) SetReqMsgId(v string) *QueryFlowRunResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *QueryFlowRunResponse) SetResultCode(v string) *QueryFlowRunResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *QueryFlowRunResponse) SetResultMsg(v string) *QueryFlowRunResponse {
+	s.ResultMsg = &v
+	return s
+}
+
+func (s *QueryFlowRunResponse) SetRunNo(v string) *QueryFlowRunResponse {
+	s.RunNo = &v
+	return s
+}
+
+func (s *QueryFlowRunResponse) SetFlowCode(v string) *QueryFlowRunResponse {
+	s.FlowCode = &v
+	return s
+}
+
+func (s *QueryFlowRunResponse) SetStatus(v string) *QueryFlowRunResponse {
+	s.Status = &v
+	return s
+}
+
+func (s *QueryFlowRunResponse) SetOutputs(v []*FlowRunOutput) *QueryFlowRunResponse {
+	s.Outputs = v
 	return s
 }
 
@@ -22437,7 +23028,7 @@ type UploadDubbridgeAlipayImageRequest struct {
 	// request请求单号，每次请求唯一，如uuid
 	OrderNo *string `json:"order_no,omitempty" xml:"order_no,omitempty" require:"true"`
 	// 门店Id
-	StoreId *string `json:"store_id,omitempty" xml:"store_id,omitempty" require:"true"`
+	StoreId *string `json:"store_id,omitempty" xml:"store_id,omitempty"`
 	// 门店所属子品牌，
 	// TBJHF: 赛鸽出行-
 	// AIJNBJ: 智迈电动车
@@ -22458,6 +23049,10 @@ type UploadDubbridgeAlipayImageRequest struct {
 	// 图片格式，
 	// 支持格式：bmp、jpg、jpeg、png、gif
 	ImageType *string `json:"image_type,omitempty" xml:"image_type,omitempty" require:"true"`
+	// 入驻类型: 001-支付宝入驻、004-数科入驻
+	EnterType *string `json:"enter_type,omitempty" xml:"enter_type,omitempty" require:"true"`
+	// 统一社会信用代码
+	Usci *string `json:"usci,omitempty" xml:"usci,omitempty" require:"true"`
 }
 
 func (s UploadDubbridgeAlipayImageRequest) String() string {
@@ -22510,6 +23105,16 @@ func (s *UploadDubbridgeAlipayImageRequest) SetImagePath(v string) *UploadDubbri
 
 func (s *UploadDubbridgeAlipayImageRequest) SetImageType(v string) *UploadDubbridgeAlipayImageRequest {
 	s.ImageType = &v
+	return s
+}
+
+func (s *UploadDubbridgeAlipayImageRequest) SetEnterType(v string) *UploadDubbridgeAlipayImageRequest {
+	s.EnterType = &v
+	return s
+}
+
+func (s *UploadDubbridgeAlipayImageRequest) SetUsci(v string) *UploadDubbridgeAlipayImageRequest {
+	s.Usci = &v
 	return s
 }
 
@@ -26810,12 +27415,12 @@ type RefuseDubbridgePetitemRequest struct {
 	StoreId *string `json:"store_id,omitempty" xml:"store_id,omitempty" require:"true"`
 	// 分期订单号
 	BizOrderNo *string `json:"biz_order_no,omitempty" xml:"biz_order_no,omitempty" require:"true"`
-	// 退款金额
-	RefundAmount *string `json:"refund_amount,omitempty" xml:"refund_amount,omitempty" require:"true"`
 	// 渠道号
 	ChannelCode *string `json:"channel_code,omitempty" xml:"channel_code,omitempty" require:"true"`
 	// 请求流水号(通过此流水号幂等判断是否是同一个请求)
 	RequestNo *string `json:"request_no,omitempty" xml:"request_no,omitempty" require:"true"`
+	// 退款订单信息 列表
+	GoodsOrderInfo []*GoodsOrderInfo `json:"goods_order_info,omitempty" xml:"goods_order_info,omitempty" require:"true" type:"Repeated"`
 }
 
 func (s RefuseDubbridgePetitemRequest) String() string {
@@ -26856,11 +27461,6 @@ func (s *RefuseDubbridgePetitemRequest) SetBizOrderNo(v string) *RefuseDubbridge
 	return s
 }
 
-func (s *RefuseDubbridgePetitemRequest) SetRefundAmount(v string) *RefuseDubbridgePetitemRequest {
-	s.RefundAmount = &v
-	return s
-}
-
 func (s *RefuseDubbridgePetitemRequest) SetChannelCode(v string) *RefuseDubbridgePetitemRequest {
 	s.ChannelCode = &v
 	return s
@@ -26868,6 +27468,11 @@ func (s *RefuseDubbridgePetitemRequest) SetChannelCode(v string) *RefuseDubbridg
 
 func (s *RefuseDubbridgePetitemRequest) SetRequestNo(v string) *RefuseDubbridgePetitemRequest {
 	s.RequestNo = &v
+	return s
+}
+
+func (s *RefuseDubbridgePetitemRequest) SetGoodsOrderInfo(v []*GoodsOrderInfo) *RefuseDubbridgePetitemRequest {
+	s.GoodsOrderInfo = v
 	return s
 }
 
@@ -27014,6 +27619,370 @@ func (s *PushDubbridgeContractsignResponse) SetResultMsg(v string) *PushDubbridg
 
 func (s *PushDubbridgeContractsignResponse) SetPushResult(v string) *PushDubbridgeContractsignResponse {
 	s.PushResult = &v
+	return s
+}
+
+type ApplyDubbridgePetcashierRequest struct {
+	// OAuth模式下的授权token
+	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
+	// 渠道编码
+	ChannelCode *string `json:"channel_code,omitempty" xml:"channel_code,omitempty" require:"true"`
+	// 流量平台
+	TrafficPlatform *string `json:"traffic_platform,omitempty" xml:"traffic_platform,omitempty" require:"true"`
+	// 门店id
+	StoreId *string `json:"store_id,omitempty" xml:"store_id,omitempty" require:"true"`
+	// 原始订单号
+	BizOrderNo *string `json:"biz_order_no,omitempty" xml:"biz_order_no,omitempty" require:"true"`
+	// 商家社信码
+	CertNo *string `json:"cert_no,omitempty" xml:"cert_no,omitempty" require:"true"`
+	// 收银台模板渠道社信码
+	TemplateSceneCertNo *string `json:"template_scene_cert_no,omitempty" xml:"template_scene_cert_no,omitempty"`
+	// 交易金额
+	Amount *string `json:"amount,omitempty" xml:"amount,omitempty" require:"true"`
+	// 订单标题
+	Subject *string `json:"subject,omitempty" xml:"subject,omitempty" require:"true"`
+	// 商品SKU
+	Sku *string `json:"sku,omitempty" xml:"sku,omitempty"`
+	// 买家Id
+	BuyerId *string `json:"buyer_id,omitempty" xml:"buyer_id,omitempty"`
+	// 时间戳
+	Timestamp *string `json:"timestamp,omitempty" xml:"timestamp,omitempty" require:"true"`
+	// 2026-07-20 00:16:35
+	ExpireTime *string `json:"expire_time,omitempty" xml:"expire_time,omitempty"`
+	// 支付机构编码
+	PayInstitutionCode *string `json:"pay_institution_code,omitempty" xml:"pay_institution_code,omitempty"`
+	// 交易场景
+	PayScene *string `json:"pay_scene,omitempty" xml:"pay_scene,omitempty" require:"true"`
+	// 支付后返回地址
+	ReturnUrl *string `json:"return_url,omitempty" xml:"return_url,omitempty"`
+	// 是否开启分账
+	EnableTransfer *string `json:"enable_transfer,omitempty" xml:"enable_transfer,omitempty"`
+	// 渠道扩展信息
+	ExtInfo *PetCashierApplyExtInfo `json:"ext_info,omitempty" xml:"ext_info,omitempty"`
+}
+
+func (s ApplyDubbridgePetcashierRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s ApplyDubbridgePetcashierRequest) GoString() string {
+	return s.String()
+}
+
+func (s *ApplyDubbridgePetcashierRequest) SetAuthToken(v string) *ApplyDubbridgePetcashierRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *ApplyDubbridgePetcashierRequest) SetProductInstanceId(v string) *ApplyDubbridgePetcashierRequest {
+	s.ProductInstanceId = &v
+	return s
+}
+
+func (s *ApplyDubbridgePetcashierRequest) SetChannelCode(v string) *ApplyDubbridgePetcashierRequest {
+	s.ChannelCode = &v
+	return s
+}
+
+func (s *ApplyDubbridgePetcashierRequest) SetTrafficPlatform(v string) *ApplyDubbridgePetcashierRequest {
+	s.TrafficPlatform = &v
+	return s
+}
+
+func (s *ApplyDubbridgePetcashierRequest) SetStoreId(v string) *ApplyDubbridgePetcashierRequest {
+	s.StoreId = &v
+	return s
+}
+
+func (s *ApplyDubbridgePetcashierRequest) SetBizOrderNo(v string) *ApplyDubbridgePetcashierRequest {
+	s.BizOrderNo = &v
+	return s
+}
+
+func (s *ApplyDubbridgePetcashierRequest) SetCertNo(v string) *ApplyDubbridgePetcashierRequest {
+	s.CertNo = &v
+	return s
+}
+
+func (s *ApplyDubbridgePetcashierRequest) SetTemplateSceneCertNo(v string) *ApplyDubbridgePetcashierRequest {
+	s.TemplateSceneCertNo = &v
+	return s
+}
+
+func (s *ApplyDubbridgePetcashierRequest) SetAmount(v string) *ApplyDubbridgePetcashierRequest {
+	s.Amount = &v
+	return s
+}
+
+func (s *ApplyDubbridgePetcashierRequest) SetSubject(v string) *ApplyDubbridgePetcashierRequest {
+	s.Subject = &v
+	return s
+}
+
+func (s *ApplyDubbridgePetcashierRequest) SetSku(v string) *ApplyDubbridgePetcashierRequest {
+	s.Sku = &v
+	return s
+}
+
+func (s *ApplyDubbridgePetcashierRequest) SetBuyerId(v string) *ApplyDubbridgePetcashierRequest {
+	s.BuyerId = &v
+	return s
+}
+
+func (s *ApplyDubbridgePetcashierRequest) SetTimestamp(v string) *ApplyDubbridgePetcashierRequest {
+	s.Timestamp = &v
+	return s
+}
+
+func (s *ApplyDubbridgePetcashierRequest) SetExpireTime(v string) *ApplyDubbridgePetcashierRequest {
+	s.ExpireTime = &v
+	return s
+}
+
+func (s *ApplyDubbridgePetcashierRequest) SetPayInstitutionCode(v string) *ApplyDubbridgePetcashierRequest {
+	s.PayInstitutionCode = &v
+	return s
+}
+
+func (s *ApplyDubbridgePetcashierRequest) SetPayScene(v string) *ApplyDubbridgePetcashierRequest {
+	s.PayScene = &v
+	return s
+}
+
+func (s *ApplyDubbridgePetcashierRequest) SetReturnUrl(v string) *ApplyDubbridgePetcashierRequest {
+	s.ReturnUrl = &v
+	return s
+}
+
+func (s *ApplyDubbridgePetcashierRequest) SetEnableTransfer(v string) *ApplyDubbridgePetcashierRequest {
+	s.EnableTransfer = &v
+	return s
+}
+
+func (s *ApplyDubbridgePetcashierRequest) SetExtInfo(v *PetCashierApplyExtInfo) *ApplyDubbridgePetcashierRequest {
+	s.ExtInfo = v
+	return s
+}
+
+type ApplyDubbridgePetcashierResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// 跳转url（短链）/小程序场景为支付宝侧单号
+	PageRedirectionData *string `json:"page_redirection_data,omitempty" xml:"page_redirection_data,omitempty"`
+	// 原始跳转url
+	OriginUrl *string `json:"origin_url,omitempty" xml:"origin_url,omitempty"`
+	// 交易单号
+	TradeNo *string `json:"trade_no,omitempty" xml:"trade_no,omitempty"`
+}
+
+func (s ApplyDubbridgePetcashierResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s ApplyDubbridgePetcashierResponse) GoString() string {
+	return s.String()
+}
+
+func (s *ApplyDubbridgePetcashierResponse) SetReqMsgId(v string) *ApplyDubbridgePetcashierResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *ApplyDubbridgePetcashierResponse) SetResultCode(v string) *ApplyDubbridgePetcashierResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *ApplyDubbridgePetcashierResponse) SetResultMsg(v string) *ApplyDubbridgePetcashierResponse {
+	s.ResultMsg = &v
+	return s
+}
+
+func (s *ApplyDubbridgePetcashierResponse) SetPageRedirectionData(v string) *ApplyDubbridgePetcashierResponse {
+	s.PageRedirectionData = &v
+	return s
+}
+
+func (s *ApplyDubbridgePetcashierResponse) SetOriginUrl(v string) *ApplyDubbridgePetcashierResponse {
+	s.OriginUrl = &v
+	return s
+}
+
+func (s *ApplyDubbridgePetcashierResponse) SetTradeNo(v string) *ApplyDubbridgePetcashierResponse {
+	s.TradeNo = &v
+	return s
+}
+
+type QueryDubbridgePetorderRequest struct {
+	// OAuth模式下的授权token
+	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
+	// 渠道编码
+	ChannelCode *string `json:"channel_code,omitempty" xml:"channel_code,omitempty" require:"true"`
+	// 流量平台
+	TrafficPlatform *string `json:"traffic_platform,omitempty" xml:"traffic_platform,omitempty" require:"true"`
+	// 门店id
+	StoreId *string `json:"store_id,omitempty" xml:"store_id,omitempty" require:"true"`
+	// 原始订单号
+	BizOrderNo *string `json:"biz_order_no,omitempty" xml:"biz_order_no,omitempty" require:"true"`
+	// 交易单号
+	TradeNo *string `json:"trade_no,omitempty" xml:"trade_no,omitempty" require:"true"`
+	// 商家社信码
+	CertNo *string `json:"cert_no,omitempty" xml:"cert_no,omitempty" require:"true"`
+}
+
+func (s QueryDubbridgePetorderRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s QueryDubbridgePetorderRequest) GoString() string {
+	return s.String()
+}
+
+func (s *QueryDubbridgePetorderRequest) SetAuthToken(v string) *QueryDubbridgePetorderRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *QueryDubbridgePetorderRequest) SetProductInstanceId(v string) *QueryDubbridgePetorderRequest {
+	s.ProductInstanceId = &v
+	return s
+}
+
+func (s *QueryDubbridgePetorderRequest) SetChannelCode(v string) *QueryDubbridgePetorderRequest {
+	s.ChannelCode = &v
+	return s
+}
+
+func (s *QueryDubbridgePetorderRequest) SetTrafficPlatform(v string) *QueryDubbridgePetorderRequest {
+	s.TrafficPlatform = &v
+	return s
+}
+
+func (s *QueryDubbridgePetorderRequest) SetStoreId(v string) *QueryDubbridgePetorderRequest {
+	s.StoreId = &v
+	return s
+}
+
+func (s *QueryDubbridgePetorderRequest) SetBizOrderNo(v string) *QueryDubbridgePetorderRequest {
+	s.BizOrderNo = &v
+	return s
+}
+
+func (s *QueryDubbridgePetorderRequest) SetTradeNo(v string) *QueryDubbridgePetorderRequest {
+	s.TradeNo = &v
+	return s
+}
+
+func (s *QueryDubbridgePetorderRequest) SetCertNo(v string) *QueryDubbridgePetorderRequest {
+	s.CertNo = &v
+	return s
+}
+
+type QueryDubbridgePetorderResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// 内部交易单号	String
+	TradeNoInner *string `json:"trade_no_inner,omitempty" xml:"trade_no_inner,omitempty"`
+	// 支付宝订单号	String
+	OutTradeNo *string `json:"out_trade_no,omitempty" xml:"out_trade_no,omitempty"`
+	// 交易状态
+	Status *string `json:"status,omitempty" xml:"status,omitempty"`
+	// 交易的订单金额	String
+	Amount *string `json:"amount,omitempty" xml:"amount,omitempty"`
+	// 买家在支付宝的用户id
+	BuyerUserId *string `json:"buyer_user_id,omitempty" xml:"buyer_user_id,omitempty"`
+	// 本次交易打款给卖家的时间
+	SendPayDate *string `json:"send_pay_date,omitempty" xml:"send_pay_date,omitempty"`
+	// 实收金额
+	ReceiptAmount *string `json:"receipt_amount,omitempty" xml:"receipt_amount,omitempty"`
+	// 支付渠道编码
+	PaymentChannelCode *string `json:"payment_channel_code,omitempty" xml:"payment_channel_code,omitempty"`
+	// 支付机构编码	String
+	PayInstitutionCode *string `json:"pay_institution_code,omitempty" xml:"pay_institution_code,omitempty"`
+	// 分期期数
+	InstallNum *string `json:"install_num,omitempty" xml:"install_num,omitempty"`
+}
+
+func (s QueryDubbridgePetorderResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s QueryDubbridgePetorderResponse) GoString() string {
+	return s.String()
+}
+
+func (s *QueryDubbridgePetorderResponse) SetReqMsgId(v string) *QueryDubbridgePetorderResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *QueryDubbridgePetorderResponse) SetResultCode(v string) *QueryDubbridgePetorderResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *QueryDubbridgePetorderResponse) SetResultMsg(v string) *QueryDubbridgePetorderResponse {
+	s.ResultMsg = &v
+	return s
+}
+
+func (s *QueryDubbridgePetorderResponse) SetTradeNoInner(v string) *QueryDubbridgePetorderResponse {
+	s.TradeNoInner = &v
+	return s
+}
+
+func (s *QueryDubbridgePetorderResponse) SetOutTradeNo(v string) *QueryDubbridgePetorderResponse {
+	s.OutTradeNo = &v
+	return s
+}
+
+func (s *QueryDubbridgePetorderResponse) SetStatus(v string) *QueryDubbridgePetorderResponse {
+	s.Status = &v
+	return s
+}
+
+func (s *QueryDubbridgePetorderResponse) SetAmount(v string) *QueryDubbridgePetorderResponse {
+	s.Amount = &v
+	return s
+}
+
+func (s *QueryDubbridgePetorderResponse) SetBuyerUserId(v string) *QueryDubbridgePetorderResponse {
+	s.BuyerUserId = &v
+	return s
+}
+
+func (s *QueryDubbridgePetorderResponse) SetSendPayDate(v string) *QueryDubbridgePetorderResponse {
+	s.SendPayDate = &v
+	return s
+}
+
+func (s *QueryDubbridgePetorderResponse) SetReceiptAmount(v string) *QueryDubbridgePetorderResponse {
+	s.ReceiptAmount = &v
+	return s
+}
+
+func (s *QueryDubbridgePetorderResponse) SetPaymentChannelCode(v string) *QueryDubbridgePetorderResponse {
+	s.PaymentChannelCode = &v
+	return s
+}
+
+func (s *QueryDubbridgePetorderResponse) SetPayInstitutionCode(v string) *QueryDubbridgePetorderResponse {
+	s.PayInstitutionCode = &v
+	return s
+}
+
+func (s *QueryDubbridgePetorderResponse) SetInstallNum(v string) *QueryDubbridgePetorderResponse {
+	s.InstallNum = &v
 	return s
 }
 
@@ -27708,6 +28677,111 @@ func (s *CallbackMdipYunfengdieParamsResponse) SetResultCode(v string) *Callback
 }
 
 func (s *CallbackMdipYunfengdieParamsResponse) SetResultMsg(v string) *CallbackMdipYunfengdieParamsResponse {
+	s.ResultMsg = &v
+	return s
+}
+
+type CallbackMdipFileRequest struct {
+	// OAuth模式下的授权token
+	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
+	// string
+	// 待上传文件
+	FileObject io.Reader `json:"fileObject,omitempty" xml:"fileObject,omitempty"`
+	// 待上传文件名
+	FileObjectName *string `json:"fileObjectName,omitempty" xml:"fileObjectName,omitempty"`
+	FileId         *string `json:"file_id,omitempty" xml:"file_id,omitempty" require:"true"`
+	// 数据服务code
+	ServiceCode *string `json:"service_code,omitempty" xml:"service_code,omitempty" require:"true"`
+	// 业务调用方
+	Caller *string `json:"caller,omitempty" xml:"caller,omitempty" require:"true"`
+	// 扩展字段
+	Extend *string `json:"extend,omitempty" xml:"extend,omitempty"`
+	// 任务ID
+	TaskId *string `json:"task_id,omitempty" xml:"task_id,omitempty" require:"true"`
+}
+
+func (s CallbackMdipFileRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s CallbackMdipFileRequest) GoString() string {
+	return s.String()
+}
+
+func (s *CallbackMdipFileRequest) SetAuthToken(v string) *CallbackMdipFileRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *CallbackMdipFileRequest) SetProductInstanceId(v string) *CallbackMdipFileRequest {
+	s.ProductInstanceId = &v
+	return s
+}
+
+func (s *CallbackMdipFileRequest) SetFileObject(v io.Reader) *CallbackMdipFileRequest {
+	s.FileObject = v
+	return s
+}
+
+func (s *CallbackMdipFileRequest) SetFileObjectName(v string) *CallbackMdipFileRequest {
+	s.FileObjectName = &v
+	return s
+}
+
+func (s *CallbackMdipFileRequest) SetFileId(v string) *CallbackMdipFileRequest {
+	s.FileId = &v
+	return s
+}
+
+func (s *CallbackMdipFileRequest) SetServiceCode(v string) *CallbackMdipFileRequest {
+	s.ServiceCode = &v
+	return s
+}
+
+func (s *CallbackMdipFileRequest) SetCaller(v string) *CallbackMdipFileRequest {
+	s.Caller = &v
+	return s
+}
+
+func (s *CallbackMdipFileRequest) SetExtend(v string) *CallbackMdipFileRequest {
+	s.Extend = &v
+	return s
+}
+
+func (s *CallbackMdipFileRequest) SetTaskId(v string) *CallbackMdipFileRequest {
+	s.TaskId = &v
+	return s
+}
+
+type CallbackMdipFileResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+}
+
+func (s CallbackMdipFileResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s CallbackMdipFileResponse) GoString() string {
+	return s.String()
+}
+
+func (s *CallbackMdipFileResponse) SetReqMsgId(v string) *CallbackMdipFileResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *CallbackMdipFileResponse) SetResultCode(v string) *CallbackMdipFileResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *CallbackMdipFileResponse) SetResultMsg(v string) *CallbackMdipFileResponse {
 	s.ResultMsg = &v
 	return s
 }
@@ -38492,6 +39566,265 @@ func (s *QuerySnapshotEventResponse) SetResultMsg(v string) *QuerySnapshotEventR
 	return s
 }
 
+type PushTdiaiworkshopcloudTestRequest struct {
+	// OAuth模式下的授权token
+	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
+}
+
+func (s PushTdiaiworkshopcloudTestRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s PushTdiaiworkshopcloudTestRequest) GoString() string {
+	return s.String()
+}
+
+func (s *PushTdiaiworkshopcloudTestRequest) SetAuthToken(v string) *PushTdiaiworkshopcloudTestRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *PushTdiaiworkshopcloudTestRequest) SetProductInstanceId(v string) *PushTdiaiworkshopcloudTestRequest {
+	s.ProductInstanceId = &v
+	return s
+}
+
+type PushTdiaiworkshopcloudTestResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+}
+
+func (s PushTdiaiworkshopcloudTestResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s PushTdiaiworkshopcloudTestResponse) GoString() string {
+	return s.String()
+}
+
+func (s *PushTdiaiworkshopcloudTestResponse) SetReqMsgId(v string) *PushTdiaiworkshopcloudTestResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *PushTdiaiworkshopcloudTestResponse) SetResultCode(v string) *PushTdiaiworkshopcloudTestResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *PushTdiaiworkshopcloudTestResponse) SetResultMsg(v string) *PushTdiaiworkshopcloudTestResponse {
+	s.ResultMsg = &v
+	return s
+}
+
+type QueryTdiaiworkshopcloudBatchRequest struct {
+	// OAuth模式下的授权token
+	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
+	// 商品码（事件码）蚂蚁侧提供
+	EventCode *string `json:"event_code,omitempty" xml:"event_code,omitempty" require:"true"`
+	// 产品code
+	DispModelCode *string `json:"disp_model_code,omitempty" xml:"disp_model_code,omitempty" require:"true"`
+	// 要查询的dataIdList
+	QueryDataIdList []*string `json:"query_data_id_list,omitempty" xml:"query_data_id_list,omitempty" require:"true" type:"Repeated"`
+}
+
+func (s QueryTdiaiworkshopcloudBatchRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s QueryTdiaiworkshopcloudBatchRequest) GoString() string {
+	return s.String()
+}
+
+func (s *QueryTdiaiworkshopcloudBatchRequest) SetAuthToken(v string) *QueryTdiaiworkshopcloudBatchRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *QueryTdiaiworkshopcloudBatchRequest) SetProductInstanceId(v string) *QueryTdiaiworkshopcloudBatchRequest {
+	s.ProductInstanceId = &v
+	return s
+}
+
+func (s *QueryTdiaiworkshopcloudBatchRequest) SetEventCode(v string) *QueryTdiaiworkshopcloudBatchRequest {
+	s.EventCode = &v
+	return s
+}
+
+func (s *QueryTdiaiworkshopcloudBatchRequest) SetDispModelCode(v string) *QueryTdiaiworkshopcloudBatchRequest {
+	s.DispModelCode = &v
+	return s
+}
+
+func (s *QueryTdiaiworkshopcloudBatchRequest) SetQueryDataIdList(v []*string) *QueryTdiaiworkshopcloudBatchRequest {
+	s.QueryDataIdList = v
+	return s
+}
+
+type QueryTdiaiworkshopcloudBatchResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// 样本回溯结果
+	SampleResult []*ResultItem `json:"sample_result,omitempty" xml:"sample_result,omitempty" type:"Repeated"`
+}
+
+func (s QueryTdiaiworkshopcloudBatchResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s QueryTdiaiworkshopcloudBatchResponse) GoString() string {
+	return s.String()
+}
+
+func (s *QueryTdiaiworkshopcloudBatchResponse) SetReqMsgId(v string) *QueryTdiaiworkshopcloudBatchResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *QueryTdiaiworkshopcloudBatchResponse) SetResultCode(v string) *QueryTdiaiworkshopcloudBatchResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *QueryTdiaiworkshopcloudBatchResponse) SetResultMsg(v string) *QueryTdiaiworkshopcloudBatchResponse {
+	s.ResultMsg = &v
+	return s
+}
+
+func (s *QueryTdiaiworkshopcloudBatchResponse) SetSampleResult(v []*ResultItem) *QueryTdiaiworkshopcloudBatchResponse {
+	s.SampleResult = v
+	return s
+}
+
+type PushTdiaiworkshopcloudBatchRequest struct {
+	// OAuth模式下的授权token
+	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
+	// 商品码（事件码）
+	EventCode *string `json:"event_code,omitempty" xml:"event_code,omitempty" require:"true"`
+	// 产品码
+	DispModelCode *string `json:"disp_model_code,omitempty" xml:"disp_model_code,omitempty" require:"true"`
+	// 业务码
+	BusinessType *string `json:"business_type,omitempty" xml:"business_type,omitempty" require:"true"`
+	// 加密方式
+	HashType *string `json:"hash_type,omitempty" xml:"hash_type,omitempty" require:"true"`
+	// 请求唯一id，幂等设计
+	RequestId *string `json:"request_id,omitempty" xml:"request_id,omitempty" require:"true"`
+	// 样本结构体
+	SampleList []*Item `json:"sample_list,omitempty" xml:"sample_list,omitempty" require:"true" type:"Repeated"`
+	// 回溯日期
+	BackDate *string `json:"back_date,omitempty" xml:"back_date,omitempty"`
+	// 回调地址
+	CallbackUrl *string `json:"callback_url,omitempty" xml:"callback_url,omitempty"`
+}
+
+func (s PushTdiaiworkshopcloudBatchRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s PushTdiaiworkshopcloudBatchRequest) GoString() string {
+	return s.String()
+}
+
+func (s *PushTdiaiworkshopcloudBatchRequest) SetAuthToken(v string) *PushTdiaiworkshopcloudBatchRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *PushTdiaiworkshopcloudBatchRequest) SetProductInstanceId(v string) *PushTdiaiworkshopcloudBatchRequest {
+	s.ProductInstanceId = &v
+	return s
+}
+
+func (s *PushTdiaiworkshopcloudBatchRequest) SetEventCode(v string) *PushTdiaiworkshopcloudBatchRequest {
+	s.EventCode = &v
+	return s
+}
+
+func (s *PushTdiaiworkshopcloudBatchRequest) SetDispModelCode(v string) *PushTdiaiworkshopcloudBatchRequest {
+	s.DispModelCode = &v
+	return s
+}
+
+func (s *PushTdiaiworkshopcloudBatchRequest) SetBusinessType(v string) *PushTdiaiworkshopcloudBatchRequest {
+	s.BusinessType = &v
+	return s
+}
+
+func (s *PushTdiaiworkshopcloudBatchRequest) SetHashType(v string) *PushTdiaiworkshopcloudBatchRequest {
+	s.HashType = &v
+	return s
+}
+
+func (s *PushTdiaiworkshopcloudBatchRequest) SetRequestId(v string) *PushTdiaiworkshopcloudBatchRequest {
+	s.RequestId = &v
+	return s
+}
+
+func (s *PushTdiaiworkshopcloudBatchRequest) SetSampleList(v []*Item) *PushTdiaiworkshopcloudBatchRequest {
+	s.SampleList = v
+	return s
+}
+
+func (s *PushTdiaiworkshopcloudBatchRequest) SetBackDate(v string) *PushTdiaiworkshopcloudBatchRequest {
+	s.BackDate = &v
+	return s
+}
+
+func (s *PushTdiaiworkshopcloudBatchRequest) SetCallbackUrl(v string) *PushTdiaiworkshopcloudBatchRequest {
+	s.CallbackUrl = &v
+	return s
+}
+
+type PushTdiaiworkshopcloudBatchResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// 批量请求响应结果
+	SampleIdList []*ResItem `json:"sample_id_list,omitempty" xml:"sample_id_list,omitempty" type:"Repeated"`
+}
+
+func (s PushTdiaiworkshopcloudBatchResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s PushTdiaiworkshopcloudBatchResponse) GoString() string {
+	return s.String()
+}
+
+func (s *PushTdiaiworkshopcloudBatchResponse) SetReqMsgId(v string) *PushTdiaiworkshopcloudBatchResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *PushTdiaiworkshopcloudBatchResponse) SetResultCode(v string) *PushTdiaiworkshopcloudBatchResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *PushTdiaiworkshopcloudBatchResponse) SetResultMsg(v string) *PushTdiaiworkshopcloudBatchResponse {
+	s.ResultMsg = &v
+	return s
+}
+
+func (s *PushTdiaiworkshopcloudBatchResponse) SetSampleIdList(v []*ResItem) *PushTdiaiworkshopcloudBatchResponse {
+	s.SampleIdList = v
+	return s
+}
+
 type ApplyTdiquickmsgRtBatchmarketingRequest struct {
 	// OAuth模式下的授权token
 	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
@@ -44737,7 +46070,7 @@ func (client *Client) DoRequest(version *string, action *string, protocol *strin
 				"req_msg_id":       antchainutil.GetNonce(),
 				"access_key":       client.AccessKeyId,
 				"base_sdk_version": tea.String("TeaSDK-2.0"),
-				"sdk_version":      tea.String("1.31.25"),
+				"sdk_version":      tea.String("1.31.28"),
 				"_prod_code":       tea.String("RISKPLUS"),
 				"_prod_channel":    tea.String("undefined"),
 			}
@@ -44793,6 +46126,78 @@ func (client *Client) DoRequest(version *string, action *string, protocol *strin
 	}
 
 	return _resp, _err
+}
+
+// Description:
+//
+// Description: 发起 agent flow 的执行
+//
+// Summary: 发起 agent flow 的执行
+func (client *Client) ExecFlowRun(request *ExecFlowRunRequest) (_result *ExecFlowRunResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &ExecFlowRunResponse{}
+	_body, _err := client.ExecFlowRunEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+// Description:
+//
+// Description: 发起 agent flow 的执行
+//
+// Summary: 发起 agent flow 的执行
+func (client *Client) ExecFlowRunEx(request *ExecFlowRunRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *ExecFlowRunResponse, _err error) {
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &ExecFlowRunResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("riskplus.flow.run.exec"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
+}
+
+// Description:
+//
+// Description: 查询任务执行状态或者结果
+//
+// Summary: 查询任务执行状态或者结果
+func (client *Client) QueryFlowRun(request *QueryFlowRunRequest) (_result *QueryFlowRunResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &QueryFlowRunResponse{}
+	_body, _err := client.QueryFlowRunEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+// Description:
+//
+// Description: 查询任务执行状态或者结果
+//
+// Summary: 查询任务执行状态或者结果
+func (client *Client) QueryFlowRunEx(request *QueryFlowRunRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *QueryFlowRunResponse, _err error) {
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &QueryFlowRunResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("riskplus.flow.run.query"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
 }
 
 // Description:
@@ -49363,6 +50768,78 @@ func (client *Client) PushDubbridgeContractsignEx(request *PushDubbridgeContract
 
 // Description:
 //
+// Description: 聚合收银台申请
+//
+// Summary: 聚合收银台申请
+func (client *Client) ApplyDubbridgePetcashier(request *ApplyDubbridgePetcashierRequest) (_result *ApplyDubbridgePetcashierResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &ApplyDubbridgePetcashierResponse{}
+	_body, _err := client.ApplyDubbridgePetcashierEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+// Description:
+//
+// Description: 聚合收银台申请
+//
+// Summary: 聚合收银台申请
+func (client *Client) ApplyDubbridgePetcashierEx(request *ApplyDubbridgePetcashierRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *ApplyDubbridgePetcashierResponse, _err error) {
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &ApplyDubbridgePetcashierResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("riskplus.dubbridge.petcashier.apply"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
+}
+
+// Description:
+//
+// Description: 交易订单查询
+//
+// Summary: 交易订单查询
+func (client *Client) QueryDubbridgePetorder(request *QueryDubbridgePetorderRequest) (_result *QueryDubbridgePetorderResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &QueryDubbridgePetorderResponse{}
+	_body, _err := client.QueryDubbridgePetorderEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+// Description:
+//
+// Description: 交易订单查询
+//
+// Summary: 交易订单查询
+func (client *Client) QueryDubbridgePetorderEx(request *QueryDubbridgePetorderRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *QueryDubbridgePetorderResponse, _err error) {
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &QueryDubbridgePetorderResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("riskplus.dubbridge.petorder.query"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
+}
+
+// Description:
+//
 // Description: 四要素认证首先调用此接口
 //
 // Summary: 芝麻四要素接口
@@ -49738,6 +51215,72 @@ func (client *Client) CallbackMdipYunfengdieParamsEx(request *CallbackMdipYunfen
 	}
 	_result = &CallbackMdipYunfengdieParamsResponse{}
 	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("riskplus.mdip.yunfengdie.params.callback"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
+}
+
+// Description:
+//
+// Description: 支持异步回传文件
+//
+// Summary: 支持异步回传文件
+func (client *Client) CallbackMdipFile(request *CallbackMdipFileRequest) (_result *CallbackMdipFileResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &CallbackMdipFileResponse{}
+	_body, _err := client.CallbackMdipFileEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+// Description:
+//
+// Description: 支持异步回传文件
+//
+// Summary: 支持异步回传文件
+func (client *Client) CallbackMdipFileEx(request *CallbackMdipFileRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *CallbackMdipFileResponse, _err error) {
+	if !tea.BoolValue(util.IsUnset(request.FileObject)) {
+		uploadReq := &CreateAntcloudGatewayxFileUploadRequest{
+			AuthToken: request.AuthToken,
+			ApiCode:   tea.String("riskplus.mdip.file.callback"),
+			FileName:  request.FileObjectName,
+		}
+		uploadResp, _err := client.CreateAntcloudGatewayxFileUploadEx(uploadReq, headers, runtime)
+		if _err != nil {
+			return _result, _err
+		}
+
+		if !tea.BoolValue(antchainutil.IsSuccess(uploadResp.ResultCode, tea.String("ok"))) {
+			callbackMdipFileResponse := &CallbackMdipFileResponse{
+				ReqMsgId:   uploadResp.ReqMsgId,
+				ResultCode: uploadResp.ResultCode,
+				ResultMsg:  uploadResp.ResultMsg,
+			}
+			_result = callbackMdipFileResponse
+			return _result, _err
+		}
+
+		uploadHeaders := antchainutil.ParseUploadHeaders(uploadResp.UploadHeaders)
+		_err = antchainutil.PutObject(request.FileObject, uploadHeaders, uploadResp.UploadUrl)
+		if _err != nil {
+			return _result, _err
+		}
+		request.FileId = uploadResp.FileId
+		request.FileObject = nil
+	}
+
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &CallbackMdipFileResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("riskplus.mdip.file.callback"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
 	if _err != nil {
 		return _result, _err
 	}
@@ -53696,6 +55239,114 @@ func (client *Client) QuerySnapshotEventEx(request *QuerySnapshotEventRequest, h
 	}
 	_result = &QuerySnapshotEventResponse{}
 	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("riskplus.snapshot.event.query"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
+}
+
+// Description:
+//
+// Description: 接口创建测试
+//
+// Summary: 接口创建测试
+func (client *Client) PushTdiaiworkshopcloudTest(request *PushTdiaiworkshopcloudTestRequest) (_result *PushTdiaiworkshopcloudTestResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &PushTdiaiworkshopcloudTestResponse{}
+	_body, _err := client.PushTdiaiworkshopcloudTestEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+// Description:
+//
+// Description: 接口创建测试
+//
+// Summary: 接口创建测试
+func (client *Client) PushTdiaiworkshopcloudTestEx(request *PushTdiaiworkshopcloudTestRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *PushTdiaiworkshopcloudTestResponse, _err error) {
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &PushTdiaiworkshopcloudTestResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("riskplus.tdiaiworkshopcloud.test.push"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
+}
+
+// Description:
+//
+// Description: 风控离线批量样本数据查询接口
+//
+// Summary: 风控离线批量样本数据查询接口
+func (client *Client) QueryTdiaiworkshopcloudBatch(request *QueryTdiaiworkshopcloudBatchRequest) (_result *QueryTdiaiworkshopcloudBatchResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &QueryTdiaiworkshopcloudBatchResponse{}
+	_body, _err := client.QueryTdiaiworkshopcloudBatchEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+// Description:
+//
+// Description: 风控离线批量样本数据查询接口
+//
+// Summary: 风控离线批量样本数据查询接口
+func (client *Client) QueryTdiaiworkshopcloudBatchEx(request *QueryTdiaiworkshopcloudBatchRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *QueryTdiaiworkshopcloudBatchResponse, _err error) {
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &QueryTdiaiworkshopcloudBatchResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("riskplus.tdiaiworkshopcloud.batch.query"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
+}
+
+// Description:
+//
+// Description: 风控离线批量样本数据上传接口
+//
+// Summary: 风控离线批量样本数据上传接口
+func (client *Client) PushTdiaiworkshopcloudBatch(request *PushTdiaiworkshopcloudBatchRequest) (_result *PushTdiaiworkshopcloudBatchResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &PushTdiaiworkshopcloudBatchResponse{}
+	_body, _err := client.PushTdiaiworkshopcloudBatchEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+// Description:
+//
+// Description: 风控离线批量样本数据上传接口
+//
+// Summary: 风控离线批量样本数据上传接口
+func (client *Client) PushTdiaiworkshopcloudBatchEx(request *PushTdiaiworkshopcloudBatchRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *PushTdiaiworkshopcloudBatchResponse, _err error) {
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &PushTdiaiworkshopcloudBatchResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("riskplus.tdiaiworkshopcloud.batch.push"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
 	if _err != nil {
 		return _result, _err
 	}

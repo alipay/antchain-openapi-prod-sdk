@@ -1,4 +1,4 @@
-module github.com/alipay/riskplus
+module github.com/antchain-openapi-sdk-go/riskplus
 
 go 1.22.1
 
