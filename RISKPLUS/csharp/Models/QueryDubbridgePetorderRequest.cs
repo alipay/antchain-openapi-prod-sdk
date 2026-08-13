@@ -8,7 +8,7 @@ using Tea;
 
 namespace AntChain.SDK.RISKPLUS.Models
 {
-    public class RefuseDubbridgePetitemRequest : TeaModel {
+    public class QueryDubbridgePetorderRequest : TeaModel {
         // OAuth模式下的授权token
         [NameInMap("auth_token")]
         [Validation(Required=false)]
@@ -18,40 +18,35 @@ namespace AntChain.SDK.RISKPLUS.Models
         [Validation(Required=false)]
         public string ProductInstanceId { get; set; }
 
-        // 小程序客户号
-        [NameInMap("open_id")]
-        [Validation(Required=true)]
-        public string OpenId { get; set; }
-
-        // 子渠道号(唯一标识)
-        [NameInMap("traffic_platform")]
-        [Validation(Required=true)]
-        public string TrafficPlatform { get; set; }
-
-        // 门店ID
-        [NameInMap("store_id")]
-        [Validation(Required=true)]
-        public string StoreId { get; set; }
-
-        // 分期订单号
-        [NameInMap("biz_order_no")]
-        [Validation(Required=true)]
-        public string BizOrderNo { get; set; }
-
-        // 渠道号
+        // 渠道编码
         [NameInMap("channel_code")]
         [Validation(Required=true)]
         public string ChannelCode { get; set; }
 
-        // 请求流水号(通过此流水号幂等判断是否是同一个请求)
-        [NameInMap("request_no")]
+        // 流量平台
+        [NameInMap("traffic_platform")]
         [Validation(Required=true)]
-        public string RequestNo { get; set; }
+        public string TrafficPlatform { get; set; }
 
-        // 退款订单信息 列表
-        [NameInMap("goods_order_info")]
+        // 门店id
+        [NameInMap("store_id")]
         [Validation(Required=true)]
-        public List<GoodsOrderInfo> GoodsOrderInfo { get; set; }
+        public string StoreId { get; set; }
+
+        // 原始订单号
+        [NameInMap("biz_order_no")]
+        [Validation(Required=true)]
+        public string BizOrderNo { get; set; }
+
+        // 交易单号
+        [NameInMap("trade_no")]
+        [Validation(Required=true)]
+        public string TradeNo { get; set; }
+
+        // 商家社信码
+        [NameInMap("cert_no")]
+        [Validation(Required=true)]
+        public string CertNo { get; set; }
 
     }
 
