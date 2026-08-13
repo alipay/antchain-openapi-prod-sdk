@@ -55,6 +55,15 @@ namespace AntChain.SDK.RISKPLUS.Models
         [Validation(Required=true)]
         public string FileUrl { get; set; }
 
+        // 返回结果节点id
+        /// <summary>
+        /// <b>Example:</b>
+        /// <para>123</para>
+        /// </summary>
+        [NameInMap("return_result_id")]
+        [Validation(Required=false)]
+        public long? ReturnResultId { get; set; }
+
     }
 
 }
