@@ -265,13 +265,13 @@ class QueryGwdefaultChatstreamResponse(TeaModel):
         self.session_id = session_id
         # 整体成功标志，默认 true
         self.success = success
-        # 固定 "chat_result"（由输出层注入，不在信封 dataclass 内）
+        # 固定chat_result
         self.type = type
         # 查询 ID；多为空串
         self.query_id = query_id
         # true=流式中间批次；false=收尾批次
         self.has_stream = has_stream
-        # 正文流（TEXT/CARD/COT_*/CONTENT_*/HORSE_RIDE_*/CUSTOM_CARD_*/WITHDRAW/FORBIDDEN/TASK）
+        # 正文流
         self.chat_list = chat_list
         # 推荐问题（SUG），仅收尾批次非空
         self.sug_list = sug_list
