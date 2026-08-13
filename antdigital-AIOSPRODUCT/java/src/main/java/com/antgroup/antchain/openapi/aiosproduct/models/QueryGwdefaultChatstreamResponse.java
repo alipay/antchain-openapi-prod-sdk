@@ -24,7 +24,7 @@ public class QueryGwdefaultChatstreamResponse extends TeaModel {
     @NameInMap("success")
     public Boolean success;
 
-    // 固定 "chat_result"（由输出层注入，不在信封 dataclass 内）
+    // 固定chat_result
     @NameInMap("type")
     public String type;
 
@@ -36,7 +36,7 @@ public class QueryGwdefaultChatstreamResponse extends TeaModel {
     @NameInMap("has_stream")
     public Boolean hasStream;
 
-    // 正文流（TEXT/CARD/COT_*/CONTENT_*/HORSE_RIDE_*/CUSTOM_CARD_*/WITHDRAW/FORBIDDEN/TASK）
+    // 正文流
     @NameInMap("chat_list")
     public String chatList;
 
