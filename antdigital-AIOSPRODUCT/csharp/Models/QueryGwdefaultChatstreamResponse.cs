@@ -34,7 +34,7 @@ namespace AntChain.SDK.AIOSPRODUCT.Models
         [Validation(Required=false)]
         public bool? Success { get; set; }
 
-        // 固定 "chat_result"（由输出层注入，不在信封 dataclass 内）
+        // 固定chat_result
         [NameInMap("type")]
         [Validation(Required=false)]
         public string Type { get; set; }
@@ -49,7 +49,7 @@ namespace AntChain.SDK.AIOSPRODUCT.Models
         [Validation(Required=false)]
         public bool? HasStream { get; set; }
 
-        // 正文流（TEXT/CARD/COT_*/CONTENT_*/HORSE_RIDE_*/CUSTOM_CARD_*/WITHDRAW/FORBIDDEN/TASK）
+        // 正文流
         [NameInMap("chat_list")]
         [Validation(Required=false)]
         public string ChatList { get; set; }
