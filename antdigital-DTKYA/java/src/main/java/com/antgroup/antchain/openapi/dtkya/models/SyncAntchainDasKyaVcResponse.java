@@ -16,6 +16,10 @@ public class SyncAntchainDasKyaVcResponse extends TeaModel {
     @NameInMap("result_msg")
     public String resultMsg;
 
+    // vcId
+    @NameInMap("vc_id")
+    public String vcId;
+
     public static SyncAntchainDasKyaVcResponse build(java.util.Map<String, ?> map) throws Exception {
         SyncAntchainDasKyaVcResponse self = new SyncAntchainDasKyaVcResponse();
         return TeaModel.build(map, self);
@@ -43,6 +47,14 @@ public class SyncAntchainDasKyaVcResponse extends TeaModel {
     }
     public String getResultMsg() {
         return this.resultMsg;
+    }
+
+    public SyncAntchainDasKyaVcResponse setVcId(String vcId) {
+        this.vcId = vcId;
+        return this;
+    }
+    public String getVcId() {
+        return this.vcId;
     }
 
 }

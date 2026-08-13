@@ -11,6 +11,11 @@ public class SyncAntchainDasKyaVcRequest extends TeaModel {
     @NameInMap("product_instance_id")
     public String productInstanceId;
 
+    // vc内容
+    @NameInMap("vc_content")
+    @Validation(required = true)
+    public String vcContent;
+
     public static SyncAntchainDasKyaVcRequest build(java.util.Map<String, ?> map) throws Exception {
         SyncAntchainDasKyaVcRequest self = new SyncAntchainDasKyaVcRequest();
         return TeaModel.build(map, self);
@@ -30,6 +35,14 @@ public class SyncAntchainDasKyaVcRequest extends TeaModel {
     }
     public String getProductInstanceId() {
         return this.productInstanceId;
+    }
+
+    public SyncAntchainDasKyaVcRequest setVcContent(String vcContent) {
+        this.vcContent = vcContent;
+        return this;
+    }
+    public String getVcContent() {
+        return this.vcContent;
     }
 
 }
