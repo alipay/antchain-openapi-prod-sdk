@@ -126,7 +126,7 @@ public class Client {
                     new TeaPair("req_msg_id", com.antgroup.antchain.openapi.antchain.util.AntchainUtils.getNonce()),
                     new TeaPair("access_key", _accessKeyId),
                     new TeaPair("base_sdk_version", "TeaSDK-2.0"),
-                    new TeaPair("sdk_version", "1.19.90"),
+                    new TeaPair("sdk_version", "1.19.91"),
                     new TeaPair("_prod_code", "ATO"),
                     new TeaPair("_prod_channel", "undefined")
                 );
@@ -744,6 +744,69 @@ public class Client {
     public ResetInnerMermngcontractwebofficetokenResponse resetInnerMermngcontractwebofficetokenEx(ResetInnerMermngcontractwebofficetokenRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
         com.aliyun.teautil.Common.validateModel(request);
         return TeaModel.toModel(this.doRequest("1.0", "antchain.ato.inner.mermngcontractwebofficetoken.reset", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new ResetInnerMermngcontractwebofficetokenResponse());
+    }
+
+    /**
+     * <b>description</b> :
+     * <p>Description: 企业码数科计收产品开通接口
+     * Summary: 企业码数科计收产品开通接口</p>
+     */
+    public OpenInnerEnterpriseproductResponse openInnerEnterpriseproduct(OpenInnerEnterpriseproductRequest request) throws Exception {
+        com.aliyun.teautil.models.RuntimeOptions runtime = new com.aliyun.teautil.models.RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.openInnerEnterpriseproductEx(request, headers, runtime);
+    }
+
+    /**
+     * <b>description</b> :
+     * <p>Description: 企业码数科计收产品开通接口
+     * Summary: 企业码数科计收产品开通接口</p>
+     */
+    public OpenInnerEnterpriseproductResponse openInnerEnterpriseproductEx(OpenInnerEnterpriseproductRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "antchain.ato.inner.enterpriseproduct.open", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new OpenInnerEnterpriseproductResponse());
+    }
+
+    /**
+     * <b>description</b> :
+     * <p>Description: 企业码数科计收企业账户开通接口
+     * Summary: 企业码数科计收企业账户开通接口</p>
+     */
+    public CreateInnerEnterprisetenantResponse createInnerEnterprisetenant(CreateInnerEnterprisetenantRequest request) throws Exception {
+        com.aliyun.teautil.models.RuntimeOptions runtime = new com.aliyun.teautil.models.RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.createInnerEnterprisetenantEx(request, headers, runtime);
+    }
+
+    /**
+     * <b>description</b> :
+     * <p>Description: 企业码数科计收企业账户开通接口
+     * Summary: 企业码数科计收企业账户开通接口</p>
+     */
+    public CreateInnerEnterprisetenantResponse createInnerEnterprisetenantEx(CreateInnerEnterprisetenantRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "antchain.ato.inner.enterprisetenant.create", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new CreateInnerEnterprisetenantResponse());
+    }
+
+    /**
+     * <b>description</b> :
+     * <p>Description: 企业码数科计收支付结果&amp;开通结果查询接口
+     * Summary: 企业码数科计收支付结果&amp;开通结果查询接口</p>
+     */
+    public QueryInnerEnterpriseeventResponse queryInnerEnterpriseevent(QueryInnerEnterpriseeventRequest request) throws Exception {
+        com.aliyun.teautil.models.RuntimeOptions runtime = new com.aliyun.teautil.models.RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.queryInnerEnterpriseeventEx(request, headers, runtime);
+    }
+
+    /**
+     * <b>description</b> :
+     * <p>Description: 企业码数科计收支付结果&amp;开通结果查询接口
+     * Summary: 企业码数科计收支付结果&amp;开通结果查询接口</p>
+     */
+    public QueryInnerEnterpriseeventResponse queryInnerEnterpriseeventEx(QueryInnerEnterpriseeventRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "antchain.ato.inner.enterpriseevent.query", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new QueryInnerEnterpriseeventResponse());
     }
 
     /**

@@ -6,9 +6,9 @@
 
     <!-- 基础信息 -->
     <groupId>com.antgroup.antchain.openapi</groupId>
-    <!-- 注意：变量 openapi-ato 和 1.19.90 需要在命令行或 properties 中定义 -->
+    <!-- 注意：变量 openapi-ato 和 1.19.91 需要在命令行或 properties 中定义 -->
     <artifactId>openapi-ato</artifactId>
-    <version>1.19.90</version>
+    <version>1.19.91</version>
     <packaging>jar</packaging>
 
     <name>openapi-ato</name>
