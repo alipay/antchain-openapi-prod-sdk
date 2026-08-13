@@ -12,9 +12,9 @@ public class QueryBlockchainBotIotagentUseridRequest extends TeaModel {
     public String productInstanceId;
 
     // 租户名
-    @NameInMap("tenant")
+    @NameInMap("tenant_id")
     @Validation(required = true)
-    public String tenant;
+    public String tenantId;
 
     // 页码
     @NameInMap("page_index")
@@ -44,12 +44,12 @@ public class QueryBlockchainBotIotagentUseridRequest extends TeaModel {
         return this.productInstanceId;
     }
 
-    public QueryBlockchainBotIotagentUseridRequest setTenant(String tenant) {
-        this.tenant = tenant;
+    public QueryBlockchainBotIotagentUseridRequest setTenantId(String tenantId) {
+        this.tenantId = tenantId;
         return this;
     }
-    public String getTenant() {
-        return this.tenant;
+    public String getTenantId() {
+        return this.tenantId;
     }
 
     public QueryBlockchainBotIotagentUseridRequest setPageIndex(Long pageIndex) {
