@@ -54,7 +54,7 @@ public class OrganizationUnitSubTree extends TeaModel {
      */
     @NameInMap("children")
     @Validation(required = true)
-    public java.util.List<OrganizationUnitTree> children;
+    public String children;
 
     public static OrganizationUnitSubTree build(java.util.Map<String, ?> map) throws Exception {
         OrganizationUnitSubTree self = new OrganizationUnitSubTree();
@@ -101,11 +101,11 @@ public class OrganizationUnitSubTree extends TeaModel {
         return this.gmtModified;
     }
 
-    public OrganizationUnitSubTree setChildren(java.util.List<OrganizationUnitTree> children) {
+    public OrganizationUnitSubTree setChildren(String children) {
         this.children = children;
         return this;
     }
-    public java.util.List<OrganizationUnitTree> getChildren() {
+    public String getChildren() {
         return this.children;
     }
 
