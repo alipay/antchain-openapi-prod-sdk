@@ -8,7 +8,7 @@ using Tea;
 
 namespace AntChain.SDK.STLR.Models
 {
-    // 重复结构体
+    // 重复结构体，OrganizationUnitTree，此处为避面循环引用错误，children先设为string
     public class OrganizationUnitSubTree : TeaModel {
         // 组织单元编码。
         /// <summary>
@@ -62,7 +62,7 @@ namespace AntChain.SDK.STLR.Models
         /// </summary>
         [NameInMap("children")]
         [Validation(Required=true)]
-        public List<OrganizationUnitTree> Children { get; set; }
+        public string Children { get; set; }
 
     }
 
