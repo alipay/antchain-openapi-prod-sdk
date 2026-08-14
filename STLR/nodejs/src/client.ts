@@ -181,31 +181,642 @@ export class Config extends $tea.Model {
   }
 }
 
-// 每日碳排放量
-export class DailyEmissions extends $tea.Model {
-  // 日期
+// 供应商产品详情
+export class SupplierProductDetail extends $tea.Model {
+  // 供应商名称
   /**
    * @example
-   * 2021-07-21
+   * xxxx
    */
-  date: string;
-  // 排放量值
+  supplierName?: string;
+  // 供应商产品名称
   /**
    * @example
-   * 11.22
+   * -
    */
-  value: number;
+  supplierProductName?: string;
+  // 填报单位
+  /**
+   * @example
+   * xxxx
+   */
+  dosageUnit?: string;
   static names(): { [key: string]: string } {
     return {
-      date: 'date',
+      supplierName: 'supplier_name',
+      supplierProductName: 'supplier_product_name',
+      dosageUnit: 'dosage_unit',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      supplierName: 'string',
+      supplierProductName: 'string',
+      dosageUnit: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+// 阶段评估明细数据
+export class EnterpriseLcaAssessmentItem extends $tea.Model {
+  // 物料编码
+  /**
+   * @example
+   * 0601020000
+   */
+  materialCode: string;
+  // 数据明细名称
+  /**
+   * @example
+   * 煤炭
+   */
+  assessmentItemName: string;
+  // 物料直接碳排放评估量
+  /**
+   * @example
+   * 0
+   */
+  emissionAmount: string;
+  // 物料运输碳排放评估量
+  /**
+   * @example
+   * 123.1
+   */
+  transportEmissionAmount: string;
+  static names(): { [key: string]: string } {
+    return {
+      materialCode: 'material_code',
+      assessmentItemName: 'assessment_item_name',
+      emissionAmount: 'emission_amount',
+      transportEmissionAmount: 'transport_emission_amount',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      materialCode: 'string',
+      assessmentItemName: 'string',
+      emissionAmount: 'string',
+      transportEmissionAmount: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+// 运输信息
+export class TransportActiveData extends $tea.Model {
+  // 运输方式编码
+  /**
+   * @example
+   * 5201000000
+   */
+  transportCode: string;
+  // 运输设备
+  /**
+   * @example
+   * KCTC
+   */
+  equipment: string;
+  // 运输里程
+  /**
+   * @example
+   * 200
+   */
+  distance: string;
+  // 是否空载
+  /**
+   * @example
+   * true, false
+   */
+  isEmptyLoad?: boolean;
+  static names(): { [key: string]: string } {
+    return {
+      transportCode: 'transport_code',
+      equipment: 'equipment',
+      distance: 'distance',
+      isEmptyLoad: 'is_empty_load',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      transportCode: 'string',
+      equipment: 'string',
+      distance: 'string',
+      isEmptyLoad: 'boolean',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+// 阶段评估数据明细
+export class EnterpriseLcaStageAssessmentItem extends $tea.Model {
+  // LCA阶段
+  /**
+   * @example
+   * ProductManufacture
+   */
+  lcaStage: string;
+  // 阶段排放占比
+  /**
+   * @example
+   * 1
+   */
+  lcaStageCarbonRate: string;
+  // 阶段排放量
+  /**
+   * @example
+   * 123.12
+   */
+  lcaStageCarbonEmissions: string;
+  // 阶段评估明细数据
+  lcaAssessmentDatum: EnterpriseLcaAssessmentItem[];
+  static names(): { [key: string]: string } {
+    return {
+      lcaStage: 'lca_stage',
+      lcaStageCarbonRate: 'lca_stage_carbon_rate',
+      lcaStageCarbonEmissions: 'lca_stage_carbon_emissions',
+      lcaAssessmentDatum: 'lca_assessment_datum',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      lcaStage: 'string',
+      lcaStageCarbonRate: 'string',
+      lcaStageCarbonEmissions: 'string',
+      lcaAssessmentDatum: { 'type': 'array', 'itemType': EnterpriseLcaAssessmentItem },
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+// 月度明细列表
+export class MonthDataDetail extends $tea.Model {
+  // 发生月份，格式 yyyy-MM
+  /**
+   * @example
+   * xxxx
+   */
+  occurDate: string;
+  // 产量数据
+  /**
+   * @example
+   * xxxx
+   */
+  amount: string;
+  // 产量单位
+  /**
+   * @example
+   * xxxx
+   */
+  dosageUnit: string;
+  static names(): { [key: string]: string } {
+    return {
+      occurDate: 'occur_date',
+      amount: 'amount',
+      dosageUnit: 'dosage_unit',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      occurDate: 'string',
+      amount: 'string',
+      dosageUnit: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+// 重复结构体，OrganizationUnitTree，此处为避面循环引用错误，children先设为string
+export class OrganizationUnitSubTree extends $tea.Model {
+  // 组织单元编码。
+  /**
+   * @example
+   * xxxxxx
+   */
+  organizationNo: string;
+  // 组织单元名称。
+  /**
+   * @example
+   * xxxxxx
+   */
+  organizationName: string;
+  // 从根到直接父级的组织编码链；根节点为空。
+  /**
+   * @example
+   * [xxx,xxx]
+   */
+  parentOrganizationNoList?: string[];
+  // 直接父级组织名称；根节点为空。
+  /**
+   * @example
+   * xxxxxx
+   */
+  parentOrganizationName?: string;
+  // 最后更新时间
+  /**
+   * @example
+   * xxxxxx
+   */
+  gmtModified: string;
+  // 重复结构体
+  /**
+   * @example
+   * [{}]
+   */
+  children: string;
+  static names(): { [key: string]: string } {
+    return {
+      organizationNo: 'organization_no',
+      organizationName: 'organization_name',
+      parentOrganizationNoList: 'parent_organization_no_list',
+      parentOrganizationName: 'parent_organization_name',
+      gmtModified: 'gmt_modified',
+      children: 'children',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      organizationNo: 'string',
+      organizationName: 'string',
+      parentOrganizationNoList: { 'type': 'array', 'itemType': 'string' },
+      parentOrganizationName: 'string',
+      gmtModified: 'string',
+      children: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+// 存证数据字段值
+export class DepositFieldValue extends $tea.Model {
+  // 存证数据字段名
+  /**
+   * @example
+   * distance
+   */
+  name: string;
+  // 存证数据字段值
+  /**
+   * @example
+   * 10.0
+   */
+  value?: string;
+  static names(): { [key: string]: string } {
+    return {
+      name: 'name',
       value: 'value',
     };
   }
 
   static types(): { [key: string]: any } {
     return {
-      date: 'string',
-      value: 'number',
+      name: 'string',
+      value: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+// 输入流活动数据
+export class InputStreamActiveData extends $tea.Model {
+  // 物料编码
+  /**
+   * @example
+   * 0601020000
+   */
+  materialCode: string;
+  // 用量，非负，最多6位小数
+  /**
+   * @example
+   * 100
+   */
+  amount: string;
+  // 单位
+  /**
+   * @example
+   * KG
+   */
+  unit: string;
+  // 运输信息列表
+  transportList?: TransportActiveData[];
+  static names(): { [key: string]: string } {
+    return {
+      materialCode: 'material_code',
+      amount: 'amount',
+      unit: 'unit',
+      transportList: 'transport_list',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      materialCode: 'string',
+      amount: 'string',
+      unit: 'string',
+      transportList: { 'type': 'array', 'itemType': TransportActiveData },
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+// 数据值条目
+export class AnyAmountItem extends $tea.Model {
+  // 数据项编码
+  /**
+   * @example
+   * AD1
+   */
+  itemCode: string;
+  // 数据值，按字符串输出，最多保留6位小数
+  /**
+   * @example
+   * 221.11
+   */
+  itemAmount: string;
+  static names(): { [key: string]: string } {
+    return {
+      itemCode: 'item_code',
+      itemAmount: 'item_amount',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      itemCode: 'string',
+      itemAmount: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+// 物料产品详情
+export class MaterialDetail extends $tea.Model {
+  // 物料名称
+  /**
+   * @example
+   * xxxx
+   */
+  materialName?: string;
+  // 供应商产品详情列表
+  /**
+   * @example
+   * undefined
+   */
+  supplierProductList?: SupplierProductDetail;
+  static names(): { [key: string]: string } {
+    return {
+      materialName: 'material_name',
+      supplierProductList: 'supplier_product_list',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      materialName: 'string',
+      supplierProductList: SupplierProductDetail,
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+// 逆变器发电量
+export class InverterGeneration extends $tea.Model {
+  // 逆变器SN
+  /**
+   * @example
+   * Inv-Other-16801-Q0kll-2024-04-11
+   */
+  invSn: string;
+  // 生产商名称
+  /**
+   * @example
+   * 生产商1
+   */
+  manufacturer: string;
+  // 当日发电量，最多3位小数
+  /**
+   * @example
+   * 1.232
+   */
+  daily: string;
+  // 累计发电量，最多3位小数
+  /**
+   * @example
+   * 1.232
+   */
+  total: string;
+  static names(): { [key: string]: string } {
+    return {
+      invSn: 'inv_sn',
+      manufacturer: 'manufacturer',
+      daily: 'daily',
+      total: 'total',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      invSn: 'string',
+      manufacturer: 'string',
+      daily: 'string',
+      total: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+// 分阶段碳排放量
+export class LcaStageCarbonItem extends $tea.Model {
+  // 生命周期阶段：
+  // [MaterialPurchase]-原材料，[ProductManufacture]-生产制造，[ProductSale]-分销，[ProductUsage]-产品使用，[ProductWithdraw]-处置/再生利用
+  /**
+   * @example
+   * MaterialPurchase
+   */
+  lcaStageCode: string;
+  // 阶段碳排放量
+  /**
+   * @example
+   * 223.23
+   */
+  lcaStageCarbonAmount: string;
+  static names(): { [key: string]: string } {
+    return {
+      lcaStageCode: 'lca_stage_code',
+      lcaStageCarbonAmount: 'lca_stage_carbon_amount',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      lcaStageCode: 'string',
+      lcaStageCarbonAmount: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+// 证书授权产品信息
+export class CertProductAuthDO extends $tea.Model {
+  // 三方平台产品ID
+  /**
+   * @example
+   * 产品ID
+   */
+  productId: string;
+  // 三方平台产品名称
+  /**
+   * @example
+   * 产品名称
+   */
+  productName: string;
+  static names(): { [key: string]: string } {
+    return {
+      productId: 'product_id',
+      productName: 'product_name',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      productId: 'string',
+      productName: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+// 输出流活动数据
+export class OutputStreamActiveData extends $tea.Model {
+  // 物料编码
+  /**
+   * @example
+   * 0102010000
+   */
+  materialCode: string;
+  // 用量，非负，最多6位小数
+  /**
+   * @example
+   * 200.12
+   */
+  amount: string;
+  // 单位
+  /**
+   * @example
+   * KG
+   */
+  unit: string;
+  // 单价（仅产品用，产品不传时默认为空）
+  /**
+   * @example
+   * 100
+   */
+  unitPrice?: string;
+  // 处置方式编码（仅废弃物用）
+  /**
+   * @example
+   * 5201000000
+   */
+  disposalTypeCode?: string;
+  // 运输信息列表（仅废弃物用）
+  transportList?: TransportActiveData[];
+  static names(): { [key: string]: string } {
+    return {
+      materialCode: 'material_code',
+      amount: 'amount',
+      unit: 'unit',
+      unitPrice: 'unit_price',
+      disposalTypeCode: 'disposal_type_code',
+      transportList: 'transport_list',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      materialCode: 'string',
+      amount: 'string',
+      unit: 'string',
+      unitPrice: 'string',
+      disposalTypeCode: 'string',
+      transportList: { 'type': 'array', 'itemType': TransportActiveData },
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+// 文档信息
+export class EnterpriseDocumentFile extends $tea.Model {
+  // 文档名称
+  /**
+   * @example
+   * 2022年7月车辆运输数据文件
+   */
+  documentName: string;
+  // 文件地址
+  /**
+   * @example
+   * carbonchain/file/dataentry_document/20211108000220010000000000000356/20211108000220010000000000000356.xlsx
+   */
+  documentAddress: string;
+  static names(): { [key: string]: string } {
+    return {
+      documentName: 'document_name',
+      documentAddress: 'document_address',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      documentName: 'string',
+      documentAddress: 'string',
     };
   }
 
@@ -271,6 +882,88 @@ export class EmissionsCategoryStatistics extends $tea.Model {
   }
 }
 
+// 过程详情
+export class ProcessDetail extends $tea.Model {
+  // 单元过程名称
+  /**
+   * @example
+   * xxxx
+   */
+  processName?: string;
+  // 过程编码
+  /**
+   * @example
+   * xxxx
+   */
+  processNo?: string;
+  static names(): { [key: string]: string } {
+    return {
+      processName: 'process_name',
+      processNo: 'process_no',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      processName: 'string',
+      processNo: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+// 按绿色行为类型统计的绿色行为明细
+export class GreenOperationStatisticsByType extends $tea.Model {
+  // 绿色行为类型
+  /**
+   * @example
+   * ElectronicInvoice
+   */
+  greenOperationType: string;
+  // 绿色行为类型名称
+  /**
+   * @example
+   * 电子发票
+   */
+  greenOperationTypeName: string;
+  // 绿色行为产生的绿色能量值
+  /**
+   * @example
+   * 11
+   */
+  greenEnergyAmount: number;
+  // 相关类型的绿色行为记录数
+  /**
+   * @example
+   * 33
+   */
+  greenOperationRecords: number;
+  static names(): { [key: string]: string } {
+    return {
+      greenOperationType: 'green_operation_type',
+      greenOperationTypeName: 'green_operation_type_name',
+      greenEnergyAmount: 'green_energy_amount',
+      greenOperationRecords: 'green_operation_records',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      greenOperationType: 'string',
+      greenOperationTypeName: 'string',
+      greenEnergyAmount: 'number',
+      greenOperationRecords: 'number',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
 // 减排情况统计
 export class EmissionsReductionStatistics extends $tea.Model {
   // 减排方法
@@ -328,51 +1021,31 @@ export class EmissionsReductionStatistics extends $tea.Model {
   }
 }
 
-// 排放范围排放数据统计
-export class EmissionsScopeStatistics extends $tea.Model {
-  // 盘查范围编码
+// 每日碳排放量
+export class DailyEmissions extends $tea.Model {
+  // 日期
   /**
    * @example
-   * 002
+   * 2021-07-21
    */
-  inventoryScopeNo: string;
-  // 盘查范围名称
+  date: string;
+  // 排放量值
   /**
    * @example
-   * 范围一
+   * 11.22
    */
-  inventoryScopeName: string;
-  // 碳排放量
-  /**
-   * @example
-   * 222.33
-   */
-  emissions: number;
-  // 排放占比
-  /**
-   * @example
-   * 0.11
-   */
-  percentage: number;
-  // 范围下各分类排放数据
-  categoryEmissionsList: EmissionsCategoryStatistics[];
+  value: number;
   static names(): { [key: string]: string } {
     return {
-      inventoryScopeNo: 'inventory_scope_no',
-      inventoryScopeName: 'inventory_scope_name',
-      emissions: 'emissions',
-      percentage: 'percentage',
-      categoryEmissionsList: 'category_emissions_list',
+      date: 'date',
+      value: 'value',
     };
   }
 
   static types(): { [key: string]: any } {
     return {
-      inventoryScopeNo: 'string',
-      inventoryScopeName: 'string',
-      emissions: 'number',
-      percentage: 'number',
-      categoryEmissionsList: { 'type': 'array', 'itemType': EmissionsCategoryStatistics },
+      date: 'string',
+      value: 'number',
     };
   }
 
@@ -381,31 +1054,1161 @@ export class EmissionsScopeStatistics extends $tea.Model {
   }
 }
 
-// 证书授权产品信息
-export class CertProductAuthDO extends $tea.Model {
-  // 三方平台产品ID
+// 数据资产信息
+export class DataAssetInfo extends $tea.Model {
+  // 数据资产DID
   /**
    * @example
-   * 产品ID
+   * 111
    */
-  productId: string;
-  // 三方平台产品名称
+  datasetDid: string;
+  // 数据资产所有方DID
   /**
    * @example
-   * 产品名称
+   * 111
    */
-  productName: string;
+  userDid: string;
+  // 数据资产名称
+  /**
+   * @example
+   * 企业固定化石燃料排放
+   */
+  datasetName: string;
+  // 数据类型
+  /**
+   * @example
+   * PERSONAL_GREEN_DATA_METRO
+   */
+  dataType: string;
   static names(): { [key: string]: string } {
     return {
-      productId: 'product_id',
-      productName: 'product_name',
+      datasetDid: 'dataset_did',
+      userDid: 'user_did',
+      datasetName: 'dataset_name',
+      dataType: 'data_type',
     };
   }
 
   static types(): { [key: string]: any } {
     return {
-      productId: 'string',
+      datasetDid: 'string',
+      userDid: 'string',
+      datasetName: 'string',
+      dataType: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+// 碳抵消统计量
+export class EmissionCounteractionStatistics extends $tea.Model {
+  // 碳抵消类别
+  /**
+   * @example
+   * Quota
+   */
+  assertType: string;
+  // 碳抵消类别名称
+  /**
+   * @example
+   * 配额
+   */
+  assertTypeName: string;
+  // 抵消量
+  /**
+   * @example
+   * 22.22
+   */
+  counteractionAmount: string;
+  // 排放量单位，默认为：tCO2e
+  /**
+   * @example
+   * tCO2e
+   */
+  dataUnit: string;
+  static names(): { [key: string]: string } {
+    return {
+      assertType: 'assert_type',
+      assertTypeName: 'assert_type_name',
+      counteractionAmount: 'counteraction_amount',
+      dataUnit: 'data_unit',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      assertType: 'string',
+      assertTypeName: 'string',
+      counteractionAmount: 'string',
+      dataUnit: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+// 设备发电量
+export class DeviceGeneration extends $tea.Model {
+  // 设备内部编号，注册设备后获取
+  /**
+   * @example
+   * 0340340000000707
+   */
+  deviceNo: string;
+  // 逆变器发电量列表
+  inverterGenerations: InverterGeneration[];
+  static names(): { [key: string]: string } {
+    return {
+      deviceNo: 'device_no',
+      inverterGenerations: 'inverter_generations',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      deviceNo: 'string',
+      inverterGenerations: { 'type': 'array', 'itemType': InverterGeneration },
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+// 账户开通返回
+export class AccountRegisterResponse extends $tea.Model {
+  // 账户did
+  /**
+   * @example
+   * did:private:xxxcxxxxx
+   */
+  userDid: string;
+  static names(): { [key: string]: string } {
+    return {
+      userDid: 'user_did',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      userDid: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+// 组织单元树结构体
+export class OrganizationUnitTree extends $tea.Model {
+  // 组织单元编码
+  /**
+   * @example
+   * xxxxx
+   */
+  organizationNo: string;
+  // 组织单元名称
+  /**
+   * @example
+   * xxxxxx
+   */
+  organizationName: string;
+  // 从根到直接父级的组织编码链；根节点为空
+  /**
+   * @example
+   * [xxx,xxx]
+   */
+  parentOrganizationNoList?: string[];
+  // 直接父级组织名称；根节点为空
+  /**
+   * @example
+   * xxxxxx
+   */
+  parentOrganizationName?: string;
+  // 最后更新时间
+  /**
+   * @example
+   * xxxxxx
+   */
+  gmtModified: string;
+  // 重复结构体
+  /**
+   * @example
+   * [{}]
+   */
+  children: OrganizationUnitSubTree[];
+  static names(): { [key: string]: string } {
+    return {
+      organizationNo: 'organization_no',
+      organizationName: 'organization_name',
+      parentOrganizationNoList: 'parent_organization_no_list',
+      parentOrganizationName: 'parent_organization_name',
+      gmtModified: 'gmt_modified',
+      children: 'children',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      organizationNo: 'string',
+      organizationName: 'string',
+      parentOrganizationNoList: { 'type': 'array', 'itemType': 'string' },
+      parentOrganizationName: 'string',
+      gmtModified: 'string',
+      children: { 'type': 'array', 'itemType': OrganizationUnitSubTree },
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+// 碳普惠补偿采集数据条目
+export class CarbonOffsetAcquisitionItem extends $tea.Model {
+  // 采集数据单号
+  /**
+   * @example
+   * 123456789abcdefghi
+   */
+  acquisitionItemNo: string;
+  // 碳补偿项目编号
+  /**
+   * @example
+   * 13222
+   */
+  projectNo: string;
+  // 参与账户DID
+  /**
+   * @example
+   * 123456789abcdefghi
+   */
+  accountDid: string;
+  // 发生时间
+  /**
+   * @example
+   * 2023-05-23 12:11:32:33
+   */
+  occurrentTime: string;
+  // 发生场景编码
+  /**
+   * @example
+   * xingzou
+   */
+  scenarioCode: string;
+  // 发生场景名称
+  /**
+   * @example
+   * 出行
+   */
+  scenarioName: string;
+  // 碳普惠平台编码，如果非平台采集数据，则显示为自采编码：Self
+  /**
+   * @example
+   * Antforest
+   */
+  platformNo: string;
+  // 活动数据原始值，多个活动数据列表
+  activeDatum?: AnyAmountItem[];
+  // 减碳量
+  /**
+   * @example
+   * 122.22
+   */
+  offsetVolume?: string;
+  // 碳能量值
+  /**
+   * @example
+   * 229
+   */
+  carbonEnergy?: number;
+  static names(): { [key: string]: string } {
+    return {
+      acquisitionItemNo: 'acquisition_item_no',
+      projectNo: 'project_no',
+      accountDid: 'account_did',
+      occurrentTime: 'occurrent_time',
+      scenarioCode: 'scenario_code',
+      scenarioName: 'scenario_name',
+      platformNo: 'platform_no',
+      activeDatum: 'active_datum',
+      offsetVolume: 'offset_volume',
+      carbonEnergy: 'carbon_energy',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      acquisitionItemNo: 'string',
+      projectNo: 'string',
+      accountDid: 'string',
+      occurrentTime: 'string',
+      scenarioCode: 'string',
+      scenarioName: 'string',
+      platformNo: 'string',
+      activeDatum: { 'type': 'array', 'itemType': AnyAmountItem },
+      offsetVolume: 'string',
+      carbonEnergy: 'number',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+// 数据类型
+export class DataTypeInfo extends $tea.Model {
+  // 数据类型编码
+  /**
+   * @example
+   * dataTypeNo
+   */
+  dataTypeNo: string;
+  // 数据类型名称
+  /**
+   * @example
+   * data_type_name
+   */
+  dataTypeName: string;
+  // 数据类型配置
+  /**
+   * @example
+   * data_type_config
+   */
+  dataTypeConfig: string;
+  // 数据JSON格式检查
+  /**
+   * @example
+   * data_json_schema
+   */
+  dataJsonSchema: string;
+  static names(): { [key: string]: string } {
+    return {
+      dataTypeNo: 'data_type_no',
+      dataTypeName: 'data_type_name',
+      dataTypeConfig: 'data_type_config',
+      dataJsonSchema: 'data_json_schema',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      dataTypeNo: 'string',
+      dataTypeName: 'string',
+      dataTypeConfig: 'string',
+      dataJsonSchema: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+// user_info
+export class EsgUser extends $tea.Model {
+  // 当前操作员 ID
+  /**
+   * @example
+   * xxxxx
+   */
+  userId: string;
+  // 当前登录账号。
+  /**
+   * @example
+   * xxxxx
+   */
+  userName: string;
+  // 操作员昵称
+  /**
+   * @example
+   * xxxxx
+   */
+  nickName?: string;
+  // 操作员真实姓名
+  /**
+   * @example
+   * xxxxx
+   */
+  realName?: string;
+  // 操作员手机号
+  /**
+   * @example
+   * xxxxx
+   */
+  phoneNumber?: string;
+  static names(): { [key: string]: string } {
+    return {
+      userId: 'user_id',
+      userName: 'user_name',
+      nickName: 'nick_name',
+      realName: 'real_name',
+      phoneNumber: 'phone_number',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      userId: 'string',
+      userName: 'string',
+      nickName: 'string',
+      realName: 'string',
+      phoneNumber: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+// LCA碳足迹分析计算数据
+export class LcaCarbonDatum extends $tea.Model {
+  // LCA碳排放总量
+  /**
+   * @example
+   * 2323.22
+   */
+  lcaCarbonAmount: string;
+  // 足迹报告pdf文件下载地址（30分钟内下载有效）
+  /**
+   * @example
+   * http://oss.com/lca/lca_report.pdf
+   */
+  lcaReportFileUrl: string;
+  // 足迹分析结果详情文件地址（30分钟内下载有效）
+  /**
+   * @example
+   * http://oss.com/lca/lca_detail.pdf
+   */
+  lcaDetailFileUrl: string;
+  // B2B-从摇篮到大门，B2C-从摇篮到坟墓
+  /**
+   * @example
+   * B2B
+   */
+  lifeCycleBoundary: string;
+  // 足迹开始时间，格式：yyyyMMdd
+  /**
+   * @example
+   * 20231223
+   */
+  lcaStartDate: string;
+  // 足迹结束时间 格式：yyyyMMdd
+  /**
+   * @example
+   * 20231202
+   */
+  lcaEndDate: string;
+  // 分阶段碳排放量列表
+  lcaStageCarbonDatum: LcaStageCarbonItem[];
+  static names(): { [key: string]: string } {
+    return {
+      lcaCarbonAmount: 'lca_carbon_amount',
+      lcaReportFileUrl: 'lca_report_file_url',
+      lcaDetailFileUrl: 'lca_detail_file_url',
+      lifeCycleBoundary: 'life_cycle_boundary',
+      lcaStartDate: 'lca_start_date',
+      lcaEndDate: 'lca_end_date',
+      lcaStageCarbonDatum: 'lca_stage_carbon_datum',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      lcaCarbonAmount: 'string',
+      lcaReportFileUrl: 'string',
+      lcaDetailFileUrl: 'string',
+      lifeCycleBoundary: 'string',
+      lcaStartDate: 'string',
+      lcaEndDate: 'string',
+      lcaStageCarbonDatum: { 'type': 'array', 'itemType': LcaStageCarbonItem },
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+// 转型路径分析数据
+export class TransferPathAnalysis extends $tea.Model {
+  // 所属领域
+  /**
+   * @example
+   * 系统能效提升
+   */
+  field: string;
+  // 目录编号
+  /**
+   * @example
+   * 1.12
+   */
+  indexNumber: string;
+  // 目录内容
+  /**
+   * @example
+   * 低温余热有机工质郎肯循环（ORC）发电
+   */
+  indexContent: string;
+  // 技术标准说明
+  /**
+   * @example
+   * 基于有机朗肯循环（ORC）原理，通过蒸发器回收95-300℃的热水、热液、蒸汽、烟气中的低温余热，通过向心涡轮和发电机将热量转换成高品质电能。参考标准《低温余热双循环发电装置》（GB/T 37819-2019）、《低温双循环余热回收利用装置性能测试方法》（GB/T 40286-2021）等。
+   */
+  detail: string;
+  // 企业是否采取该路径
+  /**
+   * @example
+   * 长期目标
+   */
+  target: string;
+  static names(): { [key: string]: string } {
+    return {
+      field: 'field',
+      indexNumber: 'index_number',
+      indexContent: 'index_content',
+      detail: 'detail',
+      target: 'target',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      field: 'string',
+      indexNumber: 'string',
+      indexContent: 'string',
+      detail: 'string',
+      target: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+// 数据授权策略
+export class AuthorizePolicy extends $tea.Model {
+  // 授权策略ID
+  /**
+   * @example
+   * 11
+   */
+  policyId: string;
+  // 授权策略描述
+  /**
+   * @example
+   * 11
+   */
+  description: string;
+  // 授权策略配置
+  /**
+   * @example
+   * 授权策略配置
+   */
+  authorizeConfig: string;
+  static names(): { [key: string]: string } {
+    return {
+      policyId: 'policy_id',
+      description: 'description',
+      authorizeConfig: 'authorize_config',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      policyId: 'string',
+      description: 'string',
+      authorizeConfig: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+// 角色列表；
+export class RoleDetailList extends $tea.Model {
+  // 角色编码
+  /**
+   * @example
+   * xxxxxx
+   */
+  roleNo: string;
+  // 角色名称
+  /**
+   * @example
+   * xxxxxx
+   */
+  name: string;
+  // 角色描述
+  /**
+   * @example
+   * xxxxxx
+   */
+  description?: string;
+  static names(): { [key: string]: string } {
+    return {
+      roleNo: 'role_no',
+      name: 'name',
+      description: 'description',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      roleNo: 'string',
+      name: 'string',
+      description: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+// 产品概要信息
+export class EnterpriseProductOutline extends $tea.Model {
+  // 产品自定义编码
+  // 
+  /**
+   * @example
+   * 23123121
+   */
+  enterpriseCustomCode: string;
+  // 产品名称
+  // 
+  /**
+   * @example
+   * 石墨
+   */
+  productName: string;
+  // 规格型号
+  /**
+   * @example
+   * DDD-1212
+   */
+  specification: string;
+  // 产品描述
+  /**
+   * @example
+   * 产品描述
+   */
+  productDescription?: string;
+  // 产品分类名称
+  /**
+   * @example
+   * 产品分类名
+   */
+  productCategoryName: string;
+  // 品牌信息
+  /**
+   * @example
+   * Adidas
+   */
+  brandInformation?: string;
+  static names(): { [key: string]: string } {
+    return {
+      enterpriseCustomCode: 'enterprise_custom_code',
+      productName: 'product_name',
+      specification: 'specification',
+      productDescription: 'product_description',
+      productCategoryName: 'product_category_name',
+      brandInformation: 'brand_information',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      enterpriseCustomCode: 'string',
       productName: 'string',
+      specification: 'string',
+      productDescription: 'string',
+      productCategoryName: 'string',
+      brandInformation: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+// 碳补偿活动数据详情
+export class CarbonOffsetActiveDataDetail extends $tea.Model {
+  // 活动数据编号
+  /**
+   * @example
+   * AD1
+   */
+  activeDataNo: string;
+  // 活动数据名称
+  /**
+   * @example
+   * 行走里程数
+   */
+  activeDataName?: string;
+  // 活动数据单位
+  /**
+   * @example
+   * km
+   */
+  activeDataUnit?: string;
+  // 活动数据描述文案
+  /**
+   * @example
+   * 描述
+   */
+  description?: string;
+  // 活动数据值
+  /**
+   * @example
+   * 22.22
+   */
+  activeDataValue: string;
+  static names(): { [key: string]: string } {
+    return {
+      activeDataNo: 'active_data_no',
+      activeDataName: 'active_data_name',
+      activeDataUnit: 'active_data_unit',
+      description: 'description',
+      activeDataValue: 'active_data_value',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      activeDataNo: 'string',
+      activeDataName: 'string',
+      activeDataUnit: 'string',
+      description: 'string',
+      activeDataValue: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+// 机构会员资料
+export class EnterpriseMemberSummary extends $tea.Model {
+  // 机构会员DID
+  /**
+   * @example
+   * did:mychain:aa509301d1c2bd0e35f9737824e5ab9832ca9a09542d618bce24a1609191383c
+   */
+  accountDid: string;
+  // 会员姓名，数据脱敏处理返回
+  /**
+   * @example
+   * 张**
+   */
+  name?: string;
+  // 会员手机号码，数据脱敏处理返回
+  /**
+   * @example
+   * 136****1122
+   */
+  mobile?: string;
+  // 会员注册时间
+  /**
+   * @example
+   * 2022-02-22 12:33:11
+   */
+  registerTime: string;
+  static names(): { [key: string]: string } {
+    return {
+      accountDid: 'account_did',
+      name: 'name',
+      mobile: 'mobile',
+      registerTime: 'register_time',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      accountDid: 'string',
+      name: 'string',
+      mobile: 'string',
+      registerTime: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+// 产品产量填报项
+export class GclProductionItem extends $tea.Model {
+  // 用户侧传入明细编码，用于异常回传和排查
+  /**
+   * @example
+   * xxxx
+   */
+  externalItemCode?: string;
+  // 生产单元名称
+  /**
+   * @example
+   * xxxx
+   */
+  locationName: string;
+  // 产品名称
+  /**
+   * @example
+   * xxxx
+   */
+  productName: string;
+  // 产品规格
+  /**
+   * @example
+   * xxxx
+   */
+  specification: string;
+  // 月度产量明细
+  /**
+   * @example
+   * undefined
+   */
+  productionDataList: MonthDataDetail[];
+  static names(): { [key: string]: string } {
+    return {
+      externalItemCode: 'external_item_code',
+      locationName: 'location_name',
+      productName: 'product_name',
+      specification: 'specification',
+      productionDataList: 'production_data_list',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      externalItemCode: 'string',
+      locationName: 'string',
+      productName: 'string',
+      specification: 'string',
+      productionDataList: { 'type': 'array', 'itemType': MonthDataDetail },
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+// 排放统计项目
+export class AnyStatisticalItem extends $tea.Model {
+  // 统计项目编码
+  /**
+   * @example
+   * abc
+   */
+  itemCode: string;
+  // 数据值，按字符串输出，最多保留6位小数
+  /**
+   * @example
+   * 222.22
+   */
+  amount: string;
+  // 单位编码
+  /**
+   * @example
+   * t
+   */
+  unit: string;
+  // 单位标签
+  /**
+   * @example
+   * 吨
+   */
+  unitLabel: string;
+  static names(): { [key: string]: string } {
+    return {
+      itemCode: 'item_code',
+      amount: 'amount',
+      unit: 'unit',
+      unitLabel: 'unit_label',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      itemCode: 'string',
+      amount: 'string',
+      unit: 'string',
+      unitLabel: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+// 当前页操作员列表
+export class OperatorList extends $tea.Model {
+  // 操作员 ID。
+  /**
+   * @example
+   * xxxxxx
+   */
+  operatorId: string;
+  // 操作员姓名。
+  /**
+   * @example
+   * xxxxxx
+   */
+  operatorName?: string;
+  // 登录邮箱。
+  /**
+   * @example
+   * xxxxxx
+   */
+  email?: string;
+  // 手机号。
+  /**
+   * @example
+   * xxxxxx
+   */
+  cellPhone?: string;
+  // 昵称。
+  /**
+   * @example
+   * xxxxxx
+   */
+  nickName?: string;
+  // 创建时间
+  /**
+   * @example
+   * xxxxxx
+   */
+  createTime?: string;
+  // 操作员状态。
+  /**
+   * @example
+   * xxxxxx
+   */
+  status?: string;
+  static names(): { [key: string]: string } {
+    return {
+      operatorId: 'operator_id',
+      operatorName: 'operator_name',
+      email: 'email',
+      cellPhone: 'cell_phone',
+      nickName: 'nick_name',
+      createTime: 'create_time',
+      status: 'status',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      operatorId: 'string',
+      operatorName: 'string',
+      email: 'string',
+      cellPhone: 'string',
+      nickName: 'string',
+      createTime: 'string',
+      status: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+// 区块链信息
+export class BlockchainDTO extends $tea.Model {
+  // 交易hash
+  /**
+   * @example
+   * xxx
+   */
+  txHash: string;
+  // 当前块高
+  /**
+   * @example
+   * 12917
+   */
+  blockNumber: number;
+  static names(): { [key: string]: string } {
+    return {
+      txHash: 'tx_hash',
+      blockNumber: 'block_number',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      txHash: 'string',
+      blockNumber: 'number',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+// 溯源碳足迹项目
+export class LcaProjectTrace extends $tea.Model {
+  // 碳足迹编码
+  /**
+   * @example
+   * project_no
+   */
+  projectNo: string;
+  // 碳足迹生命周期边界
+  /**
+   * @example
+   * life_cycle_boundary
+   */
+  lifeCycleBoundary: string;
+  // 产品编码
+  /**
+   * @example
+   * product_no
+   */
+  productNo: string;
+  // 碳足迹项目排放量
+  /**
+   * @example
+   * lca_carbon_amount
+   */
+  lcaCarbonAmount: string;
+  // 产品名称
+  /**
+   * @example
+   * product_name
+   */
+  productName: string;
+  // 产品规格型号
+  /**
+   * @example
+   * specification
+   */
+  specification: string;
+  // 碳足迹开始时间
+  /**
+   * @example
+   * lca_start_date
+   */
+  lcaStartDate: string;
+  // 碳足迹结束时间
+  /**
+   * @example
+   * lca_end_date
+   */
+  lcaEndDate: string;
+  // 溯源状态
+  /**
+   * @example
+   * trace_status
+   */
+  traceStatus: string;
+  static names(): { [key: string]: string } {
+    return {
+      projectNo: 'project_no',
+      lifeCycleBoundary: 'life_cycle_boundary',
+      productNo: 'product_no',
+      lcaCarbonAmount: 'lca_carbon_amount',
+      productName: 'product_name',
+      specification: 'specification',
+      lcaStartDate: 'lca_start_date',
+      lcaEndDate: 'lca_end_date',
+      traceStatus: 'trace_status',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      projectNo: 'string',
+      lifeCycleBoundary: 'string',
+      productNo: 'string',
+      lcaCarbonAmount: 'string',
+      productName: 'string',
+      specification: 'string',
+      lcaStartDate: 'string',
+      lcaEndDate: 'string',
+      traceStatus: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+// 绿色行为数据摘要
+export class GreenOperationRecordSummary extends $tea.Model {
+  // 绿色行为记录编码
+  /**
+   * @example
+   * 20220702111231231212
+   */
+  greenOperationNo: string;
+  // 绿色行为类型
+  /**
+   * @example
+   * ElectronicInvoice
+   */
+  greenOperationType: string;
+  // 绿色行为类型名称
+  /**
+   * @example
+   * 电子发票
+   */
+  greenOperationTypeName: string;
+  // 发生绿色行为的相关业务单号
+  /**
+   * @example
+   * 202211131212
+   */
+  enterpriseBizNo: string;
+  // 绿色行为发生时间，格式应如：2021-07-21 12:11:11
+  /**
+   * @example
+   * 2021-08-09 12:22:11
+   */
+  occurrenceTime: string;
+  // 绿色行为的绿色能量值
+  /**
+   * @example
+   * 1111
+   */
+  greenEnergyAmount: number;
+  static names(): { [key: string]: string } {
+    return {
+      greenOperationNo: 'green_operation_no',
+      greenOperationType: 'green_operation_type',
+      greenOperationTypeName: 'green_operation_type_name',
+      enterpriseBizNo: 'enterprise_biz_no',
+      occurrenceTime: 'occurrence_time',
+      greenEnergyAmount: 'green_energy_amount',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      greenOperationNo: 'string',
+      greenOperationType: 'string',
+      greenOperationTypeName: 'string',
+      enterpriseBizNo: 'string',
+      occurrenceTime: 'string',
+      greenEnergyAmount: 'number',
     };
   }
 
@@ -539,1805 +2342,6 @@ export class CertProductInfoDO extends $tea.Model {
   }
 }
 
-// 数据值条目
-export class AnyAmountItem extends $tea.Model {
-  // 数据项编码
-  /**
-   * @example
-   * AD1
-   */
-  itemCode: string;
-  // 数据值，按字符串输出，最多保留6位小数
-  /**
-   * @example
-   * 221.11
-   */
-  itemAmount: string;
-  static names(): { [key: string]: string } {
-    return {
-      itemCode: 'item_code',
-      itemAmount: 'item_amount',
-    };
-  }
-
-  static types(): { [key: string]: any } {
-    return {
-      itemCode: 'string',
-      itemAmount: 'string',
-    };
-  }
-
-  constructor(map?: { [key: string]: any }) {
-    super(map);
-  }
-}
-
-// 任意KV结构对象
-export class AnyKeywordItem extends $tea.Model {
-  // 项目编码
-  /**
-   * @example
-   * CFD
-   */
-  itemCode: string;
-  // 项目值
-  /**
-   * @example
-   * 各种按业务场景的取值
-   */
-  itemValue: string;
-  static names(): { [key: string]: string } {
-    return {
-      itemCode: 'item_code',
-      itemValue: 'item_value',
-    };
-  }
-
-  static types(): { [key: string]: any } {
-    return {
-      itemCode: 'string',
-      itemValue: 'string',
-    };
-  }
-
-  constructor(map?: { [key: string]: any }) {
-    super(map);
-  }
-}
-
-// 文档信息
-export class EnterpriseDocumentFile extends $tea.Model {
-  // 文档名称
-  /**
-   * @example
-   * 2022年7月车辆运输数据文件
-   */
-  documentName: string;
-  // 文件地址
-  /**
-   * @example
-   * carbonchain/file/dataentry_document/20211108000220010000000000000356/20211108000220010000000000000356.xlsx
-   */
-  documentAddress: string;
-  static names(): { [key: string]: string } {
-    return {
-      documentName: 'document_name',
-      documentAddress: 'document_address',
-    };
-  }
-
-  static types(): { [key: string]: any } {
-    return {
-      documentName: 'string',
-      documentAddress: 'string',
-    };
-  }
-
-  constructor(map?: { [key: string]: any }) {
-    super(map);
-  }
-}
-
-// 排放统计项目
-export class AnyStatisticalItem extends $tea.Model {
-  // 统计项目编码
-  /**
-   * @example
-   * abc
-   */
-  itemCode: string;
-  // 数据值，按字符串输出，最多保留6位小数
-  /**
-   * @example
-   * 222.22
-   */
-  amount: string;
-  // 单位编码
-  /**
-   * @example
-   * t
-   */
-  unit: string;
-  // 单位标签
-  /**
-   * @example
-   * 吨
-   */
-  unitLabel: string;
-  static names(): { [key: string]: string } {
-    return {
-      itemCode: 'item_code',
-      amount: 'amount',
-      unit: 'unit',
-      unitLabel: 'unit_label',
-    };
-  }
-
-  static types(): { [key: string]: any } {
-    return {
-      itemCode: 'string',
-      amount: 'string',
-      unit: 'string',
-      unitLabel: 'string',
-    };
-  }
-
-  constructor(map?: { [key: string]: any }) {
-    super(map);
-  }
-}
-
-// 绿色行为数据摘要
-export class GreenOperationRecordSummary extends $tea.Model {
-  // 绿色行为记录编码
-  /**
-   * @example
-   * 20220702111231231212
-   */
-  greenOperationNo: string;
-  // 绿色行为类型
-  /**
-   * @example
-   * ElectronicInvoice
-   */
-  greenOperationType: string;
-  // 绿色行为类型名称
-  /**
-   * @example
-   * 电子发票
-   */
-  greenOperationTypeName: string;
-  // 发生绿色行为的相关业务单号
-  /**
-   * @example
-   * 202211131212
-   */
-  enterpriseBizNo: string;
-  // 绿色行为发生时间，格式应如：2021-07-21 12:11:11
-  /**
-   * @example
-   * 2021-08-09 12:22:11
-   */
-  occurrenceTime: string;
-  // 绿色行为的绿色能量值
-  /**
-   * @example
-   * 1111
-   */
-  greenEnergyAmount: number;
-  static names(): { [key: string]: string } {
-    return {
-      greenOperationNo: 'green_operation_no',
-      greenOperationType: 'green_operation_type',
-      greenOperationTypeName: 'green_operation_type_name',
-      enterpriseBizNo: 'enterprise_biz_no',
-      occurrenceTime: 'occurrence_time',
-      greenEnergyAmount: 'green_energy_amount',
-    };
-  }
-
-  static types(): { [key: string]: any } {
-    return {
-      greenOperationNo: 'string',
-      greenOperationType: 'string',
-      greenOperationTypeName: 'string',
-      enterpriseBizNo: 'string',
-      occurrenceTime: 'string',
-      greenEnergyAmount: 'number',
-    };
-  }
-
-  constructor(map?: { [key: string]: any }) {
-    super(map);
-  }
-}
-
-// 按频率统计的绿色行为明细
-export class GreenOperationStatisticsByFrequence extends $tea.Model {
-  // 绿色行为发生时期
-  /**
-   * @example
-   * 2021-09
-   */
-  occurrencePeriod: string;
-  // 绿色行为产生的绿色能量值
-  /**
-   * @example
-   * 11212
-   */
-  greenEnergyAmount: number;
-  // 时期内发生绿色行为的记录条数
-  /**
-   * @example
-   * 111
-   */
-  greenOperationRecords: number;
-  static names(): { [key: string]: string } {
-    return {
-      occurrencePeriod: 'occurrence_period',
-      greenEnergyAmount: 'green_energy_amount',
-      greenOperationRecords: 'green_operation_records',
-    };
-  }
-
-  static types(): { [key: string]: any } {
-    return {
-      occurrencePeriod: 'string',
-      greenEnergyAmount: 'number',
-      greenOperationRecords: 'number',
-    };
-  }
-
-  constructor(map?: { [key: string]: any }) {
-    super(map);
-  }
-}
-
-// 按绿色行为类型统计的绿色行为明细
-export class GreenOperationStatisticsByType extends $tea.Model {
-  // 绿色行为类型
-  /**
-   * @example
-   * ElectronicInvoice
-   */
-  greenOperationType: string;
-  // 绿色行为类型名称
-  /**
-   * @example
-   * 电子发票
-   */
-  greenOperationTypeName: string;
-  // 绿色行为产生的绿色能量值
-  /**
-   * @example
-   * 11
-   */
-  greenEnergyAmount: number;
-  // 相关类型的绿色行为记录数
-  /**
-   * @example
-   * 33
-   */
-  greenOperationRecords: number;
-  static names(): { [key: string]: string } {
-    return {
-      greenOperationType: 'green_operation_type',
-      greenOperationTypeName: 'green_operation_type_name',
-      greenEnergyAmount: 'green_energy_amount',
-      greenOperationRecords: 'green_operation_records',
-    };
-  }
-
-  static types(): { [key: string]: any } {
-    return {
-      greenOperationType: 'string',
-      greenOperationTypeName: 'string',
-      greenEnergyAmount: 'number',
-      greenOperationRecords: 'number',
-    };
-  }
-
-  constructor(map?: { [key: string]: any }) {
-    super(map);
-  }
-}
-
-//  每月的排放数据
-export class AnnualMonthEmissionDatum extends $tea.Model {
-  // 统计的年份
-  /**
-   * @example
-   * 2022
-   */
-  year: string;
-  // 统计的月份
-  /**
-   * @example
-   * 12
-   */
-  month: string;
-  // 统计排放量
-  /**
-   * @example
-   * 22.22
-   */
-  value: string;
-  static names(): { [key: string]: string } {
-    return {
-      year: 'year',
-      month: 'month',
-      value: 'value',
-    };
-  }
-
-  static types(): { [key: string]: any } {
-    return {
-      year: 'string',
-      month: 'string',
-      value: 'string',
-    };
-  }
-
-  constructor(map?: { [key: string]: any }) {
-    super(map);
-  }
-}
-
-// 账户开通返回
-export class AccountRegisterResponse extends $tea.Model {
-  // 账户did
-  /**
-   * @example
-   * did:private:xxxcxxxxx
-   */
-  userDid: string;
-  static names(): { [key: string]: string } {
-    return {
-      userDid: 'user_did',
-    };
-  }
-
-  static types(): { [key: string]: any } {
-    return {
-      userDid: 'string',
-    };
-  }
-
-  constructor(map?: { [key: string]: any }) {
-    super(map);
-  }
-}
-
-// 区块链信息
-export class BlockchainDTO extends $tea.Model {
-  // 交易hash
-  /**
-   * @example
-   * xxx
-   */
-  txHash: string;
-  // 当前块高
-  /**
-   * @example
-   * 12917
-   */
-  blockNumber: number;
-  static names(): { [key: string]: string } {
-    return {
-      txHash: 'tx_hash',
-      blockNumber: 'block_number',
-    };
-  }
-
-  static types(): { [key: string]: any } {
-    return {
-      txHash: 'string',
-      blockNumber: 'number',
-    };
-  }
-
-  constructor(map?: { [key: string]: any }) {
-    super(map);
-  }
-}
-
-// 碳排放分单元统计总量
-export class EmissionsLocationStatistics extends $tea.Model {
-  // 盘查单元编码
-  /**
-   * @example
-   * L0100000008902
-   */
-  locationNo: string;
-  // 盘查单元名称
-  /**
-   * @example
-   * 2022亚运会游泳馆
-   */
-  locationName: string;
-  // 盘查单元排放量
-  /**
-   * @example
-   * 2223.22
-   */
-  emissionAmount: string;
-  // 排放量单位，默认为：tCO2e
-  /**
-   * @example
-   * tCO2e
-   */
-  dataUnit: string;
-  static names(): { [key: string]: string } {
-    return {
-      locationNo: 'location_no',
-      locationName: 'location_name',
-      emissionAmount: 'emission_amount',
-      dataUnit: 'data_unit',
-    };
-  }
-
-  static types(): { [key: string]: any } {
-    return {
-      locationNo: 'string',
-      locationName: 'string',
-      emissionAmount: 'string',
-      dataUnit: 'string',
-    };
-  }
-
-  constructor(map?: { [key: string]: any }) {
-    super(map);
-  }
-}
-
-// 碳排放分城市统计总量
-export class EmissionsCityStatistics extends $tea.Model {
-  // 城市编码
-  /**
-   * @example
-   * 637401
-   */
-  cityNo: string;
-  // 城市名称
-  /**
-   * @example
-   * 南充市
-   */
-  cityName: string;
-  // 累计排放量
-  /**
-   * @example
-   * 222.22
-   */
-  emissionAmount: string;
-  // 今日新增碳排放量
-  /**
-   * @example
-   * 22.22
-   */
-  emissionAmountToday: string;
-  // 总减碳量
-  /**
-   * @example
-   * 21.11
-   */
-  reductionAmount: string;
-  // 今日减碳量
-  /**
-   * @example
-   * 9.11
-   */
-  reductionAmountToday: string;
-  // 总抵消量
-  /**
-   * @example
-   * 9.11
-   */
-  counteractionAmount: string;
-  // 今日抵消量
-  /**
-   * @example
-   * 2.11
-   */
-  counteractionAmountToday: string;
-  // 排放量单位，默认为：
-  /**
-   * @example
-   * tCO2e
-   */
-  dataUnit: string;
-  static names(): { [key: string]: string } {
-    return {
-      cityNo: 'city_no',
-      cityName: 'city_name',
-      emissionAmount: 'emission_amount',
-      emissionAmountToday: 'emission_amount_today',
-      reductionAmount: 'reduction_amount',
-      reductionAmountToday: 'reduction_amount_today',
-      counteractionAmount: 'counteraction_amount',
-      counteractionAmountToday: 'counteraction_amount_today',
-      dataUnit: 'data_unit',
-    };
-  }
-
-  static types(): { [key: string]: any } {
-    return {
-      cityNo: 'string',
-      cityName: 'string',
-      emissionAmount: 'string',
-      emissionAmountToday: 'string',
-      reductionAmount: 'string',
-      reductionAmountToday: 'string',
-      counteractionAmount: 'string',
-      counteractionAmountToday: 'string',
-      dataUnit: 'string',
-    };
-  }
-
-  constructor(map?: { [key: string]: any }) {
-    super(map);
-  }
-}
-
-// 碳抵消统计量
-export class EmissionCounteractionStatistics extends $tea.Model {
-  // 碳抵消类别
-  /**
-   * @example
-   * Quota
-   */
-  assertType: string;
-  // 碳抵消类别名称
-  /**
-   * @example
-   * 配额
-   */
-  assertTypeName: string;
-  // 抵消量
-  /**
-   * @example
-   * 22.22
-   */
-  counteractionAmount: string;
-  // 排放量单位，默认为：tCO2e
-  /**
-   * @example
-   * tCO2e
-   */
-  dataUnit: string;
-  static names(): { [key: string]: string } {
-    return {
-      assertType: 'assert_type',
-      assertTypeName: 'assert_type_name',
-      counteractionAmount: 'counteraction_amount',
-      dataUnit: 'data_unit',
-    };
-  }
-
-  static types(): { [key: string]: any } {
-    return {
-      assertType: 'string',
-      assertTypeName: 'string',
-      counteractionAmount: 'string',
-      dataUnit: 'string',
-    };
-  }
-
-  constructor(map?: { [key: string]: any }) {
-    super(map);
-  }
-}
-
-// 账户信息
-export class CarbonAccountInfo extends $tea.Model {
-  // 账户did
-  /**
-   * @example
-   * did:private:xxx
-   */
-  userDid: string;
-  // 账户名称
-  /**
-   * @example
-   * xxx企业
-   */
-  userName: string;
-  static names(): { [key: string]: string } {
-    return {
-      userDid: 'user_did',
-      userName: 'user_name',
-    };
-  }
-
-  static types(): { [key: string]: any } {
-    return {
-      userDid: 'string',
-      userName: 'string',
-    };
-  }
-
-  constructor(map?: { [key: string]: any }) {
-    super(map);
-  }
-}
-
-// 授权信息
-export class AuthenticationInfoVO extends $tea.Model {
-  // 授权记录编码
-  /**
-   * @example
-   * 授权记录编码
-   */
-  authenticationNo: string;
-  // 收取方did
-  /**
-   * @example
-   * 收取方did
-   */
-  authorizerDid: string;
-  // 授权方名称
-  /**
-   * @example
-   * 授权方名称
-   */
-  authorizerName: string;
-  // 被授权方did
-  /**
-   * @example
-   * 被授权方did
-   */
-  authorizedDid: string;
-  // 被授权方名称
-  /**
-   * @example
-   * 被授权方名称
-   */
-  authorizedName: string;
-  // 数据协作类型
-  /**
-   * @example
-   * 数据协作类型
-   */
-  dataTransferType: string;
-  // 授权详情
-  /**
-   * @example
-   * {}
-   */
-  authenticationDeetail: string;
-  // 授权状态
-  /**
-   * @example
-   * Approved：审批通过   Approving：待审批 NotApproved：审批不通过 Cancelled: 取消授权
-   */
-  status: string;
-  static names(): { [key: string]: string } {
-    return {
-      authenticationNo: 'authentication_no',
-      authorizerDid: 'authorizer_did',
-      authorizerName: 'authorizer_name',
-      authorizedDid: 'authorized_did',
-      authorizedName: 'authorized_name',
-      dataTransferType: 'data_transfer_type',
-      authenticationDeetail: 'authentication_deetail',
-      status: 'status',
-    };
-  }
-
-  static types(): { [key: string]: any } {
-    return {
-      authenticationNo: 'string',
-      authorizerDid: 'string',
-      authorizerName: 'string',
-      authorizedDid: 'string',
-      authorizedName: 'string',
-      dataTransferType: 'string',
-      authenticationDeetail: 'string',
-      status: 'string',
-    };
-  }
-
-  constructor(map?: { [key: string]: any }) {
-    super(map);
-  }
-}
-
-// 碳普惠补偿采集数据条目
-export class CarbonOffsetAcquisitionItem extends $tea.Model {
-  // 采集数据单号
-  /**
-   * @example
-   * 123456789abcdefghi
-   */
-  acquisitionItemNo: string;
-  // 碳补偿项目编号
-  /**
-   * @example
-   * 13222
-   */
-  projectNo: string;
-  // 参与账户DID
-  /**
-   * @example
-   * 123456789abcdefghi
-   */
-  accountDid: string;
-  // 发生时间
-  /**
-   * @example
-   * 2023-05-23 12:11:32:33
-   */
-  occurrentTime: string;
-  // 发生场景编码
-  /**
-   * @example
-   * xingzou
-   */
-  scenarioCode: string;
-  // 发生场景名称
-  /**
-   * @example
-   * 出行
-   */
-  scenarioName: string;
-  // 碳普惠平台编码，如果非平台采集数据，则显示为自采编码：Self
-  /**
-   * @example
-   * Antforest
-   */
-  platformNo: string;
-  // 活动数据原始值，多个活动数据列表
-  activeDatum?: AnyAmountItem[];
-  // 减碳量
-  /**
-   * @example
-   * 122.22
-   */
-  offsetVolume?: string;
-  // 碳能量值
-  /**
-   * @example
-   * 229
-   */
-  carbonEnergy?: number;
-  static names(): { [key: string]: string } {
-    return {
-      acquisitionItemNo: 'acquisition_item_no',
-      projectNo: 'project_no',
-      accountDid: 'account_did',
-      occurrentTime: 'occurrent_time',
-      scenarioCode: 'scenario_code',
-      scenarioName: 'scenario_name',
-      platformNo: 'platform_no',
-      activeDatum: 'active_datum',
-      offsetVolume: 'offset_volume',
-      carbonEnergy: 'carbon_energy',
-    };
-  }
-
-  static types(): { [key: string]: any } {
-    return {
-      acquisitionItemNo: 'string',
-      projectNo: 'string',
-      accountDid: 'string',
-      occurrentTime: 'string',
-      scenarioCode: 'string',
-      scenarioName: 'string',
-      platformNo: 'string',
-      activeDatum: { 'type': 'array', 'itemType': AnyAmountItem },
-      offsetVolume: 'string',
-      carbonEnergy: 'number',
-    };
-  }
-
-  constructor(map?: { [key: string]: any }) {
-    super(map);
-  }
-}
-
-// 机构会员资料
-export class EnterpriseMemberSummary extends $tea.Model {
-  // 机构会员DID
-  /**
-   * @example
-   * did:mychain:aa509301d1c2bd0e35f9737824e5ab9832ca9a09542d618bce24a1609191383c
-   */
-  accountDid: string;
-  // 会员姓名，数据脱敏处理返回
-  /**
-   * @example
-   * 张**
-   */
-  name?: string;
-  // 会员手机号码，数据脱敏处理返回
-  /**
-   * @example
-   * 136****1122
-   */
-  mobile?: string;
-  // 会员注册时间
-  /**
-   * @example
-   * 2022-02-22 12:33:11
-   */
-  registerTime: string;
-  static names(): { [key: string]: string } {
-    return {
-      accountDid: 'account_did',
-      name: 'name',
-      mobile: 'mobile',
-      registerTime: 'register_time',
-    };
-  }
-
-  static types(): { [key: string]: any } {
-    return {
-      accountDid: 'string',
-      name: 'string',
-      mobile: 'string',
-      registerTime: 'string',
-    };
-  }
-
-  constructor(map?: { [key: string]: any }) {
-    super(map);
-  }
-}
-
-// 碳补偿活动数据详情
-export class CarbonOffsetActiveDataDetail extends $tea.Model {
-  // 活动数据编号
-  /**
-   * @example
-   * AD1
-   */
-  activeDataNo: string;
-  // 活动数据名称
-  /**
-   * @example
-   * 行走里程数
-   */
-  activeDataName?: string;
-  // 活动数据单位
-  /**
-   * @example
-   * km
-   */
-  activeDataUnit?: string;
-  // 活动数据描述文案
-  /**
-   * @example
-   * 描述
-   */
-  description?: string;
-  // 活动数据值
-  /**
-   * @example
-   * 22.22
-   */
-  activeDataValue: string;
-  static names(): { [key: string]: string } {
-    return {
-      activeDataNo: 'active_data_no',
-      activeDataName: 'active_data_name',
-      activeDataUnit: 'active_data_unit',
-      description: 'description',
-      activeDataValue: 'active_data_value',
-    };
-  }
-
-  static types(): { [key: string]: any } {
-    return {
-      activeDataNo: 'string',
-      activeDataName: 'string',
-      activeDataUnit: 'string',
-      description: 'string',
-      activeDataValue: 'string',
-    };
-  }
-
-  constructor(map?: { [key: string]: any }) {
-    super(map);
-  }
-}
-
-// 三方平台客户摘要信息
-export class PlatformCustomerSummary extends $tea.Model {
-  // 三方平台的客户ID
-  /**
-   * @example
-   * 2322323
-   */
-  customerId: string;
-  // 三方平台客户名称
-  /**
-   * @example
-   * ****有限公司
-   */
-  customerName: string;
-  // 联系人
-  /**
-   * @example
-   * 张三
-   */
-  contactPerson: string;
-  // 联系电话
-  /**
-   * @example
-   * 13655665566
-   */
-  contactTelephone: string;
-  // 联系邮箱
-  /**
-   * @example
-   * ss@163.com
-   */
-  contactEmail?: string;
-  // 统一社会信用代码
-  /**
-   * @example
-   * 23123121
-   */
-  socialCreditCode: string;
-  static names(): { [key: string]: string } {
-    return {
-      customerId: 'customer_id',
-      customerName: 'customer_name',
-      contactPerson: 'contact_person',
-      contactTelephone: 'contact_telephone',
-      contactEmail: 'contact_email',
-      socialCreditCode: 'social_credit_code',
-    };
-  }
-
-  static types(): { [key: string]: any } {
-    return {
-      customerId: 'string',
-      customerName: 'string',
-      contactPerson: 'string',
-      contactTelephone: 'string',
-      contactEmail: 'string',
-      socialCreditCode: 'string',
-    };
-  }
-
-  constructor(map?: { [key: string]: any }) {
-    super(map);
-  }
-}
-
-// 企业产品信息
-export class EnterpriseProductSummary extends $tea.Model {
-  // 产品自定义编码
-  /**
-   * @example
-   * 12312121
-   */
-  enterpriseCustomCode: string;
-  // 产品名称
-  /**
-   * @example
-   * 石墨
-   */
-  productName: string;
-  // 规格型号
-  /**
-   * @example
-   * DDD-1212
-   */
-  specification: string;
-  // 产品描述
-  /**
-   * @example
-   * 这是一个石墨产品
-   */
-  productDescription?: string;
-  // 产品分类名称
-  /**
-   * @example
-   * 产品分类名
-   */
-  productCategoryName: string;
-  // 品牌信息
-  /**
-   * @example
-   * Adidas
-   */
-  brandInformation?: string;
-  // 工艺流程文件路径，上传文件后由上传文件接口提供，最多支持上传3个工艺流程文件
-  processFlowFileList?: EnterpriseDocumentFile[];
-  // 产品图片文件路径，上传文件后由上传文件接口提供，最多支持上传8个产品图片文件
-  productPictureFileList?: EnterpriseDocumentFile[];
-  static names(): { [key: string]: string } {
-    return {
-      enterpriseCustomCode: 'enterprise_custom_code',
-      productName: 'product_name',
-      specification: 'specification',
-      productDescription: 'product_description',
-      productCategoryName: 'product_category_name',
-      brandInformation: 'brand_information',
-      processFlowFileList: 'process_flow_file_list',
-      productPictureFileList: 'product_picture_file_list',
-    };
-  }
-
-  static types(): { [key: string]: any } {
-    return {
-      enterpriseCustomCode: 'string',
-      productName: 'string',
-      specification: 'string',
-      productDescription: 'string',
-      productCategoryName: 'string',
-      brandInformation: 'string',
-      processFlowFileList: { 'type': 'array', 'itemType': EnterpriseDocumentFile },
-      productPictureFileList: { 'type': 'array', 'itemType': EnterpriseDocumentFile },
-    };
-  }
-
-  constructor(map?: { [key: string]: any }) {
-    super(map);
-  }
-}
-
-// 分阶段碳排放量
-export class LcaStageCarbonItem extends $tea.Model {
-  // 生命周期阶段：
-  // [MaterialPurchase]-原材料，[ProductManufacture]-生产制造，[ProductSale]-分销，[ProductUsage]-产品使用，[ProductWithdraw]-处置/再生利用
-  /**
-   * @example
-   * MaterialPurchase
-   */
-  lcaStageCode: string;
-  // 阶段碳排放量
-  /**
-   * @example
-   * 223.23
-   */
-  lcaStageCarbonAmount: string;
-  static names(): { [key: string]: string } {
-    return {
-      lcaStageCode: 'lca_stage_code',
-      lcaStageCarbonAmount: 'lca_stage_carbon_amount',
-    };
-  }
-
-  static types(): { [key: string]: any } {
-    return {
-      lcaStageCode: 'string',
-      lcaStageCarbonAmount: 'string',
-    };
-  }
-
-  constructor(map?: { [key: string]: any }) {
-    super(map);
-  }
-}
-
-// 产品概要信息
-export class EnterpriseProductOutline extends $tea.Model {
-  // 产品自定义编码
-  // 
-  /**
-   * @example
-   * 23123121
-   */
-  enterpriseCustomCode: string;
-  // 产品名称
-  // 
-  /**
-   * @example
-   * 石墨
-   */
-  productName: string;
-  // 规格型号
-  /**
-   * @example
-   * DDD-1212
-   */
-  specification: string;
-  // 产品描述
-  /**
-   * @example
-   * 产品描述
-   */
-  productDescription?: string;
-  // 产品分类名称
-  /**
-   * @example
-   * 产品分类名
-   */
-  productCategoryName: string;
-  // 品牌信息
-  /**
-   * @example
-   * Adidas
-   */
-  brandInformation?: string;
-  static names(): { [key: string]: string } {
-    return {
-      enterpriseCustomCode: 'enterprise_custom_code',
-      productName: 'product_name',
-      specification: 'specification',
-      productDescription: 'product_description',
-      productCategoryName: 'product_category_name',
-      brandInformation: 'brand_information',
-    };
-  }
-
-  static types(): { [key: string]: any } {
-    return {
-      enterpriseCustomCode: 'string',
-      productName: 'string',
-      specification: 'string',
-      productDescription: 'string',
-      productCategoryName: 'string',
-      brandInformation: 'string',
-    };
-  }
-
-  constructor(map?: { [key: string]: any }) {
-    super(map);
-  }
-}
-
-// LCA碳足迹分析计算数据
-export class LcaCarbonDatum extends $tea.Model {
-  // LCA碳排放总量
-  /**
-   * @example
-   * 2323.22
-   */
-  lcaCarbonAmount: string;
-  // 足迹报告pdf文件下载地址（30分钟内下载有效）
-  /**
-   * @example
-   * http://oss.com/lca/lca_report.pdf
-   */
-  lcaReportFileUrl: string;
-  // 足迹分析结果详情文件地址（30分钟内下载有效）
-  /**
-   * @example
-   * http://oss.com/lca/lca_detail.pdf
-   */
-  lcaDetailFileUrl: string;
-  // B2B-从摇篮到大门，B2C-从摇篮到坟墓
-  /**
-   * @example
-   * B2B
-   */
-  lifeCycleBoundary: string;
-  // 足迹开始时间，格式：yyyyMMdd
-  /**
-   * @example
-   * 20231223
-   */
-  lcaStartDate: string;
-  // 足迹结束时间 格式：yyyyMMdd
-  /**
-   * @example
-   * 20231202
-   */
-  lcaEndDate: string;
-  // 分阶段碳排放量列表
-  lcaStageCarbonDatum: LcaStageCarbonItem[];
-  static names(): { [key: string]: string } {
-    return {
-      lcaCarbonAmount: 'lca_carbon_amount',
-      lcaReportFileUrl: 'lca_report_file_url',
-      lcaDetailFileUrl: 'lca_detail_file_url',
-      lifeCycleBoundary: 'life_cycle_boundary',
-      lcaStartDate: 'lca_start_date',
-      lcaEndDate: 'lca_end_date',
-      lcaStageCarbonDatum: 'lca_stage_carbon_datum',
-    };
-  }
-
-  static types(): { [key: string]: any } {
-    return {
-      lcaCarbonAmount: 'string',
-      lcaReportFileUrl: 'string',
-      lcaDetailFileUrl: 'string',
-      lifeCycleBoundary: 'string',
-      lcaStartDate: 'string',
-      lcaEndDate: 'string',
-      lcaStageCarbonDatum: { 'type': 'array', 'itemType': LcaStageCarbonItem },
-    };
-  }
-
-  constructor(map?: { [key: string]: any }) {
-    super(map);
-  }
-}
-
-// 逆变器发电量
-export class InverterGeneration extends $tea.Model {
-  // 逆变器SN
-  /**
-   * @example
-   * Inv-Other-16801-Q0kll-2024-04-11
-   */
-  invSn: string;
-  // 生产商名称
-  /**
-   * @example
-   * 生产商1
-   */
-  manufacturer: string;
-  // 当日发电量，最多3位小数
-  /**
-   * @example
-   * 1.232
-   */
-  daily: string;
-  // 累计发电量，最多3位小数
-  /**
-   * @example
-   * 1.232
-   */
-  total: string;
-  static names(): { [key: string]: string } {
-    return {
-      invSn: 'inv_sn',
-      manufacturer: 'manufacturer',
-      daily: 'daily',
-      total: 'total',
-    };
-  }
-
-  static types(): { [key: string]: any } {
-    return {
-      invSn: 'string',
-      manufacturer: 'string',
-      daily: 'string',
-      total: 'string',
-    };
-  }
-
-  constructor(map?: { [key: string]: any }) {
-    super(map);
-  }
-}
-
-// 设备发电量
-export class DeviceGeneration extends $tea.Model {
-  // 设备内部编号，注册设备后获取
-  /**
-   * @example
-   * 0340340000000707
-   */
-  deviceNo: string;
-  // 逆变器发电量列表
-  inverterGenerations: InverterGeneration[];
-  static names(): { [key: string]: string } {
-    return {
-      deviceNo: 'device_no',
-      inverterGenerations: 'inverter_generations',
-    };
-  }
-
-  static types(): { [key: string]: any } {
-    return {
-      deviceNo: 'string',
-      inverterGenerations: { 'type': 'array', 'itemType': InverterGeneration },
-    };
-  }
-
-  constructor(map?: { [key: string]: any }) {
-    super(map);
-  }
-}
-
-// 存证数据字段值
-export class DepositFieldValue extends $tea.Model {
-  // 存证数据字段名
-  /**
-   * @example
-   * distance
-   */
-  name: string;
-  // 存证数据字段值
-  /**
-   * @example
-   * 10.0
-   */
-  value?: string;
-  static names(): { [key: string]: string } {
-    return {
-      name: 'name',
-      value: 'value',
-    };
-  }
-
-  static types(): { [key: string]: any } {
-    return {
-      name: 'string',
-      value: 'string',
-    };
-  }
-
-  constructor(map?: { [key: string]: any }) {
-    super(map);
-  }
-}
-
-// 数据存证信息
-export class DataDepositInfo extends $tea.Model {
-  // 存证字段值
-  dataValue: DepositFieldValue[];
-  // 数据存证区块链交易ID
-  /**
-   * @example
-   * c5fcc677a0b04c62973c2dbc72jcus83271
-   */
-  txId?: string;
-  // 数据存证操作用户ID
-  /**
-   * @example
-   * user_001
-   */
-  userId: string;
-  // 存证数据内容
-  /**
-   * @example
-   * 待补充
-   */
-  depositContent: string;
-  // 存证执行状态
-  /**
-   * @example
-   * status
-   */
-  status: string;
-  // 存证执行(发起)时间
-  timestamp: number;
-  static names(): { [key: string]: string } {
-    return {
-      dataValue: 'data_value',
-      txId: 'tx_id',
-      userId: 'user_id',
-      depositContent: 'deposit_content',
-      status: 'status',
-      timestamp: 'timestamp',
-    };
-  }
-
-  static types(): { [key: string]: any } {
-    return {
-      dataValue: { 'type': 'array', 'itemType': DepositFieldValue },
-      txId: 'string',
-      userId: 'string',
-      depositContent: 'string',
-      status: 'string',
-      timestamp: 'number',
-    };
-  }
-
-  constructor(map?: { [key: string]: any }) {
-    super(map);
-  }
-}
-
-// 数据资产信息
-export class DataAssetInfo extends $tea.Model {
-  // 数据资产DID
-  /**
-   * @example
-   * 111
-   */
-  datasetDid: string;
-  // 数据资产所有方DID
-  /**
-   * @example
-   * 111
-   */
-  userDid: string;
-  // 数据资产名称
-  /**
-   * @example
-   * 企业固定化石燃料排放
-   */
-  datasetName: string;
-  // 数据类型
-  /**
-   * @example
-   * PERSONAL_GREEN_DATA_METRO
-   */
-  dataType: string;
-  static names(): { [key: string]: string } {
-    return {
-      datasetDid: 'dataset_did',
-      userDid: 'user_did',
-      datasetName: 'dataset_name',
-      dataType: 'data_type',
-    };
-  }
-
-  static types(): { [key: string]: any } {
-    return {
-      datasetDid: 'string',
-      userDid: 'string',
-      datasetName: 'string',
-      dataType: 'string',
-    };
-  }
-
-  constructor(map?: { [key: string]: any }) {
-    super(map);
-  }
-}
-
-// 数据授权策略
-export class AuthorizePolicy extends $tea.Model {
-  // 授权策略ID
-  /**
-   * @example
-   * 11
-   */
-  policyId: string;
-  // 授权策略描述
-  /**
-   * @example
-   * 11
-   */
-  description: string;
-  // 授权策略配置
-  /**
-   * @example
-   * 授权策略配置
-   */
-  authorizeConfig: string;
-  static names(): { [key: string]: string } {
-    return {
-      policyId: 'policy_id',
-      description: 'description',
-      authorizeConfig: 'authorize_config',
-    };
-  }
-
-  static types(): { [key: string]: any } {
-    return {
-      policyId: 'string',
-      description: 'string',
-      authorizeConfig: 'string',
-    };
-  }
-
-  constructor(map?: { [key: string]: any }) {
-    super(map);
-  }
-}
-
-// 数据类型
-export class DataTypeInfo extends $tea.Model {
-  // 数据类型编码
-  /**
-   * @example
-   * dataTypeNo
-   */
-  dataTypeNo: string;
-  // 数据类型名称
-  /**
-   * @example
-   * data_type_name
-   */
-  dataTypeName: string;
-  // 数据类型配置
-  /**
-   * @example
-   * data_type_config
-   */
-  dataTypeConfig: string;
-  // 数据JSON格式检查
-  /**
-   * @example
-   * data_json_schema
-   */
-  dataJsonSchema: string;
-  static names(): { [key: string]: string } {
-    return {
-      dataTypeNo: 'data_type_no',
-      dataTypeName: 'data_type_name',
-      dataTypeConfig: 'data_type_config',
-      dataJsonSchema: 'data_json_schema',
-    };
-  }
-
-  static types(): { [key: string]: any } {
-    return {
-      dataTypeNo: 'string',
-      dataTypeName: 'string',
-      dataTypeConfig: 'string',
-      dataJsonSchema: 'string',
-    };
-  }
-
-  constructor(map?: { [key: string]: any }) {
-    super(map);
-  }
-}
-
-// 运输信息
-export class TransportActiveData extends $tea.Model {
-  // 运输方式编码
-  /**
-   * @example
-   * 5201000000
-   */
-  transportCode: string;
-  // 运输设备
-  /**
-   * @example
-   * KCTC
-   */
-  equipment: string;
-  // 运输里程
-  /**
-   * @example
-   * 200
-   */
-  distance: string;
-  // 是否空载
-  /**
-   * @example
-   * true, false
-   */
-  isEmptyLoad?: boolean;
-  static names(): { [key: string]: string } {
-    return {
-      transportCode: 'transport_code',
-      equipment: 'equipment',
-      distance: 'distance',
-      isEmptyLoad: 'is_empty_load',
-    };
-  }
-
-  static types(): { [key: string]: any } {
-    return {
-      transportCode: 'string',
-      equipment: 'string',
-      distance: 'string',
-      isEmptyLoad: 'boolean',
-    };
-  }
-
-  constructor(map?: { [key: string]: any }) {
-    super(map);
-  }
-}
-
-// 输入流活动数据
-export class InputStreamActiveData extends $tea.Model {
-  // 物料编码
-  /**
-   * @example
-   * 0601020000
-   */
-  materialCode: string;
-  // 用量，非负，最多6位小数
-  /**
-   * @example
-   * 100
-   */
-  amount: string;
-  // 单位
-  /**
-   * @example
-   * KG
-   */
-  unit: string;
-  // 运输信息列表
-  transportList?: TransportActiveData[];
-  static names(): { [key: string]: string } {
-    return {
-      materialCode: 'material_code',
-      amount: 'amount',
-      unit: 'unit',
-      transportList: 'transport_list',
-    };
-  }
-
-  static types(): { [key: string]: any } {
-    return {
-      materialCode: 'string',
-      amount: 'string',
-      unit: 'string',
-      transportList: { 'type': 'array', 'itemType': TransportActiveData },
-    };
-  }
-
-  constructor(map?: { [key: string]: any }) {
-    super(map);
-  }
-}
-
-// 输出流活动数据
-export class OutputStreamActiveData extends $tea.Model {
-  // 物料编码
-  /**
-   * @example
-   * 0102010000
-   */
-  materialCode: string;
-  // 用量，非负，最多6位小数
-  /**
-   * @example
-   * 200.12
-   */
-  amount: string;
-  // 单位
-  /**
-   * @example
-   * KG
-   */
-  unit: string;
-  // 单价（仅产品用，产品不传时默认为空）
-  /**
-   * @example
-   * 100
-   */
-  unitPrice?: string;
-  // 处置方式编码（仅废弃物用）
-  /**
-   * @example
-   * 5201000000
-   */
-  disposalTypeCode?: string;
-  // 运输信息列表（仅废弃物用）
-  transportList?: TransportActiveData[];
-  static names(): { [key: string]: string } {
-    return {
-      materialCode: 'material_code',
-      amount: 'amount',
-      unit: 'unit',
-      unitPrice: 'unit_price',
-      disposalTypeCode: 'disposal_type_code',
-      transportList: 'transport_list',
-    };
-  }
-
-  static types(): { [key: string]: any } {
-    return {
-      materialCode: 'string',
-      amount: 'string',
-      unit: 'string',
-      unitPrice: 'string',
-      disposalTypeCode: 'string',
-      transportList: { 'type': 'array', 'itemType': TransportActiveData },
-    };
-  }
-
-  constructor(map?: { [key: string]: any }) {
-    super(map);
-  }
-}
-
-// 生命周期阶段活动数据
-export class LcaStageActiveData extends $tea.Model {
-  // LCA阶段
-  /**
-   * @example
-   * ProductManufacture
-   */
-  lcaStage: string;
-  // 输入流活动数据列表
-  inputStreamList: InputStreamActiveData[];
-  // 输出流活动数据列表
-  outputStreamList: OutputStreamActiveData[];
-  static names(): { [key: string]: string } {
-    return {
-      lcaStage: 'lca_stage',
-      inputStreamList: 'input_stream_list',
-      outputStreamList: 'output_stream_list',
-    };
-  }
-
-  static types(): { [key: string]: any } {
-    return {
-      lcaStage: 'string',
-      inputStreamList: { 'type': 'array', 'itemType': InputStreamActiveData },
-      outputStreamList: { 'type': 'array', 'itemType': OutputStreamActiveData },
-    };
-  }
-
-  constructor(map?: { [key: string]: any }) {
-    super(map);
-  }
-}
-
-// 阶段评估明细数据
-export class EnterpriseLcaAssessmentItem extends $tea.Model {
-  // 物料编码
-  /**
-   * @example
-   * 0601020000
-   */
-  materialCode: string;
-  // 数据明细名称
-  /**
-   * @example
-   * 煤炭
-   */
-  assessmentItemName: string;
-  // 物料直接碳排放评估量
-  /**
-   * @example
-   * 0
-   */
-  emissionAmount: string;
-  // 物料运输碳排放评估量
-  /**
-   * @example
-   * 123.1
-   */
-  transportEmissionAmount: string;
-  static names(): { [key: string]: string } {
-    return {
-      materialCode: 'material_code',
-      assessmentItemName: 'assessment_item_name',
-      emissionAmount: 'emission_amount',
-      transportEmissionAmount: 'transport_emission_amount',
-    };
-  }
-
-  static types(): { [key: string]: any } {
-    return {
-      materialCode: 'string',
-      assessmentItemName: 'string',
-      emissionAmount: 'string',
-      transportEmissionAmount: 'string',
-    };
-  }
-
-  constructor(map?: { [key: string]: any }) {
-    super(map);
-  }
-}
-
-// 阶段评估数据明细
-export class EnterpriseLcaStageAssessmentItem extends $tea.Model {
-  // LCA阶段
-  /**
-   * @example
-   * ProductManufacture
-   */
-  lcaStage: string;
-  // 阶段排放占比
-  /**
-   * @example
-   * 1
-   */
-  lcaStageCarbonRate: string;
-  // 阶段排放量
-  /**
-   * @example
-   * 123.12
-   */
-  lcaStageCarbonEmissions: string;
-  // 阶段评估明细数据
-  lcaAssessmentDatum: EnterpriseLcaAssessmentItem[];
-  static names(): { [key: string]: string } {
-    return {
-      lcaStage: 'lca_stage',
-      lcaStageCarbonRate: 'lca_stage_carbon_rate',
-      lcaStageCarbonEmissions: 'lca_stage_carbon_emissions',
-      lcaAssessmentDatum: 'lca_assessment_datum',
-    };
-  }
-
-  static types(): { [key: string]: any } {
-    return {
-      lcaStage: 'string',
-      lcaStageCarbonRate: 'string',
-      lcaStageCarbonEmissions: 'string',
-      lcaAssessmentDatum: { 'type': 'array', 'itemType': EnterpriseLcaAssessmentItem },
-    };
-  }
-
-  constructor(map?: { [key: string]: any }) {
-    super(map);
-  }
-}
-
 // Lca速算记录
 export class LcaCalcResult extends $tea.Model {
   // 速算记录编号
@@ -2383,367 +2387,6 @@ export class LcaCalcResult extends $tea.Model {
       lcaStageAssessmentDatum: { 'type': 'array', 'itemType': EnterpriseLcaStageAssessmentItem },
       recordDate: 'string',
       customContext: 'string',
-    };
-  }
-
-  constructor(map?: { [key: string]: any }) {
-    super(map);
-  }
-}
-
-// 溯源碳足迹项目
-export class LcaProjectTrace extends $tea.Model {
-  // 碳足迹编码
-  /**
-   * @example
-   * project_no
-   */
-  projectNo: string;
-  // 碳足迹生命周期边界
-  /**
-   * @example
-   * life_cycle_boundary
-   */
-  lifeCycleBoundary: string;
-  // 产品编码
-  /**
-   * @example
-   * product_no
-   */
-  productNo: string;
-  // 碳足迹项目排放量
-  /**
-   * @example
-   * lca_carbon_amount
-   */
-  lcaCarbonAmount: string;
-  // 产品名称
-  /**
-   * @example
-   * product_name
-   */
-  productName: string;
-  // 产品规格型号
-  /**
-   * @example
-   * specification
-   */
-  specification: string;
-  // 碳足迹开始时间
-  /**
-   * @example
-   * lca_start_date
-   */
-  lcaStartDate: string;
-  // 碳足迹结束时间
-  /**
-   * @example
-   * lca_end_date
-   */
-  lcaEndDate: string;
-  // 溯源状态
-  /**
-   * @example
-   * trace_status
-   */
-  traceStatus: string;
-  static names(): { [key: string]: string } {
-    return {
-      projectNo: 'project_no',
-      lifeCycleBoundary: 'life_cycle_boundary',
-      productNo: 'product_no',
-      lcaCarbonAmount: 'lca_carbon_amount',
-      productName: 'product_name',
-      specification: 'specification',
-      lcaStartDate: 'lca_start_date',
-      lcaEndDate: 'lca_end_date',
-      traceStatus: 'trace_status',
-    };
-  }
-
-  static types(): { [key: string]: any } {
-    return {
-      projectNo: 'string',
-      lifeCycleBoundary: 'string',
-      productNo: 'string',
-      lcaCarbonAmount: 'string',
-      productName: 'string',
-      specification: 'string',
-      lcaStartDate: 'string',
-      lcaEndDate: 'string',
-      traceStatus: 'string',
-    };
-  }
-
-  constructor(map?: { [key: string]: any }) {
-    super(map);
-  }
-}
-
-// 转型金融报告详情
-export class FinanceReportDetail extends $tea.Model {
-  // 文件
-  file: EnterpriseDocumentFile;
-  // 报告编号
-  /**
-   * @example
-   * xxx
-   */
-  reportNo: string;
-  // 报告名称
-  /**
-   * @example
-   * xxx
-   */
-  reportName: string;
-  // 是否盖章
-  /**
-   * @example
-   * true, false
-   */
-  hasSealed: boolean;
-  // 报告时间
-  /**
-   * @example
-   * 2025-01-20
-   */
-  reportTime: string;
-  // 报告提交人
-  /**
-   * @example
-   * 张三
-   */
-  reportSubmitter: string;
-  // 报告生成方式
-  /**
-   * @example
-   * MANUAL , INTERFACE
-   */
-  generateType: string;
-  // 对比年，报告年
-  /**
-   * @example
-   * 2025
-   */
-  compareYear: string;
-  // 基准年
-  /**
-   * @example
-   * 2024
-   */
-  baseYear: string;
-  // 企业名称
-  /**
-   * @example
-   * xxx
-   */
-  companyName: string;
-  // 区域名称
-  /**
-   * @example
-   * 北京
-   */
-  areaName: string;
-  // 行业名称
-  /**
-   * @example
-   * 能源
-   */
-  industryName: string;
-  // 社会统一信用代码
-  /**
-   * @example
-   * 28382372323232434
-   */
-  companyId: string;
-  static names(): { [key: string]: string } {
-    return {
-      file: 'file',
-      reportNo: 'report_no',
-      reportName: 'report_name',
-      hasSealed: 'has_sealed',
-      reportTime: 'report_time',
-      reportSubmitter: 'report_submitter',
-      generateType: 'generate_type',
-      compareYear: 'compare_year',
-      baseYear: 'base_year',
-      companyName: 'company_name',
-      areaName: 'area_name',
-      industryName: 'industry_name',
-      companyId: 'company_id',
-    };
-  }
-
-  static types(): { [key: string]: any } {
-    return {
-      file: EnterpriseDocumentFile,
-      reportNo: 'string',
-      reportName: 'string',
-      hasSealed: 'boolean',
-      reportTime: 'string',
-      reportSubmitter: 'string',
-      generateType: 'string',
-      compareYear: 'string',
-      baseYear: 'string',
-      companyName: 'string',
-      areaName: 'string',
-      industryName: 'string',
-      companyId: 'string',
-    };
-  }
-
-  constructor(map?: { [key: string]: any }) {
-    super(map);
-  }
-}
-
-// 转型路径分析数据
-export class TransferPathAnalysis extends $tea.Model {
-  // 所属领域
-  /**
-   * @example
-   * 系统能效提升
-   */
-  field: string;
-  // 目录编号
-  /**
-   * @example
-   * 1.12
-   */
-  indexNumber: string;
-  // 目录内容
-  /**
-   * @example
-   * 低温余热有机工质郎肯循环（ORC）发电
-   */
-  indexContent: string;
-  // 技术标准说明
-  /**
-   * @example
-   * 基于有机朗肯循环（ORC）原理，通过蒸发器回收95-300℃的热水、热液、蒸汽、烟气中的低温余热，通过向心涡轮和发电机将热量转换成高品质电能。参考标准《低温余热双循环发电装置》（GB/T 37819-2019）、《低温双循环余热回收利用装置性能测试方法》（GB/T 40286-2021）等。
-   */
-  detail: string;
-  // 企业是否采取该路径
-  /**
-   * @example
-   * 长期目标
-   */
-  target: string;
-  static names(): { [key: string]: string } {
-    return {
-      field: 'field',
-      indexNumber: 'index_number',
-      indexContent: 'index_content',
-      detail: 'detail',
-      target: 'target',
-    };
-  }
-
-  static types(): { [key: string]: any } {
-    return {
-      field: 'string',
-      indexNumber: 'string',
-      indexContent: 'string',
-      detail: 'string',
-      target: 'string',
-    };
-  }
-
-  constructor(map?: { [key: string]: any }) {
-    super(map);
-  }
-}
-
-// 月度明细列表
-export class MonthDataDetail extends $tea.Model {
-  // 发生月份，格式 yyyy-MM
-  /**
-   * @example
-   * xxxx
-   */
-  occurDate: string;
-  // 产量数据
-  /**
-   * @example
-   * xxxx
-   */
-  amount: string;
-  // 产量单位
-  /**
-   * @example
-   * xxxx
-   */
-  dosageUnit: string;
-  static names(): { [key: string]: string } {
-    return {
-      occurDate: 'occur_date',
-      amount: 'amount',
-      dosageUnit: 'dosage_unit',
-    };
-  }
-
-  static types(): { [key: string]: any } {
-    return {
-      occurDate: 'string',
-      amount: 'string',
-      dosageUnit: 'string',
-    };
-  }
-
-  constructor(map?: { [key: string]: any }) {
-    super(map);
-  }
-}
-
-// 产品产量填报项
-export class GclProductionItem extends $tea.Model {
-  // 用户侧传入明细编码，用于异常回传和排查
-  /**
-   * @example
-   * xxxx
-   */
-  externalItemCode?: string;
-  // 生产单元名称
-  /**
-   * @example
-   * xxxx
-   */
-  locationName: string;
-  // 产品名称
-  /**
-   * @example
-   * xxxx
-   */
-  productName: string;
-  // 产品规格
-  /**
-   * @example
-   * xxxx
-   */
-  specification: string;
-  // 月度产量明细
-  /**
-   * @example
-   * undefined
-   */
-  productionDataList: MonthDataDetail[];
-  static names(): { [key: string]: string } {
-    return {
-      externalItemCode: 'external_item_code',
-      locationName: 'location_name',
-      productName: 'product_name',
-      specification: 'specification',
-      productionDataList: 'production_data_list',
-    };
-  }
-
-  static types(): { [key: string]: any } {
-    return {
-      externalItemCode: 'string',
-      locationName: 'string',
-      productName: 'string',
-      specification: 'string',
-      productionDataList: { 'type': 'array', 'itemType': MonthDataDetail },
     };
   }
 
@@ -2889,138 +2532,115 @@ export class GclAbnormalItem extends $tea.Model {
   }
 }
 
-// 供应商产品详情
-export class SupplierProductDetail extends $tea.Model {
-  // 供应商名称
+// 转型金融报告详情
+export class FinanceReportDetail extends $tea.Model {
+  // 文件
+  file: EnterpriseDocumentFile;
+  // 报告编号
   /**
    * @example
-   * xxxx
+   * xxx
    */
-  supplierName?: string;
-  // 供应商产品名称
+  reportNo: string;
+  // 报告名称
   /**
    * @example
-   * -
+   * xxx
    */
-  supplierProductName?: string;
-  // 填报单位
+  reportName: string;
+  // 是否盖章
   /**
    * @example
-   * xxxx
+   * true, false
    */
-  dosageUnit?: string;
+  hasSealed: boolean;
+  // 报告时间
+  /**
+   * @example
+   * 2025-01-20
+   */
+  reportTime: string;
+  // 报告提交人
+  /**
+   * @example
+   * 张三
+   */
+  reportSubmitter: string;
+  // 报告生成方式
+  /**
+   * @example
+   * MANUAL , INTERFACE
+   */
+  generateType: string;
+  // 对比年，报告年
+  /**
+   * @example
+   * 2025
+   */
+  compareYear: string;
+  // 基准年
+  /**
+   * @example
+   * 2024
+   */
+  baseYear: string;
+  // 企业名称
+  /**
+   * @example
+   * xxx
+   */
+  companyName: string;
+  // 区域名称
+  /**
+   * @example
+   * 北京
+   */
+  areaName: string;
+  // 行业名称
+  /**
+   * @example
+   * 能源
+   */
+  industryName: string;
+  // 社会统一信用代码
+  /**
+   * @example
+   * 28382372323232434
+   */
+  companyId: string;
   static names(): { [key: string]: string } {
     return {
-      supplierName: 'supplier_name',
-      supplierProductName: 'supplier_product_name',
-      dosageUnit: 'dosage_unit',
+      file: 'file',
+      reportNo: 'report_no',
+      reportName: 'report_name',
+      hasSealed: 'has_sealed',
+      reportTime: 'report_time',
+      reportSubmitter: 'report_submitter',
+      generateType: 'generate_type',
+      compareYear: 'compare_year',
+      baseYear: 'base_year',
+      companyName: 'company_name',
+      areaName: 'area_name',
+      industryName: 'industry_name',
+      companyId: 'company_id',
     };
   }
 
   static types(): { [key: string]: any } {
     return {
-      supplierName: 'string',
-      supplierProductName: 'string',
-      dosageUnit: 'string',
-    };
-  }
-
-  constructor(map?: { [key: string]: any }) {
-    super(map);
-  }
-}
-
-// 物料产品详情
-export class MaterialDetail extends $tea.Model {
-  // 物料名称
-  /**
-   * @example
-   * xxxx
-   */
-  materialName?: string;
-  // 供应商产品详情列表
-  /**
-   * @example
-   * undefined
-   */
-  supplierProductList?: SupplierProductDetail;
-  static names(): { [key: string]: string } {
-    return {
-      materialName: 'material_name',
-      supplierProductList: 'supplier_product_list',
-    };
-  }
-
-  static types(): { [key: string]: any } {
-    return {
-      materialName: 'string',
-      supplierProductList: SupplierProductDetail,
-    };
-  }
-
-  constructor(map?: { [key: string]: any }) {
-    super(map);
-  }
-}
-
-// 物料详情
-export class MaterialTypeDetail extends $tea.Model {
-  // 物料类型名称
-  /**
-   * @example
-   * xxxx
-   */
-  materialType?: string;
-  // 物料产品详情表
-  /**
-   * @example
-   * undefined
-   */
-  materialList?: MaterialDetail[];
-  static names(): { [key: string]: string } {
-    return {
-      materialType: 'material_type',
-      materialList: 'material_list',
-    };
-  }
-
-  static types(): { [key: string]: any } {
-    return {
-      materialType: 'string',
-      materialList: { 'type': 'array', 'itemType': MaterialDetail },
-    };
-  }
-
-  constructor(map?: { [key: string]: any }) {
-    super(map);
-  }
-}
-
-// 过程详情
-export class ProcessDetail extends $tea.Model {
-  // 单元过程名称
-  /**
-   * @example
-   * xxxx
-   */
-  processName?: string;
-  // 过程编码
-  /**
-   * @example
-   * xxxx
-   */
-  processNo?: string;
-  static names(): { [key: string]: string } {
-    return {
-      processName: 'process_name',
-      processNo: 'process_no',
-    };
-  }
-
-  static types(): { [key: string]: any } {
-    return {
-      processName: 'string',
-      processNo: 'string',
+      file: EnterpriseDocumentFile,
+      reportNo: 'string',
+      reportName: 'string',
+      hasSealed: 'boolean',
+      reportTime: 'string',
+      reportSubmitter: 'string',
+      generateType: 'string',
+      compareYear: 'string',
+      baseYear: 'string',
+      companyName: 'string',
+      areaName: 'string',
+      industryName: 'string',
+      companyId: 'string',
     };
   }
 
@@ -3118,31 +2738,39 @@ export class ActiveDataItem extends $tea.Model {
   }
 }
 
-// gcl开放接口模型
-export class GclLcaModel extends $tea.Model {
-  // 模型名称
+//  每月的排放数据
+export class AnnualMonthEmissionDatum extends $tea.Model {
+  // 统计的年份
   /**
    * @example
-   * xxxx
+   * 2022
    */
-  modelName?: string;
-  // 过程信息
+  year: string;
+  // 统计的月份
   /**
    * @example
-   * undefined
+   * 12
    */
-  processList?: ProcessDetail[];
+  month: string;
+  // 统计排放量
+  /**
+   * @example
+   * 22.22
+   */
+  value: string;
   static names(): { [key: string]: string } {
     return {
-      modelName: 'model_name',
-      processList: 'process_list',
+      year: 'year',
+      month: 'month',
+      value: 'value',
     };
   }
 
   static types(): { [key: string]: any } {
     return {
-      modelName: 'string',
-      processList: { 'type': 'array', 'itemType': ProcessDetail },
+      year: 'string',
+      month: 'string',
+      value: 'string',
     };
   }
 
@@ -3151,55 +2779,258 @@ export class GclLcaModel extends $tea.Model {
   }
 }
 
-// user_info
-export class EsgUser extends $tea.Model {
-  // 当前操作员 ID
+// 账户信息
+export class CarbonAccountInfo extends $tea.Model {
+  // 账户did
   /**
    * @example
-   * xxxxx
+   * did:private:xxx
    */
-  userId: string;
-  // 当前登录账号。
+  userDid: string;
+  // 账户名称
   /**
    * @example
-   * xxxxx
+   * xxx企业
    */
   userName: string;
-  // 操作员昵称
-  /**
-   * @example
-   * xxxxx
-   */
-  nickName?: string;
-  // 操作员真实姓名
-  /**
-   * @example
-   * xxxxx
-   */
-  realName?: string;
-  // 操作员手机号
-  /**
-   * @example
-   * xxxxx
-   */
-  phoneNumber?: string;
   static names(): { [key: string]: string } {
     return {
-      userId: 'user_id',
+      userDid: 'user_did',
       userName: 'user_name',
-      nickName: 'nick_name',
-      realName: 'real_name',
-      phoneNumber: 'phone_number',
     };
   }
 
   static types(): { [key: string]: any } {
     return {
-      userId: 'string',
+      userDid: 'string',
       userName: 'string',
-      nickName: 'string',
-      realName: 'string',
-      phoneNumber: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+// 数据存证信息
+export class DataDepositInfo extends $tea.Model {
+  // 存证字段值
+  dataValue: DepositFieldValue[];
+  // 数据存证区块链交易ID
+  /**
+   * @example
+   * c5fcc677a0b04c62973c2dbc72jcus83271
+   */
+  txId?: string;
+  // 数据存证操作用户ID
+  /**
+   * @example
+   * user_001
+   */
+  userId: string;
+  // 存证数据内容
+  /**
+   * @example
+   * 待补充
+   */
+  depositContent: string;
+  // 存证执行状态
+  /**
+   * @example
+   * status
+   */
+  status: string;
+  // 存证执行(发起)时间
+  timestamp: number;
+  static names(): { [key: string]: string } {
+    return {
+      dataValue: 'data_value',
+      txId: 'tx_id',
+      userId: 'user_id',
+      depositContent: 'deposit_content',
+      status: 'status',
+      timestamp: 'timestamp',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      dataValue: { 'type': 'array', 'itemType': DepositFieldValue },
+      txId: 'string',
+      userId: 'string',
+      depositContent: 'string',
+      status: 'string',
+      timestamp: 'number',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+// 碳排放分城市统计总量
+export class EmissionsCityStatistics extends $tea.Model {
+  // 城市编码
+  /**
+   * @example
+   * 637401
+   */
+  cityNo: string;
+  // 城市名称
+  /**
+   * @example
+   * 南充市
+   */
+  cityName: string;
+  // 累计排放量
+  /**
+   * @example
+   * 222.22
+   */
+  emissionAmount: string;
+  // 今日新增碳排放量
+  /**
+   * @example
+   * 22.22
+   */
+  emissionAmountToday: string;
+  // 总减碳量
+  /**
+   * @example
+   * 21.11
+   */
+  reductionAmount: string;
+  // 今日减碳量
+  /**
+   * @example
+   * 9.11
+   */
+  reductionAmountToday: string;
+  // 总抵消量
+  /**
+   * @example
+   * 9.11
+   */
+  counteractionAmount: string;
+  // 今日抵消量
+  /**
+   * @example
+   * 2.11
+   */
+  counteractionAmountToday: string;
+  // 排放量单位，默认为：
+  /**
+   * @example
+   * tCO2e
+   */
+  dataUnit: string;
+  static names(): { [key: string]: string } {
+    return {
+      cityNo: 'city_no',
+      cityName: 'city_name',
+      emissionAmount: 'emission_amount',
+      emissionAmountToday: 'emission_amount_today',
+      reductionAmount: 'reduction_amount',
+      reductionAmountToday: 'reduction_amount_today',
+      counteractionAmount: 'counteraction_amount',
+      counteractionAmountToday: 'counteraction_amount_today',
+      dataUnit: 'data_unit',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      cityNo: 'string',
+      cityName: 'string',
+      emissionAmount: 'string',
+      emissionAmountToday: 'string',
+      reductionAmount: 'string',
+      reductionAmountToday: 'string',
+      counteractionAmount: 'string',
+      counteractionAmountToday: 'string',
+      dataUnit: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+// 授权信息
+export class AuthenticationInfoVO extends $tea.Model {
+  // 授权记录编码
+  /**
+   * @example
+   * 授权记录编码
+   */
+  authenticationNo: string;
+  // 收取方did
+  /**
+   * @example
+   * 收取方did
+   */
+  authorizerDid: string;
+  // 授权方名称
+  /**
+   * @example
+   * 授权方名称
+   */
+  authorizerName: string;
+  // 被授权方did
+  /**
+   * @example
+   * 被授权方did
+   */
+  authorizedDid: string;
+  // 被授权方名称
+  /**
+   * @example
+   * 被授权方名称
+   */
+  authorizedName: string;
+  // 数据协作类型
+  /**
+   * @example
+   * 数据协作类型
+   */
+  dataTransferType: string;
+  // 授权详情
+  /**
+   * @example
+   * {}
+   */
+  authenticationDeetail: string;
+  // 授权状态
+  /**
+   * @example
+   * Approved：审批通过   Approving：待审批 NotApproved：审批不通过 Cancelled: 取消授权
+   */
+  status: string;
+  static names(): { [key: string]: string } {
+    return {
+      authenticationNo: 'authentication_no',
+      authorizerDid: 'authorizer_did',
+      authorizerName: 'authorizer_name',
+      authorizedDid: 'authorized_did',
+      authorizedName: 'authorized_name',
+      dataTransferType: 'data_transfer_type',
+      authenticationDeetail: 'authentication_deetail',
+      status: 'status',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      authenticationNo: 'string',
+      authorizerDid: 'string',
+      authorizerName: 'string',
+      authorizedDid: 'string',
+      authorizedName: 'string',
+      dataTransferType: 'string',
+      authenticationDeetail: 'string',
+      status: 'string',
     };
   }
 
@@ -3249,63 +3080,63 @@ export class RoleList extends $tea.Model {
   }
 }
 
-// 组织单元树结构体
-export class OrganizationUnitTree extends $tea.Model {
-  // 组织单元编码
+// 三方平台客户摘要信息
+export class PlatformCustomerSummary extends $tea.Model {
+  // 三方平台的客户ID
   /**
    * @example
-   * xxxxx
+   * 2322323
    */
-  organizationNo: string;
-  // 组织单元名称
+  customerId: string;
+  // 三方平台客户名称
   /**
    * @example
-   * xxxxxx
+   * ****有限公司
    */
-  organizationName: string;
-  // 从根到直接父级的组织编码链；根节点为空
+  customerName: string;
+  // 联系人
   /**
    * @example
-   * [xxx,xxx]
+   * 张三
    */
-  parentOrganizationNoList?: string[];
-  // 直接父级组织名称；根节点为空
+  contactPerson: string;
+  // 联系电话
   /**
    * @example
-   * xxxxxx
+   * 13655665566
    */
-  parentOrganizationName?: string;
-  // 最后更新时间
+  contactTelephone: string;
+  // 联系邮箱
   /**
    * @example
-   * xxxxxx
+   * ss@163.com
    */
-  gmtModified: string;
-  // 重复结构体
+  contactEmail?: string;
+  // 统一社会信用代码
   /**
    * @example
-   * [{}]
+   * 23123121
    */
-  children: OrganizationUnitSubTree[];
+  socialCreditCode: string;
   static names(): { [key: string]: string } {
     return {
-      organizationNo: 'organization_no',
-      organizationName: 'organization_name',
-      parentOrganizationNoList: 'parent_organization_no_list',
-      parentOrganizationName: 'parent_organization_name',
-      gmtModified: 'gmt_modified',
-      children: 'children',
+      customerId: 'customer_id',
+      customerName: 'customer_name',
+      contactPerson: 'contact_person',
+      contactTelephone: 'contact_telephone',
+      contactEmail: 'contact_email',
+      socialCreditCode: 'social_credit_code',
     };
   }
 
   static types(): { [key: string]: any } {
     return {
-      organizationNo: 'string',
-      organizationName: 'string',
-      parentOrganizationNoList: { 'type': 'array', 'itemType': 'string' },
-      parentOrganizationName: 'string',
-      gmtModified: 'string',
-      children: { 'type': 'array', 'itemType': OrganizationUnitSubTree },
+      customerId: 'string',
+      customerName: 'string',
+      contactPerson: 'string',
+      contactTelephone: 'string',
+      contactEmail: 'string',
+      socialCreditCode: 'string',
     };
   }
 
@@ -3314,63 +3145,47 @@ export class OrganizationUnitTree extends $tea.Model {
   }
 }
 
-// 重复结构体
-export class OrganizationUnitSubTree extends $tea.Model {
-  // 组织单元编码。
+// 碳排放分单元统计总量
+export class EmissionsLocationStatistics extends $tea.Model {
+  // 盘查单元编码
   /**
    * @example
-   * xxxxxx
+   * L0100000008902
    */
-  organizationNo: string;
-  // 组织单元名称。
+  locationNo: string;
+  // 盘查单元名称
   /**
    * @example
-   * xxxxxx
+   * 2022亚运会游泳馆
    */
-  organizationName: string;
-  // 从根到直接父级的组织编码链；根节点为空。
+  locationName: string;
+  // 盘查单元排放量
   /**
    * @example
-   * [xxx,xxx]
+   * 2223.22
    */
-  parentOrganizationNoList?: string[];
-  // 直接父级组织名称；根节点为空。
+  emissionAmount: string;
+  // 排放量单位，默认为：tCO2e
   /**
    * @example
-   * xxxxxx
+   * tCO2e
    */
-  parentOrganizationName?: string;
-  // 最后更新时间
-  /**
-   * @example
-   * xxxxxx
-   */
-  gmtModified: string;
-  // 重复结构体
-  /**
-   * @example
-   * [{}]
-   */
-  children: OrganizationUnitTree[];
+  dataUnit: string;
   static names(): { [key: string]: string } {
     return {
-      organizationNo: 'organization_no',
-      organizationName: 'organization_name',
-      parentOrganizationNoList: 'parent_organization_no_list',
-      parentOrganizationName: 'parent_organization_name',
-      gmtModified: 'gmt_modified',
-      children: 'children',
+      locationNo: 'location_no',
+      locationName: 'location_name',
+      emissionAmount: 'emission_amount',
+      dataUnit: 'data_unit',
     };
   }
 
   static types(): { [key: string]: any } {
     return {
-      organizationNo: 'string',
-      organizationName: 'string',
-      parentOrganizationNoList: { 'type': 'array', 'itemType': 'string' },
-      parentOrganizationName: 'string',
-      gmtModified: 'string',
-      children: { 'type': 'array', 'itemType': OrganizationUnitTree },
+      locationNo: 'string',
+      locationName: 'string',
+      emissionAmount: 'string',
+      dataUnit: 'string',
     };
   }
 
@@ -3379,71 +3194,31 @@ export class OrganizationUnitSubTree extends $tea.Model {
   }
 }
 
-// 当前页操作员列表
-export class OperatorList extends $tea.Model {
-  // 操作员 ID。
+// 任意KV结构对象
+export class AnyKeywordItem extends $tea.Model {
+  // 项目编码
   /**
    * @example
-   * xxxxxx
+   * CFD
    */
-  operatorId: string;
-  // 操作员姓名。
+  itemCode: string;
+  // 项目值
   /**
    * @example
-   * xxxxxx
+   * 各种按业务场景的取值
    */
-  operatorName?: string;
-  // 登录邮箱。
-  /**
-   * @example
-   * xxxxxx
-   */
-  email?: string;
-  // 手机号。
-  /**
-   * @example
-   * xxxxxx
-   */
-  cellPhone?: string;
-  // 昵称。
-  /**
-   * @example
-   * xxxxxx
-   */
-  nickName?: string;
-  // 创建时间
-  /**
-   * @example
-   * xxxxxx
-   */
-  createTime?: string;
-  // 操作员状态。
-  /**
-   * @example
-   * xxxxxx
-   */
-  status?: string;
+  itemValue: string;
   static names(): { [key: string]: string } {
     return {
-      operatorId: 'operator_id',
-      operatorName: 'operator_name',
-      email: 'email',
-      cellPhone: 'cell_phone',
-      nickName: 'nick_name',
-      createTime: 'create_time',
-      status: 'status',
+      itemCode: 'item_code',
+      itemValue: 'item_value',
     };
   }
 
   static types(): { [key: string]: any } {
     return {
-      operatorId: 'string',
-      operatorName: 'string',
-      email: 'string',
-      cellPhone: 'string',
-      nickName: 'string',
-      createTime: 'string',
-      status: 'string',
+      itemCode: 'string',
+      itemValue: 'string',
     };
   }
 
@@ -3452,39 +3227,264 @@ export class OperatorList extends $tea.Model {
   }
 }
 
-// 角色列表；
-export class RoleDetailList extends $tea.Model {
-  // 角色编码
+// 物料详情
+export class MaterialTypeDetail extends $tea.Model {
+  // 物料类型名称
   /**
    * @example
-   * xxxxxx
+   * xxxx
    */
-  roleNo: string;
-  // 角色名称
+  materialType?: string;
+  // 物料产品详情表
   /**
    * @example
-   * xxxxxx
+   * undefined
    */
-  name: string;
-  // 角色描述
-  /**
-   * @example
-   * xxxxxx
-   */
-  description?: string;
+  materialList?: MaterialDetail[];
   static names(): { [key: string]: string } {
     return {
-      roleNo: 'role_no',
-      name: 'name',
-      description: 'description',
+      materialType: 'material_type',
+      materialList: 'material_list',
     };
   }
 
   static types(): { [key: string]: any } {
     return {
-      roleNo: 'string',
-      name: 'string',
-      description: 'string',
+      materialType: 'string',
+      materialList: { 'type': 'array', 'itemType': MaterialDetail },
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+// 企业产品信息
+export class EnterpriseProductSummary extends $tea.Model {
+  // 产品自定义编码
+  /**
+   * @example
+   * 12312121
+   */
+  enterpriseCustomCode: string;
+  // 产品名称
+  /**
+   * @example
+   * 石墨
+   */
+  productName: string;
+  // 规格型号
+  /**
+   * @example
+   * DDD-1212
+   */
+  specification: string;
+  // 产品描述
+  /**
+   * @example
+   * 这是一个石墨产品
+   */
+  productDescription?: string;
+  // 产品分类名称
+  /**
+   * @example
+   * 产品分类名
+   */
+  productCategoryName: string;
+  // 品牌信息
+  /**
+   * @example
+   * Adidas
+   */
+  brandInformation?: string;
+  // 工艺流程文件路径，上传文件后由上传文件接口提供，最多支持上传3个工艺流程文件
+  processFlowFileList?: EnterpriseDocumentFile[];
+  // 产品图片文件路径，上传文件后由上传文件接口提供，最多支持上传8个产品图片文件
+  productPictureFileList?: EnterpriseDocumentFile[];
+  static names(): { [key: string]: string } {
+    return {
+      enterpriseCustomCode: 'enterprise_custom_code',
+      productName: 'product_name',
+      specification: 'specification',
+      productDescription: 'product_description',
+      productCategoryName: 'product_category_name',
+      brandInformation: 'brand_information',
+      processFlowFileList: 'process_flow_file_list',
+      productPictureFileList: 'product_picture_file_list',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      enterpriseCustomCode: 'string',
+      productName: 'string',
+      specification: 'string',
+      productDescription: 'string',
+      productCategoryName: 'string',
+      brandInformation: 'string',
+      processFlowFileList: { 'type': 'array', 'itemType': EnterpriseDocumentFile },
+      productPictureFileList: { 'type': 'array', 'itemType': EnterpriseDocumentFile },
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+// 排放范围排放数据统计
+export class EmissionsScopeStatistics extends $tea.Model {
+  // 盘查范围编码
+  /**
+   * @example
+   * 002
+   */
+  inventoryScopeNo: string;
+  // 盘查范围名称
+  /**
+   * @example
+   * 范围一
+   */
+  inventoryScopeName: string;
+  // 碳排放量
+  /**
+   * @example
+   * 222.33
+   */
+  emissions: number;
+  // 排放占比
+  /**
+   * @example
+   * 0.11
+   */
+  percentage: number;
+  // 范围下各分类排放数据
+  categoryEmissionsList: EmissionsCategoryStatistics[];
+  static names(): { [key: string]: string } {
+    return {
+      inventoryScopeNo: 'inventory_scope_no',
+      inventoryScopeName: 'inventory_scope_name',
+      emissions: 'emissions',
+      percentage: 'percentage',
+      categoryEmissionsList: 'category_emissions_list',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      inventoryScopeNo: 'string',
+      inventoryScopeName: 'string',
+      emissions: 'number',
+      percentage: 'number',
+      categoryEmissionsList: { 'type': 'array', 'itemType': EmissionsCategoryStatistics },
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+// 生命周期阶段活动数据
+export class LcaStageActiveData extends $tea.Model {
+  // LCA阶段
+  /**
+   * @example
+   * ProductManufacture
+   */
+  lcaStage: string;
+  // 输入流活动数据列表
+  inputStreamList: InputStreamActiveData[];
+  // 输出流活动数据列表
+  outputStreamList: OutputStreamActiveData[];
+  static names(): { [key: string]: string } {
+    return {
+      lcaStage: 'lca_stage',
+      inputStreamList: 'input_stream_list',
+      outputStreamList: 'output_stream_list',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      lcaStage: 'string',
+      inputStreamList: { 'type': 'array', 'itemType': InputStreamActiveData },
+      outputStreamList: { 'type': 'array', 'itemType': OutputStreamActiveData },
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+// gcl开放接口模型
+export class GclLcaModel extends $tea.Model {
+  // 模型名称
+  /**
+   * @example
+   * xxxx
+   */
+  modelName?: string;
+  // 过程信息
+  /**
+   * @example
+   * undefined
+   */
+  processList?: ProcessDetail[];
+  static names(): { [key: string]: string } {
+    return {
+      modelName: 'model_name',
+      processList: 'process_list',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      modelName: 'string',
+      processList: { 'type': 'array', 'itemType': ProcessDetail },
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+// 按频率统计的绿色行为明细
+export class GreenOperationStatisticsByFrequence extends $tea.Model {
+  // 绿色行为发生时期
+  /**
+   * @example
+   * 2021-09
+   */
+  occurrencePeriod: string;
+  // 绿色行为产生的绿色能量值
+  /**
+   * @example
+   * 11212
+   */
+  greenEnergyAmount: number;
+  // 时期内发生绿色行为的记录条数
+  /**
+   * @example
+   * 111
+   */
+  greenOperationRecords: number;
+  static names(): { [key: string]: string } {
+    return {
+      occurrencePeriod: 'occurrence_period',
+      greenEnergyAmount: 'green_energy_amount',
+      greenOperationRecords: 'green_operation_records',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      occurrencePeriod: 'string',
+      greenEnergyAmount: 'number',
+      greenOperationRecords: 'number',
     };
   }
 
@@ -10213,7 +10213,7 @@ export default class Client {
           req_msg_id: AntchainUtil.getNonce(),
           access_key: this._accessKeyId,
           base_sdk_version: "TeaSDK-2.0",
-          sdk_version: "2.11.16",
+          sdk_version: "2.11.17",
           _prod_code: "STLR",
           _prod_channel: "undefined",
         };
