@@ -294,7 +294,7 @@ class Client {
                 "period" => Utils::defaultNumber($runtime->backoffPeriod, 1)
             ],
             "ignoreSSL" => $runtime->ignoreSSL,
-            // 每日碳排放量
+            // 供应商产品详情
         ];
         $_lastRequest = null;
         $_lastException = null;
@@ -321,7 +321,7 @@ class Client {
                     "req_msg_id" => UtilClient::getNonce(),
                     "access_key" => $this->_accessKeyId,
                     "base_sdk_version" => "TeaSDK-2.0",
-                    "sdk_version" => "2.11.16",
+                    "sdk_version" => "2.11.17",
                     "_prod_code" => "STLR",
                     "_prod_channel" => "undefined"
                 ];

@@ -5,8 +5,6 @@ namespace AntChain\STLR\Models;
 
 use AlibabaCloud\Tea\Model;
 
-use AntChain\STLR\Models\OrganizationUnitTree;
-
 class OrganizationUnitSubTree extends Model {
     protected $_name = [
         'organizationNo' => 'organization_no',
@@ -40,13 +38,7 @@ class OrganizationUnitSubTree extends Model {
             $res['gmt_modified'] = $this->gmtModified;
         }
         if (null !== $this->children) {
-            $res['children'] = [];
-            if(null !== $this->children && is_array($this->children)){
-                $n = 0;
-                foreach($this->children as $item){
-                    $res['children'][$n++] = null !== $item ? $item->toMap() : $item;
-                }
-            }
+            $res['children'] = $this->children;
         }
         return $res;
     }
@@ -74,13 +66,7 @@ class OrganizationUnitSubTree extends Model {
             $model->gmtModified = $map['gmt_modified'];
         }
         if(isset($map['children'])){
-            if(!empty($map['children'])){
-                $model->children = [];
-                $n = 0;
-                foreach($map['children'] as $item) {
-                    $model->children[$n++] = null !== $item ? OrganizationUnitTree::fromMap($item) : $item;
-                }
-            }
+            $model->children = $map['children'];
         }
         return $model;
     }
@@ -122,7 +108,7 @@ class OrganizationUnitSubTree extends Model {
     // 重复结构体
     /**
      * @example [{}]
-     * @var OrganizationUnitTree[]
+     * @var string
      */
     public $children;
 
