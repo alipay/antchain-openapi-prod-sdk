@@ -53,6 +53,11 @@ namespace AntChain.SDK.AIOSPRODUCT.Models
         [Validation(Required=false)]
         public string TagInfo { get; set; }
 
+        // 由业务指定不同的 gateway_code
+        [NameInMap("gateway_code")]
+        [Validation(Required=false)]
+        public string GatewayCode { get; set; }
+
     }
 
 }

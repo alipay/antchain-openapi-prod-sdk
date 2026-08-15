@@ -158,7 +158,7 @@ namespace AntChain.SDK.AIOSPRODUCT
                         {"req_msg_id", AntChain.AlipayUtil.AntchainUtils.GetNonce()},
                         {"access_key", _accessKeyId},
                         {"base_sdk_version", "TeaSDK-2.0"},
-                        {"sdk_version", "1.0.2"},
+                        {"sdk_version", "1.0.3"},
                         {"_prod_code", "AIOSPRODUCT"},
                         {"_prod_channel", "default"},
                     };
@@ -301,7 +301,7 @@ namespace AntChain.SDK.AIOSPRODUCT
                         {"req_msg_id", AntChain.AlipayUtil.AntchainUtils.GetNonce()},
                         {"access_key", _accessKeyId},
                         {"base_sdk_version", "TeaSDK-2.0"},
-                        {"sdk_version", "1.0.2"},
+                        {"sdk_version", "1.0.3"},
                         {"_prod_code", "AIOSPRODUCT"},
                         {"_prod_channel", "default"},
                     };
@@ -449,6 +449,98 @@ namespace AntChain.SDK.AIOSPRODUCT
         {
             AlibabaCloud.TeaUtil.Common.ValidateModel(request);
             return TeaModel.ToObject<QueryGwdefaultChatResponse>(await DoRequestAsync("1.0", "antdigital.aiosproduct.gwdefault.chat.query", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /// <term><b>Description:</b></term>
+        /// <description>
+        /// <para>Description: AIOS 少儿保险 流式对话
+        /// Summary: AIOS 少儿保险 流式对话</para>
+        /// </description>
+        public QueryGwchildinsuranceChatstreamResponse QueryGwchildinsuranceChatstream(QueryGwchildinsuranceChatstreamRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return QueryGwchildinsuranceChatstreamEx(request, headers, runtime);
+        }
+
+        /// <term><b>Description:</b></term>
+        /// <description>
+        /// <para>Description: AIOS 少儿保险 流式对话
+        /// Summary: AIOS 少儿保险 流式对话</para>
+        /// </description>
+        public async Task<QueryGwchildinsuranceChatstreamResponse> QueryGwchildinsuranceChatstreamAsync(QueryGwchildinsuranceChatstreamRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return await QueryGwchildinsuranceChatstreamExAsync(request, headers, runtime);
+        }
+
+        /// <term><b>Description:</b></term>
+        /// <description>
+        /// <para>Description: AIOS 少儿保险 流式对话
+        /// Summary: AIOS 少儿保险 流式对话</para>
+        /// </description>
+        public QueryGwchildinsuranceChatstreamResponse QueryGwchildinsuranceChatstreamEx(QueryGwchildinsuranceChatstreamRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<QueryGwchildinsuranceChatstreamResponse>(DoRequest("1.0", "antdigital.aiosproduct.gwchildinsurance.chatstream.query", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /// <term><b>Description:</b></term>
+        /// <description>
+        /// <para>Description: AIOS 少儿保险 流式对话
+        /// Summary: AIOS 少儿保险 流式对话</para>
+        /// </description>
+        public async Task<QueryGwchildinsuranceChatstreamResponse> QueryGwchildinsuranceChatstreamExAsync(QueryGwchildinsuranceChatstreamRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<QueryGwchildinsuranceChatstreamResponse>(await DoRequestAsync("1.0", "antdigital.aiosproduct.gwchildinsurance.chatstream.query", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /// <term><b>Description:</b></term>
+        /// <description>
+        /// <para>Description: AIOS 少儿保险 非流式对话
+        /// Summary: AIOS 少儿保险 非流式对话</para>
+        /// </description>
+        public QueryGwchildinsuranceChatResponse QueryGwchildinsuranceChat(QueryGwchildinsuranceChatRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return QueryGwchildinsuranceChatEx(request, headers, runtime);
+        }
+
+        /// <term><b>Description:</b></term>
+        /// <description>
+        /// <para>Description: AIOS 少儿保险 非流式对话
+        /// Summary: AIOS 少儿保险 非流式对话</para>
+        /// </description>
+        public async Task<QueryGwchildinsuranceChatResponse> QueryGwchildinsuranceChatAsync(QueryGwchildinsuranceChatRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return await QueryGwchildinsuranceChatExAsync(request, headers, runtime);
+        }
+
+        /// <term><b>Description:</b></term>
+        /// <description>
+        /// <para>Description: AIOS 少儿保险 非流式对话
+        /// Summary: AIOS 少儿保险 非流式对话</para>
+        /// </description>
+        public QueryGwchildinsuranceChatResponse QueryGwchildinsuranceChatEx(QueryGwchildinsuranceChatRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<QueryGwchildinsuranceChatResponse>(DoRequest("1.0", "antdigital.aiosproduct.gwchildinsurance.chat.query", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /// <term><b>Description:</b></term>
+        /// <description>
+        /// <para>Description: AIOS 少儿保险 非流式对话
+        /// Summary: AIOS 少儿保险 非流式对话</para>
+        /// </description>
+        public async Task<QueryGwchildinsuranceChatResponse> QueryGwchildinsuranceChatExAsync(QueryGwchildinsuranceChatRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<QueryGwchildinsuranceChatResponse>(await DoRequestAsync("1.0", "antdigital.aiosproduct.gwchildinsurance.chat.query", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
         }
 
     }

@@ -8,7 +8,7 @@ using Tea;
 
 namespace AntChain.SDK.AIOSPRODUCT.Models
 {
-    public class QueryGwdefaultChatstreamRequest : TeaModel {
+    public class QueryGwchildinsuranceChatstreamRequest : TeaModel {
         // OAuth模式下的授权token
         [NameInMap("auth_token")]
         [Validation(Required=false)]
@@ -48,15 +48,10 @@ namespace AntChain.SDK.AIOSPRODUCT.Models
         [Validation(Required=false)]
         public string ExtInfo { get; set; }
 
-        // 标签过滤字段（可选），用于按标签过滤生效的 expertAgents/skills/tools。
+        // 标签过滤字段（可选），用于按标签过滤生效的 expertAgents/skills/tools
         [NameInMap("tag_info")]
         [Validation(Required=false)]
         public string TagInfo { get; set; }
-
-        // 由业务指定不同的 gateway_code
-        [NameInMap("gateway_code")]
-        [Validation(Required=false)]
-        public string GatewayCode { get; set; }
 
     }
 
