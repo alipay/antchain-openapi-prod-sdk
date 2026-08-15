@@ -198,6 +198,8 @@ export class QueryGwdefaultChatstreamRequest extends $tea.Model {
   extInfo?: string;
   // 标签过滤字段（可选），用于按标签过滤生效的 expertAgents/skills/tools。
   tagInfo?: string;
+  // 由业务指定不同的 gateway_code
+  gatewayCode?: string;
   static names(): { [key: string]: string } {
     return {
       authToken: 'auth_token',
@@ -209,6 +211,7 @@ export class QueryGwdefaultChatstreamRequest extends $tea.Model {
       sessionId: 'session_id',
       extInfo: 'ext_info',
       tagInfo: 'tag_info',
+      gatewayCode: 'gateway_code',
     };
   }
 
@@ -223,6 +226,7 @@ export class QueryGwdefaultChatstreamRequest extends $tea.Model {
       sessionId: 'string',
       extInfo: 'string',
       tagInfo: 'string',
+      gatewayCode: 'string',
     };
   }
 
@@ -317,6 +321,109 @@ export class QueryGwdefaultChatRequest extends $tea.Model {
   extInfo?: string;
   // 标签过滤字段（可选），用于按标签过滤生效的 expertAgents/skills/tools
   tagInfo?: string;
+  // 由业务指定不同的 gateway_code
+  gatewayCode?: string;
+  static names(): { [key: string]: string } {
+    return {
+      authToken: 'auth_token',
+      productInstanceId: 'product_instance_id',
+      userId: 'user_id',
+      tenantId: 'tenant_id',
+      agentCode: 'agent_code',
+      message: 'message',
+      sessionId: 'session_id',
+      extInfo: 'ext_info',
+      tagInfo: 'tag_info',
+      gatewayCode: 'gateway_code',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      authToken: 'string',
+      productInstanceId: 'string',
+      userId: 'string',
+      tenantId: 'string',
+      agentCode: 'string',
+      message: 'string',
+      sessionId: 'string',
+      extInfo: 'string',
+      tagInfo: 'string',
+      gatewayCode: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class QueryGwdefaultChatResponse extends $tea.Model {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string;
+  // 结果码，一般OK表示调用成功
+  resultCode?: string;
+  // 异常信息的文本描述
+  resultMsg?: string;
+  // 会话id
+  sessionId?: string;
+  // 业务配置标识（必传），决定模型、策略、提示词
+  agentCode?: string;
+  // 回答
+  answer?: string;
+  // 链路id
+  traceId?: string;
+  // 附加信息
+  metadata?: string;
+  static names(): { [key: string]: string } {
+    return {
+      reqMsgId: 'req_msg_id',
+      resultCode: 'result_code',
+      resultMsg: 'result_msg',
+      sessionId: 'session_id',
+      agentCode: 'agent_code',
+      answer: 'answer',
+      traceId: 'trace_id',
+      metadata: 'metadata',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      reqMsgId: 'string',
+      resultCode: 'string',
+      resultMsg: 'string',
+      sessionId: 'string',
+      agentCode: 'string',
+      answer: 'string',
+      traceId: 'string',
+      metadata: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class QueryGwchildinsuranceChatstreamRequest extends $tea.Model {
+  // OAuth模式下的授权token
+  authToken?: string;
+  productInstanceId?: string;
+  // 用户标识
+  userId: string;
+  // 租户标识
+  tenantId?: string;
+  // 业务配置标识（必传），决定模型、策略、提示词
+  agentCode: string;
+  // 用户输入
+  message: string;
+  // 会话标识（可选），新会话不传，继续会话传
+  sessionId?: string;
+  // 扩展字段（可选），用于后端服务直接调用时指定技术参数
+  extInfo?: string;
+  // 标签过滤字段（可选），用于按标签过滤生效的 expertAgents/skills/tools
+  tagInfo?: string;
   static names(): { [key: string]: string } {
     return {
       authToken: 'auth_token',
@@ -350,7 +457,126 @@ export class QueryGwdefaultChatRequest extends $tea.Model {
   }
 }
 
-export class QueryGwdefaultChatResponse extends $tea.Model {
+export class QueryGwchildinsuranceChatstreamResponse extends $tea.Model {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string;
+  // 结果码，一般OK表示调用成功
+  resultCode?: string;
+  // 异常信息的文本描述
+  resultMsg?: string;
+  // 会话id
+  sessionId?: string;
+  // 整体成功标志，默认 true
+  success?: boolean;
+  // 固定chat_result
+  type?: string;
+  // 查询 ID；多为空串
+  queryId?: string;
+  // true=流式中间批次；false=收尾批次
+  hasStream?: boolean;
+  // 正文流
+  chatList?: string;
+  // 推荐问题（SUG），仅收尾批次非空
+  sugList?: string;
+  // 全量引用（REF），仅收尾批次非空
+  refList?: string;
+  // 页脚卡片（FOOTER_CARD 已改写为 CARD），仅收尾批次非空
+  footerList?: string;
+  // token/耗时信息；仅携带 callbackInfo 的批次才有
+  callBackInfo?: string;
+  static names(): { [key: string]: string } {
+    return {
+      reqMsgId: 'req_msg_id',
+      resultCode: 'result_code',
+      resultMsg: 'result_msg',
+      sessionId: 'session_id',
+      success: 'success',
+      type: 'type',
+      queryId: 'query_id',
+      hasStream: 'has_stream',
+      chatList: 'chat_list',
+      sugList: 'sug_list',
+      refList: 'ref_list',
+      footerList: 'footer_list',
+      callBackInfo: 'call_back_info',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      reqMsgId: 'string',
+      resultCode: 'string',
+      resultMsg: 'string',
+      sessionId: 'string',
+      success: 'boolean',
+      type: 'string',
+      queryId: 'string',
+      hasStream: 'boolean',
+      chatList: 'string',
+      sugList: 'string',
+      refList: 'string',
+      footerList: 'string',
+      callBackInfo: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class QueryGwchildinsuranceChatRequest extends $tea.Model {
+  // OAuth模式下的授权token
+  authToken?: string;
+  productInstanceId?: string;
+  // 用户标识
+  userId: string;
+  // 租户标识
+  tenantId: string;
+  // 业务配置标识（必传），决定模型、策略、提示词
+  agentCode: string;
+  // 用户输入
+  message: string;
+  // 会话标识（可选），新会话不传，继续会话传
+  sessionId?: string;
+  // 扩展字段（可选），用于后端服务直接调用时指定技术参数
+  extInfo?: string;
+  // 标签过滤字段（可选），用于按标签过滤生效的 expertAgents/skills/tools
+  tagInfo?: string;
+  static names(): { [key: string]: string } {
+    return {
+      authToken: 'auth_token',
+      productInstanceId: 'product_instance_id',
+      userId: 'user_id',
+      tenantId: 'tenant_id',
+      agentCode: 'agent_code',
+      message: 'message',
+      sessionId: 'session_id',
+      extInfo: 'ext_info',
+      tagInfo: 'tag_info',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      authToken: 'string',
+      productInstanceId: 'string',
+      userId: 'string',
+      tenantId: 'string',
+      agentCode: 'string',
+      message: 'string',
+      sessionId: 'string',
+      extInfo: 'string',
+      tagInfo: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class QueryGwchildinsuranceChatResponse extends $tea.Model {
   // 请求唯一ID，用于链路跟踪和问题排查
   reqMsgId?: string;
   // 结果码，一般OK表示调用成功
@@ -515,7 +741,7 @@ export default class Client {
           req_msg_id: AntchainUtil.getNonce(),
           access_key: this._accessKeyId,
           base_sdk_version: "TeaSDK-2.0",
-          sdk_version: "1.0.2",
+          sdk_version: "1.0.3",
           _prod_code: "AIOSPRODUCT",
           _prod_channel: "default",
         };
@@ -603,6 +829,48 @@ export default class Client {
   async queryGwdefaultChatEx(request: QueryGwdefaultChatRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<QueryGwdefaultChatResponse> {
     Util.validateModel(request);
     return $tea.cast<QueryGwdefaultChatResponse>(await this.doRequest("1.0", "antdigital.aiosproduct.gwdefault.chat.query", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new QueryGwdefaultChatResponse({}));
+  }
+
+  /**
+   * @remarks
+   * Description: AIOS 少儿保险 流式对话
+   * Summary: AIOS 少儿保险 流式对话
+   */
+  async queryGwchildinsuranceChatstream(request: QueryGwchildinsuranceChatstreamRequest): Promise<QueryGwchildinsuranceChatstreamResponse> {
+    let runtime = new $Util.RuntimeOptions({ });
+    let headers : {[key: string ]: string} = { };
+    return await this.queryGwchildinsuranceChatstreamEx(request, headers, runtime);
+  }
+
+  /**
+   * @remarks
+   * Description: AIOS 少儿保险 流式对话
+   * Summary: AIOS 少儿保险 流式对话
+   */
+  async queryGwchildinsuranceChatstreamEx(request: QueryGwchildinsuranceChatstreamRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<QueryGwchildinsuranceChatstreamResponse> {
+    Util.validateModel(request);
+    return $tea.cast<QueryGwchildinsuranceChatstreamResponse>(await this.doRequest("1.0", "antdigital.aiosproduct.gwchildinsurance.chatstream.query", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new QueryGwchildinsuranceChatstreamResponse({}));
+  }
+
+  /**
+   * @remarks
+   * Description: AIOS 少儿保险 非流式对话
+   * Summary: AIOS 少儿保险 非流式对话
+   */
+  async queryGwchildinsuranceChat(request: QueryGwchildinsuranceChatRequest): Promise<QueryGwchildinsuranceChatResponse> {
+    let runtime = new $Util.RuntimeOptions({ });
+    let headers : {[key: string ]: string} = { };
+    return await this.queryGwchildinsuranceChatEx(request, headers, runtime);
+  }
+
+  /**
+   * @remarks
+   * Description: AIOS 少儿保险 非流式对话
+   * Summary: AIOS 少儿保险 非流式对话
+   */
+  async queryGwchildinsuranceChatEx(request: QueryGwchildinsuranceChatRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<QueryGwchildinsuranceChatResponse> {
+    Util.validateModel(request);
+    return $tea.cast<QueryGwchildinsuranceChatResponse>(await this.doRequest("1.0", "antdigital.aiosproduct.gwchildinsurance.chat.query", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new QueryGwchildinsuranceChatResponse({}));
   }
 
 }
