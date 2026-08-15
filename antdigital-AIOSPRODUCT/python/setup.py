@@ -24,7 +24,7 @@ from setuptools import setup, find_packages
 """
 setup module for antchain_aiosproduct.
 
-Created on 13/08/2026
+Created on 15/08/2026
 
 @author: Ant Chain SDK
 """

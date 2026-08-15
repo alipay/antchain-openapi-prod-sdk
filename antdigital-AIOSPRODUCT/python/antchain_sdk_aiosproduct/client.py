@@ -134,7 +134,7 @@ class Client:
                     'req_msg_id': AntchainUtils.get_nonce(),
                     'access_key': self._access_key_id,
                     'base_sdk_version': 'TeaSDK-2.0',
-                    'sdk_version': '1.0.2',
+                    'sdk_version': '1.0.3',
                     '_prod_code': 'AIOSPRODUCT',
                     '_prod_channel': 'default'
                 }
@@ -237,7 +237,7 @@ class Client:
                     'req_msg_id': AntchainUtils.get_nonce(),
                     'access_key': self._access_key_id,
                     'base_sdk_version': 'TeaSDK-2.0',
-                    'sdk_version': '1.0.2',
+                    'sdk_version': '1.0.3',
                     '_prod_code': 'AIOSPRODUCT',
                     '_prod_channel': 'default'
                 }
@@ -383,4 +383,116 @@ class Client:
         return TeaCore.from_map(
             aiosproduct_models.QueryGwdefaultChatResponse(),
             await self.do_request_async('1.0', 'antdigital.aiosproduct.gwdefault.chat.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def query_gwchildinsurance_chatstream(
+        self,
+        request: aiosproduct_models.QueryGwchildinsuranceChatstreamRequest,
+    ) -> aiosproduct_models.QueryGwchildinsuranceChatstreamResponse:
+        """
+        Description: AIOS 少儿保险 流式对话
+        Summary: AIOS 少儿保险 流式对话
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.query_gwchildinsurance_chatstream_ex(request, headers, runtime)
+
+    async def query_gwchildinsurance_chatstream_async(
+        self,
+        request: aiosproduct_models.QueryGwchildinsuranceChatstreamRequest,
+    ) -> aiosproduct_models.QueryGwchildinsuranceChatstreamResponse:
+        """
+        Description: AIOS 少儿保险 流式对话
+        Summary: AIOS 少儿保险 流式对话
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.query_gwchildinsurance_chatstream_ex_async(request, headers, runtime)
+
+    def query_gwchildinsurance_chatstream_ex(
+        self,
+        request: aiosproduct_models.QueryGwchildinsuranceChatstreamRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> aiosproduct_models.QueryGwchildinsuranceChatstreamResponse:
+        """
+        Description: AIOS 少儿保险 流式对话
+        Summary: AIOS 少儿保险 流式对话
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            aiosproduct_models.QueryGwchildinsuranceChatstreamResponse(),
+            self.do_request('1.0', 'antdigital.aiosproduct.gwchildinsurance.chatstream.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def query_gwchildinsurance_chatstream_ex_async(
+        self,
+        request: aiosproduct_models.QueryGwchildinsuranceChatstreamRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> aiosproduct_models.QueryGwchildinsuranceChatstreamResponse:
+        """
+        Description: AIOS 少儿保险 流式对话
+        Summary: AIOS 少儿保险 流式对话
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            aiosproduct_models.QueryGwchildinsuranceChatstreamResponse(),
+            await self.do_request_async('1.0', 'antdigital.aiosproduct.gwchildinsurance.chatstream.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def query_gwchildinsurance_chat(
+        self,
+        request: aiosproduct_models.QueryGwchildinsuranceChatRequest,
+    ) -> aiosproduct_models.QueryGwchildinsuranceChatResponse:
+        """
+        Description: AIOS 少儿保险 非流式对话
+        Summary: AIOS 少儿保险 非流式对话
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.query_gwchildinsurance_chat_ex(request, headers, runtime)
+
+    async def query_gwchildinsurance_chat_async(
+        self,
+        request: aiosproduct_models.QueryGwchildinsuranceChatRequest,
+    ) -> aiosproduct_models.QueryGwchildinsuranceChatResponse:
+        """
+        Description: AIOS 少儿保险 非流式对话
+        Summary: AIOS 少儿保险 非流式对话
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.query_gwchildinsurance_chat_ex_async(request, headers, runtime)
+
+    def query_gwchildinsurance_chat_ex(
+        self,
+        request: aiosproduct_models.QueryGwchildinsuranceChatRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> aiosproduct_models.QueryGwchildinsuranceChatResponse:
+        """
+        Description: AIOS 少儿保险 非流式对话
+        Summary: AIOS 少儿保险 非流式对话
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            aiosproduct_models.QueryGwchildinsuranceChatResponse(),
+            self.do_request('1.0', 'antdigital.aiosproduct.gwchildinsurance.chat.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def query_gwchildinsurance_chat_ex_async(
+        self,
+        request: aiosproduct_models.QueryGwchildinsuranceChatRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> aiosproduct_models.QueryGwchildinsuranceChatResponse:
+        """
+        Description: AIOS 少儿保险 非流式对话
+        Summary: AIOS 少儿保险 非流式对话
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            aiosproduct_models.QueryGwchildinsuranceChatResponse(),
+            await self.do_request_async('1.0', 'antdigital.aiosproduct.gwchildinsurance.chat.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
