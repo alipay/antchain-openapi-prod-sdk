@@ -126,7 +126,7 @@ public class Client {
                     new TeaPair("req_msg_id", com.antgroup.antchain.openapi.antchain.util.AntchainUtils.getNonce()),
                     new TeaPair("access_key", _accessKeyId),
                     new TeaPair("base_sdk_version", "TeaSDK-2.0"),
-                    new TeaPair("sdk_version", "1.3.16"),
+                    new TeaPair("sdk_version", "1.3.17"),
                     new TeaPair("_prod_code", "GESAAS"),
                     new TeaPair("_prod_channel", "default")
                 );
@@ -333,6 +333,48 @@ public class Client {
     public CheckOmngRiskResponse checkOmngRiskEx(CheckOmngRiskRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
         com.aliyun.teautil.Common.validateModel(request);
         return TeaModel.toModel(this.doRequest("1.0", "antdigital.gesaas.omng.risk.check", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new CheckOmngRiskResponse());
+    }
+
+    /**
+     * <b>description</b> :
+     * <p>Description: 视频生成任务创建
+     * Summary: 视频生成任务创建</p>
+     */
+    public SaveOmngGenerationtaskResponse saveOmngGenerationtask(SaveOmngGenerationtaskRequest request) throws Exception {
+        com.aliyun.teautil.models.RuntimeOptions runtime = new com.aliyun.teautil.models.RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.saveOmngGenerationtaskEx(request, headers, runtime);
+    }
+
+    /**
+     * <b>description</b> :
+     * <p>Description: 视频生成任务创建
+     * Summary: 视频生成任务创建</p>
+     */
+    public SaveOmngGenerationtaskResponse saveOmngGenerationtaskEx(SaveOmngGenerationtaskRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "antdigital.gesaas.omng.generationtask.save", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new SaveOmngGenerationtaskResponse());
+    }
+
+    /**
+     * <b>description</b> :
+     * <p>Description: 视频生成任务结果查询
+     * Summary: 视频生成任务结果查询</p>
+     */
+    public QueryOmngGenerationtaskResponse queryOmngGenerationtask(QueryOmngGenerationtaskRequest request) throws Exception {
+        com.aliyun.teautil.models.RuntimeOptions runtime = new com.aliyun.teautil.models.RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.queryOmngGenerationtaskEx(request, headers, runtime);
+    }
+
+    /**
+     * <b>description</b> :
+     * <p>Description: 视频生成任务结果查询
+     * Summary: 视频生成任务结果查询</p>
+     */
+    public QueryOmngGenerationtaskResponse queryOmngGenerationtaskEx(QueryOmngGenerationtaskRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "antdigital.gesaas.omng.generationtask.query", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new QueryOmngGenerationtaskResponse());
     }
 
     /**
