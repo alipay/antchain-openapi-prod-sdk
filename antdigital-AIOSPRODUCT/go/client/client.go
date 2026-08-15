@@ -206,6 +206,8 @@ type QueryGwdefaultChatstreamRequest struct {
 	ExtInfo *string `json:"ext_info,omitempty" xml:"ext_info,omitempty"`
 	// 标签过滤字段（可选），用于按标签过滤生效的 expertAgents/skills/tools。
 	TagInfo *string `json:"tag_info,omitempty" xml:"tag_info,omitempty"`
+	// 由业务指定不同的 gateway_code
+	GatewayCode *string `json:"gateway_code,omitempty" xml:"gateway_code,omitempty"`
 }
 
 func (s QueryGwdefaultChatstreamRequest) String() string {
@@ -261,6 +263,11 @@ func (s *QueryGwdefaultChatstreamRequest) SetTagInfo(v string) *QueryGwdefaultCh
 	return s
 }
 
+func (s *QueryGwdefaultChatstreamRequest) SetGatewayCode(v string) *QueryGwdefaultChatstreamRequest {
+	s.GatewayCode = &v
+	return s
+}
+
 type QueryGwdefaultChatstreamResponse struct {
 	// 请求唯一ID，用于链路跟踪和问题排查
 	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
@@ -272,13 +279,13 @@ type QueryGwdefaultChatstreamResponse struct {
 	SessionId *string `json:"session_id,omitempty" xml:"session_id,omitempty"`
 	// 整体成功标志，默认 true
 	Success *bool `json:"success,omitempty" xml:"success,omitempty"`
-	// 固定 "chat_result"（由输出层注入，不在信封 dataclass 内）
+	// 固定chat_result
 	Type *string `json:"type,omitempty" xml:"type,omitempty"`
 	// 查询 ID；多为空串
 	QueryId *string `json:"query_id,omitempty" xml:"query_id,omitempty"`
 	// true=流式中间批次；false=收尾批次
 	HasStream *bool `json:"has_stream,omitempty" xml:"has_stream,omitempty"`
-	// 正文流（TEXT/CARD/COT_*/CONTENT_*/HORSE_RIDE_*/CUSTOM_CARD_*/WITHDRAW/FORBIDDEN/TASK）
+	// 正文流
 	ChatList *string `json:"chat_list,omitempty" xml:"chat_list,omitempty"`
 	// 推荐问题（SUG），仅收尾批次非空
 	SugList *string `json:"sug_list,omitempty" xml:"sug_list,omitempty"`
@@ -381,6 +388,8 @@ type QueryGwdefaultChatRequest struct {
 	ExtInfo *string `json:"ext_info,omitempty" xml:"ext_info,omitempty"`
 	// 标签过滤字段（可选），用于按标签过滤生效的 expertAgents/skills/tools
 	TagInfo *string `json:"tag_info,omitempty" xml:"tag_info,omitempty"`
+	// 由业务指定不同的 gateway_code
+	GatewayCode *string `json:"gateway_code,omitempty" xml:"gateway_code,omitempty"`
 }
 
 func (s QueryGwdefaultChatRequest) String() string {
@@ -433,6 +442,11 @@ func (s *QueryGwdefaultChatRequest) SetExtInfo(v string) *QueryGwdefaultChatRequ
 
 func (s *QueryGwdefaultChatRequest) SetTagInfo(v string) *QueryGwdefaultChatRequest {
 	s.TagInfo = &v
+	return s
+}
+
+func (s *QueryGwdefaultChatRequest) SetGatewayCode(v string) *QueryGwdefaultChatRequest {
+	s.GatewayCode = &v
 	return s
 }
 
@@ -499,6 +513,321 @@ func (s *QueryGwdefaultChatResponse) SetTraceId(v string) *QueryGwdefaultChatRes
 }
 
 func (s *QueryGwdefaultChatResponse) SetMetadata(v string) *QueryGwdefaultChatResponse {
+	s.Metadata = &v
+	return s
+}
+
+type QueryGwchildinsuranceChatstreamRequest struct {
+	// OAuth模式下的授权token
+	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
+	// 用户标识
+	UserId *string `json:"user_id,omitempty" xml:"user_id,omitempty" require:"true"`
+	// 租户标识
+	TenantId *string `json:"tenant_id,omitempty" xml:"tenant_id,omitempty"`
+	// 业务配置标识（必传），决定模型、策略、提示词
+	AgentCode *string `json:"agent_code,omitempty" xml:"agent_code,omitempty" require:"true"`
+	// 用户输入
+	Message *string `json:"message,omitempty" xml:"message,omitempty" require:"true"`
+	// 会话标识（可选），新会话不传，继续会话传
+	SessionId *string `json:"session_id,omitempty" xml:"session_id,omitempty"`
+	// 扩展字段（可选），用于后端服务直接调用时指定技术参数
+	ExtInfo *string `json:"ext_info,omitempty" xml:"ext_info,omitempty"`
+	// 标签过滤字段（可选），用于按标签过滤生效的 expertAgents/skills/tools
+	TagInfo *string `json:"tag_info,omitempty" xml:"tag_info,omitempty"`
+}
+
+func (s QueryGwchildinsuranceChatstreamRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s QueryGwchildinsuranceChatstreamRequest) GoString() string {
+	return s.String()
+}
+
+func (s *QueryGwchildinsuranceChatstreamRequest) SetAuthToken(v string) *QueryGwchildinsuranceChatstreamRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *QueryGwchildinsuranceChatstreamRequest) SetProductInstanceId(v string) *QueryGwchildinsuranceChatstreamRequest {
+	s.ProductInstanceId = &v
+	return s
+}
+
+func (s *QueryGwchildinsuranceChatstreamRequest) SetUserId(v string) *QueryGwchildinsuranceChatstreamRequest {
+	s.UserId = &v
+	return s
+}
+
+func (s *QueryGwchildinsuranceChatstreamRequest) SetTenantId(v string) *QueryGwchildinsuranceChatstreamRequest {
+	s.TenantId = &v
+	return s
+}
+
+func (s *QueryGwchildinsuranceChatstreamRequest) SetAgentCode(v string) *QueryGwchildinsuranceChatstreamRequest {
+	s.AgentCode = &v
+	return s
+}
+
+func (s *QueryGwchildinsuranceChatstreamRequest) SetMessage(v string) *QueryGwchildinsuranceChatstreamRequest {
+	s.Message = &v
+	return s
+}
+
+func (s *QueryGwchildinsuranceChatstreamRequest) SetSessionId(v string) *QueryGwchildinsuranceChatstreamRequest {
+	s.SessionId = &v
+	return s
+}
+
+func (s *QueryGwchildinsuranceChatstreamRequest) SetExtInfo(v string) *QueryGwchildinsuranceChatstreamRequest {
+	s.ExtInfo = &v
+	return s
+}
+
+func (s *QueryGwchildinsuranceChatstreamRequest) SetTagInfo(v string) *QueryGwchildinsuranceChatstreamRequest {
+	s.TagInfo = &v
+	return s
+}
+
+type QueryGwchildinsuranceChatstreamResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// 会话id
+	SessionId *string `json:"session_id,omitempty" xml:"session_id,omitempty"`
+	// 整体成功标志，默认 true
+	Success *bool `json:"success,omitempty" xml:"success,omitempty"`
+	// 固定chat_result
+	Type *string `json:"type,omitempty" xml:"type,omitempty"`
+	// 查询 ID；多为空串
+	QueryId *string `json:"query_id,omitempty" xml:"query_id,omitempty"`
+	// true=流式中间批次；false=收尾批次
+	HasStream *bool `json:"has_stream,omitempty" xml:"has_stream,omitempty"`
+	// 正文流
+	ChatList *string `json:"chat_list,omitempty" xml:"chat_list,omitempty"`
+	// 推荐问题（SUG），仅收尾批次非空
+	SugList *string `json:"sug_list,omitempty" xml:"sug_list,omitempty"`
+	// 全量引用（REF），仅收尾批次非空
+	RefList *string `json:"ref_list,omitempty" xml:"ref_list,omitempty"`
+	// 页脚卡片（FOOTER_CARD 已改写为 CARD），仅收尾批次非空
+	FooterList *string `json:"footer_list,omitempty" xml:"footer_list,omitempty"`
+	// token/耗时信息；仅携带 callbackInfo 的批次才有
+	CallBackInfo *string `json:"call_back_info,omitempty" xml:"call_back_info,omitempty"`
+}
+
+func (s QueryGwchildinsuranceChatstreamResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s QueryGwchildinsuranceChatstreamResponse) GoString() string {
+	return s.String()
+}
+
+func (s *QueryGwchildinsuranceChatstreamResponse) SetReqMsgId(v string) *QueryGwchildinsuranceChatstreamResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *QueryGwchildinsuranceChatstreamResponse) SetResultCode(v string) *QueryGwchildinsuranceChatstreamResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *QueryGwchildinsuranceChatstreamResponse) SetResultMsg(v string) *QueryGwchildinsuranceChatstreamResponse {
+	s.ResultMsg = &v
+	return s
+}
+
+func (s *QueryGwchildinsuranceChatstreamResponse) SetSessionId(v string) *QueryGwchildinsuranceChatstreamResponse {
+	s.SessionId = &v
+	return s
+}
+
+func (s *QueryGwchildinsuranceChatstreamResponse) SetSuccess(v bool) *QueryGwchildinsuranceChatstreamResponse {
+	s.Success = &v
+	return s
+}
+
+func (s *QueryGwchildinsuranceChatstreamResponse) SetType(v string) *QueryGwchildinsuranceChatstreamResponse {
+	s.Type = &v
+	return s
+}
+
+func (s *QueryGwchildinsuranceChatstreamResponse) SetQueryId(v string) *QueryGwchildinsuranceChatstreamResponse {
+	s.QueryId = &v
+	return s
+}
+
+func (s *QueryGwchildinsuranceChatstreamResponse) SetHasStream(v bool) *QueryGwchildinsuranceChatstreamResponse {
+	s.HasStream = &v
+	return s
+}
+
+func (s *QueryGwchildinsuranceChatstreamResponse) SetChatList(v string) *QueryGwchildinsuranceChatstreamResponse {
+	s.ChatList = &v
+	return s
+}
+
+func (s *QueryGwchildinsuranceChatstreamResponse) SetSugList(v string) *QueryGwchildinsuranceChatstreamResponse {
+	s.SugList = &v
+	return s
+}
+
+func (s *QueryGwchildinsuranceChatstreamResponse) SetRefList(v string) *QueryGwchildinsuranceChatstreamResponse {
+	s.RefList = &v
+	return s
+}
+
+func (s *QueryGwchildinsuranceChatstreamResponse) SetFooterList(v string) *QueryGwchildinsuranceChatstreamResponse {
+	s.FooterList = &v
+	return s
+}
+
+func (s *QueryGwchildinsuranceChatstreamResponse) SetCallBackInfo(v string) *QueryGwchildinsuranceChatstreamResponse {
+	s.CallBackInfo = &v
+	return s
+}
+
+type QueryGwchildinsuranceChatRequest struct {
+	// OAuth模式下的授权token
+	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
+	// 用户标识
+	UserId *string `json:"user_id,omitempty" xml:"user_id,omitempty" require:"true"`
+	// 租户标识
+	TenantId *string `json:"tenant_id,omitempty" xml:"tenant_id,omitempty" require:"true"`
+	// 业务配置标识（必传），决定模型、策略、提示词
+	AgentCode *string `json:"agent_code,omitempty" xml:"agent_code,omitempty" require:"true"`
+	// 用户输入
+	Message *string `json:"message,omitempty" xml:"message,omitempty" require:"true"`
+	// 会话标识（可选），新会话不传，继续会话传
+	SessionId *string `json:"session_id,omitempty" xml:"session_id,omitempty"`
+	// 扩展字段（可选），用于后端服务直接调用时指定技术参数
+	ExtInfo *string `json:"ext_info,omitempty" xml:"ext_info,omitempty"`
+	// 标签过滤字段（可选），用于按标签过滤生效的 expertAgents/skills/tools
+	TagInfo *string `json:"tag_info,omitempty" xml:"tag_info,omitempty"`
+}
+
+func (s QueryGwchildinsuranceChatRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s QueryGwchildinsuranceChatRequest) GoString() string {
+	return s.String()
+}
+
+func (s *QueryGwchildinsuranceChatRequest) SetAuthToken(v string) *QueryGwchildinsuranceChatRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *QueryGwchildinsuranceChatRequest) SetProductInstanceId(v string) *QueryGwchildinsuranceChatRequest {
+	s.ProductInstanceId = &v
+	return s
+}
+
+func (s *QueryGwchildinsuranceChatRequest) SetUserId(v string) *QueryGwchildinsuranceChatRequest {
+	s.UserId = &v
+	return s
+}
+
+func (s *QueryGwchildinsuranceChatRequest) SetTenantId(v string) *QueryGwchildinsuranceChatRequest {
+	s.TenantId = &v
+	return s
+}
+
+func (s *QueryGwchildinsuranceChatRequest) SetAgentCode(v string) *QueryGwchildinsuranceChatRequest {
+	s.AgentCode = &v
+	return s
+}
+
+func (s *QueryGwchildinsuranceChatRequest) SetMessage(v string) *QueryGwchildinsuranceChatRequest {
+	s.Message = &v
+	return s
+}
+
+func (s *QueryGwchildinsuranceChatRequest) SetSessionId(v string) *QueryGwchildinsuranceChatRequest {
+	s.SessionId = &v
+	return s
+}
+
+func (s *QueryGwchildinsuranceChatRequest) SetExtInfo(v string) *QueryGwchildinsuranceChatRequest {
+	s.ExtInfo = &v
+	return s
+}
+
+func (s *QueryGwchildinsuranceChatRequest) SetTagInfo(v string) *QueryGwchildinsuranceChatRequest {
+	s.TagInfo = &v
+	return s
+}
+
+type QueryGwchildinsuranceChatResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// 会话id
+	SessionId *string `json:"session_id,omitempty" xml:"session_id,omitempty"`
+	// 业务配置标识（必传），决定模型、策略、提示词
+	AgentCode *string `json:"agent_code,omitempty" xml:"agent_code,omitempty"`
+	// 回答
+	Answer *string `json:"answer,omitempty" xml:"answer,omitempty"`
+	// 链路id
+	TraceId *string `json:"trace_id,omitempty" xml:"trace_id,omitempty"`
+	// 附加信息
+	Metadata *string `json:"metadata,omitempty" xml:"metadata,omitempty"`
+}
+
+func (s QueryGwchildinsuranceChatResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s QueryGwchildinsuranceChatResponse) GoString() string {
+	return s.String()
+}
+
+func (s *QueryGwchildinsuranceChatResponse) SetReqMsgId(v string) *QueryGwchildinsuranceChatResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *QueryGwchildinsuranceChatResponse) SetResultCode(v string) *QueryGwchildinsuranceChatResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *QueryGwchildinsuranceChatResponse) SetResultMsg(v string) *QueryGwchildinsuranceChatResponse {
+	s.ResultMsg = &v
+	return s
+}
+
+func (s *QueryGwchildinsuranceChatResponse) SetSessionId(v string) *QueryGwchildinsuranceChatResponse {
+	s.SessionId = &v
+	return s
+}
+
+func (s *QueryGwchildinsuranceChatResponse) SetAgentCode(v string) *QueryGwchildinsuranceChatResponse {
+	s.AgentCode = &v
+	return s
+}
+
+func (s *QueryGwchildinsuranceChatResponse) SetAnswer(v string) *QueryGwchildinsuranceChatResponse {
+	s.Answer = &v
+	return s
+}
+
+func (s *QueryGwchildinsuranceChatResponse) SetTraceId(v string) *QueryGwchildinsuranceChatResponse {
+	s.TraceId = &v
+	return s
+}
+
+func (s *QueryGwchildinsuranceChatResponse) SetMetadata(v string) *QueryGwchildinsuranceChatResponse {
 	s.Metadata = &v
 	return s
 }
@@ -633,7 +962,7 @@ func (client *Client) DoRequest(version *string, action *string, protocol *strin
 				"req_msg_id":       antchainutil.GetNonce(),
 				"access_key":       client.AccessKeyId,
 				"base_sdk_version": tea.String("TeaSDK-2.0"),
-				"sdk_version":      tea.String("1.0.1"),
+				"sdk_version":      tea.String("1.0.3"),
 				"_prod_code":       tea.String("AIOSPRODUCT"),
 				"_prod_channel":    tea.String("default"),
 			}
@@ -756,6 +1085,78 @@ func (client *Client) QueryGwdefaultChatEx(request *QueryGwdefaultChatRequest, h
 	}
 	_result = &QueryGwdefaultChatResponse{}
 	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("antdigital.aiosproduct.gwdefault.chat.query"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
+}
+
+// Description:
+//
+// Description: AIOS 少儿保险 流式对话
+//
+// Summary: AIOS 少儿保险 流式对话
+func (client *Client) QueryGwchildinsuranceChatstream(request *QueryGwchildinsuranceChatstreamRequest) (_result *QueryGwchildinsuranceChatstreamResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &QueryGwchildinsuranceChatstreamResponse{}
+	_body, _err := client.QueryGwchildinsuranceChatstreamEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+// Description:
+//
+// Description: AIOS 少儿保险 流式对话
+//
+// Summary: AIOS 少儿保险 流式对话
+func (client *Client) QueryGwchildinsuranceChatstreamEx(request *QueryGwchildinsuranceChatstreamRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *QueryGwchildinsuranceChatstreamResponse, _err error) {
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &QueryGwchildinsuranceChatstreamResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("antdigital.aiosproduct.gwchildinsurance.chatstream.query"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
+}
+
+// Description:
+//
+// Description: AIOS 少儿保险 非流式对话
+//
+// Summary: AIOS 少儿保险 非流式对话
+func (client *Client) QueryGwchildinsuranceChat(request *QueryGwchildinsuranceChatRequest) (_result *QueryGwchildinsuranceChatResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &QueryGwchildinsuranceChatResponse{}
+	_body, _err := client.QueryGwchildinsuranceChatEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+// Description:
+//
+// Description: AIOS 少儿保险 非流式对话
+//
+// Summary: AIOS 少儿保险 非流式对话
+func (client *Client) QueryGwchildinsuranceChatEx(request *QueryGwchildinsuranceChatRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *QueryGwchildinsuranceChatResponse, _err error) {
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &QueryGwchildinsuranceChatResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("antdigital.aiosproduct.gwchildinsurance.chat.query"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
 	if _err != nil {
 		return _result, _err
 	}
