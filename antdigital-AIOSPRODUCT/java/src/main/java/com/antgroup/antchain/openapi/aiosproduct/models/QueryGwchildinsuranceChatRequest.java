@@ -3,7 +3,7 @@ package com.antgroup.antchain.openapi.aiosproduct.models;
 
 import com.aliyun.tea.*;
 
-public class QueryGwdefaultChatRequest extends TeaModel {
+public class QueryGwchildinsuranceChatRequest extends TeaModel {
     // OAuth模式下的授权token
     @NameInMap("auth_token")
     public String authToken;
@@ -43,16 +43,12 @@ public class QueryGwdefaultChatRequest extends TeaModel {
     @NameInMap("tag_info")
     public String tagInfo;
 
-    // 由业务指定不同的 gateway_code
-    @NameInMap("gateway_code")
-    public String gatewayCode;
-
-    public static QueryGwdefaultChatRequest build(java.util.Map<String, ?> map) throws Exception {
-        QueryGwdefaultChatRequest self = new QueryGwdefaultChatRequest();
+    public static QueryGwchildinsuranceChatRequest build(java.util.Map<String, ?> map) throws Exception {
+        QueryGwchildinsuranceChatRequest self = new QueryGwchildinsuranceChatRequest();
         return TeaModel.build(map, self);
     }
 
-    public QueryGwdefaultChatRequest setAuthToken(String authToken) {
+    public QueryGwchildinsuranceChatRequest setAuthToken(String authToken) {
         this.authToken = authToken;
         return this;
     }
@@ -60,7 +56,7 @@ public class QueryGwdefaultChatRequest extends TeaModel {
         return this.authToken;
     }
 
-    public QueryGwdefaultChatRequest setProductInstanceId(String productInstanceId) {
+    public QueryGwchildinsuranceChatRequest setProductInstanceId(String productInstanceId) {
         this.productInstanceId = productInstanceId;
         return this;
     }
@@ -68,7 +64,7 @@ public class QueryGwdefaultChatRequest extends TeaModel {
         return this.productInstanceId;
     }
 
-    public QueryGwdefaultChatRequest setUserId(String userId) {
+    public QueryGwchildinsuranceChatRequest setUserId(String userId) {
         this.userId = userId;
         return this;
     }
@@ -76,7 +72,7 @@ public class QueryGwdefaultChatRequest extends TeaModel {
         return this.userId;
     }
 
-    public QueryGwdefaultChatRequest setTenantId(String tenantId) {
+    public QueryGwchildinsuranceChatRequest setTenantId(String tenantId) {
         this.tenantId = tenantId;
         return this;
     }
@@ -84,7 +80,7 @@ public class QueryGwdefaultChatRequest extends TeaModel {
         return this.tenantId;
     }
 
-    public QueryGwdefaultChatRequest setAgentCode(String agentCode) {
+    public QueryGwchildinsuranceChatRequest setAgentCode(String agentCode) {
         this.agentCode = agentCode;
         return this;
     }
@@ -92,7 +88,7 @@ public class QueryGwdefaultChatRequest extends TeaModel {
         return this.agentCode;
     }
 
-    public QueryGwdefaultChatRequest setMessage(String message) {
+    public QueryGwchildinsuranceChatRequest setMessage(String message) {
         this.message = message;
         return this;
     }
@@ -100,7 +96,7 @@ public class QueryGwdefaultChatRequest extends TeaModel {
         return this.message;
     }
 
-    public QueryGwdefaultChatRequest setSessionId(String sessionId) {
+    public QueryGwchildinsuranceChatRequest setSessionId(String sessionId) {
         this.sessionId = sessionId;
         return this;
     }
@@ -108,7 +104,7 @@ public class QueryGwdefaultChatRequest extends TeaModel {
         return this.sessionId;
     }
 
-    public QueryGwdefaultChatRequest setExtInfo(String extInfo) {
+    public QueryGwchildinsuranceChatRequest setExtInfo(String extInfo) {
         this.extInfo = extInfo;
         return this;
     }
@@ -116,20 +112,12 @@ public class QueryGwdefaultChatRequest extends TeaModel {
         return this.extInfo;
     }
 
-    public QueryGwdefaultChatRequest setTagInfo(String tagInfo) {
+    public QueryGwchildinsuranceChatRequest setTagInfo(String tagInfo) {
         this.tagInfo = tagInfo;
         return this;
     }
     public String getTagInfo() {
         return this.tagInfo;
-    }
-
-    public QueryGwdefaultChatRequest setGatewayCode(String gatewayCode) {
-        this.gatewayCode = gatewayCode;
-        return this;
-    }
-    public String getGatewayCode() {
-        return this.gatewayCode;
     }
 
 }

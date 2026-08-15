@@ -42,6 +42,10 @@ public class QueryGwdefaultChatstreamRequest extends TeaModel {
     @NameInMap("tag_info")
     public String tagInfo;
 
+    // 由业务指定不同的 gateway_code
+    @NameInMap("gateway_code")
+    public String gatewayCode;
+
     public static QueryGwdefaultChatstreamRequest build(java.util.Map<String, ?> map) throws Exception {
         QueryGwdefaultChatstreamRequest self = new QueryGwdefaultChatstreamRequest();
         return TeaModel.build(map, self);
@@ -117,6 +121,14 @@ public class QueryGwdefaultChatstreamRequest extends TeaModel {
     }
     public String getTagInfo() {
         return this.tagInfo;
+    }
+
+    public QueryGwdefaultChatstreamRequest setGatewayCode(String gatewayCode) {
+        this.gatewayCode = gatewayCode;
+        return this;
+    }
+    public String getGatewayCode() {
+        return this.gatewayCode;
     }
 
 }
