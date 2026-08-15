@@ -17,6 +17,10 @@ use AntChain\AIOSPRODUCT\Models\QueryGwdefaultChatstreamRequest;
 use AntChain\AIOSPRODUCT\Models\QueryGwdefaultChatstreamResponse;
 use AntChain\AIOSPRODUCT\Models\QueryGwdefaultChatRequest;
 use AntChain\AIOSPRODUCT\Models\QueryGwdefaultChatResponse;
+use AntChain\AIOSPRODUCT\Models\QueryGwchildinsuranceChatstreamRequest;
+use AntChain\AIOSPRODUCT\Models\QueryGwchildinsuranceChatstreamResponse;
+use AntChain\AIOSPRODUCT\Models\QueryGwchildinsuranceChatRequest;
+use AntChain\AIOSPRODUCT\Models\QueryGwchildinsuranceChatResponse;
 
 class Client {
     protected $_endpoint;
@@ -152,7 +156,7 @@ class Client {
                     "req_msg_id" => UtilClient::getNonce(),
                     "access_key" => $this->_accessKeyId,
                     "base_sdk_version" => "TeaSDK-2.0",
-                    "sdk_version" => "1.0.2",
+                    "sdk_version" => "1.0.3",
                     "_prod_code" => "AIOSPRODUCT",
                     "_prod_channel" => "default"
                 ];
@@ -245,5 +249,55 @@ class Client {
     public function queryGwdefaultChatEx($request, $headers, $runtime){
         Utils::validateModel($request);
         return QueryGwdefaultChatResponse::fromMap($this->doRequest("1.0", "antdigital.aiosproduct.gwdefault.chat.query", "HTTPS", "POST", "/gateway.do", Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: AIOS 少儿保险 流式对话
+     * Summary: AIOS 少儿保险 流式对话
+     * @param QueryGwchildinsuranceChatstreamRequest $request
+     * @return QueryGwchildinsuranceChatstreamResponse
+     */
+    public function queryGwchildinsuranceChatstream($request){
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+        return $this->queryGwchildinsuranceChatstreamEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: AIOS 少儿保险 流式对话
+     * Summary: AIOS 少儿保险 流式对话
+     * @param QueryGwchildinsuranceChatstreamRequest $request
+     * @param string[] $headers
+     * @param RuntimeOptions $runtime
+     * @return QueryGwchildinsuranceChatstreamResponse
+     */
+    public function queryGwchildinsuranceChatstreamEx($request, $headers, $runtime){
+        Utils::validateModel($request);
+        return QueryGwchildinsuranceChatstreamResponse::fromMap($this->doRequest("1.0", "antdigital.aiosproduct.gwchildinsurance.chatstream.query", "HTTPS", "POST", "/gateway.do", Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: AIOS 少儿保险 非流式对话
+     * Summary: AIOS 少儿保险 非流式对话
+     * @param QueryGwchildinsuranceChatRequest $request
+     * @return QueryGwchildinsuranceChatResponse
+     */
+    public function queryGwchildinsuranceChat($request){
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+        return $this->queryGwchildinsuranceChatEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: AIOS 少儿保险 非流式对话
+     * Summary: AIOS 少儿保险 非流式对话
+     * @param QueryGwchildinsuranceChatRequest $request
+     * @param string[] $headers
+     * @param RuntimeOptions $runtime
+     * @return QueryGwchildinsuranceChatResponse
+     */
+    public function queryGwchildinsuranceChatEx($request, $headers, $runtime){
+        Utils::validateModel($request);
+        return QueryGwchildinsuranceChatResponse::fromMap($this->doRequest("1.0", "antdigital.aiosproduct.gwchildinsurance.chat.query", "HTTPS", "POST", "/gateway.do", Tea::merge($request), $headers, $runtime));
     }
 }

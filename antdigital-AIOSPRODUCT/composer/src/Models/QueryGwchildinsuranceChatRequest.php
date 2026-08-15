@@ -5,7 +5,7 @@ namespace AntChain\AIOSPRODUCT\Models;
 
 use AlibabaCloud\Tea\Model;
 
-class QueryGwdefaultChatRequest extends Model {
+class QueryGwchildinsuranceChatRequest extends Model {
     protected $_name = [
         'authToken' => 'auth_token',
         'productInstanceId' => 'product_instance_id',
@@ -16,7 +16,6 @@ class QueryGwdefaultChatRequest extends Model {
         'sessionId' => 'session_id',
         'extInfo' => 'ext_info',
         'tagInfo' => 'tag_info',
-        'gatewayCode' => 'gateway_code',
     ];
     public function validate() {
         Model::validateRequired('userId', $this->userId, true);
@@ -53,14 +52,11 @@ class QueryGwdefaultChatRequest extends Model {
         if (null !== $this->tagInfo) {
             $res['tag_info'] = $this->tagInfo;
         }
-        if (null !== $this->gatewayCode) {
-            $res['gateway_code'] = $this->gatewayCode;
-        }
         return $res;
     }
     /**
      * @param array $map
-     * @return QueryGwdefaultChatRequest
+     * @return QueryGwchildinsuranceChatRequest
      */
     public static function fromMap($map = []) {
         $model = new self();
@@ -90,9 +86,6 @@ class QueryGwdefaultChatRequest extends Model {
         }
         if(isset($map['tag_info'])){
             $model->tagInfo = $map['tag_info'];
-        }
-        if(isset($map['gateway_code'])){
-            $model->gatewayCode = $map['gateway_code'];
         }
         return $model;
     }
@@ -148,11 +141,5 @@ class QueryGwdefaultChatRequest extends Model {
      * @var string
      */
     public $tagInfo;
-
-    // 由业务指定不同的 gateway_code
-    /**
-     * @var string
-     */
-    public $gatewayCode;
 
 }

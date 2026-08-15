@@ -16,6 +16,7 @@ class QueryGwdefaultChatstreamRequest extends Model {
         'sessionId' => 'session_id',
         'extInfo' => 'ext_info',
         'tagInfo' => 'tag_info',
+        'gatewayCode' => 'gateway_code',
     ];
     public function validate() {
         Model::validateRequired('userId', $this->userId, true);
@@ -51,6 +52,9 @@ class QueryGwdefaultChatstreamRequest extends Model {
         if (null !== $this->tagInfo) {
             $res['tag_info'] = $this->tagInfo;
         }
+        if (null !== $this->gatewayCode) {
+            $res['gateway_code'] = $this->gatewayCode;
+        }
         return $res;
     }
     /**
@@ -85,6 +89,9 @@ class QueryGwdefaultChatstreamRequest extends Model {
         }
         if(isset($map['tag_info'])){
             $model->tagInfo = $map['tag_info'];
+        }
+        if(isset($map['gateway_code'])){
+            $model->gatewayCode = $map['gateway_code'];
         }
         return $model;
     }
@@ -140,5 +147,11 @@ class QueryGwdefaultChatstreamRequest extends Model {
      * @var string
      */
     public $tagInfo;
+
+    // 由业务指定不同的 gateway_code
+    /**
+     * @var string
+     */
+    public $gatewayCode;
 
 }
