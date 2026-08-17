@@ -13,6 +13,7 @@ class DecisionInfo extends Model {
         'decisionNum' => 'decision_num',
         'fileUrl' => 'file_url',
         'returnResultId' => 'return_result_id',
+        'decisionPlanId' => 'decision_plan_id',
     ];
     public function validate() {
         Model::validateRequired('status', $this->status, true);
@@ -20,6 +21,7 @@ class DecisionInfo extends Model {
         Model::validateRequired('totalNum', $this->totalNum, true);
         Model::validateRequired('decisionNum', $this->decisionNum, true);
         Model::validateRequired('fileUrl', $this->fileUrl, true);
+        Model::validateRequired('decisionPlanId', $this->decisionPlanId, true);
     }
     public function toMap() {
         $res = [];
@@ -40,6 +42,9 @@ class DecisionInfo extends Model {
         }
         if (null !== $this->returnResultId) {
             $res['return_result_id'] = $this->returnResultId;
+        }
+        if (null !== $this->decisionPlanId) {
+            $res['decision_plan_id'] = $this->decisionPlanId;
         }
         return $res;
     }
@@ -66,6 +71,9 @@ class DecisionInfo extends Model {
         }
         if(isset($map['return_result_id'])){
             $model->returnResultId = $map['return_result_id'];
+        }
+        if(isset($map['decision_plan_id'])){
+            $model->decisionPlanId = $map['decision_plan_id'];
         }
         return $model;
     }
@@ -110,5 +118,12 @@ class DecisionInfo extends Model {
      * @var int
      */
     public $returnResultId;
+
+    // 分层计划id
+    /**
+     * @example 123
+     * @var int
+     */
+    public $decisionPlanId;
 
 }

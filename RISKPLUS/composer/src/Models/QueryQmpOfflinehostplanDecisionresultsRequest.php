@@ -10,7 +10,6 @@ class QueryQmpOfflinehostplanDecisionresultsRequest extends Model {
         'authToken' => 'auth_token',
         'productInstanceId' => 'product_instance_id',
         'taskUuid' => 'task_uuid',
-        'decisionPlanId' => 'decision_plan_id',
     ];
     public function validate() {
         Model::validateRequired('taskUuid', $this->taskUuid, true);
@@ -25,9 +24,6 @@ class QueryQmpOfflinehostplanDecisionresultsRequest extends Model {
         }
         if (null !== $this->taskUuid) {
             $res['task_uuid'] = $this->taskUuid;
-        }
-        if (null !== $this->decisionPlanId) {
-            $res['decision_plan_id'] = $this->decisionPlanId;
         }
         return $res;
     }
@@ -45,9 +41,6 @@ class QueryQmpOfflinehostplanDecisionresultsRequest extends Model {
         }
         if(isset($map['task_uuid'])){
             $model->taskUuid = $map['task_uuid'];
-        }
-        if(isset($map['decision_plan_id'])){
-            $model->decisionPlanId = $map['decision_plan_id'];
         }
         return $model;
     }
@@ -67,11 +60,5 @@ class QueryQmpOfflinehostplanDecisionresultsRequest extends Model {
      * @var string
      */
     public $taskUuid;
-
-    // 分层计划ID
-    /**
-     * @var int
-     */
-    public $decisionPlanId;
 
 }
