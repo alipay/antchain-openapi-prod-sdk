@@ -37,6 +37,14 @@ public class RangeValue extends TeaModel {
     @NameInMap("step")
     public Long step;
 
+    // 小数位数
+    /**
+     * <strong>example:</strong>
+     * <p>2</p>
+     */
+    @NameInMap("decimal_precision")
+    public Long decimalPrecision;
+
     public static RangeValue build(java.util.Map<String, ?> map) throws Exception {
         RangeValue self = new RangeValue();
         return TeaModel.build(map, self);
@@ -72,6 +80,14 @@ public class RangeValue extends TeaModel {
     }
     public Long getStep() {
         return this.step;
+    }
+
+    public RangeValue setDecimalPrecision(Long decimalPrecision) {
+        this.decimalPrecision = decimalPrecision;
+        return this;
+    }
+    public Long getDecimalPrecision() {
+        return this.decimalPrecision;
     }
 
 }
