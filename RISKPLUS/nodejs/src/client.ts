@@ -3137,6 +3137,12 @@ export class DecisionInfo extends $tea.Model {
    * 123
    */
   returnResultId?: number;
+  // 分层计划id
+  /**
+   * @example
+   * 123
+   */
+  decisionPlanId: number;
   static names(): { [key: string]: string } {
     return {
       status: 'status',
@@ -3145,6 +3151,7 @@ export class DecisionInfo extends $tea.Model {
       decisionNum: 'decision_num',
       fileUrl: 'file_url',
       returnResultId: 'return_result_id',
+      decisionPlanId: 'decision_plan_id',
     };
   }
 
@@ -3156,6 +3163,7 @@ export class DecisionInfo extends $tea.Model {
       decisionNum: 'number',
       fileUrl: 'string',
       returnResultId: 'number',
+      decisionPlanId: 'number',
     };
   }
 
@@ -25270,14 +25278,11 @@ export class QueryQmpOfflinehostplanDecisionresultsRequest extends $tea.Model {
   productInstanceId?: string;
   // 任务串联任务id
   taskUuid: string;
-  // 分层计划ID
-  decisionPlanId?: number;
   static names(): { [key: string]: string } {
     return {
       authToken: 'auth_token',
       productInstanceId: 'product_instance_id',
       taskUuid: 'task_uuid',
-      decisionPlanId: 'decision_plan_id',
     };
   }
 
@@ -25286,7 +25291,6 @@ export class QueryQmpOfflinehostplanDecisionresultsRequest extends $tea.Model {
       authToken: 'string',
       productInstanceId: 'string',
       taskUuid: 'string',
-      decisionPlanId: 'number',
     };
   }
 
@@ -36278,7 +36282,7 @@ export default class Client {
           req_msg_id: AntchainUtil.getNonce(),
           access_key: this._accessKeyId,
           base_sdk_version: "TeaSDK-2.0",
-          sdk_version: "1.31.30",
+          sdk_version: "1.31.31",
           _prod_code: "RISKPLUS",
           _prod_channel: "undefined",
         };
