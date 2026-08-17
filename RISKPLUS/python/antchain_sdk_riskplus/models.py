@@ -3425,6 +3425,7 @@ class DecisionInfo(TeaModel):
         decision_num: int = None,
         file_url: str = None,
         return_result_id: int = None,
+        decision_plan_id: int = None,
     ):
         # 状态
         self.status = status
@@ -3438,6 +3439,8 @@ class DecisionInfo(TeaModel):
         self.file_url = file_url
         # 返回结果节点id
         self.return_result_id = return_result_id
+        # 分层计划id
+        self.decision_plan_id = decision_plan_id
 
     def validate(self):
         self.validate_required(self.status, 'status')
@@ -3445,6 +3448,7 @@ class DecisionInfo(TeaModel):
         self.validate_required(self.total_num, 'total_num')
         self.validate_required(self.decision_num, 'decision_num')
         self.validate_required(self.file_url, 'file_url')
+        self.validate_required(self.decision_plan_id, 'decision_plan_id')
 
     def to_map(self):
         _map = super().to_map()
@@ -3464,6 +3468,8 @@ class DecisionInfo(TeaModel):
             result['file_url'] = self.file_url
         if self.return_result_id is not None:
             result['return_result_id'] = self.return_result_id
+        if self.decision_plan_id is not None:
+            result['decision_plan_id'] = self.decision_plan_id
         return result
 
     def from_map(self, m: dict = None):
@@ -3480,6 +3486,8 @@ class DecisionInfo(TeaModel):
             self.file_url = m.get('file_url')
         if m.get('return_result_id') is not None:
             self.return_result_id = m.get('return_result_id')
+        if m.get('decision_plan_id') is not None:
+            self.decision_plan_id = m.get('decision_plan_id')
         return self
 
 
@@ -35320,15 +35328,12 @@ class QueryQmpOfflinehostplanDecisionresultsRequest(TeaModel):
         auth_token: str = None,
         product_instance_id: str = None,
         task_uuid: str = None,
-        decision_plan_id: int = None,
     ):
         # OAuth模式下的授权token
         self.auth_token = auth_token
         self.product_instance_id = product_instance_id
         # 任务串联任务id
         self.task_uuid = task_uuid
-        # 分层计划ID
-        self.decision_plan_id = decision_plan_id
 
     def validate(self):
         self.validate_required(self.task_uuid, 'task_uuid')
@@ -35345,8 +35350,6 @@ class QueryQmpOfflinehostplanDecisionresultsRequest(TeaModel):
             result['product_instance_id'] = self.product_instance_id
         if self.task_uuid is not None:
             result['task_uuid'] = self.task_uuid
-        if self.decision_plan_id is not None:
-            result['decision_plan_id'] = self.decision_plan_id
         return result
 
     def from_map(self, m: dict = None):
@@ -35357,8 +35360,6 @@ class QueryQmpOfflinehostplanDecisionresultsRequest(TeaModel):
             self.product_instance_id = m.get('product_instance_id')
         if m.get('task_uuid') is not None:
             self.task_uuid = m.get('task_uuid')
-        if m.get('decision_plan_id') is not None:
-            self.decision_plan_id = m.get('decision_plan_id')
         return self
 
 
