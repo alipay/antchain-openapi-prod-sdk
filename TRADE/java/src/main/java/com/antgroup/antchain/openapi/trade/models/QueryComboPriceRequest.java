@@ -8,9 +8,8 @@ public class QueryComboPriceRequest extends TeaModel {
     @NameInMap("auth_token")
     public String authToken;
 
-    // 套餐编码
+    // 套餐编码。自定义规格询价时可为空
     @NameInMap("combo_code")
-    @Validation(required = true)
     public String comboCode;
 
     // 租户ID，和租户名二选一必填
@@ -28,6 +27,18 @@ public class QueryComboPriceRequest extends TeaModel {
     // 优惠券ID
     @NameInMap("coupon_id")
     public String couponId;
+
+    // 套餐版本唯一版本号。CV开头的唯一版本号，由中台提供。自定义规格查询时必填
+    @NameInMap("combo_vid")
+    public String comboVid;
+
+    // 是否自定义规格询价
+    @NameInMap("custom_spec_pricing")
+    public Boolean customSpecPricing;
+
+    // 用户选择的规格配置列表
+    @NameInMap("selected_configs")
+    public SelectedConfigItem selectedConfigs;
 
     public static QueryComboPriceRequest build(java.util.Map<String, ?> map) throws Exception {
         QueryComboPriceRequest self = new QueryComboPriceRequest();
@@ -80,6 +91,30 @@ public class QueryComboPriceRequest extends TeaModel {
     }
     public String getCouponId() {
         return this.couponId;
+    }
+
+    public QueryComboPriceRequest setComboVid(String comboVid) {
+        this.comboVid = comboVid;
+        return this;
+    }
+    public String getComboVid() {
+        return this.comboVid;
+    }
+
+    public QueryComboPriceRequest setCustomSpecPricing(Boolean customSpecPricing) {
+        this.customSpecPricing = customSpecPricing;
+        return this;
+    }
+    public Boolean getCustomSpecPricing() {
+        return this.customSpecPricing;
+    }
+
+    public QueryComboPriceRequest setSelectedConfigs(SelectedConfigItem selectedConfigs) {
+        this.selectedConfigs = selectedConfigs;
+        return this;
+    }
+    public SelectedConfigItem getSelectedConfigs() {
+        return this.selectedConfigs;
     }
 
 }
