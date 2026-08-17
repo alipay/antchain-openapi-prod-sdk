@@ -38,7 +38,7 @@ public class QueryComboPriceRequest extends TeaModel {
 
     // 用户选择的规格配置列表
     @NameInMap("selected_configs")
-    public SelectedConfigItem selectedConfigs;
+    public java.util.List<SelectedConfigItem> selectedConfigs;
 
     public static QueryComboPriceRequest build(java.util.Map<String, ?> map) throws Exception {
         QueryComboPriceRequest self = new QueryComboPriceRequest();
@@ -109,11 +109,11 @@ public class QueryComboPriceRequest extends TeaModel {
         return this.customSpecPricing;
     }
 
-    public QueryComboPriceRequest setSelectedConfigs(SelectedConfigItem selectedConfigs) {
+    public QueryComboPriceRequest setSelectedConfigs(java.util.List<SelectedConfigItem> selectedConfigs) {
         this.selectedConfigs = selectedConfigs;
         return this;
     }
-    public SelectedConfigItem getSelectedConfigs() {
+    public java.util.List<SelectedConfigItem> getSelectedConfigs() {
         return this.selectedConfigs;
     }
 

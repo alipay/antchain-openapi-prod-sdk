@@ -8,7 +8,7 @@
 <dependency>
    <groupId>com.antgroup.antchain.openapi</groupId>
    <artifactId>trade</artifactId>
-   <version>3.19.0</version>
+   <version>3.19.1</version>
 </dependency>
 ```
 
