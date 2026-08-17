@@ -11,18 +11,18 @@ public class ToolUsage extends TeaModel {
      */
     @NameInMap("web_search")
     @Validation(required = true)
-    public String webSearch;
+    public Long webSearch;
 
     public static ToolUsage build(java.util.Map<String, ?> map) throws Exception {
         ToolUsage self = new ToolUsage();
         return TeaModel.build(map, self);
     }
 
-    public ToolUsage setWebSearch(String webSearch) {
+    public ToolUsage setWebSearch(Long webSearch) {
         this.webSearch = webSearch;
         return this;
     }
-    public String getWebSearch() {
+    public Long getWebSearch() {
         return this.webSearch;
     }
 
