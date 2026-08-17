@@ -169,6 +169,14 @@ public class TaskResultInfoDto extends TeaModel {
     @NameInMap("updated_at")
     public String updatedAt;
 
+    // 实际使用的工具
+    /**
+     * <strong>example:</strong>
+     * <p>undefined</p>
+     */
+    @NameInMap("tools")
+    public ModelToolDto tools;
+
     public static TaskResultInfoDto build(java.util.Map<String, ?> map) throws Exception {
         TaskResultInfoDto self = new TaskResultInfoDto();
         return TeaModel.build(map, self);
@@ -324,6 +332,14 @@ public class TaskResultInfoDto extends TeaModel {
     }
     public String getUpdatedAt() {
         return this.updatedAt;
+    }
+
+    public TaskResultInfoDto setTools(ModelToolDto tools) {
+        this.tools = tools;
+        return this;
+    }
+    public ModelToolDto getTools() {
+        return this.tools;
     }
 
 }
