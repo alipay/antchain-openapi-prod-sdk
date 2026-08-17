@@ -23,6 +23,11 @@ namespace AntChain.SDK.RISKPLUS.Models
         [Validation(Required=true)]
         public string TaskUuid { get; set; }
 
+        // 分层计划ID
+        [NameInMap("decision_plan_id")]
+        [Validation(Required=false)]
+        public long? DecisionPlanId { get; set; }
+
     }
 
 }
