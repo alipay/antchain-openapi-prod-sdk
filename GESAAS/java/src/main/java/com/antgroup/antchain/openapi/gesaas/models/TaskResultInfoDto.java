@@ -175,7 +175,7 @@ public class TaskResultInfoDto extends TeaModel {
      * <p>undefined</p>
      */
     @NameInMap("tools")
-    public ModelToolDto tools;
+    public java.util.List<ModelToolDto> tools;
 
     public static TaskResultInfoDto build(java.util.Map<String, ?> map) throws Exception {
         TaskResultInfoDto self = new TaskResultInfoDto();
@@ -334,11 +334,11 @@ public class TaskResultInfoDto extends TeaModel {
         return this.updatedAt;
     }
 
-    public TaskResultInfoDto setTools(ModelToolDto tools) {
+    public TaskResultInfoDto setTools(java.util.List<ModelToolDto> tools) {
         this.tools = tools;
         return this;
     }
-    public ModelToolDto getTools() {
+    public java.util.List<ModelToolDto> getTools() {
         return this.tools;
     }
 
