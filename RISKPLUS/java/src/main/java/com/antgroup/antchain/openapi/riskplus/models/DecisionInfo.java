@@ -57,6 +57,15 @@ public class DecisionInfo extends TeaModel {
     @NameInMap("return_result_id")
     public Long returnResultId;
 
+    // 分层计划id
+    /**
+     * <strong>example:</strong>
+     * <p>123</p>
+     */
+    @NameInMap("decision_plan_id")
+    @Validation(required = true)
+    public Long decisionPlanId;
+
     public static DecisionInfo build(java.util.Map<String, ?> map) throws Exception {
         DecisionInfo self = new DecisionInfo();
         return TeaModel.build(map, self);
@@ -108,6 +117,14 @@ public class DecisionInfo extends TeaModel {
     }
     public Long getReturnResultId() {
         return this.returnResultId;
+    }
+
+    public DecisionInfo setDecisionPlanId(Long decisionPlanId) {
+        this.decisionPlanId = decisionPlanId;
+        return this;
+    }
+    public Long getDecisionPlanId() {
+        return this.decisionPlanId;
     }
 
 }

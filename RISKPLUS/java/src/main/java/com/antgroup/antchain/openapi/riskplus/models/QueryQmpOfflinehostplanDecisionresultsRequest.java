@@ -16,10 +16,6 @@ public class QueryQmpOfflinehostplanDecisionresultsRequest extends TeaModel {
     @Validation(required = true)
     public String taskUuid;
 
-    // 分层计划ID
-    @NameInMap("decision_plan_id")
-    public Long decisionPlanId;
-
     public static QueryQmpOfflinehostplanDecisionresultsRequest build(java.util.Map<String, ?> map) throws Exception {
         QueryQmpOfflinehostplanDecisionresultsRequest self = new QueryQmpOfflinehostplanDecisionresultsRequest();
         return TeaModel.build(map, self);
@@ -47,14 +43,6 @@ public class QueryQmpOfflinehostplanDecisionresultsRequest extends TeaModel {
     }
     public String getTaskUuid() {
         return this.taskUuid;
-    }
-
-    public QueryQmpOfflinehostplanDecisionresultsRequest setDecisionPlanId(Long decisionPlanId) {
-        this.decisionPlanId = decisionPlanId;
-        return this;
-    }
-    public Long getDecisionPlanId() {
-        return this.decisionPlanId;
     }
 
 }
