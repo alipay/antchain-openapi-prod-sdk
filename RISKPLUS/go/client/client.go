@@ -31628,6 +31628,8 @@ type QueryQmpOfflinehostplanDecisionresultsRequest struct {
 	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
 	// 任务串联任务id
 	TaskUuid *string `json:"task_uuid,omitempty" xml:"task_uuid,omitempty" require:"true"`
+	// 分层计划ID
+	DecisionPlanId *int64 `json:"decision_plan_id,omitempty" xml:"decision_plan_id,omitempty"`
 }
 
 func (s QueryQmpOfflinehostplanDecisionresultsRequest) String() string {
@@ -31650,6 +31652,11 @@ func (s *QueryQmpOfflinehostplanDecisionresultsRequest) SetProductInstanceId(v s
 
 func (s *QueryQmpOfflinehostplanDecisionresultsRequest) SetTaskUuid(v string) *QueryQmpOfflinehostplanDecisionresultsRequest {
 	s.TaskUuid = &v
+	return s
+}
+
+func (s *QueryQmpOfflinehostplanDecisionresultsRequest) SetDecisionPlanId(v int64) *QueryQmpOfflinehostplanDecisionresultsRequest {
+	s.DecisionPlanId = &v
 	return s
 }
 
@@ -46070,7 +46077,7 @@ func (client *Client) DoRequest(version *string, action *string, protocol *strin
 				"req_msg_id":       antchainutil.GetNonce(),
 				"access_key":       client.AccessKeyId,
 				"base_sdk_version": tea.String("TeaSDK-2.0"),
-				"sdk_version":      tea.String("1.31.29"),
+				"sdk_version":      tea.String("1.31.30"),
 				"_prod_code":       tea.String("RISKPLUS"),
 				"_prod_channel":    tea.String("undefined"),
 			}
