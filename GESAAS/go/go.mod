@@ -1,4 +1,4 @@
-module github.com/alipay/gesaas
+module github.com/antchain-openapi-sdk-go/gesaas
 
 go 1.22.1
 

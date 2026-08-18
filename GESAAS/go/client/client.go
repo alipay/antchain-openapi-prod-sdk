@@ -294,6 +294,60 @@ func (s *RepayStrategy) SetNoNeedAutoDeduction(v string) *RepayStrategy {
 	return s
 }
 
+// 工具用量
+type ToolUsage struct {
+	// 联网搜索调用次数
+	// example:
+	//
+	// 1
+	WebSearch *int64 `json:"web_search,omitempty" xml:"web_search,omitempty" require:"true"`
+}
+
+func (s ToolUsage) String() string {
+	return tea.Prettify(s)
+}
+
+func (s ToolUsage) GoString() string {
+	return s.String()
+}
+
+func (s *ToolUsage) SetWebSearch(v int64) *ToolUsage {
+	s.WebSearch = &v
+	return s
+}
+
+// 图片素材
+type ImageInfoDto struct {
+	// 图片url
+	// example:
+	//
+	// https://xxx.alipay.com/paths/xx.png
+	Url *string `json:"url,omitempty" xml:"url,omitempty" require:"true"`
+	// 角色/用途   首帧:first_frame、尾帧:last_frame 、参考图：reference_image
+	// example:
+	//
+	// first_frame
+	Role *string `json:"role,omitempty" xml:"role,omitempty"`
+}
+
+func (s ImageInfoDto) String() string {
+	return tea.Prettify(s)
+}
+
+func (s ImageInfoDto) GoString() string {
+	return s.String()
+}
+
+func (s *ImageInfoDto) SetUrl(v string) *ImageInfoDto {
+	s.Url = &v
+	return s
+}
+
+func (s *ImageInfoDto) SetRole(v string) *ImageInfoDto {
+	s.Role = &v
+	return s
+}
+
 // 分账账号详情，针对某一笔分账
 type OrderSplitDetailList struct {
 	// 某笔分账状态：PROCESSING-处理中,SUCCESS-成功,CLOSE-关闭,FAILED-失败
@@ -367,6 +421,48 @@ func (s *OrderSplitDetailList) SetSplitFailedReason(v string) *OrderSplitDetailL
 	return s
 }
 
+// token 用量
+type TokenUsageDto struct {
+	// 生成视频消耗的 token 数
+	// example:
+	//
+	// 235436757
+	CompletionTokens *int64 `json:"completion_tokens,omitempty" xml:"completion_tokens,omitempty" require:"true"`
+	// 消耗总 token 数
+	// example:
+	//
+	// 235436546
+	TotalTokens *int64 `json:"total_tokens,omitempty" xml:"total_tokens,omitempty" require:"true"`
+	// 工具用量
+	// example:
+	//
+	// undefined
+	ToolUsage *ToolUsage `json:"tool_usage,omitempty" xml:"tool_usage,omitempty"`
+}
+
+func (s TokenUsageDto) String() string {
+	return tea.Prettify(s)
+}
+
+func (s TokenUsageDto) GoString() string {
+	return s.String()
+}
+
+func (s *TokenUsageDto) SetCompletionTokens(v int64) *TokenUsageDto {
+	s.CompletionTokens = &v
+	return s
+}
+
+func (s *TokenUsageDto) SetTotalTokens(v int64) *TokenUsageDto {
+	s.TotalTokens = &v
+	return s
+}
+
+func (s *TokenUsageDto) SetToolUsage(v *ToolUsage) *TokenUsageDto {
+	s.ToolUsage = v
+	return s
+}
+
 // 订单详情列表
 type OrderDetail struct {
 	// 券码
@@ -386,6 +482,180 @@ func (s OrderDetail) GoString() string {
 
 func (s *OrderDetail) SetVoucherCode(v string) *OrderDetail {
 	s.VoucherCode = &v
+	return s
+}
+
+// 任务错误信息
+type TaskErrorDto struct {
+	// 错误码
+	// example:
+	//
+	// 402
+	Code *string `json:"code,omitempty" xml:"code,omitempty" require:"true"`
+	// 错误提示信息
+	// example:
+	//
+	// 未知异常
+	Message *string `json:"message,omitempty" xml:"message,omitempty"`
+}
+
+func (s TaskErrorDto) String() string {
+	return tea.Prettify(s)
+}
+
+func (s TaskErrorDto) GoString() string {
+	return s.String()
+}
+
+func (s *TaskErrorDto) SetCode(v string) *TaskErrorDto {
+	s.Code = &v
+	return s
+}
+
+func (s *TaskErrorDto) SetMessage(v string) *TaskErrorDto {
+	s.Message = &v
+	return s
+}
+
+// 订单还款计划
+type OrderPromise struct {
+	// 宽限期/天
+	// 不传默认为0
+	// example:
+	//
+	// 1233
+	GracePeriodDays *int64 `json:"grace_period_days,omitempty" xml:"grace_period_days,omitempty"`
+	// 罚息类型
+	//  NONE : 没有罚息  PENALTY_FEE： 罚息（暂不支持）
+	// example:
+	//
+	// NONE
+	PunishmentType *string `json:"punishment_type,omitempty" xml:"punishment_type,omitempty"`
+	// 租期
+	// 租期最小值为1
+	// example:
+	//
+	// 11
+	PayPeriod *int64 `json:"pay_period,omitempty" xml:"pay_period,omitempty" require:"true"`
+	// 租赁公司支付宝UID
+	// example:
+	//
+	// 2088Id
+	LeaseAlipayUid *string `json:"lease_alipay_uid,omitempty" xml:"lease_alipay_uid,omitempty" require:"true"`
+	// 还款策略
+	// repayStrategyList长度 == payPeriod
+	RepayStrategyList []*RepayStrategy `json:"repay_strategy_list,omitempty" xml:"repay_strategy_list,omitempty" require:"true" type:"Repeated"`
+}
+
+func (s OrderPromise) String() string {
+	return tea.Prettify(s)
+}
+
+func (s OrderPromise) GoString() string {
+	return s.String()
+}
+
+func (s *OrderPromise) SetGracePeriodDays(v int64) *OrderPromise {
+	s.GracePeriodDays = &v
+	return s
+}
+
+func (s *OrderPromise) SetPunishmentType(v string) *OrderPromise {
+	s.PunishmentType = &v
+	return s
+}
+
+func (s *OrderPromise) SetPayPeriod(v int64) *OrderPromise {
+	s.PayPeriod = &v
+	return s
+}
+
+func (s *OrderPromise) SetLeaseAlipayUid(v string) *OrderPromise {
+	s.LeaseAlipayUid = &v
+	return s
+}
+
+func (s *OrderPromise) SetRepayStrategyList(v []*RepayStrategy) *OrderPromise {
+	s.RepayStrategyList = v
+	return s
+}
+
+// 文件信息
+type FileInfoDto struct {
+	// 文件url
+	// example:
+	//
+	// https://xxx.alipay.com/paths/xx.png
+	Url *string `json:"url,omitempty" xml:"url,omitempty" require:"true"`
+}
+
+func (s FileInfoDto) String() string {
+	return tea.Prettify(s)
+}
+
+func (s FileInfoDto) GoString() string {
+	return s.String()
+}
+
+func (s *FileInfoDto) SetUrl(v string) *FileInfoDto {
+	s.Url = &v
+	return s
+}
+
+// 模型工具
+type ModelToolDto struct {
+	// 指定使用的工具类型。
+	// 枚举值：
+	// + web_search（联网搜索工具。开启联网搜索后，模型会根据用户的提示词自主判断是否搜索互联网内容（如商品、天气等）。可提升生成视频的时效性，但也会增加一定的时延）0
+	// example:
+	//
+	// web_search
+	Type *string `json:"type,omitempty" xml:"type,omitempty" require:"true"`
+}
+
+func (s ModelToolDto) String() string {
+	return tea.Prettify(s)
+}
+
+func (s ModelToolDto) GoString() string {
+	return s.String()
+}
+
+func (s *ModelToolDto) SetType(v string) *ModelToolDto {
+	s.Type = &v
+	return s
+}
+
+// 输出内容
+type ContentInfoDto struct {
+	// 视频地址 有效期为 24 小时
+	// example:
+	//
+	// https://xxx.alipay.com/paths/xx.png
+	VideoUrl *string `json:"video_url,omitempty" xml:"video_url,omitempty" require:"true"`
+	// 尾帧图像 URL 有效期为 24 小时
+	// 任务创建 returnLastFrame=true时返回
+	// example:
+	//
+	// https://xxx.alipay.com/paths/xx.png
+	LastFrameUrl *string `json:"last_frame_url,omitempty" xml:"last_frame_url,omitempty"`
+}
+
+func (s ContentInfoDto) String() string {
+	return tea.Prettify(s)
+}
+
+func (s ContentInfoDto) GoString() string {
+	return s.String()
+}
+
+func (s *ContentInfoDto) SetVideoUrl(v string) *ContentInfoDto {
+	s.VideoUrl = &v
+	return s
+}
+
+func (s *ContentInfoDto) SetLastFrameUrl(v string) *ContentInfoDto {
+	s.LastFrameUrl = &v
 	return s
 }
 
@@ -456,66 +726,25 @@ func (s *OrderInfoReq) SetTotalRentMoney(v int64) *OrderInfoReq {
 	return s
 }
 
-// 订单还款计划
-type OrderPromise struct {
-	// 宽限期/天
-	// 不传默认为0
+// 文本素材
+type TextInfoDto struct {
+	// 文本素材信息
 	// example:
 	//
-	// 1233
-	GracePeriodDays *int64 `json:"grace_period_days,omitempty" xml:"grace_period_days,omitempty"`
-	// 罚息类型
-	//  NONE : 没有罚息  PENALTY_FEE： 罚息（暂不支持）
-	// example:
-	//
-	// NONE
-	PunishmentType *string `json:"punishment_type,omitempty" xml:"punishment_type,omitempty"`
-	// 租期
-	// 租期最小值为1
-	// example:
-	//
-	// 11
-	PayPeriod *int64 `json:"pay_period,omitempty" xml:"pay_period,omitempty" require:"true"`
-	// 租赁公司支付宝UID
-	// example:
-	//
-	// 2088Id
-	LeaseAlipayUid *string `json:"lease_alipay_uid,omitempty" xml:"lease_alipay_uid,omitempty" require:"true"`
-	// 还款策略
-	// repayStrategyList长度 == payPeriod
-	RepayStrategyList []*RepayStrategy `json:"repay_strategy_list,omitempty" xml:"repay_strategy_list,omitempty" require:"true" type:"Repeated"`
+	// 文本素材信息
+	Text *string `json:"text,omitempty" xml:"text,omitempty" require:"true"`
 }
 
-func (s OrderPromise) String() string {
+func (s TextInfoDto) String() string {
 	return tea.Prettify(s)
 }
 
-func (s OrderPromise) GoString() string {
+func (s TextInfoDto) GoString() string {
 	return s.String()
 }
 
-func (s *OrderPromise) SetGracePeriodDays(v int64) *OrderPromise {
-	s.GracePeriodDays = &v
-	return s
-}
-
-func (s *OrderPromise) SetPunishmentType(v string) *OrderPromise {
-	s.PunishmentType = &v
-	return s
-}
-
-func (s *OrderPromise) SetPayPeriod(v int64) *OrderPromise {
-	s.PayPeriod = &v
-	return s
-}
-
-func (s *OrderPromise) SetLeaseAlipayUid(v string) *OrderPromise {
-	s.LeaseAlipayUid = &v
-	return s
-}
-
-func (s *OrderPromise) SetRepayStrategyList(v []*RepayStrategy) *OrderPromise {
-	s.RepayStrategyList = v
+func (s *TextInfoDto) SetText(v string) *TextInfoDto {
+	s.Text = &v
 	return s
 }
 
@@ -726,6 +955,342 @@ func (s *OrderFullInfoReq) SetPromiseInfo(v *OrderPromise) *OrderFullInfoReq {
 	return s
 }
 
+// 任务结果详情
+type TaskResultInfoDto struct {
+	// 任务ID
+	// example:
+	//
+	// 1798234932684395
+	TaskId *string `json:"task_id,omitempty" xml:"task_id,omitempty" require:"true"`
+	// 模型名称与版本
+	// 格式为 模型名称-版本
+	// example:
+	//
+	// doubao-seedance-2-0-260128
+	Model *string `json:"model,omitempty" xml:"model,omitempty" require:"true"`
+	// 任务状态
+	// + creating: 任务创建中
+	// + queued：排队中
+	// + running：任务运行中
+	// + cancelled：取消任务，取消状态 24h 自动删除（只支持排队中状态的任务被取消）
+	// + succeeded：任务成功
+	// + failed：任务失败
+	// + expired：任务超时
+	// example:
+	//
+	// creating
+	Status *string `json:"status,omitempty" xml:"status,omitempty" require:"true"`
+	// 错误信息（任务失败时返回错误数据）
+	// example:
+	//
+	// undefined
+	Error *TaskErrorDto `json:"error,omitempty" xml:"error,omitempty"`
+	// 输出内容
+	// example:
+	//
+	// undefined
+	Content *ContentInfoDto `json:"content,omitempty" xml:"content,omitempty"`
+	// token 用量
+	// example:
+	//
+	// undefined
+	Usage *TokenUsageDto `json:"usage,omitempty" xml:"usage,omitempty"`
+	// 视频时长（秒）
+	// example:
+	//
+	// 1
+	Duration *int64 `json:"duration,omitempty" xml:"duration,omitempty"`
+	// 视频帧数
+	// 说明： duration 和 frames 参数只会返回一个 。
+	// example:
+	//
+	// 323
+	Frames *int64 `json:"frames,omitempty" xml:"frames,omitempty"`
+	// 分辨率
+	// example:
+	//
+	// 4k
+	Resolution *string `json:"resolution,omitempty" xml:"resolution,omitempty"`
+	// 宽高比
+	// example:
+	//
+	// 4:3
+	Ratio *string `json:"ratio,omitempty" xml:"ratio,omitempty"`
+	// 随机种子
+	// example:
+	//
+	// 233
+	Seed *int64 `json:"seed,omitempty" xml:"seed,omitempty"`
+	// 视频帧率
+	// example:
+	//
+	// 321
+	Framespersecond *int64 `json:"framespersecond,omitempty" xml:"framespersecond,omitempty" require:"true"`
+	// 是否生成同步音频
+	// example:
+	//
+	// false
+	GenerateAudio *bool `json:"generate_audio,omitempty" xml:"generate_audio,omitempty"`
+	// 服务等级
+	// example:
+	//
+	// default
+	ServiceTier *string `json:"service_tier,omitempty" xml:"service_tier,omitempty"`
+	// 任务超时阈值（秒）
+	// example:
+	//
+	// 23543
+	ExecutionExpiresAfter *int64 `json:"execution_expires_after,omitempty" xml:"execution_expires_after,omitempty"`
+	// 执行优先级
+	// example:
+	//
+	// 1
+	Priority *int64 `json:"priority,omitempty" xml:"priority,omitempty"`
+	// 终端用户标识
+	// example:
+	//
+	// tools
+	SafetyIdentifier *string `json:"safety_identifier,omitempty" xml:"safety_identifier,omitempty"`
+	// 任务实际创建时间 格式 yyyy-MM-dd HH:mm:ss
+	// example:
+	//
+	// 2026-06-10 10:09:01
+	CreatedAt *string `json:"created_at,omitempty" xml:"created_at,omitempty"`
+	// 更新时间  格式 yyyy-MM-dd HH:mm:ss
+	// example:
+	//
+	// 2026-06-10 10:09:01
+	UpdatedAt *string `json:"updated_at,omitempty" xml:"updated_at,omitempty"`
+	// 实际使用的工具
+	// example:
+	//
+	// undefined
+	Tools []*ModelToolDto `json:"tools,omitempty" xml:"tools,omitempty" type:"Repeated"`
+}
+
+func (s TaskResultInfoDto) String() string {
+	return tea.Prettify(s)
+}
+
+func (s TaskResultInfoDto) GoString() string {
+	return s.String()
+}
+
+func (s *TaskResultInfoDto) SetTaskId(v string) *TaskResultInfoDto {
+	s.TaskId = &v
+	return s
+}
+
+func (s *TaskResultInfoDto) SetModel(v string) *TaskResultInfoDto {
+	s.Model = &v
+	return s
+}
+
+func (s *TaskResultInfoDto) SetStatus(v string) *TaskResultInfoDto {
+	s.Status = &v
+	return s
+}
+
+func (s *TaskResultInfoDto) SetError(v *TaskErrorDto) *TaskResultInfoDto {
+	s.Error = v
+	return s
+}
+
+func (s *TaskResultInfoDto) SetContent(v *ContentInfoDto) *TaskResultInfoDto {
+	s.Content = v
+	return s
+}
+
+func (s *TaskResultInfoDto) SetUsage(v *TokenUsageDto) *TaskResultInfoDto {
+	s.Usage = v
+	return s
+}
+
+func (s *TaskResultInfoDto) SetDuration(v int64) *TaskResultInfoDto {
+	s.Duration = &v
+	return s
+}
+
+func (s *TaskResultInfoDto) SetFrames(v int64) *TaskResultInfoDto {
+	s.Frames = &v
+	return s
+}
+
+func (s *TaskResultInfoDto) SetResolution(v string) *TaskResultInfoDto {
+	s.Resolution = &v
+	return s
+}
+
+func (s *TaskResultInfoDto) SetRatio(v string) *TaskResultInfoDto {
+	s.Ratio = &v
+	return s
+}
+
+func (s *TaskResultInfoDto) SetSeed(v int64) *TaskResultInfoDto {
+	s.Seed = &v
+	return s
+}
+
+func (s *TaskResultInfoDto) SetFramespersecond(v int64) *TaskResultInfoDto {
+	s.Framespersecond = &v
+	return s
+}
+
+func (s *TaskResultInfoDto) SetGenerateAudio(v bool) *TaskResultInfoDto {
+	s.GenerateAudio = &v
+	return s
+}
+
+func (s *TaskResultInfoDto) SetServiceTier(v string) *TaskResultInfoDto {
+	s.ServiceTier = &v
+	return s
+}
+
+func (s *TaskResultInfoDto) SetExecutionExpiresAfter(v int64) *TaskResultInfoDto {
+	s.ExecutionExpiresAfter = &v
+	return s
+}
+
+func (s *TaskResultInfoDto) SetPriority(v int64) *TaskResultInfoDto {
+	s.Priority = &v
+	return s
+}
+
+func (s *TaskResultInfoDto) SetSafetyIdentifier(v string) *TaskResultInfoDto {
+	s.SafetyIdentifier = &v
+	return s
+}
+
+func (s *TaskResultInfoDto) SetCreatedAt(v string) *TaskResultInfoDto {
+	s.CreatedAt = &v
+	return s
+}
+
+func (s *TaskResultInfoDto) SetUpdatedAt(v string) *TaskResultInfoDto {
+	s.UpdatedAt = &v
+	return s
+}
+
+func (s *TaskResultInfoDto) SetTools(v []*ModelToolDto) *TaskResultInfoDto {
+	s.Tools = v
+	return s
+}
+
+// 券基本信息
+type VoucherBaseInfoVO struct {
+	// 2088xxxxxx0001
+	// example:
+	//
+	// 用户ID
+	UserId *string `json:"user_id,omitempty" xml:"user_id,omitempty"`
+	// 手机号
+	// example:
+	//
+	// 15700001111
+	PhoneNumber *string `json:"phone_number,omitempty" xml:"phone_number,omitempty"`
+	// 权益编号
+	// example:
+	//
+	// RC188955110502576765
+	RightsCode *string `json:"rights_code,omitempty" xml:"rights_code,omitempty" require:"true"`
+	// 权益名称
+	// example:
+	//
+	// 满10元减2元
+	RightsName *string `json:"rights_name,omitempty" xml:"rights_name,omitempty" require:"true"`
+	// 券码
+	// example:
+	//
+	// 202601160007300227760ZT3CMQY
+	VoucherCode *string `json:"voucher_code,omitempty" xml:"voucher_code,omitempty" require:"true"`
+	// 券状态
+	// WAIT_EFFECT：待生效
+	// WAIT_VERIFY：待核销
+	// EXPIRED：已过期
+	// VERIFY_SUCCESS：核销成功（已核销）
+	// 公域场景下只会包含以上四种状态，私域场景会包含下方状态基
+	// FREEZE：已冻结
+	// VERIFYING：核销处理中
+	// VERIFY_FAIL：核销失败
+	// VERIFY_CANCELING：核销撤销中
+	// INVALID：已失效
+	// NO_NEED_VERIFY：无需核销
+	// example:
+	//
+	// WAIT_VERIFY
+	Status *string `json:"status,omitempty" xml:"status,omitempty" require:"true"`
+}
+
+func (s VoucherBaseInfoVO) String() string {
+	return tea.Prettify(s)
+}
+
+func (s VoucherBaseInfoVO) GoString() string {
+	return s.String()
+}
+
+func (s *VoucherBaseInfoVO) SetUserId(v string) *VoucherBaseInfoVO {
+	s.UserId = &v
+	return s
+}
+
+func (s *VoucherBaseInfoVO) SetPhoneNumber(v string) *VoucherBaseInfoVO {
+	s.PhoneNumber = &v
+	return s
+}
+
+func (s *VoucherBaseInfoVO) SetRightsCode(v string) *VoucherBaseInfoVO {
+	s.RightsCode = &v
+	return s
+}
+
+func (s *VoucherBaseInfoVO) SetRightsName(v string) *VoucherBaseInfoVO {
+	s.RightsName = &v
+	return s
+}
+
+func (s *VoucherBaseInfoVO) SetVoucherCode(v string) *VoucherBaseInfoVO {
+	s.VoucherCode = &v
+	return s
+}
+
+func (s *VoucherBaseInfoVO) SetStatus(v string) *VoucherBaseInfoVO {
+	s.Status = &v
+	return s
+}
+
+// 退款账户明细信息
+type RefundDetail struct {
+	// 支出方账户ID，如果是支付宝：以2088开头的纯16位数字
+	// example:
+	//
+	// 2088101126765726
+	TransOutAccount *string `json:"trans_out_account,omitempty" xml:"trans_out_account,omitempty"`
+	// 分账的金额，单位为分
+	// example:
+	//
+	// 990
+	Amount *int64 `json:"amount,omitempty" xml:"amount,omitempty"`
+}
+
+func (s RefundDetail) String() string {
+	return tea.Prettify(s)
+}
+
+func (s RefundDetail) GoString() string {
+	return s.String()
+}
+
+func (s *RefundDetail) SetTransOutAccount(v string) *RefundDetail {
+	s.TransOutAccount = &v
+	return s
+}
+
+func (s *RefundDetail) SetAmount(v int64) *RefundDetail {
+	s.Amount = &v
+	return s
+}
+
 // 响应结果基类
 type CommonResponse struct {
 	// 结果码
@@ -908,118 +1473,55 @@ func (s *RightsGrantResultVO) SetOrderDetails(v []*OrderDetail) *RightsGrantResu
 	return s
 }
 
-// 券基本信息
-type VoucherBaseInfoVO struct {
-	// 2088xxxxxx0001
+// 素材内容
+type MaterialContentDto struct {
+	// 文本素材信息列表
 	// example:
 	//
-	// 用户ID
-	UserId *string `json:"user_id,omitempty" xml:"user_id,omitempty"`
-	// 手机号
+	// undefined
+	TextInfoDtos []*TextInfoDto `json:"text_info_dtos,omitempty" xml:"text_info_dtos,omitempty" type:"Repeated"`
+	// 图片素材列表
 	// example:
 	//
-	// 15700001111
-	PhoneNumber *string `json:"phone_number,omitempty" xml:"phone_number,omitempty"`
-	// 权益编号
+	// undefined
+	ImageInfoDtos []*ImageInfoDto `json:"image_info_dtos,omitempty" xml:"image_info_dtos,omitempty" type:"Repeated"`
+	// 视频素材内容列表
 	// example:
 	//
-	// RC188955110502576765
-	RightsCode *string `json:"rights_code,omitempty" xml:"rights_code,omitempty" require:"true"`
-	// 权益名称
+	// undefined
+	VideoInfoDtos []*FileInfoDto `json:"video_info_dtos,omitempty" xml:"video_info_dtos,omitempty" type:"Repeated"`
+	// 音频素材内容列表
 	// example:
 	//
-	// 满10元减2元
-	RightsName *string `json:"rights_name,omitempty" xml:"rights_name,omitempty" require:"true"`
-	// 券码
-	// example:
-	//
-	// 202601160007300227760ZT3CMQY
-	VoucherCode *string `json:"voucher_code,omitempty" xml:"voucher_code,omitempty" require:"true"`
-	// 券状态
-	// WAIT_EFFECT：待生效
-	// WAIT_VERIFY：待核销
-	// EXPIRED：已过期
-	// VERIFY_SUCCESS：核销成功（已核销）
-	// 公域场景下只会包含以上四种状态，私域场景会包含下方状态基
-	// FREEZE：已冻结
-	// VERIFYING：核销处理中
-	// VERIFY_FAIL：核销失败
-	// VERIFY_CANCELING：核销撤销中
-	// INVALID：已失效
-	// NO_NEED_VERIFY：无需核销
-	// example:
-	//
-	// WAIT_VERIFY
-	Status *string `json:"status,omitempty" xml:"status,omitempty" require:"true"`
+	// undefined
+	AudioInfoDtos []*FileInfoDto `json:"audio_info_dtos,omitempty" xml:"audio_info_dtos,omitempty" type:"Repeated"`
 }
 
-func (s VoucherBaseInfoVO) String() string {
+func (s MaterialContentDto) String() string {
 	return tea.Prettify(s)
 }
 
-func (s VoucherBaseInfoVO) GoString() string {
+func (s MaterialContentDto) GoString() string {
 	return s.String()
 }
 
-func (s *VoucherBaseInfoVO) SetUserId(v string) *VoucherBaseInfoVO {
-	s.UserId = &v
+func (s *MaterialContentDto) SetTextInfoDtos(v []*TextInfoDto) *MaterialContentDto {
+	s.TextInfoDtos = v
 	return s
 }
 
-func (s *VoucherBaseInfoVO) SetPhoneNumber(v string) *VoucherBaseInfoVO {
-	s.PhoneNumber = &v
+func (s *MaterialContentDto) SetImageInfoDtos(v []*ImageInfoDto) *MaterialContentDto {
+	s.ImageInfoDtos = v
 	return s
 }
 
-func (s *VoucherBaseInfoVO) SetRightsCode(v string) *VoucherBaseInfoVO {
-	s.RightsCode = &v
+func (s *MaterialContentDto) SetVideoInfoDtos(v []*FileInfoDto) *MaterialContentDto {
+	s.VideoInfoDtos = v
 	return s
 }
 
-func (s *VoucherBaseInfoVO) SetRightsName(v string) *VoucherBaseInfoVO {
-	s.RightsName = &v
-	return s
-}
-
-func (s *VoucherBaseInfoVO) SetVoucherCode(v string) *VoucherBaseInfoVO {
-	s.VoucherCode = &v
-	return s
-}
-
-func (s *VoucherBaseInfoVO) SetStatus(v string) *VoucherBaseInfoVO {
-	s.Status = &v
-	return s
-}
-
-// 退款账户明细信息
-type RefundDetail struct {
-	// 支出方账户ID，如果是支付宝：以2088开头的纯16位数字
-	// example:
-	//
-	// 2088101126765726
-	TransOutAccount *string `json:"trans_out_account,omitempty" xml:"trans_out_account,omitempty"`
-	// 分账的金额，单位为分
-	// example:
-	//
-	// 990
-	Amount *int64 `json:"amount,omitempty" xml:"amount,omitempty"`
-}
-
-func (s RefundDetail) String() string {
-	return tea.Prettify(s)
-}
-
-func (s RefundDetail) GoString() string {
-	return s.String()
-}
-
-func (s *RefundDetail) SetTransOutAccount(v string) *RefundDetail {
-	s.TransOutAccount = &v
-	return s
-}
-
-func (s *RefundDetail) SetAmount(v int64) *RefundDetail {
-	s.Amount = &v
+func (s *MaterialContentDto) SetAudioInfoDtos(v []*FileInfoDto) *MaterialContentDto {
+	s.AudioInfoDtos = v
 	return s
 }
 
@@ -1802,6 +2304,287 @@ func (s *CheckOmngRiskResponse) SetResultMsg(v string) *CheckOmngRiskResponse {
 
 func (s *CheckOmngRiskResponse) SetInfoStr(v string) *CheckOmngRiskResponse {
 	s.InfoStr = &v
+	return s
+}
+
+type SaveOmngGenerationtaskRequest struct {
+	// OAuth模式下的授权token
+	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
+	// 任务ID、幂等处理
+	TaskId *string `json:"task_id,omitempty" xml:"task_id,omitempty" require:"true"`
+	// 模型ID
+	Model *string `json:"model,omitempty" xml:"model,omitempty" require:"true"`
+	// 素材内容
+	MaterialContentDto *MaterialContentDto `json:"material_content_dto,omitempty" xml:"material_content_dto,omitempty" require:"true"`
+	// 生成有声视频
+	GenerateAudio *bool `json:"generate_audio,omitempty" xml:"generate_audio,omitempty"`
+	// 视频宽高比
+	// 枚举值：16:9、4:3、1:1、3:4、9:16、21:9、adaptive
+	Ratio *string `json:"ratio,omitempty" xml:"ratio,omitempty"`
+	// 生成视频时长（单位：秒）。设置为 -1 时，实际生成视频的时长可通过 **视频生成任务查询接口 **返回的 duration 字段获取。视频时长与计费相关，请谨慎设置。
+	// 目前最大值 仅支持 30、最小值-1。
+	Duration *int64 `json:"duration,omitempty" xml:"duration,omitempty"`
+	// 视频分辨率 可选值：480p、720p、1080p、4k
+	Resolution *string `json:"resolution,omitempty" xml:"resolution,omitempty"`
+	// 输出格式 枚举值:mp4、mov
+	// 默认值：mp4
+	OutputFormat *string `json:"output_format,omitempty" xml:"output_format,omitempty"`
+	// 视频水印
+	// 默认值：false
+	//  true：生成视频右下角会展示 AI 生成 水印。
+	Watermark *bool `json:"watermark,omitempty" xml:"watermark,omitempty"`
+	// 种子整数，用于控制生成内容的随机性
+	Seed *int64 `json:"seed,omitempty" xml:"seed,omitempty"`
+	// 返回尾帧 默认值 false
+	// false/true
+	ReturnLastFrame *bool `json:"return_last_frame,omitempty" xml:"return_last_frame,omitempty"`
+	// 配置模型要调用的工具
+	Tools []*ModelToolDto `json:"tools,omitempty" xml:"tools,omitempty" type:"Repeated"`
+	// 指定处理本次请求的服务等级类型 默认值 default
+	// + default：在线推理模式
+	// + flex：离线推理模式
+	ServiceTier *string `json:"service_tier,omitempty" xml:"service_tier,omitempty"`
+	// 默认值 172800 秒 （48小时）
+	// 3600 <=取值限制<= 259200
+	ExecutionExpiresAfter *int64 `json:"execution_expires_after,omitempty" xml:"execution_expires_after,omitempty"`
+	// 终端用户的唯一标识符
+	SafetyIdentifier *string `json:"safety_identifier,omitempty" xml:"safety_identifier,omitempty"`
+	// 执行优先级 默认值 0
+	// 数值越大，优先级越高。
+	Priority *int64 `json:"priority,omitempty" xml:"priority,omitempty"`
+}
+
+func (s SaveOmngGenerationtaskRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s SaveOmngGenerationtaskRequest) GoString() string {
+	return s.String()
+}
+
+func (s *SaveOmngGenerationtaskRequest) SetAuthToken(v string) *SaveOmngGenerationtaskRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *SaveOmngGenerationtaskRequest) SetProductInstanceId(v string) *SaveOmngGenerationtaskRequest {
+	s.ProductInstanceId = &v
+	return s
+}
+
+func (s *SaveOmngGenerationtaskRequest) SetTaskId(v string) *SaveOmngGenerationtaskRequest {
+	s.TaskId = &v
+	return s
+}
+
+func (s *SaveOmngGenerationtaskRequest) SetModel(v string) *SaveOmngGenerationtaskRequest {
+	s.Model = &v
+	return s
+}
+
+func (s *SaveOmngGenerationtaskRequest) SetMaterialContentDto(v *MaterialContentDto) *SaveOmngGenerationtaskRequest {
+	s.MaterialContentDto = v
+	return s
+}
+
+func (s *SaveOmngGenerationtaskRequest) SetGenerateAudio(v bool) *SaveOmngGenerationtaskRequest {
+	s.GenerateAudio = &v
+	return s
+}
+
+func (s *SaveOmngGenerationtaskRequest) SetRatio(v string) *SaveOmngGenerationtaskRequest {
+	s.Ratio = &v
+	return s
+}
+
+func (s *SaveOmngGenerationtaskRequest) SetDuration(v int64) *SaveOmngGenerationtaskRequest {
+	s.Duration = &v
+	return s
+}
+
+func (s *SaveOmngGenerationtaskRequest) SetResolution(v string) *SaveOmngGenerationtaskRequest {
+	s.Resolution = &v
+	return s
+}
+
+func (s *SaveOmngGenerationtaskRequest) SetOutputFormat(v string) *SaveOmngGenerationtaskRequest {
+	s.OutputFormat = &v
+	return s
+}
+
+func (s *SaveOmngGenerationtaskRequest) SetWatermark(v bool) *SaveOmngGenerationtaskRequest {
+	s.Watermark = &v
+	return s
+}
+
+func (s *SaveOmngGenerationtaskRequest) SetSeed(v int64) *SaveOmngGenerationtaskRequest {
+	s.Seed = &v
+	return s
+}
+
+func (s *SaveOmngGenerationtaskRequest) SetReturnLastFrame(v bool) *SaveOmngGenerationtaskRequest {
+	s.ReturnLastFrame = &v
+	return s
+}
+
+func (s *SaveOmngGenerationtaskRequest) SetTools(v []*ModelToolDto) *SaveOmngGenerationtaskRequest {
+	s.Tools = v
+	return s
+}
+
+func (s *SaveOmngGenerationtaskRequest) SetServiceTier(v string) *SaveOmngGenerationtaskRequest {
+	s.ServiceTier = &v
+	return s
+}
+
+func (s *SaveOmngGenerationtaskRequest) SetExecutionExpiresAfter(v int64) *SaveOmngGenerationtaskRequest {
+	s.ExecutionExpiresAfter = &v
+	return s
+}
+
+func (s *SaveOmngGenerationtaskRequest) SetSafetyIdentifier(v string) *SaveOmngGenerationtaskRequest {
+	s.SafetyIdentifier = &v
+	return s
+}
+
+func (s *SaveOmngGenerationtaskRequest) SetPriority(v int64) *SaveOmngGenerationtaskRequest {
+	s.Priority = &v
+	return s
+}
+
+type SaveOmngGenerationtaskResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// 创建结果
+	// 成功：success
+	// 创建中：creating
+	// 失败：fail
+	Result *string `json:"result,omitempty" xml:"result,omitempty"`
+	// 失败原因
+	FailMsg *string `json:"fail_msg,omitempty" xml:"fail_msg,omitempty"`
+}
+
+func (s SaveOmngGenerationtaskResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s SaveOmngGenerationtaskResponse) GoString() string {
+	return s.String()
+}
+
+func (s *SaveOmngGenerationtaskResponse) SetReqMsgId(v string) *SaveOmngGenerationtaskResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *SaveOmngGenerationtaskResponse) SetResultCode(v string) *SaveOmngGenerationtaskResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *SaveOmngGenerationtaskResponse) SetResultMsg(v string) *SaveOmngGenerationtaskResponse {
+	s.ResultMsg = &v
+	return s
+}
+
+func (s *SaveOmngGenerationtaskResponse) SetResult(v string) *SaveOmngGenerationtaskResponse {
+	s.Result = &v
+	return s
+}
+
+func (s *SaveOmngGenerationtaskResponse) SetFailMsg(v string) *SaveOmngGenerationtaskResponse {
+	s.FailMsg = &v
+	return s
+}
+
+type QueryOmngGenerationtaskRequest struct {
+	// OAuth模式下的授权token
+	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
+	// 任务ID
+	TaskId *string `json:"task_id,omitempty" xml:"task_id,omitempty" require:"true"`
+}
+
+func (s QueryOmngGenerationtaskRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s QueryOmngGenerationtaskRequest) GoString() string {
+	return s.String()
+}
+
+func (s *QueryOmngGenerationtaskRequest) SetAuthToken(v string) *QueryOmngGenerationtaskRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *QueryOmngGenerationtaskRequest) SetProductInstanceId(v string) *QueryOmngGenerationtaskRequest {
+	s.ProductInstanceId = &v
+	return s
+}
+
+func (s *QueryOmngGenerationtaskRequest) SetTaskId(v string) *QueryOmngGenerationtaskRequest {
+	s.TaskId = &v
+	return s
+}
+
+type QueryOmngGenerationtaskResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// 查询结果
+	// 成功：success
+	// 失败：fail
+	Result *string `json:"result,omitempty" xml:"result,omitempty"`
+	// 查询失败原因
+	FailMsg *string `json:"fail_msg,omitempty" xml:"fail_msg,omitempty"`
+	// 视频场景任务结果信息
+	TaskResultInfoDto *TaskResultInfoDto `json:"task_result_info_dto,omitempty" xml:"task_result_info_dto,omitempty"`
+}
+
+func (s QueryOmngGenerationtaskResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s QueryOmngGenerationtaskResponse) GoString() string {
+	return s.String()
+}
+
+func (s *QueryOmngGenerationtaskResponse) SetReqMsgId(v string) *QueryOmngGenerationtaskResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *QueryOmngGenerationtaskResponse) SetResultCode(v string) *QueryOmngGenerationtaskResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *QueryOmngGenerationtaskResponse) SetResultMsg(v string) *QueryOmngGenerationtaskResponse {
+	s.ResultMsg = &v
+	return s
+}
+
+func (s *QueryOmngGenerationtaskResponse) SetResult(v string) *QueryOmngGenerationtaskResponse {
+	s.Result = &v
+	return s
+}
+
+func (s *QueryOmngGenerationtaskResponse) SetFailMsg(v string) *QueryOmngGenerationtaskResponse {
+	s.FailMsg = &v
+	return s
+}
+
+func (s *QueryOmngGenerationtaskResponse) SetTaskResultInfoDto(v *TaskResultInfoDto) *QueryOmngGenerationtaskResponse {
+	s.TaskResultInfoDto = v
 	return s
 }
 
@@ -2617,7 +3400,7 @@ func (client *Client) DoRequest(version *string, action *string, protocol *strin
 				"req_msg_id":       antchainutil.GetNonce(),
 				"access_key":       client.AccessKeyId,
 				"base_sdk_version": tea.String("TeaSDK-2.0"),
-				"sdk_version":      tea.String("1.3.16"),
+				"sdk_version":      tea.String("1.4.1"),
 				"_prod_code":       tea.String("GESAAS"),
 				"_prod_channel":    tea.String("default"),
 			}
@@ -2920,6 +3703,78 @@ func (client *Client) CheckOmngRiskEx(request *CheckOmngRiskRequest, headers map
 	}
 	_result = &CheckOmngRiskResponse{}
 	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("antdigital.gesaas.omng.risk.check"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
+}
+
+// Description:
+//
+// Description: 视频生成任务创建
+//
+// Summary: 视频生成任务创建
+func (client *Client) SaveOmngGenerationtask(request *SaveOmngGenerationtaskRequest) (_result *SaveOmngGenerationtaskResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &SaveOmngGenerationtaskResponse{}
+	_body, _err := client.SaveOmngGenerationtaskEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+// Description:
+//
+// Description: 视频生成任务创建
+//
+// Summary: 视频生成任务创建
+func (client *Client) SaveOmngGenerationtaskEx(request *SaveOmngGenerationtaskRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *SaveOmngGenerationtaskResponse, _err error) {
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &SaveOmngGenerationtaskResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("antdigital.gesaas.omng.generationtask.save"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
+}
+
+// Description:
+//
+// Description: 视频生成任务结果查询
+//
+// Summary: 视频生成任务结果查询
+func (client *Client) QueryOmngGenerationtask(request *QueryOmngGenerationtaskRequest) (_result *QueryOmngGenerationtaskResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &QueryOmngGenerationtaskResponse{}
+	_body, _err := client.QueryOmngGenerationtaskEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+// Description:
+//
+// Description: 视频生成任务结果查询
+//
+// Summary: 视频生成任务结果查询
+func (client *Client) QueryOmngGenerationtaskEx(request *QueryOmngGenerationtaskRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *QueryOmngGenerationtaskResponse, _err error) {
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &QueryOmngGenerationtaskResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("antdigital.gesaas.omng.generationtask.query"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
 	if _err != nil {
 		return _result, _err
 	}
