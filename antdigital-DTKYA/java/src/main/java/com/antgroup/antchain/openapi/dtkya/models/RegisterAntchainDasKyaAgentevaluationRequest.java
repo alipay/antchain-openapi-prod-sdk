@@ -16,6 +16,11 @@ public class RegisterAntchainDasKyaAgentevaluationRequest extends TeaModel {
     @Validation(required = true)
     public String serviceCode;
 
+    // did
+    @NameInMap("agent_did")
+    @Validation(required = true)
+    public String agentDid;
+
     public static RegisterAntchainDasKyaAgentevaluationRequest build(java.util.Map<String, ?> map) throws Exception {
         RegisterAntchainDasKyaAgentevaluationRequest self = new RegisterAntchainDasKyaAgentevaluationRequest();
         return TeaModel.build(map, self);
@@ -43,6 +48,14 @@ public class RegisterAntchainDasKyaAgentevaluationRequest extends TeaModel {
     }
     public String getServiceCode() {
         return this.serviceCode;
+    }
+
+    public RegisterAntchainDasKyaAgentevaluationRequest setAgentDid(String agentDid) {
+        this.agentDid = agentDid;
+        return this;
+    }
+    public String getAgentDid() {
+        return this.agentDid;
     }
 
 }
