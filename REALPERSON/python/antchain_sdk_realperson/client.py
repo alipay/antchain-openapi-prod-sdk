@@ -135,7 +135,7 @@ class Client:
                     'req_msg_id': AntchainUtils.get_nonce(),
                     'access_key': self._access_key_id,
                     'base_sdk_version': 'TeaSDK-2.0',
-                    'sdk_version': '1.23.3',
+                    'sdk_version': '1.23.4',
                     '_prod_code': 'REALPERSON',
                     '_prod_channel': 'undefined'
                 }
@@ -239,7 +239,7 @@ class Client:
                     'req_msg_id': AntchainUtils.get_nonce(),
                     'access_key': self._access_key_id,
                     'base_sdk_version': 'TeaSDK-2.0',
-                    'sdk_version': '1.23.3',
+                    'sdk_version': '1.23.4',
                     '_prod_code': 'REALPERSON',
                     '_prod_channel': 'undefined'
                 }
@@ -5337,24 +5337,6 @@ class Client:
         Description: 意愿认证服务端初始化
         Summary: 意愿认证服务端初始化
         """
-        if not UtilClient.is_unset(request.file_object):
-            upload_req = realperson_models.CreateAntcloudGatewayxFileUploadRequest(
-                auth_token=request.auth_token,
-                api_code='di.realperson.server.willauth.init',
-                file_name=request.file_object_name
-            )
-            upload_resp = self.create_antcloud_gatewayx_file_upload_ex(upload_req, headers, runtime)
-            if not AntchainUtils.is_success(upload_resp.result_code, 'ok'):
-                init_server_willauth_response = realperson_models.InitServerWillauthResponse(
-                    req_msg_id=upload_resp.req_msg_id,
-                    result_code=upload_resp.result_code,
-                    result_msg=upload_resp.result_msg
-                )
-                return init_server_willauth_response
-            upload_headers = AntchainUtils.parse_upload_headers(upload_resp.upload_headers)
-            AntchainUtils.put_object(request.file_object, upload_headers, upload_resp.upload_url)
-            request.file_id = upload_resp.file_id
-            request.file_object = None
         UtilClient.validate_model(request)
         return TeaCore.from_map(
             realperson_models.InitServerWillauthResponse(),
@@ -5371,24 +5353,6 @@ class Client:
         Description: 意愿认证服务端初始化
         Summary: 意愿认证服务端初始化
         """
-        if not UtilClient.is_unset(request.file_object):
-            upload_req = realperson_models.CreateAntcloudGatewayxFileUploadRequest(
-                auth_token=request.auth_token,
-                api_code='di.realperson.server.willauth.init',
-                file_name=request.file_object_name
-            )
-            upload_resp = await self.create_antcloud_gatewayx_file_upload_ex_async(upload_req, headers, runtime)
-            if not AntchainUtils.is_success(upload_resp.result_code, 'ok'):
-                init_server_willauth_response = realperson_models.InitServerWillauthResponse(
-                    req_msg_id=upload_resp.req_msg_id,
-                    result_code=upload_resp.result_code,
-                    result_msg=upload_resp.result_msg
-                )
-                return init_server_willauth_response
-            upload_headers = AntchainUtils.parse_upload_headers(upload_resp.upload_headers)
-            await AntchainUtils.put_object_async(request.file_object, upload_headers, upload_resp.upload_url)
-            request.file_id = upload_resp.file_id
-            request.file_object = None
         UtilClient.validate_model(request)
         return TeaCore.from_map(
             realperson_models.InitServerWillauthResponse(),
