@@ -1,13 +1,13 @@
 English | [简体中文](README-CN.md)
 
-# Ant Chain ABC SDK for C#
+# Ant Chain BOT SDK for C#
 
 ## Installation
 
 ### .NET
 
 ```bash
-donet add package AntChain.SDK.BOT
+dotnet add package AntChain.SDK.BOT
 ```
 
 ## Issues
