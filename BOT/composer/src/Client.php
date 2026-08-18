@@ -98,6 +98,18 @@ use AntChain\BOT\Models\QueryAgentchatHistoryRequest;
 use AntChain\BOT\Models\QueryAgentchatHistoryResponse;
 use AntChain\BOT\Models\QueryAgentSessionsRequest;
 use AntChain\BOT\Models\QueryAgentSessionsResponse;
+use AntChain\BOT\Models\QueryIotagentAideviceRequest;
+use AntChain\BOT\Models\QueryIotagentAideviceResponse;
+use AntChain\BOT\Models\QueryIotagentThingmodelrangeRequest;
+use AntChain\BOT\Models\QueryIotagentThingmodelrangeResponse;
+use AntChain\BOT\Models\QueryIotagentThingmodeldataRequest;
+use AntChain\BOT\Models\QueryIotagentThingmodeldataResponse;
+use AntChain\BOT\Models\GetsignurlIotagentPlugincontractRequest;
+use AntChain\BOT\Models\GetsignurlIotagentPlugincontractResponse;
+use AntChain\BOT\Models\QueryIotagentPlugincontractRequest;
+use AntChain\BOT\Models\QueryIotagentPlugincontractResponse;
+use AntChain\BOT\Models\QueryIotagentUseridRequest;
+use AntChain\BOT\Models\QueryIotagentUseridResponse;
 use AntChain\BOT\Models\CreateAcsDeviceRequest;
 use AntChain\BOT\Models\CreateAcsDeviceResponse;
 use AntChain\BOT\Models\SendAcsCollectorRequest;
@@ -376,6 +388,8 @@ use AntChain\BOT\Models\DeleteElectrocarOtacontinuouspushrulesRequest;
 use AntChain\BOT\Models\DeleteElectrocarOtacontinuouspushrulesResponse;
 use AntChain\BOT\Models\QueryElectrocarOtafirmwarelastestRequest;
 use AntChain\BOT\Models\QueryElectrocarOtafirmwarelastestResponse;
+use AntChain\BOT\Models\PushElectrocarAipanelskinRequest;
+use AntChain\BOT\Models\PushElectrocarAipanelskinResponse;
 use AntChain\BOT\Models\QueryIotplatformPurchaseorderRequest;
 use AntChain\BOT\Models\QueryIotplatformPurchaseorderResponse;
 use AntChain\BOT\Models\ImportIotplatformMeshidRequest;
@@ -648,6 +662,8 @@ use AntChain\BOT\Models\EncryptIdsquaredAuthRequest;
 use AntChain\BOT\Models\EncryptIdsquaredAuthResponse;
 use AntChain\BOT\Models\QueryTrustiotMiniappRequest;
 use AntChain\BOT\Models\QueryTrustiotMiniappResponse;
+use AntChain\BOT\Models\QueryIotagentUseridsRequest;
+use AntChain\BOT\Models\QueryIotagentUseridsResponse;
 use AntChain\BOT\Models\ExecThingsdidOneapiRequest;
 use AntChain\BOT\Models\ExecThingsdidOneapiResponse;
 use AntChain\BOT\Models\StartEvidenceStoreRequest;
@@ -817,7 +833,7 @@ class Client {
                     "req_msg_id" => UtilClient::getNonce(),
                     "access_key" => $this->_accessKeyId,
                     "base_sdk_version" => "TeaSDK-2.0",
-                    "sdk_version" => "1.18.8",
+                    "sdk_version" => "1.20.2",
                     "_prod_code" => "BOT",
                     "_prod_channel" => "undefined"
                 ];
@@ -1930,6 +1946,156 @@ class Client {
     public function queryAgentSessionsEx($request, $headers, $runtime){
         Utils::validateModel($request);
         return QueryAgentSessionsResponse::fromMap($this->doRequest("1.0", "blockchain.bot.agent.sessions.query", "HTTPS", "POST", "/gateway.do", Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 查询ai设备可用状态
+     * Summary: 查询ai设备可用状态
+     * @param QueryIotagentAideviceRequest $request
+     * @return QueryIotagentAideviceResponse
+     */
+    public function queryIotagentAidevice($request){
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+        return $this->queryIotagentAideviceEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 查询ai设备可用状态
+     * Summary: 查询ai设备可用状态
+     * @param QueryIotagentAideviceRequest $request
+     * @param string[] $headers
+     * @param RuntimeOptions $runtime
+     * @return QueryIotagentAideviceResponse
+     */
+    public function queryIotagentAideviceEx($request, $headers, $runtime){
+        Utils::validateModel($request);
+        return QueryIotagentAideviceResponse::fromMap($this->doRequest("1.0", "blockchain.bot.iotagent.aidevice.query", "HTTPS", "POST", "/gateway.do", Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 查询物模型上报数据时间范围
+     * Summary: 查询物模型上报数据时间范围
+     * @param QueryIotagentThingmodelrangeRequest $request
+     * @return QueryIotagentThingmodelrangeResponse
+     */
+    public function queryIotagentThingmodelrange($request){
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+        return $this->queryIotagentThingmodelrangeEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 查询物模型上报数据时间范围
+     * Summary: 查询物模型上报数据时间范围
+     * @param QueryIotagentThingmodelrangeRequest $request
+     * @param string[] $headers
+     * @param RuntimeOptions $runtime
+     * @return QueryIotagentThingmodelrangeResponse
+     */
+    public function queryIotagentThingmodelrangeEx($request, $headers, $runtime){
+        Utils::validateModel($request);
+        return QueryIotagentThingmodelrangeResponse::fromMap($this->doRequest("1.0", "blockchain.bot.iotagent.thingmodelrange.query", "HTTPS", "POST", "/gateway.do", Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 查询物模型上报数据
+     * Summary: 查询物模型上报数据
+     * @param QueryIotagentThingmodeldataRequest $request
+     * @return QueryIotagentThingmodeldataResponse
+     */
+    public function queryIotagentThingmodeldata($request){
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+        return $this->queryIotagentThingmodeldataEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 查询物模型上报数据
+     * Summary: 查询物模型上报数据
+     * @param QueryIotagentThingmodeldataRequest $request
+     * @param string[] $headers
+     * @param RuntimeOptions $runtime
+     * @return QueryIotagentThingmodeldataResponse
+     */
+    public function queryIotagentThingmodeldataEx($request, $headers, $runtime){
+        Utils::validateModel($request);
+        return QueryIotagentThingmodeldataResponse::fromMap($this->doRequest("1.0", "blockchain.bot.iotagent.thingmodeldata.query", "HTTPS", "POST", "/gateway.do", Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: IoT智能体插件签约URL获取接口
+     * Summary: IoT智能体插件签约URL获取接口
+     * @param GetsignurlIotagentPlugincontractRequest $request
+     * @return GetsignurlIotagentPlugincontractResponse
+     */
+    public function getsignurlIotagentPlugincontract($request){
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+        return $this->getsignurlIotagentPlugincontractEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: IoT智能体插件签约URL获取接口
+     * Summary: IoT智能体插件签约URL获取接口
+     * @param GetsignurlIotagentPlugincontractRequest $request
+     * @param string[] $headers
+     * @param RuntimeOptions $runtime
+     * @return GetsignurlIotagentPlugincontractResponse
+     */
+    public function getsignurlIotagentPlugincontractEx($request, $headers, $runtime){
+        Utils::validateModel($request);
+        return GetsignurlIotagentPlugincontractResponse::fromMap($this->doRequest("1.0", "blockchain.bot.iotagent.plugincontract.getsignurl", "HTTPS", "POST", "/gateway.do", Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: IoT智能体插件签约查询接口
+     * Summary: IoT智能体插件签约查询接口
+     * @param QueryIotagentPlugincontractRequest $request
+     * @return QueryIotagentPlugincontractResponse
+     */
+    public function queryIotagentPlugincontract($request){
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+        return $this->queryIotagentPlugincontractEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: IoT智能体插件签约查询接口
+     * Summary: IoT智能体插件签约查询接口
+     * @param QueryIotagentPlugincontractRequest $request
+     * @param string[] $headers
+     * @param RuntimeOptions $runtime
+     * @return QueryIotagentPlugincontractResponse
+     */
+    public function queryIotagentPlugincontractEx($request, $headers, $runtime){
+        Utils::validateModel($request);
+        return QueryIotagentPlugincontractResponse::fromMap($this->doRequest("1.0", "blockchain.bot.iotagent.plugincontract.query", "HTTPS", "POST", "/gateway.do", Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 根据tenant获取tenant下的userId
+     * Summary: 根据tenant获取tenant下的userId
+     * @param QueryIotagentUseridRequest $request
+     * @return QueryIotagentUseridResponse
+     */
+    public function queryIotagentUserid($request){
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+        return $this->queryIotagentUseridEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 根据tenant获取tenant下的userId
+     * Summary: 根据tenant获取tenant下的userId
+     * @param QueryIotagentUseridRequest $request
+     * @param string[] $headers
+     * @param RuntimeOptions $runtime
+     * @return QueryIotagentUseridResponse
+     */
+    public function queryIotagentUseridEx($request, $headers, $runtime){
+        Utils::validateModel($request);
+        return QueryIotagentUseridResponse::fromMap($this->doRequest("1.0", "blockchain.bot.iotagent.userid.query", "HTTPS", "POST", "/gateway.do", Tea::merge($request), $headers, $runtime));
     }
 
     /**
@@ -5428,6 +5594,31 @@ class Client {
     }
 
     /**
+     * Description: AI仪表皮肤包下发
+     * Summary: AI仪表皮肤包下发
+     * @param PushElectrocarAipanelskinRequest $request
+     * @return PushElectrocarAipanelskinResponse
+     */
+    public function pushElectrocarAipanelskin($request){
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+        return $this->pushElectrocarAipanelskinEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: AI仪表皮肤包下发
+     * Summary: AI仪表皮肤包下发
+     * @param PushElectrocarAipanelskinRequest $request
+     * @param string[] $headers
+     * @param RuntimeOptions $runtime
+     * @return PushElectrocarAipanelskinResponse
+     */
+    public function pushElectrocarAipanelskinEx($request, $headers, $runtime){
+        Utils::validateModel($request);
+        return PushElectrocarAipanelskinResponse::fromMap($this->doRequest("1.0", "blockchain.bot.electrocar.aipanelskin.push", "HTTPS", "POST", "/gateway.do", Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
      * Description: 根据设备串号查询采购设备
      * Summary: 根据设备串号查询采购设备
      * @param QueryIotplatformPurchaseorderRequest $request
@@ -8825,6 +9016,31 @@ class Client {
     public function queryTrustiotMiniappEx($request, $headers, $runtime){
         Utils::validateModel($request);
         return QueryTrustiotMiniappResponse::fromMap($this->doRequest("1.0", "blockchain.bot.trustiot.miniapp.query", "HTTPS", "POST", "/gateway.do", Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 查询租户下的userid
+     * Summary: 查询租户下的userid
+     * @param QueryIotagentUseridsRequest $request
+     * @return QueryIotagentUseridsResponse
+     */
+    public function queryIotagentUserids($request){
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+        return $this->queryIotagentUseridsEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 查询租户下的userid
+     * Summary: 查询租户下的userid
+     * @param QueryIotagentUseridsRequest $request
+     * @param string[] $headers
+     * @param RuntimeOptions $runtime
+     * @return QueryIotagentUseridsResponse
+     */
+    public function queryIotagentUseridsEx($request, $headers, $runtime){
+        Utils::validateModel($request);
+        return QueryIotagentUseridsResponse::fromMap($this->doRequest("1.0", "blockchain.bot.iotagent.userids.query", "HTTPS", "POST", "/gateway.do", Tea::merge($request), $headers, $runtime));
     }
 
     /**
