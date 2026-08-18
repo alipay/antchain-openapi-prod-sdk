@@ -189,37 +189,87 @@ func (s *Config) SetMaxRequestsPerHost(v int) *Config {
 	return s
 }
 
-// 资源定位信息
-type BaiResourceLocation struct {
-	// 资源定位类型
-	// HTTP_URL：资源url
-	// STRING_BASE64：资源base64字符串（不带base64头部）
+// 版本范围边界定义
+type Bound struct {
+	// 边界版本号；eKYT 范围匹配要求使用 x.y.z 数字版本格式。
 	// example:
 	//
-	// HTTP_URL, STRING_BASE64
-	LocationType *string `json:"location_type,omitempty" xml:"location_type,omitempty" require:"true"`
-	// 资源定位值
+	// 1.0.0
+	VersionNo *string `json:"version_no,omitempty" xml:"version_no,omitempty"`
+	// 是否包含该边界；true 表示闭区间，false 表示开区间。
 	// example:
 	//
-	// abc
-	LocationValue *string `json:"location_value,omitempty" xml:"location_value,omitempty" require:"true"`
+	// true
+	Inclusive *bool `json:"inclusive,omitempty" xml:"inclusive,omitempty"`
 }
 
-func (s BaiResourceLocation) String() string {
+func (s Bound) String() string {
 	return tea.Prettify(s)
 }
 
-func (s BaiResourceLocation) GoString() string {
+func (s Bound) GoString() string {
 	return s.String()
 }
 
-func (s *BaiResourceLocation) SetLocationType(v string) *BaiResourceLocation {
-	s.LocationType = &v
+func (s *Bound) SetVersionNo(v string) *Bound {
+	s.VersionNo = &v
 	return s
 }
 
-func (s *BaiResourceLocation) SetLocationValue(v string) *BaiResourceLocation {
-	s.LocationValue = &v
+func (s *Bound) SetInclusive(v bool) *Bound {
+	s.Inclusive = &v
+	return s
+}
+
+// 结构化版本谓词
+type ContinuousOtaVersionPredicate struct {
+	// 匹配类型：ANY、EXACT 或 RANGE；非 eKYT 模块仅支持 ANY 和 EXACT。
+	// example:
+	//
+	// ANY
+	Type *string `json:"type,omitempty" xml:"type,omitempty" require:"true"`
+	// 精确匹配的版本号，仅在 type 为 EXACT 时使用。
+	// example:
+	//
+	// 1.0.0
+	ExactVersionNo *string `json:"exact_version_no,omitempty" xml:"exact_version_no,omitempty"`
+	// 版本范围下界，仅在 type 为 RANGE 时使用。
+	// example:
+	//
+	// undefined
+	Lower *Bound `json:"lower,omitempty" xml:"lower,omitempty"`
+	// 版本范围上界，仅在 type 为 RANGE 时使用。
+	// example:
+	//
+	// undefined
+	Upper *Bound `json:"upper,omitempty" xml:"upper,omitempty"`
+}
+
+func (s ContinuousOtaVersionPredicate) String() string {
+	return tea.Prettify(s)
+}
+
+func (s ContinuousOtaVersionPredicate) GoString() string {
+	return s.String()
+}
+
+func (s *ContinuousOtaVersionPredicate) SetType(v string) *ContinuousOtaVersionPredicate {
+	s.Type = &v
+	return s
+}
+
+func (s *ContinuousOtaVersionPredicate) SetExactVersionNo(v string) *ContinuousOtaVersionPredicate {
+	s.ExactVersionNo = &v
+	return s
+}
+
+func (s *ContinuousOtaVersionPredicate) SetLower(v *Bound) *ContinuousOtaVersionPredicate {
+	s.Lower = v
+	return s
+}
+
+func (s *ContinuousOtaVersionPredicate) SetUpper(v *Bound) *ContinuousOtaVersionPredicate {
+	s.Upper = v
 	return s
 }
 
@@ -282,6 +332,292 @@ func (s *IotBasicPermissionData) SetPermissionType(v string) *IotBasicPermission
 
 func (s *IotBasicPermissionData) SetModule(v string) *IotBasicPermissionData {
 	s.Module = &v
+	return s
+}
+
+// OTA 连续推送规则响应
+type ContinuousOtaOpenApiRuleResponse struct {
+	// 规则 ID
+	// example:
+	//
+	// 735103937447464960
+	RuleId *string `json:"rule_id,omitempty" xml:"rule_id,omitempty"`
+	// 规则在请求列表中的位置
+	// example:
+	//
+	// 规则在请求列表中的位置
+	RequestIndex *string `json:"request_index,omitempty" xml:"request_index,omitempty"`
+	// 规则乐观锁版本号
+	// example:
+	//
+	// 规则乐观锁版本号
+	LockVersion *string `json:"lock_version,omitempty" xml:"lock_version,omitempty"`
+	// 触发连续推送规则的设备上报模块名
+	// example:
+	//
+	// BLE
+	TriggerModuleName *string `json:"trigger_module_name,omitempty" xml:"trigger_module_name,omitempty"`
+	// 结构化版本谓词
+	// example:
+	//
+	// undefined
+	VersionPredicate *ContinuousOtaVersionPredicate `json:"version_predicate,omitempty" xml:"version_predicate,omitempty"`
+	// 服务端规范化版本谓词后生成的摘要
+	// example:
+	//
+	// 服务端规范化版本谓词后生成的摘要
+	PredicateHash *string `json:"predicate_hash,omitempty" xml:"predicate_hash,omitempty"`
+	// 规则命中后需要升级的目标固件 ID
+	// example:
+	//
+	// 规则命中后需要升级的目标固件 ID
+	FirmwareId *string `json:"firmware_id,omitempty" xml:"firmware_id,omitempty"`
+	// 目标固件模块名
+	// example:
+	//
+	// 目标固件模块名
+	TargetModuleName *string `json:"target_module_name,omitempty" xml:"target_module_name,omitempty"`
+	// 目标固件版本号
+	// example:
+	//
+	// 目标固件版本号
+	TargetVersionNo *string `json:"target_version_no,omitempty" xml:"target_version_no,omitempty"`
+	// 目标设备选择类型
+	// example:
+	//
+	// 目标设备选择类型
+	TargetSelection *string `json:"target_selection,omitempty" xml:"target_selection,omitempty"`
+	// 规则执行通道
+	// example:
+	//
+	// 规则执行通道
+	ExecutionChannel *string `json:"execution_channel,omitempty" xml:"execution_channel,omitempty"`
+	// OTA 升级模式
+	// example:
+	//
+	// OTA 升级模式
+	UpgradeMode *string `json:"upgrade_mode,omitempty" xml:"upgrade_mode,omitempty"`
+	// 是否主动推送升级
+	// example:
+	//
+	// 是否主动推送升级
+	NeedPush *bool `json:"need_push,omitempty" xml:"need_push,omitempty"`
+	// 是否需要设备确认
+	// example:
+	//
+	// 是否需要设备确认
+	NeedConfirm *bool `json:"need_confirm,omitempty" xml:"need_confirm,omitempty"`
+	// 失败重试次数
+	// example:
+	//
+	// 失败重试次数
+	RetryCount *string `json:"retry_count,omitempty" xml:"retry_count,omitempty"`
+	// 重试间隔
+	// example:
+	//
+	// 重试间隔
+	RetryInterval *string `json:"retry_interval,omitempty" xml:"retry_interval,omitempty"`
+	// 单次升级超时时间
+	// example:
+	//
+	// 单次升级超时时间
+	TimeoutInMinutes *string `json:"timeout_in_minutes,omitempty" xml:"timeout_in_minutes,omitempty"`
+	// 规则命中后的延迟执行时间
+	// example:
+	//
+	// 规则命中后的延迟执行时间
+	DelayInSeconds *string `json:"delay_in_seconds,omitempty" xml:"delay_in_seconds,omitempty"`
+	// 规则是否启用
+	// example:
+	//
+	// 规则是否启用
+	Enabled *bool `json:"enabled,omitempty" xml:"enabled,omitempty"`
+	// 规则设备范围
+	// example:
+	//
+	// 规则设备范围
+	DeviceScopeType *string `json:"device_scope_type,omitempty" xml:"device_scope_type,omitempty"`
+	// 规则生命周期状态
+	// example:
+	//
+	// 规则生命周期状态
+	LifecycleStatus *string `json:"lifecycle_status,omitempty" xml:"lifecycle_status,omitempty"`
+	// 规则创建来源
+	// example:
+	//
+	// 规则创建来源
+	CreationSource *string `json:"creation_source,omitempty" xml:"creation_source,omitempty"`
+	// 规则创建来源说明
+	// example:
+	//
+	// 规则创建来源说明
+	CreationSourceDescription *string `json:"creation_source_description,omitempty" xml:"creation_source_description,omitempty"`
+	// 自动建批接口的幂等请求号
+	// example:
+	//
+	// 自动建批接口的幂等请求号
+	CreateRequestId *string `json:"create_request_id,omitempty" xml:"create_request_id,omitempty"`
+}
+
+func (s ContinuousOtaOpenApiRuleResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s ContinuousOtaOpenApiRuleResponse) GoString() string {
+	return s.String()
+}
+
+func (s *ContinuousOtaOpenApiRuleResponse) SetRuleId(v string) *ContinuousOtaOpenApiRuleResponse {
+	s.RuleId = &v
+	return s
+}
+
+func (s *ContinuousOtaOpenApiRuleResponse) SetRequestIndex(v string) *ContinuousOtaOpenApiRuleResponse {
+	s.RequestIndex = &v
+	return s
+}
+
+func (s *ContinuousOtaOpenApiRuleResponse) SetLockVersion(v string) *ContinuousOtaOpenApiRuleResponse {
+	s.LockVersion = &v
+	return s
+}
+
+func (s *ContinuousOtaOpenApiRuleResponse) SetTriggerModuleName(v string) *ContinuousOtaOpenApiRuleResponse {
+	s.TriggerModuleName = &v
+	return s
+}
+
+func (s *ContinuousOtaOpenApiRuleResponse) SetVersionPredicate(v *ContinuousOtaVersionPredicate) *ContinuousOtaOpenApiRuleResponse {
+	s.VersionPredicate = v
+	return s
+}
+
+func (s *ContinuousOtaOpenApiRuleResponse) SetPredicateHash(v string) *ContinuousOtaOpenApiRuleResponse {
+	s.PredicateHash = &v
+	return s
+}
+
+func (s *ContinuousOtaOpenApiRuleResponse) SetFirmwareId(v string) *ContinuousOtaOpenApiRuleResponse {
+	s.FirmwareId = &v
+	return s
+}
+
+func (s *ContinuousOtaOpenApiRuleResponse) SetTargetModuleName(v string) *ContinuousOtaOpenApiRuleResponse {
+	s.TargetModuleName = &v
+	return s
+}
+
+func (s *ContinuousOtaOpenApiRuleResponse) SetTargetVersionNo(v string) *ContinuousOtaOpenApiRuleResponse {
+	s.TargetVersionNo = &v
+	return s
+}
+
+func (s *ContinuousOtaOpenApiRuleResponse) SetTargetSelection(v string) *ContinuousOtaOpenApiRuleResponse {
+	s.TargetSelection = &v
+	return s
+}
+
+func (s *ContinuousOtaOpenApiRuleResponse) SetExecutionChannel(v string) *ContinuousOtaOpenApiRuleResponse {
+	s.ExecutionChannel = &v
+	return s
+}
+
+func (s *ContinuousOtaOpenApiRuleResponse) SetUpgradeMode(v string) *ContinuousOtaOpenApiRuleResponse {
+	s.UpgradeMode = &v
+	return s
+}
+
+func (s *ContinuousOtaOpenApiRuleResponse) SetNeedPush(v bool) *ContinuousOtaOpenApiRuleResponse {
+	s.NeedPush = &v
+	return s
+}
+
+func (s *ContinuousOtaOpenApiRuleResponse) SetNeedConfirm(v bool) *ContinuousOtaOpenApiRuleResponse {
+	s.NeedConfirm = &v
+	return s
+}
+
+func (s *ContinuousOtaOpenApiRuleResponse) SetRetryCount(v string) *ContinuousOtaOpenApiRuleResponse {
+	s.RetryCount = &v
+	return s
+}
+
+func (s *ContinuousOtaOpenApiRuleResponse) SetRetryInterval(v string) *ContinuousOtaOpenApiRuleResponse {
+	s.RetryInterval = &v
+	return s
+}
+
+func (s *ContinuousOtaOpenApiRuleResponse) SetTimeoutInMinutes(v string) *ContinuousOtaOpenApiRuleResponse {
+	s.TimeoutInMinutes = &v
+	return s
+}
+
+func (s *ContinuousOtaOpenApiRuleResponse) SetDelayInSeconds(v string) *ContinuousOtaOpenApiRuleResponse {
+	s.DelayInSeconds = &v
+	return s
+}
+
+func (s *ContinuousOtaOpenApiRuleResponse) SetEnabled(v bool) *ContinuousOtaOpenApiRuleResponse {
+	s.Enabled = &v
+	return s
+}
+
+func (s *ContinuousOtaOpenApiRuleResponse) SetDeviceScopeType(v string) *ContinuousOtaOpenApiRuleResponse {
+	s.DeviceScopeType = &v
+	return s
+}
+
+func (s *ContinuousOtaOpenApiRuleResponse) SetLifecycleStatus(v string) *ContinuousOtaOpenApiRuleResponse {
+	s.LifecycleStatus = &v
+	return s
+}
+
+func (s *ContinuousOtaOpenApiRuleResponse) SetCreationSource(v string) *ContinuousOtaOpenApiRuleResponse {
+	s.CreationSource = &v
+	return s
+}
+
+func (s *ContinuousOtaOpenApiRuleResponse) SetCreationSourceDescription(v string) *ContinuousOtaOpenApiRuleResponse {
+	s.CreationSourceDescription = &v
+	return s
+}
+
+func (s *ContinuousOtaOpenApiRuleResponse) SetCreateRequestId(v string) *ContinuousOtaOpenApiRuleResponse {
+	s.CreateRequestId = &v
+	return s
+}
+
+// 资源定位信息
+type BaiResourceLocation struct {
+	// 资源定位类型
+	// HTTP_URL：资源url
+	// STRING_BASE64：资源base64字符串（不带base64头部）
+	// example:
+	//
+	// HTTP_URL, STRING_BASE64
+	LocationType *string `json:"location_type,omitempty" xml:"location_type,omitempty" require:"true"`
+	// 资源定位值
+	// example:
+	//
+	// abc
+	LocationValue *string `json:"location_value,omitempty" xml:"location_value,omitempty" require:"true"`
+}
+
+func (s BaiResourceLocation) String() string {
+	return tea.Prettify(s)
+}
+
+func (s BaiResourceLocation) GoString() string {
+	return s.String()
+}
+
+func (s *BaiResourceLocation) SetLocationType(v string) *BaiResourceLocation {
+	s.LocationType = &v
+	return s
+}
+
+func (s *BaiResourceLocation) SetLocationValue(v string) *BaiResourceLocation {
+	s.LocationValue = &v
 	return s
 }
 
@@ -374,38 +710,6 @@ func (s *SdkModel) SetPlatform(v string) *SdkModel {
 
 func (s *SdkModel) SetCorpName(v string) *SdkModel {
 	s.CorpName = &v
-	return s
-}
-
-// GoodsIdAndCount
-type GoodsIdAndCount struct {
-	// 商品id
-	// example:
-	//
-	// 23123131
-	GoodsSkuId *int64 `json:"goods_sku_id,omitempty" xml:"goods_sku_id,omitempty" require:"true"`
-	// 商品采购数量
-	// example:
-	//
-	// 100
-	Count *int64 `json:"count,omitempty" xml:"count,omitempty" require:"true"`
-}
-
-func (s GoodsIdAndCount) String() string {
-	return tea.Prettify(s)
-}
-
-func (s GoodsIdAndCount) GoString() string {
-	return s.String()
-}
-
-func (s *GoodsIdAndCount) SetGoodsSkuId(v int64) *GoodsIdAndCount {
-	s.GoodsSkuId = &v
-	return s
-}
-
-func (s *GoodsIdAndCount) SetCount(v int64) *GoodsIdAndCount {
-	s.Count = &v
 	return s
 }
 
@@ -941,6 +1245,518 @@ func (s *PermissionedTenantModel) SetGatewayPublicKey(v string) *PermissionedTen
 	return s
 }
 
+// 商品数字指纹子鉴定项鉴定结果
+type GoodsDigitalFingerprintPointIdentificationResult struct {
+	// 子鉴定项
+	// example:
+	//
+	// 子鉴定项
+	SubPointName *string `json:"sub_point_name,omitempty" xml:"sub_point_name,omitempty" require:"true"`
+	// 商品数字指纹鉴定子项鉴定结果
+	// example:
+	//
+	// REAL
+	Result *string `json:"result,omitempty" xml:"result,omitempty" require:"true"`
+	// 鉴定子项鉴定得分
+	// example:
+	//
+	// 0.92
+	Grade *string `json:"grade,omitempty" xml:"grade,omitempty" require:"true"`
+}
+
+func (s GoodsDigitalFingerprintPointIdentificationResult) String() string {
+	return tea.Prettify(s)
+}
+
+func (s GoodsDigitalFingerprintPointIdentificationResult) GoString() string {
+	return s.String()
+}
+
+func (s *GoodsDigitalFingerprintPointIdentificationResult) SetSubPointName(v string) *GoodsDigitalFingerprintPointIdentificationResult {
+	s.SubPointName = &v
+	return s
+}
+
+func (s *GoodsDigitalFingerprintPointIdentificationResult) SetResult(v string) *GoodsDigitalFingerprintPointIdentificationResult {
+	s.Result = &v
+	return s
+}
+
+func (s *GoodsDigitalFingerprintPointIdentificationResult) SetGrade(v string) *GoodsDigitalFingerprintPointIdentificationResult {
+	s.Grade = &v
+	return s
+}
+
+// 设备采购订单元素
+type IotBasicDeviceOrderItem struct {
+	// 蚂蚁链IoT平台设备唯一ID
+	// example:
+	//
+	// 12321321
+	DeviceDid *string `json:"device_did,omitempty" xml:"device_did,omitempty" require:"true"`
+	// 设备唯一编号
+	// example:
+	//
+	// 12321321
+	DeviceSn *string `json:"device_sn,omitempty" xml:"device_sn,omitempty" require:"true"`
+	// 设备金额，精确到小数后两位
+	// example:
+	//
+	// 234.01
+	PaymentAmount *string `json:"payment_amount,omitempty" xml:"payment_amount,omitempty" require:"true"`
+}
+
+func (s IotBasicDeviceOrderItem) String() string {
+	return tea.Prettify(s)
+}
+
+func (s IotBasicDeviceOrderItem) GoString() string {
+	return s.String()
+}
+
+func (s *IotBasicDeviceOrderItem) SetDeviceDid(v string) *IotBasicDeviceOrderItem {
+	s.DeviceDid = &v
+	return s
+}
+
+func (s *IotBasicDeviceOrderItem) SetDeviceSn(v string) *IotBasicDeviceOrderItem {
+	s.DeviceSn = &v
+	return s
+}
+
+func (s *IotBasicDeviceOrderItem) SetPaymentAmount(v string) *IotBasicDeviceOrderItem {
+	s.PaymentAmount = &v
+	return s
+}
+
+// 产品级 OTA 连续推送策略响应
+type ContinuousOtaOpenApiPolicyResponse struct {
+	// 租户id
+	// example:
+	//
+	// 租户id
+	TenantId *string `json:"tenant_id,omitempty" xml:"tenant_id,omitempty"`
+	// 策略所属产品可信标识
+	// example:
+	//
+	// A7njznJkBrCCDdeIKl
+	TrustProductKey *string `json:"trust_product_key,omitempty" xml:"trust_product_key,omitempty"`
+	// 产品策略主键
+	// example:
+	//
+	// 734794542196985856
+	PolicyId *string `json:"policy_id,omitempty" xml:"policy_id,omitempty"`
+	// 产品下规则集合版本
+	// example:
+	//
+	// 产品下规则集合版本
+	RulesVersion *string `json:"rules_version,omitempty" xml:"rules_version,omitempty"`
+	// 产品全局白名单版本
+	// example:
+	//
+	// 产品全局白名单版本
+	WhitelistVersion *string `json:"whitelist_version,omitempty" xml:"whitelist_version,omitempty"`
+	// 当前有效白名单成员数量
+	// example:
+	//
+	// 当前有效白名单成员数量
+	WhitelistCount *string `json:"whitelist_count,omitempty" xml:"whitelist_count,omitempty"`
+	// 当前产品配置是否允许整体删除
+	// example:
+	//
+	// false
+	Deletable *bool `json:"deletable,omitempty" xml:"deletable,omitempty"`
+	// 当前产品配置不可删除的稳定原因编码列表
+	// example:
+	//
+	// undefined
+	DeleteBlockedReasons []*string `json:"delete_blocked_reasons,omitempty" xml:"delete_blocked_reasons,omitempty" type:"Repeated"`
+	// 产品当前生效的连续推送规则列表
+	// example:
+	//
+	// undefined
+	Rules []*ContinuousOtaOpenApiRuleResponse `json:"rules,omitempty" xml:"rules,omitempty" type:"Repeated"`
+}
+
+func (s ContinuousOtaOpenApiPolicyResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s ContinuousOtaOpenApiPolicyResponse) GoString() string {
+	return s.String()
+}
+
+func (s *ContinuousOtaOpenApiPolicyResponse) SetTenantId(v string) *ContinuousOtaOpenApiPolicyResponse {
+	s.TenantId = &v
+	return s
+}
+
+func (s *ContinuousOtaOpenApiPolicyResponse) SetTrustProductKey(v string) *ContinuousOtaOpenApiPolicyResponse {
+	s.TrustProductKey = &v
+	return s
+}
+
+func (s *ContinuousOtaOpenApiPolicyResponse) SetPolicyId(v string) *ContinuousOtaOpenApiPolicyResponse {
+	s.PolicyId = &v
+	return s
+}
+
+func (s *ContinuousOtaOpenApiPolicyResponse) SetRulesVersion(v string) *ContinuousOtaOpenApiPolicyResponse {
+	s.RulesVersion = &v
+	return s
+}
+
+func (s *ContinuousOtaOpenApiPolicyResponse) SetWhitelistVersion(v string) *ContinuousOtaOpenApiPolicyResponse {
+	s.WhitelistVersion = &v
+	return s
+}
+
+func (s *ContinuousOtaOpenApiPolicyResponse) SetWhitelistCount(v string) *ContinuousOtaOpenApiPolicyResponse {
+	s.WhitelistCount = &v
+	return s
+}
+
+func (s *ContinuousOtaOpenApiPolicyResponse) SetDeletable(v bool) *ContinuousOtaOpenApiPolicyResponse {
+	s.Deletable = &v
+	return s
+}
+
+func (s *ContinuousOtaOpenApiPolicyResponse) SetDeleteBlockedReasons(v []*string) *ContinuousOtaOpenApiPolicyResponse {
+	s.DeleteBlockedReasons = v
+	return s
+}
+
+func (s *ContinuousOtaOpenApiPolicyResponse) SetRules(v []*ContinuousOtaOpenApiRuleResponse) *ContinuousOtaOpenApiPolicyResponse {
+	s.Rules = v
+	return s
+}
+
+// iot平台角色信息
+type IotBasicRolePermission struct {
+	// 角色编码
+	// example:
+	//
+	// 角色编码
+	RoleCode *string `json:"role_code,omitempty" xml:"role_code,omitempty" require:"true"`
+	// 角色名称
+	// example:
+	//
+	// 角色名称
+	RoleName *string `json:"role_name,omitempty" xml:"role_name,omitempty" require:"true"`
+	// 权限列表
+	// example:
+	//
+	// 权限列表
+	PermissionList []*IotBasicPermissionData `json:"permission_list,omitempty" xml:"permission_list,omitempty" require:"true" type:"Repeated"`
+}
+
+func (s IotBasicRolePermission) String() string {
+	return tea.Prettify(s)
+}
+
+func (s IotBasicRolePermission) GoString() string {
+	return s.String()
+}
+
+func (s *IotBasicRolePermission) SetRoleCode(v string) *IotBasicRolePermission {
+	s.RoleCode = &v
+	return s
+}
+
+func (s *IotBasicRolePermission) SetRoleName(v string) *IotBasicRolePermission {
+	s.RoleName = &v
+	return s
+}
+
+func (s *IotBasicRolePermission) SetPermissionList(v []*IotBasicPermissionData) *IotBasicRolePermission {
+	s.PermissionList = v
+	return s
+}
+
+// 管理面连续推送规则响应
+type ContinuousOtaRuleResponse struct {
+	// 规则 ID
+	// example:
+	//
+	// 649425581309837312
+	RuleId *string `json:"rule_id,omitempty" xml:"rule_id,omitempty"`
+	// 规则在请求列表中的位置；非请求校验响应时为空
+	// example:
+	//
+	// 1
+	RequestIndex *int64 `json:"request_index,omitempty" xml:"request_index,omitempty"`
+	// 规则乐观锁版本号，以字符串返回
+	// example:
+	//
+	// 1
+	LockVersion *string `json:"lock_version,omitempty" xml:"lock_version,omitempty"`
+	// 触发连续推送规则的设备上报模块名
+	// example:
+	//
+	// BLE
+	TriggerModuleName *string `json:"trigger_module_name,omitempty" xml:"trigger_module_name,omitempty"`
+	// 触发版本匹配条件
+	// example:
+	//
+	// undefined
+	VersionPredicate *ContinuousOtaVersionPredicate `json:"version_predicate,omitempty" xml:"version_predicate,omitempty"`
+	// 服务端规范化版本谓词后生成的摘要
+	// example:
+	//
+	// ee76b371d0352fc0fbb17a19fdf584b2352eb8948583a620ce8ba3b238956c3c
+	PredicateHash *string `json:"predicate_hash,omitempty" xml:"predicate_hash,omitempty"`
+	// 规则命中后需要升级的目标固件 ID
+	// example:
+	//
+	// 84a1f449422946d2a4e87c1c23503f6b
+	FirmwareId *string `json:"firmware_id,omitempty" xml:"firmware_id,omitempty"`
+	// 目标固件模块名
+	// example:
+	//
+	// ble
+	TargetModuleName *string `json:"target_module_name,omitempty" xml:"target_module_name,omitempty"`
+	// 目标固件版本号
+	// example:
+	//
+	// 1.0.0
+	TargetVersionNo *string `json:"target_version_no,omitempty" xml:"target_version_no,omitempty"`
+	// 目标设备选择类型，管理面固定为 SPECIFIC
+	// example:
+	//
+	// SPECIFIC
+	TargetSelection *string `json:"target_selection,omitempty" xml:"target_selection,omitempty"`
+	// 规则执行通道
+	// example:
+	//
+	// TUYA_4G
+	ExecutionChannel *string `json:"execution_channel,omitempty" xml:"execution_channel,omitempty"`
+	// OTA 升级模式
+	// example:
+	//
+	// SILENT
+	UpgradeMode *string `json:"upgrade_mode,omitempty" xml:"upgrade_mode,omitempty"`
+	// 是否主动推送升级
+	// example:
+	//
+	// true
+	NeedPush *bool `json:"need_push,omitempty" xml:"need_push,omitempty"`
+	// 是否需要设备确认
+	// example:
+	//
+	// true
+	NeedConfirm *bool `json:"need_confirm,omitempty" xml:"need_confirm,omitempty"`
+	// 失败重试次数
+	// example:
+	//
+	// 5
+	RetryCount *int64 `json:"retry_count,omitempty" xml:"retry_count,omitempty"`
+	// 重试间隔，单位为分钟
+	// example:
+	//
+	// 5
+	RetryInterval *int64 `json:"retry_interval,omitempty" xml:"retry_interval,omitempty"`
+	// 单次升级超时时间，单位为分钟
+	// example:
+	//
+	// 1
+	TimeoutInMinutes *int64 `json:"timeout_in_minutes,omitempty" xml:"timeout_in_minutes,omitempty"`
+	// 规则命中后的延迟执行时间，单位为秒
+	// example:
+	//
+	// 1
+	DelayInSeconds *int64 `json:"delay_in_seconds,omitempty" xml:"delay_in_seconds,omitempty"`
+	// 规则是否启用
+	// example:
+	//
+	// true
+	Enabled *bool `json:"enabled,omitempty" xml:"enabled,omitempty"`
+	// 规则设备范围
+	// example:
+	//
+	// ALL_DEVICES
+	DeviceScopeType *string `json:"device_scope_type,omitempty" xml:"device_scope_type,omitempty"`
+	// 规则生命周期状态
+	// example:
+	//
+	// READY
+	LifecycleStatus *string `json:"lifecycle_status,omitempty" xml:"lifecycle_status,omitempty"`
+	// 规则创建来源：MANUAL_CONFIG 或 MODULE_VERSION_JOB。
+	// example:
+	//
+	// MANUAL_CONFIG
+	CreationSource *string `json:"creation_source,omitempty" xml:"creation_source,omitempty"`
+	// 规则创建来源说明
+	// example:
+	//
+	// 由连续推送规则配置接口创建
+	CreationSourceDescription *string `json:"creation_source_description,omitempty" xml:"creation_source_description,omitempty"`
+	// 自动建批接口的幂等请求号
+	// example:
+	//
+	// 自动建批接口的幂等请求号
+	CreateRequestId *string `json:"create_request_id,omitempty" xml:"create_request_id,omitempty"`
+}
+
+func (s ContinuousOtaRuleResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s ContinuousOtaRuleResponse) GoString() string {
+	return s.String()
+}
+
+func (s *ContinuousOtaRuleResponse) SetRuleId(v string) *ContinuousOtaRuleResponse {
+	s.RuleId = &v
+	return s
+}
+
+func (s *ContinuousOtaRuleResponse) SetRequestIndex(v int64) *ContinuousOtaRuleResponse {
+	s.RequestIndex = &v
+	return s
+}
+
+func (s *ContinuousOtaRuleResponse) SetLockVersion(v string) *ContinuousOtaRuleResponse {
+	s.LockVersion = &v
+	return s
+}
+
+func (s *ContinuousOtaRuleResponse) SetTriggerModuleName(v string) *ContinuousOtaRuleResponse {
+	s.TriggerModuleName = &v
+	return s
+}
+
+func (s *ContinuousOtaRuleResponse) SetVersionPredicate(v *ContinuousOtaVersionPredicate) *ContinuousOtaRuleResponse {
+	s.VersionPredicate = v
+	return s
+}
+
+func (s *ContinuousOtaRuleResponse) SetPredicateHash(v string) *ContinuousOtaRuleResponse {
+	s.PredicateHash = &v
+	return s
+}
+
+func (s *ContinuousOtaRuleResponse) SetFirmwareId(v string) *ContinuousOtaRuleResponse {
+	s.FirmwareId = &v
+	return s
+}
+
+func (s *ContinuousOtaRuleResponse) SetTargetModuleName(v string) *ContinuousOtaRuleResponse {
+	s.TargetModuleName = &v
+	return s
+}
+
+func (s *ContinuousOtaRuleResponse) SetTargetVersionNo(v string) *ContinuousOtaRuleResponse {
+	s.TargetVersionNo = &v
+	return s
+}
+
+func (s *ContinuousOtaRuleResponse) SetTargetSelection(v string) *ContinuousOtaRuleResponse {
+	s.TargetSelection = &v
+	return s
+}
+
+func (s *ContinuousOtaRuleResponse) SetExecutionChannel(v string) *ContinuousOtaRuleResponse {
+	s.ExecutionChannel = &v
+	return s
+}
+
+func (s *ContinuousOtaRuleResponse) SetUpgradeMode(v string) *ContinuousOtaRuleResponse {
+	s.UpgradeMode = &v
+	return s
+}
+
+func (s *ContinuousOtaRuleResponse) SetNeedPush(v bool) *ContinuousOtaRuleResponse {
+	s.NeedPush = &v
+	return s
+}
+
+func (s *ContinuousOtaRuleResponse) SetNeedConfirm(v bool) *ContinuousOtaRuleResponse {
+	s.NeedConfirm = &v
+	return s
+}
+
+func (s *ContinuousOtaRuleResponse) SetRetryCount(v int64) *ContinuousOtaRuleResponse {
+	s.RetryCount = &v
+	return s
+}
+
+func (s *ContinuousOtaRuleResponse) SetRetryInterval(v int64) *ContinuousOtaRuleResponse {
+	s.RetryInterval = &v
+	return s
+}
+
+func (s *ContinuousOtaRuleResponse) SetTimeoutInMinutes(v int64) *ContinuousOtaRuleResponse {
+	s.TimeoutInMinutes = &v
+	return s
+}
+
+func (s *ContinuousOtaRuleResponse) SetDelayInSeconds(v int64) *ContinuousOtaRuleResponse {
+	s.DelayInSeconds = &v
+	return s
+}
+
+func (s *ContinuousOtaRuleResponse) SetEnabled(v bool) *ContinuousOtaRuleResponse {
+	s.Enabled = &v
+	return s
+}
+
+func (s *ContinuousOtaRuleResponse) SetDeviceScopeType(v string) *ContinuousOtaRuleResponse {
+	s.DeviceScopeType = &v
+	return s
+}
+
+func (s *ContinuousOtaRuleResponse) SetLifecycleStatus(v string) *ContinuousOtaRuleResponse {
+	s.LifecycleStatus = &v
+	return s
+}
+
+func (s *ContinuousOtaRuleResponse) SetCreationSource(v string) *ContinuousOtaRuleResponse {
+	s.CreationSource = &v
+	return s
+}
+
+func (s *ContinuousOtaRuleResponse) SetCreationSourceDescription(v string) *ContinuousOtaRuleResponse {
+	s.CreationSourceDescription = &v
+	return s
+}
+
+func (s *ContinuousOtaRuleResponse) SetCreateRequestId(v string) *ContinuousOtaRuleResponse {
+	s.CreateRequestId = &v
+	return s
+}
+
+// GoodsIdAndCount
+type GoodsIdAndCount struct {
+	// 商品id
+	// example:
+	//
+	// 23123131
+	GoodsSkuId *int64 `json:"goods_sku_id,omitempty" xml:"goods_sku_id,omitempty" require:"true"`
+	// 商品采购数量
+	// example:
+	//
+	// 100
+	Count *int64 `json:"count,omitempty" xml:"count,omitempty" require:"true"`
+}
+
+func (s GoodsIdAndCount) String() string {
+	return tea.Prettify(s)
+}
+
+func (s GoodsIdAndCount) GoString() string {
+	return s.String()
+}
+
+func (s *GoodsIdAndCount) SetGoodsSkuId(v int64) *GoodsIdAndCount {
+	s.GoodsSkuId = &v
+	return s
+}
+
+func (s *GoodsIdAndCount) SetCount(v int64) *GoodsIdAndCount {
+	s.Count = &v
+	return s
+}
+
 // 查询业务数据交易结果对象数据
 type QueryChainDataTransactionResultData struct {
 	// 所属业务
@@ -1089,48 +1905,6 @@ func (s *BaiGoodsPointIdentificationResult) SetAppraiseMessage(v string) *BaiGoo
 
 func (s *BaiGoodsPointIdentificationResult) SetResourceLocation(v *BaiResourceLocation) *BaiGoodsPointIdentificationResult {
 	s.ResourceLocation = v
-	return s
-}
-
-// 商品数字指纹子鉴定项鉴定结果
-type GoodsDigitalFingerprintPointIdentificationResult struct {
-	// 子鉴定项
-	// example:
-	//
-	// 子鉴定项
-	SubPointName *string `json:"sub_point_name,omitempty" xml:"sub_point_name,omitempty" require:"true"`
-	// 商品数字指纹鉴定子项鉴定结果
-	// example:
-	//
-	// REAL
-	Result *string `json:"result,omitempty" xml:"result,omitempty" require:"true"`
-	// 鉴定子项鉴定得分
-	// example:
-	//
-	// 0.92
-	Grade *string `json:"grade,omitempty" xml:"grade,omitempty" require:"true"`
-}
-
-func (s GoodsDigitalFingerprintPointIdentificationResult) String() string {
-	return tea.Prettify(s)
-}
-
-func (s GoodsDigitalFingerprintPointIdentificationResult) GoString() string {
-	return s.String()
-}
-
-func (s *GoodsDigitalFingerprintPointIdentificationResult) SetSubPointName(v string) *GoodsDigitalFingerprintPointIdentificationResult {
-	s.SubPointName = &v
-	return s
-}
-
-func (s *GoodsDigitalFingerprintPointIdentificationResult) SetResult(v string) *GoodsDigitalFingerprintPointIdentificationResult {
-	s.Result = &v
-	return s
-}
-
-func (s *GoodsDigitalFingerprintPointIdentificationResult) SetGrade(v string) *GoodsDigitalFingerprintPointIdentificationResult {
-	s.Grade = &v
 	return s
 }
 
@@ -1443,48 +2217,6 @@ func (s *BaiGoodsPoint) SetUserPointId(v string) *BaiGoodsPoint {
 	return s
 }
 
-// 设备采购订单元素
-type IotBasicDeviceOrderItem struct {
-	// 蚂蚁链IoT平台设备唯一ID
-	// example:
-	//
-	// 12321321
-	DeviceDid *string `json:"device_did,omitempty" xml:"device_did,omitempty" require:"true"`
-	// 设备唯一编号
-	// example:
-	//
-	// 12321321
-	DeviceSn *string `json:"device_sn,omitempty" xml:"device_sn,omitempty" require:"true"`
-	// 设备金额，精确到小数后两位
-	// example:
-	//
-	// 234.01
-	PaymentAmount *string `json:"payment_amount,omitempty" xml:"payment_amount,omitempty" require:"true"`
-}
-
-func (s IotBasicDeviceOrderItem) String() string {
-	return tea.Prettify(s)
-}
-
-func (s IotBasicDeviceOrderItem) GoString() string {
-	return s.String()
-}
-
-func (s *IotBasicDeviceOrderItem) SetDeviceDid(v string) *IotBasicDeviceOrderItem {
-	s.DeviceDid = &v
-	return s
-}
-
-func (s *IotBasicDeviceOrderItem) SetDeviceSn(v string) *IotBasicDeviceOrderItem {
-	s.DeviceSn = &v
-	return s
-}
-
-func (s *IotBasicDeviceOrderItem) SetPaymentAmount(v string) *IotBasicDeviceOrderItem {
-	s.PaymentAmount = &v
-	return s
-}
-
 // OTA 对外设备展示标识
 type DeviceIdentity struct {
 	// EKYT 全局唯一设备 ID
@@ -1616,48 +2348,6 @@ func (s *RawData) SetPeripheralId(v string) *RawData {
 	return s
 }
 
-// iot平台角色信息
-type IotBasicRolePermission struct {
-	// 角色编码
-	// example:
-	//
-	// 角色编码
-	RoleCode *string `json:"role_code,omitempty" xml:"role_code,omitempty" require:"true"`
-	// 角色名称
-	// example:
-	//
-	// 角色名称
-	RoleName *string `json:"role_name,omitempty" xml:"role_name,omitempty" require:"true"`
-	// 权限列表
-	// example:
-	//
-	// 权限列表
-	PermissionList []*IotBasicPermissionData `json:"permission_list,omitempty" xml:"permission_list,omitempty" require:"true" type:"Repeated"`
-}
-
-func (s IotBasicRolePermission) String() string {
-	return tea.Prettify(s)
-}
-
-func (s IotBasicRolePermission) GoString() string {
-	return s.String()
-}
-
-func (s *IotBasicRolePermission) SetRoleCode(v string) *IotBasicRolePermission {
-	s.RoleCode = &v
-	return s
-}
-
-func (s *IotBasicRolePermission) SetRoleName(v string) *IotBasicRolePermission {
-	s.RoleName = &v
-	return s
-}
-
-func (s *IotBasicRolePermission) SetPermissionList(v []*IotBasicPermissionData) *IotBasicRolePermission {
-	s.PermissionList = v
-	return s
-}
-
 // OTA 模块定位信息
 type ModuleLocator struct {
 	// 模块定位信息：EKYT_MID / MODULE_NAME / CHANNEL_EXTERNAL_ID
@@ -1710,163 +2400,6 @@ func (s *ModuleLocator) SetExternalId(v string) *ModuleLocator {
 	return s
 }
 
-// 商品数字指纹鉴定结果
-type GoodsDigitalFingerprintIdentifyResultData struct {
-	// 鉴定结果
-	// example:
-	//
-	// REAL
-	IdentificationResult *string `json:"identification_result,omitempty" xml:"identification_result,omitempty" require:"true"`
-	// 鉴定结果描述
-	// example:
-	//
-	// 描述
-	Description *string `json:"description,omitempty" xml:"description,omitempty" require:"true"`
-	// 商品数字指纹鉴定点鉴定结果列表
-	// example:
-	//
-	// {"sub_point_name":"正面","result":"REAL","grade":"0.92"}
-	PointIdentificationResults []*GoodsDigitalFingerprintPointIdentificationResult `json:"point_identification_results,omitempty" xml:"point_identification_results,omitempty" require:"true" type:"Repeated"`
-}
-
-func (s GoodsDigitalFingerprintIdentifyResultData) String() string {
-	return tea.Prettify(s)
-}
-
-func (s GoodsDigitalFingerprintIdentifyResultData) GoString() string {
-	return s.String()
-}
-
-func (s *GoodsDigitalFingerprintIdentifyResultData) SetIdentificationResult(v string) *GoodsDigitalFingerprintIdentifyResultData {
-	s.IdentificationResult = &v
-	return s
-}
-
-func (s *GoodsDigitalFingerprintIdentifyResultData) SetDescription(v string) *GoodsDigitalFingerprintIdentifyResultData {
-	s.Description = &v
-	return s
-}
-
-func (s *GoodsDigitalFingerprintIdentifyResultData) SetPointIdentificationResults(v []*GoodsDigitalFingerprintPointIdentificationResult) *GoodsDigitalFingerprintIdentifyResultData {
-	s.PointIdentificationResults = v
-	return s
-}
-
-// 部标设备数据
-type JtData struct {
-	// 数据的可信平台唯一ID
-	// example:
-	//
-	// 123
-	TrustiotId *int64 `json:"trustiot_id,omitempty" xml:"trustiot_id,omitempty" require:"true"`
-	// IoT可信平台设备唯一ID
-	// example:
-	//
-	// 123
-	TrustiotEntityId *int64 `json:"trustiot_entity_id,omitempty" xml:"trustiot_entity_id,omitempty" require:"true"`
-	// 上报原文解析处理之后的数据
-	// example:
-	//
-	// processed_content
-	ProcessedContent *string `json:"processed_content,omitempty" xml:"processed_content,omitempty" require:"true"`
-	// 和上一次上报数据里程对比，新增的里程数
-	// example:
-	//
-	// 123
-	DeltaMileage *int64 `json:"delta_mileage,omitempty" xml:"delta_mileage,omitempty"`
-	// 正常位置信息：LOCATION
-	// 告警信息：ALARM_BASIC、 ALARM_ADAS、 ALARM_DSM、 ALARM_ACCELEROMETER
-	// example:
-	//
-	// 数据标识
-	BizType *string `json:"biz_type,omitempty" xml:"biz_type,omitempty" require:"true"`
-	// 告警子类型
-	// //ADAS
-	// 10001: 前向碰撞报警
-	// 10002: 车辆偏离报警
-	// 10003: 车距过近报警
-	// 10004: 行人碰撞报警
-	// 10005: 频繁变道报警
-	// 10006: 道路标识超限报警
-	// 10007: 障碍物报警 //10008~10015 保留
-	// 10016: 道路标志识别事件
-	// 10017: 主动抓拍事件 //10018~10031 保留
-	// //DSM
-	// 10101: 疲劳驾驶报警
-	// 10102: 接打电话报警
-	// 10103: 抽烟报警报警
-	// 10104: 分神驾驶报警
-	// 10105: 驾驶员异常报警 //10106~10115 保留
-	// 10116: 自动抓拍事件
-	// 10117: 驾驶员变更事件 //10118~10031 保留
-	// //加速度
-	// 11701: 急加速
-	// 11702: 急减速
-	// 11703: 急转弯
-	// example:
-	//
-	// 10001
-	AlarmSubType *int64 `json:"alarm_sub_type,omitempty" xml:"alarm_sub_type,omitempty"`
-	// 关联设备唯一ID
-	// example:
-	//
-	// 123
-	RelatedTrustEntityId *string `json:"related_trust_entity_id,omitempty" xml:"related_trust_entity_id,omitempty"`
-	// 日报日期
-	// example:
-	//
-	// 2023-12-01
-	ReportDate *string `json:"report_date,omitempty" xml:"report_date,omitempty"`
-}
-
-func (s JtData) String() string {
-	return tea.Prettify(s)
-}
-
-func (s JtData) GoString() string {
-	return s.String()
-}
-
-func (s *JtData) SetTrustiotId(v int64) *JtData {
-	s.TrustiotId = &v
-	return s
-}
-
-func (s *JtData) SetTrustiotEntityId(v int64) *JtData {
-	s.TrustiotEntityId = &v
-	return s
-}
-
-func (s *JtData) SetProcessedContent(v string) *JtData {
-	s.ProcessedContent = &v
-	return s
-}
-
-func (s *JtData) SetDeltaMileage(v int64) *JtData {
-	s.DeltaMileage = &v
-	return s
-}
-
-func (s *JtData) SetBizType(v string) *JtData {
-	s.BizType = &v
-	return s
-}
-
-func (s *JtData) SetAlarmSubType(v int64) *JtData {
-	s.AlarmSubType = &v
-	return s
-}
-
-func (s *JtData) SetRelatedTrustEntityId(v string) *JtData {
-	s.RelatedTrustEntityId = &v
-	return s
-}
-
-func (s *JtData) SetReportDate(v string) *JtData {
-	s.ReportDate = &v
-	return s
-}
-
 // 租赁合同信息
 type RentContractInfo struct {
 	// 租赁合同ID
@@ -1916,222 +2449,6 @@ func (s *RentContractInfo) SetCheckinDate(v string) *RentContractInfo {
 
 func (s *RentContractInfo) SetCheckoutDate(v string) *RentContractInfo {
 	s.CheckoutDate = &v
-	return s
-}
-
-// 通过设备ID注册发行时的设备参数
-type RegByDeviceIdParm struct {
-	// 一般是业务上唯一的设备ID/资产编码
-	// example:
-	//
-	// 1122
-	DeviceId *string `json:"device_id,omitempty" xml:"device_id,omitempty" require:"true"`
-	// 数据模型ID
-	// example:
-	//
-	// 7033986596836630528
-	DeviceDataModelId *string `json:"device_data_model_id,omitempty" xml:"device_data_model_id,omitempty"`
-	// 固定填写RAW_DATA
-	// example:
-	//
-	// RAW_DATA
-	DeviceFeature *string `json:"device_feature,omitempty" xml:"device_feature,omitempty"`
-	// true : 设备ID已存在时返回存在的设备关联字段;
-	// false : 设备ID已存在时直接抛出异常；
-	// example:
-	//
-	// true, false
-	WithExistDeviceId *bool `json:"with_exist_device_id,omitempty" xml:"with_exist_device_id,omitempty"`
-	// 设备类型编码，联系蚂蚁侧获取设备类型编码
-	DeviceTypeCode *int64 `json:"device_type_code,omitempty" xml:"device_type_code,omitempty" require:"true"`
-	// 设备单价 单位：分
-	// example:
-	//
-	// 1000
-	InitialPrice *int64 `json:"initial_price,omitempty" xml:"initial_price,omitempty"`
-	// 出厂时间
-	// example:
-	//
-	// 2018-10-10T10:10:00Z
-	FactoryTime *string `json:"factory_time,omitempty" xml:"factory_time,omitempty" pattern:"\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}([Z]|([\\.]\\d{1,9})?[\\+]\\d{2}[\\:]?\\d{2})"`
-	// 投放时间
-	// example:
-	//
-	// 2018-10-10T10:10:00Z
-	ReleaseTime *string `json:"release_time,omitempty" xml:"release_time,omitempty" pattern:"\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}([Z]|([\\.]\\d{1,9})?[\\+]\\d{2}[\\:]?\\d{2})"`
-	// 额外信息，联系蚂蚁侧获取参数格式
-	// example:
-	//
-	// {...}
-	ExtraInfo *string `json:"extra_info,omitempty" xml:"extra_info,omitempty"`
-	// 资产所有人标识（统一社会信用代码）
-	// example:
-	//
-	// 91310101MA1FPCXA3G
-	Owner *string `json:"owner,omitempty" xml:"owner,omitempty"`
-	// 资产所有人名称
-	// example:
-	//
-	// 蚂蚁区块链科技（上海）有限公司
-	OwnerName *string `json:"owner_name,omitempty" xml:"owner_name,omitempty"`
-	// 设备IMEI
-	// example:
-	//
-	// 861037055012207
-	DeviceImei *string `json:"device_imei,omitempty" xml:"device_imei,omitempty"`
-	// 设备名称/设备型号
-	// example:
-	//
-	// 64.0V30AH
-	DeviceName *string `json:"device_name,omitempty" xml:"device_name,omitempty"`
-	// 生产厂商名
-	// example:
-	//
-	// 浙江一厂
-	CorpName *string `json:"corp_name,omitempty" xml:"corp_name,omitempty"`
-}
-
-func (s RegByDeviceIdParm) String() string {
-	return tea.Prettify(s)
-}
-
-func (s RegByDeviceIdParm) GoString() string {
-	return s.String()
-}
-
-func (s *RegByDeviceIdParm) SetDeviceId(v string) *RegByDeviceIdParm {
-	s.DeviceId = &v
-	return s
-}
-
-func (s *RegByDeviceIdParm) SetDeviceDataModelId(v string) *RegByDeviceIdParm {
-	s.DeviceDataModelId = &v
-	return s
-}
-
-func (s *RegByDeviceIdParm) SetDeviceFeature(v string) *RegByDeviceIdParm {
-	s.DeviceFeature = &v
-	return s
-}
-
-func (s *RegByDeviceIdParm) SetWithExistDeviceId(v bool) *RegByDeviceIdParm {
-	s.WithExistDeviceId = &v
-	return s
-}
-
-func (s *RegByDeviceIdParm) SetDeviceTypeCode(v int64) *RegByDeviceIdParm {
-	s.DeviceTypeCode = &v
-	return s
-}
-
-func (s *RegByDeviceIdParm) SetInitialPrice(v int64) *RegByDeviceIdParm {
-	s.InitialPrice = &v
-	return s
-}
-
-func (s *RegByDeviceIdParm) SetFactoryTime(v string) *RegByDeviceIdParm {
-	s.FactoryTime = &v
-	return s
-}
-
-func (s *RegByDeviceIdParm) SetReleaseTime(v string) *RegByDeviceIdParm {
-	s.ReleaseTime = &v
-	return s
-}
-
-func (s *RegByDeviceIdParm) SetExtraInfo(v string) *RegByDeviceIdParm {
-	s.ExtraInfo = &v
-	return s
-}
-
-func (s *RegByDeviceIdParm) SetOwner(v string) *RegByDeviceIdParm {
-	s.Owner = &v
-	return s
-}
-
-func (s *RegByDeviceIdParm) SetOwnerName(v string) *RegByDeviceIdParm {
-	s.OwnerName = &v
-	return s
-}
-
-func (s *RegByDeviceIdParm) SetDeviceImei(v string) *RegByDeviceIdParm {
-	s.DeviceImei = &v
-	return s
-}
-
-func (s *RegByDeviceIdParm) SetDeviceName(v string) *RegByDeviceIdParm {
-	s.DeviceName = &v
-	return s
-}
-
-func (s *RegByDeviceIdParm) SetCorpName(v string) *RegByDeviceIdParm {
-	s.CorpName = &v
-	return s
-}
-
-// Sdk分页查询结果
-type SdkPageResponse struct {
-	// 页数
-	//
-	// example:
-	//
-	// 1
-	PageIndex *int64 `json:"page_index,omitempty" xml:"page_index,omitempty" require:"true"`
-	// 页码
-	//
-	// example:
-	//
-	// 10
-	PageSize *int64 `json:"page_size,omitempty" xml:"page_size,omitempty" require:"true"`
-	// 总记录数
-	//
-	// example:
-	//
-	// 100
-	TotalSize *int64 `json:"total_size,omitempty" xml:"total_size,omitempty" require:"true"`
-	// 总页数
-	//
-	// example:
-	//
-	// 10
-	TotalPages *int64 `json:"total_pages,omitempty" xml:"total_pages,omitempty" require:"true"`
-	// 数据
-	// example:
-	//
-	// {...}
-	PageData []*SdkModel `json:"page_data,omitempty" xml:"page_data,omitempty" require:"true" type:"Repeated"`
-}
-
-func (s SdkPageResponse) String() string {
-	return tea.Prettify(s)
-}
-
-func (s SdkPageResponse) GoString() string {
-	return s.String()
-}
-
-func (s *SdkPageResponse) SetPageIndex(v int64) *SdkPageResponse {
-	s.PageIndex = &v
-	return s
-}
-
-func (s *SdkPageResponse) SetPageSize(v int64) *SdkPageResponse {
-	s.PageSize = &v
-	return s
-}
-
-func (s *SdkPageResponse) SetTotalSize(v int64) *SdkPageResponse {
-	s.TotalSize = &v
-	return s
-}
-
-func (s *SdkPageResponse) SetTotalPages(v int64) *SdkPageResponse {
-	s.TotalPages = &v
-	return s
-}
-
-func (s *SdkPageResponse) SetPageData(v []*SdkModel) *SdkPageResponse {
-	s.PageData = v
 	return s
 }
 
@@ -2229,492 +2546,6 @@ func (s *CarKeyInitData) SetKeyLessAuthy(v string) *CarKeyInitData {
 	return s
 }
 
-// iotbasic-应用列表信息
-type IotbasicAppManagerPageInfo struct {
-	// 应用类型
-	// example:
-	//
-	// apk
-	FileFormat *string `json:"file_format,omitempty" xml:"file_format,omitempty" require:"true"`
-	// 应用大小
-	FileSize *int64 `json:"file_size,omitempty" xml:"file_size,omitempty" require:"true"`
-	// 应用模块名称
-	// example:
-	//
-	// 温控设备客户端
-	ModuleName *string `json:"module_name,omitempty" xml:"module_name,omitempty" require:"true"`
-	// 设备品类code
-	// example:
-	//
-	// code
-	DeviceCategory *string `json:"device_category,omitempty" xml:"device_category,omitempty" require:"true"`
-	// 设备品类名称
-	// example:
-	//
-	// name
-	DeviceCategoryName *string `json:"device_category_name,omitempty" xml:"device_category_name,omitempty" require:"true"`
-	// 应用模块包名
-	// example:
-	//
-	// packageName
-	PackageName *string `json:"package_name,omitempty" xml:"package_name,omitempty" require:"true"`
-	// 应用描述
-	// example:
-	//
-	// desc
-	Remark *string `json:"remark,omitempty" xml:"remark,omitempty"`
-	// 应用版本号
-	// example:
-	//
-	// 1.0
-	ApkVersion *string `json:"apk_version,omitempty" xml:"apk_version,omitempty" require:"true"`
-	// 应用包类型（整包：0/差分：1）
-	// example:
-	//
-	// 0
-	ApkType *int64 `json:"apk_type,omitempty" xml:"apk_type,omitempty" require:"true"`
-	// 应用名称
-	// example:
-	//
-	// apkName
-	ApkName *string `json:"apk_name,omitempty" xml:"apk_name,omitempty" require:"true"`
-	// 应用包id
-	// example:
-	//
-	// apkId
-	ApkId *string `json:"apk_id,omitempty" xml:"apk_id,omitempty" require:"true"`
-	// 下载次数
-	// example:
-	//
-	// 0
-	DownloadCount *int64 `json:"download_count,omitempty" xml:"download_count,omitempty" require:"true"`
-	// 安装次数
-	// example:
-	//
-	// 0
-	InstallCount *int64 `json:"install_count,omitempty" xml:"install_count,omitempty" require:"true"`
-	// 设备型号
-	// example:
-	//
-	// model
-	DeviceModel *string `json:"device_model,omitempty" xml:"device_model,omitempty"`
-}
-
-func (s IotbasicAppManagerPageInfo) String() string {
-	return tea.Prettify(s)
-}
-
-func (s IotbasicAppManagerPageInfo) GoString() string {
-	return s.String()
-}
-
-func (s *IotbasicAppManagerPageInfo) SetFileFormat(v string) *IotbasicAppManagerPageInfo {
-	s.FileFormat = &v
-	return s
-}
-
-func (s *IotbasicAppManagerPageInfo) SetFileSize(v int64) *IotbasicAppManagerPageInfo {
-	s.FileSize = &v
-	return s
-}
-
-func (s *IotbasicAppManagerPageInfo) SetModuleName(v string) *IotbasicAppManagerPageInfo {
-	s.ModuleName = &v
-	return s
-}
-
-func (s *IotbasicAppManagerPageInfo) SetDeviceCategory(v string) *IotbasicAppManagerPageInfo {
-	s.DeviceCategory = &v
-	return s
-}
-
-func (s *IotbasicAppManagerPageInfo) SetDeviceCategoryName(v string) *IotbasicAppManagerPageInfo {
-	s.DeviceCategoryName = &v
-	return s
-}
-
-func (s *IotbasicAppManagerPageInfo) SetPackageName(v string) *IotbasicAppManagerPageInfo {
-	s.PackageName = &v
-	return s
-}
-
-func (s *IotbasicAppManagerPageInfo) SetRemark(v string) *IotbasicAppManagerPageInfo {
-	s.Remark = &v
-	return s
-}
-
-func (s *IotbasicAppManagerPageInfo) SetApkVersion(v string) *IotbasicAppManagerPageInfo {
-	s.ApkVersion = &v
-	return s
-}
-
-func (s *IotbasicAppManagerPageInfo) SetApkType(v int64) *IotbasicAppManagerPageInfo {
-	s.ApkType = &v
-	return s
-}
-
-func (s *IotbasicAppManagerPageInfo) SetApkName(v string) *IotbasicAppManagerPageInfo {
-	s.ApkName = &v
-	return s
-}
-
-func (s *IotbasicAppManagerPageInfo) SetApkId(v string) *IotbasicAppManagerPageInfo {
-	s.ApkId = &v
-	return s
-}
-
-func (s *IotbasicAppManagerPageInfo) SetDownloadCount(v int64) *IotbasicAppManagerPageInfo {
-	s.DownloadCount = &v
-	return s
-}
-
-func (s *IotbasicAppManagerPageInfo) SetInstallCount(v int64) *IotbasicAppManagerPageInfo {
-	s.InstallCount = &v
-	return s
-}
-
-func (s *IotbasicAppManagerPageInfo) SetDeviceModel(v string) *IotbasicAppManagerPageInfo {
-	s.DeviceModel = &v
-	return s
-}
-
-// 四轮车驾驶事件
-type FourWheelerCarEvent struct {
-	// 驾驶事件的类型，如正常驾驶、碰撞、急转弯、启动熄火等。
-	// example:
-	//
-	// 1
-	EventType *string `json:"event_type,omitempty" xml:"event_type,omitempty" require:"true"`
-	// 驾驶事件的结束时间
-	// example:
-	//
-	// 1736152040551
-	EndTime *int64 `json:"end_time,omitempty" xml:"end_time,omitempty" require:"true"`
-	// 驾驶事件发生地点的经度坐标
-	// example:
-	//
-	// 121.4737
-	Lng *string `json:"lng,omitempty" xml:"lng,omitempty" require:"true"`
-	// 驾驶事件发生地点的纬度坐标
-	// example:
-	//
-	// 31.2304
-	Lat *string `json:"lat,omitempty" xml:"lat,omitempty" require:"true"`
-	// 驾驶事件开始的速度
-	// example:
-	//
-	// 60
-	StartSpeed *string `json:"start_speed,omitempty" xml:"start_speed,omitempty"`
-	// 驾驶事件结束时的速度
-	// example:
-	//
-	// 45
-	EndSpeed *string `json:"end_speed,omitempty" xml:"end_speed,omitempty"`
-	// 驾驶过程中的平均速度
-	// example:
-	//
-	// 52.5
-	AverageSpeed *string `json:"average_speed,omitempty" xml:"average_speed,omitempty"`
-	// 驾驶过程中车辆的转弯角度
-	// example:
-	//
-	// 90
-	TurningAngle *string `json:"turning_angle,omitempty" xml:"turning_angle,omitempty"`
-	// 驾驶事件的持续时间（以秒为单位)
-	// example:
-	//
-	// 10
-	Duration *string `json:"duration,omitempty" xml:"duration,omitempty"`
-}
-
-func (s FourWheelerCarEvent) String() string {
-	return tea.Prettify(s)
-}
-
-func (s FourWheelerCarEvent) GoString() string {
-	return s.String()
-}
-
-func (s *FourWheelerCarEvent) SetEventType(v string) *FourWheelerCarEvent {
-	s.EventType = &v
-	return s
-}
-
-func (s *FourWheelerCarEvent) SetEndTime(v int64) *FourWheelerCarEvent {
-	s.EndTime = &v
-	return s
-}
-
-func (s *FourWheelerCarEvent) SetLng(v string) *FourWheelerCarEvent {
-	s.Lng = &v
-	return s
-}
-
-func (s *FourWheelerCarEvent) SetLat(v string) *FourWheelerCarEvent {
-	s.Lat = &v
-	return s
-}
-
-func (s *FourWheelerCarEvent) SetStartSpeed(v string) *FourWheelerCarEvent {
-	s.StartSpeed = &v
-	return s
-}
-
-func (s *FourWheelerCarEvent) SetEndSpeed(v string) *FourWheelerCarEvent {
-	s.EndSpeed = &v
-	return s
-}
-
-func (s *FourWheelerCarEvent) SetAverageSpeed(v string) *FourWheelerCarEvent {
-	s.AverageSpeed = &v
-	return s
-}
-
-func (s *FourWheelerCarEvent) SetTurningAngle(v string) *FourWheelerCarEvent {
-	s.TurningAngle = &v
-	return s
-}
-
-func (s *FourWheelerCarEvent) SetDuration(v string) *FourWheelerCarEvent {
-	s.Duration = &v
-	return s
-}
-
-// 查询设备列表结构体
-type IotBasicDeviceQueryResponse struct {
-	// 设备名称
-	//
-	// example:
-	//
-	// 智能防疫一体机
-	DeviceName *string `json:"device_name,omitempty" xml:"device_name,omitempty" require:"true"`
-	// 设备序列号
-	// example:
-	//
-	// CN12300x
-	DeviceSn *string `json:"device_sn,omitempty" xml:"device_sn,omitempty" require:"true"`
-	// 设备品类名称
-	// example:
-	//
-	// 智能防疫机
-	DeviceCategoryName *string `json:"device_category_name,omitempty" xml:"device_category_name,omitempty" require:"true"`
-	// 设备型号
-	// example:
-	//
-	// PL10
-	DeviceModel *string `json:"device_model,omitempty" xml:"device_model,omitempty" require:"true"`
-	// 设备状态
-	// example:
-	//
-	// online
-	DeviceStatus *string `json:"device_status,omitempty" xml:"device_status,omitempty"`
-	// 设备安装位置
-	// example:
-	//
-	// 浙江省杭州市西湖区
-	Location *string `json:"location,omitempty" xml:"location,omitempty"`
-	// 设备注册时间
-	// example:
-	//
-	// 2018-10-10T10:10:00Z
-	RegisterTime *string `json:"register_time,omitempty" xml:"register_time,omitempty" require:"true"`
-	// 设备厂商
-	// example:
-	//
-	// 蚂蚁数科
-	CorpName *string `json:"corp_name,omitempty" xml:"corp_name,omitempty" require:"true"`
-	// 租户ID
-	// example:
-	//
-	// 2088xx
-	TenantId *string `json:"tenant_id,omitempty" xml:"tenant_id,omitempty" require:"true"`
-	// 客户名称
-	// example:
-	//
-	// 测试客户xx
-	CustomerName *string `json:"customer_name,omitempty" xml:"customer_name,omitempty" require:"true"`
-	// 异常错误码
-	// example:
-	//
-	// SMILE_INIT_ERROR
-	AbnormalCode *string `json:"abnormal_code,omitempty" xml:"abnormal_code,omitempty"`
-	// 设备唯一身份id
-	// example:
-	//
-	// did:private:12dsadadadf
-	DeviceDid *string `json:"device_did,omitempty" xml:"device_did,omitempty"`
-	// 账号ID
-	// example:
-	//
-	// 12321321
-	AccountId *string `json:"account_id,omitempty" xml:"account_id,omitempty" require:"true"`
-	// 账户名称
-	// example:
-	//
-	// 张三
-	AccountName *string `json:"account_name,omitempty" xml:"account_name,omitempty" require:"true"`
-	// 设备服务状态
-	// example:
-	//
-	// INIT
-	ServiceStatus *string `json:"service_status,omitempty" xml:"service_status,omitempty" require:"true"`
-	// 应用版本号
-	// example:
-	//
-	// 1.1.13
-	AppVersion *string `json:"app_version,omitempty" xml:"app_version,omitempty" require:"true"`
-	// 服务有效期
-	// example:
-	//
-	// 2024-4-01
-	ValidityTime *string `json:"validity_time,omitempty" xml:"validity_time,omitempty"`
-}
-
-func (s IotBasicDeviceQueryResponse) String() string {
-	return tea.Prettify(s)
-}
-
-func (s IotBasicDeviceQueryResponse) GoString() string {
-	return s.String()
-}
-
-func (s *IotBasicDeviceQueryResponse) SetDeviceName(v string) *IotBasicDeviceQueryResponse {
-	s.DeviceName = &v
-	return s
-}
-
-func (s *IotBasicDeviceQueryResponse) SetDeviceSn(v string) *IotBasicDeviceQueryResponse {
-	s.DeviceSn = &v
-	return s
-}
-
-func (s *IotBasicDeviceQueryResponse) SetDeviceCategoryName(v string) *IotBasicDeviceQueryResponse {
-	s.DeviceCategoryName = &v
-	return s
-}
-
-func (s *IotBasicDeviceQueryResponse) SetDeviceModel(v string) *IotBasicDeviceQueryResponse {
-	s.DeviceModel = &v
-	return s
-}
-
-func (s *IotBasicDeviceQueryResponse) SetDeviceStatus(v string) *IotBasicDeviceQueryResponse {
-	s.DeviceStatus = &v
-	return s
-}
-
-func (s *IotBasicDeviceQueryResponse) SetLocation(v string) *IotBasicDeviceQueryResponse {
-	s.Location = &v
-	return s
-}
-
-func (s *IotBasicDeviceQueryResponse) SetRegisterTime(v string) *IotBasicDeviceQueryResponse {
-	s.RegisterTime = &v
-	return s
-}
-
-func (s *IotBasicDeviceQueryResponse) SetCorpName(v string) *IotBasicDeviceQueryResponse {
-	s.CorpName = &v
-	return s
-}
-
-func (s *IotBasicDeviceQueryResponse) SetTenantId(v string) *IotBasicDeviceQueryResponse {
-	s.TenantId = &v
-	return s
-}
-
-func (s *IotBasicDeviceQueryResponse) SetCustomerName(v string) *IotBasicDeviceQueryResponse {
-	s.CustomerName = &v
-	return s
-}
-
-func (s *IotBasicDeviceQueryResponse) SetAbnormalCode(v string) *IotBasicDeviceQueryResponse {
-	s.AbnormalCode = &v
-	return s
-}
-
-func (s *IotBasicDeviceQueryResponse) SetDeviceDid(v string) *IotBasicDeviceQueryResponse {
-	s.DeviceDid = &v
-	return s
-}
-
-func (s *IotBasicDeviceQueryResponse) SetAccountId(v string) *IotBasicDeviceQueryResponse {
-	s.AccountId = &v
-	return s
-}
-
-func (s *IotBasicDeviceQueryResponse) SetAccountName(v string) *IotBasicDeviceQueryResponse {
-	s.AccountName = &v
-	return s
-}
-
-func (s *IotBasicDeviceQueryResponse) SetServiceStatus(v string) *IotBasicDeviceQueryResponse {
-	s.ServiceStatus = &v
-	return s
-}
-
-func (s *IotBasicDeviceQueryResponse) SetAppVersion(v string) *IotBasicDeviceQueryResponse {
-	s.AppVersion = &v
-	return s
-}
-
-func (s *IotBasicDeviceQueryResponse) SetValidityTime(v string) *IotBasicDeviceQueryResponse {
-	s.ValidityTime = &v
-	return s
-}
-
-// 租户关联信息请求结构体
-type TenantBindInfoReq struct {
-	// 租户关联扩展信息
-	// example:
-	//
-	// "CN,北京"
-	Extension *string `json:"extension,omitempty" xml:"extension,omitempty"`
-	// 业务类型，默认空
-	// example:
-	//
-	// null
-	BizType *string `json:"biz_type,omitempty" xml:"biz_type,omitempty"`
-	// 组织机构代码，可为中文
-	// example:
-	//
-	// "12345"
-	TenantUid *string `json:"tenant_uid,omitempty" xml:"tenant_uid,omitempty" require:"true"`
-	// 组织结构名称
-	// example:
-	//
-	// "xx公司xx部门"
-	UserName *string `json:"user_name,omitempty" xml:"user_name,omitempty" require:"true"`
-}
-
-func (s TenantBindInfoReq) String() string {
-	return tea.Prettify(s)
-}
-
-func (s TenantBindInfoReq) GoString() string {
-	return s.String()
-}
-
-func (s *TenantBindInfoReq) SetExtension(v string) *TenantBindInfoReq {
-	s.Extension = &v
-	return s
-}
-
-func (s *TenantBindInfoReq) SetBizType(v string) *TenantBindInfoReq {
-	s.BizType = &v
-	return s
-}
-
-func (s *TenantBindInfoReq) SetTenantUid(v string) *TenantBindInfoReq {
-	s.TenantUid = &v
-	return s
-}
-
-func (s *TenantBindInfoReq) SetUserName(v string) *TenantBindInfoReq {
-	s.UserName = &v
-	return s
-}
-
 // provision数据
 type Data struct {
 	// provision数据
@@ -2744,82 +2575,6 @@ func (s *Data) SetProvisionData(v string) *Data {
 
 func (s *Data) SetRemaining(v int64) *Data {
 	s.Remaining = &v
-	return s
-}
-
-// iotbasic设备模型固定属性失败内容
-type IotbasicDeviceModelFixedAttributeFailInfo struct {
-	// 属性说明
-	// example:
-	//
-	// name
-	AttributeName *string `json:"attribute_name,omitempty" xml:"attribute_name,omitempty" require:"true"`
-	// 属性名称
-	// example:
-	//
-	// value
-	AttributeValue *string `json:"attribute_value,omitempty" xml:"attribute_value,omitempty" require:"true"`
-	// 数据值类型 字符串：string 数字：long
-	// example:
-	//
-	// string
-	DataType *string `json:"data_type,omitempty" xml:"data_type,omitempty" require:"true"`
-	// dataType为string时，表示数据长度最小值 dataType为long时，表示数据范围最小值
-	DataRangeMin *int64 `json:"data_range_min,omitempty" xml:"data_range_min,omitempty" require:"true"`
-	// dataType为string时，表示数据长度最大值 dataType为long时，表示数据范围最大值
-	DataRangeMax *int64 `json:"data_range_max,omitempty" xml:"data_range_max,omitempty" require:"true"`
-	// 失败code
-	// example:
-	//
-	// code
-	ErrorCode *string `json:"error_code,omitempty" xml:"error_code,omitempty" require:"true"`
-	// 失败消息
-	// example:
-	//
-	// message
-	ErrorMessage *string `json:"error_message,omitempty" xml:"error_message,omitempty" require:"true"`
-}
-
-func (s IotbasicDeviceModelFixedAttributeFailInfo) String() string {
-	return tea.Prettify(s)
-}
-
-func (s IotbasicDeviceModelFixedAttributeFailInfo) GoString() string {
-	return s.String()
-}
-
-func (s *IotbasicDeviceModelFixedAttributeFailInfo) SetAttributeName(v string) *IotbasicDeviceModelFixedAttributeFailInfo {
-	s.AttributeName = &v
-	return s
-}
-
-func (s *IotbasicDeviceModelFixedAttributeFailInfo) SetAttributeValue(v string) *IotbasicDeviceModelFixedAttributeFailInfo {
-	s.AttributeValue = &v
-	return s
-}
-
-func (s *IotbasicDeviceModelFixedAttributeFailInfo) SetDataType(v string) *IotbasicDeviceModelFixedAttributeFailInfo {
-	s.DataType = &v
-	return s
-}
-
-func (s *IotbasicDeviceModelFixedAttributeFailInfo) SetDataRangeMin(v int64) *IotbasicDeviceModelFixedAttributeFailInfo {
-	s.DataRangeMin = &v
-	return s
-}
-
-func (s *IotbasicDeviceModelFixedAttributeFailInfo) SetDataRangeMax(v int64) *IotbasicDeviceModelFixedAttributeFailInfo {
-	s.DataRangeMax = &v
-	return s
-}
-
-func (s *IotbasicDeviceModelFixedAttributeFailInfo) SetErrorCode(v string) *IotbasicDeviceModelFixedAttributeFailInfo {
-	s.ErrorCode = &v
-	return s
-}
-
-func (s *IotbasicDeviceModelFixedAttributeFailInfo) SetErrorMessage(v string) *IotbasicDeviceModelFixedAttributeFailInfo {
-	s.ErrorMessage = &v
 	return s
 }
 
@@ -3011,52 +2766,6 @@ func (s *CustomEntityInfo) SetCustomerEntityContent(v string) *CustomEntityInfo 
 	return s
 }
 
-// 溯源码比对请求体
-type BaiQrcodeComparisonReqData struct {
-	// 扫码操作id，多次请求的trace_id相同代表短时间内在扫同一个码
-	// example:
-	//
-	// trace_id_001
-	TraceId *string `json:"trace_id,omitempty" xml:"trace_id,omitempty" require:"true" maxLength:"128"`
-	// query图片定位信息
-	QueryImageLocation *BaiResourceLocation `json:"query_image_location,omitempty" xml:"query_image_location,omitempty" require:"true"`
-	// gallery图片定位信息
-	GalleryImageLocation *BaiResourceLocation `json:"gallery_image_location,omitempty" xml:"gallery_image_location,omitempty" require:"true"`
-	// 是否允许降级
-	// example:
-	//
-	// true, false
-	Downgrade *bool `json:"downgrade,omitempty" xml:"downgrade,omitempty" require:"true"`
-}
-
-func (s BaiQrcodeComparisonReqData) String() string {
-	return tea.Prettify(s)
-}
-
-func (s BaiQrcodeComparisonReqData) GoString() string {
-	return s.String()
-}
-
-func (s *BaiQrcodeComparisonReqData) SetTraceId(v string) *BaiQrcodeComparisonReqData {
-	s.TraceId = &v
-	return s
-}
-
-func (s *BaiQrcodeComparisonReqData) SetQueryImageLocation(v *BaiResourceLocation) *BaiQrcodeComparisonReqData {
-	s.QueryImageLocation = v
-	return s
-}
-
-func (s *BaiQrcodeComparisonReqData) SetGalleryImageLocation(v *BaiResourceLocation) *BaiQrcodeComparisonReqData {
-	s.GalleryImageLocation = v
-	return s
-}
-
-func (s *BaiQrcodeComparisonReqData) SetDowngrade(v bool) *BaiQrcodeComparisonReqData {
-	s.Downgrade = &v
-	return s
-}
-
 // 创建xr用户通行证结果信息
 type XrUserTicketResultInfo struct {
 	// xr通行证资源池名称
@@ -3106,118 +2815,6 @@ func (s *XrUserTicketResultInfo) SetErrorMsg(v string) *XrUserTicketResultInfo {
 
 func (s *XrUserTicketResultInfo) SetXrTicketCode(v string) *XrUserTicketResultInfo {
 	s.XrTicketCode = &v
-	return s
-}
-
-// 仓库实体身份附加参数请求结构体，应用在注册/更新API的ThingExtraParams
-type WarehouseReqModel struct {
-	// 详细地址
-	// example:
-	//
-	// 北京海淀区
-	Address *string `json:"address,omitempty" xml:"address,omitempty"`
-	// 面积 平方米单位*1e4
-	// example:
-	//
-	// 1000000
-	Area *int64 `json:"area,omitempty" xml:"area,omitempty"`
-	// 海拔 米单位*1e2
-	// example:
-	//
-	// 0
-	Elevation *int64 `json:"elevation,omitempty" xml:"elevation,omitempty"`
-	// 仓库高度 米单位*1e2
-	// example:
-	//
-	// 1000
-	Height *int64 `json:"height,omitempty" xml:"height,omitempty"`
-	// 纬度 度数单位*1e9
-	// example:
-	//
-	// 0
-	Latitude *int64 `json:"latitude,omitempty" xml:"latitude,omitempty"`
-	// 经度 度数单位*1e9
-	// example:
-	//
-	// 35000000000
-	Longitude *int64 `json:"longitude,omitempty" xml:"longitude,omitempty"`
-	// 所在国家，中国
-	// example:
-	//
-	// 中国
-	Nation *string `json:"nation,omitempty" xml:"nation,omitempty"`
-	// 其他信息
-	// example:
-	//
-	// "自定义"
-	OtherInfo *string `json:"other_info,omitempty" xml:"other_info,omitempty"`
-	// 仓库状态, AVAILABLE, IN_USE, DELETED, 自定义
-	// example:
-	//
-	// "AVAILABLE"
-	Status *string `json:"status,omitempty" xml:"status,omitempty"`
-	// 仓库类型
-	// example:
-	//
-	// "自定义"
-	Type *string `json:"type,omitempty" xml:"type,omitempty"`
-}
-
-func (s WarehouseReqModel) String() string {
-	return tea.Prettify(s)
-}
-
-func (s WarehouseReqModel) GoString() string {
-	return s.String()
-}
-
-func (s *WarehouseReqModel) SetAddress(v string) *WarehouseReqModel {
-	s.Address = &v
-	return s
-}
-
-func (s *WarehouseReqModel) SetArea(v int64) *WarehouseReqModel {
-	s.Area = &v
-	return s
-}
-
-func (s *WarehouseReqModel) SetElevation(v int64) *WarehouseReqModel {
-	s.Elevation = &v
-	return s
-}
-
-func (s *WarehouseReqModel) SetHeight(v int64) *WarehouseReqModel {
-	s.Height = &v
-	return s
-}
-
-func (s *WarehouseReqModel) SetLatitude(v int64) *WarehouseReqModel {
-	s.Latitude = &v
-	return s
-}
-
-func (s *WarehouseReqModel) SetLongitude(v int64) *WarehouseReqModel {
-	s.Longitude = &v
-	return s
-}
-
-func (s *WarehouseReqModel) SetNation(v string) *WarehouseReqModel {
-	s.Nation = &v
-	return s
-}
-
-func (s *WarehouseReqModel) SetOtherInfo(v string) *WarehouseReqModel {
-	s.OtherInfo = &v
-	return s
-}
-
-func (s *WarehouseReqModel) SetStatus(v string) *WarehouseReqModel {
-	s.Status = &v
-	return s
-}
-
-func (s *WarehouseReqModel) SetType(v string) *WarehouseReqModel {
-	s.Type = &v
 	return s
 }
 
@@ -3504,38 +3101,6 @@ func (s *ProjectSpaceInfo) SetProjectDesc(v string) *ProjectSpaceInfo {
 	return s
 }
 
-// 实例信息列表
-type InstanceInfo struct {
-	// 实例id
-	// example:
-	//
-	// 设备001
-	InstanceId *string `json:"instance_id,omitempty" xml:"instance_id,omitempty" require:"true"`
-	// 实例名称
-	// example:
-	//
-	// 12313
-	InstanceName *string `json:"instance_name,omitempty" xml:"instance_name,omitempty" require:"true"`
-}
-
-func (s InstanceInfo) String() string {
-	return tea.Prettify(s)
-}
-
-func (s InstanceInfo) GoString() string {
-	return s.String()
-}
-
-func (s *InstanceInfo) SetInstanceId(v string) *InstanceInfo {
-	s.InstanceId = &v
-	return s
-}
-
-func (s *InstanceInfo) SetInstanceName(v string) *InstanceInfo {
-	s.InstanceName = &v
-	return s
-}
-
 // 查询交易结果信息
 type QueryTransactionResultInfo struct {
 	// 区块hash
@@ -3622,384 +3187,45 @@ func (s *QueryTransactionResultInfo) SetData(v *QueryChainDataTransactionResultD
 	return s
 }
 
-// 设备不可操作标识类
-type DeviceDisableData struct {
-	// 设备sn号
+// 设备模块版本明细
+type OtaModuleVersionItemResponse struct {
+	// 对外模块定位信息
 	// example:
 	//
-	// sn123
-	DeviceSn *string `json:"device_sn,omitempty" xml:"device_sn,omitempty" require:"true"`
-	// 厂商
+	// undefined
+	ModuleLocator *ModuleLocator `json:"module_locator,omitempty" xml:"module_locator,omitempty"`
+	// 设备最近一次被接受的上报版本号
 	// example:
 	//
-	// telpo
-	CorpName *string `json:"corp_name,omitempty" xml:"corp_name,omitempty" require:"true"`
+	// 1.0.0
+	Version *string `json:"version,omitempty" xml:"version,omitempty"`
+	// 设备上报时间戳，单位毫秒。
+	// example:
+	//
+	// 设备上报时间戳，单位毫秒。
+	ReportedAt *string `json:"reported_at,omitempty" xml:"reported_at,omitempty"`
 }
 
-func (s DeviceDisableData) String() string {
+func (s OtaModuleVersionItemResponse) String() string {
 	return tea.Prettify(s)
 }
 
-func (s DeviceDisableData) GoString() string {
+func (s OtaModuleVersionItemResponse) GoString() string {
 	return s.String()
 }
 
-func (s *DeviceDisableData) SetDeviceSn(v string) *DeviceDisableData {
-	s.DeviceSn = &v
+func (s *OtaModuleVersionItemResponse) SetModuleLocator(v *ModuleLocator) *OtaModuleVersionItemResponse {
+	s.ModuleLocator = v
 	return s
 }
 
-func (s *DeviceDisableData) SetCorpName(v string) *DeviceDisableData {
-	s.CorpName = &v
+func (s *OtaModuleVersionItemResponse) SetVersion(v string) *OtaModuleVersionItemResponse {
+	s.Version = &v
 	return s
 }
 
-// 设备属性关系对象
-type IotDeviceAttributeRelationshipData struct {
-	// id
-	// example:
-	//
-	// 1
-	Id *int64 `json:"id,omitempty" xml:"id,omitempty"`
-	// 设备品类名称
-	// example:
-	//
-	// 智能防疫机一体机
-	DeviceCategory *string `json:"device_category,omitempty" xml:"device_category,omitempty" require:"true"`
-	// 关系类型
-	// example:
-	//
-	// CORP
-	RelationType *string `json:"relation_type,omitempty" xml:"relation_type,omitempty" require:"true"`
-	// 厂商名称
-	// example:
-	//
-	// 天波
-	CorpName *string `json:"corp_name,omitempty" xml:"corp_name,omitempty"`
-	// 设备型号
-	// example:
-	//
-	// TPS980
-	DeviceModel *string `json:"device_model,omitempty" xml:"device_model,omitempty"`
-	// 设备规格
-	// example:
-	//
-	// 安卓标准版
-	DeviceSpecs *string `json:"device_specs,omitempty" xml:"device_specs,omitempty"`
-	// 硬件模块
-	// example:
-	//
-	// 测温头
-	HardwareModule *string `json:"hardware_module,omitempty" xml:"hardware_module,omitempty"`
-}
-
-func (s IotDeviceAttributeRelationshipData) String() string {
-	return tea.Prettify(s)
-}
-
-func (s IotDeviceAttributeRelationshipData) GoString() string {
-	return s.String()
-}
-
-func (s *IotDeviceAttributeRelationshipData) SetId(v int64) *IotDeviceAttributeRelationshipData {
-	s.Id = &v
-	return s
-}
-
-func (s *IotDeviceAttributeRelationshipData) SetDeviceCategory(v string) *IotDeviceAttributeRelationshipData {
-	s.DeviceCategory = &v
-	return s
-}
-
-func (s *IotDeviceAttributeRelationshipData) SetRelationType(v string) *IotDeviceAttributeRelationshipData {
-	s.RelationType = &v
-	return s
-}
-
-func (s *IotDeviceAttributeRelationshipData) SetCorpName(v string) *IotDeviceAttributeRelationshipData {
-	s.CorpName = &v
-	return s
-}
-
-func (s *IotDeviceAttributeRelationshipData) SetDeviceModel(v string) *IotDeviceAttributeRelationshipData {
-	s.DeviceModel = &v
-	return s
-}
-
-func (s *IotDeviceAttributeRelationshipData) SetDeviceSpecs(v string) *IotDeviceAttributeRelationshipData {
-	s.DeviceSpecs = &v
-	return s
-}
-
-func (s *IotDeviceAttributeRelationshipData) SetHardwareModule(v string) *IotDeviceAttributeRelationshipData {
-	s.HardwareModule = &v
-	return s
-}
-
-// 创建订单失败的返回结构体
-type InsertPurchaseOrderFailInfo struct {
-	// 订单ID
-	// example:
-	//
-	// safsafafafa
-	OrderId *string `json:"order_id,omitempty" xml:"order_id,omitempty" require:"true"`
-	// 订单保存失败的原因
-	// example:
-	//
-	// fasfasfasfa
-	FailReason *string `json:"fail_reason,omitempty" xml:"fail_reason,omitempty" require:"true"`
-}
-
-func (s InsertPurchaseOrderFailInfo) String() string {
-	return tea.Prettify(s)
-}
-
-func (s InsertPurchaseOrderFailInfo) GoString() string {
-	return s.String()
-}
-
-func (s *InsertPurchaseOrderFailInfo) SetOrderId(v string) *InsertPurchaseOrderFailInfo {
-	s.OrderId = &v
-	return s
-}
-
-func (s *InsertPurchaseOrderFailInfo) SetFailReason(v string) *InsertPurchaseOrderFailInfo {
-	s.FailReason = &v
-	return s
-}
-
-// 菜鸟分拣机设备监控信息
-type ScfLeaseEqpInfo struct {
-	// 设备类型
-	// example:
-	//
-	// 分拣机
-	DeviceType *string `json:"device_type,omitempty" xml:"device_type,omitempty"`
-	// 运营日期
-	// example:
-	//
-	// 20210720
-	OperationDate *string `json:"operation_date,omitempty" xml:"operation_date,omitempty"`
-	// 修改时间
-	// example:
-	//
-	// 2021-07-20 14:08:17
-	GmtModified *string `json:"gmt_modified,omitempty" xml:"gmt_modified,omitempty"`
-	// 维修金比例
-	// example:
-	//
-	// 50
-	MaintenanceMoney *string `json:"maintenance_money,omitempty" xml:"maintenance_money,omitempty"`
-	// 当日设备维修记录
-	// example:
-	//
-	// error
-	MaintainRecord *string `json:"maintain_record,omitempty" xml:"maintain_record,omitempty"`
-	// 设备识别号
-	// example:
-	//
-	// 10010100101
-	DeviceNo *string `json:"device_no,omitempty" xml:"device_no,omitempty"`
-	// 创建时间
-	// example:
-	//
-	// 2021-07-20 14:08:17
-	GmtCreate *string `json:"gmt_create,omitempty" xml:"gmt_create,omitempty"`
-	// 当日分拣单数
-	// example:
-	//
-	// 131222
-	SortingNum *string `json:"sorting_num,omitempty" xml:"sorting_num,omitempty"`
-	// 当日运营时长,单位分钟
-	// example:
-	//
-	// 1231321
-	OperationMinute *string `json:"operation_minute,omitempty" xml:"operation_minute,omitempty"`
-	// 04:00-16:00分拣单数/（派件分拣单数）
-	// example:
-	//
-	// 130012
-	AmNum *string `json:"am_num,omitempty" xml:"am_num,omitempty"`
-	// 16:00-04:00分拣单数/ （揽件分拣单数)
-	// example:
-	//
-	// 1210
-	PmNum *string `json:"pm_num,omitempty" xml:"pm_num,omitempty"`
-	// id
-	// example:
-	//
-	// 3
-	Id *string `json:"id,omitempty" xml:"id,omitempty"`
-	// 设备验收日期
-	// example:
-	//
-	// 2021-07-20 11:33:59
-	DeviceAcceptanceDate *string `json:"device_acceptance_date,omitempty" xml:"device_acceptance_date,omitempty"`
-	// 数据更新时间
-	// example:
-	//
-	// 2021-07-20 11:32:35
-	DataUpdateTime *string `json:"data_update_time,omitempty" xml:"data_update_time,omitempty"`
-}
-
-func (s ScfLeaseEqpInfo) String() string {
-	return tea.Prettify(s)
-}
-
-func (s ScfLeaseEqpInfo) GoString() string {
-	return s.String()
-}
-
-func (s *ScfLeaseEqpInfo) SetDeviceType(v string) *ScfLeaseEqpInfo {
-	s.DeviceType = &v
-	return s
-}
-
-func (s *ScfLeaseEqpInfo) SetOperationDate(v string) *ScfLeaseEqpInfo {
-	s.OperationDate = &v
-	return s
-}
-
-func (s *ScfLeaseEqpInfo) SetGmtModified(v string) *ScfLeaseEqpInfo {
-	s.GmtModified = &v
-	return s
-}
-
-func (s *ScfLeaseEqpInfo) SetMaintenanceMoney(v string) *ScfLeaseEqpInfo {
-	s.MaintenanceMoney = &v
-	return s
-}
-
-func (s *ScfLeaseEqpInfo) SetMaintainRecord(v string) *ScfLeaseEqpInfo {
-	s.MaintainRecord = &v
-	return s
-}
-
-func (s *ScfLeaseEqpInfo) SetDeviceNo(v string) *ScfLeaseEqpInfo {
-	s.DeviceNo = &v
-	return s
-}
-
-func (s *ScfLeaseEqpInfo) SetGmtCreate(v string) *ScfLeaseEqpInfo {
-	s.GmtCreate = &v
-	return s
-}
-
-func (s *ScfLeaseEqpInfo) SetSortingNum(v string) *ScfLeaseEqpInfo {
-	s.SortingNum = &v
-	return s
-}
-
-func (s *ScfLeaseEqpInfo) SetOperationMinute(v string) *ScfLeaseEqpInfo {
-	s.OperationMinute = &v
-	return s
-}
-
-func (s *ScfLeaseEqpInfo) SetAmNum(v string) *ScfLeaseEqpInfo {
-	s.AmNum = &v
-	return s
-}
-
-func (s *ScfLeaseEqpInfo) SetPmNum(v string) *ScfLeaseEqpInfo {
-	s.PmNum = &v
-	return s
-}
-
-func (s *ScfLeaseEqpInfo) SetId(v string) *ScfLeaseEqpInfo {
-	s.Id = &v
-	return s
-}
-
-func (s *ScfLeaseEqpInfo) SetDeviceAcceptanceDate(v string) *ScfLeaseEqpInfo {
-	s.DeviceAcceptanceDate = &v
-	return s
-}
-
-func (s *ScfLeaseEqpInfo) SetDataUpdateTime(v string) *ScfLeaseEqpInfo {
-	s.DataUpdateTime = &v
-	return s
-}
-
-// 房源信息同步实体类
-type HouseInfo struct {
-	// 房源唯一ID
-	// example:
-	//
-	// a87
-	HouseId *string `json:"house_id,omitempty" xml:"house_id,omitempty" require:"true"`
-	// 租赁模式
-	// example:
-	//
-	// 合租
-	LeaseMode *string `json:"lease_mode,omitempty" xml:"lease_mode,omitempty"`
-	// 面积平方
-	// example:
-	//
-	// 120㎡
-	Acreage *string `json:"acreage,omitempty" xml:"acreage,omitempty"`
-	// 房源类型：0住宅、1别墅、
-	// 2商铺、3写字楼
-	// example:
-	//
-	// 0
-	Structure *int64 `json:"structure,omitempty" xml:"structure,omitempty" require:"true"`
-	// 房屋地址
-	// example:
-	//
-	// hz
-	Addr *string `json:"addr,omitempty" xml:"addr,omitempty"`
-	// 门锁设备DID
-	// example:
-	//
-	// L91923
-	LockId *string `json:"lock_id,omitempty" xml:"lock_id,omitempty"`
-	// 电表设备DID
-	// example:
-	//
-	// A87345
-	AmmeterId *string `json:"ammeter_id,omitempty" xml:"ammeter_id,omitempty"`
-}
-
-func (s HouseInfo) String() string {
-	return tea.Prettify(s)
-}
-
-func (s HouseInfo) GoString() string {
-	return s.String()
-}
-
-func (s *HouseInfo) SetHouseId(v string) *HouseInfo {
-	s.HouseId = &v
-	return s
-}
-
-func (s *HouseInfo) SetLeaseMode(v string) *HouseInfo {
-	s.LeaseMode = &v
-	return s
-}
-
-func (s *HouseInfo) SetAcreage(v string) *HouseInfo {
-	s.Acreage = &v
-	return s
-}
-
-func (s *HouseInfo) SetStructure(v int64) *HouseInfo {
-	s.Structure = &v
-	return s
-}
-
-func (s *HouseInfo) SetAddr(v string) *HouseInfo {
-	s.Addr = &v
-	return s
-}
-
-func (s *HouseInfo) SetLockId(v string) *HouseInfo {
-	s.LockId = &v
-	return s
-}
-
-func (s *HouseInfo) SetAmmeterId(v string) *HouseInfo {
-	s.AmmeterId = &v
+func (s *OtaModuleVersionItemResponse) SetReportedAt(v string) *OtaModuleVersionItemResponse {
+	s.ReportedAt = &v
 	return s
 }
 
@@ -4141,172 +3367,6 @@ func (s *CategoryInfo) SetIndustry(v string) *CategoryInfo {
 
 func (s *CategoryInfo) SetScene(v string) *CategoryInfo {
 	s.Scene = &v
-	return s
-}
-
-// 收集信息
-type CollectContent struct {
-	// 链上设备ID（与可信设备ID至少填一项）
-	// example:
-	//
-	// 1122
-	ChainDeviceId *string `json:"chain_device_id,omitempty" xml:"chain_device_id,omitempty"`
-	// 可信设备ID（与链上设备ID至少填一项）
-	// example:
-	//
-	// 7006071575519457281
-	TrustiotDeviceId *int64 `json:"trustiot_device_id,omitempty" xml:"trustiot_device_id,omitempty"`
-	// 收集的内容
-	// example:
-	//
-	// {"name","1"}
-	Content *string `json:"content,omitempty" xml:"content,omitempty" require:"true"`
-	// 对内容的签名
-	// example:
-	//
-	// wwexe02j
-	Signature *string `json:"signature,omitempty" xml:"signature,omitempty" require:"true"`
-	// 服务端发送的扩展数据（非可信设备直接产生的数据）
-	// example:
-	//
-	// {"extraKey":"extraValue"}
-	ExtraData *string `json:"extra_data,omitempty" xml:"extra_data,omitempty"`
-	// 数据模型Id
-	// example:
-	//
-	// 00000001
-	DataModelId *string `json:"data_model_id,omitempty" xml:"data_model_id,omitempty"`
-}
-
-func (s CollectContent) String() string {
-	return tea.Prettify(s)
-}
-
-func (s CollectContent) GoString() string {
-	return s.String()
-}
-
-func (s *CollectContent) SetChainDeviceId(v string) *CollectContent {
-	s.ChainDeviceId = &v
-	return s
-}
-
-func (s *CollectContent) SetTrustiotDeviceId(v int64) *CollectContent {
-	s.TrustiotDeviceId = &v
-	return s
-}
-
-func (s *CollectContent) SetContent(v string) *CollectContent {
-	s.Content = &v
-	return s
-}
-
-func (s *CollectContent) SetSignature(v string) *CollectContent {
-	s.Signature = &v
-	return s
-}
-
-func (s *CollectContent) SetExtraData(v string) *CollectContent {
-	s.ExtraData = &v
-	return s
-}
-
-func (s *CollectContent) SetDataModelId(v string) *CollectContent {
-	s.DataModelId = &v
-	return s
-}
-
-// 租期信息
-type RentBillItem struct {
-	// 租约分期ID
-	// example:
-	//
-	// 12321321
-	BillItemId *string `json:"bill_item_id,omitempty" xml:"bill_item_id,omitempty" require:"true"`
-	// 租约分期名称
-	// example:
-	//
-	// 第几期
-	BillItemName *string `json:"bill_item_name,omitempty" xml:"bill_item_name,omitempty"`
-	// 租期开始日期
-	// example:
-	//
-	// 2006-01-02 15:04:05
-	BillItemBegin *string `json:"bill_item_begin,omitempty" xml:"bill_item_begin,omitempty" require:"true"`
-	// 租期结束日期
-	// example:
-	//
-	// 2006-02-02 15:04:05
-	BillItemEnd *string `json:"bill_item_end,omitempty" xml:"bill_item_end,omitempty" require:"true"`
-	// 租约金额
-	// example:
-	//
-	// 5000
-	BillItemMoney *string `json:"bill_item_money,omitempty" xml:"bill_item_money,omitempty" require:"true"`
-	// 租约支付状态
-	// example:
-	//
-	// 待支付，已支付，支付失败
-	PaymentState *string `json:"payment_state,omitempty" xml:"payment_state,omitempty"`
-}
-
-func (s RentBillItem) String() string {
-	return tea.Prettify(s)
-}
-
-func (s RentBillItem) GoString() string {
-	return s.String()
-}
-
-func (s *RentBillItem) SetBillItemId(v string) *RentBillItem {
-	s.BillItemId = &v
-	return s
-}
-
-func (s *RentBillItem) SetBillItemName(v string) *RentBillItem {
-	s.BillItemName = &v
-	return s
-}
-
-func (s *RentBillItem) SetBillItemBegin(v string) *RentBillItem {
-	s.BillItemBegin = &v
-	return s
-}
-
-func (s *RentBillItem) SetBillItemEnd(v string) *RentBillItem {
-	s.BillItemEnd = &v
-	return s
-}
-
-func (s *RentBillItem) SetBillItemMoney(v string) *RentBillItem {
-	s.BillItemMoney = &v
-	return s
-}
-
-func (s *RentBillItem) SetPaymentState(v string) *RentBillItem {
-	s.PaymentState = &v
-	return s
-}
-
-// 溯源二维码生成请求的请求数据
-type BaiQrcodeGenerateReqData struct {
-	// 二维码的码值
-	// example:
-	//
-	// TEST1234567890
-	QrcodeContent *string `json:"qrcode_content,omitempty" xml:"qrcode_content,omitempty" require:"true"`
-}
-
-func (s BaiQrcodeGenerateReqData) String() string {
-	return tea.Prettify(s)
-}
-
-func (s BaiQrcodeGenerateReqData) GoString() string {
-	return s.String()
-}
-
-func (s *BaiQrcodeGenerateReqData) SetQrcodeContent(v string) *BaiQrcodeGenerateReqData {
-	s.QrcodeContent = &v
 	return s
 }
 
@@ -4483,88 +3543,6 @@ func (s *BaiQrcodeGenerateRespData) SetGenerateMessage(v string) *BaiQrcodeGener
 
 func (s *BaiQrcodeGenerateRespData) SetUnableGenerateSolution(v string) *BaiQrcodeGenerateRespData {
 	s.UnableGenerateSolution = &v
-	return s
-}
-
-// 充电明细信息
-type ChargeDetail struct {
-	// 开始时间
-	// example:
-	//
-	// 2018-10-10 10:10:00
-	DetailStartTime *string `json:"detail_start_time,omitempty" xml:"detail_start_time,omitempty" require:"true" pattern:"\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}([Z]|([\\.]\\d{1,9})?[\\+]\\d{2}[\\:]?\\d{2})"`
-	// 结束时间
-	// example:
-	//
-	// 2018-10-10 10:10:00
-	DetailEndTime *string `json:"detail_end_time,omitempty" xml:"detail_end_time,omitempty" require:"true" pattern:"\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}([Z]|([\\.]\\d{1,9})?[\\+]\\d{2}[\\:]?\\d{2})"`
-	// 时段电价，小数点后4位
-	// example:
-	//
-	// 10.1010
-	ElecPrice *string `json:"elec_price,omitempty" xml:"elec_price,omitempty"`
-	// 时段服务费价格，小数点后4位
-	// example:
-	//
-	// 12.6222
-	ServicePrice *string `json:"service_price,omitempty" xml:"service_price,omitempty"`
-	// 时段充电量，单位：度，小数点后2位
-	// example:
-	//
-	// 12.12
-	DetailPower *string `json:"detail_power,omitempty" xml:"detail_power,omitempty" require:"true"`
-	// 时段电费，小数点后2位
-	// example:
-	//
-	// 10.10
-	DetailElecMoney *string `json:"detail_elec_money,omitempty" xml:"detail_elec_money,omitempty"`
-	// 时段服务费，小数点后2位
-	// example:
-	//
-	// 10.10
-	DetailServiceMoney *string `json:"detail_service_money,omitempty" xml:"detail_service_money,omitempty"`
-}
-
-func (s ChargeDetail) String() string {
-	return tea.Prettify(s)
-}
-
-func (s ChargeDetail) GoString() string {
-	return s.String()
-}
-
-func (s *ChargeDetail) SetDetailStartTime(v string) *ChargeDetail {
-	s.DetailStartTime = &v
-	return s
-}
-
-func (s *ChargeDetail) SetDetailEndTime(v string) *ChargeDetail {
-	s.DetailEndTime = &v
-	return s
-}
-
-func (s *ChargeDetail) SetElecPrice(v string) *ChargeDetail {
-	s.ElecPrice = &v
-	return s
-}
-
-func (s *ChargeDetail) SetServicePrice(v string) *ChargeDetail {
-	s.ServicePrice = &v
-	return s
-}
-
-func (s *ChargeDetail) SetDetailPower(v string) *ChargeDetail {
-	s.DetailPower = &v
-	return s
-}
-
-func (s *ChargeDetail) SetDetailElecMoney(v string) *ChargeDetail {
-	s.DetailElecMoney = &v
-	return s
-}
-
-func (s *ChargeDetail) SetDetailServiceMoney(v string) *ChargeDetail {
-	s.DetailServiceMoney = &v
 	return s
 }
 
@@ -4762,6 +3740,54 @@ func (s *AgentInfoVO) SetParentTemplateAgentName(v string) *AgentInfoVO {
 	return s
 }
 
+// AiAgentThingModelData
+type AiAgentThingModelData struct {
+	DataId     *string `json:"data_id,omitempty" xml:"data_id,omitempty" require:"true"`
+	UserId     *string `json:"user_id,omitempty" xml:"user_id,omitempty" require:"true"`
+	DeviceId   *string `json:"device_id,omitempty" xml:"device_id,omitempty"`
+	FeatureId  *string `json:"feature_id,omitempty" xml:"feature_id,omitempty" require:"true"`
+	ReportTime *string `json:"report_time,omitempty" xml:"report_time,omitempty" require:"true" pattern:"\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}([Z]|([\\.]\\d{1,9})?[\\+]\\d{2}[\\:]?\\d{2})"`
+	Content    *string `json:"content,omitempty" xml:"content,omitempty" require:"true"`
+}
+
+func (s AiAgentThingModelData) String() string {
+	return tea.Prettify(s)
+}
+
+func (s AiAgentThingModelData) GoString() string {
+	return s.String()
+}
+
+func (s *AiAgentThingModelData) SetDataId(v string) *AiAgentThingModelData {
+	s.DataId = &v
+	return s
+}
+
+func (s *AiAgentThingModelData) SetUserId(v string) *AiAgentThingModelData {
+	s.UserId = &v
+	return s
+}
+
+func (s *AiAgentThingModelData) SetDeviceId(v string) *AiAgentThingModelData {
+	s.DeviceId = &v
+	return s
+}
+
+func (s *AiAgentThingModelData) SetFeatureId(v string) *AiAgentThingModelData {
+	s.FeatureId = &v
+	return s
+}
+
+func (s *AiAgentThingModelData) SetReportTime(v string) *AiAgentThingModelData {
+	s.ReportTime = &v
+	return s
+}
+
+func (s *AiAgentThingModelData) SetContent(v string) *AiAgentThingModelData {
+	s.Content = &v
+	return s
+}
+
 // 要素关系信息
 type AssetElementRelationInfo struct {
 	// 来源要素ID
@@ -4851,51 +3877,6 @@ func (s *AssetElementRelationInfo) SetSourceElementName(v string) *AssetElementR
 
 func (s *AssetElementRelationInfo) SetTargetElementName(v string) *AssetElementRelationInfo {
 	s.TargetElementName = &v
-	return s
-}
-
-// 更新设备和空间关联请求结构体
-type UpdateDeviceSpaceReq struct {
-	// API要更新的设备DID
-	// example:
-	//
-	// "did:iot:xxxxx"
-	DeviceDid *string `json:"device_did,omitempty" xml:"device_did,omitempty" require:"true"`
-	// 0-全部更新 (暂不支持)
-	// 1-添加
-	// 2-删除
-	//
-	// example:
-	//
-	// 1
-	UpdateMode *int64 `json:"update_mode,omitempty" xml:"update_mode,omitempty" require:"true"`
-	// API要更新的设备部署库位
-	// example:
-	//
-	// ["did:iot:xxxx","did:iot:xxxxx"]
-	DeviceSpace []*string `json:"device_space,omitempty" xml:"device_space,omitempty" require:"true" type:"Repeated"`
-}
-
-func (s UpdateDeviceSpaceReq) String() string {
-	return tea.Prettify(s)
-}
-
-func (s UpdateDeviceSpaceReq) GoString() string {
-	return s.String()
-}
-
-func (s *UpdateDeviceSpaceReq) SetDeviceDid(v string) *UpdateDeviceSpaceReq {
-	s.DeviceDid = &v
-	return s
-}
-
-func (s *UpdateDeviceSpaceReq) SetUpdateMode(v int64) *UpdateDeviceSpaceReq {
-	s.UpdateMode = &v
-	return s
-}
-
-func (s *UpdateDeviceSpaceReq) SetDeviceSpace(v []*string) *UpdateDeviceSpaceReq {
-	s.DeviceSpace = v
 	return s
 }
 
@@ -5159,151 +4140,305 @@ func (s *Device) SetTrustiotDeviceId(v int64) *Device {
 	return s
 }
 
-// 新增厂商字典时需要传的产品信息
-type AddProductInfo struct {
+// 统一物联产品响应
+type IotxProductResponse struct {
+	// 主键id
+	// example:
+	//
+	// 636804107650338816
+	Id *string `json:"id,omitempty" xml:"id,omitempty"`
+	// 租户id
+	// example:
+	//
+	// POPVPRVV
+	TenantId *string `json:"tenant_id,omitempty" xml:"tenant_id,omitempty"`
+	// 行业id
+	// example:
+	//
+	// 607848084638142464
+	IndustryId *string `json:"industry_id,omitempty" xml:"industry_id,omitempty"`
+	// 行业名称
+	// example:
+	//
+	// 行业名称
+	IndustryName *string `json:"industry_name,omitempty" xml:"industry_name,omitempty"`
+	// 品类id
+	// example:
+	//
+	// 607848648444874752
+	CategoryId *string `json:"category_id,omitempty" xml:"category_id,omitempty"`
+	// 品类名称
+	// example:
+	//
+	// 品类名称
+	CategoryName *string `json:"category_name,omitempty" xml:"category_name,omitempty"`
+	// 可信物联唯一产品标识
+	// example:
+	//
+	// B7uwSpw2dAaxhZ8nJt
+	TrustProductKey *string `json:"trust_product_key,omitempty" xml:"trust_product_key,omitempty"`
+	// 三方物联网平台产品productKey
+	// example:
+	//
+	// k03iddJl20m
+	ProductKey *string `json:"product_key,omitempty" xml:"product_key,omitempty"`
 	// 产品名称
 	// example:
 	//
-	// 防疫一体机
-	ProductName *string `json:"product_name,omitempty" xml:"product_name,omitempty" require:"true"`
-	// 产品code
+	// 产品名称
+	ProductName *string `json:"product_name,omitempty" xml:"product_name,omitempty"`
+	// 产品秘钥
 	// example:
 	//
-	// face_smart
-	ProductCode *string `json:"product_code,omitempty" xml:"product_code,omitempty" require:"true"`
+	// 1wugvASuxxxxxxxxxx
+	ProductSecret *string `json:"product_secret,omitempty" xml:"product_secret,omitempty"`
+	// 节点类型：0-直连设备、1-网关设备、2-网关子设备
+	// example:
+	//
+	// 0
+	NodeType *int64 `json:"node_type,omitempty" xml:"node_type,omitempty"`
+	// 联网方式：0-wifi、1-蜂窝、2-以太网、3-蓝牙、4-蓝牙+蜂窝网络
+	// example:
+	//
+	// 0
+	NetType *int64 `json:"net_type,omitempty" xml:"net_type,omitempty"`
+	// 产品协议：MQTT\CoAP
+	// example:
+	//
+	// MQTT
+	ProductProtocol *string `json:"product_protocol,omitempty" xml:"product_protocol,omitempty"`
+	// 接入网关协议:0-ZigBee协议、1-BLE协议、2-Modbus
+	// example:
+	//
+	// 0
+	ProtocolType *string `json:"protocol_type,omitempty" xml:"protocol_type,omitempty"`
+	// 数据格式：0-Alink Json、1-自定义透传
+	// example:
+	//
+	// 0
+	DataFormat *string `json:"data_format,omitempty" xml:"data_format,omitempty"`
+	// 认证类型：默认不认证
+	// example:
+	//
+	// 0
+	AuthType *int64 `json:"auth_type,omitempty" xml:"auth_type,omitempty"`
+	// 数据校验级别：0-免校验、1-弱校验
+	// example:
+	//
+	// 0
+	ValidateType *int64 `json:"validate_type,omitempty" xml:"validate_type,omitempty"`
+	// 发布状态：0-未发布、1-已发布
+	// example:
+	//
+	// 0
+	PublishStatus *int64 `json:"publish_status,omitempty" xml:"publish_status,omitempty"`
+	// 业务来源：ekyt-数字钥匙、trust-可信上链、ai_hardware-AI硬件
+	// example:
+	//
+	// ekyt
+	BizSource *string `json:"biz_source,omitempty" xml:"biz_source,omitempty"`
+	// 产品的状态：0-开发中、1-已发布
+	// example:
+	//
+	// 0
+	ProductStatus *int64 `json:"product_status,omitempty" xml:"product_status,omitempty"`
+	// 关联客户id
+	// example:
+	//
+	// SAIGE
+	CustomerId *string `json:"customer_id,omitempty" xml:"customer_id,omitempty"`
+	// 可信物联实例Id
+	// example:
+	//
+	// 8ws7jeelei
+	TrustInstanceId *string `json:"trust_instance_id,omitempty" xml:"trust_instance_id,omitempty"`
+	// 平台类型：0-alicloud、1-tuyaAli、2-自管
+	// example:
+	//
+	// 1
+	IotPlatform *int64 `json:"iot_platform,omitempty" xml:"iot_platform,omitempty"`
 	// 产品描述
 	// example:
 	//
-	// 智能防疫机
-	Remark *string `json:"remark,omitempty" xml:"remark,omitempty"`
+	// 产品描述
+	Description *string `json:"description,omitempty" xml:"description,omitempty"`
+	// 产品物模型
+	// example:
+	//
+	// 产品物模型
+	ThingModel *string `json:"thing_model,omitempty" xml:"thing_model,omitempty"`
+	// 是否启用动态注册：0-关闭动态注册、1-启用动态注册(仅支持涂鸦平台)
+	// example:
+	//
+	// 0
+	EnableDynReg *int64 `json:"enable_dyn_reg,omitempty" xml:"enable_dyn_reg,omitempty"`
+	// 创建时间
+	// example:
+	//
+	// 1783389225000
+	GmtCreate *string `json:"gmt_create,omitempty" xml:"gmt_create,omitempty" pattern:"\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}([Z]|([\\.]\\d{1,9})?[\\+]\\d{2}[\\:]?\\d{2})"`
+	// 更新时间
+	// example:
+	//
+	// 1783389225000
+	GmtModified *string `json:"gmt_modified,omitempty" xml:"gmt_modified,omitempty" pattern:"\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}([Z]|([\\.]\\d{1,9})?[\\+]\\d{2}[\\:]?\\d{2})"`
+	// 租户名称
+	// example:
+	//
+	// 租户名称
+	TenantName *string `json:"tenant_name,omitempty" xml:"tenant_name,omitempty"`
 }
 
-func (s AddProductInfo) String() string {
+func (s IotxProductResponse) String() string {
 	return tea.Prettify(s)
 }
 
-func (s AddProductInfo) GoString() string {
+func (s IotxProductResponse) GoString() string {
 	return s.String()
 }
 
-func (s *AddProductInfo) SetProductName(v string) *AddProductInfo {
+func (s *IotxProductResponse) SetId(v string) *IotxProductResponse {
+	s.Id = &v
+	return s
+}
+
+func (s *IotxProductResponse) SetTenantId(v string) *IotxProductResponse {
+	s.TenantId = &v
+	return s
+}
+
+func (s *IotxProductResponse) SetIndustryId(v string) *IotxProductResponse {
+	s.IndustryId = &v
+	return s
+}
+
+func (s *IotxProductResponse) SetIndustryName(v string) *IotxProductResponse {
+	s.IndustryName = &v
+	return s
+}
+
+func (s *IotxProductResponse) SetCategoryId(v string) *IotxProductResponse {
+	s.CategoryId = &v
+	return s
+}
+
+func (s *IotxProductResponse) SetCategoryName(v string) *IotxProductResponse {
+	s.CategoryName = &v
+	return s
+}
+
+func (s *IotxProductResponse) SetTrustProductKey(v string) *IotxProductResponse {
+	s.TrustProductKey = &v
+	return s
+}
+
+func (s *IotxProductResponse) SetProductKey(v string) *IotxProductResponse {
+	s.ProductKey = &v
+	return s
+}
+
+func (s *IotxProductResponse) SetProductName(v string) *IotxProductResponse {
 	s.ProductName = &v
 	return s
 }
 
-func (s *AddProductInfo) SetProductCode(v string) *AddProductInfo {
-	s.ProductCode = &v
+func (s *IotxProductResponse) SetProductSecret(v string) *IotxProductResponse {
+	s.ProductSecret = &v
 	return s
 }
 
-func (s *AddProductInfo) SetRemark(v string) *AddProductInfo {
-	s.Remark = &v
+func (s *IotxProductResponse) SetNodeType(v int64) *IotxProductResponse {
+	s.NodeType = &v
 	return s
 }
 
-// 设备实体请求结构体，应用在注册/更新API的ThingsExtraParams
-type DeviceRegisterReqModel struct {
-	// 保留
-	// example:
-	//
-	// 0
-	AuthLevel *int64 `json:"auth_level,omitempty" xml:"auth_level,omitempty"`
-	// 设备属性字符串，
-	// 阿里云设备类型，填入三元组
-	// example:
-	//
-	// "设备属性"
-	DeviceAttribute *string `json:"device_attribute,omitempty" xml:"device_attribute,omitempty"`
-	// 物模型ID，参考其他文档
-	// example:
-	//
-	// "模型ID"
-	DeviceModelId *string `json:"device_model_id,omitempty" xml:"device_model_id,omitempty"`
-	// 可传入自定义信息
-	// example:
-	//
-	// "自定义字段"
-	OtherInfo *string `json:"other_info,omitempty" xml:"other_info,omitempty"`
-	// 业务自定义，可以传入该实体的w3c服务节点
-	// example:
-	//
-	// "服务端点"
-	ServiceEndpoint *string `json:"service_endpoint,omitempty" xml:"service_endpoint,omitempty"`
-	// 保留，默认
-	//     STATUS_REGISTERED(3)
-	// example:
-	//
-	// null
-	Status *string `json:"status,omitempty" xml:"status,omitempty"`
-}
-
-func (s DeviceRegisterReqModel) String() string {
-	return tea.Prettify(s)
-}
-
-func (s DeviceRegisterReqModel) GoString() string {
-	return s.String()
-}
-
-func (s *DeviceRegisterReqModel) SetAuthLevel(v int64) *DeviceRegisterReqModel {
-	s.AuthLevel = &v
+func (s *IotxProductResponse) SetNetType(v int64) *IotxProductResponse {
+	s.NetType = &v
 	return s
 }
 
-func (s *DeviceRegisterReqModel) SetDeviceAttribute(v string) *DeviceRegisterReqModel {
-	s.DeviceAttribute = &v
+func (s *IotxProductResponse) SetProductProtocol(v string) *IotxProductResponse {
+	s.ProductProtocol = &v
 	return s
 }
 
-func (s *DeviceRegisterReqModel) SetDeviceModelId(v string) *DeviceRegisterReqModel {
-	s.DeviceModelId = &v
+func (s *IotxProductResponse) SetProtocolType(v string) *IotxProductResponse {
+	s.ProtocolType = &v
 	return s
 }
 
-func (s *DeviceRegisterReqModel) SetOtherInfo(v string) *DeviceRegisterReqModel {
-	s.OtherInfo = &v
+func (s *IotxProductResponse) SetDataFormat(v string) *IotxProductResponse {
+	s.DataFormat = &v
 	return s
 }
 
-func (s *DeviceRegisterReqModel) SetServiceEndpoint(v string) *DeviceRegisterReqModel {
-	s.ServiceEndpoint = &v
+func (s *IotxProductResponse) SetAuthType(v int64) *IotxProductResponse {
+	s.AuthType = &v
 	return s
 }
 
-func (s *DeviceRegisterReqModel) SetStatus(v string) *DeviceRegisterReqModel {
-	s.Status = &v
+func (s *IotxProductResponse) SetValidateType(v int64) *IotxProductResponse {
+	s.ValidateType = &v
 	return s
 }
 
-// 设备远程操作对象
-type DeviceOperateInfo struct {
-	// 蚂蚁链iot平台设备ID
-	// example:
-	//
-	// 213
-	DeviceDid *string `json:"device_did,omitempty" xml:"device_did,omitempty" require:"true"`
-	// 设备签名
-	// example:
-	//
-	// sua8e
-	Signature *string `json:"signature,omitempty" xml:"signature,omitempty" require:"true"`
-}
-
-func (s DeviceOperateInfo) String() string {
-	return tea.Prettify(s)
-}
-
-func (s DeviceOperateInfo) GoString() string {
-	return s.String()
-}
-
-func (s *DeviceOperateInfo) SetDeviceDid(v string) *DeviceOperateInfo {
-	s.DeviceDid = &v
+func (s *IotxProductResponse) SetPublishStatus(v int64) *IotxProductResponse {
+	s.PublishStatus = &v
 	return s
 }
 
-func (s *DeviceOperateInfo) SetSignature(v string) *DeviceOperateInfo {
-	s.Signature = &v
+func (s *IotxProductResponse) SetBizSource(v string) *IotxProductResponse {
+	s.BizSource = &v
+	return s
+}
+
+func (s *IotxProductResponse) SetProductStatus(v int64) *IotxProductResponse {
+	s.ProductStatus = &v
+	return s
+}
+
+func (s *IotxProductResponse) SetCustomerId(v string) *IotxProductResponse {
+	s.CustomerId = &v
+	return s
+}
+
+func (s *IotxProductResponse) SetTrustInstanceId(v string) *IotxProductResponse {
+	s.TrustInstanceId = &v
+	return s
+}
+
+func (s *IotxProductResponse) SetIotPlatform(v int64) *IotxProductResponse {
+	s.IotPlatform = &v
+	return s
+}
+
+func (s *IotxProductResponse) SetDescription(v string) *IotxProductResponse {
+	s.Description = &v
+	return s
+}
+
+func (s *IotxProductResponse) SetThingModel(v string) *IotxProductResponse {
+	s.ThingModel = &v
+	return s
+}
+
+func (s *IotxProductResponse) SetEnableDynReg(v int64) *IotxProductResponse {
+	s.EnableDynReg = &v
+	return s
+}
+
+func (s *IotxProductResponse) SetGmtCreate(v string) *IotxProductResponse {
+	s.GmtCreate = &v
+	return s
+}
+
+func (s *IotxProductResponse) SetGmtModified(v string) *IotxProductResponse {
+	s.GmtModified = &v
+	return s
+}
+
+func (s *IotxProductResponse) SetTenantName(v string) *IotxProductResponse {
+	s.TenantName = &v
 	return s
 }
 
@@ -5521,178 +4656,6 @@ func (s *XrUserTicketDetail) SetXrApps(v string) *XrUserTicketDetail {
 	return s
 }
 
-// 信物链查询实体身份请求结构体
-type DidBaseQueryReq struct {
-	// * "thingId"       原始ID
-	// * "certText"      证书文本
-	// * "certPublicKey"证书公钥
-	// * "didPublicKey" DID公钥
-	// * "didExtension"  DID扩展，设备/企业组织/仓库/空间的解析同thingsExtraParams
-	// * "didUsername"   DID用户名
-	// * "ownerDid"      所有者DID
-	// * "userDid"       使用者DID
-	// * "thingType"     实体类型，设备/企业组织/仓库/空间等
-	// * "thingStatus"   实体状态
-	// * "thingModelId" 实体物模型类型
-	// * "thingAttribute"实体属性
-	// * "thingVersion"  实体版本
-	// * "spacesAttached"关联空间列表
-	// * "thingsAttached"关联实体列表（例：库位关联设备）
-	// * "authLevel"     授权等级
-	// * "thingServiceEndpoint" 服务列表
-	// example:
-	//
-	// ["如下1","如下2"]
-	DataFilter []*string `json:"data_filter,omitempty" xml:"data_filter,omitempty" require:"true" type:"Repeated"`
-	// 是否从链上查询，从链上查询将返回txHash值
-	// example:
-	//
-	// false
-	OnChain *bool `json:"on_chain,omitempty" xml:"on_chain,omitempty" require:"true"`
-	// 需要查询的实体Did列表，同一次查询的Did须为相同类型
-	// example:
-	//
-	// ["did:iot:xxxx","did:iot:yyyyy"]
-	ThingsDidList []*string `json:"things_did_list,omitempty" xml:"things_did_list,omitempty" require:"true" type:"Repeated"`
-}
-
-func (s DidBaseQueryReq) String() string {
-	return tea.Prettify(s)
-}
-
-func (s DidBaseQueryReq) GoString() string {
-	return s.String()
-}
-
-func (s *DidBaseQueryReq) SetDataFilter(v []*string) *DidBaseQueryReq {
-	s.DataFilter = v
-	return s
-}
-
-func (s *DidBaseQueryReq) SetOnChain(v bool) *DidBaseQueryReq {
-	s.OnChain = &v
-	return s
-}
-
-func (s *DidBaseQueryReq) SetThingsDidList(v []*string) *DidBaseQueryReq {
-	s.ThingsDidList = v
-	return s
-}
-
-// 设备信息
-type DeviceInfos struct {
-	// tuid
-	// example:
-	//
-	// ""
-	Tuid *string `json:"tuid,omitempty" xml:"tuid,omitempty"`
-	// 设备状态
-	// example:
-	//
-	// online
-	DeviceStatus *string `json:"device_status,omitempty" xml:"device_status,omitempty"`
-	// ota version
-	// example:
-	//
-	// ""
-	DeviceOtaVersion *string `json:"device_ota_version,omitempty" xml:"device_ota_version,omitempty"`
-}
-
-func (s DeviceInfos) String() string {
-	return tea.Prettify(s)
-}
-
-func (s DeviceInfos) GoString() string {
-	return s.String()
-}
-
-func (s *DeviceInfos) SetTuid(v string) *DeviceInfos {
-	s.Tuid = &v
-	return s
-}
-
-func (s *DeviceInfos) SetDeviceStatus(v string) *DeviceInfos {
-	s.DeviceStatus = &v
-	return s
-}
-
-func (s *DeviceInfos) SetDeviceOtaVersion(v string) *DeviceInfos {
-	s.DeviceOtaVersion = &v
-	return s
-}
-
-// 会话内容
-type AiAgentChatHistoryBO struct {
-	// 客户端ID
-	// example:
-	//
-	// 00:ba:cc
-	ClientId *string `json:"client_id,omitempty" xml:"client_id,omitempty" require:"true"`
-	// 客户端类型
-	// example:
-	//
-	// ESP32
-	ClientType *string `json:"client_type,omitempty" xml:"client_type,omitempty" require:"true"`
-	// 对话内容
-	// example:
-	//
-	// ...对话内容
-	ConversationContent *string `json:"conversation_content,omitempty" xml:"conversation_content,omitempty" require:"true"`
-	// 对话类型
-	// example:
-	//
-	// request
-	ConversationType *string `json:"conversation_type,omitempty" xml:"conversation_type,omitempty" require:"true"`
-	// 会话ID
-	// example:
-	//
-	// 7468486322254688256
-	SessionId *string `json:"session_id,omitempty" xml:"session_id,omitempty" require:"true"`
-	// 对话时间（格式化后的时间）
-	// example:
-	//
-	// 2026-06-24 21:32:59
-	Time *string `json:"time,omitempty" xml:"time,omitempty" require:"true"`
-}
-
-func (s AiAgentChatHistoryBO) String() string {
-	return tea.Prettify(s)
-}
-
-func (s AiAgentChatHistoryBO) GoString() string {
-	return s.String()
-}
-
-func (s *AiAgentChatHistoryBO) SetClientId(v string) *AiAgentChatHistoryBO {
-	s.ClientId = &v
-	return s
-}
-
-func (s *AiAgentChatHistoryBO) SetClientType(v string) *AiAgentChatHistoryBO {
-	s.ClientType = &v
-	return s
-}
-
-func (s *AiAgentChatHistoryBO) SetConversationContent(v string) *AiAgentChatHistoryBO {
-	s.ConversationContent = &v
-	return s
-}
-
-func (s *AiAgentChatHistoryBO) SetConversationType(v string) *AiAgentChatHistoryBO {
-	s.ConversationType = &v
-	return s
-}
-
-func (s *AiAgentChatHistoryBO) SetSessionId(v string) *AiAgentChatHistoryBO {
-	s.SessionId = &v
-	return s
-}
-
-func (s *AiAgentChatHistoryBO) SetTime(v string) *AiAgentChatHistoryBO {
-	s.Time = &v
-	return s
-}
-
 // 商品鉴定返回结果
 type BaiGoodsComparisonResponse struct {
 	// 鉴定结果（REAL：为真   FAKE：为假   UNABLE_IDENTIFY：无法鉴定）
@@ -5735,253 +4698,6 @@ func (s *BaiGoodsComparisonResponse) SetIdentificationCode(v string) *BaiGoodsCo
 	return s
 }
 
-// 租户分页查询结果
-type PermissionedTenantPageResponse struct {
-	// 页数
-	// example:
-	//
-	// 1
-	PageIndex *int64 `json:"page_index,omitempty" xml:"page_index,omitempty" require:"true"`
-	// 页码
-	// example:
-	//
-	// 10
-	PageSize *int64 `json:"page_size,omitempty" xml:"page_size,omitempty" require:"true"`
-	// 总记录数
-	// example:
-	//
-	// 100
-	TotalSize *int64 `json:"total_size,omitempty" xml:"total_size,omitempty" require:"true"`
-	// 总页数
-	// example:
-	//
-	// 10
-	TotalPages *int64 `json:"total_pages,omitempty" xml:"total_pages,omitempty" require:"true"`
-	// 数据
-	// example:
-	//
-	// {...}
-	PageData []*PermissionedTenantModel `json:"page_data,omitempty" xml:"page_data,omitempty" require:"true" type:"Repeated"`
-}
-
-func (s PermissionedTenantPageResponse) String() string {
-	return tea.Prettify(s)
-}
-
-func (s PermissionedTenantPageResponse) GoString() string {
-	return s.String()
-}
-
-func (s *PermissionedTenantPageResponse) SetPageIndex(v int64) *PermissionedTenantPageResponse {
-	s.PageIndex = &v
-	return s
-}
-
-func (s *PermissionedTenantPageResponse) SetPageSize(v int64) *PermissionedTenantPageResponse {
-	s.PageSize = &v
-	return s
-}
-
-func (s *PermissionedTenantPageResponse) SetTotalSize(v int64) *PermissionedTenantPageResponse {
-	s.TotalSize = &v
-	return s
-}
-
-func (s *PermissionedTenantPageResponse) SetTotalPages(v int64) *PermissionedTenantPageResponse {
-	s.TotalPages = &v
-	return s
-}
-
-func (s *PermissionedTenantPageResponse) SetPageData(v []*PermissionedTenantModel) *PermissionedTenantPageResponse {
-	s.PageData = v
-	return s
-}
-
-// 任务信息
-type TaskInfo struct {
-	// 升级计划Id
-	// example:
-	//
-	// 234
-	PlanId *int64 `json:"plan_id,omitempty" xml:"plan_id,omitempty" minimum:"0"`
-	// 刷库计划步骤id
-	// example:
-	//
-	// 234
-	PlanStepId *int64 `json:"plan_step_id,omitempty" xml:"plan_step_id,omitempty" minimum:"0"`
-	// 任务id
-	// example:
-	//
-	// 234
-	TaskId *int64 `json:"task_id,omitempty" xml:"task_id,omitempty" minimum:"0"`
-	// action_id
-	// example:
-	//
-	// 234
-	ActionId *int64 `json:"action_id,omitempty" xml:"action_id,omitempty" minimum:"0"`
-	// 任务类型
-	// example:
-	//
-	// 升级，溯源
-	TaskType *string `json:"task_type,omitempty" xml:"task_type,omitempty" require:"true"`
-}
-
-func (s TaskInfo) String() string {
-	return tea.Prettify(s)
-}
-
-func (s TaskInfo) GoString() string {
-	return s.String()
-}
-
-func (s *TaskInfo) SetPlanId(v int64) *TaskInfo {
-	s.PlanId = &v
-	return s
-}
-
-func (s *TaskInfo) SetPlanStepId(v int64) *TaskInfo {
-	s.PlanStepId = &v
-	return s
-}
-
-func (s *TaskInfo) SetTaskId(v int64) *TaskInfo {
-	s.TaskId = &v
-	return s
-}
-
-func (s *TaskInfo) SetActionId(v int64) *TaskInfo {
-	s.ActionId = &v
-	return s
-}
-
-func (s *TaskInfo) SetTaskType(v string) *TaskInfo {
-	s.TaskType = &v
-	return s
-}
-
-// 商品鉴定返回结果
-type BaiGoodsIdentificationRespData struct {
-	// 鉴定结果
-	// REAL：鉴定为真
-	// FAKE：鉴定为假
-	// UNABLE_IDENTIFY：无法鉴定
-	// example:
-	//
-	// REAL
-	IdentificationResult *string `json:"identification_result,omitempty" xml:"identification_result,omitempty" require:"true"`
-	// 整体鉴定分数
-	// example:
-	//
-	// 0.99
-	Grade *string `json:"grade,omitempty" xml:"grade,omitempty" require:"true"`
-	// 整体鉴定报告描述
-	// example:
-	//
-	// AI鉴定成功
-	Description *string `json:"description,omitempty" xml:"description,omitempty"`
-	// 鉴定点鉴定结果列表
-	PointIdentificationResults []*BaiGoodsPointIdentificationResult `json:"point_identification_results,omitempty" xml:"point_identification_results,omitempty" require:"true" type:"Repeated"`
-	// 鉴定评价
-	// example:
-	//
-	// 完全同一，趋于同一，和不同一
-	AppraiseMessage *string `json:"appraise_message,omitempty" xml:"appraise_message,omitempty"`
-	// 用户自定义字符串，系统不做处理，会在响应体中带回
-	// example:
-	//
-	// state
-	OutState *string `json:"out_state,omitempty" xml:"out_state,omitempty"`
-}
-
-func (s BaiGoodsIdentificationRespData) String() string {
-	return tea.Prettify(s)
-}
-
-func (s BaiGoodsIdentificationRespData) GoString() string {
-	return s.String()
-}
-
-func (s *BaiGoodsIdentificationRespData) SetIdentificationResult(v string) *BaiGoodsIdentificationRespData {
-	s.IdentificationResult = &v
-	return s
-}
-
-func (s *BaiGoodsIdentificationRespData) SetGrade(v string) *BaiGoodsIdentificationRespData {
-	s.Grade = &v
-	return s
-}
-
-func (s *BaiGoodsIdentificationRespData) SetDescription(v string) *BaiGoodsIdentificationRespData {
-	s.Description = &v
-	return s
-}
-
-func (s *BaiGoodsIdentificationRespData) SetPointIdentificationResults(v []*BaiGoodsPointIdentificationResult) *BaiGoodsIdentificationRespData {
-	s.PointIdentificationResults = v
-	return s
-}
-
-func (s *BaiGoodsIdentificationRespData) SetAppraiseMessage(v string) *BaiGoodsIdentificationRespData {
-	s.AppraiseMessage = &v
-	return s
-}
-
-func (s *BaiGoodsIdentificationRespData) SetOutState(v string) *BaiGoodsIdentificationRespData {
-	s.OutState = &v
-	return s
-}
-
-// iot平台用户信息
-type IotBasicUserInfo struct {
-	// 租户ID
-	// example:
-	//
-	// DWWS2D
-	Tenant *string `json:"tenant,omitempty" xml:"tenant,omitempty" require:"true"`
-	// 金融云用户Id
-	//
-	// example:
-	//
-	// 12321321
-	CloudUserId *string `json:"cloud_user_id,omitempty" xml:"cloud_user_id,omitempty" require:"true"`
-	// 金融云平台的登录名
-	//
-	// example:
-	//
-	// xxx@alitest.com
-	LoginName *string `json:"login_name,omitempty" xml:"login_name,omitempty" require:"true"`
-	// 权限集合
-	PermissionList []*IotBasicRolePermission `json:"permission_list,omitempty" xml:"permission_list,omitempty" require:"true" type:"Repeated"`
-}
-
-func (s IotBasicUserInfo) String() string {
-	return tea.Prettify(s)
-}
-
-func (s IotBasicUserInfo) GoString() string {
-	return s.String()
-}
-
-func (s *IotBasicUserInfo) SetTenant(v string) *IotBasicUserInfo {
-	s.Tenant = &v
-	return s
-}
-
-func (s *IotBasicUserInfo) SetCloudUserId(v string) *IotBasicUserInfo {
-	s.CloudUserId = &v
-	return s
-}
-
-func (s *IotBasicUserInfo) SetLoginName(v string) *IotBasicUserInfo {
-	s.LoginName = &v
-	return s
-}
-
-func (s *IotBasicUserInfo) SetPermissionList(v []*IotBasicRolePermission) *IotBasicUserInfo {
-	s.PermissionList = v
-	return s
-}
-
 // 发行数据包
 type DistributeDataPackage struct {
 	// 原始数据
@@ -6015,128 +4731,6 @@ func (s *DistributeDataPackage) SetDistributeDeviceId(v string) *DistributeDataP
 
 func (s *DistributeDataPackage) SetPackageTime(v int64) *DistributeDataPackage {
 	s.PackageTime = &v
-	return s
-}
-
-// 设备物模型行程统计信息
-type DeviceTripProperties struct {
-	// 上报时间
-	// example:
-	//
-	// 1765794345159
-	ReportTime *string `json:"report_time,omitempty" xml:"report_time,omitempty" require:"true"`
-	// 1
-	// example:
-	//
-	// 1
-	PowerStatus *string `json:"power_status,omitempty" xml:"power_status,omitempty" require:"true"`
-	// 1
-	// example:
-	//
-	// 1
-	EnduranceMileage *string `json:"endurance_mileage,omitempty" xml:"endurance_mileage,omitempty" require:"true"`
-	// 1
-	// example:
-	//
-	// 1
-	TotalMileage *string `json:"total_mileage,omitempty" xml:"total_mileage,omitempty" require:"true"`
-	// 1
-	// example:
-	//
-	// 1
-	Speed *string `json:"speed,omitempty" xml:"speed,omitempty" require:"true"`
-	// 1
-	// example:
-	//
-	// 1
-	Coord *string `json:"coord,omitempty" xml:"coord,omitempty" require:"true"`
-	// 1
-	// example:
-	//
-	// 1
-	Location *string `json:"location,omitempty" xml:"location,omitempty" require:"true"`
-	// 1
-	// example:
-	//
-	// 1
-	Rein *string `json:"rein,omitempty" xml:"rein,omitempty" require:"true"`
-	// 1
-	// example:
-	//
-	// 1
-	SpdBd *string `json:"spd_bd,omitempty" xml:"spd_bd,omitempty" require:"true"`
-	// 1
-	// example:
-	//
-	// 1
-	Cs *string `json:"cs,omitempty" xml:"cs,omitempty" require:"true"`
-	// 1
-	// example:
-	//
-	// 1
-	Eqst *string `json:"eqst,omitempty" xml:"eqst,omitempty" require:"true"`
-}
-
-func (s DeviceTripProperties) String() string {
-	return tea.Prettify(s)
-}
-
-func (s DeviceTripProperties) GoString() string {
-	return s.String()
-}
-
-func (s *DeviceTripProperties) SetReportTime(v string) *DeviceTripProperties {
-	s.ReportTime = &v
-	return s
-}
-
-func (s *DeviceTripProperties) SetPowerStatus(v string) *DeviceTripProperties {
-	s.PowerStatus = &v
-	return s
-}
-
-func (s *DeviceTripProperties) SetEnduranceMileage(v string) *DeviceTripProperties {
-	s.EnduranceMileage = &v
-	return s
-}
-
-func (s *DeviceTripProperties) SetTotalMileage(v string) *DeviceTripProperties {
-	s.TotalMileage = &v
-	return s
-}
-
-func (s *DeviceTripProperties) SetSpeed(v string) *DeviceTripProperties {
-	s.Speed = &v
-	return s
-}
-
-func (s *DeviceTripProperties) SetCoord(v string) *DeviceTripProperties {
-	s.Coord = &v
-	return s
-}
-
-func (s *DeviceTripProperties) SetLocation(v string) *DeviceTripProperties {
-	s.Location = &v
-	return s
-}
-
-func (s *DeviceTripProperties) SetRein(v string) *DeviceTripProperties {
-	s.Rein = &v
-	return s
-}
-
-func (s *DeviceTripProperties) SetSpdBd(v string) *DeviceTripProperties {
-	s.SpdBd = &v
-	return s
-}
-
-func (s *DeviceTripProperties) SetCs(v string) *DeviceTripProperties {
-	s.Cs = &v
-	return s
-}
-
-func (s *DeviceTripProperties) SetEqst(v string) *DeviceTripProperties {
-	s.Eqst = &v
 	return s
 }
 
@@ -6364,261 +4958,235 @@ func (s *BatchJobDetail) SetOperator(v string) *BatchJobDetail {
 	return s
 }
 
-// 行程详情
-type TripDetail struct {
-	// 行程id
+// 统一物联OTA固件信息响应
+type IotxOTAFirmwareResponse struct {
+	// 主键id
 	// example:
 	//
-	// T20251210140000001
-	TripId *string `json:"trip_id,omitempty" xml:"trip_id,omitempty" require:"true"`
-	// 开始时间
+	// 632909854293495808
+	Id *string `json:"id,omitempty" xml:"id,omitempty"`
+	// 创建时间
 	// example:
 	//
-	// 1765794345159
-	StartTime *int64 `json:"start_time,omitempty" xml:"start_time,omitempty" require:"true"`
-	// 结束时间
+	// 1783934538000
+	GmtCreate *string `json:"gmt_create,omitempty" xml:"gmt_create,omitempty" pattern:"\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}([Z]|([\\.]\\d{1,9})?[\\+]\\d{2}[\\:]?\\d{2})"`
+	// 更新时间
 	// example:
 	//
-	// 1765794345159
-	EndTime *int64 `json:"end_time,omitempty" xml:"end_time,omitempty" require:"true"`
-	// 行驶里程
-	// example:
-	//
-	// 36.9
-	Mileage *string `json:"mileage,omitempty" xml:"mileage,omitempty" require:"true"`
-	// 单次用时
-	// example:
-	//
-	// "duration":{ "value":"79", "unit":"h" },
-	Duration *TripDuration `json:"duration,omitempty" xml:"duration,omitempty" require:"true"`
-	// 最高速度
-	// example:
-	//
-	// 86
-	MaxSpeed *string `json:"max_speed,omitempty" xml:"max_speed,omitempty" require:"true"`
-	// 平均速度
-	// example:
-	//
-	// 32
-	AvgSpeed *string `json:"avg_speed,omitempty" xml:"avg_speed,omitempty" require:"true"`
-	// 开始地址
-	// example:
-	//
-	// 上海市浦东新区张江高科技园区博云路
-	FirstAddress *string `json:"first_address,omitempty" xml:"first_address,omitempty" require:"true"`
-	// 结束地址
-	// example:
-	//
-	// 上海市浦东新区张江高科技园区博云路
-	LastAddress *string `json:"last_address,omitempty" xml:"last_address,omitempty" require:"true"`
-	// 最开始定位时间
-	// example:
-	//
-	// 1733841605000
-	FirstLocationTime *int64 `json:"first_location_time,omitempty" xml:"first_location_time,omitempty" require:"true"`
-	// 最后结束定位时间
-	// example:
-	//
-	// 1733845195000
-	LastLocationTime *int64 `json:"last_location_time,omitempty" xml:"last_location_time,omitempty" require:"true"`
-}
-
-func (s TripDetail) String() string {
-	return tea.Prettify(s)
-}
-
-func (s TripDetail) GoString() string {
-	return s.String()
-}
-
-func (s *TripDetail) SetTripId(v string) *TripDetail {
-	s.TripId = &v
-	return s
-}
-
-func (s *TripDetail) SetStartTime(v int64) *TripDetail {
-	s.StartTime = &v
-	return s
-}
-
-func (s *TripDetail) SetEndTime(v int64) *TripDetail {
-	s.EndTime = &v
-	return s
-}
-
-func (s *TripDetail) SetMileage(v string) *TripDetail {
-	s.Mileage = &v
-	return s
-}
-
-func (s *TripDetail) SetDuration(v *TripDuration) *TripDetail {
-	s.Duration = v
-	return s
-}
-
-func (s *TripDetail) SetMaxSpeed(v string) *TripDetail {
-	s.MaxSpeed = &v
-	return s
-}
-
-func (s *TripDetail) SetAvgSpeed(v string) *TripDetail {
-	s.AvgSpeed = &v
-	return s
-}
-
-func (s *TripDetail) SetFirstAddress(v string) *TripDetail {
-	s.FirstAddress = &v
-	return s
-}
-
-func (s *TripDetail) SetLastAddress(v string) *TripDetail {
-	s.LastAddress = &v
-	return s
-}
-
-func (s *TripDetail) SetFirstLocationTime(v int64) *TripDetail {
-	s.FirstLocationTime = &v
-	return s
-}
-
-func (s *TripDetail) SetLastLocationTime(v int64) *TripDetail {
-	s.LastLocationTime = &v
-	return s
-}
-
-// 通行证批量创建失败列表
-type XrTicketPoolFailList struct {
-	// 券名称
-	// example:
-	//
-	// 券名称
-	XrTicketPoolName *string `json:"xr_ticket_pool_name,omitempty" xml:"xr_ticket_pool_name,omitempty" require:"true"`
-	// 资源id
-	// example:
-	//
-	// 资源id
-	ResourceId *string `json:"resource_id,omitempty" xml:"resource_id,omitempty" require:"true"`
-	// 错误码
-	// example:
-	//
-	// ok
-	ErrorCode *string `json:"error_code,omitempty" xml:"error_code,omitempty" require:"true"`
+	// 1783934538000
+	GmtModified *string `json:"gmt_modified,omitempty" xml:"gmt_modified,omitempty" pattern:"\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}([Z]|([\\.]\\d{1,9})?[\\+]\\d{2}[\\:]?\\d{2})"`
 	// 租户id
 	// example:
 	//
-	// 租户id
-	TenantId *string `json:"tenant_id,omitempty" xml:"tenant_id,omitempty" require:"true"`
-	// 错误信息
+	// POPVPRVV
+	TenantId *string `json:"tenant_id,omitempty" xml:"tenant_id,omitempty"`
+	// 可信物联唯一产品标识
 	// example:
 	//
-	// 错误信息
-	ErrorMsg *string `json:"error_msg,omitempty" xml:"error_msg,omitempty" require:"true"`
-	// 核销类型
+	// FuPsO4bwFbyLSrQIiL
+	TrustProductKey *string `json:"trust_product_key,omitempty" xml:"trust_product_key,omitempty"`
+	// 产品名称
 	// example:
 	//
-	// XR_DEVICE
-	XrVerificationType *string `json:"xr_verification_type,omitempty" xml:"xr_verification_type,omitempty" require:"true"`
+	// 产品名称
+	ProductName *string `json:"product_name,omitempty" xml:"product_name,omitempty"`
+	// 固件包id
+	// example:
+	//
+	// kzDuv4OzIInE0VH5z2x5030100
+	FirmwareId *string `json:"firmware_id,omitempty" xml:"firmware_id,omitempty"`
+	// OTA升级包名称
+	// example:
+	//
+	// OTA升级包名称
+	FirmwareName *string `json:"firmware_name,omitempty" xml:"firmware_name,omitempty"`
+	// 固件包URL
+	// example:
+	//
+	// two_wheel_car/ota/GdzHGreIr4yBhJYHEg/jf_V1.0.65_hws-26-04-23_636999bb.bin
+	FirmwareUrl *string `json:"firmware_url,omitempty" xml:"firmware_url,omitempty"`
+	// 当前OTA升级包版本号
+	// example:
+	//
+	// 1.0.0
+	DestVersion *string `json:"dest_version,omitempty" xml:"dest_version,omitempty"`
+	// OTA升级包内容的签名值
+	// example:
+	//
+	// -
+	FirmwareSign *string `json:"firmware_sign,omitempty" xml:"firmware_sign,omitempty"`
+	// 升级包签名方法
+	// example:
+	//
+	// MD5
+	SignMethod *string `json:"sign_method,omitempty" xml:"sign_method,omitempty"`
+	// OTA升级包描述信息
+	// example:
+	//
+	// OTA升级包描述信息
+	FirmwareDesc *string `json:"firmware_desc,omitempty" xml:"firmware_desc,omitempty"`
+	// 升级包文件大小
+	// example:
+	//
+	// 2204591
+	FirmwareSize *int64 `json:"firmware_size,omitempty" xml:"firmware_size,omitempty"`
+	// 升级包类型  0：整包升级包, 1: 差分升级包
+	// example:
+	//
+	// 0
+	FirmwareType *int64 `json:"firmware_type,omitempty" xml:"firmware_type,omitempty"`
+	// 待升级OTA模块版本号
+	// example:
+	//
+	// 1.0.0
+	SrcVersion *string `json:"src_version,omitempty" xml:"src_version,omitempty"`
+	// OTA模块名称
+	// example:
+	//
+	// CAT1_OTA
+	ModuleName *string `json:"module_name,omitempty" xml:"module_name,omitempty"`
+	// 是否需要在创建批量升级任务前通过升级包验证：0-不需要；1-需要
+	// example:
+	//
+	// 0
+	NeedToVerify *int64 `json:"need_to_verify,omitempty" xml:"need_to_verify,omitempty"`
+	// 推送给设备的自定义信息
+	// example:
+	//
+	// 推送给设备的自定义信息
+	Udi *string `json:"udi,omitempty" xml:"udi,omitempty"`
+	// 升级包验证状态：0-未验证、1-已验证
+	// example:
+	//
+	// 1
+	VerifyStatus *int64 `json:"verify_status,omitempty" xml:"verify_status,omitempty"`
+	// 发布状态：0-未发布、1-已发布
+	// example:
+	//
+	// 1
+	PublishStatus *int64 `json:"publish_status,omitempty" xml:"publish_status,omitempty"`
+	// 固件包支持通道列表
+	// example:
+	//
+	// undefined
+	SupportChannels []*string `json:"support_channels,omitempty" xml:"support_channels,omitempty" type:"Repeated"`
 }
 
-func (s XrTicketPoolFailList) String() string {
+func (s IotxOTAFirmwareResponse) String() string {
 	return tea.Prettify(s)
 }
 
-func (s XrTicketPoolFailList) GoString() string {
+func (s IotxOTAFirmwareResponse) GoString() string {
 	return s.String()
 }
 
-func (s *XrTicketPoolFailList) SetXrTicketPoolName(v string) *XrTicketPoolFailList {
-	s.XrTicketPoolName = &v
+func (s *IotxOTAFirmwareResponse) SetId(v string) *IotxOTAFirmwareResponse {
+	s.Id = &v
 	return s
 }
 
-func (s *XrTicketPoolFailList) SetResourceId(v string) *XrTicketPoolFailList {
-	s.ResourceId = &v
+func (s *IotxOTAFirmwareResponse) SetGmtCreate(v string) *IotxOTAFirmwareResponse {
+	s.GmtCreate = &v
 	return s
 }
 
-func (s *XrTicketPoolFailList) SetErrorCode(v string) *XrTicketPoolFailList {
-	s.ErrorCode = &v
+func (s *IotxOTAFirmwareResponse) SetGmtModified(v string) *IotxOTAFirmwareResponse {
+	s.GmtModified = &v
 	return s
 }
 
-func (s *XrTicketPoolFailList) SetTenantId(v string) *XrTicketPoolFailList {
+func (s *IotxOTAFirmwareResponse) SetTenantId(v string) *IotxOTAFirmwareResponse {
 	s.TenantId = &v
 	return s
 }
 
-func (s *XrTicketPoolFailList) SetErrorMsg(v string) *XrTicketPoolFailList {
-	s.ErrorMsg = &v
+func (s *IotxOTAFirmwareResponse) SetTrustProductKey(v string) *IotxOTAFirmwareResponse {
+	s.TrustProductKey = &v
 	return s
 }
 
-func (s *XrTicketPoolFailList) SetXrVerificationType(v string) *XrTicketPoolFailList {
-	s.XrVerificationType = &v
+func (s *IotxOTAFirmwareResponse) SetProductName(v string) *IotxOTAFirmwareResponse {
+	s.ProductName = &v
 	return s
 }
 
-// BAI提供的OCR接口返回值
-type BaiOcrResponse struct {
-	// 返回的结果体
-	// example:
-	//
-	// {"backResult":{"issue":"XXXX","endDate":"20231010","startDate":"20131010"}}
-	Data *string `json:"data,omitempty" xml:"data,omitempty" require:"true"`
-}
-
-func (s BaiOcrResponse) String() string {
-	return tea.Prettify(s)
-}
-
-func (s BaiOcrResponse) GoString() string {
-	return s.String()
-}
-
-func (s *BaiOcrResponse) SetData(v string) *BaiOcrResponse {
-	s.Data = &v
+func (s *IotxOTAFirmwareResponse) SetFirmwareId(v string) *IotxOTAFirmwareResponse {
+	s.FirmwareId = &v
 	return s
 }
 
-// 获取设备授权返回信息
-type EmpowerDeviceInfo struct {
-	// 设备ID
-	// example:
-	//
-	// 00000001
-	DeviceId *string `json:"device_id,omitempty" xml:"device_id,omitempty" require:"true"`
-	// ACCEPTED(接受)/REVOKED(撤销)
-	// example:
-	//
-	// ACCEPTED
-	AuthStatus *string `json:"auth_status,omitempty" xml:"auth_status,omitempty" require:"true"`
-	// 移除授权时间，毫秒级时间戳
-	// example:
-	//
-	// 1781690409
-	RemoveTime *int64 `json:"remove_time,omitempty" xml:"remove_time,omitempty"`
-}
-
-func (s EmpowerDeviceInfo) String() string {
-	return tea.Prettify(s)
-}
-
-func (s EmpowerDeviceInfo) GoString() string {
-	return s.String()
-}
-
-func (s *EmpowerDeviceInfo) SetDeviceId(v string) *EmpowerDeviceInfo {
-	s.DeviceId = &v
+func (s *IotxOTAFirmwareResponse) SetFirmwareName(v string) *IotxOTAFirmwareResponse {
+	s.FirmwareName = &v
 	return s
 }
 
-func (s *EmpowerDeviceInfo) SetAuthStatus(v string) *EmpowerDeviceInfo {
-	s.AuthStatus = &v
+func (s *IotxOTAFirmwareResponse) SetFirmwareUrl(v string) *IotxOTAFirmwareResponse {
+	s.FirmwareUrl = &v
 	return s
 }
 
-func (s *EmpowerDeviceInfo) SetRemoveTime(v int64) *EmpowerDeviceInfo {
-	s.RemoveTime = &v
+func (s *IotxOTAFirmwareResponse) SetDestVersion(v string) *IotxOTAFirmwareResponse {
+	s.DestVersion = &v
+	return s
+}
+
+func (s *IotxOTAFirmwareResponse) SetFirmwareSign(v string) *IotxOTAFirmwareResponse {
+	s.FirmwareSign = &v
+	return s
+}
+
+func (s *IotxOTAFirmwareResponse) SetSignMethod(v string) *IotxOTAFirmwareResponse {
+	s.SignMethod = &v
+	return s
+}
+
+func (s *IotxOTAFirmwareResponse) SetFirmwareDesc(v string) *IotxOTAFirmwareResponse {
+	s.FirmwareDesc = &v
+	return s
+}
+
+func (s *IotxOTAFirmwareResponse) SetFirmwareSize(v int64) *IotxOTAFirmwareResponse {
+	s.FirmwareSize = &v
+	return s
+}
+
+func (s *IotxOTAFirmwareResponse) SetFirmwareType(v int64) *IotxOTAFirmwareResponse {
+	s.FirmwareType = &v
+	return s
+}
+
+func (s *IotxOTAFirmwareResponse) SetSrcVersion(v string) *IotxOTAFirmwareResponse {
+	s.SrcVersion = &v
+	return s
+}
+
+func (s *IotxOTAFirmwareResponse) SetModuleName(v string) *IotxOTAFirmwareResponse {
+	s.ModuleName = &v
+	return s
+}
+
+func (s *IotxOTAFirmwareResponse) SetNeedToVerify(v int64) *IotxOTAFirmwareResponse {
+	s.NeedToVerify = &v
+	return s
+}
+
+func (s *IotxOTAFirmwareResponse) SetUdi(v string) *IotxOTAFirmwareResponse {
+	s.Udi = &v
+	return s
+}
+
+func (s *IotxOTAFirmwareResponse) SetVerifyStatus(v int64) *IotxOTAFirmwareResponse {
+	s.VerifyStatus = &v
+	return s
+}
+
+func (s *IotxOTAFirmwareResponse) SetPublishStatus(v int64) *IotxOTAFirmwareResponse {
+	s.PublishStatus = &v
+	return s
+}
+
+func (s *IotxOTAFirmwareResponse) SetSupportChannels(v []*string) *IotxOTAFirmwareResponse {
+	s.SupportChannels = v
 	return s
 }
 
@@ -6736,130 +5304,6 @@ func (s *XrVerificationModelVo) SetType(v string) *XrVerificationModelVo {
 	return s
 }
 
-// 业务状态信息
-type BizStatusInfoOp struct {
-	// 业务状态类型
-	// example:
-	//
-	// SMART_CAR_KEY
-	BizType *string `json:"biz_type,omitempty" xml:"biz_type,omitempty" require:"true"`
-	// 业务状态
-	// example:
-	//
-	// unbound
-	BizStatus *string `json:"biz_status,omitempty" xml:"biz_status,omitempty" require:"true"`
-	// 时间
-	// example:
-	//
-	// 2018-10-10 10:10:00
-	OpTime *string `json:"op_time,omitempty" xml:"op_time,omitempty" require:"true"`
-}
-
-func (s BizStatusInfoOp) String() string {
-	return tea.Prettify(s)
-}
-
-func (s BizStatusInfoOp) GoString() string {
-	return s.String()
-}
-
-func (s *BizStatusInfoOp) SetBizType(v string) *BizStatusInfoOp {
-	s.BizType = &v
-	return s
-}
-
-func (s *BizStatusInfoOp) SetBizStatus(v string) *BizStatusInfoOp {
-	s.BizStatus = &v
-	return s
-}
-
-func (s *BizStatusInfoOp) SetOpTime(v string) *BizStatusInfoOp {
-	s.OpTime = &v
-	return s
-}
-
-// OTA 任务永久取消结果项
-type IotxOtaTaskPermanentCancelResult struct {
-	// 通道
-	// example:
-	//
-	// EKYT_BLE
-	Channel *string `json:"channel,omitempty" xml:"channel,omitempty"`
-	// OTA批次id
-	// example:
-	//
-	// 7d715afe5a374179892078a9a11f16ab
-	JobId *string `json:"job_id,omitempty" xml:"job_id,omitempty"`
-	// OTA任务ID
-	// example:
-	//
-	// 11117c96d904415fa1570736703d3f0c
-	TaskId *string `json:"task_id,omitempty" xml:"task_id,omitempty"`
-	// OTA固件包ID
-	// example:
-	//
-	// 25c3f69752244678a84f663e4d48a56a
-	FirmwareId *string `json:"firmware_id,omitempty" xml:"firmware_id,omitempty" require:"true"`
-	// 是否成功
-	// example:
-	//
-	// true
-	Success *bool `json:"success,omitempty" xml:"success,omitempty"`
-	// 失败错误码
-	// example:
-	//
-	// SYSTEM_ERROR
-	ErrorCode *string `json:"error_code,omitempty" xml:"error_code,omitempty"`
-	// 错误信息
-	// example:
-	//
-	// 错误信息
-	ErrorMessage *string `json:"error_message,omitempty" xml:"error_message,omitempty"`
-}
-
-func (s IotxOtaTaskPermanentCancelResult) String() string {
-	return tea.Prettify(s)
-}
-
-func (s IotxOtaTaskPermanentCancelResult) GoString() string {
-	return s.String()
-}
-
-func (s *IotxOtaTaskPermanentCancelResult) SetChannel(v string) *IotxOtaTaskPermanentCancelResult {
-	s.Channel = &v
-	return s
-}
-
-func (s *IotxOtaTaskPermanentCancelResult) SetJobId(v string) *IotxOtaTaskPermanentCancelResult {
-	s.JobId = &v
-	return s
-}
-
-func (s *IotxOtaTaskPermanentCancelResult) SetTaskId(v string) *IotxOtaTaskPermanentCancelResult {
-	s.TaskId = &v
-	return s
-}
-
-func (s *IotxOtaTaskPermanentCancelResult) SetFirmwareId(v string) *IotxOtaTaskPermanentCancelResult {
-	s.FirmwareId = &v
-	return s
-}
-
-func (s *IotxOtaTaskPermanentCancelResult) SetSuccess(v bool) *IotxOtaTaskPermanentCancelResult {
-	s.Success = &v
-	return s
-}
-
-func (s *IotxOtaTaskPermanentCancelResult) SetErrorCode(v string) *IotxOtaTaskPermanentCancelResult {
-	s.ErrorCode = &v
-	return s
-}
-
-func (s *IotxOtaTaskPermanentCancelResult) SetErrorMessage(v string) *IotxOtaTaskPermanentCancelResult {
-	s.ErrorMessage = &v
-	return s
-}
-
 // 实体身份注册请求结构体
 type ThingsDidRegisterReq struct {
 	// 业务编码，暂时保留，不需传入
@@ -6966,6 +5410,178 @@ func (s *ThingsDidRegisterReq) SetUserDid(v []*string) *ThingsDidRegisterReq {
 	return s
 }
 
+// 统一物联OTA升级任务响应
+type IotxOTATaskResponse struct {
+	// 任务ID
+	// example:
+	//
+	// 785c56486ff14f72aa53c0aff20b1760
+	TaskId *string `json:"task_id,omitempty" xml:"task_id,omitempty"`
+	// 设备名称
+	// example:
+	//
+	// FF9999995FF10202603252F71EC54393
+	DeviceName *string `json:"device_name,omitempty" xml:"device_name,omitempty"`
+	// OTA批次ID
+	// example:
+	//
+	// cef4fc962ee7456985d011d30d3f448f
+	JobId *string `json:"job_id,omitempty" xml:"job_id,omitempty"`
+	// 固件ID
+	// example:
+	//
+	// 84a1f449422946d2a4e87c1c23503f6b
+	FirmwareId *string `json:"firmware_id,omitempty" xml:"firmware_id,omitempty"`
+	// 可信物联唯一产品标识
+	// example:
+	//
+	// A7njznJkBrCCDdeIKl
+	TrustProductKey *string `json:"trust_product_key,omitempty" xml:"trust_product_key,omitempty"`
+	// 产品名称
+	// example:
+	//
+	// 产品名称
+	ProductName *string `json:"product_name,omitempty" xml:"product_name,omitempty"`
+	// 源版本
+	// example:
+	//
+	// -
+	SrcVersion *string `json:"src_version,omitempty" xml:"src_version,omitempty"`
+	// 目标版本
+	// example:
+	//
+	// 1.0.0
+	DestVersion *string `json:"dest_version,omitempty" xml:"dest_version,omitempty"`
+	// 任务状态：CONFIRM, QUEUED, NOTIFIED, IN_PROGRESS, SUCCEEDED, FAILED, CANCELED
+	// example:
+	//
+	// CONFIRM
+	TaskStatus *string `json:"task_status,omitempty" xml:"task_status,omitempty"`
+	// 升级进度
+	// example:
+	//
+	// 10
+	Progress *string `json:"progress,omitempty" xml:"progress,omitempty"`
+	// 任务描述
+	// example:
+	//
+	// 任务描述
+	TaskDesc *string `json:"task_desc,omitempty" xml:"task_desc,omitempty"`
+	// 超时时间
+	// example:
+	//
+	// 10
+	Timeout *string `json:"timeout,omitempty" xml:"timeout,omitempty"`
+	// 创建时间
+	// example:
+	//
+	// 1783948258774
+	UtcCreate *string `json:"utc_create,omitempty" xml:"utc_create,omitempty" pattern:"\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}([Z]|([\\.]\\d{1,9})?[\\+]\\d{2}[\\:]?\\d{2})"`
+	// 修改时间
+	// example:
+	//
+	// 1783948258774
+	UtcModified *string `json:"utc_modified,omitempty" xml:"utc_modified,omitempty" pattern:"\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}([Z]|([\\.]\\d{1,9})?[\\+]\\d{2}[\\:]?\\d{2})"`
+	// 任务当前有效状态；历史任务统一为已失效；
+	// example:
+	//
+	// PERMANENT_CANCELED
+	EffectiveStatus *string `json:"effective_status,omitempty" xml:"effective_status,omitempty"`
+	// 与任务当前有效状态对应的展示描述；历史成功任务不返回描述。
+	// example:
+	//
+	// 与任务当前有效状态对应的展示描述；历史成功任务不返回描述。
+	EffectiveTaskDesc *string `json:"effective_task_desc,omitempty" xml:"effective_task_desc,omitempty"`
+}
+
+func (s IotxOTATaskResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s IotxOTATaskResponse) GoString() string {
+	return s.String()
+}
+
+func (s *IotxOTATaskResponse) SetTaskId(v string) *IotxOTATaskResponse {
+	s.TaskId = &v
+	return s
+}
+
+func (s *IotxOTATaskResponse) SetDeviceName(v string) *IotxOTATaskResponse {
+	s.DeviceName = &v
+	return s
+}
+
+func (s *IotxOTATaskResponse) SetJobId(v string) *IotxOTATaskResponse {
+	s.JobId = &v
+	return s
+}
+
+func (s *IotxOTATaskResponse) SetFirmwareId(v string) *IotxOTATaskResponse {
+	s.FirmwareId = &v
+	return s
+}
+
+func (s *IotxOTATaskResponse) SetTrustProductKey(v string) *IotxOTATaskResponse {
+	s.TrustProductKey = &v
+	return s
+}
+
+func (s *IotxOTATaskResponse) SetProductName(v string) *IotxOTATaskResponse {
+	s.ProductName = &v
+	return s
+}
+
+func (s *IotxOTATaskResponse) SetSrcVersion(v string) *IotxOTATaskResponse {
+	s.SrcVersion = &v
+	return s
+}
+
+func (s *IotxOTATaskResponse) SetDestVersion(v string) *IotxOTATaskResponse {
+	s.DestVersion = &v
+	return s
+}
+
+func (s *IotxOTATaskResponse) SetTaskStatus(v string) *IotxOTATaskResponse {
+	s.TaskStatus = &v
+	return s
+}
+
+func (s *IotxOTATaskResponse) SetProgress(v string) *IotxOTATaskResponse {
+	s.Progress = &v
+	return s
+}
+
+func (s *IotxOTATaskResponse) SetTaskDesc(v string) *IotxOTATaskResponse {
+	s.TaskDesc = &v
+	return s
+}
+
+func (s *IotxOTATaskResponse) SetTimeout(v string) *IotxOTATaskResponse {
+	s.Timeout = &v
+	return s
+}
+
+func (s *IotxOTATaskResponse) SetUtcCreate(v string) *IotxOTATaskResponse {
+	s.UtcCreate = &v
+	return s
+}
+
+func (s *IotxOTATaskResponse) SetUtcModified(v string) *IotxOTATaskResponse {
+	s.UtcModified = &v
+	return s
+}
+
+func (s *IotxOTATaskResponse) SetEffectiveStatus(v string) *IotxOTATaskResponse {
+	s.EffectiveStatus = &v
+	return s
+}
+
+func (s *IotxOTATaskResponse) SetEffectiveTaskDesc(v string) *IotxOTATaskResponse {
+	s.EffectiveTaskDesc = &v
+	return s
+}
+
 // 数据上链失败结果
 type DeviceCollectFail struct {
 	// 上链数据采集ID
@@ -7005,159 +5621,6 @@ func (s *DeviceCollectFail) SetCode(v string) *DeviceCollectFail {
 
 func (s *DeviceCollectFail) SetMessage(v string) *DeviceCollectFail {
 	s.Message = &v
-	return s
-}
-
-// 商品鉴定点鉴定响应体
-type BaiGoodsPointQueryRespData struct {
-	// 识别结果
-	// true：识别到鉴定点
-	// false：未识别到鉴定点
-	// example:
-	//
-	// true
-	Detection *bool `json:"detection,omitempty" xml:"detection,omitempty" require:"true"`
-	// 鉴定结果
-	// REAL：鉴定为真
-	// FAKE：鉴定为假
-	// UNABLE_IDENTIFY：无法鉴定
-	// example:
-	//
-	// REAL
-	IdentificationResult *string `json:"identification_result,omitempty" xml:"identification_result,omitempty" require:"true"`
-}
-
-func (s BaiGoodsPointQueryRespData) String() string {
-	return tea.Prettify(s)
-}
-
-func (s BaiGoodsPointQueryRespData) GoString() string {
-	return s.String()
-}
-
-func (s *BaiGoodsPointQueryRespData) SetDetection(v bool) *BaiGoodsPointQueryRespData {
-	s.Detection = &v
-	return s
-}
-
-func (s *BaiGoodsPointQueryRespData) SetIdentificationResult(v string) *BaiGoodsPointQueryRespData {
-	s.IdentificationResult = &v
-	return s
-}
-
-// 溯源防伪码质检响应数据
-type BaiQrcodeVerifyRespData struct {
-	// 鉴定结果
-	// REAL：通过
-	// UNABLE_IDENTIFY：无法鉴定
-	// example:
-	//
-	// REAL
-	IdentificationResult *string `json:"identification_result,omitempty" xml:"identification_result,omitempty" require:"true"`
-	// 辅助识别结果码
-	// example:
-	//
-	// 700
-	IdentificationCode *string `json:"identification_code,omitempty" xml:"identification_code,omitempty" require:"true"`
-	// 辅助识别信息
-	// example:
-	//
-	// 二维码不符合标准
-	IdentificationMessage *string `json:"identification_message,omitempty" xml:"identification_message,omitempty" require:"true"`
-	// 无法鉴定时的解决方案
-	// example:
-	//
-	// 请重新印刷
-	UnableIdentifySolution *string `json:"unable_identify_solution,omitempty" xml:"unable_identify_solution,omitempty" require:"true"`
-}
-
-func (s BaiQrcodeVerifyRespData) String() string {
-	return tea.Prettify(s)
-}
-
-func (s BaiQrcodeVerifyRespData) GoString() string {
-	return s.String()
-}
-
-func (s *BaiQrcodeVerifyRespData) SetIdentificationResult(v string) *BaiQrcodeVerifyRespData {
-	s.IdentificationResult = &v
-	return s
-}
-
-func (s *BaiQrcodeVerifyRespData) SetIdentificationCode(v string) *BaiQrcodeVerifyRespData {
-	s.IdentificationCode = &v
-	return s
-}
-
-func (s *BaiQrcodeVerifyRespData) SetIdentificationMessage(v string) *BaiQrcodeVerifyRespData {
-	s.IdentificationMessage = &v
-	return s
-}
-
-func (s *BaiQrcodeVerifyRespData) SetUnableIdentifySolution(v string) *BaiQrcodeVerifyRespData {
-	s.UnableIdentifySolution = &v
-	return s
-}
-
-// 多媒体文件
-type JtMedia struct {
-	// 多媒体ID
-	// example:
-	//
-	// 123
-	MediaId *string `json:"media_id,omitempty" xml:"media_id,omitempty" require:"true"`
-	// 文件名称
-	// example:
-	//
-	// xxxx.jpg
-	Name *string `json:"name,omitempty" xml:"name,omitempty" require:"true"`
-	// 可访问的url
-	// example:
-	//
-	// https://oss.com/53/85855.jpg?sign=xxx
-	Url *string `json:"url,omitempty" xml:"url,omitempty" require:"true"`
-	// 上传时间
-	// example:
-	//
-	// 1687859592688
-	GmtCreate *int64 `json:"gmt_create,omitempty" xml:"gmt_create,omitempty" require:"true"`
-	// 多媒体类型枚举：IMAGE 图像；AUDIO 音频；VIDEO视频； UN_KNOW  未知；
-	// example:
-	//
-	// IMAGE
-	MediaType *string `json:"media_type,omitempty" xml:"media_type,omitempty" require:"true"`
-}
-
-func (s JtMedia) String() string {
-	return tea.Prettify(s)
-}
-
-func (s JtMedia) GoString() string {
-	return s.String()
-}
-
-func (s *JtMedia) SetMediaId(v string) *JtMedia {
-	s.MediaId = &v
-	return s
-}
-
-func (s *JtMedia) SetName(v string) *JtMedia {
-	s.Name = &v
-	return s
-}
-
-func (s *JtMedia) SetUrl(v string) *JtMedia {
-	s.Url = &v
-	return s
-}
-
-func (s *JtMedia) SetGmtCreate(v int64) *JtMedia {
-	s.GmtCreate = &v
-	return s
-}
-
-func (s *JtMedia) SetMediaType(v string) *JtMedia {
-	s.MediaType = &v
 	return s
 }
 
@@ -7210,110 +5673,6 @@ func (s *TripStatistics) SetTotalCount(v int64) *TripStatistics {
 
 func (s *TripStatistics) SetPeriodCode(v int64) *TripStatistics {
 	s.PeriodCode = &v
-	return s
-}
-
-// 商品鉴定点检测接口响应数据
-type BaiGoodsPointCheckRespData struct {
-	// 图片是否有效，无效则需要提示重拍
-	// example:
-	//
-	// true, false
-	Valid *bool `json:"valid,omitempty" xml:"valid,omitempty" require:"true"`
-}
-
-func (s BaiGoodsPointCheckRespData) String() string {
-	return tea.Prettify(s)
-}
-
-func (s BaiGoodsPointCheckRespData) GoString() string {
-	return s.String()
-}
-
-func (s *BaiGoodsPointCheckRespData) SetValid(v bool) *BaiGoodsPointCheckRespData {
-	s.Valid = &v
-	return s
-}
-
-// 批量定时任务详情
-type TaskDetail struct {
-	// 批次id
-	// example:
-	//
-	// ""
-	BatchId *string `json:"batch_id,omitempty" xml:"batch_id,omitempty"`
-	// tuid
-	// example:
-	//
-	// ""
-	Tuid *string `json:"tuid,omitempty" xml:"tuid,omitempty"`
-	// device_name
-	// example:
-	//
-	// ""
-	DeviceName *string `json:"device_name,omitempty" xml:"device_name,omitempty"`
-	// 状态
-	// example:
-	//
-	// ""
-	Status *string `json:"status,omitempty" xml:"status,omitempty"`
-	// 调用时间
-	// example:
-	//
-	// 1765794345159
-	InvokeTime *int64 `json:"invoke_time,omitempty" xml:"invoke_time,omitempty"`
-	// 错误信息
-	// example:
-	//
-	// ""
-	ErrorMsg *string `json:"error_msg,omitempty" xml:"error_msg,omitempty"`
-	// 重试次数
-	// example:
-	//
-	// 1
-	RetryCount *int64 `json:"retry_count,omitempty" xml:"retry_count,omitempty"`
-}
-
-func (s TaskDetail) String() string {
-	return tea.Prettify(s)
-}
-
-func (s TaskDetail) GoString() string {
-	return s.String()
-}
-
-func (s *TaskDetail) SetBatchId(v string) *TaskDetail {
-	s.BatchId = &v
-	return s
-}
-
-func (s *TaskDetail) SetTuid(v string) *TaskDetail {
-	s.Tuid = &v
-	return s
-}
-
-func (s *TaskDetail) SetDeviceName(v string) *TaskDetail {
-	s.DeviceName = &v
-	return s
-}
-
-func (s *TaskDetail) SetStatus(v string) *TaskDetail {
-	s.Status = &v
-	return s
-}
-
-func (s *TaskDetail) SetInvokeTime(v int64) *TaskDetail {
-	s.InvokeTime = &v
-	return s
-}
-
-func (s *TaskDetail) SetErrorMsg(v string) *TaskDetail {
-	s.ErrorMsg = &v
-	return s
-}
-
-func (s *TaskDetail) SetRetryCount(v int64) *TaskDetail {
-	s.RetryCount = &v
 	return s
 }
 
@@ -7442,222 +5801,6 @@ func (s *DataVerifyFailureDataPageResponse) SetTotalPages(v int64) *DataVerifyFa
 
 func (s *DataVerifyFailureDataPageResponse) SetPageData(v []*DataVerifyFailureData) *DataVerifyFailureDataPageResponse {
 	s.PageData = v
-	return s
-}
-
-// TSM CommonCmd
-type TsmCommonCmd struct {
-	// private byte cla;
-	// example:
-	//
-	// 00
-	Cla *int64 `json:"cla,omitempty" xml:"cla,omitempty" require:"true"`
-	//  host challenge data.
-	// example:
-	//
-	// [0,0]
-	Data []*int64 `json:"data,omitempty" xml:"data,omitempty" require:"true" type:"Repeated"`
-	// private byte ins;
-	// example:
-	//
-	// 00
-	Ins *int64 `json:"ins,omitempty" xml:"ins,omitempty" require:"true"`
-	//  private byte lc;
-	// example:
-	//
-	// lc
-	Lc *int64 `json:"lc,omitempty" xml:"lc,omitempty" require:"true"`
-	// private byte le = (byte) 0x00;
-	// example:
-	//
-	// 0
-	Le *int64 `json:"le,omitempty" xml:"le,omitempty"`
-	// private Boolean needSecurityHandle = Boolean.TRUE;
-	// example:
-	//
-	// true, false
-	NeedSecurityHandle *bool `json:"need_security_handle,omitempty" xml:"need_security_handle,omitempty"`
-	// private byte p1;
-	// example:
-	//
-	// 00
-	P1 *int64 `json:"p1,omitempty" xml:"p1,omitempty" require:"true"`
-	// private byte p2 = (byte) 0x00;
-	// example:
-	//
-	// 00
-	P2 *int64 `json:"p2,omitempty" xml:"p2,omitempty" require:"true"`
-}
-
-func (s TsmCommonCmd) String() string {
-	return tea.Prettify(s)
-}
-
-func (s TsmCommonCmd) GoString() string {
-	return s.String()
-}
-
-func (s *TsmCommonCmd) SetCla(v int64) *TsmCommonCmd {
-	s.Cla = &v
-	return s
-}
-
-func (s *TsmCommonCmd) SetData(v []*int64) *TsmCommonCmd {
-	s.Data = v
-	return s
-}
-
-func (s *TsmCommonCmd) SetIns(v int64) *TsmCommonCmd {
-	s.Ins = &v
-	return s
-}
-
-func (s *TsmCommonCmd) SetLc(v int64) *TsmCommonCmd {
-	s.Lc = &v
-	return s
-}
-
-func (s *TsmCommonCmd) SetLe(v int64) *TsmCommonCmd {
-	s.Le = &v
-	return s
-}
-
-func (s *TsmCommonCmd) SetNeedSecurityHandle(v bool) *TsmCommonCmd {
-	s.NeedSecurityHandle = &v
-	return s
-}
-
-func (s *TsmCommonCmd) SetP1(v int64) *TsmCommonCmd {
-	s.P1 = &v
-	return s
-}
-
-func (s *TsmCommonCmd) SetP2(v int64) *TsmCommonCmd {
-	s.P2 = &v
-	return s
-}
-
-// xr通行证批量创建请求
-type XrTicketPoolBatchReq struct {
-	// 资源id
-	// example:
-	//
-	// 资源id
-	ResourceId *string `json:"resource_id,omitempty" xml:"resource_id,omitempty" require:"true"`
-	// 通行证有效期
-	// example:
-	//
-	// 通行证有效期
-	ValidTime *string `json:"valid_time,omitempty" xml:"valid_time,omitempty" require:"true"`
-	// 体验时长
-	// example:
-	//
-	// 60(单位分)
-	TestTime *int64 `json:"test_time,omitempty" xml:"test_time,omitempty" require:"true"`
-	// vr设备集合
-	// example:
-	//
-	// json或数组
-	XrApps *string `json:"xr_apps,omitempty" xml:"xr_apps,omitempty"`
-	// 券池最大出票数
-	// example:
-	//
-	// 100
-	MaxPoolCount *int64 `json:"max_pool_count,omitempty" xml:"max_pool_count,omitempty" require:"true"`
-	// 通行证名称
-	// example:
-	//
-	// 通行证名称
-	XrTicketPoolName *string `json:"xr_ticket_pool_name,omitempty" xml:"xr_ticket_pool_name,omitempty" require:"true"`
-	// 核销类型
-	// example:
-	//
-	// XR_DEVICE
-	XrVerificationType *string `json:"xr_verification_type,omitempty" xml:"xr_verification_type,omitempty" require:"true"`
-}
-
-func (s XrTicketPoolBatchReq) String() string {
-	return tea.Prettify(s)
-}
-
-func (s XrTicketPoolBatchReq) GoString() string {
-	return s.String()
-}
-
-func (s *XrTicketPoolBatchReq) SetResourceId(v string) *XrTicketPoolBatchReq {
-	s.ResourceId = &v
-	return s
-}
-
-func (s *XrTicketPoolBatchReq) SetValidTime(v string) *XrTicketPoolBatchReq {
-	s.ValidTime = &v
-	return s
-}
-
-func (s *XrTicketPoolBatchReq) SetTestTime(v int64) *XrTicketPoolBatchReq {
-	s.TestTime = &v
-	return s
-}
-
-func (s *XrTicketPoolBatchReq) SetXrApps(v string) *XrTicketPoolBatchReq {
-	s.XrApps = &v
-	return s
-}
-
-func (s *XrTicketPoolBatchReq) SetMaxPoolCount(v int64) *XrTicketPoolBatchReq {
-	s.MaxPoolCount = &v
-	return s
-}
-
-func (s *XrTicketPoolBatchReq) SetXrTicketPoolName(v string) *XrTicketPoolBatchReq {
-	s.XrTicketPoolName = &v
-	return s
-}
-
-func (s *XrTicketPoolBatchReq) SetXrVerificationType(v string) *XrTicketPoolBatchReq {
-	s.XrVerificationType = &v
-	return s
-}
-
-// 设备管控 失败对象
-type DeviceControlFail struct {
-	// 设备did
-	// example:
-	//
-	// 123
-	DeviceDid *string `json:"device_did,omitempty" xml:"device_did,omitempty" require:"true"`
-	// 操作失败code
-	// example:
-	//
-	// bad_param
-	Code *string `json:"code,omitempty" xml:"code,omitempty" require:"true"`
-	// 操作失败信息
-	// example:
-	//
-	// 参数错误
-	Message *string `json:"message,omitempty" xml:"message,omitempty" require:"true"`
-}
-
-func (s DeviceControlFail) String() string {
-	return tea.Prettify(s)
-}
-
-func (s DeviceControlFail) GoString() string {
-	return s.String()
-}
-
-func (s *DeviceControlFail) SetDeviceDid(v string) *DeviceControlFail {
-	s.DeviceDid = &v
-	return s
-}
-
-func (s *DeviceControlFail) SetCode(v string) *DeviceControlFail {
-	s.Code = &v
-	return s
-}
-
-func (s *DeviceControlFail) SetMessage(v string) *DeviceControlFail {
-	s.Message = &v
 	return s
 }
 
@@ -7972,150 +6115,6 @@ func (s *XrTicketPoolItem) SetIssuedCount(v int64) *XrTicketPoolItem {
 	return s
 }
 
-// kyt 凭证申请参数
-type KytApplyParams struct {
-	// 设备类型
-	// example:
-	//
-	// tw_car
-	DeviceType *string `json:"device_type,omitempty" xml:"device_type,omitempty"`
-	// 凭证类型
-	// example:
-	//
-	// mcu_dk_cred
-	CredType *string `json:"cred_type,omitempty" xml:"cred_type,omitempty"`
-	// 品牌
-	// example:
-	//
-	// JL
-	BrandId *string `json:"brand_id,omitempty" xml:"brand_id,omitempty" require:"true"`
-	// 凭证内容
-	// example:
-	//
-	// []
-	GenerateCode *string `json:"generate_code,omitempty" xml:"generate_code,omitempty"`
-	// 协议类型
-	// example:
-	//
-	// ble
-	ProtocolType *string `json:"protocol_type,omitempty" xml:"protocol_type,omitempty" require:"true"`
-	// 无感参数
-	// example:
-	//
-	// 1
-	KeyLess *string `json:"key_less,omitempty" xml:"key_less,omitempty" require:"true"`
-	// mac
-	// example:
-	//
-	// F8:5F:56:F6:05:BC
-	Mac *string `json:"mac,omitempty" xml:"mac,omitempty" require:"true"`
-	// ble_name
-	// example:
-	//
-	// ble_
-	BleName *string `json:"ble_name,omitempty" xml:"ble_name,omitempty" require:"true"`
-	// 通道
-	// example:
-	//
-	// DT
-	Channel *string `json:"channel,omitempty" xml:"channel,omitempty"`
-}
-
-func (s KytApplyParams) String() string {
-	return tea.Prettify(s)
-}
-
-func (s KytApplyParams) GoString() string {
-	return s.String()
-}
-
-func (s *KytApplyParams) SetDeviceType(v string) *KytApplyParams {
-	s.DeviceType = &v
-	return s
-}
-
-func (s *KytApplyParams) SetCredType(v string) *KytApplyParams {
-	s.CredType = &v
-	return s
-}
-
-func (s *KytApplyParams) SetBrandId(v string) *KytApplyParams {
-	s.BrandId = &v
-	return s
-}
-
-func (s *KytApplyParams) SetGenerateCode(v string) *KytApplyParams {
-	s.GenerateCode = &v
-	return s
-}
-
-func (s *KytApplyParams) SetProtocolType(v string) *KytApplyParams {
-	s.ProtocolType = &v
-	return s
-}
-
-func (s *KytApplyParams) SetKeyLess(v string) *KytApplyParams {
-	s.KeyLess = &v
-	return s
-}
-
-func (s *KytApplyParams) SetMac(v string) *KytApplyParams {
-	s.Mac = &v
-	return s
-}
-
-func (s *KytApplyParams) SetBleName(v string) *KytApplyParams {
-	s.BleName = &v
-	return s
-}
-
-func (s *KytApplyParams) SetChannel(v string) *KytApplyParams {
-	s.Channel = &v
-	return s
-}
-
-// 信物链证据基本组成结构体
-type EvidenceBaseModel struct {
-	// 业务数据
-	// example:
-	//
-	// [{"content":"{业务数据}","label":"CRYPTO","timestamp":0}]
-	BizData *string `json:"biz_data,omitempty" xml:"biz_data,omitempty"`
-	// 证据哈希值
-	// example:
-	//
-	// "证据哈希值"
-	Hash *string `json:"hash,omitempty" xml:"hash,omitempty"`
-	// 证据附属信息字段
-	// example:
-	//
-	// "证据附属信息"
-	MetaJson *string `json:"meta_json,omitempty" xml:"meta_json,omitempty"`
-}
-
-func (s EvidenceBaseModel) String() string {
-	return tea.Prettify(s)
-}
-
-func (s EvidenceBaseModel) GoString() string {
-	return s.String()
-}
-
-func (s *EvidenceBaseModel) SetBizData(v string) *EvidenceBaseModel {
-	s.BizData = &v
-	return s
-}
-
-func (s *EvidenceBaseModel) SetHash(v string) *EvidenceBaseModel {
-	s.Hash = &v
-	return s
-}
-
-func (s *EvidenceBaseModel) SetMetaJson(v string) *EvidenceBaseModel {
-	s.MetaJson = &v
-	return s
-}
-
 // 行程列表
 type TripView struct {
 	// 开始时间
@@ -8165,72 +6164,6 @@ func (s *TripView) SetTripTime(v int64) *TripView {
 	return s
 }
 
-// 行程统计详情
-type TripTraceView struct {
-	// 开始时间
-	// example:
-	//
-	// 2018-10-10T10:10:00Z
-	BeginTime *string `json:"begin_time,omitempty" xml:"begin_time,omitempty" require:"true" pattern:"\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}([Z]|([\\.]\\d{1,9})?[\\+]\\d{2}[\\:]?\\d{2})"`
-	// 结束时间
-	// example:
-	//
-	// 2018-10-10T10:10:00Z
-	EndTime *string `json:"end_time,omitempty" xml:"end_time,omitempty" require:"true" pattern:"\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}([Z]|([\\.]\\d{1,9})?[\\+]\\d{2}[\\:]?\\d{2})"`
-	// 平均速度
-	AvgSpeed *int64 `json:"avg_speed,omitempty" xml:"avg_speed,omitempty" require:"true"`
-	// 最大速度
-	MaxSpeed *int64 `json:"max_speed,omitempty" xml:"max_speed,omitempty" require:"true"`
-	// 最后定位时间
-	// example:
-	//
-	// 2018-10-10T10:10:00Z
-	LastLocationTime *string `json:"last_location_time,omitempty" xml:"last_location_time,omitempty" require:"true" pattern:"\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}([Z]|([\\.]\\d{1,9})?[\\+]\\d{2}[\\:]?\\d{2})"`
-	// 最后定位地址
-	// example:
-	//
-	// 河南省郑州市
-	LastLocation *string `json:"last_location,omitempty" xml:"last_location,omitempty" require:"true"`
-}
-
-func (s TripTraceView) String() string {
-	return tea.Prettify(s)
-}
-
-func (s TripTraceView) GoString() string {
-	return s.String()
-}
-
-func (s *TripTraceView) SetBeginTime(v string) *TripTraceView {
-	s.BeginTime = &v
-	return s
-}
-
-func (s *TripTraceView) SetEndTime(v string) *TripTraceView {
-	s.EndTime = &v
-	return s
-}
-
-func (s *TripTraceView) SetAvgSpeed(v int64) *TripTraceView {
-	s.AvgSpeed = &v
-	return s
-}
-
-func (s *TripTraceView) SetMaxSpeed(v int64) *TripTraceView {
-	s.MaxSpeed = &v
-	return s
-}
-
-func (s *TripTraceView) SetLastLocationTime(v string) *TripTraceView {
-	s.LastLocationTime = &v
-	return s
-}
-
-func (s *TripTraceView) SetLastLocation(v string) *TripTraceView {
-	s.LastLocation = &v
-	return s
-}
-
 // tlsnotary文件认证成功后上传到oss的文件链接列表
 type TlsnotaryUploadOssLinks struct {
 	// 证书链摘要文件的oss链接
@@ -8260,90 +6193,6 @@ func (s *TlsnotaryUploadOssLinks) SetCertChainDigestLink(v string) *TlsnotaryUpl
 
 func (s *TlsnotaryUploadOssLinks) SetEmlFileLink(v string) *TlsnotaryUploadOssLinks {
 	s.EmlFileLink = &v
-	return s
-}
-
-// 设备定位信息
-type DeviceLocator struct {
-	// 设备唯一标识定位方式：TUID / TRUST_DEVICE_ID / TRUST_PRODUCT_DEVICE
-	// example:
-	//
-	// TUID
-	LocatorType *string `json:"locator_type,omitempty" xml:"locator_type,omitempty" require:"true"`
-	// EKYT 全局唯一设备 ID
-	// example:
-	//
-	// FF9999995FF1020260610262F9D641B9
-	Tuid *string `json:"tuid,omitempty" xml:"tuid,omitempty"`
-	// 可信物联设备唯一标识
-	// example:
-	//
-	// device_7470008018051342336
-	TrustDeviceId *string `json:"trust_device_id,omitempty" xml:"trust_device_id,omitempty"`
-	// 可信物联产品唯一标识
-	// example:
-	//
-	// 5C7ku13XSCK1a7AKzR
-	TrustProductKey *string `json:"trust_product_key,omitempty" xml:"trust_product_key,omitempty"`
-	// 设备名称
-	// example:
-	//
-	// 863091061327685
-	DeviceName *string `json:"device_name,omitempty" xml:"device_name,omitempty"`
-}
-
-func (s DeviceLocator) String() string {
-	return tea.Prettify(s)
-}
-
-func (s DeviceLocator) GoString() string {
-	return s.String()
-}
-
-func (s *DeviceLocator) SetLocatorType(v string) *DeviceLocator {
-	s.LocatorType = &v
-	return s
-}
-
-func (s *DeviceLocator) SetTuid(v string) *DeviceLocator {
-	s.Tuid = &v
-	return s
-}
-
-func (s *DeviceLocator) SetTrustDeviceId(v string) *DeviceLocator {
-	s.TrustDeviceId = &v
-	return s
-}
-
-func (s *DeviceLocator) SetTrustProductKey(v string) *DeviceLocator {
-	s.TrustProductKey = &v
-	return s
-}
-
-func (s *DeviceLocator) SetDeviceName(v string) *DeviceLocator {
-	s.DeviceName = &v
-	return s
-}
-
-// 二维码识别响应结构体
-type BaiQrcodeParseRespData struct {
-	// 二维码内容
-	// example:
-	//
-	// 1234567890
-	CodeValue []*string `json:"code_value,omitempty" xml:"code_value,omitempty" require:"true" type:"Repeated"`
-}
-
-func (s BaiQrcodeParseRespData) String() string {
-	return tea.Prettify(s)
-}
-
-func (s BaiQrcodeParseRespData) GoString() string {
-	return s.String()
-}
-
-func (s *BaiQrcodeParseRespData) SetCodeValue(v []*string) *BaiQrcodeParseRespData {
-	s.CodeValue = v
 	return s
 }
 
@@ -8398,68 +6247,6 @@ func (s *ThingsDidUpdateReq) SetThingExtraParams(v string) *ThingsDidUpdateReq {
 
 func (s *ThingsDidUpdateReq) SetThingVersion(v string) *ThingsDidUpdateReq {
 	s.ThingVersion = &v
-	return s
-}
-
-// 标签流转上链返回txHash
-type LabelChainResult struct {
-	// 标签ID
-	// example:
-	//
-	// 86F000001A51C02000000010
-	LabelId *string `json:"label_id,omitempty" xml:"label_id,omitempty" require:"true"`
-	// 业务资产ID，接入方自行定义
-	// example:
-	//
-	// XXX
-	AssetId *string `json:"asset_id,omitempty" xml:"asset_id,omitempty"`
-	// 标签最近一次上链的txHash
-	// example:
-	//
-	// 855e7ba37a0f227e384691e250f90bb2240adf11839016cf08506c9aa5c11cef
-	TxHash *string `json:"tx_hash,omitempty" xml:"tx_hash,omitempty" require:"true"`
-	// 错误码
-	// example:
-	//
-	// XXXX
-	ErrorCode *string `json:"error_code,omitempty" xml:"error_code,omitempty"`
-	// 错误信息
-	// example:
-	//
-	// xxxxx
-	ErrorMsg *string `json:"error_msg,omitempty" xml:"error_msg,omitempty" require:"true"`
-}
-
-func (s LabelChainResult) String() string {
-	return tea.Prettify(s)
-}
-
-func (s LabelChainResult) GoString() string {
-	return s.String()
-}
-
-func (s *LabelChainResult) SetLabelId(v string) *LabelChainResult {
-	s.LabelId = &v
-	return s
-}
-
-func (s *LabelChainResult) SetAssetId(v string) *LabelChainResult {
-	s.AssetId = &v
-	return s
-}
-
-func (s *LabelChainResult) SetTxHash(v string) *LabelChainResult {
-	s.TxHash = &v
-	return s
-}
-
-func (s *LabelChainResult) SetErrorCode(v string) *LabelChainResult {
-	s.ErrorCode = &v
-	return s
-}
-
-func (s *LabelChainResult) SetErrorMsg(v string) *LabelChainResult {
-	s.ErrorMsg = &v
 	return s
 }
 
@@ -8671,108 +6458,6 @@ func (s *IotbasicOtaModuleInfo) SetLastVersion(v string) *IotbasicOtaModuleInfo 
 	return s
 }
 
-// 电脑型号信息
-type ComputerInfo struct {
-	// 颜色
-	// example:
-	//
-	// 红色
-	Colour *string `json:"colour,omitempty" xml:"colour,omitempty"`
-	// 色值
-	// example:
-	//
-	// #BA0F2F
-	ColourNumber *string `json:"colour_number,omitempty" xml:"colour_number,omitempty"`
-	// 电脑型号
-	// example:
-	//
-	// X100
-	ComputerModel *string `json:"computer_model,omitempty" xml:"computer_model,omitempty"`
-	// 配置参数
-	// example:
-	//
-	// {""}
-	ConfigParam *string `json:"config_param,omitempty" xml:"config_param,omitempty"`
-	// 显卡
-	// example:
-	//
-	// GTX3080
-	VideoCard *string `json:"video_card,omitempty" xml:"video_card,omitempty"`
-	// 屏幕
-	// example:
-	//
-	// 27
-	ScreenSize *string `json:"screen_size,omitempty" xml:"screen_size,omitempty"`
-	// 电脑CPU
-	// example:
-	//
-	// i9
-	Cpu *string `json:"cpu,omitempty" xml:"cpu,omitempty" require:"true"`
-	// 电脑内存
-	// example:
-	//
-	// 16GB
-	Memory *string `json:"memory,omitempty" xml:"memory,omitempty" require:"true"`
-	// 电脑硬盘
-	// example:
-	//
-	// 500GB
-	DiskSize *string `json:"disk_size,omitempty" xml:"disk_size,omitempty" require:"true"`
-}
-
-func (s ComputerInfo) String() string {
-	return tea.Prettify(s)
-}
-
-func (s ComputerInfo) GoString() string {
-	return s.String()
-}
-
-func (s *ComputerInfo) SetColour(v string) *ComputerInfo {
-	s.Colour = &v
-	return s
-}
-
-func (s *ComputerInfo) SetColourNumber(v string) *ComputerInfo {
-	s.ColourNumber = &v
-	return s
-}
-
-func (s *ComputerInfo) SetComputerModel(v string) *ComputerInfo {
-	s.ComputerModel = &v
-	return s
-}
-
-func (s *ComputerInfo) SetConfigParam(v string) *ComputerInfo {
-	s.ConfigParam = &v
-	return s
-}
-
-func (s *ComputerInfo) SetVideoCard(v string) *ComputerInfo {
-	s.VideoCard = &v
-	return s
-}
-
-func (s *ComputerInfo) SetScreenSize(v string) *ComputerInfo {
-	s.ScreenSize = &v
-	return s
-}
-
-func (s *ComputerInfo) SetCpu(v string) *ComputerInfo {
-	s.Cpu = &v
-	return s
-}
-
-func (s *ComputerInfo) SetMemory(v string) *ComputerInfo {
-	s.Memory = &v
-	return s
-}
-
-func (s *ComputerInfo) SetDiskSize(v string) *ComputerInfo {
-	s.DiskSize = &v
-	return s
-}
-
 // 信物链存证查询请求结构体
 type EvidenceQueryInfoReq struct {
 	// 暂时保留
@@ -8826,65 +6511,6 @@ func (s *EvidenceQueryInfoReq) SetQueryType(v string) *EvidenceQueryInfoReq {
 
 func (s *EvidenceQueryInfoReq) SetTxHash(v string) *EvidenceQueryInfoReq {
 	s.TxHash = &v
-	return s
-}
-
-// AI商品鉴定请求信息
-type BaiGoodsComparisonReqData struct {
-	// 品类
-	// example:
-	//
-	// 奢侈品
-	Category *string `json:"category,omitempty" xml:"category,omitempty" require:"true"`
-	// 品牌
-	// example:
-	//
-	// GUCCI
-	Brand *string `json:"brand,omitempty" xml:"brand,omitempty" require:"true"`
-	// 款式
-	// example:
-	//
-	// Gucci Diana
-	Style *string `json:"style,omitempty" xml:"style,omitempty" require:"true"`
-	// 商品鉴定点列表
-	GoodsPoints []*BaiGoodsPoint `json:"goods_points,omitempty" xml:"goods_points,omitempty" require:"true" type:"Repeated"`
-	// 用户自定义字符串，系统不做处理，会在响应体中带回
-	// example:
-	//
-	// state
-	OutState *string `json:"out_state,omitempty" xml:"out_state,omitempty"`
-}
-
-func (s BaiGoodsComparisonReqData) String() string {
-	return tea.Prettify(s)
-}
-
-func (s BaiGoodsComparisonReqData) GoString() string {
-	return s.String()
-}
-
-func (s *BaiGoodsComparisonReqData) SetCategory(v string) *BaiGoodsComparisonReqData {
-	s.Category = &v
-	return s
-}
-
-func (s *BaiGoodsComparisonReqData) SetBrand(v string) *BaiGoodsComparisonReqData {
-	s.Brand = &v
-	return s
-}
-
-func (s *BaiGoodsComparisonReqData) SetStyle(v string) *BaiGoodsComparisonReqData {
-	s.Style = &v
-	return s
-}
-
-func (s *BaiGoodsComparisonReqData) SetGoodsPoints(v []*BaiGoodsPoint) *BaiGoodsComparisonReqData {
-	s.GoodsPoints = v
-	return s
-}
-
-func (s *BaiGoodsComparisonReqData) SetOutState(v string) *BaiGoodsComparisonReqData {
-	s.OutState = &v
 	return s
 }
 
@@ -9040,117 +6666,6 @@ func (s *UnfinishedUpgradeTaskVO) SetUtcModified(v string) *UnfinishedUpgradeTas
 	return s
 }
 
-// iotbasic设备模型属性失败结果
-type IotbasicDeviceModelAttributeFailInfo struct {
-	// 型号
-	// example:
-	//
-	// A2
-	ModelValue *string `json:"model_value,omitempty" xml:"model_value,omitempty" require:"true"`
-	// 规格列表 为空表示使用标准规格
-	SpecsList []*string `json:"specs_list,omitempty" xml:"specs_list,omitempty" type:"Repeated"`
-	// 失败code
-	// example:
-	//
-	// code
-	ErrorCode *string `json:"error_code,omitempty" xml:"error_code,omitempty" require:"true"`
-	// 失败消息
-	// example:
-	//
-	// message
-	ErrorMessage *string `json:"error_message,omitempty" xml:"error_message,omitempty" require:"true"`
-}
-
-func (s IotbasicDeviceModelAttributeFailInfo) String() string {
-	return tea.Prettify(s)
-}
-
-func (s IotbasicDeviceModelAttributeFailInfo) GoString() string {
-	return s.String()
-}
-
-func (s *IotbasicDeviceModelAttributeFailInfo) SetModelValue(v string) *IotbasicDeviceModelAttributeFailInfo {
-	s.ModelValue = &v
-	return s
-}
-
-func (s *IotbasicDeviceModelAttributeFailInfo) SetSpecsList(v []*string) *IotbasicDeviceModelAttributeFailInfo {
-	s.SpecsList = v
-	return s
-}
-
-func (s *IotbasicDeviceModelAttributeFailInfo) SetErrorCode(v string) *IotbasicDeviceModelAttributeFailInfo {
-	s.ErrorCode = &v
-	return s
-}
-
-func (s *IotbasicDeviceModelAttributeFailInfo) SetErrorMessage(v string) *IotbasicDeviceModelAttributeFailInfo {
-	s.ErrorMessage = &v
-	return s
-}
-
-// 收集数据返回的上链结果
-type SendCollectorResult struct {
-	// 数据的链上哈希
-	// example:
-	//
-	// 2c952456827828cdedad06afccef75a9f2c2840cbb6b0b659f653da1e5916cb2
-	TxHash *string `json:"tx_hash,omitempty" xml:"tx_hash,omitempty" require:"true"`
-	// 原入参的数组索引
-	// example:
-	//
-	// 0
-	OriginalIndex *int64 `json:"original_index,omitempty" xml:"original_index,omitempty" require:"true"`
-	// 失败数据对应的异常码，成功时该字段为空
-	// example:
-	//
-	// params.invalid
-	ErrorCode *string `json:"error_code,omitempty" xml:"error_code,omitempty"`
-	// 异常信息
-	// example:
-	//
-	// 可信设备与DEVICE-ID不匹配
-	ErrorMsg *string `json:"error_msg,omitempty" xml:"error_msg,omitempty"`
-	// 返回的扩展信息
-	// example:
-	//
-	// {"assetId":"Q02GYQGAY5","labelId":"86F000001A51A01000003836"}
-	ExtraInfo *string `json:"extra_info,omitempty" xml:"extra_info,omitempty"`
-}
-
-func (s SendCollectorResult) String() string {
-	return tea.Prettify(s)
-}
-
-func (s SendCollectorResult) GoString() string {
-	return s.String()
-}
-
-func (s *SendCollectorResult) SetTxHash(v string) *SendCollectorResult {
-	s.TxHash = &v
-	return s
-}
-
-func (s *SendCollectorResult) SetOriginalIndex(v int64) *SendCollectorResult {
-	s.OriginalIndex = &v
-	return s
-}
-
-func (s *SendCollectorResult) SetErrorCode(v string) *SendCollectorResult {
-	s.ErrorCode = &v
-	return s
-}
-
-func (s *SendCollectorResult) SetErrorMsg(v string) *SendCollectorResult {
-	s.ErrorMsg = &v
-	return s
-}
-
-func (s *SendCollectorResult) SetExtraInfo(v string) *SendCollectorResult {
-	s.ExtraInfo = &v
-	return s
-}
-
 // 二轮车操作日志分页查询结果
 type EBikeOperationLogPageResponse struct {
 	// 页数
@@ -9213,38 +6728,6 @@ func (s *EBikeOperationLogPageResponse) SetTotalPages(v int64) *EBikeOperationLo
 
 func (s *EBikeOperationLogPageResponse) SetPageData(v []*EBikeOperationLog) *EBikeOperationLogPageResponse {
 	s.PageData = v
-	return s
-}
-
-// 指纹图片入库是否成功
-type GoodsDigitalFingerprintRegisterResultData struct {
-	// 指纹图片入库是否成功
-	// example:
-	//
-	// true
-	Success *bool `json:"success,omitempty" xml:"success,omitempty" require:"true"`
-	// 失败原因
-	// example:
-	//
-	// describe
-	Describe *string `json:"describe,omitempty" xml:"describe,omitempty"`
-}
-
-func (s GoodsDigitalFingerprintRegisterResultData) String() string {
-	return tea.Prettify(s)
-}
-
-func (s GoodsDigitalFingerprintRegisterResultData) GoString() string {
-	return s.String()
-}
-
-func (s *GoodsDigitalFingerprintRegisterResultData) SetSuccess(v bool) *GoodsDigitalFingerprintRegisterResultData {
-	s.Success = &v
-	return s
-}
-
-func (s *GoodsDigitalFingerprintRegisterResultData) SetDescribe(v string) *GoodsDigitalFingerprintRegisterResultData {
-	s.Describe = &v
 	return s
 }
 
@@ -9375,58 +6858,6 @@ func (s *IotbasicReleaseDeviceInfo) SetReleaseTime(v string) *IotbasicReleaseDev
 
 func (s *IotbasicReleaseDeviceInfo) SetUpgradeTime(v string) *IotbasicReleaseDeviceInfo {
 	s.UpgradeTime = &v
-	return s
-}
-
-// 租户项目创建请求结构体模型
-type TenantProjectCreateReq struct {
-	// 业务类型，默认空
-	// example:
-	//
-	// null
-	BizType *string `json:"biz_type,omitempty" xml:"biz_type,omitempty"`
-	// 可选的，项目关联的区块链类型，1/2/3代表存证/合约等类型
-	// example:
-	//
-	// 1
-	BlockchainType *int64 `json:"blockchain_type,omitempty" xml:"blockchain_type,omitempty"`
-	// 可选的，项目关联的区块链uid
-	// example:
-	//
-	// 1111111
-	BlockchainUid *string `json:"blockchain_uid,omitempty" xml:"blockchain_uid,omitempty"`
-	// 租户下唯一项目名称，用以标识项目聚合的存证等信息
-	// example:
-	//
-	// "唯一项目名称"
-	ProjectName *string `json:"project_name,omitempty" xml:"project_name,omitempty" require:"true"`
-}
-
-func (s TenantProjectCreateReq) String() string {
-	return tea.Prettify(s)
-}
-
-func (s TenantProjectCreateReq) GoString() string {
-	return s.String()
-}
-
-func (s *TenantProjectCreateReq) SetBizType(v string) *TenantProjectCreateReq {
-	s.BizType = &v
-	return s
-}
-
-func (s *TenantProjectCreateReq) SetBlockchainType(v int64) *TenantProjectCreateReq {
-	s.BlockchainType = &v
-	return s
-}
-
-func (s *TenantProjectCreateReq) SetBlockchainUid(v string) *TenantProjectCreateReq {
-	s.BlockchainUid = &v
-	return s
-}
-
-func (s *TenantProjectCreateReq) SetProjectName(v string) *TenantProjectCreateReq {
-	s.ProjectName = &v
 	return s
 }
 
@@ -9678,149 +7109,6 @@ func (s *BaiQrcodeComparisonRespData) SetUnableIdentifySolution(v string) *BaiQr
 	return s
 }
 
-// 收集标签数据
-type CollectLabelContent struct {
-	// 链上设备ID
-	// example:
-	//
-	// XXXXX
-	ChainDeviceId *string `json:"chain_device_id,omitempty" xml:"chain_device_id,omitempty" require:"true"`
-	// 1.设备端上报数据内容
-	// 2.与设备上报的数据一致，服务端不可修改
-	// 3.解析后需与DataModel匹配
-	// 4.映射 Label 对象结构化存储
-	// 5.转为JSON后如果是JSONObject 映射单个 Label
-	// 6.转为JSON后如果是JSONArray 映射多个 Label
-	// example:
-	//
-	// XXXXX
-	Content *string `json:"content,omitempty" xml:"content,omitempty" require:"true"`
-	// content的签名
-	// 与设备上报的签名保持一致，服务端不可修改
-	// example:
-	//
-	// XXXXX
-	Signature *string `json:"signature,omitempty" xml:"signature,omitempty" require:"true"`
-	// 未经设备签名的附加数据JSON String
-	// 注意：如果 content 批量解析 ，extraData也会批量复制融入解析后的content
-	// example:
-	//
-	// XXXXX
-	ExtraData *string `json:"extra_data,omitempty" xml:"extra_data,omitempty"`
-}
-
-func (s CollectLabelContent) String() string {
-	return tea.Prettify(s)
-}
-
-func (s CollectLabelContent) GoString() string {
-	return s.String()
-}
-
-func (s *CollectLabelContent) SetChainDeviceId(v string) *CollectLabelContent {
-	s.ChainDeviceId = &v
-	return s
-}
-
-func (s *CollectLabelContent) SetContent(v string) *CollectLabelContent {
-	s.Content = &v
-	return s
-}
-
-func (s *CollectLabelContent) SetSignature(v string) *CollectLabelContent {
-	s.Signature = &v
-	return s
-}
-
-func (s *CollectLabelContent) SetExtraData(v string) *CollectLabelContent {
-	s.ExtraData = &v
-	return s
-}
-
-// Session 视图对象
-type AgentSessionVO struct {
-	// 会话ID
-	// example:
-	//
-	// 7468486322254688256
-	SessionId *string `json:"session_id,omitempty" xml:"session_id,omitempty" require:"true"`
-	// 用户ID
-	// example:
-	//
-	// 7468486322254688256
-	UserId *string `json:"user_id,omitempty" xml:"user_id,omitempty" require:"true"`
-	// 会话创建时间
-	// example:
-	//
-	// 2026-06-24 21:32:59
-	GmtCreate *string `json:"gmt_create,omitempty" xml:"gmt_create,omitempty" require:"true" pattern:"\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}([Z]|([\\.]\\d{1,9})?[\\+]\\d{2}[\\:]?\\d{2})"`
-	// 会话修改时间
-	// example:
-	//
-	// 2026-06-24 21:32:59
-	GmtModified *string `json:"gmt_modified,omitempty" xml:"gmt_modified,omitempty" require:"true" pattern:"\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}([Z]|([\\.]\\d{1,9})?[\\+]\\d{2}[\\:]?\\d{2})"`
-}
-
-func (s AgentSessionVO) String() string {
-	return tea.Prettify(s)
-}
-
-func (s AgentSessionVO) GoString() string {
-	return s.String()
-}
-
-func (s *AgentSessionVO) SetSessionId(v string) *AgentSessionVO {
-	s.SessionId = &v
-	return s
-}
-
-func (s *AgentSessionVO) SetUserId(v string) *AgentSessionVO {
-	s.UserId = &v
-	return s
-}
-
-func (s *AgentSessionVO) SetGmtCreate(v string) *AgentSessionVO {
-	s.GmtCreate = &v
-	return s
-}
-
-func (s *AgentSessionVO) SetGmtModified(v string) *AgentSessionVO {
-	s.GmtModified = &v
-	return s
-}
-
-// 数据上链成功结果数据
-type DeviceCollectResult struct {
-	// 上链数据采集ID
-	// example:
-	//
-	// j8o12u38
-	CollectId *string `json:"collect_id,omitempty" xml:"collect_id,omitempty" require:"true"`
-	// 上链id
-	// example:
-	//
-	// auit98
-	AntchainId *string `json:"antchain_id,omitempty" xml:"antchain_id,omitempty"`
-}
-
-func (s DeviceCollectResult) String() string {
-	return tea.Prettify(s)
-}
-
-func (s DeviceCollectResult) GoString() string {
-	return s.String()
-}
-
-func (s *DeviceCollectResult) SetCollectId(v string) *DeviceCollectResult {
-	s.CollectId = &v
-	return s
-}
-
-func (s *DeviceCollectResult) SetAntchainId(v string) *DeviceCollectResult {
-	s.AntchainId = &v
-	return s
-}
-
 // 可信设备ID及其关联的设备ID
 type TrustiotDeviceIdMap struct {
 	// 可信设备ID
@@ -9860,6 +7148,235 @@ func (s *TrustiotDeviceIdMap) SetDeviceId(v string) *TrustiotDeviceIdMap {
 
 func (s *TrustiotDeviceIdMap) SetChainDeviceId(v string) *TrustiotDeviceIdMap {
 	s.ChainDeviceId = &v
+	return s
+}
+
+// 统一物联OTA任务查询响应
+type IotxOTAJobResponse struct {
+	// 批次id
+	// example:
+	//
+	// 2c692f39bbaf43b08590d6daede5895f
+	JobId *string `json:"job_id,omitempty" xml:"job_id,omitempty"`
+	// 任务状态：PLANNED：计划中；IN_PROGRESS：执行中；COMPLETED：已完成；CANCELED：已取消；
+	// example:
+	//
+	// PLANNED
+	JobStatus *string `json:"job_status,omitempty" xml:"job_status,omitempty"`
+	// 任务类型：VERIFY：升级包验证批次。 STATIC_UPGRADE：批量升级批次。
+	// example:
+	//
+	// STATIC_UPGRADE
+	JobType *string `json:"job_type,omitempty" xml:"job_type,omitempty"`
+	// 产品唯一标识
+	// example:
+	//
+	// FuPsO4bwFbyLSrQIiL
+	TrustOroductKey *string `json:"trust_oroduct_key,omitempty" xml:"trust_oroduct_key,omitempty"`
+	// OTA固件包ID
+	// example:
+	//
+	// 563785f86a6144e2838b3bd1f077f652
+	FirmwareId *string `json:"firmware_id,omitempty" xml:"firmware_id,omitempty"`
+	// 升级目标版本号
+	// example:
+	//
+	// 1.0.0
+	DestVersion *string `json:"dest_version,omitempty" xml:"dest_version,omitempty"`
+	// 下载协议
+	// example:
+	//
+	// -
+	DownloadProtocol *string `json:"download_protocol,omitempty" xml:"download_protocol,omitempty"`
+	// 升级批次描述
+	// example:
+	//
+	// 升级批次描述
+	JobDesc *string `json:"job_desc,omitempty" xml:"job_desc,omitempty"`
+	// 升级策略：VERIFY、STATIC
+	// example:
+	//
+	// STATIC
+	SelectionType *string `json:"selection_type,omitempty" xml:"selection_type,omitempty"`
+	// 升级范围 ALL：全量升级、SPECIFIC：定向升级
+	// example:
+	//
+	// ALL
+	TargetSelection *string `json:"target_selection,omitempty" xml:"target_selection,omitempty"`
+	// 待升级版本号列表
+	SrcVersion []*string `json:"src_version,omitempty" xml:"src_version,omitempty" type:"Repeated"`
+	// 升级失败后自动重试间隔：0：立即重试、10：10分钟后重试、30：30分钟后重试、60：60分钟（即1小时）后重试、1440：1,440分钟（即24小时）后重试。不传入此参数，则表示不重试。
+	// example:
+	//
+	// 10
+	RetryInterval *int64 `json:"retry_interval,omitempty" xml:"retry_interval,omitempty"`
+	// 自动重试次数：1：1次、2：2次、5：5次。如果传入RetryInterval参数，则需传入该参数
+	// example:
+	//
+	// 1
+	RetryCount *int64 `json:"retry_count,omitempty" xml:"retry_count,omitempty"`
+	// 升级超时时间：0-1440
+	// example:
+	//
+	// 10
+	TimeoutInMinutes *int64 `json:"timeout_in_minutes,omitempty" xml:"timeout_in_minutes,omitempty"`
+	// 定向升级的设备名称列表
+	// example:
+	//
+	// undefined
+	TargetDeviceName []*string `json:"target_device_name,omitempty" xml:"target_device_name,omitempty" type:"Repeated"`
+	// 是否需App确认升级
+	// example:
+	//
+	// true
+	NeedConfirm *bool `json:"need_confirm,omitempty" xml:"need_confirm,omitempty"`
+	// 创建时间
+	// example:
+	//
+	// 1783948258716
+	GmtCreate *string `json:"gmt_create,omitempty" xml:"gmt_create,omitempty" pattern:"\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}([Z]|([\\.]\\d{1,9})?[\\+]\\d{2}[\\:]?\\d{2})"`
+	// 更新时间
+	// example:
+	//
+	// 1783948258716
+	GmtModified *string `json:"gmt_modified,omitempty" xml:"gmt_modified,omitempty" pattern:"\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}([Z]|([\\.]\\d{1,9})?[\\+]\\d{2}[\\:]?\\d{2})"`
+	// 批次实际执行通道：TUYA_4G、EKYT_BLE
+	// example:
+	//
+	// TUYA_4G
+	Channel *string `json:"channel,omitempty" xml:"channel,omitempty"`
+	// 同设备同模块覆盖策略
+	// example:
+	//
+	// OVERRIDE
+	OverrideMode *string `json:"override_mode,omitempty" xml:"override_mode,omitempty"`
+	// 多模块并发策略
+	// example:
+	//
+	// ALLOW
+	MultiModuleMode *string `json:"multi_module_mode,omitempty" xml:"multi_module_mode,omitempty"`
+	// 批次升级方式
+	// example:
+	//
+	// REMIND
+	UpgradeMode *string `json:"upgrade_mode,omitempty" xml:"upgrade_mode,omitempty"`
+}
+
+func (s IotxOTAJobResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s IotxOTAJobResponse) GoString() string {
+	return s.String()
+}
+
+func (s *IotxOTAJobResponse) SetJobId(v string) *IotxOTAJobResponse {
+	s.JobId = &v
+	return s
+}
+
+func (s *IotxOTAJobResponse) SetJobStatus(v string) *IotxOTAJobResponse {
+	s.JobStatus = &v
+	return s
+}
+
+func (s *IotxOTAJobResponse) SetJobType(v string) *IotxOTAJobResponse {
+	s.JobType = &v
+	return s
+}
+
+func (s *IotxOTAJobResponse) SetTrustOroductKey(v string) *IotxOTAJobResponse {
+	s.TrustOroductKey = &v
+	return s
+}
+
+func (s *IotxOTAJobResponse) SetFirmwareId(v string) *IotxOTAJobResponse {
+	s.FirmwareId = &v
+	return s
+}
+
+func (s *IotxOTAJobResponse) SetDestVersion(v string) *IotxOTAJobResponse {
+	s.DestVersion = &v
+	return s
+}
+
+func (s *IotxOTAJobResponse) SetDownloadProtocol(v string) *IotxOTAJobResponse {
+	s.DownloadProtocol = &v
+	return s
+}
+
+func (s *IotxOTAJobResponse) SetJobDesc(v string) *IotxOTAJobResponse {
+	s.JobDesc = &v
+	return s
+}
+
+func (s *IotxOTAJobResponse) SetSelectionType(v string) *IotxOTAJobResponse {
+	s.SelectionType = &v
+	return s
+}
+
+func (s *IotxOTAJobResponse) SetTargetSelection(v string) *IotxOTAJobResponse {
+	s.TargetSelection = &v
+	return s
+}
+
+func (s *IotxOTAJobResponse) SetSrcVersion(v []*string) *IotxOTAJobResponse {
+	s.SrcVersion = v
+	return s
+}
+
+func (s *IotxOTAJobResponse) SetRetryInterval(v int64) *IotxOTAJobResponse {
+	s.RetryInterval = &v
+	return s
+}
+
+func (s *IotxOTAJobResponse) SetRetryCount(v int64) *IotxOTAJobResponse {
+	s.RetryCount = &v
+	return s
+}
+
+func (s *IotxOTAJobResponse) SetTimeoutInMinutes(v int64) *IotxOTAJobResponse {
+	s.TimeoutInMinutes = &v
+	return s
+}
+
+func (s *IotxOTAJobResponse) SetTargetDeviceName(v []*string) *IotxOTAJobResponse {
+	s.TargetDeviceName = v
+	return s
+}
+
+func (s *IotxOTAJobResponse) SetNeedConfirm(v bool) *IotxOTAJobResponse {
+	s.NeedConfirm = &v
+	return s
+}
+
+func (s *IotxOTAJobResponse) SetGmtCreate(v string) *IotxOTAJobResponse {
+	s.GmtCreate = &v
+	return s
+}
+
+func (s *IotxOTAJobResponse) SetGmtModified(v string) *IotxOTAJobResponse {
+	s.GmtModified = &v
+	return s
+}
+
+func (s *IotxOTAJobResponse) SetChannel(v string) *IotxOTAJobResponse {
+	s.Channel = &v
+	return s
+}
+
+func (s *IotxOTAJobResponse) SetOverrideMode(v string) *IotxOTAJobResponse {
+	s.OverrideMode = &v
+	return s
+}
+
+func (s *IotxOTAJobResponse) SetMultiModuleMode(v string) *IotxOTAJobResponse {
+	s.MultiModuleMode = &v
+	return s
+}
+
+func (s *IotxOTAJobResponse) SetUpgradeMode(v string) *IotxOTAJobResponse {
+	s.UpgradeMode = &v
 	return s
 }
 
@@ -9929,78 +7446,6 @@ func (s *ProductKeyPageResponse) SetPageData(v []*ProductKeyModel) *ProductKeyPa
 	return s
 }
 
-// 代扣服务返回对象
-type AntdigitalWithHoldResponse struct {
-	// 网关返回码
-	// example:
-	//
-	// 10000
-	Code *string `json:"code,omitempty" xml:"code,omitempty" require:"true"`
-	// 网关返回码描述
-	// example:
-	//
-	// Business Failed
-	Msg *string `json:"msg,omitempty" xml:"msg,omitempty" require:"true"`
-	// 务返回码
-	// example:
-	//
-	// ACQ.TRADE_HAS_SUCCESS
-	SubCode *string `json:"sub_code,omitempty" xml:"sub_code,omitempty" require:"true"`
-	// 业务返回码描述
-	// example:
-	//
-	// 交易已被支付
-	SubMsg *string `json:"sub_msg,omitempty" xml:"sub_msg,omitempty" require:"true"`
-	// 结果返回内容
-	// example:
-	//
-	// {__}
-	Data *string `json:"data,omitempty" xml:"data,omitempty"`
-	// 响应签名
-	// example:
-	//
-	// DZXh8eeTuAHoYE3w1J+POiPhfDxOYBfUNn1lkeT/V7P4zJdyojWEa6IZs6Hz0yDW5Cp/viufUb5I0/V5WENS3OYR8zRedqo6D+fUTdLHdc+EFyCkiQhBxIzgngPdPdfp1PIS7BdhhzrsZHbRqb7o4k3Dxc+AAnFauu4V6Zdwczo=
-	Signature *string `json:"signature,omitempty" xml:"signature,omitempty" require:"true"`
-}
-
-func (s AntdigitalWithHoldResponse) String() string {
-	return tea.Prettify(s)
-}
-
-func (s AntdigitalWithHoldResponse) GoString() string {
-	return s.String()
-}
-
-func (s *AntdigitalWithHoldResponse) SetCode(v string) *AntdigitalWithHoldResponse {
-	s.Code = &v
-	return s
-}
-
-func (s *AntdigitalWithHoldResponse) SetMsg(v string) *AntdigitalWithHoldResponse {
-	s.Msg = &v
-	return s
-}
-
-func (s *AntdigitalWithHoldResponse) SetSubCode(v string) *AntdigitalWithHoldResponse {
-	s.SubCode = &v
-	return s
-}
-
-func (s *AntdigitalWithHoldResponse) SetSubMsg(v string) *AntdigitalWithHoldResponse {
-	s.SubMsg = &v
-	return s
-}
-
-func (s *AntdigitalWithHoldResponse) SetData(v string) *AntdigitalWithHoldResponse {
-	s.Data = &v
-	return s
-}
-
-func (s *AntdigitalWithHoldResponse) SetSignature(v string) *AntdigitalWithHoldResponse {
-	s.Signature = &v
-	return s
-}
-
 // 二级商户信息
 type SubMerchantParams struct {
 	// 子商户的商户id
@@ -10050,220 +7495,6 @@ func (s *SubMerchantParams) SetSubMerchantServiceName(v string) *SubMerchantPara
 
 func (s *SubMerchantParams) SetSubMerchantServiceDescription(v string) *SubMerchantParams {
 	s.SubMerchantServiceDescription = &v
-	return s
-}
-
-// 上链数据结果集
-type ChainModelResult struct {
-	// 所属业务
-	// example:
-	//
-	// XR_LEASE
-	BizScene *string `json:"biz_scene,omitempty" xml:"biz_scene,omitempty" require:"true"`
-	// 资产类型
-	// example:
-	//
-	// LOCK_RECORD
-	DataScene *string `json:"data_scene,omitempty" xml:"data_scene,omitempty" require:"true"`
-	// 资产id
-	// example:
-	//
-	// 资产id
-	AssetId *string `json:"asset_id,omitempty" xml:"asset_id,omitempty" require:"true"`
-	// 资产数据内容json
-	// example:
-	//
-	// {}
-	AssetData *string `json:"asset_data,omitempty" xml:"asset_data,omitempty" require:"true"`
-	// 租户id
-	// example:
-	//
-	// SDFJAG
-	TenantId *string `json:"tenant_id,omitempty" xml:"tenant_id,omitempty" require:"true"`
-	// 上链时间
-	// example:
-	//
-	// 2022-10-02 09:10:09
-	TxTime *string `json:"tx_time,omitempty" xml:"tx_time,omitempty" require:"true"`
-	// 业务ID
-	// example:
-	//
-	// 业务ID
-	BusinessId *string `json:"business_id,omitempty" xml:"business_id,omitempty" require:"true"`
-	// 上链id
-	// example:
-	//
-	// 123
-	AntchainId *string `json:"antchain_id,omitempty" xml:"antchain_id,omitempty" require:"true"`
-}
-
-func (s ChainModelResult) String() string {
-	return tea.Prettify(s)
-}
-
-func (s ChainModelResult) GoString() string {
-	return s.String()
-}
-
-func (s *ChainModelResult) SetBizScene(v string) *ChainModelResult {
-	s.BizScene = &v
-	return s
-}
-
-func (s *ChainModelResult) SetDataScene(v string) *ChainModelResult {
-	s.DataScene = &v
-	return s
-}
-
-func (s *ChainModelResult) SetAssetId(v string) *ChainModelResult {
-	s.AssetId = &v
-	return s
-}
-
-func (s *ChainModelResult) SetAssetData(v string) *ChainModelResult {
-	s.AssetData = &v
-	return s
-}
-
-func (s *ChainModelResult) SetTenantId(v string) *ChainModelResult {
-	s.TenantId = &v
-	return s
-}
-
-func (s *ChainModelResult) SetTxTime(v string) *ChainModelResult {
-	s.TxTime = &v
-	return s
-}
-
-func (s *ChainModelResult) SetBusinessId(v string) *ChainModelResult {
-	s.BusinessId = &v
-	return s
-}
-
-func (s *ChainModelResult) SetAntchainId(v string) *ChainModelResult {
-	s.AntchainId = &v
-	return s
-}
-
-// 空间实体身份附加参数请求结构体，应用在注册/更新API的ThingExtraParams
-type SpaceRegisterReqModel struct {
-	// 面积 平方米单位*1e4
-	// example:
-	//
-	// 10000
-	Area *int64 `json:"area,omitempty" xml:"area,omitempty"`
-	// 自定义业务类型，例如选择：危险品/非危险品/食品
-	// example:
-	//
-	// "biz_type"
-	BizType *string `json:"biz_type,omitempty" xml:"biz_type,omitempty"`
-	// 海拔 米单位*1e2
-	// example:
-	//
-	// 0
-	Elevation *int64 `json:"elevation,omitempty" xml:"elevation,omitempty"`
-	// 高度 米单位*1e2
-	// example:
-	//
-	// 123
-	Height *int64 `json:"height,omitempty" xml:"height,omitempty"`
-	// 纬度 度数单位*1e9
-	// example:
-	//
-	// 0
-	Latitude *int64 `json:"latitude,omitempty" xml:"latitude,omitempty"`
-	// 经度 度数单位*1e9
-	// example:
-	//
-	// 35000000000
-	Longitude *int64 `json:"longitude,omitempty" xml:"longitude,omitempty"`
-	// 自定义其他字段
-	// example:
-	//
-	// "自定义"
-	OtherInfo *string `json:"other_info,omitempty" xml:"other_info,omitempty"`
-	// 父类型，在业务中自定义关联，例如仓位的父节点是仓库
-	// example:
-	//
-	// “did:iot:xxxx”
-	ParentDid *string `json:"parent_did,omitempty" xml:"parent_did,omitempty"`
-	// 可填入符合w3c did定义的服务节点
-	// example:
-	//
-	// "xxxx"
-	ServiceEndpoint *string `json:"service_endpoint,omitempty" xml:"service_endpoint,omitempty"`
-	// 空间状态，自定义
-	// example:
-	//
-	// "IN_USE"
-	Status *string `json:"status,omitempty" xml:"status,omitempty"`
-	// 空间类型，例如冷藏/冷冻/通道/平面/立体
-	// example:
-	//
-	// “平面“
-	Type *string `json:"type,omitempty" xml:"type,omitempty"`
-}
-
-func (s SpaceRegisterReqModel) String() string {
-	return tea.Prettify(s)
-}
-
-func (s SpaceRegisterReqModel) GoString() string {
-	return s.String()
-}
-
-func (s *SpaceRegisterReqModel) SetArea(v int64) *SpaceRegisterReqModel {
-	s.Area = &v
-	return s
-}
-
-func (s *SpaceRegisterReqModel) SetBizType(v string) *SpaceRegisterReqModel {
-	s.BizType = &v
-	return s
-}
-
-func (s *SpaceRegisterReqModel) SetElevation(v int64) *SpaceRegisterReqModel {
-	s.Elevation = &v
-	return s
-}
-
-func (s *SpaceRegisterReqModel) SetHeight(v int64) *SpaceRegisterReqModel {
-	s.Height = &v
-	return s
-}
-
-func (s *SpaceRegisterReqModel) SetLatitude(v int64) *SpaceRegisterReqModel {
-	s.Latitude = &v
-	return s
-}
-
-func (s *SpaceRegisterReqModel) SetLongitude(v int64) *SpaceRegisterReqModel {
-	s.Longitude = &v
-	return s
-}
-
-func (s *SpaceRegisterReqModel) SetOtherInfo(v string) *SpaceRegisterReqModel {
-	s.OtherInfo = &v
-	return s
-}
-
-func (s *SpaceRegisterReqModel) SetParentDid(v string) *SpaceRegisterReqModel {
-	s.ParentDid = &v
-	return s
-}
-
-func (s *SpaceRegisterReqModel) SetServiceEndpoint(v string) *SpaceRegisterReqModel {
-	s.ServiceEndpoint = &v
-	return s
-}
-
-func (s *SpaceRegisterReqModel) SetStatus(v string) *SpaceRegisterReqModel {
-	s.Status = &v
-	return s
-}
-
-func (s *SpaceRegisterReqModel) SetType(v string) *SpaceRegisterReqModel {
-	s.Type = &v
 	return s
 }
 
@@ -10451,219 +7682,6 @@ func (s *LabelTrace) SetVersion(v int64) *LabelTrace {
 	return s
 }
 
-// 外围设备信息
-type Peripheral struct {
-	// 外围设备Id
-	// example:
-	//
-	// 123
-	PeripheralId *string `json:"peripheral_id,omitempty" xml:"peripheral_id,omitempty" require:"true"`
-	// 数据模型id
-	//
-	// example:
-	//
-	// 123456
-	PeripheralDataModelId *string `json:"peripheral_data_model_id,omitempty" xml:"peripheral_data_model_id,omitempty" require:"true"`
-	// 场景码
-	//
-	// example:
-	//
-	// scene1
-	Scene *string `json:"scene,omitempty" xml:"scene,omitempty" require:"true"`
-	// 外围设备名称
-	//
-	// example:
-	//
-	// 锂电池1
-	PeripheralName *string `json:"peripheral_name,omitempty" xml:"peripheral_name,omitempty"`
-	// 厂商名称
-	//
-	// example:
-	//
-	// 宁德时代1
-	CorpName *string `json:"corp_name,omitempty" xml:"corp_name,omitempty"`
-	// 链上外围设备Id
-	//
-	// example:
-	//
-	// 123123
-	ChainPeripheralId *string `json:"chain_peripheral_id,omitempty" xml:"chain_peripheral_id,omitempty" require:"true"`
-	// 链上哈希
-	// example:
-	//
-	// txhash123
-	TxHash *string `json:"tx_hash,omitempty" xml:"tx_hash,omitempty" require:"true"`
-	// 上链时间
-	// example:
-	//
-	// 1605076751000
-	TxTime *int64 `json:"tx_time,omitempty" xml:"tx_time,omitempty" require:"true"`
-	// 设备类型编码，必填，对应资管平台中的设备类型
-	//
-	// 枚举值：
-	//
-	// 车辆 1000
-	// 车辆 四轮车 1001
-	// 车辆 四轮车 纯电四轮车 1002
-	// 车辆 四轮车 混动四轮车 1003
-	// 车辆 四轮车 燃油四轮车 1004
-	// 车辆 两轮车 1011
-	// 车辆 两轮车 两轮单车 1012
-	// 车辆 两轮车 两轮助力车 1013
-	//
-	// 换电柜 2000
-	// 换电柜 二轮车换电柜 2001
-	//
-	// 电池 3000
-	// 电池 磷酸铁电池 3001
-	// 电池 三元锂电池 3002
-	//
-	// 回收设备 4000
-	//
-	// 垃圾分类回收 4001
-	//
-	// 洗车机 5000
-	// example:
-	//
-	// 3000
-	DeviceTypeCode *int64 `json:"device_type_code,omitempty" xml:"device_type_code,omitempty" require:"true"`
-	// 单价，单位分
-	// example:
-	//
-	// 1000
-	InitialPrice *int64 `json:"initial_price,omitempty" xml:"initial_price,omitempty" require:"true"`
-	// 出厂时间
-	// example:
-	//
-	// 2018-10-10T10:10:00Z
-	FactoryTime *string `json:"factory_time,omitempty" xml:"factory_time,omitempty" require:"true" pattern:"\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}([Z]|([\\.]\\d{1,9})?[\\+]\\d{2}[\\:]?\\d{2})"`
-	// 投放时间
-	// example:
-	//
-	// 2018-10-10T10:10:00Z
-	ReleaseTime *string `json:"release_time,omitempty" xml:"release_time,omitempty" require:"true" pattern:"\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}([Z]|([\\.]\\d{1,9})?[\\+]\\d{2}[\\:]?\\d{2})"`
-}
-
-func (s Peripheral) String() string {
-	return tea.Prettify(s)
-}
-
-func (s Peripheral) GoString() string {
-	return s.String()
-}
-
-func (s *Peripheral) SetPeripheralId(v string) *Peripheral {
-	s.PeripheralId = &v
-	return s
-}
-
-func (s *Peripheral) SetPeripheralDataModelId(v string) *Peripheral {
-	s.PeripheralDataModelId = &v
-	return s
-}
-
-func (s *Peripheral) SetScene(v string) *Peripheral {
-	s.Scene = &v
-	return s
-}
-
-func (s *Peripheral) SetPeripheralName(v string) *Peripheral {
-	s.PeripheralName = &v
-	return s
-}
-
-func (s *Peripheral) SetCorpName(v string) *Peripheral {
-	s.CorpName = &v
-	return s
-}
-
-func (s *Peripheral) SetChainPeripheralId(v string) *Peripheral {
-	s.ChainPeripheralId = &v
-	return s
-}
-
-func (s *Peripheral) SetTxHash(v string) *Peripheral {
-	s.TxHash = &v
-	return s
-}
-
-func (s *Peripheral) SetTxTime(v int64) *Peripheral {
-	s.TxTime = &v
-	return s
-}
-
-func (s *Peripheral) SetDeviceTypeCode(v int64) *Peripheral {
-	s.DeviceTypeCode = &v
-	return s
-}
-
-func (s *Peripheral) SetInitialPrice(v int64) *Peripheral {
-	s.InitialPrice = &v
-	return s
-}
-
-func (s *Peripheral) SetFactoryTime(v string) *Peripheral {
-	s.FactoryTime = &v
-	return s
-}
-
-func (s *Peripheral) SetReleaseTime(v string) *Peripheral {
-	s.ReleaseTime = &v
-	return s
-}
-
-// 订单计费数据
-type OrderPushInfo struct {
-	// 订单号
-	// example:
-	//
-	// 208395
-	OrderId *string `json:"order_id,omitempty" xml:"order_id,omitempty" require:"true"`
-	// 时间戳，取订单上链timestamp字段
-	// example:
-	//
-	// 1665490037182
-	OrderCollectTime *string `json:"order_collect_time,omitempty" xml:"order_collect_time,omitempty" require:"true"`
-	// 订单总金额
-	// example:
-	//
-	// 12000.37
-	TotalAmount *string `json:"total_amount,omitempty" xml:"total_amount,omitempty" require:"true"`
-	// 租户id
-	// example:
-	//
-	// 1
-	TenantId *string `json:"tenant_id,omitempty" xml:"tenant_id,omitempty" require:"true"`
-}
-
-func (s OrderPushInfo) String() string {
-	return tea.Prettify(s)
-}
-
-func (s OrderPushInfo) GoString() string {
-	return s.String()
-}
-
-func (s *OrderPushInfo) SetOrderId(v string) *OrderPushInfo {
-	s.OrderId = &v
-	return s
-}
-
-func (s *OrderPushInfo) SetOrderCollectTime(v string) *OrderPushInfo {
-	s.OrderCollectTime = &v
-	return s
-}
-
-func (s *OrderPushInfo) SetTotalAmount(v string) *OrderPushInfo {
-	s.TotalAmount = &v
-	return s
-}
-
-func (s *OrderPushInfo) SetTenantId(v string) *OrderPushInfo {
-	s.TenantId = &v
-	return s
-}
-
 // 证书授权信息查询结果
 type SkuGrantStockInfoResp struct {
 	// 产品型号
@@ -10716,162 +7734,6 @@ func (s *SkuGrantStockInfoResp) SetCertNum(v int64) *SkuGrantStockInfoResp {
 	return s
 }
 
-// 订单同步成功列表
-type DeviceOrderResult struct {
-	// 上链id
-	// example:
-	//
-	// amdfgs
-	AntchainId *string `json:"antchain_id,omitempty" xml:"antchain_id,omitempty" require:"true"`
-	// 订单id
-	// example:
-	//
-	// 34
-	OrderId *string `json:"order_id,omitempty" xml:"order_id,omitempty" require:"true"`
-}
-
-func (s DeviceOrderResult) String() string {
-	return tea.Prettify(s)
-}
-
-func (s DeviceOrderResult) GoString() string {
-	return s.String()
-}
-
-func (s *DeviceOrderResult) SetAntchainId(v string) *DeviceOrderResult {
-	s.AntchainId = &v
-	return s
-}
-
-func (s *DeviceOrderResult) SetOrderId(v string) *DeviceOrderResult {
-	s.OrderId = &v
-	return s
-}
-
-// 物模型事件VO
-type ThingModelEventVO struct {
-	// 名称
-	// example:
-	//
-	// 设备状态数据
-	Name *string `json:"name,omitempty" xml:"name,omitempty" require:"true"`
-	// 物模型功能Id
-	// example:
-	//
-	// 7067312861108285440
-	FeatureId *string `json:"feature_id,omitempty" xml:"feature_id,omitempty" require:"true"`
-	// 业务标识
-	// example:
-	//
-	// LOCATION
-	BizType *string `json:"biz_type,omitempty" xml:"biz_type,omitempty" require:"true"`
-	// 事件属性列表
-	// example:
-	//
-	// [...]
-	EventProperties *string `json:"event_properties,omitempty" xml:"event_properties,omitempty" require:"true"`
-}
-
-func (s ThingModelEventVO) String() string {
-	return tea.Prettify(s)
-}
-
-func (s ThingModelEventVO) GoString() string {
-	return s.String()
-}
-
-func (s *ThingModelEventVO) SetName(v string) *ThingModelEventVO {
-	s.Name = &v
-	return s
-}
-
-func (s *ThingModelEventVO) SetFeatureId(v string) *ThingModelEventVO {
-	s.FeatureId = &v
-	return s
-}
-
-func (s *ThingModelEventVO) SetBizType(v string) *ThingModelEventVO {
-	s.BizType = &v
-	return s
-}
-
-func (s *ThingModelEventVO) SetEventProperties(v string) *ThingModelEventVO {
-	s.EventProperties = &v
-	return s
-}
-
-// 设备注册结果对象
-type IotBasicDeviceRegisterResult struct {
-	// 设备did
-	// example:
-	//
-	// did:private:12dsadadadf
-	DeviceDid *string `json:"device_did,omitempty" xml:"device_did,omitempty" require:"true"`
-	// 设备密钥
-	// example:
-	//
-	// 12321321
-	PrivateKey *string `json:"private_key,omitempty" xml:"private_key,omitempty" require:"true"`
-	// 设备名称
-	// example:
-	//
-	// test
-	DeviceName *string `json:"device_name,omitempty" xml:"device_name,omitempty" require:"true"`
-	// 设备sn
-	// example:
-	//
-	// 12321321
-	DeviceSn *string `json:"device_sn,omitempty" xml:"device_sn,omitempty" require:"true"`
-	// 设备认证密钥密文，需要下发安全认证SDK完成设备激活
-	// example:
-	//
-	// 123
-	SecKey *string `json:"sec_key,omitempty" xml:"sec_key,omitempty"`
-	// 设备认证密钥状态
-	// example:
-	//
-	// servicing
-	ServiceStatus *string `json:"service_status,omitempty" xml:"service_status,omitempty"`
-}
-
-func (s IotBasicDeviceRegisterResult) String() string {
-	return tea.Prettify(s)
-}
-
-func (s IotBasicDeviceRegisterResult) GoString() string {
-	return s.String()
-}
-
-func (s *IotBasicDeviceRegisterResult) SetDeviceDid(v string) *IotBasicDeviceRegisterResult {
-	s.DeviceDid = &v
-	return s
-}
-
-func (s *IotBasicDeviceRegisterResult) SetPrivateKey(v string) *IotBasicDeviceRegisterResult {
-	s.PrivateKey = &v
-	return s
-}
-
-func (s *IotBasicDeviceRegisterResult) SetDeviceName(v string) *IotBasicDeviceRegisterResult {
-	s.DeviceName = &v
-	return s
-}
-
-func (s *IotBasicDeviceRegisterResult) SetDeviceSn(v string) *IotBasicDeviceRegisterResult {
-	s.DeviceSn = &v
-	return s
-}
-
-func (s *IotBasicDeviceRegisterResult) SetSecKey(v string) *IotBasicDeviceRegisterResult {
-	s.SecKey = &v
-	return s
-}
-
-func (s *IotBasicDeviceRegisterResult) SetServiceStatus(v string) *IotBasicDeviceRegisterResult {
-	s.ServiceStatus = &v
-	return s
-}
-
 // iotbasic设备模型属性
 type IotbasicDeviceModelAttributeInfo struct {
 	// 型号
@@ -10899,108 +7761,6 @@ func (s *IotbasicDeviceModelAttributeInfo) SetModelValue(v string) *IotbasicDevi
 
 func (s *IotbasicDeviceModelAttributeInfo) SetSpecsList(v []*string) *IotbasicDeviceModelAttributeInfo {
 	s.SpecsList = v
-	return s
-}
-
-// 信物链实体身份注册请求结构体
-type ThingsDidBaseRegisterRequest struct {
-	// 信物链实体的所有者的分布式身份
-	// example:
-	//
-	// "did:mychain:6c9f6cde4f63103d25ab1d9893242547a8518d8f51bff1a9da44e4f8537a9816"
-	OwnerTenantDid *string `json:"owner_tenant_did,omitempty" xml:"owner_tenant_did,omitempty"`
-	// 信物链实体的使用方的分布式身份列表
-	// example:
-	//
-	// ["did:mychain:xxxx1","did:mychain:xxxx2"]
-	UserDid []*string `json:"user_did,omitempty" xml:"user_did,omitempty" type:"Repeated"`
-	// 信物链实体身份
-	// DID_TYPE_DEVICE_ALIYUN: 阿里云设备
-	// DID_TYPE_DEVICE_PEGASUS: 链机设备
-	// DID_TYPE_DEVICE_MCU: MCU设备
-	// DID_TYPE_DEVICE_INTEL: intel设备
-	// DID_TYPE_DEVICE_DEVICE: 默认设备
-	// ...
-	// DID_TYPE_CORPORATE:  组织实体
-	// DID_TYPE_WAREHOUSE：仓库实体
-	// DID_TYPE_SPACE： 空间实体
-	// example:
-	//
-	// "DID_TYPE_DEVICE_ALIYUN"
-	ThingType *string `json:"thing_type,omitempty" xml:"thing_type,omitempty" require:"true"`
-	// 原始id，租户内同一类型实体唯一
-	// example:
-	//
-	// "aaaa123"
-	ThingOriginId *string `json:"thing_origin_id,omitempty" xml:"thing_origin_id,omitempty" require:"true"`
-	// 实体原始名称
-	// example:
-	//
-	// "摄像头a11"
-	ThingOriginName *string `json:"thing_origin_name,omitempty" xml:"thing_origin_name,omitempty" require:"true"`
-	// 实体版本
-	// example:
-	//
-	// "1.0.0"
-	ThingVersion *string `json:"thing_version,omitempty" xml:"thing_version,omitempty" require:"true"`
-	// 业务编码
-	// example:
-	//
-	// null
-	BizType *string `json:"biz_type,omitempty" xml:"biz_type,omitempty"`
-	// 信物链实体附加信息
-	// 不同实体身份，有不同的json组织格式，参考另外技术文档
-	// example:
-	//
-	// "附加信息"
-	ThingExtraParams *string `json:"thing_extra_params,omitempty" xml:"thing_extra_params,omitempty"`
-}
-
-func (s ThingsDidBaseRegisterRequest) String() string {
-	return tea.Prettify(s)
-}
-
-func (s ThingsDidBaseRegisterRequest) GoString() string {
-	return s.String()
-}
-
-func (s *ThingsDidBaseRegisterRequest) SetOwnerTenantDid(v string) *ThingsDidBaseRegisterRequest {
-	s.OwnerTenantDid = &v
-	return s
-}
-
-func (s *ThingsDidBaseRegisterRequest) SetUserDid(v []*string) *ThingsDidBaseRegisterRequest {
-	s.UserDid = v
-	return s
-}
-
-func (s *ThingsDidBaseRegisterRequest) SetThingType(v string) *ThingsDidBaseRegisterRequest {
-	s.ThingType = &v
-	return s
-}
-
-func (s *ThingsDidBaseRegisterRequest) SetThingOriginId(v string) *ThingsDidBaseRegisterRequest {
-	s.ThingOriginId = &v
-	return s
-}
-
-func (s *ThingsDidBaseRegisterRequest) SetThingOriginName(v string) *ThingsDidBaseRegisterRequest {
-	s.ThingOriginName = &v
-	return s
-}
-
-func (s *ThingsDidBaseRegisterRequest) SetThingVersion(v string) *ThingsDidBaseRegisterRequest {
-	s.ThingVersion = &v
-	return s
-}
-
-func (s *ThingsDidBaseRegisterRequest) SetBizType(v string) *ThingsDidBaseRegisterRequest {
-	s.BizType = &v
-	return s
-}
-
-func (s *ThingsDidBaseRegisterRequest) SetThingExtraParams(v string) *ThingsDidBaseRegisterRequest {
-	s.ThingExtraParams = &v
 	return s
 }
 
@@ -11133,308 +7893,6 @@ func (s *ScenePageResponse) SetTotalPages(v int64) *ScenePageResponse {
 
 func (s *ScenePageResponse) SetPageData(v []*SceneModel) *ScenePageResponse {
 	s.PageData = v
-	return s
-}
-
-// 产线压测任务对象
-type OnlinePressureTestTask struct {
-	// DATE
-	GmtCreate *string `json:"gmt_create,omitempty" xml:"gmt_create,omitempty" pattern:"\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}([Z]|([\\.]\\d{1,9})?[\\+]\\d{2}[\\:]?\\d{2})"`
-	// 修改时间
-	//
-	// example:
-	//
-	// 2018-10-10T10:10:00Z
-	GmtModified *string `json:"gmt_modified,omitempty" xml:"gmt_modified,omitempty" pattern:"\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}([Z]|([\\.]\\d{1,9})?[\\+]\\d{2}[\\:]?\\d{2})"`
-	// 产线场景码
-	//
-	// example:
-	//
-	// MAYI-0001
-	Scene *string `json:"scene,omitempty" xml:"scene,omitempty" require:"true"`
-	// 压测的目标设备可信信根设备的唯一标识，JSONArray字符串
-	//
-	// example:
-	//
-	// [ {"componentId": "864964060327592"} {"componentId": "864964060327592"} ]
-	ComponentIdList *string `json:"component_id_list,omitempty" xml:"component_id_list,omitempty" require:"true"`
-	// 客户侧的压测报告
-	//
-	// example:
-	//
-	// [ { "name":"流量消耗", "consumption":"100KB", "asExpected":true }, { "name":"功耗", "consumption":"25mA", "asExpected":true }, { "name":"OTA升级" "asExpected":true } ] }
-	CustomerPtReport *string `json:"customer_pt_report,omitempty" xml:"customer_pt_report,omitempty"`
-	// 压测开始时间
-	//
-	// example:
-	//
-	// 2018-10-10T10:10:00Z
-	PtStartTime *string `json:"pt_start_time,omitempty" xml:"pt_start_time,omitempty" require:"true" pattern:"\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}([Z]|([\\.]\\d{1,9})?[\\+]\\d{2}[\\:]?\\d{2})"`
-	// 压测结束时间
-	//
-	// example:
-	//
-	// 2018-10-10T10:10:00Z
-	PtEndTime *string `json:"pt_end_time,omitempty" xml:"pt_end_time,omitempty" require:"true" pattern:"\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}([Z]|([\\.]\\d{1,9})?[\\+]\\d{2}[\\:]?\\d{2})"`
-	// RUNNING: 正在执行 SUCCESS : 测试通过 FAILED : 测试不通过
-	//
-	// example:
-	//
-	// RUNNING
-	PtStatus *string `json:"pt_status,omitempty" xml:"pt_status,omitempty" require:"true"`
-	// 关联SIT环境的工单ID
-	//
-	// example:
-	//
-	// 1122
-	WorkOrderId *string `json:"work_order_id,omitempty" xml:"work_order_id,omitempty"`
-	// 关联SIT环境的项目ID
-	//
-	// example:
-	//
-	// 11223344
-	ProjectId *string `json:"project_id,omitempty" xml:"project_id,omitempty" require:"true"`
-	// 产线压测任务ID
-	// example:
-	//
-	// 11223344566
-	PtTaskId *string `json:"pt_task_id,omitempty" xml:"pt_task_id,omitempty" require:"true"`
-	// 压测不通过的原因
-	// example:
-	//
-	// 数据验签失败
-	FailureReason *string `json:"failure_reason,omitempty" xml:"failure_reason,omitempty" require:"true"`
-	// 拓展信息
-	// example:
-	//
-	// {...}
-	ExtraInfo *string `json:"extra_info,omitempty" xml:"extra_info,omitempty"`
-}
-
-func (s OnlinePressureTestTask) String() string {
-	return tea.Prettify(s)
-}
-
-func (s OnlinePressureTestTask) GoString() string {
-	return s.String()
-}
-
-func (s *OnlinePressureTestTask) SetGmtCreate(v string) *OnlinePressureTestTask {
-	s.GmtCreate = &v
-	return s
-}
-
-func (s *OnlinePressureTestTask) SetGmtModified(v string) *OnlinePressureTestTask {
-	s.GmtModified = &v
-	return s
-}
-
-func (s *OnlinePressureTestTask) SetScene(v string) *OnlinePressureTestTask {
-	s.Scene = &v
-	return s
-}
-
-func (s *OnlinePressureTestTask) SetComponentIdList(v string) *OnlinePressureTestTask {
-	s.ComponentIdList = &v
-	return s
-}
-
-func (s *OnlinePressureTestTask) SetCustomerPtReport(v string) *OnlinePressureTestTask {
-	s.CustomerPtReport = &v
-	return s
-}
-
-func (s *OnlinePressureTestTask) SetPtStartTime(v string) *OnlinePressureTestTask {
-	s.PtStartTime = &v
-	return s
-}
-
-func (s *OnlinePressureTestTask) SetPtEndTime(v string) *OnlinePressureTestTask {
-	s.PtEndTime = &v
-	return s
-}
-
-func (s *OnlinePressureTestTask) SetPtStatus(v string) *OnlinePressureTestTask {
-	s.PtStatus = &v
-	return s
-}
-
-func (s *OnlinePressureTestTask) SetWorkOrderId(v string) *OnlinePressureTestTask {
-	s.WorkOrderId = &v
-	return s
-}
-
-func (s *OnlinePressureTestTask) SetProjectId(v string) *OnlinePressureTestTask {
-	s.ProjectId = &v
-	return s
-}
-
-func (s *OnlinePressureTestTask) SetPtTaskId(v string) *OnlinePressureTestTask {
-	s.PtTaskId = &v
-	return s
-}
-
-func (s *OnlinePressureTestTask) SetFailureReason(v string) *OnlinePressureTestTask {
-	s.FailureReason = &v
-	return s
-}
-
-func (s *OnlinePressureTestTask) SetExtraInfo(v string) *OnlinePressureTestTask {
-	s.ExtraInfo = &v
-	return s
-}
-
-// 客户对应设备
-type CustomerDeviceItem struct {
-	// id
-	// example:
-	//
-	// 1
-	Id *int64 `json:"id,omitempty" xml:"id,omitempty" require:"true"`
-	// 租户id
-	// example:
-	//
-	// tenant_id
-	TenantId *string `json:"tenant_id,omitempty" xml:"tenant_id,omitempty" require:"true"`
-	// 账号id
-	// example:
-	//
-	// 账号id
-	AccountId *string `json:"account_id,omitempty" xml:"account_id,omitempty" require:"true"`
-	//  设备品类-型号-规格
-	// example:
-	//
-	//  设备品类-型号-规格
-	DeviceType *string `json:"device_type,omitempty" xml:"device_type,omitempty" require:"true"`
-	// 设备sn
-	// example:
-	//
-	// SN
-	DeviceSn *string `json:"device_sn,omitempty" xml:"device_sn,omitempty" require:"true"`
-	// 设备did
-	// example:
-	//
-	// dasdf
-	DeviceDid *string `json:"device_did,omitempty" xml:"device_did,omitempty" require:"true"`
-	// 服务有效期
-	// example:
-	//
-	// 服务有效期
-	ValideTime *string `json:"valide_time,omitempty" xml:"valide_time,omitempty" require:"true"`
-	// 设备状态
-	// example:
-	//
-	// INIT
-	DeviceStatus *string `json:"device_status,omitempty" xml:"device_status,omitempty" require:"true"`
-	// 服务状态
-	// example:
-	//
-	// INIT
-	ServiceStatus *string `json:"service_status,omitempty" xml:"service_status,omitempty" require:"true"`
-	// 屏幕状态 开屏、锁屏
-	// example:
-	//
-	// 屏幕状态
-	ScreenStatus *string `json:"screen_status,omitempty" xml:"screen_status,omitempty"`
-}
-
-func (s CustomerDeviceItem) String() string {
-	return tea.Prettify(s)
-}
-
-func (s CustomerDeviceItem) GoString() string {
-	return s.String()
-}
-
-func (s *CustomerDeviceItem) SetId(v int64) *CustomerDeviceItem {
-	s.Id = &v
-	return s
-}
-
-func (s *CustomerDeviceItem) SetTenantId(v string) *CustomerDeviceItem {
-	s.TenantId = &v
-	return s
-}
-
-func (s *CustomerDeviceItem) SetAccountId(v string) *CustomerDeviceItem {
-	s.AccountId = &v
-	return s
-}
-
-func (s *CustomerDeviceItem) SetDeviceType(v string) *CustomerDeviceItem {
-	s.DeviceType = &v
-	return s
-}
-
-func (s *CustomerDeviceItem) SetDeviceSn(v string) *CustomerDeviceItem {
-	s.DeviceSn = &v
-	return s
-}
-
-func (s *CustomerDeviceItem) SetDeviceDid(v string) *CustomerDeviceItem {
-	s.DeviceDid = &v
-	return s
-}
-
-func (s *CustomerDeviceItem) SetValideTime(v string) *CustomerDeviceItem {
-	s.ValideTime = &v
-	return s
-}
-
-func (s *CustomerDeviceItem) SetDeviceStatus(v string) *CustomerDeviceItem {
-	s.DeviceStatus = &v
-	return s
-}
-
-func (s *CustomerDeviceItem) SetServiceStatus(v string) *CustomerDeviceItem {
-	s.ServiceStatus = &v
-	return s
-}
-
-func (s *CustomerDeviceItem) SetScreenStatus(v string) *CustomerDeviceItem {
-	s.ScreenStatus = &v
-	return s
-}
-
-// 部标数据查询接口中返回的聚合统计指标结构体
-type JtExtraData struct {
-	// 查询的时间范围内的行驶总里程
-	// example:
-	//
-	// 312
-	DeltaMileage *int64 `json:"delta_mileage,omitempty" xml:"delta_mileage,omitempty" require:"true"`
-	// 最大车速
-	// example:
-	//
-	// 60
-	MaxSpeed *int64 `json:"max_speed,omitempty" xml:"max_speed,omitempty" require:"true"`
-	// 平均车速
-	// example:
-	//
-	// 60
-	AvgSpeed *int64 `json:"avg_speed,omitempty" xml:"avg_speed,omitempty" require:"true"`
-}
-
-func (s JtExtraData) String() string {
-	return tea.Prettify(s)
-}
-
-func (s JtExtraData) GoString() string {
-	return s.String()
-}
-
-func (s *JtExtraData) SetDeltaMileage(v int64) *JtExtraData {
-	s.DeltaMileage = &v
-	return s
-}
-
-func (s *JtExtraData) SetMaxSpeed(v int64) *JtExtraData {
-	s.MaxSpeed = &v
-	return s
-}
-
-func (s *JtExtraData) SetAvgSpeed(v int64) *JtExtraData {
-	s.AvgSpeed = &v
 	return s
 }
 
@@ -11821,38 +8279,6 @@ func (s *AssetElementInfo) SetRemark(v string) *AssetElementInfo {
 	return s
 }
 
-// 用户通行证创建详情
-type XrUserTicketInfo struct {
-	// xr通行证资源池名称
-	// example:
-	//
-	// 资源池001
-	XrTicketPoolName *string `json:"xr_ticket_pool_name,omitempty" xml:"xr_ticket_pool_name,omitempty" require:"true"`
-	// 购买数量
-	// example:
-	//
-	// 10
-	Count *int64 `json:"count,omitempty" xml:"count,omitempty" require:"true"`
-}
-
-func (s XrUserTicketInfo) String() string {
-	return tea.Prettify(s)
-}
-
-func (s XrUserTicketInfo) GoString() string {
-	return s.String()
-}
-
-func (s *XrUserTicketInfo) SetXrTicketPoolName(v string) *XrUserTicketInfo {
-	s.XrTicketPoolName = &v
-	return s
-}
-
-func (s *XrUserTicketInfo) SetCount(v int64) *XrUserTicketInfo {
-	s.Count = &v
-	return s
-}
-
 // 用户操作集合
 type IotBasicUserRequest struct {
 	// 租户ID
@@ -12159,88 +8585,6 @@ func (s *QueryDeviceTransactionResultData) SetAccountName(v string) *QueryDevice
 	return s
 }
 
-// 组织请求注册更新结构体，应用在注册/更新API的ThingExtraParams
-type CorporateReqModel struct {
-	// 组织地址
-	// example:
-	//
-	// xxxxx
-	Address *string `json:"address,omitempty" xml:"address,omitempty"`
-	// 运营地址
-	// example:
-	//
-	// ""
-	BusinessAddress *string `json:"business_address,omitempty" xml:"business_address,omitempty"`
-	// 经营类目
-	// example:
-	//
-	// ""
-	BusinessScope *string `json:"business_scope,omitempty" xml:"business_scope,omitempty"`
-	// 注册时间，字符串类型
-	// example:
-	//
-	// "注册时间"
-	CertifyDate *string `json:"certify_date,omitempty" xml:"certify_date,omitempty"`
-	// 营业执照有效期，字符串
-	// example:
-	//
-	// ""
-	LicenceExpireDate *string `json:"licence_expire_date,omitempty" xml:"licence_expire_date,omitempty"`
-	// 国家
-	// example:
-	//
-	// CN
-	Nation *string `json:"nation,omitempty" xml:"nation,omitempty"`
-	// 组织类型
-	// example:
-	//
-	// LimitedCompany
-	Type *string `json:"type,omitempty" xml:"type,omitempty"`
-}
-
-func (s CorporateReqModel) String() string {
-	return tea.Prettify(s)
-}
-
-func (s CorporateReqModel) GoString() string {
-	return s.String()
-}
-
-func (s *CorporateReqModel) SetAddress(v string) *CorporateReqModel {
-	s.Address = &v
-	return s
-}
-
-func (s *CorporateReqModel) SetBusinessAddress(v string) *CorporateReqModel {
-	s.BusinessAddress = &v
-	return s
-}
-
-func (s *CorporateReqModel) SetBusinessScope(v string) *CorporateReqModel {
-	s.BusinessScope = &v
-	return s
-}
-
-func (s *CorporateReqModel) SetCertifyDate(v string) *CorporateReqModel {
-	s.CertifyDate = &v
-	return s
-}
-
-func (s *CorporateReqModel) SetLicenceExpireDate(v string) *CorporateReqModel {
-	s.LicenceExpireDate = &v
-	return s
-}
-
-func (s *CorporateReqModel) SetNation(v string) *CorporateReqModel {
-	s.Nation = &v
-	return s
-}
-
-func (s *CorporateReqModel) SetType(v string) *CorporateReqModel {
-	s.Type = &v
-	return s
-}
-
 // 商品数字指纹注册用户信息
 type GoodsDigitalFingerprintUserInfo struct {
 	// 平台注册用户id
@@ -12325,85 +8669,75 @@ func (s *CollectLabelRawContent) SetDataModelId(v string) *CollectLabelRawConten
 	return s
 }
 
-// iotbasic数控设备信息（不包含出库信息）
-type IotbasicDigitalKeyDeviceNoShipInfo struct {
-	// 设备id
+// 租户级 OTA 连续推送完整配置响应
+type ContinuousOtaConfigResponse struct {
+	// 当前配置所属租户 ID
 	// example:
 	//
-	// 125839
-	Devid *string `json:"devid,omitempty" xml:"devid,omitempty" require:"true"`
-	// 设备sn
+	// XQBKTRQV
+	TenantId *string `json:"tenant_id,omitempty" xml:"tenant_id,omitempty"`
+	// 租户名称；跨租户管理视图中可能为空
 	// example:
 	//
-	// 9726001010008SC30N96
-	Sn *string `json:"sn,omitempty" xml:"sn,omitempty" require:"true"`
-	// ccid
+	// 租户名称
+	TenantName *string `json:"tenant_name,omitempty" xml:"tenant_name,omitempty"`
+	// 租户级连续推送总开关
 	// example:
 	//
-	// 898602B1191870002179
-	Ccid *string `json:"ccid,omitempty" xml:"ccid,omitempty" require:"true"`
-	// imei
+	// true
+	Enabled *bool `json:"enabled,omitempty" xml:"enabled,omitempty"`
+	// 同设备同固件的去重窗口，单位分钟
 	// example:
 	//
-	// 866311069827503
-	Imei *string `json:"imei,omitempty" xml:"imei,omitempty" require:"true"`
-	// tbox固件版本号(16进制)
+	// 1
+	DedupExpireMinutes *int64 `json:"dedup_expire_minutes,omitempty" xml:"dedup_expire_minutes,omitempty"`
+	// 租户级设置锁版本，以字符串返回，更新设置时作为 expectedLockVersion 回传
 	// example:
 	//
-	// 80000109
-	Ver *string `json:"ver,omitempty" xml:"ver,omitempty" require:"true"`
-	// PEPS系统固件版本号(16进制)
+	// 1
+	LockVersion *string `json:"lock_version,omitempty" xml:"lock_version,omitempty"`
+	// 产品策略列表
 	// example:
 	//
-	// 81070205
-	PepsVer *string `json:"peps_ver,omitempty" xml:"peps_ver,omitempty" require:"true"`
-	// 蓝牙固件版本号(16进制)
-	// example:
-	//
-	// 80090204
-	BleVer *string `json:"ble_ver,omitempty" xml:"ble_ver,omitempty" require:"true"`
+	// undefined
+	ProductConfigs []*ContinuousOtaOpenApiPolicyResponse `json:"product_configs,omitempty" xml:"product_configs,omitempty" type:"Repeated"`
 }
 
-func (s IotbasicDigitalKeyDeviceNoShipInfo) String() string {
+func (s ContinuousOtaConfigResponse) String() string {
 	return tea.Prettify(s)
 }
 
-func (s IotbasicDigitalKeyDeviceNoShipInfo) GoString() string {
+func (s ContinuousOtaConfigResponse) GoString() string {
 	return s.String()
 }
 
-func (s *IotbasicDigitalKeyDeviceNoShipInfo) SetDevid(v string) *IotbasicDigitalKeyDeviceNoShipInfo {
-	s.Devid = &v
+func (s *ContinuousOtaConfigResponse) SetTenantId(v string) *ContinuousOtaConfigResponse {
+	s.TenantId = &v
 	return s
 }
 
-func (s *IotbasicDigitalKeyDeviceNoShipInfo) SetSn(v string) *IotbasicDigitalKeyDeviceNoShipInfo {
-	s.Sn = &v
+func (s *ContinuousOtaConfigResponse) SetTenantName(v string) *ContinuousOtaConfigResponse {
+	s.TenantName = &v
 	return s
 }
 
-func (s *IotbasicDigitalKeyDeviceNoShipInfo) SetCcid(v string) *IotbasicDigitalKeyDeviceNoShipInfo {
-	s.Ccid = &v
+func (s *ContinuousOtaConfigResponse) SetEnabled(v bool) *ContinuousOtaConfigResponse {
+	s.Enabled = &v
 	return s
 }
 
-func (s *IotbasicDigitalKeyDeviceNoShipInfo) SetImei(v string) *IotbasicDigitalKeyDeviceNoShipInfo {
-	s.Imei = &v
+func (s *ContinuousOtaConfigResponse) SetDedupExpireMinutes(v int64) *ContinuousOtaConfigResponse {
+	s.DedupExpireMinutes = &v
 	return s
 }
 
-func (s *IotbasicDigitalKeyDeviceNoShipInfo) SetVer(v string) *IotbasicDigitalKeyDeviceNoShipInfo {
-	s.Ver = &v
+func (s *ContinuousOtaConfigResponse) SetLockVersion(v string) *ContinuousOtaConfigResponse {
+	s.LockVersion = &v
 	return s
 }
 
-func (s *IotbasicDigitalKeyDeviceNoShipInfo) SetPepsVer(v string) *IotbasicDigitalKeyDeviceNoShipInfo {
-	s.PepsVer = &v
-	return s
-}
-
-func (s *IotbasicDigitalKeyDeviceNoShipInfo) SetBleVer(v string) *IotbasicDigitalKeyDeviceNoShipInfo {
-	s.BleVer = &v
+func (s *ContinuousOtaConfigResponse) SetProductConfigs(v []*ContinuousOtaOpenApiPolicyResponse) *ContinuousOtaConfigResponse {
+	s.ProductConfigs = v
 	return s
 }
 
@@ -12489,68 +8823,6 @@ func (s *DistributeDevice) SetDeviceStatus(v string) *DistributeDevice {
 	return s
 }
 
-// 事件数据
-type EventData struct {
-	// 数据内容
-	// example:
-	//
-	// { "DEVICE-ID": "ABC123", "IMEI": "868331011992179", "HEART-BEAT-TIME": 1699053387008 }
-	Content *string `json:"content,omitempty" xml:"content,omitempty" require:"true"`
-	// 可信设备ID
-	// example:
-	//
-	// 7213004826408435712
-	TrustIotDeviceId *int64 `json:"trust_iot_device_id,omitempty" xml:"trust_iot_device_id,omitempty"`
-	// 业务ID
-	// example:
-	//
-	// 20240815
-	BizId *string `json:"biz_id,omitempty" xml:"biz_id,omitempty"`
-	// 设备数据签名
-	// example:
-	//
-	// 8e084d95c5ac9198b01b9f6b8040b2daa35a3e2706a472295f52ec0966119383d7654eb2c1f67eb563194ab9d2197fcd8fcb5232308927e708257ebea8ce1cda
-	Signature *string `json:"signature,omitempty" xml:"signature,omitempty"`
-	// 设备数据间接上报时，服务端补充数据
-	// example:
-	//
-	// {"PRICE":2.2,"NUMBER":3}
-	ExtraData *string `json:"extra_data,omitempty" xml:"extra_data,omitempty"`
-}
-
-func (s EventData) String() string {
-	return tea.Prettify(s)
-}
-
-func (s EventData) GoString() string {
-	return s.String()
-}
-
-func (s *EventData) SetContent(v string) *EventData {
-	s.Content = &v
-	return s
-}
-
-func (s *EventData) SetTrustIotDeviceId(v int64) *EventData {
-	s.TrustIotDeviceId = &v
-	return s
-}
-
-func (s *EventData) SetBizId(v string) *EventData {
-	s.BizId = &v
-	return s
-}
-
-func (s *EventData) SetSignature(v string) *EventData {
-	s.Signature = &v
-	return s
-}
-
-func (s *EventData) SetExtraData(v string) *EventData {
-	s.ExtraData = &v
-	return s
-}
-
 // 设备概览统计信息
 type DeviceOverViewResponse struct {
 	// 设备品类名称
@@ -12622,118 +8894,6 @@ func (s *PhoneInfo) SetColourNumber(v string) *PhoneInfo {
 
 func (s *PhoneInfo) SetMemory(v string) *PhoneInfo {
 	s.Memory = &v
-	return s
-}
-
-// 设备规格信息体
-type IotBasicDeviceSpecs struct {
-	// 厂商编码
-	// example:
-	//
-	// telpo
-	CorpValue *string `json:"corp_value,omitempty" xml:"corp_value,omitempty" require:"true"`
-	// 厂商名称
-	// example:
-	//
-	// 天波
-	CorpName *string `json:"corp_name,omitempty" xml:"corp_name,omitempty" require:"true"`
-	// 型号名称
-	// example:
-	//
-	// TPS1231
-	ModelName *string `json:"model_name,omitempty" xml:"model_name,omitempty" require:"true"`
-	// 型号编码
-	// example:
-	//
-	// TPS123
-	ModelValue *string `json:"model_value,omitempty" xml:"model_value,omitempty" require:"true"`
-	// 防疫机
-	// example:
-	//
-	// 设备品类名称
-	CategoryName *string `json:"category_name,omitempty" xml:"category_name,omitempty" require:"true"`
-	// 设备品类编码
-	// example:
-	//
-	// antmic
-	CategoryCode *string `json:"category_code,omitempty" xml:"category_code,omitempty" require:"true"`
-	// 规格ID
-	// example:
-	//
-	// 12321321
-	SpecsId *int64 `json:"specs_id,omitempty" xml:"specs_id,omitempty" require:"true"`
-	// 规格名称
-	// example:
-	//
-	// 规格名称
-	SpecsName *string `json:"specs_name,omitempty" xml:"specs_name,omitempty" require:"true"`
-	// 规格编码
-	// example:
-	//
-	// 规格编码
-	SpecsValue *string `json:"specs_value,omitempty" xml:"specs_value,omitempty" require:"true"`
-	// 规格参数
-	// example:
-	//
-	// 规格参数
-	SpecsParam *string `json:"specs_param,omitempty" xml:"specs_param,omitempty" require:"true"`
-}
-
-func (s IotBasicDeviceSpecs) String() string {
-	return tea.Prettify(s)
-}
-
-func (s IotBasicDeviceSpecs) GoString() string {
-	return s.String()
-}
-
-func (s *IotBasicDeviceSpecs) SetCorpValue(v string) *IotBasicDeviceSpecs {
-	s.CorpValue = &v
-	return s
-}
-
-func (s *IotBasicDeviceSpecs) SetCorpName(v string) *IotBasicDeviceSpecs {
-	s.CorpName = &v
-	return s
-}
-
-func (s *IotBasicDeviceSpecs) SetModelName(v string) *IotBasicDeviceSpecs {
-	s.ModelName = &v
-	return s
-}
-
-func (s *IotBasicDeviceSpecs) SetModelValue(v string) *IotBasicDeviceSpecs {
-	s.ModelValue = &v
-	return s
-}
-
-func (s *IotBasicDeviceSpecs) SetCategoryName(v string) *IotBasicDeviceSpecs {
-	s.CategoryName = &v
-	return s
-}
-
-func (s *IotBasicDeviceSpecs) SetCategoryCode(v string) *IotBasicDeviceSpecs {
-	s.CategoryCode = &v
-	return s
-}
-
-func (s *IotBasicDeviceSpecs) SetSpecsId(v int64) *IotBasicDeviceSpecs {
-	s.SpecsId = &v
-	return s
-}
-
-func (s *IotBasicDeviceSpecs) SetSpecsName(v string) *IotBasicDeviceSpecs {
-	s.SpecsName = &v
-	return s
-}
-
-func (s *IotBasicDeviceSpecs) SetSpecsValue(v string) *IotBasicDeviceSpecs {
-	s.SpecsValue = &v
-	return s
-}
-
-func (s *IotBasicDeviceSpecs) SetSpecsParam(v string) *IotBasicDeviceSpecs {
-	s.SpecsParam = &v
 	return s
 }
 
@@ -12855,65 +9015,6 @@ func (s *DidUpdateTenantReq) SetOpMode(v string) *DidUpdateTenantReq {
 	return s
 }
 
-// 订单批量同步单个请求体
-type DeviceorderRequest struct {
-	// 订单id
-	// example:
-	//
-	// 20034932
-	OrderId *string `json:"order_id,omitempty" xml:"order_id,omitempty" require:"true"`
-	// 支付状态
-	// example:
-	//
-	// PAID,UNPAID,PAYMENT_FAILED
-	OrderStatus *string `json:"order_status,omitempty" xml:"order_status,omitempty" require:"true"`
-	// 商家唯一id
-	// example:
-	//
-	// 30099234
-	MerchantId *string `json:"merchant_id,omitempty" xml:"merchant_id,omitempty" require:"true"`
-	// 设备订单元素集合
-	OrderDeviceList []*IotBasicDeviceOrderItem `json:"order_device_list,omitempty" xml:"order_device_list,omitempty" require:"true" type:"Repeated"`
-	// 订单总金额，精确到小数点后两位
-	// example:
-	//
-	// 22220.98
-	TotalAmount *string `json:"total_amount,omitempty" xml:"total_amount,omitempty" require:"true"`
-}
-
-func (s DeviceorderRequest) String() string {
-	return tea.Prettify(s)
-}
-
-func (s DeviceorderRequest) GoString() string {
-	return s.String()
-}
-
-func (s *DeviceorderRequest) SetOrderId(v string) *DeviceorderRequest {
-	s.OrderId = &v
-	return s
-}
-
-func (s *DeviceorderRequest) SetOrderStatus(v string) *DeviceorderRequest {
-	s.OrderStatus = &v
-	return s
-}
-
-func (s *DeviceorderRequest) SetMerchantId(v string) *DeviceorderRequest {
-	s.MerchantId = &v
-	return s
-}
-
-func (s *DeviceorderRequest) SetOrderDeviceList(v []*IotBasicDeviceOrderItem) *DeviceorderRequest {
-	s.OrderDeviceList = v
-	return s
-}
-
-func (s *DeviceorderRequest) SetTotalAmount(v string) *DeviceorderRequest {
-	s.TotalAmount = &v
-	return s
-}
-
 // 上链数据
 type CollectInfo struct {
 	// 资产ID
@@ -12995,6 +9096,6384 @@ func (s *IdListView) SetDataId(v int64) *IdListView {
 
 func (s *IdListView) SetDataName(v string) *IdListView {
 	s.DataName = &v
+	return s
+}
+
+// 商品数字指纹鉴定结果
+type GoodsDigitalFingerprintIdentifyResultData struct {
+	// 鉴定结果
+	// example:
+	//
+	// REAL
+	IdentificationResult *string `json:"identification_result,omitempty" xml:"identification_result,omitempty" require:"true"`
+	// 鉴定结果描述
+	// example:
+	//
+	// 描述
+	Description *string `json:"description,omitempty" xml:"description,omitempty" require:"true"`
+	// 商品数字指纹鉴定点鉴定结果列表
+	// example:
+	//
+	// {"sub_point_name":"正面","result":"REAL","grade":"0.92"}
+	PointIdentificationResults []*GoodsDigitalFingerprintPointIdentificationResult `json:"point_identification_results,omitempty" xml:"point_identification_results,omitempty" require:"true" type:"Repeated"`
+}
+
+func (s GoodsDigitalFingerprintIdentifyResultData) String() string {
+	return tea.Prettify(s)
+}
+
+func (s GoodsDigitalFingerprintIdentifyResultData) GoString() string {
+	return s.String()
+}
+
+func (s *GoodsDigitalFingerprintIdentifyResultData) SetIdentificationResult(v string) *GoodsDigitalFingerprintIdentifyResultData {
+	s.IdentificationResult = &v
+	return s
+}
+
+func (s *GoodsDigitalFingerprintIdentifyResultData) SetDescription(v string) *GoodsDigitalFingerprintIdentifyResultData {
+	s.Description = &v
+	return s
+}
+
+func (s *GoodsDigitalFingerprintIdentifyResultData) SetPointIdentificationResults(v []*GoodsDigitalFingerprintPointIdentificationResult) *GoodsDigitalFingerprintIdentifyResultData {
+	s.PointIdentificationResults = v
+	return s
+}
+
+// 部标设备数据
+type JtData struct {
+	// 数据的可信平台唯一ID
+	// example:
+	//
+	// 123
+	TrustiotId *int64 `json:"trustiot_id,omitempty" xml:"trustiot_id,omitempty" require:"true"`
+	// IoT可信平台设备唯一ID
+	// example:
+	//
+	// 123
+	TrustiotEntityId *int64 `json:"trustiot_entity_id,omitempty" xml:"trustiot_entity_id,omitempty" require:"true"`
+	// 上报原文解析处理之后的数据
+	// example:
+	//
+	// processed_content
+	ProcessedContent *string `json:"processed_content,omitempty" xml:"processed_content,omitempty" require:"true"`
+	// 和上一次上报数据里程对比，新增的里程数
+	// example:
+	//
+	// 123
+	DeltaMileage *int64 `json:"delta_mileage,omitempty" xml:"delta_mileage,omitempty"`
+	// 正常位置信息：LOCATION
+	// 告警信息：ALARM_BASIC、 ALARM_ADAS、 ALARM_DSM、 ALARM_ACCELEROMETER
+	// example:
+	//
+	// 数据标识
+	BizType *string `json:"biz_type,omitempty" xml:"biz_type,omitempty" require:"true"`
+	// 告警子类型
+	// //ADAS
+	// 10001: 前向碰撞报警
+	// 10002: 车辆偏离报警
+	// 10003: 车距过近报警
+	// 10004: 行人碰撞报警
+	// 10005: 频繁变道报警
+	// 10006: 道路标识超限报警
+	// 10007: 障碍物报警 //10008~10015 保留
+	// 10016: 道路标志识别事件
+	// 10017: 主动抓拍事件 //10018~10031 保留
+	// //DSM
+	// 10101: 疲劳驾驶报警
+	// 10102: 接打电话报警
+	// 10103: 抽烟报警报警
+	// 10104: 分神驾驶报警
+	// 10105: 驾驶员异常报警 //10106~10115 保留
+	// 10116: 自动抓拍事件
+	// 10117: 驾驶员变更事件 //10118~10031 保留
+	// //加速度
+	// 11701: 急加速
+	// 11702: 急减速
+	// 11703: 急转弯
+	// example:
+	//
+	// 10001
+	AlarmSubType *int64 `json:"alarm_sub_type,omitempty" xml:"alarm_sub_type,omitempty"`
+	// 关联设备唯一ID
+	// example:
+	//
+	// 123
+	RelatedTrustEntityId *string `json:"related_trust_entity_id,omitempty" xml:"related_trust_entity_id,omitempty"`
+	// 日报日期
+	// example:
+	//
+	// 2023-12-01
+	ReportDate *string `json:"report_date,omitempty" xml:"report_date,omitempty"`
+}
+
+func (s JtData) String() string {
+	return tea.Prettify(s)
+}
+
+func (s JtData) GoString() string {
+	return s.String()
+}
+
+func (s *JtData) SetTrustiotId(v int64) *JtData {
+	s.TrustiotId = &v
+	return s
+}
+
+func (s *JtData) SetTrustiotEntityId(v int64) *JtData {
+	s.TrustiotEntityId = &v
+	return s
+}
+
+func (s *JtData) SetProcessedContent(v string) *JtData {
+	s.ProcessedContent = &v
+	return s
+}
+
+func (s *JtData) SetDeltaMileage(v int64) *JtData {
+	s.DeltaMileage = &v
+	return s
+}
+
+func (s *JtData) SetBizType(v string) *JtData {
+	s.BizType = &v
+	return s
+}
+
+func (s *JtData) SetAlarmSubType(v int64) *JtData {
+	s.AlarmSubType = &v
+	return s
+}
+
+func (s *JtData) SetRelatedTrustEntityId(v string) *JtData {
+	s.RelatedTrustEntityId = &v
+	return s
+}
+
+func (s *JtData) SetReportDate(v string) *JtData {
+	s.ReportDate = &v
+	return s
+}
+
+// 通过设备ID注册发行时的设备参数
+type RegByDeviceIdParm struct {
+	// 一般是业务上唯一的设备ID/资产编码
+	// example:
+	//
+	// 1122
+	DeviceId *string `json:"device_id,omitempty" xml:"device_id,omitempty" require:"true"`
+	// 数据模型ID
+	// example:
+	//
+	// 7033986596836630528
+	DeviceDataModelId *string `json:"device_data_model_id,omitempty" xml:"device_data_model_id,omitempty"`
+	// 固定填写RAW_DATA
+	// example:
+	//
+	// RAW_DATA
+	DeviceFeature *string `json:"device_feature,omitempty" xml:"device_feature,omitempty"`
+	// true : 设备ID已存在时返回存在的设备关联字段;
+	// false : 设备ID已存在时直接抛出异常；
+	// example:
+	//
+	// true, false
+	WithExistDeviceId *bool `json:"with_exist_device_id,omitempty" xml:"with_exist_device_id,omitempty"`
+	// 设备类型编码，联系蚂蚁侧获取设备类型编码
+	DeviceTypeCode *int64 `json:"device_type_code,omitempty" xml:"device_type_code,omitempty" require:"true"`
+	// 设备单价 单位：分
+	// example:
+	//
+	// 1000
+	InitialPrice *int64 `json:"initial_price,omitempty" xml:"initial_price,omitempty"`
+	// 出厂时间
+	// example:
+	//
+	// 2018-10-10T10:10:00Z
+	FactoryTime *string `json:"factory_time,omitempty" xml:"factory_time,omitempty" pattern:"\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}([Z]|([\\.]\\d{1,9})?[\\+]\\d{2}[\\:]?\\d{2})"`
+	// 投放时间
+	// example:
+	//
+	// 2018-10-10T10:10:00Z
+	ReleaseTime *string `json:"release_time,omitempty" xml:"release_time,omitempty" pattern:"\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}([Z]|([\\.]\\d{1,9})?[\\+]\\d{2}[\\:]?\\d{2})"`
+	// 额外信息，联系蚂蚁侧获取参数格式
+	// example:
+	//
+	// {...}
+	ExtraInfo *string `json:"extra_info,omitempty" xml:"extra_info,omitempty"`
+	// 资产所有人标识（统一社会信用代码）
+	// example:
+	//
+	// 91310101MA1FPCXA3G
+	Owner *string `json:"owner,omitempty" xml:"owner,omitempty"`
+	// 资产所有人名称
+	// example:
+	//
+	// 蚂蚁区块链科技（上海）有限公司
+	OwnerName *string `json:"owner_name,omitempty" xml:"owner_name,omitempty"`
+	// 设备IMEI
+	// example:
+	//
+	// 861037055012207
+	DeviceImei *string `json:"device_imei,omitempty" xml:"device_imei,omitempty"`
+	// 设备名称/设备型号
+	// example:
+	//
+	// 64.0V30AH
+	DeviceName *string `json:"device_name,omitempty" xml:"device_name,omitempty"`
+	// 生产厂商名
+	// example:
+	//
+	// 浙江一厂
+	CorpName *string `json:"corp_name,omitempty" xml:"corp_name,omitempty"`
+}
+
+func (s RegByDeviceIdParm) String() string {
+	return tea.Prettify(s)
+}
+
+func (s RegByDeviceIdParm) GoString() string {
+	return s.String()
+}
+
+func (s *RegByDeviceIdParm) SetDeviceId(v string) *RegByDeviceIdParm {
+	s.DeviceId = &v
+	return s
+}
+
+func (s *RegByDeviceIdParm) SetDeviceDataModelId(v string) *RegByDeviceIdParm {
+	s.DeviceDataModelId = &v
+	return s
+}
+
+func (s *RegByDeviceIdParm) SetDeviceFeature(v string) *RegByDeviceIdParm {
+	s.DeviceFeature = &v
+	return s
+}
+
+func (s *RegByDeviceIdParm) SetWithExistDeviceId(v bool) *RegByDeviceIdParm {
+	s.WithExistDeviceId = &v
+	return s
+}
+
+func (s *RegByDeviceIdParm) SetDeviceTypeCode(v int64) *RegByDeviceIdParm {
+	s.DeviceTypeCode = &v
+	return s
+}
+
+func (s *RegByDeviceIdParm) SetInitialPrice(v int64) *RegByDeviceIdParm {
+	s.InitialPrice = &v
+	return s
+}
+
+func (s *RegByDeviceIdParm) SetFactoryTime(v string) *RegByDeviceIdParm {
+	s.FactoryTime = &v
+	return s
+}
+
+func (s *RegByDeviceIdParm) SetReleaseTime(v string) *RegByDeviceIdParm {
+	s.ReleaseTime = &v
+	return s
+}
+
+func (s *RegByDeviceIdParm) SetExtraInfo(v string) *RegByDeviceIdParm {
+	s.ExtraInfo = &v
+	return s
+}
+
+func (s *RegByDeviceIdParm) SetOwner(v string) *RegByDeviceIdParm {
+	s.Owner = &v
+	return s
+}
+
+func (s *RegByDeviceIdParm) SetOwnerName(v string) *RegByDeviceIdParm {
+	s.OwnerName = &v
+	return s
+}
+
+func (s *RegByDeviceIdParm) SetDeviceImei(v string) *RegByDeviceIdParm {
+	s.DeviceImei = &v
+	return s
+}
+
+func (s *RegByDeviceIdParm) SetDeviceName(v string) *RegByDeviceIdParm {
+	s.DeviceName = &v
+	return s
+}
+
+func (s *RegByDeviceIdParm) SetCorpName(v string) *RegByDeviceIdParm {
+	s.CorpName = &v
+	return s
+}
+
+// Sdk分页查询结果
+type SdkPageResponse struct {
+	// 页数
+	//
+	// example:
+	//
+	// 1
+	PageIndex *int64 `json:"page_index,omitempty" xml:"page_index,omitempty" require:"true"`
+	// 页码
+	//
+	// example:
+	//
+	// 10
+	PageSize *int64 `json:"page_size,omitempty" xml:"page_size,omitempty" require:"true"`
+	// 总记录数
+	//
+	// example:
+	//
+	// 100
+	TotalSize *int64 `json:"total_size,omitempty" xml:"total_size,omitempty" require:"true"`
+	// 总页数
+	//
+	// example:
+	//
+	// 10
+	TotalPages *int64 `json:"total_pages,omitempty" xml:"total_pages,omitempty" require:"true"`
+	// 数据
+	// example:
+	//
+	// {...}
+	PageData []*SdkModel `json:"page_data,omitempty" xml:"page_data,omitempty" require:"true" type:"Repeated"`
+}
+
+func (s SdkPageResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s SdkPageResponse) GoString() string {
+	return s.String()
+}
+
+func (s *SdkPageResponse) SetPageIndex(v int64) *SdkPageResponse {
+	s.PageIndex = &v
+	return s
+}
+
+func (s *SdkPageResponse) SetPageSize(v int64) *SdkPageResponse {
+	s.PageSize = &v
+	return s
+}
+
+func (s *SdkPageResponse) SetTotalSize(v int64) *SdkPageResponse {
+	s.TotalSize = &v
+	return s
+}
+
+func (s *SdkPageResponse) SetTotalPages(v int64) *SdkPageResponse {
+	s.TotalPages = &v
+	return s
+}
+
+func (s *SdkPageResponse) SetPageData(v []*SdkModel) *SdkPageResponse {
+	s.PageData = v
+	return s
+}
+
+// iotbasic-应用列表信息
+type IotbasicAppManagerPageInfo struct {
+	// 应用类型
+	// example:
+	//
+	// apk
+	FileFormat *string `json:"file_format,omitempty" xml:"file_format,omitempty" require:"true"`
+	// 应用大小
+	FileSize *int64 `json:"file_size,omitempty" xml:"file_size,omitempty" require:"true"`
+	// 应用模块名称
+	// example:
+	//
+	// 温控设备客户端
+	ModuleName *string `json:"module_name,omitempty" xml:"module_name,omitempty" require:"true"`
+	// 设备品类code
+	// example:
+	//
+	// code
+	DeviceCategory *string `json:"device_category,omitempty" xml:"device_category,omitempty" require:"true"`
+	// 设备品类名称
+	// example:
+	//
+	// name
+	DeviceCategoryName *string `json:"device_category_name,omitempty" xml:"device_category_name,omitempty" require:"true"`
+	// 应用模块包名
+	// example:
+	//
+	// packageName
+	PackageName *string `json:"package_name,omitempty" xml:"package_name,omitempty" require:"true"`
+	// 应用描述
+	// example:
+	//
+	// desc
+	Remark *string `json:"remark,omitempty" xml:"remark,omitempty"`
+	// 应用版本号
+	// example:
+	//
+	// 1.0
+	ApkVersion *string `json:"apk_version,omitempty" xml:"apk_version,omitempty" require:"true"`
+	// 应用包类型（整包：0/差分：1）
+	// example:
+	//
+	// 0
+	ApkType *int64 `json:"apk_type,omitempty" xml:"apk_type,omitempty" require:"true"`
+	// 应用名称
+	// example:
+	//
+	// apkName
+	ApkName *string `json:"apk_name,omitempty" xml:"apk_name,omitempty" require:"true"`
+	// 应用包id
+	// example:
+	//
+	// apkId
+	ApkId *string `json:"apk_id,omitempty" xml:"apk_id,omitempty" require:"true"`
+	// 下载次数
+	// example:
+	//
+	// 0
+	DownloadCount *int64 `json:"download_count,omitempty" xml:"download_count,omitempty" require:"true"`
+	// 安装次数
+	// example:
+	//
+	// 0
+	InstallCount *int64 `json:"install_count,omitempty" xml:"install_count,omitempty" require:"true"`
+	// 设备型号
+	// example:
+	//
+	// model
+	DeviceModel *string `json:"device_model,omitempty" xml:"device_model,omitempty"`
+}
+
+func (s IotbasicAppManagerPageInfo) String() string {
+	return tea.Prettify(s)
+}
+
+func (s IotbasicAppManagerPageInfo) GoString() string {
+	return s.String()
+}
+
+func (s *IotbasicAppManagerPageInfo) SetFileFormat(v string) *IotbasicAppManagerPageInfo {
+	s.FileFormat = &v
+	return s
+}
+
+func (s *IotbasicAppManagerPageInfo) SetFileSize(v int64) *IotbasicAppManagerPageInfo {
+	s.FileSize = &v
+	return s
+}
+
+func (s *IotbasicAppManagerPageInfo) SetModuleName(v string) *IotbasicAppManagerPageInfo {
+	s.ModuleName = &v
+	return s
+}
+
+func (s *IotbasicAppManagerPageInfo) SetDeviceCategory(v string) *IotbasicAppManagerPageInfo {
+	s.DeviceCategory = &v
+	return s
+}
+
+func (s *IotbasicAppManagerPageInfo) SetDeviceCategoryName(v string) *IotbasicAppManagerPageInfo {
+	s.DeviceCategoryName = &v
+	return s
+}
+
+func (s *IotbasicAppManagerPageInfo) SetPackageName(v string) *IotbasicAppManagerPageInfo {
+	s.PackageName = &v
+	return s
+}
+
+func (s *IotbasicAppManagerPageInfo) SetRemark(v string) *IotbasicAppManagerPageInfo {
+	s.Remark = &v
+	return s
+}
+
+func (s *IotbasicAppManagerPageInfo) SetApkVersion(v string) *IotbasicAppManagerPageInfo {
+	s.ApkVersion = &v
+	return s
+}
+
+func (s *IotbasicAppManagerPageInfo) SetApkType(v int64) *IotbasicAppManagerPageInfo {
+	s.ApkType = &v
+	return s
+}
+
+func (s *IotbasicAppManagerPageInfo) SetApkName(v string) *IotbasicAppManagerPageInfo {
+	s.ApkName = &v
+	return s
+}
+
+func (s *IotbasicAppManagerPageInfo) SetApkId(v string) *IotbasicAppManagerPageInfo {
+	s.ApkId = &v
+	return s
+}
+
+func (s *IotbasicAppManagerPageInfo) SetDownloadCount(v int64) *IotbasicAppManagerPageInfo {
+	s.DownloadCount = &v
+	return s
+}
+
+func (s *IotbasicAppManagerPageInfo) SetInstallCount(v int64) *IotbasicAppManagerPageInfo {
+	s.InstallCount = &v
+	return s
+}
+
+func (s *IotbasicAppManagerPageInfo) SetDeviceModel(v string) *IotbasicAppManagerPageInfo {
+	s.DeviceModel = &v
+	return s
+}
+
+// 模块版本树形节点
+type ModuleVersionTreeNode struct {
+	// 模块名称
+	// example:
+	//
+	// BLE
+	ModuleName *string `json:"module_name,omitempty" xml:"module_name,omitempty"`
+	// 版本号列表
+	// example:
+	//
+	// undefined
+	Versions []*string `json:"versions,omitempty" xml:"versions,omitempty" type:"Repeated"`
+}
+
+func (s ModuleVersionTreeNode) String() string {
+	return tea.Prettify(s)
+}
+
+func (s ModuleVersionTreeNode) GoString() string {
+	return s.String()
+}
+
+func (s *ModuleVersionTreeNode) SetModuleName(v string) *ModuleVersionTreeNode {
+	s.ModuleName = &v
+	return s
+}
+
+func (s *ModuleVersionTreeNode) SetVersions(v []*string) *ModuleVersionTreeNode {
+	s.Versions = v
+	return s
+}
+
+// 授权设备清单
+type DeviceScopeItem struct {
+	// 场景码
+	// example:
+	//
+	// SCENE_001
+	Scene *string `json:"scene,omitempty" xml:"scene,omitempty" require:"true"`
+	// 客户侧 deviceId 列表
+	// example:
+	//
+	// DEV001
+	DeviceList []*string `json:"device_list,omitempty" xml:"device_list,omitempty" require:"true" type:"Repeated"`
+}
+
+func (s DeviceScopeItem) String() string {
+	return tea.Prettify(s)
+}
+
+func (s DeviceScopeItem) GoString() string {
+	return s.String()
+}
+
+func (s *DeviceScopeItem) SetScene(v string) *DeviceScopeItem {
+	s.Scene = &v
+	return s
+}
+
+func (s *DeviceScopeItem) SetDeviceList(v []*string) *DeviceScopeItem {
+	s.DeviceList = v
+	return s
+}
+
+// 四轮车驾驶事件
+type FourWheelerCarEvent struct {
+	// 驾驶事件的类型，如正常驾驶、碰撞、急转弯、启动熄火等。
+	// example:
+	//
+	// 1
+	EventType *string `json:"event_type,omitempty" xml:"event_type,omitempty" require:"true"`
+	// 驾驶事件的结束时间
+	// example:
+	//
+	// 1736152040551
+	EndTime *int64 `json:"end_time,omitempty" xml:"end_time,omitempty" require:"true"`
+	// 驾驶事件发生地点的经度坐标
+	// example:
+	//
+	// 121.4737
+	Lng *string `json:"lng,omitempty" xml:"lng,omitempty" require:"true"`
+	// 驾驶事件发生地点的纬度坐标
+	// example:
+	//
+	// 31.2304
+	Lat *string `json:"lat,omitempty" xml:"lat,omitempty" require:"true"`
+	// 驾驶事件开始的速度
+	// example:
+	//
+	// 60
+	StartSpeed *string `json:"start_speed,omitempty" xml:"start_speed,omitempty"`
+	// 驾驶事件结束时的速度
+	// example:
+	//
+	// 45
+	EndSpeed *string `json:"end_speed,omitempty" xml:"end_speed,omitempty"`
+	// 驾驶过程中的平均速度
+	// example:
+	//
+	// 52.5
+	AverageSpeed *string `json:"average_speed,omitempty" xml:"average_speed,omitempty"`
+	// 驾驶过程中车辆的转弯角度
+	// example:
+	//
+	// 90
+	TurningAngle *string `json:"turning_angle,omitempty" xml:"turning_angle,omitempty"`
+	// 驾驶事件的持续时间（以秒为单位)
+	// example:
+	//
+	// 10
+	Duration *string `json:"duration,omitempty" xml:"duration,omitempty"`
+}
+
+func (s FourWheelerCarEvent) String() string {
+	return tea.Prettify(s)
+}
+
+func (s FourWheelerCarEvent) GoString() string {
+	return s.String()
+}
+
+func (s *FourWheelerCarEvent) SetEventType(v string) *FourWheelerCarEvent {
+	s.EventType = &v
+	return s
+}
+
+func (s *FourWheelerCarEvent) SetEndTime(v int64) *FourWheelerCarEvent {
+	s.EndTime = &v
+	return s
+}
+
+func (s *FourWheelerCarEvent) SetLng(v string) *FourWheelerCarEvent {
+	s.Lng = &v
+	return s
+}
+
+func (s *FourWheelerCarEvent) SetLat(v string) *FourWheelerCarEvent {
+	s.Lat = &v
+	return s
+}
+
+func (s *FourWheelerCarEvent) SetStartSpeed(v string) *FourWheelerCarEvent {
+	s.StartSpeed = &v
+	return s
+}
+
+func (s *FourWheelerCarEvent) SetEndSpeed(v string) *FourWheelerCarEvent {
+	s.EndSpeed = &v
+	return s
+}
+
+func (s *FourWheelerCarEvent) SetAverageSpeed(v string) *FourWheelerCarEvent {
+	s.AverageSpeed = &v
+	return s
+}
+
+func (s *FourWheelerCarEvent) SetTurningAngle(v string) *FourWheelerCarEvent {
+	s.TurningAngle = &v
+	return s
+}
+
+func (s *FourWheelerCarEvent) SetDuration(v string) *FourWheelerCarEvent {
+	s.Duration = &v
+	return s
+}
+
+// 查询设备列表结构体
+type IotBasicDeviceQueryResponse struct {
+	// 设备名称
+	//
+	// example:
+	//
+	// 智能防疫一体机
+	DeviceName *string `json:"device_name,omitempty" xml:"device_name,omitempty" require:"true"`
+	// 设备序列号
+	// example:
+	//
+	// CN12300x
+	DeviceSn *string `json:"device_sn,omitempty" xml:"device_sn,omitempty" require:"true"`
+	// 设备品类名称
+	// example:
+	//
+	// 智能防疫机
+	DeviceCategoryName *string `json:"device_category_name,omitempty" xml:"device_category_name,omitempty" require:"true"`
+	// 设备型号
+	// example:
+	//
+	// PL10
+	DeviceModel *string `json:"device_model,omitempty" xml:"device_model,omitempty" require:"true"`
+	// 设备状态
+	// example:
+	//
+	// online
+	DeviceStatus *string `json:"device_status,omitempty" xml:"device_status,omitempty"`
+	// 设备安装位置
+	// example:
+	//
+	// 浙江省杭州市西湖区
+	Location *string `json:"location,omitempty" xml:"location,omitempty"`
+	// 设备注册时间
+	// example:
+	//
+	// 2018-10-10T10:10:00Z
+	RegisterTime *string `json:"register_time,omitempty" xml:"register_time,omitempty" require:"true"`
+	// 设备厂商
+	// example:
+	//
+	// 蚂蚁数科
+	CorpName *string `json:"corp_name,omitempty" xml:"corp_name,omitempty" require:"true"`
+	// 租户ID
+	// example:
+	//
+	// 2088xx
+	TenantId *string `json:"tenant_id,omitempty" xml:"tenant_id,omitempty" require:"true"`
+	// 客户名称
+	// example:
+	//
+	// 测试客户xx
+	CustomerName *string `json:"customer_name,omitempty" xml:"customer_name,omitempty" require:"true"`
+	// 异常错误码
+	// example:
+	//
+	// SMILE_INIT_ERROR
+	AbnormalCode *string `json:"abnormal_code,omitempty" xml:"abnormal_code,omitempty"`
+	// 设备唯一身份id
+	// example:
+	//
+	// did:private:12dsadadadf
+	DeviceDid *string `json:"device_did,omitempty" xml:"device_did,omitempty"`
+	// 账号ID
+	// example:
+	//
+	// 12321321
+	AccountId *string `json:"account_id,omitempty" xml:"account_id,omitempty" require:"true"`
+	// 账户名称
+	// example:
+	//
+	// 张三
+	AccountName *string `json:"account_name,omitempty" xml:"account_name,omitempty" require:"true"`
+	// 设备服务状态
+	// example:
+	//
+	// INIT
+	ServiceStatus *string `json:"service_status,omitempty" xml:"service_status,omitempty" require:"true"`
+	// 应用版本号
+	// example:
+	//
+	// 1.1.13
+	AppVersion *string `json:"app_version,omitempty" xml:"app_version,omitempty" require:"true"`
+	// 服务有效期
+	// example:
+	//
+	// 2024-4-01
+	ValidityTime *string `json:"validity_time,omitempty" xml:"validity_time,omitempty"`
+}
+
+func (s IotBasicDeviceQueryResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s IotBasicDeviceQueryResponse) GoString() string {
+	return s.String()
+}
+
+func (s *IotBasicDeviceQueryResponse) SetDeviceName(v string) *IotBasicDeviceQueryResponse {
+	s.DeviceName = &v
+	return s
+}
+
+func (s *IotBasicDeviceQueryResponse) SetDeviceSn(v string) *IotBasicDeviceQueryResponse {
+	s.DeviceSn = &v
+	return s
+}
+
+func (s *IotBasicDeviceQueryResponse) SetDeviceCategoryName(v string) *IotBasicDeviceQueryResponse {
+	s.DeviceCategoryName = &v
+	return s
+}
+
+func (s *IotBasicDeviceQueryResponse) SetDeviceModel(v string) *IotBasicDeviceQueryResponse {
+	s.DeviceModel = &v
+	return s
+}
+
+func (s *IotBasicDeviceQueryResponse) SetDeviceStatus(v string) *IotBasicDeviceQueryResponse {
+	s.DeviceStatus = &v
+	return s
+}
+
+func (s *IotBasicDeviceQueryResponse) SetLocation(v string) *IotBasicDeviceQueryResponse {
+	s.Location = &v
+	return s
+}
+
+func (s *IotBasicDeviceQueryResponse) SetRegisterTime(v string) *IotBasicDeviceQueryResponse {
+	s.RegisterTime = &v
+	return s
+}
+
+func (s *IotBasicDeviceQueryResponse) SetCorpName(v string) *IotBasicDeviceQueryResponse {
+	s.CorpName = &v
+	return s
+}
+
+func (s *IotBasicDeviceQueryResponse) SetTenantId(v string) *IotBasicDeviceQueryResponse {
+	s.TenantId = &v
+	return s
+}
+
+func (s *IotBasicDeviceQueryResponse) SetCustomerName(v string) *IotBasicDeviceQueryResponse {
+	s.CustomerName = &v
+	return s
+}
+
+func (s *IotBasicDeviceQueryResponse) SetAbnormalCode(v string) *IotBasicDeviceQueryResponse {
+	s.AbnormalCode = &v
+	return s
+}
+
+func (s *IotBasicDeviceQueryResponse) SetDeviceDid(v string) *IotBasicDeviceQueryResponse {
+	s.DeviceDid = &v
+	return s
+}
+
+func (s *IotBasicDeviceQueryResponse) SetAccountId(v string) *IotBasicDeviceQueryResponse {
+	s.AccountId = &v
+	return s
+}
+
+func (s *IotBasicDeviceQueryResponse) SetAccountName(v string) *IotBasicDeviceQueryResponse {
+	s.AccountName = &v
+	return s
+}
+
+func (s *IotBasicDeviceQueryResponse) SetServiceStatus(v string) *IotBasicDeviceQueryResponse {
+	s.ServiceStatus = &v
+	return s
+}
+
+func (s *IotBasicDeviceQueryResponse) SetAppVersion(v string) *IotBasicDeviceQueryResponse {
+	s.AppVersion = &v
+	return s
+}
+
+func (s *IotBasicDeviceQueryResponse) SetValidityTime(v string) *IotBasicDeviceQueryResponse {
+	s.ValidityTime = &v
+	return s
+}
+
+// 租户关联信息请求结构体
+type TenantBindInfoReq struct {
+	// 租户关联扩展信息
+	// example:
+	//
+	// "CN,北京"
+	Extension *string `json:"extension,omitempty" xml:"extension,omitempty"`
+	// 业务类型，默认空
+	// example:
+	//
+	// null
+	BizType *string `json:"biz_type,omitempty" xml:"biz_type,omitempty"`
+	// 组织机构代码，可为中文
+	// example:
+	//
+	// "12345"
+	TenantUid *string `json:"tenant_uid,omitempty" xml:"tenant_uid,omitempty" require:"true"`
+	// 组织结构名称
+	// example:
+	//
+	// "xx公司xx部门"
+	UserName *string `json:"user_name,omitempty" xml:"user_name,omitempty" require:"true"`
+}
+
+func (s TenantBindInfoReq) String() string {
+	return tea.Prettify(s)
+}
+
+func (s TenantBindInfoReq) GoString() string {
+	return s.String()
+}
+
+func (s *TenantBindInfoReq) SetExtension(v string) *TenantBindInfoReq {
+	s.Extension = &v
+	return s
+}
+
+func (s *TenantBindInfoReq) SetBizType(v string) *TenantBindInfoReq {
+	s.BizType = &v
+	return s
+}
+
+func (s *TenantBindInfoReq) SetTenantUid(v string) *TenantBindInfoReq {
+	s.TenantUid = &v
+	return s
+}
+
+func (s *TenantBindInfoReq) SetUserName(v string) *TenantBindInfoReq {
+	s.UserName = &v
+	return s
+}
+
+// iotbasic设备模型固定属性失败内容
+type IotbasicDeviceModelFixedAttributeFailInfo struct {
+	// 属性说明
+	// example:
+	//
+	// name
+	AttributeName *string `json:"attribute_name,omitempty" xml:"attribute_name,omitempty" require:"true"`
+	// 属性名称
+	// example:
+	//
+	// value
+	AttributeValue *string `json:"attribute_value,omitempty" xml:"attribute_value,omitempty" require:"true"`
+	// 数据值类型 字符串：string 数字：long
+	// example:
+	//
+	// string
+	DataType *string `json:"data_type,omitempty" xml:"data_type,omitempty" require:"true"`
+	// dataType为string时，表示数据长度最小值 dataType为long时，表示数据范围最小值
+	DataRangeMin *int64 `json:"data_range_min,omitempty" xml:"data_range_min,omitempty" require:"true"`
+	// dataType为string时，表示数据长度最大值 dataType为long时，表示数据范围最大值
+	DataRangeMax *int64 `json:"data_range_max,omitempty" xml:"data_range_max,omitempty" require:"true"`
+	// 失败code
+	// example:
+	//
+	// code
+	ErrorCode *string `json:"error_code,omitempty" xml:"error_code,omitempty" require:"true"`
+	// 失败消息
+	// example:
+	//
+	// message
+	ErrorMessage *string `json:"error_message,omitempty" xml:"error_message,omitempty" require:"true"`
+}
+
+func (s IotbasicDeviceModelFixedAttributeFailInfo) String() string {
+	return tea.Prettify(s)
+}
+
+func (s IotbasicDeviceModelFixedAttributeFailInfo) GoString() string {
+	return s.String()
+}
+
+func (s *IotbasicDeviceModelFixedAttributeFailInfo) SetAttributeName(v string) *IotbasicDeviceModelFixedAttributeFailInfo {
+	s.AttributeName = &v
+	return s
+}
+
+func (s *IotbasicDeviceModelFixedAttributeFailInfo) SetAttributeValue(v string) *IotbasicDeviceModelFixedAttributeFailInfo {
+	s.AttributeValue = &v
+	return s
+}
+
+func (s *IotbasicDeviceModelFixedAttributeFailInfo) SetDataType(v string) *IotbasicDeviceModelFixedAttributeFailInfo {
+	s.DataType = &v
+	return s
+}
+
+func (s *IotbasicDeviceModelFixedAttributeFailInfo) SetDataRangeMin(v int64) *IotbasicDeviceModelFixedAttributeFailInfo {
+	s.DataRangeMin = &v
+	return s
+}
+
+func (s *IotbasicDeviceModelFixedAttributeFailInfo) SetDataRangeMax(v int64) *IotbasicDeviceModelFixedAttributeFailInfo {
+	s.DataRangeMax = &v
+	return s
+}
+
+func (s *IotbasicDeviceModelFixedAttributeFailInfo) SetErrorCode(v string) *IotbasicDeviceModelFixedAttributeFailInfo {
+	s.ErrorCode = &v
+	return s
+}
+
+func (s *IotbasicDeviceModelFixedAttributeFailInfo) SetErrorMessage(v string) *IotbasicDeviceModelFixedAttributeFailInfo {
+	s.ErrorMessage = &v
+	return s
+}
+
+// 溯源码比对请求体
+type BaiQrcodeComparisonReqData struct {
+	// 扫码操作id，多次请求的trace_id相同代表短时间内在扫同一个码
+	// example:
+	//
+	// trace_id_001
+	TraceId *string `json:"trace_id,omitempty" xml:"trace_id,omitempty" require:"true" maxLength:"128"`
+	// query图片定位信息
+	QueryImageLocation *BaiResourceLocation `json:"query_image_location,omitempty" xml:"query_image_location,omitempty" require:"true"`
+	// gallery图片定位信息
+	GalleryImageLocation *BaiResourceLocation `json:"gallery_image_location,omitempty" xml:"gallery_image_location,omitempty" require:"true"`
+	// 是否允许降级
+	// example:
+	//
+	// true, false
+	Downgrade *bool `json:"downgrade,omitempty" xml:"downgrade,omitempty" require:"true"`
+}
+
+func (s BaiQrcodeComparisonReqData) String() string {
+	return tea.Prettify(s)
+}
+
+func (s BaiQrcodeComparisonReqData) GoString() string {
+	return s.String()
+}
+
+func (s *BaiQrcodeComparisonReqData) SetTraceId(v string) *BaiQrcodeComparisonReqData {
+	s.TraceId = &v
+	return s
+}
+
+func (s *BaiQrcodeComparisonReqData) SetQueryImageLocation(v *BaiResourceLocation) *BaiQrcodeComparisonReqData {
+	s.QueryImageLocation = v
+	return s
+}
+
+func (s *BaiQrcodeComparisonReqData) SetGalleryImageLocation(v *BaiResourceLocation) *BaiQrcodeComparisonReqData {
+	s.GalleryImageLocation = v
+	return s
+}
+
+func (s *BaiQrcodeComparisonReqData) SetDowngrade(v bool) *BaiQrcodeComparisonReqData {
+	s.Downgrade = &v
+	return s
+}
+
+// 仓库实体身份附加参数请求结构体，应用在注册/更新API的ThingExtraParams
+type WarehouseReqModel struct {
+	// 详细地址
+	// example:
+	//
+	// 北京海淀区
+	Address *string `json:"address,omitempty" xml:"address,omitempty"`
+	// 面积 平方米单位*1e4
+	// example:
+	//
+	// 1000000
+	Area *int64 `json:"area,omitempty" xml:"area,omitempty"`
+	// 海拔 米单位*1e2
+	// example:
+	//
+	// 0
+	Elevation *int64 `json:"elevation,omitempty" xml:"elevation,omitempty"`
+	// 仓库高度 米单位*1e2
+	// example:
+	//
+	// 1000
+	Height *int64 `json:"height,omitempty" xml:"height,omitempty"`
+	// 纬度 度数单位*1e9
+	// example:
+	//
+	// 0
+	Latitude *int64 `json:"latitude,omitempty" xml:"latitude,omitempty"`
+	// 经度 度数单位*1e9
+	// example:
+	//
+	// 35000000000
+	Longitude *int64 `json:"longitude,omitempty" xml:"longitude,omitempty"`
+	// 所在国家，中国
+	// example:
+	//
+	// 中国
+	Nation *string `json:"nation,omitempty" xml:"nation,omitempty"`
+	// 其他信息
+	// example:
+	//
+	// "自定义"
+	OtherInfo *string `json:"other_info,omitempty" xml:"other_info,omitempty"`
+	// 仓库状态, AVAILABLE, IN_USE, DELETED, 自定义
+	// example:
+	//
+	// "AVAILABLE"
+	Status *string `json:"status,omitempty" xml:"status,omitempty"`
+	// 仓库类型
+	// example:
+	//
+	// "自定义"
+	Type *string `json:"type,omitempty" xml:"type,omitempty"`
+}
+
+func (s WarehouseReqModel) String() string {
+	return tea.Prettify(s)
+}
+
+func (s WarehouseReqModel) GoString() string {
+	return s.String()
+}
+
+func (s *WarehouseReqModel) SetAddress(v string) *WarehouseReqModel {
+	s.Address = &v
+	return s
+}
+
+func (s *WarehouseReqModel) SetArea(v int64) *WarehouseReqModel {
+	s.Area = &v
+	return s
+}
+
+func (s *WarehouseReqModel) SetElevation(v int64) *WarehouseReqModel {
+	s.Elevation = &v
+	return s
+}
+
+func (s *WarehouseReqModel) SetHeight(v int64) *WarehouseReqModel {
+	s.Height = &v
+	return s
+}
+
+func (s *WarehouseReqModel) SetLatitude(v int64) *WarehouseReqModel {
+	s.Latitude = &v
+	return s
+}
+
+func (s *WarehouseReqModel) SetLongitude(v int64) *WarehouseReqModel {
+	s.Longitude = &v
+	return s
+}
+
+func (s *WarehouseReqModel) SetNation(v string) *WarehouseReqModel {
+	s.Nation = &v
+	return s
+}
+
+func (s *WarehouseReqModel) SetOtherInfo(v string) *WarehouseReqModel {
+	s.OtherInfo = &v
+	return s
+}
+
+func (s *WarehouseReqModel) SetStatus(v string) *WarehouseReqModel {
+	s.Status = &v
+	return s
+}
+
+func (s *WarehouseReqModel) SetType(v string) *WarehouseReqModel {
+	s.Type = &v
+	return s
+}
+
+// 统一物联设备响应体
+type IotxDeviceResponse struct {
+	// 主键id
+	// example:
+	//
+	// 656431049086242816
+	Id *string `json:"id,omitempty" xml:"id,omitempty"`
+	// 创建时间
+	// example:
+	//
+	// 2026-07-14 15:54:45
+	GmtCreate *string `json:"gmt_create,omitempty" xml:"gmt_create,omitempty" pattern:"\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}([Z]|([\\.]\\d{1,9})?[\\+]\\d{2}[\\:]?\\d{2})"`
+	// 更新时间
+	// example:
+	//
+	// 2026-07-14 15:54:45
+	GmtModified *string `json:"gmt_modified,omitempty" xml:"gmt_modified,omitempty" pattern:"\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}([Z]|([\\.]\\d{1,9})?[\\+]\\d{2}[\\:]?\\d{2})"`
+	// 租户id
+	// example:
+	//
+	// XQBKTRQV
+	TenantId *string `json:"tenant_id,omitempty" xml:"tenant_id,omitempty"`
+	// 使用租户id
+	// example:
+	//
+	// XQBKTRQV
+	UsageTenantId *string `json:"usage_tenant_id,omitempty" xml:"usage_tenant_id,omitempty"`
+	// 设备名称
+	// example:
+	//
+	// FF9999995FF1020260409B6305762869
+	DeviceName *string `json:"device_name,omitempty" xml:"device_name,omitempty"`
+	// 产品key
+	// example:
+	//
+	// iiH0DAhcM46xR1Bm
+	ProductKey *string `json:"product_key,omitempty" xml:"product_key,omitempty"`
+	// 产品名称
+	// example:
+	//
+	// 产品名称
+	ProductName *string `json:"product_name,omitempty" xml:"product_name,omitempty"`
+	// 设备昵称
+	// example:
+	//
+	// 604C6472CDA911149D5F88D869452848
+	NickName *string `json:"nick_name,omitempty" xml:"nick_name,omitempty"`
+	// 设备秘钥
+	// example:
+	//
+	// 7f0f205e13d2a3fbe6e2117dc0771745
+	DeviceSecret *string `json:"device_secret,omitempty" xml:"device_secret,omitempty"`
+	// 设备状态
+	// example:
+	//
+	// ONLINE
+	DeviceStatus *string `json:"device_status,omitempty" xml:"device_status,omitempty"`
+	// 禁用状态：0-未禁用；1-已禁用
+	// example:
+	//
+	// 0
+	DisableStatus *string `json:"disable_status,omitempty" xml:"disable_status,omitempty"`
+	// ekyt设备唯一标识
+	// example:
+	//
+	// FF9999995FF1020260409A0C53CC331F
+	Tuid *string `json:"tuid,omitempty" xml:"tuid,omitempty"`
+	// 可信产品唯一标识
+	// example:
+	//
+	// rSJhq6L0DcALjUlEW0
+	TrustProductKey *string `json:"trust_product_key,omitempty" xml:"trust_product_key,omitempty"`
+	// 可信物联唯一设备标识
+	// example:
+	//
+	// device_7447891005096624128
+	TrustDeviceId *string `json:"trust_device_id,omitempty" xml:"trust_device_id,omitempty"`
+	// ota固件版本号
+	// example:
+	//
+	// {"CAT1_OTA":"1.0.4","BLE":"1.0.2"}
+	OtaVersion *string `json:"ota_version,omitempty" xml:"ota_version,omitempty"`
+	// 设备注册时间
+	// example:
+	//
+	// 2026-04-09 14:21:14
+	RegistTime *string `json:"regist_time,omitempty" xml:"regist_time,omitempty" pattern:"\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}([Z]|([\\.]\\d{1,9})?[\\+]\\d{2}[\\:]?\\d{2})"`
+	// 设备激活时间
+	// example:
+	//
+	// 2026-04-14 12:40:24
+	ActiveTime *string `json:"active_time,omitempty" xml:"active_time,omitempty" pattern:"\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}([Z]|([\\.]\\d{1,9})?[\\+]\\d{2}[\\:]?\\d{2})"`
+	// 最近在线时间
+	// example:
+	//
+	// 2026-04-15 09:51:48
+	LastOnlineTime *string `json:"last_online_time,omitempty" xml:"last_online_time,omitempty" pattern:"\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}([Z]|([\\.]\\d{1,9})?[\\+]\\d{2}[\\:]?\\d{2})"`
+	// 最近离线时间
+	// example:
+	//
+	// 2026-04-15 09:51:49
+	LastOfflineTime *string `json:"last_offline_time,omitempty" xml:"last_offline_time,omitempty" pattern:"\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}([Z]|([\\.]\\d{1,9})?[\\+]\\d{2}[\\:]?\\d{2})"`
+	// 最近通讯时间
+	// example:
+	//
+	// 2026-04-15 09:51:47
+	LastCommunicationTime *string `json:"last_communication_time,omitempty" xml:"last_communication_time,omitempty" pattern:"\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}([Z]|([\\.]\\d{1,9})?[\\+]\\d{2}[\\:]?\\d{2})"`
+}
+
+func (s IotxDeviceResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s IotxDeviceResponse) GoString() string {
+	return s.String()
+}
+
+func (s *IotxDeviceResponse) SetId(v string) *IotxDeviceResponse {
+	s.Id = &v
+	return s
+}
+
+func (s *IotxDeviceResponse) SetGmtCreate(v string) *IotxDeviceResponse {
+	s.GmtCreate = &v
+	return s
+}
+
+func (s *IotxDeviceResponse) SetGmtModified(v string) *IotxDeviceResponse {
+	s.GmtModified = &v
+	return s
+}
+
+func (s *IotxDeviceResponse) SetTenantId(v string) *IotxDeviceResponse {
+	s.TenantId = &v
+	return s
+}
+
+func (s *IotxDeviceResponse) SetUsageTenantId(v string) *IotxDeviceResponse {
+	s.UsageTenantId = &v
+	return s
+}
+
+func (s *IotxDeviceResponse) SetDeviceName(v string) *IotxDeviceResponse {
+	s.DeviceName = &v
+	return s
+}
+
+func (s *IotxDeviceResponse) SetProductKey(v string) *IotxDeviceResponse {
+	s.ProductKey = &v
+	return s
+}
+
+func (s *IotxDeviceResponse) SetProductName(v string) *IotxDeviceResponse {
+	s.ProductName = &v
+	return s
+}
+
+func (s *IotxDeviceResponse) SetNickName(v string) *IotxDeviceResponse {
+	s.NickName = &v
+	return s
+}
+
+func (s *IotxDeviceResponse) SetDeviceSecret(v string) *IotxDeviceResponse {
+	s.DeviceSecret = &v
+	return s
+}
+
+func (s *IotxDeviceResponse) SetDeviceStatus(v string) *IotxDeviceResponse {
+	s.DeviceStatus = &v
+	return s
+}
+
+func (s *IotxDeviceResponse) SetDisableStatus(v string) *IotxDeviceResponse {
+	s.DisableStatus = &v
+	return s
+}
+
+func (s *IotxDeviceResponse) SetTuid(v string) *IotxDeviceResponse {
+	s.Tuid = &v
+	return s
+}
+
+func (s *IotxDeviceResponse) SetTrustProductKey(v string) *IotxDeviceResponse {
+	s.TrustProductKey = &v
+	return s
+}
+
+func (s *IotxDeviceResponse) SetTrustDeviceId(v string) *IotxDeviceResponse {
+	s.TrustDeviceId = &v
+	return s
+}
+
+func (s *IotxDeviceResponse) SetOtaVersion(v string) *IotxDeviceResponse {
+	s.OtaVersion = &v
+	return s
+}
+
+func (s *IotxDeviceResponse) SetRegistTime(v string) *IotxDeviceResponse {
+	s.RegistTime = &v
+	return s
+}
+
+func (s *IotxDeviceResponse) SetActiveTime(v string) *IotxDeviceResponse {
+	s.ActiveTime = &v
+	return s
+}
+
+func (s *IotxDeviceResponse) SetLastOnlineTime(v string) *IotxDeviceResponse {
+	s.LastOnlineTime = &v
+	return s
+}
+
+func (s *IotxDeviceResponse) SetLastOfflineTime(v string) *IotxDeviceResponse {
+	s.LastOfflineTime = &v
+	return s
+}
+
+func (s *IotxDeviceResponse) SetLastCommunicationTime(v string) *IotxDeviceResponse {
+	s.LastCommunicationTime = &v
+	return s
+}
+
+// 实例信息列表
+type InstanceInfo struct {
+	// 实例id
+	// example:
+	//
+	// 设备001
+	InstanceId *string `json:"instance_id,omitempty" xml:"instance_id,omitempty" require:"true"`
+	// 实例名称
+	// example:
+	//
+	// 12313
+	InstanceName *string `json:"instance_name,omitempty" xml:"instance_name,omitempty" require:"true"`
+}
+
+func (s InstanceInfo) String() string {
+	return tea.Prettify(s)
+}
+
+func (s InstanceInfo) GoString() string {
+	return s.String()
+}
+
+func (s *InstanceInfo) SetInstanceId(v string) *InstanceInfo {
+	s.InstanceId = &v
+	return s
+}
+
+func (s *InstanceInfo) SetInstanceName(v string) *InstanceInfo {
+	s.InstanceName = &v
+	return s
+}
+
+// 设备不可操作标识类
+type DeviceDisableData struct {
+	// 设备sn号
+	// example:
+	//
+	// sn123
+	DeviceSn *string `json:"device_sn,omitempty" xml:"device_sn,omitempty" require:"true"`
+	// 厂商
+	// example:
+	//
+	// telpo
+	CorpName *string `json:"corp_name,omitempty" xml:"corp_name,omitempty" require:"true"`
+}
+
+func (s DeviceDisableData) String() string {
+	return tea.Prettify(s)
+}
+
+func (s DeviceDisableData) GoString() string {
+	return s.String()
+}
+
+func (s *DeviceDisableData) SetDeviceSn(v string) *DeviceDisableData {
+	s.DeviceSn = &v
+	return s
+}
+
+func (s *DeviceDisableData) SetCorpName(v string) *DeviceDisableData {
+	s.CorpName = &v
+	return s
+}
+
+// 设备属性关系对象
+type IotDeviceAttributeRelationshipData struct {
+	// id
+	// example:
+	//
+	// 1
+	Id *int64 `json:"id,omitempty" xml:"id,omitempty"`
+	// 设备品类名称
+	// example:
+	//
+	// 智能防疫机一体机
+	DeviceCategory *string `json:"device_category,omitempty" xml:"device_category,omitempty" require:"true"`
+	// 关系类型
+	// example:
+	//
+	// CORP
+	RelationType *string `json:"relation_type,omitempty" xml:"relation_type,omitempty" require:"true"`
+	// 厂商名称
+	// example:
+	//
+	// 天波
+	CorpName *string `json:"corp_name,omitempty" xml:"corp_name,omitempty"`
+	// 设备型号
+	// example:
+	//
+	// TPS980
+	DeviceModel *string `json:"device_model,omitempty" xml:"device_model,omitempty"`
+	// 设备规格
+	// example:
+	//
+	// 安卓标准版
+	DeviceSpecs *string `json:"device_specs,omitempty" xml:"device_specs,omitempty"`
+	// 硬件模块
+	// example:
+	//
+	// 测温头
+	HardwareModule *string `json:"hardware_module,omitempty" xml:"hardware_module,omitempty"`
+}
+
+func (s IotDeviceAttributeRelationshipData) String() string {
+	return tea.Prettify(s)
+}
+
+func (s IotDeviceAttributeRelationshipData) GoString() string {
+	return s.String()
+}
+
+func (s *IotDeviceAttributeRelationshipData) SetId(v int64) *IotDeviceAttributeRelationshipData {
+	s.Id = &v
+	return s
+}
+
+func (s *IotDeviceAttributeRelationshipData) SetDeviceCategory(v string) *IotDeviceAttributeRelationshipData {
+	s.DeviceCategory = &v
+	return s
+}
+
+func (s *IotDeviceAttributeRelationshipData) SetRelationType(v string) *IotDeviceAttributeRelationshipData {
+	s.RelationType = &v
+	return s
+}
+
+func (s *IotDeviceAttributeRelationshipData) SetCorpName(v string) *IotDeviceAttributeRelationshipData {
+	s.CorpName = &v
+	return s
+}
+
+func (s *IotDeviceAttributeRelationshipData) SetDeviceModel(v string) *IotDeviceAttributeRelationshipData {
+	s.DeviceModel = &v
+	return s
+}
+
+func (s *IotDeviceAttributeRelationshipData) SetDeviceSpecs(v string) *IotDeviceAttributeRelationshipData {
+	s.DeviceSpecs = &v
+	return s
+}
+
+func (s *IotDeviceAttributeRelationshipData) SetHardwareModule(v string) *IotDeviceAttributeRelationshipData {
+	s.HardwareModule = &v
+	return s
+}
+
+// 创建订单失败的返回结构体
+type InsertPurchaseOrderFailInfo struct {
+	// 订单ID
+	// example:
+	//
+	// safsafafafa
+	OrderId *string `json:"order_id,omitempty" xml:"order_id,omitempty" require:"true"`
+	// 订单保存失败的原因
+	// example:
+	//
+	// fasfasfasfa
+	FailReason *string `json:"fail_reason,omitempty" xml:"fail_reason,omitempty" require:"true"`
+}
+
+func (s InsertPurchaseOrderFailInfo) String() string {
+	return tea.Prettify(s)
+}
+
+func (s InsertPurchaseOrderFailInfo) GoString() string {
+	return s.String()
+}
+
+func (s *InsertPurchaseOrderFailInfo) SetOrderId(v string) *InsertPurchaseOrderFailInfo {
+	s.OrderId = &v
+	return s
+}
+
+func (s *InsertPurchaseOrderFailInfo) SetFailReason(v string) *InsertPurchaseOrderFailInfo {
+	s.FailReason = &v
+	return s
+}
+
+// 菜鸟分拣机设备监控信息
+type ScfLeaseEqpInfo struct {
+	// 设备类型
+	// example:
+	//
+	// 分拣机
+	DeviceType *string `json:"device_type,omitempty" xml:"device_type,omitempty"`
+	// 运营日期
+	// example:
+	//
+	// 20210720
+	OperationDate *string `json:"operation_date,omitempty" xml:"operation_date,omitempty"`
+	// 修改时间
+	// example:
+	//
+	// 2021-07-20 14:08:17
+	GmtModified *string `json:"gmt_modified,omitempty" xml:"gmt_modified,omitempty"`
+	// 维修金比例
+	// example:
+	//
+	// 50
+	MaintenanceMoney *string `json:"maintenance_money,omitempty" xml:"maintenance_money,omitempty"`
+	// 当日设备维修记录
+	// example:
+	//
+	// error
+	MaintainRecord *string `json:"maintain_record,omitempty" xml:"maintain_record,omitempty"`
+	// 设备识别号
+	// example:
+	//
+	// 10010100101
+	DeviceNo *string `json:"device_no,omitempty" xml:"device_no,omitempty"`
+	// 创建时间
+	// example:
+	//
+	// 2021-07-20 14:08:17
+	GmtCreate *string `json:"gmt_create,omitempty" xml:"gmt_create,omitempty"`
+	// 当日分拣单数
+	// example:
+	//
+	// 131222
+	SortingNum *string `json:"sorting_num,omitempty" xml:"sorting_num,omitempty"`
+	// 当日运营时长,单位分钟
+	// example:
+	//
+	// 1231321
+	OperationMinute *string `json:"operation_minute,omitempty" xml:"operation_minute,omitempty"`
+	// 04:00-16:00分拣单数/（派件分拣单数）
+	// example:
+	//
+	// 130012
+	AmNum *string `json:"am_num,omitempty" xml:"am_num,omitempty"`
+	// 16:00-04:00分拣单数/ （揽件分拣单数)
+	// example:
+	//
+	// 1210
+	PmNum *string `json:"pm_num,omitempty" xml:"pm_num,omitempty"`
+	// id
+	// example:
+	//
+	// 3
+	Id *string `json:"id,omitempty" xml:"id,omitempty"`
+	// 设备验收日期
+	// example:
+	//
+	// 2021-07-20 11:33:59
+	DeviceAcceptanceDate *string `json:"device_acceptance_date,omitempty" xml:"device_acceptance_date,omitempty"`
+	// 数据更新时间
+	// example:
+	//
+	// 2021-07-20 11:32:35
+	DataUpdateTime *string `json:"data_update_time,omitempty" xml:"data_update_time,omitempty"`
+}
+
+func (s ScfLeaseEqpInfo) String() string {
+	return tea.Prettify(s)
+}
+
+func (s ScfLeaseEqpInfo) GoString() string {
+	return s.String()
+}
+
+func (s *ScfLeaseEqpInfo) SetDeviceType(v string) *ScfLeaseEqpInfo {
+	s.DeviceType = &v
+	return s
+}
+
+func (s *ScfLeaseEqpInfo) SetOperationDate(v string) *ScfLeaseEqpInfo {
+	s.OperationDate = &v
+	return s
+}
+
+func (s *ScfLeaseEqpInfo) SetGmtModified(v string) *ScfLeaseEqpInfo {
+	s.GmtModified = &v
+	return s
+}
+
+func (s *ScfLeaseEqpInfo) SetMaintenanceMoney(v string) *ScfLeaseEqpInfo {
+	s.MaintenanceMoney = &v
+	return s
+}
+
+func (s *ScfLeaseEqpInfo) SetMaintainRecord(v string) *ScfLeaseEqpInfo {
+	s.MaintainRecord = &v
+	return s
+}
+
+func (s *ScfLeaseEqpInfo) SetDeviceNo(v string) *ScfLeaseEqpInfo {
+	s.DeviceNo = &v
+	return s
+}
+
+func (s *ScfLeaseEqpInfo) SetGmtCreate(v string) *ScfLeaseEqpInfo {
+	s.GmtCreate = &v
+	return s
+}
+
+func (s *ScfLeaseEqpInfo) SetSortingNum(v string) *ScfLeaseEqpInfo {
+	s.SortingNum = &v
+	return s
+}
+
+func (s *ScfLeaseEqpInfo) SetOperationMinute(v string) *ScfLeaseEqpInfo {
+	s.OperationMinute = &v
+	return s
+}
+
+func (s *ScfLeaseEqpInfo) SetAmNum(v string) *ScfLeaseEqpInfo {
+	s.AmNum = &v
+	return s
+}
+
+func (s *ScfLeaseEqpInfo) SetPmNum(v string) *ScfLeaseEqpInfo {
+	s.PmNum = &v
+	return s
+}
+
+func (s *ScfLeaseEqpInfo) SetId(v string) *ScfLeaseEqpInfo {
+	s.Id = &v
+	return s
+}
+
+func (s *ScfLeaseEqpInfo) SetDeviceAcceptanceDate(v string) *ScfLeaseEqpInfo {
+	s.DeviceAcceptanceDate = &v
+	return s
+}
+
+func (s *ScfLeaseEqpInfo) SetDataUpdateTime(v string) *ScfLeaseEqpInfo {
+	s.DataUpdateTime = &v
+	return s
+}
+
+// 房源信息同步实体类
+type HouseInfo struct {
+	// 房源唯一ID
+	// example:
+	//
+	// a87
+	HouseId *string `json:"house_id,omitempty" xml:"house_id,omitempty" require:"true"`
+	// 租赁模式
+	// example:
+	//
+	// 合租
+	LeaseMode *string `json:"lease_mode,omitempty" xml:"lease_mode,omitempty"`
+	// 面积平方
+	// example:
+	//
+	// 120㎡
+	Acreage *string `json:"acreage,omitempty" xml:"acreage,omitempty"`
+	// 房源类型：0住宅、1别墅、
+	// 2商铺、3写字楼
+	// example:
+	//
+	// 0
+	Structure *int64 `json:"structure,omitempty" xml:"structure,omitempty" require:"true"`
+	// 房屋地址
+	// example:
+	//
+	// hz
+	Addr *string `json:"addr,omitempty" xml:"addr,omitempty"`
+	// 门锁设备DID
+	// example:
+	//
+	// L91923
+	LockId *string `json:"lock_id,omitempty" xml:"lock_id,omitempty"`
+	// 电表设备DID
+	// example:
+	//
+	// A87345
+	AmmeterId *string `json:"ammeter_id,omitempty" xml:"ammeter_id,omitempty"`
+}
+
+func (s HouseInfo) String() string {
+	return tea.Prettify(s)
+}
+
+func (s HouseInfo) GoString() string {
+	return s.String()
+}
+
+func (s *HouseInfo) SetHouseId(v string) *HouseInfo {
+	s.HouseId = &v
+	return s
+}
+
+func (s *HouseInfo) SetLeaseMode(v string) *HouseInfo {
+	s.LeaseMode = &v
+	return s
+}
+
+func (s *HouseInfo) SetAcreage(v string) *HouseInfo {
+	s.Acreage = &v
+	return s
+}
+
+func (s *HouseInfo) SetStructure(v int64) *HouseInfo {
+	s.Structure = &v
+	return s
+}
+
+func (s *HouseInfo) SetAddr(v string) *HouseInfo {
+	s.Addr = &v
+	return s
+}
+
+func (s *HouseInfo) SetLockId(v string) *HouseInfo {
+	s.LockId = &v
+	return s
+}
+
+func (s *HouseInfo) SetAmmeterId(v string) *HouseInfo {
+	s.AmmeterId = &v
+	return s
+}
+
+// 收集信息
+type CollectContent struct {
+	// 链上设备ID（与可信设备ID至少填一项）
+	// example:
+	//
+	// 1122
+	ChainDeviceId *string `json:"chain_device_id,omitempty" xml:"chain_device_id,omitempty"`
+	// 可信设备ID（与链上设备ID至少填一项）
+	// example:
+	//
+	// 7006071575519457281
+	TrustiotDeviceId *int64 `json:"trustiot_device_id,omitempty" xml:"trustiot_device_id,omitempty"`
+	// 收集的内容
+	// example:
+	//
+	// {"name","1"}
+	Content *string `json:"content,omitempty" xml:"content,omitempty" require:"true"`
+	// 对内容的签名
+	// example:
+	//
+	// wwexe02j
+	Signature *string `json:"signature,omitempty" xml:"signature,omitempty" require:"true"`
+	// 服务端发送的扩展数据（非可信设备直接产生的数据）
+	// example:
+	//
+	// {"extraKey":"extraValue"}
+	ExtraData *string `json:"extra_data,omitempty" xml:"extra_data,omitempty"`
+	// 数据模型Id
+	// example:
+	//
+	// 00000001
+	DataModelId *string `json:"data_model_id,omitempty" xml:"data_model_id,omitempty"`
+}
+
+func (s CollectContent) String() string {
+	return tea.Prettify(s)
+}
+
+func (s CollectContent) GoString() string {
+	return s.String()
+}
+
+func (s *CollectContent) SetChainDeviceId(v string) *CollectContent {
+	s.ChainDeviceId = &v
+	return s
+}
+
+func (s *CollectContent) SetTrustiotDeviceId(v int64) *CollectContent {
+	s.TrustiotDeviceId = &v
+	return s
+}
+
+func (s *CollectContent) SetContent(v string) *CollectContent {
+	s.Content = &v
+	return s
+}
+
+func (s *CollectContent) SetSignature(v string) *CollectContent {
+	s.Signature = &v
+	return s
+}
+
+func (s *CollectContent) SetExtraData(v string) *CollectContent {
+	s.ExtraData = &v
+	return s
+}
+
+func (s *CollectContent) SetDataModelId(v string) *CollectContent {
+	s.DataModelId = &v
+	return s
+}
+
+// 租期信息
+type RentBillItem struct {
+	// 租约分期ID
+	// example:
+	//
+	// 12321321
+	BillItemId *string `json:"bill_item_id,omitempty" xml:"bill_item_id,omitempty" require:"true"`
+	// 租约分期名称
+	// example:
+	//
+	// 第几期
+	BillItemName *string `json:"bill_item_name,omitempty" xml:"bill_item_name,omitempty"`
+	// 租期开始日期
+	// example:
+	//
+	// 2006-01-02 15:04:05
+	BillItemBegin *string `json:"bill_item_begin,omitempty" xml:"bill_item_begin,omitempty" require:"true"`
+	// 租期结束日期
+	// example:
+	//
+	// 2006-02-02 15:04:05
+	BillItemEnd *string `json:"bill_item_end,omitempty" xml:"bill_item_end,omitempty" require:"true"`
+	// 租约金额
+	// example:
+	//
+	// 5000
+	BillItemMoney *string `json:"bill_item_money,omitempty" xml:"bill_item_money,omitempty" require:"true"`
+	// 租约支付状态
+	// example:
+	//
+	// 待支付，已支付，支付失败
+	PaymentState *string `json:"payment_state,omitempty" xml:"payment_state,omitempty"`
+}
+
+func (s RentBillItem) String() string {
+	return tea.Prettify(s)
+}
+
+func (s RentBillItem) GoString() string {
+	return s.String()
+}
+
+func (s *RentBillItem) SetBillItemId(v string) *RentBillItem {
+	s.BillItemId = &v
+	return s
+}
+
+func (s *RentBillItem) SetBillItemName(v string) *RentBillItem {
+	s.BillItemName = &v
+	return s
+}
+
+func (s *RentBillItem) SetBillItemBegin(v string) *RentBillItem {
+	s.BillItemBegin = &v
+	return s
+}
+
+func (s *RentBillItem) SetBillItemEnd(v string) *RentBillItem {
+	s.BillItemEnd = &v
+	return s
+}
+
+func (s *RentBillItem) SetBillItemMoney(v string) *RentBillItem {
+	s.BillItemMoney = &v
+	return s
+}
+
+func (s *RentBillItem) SetPaymentState(v string) *RentBillItem {
+	s.PaymentState = &v
+	return s
+}
+
+// 溯源二维码生成请求的请求数据
+type BaiQrcodeGenerateReqData struct {
+	// 二维码的码值
+	// example:
+	//
+	// TEST1234567890
+	QrcodeContent *string `json:"qrcode_content,omitempty" xml:"qrcode_content,omitempty" require:"true"`
+}
+
+func (s BaiQrcodeGenerateReqData) String() string {
+	return tea.Prettify(s)
+}
+
+func (s BaiQrcodeGenerateReqData) GoString() string {
+	return s.String()
+}
+
+func (s *BaiQrcodeGenerateReqData) SetQrcodeContent(v string) *BaiQrcodeGenerateReqData {
+	s.QrcodeContent = &v
+	return s
+}
+
+// 充电明细信息
+type ChargeDetail struct {
+	// 开始时间
+	// example:
+	//
+	// 2018-10-10 10:10:00
+	DetailStartTime *string `json:"detail_start_time,omitempty" xml:"detail_start_time,omitempty" require:"true" pattern:"\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}([Z]|([\\.]\\d{1,9})?[\\+]\\d{2}[\\:]?\\d{2})"`
+	// 结束时间
+	// example:
+	//
+	// 2018-10-10 10:10:00
+	DetailEndTime *string `json:"detail_end_time,omitempty" xml:"detail_end_time,omitempty" require:"true" pattern:"\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}([Z]|([\\.]\\d{1,9})?[\\+]\\d{2}[\\:]?\\d{2})"`
+	// 时段电价，小数点后4位
+	// example:
+	//
+	// 10.1010
+	ElecPrice *string `json:"elec_price,omitempty" xml:"elec_price,omitempty"`
+	// 时段服务费价格，小数点后4位
+	// example:
+	//
+	// 12.6222
+	ServicePrice *string `json:"service_price,omitempty" xml:"service_price,omitempty"`
+	// 时段充电量，单位：度，小数点后2位
+	// example:
+	//
+	// 12.12
+	DetailPower *string `json:"detail_power,omitempty" xml:"detail_power,omitempty" require:"true"`
+	// 时段电费，小数点后2位
+	// example:
+	//
+	// 10.10
+	DetailElecMoney *string `json:"detail_elec_money,omitempty" xml:"detail_elec_money,omitempty"`
+	// 时段服务费，小数点后2位
+	// example:
+	//
+	// 10.10
+	DetailServiceMoney *string `json:"detail_service_money,omitempty" xml:"detail_service_money,omitempty"`
+}
+
+func (s ChargeDetail) String() string {
+	return tea.Prettify(s)
+}
+
+func (s ChargeDetail) GoString() string {
+	return s.String()
+}
+
+func (s *ChargeDetail) SetDetailStartTime(v string) *ChargeDetail {
+	s.DetailStartTime = &v
+	return s
+}
+
+func (s *ChargeDetail) SetDetailEndTime(v string) *ChargeDetail {
+	s.DetailEndTime = &v
+	return s
+}
+
+func (s *ChargeDetail) SetElecPrice(v string) *ChargeDetail {
+	s.ElecPrice = &v
+	return s
+}
+
+func (s *ChargeDetail) SetServicePrice(v string) *ChargeDetail {
+	s.ServicePrice = &v
+	return s
+}
+
+func (s *ChargeDetail) SetDetailPower(v string) *ChargeDetail {
+	s.DetailPower = &v
+	return s
+}
+
+func (s *ChargeDetail) SetDetailElecMoney(v string) *ChargeDetail {
+	s.DetailElecMoney = &v
+	return s
+}
+
+func (s *ChargeDetail) SetDetailServiceMoney(v string) *ChargeDetail {
+	s.DetailServiceMoney = &v
+	return s
+}
+
+// 更新设备和空间关联请求结构体
+type UpdateDeviceSpaceReq struct {
+	// API要更新的设备DID
+	// example:
+	//
+	// "did:iot:xxxxx"
+	DeviceDid *string `json:"device_did,omitempty" xml:"device_did,omitempty" require:"true"`
+	// 0-全部更新 (暂不支持)
+	// 1-添加
+	// 2-删除
+	//
+	// example:
+	//
+	// 1
+	UpdateMode *int64 `json:"update_mode,omitempty" xml:"update_mode,omitempty" require:"true"`
+	// API要更新的设备部署库位
+	// example:
+	//
+	// ["did:iot:xxxx","did:iot:xxxxx"]
+	DeviceSpace []*string `json:"device_space,omitempty" xml:"device_space,omitempty" require:"true" type:"Repeated"`
+}
+
+func (s UpdateDeviceSpaceReq) String() string {
+	return tea.Prettify(s)
+}
+
+func (s UpdateDeviceSpaceReq) GoString() string {
+	return s.String()
+}
+
+func (s *UpdateDeviceSpaceReq) SetDeviceDid(v string) *UpdateDeviceSpaceReq {
+	s.DeviceDid = &v
+	return s
+}
+
+func (s *UpdateDeviceSpaceReq) SetUpdateMode(v int64) *UpdateDeviceSpaceReq {
+	s.UpdateMode = &v
+	return s
+}
+
+func (s *UpdateDeviceSpaceReq) SetDeviceSpace(v []*string) *UpdateDeviceSpaceReq {
+	s.DeviceSpace = v
+	return s
+}
+
+// 新增厂商字典时需要传的产品信息
+type AddProductInfo struct {
+	// 产品名称
+	// example:
+	//
+	// 防疫一体机
+	ProductName *string `json:"product_name,omitempty" xml:"product_name,omitempty" require:"true"`
+	// 产品code
+	// example:
+	//
+	// face_smart
+	ProductCode *string `json:"product_code,omitempty" xml:"product_code,omitempty" require:"true"`
+	// 产品描述
+	// example:
+	//
+	// 智能防疫机
+	Remark *string `json:"remark,omitempty" xml:"remark,omitempty"`
+}
+
+func (s AddProductInfo) String() string {
+	return tea.Prettify(s)
+}
+
+func (s AddProductInfo) GoString() string {
+	return s.String()
+}
+
+func (s *AddProductInfo) SetProductName(v string) *AddProductInfo {
+	s.ProductName = &v
+	return s
+}
+
+func (s *AddProductInfo) SetProductCode(v string) *AddProductInfo {
+	s.ProductCode = &v
+	return s
+}
+
+func (s *AddProductInfo) SetRemark(v string) *AddProductInfo {
+	s.Remark = &v
+	return s
+}
+
+// 设备实体请求结构体，应用在注册/更新API的ThingsExtraParams
+type DeviceRegisterReqModel struct {
+	// 保留
+	// example:
+	//
+	// 0
+	AuthLevel *int64 `json:"auth_level,omitempty" xml:"auth_level,omitempty"`
+	// 设备属性字符串，
+	// 阿里云设备类型，填入三元组
+	// example:
+	//
+	// "设备属性"
+	DeviceAttribute *string `json:"device_attribute,omitempty" xml:"device_attribute,omitempty"`
+	// 物模型ID，参考其他文档
+	// example:
+	//
+	// "模型ID"
+	DeviceModelId *string `json:"device_model_id,omitempty" xml:"device_model_id,omitempty"`
+	// 可传入自定义信息
+	// example:
+	//
+	// "自定义字段"
+	OtherInfo *string `json:"other_info,omitempty" xml:"other_info,omitempty"`
+	// 业务自定义，可以传入该实体的w3c服务节点
+	// example:
+	//
+	// "服务端点"
+	ServiceEndpoint *string `json:"service_endpoint,omitempty" xml:"service_endpoint,omitempty"`
+	// 保留，默认
+	//     STATUS_REGISTERED(3)
+	// example:
+	//
+	// null
+	Status *string `json:"status,omitempty" xml:"status,omitempty"`
+}
+
+func (s DeviceRegisterReqModel) String() string {
+	return tea.Prettify(s)
+}
+
+func (s DeviceRegisterReqModel) GoString() string {
+	return s.String()
+}
+
+func (s *DeviceRegisterReqModel) SetAuthLevel(v int64) *DeviceRegisterReqModel {
+	s.AuthLevel = &v
+	return s
+}
+
+func (s *DeviceRegisterReqModel) SetDeviceAttribute(v string) *DeviceRegisterReqModel {
+	s.DeviceAttribute = &v
+	return s
+}
+
+func (s *DeviceRegisterReqModel) SetDeviceModelId(v string) *DeviceRegisterReqModel {
+	s.DeviceModelId = &v
+	return s
+}
+
+func (s *DeviceRegisterReqModel) SetOtherInfo(v string) *DeviceRegisterReqModel {
+	s.OtherInfo = &v
+	return s
+}
+
+func (s *DeviceRegisterReqModel) SetServiceEndpoint(v string) *DeviceRegisterReqModel {
+	s.ServiceEndpoint = &v
+	return s
+}
+
+func (s *DeviceRegisterReqModel) SetStatus(v string) *DeviceRegisterReqModel {
+	s.Status = &v
+	return s
+}
+
+// 设备远程操作对象
+type DeviceOperateInfo struct {
+	// 蚂蚁链iot平台设备ID
+	// example:
+	//
+	// 213
+	DeviceDid *string `json:"device_did,omitempty" xml:"device_did,omitempty" require:"true"`
+	// 设备签名
+	// example:
+	//
+	// sua8e
+	Signature *string `json:"signature,omitempty" xml:"signature,omitempty" require:"true"`
+}
+
+func (s DeviceOperateInfo) String() string {
+	return tea.Prettify(s)
+}
+
+func (s DeviceOperateInfo) GoString() string {
+	return s.String()
+}
+
+func (s *DeviceOperateInfo) SetDeviceDid(v string) *DeviceOperateInfo {
+	s.DeviceDid = &v
+	return s
+}
+
+func (s *DeviceOperateInfo) SetSignature(v string) *DeviceOperateInfo {
+	s.Signature = &v
+	return s
+}
+
+// 信物链查询实体身份请求结构体
+type DidBaseQueryReq struct {
+	// * "thingId"       原始ID
+	// * "certText"      证书文本
+	// * "certPublicKey"证书公钥
+	// * "didPublicKey" DID公钥
+	// * "didExtension"  DID扩展，设备/企业组织/仓库/空间的解析同thingsExtraParams
+	// * "didUsername"   DID用户名
+	// * "ownerDid"      所有者DID
+	// * "userDid"       使用者DID
+	// * "thingType"     实体类型，设备/企业组织/仓库/空间等
+	// * "thingStatus"   实体状态
+	// * "thingModelId" 实体物模型类型
+	// * "thingAttribute"实体属性
+	// * "thingVersion"  实体版本
+	// * "spacesAttached"关联空间列表
+	// * "thingsAttached"关联实体列表（例：库位关联设备）
+	// * "authLevel"     授权等级
+	// * "thingServiceEndpoint" 服务列表
+	// example:
+	//
+	// ["如下1","如下2"]
+	DataFilter []*string `json:"data_filter,omitempty" xml:"data_filter,omitempty" require:"true" type:"Repeated"`
+	// 是否从链上查询，从链上查询将返回txHash值
+	// example:
+	//
+	// false
+	OnChain *bool `json:"on_chain,omitempty" xml:"on_chain,omitempty" require:"true"`
+	// 需要查询的实体Did列表，同一次查询的Did须为相同类型
+	// example:
+	//
+	// ["did:iot:xxxx","did:iot:yyyyy"]
+	ThingsDidList []*string `json:"things_did_list,omitempty" xml:"things_did_list,omitempty" require:"true" type:"Repeated"`
+}
+
+func (s DidBaseQueryReq) String() string {
+	return tea.Prettify(s)
+}
+
+func (s DidBaseQueryReq) GoString() string {
+	return s.String()
+}
+
+func (s *DidBaseQueryReq) SetDataFilter(v []*string) *DidBaseQueryReq {
+	s.DataFilter = v
+	return s
+}
+
+func (s *DidBaseQueryReq) SetOnChain(v bool) *DidBaseQueryReq {
+	s.OnChain = &v
+	return s
+}
+
+func (s *DidBaseQueryReq) SetThingsDidList(v []*string) *DidBaseQueryReq {
+	s.ThingsDidList = v
+	return s
+}
+
+// 设备信息
+type DeviceInfos struct {
+	// tuid
+	// example:
+	//
+	// ""
+	Tuid *string `json:"tuid,omitempty" xml:"tuid,omitempty"`
+	// 设备状态
+	// example:
+	//
+	// online
+	DeviceStatus *string `json:"device_status,omitempty" xml:"device_status,omitempty"`
+	// ota version
+	// example:
+	//
+	// ""
+	DeviceOtaVersion *string `json:"device_ota_version,omitempty" xml:"device_ota_version,omitempty"`
+}
+
+func (s DeviceInfos) String() string {
+	return tea.Prettify(s)
+}
+
+func (s DeviceInfos) GoString() string {
+	return s.String()
+}
+
+func (s *DeviceInfos) SetTuid(v string) *DeviceInfos {
+	s.Tuid = &v
+	return s
+}
+
+func (s *DeviceInfos) SetDeviceStatus(v string) *DeviceInfos {
+	s.DeviceStatus = &v
+	return s
+}
+
+func (s *DeviceInfos) SetDeviceOtaVersion(v string) *DeviceInfos {
+	s.DeviceOtaVersion = &v
+	return s
+}
+
+// 会话内容
+type AiAgentChatHistoryBO struct {
+	// 客户端ID
+	// example:
+	//
+	// 00:ba:cc
+	ClientId *string `json:"client_id,omitempty" xml:"client_id,omitempty" require:"true"`
+	// 客户端类型
+	// example:
+	//
+	// ESP32
+	ClientType *string `json:"client_type,omitempty" xml:"client_type,omitempty" require:"true"`
+	// 对话内容
+	// example:
+	//
+	// ...对话内容
+	ConversationContent *string `json:"conversation_content,omitempty" xml:"conversation_content,omitempty" require:"true"`
+	// 对话类型
+	// example:
+	//
+	// request
+	ConversationType *string `json:"conversation_type,omitempty" xml:"conversation_type,omitempty" require:"true"`
+	// 会话ID
+	// example:
+	//
+	// 7468486322254688256
+	SessionId *string `json:"session_id,omitempty" xml:"session_id,omitempty" require:"true"`
+	// 对话时间（格式化后的时间）
+	// example:
+	//
+	// 2026-06-24 21:32:59
+	Time *string `json:"time,omitempty" xml:"time,omitempty" require:"true"`
+}
+
+func (s AiAgentChatHistoryBO) String() string {
+	return tea.Prettify(s)
+}
+
+func (s AiAgentChatHistoryBO) GoString() string {
+	return s.String()
+}
+
+func (s *AiAgentChatHistoryBO) SetClientId(v string) *AiAgentChatHistoryBO {
+	s.ClientId = &v
+	return s
+}
+
+func (s *AiAgentChatHistoryBO) SetClientType(v string) *AiAgentChatHistoryBO {
+	s.ClientType = &v
+	return s
+}
+
+func (s *AiAgentChatHistoryBO) SetConversationContent(v string) *AiAgentChatHistoryBO {
+	s.ConversationContent = &v
+	return s
+}
+
+func (s *AiAgentChatHistoryBO) SetConversationType(v string) *AiAgentChatHistoryBO {
+	s.ConversationType = &v
+	return s
+}
+
+func (s *AiAgentChatHistoryBO) SetSessionId(v string) *AiAgentChatHistoryBO {
+	s.SessionId = &v
+	return s
+}
+
+func (s *AiAgentChatHistoryBO) SetTime(v string) *AiAgentChatHistoryBO {
+	s.Time = &v
+	return s
+}
+
+// 租户分页查询结果
+type PermissionedTenantPageResponse struct {
+	// 页数
+	// example:
+	//
+	// 1
+	PageIndex *int64 `json:"page_index,omitempty" xml:"page_index,omitempty" require:"true"`
+	// 页码
+	// example:
+	//
+	// 10
+	PageSize *int64 `json:"page_size,omitempty" xml:"page_size,omitempty" require:"true"`
+	// 总记录数
+	// example:
+	//
+	// 100
+	TotalSize *int64 `json:"total_size,omitempty" xml:"total_size,omitempty" require:"true"`
+	// 总页数
+	// example:
+	//
+	// 10
+	TotalPages *int64 `json:"total_pages,omitempty" xml:"total_pages,omitempty" require:"true"`
+	// 数据
+	// example:
+	//
+	// {...}
+	PageData []*PermissionedTenantModel `json:"page_data,omitempty" xml:"page_data,omitempty" require:"true" type:"Repeated"`
+}
+
+func (s PermissionedTenantPageResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s PermissionedTenantPageResponse) GoString() string {
+	return s.String()
+}
+
+func (s *PermissionedTenantPageResponse) SetPageIndex(v int64) *PermissionedTenantPageResponse {
+	s.PageIndex = &v
+	return s
+}
+
+func (s *PermissionedTenantPageResponse) SetPageSize(v int64) *PermissionedTenantPageResponse {
+	s.PageSize = &v
+	return s
+}
+
+func (s *PermissionedTenantPageResponse) SetTotalSize(v int64) *PermissionedTenantPageResponse {
+	s.TotalSize = &v
+	return s
+}
+
+func (s *PermissionedTenantPageResponse) SetTotalPages(v int64) *PermissionedTenantPageResponse {
+	s.TotalPages = &v
+	return s
+}
+
+func (s *PermissionedTenantPageResponse) SetPageData(v []*PermissionedTenantModel) *PermissionedTenantPageResponse {
+	s.PageData = v
+	return s
+}
+
+// 任务信息
+type TaskInfo struct {
+	// 升级计划Id
+	// example:
+	//
+	// 234
+	PlanId *int64 `json:"plan_id,omitempty" xml:"plan_id,omitempty" minimum:"0"`
+	// 刷库计划步骤id
+	// example:
+	//
+	// 234
+	PlanStepId *int64 `json:"plan_step_id,omitempty" xml:"plan_step_id,omitempty" minimum:"0"`
+	// 任务id
+	// example:
+	//
+	// 234
+	TaskId *int64 `json:"task_id,omitempty" xml:"task_id,omitempty" minimum:"0"`
+	// action_id
+	// example:
+	//
+	// 234
+	ActionId *int64 `json:"action_id,omitempty" xml:"action_id,omitempty" minimum:"0"`
+	// 任务类型
+	// example:
+	//
+	// 升级，溯源
+	TaskType *string `json:"task_type,omitempty" xml:"task_type,omitempty" require:"true"`
+}
+
+func (s TaskInfo) String() string {
+	return tea.Prettify(s)
+}
+
+func (s TaskInfo) GoString() string {
+	return s.String()
+}
+
+func (s *TaskInfo) SetPlanId(v int64) *TaskInfo {
+	s.PlanId = &v
+	return s
+}
+
+func (s *TaskInfo) SetPlanStepId(v int64) *TaskInfo {
+	s.PlanStepId = &v
+	return s
+}
+
+func (s *TaskInfo) SetTaskId(v int64) *TaskInfo {
+	s.TaskId = &v
+	return s
+}
+
+func (s *TaskInfo) SetActionId(v int64) *TaskInfo {
+	s.ActionId = &v
+	return s
+}
+
+func (s *TaskInfo) SetTaskType(v string) *TaskInfo {
+	s.TaskType = &v
+	return s
+}
+
+// 商品鉴定返回结果
+type BaiGoodsIdentificationRespData struct {
+	// 鉴定结果
+	// REAL：鉴定为真
+	// FAKE：鉴定为假
+	// UNABLE_IDENTIFY：无法鉴定
+	// example:
+	//
+	// REAL
+	IdentificationResult *string `json:"identification_result,omitempty" xml:"identification_result,omitempty" require:"true"`
+	// 整体鉴定分数
+	// example:
+	//
+	// 0.99
+	Grade *string `json:"grade,omitempty" xml:"grade,omitempty" require:"true"`
+	// 整体鉴定报告描述
+	// example:
+	//
+	// AI鉴定成功
+	Description *string `json:"description,omitempty" xml:"description,omitempty"`
+	// 鉴定点鉴定结果列表
+	PointIdentificationResults []*BaiGoodsPointIdentificationResult `json:"point_identification_results,omitempty" xml:"point_identification_results,omitempty" require:"true" type:"Repeated"`
+	// 鉴定评价
+	// example:
+	//
+	// 完全同一，趋于同一，和不同一
+	AppraiseMessage *string `json:"appraise_message,omitempty" xml:"appraise_message,omitempty"`
+	// 用户自定义字符串，系统不做处理，会在响应体中带回
+	// example:
+	//
+	// state
+	OutState *string `json:"out_state,omitempty" xml:"out_state,omitempty"`
+}
+
+func (s BaiGoodsIdentificationRespData) String() string {
+	return tea.Prettify(s)
+}
+
+func (s BaiGoodsIdentificationRespData) GoString() string {
+	return s.String()
+}
+
+func (s *BaiGoodsIdentificationRespData) SetIdentificationResult(v string) *BaiGoodsIdentificationRespData {
+	s.IdentificationResult = &v
+	return s
+}
+
+func (s *BaiGoodsIdentificationRespData) SetGrade(v string) *BaiGoodsIdentificationRespData {
+	s.Grade = &v
+	return s
+}
+
+func (s *BaiGoodsIdentificationRespData) SetDescription(v string) *BaiGoodsIdentificationRespData {
+	s.Description = &v
+	return s
+}
+
+func (s *BaiGoodsIdentificationRespData) SetPointIdentificationResults(v []*BaiGoodsPointIdentificationResult) *BaiGoodsIdentificationRespData {
+	s.PointIdentificationResults = v
+	return s
+}
+
+func (s *BaiGoodsIdentificationRespData) SetAppraiseMessage(v string) *BaiGoodsIdentificationRespData {
+	s.AppraiseMessage = &v
+	return s
+}
+
+func (s *BaiGoodsIdentificationRespData) SetOutState(v string) *BaiGoodsIdentificationRespData {
+	s.OutState = &v
+	return s
+}
+
+// iot平台用户信息
+type IotBasicUserInfo struct {
+	// 租户ID
+	// example:
+	//
+	// DWWS2D
+	Tenant *string `json:"tenant,omitempty" xml:"tenant,omitempty" require:"true"`
+	// 金融云用户Id
+	//
+	// example:
+	//
+	// 12321321
+	CloudUserId *string `json:"cloud_user_id,omitempty" xml:"cloud_user_id,omitempty" require:"true"`
+	// 金融云平台的登录名
+	//
+	// example:
+	//
+	// xxx@alitest.com
+	LoginName *string `json:"login_name,omitempty" xml:"login_name,omitempty" require:"true"`
+	// 权限集合
+	PermissionList []*IotBasicRolePermission `json:"permission_list,omitempty" xml:"permission_list,omitempty" require:"true" type:"Repeated"`
+}
+
+func (s IotBasicUserInfo) String() string {
+	return tea.Prettify(s)
+}
+
+func (s IotBasicUserInfo) GoString() string {
+	return s.String()
+}
+
+func (s *IotBasicUserInfo) SetTenant(v string) *IotBasicUserInfo {
+	s.Tenant = &v
+	return s
+}
+
+func (s *IotBasicUserInfo) SetCloudUserId(v string) *IotBasicUserInfo {
+	s.CloudUserId = &v
+	return s
+}
+
+func (s *IotBasicUserInfo) SetLoginName(v string) *IotBasicUserInfo {
+	s.LoginName = &v
+	return s
+}
+
+func (s *IotBasicUserInfo) SetPermissionList(v []*IotBasicRolePermission) *IotBasicUserInfo {
+	s.PermissionList = v
+	return s
+}
+
+// 设备物模型行程统计信息
+type DeviceTripProperties struct {
+	// 上报时间
+	// example:
+	//
+	// 1765794345159
+	ReportTime *string `json:"report_time,omitempty" xml:"report_time,omitempty" require:"true"`
+	// 1
+	// example:
+	//
+	// 1
+	PowerStatus *string `json:"power_status,omitempty" xml:"power_status,omitempty" require:"true"`
+	// 1
+	// example:
+	//
+	// 1
+	EnduranceMileage *string `json:"endurance_mileage,omitempty" xml:"endurance_mileage,omitempty" require:"true"`
+	// 1
+	// example:
+	//
+	// 1
+	TotalMileage *string `json:"total_mileage,omitempty" xml:"total_mileage,omitempty" require:"true"`
+	// 1
+	// example:
+	//
+	// 1
+	Speed *string `json:"speed,omitempty" xml:"speed,omitempty" require:"true"`
+	// 1
+	// example:
+	//
+	// 1
+	Coord *string `json:"coord,omitempty" xml:"coord,omitempty" require:"true"`
+	// 1
+	// example:
+	//
+	// 1
+	Location *string `json:"location,omitempty" xml:"location,omitempty" require:"true"`
+	// 1
+	// example:
+	//
+	// 1
+	Rein *string `json:"rein,omitempty" xml:"rein,omitempty" require:"true"`
+	// 1
+	// example:
+	//
+	// 1
+	SpdBd *string `json:"spd_bd,omitempty" xml:"spd_bd,omitempty" require:"true"`
+	// 1
+	// example:
+	//
+	// 1
+	Cs *string `json:"cs,omitempty" xml:"cs,omitempty" require:"true"`
+	// 1
+	// example:
+	//
+	// 1
+	Eqst *string `json:"eqst,omitempty" xml:"eqst,omitempty" require:"true"`
+}
+
+func (s DeviceTripProperties) String() string {
+	return tea.Prettify(s)
+}
+
+func (s DeviceTripProperties) GoString() string {
+	return s.String()
+}
+
+func (s *DeviceTripProperties) SetReportTime(v string) *DeviceTripProperties {
+	s.ReportTime = &v
+	return s
+}
+
+func (s *DeviceTripProperties) SetPowerStatus(v string) *DeviceTripProperties {
+	s.PowerStatus = &v
+	return s
+}
+
+func (s *DeviceTripProperties) SetEnduranceMileage(v string) *DeviceTripProperties {
+	s.EnduranceMileage = &v
+	return s
+}
+
+func (s *DeviceTripProperties) SetTotalMileage(v string) *DeviceTripProperties {
+	s.TotalMileage = &v
+	return s
+}
+
+func (s *DeviceTripProperties) SetSpeed(v string) *DeviceTripProperties {
+	s.Speed = &v
+	return s
+}
+
+func (s *DeviceTripProperties) SetCoord(v string) *DeviceTripProperties {
+	s.Coord = &v
+	return s
+}
+
+func (s *DeviceTripProperties) SetLocation(v string) *DeviceTripProperties {
+	s.Location = &v
+	return s
+}
+
+func (s *DeviceTripProperties) SetRein(v string) *DeviceTripProperties {
+	s.Rein = &v
+	return s
+}
+
+func (s *DeviceTripProperties) SetSpdBd(v string) *DeviceTripProperties {
+	s.SpdBd = &v
+	return s
+}
+
+func (s *DeviceTripProperties) SetCs(v string) *DeviceTripProperties {
+	s.Cs = &v
+	return s
+}
+
+func (s *DeviceTripProperties) SetEqst(v string) *DeviceTripProperties {
+	s.Eqst = &v
+	return s
+}
+
+// 行程详情
+type TripDetail struct {
+	// 行程id
+	// example:
+	//
+	// T20251210140000001
+	TripId *string `json:"trip_id,omitempty" xml:"trip_id,omitempty" require:"true"`
+	// 开始时间
+	// example:
+	//
+	// 1765794345159
+	StartTime *int64 `json:"start_time,omitempty" xml:"start_time,omitempty" require:"true"`
+	// 结束时间
+	// example:
+	//
+	// 1765794345159
+	EndTime *int64 `json:"end_time,omitempty" xml:"end_time,omitempty" require:"true"`
+	// 行驶里程
+	// example:
+	//
+	// 36.9
+	Mileage *string `json:"mileage,omitempty" xml:"mileage,omitempty" require:"true"`
+	// 单次用时
+	// example:
+	//
+	// "duration":{ "value":"79", "unit":"h" },
+	Duration *TripDuration `json:"duration,omitempty" xml:"duration,omitempty" require:"true"`
+	// 最高速度
+	// example:
+	//
+	// 86
+	MaxSpeed *string `json:"max_speed,omitempty" xml:"max_speed,omitempty" require:"true"`
+	// 平均速度
+	// example:
+	//
+	// 32
+	AvgSpeed *string `json:"avg_speed,omitempty" xml:"avg_speed,omitempty" require:"true"`
+	// 开始地址
+	// example:
+	//
+	// 上海市浦东新区张江高科技园区博云路
+	FirstAddress *string `json:"first_address,omitempty" xml:"first_address,omitempty" require:"true"`
+	// 结束地址
+	// example:
+	//
+	// 上海市浦东新区张江高科技园区博云路
+	LastAddress *string `json:"last_address,omitempty" xml:"last_address,omitempty" require:"true"`
+	// 最开始定位时间
+	// example:
+	//
+	// 1733841605000
+	FirstLocationTime *int64 `json:"first_location_time,omitempty" xml:"first_location_time,omitempty" require:"true"`
+	// 最后结束定位时间
+	// example:
+	//
+	// 1733845195000
+	LastLocationTime *int64 `json:"last_location_time,omitempty" xml:"last_location_time,omitempty" require:"true"`
+}
+
+func (s TripDetail) String() string {
+	return tea.Prettify(s)
+}
+
+func (s TripDetail) GoString() string {
+	return s.String()
+}
+
+func (s *TripDetail) SetTripId(v string) *TripDetail {
+	s.TripId = &v
+	return s
+}
+
+func (s *TripDetail) SetStartTime(v int64) *TripDetail {
+	s.StartTime = &v
+	return s
+}
+
+func (s *TripDetail) SetEndTime(v int64) *TripDetail {
+	s.EndTime = &v
+	return s
+}
+
+func (s *TripDetail) SetMileage(v string) *TripDetail {
+	s.Mileage = &v
+	return s
+}
+
+func (s *TripDetail) SetDuration(v *TripDuration) *TripDetail {
+	s.Duration = v
+	return s
+}
+
+func (s *TripDetail) SetMaxSpeed(v string) *TripDetail {
+	s.MaxSpeed = &v
+	return s
+}
+
+func (s *TripDetail) SetAvgSpeed(v string) *TripDetail {
+	s.AvgSpeed = &v
+	return s
+}
+
+func (s *TripDetail) SetFirstAddress(v string) *TripDetail {
+	s.FirstAddress = &v
+	return s
+}
+
+func (s *TripDetail) SetLastAddress(v string) *TripDetail {
+	s.LastAddress = &v
+	return s
+}
+
+func (s *TripDetail) SetFirstLocationTime(v int64) *TripDetail {
+	s.FirstLocationTime = &v
+	return s
+}
+
+func (s *TripDetail) SetLastLocationTime(v int64) *TripDetail {
+	s.LastLocationTime = &v
+	return s
+}
+
+// 通行证批量创建失败列表
+type XrTicketPoolFailList struct {
+	// 券名称
+	// example:
+	//
+	// 券名称
+	XrTicketPoolName *string `json:"xr_ticket_pool_name,omitempty" xml:"xr_ticket_pool_name,omitempty" require:"true"`
+	// 资源id
+	// example:
+	//
+	// 资源id
+	ResourceId *string `json:"resource_id,omitempty" xml:"resource_id,omitempty" require:"true"`
+	// 错误码
+	// example:
+	//
+	// ok
+	ErrorCode *string `json:"error_code,omitempty" xml:"error_code,omitempty" require:"true"`
+	// 租户id
+	// example:
+	//
+	// 租户id
+	TenantId *string `json:"tenant_id,omitempty" xml:"tenant_id,omitempty" require:"true"`
+	// 错误信息
+	// example:
+	//
+	// 错误信息
+	ErrorMsg *string `json:"error_msg,omitempty" xml:"error_msg,omitempty" require:"true"`
+	// 核销类型
+	// example:
+	//
+	// XR_DEVICE
+	XrVerificationType *string `json:"xr_verification_type,omitempty" xml:"xr_verification_type,omitempty" require:"true"`
+}
+
+func (s XrTicketPoolFailList) String() string {
+	return tea.Prettify(s)
+}
+
+func (s XrTicketPoolFailList) GoString() string {
+	return s.String()
+}
+
+func (s *XrTicketPoolFailList) SetXrTicketPoolName(v string) *XrTicketPoolFailList {
+	s.XrTicketPoolName = &v
+	return s
+}
+
+func (s *XrTicketPoolFailList) SetResourceId(v string) *XrTicketPoolFailList {
+	s.ResourceId = &v
+	return s
+}
+
+func (s *XrTicketPoolFailList) SetErrorCode(v string) *XrTicketPoolFailList {
+	s.ErrorCode = &v
+	return s
+}
+
+func (s *XrTicketPoolFailList) SetTenantId(v string) *XrTicketPoolFailList {
+	s.TenantId = &v
+	return s
+}
+
+func (s *XrTicketPoolFailList) SetErrorMsg(v string) *XrTicketPoolFailList {
+	s.ErrorMsg = &v
+	return s
+}
+
+func (s *XrTicketPoolFailList) SetXrVerificationType(v string) *XrTicketPoolFailList {
+	s.XrVerificationType = &v
+	return s
+}
+
+// BAI提供的OCR接口返回值
+type BaiOcrResponse struct {
+	// 返回的结果体
+	// example:
+	//
+	// {"backResult":{"issue":"XXXX","endDate":"20231010","startDate":"20131010"}}
+	Data *string `json:"data,omitempty" xml:"data,omitempty" require:"true"`
+}
+
+func (s BaiOcrResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s BaiOcrResponse) GoString() string {
+	return s.String()
+}
+
+func (s *BaiOcrResponse) SetData(v string) *BaiOcrResponse {
+	s.Data = &v
+	return s
+}
+
+// 获取设备授权返回信息
+type EmpowerDeviceInfo struct {
+	// 设备ID
+	// example:
+	//
+	// 00000001
+	DeviceId *string `json:"device_id,omitempty" xml:"device_id,omitempty" require:"true"`
+	// ACCEPTED(接受)/REVOKED(撤销)
+	// example:
+	//
+	// ACCEPTED
+	AuthStatus *string `json:"auth_status,omitempty" xml:"auth_status,omitempty" require:"true"`
+	// 移除授权时间，毫秒级时间戳
+	// example:
+	//
+	// 1781690409
+	RemoveTime *int64 `json:"remove_time,omitempty" xml:"remove_time,omitempty"`
+}
+
+func (s EmpowerDeviceInfo) String() string {
+	return tea.Prettify(s)
+}
+
+func (s EmpowerDeviceInfo) GoString() string {
+	return s.String()
+}
+
+func (s *EmpowerDeviceInfo) SetDeviceId(v string) *EmpowerDeviceInfo {
+	s.DeviceId = &v
+	return s
+}
+
+func (s *EmpowerDeviceInfo) SetAuthStatus(v string) *EmpowerDeviceInfo {
+	s.AuthStatus = &v
+	return s
+}
+
+func (s *EmpowerDeviceInfo) SetRemoveTime(v int64) *EmpowerDeviceInfo {
+	s.RemoveTime = &v
+	return s
+}
+
+// 产品模块最新已发布固件包响应
+type IotxLatestPublishedFirmwareResponse struct {
+	// 可信产品唯一标识
+	// example:
+	//
+	// 可信产品唯一标识
+	TrustProductKey *string `json:"trust_product_key,omitempty" xml:"trust_product_key,omitempty"`
+	// 产品名称
+	// example:
+	//
+	// 产品名称
+	ProductName *string `json:"product_name,omitempty" xml:"product_name,omitempty"`
+	// OTA 模块名称
+	// example:
+	//
+	// OTA 模块名称
+	ModuleName *string `json:"module_name,omitempty" xml:"module_name,omitempty"`
+	// OTA 固件包唯一标识
+	// example:
+	//
+	// OTA 固件包唯一标识
+	FirmwareId *string `json:"firmware_id,omitempty" xml:"firmware_id,omitempty"`
+	// OTA 固件包名称
+	// example:
+	//
+	// OTA 固件包名称
+	FirmwareName *string `json:"firmware_name,omitempty" xml:"firmware_name,omitempty"`
+	// OTA 固件包下载地址
+	// example:
+	//
+	// OTA 固件包下载地址
+	FirmwareUrl *string `json:"firmware_url,omitempty" xml:"firmware_url,omitempty"`
+	// 目标版本号
+	// example:
+	//
+	// 目标版本号
+	DestVersion *string `json:"dest_version,omitempty" xml:"dest_version,omitempty"`
+	// OTA 固件包内容签名
+	// example:
+	//
+	// OTA 固件包内容签名
+	FirmwareSign *string `json:"firmware_sign,omitempty" xml:"firmware_sign,omitempty"`
+	// 签名算法
+	// example:
+	//
+	// 签名算法
+	SignMethod *string `json:"sign_method,omitempty" xml:"sign_method,omitempty"`
+	// OTA 固件包描述
+	// example:
+	//
+	// OTA 固件包描述
+	FirmwareDesc *string `json:"firmware_desc,omitempty" xml:"firmware_desc,omitempty"`
+	// 固件包文件大小，单位为字节
+	// example:
+	//
+	// 固件包文件大小，单位为字节
+	FirmwareSize *string `json:"firmware_size,omitempty" xml:"firmware_size,omitempty"`
+	// 固件包类型编码
+	// example:
+	//
+	// 固件包类型编码
+	FirmwareType *string `json:"firmware_type,omitempty" xml:"firmware_type,omitempty"`
+	// 差分固件源版本号
+	// example:
+	//
+	// 差分固件源版本号
+	SrcVersion *string `json:"src_version,omitempty" xml:"src_version,omitempty"`
+	// 是否需要验证，0 表示不需要，1 表示需要
+	// example:
+	//
+	// 是否需要验证，0 表示不需要，1 表示需要
+	NeedToVerify *string `json:"need_to_verify,omitempty" xml:"need_to_verify,omitempty"`
+	// 固件包验证状态编码
+	// example:
+	//
+	// 固件包验证状态编码
+	VerifyStatus *string `json:"verify_status,omitempty" xml:"verify_status,omitempty"`
+	// 推送给设备的自定义信息
+	// example:
+	//
+	// 推送给设备的自定义信息
+	Udi *string `json:"udi,omitempty" xml:"udi,omitempty"`
+	// 发布状态，固定为 1
+	// example:
+	//
+	// 发布状态，固定为 1
+	PublishStatus *string `json:"publish_status,omitempty" xml:"publish_status,omitempty"`
+	// 固件包支持的升级通道列表
+	// example:
+	//
+	// undefined
+	SupportChannels []*string `json:"support_channels,omitempty" xml:"support_channels,omitempty" type:"Repeated"`
+}
+
+func (s IotxLatestPublishedFirmwareResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s IotxLatestPublishedFirmwareResponse) GoString() string {
+	return s.String()
+}
+
+func (s *IotxLatestPublishedFirmwareResponse) SetTrustProductKey(v string) *IotxLatestPublishedFirmwareResponse {
+	s.TrustProductKey = &v
+	return s
+}
+
+func (s *IotxLatestPublishedFirmwareResponse) SetProductName(v string) *IotxLatestPublishedFirmwareResponse {
+	s.ProductName = &v
+	return s
+}
+
+func (s *IotxLatestPublishedFirmwareResponse) SetModuleName(v string) *IotxLatestPublishedFirmwareResponse {
+	s.ModuleName = &v
+	return s
+}
+
+func (s *IotxLatestPublishedFirmwareResponse) SetFirmwareId(v string) *IotxLatestPublishedFirmwareResponse {
+	s.FirmwareId = &v
+	return s
+}
+
+func (s *IotxLatestPublishedFirmwareResponse) SetFirmwareName(v string) *IotxLatestPublishedFirmwareResponse {
+	s.FirmwareName = &v
+	return s
+}
+
+func (s *IotxLatestPublishedFirmwareResponse) SetFirmwareUrl(v string) *IotxLatestPublishedFirmwareResponse {
+	s.FirmwareUrl = &v
+	return s
+}
+
+func (s *IotxLatestPublishedFirmwareResponse) SetDestVersion(v string) *IotxLatestPublishedFirmwareResponse {
+	s.DestVersion = &v
+	return s
+}
+
+func (s *IotxLatestPublishedFirmwareResponse) SetFirmwareSign(v string) *IotxLatestPublishedFirmwareResponse {
+	s.FirmwareSign = &v
+	return s
+}
+
+func (s *IotxLatestPublishedFirmwareResponse) SetSignMethod(v string) *IotxLatestPublishedFirmwareResponse {
+	s.SignMethod = &v
+	return s
+}
+
+func (s *IotxLatestPublishedFirmwareResponse) SetFirmwareDesc(v string) *IotxLatestPublishedFirmwareResponse {
+	s.FirmwareDesc = &v
+	return s
+}
+
+func (s *IotxLatestPublishedFirmwareResponse) SetFirmwareSize(v string) *IotxLatestPublishedFirmwareResponse {
+	s.FirmwareSize = &v
+	return s
+}
+
+func (s *IotxLatestPublishedFirmwareResponse) SetFirmwareType(v string) *IotxLatestPublishedFirmwareResponse {
+	s.FirmwareType = &v
+	return s
+}
+
+func (s *IotxLatestPublishedFirmwareResponse) SetSrcVersion(v string) *IotxLatestPublishedFirmwareResponse {
+	s.SrcVersion = &v
+	return s
+}
+
+func (s *IotxLatestPublishedFirmwareResponse) SetNeedToVerify(v string) *IotxLatestPublishedFirmwareResponse {
+	s.NeedToVerify = &v
+	return s
+}
+
+func (s *IotxLatestPublishedFirmwareResponse) SetVerifyStatus(v string) *IotxLatestPublishedFirmwareResponse {
+	s.VerifyStatus = &v
+	return s
+}
+
+func (s *IotxLatestPublishedFirmwareResponse) SetUdi(v string) *IotxLatestPublishedFirmwareResponse {
+	s.Udi = &v
+	return s
+}
+
+func (s *IotxLatestPublishedFirmwareResponse) SetPublishStatus(v string) *IotxLatestPublishedFirmwareResponse {
+	s.PublishStatus = &v
+	return s
+}
+
+func (s *IotxLatestPublishedFirmwareResponse) SetSupportChannels(v []*string) *IotxLatestPublishedFirmwareResponse {
+	s.SupportChannels = v
+	return s
+}
+
+// 业务状态信息
+type BizStatusInfoOp struct {
+	// 业务状态类型
+	// example:
+	//
+	// SMART_CAR_KEY
+	BizType *string `json:"biz_type,omitempty" xml:"biz_type,omitempty" require:"true"`
+	// 业务状态
+	// example:
+	//
+	// unbound
+	BizStatus *string `json:"biz_status,omitempty" xml:"biz_status,omitempty" require:"true"`
+	// 时间
+	// example:
+	//
+	// 2018-10-10 10:10:00
+	OpTime *string `json:"op_time,omitempty" xml:"op_time,omitempty" require:"true"`
+}
+
+func (s BizStatusInfoOp) String() string {
+	return tea.Prettify(s)
+}
+
+func (s BizStatusInfoOp) GoString() string {
+	return s.String()
+}
+
+func (s *BizStatusInfoOp) SetBizType(v string) *BizStatusInfoOp {
+	s.BizType = &v
+	return s
+}
+
+func (s *BizStatusInfoOp) SetBizStatus(v string) *BizStatusInfoOp {
+	s.BizStatus = &v
+	return s
+}
+
+func (s *BizStatusInfoOp) SetOpTime(v string) *BizStatusInfoOp {
+	s.OpTime = &v
+	return s
+}
+
+// OTA 任务永久取消结果项
+type IotxOtaTaskPermanentCancelResult struct {
+	// 通道
+	// example:
+	//
+	// EKYT_BLE
+	Channel *string `json:"channel,omitempty" xml:"channel,omitempty"`
+	// OTA批次id
+	// example:
+	//
+	// 7d715afe5a374179892078a9a11f16ab
+	JobId *string `json:"job_id,omitempty" xml:"job_id,omitempty"`
+	// OTA任务ID
+	// example:
+	//
+	// 11117c96d904415fa1570736703d3f0c
+	TaskId *string `json:"task_id,omitempty" xml:"task_id,omitempty"`
+	// OTA固件包ID
+	// example:
+	//
+	// 25c3f69752244678a84f663e4d48a56a
+	FirmwareId *string `json:"firmware_id,omitempty" xml:"firmware_id,omitempty" require:"true"`
+	// 是否成功
+	// example:
+	//
+	// true
+	Success *bool `json:"success,omitempty" xml:"success,omitempty"`
+	// 失败错误码
+	// example:
+	//
+	// SYSTEM_ERROR
+	ErrorCode *string `json:"error_code,omitempty" xml:"error_code,omitempty"`
+	// 错误信息
+	// example:
+	//
+	// 错误信息
+	ErrorMessage *string `json:"error_message,omitempty" xml:"error_message,omitempty"`
+}
+
+func (s IotxOtaTaskPermanentCancelResult) String() string {
+	return tea.Prettify(s)
+}
+
+func (s IotxOtaTaskPermanentCancelResult) GoString() string {
+	return s.String()
+}
+
+func (s *IotxOtaTaskPermanentCancelResult) SetChannel(v string) *IotxOtaTaskPermanentCancelResult {
+	s.Channel = &v
+	return s
+}
+
+func (s *IotxOtaTaskPermanentCancelResult) SetJobId(v string) *IotxOtaTaskPermanentCancelResult {
+	s.JobId = &v
+	return s
+}
+
+func (s *IotxOtaTaskPermanentCancelResult) SetTaskId(v string) *IotxOtaTaskPermanentCancelResult {
+	s.TaskId = &v
+	return s
+}
+
+func (s *IotxOtaTaskPermanentCancelResult) SetFirmwareId(v string) *IotxOtaTaskPermanentCancelResult {
+	s.FirmwareId = &v
+	return s
+}
+
+func (s *IotxOtaTaskPermanentCancelResult) SetSuccess(v bool) *IotxOtaTaskPermanentCancelResult {
+	s.Success = &v
+	return s
+}
+
+func (s *IotxOtaTaskPermanentCancelResult) SetErrorCode(v string) *IotxOtaTaskPermanentCancelResult {
+	s.ErrorCode = &v
+	return s
+}
+
+func (s *IotxOtaTaskPermanentCancelResult) SetErrorMessage(v string) *IotxOtaTaskPermanentCancelResult {
+	s.ErrorMessage = &v
+	return s
+}
+
+// 商品鉴定点鉴定响应体
+type BaiGoodsPointQueryRespData struct {
+	// 识别结果
+	// true：识别到鉴定点
+	// false：未识别到鉴定点
+	// example:
+	//
+	// true
+	Detection *bool `json:"detection,omitempty" xml:"detection,omitempty" require:"true"`
+	// 鉴定结果
+	// REAL：鉴定为真
+	// FAKE：鉴定为假
+	// UNABLE_IDENTIFY：无法鉴定
+	// example:
+	//
+	// REAL
+	IdentificationResult *string `json:"identification_result,omitempty" xml:"identification_result,omitempty" require:"true"`
+}
+
+func (s BaiGoodsPointQueryRespData) String() string {
+	return tea.Prettify(s)
+}
+
+func (s BaiGoodsPointQueryRespData) GoString() string {
+	return s.String()
+}
+
+func (s *BaiGoodsPointQueryRespData) SetDetection(v bool) *BaiGoodsPointQueryRespData {
+	s.Detection = &v
+	return s
+}
+
+func (s *BaiGoodsPointQueryRespData) SetIdentificationResult(v string) *BaiGoodsPointQueryRespData {
+	s.IdentificationResult = &v
+	return s
+}
+
+// 溯源防伪码质检响应数据
+type BaiQrcodeVerifyRespData struct {
+	// 鉴定结果
+	// REAL：通过
+	// UNABLE_IDENTIFY：无法鉴定
+	// example:
+	//
+	// REAL
+	IdentificationResult *string `json:"identification_result,omitempty" xml:"identification_result,omitempty" require:"true"`
+	// 辅助识别结果码
+	// example:
+	//
+	// 700
+	IdentificationCode *string `json:"identification_code,omitempty" xml:"identification_code,omitempty" require:"true"`
+	// 辅助识别信息
+	// example:
+	//
+	// 二维码不符合标准
+	IdentificationMessage *string `json:"identification_message,omitempty" xml:"identification_message,omitempty" require:"true"`
+	// 无法鉴定时的解决方案
+	// example:
+	//
+	// 请重新印刷
+	UnableIdentifySolution *string `json:"unable_identify_solution,omitempty" xml:"unable_identify_solution,omitempty" require:"true"`
+}
+
+func (s BaiQrcodeVerifyRespData) String() string {
+	return tea.Prettify(s)
+}
+
+func (s BaiQrcodeVerifyRespData) GoString() string {
+	return s.String()
+}
+
+func (s *BaiQrcodeVerifyRespData) SetIdentificationResult(v string) *BaiQrcodeVerifyRespData {
+	s.IdentificationResult = &v
+	return s
+}
+
+func (s *BaiQrcodeVerifyRespData) SetIdentificationCode(v string) *BaiQrcodeVerifyRespData {
+	s.IdentificationCode = &v
+	return s
+}
+
+func (s *BaiQrcodeVerifyRespData) SetIdentificationMessage(v string) *BaiQrcodeVerifyRespData {
+	s.IdentificationMessage = &v
+	return s
+}
+
+func (s *BaiQrcodeVerifyRespData) SetUnableIdentifySolution(v string) *BaiQrcodeVerifyRespData {
+	s.UnableIdentifySolution = &v
+	return s
+}
+
+// 多媒体文件
+type JtMedia struct {
+	// 多媒体ID
+	// example:
+	//
+	// 123
+	MediaId *string `json:"media_id,omitempty" xml:"media_id,omitempty" require:"true"`
+	// 文件名称
+	// example:
+	//
+	// xxxx.jpg
+	Name *string `json:"name,omitempty" xml:"name,omitempty" require:"true"`
+	// 可访问的url
+	// example:
+	//
+	// https://oss.com/53/85855.jpg?sign=xxx
+	Url *string `json:"url,omitempty" xml:"url,omitempty" require:"true"`
+	// 上传时间
+	// example:
+	//
+	// 1687859592688
+	GmtCreate *int64 `json:"gmt_create,omitempty" xml:"gmt_create,omitempty" require:"true"`
+	// 多媒体类型枚举：IMAGE 图像；AUDIO 音频；VIDEO视频； UN_KNOW  未知；
+	// example:
+	//
+	// IMAGE
+	MediaType *string `json:"media_type,omitempty" xml:"media_type,omitempty" require:"true"`
+}
+
+func (s JtMedia) String() string {
+	return tea.Prettify(s)
+}
+
+func (s JtMedia) GoString() string {
+	return s.String()
+}
+
+func (s *JtMedia) SetMediaId(v string) *JtMedia {
+	s.MediaId = &v
+	return s
+}
+
+func (s *JtMedia) SetName(v string) *JtMedia {
+	s.Name = &v
+	return s
+}
+
+func (s *JtMedia) SetUrl(v string) *JtMedia {
+	s.Url = &v
+	return s
+}
+
+func (s *JtMedia) SetGmtCreate(v int64) *JtMedia {
+	s.GmtCreate = &v
+	return s
+}
+
+func (s *JtMedia) SetMediaType(v string) *JtMedia {
+	s.MediaType = &v
+	return s
+}
+
+// 商品鉴定点检测接口响应数据
+type BaiGoodsPointCheckRespData struct {
+	// 图片是否有效，无效则需要提示重拍
+	// example:
+	//
+	// true, false
+	Valid *bool `json:"valid,omitempty" xml:"valid,omitempty" require:"true"`
+}
+
+func (s BaiGoodsPointCheckRespData) String() string {
+	return tea.Prettify(s)
+}
+
+func (s BaiGoodsPointCheckRespData) GoString() string {
+	return s.String()
+}
+
+func (s *BaiGoodsPointCheckRespData) SetValid(v bool) *BaiGoodsPointCheckRespData {
+	s.Valid = &v
+	return s
+}
+
+// 批量定时任务详情
+type TaskDetail struct {
+	// 批次id
+	// example:
+	//
+	// ""
+	BatchId *string `json:"batch_id,omitempty" xml:"batch_id,omitempty"`
+	// tuid
+	// example:
+	//
+	// ""
+	Tuid *string `json:"tuid,omitempty" xml:"tuid,omitempty"`
+	// device_name
+	// example:
+	//
+	// ""
+	DeviceName *string `json:"device_name,omitempty" xml:"device_name,omitempty"`
+	// 状态
+	// example:
+	//
+	// ""
+	Status *string `json:"status,omitempty" xml:"status,omitempty"`
+	// 调用时间
+	// example:
+	//
+	// 1765794345159
+	InvokeTime *int64 `json:"invoke_time,omitempty" xml:"invoke_time,omitempty"`
+	// 错误信息
+	// example:
+	//
+	// ""
+	ErrorMsg *string `json:"error_msg,omitempty" xml:"error_msg,omitempty"`
+	// 重试次数
+	// example:
+	//
+	// 1
+	RetryCount *int64 `json:"retry_count,omitempty" xml:"retry_count,omitempty"`
+}
+
+func (s TaskDetail) String() string {
+	return tea.Prettify(s)
+}
+
+func (s TaskDetail) GoString() string {
+	return s.String()
+}
+
+func (s *TaskDetail) SetBatchId(v string) *TaskDetail {
+	s.BatchId = &v
+	return s
+}
+
+func (s *TaskDetail) SetTuid(v string) *TaskDetail {
+	s.Tuid = &v
+	return s
+}
+
+func (s *TaskDetail) SetDeviceName(v string) *TaskDetail {
+	s.DeviceName = &v
+	return s
+}
+
+func (s *TaskDetail) SetStatus(v string) *TaskDetail {
+	s.Status = &v
+	return s
+}
+
+func (s *TaskDetail) SetInvokeTime(v int64) *TaskDetail {
+	s.InvokeTime = &v
+	return s
+}
+
+func (s *TaskDetail) SetErrorMsg(v string) *TaskDetail {
+	s.ErrorMsg = &v
+	return s
+}
+
+func (s *TaskDetail) SetRetryCount(v int64) *TaskDetail {
+	s.RetryCount = &v
+	return s
+}
+
+// TSM CommonCmd
+type TsmCommonCmd struct {
+	// private byte cla;
+	// example:
+	//
+	// 00
+	Cla *int64 `json:"cla,omitempty" xml:"cla,omitempty" require:"true"`
+	//  host challenge data.
+	// example:
+	//
+	// [0,0]
+	Data []*int64 `json:"data,omitempty" xml:"data,omitempty" require:"true" type:"Repeated"`
+	// private byte ins;
+	// example:
+	//
+	// 00
+	Ins *int64 `json:"ins,omitempty" xml:"ins,omitempty" require:"true"`
+	//  private byte lc;
+	// example:
+	//
+	// lc
+	Lc *int64 `json:"lc,omitempty" xml:"lc,omitempty" require:"true"`
+	// private byte le = (byte) 0x00;
+	// example:
+	//
+	// 0
+	Le *int64 `json:"le,omitempty" xml:"le,omitempty"`
+	// private Boolean needSecurityHandle = Boolean.TRUE;
+	// example:
+	//
+	// true, false
+	NeedSecurityHandle *bool `json:"need_security_handle,omitempty" xml:"need_security_handle,omitempty"`
+	// private byte p1;
+	// example:
+	//
+	// 00
+	P1 *int64 `json:"p1,omitempty" xml:"p1,omitempty" require:"true"`
+	// private byte p2 = (byte) 0x00;
+	// example:
+	//
+	// 00
+	P2 *int64 `json:"p2,omitempty" xml:"p2,omitempty" require:"true"`
+}
+
+func (s TsmCommonCmd) String() string {
+	return tea.Prettify(s)
+}
+
+func (s TsmCommonCmd) GoString() string {
+	return s.String()
+}
+
+func (s *TsmCommonCmd) SetCla(v int64) *TsmCommonCmd {
+	s.Cla = &v
+	return s
+}
+
+func (s *TsmCommonCmd) SetData(v []*int64) *TsmCommonCmd {
+	s.Data = v
+	return s
+}
+
+func (s *TsmCommonCmd) SetIns(v int64) *TsmCommonCmd {
+	s.Ins = &v
+	return s
+}
+
+func (s *TsmCommonCmd) SetLc(v int64) *TsmCommonCmd {
+	s.Lc = &v
+	return s
+}
+
+func (s *TsmCommonCmd) SetLe(v int64) *TsmCommonCmd {
+	s.Le = &v
+	return s
+}
+
+func (s *TsmCommonCmd) SetNeedSecurityHandle(v bool) *TsmCommonCmd {
+	s.NeedSecurityHandle = &v
+	return s
+}
+
+func (s *TsmCommonCmd) SetP1(v int64) *TsmCommonCmd {
+	s.P1 = &v
+	return s
+}
+
+func (s *TsmCommonCmd) SetP2(v int64) *TsmCommonCmd {
+	s.P2 = &v
+	return s
+}
+
+// xr通行证批量创建请求
+type XrTicketPoolBatchReq struct {
+	// 资源id
+	// example:
+	//
+	// 资源id
+	ResourceId *string `json:"resource_id,omitempty" xml:"resource_id,omitempty" require:"true"`
+	// 通行证有效期
+	// example:
+	//
+	// 通行证有效期
+	ValidTime *string `json:"valid_time,omitempty" xml:"valid_time,omitempty" require:"true"`
+	// 体验时长
+	// example:
+	//
+	// 60(单位分)
+	TestTime *int64 `json:"test_time,omitempty" xml:"test_time,omitempty" require:"true"`
+	// vr设备集合
+	// example:
+	//
+	// json或数组
+	XrApps *string `json:"xr_apps,omitempty" xml:"xr_apps,omitempty"`
+	// 券池最大出票数
+	// example:
+	//
+	// 100
+	MaxPoolCount *int64 `json:"max_pool_count,omitempty" xml:"max_pool_count,omitempty" require:"true"`
+	// 通行证名称
+	// example:
+	//
+	// 通行证名称
+	XrTicketPoolName *string `json:"xr_ticket_pool_name,omitempty" xml:"xr_ticket_pool_name,omitempty" require:"true"`
+	// 核销类型
+	// example:
+	//
+	// XR_DEVICE
+	XrVerificationType *string `json:"xr_verification_type,omitempty" xml:"xr_verification_type,omitempty" require:"true"`
+}
+
+func (s XrTicketPoolBatchReq) String() string {
+	return tea.Prettify(s)
+}
+
+func (s XrTicketPoolBatchReq) GoString() string {
+	return s.String()
+}
+
+func (s *XrTicketPoolBatchReq) SetResourceId(v string) *XrTicketPoolBatchReq {
+	s.ResourceId = &v
+	return s
+}
+
+func (s *XrTicketPoolBatchReq) SetValidTime(v string) *XrTicketPoolBatchReq {
+	s.ValidTime = &v
+	return s
+}
+
+func (s *XrTicketPoolBatchReq) SetTestTime(v int64) *XrTicketPoolBatchReq {
+	s.TestTime = &v
+	return s
+}
+
+func (s *XrTicketPoolBatchReq) SetXrApps(v string) *XrTicketPoolBatchReq {
+	s.XrApps = &v
+	return s
+}
+
+func (s *XrTicketPoolBatchReq) SetMaxPoolCount(v int64) *XrTicketPoolBatchReq {
+	s.MaxPoolCount = &v
+	return s
+}
+
+func (s *XrTicketPoolBatchReq) SetXrTicketPoolName(v string) *XrTicketPoolBatchReq {
+	s.XrTicketPoolName = &v
+	return s
+}
+
+func (s *XrTicketPoolBatchReq) SetXrVerificationType(v string) *XrTicketPoolBatchReq {
+	s.XrVerificationType = &v
+	return s
+}
+
+// 设备管控 失败对象
+type DeviceControlFail struct {
+	// 设备did
+	// example:
+	//
+	// 123
+	DeviceDid *string `json:"device_did,omitempty" xml:"device_did,omitempty" require:"true"`
+	// 操作失败code
+	// example:
+	//
+	// bad_param
+	Code *string `json:"code,omitempty" xml:"code,omitempty" require:"true"`
+	// 操作失败信息
+	// example:
+	//
+	// 参数错误
+	Message *string `json:"message,omitempty" xml:"message,omitempty" require:"true"`
+}
+
+func (s DeviceControlFail) String() string {
+	return tea.Prettify(s)
+}
+
+func (s DeviceControlFail) GoString() string {
+	return s.String()
+}
+
+func (s *DeviceControlFail) SetDeviceDid(v string) *DeviceControlFail {
+	s.DeviceDid = &v
+	return s
+}
+
+func (s *DeviceControlFail) SetCode(v string) *DeviceControlFail {
+	s.Code = &v
+	return s
+}
+
+func (s *DeviceControlFail) SetMessage(v string) *DeviceControlFail {
+	s.Message = &v
+	return s
+}
+
+// 产品级 OTA 连续推送策略响应
+type ContinuousOtaPolicyResponse struct {
+	// 策略所属租户 ID
+	// example:
+	//
+	// 策略所属租户 ID
+	TenantId *string `json:"tenant_id,omitempty" xml:"tenant_id,omitempty"`
+	// 策略所属产品可信标识
+	// example:
+	//
+	// 策略所属产品可信标识
+	TrustProductKey *string `json:"trust_product_key,omitempty" xml:"trust_product_key,omitempty"`
+	// 产品策略主键
+	// example:
+	//
+	// 产品策略主键
+	PolicyId *string `json:"policy_id,omitempty" xml:"policy_id,omitempty"`
+	// 产品下规则集合版本
+	// example:
+	//
+	// 产品下规则集合版本
+	RulesVersion *string `json:"rules_version,omitempty" xml:"rules_version,omitempty"`
+	// 产品全局白名单版本
+	// example:
+	//
+	// 产品全局白名单版本
+	WhitelistVersion *string `json:"whitelist_version,omitempty" xml:"whitelist_version,omitempty"`
+	// 当前有效白名单成员数量
+	// example:
+	//
+	// 当前有效白名单成员数量
+	WhitelistCount *string `json:"whitelist_count,omitempty" xml:"whitelist_count,omitempty"`
+	// 当前产品配置是否允许整体删除
+	// example:
+	//
+	// true
+	Deletable *bool `json:"deletable,omitempty" xml:"deletable,omitempty"`
+	// 当前产品配置不可删除的稳定原因编码集合
+	// example:
+	//
+	// undefined
+	DeleteBlockedReasons []*string `json:"delete_blocked_reasons,omitempty" xml:"delete_blocked_reasons,omitempty" type:"Repeated"`
+	// 产品当前生效的连续推送规则集合
+	// example:
+	//
+	// undefined
+	Rules []*ContinuousOtaRuleResponse `json:"rules,omitempty" xml:"rules,omitempty" type:"Repeated"`
+}
+
+func (s ContinuousOtaPolicyResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s ContinuousOtaPolicyResponse) GoString() string {
+	return s.String()
+}
+
+func (s *ContinuousOtaPolicyResponse) SetTenantId(v string) *ContinuousOtaPolicyResponse {
+	s.TenantId = &v
+	return s
+}
+
+func (s *ContinuousOtaPolicyResponse) SetTrustProductKey(v string) *ContinuousOtaPolicyResponse {
+	s.TrustProductKey = &v
+	return s
+}
+
+func (s *ContinuousOtaPolicyResponse) SetPolicyId(v string) *ContinuousOtaPolicyResponse {
+	s.PolicyId = &v
+	return s
+}
+
+func (s *ContinuousOtaPolicyResponse) SetRulesVersion(v string) *ContinuousOtaPolicyResponse {
+	s.RulesVersion = &v
+	return s
+}
+
+func (s *ContinuousOtaPolicyResponse) SetWhitelistVersion(v string) *ContinuousOtaPolicyResponse {
+	s.WhitelistVersion = &v
+	return s
+}
+
+func (s *ContinuousOtaPolicyResponse) SetWhitelistCount(v string) *ContinuousOtaPolicyResponse {
+	s.WhitelistCount = &v
+	return s
+}
+
+func (s *ContinuousOtaPolicyResponse) SetDeletable(v bool) *ContinuousOtaPolicyResponse {
+	s.Deletable = &v
+	return s
+}
+
+func (s *ContinuousOtaPolicyResponse) SetDeleteBlockedReasons(v []*string) *ContinuousOtaPolicyResponse {
+	s.DeleteBlockedReasons = v
+	return s
+}
+
+func (s *ContinuousOtaPolicyResponse) SetRules(v []*ContinuousOtaRuleResponse) *ContinuousOtaPolicyResponse {
+	s.Rules = v
+	return s
+}
+
+// kyt 凭证申请参数
+type KytApplyParams struct {
+	// 设备类型
+	// example:
+	//
+	// tw_car
+	DeviceType *string `json:"device_type,omitempty" xml:"device_type,omitempty"`
+	// 凭证类型
+	// example:
+	//
+	// mcu_dk_cred
+	CredType *string `json:"cred_type,omitempty" xml:"cred_type,omitempty"`
+	// 品牌
+	// example:
+	//
+	// JL
+	BrandId *string `json:"brand_id,omitempty" xml:"brand_id,omitempty" require:"true"`
+	// 凭证内容
+	// example:
+	//
+	// []
+	GenerateCode *string `json:"generate_code,omitempty" xml:"generate_code,omitempty"`
+	// 协议类型
+	// example:
+	//
+	// ble
+	ProtocolType *string `json:"protocol_type,omitempty" xml:"protocol_type,omitempty" require:"true"`
+	// 无感参数
+	// example:
+	//
+	// 1
+	KeyLess *string `json:"key_less,omitempty" xml:"key_less,omitempty" require:"true"`
+	// mac
+	// example:
+	//
+	// F8:5F:56:F6:05:BC
+	Mac *string `json:"mac,omitempty" xml:"mac,omitempty" require:"true"`
+	// ble_name
+	// example:
+	//
+	// ble_
+	BleName *string `json:"ble_name,omitempty" xml:"ble_name,omitempty" require:"true"`
+	// 通道
+	// example:
+	//
+	// DT
+	Channel *string `json:"channel,omitempty" xml:"channel,omitempty"`
+}
+
+func (s KytApplyParams) String() string {
+	return tea.Prettify(s)
+}
+
+func (s KytApplyParams) GoString() string {
+	return s.String()
+}
+
+func (s *KytApplyParams) SetDeviceType(v string) *KytApplyParams {
+	s.DeviceType = &v
+	return s
+}
+
+func (s *KytApplyParams) SetCredType(v string) *KytApplyParams {
+	s.CredType = &v
+	return s
+}
+
+func (s *KytApplyParams) SetBrandId(v string) *KytApplyParams {
+	s.BrandId = &v
+	return s
+}
+
+func (s *KytApplyParams) SetGenerateCode(v string) *KytApplyParams {
+	s.GenerateCode = &v
+	return s
+}
+
+func (s *KytApplyParams) SetProtocolType(v string) *KytApplyParams {
+	s.ProtocolType = &v
+	return s
+}
+
+func (s *KytApplyParams) SetKeyLess(v string) *KytApplyParams {
+	s.KeyLess = &v
+	return s
+}
+
+func (s *KytApplyParams) SetMac(v string) *KytApplyParams {
+	s.Mac = &v
+	return s
+}
+
+func (s *KytApplyParams) SetBleName(v string) *KytApplyParams {
+	s.BleName = &v
+	return s
+}
+
+func (s *KytApplyParams) SetChannel(v string) *KytApplyParams {
+	s.Channel = &v
+	return s
+}
+
+// 信物链证据基本组成结构体
+type EvidenceBaseModel struct {
+	// 业务数据
+	// example:
+	//
+	// [{"content":"{业务数据}","label":"CRYPTO","timestamp":0}]
+	BizData *string `json:"biz_data,omitempty" xml:"biz_data,omitempty"`
+	// 证据哈希值
+	// example:
+	//
+	// "证据哈希值"
+	Hash *string `json:"hash,omitempty" xml:"hash,omitempty"`
+	// 证据附属信息字段
+	// example:
+	//
+	// "证据附属信息"
+	MetaJson *string `json:"meta_json,omitempty" xml:"meta_json,omitempty"`
+}
+
+func (s EvidenceBaseModel) String() string {
+	return tea.Prettify(s)
+}
+
+func (s EvidenceBaseModel) GoString() string {
+	return s.String()
+}
+
+func (s *EvidenceBaseModel) SetBizData(v string) *EvidenceBaseModel {
+	s.BizData = &v
+	return s
+}
+
+func (s *EvidenceBaseModel) SetHash(v string) *EvidenceBaseModel {
+	s.Hash = &v
+	return s
+}
+
+func (s *EvidenceBaseModel) SetMetaJson(v string) *EvidenceBaseModel {
+	s.MetaJson = &v
+	return s
+}
+
+// 行程统计详情
+type TripTraceView struct {
+	// 开始时间
+	// example:
+	//
+	// 2018-10-10T10:10:00Z
+	BeginTime *string `json:"begin_time,omitempty" xml:"begin_time,omitempty" require:"true" pattern:"\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}([Z]|([\\.]\\d{1,9})?[\\+]\\d{2}[\\:]?\\d{2})"`
+	// 结束时间
+	// example:
+	//
+	// 2018-10-10T10:10:00Z
+	EndTime *string `json:"end_time,omitempty" xml:"end_time,omitempty" require:"true" pattern:"\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}([Z]|([\\.]\\d{1,9})?[\\+]\\d{2}[\\:]?\\d{2})"`
+	// 平均速度
+	AvgSpeed *int64 `json:"avg_speed,omitempty" xml:"avg_speed,omitempty" require:"true"`
+	// 最大速度
+	MaxSpeed *int64 `json:"max_speed,omitempty" xml:"max_speed,omitempty" require:"true"`
+	// 最后定位时间
+	// example:
+	//
+	// 2018-10-10T10:10:00Z
+	LastLocationTime *string `json:"last_location_time,omitempty" xml:"last_location_time,omitempty" require:"true" pattern:"\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}([Z]|([\\.]\\d{1,9})?[\\+]\\d{2}[\\:]?\\d{2})"`
+	// 最后定位地址
+	// example:
+	//
+	// 河南省郑州市
+	LastLocation *string `json:"last_location,omitempty" xml:"last_location,omitempty" require:"true"`
+}
+
+func (s TripTraceView) String() string {
+	return tea.Prettify(s)
+}
+
+func (s TripTraceView) GoString() string {
+	return s.String()
+}
+
+func (s *TripTraceView) SetBeginTime(v string) *TripTraceView {
+	s.BeginTime = &v
+	return s
+}
+
+func (s *TripTraceView) SetEndTime(v string) *TripTraceView {
+	s.EndTime = &v
+	return s
+}
+
+func (s *TripTraceView) SetAvgSpeed(v int64) *TripTraceView {
+	s.AvgSpeed = &v
+	return s
+}
+
+func (s *TripTraceView) SetMaxSpeed(v int64) *TripTraceView {
+	s.MaxSpeed = &v
+	return s
+}
+
+func (s *TripTraceView) SetLastLocationTime(v string) *TripTraceView {
+	s.LastLocationTime = &v
+	return s
+}
+
+func (s *TripTraceView) SetLastLocation(v string) *TripTraceView {
+	s.LastLocation = &v
+	return s
+}
+
+// 设备定位信息
+type DeviceLocator struct {
+	// 设备唯一标识定位方式：TUID / TRUST_DEVICE_ID / TRUST_PRODUCT_DEVICE
+	// example:
+	//
+	// TUID
+	LocatorType *string `json:"locator_type,omitempty" xml:"locator_type,omitempty" require:"true"`
+	// EKYT 全局唯一设备 ID
+	// example:
+	//
+	// FF9999995FF1020260610262F9D641B9
+	Tuid *string `json:"tuid,omitempty" xml:"tuid,omitempty"`
+	// 可信物联设备唯一标识
+	// example:
+	//
+	// device_7470008018051342336
+	TrustDeviceId *string `json:"trust_device_id,omitempty" xml:"trust_device_id,omitempty"`
+	// 可信物联产品唯一标识
+	// example:
+	//
+	// 5C7ku13XSCK1a7AKzR
+	TrustProductKey *string `json:"trust_product_key,omitempty" xml:"trust_product_key,omitempty"`
+	// 设备名称
+	// example:
+	//
+	// 863091061327685
+	DeviceName *string `json:"device_name,omitempty" xml:"device_name,omitempty"`
+}
+
+func (s DeviceLocator) String() string {
+	return tea.Prettify(s)
+}
+
+func (s DeviceLocator) GoString() string {
+	return s.String()
+}
+
+func (s *DeviceLocator) SetLocatorType(v string) *DeviceLocator {
+	s.LocatorType = &v
+	return s
+}
+
+func (s *DeviceLocator) SetTuid(v string) *DeviceLocator {
+	s.Tuid = &v
+	return s
+}
+
+func (s *DeviceLocator) SetTrustDeviceId(v string) *DeviceLocator {
+	s.TrustDeviceId = &v
+	return s
+}
+
+func (s *DeviceLocator) SetTrustProductKey(v string) *DeviceLocator {
+	s.TrustProductKey = &v
+	return s
+}
+
+func (s *DeviceLocator) SetDeviceName(v string) *DeviceLocator {
+	s.DeviceName = &v
+	return s
+}
+
+// 二维码识别响应结构体
+type BaiQrcodeParseRespData struct {
+	// 二维码内容
+	// example:
+	//
+	// 1234567890
+	CodeValue []*string `json:"code_value,omitempty" xml:"code_value,omitempty" require:"true" type:"Repeated"`
+}
+
+func (s BaiQrcodeParseRespData) String() string {
+	return tea.Prettify(s)
+}
+
+func (s BaiQrcodeParseRespData) GoString() string {
+	return s.String()
+}
+
+func (s *BaiQrcodeParseRespData) SetCodeValue(v []*string) *BaiQrcodeParseRespData {
+	s.CodeValue = v
+	return s
+}
+
+// 标签流转上链返回txHash
+type LabelChainResult struct {
+	// 标签ID
+	// example:
+	//
+	// 86F000001A51C02000000010
+	LabelId *string `json:"label_id,omitempty" xml:"label_id,omitempty" require:"true"`
+	// 业务资产ID，接入方自行定义
+	// example:
+	//
+	// XXX
+	AssetId *string `json:"asset_id,omitempty" xml:"asset_id,omitempty"`
+	// 标签最近一次上链的txHash
+	// example:
+	//
+	// 855e7ba37a0f227e384691e250f90bb2240adf11839016cf08506c9aa5c11cef
+	TxHash *string `json:"tx_hash,omitempty" xml:"tx_hash,omitempty" require:"true"`
+	// 错误码
+	// example:
+	//
+	// XXXX
+	ErrorCode *string `json:"error_code,omitempty" xml:"error_code,omitempty"`
+	// 错误信息
+	// example:
+	//
+	// xxxxx
+	ErrorMsg *string `json:"error_msg,omitempty" xml:"error_msg,omitempty" require:"true"`
+}
+
+func (s LabelChainResult) String() string {
+	return tea.Prettify(s)
+}
+
+func (s LabelChainResult) GoString() string {
+	return s.String()
+}
+
+func (s *LabelChainResult) SetLabelId(v string) *LabelChainResult {
+	s.LabelId = &v
+	return s
+}
+
+func (s *LabelChainResult) SetAssetId(v string) *LabelChainResult {
+	s.AssetId = &v
+	return s
+}
+
+func (s *LabelChainResult) SetTxHash(v string) *LabelChainResult {
+	s.TxHash = &v
+	return s
+}
+
+func (s *LabelChainResult) SetErrorCode(v string) *LabelChainResult {
+	s.ErrorCode = &v
+	return s
+}
+
+func (s *LabelChainResult) SetErrorMsg(v string) *LabelChainResult {
+	s.ErrorMsg = &v
+	return s
+}
+
+// 电脑型号信息
+type ComputerInfo struct {
+	// 颜色
+	// example:
+	//
+	// 红色
+	Colour *string `json:"colour,omitempty" xml:"colour,omitempty"`
+	// 色值
+	// example:
+	//
+	// #BA0F2F
+	ColourNumber *string `json:"colour_number,omitempty" xml:"colour_number,omitempty"`
+	// 电脑型号
+	// example:
+	//
+	// X100
+	ComputerModel *string `json:"computer_model,omitempty" xml:"computer_model,omitempty"`
+	// 配置参数
+	// example:
+	//
+	// {""}
+	ConfigParam *string `json:"config_param,omitempty" xml:"config_param,omitempty"`
+	// 显卡
+	// example:
+	//
+	// GTX3080
+	VideoCard *string `json:"video_card,omitempty" xml:"video_card,omitempty"`
+	// 屏幕
+	// example:
+	//
+	// 27
+	ScreenSize *string `json:"screen_size,omitempty" xml:"screen_size,omitempty"`
+	// 电脑CPU
+	// example:
+	//
+	// i9
+	Cpu *string `json:"cpu,omitempty" xml:"cpu,omitempty" require:"true"`
+	// 电脑内存
+	// example:
+	//
+	// 16GB
+	Memory *string `json:"memory,omitempty" xml:"memory,omitempty" require:"true"`
+	// 电脑硬盘
+	// example:
+	//
+	// 500GB
+	DiskSize *string `json:"disk_size,omitempty" xml:"disk_size,omitempty" require:"true"`
+}
+
+func (s ComputerInfo) String() string {
+	return tea.Prettify(s)
+}
+
+func (s ComputerInfo) GoString() string {
+	return s.String()
+}
+
+func (s *ComputerInfo) SetColour(v string) *ComputerInfo {
+	s.Colour = &v
+	return s
+}
+
+func (s *ComputerInfo) SetColourNumber(v string) *ComputerInfo {
+	s.ColourNumber = &v
+	return s
+}
+
+func (s *ComputerInfo) SetComputerModel(v string) *ComputerInfo {
+	s.ComputerModel = &v
+	return s
+}
+
+func (s *ComputerInfo) SetConfigParam(v string) *ComputerInfo {
+	s.ConfigParam = &v
+	return s
+}
+
+func (s *ComputerInfo) SetVideoCard(v string) *ComputerInfo {
+	s.VideoCard = &v
+	return s
+}
+
+func (s *ComputerInfo) SetScreenSize(v string) *ComputerInfo {
+	s.ScreenSize = &v
+	return s
+}
+
+func (s *ComputerInfo) SetCpu(v string) *ComputerInfo {
+	s.Cpu = &v
+	return s
+}
+
+func (s *ComputerInfo) SetMemory(v string) *ComputerInfo {
+	s.Memory = &v
+	return s
+}
+
+func (s *ComputerInfo) SetDiskSize(v string) *ComputerInfo {
+	s.DiskSize = &v
+	return s
+}
+
+// AI商品鉴定请求信息
+type BaiGoodsComparisonReqData struct {
+	// 品类
+	// example:
+	//
+	// 奢侈品
+	Category *string `json:"category,omitempty" xml:"category,omitempty" require:"true"`
+	// 品牌
+	// example:
+	//
+	// GUCCI
+	Brand *string `json:"brand,omitempty" xml:"brand,omitempty" require:"true"`
+	// 款式
+	// example:
+	//
+	// Gucci Diana
+	Style *string `json:"style,omitempty" xml:"style,omitempty" require:"true"`
+	// 商品鉴定点列表
+	GoodsPoints []*BaiGoodsPoint `json:"goods_points,omitempty" xml:"goods_points,omitempty" require:"true" type:"Repeated"`
+	// 用户自定义字符串，系统不做处理，会在响应体中带回
+	// example:
+	//
+	// state
+	OutState *string `json:"out_state,omitempty" xml:"out_state,omitempty"`
+}
+
+func (s BaiGoodsComparisonReqData) String() string {
+	return tea.Prettify(s)
+}
+
+func (s BaiGoodsComparisonReqData) GoString() string {
+	return s.String()
+}
+
+func (s *BaiGoodsComparisonReqData) SetCategory(v string) *BaiGoodsComparisonReqData {
+	s.Category = &v
+	return s
+}
+
+func (s *BaiGoodsComparisonReqData) SetBrand(v string) *BaiGoodsComparisonReqData {
+	s.Brand = &v
+	return s
+}
+
+func (s *BaiGoodsComparisonReqData) SetStyle(v string) *BaiGoodsComparisonReqData {
+	s.Style = &v
+	return s
+}
+
+func (s *BaiGoodsComparisonReqData) SetGoodsPoints(v []*BaiGoodsPoint) *BaiGoodsComparisonReqData {
+	s.GoodsPoints = v
+	return s
+}
+
+func (s *BaiGoodsComparisonReqData) SetOutState(v string) *BaiGoodsComparisonReqData {
+	s.OutState = &v
+	return s
+}
+
+// iotbasic设备模型属性失败结果
+type IotbasicDeviceModelAttributeFailInfo struct {
+	// 型号
+	// example:
+	//
+	// A2
+	ModelValue *string `json:"model_value,omitempty" xml:"model_value,omitempty" require:"true"`
+	// 规格列表 为空表示使用标准规格
+	SpecsList []*string `json:"specs_list,omitempty" xml:"specs_list,omitempty" type:"Repeated"`
+	// 失败code
+	// example:
+	//
+	// code
+	ErrorCode *string `json:"error_code,omitempty" xml:"error_code,omitempty" require:"true"`
+	// 失败消息
+	// example:
+	//
+	// message
+	ErrorMessage *string `json:"error_message,omitempty" xml:"error_message,omitempty" require:"true"`
+}
+
+func (s IotbasicDeviceModelAttributeFailInfo) String() string {
+	return tea.Prettify(s)
+}
+
+func (s IotbasicDeviceModelAttributeFailInfo) GoString() string {
+	return s.String()
+}
+
+func (s *IotbasicDeviceModelAttributeFailInfo) SetModelValue(v string) *IotbasicDeviceModelAttributeFailInfo {
+	s.ModelValue = &v
+	return s
+}
+
+func (s *IotbasicDeviceModelAttributeFailInfo) SetSpecsList(v []*string) *IotbasicDeviceModelAttributeFailInfo {
+	s.SpecsList = v
+	return s
+}
+
+func (s *IotbasicDeviceModelAttributeFailInfo) SetErrorCode(v string) *IotbasicDeviceModelAttributeFailInfo {
+	s.ErrorCode = &v
+	return s
+}
+
+func (s *IotbasicDeviceModelAttributeFailInfo) SetErrorMessage(v string) *IotbasicDeviceModelAttributeFailInfo {
+	s.ErrorMessage = &v
+	return s
+}
+
+// 收集数据返回的上链结果
+type SendCollectorResult struct {
+	// 数据的链上哈希
+	// example:
+	//
+	// 2c952456827828cdedad06afccef75a9f2c2840cbb6b0b659f653da1e5916cb2
+	TxHash *string `json:"tx_hash,omitempty" xml:"tx_hash,omitempty" require:"true"`
+	// 原入参的数组索引
+	// example:
+	//
+	// 0
+	OriginalIndex *int64 `json:"original_index,omitempty" xml:"original_index,omitempty" require:"true"`
+	// 失败数据对应的异常码，成功时该字段为空
+	// example:
+	//
+	// params.invalid
+	ErrorCode *string `json:"error_code,omitempty" xml:"error_code,omitempty"`
+	// 异常信息
+	// example:
+	//
+	// 可信设备与DEVICE-ID不匹配
+	ErrorMsg *string `json:"error_msg,omitempty" xml:"error_msg,omitempty"`
+	// 返回的扩展信息
+	// example:
+	//
+	// {"assetId":"Q02GYQGAY5","labelId":"86F000001A51A01000003836"}
+	ExtraInfo *string `json:"extra_info,omitempty" xml:"extra_info,omitempty"`
+}
+
+func (s SendCollectorResult) String() string {
+	return tea.Prettify(s)
+}
+
+func (s SendCollectorResult) GoString() string {
+	return s.String()
+}
+
+func (s *SendCollectorResult) SetTxHash(v string) *SendCollectorResult {
+	s.TxHash = &v
+	return s
+}
+
+func (s *SendCollectorResult) SetOriginalIndex(v int64) *SendCollectorResult {
+	s.OriginalIndex = &v
+	return s
+}
+
+func (s *SendCollectorResult) SetErrorCode(v string) *SendCollectorResult {
+	s.ErrorCode = &v
+	return s
+}
+
+func (s *SendCollectorResult) SetErrorMsg(v string) *SendCollectorResult {
+	s.ErrorMsg = &v
+	return s
+}
+
+func (s *SendCollectorResult) SetExtraInfo(v string) *SendCollectorResult {
+	s.ExtraInfo = &v
+	return s
+}
+
+// 指纹图片入库是否成功
+type GoodsDigitalFingerprintRegisterResultData struct {
+	// 指纹图片入库是否成功
+	// example:
+	//
+	// true
+	Success *bool `json:"success,omitempty" xml:"success,omitempty" require:"true"`
+	// 失败原因
+	// example:
+	//
+	// describe
+	Describe *string `json:"describe,omitempty" xml:"describe,omitempty"`
+}
+
+func (s GoodsDigitalFingerprintRegisterResultData) String() string {
+	return tea.Prettify(s)
+}
+
+func (s GoodsDigitalFingerprintRegisterResultData) GoString() string {
+	return s.String()
+}
+
+func (s *GoodsDigitalFingerprintRegisterResultData) SetSuccess(v bool) *GoodsDigitalFingerprintRegisterResultData {
+	s.Success = &v
+	return s
+}
+
+func (s *GoodsDigitalFingerprintRegisterResultData) SetDescribe(v string) *GoodsDigitalFingerprintRegisterResultData {
+	s.Describe = &v
+	return s
+}
+
+// 租户项目创建请求结构体模型
+type TenantProjectCreateReq struct {
+	// 业务类型，默认空
+	// example:
+	//
+	// null
+	BizType *string `json:"biz_type,omitempty" xml:"biz_type,omitempty"`
+	// 可选的，项目关联的区块链类型，1/2/3代表存证/合约等类型
+	// example:
+	//
+	// 1
+	BlockchainType *int64 `json:"blockchain_type,omitempty" xml:"blockchain_type,omitempty"`
+	// 可选的，项目关联的区块链uid
+	// example:
+	//
+	// 1111111
+	BlockchainUid *string `json:"blockchain_uid,omitempty" xml:"blockchain_uid,omitempty"`
+	// 租户下唯一项目名称，用以标识项目聚合的存证等信息
+	// example:
+	//
+	// "唯一项目名称"
+	ProjectName *string `json:"project_name,omitempty" xml:"project_name,omitempty" require:"true"`
+}
+
+func (s TenantProjectCreateReq) String() string {
+	return tea.Prettify(s)
+}
+
+func (s TenantProjectCreateReq) GoString() string {
+	return s.String()
+}
+
+func (s *TenantProjectCreateReq) SetBizType(v string) *TenantProjectCreateReq {
+	s.BizType = &v
+	return s
+}
+
+func (s *TenantProjectCreateReq) SetBlockchainType(v int64) *TenantProjectCreateReq {
+	s.BlockchainType = &v
+	return s
+}
+
+func (s *TenantProjectCreateReq) SetBlockchainUid(v string) *TenantProjectCreateReq {
+	s.BlockchainUid = &v
+	return s
+}
+
+func (s *TenantProjectCreateReq) SetProjectName(v string) *TenantProjectCreateReq {
+	s.ProjectName = &v
+	return s
+}
+
+// 收集标签数据
+type CollectLabelContent struct {
+	// 链上设备ID
+	// example:
+	//
+	// XXXXX
+	ChainDeviceId *string `json:"chain_device_id,omitempty" xml:"chain_device_id,omitempty" require:"true"`
+	// 1.设备端上报数据内容
+	// 2.与设备上报的数据一致，服务端不可修改
+	// 3.解析后需与DataModel匹配
+	// 4.映射 Label 对象结构化存储
+	// 5.转为JSON后如果是JSONObject 映射单个 Label
+	// 6.转为JSON后如果是JSONArray 映射多个 Label
+	// example:
+	//
+	// XXXXX
+	Content *string `json:"content,omitempty" xml:"content,omitempty" require:"true"`
+	// content的签名
+	// 与设备上报的签名保持一致，服务端不可修改
+	// example:
+	//
+	// XXXXX
+	Signature *string `json:"signature,omitempty" xml:"signature,omitempty" require:"true"`
+	// 未经设备签名的附加数据JSON String
+	// 注意：如果 content 批量解析 ，extraData也会批量复制融入解析后的content
+	// example:
+	//
+	// XXXXX
+	ExtraData *string `json:"extra_data,omitempty" xml:"extra_data,omitempty"`
+}
+
+func (s CollectLabelContent) String() string {
+	return tea.Prettify(s)
+}
+
+func (s CollectLabelContent) GoString() string {
+	return s.String()
+}
+
+func (s *CollectLabelContent) SetChainDeviceId(v string) *CollectLabelContent {
+	s.ChainDeviceId = &v
+	return s
+}
+
+func (s *CollectLabelContent) SetContent(v string) *CollectLabelContent {
+	s.Content = &v
+	return s
+}
+
+func (s *CollectLabelContent) SetSignature(v string) *CollectLabelContent {
+	s.Signature = &v
+	return s
+}
+
+func (s *CollectLabelContent) SetExtraData(v string) *CollectLabelContent {
+	s.ExtraData = &v
+	return s
+}
+
+// Session 视图对象
+type AgentSessionVO struct {
+	// 会话ID
+	// example:
+	//
+	// 7468486322254688256
+	SessionId *string `json:"session_id,omitempty" xml:"session_id,omitempty" require:"true"`
+	// 用户ID
+	// example:
+	//
+	// 7468486322254688256
+	UserId *string `json:"user_id,omitempty" xml:"user_id,omitempty" require:"true"`
+	// 会话创建时间
+	// example:
+	//
+	// 2026-06-24 21:32:59
+	GmtCreate *string `json:"gmt_create,omitempty" xml:"gmt_create,omitempty" require:"true" pattern:"\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}([Z]|([\\.]\\d{1,9})?[\\+]\\d{2}[\\:]?\\d{2})"`
+	// 会话修改时间
+	// example:
+	//
+	// 2026-06-24 21:32:59
+	GmtModified *string `json:"gmt_modified,omitempty" xml:"gmt_modified,omitempty" require:"true" pattern:"\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}([Z]|([\\.]\\d{1,9})?[\\+]\\d{2}[\\:]?\\d{2})"`
+}
+
+func (s AgentSessionVO) String() string {
+	return tea.Prettify(s)
+}
+
+func (s AgentSessionVO) GoString() string {
+	return s.String()
+}
+
+func (s *AgentSessionVO) SetSessionId(v string) *AgentSessionVO {
+	s.SessionId = &v
+	return s
+}
+
+func (s *AgentSessionVO) SetUserId(v string) *AgentSessionVO {
+	s.UserId = &v
+	return s
+}
+
+func (s *AgentSessionVO) SetGmtCreate(v string) *AgentSessionVO {
+	s.GmtCreate = &v
+	return s
+}
+
+func (s *AgentSessionVO) SetGmtModified(v string) *AgentSessionVO {
+	s.GmtModified = &v
+	return s
+}
+
+// 数据上链成功结果数据
+type DeviceCollectResult struct {
+	// 上链数据采集ID
+	// example:
+	//
+	// j8o12u38
+	CollectId *string `json:"collect_id,omitempty" xml:"collect_id,omitempty" require:"true"`
+	// 上链id
+	// example:
+	//
+	// auit98
+	AntchainId *string `json:"antchain_id,omitempty" xml:"antchain_id,omitempty"`
+}
+
+func (s DeviceCollectResult) String() string {
+	return tea.Prettify(s)
+}
+
+func (s DeviceCollectResult) GoString() string {
+	return s.String()
+}
+
+func (s *DeviceCollectResult) SetCollectId(v string) *DeviceCollectResult {
+	s.CollectId = &v
+	return s
+}
+
+func (s *DeviceCollectResult) SetAntchainId(v string) *DeviceCollectResult {
+	s.AntchainId = &v
+	return s
+}
+
+// 代扣服务返回对象
+type AntdigitalWithHoldResponse struct {
+	// 网关返回码
+	// example:
+	//
+	// 10000
+	Code *string `json:"code,omitempty" xml:"code,omitempty" require:"true"`
+	// 网关返回码描述
+	// example:
+	//
+	// Business Failed
+	Msg *string `json:"msg,omitempty" xml:"msg,omitempty" require:"true"`
+	// 务返回码
+	// example:
+	//
+	// ACQ.TRADE_HAS_SUCCESS
+	SubCode *string `json:"sub_code,omitempty" xml:"sub_code,omitempty" require:"true"`
+	// 业务返回码描述
+	// example:
+	//
+	// 交易已被支付
+	SubMsg *string `json:"sub_msg,omitempty" xml:"sub_msg,omitempty" require:"true"`
+	// 结果返回内容
+	// example:
+	//
+	// {__}
+	Data *string `json:"data,omitempty" xml:"data,omitempty"`
+	// 响应签名
+	// example:
+	//
+	// DZXh8eeTuAHoYE3w1J+POiPhfDxOYBfUNn1lkeT/V7P4zJdyojWEa6IZs6Hz0yDW5Cp/viufUb5I0/V5WENS3OYR8zRedqo6D+fUTdLHdc+EFyCkiQhBxIzgngPdPdfp1PIS7BdhhzrsZHbRqb7o4k3Dxc+AAnFauu4V6Zdwczo=
+	Signature *string `json:"signature,omitempty" xml:"signature,omitempty" require:"true"`
+}
+
+func (s AntdigitalWithHoldResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s AntdigitalWithHoldResponse) GoString() string {
+	return s.String()
+}
+
+func (s *AntdigitalWithHoldResponse) SetCode(v string) *AntdigitalWithHoldResponse {
+	s.Code = &v
+	return s
+}
+
+func (s *AntdigitalWithHoldResponse) SetMsg(v string) *AntdigitalWithHoldResponse {
+	s.Msg = &v
+	return s
+}
+
+func (s *AntdigitalWithHoldResponse) SetSubCode(v string) *AntdigitalWithHoldResponse {
+	s.SubCode = &v
+	return s
+}
+
+func (s *AntdigitalWithHoldResponse) SetSubMsg(v string) *AntdigitalWithHoldResponse {
+	s.SubMsg = &v
+	return s
+}
+
+func (s *AntdigitalWithHoldResponse) SetData(v string) *AntdigitalWithHoldResponse {
+	s.Data = &v
+	return s
+}
+
+func (s *AntdigitalWithHoldResponse) SetSignature(v string) *AntdigitalWithHoldResponse {
+	s.Signature = &v
+	return s
+}
+
+// 上链数据结果集
+type ChainModelResult struct {
+	// 所属业务
+	// example:
+	//
+	// XR_LEASE
+	BizScene *string `json:"biz_scene,omitempty" xml:"biz_scene,omitempty" require:"true"`
+	// 资产类型
+	// example:
+	//
+	// LOCK_RECORD
+	DataScene *string `json:"data_scene,omitempty" xml:"data_scene,omitempty" require:"true"`
+	// 资产id
+	// example:
+	//
+	// 资产id
+	AssetId *string `json:"asset_id,omitempty" xml:"asset_id,omitempty" require:"true"`
+	// 资产数据内容json
+	// example:
+	//
+	// {}
+	AssetData *string `json:"asset_data,omitempty" xml:"asset_data,omitempty" require:"true"`
+	// 租户id
+	// example:
+	//
+	// SDFJAG
+	TenantId *string `json:"tenant_id,omitempty" xml:"tenant_id,omitempty" require:"true"`
+	// 上链时间
+	// example:
+	//
+	// 2022-10-02 09:10:09
+	TxTime *string `json:"tx_time,omitempty" xml:"tx_time,omitempty" require:"true"`
+	// 业务ID
+	// example:
+	//
+	// 业务ID
+	BusinessId *string `json:"business_id,omitempty" xml:"business_id,omitempty" require:"true"`
+	// 上链id
+	// example:
+	//
+	// 123
+	AntchainId *string `json:"antchain_id,omitempty" xml:"antchain_id,omitempty" require:"true"`
+}
+
+func (s ChainModelResult) String() string {
+	return tea.Prettify(s)
+}
+
+func (s ChainModelResult) GoString() string {
+	return s.String()
+}
+
+func (s *ChainModelResult) SetBizScene(v string) *ChainModelResult {
+	s.BizScene = &v
+	return s
+}
+
+func (s *ChainModelResult) SetDataScene(v string) *ChainModelResult {
+	s.DataScene = &v
+	return s
+}
+
+func (s *ChainModelResult) SetAssetId(v string) *ChainModelResult {
+	s.AssetId = &v
+	return s
+}
+
+func (s *ChainModelResult) SetAssetData(v string) *ChainModelResult {
+	s.AssetData = &v
+	return s
+}
+
+func (s *ChainModelResult) SetTenantId(v string) *ChainModelResult {
+	s.TenantId = &v
+	return s
+}
+
+func (s *ChainModelResult) SetTxTime(v string) *ChainModelResult {
+	s.TxTime = &v
+	return s
+}
+
+func (s *ChainModelResult) SetBusinessId(v string) *ChainModelResult {
+	s.BusinessId = &v
+	return s
+}
+
+func (s *ChainModelResult) SetAntchainId(v string) *ChainModelResult {
+	s.AntchainId = &v
+	return s
+}
+
+// 空间实体身份附加参数请求结构体，应用在注册/更新API的ThingExtraParams
+type SpaceRegisterReqModel struct {
+	// 面积 平方米单位*1e4
+	// example:
+	//
+	// 10000
+	Area *int64 `json:"area,omitempty" xml:"area,omitempty"`
+	// 自定义业务类型，例如选择：危险品/非危险品/食品
+	// example:
+	//
+	// "biz_type"
+	BizType *string `json:"biz_type,omitempty" xml:"biz_type,omitempty"`
+	// 海拔 米单位*1e2
+	// example:
+	//
+	// 0
+	Elevation *int64 `json:"elevation,omitempty" xml:"elevation,omitempty"`
+	// 高度 米单位*1e2
+	// example:
+	//
+	// 123
+	Height *int64 `json:"height,omitempty" xml:"height,omitempty"`
+	// 纬度 度数单位*1e9
+	// example:
+	//
+	// 0
+	Latitude *int64 `json:"latitude,omitempty" xml:"latitude,omitempty"`
+	// 经度 度数单位*1e9
+	// example:
+	//
+	// 35000000000
+	Longitude *int64 `json:"longitude,omitempty" xml:"longitude,omitempty"`
+	// 自定义其他字段
+	// example:
+	//
+	// "自定义"
+	OtherInfo *string `json:"other_info,omitempty" xml:"other_info,omitempty"`
+	// 父类型，在业务中自定义关联，例如仓位的父节点是仓库
+	// example:
+	//
+	// “did:iot:xxxx”
+	ParentDid *string `json:"parent_did,omitempty" xml:"parent_did,omitempty"`
+	// 可填入符合w3c did定义的服务节点
+	// example:
+	//
+	// "xxxx"
+	ServiceEndpoint *string `json:"service_endpoint,omitempty" xml:"service_endpoint,omitempty"`
+	// 空间状态，自定义
+	// example:
+	//
+	// "IN_USE"
+	Status *string `json:"status,omitempty" xml:"status,omitempty"`
+	// 空间类型，例如冷藏/冷冻/通道/平面/立体
+	// example:
+	//
+	// “平面“
+	Type *string `json:"type,omitempty" xml:"type,omitempty"`
+}
+
+func (s SpaceRegisterReqModel) String() string {
+	return tea.Prettify(s)
+}
+
+func (s SpaceRegisterReqModel) GoString() string {
+	return s.String()
+}
+
+func (s *SpaceRegisterReqModel) SetArea(v int64) *SpaceRegisterReqModel {
+	s.Area = &v
+	return s
+}
+
+func (s *SpaceRegisterReqModel) SetBizType(v string) *SpaceRegisterReqModel {
+	s.BizType = &v
+	return s
+}
+
+func (s *SpaceRegisterReqModel) SetElevation(v int64) *SpaceRegisterReqModel {
+	s.Elevation = &v
+	return s
+}
+
+func (s *SpaceRegisterReqModel) SetHeight(v int64) *SpaceRegisterReqModel {
+	s.Height = &v
+	return s
+}
+
+func (s *SpaceRegisterReqModel) SetLatitude(v int64) *SpaceRegisterReqModel {
+	s.Latitude = &v
+	return s
+}
+
+func (s *SpaceRegisterReqModel) SetLongitude(v int64) *SpaceRegisterReqModel {
+	s.Longitude = &v
+	return s
+}
+
+func (s *SpaceRegisterReqModel) SetOtherInfo(v string) *SpaceRegisterReqModel {
+	s.OtherInfo = &v
+	return s
+}
+
+func (s *SpaceRegisterReqModel) SetParentDid(v string) *SpaceRegisterReqModel {
+	s.ParentDid = &v
+	return s
+}
+
+func (s *SpaceRegisterReqModel) SetServiceEndpoint(v string) *SpaceRegisterReqModel {
+	s.ServiceEndpoint = &v
+	return s
+}
+
+func (s *SpaceRegisterReqModel) SetStatus(v string) *SpaceRegisterReqModel {
+	s.Status = &v
+	return s
+}
+
+func (s *SpaceRegisterReqModel) SetType(v string) *SpaceRegisterReqModel {
+	s.Type = &v
+	return s
+}
+
+// 外围设备信息
+type Peripheral struct {
+	// 外围设备Id
+	// example:
+	//
+	// 123
+	PeripheralId *string `json:"peripheral_id,omitempty" xml:"peripheral_id,omitempty" require:"true"`
+	// 数据模型id
+	//
+	// example:
+	//
+	// 123456
+	PeripheralDataModelId *string `json:"peripheral_data_model_id,omitempty" xml:"peripheral_data_model_id,omitempty" require:"true"`
+	// 场景码
+	//
+	// example:
+	//
+	// scene1
+	Scene *string `json:"scene,omitempty" xml:"scene,omitempty" require:"true"`
+	// 外围设备名称
+	//
+	// example:
+	//
+	// 锂电池1
+	PeripheralName *string `json:"peripheral_name,omitempty" xml:"peripheral_name,omitempty"`
+	// 厂商名称
+	//
+	// example:
+	//
+	// 宁德时代1
+	CorpName *string `json:"corp_name,omitempty" xml:"corp_name,omitempty"`
+	// 链上外围设备Id
+	//
+	// example:
+	//
+	// 123123
+	ChainPeripheralId *string `json:"chain_peripheral_id,omitempty" xml:"chain_peripheral_id,omitempty" require:"true"`
+	// 链上哈希
+	// example:
+	//
+	// txhash123
+	TxHash *string `json:"tx_hash,omitempty" xml:"tx_hash,omitempty" require:"true"`
+	// 上链时间
+	// example:
+	//
+	// 1605076751000
+	TxTime *int64 `json:"tx_time,omitempty" xml:"tx_time,omitempty" require:"true"`
+	// 设备类型编码，必填，对应资管平台中的设备类型
+	//
+	// 枚举值：
+	//
+	// 车辆 1000
+	// 车辆 四轮车 1001
+	// 车辆 四轮车 纯电四轮车 1002
+	// 车辆 四轮车 混动四轮车 1003
+	// 车辆 四轮车 燃油四轮车 1004
+	// 车辆 两轮车 1011
+	// 车辆 两轮车 两轮单车 1012
+	// 车辆 两轮车 两轮助力车 1013
+	//
+	// 换电柜 2000
+	// 换电柜 二轮车换电柜 2001
+	//
+	// 电池 3000
+	// 电池 磷酸铁电池 3001
+	// 电池 三元锂电池 3002
+	//
+	// 回收设备 4000
+	//
+	// 垃圾分类回收 4001
+	//
+	// 洗车机 5000
+	// example:
+	//
+	// 3000
+	DeviceTypeCode *int64 `json:"device_type_code,omitempty" xml:"device_type_code,omitempty" require:"true"`
+	// 单价，单位分
+	// example:
+	//
+	// 1000
+	InitialPrice *int64 `json:"initial_price,omitempty" xml:"initial_price,omitempty" require:"true"`
+	// 出厂时间
+	// example:
+	//
+	// 2018-10-10T10:10:00Z
+	FactoryTime *string `json:"factory_time,omitempty" xml:"factory_time,omitempty" require:"true" pattern:"\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}([Z]|([\\.]\\d{1,9})?[\\+]\\d{2}[\\:]?\\d{2})"`
+	// 投放时间
+	// example:
+	//
+	// 2018-10-10T10:10:00Z
+	ReleaseTime *string `json:"release_time,omitempty" xml:"release_time,omitempty" require:"true" pattern:"\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}([Z]|([\\.]\\d{1,9})?[\\+]\\d{2}[\\:]?\\d{2})"`
+}
+
+func (s Peripheral) String() string {
+	return tea.Prettify(s)
+}
+
+func (s Peripheral) GoString() string {
+	return s.String()
+}
+
+func (s *Peripheral) SetPeripheralId(v string) *Peripheral {
+	s.PeripheralId = &v
+	return s
+}
+
+func (s *Peripheral) SetPeripheralDataModelId(v string) *Peripheral {
+	s.PeripheralDataModelId = &v
+	return s
+}
+
+func (s *Peripheral) SetScene(v string) *Peripheral {
+	s.Scene = &v
+	return s
+}
+
+func (s *Peripheral) SetPeripheralName(v string) *Peripheral {
+	s.PeripheralName = &v
+	return s
+}
+
+func (s *Peripheral) SetCorpName(v string) *Peripheral {
+	s.CorpName = &v
+	return s
+}
+
+func (s *Peripheral) SetChainPeripheralId(v string) *Peripheral {
+	s.ChainPeripheralId = &v
+	return s
+}
+
+func (s *Peripheral) SetTxHash(v string) *Peripheral {
+	s.TxHash = &v
+	return s
+}
+
+func (s *Peripheral) SetTxTime(v int64) *Peripheral {
+	s.TxTime = &v
+	return s
+}
+
+func (s *Peripheral) SetDeviceTypeCode(v int64) *Peripheral {
+	s.DeviceTypeCode = &v
+	return s
+}
+
+func (s *Peripheral) SetInitialPrice(v int64) *Peripheral {
+	s.InitialPrice = &v
+	return s
+}
+
+func (s *Peripheral) SetFactoryTime(v string) *Peripheral {
+	s.FactoryTime = &v
+	return s
+}
+
+func (s *Peripheral) SetReleaseTime(v string) *Peripheral {
+	s.ReleaseTime = &v
+	return s
+}
+
+// 订单计费数据
+type OrderPushInfo struct {
+	// 订单号
+	// example:
+	//
+	// 208395
+	OrderId *string `json:"order_id,omitempty" xml:"order_id,omitempty" require:"true"`
+	// 时间戳，取订单上链timestamp字段
+	// example:
+	//
+	// 1665490037182
+	OrderCollectTime *string `json:"order_collect_time,omitempty" xml:"order_collect_time,omitempty" require:"true"`
+	// 订单总金额
+	// example:
+	//
+	// 12000.37
+	TotalAmount *string `json:"total_amount,omitempty" xml:"total_amount,omitempty" require:"true"`
+	// 租户id
+	// example:
+	//
+	// 1
+	TenantId *string `json:"tenant_id,omitempty" xml:"tenant_id,omitempty" require:"true"`
+}
+
+func (s OrderPushInfo) String() string {
+	return tea.Prettify(s)
+}
+
+func (s OrderPushInfo) GoString() string {
+	return s.String()
+}
+
+func (s *OrderPushInfo) SetOrderId(v string) *OrderPushInfo {
+	s.OrderId = &v
+	return s
+}
+
+func (s *OrderPushInfo) SetOrderCollectTime(v string) *OrderPushInfo {
+	s.OrderCollectTime = &v
+	return s
+}
+
+func (s *OrderPushInfo) SetTotalAmount(v string) *OrderPushInfo {
+	s.TotalAmount = &v
+	return s
+}
+
+func (s *OrderPushInfo) SetTenantId(v string) *OrderPushInfo {
+	s.TenantId = &v
+	return s
+}
+
+// 订单同步成功列表
+type DeviceOrderResult struct {
+	// 上链id
+	// example:
+	//
+	// amdfgs
+	AntchainId *string `json:"antchain_id,omitempty" xml:"antchain_id,omitempty" require:"true"`
+	// 订单id
+	// example:
+	//
+	// 34
+	OrderId *string `json:"order_id,omitempty" xml:"order_id,omitempty" require:"true"`
+}
+
+func (s DeviceOrderResult) String() string {
+	return tea.Prettify(s)
+}
+
+func (s DeviceOrderResult) GoString() string {
+	return s.String()
+}
+
+func (s *DeviceOrderResult) SetAntchainId(v string) *DeviceOrderResult {
+	s.AntchainId = &v
+	return s
+}
+
+func (s *DeviceOrderResult) SetOrderId(v string) *DeviceOrderResult {
+	s.OrderId = &v
+	return s
+}
+
+// 物模型事件VO
+type ThingModelEventVO struct {
+	// 名称
+	// example:
+	//
+	// 设备状态数据
+	Name *string `json:"name,omitempty" xml:"name,omitempty" require:"true"`
+	// 物模型功能Id
+	// example:
+	//
+	// 7067312861108285440
+	FeatureId *string `json:"feature_id,omitempty" xml:"feature_id,omitempty" require:"true"`
+	// 业务标识
+	// example:
+	//
+	// LOCATION
+	BizType *string `json:"biz_type,omitempty" xml:"biz_type,omitempty" require:"true"`
+	// 事件属性列表
+	// example:
+	//
+	// [...]
+	EventProperties *string `json:"event_properties,omitempty" xml:"event_properties,omitempty" require:"true"`
+}
+
+func (s ThingModelEventVO) String() string {
+	return tea.Prettify(s)
+}
+
+func (s ThingModelEventVO) GoString() string {
+	return s.String()
+}
+
+func (s *ThingModelEventVO) SetName(v string) *ThingModelEventVO {
+	s.Name = &v
+	return s
+}
+
+func (s *ThingModelEventVO) SetFeatureId(v string) *ThingModelEventVO {
+	s.FeatureId = &v
+	return s
+}
+
+func (s *ThingModelEventVO) SetBizType(v string) *ThingModelEventVO {
+	s.BizType = &v
+	return s
+}
+
+func (s *ThingModelEventVO) SetEventProperties(v string) *ThingModelEventVO {
+	s.EventProperties = &v
+	return s
+}
+
+// 设备注册结果对象
+type IotBasicDeviceRegisterResult struct {
+	// 设备did
+	// example:
+	//
+	// did:private:12dsadadadf
+	DeviceDid *string `json:"device_did,omitempty" xml:"device_did,omitempty" require:"true"`
+	// 设备密钥
+	// example:
+	//
+	// 12321321
+	PrivateKey *string `json:"private_key,omitempty" xml:"private_key,omitempty" require:"true"`
+	// 设备名称
+	// example:
+	//
+	// test
+	DeviceName *string `json:"device_name,omitempty" xml:"device_name,omitempty" require:"true"`
+	// 设备sn
+	// example:
+	//
+	// 12321321
+	DeviceSn *string `json:"device_sn,omitempty" xml:"device_sn,omitempty" require:"true"`
+	// 设备认证密钥密文，需要下发安全认证SDK完成设备激活
+	// example:
+	//
+	// 123
+	SecKey *string `json:"sec_key,omitempty" xml:"sec_key,omitempty"`
+	// 设备认证密钥状态
+	// example:
+	//
+	// servicing
+	ServiceStatus *string `json:"service_status,omitempty" xml:"service_status,omitempty"`
+}
+
+func (s IotBasicDeviceRegisterResult) String() string {
+	return tea.Prettify(s)
+}
+
+func (s IotBasicDeviceRegisterResult) GoString() string {
+	return s.String()
+}
+
+func (s *IotBasicDeviceRegisterResult) SetDeviceDid(v string) *IotBasicDeviceRegisterResult {
+	s.DeviceDid = &v
+	return s
+}
+
+func (s *IotBasicDeviceRegisterResult) SetPrivateKey(v string) *IotBasicDeviceRegisterResult {
+	s.PrivateKey = &v
+	return s
+}
+
+func (s *IotBasicDeviceRegisterResult) SetDeviceName(v string) *IotBasicDeviceRegisterResult {
+	s.DeviceName = &v
+	return s
+}
+
+func (s *IotBasicDeviceRegisterResult) SetDeviceSn(v string) *IotBasicDeviceRegisterResult {
+	s.DeviceSn = &v
+	return s
+}
+
+func (s *IotBasicDeviceRegisterResult) SetSecKey(v string) *IotBasicDeviceRegisterResult {
+	s.SecKey = &v
+	return s
+}
+
+func (s *IotBasicDeviceRegisterResult) SetServiceStatus(v string) *IotBasicDeviceRegisterResult {
+	s.ServiceStatus = &v
+	return s
+}
+
+// 信物链实体身份注册请求结构体
+type ThingsDidBaseRegisterRequest struct {
+	// 信物链实体的所有者的分布式身份
+	// example:
+	//
+	// "did:mychain:6c9f6cde4f63103d25ab1d9893242547a8518d8f51bff1a9da44e4f8537a9816"
+	OwnerTenantDid *string `json:"owner_tenant_did,omitempty" xml:"owner_tenant_did,omitempty"`
+	// 信物链实体的使用方的分布式身份列表
+	// example:
+	//
+	// ["did:mychain:xxxx1","did:mychain:xxxx2"]
+	UserDid []*string `json:"user_did,omitempty" xml:"user_did,omitempty" type:"Repeated"`
+	// 信物链实体身份
+	// DID_TYPE_DEVICE_ALIYUN: 阿里云设备
+	// DID_TYPE_DEVICE_PEGASUS: 链机设备
+	// DID_TYPE_DEVICE_MCU: MCU设备
+	// DID_TYPE_DEVICE_INTEL: intel设备
+	// DID_TYPE_DEVICE_DEVICE: 默认设备
+	// ...
+	// DID_TYPE_CORPORATE:  组织实体
+	// DID_TYPE_WAREHOUSE：仓库实体
+	// DID_TYPE_SPACE： 空间实体
+	// example:
+	//
+	// "DID_TYPE_DEVICE_ALIYUN"
+	ThingType *string `json:"thing_type,omitempty" xml:"thing_type,omitempty" require:"true"`
+	// 原始id，租户内同一类型实体唯一
+	// example:
+	//
+	// "aaaa123"
+	ThingOriginId *string `json:"thing_origin_id,omitempty" xml:"thing_origin_id,omitempty" require:"true"`
+	// 实体原始名称
+	// example:
+	//
+	// "摄像头a11"
+	ThingOriginName *string `json:"thing_origin_name,omitempty" xml:"thing_origin_name,omitempty" require:"true"`
+	// 实体版本
+	// example:
+	//
+	// "1.0.0"
+	ThingVersion *string `json:"thing_version,omitempty" xml:"thing_version,omitempty" require:"true"`
+	// 业务编码
+	// example:
+	//
+	// null
+	BizType *string `json:"biz_type,omitempty" xml:"biz_type,omitempty"`
+	// 信物链实体附加信息
+	// 不同实体身份，有不同的json组织格式，参考另外技术文档
+	// example:
+	//
+	// "附加信息"
+	ThingExtraParams *string `json:"thing_extra_params,omitempty" xml:"thing_extra_params,omitempty"`
+}
+
+func (s ThingsDidBaseRegisterRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s ThingsDidBaseRegisterRequest) GoString() string {
+	return s.String()
+}
+
+func (s *ThingsDidBaseRegisterRequest) SetOwnerTenantDid(v string) *ThingsDidBaseRegisterRequest {
+	s.OwnerTenantDid = &v
+	return s
+}
+
+func (s *ThingsDidBaseRegisterRequest) SetUserDid(v []*string) *ThingsDidBaseRegisterRequest {
+	s.UserDid = v
+	return s
+}
+
+func (s *ThingsDidBaseRegisterRequest) SetThingType(v string) *ThingsDidBaseRegisterRequest {
+	s.ThingType = &v
+	return s
+}
+
+func (s *ThingsDidBaseRegisterRequest) SetThingOriginId(v string) *ThingsDidBaseRegisterRequest {
+	s.ThingOriginId = &v
+	return s
+}
+
+func (s *ThingsDidBaseRegisterRequest) SetThingOriginName(v string) *ThingsDidBaseRegisterRequest {
+	s.ThingOriginName = &v
+	return s
+}
+
+func (s *ThingsDidBaseRegisterRequest) SetThingVersion(v string) *ThingsDidBaseRegisterRequest {
+	s.ThingVersion = &v
+	return s
+}
+
+func (s *ThingsDidBaseRegisterRequest) SetBizType(v string) *ThingsDidBaseRegisterRequest {
+	s.BizType = &v
+	return s
+}
+
+func (s *ThingsDidBaseRegisterRequest) SetThingExtraParams(v string) *ThingsDidBaseRegisterRequest {
+	s.ThingExtraParams = &v
+	return s
+}
+
+// 产线压测任务对象
+type OnlinePressureTestTask struct {
+	// DATE
+	GmtCreate *string `json:"gmt_create,omitempty" xml:"gmt_create,omitempty" pattern:"\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}([Z]|([\\.]\\d{1,9})?[\\+]\\d{2}[\\:]?\\d{2})"`
+	// 修改时间
+	//
+	// example:
+	//
+	// 2018-10-10T10:10:00Z
+	GmtModified *string `json:"gmt_modified,omitempty" xml:"gmt_modified,omitempty" pattern:"\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}([Z]|([\\.]\\d{1,9})?[\\+]\\d{2}[\\:]?\\d{2})"`
+	// 产线场景码
+	//
+	// example:
+	//
+	// MAYI-0001
+	Scene *string `json:"scene,omitempty" xml:"scene,omitempty" require:"true"`
+	// 压测的目标设备可信信根设备的唯一标识，JSONArray字符串
+	//
+	// example:
+	//
+	// [ {"componentId": "864964060327592"} {"componentId": "864964060327592"} ]
+	ComponentIdList *string `json:"component_id_list,omitempty" xml:"component_id_list,omitempty" require:"true"`
+	// 客户侧的压测报告
+	//
+	// example:
+	//
+	// [ { "name":"流量消耗", "consumption":"100KB", "asExpected":true }, { "name":"功耗", "consumption":"25mA", "asExpected":true }, { "name":"OTA升级" "asExpected":true } ] }
+	CustomerPtReport *string `json:"customer_pt_report,omitempty" xml:"customer_pt_report,omitempty"`
+	// 压测开始时间
+	//
+	// example:
+	//
+	// 2018-10-10T10:10:00Z
+	PtStartTime *string `json:"pt_start_time,omitempty" xml:"pt_start_time,omitempty" require:"true" pattern:"\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}([Z]|([\\.]\\d{1,9})?[\\+]\\d{2}[\\:]?\\d{2})"`
+	// 压测结束时间
+	//
+	// example:
+	//
+	// 2018-10-10T10:10:00Z
+	PtEndTime *string `json:"pt_end_time,omitempty" xml:"pt_end_time,omitempty" require:"true" pattern:"\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}([Z]|([\\.]\\d{1,9})?[\\+]\\d{2}[\\:]?\\d{2})"`
+	// RUNNING: 正在执行 SUCCESS : 测试通过 FAILED : 测试不通过
+	//
+	// example:
+	//
+	// RUNNING
+	PtStatus *string `json:"pt_status,omitempty" xml:"pt_status,omitempty" require:"true"`
+	// 关联SIT环境的工单ID
+	//
+	// example:
+	//
+	// 1122
+	WorkOrderId *string `json:"work_order_id,omitempty" xml:"work_order_id,omitempty"`
+	// 关联SIT环境的项目ID
+	//
+	// example:
+	//
+	// 11223344
+	ProjectId *string `json:"project_id,omitempty" xml:"project_id,omitempty" require:"true"`
+	// 产线压测任务ID
+	// example:
+	//
+	// 11223344566
+	PtTaskId *string `json:"pt_task_id,omitempty" xml:"pt_task_id,omitempty" require:"true"`
+	// 压测不通过的原因
+	// example:
+	//
+	// 数据验签失败
+	FailureReason *string `json:"failure_reason,omitempty" xml:"failure_reason,omitempty" require:"true"`
+	// 拓展信息
+	// example:
+	//
+	// {...}
+	ExtraInfo *string `json:"extra_info,omitempty" xml:"extra_info,omitempty"`
+}
+
+func (s OnlinePressureTestTask) String() string {
+	return tea.Prettify(s)
+}
+
+func (s OnlinePressureTestTask) GoString() string {
+	return s.String()
+}
+
+func (s *OnlinePressureTestTask) SetGmtCreate(v string) *OnlinePressureTestTask {
+	s.GmtCreate = &v
+	return s
+}
+
+func (s *OnlinePressureTestTask) SetGmtModified(v string) *OnlinePressureTestTask {
+	s.GmtModified = &v
+	return s
+}
+
+func (s *OnlinePressureTestTask) SetScene(v string) *OnlinePressureTestTask {
+	s.Scene = &v
+	return s
+}
+
+func (s *OnlinePressureTestTask) SetComponentIdList(v string) *OnlinePressureTestTask {
+	s.ComponentIdList = &v
+	return s
+}
+
+func (s *OnlinePressureTestTask) SetCustomerPtReport(v string) *OnlinePressureTestTask {
+	s.CustomerPtReport = &v
+	return s
+}
+
+func (s *OnlinePressureTestTask) SetPtStartTime(v string) *OnlinePressureTestTask {
+	s.PtStartTime = &v
+	return s
+}
+
+func (s *OnlinePressureTestTask) SetPtEndTime(v string) *OnlinePressureTestTask {
+	s.PtEndTime = &v
+	return s
+}
+
+func (s *OnlinePressureTestTask) SetPtStatus(v string) *OnlinePressureTestTask {
+	s.PtStatus = &v
+	return s
+}
+
+func (s *OnlinePressureTestTask) SetWorkOrderId(v string) *OnlinePressureTestTask {
+	s.WorkOrderId = &v
+	return s
+}
+
+func (s *OnlinePressureTestTask) SetProjectId(v string) *OnlinePressureTestTask {
+	s.ProjectId = &v
+	return s
+}
+
+func (s *OnlinePressureTestTask) SetPtTaskId(v string) *OnlinePressureTestTask {
+	s.PtTaskId = &v
+	return s
+}
+
+func (s *OnlinePressureTestTask) SetFailureReason(v string) *OnlinePressureTestTask {
+	s.FailureReason = &v
+	return s
+}
+
+func (s *OnlinePressureTestTask) SetExtraInfo(v string) *OnlinePressureTestTask {
+	s.ExtraInfo = &v
+	return s
+}
+
+// 客户对应设备
+type CustomerDeviceItem struct {
+	// id
+	// example:
+	//
+	// 1
+	Id *int64 `json:"id,omitempty" xml:"id,omitempty" require:"true"`
+	// 租户id
+	// example:
+	//
+	// tenant_id
+	TenantId *string `json:"tenant_id,omitempty" xml:"tenant_id,omitempty" require:"true"`
+	// 账号id
+	// example:
+	//
+	// 账号id
+	AccountId *string `json:"account_id,omitempty" xml:"account_id,omitempty" require:"true"`
+	//  设备品类-型号-规格
+	// example:
+	//
+	//  设备品类-型号-规格
+	DeviceType *string `json:"device_type,omitempty" xml:"device_type,omitempty" require:"true"`
+	// 设备sn
+	// example:
+	//
+	// SN
+	DeviceSn *string `json:"device_sn,omitempty" xml:"device_sn,omitempty" require:"true"`
+	// 设备did
+	// example:
+	//
+	// dasdf
+	DeviceDid *string `json:"device_did,omitempty" xml:"device_did,omitempty" require:"true"`
+	// 服务有效期
+	// example:
+	//
+	// 服务有效期
+	ValideTime *string `json:"valide_time,omitempty" xml:"valide_time,omitempty" require:"true"`
+	// 设备状态
+	// example:
+	//
+	// INIT
+	DeviceStatus *string `json:"device_status,omitempty" xml:"device_status,omitempty" require:"true"`
+	// 服务状态
+	// example:
+	//
+	// INIT
+	ServiceStatus *string `json:"service_status,omitempty" xml:"service_status,omitempty" require:"true"`
+	// 屏幕状态 开屏、锁屏
+	// example:
+	//
+	// 屏幕状态
+	ScreenStatus *string `json:"screen_status,omitempty" xml:"screen_status,omitempty"`
+}
+
+func (s CustomerDeviceItem) String() string {
+	return tea.Prettify(s)
+}
+
+func (s CustomerDeviceItem) GoString() string {
+	return s.String()
+}
+
+func (s *CustomerDeviceItem) SetId(v int64) *CustomerDeviceItem {
+	s.Id = &v
+	return s
+}
+
+func (s *CustomerDeviceItem) SetTenantId(v string) *CustomerDeviceItem {
+	s.TenantId = &v
+	return s
+}
+
+func (s *CustomerDeviceItem) SetAccountId(v string) *CustomerDeviceItem {
+	s.AccountId = &v
+	return s
+}
+
+func (s *CustomerDeviceItem) SetDeviceType(v string) *CustomerDeviceItem {
+	s.DeviceType = &v
+	return s
+}
+
+func (s *CustomerDeviceItem) SetDeviceSn(v string) *CustomerDeviceItem {
+	s.DeviceSn = &v
+	return s
+}
+
+func (s *CustomerDeviceItem) SetDeviceDid(v string) *CustomerDeviceItem {
+	s.DeviceDid = &v
+	return s
+}
+
+func (s *CustomerDeviceItem) SetValideTime(v string) *CustomerDeviceItem {
+	s.ValideTime = &v
+	return s
+}
+
+func (s *CustomerDeviceItem) SetDeviceStatus(v string) *CustomerDeviceItem {
+	s.DeviceStatus = &v
+	return s
+}
+
+func (s *CustomerDeviceItem) SetServiceStatus(v string) *CustomerDeviceItem {
+	s.ServiceStatus = &v
+	return s
+}
+
+func (s *CustomerDeviceItem) SetScreenStatus(v string) *CustomerDeviceItem {
+	s.ScreenStatus = &v
+	return s
+}
+
+// 部标数据查询接口中返回的聚合统计指标结构体
+type JtExtraData struct {
+	// 查询的时间范围内的行驶总里程
+	// example:
+	//
+	// 312
+	DeltaMileage *int64 `json:"delta_mileage,omitempty" xml:"delta_mileage,omitempty" require:"true"`
+	// 最大车速
+	// example:
+	//
+	// 60
+	MaxSpeed *int64 `json:"max_speed,omitempty" xml:"max_speed,omitempty" require:"true"`
+	// 平均车速
+	// example:
+	//
+	// 60
+	AvgSpeed *int64 `json:"avg_speed,omitempty" xml:"avg_speed,omitempty" require:"true"`
+}
+
+func (s JtExtraData) String() string {
+	return tea.Prettify(s)
+}
+
+func (s JtExtraData) GoString() string {
+	return s.String()
+}
+
+func (s *JtExtraData) SetDeltaMileage(v int64) *JtExtraData {
+	s.DeltaMileage = &v
+	return s
+}
+
+func (s *JtExtraData) SetMaxSpeed(v int64) *JtExtraData {
+	s.MaxSpeed = &v
+	return s
+}
+
+func (s *JtExtraData) SetAvgSpeed(v int64) *JtExtraData {
+	s.AvgSpeed = &v
+	return s
+}
+
+// 用户通行证创建详情
+type XrUserTicketInfo struct {
+	// xr通行证资源池名称
+	// example:
+	//
+	// 资源池001
+	XrTicketPoolName *string `json:"xr_ticket_pool_name,omitempty" xml:"xr_ticket_pool_name,omitempty" require:"true"`
+	// 购买数量
+	// example:
+	//
+	// 10
+	Count *int64 `json:"count,omitempty" xml:"count,omitempty" require:"true"`
+}
+
+func (s XrUserTicketInfo) String() string {
+	return tea.Prettify(s)
+}
+
+func (s XrUserTicketInfo) GoString() string {
+	return s.String()
+}
+
+func (s *XrUserTicketInfo) SetXrTicketPoolName(v string) *XrUserTicketInfo {
+	s.XrTicketPoolName = &v
+	return s
+}
+
+func (s *XrUserTicketInfo) SetCount(v int64) *XrUserTicketInfo {
+	s.Count = &v
+	return s
+}
+
+// 组织请求注册更新结构体，应用在注册/更新API的ThingExtraParams
+type CorporateReqModel struct {
+	// 组织地址
+	// example:
+	//
+	// xxxxx
+	Address *string `json:"address,omitempty" xml:"address,omitempty"`
+	// 运营地址
+	// example:
+	//
+	// ""
+	BusinessAddress *string `json:"business_address,omitempty" xml:"business_address,omitempty"`
+	// 经营类目
+	// example:
+	//
+	// ""
+	BusinessScope *string `json:"business_scope,omitempty" xml:"business_scope,omitempty"`
+	// 注册时间，字符串类型
+	// example:
+	//
+	// "注册时间"
+	CertifyDate *string `json:"certify_date,omitempty" xml:"certify_date,omitempty"`
+	// 营业执照有效期，字符串
+	// example:
+	//
+	// ""
+	LicenceExpireDate *string `json:"licence_expire_date,omitempty" xml:"licence_expire_date,omitempty"`
+	// 国家
+	// example:
+	//
+	// CN
+	Nation *string `json:"nation,omitempty" xml:"nation,omitempty"`
+	// 组织类型
+	// example:
+	//
+	// LimitedCompany
+	Type *string `json:"type,omitempty" xml:"type,omitempty"`
+}
+
+func (s CorporateReqModel) String() string {
+	return tea.Prettify(s)
+}
+
+func (s CorporateReqModel) GoString() string {
+	return s.String()
+}
+
+func (s *CorporateReqModel) SetAddress(v string) *CorporateReqModel {
+	s.Address = &v
+	return s
+}
+
+func (s *CorporateReqModel) SetBusinessAddress(v string) *CorporateReqModel {
+	s.BusinessAddress = &v
+	return s
+}
+
+func (s *CorporateReqModel) SetBusinessScope(v string) *CorporateReqModel {
+	s.BusinessScope = &v
+	return s
+}
+
+func (s *CorporateReqModel) SetCertifyDate(v string) *CorporateReqModel {
+	s.CertifyDate = &v
+	return s
+}
+
+func (s *CorporateReqModel) SetLicenceExpireDate(v string) *CorporateReqModel {
+	s.LicenceExpireDate = &v
+	return s
+}
+
+func (s *CorporateReqModel) SetNation(v string) *CorporateReqModel {
+	s.Nation = &v
+	return s
+}
+
+func (s *CorporateReqModel) SetType(v string) *CorporateReqModel {
+	s.Type = &v
+	return s
+}
+
+// OTA升级包模块响应
+type OTAModuleResponse struct {
+	// 主键id
+	// example:
+	//
+	// 636804107650338816
+	Id *string `json:"id,omitempty" xml:"id,omitempty"`
+	// 租户id
+	// example:
+	//
+	// POPVPRVV
+	TenantId *string `json:"tenant_id,omitempty" xml:"tenant_id,omitempty"`
+	// 可信物联唯一产品标识
+	// example:
+	//
+	// B7uwSpw2dAaxhZ8nJt
+	TrustProductKey *string `json:"trust_product_key,omitempty" xml:"trust_product_key,omitempty"`
+	// 产品名称
+	// example:
+	//
+	// 产品名称
+	ProductName *string `json:"product_name,omitempty" xml:"product_name,omitempty"`
+	// 模块名称
+	// example:
+	//
+	// CAT1_OTA
+	ModuleName *string `json:"module_name,omitempty" xml:"module_name,omitempty"`
+	// 模块别名
+	// example:
+	//
+	// 模块别名
+	AliasName *string `json:"alias_name,omitempty" xml:"alias_name,omitempty"`
+	// 模块描述
+	// example:
+	//
+	// 模块描述
+	Description *string `json:"description,omitempty" xml:"description,omitempty"`
+	// KYT模块唯一标识
+	// example:
+	//
+	// 2bace9c5bdd54b2781a5d325055ada57
+	Mid *string `json:"mid,omitempty" xml:"mid,omitempty"`
+	// 创建时间
+	// example:
+	//
+	// 1773998631000
+	GmtCreate *string `json:"gmt_create,omitempty" xml:"gmt_create,omitempty" pattern:"\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}([Z]|([\\.]\\d{1,9})?[\\+]\\d{2}[\\:]?\\d{2})"`
+	// 更新时间
+	// example:
+	//
+	// 1773998631000
+	GmtModified *string `json:"gmt_modified,omitempty" xml:"gmt_modified,omitempty" pattern:"\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}([Z]|([\\.]\\d{1,9})?[\\+]\\d{2}[\\:]?\\d{2})"`
+}
+
+func (s OTAModuleResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s OTAModuleResponse) GoString() string {
+	return s.String()
+}
+
+func (s *OTAModuleResponse) SetId(v string) *OTAModuleResponse {
+	s.Id = &v
+	return s
+}
+
+func (s *OTAModuleResponse) SetTenantId(v string) *OTAModuleResponse {
+	s.TenantId = &v
+	return s
+}
+
+func (s *OTAModuleResponse) SetTrustProductKey(v string) *OTAModuleResponse {
+	s.TrustProductKey = &v
+	return s
+}
+
+func (s *OTAModuleResponse) SetProductName(v string) *OTAModuleResponse {
+	s.ProductName = &v
+	return s
+}
+
+func (s *OTAModuleResponse) SetModuleName(v string) *OTAModuleResponse {
+	s.ModuleName = &v
+	return s
+}
+
+func (s *OTAModuleResponse) SetAliasName(v string) *OTAModuleResponse {
+	s.AliasName = &v
+	return s
+}
+
+func (s *OTAModuleResponse) SetDescription(v string) *OTAModuleResponse {
+	s.Description = &v
+	return s
+}
+
+func (s *OTAModuleResponse) SetMid(v string) *OTAModuleResponse {
+	s.Mid = &v
+	return s
+}
+
+func (s *OTAModuleResponse) SetGmtCreate(v string) *OTAModuleResponse {
+	s.GmtCreate = &v
+	return s
+}
+
+func (s *OTAModuleResponse) SetGmtModified(v string) *OTAModuleResponse {
+	s.GmtModified = &v
+	return s
+}
+
+// iotbasic数控设备信息（不包含出库信息）
+type IotbasicDigitalKeyDeviceNoShipInfo struct {
+	// 设备id
+	// example:
+	//
+	// 125839
+	Devid *string `json:"devid,omitempty" xml:"devid,omitempty" require:"true"`
+	// 设备sn
+	// example:
+	//
+	// 9726001010008SC30N96
+	Sn *string `json:"sn,omitempty" xml:"sn,omitempty" require:"true"`
+	// ccid
+	// example:
+	//
+	// 898602B1191870002179
+	Ccid *string `json:"ccid,omitempty" xml:"ccid,omitempty" require:"true"`
+	// imei
+	// example:
+	//
+	// 866311069827503
+	Imei *string `json:"imei,omitempty" xml:"imei,omitempty" require:"true"`
+	// tbox固件版本号(16进制)
+	// example:
+	//
+	// 80000109
+	Ver *string `json:"ver,omitempty" xml:"ver,omitempty" require:"true"`
+	// PEPS系统固件版本号(16进制)
+	// example:
+	//
+	// 81070205
+	PepsVer *string `json:"peps_ver,omitempty" xml:"peps_ver,omitempty" require:"true"`
+	// 蓝牙固件版本号(16进制)
+	// example:
+	//
+	// 80090204
+	BleVer *string `json:"ble_ver,omitempty" xml:"ble_ver,omitempty" require:"true"`
+}
+
+func (s IotbasicDigitalKeyDeviceNoShipInfo) String() string {
+	return tea.Prettify(s)
+}
+
+func (s IotbasicDigitalKeyDeviceNoShipInfo) GoString() string {
+	return s.String()
+}
+
+func (s *IotbasicDigitalKeyDeviceNoShipInfo) SetDevid(v string) *IotbasicDigitalKeyDeviceNoShipInfo {
+	s.Devid = &v
+	return s
+}
+
+func (s *IotbasicDigitalKeyDeviceNoShipInfo) SetSn(v string) *IotbasicDigitalKeyDeviceNoShipInfo {
+	s.Sn = &v
+	return s
+}
+
+func (s *IotbasicDigitalKeyDeviceNoShipInfo) SetCcid(v string) *IotbasicDigitalKeyDeviceNoShipInfo {
+	s.Ccid = &v
+	return s
+}
+
+func (s *IotbasicDigitalKeyDeviceNoShipInfo) SetImei(v string) *IotbasicDigitalKeyDeviceNoShipInfo {
+	s.Imei = &v
+	return s
+}
+
+func (s *IotbasicDigitalKeyDeviceNoShipInfo) SetVer(v string) *IotbasicDigitalKeyDeviceNoShipInfo {
+	s.Ver = &v
+	return s
+}
+
+func (s *IotbasicDigitalKeyDeviceNoShipInfo) SetPepsVer(v string) *IotbasicDigitalKeyDeviceNoShipInfo {
+	s.PepsVer = &v
+	return s
+}
+
+func (s *IotbasicDigitalKeyDeviceNoShipInfo) SetBleVer(v string) *IotbasicDigitalKeyDeviceNoShipInfo {
+	s.BleVer = &v
+	return s
+}
+
+// 事件数据
+type EventData struct {
+	// 数据内容
+	// example:
+	//
+	// { "DEVICE-ID": "ABC123", "IMEI": "868331011992179", "HEART-BEAT-TIME": 1699053387008 }
+	Content *string `json:"content,omitempty" xml:"content,omitempty" require:"true"`
+	// 可信设备ID
+	// example:
+	//
+	// 7213004826408435712
+	TrustIotDeviceId *int64 `json:"trust_iot_device_id,omitempty" xml:"trust_iot_device_id,omitempty"`
+	// 业务ID
+	// example:
+	//
+	// 20240815
+	BizId *string `json:"biz_id,omitempty" xml:"biz_id,omitempty"`
+	// 设备数据签名
+	// example:
+	//
+	// 8e084d95c5ac9198b01b9f6b8040b2daa35a3e2706a472295f52ec0966119383d7654eb2c1f67eb563194ab9d2197fcd8fcb5232308927e708257ebea8ce1cda
+	Signature *string `json:"signature,omitempty" xml:"signature,omitempty"`
+	// 设备数据间接上报时，服务端补充数据
+	// example:
+	//
+	// {"PRICE":2.2,"NUMBER":3}
+	ExtraData *string `json:"extra_data,omitempty" xml:"extra_data,omitempty"`
+}
+
+func (s EventData) String() string {
+	return tea.Prettify(s)
+}
+
+func (s EventData) GoString() string {
+	return s.String()
+}
+
+func (s *EventData) SetContent(v string) *EventData {
+	s.Content = &v
+	return s
+}
+
+func (s *EventData) SetTrustIotDeviceId(v int64) *EventData {
+	s.TrustIotDeviceId = &v
+	return s
+}
+
+func (s *EventData) SetBizId(v string) *EventData {
+	s.BizId = &v
+	return s
+}
+
+func (s *EventData) SetSignature(v string) *EventData {
+	s.Signature = &v
+	return s
+}
+
+func (s *EventData) SetExtraData(v string) *EventData {
+	s.ExtraData = &v
+	return s
+}
+
+// 设备规格信息体
+type IotBasicDeviceSpecs struct {
+	// 厂商编码
+	// example:
+	//
+	// telpo
+	CorpValue *string `json:"corp_value,omitempty" xml:"corp_value,omitempty" require:"true"`
+	// 厂商名称
+	// example:
+	//
+	// 天波
+	CorpName *string `json:"corp_name,omitempty" xml:"corp_name,omitempty" require:"true"`
+	// 型号名称
+	// example:
+	//
+	// TPS1231
+	ModelName *string `json:"model_name,omitempty" xml:"model_name,omitempty" require:"true"`
+	// 型号编码
+	// example:
+	//
+	// TPS123
+	ModelValue *string `json:"model_value,omitempty" xml:"model_value,omitempty" require:"true"`
+	// 防疫机
+	// example:
+	//
+	// 设备品类名称
+	CategoryName *string `json:"category_name,omitempty" xml:"category_name,omitempty" require:"true"`
+	// 设备品类编码
+	// example:
+	//
+	// antmic
+	CategoryCode *string `json:"category_code,omitempty" xml:"category_code,omitempty" require:"true"`
+	// 规格ID
+	// example:
+	//
+	// 12321321
+	SpecsId *int64 `json:"specs_id,omitempty" xml:"specs_id,omitempty" require:"true"`
+	// 规格名称
+	// example:
+	//
+	// 规格名称
+	SpecsName *string `json:"specs_name,omitempty" xml:"specs_name,omitempty" require:"true"`
+	// 规格编码
+	// example:
+	//
+	// 规格编码
+	SpecsValue *string `json:"specs_value,omitempty" xml:"specs_value,omitempty" require:"true"`
+	// 规格参数
+	// example:
+	//
+	// 规格参数
+	SpecsParam *string `json:"specs_param,omitempty" xml:"specs_param,omitempty" require:"true"`
+}
+
+func (s IotBasicDeviceSpecs) String() string {
+	return tea.Prettify(s)
+}
+
+func (s IotBasicDeviceSpecs) GoString() string {
+	return s.String()
+}
+
+func (s *IotBasicDeviceSpecs) SetCorpValue(v string) *IotBasicDeviceSpecs {
+	s.CorpValue = &v
+	return s
+}
+
+func (s *IotBasicDeviceSpecs) SetCorpName(v string) *IotBasicDeviceSpecs {
+	s.CorpName = &v
+	return s
+}
+
+func (s *IotBasicDeviceSpecs) SetModelName(v string) *IotBasicDeviceSpecs {
+	s.ModelName = &v
+	return s
+}
+
+func (s *IotBasicDeviceSpecs) SetModelValue(v string) *IotBasicDeviceSpecs {
+	s.ModelValue = &v
+	return s
+}
+
+func (s *IotBasicDeviceSpecs) SetCategoryName(v string) *IotBasicDeviceSpecs {
+	s.CategoryName = &v
+	return s
+}
+
+func (s *IotBasicDeviceSpecs) SetCategoryCode(v string) *IotBasicDeviceSpecs {
+	s.CategoryCode = &v
+	return s
+}
+
+func (s *IotBasicDeviceSpecs) SetSpecsId(v int64) *IotBasicDeviceSpecs {
+	s.SpecsId = &v
+	return s
+}
+
+func (s *IotBasicDeviceSpecs) SetSpecsName(v string) *IotBasicDeviceSpecs {
+	s.SpecsName = &v
+	return s
+}
+
+func (s *IotBasicDeviceSpecs) SetSpecsValue(v string) *IotBasicDeviceSpecs {
+	s.SpecsValue = &v
+	return s
+}
+
+func (s *IotBasicDeviceSpecs) SetSpecsParam(v string) *IotBasicDeviceSpecs {
+	s.SpecsParam = &v
+	return s
+}
+
+// 订单批量同步单个请求体
+type DeviceorderRequest struct {
+	// 订单id
+	// example:
+	//
+	// 20034932
+	OrderId *string `json:"order_id,omitempty" xml:"order_id,omitempty" require:"true"`
+	// 支付状态
+	// example:
+	//
+	// PAID,UNPAID,PAYMENT_FAILED
+	OrderStatus *string `json:"order_status,omitempty" xml:"order_status,omitempty" require:"true"`
+	// 商家唯一id
+	// example:
+	//
+	// 30099234
+	MerchantId *string `json:"merchant_id,omitempty" xml:"merchant_id,omitempty" require:"true"`
+	// 设备订单元素集合
+	OrderDeviceList []*IotBasicDeviceOrderItem `json:"order_device_list,omitempty" xml:"order_device_list,omitempty" require:"true" type:"Repeated"`
+	// 订单总金额，精确到小数点后两位
+	// example:
+	//
+	// 22220.98
+	TotalAmount *string `json:"total_amount,omitempty" xml:"total_amount,omitempty" require:"true"`
+}
+
+func (s DeviceorderRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s DeviceorderRequest) GoString() string {
+	return s.String()
+}
+
+func (s *DeviceorderRequest) SetOrderId(v string) *DeviceorderRequest {
+	s.OrderId = &v
+	return s
+}
+
+func (s *DeviceorderRequest) SetOrderStatus(v string) *DeviceorderRequest {
+	s.OrderStatus = &v
+	return s
+}
+
+func (s *DeviceorderRequest) SetMerchantId(v string) *DeviceorderRequest {
+	s.MerchantId = &v
+	return s
+}
+
+func (s *DeviceorderRequest) SetOrderDeviceList(v []*IotBasicDeviceOrderItem) *DeviceorderRequest {
+	s.OrderDeviceList = v
+	return s
+}
+
+func (s *DeviceorderRequest) SetTotalAmount(v string) *DeviceorderRequest {
+	s.TotalAmount = &v
 	return s
 }
 
@@ -17104,6 +19583,602 @@ func (s *QueryAgentSessionsResponse) SetPages(v int64) *QueryAgentSessionsRespon
 
 func (s *QueryAgentSessionsResponse) SetList(v []*AgentSessionVO) *QueryAgentSessionsResponse {
 	s.List = v
+	return s
+}
+
+type QueryIotagentAideviceRequest struct {
+	// OAuth模式下的授权token
+	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
+	// 保留字段，暂时不使用
+	DeviceId *string `json:"device_id,omitempty" xml:"device_id,omitempty"`
+	// 用户ID
+	UserId *string `json:"user_id,omitempty" xml:"user_id,omitempty" require:"true"`
+	// 客户租户ID
+	TenantId *string `json:"tenant_id,omitempty" xml:"tenant_id,omitempty" require:"true"`
+}
+
+func (s QueryIotagentAideviceRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s QueryIotagentAideviceRequest) GoString() string {
+	return s.String()
+}
+
+func (s *QueryIotagentAideviceRequest) SetAuthToken(v string) *QueryIotagentAideviceRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *QueryIotagentAideviceRequest) SetProductInstanceId(v string) *QueryIotagentAideviceRequest {
+	s.ProductInstanceId = &v
+	return s
+}
+
+func (s *QueryIotagentAideviceRequest) SetDeviceId(v string) *QueryIotagentAideviceRequest {
+	s.DeviceId = &v
+	return s
+}
+
+func (s *QueryIotagentAideviceRequest) SetUserId(v string) *QueryIotagentAideviceRequest {
+	s.UserId = &v
+	return s
+}
+
+func (s *QueryIotagentAideviceRequest) SetTenantId(v string) *QueryIotagentAideviceRequest {
+	s.TenantId = &v
+	return s
+}
+
+type QueryIotagentAideviceResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// 用户ID
+	UserId *string `json:"user_id,omitempty" xml:"user_id,omitempty"`
+	Status *int64  `json:"status,omitempty" xml:"status,omitempty"`
+	// 客户租户ID
+	TenantId *string `json:"tenant_id,omitempty" xml:"tenant_id,omitempty"`
+}
+
+func (s QueryIotagentAideviceResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s QueryIotagentAideviceResponse) GoString() string {
+	return s.String()
+}
+
+func (s *QueryIotagentAideviceResponse) SetReqMsgId(v string) *QueryIotagentAideviceResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *QueryIotagentAideviceResponse) SetResultCode(v string) *QueryIotagentAideviceResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *QueryIotagentAideviceResponse) SetResultMsg(v string) *QueryIotagentAideviceResponse {
+	s.ResultMsg = &v
+	return s
+}
+
+func (s *QueryIotagentAideviceResponse) SetUserId(v string) *QueryIotagentAideviceResponse {
+	s.UserId = &v
+	return s
+}
+
+func (s *QueryIotagentAideviceResponse) SetStatus(v int64) *QueryIotagentAideviceResponse {
+	s.Status = &v
+	return s
+}
+
+func (s *QueryIotagentAideviceResponse) SetTenantId(v string) *QueryIotagentAideviceResponse {
+	s.TenantId = &v
+	return s
+}
+
+type QueryIotagentThingmodelrangeRequest struct {
+	// OAuth模式下的授权token
+	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
+	// 用户ID
+	UserId *string `json:"user_id,omitempty" xml:"user_id,omitempty" require:"true"`
+	// 设备ID，保留字段，暂不使用
+	DeviceId  *string `json:"device_id,omitempty" xml:"device_id,omitempty"`
+	FeatureId *string `json:"feature_id,omitempty" xml:"feature_id,omitempty" require:"true"`
+	// 客户租户ID
+	TenantId *string `json:"tenant_id,omitempty" xml:"tenant_id,omitempty" require:"true"`
+}
+
+func (s QueryIotagentThingmodelrangeRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s QueryIotagentThingmodelrangeRequest) GoString() string {
+	return s.String()
+}
+
+func (s *QueryIotagentThingmodelrangeRequest) SetAuthToken(v string) *QueryIotagentThingmodelrangeRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *QueryIotagentThingmodelrangeRequest) SetProductInstanceId(v string) *QueryIotagentThingmodelrangeRequest {
+	s.ProductInstanceId = &v
+	return s
+}
+
+func (s *QueryIotagentThingmodelrangeRequest) SetUserId(v string) *QueryIotagentThingmodelrangeRequest {
+	s.UserId = &v
+	return s
+}
+
+func (s *QueryIotagentThingmodelrangeRequest) SetDeviceId(v string) *QueryIotagentThingmodelrangeRequest {
+	s.DeviceId = &v
+	return s
+}
+
+func (s *QueryIotagentThingmodelrangeRequest) SetFeatureId(v string) *QueryIotagentThingmodelrangeRequest {
+	s.FeatureId = &v
+	return s
+}
+
+func (s *QueryIotagentThingmodelrangeRequest) SetTenantId(v string) *QueryIotagentThingmodelrangeRequest {
+	s.TenantId = &v
+	return s
+}
+
+type QueryIotagentThingmodelrangeResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg        *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	HasData          *bool   `json:"has_data,omitempty" xml:"has_data,omitempty"`
+	FirstReportTime  *string `json:"first_report_time,omitempty" xml:"first_report_time,omitempty" pattern:"\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}([Z]|([\\.]\\d{1,9})?[\\+]\\d{2}[\\:]?\\d{2})"`
+	LatestReportTime *string `json:"latest_report_time,omitempty" xml:"latest_report_time,omitempty" pattern:"\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}([Z]|([\\.]\\d{1,9})?[\\+]\\d{2}[\\:]?\\d{2})"`
+}
+
+func (s QueryIotagentThingmodelrangeResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s QueryIotagentThingmodelrangeResponse) GoString() string {
+	return s.String()
+}
+
+func (s *QueryIotagentThingmodelrangeResponse) SetReqMsgId(v string) *QueryIotagentThingmodelrangeResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *QueryIotagentThingmodelrangeResponse) SetResultCode(v string) *QueryIotagentThingmodelrangeResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *QueryIotagentThingmodelrangeResponse) SetResultMsg(v string) *QueryIotagentThingmodelrangeResponse {
+	s.ResultMsg = &v
+	return s
+}
+
+func (s *QueryIotagentThingmodelrangeResponse) SetHasData(v bool) *QueryIotagentThingmodelrangeResponse {
+	s.HasData = &v
+	return s
+}
+
+func (s *QueryIotagentThingmodelrangeResponse) SetFirstReportTime(v string) *QueryIotagentThingmodelrangeResponse {
+	s.FirstReportTime = &v
+	return s
+}
+
+func (s *QueryIotagentThingmodelrangeResponse) SetLatestReportTime(v string) *QueryIotagentThingmodelrangeResponse {
+	s.LatestReportTime = &v
+	return s
+}
+
+type QueryIotagentThingmodeldataRequest struct {
+	// OAuth模式下的授权token
+	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
+	UserId            *string `json:"user_id,omitempty" xml:"user_id,omitempty" require:"true"`
+	FeatureId         *string `json:"feature_id,omitempty" xml:"feature_id,omitempty" require:"true"`
+	DeviceId          *string `json:"device_id,omitempty" xml:"device_id,omitempty"`
+	StartTime         *string `json:"start_time,omitempty" xml:"start_time,omitempty" pattern:"\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}([Z]|([\\.]\\d{1,9})?[\\+]\\d{2}[\\:]?\\d{2})"`
+	EndTime           *string `json:"end_time,omitempty" xml:"end_time,omitempty" pattern:"\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}([Z]|([\\.]\\d{1,9})?[\\+]\\d{2}[\\:]?\\d{2})"`
+	PageIndex         *int64  `json:"page_index,omitempty" xml:"page_index,omitempty"`
+	PageSize          *int64  `json:"page_size,omitempty" xml:"page_size,omitempty"`
+	// 租户ID
+	TenantId *string `json:"tenant_id,omitempty" xml:"tenant_id,omitempty" require:"true"`
+}
+
+func (s QueryIotagentThingmodeldataRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s QueryIotagentThingmodeldataRequest) GoString() string {
+	return s.String()
+}
+
+func (s *QueryIotagentThingmodeldataRequest) SetAuthToken(v string) *QueryIotagentThingmodeldataRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *QueryIotagentThingmodeldataRequest) SetProductInstanceId(v string) *QueryIotagentThingmodeldataRequest {
+	s.ProductInstanceId = &v
+	return s
+}
+
+func (s *QueryIotagentThingmodeldataRequest) SetUserId(v string) *QueryIotagentThingmodeldataRequest {
+	s.UserId = &v
+	return s
+}
+
+func (s *QueryIotagentThingmodeldataRequest) SetFeatureId(v string) *QueryIotagentThingmodeldataRequest {
+	s.FeatureId = &v
+	return s
+}
+
+func (s *QueryIotagentThingmodeldataRequest) SetDeviceId(v string) *QueryIotagentThingmodeldataRequest {
+	s.DeviceId = &v
+	return s
+}
+
+func (s *QueryIotagentThingmodeldataRequest) SetStartTime(v string) *QueryIotagentThingmodeldataRequest {
+	s.StartTime = &v
+	return s
+}
+
+func (s *QueryIotagentThingmodeldataRequest) SetEndTime(v string) *QueryIotagentThingmodeldataRequest {
+	s.EndTime = &v
+	return s
+}
+
+func (s *QueryIotagentThingmodeldataRequest) SetPageIndex(v int64) *QueryIotagentThingmodeldataRequest {
+	s.PageIndex = &v
+	return s
+}
+
+func (s *QueryIotagentThingmodeldataRequest) SetPageSize(v int64) *QueryIotagentThingmodeldataRequest {
+	s.PageSize = &v
+	return s
+}
+
+func (s *QueryIotagentThingmodeldataRequest) SetTenantId(v string) *QueryIotagentThingmodeldataRequest {
+	s.TenantId = &v
+	return s
+}
+
+type QueryIotagentThingmodeldataResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	Total     *int64  `json:"total,omitempty" xml:"total,omitempty"`
+	PageNum   *int64  `json:"page_num,omitempty" xml:"page_num,omitempty"`
+	PageSize  *int64  `json:"page_size,omitempty" xml:"page_size,omitempty"`
+	// 总页数
+	Pages *int64                   `json:"pages,omitempty" xml:"pages,omitempty"`
+	List  []*AiAgentThingModelData `json:"list,omitempty" xml:"list,omitempty" type:"Repeated"`
+}
+
+func (s QueryIotagentThingmodeldataResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s QueryIotagentThingmodeldataResponse) GoString() string {
+	return s.String()
+}
+
+func (s *QueryIotagentThingmodeldataResponse) SetReqMsgId(v string) *QueryIotagentThingmodeldataResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *QueryIotagentThingmodeldataResponse) SetResultCode(v string) *QueryIotagentThingmodeldataResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *QueryIotagentThingmodeldataResponse) SetResultMsg(v string) *QueryIotagentThingmodeldataResponse {
+	s.ResultMsg = &v
+	return s
+}
+
+func (s *QueryIotagentThingmodeldataResponse) SetTotal(v int64) *QueryIotagentThingmodeldataResponse {
+	s.Total = &v
+	return s
+}
+
+func (s *QueryIotagentThingmodeldataResponse) SetPageNum(v int64) *QueryIotagentThingmodeldataResponse {
+	s.PageNum = &v
+	return s
+}
+
+func (s *QueryIotagentThingmodeldataResponse) SetPageSize(v int64) *QueryIotagentThingmodeldataResponse {
+	s.PageSize = &v
+	return s
+}
+
+func (s *QueryIotagentThingmodeldataResponse) SetPages(v int64) *QueryIotagentThingmodeldataResponse {
+	s.Pages = &v
+	return s
+}
+
+func (s *QueryIotagentThingmodeldataResponse) SetList(v []*AiAgentThingModelData) *QueryIotagentThingmodeldataResponse {
+	s.List = v
+	return s
+}
+
+type GetsignurlIotagentPlugincontractRequest struct {
+	// OAuth模式下的授权token
+	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
+	// 插件ID，由蚂蚁侧提供
+	PluginId *string `json:"plugin_id,omitempty" xml:"plugin_id,omitempty" require:"true"`
+	// 客户端ID，一般是设备 MAC 地址
+	ClientId *string `json:"client_id,omitempty" xml:"client_id,omitempty" require:"true"`
+}
+
+func (s GetsignurlIotagentPlugincontractRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s GetsignurlIotagentPlugincontractRequest) GoString() string {
+	return s.String()
+}
+
+func (s *GetsignurlIotagentPlugincontractRequest) SetAuthToken(v string) *GetsignurlIotagentPlugincontractRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *GetsignurlIotagentPlugincontractRequest) SetProductInstanceId(v string) *GetsignurlIotagentPlugincontractRequest {
+	s.ProductInstanceId = &v
+	return s
+}
+
+func (s *GetsignurlIotagentPlugincontractRequest) SetPluginId(v string) *GetsignurlIotagentPlugincontractRequest {
+	s.PluginId = &v
+	return s
+}
+
+func (s *GetsignurlIotagentPlugincontractRequest) SetClientId(v string) *GetsignurlIotagentPlugincontractRequest {
+	s.ClientId = &v
+	return s
+}
+
+type GetsignurlIotagentPlugincontractResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// 签约 URL
+	SignUrl *string `json:"sign_url,omitempty" xml:"sign_url,omitempty"`
+	// 签约URL过期时间
+	ExpireTime *string `json:"expire_time,omitempty" xml:"expire_time,omitempty" pattern:"\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}([Z]|([\\.]\\d{1,9})?[\\+]\\d{2}[\\:]?\\d{2})"`
+}
+
+func (s GetsignurlIotagentPlugincontractResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s GetsignurlIotagentPlugincontractResponse) GoString() string {
+	return s.String()
+}
+
+func (s *GetsignurlIotagentPlugincontractResponse) SetReqMsgId(v string) *GetsignurlIotagentPlugincontractResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *GetsignurlIotagentPlugincontractResponse) SetResultCode(v string) *GetsignurlIotagentPlugincontractResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *GetsignurlIotagentPlugincontractResponse) SetResultMsg(v string) *GetsignurlIotagentPlugincontractResponse {
+	s.ResultMsg = &v
+	return s
+}
+
+func (s *GetsignurlIotagentPlugincontractResponse) SetSignUrl(v string) *GetsignurlIotagentPlugincontractResponse {
+	s.SignUrl = &v
+	return s
+}
+
+func (s *GetsignurlIotagentPlugincontractResponse) SetExpireTime(v string) *GetsignurlIotagentPlugincontractResponse {
+	s.ExpireTime = &v
+	return s
+}
+
+type QueryIotagentPlugincontractRequest struct {
+	// OAuth模式下的授权token
+	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
+	// 插件ID，由蚂蚁侧提供
+	PluginId *string `json:"plugin_id,omitempty" xml:"plugin_id,omitempty" require:"true"`
+	// 客户端ID，一般是设备 MAC 地址
+	ClientId *string `json:"client_id,omitempty" xml:"client_id,omitempty" require:"true"`
+}
+
+func (s QueryIotagentPlugincontractRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s QueryIotagentPlugincontractRequest) GoString() string {
+	return s.String()
+}
+
+func (s *QueryIotagentPlugincontractRequest) SetAuthToken(v string) *QueryIotagentPlugincontractRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *QueryIotagentPlugincontractRequest) SetProductInstanceId(v string) *QueryIotagentPlugincontractRequest {
+	s.ProductInstanceId = &v
+	return s
+}
+
+func (s *QueryIotagentPlugincontractRequest) SetPluginId(v string) *QueryIotagentPlugincontractRequest {
+	s.PluginId = &v
+	return s
+}
+
+func (s *QueryIotagentPlugincontractRequest) SetClientId(v string) *QueryIotagentPlugincontractRequest {
+	s.ClientId = &v
+	return s
+}
+
+type QueryIotagentPlugincontractResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// 签约状态：SIGNED（已签约）/ UNSIGNED（未签约）/ SIGNING（签约中）
+	ContractStatus *string `json:"contract_status,omitempty" xml:"contract_status,omitempty"`
+}
+
+func (s QueryIotagentPlugincontractResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s QueryIotagentPlugincontractResponse) GoString() string {
+	return s.String()
+}
+
+func (s *QueryIotagentPlugincontractResponse) SetReqMsgId(v string) *QueryIotagentPlugincontractResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *QueryIotagentPlugincontractResponse) SetResultCode(v string) *QueryIotagentPlugincontractResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *QueryIotagentPlugincontractResponse) SetResultMsg(v string) *QueryIotagentPlugincontractResponse {
+	s.ResultMsg = &v
+	return s
+}
+
+func (s *QueryIotagentPlugincontractResponse) SetContractStatus(v string) *QueryIotagentPlugincontractResponse {
+	s.ContractStatus = &v
+	return s
+}
+
+type QueryIotagentUseridRequest struct {
+	// OAuth模式下的授权token
+	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
+	// 租户名
+	TenantId *string `json:"tenant_id,omitempty" xml:"tenant_id,omitempty" require:"true"`
+	// 页码
+	PageIndex *int64 `json:"page_index,omitempty" xml:"page_index,omitempty"`
+	PageSize  *int64 `json:"page_size,omitempty" xml:"page_size,omitempty"`
+}
+
+func (s QueryIotagentUseridRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s QueryIotagentUseridRequest) GoString() string {
+	return s.String()
+}
+
+func (s *QueryIotagentUseridRequest) SetAuthToken(v string) *QueryIotagentUseridRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *QueryIotagentUseridRequest) SetProductInstanceId(v string) *QueryIotagentUseridRequest {
+	s.ProductInstanceId = &v
+	return s
+}
+
+func (s *QueryIotagentUseridRequest) SetTenantId(v string) *QueryIotagentUseridRequest {
+	s.TenantId = &v
+	return s
+}
+
+func (s *QueryIotagentUseridRequest) SetPageIndex(v int64) *QueryIotagentUseridRequest {
+	s.PageIndex = &v
+	return s
+}
+
+func (s *QueryIotagentUseridRequest) SetPageSize(v int64) *QueryIotagentUseridRequest {
+	s.PageSize = &v
+	return s
+}
+
+type QueryIotagentUseridResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// 对应租户名下的user_id
+	UserIdList []*string `json:"user_id_list,omitempty" xml:"user_id_list,omitempty" type:"Repeated"`
+	Total      *int64    `json:"total,omitempty" xml:"total,omitempty"`
+	PageNum    *int64    `json:"page_num,omitempty" xml:"page_num,omitempty"`
+	PageSize   *int64    `json:"page_size,omitempty" xml:"page_size,omitempty"`
+}
+
+func (s QueryIotagentUseridResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s QueryIotagentUseridResponse) GoString() string {
+	return s.String()
+}
+
+func (s *QueryIotagentUseridResponse) SetReqMsgId(v string) *QueryIotagentUseridResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *QueryIotagentUseridResponse) SetResultCode(v string) *QueryIotagentUseridResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *QueryIotagentUseridResponse) SetResultMsg(v string) *QueryIotagentUseridResponse {
+	s.ResultMsg = &v
+	return s
+}
+
+func (s *QueryIotagentUseridResponse) SetUserIdList(v []*string) *QueryIotagentUseridResponse {
+	s.UserIdList = v
+	return s
+}
+
+func (s *QueryIotagentUseridResponse) SetTotal(v int64) *QueryIotagentUseridResponse {
+	s.Total = &v
+	return s
+}
+
+func (s *QueryIotagentUseridResponse) SetPageNum(v int64) *QueryIotagentUseridResponse {
+	s.PageNum = &v
+	return s
+}
+
+func (s *QueryIotagentUseridResponse) SetPageSize(v int64) *QueryIotagentUseridResponse {
+	s.PageSize = &v
 	return s
 }
 
@@ -29801,6 +32876,8 @@ type ExecElectrocarOtataskcancelRequest struct {
 	FirmwareId *string `json:"firmware_id,omitempty" xml:"firmware_id,omitempty" require:"true"`
 	// 取消原因，不传时本地通道默认记录为用户取消
 	CancelReason *string `json:"cancel_reason,omitempty" xml:"cancel_reason,omitempty"`
+	// ota升级任务id
+	TaskId *string `json:"task_id,omitempty" xml:"task_id,omitempty" require:"true"`
 }
 
 func (s ExecElectrocarOtataskcancelRequest) String() string {
@@ -29843,6 +32920,11 @@ func (s *ExecElectrocarOtataskcancelRequest) SetFirmwareId(v string) *ExecElectr
 
 func (s *ExecElectrocarOtataskcancelRequest) SetCancelReason(v string) *ExecElectrocarOtataskcancelRequest {
 	s.CancelReason = &v
+	return s
+}
+
+func (s *ExecElectrocarOtataskcancelRequest) SetTaskId(v string) *ExecElectrocarOtataskcancelRequest {
+	s.TaskId = &v
 	return s
 }
 
@@ -30258,7 +33340,7 @@ type PublishElectrocarModuleversionRequest struct {
 	// 模块定位信息
 	ModuleLocator *ModuleLocator `json:"module_locator,omitempty" xml:"module_locator,omitempty" require:"true"`
 	// 当前模块版本号
-	Version *string `json:"version,omitempty" xml:"version,omitempty" require:"true"`
+	VersionNo *string `json:"version_no,omitempty" xml:"version_no,omitempty" require:"true"`
 }
 
 func (s PublishElectrocarModuleversionRequest) String() string {
@@ -30289,8 +33371,8 @@ func (s *PublishElectrocarModuleversionRequest) SetModuleLocator(v *ModuleLocato
 	return s
 }
 
-func (s *PublishElectrocarModuleversionRequest) SetVersion(v string) *PublishElectrocarModuleversionRequest {
-	s.Version = &v
+func (s *PublishElectrocarModuleversionRequest) SetVersionNo(v string) *PublishElectrocarModuleversionRequest {
+	s.VersionNo = &v
 	return s
 }
 
@@ -30442,6 +33524,2365 @@ func (s *QueryElectrocarTaskstatusResponse) SetLocalQueryFailed(v bool) *QueryEl
 
 func (s *QueryElectrocarTaskstatusResponse) SetVersionReportFailed(v bool) *QueryElectrocarTaskstatusResponse {
 	s.VersionReportFailed = &v
+	return s
+}
+
+type QueryElectrocarProductcustomerpageRequest struct {
+	// OAuth模式下的授权token
+	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
+	// 当前页码
+	Current *int64 `json:"current,omitempty" xml:"current,omitempty" require:"true"`
+	// 每页显示条数
+	PageSize *int64 `json:"page_size,omitempty" xml:"page_size,omitempty" require:"true"`
+	// 产品名称
+	ProductName *string `json:"product_name,omitempty" xml:"product_name,omitempty"`
+	// 产品key
+	ProductKey *string `json:"product_key,omitempty" xml:"product_key,omitempty"`
+	// 行业id
+	IndustryId *string `json:"industry_id,omitempty" xml:"industry_id,omitempty"`
+	// 品类id
+	CategoryId *string `json:"category_id,omitempty" xml:"category_id,omitempty"`
+	// 联网方式：0-WIFI、1-蜂窝、2-以太网、3-蓝牙、4-蓝牙+蜂窝网络
+	NetType *int64 `json:"net_type,omitempty" xml:"net_type,omitempty"`
+	// 客户id
+	CustomerId *string `json:"customer_id,omitempty" xml:"customer_id,omitempty" require:"true"`
+}
+
+func (s QueryElectrocarProductcustomerpageRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s QueryElectrocarProductcustomerpageRequest) GoString() string {
+	return s.String()
+}
+
+func (s *QueryElectrocarProductcustomerpageRequest) SetAuthToken(v string) *QueryElectrocarProductcustomerpageRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *QueryElectrocarProductcustomerpageRequest) SetProductInstanceId(v string) *QueryElectrocarProductcustomerpageRequest {
+	s.ProductInstanceId = &v
+	return s
+}
+
+func (s *QueryElectrocarProductcustomerpageRequest) SetCurrent(v int64) *QueryElectrocarProductcustomerpageRequest {
+	s.Current = &v
+	return s
+}
+
+func (s *QueryElectrocarProductcustomerpageRequest) SetPageSize(v int64) *QueryElectrocarProductcustomerpageRequest {
+	s.PageSize = &v
+	return s
+}
+
+func (s *QueryElectrocarProductcustomerpageRequest) SetProductName(v string) *QueryElectrocarProductcustomerpageRequest {
+	s.ProductName = &v
+	return s
+}
+
+func (s *QueryElectrocarProductcustomerpageRequest) SetProductKey(v string) *QueryElectrocarProductcustomerpageRequest {
+	s.ProductKey = &v
+	return s
+}
+
+func (s *QueryElectrocarProductcustomerpageRequest) SetIndustryId(v string) *QueryElectrocarProductcustomerpageRequest {
+	s.IndustryId = &v
+	return s
+}
+
+func (s *QueryElectrocarProductcustomerpageRequest) SetCategoryId(v string) *QueryElectrocarProductcustomerpageRequest {
+	s.CategoryId = &v
+	return s
+}
+
+func (s *QueryElectrocarProductcustomerpageRequest) SetNetType(v int64) *QueryElectrocarProductcustomerpageRequest {
+	s.NetType = &v
+	return s
+}
+
+func (s *QueryElectrocarProductcustomerpageRequest) SetCustomerId(v string) *QueryElectrocarProductcustomerpageRequest {
+	s.CustomerId = &v
+	return s
+}
+
+type QueryElectrocarProductcustomerpageResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// 是否请求成功
+	Success *bool `json:"success,omitempty" xml:"success,omitempty"`
+	// 分页页码
+	PageIndex *int64 `json:"page_index,omitempty" xml:"page_index,omitempty"`
+	// 每页展示大小
+	PageSize *int64 `json:"page_size,omitempty" xml:"page_size,omitempty"`
+	// 总页数
+	TotalPages *int64 `json:"total_pages,omitempty" xml:"total_pages,omitempty"`
+	// 总数量
+	TotalSize *int64 `json:"total_size,omitempty" xml:"total_size,omitempty"`
+	// 分页数据
+	PageData []*IotxProductResponse `json:"page_data,omitempty" xml:"page_data,omitempty" type:"Repeated"`
+}
+
+func (s QueryElectrocarProductcustomerpageResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s QueryElectrocarProductcustomerpageResponse) GoString() string {
+	return s.String()
+}
+
+func (s *QueryElectrocarProductcustomerpageResponse) SetReqMsgId(v string) *QueryElectrocarProductcustomerpageResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *QueryElectrocarProductcustomerpageResponse) SetResultCode(v string) *QueryElectrocarProductcustomerpageResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *QueryElectrocarProductcustomerpageResponse) SetResultMsg(v string) *QueryElectrocarProductcustomerpageResponse {
+	s.ResultMsg = &v
+	return s
+}
+
+func (s *QueryElectrocarProductcustomerpageResponse) SetSuccess(v bool) *QueryElectrocarProductcustomerpageResponse {
+	s.Success = &v
+	return s
+}
+
+func (s *QueryElectrocarProductcustomerpageResponse) SetPageIndex(v int64) *QueryElectrocarProductcustomerpageResponse {
+	s.PageIndex = &v
+	return s
+}
+
+func (s *QueryElectrocarProductcustomerpageResponse) SetPageSize(v int64) *QueryElectrocarProductcustomerpageResponse {
+	s.PageSize = &v
+	return s
+}
+
+func (s *QueryElectrocarProductcustomerpageResponse) SetTotalPages(v int64) *QueryElectrocarProductcustomerpageResponse {
+	s.TotalPages = &v
+	return s
+}
+
+func (s *QueryElectrocarProductcustomerpageResponse) SetTotalSize(v int64) *QueryElectrocarProductcustomerpageResponse {
+	s.TotalSize = &v
+	return s
+}
+
+func (s *QueryElectrocarProductcustomerpageResponse) SetPageData(v []*IotxProductResponse) *QueryElectrocarProductcustomerpageResponse {
+	s.PageData = v
+	return s
+}
+
+type PushElectrocarOtajobRequest struct {
+	// OAuth模式下的授权token
+	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
+	// 任务类型：STATIC_UPGRADE-静态升级批次、VERIFY-升级验证任务
+	JobType *string `json:"job_type,omitempty" xml:"job_type,omitempty" require:"true"`
+	// 可信物联产品唯一标识
+	TrustProductKey *string `json:"trust_product_key,omitempty" xml:"trust_product_key,omitempty" require:"true"`
+	// OTA固件包ID
+	FirmwareId *string `json:"firmware_id,omitempty" xml:"firmware_id,omitempty" require:"true"`
+	// 升级范围：ALL-全量升级、SPECIFIC-定向升级
+	TargetSelection *string `json:"target_selection,omitempty" xml:"target_selection,omitempty" require:"true"`
+	// 待升级版本号列表
+	SrcVersion []*string `json:"src_version,omitempty" xml:"src_version,omitempty" type:"Repeated"`
+	// 升级失败后自动重试间隔
+	//      * 0：立即重试、
+	//      * 10：10分钟后重试、
+	//      * 30：30分钟后重试、
+	//      * 60：60分钟（即1小时）后重试、
+	//      * 1440：1,440分钟（即24小时）后重试
+	//      * 不传入此参数，则表示不重试。
+	RetryInterval *int64 `json:"retry_interval,omitempty" xml:"retry_interval,omitempty"`
+	// 自动重试次数：1：1次、2：2次、5：5次。如果传入RetryInterval参数，则需传入该参数。
+	RetryCount *int64 `json:"retry_count,omitempty" xml:"retry_count,omitempty"`
+	// 升级超时时间
+	TimeoutInMinutes *int64 `json:"timeout_in_minutes,omitempty" xml:"timeout_in_minutes,omitempty"`
+	// 定向升级的deviceName列表（和targetTrustDeviceIds、dnListFileUrl三选一）
+	TargetTrustDeviceIds []*string `json:"target_trust_device_ids,omitempty" xml:"target_trust_device_ids,omitempty" type:"Repeated"`
+	// 设备列表文件URL，与targetTrustDeviceIds、targetDeviceNames三选一，仅当targetSelection=SPECIFIC时生效。用于大批量设备定向升级场景，文件URL通过GenerateDeviceNameListURL接口获取
+	DnListFileUrl *string `json:"dn_list_file_url,omitempty" xml:"dn_list_file_url,omitempty"`
+	// 定向升级的deviceName列表（和targetTrustDeviceIds、dnListFileUrl三选一）
+	TargetDeviceNames []*string `json:"target_device_names,omitempty" xml:"target_device_names,omitempty" type:"Repeated"`
+	// 是否需要 APP 确认升级：TUYA_4G 通道：true 表示批次创建后等待 APP/端侧确认，再触发 Hub 下发；false 表示不需要 APP 确认。若 upgradeMode=SILENT，该字段固定为 false，调用方无需传入。
+	// BLE 通道：服务端默认按 APP 确认拉取升级材料处理。
+	NeedConfirm *bool `json:"need_confirm,omitempty" xml:"need_confirm,omitempty"`
+	// 升级文案
+	UpgradeCopy *string `json:"upgrade_copy,omitempty" xml:"upgrade_copy,omitempty"`
+	// 本次批次实际执行通道：TUYA_4G，涂鸦 4G/MQTT 通道；EKYT_BLE：数字钥匙 BLE 通道；
+	Channel *string `json:"channel,omitempty" xml:"channel,omitempty" require:"true"`
+	// 同设备同模块任务覆盖策略：OVERRIDE-覆盖旧任务，创建新任务前取消同设备同模块可取消的旧任务；REJECT-存在可取消旧任务时拒绝创建；COEXIST-允许并存的预留策略，本期同模块 APP 确认型升级不推荐使用。不传时默认 OVERRIDE。
+	OverrideMode *string `json:"override_mode,omitempty" xml:"override_mode,omitempty"`
+	// 多模块并发策略：ALLOW-允许同一设备多个模块同时存在未完成升级任务；DENY-同一设备已有其他模块未完成升级任务时拒绝创建。
+	MultiModuleMode *string `json:"multi_module_mode,omitempty" xml:"multi_module_mode,omitempty"`
+	// 批次升级方式：CHECK-检测升级；REMIND-提醒升级；FORCE-强制升级；SILENT-静默升级；
+	UpgradeMode *string `json:"upgrade_mode,omitempty" xml:"upgrade_mode,omitempty"`
+	// 4G Hub 是否主动推送：TUYA_4G 通道：true 表示批次创建后由 Hub 主动向设备推送；false 表示不主动推送，通常需要配合 needConfirm=true 由 APP 确认后触发。若 upgradeMode=SILENT，该字段固定为 true，调用方无需传入。BLE 通道：不支持服务端主动推送；传 true 会被拒绝。
+	NeedPush *bool `json:"need_push,omitempty" xml:"need_push,omitempty"`
+}
+
+func (s PushElectrocarOtajobRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s PushElectrocarOtajobRequest) GoString() string {
+	return s.String()
+}
+
+func (s *PushElectrocarOtajobRequest) SetAuthToken(v string) *PushElectrocarOtajobRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *PushElectrocarOtajobRequest) SetProductInstanceId(v string) *PushElectrocarOtajobRequest {
+	s.ProductInstanceId = &v
+	return s
+}
+
+func (s *PushElectrocarOtajobRequest) SetJobType(v string) *PushElectrocarOtajobRequest {
+	s.JobType = &v
+	return s
+}
+
+func (s *PushElectrocarOtajobRequest) SetTrustProductKey(v string) *PushElectrocarOtajobRequest {
+	s.TrustProductKey = &v
+	return s
+}
+
+func (s *PushElectrocarOtajobRequest) SetFirmwareId(v string) *PushElectrocarOtajobRequest {
+	s.FirmwareId = &v
+	return s
+}
+
+func (s *PushElectrocarOtajobRequest) SetTargetSelection(v string) *PushElectrocarOtajobRequest {
+	s.TargetSelection = &v
+	return s
+}
+
+func (s *PushElectrocarOtajobRequest) SetSrcVersion(v []*string) *PushElectrocarOtajobRequest {
+	s.SrcVersion = v
+	return s
+}
+
+func (s *PushElectrocarOtajobRequest) SetRetryInterval(v int64) *PushElectrocarOtajobRequest {
+	s.RetryInterval = &v
+	return s
+}
+
+func (s *PushElectrocarOtajobRequest) SetRetryCount(v int64) *PushElectrocarOtajobRequest {
+	s.RetryCount = &v
+	return s
+}
+
+func (s *PushElectrocarOtajobRequest) SetTimeoutInMinutes(v int64) *PushElectrocarOtajobRequest {
+	s.TimeoutInMinutes = &v
+	return s
+}
+
+func (s *PushElectrocarOtajobRequest) SetTargetTrustDeviceIds(v []*string) *PushElectrocarOtajobRequest {
+	s.TargetTrustDeviceIds = v
+	return s
+}
+
+func (s *PushElectrocarOtajobRequest) SetDnListFileUrl(v string) *PushElectrocarOtajobRequest {
+	s.DnListFileUrl = &v
+	return s
+}
+
+func (s *PushElectrocarOtajobRequest) SetTargetDeviceNames(v []*string) *PushElectrocarOtajobRequest {
+	s.TargetDeviceNames = v
+	return s
+}
+
+func (s *PushElectrocarOtajobRequest) SetNeedConfirm(v bool) *PushElectrocarOtajobRequest {
+	s.NeedConfirm = &v
+	return s
+}
+
+func (s *PushElectrocarOtajobRequest) SetUpgradeCopy(v string) *PushElectrocarOtajobRequest {
+	s.UpgradeCopy = &v
+	return s
+}
+
+func (s *PushElectrocarOtajobRequest) SetChannel(v string) *PushElectrocarOtajobRequest {
+	s.Channel = &v
+	return s
+}
+
+func (s *PushElectrocarOtajobRequest) SetOverrideMode(v string) *PushElectrocarOtajobRequest {
+	s.OverrideMode = &v
+	return s
+}
+
+func (s *PushElectrocarOtajobRequest) SetMultiModuleMode(v string) *PushElectrocarOtajobRequest {
+	s.MultiModuleMode = &v
+	return s
+}
+
+func (s *PushElectrocarOtajobRequest) SetUpgradeMode(v string) *PushElectrocarOtajobRequest {
+	s.UpgradeMode = &v
+	return s
+}
+
+func (s *PushElectrocarOtajobRequest) SetNeedPush(v bool) *PushElectrocarOtajobRequest {
+	s.NeedPush = &v
+	return s
+}
+
+type PushElectrocarOtajobResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// 是否请求成功
+	Success *bool `json:"success,omitempty" xml:"success,omitempty"`
+	// 响应码
+	Code *string `json:"code,omitempty" xml:"code,omitempty"`
+	// 响应消息
+	Message *string `json:"message,omitempty" xml:"message,omitempty"`
+}
+
+func (s PushElectrocarOtajobResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s PushElectrocarOtajobResponse) GoString() string {
+	return s.String()
+}
+
+func (s *PushElectrocarOtajobResponse) SetReqMsgId(v string) *PushElectrocarOtajobResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *PushElectrocarOtajobResponse) SetResultCode(v string) *PushElectrocarOtajobResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *PushElectrocarOtajobResponse) SetResultMsg(v string) *PushElectrocarOtajobResponse {
+	s.ResultMsg = &v
+	return s
+}
+
+func (s *PushElectrocarOtajobResponse) SetSuccess(v bool) *PushElectrocarOtajobResponse {
+	s.Success = &v
+	return s
+}
+
+func (s *PushElectrocarOtajobResponse) SetCode(v string) *PushElectrocarOtajobResponse {
+	s.Code = &v
+	return s
+}
+
+func (s *PushElectrocarOtajobResponse) SetMessage(v string) *PushElectrocarOtajobResponse {
+	s.Message = &v
+	return s
+}
+
+type QueryElectrocarOtamodulepageRequest struct {
+	// OAuth模式下的授权token
+	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
+	// 可信物联唯一产品标识
+	TrustProductKey *string `json:"trust_product_key,omitempty" xml:"trust_product_key,omitempty" require:"true"`
+	// 模块名称
+	ModuleName *string `json:"module_name,omitempty" xml:"module_name,omitempty"`
+	// 当前页码
+	Current *int64 `json:"current,omitempty" xml:"current,omitempty" require:"true"`
+	// 每页显示条数
+	PageSize *int64 `json:"page_size,omitempty" xml:"page_size,omitempty" require:"true"`
+}
+
+func (s QueryElectrocarOtamodulepageRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s QueryElectrocarOtamodulepageRequest) GoString() string {
+	return s.String()
+}
+
+func (s *QueryElectrocarOtamodulepageRequest) SetAuthToken(v string) *QueryElectrocarOtamodulepageRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *QueryElectrocarOtamodulepageRequest) SetProductInstanceId(v string) *QueryElectrocarOtamodulepageRequest {
+	s.ProductInstanceId = &v
+	return s
+}
+
+func (s *QueryElectrocarOtamodulepageRequest) SetTrustProductKey(v string) *QueryElectrocarOtamodulepageRequest {
+	s.TrustProductKey = &v
+	return s
+}
+
+func (s *QueryElectrocarOtamodulepageRequest) SetModuleName(v string) *QueryElectrocarOtamodulepageRequest {
+	s.ModuleName = &v
+	return s
+}
+
+func (s *QueryElectrocarOtamodulepageRequest) SetCurrent(v int64) *QueryElectrocarOtamodulepageRequest {
+	s.Current = &v
+	return s
+}
+
+func (s *QueryElectrocarOtamodulepageRequest) SetPageSize(v int64) *QueryElectrocarOtamodulepageRequest {
+	s.PageSize = &v
+	return s
+}
+
+type QueryElectrocarOtamodulepageResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// 当前页码
+	PageIndex *int64 `json:"page_index,omitempty" xml:"page_index,omitempty"`
+	// 单页数量
+	PageSize *int64 `json:"page_size,omitempty" xml:"page_size,omitempty"`
+	// 记录总数
+	TotalSize *int64 `json:"total_size,omitempty" xml:"total_size,omitempty"`
+	// 页总数
+	TotalPages *int64 `json:"total_pages,omitempty" xml:"total_pages,omitempty"`
+	// 分页数据
+	PageData []*OTAModuleResponse `json:"page_data,omitempty" xml:"page_data,omitempty" type:"Repeated"`
+	// 是否操作成功
+	Success *bool `json:"success,omitempty" xml:"success,omitempty"`
+	// 响应编码
+	Code *string `json:"code,omitempty" xml:"code,omitempty"`
+	// 响应内容
+	Message *string `json:"message,omitempty" xml:"message,omitempty"`
+}
+
+func (s QueryElectrocarOtamodulepageResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s QueryElectrocarOtamodulepageResponse) GoString() string {
+	return s.String()
+}
+
+func (s *QueryElectrocarOtamodulepageResponse) SetReqMsgId(v string) *QueryElectrocarOtamodulepageResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *QueryElectrocarOtamodulepageResponse) SetResultCode(v string) *QueryElectrocarOtamodulepageResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *QueryElectrocarOtamodulepageResponse) SetResultMsg(v string) *QueryElectrocarOtamodulepageResponse {
+	s.ResultMsg = &v
+	return s
+}
+
+func (s *QueryElectrocarOtamodulepageResponse) SetPageIndex(v int64) *QueryElectrocarOtamodulepageResponse {
+	s.PageIndex = &v
+	return s
+}
+
+func (s *QueryElectrocarOtamodulepageResponse) SetPageSize(v int64) *QueryElectrocarOtamodulepageResponse {
+	s.PageSize = &v
+	return s
+}
+
+func (s *QueryElectrocarOtamodulepageResponse) SetTotalSize(v int64) *QueryElectrocarOtamodulepageResponse {
+	s.TotalSize = &v
+	return s
+}
+
+func (s *QueryElectrocarOtamodulepageResponse) SetTotalPages(v int64) *QueryElectrocarOtamodulepageResponse {
+	s.TotalPages = &v
+	return s
+}
+
+func (s *QueryElectrocarOtamodulepageResponse) SetPageData(v []*OTAModuleResponse) *QueryElectrocarOtamodulepageResponse {
+	s.PageData = v
+	return s
+}
+
+func (s *QueryElectrocarOtamodulepageResponse) SetSuccess(v bool) *QueryElectrocarOtamodulepageResponse {
+	s.Success = &v
+	return s
+}
+
+func (s *QueryElectrocarOtamodulepageResponse) SetCode(v string) *QueryElectrocarOtamodulepageResponse {
+	s.Code = &v
+	return s
+}
+
+func (s *QueryElectrocarOtamodulepageResponse) SetMessage(v string) *QueryElectrocarOtamodulepageResponse {
+	s.Message = &v
+	return s
+}
+
+type QueryElectrocarOtafirmwarepageRequest struct {
+	// OAuth模式下的授权token
+	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
+	// 当前页码
+	Current *int64 `json:"current,omitempty" xml:"current,omitempty" require:"true"`
+	// 每页显示条数
+	PageSize *int64 `json:"page_size,omitempty" xml:"page_size,omitempty" require:"true"`
+	// 可信物联唯一产品标识
+	TrustProductKey *string `json:"trust_product_key,omitempty" xml:"trust_product_key,omitempty" require:"true"`
+	// OTA升级包版本号
+	DestVersion *string `json:"dest_version,omitempty" xml:"dest_version,omitempty"`
+	// 模块名称
+	ModuleName *string `json:"module_name,omitempty" xml:"module_name,omitempty"`
+	// 发布状态：0-未发布，1-已发布；为空时查询全部。
+	PublishStatus *int64 `json:"publish_status,omitempty" xml:"publish_status,omitempty"`
+}
+
+func (s QueryElectrocarOtafirmwarepageRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s QueryElectrocarOtafirmwarepageRequest) GoString() string {
+	return s.String()
+}
+
+func (s *QueryElectrocarOtafirmwarepageRequest) SetAuthToken(v string) *QueryElectrocarOtafirmwarepageRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *QueryElectrocarOtafirmwarepageRequest) SetProductInstanceId(v string) *QueryElectrocarOtafirmwarepageRequest {
+	s.ProductInstanceId = &v
+	return s
+}
+
+func (s *QueryElectrocarOtafirmwarepageRequest) SetCurrent(v int64) *QueryElectrocarOtafirmwarepageRequest {
+	s.Current = &v
+	return s
+}
+
+func (s *QueryElectrocarOtafirmwarepageRequest) SetPageSize(v int64) *QueryElectrocarOtafirmwarepageRequest {
+	s.PageSize = &v
+	return s
+}
+
+func (s *QueryElectrocarOtafirmwarepageRequest) SetTrustProductKey(v string) *QueryElectrocarOtafirmwarepageRequest {
+	s.TrustProductKey = &v
+	return s
+}
+
+func (s *QueryElectrocarOtafirmwarepageRequest) SetDestVersion(v string) *QueryElectrocarOtafirmwarepageRequest {
+	s.DestVersion = &v
+	return s
+}
+
+func (s *QueryElectrocarOtafirmwarepageRequest) SetModuleName(v string) *QueryElectrocarOtafirmwarepageRequest {
+	s.ModuleName = &v
+	return s
+}
+
+func (s *QueryElectrocarOtafirmwarepageRequest) SetPublishStatus(v int64) *QueryElectrocarOtafirmwarepageRequest {
+	s.PublishStatus = &v
+	return s
+}
+
+type QueryElectrocarOtafirmwarepageResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// 当前页码
+	PageIndex *int64 `json:"page_index,omitempty" xml:"page_index,omitempty"`
+	// 单页数量
+	PageSize *int64 `json:"page_size,omitempty" xml:"page_size,omitempty"`
+	// 记录总数
+	TotalSize *int64 `json:"total_size,omitempty" xml:"total_size,omitempty"`
+	// 页总数
+	TotalPages *int64 `json:"total_pages,omitempty" xml:"total_pages,omitempty"`
+	// 分页数据
+	PageData []*IotxOTAFirmwareResponse `json:"page_data,omitempty" xml:"page_data,omitempty" type:"Repeated"`
+	// 是否操作成功
+	Success *bool `json:"success,omitempty" xml:"success,omitempty"`
+	// 响应编码
+	Code *bool `json:"code,omitempty" xml:"code,omitempty"`
+	// 响应内容
+	Message *string `json:"message,omitempty" xml:"message,omitempty"`
+}
+
+func (s QueryElectrocarOtafirmwarepageResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s QueryElectrocarOtafirmwarepageResponse) GoString() string {
+	return s.String()
+}
+
+func (s *QueryElectrocarOtafirmwarepageResponse) SetReqMsgId(v string) *QueryElectrocarOtafirmwarepageResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *QueryElectrocarOtafirmwarepageResponse) SetResultCode(v string) *QueryElectrocarOtafirmwarepageResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *QueryElectrocarOtafirmwarepageResponse) SetResultMsg(v string) *QueryElectrocarOtafirmwarepageResponse {
+	s.ResultMsg = &v
+	return s
+}
+
+func (s *QueryElectrocarOtafirmwarepageResponse) SetPageIndex(v int64) *QueryElectrocarOtafirmwarepageResponse {
+	s.PageIndex = &v
+	return s
+}
+
+func (s *QueryElectrocarOtafirmwarepageResponse) SetPageSize(v int64) *QueryElectrocarOtafirmwarepageResponse {
+	s.PageSize = &v
+	return s
+}
+
+func (s *QueryElectrocarOtafirmwarepageResponse) SetTotalSize(v int64) *QueryElectrocarOtafirmwarepageResponse {
+	s.TotalSize = &v
+	return s
+}
+
+func (s *QueryElectrocarOtafirmwarepageResponse) SetTotalPages(v int64) *QueryElectrocarOtafirmwarepageResponse {
+	s.TotalPages = &v
+	return s
+}
+
+func (s *QueryElectrocarOtafirmwarepageResponse) SetPageData(v []*IotxOTAFirmwareResponse) *QueryElectrocarOtafirmwarepageResponse {
+	s.PageData = v
+	return s
+}
+
+func (s *QueryElectrocarOtafirmwarepageResponse) SetSuccess(v bool) *QueryElectrocarOtafirmwarepageResponse {
+	s.Success = &v
+	return s
+}
+
+func (s *QueryElectrocarOtafirmwarepageResponse) SetCode(v bool) *QueryElectrocarOtafirmwarepageResponse {
+	s.Code = &v
+	return s
+}
+
+func (s *QueryElectrocarOtafirmwarepageResponse) SetMessage(v string) *QueryElectrocarOtafirmwarepageResponse {
+	s.Message = &v
+	return s
+}
+
+type QueryElectrocarOtafirmwaredetailRequest struct {
+	// OAuth模式下的授权token
+	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
+	// 固件包id
+	FirmwareId *string `json:"firmware_id,omitempty" xml:"firmware_id,omitempty" require:"true"`
+	// 可信物联唯一产品标识
+	TrustProductKey *string `json:"trust_product_key,omitempty" xml:"trust_product_key,omitempty" require:"true"`
+}
+
+func (s QueryElectrocarOtafirmwaredetailRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s QueryElectrocarOtafirmwaredetailRequest) GoString() string {
+	return s.String()
+}
+
+func (s *QueryElectrocarOtafirmwaredetailRequest) SetAuthToken(v string) *QueryElectrocarOtafirmwaredetailRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *QueryElectrocarOtafirmwaredetailRequest) SetProductInstanceId(v string) *QueryElectrocarOtafirmwaredetailRequest {
+	s.ProductInstanceId = &v
+	return s
+}
+
+func (s *QueryElectrocarOtafirmwaredetailRequest) SetFirmwareId(v string) *QueryElectrocarOtafirmwaredetailRequest {
+	s.FirmwareId = &v
+	return s
+}
+
+func (s *QueryElectrocarOtafirmwaredetailRequest) SetTrustProductKey(v string) *QueryElectrocarOtafirmwaredetailRequest {
+	s.TrustProductKey = &v
+	return s
+}
+
+type QueryElectrocarOtafirmwaredetailResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// 是否请求成功
+	Success *bool `json:"success,omitempty" xml:"success,omitempty"`
+	// 固件包详情
+	FirmwareDetail *IotxOTAFirmwareResponse `json:"firmware_detail,omitempty" xml:"firmware_detail,omitempty"`
+	// 响应编码
+	Code *string `json:"code,omitempty" xml:"code,omitempty"`
+	// 响应内容
+	Message *string `json:"message,omitempty" xml:"message,omitempty"`
+}
+
+func (s QueryElectrocarOtafirmwaredetailResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s QueryElectrocarOtafirmwaredetailResponse) GoString() string {
+	return s.String()
+}
+
+func (s *QueryElectrocarOtafirmwaredetailResponse) SetReqMsgId(v string) *QueryElectrocarOtafirmwaredetailResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *QueryElectrocarOtafirmwaredetailResponse) SetResultCode(v string) *QueryElectrocarOtafirmwaredetailResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *QueryElectrocarOtafirmwaredetailResponse) SetResultMsg(v string) *QueryElectrocarOtafirmwaredetailResponse {
+	s.ResultMsg = &v
+	return s
+}
+
+func (s *QueryElectrocarOtafirmwaredetailResponse) SetSuccess(v bool) *QueryElectrocarOtafirmwaredetailResponse {
+	s.Success = &v
+	return s
+}
+
+func (s *QueryElectrocarOtafirmwaredetailResponse) SetFirmwareDetail(v *IotxOTAFirmwareResponse) *QueryElectrocarOtafirmwaredetailResponse {
+	s.FirmwareDetail = v
+	return s
+}
+
+func (s *QueryElectrocarOtafirmwaredetailResponse) SetCode(v string) *QueryElectrocarOtafirmwaredetailResponse {
+	s.Code = &v
+	return s
+}
+
+func (s *QueryElectrocarOtafirmwaredetailResponse) SetMessage(v string) *QueryElectrocarOtafirmwaredetailResponse {
+	s.Message = &v
+	return s
+}
+
+type QueryElectrocarOtajobpageRequest struct {
+	// OAuth模式下的授权token
+	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
+	// 当前页码
+	Current *int64 `json:"current,omitempty" xml:"current,omitempty" require:"true"`
+	// 每页显示条数
+	PageSize *int64 `json:"page_size,omitempty" xml:"page_size,omitempty" require:"true"`
+	// 可信物联唯一产品标识
+	TrustProductKey *string `json:"trust_product_key,omitempty" xml:"trust_product_key,omitempty" require:"true"`
+	// OTA固件包id不能为空
+	FirmwareId *string `json:"firmware_id,omitempty" xml:"firmware_id,omitempty" require:"true"`
+}
+
+func (s QueryElectrocarOtajobpageRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s QueryElectrocarOtajobpageRequest) GoString() string {
+	return s.String()
+}
+
+func (s *QueryElectrocarOtajobpageRequest) SetAuthToken(v string) *QueryElectrocarOtajobpageRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *QueryElectrocarOtajobpageRequest) SetProductInstanceId(v string) *QueryElectrocarOtajobpageRequest {
+	s.ProductInstanceId = &v
+	return s
+}
+
+func (s *QueryElectrocarOtajobpageRequest) SetCurrent(v int64) *QueryElectrocarOtajobpageRequest {
+	s.Current = &v
+	return s
+}
+
+func (s *QueryElectrocarOtajobpageRequest) SetPageSize(v int64) *QueryElectrocarOtajobpageRequest {
+	s.PageSize = &v
+	return s
+}
+
+func (s *QueryElectrocarOtajobpageRequest) SetTrustProductKey(v string) *QueryElectrocarOtajobpageRequest {
+	s.TrustProductKey = &v
+	return s
+}
+
+func (s *QueryElectrocarOtajobpageRequest) SetFirmwareId(v string) *QueryElectrocarOtajobpageRequest {
+	s.FirmwareId = &v
+	return s
+}
+
+type QueryElectrocarOtajobpageResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// 是否请求成功
+	Success *bool `json:"success,omitempty" xml:"success,omitempty"`
+	// 响应编码
+	Code *string `json:"code,omitempty" xml:"code,omitempty"`
+	// 响应内容
+	Message *string `json:"message,omitempty" xml:"message,omitempty"`
+	// 当前页码
+	PageIndex *int64 `json:"page_index,omitempty" xml:"page_index,omitempty"`
+	// 单页数量
+	PageSize *int64 `json:"page_size,omitempty" xml:"page_size,omitempty"`
+	// 记录总数
+	TotalSize *int64 `json:"total_size,omitempty" xml:"total_size,omitempty"`
+	// 页总数
+	TotalPages *int64 `json:"total_pages,omitempty" xml:"total_pages,omitempty"`
+	// 分页数据
+	PageData []*IotxOTAJobResponse `json:"page_data,omitempty" xml:"page_data,omitempty" type:"Repeated"`
+}
+
+func (s QueryElectrocarOtajobpageResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s QueryElectrocarOtajobpageResponse) GoString() string {
+	return s.String()
+}
+
+func (s *QueryElectrocarOtajobpageResponse) SetReqMsgId(v string) *QueryElectrocarOtajobpageResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *QueryElectrocarOtajobpageResponse) SetResultCode(v string) *QueryElectrocarOtajobpageResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *QueryElectrocarOtajobpageResponse) SetResultMsg(v string) *QueryElectrocarOtajobpageResponse {
+	s.ResultMsg = &v
+	return s
+}
+
+func (s *QueryElectrocarOtajobpageResponse) SetSuccess(v bool) *QueryElectrocarOtajobpageResponse {
+	s.Success = &v
+	return s
+}
+
+func (s *QueryElectrocarOtajobpageResponse) SetCode(v string) *QueryElectrocarOtajobpageResponse {
+	s.Code = &v
+	return s
+}
+
+func (s *QueryElectrocarOtajobpageResponse) SetMessage(v string) *QueryElectrocarOtajobpageResponse {
+	s.Message = &v
+	return s
+}
+
+func (s *QueryElectrocarOtajobpageResponse) SetPageIndex(v int64) *QueryElectrocarOtajobpageResponse {
+	s.PageIndex = &v
+	return s
+}
+
+func (s *QueryElectrocarOtajobpageResponse) SetPageSize(v int64) *QueryElectrocarOtajobpageResponse {
+	s.PageSize = &v
+	return s
+}
+
+func (s *QueryElectrocarOtajobpageResponse) SetTotalSize(v int64) *QueryElectrocarOtajobpageResponse {
+	s.TotalSize = &v
+	return s
+}
+
+func (s *QueryElectrocarOtajobpageResponse) SetTotalPages(v int64) *QueryElectrocarOtajobpageResponse {
+	s.TotalPages = &v
+	return s
+}
+
+func (s *QueryElectrocarOtajobpageResponse) SetPageData(v []*IotxOTAJobResponse) *QueryElectrocarOtajobpageResponse {
+	s.PageData = v
+	return s
+}
+
+type QueryElectrocarOtajobdetailRequest struct {
+	// OAuth模式下的授权token
+	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
+	// OTA任务ID
+	JobId *string `json:"job_id,omitempty" xml:"job_id,omitempty" require:"true"`
+}
+
+func (s QueryElectrocarOtajobdetailRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s QueryElectrocarOtajobdetailRequest) GoString() string {
+	return s.String()
+}
+
+func (s *QueryElectrocarOtajobdetailRequest) SetAuthToken(v string) *QueryElectrocarOtajobdetailRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *QueryElectrocarOtajobdetailRequest) SetProductInstanceId(v string) *QueryElectrocarOtajobdetailRequest {
+	s.ProductInstanceId = &v
+	return s
+}
+
+func (s *QueryElectrocarOtajobdetailRequest) SetJobId(v string) *QueryElectrocarOtajobdetailRequest {
+	s.JobId = &v
+	return s
+}
+
+type QueryElectrocarOtajobdetailResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// 是否操作成功
+	Success *bool `json:"success,omitempty" xml:"success,omitempty"`
+	// 响应编码
+	Code *string `json:"code,omitempty" xml:"code,omitempty"`
+	// 响应消息
+	Message *string `json:"message,omitempty" xml:"message,omitempty"`
+	// 详情数据
+	DetailData *IotxOTAJobResponse `json:"detail_data,omitempty" xml:"detail_data,omitempty"`
+}
+
+func (s QueryElectrocarOtajobdetailResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s QueryElectrocarOtajobdetailResponse) GoString() string {
+	return s.String()
+}
+
+func (s *QueryElectrocarOtajobdetailResponse) SetReqMsgId(v string) *QueryElectrocarOtajobdetailResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *QueryElectrocarOtajobdetailResponse) SetResultCode(v string) *QueryElectrocarOtajobdetailResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *QueryElectrocarOtajobdetailResponse) SetResultMsg(v string) *QueryElectrocarOtajobdetailResponse {
+	s.ResultMsg = &v
+	return s
+}
+
+func (s *QueryElectrocarOtajobdetailResponse) SetSuccess(v bool) *QueryElectrocarOtajobdetailResponse {
+	s.Success = &v
+	return s
+}
+
+func (s *QueryElectrocarOtajobdetailResponse) SetCode(v string) *QueryElectrocarOtajobdetailResponse {
+	s.Code = &v
+	return s
+}
+
+func (s *QueryElectrocarOtajobdetailResponse) SetMessage(v string) *QueryElectrocarOtajobdetailResponse {
+	s.Message = &v
+	return s
+}
+
+func (s *QueryElectrocarOtajobdetailResponse) SetDetailData(v *IotxOTAJobResponse) *QueryElectrocarOtajobdetailResponse {
+	s.DetailData = v
+	return s
+}
+
+type QueryElectrocarOtataskpageRequest struct {
+	// OAuth模式下的授权token
+	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
+	// 当前页码
+	Current *int64 `json:"current,omitempty" xml:"current,omitempty" require:"true"`
+	// 每页显示条数
+	PageSize *int64 `json:"page_size,omitempty" xml:"page_size,omitempty" require:"true"`
+	// 可信物联产品唯一标识
+	TrustProductKey *string `json:"trust_product_key,omitempty" xml:"trust_product_key,omitempty" require:"true"`
+	// OTA任务id
+	JobId *string `json:"job_id,omitempty" xml:"job_id,omitempty" require:"true"`
+	// OTA固件id
+	FirmwareId *string `json:"firmware_id,omitempty" xml:"firmware_id,omitempty" require:"true"`
+	// 任务状态：CONFIRM, QUEUED, NOTIFIED, IN_PROGRESS, SUCCEEDED, FAILED, CANCELED
+	TaskStatus *string `json:"task_status,omitempty" xml:"task_status,omitempty"`
+	// 设备名称列表
+	DeviceNames []*string `json:"device_names,omitempty" xml:"device_names,omitempty" type:"Repeated"`
+}
+
+func (s QueryElectrocarOtataskpageRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s QueryElectrocarOtataskpageRequest) GoString() string {
+	return s.String()
+}
+
+func (s *QueryElectrocarOtataskpageRequest) SetAuthToken(v string) *QueryElectrocarOtataskpageRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *QueryElectrocarOtataskpageRequest) SetProductInstanceId(v string) *QueryElectrocarOtataskpageRequest {
+	s.ProductInstanceId = &v
+	return s
+}
+
+func (s *QueryElectrocarOtataskpageRequest) SetCurrent(v int64) *QueryElectrocarOtataskpageRequest {
+	s.Current = &v
+	return s
+}
+
+func (s *QueryElectrocarOtataskpageRequest) SetPageSize(v int64) *QueryElectrocarOtataskpageRequest {
+	s.PageSize = &v
+	return s
+}
+
+func (s *QueryElectrocarOtataskpageRequest) SetTrustProductKey(v string) *QueryElectrocarOtataskpageRequest {
+	s.TrustProductKey = &v
+	return s
+}
+
+func (s *QueryElectrocarOtataskpageRequest) SetJobId(v string) *QueryElectrocarOtataskpageRequest {
+	s.JobId = &v
+	return s
+}
+
+func (s *QueryElectrocarOtataskpageRequest) SetFirmwareId(v string) *QueryElectrocarOtataskpageRequest {
+	s.FirmwareId = &v
+	return s
+}
+
+func (s *QueryElectrocarOtataskpageRequest) SetTaskStatus(v string) *QueryElectrocarOtataskpageRequest {
+	s.TaskStatus = &v
+	return s
+}
+
+func (s *QueryElectrocarOtataskpageRequest) SetDeviceNames(v []*string) *QueryElectrocarOtataskpageRequest {
+	s.DeviceNames = v
+	return s
+}
+
+type QueryElectrocarOtataskpageResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// 是否请求成功
+	Success *bool `json:"success,omitempty" xml:"success,omitempty"`
+	// 响应编码
+	Code *string `json:"code,omitempty" xml:"code,omitempty"`
+	// 响应消息
+	Message *string `json:"message,omitempty" xml:"message,omitempty"`
+	// 当前页码
+	PageIndex *int64 `json:"page_index,omitempty" xml:"page_index,omitempty"`
+	// 单页数量
+	PageSize *int64 `json:"page_size,omitempty" xml:"page_size,omitempty"`
+	// 记录总数
+	TotalSize *int64 `json:"total_size,omitempty" xml:"total_size,omitempty"`
+	// 页总数
+	TotalPages *int64 `json:"total_pages,omitempty" xml:"total_pages,omitempty"`
+	// 分页数据
+	PageData []*IotxOTATaskResponse `json:"page_data,omitempty" xml:"page_data,omitempty" type:"Repeated"`
+}
+
+func (s QueryElectrocarOtataskpageResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s QueryElectrocarOtataskpageResponse) GoString() string {
+	return s.String()
+}
+
+func (s *QueryElectrocarOtataskpageResponse) SetReqMsgId(v string) *QueryElectrocarOtataskpageResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *QueryElectrocarOtataskpageResponse) SetResultCode(v string) *QueryElectrocarOtataskpageResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *QueryElectrocarOtataskpageResponse) SetResultMsg(v string) *QueryElectrocarOtataskpageResponse {
+	s.ResultMsg = &v
+	return s
+}
+
+func (s *QueryElectrocarOtataskpageResponse) SetSuccess(v bool) *QueryElectrocarOtataskpageResponse {
+	s.Success = &v
+	return s
+}
+
+func (s *QueryElectrocarOtataskpageResponse) SetCode(v string) *QueryElectrocarOtataskpageResponse {
+	s.Code = &v
+	return s
+}
+
+func (s *QueryElectrocarOtataskpageResponse) SetMessage(v string) *QueryElectrocarOtataskpageResponse {
+	s.Message = &v
+	return s
+}
+
+func (s *QueryElectrocarOtataskpageResponse) SetPageIndex(v int64) *QueryElectrocarOtataskpageResponse {
+	s.PageIndex = &v
+	return s
+}
+
+func (s *QueryElectrocarOtataskpageResponse) SetPageSize(v int64) *QueryElectrocarOtataskpageResponse {
+	s.PageSize = &v
+	return s
+}
+
+func (s *QueryElectrocarOtataskpageResponse) SetTotalSize(v int64) *QueryElectrocarOtataskpageResponse {
+	s.TotalSize = &v
+	return s
+}
+
+func (s *QueryElectrocarOtataskpageResponse) SetTotalPages(v int64) *QueryElectrocarOtataskpageResponse {
+	s.TotalPages = &v
+	return s
+}
+
+func (s *QueryElectrocarOtataskpageResponse) SetPageData(v []*IotxOTATaskResponse) *QueryElectrocarOtataskpageResponse {
+	s.PageData = v
+	return s
+}
+
+type QueryElectrocarDevicepageRequest struct {
+	// OAuth模式下的授权token
+	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
+	// 当前页码
+	Current *int64 `json:"current,omitempty" xml:"current,omitempty" require:"true"`
+	// 每页显示条数
+	PageSize *int64 `json:"page_size,omitempty" xml:"page_size,omitempty" require:"true"`
+	// 可信物联产品唯一标识
+	TrustProductKey *string `json:"trust_product_key,omitempty" xml:"trust_product_key,omitempty" require:"true"`
+	// 设备名称/设备备注名称/可信物联唯一设备标识
+	DeviceQueryStr *string `json:"device_query_str,omitempty" xml:"device_query_str,omitempty"`
+	// 设备状态过滤: ONLINE/OFFLINE/UNACTIVE
+	DeviceStatus *string `json:"device_status,omitempty" xml:"device_status,omitempty"`
+	// OTA模块名称
+	ModuleName *string `json:"module_name,omitempty" xml:"module_name,omitempty"`
+	// OTA模块版本号（可选，配合moduleName使用）
+	VersionNo *string `json:"version_no,omitempty" xml:"version_no,omitempty"`
+}
+
+func (s QueryElectrocarDevicepageRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s QueryElectrocarDevicepageRequest) GoString() string {
+	return s.String()
+}
+
+func (s *QueryElectrocarDevicepageRequest) SetAuthToken(v string) *QueryElectrocarDevicepageRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *QueryElectrocarDevicepageRequest) SetProductInstanceId(v string) *QueryElectrocarDevicepageRequest {
+	s.ProductInstanceId = &v
+	return s
+}
+
+func (s *QueryElectrocarDevicepageRequest) SetCurrent(v int64) *QueryElectrocarDevicepageRequest {
+	s.Current = &v
+	return s
+}
+
+func (s *QueryElectrocarDevicepageRequest) SetPageSize(v int64) *QueryElectrocarDevicepageRequest {
+	s.PageSize = &v
+	return s
+}
+
+func (s *QueryElectrocarDevicepageRequest) SetTrustProductKey(v string) *QueryElectrocarDevicepageRequest {
+	s.TrustProductKey = &v
+	return s
+}
+
+func (s *QueryElectrocarDevicepageRequest) SetDeviceQueryStr(v string) *QueryElectrocarDevicepageRequest {
+	s.DeviceQueryStr = &v
+	return s
+}
+
+func (s *QueryElectrocarDevicepageRequest) SetDeviceStatus(v string) *QueryElectrocarDevicepageRequest {
+	s.DeviceStatus = &v
+	return s
+}
+
+func (s *QueryElectrocarDevicepageRequest) SetModuleName(v string) *QueryElectrocarDevicepageRequest {
+	s.ModuleName = &v
+	return s
+}
+
+func (s *QueryElectrocarDevicepageRequest) SetVersionNo(v string) *QueryElectrocarDevicepageRequest {
+	s.VersionNo = &v
+	return s
+}
+
+type QueryElectrocarDevicepageResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// 是否请求成功
+	Success *bool `json:"success,omitempty" xml:"success,omitempty"`
+	// 响应编码
+	Code *string `json:"code,omitempty" xml:"code,omitempty"`
+	// 响应内容
+	Message *string `json:"message,omitempty" xml:"message,omitempty"`
+	// 当前页码
+	PageIndex *int64 `json:"page_index,omitempty" xml:"page_index,omitempty"`
+	// 单页数量
+	PageSize *int64 `json:"page_size,omitempty" xml:"page_size,omitempty"`
+	// 记录总数
+	TotalSize *int64 `json:"total_size,omitempty" xml:"total_size,omitempty"`
+	// 页总数
+	TotalPages *int64 `json:"total_pages,omitempty" xml:"total_pages,omitempty"`
+	// 分页数据
+	PageData []*IotxDeviceResponse `json:"page_data,omitempty" xml:"page_data,omitempty" type:"Repeated"`
+}
+
+func (s QueryElectrocarDevicepageResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s QueryElectrocarDevicepageResponse) GoString() string {
+	return s.String()
+}
+
+func (s *QueryElectrocarDevicepageResponse) SetReqMsgId(v string) *QueryElectrocarDevicepageResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *QueryElectrocarDevicepageResponse) SetResultCode(v string) *QueryElectrocarDevicepageResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *QueryElectrocarDevicepageResponse) SetResultMsg(v string) *QueryElectrocarDevicepageResponse {
+	s.ResultMsg = &v
+	return s
+}
+
+func (s *QueryElectrocarDevicepageResponse) SetSuccess(v bool) *QueryElectrocarDevicepageResponse {
+	s.Success = &v
+	return s
+}
+
+func (s *QueryElectrocarDevicepageResponse) SetCode(v string) *QueryElectrocarDevicepageResponse {
+	s.Code = &v
+	return s
+}
+
+func (s *QueryElectrocarDevicepageResponse) SetMessage(v string) *QueryElectrocarDevicepageResponse {
+	s.Message = &v
+	return s
+}
+
+func (s *QueryElectrocarDevicepageResponse) SetPageIndex(v int64) *QueryElectrocarDevicepageResponse {
+	s.PageIndex = &v
+	return s
+}
+
+func (s *QueryElectrocarDevicepageResponse) SetPageSize(v int64) *QueryElectrocarDevicepageResponse {
+	s.PageSize = &v
+	return s
+}
+
+func (s *QueryElectrocarDevicepageResponse) SetTotalSize(v int64) *QueryElectrocarDevicepageResponse {
+	s.TotalSize = &v
+	return s
+}
+
+func (s *QueryElectrocarDevicepageResponse) SetTotalPages(v int64) *QueryElectrocarDevicepageResponse {
+	s.TotalPages = &v
+	return s
+}
+
+func (s *QueryElectrocarDevicepageResponse) SetPageData(v []*IotxDeviceResponse) *QueryElectrocarDevicepageResponse {
+	s.PageData = v
+	return s
+}
+
+type PushElectrocarOtajobbymoduleRequest struct {
+	// OAuth模式下的授权token
+	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
+	// 任务类型：默认STATIC_UPGRADE
+	JobType *string `json:"job_type,omitempty" xml:"job_type,omitempty" require:"true"`
+	// 可信物联产品唯一标识
+	TrustProductKey *string `json:"trust_product_key,omitempty" xml:"trust_product_key,omitempty" require:"true"`
+	// OTA固件包ID
+	FirmwareId *string `json:"firmware_id,omitempty" xml:"firmware_id,omitempty" require:"true"`
+	// 升级范围：默认SPECIFIC，不支持其他
+	TargetSelection *string `json:"target_selection,omitempty" xml:"target_selection,omitempty" require:"true"`
+	// 升级失败后自动重试间隔：0：立即重试、10：10分钟后重试、30：30分钟后重试、60：60分钟（即1小时）后重试、1440：1,440分钟（即24小时）后重试。不传入此参数，则表示不重试。
+	RetryInterval *int64 `json:"retry_interval,omitempty" xml:"retry_interval,omitempty"`
+	// 自动重试次数：1：1次、2：2次、5：5次。如果传入RetryInterval参数，则需传入该参数。
+	RetryCount *int64 `json:"retry_count,omitempty" xml:"retry_count,omitempty"`
+	// 升级超时时间
+	TimeoutInMinutes *int64 `json:"timeout_in_minutes,omitempty" xml:"timeout_in_minutes,omitempty"`
+	// 是否需要 APP 确认升级：TUYA_4G 通道：true 表示批次创建后等待 APP/端侧确认，再触发 Hub 下发；false 表示不需要 APP 确认。若 upgradeMode=SILENT，该字段固定为 false，调用方无需传入。BLE 通道：服务端默认按 APP 确认拉取升级材料处理。
+	NeedConfirm *bool `json:"need_confirm,omitempty" xml:"need_confirm,omitempty"`
+	// 升级文案
+	UpgradeCopy *string `json:"upgrade_copy,omitempty" xml:"upgrade_copy,omitempty"`
+	// 本次批次实际执行通道：TUYA_4G：涂鸦 4G/MQTT 通道；EKYT_BLE：数字钥匙 BLE 通道；IOT_AGENT_BLE：AI 硬件 BLE 通道；
+	Channel *string `json:"channel,omitempty" xml:"channel,omitempty" require:"true"`
+	// 同设备同模块任务覆盖策略：OVERRIDE：覆盖旧任务创建新任务前取消同设备同模块可取消的旧任务；REJECT：存在可取消旧任务时拒绝创建；COEXIST：允许并存的预留策略，本期同模块 APP 确认型升级不推荐使用。不传时默认 OVERRIDE。
+	OverrideMode *string `json:"override_mode,omitempty" xml:"override_mode,omitempty"`
+	// 多模块并发策略：ALLOW：允许同一设备多个模块同时存在未完成升级任务；DENY：同一设备已有其他模块未完成升级任务时拒绝创建。不传时默认 ALLOW。
+	MultiModuleMode *string `json:"multi_module_mode,omitempty" xml:"multi_module_mode,omitempty"`
+	// 批次升级方式：CHECK：检测升级，只在用户主动检查升级入口展示；REMIND：提醒升级，进入待确认列表并可提示用户升级；FORCE：强制升级，APP 侧应展示强提示或不可跳过交互；SILENT：静默升级，仅后台 4G 通道可用，不进入 APP 待确认列表。
+	UpgradeMode *string `json:"upgrade_mode,omitempty" xml:"upgrade_mode,omitempty"`
+	// 4G Hub 是否主动推送。TUYA_4G 通道：true 表示批次创建后由 Hub 主动向设备推送；false 表示不主动推送，通常需要配合 needConfirm=true 由 APP 确认后触发。若 upgradeMode=SILENT，该字段固定为 true，调用方无需传入。BLE 通道：不支持服务端主动推送；传 true 会被拒绝。
+	NeedPush *bool `json:"need_push,omitempty" xml:"need_push,omitempty"`
+	// 用于筛选目标设备的模块名称；
+	ModuleName *string `json:"module_name,omitempty" xml:"module_name,omitempty" require:"true"`
+	// 用于筛选目标设备的模块版本；不传时仅按模块名称筛选。
+	VersionNo *string `json:"version_no,omitempty" xml:"version_no,omitempty"`
+	// 用于筛选源设备版本的结构化谓词，支持 ANY、EXACT 和 RANGE。
+	VersionPredicate *ContinuousOtaVersionPredicate `json:"version_predicate,omitempty" xml:"version_predicate,omitempty" require:"true"`
+	// 自动创建的连续推送规则生效范围：ALL_DEVICES 或 WHITELIST。
+	DeviceScopeType *string `json:"device_scope_type,omitempty" xml:"device_scope_type,omitempty" require:"true"`
+	// 规则命中后的延迟执行时间，单位秒，范围 0～600。
+	DelayInSeconds *int64 `json:"delay_in_seconds,omitempty" xml:"delay_in_seconds,omitempty" require:"true"`
+}
+
+func (s PushElectrocarOtajobbymoduleRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s PushElectrocarOtajobbymoduleRequest) GoString() string {
+	return s.String()
+}
+
+func (s *PushElectrocarOtajobbymoduleRequest) SetAuthToken(v string) *PushElectrocarOtajobbymoduleRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *PushElectrocarOtajobbymoduleRequest) SetProductInstanceId(v string) *PushElectrocarOtajobbymoduleRequest {
+	s.ProductInstanceId = &v
+	return s
+}
+
+func (s *PushElectrocarOtajobbymoduleRequest) SetJobType(v string) *PushElectrocarOtajobbymoduleRequest {
+	s.JobType = &v
+	return s
+}
+
+func (s *PushElectrocarOtajobbymoduleRequest) SetTrustProductKey(v string) *PushElectrocarOtajobbymoduleRequest {
+	s.TrustProductKey = &v
+	return s
+}
+
+func (s *PushElectrocarOtajobbymoduleRequest) SetFirmwareId(v string) *PushElectrocarOtajobbymoduleRequest {
+	s.FirmwareId = &v
+	return s
+}
+
+func (s *PushElectrocarOtajobbymoduleRequest) SetTargetSelection(v string) *PushElectrocarOtajobbymoduleRequest {
+	s.TargetSelection = &v
+	return s
+}
+
+func (s *PushElectrocarOtajobbymoduleRequest) SetRetryInterval(v int64) *PushElectrocarOtajobbymoduleRequest {
+	s.RetryInterval = &v
+	return s
+}
+
+func (s *PushElectrocarOtajobbymoduleRequest) SetRetryCount(v int64) *PushElectrocarOtajobbymoduleRequest {
+	s.RetryCount = &v
+	return s
+}
+
+func (s *PushElectrocarOtajobbymoduleRequest) SetTimeoutInMinutes(v int64) *PushElectrocarOtajobbymoduleRequest {
+	s.TimeoutInMinutes = &v
+	return s
+}
+
+func (s *PushElectrocarOtajobbymoduleRequest) SetNeedConfirm(v bool) *PushElectrocarOtajobbymoduleRequest {
+	s.NeedConfirm = &v
+	return s
+}
+
+func (s *PushElectrocarOtajobbymoduleRequest) SetUpgradeCopy(v string) *PushElectrocarOtajobbymoduleRequest {
+	s.UpgradeCopy = &v
+	return s
+}
+
+func (s *PushElectrocarOtajobbymoduleRequest) SetChannel(v string) *PushElectrocarOtajobbymoduleRequest {
+	s.Channel = &v
+	return s
+}
+
+func (s *PushElectrocarOtajobbymoduleRequest) SetOverrideMode(v string) *PushElectrocarOtajobbymoduleRequest {
+	s.OverrideMode = &v
+	return s
+}
+
+func (s *PushElectrocarOtajobbymoduleRequest) SetMultiModuleMode(v string) *PushElectrocarOtajobbymoduleRequest {
+	s.MultiModuleMode = &v
+	return s
+}
+
+func (s *PushElectrocarOtajobbymoduleRequest) SetUpgradeMode(v string) *PushElectrocarOtajobbymoduleRequest {
+	s.UpgradeMode = &v
+	return s
+}
+
+func (s *PushElectrocarOtajobbymoduleRequest) SetNeedPush(v bool) *PushElectrocarOtajobbymoduleRequest {
+	s.NeedPush = &v
+	return s
+}
+
+func (s *PushElectrocarOtajobbymoduleRequest) SetModuleName(v string) *PushElectrocarOtajobbymoduleRequest {
+	s.ModuleName = &v
+	return s
+}
+
+func (s *PushElectrocarOtajobbymoduleRequest) SetVersionNo(v string) *PushElectrocarOtajobbymoduleRequest {
+	s.VersionNo = &v
+	return s
+}
+
+func (s *PushElectrocarOtajobbymoduleRequest) SetVersionPredicate(v *ContinuousOtaVersionPredicate) *PushElectrocarOtajobbymoduleRequest {
+	s.VersionPredicate = v
+	return s
+}
+
+func (s *PushElectrocarOtajobbymoduleRequest) SetDeviceScopeType(v string) *PushElectrocarOtajobbymoduleRequest {
+	s.DeviceScopeType = &v
+	return s
+}
+
+func (s *PushElectrocarOtajobbymoduleRequest) SetDelayInSeconds(v int64) *PushElectrocarOtajobbymoduleRequest {
+	s.DelayInSeconds = &v
+	return s
+}
+
+type PushElectrocarOtajobbymoduleResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// 是否请求成功
+	Success *bool `json:"success,omitempty" xml:"success,omitempty"`
+	// 响应编码
+	Code *bool `json:"code,omitempty" xml:"code,omitempty"`
+	// 响应消息
+	Message *string `json:"message,omitempty" xml:"message,omitempty"`
+	// 去重后的目标设备总数
+	TotalDeviceCount *int64 `json:"total_device_count,omitempty" xml:"total_device_count,omitempty"`
+	// 实际创建的OTA批次数量
+	BatchCount *int64 `json:"batch_count,omitempty" xml:"batch_count,omitempty"`
+	// 创建成功的OTA任务ID列表
+	JobIds []*string `json:"job_ids,omitempty" xml:"job_ids,omitempty" type:"Repeated"`
+}
+
+func (s PushElectrocarOtajobbymoduleResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s PushElectrocarOtajobbymoduleResponse) GoString() string {
+	return s.String()
+}
+
+func (s *PushElectrocarOtajobbymoduleResponse) SetReqMsgId(v string) *PushElectrocarOtajobbymoduleResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *PushElectrocarOtajobbymoduleResponse) SetResultCode(v string) *PushElectrocarOtajobbymoduleResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *PushElectrocarOtajobbymoduleResponse) SetResultMsg(v string) *PushElectrocarOtajobbymoduleResponse {
+	s.ResultMsg = &v
+	return s
+}
+
+func (s *PushElectrocarOtajobbymoduleResponse) SetSuccess(v bool) *PushElectrocarOtajobbymoduleResponse {
+	s.Success = &v
+	return s
+}
+
+func (s *PushElectrocarOtajobbymoduleResponse) SetCode(v bool) *PushElectrocarOtajobbymoduleResponse {
+	s.Code = &v
+	return s
+}
+
+func (s *PushElectrocarOtajobbymoduleResponse) SetMessage(v string) *PushElectrocarOtajobbymoduleResponse {
+	s.Message = &v
+	return s
+}
+
+func (s *PushElectrocarOtajobbymoduleResponse) SetTotalDeviceCount(v int64) *PushElectrocarOtajobbymoduleResponse {
+	s.TotalDeviceCount = &v
+	return s
+}
+
+func (s *PushElectrocarOtajobbymoduleResponse) SetBatchCount(v int64) *PushElectrocarOtajobbymoduleResponse {
+	s.BatchCount = &v
+	return s
+}
+
+func (s *PushElectrocarOtajobbymoduleResponse) SetJobIds(v []*string) *PushElectrocarOtajobbymoduleResponse {
+	s.JobIds = v
+	return s
+}
+
+type QueryElectrocarModuleversiontreeRequest struct {
+	// OAuth模式下的授权token
+	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
+	// 可信物联唯一产品标识
+	TrustProductKey *string `json:"trust_product_key,omitempty" xml:"trust_product_key,omitempty" require:"true"`
+}
+
+func (s QueryElectrocarModuleversiontreeRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s QueryElectrocarModuleversiontreeRequest) GoString() string {
+	return s.String()
+}
+
+func (s *QueryElectrocarModuleversiontreeRequest) SetAuthToken(v string) *QueryElectrocarModuleversiontreeRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *QueryElectrocarModuleversiontreeRequest) SetProductInstanceId(v string) *QueryElectrocarModuleversiontreeRequest {
+	s.ProductInstanceId = &v
+	return s
+}
+
+func (s *QueryElectrocarModuleversiontreeRequest) SetTrustProductKey(v string) *QueryElectrocarModuleversiontreeRequest {
+	s.TrustProductKey = &v
+	return s
+}
+
+type QueryElectrocarModuleversiontreeResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// 是否请求成功
+	Success *string `json:"success,omitempty" xml:"success,omitempty"`
+	// 响应编码
+	Code *string `json:"code,omitempty" xml:"code,omitempty"`
+	// 响应内容
+	Message *string `json:"message,omitempty" xml:"message,omitempty"`
+	// 列表数据
+	Data []*ModuleVersionTreeNode `json:"data,omitempty" xml:"data,omitempty" type:"Repeated"`
+}
+
+func (s QueryElectrocarModuleversiontreeResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s QueryElectrocarModuleversiontreeResponse) GoString() string {
+	return s.String()
+}
+
+func (s *QueryElectrocarModuleversiontreeResponse) SetReqMsgId(v string) *QueryElectrocarModuleversiontreeResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *QueryElectrocarModuleversiontreeResponse) SetResultCode(v string) *QueryElectrocarModuleversiontreeResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *QueryElectrocarModuleversiontreeResponse) SetResultMsg(v string) *QueryElectrocarModuleversiontreeResponse {
+	s.ResultMsg = &v
+	return s
+}
+
+func (s *QueryElectrocarModuleversiontreeResponse) SetSuccess(v string) *QueryElectrocarModuleversiontreeResponse {
+	s.Success = &v
+	return s
+}
+
+func (s *QueryElectrocarModuleversiontreeResponse) SetCode(v string) *QueryElectrocarModuleversiontreeResponse {
+	s.Code = &v
+	return s
+}
+
+func (s *QueryElectrocarModuleversiontreeResponse) SetMessage(v string) *QueryElectrocarModuleversiontreeResponse {
+	s.Message = &v
+	return s
+}
+
+func (s *QueryElectrocarModuleversiontreeResponse) SetData(v []*ModuleVersionTreeNode) *QueryElectrocarModuleversiontreeResponse {
+	s.Data = v
+	return s
+}
+
+type QueryElectrocarOtacontinuouspushconfigRequest struct {
+	// OAuth模式下的授权token
+	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
+	// 查询的目标租户id
+	TenantId *string `json:"tenant_id,omitempty" xml:"tenant_id,omitempty" require:"true"`
+}
+
+func (s QueryElectrocarOtacontinuouspushconfigRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s QueryElectrocarOtacontinuouspushconfigRequest) GoString() string {
+	return s.String()
+}
+
+func (s *QueryElectrocarOtacontinuouspushconfigRequest) SetAuthToken(v string) *QueryElectrocarOtacontinuouspushconfigRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *QueryElectrocarOtacontinuouspushconfigRequest) SetProductInstanceId(v string) *QueryElectrocarOtacontinuouspushconfigRequest {
+	s.ProductInstanceId = &v
+	return s
+}
+
+func (s *QueryElectrocarOtacontinuouspushconfigRequest) SetTenantId(v string) *QueryElectrocarOtacontinuouspushconfigRequest {
+	s.TenantId = &v
+	return s
+}
+
+type QueryElectrocarOtacontinuouspushconfigResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// 是否调用成功
+	Success *bool `json:"success,omitempty" xml:"success,omitempty"`
+	// 响应编码
+	Code *string `json:"code,omitempty" xml:"code,omitempty"`
+	// 响应内容
+	Message *string `json:"message,omitempty" xml:"message,omitempty"`
+	// 响应数据
+	Data []*ContinuousOtaConfigResponse `json:"data,omitempty" xml:"data,omitempty" type:"Repeated"`
+}
+
+func (s QueryElectrocarOtacontinuouspushconfigResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s QueryElectrocarOtacontinuouspushconfigResponse) GoString() string {
+	return s.String()
+}
+
+func (s *QueryElectrocarOtacontinuouspushconfigResponse) SetReqMsgId(v string) *QueryElectrocarOtacontinuouspushconfigResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *QueryElectrocarOtacontinuouspushconfigResponse) SetResultCode(v string) *QueryElectrocarOtacontinuouspushconfigResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *QueryElectrocarOtacontinuouspushconfigResponse) SetResultMsg(v string) *QueryElectrocarOtacontinuouspushconfigResponse {
+	s.ResultMsg = &v
+	return s
+}
+
+func (s *QueryElectrocarOtacontinuouspushconfigResponse) SetSuccess(v bool) *QueryElectrocarOtacontinuouspushconfigResponse {
+	s.Success = &v
+	return s
+}
+
+func (s *QueryElectrocarOtacontinuouspushconfigResponse) SetCode(v string) *QueryElectrocarOtacontinuouspushconfigResponse {
+	s.Code = &v
+	return s
+}
+
+func (s *QueryElectrocarOtacontinuouspushconfigResponse) SetMessage(v string) *QueryElectrocarOtacontinuouspushconfigResponse {
+	s.Message = &v
+	return s
+}
+
+func (s *QueryElectrocarOtacontinuouspushconfigResponse) SetData(v []*ContinuousOtaConfigResponse) *QueryElectrocarOtacontinuouspushconfigResponse {
+	s.Data = v
+	return s
+}
+
+type ExecElectrocarOtacontinuouspushrulesenabledRequest struct {
+	// OAuth模式下的授权token
+	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
+	// 租户id
+	TenantId *string `json:"tenant_id,omitempty" xml:"tenant_id,omitempty" require:"true"`
+	// 规则所属产品可信标识
+	TrustProductKey *string `json:"trust_product_key,omitempty" xml:"trust_product_key,omitempty" require:"true"`
+	// 待启停规则 ID
+	RuleId *int64 `json:"rule_id,omitempty" xml:"rule_id,omitempty" require:"true"`
+	// 规则目标启用状态
+	Enabled *bool `json:"enabled,omitempty" xml:"enabled,omitempty" require:"true"`
+	// 规则当前乐观锁版本
+	ExpectedLockVersion *int64 `json:"expected_lock_version,omitempty" xml:"expected_lock_version,omitempty" require:"true"`
+}
+
+func (s ExecElectrocarOtacontinuouspushrulesenabledRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s ExecElectrocarOtacontinuouspushrulesenabledRequest) GoString() string {
+	return s.String()
+}
+
+func (s *ExecElectrocarOtacontinuouspushrulesenabledRequest) SetAuthToken(v string) *ExecElectrocarOtacontinuouspushrulesenabledRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *ExecElectrocarOtacontinuouspushrulesenabledRequest) SetProductInstanceId(v string) *ExecElectrocarOtacontinuouspushrulesenabledRequest {
+	s.ProductInstanceId = &v
+	return s
+}
+
+func (s *ExecElectrocarOtacontinuouspushrulesenabledRequest) SetTenantId(v string) *ExecElectrocarOtacontinuouspushrulesenabledRequest {
+	s.TenantId = &v
+	return s
+}
+
+func (s *ExecElectrocarOtacontinuouspushrulesenabledRequest) SetTrustProductKey(v string) *ExecElectrocarOtacontinuouspushrulesenabledRequest {
+	s.TrustProductKey = &v
+	return s
+}
+
+func (s *ExecElectrocarOtacontinuouspushrulesenabledRequest) SetRuleId(v int64) *ExecElectrocarOtacontinuouspushrulesenabledRequest {
+	s.RuleId = &v
+	return s
+}
+
+func (s *ExecElectrocarOtacontinuouspushrulesenabledRequest) SetEnabled(v bool) *ExecElectrocarOtacontinuouspushrulesenabledRequest {
+	s.Enabled = &v
+	return s
+}
+
+func (s *ExecElectrocarOtacontinuouspushrulesenabledRequest) SetExpectedLockVersion(v int64) *ExecElectrocarOtacontinuouspushrulesenabledRequest {
+	s.ExpectedLockVersion = &v
+	return s
+}
+
+type ExecElectrocarOtacontinuouspushrulesenabledResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// 租户id
+	TenantId *string `json:"tenant_id,omitempty" xml:"tenant_id,omitempty"`
+	// 策略所属产品可信标识
+	TrustProductKey *string `json:"trust_product_key,omitempty" xml:"trust_product_key,omitempty"`
+	// 产品策略主键，以字符串返回，避免前端整数精度丢失
+	PolicyId *string `json:"policy_id,omitempty" xml:"policy_id,omitempty"`
+	// 产品下规则集合版本，以字符串返回；任一规则变更时递增并用于运行快照失效。
+	RulesVersion *string `json:"rules_version,omitempty" xml:"rules_version,omitempty"`
+	// 产品全局白名单版本，以字符串返回，白名单变更时递增。
+	WhitelistVersion *string `json:"whitelist_version,omitempty" xml:"whitelist_version,omitempty"`
+	// 当前有效白名单成员数量，以字符串返回。
+	WhitelistCount *string `json:"whitelist_count,omitempty" xml:"whitelist_count,omitempty"`
+	// 当前产品配置是否允许整体删除；服务端执行删除时仍会重新校验。
+	Deletable *bool `json:"deletable,omitempty" xml:"deletable,omitempty"`
+	// 当前产品配置不可删除的稳定原因编码集合。
+	DeleteBlockedReasons []*string `json:"delete_blocked_reasons,omitempty" xml:"delete_blocked_reasons,omitempty" type:"Repeated"`
+	// 产品当前生效的连续推送规则集合
+	Rules []*ContinuousOtaRuleResponse `json:"rules,omitempty" xml:"rules,omitempty" type:"Repeated"`
+}
+
+func (s ExecElectrocarOtacontinuouspushrulesenabledResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s ExecElectrocarOtacontinuouspushrulesenabledResponse) GoString() string {
+	return s.String()
+}
+
+func (s *ExecElectrocarOtacontinuouspushrulesenabledResponse) SetReqMsgId(v string) *ExecElectrocarOtacontinuouspushrulesenabledResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *ExecElectrocarOtacontinuouspushrulesenabledResponse) SetResultCode(v string) *ExecElectrocarOtacontinuouspushrulesenabledResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *ExecElectrocarOtacontinuouspushrulesenabledResponse) SetResultMsg(v string) *ExecElectrocarOtacontinuouspushrulesenabledResponse {
+	s.ResultMsg = &v
+	return s
+}
+
+func (s *ExecElectrocarOtacontinuouspushrulesenabledResponse) SetTenantId(v string) *ExecElectrocarOtacontinuouspushrulesenabledResponse {
+	s.TenantId = &v
+	return s
+}
+
+func (s *ExecElectrocarOtacontinuouspushrulesenabledResponse) SetTrustProductKey(v string) *ExecElectrocarOtacontinuouspushrulesenabledResponse {
+	s.TrustProductKey = &v
+	return s
+}
+
+func (s *ExecElectrocarOtacontinuouspushrulesenabledResponse) SetPolicyId(v string) *ExecElectrocarOtacontinuouspushrulesenabledResponse {
+	s.PolicyId = &v
+	return s
+}
+
+func (s *ExecElectrocarOtacontinuouspushrulesenabledResponse) SetRulesVersion(v string) *ExecElectrocarOtacontinuouspushrulesenabledResponse {
+	s.RulesVersion = &v
+	return s
+}
+
+func (s *ExecElectrocarOtacontinuouspushrulesenabledResponse) SetWhitelistVersion(v string) *ExecElectrocarOtacontinuouspushrulesenabledResponse {
+	s.WhitelistVersion = &v
+	return s
+}
+
+func (s *ExecElectrocarOtacontinuouspushrulesenabledResponse) SetWhitelistCount(v string) *ExecElectrocarOtacontinuouspushrulesenabledResponse {
+	s.WhitelistCount = &v
+	return s
+}
+
+func (s *ExecElectrocarOtacontinuouspushrulesenabledResponse) SetDeletable(v bool) *ExecElectrocarOtacontinuouspushrulesenabledResponse {
+	s.Deletable = &v
+	return s
+}
+
+func (s *ExecElectrocarOtacontinuouspushrulesenabledResponse) SetDeleteBlockedReasons(v []*string) *ExecElectrocarOtacontinuouspushrulesenabledResponse {
+	s.DeleteBlockedReasons = v
+	return s
+}
+
+func (s *ExecElectrocarOtacontinuouspushrulesenabledResponse) SetRules(v []*ContinuousOtaRuleResponse) *ExecElectrocarOtacontinuouspushrulesenabledResponse {
+	s.Rules = v
+	return s
+}
+
+type QueryElectrocarDeviceotamoduleversionRequest struct {
+	// OAuth模式下的授权token
+	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
+	// 设备定位基准：TUID / TRUST_DEVICE_ID / TRUST_PRODUCT_DEVICE
+	LocatorType *string `json:"locator_type,omitempty" xml:"locator_type,omitempty" require:"true"`
+	// EKYT 全局唯一设备 ID
+	Tuid *string `json:"tuid,omitempty" xml:"tuid,omitempty"`
+	// 可信设备唯一id
+	TrustDeviceId *string `json:"trust_device_id,omitempty" xml:"trust_device_id,omitempty"`
+	// 可信唯一产品标识
+	TrustProductKey *string `json:"trust_product_key,omitempty" xml:"trust_product_key,omitempty"`
+	// 设备名称
+	DeviceName *string `json:"device_name,omitempty" xml:"device_name,omitempty"`
+}
+
+func (s QueryElectrocarDeviceotamoduleversionRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s QueryElectrocarDeviceotamoduleversionRequest) GoString() string {
+	return s.String()
+}
+
+func (s *QueryElectrocarDeviceotamoduleversionRequest) SetAuthToken(v string) *QueryElectrocarDeviceotamoduleversionRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *QueryElectrocarDeviceotamoduleversionRequest) SetProductInstanceId(v string) *QueryElectrocarDeviceotamoduleversionRequest {
+	s.ProductInstanceId = &v
+	return s
+}
+
+func (s *QueryElectrocarDeviceotamoduleversionRequest) SetLocatorType(v string) *QueryElectrocarDeviceotamoduleversionRequest {
+	s.LocatorType = &v
+	return s
+}
+
+func (s *QueryElectrocarDeviceotamoduleversionRequest) SetTuid(v string) *QueryElectrocarDeviceotamoduleversionRequest {
+	s.Tuid = &v
+	return s
+}
+
+func (s *QueryElectrocarDeviceotamoduleversionRequest) SetTrustDeviceId(v string) *QueryElectrocarDeviceotamoduleversionRequest {
+	s.TrustDeviceId = &v
+	return s
+}
+
+func (s *QueryElectrocarDeviceotamoduleversionRequest) SetTrustProductKey(v string) *QueryElectrocarDeviceotamoduleversionRequest {
+	s.TrustProductKey = &v
+	return s
+}
+
+func (s *QueryElectrocarDeviceotamoduleversionRequest) SetDeviceName(v string) *QueryElectrocarDeviceotamoduleversionRequest {
+	s.DeviceName = &v
+	return s
+}
+
+type QueryElectrocarDeviceotamoduleversionResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// 是否请求成功
+	Success *bool `json:"success,omitempty" xml:"success,omitempty"`
+	// 响应编码
+	Code *string `json:"code,omitempty" xml:"code,omitempty"`
+	// 响应内容
+	Message *string `json:"message,omitempty" xml:"message,omitempty"`
+	// 按模块名称排序的模块版本列表
+	Items []*OtaModuleVersionItemResponse `json:"items,omitempty" xml:"items,omitempty" type:"Repeated"`
+}
+
+func (s QueryElectrocarDeviceotamoduleversionResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s QueryElectrocarDeviceotamoduleversionResponse) GoString() string {
+	return s.String()
+}
+
+func (s *QueryElectrocarDeviceotamoduleversionResponse) SetReqMsgId(v string) *QueryElectrocarDeviceotamoduleversionResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *QueryElectrocarDeviceotamoduleversionResponse) SetResultCode(v string) *QueryElectrocarDeviceotamoduleversionResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *QueryElectrocarDeviceotamoduleversionResponse) SetResultMsg(v string) *QueryElectrocarDeviceotamoduleversionResponse {
+	s.ResultMsg = &v
+	return s
+}
+
+func (s *QueryElectrocarDeviceotamoduleversionResponse) SetSuccess(v bool) *QueryElectrocarDeviceotamoduleversionResponse {
+	s.Success = &v
+	return s
+}
+
+func (s *QueryElectrocarDeviceotamoduleversionResponse) SetCode(v string) *QueryElectrocarDeviceotamoduleversionResponse {
+	s.Code = &v
+	return s
+}
+
+func (s *QueryElectrocarDeviceotamoduleversionResponse) SetMessage(v string) *QueryElectrocarDeviceotamoduleversionResponse {
+	s.Message = &v
+	return s
+}
+
+func (s *QueryElectrocarDeviceotamoduleversionResponse) SetItems(v []*OtaModuleVersionItemResponse) *QueryElectrocarDeviceotamoduleversionResponse {
+	s.Items = v
+	return s
+}
+
+type DeleteElectrocarOtacontinuouspushrulesRequest struct {
+	// OAuth模式下的授权token
+	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
+	// 租户id
+	TenantId *string `json:"tenant_id,omitempty" xml:"tenant_id,omitempty" require:"true"`
+	// 规则所属产品可信标识
+	TrustProductKey *string `json:"trust_product_key,omitempty" xml:"trust_product_key,omitempty" require:"true"`
+	// 待删除规则 ID
+	RuleId *int64 `json:"rule_id,omitempty" xml:"rule_id,omitempty" require:"true"`
+	// 规则当前乐观锁版本
+	ExpectedLockVersion *int64 `json:"expected_lock_version,omitempty" xml:"expected_lock_version,omitempty" require:"true"`
+}
+
+func (s DeleteElectrocarOtacontinuouspushrulesRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s DeleteElectrocarOtacontinuouspushrulesRequest) GoString() string {
+	return s.String()
+}
+
+func (s *DeleteElectrocarOtacontinuouspushrulesRequest) SetAuthToken(v string) *DeleteElectrocarOtacontinuouspushrulesRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *DeleteElectrocarOtacontinuouspushrulesRequest) SetProductInstanceId(v string) *DeleteElectrocarOtacontinuouspushrulesRequest {
+	s.ProductInstanceId = &v
+	return s
+}
+
+func (s *DeleteElectrocarOtacontinuouspushrulesRequest) SetTenantId(v string) *DeleteElectrocarOtacontinuouspushrulesRequest {
+	s.TenantId = &v
+	return s
+}
+
+func (s *DeleteElectrocarOtacontinuouspushrulesRequest) SetTrustProductKey(v string) *DeleteElectrocarOtacontinuouspushrulesRequest {
+	s.TrustProductKey = &v
+	return s
+}
+
+func (s *DeleteElectrocarOtacontinuouspushrulesRequest) SetRuleId(v int64) *DeleteElectrocarOtacontinuouspushrulesRequest {
+	s.RuleId = &v
+	return s
+}
+
+func (s *DeleteElectrocarOtacontinuouspushrulesRequest) SetExpectedLockVersion(v int64) *DeleteElectrocarOtacontinuouspushrulesRequest {
+	s.ExpectedLockVersion = &v
+	return s
+}
+
+type DeleteElectrocarOtacontinuouspushrulesResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// 是否请求成功
+	Success *bool `json:"success,omitempty" xml:"success,omitempty"`
+	// 响应编码
+	Code *string `json:"code,omitempty" xml:"code,omitempty"`
+	// 响应内容
+	Message *string `json:"message,omitempty" xml:"message,omitempty"`
+	// 响应数据
+	Data *ContinuousOtaPolicyResponse `json:"data,omitempty" xml:"data,omitempty"`
+}
+
+func (s DeleteElectrocarOtacontinuouspushrulesResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s DeleteElectrocarOtacontinuouspushrulesResponse) GoString() string {
+	return s.String()
+}
+
+func (s *DeleteElectrocarOtacontinuouspushrulesResponse) SetReqMsgId(v string) *DeleteElectrocarOtacontinuouspushrulesResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *DeleteElectrocarOtacontinuouspushrulesResponse) SetResultCode(v string) *DeleteElectrocarOtacontinuouspushrulesResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *DeleteElectrocarOtacontinuouspushrulesResponse) SetResultMsg(v string) *DeleteElectrocarOtacontinuouspushrulesResponse {
+	s.ResultMsg = &v
+	return s
+}
+
+func (s *DeleteElectrocarOtacontinuouspushrulesResponse) SetSuccess(v bool) *DeleteElectrocarOtacontinuouspushrulesResponse {
+	s.Success = &v
+	return s
+}
+
+func (s *DeleteElectrocarOtacontinuouspushrulesResponse) SetCode(v string) *DeleteElectrocarOtacontinuouspushrulesResponse {
+	s.Code = &v
+	return s
+}
+
+func (s *DeleteElectrocarOtacontinuouspushrulesResponse) SetMessage(v string) *DeleteElectrocarOtacontinuouspushrulesResponse {
+	s.Message = &v
+	return s
+}
+
+func (s *DeleteElectrocarOtacontinuouspushrulesResponse) SetData(v *ContinuousOtaPolicyResponse) *DeleteElectrocarOtacontinuouspushrulesResponse {
+	s.Data = v
+	return s
+}
+
+type QueryElectrocarOtafirmwarelastestRequest struct {
+	// OAuth模式下的授权token
+	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
+	// 可信产品唯一标识
+	TrustProductKey *string `json:"trust_product_key,omitempty" xml:"trust_product_key,omitempty" require:"true"`
+	// OTA 模块名称
+	ModuleName *string `json:"module_name,omitempty" xml:"module_name,omitempty" require:"true"`
+}
+
+func (s QueryElectrocarOtafirmwarelastestRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s QueryElectrocarOtafirmwarelastestRequest) GoString() string {
+	return s.String()
+}
+
+func (s *QueryElectrocarOtafirmwarelastestRequest) SetAuthToken(v string) *QueryElectrocarOtafirmwarelastestRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *QueryElectrocarOtafirmwarelastestRequest) SetProductInstanceId(v string) *QueryElectrocarOtafirmwarelastestRequest {
+	s.ProductInstanceId = &v
+	return s
+}
+
+func (s *QueryElectrocarOtafirmwarelastestRequest) SetTrustProductKey(v string) *QueryElectrocarOtafirmwarelastestRequest {
+	s.TrustProductKey = &v
+	return s
+}
+
+func (s *QueryElectrocarOtafirmwarelastestRequest) SetModuleName(v string) *QueryElectrocarOtafirmwarelastestRequest {
+	s.ModuleName = &v
+	return s
+}
+
+type QueryElectrocarOtafirmwarelastestResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// 是否请求成功
+	Success *bool `json:"success,omitempty" xml:"success,omitempty"`
+	// 响应编码
+	Code *string `json:"code,omitempty" xml:"code,omitempty"`
+	// 响应内容
+	Message *string `json:"message,omitempty" xml:"message,omitempty"`
+	// 响应数据
+	Data *IotxLatestPublishedFirmwareResponse `json:"data,omitempty" xml:"data,omitempty"`
+}
+
+func (s QueryElectrocarOtafirmwarelastestResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s QueryElectrocarOtafirmwarelastestResponse) GoString() string {
+	return s.String()
+}
+
+func (s *QueryElectrocarOtafirmwarelastestResponse) SetReqMsgId(v string) *QueryElectrocarOtafirmwarelastestResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *QueryElectrocarOtafirmwarelastestResponse) SetResultCode(v string) *QueryElectrocarOtafirmwarelastestResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *QueryElectrocarOtafirmwarelastestResponse) SetResultMsg(v string) *QueryElectrocarOtafirmwarelastestResponse {
+	s.ResultMsg = &v
+	return s
+}
+
+func (s *QueryElectrocarOtafirmwarelastestResponse) SetSuccess(v bool) *QueryElectrocarOtafirmwarelastestResponse {
+	s.Success = &v
+	return s
+}
+
+func (s *QueryElectrocarOtafirmwarelastestResponse) SetCode(v string) *QueryElectrocarOtafirmwarelastestResponse {
+	s.Code = &v
+	return s
+}
+
+func (s *QueryElectrocarOtafirmwarelastestResponse) SetMessage(v string) *QueryElectrocarOtafirmwarelastestResponse {
+	s.Message = &v
+	return s
+}
+
+func (s *QueryElectrocarOtafirmwarelastestResponse) SetData(v *IotxLatestPublishedFirmwareResponse) *QueryElectrocarOtafirmwarelastestResponse {
+	s.Data = v
+	return s
+}
+
+type PushElectrocarAipanelskinRequest struct {
+	// OAuth模式下的授权token
+	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
+	// ekyt设备唯一标识
+	Tuid *string `json:"tuid,omitempty" xml:"tuid,omitempty" require:"true"`
+	// 皮肤id
+	SkinId *int64 `json:"skin_id,omitempty" xml:"skin_id,omitempty" require:"true"`
+	// 皮肤名称
+	SkinName *string `json:"skin_name,omitempty" xml:"skin_name,omitempty" require:"true"`
+	// 0 全量、1 背景图、2 开关机动画、3 电子宠物动画
+	SkinType *int64 `json:"skin_type,omitempty" xml:"skin_type,omitempty" require:"true"`
+	// 皮肤版本号
+	SkinVer *int64 `json:"skin_ver,omitempty" xml:"skin_ver,omitempty" require:"true"`
+	// 文件大小，单位字节
+	SkinSize *int64 `json:"skin_size,omitempty" xml:"skin_size,omitempty" require:"true"`
+	// 是	目标屏幕宽高
+	ScreenW *int64 `json:"screen_w,omitempty" xml:"screen_w,omitempty" require:"true"`
+	// 目标屏幕高
+	ScreenH *int64 `json:"screen_h,omitempty" xml:"screen_h,omitempty" require:"true"`
+	// 格式版本
+	FormatVer *int64 `json:"format_ver,omitempty" xml:"format_ver,omitempty"`
+	// 打包皮肤url地址
+	Url *string `json:"url,omitempty" xml:"url,omitempty" require:"true"`
+	// 可选扩展字段
+	Ext *string `json:"ext,omitempty" xml:"ext,omitempty"`
+}
+
+func (s PushElectrocarAipanelskinRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s PushElectrocarAipanelskinRequest) GoString() string {
+	return s.String()
+}
+
+func (s *PushElectrocarAipanelskinRequest) SetAuthToken(v string) *PushElectrocarAipanelskinRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *PushElectrocarAipanelskinRequest) SetProductInstanceId(v string) *PushElectrocarAipanelskinRequest {
+	s.ProductInstanceId = &v
+	return s
+}
+
+func (s *PushElectrocarAipanelskinRequest) SetTuid(v string) *PushElectrocarAipanelskinRequest {
+	s.Tuid = &v
+	return s
+}
+
+func (s *PushElectrocarAipanelskinRequest) SetSkinId(v int64) *PushElectrocarAipanelskinRequest {
+	s.SkinId = &v
+	return s
+}
+
+func (s *PushElectrocarAipanelskinRequest) SetSkinName(v string) *PushElectrocarAipanelskinRequest {
+	s.SkinName = &v
+	return s
+}
+
+func (s *PushElectrocarAipanelskinRequest) SetSkinType(v int64) *PushElectrocarAipanelskinRequest {
+	s.SkinType = &v
+	return s
+}
+
+func (s *PushElectrocarAipanelskinRequest) SetSkinVer(v int64) *PushElectrocarAipanelskinRequest {
+	s.SkinVer = &v
+	return s
+}
+
+func (s *PushElectrocarAipanelskinRequest) SetSkinSize(v int64) *PushElectrocarAipanelskinRequest {
+	s.SkinSize = &v
+	return s
+}
+
+func (s *PushElectrocarAipanelskinRequest) SetScreenW(v int64) *PushElectrocarAipanelskinRequest {
+	s.ScreenW = &v
+	return s
+}
+
+func (s *PushElectrocarAipanelskinRequest) SetScreenH(v int64) *PushElectrocarAipanelskinRequest {
+	s.ScreenH = &v
+	return s
+}
+
+func (s *PushElectrocarAipanelskinRequest) SetFormatVer(v int64) *PushElectrocarAipanelskinRequest {
+	s.FormatVer = &v
+	return s
+}
+
+func (s *PushElectrocarAipanelskinRequest) SetUrl(v string) *PushElectrocarAipanelskinRequest {
+	s.Url = &v
+	return s
+}
+
+func (s *PushElectrocarAipanelskinRequest) SetExt(v string) *PushElectrocarAipanelskinRequest {
+	s.Ext = &v
+	return s
+}
+
+type PushElectrocarAipanelskinResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// 是否请求成功
+	Success *bool `json:"success,omitempty" xml:"success,omitempty"`
+	// 响应编码
+	Code *string `json:"code,omitempty" xml:"code,omitempty"`
+	// 响应消息
+	Message *string `json:"message,omitempty" xml:"message,omitempty"`
+}
+
+func (s PushElectrocarAipanelskinResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s PushElectrocarAipanelskinResponse) GoString() string {
+	return s.String()
+}
+
+func (s *PushElectrocarAipanelskinResponse) SetReqMsgId(v string) *PushElectrocarAipanelskinResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *PushElectrocarAipanelskinResponse) SetResultCode(v string) *PushElectrocarAipanelskinResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *PushElectrocarAipanelskinResponse) SetResultMsg(v string) *PushElectrocarAipanelskinResponse {
+	s.ResultMsg = &v
+	return s
+}
+
+func (s *PushElectrocarAipanelskinResponse) SetSuccess(v bool) *PushElectrocarAipanelskinResponse {
+	s.Success = &v
+	return s
+}
+
+func (s *PushElectrocarAipanelskinResponse) SetCode(v string) *PushElectrocarAipanelskinResponse {
+	s.Code = &v
+	return s
+}
+
+func (s *PushElectrocarAipanelskinResponse) SetMessage(v string) *PushElectrocarAipanelskinResponse {
+	s.Message = &v
 	return s
 }
 
@@ -43721,6 +49162,211 @@ func (s *EncryptIdsquaredAuthResponse) SetEncryptData(v string) *EncryptIdsquare
 	return s
 }
 
+type QueryTrustiotMiniappRequest struct {
+	// OAuth模式下的授权token
+	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
+	// 友宝跳转流水号
+	TraceNo *string `json:"trace_no,omitempty" xml:"trace_no,omitempty" require:"true"`
+	// 本次授权设备清单，可包含多个 scene
+	DeviceScope []*DeviceScopeItem `json:"device_scope,omitempty" xml:"device_scope,omitempty" require:"true" type:"Repeated"`
+}
+
+func (s QueryTrustiotMiniappRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s QueryTrustiotMiniappRequest) GoString() string {
+	return s.String()
+}
+
+func (s *QueryTrustiotMiniappRequest) SetAuthToken(v string) *QueryTrustiotMiniappRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *QueryTrustiotMiniappRequest) SetProductInstanceId(v string) *QueryTrustiotMiniappRequest {
+	s.ProductInstanceId = &v
+	return s
+}
+
+func (s *QueryTrustiotMiniappRequest) SetTraceNo(v string) *QueryTrustiotMiniappRequest {
+	s.TraceNo = &v
+	return s
+}
+
+func (s *QueryTrustiotMiniappRequest) SetDeviceScope(v []*DeviceScopeItem) *QueryTrustiotMiniappRequest {
+	s.DeviceScope = v
+	return s
+}
+
+type QueryTrustiotMiniappResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// 携带 redirectToken 的跳转 URL
+	RedirectUrl *string `json:"redirect_url,omitempty" xml:"redirect_url,omitempty"`
+	// 有效期开始时间（时间戳）
+	ValidFrom *int64 `json:"valid_from,omitempty" xml:"valid_from,omitempty"`
+	// 有效期截止时间（时间戳）
+	ValidTo *int64 `json:"valid_to,omitempty" xml:"valid_to,omitempty"`
+	// 按 scene 聚合的未注册设备
+	InvalidDevices []*DeviceScopeItem `json:"invalid_devices,omitempty" xml:"invalid_devices,omitempty" type:"Repeated"`
+	// 实际授权的有效设备数
+	ValidDeviceCount *int64 `json:"valid_device_count,omitempty" xml:"valid_device_count,omitempty"`
+}
+
+func (s QueryTrustiotMiniappResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s QueryTrustiotMiniappResponse) GoString() string {
+	return s.String()
+}
+
+func (s *QueryTrustiotMiniappResponse) SetReqMsgId(v string) *QueryTrustiotMiniappResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *QueryTrustiotMiniappResponse) SetResultCode(v string) *QueryTrustiotMiniappResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *QueryTrustiotMiniappResponse) SetResultMsg(v string) *QueryTrustiotMiniappResponse {
+	s.ResultMsg = &v
+	return s
+}
+
+func (s *QueryTrustiotMiniappResponse) SetRedirectUrl(v string) *QueryTrustiotMiniappResponse {
+	s.RedirectUrl = &v
+	return s
+}
+
+func (s *QueryTrustiotMiniappResponse) SetValidFrom(v int64) *QueryTrustiotMiniappResponse {
+	s.ValidFrom = &v
+	return s
+}
+
+func (s *QueryTrustiotMiniappResponse) SetValidTo(v int64) *QueryTrustiotMiniappResponse {
+	s.ValidTo = &v
+	return s
+}
+
+func (s *QueryTrustiotMiniappResponse) SetInvalidDevices(v []*DeviceScopeItem) *QueryTrustiotMiniappResponse {
+	s.InvalidDevices = v
+	return s
+}
+
+func (s *QueryTrustiotMiniappResponse) SetValidDeviceCount(v int64) *QueryTrustiotMiniappResponse {
+	s.ValidDeviceCount = &v
+	return s
+}
+
+type QueryIotagentUseridsRequest struct {
+	// OAuth模式下的授权token
+	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
+	// 客户租户名
+	TenantId  *string `json:"tenant_id,omitempty" xml:"tenant_id,omitempty" require:"true"`
+	PageIndex *int64  `json:"page_index,omitempty" xml:"page_index,omitempty" require:"true"`
+	PageSize  *int64  `json:"page_size,omitempty" xml:"page_size,omitempty" require:"true"`
+}
+
+func (s QueryIotagentUseridsRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s QueryIotagentUseridsRequest) GoString() string {
+	return s.String()
+}
+
+func (s *QueryIotagentUseridsRequest) SetAuthToken(v string) *QueryIotagentUseridsRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *QueryIotagentUseridsRequest) SetProductInstanceId(v string) *QueryIotagentUseridsRequest {
+	s.ProductInstanceId = &v
+	return s
+}
+
+func (s *QueryIotagentUseridsRequest) SetTenantId(v string) *QueryIotagentUseridsRequest {
+	s.TenantId = &v
+	return s
+}
+
+func (s *QueryIotagentUseridsRequest) SetPageIndex(v int64) *QueryIotagentUseridsRequest {
+	s.PageIndex = &v
+	return s
+}
+
+func (s *QueryIotagentUseridsRequest) SetPageSize(v int64) *QueryIotagentUseridsRequest {
+	s.PageSize = &v
+	return s
+}
+
+type QueryIotagentUseridsResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	Total     *int64  `json:"total,omitempty" xml:"total,omitempty"`
+	PageSize  *int64  `json:"page_size,omitempty" xml:"page_size,omitempty"`
+	PageNum   *int64  `json:"page_num,omitempty" xml:"page_num,omitempty"`
+	// user_id 列表
+	Pages []*string `json:"pages,omitempty" xml:"pages,omitempty" type:"Repeated"`
+}
+
+func (s QueryIotagentUseridsResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s QueryIotagentUseridsResponse) GoString() string {
+	return s.String()
+}
+
+func (s *QueryIotagentUseridsResponse) SetReqMsgId(v string) *QueryIotagentUseridsResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *QueryIotagentUseridsResponse) SetResultCode(v string) *QueryIotagentUseridsResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *QueryIotagentUseridsResponse) SetResultMsg(v string) *QueryIotagentUseridsResponse {
+	s.ResultMsg = &v
+	return s
+}
+
+func (s *QueryIotagentUseridsResponse) SetTotal(v int64) *QueryIotagentUseridsResponse {
+	s.Total = &v
+	return s
+}
+
+func (s *QueryIotagentUseridsResponse) SetPageSize(v int64) *QueryIotagentUseridsResponse {
+	s.PageSize = &v
+	return s
+}
+
+func (s *QueryIotagentUseridsResponse) SetPageNum(v int64) *QueryIotagentUseridsResponse {
+	s.PageNum = &v
+	return s
+}
+
+func (s *QueryIotagentUseridsResponse) SetPages(v []*string) *QueryIotagentUseridsResponse {
+	s.Pages = v
+	return s
+}
+
 type ExecThingsdidOneapiRequest struct {
 	// OAuth模式下的授权token
 	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
@@ -45499,7 +51145,7 @@ func (client *Client) DoRequest(version *string, action *string, protocol *strin
 				"req_msg_id":       antchainutil.GetNonce(),
 				"access_key":       client.AccessKeyId,
 				"base_sdk_version": tea.String("TeaSDK-2.0"),
-				"sdk_version":      tea.String("1.17.1"),
+				"sdk_version":      tea.String("1.20.2"),
 				"_prod_code":       tea.String("BOT"),
 				"_prod_channel":    tea.String("undefined"),
 			}
@@ -47092,6 +52738,222 @@ func (client *Client) QueryAgentSessionsEx(request *QueryAgentSessionsRequest, h
 	}
 	_result = &QueryAgentSessionsResponse{}
 	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("blockchain.bot.agent.sessions.query"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
+}
+
+// Description:
+//
+// Description: 查询ai设备可用状态
+//
+// Summary: 查询ai设备可用状态
+func (client *Client) QueryIotagentAidevice(request *QueryIotagentAideviceRequest) (_result *QueryIotagentAideviceResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &QueryIotagentAideviceResponse{}
+	_body, _err := client.QueryIotagentAideviceEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+// Description:
+//
+// Description: 查询ai设备可用状态
+//
+// Summary: 查询ai设备可用状态
+func (client *Client) QueryIotagentAideviceEx(request *QueryIotagentAideviceRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *QueryIotagentAideviceResponse, _err error) {
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &QueryIotagentAideviceResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("blockchain.bot.iotagent.aidevice.query"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
+}
+
+// Description:
+//
+// Description: 查询物模型上报数据时间范围
+//
+// Summary: 查询物模型上报数据时间范围
+func (client *Client) QueryIotagentThingmodelrange(request *QueryIotagentThingmodelrangeRequest) (_result *QueryIotagentThingmodelrangeResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &QueryIotagentThingmodelrangeResponse{}
+	_body, _err := client.QueryIotagentThingmodelrangeEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+// Description:
+//
+// Description: 查询物模型上报数据时间范围
+//
+// Summary: 查询物模型上报数据时间范围
+func (client *Client) QueryIotagentThingmodelrangeEx(request *QueryIotagentThingmodelrangeRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *QueryIotagentThingmodelrangeResponse, _err error) {
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &QueryIotagentThingmodelrangeResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("blockchain.bot.iotagent.thingmodelrange.query"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
+}
+
+// Description:
+//
+// Description: 查询物模型上报数据
+//
+// Summary: 查询物模型上报数据
+func (client *Client) QueryIotagentThingmodeldata(request *QueryIotagentThingmodeldataRequest) (_result *QueryIotagentThingmodeldataResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &QueryIotagentThingmodeldataResponse{}
+	_body, _err := client.QueryIotagentThingmodeldataEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+// Description:
+//
+// Description: 查询物模型上报数据
+//
+// Summary: 查询物模型上报数据
+func (client *Client) QueryIotagentThingmodeldataEx(request *QueryIotagentThingmodeldataRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *QueryIotagentThingmodeldataResponse, _err error) {
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &QueryIotagentThingmodeldataResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("blockchain.bot.iotagent.thingmodeldata.query"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
+}
+
+// Description:
+//
+// Description: IoT智能体插件签约URL获取接口
+//
+// Summary: IoT智能体插件签约URL获取接口
+func (client *Client) GetsignurlIotagentPlugincontract(request *GetsignurlIotagentPlugincontractRequest) (_result *GetsignurlIotagentPlugincontractResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &GetsignurlIotagentPlugincontractResponse{}
+	_body, _err := client.GetsignurlIotagentPlugincontractEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+// Description:
+//
+// Description: IoT智能体插件签约URL获取接口
+//
+// Summary: IoT智能体插件签约URL获取接口
+func (client *Client) GetsignurlIotagentPlugincontractEx(request *GetsignurlIotagentPlugincontractRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *GetsignurlIotagentPlugincontractResponse, _err error) {
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &GetsignurlIotagentPlugincontractResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("blockchain.bot.iotagent.plugincontract.getsignurl"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
+}
+
+// Description:
+//
+// Description: IoT智能体插件签约查询接口
+//
+// Summary: IoT智能体插件签约查询接口
+func (client *Client) QueryIotagentPlugincontract(request *QueryIotagentPlugincontractRequest) (_result *QueryIotagentPlugincontractResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &QueryIotagentPlugincontractResponse{}
+	_body, _err := client.QueryIotagentPlugincontractEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+// Description:
+//
+// Description: IoT智能体插件签约查询接口
+//
+// Summary: IoT智能体插件签约查询接口
+func (client *Client) QueryIotagentPlugincontractEx(request *QueryIotagentPlugincontractRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *QueryIotagentPlugincontractResponse, _err error) {
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &QueryIotagentPlugincontractResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("blockchain.bot.iotagent.plugincontract.query"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
+}
+
+// Description:
+//
+// Description: 根据tenant获取tenant下的userId
+//
+// Summary: 根据tenant获取tenant下的userId
+func (client *Client) QueryIotagentUserid(request *QueryIotagentUseridRequest) (_result *QueryIotagentUseridResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &QueryIotagentUseridResponse{}
+	_body, _err := client.QueryIotagentUseridEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+// Description:
+//
+// Description: 根据tenant获取tenant下的userId
+//
+// Summary: 根据tenant获取tenant下的userId
+func (client *Client) QueryIotagentUseridEx(request *QueryIotagentUseridRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *QueryIotagentUseridResponse, _err error) {
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &QueryIotagentUseridResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("blockchain.bot.iotagent.userid.query"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
 	if _err != nil {
 		return _result, _err
 	}
@@ -51550,6 +57412,618 @@ func (client *Client) QueryElectrocarTaskstatusEx(request *QueryElectrocarTaskst
 	}
 	_result = &QueryElectrocarTaskstatusResponse{}
 	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("blockchain.bot.electrocar.taskstatus.query"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
+}
+
+// Description:
+//
+// Description: 查询客户的产品分页列表
+//
+// Summary: 查询客户的产品分页列表
+func (client *Client) QueryElectrocarProductcustomerpage(request *QueryElectrocarProductcustomerpageRequest) (_result *QueryElectrocarProductcustomerpageResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &QueryElectrocarProductcustomerpageResponse{}
+	_body, _err := client.QueryElectrocarProductcustomerpageEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+// Description:
+//
+// Description: 查询客户的产品分页列表
+//
+// Summary: 查询客户的产品分页列表
+func (client *Client) QueryElectrocarProductcustomerpageEx(request *QueryElectrocarProductcustomerpageRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *QueryElectrocarProductcustomerpageResponse, _err error) {
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &QueryElectrocarProductcustomerpageResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("blockchain.bot.electrocar.productcustomerpage.query"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
+}
+
+// Description:
+//
+// Description: 创建OTA升级任务
+//
+// Summary: 创建OTA升级任务
+func (client *Client) PushElectrocarOtajob(request *PushElectrocarOtajobRequest) (_result *PushElectrocarOtajobResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &PushElectrocarOtajobResponse{}
+	_body, _err := client.PushElectrocarOtajobEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+// Description:
+//
+// Description: 创建OTA升级任务
+//
+// Summary: 创建OTA升级任务
+func (client *Client) PushElectrocarOtajobEx(request *PushElectrocarOtajobRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *PushElectrocarOtajobResponse, _err error) {
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &PushElectrocarOtajobResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("blockchain.bot.electrocar.otajob.push"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
+}
+
+// Description:
+//
+// Description: 查询OTA模块分页列表
+//
+// Summary: 查询OTA模块分页列表
+func (client *Client) QueryElectrocarOtamodulepage(request *QueryElectrocarOtamodulepageRequest) (_result *QueryElectrocarOtamodulepageResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &QueryElectrocarOtamodulepageResponse{}
+	_body, _err := client.QueryElectrocarOtamodulepageEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+// Description:
+//
+// Description: 查询OTA模块分页列表
+//
+// Summary: 查询OTA模块分页列表
+func (client *Client) QueryElectrocarOtamodulepageEx(request *QueryElectrocarOtamodulepageRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *QueryElectrocarOtamodulepageResponse, _err error) {
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &QueryElectrocarOtamodulepageResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("blockchain.bot.electrocar.otamodulepage.query"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
+}
+
+// Description:
+//
+// Description: 查询固件升级包分页列表
+//
+// Summary: 查询固件升级包分页列表
+func (client *Client) QueryElectrocarOtafirmwarepage(request *QueryElectrocarOtafirmwarepageRequest) (_result *QueryElectrocarOtafirmwarepageResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &QueryElectrocarOtafirmwarepageResponse{}
+	_body, _err := client.QueryElectrocarOtafirmwarepageEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+// Description:
+//
+// Description: 查询固件升级包分页列表
+//
+// Summary: 查询固件升级包分页列表
+func (client *Client) QueryElectrocarOtafirmwarepageEx(request *QueryElectrocarOtafirmwarepageRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *QueryElectrocarOtafirmwarepageResponse, _err error) {
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &QueryElectrocarOtafirmwarepageResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("blockchain.bot.electrocar.otafirmwarepage.query"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
+}
+
+// Description:
+//
+// Description: 查询固件包详情
+//
+// Summary: 查询固件包详情
+func (client *Client) QueryElectrocarOtafirmwaredetail(request *QueryElectrocarOtafirmwaredetailRequest) (_result *QueryElectrocarOtafirmwaredetailResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &QueryElectrocarOtafirmwaredetailResponse{}
+	_body, _err := client.QueryElectrocarOtafirmwaredetailEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+// Description:
+//
+// Description: 查询固件包详情
+//
+// Summary: 查询固件包详情
+func (client *Client) QueryElectrocarOtafirmwaredetailEx(request *QueryElectrocarOtafirmwaredetailRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *QueryElectrocarOtafirmwaredetailResponse, _err error) {
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &QueryElectrocarOtafirmwaredetailResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("blockchain.bot.electrocar.otafirmwaredetail.query"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
+}
+
+// Description:
+//
+// Description: 查询OTA固件升级批次分页列表
+//
+// Summary: 查询OTA固件升级批次分页列表
+func (client *Client) QueryElectrocarOtajobpage(request *QueryElectrocarOtajobpageRequest) (_result *QueryElectrocarOtajobpageResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &QueryElectrocarOtajobpageResponse{}
+	_body, _err := client.QueryElectrocarOtajobpageEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+// Description:
+//
+// Description: 查询OTA固件升级批次分页列表
+//
+// Summary: 查询OTA固件升级批次分页列表
+func (client *Client) QueryElectrocarOtajobpageEx(request *QueryElectrocarOtajobpageRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *QueryElectrocarOtajobpageResponse, _err error) {
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &QueryElectrocarOtajobpageResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("blockchain.bot.electrocar.otajobpage.query"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
+}
+
+// Description:
+//
+// Description: OTA升级批次详情查询
+//
+// Summary: OTA升级批次详情查询
+func (client *Client) QueryElectrocarOtajobdetail(request *QueryElectrocarOtajobdetailRequest) (_result *QueryElectrocarOtajobdetailResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &QueryElectrocarOtajobdetailResponse{}
+	_body, _err := client.QueryElectrocarOtajobdetailEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+// Description:
+//
+// Description: OTA升级批次详情查询
+//
+// Summary: OTA升级批次详情查询
+func (client *Client) QueryElectrocarOtajobdetailEx(request *QueryElectrocarOtajobdetailRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *QueryElectrocarOtajobdetailResponse, _err error) {
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &QueryElectrocarOtajobdetailResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("blockchain.bot.electrocar.otajobdetail.query"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
+}
+
+// Description:
+//
+// Description: 查询OTA升级任务分页列表
+//
+// Summary: 查询OTA升级任务分页列表
+func (client *Client) QueryElectrocarOtataskpage(request *QueryElectrocarOtataskpageRequest) (_result *QueryElectrocarOtataskpageResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &QueryElectrocarOtataskpageResponse{}
+	_body, _err := client.QueryElectrocarOtataskpageEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+// Description:
+//
+// Description: 查询OTA升级任务分页列表
+//
+// Summary: 查询OTA升级任务分页列表
+func (client *Client) QueryElectrocarOtataskpageEx(request *QueryElectrocarOtataskpageRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *QueryElectrocarOtataskpageResponse, _err error) {
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &QueryElectrocarOtataskpageResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("blockchain.bot.electrocar.otataskpage.query"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
+}
+
+// Description:
+//
+// Description: 统一物联设备分页列表查询
+//
+// Summary: 统一物联设备分页列表查询
+func (client *Client) QueryElectrocarDevicepage(request *QueryElectrocarDevicepageRequest) (_result *QueryElectrocarDevicepageResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &QueryElectrocarDevicepageResponse{}
+	_body, _err := client.QueryElectrocarDevicepageEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+// Description:
+//
+// Description: 统一物联设备分页列表查询
+//
+// Summary: 统一物联设备分页列表查询
+func (client *Client) QueryElectrocarDevicepageEx(request *QueryElectrocarDevicepageRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *QueryElectrocarDevicepageResponse, _err error) {
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &QueryElectrocarDevicepageResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("blockchain.bot.electrocar.devicepage.query"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
+}
+
+// Description:
+//
+// Description: 根据设备模块创建定向OTA批次
+//
+// Summary: 根据设备模块创建定向OTA批次
+func (client *Client) PushElectrocarOtajobbymodule(request *PushElectrocarOtajobbymoduleRequest) (_result *PushElectrocarOtajobbymoduleResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &PushElectrocarOtajobbymoduleResponse{}
+	_body, _err := client.PushElectrocarOtajobbymoduleEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+// Description:
+//
+// Description: 根据设备模块创建定向OTA批次
+//
+// Summary: 根据设备模块创建定向OTA批次
+func (client *Client) PushElectrocarOtajobbymoduleEx(request *PushElectrocarOtajobbymoduleRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *PushElectrocarOtajobbymoduleResponse, _err error) {
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &PushElectrocarOtajobbymoduleResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("blockchain.bot.electrocar.otajobbymodule.push"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
+}
+
+// Description:
+//
+// Description: 查询产品下所有模块及版本号
+//
+// Summary: 查询产品下所有模块及版本号
+func (client *Client) QueryElectrocarModuleversiontree(request *QueryElectrocarModuleversiontreeRequest) (_result *QueryElectrocarModuleversiontreeResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &QueryElectrocarModuleversiontreeResponse{}
+	_body, _err := client.QueryElectrocarModuleversiontreeEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+// Description:
+//
+// Description: 查询产品下所有模块及版本号
+//
+// Summary: 查询产品下所有模块及版本号
+func (client *Client) QueryElectrocarModuleversiontreeEx(request *QueryElectrocarModuleversiontreeRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *QueryElectrocarModuleversiontreeResponse, _err error) {
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &QueryElectrocarModuleversiontreeResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("blockchain.bot.electrocar.moduleversiontree.query"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
+}
+
+// Description:
+//
+// Description: 查询指定租户的连续推送总设置及全部产品策略
+//
+// Summary: 查询指定租户的连续推送总设置及全部产品策略
+func (client *Client) QueryElectrocarOtacontinuouspushconfig(request *QueryElectrocarOtacontinuouspushconfigRequest) (_result *QueryElectrocarOtacontinuouspushconfigResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &QueryElectrocarOtacontinuouspushconfigResponse{}
+	_body, _err := client.QueryElectrocarOtacontinuouspushconfigEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+// Description:
+//
+// Description: 查询指定租户的连续推送总设置及全部产品策略
+//
+// Summary: 查询指定租户的连续推送总设置及全部产品策略
+func (client *Client) QueryElectrocarOtacontinuouspushconfigEx(request *QueryElectrocarOtacontinuouspushconfigRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *QueryElectrocarOtacontinuouspushconfigResponse, _err error) {
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &QueryElectrocarOtacontinuouspushconfigResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("blockchain.bot.electrocar.otacontinuouspushconfig.query"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
+}
+
+// Description:
+//
+// Description: 独立启用或停用一条 READY 规则。
+//
+// Summary: 独立启用或停用一条 READY 规则。
+func (client *Client) ExecElectrocarOtacontinuouspushrulesenabled(request *ExecElectrocarOtacontinuouspushrulesenabledRequest) (_result *ExecElectrocarOtacontinuouspushrulesenabledResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &ExecElectrocarOtacontinuouspushrulesenabledResponse{}
+	_body, _err := client.ExecElectrocarOtacontinuouspushrulesenabledEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+// Description:
+//
+// Description: 独立启用或停用一条 READY 规则。
+//
+// Summary: 独立启用或停用一条 READY 规则。
+func (client *Client) ExecElectrocarOtacontinuouspushrulesenabledEx(request *ExecElectrocarOtacontinuouspushrulesenabledRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *ExecElectrocarOtacontinuouspushrulesenabledResponse, _err error) {
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &ExecElectrocarOtacontinuouspushrulesenabledResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("blockchain.bot.electrocar.otacontinuouspushrulesenabled.exec"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
+}
+
+// Description:
+//
+// Description: 查询设备最新模块版本号
+//
+// Summary: 查询设备最新模块版本号
+func (client *Client) QueryElectrocarDeviceotamoduleversion(request *QueryElectrocarDeviceotamoduleversionRequest) (_result *QueryElectrocarDeviceotamoduleversionResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &QueryElectrocarDeviceotamoduleversionResponse{}
+	_body, _err := client.QueryElectrocarDeviceotamoduleversionEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+// Description:
+//
+// Description: 查询设备最新模块版本号
+//
+// Summary: 查询设备最新模块版本号
+func (client *Client) QueryElectrocarDeviceotamoduleversionEx(request *QueryElectrocarDeviceotamoduleversionRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *QueryElectrocarDeviceotamoduleversionResponse, _err error) {
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &QueryElectrocarDeviceotamoduleversionResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("blockchain.bot.electrocar.deviceotamoduleversion.query"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
+}
+
+// Description:
+//
+// Description: 删除单条连续推送规则
+//
+// Summary: 删除单条连续推送规则
+func (client *Client) DeleteElectrocarOtacontinuouspushrules(request *DeleteElectrocarOtacontinuouspushrulesRequest) (_result *DeleteElectrocarOtacontinuouspushrulesResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &DeleteElectrocarOtacontinuouspushrulesResponse{}
+	_body, _err := client.DeleteElectrocarOtacontinuouspushrulesEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+// Description:
+//
+// Description: 删除单条连续推送规则
+//
+// Summary: 删除单条连续推送规则
+func (client *Client) DeleteElectrocarOtacontinuouspushrulesEx(request *DeleteElectrocarOtacontinuouspushrulesRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *DeleteElectrocarOtacontinuouspushrulesResponse, _err error) {
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &DeleteElectrocarOtacontinuouspushrulesResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("blockchain.bot.electrocar.otacontinuouspushrules.delete"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
+}
+
+// Description:
+//
+// Description: 查询产品模块版本号最高的已发布固件包
+//
+// Summary: 查询产品模块版本号最高的已发布固件包
+func (client *Client) QueryElectrocarOtafirmwarelastest(request *QueryElectrocarOtafirmwarelastestRequest) (_result *QueryElectrocarOtafirmwarelastestResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &QueryElectrocarOtafirmwarelastestResponse{}
+	_body, _err := client.QueryElectrocarOtafirmwarelastestEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+// Description:
+//
+// Description: 查询产品模块版本号最高的已发布固件包
+//
+// Summary: 查询产品模块版本号最高的已发布固件包
+func (client *Client) QueryElectrocarOtafirmwarelastestEx(request *QueryElectrocarOtafirmwarelastestRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *QueryElectrocarOtafirmwarelastestResponse, _err error) {
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &QueryElectrocarOtafirmwarelastestResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("blockchain.bot.electrocar.otafirmwarelastest.query"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
+}
+
+// Description:
+//
+// Description: AI仪表皮肤包下发
+//
+// Summary: AI仪表皮肤包下发
+func (client *Client) PushElectrocarAipanelskin(request *PushElectrocarAipanelskinRequest) (_result *PushElectrocarAipanelskinResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &PushElectrocarAipanelskinResponse{}
+	_body, _err := client.PushElectrocarAipanelskinEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+// Description:
+//
+// Description: AI仪表皮肤包下发
+//
+// Summary: AI仪表皮肤包下发
+func (client *Client) PushElectrocarAipanelskinEx(request *PushElectrocarAipanelskinRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *PushElectrocarAipanelskinResponse, _err error) {
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &PushElectrocarAipanelskinResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("blockchain.bot.electrocar.aipanelskin.push"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
 	if _err != nil {
 		return _result, _err
 	}
@@ -56410,6 +62884,78 @@ func (client *Client) EncryptIdsquaredAuthEx(request *EncryptIdsquaredAuthReques
 	}
 	_result = &EncryptIdsquaredAuthResponse{}
 	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("blockchain.bot.idsquared.auth.encrypt"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
+}
+
+// Description:
+//
+// Description: 可信上链小程序跳转链接查询接口
+//
+// Summary: 可信上链小程序跳转链接查询接口
+func (client *Client) QueryTrustiotMiniapp(request *QueryTrustiotMiniappRequest) (_result *QueryTrustiotMiniappResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &QueryTrustiotMiniappResponse{}
+	_body, _err := client.QueryTrustiotMiniappEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+// Description:
+//
+// Description: 可信上链小程序跳转链接查询接口
+//
+// Summary: 可信上链小程序跳转链接查询接口
+func (client *Client) QueryTrustiotMiniappEx(request *QueryTrustiotMiniappRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *QueryTrustiotMiniappResponse, _err error) {
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &QueryTrustiotMiniappResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("blockchain.bot.trustiot.miniapp.query"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
+}
+
+// Description:
+//
+// Description: 查询租户下的userid
+//
+// Summary: 查询租户下的userid
+func (client *Client) QueryIotagentUserids(request *QueryIotagentUseridsRequest) (_result *QueryIotagentUseridsResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &QueryIotagentUseridsResponse{}
+	_body, _err := client.QueryIotagentUseridsEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+// Description:
+//
+// Description: 查询租户下的userid
+//
+// Summary: 查询租户下的userid
+func (client *Client) QueryIotagentUseridsEx(request *QueryIotagentUseridsRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *QueryIotagentUseridsResponse, _err error) {
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &QueryIotagentUseridsResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("blockchain.bot.iotagent.userids.query"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
 	if _err != nil {
 		return _result, _err
 	}

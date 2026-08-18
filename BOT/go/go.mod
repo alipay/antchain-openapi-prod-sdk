@@ -1,4 +1,4 @@
-module github.com/alipay/bot
+module github.com/antchain-openapi-sdk-go/bot
 
 go 1.22.1
 
