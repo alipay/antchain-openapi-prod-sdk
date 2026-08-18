@@ -17,9 +17,9 @@ public class RegisterAntchainDasKyaAgentevaluationRequest extends TeaModel {
     public String serviceCode;
 
     // did
-    @NameInMap("agent_did")
+    @NameInMap("caller_did")
     @Validation(required = true)
-    public String agentDid;
+    public String callerDid;
 
     public static RegisterAntchainDasKyaAgentevaluationRequest build(java.util.Map<String, ?> map) throws Exception {
         RegisterAntchainDasKyaAgentevaluationRequest self = new RegisterAntchainDasKyaAgentevaluationRequest();
@@ -50,12 +50,12 @@ public class RegisterAntchainDasKyaAgentevaluationRequest extends TeaModel {
         return this.serviceCode;
     }
 
-    public RegisterAntchainDasKyaAgentevaluationRequest setAgentDid(String agentDid) {
-        this.agentDid = agentDid;
+    public RegisterAntchainDasKyaAgentevaluationRequest setCallerDid(String callerDid) {
+        this.callerDid = callerDid;
         return this;
     }
-    public String getAgentDid() {
-        return this.agentDid;
+    public String getCallerDid() {
+        return this.callerDid;
     }
 
 }
