@@ -3377,6 +3377,41 @@ export class AgentInfoVO extends $tea.Model {
   }
 }
 
+// AiAgentThingModelData
+export class AiAgentThingModelData extends $tea.Model {
+  dataId: string;
+  userId: string;
+  deviceId?: string;
+  featureId: string;
+  reportTime: string;
+  content: string;
+  static names(): { [key: string]: string } {
+    return {
+      dataId: 'data_id',
+      userId: 'user_id',
+      deviceId: 'device_id',
+      featureId: 'feature_id',
+      reportTime: 'report_time',
+      content: 'content',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      dataId: 'string',
+      userId: 'string',
+      deviceId: 'string',
+      featureId: 'string',
+      reportTime: 'string',
+      content: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
 // 要素关系信息
 export class AssetElementRelationInfo extends $tea.Model {
   // 来源要素ID
@@ -17025,6 +17060,452 @@ export class QueryAgentSessionsResponse extends $tea.Model {
   }
 }
 
+export class QueryIotagentAideviceRequest extends $tea.Model {
+  // OAuth模式下的授权token
+  authToken?: string;
+  productInstanceId?: string;
+  // 保留字段，暂时不使用
+  deviceId?: string;
+  // 用户ID
+  userId: string;
+  // 客户租户ID
+  tenantId: string;
+  static names(): { [key: string]: string } {
+    return {
+      authToken: 'auth_token',
+      productInstanceId: 'product_instance_id',
+      deviceId: 'device_id',
+      userId: 'user_id',
+      tenantId: 'tenant_id',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      authToken: 'string',
+      productInstanceId: 'string',
+      deviceId: 'string',
+      userId: 'string',
+      tenantId: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class QueryIotagentAideviceResponse extends $tea.Model {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string;
+  // 结果码，一般OK表示调用成功
+  resultCode?: string;
+  // 异常信息的文本描述
+  resultMsg?: string;
+  // 用户ID
+  userId?: string;
+  status?: number;
+  // 客户租户ID
+  tenantId?: string;
+  static names(): { [key: string]: string } {
+    return {
+      reqMsgId: 'req_msg_id',
+      resultCode: 'result_code',
+      resultMsg: 'result_msg',
+      userId: 'user_id',
+      status: 'status',
+      tenantId: 'tenant_id',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      reqMsgId: 'string',
+      resultCode: 'string',
+      resultMsg: 'string',
+      userId: 'string',
+      status: 'number',
+      tenantId: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class QueryIotagentThingmodelrangeRequest extends $tea.Model {
+  // OAuth模式下的授权token
+  authToken?: string;
+  productInstanceId?: string;
+  // 用户ID
+  userId: string;
+  // 设备ID，保留字段，暂不使用
+  deviceId?: string;
+  featureId: string;
+  // 客户租户ID
+  tenantId: string;
+  static names(): { [key: string]: string } {
+    return {
+      authToken: 'auth_token',
+      productInstanceId: 'product_instance_id',
+      userId: 'user_id',
+      deviceId: 'device_id',
+      featureId: 'feature_id',
+      tenantId: 'tenant_id',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      authToken: 'string',
+      productInstanceId: 'string',
+      userId: 'string',
+      deviceId: 'string',
+      featureId: 'string',
+      tenantId: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class QueryIotagentThingmodelrangeResponse extends $tea.Model {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string;
+  // 结果码，一般OK表示调用成功
+  resultCode?: string;
+  // 异常信息的文本描述
+  resultMsg?: string;
+  hasData?: boolean;
+  firstReportTime?: string;
+  latestReportTime?: string;
+  static names(): { [key: string]: string } {
+    return {
+      reqMsgId: 'req_msg_id',
+      resultCode: 'result_code',
+      resultMsg: 'result_msg',
+      hasData: 'has_data',
+      firstReportTime: 'first_report_time',
+      latestReportTime: 'latest_report_time',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      reqMsgId: 'string',
+      resultCode: 'string',
+      resultMsg: 'string',
+      hasData: 'boolean',
+      firstReportTime: 'string',
+      latestReportTime: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class QueryIotagentThingmodeldataRequest extends $tea.Model {
+  // OAuth模式下的授权token
+  authToken?: string;
+  productInstanceId?: string;
+  userId: string;
+  featureId: string;
+  deviceId?: string;
+  startTime?: string;
+  endTime?: string;
+  pageIndex?: number;
+  pageSize?: number;
+  // 租户ID
+  tenantId: string;
+  static names(): { [key: string]: string } {
+    return {
+      authToken: 'auth_token',
+      productInstanceId: 'product_instance_id',
+      userId: 'user_id',
+      featureId: 'feature_id',
+      deviceId: 'device_id',
+      startTime: 'start_time',
+      endTime: 'end_time',
+      pageIndex: 'page_index',
+      pageSize: 'page_size',
+      tenantId: 'tenant_id',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      authToken: 'string',
+      productInstanceId: 'string',
+      userId: 'string',
+      featureId: 'string',
+      deviceId: 'string',
+      startTime: 'string',
+      endTime: 'string',
+      pageIndex: 'number',
+      pageSize: 'number',
+      tenantId: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class QueryIotagentThingmodeldataResponse extends $tea.Model {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string;
+  // 结果码，一般OK表示调用成功
+  resultCode?: string;
+  // 异常信息的文本描述
+  resultMsg?: string;
+  total?: number;
+  pageNum?: number;
+  pageSize?: number;
+  // 总页数
+  pages?: number;
+  list?: AiAgentThingModelData[];
+  static names(): { [key: string]: string } {
+    return {
+      reqMsgId: 'req_msg_id',
+      resultCode: 'result_code',
+      resultMsg: 'result_msg',
+      total: 'total',
+      pageNum: 'page_num',
+      pageSize: 'page_size',
+      pages: 'pages',
+      list: 'list',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      reqMsgId: 'string',
+      resultCode: 'string',
+      resultMsg: 'string',
+      total: 'number',
+      pageNum: 'number',
+      pageSize: 'number',
+      pages: 'number',
+      list: { 'type': 'array', 'itemType': AiAgentThingModelData },
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class GetsignurlIotagentPlugincontractRequest extends $tea.Model {
+  // OAuth模式下的授权token
+  authToken?: string;
+  productInstanceId?: string;
+  // 插件ID，由蚂蚁侧提供
+  pluginId: string;
+  // 客户端ID，一般是设备 MAC 地址
+  clientId: string;
+  static names(): { [key: string]: string } {
+    return {
+      authToken: 'auth_token',
+      productInstanceId: 'product_instance_id',
+      pluginId: 'plugin_id',
+      clientId: 'client_id',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      authToken: 'string',
+      productInstanceId: 'string',
+      pluginId: 'string',
+      clientId: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class GetsignurlIotagentPlugincontractResponse extends $tea.Model {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string;
+  // 结果码，一般OK表示调用成功
+  resultCode?: string;
+  // 异常信息的文本描述
+  resultMsg?: string;
+  // 签约 URL
+  signUrl?: string;
+  // 签约URL过期时间
+  expireTime?: string;
+  static names(): { [key: string]: string } {
+    return {
+      reqMsgId: 'req_msg_id',
+      resultCode: 'result_code',
+      resultMsg: 'result_msg',
+      signUrl: 'sign_url',
+      expireTime: 'expire_time',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      reqMsgId: 'string',
+      resultCode: 'string',
+      resultMsg: 'string',
+      signUrl: 'string',
+      expireTime: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class QueryIotagentPlugincontractRequest extends $tea.Model {
+  // OAuth模式下的授权token
+  authToken?: string;
+  productInstanceId?: string;
+  // 插件ID，由蚂蚁侧提供
+  pluginId: string;
+  // 客户端ID，一般是设备 MAC 地址
+  clientId: string;
+  static names(): { [key: string]: string } {
+    return {
+      authToken: 'auth_token',
+      productInstanceId: 'product_instance_id',
+      pluginId: 'plugin_id',
+      clientId: 'client_id',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      authToken: 'string',
+      productInstanceId: 'string',
+      pluginId: 'string',
+      clientId: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class QueryIotagentPlugincontractResponse extends $tea.Model {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string;
+  // 结果码，一般OK表示调用成功
+  resultCode?: string;
+  // 异常信息的文本描述
+  resultMsg?: string;
+  // 签约状态：SIGNED（已签约）/ UNSIGNED（未签约）/ SIGNING（签约中）
+  contractStatus?: string;
+  static names(): { [key: string]: string } {
+    return {
+      reqMsgId: 'req_msg_id',
+      resultCode: 'result_code',
+      resultMsg: 'result_msg',
+      contractStatus: 'contract_status',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      reqMsgId: 'string',
+      resultCode: 'string',
+      resultMsg: 'string',
+      contractStatus: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class QueryIotagentUseridRequest extends $tea.Model {
+  // OAuth模式下的授权token
+  authToken?: string;
+  productInstanceId?: string;
+  // 租户名
+  tenantId: string;
+  // 页码
+  pageIndex?: number;
+  pageSize?: number;
+  static names(): { [key: string]: string } {
+    return {
+      authToken: 'auth_token',
+      productInstanceId: 'product_instance_id',
+      tenantId: 'tenant_id',
+      pageIndex: 'page_index',
+      pageSize: 'page_size',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      authToken: 'string',
+      productInstanceId: 'string',
+      tenantId: 'string',
+      pageIndex: 'number',
+      pageSize: 'number',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class QueryIotagentUseridResponse extends $tea.Model {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string;
+  // 结果码，一般OK表示调用成功
+  resultCode?: string;
+  // 异常信息的文本描述
+  resultMsg?: string;
+  // 对应租户名下的user_id
+  userIdList?: string[];
+  total?: number;
+  pageNum?: number;
+  pageSize?: number;
+  static names(): { [key: string]: string } {
+    return {
+      reqMsgId: 'req_msg_id',
+      resultCode: 'result_code',
+      resultMsg: 'result_msg',
+      userIdList: 'user_id_list',
+      total: 'total',
+      pageNum: 'page_num',
+      pageSize: 'page_size',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      reqMsgId: 'string',
+      resultCode: 'string',
+      resultMsg: 'string',
+      userIdList: { 'type': 'array', 'itemType': 'string' },
+      total: 'number',
+      pageNum: 'number',
+      pageSize: 'number',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
 export class CreateAcsDeviceRequest extends $tea.Model {
   // OAuth模式下的授权token
   authToken?: string;
@@ -28622,6 +29103,113 @@ export class QueryElectrocarOtafirmwarelastestResponse extends $tea.Model {
   }
 }
 
+export class PushElectrocarAipanelskinRequest extends $tea.Model {
+  // OAuth模式下的授权token
+  authToken?: string;
+  productInstanceId?: string;
+  // ekyt设备唯一标识
+  tuid: string;
+  // 皮肤id
+  skinId: number;
+  // 皮肤名称
+  skinName: string;
+  // 0 全量、1 背景图、2 开关机动画、3 电子宠物动画
+  skinType: number;
+  // 皮肤版本号
+  skinVer: number;
+  // 文件大小，单位字节
+  skinSize: number;
+  // 是	目标屏幕宽高
+  screenW: number;
+  // 目标屏幕高
+  screenH: number;
+  // 格式版本
+  formatVer?: number;
+  // 打包皮肤url地址
+  url: string;
+  // 可选扩展字段
+  ext?: string;
+  static names(): { [key: string]: string } {
+    return {
+      authToken: 'auth_token',
+      productInstanceId: 'product_instance_id',
+      tuid: 'tuid',
+      skinId: 'skin_id',
+      skinName: 'skin_name',
+      skinType: 'skin_type',
+      skinVer: 'skin_ver',
+      skinSize: 'skin_size',
+      screenW: 'screen_w',
+      screenH: 'screen_h',
+      formatVer: 'format_ver',
+      url: 'url',
+      ext: 'ext',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      authToken: 'string',
+      productInstanceId: 'string',
+      tuid: 'string',
+      skinId: 'number',
+      skinName: 'string',
+      skinType: 'number',
+      skinVer: 'number',
+      skinSize: 'number',
+      screenW: 'number',
+      screenH: 'number',
+      formatVer: 'number',
+      url: 'string',
+      ext: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class PushElectrocarAipanelskinResponse extends $tea.Model {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string;
+  // 结果码，一般OK表示调用成功
+  resultCode?: string;
+  // 异常信息的文本描述
+  resultMsg?: string;
+  // 是否请求成功
+  success?: boolean;
+  // 响应编码
+  code?: string;
+  // 响应消息
+  message?: string;
+  static names(): { [key: string]: string } {
+    return {
+      reqMsgId: 'req_msg_id',
+      resultCode: 'result_code',
+      resultMsg: 'result_msg',
+      success: 'success',
+      code: 'code',
+      message: 'message',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      reqMsgId: 'string',
+      resultCode: 'string',
+      resultMsg: 'string',
+      success: 'boolean',
+      code: 'string',
+      message: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
 export class QueryIotplatformPurchaseorderRequest extends $tea.Model {
   // OAuth模式下的授权token
   authToken?: string;
@@ -38980,6 +39568,80 @@ export class QueryTrustiotMiniappResponse extends $tea.Model {
   }
 }
 
+export class QueryIotagentUseridsRequest extends $tea.Model {
+  // OAuth模式下的授权token
+  authToken?: string;
+  productInstanceId?: string;
+  // 客户租户名
+  tenantId: string;
+  pageIndex: number;
+  pageSize: number;
+  static names(): { [key: string]: string } {
+    return {
+      authToken: 'auth_token',
+      productInstanceId: 'product_instance_id',
+      tenantId: 'tenant_id',
+      pageIndex: 'page_index',
+      pageSize: 'page_size',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      authToken: 'string',
+      productInstanceId: 'string',
+      tenantId: 'string',
+      pageIndex: 'number',
+      pageSize: 'number',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class QueryIotagentUseridsResponse extends $tea.Model {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string;
+  // 结果码，一般OK表示调用成功
+  resultCode?: string;
+  // 异常信息的文本描述
+  resultMsg?: string;
+  total?: number;
+  pageSize?: number;
+  pageNum?: number;
+  // user_id 列表
+  pages?: string[];
+  static names(): { [key: string]: string } {
+    return {
+      reqMsgId: 'req_msg_id',
+      resultCode: 'result_code',
+      resultMsg: 'result_msg',
+      total: 'total',
+      pageSize: 'page_size',
+      pageNum: 'page_num',
+      pages: 'pages',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      reqMsgId: 'string',
+      resultCode: 'string',
+      resultMsg: 'string',
+      total: 'number',
+      pageSize: 'number',
+      pageNum: 'number',
+      pages: { 'type': 'array', 'itemType': 'string' },
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
 export class ExecThingsdidOneapiRequest extends $tea.Model {
   // OAuth模式下的授权token
   authToken?: string;
@@ -40366,7 +41028,7 @@ export default class Client {
           req_msg_id: AntchainUtil.getNonce(),
           access_key: this._accessKeyId,
           base_sdk_version: "TeaSDK-2.0",
-          sdk_version: "1.18.8",
+          sdk_version: "1.20.2",
           _prod_code: "BOT",
           _prod_channel: "undefined",
         };
@@ -41316,6 +41978,132 @@ export default class Client {
   async queryAgentSessionsEx(request: QueryAgentSessionsRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<QueryAgentSessionsResponse> {
     Util.validateModel(request);
     return $tea.cast<QueryAgentSessionsResponse>(await this.doRequest("1.0", "blockchain.bot.agent.sessions.query", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new QueryAgentSessionsResponse({}));
+  }
+
+  /**
+   * @remarks
+   * Description: 查询ai设备可用状态
+   * Summary: 查询ai设备可用状态
+   */
+  async queryIotagentAidevice(request: QueryIotagentAideviceRequest): Promise<QueryIotagentAideviceResponse> {
+    let runtime = new $Util.RuntimeOptions({ });
+    let headers : {[key: string ]: string} = { };
+    return await this.queryIotagentAideviceEx(request, headers, runtime);
+  }
+
+  /**
+   * @remarks
+   * Description: 查询ai设备可用状态
+   * Summary: 查询ai设备可用状态
+   */
+  async queryIotagentAideviceEx(request: QueryIotagentAideviceRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<QueryIotagentAideviceResponse> {
+    Util.validateModel(request);
+    return $tea.cast<QueryIotagentAideviceResponse>(await this.doRequest("1.0", "blockchain.bot.iotagent.aidevice.query", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new QueryIotagentAideviceResponse({}));
+  }
+
+  /**
+   * @remarks
+   * Description: 查询物模型上报数据时间范围
+   * Summary: 查询物模型上报数据时间范围
+   */
+  async queryIotagentThingmodelrange(request: QueryIotagentThingmodelrangeRequest): Promise<QueryIotagentThingmodelrangeResponse> {
+    let runtime = new $Util.RuntimeOptions({ });
+    let headers : {[key: string ]: string} = { };
+    return await this.queryIotagentThingmodelrangeEx(request, headers, runtime);
+  }
+
+  /**
+   * @remarks
+   * Description: 查询物模型上报数据时间范围
+   * Summary: 查询物模型上报数据时间范围
+   */
+  async queryIotagentThingmodelrangeEx(request: QueryIotagentThingmodelrangeRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<QueryIotagentThingmodelrangeResponse> {
+    Util.validateModel(request);
+    return $tea.cast<QueryIotagentThingmodelrangeResponse>(await this.doRequest("1.0", "blockchain.bot.iotagent.thingmodelrange.query", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new QueryIotagentThingmodelrangeResponse({}));
+  }
+
+  /**
+   * @remarks
+   * Description: 查询物模型上报数据
+   * Summary: 查询物模型上报数据
+   */
+  async queryIotagentThingmodeldata(request: QueryIotagentThingmodeldataRequest): Promise<QueryIotagentThingmodeldataResponse> {
+    let runtime = new $Util.RuntimeOptions({ });
+    let headers : {[key: string ]: string} = { };
+    return await this.queryIotagentThingmodeldataEx(request, headers, runtime);
+  }
+
+  /**
+   * @remarks
+   * Description: 查询物模型上报数据
+   * Summary: 查询物模型上报数据
+   */
+  async queryIotagentThingmodeldataEx(request: QueryIotagentThingmodeldataRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<QueryIotagentThingmodeldataResponse> {
+    Util.validateModel(request);
+    return $tea.cast<QueryIotagentThingmodeldataResponse>(await this.doRequest("1.0", "blockchain.bot.iotagent.thingmodeldata.query", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new QueryIotagentThingmodeldataResponse({}));
+  }
+
+  /**
+   * @remarks
+   * Description: IoT智能体插件签约URL获取接口
+   * Summary: IoT智能体插件签约URL获取接口
+   */
+  async getsignurlIotagentPlugincontract(request: GetsignurlIotagentPlugincontractRequest): Promise<GetsignurlIotagentPlugincontractResponse> {
+    let runtime = new $Util.RuntimeOptions({ });
+    let headers : {[key: string ]: string} = { };
+    return await this.getsignurlIotagentPlugincontractEx(request, headers, runtime);
+  }
+
+  /**
+   * @remarks
+   * Description: IoT智能体插件签约URL获取接口
+   * Summary: IoT智能体插件签约URL获取接口
+   */
+  async getsignurlIotagentPlugincontractEx(request: GetsignurlIotagentPlugincontractRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<GetsignurlIotagentPlugincontractResponse> {
+    Util.validateModel(request);
+    return $tea.cast<GetsignurlIotagentPlugincontractResponse>(await this.doRequest("1.0", "blockchain.bot.iotagent.plugincontract.getsignurl", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new GetsignurlIotagentPlugincontractResponse({}));
+  }
+
+  /**
+   * @remarks
+   * Description: IoT智能体插件签约查询接口
+   * Summary: IoT智能体插件签约查询接口
+   */
+  async queryIotagentPlugincontract(request: QueryIotagentPlugincontractRequest): Promise<QueryIotagentPlugincontractResponse> {
+    let runtime = new $Util.RuntimeOptions({ });
+    let headers : {[key: string ]: string} = { };
+    return await this.queryIotagentPlugincontractEx(request, headers, runtime);
+  }
+
+  /**
+   * @remarks
+   * Description: IoT智能体插件签约查询接口
+   * Summary: IoT智能体插件签约查询接口
+   */
+  async queryIotagentPlugincontractEx(request: QueryIotagentPlugincontractRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<QueryIotagentPlugincontractResponse> {
+    Util.validateModel(request);
+    return $tea.cast<QueryIotagentPlugincontractResponse>(await this.doRequest("1.0", "blockchain.bot.iotagent.plugincontract.query", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new QueryIotagentPlugincontractResponse({}));
+  }
+
+  /**
+   * @remarks
+   * Description: 根据tenant获取tenant下的userId
+   * Summary: 根据tenant获取tenant下的userId
+   */
+  async queryIotagentUserid(request: QueryIotagentUseridRequest): Promise<QueryIotagentUseridResponse> {
+    let runtime = new $Util.RuntimeOptions({ });
+    let headers : {[key: string ]: string} = { };
+    return await this.queryIotagentUseridEx(request, headers, runtime);
+  }
+
+  /**
+   * @remarks
+   * Description: 根据tenant获取tenant下的userId
+   * Summary: 根据tenant获取tenant下的userId
+   */
+  async queryIotagentUseridEx(request: QueryIotagentUseridRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<QueryIotagentUseridResponse> {
+    Util.validateModel(request);
+    return $tea.cast<QueryIotagentUseridResponse>(await this.doRequest("1.0", "blockchain.bot.iotagent.userid.query", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new QueryIotagentUseridResponse({}));
   }
 
   /**
@@ -44261,6 +45049,27 @@ export default class Client {
 
   /**
    * @remarks
+   * Description: AI仪表皮肤包下发
+   * Summary: AI仪表皮肤包下发
+   */
+  async pushElectrocarAipanelskin(request: PushElectrocarAipanelskinRequest): Promise<PushElectrocarAipanelskinResponse> {
+    let runtime = new $Util.RuntimeOptions({ });
+    let headers : {[key: string ]: string} = { };
+    return await this.pushElectrocarAipanelskinEx(request, headers, runtime);
+  }
+
+  /**
+   * @remarks
+   * Description: AI仪表皮肤包下发
+   * Summary: AI仪表皮肤包下发
+   */
+  async pushElectrocarAipanelskinEx(request: PushElectrocarAipanelskinRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<PushElectrocarAipanelskinResponse> {
+    Util.validateModel(request);
+    return $tea.cast<PushElectrocarAipanelskinResponse>(await this.doRequest("1.0", "blockchain.bot.electrocar.aipanelskin.push", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new PushElectrocarAipanelskinResponse({}));
+  }
+
+  /**
+   * @remarks
    * Description: 根据设备串号查询采购设备
    * Summary: 根据设备串号查询采购设备
    */
@@ -47113,6 +47922,27 @@ export default class Client {
   async queryTrustiotMiniappEx(request: QueryTrustiotMiniappRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<QueryTrustiotMiniappResponse> {
     Util.validateModel(request);
     return $tea.cast<QueryTrustiotMiniappResponse>(await this.doRequest("1.0", "blockchain.bot.trustiot.miniapp.query", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new QueryTrustiotMiniappResponse({}));
+  }
+
+  /**
+   * @remarks
+   * Description: 查询租户下的userid
+   * Summary: 查询租户下的userid
+   */
+  async queryIotagentUserids(request: QueryIotagentUseridsRequest): Promise<QueryIotagentUseridsResponse> {
+    let runtime = new $Util.RuntimeOptions({ });
+    let headers : {[key: string ]: string} = { };
+    return await this.queryIotagentUseridsEx(request, headers, runtime);
+  }
+
+  /**
+   * @remarks
+   * Description: 查询租户下的userid
+   * Summary: 查询租户下的userid
+   */
+  async queryIotagentUseridsEx(request: QueryIotagentUseridsRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<QueryIotagentUseridsResponse> {
+    Util.validateModel(request);
+    return $tea.cast<QueryIotagentUseridsResponse>(await this.doRequest("1.0", "blockchain.bot.iotagent.userids.query", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new QueryIotagentUseridsResponse({}));
   }
 
   /**
