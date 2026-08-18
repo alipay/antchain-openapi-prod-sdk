@@ -126,7 +126,7 @@ public class Client {
                     new TeaPair("req_msg_id", com.antgroup.antchain.openapi.antchain.util.AntchainUtils.getNonce()),
                     new TeaPair("access_key", _accessKeyId),
                     new TeaPair("base_sdk_version", "TeaSDK-2.0"),
-                    new TeaPair("sdk_version", "1.0.11"),
+                    new TeaPair("sdk_version", "1.0.13"),
                     new TeaPair("_prod_code", "DTKYA"),
                     new TeaPair("_prod_channel", "undefined")
                 );
@@ -543,5 +543,89 @@ public class Client {
     public SignAntchainDasKyaManageddidResponse signAntchainDasKyaManageddidEx(SignAntchainDasKyaManageddidRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
         com.aliyun.teautil.Common.validateModel(request);
         return TeaModel.toModel(this.doRequest("1.0", "antchain.das.kya.manageddid.sign", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new SignAntchainDasKyaManageddidResponse());
+    }
+
+    /**
+     * <b>description</b> :
+     * <p>Description: 创建评测服务
+     * Summary: 创建评测服务</p>
+     */
+    public RegisterAntchainDasKyaEvaluationserviceResponse registerAntchainDasKyaEvaluationservice(RegisterAntchainDasKyaEvaluationserviceRequest request) throws Exception {
+        com.aliyun.teautil.models.RuntimeOptions runtime = new com.aliyun.teautil.models.RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.registerAntchainDasKyaEvaluationserviceEx(request, headers, runtime);
+    }
+
+    /**
+     * <b>description</b> :
+     * <p>Description: 创建评测服务
+     * Summary: 创建评测服务</p>
+     */
+    public RegisterAntchainDasKyaEvaluationserviceResponse registerAntchainDasKyaEvaluationserviceEx(RegisterAntchainDasKyaEvaluationserviceRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "antchain.das.kya.evaluationservice.register", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new RegisterAntchainDasKyaEvaluationserviceResponse());
+    }
+
+    /**
+     * <b>description</b> :
+     * <p>Description: 更新评测服务
+     * Summary: 更新评测服务</p>
+     */
+    public ResetAntchainDasKyaEvaluationserviceResponse resetAntchainDasKyaEvaluationservice(ResetAntchainDasKyaEvaluationserviceRequest request) throws Exception {
+        com.aliyun.teautil.models.RuntimeOptions runtime = new com.aliyun.teautil.models.RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.resetAntchainDasKyaEvaluationserviceEx(request, headers, runtime);
+    }
+
+    /**
+     * <b>description</b> :
+     * <p>Description: 更新评测服务
+     * Summary: 更新评测服务</p>
+     */
+    public ResetAntchainDasKyaEvaluationserviceResponse resetAntchainDasKyaEvaluationserviceEx(ResetAntchainDasKyaEvaluationserviceRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "antchain.das.kya.evaluationservice.reset", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new ResetAntchainDasKyaEvaluationserviceResponse());
+    }
+
+    /**
+     * <b>description</b> :
+     * <p>Description: 评测开始通知
+     * Summary: 评测开始通知</p>
+     */
+    public InitAntchainDasKyaEvaluationResponse initAntchainDasKyaEvaluation(InitAntchainDasKyaEvaluationRequest request) throws Exception {
+        com.aliyun.teautil.models.RuntimeOptions runtime = new com.aliyun.teautil.models.RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.initAntchainDasKyaEvaluationEx(request, headers, runtime);
+    }
+
+    /**
+     * <b>description</b> :
+     * <p>Description: 评测开始通知
+     * Summary: 评测开始通知</p>
+     */
+    public InitAntchainDasKyaEvaluationResponse initAntchainDasKyaEvaluationEx(InitAntchainDasKyaEvaluationRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "antchain.das.kya.evaluation.init", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new InitAntchainDasKyaEvaluationResponse());
+    }
+
+    /**
+     * <b>description</b> :
+     * <p>Description: 评测结果通知推送
+     * Summary: 评测结果通知推送</p>
+     */
+    public PushAntchainDasKyaEvaluationResponse pushAntchainDasKyaEvaluation(PushAntchainDasKyaEvaluationRequest request) throws Exception {
+        com.aliyun.teautil.models.RuntimeOptions runtime = new com.aliyun.teautil.models.RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.pushAntchainDasKyaEvaluationEx(request, headers, runtime);
+    }
+
+    /**
+     * <b>description</b> :
+     * <p>Description: 评测结果通知推送
+     * Summary: 评测结果通知推送</p>
+     */
+    public PushAntchainDasKyaEvaluationResponse pushAntchainDasKyaEvaluationEx(PushAntchainDasKyaEvaluationRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "antchain.das.kya.evaluation.push", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new PushAntchainDasKyaEvaluationResponse());
     }
 }

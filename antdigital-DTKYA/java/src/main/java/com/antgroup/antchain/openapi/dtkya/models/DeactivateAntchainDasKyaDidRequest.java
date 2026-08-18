@@ -21,11 +21,6 @@ public class DeactivateAntchainDasKyaDidRequest extends TeaModel {
     @Validation(required = true)
     public String did;
 
-    // 正整数字符串；从 resolve 的 data.didDocumentMetadata.versionId 获取，然后+1得到期望版本号
-    @NameInMap("expected_version_id")
-    @Validation(required = true)
-    public String expectedVersionId;
-
     // 停用原因
     @NameInMap("reason")
     public String reason;
@@ -80,14 +75,6 @@ public class DeactivateAntchainDasKyaDidRequest extends TeaModel {
     }
     public String getDid() {
         return this.did;
-    }
-
-    public DeactivateAntchainDasKyaDidRequest setExpectedVersionId(String expectedVersionId) {
-        this.expectedVersionId = expectedVersionId;
-        return this;
-    }
-    public String getExpectedVersionId() {
-        return this.expectedVersionId;
     }
 
     public DeactivateAntchainDasKyaDidRequest setReason(String reason) {
