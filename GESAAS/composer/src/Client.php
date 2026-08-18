@@ -27,6 +27,10 @@ use AntChain\GESAAS\Models\QueryOrderRefundRequest;
 use AntChain\GESAAS\Models\QueryOrderRefundResponse;
 use AntChain\GESAAS\Models\CheckOmngRiskRequest;
 use AntChain\GESAAS\Models\CheckOmngRiskResponse;
+use AntChain\GESAAS\Models\SaveOmngGenerationtaskRequest;
+use AntChain\GESAAS\Models\SaveOmngGenerationtaskResponse;
+use AntChain\GESAAS\Models\QueryOmngGenerationtaskRequest;
+use AntChain\GESAAS\Models\QueryOmngGenerationtaskResponse;
 use AntChain\GESAAS\Models\SubmitRightsprodGrantRequest;
 use AntChain\GESAAS\Models\SubmitRightsprodGrantResponse;
 use AntChain\GESAAS\Models\QueryRightsprodGrantRequest;
@@ -175,7 +179,7 @@ class Client {
                     "req_msg_id" => UtilClient::getNonce(),
                     "access_key" => $this->_accessKeyId,
                     "base_sdk_version" => "TeaSDK-2.0",
-                    "sdk_version" => "1.3.16",
+                    "sdk_version" => "1.4.1",
                     "_prod_code" => "GESAAS",
                     "_prod_channel" => "default"
                 ];
@@ -393,6 +397,56 @@ class Client {
     public function checkOmngRiskEx($request, $headers, $runtime){
         Utils::validateModel($request);
         return CheckOmngRiskResponse::fromMap($this->doRequest("1.0", "antdigital.gesaas.omng.risk.check", "HTTPS", "POST", "/gateway.do", Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 视频生成任务创建
+     * Summary: 视频生成任务创建
+     * @param SaveOmngGenerationtaskRequest $request
+     * @return SaveOmngGenerationtaskResponse
+     */
+    public function saveOmngGenerationtask($request){
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+        return $this->saveOmngGenerationtaskEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 视频生成任务创建
+     * Summary: 视频生成任务创建
+     * @param SaveOmngGenerationtaskRequest $request
+     * @param string[] $headers
+     * @param RuntimeOptions $runtime
+     * @return SaveOmngGenerationtaskResponse
+     */
+    public function saveOmngGenerationtaskEx($request, $headers, $runtime){
+        Utils::validateModel($request);
+        return SaveOmngGenerationtaskResponse::fromMap($this->doRequest("1.0", "antdigital.gesaas.omng.generationtask.save", "HTTPS", "POST", "/gateway.do", Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 视频生成任务结果查询
+     * Summary: 视频生成任务结果查询
+     * @param QueryOmngGenerationtaskRequest $request
+     * @return QueryOmngGenerationtaskResponse
+     */
+    public function queryOmngGenerationtask($request){
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+        return $this->queryOmngGenerationtaskEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 视频生成任务结果查询
+     * Summary: 视频生成任务结果查询
+     * @param QueryOmngGenerationtaskRequest $request
+     * @param string[] $headers
+     * @param RuntimeOptions $runtime
+     * @return QueryOmngGenerationtaskResponse
+     */
+    public function queryOmngGenerationtaskEx($request, $headers, $runtime){
+        Utils::validateModel($request);
+        return QueryOmngGenerationtaskResponse::fromMap($this->doRequest("1.0", "antdigital.gesaas.omng.generationtask.query", "HTTPS", "POST", "/gateway.do", Tea::merge($request), $headers, $runtime));
     }
 
     /**
