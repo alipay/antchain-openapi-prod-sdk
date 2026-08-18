@@ -333,7 +333,7 @@ class Client {
                     "req_msg_id" => UtilClient::getNonce(),
                     "access_key" => $this->_accessKeyId,
                     "base_sdk_version" => "TeaSDK-2.0",
-                    "sdk_version" => "1.23.3",
+                    "sdk_version" => "1.23.4",
                     "_prod_code" => "REALPERSON",
                     "_prod_channel" => "undefined"
                 ];
@@ -2679,26 +2679,6 @@ class Client {
      * @return InitServerWillauthResponse
      */
     public function initServerWillauthEx($request, $headers, $runtime){
-        if (!Utils::isUnset($request->fileObject)) {
-            $uploadReq = new CreateAntcloudGatewayxFileUploadRequest([
-                "authToken" => $request->authToken,
-                "apiCode" => "di.realperson.server.willauth.init",
-                "fileName" => $request->fileObjectName
-            ]);
-            $uploadResp = $this->createAntcloudGatewayxFileUploadEx($uploadReq, $headers, $runtime);
-            if (!UtilClient::isSuccess($uploadResp->resultCode, "ok")) {
-                $initServerWillauthResponse = new InitServerWillauthResponse([
-                    "reqMsgId" => $uploadResp->reqMsgId,
-                    "resultCode" => $uploadResp->resultCode,
-                    "resultMsg" => $uploadResp->resultMsg
-                ]);
-                return $initServerWillauthResponse;
-            }
-            $uploadHeaders = UtilClient::parseUploadHeaders($uploadResp->uploadHeaders);
-            UtilClient::putObject($request->fileObject, $uploadHeaders, $uploadResp->uploadUrl);
-            $request->fileId = $uploadResp->fileId;
-            $request->fileObject = null;
-        }
         Utils::validateModel($request);
         return InitServerWillauthResponse::fromMap($this->doRequest("1.0", "di.realperson.server.willauth.init", "HTTPS", "POST", "/gateway.do", Tea::merge($request), $headers, $runtime));
     }
