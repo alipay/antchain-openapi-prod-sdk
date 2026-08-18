@@ -135,7 +135,7 @@ class Client:
                     'req_msg_id': AntchainUtils.get_nonce(),
                     'access_key': self._access_key_id,
                     'base_sdk_version': 'TeaSDK-2.0',
-                    'sdk_version': '1.3.16',
+                    'sdk_version': '1.4.1',
                     '_prod_code': 'GESAAS',
                     '_prod_channel': 'default'
                 }
@@ -239,7 +239,7 @@ class Client:
                     'req_msg_id': AntchainUtils.get_nonce(),
                     'access_key': self._access_key_id,
                     'base_sdk_version': 'TeaSDK-2.0',
-                    'sdk_version': '1.3.16',
+                    'sdk_version': '1.4.1',
                     '_prod_code': 'GESAAS',
                     '_prod_channel': 'default'
                 }
@@ -665,6 +665,118 @@ class Client:
         return TeaCore.from_map(
             gesaas_models.CheckOmngRiskResponse(),
             await self.do_request_async('1.0', 'antdigital.gesaas.omng.risk.check', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def save_omng_generationtask(
+        self,
+        request: gesaas_models.SaveOmngGenerationtaskRequest,
+    ) -> gesaas_models.SaveOmngGenerationtaskResponse:
+        """
+        Description: 视频生成任务创建
+        Summary: 视频生成任务创建
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.save_omng_generationtask_ex(request, headers, runtime)
+
+    async def save_omng_generationtask_async(
+        self,
+        request: gesaas_models.SaveOmngGenerationtaskRequest,
+    ) -> gesaas_models.SaveOmngGenerationtaskResponse:
+        """
+        Description: 视频生成任务创建
+        Summary: 视频生成任务创建
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.save_omng_generationtask_ex_async(request, headers, runtime)
+
+    def save_omng_generationtask_ex(
+        self,
+        request: gesaas_models.SaveOmngGenerationtaskRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> gesaas_models.SaveOmngGenerationtaskResponse:
+        """
+        Description: 视频生成任务创建
+        Summary: 视频生成任务创建
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            gesaas_models.SaveOmngGenerationtaskResponse(),
+            self.do_request('1.0', 'antdigital.gesaas.omng.generationtask.save', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def save_omng_generationtask_ex_async(
+        self,
+        request: gesaas_models.SaveOmngGenerationtaskRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> gesaas_models.SaveOmngGenerationtaskResponse:
+        """
+        Description: 视频生成任务创建
+        Summary: 视频生成任务创建
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            gesaas_models.SaveOmngGenerationtaskResponse(),
+            await self.do_request_async('1.0', 'antdigital.gesaas.omng.generationtask.save', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def query_omng_generationtask(
+        self,
+        request: gesaas_models.QueryOmngGenerationtaskRequest,
+    ) -> gesaas_models.QueryOmngGenerationtaskResponse:
+        """
+        Description: 视频生成任务结果查询
+        Summary: 视频生成任务结果查询
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.query_omng_generationtask_ex(request, headers, runtime)
+
+    async def query_omng_generationtask_async(
+        self,
+        request: gesaas_models.QueryOmngGenerationtaskRequest,
+    ) -> gesaas_models.QueryOmngGenerationtaskResponse:
+        """
+        Description: 视频生成任务结果查询
+        Summary: 视频生成任务结果查询
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.query_omng_generationtask_ex_async(request, headers, runtime)
+
+    def query_omng_generationtask_ex(
+        self,
+        request: gesaas_models.QueryOmngGenerationtaskRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> gesaas_models.QueryOmngGenerationtaskResponse:
+        """
+        Description: 视频生成任务结果查询
+        Summary: 视频生成任务结果查询
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            gesaas_models.QueryOmngGenerationtaskResponse(),
+            self.do_request('1.0', 'antdigital.gesaas.omng.generationtask.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def query_omng_generationtask_ex_async(
+        self,
+        request: gesaas_models.QueryOmngGenerationtaskRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> gesaas_models.QueryOmngGenerationtaskResponse:
+        """
+        Description: 视频生成任务结果查询
+        Summary: 视频生成任务结果查询
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            gesaas_models.QueryOmngGenerationtaskResponse(),
+            await self.do_request_async('1.0', 'antdigital.gesaas.omng.generationtask.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
     def submit_rightsprod_grant(

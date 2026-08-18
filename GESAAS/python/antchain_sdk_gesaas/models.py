@@ -269,6 +269,69 @@ class RepayStrategy(TeaModel):
         return self
 
 
+class ToolUsage(TeaModel):
+    def __init__(
+        self,
+        web_search: int = None,
+    ):
+        # 联网搜索调用次数
+        self.web_search = web_search
+
+    def validate(self):
+        self.validate_required(self.web_search, 'web_search')
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.web_search is not None:
+            result['web_search'] = self.web_search
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('web_search') is not None:
+            self.web_search = m.get('web_search')
+        return self
+
+
+class ImageInfoDto(TeaModel):
+    def __init__(
+        self,
+        url: str = None,
+        role: str = None,
+    ):
+        # 图片url
+        self.url = url
+        # 角色/用途   首帧:first_frame、尾帧:last_frame 、参考图：reference_image
+        self.role = role
+
+    def validate(self):
+        self.validate_required(self.url, 'url')
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.url is not None:
+            result['url'] = self.url
+        if self.role is not None:
+            result['role'] = self.role
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('url') is not None:
+            self.url = m.get('url')
+        if m.get('role') is not None:
+            self.role = m.get('role')
+        return self
+
+
 class OrderSplitDetailList(TeaModel):
     def __init__(
         self,
@@ -336,6 +399,52 @@ class OrderSplitDetailList(TeaModel):
         return self
 
 
+class TokenUsageDto(TeaModel):
+    def __init__(
+        self,
+        completion_tokens: int = None,
+        total_tokens: int = None,
+        tool_usage: ToolUsage = None,
+    ):
+        # 生成视频消耗的 token 数
+        self.completion_tokens = completion_tokens
+        # 消耗总 token 数
+        self.total_tokens = total_tokens
+        # 工具用量
+        self.tool_usage = tool_usage
+
+    def validate(self):
+        self.validate_required(self.completion_tokens, 'completion_tokens')
+        self.validate_required(self.total_tokens, 'total_tokens')
+        if self.tool_usage:
+            self.tool_usage.validate()
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.completion_tokens is not None:
+            result['completion_tokens'] = self.completion_tokens
+        if self.total_tokens is not None:
+            result['total_tokens'] = self.total_tokens
+        if self.tool_usage is not None:
+            result['tool_usage'] = self.tool_usage.to_map()
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('completion_tokens') is not None:
+            self.completion_tokens = m.get('completion_tokens')
+        if m.get('total_tokens') is not None:
+            self.total_tokens = m.get('total_tokens')
+        if m.get('tool_usage') is not None:
+            temp_model = ToolUsage()
+            self.tool_usage = temp_model.from_map(m['tool_usage'])
+        return self
+
+
 class OrderDetail(TeaModel):
     def __init__(
         self,
@@ -364,38 +473,19 @@ class OrderDetail(TeaModel):
         return self
 
 
-class OrderInfoReq(TeaModel):
+class TaskErrorDto(TeaModel):
     def __init__(
         self,
-        order_create_time: str = None,
-        order_pay_subject: str = None,
-        rent_term: int = None,
-        rent_unit: str = None,
-        total_rent_money: int = None,
+        code: str = None,
+        message: str = None,
     ):
-        # 订单创建时间
-        self.order_create_time = order_create_time
-        # 订单付款主题
-        self.order_pay_subject = order_pay_subject
-        # 总租期
-        # 总租期最小值为1
-        # 总租期最大值为60
-        self.rent_term = rent_term
-        # 租期单位
-        # MONTH : 月
-        # DAY : 天
-        self.rent_unit = rent_unit
-        # 租金总额 单位/分
-        # 最小值为1
-        self.total_rent_money = total_rent_money
+        # 错误码
+        self.code = code
+        # 错误提示信息
+        self.message = message
 
     def validate(self):
-        self.validate_required(self.order_create_time, 'order_create_time')
-        if self.order_create_time is not None:
-            self.validate_pattern(self.order_create_time, 'order_create_time', '\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}([Z]|([\\.]\\d{1,9})?[\\+]\\d{2}[\\:]?\\d{2})')
-        self.validate_required(self.order_pay_subject, 'order_pay_subject')
-        self.validate_required(self.rent_term, 'rent_term')
-        self.validate_required(self.total_rent_money, 'total_rent_money')
+        self.validate_required(self.code, 'code')
 
     def to_map(self):
         _map = super().to_map()
@@ -403,30 +493,18 @@ class OrderInfoReq(TeaModel):
             return _map
 
         result = dict()
-        if self.order_create_time is not None:
-            result['order_create_time'] = self.order_create_time
-        if self.order_pay_subject is not None:
-            result['order_pay_subject'] = self.order_pay_subject
-        if self.rent_term is not None:
-            result['rent_term'] = self.rent_term
-        if self.rent_unit is not None:
-            result['rent_unit'] = self.rent_unit
-        if self.total_rent_money is not None:
-            result['total_rent_money'] = self.total_rent_money
+        if self.code is not None:
+            result['code'] = self.code
+        if self.message is not None:
+            result['message'] = self.message
         return result
 
     def from_map(self, m: dict = None):
         m = m or dict()
-        if m.get('order_create_time') is not None:
-            self.order_create_time = m.get('order_create_time')
-        if m.get('order_pay_subject') is not None:
-            self.order_pay_subject = m.get('order_pay_subject')
-        if m.get('rent_term') is not None:
-            self.rent_term = m.get('rent_term')
-        if m.get('rent_unit') is not None:
-            self.rent_unit = m.get('rent_unit')
-        if m.get('total_rent_money') is not None:
-            self.total_rent_money = m.get('total_rent_money')
+        if m.get('code') is not None:
+            self.code = m.get('code')
+        if m.get('message') is not None:
+            self.message = m.get('message')
         return self
 
 
@@ -498,6 +576,194 @@ class OrderPromise(TeaModel):
             for k in m.get('repay_strategy_list'):
                 temp_model = RepayStrategy()
                 self.repay_strategy_list.append(temp_model.from_map(k))
+        return self
+
+
+class FileInfoDto(TeaModel):
+    def __init__(
+        self,
+        url: str = None,
+    ):
+        # 文件url
+        self.url = url
+
+    def validate(self):
+        self.validate_required(self.url, 'url')
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.url is not None:
+            result['url'] = self.url
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('url') is not None:
+            self.url = m.get('url')
+        return self
+
+
+class ModelToolDto(TeaModel):
+    def __init__(
+        self,
+        type: str = None,
+    ):
+        # 指定使用的工具类型。
+        # 枚举值：
+        # + web_search（联网搜索工具。开启联网搜索后，模型会根据用户的提示词自主判断是否搜索互联网内容（如商品、天气等）。可提升生成视频的时效性，但也会增加一定的时延）0
+        self.type = type
+
+    def validate(self):
+        self.validate_required(self.type, 'type')
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.type is not None:
+            result['type'] = self.type
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('type') is not None:
+            self.type = m.get('type')
+        return self
+
+
+class ContentInfoDto(TeaModel):
+    def __init__(
+        self,
+        video_url: str = None,
+        last_frame_url: str = None,
+    ):
+        # 视频地址 有效期为 24 小时
+        self.video_url = video_url
+        # 尾帧图像 URL 有效期为 24 小时
+        # 任务创建 returnLastFrame=true时返回
+        self.last_frame_url = last_frame_url
+
+    def validate(self):
+        self.validate_required(self.video_url, 'video_url')
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.video_url is not None:
+            result['video_url'] = self.video_url
+        if self.last_frame_url is not None:
+            result['last_frame_url'] = self.last_frame_url
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('video_url') is not None:
+            self.video_url = m.get('video_url')
+        if m.get('last_frame_url') is not None:
+            self.last_frame_url = m.get('last_frame_url')
+        return self
+
+
+class OrderInfoReq(TeaModel):
+    def __init__(
+        self,
+        order_create_time: str = None,
+        order_pay_subject: str = None,
+        rent_term: int = None,
+        rent_unit: str = None,
+        total_rent_money: int = None,
+    ):
+        # 订单创建时间
+        self.order_create_time = order_create_time
+        # 订单付款主题
+        self.order_pay_subject = order_pay_subject
+        # 总租期
+        # 总租期最小值为1
+        # 总租期最大值为60
+        self.rent_term = rent_term
+        # 租期单位
+        # MONTH : 月
+        # DAY : 天
+        self.rent_unit = rent_unit
+        # 租金总额 单位/分
+        # 最小值为1
+        self.total_rent_money = total_rent_money
+
+    def validate(self):
+        self.validate_required(self.order_create_time, 'order_create_time')
+        if self.order_create_time is not None:
+            self.validate_pattern(self.order_create_time, 'order_create_time', '\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}([Z]|([\\.]\\d{1,9})?[\\+]\\d{2}[\\:]?\\d{2})')
+        self.validate_required(self.order_pay_subject, 'order_pay_subject')
+        self.validate_required(self.rent_term, 'rent_term')
+        self.validate_required(self.total_rent_money, 'total_rent_money')
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.order_create_time is not None:
+            result['order_create_time'] = self.order_create_time
+        if self.order_pay_subject is not None:
+            result['order_pay_subject'] = self.order_pay_subject
+        if self.rent_term is not None:
+            result['rent_term'] = self.rent_term
+        if self.rent_unit is not None:
+            result['rent_unit'] = self.rent_unit
+        if self.total_rent_money is not None:
+            result['total_rent_money'] = self.total_rent_money
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('order_create_time') is not None:
+            self.order_create_time = m.get('order_create_time')
+        if m.get('order_pay_subject') is not None:
+            self.order_pay_subject = m.get('order_pay_subject')
+        if m.get('rent_term') is not None:
+            self.rent_term = m.get('rent_term')
+        if m.get('rent_unit') is not None:
+            self.rent_unit = m.get('rent_unit')
+        if m.get('total_rent_money') is not None:
+            self.total_rent_money = m.get('total_rent_money')
+        return self
+
+
+class TextInfoDto(TeaModel):
+    def __init__(
+        self,
+        text: str = None,
+    ):
+        # 文本素材信息
+        self.text = text
+
+    def validate(self):
+        self.validate_required(self.text, 'text')
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.text is not None:
+            result['text'] = self.text
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('text') is not None:
+            self.text = m.get('text')
         return self
 
 
@@ -716,6 +982,309 @@ class OrderFullInfoReq(TeaModel):
         return self
 
 
+class TaskResultInfoDto(TeaModel):
+    def __init__(
+        self,
+        task_id: str = None,
+        model: str = None,
+        status: str = None,
+        error: TaskErrorDto = None,
+        content: ContentInfoDto = None,
+        usage: TokenUsageDto = None,
+        duration: int = None,
+        frames: int = None,
+        resolution: str = None,
+        ratio: str = None,
+        seed: int = None,
+        framespersecond: int = None,
+        generate_audio: bool = None,
+        service_tier: str = None,
+        execution_expires_after: int = None,
+        priority: int = None,
+        safety_identifier: str = None,
+        created_at: str = None,
+        updated_at: str = None,
+        tools: List[ModelToolDto] = None,
+    ):
+        # 任务ID
+        self.task_id = task_id
+        # 模型名称与版本
+        # 格式为 模型名称-版本
+        self.model = model
+        # 任务状态
+        # + creating: 任务创建中
+        # + queued：排队中
+        # + running：任务运行中
+        # + cancelled：取消任务，取消状态 24h 自动删除（只支持排队中状态的任务被取消）
+        # + succeeded：任务成功
+        # + failed：任务失败
+        # + expired：任务超时
+        self.status = status
+        # 错误信息（任务失败时返回错误数据）
+        self.error = error
+        # 输出内容
+        self.content = content
+        # token 用量
+        self.usage = usage
+        # 视频时长（秒）
+        self.duration = duration
+        # 视频帧数
+        # 说明： duration 和 frames 参数只会返回一个 。
+        self.frames = frames
+        # 分辨率
+        self.resolution = resolution
+        # 宽高比
+        self.ratio = ratio
+        # 随机种子
+        self.seed = seed
+        # 视频帧率
+        self.framespersecond = framespersecond
+        # 是否生成同步音频
+        self.generate_audio = generate_audio
+        # 服务等级
+        self.service_tier = service_tier
+        # 任务超时阈值（秒）
+        self.execution_expires_after = execution_expires_after
+        # 执行优先级
+        self.priority = priority
+        # 终端用户标识
+        self.safety_identifier = safety_identifier
+        # 任务实际创建时间 格式 yyyy-MM-dd HH:mm:ss
+        self.created_at = created_at
+        # 更新时间  格式 yyyy-MM-dd HH:mm:ss
+        self.updated_at = updated_at
+        # 实际使用的工具
+        self.tools = tools
+
+    def validate(self):
+        self.validate_required(self.task_id, 'task_id')
+        self.validate_required(self.model, 'model')
+        self.validate_required(self.status, 'status')
+        if self.error:
+            self.error.validate()
+        if self.content:
+            self.content.validate()
+        if self.usage:
+            self.usage.validate()
+        self.validate_required(self.framespersecond, 'framespersecond')
+        if self.tools:
+            for k in self.tools:
+                if k:
+                    k.validate()
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.task_id is not None:
+            result['task_id'] = self.task_id
+        if self.model is not None:
+            result['model'] = self.model
+        if self.status is not None:
+            result['status'] = self.status
+        if self.error is not None:
+            result['error'] = self.error.to_map()
+        if self.content is not None:
+            result['content'] = self.content.to_map()
+        if self.usage is not None:
+            result['usage'] = self.usage.to_map()
+        if self.duration is not None:
+            result['duration'] = self.duration
+        if self.frames is not None:
+            result['frames'] = self.frames
+        if self.resolution is not None:
+            result['resolution'] = self.resolution
+        if self.ratio is not None:
+            result['ratio'] = self.ratio
+        if self.seed is not None:
+            result['seed'] = self.seed
+        if self.framespersecond is not None:
+            result['framespersecond'] = self.framespersecond
+        if self.generate_audio is not None:
+            result['generate_audio'] = self.generate_audio
+        if self.service_tier is not None:
+            result['service_tier'] = self.service_tier
+        if self.execution_expires_after is not None:
+            result['execution_expires_after'] = self.execution_expires_after
+        if self.priority is not None:
+            result['priority'] = self.priority
+        if self.safety_identifier is not None:
+            result['safety_identifier'] = self.safety_identifier
+        if self.created_at is not None:
+            result['created_at'] = self.created_at
+        if self.updated_at is not None:
+            result['updated_at'] = self.updated_at
+        result['tools'] = []
+        if self.tools is not None:
+            for k in self.tools:
+                result['tools'].append(k.to_map() if k else None)
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('task_id') is not None:
+            self.task_id = m.get('task_id')
+        if m.get('model') is not None:
+            self.model = m.get('model')
+        if m.get('status') is not None:
+            self.status = m.get('status')
+        if m.get('error') is not None:
+            temp_model = TaskErrorDto()
+            self.error = temp_model.from_map(m['error'])
+        if m.get('content') is not None:
+            temp_model = ContentInfoDto()
+            self.content = temp_model.from_map(m['content'])
+        if m.get('usage') is not None:
+            temp_model = TokenUsageDto()
+            self.usage = temp_model.from_map(m['usage'])
+        if m.get('duration') is not None:
+            self.duration = m.get('duration')
+        if m.get('frames') is not None:
+            self.frames = m.get('frames')
+        if m.get('resolution') is not None:
+            self.resolution = m.get('resolution')
+        if m.get('ratio') is not None:
+            self.ratio = m.get('ratio')
+        if m.get('seed') is not None:
+            self.seed = m.get('seed')
+        if m.get('framespersecond') is not None:
+            self.framespersecond = m.get('framespersecond')
+        if m.get('generate_audio') is not None:
+            self.generate_audio = m.get('generate_audio')
+        if m.get('service_tier') is not None:
+            self.service_tier = m.get('service_tier')
+        if m.get('execution_expires_after') is not None:
+            self.execution_expires_after = m.get('execution_expires_after')
+        if m.get('priority') is not None:
+            self.priority = m.get('priority')
+        if m.get('safety_identifier') is not None:
+            self.safety_identifier = m.get('safety_identifier')
+        if m.get('created_at') is not None:
+            self.created_at = m.get('created_at')
+        if m.get('updated_at') is not None:
+            self.updated_at = m.get('updated_at')
+        self.tools = []
+        if m.get('tools') is not None:
+            for k in m.get('tools'):
+                temp_model = ModelToolDto()
+                self.tools.append(temp_model.from_map(k))
+        return self
+
+
+class VoucherBaseInfoVO(TeaModel):
+    def __init__(
+        self,
+        user_id: str = None,
+        phone_number: str = None,
+        rights_code: str = None,
+        rights_name: str = None,
+        voucher_code: str = None,
+        status: str = None,
+    ):
+        # 2088xxxxxx0001
+        self.user_id = user_id
+        # 手机号
+        self.phone_number = phone_number
+        # 权益编号
+        self.rights_code = rights_code
+        # 权益名称
+        self.rights_name = rights_name
+        # 券码
+        self.voucher_code = voucher_code
+        # 券状态
+        # WAIT_EFFECT：待生效
+        # WAIT_VERIFY：待核销
+        # EXPIRED：已过期
+        # VERIFY_SUCCESS：核销成功（已核销）
+        # 公域场景下只会包含以上四种状态，私域场景会包含下方状态基
+        # FREEZE：已冻结
+        # VERIFYING：核销处理中
+        # VERIFY_FAIL：核销失败
+        # VERIFY_CANCELING：核销撤销中
+        # INVALID：已失效
+        # NO_NEED_VERIFY：无需核销
+        self.status = status
+
+    def validate(self):
+        self.validate_required(self.rights_code, 'rights_code')
+        self.validate_required(self.rights_name, 'rights_name')
+        self.validate_required(self.voucher_code, 'voucher_code')
+        self.validate_required(self.status, 'status')
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.user_id is not None:
+            result['user_id'] = self.user_id
+        if self.phone_number is not None:
+            result['phone_number'] = self.phone_number
+        if self.rights_code is not None:
+            result['rights_code'] = self.rights_code
+        if self.rights_name is not None:
+            result['rights_name'] = self.rights_name
+        if self.voucher_code is not None:
+            result['voucher_code'] = self.voucher_code
+        if self.status is not None:
+            result['status'] = self.status
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('user_id') is not None:
+            self.user_id = m.get('user_id')
+        if m.get('phone_number') is not None:
+            self.phone_number = m.get('phone_number')
+        if m.get('rights_code') is not None:
+            self.rights_code = m.get('rights_code')
+        if m.get('rights_name') is not None:
+            self.rights_name = m.get('rights_name')
+        if m.get('voucher_code') is not None:
+            self.voucher_code = m.get('voucher_code')
+        if m.get('status') is not None:
+            self.status = m.get('status')
+        return self
+
+
+class RefundDetail(TeaModel):
+    def __init__(
+        self,
+        trans_out_account: str = None,
+        amount: int = None,
+    ):
+        # 支出方账户ID，如果是支付宝：以2088开头的纯16位数字
+        self.trans_out_account = trans_out_account
+        # 分账的金额，单位为分
+        self.amount = amount
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.trans_out_account is not None:
+            result['trans_out_account'] = self.trans_out_account
+        if self.amount is not None:
+            result['amount'] = self.amount
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('trans_out_account') is not None:
+            self.trans_out_account = m.get('trans_out_account')
+        if m.get('amount') is not None:
+            self.amount = m.get('amount')
+        return self
+
+
 class CommonResponse(TeaModel):
     def __init__(
         self,
@@ -900,45 +1469,40 @@ class RightsGrantResultVO(TeaModel):
         return self
 
 
-class VoucherBaseInfoVO(TeaModel):
+class MaterialContentDto(TeaModel):
     def __init__(
         self,
-        user_id: str = None,
-        phone_number: str = None,
-        rights_code: str = None,
-        rights_name: str = None,
-        voucher_code: str = None,
-        status: str = None,
+        text_info_dtos: List[TextInfoDto] = None,
+        image_info_dtos: List[ImageInfoDto] = None,
+        video_info_dtos: List[FileInfoDto] = None,
+        audio_info_dtos: List[FileInfoDto] = None,
     ):
-        # 2088xxxxxx0001
-        self.user_id = user_id
-        # 手机号
-        self.phone_number = phone_number
-        # 权益编号
-        self.rights_code = rights_code
-        # 权益名称
-        self.rights_name = rights_name
-        # 券码
-        self.voucher_code = voucher_code
-        # 券状态
-        # WAIT_EFFECT：待生效
-        # WAIT_VERIFY：待核销
-        # EXPIRED：已过期
-        # VERIFY_SUCCESS：核销成功（已核销）
-        # 公域场景下只会包含以上四种状态，私域场景会包含下方状态基
-        # FREEZE：已冻结
-        # VERIFYING：核销处理中
-        # VERIFY_FAIL：核销失败
-        # VERIFY_CANCELING：核销撤销中
-        # INVALID：已失效
-        # NO_NEED_VERIFY：无需核销
-        self.status = status
+        # 文本素材信息列表
+        self.text_info_dtos = text_info_dtos
+        # 图片素材列表
+        self.image_info_dtos = image_info_dtos
+        # 视频素材内容列表
+        self.video_info_dtos = video_info_dtos
+        # 音频素材内容列表
+        self.audio_info_dtos = audio_info_dtos
 
     def validate(self):
-        self.validate_required(self.rights_code, 'rights_code')
-        self.validate_required(self.rights_name, 'rights_name')
-        self.validate_required(self.voucher_code, 'voucher_code')
-        self.validate_required(self.status, 'status')
+        if self.text_info_dtos:
+            for k in self.text_info_dtos:
+                if k:
+                    k.validate()
+        if self.image_info_dtos:
+            for k in self.image_info_dtos:
+                if k:
+                    k.validate()
+        if self.video_info_dtos:
+            for k in self.video_info_dtos:
+                if k:
+                    k.validate()
+        if self.audio_info_dtos:
+            for k in self.audio_info_dtos:
+                if k:
+                    k.validate()
 
     def to_map(self):
         _map = super().to_map()
@@ -946,69 +1510,46 @@ class VoucherBaseInfoVO(TeaModel):
             return _map
 
         result = dict()
-        if self.user_id is not None:
-            result['user_id'] = self.user_id
-        if self.phone_number is not None:
-            result['phone_number'] = self.phone_number
-        if self.rights_code is not None:
-            result['rights_code'] = self.rights_code
-        if self.rights_name is not None:
-            result['rights_name'] = self.rights_name
-        if self.voucher_code is not None:
-            result['voucher_code'] = self.voucher_code
-        if self.status is not None:
-            result['status'] = self.status
+        result['text_info_dtos'] = []
+        if self.text_info_dtos is not None:
+            for k in self.text_info_dtos:
+                result['text_info_dtos'].append(k.to_map() if k else None)
+        result['image_info_dtos'] = []
+        if self.image_info_dtos is not None:
+            for k in self.image_info_dtos:
+                result['image_info_dtos'].append(k.to_map() if k else None)
+        result['video_info_dtos'] = []
+        if self.video_info_dtos is not None:
+            for k in self.video_info_dtos:
+                result['video_info_dtos'].append(k.to_map() if k else None)
+        result['audio_info_dtos'] = []
+        if self.audio_info_dtos is not None:
+            for k in self.audio_info_dtos:
+                result['audio_info_dtos'].append(k.to_map() if k else None)
         return result
 
     def from_map(self, m: dict = None):
         m = m or dict()
-        if m.get('user_id') is not None:
-            self.user_id = m.get('user_id')
-        if m.get('phone_number') is not None:
-            self.phone_number = m.get('phone_number')
-        if m.get('rights_code') is not None:
-            self.rights_code = m.get('rights_code')
-        if m.get('rights_name') is not None:
-            self.rights_name = m.get('rights_name')
-        if m.get('voucher_code') is not None:
-            self.voucher_code = m.get('voucher_code')
-        if m.get('status') is not None:
-            self.status = m.get('status')
-        return self
-
-
-class RefundDetail(TeaModel):
-    def __init__(
-        self,
-        trans_out_account: str = None,
-        amount: int = None,
-    ):
-        # 支出方账户ID，如果是支付宝：以2088开头的纯16位数字
-        self.trans_out_account = trans_out_account
-        # 分账的金额，单位为分
-        self.amount = amount
-
-    def validate(self):
-        pass
-
-    def to_map(self):
-        _map = super().to_map()
-        if _map is not None:
-            return _map
-
-        result = dict()
-        if self.trans_out_account is not None:
-            result['trans_out_account'] = self.trans_out_account
-        if self.amount is not None:
-            result['amount'] = self.amount
-        return result
-
-    def from_map(self, m: dict = None):
-        m = m or dict()
-        if m.get('trans_out_account') is not None:
-            self.trans_out_account = m.get('trans_out_account')
-        if m.get('amount') is not None:
-            self.amount = m.get('amount')
+        self.text_info_dtos = []
+        if m.get('text_info_dtos') is not None:
+            for k in m.get('text_info_dtos'):
+                temp_model = TextInfoDto()
+                self.text_info_dtos.append(temp_model.from_map(k))
+        self.image_info_dtos = []
+        if m.get('image_info_dtos') is not None:
+            for k in m.get('image_info_dtos'):
+                temp_model = ImageInfoDto()
+                self.image_info_dtos.append(temp_model.from_map(k))
+        self.video_info_dtos = []
+        if m.get('video_info_dtos') is not None:
+            for k in m.get('video_info_dtos'):
+                temp_model = FileInfoDto()
+                self.video_info_dtos.append(temp_model.from_map(k))
+        self.audio_info_dtos = []
+        if m.get('audio_info_dtos') is not None:
+            for k in m.get('audio_info_dtos'):
+                temp_model = FileInfoDto()
+                self.audio_info_dtos.append(temp_model.from_map(k))
         return self
 
 
@@ -1962,6 +2503,343 @@ class CheckOmngRiskResponse(TeaModel):
             self.result_msg = m.get('result_msg')
         if m.get('info_str') is not None:
             self.info_str = m.get('info_str')
+        return self
+
+
+class SaveOmngGenerationtaskRequest(TeaModel):
+    def __init__(
+        self,
+        auth_token: str = None,
+        product_instance_id: str = None,
+        task_id: str = None,
+        model: str = None,
+        material_content_dto: MaterialContentDto = None,
+        generate_audio: bool = None,
+        ratio: str = None,
+        duration: int = None,
+        resolution: str = None,
+        output_format: str = None,
+        watermark: bool = None,
+        seed: int = None,
+        return_last_frame: bool = None,
+        tools: List[ModelToolDto] = None,
+        service_tier: str = None,
+        execution_expires_after: int = None,
+        safety_identifier: str = None,
+        priority: int = None,
+    ):
+        # OAuth模式下的授权token
+        self.auth_token = auth_token
+        self.product_instance_id = product_instance_id
+        # 任务ID、幂等处理
+        self.task_id = task_id
+        # 模型ID
+        self.model = model
+        # 素材内容
+        self.material_content_dto = material_content_dto
+        # 生成有声视频
+        self.generate_audio = generate_audio
+        # 视频宽高比
+        # 枚举值：16:9、4:3、1:1、3:4、9:16、21:9、adaptive
+        self.ratio = ratio
+        # 生成视频时长（单位：秒）。设置为 -1 时，实际生成视频的时长可通过 **视频生成任务查询接口 **返回的 duration 字段获取。视频时长与计费相关，请谨慎设置。
+        # 目前最大值 仅支持 30、最小值-1。
+        self.duration = duration
+        # 视频分辨率 可选值：480p、720p、1080p、4k
+        self.resolution = resolution
+        # 输出格式 枚举值:mp4、mov
+        # 默认值：mp4
+        self.output_format = output_format
+        # 视频水印
+        # 默认值：false
+        # true：生成视频右下角会展示 AI 生成 水印。
+        self.watermark = watermark
+        # 种子整数，用于控制生成内容的随机性
+        self.seed = seed
+        # 返回尾帧 默认值 false
+        # false/true
+        self.return_last_frame = return_last_frame
+        # 配置模型要调用的工具
+        self.tools = tools
+        # 指定处理本次请求的服务等级类型 默认值 default
+        # + default：在线推理模式
+        # + flex：离线推理模式
+        self.service_tier = service_tier
+        # 默认值 172800 秒 （48小时）
+        # 3600 <=取值限制<= 259200
+        self.execution_expires_after = execution_expires_after
+        # 终端用户的唯一标识符
+        self.safety_identifier = safety_identifier
+        # 执行优先级 默认值 0
+        # 数值越大，优先级越高。
+        self.priority = priority
+
+    def validate(self):
+        self.validate_required(self.task_id, 'task_id')
+        self.validate_required(self.model, 'model')
+        self.validate_required(self.material_content_dto, 'material_content_dto')
+        if self.material_content_dto:
+            self.material_content_dto.validate()
+        if self.tools:
+            for k in self.tools:
+                if k:
+                    k.validate()
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.auth_token is not None:
+            result['auth_token'] = self.auth_token
+        if self.product_instance_id is not None:
+            result['product_instance_id'] = self.product_instance_id
+        if self.task_id is not None:
+            result['task_id'] = self.task_id
+        if self.model is not None:
+            result['model'] = self.model
+        if self.material_content_dto is not None:
+            result['material_content_dto'] = self.material_content_dto.to_map()
+        if self.generate_audio is not None:
+            result['generate_audio'] = self.generate_audio
+        if self.ratio is not None:
+            result['ratio'] = self.ratio
+        if self.duration is not None:
+            result['duration'] = self.duration
+        if self.resolution is not None:
+            result['resolution'] = self.resolution
+        if self.output_format is not None:
+            result['output_format'] = self.output_format
+        if self.watermark is not None:
+            result['watermark'] = self.watermark
+        if self.seed is not None:
+            result['seed'] = self.seed
+        if self.return_last_frame is not None:
+            result['return_last_frame'] = self.return_last_frame
+        result['tools'] = []
+        if self.tools is not None:
+            for k in self.tools:
+                result['tools'].append(k.to_map() if k else None)
+        if self.service_tier is not None:
+            result['service_tier'] = self.service_tier
+        if self.execution_expires_after is not None:
+            result['execution_expires_after'] = self.execution_expires_after
+        if self.safety_identifier is not None:
+            result['safety_identifier'] = self.safety_identifier
+        if self.priority is not None:
+            result['priority'] = self.priority
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('auth_token') is not None:
+            self.auth_token = m.get('auth_token')
+        if m.get('product_instance_id') is not None:
+            self.product_instance_id = m.get('product_instance_id')
+        if m.get('task_id') is not None:
+            self.task_id = m.get('task_id')
+        if m.get('model') is not None:
+            self.model = m.get('model')
+        if m.get('material_content_dto') is not None:
+            temp_model = MaterialContentDto()
+            self.material_content_dto = temp_model.from_map(m['material_content_dto'])
+        if m.get('generate_audio') is not None:
+            self.generate_audio = m.get('generate_audio')
+        if m.get('ratio') is not None:
+            self.ratio = m.get('ratio')
+        if m.get('duration') is not None:
+            self.duration = m.get('duration')
+        if m.get('resolution') is not None:
+            self.resolution = m.get('resolution')
+        if m.get('output_format') is not None:
+            self.output_format = m.get('output_format')
+        if m.get('watermark') is not None:
+            self.watermark = m.get('watermark')
+        if m.get('seed') is not None:
+            self.seed = m.get('seed')
+        if m.get('return_last_frame') is not None:
+            self.return_last_frame = m.get('return_last_frame')
+        self.tools = []
+        if m.get('tools') is not None:
+            for k in m.get('tools'):
+                temp_model = ModelToolDto()
+                self.tools.append(temp_model.from_map(k))
+        if m.get('service_tier') is not None:
+            self.service_tier = m.get('service_tier')
+        if m.get('execution_expires_after') is not None:
+            self.execution_expires_after = m.get('execution_expires_after')
+        if m.get('safety_identifier') is not None:
+            self.safety_identifier = m.get('safety_identifier')
+        if m.get('priority') is not None:
+            self.priority = m.get('priority')
+        return self
+
+
+class SaveOmngGenerationtaskResponse(TeaModel):
+    def __init__(
+        self,
+        req_msg_id: str = None,
+        result_code: str = None,
+        result_msg: str = None,
+        result: str = None,
+        fail_msg: str = None,
+    ):
+        # 请求唯一ID，用于链路跟踪和问题排查
+        self.req_msg_id = req_msg_id
+        # 结果码，一般OK表示调用成功
+        self.result_code = result_code
+        # 异常信息的文本描述
+        self.result_msg = result_msg
+        # 创建结果
+        # 成功：success
+        # 创建中：creating
+        # 失败：fail
+        self.result = result
+        # 失败原因
+        self.fail_msg = fail_msg
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.req_msg_id is not None:
+            result['req_msg_id'] = self.req_msg_id
+        if self.result_code is not None:
+            result['result_code'] = self.result_code
+        if self.result_msg is not None:
+            result['result_msg'] = self.result_msg
+        if self.result is not None:
+            result['result'] = self.result
+        if self.fail_msg is not None:
+            result['fail_msg'] = self.fail_msg
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('req_msg_id') is not None:
+            self.req_msg_id = m.get('req_msg_id')
+        if m.get('result_code') is not None:
+            self.result_code = m.get('result_code')
+        if m.get('result_msg') is not None:
+            self.result_msg = m.get('result_msg')
+        if m.get('result') is not None:
+            self.result = m.get('result')
+        if m.get('fail_msg') is not None:
+            self.fail_msg = m.get('fail_msg')
+        return self
+
+
+class QueryOmngGenerationtaskRequest(TeaModel):
+    def __init__(
+        self,
+        auth_token: str = None,
+        product_instance_id: str = None,
+        task_id: str = None,
+    ):
+        # OAuth模式下的授权token
+        self.auth_token = auth_token
+        self.product_instance_id = product_instance_id
+        # 任务ID
+        self.task_id = task_id
+
+    def validate(self):
+        self.validate_required(self.task_id, 'task_id')
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.auth_token is not None:
+            result['auth_token'] = self.auth_token
+        if self.product_instance_id is not None:
+            result['product_instance_id'] = self.product_instance_id
+        if self.task_id is not None:
+            result['task_id'] = self.task_id
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('auth_token') is not None:
+            self.auth_token = m.get('auth_token')
+        if m.get('product_instance_id') is not None:
+            self.product_instance_id = m.get('product_instance_id')
+        if m.get('task_id') is not None:
+            self.task_id = m.get('task_id')
+        return self
+
+
+class QueryOmngGenerationtaskResponse(TeaModel):
+    def __init__(
+        self,
+        req_msg_id: str = None,
+        result_code: str = None,
+        result_msg: str = None,
+        result: str = None,
+        fail_msg: str = None,
+        task_result_info_dto: TaskResultInfoDto = None,
+    ):
+        # 请求唯一ID，用于链路跟踪和问题排查
+        self.req_msg_id = req_msg_id
+        # 结果码，一般OK表示调用成功
+        self.result_code = result_code
+        # 异常信息的文本描述
+        self.result_msg = result_msg
+        # 查询结果
+        # 成功：success
+        # 失败：fail
+        self.result = result
+        # 查询失败原因
+        self.fail_msg = fail_msg
+        # 视频场景任务结果信息
+        self.task_result_info_dto = task_result_info_dto
+
+    def validate(self):
+        if self.task_result_info_dto:
+            self.task_result_info_dto.validate()
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.req_msg_id is not None:
+            result['req_msg_id'] = self.req_msg_id
+        if self.result_code is not None:
+            result['result_code'] = self.result_code
+        if self.result_msg is not None:
+            result['result_msg'] = self.result_msg
+        if self.result is not None:
+            result['result'] = self.result
+        if self.fail_msg is not None:
+            result['fail_msg'] = self.fail_msg
+        if self.task_result_info_dto is not None:
+            result['task_result_info_dto'] = self.task_result_info_dto.to_map()
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('req_msg_id') is not None:
+            self.req_msg_id = m.get('req_msg_id')
+        if m.get('result_code') is not None:
+            self.result_code = m.get('result_code')
+        if m.get('result_msg') is not None:
+            self.result_msg = m.get('result_msg')
+        if m.get('result') is not None:
+            self.result = m.get('result')
+        if m.get('fail_msg') is not None:
+            self.fail_msg = m.get('fail_msg')
+        if m.get('task_result_info_dto') is not None:
+            temp_model = TaskResultInfoDto()
+            self.task_result_info_dto = temp_model.from_map(m['task_result_info_dto'])
         return self
 
 
