@@ -46,7 +46,6 @@ public class EditInnerMermngcontractauditdetailRequest extends TeaModel {
 
     // 编辑修订内容/采纳修订内容/采纳批注内容
     @NameInMap("content")
-    @Validation(required = true)
     public String content;
 
     public static EditInnerMermngcontractauditdetailRequest build(java.util.Map<String, ?> map) throws Exception {
