@@ -158,7 +158,7 @@ namespace AntChain.SDK.GESAAS
                         {"req_msg_id", AntChain.AlipayUtil.AntchainUtils.GetNonce()},
                         {"access_key", _accessKeyId},
                         {"base_sdk_version", "TeaSDK-2.0"},
-                        {"sdk_version", "1.3.16"},
+                        {"sdk_version", "1.4.1"},
                         {"_prod_code", "GESAAS"},
                         {"_prod_channel", "default"},
                     };
@@ -301,7 +301,7 @@ namespace AntChain.SDK.GESAAS
                         {"req_msg_id", AntChain.AlipayUtil.AntchainUtils.GetNonce()},
                         {"access_key", _accessKeyId},
                         {"base_sdk_version", "TeaSDK-2.0"},
-                        {"sdk_version", "1.3.16"},
+                        {"sdk_version", "1.4.1"},
                         {"_prod_code", "GESAAS"},
                         {"_prod_channel", "default"},
                     };
@@ -679,6 +679,98 @@ namespace AntChain.SDK.GESAAS
         {
             AlibabaCloud.TeaUtil.Common.ValidateModel(request);
             return TeaModel.ToObject<CheckOmngRiskResponse>(await DoRequestAsync("1.0", "antdigital.gesaas.omng.risk.check", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /// <term><b>Description:</b></term>
+        /// <description>
+        /// <para>Description: 视频生成任务创建
+        /// Summary: 视频生成任务创建</para>
+        /// </description>
+        public SaveOmngGenerationtaskResponse SaveOmngGenerationtask(SaveOmngGenerationtaskRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return SaveOmngGenerationtaskEx(request, headers, runtime);
+        }
+
+        /// <term><b>Description:</b></term>
+        /// <description>
+        /// <para>Description: 视频生成任务创建
+        /// Summary: 视频生成任务创建</para>
+        /// </description>
+        public async Task<SaveOmngGenerationtaskResponse> SaveOmngGenerationtaskAsync(SaveOmngGenerationtaskRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return await SaveOmngGenerationtaskExAsync(request, headers, runtime);
+        }
+
+        /// <term><b>Description:</b></term>
+        /// <description>
+        /// <para>Description: 视频生成任务创建
+        /// Summary: 视频生成任务创建</para>
+        /// </description>
+        public SaveOmngGenerationtaskResponse SaveOmngGenerationtaskEx(SaveOmngGenerationtaskRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<SaveOmngGenerationtaskResponse>(DoRequest("1.0", "antdigital.gesaas.omng.generationtask.save", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /// <term><b>Description:</b></term>
+        /// <description>
+        /// <para>Description: 视频生成任务创建
+        /// Summary: 视频生成任务创建</para>
+        /// </description>
+        public async Task<SaveOmngGenerationtaskResponse> SaveOmngGenerationtaskExAsync(SaveOmngGenerationtaskRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<SaveOmngGenerationtaskResponse>(await DoRequestAsync("1.0", "antdigital.gesaas.omng.generationtask.save", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /// <term><b>Description:</b></term>
+        /// <description>
+        /// <para>Description: 视频生成任务结果查询
+        /// Summary: 视频生成任务结果查询</para>
+        /// </description>
+        public QueryOmngGenerationtaskResponse QueryOmngGenerationtask(QueryOmngGenerationtaskRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return QueryOmngGenerationtaskEx(request, headers, runtime);
+        }
+
+        /// <term><b>Description:</b></term>
+        /// <description>
+        /// <para>Description: 视频生成任务结果查询
+        /// Summary: 视频生成任务结果查询</para>
+        /// </description>
+        public async Task<QueryOmngGenerationtaskResponse> QueryOmngGenerationtaskAsync(QueryOmngGenerationtaskRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return await QueryOmngGenerationtaskExAsync(request, headers, runtime);
+        }
+
+        /// <term><b>Description:</b></term>
+        /// <description>
+        /// <para>Description: 视频生成任务结果查询
+        /// Summary: 视频生成任务结果查询</para>
+        /// </description>
+        public QueryOmngGenerationtaskResponse QueryOmngGenerationtaskEx(QueryOmngGenerationtaskRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<QueryOmngGenerationtaskResponse>(DoRequest("1.0", "antdigital.gesaas.omng.generationtask.query", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /// <term><b>Description:</b></term>
+        /// <description>
+        /// <para>Description: 视频生成任务结果查询
+        /// Summary: 视频生成任务结果查询</para>
+        /// </description>
+        public async Task<QueryOmngGenerationtaskResponse> QueryOmngGenerationtaskExAsync(QueryOmngGenerationtaskRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<QueryOmngGenerationtaskResponse>(await DoRequestAsync("1.0", "antdigital.gesaas.omng.generationtask.query", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
         }
 
         /// <term><b>Description:</b></term>
