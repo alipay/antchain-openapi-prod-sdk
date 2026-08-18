@@ -12,20 +12,7 @@ public class InitServerWillauthRequest extends TeaModel {
     public String productInstanceId;
 
     // string
-    /**
-     * <p>待上传文件</p>
-     */
-    @NameInMap("fileObject")
-    public java.io.InputStream fileObject;
-
-    /**
-     * <p>待上传文件名</p>
-     */
-    @NameInMap("fileObjectName")
-    public String fileObjectName;
-
     @NameInMap("file_id")
-    @Validation(required = true)
     public String fileId;
 
     // 场景id
@@ -101,22 +88,6 @@ public class InitServerWillauthRequest extends TeaModel {
     }
     public String getProductInstanceId() {
         return this.productInstanceId;
-    }
-
-    public InitServerWillauthRequest setFileObject(java.io.InputStream fileObject) {
-        this.fileObject = fileObject;
-        return this;
-    }
-    public java.io.InputStream getFileObject() {
-        return this.fileObject;
-    }
-
-    public InitServerWillauthRequest setFileObjectName(String fileObjectName) {
-        this.fileObjectName = fileObjectName;
-        return this;
-    }
-    public String getFileObjectName() {
-        return this.fileObjectName;
     }
 
     public InitServerWillauthRequest setFileId(String fileId) {

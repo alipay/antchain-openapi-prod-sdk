@@ -369,6 +369,190 @@ public class OcrInfo extends TeaModel {
     @NameInMap("chip_num")
     public String chipNum;
 
+    // 证件类别
+    /**
+     * <strong>example:</strong>
+     * <p>P</p>
+     */
+    @NameInMap("passport_type")
+    public String passportType;
+
+    // 姓
+    /**
+     * <strong>example:</strong>
+     * <p>张</p>
+     */
+    @NameInMap("surname")
+    public String surname;
+
+    // 名
+    /**
+     * <strong>example:</strong>
+     * <p>三</p>
+     */
+    @NameInMap("given_name")
+    public String givenName;
+
+    // 护照号码
+    /**
+     * <strong>example:</strong>
+     * <p>L12880801</p>
+     */
+    @NameInMap("passport_number")
+    public String passportNumber;
+
+    // 英文姓名
+    /**
+     * <strong>example:</strong>
+     * <p>ZHENGJIAN</p>
+     */
+    @NameInMap("name_en")
+    public String nameEn;
+
+    // 英文出生地
+    /**
+     * <strong>example:</strong>
+     * <p>GUANGDONG</p>
+     */
+    @NameInMap("birth_place_en")
+    public String birthPlaceEn;
+
+    // 非英文出生地
+    /**
+     * <strong>example:</strong>
+     * <p>广东</p>
+     */
+    @NameInMap("birth_place")
+    public String birthPlace;
+
+    // 国籍
+    /**
+     * <strong>example:</strong>
+     * <p>CHINESE</p>
+     */
+    @NameInMap("country")
+    public String country;
+
+    // 出生日期
+    /**
+     * <strong>example:</strong>
+     * <p>850320</p>
+     */
+    @NameInMap("birth_date")
+    public String birthDate;
+
+    // 出生日期（年月日）
+    /**
+     * <strong>example:</strong>
+     * <p>1985年03月20日</p>
+     */
+    @NameInMap("birth_date_ymd")
+    public String birthDateYmd;
+
+    // 签发日期
+    /**
+     * <strong>example:</strong>
+     * <p>2019年01月18日</p>
+     */
+    @NameInMap("issue_date_ymd")
+    public String issueDateYmd;
+
+    // 签发地
+    /**
+     * <strong>example:</strong>
+     * <p>GUANGDONG</p>
+     */
+    @NameInMap("issue_place_en")
+    public String issuePlaceEn;
+
+    // 非英文签发地
+    /**
+     * <strong>example:</strong>
+     * <p>广东</p>
+     */
+    @NameInMap("issue_place")
+    public String issuePlace;
+
+    // 签发机关
+    /**
+     * <strong>example:</strong>
+     * <p>National Immigration Administration, PRC</p>
+     */
+    @NameInMap("issue_authority_en")
+    public String issueAuthorityEn;
+
+    // 中华人民共和国国家移民管理局
+    /**
+     * <strong>example:</strong>
+     * <p>非英文签发机关</p>
+     */
+    @NameInMap("issue_authority")
+    public String issueAuthority;
+
+    // 身份号
+    /**
+     * <strong>example:</strong>
+     * <p>123</p>
+     */
+    @NameInMap("id_number")
+    public String idNumber;
+
+    // 机读码一
+    /**
+     * <strong>example:</strong>
+     * <p>POCHNZHENGJIAN</p>
+     */
+    @NameInMap("mrz_line1")
+    public String mrzLine1;
+
+    // 机读码二
+    /**
+     * <strong>example:</strong>
+     * <p>EF12608921CHN8503208F2901178NGKELMPONBPJB978</p>
+     */
+    @NameInMap("mrz_line2")
+    public String mrzLine2;
+
+    // 证件类别
+    /**
+     * <strong>example:</strong>
+     * <p>往来台湾通行证</p>
+     */
+    @NameInMap("permit_type")
+    public String permitType;
+
+    // 中文姓名
+    /**
+     * <strong>example:</strong>
+     * <p>证件样本</p>
+     */
+    @NameInMap("name_cn")
+    public String nameCn;
+
+    // 有效期限 (yyyy.MM.dd-yyyy.MM.dd)
+    /**
+     * <strong>example:</strong>
+     * <p>2019.01.18-2029.01.17</p>
+     */
+    @NameInMap("valid_period")
+    public String validPeriod;
+
+    // 证件号码
+    /**
+     * <strong>example:</strong>
+     * <p>H01162111</p>
+     */
+    @NameInMap("permit_number")
+    public String permitNumber;
+
+    // 机读码
+    /**
+     * <strong>example:</strong>
+     * <p>CSCA3273201&lt;901178&lt;8108038&lt;2</p>
+     */
+    @NameInMap("mrz_code")
+    public String mrzCode;
+
     public static OcrInfo build(java.util.Map<String, ?> map) throws Exception {
         OcrInfo self = new OcrInfo();
         return TeaModel.build(map, self);
@@ -732,6 +916,190 @@ public class OcrInfo extends TeaModel {
     }
     public String getChipNum() {
         return this.chipNum;
+    }
+
+    public OcrInfo setPassportType(String passportType) {
+        this.passportType = passportType;
+        return this;
+    }
+    public String getPassportType() {
+        return this.passportType;
+    }
+
+    public OcrInfo setSurname(String surname) {
+        this.surname = surname;
+        return this;
+    }
+    public String getSurname() {
+        return this.surname;
+    }
+
+    public OcrInfo setGivenName(String givenName) {
+        this.givenName = givenName;
+        return this;
+    }
+    public String getGivenName() {
+        return this.givenName;
+    }
+
+    public OcrInfo setPassportNumber(String passportNumber) {
+        this.passportNumber = passportNumber;
+        return this;
+    }
+    public String getPassportNumber() {
+        return this.passportNumber;
+    }
+
+    public OcrInfo setNameEn(String nameEn) {
+        this.nameEn = nameEn;
+        return this;
+    }
+    public String getNameEn() {
+        return this.nameEn;
+    }
+
+    public OcrInfo setBirthPlaceEn(String birthPlaceEn) {
+        this.birthPlaceEn = birthPlaceEn;
+        return this;
+    }
+    public String getBirthPlaceEn() {
+        return this.birthPlaceEn;
+    }
+
+    public OcrInfo setBirthPlace(String birthPlace) {
+        this.birthPlace = birthPlace;
+        return this;
+    }
+    public String getBirthPlace() {
+        return this.birthPlace;
+    }
+
+    public OcrInfo setCountry(String country) {
+        this.country = country;
+        return this;
+    }
+    public String getCountry() {
+        return this.country;
+    }
+
+    public OcrInfo setBirthDate(String birthDate) {
+        this.birthDate = birthDate;
+        return this;
+    }
+    public String getBirthDate() {
+        return this.birthDate;
+    }
+
+    public OcrInfo setBirthDateYmd(String birthDateYmd) {
+        this.birthDateYmd = birthDateYmd;
+        return this;
+    }
+    public String getBirthDateYmd() {
+        return this.birthDateYmd;
+    }
+
+    public OcrInfo setIssueDateYmd(String issueDateYmd) {
+        this.issueDateYmd = issueDateYmd;
+        return this;
+    }
+    public String getIssueDateYmd() {
+        return this.issueDateYmd;
+    }
+
+    public OcrInfo setIssuePlaceEn(String issuePlaceEn) {
+        this.issuePlaceEn = issuePlaceEn;
+        return this;
+    }
+    public String getIssuePlaceEn() {
+        return this.issuePlaceEn;
+    }
+
+    public OcrInfo setIssuePlace(String issuePlace) {
+        this.issuePlace = issuePlace;
+        return this;
+    }
+    public String getIssuePlace() {
+        return this.issuePlace;
+    }
+
+    public OcrInfo setIssueAuthorityEn(String issueAuthorityEn) {
+        this.issueAuthorityEn = issueAuthorityEn;
+        return this;
+    }
+    public String getIssueAuthorityEn() {
+        return this.issueAuthorityEn;
+    }
+
+    public OcrInfo setIssueAuthority(String issueAuthority) {
+        this.issueAuthority = issueAuthority;
+        return this;
+    }
+    public String getIssueAuthority() {
+        return this.issueAuthority;
+    }
+
+    public OcrInfo setIdNumber(String idNumber) {
+        this.idNumber = idNumber;
+        return this;
+    }
+    public String getIdNumber() {
+        return this.idNumber;
+    }
+
+    public OcrInfo setMrzLine1(String mrzLine1) {
+        this.mrzLine1 = mrzLine1;
+        return this;
+    }
+    public String getMrzLine1() {
+        return this.mrzLine1;
+    }
+
+    public OcrInfo setMrzLine2(String mrzLine2) {
+        this.mrzLine2 = mrzLine2;
+        return this;
+    }
+    public String getMrzLine2() {
+        return this.mrzLine2;
+    }
+
+    public OcrInfo setPermitType(String permitType) {
+        this.permitType = permitType;
+        return this;
+    }
+    public String getPermitType() {
+        return this.permitType;
+    }
+
+    public OcrInfo setNameCn(String nameCn) {
+        this.nameCn = nameCn;
+        return this;
+    }
+    public String getNameCn() {
+        return this.nameCn;
+    }
+
+    public OcrInfo setValidPeriod(String validPeriod) {
+        this.validPeriod = validPeriod;
+        return this;
+    }
+    public String getValidPeriod() {
+        return this.validPeriod;
+    }
+
+    public OcrInfo setPermitNumber(String permitNumber) {
+        this.permitNumber = permitNumber;
+        return this;
+    }
+    public String getPermitNumber() {
+        return this.permitNumber;
+    }
+
+    public OcrInfo setMrzCode(String mrzCode) {
+        this.mrzCode = mrzCode;
+        return this;
+    }
+    public String getMrzCode() {
+        return this.mrzCode;
     }
 
 }

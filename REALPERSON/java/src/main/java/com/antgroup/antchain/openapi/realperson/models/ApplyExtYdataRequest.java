@@ -98,6 +98,62 @@ public class ApplyExtYdataRequest extends TeaModel {
     @NameInMap("extern_param")
     public String externParam;
 
+    // 第七期是否扣款成功
+    @NameInMap("seventh_deduction")
+    public Boolean seventhDeduction;
+
+    // 第七期扣款金额
+    @NameInMap("seventh_deduction_amount")
+    public String seventhDeductionAmount;
+
+    // 第八期是否扣款成功
+    @NameInMap("eighth_deduction")
+    public Boolean eighthDeduction;
+
+    // 第八期扣款金额
+    @NameInMap("eighth_deduction_amount")
+    public String eighthDeductionAmount;
+
+    // 第九期是否扣款成功
+    @NameInMap("ninth_deduction")
+    public Boolean ninthDeduction;
+
+    // 第九期扣款金额
+    @NameInMap("ninth_deduction_amount")
+    public String ninthDeductionAmount;
+
+    // 第十期是否扣款成功
+    @NameInMap("tenth_deduction")
+    public Boolean tenthDeduction;
+
+    // 第十期扣款金额
+    @NameInMap("tenth_deduction_amount")
+    public String tenthDeductionAmount;
+
+    // 第十一期是否扣款成功
+    @NameInMap("eleventh_deduction")
+    public Boolean eleventhDeduction;
+
+    // 第十一期扣款金额
+    @NameInMap("eleventh_deduction_amount")
+    public String eleventhDeductionAmount;
+
+    // 第十二期是否扣款成功
+    @NameInMap("twelfth_deduction")
+    public Boolean twelfthDeduction;
+
+    // 第十二期扣款金额
+    @NameInMap("twelfth_deduction_amount")
+    public String twelfthDeductionAmount;
+
+    // 第十三期是否扣款成功
+    @NameInMap("thirteenth_deduction")
+    public Boolean thirteenthDeduction;
+
+    // 第十三期扣款金额
+    @NameInMap("thirteenth_deduction_amount")
+    public String thirteenthDeductionAmount;
+
     public static ApplyExtYdataRequest build(java.util.Map<String, ?> map) throws Exception {
         ApplyExtYdataRequest self = new ApplyExtYdataRequest();
         return TeaModel.build(map, self);
@@ -277,6 +333,118 @@ public class ApplyExtYdataRequest extends TeaModel {
     }
     public String getExternParam() {
         return this.externParam;
+    }
+
+    public ApplyExtYdataRequest setSeventhDeduction(Boolean seventhDeduction) {
+        this.seventhDeduction = seventhDeduction;
+        return this;
+    }
+    public Boolean getSeventhDeduction() {
+        return this.seventhDeduction;
+    }
+
+    public ApplyExtYdataRequest setSeventhDeductionAmount(String seventhDeductionAmount) {
+        this.seventhDeductionAmount = seventhDeductionAmount;
+        return this;
+    }
+    public String getSeventhDeductionAmount() {
+        return this.seventhDeductionAmount;
+    }
+
+    public ApplyExtYdataRequest setEighthDeduction(Boolean eighthDeduction) {
+        this.eighthDeduction = eighthDeduction;
+        return this;
+    }
+    public Boolean getEighthDeduction() {
+        return this.eighthDeduction;
+    }
+
+    public ApplyExtYdataRequest setEighthDeductionAmount(String eighthDeductionAmount) {
+        this.eighthDeductionAmount = eighthDeductionAmount;
+        return this;
+    }
+    public String getEighthDeductionAmount() {
+        return this.eighthDeductionAmount;
+    }
+
+    public ApplyExtYdataRequest setNinthDeduction(Boolean ninthDeduction) {
+        this.ninthDeduction = ninthDeduction;
+        return this;
+    }
+    public Boolean getNinthDeduction() {
+        return this.ninthDeduction;
+    }
+
+    public ApplyExtYdataRequest setNinthDeductionAmount(String ninthDeductionAmount) {
+        this.ninthDeductionAmount = ninthDeductionAmount;
+        return this;
+    }
+    public String getNinthDeductionAmount() {
+        return this.ninthDeductionAmount;
+    }
+
+    public ApplyExtYdataRequest setTenthDeduction(Boolean tenthDeduction) {
+        this.tenthDeduction = tenthDeduction;
+        return this;
+    }
+    public Boolean getTenthDeduction() {
+        return this.tenthDeduction;
+    }
+
+    public ApplyExtYdataRequest setTenthDeductionAmount(String tenthDeductionAmount) {
+        this.tenthDeductionAmount = tenthDeductionAmount;
+        return this;
+    }
+    public String getTenthDeductionAmount() {
+        return this.tenthDeductionAmount;
+    }
+
+    public ApplyExtYdataRequest setEleventhDeduction(Boolean eleventhDeduction) {
+        this.eleventhDeduction = eleventhDeduction;
+        return this;
+    }
+    public Boolean getEleventhDeduction() {
+        return this.eleventhDeduction;
+    }
+
+    public ApplyExtYdataRequest setEleventhDeductionAmount(String eleventhDeductionAmount) {
+        this.eleventhDeductionAmount = eleventhDeductionAmount;
+        return this;
+    }
+    public String getEleventhDeductionAmount() {
+        return this.eleventhDeductionAmount;
+    }
+
+    public ApplyExtYdataRequest setTwelfthDeduction(Boolean twelfthDeduction) {
+        this.twelfthDeduction = twelfthDeduction;
+        return this;
+    }
+    public Boolean getTwelfthDeduction() {
+        return this.twelfthDeduction;
+    }
+
+    public ApplyExtYdataRequest setTwelfthDeductionAmount(String twelfthDeductionAmount) {
+        this.twelfthDeductionAmount = twelfthDeductionAmount;
+        return this;
+    }
+    public String getTwelfthDeductionAmount() {
+        return this.twelfthDeductionAmount;
+    }
+
+    public ApplyExtYdataRequest setThirteenthDeduction(Boolean thirteenthDeduction) {
+        this.thirteenthDeduction = thirteenthDeduction;
+        return this;
+    }
+    public Boolean getThirteenthDeduction() {
+        return this.thirteenthDeduction;
+    }
+
+    public ApplyExtYdataRequest setThirteenthDeductionAmount(String thirteenthDeductionAmount) {
+        this.thirteenthDeductionAmount = thirteenthDeductionAmount;
+        return this;
+    }
+    public String getThirteenthDeductionAmount() {
+        return this.thirteenthDeductionAmount;
     }
 
 }
