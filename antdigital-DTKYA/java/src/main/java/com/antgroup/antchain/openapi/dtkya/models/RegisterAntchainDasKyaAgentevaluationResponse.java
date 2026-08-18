@@ -20,6 +20,10 @@ public class RegisterAntchainDasKyaAgentevaluationResponse extends TeaModel {
     @NameInMap("evaluation_id")
     public String evaluationId;
 
+    // 评测接入配置信息
+    @NameInMap("access_config")
+    public String accessConfig;
+
     public static RegisterAntchainDasKyaAgentevaluationResponse build(java.util.Map<String, ?> map) throws Exception {
         RegisterAntchainDasKyaAgentevaluationResponse self = new RegisterAntchainDasKyaAgentevaluationResponse();
         return TeaModel.build(map, self);
@@ -55,6 +59,14 @@ public class RegisterAntchainDasKyaAgentevaluationResponse extends TeaModel {
     }
     public String getEvaluationId() {
         return this.evaluationId;
+    }
+
+    public RegisterAntchainDasKyaAgentevaluationResponse setAccessConfig(String accessConfig) {
+        this.accessConfig = accessConfig;
+        return this;
+    }
+    public String getAccessConfig() {
+        return this.accessConfig;
     }
 
 }
