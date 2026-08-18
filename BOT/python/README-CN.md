@@ -1,6 +1,6 @@
 [English](README.md) | 简体中文
 
-## Ant Chain ABC SDK for Python
+## Ant Chain BOT SDK for Python
 
 ## 要求
 
