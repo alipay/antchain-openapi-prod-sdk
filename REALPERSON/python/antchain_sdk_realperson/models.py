@@ -14713,8 +14713,6 @@ class InitServerWillauthRequest(TeaModel):
         self,
         auth_token: str = None,
         product_instance_id: str = None,
-        file_object: BinaryIO = None,
-        file_object_name: str = None,
         file_id: str = None,
         scene_id: str = None,
         cert_name: str = None,
@@ -14734,10 +14732,6 @@ class InitServerWillauthRequest(TeaModel):
         self.auth_token = auth_token
         self.product_instance_id = product_instance_id
         # string
-        # 待上传文件
-        self.file_object = file_object
-        # 待上传文件名
-        self.file_object_name = file_object_name
         self.file_id = file_id
         # 场景id
         self.scene_id = scene_id
@@ -14767,7 +14761,6 @@ class InitServerWillauthRequest(TeaModel):
         self.material_enc_token = material_enc_token
 
     def validate(self):
-        self.validate_required(self.file_id, 'file_id')
         self.validate_required(self.scene_id, 'scene_id')
         self.validate_required(self.outer_order_no, 'outer_order_no')
 
@@ -14781,10 +14774,6 @@ class InitServerWillauthRequest(TeaModel):
             result['auth_token'] = self.auth_token
         if self.product_instance_id is not None:
             result['product_instance_id'] = self.product_instance_id
-        if self.file_object is not None:
-            result['fileObject'] = self.file_object
-        if self.file_object_name is not None:
-            result['fileObjectName'] = self.file_object_name
         if self.file_id is not None:
             result['file_id'] = self.file_id
         if self.scene_id is not None:
@@ -14821,10 +14810,6 @@ class InitServerWillauthRequest(TeaModel):
             self.auth_token = m.get('auth_token')
         if m.get('product_instance_id') is not None:
             self.product_instance_id = m.get('product_instance_id')
-        if m.get('fileObject') is not None:
-            self.file_object = m.get('fileObject')
-        if m.get('fileObjectName') is not None:
-            self.file_object_name = m.get('fileObjectName')
         if m.get('file_id') is not None:
             self.file_id = m.get('file_id')
         if m.get('scene_id') is not None:
