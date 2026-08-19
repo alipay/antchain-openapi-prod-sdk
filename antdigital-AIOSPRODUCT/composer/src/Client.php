@@ -21,6 +21,12 @@ use AntChain\AIOSPRODUCT\Models\QueryGwchildinsuranceChatstreamRequest;
 use AntChain\AIOSPRODUCT\Models\QueryGwchildinsuranceChatstreamResponse;
 use AntChain\AIOSPRODUCT\Models\QueryGwchildinsuranceChatRequest;
 use AntChain\AIOSPRODUCT\Models\QueryGwchildinsuranceChatResponse;
+use AntChain\AIOSPRODUCT\Models\QueryGwchildinsuranceProfilelatestRequest;
+use AntChain\AIOSPRODUCT\Models\QueryGwchildinsuranceProfilelatestResponse;
+use AntChain\AIOSPRODUCT\Models\QueryGwchildinsuranceProfiledetailRequest;
+use AntChain\AIOSPRODUCT\Models\QueryGwchildinsuranceProfiledetailResponse;
+use AntChain\AIOSPRODUCT\Models\SaveGwchildinsuranceProfileRequest;
+use AntChain\AIOSPRODUCT\Models\SaveGwchildinsuranceProfileResponse;
 
 class Client {
     protected $_endpoint;
@@ -156,7 +162,7 @@ class Client {
                     "req_msg_id" => UtilClient::getNonce(),
                     "access_key" => $this->_accessKeyId,
                     "base_sdk_version" => "TeaSDK-2.0",
-                    "sdk_version" => "1.0.3",
+                    "sdk_version" => "1.0.4",
                     "_prod_code" => "AIOSPRODUCT",
                     "_prod_channel" => "default"
                 ];
@@ -299,5 +305,80 @@ class Client {
     public function queryGwchildinsuranceChatEx($request, $headers, $runtime){
         Utils::validateModel($request);
         return QueryGwchildinsuranceChatResponse::fromMap($this->doRequest("1.0", "antdigital.aiosproduct.gwchildinsurance.chat.query", "HTTPS", "POST", "/gateway.do", Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 少儿保险最近档案查询
+     * Summary: 少儿保险最近档案查询
+     * @param QueryGwchildinsuranceProfilelatestRequest $request
+     * @return QueryGwchildinsuranceProfilelatestResponse
+     */
+    public function queryGwchildinsuranceProfilelatest($request){
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+        return $this->queryGwchildinsuranceProfilelatestEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 少儿保险最近档案查询
+     * Summary: 少儿保险最近档案查询
+     * @param QueryGwchildinsuranceProfilelatestRequest $request
+     * @param string[] $headers
+     * @param RuntimeOptions $runtime
+     * @return QueryGwchildinsuranceProfilelatestResponse
+     */
+    public function queryGwchildinsuranceProfilelatestEx($request, $headers, $runtime){
+        Utils::validateModel($request);
+        return QueryGwchildinsuranceProfilelatestResponse::fromMap($this->doRequest("1.0", "antdigital.aiosproduct.gwchildinsurance.profilelatest.query", "HTTPS", "POST", "/gateway.do", Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 少儿保险当前会话档案查询
+     * Summary: 少儿保险当前会话档案查询
+     * @param QueryGwchildinsuranceProfiledetailRequest $request
+     * @return QueryGwchildinsuranceProfiledetailResponse
+     */
+    public function queryGwchildinsuranceProfiledetail($request){
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+        return $this->queryGwchildinsuranceProfiledetailEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 少儿保险当前会话档案查询
+     * Summary: 少儿保险当前会话档案查询
+     * @param QueryGwchildinsuranceProfiledetailRequest $request
+     * @param string[] $headers
+     * @param RuntimeOptions $runtime
+     * @return QueryGwchildinsuranceProfiledetailResponse
+     */
+    public function queryGwchildinsuranceProfiledetailEx($request, $headers, $runtime){
+        Utils::validateModel($request);
+        return QueryGwchildinsuranceProfiledetailResponse::fromMap($this->doRequest("1.0", "antdigital.aiosproduct.gwchildinsurance.profiledetail.query", "HTTPS", "POST", "/gateway.do", Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 少儿保险家庭与孩子档案保存
+     * Summary: 少儿保险家庭与孩子档案保存
+     * @param SaveGwchildinsuranceProfileRequest $request
+     * @return SaveGwchildinsuranceProfileResponse
+     */
+    public function saveGwchildinsuranceProfile($request){
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+        return $this->saveGwchildinsuranceProfileEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 少儿保险家庭与孩子档案保存
+     * Summary: 少儿保险家庭与孩子档案保存
+     * @param SaveGwchildinsuranceProfileRequest $request
+     * @param string[] $headers
+     * @param RuntimeOptions $runtime
+     * @return SaveGwchildinsuranceProfileResponse
+     */
+    public function saveGwchildinsuranceProfileEx($request, $headers, $runtime){
+        Utils::validateModel($request);
+        return SaveGwchildinsuranceProfileResponse::fromMap($this->doRequest("1.0", "antdigital.aiosproduct.gwchildinsurance.profile.save", "HTTPS", "POST", "/gateway.do", Tea::merge($request), $headers, $runtime));
     }
 }
