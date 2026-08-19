@@ -30,7 +30,7 @@ public class QueryEsgListrolesResponse extends TeaModel {
 
     // 当前页角色列表
     @NameInMap("list")
-    public RoleList list;
+    public java.util.List<RoleList> list;
 
     public static QueryEsgListrolesResponse build(java.util.Map<String, ?> map) throws Exception {
         QueryEsgListrolesResponse self = new QueryEsgListrolesResponse();
@@ -85,11 +85,11 @@ public class QueryEsgListrolesResponse extends TeaModel {
         return this.total;
     }
 
-    public QueryEsgListrolesResponse setList(RoleList list) {
+    public QueryEsgListrolesResponse setList(java.util.List<RoleList> list) {
         this.list = list;
         return this;
     }
-    public RoleList getList() {
+    public java.util.List<RoleList> getList() {
         return this.list;
     }
 
