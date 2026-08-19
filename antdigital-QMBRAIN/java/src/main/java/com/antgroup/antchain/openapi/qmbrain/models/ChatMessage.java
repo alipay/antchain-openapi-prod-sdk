@@ -22,6 +22,14 @@ public class ChatMessage extends TeaModel {
     @Validation(required = true)
     public String content;
 
+    // 深度思考内容
+    /**
+     * <strong>example:</strong>
+     * <p>深度思考内容</p>
+     */
+    @NameInMap("reasoning_content")
+    public String reasoningContent;
+
     public static ChatMessage build(java.util.Map<String, ?> map) throws Exception {
         ChatMessage self = new ChatMessage();
         return TeaModel.build(map, self);
@@ -41,6 +49,14 @@ public class ChatMessage extends TeaModel {
     }
     public String getContent() {
         return this.content;
+    }
+
+    public ChatMessage setReasoningContent(String reasoningContent) {
+        this.reasoningContent = reasoningContent;
+        return this;
+    }
+    public String getReasoningContent() {
+        return this.reasoningContent;
     }
 
 }

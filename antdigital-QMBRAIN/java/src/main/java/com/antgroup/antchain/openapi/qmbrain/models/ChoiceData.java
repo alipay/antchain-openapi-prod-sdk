@@ -22,14 +22,13 @@ public class ChoiceData extends TeaModel {
     @Validation(required = true)
     public Long index;
 
-    // 消息内容
+    // 深度思考内容
     /**
      * <strong>example:</strong>
-     * <p>{         &quot;content&quot;: &quot;我无法获取实时天气信息。建议您查看当地气象台或使用天气应用（如中国气象局、墨迹天气、AccuWeather等）获取准确的天气情况。&quot;,         &quot;role&quot;: &quot;assistant&quot;       }</p>
+     * <p>深度思考内容</p>
      */
-    @NameInMap("message")
-    @Validation(required = true)
-    public ChatMessage message;
+    @NameInMap("reasoning_content")
+    public String reasoningContent;
 
     public static ChoiceData build(java.util.Map<String, ?> map) throws Exception {
         ChoiceData self = new ChoiceData();
@@ -52,12 +51,12 @@ public class ChoiceData extends TeaModel {
         return this.index;
     }
 
-    public ChoiceData setMessage(ChatMessage message) {
-        this.message = message;
+    public ChoiceData setReasoningContent(String reasoningContent) {
+        this.reasoningContent = reasoningContent;
         return this;
     }
-    public ChatMessage getMessage() {
-        return this.message;
+    public String getReasoningContent() {
+        return this.reasoningContent;
     }
 
 }
