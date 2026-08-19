@@ -20,6 +20,10 @@ public class HistoryIotagentSessionResponse extends TeaModel {
     @NameInMap("session_list")
     public String sessionList;
 
+    // 总条数
+    @NameInMap("total")
+    public Long total;
+
     public static HistoryIotagentSessionResponse build(java.util.Map<String, ?> map) throws Exception {
         HistoryIotagentSessionResponse self = new HistoryIotagentSessionResponse();
         return TeaModel.build(map, self);
@@ -55,6 +59,14 @@ public class HistoryIotagentSessionResponse extends TeaModel {
     }
     public String getSessionList() {
         return this.sessionList;
+    }
+
+    public HistoryIotagentSessionResponse setTotal(Long total) {
+        this.total = total;
+        return this;
+    }
+    public Long getTotal() {
+        return this.total;
     }
 
 }

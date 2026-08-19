@@ -37,11 +37,11 @@ public class CreateIotagentAgentRequest extends TeaModel {
 
     // sklil内容
     @NameInMap("skills")
-    public java.util.List<String> skills;
+    public java.util.List<SkillInfo> skills;
 
     // mcp配置
     @NameInMap("mcps")
-    public java.util.List<String> mcps;
+    public java.util.List<McpInfo> mcps;
 
     // tools
     @NameInMap("tools")
@@ -108,19 +108,19 @@ public class CreateIotagentAgentRequest extends TeaModel {
         return this.modelId;
     }
 
-    public CreateIotagentAgentRequest setSkills(java.util.List<String> skills) {
+    public CreateIotagentAgentRequest setSkills(java.util.List<SkillInfo> skills) {
         this.skills = skills;
         return this;
     }
-    public java.util.List<String> getSkills() {
+    public java.util.List<SkillInfo> getSkills() {
         return this.skills;
     }
 
-    public CreateIotagentAgentRequest setMcps(java.util.List<String> mcps) {
+    public CreateIotagentAgentRequest setMcps(java.util.List<McpInfo> mcps) {
         this.mcps = mcps;
         return this;
     }
-    public java.util.List<String> getMcps() {
+    public java.util.List<McpInfo> getMcps() {
         return this.mcps;
     }
 

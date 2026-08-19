@@ -9,9 +9,9 @@ public class SkillInfo extends TeaModel {
      * <strong>example:</strong>
      * <p>xxx</p>
      */
-    @NameInMap("skill_name")
+    @NameInMap("name")
     @Validation(required = true)
-    public String skillName;
+    public String name;
 
     // 版本
     /**
@@ -31,17 +31,26 @@ public class SkillInfo extends TeaModel {
     @Validation(required = true)
     public String url;
 
+    // skillId
+    /**
+     * <strong>example:</strong>
+     * <p>11223344556778899</p>
+     */
+    @NameInMap("skill_id")
+    @Validation(required = true)
+    public String skillId;
+
     public static SkillInfo build(java.util.Map<String, ?> map) throws Exception {
         SkillInfo self = new SkillInfo();
         return TeaModel.build(map, self);
     }
 
-    public SkillInfo setSkillName(String skillName) {
-        this.skillName = skillName;
+    public SkillInfo setName(String name) {
+        this.name = name;
         return this;
     }
-    public String getSkillName() {
-        return this.skillName;
+    public String getName() {
+        return this.name;
     }
 
     public SkillInfo setVersion(String version) {
@@ -58,6 +67,14 @@ public class SkillInfo extends TeaModel {
     }
     public String getUrl() {
         return this.url;
+    }
+
+    public SkillInfo setSkillId(String skillId) {
+        this.skillId = skillId;
+        return this;
+    }
+    public String getSkillId() {
+        return this.skillId;
     }
 
 }

@@ -30,6 +30,16 @@ public class HistoryIotagentSessionRequest extends TeaModel {
     @NameInMap("user_id")
     public String userId;
 
+    // 页面大小
+    @NameInMap("page_size")
+    @Validation(required = true)
+    public Long pageSize;
+
+    // 当前页面
+    @NameInMap("page_index")
+    @Validation(required = true)
+    public Long pageIndex;
+
     public static HistoryIotagentSessionRequest build(java.util.Map<String, ?> map) throws Exception {
         HistoryIotagentSessionRequest self = new HistoryIotagentSessionRequest();
         return TeaModel.build(map, self);
@@ -81,6 +91,22 @@ public class HistoryIotagentSessionRequest extends TeaModel {
     }
     public String getUserId() {
         return this.userId;
+    }
+
+    public HistoryIotagentSessionRequest setPageSize(Long pageSize) {
+        this.pageSize = pageSize;
+        return this;
+    }
+    public Long getPageSize() {
+        return this.pageSize;
+    }
+
+    public HistoryIotagentSessionRequest setPageIndex(Long pageIndex) {
+        this.pageIndex = pageIndex;
+        return this;
+    }
+    public Long getPageIndex() {
+        return this.pageIndex;
     }
 
 }
