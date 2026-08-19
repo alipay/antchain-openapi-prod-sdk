@@ -189,35 +189,603 @@ func (s *Config) SetMaxRequestsPerHost(v int) *Config {
 	return s
 }
 
-// 每日碳排放量
-type DailyEmissions struct {
-	// 日期
+// 供应商产品详情
+type SupplierProductDetail struct {
+	// 供应商名称
 	// example:
 	//
-	// 2021-07-21
-	Date *string `json:"date,omitempty" xml:"date,omitempty" require:"true"`
-	// 排放量值
+	// xxxx
+	SupplierName *string `json:"supplier_name,omitempty" xml:"supplier_name,omitempty"`
+	// 供应商产品名称
 	// example:
 	//
-	// 11.22
-	Value *int64 `json:"value,omitempty" xml:"value,omitempty" require:"true"`
+	// -
+	SupplierProductName *string `json:"supplier_product_name,omitempty" xml:"supplier_product_name,omitempty"`
+	// 填报单位
+	// example:
+	//
+	// xxxx
+	DosageUnit *string `json:"dosage_unit,omitempty" xml:"dosage_unit,omitempty"`
 }
 
-func (s DailyEmissions) String() string {
+func (s SupplierProductDetail) String() string {
 	return tea.Prettify(s)
 }
 
-func (s DailyEmissions) GoString() string {
+func (s SupplierProductDetail) GoString() string {
 	return s.String()
 }
 
-func (s *DailyEmissions) SetDate(v string) *DailyEmissions {
-	s.Date = &v
+func (s *SupplierProductDetail) SetSupplierName(v string) *SupplierProductDetail {
+	s.SupplierName = &v
 	return s
 }
 
-func (s *DailyEmissions) SetValue(v int64) *DailyEmissions {
+func (s *SupplierProductDetail) SetSupplierProductName(v string) *SupplierProductDetail {
+	s.SupplierProductName = &v
+	return s
+}
+
+func (s *SupplierProductDetail) SetDosageUnit(v string) *SupplierProductDetail {
+	s.DosageUnit = &v
+	return s
+}
+
+// 阶段评估明细数据
+type EnterpriseLcaAssessmentItem struct {
+	// 物料编码
+	// example:
+	//
+	// 0601020000
+	MaterialCode *string `json:"material_code,omitempty" xml:"material_code,omitempty" require:"true"`
+	// 数据明细名称
+	// example:
+	//
+	// 煤炭
+	AssessmentItemName *string `json:"assessment_item_name,omitempty" xml:"assessment_item_name,omitempty" require:"true"`
+	// 物料直接碳排放评估量
+	// example:
+	//
+	// 0
+	EmissionAmount *string `json:"emission_amount,omitempty" xml:"emission_amount,omitempty" require:"true"`
+	// 物料运输碳排放评估量
+	// example:
+	//
+	// 123.1
+	TransportEmissionAmount *string `json:"transport_emission_amount,omitempty" xml:"transport_emission_amount,omitempty" require:"true"`
+}
+
+func (s EnterpriseLcaAssessmentItem) String() string {
+	return tea.Prettify(s)
+}
+
+func (s EnterpriseLcaAssessmentItem) GoString() string {
+	return s.String()
+}
+
+func (s *EnterpriseLcaAssessmentItem) SetMaterialCode(v string) *EnterpriseLcaAssessmentItem {
+	s.MaterialCode = &v
+	return s
+}
+
+func (s *EnterpriseLcaAssessmentItem) SetAssessmentItemName(v string) *EnterpriseLcaAssessmentItem {
+	s.AssessmentItemName = &v
+	return s
+}
+
+func (s *EnterpriseLcaAssessmentItem) SetEmissionAmount(v string) *EnterpriseLcaAssessmentItem {
+	s.EmissionAmount = &v
+	return s
+}
+
+func (s *EnterpriseLcaAssessmentItem) SetTransportEmissionAmount(v string) *EnterpriseLcaAssessmentItem {
+	s.TransportEmissionAmount = &v
+	return s
+}
+
+// 运输信息
+type TransportActiveData struct {
+	// 运输方式编码
+	// example:
+	//
+	// 5201000000
+	TransportCode *string `json:"transport_code,omitempty" xml:"transport_code,omitempty" require:"true"`
+	// 运输设备
+	// example:
+	//
+	// KCTC
+	Equipment *string `json:"equipment,omitempty" xml:"equipment,omitempty" require:"true"`
+	// 运输里程
+	// example:
+	//
+	// 200
+	Distance *string `json:"distance,omitempty" xml:"distance,omitempty" require:"true"`
+	// 是否空载
+	// example:
+	//
+	// true, false
+	IsEmptyLoad *bool `json:"is_empty_load,omitempty" xml:"is_empty_load,omitempty"`
+}
+
+func (s TransportActiveData) String() string {
+	return tea.Prettify(s)
+}
+
+func (s TransportActiveData) GoString() string {
+	return s.String()
+}
+
+func (s *TransportActiveData) SetTransportCode(v string) *TransportActiveData {
+	s.TransportCode = &v
+	return s
+}
+
+func (s *TransportActiveData) SetEquipment(v string) *TransportActiveData {
+	s.Equipment = &v
+	return s
+}
+
+func (s *TransportActiveData) SetDistance(v string) *TransportActiveData {
+	s.Distance = &v
+	return s
+}
+
+func (s *TransportActiveData) SetIsEmptyLoad(v bool) *TransportActiveData {
+	s.IsEmptyLoad = &v
+	return s
+}
+
+// 阶段评估数据明细
+type EnterpriseLcaStageAssessmentItem struct {
+	// LCA阶段
+	// example:
+	//
+	// ProductManufacture
+	LcaStage *string `json:"lca_stage,omitempty" xml:"lca_stage,omitempty" require:"true"`
+	// 阶段排放占比
+	// example:
+	//
+	// 1
+	LcaStageCarbonRate *string `json:"lca_stage_carbon_rate,omitempty" xml:"lca_stage_carbon_rate,omitempty" require:"true"`
+	// 阶段排放量
+	// example:
+	//
+	// 123.12
+	LcaStageCarbonEmissions *string `json:"lca_stage_carbon_emissions,omitempty" xml:"lca_stage_carbon_emissions,omitempty" require:"true"`
+	// 阶段评估明细数据
+	LcaAssessmentDatum []*EnterpriseLcaAssessmentItem `json:"lca_assessment_datum,omitempty" xml:"lca_assessment_datum,omitempty" require:"true" type:"Repeated"`
+}
+
+func (s EnterpriseLcaStageAssessmentItem) String() string {
+	return tea.Prettify(s)
+}
+
+func (s EnterpriseLcaStageAssessmentItem) GoString() string {
+	return s.String()
+}
+
+func (s *EnterpriseLcaStageAssessmentItem) SetLcaStage(v string) *EnterpriseLcaStageAssessmentItem {
+	s.LcaStage = &v
+	return s
+}
+
+func (s *EnterpriseLcaStageAssessmentItem) SetLcaStageCarbonRate(v string) *EnterpriseLcaStageAssessmentItem {
+	s.LcaStageCarbonRate = &v
+	return s
+}
+
+func (s *EnterpriseLcaStageAssessmentItem) SetLcaStageCarbonEmissions(v string) *EnterpriseLcaStageAssessmentItem {
+	s.LcaStageCarbonEmissions = &v
+	return s
+}
+
+func (s *EnterpriseLcaStageAssessmentItem) SetLcaAssessmentDatum(v []*EnterpriseLcaAssessmentItem) *EnterpriseLcaStageAssessmentItem {
+	s.LcaAssessmentDatum = v
+	return s
+}
+
+// 月度明细列表
+type MonthDataDetail struct {
+	// 发生月份，格式 yyyy-MM
+	// example:
+	//
+	// xxxx
+	OccurDate *string `json:"occur_date,omitempty" xml:"occur_date,omitempty" require:"true"`
+	// 产量数据
+	// example:
+	//
+	// xxxx
+	Amount *string `json:"amount,omitempty" xml:"amount,omitempty" require:"true"`
+	// 产量单位
+	// example:
+	//
+	// xxxx
+	DosageUnit *string `json:"dosage_unit,omitempty" xml:"dosage_unit,omitempty" require:"true"`
+}
+
+func (s MonthDataDetail) String() string {
+	return tea.Prettify(s)
+}
+
+func (s MonthDataDetail) GoString() string {
+	return s.String()
+}
+
+func (s *MonthDataDetail) SetOccurDate(v string) *MonthDataDetail {
+	s.OccurDate = &v
+	return s
+}
+
+func (s *MonthDataDetail) SetAmount(v string) *MonthDataDetail {
+	s.Amount = &v
+	return s
+}
+
+func (s *MonthDataDetail) SetDosageUnit(v string) *MonthDataDetail {
+	s.DosageUnit = &v
+	return s
+}
+
+// 存证数据字段值
+type DepositFieldValue struct {
+	// 存证数据字段名
+	// example:
+	//
+	// distance
+	Name *string `json:"name,omitempty" xml:"name,omitempty" require:"true"`
+	// 存证数据字段值
+	// example:
+	//
+	// 10.0
+	Value *string `json:"value,omitempty" xml:"value,omitempty"`
+}
+
+func (s DepositFieldValue) String() string {
+	return tea.Prettify(s)
+}
+
+func (s DepositFieldValue) GoString() string {
+	return s.String()
+}
+
+func (s *DepositFieldValue) SetName(v string) *DepositFieldValue {
+	s.Name = &v
+	return s
+}
+
+func (s *DepositFieldValue) SetValue(v string) *DepositFieldValue {
 	s.Value = &v
+	return s
+}
+
+// 输入流活动数据
+type InputStreamActiveData struct {
+	// 物料编码
+	// example:
+	//
+	// 0601020000
+	MaterialCode *string `json:"material_code,omitempty" xml:"material_code,omitempty" require:"true"`
+	// 用量，非负，最多6位小数
+	// example:
+	//
+	// 100
+	Amount *string `json:"amount,omitempty" xml:"amount,omitempty" require:"true"`
+	// 单位
+	// example:
+	//
+	// KG
+	Unit *string `json:"unit,omitempty" xml:"unit,omitempty" require:"true"`
+	// 运输信息列表
+	TransportList []*TransportActiveData `json:"transport_list,omitempty" xml:"transport_list,omitempty" type:"Repeated"`
+}
+
+func (s InputStreamActiveData) String() string {
+	return tea.Prettify(s)
+}
+
+func (s InputStreamActiveData) GoString() string {
+	return s.String()
+}
+
+func (s *InputStreamActiveData) SetMaterialCode(v string) *InputStreamActiveData {
+	s.MaterialCode = &v
+	return s
+}
+
+func (s *InputStreamActiveData) SetAmount(v string) *InputStreamActiveData {
+	s.Amount = &v
+	return s
+}
+
+func (s *InputStreamActiveData) SetUnit(v string) *InputStreamActiveData {
+	s.Unit = &v
+	return s
+}
+
+func (s *InputStreamActiveData) SetTransportList(v []*TransportActiveData) *InputStreamActiveData {
+	s.TransportList = v
+	return s
+}
+
+// 数据值条目
+type AnyAmountItem struct {
+	// 数据项编码
+	// example:
+	//
+	// AD1
+	ItemCode *string `json:"item_code,omitempty" xml:"item_code,omitempty" require:"true"`
+	// 数据值，按字符串输出，最多保留6位小数
+	// example:
+	//
+	// 221.11
+	ItemAmount *string `json:"item_amount,omitempty" xml:"item_amount,omitempty" require:"true"`
+}
+
+func (s AnyAmountItem) String() string {
+	return tea.Prettify(s)
+}
+
+func (s AnyAmountItem) GoString() string {
+	return s.String()
+}
+
+func (s *AnyAmountItem) SetItemCode(v string) *AnyAmountItem {
+	s.ItemCode = &v
+	return s
+}
+
+func (s *AnyAmountItem) SetItemAmount(v string) *AnyAmountItem {
+	s.ItemAmount = &v
+	return s
+}
+
+// 物料产品详情
+type MaterialDetail struct {
+	// 物料名称
+	// example:
+	//
+	// xxxx
+	MaterialName *string `json:"material_name,omitempty" xml:"material_name,omitempty"`
+	// 供应商产品详情列表
+	// example:
+	//
+	// undefined
+	SupplierProductList *SupplierProductDetail `json:"supplier_product_list,omitempty" xml:"supplier_product_list,omitempty"`
+}
+
+func (s MaterialDetail) String() string {
+	return tea.Prettify(s)
+}
+
+func (s MaterialDetail) GoString() string {
+	return s.String()
+}
+
+func (s *MaterialDetail) SetMaterialName(v string) *MaterialDetail {
+	s.MaterialName = &v
+	return s
+}
+
+func (s *MaterialDetail) SetSupplierProductList(v *SupplierProductDetail) *MaterialDetail {
+	s.SupplierProductList = v
+	return s
+}
+
+// 逆变器发电量
+type InverterGeneration struct {
+	// 逆变器SN
+	// example:
+	//
+	// Inv-Other-16801-Q0kll-2024-04-11
+	InvSn *string `json:"inv_sn,omitempty" xml:"inv_sn,omitempty" require:"true"`
+	// 生产商名称
+	// example:
+	//
+	// 生产商1
+	Manufacturer *string `json:"manufacturer,omitempty" xml:"manufacturer,omitempty" require:"true"`
+	// 当日发电量，最多3位小数
+	// example:
+	//
+	// 1.232
+	Daily *string `json:"daily,omitempty" xml:"daily,omitempty" require:"true"`
+	// 累计发电量，最多3位小数
+	// example:
+	//
+	// 1.232
+	Total *string `json:"total,omitempty" xml:"total,omitempty" require:"true"`
+}
+
+func (s InverterGeneration) String() string {
+	return tea.Prettify(s)
+}
+
+func (s InverterGeneration) GoString() string {
+	return s.String()
+}
+
+func (s *InverterGeneration) SetInvSn(v string) *InverterGeneration {
+	s.InvSn = &v
+	return s
+}
+
+func (s *InverterGeneration) SetManufacturer(v string) *InverterGeneration {
+	s.Manufacturer = &v
+	return s
+}
+
+func (s *InverterGeneration) SetDaily(v string) *InverterGeneration {
+	s.Daily = &v
+	return s
+}
+
+func (s *InverterGeneration) SetTotal(v string) *InverterGeneration {
+	s.Total = &v
+	return s
+}
+
+// 分阶段碳排放量
+type LcaStageCarbonItem struct {
+	// 生命周期阶段：
+	// [MaterialPurchase]-原材料，[ProductManufacture]-生产制造，[ProductSale]-分销，[ProductUsage]-产品使用，[ProductWithdraw]-处置/再生利用
+	// example:
+	//
+	// MaterialPurchase
+	LcaStageCode *string `json:"lca_stage_code,omitempty" xml:"lca_stage_code,omitempty" require:"true"`
+	// 阶段碳排放量
+	// example:
+	//
+	// 223.23
+	LcaStageCarbonAmount *string `json:"lca_stage_carbon_amount,omitempty" xml:"lca_stage_carbon_amount,omitempty" require:"true"`
+}
+
+func (s LcaStageCarbonItem) String() string {
+	return tea.Prettify(s)
+}
+
+func (s LcaStageCarbonItem) GoString() string {
+	return s.String()
+}
+
+func (s *LcaStageCarbonItem) SetLcaStageCode(v string) *LcaStageCarbonItem {
+	s.LcaStageCode = &v
+	return s
+}
+
+func (s *LcaStageCarbonItem) SetLcaStageCarbonAmount(v string) *LcaStageCarbonItem {
+	s.LcaStageCarbonAmount = &v
+	return s
+}
+
+// 证书授权产品信息
+type CertProductAuthDO struct {
+	// 三方平台产品ID
+	// example:
+	//
+	// 产品ID
+	ProductId *string `json:"product_id,omitempty" xml:"product_id,omitempty" require:"true"`
+	// 三方平台产品名称
+	// example:
+	//
+	// 产品名称
+	ProductName *string `json:"product_name,omitempty" xml:"product_name,omitempty" require:"true"`
+}
+
+func (s CertProductAuthDO) String() string {
+	return tea.Prettify(s)
+}
+
+func (s CertProductAuthDO) GoString() string {
+	return s.String()
+}
+
+func (s *CertProductAuthDO) SetProductId(v string) *CertProductAuthDO {
+	s.ProductId = &v
+	return s
+}
+
+func (s *CertProductAuthDO) SetProductName(v string) *CertProductAuthDO {
+	s.ProductName = &v
+	return s
+}
+
+// 输出流活动数据
+type OutputStreamActiveData struct {
+	// 物料编码
+	// example:
+	//
+	// 0102010000
+	MaterialCode *string `json:"material_code,omitempty" xml:"material_code,omitempty" require:"true"`
+	// 用量，非负，最多6位小数
+	// example:
+	//
+	// 200.12
+	Amount *string `json:"amount,omitempty" xml:"amount,omitempty" require:"true"`
+	// 单位
+	// example:
+	//
+	// KG
+	Unit *string `json:"unit,omitempty" xml:"unit,omitempty" require:"true"`
+	// 单价（仅产品用，产品不传时默认为空）
+	// example:
+	//
+	// 100
+	UnitPrice *string `json:"unit_price,omitempty" xml:"unit_price,omitempty"`
+	// 处置方式编码（仅废弃物用）
+	// example:
+	//
+	// 5201000000
+	DisposalTypeCode *string `json:"disposal_type_code,omitempty" xml:"disposal_type_code,omitempty"`
+	// 运输信息列表（仅废弃物用）
+	TransportList []*TransportActiveData `json:"transport_list,omitempty" xml:"transport_list,omitempty" type:"Repeated"`
+}
+
+func (s OutputStreamActiveData) String() string {
+	return tea.Prettify(s)
+}
+
+func (s OutputStreamActiveData) GoString() string {
+	return s.String()
+}
+
+func (s *OutputStreamActiveData) SetMaterialCode(v string) *OutputStreamActiveData {
+	s.MaterialCode = &v
+	return s
+}
+
+func (s *OutputStreamActiveData) SetAmount(v string) *OutputStreamActiveData {
+	s.Amount = &v
+	return s
+}
+
+func (s *OutputStreamActiveData) SetUnit(v string) *OutputStreamActiveData {
+	s.Unit = &v
+	return s
+}
+
+func (s *OutputStreamActiveData) SetUnitPrice(v string) *OutputStreamActiveData {
+	s.UnitPrice = &v
+	return s
+}
+
+func (s *OutputStreamActiveData) SetDisposalTypeCode(v string) *OutputStreamActiveData {
+	s.DisposalTypeCode = &v
+	return s
+}
+
+func (s *OutputStreamActiveData) SetTransportList(v []*TransportActiveData) *OutputStreamActiveData {
+	s.TransportList = v
+	return s
+}
+
+// 文档信息
+type EnterpriseDocumentFile struct {
+	// 文档名称
+	// example:
+	//
+	// 2022年7月车辆运输数据文件
+	DocumentName *string `json:"document_name,omitempty" xml:"document_name,omitempty" require:"true"`
+	// 文件地址
+	// example:
+	//
+	// carbonchain/file/dataentry_document/20211108000220010000000000000356/20211108000220010000000000000356.xlsx
+	DocumentAddress *string `json:"document_address,omitempty" xml:"document_address,omitempty" require:"true"`
+}
+
+func (s EnterpriseDocumentFile) String() string {
+	return tea.Prettify(s)
+}
+
+func (s EnterpriseDocumentFile) GoString() string {
+	return s.String()
+}
+
+func (s *EnterpriseDocumentFile) SetDocumentName(v string) *EnterpriseDocumentFile {
+	s.DocumentName = &v
+	return s
+}
+
+func (s *EnterpriseDocumentFile) SetDocumentAddress(v string) *EnterpriseDocumentFile {
+	s.DocumentAddress = &v
 	return s
 }
 
@@ -283,6 +851,90 @@ func (s *EmissionsCategoryStatistics) SetUnit(v string) *EmissionsCategoryStatis
 	return s
 }
 
+// 过程详情
+type ProcessDetail struct {
+	// 单元过程名称
+	// example:
+	//
+	// xxxx
+	ProcessName *string `json:"process_name,omitempty" xml:"process_name,omitempty"`
+	// 过程编码
+	// example:
+	//
+	// xxxx
+	ProcessNo *string `json:"process_no,omitempty" xml:"process_no,omitempty"`
+}
+
+func (s ProcessDetail) String() string {
+	return tea.Prettify(s)
+}
+
+func (s ProcessDetail) GoString() string {
+	return s.String()
+}
+
+func (s *ProcessDetail) SetProcessName(v string) *ProcessDetail {
+	s.ProcessName = &v
+	return s
+}
+
+func (s *ProcessDetail) SetProcessNo(v string) *ProcessDetail {
+	s.ProcessNo = &v
+	return s
+}
+
+// 按绿色行为类型统计的绿色行为明细
+type GreenOperationStatisticsByType struct {
+	// 绿色行为类型
+	// example:
+	//
+	// ElectronicInvoice
+	GreenOperationType *string `json:"green_operation_type,omitempty" xml:"green_operation_type,omitempty" require:"true"`
+	// 绿色行为类型名称
+	// example:
+	//
+	// 电子发票
+	GreenOperationTypeName *string `json:"green_operation_type_name,omitempty" xml:"green_operation_type_name,omitempty" require:"true"`
+	// 绿色行为产生的绿色能量值
+	// example:
+	//
+	// 11
+	GreenEnergyAmount *int64 `json:"green_energy_amount,omitempty" xml:"green_energy_amount,omitempty" require:"true"`
+	// 相关类型的绿色行为记录数
+	// example:
+	//
+	// 33
+	GreenOperationRecords *int64 `json:"green_operation_records,omitempty" xml:"green_operation_records,omitempty" require:"true"`
+}
+
+func (s GreenOperationStatisticsByType) String() string {
+	return tea.Prettify(s)
+}
+
+func (s GreenOperationStatisticsByType) GoString() string {
+	return s.String()
+}
+
+func (s *GreenOperationStatisticsByType) SetGreenOperationType(v string) *GreenOperationStatisticsByType {
+	s.GreenOperationType = &v
+	return s
+}
+
+func (s *GreenOperationStatisticsByType) SetGreenOperationTypeName(v string) *GreenOperationStatisticsByType {
+	s.GreenOperationTypeName = &v
+	return s
+}
+
+func (s *GreenOperationStatisticsByType) SetGreenEnergyAmount(v int64) *GreenOperationStatisticsByType {
+	s.GreenEnergyAmount = &v
+	return s
+}
+
+func (s *GreenOperationStatisticsByType) SetGreenOperationRecords(v int64) *GreenOperationStatisticsByType {
+	s.GreenOperationRecords = &v
+	return s
+}
+
 // 减排情况统计
 type EmissionsReductionStatistics struct {
 	// 减排方法
@@ -345,94 +997,1372 @@ func (s *EmissionsReductionStatistics) SetDataUnit(v string) *EmissionsReduction
 	return s
 }
 
-// 排放范围排放数据统计
-type EmissionsScopeStatistics struct {
-	// 盘查范围编码
+// 每日碳排放量
+type DailyEmissions struct {
+	// 日期
 	// example:
 	//
-	// 002
-	InventoryScopeNo *string `json:"inventory_scope_no,omitempty" xml:"inventory_scope_no,omitempty" require:"true"`
-	// 盘查范围名称
+	// 2021-07-21
+	Date *string `json:"date,omitempty" xml:"date,omitempty" require:"true"`
+	// 排放量值
 	// example:
 	//
-	// 范围一
-	InventoryScopeName *string `json:"inventory_scope_name,omitempty" xml:"inventory_scope_name,omitempty" require:"true"`
-	// 碳排放量
-	// example:
-	//
-	// 222.33
-	Emissions *int64 `json:"emissions,omitempty" xml:"emissions,omitempty" require:"true"`
-	// 排放占比
-	// example:
-	//
-	// 0.11
-	Percentage *int64 `json:"percentage,omitempty" xml:"percentage,omitempty" require:"true"`
-	// 范围下各分类排放数据
-	CategoryEmissionsList []*EmissionsCategoryStatistics `json:"category_emissions_list,omitempty" xml:"category_emissions_list,omitempty" require:"true" type:"Repeated"`
+	// 11.22
+	Value *int64 `json:"value,omitempty" xml:"value,omitempty" require:"true"`
 }
 
-func (s EmissionsScopeStatistics) String() string {
+func (s DailyEmissions) String() string {
 	return tea.Prettify(s)
 }
 
-func (s EmissionsScopeStatistics) GoString() string {
+func (s DailyEmissions) GoString() string {
 	return s.String()
 }
 
-func (s *EmissionsScopeStatistics) SetInventoryScopeNo(v string) *EmissionsScopeStatistics {
-	s.InventoryScopeNo = &v
+func (s *DailyEmissions) SetDate(v string) *DailyEmissions {
+	s.Date = &v
 	return s
 }
 
-func (s *EmissionsScopeStatistics) SetInventoryScopeName(v string) *EmissionsScopeStatistics {
-	s.InventoryScopeName = &v
+func (s *DailyEmissions) SetValue(v int64) *DailyEmissions {
+	s.Value = &v
 	return s
 }
 
-func (s *EmissionsScopeStatistics) SetEmissions(v int64) *EmissionsScopeStatistics {
-	s.Emissions = &v
-	return s
-}
-
-func (s *EmissionsScopeStatistics) SetPercentage(v int64) *EmissionsScopeStatistics {
-	s.Percentage = &v
-	return s
-}
-
-func (s *EmissionsScopeStatistics) SetCategoryEmissionsList(v []*EmissionsCategoryStatistics) *EmissionsScopeStatistics {
-	s.CategoryEmissionsList = v
-	return s
-}
-
-// 证书授权产品信息
-type CertProductAuthDO struct {
-	// 三方平台产品ID
+// 重复结构体，OrganizationUnitTree，此处为避面循环引用错误，children先设为string
+type OrganizationUnitSubTree struct {
+	// 组织单元编码。
 	// example:
 	//
-	// 产品ID
-	ProductId *string `json:"product_id,omitempty" xml:"product_id,omitempty" require:"true"`
-	// 三方平台产品名称
+	// xxxxxx
+	OrganizationNo *string `json:"organization_no,omitempty" xml:"organization_no,omitempty" require:"true"`
+	// 组织单元名称。
 	// example:
 	//
+	// xxxxxx
+	OrganizationName *string `json:"organization_name,omitempty" xml:"organization_name,omitempty" require:"true"`
+	// 从根到直接父级的组织编码链；根节点为空。
+	// example:
+	//
+	// [xxx,xxx]
+	ParentOrganizationNoList []*string `json:"parent_organization_no_list,omitempty" xml:"parent_organization_no_list,omitempty" type:"Repeated"`
+	// 直接父级组织名称；根节点为空。
+	// example:
+	//
+	// xxxxxx
+	ParentOrganizationName *string `json:"parent_organization_name,omitempty" xml:"parent_organization_name,omitempty"`
+	// 最后更新时间
+	// example:
+	//
+	// xxxxxx
+	GmtModified *string `json:"gmt_modified,omitempty" xml:"gmt_modified,omitempty" require:"true"`
+	// 重复结构体
+	// example:
+	//
+	// [{}]
+	Children *string `json:"children,omitempty" xml:"children,omitempty" require:"true"`
+}
+
+func (s OrganizationUnitSubTree) String() string {
+	return tea.Prettify(s)
+}
+
+func (s OrganizationUnitSubTree) GoString() string {
+	return s.String()
+}
+
+func (s *OrganizationUnitSubTree) SetOrganizationNo(v string) *OrganizationUnitSubTree {
+	s.OrganizationNo = &v
+	return s
+}
+
+func (s *OrganizationUnitSubTree) SetOrganizationName(v string) *OrganizationUnitSubTree {
+	s.OrganizationName = &v
+	return s
+}
+
+func (s *OrganizationUnitSubTree) SetParentOrganizationNoList(v []*string) *OrganizationUnitSubTree {
+	s.ParentOrganizationNoList = v
+	return s
+}
+
+func (s *OrganizationUnitSubTree) SetParentOrganizationName(v string) *OrganizationUnitSubTree {
+	s.ParentOrganizationName = &v
+	return s
+}
+
+func (s *OrganizationUnitSubTree) SetGmtModified(v string) *OrganizationUnitSubTree {
+	s.GmtModified = &v
+	return s
+}
+
+func (s *OrganizationUnitSubTree) SetChildren(v string) *OrganizationUnitSubTree {
+	s.Children = &v
+	return s
+}
+
+// 数据资产信息
+type DataAssetInfo struct {
+	// 数据资产DID
+	// example:
+	//
+	// 111
+	DatasetDid *string `json:"dataset_did,omitempty" xml:"dataset_did,omitempty" require:"true"`
+	// 数据资产所有方DID
+	// example:
+	//
+	// 111
+	UserDid *string `json:"user_did,omitempty" xml:"user_did,omitempty" require:"true"`
+	// 数据资产名称
+	// example:
+	//
+	// 企业固定化石燃料排放
+	DatasetName *string `json:"dataset_name,omitempty" xml:"dataset_name,omitempty" require:"true"`
+	// 数据类型
+	// example:
+	//
+	// PERSONAL_GREEN_DATA_METRO
+	DataType *string `json:"data_type,omitempty" xml:"data_type,omitempty" require:"true"`
+}
+
+func (s DataAssetInfo) String() string {
+	return tea.Prettify(s)
+}
+
+func (s DataAssetInfo) GoString() string {
+	return s.String()
+}
+
+func (s *DataAssetInfo) SetDatasetDid(v string) *DataAssetInfo {
+	s.DatasetDid = &v
+	return s
+}
+
+func (s *DataAssetInfo) SetUserDid(v string) *DataAssetInfo {
+	s.UserDid = &v
+	return s
+}
+
+func (s *DataAssetInfo) SetDatasetName(v string) *DataAssetInfo {
+	s.DatasetName = &v
+	return s
+}
+
+func (s *DataAssetInfo) SetDataType(v string) *DataAssetInfo {
+	s.DataType = &v
+	return s
+}
+
+// 碳抵消统计量
+type EmissionCounteractionStatistics struct {
+	// 碳抵消类别
+	// example:
+	//
+	// Quota
+	AssertType *string `json:"assert_type,omitempty" xml:"assert_type,omitempty" require:"true"`
+	// 碳抵消类别名称
+	// example:
+	//
+	// 配额
+	AssertTypeName *string `json:"assert_type_name,omitempty" xml:"assert_type_name,omitempty" require:"true"`
+	// 抵消量
+	// example:
+	//
+	// 22.22
+	CounteractionAmount *string `json:"counteraction_amount,omitempty" xml:"counteraction_amount,omitempty" require:"true"`
+	// 排放量单位，默认为：tCO2e
+	// example:
+	//
+	// tCO2e
+	DataUnit *string `json:"data_unit,omitempty" xml:"data_unit,omitempty" require:"true"`
+}
+
+func (s EmissionCounteractionStatistics) String() string {
+	return tea.Prettify(s)
+}
+
+func (s EmissionCounteractionStatistics) GoString() string {
+	return s.String()
+}
+
+func (s *EmissionCounteractionStatistics) SetAssertType(v string) *EmissionCounteractionStatistics {
+	s.AssertType = &v
+	return s
+}
+
+func (s *EmissionCounteractionStatistics) SetAssertTypeName(v string) *EmissionCounteractionStatistics {
+	s.AssertTypeName = &v
+	return s
+}
+
+func (s *EmissionCounteractionStatistics) SetCounteractionAmount(v string) *EmissionCounteractionStatistics {
+	s.CounteractionAmount = &v
+	return s
+}
+
+func (s *EmissionCounteractionStatistics) SetDataUnit(v string) *EmissionCounteractionStatistics {
+	s.DataUnit = &v
+	return s
+}
+
+// 设备发电量
+type DeviceGeneration struct {
+	// 设备内部编号，注册设备后获取
+	// example:
+	//
+	// 0340340000000707
+	DeviceNo *string `json:"device_no,omitempty" xml:"device_no,omitempty" require:"true"`
+	// 逆变器发电量列表
+	InverterGenerations []*InverterGeneration `json:"inverter_generations,omitempty" xml:"inverter_generations,omitempty" require:"true" type:"Repeated"`
+}
+
+func (s DeviceGeneration) String() string {
+	return tea.Prettify(s)
+}
+
+func (s DeviceGeneration) GoString() string {
+	return s.String()
+}
+
+func (s *DeviceGeneration) SetDeviceNo(v string) *DeviceGeneration {
+	s.DeviceNo = &v
+	return s
+}
+
+func (s *DeviceGeneration) SetInverterGenerations(v []*InverterGeneration) *DeviceGeneration {
+	s.InverterGenerations = v
+	return s
+}
+
+// 账户开通返回
+type AccountRegisterResponse struct {
+	// 账户did
+	// example:
+	//
+	// did:private:xxxcxxxxx
+	UserDid *string `json:"user_did,omitempty" xml:"user_did,omitempty" require:"true"`
+}
+
+func (s AccountRegisterResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s AccountRegisterResponse) GoString() string {
+	return s.String()
+}
+
+func (s *AccountRegisterResponse) SetUserDid(v string) *AccountRegisterResponse {
+	s.UserDid = &v
+	return s
+}
+
+// 组织单元树结构体
+type OrganizationUnitTree struct {
+	// 组织单元编码
+	// example:
+	//
+	// xxxxx
+	OrganizationNo *string `json:"organization_no,omitempty" xml:"organization_no,omitempty" require:"true"`
+	// 组织单元名称
+	// example:
+	//
+	// xxxxxx
+	OrganizationName *string `json:"organization_name,omitempty" xml:"organization_name,omitempty" require:"true"`
+	// 从根到直接父级的组织编码链；根节点为空
+	// example:
+	//
+	// [xxx,xxx]
+	ParentOrganizationNoList []*string `json:"parent_organization_no_list,omitempty" xml:"parent_organization_no_list,omitempty" type:"Repeated"`
+	// 直接父级组织名称；根节点为空
+	// example:
+	//
+	// xxxxxx
+	ParentOrganizationName *string `json:"parent_organization_name,omitempty" xml:"parent_organization_name,omitempty"`
+	// 最后更新时间
+	// example:
+	//
+	// xxxxxx
+	GmtModified *string `json:"gmt_modified,omitempty" xml:"gmt_modified,omitempty" require:"true"`
+	// 重复结构体
+	// example:
+	//
+	// [{}]
+	Children []*string `json:"children,omitempty" xml:"children,omitempty" require:"true" type:"Repeated"`
+}
+
+func (s OrganizationUnitTree) String() string {
+	return tea.Prettify(s)
+}
+
+func (s OrganizationUnitTree) GoString() string {
+	return s.String()
+}
+
+func (s *OrganizationUnitTree) SetOrganizationNo(v string) *OrganizationUnitTree {
+	s.OrganizationNo = &v
+	return s
+}
+
+func (s *OrganizationUnitTree) SetOrganizationName(v string) *OrganizationUnitTree {
+	s.OrganizationName = &v
+	return s
+}
+
+func (s *OrganizationUnitTree) SetParentOrganizationNoList(v []*string) *OrganizationUnitTree {
+	s.ParentOrganizationNoList = v
+	return s
+}
+
+func (s *OrganizationUnitTree) SetParentOrganizationName(v string) *OrganizationUnitTree {
+	s.ParentOrganizationName = &v
+	return s
+}
+
+func (s *OrganizationUnitTree) SetGmtModified(v string) *OrganizationUnitTree {
+	s.GmtModified = &v
+	return s
+}
+
+func (s *OrganizationUnitTree) SetChildren(v []*string) *OrganizationUnitTree {
+	s.Children = v
+	return s
+}
+
+// 碳普惠补偿采集数据条目
+type CarbonOffsetAcquisitionItem struct {
+	// 采集数据单号
+	// example:
+	//
+	// 123456789abcdefghi
+	AcquisitionItemNo *string `json:"acquisition_item_no,omitempty" xml:"acquisition_item_no,omitempty" require:"true"`
+	// 碳补偿项目编号
+	// example:
+	//
+	// 13222
+	ProjectNo *string `json:"project_no,omitempty" xml:"project_no,omitempty" require:"true"`
+	// 参与账户DID
+	// example:
+	//
+	// 123456789abcdefghi
+	AccountDid *string `json:"account_did,omitempty" xml:"account_did,omitempty" require:"true"`
+	// 发生时间
+	// example:
+	//
+	// 2023-05-23 12:11:32:33
+	OccurrentTime *string `json:"occurrent_time,omitempty" xml:"occurrent_time,omitempty" require:"true"`
+	// 发生场景编码
+	// example:
+	//
+	// xingzou
+	ScenarioCode *string `json:"scenario_code,omitempty" xml:"scenario_code,omitempty" require:"true"`
+	// 发生场景名称
+	// example:
+	//
+	// 出行
+	ScenarioName *string `json:"scenario_name,omitempty" xml:"scenario_name,omitempty" require:"true"`
+	// 碳普惠平台编码，如果非平台采集数据，则显示为自采编码：Self
+	// example:
+	//
+	// Antforest
+	PlatformNo *string `json:"platform_no,omitempty" xml:"platform_no,omitempty" require:"true"`
+	// 活动数据原始值，多个活动数据列表
+	ActiveDatum []*AnyAmountItem `json:"active_datum,omitempty" xml:"active_datum,omitempty" type:"Repeated"`
+	// 减碳量
+	// example:
+	//
+	// 122.22
+	OffsetVolume *string `json:"offset_volume,omitempty" xml:"offset_volume,omitempty"`
+	// 碳能量值
+	// example:
+	//
+	// 229
+	CarbonEnergy *int64 `json:"carbon_energy,omitempty" xml:"carbon_energy,omitempty"`
+}
+
+func (s CarbonOffsetAcquisitionItem) String() string {
+	return tea.Prettify(s)
+}
+
+func (s CarbonOffsetAcquisitionItem) GoString() string {
+	return s.String()
+}
+
+func (s *CarbonOffsetAcquisitionItem) SetAcquisitionItemNo(v string) *CarbonOffsetAcquisitionItem {
+	s.AcquisitionItemNo = &v
+	return s
+}
+
+func (s *CarbonOffsetAcquisitionItem) SetProjectNo(v string) *CarbonOffsetAcquisitionItem {
+	s.ProjectNo = &v
+	return s
+}
+
+func (s *CarbonOffsetAcquisitionItem) SetAccountDid(v string) *CarbonOffsetAcquisitionItem {
+	s.AccountDid = &v
+	return s
+}
+
+func (s *CarbonOffsetAcquisitionItem) SetOccurrentTime(v string) *CarbonOffsetAcquisitionItem {
+	s.OccurrentTime = &v
+	return s
+}
+
+func (s *CarbonOffsetAcquisitionItem) SetScenarioCode(v string) *CarbonOffsetAcquisitionItem {
+	s.ScenarioCode = &v
+	return s
+}
+
+func (s *CarbonOffsetAcquisitionItem) SetScenarioName(v string) *CarbonOffsetAcquisitionItem {
+	s.ScenarioName = &v
+	return s
+}
+
+func (s *CarbonOffsetAcquisitionItem) SetPlatformNo(v string) *CarbonOffsetAcquisitionItem {
+	s.PlatformNo = &v
+	return s
+}
+
+func (s *CarbonOffsetAcquisitionItem) SetActiveDatum(v []*AnyAmountItem) *CarbonOffsetAcquisitionItem {
+	s.ActiveDatum = v
+	return s
+}
+
+func (s *CarbonOffsetAcquisitionItem) SetOffsetVolume(v string) *CarbonOffsetAcquisitionItem {
+	s.OffsetVolume = &v
+	return s
+}
+
+func (s *CarbonOffsetAcquisitionItem) SetCarbonEnergy(v int64) *CarbonOffsetAcquisitionItem {
+	s.CarbonEnergy = &v
+	return s
+}
+
+// 数据类型
+type DataTypeInfo struct {
+	// 数据类型编码
+	// example:
+	//
+	// dataTypeNo
+	DataTypeNo *string `json:"data_type_no,omitempty" xml:"data_type_no,omitempty" require:"true"`
+	// 数据类型名称
+	// example:
+	//
+	// data_type_name
+	DataTypeName *string `json:"data_type_name,omitempty" xml:"data_type_name,omitempty" require:"true"`
+	// 数据类型配置
+	// example:
+	//
+	// data_type_config
+	DataTypeConfig *string `json:"data_type_config,omitempty" xml:"data_type_config,omitempty" require:"true"`
+	// 数据JSON格式检查
+	// example:
+	//
+	// data_json_schema
+	DataJsonSchema *string `json:"data_json_schema,omitempty" xml:"data_json_schema,omitempty" require:"true"`
+}
+
+func (s DataTypeInfo) String() string {
+	return tea.Prettify(s)
+}
+
+func (s DataTypeInfo) GoString() string {
+	return s.String()
+}
+
+func (s *DataTypeInfo) SetDataTypeNo(v string) *DataTypeInfo {
+	s.DataTypeNo = &v
+	return s
+}
+
+func (s *DataTypeInfo) SetDataTypeName(v string) *DataTypeInfo {
+	s.DataTypeName = &v
+	return s
+}
+
+func (s *DataTypeInfo) SetDataTypeConfig(v string) *DataTypeInfo {
+	s.DataTypeConfig = &v
+	return s
+}
+
+func (s *DataTypeInfo) SetDataJsonSchema(v string) *DataTypeInfo {
+	s.DataJsonSchema = &v
+	return s
+}
+
+// user_info
+type EsgUser struct {
+	// 当前操作员 ID
+	// example:
+	//
+	// xxxxx
+	UserId *string `json:"user_id,omitempty" xml:"user_id,omitempty" require:"true"`
+	// 当前登录账号。
+	// example:
+	//
+	// xxxxx
+	UserName *string `json:"user_name,omitempty" xml:"user_name,omitempty" require:"true"`
+	// 操作员昵称
+	// example:
+	//
+	// xxxxx
+	NickName *string `json:"nick_name,omitempty" xml:"nick_name,omitempty"`
+	// 操作员真实姓名
+	// example:
+	//
+	// xxxxx
+	RealName *string `json:"real_name,omitempty" xml:"real_name,omitempty"`
+	// 操作员手机号
+	// example:
+	//
+	// xxxxx
+	PhoneNumber *string `json:"phone_number,omitempty" xml:"phone_number,omitempty"`
+}
+
+func (s EsgUser) String() string {
+	return tea.Prettify(s)
+}
+
+func (s EsgUser) GoString() string {
+	return s.String()
+}
+
+func (s *EsgUser) SetUserId(v string) *EsgUser {
+	s.UserId = &v
+	return s
+}
+
+func (s *EsgUser) SetUserName(v string) *EsgUser {
+	s.UserName = &v
+	return s
+}
+
+func (s *EsgUser) SetNickName(v string) *EsgUser {
+	s.NickName = &v
+	return s
+}
+
+func (s *EsgUser) SetRealName(v string) *EsgUser {
+	s.RealName = &v
+	return s
+}
+
+func (s *EsgUser) SetPhoneNumber(v string) *EsgUser {
+	s.PhoneNumber = &v
+	return s
+}
+
+// LCA碳足迹分析计算数据
+type LcaCarbonDatum struct {
+	// LCA碳排放总量
+	// example:
+	//
+	// 2323.22
+	LcaCarbonAmount *string `json:"lca_carbon_amount,omitempty" xml:"lca_carbon_amount,omitempty" require:"true"`
+	// 足迹报告pdf文件下载地址（30分钟内下载有效）
+	// example:
+	//
+	// http://oss.com/lca/lca_report.pdf
+	LcaReportFileUrl *string `json:"lca_report_file_url,omitempty" xml:"lca_report_file_url,omitempty" require:"true"`
+	// 足迹分析结果详情文件地址（30分钟内下载有效）
+	// example:
+	//
+	// http://oss.com/lca/lca_detail.pdf
+	LcaDetailFileUrl *string `json:"lca_detail_file_url,omitempty" xml:"lca_detail_file_url,omitempty" require:"true"`
+	// B2B-从摇篮到大门，B2C-从摇篮到坟墓
+	// example:
+	//
+	// B2B
+	LifeCycleBoundary *string `json:"life_cycle_boundary,omitempty" xml:"life_cycle_boundary,omitempty" require:"true"`
+	// 足迹开始时间，格式：yyyyMMdd
+	// example:
+	//
+	// 20231223
+	LcaStartDate *string `json:"lca_start_date,omitempty" xml:"lca_start_date,omitempty" require:"true"`
+	// 足迹结束时间 格式：yyyyMMdd
+	// example:
+	//
+	// 20231202
+	LcaEndDate *string `json:"lca_end_date,omitempty" xml:"lca_end_date,omitempty" require:"true"`
+	// 分阶段碳排放量列表
+	LcaStageCarbonDatum []*LcaStageCarbonItem `json:"lca_stage_carbon_datum,omitempty" xml:"lca_stage_carbon_datum,omitempty" require:"true" type:"Repeated"`
+}
+
+func (s LcaCarbonDatum) String() string {
+	return tea.Prettify(s)
+}
+
+func (s LcaCarbonDatum) GoString() string {
+	return s.String()
+}
+
+func (s *LcaCarbonDatum) SetLcaCarbonAmount(v string) *LcaCarbonDatum {
+	s.LcaCarbonAmount = &v
+	return s
+}
+
+func (s *LcaCarbonDatum) SetLcaReportFileUrl(v string) *LcaCarbonDatum {
+	s.LcaReportFileUrl = &v
+	return s
+}
+
+func (s *LcaCarbonDatum) SetLcaDetailFileUrl(v string) *LcaCarbonDatum {
+	s.LcaDetailFileUrl = &v
+	return s
+}
+
+func (s *LcaCarbonDatum) SetLifeCycleBoundary(v string) *LcaCarbonDatum {
+	s.LifeCycleBoundary = &v
+	return s
+}
+
+func (s *LcaCarbonDatum) SetLcaStartDate(v string) *LcaCarbonDatum {
+	s.LcaStartDate = &v
+	return s
+}
+
+func (s *LcaCarbonDatum) SetLcaEndDate(v string) *LcaCarbonDatum {
+	s.LcaEndDate = &v
+	return s
+}
+
+func (s *LcaCarbonDatum) SetLcaStageCarbonDatum(v []*LcaStageCarbonItem) *LcaCarbonDatum {
+	s.LcaStageCarbonDatum = v
+	return s
+}
+
+// 转型路径分析数据
+type TransferPathAnalysis struct {
+	// 所属领域
+	// example:
+	//
+	// 系统能效提升
+	Field *string `json:"field,omitempty" xml:"field,omitempty" require:"true"`
+	// 目录编号
+	// example:
+	//
+	// 1.12
+	IndexNumber *string `json:"index_number,omitempty" xml:"index_number,omitempty" require:"true"`
+	// 目录内容
+	// example:
+	//
+	// 低温余热有机工质郎肯循环（ORC）发电
+	IndexContent *string `json:"index_content,omitempty" xml:"index_content,omitempty" require:"true"`
+	// 技术标准说明
+	// example:
+	//
+	// 基于有机朗肯循环（ORC）原理，通过蒸发器回收95-300℃的热水、热液、蒸汽、烟气中的低温余热，通过向心涡轮和发电机将热量转换成高品质电能。参考标准《低温余热双循环发电装置》（GB/T 37819-2019）、《低温双循环余热回收利用装置性能测试方法》（GB/T 40286-2021）等。
+	Detail *string `json:"detail,omitempty" xml:"detail,omitempty" require:"true"`
+	// 企业是否采取该路径
+	// example:
+	//
+	// 长期目标
+	Target *string `json:"target,omitempty" xml:"target,omitempty" require:"true"`
+}
+
+func (s TransferPathAnalysis) String() string {
+	return tea.Prettify(s)
+}
+
+func (s TransferPathAnalysis) GoString() string {
+	return s.String()
+}
+
+func (s *TransferPathAnalysis) SetField(v string) *TransferPathAnalysis {
+	s.Field = &v
+	return s
+}
+
+func (s *TransferPathAnalysis) SetIndexNumber(v string) *TransferPathAnalysis {
+	s.IndexNumber = &v
+	return s
+}
+
+func (s *TransferPathAnalysis) SetIndexContent(v string) *TransferPathAnalysis {
+	s.IndexContent = &v
+	return s
+}
+
+func (s *TransferPathAnalysis) SetDetail(v string) *TransferPathAnalysis {
+	s.Detail = &v
+	return s
+}
+
+func (s *TransferPathAnalysis) SetTarget(v string) *TransferPathAnalysis {
+	s.Target = &v
+	return s
+}
+
+// 数据授权策略
+type AuthorizePolicy struct {
+	// 授权策略ID
+	// example:
+	//
+	// 11
+	PolicyId *string `json:"policy_id,omitempty" xml:"policy_id,omitempty" require:"true"`
+	// 授权策略描述
+	// example:
+	//
+	// 11
+	Description *string `json:"description,omitempty" xml:"description,omitempty" require:"true"`
+	// 授权策略配置
+	// example:
+	//
+	// 授权策略配置
+	AuthorizeConfig *string `json:"authorize_config,omitempty" xml:"authorize_config,omitempty" require:"true"`
+}
+
+func (s AuthorizePolicy) String() string {
+	return tea.Prettify(s)
+}
+
+func (s AuthorizePolicy) GoString() string {
+	return s.String()
+}
+
+func (s *AuthorizePolicy) SetPolicyId(v string) *AuthorizePolicy {
+	s.PolicyId = &v
+	return s
+}
+
+func (s *AuthorizePolicy) SetDescription(v string) *AuthorizePolicy {
+	s.Description = &v
+	return s
+}
+
+func (s *AuthorizePolicy) SetAuthorizeConfig(v string) *AuthorizePolicy {
+	s.AuthorizeConfig = &v
+	return s
+}
+
+// 角色列表；
+type RoleDetailList struct {
+	// 角色编码
+	// example:
+	//
+	// xxxxxx
+	RoleNo *string `json:"role_no,omitempty" xml:"role_no,omitempty" require:"true"`
+	// 角色名称
+	// example:
+	//
+	// xxxxxx
+	Name *string `json:"name,omitempty" xml:"name,omitempty" require:"true"`
+	// 角色描述
+	// example:
+	//
+	// xxxxxx
+	Description *string `json:"description,omitempty" xml:"description,omitempty"`
+}
+
+func (s RoleDetailList) String() string {
+	return tea.Prettify(s)
+}
+
+func (s RoleDetailList) GoString() string {
+	return s.String()
+}
+
+func (s *RoleDetailList) SetRoleNo(v string) *RoleDetailList {
+	s.RoleNo = &v
+	return s
+}
+
+func (s *RoleDetailList) SetName(v string) *RoleDetailList {
+	s.Name = &v
+	return s
+}
+
+func (s *RoleDetailList) SetDescription(v string) *RoleDetailList {
+	s.Description = &v
+	return s
+}
+
+// 产品概要信息
+type EnterpriseProductOutline struct {
+	// 产品自定义编码
+	//
+	// example:
+	//
+	// 23123121
+	EnterpriseCustomCode *string `json:"enterprise_custom_code,omitempty" xml:"enterprise_custom_code,omitempty" require:"true"`
 	// 产品名称
+	//
+	// example:
+	//
+	// 石墨
 	ProductName *string `json:"product_name,omitempty" xml:"product_name,omitempty" require:"true"`
+	// 规格型号
+	// example:
+	//
+	// DDD-1212
+	Specification *string `json:"specification,omitempty" xml:"specification,omitempty" require:"true"`
+	// 产品描述
+	// example:
+	//
+	// 产品描述
+	ProductDescription *string `json:"product_description,omitempty" xml:"product_description,omitempty"`
+	// 产品分类名称
+	// example:
+	//
+	// 产品分类名
+	ProductCategoryName *string `json:"product_category_name,omitempty" xml:"product_category_name,omitempty" require:"true"`
+	// 品牌信息
+	// example:
+	//
+	// Adidas
+	BrandInformation *string `json:"brand_information,omitempty" xml:"brand_information,omitempty"`
 }
 
-func (s CertProductAuthDO) String() string {
+func (s EnterpriseProductOutline) String() string {
 	return tea.Prettify(s)
 }
 
-func (s CertProductAuthDO) GoString() string {
+func (s EnterpriseProductOutline) GoString() string {
 	return s.String()
 }
 
-func (s *CertProductAuthDO) SetProductId(v string) *CertProductAuthDO {
-	s.ProductId = &v
+func (s *EnterpriseProductOutline) SetEnterpriseCustomCode(v string) *EnterpriseProductOutline {
+	s.EnterpriseCustomCode = &v
 	return s
 }
 
-func (s *CertProductAuthDO) SetProductName(v string) *CertProductAuthDO {
+func (s *EnterpriseProductOutline) SetProductName(v string) *EnterpriseProductOutline {
 	s.ProductName = &v
+	return s
+}
+
+func (s *EnterpriseProductOutline) SetSpecification(v string) *EnterpriseProductOutline {
+	s.Specification = &v
+	return s
+}
+
+func (s *EnterpriseProductOutline) SetProductDescription(v string) *EnterpriseProductOutline {
+	s.ProductDescription = &v
+	return s
+}
+
+func (s *EnterpriseProductOutline) SetProductCategoryName(v string) *EnterpriseProductOutline {
+	s.ProductCategoryName = &v
+	return s
+}
+
+func (s *EnterpriseProductOutline) SetBrandInformation(v string) *EnterpriseProductOutline {
+	s.BrandInformation = &v
+	return s
+}
+
+// 碳补偿活动数据详情
+type CarbonOffsetActiveDataDetail struct {
+	// 活动数据编号
+	// example:
+	//
+	// AD1
+	ActiveDataNo *string `json:"active_data_no,omitempty" xml:"active_data_no,omitempty" require:"true"`
+	// 活动数据名称
+	// example:
+	//
+	// 行走里程数
+	ActiveDataName *string `json:"active_data_name,omitempty" xml:"active_data_name,omitempty"`
+	// 活动数据单位
+	// example:
+	//
+	// km
+	ActiveDataUnit *string `json:"active_data_unit,omitempty" xml:"active_data_unit,omitempty"`
+	// 活动数据描述文案
+	// example:
+	//
+	// 描述
+	Description *string `json:"description,omitempty" xml:"description,omitempty"`
+	// 活动数据值
+	// example:
+	//
+	// 22.22
+	ActiveDataValue *string `json:"active_data_value,omitempty" xml:"active_data_value,omitempty" require:"true"`
+}
+
+func (s CarbonOffsetActiveDataDetail) String() string {
+	return tea.Prettify(s)
+}
+
+func (s CarbonOffsetActiveDataDetail) GoString() string {
+	return s.String()
+}
+
+func (s *CarbonOffsetActiveDataDetail) SetActiveDataNo(v string) *CarbonOffsetActiveDataDetail {
+	s.ActiveDataNo = &v
+	return s
+}
+
+func (s *CarbonOffsetActiveDataDetail) SetActiveDataName(v string) *CarbonOffsetActiveDataDetail {
+	s.ActiveDataName = &v
+	return s
+}
+
+func (s *CarbonOffsetActiveDataDetail) SetActiveDataUnit(v string) *CarbonOffsetActiveDataDetail {
+	s.ActiveDataUnit = &v
+	return s
+}
+
+func (s *CarbonOffsetActiveDataDetail) SetDescription(v string) *CarbonOffsetActiveDataDetail {
+	s.Description = &v
+	return s
+}
+
+func (s *CarbonOffsetActiveDataDetail) SetActiveDataValue(v string) *CarbonOffsetActiveDataDetail {
+	s.ActiveDataValue = &v
+	return s
+}
+
+// 机构会员资料
+type EnterpriseMemberSummary struct {
+	// 机构会员DID
+	// example:
+	//
+	// did:mychain:aa509301d1c2bd0e35f9737824e5ab9832ca9a09542d618bce24a1609191383c
+	AccountDid *string `json:"account_did,omitempty" xml:"account_did,omitempty" require:"true"`
+	// 会员姓名，数据脱敏处理返回
+	// example:
+	//
+	// 张**
+	Name *string `json:"name,omitempty" xml:"name,omitempty"`
+	// 会员手机号码，数据脱敏处理返回
+	// example:
+	//
+	// 136****1122
+	Mobile *string `json:"mobile,omitempty" xml:"mobile,omitempty"`
+	// 会员注册时间
+	// example:
+	//
+	// 2022-02-22 12:33:11
+	RegisterTime *string `json:"register_time,omitempty" xml:"register_time,omitempty" require:"true"`
+}
+
+func (s EnterpriseMemberSummary) String() string {
+	return tea.Prettify(s)
+}
+
+func (s EnterpriseMemberSummary) GoString() string {
+	return s.String()
+}
+
+func (s *EnterpriseMemberSummary) SetAccountDid(v string) *EnterpriseMemberSummary {
+	s.AccountDid = &v
+	return s
+}
+
+func (s *EnterpriseMemberSummary) SetName(v string) *EnterpriseMemberSummary {
+	s.Name = &v
+	return s
+}
+
+func (s *EnterpriseMemberSummary) SetMobile(v string) *EnterpriseMemberSummary {
+	s.Mobile = &v
+	return s
+}
+
+func (s *EnterpriseMemberSummary) SetRegisterTime(v string) *EnterpriseMemberSummary {
+	s.RegisterTime = &v
+	return s
+}
+
+// 产品产量填报项
+type GclProductionItem struct {
+	// 用户侧传入明细编码，用于异常回传和排查
+	// example:
+	//
+	// xxxx
+	ExternalItemCode *string `json:"external_item_code,omitempty" xml:"external_item_code,omitempty"`
+	// 生产单元名称
+	// example:
+	//
+	// xxxx
+	LocationName *string `json:"location_name,omitempty" xml:"location_name,omitempty" require:"true"`
+	// 产品名称
+	// example:
+	//
+	// xxxx
+	ProductName *string `json:"product_name,omitempty" xml:"product_name,omitempty" require:"true"`
+	// 产品规格
+	// example:
+	//
+	// xxxx
+	Specification *string `json:"specification,omitempty" xml:"specification,omitempty" require:"true"`
+	// 月度产量明细
+	// example:
+	//
+	// undefined
+	ProductionDataList []*MonthDataDetail `json:"production_data_list,omitempty" xml:"production_data_list,omitempty" require:"true" type:"Repeated"`
+}
+
+func (s GclProductionItem) String() string {
+	return tea.Prettify(s)
+}
+
+func (s GclProductionItem) GoString() string {
+	return s.String()
+}
+
+func (s *GclProductionItem) SetExternalItemCode(v string) *GclProductionItem {
+	s.ExternalItemCode = &v
+	return s
+}
+
+func (s *GclProductionItem) SetLocationName(v string) *GclProductionItem {
+	s.LocationName = &v
+	return s
+}
+
+func (s *GclProductionItem) SetProductName(v string) *GclProductionItem {
+	s.ProductName = &v
+	return s
+}
+
+func (s *GclProductionItem) SetSpecification(v string) *GclProductionItem {
+	s.Specification = &v
+	return s
+}
+
+func (s *GclProductionItem) SetProductionDataList(v []*MonthDataDetail) *GclProductionItem {
+	s.ProductionDataList = v
+	return s
+}
+
+// 排放统计项目
+type AnyStatisticalItem struct {
+	// 统计项目编码
+	// example:
+	//
+	// abc
+	ItemCode *string `json:"item_code,omitempty" xml:"item_code,omitempty" require:"true"`
+	// 数据值，按字符串输出，最多保留6位小数
+	// example:
+	//
+	// 222.22
+	Amount *string `json:"amount,omitempty" xml:"amount,omitempty" require:"true"`
+	// 单位编码
+	// example:
+	//
+	// t
+	Unit *string `json:"unit,omitempty" xml:"unit,omitempty" require:"true"`
+	// 单位标签
+	// example:
+	//
+	// 吨
+	UnitLabel *string `json:"unit_label,omitempty" xml:"unit_label,omitempty" require:"true"`
+}
+
+func (s AnyStatisticalItem) String() string {
+	return tea.Prettify(s)
+}
+
+func (s AnyStatisticalItem) GoString() string {
+	return s.String()
+}
+
+func (s *AnyStatisticalItem) SetItemCode(v string) *AnyStatisticalItem {
+	s.ItemCode = &v
+	return s
+}
+
+func (s *AnyStatisticalItem) SetAmount(v string) *AnyStatisticalItem {
+	s.Amount = &v
+	return s
+}
+
+func (s *AnyStatisticalItem) SetUnit(v string) *AnyStatisticalItem {
+	s.Unit = &v
+	return s
+}
+
+func (s *AnyStatisticalItem) SetUnitLabel(v string) *AnyStatisticalItem {
+	s.UnitLabel = &v
+	return s
+}
+
+// 当前页操作员列表
+type OperatorList struct {
+	// 操作员 ID。
+	// example:
+	//
+	// xxxxxx
+	OperatorId *string `json:"operator_id,omitempty" xml:"operator_id,omitempty" require:"true"`
+	// 操作员姓名。
+	// example:
+	//
+	// xxxxxx
+	OperatorName *string `json:"operator_name,omitempty" xml:"operator_name,omitempty"`
+	// 登录邮箱。
+	// example:
+	//
+	// xxxxxx
+	Email *string `json:"email,omitempty" xml:"email,omitempty"`
+	// 手机号。
+	// example:
+	//
+	// xxxxxx
+	CellPhone *string `json:"cell_phone,omitempty" xml:"cell_phone,omitempty"`
+	// 昵称。
+	// example:
+	//
+	// xxxxxx
+	NickName *string `json:"nick_name,omitempty" xml:"nick_name,omitempty"`
+	// 创建时间
+	// example:
+	//
+	// xxxxxx
+	CreateTime *string `json:"create_time,omitempty" xml:"create_time,omitempty"`
+	// 操作员状态。
+	// example:
+	//
+	// xxxxxx
+	Status *string `json:"status,omitempty" xml:"status,omitempty"`
+}
+
+func (s OperatorList) String() string {
+	return tea.Prettify(s)
+}
+
+func (s OperatorList) GoString() string {
+	return s.String()
+}
+
+func (s *OperatorList) SetOperatorId(v string) *OperatorList {
+	s.OperatorId = &v
+	return s
+}
+
+func (s *OperatorList) SetOperatorName(v string) *OperatorList {
+	s.OperatorName = &v
+	return s
+}
+
+func (s *OperatorList) SetEmail(v string) *OperatorList {
+	s.Email = &v
+	return s
+}
+
+func (s *OperatorList) SetCellPhone(v string) *OperatorList {
+	s.CellPhone = &v
+	return s
+}
+
+func (s *OperatorList) SetNickName(v string) *OperatorList {
+	s.NickName = &v
+	return s
+}
+
+func (s *OperatorList) SetCreateTime(v string) *OperatorList {
+	s.CreateTime = &v
+	return s
+}
+
+func (s *OperatorList) SetStatus(v string) *OperatorList {
+	s.Status = &v
+	return s
+}
+
+// 区块链信息
+type BlockchainDTO struct {
+	// 交易hash
+	// example:
+	//
+	// xxx
+	TxHash *string `json:"tx_hash,omitempty" xml:"tx_hash,omitempty" require:"true"`
+	// 当前块高
+	// example:
+	//
+	// 12917
+	BlockNumber *int64 `json:"block_number,omitempty" xml:"block_number,omitempty" require:"true"`
+}
+
+func (s BlockchainDTO) String() string {
+	return tea.Prettify(s)
+}
+
+func (s BlockchainDTO) GoString() string {
+	return s.String()
+}
+
+func (s *BlockchainDTO) SetTxHash(v string) *BlockchainDTO {
+	s.TxHash = &v
+	return s
+}
+
+func (s *BlockchainDTO) SetBlockNumber(v int64) *BlockchainDTO {
+	s.BlockNumber = &v
+	return s
+}
+
+// 溯源碳足迹项目
+type LcaProjectTrace struct {
+	// 碳足迹编码
+	// example:
+	//
+	// project_no
+	ProjectNo *string `json:"project_no,omitempty" xml:"project_no,omitempty" require:"true"`
+	// 碳足迹生命周期边界
+	// example:
+	//
+	// life_cycle_boundary
+	LifeCycleBoundary *string `json:"life_cycle_boundary,omitempty" xml:"life_cycle_boundary,omitempty" require:"true"`
+	// 产品编码
+	// example:
+	//
+	// product_no
+	ProductNo *string `json:"product_no,omitempty" xml:"product_no,omitempty" require:"true"`
+	// 碳足迹项目排放量
+	// example:
+	//
+	// lca_carbon_amount
+	LcaCarbonAmount *string `json:"lca_carbon_amount,omitempty" xml:"lca_carbon_amount,omitempty" require:"true"`
+	// 产品名称
+	// example:
+	//
+	// product_name
+	ProductName *string `json:"product_name,omitempty" xml:"product_name,omitempty" require:"true"`
+	// 产品规格型号
+	// example:
+	//
+	// specification
+	Specification *string `json:"specification,omitempty" xml:"specification,omitempty" require:"true"`
+	// 碳足迹开始时间
+	// example:
+	//
+	// lca_start_date
+	LcaStartDate *string `json:"lca_start_date,omitempty" xml:"lca_start_date,omitempty" require:"true"`
+	// 碳足迹结束时间
+	// example:
+	//
+	// lca_end_date
+	LcaEndDate *string `json:"lca_end_date,omitempty" xml:"lca_end_date,omitempty" require:"true"`
+	// 溯源状态
+	// example:
+	//
+	// trace_status
+	TraceStatus *string `json:"trace_status,omitempty" xml:"trace_status,omitempty" require:"true"`
+}
+
+func (s LcaProjectTrace) String() string {
+	return tea.Prettify(s)
+}
+
+func (s LcaProjectTrace) GoString() string {
+	return s.String()
+}
+
+func (s *LcaProjectTrace) SetProjectNo(v string) *LcaProjectTrace {
+	s.ProjectNo = &v
+	return s
+}
+
+func (s *LcaProjectTrace) SetLifeCycleBoundary(v string) *LcaProjectTrace {
+	s.LifeCycleBoundary = &v
+	return s
+}
+
+func (s *LcaProjectTrace) SetProductNo(v string) *LcaProjectTrace {
+	s.ProductNo = &v
+	return s
+}
+
+func (s *LcaProjectTrace) SetLcaCarbonAmount(v string) *LcaProjectTrace {
+	s.LcaCarbonAmount = &v
+	return s
+}
+
+func (s *LcaProjectTrace) SetProductName(v string) *LcaProjectTrace {
+	s.ProductName = &v
+	return s
+}
+
+func (s *LcaProjectTrace) SetSpecification(v string) *LcaProjectTrace {
+	s.Specification = &v
+	return s
+}
+
+func (s *LcaProjectTrace) SetLcaStartDate(v string) *LcaProjectTrace {
+	s.LcaStartDate = &v
+	return s
+}
+
+func (s *LcaProjectTrace) SetLcaEndDate(v string) *LcaProjectTrace {
+	s.LcaEndDate = &v
+	return s
+}
+
+func (s *LcaProjectTrace) SetTraceStatus(v string) *LcaProjectTrace {
+	s.TraceStatus = &v
+	return s
+}
+
+// 绿色行为数据摘要
+type GreenOperationRecordSummary struct {
+	// 绿色行为记录编码
+	// example:
+	//
+	// 20220702111231231212
+	GreenOperationNo *string `json:"green_operation_no,omitempty" xml:"green_operation_no,omitempty" require:"true"`
+	// 绿色行为类型
+	// example:
+	//
+	// ElectronicInvoice
+	GreenOperationType *string `json:"green_operation_type,omitempty" xml:"green_operation_type,omitempty" require:"true"`
+	// 绿色行为类型名称
+	// example:
+	//
+	// 电子发票
+	GreenOperationTypeName *string `json:"green_operation_type_name,omitempty" xml:"green_operation_type_name,omitempty" require:"true"`
+	// 发生绿色行为的相关业务单号
+	// example:
+	//
+	// 202211131212
+	EnterpriseBizNo *string `json:"enterprise_biz_no,omitempty" xml:"enterprise_biz_no,omitempty" require:"true"`
+	// 绿色行为发生时间，格式应如：2021-07-21 12:11:11
+	// example:
+	//
+	// 2021-08-09 12:22:11
+	OccurrenceTime *string `json:"occurrence_time,omitempty" xml:"occurrence_time,omitempty" require:"true"`
+	// 绿色行为的绿色能量值
+	// example:
+	//
+	// 1111
+	GreenEnergyAmount *int64 `json:"green_energy_amount,omitempty" xml:"green_energy_amount,omitempty" require:"true"`
+}
+
+func (s GreenOperationRecordSummary) String() string {
+	return tea.Prettify(s)
+}
+
+func (s GreenOperationRecordSummary) GoString() string {
+	return s.String()
+}
+
+func (s *GreenOperationRecordSummary) SetGreenOperationNo(v string) *GreenOperationRecordSummary {
+	s.GreenOperationNo = &v
+	return s
+}
+
+func (s *GreenOperationRecordSummary) SetGreenOperationType(v string) *GreenOperationRecordSummary {
+	s.GreenOperationType = &v
+	return s
+}
+
+func (s *GreenOperationRecordSummary) SetGreenOperationTypeName(v string) *GreenOperationRecordSummary {
+	s.GreenOperationTypeName = &v
+	return s
+}
+
+func (s *GreenOperationRecordSummary) SetEnterpriseBizNo(v string) *GreenOperationRecordSummary {
+	s.EnterpriseBizNo = &v
+	return s
+}
+
+func (s *GreenOperationRecordSummary) SetOccurrenceTime(v string) *GreenOperationRecordSummary {
+	s.OccurrenceTime = &v
+	return s
+}
+
+func (s *GreenOperationRecordSummary) SetGreenEnergyAmount(v int64) *GreenOperationRecordSummary {
+	s.GreenEnergyAmount = &v
 	return s
 }
 
@@ -585,1945 +2515,6 @@ func (s *CertProductInfoDO) SetAuthProducts(v []*CertProductAuthDO) *CertProduct
 	return s
 }
 
-// 数据值条目
-type AnyAmountItem struct {
-	// 数据项编码
-	// example:
-	//
-	// AD1
-	ItemCode *string `json:"item_code,omitempty" xml:"item_code,omitempty" require:"true"`
-	// 数据值，按字符串输出，最多保留6位小数
-	// example:
-	//
-	// 221.11
-	ItemAmount *string `json:"item_amount,omitempty" xml:"item_amount,omitempty" require:"true"`
-}
-
-func (s AnyAmountItem) String() string {
-	return tea.Prettify(s)
-}
-
-func (s AnyAmountItem) GoString() string {
-	return s.String()
-}
-
-func (s *AnyAmountItem) SetItemCode(v string) *AnyAmountItem {
-	s.ItemCode = &v
-	return s
-}
-
-func (s *AnyAmountItem) SetItemAmount(v string) *AnyAmountItem {
-	s.ItemAmount = &v
-	return s
-}
-
-// 任意KV结构对象
-type AnyKeywordItem struct {
-	// 项目编码
-	// example:
-	//
-	// CFD
-	ItemCode *string `json:"item_code,omitempty" xml:"item_code,omitempty" require:"true"`
-	// 项目值
-	// example:
-	//
-	// 各种按业务场景的取值
-	ItemValue *string `json:"item_value,omitempty" xml:"item_value,omitempty" require:"true"`
-}
-
-func (s AnyKeywordItem) String() string {
-	return tea.Prettify(s)
-}
-
-func (s AnyKeywordItem) GoString() string {
-	return s.String()
-}
-
-func (s *AnyKeywordItem) SetItemCode(v string) *AnyKeywordItem {
-	s.ItemCode = &v
-	return s
-}
-
-func (s *AnyKeywordItem) SetItemValue(v string) *AnyKeywordItem {
-	s.ItemValue = &v
-	return s
-}
-
-// 文档信息
-type EnterpriseDocumentFile struct {
-	// 文档名称
-	// example:
-	//
-	// 2022年7月车辆运输数据文件
-	DocumentName *string `json:"document_name,omitempty" xml:"document_name,omitempty" require:"true"`
-	// 文件地址
-	// example:
-	//
-	// carbonchain/file/dataentry_document/20211108000220010000000000000356/20211108000220010000000000000356.xlsx
-	DocumentAddress *string `json:"document_address,omitempty" xml:"document_address,omitempty" require:"true"`
-}
-
-func (s EnterpriseDocumentFile) String() string {
-	return tea.Prettify(s)
-}
-
-func (s EnterpriseDocumentFile) GoString() string {
-	return s.String()
-}
-
-func (s *EnterpriseDocumentFile) SetDocumentName(v string) *EnterpriseDocumentFile {
-	s.DocumentName = &v
-	return s
-}
-
-func (s *EnterpriseDocumentFile) SetDocumentAddress(v string) *EnterpriseDocumentFile {
-	s.DocumentAddress = &v
-	return s
-}
-
-// 排放统计项目
-type AnyStatisticalItem struct {
-	// 统计项目编码
-	// example:
-	//
-	// abc
-	ItemCode *string `json:"item_code,omitempty" xml:"item_code,omitempty" require:"true"`
-	// 数据值，按字符串输出，最多保留6位小数
-	// example:
-	//
-	// 222.22
-	Amount *string `json:"amount,omitempty" xml:"amount,omitempty" require:"true"`
-	// 单位编码
-	// example:
-	//
-	// t
-	Unit *string `json:"unit,omitempty" xml:"unit,omitempty" require:"true"`
-	// 单位标签
-	// example:
-	//
-	// 吨
-	UnitLabel *string `json:"unit_label,omitempty" xml:"unit_label,omitempty" require:"true"`
-}
-
-func (s AnyStatisticalItem) String() string {
-	return tea.Prettify(s)
-}
-
-func (s AnyStatisticalItem) GoString() string {
-	return s.String()
-}
-
-func (s *AnyStatisticalItem) SetItemCode(v string) *AnyStatisticalItem {
-	s.ItemCode = &v
-	return s
-}
-
-func (s *AnyStatisticalItem) SetAmount(v string) *AnyStatisticalItem {
-	s.Amount = &v
-	return s
-}
-
-func (s *AnyStatisticalItem) SetUnit(v string) *AnyStatisticalItem {
-	s.Unit = &v
-	return s
-}
-
-func (s *AnyStatisticalItem) SetUnitLabel(v string) *AnyStatisticalItem {
-	s.UnitLabel = &v
-	return s
-}
-
-// 绿色行为数据摘要
-type GreenOperationRecordSummary struct {
-	// 绿色行为记录编码
-	// example:
-	//
-	// 20220702111231231212
-	GreenOperationNo *string `json:"green_operation_no,omitempty" xml:"green_operation_no,omitempty" require:"true"`
-	// 绿色行为类型
-	// example:
-	//
-	// ElectronicInvoice
-	GreenOperationType *string `json:"green_operation_type,omitempty" xml:"green_operation_type,omitempty" require:"true"`
-	// 绿色行为类型名称
-	// example:
-	//
-	// 电子发票
-	GreenOperationTypeName *string `json:"green_operation_type_name,omitempty" xml:"green_operation_type_name,omitempty" require:"true"`
-	// 发生绿色行为的相关业务单号
-	// example:
-	//
-	// 202211131212
-	EnterpriseBizNo *string `json:"enterprise_biz_no,omitempty" xml:"enterprise_biz_no,omitempty" require:"true"`
-	// 绿色行为发生时间，格式应如：2021-07-21 12:11:11
-	// example:
-	//
-	// 2021-08-09 12:22:11
-	OccurrenceTime *string `json:"occurrence_time,omitempty" xml:"occurrence_time,omitempty" require:"true"`
-	// 绿色行为的绿色能量值
-	// example:
-	//
-	// 1111
-	GreenEnergyAmount *int64 `json:"green_energy_amount,omitempty" xml:"green_energy_amount,omitempty" require:"true"`
-}
-
-func (s GreenOperationRecordSummary) String() string {
-	return tea.Prettify(s)
-}
-
-func (s GreenOperationRecordSummary) GoString() string {
-	return s.String()
-}
-
-func (s *GreenOperationRecordSummary) SetGreenOperationNo(v string) *GreenOperationRecordSummary {
-	s.GreenOperationNo = &v
-	return s
-}
-
-func (s *GreenOperationRecordSummary) SetGreenOperationType(v string) *GreenOperationRecordSummary {
-	s.GreenOperationType = &v
-	return s
-}
-
-func (s *GreenOperationRecordSummary) SetGreenOperationTypeName(v string) *GreenOperationRecordSummary {
-	s.GreenOperationTypeName = &v
-	return s
-}
-
-func (s *GreenOperationRecordSummary) SetEnterpriseBizNo(v string) *GreenOperationRecordSummary {
-	s.EnterpriseBizNo = &v
-	return s
-}
-
-func (s *GreenOperationRecordSummary) SetOccurrenceTime(v string) *GreenOperationRecordSummary {
-	s.OccurrenceTime = &v
-	return s
-}
-
-func (s *GreenOperationRecordSummary) SetGreenEnergyAmount(v int64) *GreenOperationRecordSummary {
-	s.GreenEnergyAmount = &v
-	return s
-}
-
-// 按频率统计的绿色行为明细
-type GreenOperationStatisticsByFrequence struct {
-	// 绿色行为发生时期
-	// example:
-	//
-	// 2021-09
-	OccurrencePeriod *string `json:"occurrence_period,omitempty" xml:"occurrence_period,omitempty" require:"true"`
-	// 绿色行为产生的绿色能量值
-	// example:
-	//
-	// 11212
-	GreenEnergyAmount *int64 `json:"green_energy_amount,omitempty" xml:"green_energy_amount,omitempty" require:"true"`
-	// 时期内发生绿色行为的记录条数
-	// example:
-	//
-	// 111
-	GreenOperationRecords *int64 `json:"green_operation_records,omitempty" xml:"green_operation_records,omitempty" require:"true"`
-}
-
-func (s GreenOperationStatisticsByFrequence) String() string {
-	return tea.Prettify(s)
-}
-
-func (s GreenOperationStatisticsByFrequence) GoString() string {
-	return s.String()
-}
-
-func (s *GreenOperationStatisticsByFrequence) SetOccurrencePeriod(v string) *GreenOperationStatisticsByFrequence {
-	s.OccurrencePeriod = &v
-	return s
-}
-
-func (s *GreenOperationStatisticsByFrequence) SetGreenEnergyAmount(v int64) *GreenOperationStatisticsByFrequence {
-	s.GreenEnergyAmount = &v
-	return s
-}
-
-func (s *GreenOperationStatisticsByFrequence) SetGreenOperationRecords(v int64) *GreenOperationStatisticsByFrequence {
-	s.GreenOperationRecords = &v
-	return s
-}
-
-// 按绿色行为类型统计的绿色行为明细
-type GreenOperationStatisticsByType struct {
-	// 绿色行为类型
-	// example:
-	//
-	// ElectronicInvoice
-	GreenOperationType *string `json:"green_operation_type,omitempty" xml:"green_operation_type,omitempty" require:"true"`
-	// 绿色行为类型名称
-	// example:
-	//
-	// 电子发票
-	GreenOperationTypeName *string `json:"green_operation_type_name,omitempty" xml:"green_operation_type_name,omitempty" require:"true"`
-	// 绿色行为产生的绿色能量值
-	// example:
-	//
-	// 11
-	GreenEnergyAmount *int64 `json:"green_energy_amount,omitempty" xml:"green_energy_amount,omitempty" require:"true"`
-	// 相关类型的绿色行为记录数
-	// example:
-	//
-	// 33
-	GreenOperationRecords *int64 `json:"green_operation_records,omitempty" xml:"green_operation_records,omitempty" require:"true"`
-}
-
-func (s GreenOperationStatisticsByType) String() string {
-	return tea.Prettify(s)
-}
-
-func (s GreenOperationStatisticsByType) GoString() string {
-	return s.String()
-}
-
-func (s *GreenOperationStatisticsByType) SetGreenOperationType(v string) *GreenOperationStatisticsByType {
-	s.GreenOperationType = &v
-	return s
-}
-
-func (s *GreenOperationStatisticsByType) SetGreenOperationTypeName(v string) *GreenOperationStatisticsByType {
-	s.GreenOperationTypeName = &v
-	return s
-}
-
-func (s *GreenOperationStatisticsByType) SetGreenEnergyAmount(v int64) *GreenOperationStatisticsByType {
-	s.GreenEnergyAmount = &v
-	return s
-}
-
-func (s *GreenOperationStatisticsByType) SetGreenOperationRecords(v int64) *GreenOperationStatisticsByType {
-	s.GreenOperationRecords = &v
-	return s
-}
-
-// 每月的排放数据
-type AnnualMonthEmissionDatum struct {
-	// 统计的年份
-	// example:
-	//
-	// 2022
-	Year *string `json:"year,omitempty" xml:"year,omitempty" require:"true"`
-	// 统计的月份
-	// example:
-	//
-	// 12
-	Month *string `json:"month,omitempty" xml:"month,omitempty" require:"true"`
-	// 统计排放量
-	// example:
-	//
-	// 22.22
-	Value *string `json:"value,omitempty" xml:"value,omitempty" require:"true"`
-}
-
-func (s AnnualMonthEmissionDatum) String() string {
-	return tea.Prettify(s)
-}
-
-func (s AnnualMonthEmissionDatum) GoString() string {
-	return s.String()
-}
-
-func (s *AnnualMonthEmissionDatum) SetYear(v string) *AnnualMonthEmissionDatum {
-	s.Year = &v
-	return s
-}
-
-func (s *AnnualMonthEmissionDatum) SetMonth(v string) *AnnualMonthEmissionDatum {
-	s.Month = &v
-	return s
-}
-
-func (s *AnnualMonthEmissionDatum) SetValue(v string) *AnnualMonthEmissionDatum {
-	s.Value = &v
-	return s
-}
-
-// 账户开通返回
-type AccountRegisterResponse struct {
-	// 账户did
-	// example:
-	//
-	// did:private:xxxcxxxxx
-	UserDid *string `json:"user_did,omitempty" xml:"user_did,omitempty" require:"true"`
-}
-
-func (s AccountRegisterResponse) String() string {
-	return tea.Prettify(s)
-}
-
-func (s AccountRegisterResponse) GoString() string {
-	return s.String()
-}
-
-func (s *AccountRegisterResponse) SetUserDid(v string) *AccountRegisterResponse {
-	s.UserDid = &v
-	return s
-}
-
-// 区块链信息
-type BlockchainDTO struct {
-	// 交易hash
-	// example:
-	//
-	// xxx
-	TxHash *string `json:"tx_hash,omitempty" xml:"tx_hash,omitempty" require:"true"`
-	// 当前块高
-	// example:
-	//
-	// 12917
-	BlockNumber *int64 `json:"block_number,omitempty" xml:"block_number,omitempty" require:"true"`
-}
-
-func (s BlockchainDTO) String() string {
-	return tea.Prettify(s)
-}
-
-func (s BlockchainDTO) GoString() string {
-	return s.String()
-}
-
-func (s *BlockchainDTO) SetTxHash(v string) *BlockchainDTO {
-	s.TxHash = &v
-	return s
-}
-
-func (s *BlockchainDTO) SetBlockNumber(v int64) *BlockchainDTO {
-	s.BlockNumber = &v
-	return s
-}
-
-// 碳排放分单元统计总量
-type EmissionsLocationStatistics struct {
-	// 盘查单元编码
-	// example:
-	//
-	// L0100000008902
-	LocationNo *string `json:"location_no,omitempty" xml:"location_no,omitempty" require:"true"`
-	// 盘查单元名称
-	// example:
-	//
-	// 2022亚运会游泳馆
-	LocationName *string `json:"location_name,omitempty" xml:"location_name,omitempty" require:"true"`
-	// 盘查单元排放量
-	// example:
-	//
-	// 2223.22
-	EmissionAmount *string `json:"emission_amount,omitempty" xml:"emission_amount,omitempty" require:"true"`
-	// 排放量单位，默认为：tCO2e
-	// example:
-	//
-	// tCO2e
-	DataUnit *string `json:"data_unit,omitempty" xml:"data_unit,omitempty" require:"true"`
-}
-
-func (s EmissionsLocationStatistics) String() string {
-	return tea.Prettify(s)
-}
-
-func (s EmissionsLocationStatistics) GoString() string {
-	return s.String()
-}
-
-func (s *EmissionsLocationStatistics) SetLocationNo(v string) *EmissionsLocationStatistics {
-	s.LocationNo = &v
-	return s
-}
-
-func (s *EmissionsLocationStatistics) SetLocationName(v string) *EmissionsLocationStatistics {
-	s.LocationName = &v
-	return s
-}
-
-func (s *EmissionsLocationStatistics) SetEmissionAmount(v string) *EmissionsLocationStatistics {
-	s.EmissionAmount = &v
-	return s
-}
-
-func (s *EmissionsLocationStatistics) SetDataUnit(v string) *EmissionsLocationStatistics {
-	s.DataUnit = &v
-	return s
-}
-
-// 碳排放分城市统计总量
-type EmissionsCityStatistics struct {
-	// 城市编码
-	// example:
-	//
-	// 637401
-	CityNo *string `json:"city_no,omitempty" xml:"city_no,omitempty" require:"true"`
-	// 城市名称
-	// example:
-	//
-	// 南充市
-	CityName *string `json:"city_name,omitempty" xml:"city_name,omitempty" require:"true"`
-	// 累计排放量
-	// example:
-	//
-	// 222.22
-	EmissionAmount *string `json:"emission_amount,omitempty" xml:"emission_amount,omitempty" require:"true"`
-	// 今日新增碳排放量
-	// example:
-	//
-	// 22.22
-	EmissionAmountToday *string `json:"emission_amount_today,omitempty" xml:"emission_amount_today,omitempty" require:"true"`
-	// 总减碳量
-	// example:
-	//
-	// 21.11
-	ReductionAmount *string `json:"reduction_amount,omitempty" xml:"reduction_amount,omitempty" require:"true"`
-	// 今日减碳量
-	// example:
-	//
-	// 9.11
-	ReductionAmountToday *string `json:"reduction_amount_today,omitempty" xml:"reduction_amount_today,omitempty" require:"true"`
-	// 总抵消量
-	// example:
-	//
-	// 9.11
-	CounteractionAmount *string `json:"counteraction_amount,omitempty" xml:"counteraction_amount,omitempty" require:"true"`
-	// 今日抵消量
-	// example:
-	//
-	// 2.11
-	CounteractionAmountToday *string `json:"counteraction_amount_today,omitempty" xml:"counteraction_amount_today,omitempty" require:"true"`
-	// 排放量单位，默认为：
-	// example:
-	//
-	// tCO2e
-	DataUnit *string `json:"data_unit,omitempty" xml:"data_unit,omitempty" require:"true"`
-}
-
-func (s EmissionsCityStatistics) String() string {
-	return tea.Prettify(s)
-}
-
-func (s EmissionsCityStatistics) GoString() string {
-	return s.String()
-}
-
-func (s *EmissionsCityStatistics) SetCityNo(v string) *EmissionsCityStatistics {
-	s.CityNo = &v
-	return s
-}
-
-func (s *EmissionsCityStatistics) SetCityName(v string) *EmissionsCityStatistics {
-	s.CityName = &v
-	return s
-}
-
-func (s *EmissionsCityStatistics) SetEmissionAmount(v string) *EmissionsCityStatistics {
-	s.EmissionAmount = &v
-	return s
-}
-
-func (s *EmissionsCityStatistics) SetEmissionAmountToday(v string) *EmissionsCityStatistics {
-	s.EmissionAmountToday = &v
-	return s
-}
-
-func (s *EmissionsCityStatistics) SetReductionAmount(v string) *EmissionsCityStatistics {
-	s.ReductionAmount = &v
-	return s
-}
-
-func (s *EmissionsCityStatistics) SetReductionAmountToday(v string) *EmissionsCityStatistics {
-	s.ReductionAmountToday = &v
-	return s
-}
-
-func (s *EmissionsCityStatistics) SetCounteractionAmount(v string) *EmissionsCityStatistics {
-	s.CounteractionAmount = &v
-	return s
-}
-
-func (s *EmissionsCityStatistics) SetCounteractionAmountToday(v string) *EmissionsCityStatistics {
-	s.CounteractionAmountToday = &v
-	return s
-}
-
-func (s *EmissionsCityStatistics) SetDataUnit(v string) *EmissionsCityStatistics {
-	s.DataUnit = &v
-	return s
-}
-
-// 碳抵消统计量
-type EmissionCounteractionStatistics struct {
-	// 碳抵消类别
-	// example:
-	//
-	// Quota
-	AssertType *string `json:"assert_type,omitempty" xml:"assert_type,omitempty" require:"true"`
-	// 碳抵消类别名称
-	// example:
-	//
-	// 配额
-	AssertTypeName *string `json:"assert_type_name,omitempty" xml:"assert_type_name,omitempty" require:"true"`
-	// 抵消量
-	// example:
-	//
-	// 22.22
-	CounteractionAmount *string `json:"counteraction_amount,omitempty" xml:"counteraction_amount,omitempty" require:"true"`
-	// 排放量单位，默认为：tCO2e
-	// example:
-	//
-	// tCO2e
-	DataUnit *string `json:"data_unit,omitempty" xml:"data_unit,omitempty" require:"true"`
-}
-
-func (s EmissionCounteractionStatistics) String() string {
-	return tea.Prettify(s)
-}
-
-func (s EmissionCounteractionStatistics) GoString() string {
-	return s.String()
-}
-
-func (s *EmissionCounteractionStatistics) SetAssertType(v string) *EmissionCounteractionStatistics {
-	s.AssertType = &v
-	return s
-}
-
-func (s *EmissionCounteractionStatistics) SetAssertTypeName(v string) *EmissionCounteractionStatistics {
-	s.AssertTypeName = &v
-	return s
-}
-
-func (s *EmissionCounteractionStatistics) SetCounteractionAmount(v string) *EmissionCounteractionStatistics {
-	s.CounteractionAmount = &v
-	return s
-}
-
-func (s *EmissionCounteractionStatistics) SetDataUnit(v string) *EmissionCounteractionStatistics {
-	s.DataUnit = &v
-	return s
-}
-
-// 账户信息
-type CarbonAccountInfo struct {
-	// 账户did
-	// example:
-	//
-	// did:private:xxx
-	UserDid *string `json:"user_did,omitempty" xml:"user_did,omitempty" require:"true"`
-	// 账户名称
-	// example:
-	//
-	// xxx企业
-	UserName *string `json:"user_name,omitempty" xml:"user_name,omitempty" require:"true"`
-}
-
-func (s CarbonAccountInfo) String() string {
-	return tea.Prettify(s)
-}
-
-func (s CarbonAccountInfo) GoString() string {
-	return s.String()
-}
-
-func (s *CarbonAccountInfo) SetUserDid(v string) *CarbonAccountInfo {
-	s.UserDid = &v
-	return s
-}
-
-func (s *CarbonAccountInfo) SetUserName(v string) *CarbonAccountInfo {
-	s.UserName = &v
-	return s
-}
-
-// 授权信息
-type AuthenticationInfoVO struct {
-	// 授权记录编码
-	// example:
-	//
-	// 授权记录编码
-	AuthenticationNo *string `json:"authentication_no,omitempty" xml:"authentication_no,omitempty" require:"true"`
-	// 收取方did
-	// example:
-	//
-	// 收取方did
-	AuthorizerDid *string `json:"authorizer_did,omitempty" xml:"authorizer_did,omitempty" require:"true"`
-	// 授权方名称
-	// example:
-	//
-	// 授权方名称
-	AuthorizerName *string `json:"authorizer_name,omitempty" xml:"authorizer_name,omitempty" require:"true"`
-	// 被授权方did
-	// example:
-	//
-	// 被授权方did
-	AuthorizedDid *string `json:"authorized_did,omitempty" xml:"authorized_did,omitempty" require:"true"`
-	// 被授权方名称
-	// example:
-	//
-	// 被授权方名称
-	AuthorizedName *string `json:"authorized_name,omitempty" xml:"authorized_name,omitempty" require:"true"`
-	// 数据协作类型
-	// example:
-	//
-	// 数据协作类型
-	DataTransferType *string `json:"data_transfer_type,omitempty" xml:"data_transfer_type,omitempty" require:"true"`
-	// 授权详情
-	// example:
-	//
-	// {}
-	AuthenticationDeetail *string `json:"authentication_deetail,omitempty" xml:"authentication_deetail,omitempty" require:"true"`
-	// 授权状态
-	// example:
-	//
-	// Approved：审批通过   Approving：待审批 NotApproved：审批不通过 Cancelled: 取消授权
-	Status *string `json:"status,omitempty" xml:"status,omitempty" require:"true"`
-}
-
-func (s AuthenticationInfoVO) String() string {
-	return tea.Prettify(s)
-}
-
-func (s AuthenticationInfoVO) GoString() string {
-	return s.String()
-}
-
-func (s *AuthenticationInfoVO) SetAuthenticationNo(v string) *AuthenticationInfoVO {
-	s.AuthenticationNo = &v
-	return s
-}
-
-func (s *AuthenticationInfoVO) SetAuthorizerDid(v string) *AuthenticationInfoVO {
-	s.AuthorizerDid = &v
-	return s
-}
-
-func (s *AuthenticationInfoVO) SetAuthorizerName(v string) *AuthenticationInfoVO {
-	s.AuthorizerName = &v
-	return s
-}
-
-func (s *AuthenticationInfoVO) SetAuthorizedDid(v string) *AuthenticationInfoVO {
-	s.AuthorizedDid = &v
-	return s
-}
-
-func (s *AuthenticationInfoVO) SetAuthorizedName(v string) *AuthenticationInfoVO {
-	s.AuthorizedName = &v
-	return s
-}
-
-func (s *AuthenticationInfoVO) SetDataTransferType(v string) *AuthenticationInfoVO {
-	s.DataTransferType = &v
-	return s
-}
-
-func (s *AuthenticationInfoVO) SetAuthenticationDeetail(v string) *AuthenticationInfoVO {
-	s.AuthenticationDeetail = &v
-	return s
-}
-
-func (s *AuthenticationInfoVO) SetStatus(v string) *AuthenticationInfoVO {
-	s.Status = &v
-	return s
-}
-
-// 碳普惠补偿采集数据条目
-type CarbonOffsetAcquisitionItem struct {
-	// 采集数据单号
-	// example:
-	//
-	// 123456789abcdefghi
-	AcquisitionItemNo *string `json:"acquisition_item_no,omitempty" xml:"acquisition_item_no,omitempty" require:"true"`
-	// 碳补偿项目编号
-	// example:
-	//
-	// 13222
-	ProjectNo *string `json:"project_no,omitempty" xml:"project_no,omitempty" require:"true"`
-	// 参与账户DID
-	// example:
-	//
-	// 123456789abcdefghi
-	AccountDid *string `json:"account_did,omitempty" xml:"account_did,omitempty" require:"true"`
-	// 发生时间
-	// example:
-	//
-	// 2023-05-23 12:11:32:33
-	OccurrentTime *string `json:"occurrent_time,omitempty" xml:"occurrent_time,omitempty" require:"true"`
-	// 发生场景编码
-	// example:
-	//
-	// xingzou
-	ScenarioCode *string `json:"scenario_code,omitempty" xml:"scenario_code,omitempty" require:"true"`
-	// 发生场景名称
-	// example:
-	//
-	// 出行
-	ScenarioName *string `json:"scenario_name,omitempty" xml:"scenario_name,omitempty" require:"true"`
-	// 碳普惠平台编码，如果非平台采集数据，则显示为自采编码：Self
-	// example:
-	//
-	// Antforest
-	PlatformNo *string `json:"platform_no,omitempty" xml:"platform_no,omitempty" require:"true"`
-	// 活动数据原始值，多个活动数据列表
-	ActiveDatum []*AnyAmountItem `json:"active_datum,omitempty" xml:"active_datum,omitempty" type:"Repeated"`
-	// 减碳量
-	// example:
-	//
-	// 122.22
-	OffsetVolume *string `json:"offset_volume,omitempty" xml:"offset_volume,omitempty"`
-	// 碳能量值
-	// example:
-	//
-	// 229
-	CarbonEnergy *int64 `json:"carbon_energy,omitempty" xml:"carbon_energy,omitempty"`
-}
-
-func (s CarbonOffsetAcquisitionItem) String() string {
-	return tea.Prettify(s)
-}
-
-func (s CarbonOffsetAcquisitionItem) GoString() string {
-	return s.String()
-}
-
-func (s *CarbonOffsetAcquisitionItem) SetAcquisitionItemNo(v string) *CarbonOffsetAcquisitionItem {
-	s.AcquisitionItemNo = &v
-	return s
-}
-
-func (s *CarbonOffsetAcquisitionItem) SetProjectNo(v string) *CarbonOffsetAcquisitionItem {
-	s.ProjectNo = &v
-	return s
-}
-
-func (s *CarbonOffsetAcquisitionItem) SetAccountDid(v string) *CarbonOffsetAcquisitionItem {
-	s.AccountDid = &v
-	return s
-}
-
-func (s *CarbonOffsetAcquisitionItem) SetOccurrentTime(v string) *CarbonOffsetAcquisitionItem {
-	s.OccurrentTime = &v
-	return s
-}
-
-func (s *CarbonOffsetAcquisitionItem) SetScenarioCode(v string) *CarbonOffsetAcquisitionItem {
-	s.ScenarioCode = &v
-	return s
-}
-
-func (s *CarbonOffsetAcquisitionItem) SetScenarioName(v string) *CarbonOffsetAcquisitionItem {
-	s.ScenarioName = &v
-	return s
-}
-
-func (s *CarbonOffsetAcquisitionItem) SetPlatformNo(v string) *CarbonOffsetAcquisitionItem {
-	s.PlatformNo = &v
-	return s
-}
-
-func (s *CarbonOffsetAcquisitionItem) SetActiveDatum(v []*AnyAmountItem) *CarbonOffsetAcquisitionItem {
-	s.ActiveDatum = v
-	return s
-}
-
-func (s *CarbonOffsetAcquisitionItem) SetOffsetVolume(v string) *CarbonOffsetAcquisitionItem {
-	s.OffsetVolume = &v
-	return s
-}
-
-func (s *CarbonOffsetAcquisitionItem) SetCarbonEnergy(v int64) *CarbonOffsetAcquisitionItem {
-	s.CarbonEnergy = &v
-	return s
-}
-
-// 机构会员资料
-type EnterpriseMemberSummary struct {
-	// 机构会员DID
-	// example:
-	//
-	// did:mychain:aa509301d1c2bd0e35f9737824e5ab9832ca9a09542d618bce24a1609191383c
-	AccountDid *string `json:"account_did,omitempty" xml:"account_did,omitempty" require:"true"`
-	// 会员姓名，数据脱敏处理返回
-	// example:
-	//
-	// 张**
-	Name *string `json:"name,omitempty" xml:"name,omitempty"`
-	// 会员手机号码，数据脱敏处理返回
-	// example:
-	//
-	// 136****1122
-	Mobile *string `json:"mobile,omitempty" xml:"mobile,omitempty"`
-	// 会员注册时间
-	// example:
-	//
-	// 2022-02-22 12:33:11
-	RegisterTime *string `json:"register_time,omitempty" xml:"register_time,omitempty" require:"true"`
-}
-
-func (s EnterpriseMemberSummary) String() string {
-	return tea.Prettify(s)
-}
-
-func (s EnterpriseMemberSummary) GoString() string {
-	return s.String()
-}
-
-func (s *EnterpriseMemberSummary) SetAccountDid(v string) *EnterpriseMemberSummary {
-	s.AccountDid = &v
-	return s
-}
-
-func (s *EnterpriseMemberSummary) SetName(v string) *EnterpriseMemberSummary {
-	s.Name = &v
-	return s
-}
-
-func (s *EnterpriseMemberSummary) SetMobile(v string) *EnterpriseMemberSummary {
-	s.Mobile = &v
-	return s
-}
-
-func (s *EnterpriseMemberSummary) SetRegisterTime(v string) *EnterpriseMemberSummary {
-	s.RegisterTime = &v
-	return s
-}
-
-// 碳补偿活动数据详情
-type CarbonOffsetActiveDataDetail struct {
-	// 活动数据编号
-	// example:
-	//
-	// AD1
-	ActiveDataNo *string `json:"active_data_no,omitempty" xml:"active_data_no,omitempty" require:"true"`
-	// 活动数据名称
-	// example:
-	//
-	// 行走里程数
-	ActiveDataName *string `json:"active_data_name,omitempty" xml:"active_data_name,omitempty"`
-	// 活动数据单位
-	// example:
-	//
-	// km
-	ActiveDataUnit *string `json:"active_data_unit,omitempty" xml:"active_data_unit,omitempty"`
-	// 活动数据描述文案
-	// example:
-	//
-	// 描述
-	Description *string `json:"description,omitempty" xml:"description,omitempty"`
-	// 活动数据值
-	// example:
-	//
-	// 22.22
-	ActiveDataValue *string `json:"active_data_value,omitempty" xml:"active_data_value,omitempty" require:"true"`
-}
-
-func (s CarbonOffsetActiveDataDetail) String() string {
-	return tea.Prettify(s)
-}
-
-func (s CarbonOffsetActiveDataDetail) GoString() string {
-	return s.String()
-}
-
-func (s *CarbonOffsetActiveDataDetail) SetActiveDataNo(v string) *CarbonOffsetActiveDataDetail {
-	s.ActiveDataNo = &v
-	return s
-}
-
-func (s *CarbonOffsetActiveDataDetail) SetActiveDataName(v string) *CarbonOffsetActiveDataDetail {
-	s.ActiveDataName = &v
-	return s
-}
-
-func (s *CarbonOffsetActiveDataDetail) SetActiveDataUnit(v string) *CarbonOffsetActiveDataDetail {
-	s.ActiveDataUnit = &v
-	return s
-}
-
-func (s *CarbonOffsetActiveDataDetail) SetDescription(v string) *CarbonOffsetActiveDataDetail {
-	s.Description = &v
-	return s
-}
-
-func (s *CarbonOffsetActiveDataDetail) SetActiveDataValue(v string) *CarbonOffsetActiveDataDetail {
-	s.ActiveDataValue = &v
-	return s
-}
-
-// 三方平台客户摘要信息
-type PlatformCustomerSummary struct {
-	// 三方平台的客户ID
-	// example:
-	//
-	// 2322323
-	CustomerId *string `json:"customer_id,omitempty" xml:"customer_id,omitempty" require:"true"`
-	// 三方平台客户名称
-	// example:
-	//
-	// ****有限公司
-	CustomerName *string `json:"customer_name,omitempty" xml:"customer_name,omitempty" require:"true"`
-	// 联系人
-	// example:
-	//
-	// 张三
-	ContactPerson *string `json:"contact_person,omitempty" xml:"contact_person,omitempty" require:"true"`
-	// 联系电话
-	// example:
-	//
-	// 13655665566
-	ContactTelephone *string `json:"contact_telephone,omitempty" xml:"contact_telephone,omitempty" require:"true"`
-	// 联系邮箱
-	// example:
-	//
-	// ss@163.com
-	ContactEmail *string `json:"contact_email,omitempty" xml:"contact_email,omitempty"`
-	// 统一社会信用代码
-	// example:
-	//
-	// 23123121
-	SocialCreditCode *string `json:"social_credit_code,omitempty" xml:"social_credit_code,omitempty" require:"true"`
-}
-
-func (s PlatformCustomerSummary) String() string {
-	return tea.Prettify(s)
-}
-
-func (s PlatformCustomerSummary) GoString() string {
-	return s.String()
-}
-
-func (s *PlatformCustomerSummary) SetCustomerId(v string) *PlatformCustomerSummary {
-	s.CustomerId = &v
-	return s
-}
-
-func (s *PlatformCustomerSummary) SetCustomerName(v string) *PlatformCustomerSummary {
-	s.CustomerName = &v
-	return s
-}
-
-func (s *PlatformCustomerSummary) SetContactPerson(v string) *PlatformCustomerSummary {
-	s.ContactPerson = &v
-	return s
-}
-
-func (s *PlatformCustomerSummary) SetContactTelephone(v string) *PlatformCustomerSummary {
-	s.ContactTelephone = &v
-	return s
-}
-
-func (s *PlatformCustomerSummary) SetContactEmail(v string) *PlatformCustomerSummary {
-	s.ContactEmail = &v
-	return s
-}
-
-func (s *PlatformCustomerSummary) SetSocialCreditCode(v string) *PlatformCustomerSummary {
-	s.SocialCreditCode = &v
-	return s
-}
-
-// 企业产品信息
-type EnterpriseProductSummary struct {
-	// 产品自定义编码
-	// example:
-	//
-	// 12312121
-	EnterpriseCustomCode *string `json:"enterprise_custom_code,omitempty" xml:"enterprise_custom_code,omitempty" require:"true"`
-	// 产品名称
-	// example:
-	//
-	// 石墨
-	ProductName *string `json:"product_name,omitempty" xml:"product_name,omitempty" require:"true"`
-	// 规格型号
-	// example:
-	//
-	// DDD-1212
-	Specification *string `json:"specification,omitempty" xml:"specification,omitempty" require:"true"`
-	// 产品描述
-	// example:
-	//
-	// 这是一个石墨产品
-	ProductDescription *string `json:"product_description,omitempty" xml:"product_description,omitempty"`
-	// 产品分类名称
-	// example:
-	//
-	// 产品分类名
-	ProductCategoryName *string `json:"product_category_name,omitempty" xml:"product_category_name,omitempty" require:"true"`
-	// 品牌信息
-	// example:
-	//
-	// Adidas
-	BrandInformation *string `json:"brand_information,omitempty" xml:"brand_information,omitempty"`
-	// 工艺流程文件路径，上传文件后由上传文件接口提供，最多支持上传3个工艺流程文件
-	ProcessFlowFileList []*EnterpriseDocumentFile `json:"process_flow_file_list,omitempty" xml:"process_flow_file_list,omitempty" type:"Repeated"`
-	// 产品图片文件路径，上传文件后由上传文件接口提供，最多支持上传8个产品图片文件
-	ProductPictureFileList []*EnterpriseDocumentFile `json:"product_picture_file_list,omitempty" xml:"product_picture_file_list,omitempty" type:"Repeated"`
-}
-
-func (s EnterpriseProductSummary) String() string {
-	return tea.Prettify(s)
-}
-
-func (s EnterpriseProductSummary) GoString() string {
-	return s.String()
-}
-
-func (s *EnterpriseProductSummary) SetEnterpriseCustomCode(v string) *EnterpriseProductSummary {
-	s.EnterpriseCustomCode = &v
-	return s
-}
-
-func (s *EnterpriseProductSummary) SetProductName(v string) *EnterpriseProductSummary {
-	s.ProductName = &v
-	return s
-}
-
-func (s *EnterpriseProductSummary) SetSpecification(v string) *EnterpriseProductSummary {
-	s.Specification = &v
-	return s
-}
-
-func (s *EnterpriseProductSummary) SetProductDescription(v string) *EnterpriseProductSummary {
-	s.ProductDescription = &v
-	return s
-}
-
-func (s *EnterpriseProductSummary) SetProductCategoryName(v string) *EnterpriseProductSummary {
-	s.ProductCategoryName = &v
-	return s
-}
-
-func (s *EnterpriseProductSummary) SetBrandInformation(v string) *EnterpriseProductSummary {
-	s.BrandInformation = &v
-	return s
-}
-
-func (s *EnterpriseProductSummary) SetProcessFlowFileList(v []*EnterpriseDocumentFile) *EnterpriseProductSummary {
-	s.ProcessFlowFileList = v
-	return s
-}
-
-func (s *EnterpriseProductSummary) SetProductPictureFileList(v []*EnterpriseDocumentFile) *EnterpriseProductSummary {
-	s.ProductPictureFileList = v
-	return s
-}
-
-// 分阶段碳排放量
-type LcaStageCarbonItem struct {
-	// 生命周期阶段：
-	// [MaterialPurchase]-原材料，[ProductManufacture]-生产制造，[ProductSale]-分销，[ProductUsage]-产品使用，[ProductWithdraw]-处置/再生利用
-	// example:
-	//
-	// MaterialPurchase
-	LcaStageCode *string `json:"lca_stage_code,omitempty" xml:"lca_stage_code,omitempty" require:"true"`
-	// 阶段碳排放量
-	// example:
-	//
-	// 223.23
-	LcaStageCarbonAmount *string `json:"lca_stage_carbon_amount,omitempty" xml:"lca_stage_carbon_amount,omitempty" require:"true"`
-}
-
-func (s LcaStageCarbonItem) String() string {
-	return tea.Prettify(s)
-}
-
-func (s LcaStageCarbonItem) GoString() string {
-	return s.String()
-}
-
-func (s *LcaStageCarbonItem) SetLcaStageCode(v string) *LcaStageCarbonItem {
-	s.LcaStageCode = &v
-	return s
-}
-
-func (s *LcaStageCarbonItem) SetLcaStageCarbonAmount(v string) *LcaStageCarbonItem {
-	s.LcaStageCarbonAmount = &v
-	return s
-}
-
-// 产品概要信息
-type EnterpriseProductOutline struct {
-	// 产品自定义编码
-	//
-	// example:
-	//
-	// 23123121
-	EnterpriseCustomCode *string `json:"enterprise_custom_code,omitempty" xml:"enterprise_custom_code,omitempty" require:"true"`
-	// 产品名称
-	//
-	// example:
-	//
-	// 石墨
-	ProductName *string `json:"product_name,omitempty" xml:"product_name,omitempty" require:"true"`
-	// 规格型号
-	// example:
-	//
-	// DDD-1212
-	Specification *string `json:"specification,omitempty" xml:"specification,omitempty" require:"true"`
-	// 产品描述
-	// example:
-	//
-	// 产品描述
-	ProductDescription *string `json:"product_description,omitempty" xml:"product_description,omitempty"`
-	// 产品分类名称
-	// example:
-	//
-	// 产品分类名
-	ProductCategoryName *string `json:"product_category_name,omitempty" xml:"product_category_name,omitempty" require:"true"`
-	// 品牌信息
-	// example:
-	//
-	// Adidas
-	BrandInformation *string `json:"brand_information,omitempty" xml:"brand_information,omitempty"`
-}
-
-func (s EnterpriseProductOutline) String() string {
-	return tea.Prettify(s)
-}
-
-func (s EnterpriseProductOutline) GoString() string {
-	return s.String()
-}
-
-func (s *EnterpriseProductOutline) SetEnterpriseCustomCode(v string) *EnterpriseProductOutline {
-	s.EnterpriseCustomCode = &v
-	return s
-}
-
-func (s *EnterpriseProductOutline) SetProductName(v string) *EnterpriseProductOutline {
-	s.ProductName = &v
-	return s
-}
-
-func (s *EnterpriseProductOutline) SetSpecification(v string) *EnterpriseProductOutline {
-	s.Specification = &v
-	return s
-}
-
-func (s *EnterpriseProductOutline) SetProductDescription(v string) *EnterpriseProductOutline {
-	s.ProductDescription = &v
-	return s
-}
-
-func (s *EnterpriseProductOutline) SetProductCategoryName(v string) *EnterpriseProductOutline {
-	s.ProductCategoryName = &v
-	return s
-}
-
-func (s *EnterpriseProductOutline) SetBrandInformation(v string) *EnterpriseProductOutline {
-	s.BrandInformation = &v
-	return s
-}
-
-// LCA碳足迹分析计算数据
-type LcaCarbonDatum struct {
-	// LCA碳排放总量
-	// example:
-	//
-	// 2323.22
-	LcaCarbonAmount *string `json:"lca_carbon_amount,omitempty" xml:"lca_carbon_amount,omitempty" require:"true"`
-	// 足迹报告pdf文件下载地址（30分钟内下载有效）
-	// example:
-	//
-	// http://oss.com/lca/lca_report.pdf
-	LcaReportFileUrl *string `json:"lca_report_file_url,omitempty" xml:"lca_report_file_url,omitempty" require:"true"`
-	// 足迹分析结果详情文件地址（30分钟内下载有效）
-	// example:
-	//
-	// http://oss.com/lca/lca_detail.pdf
-	LcaDetailFileUrl *string `json:"lca_detail_file_url,omitempty" xml:"lca_detail_file_url,omitempty" require:"true"`
-	// B2B-从摇篮到大门，B2C-从摇篮到坟墓
-	// example:
-	//
-	// B2B
-	LifeCycleBoundary *string `json:"life_cycle_boundary,omitempty" xml:"life_cycle_boundary,omitempty" require:"true"`
-	// 足迹开始时间，格式：yyyyMMdd
-	// example:
-	//
-	// 20231223
-	LcaStartDate *string `json:"lca_start_date,omitempty" xml:"lca_start_date,omitempty" require:"true"`
-	// 足迹结束时间 格式：yyyyMMdd
-	// example:
-	//
-	// 20231202
-	LcaEndDate *string `json:"lca_end_date,omitempty" xml:"lca_end_date,omitempty" require:"true"`
-	// 分阶段碳排放量列表
-	LcaStageCarbonDatum []*LcaStageCarbonItem `json:"lca_stage_carbon_datum,omitempty" xml:"lca_stage_carbon_datum,omitempty" require:"true" type:"Repeated"`
-}
-
-func (s LcaCarbonDatum) String() string {
-	return tea.Prettify(s)
-}
-
-func (s LcaCarbonDatum) GoString() string {
-	return s.String()
-}
-
-func (s *LcaCarbonDatum) SetLcaCarbonAmount(v string) *LcaCarbonDatum {
-	s.LcaCarbonAmount = &v
-	return s
-}
-
-func (s *LcaCarbonDatum) SetLcaReportFileUrl(v string) *LcaCarbonDatum {
-	s.LcaReportFileUrl = &v
-	return s
-}
-
-func (s *LcaCarbonDatum) SetLcaDetailFileUrl(v string) *LcaCarbonDatum {
-	s.LcaDetailFileUrl = &v
-	return s
-}
-
-func (s *LcaCarbonDatum) SetLifeCycleBoundary(v string) *LcaCarbonDatum {
-	s.LifeCycleBoundary = &v
-	return s
-}
-
-func (s *LcaCarbonDatum) SetLcaStartDate(v string) *LcaCarbonDatum {
-	s.LcaStartDate = &v
-	return s
-}
-
-func (s *LcaCarbonDatum) SetLcaEndDate(v string) *LcaCarbonDatum {
-	s.LcaEndDate = &v
-	return s
-}
-
-func (s *LcaCarbonDatum) SetLcaStageCarbonDatum(v []*LcaStageCarbonItem) *LcaCarbonDatum {
-	s.LcaStageCarbonDatum = v
-	return s
-}
-
-// 逆变器发电量
-type InverterGeneration struct {
-	// 逆变器SN
-	// example:
-	//
-	// Inv-Other-16801-Q0kll-2024-04-11
-	InvSn *string `json:"inv_sn,omitempty" xml:"inv_sn,omitempty" require:"true"`
-	// 生产商名称
-	// example:
-	//
-	// 生产商1
-	Manufacturer *string `json:"manufacturer,omitempty" xml:"manufacturer,omitempty" require:"true"`
-	// 当日发电量，最多3位小数
-	// example:
-	//
-	// 1.232
-	Daily *string `json:"daily,omitempty" xml:"daily,omitempty" require:"true"`
-	// 累计发电量，最多3位小数
-	// example:
-	//
-	// 1.232
-	Total *string `json:"total,omitempty" xml:"total,omitempty" require:"true"`
-}
-
-func (s InverterGeneration) String() string {
-	return tea.Prettify(s)
-}
-
-func (s InverterGeneration) GoString() string {
-	return s.String()
-}
-
-func (s *InverterGeneration) SetInvSn(v string) *InverterGeneration {
-	s.InvSn = &v
-	return s
-}
-
-func (s *InverterGeneration) SetManufacturer(v string) *InverterGeneration {
-	s.Manufacturer = &v
-	return s
-}
-
-func (s *InverterGeneration) SetDaily(v string) *InverterGeneration {
-	s.Daily = &v
-	return s
-}
-
-func (s *InverterGeneration) SetTotal(v string) *InverterGeneration {
-	s.Total = &v
-	return s
-}
-
-// 设备发电量
-type DeviceGeneration struct {
-	// 设备内部编号，注册设备后获取
-	// example:
-	//
-	// 0340340000000707
-	DeviceNo *string `json:"device_no,omitempty" xml:"device_no,omitempty" require:"true"`
-	// 逆变器发电量列表
-	InverterGenerations []*InverterGeneration `json:"inverter_generations,omitempty" xml:"inverter_generations,omitempty" require:"true" type:"Repeated"`
-}
-
-func (s DeviceGeneration) String() string {
-	return tea.Prettify(s)
-}
-
-func (s DeviceGeneration) GoString() string {
-	return s.String()
-}
-
-func (s *DeviceGeneration) SetDeviceNo(v string) *DeviceGeneration {
-	s.DeviceNo = &v
-	return s
-}
-
-func (s *DeviceGeneration) SetInverterGenerations(v []*InverterGeneration) *DeviceGeneration {
-	s.InverterGenerations = v
-	return s
-}
-
-// 存证数据字段值
-type DepositFieldValue struct {
-	// 存证数据字段名
-	// example:
-	//
-	// distance
-	Name *string `json:"name,omitempty" xml:"name,omitempty" require:"true"`
-	// 存证数据字段值
-	// example:
-	//
-	// 10.0
-	Value *string `json:"value,omitempty" xml:"value,omitempty"`
-}
-
-func (s DepositFieldValue) String() string {
-	return tea.Prettify(s)
-}
-
-func (s DepositFieldValue) GoString() string {
-	return s.String()
-}
-
-func (s *DepositFieldValue) SetName(v string) *DepositFieldValue {
-	s.Name = &v
-	return s
-}
-
-func (s *DepositFieldValue) SetValue(v string) *DepositFieldValue {
-	s.Value = &v
-	return s
-}
-
-// 数据存证信息
-type DataDepositInfo struct {
-	// 存证字段值
-	DataValue []*DepositFieldValue `json:"data_value,omitempty" xml:"data_value,omitempty" require:"true" type:"Repeated"`
-	// 数据存证区块链交易ID
-	// example:
-	//
-	// c5fcc677a0b04c62973c2dbc72jcus83271
-	TxId *string `json:"tx_id,omitempty" xml:"tx_id,omitempty"`
-	// 数据存证操作用户ID
-	// example:
-	//
-	// user_001
-	UserId *string `json:"user_id,omitempty" xml:"user_id,omitempty" require:"true"`
-	// 存证数据内容
-	// example:
-	//
-	// 待补充
-	DepositContent *string `json:"deposit_content,omitempty" xml:"deposit_content,omitempty" require:"true"`
-	// 存证执行状态
-	// example:
-	//
-	// status
-	Status *string `json:"status,omitempty" xml:"status,omitempty" require:"true"`
-	// 存证执行(发起)时间
-	Timestamp *int64 `json:"timestamp,omitempty" xml:"timestamp,omitempty" require:"true"`
-}
-
-func (s DataDepositInfo) String() string {
-	return tea.Prettify(s)
-}
-
-func (s DataDepositInfo) GoString() string {
-	return s.String()
-}
-
-func (s *DataDepositInfo) SetDataValue(v []*DepositFieldValue) *DataDepositInfo {
-	s.DataValue = v
-	return s
-}
-
-func (s *DataDepositInfo) SetTxId(v string) *DataDepositInfo {
-	s.TxId = &v
-	return s
-}
-
-func (s *DataDepositInfo) SetUserId(v string) *DataDepositInfo {
-	s.UserId = &v
-	return s
-}
-
-func (s *DataDepositInfo) SetDepositContent(v string) *DataDepositInfo {
-	s.DepositContent = &v
-	return s
-}
-
-func (s *DataDepositInfo) SetStatus(v string) *DataDepositInfo {
-	s.Status = &v
-	return s
-}
-
-func (s *DataDepositInfo) SetTimestamp(v int64) *DataDepositInfo {
-	s.Timestamp = &v
-	return s
-}
-
-// 数据资产信息
-type DataAssetInfo struct {
-	// 数据资产DID
-	// example:
-	//
-	// 111
-	DatasetDid *string `json:"dataset_did,omitempty" xml:"dataset_did,omitempty" require:"true"`
-	// 数据资产所有方DID
-	// example:
-	//
-	// 111
-	UserDid *string `json:"user_did,omitempty" xml:"user_did,omitempty" require:"true"`
-	// 数据资产名称
-	// example:
-	//
-	// 企业固定化石燃料排放
-	DatasetName *string `json:"dataset_name,omitempty" xml:"dataset_name,omitempty" require:"true"`
-	// 数据类型
-	// example:
-	//
-	// PERSONAL_GREEN_DATA_METRO
-	DataType *string `json:"data_type,omitempty" xml:"data_type,omitempty" require:"true"`
-}
-
-func (s DataAssetInfo) String() string {
-	return tea.Prettify(s)
-}
-
-func (s DataAssetInfo) GoString() string {
-	return s.String()
-}
-
-func (s *DataAssetInfo) SetDatasetDid(v string) *DataAssetInfo {
-	s.DatasetDid = &v
-	return s
-}
-
-func (s *DataAssetInfo) SetUserDid(v string) *DataAssetInfo {
-	s.UserDid = &v
-	return s
-}
-
-func (s *DataAssetInfo) SetDatasetName(v string) *DataAssetInfo {
-	s.DatasetName = &v
-	return s
-}
-
-func (s *DataAssetInfo) SetDataType(v string) *DataAssetInfo {
-	s.DataType = &v
-	return s
-}
-
-// 数据授权策略
-type AuthorizePolicy struct {
-	// 授权策略ID
-	// example:
-	//
-	// 11
-	PolicyId *string `json:"policy_id,omitempty" xml:"policy_id,omitempty" require:"true"`
-	// 授权策略描述
-	// example:
-	//
-	// 11
-	Description *string `json:"description,omitempty" xml:"description,omitempty" require:"true"`
-	// 授权策略配置
-	// example:
-	//
-	// 授权策略配置
-	AuthorizeConfig *string `json:"authorize_config,omitempty" xml:"authorize_config,omitempty" require:"true"`
-}
-
-func (s AuthorizePolicy) String() string {
-	return tea.Prettify(s)
-}
-
-func (s AuthorizePolicy) GoString() string {
-	return s.String()
-}
-
-func (s *AuthorizePolicy) SetPolicyId(v string) *AuthorizePolicy {
-	s.PolicyId = &v
-	return s
-}
-
-func (s *AuthorizePolicy) SetDescription(v string) *AuthorizePolicy {
-	s.Description = &v
-	return s
-}
-
-func (s *AuthorizePolicy) SetAuthorizeConfig(v string) *AuthorizePolicy {
-	s.AuthorizeConfig = &v
-	return s
-}
-
-// 数据类型
-type DataTypeInfo struct {
-	// 数据类型编码
-	// example:
-	//
-	// dataTypeNo
-	DataTypeNo *string `json:"data_type_no,omitempty" xml:"data_type_no,omitempty" require:"true"`
-	// 数据类型名称
-	// example:
-	//
-	// data_type_name
-	DataTypeName *string `json:"data_type_name,omitempty" xml:"data_type_name,omitempty" require:"true"`
-	// 数据类型配置
-	// example:
-	//
-	// data_type_config
-	DataTypeConfig *string `json:"data_type_config,omitempty" xml:"data_type_config,omitempty" require:"true"`
-	// 数据JSON格式检查
-	// example:
-	//
-	// data_json_schema
-	DataJsonSchema *string `json:"data_json_schema,omitempty" xml:"data_json_schema,omitempty" require:"true"`
-}
-
-func (s DataTypeInfo) String() string {
-	return tea.Prettify(s)
-}
-
-func (s DataTypeInfo) GoString() string {
-	return s.String()
-}
-
-func (s *DataTypeInfo) SetDataTypeNo(v string) *DataTypeInfo {
-	s.DataTypeNo = &v
-	return s
-}
-
-func (s *DataTypeInfo) SetDataTypeName(v string) *DataTypeInfo {
-	s.DataTypeName = &v
-	return s
-}
-
-func (s *DataTypeInfo) SetDataTypeConfig(v string) *DataTypeInfo {
-	s.DataTypeConfig = &v
-	return s
-}
-
-func (s *DataTypeInfo) SetDataJsonSchema(v string) *DataTypeInfo {
-	s.DataJsonSchema = &v
-	return s
-}
-
-// 运输信息
-type TransportActiveData struct {
-	// 运输方式编码
-	// example:
-	//
-	// 5201000000
-	TransportCode *string `json:"transport_code,omitempty" xml:"transport_code,omitempty" require:"true"`
-	// 运输设备
-	// example:
-	//
-	// KCTC
-	Equipment *string `json:"equipment,omitempty" xml:"equipment,omitempty" require:"true"`
-	// 运输里程
-	// example:
-	//
-	// 200
-	Distance *string `json:"distance,omitempty" xml:"distance,omitempty" require:"true"`
-	// 是否空载
-	// example:
-	//
-	// true, false
-	IsEmptyLoad *bool `json:"is_empty_load,omitempty" xml:"is_empty_load,omitempty"`
-}
-
-func (s TransportActiveData) String() string {
-	return tea.Prettify(s)
-}
-
-func (s TransportActiveData) GoString() string {
-	return s.String()
-}
-
-func (s *TransportActiveData) SetTransportCode(v string) *TransportActiveData {
-	s.TransportCode = &v
-	return s
-}
-
-func (s *TransportActiveData) SetEquipment(v string) *TransportActiveData {
-	s.Equipment = &v
-	return s
-}
-
-func (s *TransportActiveData) SetDistance(v string) *TransportActiveData {
-	s.Distance = &v
-	return s
-}
-
-func (s *TransportActiveData) SetIsEmptyLoad(v bool) *TransportActiveData {
-	s.IsEmptyLoad = &v
-	return s
-}
-
-// 输入流活动数据
-type InputStreamActiveData struct {
-	// 物料编码
-	// example:
-	//
-	// 0601020000
-	MaterialCode *string `json:"material_code,omitempty" xml:"material_code,omitempty" require:"true"`
-	// 用量，非负，最多6位小数
-	// example:
-	//
-	// 100
-	Amount *string `json:"amount,omitempty" xml:"amount,omitempty" require:"true"`
-	// 单位
-	// example:
-	//
-	// KG
-	Unit *string `json:"unit,omitempty" xml:"unit,omitempty" require:"true"`
-	// 运输信息列表
-	TransportList []*TransportActiveData `json:"transport_list,omitempty" xml:"transport_list,omitempty" type:"Repeated"`
-}
-
-func (s InputStreamActiveData) String() string {
-	return tea.Prettify(s)
-}
-
-func (s InputStreamActiveData) GoString() string {
-	return s.String()
-}
-
-func (s *InputStreamActiveData) SetMaterialCode(v string) *InputStreamActiveData {
-	s.MaterialCode = &v
-	return s
-}
-
-func (s *InputStreamActiveData) SetAmount(v string) *InputStreamActiveData {
-	s.Amount = &v
-	return s
-}
-
-func (s *InputStreamActiveData) SetUnit(v string) *InputStreamActiveData {
-	s.Unit = &v
-	return s
-}
-
-func (s *InputStreamActiveData) SetTransportList(v []*TransportActiveData) *InputStreamActiveData {
-	s.TransportList = v
-	return s
-}
-
-// 输出流活动数据
-type OutputStreamActiveData struct {
-	// 物料编码
-	// example:
-	//
-	// 0102010000
-	MaterialCode *string `json:"material_code,omitempty" xml:"material_code,omitempty" require:"true"`
-	// 用量，非负，最多6位小数
-	// example:
-	//
-	// 200.12
-	Amount *string `json:"amount,omitempty" xml:"amount,omitempty" require:"true"`
-	// 单位
-	// example:
-	//
-	// KG
-	Unit *string `json:"unit,omitempty" xml:"unit,omitempty" require:"true"`
-	// 单价（仅产品用，产品不传时默认为空）
-	// example:
-	//
-	// 100
-	UnitPrice *string `json:"unit_price,omitempty" xml:"unit_price,omitempty"`
-	// 处置方式编码（仅废弃物用）
-	// example:
-	//
-	// 5201000000
-	DisposalTypeCode *string `json:"disposal_type_code,omitempty" xml:"disposal_type_code,omitempty"`
-	// 运输信息列表（仅废弃物用）
-	TransportList []*TransportActiveData `json:"transport_list,omitempty" xml:"transport_list,omitempty" type:"Repeated"`
-}
-
-func (s OutputStreamActiveData) String() string {
-	return tea.Prettify(s)
-}
-
-func (s OutputStreamActiveData) GoString() string {
-	return s.String()
-}
-
-func (s *OutputStreamActiveData) SetMaterialCode(v string) *OutputStreamActiveData {
-	s.MaterialCode = &v
-	return s
-}
-
-func (s *OutputStreamActiveData) SetAmount(v string) *OutputStreamActiveData {
-	s.Amount = &v
-	return s
-}
-
-func (s *OutputStreamActiveData) SetUnit(v string) *OutputStreamActiveData {
-	s.Unit = &v
-	return s
-}
-
-func (s *OutputStreamActiveData) SetUnitPrice(v string) *OutputStreamActiveData {
-	s.UnitPrice = &v
-	return s
-}
-
-func (s *OutputStreamActiveData) SetDisposalTypeCode(v string) *OutputStreamActiveData {
-	s.DisposalTypeCode = &v
-	return s
-}
-
-func (s *OutputStreamActiveData) SetTransportList(v []*TransportActiveData) *OutputStreamActiveData {
-	s.TransportList = v
-	return s
-}
-
-// 生命周期阶段活动数据
-type LcaStageActiveData struct {
-	// LCA阶段
-	// example:
-	//
-	// ProductManufacture
-	LcaStage *string `json:"lca_stage,omitempty" xml:"lca_stage,omitempty" require:"true"`
-	// 输入流活动数据列表
-	InputStreamList []*InputStreamActiveData `json:"input_stream_list,omitempty" xml:"input_stream_list,omitempty" require:"true" type:"Repeated"`
-	// 输出流活动数据列表
-	OutputStreamList []*OutputStreamActiveData `json:"output_stream_list,omitempty" xml:"output_stream_list,omitempty" require:"true" type:"Repeated"`
-}
-
-func (s LcaStageActiveData) String() string {
-	return tea.Prettify(s)
-}
-
-func (s LcaStageActiveData) GoString() string {
-	return s.String()
-}
-
-func (s *LcaStageActiveData) SetLcaStage(v string) *LcaStageActiveData {
-	s.LcaStage = &v
-	return s
-}
-
-func (s *LcaStageActiveData) SetInputStreamList(v []*InputStreamActiveData) *LcaStageActiveData {
-	s.InputStreamList = v
-	return s
-}
-
-func (s *LcaStageActiveData) SetOutputStreamList(v []*OutputStreamActiveData) *LcaStageActiveData {
-	s.OutputStreamList = v
-	return s
-}
-
-// 阶段评估明细数据
-type EnterpriseLcaAssessmentItem struct {
-	// 物料编码
-	// example:
-	//
-	// 0601020000
-	MaterialCode *string `json:"material_code,omitempty" xml:"material_code,omitempty" require:"true"`
-	// 数据明细名称
-	// example:
-	//
-	// 煤炭
-	AssessmentItemName *string `json:"assessment_item_name,omitempty" xml:"assessment_item_name,omitempty" require:"true"`
-	// 物料直接碳排放评估量
-	// example:
-	//
-	// 0
-	EmissionAmount *string `json:"emission_amount,omitempty" xml:"emission_amount,omitempty" require:"true"`
-	// 物料运输碳排放评估量
-	// example:
-	//
-	// 123.1
-	TransportEmissionAmount *string `json:"transport_emission_amount,omitempty" xml:"transport_emission_amount,omitempty" require:"true"`
-}
-
-func (s EnterpriseLcaAssessmentItem) String() string {
-	return tea.Prettify(s)
-}
-
-func (s EnterpriseLcaAssessmentItem) GoString() string {
-	return s.String()
-}
-
-func (s *EnterpriseLcaAssessmentItem) SetMaterialCode(v string) *EnterpriseLcaAssessmentItem {
-	s.MaterialCode = &v
-	return s
-}
-
-func (s *EnterpriseLcaAssessmentItem) SetAssessmentItemName(v string) *EnterpriseLcaAssessmentItem {
-	s.AssessmentItemName = &v
-	return s
-}
-
-func (s *EnterpriseLcaAssessmentItem) SetEmissionAmount(v string) *EnterpriseLcaAssessmentItem {
-	s.EmissionAmount = &v
-	return s
-}
-
-func (s *EnterpriseLcaAssessmentItem) SetTransportEmissionAmount(v string) *EnterpriseLcaAssessmentItem {
-	s.TransportEmissionAmount = &v
-	return s
-}
-
-// 阶段评估数据明细
-type EnterpriseLcaStageAssessmentItem struct {
-	// LCA阶段
-	// example:
-	//
-	// ProductManufacture
-	LcaStage *string `json:"lca_stage,omitempty" xml:"lca_stage,omitempty" require:"true"`
-	// 阶段排放占比
-	// example:
-	//
-	// 1
-	LcaStageCarbonRate *string `json:"lca_stage_carbon_rate,omitempty" xml:"lca_stage_carbon_rate,omitempty" require:"true"`
-	// 阶段排放量
-	// example:
-	//
-	// 123.12
-	LcaStageCarbonEmissions *string `json:"lca_stage_carbon_emissions,omitempty" xml:"lca_stage_carbon_emissions,omitempty" require:"true"`
-	// 阶段评估明细数据
-	LcaAssessmentDatum []*EnterpriseLcaAssessmentItem `json:"lca_assessment_datum,omitempty" xml:"lca_assessment_datum,omitempty" require:"true" type:"Repeated"`
-}
-
-func (s EnterpriseLcaStageAssessmentItem) String() string {
-	return tea.Prettify(s)
-}
-
-func (s EnterpriseLcaStageAssessmentItem) GoString() string {
-	return s.String()
-}
-
-func (s *EnterpriseLcaStageAssessmentItem) SetLcaStage(v string) *EnterpriseLcaStageAssessmentItem {
-	s.LcaStage = &v
-	return s
-}
-
-func (s *EnterpriseLcaStageAssessmentItem) SetLcaStageCarbonRate(v string) *EnterpriseLcaStageAssessmentItem {
-	s.LcaStageCarbonRate = &v
-	return s
-}
-
-func (s *EnterpriseLcaStageAssessmentItem) SetLcaStageCarbonEmissions(v string) *EnterpriseLcaStageAssessmentItem {
-	s.LcaStageCarbonEmissions = &v
-	return s
-}
-
-func (s *EnterpriseLcaStageAssessmentItem) SetLcaAssessmentDatum(v []*EnterpriseLcaAssessmentItem) *EnterpriseLcaStageAssessmentItem {
-	s.LcaAssessmentDatum = v
-	return s
-}
-
 // Lca速算记录
 type LcaCalcResult struct {
 	// 速算记录编号
@@ -2580,413 +2571,6 @@ func (s *LcaCalcResult) SetRecordDate(v string) *LcaCalcResult {
 
 func (s *LcaCalcResult) SetCustomContext(v string) *LcaCalcResult {
 	s.CustomContext = &v
-	return s
-}
-
-// 溯源碳足迹项目
-type LcaProjectTrace struct {
-	// 碳足迹编码
-	// example:
-	//
-	// project_no
-	ProjectNo *string `json:"project_no,omitempty" xml:"project_no,omitempty" require:"true"`
-	// 碳足迹生命周期边界
-	// example:
-	//
-	// life_cycle_boundary
-	LifeCycleBoundary *string `json:"life_cycle_boundary,omitempty" xml:"life_cycle_boundary,omitempty" require:"true"`
-	// 产品编码
-	// example:
-	//
-	// product_no
-	ProductNo *string `json:"product_no,omitempty" xml:"product_no,omitempty" require:"true"`
-	// 碳足迹项目排放量
-	// example:
-	//
-	// lca_carbon_amount
-	LcaCarbonAmount *string `json:"lca_carbon_amount,omitempty" xml:"lca_carbon_amount,omitempty" require:"true"`
-	// 产品名称
-	// example:
-	//
-	// product_name
-	ProductName *string `json:"product_name,omitempty" xml:"product_name,omitempty" require:"true"`
-	// 产品规格型号
-	// example:
-	//
-	// specification
-	Specification *string `json:"specification,omitempty" xml:"specification,omitempty" require:"true"`
-	// 碳足迹开始时间
-	// example:
-	//
-	// lca_start_date
-	LcaStartDate *string `json:"lca_start_date,omitempty" xml:"lca_start_date,omitempty" require:"true"`
-	// 碳足迹结束时间
-	// example:
-	//
-	// lca_end_date
-	LcaEndDate *string `json:"lca_end_date,omitempty" xml:"lca_end_date,omitempty" require:"true"`
-	// 溯源状态
-	// example:
-	//
-	// trace_status
-	TraceStatus *string `json:"trace_status,omitempty" xml:"trace_status,omitempty" require:"true"`
-}
-
-func (s LcaProjectTrace) String() string {
-	return tea.Prettify(s)
-}
-
-func (s LcaProjectTrace) GoString() string {
-	return s.String()
-}
-
-func (s *LcaProjectTrace) SetProjectNo(v string) *LcaProjectTrace {
-	s.ProjectNo = &v
-	return s
-}
-
-func (s *LcaProjectTrace) SetLifeCycleBoundary(v string) *LcaProjectTrace {
-	s.LifeCycleBoundary = &v
-	return s
-}
-
-func (s *LcaProjectTrace) SetProductNo(v string) *LcaProjectTrace {
-	s.ProductNo = &v
-	return s
-}
-
-func (s *LcaProjectTrace) SetLcaCarbonAmount(v string) *LcaProjectTrace {
-	s.LcaCarbonAmount = &v
-	return s
-}
-
-func (s *LcaProjectTrace) SetProductName(v string) *LcaProjectTrace {
-	s.ProductName = &v
-	return s
-}
-
-func (s *LcaProjectTrace) SetSpecification(v string) *LcaProjectTrace {
-	s.Specification = &v
-	return s
-}
-
-func (s *LcaProjectTrace) SetLcaStartDate(v string) *LcaProjectTrace {
-	s.LcaStartDate = &v
-	return s
-}
-
-func (s *LcaProjectTrace) SetLcaEndDate(v string) *LcaProjectTrace {
-	s.LcaEndDate = &v
-	return s
-}
-
-func (s *LcaProjectTrace) SetTraceStatus(v string) *LcaProjectTrace {
-	s.TraceStatus = &v
-	return s
-}
-
-// 转型金融报告详情
-type FinanceReportDetail struct {
-	// 文件
-	File *EnterpriseDocumentFile `json:"file,omitempty" xml:"file,omitempty" require:"true"`
-	// 报告编号
-	// example:
-	//
-	// xxx
-	ReportNo *string `json:"report_no,omitempty" xml:"report_no,omitempty" require:"true"`
-	// 报告名称
-	// example:
-	//
-	// xxx
-	ReportName *string `json:"report_name,omitempty" xml:"report_name,omitempty" require:"true"`
-	// 是否盖章
-	// example:
-	//
-	// true, false
-	HasSealed *bool `json:"has_sealed,omitempty" xml:"has_sealed,omitempty" require:"true"`
-	// 报告时间
-	// example:
-	//
-	// 2025-01-20
-	ReportTime *string `json:"report_time,omitempty" xml:"report_time,omitempty" require:"true"`
-	// 报告提交人
-	// example:
-	//
-	// 张三
-	ReportSubmitter *string `json:"report_submitter,omitempty" xml:"report_submitter,omitempty" require:"true"`
-	// 报告生成方式
-	// example:
-	//
-	// MANUAL , INTERFACE
-	GenerateType *string `json:"generate_type,omitempty" xml:"generate_type,omitempty" require:"true"`
-	// 对比年，报告年
-	// example:
-	//
-	// 2025
-	CompareYear *string `json:"compare_year,omitempty" xml:"compare_year,omitempty" require:"true"`
-	// 基准年
-	// example:
-	//
-	// 2024
-	BaseYear *string `json:"base_year,omitempty" xml:"base_year,omitempty" require:"true"`
-	// 企业名称
-	// example:
-	//
-	// xxx
-	CompanyName *string `json:"company_name,omitempty" xml:"company_name,omitempty" require:"true"`
-	// 区域名称
-	// example:
-	//
-	// 北京
-	AreaName *string `json:"area_name,omitempty" xml:"area_name,omitempty" require:"true"`
-	// 行业名称
-	// example:
-	//
-	// 能源
-	IndustryName *string `json:"industry_name,omitempty" xml:"industry_name,omitempty" require:"true"`
-	// 社会统一信用代码
-	// example:
-	//
-	// 28382372323232434
-	CompanyId *string `json:"company_id,omitempty" xml:"company_id,omitempty" require:"true"`
-}
-
-func (s FinanceReportDetail) String() string {
-	return tea.Prettify(s)
-}
-
-func (s FinanceReportDetail) GoString() string {
-	return s.String()
-}
-
-func (s *FinanceReportDetail) SetFile(v *EnterpriseDocumentFile) *FinanceReportDetail {
-	s.File = v
-	return s
-}
-
-func (s *FinanceReportDetail) SetReportNo(v string) *FinanceReportDetail {
-	s.ReportNo = &v
-	return s
-}
-
-func (s *FinanceReportDetail) SetReportName(v string) *FinanceReportDetail {
-	s.ReportName = &v
-	return s
-}
-
-func (s *FinanceReportDetail) SetHasSealed(v bool) *FinanceReportDetail {
-	s.HasSealed = &v
-	return s
-}
-
-func (s *FinanceReportDetail) SetReportTime(v string) *FinanceReportDetail {
-	s.ReportTime = &v
-	return s
-}
-
-func (s *FinanceReportDetail) SetReportSubmitter(v string) *FinanceReportDetail {
-	s.ReportSubmitter = &v
-	return s
-}
-
-func (s *FinanceReportDetail) SetGenerateType(v string) *FinanceReportDetail {
-	s.GenerateType = &v
-	return s
-}
-
-func (s *FinanceReportDetail) SetCompareYear(v string) *FinanceReportDetail {
-	s.CompareYear = &v
-	return s
-}
-
-func (s *FinanceReportDetail) SetBaseYear(v string) *FinanceReportDetail {
-	s.BaseYear = &v
-	return s
-}
-
-func (s *FinanceReportDetail) SetCompanyName(v string) *FinanceReportDetail {
-	s.CompanyName = &v
-	return s
-}
-
-func (s *FinanceReportDetail) SetAreaName(v string) *FinanceReportDetail {
-	s.AreaName = &v
-	return s
-}
-
-func (s *FinanceReportDetail) SetIndustryName(v string) *FinanceReportDetail {
-	s.IndustryName = &v
-	return s
-}
-
-func (s *FinanceReportDetail) SetCompanyId(v string) *FinanceReportDetail {
-	s.CompanyId = &v
-	return s
-}
-
-// 转型路径分析数据
-type TransferPathAnalysis struct {
-	// 所属领域
-	// example:
-	//
-	// 系统能效提升
-	Field *string `json:"field,omitempty" xml:"field,omitempty" require:"true"`
-	// 目录编号
-	// example:
-	//
-	// 1.12
-	IndexNumber *string `json:"index_number,omitempty" xml:"index_number,omitempty" require:"true"`
-	// 目录内容
-	// example:
-	//
-	// 低温余热有机工质郎肯循环（ORC）发电
-	IndexContent *string `json:"index_content,omitempty" xml:"index_content,omitempty" require:"true"`
-	// 技术标准说明
-	// example:
-	//
-	// 基于有机朗肯循环（ORC）原理，通过蒸发器回收95-300℃的热水、热液、蒸汽、烟气中的低温余热，通过向心涡轮和发电机将热量转换成高品质电能。参考标准《低温余热双循环发电装置》（GB/T 37819-2019）、《低温双循环余热回收利用装置性能测试方法》（GB/T 40286-2021）等。
-	Detail *string `json:"detail,omitempty" xml:"detail,omitempty" require:"true"`
-	// 企业是否采取该路径
-	// example:
-	//
-	// 长期目标
-	Target *string `json:"target,omitempty" xml:"target,omitempty" require:"true"`
-}
-
-func (s TransferPathAnalysis) String() string {
-	return tea.Prettify(s)
-}
-
-func (s TransferPathAnalysis) GoString() string {
-	return s.String()
-}
-
-func (s *TransferPathAnalysis) SetField(v string) *TransferPathAnalysis {
-	s.Field = &v
-	return s
-}
-
-func (s *TransferPathAnalysis) SetIndexNumber(v string) *TransferPathAnalysis {
-	s.IndexNumber = &v
-	return s
-}
-
-func (s *TransferPathAnalysis) SetIndexContent(v string) *TransferPathAnalysis {
-	s.IndexContent = &v
-	return s
-}
-
-func (s *TransferPathAnalysis) SetDetail(v string) *TransferPathAnalysis {
-	s.Detail = &v
-	return s
-}
-
-func (s *TransferPathAnalysis) SetTarget(v string) *TransferPathAnalysis {
-	s.Target = &v
-	return s
-}
-
-// 月度明细列表
-type MonthDataDetail struct {
-	// 发生月份，格式 yyyy-MM
-	// example:
-	//
-	// xxxx
-	OccurDate *string `json:"occur_date,omitempty" xml:"occur_date,omitempty" require:"true"`
-	// 产量数据
-	// example:
-	//
-	// xxxx
-	Amount *string `json:"amount,omitempty" xml:"amount,omitempty" require:"true"`
-	// 产量单位
-	// example:
-	//
-	// xxxx
-	DosageUnit *string `json:"dosage_unit,omitempty" xml:"dosage_unit,omitempty" require:"true"`
-}
-
-func (s MonthDataDetail) String() string {
-	return tea.Prettify(s)
-}
-
-func (s MonthDataDetail) GoString() string {
-	return s.String()
-}
-
-func (s *MonthDataDetail) SetOccurDate(v string) *MonthDataDetail {
-	s.OccurDate = &v
-	return s
-}
-
-func (s *MonthDataDetail) SetAmount(v string) *MonthDataDetail {
-	s.Amount = &v
-	return s
-}
-
-func (s *MonthDataDetail) SetDosageUnit(v string) *MonthDataDetail {
-	s.DosageUnit = &v
-	return s
-}
-
-// 产品产量填报项
-type GclProductionItem struct {
-	// 用户侧传入明细编码，用于异常回传和排查
-	// example:
-	//
-	// xxxx
-	ExternalItemCode *string `json:"external_item_code,omitempty" xml:"external_item_code,omitempty"`
-	// 生产单元名称
-	// example:
-	//
-	// xxxx
-	LocationName *string `json:"location_name,omitempty" xml:"location_name,omitempty" require:"true"`
-	// 产品名称
-	// example:
-	//
-	// xxxx
-	ProductName *string `json:"product_name,omitempty" xml:"product_name,omitempty" require:"true"`
-	// 产品规格
-	// example:
-	//
-	// xxxx
-	Specification *string `json:"specification,omitempty" xml:"specification,omitempty" require:"true"`
-	// 月度产量明细
-	// example:
-	//
-	// undefined
-	ProductionDataList []*MonthDataDetail `json:"production_data_list,omitempty" xml:"production_data_list,omitempty" require:"true" type:"Repeated"`
-}
-
-func (s GclProductionItem) String() string {
-	return tea.Prettify(s)
-}
-
-func (s GclProductionItem) GoString() string {
-	return s.String()
-}
-
-func (s *GclProductionItem) SetExternalItemCode(v string) *GclProductionItem {
-	s.ExternalItemCode = &v
-	return s
-}
-
-func (s *GclProductionItem) SetLocationName(v string) *GclProductionItem {
-	s.LocationName = &v
-	return s
-}
-
-func (s *GclProductionItem) SetProductName(v string) *GclProductionItem {
-	s.ProductName = &v
-	return s
-}
-
-func (s *GclProductionItem) SetSpecification(v string) *GclProductionItem {
-	s.Specification = &v
-	return s
-}
-
-func (s *GclProductionItem) SetProductionDataList(v []*MonthDataDetail) *GclProductionItem {
-	s.ProductionDataList = v
 	return s
 }
 
@@ -3152,141 +2736,142 @@ func (s *GclAbnormalItem) SetSocialCreditCode(v string) *GclAbnormalItem {
 	return s
 }
 
-// 供应商产品详情
-type SupplierProductDetail struct {
-	// 供应商名称
+// 转型金融报告详情
+type FinanceReportDetail struct {
+	// 文件
+	File *EnterpriseDocumentFile `json:"file,omitempty" xml:"file,omitempty" require:"true"`
+	// 报告编号
 	// example:
 	//
-	// xxxx
-	SupplierName *string `json:"supplier_name,omitempty" xml:"supplier_name,omitempty"`
-	// 供应商产品名称
+	// xxx
+	ReportNo *string `json:"report_no,omitempty" xml:"report_no,omitempty" require:"true"`
+	// 报告名称
 	// example:
 	//
-	// -
-	SupplierProductName *string `json:"supplier_product_name,omitempty" xml:"supplier_product_name,omitempty"`
-	// 填报单位
+	// xxx
+	ReportName *string `json:"report_name,omitempty" xml:"report_name,omitempty" require:"true"`
+	// 是否盖章
 	// example:
 	//
-	// xxxx
-	DosageUnit *string `json:"dosage_unit,omitempty" xml:"dosage_unit,omitempty"`
+	// true, false
+	HasSealed *bool `json:"has_sealed,omitempty" xml:"has_sealed,omitempty" require:"true"`
+	// 报告时间
+	// example:
+	//
+	// 2025-01-20
+	ReportTime *string `json:"report_time,omitempty" xml:"report_time,omitempty" require:"true"`
+	// 报告提交人
+	// example:
+	//
+	// 张三
+	ReportSubmitter *string `json:"report_submitter,omitempty" xml:"report_submitter,omitempty" require:"true"`
+	// 报告生成方式
+	// example:
+	//
+	// MANUAL , INTERFACE
+	GenerateType *string `json:"generate_type,omitempty" xml:"generate_type,omitempty" require:"true"`
+	// 对比年，报告年
+	// example:
+	//
+	// 2025
+	CompareYear *string `json:"compare_year,omitempty" xml:"compare_year,omitempty" require:"true"`
+	// 基准年
+	// example:
+	//
+	// 2024
+	BaseYear *string `json:"base_year,omitempty" xml:"base_year,omitempty" require:"true"`
+	// 企业名称
+	// example:
+	//
+	// xxx
+	CompanyName *string `json:"company_name,omitempty" xml:"company_name,omitempty" require:"true"`
+	// 区域名称
+	// example:
+	//
+	// 北京
+	AreaName *string `json:"area_name,omitempty" xml:"area_name,omitempty" require:"true"`
+	// 行业名称
+	// example:
+	//
+	// 能源
+	IndustryName *string `json:"industry_name,omitempty" xml:"industry_name,omitempty" require:"true"`
+	// 社会统一信用代码
+	// example:
+	//
+	// 28382372323232434
+	CompanyId *string `json:"company_id,omitempty" xml:"company_id,omitempty" require:"true"`
 }
 
-func (s SupplierProductDetail) String() string {
+func (s FinanceReportDetail) String() string {
 	return tea.Prettify(s)
 }
 
-func (s SupplierProductDetail) GoString() string {
+func (s FinanceReportDetail) GoString() string {
 	return s.String()
 }
 
-func (s *SupplierProductDetail) SetSupplierName(v string) *SupplierProductDetail {
-	s.SupplierName = &v
+func (s *FinanceReportDetail) SetFile(v *EnterpriseDocumentFile) *FinanceReportDetail {
+	s.File = v
 	return s
 }
 
-func (s *SupplierProductDetail) SetSupplierProductName(v string) *SupplierProductDetail {
-	s.SupplierProductName = &v
+func (s *FinanceReportDetail) SetReportNo(v string) *FinanceReportDetail {
+	s.ReportNo = &v
 	return s
 }
 
-func (s *SupplierProductDetail) SetDosageUnit(v string) *SupplierProductDetail {
-	s.DosageUnit = &v
+func (s *FinanceReportDetail) SetReportName(v string) *FinanceReportDetail {
+	s.ReportName = &v
 	return s
 }
 
-// 物料产品详情
-type MaterialDetail struct {
-	// 物料名称
-	// example:
-	//
-	// xxxx
-	MaterialName *string `json:"material_name,omitempty" xml:"material_name,omitempty"`
-	// 供应商产品详情列表
-	// example:
-	//
-	// undefined
-	SupplierProductList *SupplierProductDetail `json:"supplier_product_list,omitempty" xml:"supplier_product_list,omitempty"`
-}
-
-func (s MaterialDetail) String() string {
-	return tea.Prettify(s)
-}
-
-func (s MaterialDetail) GoString() string {
-	return s.String()
-}
-
-func (s *MaterialDetail) SetMaterialName(v string) *MaterialDetail {
-	s.MaterialName = &v
+func (s *FinanceReportDetail) SetHasSealed(v bool) *FinanceReportDetail {
+	s.HasSealed = &v
 	return s
 }
 
-func (s *MaterialDetail) SetSupplierProductList(v *SupplierProductDetail) *MaterialDetail {
-	s.SupplierProductList = v
+func (s *FinanceReportDetail) SetReportTime(v string) *FinanceReportDetail {
+	s.ReportTime = &v
 	return s
 }
 
-// 物料详情
-type MaterialTypeDetail struct {
-	// 物料类型名称
-	// example:
-	//
-	// xxxx
-	MaterialType *string `json:"material_type,omitempty" xml:"material_type,omitempty"`
-	// 物料产品详情表
-	// example:
-	//
-	// undefined
-	MaterialList []*MaterialDetail `json:"material_list,omitempty" xml:"material_list,omitempty" type:"Repeated"`
-}
-
-func (s MaterialTypeDetail) String() string {
-	return tea.Prettify(s)
-}
-
-func (s MaterialTypeDetail) GoString() string {
-	return s.String()
-}
-
-func (s *MaterialTypeDetail) SetMaterialType(v string) *MaterialTypeDetail {
-	s.MaterialType = &v
+func (s *FinanceReportDetail) SetReportSubmitter(v string) *FinanceReportDetail {
+	s.ReportSubmitter = &v
 	return s
 }
 
-func (s *MaterialTypeDetail) SetMaterialList(v []*MaterialDetail) *MaterialTypeDetail {
-	s.MaterialList = v
+func (s *FinanceReportDetail) SetGenerateType(v string) *FinanceReportDetail {
+	s.GenerateType = &v
 	return s
 }
 
-// 过程详情
-type ProcessDetail struct {
-	// 单元过程名称
-	// example:
-	//
-	// xxxx
-	ProcessName *string `json:"process_name,omitempty" xml:"process_name,omitempty"`
-	// 过程编码
-	// example:
-	//
-	// xxxx
-	ProcessNo *string `json:"process_no,omitempty" xml:"process_no,omitempty"`
-}
-
-func (s ProcessDetail) String() string {
-	return tea.Prettify(s)
-}
-
-func (s ProcessDetail) GoString() string {
-	return s.String()
-}
-
-func (s *ProcessDetail) SetProcessName(v string) *ProcessDetail {
-	s.ProcessName = &v
+func (s *FinanceReportDetail) SetCompareYear(v string) *FinanceReportDetail {
+	s.CompareYear = &v
 	return s
 }
 
-func (s *ProcessDetail) SetProcessNo(v string) *ProcessDetail {
-	s.ProcessNo = &v
+func (s *FinanceReportDetail) SetBaseYear(v string) *FinanceReportDetail {
+	s.BaseYear = &v
+	return s
+}
+
+func (s *FinanceReportDetail) SetCompanyName(v string) *FinanceReportDetail {
+	s.CompanyName = &v
+	return s
+}
+
+func (s *FinanceReportDetail) SetAreaName(v string) *FinanceReportDetail {
+	s.AreaName = &v
+	return s
+}
+
+func (s *FinanceReportDetail) SetIndustryName(v string) *FinanceReportDetail {
+	s.IndustryName = &v
+	return s
+}
+
+func (s *FinanceReportDetail) SetCompanyId(v string) *FinanceReportDetail {
+	s.CompanyId = &v
 	return s
 }
 
@@ -3392,97 +2977,337 @@ func (s *ActiveDataItem) SetSocialCreditCode(v string) *ActiveDataItem {
 	return s
 }
 
-// gcl开放接口模型
-type GclLcaModel struct {
-	// 模型名称
+// 每月的排放数据
+type AnnualMonthEmissionDatum struct {
+	// 统计的年份
 	// example:
 	//
-	// xxxx
-	ModelName *string `json:"model_name,omitempty" xml:"model_name,omitempty"`
-	// 过程信息
+	// 2022
+	Year *string `json:"year,omitempty" xml:"year,omitempty" require:"true"`
+	// 统计的月份
 	// example:
 	//
-	// undefined
-	ProcessList []*ProcessDetail `json:"process_list,omitempty" xml:"process_list,omitempty" type:"Repeated"`
+	// 12
+	Month *string `json:"month,omitempty" xml:"month,omitempty" require:"true"`
+	// 统计排放量
+	// example:
+	//
+	// 22.22
+	Value *string `json:"value,omitempty" xml:"value,omitempty" require:"true"`
 }
 
-func (s GclLcaModel) String() string {
+func (s AnnualMonthEmissionDatum) String() string {
 	return tea.Prettify(s)
 }
 
-func (s GclLcaModel) GoString() string {
+func (s AnnualMonthEmissionDatum) GoString() string {
 	return s.String()
 }
 
-func (s *GclLcaModel) SetModelName(v string) *GclLcaModel {
-	s.ModelName = &v
+func (s *AnnualMonthEmissionDatum) SetYear(v string) *AnnualMonthEmissionDatum {
+	s.Year = &v
 	return s
 }
 
-func (s *GclLcaModel) SetProcessList(v []*ProcessDetail) *GclLcaModel {
-	s.ProcessList = v
+func (s *AnnualMonthEmissionDatum) SetMonth(v string) *AnnualMonthEmissionDatum {
+	s.Month = &v
 	return s
 }
 
-// user_info
-type EsgUser struct {
-	// 当前操作员 ID
+func (s *AnnualMonthEmissionDatum) SetValue(v string) *AnnualMonthEmissionDatum {
+	s.Value = &v
+	return s
+}
+
+// 账户信息
+type CarbonAccountInfo struct {
+	// 账户did
 	// example:
 	//
-	// xxxxx
-	UserId *string `json:"user_id,omitempty" xml:"user_id,omitempty" require:"true"`
-	// 当前登录账号。
+	// did:private:xxx
+	UserDid *string `json:"user_did,omitempty" xml:"user_did,omitempty" require:"true"`
+	// 账户名称
 	// example:
 	//
-	// xxxxx
+	// xxx企业
 	UserName *string `json:"user_name,omitempty" xml:"user_name,omitempty" require:"true"`
-	// 操作员昵称
-	// example:
-	//
-	// xxxxx
-	NickName *string `json:"nick_name,omitempty" xml:"nick_name,omitempty"`
-	// 操作员真实姓名
-	// example:
-	//
-	// xxxxx
-	RealName *string `json:"real_name,omitempty" xml:"real_name,omitempty"`
-	// 操作员手机号
-	// example:
-	//
-	// xxxxx
-	PhoneNumber *string `json:"phone_number,omitempty" xml:"phone_number,omitempty"`
 }
 
-func (s EsgUser) String() string {
+func (s CarbonAccountInfo) String() string {
 	return tea.Prettify(s)
 }
 
-func (s EsgUser) GoString() string {
+func (s CarbonAccountInfo) GoString() string {
 	return s.String()
 }
 
-func (s *EsgUser) SetUserId(v string) *EsgUser {
-	s.UserId = &v
+func (s *CarbonAccountInfo) SetUserDid(v string) *CarbonAccountInfo {
+	s.UserDid = &v
 	return s
 }
 
-func (s *EsgUser) SetUserName(v string) *EsgUser {
+func (s *CarbonAccountInfo) SetUserName(v string) *CarbonAccountInfo {
 	s.UserName = &v
 	return s
 }
 
-func (s *EsgUser) SetNickName(v string) *EsgUser {
-	s.NickName = &v
+// 数据存证信息
+type DataDepositInfo struct {
+	// 存证字段值
+	DataValue []*DepositFieldValue `json:"data_value,omitempty" xml:"data_value,omitempty" require:"true" type:"Repeated"`
+	// 数据存证区块链交易ID
+	// example:
+	//
+	// c5fcc677a0b04c62973c2dbc72jcus83271
+	TxId *string `json:"tx_id,omitempty" xml:"tx_id,omitempty"`
+	// 数据存证操作用户ID
+	// example:
+	//
+	// user_001
+	UserId *string `json:"user_id,omitempty" xml:"user_id,omitempty" require:"true"`
+	// 存证数据内容
+	// example:
+	//
+	// 待补充
+	DepositContent *string `json:"deposit_content,omitempty" xml:"deposit_content,omitempty" require:"true"`
+	// 存证执行状态
+	// example:
+	//
+	// status
+	Status *string `json:"status,omitempty" xml:"status,omitempty" require:"true"`
+	// 存证执行(发起)时间
+	Timestamp *int64 `json:"timestamp,omitempty" xml:"timestamp,omitempty" require:"true"`
+}
+
+func (s DataDepositInfo) String() string {
+	return tea.Prettify(s)
+}
+
+func (s DataDepositInfo) GoString() string {
+	return s.String()
+}
+
+func (s *DataDepositInfo) SetDataValue(v []*DepositFieldValue) *DataDepositInfo {
+	s.DataValue = v
 	return s
 }
 
-func (s *EsgUser) SetRealName(v string) *EsgUser {
-	s.RealName = &v
+func (s *DataDepositInfo) SetTxId(v string) *DataDepositInfo {
+	s.TxId = &v
 	return s
 }
 
-func (s *EsgUser) SetPhoneNumber(v string) *EsgUser {
-	s.PhoneNumber = &v
+func (s *DataDepositInfo) SetUserId(v string) *DataDepositInfo {
+	s.UserId = &v
+	return s
+}
+
+func (s *DataDepositInfo) SetDepositContent(v string) *DataDepositInfo {
+	s.DepositContent = &v
+	return s
+}
+
+func (s *DataDepositInfo) SetStatus(v string) *DataDepositInfo {
+	s.Status = &v
+	return s
+}
+
+func (s *DataDepositInfo) SetTimestamp(v int64) *DataDepositInfo {
+	s.Timestamp = &v
+	return s
+}
+
+// 碳排放分城市统计总量
+type EmissionsCityStatistics struct {
+	// 城市编码
+	// example:
+	//
+	// 637401
+	CityNo *string `json:"city_no,omitempty" xml:"city_no,omitempty" require:"true"`
+	// 城市名称
+	// example:
+	//
+	// 南充市
+	CityName *string `json:"city_name,omitempty" xml:"city_name,omitempty" require:"true"`
+	// 累计排放量
+	// example:
+	//
+	// 222.22
+	EmissionAmount *string `json:"emission_amount,omitempty" xml:"emission_amount,omitempty" require:"true"`
+	// 今日新增碳排放量
+	// example:
+	//
+	// 22.22
+	EmissionAmountToday *string `json:"emission_amount_today,omitempty" xml:"emission_amount_today,omitempty" require:"true"`
+	// 总减碳量
+	// example:
+	//
+	// 21.11
+	ReductionAmount *string `json:"reduction_amount,omitempty" xml:"reduction_amount,omitempty" require:"true"`
+	// 今日减碳量
+	// example:
+	//
+	// 9.11
+	ReductionAmountToday *string `json:"reduction_amount_today,omitempty" xml:"reduction_amount_today,omitempty" require:"true"`
+	// 总抵消量
+	// example:
+	//
+	// 9.11
+	CounteractionAmount *string `json:"counteraction_amount,omitempty" xml:"counteraction_amount,omitempty" require:"true"`
+	// 今日抵消量
+	// example:
+	//
+	// 2.11
+	CounteractionAmountToday *string `json:"counteraction_amount_today,omitempty" xml:"counteraction_amount_today,omitempty" require:"true"`
+	// 排放量单位，默认为：
+	// example:
+	//
+	// tCO2e
+	DataUnit *string `json:"data_unit,omitempty" xml:"data_unit,omitempty" require:"true"`
+}
+
+func (s EmissionsCityStatistics) String() string {
+	return tea.Prettify(s)
+}
+
+func (s EmissionsCityStatistics) GoString() string {
+	return s.String()
+}
+
+func (s *EmissionsCityStatistics) SetCityNo(v string) *EmissionsCityStatistics {
+	s.CityNo = &v
+	return s
+}
+
+func (s *EmissionsCityStatistics) SetCityName(v string) *EmissionsCityStatistics {
+	s.CityName = &v
+	return s
+}
+
+func (s *EmissionsCityStatistics) SetEmissionAmount(v string) *EmissionsCityStatistics {
+	s.EmissionAmount = &v
+	return s
+}
+
+func (s *EmissionsCityStatistics) SetEmissionAmountToday(v string) *EmissionsCityStatistics {
+	s.EmissionAmountToday = &v
+	return s
+}
+
+func (s *EmissionsCityStatistics) SetReductionAmount(v string) *EmissionsCityStatistics {
+	s.ReductionAmount = &v
+	return s
+}
+
+func (s *EmissionsCityStatistics) SetReductionAmountToday(v string) *EmissionsCityStatistics {
+	s.ReductionAmountToday = &v
+	return s
+}
+
+func (s *EmissionsCityStatistics) SetCounteractionAmount(v string) *EmissionsCityStatistics {
+	s.CounteractionAmount = &v
+	return s
+}
+
+func (s *EmissionsCityStatistics) SetCounteractionAmountToday(v string) *EmissionsCityStatistics {
+	s.CounteractionAmountToday = &v
+	return s
+}
+
+func (s *EmissionsCityStatistics) SetDataUnit(v string) *EmissionsCityStatistics {
+	s.DataUnit = &v
+	return s
+}
+
+// 授权信息
+type AuthenticationInfoVO struct {
+	// 授权记录编码
+	// example:
+	//
+	// 授权记录编码
+	AuthenticationNo *string `json:"authentication_no,omitempty" xml:"authentication_no,omitempty" require:"true"`
+	// 收取方did
+	// example:
+	//
+	// 收取方did
+	AuthorizerDid *string `json:"authorizer_did,omitempty" xml:"authorizer_did,omitempty" require:"true"`
+	// 授权方名称
+	// example:
+	//
+	// 授权方名称
+	AuthorizerName *string `json:"authorizer_name,omitempty" xml:"authorizer_name,omitempty" require:"true"`
+	// 被授权方did
+	// example:
+	//
+	// 被授权方did
+	AuthorizedDid *string `json:"authorized_did,omitempty" xml:"authorized_did,omitempty" require:"true"`
+	// 被授权方名称
+	// example:
+	//
+	// 被授权方名称
+	AuthorizedName *string `json:"authorized_name,omitempty" xml:"authorized_name,omitempty" require:"true"`
+	// 数据协作类型
+	// example:
+	//
+	// 数据协作类型
+	DataTransferType *string `json:"data_transfer_type,omitempty" xml:"data_transfer_type,omitempty" require:"true"`
+	// 授权详情
+	// example:
+	//
+	// {}
+	AuthenticationDeetail *string `json:"authentication_deetail,omitempty" xml:"authentication_deetail,omitempty" require:"true"`
+	// 授权状态
+	// example:
+	//
+	// Approved：审批通过   Approving：待审批 NotApproved：审批不通过 Cancelled: 取消授权
+	Status *string `json:"status,omitempty" xml:"status,omitempty" require:"true"`
+}
+
+func (s AuthenticationInfoVO) String() string {
+	return tea.Prettify(s)
+}
+
+func (s AuthenticationInfoVO) GoString() string {
+	return s.String()
+}
+
+func (s *AuthenticationInfoVO) SetAuthenticationNo(v string) *AuthenticationInfoVO {
+	s.AuthenticationNo = &v
+	return s
+}
+
+func (s *AuthenticationInfoVO) SetAuthorizerDid(v string) *AuthenticationInfoVO {
+	s.AuthorizerDid = &v
+	return s
+}
+
+func (s *AuthenticationInfoVO) SetAuthorizerName(v string) *AuthenticationInfoVO {
+	s.AuthorizerName = &v
+	return s
+}
+
+func (s *AuthenticationInfoVO) SetAuthorizedDid(v string) *AuthenticationInfoVO {
+	s.AuthorizedDid = &v
+	return s
+}
+
+func (s *AuthenticationInfoVO) SetAuthorizedName(v string) *AuthenticationInfoVO {
+	s.AuthorizedName = &v
+	return s
+}
+
+func (s *AuthenticationInfoVO) SetDataTransferType(v string) *AuthenticationInfoVO {
+	s.DataTransferType = &v
+	return s
+}
+
+func (s *AuthenticationInfoVO) SetAuthenticationDeetail(v string) *AuthenticationInfoVO {
+	s.AuthenticationDeetail = &v
+	return s
+}
+
+func (s *AuthenticationInfoVO) SetStatus(v string) *AuthenticationInfoVO {
+	s.Status = &v
 	return s
 }
 
@@ -3528,271 +3353,446 @@ func (s *RoleList) SetDescription(v string) *RoleList {
 	return s
 }
 
-// 组织单元树结构体
-type OrganizationUnitTree struct {
-	// 组织单元编码
+// 三方平台客户摘要信息
+type PlatformCustomerSummary struct {
+	// 三方平台的客户ID
 	// example:
 	//
-	// xxxxx
-	OrganizationNo *string `json:"organization_no,omitempty" xml:"organization_no,omitempty" require:"true"`
-	// 组织单元名称
+	// 2322323
+	CustomerId *string `json:"customer_id,omitempty" xml:"customer_id,omitempty" require:"true"`
+	// 三方平台客户名称
 	// example:
 	//
-	// xxxxxx
-	OrganizationName *string `json:"organization_name,omitempty" xml:"organization_name,omitempty" require:"true"`
-	// 从根到直接父级的组织编码链；根节点为空
+	// ****有限公司
+	CustomerName *string `json:"customer_name,omitempty" xml:"customer_name,omitempty" require:"true"`
+	// 联系人
 	// example:
 	//
-	// [xxx,xxx]
-	ParentOrganizationNoList []*string `json:"parent_organization_no_list,omitempty" xml:"parent_organization_no_list,omitempty" type:"Repeated"`
-	// 直接父级组织名称；根节点为空
+	// 张三
+	ContactPerson *string `json:"contact_person,omitempty" xml:"contact_person,omitempty" require:"true"`
+	// 联系电话
 	// example:
 	//
-	// xxxxxx
-	ParentOrganizationName *string `json:"parent_organization_name,omitempty" xml:"parent_organization_name,omitempty"`
-	// 最后更新时间
+	// 13655665566
+	ContactTelephone *string `json:"contact_telephone,omitempty" xml:"contact_telephone,omitempty" require:"true"`
+	// 联系邮箱
 	// example:
 	//
-	// xxxxxx
-	GmtModified *string `json:"gmt_modified,omitempty" xml:"gmt_modified,omitempty" require:"true"`
-	// 重复结构体
+	// ss@163.com
+	ContactEmail *string `json:"contact_email,omitempty" xml:"contact_email,omitempty"`
+	// 统一社会信用代码
 	// example:
 	//
-	// [{}]
-	Children []*OrganizationUnitSubTree `json:"children,omitempty" xml:"children,omitempty" require:"true" type:"Repeated"`
+	// 23123121
+	SocialCreditCode *string `json:"social_credit_code,omitempty" xml:"social_credit_code,omitempty" require:"true"`
 }
 
-func (s OrganizationUnitTree) String() string {
+func (s PlatformCustomerSummary) String() string {
 	return tea.Prettify(s)
 }
 
-func (s OrganizationUnitTree) GoString() string {
+func (s PlatformCustomerSummary) GoString() string {
 	return s.String()
 }
 
-func (s *OrganizationUnitTree) SetOrganizationNo(v string) *OrganizationUnitTree {
-	s.OrganizationNo = &v
+func (s *PlatformCustomerSummary) SetCustomerId(v string) *PlatformCustomerSummary {
+	s.CustomerId = &v
 	return s
 }
 
-func (s *OrganizationUnitTree) SetOrganizationName(v string) *OrganizationUnitTree {
-	s.OrganizationName = &v
+func (s *PlatformCustomerSummary) SetCustomerName(v string) *PlatformCustomerSummary {
+	s.CustomerName = &v
 	return s
 }
 
-func (s *OrganizationUnitTree) SetParentOrganizationNoList(v []*string) *OrganizationUnitTree {
-	s.ParentOrganizationNoList = v
+func (s *PlatformCustomerSummary) SetContactPerson(v string) *PlatformCustomerSummary {
+	s.ContactPerson = &v
 	return s
 }
 
-func (s *OrganizationUnitTree) SetParentOrganizationName(v string) *OrganizationUnitTree {
-	s.ParentOrganizationName = &v
+func (s *PlatformCustomerSummary) SetContactTelephone(v string) *PlatformCustomerSummary {
+	s.ContactTelephone = &v
 	return s
 }
 
-func (s *OrganizationUnitTree) SetGmtModified(v string) *OrganizationUnitTree {
-	s.GmtModified = &v
+func (s *PlatformCustomerSummary) SetContactEmail(v string) *PlatformCustomerSummary {
+	s.ContactEmail = &v
 	return s
 }
 
-func (s *OrganizationUnitTree) SetChildren(v []*OrganizationUnitSubTree) *OrganizationUnitTree {
-	s.Children = v
+func (s *PlatformCustomerSummary) SetSocialCreditCode(v string) *PlatformCustomerSummary {
+	s.SocialCreditCode = &v
 	return s
 }
 
-// 重复结构体
-type OrganizationUnitSubTree struct {
-	// 组织单元编码。
+// 碳排放分单元统计总量
+type EmissionsLocationStatistics struct {
+	// 盘查单元编码
 	// example:
 	//
-	// xxxxxx
-	OrganizationNo *string `json:"organization_no,omitempty" xml:"organization_no,omitempty" require:"true"`
-	// 组织单元名称。
+	// L0100000008902
+	LocationNo *string `json:"location_no,omitempty" xml:"location_no,omitempty" require:"true"`
+	// 盘查单元名称
 	// example:
 	//
-	// xxxxxx
-	OrganizationName *string `json:"organization_name,omitempty" xml:"organization_name,omitempty" require:"true"`
-	// 从根到直接父级的组织编码链；根节点为空。
+	// 2022亚运会游泳馆
+	LocationName *string `json:"location_name,omitempty" xml:"location_name,omitempty" require:"true"`
+	// 盘查单元排放量
 	// example:
 	//
-	// [xxx,xxx]
-	ParentOrganizationNoList []*string `json:"parent_organization_no_list,omitempty" xml:"parent_organization_no_list,omitempty" type:"Repeated"`
-	// 直接父级组织名称；根节点为空。
+	// 2223.22
+	EmissionAmount *string `json:"emission_amount,omitempty" xml:"emission_amount,omitempty" require:"true"`
+	// 排放量单位，默认为：tCO2e
 	// example:
 	//
-	// xxxxxx
-	ParentOrganizationName *string `json:"parent_organization_name,omitempty" xml:"parent_organization_name,omitempty"`
-	// 最后更新时间
-	// example:
-	//
-	// xxxxxx
-	GmtModified *string `json:"gmt_modified,omitempty" xml:"gmt_modified,omitempty" require:"true"`
-	// 重复结构体
-	// example:
-	//
-	// [{}]
-	Children []*OrganizationUnitTree `json:"children,omitempty" xml:"children,omitempty" require:"true" type:"Repeated"`
+	// tCO2e
+	DataUnit *string `json:"data_unit,omitempty" xml:"data_unit,omitempty" require:"true"`
 }
 
-func (s OrganizationUnitSubTree) String() string {
+func (s EmissionsLocationStatistics) String() string {
 	return tea.Prettify(s)
 }
 
-func (s OrganizationUnitSubTree) GoString() string {
+func (s EmissionsLocationStatistics) GoString() string {
 	return s.String()
 }
 
-func (s *OrganizationUnitSubTree) SetOrganizationNo(v string) *OrganizationUnitSubTree {
-	s.OrganizationNo = &v
+func (s *EmissionsLocationStatistics) SetLocationNo(v string) *EmissionsLocationStatistics {
+	s.LocationNo = &v
 	return s
 }
 
-func (s *OrganizationUnitSubTree) SetOrganizationName(v string) *OrganizationUnitSubTree {
-	s.OrganizationName = &v
+func (s *EmissionsLocationStatistics) SetLocationName(v string) *EmissionsLocationStatistics {
+	s.LocationName = &v
 	return s
 }
 
-func (s *OrganizationUnitSubTree) SetParentOrganizationNoList(v []*string) *OrganizationUnitSubTree {
-	s.ParentOrganizationNoList = v
+func (s *EmissionsLocationStatistics) SetEmissionAmount(v string) *EmissionsLocationStatistics {
+	s.EmissionAmount = &v
 	return s
 }
 
-func (s *OrganizationUnitSubTree) SetParentOrganizationName(v string) *OrganizationUnitSubTree {
-	s.ParentOrganizationName = &v
+func (s *EmissionsLocationStatistics) SetDataUnit(v string) *EmissionsLocationStatistics {
+	s.DataUnit = &v
 	return s
 }
 
-func (s *OrganizationUnitSubTree) SetGmtModified(v string) *OrganizationUnitSubTree {
-	s.GmtModified = &v
-	return s
+// 任意KV结构对象
+type AnyKeywordItem struct {
+	// 项目编码
+	// example:
+	//
+	// CFD
+	ItemCode *string `json:"item_code,omitempty" xml:"item_code,omitempty" require:"true"`
+	// 项目值
+	// example:
+	//
+	// 各种按业务场景的取值
+	ItemValue *string `json:"item_value,omitempty" xml:"item_value,omitempty" require:"true"`
 }
 
-func (s *OrganizationUnitSubTree) SetChildren(v []*OrganizationUnitTree) *OrganizationUnitSubTree {
-	s.Children = v
-	return s
-}
-
-// 当前页操作员列表
-type OperatorList struct {
-	// 操作员 ID。
-	// example:
-	//
-	// xxxxxx
-	OperatorId *string `json:"operator_id,omitempty" xml:"operator_id,omitempty" require:"true"`
-	// 操作员姓名。
-	// example:
-	//
-	// xxxxxx
-	OperatorName *string `json:"operator_name,omitempty" xml:"operator_name,omitempty"`
-	// 登录邮箱。
-	// example:
-	//
-	// xxxxxx
-	Email *string `json:"email,omitempty" xml:"email,omitempty"`
-	// 手机号。
-	// example:
-	//
-	// xxxxxx
-	CellPhone *string `json:"cell_phone,omitempty" xml:"cell_phone,omitempty"`
-	// 昵称。
-	// example:
-	//
-	// xxxxxx
-	NickName *string `json:"nick_name,omitempty" xml:"nick_name,omitempty"`
-	// 创建时间
-	// example:
-	//
-	// xxxxxx
-	CreateTime *string `json:"create_time,omitempty" xml:"create_time,omitempty"`
-	// 操作员状态。
-	// example:
-	//
-	// xxxxxx
-	Status *string `json:"status,omitempty" xml:"status,omitempty"`
-}
-
-func (s OperatorList) String() string {
+func (s AnyKeywordItem) String() string {
 	return tea.Prettify(s)
 }
 
-func (s OperatorList) GoString() string {
+func (s AnyKeywordItem) GoString() string {
 	return s.String()
 }
 
-func (s *OperatorList) SetOperatorId(v string) *OperatorList {
-	s.OperatorId = &v
+func (s *AnyKeywordItem) SetItemCode(v string) *AnyKeywordItem {
+	s.ItemCode = &v
 	return s
 }
 
-func (s *OperatorList) SetOperatorName(v string) *OperatorList {
-	s.OperatorName = &v
+func (s *AnyKeywordItem) SetItemValue(v string) *AnyKeywordItem {
+	s.ItemValue = &v
 	return s
 }
 
-func (s *OperatorList) SetEmail(v string) *OperatorList {
-	s.Email = &v
-	return s
-}
-
-func (s *OperatorList) SetCellPhone(v string) *OperatorList {
-	s.CellPhone = &v
-	return s
-}
-
-func (s *OperatorList) SetNickName(v string) *OperatorList {
-	s.NickName = &v
-	return s
-}
-
-func (s *OperatorList) SetCreateTime(v string) *OperatorList {
-	s.CreateTime = &v
-	return s
-}
-
-func (s *OperatorList) SetStatus(v string) *OperatorList {
-	s.Status = &v
-	return s
-}
-
-// 角色列表；
-type RoleDetailList struct {
-	// 角色编码
+// 物料详情
+type MaterialTypeDetail struct {
+	// 物料类型名称
 	// example:
 	//
-	// xxxxxx
-	RoleNo *string `json:"role_no,omitempty" xml:"role_no,omitempty" require:"true"`
-	// 角色名称
+	// xxxx
+	MaterialType *string `json:"material_type,omitempty" xml:"material_type,omitempty"`
+	// 物料产品详情表
 	// example:
 	//
-	// xxxxxx
-	Name *string `json:"name,omitempty" xml:"name,omitempty" require:"true"`
-	// 角色描述
-	// example:
-	//
-	// xxxxxx
-	Description *string `json:"description,omitempty" xml:"description,omitempty"`
+	// undefined
+	MaterialList []*MaterialDetail `json:"material_list,omitempty" xml:"material_list,omitempty" type:"Repeated"`
 }
 
-func (s RoleDetailList) String() string {
+func (s MaterialTypeDetail) String() string {
 	return tea.Prettify(s)
 }
 
-func (s RoleDetailList) GoString() string {
+func (s MaterialTypeDetail) GoString() string {
 	return s.String()
 }
 
-func (s *RoleDetailList) SetRoleNo(v string) *RoleDetailList {
-	s.RoleNo = &v
+func (s *MaterialTypeDetail) SetMaterialType(v string) *MaterialTypeDetail {
+	s.MaterialType = &v
 	return s
 }
 
-func (s *RoleDetailList) SetName(v string) *RoleDetailList {
-	s.Name = &v
+func (s *MaterialTypeDetail) SetMaterialList(v []*MaterialDetail) *MaterialTypeDetail {
+	s.MaterialList = v
 	return s
 }
 
-func (s *RoleDetailList) SetDescription(v string) *RoleDetailList {
-	s.Description = &v
+// 企业产品信息
+type EnterpriseProductSummary struct {
+	// 产品自定义编码
+	// example:
+	//
+	// 12312121
+	EnterpriseCustomCode *string `json:"enterprise_custom_code,omitempty" xml:"enterprise_custom_code,omitempty" require:"true"`
+	// 产品名称
+	// example:
+	//
+	// 石墨
+	ProductName *string `json:"product_name,omitempty" xml:"product_name,omitempty" require:"true"`
+	// 规格型号
+	// example:
+	//
+	// DDD-1212
+	Specification *string `json:"specification,omitempty" xml:"specification,omitempty" require:"true"`
+	// 产品描述
+	// example:
+	//
+	// 这是一个石墨产品
+	ProductDescription *string `json:"product_description,omitempty" xml:"product_description,omitempty"`
+	// 产品分类名称
+	// example:
+	//
+	// 产品分类名
+	ProductCategoryName *string `json:"product_category_name,omitempty" xml:"product_category_name,omitempty" require:"true"`
+	// 品牌信息
+	// example:
+	//
+	// Adidas
+	BrandInformation *string `json:"brand_information,omitempty" xml:"brand_information,omitempty"`
+	// 工艺流程文件路径，上传文件后由上传文件接口提供，最多支持上传3个工艺流程文件
+	ProcessFlowFileList []*EnterpriseDocumentFile `json:"process_flow_file_list,omitempty" xml:"process_flow_file_list,omitempty" type:"Repeated"`
+	// 产品图片文件路径，上传文件后由上传文件接口提供，最多支持上传8个产品图片文件
+	ProductPictureFileList []*EnterpriseDocumentFile `json:"product_picture_file_list,omitempty" xml:"product_picture_file_list,omitempty" type:"Repeated"`
+}
+
+func (s EnterpriseProductSummary) String() string {
+	return tea.Prettify(s)
+}
+
+func (s EnterpriseProductSummary) GoString() string {
+	return s.String()
+}
+
+func (s *EnterpriseProductSummary) SetEnterpriseCustomCode(v string) *EnterpriseProductSummary {
+	s.EnterpriseCustomCode = &v
+	return s
+}
+
+func (s *EnterpriseProductSummary) SetProductName(v string) *EnterpriseProductSummary {
+	s.ProductName = &v
+	return s
+}
+
+func (s *EnterpriseProductSummary) SetSpecification(v string) *EnterpriseProductSummary {
+	s.Specification = &v
+	return s
+}
+
+func (s *EnterpriseProductSummary) SetProductDescription(v string) *EnterpriseProductSummary {
+	s.ProductDescription = &v
+	return s
+}
+
+func (s *EnterpriseProductSummary) SetProductCategoryName(v string) *EnterpriseProductSummary {
+	s.ProductCategoryName = &v
+	return s
+}
+
+func (s *EnterpriseProductSummary) SetBrandInformation(v string) *EnterpriseProductSummary {
+	s.BrandInformation = &v
+	return s
+}
+
+func (s *EnterpriseProductSummary) SetProcessFlowFileList(v []*EnterpriseDocumentFile) *EnterpriseProductSummary {
+	s.ProcessFlowFileList = v
+	return s
+}
+
+func (s *EnterpriseProductSummary) SetProductPictureFileList(v []*EnterpriseDocumentFile) *EnterpriseProductSummary {
+	s.ProductPictureFileList = v
+	return s
+}
+
+// 排放范围排放数据统计
+type EmissionsScopeStatistics struct {
+	// 盘查范围编码
+	// example:
+	//
+	// 002
+	InventoryScopeNo *string `json:"inventory_scope_no,omitempty" xml:"inventory_scope_no,omitempty" require:"true"`
+	// 盘查范围名称
+	// example:
+	//
+	// 范围一
+	InventoryScopeName *string `json:"inventory_scope_name,omitempty" xml:"inventory_scope_name,omitempty" require:"true"`
+	// 碳排放量
+	// example:
+	//
+	// 222.33
+	Emissions *int64 `json:"emissions,omitempty" xml:"emissions,omitempty" require:"true"`
+	// 排放占比
+	// example:
+	//
+	// 0.11
+	Percentage *int64 `json:"percentage,omitempty" xml:"percentage,omitempty" require:"true"`
+	// 范围下各分类排放数据
+	CategoryEmissionsList []*EmissionsCategoryStatistics `json:"category_emissions_list,omitempty" xml:"category_emissions_list,omitempty" require:"true" type:"Repeated"`
+}
+
+func (s EmissionsScopeStatistics) String() string {
+	return tea.Prettify(s)
+}
+
+func (s EmissionsScopeStatistics) GoString() string {
+	return s.String()
+}
+
+func (s *EmissionsScopeStatistics) SetInventoryScopeNo(v string) *EmissionsScopeStatistics {
+	s.InventoryScopeNo = &v
+	return s
+}
+
+func (s *EmissionsScopeStatistics) SetInventoryScopeName(v string) *EmissionsScopeStatistics {
+	s.InventoryScopeName = &v
+	return s
+}
+
+func (s *EmissionsScopeStatistics) SetEmissions(v int64) *EmissionsScopeStatistics {
+	s.Emissions = &v
+	return s
+}
+
+func (s *EmissionsScopeStatistics) SetPercentage(v int64) *EmissionsScopeStatistics {
+	s.Percentage = &v
+	return s
+}
+
+func (s *EmissionsScopeStatistics) SetCategoryEmissionsList(v []*EmissionsCategoryStatistics) *EmissionsScopeStatistics {
+	s.CategoryEmissionsList = v
+	return s
+}
+
+// 生命周期阶段活动数据
+type LcaStageActiveData struct {
+	// LCA阶段
+	// example:
+	//
+	// ProductManufacture
+	LcaStage *string `json:"lca_stage,omitempty" xml:"lca_stage,omitempty" require:"true"`
+	// 输入流活动数据列表
+	InputStreamList []*InputStreamActiveData `json:"input_stream_list,omitempty" xml:"input_stream_list,omitempty" require:"true" type:"Repeated"`
+	// 输出流活动数据列表
+	OutputStreamList []*OutputStreamActiveData `json:"output_stream_list,omitempty" xml:"output_stream_list,omitempty" require:"true" type:"Repeated"`
+}
+
+func (s LcaStageActiveData) String() string {
+	return tea.Prettify(s)
+}
+
+func (s LcaStageActiveData) GoString() string {
+	return s.String()
+}
+
+func (s *LcaStageActiveData) SetLcaStage(v string) *LcaStageActiveData {
+	s.LcaStage = &v
+	return s
+}
+
+func (s *LcaStageActiveData) SetInputStreamList(v []*InputStreamActiveData) *LcaStageActiveData {
+	s.InputStreamList = v
+	return s
+}
+
+func (s *LcaStageActiveData) SetOutputStreamList(v []*OutputStreamActiveData) *LcaStageActiveData {
+	s.OutputStreamList = v
+	return s
+}
+
+// gcl开放接口模型
+type GclLcaModel struct {
+	// 模型名称
+	// example:
+	//
+	// xxxx
+	ModelName *string `json:"model_name,omitempty" xml:"model_name,omitempty"`
+	// 过程信息
+	// example:
+	//
+	// undefined
+	ProcessList []*ProcessDetail `json:"process_list,omitempty" xml:"process_list,omitempty" type:"Repeated"`
+}
+
+func (s GclLcaModel) String() string {
+	return tea.Prettify(s)
+}
+
+func (s GclLcaModel) GoString() string {
+	return s.String()
+}
+
+func (s *GclLcaModel) SetModelName(v string) *GclLcaModel {
+	s.ModelName = &v
+	return s
+}
+
+func (s *GclLcaModel) SetProcessList(v []*ProcessDetail) *GclLcaModel {
+	s.ProcessList = v
+	return s
+}
+
+// 按频率统计的绿色行为明细
+type GreenOperationStatisticsByFrequence struct {
+	// 绿色行为发生时期
+	// example:
+	//
+	// 2021-09
+	OccurrencePeriod *string `json:"occurrence_period,omitempty" xml:"occurrence_period,omitempty" require:"true"`
+	// 绿色行为产生的绿色能量值
+	// example:
+	//
+	// 11212
+	GreenEnergyAmount *int64 `json:"green_energy_amount,omitempty" xml:"green_energy_amount,omitempty" require:"true"`
+	// 时期内发生绿色行为的记录条数
+	// example:
+	//
+	// 111
+	GreenOperationRecords *int64 `json:"green_operation_records,omitempty" xml:"green_operation_records,omitempty" require:"true"`
+}
+
+func (s GreenOperationStatisticsByFrequence) String() string {
+	return tea.Prettify(s)
+}
+
+func (s GreenOperationStatisticsByFrequence) GoString() string {
+	return s.String()
+}
+
+func (s *GreenOperationStatisticsByFrequence) SetOccurrencePeriod(v string) *GreenOperationStatisticsByFrequence {
+	s.OccurrencePeriod = &v
+	return s
+}
+
+func (s *GreenOperationStatisticsByFrequence) SetGreenEnergyAmount(v int64) *GreenOperationStatisticsByFrequence {
+	s.GreenEnergyAmount = &v
+	return s
+}
+
+func (s *GreenOperationStatisticsByFrequence) SetGreenOperationRecords(v int64) *GreenOperationStatisticsByFrequence {
+	s.GreenOperationRecords = &v
 	return s
 }
 
@@ -11803,7 +11803,7 @@ type QueryEsgListrolesResponse struct {
 	// 符合条件的角色总数
 	Total *int64 `json:"total,omitempty" xml:"total,omitempty"`
 	// 当前页角色列表
-	List *RoleList `json:"list,omitempty" xml:"list,omitempty"`
+	List []*RoleList `json:"list,omitempty" xml:"list,omitempty" type:"Repeated"`
 }
 
 func (s QueryEsgListrolesResponse) String() string {
@@ -11844,7 +11844,7 @@ func (s *QueryEsgListrolesResponse) SetTotal(v int64) *QueryEsgListrolesResponse
 	return s
 }
 
-func (s *QueryEsgListrolesResponse) SetList(v *RoleList) *QueryEsgListrolesResponse {
+func (s *QueryEsgListrolesResponse) SetList(v []*RoleList) *QueryEsgListrolesResponse {
 	s.List = v
 	return s
 }
@@ -11898,7 +11898,7 @@ type QueryEsgOrganizationunittreeResponse struct {
 	// 最后更新时间
 	GmtModified *string `json:"gmt_modified,omitempty" xml:"gmt_modified,omitempty"`
 	// 重复结构体
-	Children []*OrganizationUnitTree `json:"children,omitempty" xml:"children,omitempty" type:"Repeated"`
+	Children []*string `json:"children,omitempty" xml:"children,omitempty" type:"Repeated"`
 }
 
 func (s QueryEsgOrganizationunittreeResponse) String() string {
@@ -11949,7 +11949,7 @@ func (s *QueryEsgOrganizationunittreeResponse) SetGmtModified(v string) *QueryEs
 	return s
 }
 
-func (s *QueryEsgOrganizationunittreeResponse) SetChildren(v []*OrganizationUnitTree) *QueryEsgOrganizationunittreeResponse {
+func (s *QueryEsgOrganizationunittreeResponse) SetChildren(v []*string) *QueryEsgOrganizationunittreeResponse {
 	s.Children = v
 	return s
 }
@@ -12542,7 +12542,7 @@ func (client *Client) DoRequest(version *string, action *string, protocol *strin
 				"req_msg_id":       antchainutil.GetNonce(),
 				"access_key":       client.AccessKeyId,
 				"base_sdk_version": tea.String("TeaSDK-2.0"),
-				"sdk_version":      tea.String("2.11.16"),
+				"sdk_version":      tea.String("2.11.19"),
 				"_prod_code":       tea.String("STLR"),
 				"_prod_channel":    tea.String("undefined"),
 			}
