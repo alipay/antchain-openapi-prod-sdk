@@ -5,8 +5,6 @@ namespace AntChain\STLR\Models;
 
 use AlibabaCloud\Tea\Model;
 
-use AntChain\STLR\Models\OrganizationUnitTree;
-
 class QueryEsgOrganizationunittreeResponse extends Model {
     protected $_name = [
         'reqMsgId' => 'req_msg_id',
@@ -47,13 +45,7 @@ class QueryEsgOrganizationunittreeResponse extends Model {
             $res['gmt_modified'] = $this->gmtModified;
         }
         if (null !== $this->children) {
-            $res['children'] = [];
-            if(null !== $this->children && is_array($this->children)){
-                $n = 0;
-                foreach($this->children as $item){
-                    $res['children'][$n++] = null !== $item ? $item->toMap() : $item;
-                }
-            }
+            $res['children'] = $this->children;
         }
         return $res;
     }
@@ -91,11 +83,7 @@ class QueryEsgOrganizationunittreeResponse extends Model {
         }
         if(isset($map['children'])){
             if(!empty($map['children'])){
-                $model->children = [];
-                $n = 0;
-                foreach($map['children'] as $item) {
-                    $model->children[$n++] = null !== $item ? OrganizationUnitTree::fromMap($item) : $item;
-                }
+                $model->children = $map['children'];
             }
         }
         return $model;
@@ -150,7 +138,7 @@ class QueryEsgOrganizationunittreeResponse extends Model {
 
     // 重复结构体
     /**
-     * @var OrganizationUnitTree[]
+     * @var string[]
      */
     public $children;
 

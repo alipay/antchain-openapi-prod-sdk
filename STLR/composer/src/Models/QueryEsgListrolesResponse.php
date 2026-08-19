@@ -39,7 +39,13 @@ class QueryEsgListrolesResponse extends Model {
             $res['total'] = $this->total;
         }
         if (null !== $this->list) {
-            $res['list'] = null !== $this->list ? $this->list->toMap() : null;
+            $res['list'] = [];
+            if(null !== $this->list && is_array($this->list)){
+                $n = 0;
+                foreach($this->list as $item){
+                    $res['list'][$n++] = null !== $item ? $item->toMap() : $item;
+                }
+            }
         }
         return $res;
     }
@@ -68,7 +74,13 @@ class QueryEsgListrolesResponse extends Model {
             $model->total = $map['total'];
         }
         if(isset($map['list'])){
-            $model->list = RoleList::fromMap($map['list']);
+            if(!empty($map['list'])){
+                $model->list = [];
+                $n = 0;
+                foreach($map['list'] as $item) {
+                    $model->list[$n++] = null !== $item ? RoleList::fromMap($item) : $item;
+                }
+            }
         }
         return $model;
     }
@@ -110,7 +122,7 @@ class QueryEsgListrolesResponse extends Model {
 
     // 当前页角色列表
     /**
-     * @var RoleList
+     * @var RoleList[]
      */
     public $list;
 
