@@ -9,11 +9,11 @@ class QueryGwchildinsuranceProfiledetailRequest extends Model {
     protected $_name = [
         'authToken' => 'auth_token',
         'productInstanceId' => 'product_instance_id',
-        'tenanatId' => 'tenanat_id',
+        'tenantId' => 'tenant_id',
         'requestData' => 'request_data',
     ];
     public function validate() {
-        Model::validateRequired('tenanatId', $this->tenanatId, true);
+        Model::validateRequired('tenantId', $this->tenantId, true);
         Model::validateRequired('requestData', $this->requestData, true);
     }
     public function toMap() {
@@ -24,8 +24,8 @@ class QueryGwchildinsuranceProfiledetailRequest extends Model {
         if (null !== $this->productInstanceId) {
             $res['product_instance_id'] = $this->productInstanceId;
         }
-        if (null !== $this->tenanatId) {
-            $res['tenanat_id'] = $this->tenanatId;
+        if (null !== $this->tenantId) {
+            $res['tenant_id'] = $this->tenantId;
         }
         if (null !== $this->requestData) {
             $res['request_data'] = $this->requestData;
@@ -44,8 +44,8 @@ class QueryGwchildinsuranceProfiledetailRequest extends Model {
         if(isset($map['product_instance_id'])){
             $model->productInstanceId = $map['product_instance_id'];
         }
-        if(isset($map['tenanat_id'])){
-            $model->tenanatId = $map['tenanat_id'];
+        if(isset($map['tenant_id'])){
+            $model->tenantId = $map['tenant_id'];
         }
         if(isset($map['request_data'])){
             $model->requestData = $map['request_data'];
@@ -67,7 +67,7 @@ class QueryGwchildinsuranceProfiledetailRequest extends Model {
     /**
      * @var string
      */
-    public $tenanatId;
+    public $tenantId;
 
     // 输入参数
     /**
