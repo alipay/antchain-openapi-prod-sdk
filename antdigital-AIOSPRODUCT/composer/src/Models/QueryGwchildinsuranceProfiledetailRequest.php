@@ -10,13 +10,11 @@ class QueryGwchildinsuranceProfiledetailRequest extends Model {
         'authToken' => 'auth_token',
         'productInstanceId' => 'product_instance_id',
         'tenanatId' => 'tenanat_id',
-        'userId' => 'user_id',
-        'sessionId' => 'session_id',
+        'requestData' => 'request_data',
     ];
     public function validate() {
         Model::validateRequired('tenanatId', $this->tenanatId, true);
-        Model::validateRequired('userId', $this->userId, true);
-        Model::validateRequired('sessionId', $this->sessionId, true);
+        Model::validateRequired('requestData', $this->requestData, true);
     }
     public function toMap() {
         $res = [];
@@ -29,11 +27,8 @@ class QueryGwchildinsuranceProfiledetailRequest extends Model {
         if (null !== $this->tenanatId) {
             $res['tenanat_id'] = $this->tenanatId;
         }
-        if (null !== $this->userId) {
-            $res['user_id'] = $this->userId;
-        }
-        if (null !== $this->sessionId) {
-            $res['session_id'] = $this->sessionId;
+        if (null !== $this->requestData) {
+            $res['request_data'] = $this->requestData;
         }
         return $res;
     }
@@ -52,11 +47,8 @@ class QueryGwchildinsuranceProfiledetailRequest extends Model {
         if(isset($map['tenanat_id'])){
             $model->tenanatId = $map['tenanat_id'];
         }
-        if(isset($map['user_id'])){
-            $model->userId = $map['user_id'];
-        }
-        if(isset($map['session_id'])){
-            $model->sessionId = $map['session_id'];
+        if(isset($map['request_data'])){
+            $model->requestData = $map['request_data'];
         }
         return $model;
     }
@@ -77,16 +69,10 @@ class QueryGwchildinsuranceProfiledetailRequest extends Model {
      */
     public $tenanatId;
 
-    // 当前用户，最大 64 字符
+    // 输入参数
     /**
      * @var string
      */
-    public $userId;
-
-    // 当前会话，最大 64 字符
-    /**
-     * @var string
-     */
-    public $sessionId;
+    public $requestData;
 
 }

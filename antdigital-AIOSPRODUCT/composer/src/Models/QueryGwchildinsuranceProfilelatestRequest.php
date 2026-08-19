@@ -10,11 +10,11 @@ class QueryGwchildinsuranceProfilelatestRequest extends Model {
         'authToken' => 'auth_token',
         'productInstanceId' => 'product_instance_id',
         'tenantId' => 'tenant_id',
-        'userId' => 'user_id',
+        'requestData' => 'request_data',
     ];
     public function validate() {
         Model::validateRequired('tenantId', $this->tenantId, true);
-        Model::validateRequired('userId', $this->userId, true);
+        Model::validateRequired('requestData', $this->requestData, true);
     }
     public function toMap() {
         $res = [];
@@ -27,8 +27,8 @@ class QueryGwchildinsuranceProfilelatestRequest extends Model {
         if (null !== $this->tenantId) {
             $res['tenant_id'] = $this->tenantId;
         }
-        if (null !== $this->userId) {
-            $res['user_id'] = $this->userId;
+        if (null !== $this->requestData) {
+            $res['request_data'] = $this->requestData;
         }
         return $res;
     }
@@ -47,8 +47,8 @@ class QueryGwchildinsuranceProfilelatestRequest extends Model {
         if(isset($map['tenant_id'])){
             $model->tenantId = $map['tenant_id'];
         }
-        if(isset($map['user_id'])){
-            $model->userId = $map['user_id'];
+        if(isset($map['request_data'])){
+            $model->requestData = $map['request_data'];
         }
         return $model;
     }
@@ -69,10 +69,10 @@ class QueryGwchildinsuranceProfilelatestRequest extends Model {
      */
     public $tenantId;
 
-    // 当前用户，最大 64 字符
+    // 请求输入
     /**
      * @var string
      */
-    public $userId;
+    public $requestData;
 
 }
