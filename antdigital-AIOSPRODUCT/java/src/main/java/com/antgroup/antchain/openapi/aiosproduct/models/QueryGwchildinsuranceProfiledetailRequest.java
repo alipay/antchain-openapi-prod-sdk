@@ -16,15 +16,10 @@ public class QueryGwchildinsuranceProfiledetailRequest extends TeaModel {
     @Validation(required = true)
     public String tenanatId;
 
-    // 当前用户，最大 64 字符
-    @NameInMap("user_id")
+    // 输入参数
+    @NameInMap("request_data")
     @Validation(required = true)
-    public String userId;
-
-    // 当前会话，最大 64 字符
-    @NameInMap("session_id")
-    @Validation(required = true)
-    public String sessionId;
+    public String requestData;
 
     public static QueryGwchildinsuranceProfiledetailRequest build(java.util.Map<String, ?> map) throws Exception {
         QueryGwchildinsuranceProfiledetailRequest self = new QueryGwchildinsuranceProfiledetailRequest();
@@ -55,20 +50,12 @@ public class QueryGwchildinsuranceProfiledetailRequest extends TeaModel {
         return this.tenanatId;
     }
 
-    public QueryGwchildinsuranceProfiledetailRequest setUserId(String userId) {
-        this.userId = userId;
+    public QueryGwchildinsuranceProfiledetailRequest setRequestData(String requestData) {
+        this.requestData = requestData;
         return this;
     }
-    public String getUserId() {
-        return this.userId;
-    }
-
-    public QueryGwchildinsuranceProfiledetailRequest setSessionId(String sessionId) {
-        this.sessionId = sessionId;
-        return this;
-    }
-    public String getSessionId() {
-        return this.sessionId;
+    public String getRequestData() {
+        return this.requestData;
     }
 
 }
