@@ -12,9 +12,9 @@ public class QueryGwchildinsuranceProfiledetailRequest extends TeaModel {
     public String productInstanceId;
 
     // 当前联调租户；必须精确命中 finaigateway 发布白名单
-    @NameInMap("tenanat_id")
+    @NameInMap("tenant_id")
     @Validation(required = true)
-    public String tenanatId;
+    public String tenantId;
 
     // 输入参数
     @NameInMap("request_data")
@@ -42,12 +42,12 @@ public class QueryGwchildinsuranceProfiledetailRequest extends TeaModel {
         return this.productInstanceId;
     }
 
-    public QueryGwchildinsuranceProfiledetailRequest setTenanatId(String tenanatId) {
-        this.tenanatId = tenanatId;
+    public QueryGwchildinsuranceProfiledetailRequest setTenantId(String tenantId) {
+        this.tenantId = tenantId;
         return this;
     }
-    public String getTenanatId() {
-        return this.tenanatId;
+    public String getTenantId() {
+        return this.tenantId;
     }
 
     public QueryGwchildinsuranceProfiledetailRequest setRequestData(String requestData) {
