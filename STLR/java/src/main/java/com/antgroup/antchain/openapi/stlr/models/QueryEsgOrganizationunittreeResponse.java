@@ -38,7 +38,7 @@ public class QueryEsgOrganizationunittreeResponse extends TeaModel {
 
     // 重复结构体
     @NameInMap("children")
-    public java.util.List<OrganizationUnitTree> children;
+    public java.util.List<String> children;
 
     public static QueryEsgOrganizationunittreeResponse build(java.util.Map<String, ?> map) throws Exception {
         QueryEsgOrganizationunittreeResponse self = new QueryEsgOrganizationunittreeResponse();
@@ -109,11 +109,11 @@ public class QueryEsgOrganizationunittreeResponse extends TeaModel {
         return this.gmtModified;
     }
 
-    public QueryEsgOrganizationunittreeResponse setChildren(java.util.List<OrganizationUnitTree> children) {
+    public QueryEsgOrganizationunittreeResponse setChildren(java.util.List<String> children) {
         this.children = children;
         return this;
     }
-    public java.util.List<OrganizationUnitTree> getChildren() {
+    public java.util.List<String> getChildren() {
         return this.children;
     }
 
