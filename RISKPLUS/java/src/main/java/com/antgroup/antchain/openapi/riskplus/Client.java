@@ -126,7 +126,7 @@ public class Client {
                     new TeaPair("req_msg_id", com.antgroup.antchain.openapi.antchain.util.AntchainUtils.getNonce()),
                     new TeaPair("access_key", _accessKeyId),
                     new TeaPair("base_sdk_version", "TeaSDK-2.0"),
-                    new TeaPair("sdk_version", "1.31.31"),
+                    new TeaPair("sdk_version", "1.31.32"),
                     new TeaPair("_prod_code", "RISKPLUS"),
                     new TeaPair("_prod_channel", "undefined")
                 );
@@ -2938,6 +2938,27 @@ public class Client {
     public QueryDubbridgePetorderResponse queryDubbridgePetorderEx(QueryDubbridgePetorderRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
         com.aliyun.teautil.Common.validateModel(request);
         return TeaModel.toModel(this.doRequest("1.0", "riskplus.dubbridge.petorder.query", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new QueryDubbridgePetorderResponse());
+    }
+
+    /**
+     * <b>description</b> :
+     * <p>Description: 用户信息补充并同步至下游资金方
+     * Summary: 用户信息补充并同步至下游资金方</p>
+     */
+    public SyncDubbridgeCustomResponse syncDubbridgeCustom(SyncDubbridgeCustomRequest request) throws Exception {
+        com.aliyun.teautil.models.RuntimeOptions runtime = new com.aliyun.teautil.models.RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.syncDubbridgeCustomEx(request, headers, runtime);
+    }
+
+    /**
+     * <b>description</b> :
+     * <p>Description: 用户信息补充并同步至下游资金方
+     * Summary: 用户信息补充并同步至下游资金方</p>
+     */
+    public SyncDubbridgeCustomResponse syncDubbridgeCustomEx(SyncDubbridgeCustomRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "riskplus.dubbridge.custom.sync", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new SyncDubbridgeCustomResponse());
     }
 
     /**
