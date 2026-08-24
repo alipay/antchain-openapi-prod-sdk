@@ -941,6 +941,7 @@ class PushRightsprodGrantrightsResponse(TeaModel):
         expire_time: str = None,
         effect_time: str = None,
         order_details: List[GrantOrderDetail] = None,
+        fail_msg: str = None,
     ):
         # 请求唯一ID，用于链路跟踪和问题排查
         self.req_msg_id = req_msg_id
@@ -957,6 +958,8 @@ class PushRightsprodGrantrightsResponse(TeaModel):
         self.effect_time = effect_time
         # 发放订单明细数据
         self.order_details = order_details
+        # 失败原因
+        self.fail_msg = fail_msg
 
     def validate(self):
         if self.expire_time is not None:
@@ -990,6 +993,8 @@ class PushRightsprodGrantrightsResponse(TeaModel):
         if self.order_details is not None:
             for k in self.order_details:
                 result['order_details'].append(k.to_map() if k else None)
+        if self.fail_msg is not None:
+            result['fail_msg'] = self.fail_msg
         return result
 
     def from_map(self, m: dict = None):
@@ -1011,6 +1016,8 @@ class PushRightsprodGrantrightsResponse(TeaModel):
             for k in m.get('order_details'):
                 temp_model = GrantOrderDetail()
                 self.order_details.append(temp_model.from_map(k))
+        if m.get('fail_msg') is not None:
+            self.fail_msg = m.get('fail_msg')
         return self
 
 
