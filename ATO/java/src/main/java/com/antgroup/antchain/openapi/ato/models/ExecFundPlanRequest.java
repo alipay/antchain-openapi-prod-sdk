@@ -38,6 +38,13 @@ public class ExecFundPlanRequest extends TeaModel {
     @Validation(required = true)
     public String retryType;
 
+    // 支付类型：
+    // ● PERFORMANCE:正常履约
+    // ● EXCESS：超额
+    @NameInMap("pay_type")
+    @Validation(required = true)
+    public String payType;
+
     public static ExecFundPlanRequest build(java.util.Map<String, ?> map) throws Exception {
         ExecFundPlanRequest self = new ExecFundPlanRequest();
         return TeaModel.build(map, self);
@@ -97,6 +104,14 @@ public class ExecFundPlanRequest extends TeaModel {
     }
     public String getRetryType() {
         return this.retryType;
+    }
+
+    public ExecFundPlanRequest setPayType(String payType) {
+        this.payType = payType;
+        return this;
+    }
+    public String getPayType() {
+        return this.payType;
     }
 
 }
