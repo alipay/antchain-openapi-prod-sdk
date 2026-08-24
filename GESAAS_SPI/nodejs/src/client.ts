@@ -715,6 +715,8 @@ export class PushRightsprodGrantrightsResponse extends $tea.Model {
   effectTime?: string;
   // 发放订单明细数据
   orderDetails?: GrantOrderDetail[];
+  // 失败原因
+  failMsg?: string;
   static names(): { [key: string]: string } {
     return {
       reqMsgId: 'req_msg_id',
@@ -724,6 +726,7 @@ export class PushRightsprodGrantrightsResponse extends $tea.Model {
       expireTime: 'expire_time',
       effectTime: 'effect_time',
       orderDetails: 'order_details',
+      failMsg: 'fail_msg',
     };
   }
 
@@ -736,6 +739,7 @@ export class PushRightsprodGrantrightsResponse extends $tea.Model {
       expireTime: 'string',
       effectTime: 'string',
       orderDetails: { 'type': 'array', 'itemType': GrantOrderDetail },
+      failMsg: 'string',
     };
   }
 
@@ -1109,7 +1113,7 @@ export default class Client {
           req_msg_id: AntchainUtil.getNonce(),
           access_key: this._accessKeyId,
           base_sdk_version: "TeaSDK-2.0",
-          sdk_version: "1.1.12",
+          sdk_version: "1.1.13",
           _prod_code: "GESAAS_SPI",
           _prod_channel: "default",
         };
