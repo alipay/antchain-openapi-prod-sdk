@@ -31,6 +31,14 @@ public class FileInfo extends TeaModel {
     @Validation(required = true)
     public String url;
 
+    // id
+    /**
+     * <strong>example:</strong>
+     * <p>11223344556778899</p>
+     */
+    @NameInMap("id")
+    public String id;
+
     public static FileInfo build(java.util.Map<String, ?> map) throws Exception {
         FileInfo self = new FileInfo();
         return TeaModel.build(map, self);
@@ -58,6 +66,14 @@ public class FileInfo extends TeaModel {
     }
     public String getUrl() {
         return this.url;
+    }
+
+    public FileInfo setId(String id) {
+        this.id = id;
+        return this;
+    }
+    public String getId() {
+        return this.id;
     }
 
 }

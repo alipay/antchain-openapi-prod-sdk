@@ -3,7 +3,7 @@ package com.antgroup.antchain.openapi.bot.models;
 
 import com.aliyun.tea.*;
 
-public class HistoryIotagentSessionResponse extends TeaModel {
+public class ListfilesIotagentSessionResponse extends TeaModel {
     // 请求唯一ID，用于链路跟踪和问题排查
     @NameInMap("req_msg_id")
     public String reqMsgId;
@@ -16,19 +16,23 @@ public class HistoryIotagentSessionResponse extends TeaModel {
     @NameInMap("result_msg")
     public String resultMsg;
 
-    // 会话历史
-    @NameInMap("session_list")
-    public String sessionList;
+    // 空间id
+    @NameInMap("workspace_id")
+    public String workspaceId;
 
-    // 总条数
+    // 文件列表
+    @NameInMap("data")
+    public java.util.List<FileInfo> data;
+
+    // 总记录
     @NameInMap("total")
     public Long total;
 
-    // 总页数
+    // 10
     @NameInMap("pages")
     public Long pages;
 
-    // 当前页
+    // 当前页面
     @NameInMap("page_index")
     public Long pageIndex;
 
@@ -36,12 +40,12 @@ public class HistoryIotagentSessionResponse extends TeaModel {
     @NameInMap("page_size")
     public Long pageSize;
 
-    public static HistoryIotagentSessionResponse build(java.util.Map<String, ?> map) throws Exception {
-        HistoryIotagentSessionResponse self = new HistoryIotagentSessionResponse();
+    public static ListfilesIotagentSessionResponse build(java.util.Map<String, ?> map) throws Exception {
+        ListfilesIotagentSessionResponse self = new ListfilesIotagentSessionResponse();
         return TeaModel.build(map, self);
     }
 
-    public HistoryIotagentSessionResponse setReqMsgId(String reqMsgId) {
+    public ListfilesIotagentSessionResponse setReqMsgId(String reqMsgId) {
         this.reqMsgId = reqMsgId;
         return this;
     }
@@ -49,7 +53,7 @@ public class HistoryIotagentSessionResponse extends TeaModel {
         return this.reqMsgId;
     }
 
-    public HistoryIotagentSessionResponse setResultCode(String resultCode) {
+    public ListfilesIotagentSessionResponse setResultCode(String resultCode) {
         this.resultCode = resultCode;
         return this;
     }
@@ -57,7 +61,7 @@ public class HistoryIotagentSessionResponse extends TeaModel {
         return this.resultCode;
     }
 
-    public HistoryIotagentSessionResponse setResultMsg(String resultMsg) {
+    public ListfilesIotagentSessionResponse setResultMsg(String resultMsg) {
         this.resultMsg = resultMsg;
         return this;
     }
@@ -65,15 +69,23 @@ public class HistoryIotagentSessionResponse extends TeaModel {
         return this.resultMsg;
     }
 
-    public HistoryIotagentSessionResponse setSessionList(String sessionList) {
-        this.sessionList = sessionList;
+    public ListfilesIotagentSessionResponse setWorkspaceId(String workspaceId) {
+        this.workspaceId = workspaceId;
         return this;
     }
-    public String getSessionList() {
-        return this.sessionList;
+    public String getWorkspaceId() {
+        return this.workspaceId;
     }
 
-    public HistoryIotagentSessionResponse setTotal(Long total) {
+    public ListfilesIotagentSessionResponse setData(java.util.List<FileInfo> data) {
+        this.data = data;
+        return this;
+    }
+    public java.util.List<FileInfo> getData() {
+        return this.data;
+    }
+
+    public ListfilesIotagentSessionResponse setTotal(Long total) {
         this.total = total;
         return this;
     }
@@ -81,7 +93,7 @@ public class HistoryIotagentSessionResponse extends TeaModel {
         return this.total;
     }
 
-    public HistoryIotagentSessionResponse setPages(Long pages) {
+    public ListfilesIotagentSessionResponse setPages(Long pages) {
         this.pages = pages;
         return this;
     }
@@ -89,7 +101,7 @@ public class HistoryIotagentSessionResponse extends TeaModel {
         return this.pages;
     }
 
-    public HistoryIotagentSessionResponse setPageIndex(Long pageIndex) {
+    public ListfilesIotagentSessionResponse setPageIndex(Long pageIndex) {
         this.pageIndex = pageIndex;
         return this;
     }
@@ -97,7 +109,7 @@ public class HistoryIotagentSessionResponse extends TeaModel {
         return this.pageIndex;
     }
 
-    public HistoryIotagentSessionResponse setPageSize(Long pageSize) {
+    public ListfilesIotagentSessionResponse setPageSize(Long pageSize) {
         this.pageSize = pageSize;
         return this;
     }

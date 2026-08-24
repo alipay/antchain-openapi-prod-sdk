@@ -44,10 +44,6 @@ public class UpdateIotagentAgentRequest extends TeaModel {
     @NameInMap("mcps")
     public java.util.List<McpInfo> mcps;
 
-    // 工具集合
-    @NameInMap("tools")
-    public java.util.List<String> tools;
-
     // 实例id，不允许编辑
     @NameInMap("instance_id")
     @Validation(required = true)
@@ -128,14 +124,6 @@ public class UpdateIotagentAgentRequest extends TeaModel {
     }
     public java.util.List<McpInfo> getMcps() {
         return this.mcps;
-    }
-
-    public UpdateIotagentAgentRequest setTools(java.util.List<String> tools) {
-        this.tools = tools;
-        return this;
-    }
-    public java.util.List<String> getTools() {
-        return this.tools;
     }
 
     public UpdateIotagentAgentRequest setInstanceId(String instanceId) {

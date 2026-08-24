@@ -20,6 +20,22 @@ public class ListIotagentSessionResponse extends TeaModel {
     @NameInMap("session_list")
     public java.util.List<SessionInfo> sessionList;
 
+    // 总数
+    @NameInMap("total")
+    public Long total;
+
+    // 总页数
+    @NameInMap("pages")
+    public Long pages;
+
+    // 当前页面
+    @NameInMap("page_index")
+    public Long pageIndex;
+
+    // 页面大小
+    @NameInMap("page_size")
+    public Long pageSize;
+
     public static ListIotagentSessionResponse build(java.util.Map<String, ?> map) throws Exception {
         ListIotagentSessionResponse self = new ListIotagentSessionResponse();
         return TeaModel.build(map, self);
@@ -55,6 +71,38 @@ public class ListIotagentSessionResponse extends TeaModel {
     }
     public java.util.List<SessionInfo> getSessionList() {
         return this.sessionList;
+    }
+
+    public ListIotagentSessionResponse setTotal(Long total) {
+        this.total = total;
+        return this;
+    }
+    public Long getTotal() {
+        return this.total;
+    }
+
+    public ListIotagentSessionResponse setPages(Long pages) {
+        this.pages = pages;
+        return this;
+    }
+    public Long getPages() {
+        return this.pages;
+    }
+
+    public ListIotagentSessionResponse setPageIndex(Long pageIndex) {
+        this.pageIndex = pageIndex;
+        return this;
+    }
+    public Long getPageIndex() {
+        return this.pageIndex;
+    }
+
+    public ListIotagentSessionResponse setPageSize(Long pageSize) {
+        this.pageSize = pageSize;
+        return this;
+    }
+    public Long getPageSize() {
+        return this.pageSize;
     }
 
 }

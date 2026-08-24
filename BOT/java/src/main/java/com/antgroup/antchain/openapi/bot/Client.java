@@ -126,7 +126,7 @@ public class Client {
                     new TeaPair("req_msg_id", com.antgroup.antchain.openapi.antchain.util.AntchainUtils.getNonce()),
                     new TeaPair("access_key", _accessKeyId),
                     new TeaPair("base_sdk_version", "TeaSDK-2.0"),
-                    new TeaPair("sdk_version", "1.21.6"),
+                    new TeaPair("sdk_version", "1.21.10"),
                     new TeaPair("_prod_code", "BOT"),
                     new TeaPair("_prod_channel", "undefined")
                 );
@@ -1657,6 +1657,48 @@ public class Client {
     public QuerypushstatusIotagentMessageResponse querypushstatusIotagentMessageEx(QuerypushstatusIotagentMessageRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
         com.aliyun.teautil.Common.validateModel(request);
         return TeaModel.toModel(this.doRequest("1.0", "blockchain.bot.iotagent.message.querypushstatus", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new QuerypushstatusIotagentMessageResponse());
+    }
+
+    /**
+     * <b>description</b> :
+     * <p>Description: session下的文件列表
+     * Summary: session下的文件列表</p>
+     */
+    public ListfilesIotagentSessionResponse listfilesIotagentSession(ListfilesIotagentSessionRequest request) throws Exception {
+        com.aliyun.teautil.models.RuntimeOptions runtime = new com.aliyun.teautil.models.RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.listfilesIotagentSessionEx(request, headers, runtime);
+    }
+
+    /**
+     * <b>description</b> :
+     * <p>Description: session下的文件列表
+     * Summary: session下的文件列表</p>
+     */
+    public ListfilesIotagentSessionResponse listfilesIotagentSessionEx(ListfilesIotagentSessionRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "blockchain.bot.iotagent.session.listfiles", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new ListfilesIotagentSessionResponse());
+    }
+
+    /**
+     * <b>description</b> :
+     * <p>Description: 文件下载
+     * Summary: 文件下载</p>
+     */
+    public FliedownloadIotagentSessionResponse fliedownloadIotagentSession(FliedownloadIotagentSessionRequest request) throws Exception {
+        com.aliyun.teautil.models.RuntimeOptions runtime = new com.aliyun.teautil.models.RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.fliedownloadIotagentSessionEx(request, headers, runtime);
+    }
+
+    /**
+     * <b>description</b> :
+     * <p>Description: 文件下载
+     * Summary: 文件下载</p>
+     */
+    public FliedownloadIotagentSessionResponse fliedownloadIotagentSessionEx(FliedownloadIotagentSessionRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "blockchain.bot.iotagent.session.fliedownload", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new FliedownloadIotagentSessionResponse());
     }
 
     /**

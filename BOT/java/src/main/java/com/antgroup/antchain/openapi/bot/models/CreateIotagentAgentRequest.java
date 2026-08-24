@@ -43,10 +43,6 @@ public class CreateIotagentAgentRequest extends TeaModel {
     @NameInMap("mcps")
     public java.util.List<McpInfo> mcps;
 
-    // tools
-    @NameInMap("tools")
-    public java.util.List<String> tools;
-
     public static CreateIotagentAgentRequest build(java.util.Map<String, ?> map) throws Exception {
         CreateIotagentAgentRequest self = new CreateIotagentAgentRequest();
         return TeaModel.build(map, self);
@@ -122,14 +118,6 @@ public class CreateIotagentAgentRequest extends TeaModel {
     }
     public java.util.List<McpInfo> getMcps() {
         return this.mcps;
-    }
-
-    public CreateIotagentAgentRequest setTools(java.util.List<String> tools) {
-        this.tools = tools;
-        return this;
-    }
-    public java.util.List<String> getTools() {
-        return this.tools;
     }
 
 }

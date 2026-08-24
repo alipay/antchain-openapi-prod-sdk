@@ -16,7 +16,7 @@ public class McpInfo extends TeaModel {
     // 协议类型
     /**
      * <strong>example:</strong>
-     * <p>streamable_http / sse</p>
+     * <p>streamable_http / sse /stadio</p>
      */
     @NameInMap("transport")
     @Validation(required = true)
@@ -28,7 +28,6 @@ public class McpInfo extends TeaModel {
      * <p>协议地址</p>
      */
     @NameInMap("endpoint")
-    @Validation(required = true)
     public String endpoint;
 
     // json
@@ -37,7 +36,6 @@ public class McpInfo extends TeaModel {
      * <p>{}</p>
      */
     @NameInMap("headers")
-    @Validation(required = true)
     public String headers;
 
     // mcp_id
@@ -48,6 +46,14 @@ public class McpInfo extends TeaModel {
     @NameInMap("mcp_id")
     @Validation(required = true)
     public String mcpId;
+
+    // 工具名字
+    /**
+     * <strong>example:</strong>
+     * <p>undefined</p>
+     */
+    @NameInMap("tools")
+    public java.util.List<String> tools;
 
     public static McpInfo build(java.util.Map<String, ?> map) throws Exception {
         McpInfo self = new McpInfo();
@@ -92,6 +98,14 @@ public class McpInfo extends TeaModel {
     }
     public String getMcpId() {
         return this.mcpId;
+    }
+
+    public McpInfo setTools(java.util.List<String> tools) {
+        this.tools = tools;
+        return this;
+    }
+    public java.util.List<String> getTools() {
+        return this.tools;
     }
 
 }

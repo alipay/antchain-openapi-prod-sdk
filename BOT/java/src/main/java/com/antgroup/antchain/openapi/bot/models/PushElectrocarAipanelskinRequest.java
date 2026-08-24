@@ -19,22 +19,12 @@ public class PushElectrocarAipanelskinRequest extends TeaModel {
     // 皮肤id
     @NameInMap("skin_id")
     @Validation(required = true)
-    public Long skinId;
-
-    // 皮肤名称
-    @NameInMap("skin_name")
-    @Validation(required = true)
-    public String skinName;
+    public String skinId;
 
     // 0 全量、1 背景图、2 开关机动画、3 电子宠物动画
     @NameInMap("skin_type")
     @Validation(required = true)
     public Long skinType;
-
-    // 皮肤版本号
-    @NameInMap("skin_ver")
-    @Validation(required = true)
-    public Long skinVer;
 
     // 文件大小，单位字节
     @NameInMap("skin_size")
@@ -63,6 +53,11 @@ public class PushElectrocarAipanelskinRequest extends TeaModel {
     // 可选扩展字段
     @NameInMap("ext")
     public String ext;
+
+    // 面板id
+    @NameInMap("dash_id")
+    @Validation(required = true)
+    public String dashId;
 
     public static PushElectrocarAipanelskinRequest build(java.util.Map<String, ?> map) throws Exception {
         PushElectrocarAipanelskinRequest self = new PushElectrocarAipanelskinRequest();
@@ -93,20 +88,12 @@ public class PushElectrocarAipanelskinRequest extends TeaModel {
         return this.tuid;
     }
 
-    public PushElectrocarAipanelskinRequest setSkinId(Long skinId) {
+    public PushElectrocarAipanelskinRequest setSkinId(String skinId) {
         this.skinId = skinId;
         return this;
     }
-    public Long getSkinId() {
+    public String getSkinId() {
         return this.skinId;
-    }
-
-    public PushElectrocarAipanelskinRequest setSkinName(String skinName) {
-        this.skinName = skinName;
-        return this;
-    }
-    public String getSkinName() {
-        return this.skinName;
     }
 
     public PushElectrocarAipanelskinRequest setSkinType(Long skinType) {
@@ -115,14 +102,6 @@ public class PushElectrocarAipanelskinRequest extends TeaModel {
     }
     public Long getSkinType() {
         return this.skinType;
-    }
-
-    public PushElectrocarAipanelskinRequest setSkinVer(Long skinVer) {
-        this.skinVer = skinVer;
-        return this;
-    }
-    public Long getSkinVer() {
-        return this.skinVer;
     }
 
     public PushElectrocarAipanelskinRequest setSkinSize(Long skinSize) {
@@ -171,6 +150,14 @@ public class PushElectrocarAipanelskinRequest extends TeaModel {
     }
     public String getExt() {
         return this.ext;
+    }
+
+    public PushElectrocarAipanelskinRequest setDashId(String dashId) {
+        this.dashId = dashId;
+        return this;
+    }
+    public String getDashId() {
+        return this.dashId;
     }
 
 }
