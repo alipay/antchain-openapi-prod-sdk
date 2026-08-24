@@ -35,6 +35,10 @@ public class PushRightsprodGrantrightsResponse extends TeaModel {
     @NameInMap("order_details")
     public java.util.List<GrantOrderDetail> orderDetails;
 
+    // 失败原因
+    @NameInMap("fail_msg")
+    public String failMsg;
+
     public static PushRightsprodGrantrightsResponse build(java.util.Map<String, ?> map) throws Exception {
         PushRightsprodGrantrightsResponse self = new PushRightsprodGrantrightsResponse();
         return TeaModel.build(map, self);
@@ -94,6 +98,14 @@ public class PushRightsprodGrantrightsResponse extends TeaModel {
     }
     public java.util.List<GrantOrderDetail> getOrderDetails() {
         return this.orderDetails;
+    }
+
+    public PushRightsprodGrantrightsResponse setFailMsg(String failMsg) {
+        this.failMsg = failMsg;
+        return this;
+    }
+    public String getFailMsg() {
+        return this.failMsg;
     }
 
 }

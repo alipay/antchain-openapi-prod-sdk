@@ -8,7 +8,7 @@
 <dependency>
    <groupId>com.antgroup.antchain.openapi</groupId>
    <artifactId>gesaas_spi</artifactId>
-   <version>1.1.12</version>
+   <version>1.1.13</version>
 </dependency>
 ```
 
