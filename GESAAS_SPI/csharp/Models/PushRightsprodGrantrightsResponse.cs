@@ -45,6 +45,11 @@ namespace AntChain.SDK.GESAAS_SPI.Models
         [Validation(Required=false)]
         public List<GrantOrderDetail> OrderDetails { get; set; }
 
+        // 失败原因
+        [NameInMap("fail_msg")]
+        [Validation(Required=false)]
+        public string FailMsg { get; set; }
+
     }
 
 }

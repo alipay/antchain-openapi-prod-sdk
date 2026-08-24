@@ -158,7 +158,7 @@ namespace AntChain.SDK.GESAAS_SPI
                         {"req_msg_id", AntChain.AlipayUtil.AntchainUtils.GetNonce()},
                         {"access_key", _accessKeyId},
                         {"base_sdk_version", "TeaSDK-2.0"},
-                        {"sdk_version", "1.1.12"},
+                        {"sdk_version", "1.1.13"},
                         {"_prod_code", "GESAAS_SPI"},
                         {"_prod_channel", "default"},
                     };
@@ -301,7 +301,7 @@ namespace AntChain.SDK.GESAAS_SPI
                         {"req_msg_id", AntChain.AlipayUtil.AntchainUtils.GetNonce()},
                         {"access_key", _accessKeyId},
                         {"base_sdk_version", "TeaSDK-2.0"},
-                        {"sdk_version", "1.1.12"},
+                        {"sdk_version", "1.1.13"},
                         {"_prod_code", "GESAAS_SPI"},
                         {"_prod_channel", "default"},
                     };
