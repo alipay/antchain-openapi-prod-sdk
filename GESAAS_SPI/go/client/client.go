@@ -856,6 +856,8 @@ type PushRightsprodGrantrightsResponse struct {
 	EffectTime *string `json:"effect_time,omitempty" xml:"effect_time,omitempty" pattern:"\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}([Z]|([\\.]\\d{1,9})?[\\+]\\d{2}[\\:]?\\d{2})"`
 	// 发放订单明细数据
 	OrderDetails []*GrantOrderDetail `json:"order_details,omitempty" xml:"order_details,omitempty" type:"Repeated"`
+	// 失败原因
+	FailMsg *string `json:"fail_msg,omitempty" xml:"fail_msg,omitempty"`
 }
 
 func (s PushRightsprodGrantrightsResponse) String() string {
@@ -898,6 +900,11 @@ func (s *PushRightsprodGrantrightsResponse) SetEffectTime(v string) *PushRightsp
 
 func (s *PushRightsprodGrantrightsResponse) SetOrderDetails(v []*GrantOrderDetail) *PushRightsprodGrantrightsResponse {
 	s.OrderDetails = v
+	return s
+}
+
+func (s *PushRightsprodGrantrightsResponse) SetFailMsg(v string) *PushRightsprodGrantrightsResponse {
+	s.FailMsg = &v
 	return s
 }
 
@@ -1172,6 +1179,10 @@ type QueryRightsprodVoucherResponse struct {
 	AvailableAmount *string `json:"available_amount,omitempty" xml:"available_amount,omitempty"`
 	// 权益实例状态
 	Status *string `json:"status,omitempty" xml:"status,omitempty"`
+	// 过期时间
+	ExpireTime *string `json:"expire_time,omitempty" xml:"expire_time,omitempty"`
+	// 生效时间
+	EffectTime *string `json:"effect_time,omitempty" xml:"effect_time,omitempty"`
 }
 
 func (s QueryRightsprodVoucherResponse) String() string {
@@ -1244,6 +1255,16 @@ func (s *QueryRightsprodVoucherResponse) SetAvailableAmount(v string) *QueryRigh
 
 func (s *QueryRightsprodVoucherResponse) SetStatus(v string) *QueryRightsprodVoucherResponse {
 	s.Status = &v
+	return s
+}
+
+func (s *QueryRightsprodVoucherResponse) SetExpireTime(v string) *QueryRightsprodVoucherResponse {
+	s.ExpireTime = &v
+	return s
+}
+
+func (s *QueryRightsprodVoucherResponse) SetEffectTime(v string) *QueryRightsprodVoucherResponse {
+	s.EffectTime = &v
 	return s
 }
 
@@ -1377,7 +1398,7 @@ func (client *Client) DoRequest(version *string, action *string, protocol *strin
 				"req_msg_id":       antchainutil.GetNonce(),
 				"access_key":       client.AccessKeyId,
 				"base_sdk_version": tea.String("TeaSDK-2.0"),
-				"sdk_version":      tea.String("1.1.11"),
+				"sdk_version":      tea.String("1.1.13"),
 				"_prod_code":       tea.String("GESAAS_SPI"),
 				"_prod_channel":    tea.String("default"),
 			}

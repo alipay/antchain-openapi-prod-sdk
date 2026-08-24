@@ -1,4 +1,4 @@
-module github.com/alipay/gesaas_spi
+module github.com/antchain-openapi-sdk-go/gesaas_spi
 
 go 1.22.1
 
