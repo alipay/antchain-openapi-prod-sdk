@@ -1,0 +1,1134 @@
+<?php
+
+// This file is auto-generated, don't edit it. Thanks.
+namespace AntChain\INTELLICAR;
+
+use AlibabaCloud\Tea\Utils\Utils;
+use AlibabaCloud\Tea\Exception\TeaError;
+use \Exception;
+use AlibabaCloud\Tea\Exception\TeaUnableRetryError;
+use AlibabaCloud\Tea\Tea;
+use AlibabaCloud\Tea\Request;
+use AntChain\Util\UtilClient;
+use AlibabaCloud\Tea\RpcUtils\RpcUtils;
+
+use AlibabaCloud\Tea\Utils\Utils\RuntimeOptions;
+use AntChain\INTELLICAR\Models\PushCarloanRequest;
+use AntChain\INTELLICAR\Models\PushCarloanResponse;
+use AntChain\INTELLICAR\Models\RegisterCarownerRequest;
+use AntChain\INTELLICAR\Models\RegisterCarownerResponse;
+use AntChain\INTELLICAR\Models\BatchcreateNewcarRequest;
+use AntChain\INTELLICAR\Models\BatchcreateNewcarResponse;
+use AntChain\INTELLICAR\Models\SubmitNewcarRequest;
+use AntChain\INTELLICAR\Models\SubmitNewcarResponse;
+use AntChain\INTELLICAR\Models\RegisterCarownerCyRequest;
+use AntChain\INTELLICAR\Models\RegisterCarownerCyResponse;
+use AntChain\INTELLICAR\Models\QueryCarPriceRequest;
+use AntChain\INTELLICAR\Models\QueryCarPriceResponse;
+use AntChain\INTELLICAR\Models\ImportCarFileRequest;
+use AntChain\INTELLICAR\Models\ImportCarFileResponse;
+use AntChain\INTELLICAR\Models\CreateAntcloudGatewayxFileUploadRequest;
+use AntChain\INTELLICAR\Models\QueryUsedcarRequest;
+use AntChain\INTELLICAR\Models\QueryUsedcarResponse;
+use AntChain\INTELLICAR\Models\SubmitIonchiRequest;
+use AntChain\INTELLICAR\Models\SubmitIonchiResponse;
+use AntChain\INTELLICAR\Models\QueryGdFlowRequest;
+use AntChain\INTELLICAR\Models\QueryGdFlowResponse;
+use AntChain\INTELLICAR\Models\QueryBatteryReportRequest;
+use AntChain\INTELLICAR\Models\QueryBatteryReportResponse;
+use AntChain\INTELLICAR\Models\QueryNewcarQczjRequest;
+use AntChain\INTELLICAR\Models\QueryNewcarQczjResponse;
+use AntChain\INTELLICAR\Models\QueryGdStoreRequest;
+use AntChain\INTELLICAR\Models\QueryGdStoreResponse;
+use AntChain\INTELLICAR\Models\QueryGdPoentialRequest;
+use AntChain\INTELLICAR\Models\QueryGdPoentialResponse;
+use AntChain\INTELLICAR\Models\RegisterCdsqScratchesRequest;
+use AntChain\INTELLICAR\Models\RegisterCdsqScratchesResponse;
+use AntChain\INTELLICAR\Models\QueryCdsqScratchesRequest;
+use AntChain\INTELLICAR\Models\QueryCdsqScratchesResponse;
+use AntChain\INTELLICAR\Models\DeleteCdsqScratchesRequest;
+use AntChain\INTELLICAR\Models\DeleteCdsqScratchesResponse;
+use AntChain\INTELLICAR\Models\CallbackCdsqScratchesRequest;
+use AntChain\INTELLICAR\Models\CallbackCdsqScratchesResponse;
+use AntChain\INTELLICAR\Models\SaveCdsqScratchesRequest;
+use AntChain\INTELLICAR\Models\SaveCdsqScratchesResponse;
+use AntChain\INTELLICAR\Models\QueryCarVinRequest;
+use AntChain\INTELLICAR\Models\QueryCarVinResponse;
+use AntChain\INTELLICAR\Models\RegisterTagChanganRequest;
+use AntChain\INTELLICAR\Models\RegisterTagChanganResponse;
+use AntChain\INTELLICAR\Models\QueryTagChanganRequest;
+use AntChain\INTELLICAR\Models\QueryTagChanganResponse;
+use AntChain\INTELLICAR\Models\QueryUsedcarAreaRequest;
+use AntChain\INTELLICAR\Models\QueryUsedcarAreaResponse;
+use AntChain\INTELLICAR\Models\QueryUsedcarBrandsRequest;
+use AntChain\INTELLICAR\Models\QueryUsedcarBrandsResponse;
+use AntChain\INTELLICAR\Models\QueryUsedcarSeriesRequest;
+use AntChain\INTELLICAR\Models\QueryUsedcarSeriesResponse;
+use AntChain\INTELLICAR\Models\QueryUsedcarProductsRequest;
+use AntChain\INTELLICAR\Models\QueryUsedcarProductsResponse;
+use AntChain\INTELLICAR\Models\SyncUsedcarRequest;
+use AntChain\INTELLICAR\Models\SyncUsedcarResponse;
+use AntChain\INTELLICAR\Models\RegisterCdsqTireinsuranceRequest;
+use AntChain\INTELLICAR\Models\RegisterCdsqTireinsuranceResponse;
+use AntChain\INTELLICAR\Models\CallbackCdsqTireinsuranceRequest;
+use AntChain\INTELLICAR\Models\CallbackCdsqTireinsuranceResponse;
+use AntChain\INTELLICAR\Models\QueryCdsqTireinsuranceRequest;
+use AntChain\INTELLICAR\Models\QueryCdsqTireinsuranceResponse;
+use AntChain\INTELLICAR\Models\ExecUnifiedentranceRequest;
+use AntChain\INTELLICAR\Models\ExecUnifiedentranceResponse;
+use AntChain\INTELLICAR\Models\QueryLogsNewRequest;
+use AntChain\INTELLICAR\Models\QueryLogsNewResponse;
+use AntChain\INTELLICAR\Models\ExecLogsNewRequest;
+use AntChain\INTELLICAR\Models\ExecLogsNewResponse;
+use AntChain\INTELLICAR\Models\CreateAntcloudGatewayxFileUploadResponse;
+
+class Client {
+    protected $_endpoint;
+
+    protected $_regionId;
+
+    protected $_accessKeyId;
+
+    protected $_accessKeySecret;
+
+    protected $_protocol;
+
+    protected $_userAgent;
+
+    protected $_readTimeout;
+
+    protected $_connectTimeout;
+
+    protected $_httpProxy;
+
+    protected $_httpsProxy;
+
+    protected $_socks5Proxy;
+
+    protected $_socks5NetWork;
+
+    protected $_noProxy;
+
+    protected $_maxIdleConns;
+
+    protected $_securityToken;
+
+    protected $_maxIdleTimeMillis;
+
+    protected $_keepAliveDurationMillis;
+
+    protected $_maxRequests;
+
+    protected $_maxRequestsPerHost;
+
+    /**
+     * Init client with Config
+     * @param config config contains the necessary information to create a client
+     */
+    public function __construct($config){
+        if (Utils::isUnset($config)) {
+            throw new TeaError([
+                "code" => "ParameterMissing",
+                "message" => "'config' can not be unset"
+            ]);
+        }
+        $this->_accessKeyId = $config->accessKeyId;
+        $this->_accessKeySecret = $config->accessKeySecret;
+        $this->_securityToken = $config->securityToken;
+        $this->_endpoint = $config->endpoint;
+        $this->_protocol = $config->protocol;
+        $this->_userAgent = $config->userAgent;
+        $this->_readTimeout = Utils::defaultNumber($config->readTimeout, 20000);
+        $this->_connectTimeout = Utils::defaultNumber($config->connectTimeout, 20000);
+        $this->_httpProxy = $config->httpProxy;
+        $this->_httpsProxy = $config->httpsProxy;
+        $this->_noProxy = $config->noProxy;
+        $this->_socks5Proxy = $config->socks5Proxy;
+        $this->_socks5NetWork = $config->socks5NetWork;
+        $this->_maxIdleConns = Utils::defaultNumber($config->maxIdleConns, 60000);
+        $this->_maxIdleTimeMillis = Utils::defaultNumber($config->maxIdleTimeMillis, 5);
+        $this->_keepAliveDurationMillis = Utils::defaultNumber($config->keepAliveDurationMillis, 5000);
+        $this->_maxRequests = Utils::defaultNumber($config->maxRequests, 100);
+        $this->_maxRequestsPerHost = Utils::defaultNumber($config->maxRequestsPerHost, 100);
+    }
+
+    /**
+     * Encapsulate the request and invoke the network
+     * @param string $version
+     * @param string $action api name
+     * @param string $protocol http or https
+     * @param string $method e.g. GET
+     * @param string $pathname pathname of every api
+     * @param mixed[] $request which contains request params
+     * @param string[] $headers
+     * @param RuntimeOptions $runtime which controls some details of call api, such as retry times
+     * @return array the response
+     * @throws TeaError
+     * @throws Exception
+     * @throws TeaUnableRetryError
+     */
+    public function doRequest($version, $action, $protocol, $method, $pathname, $request, $headers, $runtime){
+        $runtime->validate();
+        $_runtime = [
+            "timeouted" => "retry",
+            "readTimeout" => Utils::defaultNumber($runtime->readTimeout, $this->_readTimeout),
+            "connectTimeout" => Utils::defaultNumber($runtime->connectTimeout, $this->_connectTimeout),
+            "httpProxy" => Utils::defaultString($runtime->httpProxy, $this->_httpProxy),
+            "httpsProxy" => Utils::defaultString($runtime->httpsProxy, $this->_httpsProxy),
+            "noProxy" => Utils::defaultString($runtime->noProxy, $this->_noProxy),
+            "maxIdleConns" => Utils::defaultNumber($runtime->maxIdleConns, $this->_maxIdleConns),
+            "maxIdleTimeMillis" => $this->_maxIdleTimeMillis,
+            "keepAliveDuration" => $this->_keepAliveDurationMillis,
+            "maxRequests" => $this->_maxRequests,
+            "maxRequestsPerHost" => $this->_maxRequestsPerHost,
+            "retry" => [
+                "retryable" => $runtime->autoretry,
+                "maxAttempts" => Utils::defaultNumber($runtime->maxAttempts, 3)
+            ],
+            "backoff" => [
+                "policy" => Utils::defaultString($runtime->backoffPolicy, "no"),
+                "period" => Utils::defaultNumber($runtime->backoffPeriod, 1)
+            ],
+            "ignoreSSL" => $runtime->ignoreSSL,
+            // 高德潜客uv指数
+        ];
+        $_lastRequest = null;
+        $_lastException = null;
+        $_now = time();
+        $_retryTimes = 0;
+        while (Tea::allowRetry(@$_runtime["retry"], $_retryTimes, $_now)) {
+            if ($_retryTimes > 0) {
+                $_backoffTime = Tea::getBackoffTime(@$_runtime["backoff"], $_retryTimes);
+                if ($_backoffTime > 0) {
+                    Tea::sleep($_backoffTime);
+                }
+            }
+            $_retryTimes = $_retryTimes + 1;
+            try {
+                $_request = new Request();
+                $_request->protocol = Utils::defaultString($this->_protocol, $protocol);
+                $_request->method = $method;
+                $_request->pathname = $pathname;
+                $_request->query = [
+                    "method" => $action,
+                    "version" => $version,
+                    "sign_type" => "HmacSHA1",
+                    "req_time" => UtilClient::getTimestamp(),
+                    "req_msg_id" => UtilClient::getNonce(),
+                    "access_key" => $this->_accessKeyId,
+                    "base_sdk_version" => "TeaSDK-2.0",
+                    "sdk_version" => "1.2.5",
+                    "_prod_code" => "INTELLICAR",
+                    "_prod_channel" => "default"
+                ];
+                if (!Utils::empty_($this->_securityToken)) {
+                    $_request->query["security_token"] = $this->_securityToken;
+                }
+                $_request->headers = Tea::merge([
+                    "host" => Utils::defaultString($this->_endpoint, "openapi.antchain.antgroup.com"),
+                    "user-agent" => Utils::getUserAgent($this->_userAgent)
+                ], $headers);
+                $tmp = Utils::anyifyMapValue(RpcUtils::query($request));
+                $_request->body = Utils::toFormString($tmp);
+                $_request->headers["content-type"] = "application/x-www-form-urlencoded";
+                $signedParam = Tea::merge($_request->query, RpcUtils::query($request));
+                $_request->query["sign"] = UtilClient::getSignature($signedParam, $this->_accessKeySecret);
+                $_lastRequest = $_request;
+                $_response= Tea::send($_request, $_runtime);
+                $raw = Utils::readAsString($_response->body);
+                $obj = Utils::parseJSON($raw);
+                $res = Utils::assertAsMap($obj);
+                $resp = Utils::assertAsMap(@$res["response"]);
+                if (UtilClient::hasError($raw, $this->_accessKeySecret)) {
+                    throw new TeaError([
+                        "message" => @$resp["result_msg"],
+                        "data" => $resp,
+                        "code" => @$resp["result_code"]
+                    ]);
+                }
+                return $resp;
+            }
+            catch (Exception $e) {
+                if (!($e instanceof TeaError)) {
+                    $e = new TeaError([], $e->getMessage(), $e->getCode(), $e);
+                }
+                if (Tea::isRetryable($e)) {
+                    $_lastException = $e;
+                    continue;
+                }
+                throw $e;
+            }
+        }
+        throw new TeaUnableRetryError($_lastRequest, $_lastException);
+    }
+
+    /**
+     * Description: 推送星贷车信息
+     * Summary: 推送星贷车信息
+     * @param PushCarloanRequest $request
+     * @return PushCarloanResponse
+     */
+    public function pushCarloan($request){
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+        return $this->pushCarloanEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 推送星贷车信息
+     * Summary: 推送星贷车信息
+     * @param PushCarloanRequest $request
+     * @param string[] $headers
+     * @param RuntimeOptions $runtime
+     * @return PushCarloanResponse
+     */
+    public function pushCarloanEx($request, $headers, $runtime){
+        Utils::validateModel($request);
+        return PushCarloanResponse::fromMap($this->doRequest("1.0", "antdigital.intellicar.carloan.push", "HTTPS", "POST", "/gateway.do", Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 车主信息提交
+     * Summary:  车主信息提交
+     * @param RegisterCarownerRequest $request
+     * @return RegisterCarownerResponse
+     */
+    public function registerCarowner($request){
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+        return $this->registerCarownerEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 车主信息提交
+     * Summary:  车主信息提交
+     * @param RegisterCarownerRequest $request
+     * @param string[] $headers
+     * @param RuntimeOptions $runtime
+     * @return RegisterCarownerResponse
+     */
+    public function registerCarownerEx($request, $headers, $runtime){
+        Utils::validateModel($request);
+        return RegisterCarownerResponse::fromMap($this->doRequest("1.0", "antdigital.intellicar.carowner.register", "HTTPS", "POST", "/gateway.do", Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 新车线索批量提交
+     * Summary: 新车线索批量提交
+     * @param BatchcreateNewcarRequest $request
+     * @return BatchcreateNewcarResponse
+     */
+    public function batchcreateNewcar($request){
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+        return $this->batchcreateNewcarEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 新车线索批量提交
+     * Summary: 新车线索批量提交
+     * @param BatchcreateNewcarRequest $request
+     * @param string[] $headers
+     * @param RuntimeOptions $runtime
+     * @return BatchcreateNewcarResponse
+     */
+    public function batchcreateNewcarEx($request, $headers, $runtime){
+        Utils::validateModel($request);
+        return BatchcreateNewcarResponse::fromMap($this->doRequest("1.0", "antdigital.intellicar.newcar.batchcreate", "HTTPS", "POST", "/gateway.do", Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 提交新车线索
+     * Summary:  提交新车线索
+     * @param SubmitNewcarRequest $request
+     * @return SubmitNewcarResponse
+     */
+    public function submitNewcar($request){
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+        return $this->submitNewcarEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 提交新车线索
+     * Summary:  提交新车线索
+     * @param SubmitNewcarRequest $request
+     * @param string[] $headers
+     * @param RuntimeOptions $runtime
+     * @return SubmitNewcarResponse
+     */
+    public function submitNewcarEx($request, $headers, $runtime){
+        Utils::validateModel($request);
+        return SubmitNewcarResponse::fromMap($this->doRequest("1.0", "antdigital.intellicar.newcar.submit", "HTTPS", "POST", "/gateway.do", Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 常岳线索推送接口
+     * Summary: 常岳线索推送
+     * @param RegisterCarownerCyRequest $request
+     * @return RegisterCarownerCyResponse
+     */
+    public function registerCarownerCy($request){
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+        return $this->registerCarownerCyEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 常岳线索推送接口
+     * Summary: 常岳线索推送
+     * @param RegisterCarownerCyRequest $request
+     * @param string[] $headers
+     * @param RuntimeOptions $runtime
+     * @return RegisterCarownerCyResponse
+     */
+    public function registerCarownerCyEx($request, $headers, $runtime){
+        Utils::validateModel($request);
+        return RegisterCarownerCyResponse::fromMap($this->doRequest("1.0", "antdigital.intellicar.carowner.cy.register", "HTTPS", "POST", "/gateway.do", Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 车辆价格查询
+     * Summary: 车辆价格查询
+     * @param QueryCarPriceRequest $request
+     * @return QueryCarPriceResponse
+     */
+    public function queryCarPrice($request){
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+        return $this->queryCarPriceEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 车辆价格查询
+     * Summary: 车辆价格查询
+     * @param QueryCarPriceRequest $request
+     * @param string[] $headers
+     * @param RuntimeOptions $runtime
+     * @return QueryCarPriceResponse
+     */
+    public function queryCarPriceEx($request, $headers, $runtime){
+        Utils::validateModel($request);
+        return QueryCarPriceResponse::fromMap($this->doRequest("1.0", "antdigital.intellicar.car.price.query", "HTTPS", "POST", "/gateway.do", Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 文件引入
+     * Summary: 文件引入
+     * @param ImportCarFileRequest $request
+     * @return ImportCarFileResponse
+     */
+    public function importCarFile($request){
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+        return $this->importCarFileEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 文件引入
+     * Summary: 文件引入
+     * @param ImportCarFileRequest $request
+     * @param string[] $headers
+     * @param RuntimeOptions $runtime
+     * @return ImportCarFileResponse
+     */
+    public function importCarFileEx($request, $headers, $runtime){
+        if (!Utils::isUnset($request->fileObject)) {
+            $uploadReq = new CreateAntcloudGatewayxFileUploadRequest([
+                "authToken" => $request->authToken,
+                "apiCode" => "antdigital.intellicar.car.file.import",
+                "fileName" => $request->fileObjectName
+            ]);
+            $uploadResp = $this->createAntcloudGatewayxFileUploadEx($uploadReq, $headers, $runtime);
+            if (!UtilClient::isSuccess($uploadResp->resultCode, "ok")) {
+                $importCarFileResponse = new ImportCarFileResponse([
+                    "reqMsgId" => $uploadResp->reqMsgId,
+                    "resultCode" => $uploadResp->resultCode,
+                    "resultMsg" => $uploadResp->resultMsg
+                ]);
+                return $importCarFileResponse;
+            }
+            $uploadHeaders = UtilClient::parseUploadHeaders($uploadResp->uploadHeaders);
+            UtilClient::putObject($request->fileObject, $uploadHeaders, $uploadResp->uploadUrl);
+            $request->fileId = $uploadResp->fileId;
+            $request->fileObject = null;
+        }
+        Utils::validateModel($request);
+        return ImportCarFileResponse::fromMap($this->doRequest("1.0", "antdigital.intellicar.car.file.import", "HTTPS", "POST", "/gateway.do", Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 汽车之家区域接口
+     * Summary: 汽车之家区域接口
+     * @param QueryUsedcarRequest $request
+     * @return QueryUsedcarResponse
+     */
+    public function queryUsedcar($request){
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+        return $this->queryUsedcarEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 汽车之家区域接口
+     * Summary: 汽车之家区域接口
+     * @param QueryUsedcarRequest $request
+     * @param string[] $headers
+     * @param RuntimeOptions $runtime
+     * @return QueryUsedcarResponse
+     */
+    public function queryUsedcarEx($request, $headers, $runtime){
+        Utils::validateModel($request);
+        return QueryUsedcarResponse::fromMap($this->doRequest("1.0", "antdigital.intellicar.usedcar.query", "HTTPS", "POST", "/gateway.do", Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 逸安启回调接口
+     * Summary: 逸安启回调接口
+     * @param SubmitIonchiRequest $request
+     * @return SubmitIonchiResponse
+     */
+    public function submitIonchi($request){
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+        return $this->submitIonchiEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 逸安启回调接口
+     * Summary: 逸安启回调接口
+     * @param SubmitIonchiRequest $request
+     * @param string[] $headers
+     * @param RuntimeOptions $runtime
+     * @return SubmitIonchiResponse
+     */
+    public function submitIonchiEx($request, $headers, $runtime){
+        Utils::validateModel($request);
+        return SubmitIonchiResponse::fromMap($this->doRequest("1.0", "antdigital.intellicar.ionchi.submit", "HTTPS", "POST", "/gateway.do", Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 对接高德，查询潜客流向以及重叠的数据
+     * Summary: 【高德】流向与重叠数据
+     * @param QueryGdFlowRequest $request
+     * @return QueryGdFlowResponse
+     */
+    public function queryGdFlow($request){
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+        return $this->queryGdFlowEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 对接高德，查询潜客流向以及重叠的数据
+     * Summary: 【高德】流向与重叠数据
+     * @param QueryGdFlowRequest $request
+     * @param string[] $headers
+     * @param RuntimeOptions $runtime
+     * @return QueryGdFlowResponse
+     */
+    public function queryGdFlowEx($request, $headers, $runtime){
+        Utils::validateModel($request);
+        return QueryGdFlowResponse::fromMap($this->doRequest("1.0", "antdigital.intellicar.gd.flow.query", "HTTPS", "POST", "/gateway.do", Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 电池衰退权益报告查询接口
+     * Summary: 电池衰退权益报告查询接口
+     * @param QueryBatteryReportRequest $request
+     * @return QueryBatteryReportResponse
+     */
+    public function queryBatteryReport($request){
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+        return $this->queryBatteryReportEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 电池衰退权益报告查询接口
+     * Summary: 电池衰退权益报告查询接口
+     * @param QueryBatteryReportRequest $request
+     * @param string[] $headers
+     * @param RuntimeOptions $runtime
+     * @return QueryBatteryReportResponse
+     */
+    public function queryBatteryReportEx($request, $headers, $runtime){
+        Utils::validateModel($request);
+        return QueryBatteryReportResponse::fromMap($this->doRequest("1.0", "antdigital.intellicar.battery.report.query", "HTTPS", "POST", "/gateway.do", Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 用来查询汽车之家车型和城市列表
+     * Summary: 用来查询汽车之家车型和城市列表
+     * @param QueryNewcarQczjRequest $request
+     * @return QueryNewcarQczjResponse
+     */
+    public function queryNewcarQczj($request){
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+        return $this->queryNewcarQczjEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 用来查询汽车之家车型和城市列表
+     * Summary: 用来查询汽车之家车型和城市列表
+     * @param QueryNewcarQczjRequest $request
+     * @param string[] $headers
+     * @param RuntimeOptions $runtime
+     * @return QueryNewcarQczjResponse
+     */
+    public function queryNewcarQczjEx($request, $headers, $runtime){
+        Utils::validateModel($request);
+        return QueryNewcarQczjResponse::fromMap($this->doRequest("1.0", "antdigital.intellicar.newcar.qczj.query", "HTTPS", "POST", "/gateway.do", Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 【高德】查询店铺基本信息
+     * Summary: 【高德】查询店铺基本信息
+     * @param QueryGdStoreRequest $request
+     * @return QueryGdStoreResponse
+     */
+    public function queryGdStore($request){
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+        return $this->queryGdStoreEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 【高德】查询店铺基本信息
+     * Summary: 【高德】查询店铺基本信息
+     * @param QueryGdStoreRequest $request
+     * @param string[] $headers
+     * @param RuntimeOptions $runtime
+     * @return QueryGdStoreResponse
+     */
+    public function queryGdStoreEx($request, $headers, $runtime){
+        Utils::validateModel($request);
+        return QueryGdStoreResponse::fromMap($this->doRequest("1.0", "antdigital.intellicar.gd.store.query", "HTTPS", "POST", "/gateway.do", Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 【高德】潜客指数数据
+     * Summary: 【高德】潜客指数数据
+     * @param QueryGdPoentialRequest $request
+     * @return QueryGdPoentialResponse
+     */
+    public function queryGdPoential($request){
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+        return $this->queryGdPoentialEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 【高德】潜客指数数据
+     * Summary: 【高德】潜客指数数据
+     * @param QueryGdPoentialRequest $request
+     * @param string[] $headers
+     * @param RuntimeOptions $runtime
+     * @return QueryGdPoentialResponse
+     */
+    public function queryGdPoentialEx($request, $headers, $runtime){
+        Utils::validateModel($request);
+        return QueryGdPoentialResponse::fromMap($this->doRequest("1.0", "antdigital.intellicar.gd.poential.query", "HTTPS", "POST", "/gateway.do", Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 对接车道山前擦碰无忧接口
+     * Summary: 对接车道山前擦碰无忧接口
+     * @param RegisterCdsqScratchesRequest $request
+     * @return RegisterCdsqScratchesResponse
+     */
+    public function registerCdsqScratches($request){
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+        return $this->registerCdsqScratchesEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 对接车道山前擦碰无忧接口
+     * Summary: 对接车道山前擦碰无忧接口
+     * @param RegisterCdsqScratchesRequest $request
+     * @param string[] $headers
+     * @param RuntimeOptions $runtime
+     * @return RegisterCdsqScratchesResponse
+     */
+    public function registerCdsqScratchesEx($request, $headers, $runtime){
+        Utils::validateModel($request);
+        return RegisterCdsqScratchesResponse::fromMap($this->doRequest("1.0", "antdigital.intellicar.cdsq.scratches.register", "HTTPS", "POST", "/gateway.do", Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 车到山前查询权益接口
+     * Summary: 车到山前查询权益接口
+     * @param QueryCdsqScratchesRequest $request
+     * @return QueryCdsqScratchesResponse
+     */
+    public function queryCdsqScratches($request){
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+        return $this->queryCdsqScratchesEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 车到山前查询权益接口
+     * Summary: 车到山前查询权益接口
+     * @param QueryCdsqScratchesRequest $request
+     * @param string[] $headers
+     * @param RuntimeOptions $runtime
+     * @return QueryCdsqScratchesResponse
+     */
+    public function queryCdsqScratchesEx($request, $headers, $runtime){
+        Utils::validateModel($request);
+        return QueryCdsqScratchesResponse::fromMap($this->doRequest("1.0", "antdigital.intellicar.cdsq.scratches.query", "HTTPS", "POST", "/gateway.do", Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 车到山前权益退保接口
+     * Summary: 车到山前权益退保接口
+     * @param DeleteCdsqScratchesRequest $request
+     * @return DeleteCdsqScratchesResponse
+     */
+    public function deleteCdsqScratches($request){
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+        return $this->deleteCdsqScratchesEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 车到山前权益退保接口
+     * Summary: 车到山前权益退保接口
+     * @param DeleteCdsqScratchesRequest $request
+     * @param string[] $headers
+     * @param RuntimeOptions $runtime
+     * @return DeleteCdsqScratchesResponse
+     */
+    public function deleteCdsqScratchesEx($request, $headers, $runtime){
+        Utils::validateModel($request);
+        return DeleteCdsqScratchesResponse::fromMap($this->doRequest("1.0", "antdigital.intellicar.cdsq.scratches.delete", "HTTPS", "POST", "/gateway.do", Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 车到山前权益退保回调接口
+     * Summary: 车到山前权益退保回调接口
+     * @param CallbackCdsqScratchesRequest $request
+     * @return CallbackCdsqScratchesResponse
+     */
+    public function callbackCdsqScratches($request){
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+        return $this->callbackCdsqScratchesEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 车到山前权益退保回调接口
+     * Summary: 车到山前权益退保回调接口
+     * @param CallbackCdsqScratchesRequest $request
+     * @param string[] $headers
+     * @param RuntimeOptions $runtime
+     * @return CallbackCdsqScratchesResponse
+     */
+    public function callbackCdsqScratchesEx($request, $headers, $runtime){
+        Utils::validateModel($request);
+        return CallbackCdsqScratchesResponse::fromMap($this->doRequest("1.0", "antdigital.intellicar.cdsq.scratches.callback", "HTTPS", "POST", "/gateway.do", Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 车到山前权益状态查询
+     * Summary: 车到山前权益状态查询
+     * @param SaveCdsqScratchesRequest $request
+     * @return SaveCdsqScratchesResponse
+     */
+    public function saveCdsqScratches($request){
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+        return $this->saveCdsqScratchesEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 车到山前权益状态查询
+     * Summary: 车到山前权益状态查询
+     * @param SaveCdsqScratchesRequest $request
+     * @param string[] $headers
+     * @param RuntimeOptions $runtime
+     * @return SaveCdsqScratchesResponse
+     */
+    public function saveCdsqScratchesEx($request, $headers, $runtime){
+        Utils::validateModel($request);
+        return SaveCdsqScratchesResponse::fromMap($this->doRequest("1.0", "antdigital.intellicar.cdsq.scratches.save", "HTTPS", "POST", "/gateway.do", Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 常岳车贷线索预判接口
+     * Summary: 常岳车贷线索预判接口
+     * @param QueryCarVinRequest $request
+     * @return QueryCarVinResponse
+     */
+    public function queryCarVin($request){
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+        return $this->queryCarVinEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 常岳车贷线索预判接口
+     * Summary: 常岳车贷线索预判接口
+     * @param QueryCarVinRequest $request
+     * @param string[] $headers
+     * @param RuntimeOptions $runtime
+     * @return QueryCarVinResponse
+     */
+    public function queryCarVinEx($request, $headers, $runtime){
+        Utils::validateModel($request);
+        return QueryCarVinResponse::fromMap($this->doRequest("1.0", "antdigital.intellicar.car.vin.query", "HTTPS", "POST", "/gateway.do", Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 长安画像标签授权接口
+     * Summary: 长安画像标签授权接口
+     * @param RegisterTagChanganRequest $request
+     * @return RegisterTagChanganResponse
+     */
+    public function registerTagChangan($request){
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+        return $this->registerTagChanganEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 长安画像标签授权接口
+     * Summary: 长安画像标签授权接口
+     * @param RegisterTagChanganRequest $request
+     * @param string[] $headers
+     * @param RuntimeOptions $runtime
+     * @return RegisterTagChanganResponse
+     */
+    public function registerTagChanganEx($request, $headers, $runtime){
+        Utils::validateModel($request);
+        return RegisterTagChanganResponse::fromMap($this->doRequest("1.0", "antdigital.intellicar.tag.changan.register", "HTTPS", "POST", "/gateway.do", Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 长安画像标签用户id标签查询1
+     * Summary: 长安画像标签用户id标签查询1
+     * @param QueryTagChanganRequest $request
+     * @return QueryTagChanganResponse
+     */
+    public function queryTagChangan($request){
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+        return $this->queryTagChanganEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 长安画像标签用户id标签查询1
+     * Summary: 长安画像标签用户id标签查询1
+     * @param QueryTagChanganRequest $request
+     * @param string[] $headers
+     * @param RuntimeOptions $runtime
+     * @return QueryTagChanganResponse
+     */
+    public function queryTagChanganEx($request, $headers, $runtime){
+        Utils::validateModel($request);
+        return QueryTagChanganResponse::fromMap($this->doRequest("1.0", "antdigital.intellicar.tag.changan.query", "HTTPS", "POST", "/gateway.do", Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 汽车之家区域接口
+     * Summary: 汽车之家区域接口
+     * @param QueryUsedcarAreaRequest $request
+     * @return QueryUsedcarAreaResponse
+     */
+    public function queryUsedcarArea($request){
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+        return $this->queryUsedcarAreaEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 汽车之家区域接口
+     * Summary: 汽车之家区域接口
+     * @param QueryUsedcarAreaRequest $request
+     * @param string[] $headers
+     * @param RuntimeOptions $runtime
+     * @return QueryUsedcarAreaResponse
+     */
+    public function queryUsedcarAreaEx($request, $headers, $runtime){
+        Utils::validateModel($request);
+        return QueryUsedcarAreaResponse::fromMap($this->doRequest("1.0", "antdigital.intellicar.usedcar.area.query", "HTTPS", "POST", "/gateway.do", Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 获取汽车之家品牌信息
+     * Summary: 获取汽车之家品牌信息
+     * @param QueryUsedcarBrandsRequest $request
+     * @return QueryUsedcarBrandsResponse
+     */
+    public function queryUsedcarBrands($request){
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+        return $this->queryUsedcarBrandsEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 获取汽车之家品牌信息
+     * Summary: 获取汽车之家品牌信息
+     * @param QueryUsedcarBrandsRequest $request
+     * @param string[] $headers
+     * @param RuntimeOptions $runtime
+     * @return QueryUsedcarBrandsResponse
+     */
+    public function queryUsedcarBrandsEx($request, $headers, $runtime){
+        Utils::validateModel($request);
+        return QueryUsedcarBrandsResponse::fromMap($this->doRequest("1.0", "antdigital.intellicar.usedcar.brands.query", "HTTPS", "POST", "/gateway.do", Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 汽车之家车系接口
+     * Summary: 汽车之家车系接口
+     * @param QueryUsedcarSeriesRequest $request
+     * @return QueryUsedcarSeriesResponse
+     */
+    public function queryUsedcarSeries($request){
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+        return $this->queryUsedcarSeriesEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 汽车之家车系接口
+     * Summary: 汽车之家车系接口
+     * @param QueryUsedcarSeriesRequest $request
+     * @param string[] $headers
+     * @param RuntimeOptions $runtime
+     * @return QueryUsedcarSeriesResponse
+     */
+    public function queryUsedcarSeriesEx($request, $headers, $runtime){
+        Utils::validateModel($request);
+        return QueryUsedcarSeriesResponse::fromMap($this->doRequest("1.0", "antdigital.intellicar.usedcar.series.query", "HTTPS", "POST", "/gateway.do", Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 汽车之家车型接口
+     * Summary: 汽车之家车型接口
+     * @param QueryUsedcarProductsRequest $request
+     * @return QueryUsedcarProductsResponse
+     */
+    public function queryUsedcarProducts($request){
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+        return $this->queryUsedcarProductsEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 汽车之家车型接口
+     * Summary: 汽车之家车型接口
+     * @param QueryUsedcarProductsRequest $request
+     * @param string[] $headers
+     * @param RuntimeOptions $runtime
+     * @return QueryUsedcarProductsResponse
+     */
+    public function queryUsedcarProductsEx($request, $headers, $runtime){
+        Utils::validateModel($request);
+        return QueryUsedcarProductsResponse::fromMap($this->doRequest("1.0", "antdigital.intellicar.usedcar.products.query", "HTTPS", "POST", "/gateway.do", Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 获取二手车线索状态
+     * Summary: 获取二手车线索状态
+     * @param SyncUsedcarRequest $request
+     * @return SyncUsedcarResponse
+     */
+    public function syncUsedcar($request){
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+        return $this->syncUsedcarEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 获取二手车线索状态
+     * Summary: 获取二手车线索状态
+     * @param SyncUsedcarRequest $request
+     * @param string[] $headers
+     * @param RuntimeOptions $runtime
+     * @return SyncUsedcarResponse
+     */
+    public function syncUsedcarEx($request, $headers, $runtime){
+        Utils::validateModel($request);
+        return SyncUsedcarResponse::fromMap($this->doRequest("1.0", "antdigital.intellicar.usedcar.sync", "HTTPS", "POST", "/gateway.do", Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 轮胎投保接口
+     * Summary: 轮胎投保接口
+     * @param RegisterCdsqTireinsuranceRequest $request
+     * @return RegisterCdsqTireinsuranceResponse
+     */
+    public function registerCdsqTireinsurance($request){
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+        return $this->registerCdsqTireinsuranceEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 轮胎投保接口
+     * Summary: 轮胎投保接口
+     * @param RegisterCdsqTireinsuranceRequest $request
+     * @param string[] $headers
+     * @param RuntimeOptions $runtime
+     * @return RegisterCdsqTireinsuranceResponse
+     */
+    public function registerCdsqTireinsuranceEx($request, $headers, $runtime){
+        Utils::validateModel($request);
+        return RegisterCdsqTireinsuranceResponse::fromMap($this->doRequest("1.0", "antdigital.intellicar.cdsq.tireinsurance.register", "HTTPS", "POST", "/gateway.do", Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 轮胎回调接口
+     * Summary: 轮胎回调接口
+     * @param CallbackCdsqTireinsuranceRequest $request
+     * @return CallbackCdsqTireinsuranceResponse
+     */
+    public function callbackCdsqTireinsurance($request){
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+        return $this->callbackCdsqTireinsuranceEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 轮胎回调接口
+     * Summary: 轮胎回调接口
+     * @param CallbackCdsqTireinsuranceRequest $request
+     * @param string[] $headers
+     * @param RuntimeOptions $runtime
+     * @return CallbackCdsqTireinsuranceResponse
+     */
+    public function callbackCdsqTireinsuranceEx($request, $headers, $runtime){
+        Utils::validateModel($request);
+        return CallbackCdsqTireinsuranceResponse::fromMap($this->doRequest("1.0", "antdigital.intellicar.cdsq.tireinsurance.callback", "HTTPS", "POST", "/gateway.do", Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 轮胎权益接口查询状态
+     * Summary: 轮胎权益接口查询状态
+     * @param QueryCdsqTireinsuranceRequest $request
+     * @return QueryCdsqTireinsuranceResponse
+     */
+    public function queryCdsqTireinsurance($request){
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+        return $this->queryCdsqTireinsuranceEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 轮胎权益接口查询状态
+     * Summary: 轮胎权益接口查询状态
+     * @param QueryCdsqTireinsuranceRequest $request
+     * @param string[] $headers
+     * @param RuntimeOptions $runtime
+     * @return QueryCdsqTireinsuranceResponse
+     */
+    public function queryCdsqTireinsuranceEx($request, $headers, $runtime){
+        Utils::validateModel($request);
+        return QueryCdsqTireinsuranceResponse::fromMap($this->doRequest("1.0", "antdigital.intellicar.cdsq.tireinsurance.query", "HTTPS", "POST", "/gateway.do", Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 增加统一调用泛化接口
+     * Summary: 增加统一调用泛化接口
+     * @param ExecUnifiedentranceRequest $request
+     * @return ExecUnifiedentranceResponse
+     */
+    public function execUnifiedentrance($request){
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+        return $this->execUnifiedentranceEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 增加统一调用泛化接口
+     * Summary: 增加统一调用泛化接口
+     * @param ExecUnifiedentranceRequest $request
+     * @param string[] $headers
+     * @param RuntimeOptions $runtime
+     * @return ExecUnifiedentranceResponse
+     */
+    public function execUnifiedentranceEx($request, $headers, $runtime){
+        Utils::validateModel($request);
+        return ExecUnifiedentranceResponse::fromMap($this->doRequest("1.0", "antdigital.intellicar.unifiedentrance.exec", "HTTPS", "POST", "/gateway.do", Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 测试日志改造成果
+     * Summary: 测试日志改造成果
+     * @param QueryLogsNewRequest $request
+     * @return QueryLogsNewResponse
+     */
+    public function queryLogsNew($request){
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+        return $this->queryLogsNewEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 测试日志改造成果
+     * Summary: 测试日志改造成果
+     * @param QueryLogsNewRequest $request
+     * @param string[] $headers
+     * @param RuntimeOptions $runtime
+     * @return QueryLogsNewResponse
+     */
+    public function queryLogsNewEx($request, $headers, $runtime){
+        Utils::validateModel($request);
+        return QueryLogsNewResponse::fromMap($this->doRequest("1.0", "antdigital.intellicar.logs.new.query", "HTTPS", "POST", "/gateway.do", Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 日志改造测试
+     * Summary: 日志改造测试
+     * @param ExecLogsNewRequest $request
+     * @return ExecLogsNewResponse
+     */
+    public function execLogsNew($request){
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+        return $this->execLogsNewEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 日志改造测试
+     * Summary: 日志改造测试
+     * @param ExecLogsNewRequest $request
+     * @param string[] $headers
+     * @param RuntimeOptions $runtime
+     * @return ExecLogsNewResponse
+     */
+    public function execLogsNewEx($request, $headers, $runtime){
+        Utils::validateModel($request);
+        return ExecLogsNewResponse::fromMap($this->doRequest("1.0", "antdigital.intellicar.logs.new.exec", "HTTPS", "POST", "/gateway.do", Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 创建HTTP PUT提交的文件上传
+     * Summary: 文件上传创建
+     * @param CreateAntcloudGatewayxFileUploadRequest $request
+     * @return CreateAntcloudGatewayxFileUploadResponse
+     */
+    public function createAntcloudGatewayxFileUpload($request){
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+        return $this->createAntcloudGatewayxFileUploadEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 创建HTTP PUT提交的文件上传
+     * Summary: 文件上传创建
+     * @param CreateAntcloudGatewayxFileUploadRequest $request
+     * @param string[] $headers
+     * @param RuntimeOptions $runtime
+     * @return CreateAntcloudGatewayxFileUploadResponse
+     */
+    public function createAntcloudGatewayxFileUploadEx($request, $headers, $runtime){
+        Utils::validateModel($request);
+        return CreateAntcloudGatewayxFileUploadResponse::fromMap($this->doRequest("1.0", "antcloud.gatewayx.file.upload.create", "HTTPS", "POST", "/gateway.do", Tea::merge($request), $headers, $runtime));
+    }
+}
