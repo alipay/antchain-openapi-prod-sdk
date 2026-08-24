@@ -126,7 +126,7 @@ public class Client {
                     new TeaPair("req_msg_id", com.antgroup.antchain.openapi.antchain.util.AntchainUtils.getNonce()),
                     new TeaPair("access_key", _accessKeyId),
                     new TeaPair("base_sdk_version", "TeaSDK-2.0"),
-                    new TeaPair("sdk_version", "1.20.1"),
+                    new TeaPair("sdk_version", "1.20.2"),
                     new TeaPair("_prod_code", "ATO"),
                     new TeaPair("_prod_channel", "undefined")
                 );
@@ -429,6 +429,27 @@ public class Client {
     public CreateOnetimeRefundResponse createOnetimeRefundEx(CreateOnetimeRefundRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
         com.aliyun.teautil.Common.validateModel(request);
         return TeaModel.toModel(this.doRequest("1.0", "antchain.ato.onetime.refund.create", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new CreateOnetimeRefundResponse());
+    }
+
+    /**
+     * <b>description</b> :
+     * <p>Description: 新融资状态机资方主动重试接口
+     * Summary: 新融资状态机资方主动重试接口</p>
+     */
+    public ExecFundPlanResponse execFundPlan(ExecFundPlanRequest request) throws Exception {
+        com.aliyun.teautil.models.RuntimeOptions runtime = new com.aliyun.teautil.models.RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.execFundPlanEx(request, headers, runtime);
+    }
+
+    /**
+     * <b>description</b> :
+     * <p>Description: 新融资状态机资方主动重试接口
+     * Summary: 新融资状态机资方主动重试接口</p>
+     */
+    public ExecFundPlanResponse execFundPlanEx(ExecFundPlanRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "antchain.ato.fund.plan.exec", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new ExecFundPlanResponse());
     }
 
     /**
