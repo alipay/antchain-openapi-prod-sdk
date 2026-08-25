@@ -30,7 +30,7 @@ public class ListbysubjectAntchainDasKyaVcdigestResponse extends TeaModel {
 
     // vc摘要详情
     @NameInMap("vc_items")
-    public java.util.List<VcDigest> vcItems;
+    public java.util.List<VcSummaryItem> vcItems;
 
     public static ListbysubjectAntchainDasKyaVcdigestResponse build(java.util.Map<String, ?> map) throws Exception {
         ListbysubjectAntchainDasKyaVcdigestResponse self = new ListbysubjectAntchainDasKyaVcdigestResponse();
@@ -85,11 +85,11 @@ public class ListbysubjectAntchainDasKyaVcdigestResponse extends TeaModel {
         return this.pageSize;
     }
 
-    public ListbysubjectAntchainDasKyaVcdigestResponse setVcItems(java.util.List<VcDigest> vcItems) {
+    public ListbysubjectAntchainDasKyaVcdigestResponse setVcItems(java.util.List<VcSummaryItem> vcItems) {
         this.vcItems = vcItems;
         return this;
     }
-    public java.util.List<VcDigest> getVcItems() {
+    public java.util.List<VcSummaryItem> getVcItems() {
         return this.vcItems;
     }
 

@@ -18,18 +18,17 @@ public class SuspendAntchainDasKyaVcRequest extends TeaModel {
 
     // nonce随机值
     @NameInMap("nonce")
+    @Validation(required = true)
     public String nonce;
-
-    // 发起者的did
-    @NameInMap("did")
-    public String did;
 
     // 发起者密钥keyId
     @NameInMap("key_id")
+    @Validation(required = true)
     public String keyId;
 
     // 发起者密钥对 nonce 的独立签名
     @NameInMap("nonce_signature")
+    @Validation(required = true)
     public String nonceSignature;
 
     // 状态变更原因代码
@@ -40,6 +39,11 @@ public class SuspendAntchainDasKyaVcRequest extends TeaModel {
     // 详细说明
     @NameInMap("reason_detail")
     public String reasonDetail;
+
+    // 发行者did
+    @NameInMap("did")
+    @Validation(required = true)
+    public String did;
 
     public static SuspendAntchainDasKyaVcRequest build(java.util.Map<String, ?> map) throws Exception {
         SuspendAntchainDasKyaVcRequest self = new SuspendAntchainDasKyaVcRequest();
@@ -78,14 +82,6 @@ public class SuspendAntchainDasKyaVcRequest extends TeaModel {
         return this.nonce;
     }
 
-    public SuspendAntchainDasKyaVcRequest setDid(String did) {
-        this.did = did;
-        return this;
-    }
-    public String getDid() {
-        return this.did;
-    }
-
     public SuspendAntchainDasKyaVcRequest setKeyId(String keyId) {
         this.keyId = keyId;
         return this;
@@ -116,6 +112,14 @@ public class SuspendAntchainDasKyaVcRequest extends TeaModel {
     }
     public String getReasonDetail() {
         return this.reasonDetail;
+    }
+
+    public SuspendAntchainDasKyaVcRequest setDid(String did) {
+        this.did = did;
+        return this;
+    }
+    public String getDid() {
+        return this.did;
     }
 
 }

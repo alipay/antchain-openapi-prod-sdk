@@ -26,6 +26,21 @@ public class ListbysubjectAntchainDasKyaVcdigestRequest extends TeaModel {
     @Validation(required = true)
     public Long pageSize;
 
+    // 接收者did对应的keyId
+    @NameInMap("subject_key_id")
+    @Validation(required = true)
+    public String subjectKeyId;
+
+    // 时间戳
+    @NameInMap("nonce")
+    @Validation(required = true)
+    public String nonce;
+
+    // 时间戳签名
+    @NameInMap("nonce_signature")
+    @Validation(required = true)
+    public String nonceSignature;
+
     public static ListbysubjectAntchainDasKyaVcdigestRequest build(java.util.Map<String, ?> map) throws Exception {
         ListbysubjectAntchainDasKyaVcdigestRequest self = new ListbysubjectAntchainDasKyaVcdigestRequest();
         return TeaModel.build(map, self);
@@ -69,6 +84,30 @@ public class ListbysubjectAntchainDasKyaVcdigestRequest extends TeaModel {
     }
     public Long getPageSize() {
         return this.pageSize;
+    }
+
+    public ListbysubjectAntchainDasKyaVcdigestRequest setSubjectKeyId(String subjectKeyId) {
+        this.subjectKeyId = subjectKeyId;
+        return this;
+    }
+    public String getSubjectKeyId() {
+        return this.subjectKeyId;
+    }
+
+    public ListbysubjectAntchainDasKyaVcdigestRequest setNonce(String nonce) {
+        this.nonce = nonce;
+        return this;
+    }
+    public String getNonce() {
+        return this.nonce;
+    }
+
+    public ListbysubjectAntchainDasKyaVcdigestRequest setNonceSignature(String nonceSignature) {
+        this.nonceSignature = nonceSignature;
+        return this;
+    }
+    public String getNonceSignature() {
+        return this.nonceSignature;
     }
 
 }

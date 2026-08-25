@@ -18,6 +18,7 @@ public class RevokeAntchainDasKyaVcRequest extends TeaModel {
 
     // 随机值
     @NameInMap("nonce")
+    @Validation(required = true)
     public String nonce;
 
     // 发起者did
