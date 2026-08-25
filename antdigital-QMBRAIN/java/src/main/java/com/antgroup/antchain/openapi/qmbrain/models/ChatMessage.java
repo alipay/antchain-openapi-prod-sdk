@@ -30,6 +30,14 @@ public class ChatMessage extends TeaModel {
     @NameInMap("reasoning_content")
     public String reasoningContent;
 
+    // 图片地址
+    /**
+     * <strong>example:</strong>
+     * <p><a href="https://help-static-aliyun-doc.aliyuncs.com/file-manage-files/zh-CN/20241022/emyrja/dog_and_girl.jpeg">https://help-static-aliyun-doc.aliyuncs.com/file-manage-files/zh-CN/20241022/emyrja/dog_and_girl.jpeg</a></p>
+     */
+    @NameInMap("image")
+    public String image;
+
     public static ChatMessage build(java.util.Map<String, ?> map) throws Exception {
         ChatMessage self = new ChatMessage();
         return TeaModel.build(map, self);
@@ -57,6 +65,14 @@ public class ChatMessage extends TeaModel {
     }
     public String getReasoningContent() {
         return this.reasoningContent;
+    }
+
+    public ChatMessage setImage(String image) {
+        this.image = image;
+        return this;
+    }
+    public String getImage() {
+        return this.image;
     }
 
 }

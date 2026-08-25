@@ -25,6 +25,10 @@ public class ExecOperationagentSsechatRequest extends TeaModel {
     @Validation(required = true)
     public java.util.List<ChatMessage> messages;
 
+    // 大模型请求其他参数
+    @NameInMap("parameters")
+    public ParameterData parameters;
+
     public static ExecOperationagentSsechatRequest build(java.util.Map<String, ?> map) throws Exception {
         ExecOperationagentSsechatRequest self = new ExecOperationagentSsechatRequest();
         return TeaModel.build(map, self);
@@ -68,6 +72,14 @@ public class ExecOperationagentSsechatRequest extends TeaModel {
     }
     public java.util.List<ChatMessage> getMessages() {
         return this.messages;
+    }
+
+    public ExecOperationagentSsechatRequest setParameters(ParameterData parameters) {
+        this.parameters = parameters;
+        return this;
+    }
+    public ParameterData getParameters() {
+        return this.parameters;
     }
 
 }
