@@ -36,6 +36,22 @@ public class ParameterData extends TeaModel {
     @NameInMap("incremental_output")
     public Boolean incrementalOutput;
 
+    // 工具调用参数
+    /**
+     * <strong>example:</strong>
+     * <p>[{&quot;type&quot;:&quot;function&quot;,&quot;function&quot;:{&quot;name&quot;:&quot;get_current_weather&quot;,&quot;description&quot;:&quot;获取指定城市的当前天气情况&quot;,&quot;parameters&quot;:{&quot;type&quot;:&quot;object&quot;,&quot;properties&quot;:{&quot;location&quot;:{&quot;type&quot;:&quot;string&quot;,&quot;description&quot;:&quot;城市名称，例如：北京、上海、杭州&quot;}},&quot;required&quot;:[&quot;location&quot;]}}}]</p>
+     */
+    @NameInMap("tools")
+    public String tools;
+
+    // 格式化响应
+    /**
+     * <strong>example:</strong>
+     * <p>{             &quot;type&quot;: &quot;json_object&quot;         }</p>
+     */
+    @NameInMap("response_format")
+    public String responseFormat;
+
     public static ParameterData build(java.util.Map<String, ?> map) throws Exception {
         ParameterData self = new ParameterData();
         return TeaModel.build(map, self);
@@ -71,6 +87,22 @@ public class ParameterData extends TeaModel {
     }
     public Boolean getIncrementalOutput() {
         return this.incrementalOutput;
+    }
+
+    public ParameterData setTools(String tools) {
+        this.tools = tools;
+        return this;
+    }
+    public String getTools() {
+        return this.tools;
+    }
+
+    public ParameterData setResponseFormat(String responseFormat) {
+        this.responseFormat = responseFormat;
+        return this;
+    }
+    public String getResponseFormat() {
+        return this.responseFormat;
     }
 
 }
