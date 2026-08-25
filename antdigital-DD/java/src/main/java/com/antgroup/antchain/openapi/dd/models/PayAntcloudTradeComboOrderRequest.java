@@ -28,6 +28,10 @@ public class PayAntcloudTradeComboOrderRequest extends TeaModel {
     @NameInMap("pay_return_url")
     public String payReturnUrl;
 
+    // 组合下单支付配置项
+    @NameInMap("combo_order_pay_options")
+    public ComboOrderPayOptions comboOrderPayOptions;
+
     public static PayAntcloudTradeComboOrderRequest build(java.util.Map<String, ?> map) throws Exception {
         PayAntcloudTradeComboOrderRequest self = new PayAntcloudTradeComboOrderRequest();
         return TeaModel.build(map, self);
@@ -71,6 +75,14 @@ public class PayAntcloudTradeComboOrderRequest extends TeaModel {
     }
     public String getPayReturnUrl() {
         return this.payReturnUrl;
+    }
+
+    public PayAntcloudTradeComboOrderRequest setComboOrderPayOptions(ComboOrderPayOptions comboOrderPayOptions) {
+        this.comboOrderPayOptions = comboOrderPayOptions;
+        return this;
+    }
+    public ComboOrderPayOptions getComboOrderPayOptions() {
+        return this.comboOrderPayOptions;
     }
 
 }

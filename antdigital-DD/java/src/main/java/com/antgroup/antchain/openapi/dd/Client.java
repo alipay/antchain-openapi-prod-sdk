@@ -126,7 +126,7 @@ public class Client {
                     new TeaPair("req_msg_id", com.antgroup.antchain.openapi.antchain.util.AntchainUtils.getNonce()),
                     new TeaPair("access_key", _accessKeyId),
                     new TeaPair("base_sdk_version", "TeaSDK-2.0"),
-                    new TeaPair("sdk_version", "1.1.0"),
+                    new TeaPair("sdk_version", "1.1.1"),
                     new TeaPair("_prod_code", "DD"),
                     new TeaPair("_prod_channel", "default")
                 );
@@ -841,6 +841,27 @@ public class Client {
 
     /**
      * <b>description</b> :
+     * <p>Description: 根据租户查询实例列表
+     * Summary: 根据租户查询实例列表</p>
+     */
+    public ListAntcloudOfferInstanceResponse listAntcloudOfferInstance(ListAntcloudOfferInstanceRequest request) throws Exception {
+        com.aliyun.teautil.models.RuntimeOptions runtime = new com.aliyun.teautil.models.RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.listAntcloudOfferInstanceEx(request, headers, runtime);
+    }
+
+    /**
+     * <b>description</b> :
+     * <p>Description: 根据租户查询实例列表
+     * Summary: 根据租户查询实例列表</p>
+     */
+    public ListAntcloudOfferInstanceResponse listAntcloudOfferInstanceEx(ListAntcloudOfferInstanceRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "antcloud.offer.instance.list", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new ListAntcloudOfferInstanceResponse());
+    }
+
+    /**
+     * <b>description</b> :
      * <p>Description: 由外部业务系统来调用触发抵扣接口
      * Summary: 由外部业务系统来调用触发抵扣接口</p>
      */
@@ -946,6 +967,27 @@ public class Client {
 
     /**
      * <b>description</b> :
+     * <p>Description: 查询指定租户指定产品列表可用优惠券
+     * Summary: 查询指定租户指定产品列表可用优惠券</p>
+     */
+    public QueryAntcloudMarketingPartnerCouponResponse queryAntcloudMarketingPartnerCoupon(QueryAntcloudMarketingPartnerCouponRequest request) throws Exception {
+        com.aliyun.teautil.models.RuntimeOptions runtime = new com.aliyun.teautil.models.RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.queryAntcloudMarketingPartnerCouponEx(request, headers, runtime);
+    }
+
+    /**
+     * <b>description</b> :
+     * <p>Description: 查询指定租户指定产品列表可用优惠券
+     * Summary: 查询指定租户指定产品列表可用优惠券</p>
+     */
+    public QueryAntcloudMarketingPartnerCouponResponse queryAntcloudMarketingPartnerCouponEx(QueryAntcloudMarketingPartnerCouponRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "antcloud.marketing.partner.coupon.query", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new QueryAntcloudMarketingPartnerCouponResponse());
+    }
+
+    /**
+     * <b>description</b> :
      * <p>Description: 用于查询可用的优惠券模板信息
      * Summary: 用于查询可用的优惠券模板信息</p>
      */
@@ -963,6 +1005,27 @@ public class Client {
     public ListAntcloudMarketingPartnerCoupontemplateResponse listAntcloudMarketingPartnerCoupontemplateEx(ListAntcloudMarketingPartnerCoupontemplateRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
         com.aliyun.teautil.Common.validateModel(request);
         return TeaModel.toModel(this.doRequest("1.0", "antcloud.marketing.partner.coupontemplate.list", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new ListAntcloudMarketingPartnerCoupontemplateResponse());
+    }
+
+    /**
+     * <b>description</b> :
+     * <p>Description: 套餐询价接口
+     * Summary: 套餐询价接口</p>
+     */
+    public QueryAntcloudTradeComboPriceResponse queryAntcloudTradeComboPrice(QueryAntcloudTradeComboPriceRequest request) throws Exception {
+        com.aliyun.teautil.models.RuntimeOptions runtime = new com.aliyun.teautil.models.RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.queryAntcloudTradeComboPriceEx(request, headers, runtime);
+    }
+
+    /**
+     * <b>description</b> :
+     * <p>Description: 套餐询价接口
+     * Summary: 套餐询价接口</p>
+     */
+    public QueryAntcloudTradeComboPriceResponse queryAntcloudTradeComboPriceEx(QueryAntcloudTradeComboPriceRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "antcloud.trade.combo.price.query", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new QueryAntcloudTradeComboPriceResponse());
     }
 
     /**

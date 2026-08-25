@@ -12,6 +12,14 @@ public class ComboOrderOptions extends TeaModel {
     @NameInMap("confirm_ordered")
     public Boolean confirmOrdered;
 
+    // 创建订单后未发起支付前是否自动取消订单。false：不会自动取消订单。true：兜底60分钟后自动取消订单
+    /**
+     * <strong>example:</strong>
+     * <p>true</p>
+     */
+    @NameInMap("auto_cancel_combo_order")
+    public Boolean autoCancelComboOrder;
+
     public static ComboOrderOptions build(java.util.Map<String, ?> map) throws Exception {
         ComboOrderOptions self = new ComboOrderOptions();
         return TeaModel.build(map, self);
@@ -23,6 +31,14 @@ public class ComboOrderOptions extends TeaModel {
     }
     public Boolean getConfirmOrdered() {
         return this.confirmOrdered;
+    }
+
+    public ComboOrderOptions setAutoCancelComboOrder(Boolean autoCancelComboOrder) {
+        this.autoCancelComboOrder = autoCancelComboOrder;
+        return this;
+    }
+    public Boolean getAutoCancelComboOrder() {
+        return this.autoCancelComboOrder;
     }
 
 }

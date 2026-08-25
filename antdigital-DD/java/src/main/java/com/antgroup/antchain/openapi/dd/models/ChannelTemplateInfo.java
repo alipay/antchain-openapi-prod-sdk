@@ -37,10 +37,10 @@ public class ChannelTemplateInfo extends TeaModel {
     @NameInMap("coupon_type")
     public String couponType;
 
-    // 单张优惠券的券面额
+    // 单张优惠券的券面额，单位是 分/美分
     /**
      * <strong>example:</strong>
-     * <p>10.00</p>
+     * <p>1000</p>
      */
     @NameInMap("coupon_amount")
     public String couponAmount;
