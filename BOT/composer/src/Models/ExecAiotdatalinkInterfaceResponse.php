@@ -5,14 +5,11 @@ namespace AntChain\BOT\Models;
 
 use AlibabaCloud\Tea\Model;
 
-use AntChain\BOT\Models\AiPanelPushResponse;
-
-class PushElectrocarAipanelskinResponse extends Model {
+class ExecAiotdatalinkInterfaceResponse extends Model {
     protected $_name = [
         'reqMsgId' => 'req_msg_id',
         'resultCode' => 'result_code',
         'resultMsg' => 'result_msg',
-        'success' => 'success',
         'code' => 'code',
         'message' => 'message',
         'data' => 'data',
@@ -29,9 +26,6 @@ class PushElectrocarAipanelskinResponse extends Model {
         if (null !== $this->resultMsg) {
             $res['result_msg'] = $this->resultMsg;
         }
-        if (null !== $this->success) {
-            $res['success'] = $this->success;
-        }
         if (null !== $this->code) {
             $res['code'] = $this->code;
         }
@@ -39,13 +33,13 @@ class PushElectrocarAipanelskinResponse extends Model {
             $res['message'] = $this->message;
         }
         if (null !== $this->data) {
-            $res['data'] = null !== $this->data ? $this->data->toMap() : null;
+            $res['data'] = $this->data;
         }
         return $res;
     }
     /**
      * @param array $map
-     * @return PushElectrocarAipanelskinResponse
+     * @return ExecAiotdatalinkInterfaceResponse
      */
     public static function fromMap($map = []) {
         $model = new self();
@@ -58,9 +52,6 @@ class PushElectrocarAipanelskinResponse extends Model {
         if(isset($map['result_msg'])){
             $model->resultMsg = $map['result_msg'];
         }
-        if(isset($map['success'])){
-            $model->success = $map['success'];
-        }
         if(isset($map['code'])){
             $model->code = $map['code'];
         }
@@ -68,7 +59,7 @@ class PushElectrocarAipanelskinResponse extends Model {
             $model->message = $map['message'];
         }
         if(isset($map['data'])){
-            $model->data = AiPanelPushResponse::fromMap($map['data']);
+            $model->data = $map['data'];
         }
         return $model;
     }
@@ -90,27 +81,21 @@ class PushElectrocarAipanelskinResponse extends Model {
      */
     public $resultMsg;
 
-    // 是否请求成功
+    // 返回状态码，200 成功 其他失败
     /**
-     * @var bool
-     */
-    public $success;
-
-    // 响应编码
-    /**
-     * @var string
+     * @var int
      */
     public $code;
 
-    // 响应消息
+    // 返回描述信息
     /**
      * @var string
      */
     public $message;
 
-    // 是否已成功进入设备下发链路
+    // 返回 data 数据， json 格式字符串，根据 api 接口不同，返回的数据会不同
     /**
-     * @var AiPanelPushResponse
+     * @var string
      */
     public $data;
 

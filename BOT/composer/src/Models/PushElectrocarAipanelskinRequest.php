@@ -11,26 +11,24 @@ class PushElectrocarAipanelskinRequest extends Model {
         'productInstanceId' => 'product_instance_id',
         'tuid' => 'tuid',
         'skinId' => 'skin_id',
-        'skinName' => 'skin_name',
         'skinType' => 'skin_type',
-        'skinVer' => 'skin_ver',
         'skinSize' => 'skin_size',
         'screenW' => 'screen_w',
         'screenH' => 'screen_h',
         'formatVer' => 'format_ver',
         'url' => 'url',
         'ext' => 'ext',
+        'dashId' => 'dash_id',
     ];
     public function validate() {
         Model::validateRequired('tuid', $this->tuid, true);
         Model::validateRequired('skinId', $this->skinId, true);
-        Model::validateRequired('skinName', $this->skinName, true);
         Model::validateRequired('skinType', $this->skinType, true);
-        Model::validateRequired('skinVer', $this->skinVer, true);
         Model::validateRequired('skinSize', $this->skinSize, true);
         Model::validateRequired('screenW', $this->screenW, true);
         Model::validateRequired('screenH', $this->screenH, true);
         Model::validateRequired('url', $this->url, true);
+        Model::validateRequired('dashId', $this->dashId, true);
     }
     public function toMap() {
         $res = [];
@@ -46,14 +44,8 @@ class PushElectrocarAipanelskinRequest extends Model {
         if (null !== $this->skinId) {
             $res['skin_id'] = $this->skinId;
         }
-        if (null !== $this->skinName) {
-            $res['skin_name'] = $this->skinName;
-        }
         if (null !== $this->skinType) {
             $res['skin_type'] = $this->skinType;
-        }
-        if (null !== $this->skinVer) {
-            $res['skin_ver'] = $this->skinVer;
         }
         if (null !== $this->skinSize) {
             $res['skin_size'] = $this->skinSize;
@@ -72,6 +64,9 @@ class PushElectrocarAipanelskinRequest extends Model {
         }
         if (null !== $this->ext) {
             $res['ext'] = $this->ext;
+        }
+        if (null !== $this->dashId) {
+            $res['dash_id'] = $this->dashId;
         }
         return $res;
     }
@@ -93,14 +88,8 @@ class PushElectrocarAipanelskinRequest extends Model {
         if(isset($map['skin_id'])){
             $model->skinId = $map['skin_id'];
         }
-        if(isset($map['skin_name'])){
-            $model->skinName = $map['skin_name'];
-        }
         if(isset($map['skin_type'])){
             $model->skinType = $map['skin_type'];
-        }
-        if(isset($map['skin_ver'])){
-            $model->skinVer = $map['skin_ver'];
         }
         if(isset($map['skin_size'])){
             $model->skinSize = $map['skin_size'];
@@ -119,6 +108,9 @@ class PushElectrocarAipanelskinRequest extends Model {
         }
         if(isset($map['ext'])){
             $model->ext = $map['ext'];
+        }
+        if(isset($map['dash_id'])){
+            $model->dashId = $map['dash_id'];
         }
         return $model;
     }
@@ -141,27 +133,15 @@ class PushElectrocarAipanelskinRequest extends Model {
 
     // 皮肤id
     /**
-     * @var int
-     */
-    public $skinId;
-
-    // 皮肤名称
-    /**
      * @var string
      */
-    public $skinName;
+    public $skinId;
 
     // 0 全量、1 背景图、2 开关机动画、3 电子宠物动画
     /**
      * @var int
      */
     public $skinType;
-
-    // 皮肤版本号
-    /**
-     * @var int
-     */
-    public $skinVer;
 
     // 文件大小，单位字节
     /**
@@ -198,5 +178,11 @@ class PushElectrocarAipanelskinRequest extends Model {
      * @var string
      */
     public $ext;
+
+    // 面板id
+    /**
+     * @var string
+     */
+    public $dashId;
 
 }

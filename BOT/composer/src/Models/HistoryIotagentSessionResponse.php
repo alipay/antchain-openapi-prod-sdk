@@ -5,17 +5,16 @@ namespace AntChain\BOT\Models;
 
 use AlibabaCloud\Tea\Model;
 
-use AntChain\BOT\Models\AiPanelPushResponse;
-
-class PushElectrocarAipanelskinResponse extends Model {
+class HistoryIotagentSessionResponse extends Model {
     protected $_name = [
         'reqMsgId' => 'req_msg_id',
         'resultCode' => 'result_code',
         'resultMsg' => 'result_msg',
-        'success' => 'success',
-        'code' => 'code',
-        'message' => 'message',
-        'data' => 'data',
+        'sessionList' => 'session_list',
+        'total' => 'total',
+        'pages' => 'pages',
+        'pageIndex' => 'page_index',
+        'pageSize' => 'page_size',
     ];
     public function validate() {}
     public function toMap() {
@@ -29,23 +28,26 @@ class PushElectrocarAipanelskinResponse extends Model {
         if (null !== $this->resultMsg) {
             $res['result_msg'] = $this->resultMsg;
         }
-        if (null !== $this->success) {
-            $res['success'] = $this->success;
+        if (null !== $this->sessionList) {
+            $res['session_list'] = $this->sessionList;
         }
-        if (null !== $this->code) {
-            $res['code'] = $this->code;
+        if (null !== $this->total) {
+            $res['total'] = $this->total;
         }
-        if (null !== $this->message) {
-            $res['message'] = $this->message;
+        if (null !== $this->pages) {
+            $res['pages'] = $this->pages;
         }
-        if (null !== $this->data) {
-            $res['data'] = null !== $this->data ? $this->data->toMap() : null;
+        if (null !== $this->pageIndex) {
+            $res['page_index'] = $this->pageIndex;
+        }
+        if (null !== $this->pageSize) {
+            $res['page_size'] = $this->pageSize;
         }
         return $res;
     }
     /**
      * @param array $map
-     * @return PushElectrocarAipanelskinResponse
+     * @return HistoryIotagentSessionResponse
      */
     public static function fromMap($map = []) {
         $model = new self();
@@ -58,17 +60,20 @@ class PushElectrocarAipanelskinResponse extends Model {
         if(isset($map['result_msg'])){
             $model->resultMsg = $map['result_msg'];
         }
-        if(isset($map['success'])){
-            $model->success = $map['success'];
+        if(isset($map['session_list'])){
+            $model->sessionList = $map['session_list'];
         }
-        if(isset($map['code'])){
-            $model->code = $map['code'];
+        if(isset($map['total'])){
+            $model->total = $map['total'];
         }
-        if(isset($map['message'])){
-            $model->message = $map['message'];
+        if(isset($map['pages'])){
+            $model->pages = $map['pages'];
         }
-        if(isset($map['data'])){
-            $model->data = AiPanelPushResponse::fromMap($map['data']);
+        if(isset($map['page_index'])){
+            $model->pageIndex = $map['page_index'];
+        }
+        if(isset($map['page_size'])){
+            $model->pageSize = $map['page_size'];
         }
         return $model;
     }
@@ -90,28 +95,34 @@ class PushElectrocarAipanelskinResponse extends Model {
      */
     public $resultMsg;
 
-    // 是否请求成功
-    /**
-     * @var bool
-     */
-    public $success;
-
-    // 响应编码
+    // 会话历史
     /**
      * @var string
      */
-    public $code;
+    public $sessionList;
 
-    // 响应消息
+    // 总条数
     /**
-     * @var string
+     * @var int
      */
-    public $message;
+    public $total;
 
-    // 是否已成功进入设备下发链路
+    // 总页数
     /**
-     * @var AiPanelPushResponse
+     * @var int
      */
-    public $data;
+    public $pages;
+
+    // 当前页
+    /**
+     * @var int
+     */
+    public $pageIndex;
+
+    // 页面大小
+    /**
+     * @var int
+     */
+    public $pageSize;
 
 }

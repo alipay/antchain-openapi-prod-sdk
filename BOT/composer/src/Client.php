@@ -25,6 +25,14 @@ use AntChain\BOT\Models\QueryLeaseRealpersonRequest;
 use AntChain\BOT\Models\QueryLeaseRealpersonResponse;
 use AntChain\BOT\Models\QueryLeaseRiskRequest;
 use AntChain\BOT\Models\QueryLeaseRiskResponse;
+use AntChain\BOT\Models\ExecAiotdatalinkInterfaceRequest;
+use AntChain\BOT\Models\ExecAiotdatalinkInterfaceResponse;
+use AntChain\BOT\Models\QuerycontractAiotdatalinkAntfinanceassistantRequest;
+use AntChain\BOT\Models\QuerycontractAiotdatalinkAntfinanceassistantResponse;
+use AntChain\BOT\Models\SigncontractAiotdatalinkAntfinanceassistantRequest;
+use AntChain\BOT\Models\SigncontractAiotdatalinkAntfinanceassistantResponse;
+use AntChain\BOT\Models\ChatAiotdatalinkAntfinanceassistantRequest;
+use AntChain\BOT\Models\ChatAiotdatalinkAntfinanceassistantResponse;
 use AntChain\BOT\Models\CreateXrUserticketRequest;
 use AntChain\BOT\Models\CreateXrUserticketResponse;
 use AntChain\BOT\Models\ListXrXrticketpoolRequest;
@@ -110,6 +118,44 @@ use AntChain\BOT\Models\QueryIotagentPlugincontractRequest;
 use AntChain\BOT\Models\QueryIotagentPlugincontractResponse;
 use AntChain\BOT\Models\QueryIotagentUseridRequest;
 use AntChain\BOT\Models\QueryIotagentUseridResponse;
+use AntChain\BOT\Models\QueryIotagentFeatureRequest;
+use AntChain\BOT\Models\QueryIotagentFeatureResponse;
+use AntChain\BOT\Models\CreateIotagentAgentRequest;
+use AntChain\BOT\Models\CreateIotagentAgentResponse;
+use AntChain\BOT\Models\UpdateIotagentAgentRequest;
+use AntChain\BOT\Models\UpdateIotagentAgentResponse;
+use AntChain\BOT\Models\DeleteIotagentAgentRequest;
+use AntChain\BOT\Models\DeleteIotagentAgentResponse;
+use AntChain\BOT\Models\ListIotagentAgentRequest;
+use AntChain\BOT\Models\ListIotagentAgentResponse;
+use AntChain\BOT\Models\CreateIotagentAgentteamRequest;
+use AntChain\BOT\Models\CreateIotagentAgentteamResponse;
+use AntChain\BOT\Models\UpdateIotagentAgentteamRequest;
+use AntChain\BOT\Models\UpdateIotagentAgentteamResponse;
+use AntChain\BOT\Models\DetailIotagentAgentRequest;
+use AntChain\BOT\Models\DetailIotagentAgentResponse;
+use AntChain\BOT\Models\CreateIotagentSessionRequest;
+use AntChain\BOT\Models\CreateIotagentSessionResponse;
+use AntChain\BOT\Models\RenameIotagentSessionRequest;
+use AntChain\BOT\Models\RenameIotagentSessionResponse;
+use AntChain\BOT\Models\DeleteIotagentSessionRequest;
+use AntChain\BOT\Models\DeleteIotagentSessionResponse;
+use AntChain\BOT\Models\HistoryIotagentSessionRequest;
+use AntChain\BOT\Models\HistoryIotagentSessionResponse;
+use AntChain\BOT\Models\ListIotagentSessionRequest;
+use AntChain\BOT\Models\ListIotagentSessionResponse;
+use AntChain\BOT\Models\ChatIotagentSessionRequest;
+use AntChain\BOT\Models\ChatIotagentSessionResponse;
+use AntChain\BOT\Models\InterruptIotagentSessionRequest;
+use AntChain\BOT\Models\InterruptIotagentSessionResponse;
+use AntChain\BOT\Models\PushIotagentMessageRequest;
+use AntChain\BOT\Models\PushIotagentMessageResponse;
+use AntChain\BOT\Models\QuerypushstatusIotagentMessageRequest;
+use AntChain\BOT\Models\QuerypushstatusIotagentMessageResponse;
+use AntChain\BOT\Models\ListfilesIotagentSessionRequest;
+use AntChain\BOT\Models\ListfilesIotagentSessionResponse;
+use AntChain\BOT\Models\FliedownloadIotagentSessionRequest;
+use AntChain\BOT\Models\FliedownloadIotagentSessionResponse;
 use AntChain\BOT\Models\CreateAcsDeviceRequest;
 use AntChain\BOT\Models\CreateAcsDeviceResponse;
 use AntChain\BOT\Models\SendAcsCollectorRequest;
@@ -833,7 +879,7 @@ class Client {
                     "req_msg_id" => UtilClient::getNonce(),
                     "access_key" => $this->_accessKeyId,
                     "base_sdk_version" => "TeaSDK-2.0",
-                    "sdk_version" => "1.20.2",
+                    "sdk_version" => "1.21.11",
                     "_prod_code" => "BOT",
                     "_prod_channel" => "undefined"
                 ];
@@ -1026,6 +1072,106 @@ class Client {
     public function queryLeaseRiskEx($request, $headers, $runtime){
         Utils::validateModel($request);
         return QueryLeaseRiskResponse::fromMap($this->doRequest("1.0", "blockchain.bot.lease.risk.query", "HTTPS", "POST", "/gateway.do", Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 智能取数通用接口
+     * Summary: 智能取数通用接口
+     * @param ExecAiotdatalinkInterfaceRequest $request
+     * @return ExecAiotdatalinkInterfaceResponse
+     */
+    public function execAiotdatalinkInterface($request){
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+        return $this->execAiotdatalinkInterfaceEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 智能取数通用接口
+     * Summary: 智能取数通用接口
+     * @param ExecAiotdatalinkInterfaceRequest $request
+     * @param string[] $headers
+     * @param RuntimeOptions $runtime
+     * @return ExecAiotdatalinkInterfaceResponse
+     */
+    public function execAiotdatalinkInterfaceEx($request, $headers, $runtime){
+        Utils::validateModel($request);
+        return ExecAiotdatalinkInterfaceResponse::fromMap($this->doRequest("1.0", "blockchain.bot.aiotdatalink.interface.exec", "HTTPS", "POST", "/gateway.do", Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 蚂小财签约状态查询，参考RPC接口文档：https://yuque.antfin.com/pw3zzd/cplb7g/ghfep7wirmlxlg3u#ZHvWp
+     * Summary: 蚂小财签约状态查询，参考RPC接口文档：https://yuque.antfin.com/pw3zzd/cplb7g/ghfep7wirmlxlg3u#ZHvWp
+     * @param QuerycontractAiotdatalinkAntfinanceassistantRequest $request
+     * @return QuerycontractAiotdatalinkAntfinanceassistantResponse
+     */
+    public function querycontractAiotdatalinkAntfinanceassistant($request){
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+        return $this->querycontractAiotdatalinkAntfinanceassistantEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 蚂小财签约状态查询，参考RPC接口文档：https://yuque.antfin.com/pw3zzd/cplb7g/ghfep7wirmlxlg3u#ZHvWp
+     * Summary: 蚂小财签约状态查询，参考RPC接口文档：https://yuque.antfin.com/pw3zzd/cplb7g/ghfep7wirmlxlg3u#ZHvWp
+     * @param QuerycontractAiotdatalinkAntfinanceassistantRequest $request
+     * @param string[] $headers
+     * @param RuntimeOptions $runtime
+     * @return QuerycontractAiotdatalinkAntfinanceassistantResponse
+     */
+    public function querycontractAiotdatalinkAntfinanceassistantEx($request, $headers, $runtime){
+        Utils::validateModel($request);
+        return QuerycontractAiotdatalinkAntfinanceassistantResponse::fromMap($this->doRequest("1.0", "blockchain.bot.aiotdatalink.antfinanceassistant.querycontract", "HTTPS", "POST", "/gateway.do", Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 蚂小财签约，参考RPC接口文档：https://yuque.antfin.com/pw3zzd/cplb7g/ghfep7wirmlxlg3u#bs3M4
+     * Summary: 蚂小财签约，参考RPC接口文档：https://yuque.antfin.com/pw3zzd/cplb7g/ghfep7wirmlxlg3u#bs3M4
+     * @param SigncontractAiotdatalinkAntfinanceassistantRequest $request
+     * @return SigncontractAiotdatalinkAntfinanceassistantResponse
+     */
+    public function signcontractAiotdatalinkAntfinanceassistant($request){
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+        return $this->signcontractAiotdatalinkAntfinanceassistantEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 蚂小财签约，参考RPC接口文档：https://yuque.antfin.com/pw3zzd/cplb7g/ghfep7wirmlxlg3u#bs3M4
+     * Summary: 蚂小财签约，参考RPC接口文档：https://yuque.antfin.com/pw3zzd/cplb7g/ghfep7wirmlxlg3u#bs3M4
+     * @param SigncontractAiotdatalinkAntfinanceassistantRequest $request
+     * @param string[] $headers
+     * @param RuntimeOptions $runtime
+     * @return SigncontractAiotdatalinkAntfinanceassistantResponse
+     */
+    public function signcontractAiotdatalinkAntfinanceassistantEx($request, $headers, $runtime){
+        Utils::validateModel($request);
+        return SigncontractAiotdatalinkAntfinanceassistantResponse::fromMap($this->doRequest("1.0", "blockchain.bot.aiotdatalink.antfinanceassistant.signcontract", "HTTPS", "POST", "/gateway.do", Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 蚂小财对话，参考RPC接口文档：https://yuque.antfin.com/pw3zzd/cplb7g/ghfep7wirmlxlg3u#nzb6S
+     * Summary: 蚂小财对话，参考RPC接口文档：https://yuque.antfin.com/pw3zzd/cplb7g/ghfep7wirmlxlg3u#nzb6S
+     * @param ChatAiotdatalinkAntfinanceassistantRequest $request
+     * @return ChatAiotdatalinkAntfinanceassistantResponse
+     */
+    public function chatAiotdatalinkAntfinanceassistant($request){
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+        return $this->chatAiotdatalinkAntfinanceassistantEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 蚂小财对话，参考RPC接口文档：https://yuque.antfin.com/pw3zzd/cplb7g/ghfep7wirmlxlg3u#nzb6S
+     * Summary: 蚂小财对话，参考RPC接口文档：https://yuque.antfin.com/pw3zzd/cplb7g/ghfep7wirmlxlg3u#nzb6S
+     * @param ChatAiotdatalinkAntfinanceassistantRequest $request
+     * @param string[] $headers
+     * @param RuntimeOptions $runtime
+     * @return ChatAiotdatalinkAntfinanceassistantResponse
+     */
+    public function chatAiotdatalinkAntfinanceassistantEx($request, $headers, $runtime){
+        Utils::validateModel($request);
+        return ChatAiotdatalinkAntfinanceassistantResponse::fromMap($this->doRequest("1.0", "blockchain.bot.aiotdatalink.antfinanceassistant.chat", "HTTPS", "POST", "/gateway.do", Tea::merge($request), $headers, $runtime));
     }
 
     /**
@@ -2096,6 +2242,481 @@ class Client {
     public function queryIotagentUseridEx($request, $headers, $runtime){
         Utils::validateModel($request);
         return QueryIotagentUseridResponse::fromMap($this->doRequest("1.0", "blockchain.bot.iotagent.userid.query", "HTTPS", "POST", "/gateway.do", Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 根据tenant获取featureId
+     * Summary: 根据tenant获取featureId
+     * @param QueryIotagentFeatureRequest $request
+     * @return QueryIotagentFeatureResponse
+     */
+    public function queryIotagentFeature($request){
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+        return $this->queryIotagentFeatureEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 根据tenant获取featureId
+     * Summary: 根据tenant获取featureId
+     * @param QueryIotagentFeatureRequest $request
+     * @param string[] $headers
+     * @param RuntimeOptions $runtime
+     * @return QueryIotagentFeatureResponse
+     */
+    public function queryIotagentFeatureEx($request, $headers, $runtime){
+        Utils::validateModel($request);
+        return QueryIotagentFeatureResponse::fromMap($this->doRequest("1.0", "blockchain.bot.iotagent.feature.query", "HTTPS", "POST", "/gateway.do", Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 智能体创建
+     * Summary: 智能体创建
+     * @param CreateIotagentAgentRequest $request
+     * @return CreateIotagentAgentResponse
+     */
+    public function createIotagentAgent($request){
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+        return $this->createIotagentAgentEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 智能体创建
+     * Summary: 智能体创建
+     * @param CreateIotagentAgentRequest $request
+     * @param string[] $headers
+     * @param RuntimeOptions $runtime
+     * @return CreateIotagentAgentResponse
+     */
+    public function createIotagentAgentEx($request, $headers, $runtime){
+        Utils::validateModel($request);
+        return CreateIotagentAgentResponse::fromMap($this->doRequest("1.0", "blockchain.bot.iotagent.agent.create", "HTTPS", "POST", "/gateway.do", Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 智能体更新
+     * Summary: 智能体更新
+     * @param UpdateIotagentAgentRequest $request
+     * @return UpdateIotagentAgentResponse
+     */
+    public function updateIotagentAgent($request){
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+        return $this->updateIotagentAgentEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 智能体更新
+     * Summary: 智能体更新
+     * @param UpdateIotagentAgentRequest $request
+     * @param string[] $headers
+     * @param RuntimeOptions $runtime
+     * @return UpdateIotagentAgentResponse
+     */
+    public function updateIotagentAgentEx($request, $headers, $runtime){
+        Utils::validateModel($request);
+        return UpdateIotagentAgentResponse::fromMap($this->doRequest("1.0", "blockchain.bot.iotagent.agent.update", "HTTPS", "POST", "/gateway.do", Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 智能体删除
+     * Summary: 智能体删除
+     * @param DeleteIotagentAgentRequest $request
+     * @return DeleteIotagentAgentResponse
+     */
+    public function deleteIotagentAgent($request){
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+        return $this->deleteIotagentAgentEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 智能体删除
+     * Summary: 智能体删除
+     * @param DeleteIotagentAgentRequest $request
+     * @param string[] $headers
+     * @param RuntimeOptions $runtime
+     * @return DeleteIotagentAgentResponse
+     */
+    public function deleteIotagentAgentEx($request, $headers, $runtime){
+        Utils::validateModel($request);
+        return DeleteIotagentAgentResponse::fromMap($this->doRequest("1.0", "blockchain.bot.iotagent.agent.delete", "HTTPS", "POST", "/gateway.do", Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 智能体列表
+     * Summary: 智能体列表
+     * @param ListIotagentAgentRequest $request
+     * @return ListIotagentAgentResponse
+     */
+    public function listIotagentAgent($request){
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+        return $this->listIotagentAgentEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 智能体列表
+     * Summary: 智能体列表
+     * @param ListIotagentAgentRequest $request
+     * @param string[] $headers
+     * @param RuntimeOptions $runtime
+     * @return ListIotagentAgentResponse
+     */
+    public function listIotagentAgentEx($request, $headers, $runtime){
+        Utils::validateModel($request);
+        return ListIotagentAgentResponse::fromMap($this->doRequest("1.0", "blockchain.bot.iotagent.agent.list", "HTTPS", "POST", "/gateway.do", Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 智能体团队创建
+     * Summary: 智能体团队创建
+     * @param CreateIotagentAgentteamRequest $request
+     * @return CreateIotagentAgentteamResponse
+     */
+    public function createIotagentAgentteam($request){
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+        return $this->createIotagentAgentteamEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 智能体团队创建
+     * Summary: 智能体团队创建
+     * @param CreateIotagentAgentteamRequest $request
+     * @param string[] $headers
+     * @param RuntimeOptions $runtime
+     * @return CreateIotagentAgentteamResponse
+     */
+    public function createIotagentAgentteamEx($request, $headers, $runtime){
+        Utils::validateModel($request);
+        return CreateIotagentAgentteamResponse::fromMap($this->doRequest("1.0", "blockchain.bot.iotagent.agentteam.create", "HTTPS", "POST", "/gateway.do", Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 智能体团队编辑
+     * Summary: 智能体团队编辑
+     * @param UpdateIotagentAgentteamRequest $request
+     * @return UpdateIotagentAgentteamResponse
+     */
+    public function updateIotagentAgentteam($request){
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+        return $this->updateIotagentAgentteamEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 智能体团队编辑
+     * Summary: 智能体团队编辑
+     * @param UpdateIotagentAgentteamRequest $request
+     * @param string[] $headers
+     * @param RuntimeOptions $runtime
+     * @return UpdateIotagentAgentteamResponse
+     */
+    public function updateIotagentAgentteamEx($request, $headers, $runtime){
+        Utils::validateModel($request);
+        return UpdateIotagentAgentteamResponse::fromMap($this->doRequest("1.0", "blockchain.bot.iotagent.agentteam.update", "HTTPS", "POST", "/gateway.do", Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 智能体详情
+     * Summary: 智能体详情
+     * @param DetailIotagentAgentRequest $request
+     * @return DetailIotagentAgentResponse
+     */
+    public function detailIotagentAgent($request){
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+        return $this->detailIotagentAgentEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 智能体详情
+     * Summary: 智能体详情
+     * @param DetailIotagentAgentRequest $request
+     * @param string[] $headers
+     * @param RuntimeOptions $runtime
+     * @return DetailIotagentAgentResponse
+     */
+    public function detailIotagentAgentEx($request, $headers, $runtime){
+        Utils::validateModel($request);
+        return DetailIotagentAgentResponse::fromMap($this->doRequest("1.0", "blockchain.bot.iotagent.agent.detail", "HTTPS", "POST", "/gateway.do", Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: session创建
+     * Summary: session创建
+     * @param CreateIotagentSessionRequest $request
+     * @return CreateIotagentSessionResponse
+     */
+    public function createIotagentSession($request){
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+        return $this->createIotagentSessionEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: session创建
+     * Summary: session创建
+     * @param CreateIotagentSessionRequest $request
+     * @param string[] $headers
+     * @param RuntimeOptions $runtime
+     * @return CreateIotagentSessionResponse
+     */
+    public function createIotagentSessionEx($request, $headers, $runtime){
+        Utils::validateModel($request);
+        return CreateIotagentSessionResponse::fromMap($this->doRequest("1.0", "blockchain.bot.iotagent.session.create", "HTTPS", "POST", "/gateway.do", Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: seesion名字修改
+     * Summary: seesion名字修改
+     * @param RenameIotagentSessionRequest $request
+     * @return RenameIotagentSessionResponse
+     */
+    public function renameIotagentSession($request){
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+        return $this->renameIotagentSessionEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: seesion名字修改
+     * Summary: seesion名字修改
+     * @param RenameIotagentSessionRequest $request
+     * @param string[] $headers
+     * @param RuntimeOptions $runtime
+     * @return RenameIotagentSessionResponse
+     */
+    public function renameIotagentSessionEx($request, $headers, $runtime){
+        Utils::validateModel($request);
+        return RenameIotagentSessionResponse::fromMap($this->doRequest("1.0", "blockchain.bot.iotagent.session.rename", "HTTPS", "POST", "/gateway.do", Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: session删除
+     * Summary: session删除
+     * @param DeleteIotagentSessionRequest $request
+     * @return DeleteIotagentSessionResponse
+     */
+    public function deleteIotagentSession($request){
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+        return $this->deleteIotagentSessionEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: session删除
+     * Summary: session删除
+     * @param DeleteIotagentSessionRequest $request
+     * @param string[] $headers
+     * @param RuntimeOptions $runtime
+     * @return DeleteIotagentSessionResponse
+     */
+    public function deleteIotagentSessionEx($request, $headers, $runtime){
+        Utils::validateModel($request);
+        return DeleteIotagentSessionResponse::fromMap($this->doRequest("1.0", "blockchain.bot.iotagent.session.delete", "HTTPS", "POST", "/gateway.do", Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: session对话历史
+     * Summary: session对话历史
+     * @param HistoryIotagentSessionRequest $request
+     * @return HistoryIotagentSessionResponse
+     */
+    public function historyIotagentSession($request){
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+        return $this->historyIotagentSessionEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: session对话历史
+     * Summary: session对话历史
+     * @param HistoryIotagentSessionRequest $request
+     * @param string[] $headers
+     * @param RuntimeOptions $runtime
+     * @return HistoryIotagentSessionResponse
+     */
+    public function historyIotagentSessionEx($request, $headers, $runtime){
+        Utils::validateModel($request);
+        return HistoryIotagentSessionResponse::fromMap($this->doRequest("1.0", "blockchain.bot.iotagent.session.history", "HTTPS", "POST", "/gateway.do", Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: session 列表
+     * Summary: session 列表
+     * @param ListIotagentSessionRequest $request
+     * @return ListIotagentSessionResponse
+     */
+    public function listIotagentSession($request){
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+        return $this->listIotagentSessionEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: session 列表
+     * Summary: session 列表
+     * @param ListIotagentSessionRequest $request
+     * @param string[] $headers
+     * @param RuntimeOptions $runtime
+     * @return ListIotagentSessionResponse
+     */
+    public function listIotagentSessionEx($request, $headers, $runtime){
+        Utils::validateModel($request);
+        return ListIotagentSessionResponse::fromMap($this->doRequest("1.0", "blockchain.bot.iotagent.session.list", "HTTPS", "POST", "/gateway.do", Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: sse聊天
+     * Summary: sse聊天
+     * @param ChatIotagentSessionRequest $request
+     * @return ChatIotagentSessionResponse
+     */
+    public function chatIotagentSession($request){
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+        return $this->chatIotagentSessionEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: sse聊天
+     * Summary: sse聊天
+     * @param ChatIotagentSessionRequest $request
+     * @param string[] $headers
+     * @param RuntimeOptions $runtime
+     * @return ChatIotagentSessionResponse
+     */
+    public function chatIotagentSessionEx($request, $headers, $runtime){
+        Utils::validateModel($request);
+        return ChatIotagentSessionResponse::fromMap($this->doRequest("1.0", "blockchain.bot.iotagent.session.chat", "HTTPS", "POST", "/gateway.do", Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 会话打断
+     * Summary: 会话打断
+     * @param InterruptIotagentSessionRequest $request
+     * @return InterruptIotagentSessionResponse
+     */
+    public function interruptIotagentSession($request){
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+        return $this->interruptIotagentSessionEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 会话打断
+     * Summary: 会话打断
+     * @param InterruptIotagentSessionRequest $request
+     * @param string[] $headers
+     * @param RuntimeOptions $runtime
+     * @return InterruptIotagentSessionResponse
+     */
+    public function interruptIotagentSessionEx($request, $headers, $runtime){
+        Utils::validateModel($request);
+        return InterruptIotagentSessionResponse::fromMap($this->doRequest("1.0", "blockchain.bot.iotagent.session.interrupt", "HTTPS", "POST", "/gateway.do", Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 智能体消息/指令推送
+     * Summary: 智能体消息/指令推送
+     * @param PushIotagentMessageRequest $request
+     * @return PushIotagentMessageResponse
+     */
+    public function pushIotagentMessage($request){
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+        return $this->pushIotagentMessageEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 智能体消息/指令推送
+     * Summary: 智能体消息/指令推送
+     * @param PushIotagentMessageRequest $request
+     * @param string[] $headers
+     * @param RuntimeOptions $runtime
+     * @return PushIotagentMessageResponse
+     */
+    public function pushIotagentMessageEx($request, $headers, $runtime){
+        Utils::validateModel($request);
+        return PushIotagentMessageResponse::fromMap($this->doRequest("1.0", "blockchain.bot.iotagent.message.push", "HTTPS", "POST", "/gateway.do", Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 查询智能体消息/指令推送状态
+     * Summary: 查询智能体消息/指令推送状态
+     * @param QuerypushstatusIotagentMessageRequest $request
+     * @return QuerypushstatusIotagentMessageResponse
+     */
+    public function querypushstatusIotagentMessage($request){
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+        return $this->querypushstatusIotagentMessageEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 查询智能体消息/指令推送状态
+     * Summary: 查询智能体消息/指令推送状态
+     * @param QuerypushstatusIotagentMessageRequest $request
+     * @param string[] $headers
+     * @param RuntimeOptions $runtime
+     * @return QuerypushstatusIotagentMessageResponse
+     */
+    public function querypushstatusIotagentMessageEx($request, $headers, $runtime){
+        Utils::validateModel($request);
+        return QuerypushstatusIotagentMessageResponse::fromMap($this->doRequest("1.0", "blockchain.bot.iotagent.message.querypushstatus", "HTTPS", "POST", "/gateway.do", Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: session下的文件列表
+     * Summary: session下的文件列表
+     * @param ListfilesIotagentSessionRequest $request
+     * @return ListfilesIotagentSessionResponse
+     */
+    public function listfilesIotagentSession($request){
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+        return $this->listfilesIotagentSessionEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: session下的文件列表
+     * Summary: session下的文件列表
+     * @param ListfilesIotagentSessionRequest $request
+     * @param string[] $headers
+     * @param RuntimeOptions $runtime
+     * @return ListfilesIotagentSessionResponse
+     */
+    public function listfilesIotagentSessionEx($request, $headers, $runtime){
+        Utils::validateModel($request);
+        return ListfilesIotagentSessionResponse::fromMap($this->doRequest("1.0", "blockchain.bot.iotagent.session.listfiles", "HTTPS", "POST", "/gateway.do", Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 文件下载
+     * Summary: 文件下载
+     * @param FliedownloadIotagentSessionRequest $request
+     * @return FliedownloadIotagentSessionResponse
+     */
+    public function fliedownloadIotagentSession($request){
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+        return $this->fliedownloadIotagentSessionEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 文件下载
+     * Summary: 文件下载
+     * @param FliedownloadIotagentSessionRequest $request
+     * @param string[] $headers
+     * @param RuntimeOptions $runtime
+     * @return FliedownloadIotagentSessionResponse
+     */
+    public function fliedownloadIotagentSessionEx($request, $headers, $runtime){
+        Utils::validateModel($request);
+        return FliedownloadIotagentSessionResponse::fromMap($this->doRequest("1.0", "blockchain.bot.iotagent.session.fliedownload", "HTTPS", "POST", "/gateway.do", Tea::merge($request), $headers, $runtime));
     }
 
     /**

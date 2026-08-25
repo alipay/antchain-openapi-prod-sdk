@@ -5,17 +5,11 @@ namespace AntChain\BOT\Models;
 
 use AlibabaCloud\Tea\Model;
 
-use AntChain\BOT\Models\AiPanelPushResponse;
-
-class PushElectrocarAipanelskinResponse extends Model {
+class DeleteIotagentAgentResponse extends Model {
     protected $_name = [
         'reqMsgId' => 'req_msg_id',
         'resultCode' => 'result_code',
         'resultMsg' => 'result_msg',
-        'success' => 'success',
-        'code' => 'code',
-        'message' => 'message',
-        'data' => 'data',
     ];
     public function validate() {}
     public function toMap() {
@@ -29,23 +23,11 @@ class PushElectrocarAipanelskinResponse extends Model {
         if (null !== $this->resultMsg) {
             $res['result_msg'] = $this->resultMsg;
         }
-        if (null !== $this->success) {
-            $res['success'] = $this->success;
-        }
-        if (null !== $this->code) {
-            $res['code'] = $this->code;
-        }
-        if (null !== $this->message) {
-            $res['message'] = $this->message;
-        }
-        if (null !== $this->data) {
-            $res['data'] = null !== $this->data ? $this->data->toMap() : null;
-        }
         return $res;
     }
     /**
      * @param array $map
-     * @return PushElectrocarAipanelskinResponse
+     * @return DeleteIotagentAgentResponse
      */
     public static function fromMap($map = []) {
         $model = new self();
@@ -57,18 +39,6 @@ class PushElectrocarAipanelskinResponse extends Model {
         }
         if(isset($map['result_msg'])){
             $model->resultMsg = $map['result_msg'];
-        }
-        if(isset($map['success'])){
-            $model->success = $map['success'];
-        }
-        if(isset($map['code'])){
-            $model->code = $map['code'];
-        }
-        if(isset($map['message'])){
-            $model->message = $map['message'];
-        }
-        if(isset($map['data'])){
-            $model->data = AiPanelPushResponse::fromMap($map['data']);
         }
         return $model;
     }
@@ -89,29 +59,5 @@ class PushElectrocarAipanelskinResponse extends Model {
      * @var string
      */
     public $resultMsg;
-
-    // 是否请求成功
-    /**
-     * @var bool
-     */
-    public $success;
-
-    // 响应编码
-    /**
-     * @var string
-     */
-    public $code;
-
-    // 响应消息
-    /**
-     * @var string
-     */
-    public $message;
-
-    // 是否已成功进入设备下发链路
-    /**
-     * @var AiPanelPushResponse
-     */
-    public $data;
 
 }
