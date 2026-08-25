@@ -17,9 +17,9 @@ public class QueryIotagentFeatureRequest extends TeaModel {
     public String tenantId;
 
     // 要素项目ID
-    @NameInMap("asset_element_project")
+    @NameInMap("asset_element_project_id")
     @Validation(required = true)
-    public String assetElementProject;
+    public String assetElementProjectId;
 
     public static QueryIotagentFeatureRequest build(java.util.Map<String, ?> map) throws Exception {
         QueryIotagentFeatureRequest self = new QueryIotagentFeatureRequest();
@@ -50,12 +50,12 @@ public class QueryIotagentFeatureRequest extends TeaModel {
         return this.tenantId;
     }
 
-    public QueryIotagentFeatureRequest setAssetElementProject(String assetElementProject) {
-        this.assetElementProject = assetElementProject;
+    public QueryIotagentFeatureRequest setAssetElementProjectId(String assetElementProjectId) {
+        this.assetElementProjectId = assetElementProjectId;
         return this;
     }
-    public String getAssetElementProject() {
-        return this.assetElementProject;
+    public String getAssetElementProjectId() {
+        return this.assetElementProjectId;
     }
 
 }

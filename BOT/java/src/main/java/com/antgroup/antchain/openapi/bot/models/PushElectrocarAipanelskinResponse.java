@@ -28,6 +28,10 @@ public class PushElectrocarAipanelskinResponse extends TeaModel {
     @NameInMap("message")
     public String message;
 
+    // 是否已成功进入设备下发链路
+    @NameInMap("data")
+    public AiPanelPushResponse data;
+
     public static PushElectrocarAipanelskinResponse build(java.util.Map<String, ?> map) throws Exception {
         PushElectrocarAipanelskinResponse self = new PushElectrocarAipanelskinResponse();
         return TeaModel.build(map, self);
@@ -79,6 +83,14 @@ public class PushElectrocarAipanelskinResponse extends TeaModel {
     }
     public String getMessage() {
         return this.message;
+    }
+
+    public PushElectrocarAipanelskinResponse setData(AiPanelPushResponse data) {
+        this.data = data;
+        return this;
+    }
+    public AiPanelPushResponse getData() {
+        return this.data;
     }
 
 }
