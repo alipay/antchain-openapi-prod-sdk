@@ -2,6 +2,7 @@
 import AntchainUtil from '@antchain/alipay-util';
 import Util, * as $Util from '@alicloud/tea-util';
 import RPCUtil from '@alicloud/rpc-util';
+import { Readable } from 'stream';
 import * as $tea from '@alicloud/tea-typescript';
 
 /**
@@ -932,7 +933,6 @@ export class OrderDTO extends $tea.Model {
   }
 }
 
-// 商品明细
 export class OrderItem extends $tea.Model {
   // 商品ID
   /**
@@ -1892,6 +1892,63 @@ export class TestA extends $tea.Model {
   }
 }
 
+// 项目成员
+export class Member extends $tea.Model {
+  // 用户ID
+  /**
+   * @example
+   * 0000461041
+   */
+  userId: string;
+  // 用户名称
+  /**
+   * @example
+   * 张三
+   */
+  userName: string;
+  // 登录名
+  /**
+   * @example
+   * hpat684@alitest.xyz
+   */
+  loginName: string;
+  // 项目ID
+  /**
+   * @example
+   * 00004606871785921985864
+   */
+  projectId: string;
+  // 创建时间
+  /**
+   * @example
+   * 2026-05-22 10:18:40
+   */
+  gmtCreate: string;
+  static names(): { [key: string]: string } {
+    return {
+      userId: 'user_id',
+      userName: 'user_name',
+      loginName: 'login_name',
+      projectId: 'project_id',
+      gmtCreate: 'gmt_create',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      userId: 'string',
+      userName: 'string',
+      loginName: 'string',
+      projectId: 'string',
+      gmtCreate: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
 // 访问IaaS层的身份
 export class Accessor extends $tea.Model {
   // Accessor关联的AccessKey
@@ -2052,6 +2109,47 @@ export class Customer extends $tea.Model {
       id: 'string',
       name: 'string',
       updateTime: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+// 用户
+export class User extends $tea.Model {
+  // 用户ID
+  /**
+   * @example
+   * 0000460699
+   */
+  userId: string;
+  // 用户名称
+  /**
+   * @example
+   * 张三
+   */
+  userName: string;
+  // 登录名
+  /**
+   * @example
+   * xsh@digital-engine.com
+   */
+  loginName: string;
+  static names(): { [key: string]: string } {
+    return {
+      userId: 'user_id',
+      userName: 'user_name',
+      loginName: 'login_name',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      userId: 'string',
+      userName: 'string',
+      loginName: 'string',
     };
   }
 
@@ -2244,6 +2342,12 @@ export class Project extends $tea.Model {
    * 2026-04-21 09:57:21
    */
   gmtModified: string;
+  // 状态(false代表禁用，true代表启用)
+  /**
+   * @example
+   * true
+   */
+  status: boolean;
   static names(): { [key: string]: string } {
     return {
       projectId: 'project_id',
@@ -2252,6 +2356,7 @@ export class Project extends $tea.Model {
       isDefault: 'is_default',
       gmtCreate: 'gmt_create',
       gmtModified: 'gmt_modified',
+      status: 'status',
     };
   }
 
@@ -2263,6 +2368,7 @@ export class Project extends $tea.Model {
       isDefault: 'boolean',
       gmtCreate: 'string',
       gmtModified: 'string',
+      status: 'boolean',
     };
   }
 
@@ -2464,6 +2570,206 @@ export class Operator extends $tea.Model {
   }
 }
 
+// 实例配置
+export class Component extends $tea.Model {
+  // 名称
+  /**
+   * @example
+   * DATA_DISK_SIZE
+   */
+  name?: string;
+  // 单位
+  /**
+   * @example
+   * GB
+   */
+  unit?: string;
+  // 值
+  /**
+   * @example
+   * 200
+   */
+  value?: string;
+  static names(): { [key: string]: string } {
+    return {
+      name: 'name',
+      unit: 'unit',
+      value: 'value',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      name: 'string',
+      unit: 'string',
+      value: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+// 实例续费
+export class Renewal extends $tea.Model {
+  // 实例当前配置
+  components?: Component[];
+  // 续费订单截止时间
+  /**
+   * @example
+   * 格式为ISO 8601格式，精确到秒，带时区信息，格式为YYYY-MM-DDThh:mm:ssZ
+   */
+  endTime?: string;
+  // 实例Id
+  /**
+   * @example
+   * A0CSCMAYIBANKPWBATNA4F
+   */
+  instanceId?: string;
+  // 续费订单开始时间
+  /**
+   * @example
+   * 格式为ISO 8601格式，精确到秒，带时区信息，格式为YYYY-MM-DDThh:mm:ssZ
+   */
+  startTime?: string;
+  static names(): { [key: string]: string } {
+    return {
+      components: 'components',
+      endTime: 'end_time',
+      instanceId: 'instance_id',
+      startTime: 'start_time',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      components: { 'type': 'array', 'itemType': Component },
+      endTime: 'string',
+      instanceId: 'string',
+      startTime: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+// 商品规格
+export class CommodityAttr extends $tea.Model {
+  // 规格属性编码
+  /**
+   * @example
+   * version
+   */
+  code: string;
+  // 规格属性值
+  /**
+   * @example
+   * mytc_mini
+   */
+  value: string;
+  // 规格属性单位
+  /**
+   * @example
+   * 个
+   */
+  unit?: string;
+  static names(): { [key: string]: string } {
+    return {
+      code: 'code',
+      value: 'value',
+      unit: 'unit',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      code: 'string',
+      value: 'string',
+      unit: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+// 商品实例
+export class Instance extends $tea.Model {
+  // 付费方式 PREPAY_BY_MONTH _按月预付_; AFTER_PAY_BY_HOUR _按小时后收_
+  /**
+   * @example
+   * PREPAY_BY_MONTH
+   */
+  chargeType?: string;
+  // 实例当前配置
+  components?: Component[];
+  // 合约截止时间
+  /**
+   * @example
+   * 格式为ISO 8601格式，精确到秒，带时区信息，格式为YYYY-MM-DDThh:mm:ssZ
+   */
+  endTime?: string;
+  // 实例Id
+  /**
+   * @example
+   * A0CSCMAYIBANKPWBATNA4F
+   */
+  instanceId?: string;
+  // 产品code
+  /**
+   * @example
+   * ECS
+   */
+  productCode?: string;
+  // 续费信息
+  renewals?: Renewal[];
+  // 合约生效时间
+  /**
+   * @example
+   * 格式为ISO 8601格式，精确到秒，带时区信息，格式为YYYY-MM-DDThh:mm:ssZ
+   */
+  startTime?: string;
+  // 实例状态 CREATING 创建中,FAILED 创建失败,STARTED 运行中,STOPPED 已停服,CHANGING 变配中,RELEASED 已释放
+  /**
+   * @example
+   * STARTED
+   */
+  status?: string;
+  static names(): { [key: string]: string } {
+    return {
+      chargeType: 'charge_type',
+      components: 'components',
+      endTime: 'end_time',
+      instanceId: 'instance_id',
+      productCode: 'product_code',
+      renewals: 'renewals',
+      startTime: 'start_time',
+      status: 'status',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      chargeType: 'string',
+      components: { 'type': 'array', 'itemType': Component },
+      endTime: 'string',
+      instanceId: 'string',
+      productCode: 'string',
+      renewals: { 'type': 'array', 'itemType': Renewal },
+      startTime: 'string',
+      status: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
 // 范围value
 export class RangeValue extends $tea.Model {
   // 范围类型
@@ -2490,12 +2796,19 @@ export class RangeValue extends $tea.Model {
    * 1
    */
   step?: number;
+  // 小数位数
+  /**
+   * @example
+   * 2
+   */
+  decimalPrecision?: number;
   static names(): { [key: string]: string } {
     return {
       rangeType: 'range_type',
       minValue: 'min_value',
       maxValue: 'max_value',
       step: 'step',
+      decimalPrecision: 'decimal_precision',
     };
   }
 
@@ -2505,6 +2818,7 @@ export class RangeValue extends $tea.Model {
       minValue: 'number',
       maxValue: 'number',
       step: 'number',
+      decimalPrecision: 'number',
     };
   }
 
@@ -4515,7 +4829,11 @@ export class OmsDataComponentDeductDetailResultVO extends $tea.Model {
    */
   resourcePackageLogId: string;
   // 资源包抵扣量
-  deductAmount: number;
+  /**
+   * @example
+   * 123
+   */
+  deductAmount?: number;
   // 资源包抵扣价值
   /**
    * @example
@@ -4540,6 +4858,12 @@ export class OmsDataComponentDeductDetailResultVO extends $tea.Model {
    * 资源包实例id
    */
   resourcePackageInstanceId: string;
+  // 高精度抵扣量
+  /**
+   * @example
+   * 0.09
+   */
+  deductAmountStr?: string;
   static names(): { [key: string]: string } {
     return {
       resourcePackageLogId: 'resource_package_log_id',
@@ -4548,6 +4872,7 @@ export class OmsDataComponentDeductDetailResultVO extends $tea.Model {
       deductedTime: 'deducted_time',
       resourcePackageId: 'resource_package_id',
       resourcePackageInstanceId: 'resource_package_instance_id',
+      deductAmountStr: 'deduct_amount_str',
     };
   }
 
@@ -4559,6 +4884,7 @@ export class OmsDataComponentDeductDetailResultVO extends $tea.Model {
       deductedTime: 'string',
       resourcePackageId: 'string',
       resourcePackageInstanceId: 'string',
+      deductAmountStr: 'string',
     };
   }
 
@@ -4802,6 +5128,12 @@ export class RespackegeBanlanceVO extends $tea.Model {
   // 剩余金额
   // 
   remainFund: MultiCurrencyMoney;
+  // 高精度余量
+  /**
+   * @example
+   * 0.09
+   */
+  decimalCurrentCapacity?: string;
   static names(): { [key: string]: string } {
     return {
       productCode: 'product_code',
@@ -4811,6 +5143,7 @@ export class RespackegeBanlanceVO extends $tea.Model {
       currentCapacity: 'current_capacity',
       totalFund: 'total_fund',
       remainFund: 'remain_fund',
+      decimalCurrentCapacity: 'decimal_current_capacity',
     };
   }
 
@@ -4823,6 +5156,7 @@ export class RespackegeBanlanceVO extends $tea.Model {
       currentCapacity: 'string',
       totalFund: MultiCurrencyMoney,
       remainFund: MultiCurrencyMoney,
+      decimalCurrentCapacity: 'string',
     };
   }
 
@@ -5337,47 +5671,6 @@ export class BusinessRequest extends $tea.Model {
   }
 }
 
-// 用于传输附件链接
-export class Attachment extends $tea.Model {
-  // 文件唯一标识，作为幂等字段
-  /**
-   * @example
-   * 10100000219487
-   */
-  fileId: string;
-  // 文件名称，用作展示
-  /**
-   * @example
-   * exmaple.pdf
-   */
-  filename?: string;
-  // 访问地址
-  /**
-   * @example
-   * 文件链接
-   */
-  url: string;
-  static names(): { [key: string]: string } {
-    return {
-      fileId: 'file_id',
-      filename: 'filename',
-      url: 'url',
-    };
-  }
-
-  static types(): { [key: string]: any } {
-    return {
-      fileId: 'string',
-      filename: 'string',
-      url: 'string',
-    };
-  }
-
-  constructor(map?: { [key: string]: any }) {
-    super(map);
-  }
-}
-
 // 页面上下文
 export class PageContext extends $tea.Model {
   // 页面di
@@ -5569,6 +5862,160 @@ export class CategoryLocalVO extends $tea.Model {
       createdTime: 'string',
       modifiedTime: 'string',
       isCatalogue: 'boolean',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+// 用于传输附件链接
+export class Attachment extends $tea.Model {
+  // 文件唯一标识，作为幂等字段
+  /**
+   * @example
+   * 10100000219487
+   */
+  fileId: string;
+  // 文件名称，用作展示
+  /**
+   * @example
+   * exmaple.pdf
+   */
+  filename?: string;
+  // 访问地址
+  /**
+   * @example
+   * 文件链接
+   */
+  url: string;
+  static names(): { [key: string]: string } {
+    return {
+      fileId: 'file_id',
+      filename: 'filename',
+      url: 'url',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      fileId: 'string',
+      filename: 'string',
+      url: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+// 优惠券模板信息
+export class ChannelTemplateInfo extends $tea.Model {
+  // 优惠券模板id
+  /**
+   * @example
+   * 12345
+   */
+  templateId: string;
+  // 模板名称
+  /**
+   * @example
+   * 国际站10美元优惠券
+   */
+  templateName?: string;
+  // 模板状态,APPROVED代表审批通过的模板
+  /**
+   * @example
+   * APPROVED
+   */
+  templateStatus?: string;
+  // 优惠券类型
+  /**
+   * @example
+   * VOUCHER
+   */
+  couponType?: string;
+  // 单张优惠券的券面额，单位是 分/美分
+  /**
+   * @example
+   * 1000
+   */
+  couponAmount?: string;
+  // 券面额币种
+  /**
+   * @example
+   * CNY、USD
+   */
+  currency?: string;
+  // 模板最多允许发放的优惠券总数量
+  /**
+   * @example
+   * 100
+   */
+  totalQuota?: number;
+  // 当前已经发出的优惠券数量
+  /**
+   * @example
+   * 20
+   */
+  releasedQuota?: number;
+  // 当前剩余可发数量
+  /**
+   * @example
+   * 80
+   */
+  availableQuota?: number;
+  // 模板有效期开始时间
+  /**
+   * @example
+   * 2026-08-09T10:10:00Z
+   */
+  templateStartTime?: string;
+  // 模板有效期结束时间
+  /**
+   * @example
+   * 2026-08-12T10:10:00Z
+   */
+  templateEndTime?: string;
+  // 模板适用的商品编码列表
+  /**
+   * @example
+   * undefined
+   */
+  itemCodes?: string[];
+  static names(): { [key: string]: string } {
+    return {
+      templateId: 'template_id',
+      templateName: 'template_name',
+      templateStatus: 'template_status',
+      couponType: 'coupon_type',
+      couponAmount: 'coupon_amount',
+      currency: 'currency',
+      totalQuota: 'total_quota',
+      releasedQuota: 'released_quota',
+      availableQuota: 'available_quota',
+      templateStartTime: 'template_start_time',
+      templateEndTime: 'template_end_time',
+      itemCodes: 'item_codes',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      templateId: 'string',
+      templateName: 'string',
+      templateStatus: 'string',
+      couponType: 'string',
+      couponAmount: 'string',
+      currency: 'string',
+      totalQuota: 'number',
+      releasedQuota: 'number',
+      availableQuota: 'number',
+      templateStartTime: 'string',
+      templateEndTime: 'string',
+      itemCodes: { 'type': 'array', 'itemType': 'string' },
     };
   }
 
@@ -6484,6 +6931,31 @@ export class PayOptions extends $tea.Model {
   }
 }
 
+// 组合订单支付配置项
+export class ComboOrderPayOptions extends $tea.Model {
+  // 支付中的订单是否自动取消。false：不会自动取消；true：自动取消(兜底时间=支付链接超时时间+3m)
+  /**
+   * @example
+   * true
+   */
+  autoCancelPayingOrder?: boolean;
+  static names(): { [key: string]: string } {
+    return {
+      autoCancelPayingOrder: 'auto_cancel_paying_order',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      autoCancelPayingOrder: 'boolean',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
 // 履约开通参数
 export class ProvisionOption extends $tea.Model {
   // 订单开始时间 (ISO 8601 UTC)，可自定义覆盖默认值
@@ -7351,6 +7823,18 @@ export class CommodityEnquiryPrice extends $tea.Model {
    * 100.00
    */
   originalCostAmount?: string;
+  // 税前应收价
+  /**
+   * @example
+   * 123.45
+   */
+  payAmountBeforeGst?: string;
+  // 税额
+  /**
+   * @example
+   * 3.45
+   */
+  payAmountOfGst?: string;
   static names(): { [key: string]: string } {
     return {
       commodityCode: 'commodity_code',
@@ -7369,6 +7853,8 @@ export class CommodityEnquiryPrice extends $tea.Model {
       discountRate: 'discount_rate',
       originalBdAmount: 'original_bd_amount',
       originalCostAmount: 'original_cost_amount',
+      payAmountBeforeGst: 'pay_amount_before_gst',
+      payAmountOfGst: 'pay_amount_of_gst',
     };
   }
 
@@ -7390,6 +7876,8 @@ export class CommodityEnquiryPrice extends $tea.Model {
       discountRate: 'string',
       originalBdAmount: 'string',
       originalCostAmount: 'string',
+      payAmountBeforeGst: 'string',
+      payAmountOfGst: 'string',
     };
   }
 
@@ -7608,6 +8096,39 @@ export class Combo extends $tea.Model {
   }
 }
 
+// 组合下单配置项
+export class ComboOrderOptions extends $tea.Model {
+  // 是否确认下单，默认false。true：订单状态会从待确认扭转已下单，可直接发起支付。false：不可直接发起支付，需确认后才可发起支付
+  /**
+   * @example
+   * false
+   */
+  confirmOrdered?: boolean;
+  // 创建订单后未发起支付前是否自动取消订单。false：不会自动取消订单。true：兜底60分钟后自动取消订单
+  /**
+   * @example
+   * true
+   */
+  autoCancelComboOrder?: boolean;
+  static names(): { [key: string]: string } {
+    return {
+      confirmOrdered: 'confirm_ordered',
+      autoCancelComboOrder: 'auto_cancel_combo_order',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      confirmOrdered: 'boolean',
+      autoCancelComboOrder: 'boolean',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
 // 用户选择的规格配置列表
 export class SelectedConfigItem extends $tea.Model {
   // 商品主数据内码（L5内码）
@@ -7681,63 +8202,6 @@ export class SelectedConfigItem extends $tea.Model {
   }
 }
 
-// 实例
-export class Instance extends $tea.Model {
-  // 租户id
-  /**
-   * @example
-   * 2088*****
-   */
-  tenantId: string;
-  // 实例id
-  /**
-   * @example
-   * 实例id
-   */
-  instanceId: string;
-  // 商品code
-  /**
-   * @example
-   * ECS
-   */
-  productName: string;
-  // 付费类型 PREPAY_BY_MONTH 预付 AFTER_PAY_BY_HOUR 后付 MIX_PAY 混合付
-  /**
-   * @example
-   * PREPAY_BY_MONTH
-   */
-  chargeType: string;
-  // 状态 CREATING 创建中 FAILED 创建失败  STARTED 运行中 STOPPED 已停服  RELEASED 已释放
-  /**
-   * @example
-   * STARTED
-   */
-  status: string;
-  static names(): { [key: string]: string } {
-    return {
-      tenantId: 'tenant_id',
-      instanceId: 'instance_id',
-      productName: 'product_name',
-      chargeType: 'charge_type',
-      status: 'status',
-    };
-  }
-
-  static types(): { [key: string]: any } {
-    return {
-      tenantId: 'string',
-      instanceId: 'string',
-      productName: 'string',
-      chargeType: 'string',
-      status: 'string',
-    };
-  }
-
-  constructor(map?: { [key: string]: any }) {
-    super(map);
-  }
-}
-
 // 下单返回接口
 export class CreateOrderResult extends $tea.Model {
   // 下单时指定的业务流水号。二级订单号
@@ -7803,6 +8267,423 @@ export class CreateOrderResult extends $tea.Model {
       instanceIds: 'string',
       orderErrorCode: 'string',
       orderErrorDescription: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+// ABC结构体C
+export class AbcStructC extends $tea.Model {
+  // string_c
+  /**
+   * @example
+   * string_c
+   */
+  stringParamC?: string;
+  // number_c
+  /**
+   * @example
+   * 200
+   */
+  numberParamC?: number;
+  // boolean_c
+  /**
+   * @example
+   * true, false
+   */
+  booleanParamC?: boolean;
+  // date_c
+  /**
+   * @example
+   * 2018-10-10T10:10:00Z
+   */
+  dateParamC?: string;
+  // string_c
+  /**
+   * @example
+   * string_c
+   */
+  arrayParamC?: string[];
+  static names(): { [key: string]: string } {
+    return {
+      stringParamC: 'string_param_c',
+      numberParamC: 'number_param_c',
+      booleanParamC: 'boolean_param_c',
+      dateParamC: 'date_param_c',
+      arrayParamC: 'array_param_c',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      stringParamC: 'string',
+      numberParamC: 'number',
+      booleanParamC: 'boolean',
+      dateParamC: 'string',
+      arrayParamC: { 'type': 'array', 'itemType': 'string' },
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+// ABC结构体B
+export class AbcStructB extends $tea.Model {
+  // string_b
+  /**
+   * @example
+   * string_b
+   */
+  stringParamB?: string;
+  // number_b
+  /**
+   * @example
+   * 200
+   */
+  numberParamB?: number;
+  // boolean_b
+  /**
+   * @example
+   * true, false
+   */
+  booleanParamB?: boolean;
+  // date_b
+  /**
+   * @example
+   * 2018-10-10T10:10:00Z
+   */
+  dateParamB?: string;
+  // array_b
+  /**
+   * @example
+   * array_param
+   */
+  arrayParamB?: AbcStructC[];
+  // struct_b
+  /**
+   * @example
+   * struct_param
+   */
+  structParamB?: AbcStructC;
+  static names(): { [key: string]: string } {
+    return {
+      stringParamB: 'string_param_b',
+      numberParamB: 'number_param_b',
+      booleanParamB: 'boolean_param_b',
+      dateParamB: 'date_param_b',
+      arrayParamB: 'array_param_b',
+      structParamB: 'struct_param_b',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      stringParamB: 'string',
+      numberParamB: 'number',
+      booleanParamB: 'boolean',
+      dateParamB: 'string',
+      arrayParamB: { 'type': 'array', 'itemType': AbcStructC },
+      structParamB: AbcStructC,
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+// ABC产品结构体A
+export class AbcCreateStructA extends $tea.Model {
+  // 【姓名】
+  /**
+   * @example
+   * 张三
+   */
+  name?: string;
+  // 【年龄】
+  /**
+   * @example
+   * 18
+   */
+  age?: number;
+  static names(): { [key: string]: string } {
+    return {
+      name: 'name',
+      age: 'age',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      name: 'string',
+      age: 'number',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+// ABC产品结构体B
+export class AbcCreateStructB extends $tea.Model {
+  // 【信息描述】
+  /**
+   * @example
+   * 这是关于xxx的资料信息
+   */
+  info?: string;
+  // 【地区】
+  /**
+   * @example
+   * 浙江省杭州市
+   */
+  region?: string;
+  static names(): { [key: string]: string } {
+    return {
+      info: 'info',
+      region: 'region',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      info: 'string',
+      region: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+// ABC产品结构体C
+export class AbcCreateStructC extends $tea.Model {
+  // 【个人信息】
+  /**
+   * @example
+   * {"name":"张三","age":"18"}
+   */
+  personalInformation?: AbcCreateStructA;
+  // 【地区信息】
+  /**
+   * @example
+   * {"info":"xxxxx","region":"浙江省杭州市西湖区xx街道xxx-xx幢-xx号"}
+   */
+  regionalInformation?: AbcCreateStructB;
+  // 【用例类型】
+  /**
+   * @example
+   * caseType
+   */
+  caseName?: string;
+  static names(): { [key: string]: string } {
+    return {
+      personalInformation: 'personal_information',
+      regionalInformation: 'regional_information',
+      caseName: 'case_name',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      personalInformation: AbcCreateStructA,
+      regionalInformation: AbcCreateStructB,
+      caseName: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+// ABC产品结构体D
+export class AbcCreateStructD extends $tea.Model {
+  // 应用场景（payChannel =JDPAY仅支持MINI_APP） MINI_APP 小程序 APP 自有app ALL 两种都有
+  /**
+   * @example
+   * ALL
+   */
+  applicationScene?: string;
+  // 小程序id
+  /**
+   * @example
+   * 小程序id
+   */
+  tinyAppId?: string;
+  // 小程序名称
+  /**
+   * @example
+   * xx小程序
+   */
+  siteName?: string;
+  // 网站地址（pay_channel=ALIPAY必填）
+  /**
+   * @example
+   * http://asdasas.com
+   */
+  sitUrl?: string;
+  // 商户名称。（pay_channel=ALIPAY必填） 修改后的商户名称，将同步支付宝代扣签约页面字段展示
+  /**
+   * @example
+   * xx商户
+   */
+  merchantName?: string;
+  // 商户服务名称。（pay_channel=ALIPAY必填） 修改后的商户服务名称，将同步支付宝代扣签约页面字段展示
+  /**
+   * @example
+   * xx商户服务
+   */
+  merchantServiceName?: string;
+  static names(): { [key: string]: string } {
+    return {
+      applicationScene: 'application_scene',
+      tinyAppId: 'tiny_app_id',
+      siteName: 'site_name',
+      sitUrl: 'sit_url',
+      merchantName: 'merchant_name',
+      merchantServiceName: 'merchant_service_name',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      applicationScene: 'string',
+      tinyAppId: 'string',
+      siteName: 'string',
+      sitUrl: 'string',
+      merchantName: 'string',
+      merchantServiceName: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+// ABC示例结构体（这是编辑后上线的）
+export class AbcDemoStruct extends $tea.Model {
+  // 字符串属性
+  /**
+   * @example
+   * str
+   */
+  someString?: string;
+  static names(): { [key: string]: string } {
+    return {
+      someString: 'some_string',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      someString: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+// ABC结构体A
+export class AbcStructA extends $tea.Model {
+  // string_a
+  /**
+   * @example
+   * string
+   */
+  stringParamA?: string;
+  // number_a
+  /**
+   * @example
+   * 800
+   */
+  numberParamA?: number;
+  // boolean_a
+  /**
+   * @example
+   * true, false
+   */
+  booleanParamA?: boolean;
+  // date_a
+  /**
+   * @example
+   * 2018-10-10T10:10:00Z
+   */
+  dateParamA?: string;
+  // struct_a
+  /**
+   * @example
+   * struct_param
+   */
+  structParamA?: AbcStructB;
+  static names(): { [key: string]: string } {
+    return {
+      stringParamA: 'string_param_a',
+      numberParamA: 'number_param_a',
+      booleanParamA: 'boolean_param_a',
+      dateParamA: 'date_param_a',
+      structParamA: 'struct_param_a',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      stringParamA: 'string',
+      numberParamA: 'number',
+      booleanParamA: 'boolean',
+      dateParamA: 'string',
+      structParamA: AbcStructB,
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+// 子结构体（这是编辑后的）
+export class SubDemoStruct extends $tea.Model {
+  // name
+  /**
+   * @example
+   * name
+   */
+  name: string;
+  // value
+  /**
+   * @example
+   * value
+   */
+  value: string;
+  // a
+  /**
+   * @example
+   * a
+   */
+  a: string;
+  static names(): { [key: string]: string } {
+    return {
+      name: 'name',
+      value: 'value',
+      a: 'a',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      name: 'string',
+      value: 'string',
+      a: 'string',
     };
   }
 
@@ -9374,6 +10255,2404 @@ export class Commodity extends $tea.Model {
   }
 }
 
+// 发票申请额度配置
+export class AmountSummaryConfig extends $tea.Model {
+  // 汇总KEY
+  /**
+   * @example
+   * 2334445
+   */
+  summaryKey: string;
+  // 汇总金额，单位为元
+  /**
+   * @example
+   * 230
+   */
+  summaryValue: string;
+  static names(): { [key: string]: string } {
+    return {
+      summaryKey: 'summary_key',
+      summaryValue: 'summary_value',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      summaryKey: 'string',
+      summaryValue: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+// 发票行信息
+export class InvoiceLineVO extends $tea.Model {
+  // 发票行金额
+  /**
+   * @example
+   * 10.09
+   */
+  lineAmt: string;
+  // 发票行ID
+  /**
+   * @example
+   * 20
+   */
+  lineId: string;
+  // 税额
+  /**
+   * @example
+   * 20.09
+   */
+  taxAmt: string;
+  // 税率
+  /**
+   * @example
+   * 0.06
+   */
+  taxRate: string;
+  // 货物或劳务名称，如 软件服务费201612
+  /**
+   * @example
+   * 软件服务费201612
+   */
+  lineProductName: string;
+  // 不含税金额
+  /**
+   * @example
+   * 93.24
+   */
+  taxExclusiveAmt?: string;
+  // 数量
+  /**
+   * @example
+   * 13
+   */
+  quantity?: number;
+  // 单位
+  /**
+   * @example
+   * 个
+   */
+  unit?: string;
+  // 单价
+  /**
+   * @example
+   * 2.34
+   */
+  unitPrice?: string;
+  // 规格型号
+  /**
+   * @example
+   * 规格型号
+   */
+  specificationModel?: string;
+  // 服务大类
+  /**
+   * @example
+   * 技术服务费
+   */
+  taxClassificationName?: string;
+  // 税收分类编号
+  /**
+   * @example
+   * 344555
+   */
+  taxClassificationCode?: string;
+  // 货物或劳务名称后缀
+  /**
+   * @example
+   * 202306
+   */
+  productNameSuffix?: string;
+  static names(): { [key: string]: string } {
+    return {
+      lineAmt: 'line_amt',
+      lineId: 'line_id',
+      taxAmt: 'tax_amt',
+      taxRate: 'tax_rate',
+      lineProductName: 'line_product_name',
+      taxExclusiveAmt: 'tax_exclusive_amt',
+      quantity: 'quantity',
+      unit: 'unit',
+      unitPrice: 'unit_price',
+      specificationModel: 'specification_model',
+      taxClassificationName: 'tax_classification_name',
+      taxClassificationCode: 'tax_classification_code',
+      productNameSuffix: 'product_name_suffix',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      lineAmt: 'string',
+      lineId: 'string',
+      taxAmt: 'string',
+      taxRate: 'string',
+      lineProductName: 'string',
+      taxExclusiveAmt: 'string',
+      quantity: 'number',
+      unit: 'string',
+      unitPrice: 'string',
+      specificationModel: 'string',
+      taxClassificationName: 'string',
+      taxClassificationCode: 'string',
+      productNameSuffix: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+// 销方信息
+export class ApplyInvoiceSeller extends $tea.Model {
+  // 地址
+  /**
+   * @example
+   * 上海市黄浦区
+   */
+  sellerAddress?: string;
+  // 银行账号
+  /**
+   * @example
+   * 323422244555
+   */
+  sellerBankAccount: string;
+  // 银行名称
+  /**
+   * @example
+   * 招商很行
+   */
+  sellerBankName: string;
+  // 公司名称
+  /**
+   * @example
+   * 蚂蚁区块链
+   */
+  sellerCompanyName: string;
+  // 税号
+  /**
+   * @example
+   * 33453344556
+   */
+  sellerTaxNo: string;
+  // 电话
+  /**
+   * @example
+   * 0571-978655
+   */
+  sellerTelephone: string;
+  // 销方机构id
+  /**
+   * @example
+   * ZL6
+   */
+  sellerInstId: string;
+  static names(): { [key: string]: string } {
+    return {
+      sellerAddress: 'seller_address',
+      sellerBankAccount: 'seller_bank_account',
+      sellerBankName: 'seller_bank_name',
+      sellerCompanyName: 'seller_company_name',
+      sellerTaxNo: 'seller_tax_no',
+      sellerTelephone: 'seller_telephone',
+      sellerInstId: 'seller_inst_id',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      sellerAddress: 'string',
+      sellerBankAccount: 'string',
+      sellerBankName: 'string',
+      sellerCompanyName: 'string',
+      sellerTaxNo: 'string',
+      sellerTelephone: 'string',
+      sellerInstId: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+// 寄送信息
+export class ApplyInvoiceDelivery extends $tea.Model {
+  // 寄送类型，如1表示快递，2表示email
+  /**
+   * @example
+   * 1
+   */
+  deliveryType?: string;
+  // 开票人PID
+  /**
+   * @example
+   * 2088720671581149
+   */
+  pid: string;
+  // 收件人名称
+  /**
+   * @example
+   * 收件人名称
+   */
+  name?: string;
+  // 电话
+  /**
+   * @example
+   * 13987654321
+   */
+  telephone?: string;
+  // 国家
+  /**
+   * @example
+   * 中国
+   */
+  country?: string;
+  // 省份
+  /**
+   * @example
+   * 上海市
+   */
+  province?: string;
+  // 市
+  /**
+   * @example
+   * 上海市
+   */
+  city?: string;
+  // 区县
+  /**
+   * @example
+   * 黄浦区
+   */
+  countyDistrict?: string;
+  // 街道
+  /**
+   * @example
+   * 街道
+   */
+  street?: string;
+  // 详细地址
+  /**
+   * @example
+   * 外马路618号
+   */
+  detailAddress?: string;
+  // 收件人邮件
+  /**
+   * @example
+   * a@1.com
+   */
+  email?: string;
+  static names(): { [key: string]: string } {
+    return {
+      deliveryType: 'delivery_type',
+      pid: 'pid',
+      name: 'name',
+      telephone: 'telephone',
+      country: 'country',
+      province: 'province',
+      city: 'city',
+      countyDistrict: 'county_district',
+      street: 'street',
+      detailAddress: 'detail_address',
+      email: 'email',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      deliveryType: 'string',
+      pid: 'string',
+      name: 'string',
+      telephone: 'string',
+      country: 'string',
+      province: 'string',
+      city: 'string',
+      countyDistrict: 'string',
+      street: 'string',
+      detailAddress: 'string',
+      email: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+// 发票信息
+export class InvoiceInfoVO extends $tea.Model {
+  // 发票ID
+  /**
+   * @example
+   * 233445656676
+   */
+  invoiceId: string;
+  // 发票编号
+  /**
+   * @example
+   * FULL_ELECTRONIC_INVOICE
+   */
+  invoiceCode?: string;
+  // 发票号码
+  /**
+   * @example
+   * 3455666767777
+   */
+  invoiceNo?: string;
+  // 发票金额
+  /**
+   * @example
+   * 220.09
+   */
+  invoiceAmt: string;
+  // 发票类型,01专票 02普票 03营业税发票 04国际形式发票 05其它发票
+  /**
+   * @example
+   * 01
+   */
+  invoiceType: string;
+  // 发票的业务状态, 待开票: TO_INV, 开票中: INV_ING, 已开票: INVED, 退票中: INV_RETURN, 换票中: INV_REPLACE, 已失效: INV_DEP
+  /**
+   * @example
+   * INVED
+   */
+  status: string;
+  // 发票介质，01：电子，02：纸质
+  /**
+   * @example
+   * 01
+   */
+  invoiceMaterial?: string;
+  // 发票行信息
+  invoiceLines?: InvoiceLineVO[];
+  // 开票日期
+  /**
+   * @example
+   * 2018-10-10T10:10:00Z
+   */
+  invoiceDate: string;
+  static names(): { [key: string]: string } {
+    return {
+      invoiceId: 'invoice_id',
+      invoiceCode: 'invoice_code',
+      invoiceNo: 'invoice_no',
+      invoiceAmt: 'invoice_amt',
+      invoiceType: 'invoice_type',
+      status: 'status',
+      invoiceMaterial: 'invoice_material',
+      invoiceLines: 'invoice_lines',
+      invoiceDate: 'invoice_date',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      invoiceId: 'string',
+      invoiceCode: 'string',
+      invoiceNo: 'string',
+      invoiceAmt: 'string',
+      invoiceType: 'string',
+      status: 'string',
+      invoiceMaterial: 'string',
+      invoiceLines: { 'type': 'array', 'itemType': InvoiceLineVO },
+      invoiceDate: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+// 发票申请金额信息
+export class ApplyInvoiceAmountAllocation extends $tea.Model {
+  // 额度汇总信息，标准可开票单据下，KEY为需要占用的单据号，VALUE为需要占用的额度
+  /**
+   * @example
+   * xxx
+   */
+  amountSummaryConfig?: AmountSummaryConfig[];
+  // 额度来源，默认INVOICE_RCPT
+  /**
+   * @example
+   * INVOICE_RCPT
+   */
+  amountSource?: string;
+  // 币种，默认156
+  /**
+   * @example
+   * 156
+   */
+  ccy: string;
+  static names(): { [key: string]: string } {
+    return {
+      amountSummaryConfig: 'amount_summary_config',
+      amountSource: 'amount_source',
+      ccy: 'ccy',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      amountSummaryConfig: { 'type': 'array', 'itemType': AmountSummaryConfig },
+      amountSource: 'string',
+      ccy: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+// 发票行信息
+export class PreviewInvoiceLine extends $tea.Model {
+  // 货物名称(商品名称)
+  /**
+   * @example
+   * 技术服务费
+   */
+  lineProductName: string;
+  // 税率
+  /**
+   * @example
+   * 0.13
+   */
+  taxRate: string;
+  // 发票行含税金额，单位:元
+  /**
+   * @example
+   * 102.98
+   */
+  lineAmt: string;
+  // 币种，默认156
+  /**
+   * @example
+   * 156
+   */
+  ccy?: string;
+  // 单位
+  /**
+   * @example
+   * 个
+   */
+  measurementUnit?: string;
+  // 关联的L5商品
+  /**
+   * @example
+   * SQBRFSZL601262688
+   */
+  relateCommodityCode: string;
+  // 服务类型 如：AFTECH_SERVICE
+  /**
+   * @example
+   * AFTECH_SERVICE
+   */
+  serviceMode?: string;
+  // 规格型号
+  /**
+   * @example
+   * 规格型号
+   */
+  productSpecification?: string;
+  static names(): { [key: string]: string } {
+    return {
+      lineProductName: 'line_product_name',
+      taxRate: 'tax_rate',
+      lineAmt: 'line_amt',
+      ccy: 'ccy',
+      measurementUnit: 'measurement_unit',
+      relateCommodityCode: 'relate_commodity_code',
+      serviceMode: 'service_mode',
+      productSpecification: 'product_specification',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      lineProductName: 'string',
+      taxRate: 'string',
+      lineAmt: 'string',
+      ccy: 'string',
+      measurementUnit: 'string',
+      relateCommodityCode: 'string',
+      serviceMode: 'string',
+      productSpecification: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+// 发票购方信息
+export class ApplyInvoiceBuyer extends $tea.Model {
+  // 购方地址
+  /**
+   * @example
+   * 上海市黄浦区
+   */
+  buyerAddress?: string;
+  // 银行账号
+  /**
+   * @example
+   * 23355434
+   */
+  buyerBankAccount?: string;
+  // 银行名称
+  /**
+   * @example
+   * 招商银行
+   */
+  buyerBankName?: string;
+  // 抬头
+  /**
+   * @example
+   * xxxx公司
+   */
+  buyerInvoiceTitle: string;
+  // 税号
+  /**
+   * @example
+   * 3344555
+   */
+  buyerTaxNo?: string;
+  // 电话
+  /**
+   * @example
+   * 0571-94848
+   */
+  buyerTelephone?: string;
+  // 纳税人资格类型
+  /**
+   * @example
+   * 01
+   */
+  taxPayerQualification: string;
+  // 客户开票配置ID
+  /**
+   * @example
+   * 2344
+   */
+  buyerConfigId?: string;
+  static names(): { [key: string]: string } {
+    return {
+      buyerAddress: 'buyer_address',
+      buyerBankAccount: 'buyer_bank_account',
+      buyerBankName: 'buyer_bank_name',
+      buyerInvoiceTitle: 'buyer_invoice_title',
+      buyerTaxNo: 'buyer_tax_no',
+      buyerTelephone: 'buyer_telephone',
+      taxPayerQualification: 'tax_payer_qualification',
+      buyerConfigId: 'buyer_config_id',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      buyerAddress: 'string',
+      buyerBankAccount: 'string',
+      buyerBankName: 'string',
+      buyerInvoiceTitle: 'string',
+      buyerTaxNo: 'string',
+      buyerTelephone: 'string',
+      taxPayerQualification: 'string',
+      buyerConfigId: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+// 发票行信息
+export class IntlInvoiceInfoItem extends $tea.Model {
+  // 发票号
+  /**
+   * @example
+   * 34555
+   */
+  invoiceNo: string;
+  // 发票金额
+  /**
+   * @example
+   * 34.23
+   */
+  invoiceAmt: string;
+  // 不含税金
+  /**
+   * @example
+   * 23.12
+   */
+  excludingTaxInvoiceAmt: string;
+  // 税额
+  /**
+   * @example
+   * 2.23
+   */
+  taxAmt: string;
+  // 税率
+  /**
+   * @example
+   * 0.09
+   */
+  tax: string;
+  // 状态
+  /**
+   * @example
+   * INVED
+   */
+  status: string;
+  // 发票ID
+  /**
+   * @example
+   * 20260716107315002131450000476631
+   */
+  invoiceId: string;
+  static names(): { [key: string]: string } {
+    return {
+      invoiceNo: 'invoice_no',
+      invoiceAmt: 'invoice_amt',
+      excludingTaxInvoiceAmt: 'excluding_tax_invoice_amt',
+      taxAmt: 'tax_amt',
+      tax: 'tax',
+      status: 'status',
+      invoiceId: 'invoice_id',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      invoiceNo: 'string',
+      invoiceAmt: 'string',
+      excludingTaxInvoiceAmt: 'string',
+      taxAmt: 'string',
+      tax: 'string',
+      status: 'string',
+      invoiceId: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+// 发票申请场景下发票行信息
+export class ApplyInvoiceLine extends $tea.Model {
+  // 含税金额
+  /**
+   * @example
+   * 133880
+   */
+  amt: string;
+  // 税额
+  /**
+   * @example
+   * 45
+   */
+  taxAmt: string;
+  // 税率
+  /**
+   * @example
+   * 0.13
+   */
+  taxRate: string;
+  // 不含税金额
+  /**
+   * @example
+   * 24556
+   */
+  taxExclusiveAmt: string;
+  // 含税单价
+  /**
+   * @example
+   * 234
+   */
+  unitAmt: string;
+  // 服务大类编号
+  /**
+   * @example
+   * 2345455
+   */
+  taxClassificationCode: string;
+  // 货物或劳务名称
+  /**
+   * @example
+   * 技术服务费
+   */
+  productName: string;
+  // 产品CODE
+  /**
+   * @example
+   * SPU33445
+   */
+  productCode?: string;
+  // 规格型号
+  /**
+   * @example
+   * 333
+   */
+  productSpecification?: string;
+  // 计量单位
+  /**
+   * @example
+   * 个
+   */
+  measurementNnit?: string;
+  // 数量，默认为1
+  /**
+   * @example
+   * 1
+   */
+  quantity?: string;
+  // 发票行ID
+  /**
+   * @example
+   * 33455666
+   */
+  invoiceLineId: string;
+  // 劳务与货物名称的后缀，主要有账期（202309）、PID（2088XXXX）等
+  /**
+   * @example
+   * 202309
+   */
+  productNameSuffix?: string;
+  static names(): { [key: string]: string } {
+    return {
+      amt: 'amt',
+      taxAmt: 'tax_amt',
+      taxRate: 'tax_rate',
+      taxExclusiveAmt: 'tax_exclusive_amt',
+      unitAmt: 'unit_amt',
+      taxClassificationCode: 'tax_classification_code',
+      productName: 'product_name',
+      productCode: 'product_code',
+      productSpecification: 'product_specification',
+      measurementNnit: 'measurement_nnit',
+      quantity: 'quantity',
+      invoiceLineId: 'invoice_line_id',
+      productNameSuffix: 'product_name_suffix',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      amt: 'string',
+      taxAmt: 'string',
+      taxRate: 'string',
+      taxExclusiveAmt: 'string',
+      unitAmt: 'string',
+      taxClassificationCode: 'string',
+      productName: 'string',
+      productCode: 'string',
+      productSpecification: 'string',
+      measurementNnit: 'string',
+      quantity: 'string',
+      invoiceLineId: 'string',
+      productNameSuffix: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+// 申请记录
+export class IntlInvoiceApplyInfoItem extends $tea.Model {
+  // 租户ID
+  /**
+   * @example
+   * 20882838383
+   */
+  tenantId: string;
+  // 发票申请ID
+  /**
+   * @example
+   * 29394
+   */
+  invoiceApplyId: string;
+  // 发票申请金额
+  /**
+   * @example
+   * 13.44
+   */
+  invoiceAmt: string;
+  // 发票币种
+  /**
+   * @example
+   * 840
+   */
+  invoiceCcy: string;
+  // 发票申请时间
+  /**
+   * @example
+   * 2025-04-93 12:03:33
+   */
+  invoiceDate: string;
+  // 申请人名称
+  /**
+   * @example
+   * 客户名称
+   */
+  operatorName: string;
+  // 申请人ID
+  /**
+   * @example
+   * 20882838383
+   */
+  operatorId: string;
+  // 申请状态
+  /**
+   * @example
+   * 03
+   */
+  status: string;
+  // 申请业务号
+  /**
+   * @example
+   * 335455
+   */
+  bsnNo: string;
+  // 发票列表
+  /**
+   * @example
+   * undefined
+   */
+  relateInvoices?: IntlInvoiceInfoItem[];
+  // 发票类型
+  /**
+   * @example
+   * 42
+   */
+  invoiceType: string;
+  // 申请类型
+  /**
+   * @example
+   * new
+   */
+  applyType: string;
+  // 形式发票文件映射
+  /**
+   * @example
+   * xx
+   */
+  elcFileMap: string;
+  static names(): { [key: string]: string } {
+    return {
+      tenantId: 'tenant_id',
+      invoiceApplyId: 'invoice_apply_id',
+      invoiceAmt: 'invoice_amt',
+      invoiceCcy: 'invoice_ccy',
+      invoiceDate: 'invoice_date',
+      operatorName: 'operator_name',
+      operatorId: 'operator_id',
+      status: 'status',
+      bsnNo: 'bsn_no',
+      relateInvoices: 'relate_invoices',
+      invoiceType: 'invoice_type',
+      applyType: 'apply_type',
+      elcFileMap: 'elc_file_map',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      tenantId: 'string',
+      invoiceApplyId: 'string',
+      invoiceAmt: 'string',
+      invoiceCcy: 'string',
+      invoiceDate: 'string',
+      operatorName: 'string',
+      operatorId: 'string',
+      status: 'string',
+      bsnNo: 'string',
+      relateInvoices: { 'type': 'array', 'itemType': IntlInvoiceInfoItem },
+      invoiceType: 'string',
+      applyType: 'string',
+      elcFileMap: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+// 发票预览请求
+export class PreviewInvoiceRequest extends $tea.Model {
+  // 开票场景，默认基于订单开票
+  /**
+   * @example
+   * LTC_RCPT_BILL
+   */
+  invoiceBizScene?: string;
+  // 租户ID
+  /**
+   * @example
+   * 2088720671581149
+   */
+  tenantId: string;
+  // 开票操作，默认预览开票PREVIEW_INVOICING
+  /**
+   * @example
+   * PREVIEW_INVOICING
+   */
+  invoiceBizAction?: string;
+  // 币种
+  /**
+   * @example
+   * 156
+   */
+  ccy: string;
+  // ou
+  /**
+   * @example
+   * ZL6
+   */
+  ou: string;
+  // 合同号
+  /**
+   * @example
+   * 2088720671581149-ZNHYFM01222234
+   */
+  arNo: string;
+  // 调用来源
+  /**
+   * @example
+   * IOT
+   */
+  source: string;
+  // 开票人ID
+  /**
+   * @example
+   * 2088720671581149
+   */
+  operatorNo: string;
+  // 操作人名称
+  /**
+   * @example
+   * XXXD
+   */
+  operatorName: string;
+  // 外部申请单据号，长度不超过32位
+  /**
+   * @example
+   * 3455444
+   */
+  outBizNo: string;
+  // 发票类型， 01 专票 02 普票
+  /**
+   * @example
+   * 01
+   */
+  invoiceType: string;
+  // 发票介质 01 电子发票 02 纸质发票
+  /**
+   * @example
+   * 01
+   */
+  invoiceMaterial: string;
+  // 票面备注 该内容会原样展示到发票上
+  /**
+   * @example
+   * 备注
+   */
+  invoiceNote?: string;
+  // 申请说明
+  /**
+   * @example
+   * 申请说明
+   */
+  applyReason?: string;
+  // 购方信息
+  invoiceBuyer: ApplyInvoiceBuyer;
+  // 寄送信息
+  applyInvoiceDelivery: ApplyInvoiceDelivery;
+  // 发票需要占用的额度信息
+  applyInvoiceQuota: ApplyInvoiceAmountAllocation;
+  // 发票行列表
+  previewInvoiceLines?: PreviewInvoiceLine[];
+  static names(): { [key: string]: string } {
+    return {
+      invoiceBizScene: 'invoice_biz_scene',
+      tenantId: 'tenant_id',
+      invoiceBizAction: 'invoice_biz_action',
+      ccy: 'ccy',
+      ou: 'ou',
+      arNo: 'ar_no',
+      source: 'source',
+      operatorNo: 'operator_no',
+      operatorName: 'operator_name',
+      outBizNo: 'out_biz_no',
+      invoiceType: 'invoice_type',
+      invoiceMaterial: 'invoice_material',
+      invoiceNote: 'invoice_note',
+      applyReason: 'apply_reason',
+      invoiceBuyer: 'invoice_buyer',
+      applyInvoiceDelivery: 'apply_invoice_delivery',
+      applyInvoiceQuota: 'apply_invoice_quota',
+      previewInvoiceLines: 'preview_invoice_lines',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      invoiceBizScene: 'string',
+      tenantId: 'string',
+      invoiceBizAction: 'string',
+      ccy: 'string',
+      ou: 'string',
+      arNo: 'string',
+      source: 'string',
+      operatorNo: 'string',
+      operatorName: 'string',
+      outBizNo: 'string',
+      invoiceType: 'string',
+      invoiceMaterial: 'string',
+      invoiceNote: 'string',
+      applyReason: 'string',
+      invoiceBuyer: ApplyInvoiceBuyer,
+      applyInvoiceDelivery: ApplyInvoiceDelivery,
+      applyInvoiceQuota: ApplyInvoiceAmountAllocation,
+      previewInvoiceLines: { 'type': 'array', 'itemType': PreviewInvoiceLine },
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+// 退换票信息
+export class ReturnInvoiceInfo extends $tea.Model {
+  // 发票ID
+  /**
+   * @example
+   * 33445566556
+   */
+  invoiceId: string;
+  // 退换票类型,01:退票 02:换票
+  /**
+   * @example
+   * 01
+   */
+  returnOrderType: string;
+  // 退换票原因类型, 01：发票介质修改  02：发票类型修改  03：发票信息修改 05：其他 06：不需要发票
+  /**
+   * @example
+   * 06
+   */
+  returnReasonType: string;
+  // 备注
+  /**
+   * @example
+   * 备注
+   */
+  memo?: string;
+  // 快递单号
+  /**
+   * @example
+   * 3444
+   */
+  trackingNo?: string;
+  // 快递公司名称
+  /**
+   * @example
+   * XX快递
+   */
+  expressCompanyName?: string;
+  // 是否认证，1：已认证抵扣 0：未认证抵扣
+  /**
+   * @example
+   * 0
+   */
+  auth?: string;
+  static names(): { [key: string]: string } {
+    return {
+      invoiceId: 'invoice_id',
+      returnOrderType: 'return_order_type',
+      returnReasonType: 'return_reason_type',
+      memo: 'memo',
+      trackingNo: 'tracking_no',
+      expressCompanyName: 'express_company_name',
+      auth: 'auth',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      invoiceId: 'string',
+      returnOrderType: 'string',
+      returnReasonType: 'string',
+      memo: 'string',
+      trackingNo: 'string',
+      expressCompanyName: 'string',
+      auth: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+// 发票介质
+export class InvoiceMaterialVO extends $tea.Model {
+  // 发票介质，01: 电子发票; 02: 纸质发票
+  /**
+   * @example
+   * 01
+   */
+  material: string;
+  // 名称
+  /**
+   * @example
+   * 电子发票
+   */
+  name: string;
+  static names(): { [key: string]: string } {
+    return {
+      material: 'material',
+      name: 'name',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      material: 'string',
+      name: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+// 国家信息
+export class CountryCnEnItem extends $tea.Model {
+  // 国家字母编号
+  /**
+   * @example
+   * CN
+   */
+  countryCode: string;
+  // 国家中文名称
+  /**
+   * @example
+   * 中国
+   */
+  countryCn: string;
+  // 国家英文名称
+  /**
+   * @example
+   * China
+   */
+  countryEn: string;
+  static names(): { [key: string]: string } {
+    return {
+      countryCode: 'country_code',
+      countryCn: 'country_cn',
+      countryEn: 'country_en',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      countryCode: 'string',
+      countryCn: 'string',
+      countryEn: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+// 发票预览信息
+export class InvoicePreviewVO extends $tea.Model {
+  // 发票号码
+  /**
+   * @example
+   * 3344
+   */
+  invoiceNo?: string;
+  // 发票代码
+  /**
+   * @example
+   * 323422244555
+   */
+  invoiceCode?: string;
+  // 开票时间
+  /**
+   * @example
+   * 2023-09-08
+   */
+  invoiceDate?: string;
+  // 发票类型
+  /**
+   * @example
+   * 01
+   */
+  invoiceType: string;
+  // 开票金额
+  /**
+   * @example
+   * 34.98
+   */
+  invoiceAmt: string;
+  // 税额
+  /**
+   * @example
+   * 34
+   */
+  taxAmt: string;
+  // 销方信息
+  invoiceSeller: ApplyInvoiceSeller;
+  // 购方信息
+  invoiceBuyer: ApplyInvoiceBuyer;
+  // 发票票面备注
+  /**
+   * @example
+   * 备注
+   */
+  invoiceNote?: string;
+  // 租户id
+  /**
+   * @example
+   * 2088720671581149
+   */
+  tenantId: string;
+  // 发票ID
+  /**
+   * @example
+   * 355566677676
+   */
+  invoiceId?: string;
+  // 发票介质
+  /**
+   * @example
+   * 01
+   */
+  invoiceMaterial: string;
+  // 申请原因
+  /**
+   * @example
+   * 申请原因
+   */
+  memo?: string;
+  // 发票行信息
+  invoiceLines: InvoiceLineVO[];
+  // 发票预览记录号
+  /**
+   * @example
+   * 3344
+   */
+  invoicePreviewLogNo: string;
+  static names(): { [key: string]: string } {
+    return {
+      invoiceNo: 'invoice_no',
+      invoiceCode: 'invoice_code',
+      invoiceDate: 'invoice_date',
+      invoiceType: 'invoice_type',
+      invoiceAmt: 'invoice_amt',
+      taxAmt: 'tax_amt',
+      invoiceSeller: 'invoice_seller',
+      invoiceBuyer: 'invoice_buyer',
+      invoiceNote: 'invoice_note',
+      tenantId: 'tenant_id',
+      invoiceId: 'invoice_id',
+      invoiceMaterial: 'invoice_material',
+      memo: 'memo',
+      invoiceLines: 'invoice_lines',
+      invoicePreviewLogNo: 'invoice_preview_log_no',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      invoiceNo: 'string',
+      invoiceCode: 'string',
+      invoiceDate: 'string',
+      invoiceType: 'string',
+      invoiceAmt: 'string',
+      taxAmt: 'string',
+      invoiceSeller: ApplyInvoiceSeller,
+      invoiceBuyer: ApplyInvoiceBuyer,
+      invoiceNote: 'string',
+      tenantId: 'string',
+      invoiceId: 'string',
+      invoiceMaterial: 'string',
+      memo: 'string',
+      invoiceLines: { 'type': 'array', 'itemType': InvoiceLineVO },
+      invoicePreviewLogNo: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+// 开票申请项
+export class InvoiceApplyItem extends $tea.Model {
+  // 商品名称
+  /**
+   * @example
+   * xxx
+   */
+  itemName: string;
+  // 不含税金额
+  /**
+   * @example
+   * 5520
+   */
+  excludingTaxOfAmount: string;
+  // 商品CODE
+  /**
+   * @example
+   * 001
+   */
+  itemCode?: string;
+  // 含税金额
+  /**
+   * @example
+   * 3452
+   */
+  amount?: string;
+  // 关联单据号
+  /**
+   * @example
+   * 123123
+   */
+  invoiceRcptNo?: string;
+  static names(): { [key: string]: string } {
+    return {
+      itemName: 'item_name',
+      excludingTaxOfAmount: 'excluding_tax_of_amount',
+      itemCode: 'item_code',
+      amount: 'amount',
+      invoiceRcptNo: 'invoice_rcpt_no',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      itemName: 'string',
+      excludingTaxOfAmount: 'string',
+      itemCode: 'string',
+      amount: 'string',
+      invoiceRcptNo: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+// 国际可开票单据
+export class IntlRcptDetailItem extends $tea.Model {
+  // 可开票单据号
+  /**
+   * @example
+   * 33345454
+   */
+  receiptNo: string;
+  // 租户ID
+  /**
+   * @example
+   * 20882838383
+   */
+  tenantId: string;
+  // 合同号或订单号
+  /**
+   * @example
+   * 3333
+   */
+  arNo: string;
+  // 计费类型
+  /**
+   * @example
+   * PREPAY/AFTER_PAY
+   */
+  chargeType: string;
+  // 合同商品总金额
+  /**
+   * @example
+   * 34.99
+   */
+  rcptContractAmt: string;
+  // 合同商品已开票金额
+  /**
+   * @example
+   * 22.12
+   */
+  reptInvedAmt: string;
+  // 合同商品剩余可开票金额
+  /**
+   * @example
+   * 23.21
+   */
+  rcptContractRemainAmt: string;
+  // 商品CODE
+  /**
+   * @example
+   * abd
+   */
+  commodityCode: string;
+  // 商品名称
+  /**
+   * @example
+   * 测试商品
+   */
+  commodityName: string;
+  // ou
+  /**
+   * @example
+   * Z37
+   */
+  ou: string;
+  // 币种
+  /**
+   * @example
+   * 840
+   */
+  ccy: string;
+  // 税率
+  /**
+   * @example
+   * 0.09
+   */
+  rate: string;
+  // 合同金额（不含税）
+  /**
+   * @example
+   * 22
+   */
+  rcptContractAmtExclTax: string;
+  // 已开票金额（不含税）
+  /**
+   * @example
+   * 23
+   */
+  reptInvedAmtExclTax: string;
+  // 剩余可开票金额（不含税）
+  /**
+   * @example
+   * 23
+   */
+  rcptContractRemainAmtExclTax: string;
+  static names(): { [key: string]: string } {
+    return {
+      receiptNo: 'receipt_no',
+      tenantId: 'tenant_id',
+      arNo: 'ar_no',
+      chargeType: 'charge_type',
+      rcptContractAmt: 'rcpt_contract_amt',
+      reptInvedAmt: 'rept_inved_amt',
+      rcptContractRemainAmt: 'rcpt_contract_remain_amt',
+      commodityCode: 'commodity_code',
+      commodityName: 'commodity_name',
+      ou: 'ou',
+      ccy: 'ccy',
+      rate: 'rate',
+      rcptContractAmtExclTax: 'rcpt_contract_amt_excl_tax',
+      reptInvedAmtExclTax: 'rept_inved_amt_excl_tax',
+      rcptContractRemainAmtExclTax: 'rcpt_contract_remain_amt_excl_tax',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      receiptNo: 'string',
+      tenantId: 'string',
+      arNo: 'string',
+      chargeType: 'string',
+      rcptContractAmt: 'string',
+      reptInvedAmt: 'string',
+      rcptContractRemainAmt: 'string',
+      commodityCode: 'string',
+      commodityName: 'string',
+      ou: 'string',
+      ccy: 'string',
+      rate: 'string',
+      rcptContractAmtExclTax: 'string',
+      reptInvedAmtExclTax: 'string',
+      rcptContractRemainAmtExclTax: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+// 金额类
+export class MultiCurrencyMoneyOpenApi extends $tea.Model {
+  // 最小币种单位
+  /**
+   * @example
+   * 1233
+   */
+  cent: string;
+  // 币种
+  /**
+   * @example
+   * 156
+   */
+  currencyValue: string;
+  static names(): { [key: string]: string } {
+    return {
+      cent: 'cent',
+      currencyValue: 'currency_value',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      cent: 'string',
+      currencyValue: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+// 开票单据明细
+export class RcptDetailVO extends $tea.Model {
+  // 合同号
+  /**
+   * @example
+   * 2088720671581149-ZNHYFM01222234
+   */
+  arNo: string;
+  // OU
+  /**
+   * @example
+   * ZL6
+   */
+  ou: string;
+  // 租户ID
+  /**
+   * @example
+   * 2088720671581149
+   */
+  tenantId: string;
+  // 客户名称
+  /**
+   * @example
+   * 测试客户
+   */
+  tenantName: string;
+  // 单据唯一号
+  /**
+   * @example
+   * 20230928107305000028710015937380
+   */
+  receiptNo: string;
+  // 币种
+  /**
+   * @example
+   * 156
+   */
+  ccy: string;
+  // 税率
+  /**
+   * @example
+   * 0.06
+   */
+  tax?: string;
+  // 商品CODE
+  /**
+   * @example
+   * SQBRFSZL601262688
+   */
+  commodityCode: string;
+  // 开票模式，01：先款后票、02：先票后款
+  /**
+   * @example
+   * 01
+   */
+  mode: string;
+  // 单据可开票总金额
+  /**
+   * @example
+   * 13.45
+   */
+  totalAmt: string;
+  // 已开票金额
+  /**
+   * @example
+   * 2.23
+   */
+  invedAmt: string;
+  // 剩余可开票金额
+  /**
+   * @example
+   * 234.99
+   */
+  remainAmt: string;
+  // 商品名称
+  /**
+   * @example
+   * 商品名称
+   */
+  commodityName: string;
+  static names(): { [key: string]: string } {
+    return {
+      arNo: 'ar_no',
+      ou: 'ou',
+      tenantId: 'tenant_id',
+      tenantName: 'tenant_name',
+      receiptNo: 'receipt_no',
+      ccy: 'ccy',
+      tax: 'tax',
+      commodityCode: 'commodity_code',
+      mode: 'mode',
+      totalAmt: 'total_amt',
+      invedAmt: 'inved_amt',
+      remainAmt: 'remain_amt',
+      commodityName: 'commodity_name',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      arNo: 'string',
+      ou: 'string',
+      tenantId: 'string',
+      tenantName: 'string',
+      receiptNo: 'string',
+      ccy: 'string',
+      tax: 'string',
+      commodityCode: 'string',
+      mode: 'string',
+      totalAmt: 'string',
+      invedAmt: 'string',
+      remainAmt: 'string',
+      commodityName: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+// 发票申请
+export class ApplyInvoiceRequest extends $tea.Model {
+  // 租户ID
+  /**
+   * @example
+   * 2088720671581149
+   */
+  tenantId: string;
+  // OU
+  /**
+   * @example
+   * ZL6
+   */
+  ou: string;
+  // 合同号
+  /**
+   * @example
+   * 2088720671581149-ZNHYFM01222234
+   */
+  arNo: string;
+  // 开票业务场景
+  /**
+   * @example
+   * LTC_RCPT_BILL
+   */
+  bizScene: string;
+  // 业务操作
+  /**
+   * @example
+   * PREVIEW_INVOICING
+   */
+  bizAction: string;
+  // 系统来源
+  /**
+   * @example
+   * IOT
+   */
+  source: string;
+  // 操作人员工号
+  /**
+   * @example
+   * 2334
+   */
+  operatorNo: string;
+  // 操作人员名称
+  /**
+   * @example
+   * 测试
+   */
+  operatorName: string;
+  // 外部业务号
+  /**
+   * @example
+   * 34445
+   */
+  invoiceApplyBizNo: string;
+  // 发票介质
+  /**
+   * @example
+   * 01
+   */
+  invoiceMaterial: string;
+  // 申请原因
+  /**
+   * @example
+   * 原因
+   */
+  applyReason?: string;
+  // 寄送信息
+  applyInvoiceDelivery: ApplyInvoiceDelivery;
+  // 发票需要占用的额度信息
+  applyInvoiceQuota: ApplyInvoiceAmountAllocation;
+  // 发票信息列表，一次申请可能会拆分出多张票
+  applyInvoices: ApplyInvoiceLine[];
+  // 预览记录号
+  /**
+   * @example
+   * 20234566767
+   */
+  previewLogNo: string;
+  static names(): { [key: string]: string } {
+    return {
+      tenantId: 'tenant_id',
+      ou: 'ou',
+      arNo: 'ar_no',
+      bizScene: 'biz_scene',
+      bizAction: 'biz_action',
+      source: 'source',
+      operatorNo: 'operator_no',
+      operatorName: 'operator_name',
+      invoiceApplyBizNo: 'invoice_apply_biz_no',
+      invoiceMaterial: 'invoice_material',
+      applyReason: 'apply_reason',
+      applyInvoiceDelivery: 'apply_invoice_delivery',
+      applyInvoiceQuota: 'apply_invoice_quota',
+      applyInvoices: 'apply_invoices',
+      previewLogNo: 'preview_log_no',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      tenantId: 'string',
+      ou: 'string',
+      arNo: 'string',
+      bizScene: 'string',
+      bizAction: 'string',
+      source: 'string',
+      operatorNo: 'string',
+      operatorName: 'string',
+      invoiceApplyBizNo: 'string',
+      invoiceMaterial: 'string',
+      applyReason: 'string',
+      applyInvoiceDelivery: ApplyInvoiceDelivery,
+      applyInvoiceQuota: ApplyInvoiceAmountAllocation,
+      applyInvoices: { 'type': 'array', 'itemType': ApplyInvoiceLine },
+      previewLogNo: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+// 用户开票信息
+export class UserInvoiceInfo extends $tea.Model {
+  // 公司标题（发票抬头）
+  /**
+   * @example
+   * xxxx Group Limited
+   */
+  title: string;
+  // 纳税人类型
+  /**
+   * @example
+   * 03
+   */
+  taxPayerQualification: string;
+  // 注册国家编号
+  /**
+   * @example
+   * HK
+   */
+  registerCountry: string;
+  // 公司注册地址
+  /**
+   * @example
+   * xxxxxx
+   */
+  address: string;
+  // 纳税人识别号
+  /**
+   * @example
+   * 123
+   */
+  taxNo?: string;
+  // 公司注册电话
+  /**
+   * @example
+   * 17797768855
+   */
+  telephone?: string;
+  // 开户行
+  /**
+   * @example
+   * 中国人民银行
+   */
+  bankName?: string;
+  // 银行账号
+  /**
+   * @example
+   * 12312312
+   */
+  bankAccount?: string;
+  static names(): { [key: string]: string } {
+    return {
+      title: 'title',
+      taxPayerQualification: 'tax_payer_qualification',
+      registerCountry: 'register_country',
+      address: 'address',
+      taxNo: 'tax_no',
+      telephone: 'telephone',
+      bankName: 'bank_name',
+      bankAccount: 'bank_account',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      title: 'string',
+      taxPayerQualification: 'string',
+      registerCountry: 'string',
+      address: 'string',
+      taxNo: 'string',
+      telephone: 'string',
+      bankName: 'string',
+      bankAccount: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+// 发票申请信息
+export class InvoiceApplyInfoVO extends $tea.Model {
+  // 租户ID
+  /**
+   * @example
+   * 2088720671581149
+   */
+  tenantId: string;
+  // 发票申请ID
+  /**
+   * @example
+   * 2234345667
+   */
+  invoiceApplyId?: string;
+  // 申请金额
+  /**
+   * @example
+   * 34.98
+   */
+  invoiceAmt: string;
+  // 发票申请日期
+  /**
+   * @example
+   * 2018-10-10T10:10:00Z
+   */
+  invoiceApplyDate: string;
+  // 发票类型
+  /**
+   * @example
+   * 01
+   */
+  invoiceType: string;
+  // 申请类型
+  /**
+   * @example
+   * new
+   */
+  applyType?: string;
+  // 申请人名称
+  /**
+   * @example
+   * 测试
+   */
+  operatorName?: string;
+  // 申请人ID
+  /**
+   * @example
+   * 2088720671581149
+   */
+  operatorId?: string;
+  // 申请状态，01：处理中，03：已完成，04：审批中，05：已驳回，06：已撤回，10：申请终止
+  /**
+   * @example
+   * 03
+   */
+  status: string;
+  // 关联的发票列表
+  relateInvoices?: InvoiceInfoVO[];
+  // 业务号
+  /**
+   * @example
+   * 323422244555
+   */
+  bsnNo: string;
+  static names(): { [key: string]: string } {
+    return {
+      tenantId: 'tenant_id',
+      invoiceApplyId: 'invoice_apply_id',
+      invoiceAmt: 'invoice_amt',
+      invoiceApplyDate: 'invoice_apply_date',
+      invoiceType: 'invoice_type',
+      applyType: 'apply_type',
+      operatorName: 'operator_name',
+      operatorId: 'operator_id',
+      status: 'status',
+      relateInvoices: 'relate_invoices',
+      bsnNo: 'bsn_no',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      tenantId: 'string',
+      invoiceApplyId: 'string',
+      invoiceAmt: 'string',
+      invoiceApplyDate: 'string',
+      invoiceType: 'string',
+      applyType: 'string',
+      operatorName: 'string',
+      operatorId: 'string',
+      status: 'string',
+      relateInvoices: { 'type': 'array', 'itemType': InvoiceInfoVO },
+      bsnNo: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+// 申请的发票信息
+export class ApplyInvoice extends $tea.Model {
+  // 发票类型，01,增值税专用发票; * 02,增值税普通发票; * 04,国际形式发票; * 05,其它发票
+  /**
+   * @example
+   * 01
+   */
+  invoiceType: string;
+  // 发票金额
+  /**
+   * @example
+   * 3244.98
+   */
+  invoiceAmt: string;
+  // 发票行信息
+  applyInvoiceLines: ApplyInvoiceLine[];
+  // 销方信息
+  applyInvoiceSeller: ApplyInvoiceSeller;
+  // 购方信息
+  applyInvoiceBuyer: ApplyInvoiceBuyer;
+  // 发票备注
+  /**
+   * @example
+   * 备注
+   */
+  invoiceNote?: string;
+  // 币种
+  /**
+   * @example
+   * 156
+   */
+  ccy?: string;
+  // 发票ID
+  /**
+   * @example
+   * 334556666
+   */
+  applyInvoiceId: string;
+  static names(): { [key: string]: string } {
+    return {
+      invoiceType: 'invoice_type',
+      invoiceAmt: 'invoice_amt',
+      applyInvoiceLines: 'apply_invoice_lines',
+      applyInvoiceSeller: 'apply_invoice_seller',
+      applyInvoiceBuyer: 'apply_invoice_buyer',
+      invoiceNote: 'invoice_note',
+      ccy: 'ccy',
+      applyInvoiceId: 'apply_invoice_id',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      invoiceType: 'string',
+      invoiceAmt: 'string',
+      applyInvoiceLines: { 'type': 'array', 'itemType': ApplyInvoiceLine },
+      applyInvoiceSeller: ApplyInvoiceSeller,
+      applyInvoiceBuyer: ApplyInvoiceBuyer,
+      invoiceNote: 'string',
+      ccy: 'string',
+      applyInvoiceId: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+// 客户的开票配置信息
+export class UserInvoiceConfigVO extends $tea.Model {
+  // 租户ID
+  /**
+   * @example
+   * 2088720671581149
+   */
+  tenantId: string;
+  // 企业名称
+  /**
+   * @example
+   * XX公司
+   */
+  companyName: string;
+  // 企业电话
+  /**
+   * @example
+   * 0571-877776
+   */
+  companyPhoneNo?: string;
+  // 公司地址(详细地址)
+  /**
+   * @example
+   * 上海市黄浦区外马路
+   */
+  companyAddress?: string;
+  // 银行名称
+  /**
+   * @example
+   * 招商银行
+   */
+  bankName?: string;
+  // 银行账号
+  /**
+   * @example
+   * 34355565
+   */
+  bankAccount?: string;
+  // 税号
+  /**
+   * @example
+   * 35556T5
+   */
+  taxNo?: string;
+  // 是否是一般纳税人
+  /**
+   * @example
+   * true, false
+   */
+  generalTaxpayer: boolean;
+  static names(): { [key: string]: string } {
+    return {
+      tenantId: 'tenant_id',
+      companyName: 'company_name',
+      companyPhoneNo: 'company_phone_no',
+      companyAddress: 'company_address',
+      bankName: 'bank_name',
+      bankAccount: 'bank_account',
+      taxNo: 'tax_no',
+      generalTaxpayer: 'general_taxpayer',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      tenantId: 'string',
+      companyName: 'string',
+      companyPhoneNo: 'string',
+      companyAddress: 'string',
+      bankName: 'string',
+      bankAccount: 'string',
+      taxNo: 'string',
+      generalTaxpayer: 'boolean',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+// 发票邮寄信息
+export class InvoiceMailInfo extends $tea.Model {
+  // PID，指定发票邮寄地址归属的PID
+  /**
+   * @example
+   * 123
+   */
+  pid: string;
+  // 联系人名字
+  /**
+   * @example
+   * 张三
+   */
+  name: string;
+  // 国家
+  /**
+   * @example
+   * 中国
+   */
+  country: string;
+  // 收件人邮箱
+  /**
+   * @example
+   * 715680094@qq.com
+   */
+  email: string;
+  // 联系人电话
+  /**
+   * @example
+   * 17797768851
+   */
+  telephone?: string;
+  // 省份
+  /**
+   * @example
+   * 河南
+   */
+  province?: string;
+  // 城市
+  /**
+   * @example
+   * 郑州
+   */
+  city?: string;
+  // 区/县
+  /**
+   * @example
+   * 金水区
+   */
+  countyDistrict?: string;
+  // 街道
+  /**
+   * @example
+   * 良秀路街道
+   */
+  street?: string;
+  // 详细地址
+  /**
+   * @example
+   * 良秀路180号
+   */
+  detailAddress?: string;
+  // BD邮箱
+  /**
+   * @example
+   * 715680093@qq.com
+   */
+  bdEmail?: string;
+  static names(): { [key: string]: string } {
+    return {
+      pid: 'pid',
+      name: 'name',
+      country: 'country',
+      email: 'email',
+      telephone: 'telephone',
+      province: 'province',
+      city: 'city',
+      countyDistrict: 'county_district',
+      street: 'street',
+      detailAddress: 'detail_address',
+      bdEmail: 'bd_email',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      pid: 'string',
+      name: 'string',
+      country: 'string',
+      email: 'string',
+      telephone: 'string',
+      province: 'string',
+      city: 'string',
+      countyDistrict: 'string',
+      street: 'string',
+      detailAddress: 'string',
+      bdEmail: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+// StructL
+export class StructL extends $tea.Model {
+  // paramb
+  /**
+   * @example
+   * paramb
+   */
+  paramb: string;
+  static names(): { [key: string]: string } {
+    return {
+      paramb: 'paramb',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      paramb: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+// Demo类1
+export class DemoClasses extends $tea.Model {
+  // 字符串测试
+  /**
+   * @example
+   * some string
+   */
+  someString: string;
+  // 日期测试
+  /**
+   * @example
+   * 3
+   */
+  someDate: string;
+  // Boolean测试
+  /**
+   * @example
+   * true
+   */
+  someBoolean: boolean;
+  // 整数测试
+  /**
+   * @example
+   * 3
+   */
+  someInt: number;
+  // 列表测试
+  someList: string[];
+  static names(): { [key: string]: string } {
+    return {
+      someString: 'some_string',
+      someDate: 'some_date',
+      someBoolean: 'some_boolean',
+      someInt: 'some_int',
+      someList: 'some_list',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      someString: 'string',
+      someDate: 'string',
+      someBoolean: 'boolean',
+      someInt: 'number',
+      someList: { 'type': 'array', 'itemType': 'string' },
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+// 测试返回类
+export class TesRes extends $tea.Model {
+  // 证件号
+  /**
+   * @example
+   * 12345
+   */
+  idcard: string;
+  static names(): { [key: string]: string } {
+    return {
+      idcard: 'idcard',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      idcard: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+// 键值对
+export class XNameValuePair extends $tea.Model {
+  // 键名
+  /**
+   * @example
+   * key
+   */
+  name: string;
+  // 键值
+  /**
+   * @example
+   * value
+   */
+  value: string;
+  static names(): { [key: string]: string } {
+    return {
+      name: 'name',
+      value: 'value',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      name: 'string',
+      value: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
 export class QueryDemoTestJltestRequest extends $tea.Model {
   // OAuth模式下的授权token
   authToken?: string;
@@ -10067,6 +13346,692 @@ export class CreateDemoBusinessOrderdResponse extends $tea.Model {
   }
 }
 
+export class QueryDemoTestTestjlRequest extends $tea.Model {
+  // OAuth模式下的授权token
+  authToken?: string;
+  productInstanceId?: string;
+  static names(): { [key: string]: string } {
+    return {
+      authToken: 'auth_token',
+      productInstanceId: 'product_instance_id',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      authToken: 'string',
+      productInstanceId: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class QueryDemoTestTestjlResponse extends $tea.Model {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string;
+  // 结果码，一般OK表示调用成功
+  resultCode?: string;
+  // 异常信息的文本描述
+  resultMsg?: string;
+  static names(): { [key: string]: string } {
+    return {
+      reqMsgId: 'req_msg_id',
+      resultCode: 'result_code',
+      resultMsg: 'result_msg',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      reqMsgId: 'string',
+      resultCode: 'string',
+      resultMsg: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class CreateDemoBusinessOrderppRequest extends $tea.Model {
+  // OAuth模式下的授权token
+  authToken?: string;
+  productInstanceId?: string;
+  // 订单编号
+  orderNo: string;
+  static names(): { [key: string]: string } {
+    return {
+      authToken: 'auth_token',
+      productInstanceId: 'product_instance_id',
+      orderNo: 'order_no',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      authToken: 'string',
+      productInstanceId: 'string',
+      orderNo: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class CreateDemoBusinessOrderppResponse extends $tea.Model {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string;
+  // 结果码，一般OK表示调用成功
+  resultCode?: string;
+  // 异常信息的文本描述
+  resultMsg?: string;
+  // 商品明细
+  itemList?: OrderItem[];
+  static names(): { [key: string]: string } {
+    return {
+      reqMsgId: 'req_msg_id',
+      resultCode: 'result_code',
+      resultMsg: 'result_msg',
+      itemList: 'item_list',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      reqMsgId: 'string',
+      resultCode: 'string',
+      resultMsg: 'string',
+      itemList: { 'type': 'array', 'itemType': OrderItem },
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class CreateDemoBusinessOrderxxxRequest extends $tea.Model {
+  // OAuth模式下的授权token
+  authToken?: string;
+  productInstanceId?: string;
+  // 订单编号
+  orderNo: string;
+  static names(): { [key: string]: string } {
+    return {
+      authToken: 'auth_token',
+      productInstanceId: 'product_instance_id',
+      orderNo: 'order_no',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      authToken: 'string',
+      productInstanceId: 'string',
+      orderNo: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class CreateDemoBusinessOrderxxxResponse extends $tea.Model {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string;
+  // 结果码，一般OK表示调用成功
+  resultCode?: string;
+  // 异常信息的文本描述
+  resultMsg?: string;
+  // 商品明细
+  itemList?: OrderItem[];
+  static names(): { [key: string]: string } {
+    return {
+      reqMsgId: 'req_msg_id',
+      resultCode: 'result_code',
+      resultMsg: 'result_msg',
+      itemList: 'item_list',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      reqMsgId: 'string',
+      resultCode: 'string',
+      resultMsg: 'string',
+      itemList: { 'type': 'array', 'itemType': OrderItem },
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class CreateDemoBusinessOrderRequest extends $tea.Model {
+  // OAuth模式下的授权token
+  authToken?: string;
+  productInstanceId?: string;
+  // 订单编号
+  orderNo: string;
+  static names(): { [key: string]: string } {
+    return {
+      authToken: 'auth_token',
+      productInstanceId: 'product_instance_id',
+      orderNo: 'order_no',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      authToken: 'string',
+      productInstanceId: 'string',
+      orderNo: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class CreateDemoBusinessOrderResponse extends $tea.Model {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string;
+  // 结果码，一般OK表示调用成功
+  resultCode?: string;
+  // 异常信息的文本描述
+  resultMsg?: string;
+  // 订单ID
+  orderId?: string;
+  static names(): { [key: string]: string } {
+    return {
+      reqMsgId: 'req_msg_id',
+      resultCode: 'result_code',
+      resultMsg: 'result_msg',
+      orderId: 'order_id',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      reqMsgId: 'string',
+      resultCode: 'string',
+      resultMsg: 'string',
+      orderId: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class CreateDemoBusinessOrderzzzRequest extends $tea.Model {
+  // OAuth模式下的授权token
+  authToken?: string;
+  productInstanceId?: string;
+  // 订单编号
+  orderNo: string;
+  static names(): { [key: string]: string } {
+    return {
+      authToken: 'auth_token',
+      productInstanceId: 'product_instance_id',
+      orderNo: 'order_no',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      authToken: 'string',
+      productInstanceId: 'string',
+      orderNo: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class CreateDemoBusinessOrderzzzResponse extends $tea.Model {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string;
+  // 结果码，一般OK表示调用成功
+  resultCode?: string;
+  // 异常信息的文本描述
+  resultMsg?: string;
+  // 订单ID
+  orderId?: string;
+  static names(): { [key: string]: string } {
+    return {
+      reqMsgId: 'req_msg_id',
+      resultCode: 'result_code',
+      resultMsg: 'result_msg',
+      orderId: 'order_id',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      reqMsgId: 'string',
+      resultCode: 'string',
+      resultMsg: 'string',
+      orderId: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class ApixaDemoCliCreateRequest extends $tea.Model {
+  // OAuth模式下的授权token
+  authToken?: string;
+  productInstanceId?: string;
+  // 超时时间
+  timeout: string;
+  static names(): { [key: string]: string } {
+    return {
+      authToken: 'auth_token',
+      productInstanceId: 'product_instance_id',
+      timeout: 'timeout',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      authToken: 'string',
+      productInstanceId: 'string',
+      timeout: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class ApixaDemoCliCreateResponse extends $tea.Model {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string;
+  // 结果码，一般OK表示调用成功
+  resultCode?: string;
+  // 异常信息的文本描述
+  resultMsg?: string;
+  // 结果描述
+  msg?: string;
+  // 结果码
+  status?: string;
+  static names(): { [key: string]: string } {
+    return {
+      reqMsgId: 'req_msg_id',
+      resultCode: 'result_code',
+      resultMsg: 'result_msg',
+      msg: 'msg',
+      status: 'status',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      reqMsgId: 'string',
+      resultCode: 'string',
+      resultMsg: 'string',
+      msg: 'string',
+      status: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class ApixbDemoCliCreateRequest extends $tea.Model {
+  // OAuth模式下的授权token
+  authToken?: string;
+  productInstanceId?: string;
+  // 超时时间
+  timeout: string;
+  static names(): { [key: string]: string } {
+    return {
+      authToken: 'auth_token',
+      productInstanceId: 'product_instance_id',
+      timeout: 'timeout',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      authToken: 'string',
+      productInstanceId: 'string',
+      timeout: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class ApixbDemoCliCreateResponse extends $tea.Model {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string;
+  // 结果码，一般OK表示调用成功
+  resultCode?: string;
+  // 异常信息的文本描述
+  resultMsg?: string;
+  // 结果描述
+  msg?: string;
+  // 结果码
+  status?: string;
+  static names(): { [key: string]: string } {
+    return {
+      reqMsgId: 'req_msg_id',
+      resultCode: 'result_code',
+      resultMsg: 'result_msg',
+      msg: 'msg',
+      status: 'status',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      reqMsgId: 'string',
+      resultCode: 'string',
+      resultMsg: 'string',
+      msg: 'string',
+      status: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class ApizDemoCliCreateRequest extends $tea.Model {
+  // OAuth模式下的授权token
+  authToken?: string;
+  productInstanceId?: string;
+  // 订单编号
+  orderNo: string;
+  static names(): { [key: string]: string } {
+    return {
+      authToken: 'auth_token',
+      productInstanceId: 'product_instance_id',
+      orderNo: 'order_no',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      authToken: 'string',
+      productInstanceId: 'string',
+      orderNo: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class ApizDemoCliCreateResponse extends $tea.Model {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string;
+  // 结果码，一般OK表示调用成功
+  resultCode?: string;
+  // 异常信息的文本描述
+  resultMsg?: string;
+  // 商品明细
+  itemList?: OrderItem[];
+  static names(): { [key: string]: string } {
+    return {
+      reqMsgId: 'req_msg_id',
+      resultCode: 'result_code',
+      resultMsg: 'result_msg',
+      itemList: 'item_list',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      reqMsgId: 'string',
+      resultCode: 'string',
+      resultMsg: 'string',
+      itemList: { 'type': 'array', 'itemType': OrderItem },
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class CreateAntcloudAcmAntchainTenantRequest extends $tea.Model {
+  // OAuth模式下的授权token
+  authToken?: string;
+  // 企业名称或个人名称
+  name: string;
+  // 客户类型
+  // PERSON("个人","1"),
+  // ENTERPRISE("企业","2")
+  userType: string;
+  // 证件号
+  certNo?: string;
+  // 证件类型
+  certType?: string;
+  // 法人姓名
+  realName?: string;
+  // 法人证件号
+  artificialPersonCertNo?: string;
+  // 法人证件类型
+  artificialPersonCertType?: string;
+  // 支付宝登录号
+  loginName?: string;
+  // 支付宝uid(租户id)
+  tenantId?: string;
+  // 业务场景码
+  bussinessCode: string;
+  // 在平台上的角色，比如服务提供方，服务消费方，合作机构，资金提供方
+  bussinessRole?: string;
+  // 是否支付宝账户入驻
+  isAlipayTenant: boolean;
+  // 是否认证过，不填默认未认证
+  antchainCertified?: boolean;
+  // 外部系统的会员ID，用于幂等
+  sourceUserId?: string;
+  // 注册区域
+  registerArea?: string;
+  static names(): { [key: string]: string } {
+    return {
+      authToken: 'auth_token',
+      name: 'name',
+      userType: 'user_type',
+      certNo: 'cert_no',
+      certType: 'cert_type',
+      realName: 'real_name',
+      artificialPersonCertNo: 'artificial_person_cert_no',
+      artificialPersonCertType: 'artificial_person_cert_type',
+      loginName: 'login_name',
+      tenantId: 'tenant_id',
+      bussinessCode: 'bussiness_code',
+      bussinessRole: 'bussiness_role',
+      isAlipayTenant: 'is_alipay_tenant',
+      antchainCertified: 'antchain_certified',
+      sourceUserId: 'source_user_id',
+      registerArea: 'register_area',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      authToken: 'string',
+      name: 'string',
+      userType: 'string',
+      certNo: 'string',
+      certType: 'string',
+      realName: 'string',
+      artificialPersonCertNo: 'string',
+      artificialPersonCertType: 'string',
+      loginName: 'string',
+      tenantId: 'string',
+      bussinessCode: 'string',
+      bussinessRole: 'string',
+      isAlipayTenant: 'boolean',
+      antchainCertified: 'boolean',
+      sourceUserId: 'string',
+      registerArea: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class CreateAntcloudAcmAntchainTenantResponse extends $tea.Model {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string;
+  // 结果码，一般OK表示调用成功
+  resultCode?: string;
+  // 异常信息的文本描述
+  resultMsg?: string;
+  // 租户id
+  tenantId?: string;
+  // 客户id
+  customerId?: string;
+  static names(): { [key: string]: string } {
+    return {
+      reqMsgId: 'req_msg_id',
+      resultCode: 'result_code',
+      resultMsg: 'result_msg',
+      tenantId: 'tenant_id',
+      customerId: 'customer_id',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      reqMsgId: 'string',
+      resultCode: 'string',
+      resultMsg: 'string',
+      tenantId: 'string',
+      customerId: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class UpdateAntcloudAcmCustomerIdentityRequest extends $tea.Model {
+  // OAuth模式下的授权token
+  authToken?: string;
+  // 客户id
+  customerId?: string;
+  // 企业名称或个人名称
+  name: string;
+  // 租户id
+  tenantId?: string;
+  // 证件号
+  certNo: string;
+  // 证件类型
+  certType: string;
+  // 法人姓名
+  realName?: string;
+  // 法人证件号码
+  artificialPersonCertNo?: string;
+  // 法人证件类型
+  artificialPersonCertType?: string;
+  // 业务场景码
+  businessCode: string;
+  // 业务角色
+  bussinessRole?: string;
+  // 国家代码
+  countryCode?: string;
+  static names(): { [key: string]: string } {
+    return {
+      authToken: 'auth_token',
+      customerId: 'customer_id',
+      name: 'name',
+      tenantId: 'tenant_id',
+      certNo: 'cert_no',
+      certType: 'cert_type',
+      realName: 'real_name',
+      artificialPersonCertNo: 'artificial_person_cert_no',
+      artificialPersonCertType: 'artificial_person_cert_type',
+      businessCode: 'business_code',
+      bussinessRole: 'bussiness_role',
+      countryCode: 'country_code',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      authToken: 'string',
+      customerId: 'string',
+      name: 'string',
+      tenantId: 'string',
+      certNo: 'string',
+      certType: 'string',
+      realName: 'string',
+      artificialPersonCertNo: 'string',
+      artificialPersonCertType: 'string',
+      businessCode: 'string',
+      bussinessRole: 'string',
+      countryCode: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class UpdateAntcloudAcmCustomerIdentityResponse extends $tea.Model {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string;
+  // 结果码，一般OK表示调用成功
+  resultCode?: string;
+  // 异常信息的文本描述
+  resultMsg?: string;
+  // 返回客户id
+  customerId?: string;
+  static names(): { [key: string]: string } {
+    return {
+      reqMsgId: 'req_msg_id',
+      resultCode: 'result_code',
+      resultMsg: 'result_msg',
+      customerId: 'customer_id',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      reqMsgId: 'string',
+      resultCode: 'string',
+      resultMsg: 'string',
+      customerId: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
 export class QueryAntcloudAcmUserProjectRequest extends $tea.Model {
   // OAuth模式下的授权token
   authToken?: string;
@@ -10115,6 +14080,858 @@ export class QueryAntcloudAcmUserProjectResponse extends $tea.Model {
       resultCode: 'string',
       resultMsg: 'string',
       projectList: { 'type': 'array', 'itemType': Project },
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class UpdateAntcloudAcmTenantCountryRequest extends $tea.Model {
+  // OAuth模式下的授权token
+  authToken?: string;
+  // 租户ID
+  tenantId: string;
+  // 国家代码
+  countryCode: string;
+  // 场景码
+  businessCode: string;
+  static names(): { [key: string]: string } {
+    return {
+      authToken: 'auth_token',
+      tenantId: 'tenant_id',
+      countryCode: 'country_code',
+      businessCode: 'business_code',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      authToken: 'string',
+      tenantId: 'string',
+      countryCode: 'string',
+      businessCode: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class UpdateAntcloudAcmTenantCountryResponse extends $tea.Model {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string;
+  // 结果码，一般OK表示调用成功
+  resultCode?: string;
+  // 异常信息的文本描述
+  resultMsg?: string;
+  static names(): { [key: string]: string } {
+    return {
+      reqMsgId: 'req_msg_id',
+      resultCode: 'result_code',
+      resultMsg: 'result_msg',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      reqMsgId: 'string',
+      resultCode: 'string',
+      resultMsg: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class QueryAntcloudAcmTenantProjectRequest extends $tea.Model {
+  // OAuth模式下的授权token
+  authToken?: string;
+  // 租户ID
+  tenantId: string;
+  static names(): { [key: string]: string } {
+    return {
+      authToken: 'auth_token',
+      tenantId: 'tenant_id',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      authToken: 'string',
+      tenantId: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class QueryAntcloudAcmTenantProjectResponse extends $tea.Model {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string;
+  // 结果码，一般OK表示调用成功
+  resultCode?: string;
+  // 异常信息的文本描述
+  resultMsg?: string;
+  // 项目列表
+  projectList?: Project[];
+  static names(): { [key: string]: string } {
+    return {
+      reqMsgId: 'req_msg_id',
+      resultCode: 'result_code',
+      resultMsg: 'result_msg',
+      projectList: 'project_list',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      reqMsgId: 'string',
+      resultCode: 'string',
+      resultMsg: 'string',
+      projectList: { 'type': 'array', 'itemType': Project },
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class CreateAntcloudAcmTenantProjectRequest extends $tea.Model {
+  // OAuth模式下的授权token
+  authToken?: string;
+  // 操作者用户ID
+  userId: string;
+  // 项目名称
+  projectName: string;
+  // 项目描述
+  description?: string;
+  static names(): { [key: string]: string } {
+    return {
+      authToken: 'auth_token',
+      userId: 'user_id',
+      projectName: 'project_name',
+      description: 'description',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      authToken: 'string',
+      userId: 'string',
+      projectName: 'string',
+      description: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class CreateAntcloudAcmTenantProjectResponse extends $tea.Model {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string;
+  // 结果码，一般OK表示调用成功
+  resultCode?: string;
+  // 异常信息的文本描述
+  resultMsg?: string;
+  static names(): { [key: string]: string } {
+    return {
+      reqMsgId: 'req_msg_id',
+      resultCode: 'result_code',
+      resultMsg: 'result_msg',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      reqMsgId: 'string',
+      resultCode: 'string',
+      resultMsg: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class UpdateAntcloudAcmTenantProjectRequest extends $tea.Model {
+  // OAuth模式下的授权token
+  authToken?: string;
+  // 操作者用户ID
+  userId: string;
+  // 项目ID
+  projectId: string;
+  // 项目名称
+  projectName: string;
+  // 项目描述
+  description?: string;
+  static names(): { [key: string]: string } {
+    return {
+      authToken: 'auth_token',
+      userId: 'user_id',
+      projectId: 'project_id',
+      projectName: 'project_name',
+      description: 'description',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      authToken: 'string',
+      userId: 'string',
+      projectId: 'string',
+      projectName: 'string',
+      description: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class UpdateAntcloudAcmTenantProjectResponse extends $tea.Model {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string;
+  // 结果码，一般OK表示调用成功
+  resultCode?: string;
+  // 异常信息的文本描述
+  resultMsg?: string;
+  static names(): { [key: string]: string } {
+    return {
+      reqMsgId: 'req_msg_id',
+      resultCode: 'result_code',
+      resultMsg: 'result_msg',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      reqMsgId: 'string',
+      resultCode: 'string',
+      resultMsg: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class UpdateAntcloudAcmProjectStatusRequest extends $tea.Model {
+  // OAuth模式下的授权token
+  authToken?: string;
+  // 操作者用户ID
+  userId: string;
+  // 项目ID
+  projectId: string;
+  // false代表禁用，true代表启用
+  status: boolean;
+  static names(): { [key: string]: string } {
+    return {
+      authToken: 'auth_token',
+      userId: 'user_id',
+      projectId: 'project_id',
+      status: 'status',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      authToken: 'string',
+      userId: 'string',
+      projectId: 'string',
+      status: 'boolean',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class UpdateAntcloudAcmProjectStatusResponse extends $tea.Model {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string;
+  // 结果码，一般OK表示调用成功
+  resultCode?: string;
+  // 异常信息的文本描述
+  resultMsg?: string;
+  static names(): { [key: string]: string } {
+    return {
+      reqMsgId: 'req_msg_id',
+      resultCode: 'result_code',
+      resultMsg: 'result_msg',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      reqMsgId: 'string',
+      resultCode: 'string',
+      resultMsg: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class QueryAntcloudAcmProjectMemberRequest extends $tea.Model {
+  // OAuth模式下的授权token
+  authToken?: string;
+  // 操作者用户ID
+  userId: string;
+  // 项目ID
+  projectId: string;
+  // 用户名称（模糊搜索）
+  userName?: string;
+  // 当前页，默认为 1
+  currentPage?: number;
+  // 每页大小，默认为 10
+  pageSize?: number;
+  // 排序字段：UTC_CREATE（创建时间）、UTC_MODIFIED（更新时间），默认为 UTC_CREATE
+  sortField?: string;
+  // 排序方式：ASC（升序）、DESC（降序），默认为 DESC
+  sortOrder?: string;
+  static names(): { [key: string]: string } {
+    return {
+      authToken: 'auth_token',
+      userId: 'user_id',
+      projectId: 'project_id',
+      userName: 'user_name',
+      currentPage: 'current_page',
+      pageSize: 'page_size',
+      sortField: 'sort_field',
+      sortOrder: 'sort_order',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      authToken: 'string',
+      userId: 'string',
+      projectId: 'string',
+      userName: 'string',
+      currentPage: 'number',
+      pageSize: 'number',
+      sortField: 'string',
+      sortOrder: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class QueryAntcloudAcmProjectMemberResponse extends $tea.Model {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string;
+  // 结果码，一般OK表示调用成功
+  resultCode?: string;
+  // 异常信息的文本描述
+  resultMsg?: string;
+  // 成员列表
+  members?: Member[];
+  // 当前页
+  currentPage?: number;
+  // 每页大小
+  pageSize?: number;
+  // 查询结果总数
+  totalCount?: number;
+  static names(): { [key: string]: string } {
+    return {
+      reqMsgId: 'req_msg_id',
+      resultCode: 'result_code',
+      resultMsg: 'result_msg',
+      members: 'members',
+      currentPage: 'current_page',
+      pageSize: 'page_size',
+      totalCount: 'total_count',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      reqMsgId: 'string',
+      resultCode: 'string',
+      resultMsg: 'string',
+      members: { 'type': 'array', 'itemType': Member },
+      currentPage: 'number',
+      pageSize: 'number',
+      totalCount: 'number',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class AddAntcloudAcmProjectMemberRequest extends $tea.Model {
+  // OAuth模式下的授权token
+  authToken?: string;
+  // 操作者用户ID
+  userId: string;
+  // 项目ID
+  projectId: string;
+  // 成员用户ID列表
+  users: string[];
+  static names(): { [key: string]: string } {
+    return {
+      authToken: 'auth_token',
+      userId: 'user_id',
+      projectId: 'project_id',
+      users: 'users',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      authToken: 'string',
+      userId: 'string',
+      projectId: 'string',
+      users: { 'type': 'array', 'itemType': 'string' },
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class AddAntcloudAcmProjectMemberResponse extends $tea.Model {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string;
+  // 结果码，一般OK表示调用成功
+  resultCode?: string;
+  // 异常信息的文本描述
+  resultMsg?: string;
+  static names(): { [key: string]: string } {
+    return {
+      reqMsgId: 'req_msg_id',
+      resultCode: 'result_code',
+      resultMsg: 'result_msg',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      reqMsgId: 'string',
+      resultCode: 'string',
+      resultMsg: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class RemoveAntcloudAcmProjectMemberRequest extends $tea.Model {
+  // OAuth模式下的授权token
+  authToken?: string;
+  // 操作者用户ID
+  userId: string;
+  // 项目ID
+  projectId: string;
+  // 待移除的成员用户ID列表
+  users: string[];
+  static names(): { [key: string]: string } {
+    return {
+      authToken: 'auth_token',
+      userId: 'user_id',
+      projectId: 'project_id',
+      users: 'users',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      authToken: 'string',
+      userId: 'string',
+      projectId: 'string',
+      users: { 'type': 'array', 'itemType': 'string' },
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class RemoveAntcloudAcmProjectMemberResponse extends $tea.Model {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string;
+  // 结果码，一般OK表示调用成功
+  resultCode?: string;
+  // 异常信息的文本描述
+  resultMsg?: string;
+  static names(): { [key: string]: string } {
+    return {
+      reqMsgId: 'req_msg_id',
+      resultCode: 'result_code',
+      resultMsg: 'result_msg',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      reqMsgId: 'string',
+      resultCode: 'string',
+      resultMsg: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class QueryAntcloudAcmProjectUserRequest extends $tea.Model {
+  // OAuth模式下的授权token
+  authToken?: string;
+  // 操作者用户ID
+  userId: string;
+  // 项目ID
+  projectId: string;
+  // 用户名称（模糊搜索）
+  userName?: string;
+  static names(): { [key: string]: string } {
+    return {
+      authToken: 'auth_token',
+      userId: 'user_id',
+      projectId: 'project_id',
+      userName: 'user_name',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      authToken: 'string',
+      userId: 'string',
+      projectId: 'string',
+      userName: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class QueryAntcloudAcmProjectUserResponse extends $tea.Model {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string;
+  // 结果码，一般OK表示调用成功
+  resultCode?: string;
+  // 异常信息的文本描述
+  resultMsg?: string;
+  // 用户列表
+  users?: User[];
+  static names(): { [key: string]: string } {
+    return {
+      reqMsgId: 'req_msg_id',
+      resultCode: 'result_code',
+      resultMsg: 'result_msg',
+      users: 'users',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      reqMsgId: 'string',
+      resultCode: 'string',
+      resultMsg: 'string',
+      users: { 'type': 'array', 'itemType': User },
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class ListAntcloudOfferInstanceRequest extends $tea.Model {
+  // OAuth模式下的授权token
+  authToken?: string;
+  // 租户id
+  tenantId: string;
+  // 渠道产品码
+  productCode: string;
+  // 实例状态过滤；默认 ["STARTED","CREATING"]
+  statuses?: string[];
+  // 游标（keyset）。首页请求不传或留空；后续请求传上一页响应返回的 nextCursor
+  cursor?: string;
+  // 每页条数，默认 20，上限 100
+  pageSize?: number;
+  static names(): { [key: string]: string } {
+    return {
+      authToken: 'auth_token',
+      tenantId: 'tenant_id',
+      productCode: 'product_code',
+      statuses: 'statuses',
+      cursor: 'cursor',
+      pageSize: 'page_size',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      authToken: 'string',
+      tenantId: 'string',
+      productCode: 'string',
+      statuses: { 'type': 'array', 'itemType': 'string' },
+      cursor: 'string',
+      pageSize: 'number',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class ListAntcloudOfferInstanceResponse extends $tea.Model {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string;
+  // 结果码，一般OK表示调用成功
+  resultCode?: string;
+  // 异常信息的文本描述
+  resultMsg?: string;
+  // 当前页实例列表（含规格明细
+  instances?: Instance[];
+  // 下一页游标。空字符串 表示无更多数据
+  nextCursor?: string;
+  // 是否有下一页（便于客户端控制循环）
+  hasMore?: boolean;
+  static names(): { [key: string]: string } {
+    return {
+      reqMsgId: 'req_msg_id',
+      resultCode: 'result_code',
+      resultMsg: 'result_msg',
+      instances: 'instances',
+      nextCursor: 'next_cursor',
+      hasMore: 'has_more',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      reqMsgId: 'string',
+      resultCode: 'string',
+      resultMsg: 'string',
+      instances: { 'type': 'array', 'itemType': Instance },
+      nextCursor: 'string',
+      hasMore: 'boolean',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class ApplyAntcloudBillingRespackageCountRequest extends $tea.Model {
+  // OAuth模式下的授权token
+  authToken?: string;
+  // 外部唯一单据号 不超过64位
+  outBizId: string;
+  // 租户id
+  tenantId: string;
+  // 商品码
+  productCode?: string;
+  // 指定实例ID
+  instanceId?: string;
+  // 指定模板
+  templateName?: string;
+  // 业务发生时间
+  gmtService: string;
+  // 是否部分抵扣
+  partialDeductFlag?: boolean;
+  // 是否通知用户
+  needAlert?: boolean;
+  // 抵扣量，后续废弃，新业务使用deduct_amount_str
+  deductAmount?: number;
+  // 来源系统
+  fromApp: string;
+  // json字符串
+  extendInfo?: string;
+  // 预占抵扣模式
+  hold?: boolean;
+  // 预占时长
+  holdTime?: number;
+  // 高精度抵扣量，与deduct_amount互斥，传一个就可以，deduct_amount不支持小数，deduct_amount_str支持小数
+  deductAmountStr?: string;
+  static names(): { [key: string]: string } {
+    return {
+      authToken: 'auth_token',
+      outBizId: 'out_biz_id',
+      tenantId: 'tenant_id',
+      productCode: 'product_code',
+      instanceId: 'instance_id',
+      templateName: 'template_name',
+      gmtService: 'gmt_service',
+      partialDeductFlag: 'partial_deduct_flag',
+      needAlert: 'need_alert',
+      deductAmount: 'deduct_amount',
+      fromApp: 'from_app',
+      extendInfo: 'extend_info',
+      hold: 'hold',
+      holdTime: 'hold_time',
+      deductAmountStr: 'deduct_amount_str',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      authToken: 'string',
+      outBizId: 'string',
+      tenantId: 'string',
+      productCode: 'string',
+      instanceId: 'string',
+      templateName: 'string',
+      gmtService: 'string',
+      partialDeductFlag: 'boolean',
+      needAlert: 'boolean',
+      deductAmount: 'number',
+      fromApp: 'string',
+      extendInfo: 'string',
+      hold: 'boolean',
+      holdTime: 'number',
+      deductAmountStr: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class ApplyAntcloudBillingRespackageCountResponse extends $tea.Model {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string;
+  // 结果码，一般OK表示调用成功
+  resultCode?: string;
+  // 异常信息的文本描述
+  resultMsg?: string;
+  // 外部唯一单据号 不超过64位
+  outBizId?: string;
+  // 本次抵扣总量
+  deductAmount?: number;
+  // 抵扣的oms component key 
+  omsComponentKey?: string;
+  // 抵扣后剩余计量值
+  leftAmount?: number;
+  // 资源包抵扣详细信息
+  omsDataComponentDeductDetailResultvos?: OmsDataComponentDeductDetailResultVO[];
+  // 高精度本次抵扣总量，支持小数
+  deductAmountStr?: string;
+  // 高精度抵扣剩余量值，支持小数
+  leftAmountStr?: string;
+  static names(): { [key: string]: string } {
+    return {
+      reqMsgId: 'req_msg_id',
+      resultCode: 'result_code',
+      resultMsg: 'result_msg',
+      outBizId: 'out_biz_id',
+      deductAmount: 'deduct_amount',
+      omsComponentKey: 'oms_component_key',
+      leftAmount: 'left_amount',
+      omsDataComponentDeductDetailResultvos: 'oms_data_component_deduct_detail_resultvos',
+      deductAmountStr: 'deduct_amount_str',
+      leftAmountStr: 'left_amount_str',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      reqMsgId: 'string',
+      resultCode: 'string',
+      resultMsg: 'string',
+      outBizId: 'string',
+      deductAmount: 'number',
+      omsComponentKey: 'string',
+      leftAmount: 'number',
+      omsDataComponentDeductDetailResultvos: { 'type': 'array', 'itemType': OmsDataComponentDeductDetailResultVO },
+      deductAmountStr: 'string',
+      leftAmountStr: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class QueryAntcloudBillingRespackageBalanceRequest extends $tea.Model {
+  // OAuth模式下的授权token
+  authToken?: string;
+  // 租户id
+  tenantId: string;
+  // 抵扣资源包的量价商品码
+  deductProductCode: string;
+  // 业务时间(不同时间余量不一样)
+  gmtService: string;
+  static names(): { [key: string]: string } {
+    return {
+      authToken: 'auth_token',
+      tenantId: 'tenant_id',
+      deductProductCode: 'deduct_product_code',
+      gmtService: 'gmt_service',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      authToken: 'string',
+      tenantId: 'string',
+      deductProductCode: 'string',
+      gmtService: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class QueryAntcloudBillingRespackageBalanceResponse extends $tea.Model {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string;
+  // 结果码，一般OK表示调用成功
+  resultCode?: string;
+  // 异常信息的文本描述
+  resultMsg?: string;
+  // 资源包余量明细
+  balanceDetail?: RespackegeBanlanceVO[];
+  static names(): { [key: string]: string } {
+    return {
+      reqMsgId: 'req_msg_id',
+      resultCode: 'result_code',
+      resultMsg: 'result_msg',
+      balanceDetail: 'balance_detail',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      reqMsgId: 'string',
+      resultCode: 'string',
+      resultMsg: 'string',
+      balanceDetail: { 'type': 'array', 'itemType': RespackegeBanlanceVO },
     };
   }
 
@@ -10189,11 +15006,13 @@ export class SendAntcloudMarketingPartnerCouponRequest extends $tea.Model {
   // 优惠券模版id
   templateId: string;
   // 支付宝登录名称
-  alipayLoginName: string;
+  alipayLoginName?: string;
   // 业务唯一幂等标识，可以是订单号
   bizNo: string;
   // 备注
   remark?: string;
+  // 租户id
+  tenantId?: string;
   static names(): { [key: string]: string } {
     return {
       authToken: 'auth_token',
@@ -10201,6 +15020,7 @@ export class SendAntcloudMarketingPartnerCouponRequest extends $tea.Model {
       alipayLoginName: 'alipay_login_name',
       bizNo: 'biz_no',
       remark: 'remark',
+      tenantId: 'tenant_id',
     };
   }
 
@@ -10211,6 +15031,7 @@ export class SendAntcloudMarketingPartnerCouponRequest extends $tea.Model {
       alipayLoginName: 'string',
       bizNo: 'string',
       remark: 'string',
+      tenantId: 'string',
     };
   }
 
@@ -10307,6 +15128,489 @@ export class QueryAntcloudMarketingPartnerCouponstockResponse extends $tea.Model
       totalQuota: 'number',
       releasedQuota: 'number',
       availableQuota: 'number',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class QueryAntcloudMarketingPartnerCouponRequest extends $tea.Model {
+  // OAuth模式下的授权token
+  authToken?: string;
+  // 目标租户2088 ID，查询发放给该租户的优惠券
+  tenantId: string;
+  // 商品规格Code列表
+  productCodes: string[];
+  // 币种，目前仅支持CNY、USD
+  currency: string;
+  // 优惠券类型；不传或空列表表示全部类型
+  couponType?: string[];
+  // 优惠券状态；不传或空列表表示全部状态.
+  // AVAILABLE正常/可用状态
+  // EXHAUSTED 已使用完
+  // ABANDONED 已作废
+  // EXPIRED 已过期
+  couponStatus?: string[];
+  // 查询区间开始时间
+  startTime: string;
+  // 查询区间结束时间
+  endTime: string;
+  // 页码，从1开始
+  pageNo: number;
+  // 每页记录数，范围1～100
+  pageSize: number;
+  static names(): { [key: string]: string } {
+    return {
+      authToken: 'auth_token',
+      tenantId: 'tenant_id',
+      productCodes: 'product_codes',
+      currency: 'currency',
+      couponType: 'coupon_type',
+      couponStatus: 'coupon_status',
+      startTime: 'start_time',
+      endTime: 'end_time',
+      pageNo: 'page_no',
+      pageSize: 'page_size',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      authToken: 'string',
+      tenantId: 'string',
+      productCodes: { 'type': 'array', 'itemType': 'string' },
+      currency: 'string',
+      couponType: { 'type': 'array', 'itemType': 'string' },
+      couponStatus: { 'type': 'array', 'itemType': 'string' },
+      startTime: 'string',
+      endTime: 'string',
+      pageNo: 'number',
+      pageSize: 'number',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class QueryAntcloudMarketingPartnerCouponResponse extends $tea.Model {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string;
+  // 结果码，一般OK表示调用成功
+  resultCode?: string;
+  // 异常信息的文本描述
+  resultMsg?: string;
+  // 当前页码
+  pageNo?: number;
+  // 当前每页记录数
+  pageSize?: number;
+  // 满足全部查询条件的优惠券总数
+  totalCount?: number;
+  // 优惠券列表
+  coupons?: Coupon[];
+  static names(): { [key: string]: string } {
+    return {
+      reqMsgId: 'req_msg_id',
+      resultCode: 'result_code',
+      resultMsg: 'result_msg',
+      pageNo: 'page_no',
+      pageSize: 'page_size',
+      totalCount: 'total_count',
+      coupons: 'coupons',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      reqMsgId: 'string',
+      resultCode: 'string',
+      resultMsg: 'string',
+      pageNo: 'number',
+      pageSize: 'number',
+      totalCount: 'number',
+      coupons: { 'type': 'array', 'itemType': Coupon },
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class ListAntcloudMarketingPartnerCoupontemplateRequest extends $tea.Model {
+  // OAuth模式下的授权token
+  authToken?: string;
+  // start_time到end_time时间区间内可用命中的模版都可以查询出来
+  startTime: string;
+  // start_time到end_time时间区间内可用命中的模版都可以查询出来
+  endTime: string;
+  // 分页查询的页码
+  pageNo: number;
+  // 分页查询每一页查询的记录数量
+  pageSize: number;
+  static names(): { [key: string]: string } {
+    return {
+      authToken: 'auth_token',
+      startTime: 'start_time',
+      endTime: 'end_time',
+      pageNo: 'page_no',
+      pageSize: 'page_size',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      authToken: 'string',
+      startTime: 'string',
+      endTime: 'string',
+      pageNo: 'number',
+      pageSize: 'number',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class ListAntcloudMarketingPartnerCoupontemplateResponse extends $tea.Model {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string;
+  // 结果码，一般OK表示调用成功
+  resultCode?: string;
+  // 异常信息的文本描述
+  resultMsg?: string;
+  // 分页查询的页码
+  pageNo?: number;
+  // 分页查询每页展示的数量
+  pageSize?: number;
+  // 查询出来的总模板数量
+  totalCount?: number;
+  // 优惠券模板信息
+  templates?: ChannelTemplateInfo[];
+  static names(): { [key: string]: string } {
+    return {
+      reqMsgId: 'req_msg_id',
+      resultCode: 'result_code',
+      resultMsg: 'result_msg',
+      pageNo: 'page_no',
+      pageSize: 'page_size',
+      totalCount: 'total_count',
+      templates: 'templates',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      reqMsgId: 'string',
+      resultCode: 'string',
+      resultMsg: 'string',
+      pageNo: 'number',
+      pageSize: 'number',
+      totalCount: 'number',
+      templates: { 'type': 'array', 'itemType': ChannelTemplateInfo },
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class QueryAntcloudTradeComboPriceRequest extends $tea.Model {
+  // OAuth模式下的授权token
+  authToken?: string;
+  // 套餐编码。自定义规格询价时可为空
+  comboCode?: string;
+  // 租户ID，和租户名二选一必填
+  tenantId?: string;
+  // 8位租户名，和租户ID二选一必填
+  tenantName?: string;
+  // 订单类型，新购：NEW，不填则默认NEW
+  orderType?: string;
+  // 优惠券ID
+  couponId?: string;
+  // 套餐版本唯一版本号。CV开头的唯一版本号，由中台提供。自定义规格查询时必填
+  comboVid?: string;
+  // 是否自定义规格询价
+  customSpecPricing?: boolean;
+  // 用户选择的规格配置列表
+  selectedConfigs?: SelectedConfigItem[];
+  static names(): { [key: string]: string } {
+    return {
+      authToken: 'auth_token',
+      comboCode: 'combo_code',
+      tenantId: 'tenant_id',
+      tenantName: 'tenant_name',
+      orderType: 'order_type',
+      couponId: 'coupon_id',
+      comboVid: 'combo_vid',
+      customSpecPricing: 'custom_spec_pricing',
+      selectedConfigs: 'selected_configs',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      authToken: 'string',
+      comboCode: 'string',
+      tenantId: 'string',
+      tenantName: 'string',
+      orderType: 'string',
+      couponId: 'string',
+      comboVid: 'string',
+      customSpecPricing: 'boolean',
+      selectedConfigs: { 'type': 'array', 'itemType': SelectedConfigItem },
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class QueryAntcloudTradeComboPriceResponse extends $tea.Model {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string;
+  // 结果码，一般OK表示调用成功
+  resultCode?: string;
+  // 异常信息的文本描述
+  resultMsg?: string;
+  // 套餐付款金额
+  comboPayAmount?: string;
+  // 套餐优惠金额
+  comboCouponAmount?: string;
+  // 套餐折扣金额
+  comboDiscountAmount?: string;
+  // 套餐原始金额
+  comboOriginalAmount?: string;
+  // 币种，元：CNY
+  currency?: string;
+  // 商品询价明细
+  commodityEnquiryPrices?: CommodityEnquiryPrice[];
+  static names(): { [key: string]: string } {
+    return {
+      reqMsgId: 'req_msg_id',
+      resultCode: 'result_code',
+      resultMsg: 'result_msg',
+      comboPayAmount: 'combo_pay_amount',
+      comboCouponAmount: 'combo_coupon_amount',
+      comboDiscountAmount: 'combo_discount_amount',
+      comboOriginalAmount: 'combo_original_amount',
+      currency: 'currency',
+      commodityEnquiryPrices: 'commodity_enquiry_prices',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      reqMsgId: 'string',
+      resultCode: 'string',
+      resultMsg: 'string',
+      comboPayAmount: 'string',
+      comboCouponAmount: 'string',
+      comboDiscountAmount: 'string',
+      comboOriginalAmount: 'string',
+      currency: 'string',
+      commodityEnquiryPrices: { 'type': 'array', 'itemType': CommodityEnquiryPrice },
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class PayAntcloudTradeComboOrderRequest extends $tea.Model {
+  // OAuth模式下的授权token
+  authToken?: string;
+  // 套餐订单号
+  comboOrderId: string;
+  // 支付渠道，客资：FINANCIAL_FUND；财资：CUSTOMER_FUND；支付通：ALIPAY
+  payChannel: string;
+  // 支付模式，PAGE：页面确认支付；AUTO：系统自动扣款
+  // 支付通模式只支持PAGE
+  payMode: string;
+  // 支付回跳地址，当pay_mode=PAGE时，必传
+  payReturnUrl?: string;
+  // 组合下单支付配置项
+  comboOrderPayOptions?: ComboOrderPayOptions;
+  static names(): { [key: string]: string } {
+    return {
+      authToken: 'auth_token',
+      comboOrderId: 'combo_order_id',
+      payChannel: 'pay_channel',
+      payMode: 'pay_mode',
+      payReturnUrl: 'pay_return_url',
+      comboOrderPayOptions: 'combo_order_pay_options',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      authToken: 'string',
+      comboOrderId: 'string',
+      payChannel: 'string',
+      payMode: 'string',
+      payReturnUrl: 'string',
+      comboOrderPayOptions: ComboOrderPayOptions,
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class PayAntcloudTradeComboOrderResponse extends $tea.Model {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string;
+  // 结果码，一般OK表示调用成功
+  resultCode?: string;
+  // 异常信息的文本描述
+  resultMsg?: string;
+  // 页面支付地址
+  payUrl?: string;
+  // 支付订单号
+  payOrderId?: string;
+  // 支付状态，
+  // SUCCESS：已支付;
+  // INIT：未支付;
+  // PROCESS：支付中;
+  // CANCEL：取消支付;
+  payStatus?: string;
+  // 支付链接超时时间 单位：分钟
+  timeoutMinutes?: number;
+  // 支付链接过期时间
+  expireTime?: string;
+  static names(): { [key: string]: string } {
+    return {
+      reqMsgId: 'req_msg_id',
+      resultCode: 'result_code',
+      resultMsg: 'result_msg',
+      payUrl: 'pay_url',
+      payOrderId: 'pay_order_id',
+      payStatus: 'pay_status',
+      timeoutMinutes: 'timeout_minutes',
+      expireTime: 'expire_time',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      reqMsgId: 'string',
+      resultCode: 'string',
+      resultMsg: 'string',
+      payUrl: 'string',
+      payOrderId: 'string',
+      payStatus: 'string',
+      timeoutMinutes: 'number',
+      expireTime: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class QueryAntcloudTradePriceRequest extends $tea.Model {
+  // OAuth模式下的授权token
+  authToken?: string;
+  // 商品主数据编码
+  commodityCode: string;
+  // 租户ID，和租户名称二选一必填
+  tenantId?: string;
+  // 8位租户名，和租户ID二选一必选
+  tenantName?: string;
+  // 商品数量，不传则默认1
+  quantity?: number;
+  // 业务发生时间，不传则默认当前时间
+  bizTime?: string;
+  // 订购周期，基于周期定价的商品必填
+  orderDuration?: OrderDuration;
+  // 商品规格列表，按实际商品定义的和价格相关的属性传入
+  // 1.续费询价不需要传
+  // 2.变配询价需要传入变化的规格属性
+  commodityOrderAttrs?: CommodityOrderAttribute[];
+  // 币种，元：CNY，不传默认CNY
+  currency?: string;
+  // 优惠券ID
+  couponId?: string;
+  // 不填默认为NEW；NEW：新购；RENEW：续费；MODIFY：变配
+  orderType?: string;
+  // 实例ID，续费/变配场景必传
+  instanceId?: string;
+  // 售卖市场编码，用于识别国际场景的税商类型、币种
+  saleMarket?: string;
+  static names(): { [key: string]: string } {
+    return {
+      authToken: 'auth_token',
+      commodityCode: 'commodity_code',
+      tenantId: 'tenant_id',
+      tenantName: 'tenant_name',
+      quantity: 'quantity',
+      bizTime: 'biz_time',
+      orderDuration: 'order_duration',
+      commodityOrderAttrs: 'commodity_order_attrs',
+      currency: 'currency',
+      couponId: 'coupon_id',
+      orderType: 'order_type',
+      instanceId: 'instance_id',
+      saleMarket: 'sale_market',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      authToken: 'string',
+      commodityCode: 'string',
+      tenantId: 'string',
+      tenantName: 'string',
+      quantity: 'number',
+      bizTime: 'string',
+      orderDuration: OrderDuration,
+      commodityOrderAttrs: { 'type': 'array', 'itemType': CommodityOrderAttribute },
+      currency: 'string',
+      couponId: 'string',
+      orderType: 'string',
+      instanceId: 'string',
+      saleMarket: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class QueryAntcloudTradePriceResponse extends $tea.Model {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string;
+  // 结果码，一般OK表示调用成功
+  resultCode?: string;
+  // 异常信息的文本描述
+  resultMsg?: string;
+  // 商品询价结果
+  commodityEnquiryPrice?: CommodityEnquiryPrice;
+  static names(): { [key: string]: string } {
+    return {
+      reqMsgId: 'req_msg_id',
+      resultCode: 'result_code',
+      resultMsg: 'result_msg',
+      commodityEnquiryPrice: 'commodity_enquiry_price',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      reqMsgId: 'string',
+      resultCode: 'string',
+      resultMsg: 'string',
+      commodityEnquiryPrice: CommodityEnquiryPrice,
     };
   }
 
@@ -10554,6 +15858,8 @@ export class CreateAntcloudTradeComboOptionsRequest extends $tea.Model {
   requestId: string;
   // 售卖市场，由中台分配
   saleMarket: string;
+  // 组合单下单配置项
+  comboOrderOptions?: ComboOrderOptions;
   static names(): { [key: string]: string } {
     return {
       authToken: 'auth_token',
@@ -10563,6 +15869,7 @@ export class CreateAntcloudTradeComboOptionsRequest extends $tea.Model {
       selectedConfigs: 'selected_configs',
       requestId: 'request_id',
       saleMarket: 'sale_market',
+      comboOrderOptions: 'combo_order_options',
     };
   }
 
@@ -10575,6 +15882,7 @@ export class CreateAntcloudTradeComboOptionsRequest extends $tea.Model {
       selectedConfigs: { 'type': 'array', 'itemType': SelectedConfigItem },
       requestId: 'string',
       saleMarket: 'string',
+      comboOrderOptions: ComboOrderOptions,
     };
   }
 
@@ -10611,6 +15919,128 @@ export class CreateAntcloudTradeComboOptionsResponse extends $tea.Model {
       resultMsg: 'string',
       comboOrderId: 'string',
       status: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class GetAntcloudTradeOrderRequest extends $tea.Model {
+  // OAuth模式下的授权token
+  authToken?: string;
+  // 中台订单号
+  orderId: string;
+  // 租户 ID
+  tenantId: string;
+  static names(): { [key: string]: string } {
+    return {
+      authToken: 'auth_token',
+      orderId: 'order_id',
+      tenantId: 'tenant_id',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      authToken: 'string',
+      orderId: 'string',
+      tenantId: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class GetAntcloudTradeOrderResponse extends $tea.Model {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string;
+  // 结果码，一般OK表示调用成功
+  resultCode?: string;
+  // 异常信息的文本描述
+  resultMsg?: string;
+  // 订单号
+  orderId?: string;
+  // 订单状态，示例：
+  // ORDER_SUCCESS（成功）
+  // ORDER_FAIL（失败）
+  // ORDER_CANCEL（取消）
+  orderStatus?: string;
+  // 履约状态；INIT(待履约), DOING(履约中), DONE("履约完成"), FAILED(履约失败)
+  fulfillStatus?: string;
+  static names(): { [key: string]: string } {
+    return {
+      reqMsgId: 'req_msg_id',
+      resultCode: 'result_code',
+      resultMsg: 'result_msg',
+      orderId: 'order_id',
+      orderStatus: 'order_status',
+      fulfillStatus: 'fulfill_status',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      reqMsgId: 'string',
+      resultCode: 'string',
+      resultMsg: 'string',
+      orderId: 'string',
+      orderStatus: 'string',
+      fulfillStatus: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class UseAntchainAbcJustTestRequest extends $tea.Model {
+  // OAuth模式下的授权token
+  authToken?: string;
+  productInstanceId?: string;
+  static names(): { [key: string]: string } {
+    return {
+      authToken: 'auth_token',
+      productInstanceId: 'product_instance_id',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      authToken: 'string',
+      productInstanceId: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class UseAntchainAbcJustTestResponse extends $tea.Model {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string;
+  // 结果码，一般OK表示调用成功
+  resultCode?: string;
+  // 异常信息的文本描述
+  resultMsg?: string;
+  static names(): { [key: string]: string } {
+    return {
+      reqMsgId: 'req_msg_id',
+      resultCode: 'result_code',
+      resultMsg: 'result_msg',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      reqMsgId: 'string',
+      resultCode: 'string',
+      resultMsg: 'string',
     };
   }
 
@@ -10703,6 +16133,941 @@ export class QueryAntcloudPccCommodityPriceResponse extends $tea.Model {
       pageNum: 'number',
       pageSize: 'number',
       items: { 'type': 'array', 'itemType': ModelPriceItemDTO },
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class QueryAntcloudInvoiceIntlconfigUserinfoRequest extends $tea.Model {
+  // OAuth模式下的授权token
+  authToken?: string;
+  // 租户ID
+  tenantId: string;
+  static names(): { [key: string]: string } {
+    return {
+      authToken: 'auth_token',
+      tenantId: 'tenant_id',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      authToken: 'string',
+      tenantId: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class QueryAntcloudInvoiceIntlconfigUserinfoResponse extends $tea.Model {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string;
+  // 结果码，一般OK表示调用成功
+  resultCode?: string;
+  // 异常信息的文本描述
+  resultMsg?: string;
+  // 租户ID
+  tenantId?: string;
+  // 纳税人类型，国际商户为03
+  taxPayerQualification?: string;
+  // 公司名称
+  name?: string;
+  // 国家地区
+  country?: string;
+  // 国家地区编号，如CN
+  countryCode?: string;
+  // 公司地址
+  address?: string;
+  // 联系人姓名
+  contactName?: string;
+  // 联系人邮箱
+  contactEmail?: string;
+  // 联系人电话
+  contactTel?: string;
+  static names(): { [key: string]: string } {
+    return {
+      reqMsgId: 'req_msg_id',
+      resultCode: 'result_code',
+      resultMsg: 'result_msg',
+      tenantId: 'tenant_id',
+      taxPayerQualification: 'tax_payer_qualification',
+      name: 'name',
+      country: 'country',
+      countryCode: 'country_code',
+      address: 'address',
+      contactName: 'contact_name',
+      contactEmail: 'contact_email',
+      contactTel: 'contact_tel',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      reqMsgId: 'string',
+      resultCode: 'string',
+      resultMsg: 'string',
+      tenantId: 'string',
+      taxPayerQualification: 'string',
+      name: 'string',
+      country: 'string',
+      countryCode: 'string',
+      address: 'string',
+      contactName: 'string',
+      contactEmail: 'string',
+      contactTel: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class QueryAntcloudInvoiceIntlamountRcptRequest extends $tea.Model {
+  // OAuth模式下的授权token
+  authToken?: string;
+  // 租户ID
+  tenantId: string;
+  // 合同号或订单号
+  arNo: string;
+  // 当前页码，默认1
+  currentPage?: number;
+  // 每页条数，默认20
+  pageSize?: number;
+  static names(): { [key: string]: string } {
+    return {
+      authToken: 'auth_token',
+      tenantId: 'tenant_id',
+      arNo: 'ar_no',
+      currentPage: 'current_page',
+      pageSize: 'page_size',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      authToken: 'string',
+      tenantId: 'string',
+      arNo: 'string',
+      currentPage: 'number',
+      pageSize: 'number',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class QueryAntcloudInvoiceIntlamountRcptResponse extends $tea.Model {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string;
+  // 结果码，一般OK表示调用成功
+  resultCode?: string;
+  // 异常信息的文本描述
+  resultMsg?: string;
+  // 可开票单列列表
+  detailList?: IntlRcptDetailItem[];
+  // 总条数
+  totalCount?: number;
+  // 当前页
+  currentPage?: number;
+  // 每页条数
+  pageSize?: number;
+  static names(): { [key: string]: string } {
+    return {
+      reqMsgId: 'req_msg_id',
+      resultCode: 'result_code',
+      resultMsg: 'result_msg',
+      detailList: 'detail_list',
+      totalCount: 'total_count',
+      currentPage: 'current_page',
+      pageSize: 'page_size',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      reqMsgId: 'string',
+      resultCode: 'string',
+      resultMsg: 'string',
+      detailList: { 'type': 'array', 'itemType': IntlRcptDetailItem },
+      totalCount: 'number',
+      currentPage: 'number',
+      pageSize: 'number',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class QueryAntcloudInvoiceIntlinvoicesApplyRequest extends $tea.Model {
+  // OAuth模式下的授权token
+  authToken?: string;
+  // 租户ID
+  tenantId: string;
+  // 合同或订单号
+  arNo: string;
+  // 当前页码，默认1
+  currentPage?: number;
+  // 每页条数，默认20
+  pageSize?: number;
+  static names(): { [key: string]: string } {
+    return {
+      authToken: 'auth_token',
+      tenantId: 'tenant_id',
+      arNo: 'ar_no',
+      currentPage: 'current_page',
+      pageSize: 'page_size',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      authToken: 'string',
+      tenantId: 'string',
+      arNo: 'string',
+      currentPage: 'number',
+      pageSize: 'number',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class QueryAntcloudInvoiceIntlinvoicesApplyResponse extends $tea.Model {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string;
+  // 结果码，一般OK表示调用成功
+  resultCode?: string;
+  // 异常信息的文本描述
+  resultMsg?: string;
+  // 总条数
+  totalCount?: number;
+  // 当前页码
+  currentPage?: number;
+  // 每页条数
+  pageSize?: number;
+  // 发票申请列表
+  applyList?: IntlInvoiceApplyInfoItem[];
+  static names(): { [key: string]: string } {
+    return {
+      reqMsgId: 'req_msg_id',
+      resultCode: 'result_code',
+      resultMsg: 'result_msg',
+      totalCount: 'total_count',
+      currentPage: 'current_page',
+      pageSize: 'page_size',
+      applyList: 'apply_list',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      reqMsgId: 'string',
+      resultCode: 'string',
+      resultMsg: 'string',
+      totalCount: 'number',
+      currentPage: 'number',
+      pageSize: 'number',
+      applyList: { 'type': 'array', 'itemType': IntlInvoiceApplyInfoItem },
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class QueryAntcloudInvoiceIntlinvoicesFileurlRequest extends $tea.Model {
+  // OAuth模式下的授权token
+  authToken?: string;
+  // 租户ID
+  tenantId: string;
+  // 发票ID
+  invoiceId: string;
+  static names(): { [key: string]: string } {
+    return {
+      authToken: 'auth_token',
+      tenantId: 'tenant_id',
+      invoiceId: 'invoice_id',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      authToken: 'string',
+      tenantId: 'string',
+      invoiceId: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class QueryAntcloudInvoiceIntlinvoicesFileurlResponse extends $tea.Model {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string;
+  // 结果码，一般OK表示调用成功
+  resultCode?: string;
+  // 异常信息的文本描述
+  resultMsg?: string;
+  // 发票文件OSS预览地址
+  fileUrl?: string;
+  static names(): { [key: string]: string } {
+    return {
+      reqMsgId: 'req_msg_id',
+      resultCode: 'result_code',
+      resultMsg: 'result_msg',
+      fileUrl: 'file_url',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      reqMsgId: 'string',
+      resultCode: 'string',
+      resultMsg: 'string',
+      fileUrl: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class PushAntcloudInvoiceIntlinvoicesProformainvoiceRequest extends $tea.Model {
+  // OAuth模式下的授权token
+  authToken?: string;
+  // 租户ID
+  tenantId: string;
+  // 合同号或订单号
+  arNo: string;
+  // 业务动作
+  bizAction: string;
+  // 业务场景
+  bizScene: string;
+  // 币种
+  currencyCode: string;
+  // 税率
+  taxRate: string;
+  // 开票申请项列表
+  invoiceApplyItemList: InvoiceApplyItem[];
+  // 开票日期
+  invoiceDate: string;
+  // 发票邮寄信息
+  invoiceEmailInfo: InvoiceMailInfo;
+  // 发票类型
+  invoiceType: string;
+  // 操作人姓名
+  operatorName: string;
+  // 操作人ID
+  operatorNo: string;
+  // OU
+  ou: string;
+  // OU币种
+  ouCurrencyCode: string;
+  // 来源
+  source: string;
+  // 用户开票信息
+  userInvoiceInfo: UserInvoiceInfo;
+  // 申请原因
+  applyReason?: string;
+  // 费用期间开始日期
+  expenseperiodStartdate?: string;
+  // 费用期间结束日期
+  expenseperiodEnddate?: string;
+  static names(): { [key: string]: string } {
+    return {
+      authToken: 'auth_token',
+      tenantId: 'tenant_id',
+      arNo: 'ar_no',
+      bizAction: 'biz_action',
+      bizScene: 'biz_scene',
+      currencyCode: 'currency_code',
+      taxRate: 'tax_rate',
+      invoiceApplyItemList: 'invoice_apply_item_list',
+      invoiceDate: 'invoice_date',
+      invoiceEmailInfo: 'invoice_email_info',
+      invoiceType: 'invoice_type',
+      operatorName: 'operator_name',
+      operatorNo: 'operator_no',
+      ou: 'ou',
+      ouCurrencyCode: 'ou_currency_code',
+      source: 'source',
+      userInvoiceInfo: 'user_invoice_info',
+      applyReason: 'apply_reason',
+      expenseperiodStartdate: 'expenseperiod_startdate',
+      expenseperiodEnddate: 'expenseperiod_enddate',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      authToken: 'string',
+      tenantId: 'string',
+      arNo: 'string',
+      bizAction: 'string',
+      bizScene: 'string',
+      currencyCode: 'string',
+      taxRate: 'string',
+      invoiceApplyItemList: { 'type': 'array', 'itemType': InvoiceApplyItem },
+      invoiceDate: 'string',
+      invoiceEmailInfo: InvoiceMailInfo,
+      invoiceType: 'string',
+      operatorName: 'string',
+      operatorNo: 'string',
+      ou: 'string',
+      ouCurrencyCode: 'string',
+      source: 'string',
+      userInvoiceInfo: UserInvoiceInfo,
+      applyReason: 'string',
+      expenseperiodStartdate: 'string',
+      expenseperiodEnddate: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class PushAntcloudInvoiceIntlinvoicesProformainvoiceResponse extends $tea.Model {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string;
+  // 结果码，一般OK表示调用成功
+  resultCode?: string;
+  // 异常信息的文本描述
+  resultMsg?: string;
+  // 申请是否成功
+  success?: boolean;
+  // 返回结果码
+  resultcode?: string;
+  // 返回结果描述
+  resultmessage?: string;
+  static names(): { [key: string]: string } {
+    return {
+      reqMsgId: 'req_msg_id',
+      resultCode: 'result_code',
+      resultMsg: 'result_msg',
+      success: 'success',
+      resultcode: 'resultcode',
+      resultmessage: 'resultmessage',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      reqMsgId: 'string',
+      resultCode: 'string',
+      resultMsg: 'string',
+      success: 'boolean',
+      resultcode: 'string',
+      resultmessage: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class QueryAntcloudInvoiceIntlconfigAllcountrycnenRequest extends $tea.Model {
+  // OAuth模式下的授权token
+  authToken?: string;
+  // 国家英文名称
+  keyword?: string;
+  static names(): { [key: string]: string } {
+    return {
+      authToken: 'auth_token',
+      keyword: 'keyword',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      authToken: 'string',
+      keyword: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class QueryAntcloudInvoiceIntlconfigAllcountrycnenResponse extends $tea.Model {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string;
+  // 结果码，一般OK表示调用成功
+  resultCode?: string;
+  // 异常信息的文本描述
+  resultMsg?: string;
+  // 国家list
+  countrylist?: CountryCnEnItem[];
+  static names(): { [key: string]: string } {
+    return {
+      reqMsgId: 'req_msg_id',
+      resultCode: 'result_code',
+      resultMsg: 'result_msg',
+      countrylist: 'countrylist',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      reqMsgId: 'string',
+      resultCode: 'string',
+      resultMsg: 'string',
+      countrylist: { 'type': 'array', 'itemType': CountryCnEnItem },
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class ApiaAntdigitalTestliuyzpCliCreateRequest extends $tea.Model {
+  // OAuth模式下的授权token
+  authToken?: string;
+  productInstanceId?: string;
+  // 超时时间
+  timeout: string;
+  // 姓名
+  name?: string;
+  // 年龄
+  age?: number;
+  static names(): { [key: string]: string } {
+    return {
+      authToken: 'auth_token',
+      productInstanceId: 'product_instance_id',
+      timeout: 'timeout',
+      name: 'name',
+      age: 'age',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      authToken: 'string',
+      productInstanceId: 'string',
+      timeout: 'string',
+      name: 'string',
+      age: 'number',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class ApiaAntdigitalTestliuyzpCliCreateResponse extends $tea.Model {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string;
+  // 结果码，一般OK表示调用成功
+  resultCode?: string;
+  // 异常信息的文本描述
+  resultMsg?: string;
+  // 结果描述
+  msg?: string;
+  // 结果码
+  status?: string;
+  static names(): { [key: string]: string } {
+    return {
+      reqMsgId: 'req_msg_id',
+      resultCode: 'result_code',
+      resultMsg: 'result_msg',
+      msg: 'msg',
+      status: 'status',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      reqMsgId: 'string',
+      resultCode: 'string',
+      resultMsg: 'string',
+      msg: 'string',
+      status: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class QueryAntcloudDemositdevsyTesxXxxRequest extends $tea.Model {
+  // OAuth模式下的授权token
+  authToken?: string;
+  // 超时时间
+  timeout: string;
+  static names(): { [key: string]: string } {
+    return {
+      authToken: 'auth_token',
+      timeout: 'timeout',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      authToken: 'string',
+      timeout: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class QueryAntcloudDemositdevsyTesxXxxResponse extends $tea.Model {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string;
+  // 结果码，一般OK表示调用成功
+  resultCode?: string;
+  // 异常信息的文本描述
+  resultMsg?: string;
+  // 结果描述
+  msg?: string;
+  // 结果码
+  status?: string;
+  static names(): { [key: string]: string } {
+    return {
+      reqMsgId: 'req_msg_id',
+      resultCode: 'result_code',
+      resultMsg: 'result_msg',
+      msg: 'msg',
+      status: 'status',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      reqMsgId: 'string',
+      resultCode: 'string',
+      resultMsg: 'string',
+      msg: 'string',
+      status: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class ApiaAntcloudDemositdevsyCliCreateRequest extends $tea.Model {
+  // OAuth模式下的授权token
+  authToken?: string;
+  // 超时时间
+  timeout: string;
+  static names(): { [key: string]: string } {
+    return {
+      authToken: 'auth_token',
+      timeout: 'timeout',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      authToken: 'string',
+      timeout: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class ApiaAntcloudDemositdevsyCliCreateResponse extends $tea.Model {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string;
+  // 结果码，一般OK表示调用成功
+  resultCode?: string;
+  // 异常信息的文本描述
+  resultMsg?: string;
+  // 结果描述
+  msg?: string;
+  // 结果码
+  status?: string;
+  static names(): { [key: string]: string } {
+    return {
+      reqMsgId: 'req_msg_id',
+      resultCode: 'result_code',
+      resultMsg: 'result_msg',
+      msg: 'msg',
+      status: 'status',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      reqMsgId: 'string',
+      resultCode: 'string',
+      resultMsg: 'string',
+      msg: 'string',
+      status: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class ApiaAntcloudWorkbenchphaseiiaCliCreateRequest extends $tea.Model {
+  // OAuth模式下的授权token
+  authToken?: string;
+  // string
+  /**
+   * @remarks
+   * 待上传文件
+   */
+  fileObject?: Readable;
+  /**
+   * @remarks
+   * 待上传文件名
+   */
+  fileObjectName?: string;
+  fileId: string;
+  // 超时时间
+  timeout: string;
+  static names(): { [key: string]: string } {
+    return {
+      authToken: 'auth_token',
+      fileObject: 'fileObject',
+      fileObjectName: 'fileObjectName',
+      fileId: 'file_id',
+      timeout: 'timeout',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      authToken: 'string',
+      fileObject: 'Readable',
+      fileObjectName: 'string',
+      fileId: 'string',
+      timeout: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class ApiaAntcloudWorkbenchphaseiiaCliCreateResponse extends $tea.Model {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string;
+  // 结果码，一般OK表示调用成功
+  resultCode?: string;
+  // 异常信息的文本描述
+  resultMsg?: string;
+  // 结果描述
+  msg?: string;
+  // 结果码
+  status?: string;
+  static names(): { [key: string]: string } {
+    return {
+      reqMsgId: 'req_msg_id',
+      resultCode: 'result_code',
+      resultMsg: 'result_msg',
+      msg: 'msg',
+      status: 'status',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      reqMsgId: 'string',
+      resultCode: 'string',
+      resultMsg: 'string',
+      msg: 'string',
+      status: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class ApibAntcloudWorkbenchphaseiiaCliCreateRequest extends $tea.Model {
+  // OAuth模式下的授权token
+  authToken?: string;
+  // string
+  /**
+   * @remarks
+   * 待上传文件
+   */
+  fileObject?: Readable;
+  /**
+   * @remarks
+   * 待上传文件名
+   */
+  fileObjectName?: string;
+  fileId: string;
+  // 超时时间
+  timeout: string;
+  static names(): { [key: string]: string } {
+    return {
+      authToken: 'auth_token',
+      fileObject: 'fileObject',
+      fileObjectName: 'fileObjectName',
+      fileId: 'file_id',
+      timeout: 'timeout',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      authToken: 'string',
+      fileObject: 'Readable',
+      fileObjectName: 'string',
+      fileId: 'string',
+      timeout: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class ApibAntcloudWorkbenchphaseiiaCliCreateResponse extends $tea.Model {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string;
+  // 结果码，一般OK表示调用成功
+  resultCode?: string;
+  // 异常信息的文本描述
+  resultMsg?: string;
+  // 结果描述
+  msg?: string;
+  // 结果码
+  status?: string;
+  static names(): { [key: string]: string } {
+    return {
+      reqMsgId: 'req_msg_id',
+      resultCode: 'result_code',
+      resultMsg: 'result_msg',
+      msg: 'msg',
+      status: 'status',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      reqMsgId: 'string',
+      resultCode: 'string',
+      resultMsg: 'string',
+      msg: 'string',
+      status: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class CreateAntcloudGatewayxFileUploadRequest extends $tea.Model {
+  // OAuth模式下的授权token
+  authToken?: string;
+  // 上传文件作用的openapi method
+  apiCode: string;
+  // 文件标签，多个标签;分割
+  fileLabel?: string;
+  // 自定义的文件元数据
+  fileMetadata?: string;
+  // 文件名，不传则随机生成文件名
+  fileName?: string;
+  // 文件的多媒体类型
+  mimeType?: string;
+  // 产品方的api归属集群，即productInstanceId
+  apiCluster?: string;
+  static names(): { [key: string]: string } {
+    return {
+      authToken: 'auth_token',
+      apiCode: 'api_code',
+      fileLabel: 'file_label',
+      fileMetadata: 'file_metadata',
+      fileName: 'file_name',
+      mimeType: 'mime_type',
+      apiCluster: 'api_cluster',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      authToken: 'string',
+      apiCode: 'string',
+      fileLabel: 'string',
+      fileMetadata: 'string',
+      fileName: 'string',
+      mimeType: 'string',
+      apiCluster: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class CreateAntcloudGatewayxFileUploadResponse extends $tea.Model {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string;
+  // 结果码，一般OK表示调用成功
+  resultCode?: string;
+  // 异常信息的文本描述
+  resultMsg?: string;
+  // 上传有效期
+  expiredTime?: string;
+  // 32位文件唯一id
+  fileId?: string;
+  // 放入http请求头里
+  uploadHeaders?: XNameValuePair[];
+  // 文件上传地址
+  uploadUrl?: string;
+  static names(): { [key: string]: string } {
+    return {
+      reqMsgId: 'req_msg_id',
+      resultCode: 'result_code',
+      resultMsg: 'result_msg',
+      expiredTime: 'expired_time',
+      fileId: 'file_id',
+      uploadHeaders: 'upload_headers',
+      uploadUrl: 'upload_url',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      reqMsgId: 'string',
+      resultCode: 'string',
+      resultMsg: 'string',
+      expiredTime: 'string',
+      fileId: 'string',
+      uploadHeaders: { 'type': 'array', 'itemType': XNameValuePair },
+      uploadUrl: 'string',
     };
   }
 
@@ -10828,9 +17193,9 @@ export default class Client {
           req_msg_id: AntchainUtil.getNonce(),
           access_key: this._accessKeyId,
           base_sdk_version: "TeaSDK-2.0",
-          sdk_version: "1.0.9",
+          sdk_version: "1.1.1",
           _prod_code: "DD",
-          _prod_channel: "undefined",
+          _prod_channel: "default",
         };
         if (!Util.empty(this._securityToken)) {
           request_.query["security_token"] = this._securityToken;
@@ -11109,6 +17474,216 @@ export default class Client {
 
   /**
    * @remarks
+   * Description: test
+   * Summary: test
+   */
+  async queryDemoTestTestjl(request: QueryDemoTestTestjlRequest): Promise<QueryDemoTestTestjlResponse> {
+    let runtime = new $Util.RuntimeOptions({ });
+    let headers : {[key: string ]: string} = { };
+    return await this.queryDemoTestTestjlEx(request, headers, runtime);
+  }
+
+  /**
+   * @remarks
+   * Description: test
+   * Summary: test
+   */
+  async queryDemoTestTestjlEx(request: QueryDemoTestTestjlRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<QueryDemoTestTestjlResponse> {
+    Util.validateModel(request);
+    return $tea.cast<QueryDemoTestTestjlResponse>(await this.doRequest("1.0", "demo.test.testjl.query", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new QueryDemoTestTestjlResponse({}));
+  }
+
+  /**
+   * @remarks
+   * Description: 创建订单
+   * Summary: 创建订单
+   */
+  async createDemoBusinessOrderpp(request: CreateDemoBusinessOrderppRequest): Promise<CreateDemoBusinessOrderppResponse> {
+    let runtime = new $Util.RuntimeOptions({ });
+    let headers : {[key: string ]: string} = { };
+    return await this.createDemoBusinessOrderppEx(request, headers, runtime);
+  }
+
+  /**
+   * @remarks
+   * Description: 创建订单
+   * Summary: 创建订单
+   */
+  async createDemoBusinessOrderppEx(request: CreateDemoBusinessOrderppRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<CreateDemoBusinessOrderppResponse> {
+    Util.validateModel(request);
+    return $tea.cast<CreateDemoBusinessOrderppResponse>(await this.doRequest("1.0", "demo.business.orderpp.create", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new CreateDemoBusinessOrderppResponse({}));
+  }
+
+  /**
+   * @remarks
+   * Description: 创建订单
+   * Summary: 创建订单
+   */
+  async createDemoBusinessOrderxxx(request: CreateDemoBusinessOrderxxxRequest): Promise<CreateDemoBusinessOrderxxxResponse> {
+    let runtime = new $Util.RuntimeOptions({ });
+    let headers : {[key: string ]: string} = { };
+    return await this.createDemoBusinessOrderxxxEx(request, headers, runtime);
+  }
+
+  /**
+   * @remarks
+   * Description: 创建订单
+   * Summary: 创建订单
+   */
+  async createDemoBusinessOrderxxxEx(request: CreateDemoBusinessOrderxxxRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<CreateDemoBusinessOrderxxxResponse> {
+    Util.validateModel(request);
+    return $tea.cast<CreateDemoBusinessOrderxxxResponse>(await this.doRequest("1.0", "demo.business.orderxxx.create", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new CreateDemoBusinessOrderxxxResponse({}));
+  }
+
+  /**
+   * @remarks
+   * Description: 创建订单
+   * Summary: 创建订单
+   */
+  async createDemoBusinessOrder(request: CreateDemoBusinessOrderRequest): Promise<CreateDemoBusinessOrderResponse> {
+    let runtime = new $Util.RuntimeOptions({ });
+    let headers : {[key: string ]: string} = { };
+    return await this.createDemoBusinessOrderEx(request, headers, runtime);
+  }
+
+  /**
+   * @remarks
+   * Description: 创建订单
+   * Summary: 创建订单
+   */
+  async createDemoBusinessOrderEx(request: CreateDemoBusinessOrderRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<CreateDemoBusinessOrderResponse> {
+    Util.validateModel(request);
+    return $tea.cast<CreateDemoBusinessOrderResponse>(await this.doRequest("1.0", "demo.business.order.create", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new CreateDemoBusinessOrderResponse({}));
+  }
+
+  /**
+   * @remarks
+   * Description: 创建订单
+   * Summary: 创建订单
+   */
+  async createDemoBusinessOrderzzz(request: CreateDemoBusinessOrderzzzRequest): Promise<CreateDemoBusinessOrderzzzResponse> {
+    let runtime = new $Util.RuntimeOptions({ });
+    let headers : {[key: string ]: string} = { };
+    return await this.createDemoBusinessOrderzzzEx(request, headers, runtime);
+  }
+
+  /**
+   * @remarks
+   * Description: 创建订单
+   * Summary: 创建订单
+   */
+  async createDemoBusinessOrderzzzEx(request: CreateDemoBusinessOrderzzzRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<CreateDemoBusinessOrderzzzResponse> {
+    Util.validateModel(request);
+    return $tea.cast<CreateDemoBusinessOrderzzzResponse>(await this.doRequest("1.0", "demo.business.orderzzz.create", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new CreateDemoBusinessOrderzzzResponse({}));
+  }
+
+  /**
+   * @remarks
+   * Description: cli创建测试接口A
+   * Summary: cli创建测试接口A
+   */
+  async apixaDemoCliCreate(request: ApixaDemoCliCreateRequest): Promise<ApixaDemoCliCreateResponse> {
+    let runtime = new $Util.RuntimeOptions({ });
+    let headers : {[key: string ]: string} = { };
+    return await this.apixaDemoCliCreateEx(request, headers, runtime);
+  }
+
+  /**
+   * @remarks
+   * Description: cli创建测试接口A
+   * Summary: cli创建测试接口A
+   */
+  async apixaDemoCliCreateEx(request: ApixaDemoCliCreateRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<ApixaDemoCliCreateResponse> {
+    Util.validateModel(request);
+    return $tea.cast<ApixaDemoCliCreateResponse>(await this.doRequest("1.0", "demo.cli.create.apixa", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new ApixaDemoCliCreateResponse({}));
+  }
+
+  /**
+   * @remarks
+   * Description: cli创建测试接口A
+   * Summary: cli创建测试接口A
+   */
+  async apixbDemoCliCreate(request: ApixbDemoCliCreateRequest): Promise<ApixbDemoCliCreateResponse> {
+    let runtime = new $Util.RuntimeOptions({ });
+    let headers : {[key: string ]: string} = { };
+    return await this.apixbDemoCliCreateEx(request, headers, runtime);
+  }
+
+  /**
+   * @remarks
+   * Description: cli创建测试接口A
+   * Summary: cli创建测试接口A
+   */
+  async apixbDemoCliCreateEx(request: ApixbDemoCliCreateRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<ApixbDemoCliCreateResponse> {
+    Util.validateModel(request);
+    return $tea.cast<ApixbDemoCliCreateResponse>(await this.doRequest("1.0", "demo.cli.create.apixb", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new ApixbDemoCliCreateResponse({}));
+  }
+
+  /**
+   * @remarks
+   * Description: cli创建测试接口A
+   * Summary: cli创建测试接口A
+   */
+  async apizDemoCliCreate(request: ApizDemoCliCreateRequest): Promise<ApizDemoCliCreateResponse> {
+    let runtime = new $Util.RuntimeOptions({ });
+    let headers : {[key: string ]: string} = { };
+    return await this.apizDemoCliCreateEx(request, headers, runtime);
+  }
+
+  /**
+   * @remarks
+   * Description: cli创建测试接口A
+   * Summary: cli创建测试接口A
+   */
+  async apizDemoCliCreateEx(request: ApizDemoCliCreateRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<ApizDemoCliCreateResponse> {
+    Util.validateModel(request);
+    return $tea.cast<ApizDemoCliCreateResponse>(await this.doRequest("1.0", "demo.cli.create.apiz", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new ApizDemoCliCreateResponse({}));
+  }
+
+  /**
+   * @remarks
+   * Description: 账号创建
+   * Summary: 账号创建
+   */
+  async createAntcloudAcmAntchainTenant(request: CreateAntcloudAcmAntchainTenantRequest): Promise<CreateAntcloudAcmAntchainTenantResponse> {
+    let runtime = new $Util.RuntimeOptions({ });
+    let headers : {[key: string ]: string} = { };
+    return await this.createAntcloudAcmAntchainTenantEx(request, headers, runtime);
+  }
+
+  /**
+   * @remarks
+   * Description: 账号创建
+   * Summary: 账号创建
+   */
+  async createAntcloudAcmAntchainTenantEx(request: CreateAntcloudAcmAntchainTenantRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<CreateAntcloudAcmAntchainTenantResponse> {
+    Util.validateModel(request);
+    return $tea.cast<CreateAntcloudAcmAntchainTenantResponse>(await this.doRequest("1.0", "antcloud.acm.antchain.tenant.create", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new CreateAntcloudAcmAntchainTenantResponse({}));
+  }
+
+  /**
+   * @remarks
+   * Description: 客户认证信息更新
+   * Summary: 客户认证信息更新
+   */
+  async updateAntcloudAcmCustomerIdentity(request: UpdateAntcloudAcmCustomerIdentityRequest): Promise<UpdateAntcloudAcmCustomerIdentityResponse> {
+    let runtime = new $Util.RuntimeOptions({ });
+    let headers : {[key: string ]: string} = { };
+    return await this.updateAntcloudAcmCustomerIdentityEx(request, headers, runtime);
+  }
+
+  /**
+   * @remarks
+   * Description: 客户认证信息更新
+   * Summary: 客户认证信息更新
+   */
+  async updateAntcloudAcmCustomerIdentityEx(request: UpdateAntcloudAcmCustomerIdentityRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<UpdateAntcloudAcmCustomerIdentityResponse> {
+    Util.validateModel(request);
+    return $tea.cast<UpdateAntcloudAcmCustomerIdentityResponse>(await this.doRequest("1.0", "antcloud.acm.customer.identity.update", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new UpdateAntcloudAcmCustomerIdentityResponse({}));
+  }
+
+  /**
+   * @remarks
    * Description: 查询用户所属项目列表
    * Summary: 查询用户所属项目列表
    */
@@ -11126,6 +17701,258 @@ export default class Client {
   async queryAntcloudAcmUserProjectEx(request: QueryAntcloudAcmUserProjectRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<QueryAntcloudAcmUserProjectResponse> {
     Util.validateModel(request);
     return $tea.cast<QueryAntcloudAcmUserProjectResponse>(await this.doRequest("1.0", "antcloud.acm.user.project.query", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new QueryAntcloudAcmUserProjectResponse({}));
+  }
+
+  /**
+   * @remarks
+   * Description: 更新蚂蚁链账号的国家代码
+   * Summary: 更新蚂蚁链账号的国家代码
+   */
+  async updateAntcloudAcmTenantCountry(request: UpdateAntcloudAcmTenantCountryRequest): Promise<UpdateAntcloudAcmTenantCountryResponse> {
+    let runtime = new $Util.RuntimeOptions({ });
+    let headers : {[key: string ]: string} = { };
+    return await this.updateAntcloudAcmTenantCountryEx(request, headers, runtime);
+  }
+
+  /**
+   * @remarks
+   * Description: 更新蚂蚁链账号的国家代码
+   * Summary: 更新蚂蚁链账号的国家代码
+   */
+  async updateAntcloudAcmTenantCountryEx(request: UpdateAntcloudAcmTenantCountryRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<UpdateAntcloudAcmTenantCountryResponse> {
+    Util.validateModel(request);
+    return $tea.cast<UpdateAntcloudAcmTenantCountryResponse>(await this.doRequest("1.0", "antcloud.acm.tenant.country.update", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new UpdateAntcloudAcmTenantCountryResponse({}));
+  }
+
+  /**
+   * @remarks
+   * Description: 查询租户下项目列表
+   * Summary: 查询租户下项目列表
+   */
+  async queryAntcloudAcmTenantProject(request: QueryAntcloudAcmTenantProjectRequest): Promise<QueryAntcloudAcmTenantProjectResponse> {
+    let runtime = new $Util.RuntimeOptions({ });
+    let headers : {[key: string ]: string} = { };
+    return await this.queryAntcloudAcmTenantProjectEx(request, headers, runtime);
+  }
+
+  /**
+   * @remarks
+   * Description: 查询租户下项目列表
+   * Summary: 查询租户下项目列表
+   */
+  async queryAntcloudAcmTenantProjectEx(request: QueryAntcloudAcmTenantProjectRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<QueryAntcloudAcmTenantProjectResponse> {
+    Util.validateModel(request);
+    return $tea.cast<QueryAntcloudAcmTenantProjectResponse>(await this.doRequest("1.0", "antcloud.acm.tenant.project.query", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new QueryAntcloudAcmTenantProjectResponse({}));
+  }
+
+  /**
+   * @remarks
+   * Description: 创建项目
+   * Summary: 创建项目
+   */
+  async createAntcloudAcmTenantProject(request: CreateAntcloudAcmTenantProjectRequest): Promise<CreateAntcloudAcmTenantProjectResponse> {
+    let runtime = new $Util.RuntimeOptions({ });
+    let headers : {[key: string ]: string} = { };
+    return await this.createAntcloudAcmTenantProjectEx(request, headers, runtime);
+  }
+
+  /**
+   * @remarks
+   * Description: 创建项目
+   * Summary: 创建项目
+   */
+  async createAntcloudAcmTenantProjectEx(request: CreateAntcloudAcmTenantProjectRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<CreateAntcloudAcmTenantProjectResponse> {
+    Util.validateModel(request);
+    return $tea.cast<CreateAntcloudAcmTenantProjectResponse>(await this.doRequest("1.0", "antcloud.acm.tenant.project.create", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new CreateAntcloudAcmTenantProjectResponse({}));
+  }
+
+  /**
+   * @remarks
+   * Description: 编辑项目
+   * Summary: 编辑项目
+   */
+  async updateAntcloudAcmTenantProject(request: UpdateAntcloudAcmTenantProjectRequest): Promise<UpdateAntcloudAcmTenantProjectResponse> {
+    let runtime = new $Util.RuntimeOptions({ });
+    let headers : {[key: string ]: string} = { };
+    return await this.updateAntcloudAcmTenantProjectEx(request, headers, runtime);
+  }
+
+  /**
+   * @remarks
+   * Description: 编辑项目
+   * Summary: 编辑项目
+   */
+  async updateAntcloudAcmTenantProjectEx(request: UpdateAntcloudAcmTenantProjectRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<UpdateAntcloudAcmTenantProjectResponse> {
+    Util.validateModel(request);
+    return $tea.cast<UpdateAntcloudAcmTenantProjectResponse>(await this.doRequest("1.0", "antcloud.acm.tenant.project.update", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new UpdateAntcloudAcmTenantProjectResponse({}));
+  }
+
+  /**
+   * @remarks
+   * Description: 更新项目状态
+   * Summary: 更新项目状态
+   */
+  async updateAntcloudAcmProjectStatus(request: UpdateAntcloudAcmProjectStatusRequest): Promise<UpdateAntcloudAcmProjectStatusResponse> {
+    let runtime = new $Util.RuntimeOptions({ });
+    let headers : {[key: string ]: string} = { };
+    return await this.updateAntcloudAcmProjectStatusEx(request, headers, runtime);
+  }
+
+  /**
+   * @remarks
+   * Description: 更新项目状态
+   * Summary: 更新项目状态
+   */
+  async updateAntcloudAcmProjectStatusEx(request: UpdateAntcloudAcmProjectStatusRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<UpdateAntcloudAcmProjectStatusResponse> {
+    Util.validateModel(request);
+    return $tea.cast<UpdateAntcloudAcmProjectStatusResponse>(await this.doRequest("1.0", "antcloud.acm.project.status.update", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new UpdateAntcloudAcmProjectStatusResponse({}));
+  }
+
+  /**
+   * @remarks
+   * Description: 分页查询项目成员列表
+   * Summary: 分页查询项目成员列表
+   */
+  async queryAntcloudAcmProjectMember(request: QueryAntcloudAcmProjectMemberRequest): Promise<QueryAntcloudAcmProjectMemberResponse> {
+    let runtime = new $Util.RuntimeOptions({ });
+    let headers : {[key: string ]: string} = { };
+    return await this.queryAntcloudAcmProjectMemberEx(request, headers, runtime);
+  }
+
+  /**
+   * @remarks
+   * Description: 分页查询项目成员列表
+   * Summary: 分页查询项目成员列表
+   */
+  async queryAntcloudAcmProjectMemberEx(request: QueryAntcloudAcmProjectMemberRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<QueryAntcloudAcmProjectMemberResponse> {
+    Util.validateModel(request);
+    return $tea.cast<QueryAntcloudAcmProjectMemberResponse>(await this.doRequest("1.0", "antcloud.acm.project.member.query", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new QueryAntcloudAcmProjectMemberResponse({}));
+  }
+
+  /**
+   * @remarks
+   * Description: 批量添加项目成员
+   * Summary: 批量添加项目成员
+   */
+  async addAntcloudAcmProjectMember(request: AddAntcloudAcmProjectMemberRequest): Promise<AddAntcloudAcmProjectMemberResponse> {
+    let runtime = new $Util.RuntimeOptions({ });
+    let headers : {[key: string ]: string} = { };
+    return await this.addAntcloudAcmProjectMemberEx(request, headers, runtime);
+  }
+
+  /**
+   * @remarks
+   * Description: 批量添加项目成员
+   * Summary: 批量添加项目成员
+   */
+  async addAntcloudAcmProjectMemberEx(request: AddAntcloudAcmProjectMemberRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<AddAntcloudAcmProjectMemberResponse> {
+    Util.validateModel(request);
+    return $tea.cast<AddAntcloudAcmProjectMemberResponse>(await this.doRequest("1.0", "antcloud.acm.project.member.add", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new AddAntcloudAcmProjectMemberResponse({}));
+  }
+
+  /**
+   * @remarks
+   * Description: 移除项目成员
+   * Summary: 移除项目成员
+   */
+  async removeAntcloudAcmProjectMember(request: RemoveAntcloudAcmProjectMemberRequest): Promise<RemoveAntcloudAcmProjectMemberResponse> {
+    let runtime = new $Util.RuntimeOptions({ });
+    let headers : {[key: string ]: string} = { };
+    return await this.removeAntcloudAcmProjectMemberEx(request, headers, runtime);
+  }
+
+  /**
+   * @remarks
+   * Description: 移除项目成员
+   * Summary: 移除项目成员
+   */
+  async removeAntcloudAcmProjectMemberEx(request: RemoveAntcloudAcmProjectMemberRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<RemoveAntcloudAcmProjectMemberResponse> {
+    Util.validateModel(request);
+    return $tea.cast<RemoveAntcloudAcmProjectMemberResponse>(await this.doRequest("1.0", "antcloud.acm.project.member.remove", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new RemoveAntcloudAcmProjectMemberResponse({}));
+  }
+
+  /**
+   * @remarks
+   * Description: 查询尚未加入该项目的用户列表
+   * Summary: 查询尚未加入该项目的用户列表
+   */
+  async queryAntcloudAcmProjectUser(request: QueryAntcloudAcmProjectUserRequest): Promise<QueryAntcloudAcmProjectUserResponse> {
+    let runtime = new $Util.RuntimeOptions({ });
+    let headers : {[key: string ]: string} = { };
+    return await this.queryAntcloudAcmProjectUserEx(request, headers, runtime);
+  }
+
+  /**
+   * @remarks
+   * Description: 查询尚未加入该项目的用户列表
+   * Summary: 查询尚未加入该项目的用户列表
+   */
+  async queryAntcloudAcmProjectUserEx(request: QueryAntcloudAcmProjectUserRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<QueryAntcloudAcmProjectUserResponse> {
+    Util.validateModel(request);
+    return $tea.cast<QueryAntcloudAcmProjectUserResponse>(await this.doRequest("1.0", "antcloud.acm.project.user.query", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new QueryAntcloudAcmProjectUserResponse({}));
+  }
+
+  /**
+   * @remarks
+   * Description: 根据租户查询实例列表
+   * Summary: 根据租户查询实例列表
+   */
+  async listAntcloudOfferInstance(request: ListAntcloudOfferInstanceRequest): Promise<ListAntcloudOfferInstanceResponse> {
+    let runtime = new $Util.RuntimeOptions({ });
+    let headers : {[key: string ]: string} = { };
+    return await this.listAntcloudOfferInstanceEx(request, headers, runtime);
+  }
+
+  /**
+   * @remarks
+   * Description: 根据租户查询实例列表
+   * Summary: 根据租户查询实例列表
+   */
+  async listAntcloudOfferInstanceEx(request: ListAntcloudOfferInstanceRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<ListAntcloudOfferInstanceResponse> {
+    Util.validateModel(request);
+    return $tea.cast<ListAntcloudOfferInstanceResponse>(await this.doRequest("1.0", "antcloud.offer.instance.list", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new ListAntcloudOfferInstanceResponse({}));
+  }
+
+  /**
+   * @remarks
+   * Description: 由外部业务系统来调用触发抵扣接口
+   * Summary: 由外部业务系统来调用触发抵扣接口
+   */
+  async applyAntcloudBillingRespackageCount(request: ApplyAntcloudBillingRespackageCountRequest): Promise<ApplyAntcloudBillingRespackageCountResponse> {
+    let runtime = new $Util.RuntimeOptions({ });
+    let headers : {[key: string ]: string} = { };
+    return await this.applyAntcloudBillingRespackageCountEx(request, headers, runtime);
+  }
+
+  /**
+   * @remarks
+   * Description: 由外部业务系统来调用触发抵扣接口
+   * Summary: 由外部业务系统来调用触发抵扣接口
+   */
+  async applyAntcloudBillingRespackageCountEx(request: ApplyAntcloudBillingRespackageCountRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<ApplyAntcloudBillingRespackageCountResponse> {
+    Util.validateModel(request);
+    return $tea.cast<ApplyAntcloudBillingRespackageCountResponse>(await this.doRequest("1.0", "antcloud.billing.respackage.count.apply", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new ApplyAntcloudBillingRespackageCountResponse({}));
+  }
+
+  /**
+   * @remarks
+   * Description: 根据租户、抵扣的量价商品查询资源包余量
+   * Summary: 根据租户、抵扣的量价商品查询资源包余量
+   */
+  async queryAntcloudBillingRespackageBalance(request: QueryAntcloudBillingRespackageBalanceRequest): Promise<QueryAntcloudBillingRespackageBalanceResponse> {
+    let runtime = new $Util.RuntimeOptions({ });
+    let headers : {[key: string ]: string} = { };
+    return await this.queryAntcloudBillingRespackageBalanceEx(request, headers, runtime);
+  }
+
+  /**
+   * @remarks
+   * Description: 根据租户、抵扣的量价商品查询资源包余量
+   * Summary: 根据租户、抵扣的量价商品查询资源包余量
+   */
+  async queryAntcloudBillingRespackageBalanceEx(request: QueryAntcloudBillingRespackageBalanceRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<QueryAntcloudBillingRespackageBalanceResponse> {
+    Util.validateModel(request);
+    return $tea.cast<QueryAntcloudBillingRespackageBalanceResponse>(await this.doRequest("1.0", "antcloud.billing.respackage.balance.query", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new QueryAntcloudBillingRespackageBalanceResponse({}));
   }
 
   /**
@@ -11189,6 +18016,111 @@ export default class Client {
   async queryAntcloudMarketingPartnerCouponstockEx(request: QueryAntcloudMarketingPartnerCouponstockRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<QueryAntcloudMarketingPartnerCouponstockResponse> {
     Util.validateModel(request);
     return $tea.cast<QueryAntcloudMarketingPartnerCouponstockResponse>(await this.doRequest("1.0", "antcloud.marketing.partner.couponstock.query", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new QueryAntcloudMarketingPartnerCouponstockResponse({}));
+  }
+
+  /**
+   * @remarks
+   * Description: 查询指定租户指定产品列表可用优惠券
+   * Summary: 查询指定租户指定产品列表可用优惠券
+   */
+  async queryAntcloudMarketingPartnerCoupon(request: QueryAntcloudMarketingPartnerCouponRequest): Promise<QueryAntcloudMarketingPartnerCouponResponse> {
+    let runtime = new $Util.RuntimeOptions({ });
+    let headers : {[key: string ]: string} = { };
+    return await this.queryAntcloudMarketingPartnerCouponEx(request, headers, runtime);
+  }
+
+  /**
+   * @remarks
+   * Description: 查询指定租户指定产品列表可用优惠券
+   * Summary: 查询指定租户指定产品列表可用优惠券
+   */
+  async queryAntcloudMarketingPartnerCouponEx(request: QueryAntcloudMarketingPartnerCouponRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<QueryAntcloudMarketingPartnerCouponResponse> {
+    Util.validateModel(request);
+    return $tea.cast<QueryAntcloudMarketingPartnerCouponResponse>(await this.doRequest("1.0", "antcloud.marketing.partner.coupon.query", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new QueryAntcloudMarketingPartnerCouponResponse({}));
+  }
+
+  /**
+   * @remarks
+   * Description: 用于查询可用的优惠券模板信息
+   * Summary: 用于查询可用的优惠券模板信息
+   */
+  async listAntcloudMarketingPartnerCoupontemplate(request: ListAntcloudMarketingPartnerCoupontemplateRequest): Promise<ListAntcloudMarketingPartnerCoupontemplateResponse> {
+    let runtime = new $Util.RuntimeOptions({ });
+    let headers : {[key: string ]: string} = { };
+    return await this.listAntcloudMarketingPartnerCoupontemplateEx(request, headers, runtime);
+  }
+
+  /**
+   * @remarks
+   * Description: 用于查询可用的优惠券模板信息
+   * Summary: 用于查询可用的优惠券模板信息
+   */
+  async listAntcloudMarketingPartnerCoupontemplateEx(request: ListAntcloudMarketingPartnerCoupontemplateRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<ListAntcloudMarketingPartnerCoupontemplateResponse> {
+    Util.validateModel(request);
+    return $tea.cast<ListAntcloudMarketingPartnerCoupontemplateResponse>(await this.doRequest("1.0", "antcloud.marketing.partner.coupontemplate.list", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new ListAntcloudMarketingPartnerCoupontemplateResponse({}));
+  }
+
+  /**
+   * @remarks
+   * Description: 套餐询价接口
+   * Summary: 套餐询价接口
+   */
+  async queryAntcloudTradeComboPrice(request: QueryAntcloudTradeComboPriceRequest): Promise<QueryAntcloudTradeComboPriceResponse> {
+    let runtime = new $Util.RuntimeOptions({ });
+    let headers : {[key: string ]: string} = { };
+    return await this.queryAntcloudTradeComboPriceEx(request, headers, runtime);
+  }
+
+  /**
+   * @remarks
+   * Description: 套餐询价接口
+   * Summary: 套餐询价接口
+   */
+  async queryAntcloudTradeComboPriceEx(request: QueryAntcloudTradeComboPriceRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<QueryAntcloudTradeComboPriceResponse> {
+    Util.validateModel(request);
+    return $tea.cast<QueryAntcloudTradeComboPriceResponse>(await this.doRequest("1.0", "antcloud.trade.combo.price.query", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new QueryAntcloudTradeComboPriceResponse({}));
+  }
+
+  /**
+   * @remarks
+   * Description: 套餐订单支付接口
+   * Summary: 套餐订单支付接口
+   */
+  async payAntcloudTradeComboOrder(request: PayAntcloudTradeComboOrderRequest): Promise<PayAntcloudTradeComboOrderResponse> {
+    let runtime = new $Util.RuntimeOptions({ });
+    let headers : {[key: string ]: string} = { };
+    return await this.payAntcloudTradeComboOrderEx(request, headers, runtime);
+  }
+
+  /**
+   * @remarks
+   * Description: 套餐订单支付接口
+   * Summary: 套餐订单支付接口
+   */
+  async payAntcloudTradeComboOrderEx(request: PayAntcloudTradeComboOrderRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<PayAntcloudTradeComboOrderResponse> {
+    Util.validateModel(request);
+    return $tea.cast<PayAntcloudTradeComboOrderResponse>(await this.doRequest("1.0", "antcloud.trade.combo.order.pay", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new PayAntcloudTradeComboOrderResponse({}));
+  }
+
+  /**
+   * @remarks
+   * Description: 单商品询价接口，支持抵扣优惠券和命中折扣活动
+   * Summary: 单商品询价接口，支持抵扣优惠券和命中折扣活动
+   */
+  async queryAntcloudTradePrice(request: QueryAntcloudTradePriceRequest): Promise<QueryAntcloudTradePriceResponse> {
+    let runtime = new $Util.RuntimeOptions({ });
+    let headers : {[key: string ]: string} = { };
+    return await this.queryAntcloudTradePriceEx(request, headers, runtime);
+  }
+
+  /**
+   * @remarks
+   * Description: 单商品询价接口，支持抵扣优惠券和命中折扣活动
+   * Summary: 单商品询价接口，支持抵扣优惠券和命中折扣活动
+   */
+  async queryAntcloudTradePriceEx(request: QueryAntcloudTradePriceRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<QueryAntcloudTradePriceResponse> {
+    Util.validateModel(request);
+    return $tea.cast<QueryAntcloudTradePriceResponse>(await this.doRequest("1.0", "antcloud.trade.price.query", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new QueryAntcloudTradePriceResponse({}));
   }
 
   /**
@@ -11277,6 +18209,48 @@ export default class Client {
 
   /**
    * @remarks
+   * Description: 单商品订单履约状态查询
+   * Summary: 单商品订单履约状态查询
+   */
+  async getAntcloudTradeOrder(request: GetAntcloudTradeOrderRequest): Promise<GetAntcloudTradeOrderResponse> {
+    let runtime = new $Util.RuntimeOptions({ });
+    let headers : {[key: string ]: string} = { };
+    return await this.getAntcloudTradeOrderEx(request, headers, runtime);
+  }
+
+  /**
+   * @remarks
+   * Description: 单商品订单履约状态查询
+   * Summary: 单商品订单履约状态查询
+   */
+  async getAntcloudTradeOrderEx(request: GetAntcloudTradeOrderRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<GetAntcloudTradeOrderResponse> {
+    Util.validateModel(request);
+    return $tea.cast<GetAntcloudTradeOrderResponse>(await this.doRequest("1.0", "antcloud.trade.order.get", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new GetAntcloudTradeOrderResponse({}));
+  }
+
+  /**
+   * @remarks
+   * Description: test
+   * Summary: test
+   */
+  async useAntchainAbcJustTest(request: UseAntchainAbcJustTestRequest): Promise<UseAntchainAbcJustTestResponse> {
+    let runtime = new $Util.RuntimeOptions({ });
+    let headers : {[key: string ]: string} = { };
+    return await this.useAntchainAbcJustTestEx(request, headers, runtime);
+  }
+
+  /**
+   * @remarks
+   * Description: test
+   * Summary: test
+   */
+  async useAntchainAbcJustTestEx(request: UseAntchainAbcJustTestRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<UseAntchainAbcJustTestResponse> {
+    Util.validateModel(request);
+    return $tea.cast<UseAntchainAbcJustTestResponse>(await this.doRequest("1.0", "antchain.abc.just.test.use", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new UseAntchainAbcJustTestResponse({}));
+  }
+
+  /**
+   * @remarks
    * Description: 商品定价查询
    * Summary: 商品定价查询
    */
@@ -11294,6 +18268,302 @@ export default class Client {
   async queryAntcloudPccCommodityPriceEx(request: QueryAntcloudPccCommodityPriceRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<QueryAntcloudPccCommodityPriceResponse> {
     Util.validateModel(request);
     return $tea.cast<QueryAntcloudPccCommodityPriceResponse>(await this.doRequest("1.0", "antcloud.pcc.commodity.price.query", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new QueryAntcloudPccCommodityPriceResponse({}));
+  }
+
+  /**
+   * @remarks
+   * Description: 国际开票场景下查询客户信息
+   * Summary: 国际开票场景下查询客户信息
+   */
+  async queryAntcloudInvoiceIntlconfigUserinfo(request: QueryAntcloudInvoiceIntlconfigUserinfoRequest): Promise<QueryAntcloudInvoiceIntlconfigUserinfoResponse> {
+    let runtime = new $Util.RuntimeOptions({ });
+    let headers : {[key: string ]: string} = { };
+    return await this.queryAntcloudInvoiceIntlconfigUserinfoEx(request, headers, runtime);
+  }
+
+  /**
+   * @remarks
+   * Description: 国际开票场景下查询客户信息
+   * Summary: 国际开票场景下查询客户信息
+   */
+  async queryAntcloudInvoiceIntlconfigUserinfoEx(request: QueryAntcloudInvoiceIntlconfigUserinfoRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<QueryAntcloudInvoiceIntlconfigUserinfoResponse> {
+    Util.validateModel(request);
+    return $tea.cast<QueryAntcloudInvoiceIntlconfigUserinfoResponse>(await this.doRequest("1.0", "antcloud.invoice.intlconfig.userinfo.query", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new QueryAntcloudInvoiceIntlconfigUserinfoResponse({}));
+  }
+
+  /**
+   * @remarks
+   * Description: 国际发票场景果询可开票单据
+   * Summary: 国际发票场景果询可开票单据
+   */
+  async queryAntcloudInvoiceIntlamountRcpt(request: QueryAntcloudInvoiceIntlamountRcptRequest): Promise<QueryAntcloudInvoiceIntlamountRcptResponse> {
+    let runtime = new $Util.RuntimeOptions({ });
+    let headers : {[key: string ]: string} = { };
+    return await this.queryAntcloudInvoiceIntlamountRcptEx(request, headers, runtime);
+  }
+
+  /**
+   * @remarks
+   * Description: 国际发票场景果询可开票单据
+   * Summary: 国际发票场景果询可开票单据
+   */
+  async queryAntcloudInvoiceIntlamountRcptEx(request: QueryAntcloudInvoiceIntlamountRcptRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<QueryAntcloudInvoiceIntlamountRcptResponse> {
+    Util.validateModel(request);
+    return $tea.cast<QueryAntcloudInvoiceIntlamountRcptResponse>(await this.doRequest("1.0", "antcloud.invoice.intlamount.rcpt.query", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new QueryAntcloudInvoiceIntlamountRcptResponse({}));
+  }
+
+  /**
+   * @remarks
+   * Description: 国际发票场景下查询开票申请列表
+   * Summary: 国际发票场景下查询开票申请列表
+   */
+  async queryAntcloudInvoiceIntlinvoicesApply(request: QueryAntcloudInvoiceIntlinvoicesApplyRequest): Promise<QueryAntcloudInvoiceIntlinvoicesApplyResponse> {
+    let runtime = new $Util.RuntimeOptions({ });
+    let headers : {[key: string ]: string} = { };
+    return await this.queryAntcloudInvoiceIntlinvoicesApplyEx(request, headers, runtime);
+  }
+
+  /**
+   * @remarks
+   * Description: 国际发票场景下查询开票申请列表
+   * Summary: 国际发票场景下查询开票申请列表
+   */
+  async queryAntcloudInvoiceIntlinvoicesApplyEx(request: QueryAntcloudInvoiceIntlinvoicesApplyRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<QueryAntcloudInvoiceIntlinvoicesApplyResponse> {
+    Util.validateModel(request);
+    return $tea.cast<QueryAntcloudInvoiceIntlinvoicesApplyResponse>(await this.doRequest("1.0", "antcloud.invoice.intlinvoices.apply.query", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new QueryAntcloudInvoiceIntlinvoicesApplyResponse({}));
+  }
+
+  /**
+   * @remarks
+   * Description: 根据业务号和发票ID获取国际发票文件下载地址
+   * Summary: 根据业务号和发票ID获取国际发票文件下载地址
+   */
+  async queryAntcloudInvoiceIntlinvoicesFileurl(request: QueryAntcloudInvoiceIntlinvoicesFileurlRequest): Promise<QueryAntcloudInvoiceIntlinvoicesFileurlResponse> {
+    let runtime = new $Util.RuntimeOptions({ });
+    let headers : {[key: string ]: string} = { };
+    return await this.queryAntcloudInvoiceIntlinvoicesFileurlEx(request, headers, runtime);
+  }
+
+  /**
+   * @remarks
+   * Description: 根据业务号和发票ID获取国际发票文件下载地址
+   * Summary: 根据业务号和发票ID获取国际发票文件下载地址
+   */
+  async queryAntcloudInvoiceIntlinvoicesFileurlEx(request: QueryAntcloudInvoiceIntlinvoicesFileurlRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<QueryAntcloudInvoiceIntlinvoicesFileurlResponse> {
+    Util.validateModel(request);
+    return $tea.cast<QueryAntcloudInvoiceIntlinvoicesFileurlResponse>(await this.doRequest("1.0", "antcloud.invoice.intlinvoices.fileurl.query", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new QueryAntcloudInvoiceIntlinvoicesFileurlResponse({}));
+  }
+
+  /**
+   * @remarks
+   * Description: 提交国际形式发票开票申请
+   * Summary: 提交国际形式发票开票申请
+   */
+  async pushAntcloudInvoiceIntlinvoicesProformainvoice(request: PushAntcloudInvoiceIntlinvoicesProformainvoiceRequest): Promise<PushAntcloudInvoiceIntlinvoicesProformainvoiceResponse> {
+    let runtime = new $Util.RuntimeOptions({ });
+    let headers : {[key: string ]: string} = { };
+    return await this.pushAntcloudInvoiceIntlinvoicesProformainvoiceEx(request, headers, runtime);
+  }
+
+  /**
+   * @remarks
+   * Description: 提交国际形式发票开票申请
+   * Summary: 提交国际形式发票开票申请
+   */
+  async pushAntcloudInvoiceIntlinvoicesProformainvoiceEx(request: PushAntcloudInvoiceIntlinvoicesProformainvoiceRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<PushAntcloudInvoiceIntlinvoicesProformainvoiceResponse> {
+    Util.validateModel(request);
+    return $tea.cast<PushAntcloudInvoiceIntlinvoicesProformainvoiceResponse>(await this.doRequest("1.0", "antcloud.invoice.intlinvoices.proformainvoice.push", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new PushAntcloudInvoiceIntlinvoicesProformainvoiceResponse({}));
+  }
+
+  /**
+   * @remarks
+   * Description: 查询国家代码选择信息
+   * Summary: 查询国家代码选择信息
+   */
+  async queryAntcloudInvoiceIntlconfigAllcountrycnen(request: QueryAntcloudInvoiceIntlconfigAllcountrycnenRequest): Promise<QueryAntcloudInvoiceIntlconfigAllcountrycnenResponse> {
+    let runtime = new $Util.RuntimeOptions({ });
+    let headers : {[key: string ]: string} = { };
+    return await this.queryAntcloudInvoiceIntlconfigAllcountrycnenEx(request, headers, runtime);
+  }
+
+  /**
+   * @remarks
+   * Description: 查询国家代码选择信息
+   * Summary: 查询国家代码选择信息
+   */
+  async queryAntcloudInvoiceIntlconfigAllcountrycnenEx(request: QueryAntcloudInvoiceIntlconfigAllcountrycnenRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<QueryAntcloudInvoiceIntlconfigAllcountrycnenResponse> {
+    Util.validateModel(request);
+    return $tea.cast<QueryAntcloudInvoiceIntlconfigAllcountrycnenResponse>(await this.doRequest("1.0", "antcloud.invoice.intlconfig.allcountrycnen.query", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new QueryAntcloudInvoiceIntlconfigAllcountrycnenResponse({}));
+  }
+
+  /**
+   * @remarks
+   * Description: cli创建测试接口a
+   * Summary: cli创建测试接口a
+   */
+  async apiaAntdigitalTestliuyzpCliCreate(request: ApiaAntdigitalTestliuyzpCliCreateRequest): Promise<ApiaAntdigitalTestliuyzpCliCreateResponse> {
+    let runtime = new $Util.RuntimeOptions({ });
+    let headers : {[key: string ]: string} = { };
+    return await this.apiaAntdigitalTestliuyzpCliCreateEx(request, headers, runtime);
+  }
+
+  /**
+   * @remarks
+   * Description: cli创建测试接口a
+   * Summary: cli创建测试接口a
+   */
+  async apiaAntdigitalTestliuyzpCliCreateEx(request: ApiaAntdigitalTestliuyzpCliCreateRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<ApiaAntdigitalTestliuyzpCliCreateResponse> {
+    Util.validateModel(request);
+    return $tea.cast<ApiaAntdigitalTestliuyzpCliCreateResponse>(await this.doRequest("1.0", "antdigital.testliuyzp.cli.create.apia", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new ApiaAntdigitalTestliuyzpCliCreateResponse({}));
+  }
+
+  /**
+   * @remarks
+   * Description: plugin测试编辑接口
+   * Summary: plugin测试编辑接口
+   */
+  async queryAntcloudDemositdevsyTesxXxx(request: QueryAntcloudDemositdevsyTesxXxxRequest): Promise<QueryAntcloudDemositdevsyTesxXxxResponse> {
+    let runtime = new $Util.RuntimeOptions({ });
+    let headers : {[key: string ]: string} = { };
+    return await this.queryAntcloudDemositdevsyTesxXxxEx(request, headers, runtime);
+  }
+
+  /**
+   * @remarks
+   * Description: plugin测试编辑接口
+   * Summary: plugin测试编辑接口
+   */
+  async queryAntcloudDemositdevsyTesxXxxEx(request: QueryAntcloudDemositdevsyTesxXxxRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<QueryAntcloudDemositdevsyTesxXxxResponse> {
+    Util.validateModel(request);
+    return $tea.cast<QueryAntcloudDemositdevsyTesxXxxResponse>(await this.doRequest("1.0", "antcloud.demositdevsy.tesx.xxx.query", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new QueryAntcloudDemositdevsyTesxXxxResponse({}));
+  }
+
+  /**
+   * @remarks
+   * Description: cli创建测试接口a
+   * Summary: cli创建测试接口a
+   */
+  async apiaAntcloudDemositdevsyCliCreate(request: ApiaAntcloudDemositdevsyCliCreateRequest): Promise<ApiaAntcloudDemositdevsyCliCreateResponse> {
+    let runtime = new $Util.RuntimeOptions({ });
+    let headers : {[key: string ]: string} = { };
+    return await this.apiaAntcloudDemositdevsyCliCreateEx(request, headers, runtime);
+  }
+
+  /**
+   * @remarks
+   * Description: cli创建测试接口a
+   * Summary: cli创建测试接口a
+   */
+  async apiaAntcloudDemositdevsyCliCreateEx(request: ApiaAntcloudDemositdevsyCliCreateRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<ApiaAntcloudDemositdevsyCliCreateResponse> {
+    Util.validateModel(request);
+    return $tea.cast<ApiaAntcloudDemositdevsyCliCreateResponse>(await this.doRequest("1.0", "antcloud.demositdevsy.cli.create.apia", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new ApiaAntcloudDemositdevsyCliCreateResponse({}));
+  }
+
+  /**
+   * @remarks
+   * Description: gatewat-plugin创建接口a
+   * Summary: gatewat-plugin创建接口a
+   */
+  async apiaAntcloudWorkbenchphaseiiaCliCreate(request: ApiaAntcloudWorkbenchphaseiiaCliCreateRequest): Promise<ApiaAntcloudWorkbenchphaseiiaCliCreateResponse> {
+    let runtime = new $Util.RuntimeOptions({ });
+    let headers : {[key: string ]: string} = { };
+    return await this.apiaAntcloudWorkbenchphaseiiaCliCreateEx(request, headers, runtime);
+  }
+
+  /**
+   * @remarks
+   * Description: gatewat-plugin创建接口a
+   * Summary: gatewat-plugin创建接口a
+   */
+  async apiaAntcloudWorkbenchphaseiiaCliCreateEx(request: ApiaAntcloudWorkbenchphaseiiaCliCreateRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<ApiaAntcloudWorkbenchphaseiiaCliCreateResponse> {
+    if (!Util.isUnset(request.fileObject)) {
+      let uploadReq = new CreateAntcloudGatewayxFileUploadRequest({
+        authToken: request.authToken,
+        apiCode: "antcloud.workbenchphaseiia.cli.create.apia",
+        fileName: request.fileObjectName,
+      });
+      let uploadResp = await this.createAntcloudGatewayxFileUploadEx(uploadReq, headers, runtime);
+      if (!AntchainUtil.isSuccess(uploadResp.resultCode, "ok")) {
+        let apiaAntcloudWorkbenchphaseiiaCliCreateResponse = new ApiaAntcloudWorkbenchphaseiiaCliCreateResponse({
+          reqMsgId: uploadResp.reqMsgId,
+          resultCode: uploadResp.resultCode,
+          resultMsg: uploadResp.resultMsg,
+        });
+        return apiaAntcloudWorkbenchphaseiiaCliCreateResponse;
+      }
+
+      let uploadHeaders = AntchainUtil.parseUploadHeaders(uploadResp.uploadHeaders);
+      await AntchainUtil.putObject(request.fileObject, uploadHeaders, uploadResp.uploadUrl);
+      request.fileId = uploadResp.fileId;
+      request.fileObject = null;
+    }
+
+    Util.validateModel(request);
+    return $tea.cast<ApiaAntcloudWorkbenchphaseiiaCliCreateResponse>(await this.doRequest("1.0", "antcloud.workbenchphaseiia.cli.create.apia", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new ApiaAntcloudWorkbenchphaseiiaCliCreateResponse({}));
+  }
+
+  /**
+   * @remarks
+   * Description: gateway-plugin创建接口b
+   * Summary: gateway-plugin创建接口b
+   */
+  async apibAntcloudWorkbenchphaseiiaCliCreate(request: ApibAntcloudWorkbenchphaseiiaCliCreateRequest): Promise<ApibAntcloudWorkbenchphaseiiaCliCreateResponse> {
+    let runtime = new $Util.RuntimeOptions({ });
+    let headers : {[key: string ]: string} = { };
+    return await this.apibAntcloudWorkbenchphaseiiaCliCreateEx(request, headers, runtime);
+  }
+
+  /**
+   * @remarks
+   * Description: gateway-plugin创建接口b
+   * Summary: gateway-plugin创建接口b
+   */
+  async apibAntcloudWorkbenchphaseiiaCliCreateEx(request: ApibAntcloudWorkbenchphaseiiaCliCreateRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<ApibAntcloudWorkbenchphaseiiaCliCreateResponse> {
+    if (!Util.isUnset(request.fileObject)) {
+      let uploadReq = new CreateAntcloudGatewayxFileUploadRequest({
+        authToken: request.authToken,
+        apiCode: "antcloud.workbenchphaseiia.cli.create.apib",
+        fileName: request.fileObjectName,
+      });
+      let uploadResp = await this.createAntcloudGatewayxFileUploadEx(uploadReq, headers, runtime);
+      if (!AntchainUtil.isSuccess(uploadResp.resultCode, "ok")) {
+        let apibAntcloudWorkbenchphaseiiaCliCreateResponse = new ApibAntcloudWorkbenchphaseiiaCliCreateResponse({
+          reqMsgId: uploadResp.reqMsgId,
+          resultCode: uploadResp.resultCode,
+          resultMsg: uploadResp.resultMsg,
+        });
+        return apibAntcloudWorkbenchphaseiiaCliCreateResponse;
+      }
+
+      let uploadHeaders = AntchainUtil.parseUploadHeaders(uploadResp.uploadHeaders);
+      await AntchainUtil.putObject(request.fileObject, uploadHeaders, uploadResp.uploadUrl);
+      request.fileId = uploadResp.fileId;
+      request.fileObject = null;
+    }
+
+    Util.validateModel(request);
+    return $tea.cast<ApibAntcloudWorkbenchphaseiiaCliCreateResponse>(await this.doRequest("1.0", "antcloud.workbenchphaseiia.cli.create.apib", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new ApibAntcloudWorkbenchphaseiiaCliCreateResponse({}));
+  }
+
+  /**
+   * @remarks
+   * Description: 创建HTTP PUT提交的文件上传
+   * Summary: 文件上传创建
+   */
+  async createAntcloudGatewayxFileUpload(request: CreateAntcloudGatewayxFileUploadRequest): Promise<CreateAntcloudGatewayxFileUploadResponse> {
+    let runtime = new $Util.RuntimeOptions({ });
+    let headers : {[key: string ]: string} = { };
+    return await this.createAntcloudGatewayxFileUploadEx(request, headers, runtime);
+  }
+
+  /**
+   * @remarks
+   * Description: 创建HTTP PUT提交的文件上传
+   * Summary: 文件上传创建
+   */
+  async createAntcloudGatewayxFileUploadEx(request: CreateAntcloudGatewayxFileUploadRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<CreateAntcloudGatewayxFileUploadResponse> {
+    Util.validateModel(request);
+    return $tea.cast<CreateAntcloudGatewayxFileUploadResponse>(await this.doRequest("1.0", "antcloud.gatewayx.file.upload.create", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new CreateAntcloudGatewayxFileUploadResponse({}));
   }
 
 }
