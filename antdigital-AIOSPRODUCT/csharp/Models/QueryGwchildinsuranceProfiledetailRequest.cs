@@ -19,19 +19,14 @@ namespace AntChain.SDK.AIOSPRODUCT.Models
         public string ProductInstanceId { get; set; }
 
         // 当前联调租户；必须精确命中 finaigateway 发布白名单
-        [NameInMap("tenanat_id")]
+        [NameInMap("tenant_id")]
         [Validation(Required=true)]
-        public string TenanatId { get; set; }
+        public string TenantId { get; set; }
 
-        // 当前用户，最大 64 字符
-        [NameInMap("user_id")]
+        // 输入参数
+        [NameInMap("request_data")]
         [Validation(Required=true)]
-        public string UserId { get; set; }
-
-        // 当前会话，最大 64 字符
-        [NameInMap("session_id")]
-        [Validation(Required=true)]
-        public string SessionId { get; set; }
+        public string RequestData { get; set; }
 
     }
 

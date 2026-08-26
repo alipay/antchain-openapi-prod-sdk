@@ -8,7 +8,7 @@ using Tea;
 
 namespace AntChain.SDK.AIOSPRODUCT.Models
 {
-    public class QueryGwchildinsuranceProfilelatestRequest : TeaModel {
+    public class QueryGwchildinsuranceSolutionkycdetailRequest : TeaModel {
         // OAuth模式下的授权token
         [NameInMap("auth_token")]
         [Validation(Required=false)]
@@ -23,7 +23,7 @@ namespace AntChain.SDK.AIOSPRODUCT.Models
         [Validation(Required=true)]
         public string TenantId { get; set; }
 
-        // 请求输入
+        // 输入参数
         [NameInMap("request_data")]
         [Validation(Required=true)]
         public string RequestData { get; set; }
