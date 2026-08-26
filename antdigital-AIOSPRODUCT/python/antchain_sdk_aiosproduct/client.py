@@ -134,7 +134,7 @@ class Client:
                     'req_msg_id': AntchainUtils.get_nonce(),
                     'access_key': self._access_key_id,
                     'base_sdk_version': 'TeaSDK-2.0',
-                    'sdk_version': '1.0.3',
+                    'sdk_version': '1.0.9',
                     '_prod_code': 'AIOSPRODUCT',
                     '_prod_channel': 'default'
                 }
@@ -237,7 +237,7 @@ class Client:
                     'req_msg_id': AntchainUtils.get_nonce(),
                     'access_key': self._access_key_id,
                     'base_sdk_version': 'TeaSDK-2.0',
-                    'sdk_version': '1.0.3',
+                    'sdk_version': '1.0.9',
                     '_prod_code': 'AIOSPRODUCT',
                     '_prod_channel': 'default'
                 }
@@ -495,4 +495,508 @@ class Client:
         return TeaCore.from_map(
             aiosproduct_models.QueryGwchildinsuranceChatResponse(),
             await self.do_request_async('1.0', 'antdigital.aiosproduct.gwchildinsurance.chat.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def query_gwchildinsurance_profilelatest(
+        self,
+        request: aiosproduct_models.QueryGwchildinsuranceProfilelatestRequest,
+    ) -> aiosproduct_models.QueryGwchildinsuranceProfilelatestResponse:
+        """
+        Description: 少儿保险最近档案查询
+        Summary: 少儿保险最近档案查询
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.query_gwchildinsurance_profilelatest_ex(request, headers, runtime)
+
+    async def query_gwchildinsurance_profilelatest_async(
+        self,
+        request: aiosproduct_models.QueryGwchildinsuranceProfilelatestRequest,
+    ) -> aiosproduct_models.QueryGwchildinsuranceProfilelatestResponse:
+        """
+        Description: 少儿保险最近档案查询
+        Summary: 少儿保险最近档案查询
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.query_gwchildinsurance_profilelatest_ex_async(request, headers, runtime)
+
+    def query_gwchildinsurance_profilelatest_ex(
+        self,
+        request: aiosproduct_models.QueryGwchildinsuranceProfilelatestRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> aiosproduct_models.QueryGwchildinsuranceProfilelatestResponse:
+        """
+        Description: 少儿保险最近档案查询
+        Summary: 少儿保险最近档案查询
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            aiosproduct_models.QueryGwchildinsuranceProfilelatestResponse(),
+            self.do_request('1.0', 'antdigital.aiosproduct.gwchildinsurance.profilelatest.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def query_gwchildinsurance_profilelatest_ex_async(
+        self,
+        request: aiosproduct_models.QueryGwchildinsuranceProfilelatestRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> aiosproduct_models.QueryGwchildinsuranceProfilelatestResponse:
+        """
+        Description: 少儿保险最近档案查询
+        Summary: 少儿保险最近档案查询
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            aiosproduct_models.QueryGwchildinsuranceProfilelatestResponse(),
+            await self.do_request_async('1.0', 'antdigital.aiosproduct.gwchildinsurance.profilelatest.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def query_gwchildinsurance_profiledetail(
+        self,
+        request: aiosproduct_models.QueryGwchildinsuranceProfiledetailRequest,
+    ) -> aiosproduct_models.QueryGwchildinsuranceProfiledetailResponse:
+        """
+        Description: 少儿保险当前会话档案查询
+        Summary: 少儿保险当前会话档案查询
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.query_gwchildinsurance_profiledetail_ex(request, headers, runtime)
+
+    async def query_gwchildinsurance_profiledetail_async(
+        self,
+        request: aiosproduct_models.QueryGwchildinsuranceProfiledetailRequest,
+    ) -> aiosproduct_models.QueryGwchildinsuranceProfiledetailResponse:
+        """
+        Description: 少儿保险当前会话档案查询
+        Summary: 少儿保险当前会话档案查询
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.query_gwchildinsurance_profiledetail_ex_async(request, headers, runtime)
+
+    def query_gwchildinsurance_profiledetail_ex(
+        self,
+        request: aiosproduct_models.QueryGwchildinsuranceProfiledetailRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> aiosproduct_models.QueryGwchildinsuranceProfiledetailResponse:
+        """
+        Description: 少儿保险当前会话档案查询
+        Summary: 少儿保险当前会话档案查询
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            aiosproduct_models.QueryGwchildinsuranceProfiledetailResponse(),
+            self.do_request('1.0', 'antdigital.aiosproduct.gwchildinsurance.profiledetail.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def query_gwchildinsurance_profiledetail_ex_async(
+        self,
+        request: aiosproduct_models.QueryGwchildinsuranceProfiledetailRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> aiosproduct_models.QueryGwchildinsuranceProfiledetailResponse:
+        """
+        Description: 少儿保险当前会话档案查询
+        Summary: 少儿保险当前会话档案查询
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            aiosproduct_models.QueryGwchildinsuranceProfiledetailResponse(),
+            await self.do_request_async('1.0', 'antdigital.aiosproduct.gwchildinsurance.profiledetail.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def save_gwchildinsurance_profile(
+        self,
+        request: aiosproduct_models.SaveGwchildinsuranceProfileRequest,
+    ) -> aiosproduct_models.SaveGwchildinsuranceProfileResponse:
+        """
+        Description: 少儿保险家庭与孩子档案保存
+        Summary: 少儿保险家庭与孩子档案保存
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.save_gwchildinsurance_profile_ex(request, headers, runtime)
+
+    async def save_gwchildinsurance_profile_async(
+        self,
+        request: aiosproduct_models.SaveGwchildinsuranceProfileRequest,
+    ) -> aiosproduct_models.SaveGwchildinsuranceProfileResponse:
+        """
+        Description: 少儿保险家庭与孩子档案保存
+        Summary: 少儿保险家庭与孩子档案保存
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.save_gwchildinsurance_profile_ex_async(request, headers, runtime)
+
+    def save_gwchildinsurance_profile_ex(
+        self,
+        request: aiosproduct_models.SaveGwchildinsuranceProfileRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> aiosproduct_models.SaveGwchildinsuranceProfileResponse:
+        """
+        Description: 少儿保险家庭与孩子档案保存
+        Summary: 少儿保险家庭与孩子档案保存
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            aiosproduct_models.SaveGwchildinsuranceProfileResponse(),
+            self.do_request('1.0', 'antdigital.aiosproduct.gwchildinsurance.profile.save', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def save_gwchildinsurance_profile_ex_async(
+        self,
+        request: aiosproduct_models.SaveGwchildinsuranceProfileRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> aiosproduct_models.SaveGwchildinsuranceProfileResponse:
+        """
+        Description: 少儿保险家庭与孩子档案保存
+        Summary: 少儿保险家庭与孩子档案保存
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            aiosproduct_models.SaveGwchildinsuranceProfileResponse(),
+            await self.do_request_async('1.0', 'antdigital.aiosproduct.gwchildinsurance.profile.save', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def query_gwchildinsurance_solutionkycdetail(
+        self,
+        request: aiosproduct_models.QueryGwchildinsuranceSolutionkycdetailRequest,
+    ) -> aiosproduct_models.QueryGwchildinsuranceSolutionkycdetailResponse:
+        """
+        Description: 少儿保险 KYC 查询
+        Summary: 少儿保险 KYC 查询
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.query_gwchildinsurance_solutionkycdetail_ex(request, headers, runtime)
+
+    async def query_gwchildinsurance_solutionkycdetail_async(
+        self,
+        request: aiosproduct_models.QueryGwchildinsuranceSolutionkycdetailRequest,
+    ) -> aiosproduct_models.QueryGwchildinsuranceSolutionkycdetailResponse:
+        """
+        Description: 少儿保险 KYC 查询
+        Summary: 少儿保险 KYC 查询
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.query_gwchildinsurance_solutionkycdetail_ex_async(request, headers, runtime)
+
+    def query_gwchildinsurance_solutionkycdetail_ex(
+        self,
+        request: aiosproduct_models.QueryGwchildinsuranceSolutionkycdetailRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> aiosproduct_models.QueryGwchildinsuranceSolutionkycdetailResponse:
+        """
+        Description: 少儿保险 KYC 查询
+        Summary: 少儿保险 KYC 查询
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            aiosproduct_models.QueryGwchildinsuranceSolutionkycdetailResponse(),
+            self.do_request('1.0', 'antdigital.aiosproduct.gwchildinsurance.solutionkycdetail.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def query_gwchildinsurance_solutionkycdetail_ex_async(
+        self,
+        request: aiosproduct_models.QueryGwchildinsuranceSolutionkycdetailRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> aiosproduct_models.QueryGwchildinsuranceSolutionkycdetailResponse:
+        """
+        Description: 少儿保险 KYC 查询
+        Summary: 少儿保险 KYC 查询
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            aiosproduct_models.QueryGwchildinsuranceSolutionkycdetailResponse(),
+            await self.do_request_async('1.0', 'antdigital.aiosproduct.gwchildinsurance.solutionkycdetail.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def save_gwchildinsurance_solutionkyc(
+        self,
+        request: aiosproduct_models.SaveGwchildinsuranceSolutionkycRequest,
+    ) -> aiosproduct_models.SaveGwchildinsuranceSolutionkycResponse:
+        """
+        Description: 少儿保险 KYC 保存
+        Summary: 少儿保险 KYC 保存
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.save_gwchildinsurance_solutionkyc_ex(request, headers, runtime)
+
+    async def save_gwchildinsurance_solutionkyc_async(
+        self,
+        request: aiosproduct_models.SaveGwchildinsuranceSolutionkycRequest,
+    ) -> aiosproduct_models.SaveGwchildinsuranceSolutionkycResponse:
+        """
+        Description: 少儿保险 KYC 保存
+        Summary: 少儿保险 KYC 保存
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.save_gwchildinsurance_solutionkyc_ex_async(request, headers, runtime)
+
+    def save_gwchildinsurance_solutionkyc_ex(
+        self,
+        request: aiosproduct_models.SaveGwchildinsuranceSolutionkycRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> aiosproduct_models.SaveGwchildinsuranceSolutionkycResponse:
+        """
+        Description: 少儿保险 KYC 保存
+        Summary: 少儿保险 KYC 保存
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            aiosproduct_models.SaveGwchildinsuranceSolutionkycResponse(),
+            self.do_request('1.0', 'antdigital.aiosproduct.gwchildinsurance.solutionkyc.save', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def save_gwchildinsurance_solutionkyc_ex_async(
+        self,
+        request: aiosproduct_models.SaveGwchildinsuranceSolutionkycRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> aiosproduct_models.SaveGwchildinsuranceSolutionkycResponse:
+        """
+        Description: 少儿保险 KYC 保存
+        Summary: 少儿保险 KYC 保存
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            aiosproduct_models.SaveGwchildinsuranceSolutionkycResponse(),
+            await self.do_request_async('1.0', 'antdigital.aiosproduct.gwchildinsurance.solutionkyc.save', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def query_gwmcpdefault_chat(
+        self,
+        request: aiosproduct_models.QueryGwmcpdefaultChatRequest,
+    ) -> aiosproduct_models.QueryGwmcpdefaultChatResponse:
+        """
+        Description: mcp网关调用
+        Summary: mcp网关调用
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.query_gwmcpdefault_chat_ex(request, headers, runtime)
+
+    async def query_gwmcpdefault_chat_async(
+        self,
+        request: aiosproduct_models.QueryGwmcpdefaultChatRequest,
+    ) -> aiosproduct_models.QueryGwmcpdefaultChatResponse:
+        """
+        Description: mcp网关调用
+        Summary: mcp网关调用
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.query_gwmcpdefault_chat_ex_async(request, headers, runtime)
+
+    def query_gwmcpdefault_chat_ex(
+        self,
+        request: aiosproduct_models.QueryGwmcpdefaultChatRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> aiosproduct_models.QueryGwmcpdefaultChatResponse:
+        """
+        Description: mcp网关调用
+        Summary: mcp网关调用
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            aiosproduct_models.QueryGwmcpdefaultChatResponse(),
+            self.do_request('1.0', 'antdigital.aiosproduct.gwmcpdefault.chat.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def query_gwmcpdefault_chat_ex_async(
+        self,
+        request: aiosproduct_models.QueryGwmcpdefaultChatRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> aiosproduct_models.QueryGwmcpdefaultChatResponse:
+        """
+        Description: mcp网关调用
+        Summary: mcp网关调用
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            aiosproduct_models.QueryGwmcpdefaultChatResponse(),
+            await self.do_request_async('1.0', 'antdigital.aiosproduct.gwmcpdefault.chat.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def save_gwchildinsurance_planningtargets(
+        self,
+        request: aiosproduct_models.SaveGwchildinsurancePlanningtargetsRequest,
+    ) -> aiosproduct_models.SaveGwchildinsurancePlanningtargetsResponse:
+        """
+        Description: 根据最新画像版本，保存指定用户、指定会话参与保险规划的稳定 `childIds`，并返回最新规划上下文。调用方必须传 `profileVersion`、`childIds`、`idempotencyKey`；不按昵称或数组位置选择。
+        Summary: 根据最新画像版本，保存指定用户、指定会话参与保险规划的稳定 `childIds`，并返回最新规划上下文。调用方必须传 `profileVersion`、`childIds`、`idempotencyKey`；不按昵称或数组位置选择。
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.save_gwchildinsurance_planningtargets_ex(request, headers, runtime)
+
+    async def save_gwchildinsurance_planningtargets_async(
+        self,
+        request: aiosproduct_models.SaveGwchildinsurancePlanningtargetsRequest,
+    ) -> aiosproduct_models.SaveGwchildinsurancePlanningtargetsResponse:
+        """
+        Description: 根据最新画像版本，保存指定用户、指定会话参与保险规划的稳定 `childIds`，并返回最新规划上下文。调用方必须传 `profileVersion`、`childIds`、`idempotencyKey`；不按昵称或数组位置选择。
+        Summary: 根据最新画像版本，保存指定用户、指定会话参与保险规划的稳定 `childIds`，并返回最新规划上下文。调用方必须传 `profileVersion`、`childIds`、`idempotencyKey`；不按昵称或数组位置选择。
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.save_gwchildinsurance_planningtargets_ex_async(request, headers, runtime)
+
+    def save_gwchildinsurance_planningtargets_ex(
+        self,
+        request: aiosproduct_models.SaveGwchildinsurancePlanningtargetsRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> aiosproduct_models.SaveGwchildinsurancePlanningtargetsResponse:
+        """
+        Description: 根据最新画像版本，保存指定用户、指定会话参与保险规划的稳定 `childIds`，并返回最新规划上下文。调用方必须传 `profileVersion`、`childIds`、`idempotencyKey`；不按昵称或数组位置选择。
+        Summary: 根据最新画像版本，保存指定用户、指定会话参与保险规划的稳定 `childIds`，并返回最新规划上下文。调用方必须传 `profileVersion`、`childIds`、`idempotencyKey`；不按昵称或数组位置选择。
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            aiosproduct_models.SaveGwchildinsurancePlanningtargetsResponse(),
+            self.do_request('1.0', 'antdigital.aiosproduct.gwchildinsurance.planningtargets.save', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def save_gwchildinsurance_planningtargets_ex_async(
+        self,
+        request: aiosproduct_models.SaveGwchildinsurancePlanningtargetsRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> aiosproduct_models.SaveGwchildinsurancePlanningtargetsResponse:
+        """
+        Description: 根据最新画像版本，保存指定用户、指定会话参与保险规划的稳定 `childIds`，并返回最新规划上下文。调用方必须传 `profileVersion`、`childIds`、`idempotencyKey`；不按昵称或数组位置选择。
+        Summary: 根据最新画像版本，保存指定用户、指定会话参与保险规划的稳定 `childIds`，并返回最新规划上下文。调用方必须传 `profileVersion`、`childIds`、`idempotencyKey`；不按昵称或数组位置选择。
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            aiosproduct_models.SaveGwchildinsurancePlanningtargetsResponse(),
+            await self.do_request_async('1.0', 'antdigital.aiosproduct.gwchildinsurance.planningtargets.save', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def query_gwchildinsurance_planningtargets(
+        self,
+        request: aiosproduct_models.QueryGwchildinsurancePlanningtargetsRequest,
+    ) -> aiosproduct_models.QueryGwchildinsurancePlanningtargetsResponse:
+        """
+        Description: 查询指定用户和会话当前生效的少儿保险规划目标。
+        Summary: 查询指定用户和会话当前生效的少儿保险规划目标。
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.query_gwchildinsurance_planningtargets_ex(request, headers, runtime)
+
+    async def query_gwchildinsurance_planningtargets_async(
+        self,
+        request: aiosproduct_models.QueryGwchildinsurancePlanningtargetsRequest,
+    ) -> aiosproduct_models.QueryGwchildinsurancePlanningtargetsResponse:
+        """
+        Description: 查询指定用户和会话当前生效的少儿保险规划目标。
+        Summary: 查询指定用户和会话当前生效的少儿保险规划目标。
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.query_gwchildinsurance_planningtargets_ex_async(request, headers, runtime)
+
+    def query_gwchildinsurance_planningtargets_ex(
+        self,
+        request: aiosproduct_models.QueryGwchildinsurancePlanningtargetsRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> aiosproduct_models.QueryGwchildinsurancePlanningtargetsResponse:
+        """
+        Description: 查询指定用户和会话当前生效的少儿保险规划目标。
+        Summary: 查询指定用户和会话当前生效的少儿保险规划目标。
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            aiosproduct_models.QueryGwchildinsurancePlanningtargetsResponse(),
+            self.do_request('1.0', 'antdigital.aiosproduct.gwchildinsurance.planningtargets.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def query_gwchildinsurance_planningtargets_ex_async(
+        self,
+        request: aiosproduct_models.QueryGwchildinsurancePlanningtargetsRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> aiosproduct_models.QueryGwchildinsurancePlanningtargetsResponse:
+        """
+        Description: 查询指定用户和会话当前生效的少儿保险规划目标。
+        Summary: 查询指定用户和会话当前生效的少儿保险规划目标。
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            aiosproduct_models.QueryGwchildinsurancePlanningtargetsResponse(),
+            await self.do_request_async('1.0', 'antdigital.aiosproduct.gwchildinsurance.planningtargets.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def query_gwchildinsurance_planningtargetslatest(
+        self,
+        request: aiosproduct_models.QueryGwchildinsurancePlanningtargetslatestRequest,
+    ) -> aiosproduct_models.QueryGwchildinsurancePlanningtargetslatestResponse:
+        """
+        Description: 查询最近选择的孩子
+        Summary: 查询最近选择的孩子
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.query_gwchildinsurance_planningtargetslatest_ex(request, headers, runtime)
+
+    async def query_gwchildinsurance_planningtargetslatest_async(
+        self,
+        request: aiosproduct_models.QueryGwchildinsurancePlanningtargetslatestRequest,
+    ) -> aiosproduct_models.QueryGwchildinsurancePlanningtargetslatestResponse:
+        """
+        Description: 查询最近选择的孩子
+        Summary: 查询最近选择的孩子
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.query_gwchildinsurance_planningtargetslatest_ex_async(request, headers, runtime)
+
+    def query_gwchildinsurance_planningtargetslatest_ex(
+        self,
+        request: aiosproduct_models.QueryGwchildinsurancePlanningtargetslatestRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> aiosproduct_models.QueryGwchildinsurancePlanningtargetslatestResponse:
+        """
+        Description: 查询最近选择的孩子
+        Summary: 查询最近选择的孩子
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            aiosproduct_models.QueryGwchildinsurancePlanningtargetslatestResponse(),
+            self.do_request('1.0', 'antdigital.aiosproduct.gwchildinsurance.planningtargetslatest.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def query_gwchildinsurance_planningtargetslatest_ex_async(
+        self,
+        request: aiosproduct_models.QueryGwchildinsurancePlanningtargetslatestRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> aiosproduct_models.QueryGwchildinsurancePlanningtargetslatestResponse:
+        """
+        Description: 查询最近选择的孩子
+        Summary: 查询最近选择的孩子
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            aiosproduct_models.QueryGwchildinsurancePlanningtargetslatestResponse(),
+            await self.do_request_async('1.0', 'antdigital.aiosproduct.gwchildinsurance.planningtargetslatest.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
