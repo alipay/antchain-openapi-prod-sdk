@@ -126,7 +126,7 @@ public class Client {
                     new TeaPair("req_msg_id", com.antgroup.antchain.openapi.antchain.util.AntchainUtils.getNonce()),
                     new TeaPair("access_key", _accessKeyId),
                     new TeaPair("base_sdk_version", "TeaSDK-2.0"),
-                    new TeaPair("sdk_version", "1.0.6"),
+                    new TeaPair("sdk_version", "1.0.9"),
                     new TeaPair("_prod_code", "AIOSPRODUCT"),
                     new TeaPair("_prod_channel", "default")
                 );
@@ -333,5 +333,131 @@ public class Client {
     public SaveGwchildinsuranceProfileResponse saveGwchildinsuranceProfileEx(SaveGwchildinsuranceProfileRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
         com.aliyun.teautil.Common.validateModel(request);
         return TeaModel.toModel(this.doRequest("1.0", "antdigital.aiosproduct.gwchildinsurance.profile.save", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new SaveGwchildinsuranceProfileResponse());
+    }
+
+    /**
+     * <b>description</b> :
+     * <p>Description: 少儿保险 KYC 查询
+     * Summary: 少儿保险 KYC 查询</p>
+     */
+    public QueryGwchildinsuranceSolutionkycdetailResponse queryGwchildinsuranceSolutionkycdetail(QueryGwchildinsuranceSolutionkycdetailRequest request) throws Exception {
+        com.aliyun.teautil.models.RuntimeOptions runtime = new com.aliyun.teautil.models.RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.queryGwchildinsuranceSolutionkycdetailEx(request, headers, runtime);
+    }
+
+    /**
+     * <b>description</b> :
+     * <p>Description: 少儿保险 KYC 查询
+     * Summary: 少儿保险 KYC 查询</p>
+     */
+    public QueryGwchildinsuranceSolutionkycdetailResponse queryGwchildinsuranceSolutionkycdetailEx(QueryGwchildinsuranceSolutionkycdetailRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "antdigital.aiosproduct.gwchildinsurance.solutionkycdetail.query", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new QueryGwchildinsuranceSolutionkycdetailResponse());
+    }
+
+    /**
+     * <b>description</b> :
+     * <p>Description: 少儿保险 KYC 保存
+     * Summary: 少儿保险 KYC 保存</p>
+     */
+    public SaveGwchildinsuranceSolutionkycResponse saveGwchildinsuranceSolutionkyc(SaveGwchildinsuranceSolutionkycRequest request) throws Exception {
+        com.aliyun.teautil.models.RuntimeOptions runtime = new com.aliyun.teautil.models.RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.saveGwchildinsuranceSolutionkycEx(request, headers, runtime);
+    }
+
+    /**
+     * <b>description</b> :
+     * <p>Description: 少儿保险 KYC 保存
+     * Summary: 少儿保险 KYC 保存</p>
+     */
+    public SaveGwchildinsuranceSolutionkycResponse saveGwchildinsuranceSolutionkycEx(SaveGwchildinsuranceSolutionkycRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "antdigital.aiosproduct.gwchildinsurance.solutionkyc.save", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new SaveGwchildinsuranceSolutionkycResponse());
+    }
+
+    /**
+     * <b>description</b> :
+     * <p>Description: mcp网关调用
+     * Summary: mcp网关调用</p>
+     */
+    public QueryGwmcpdefaultChatResponse queryGwmcpdefaultChat(QueryGwmcpdefaultChatRequest request) throws Exception {
+        com.aliyun.teautil.models.RuntimeOptions runtime = new com.aliyun.teautil.models.RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.queryGwmcpdefaultChatEx(request, headers, runtime);
+    }
+
+    /**
+     * <b>description</b> :
+     * <p>Description: mcp网关调用
+     * Summary: mcp网关调用</p>
+     */
+    public QueryGwmcpdefaultChatResponse queryGwmcpdefaultChatEx(QueryGwmcpdefaultChatRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "antdigital.aiosproduct.gwmcpdefault.chat.query", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new QueryGwmcpdefaultChatResponse());
+    }
+
+    /**
+     * <b>description</b> :
+     * <p>Description: 根据最新画像版本，保存指定用户、指定会话参与保险规划的稳定 <code>childIds</code>，并返回最新规划上下文。调用方必须传 <code>profileVersion</code>、<code>childIds</code>、<code>idempotencyKey</code>；不按昵称或数组位置选择。
+     * Summary: 根据最新画像版本，保存指定用户、指定会话参与保险规划的稳定 <code>childIds</code>，并返回最新规划上下文。调用方必须传 <code>profileVersion</code>、<code>childIds</code>、<code>idempotencyKey</code>；不按昵称或数组位置选择。</p>
+     */
+    public SaveGwchildinsurancePlanningtargetsResponse saveGwchildinsurancePlanningtargets(SaveGwchildinsurancePlanningtargetsRequest request) throws Exception {
+        com.aliyun.teautil.models.RuntimeOptions runtime = new com.aliyun.teautil.models.RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.saveGwchildinsurancePlanningtargetsEx(request, headers, runtime);
+    }
+
+    /**
+     * <b>description</b> :
+     * <p>Description: 根据最新画像版本，保存指定用户、指定会话参与保险规划的稳定 <code>childIds</code>，并返回最新规划上下文。调用方必须传 <code>profileVersion</code>、<code>childIds</code>、<code>idempotencyKey</code>；不按昵称或数组位置选择。
+     * Summary: 根据最新画像版本，保存指定用户、指定会话参与保险规划的稳定 <code>childIds</code>，并返回最新规划上下文。调用方必须传 <code>profileVersion</code>、<code>childIds</code>、<code>idempotencyKey</code>；不按昵称或数组位置选择。</p>
+     */
+    public SaveGwchildinsurancePlanningtargetsResponse saveGwchildinsurancePlanningtargetsEx(SaveGwchildinsurancePlanningtargetsRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "antdigital.aiosproduct.gwchildinsurance.planningtargets.save", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new SaveGwchildinsurancePlanningtargetsResponse());
+    }
+
+    /**
+     * <b>description</b> :
+     * <p>Description: 查询指定用户和会话当前生效的少儿保险规划目标。
+     * Summary: 查询指定用户和会话当前生效的少儿保险规划目标。</p>
+     */
+    public QueryGwchildinsurancePlanningtargetsResponse queryGwchildinsurancePlanningtargets(QueryGwchildinsurancePlanningtargetsRequest request) throws Exception {
+        com.aliyun.teautil.models.RuntimeOptions runtime = new com.aliyun.teautil.models.RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.queryGwchildinsurancePlanningtargetsEx(request, headers, runtime);
+    }
+
+    /**
+     * <b>description</b> :
+     * <p>Description: 查询指定用户和会话当前生效的少儿保险规划目标。
+     * Summary: 查询指定用户和会话当前生效的少儿保险规划目标。</p>
+     */
+    public QueryGwchildinsurancePlanningtargetsResponse queryGwchildinsurancePlanningtargetsEx(QueryGwchildinsurancePlanningtargetsRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "antdigital.aiosproduct.gwchildinsurance.planningtargets.query", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new QueryGwchildinsurancePlanningtargetsResponse());
+    }
+
+    /**
+     * <b>description</b> :
+     * <p>Description: 查询最近选择的孩子
+     * Summary: 查询最近选择的孩子</p>
+     */
+    public QueryGwchildinsurancePlanningtargetslatestResponse queryGwchildinsurancePlanningtargetslatest(QueryGwchildinsurancePlanningtargetslatestRequest request) throws Exception {
+        com.aliyun.teautil.models.RuntimeOptions runtime = new com.aliyun.teautil.models.RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.queryGwchildinsurancePlanningtargetslatestEx(request, headers, runtime);
+    }
+
+    /**
+     * <b>description</b> :
+     * <p>Description: 查询最近选择的孩子
+     * Summary: 查询最近选择的孩子</p>
+     */
+    public QueryGwchildinsurancePlanningtargetslatestResponse queryGwchildinsurancePlanningtargetslatestEx(QueryGwchildinsurancePlanningtargetslatestRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "antdigital.aiosproduct.gwchildinsurance.planningtargetslatest.query", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new QueryGwchildinsurancePlanningtargetslatestResponse());
     }
 }
