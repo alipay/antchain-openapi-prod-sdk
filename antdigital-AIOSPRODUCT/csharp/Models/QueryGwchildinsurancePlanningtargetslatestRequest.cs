@@ -8,7 +8,7 @@ using Tea;
 
 namespace AntChain.SDK.AIOSPRODUCT.Models
 {
-    public class QueryGwchildinsuranceProfilelatestRequest : TeaModel {
+    public class QueryGwchildinsurancePlanningtargetslatestRequest : TeaModel {
         // OAuth模式下的授权token
         [NameInMap("auth_token")]
         [Validation(Required=false)]
@@ -18,12 +18,12 @@ namespace AntChain.SDK.AIOSPRODUCT.Models
         [Validation(Required=false)]
         public string ProductInstanceId { get; set; }
 
-        // 当前联调租户；必须精确命中 finaigateway 发布白名单
+        // 租户标识，沿用已发布 Profile API 的租户校验。
         [NameInMap("tenant_id")]
         [Validation(Required=true)]
         public string TenantId { get; set; }
 
-        // 请求输入
+        // JSON 字符串形式的业务请求；必须是单层 JSON 字符串，不能再次序列化成二层 JSON 字符串。
         [NameInMap("request_data")]
         [Validation(Required=true)]
         public string RequestData { get; set; }
