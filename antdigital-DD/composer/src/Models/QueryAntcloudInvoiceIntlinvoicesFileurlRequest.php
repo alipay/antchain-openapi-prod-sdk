@@ -1,0 +1,66 @@
+<?php
+
+// This file is auto-generated, don't edit it. Thanks.
+namespace AntChain\DD\Models;
+
+use AlibabaCloud\Tea\Model;
+
+class QueryAntcloudInvoiceIntlinvoicesFileurlRequest extends Model {
+    protected $_name = [
+        'authToken' => 'auth_token',
+        'tenantId' => 'tenant_id',
+        'invoiceId' => 'invoice_id',
+    ];
+    public function validate() {
+        Model::validateRequired('tenantId', $this->tenantId, true);
+        Model::validateRequired('invoiceId', $this->invoiceId, true);
+    }
+    public function toMap() {
+        $res = [];
+        if (null !== $this->authToken) {
+            $res['auth_token'] = $this->authToken;
+        }
+        if (null !== $this->tenantId) {
+            $res['tenant_id'] = $this->tenantId;
+        }
+        if (null !== $this->invoiceId) {
+            $res['invoice_id'] = $this->invoiceId;
+        }
+        return $res;
+    }
+    /**
+     * @param array $map
+     * @return QueryAntcloudInvoiceIntlinvoicesFileurlRequest
+     */
+    public static function fromMap($map = []) {
+        $model = new self();
+        if(isset($map['auth_token'])){
+            $model->authToken = $map['auth_token'];
+        }
+        if(isset($map['tenant_id'])){
+            $model->tenantId = $map['tenant_id'];
+        }
+        if(isset($map['invoice_id'])){
+            $model->invoiceId = $map['invoice_id'];
+        }
+        return $model;
+    }
+    // OAuth模式下的授权token
+    /**
+     * @var string
+     */
+    public $authToken;
+
+    // 租户ID
+    /**
+     * @var string
+     */
+    public $tenantId;
+
+    // 发票ID
+    /**
+     * @var string
+     */
+    public $invoiceId;
+
+}
