@@ -8,51 +8,70 @@ using Tea;
 
 namespace AntChain.SDK.DD.Models
 {
-    // 实例
+    // 商品实例
     public class Instance : TeaModel {
-        // 租户id
-        /// <summary>
-        /// <b>Example:</b>
-        /// <para>2088*****</para>
-        /// </summary>
-        [NameInMap("tenant_id")]
-        [Validation(Required=true)]
-        public string TenantId { get; set; }
-
-        // 实例id
-        /// <summary>
-        /// <b>Example:</b>
-        /// <para>实例id</para>
-        /// </summary>
-        [NameInMap("instance_id")]
-        [Validation(Required=true)]
-        public string InstanceId { get; set; }
-
-        // 商品code
-        /// <summary>
-        /// <b>Example:</b>
-        /// <para>ECS</para>
-        /// </summary>
-        [NameInMap("product_name")]
-        [Validation(Required=true)]
-        public string ProductName { get; set; }
-
-        // 付费类型 PREPAY_BY_MONTH 预付 AFTER_PAY_BY_HOUR 后付 MIX_PAY 混合付
+        // 付费方式 PREPAY_BY_MONTH _按月预付_; AFTER_PAY_BY_HOUR _按小时后收_
         /// <summary>
         /// <b>Example:</b>
         /// <para>PREPAY_BY_MONTH</para>
         /// </summary>
         [NameInMap("charge_type")]
-        [Validation(Required=true)]
+        [Validation(Required=false)]
         public string ChargeType { get; set; }
 
-        // 状态 CREATING 创建中 FAILED 创建失败  STARTED 运行中 STOPPED 已停服  RELEASED 已释放
+        // 实例当前配置
+        [NameInMap("components")]
+        [Validation(Required=false)]
+        public List<Component> Components { get; set; }
+
+        // 合约截止时间
+        /// <summary>
+        /// <b>Example:</b>
+        /// <para>格式为ISO 8601格式，精确到秒，带时区信息，格式为YYYY-MM-DDThh:mm:ssZ</para>
+        /// </summary>
+        [NameInMap("end_time")]
+        [Validation(Required=false, Pattern="\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}([Z]|([\\.]\\d{1,9})?[\\+]\\d{2}[\\:]?\\d{2})")]
+        public string EndTime { get; set; }
+
+        // 实例Id
+        /// <summary>
+        /// <b>Example:</b>
+        /// <para>A0CSCMAYIBANKPWBATNA4F</para>
+        /// </summary>
+        [NameInMap("instance_id")]
+        [Validation(Required=false)]
+        public string InstanceId { get; set; }
+
+        // 产品code
+        /// <summary>
+        /// <b>Example:</b>
+        /// <para>ECS</para>
+        /// </summary>
+        [NameInMap("product_code")]
+        [Validation(Required=false)]
+        public string ProductCode { get; set; }
+
+        // 续费信息
+        [NameInMap("renewals")]
+        [Validation(Required=false)]
+        public List<Renewal> Renewals { get; set; }
+
+        // 合约生效时间
+        /// <summary>
+        /// <b>Example:</b>
+        /// <para>格式为ISO 8601格式，精确到秒，带时区信息，格式为YYYY-MM-DDThh:mm:ssZ</para>
+        /// </summary>
+        [NameInMap("start_time")]
+        [Validation(Required=false, Pattern="\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}([Z]|([\\.]\\d{1,9})?[\\+]\\d{2}[\\:]?\\d{2})")]
+        public string StartTime { get; set; }
+
+        // 实例状态 CREATING 创建中,FAILED 创建失败,STARTED 运行中,STOPPED 已停服,CHANGING 变配中,RELEASED 已释放
         /// <summary>
         /// <b>Example:</b>
         /// <para>STARTED</para>
         /// </summary>
         [NameInMap("status")]
-        [Validation(Required=true)]
+        [Validation(Required=false)]
         public string Status { get; set; }
 
     }

@@ -46,6 +46,15 @@ namespace AntChain.SDK.DD.Models
         [Validation(Required=false)]
         public long? Step { get; set; }
 
+        // 小数位数
+        /// <summary>
+        /// <b>Example:</b>
+        /// <para>2</para>
+        /// </summary>
+        [NameInMap("decimal_precision")]
+        [Validation(Required=false)]
+        public long? DecimalPrecision { get; set; }
+
     }
 
 }

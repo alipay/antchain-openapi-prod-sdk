@@ -1,13 +1,13 @@
 English | [简体中文](README-CN.md)
 
-# Ant Chain ABC SDK for C#
+# Ant Chain antdigital-DD SDK for C#
 
 ## Installation
 
 ### .NET
 
 ```bash
-donet add package AntChain.SDK.antdigital-DD
+dotnet add package AntChain.SDK.antdigital-DD
 ```
 
 ## Issues

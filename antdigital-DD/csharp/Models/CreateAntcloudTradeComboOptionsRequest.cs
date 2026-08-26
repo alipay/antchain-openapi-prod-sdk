@@ -44,6 +44,11 @@ namespace AntChain.SDK.DD.Models
         [Validation(Required=true)]
         public string SaleMarket { get; set; }
 
+        // 组合单下单配置项
+        [NameInMap("combo_order_options")]
+        [Validation(Required=false)]
+        public ComboOrderOptions ComboOrderOptions { get; set; }
+
     }
 
 }

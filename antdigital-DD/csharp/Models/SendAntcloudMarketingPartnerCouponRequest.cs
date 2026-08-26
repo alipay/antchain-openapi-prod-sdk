@@ -21,7 +21,7 @@ namespace AntChain.SDK.DD.Models
 
         // 支付宝登录名称
         [NameInMap("alipay_login_name")]
-        [Validation(Required=true)]
+        [Validation(Required=false)]
         public string AlipayLoginName { get; set; }
 
         // 业务唯一幂等标识，可以是订单号
@@ -33,6 +33,11 @@ namespace AntChain.SDK.DD.Models
         [NameInMap("remark")]
         [Validation(Required=false)]
         public string Remark { get; set; }
+
+        // 租户id
+        [NameInMap("tenant_id")]
+        [Validation(Required=false)]
+        public string TenantId { get; set; }
 
     }
 

@@ -150,6 +150,24 @@ namespace AntChain.SDK.DD.Models
         [Validation(Required=false)]
         public string OriginalCostAmount { get; set; }
 
+        // 税前应收价
+        /// <summary>
+        /// <b>Example:</b>
+        /// <para>123.45</para>
+        /// </summary>
+        [NameInMap("pay_amount_before_gst")]
+        [Validation(Required=false)]
+        public string PayAmountBeforeGst { get; set; }
+
+        // 税额
+        /// <summary>
+        /// <b>Example:</b>
+        /// <para>3.45</para>
+        /// </summary>
+        [NameInMap("pay_amount_of_gst")]
+        [Validation(Required=false)]
+        public string PayAmountOfGst { get; set; }
+
     }
 
 }

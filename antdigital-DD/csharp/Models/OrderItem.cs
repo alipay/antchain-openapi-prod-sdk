@@ -8,7 +8,6 @@ using Tea;
 
 namespace AntChain.SDK.DD.Models
 {
-    // 商品明细
     public class OrderItem : TeaModel {
         // 商品ID
         /// <summary>

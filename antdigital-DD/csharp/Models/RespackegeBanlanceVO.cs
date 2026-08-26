@@ -66,6 +66,15 @@ namespace AntChain.SDK.DD.Models
         [Validation(Required=true)]
         public MultiCurrencyMoney RemainFund { get; set; }
 
+        // 高精度余量
+        /// <summary>
+        /// <b>Example:</b>
+        /// <para>0.09</para>
+        /// </summary>
+        [NameInMap("decimal_current_capacity")]
+        [Validation(Required=false)]
+        public string DecimalCurrentCapacity { get; set; }
+
     }
 
 }

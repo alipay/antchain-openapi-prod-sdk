@@ -20,8 +20,12 @@ namespace AntChain.SDK.DD.Models
         public string ResourcePackageLogId { get; set; }
 
         // 资源包抵扣量
+        /// <summary>
+        /// <b>Example:</b>
+        /// <para>123</para>
+        /// </summary>
         [NameInMap("deduct_amount")]
-        [Validation(Required=true)]
+        [Validation(Required=false)]
         public long? DeductAmount { get; set; }
 
         // 资源包抵扣价值
@@ -59,6 +63,15 @@ namespace AntChain.SDK.DD.Models
         [NameInMap("resource_package_instance_id")]
         [Validation(Required=true)]
         public string ResourcePackageInstanceId { get; set; }
+
+        // 高精度抵扣量
+        /// <summary>
+        /// <b>Example:</b>
+        /// <para>0.09</para>
+        /// </summary>
+        [NameInMap("deduct_amount_str")]
+        [Validation(Required=false)]
+        public string DeductAmountStr { get; set; }
 
     }
 

@@ -64,6 +64,15 @@ namespace AntChain.SDK.DD.Models
         [Validation(Required=true, Pattern="\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}([Z]|([\\.]\\d{1,9})?[\\+]\\d{2}[\\:]?\\d{2})")]
         public string GmtModified { get; set; }
 
+        // 状态(false代表禁用，true代表启用)
+        /// <summary>
+        /// <b>Example:</b>
+        /// <para>true</para>
+        /// </summary>
+        [NameInMap("status")]
+        [Validation(Required=true)]
+        public bool? Status { get; set; }
+
     }
 
 }
