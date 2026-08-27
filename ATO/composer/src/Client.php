@@ -35,6 +35,8 @@ use AntChain\ATO\Models\QueryOnetimeActivepayRequest;
 use AntChain\ATO\Models\QueryOnetimeActivepayResponse;
 use AntChain\ATO\Models\CreateOnetimeRefundRequest;
 use AntChain\ATO\Models\CreateOnetimeRefundResponse;
+use AntChain\ATO\Models\ExecFundPlanRequest;
+use AntChain\ATO\Models\ExecFundPlanResponse;
 use AntChain\ATO\Models\QueryInnerFundassetpackagerepaymentRequest;
 use AntChain\ATO\Models\QueryInnerFundassetpackagerepaymentResponse;
 use AntChain\ATO\Models\QueryInnerAprepaymentdetailRequest;
@@ -47,6 +49,36 @@ use AntChain\ATO\Models\QueryInnerMermngcontractextractRequest;
 use AntChain\ATO\Models\QueryInnerMermngcontractextractResponse;
 use AntChain\ATO\Models\SumbitInnerMermngcontractextractRequest;
 use AntChain\ATO\Models\SumbitInnerMermngcontractextractResponse;
+use AntChain\ATO\Models\SumbitInnerMermngcontractauditRequest;
+use AntChain\ATO\Models\SumbitInnerMermngcontractauditResponse;
+use AntChain\ATO\Models\QueryInnerMermngcontractauditRequest;
+use AntChain\ATO\Models\QueryInnerMermngcontractauditResponse;
+use AntChain\ATO\Models\FinishInnerMermngcontractauditRequest;
+use AntChain\ATO\Models\FinishInnerMermngcontractauditResponse;
+use AntChain\ATO\Models\EditInnerMermngcontractauditdetailRequest;
+use AntChain\ATO\Models\EditInnerMermngcontractauditdetailResponse;
+use AntChain\ATO\Models\FeedbackInnerMermngcontractauditRequest;
+use AntChain\ATO\Models\FeedbackInnerMermngcontractauditResponse;
+use AntChain\ATO\Models\QueryInnerMermngcontractfeedbackRequest;
+use AntChain\ATO\Models\QueryInnerMermngcontractfeedbackResponse;
+use AntChain\ATO\Models\FeedbackInnerMermngcontractauditincompleteRequest;
+use AntChain\ATO\Models\FeedbackInnerMermngcontractauditincompleteResponse;
+use AntChain\ATO\Models\QueryInnerMermngcontractwebofficetokenRequest;
+use AntChain\ATO\Models\QueryInnerMermngcontractwebofficetokenResponse;
+use AntChain\ATO\Models\ResetInnerMermngcontractwebofficetokenRequest;
+use AntChain\ATO\Models\ResetInnerMermngcontractwebofficetokenResponse;
+use AntChain\ATO\Models\OpenInnerEnterpriseproductRequest;
+use AntChain\ATO\Models\OpenInnerEnterpriseproductResponse;
+use AntChain\ATO\Models\CreateInnerEnterprisetenantRequest;
+use AntChain\ATO\Models\CreateInnerEnterprisetenantResponse;
+use AntChain\ATO\Models\QueryInnerEnterpriseeventRequest;
+use AntChain\ATO\Models\QueryInnerEnterpriseeventResponse;
+use AntChain\ATO\Models\OpenEnterpriseProductRequest;
+use AntChain\ATO\Models\OpenEnterpriseProductResponse;
+use AntChain\ATO\Models\CreateEnterpriseTenantRequest;
+use AntChain\ATO\Models\CreateEnterpriseTenantResponse;
+use AntChain\ATO\Models\QueryEnterpriseProductRequest;
+use AntChain\ATO\Models\QueryEnterpriseProductResponse;
 use AntChain\ATO\Models\TransferBrokerUserdataRequest;
 use AntChain\ATO\Models\TransferBrokerUserdataResponse;
 use AntChain\ATO\Models\CreateJdFunddividerelationRequest;
@@ -793,7 +825,7 @@ class Client {
                     "req_msg_id" => UtilClient::getNonce(),
                     "access_key" => $this->_accessKeyId,
                     "base_sdk_version" => "TeaSDK-2.0",
-                    "sdk_version" => "1.19.86",
+                    "sdk_version" => "1.20.4",
                     "_prod_code" => "ATO",
                     "_prod_channel" => "undefined"
                 ];
@@ -1126,6 +1158,31 @@ class Client {
     }
 
     /**
+     * Description: 新融资状态机资方主动重试接口
+     * Summary: 新融资状态机资方主动重试接口
+     * @param ExecFundPlanRequest $request
+     * @return ExecFundPlanResponse
+     */
+    public function execFundPlan($request){
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+        return $this->execFundPlanEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 新融资状态机资方主动重试接口
+     * Summary: 新融资状态机资方主动重试接口
+     * @param ExecFundPlanRequest $request
+     * @param string[] $headers
+     * @param RuntimeOptions $runtime
+     * @return ExecFundPlanResponse
+     */
+    public function execFundPlanEx($request, $headers, $runtime){
+        Utils::validateModel($request);
+        return ExecFundPlanResponse::fromMap($this->doRequest("1.0", "antchain.ato.fund.plan.exec", "HTTPS", "POST", "/gateway.do", Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
      * Description: 资产包还款列表查询
      * Summary: 资产包还款列表查询
      * @param QueryInnerFundassetpackagerepaymentRequest $request
@@ -1273,6 +1330,381 @@ class Client {
     public function sumbitInnerMermngcontractextractEx($request, $headers, $runtime){
         Utils::validateModel($request);
         return SumbitInnerMermngcontractextractResponse::fromMap($this->doRequest("1.0", "antchain.ato.inner.mermngcontractextract.sumbit", "HTTPS", "POST", "/gateway.do", Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 提交合同审核
+     * Summary: 提交合同审核
+     * @param SumbitInnerMermngcontractauditRequest $request
+     * @return SumbitInnerMermngcontractauditResponse
+     */
+    public function sumbitInnerMermngcontractaudit($request){
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+        return $this->sumbitInnerMermngcontractauditEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 提交合同审核
+     * Summary: 提交合同审核
+     * @param SumbitInnerMermngcontractauditRequest $request
+     * @param string[] $headers
+     * @param RuntimeOptions $runtime
+     * @return SumbitInnerMermngcontractauditResponse
+     */
+    public function sumbitInnerMermngcontractauditEx($request, $headers, $runtime){
+        Utils::validateModel($request);
+        return SumbitInnerMermngcontractauditResponse::fromMap($this->doRequest("1.0", "antchain.ato.inner.mermngcontractaudit.sumbit", "HTTPS", "POST", "/gateway.do", Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 合同审核查询
+     * Summary: 合同审核查询
+     * @param QueryInnerMermngcontractauditRequest $request
+     * @return QueryInnerMermngcontractauditResponse
+     */
+    public function queryInnerMermngcontractaudit($request){
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+        return $this->queryInnerMermngcontractauditEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 合同审核查询
+     * Summary: 合同审核查询
+     * @param QueryInnerMermngcontractauditRequest $request
+     * @param string[] $headers
+     * @param RuntimeOptions $runtime
+     * @return QueryInnerMermngcontractauditResponse
+     */
+    public function queryInnerMermngcontractauditEx($request, $headers, $runtime){
+        Utils::validateModel($request);
+        return QueryInnerMermngcontractauditResponse::fromMap($this->doRequest("1.0", "antchain.ato.inner.mermngcontractaudit.query", "HTTPS", "POST", "/gateway.do", Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 审核完结
+     * Summary: 审核完结
+     * @param FinishInnerMermngcontractauditRequest $request
+     * @return FinishInnerMermngcontractauditResponse
+     */
+    public function finishInnerMermngcontractaudit($request){
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+        return $this->finishInnerMermngcontractauditEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 审核完结
+     * Summary: 审核完结
+     * @param FinishInnerMermngcontractauditRequest $request
+     * @param string[] $headers
+     * @param RuntimeOptions $runtime
+     * @return FinishInnerMermngcontractauditResponse
+     */
+    public function finishInnerMermngcontractauditEx($request, $headers, $runtime){
+        Utils::validateModel($request);
+        return FinishInnerMermngcontractauditResponse::fromMap($this->doRequest("1.0", "antchain.ato.inner.mermngcontractaudit.finish", "HTTPS", "POST", "/gateway.do", Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 审核详情编辑
+     * Summary: 审核详情编辑
+     * @param EditInnerMermngcontractauditdetailRequest $request
+     * @return EditInnerMermngcontractauditdetailResponse
+     */
+    public function editInnerMermngcontractauditdetail($request){
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+        return $this->editInnerMermngcontractauditdetailEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 审核详情编辑
+     * Summary: 审核详情编辑
+     * @param EditInnerMermngcontractauditdetailRequest $request
+     * @param string[] $headers
+     * @param RuntimeOptions $runtime
+     * @return EditInnerMermngcontractauditdetailResponse
+     */
+    public function editInnerMermngcontractauditdetailEx($request, $headers, $runtime){
+        Utils::validateModel($request);
+        return EditInnerMermngcontractauditdetailResponse::fromMap($this->doRequest("1.0", "antchain.ato.inner.mermngcontractauditdetail.edit", "HTTPS", "POST", "/gateway.do", Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 审核反馈
+     * Summary: 审核反馈
+     * @param FeedbackInnerMermngcontractauditRequest $request
+     * @return FeedbackInnerMermngcontractauditResponse
+     */
+    public function feedbackInnerMermngcontractaudit($request){
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+        return $this->feedbackInnerMermngcontractauditEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 审核反馈
+     * Summary: 审核反馈
+     * @param FeedbackInnerMermngcontractauditRequest $request
+     * @param string[] $headers
+     * @param RuntimeOptions $runtime
+     * @return FeedbackInnerMermngcontractauditResponse
+     */
+    public function feedbackInnerMermngcontractauditEx($request, $headers, $runtime){
+        Utils::validateModel($request);
+        return FeedbackInnerMermngcontractauditResponse::fromMap($this->doRequest("1.0", "antchain.ato.inner.mermngcontractaudit.feedback", "HTTPS", "POST", "/gateway.do", Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 审核反馈查询
+     * Summary: 审核反馈查询
+     * @param QueryInnerMermngcontractfeedbackRequest $request
+     * @return QueryInnerMermngcontractfeedbackResponse
+     */
+    public function queryInnerMermngcontractfeedback($request){
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+        return $this->queryInnerMermngcontractfeedbackEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 审核反馈查询
+     * Summary: 审核反馈查询
+     * @param QueryInnerMermngcontractfeedbackRequest $request
+     * @param string[] $headers
+     * @param RuntimeOptions $runtime
+     * @return QueryInnerMermngcontractfeedbackResponse
+     */
+    public function queryInnerMermngcontractfeedbackEx($request, $headers, $runtime){
+        Utils::validateModel($request);
+        return QueryInnerMermngcontractfeedbackResponse::fromMap($this->doRequest("1.0", "antchain.ato.inner.mermngcontractfeedback.query", "HTTPS", "POST", "/gateway.do", Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 提交漏审信息
+     * Summary: 提交漏审信息
+     * @param FeedbackInnerMermngcontractauditincompleteRequest $request
+     * @return FeedbackInnerMermngcontractauditincompleteResponse
+     */
+    public function feedbackInnerMermngcontractauditincomplete($request){
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+        return $this->feedbackInnerMermngcontractauditincompleteEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 提交漏审信息
+     * Summary: 提交漏审信息
+     * @param FeedbackInnerMermngcontractauditincompleteRequest $request
+     * @param string[] $headers
+     * @param RuntimeOptions $runtime
+     * @return FeedbackInnerMermngcontractauditincompleteResponse
+     */
+    public function feedbackInnerMermngcontractauditincompleteEx($request, $headers, $runtime){
+        Utils::validateModel($request);
+        return FeedbackInnerMermngcontractauditincompleteResponse::fromMap($this->doRequest("1.0", "antchain.ato.inner.mermngcontractauditincomplete.feedback", "HTTPS", "POST", "/gateway.do", Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 生成weboffice编辑token
+     * Summary: 生成weboffice编辑token
+     * @param QueryInnerMermngcontractwebofficetokenRequest $request
+     * @return QueryInnerMermngcontractwebofficetokenResponse
+     */
+    public function queryInnerMermngcontractwebofficetoken($request){
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+        return $this->queryInnerMermngcontractwebofficetokenEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 生成weboffice编辑token
+     * Summary: 生成weboffice编辑token
+     * @param QueryInnerMermngcontractwebofficetokenRequest $request
+     * @param string[] $headers
+     * @param RuntimeOptions $runtime
+     * @return QueryInnerMermngcontractwebofficetokenResponse
+     */
+    public function queryInnerMermngcontractwebofficetokenEx($request, $headers, $runtime){
+        Utils::validateModel($request);
+        return QueryInnerMermngcontractwebofficetokenResponse::fromMap($this->doRequest("1.0", "antchain.ato.inner.mermngcontractwebofficetoken.query", "HTTPS", "POST", "/gateway.do", Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 刷新编辑token
+     * Summary: 刷新编辑token
+     * @param ResetInnerMermngcontractwebofficetokenRequest $request
+     * @return ResetInnerMermngcontractwebofficetokenResponse
+     */
+    public function resetInnerMermngcontractwebofficetoken($request){
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+        return $this->resetInnerMermngcontractwebofficetokenEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 刷新编辑token
+     * Summary: 刷新编辑token
+     * @param ResetInnerMermngcontractwebofficetokenRequest $request
+     * @param string[] $headers
+     * @param RuntimeOptions $runtime
+     * @return ResetInnerMermngcontractwebofficetokenResponse
+     */
+    public function resetInnerMermngcontractwebofficetokenEx($request, $headers, $runtime){
+        Utils::validateModel($request);
+        return ResetInnerMermngcontractwebofficetokenResponse::fromMap($this->doRequest("1.0", "antchain.ato.inner.mermngcontractwebofficetoken.reset", "HTTPS", "POST", "/gateway.do", Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 企业码数科计收产品开通接口
+     * Summary: 企业码数科计收产品开通接口
+     * @param OpenInnerEnterpriseproductRequest $request
+     * @return OpenInnerEnterpriseproductResponse
+     */
+    public function openInnerEnterpriseproduct($request){
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+        return $this->openInnerEnterpriseproductEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 企业码数科计收产品开通接口
+     * Summary: 企业码数科计收产品开通接口
+     * @param OpenInnerEnterpriseproductRequest $request
+     * @param string[] $headers
+     * @param RuntimeOptions $runtime
+     * @return OpenInnerEnterpriseproductResponse
+     */
+    public function openInnerEnterpriseproductEx($request, $headers, $runtime){
+        Utils::validateModel($request);
+        return OpenInnerEnterpriseproductResponse::fromMap($this->doRequest("1.0", "antchain.ato.inner.enterpriseproduct.open", "HTTPS", "POST", "/gateway.do", Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 企业码数科计收企业账户开通接口
+     * Summary: 企业码数科计收企业账户开通接口
+     * @param CreateInnerEnterprisetenantRequest $request
+     * @return CreateInnerEnterprisetenantResponse
+     */
+    public function createInnerEnterprisetenant($request){
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+        return $this->createInnerEnterprisetenantEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 企业码数科计收企业账户开通接口
+     * Summary: 企业码数科计收企业账户开通接口
+     * @param CreateInnerEnterprisetenantRequest $request
+     * @param string[] $headers
+     * @param RuntimeOptions $runtime
+     * @return CreateInnerEnterprisetenantResponse
+     */
+    public function createInnerEnterprisetenantEx($request, $headers, $runtime){
+        Utils::validateModel($request);
+        return CreateInnerEnterprisetenantResponse::fromMap($this->doRequest("1.0", "antchain.ato.inner.enterprisetenant.create", "HTTPS", "POST", "/gateway.do", Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 企业码数科计收支付结果&开通结果查询接口
+     * Summary: 企业码数科计收支付结果&开通结果查询接口
+     * @param QueryInnerEnterpriseeventRequest $request
+     * @return QueryInnerEnterpriseeventResponse
+     */
+    public function queryInnerEnterpriseevent($request){
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+        return $this->queryInnerEnterpriseeventEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 企业码数科计收支付结果&开通结果查询接口
+     * Summary: 企业码数科计收支付结果&开通结果查询接口
+     * @param QueryInnerEnterpriseeventRequest $request
+     * @param string[] $headers
+     * @param RuntimeOptions $runtime
+     * @return QueryInnerEnterpriseeventResponse
+     */
+    public function queryInnerEnterpriseeventEx($request, $headers, $runtime){
+        Utils::validateModel($request);
+        return QueryInnerEnterpriseeventResponse::fromMap($this->doRequest("1.0", "antchain.ato.inner.enterpriseevent.query", "HTTPS", "POST", "/gateway.do", Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 企业码数科计收产品开通接口
+     * Summary: 企业码数科计收产品开通接口
+     * @param OpenEnterpriseProductRequest $request
+     * @return OpenEnterpriseProductResponse
+     */
+    public function openEnterpriseProduct($request){
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+        return $this->openEnterpriseProductEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 企业码数科计收产品开通接口
+     * Summary: 企业码数科计收产品开通接口
+     * @param OpenEnterpriseProductRequest $request
+     * @param string[] $headers
+     * @param RuntimeOptions $runtime
+     * @return OpenEnterpriseProductResponse
+     */
+    public function openEnterpriseProductEx($request, $headers, $runtime){
+        Utils::validateModel($request);
+        return OpenEnterpriseProductResponse::fromMap($this->doRequest("1.0", "antchain.ato.enterprise.product.open", "HTTPS", "POST", "/gateway.do", Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 企业码数科计收企业账户开通接口
+     * Summary: 企业码数科计收企业账户开通接口
+     * @param CreateEnterpriseTenantRequest $request
+     * @return CreateEnterpriseTenantResponse
+     */
+    public function createEnterpriseTenant($request){
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+        return $this->createEnterpriseTenantEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 企业码数科计收企业账户开通接口
+     * Summary: 企业码数科计收企业账户开通接口
+     * @param CreateEnterpriseTenantRequest $request
+     * @param string[] $headers
+     * @param RuntimeOptions $runtime
+     * @return CreateEnterpriseTenantResponse
+     */
+    public function createEnterpriseTenantEx($request, $headers, $runtime){
+        Utils::validateModel($request);
+        return CreateEnterpriseTenantResponse::fromMap($this->doRequest("1.0", "antchain.ato.enterprise.tenant.create", "HTTPS", "POST", "/gateway.do", Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 企业码数科计收支付结果&开通结果查询接口
+     * Summary: 企业码数科计收支付结果&开通结果查询接口
+     * @param QueryEnterpriseProductRequest $request
+     * @return QueryEnterpriseProductResponse
+     */
+    public function queryEnterpriseProduct($request){
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+        return $this->queryEnterpriseProductEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 企业码数科计收支付结果&开通结果查询接口
+     * Summary: 企业码数科计收支付结果&开通结果查询接口
+     * @param QueryEnterpriseProductRequest $request
+     * @param string[] $headers
+     * @param RuntimeOptions $runtime
+     * @return QueryEnterpriseProductResponse
+     */
+    public function queryEnterpriseProductEx($request, $headers, $runtime){
+        Utils::validateModel($request);
+        return QueryEnterpriseProductResponse::fromMap($this->doRequest("1.0", "antchain.ato.enterprise.product.query", "HTTPS", "POST", "/gateway.do", Tea::merge($request), $headers, $runtime));
     }
 
     /**

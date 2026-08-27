@@ -1,0 +1,106 @@
+<?php
+
+// This file is auto-generated, don't edit it. Thanks.
+namespace AntChain\ATO\Models;
+
+use AlibabaCloud\Tea\Model;
+
+class QueryInnerMermngcontractfeedbackRequest extends Model {
+    protected $_name = [
+        'authToken' => 'auth_token',
+        'productInstanceId' => 'product_instance_id',
+        'traceId' => 'trace_id',
+        'tenantId' => 'tenant_id',
+        'auditId' => 'audit_id',
+        'type' => 'type',
+    ];
+    public function validate() {
+        Model::validateRequired('traceId', $this->traceId, true);
+        Model::validateRequired('tenantId', $this->tenantId, true);
+        Model::validateRequired('auditId', $this->auditId, true);
+    }
+    public function toMap() {
+        $res = [];
+        if (null !== $this->authToken) {
+            $res['auth_token'] = $this->authToken;
+        }
+        if (null !== $this->productInstanceId) {
+            $res['product_instance_id'] = $this->productInstanceId;
+        }
+        if (null !== $this->traceId) {
+            $res['trace_id'] = $this->traceId;
+        }
+        if (null !== $this->tenantId) {
+            $res['tenant_id'] = $this->tenantId;
+        }
+        if (null !== $this->auditId) {
+            $res['audit_id'] = $this->auditId;
+        }
+        if (null !== $this->type) {
+            $res['type'] = $this->type;
+        }
+        return $res;
+    }
+    /**
+     * @param array $map
+     * @return QueryInnerMermngcontractfeedbackRequest
+     */
+    public static function fromMap($map = []) {
+        $model = new self();
+        if(isset($map['auth_token'])){
+            $model->authToken = $map['auth_token'];
+        }
+        if(isset($map['product_instance_id'])){
+            $model->productInstanceId = $map['product_instance_id'];
+        }
+        if(isset($map['trace_id'])){
+            $model->traceId = $map['trace_id'];
+        }
+        if(isset($map['tenant_id'])){
+            $model->tenantId = $map['tenant_id'];
+        }
+        if(isset($map['audit_id'])){
+            $model->auditId = $map['audit_id'];
+        }
+        if(isset($map['type'])){
+            $model->type = $map['type'];
+        }
+        return $model;
+    }
+    // OAuth模式下的授权token
+    /**
+     * @var string
+     */
+    public $authToken;
+
+    /**
+     * @var string
+     */
+    public $productInstanceId;
+
+    // traceid
+    /**
+     * @var string
+     */
+    public $traceId;
+
+    // 租户id
+    /**
+     * @var string
+     */
+    public $tenantId;
+
+    // 审核id
+    /**
+     * @var string
+     */
+    public $auditId;
+
+    // INCOMPLETE:少审漏审
+    // INCORRECT:误审
+    /**
+     * @var string
+     */
+    public $type;
+
+}
