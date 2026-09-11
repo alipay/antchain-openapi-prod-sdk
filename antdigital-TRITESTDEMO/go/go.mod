@@ -1,4 +1,4 @@
-module github.com/alipay/antdigital-tritestdemo
+module github.com/antchain-openapi-sdk-go/antdigital-tritestdemo
 
 go 1.22.1
 

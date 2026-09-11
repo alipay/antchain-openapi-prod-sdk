@@ -188,6 +188,344 @@ func (s *Config) SetMaxRequestsPerHost(v int) *Config {
 	return s
 }
 
+// Demo类1
+type DemoClass struct {
+	// 字符串测试
+	// example:
+	//
+	// some string
+	SomeString *string `json:"some_string,omitempty" xml:"some_string,omitempty" require:"true"`
+	// 日期测试
+	// example:
+	//
+	// 3
+	SomeDate *string `json:"some_date,omitempty" xml:"some_date,omitempty" require:"true" pattern:"\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}([Z]|([\\.]\\d{1,9})?[\\+]\\d{2}[\\:]?\\d{2})"`
+	// Boolean测试
+	// example:
+	//
+	// true
+	SomeBoolean *bool `json:"some_boolean,omitempty" xml:"some_boolean,omitempty" require:"true"`
+	// 整数测试
+	// example:
+	//
+	// 3
+	SomeInt *int64 `json:"some_int,omitempty" xml:"some_int,omitempty" require:"true" maximum:"2000" minimum:"1"`
+	// 列表测试
+	SomeList []*string `json:"some_list,omitempty" xml:"some_list,omitempty" require:"true" type:"Repeated"`
+}
+
+func (s DemoClass) String() string {
+	return tea.Prettify(s)
+}
+
+func (s DemoClass) GoString() string {
+	return s.String()
+}
+
+func (s *DemoClass) SetSomeString(v string) *DemoClass {
+	s.SomeString = &v
+	return s
+}
+
+func (s *DemoClass) SetSomeDate(v string) *DemoClass {
+	s.SomeDate = &v
+	return s
+}
+
+func (s *DemoClass) SetSomeBoolean(v bool) *DemoClass {
+	s.SomeBoolean = &v
+	return s
+}
+
+func (s *DemoClass) SetSomeInt(v int64) *DemoClass {
+	s.SomeInt = &v
+	return s
+}
+
+func (s *DemoClass) SetSomeList(v []*string) *DemoClass {
+	s.SomeList = v
+	return s
+}
+
+// 返回结果测试类
+type ResultTest struct {
+	// 姓名
+	// example:
+	//
+	// 张三
+	Name *string `json:"name,omitempty" xml:"name,omitempty"`
+	// test
+	// example:
+	//
+	// undefined
+	List *DemoClass `json:"list,omitempty" xml:"list,omitempty" require:"true"`
+}
+
+func (s ResultTest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s ResultTest) GoString() string {
+	return s.String()
+}
+
+func (s *ResultTest) SetName(v string) *ResultTest {
+	s.Name = &v
+	return s
+}
+
+func (s *ResultTest) SetList(v *DemoClass) *ResultTest {
+	s.List = v
+	return s
+}
+
+// 返回结果测试类
+type ResultTests struct {
+	// 姓名
+	// example:
+	//
+	// 张三
+	Name *string `json:"name,omitempty" xml:"name,omitempty"`
+	// 年龄
+	// example:
+	//
+	// 18
+	Age *string `json:"age,omitempty" xml:"age,omitempty" require:"true"`
+}
+
+func (s ResultTests) String() string {
+	return tea.Prettify(s)
+}
+
+func (s ResultTests) GoString() string {
+	return s.String()
+}
+
+func (s *ResultTests) SetName(v string) *ResultTests {
+	s.Name = &v
+	return s
+}
+
+func (s *ResultTests) SetAge(v string) *ResultTests {
+	s.Age = &v
+	return s
+}
+
+// 1
+type TestDemo struct {
+	// 1
+	// example:
+	//
+	// 张三
+	Name *string `json:"name,omitempty" xml:"name,omitempty"`
+	// 1
+	// example:
+	//
+	// 23
+	Number *int64 `json:"number,omitempty" xml:"number,omitempty"`
+}
+
+func (s TestDemo) String() string {
+	return tea.Prettify(s)
+}
+
+func (s TestDemo) GoString() string {
+	return s.String()
+}
+
+func (s *TestDemo) SetName(v string) *TestDemo {
+	s.Name = &v
+	return s
+}
+
+func (s *TestDemo) SetNumber(v int64) *TestDemo {
+	s.Number = &v
+	return s
+}
+
+// test
+type DemoTestHf struct {
+	// test
+	// example:
+	//
+	// undefined
+	Info *ResultTest `json:"info,omitempty" xml:"info,omitempty" require:"true"`
+}
+
+func (s DemoTestHf) String() string {
+	return tea.Prettify(s)
+}
+
+func (s DemoTestHf) GoString() string {
+	return s.String()
+}
+
+func (s *DemoTestHf) SetInfo(v *ResultTest) *DemoTestHf {
+	s.Info = v
+	return s
+}
+
+// InitPack
+type InitPack struct {
+	// 2022-11-07 14:48
+	// example:
+	//
+	// 2022-11-07 14:48
+	Time *string `json:"time,omitempty" xml:"time,omitempty"`
+	// wanyi
+	// example:
+	//
+	// wanyi
+	Operator *string `json:"operator,omitempty" xml:"operator,omitempty"`
+	// 1
+	// example:
+	//
+	// 1
+	Count *int64 `json:"count,omitempty" xml:"count,omitempty"`
+}
+
+func (s InitPack) String() string {
+	return tea.Prettify(s)
+}
+
+func (s InitPack) GoString() string {
+	return s.String()
+}
+
+func (s *InitPack) SetTime(v string) *InitPack {
+	s.Time = &v
+	return s
+}
+
+func (s *InitPack) SetOperator(v string) *InitPack {
+	s.Operator = &v
+	return s
+}
+
+func (s *InitPack) SetCount(v int64) *InitPack {
+	s.Count = &v
+	return s
+}
+
+// 测试实体
+type SumBean struct {
+	// 元素名称
+	// example:
+	//
+	// 张三
+	EName *string `json:"e_name,omitempty" xml:"e_name,omitempty"`
+	// 数量
+	// example:
+	//
+	// 23
+	Num *int64 `json:"num,omitempty" xml:"num,omitempty"`
+	// test
+	// example:
+	//
+	// undefined
+	Info *ResultTests `json:"info,omitempty" xml:"info,omitempty" require:"true"`
+}
+
+func (s SumBean) String() string {
+	return tea.Prettify(s)
+}
+
+func (s SumBean) GoString() string {
+	return s.String()
+}
+
+func (s *SumBean) SetEName(v string) *SumBean {
+	s.EName = &v
+	return s
+}
+
+func (s *SumBean) SetNum(v int64) *SumBean {
+	s.Num = &v
+	return s
+}
+
+func (s *SumBean) SetInfo(v *ResultTests) *SumBean {
+	s.Info = v
+	return s
+}
+
+type TestAntchainDemosdkHttpApiRequest struct {
+	// OAuth模式下的授权token
+	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
+	// 超时时间
+	Timeout *string `json:"timeout,omitempty" xml:"timeout,omitempty"`
+}
+
+func (s TestAntchainDemosdkHttpApiRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s TestAntchainDemosdkHttpApiRequest) GoString() string {
+	return s.String()
+}
+
+func (s *TestAntchainDemosdkHttpApiRequest) SetAuthToken(v string) *TestAntchainDemosdkHttpApiRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *TestAntchainDemosdkHttpApiRequest) SetProductInstanceId(v string) *TestAntchainDemosdkHttpApiRequest {
+	s.ProductInstanceId = &v
+	return s
+}
+
+func (s *TestAntchainDemosdkHttpApiRequest) SetTimeout(v string) *TestAntchainDemosdkHttpApiRequest {
+	s.Timeout = &v
+	return s
+}
+
+type TestAntchainDemosdkHttpApiResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// 状态码
+	Stauts *string `json:"stauts,omitempty" xml:"stauts,omitempty"`
+	// 状态描述
+	Msg *string `json:"msg,omitempty" xml:"msg,omitempty"`
+}
+
+func (s TestAntchainDemosdkHttpApiResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s TestAntchainDemosdkHttpApiResponse) GoString() string {
+	return s.String()
+}
+
+func (s *TestAntchainDemosdkHttpApiResponse) SetReqMsgId(v string) *TestAntchainDemosdkHttpApiResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *TestAntchainDemosdkHttpApiResponse) SetResultCode(v string) *TestAntchainDemosdkHttpApiResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *TestAntchainDemosdkHttpApiResponse) SetResultMsg(v string) *TestAntchainDemosdkHttpApiResponse {
+	s.ResultMsg = &v
+	return s
+}
+
+func (s *TestAntchainDemosdkHttpApiResponse) SetStauts(v string) *TestAntchainDemosdkHttpApiResponse {
+	s.Stauts = &v
+	return s
+}
+
+func (s *TestAntchainDemosdkHttpApiResponse) SetMsg(v string) *TestAntchainDemosdkHttpApiResponse {
+	s.Msg = &v
+	return s
+}
+
 type QueryDemoTestsysyTesxXxxRequest struct {
 	// OAuth模式下的授权token
 	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
@@ -535,56 +873,6 @@ func (s *QueryTrApiResponse) SetMsg(v string) *QueryTrApiResponse {
 	return s
 }
 
-type QueryTestCreateRequest struct {
-	// OAuth模式下的授权token
-	AuthToken *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
-}
-
-func (s QueryTestCreateRequest) String() string {
-	return tea.Prettify(s)
-}
-
-func (s QueryTestCreateRequest) GoString() string {
-	return s.String()
-}
-
-func (s *QueryTestCreateRequest) SetAuthToken(v string) *QueryTestCreateRequest {
-	s.AuthToken = &v
-	return s
-}
-
-type QueryTestCreateResponse struct {
-	// 请求唯一ID，用于链路跟踪和问题排查
-	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
-	// 结果码，一般OK表示调用成功
-	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
-	// 异常信息的文本描述
-	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
-}
-
-func (s QueryTestCreateResponse) String() string {
-	return tea.Prettify(s)
-}
-
-func (s QueryTestCreateResponse) GoString() string {
-	return s.String()
-}
-
-func (s *QueryTestCreateResponse) SetReqMsgId(v string) *QueryTestCreateResponse {
-	s.ReqMsgId = &v
-	return s
-}
-
-func (s *QueryTestCreateResponse) SetResultCode(v string) *QueryTestCreateResponse {
-	s.ResultCode = &v
-	return s
-}
-
-func (s *QueryTestCreateResponse) SetResultMsg(v string) *QueryTestCreateResponse {
-	s.ResultMsg = &v
-	return s
-}
-
 type BenchCreateTestForRequest struct {
 	// OAuth模式下的授权token
 	AuthToken *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
@@ -703,6 +991,141 @@ func (s *OneCreateTestForBenchResponse) SetResultCode(v string) *OneCreateTestFo
 
 func (s *OneCreateTestForBenchResponse) SetResultMsg(v string) *OneCreateTestForBenchResponse {
 	s.ResultMsg = &v
+	return s
+}
+
+type QueryCreateApiaRequest struct {
+	// OAuth模式下的授权token
+	AuthToken *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	// 描述
+	Aaa *string `json:"aaa,omitempty" xml:"aaa,omitempty"`
+}
+
+func (s QueryCreateApiaRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s QueryCreateApiaRequest) GoString() string {
+	return s.String()
+}
+
+func (s *QueryCreateApiaRequest) SetAuthToken(v string) *QueryCreateApiaRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *QueryCreateApiaRequest) SetAaa(v string) *QueryCreateApiaRequest {
+	s.Aaa = &v
+	return s
+}
+
+type QueryCreateApiaResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// 出参描述
+	Response *string `json:"response,omitempty" xml:"response,omitempty"`
+}
+
+func (s QueryCreateApiaResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s QueryCreateApiaResponse) GoString() string {
+	return s.String()
+}
+
+func (s *QueryCreateApiaResponse) SetReqMsgId(v string) *QueryCreateApiaResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *QueryCreateApiaResponse) SetResultCode(v string) *QueryCreateApiaResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *QueryCreateApiaResponse) SetResultMsg(v string) *QueryCreateApiaResponse {
+	s.ResultMsg = &v
+	return s
+}
+
+func (s *QueryCreateApiaResponse) SetResponse(v string) *QueryCreateApiaResponse {
+	s.Response = &v
+	return s
+}
+
+type TestTriApiRequest struct {
+	// OAuth模式下的授权token
+	AuthToken *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	// 超时时间
+	Timeout *string `json:"timeout,omitempty" xml:"timeout,omitempty"`
+}
+
+func (s TestTriApiRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s TestTriApiRequest) GoString() string {
+	return s.String()
+}
+
+func (s *TestTriApiRequest) SetAuthToken(v string) *TestTriApiRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *TestTriApiRequest) SetTimeout(v string) *TestTriApiRequest {
+	s.Timeout = &v
+	return s
+}
+
+type TestTriApiResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// 状态码
+	Stauts *string `json:"stauts,omitempty" xml:"stauts,omitempty"`
+	// 状态描述
+	Msg *string `json:"msg,omitempty" xml:"msg,omitempty"`
+}
+
+func (s TestTriApiResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s TestTriApiResponse) GoString() string {
+	return s.String()
+}
+
+func (s *TestTriApiResponse) SetReqMsgId(v string) *TestTriApiResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *TestTriApiResponse) SetResultCode(v string) *TestTriApiResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *TestTriApiResponse) SetResultMsg(v string) *TestTriApiResponse {
+	s.ResultMsg = &v
+	return s
+}
+
+func (s *TestTriApiResponse) SetStauts(v string) *TestTriApiResponse {
+	s.Stauts = &v
+	return s
+}
+
+func (s *TestTriApiResponse) SetMsg(v string) *TestTriApiResponse {
+	s.Msg = &v
 	return s
 }
 
@@ -836,7 +1259,7 @@ func (client *Client) DoRequest(version *string, action *string, protocol *strin
 				"req_msg_id":       antchainutil.GetNonce(),
 				"access_key":       client.AccessKeyId,
 				"base_sdk_version": tea.String("TeaSDK-2.0"),
-				"sdk_version":      tea.String("1.0.0"),
+				"sdk_version":      tea.String("1.0.1"),
 				"_prod_code":       tea.String("TRITESTDEMO"),
 				"_prod_channel":    tea.String("default"),
 			}
@@ -892,6 +1315,42 @@ func (client *Client) DoRequest(version *string, action *string, protocol *strin
 	}
 
 	return _resp, _err
+}
+
+// Description:
+//
+// Description: 测试
+//
+// Summary: 测试
+func (client *Client) TestAntchainDemosdkHttpApi(request *TestAntchainDemosdkHttpApiRequest) (_result *TestAntchainDemosdkHttpApiResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &TestAntchainDemosdkHttpApiResponse{}
+	_body, _err := client.TestAntchainDemosdkHttpApiEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+// Description:
+//
+// Description: 测试
+//
+// Summary: 测试
+func (client *Client) TestAntchainDemosdkHttpApiEx(request *TestAntchainDemosdkHttpApiRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *TestAntchainDemosdkHttpApiResponse, _err error) {
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &TestAntchainDemosdkHttpApiResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("antchain.demosdk.http.api.test"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
 }
 
 // Description:
@@ -1076,42 +1535,6 @@ func (client *Client) QueryTrApiEx(request *QueryTrApiRequest, headers map[strin
 
 // Description:
 //
-// Description: 用于个人工作台二期测试使用
-//
-// Summary: 用于个人工作台二期测试使用
-func (client *Client) QueryTestCreate(request *QueryTestCreateRequest) (_result *QueryTestCreateResponse, _err error) {
-	runtime := &util.RuntimeOptions{}
-	headers := make(map[string]*string)
-	_result = &QueryTestCreateResponse{}
-	_body, _err := client.QueryTestCreateEx(request, headers, runtime)
-	if _err != nil {
-		return _result, _err
-	}
-	_result = _body
-	return _result, _err
-}
-
-// Description:
-//
-// Description: 用于个人工作台二期测试使用
-//
-// Summary: 用于个人工作台二期测试使用
-func (client *Client) QueryTestCreateEx(request *QueryTestCreateRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *QueryTestCreateResponse, _err error) {
-	_err = util.ValidateModel(request)
-	if _err != nil {
-		return _result, _err
-	}
-	_result = &QueryTestCreateResponse{}
-	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("antcloud.tritestdemo.test.create.query"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
-	if _err != nil {
-		return _result, _err
-	}
-	_err = tea.Convert(_body, &_result)
-	return _result, _err
-}
-
-// Description:
-//
 // Description: 测试使用
 //
 // Summary: 测试使用
@@ -1175,6 +1598,78 @@ func (client *Client) OneCreateTestForBenchEx(request *OneCreateTestForBenchRequ
 	}
 	_result = &OneCreateTestForBenchResponse{}
 	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("antcloud.tritestdemo.create.test.for.bench.one"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
+}
+
+// Description:
+//
+// Description: 测试
+//
+// Summary: 测试
+func (client *Client) QueryCreateApia(request *QueryCreateApiaRequest) (_result *QueryCreateApiaResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &QueryCreateApiaResponse{}
+	_body, _err := client.QueryCreateApiaEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+// Description:
+//
+// Description: 测试
+//
+// Summary: 测试
+func (client *Client) QueryCreateApiaEx(request *QueryCreateApiaRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *QueryCreateApiaResponse, _err error) {
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &QueryCreateApiaResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("antcloud.tritestdemo.create.apia.query"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
+}
+
+// Description:
+//
+// Description: 测试
+//
+// Summary: 测试
+func (client *Client) TestTriApi(request *TestTriApiRequest) (_result *TestTriApiResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &TestTriApiResponse{}
+	_body, _err := client.TestTriApiEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+// Description:
+//
+// Description: 测试
+//
+// Summary: 测试
+func (client *Client) TestTriApiEx(request *TestTriApiRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *TestTriApiResponse, _err error) {
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &TestTriApiResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("antcloud.tritestdemo.tri.api.test"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
 	if _err != nil {
 		return _result, _err
 	}
