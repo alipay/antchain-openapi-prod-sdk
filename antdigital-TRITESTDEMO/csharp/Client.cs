@@ -158,7 +158,7 @@ namespace AntChain.SDK.TRITESTDEMO
                         {"req_msg_id", AntChain.AlipayUtil.AntchainUtils.GetNonce()},
                         {"access_key", _accessKeyId},
                         {"base_sdk_version", "TeaSDK-2.0"},
-                        {"sdk_version", "1.0.0"},
+                        {"sdk_version", "1.0.1"},
                         {"_prod_code", "TRITESTDEMO"},
                         {"_prod_channel", "default"},
                     };
@@ -301,7 +301,7 @@ namespace AntChain.SDK.TRITESTDEMO
                         {"req_msg_id", AntChain.AlipayUtil.AntchainUtils.GetNonce()},
                         {"access_key", _accessKeyId},
                         {"base_sdk_version", "TeaSDK-2.0"},
-                        {"sdk_version", "1.0.0"},
+                        {"sdk_version", "1.0.1"},
                         {"_prod_code", "TRITESTDEMO"},
                         {"_prod_channel", "default"},
                     };
@@ -357,6 +357,52 @@ namespace AntChain.SDK.TRITESTDEMO
             }
 
             throw new TeaUnretryableException(_lastRequest, _lastException);
+        }
+
+        /// <term><b>Description:</b></term>
+        /// <description>
+        /// <para>Description: 测试
+        /// Summary: 测试</para>
+        /// </description>
+        public TestAntchainDemosdkHttpApiResponse TestAntchainDemosdkHttpApi(TestAntchainDemosdkHttpApiRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return TestAntchainDemosdkHttpApiEx(request, headers, runtime);
+        }
+
+        /// <term><b>Description:</b></term>
+        /// <description>
+        /// <para>Description: 测试
+        /// Summary: 测试</para>
+        /// </description>
+        public async Task<TestAntchainDemosdkHttpApiResponse> TestAntchainDemosdkHttpApiAsync(TestAntchainDemosdkHttpApiRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return await TestAntchainDemosdkHttpApiExAsync(request, headers, runtime);
+        }
+
+        /// <term><b>Description:</b></term>
+        /// <description>
+        /// <para>Description: 测试
+        /// Summary: 测试</para>
+        /// </description>
+        public TestAntchainDemosdkHttpApiResponse TestAntchainDemosdkHttpApiEx(TestAntchainDemosdkHttpApiRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<TestAntchainDemosdkHttpApiResponse>(DoRequest("1.0", "antchain.demosdk.http.api.test", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /// <term><b>Description:</b></term>
+        /// <description>
+        /// <para>Description: 测试
+        /// Summary: 测试</para>
+        /// </description>
+        public async Task<TestAntchainDemosdkHttpApiResponse> TestAntchainDemosdkHttpApiExAsync(TestAntchainDemosdkHttpApiRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<TestAntchainDemosdkHttpApiResponse>(await DoRequestAsync("1.0", "antchain.demosdk.http.api.test", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
         }
 
         /// <term><b>Description:</b></term>
@@ -591,52 +637,6 @@ namespace AntChain.SDK.TRITESTDEMO
 
         /// <term><b>Description:</b></term>
         /// <description>
-        /// <para>Description: 用于个人工作台二期测试使用
-        /// Summary: 用于个人工作台二期测试使用</para>
-        /// </description>
-        public QueryTestCreateResponse QueryTestCreate(QueryTestCreateRequest request)
-        {
-            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
-            Dictionary<string, string> headers = new Dictionary<string, string>(){};
-            return QueryTestCreateEx(request, headers, runtime);
-        }
-
-        /// <term><b>Description:</b></term>
-        /// <description>
-        /// <para>Description: 用于个人工作台二期测试使用
-        /// Summary: 用于个人工作台二期测试使用</para>
-        /// </description>
-        public async Task<QueryTestCreateResponse> QueryTestCreateAsync(QueryTestCreateRequest request)
-        {
-            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
-            Dictionary<string, string> headers = new Dictionary<string, string>(){};
-            return await QueryTestCreateExAsync(request, headers, runtime);
-        }
-
-        /// <term><b>Description:</b></term>
-        /// <description>
-        /// <para>Description: 用于个人工作台二期测试使用
-        /// Summary: 用于个人工作台二期测试使用</para>
-        /// </description>
-        public QueryTestCreateResponse QueryTestCreateEx(QueryTestCreateRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
-        {
-            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
-            return TeaModel.ToObject<QueryTestCreateResponse>(DoRequest("1.0", "antcloud.tritestdemo.test.create.query", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
-        }
-
-        /// <term><b>Description:</b></term>
-        /// <description>
-        /// <para>Description: 用于个人工作台二期测试使用
-        /// Summary: 用于个人工作台二期测试使用</para>
-        /// </description>
-        public async Task<QueryTestCreateResponse> QueryTestCreateExAsync(QueryTestCreateRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
-        {
-            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
-            return TeaModel.ToObject<QueryTestCreateResponse>(await DoRequestAsync("1.0", "antcloud.tritestdemo.test.create.query", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
-        }
-
-        /// <term><b>Description:</b></term>
-        /// <description>
         /// <para>Description: 测试使用
         /// Summary: 测试使用</para>
         /// </description>
@@ -725,6 +725,98 @@ namespace AntChain.SDK.TRITESTDEMO
         {
             AlibabaCloud.TeaUtil.Common.ValidateModel(request);
             return TeaModel.ToObject<OneCreateTestForBenchResponse>(await DoRequestAsync("1.0", "antcloud.tritestdemo.create.test.for.bench.one", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /// <term><b>Description:</b></term>
+        /// <description>
+        /// <para>Description: 测试
+        /// Summary: 测试</para>
+        /// </description>
+        public QueryCreateApiaResponse QueryCreateApia(QueryCreateApiaRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return QueryCreateApiaEx(request, headers, runtime);
+        }
+
+        /// <term><b>Description:</b></term>
+        /// <description>
+        /// <para>Description: 测试
+        /// Summary: 测试</para>
+        /// </description>
+        public async Task<QueryCreateApiaResponse> QueryCreateApiaAsync(QueryCreateApiaRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return await QueryCreateApiaExAsync(request, headers, runtime);
+        }
+
+        /// <term><b>Description:</b></term>
+        /// <description>
+        /// <para>Description: 测试
+        /// Summary: 测试</para>
+        /// </description>
+        public QueryCreateApiaResponse QueryCreateApiaEx(QueryCreateApiaRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<QueryCreateApiaResponse>(DoRequest("1.0", "antcloud.tritestdemo.create.apia.query", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /// <term><b>Description:</b></term>
+        /// <description>
+        /// <para>Description: 测试
+        /// Summary: 测试</para>
+        /// </description>
+        public async Task<QueryCreateApiaResponse> QueryCreateApiaExAsync(QueryCreateApiaRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<QueryCreateApiaResponse>(await DoRequestAsync("1.0", "antcloud.tritestdemo.create.apia.query", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /// <term><b>Description:</b></term>
+        /// <description>
+        /// <para>Description: 测试
+        /// Summary: 测试</para>
+        /// </description>
+        public TestTriApiResponse TestTriApi(TestTriApiRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return TestTriApiEx(request, headers, runtime);
+        }
+
+        /// <term><b>Description:</b></term>
+        /// <description>
+        /// <para>Description: 测试
+        /// Summary: 测试</para>
+        /// </description>
+        public async Task<TestTriApiResponse> TestTriApiAsync(TestTriApiRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return await TestTriApiExAsync(request, headers, runtime);
+        }
+
+        /// <term><b>Description:</b></term>
+        /// <description>
+        /// <para>Description: 测试
+        /// Summary: 测试</para>
+        /// </description>
+        public TestTriApiResponse TestTriApiEx(TestTriApiRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<TestTriApiResponse>(DoRequest("1.0", "antcloud.tritestdemo.tri.api.test", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /// <term><b>Description:</b></term>
+        /// <description>
+        /// <para>Description: 测试
+        /// Summary: 测试</para>
+        /// </description>
+        public async Task<TestTriApiResponse> TestTriApiExAsync(TestTriApiRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<TestTriApiResponse>(await DoRequestAsync("1.0", "antcloud.tritestdemo.tri.api.test", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
         }
 
     }
