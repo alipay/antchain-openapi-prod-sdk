@@ -126,7 +126,7 @@ public class Client {
                     new TeaPair("req_msg_id", com.antgroup.antchain.openapi.antchain.util.AntchainUtils.getNonce()),
                     new TeaPair("access_key", _accessKeyId),
                     new TeaPair("base_sdk_version", "TeaSDK-2.0"),
-                    new TeaPair("sdk_version", "1.0.0"),
+                    new TeaPair("sdk_version", "1.0.1"),
                     new TeaPair("_prod_code", "TRITESTDEMO"),
                     new TeaPair("_prod_channel", "default")
                 );
@@ -186,6 +186,27 @@ public class Client {
 
     public void addResponseInterceptor(ResponseInterceptor interceptor) {
         interceptorChain.addResponseInterceptor(interceptor);
+    }
+
+    /**
+     * <b>description</b> :
+     * <p>Description: 测试
+     * Summary: 测试</p>
+     */
+    public TestAntchainDemosdkHttpApiResponse testAntchainDemosdkHttpApi(TestAntchainDemosdkHttpApiRequest request) throws Exception {
+        com.aliyun.teautil.models.RuntimeOptions runtime = new com.aliyun.teautil.models.RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.testAntchainDemosdkHttpApiEx(request, headers, runtime);
+    }
+
+    /**
+     * <b>description</b> :
+     * <p>Description: 测试
+     * Summary: 测试</p>
+     */
+    public TestAntchainDemosdkHttpApiResponse testAntchainDemosdkHttpApiEx(TestAntchainDemosdkHttpApiRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "antchain.demosdk.http.api.test", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new TestAntchainDemosdkHttpApiResponse());
     }
 
     /**
@@ -295,27 +316,6 @@ public class Client {
 
     /**
      * <b>description</b> :
-     * <p>Description: 用于个人工作台二期测试使用
-     * Summary: 用于个人工作台二期测试使用</p>
-     */
-    public QueryTestCreateResponse queryTestCreate(QueryTestCreateRequest request) throws Exception {
-        com.aliyun.teautil.models.RuntimeOptions runtime = new com.aliyun.teautil.models.RuntimeOptions();
-        java.util.Map<String, String> headers = new java.util.HashMap<>();
-        return this.queryTestCreateEx(request, headers, runtime);
-    }
-
-    /**
-     * <b>description</b> :
-     * <p>Description: 用于个人工作台二期测试使用
-     * Summary: 用于个人工作台二期测试使用</p>
-     */
-    public QueryTestCreateResponse queryTestCreateEx(QueryTestCreateRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
-        com.aliyun.teautil.Common.validateModel(request);
-        return TeaModel.toModel(this.doRequest("1.0", "antcloud.tritestdemo.test.create.query", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new QueryTestCreateResponse());
-    }
-
-    /**
-     * <b>description</b> :
      * <p>Description: 测试使用
      * Summary: 测试使用</p>
      */
@@ -354,5 +354,47 @@ public class Client {
     public OneCreateTestForBenchResponse oneCreateTestForBenchEx(OneCreateTestForBenchRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
         com.aliyun.teautil.Common.validateModel(request);
         return TeaModel.toModel(this.doRequest("1.0", "antcloud.tritestdemo.create.test.for.bench.one", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new OneCreateTestForBenchResponse());
+    }
+
+    /**
+     * <b>description</b> :
+     * <p>Description: 测试
+     * Summary: 测试</p>
+     */
+    public QueryCreateApiaResponse queryCreateApia(QueryCreateApiaRequest request) throws Exception {
+        com.aliyun.teautil.models.RuntimeOptions runtime = new com.aliyun.teautil.models.RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.queryCreateApiaEx(request, headers, runtime);
+    }
+
+    /**
+     * <b>description</b> :
+     * <p>Description: 测试
+     * Summary: 测试</p>
+     */
+    public QueryCreateApiaResponse queryCreateApiaEx(QueryCreateApiaRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "antcloud.tritestdemo.create.apia.query", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new QueryCreateApiaResponse());
+    }
+
+    /**
+     * <b>description</b> :
+     * <p>Description: 测试
+     * Summary: 测试</p>
+     */
+    public TestTriApiResponse testTriApi(TestTriApiRequest request) throws Exception {
+        com.aliyun.teautil.models.RuntimeOptions runtime = new com.aliyun.teautil.models.RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.testTriApiEx(request, headers, runtime);
+    }
+
+    /**
+     * <b>description</b> :
+     * <p>Description: 测试
+     * Summary: 测试</p>
+     */
+    public TestTriApiResponse testTriApiEx(TestTriApiRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "antcloud.tritestdemo.tri.api.test", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new TestTriApiResponse());
     }
 }
