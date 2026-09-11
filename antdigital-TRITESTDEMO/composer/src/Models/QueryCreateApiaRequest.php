@@ -5,11 +5,10 @@ namespace AntChain\TRITESTDEMO\Models;
 
 use AlibabaCloud\Tea\Model;
 
-class QueryDemoTestsysyTesxXxxRequest extends Model {
+class QueryCreateApiaRequest extends Model {
     protected $_name = [
         'authToken' => 'auth_token',
-        'productInstanceId' => 'product_instance_id',
-        'name' => 'name',
+        'aaa' => 'aaa',
     ];
     public function validate() {}
     public function toMap() {
@@ -17,28 +16,22 @@ class QueryDemoTestsysyTesxXxxRequest extends Model {
         if (null !== $this->authToken) {
             $res['auth_token'] = $this->authToken;
         }
-        if (null !== $this->productInstanceId) {
-            $res['product_instance_id'] = $this->productInstanceId;
-        }
-        if (null !== $this->name) {
-            $res['name'] = $this->name;
+        if (null !== $this->aaa) {
+            $res['aaa'] = $this->aaa;
         }
         return $res;
     }
     /**
      * @param array $map
-     * @return QueryDemoTestsysyTesxXxxRequest
+     * @return QueryCreateApiaRequest
      */
     public static function fromMap($map = []) {
         $model = new self();
         if(isset($map['auth_token'])){
             $model->authToken = $map['auth_token'];
         }
-        if(isset($map['product_instance_id'])){
-            $model->productInstanceId = $map['product_instance_id'];
-        }
-        if(isset($map['name'])){
-            $model->name = $map['name'];
+        if(isset($map['aaa'])){
+            $model->aaa = $map['aaa'];
         }
         return $model;
     }
@@ -48,15 +41,10 @@ class QueryDemoTestsysyTesxXxxRequest extends Model {
      */
     public $authToken;
 
+    // 描述
     /**
      * @var string
      */
-    public $productInstanceId;
-
-    // 张三
-    /**
-     * @var string
-     */
-    public $name;
+    public $aaa;
 
 }

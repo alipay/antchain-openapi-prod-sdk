@@ -5,11 +5,13 @@ namespace AntChain\TRITESTDEMO\Models;
 
 use AlibabaCloud\Tea\Model;
 
-class OneCreateTestForBenchResponse extends Model {
+class TestTriApiResponse extends Model {
     protected $_name = [
         'reqMsgId' => 'req_msg_id',
         'resultCode' => 'result_code',
         'resultMsg' => 'result_msg',
+        'stauts' => 'stauts',
+        'msg' => 'msg',
     ];
     public function validate() {}
     public function toMap() {
@@ -23,11 +25,17 @@ class OneCreateTestForBenchResponse extends Model {
         if (null !== $this->resultMsg) {
             $res['result_msg'] = $this->resultMsg;
         }
+        if (null !== $this->stauts) {
+            $res['stauts'] = $this->stauts;
+        }
+        if (null !== $this->msg) {
+            $res['msg'] = $this->msg;
+        }
         return $res;
     }
     /**
      * @param array $map
-     * @return OneCreateTestForBenchResponse
+     * @return TestTriApiResponse
      */
     public static function fromMap($map = []) {
         $model = new self();
@@ -39,6 +47,12 @@ class OneCreateTestForBenchResponse extends Model {
         }
         if(isset($map['result_msg'])){
             $model->resultMsg = $map['result_msg'];
+        }
+        if(isset($map['stauts'])){
+            $model->stauts = $map['stauts'];
+        }
+        if(isset($map['msg'])){
+            $model->msg = $map['msg'];
         }
         return $model;
     }
@@ -59,5 +73,17 @@ class OneCreateTestForBenchResponse extends Model {
      * @var string
      */
     public $resultMsg;
+
+    // 状态码
+    /**
+     * @var string
+     */
+    public $stauts;
+
+    // 状态描述
+    /**
+     * @var string
+     */
+    public $msg;
 
 }

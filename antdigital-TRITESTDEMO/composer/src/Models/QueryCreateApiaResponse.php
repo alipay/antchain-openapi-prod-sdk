@@ -5,11 +5,12 @@ namespace AntChain\TRITESTDEMO\Models;
 
 use AlibabaCloud\Tea\Model;
 
-class OneCreateTestForBenchResponse extends Model {
+class QueryCreateApiaResponse extends Model {
     protected $_name = [
         'reqMsgId' => 'req_msg_id',
         'resultCode' => 'result_code',
         'resultMsg' => 'result_msg',
+        'response' => 'response',
     ];
     public function validate() {}
     public function toMap() {
@@ -23,11 +24,14 @@ class OneCreateTestForBenchResponse extends Model {
         if (null !== $this->resultMsg) {
             $res['result_msg'] = $this->resultMsg;
         }
+        if (null !== $this->response) {
+            $res['response'] = $this->response;
+        }
         return $res;
     }
     /**
      * @param array $map
-     * @return OneCreateTestForBenchResponse
+     * @return QueryCreateApiaResponse
      */
     public static function fromMap($map = []) {
         $model = new self();
@@ -39,6 +43,9 @@ class OneCreateTestForBenchResponse extends Model {
         }
         if(isset($map['result_msg'])){
             $model->resultMsg = $map['result_msg'];
+        }
+        if(isset($map['response'])){
+            $model->response = $map['response'];
         }
         return $model;
     }
@@ -59,5 +66,11 @@ class OneCreateTestForBenchResponse extends Model {
      * @var string
      */
     public $resultMsg;
+
+    // 出参描述
+    /**
+     * @var string
+     */
+    public $response;
 
 }
