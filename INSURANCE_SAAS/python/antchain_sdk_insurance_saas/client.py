@@ -110,7 +110,7 @@ class Client:
                 'period': UtilClient.default_number(runtime.backoff_period, 1)
             },
             'ignoreSSL': runtime.ignore_ssl,
-            # 文件结构
+            # 转化数据条目
         }
         _last_request = None
         _last_exception = None
@@ -135,7 +135,7 @@ class Client:
                     'req_msg_id': AntchainUtils.get_nonce(),
                     'access_key': self._access_key_id,
                     'base_sdk_version': 'TeaSDK-2.0',
-                    'sdk_version': '1.12.49',
+                    'sdk_version': '1.12.59',
                     '_prod_code': 'INSURANCE_SAAS',
                     '_prod_channel': 'undefined'
                 }
@@ -214,7 +214,7 @@ class Client:
                 'period': UtilClient.default_number(runtime.backoff_period, 1)
             },
             'ignoreSSL': runtime.ignore_ssl,
-            # 文件结构
+            # 转化数据条目
         }
         _last_request = None
         _last_exception = None
@@ -239,7 +239,7 @@ class Client:
                     'req_msg_id': AntchainUtils.get_nonce(),
                     'access_key': self._access_key_id,
                     'base_sdk_version': 'TeaSDK-2.0',
-                    'sdk_version': '1.12.49',
+                    'sdk_version': '1.12.59',
                     '_prod_code': 'INSURANCE_SAAS',
                     '_prod_channel': 'undefined'
                 }
@@ -448,8 +448,8 @@ class Client:
         request: insurance__saas_models.CallbackMktLiveeffectRequest,
     ) -> insurance__saas_models.CallbackMktLiveeffectResponse:
         """
-        Description: 保险营销效果回传接口——直播通道
-        Summary: 保险营销效果回传接口——直播通道
+        Description: 保险营销效果回传接口——媒体
+        Summary: 保险营销效果回传接口——媒体
         """
         runtime = util_models.RuntimeOptions()
         headers = {}
@@ -460,8 +460,8 @@ class Client:
         request: insurance__saas_models.CallbackMktLiveeffectRequest,
     ) -> insurance__saas_models.CallbackMktLiveeffectResponse:
         """
-        Description: 保险营销效果回传接口——直播通道
-        Summary: 保险营销效果回传接口——直播通道
+        Description: 保险营销效果回传接口——媒体
+        Summary: 保险营销效果回传接口——媒体
         """
         runtime = util_models.RuntimeOptions()
         headers = {}
@@ -474,8 +474,8 @@ class Client:
         runtime: util_models.RuntimeOptions,
     ) -> insurance__saas_models.CallbackMktLiveeffectResponse:
         """
-        Description: 保险营销效果回传接口——直播通道
-        Summary: 保险营销效果回传接口——直播通道
+        Description: 保险营销效果回传接口——媒体
+        Summary: 保险营销效果回传接口——媒体
         """
         UtilClient.validate_model(request)
         return TeaCore.from_map(
@@ -490,8 +490,8 @@ class Client:
         runtime: util_models.RuntimeOptions,
     ) -> insurance__saas_models.CallbackMktLiveeffectResponse:
         """
-        Description: 保险营销效果回传接口——直播通道
-        Summary: 保险营销效果回传接口——直播通道
+        Description: 保险营销效果回传接口——媒体
+        Summary: 保险营销效果回传接口——媒体
         """
         UtilClient.validate_model(request)
         return TeaCore.from_map(
@@ -665,6 +665,174 @@ class Client:
         return TeaCore.from_map(
             insurance__saas_models.NotifyEmbedoemautoinsuranceEventResponse(),
             await self.do_request_async('1.0', 'antcloud.insurance.embedoemautoinsurance.event.notify', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def callback_mkt_mediastatisticaldata(
+        self,
+        request: insurance__saas_models.CallbackMktMediastatisticaldataRequest,
+    ) -> insurance__saas_models.CallbackMktMediastatisticaldataResponse:
+        """
+        Description: 媒体点击统计数据回传
+        Summary: 媒体点击统计数据回传
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.callback_mkt_mediastatisticaldata_ex(request, headers, runtime)
+
+    async def callback_mkt_mediastatisticaldata_async(
+        self,
+        request: insurance__saas_models.CallbackMktMediastatisticaldataRequest,
+    ) -> insurance__saas_models.CallbackMktMediastatisticaldataResponse:
+        """
+        Description: 媒体点击统计数据回传
+        Summary: 媒体点击统计数据回传
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.callback_mkt_mediastatisticaldata_ex_async(request, headers, runtime)
+
+    def callback_mkt_mediastatisticaldata_ex(
+        self,
+        request: insurance__saas_models.CallbackMktMediastatisticaldataRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> insurance__saas_models.CallbackMktMediastatisticaldataResponse:
+        """
+        Description: 媒体点击统计数据回传
+        Summary: 媒体点击统计数据回传
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            insurance__saas_models.CallbackMktMediastatisticaldataResponse(),
+            self.do_request('1.0', 'antcloud.insurance.mkt.mediastatisticaldata.callback', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def callback_mkt_mediastatisticaldata_ex_async(
+        self,
+        request: insurance__saas_models.CallbackMktMediastatisticaldataRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> insurance__saas_models.CallbackMktMediastatisticaldataResponse:
+        """
+        Description: 媒体点击统计数据回传
+        Summary: 媒体点击统计数据回传
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            insurance__saas_models.CallbackMktMediastatisticaldataResponse(),
+            await self.do_request_async('1.0', 'antcloud.insurance.mkt.mediastatisticaldata.callback', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def callback_mkt_effectsimple(
+        self,
+        request: insurance__saas_models.CallbackMktEffectsimpleRequest,
+    ) -> insurance__saas_models.CallbackMktEffectsimpleResponse:
+        """
+        Description: 营销效果节点数据（简版）
+        Summary: 营销效果节点数据（简版）
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.callback_mkt_effectsimple_ex(request, headers, runtime)
+
+    async def callback_mkt_effectsimple_async(
+        self,
+        request: insurance__saas_models.CallbackMktEffectsimpleRequest,
+    ) -> insurance__saas_models.CallbackMktEffectsimpleResponse:
+        """
+        Description: 营销效果节点数据（简版）
+        Summary: 营销效果节点数据（简版）
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.callback_mkt_effectsimple_ex_async(request, headers, runtime)
+
+    def callback_mkt_effectsimple_ex(
+        self,
+        request: insurance__saas_models.CallbackMktEffectsimpleRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> insurance__saas_models.CallbackMktEffectsimpleResponse:
+        """
+        Description: 营销效果节点数据（简版）
+        Summary: 营销效果节点数据（简版）
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            insurance__saas_models.CallbackMktEffectsimpleResponse(),
+            self.do_request('1.0', 'antcloud.insurance.mkt.effectsimple.callback', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def callback_mkt_effectsimple_ex_async(
+        self,
+        request: insurance__saas_models.CallbackMktEffectsimpleRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> insurance__saas_models.CallbackMktEffectsimpleResponse:
+        """
+        Description: 营销效果节点数据（简版）
+        Summary: 营销效果节点数据（简版）
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            insurance__saas_models.CallbackMktEffectsimpleResponse(),
+            await self.do_request_async('1.0', 'antcloud.insurance.mkt.effectsimple.callback', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def apply_mktserviceprovider_audiencecircle(
+        self,
+        request: insurance__saas_models.ApplyMktserviceproviderAudiencecircleRequest,
+    ) -> insurance__saas_models.ApplyMktserviceproviderAudiencecircleResponse:
+        """
+        Description: 保险营销服务商人群圈选
+        Summary: 保险营销服务商人群圈选
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.apply_mktserviceprovider_audiencecircle_ex(request, headers, runtime)
+
+    async def apply_mktserviceprovider_audiencecircle_async(
+        self,
+        request: insurance__saas_models.ApplyMktserviceproviderAudiencecircleRequest,
+    ) -> insurance__saas_models.ApplyMktserviceproviderAudiencecircleResponse:
+        """
+        Description: 保险营销服务商人群圈选
+        Summary: 保险营销服务商人群圈选
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.apply_mktserviceprovider_audiencecircle_ex_async(request, headers, runtime)
+
+    def apply_mktserviceprovider_audiencecircle_ex(
+        self,
+        request: insurance__saas_models.ApplyMktserviceproviderAudiencecircleRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> insurance__saas_models.ApplyMktserviceproviderAudiencecircleResponse:
+        """
+        Description: 保险营销服务商人群圈选
+        Summary: 保险营销服务商人群圈选
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            insurance__saas_models.ApplyMktserviceproviderAudiencecircleResponse(),
+            self.do_request('1.0', 'antcloud.insurance.mktserviceprovider.audiencecircle.apply', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def apply_mktserviceprovider_audiencecircle_ex_async(
+        self,
+        request: insurance__saas_models.ApplyMktserviceproviderAudiencecircleRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> insurance__saas_models.ApplyMktserviceproviderAudiencecircleResponse:
+        """
+        Description: 保险营销服务商人群圈选
+        Summary: 保险营销服务商人群圈选
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            insurance__saas_models.ApplyMktserviceproviderAudiencecircleResponse(),
+            await self.do_request_async('1.0', 'antcloud.insurance.mktserviceprovider.audiencecircle.apply', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
     def query_inquiry(

@@ -154,6 +154,42 @@ class Config(TeaModel):
         return self
 
 
+class ConversionDataDTO(TeaModel):
+    def __init__(
+        self,
+        conversion_type: str = None,
+        conversion_count: int = None,
+    ):
+        # 转化目标类型
+        self.conversion_type = conversion_type
+        # 目标转化量
+        self.conversion_count = conversion_count
+
+    def validate(self):
+        self.validate_required(self.conversion_type, 'conversion_type')
+        self.validate_required(self.conversion_count, 'conversion_count')
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.conversion_type is not None:
+            result['conversion_type'] = self.conversion_type
+        if self.conversion_count is not None:
+            result['conversion_count'] = self.conversion_count
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('conversion_type') is not None:
+            self.conversion_type = m.get('conversion_type')
+        if m.get('conversion_count') is not None:
+            self.conversion_count = m.get('conversion_count')
+        return self
+
+
 class FileNode(TeaModel):
     def __init__(
         self,
@@ -187,6 +223,107 @@ class FileNode(TeaModel):
             self.url = m.get('url')
         if m.get('name') is not None:
             self.name = m.get('name')
+        return self
+
+
+class StatisticalDataDTO(TeaModel):
+    def __init__(
+        self,
+        project: str = None,
+        dimension_id: str = None,
+        time_period: str = None,
+        start_time: str = None,
+        end_time: str = None,
+        cost_money: str = None,
+        media_impression_count: int = None,
+        media_click_count: int = None,
+        conversion_data_list: List[ConversionDataDTO] = None,
+    ):
+        # 项目标识
+        self.project = project
+        # 统计维度id
+        self.dimension_id = dimension_id
+        # 时间维度
+        self.time_period = time_period
+        # 开始时间
+        self.start_time = start_time
+        # 结束时间
+        self.end_time = end_time
+        # 花费金额
+        self.cost_money = cost_money
+        # 曝光量
+        self.media_impression_count = media_impression_count
+        # 点击量
+        self.media_click_count = media_click_count
+        # 目标转化量相关数据
+        self.conversion_data_list = conversion_data_list
+
+    def validate(self):
+        self.validate_required(self.project, 'project')
+        self.validate_required(self.dimension_id, 'dimension_id')
+        self.validate_required(self.time_period, 'time_period')
+        self.validate_required(self.start_time, 'start_time')
+        self.validate_required(self.end_time, 'end_time')
+        self.validate_required(self.cost_money, 'cost_money')
+        self.validate_required(self.media_impression_count, 'media_impression_count')
+        self.validate_required(self.media_click_count, 'media_click_count')
+        self.validate_required(self.conversion_data_list, 'conversion_data_list')
+        if self.conversion_data_list:
+            for k in self.conversion_data_list:
+                if k:
+                    k.validate()
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.project is not None:
+            result['project'] = self.project
+        if self.dimension_id is not None:
+            result['dimension_id'] = self.dimension_id
+        if self.time_period is not None:
+            result['time_period'] = self.time_period
+        if self.start_time is not None:
+            result['start_time'] = self.start_time
+        if self.end_time is not None:
+            result['end_time'] = self.end_time
+        if self.cost_money is not None:
+            result['cost_money'] = self.cost_money
+        if self.media_impression_count is not None:
+            result['media_impression_count'] = self.media_impression_count
+        if self.media_click_count is not None:
+            result['media_click_count'] = self.media_click_count
+        result['conversion_data_list'] = []
+        if self.conversion_data_list is not None:
+            for k in self.conversion_data_list:
+                result['conversion_data_list'].append(k.to_map() if k else None)
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('project') is not None:
+            self.project = m.get('project')
+        if m.get('dimension_id') is not None:
+            self.dimension_id = m.get('dimension_id')
+        if m.get('time_period') is not None:
+            self.time_period = m.get('time_period')
+        if m.get('start_time') is not None:
+            self.start_time = m.get('start_time')
+        if m.get('end_time') is not None:
+            self.end_time = m.get('end_time')
+        if m.get('cost_money') is not None:
+            self.cost_money = m.get('cost_money')
+        if m.get('media_impression_count') is not None:
+            self.media_impression_count = m.get('media_impression_count')
+        if m.get('media_click_count') is not None:
+            self.media_click_count = m.get('media_click_count')
+        self.conversion_data_list = []
+        if m.get('conversion_data_list') is not None:
+            for k in m.get('conversion_data_list'):
+                temp_model = ConversionDataDTO()
+                self.conversion_data_list.append(temp_model.from_map(k))
         return self
 
 
@@ -1353,6 +1490,409 @@ class NotifyEmbedoemautoinsuranceEventResponse(TeaModel):
             self.message = m.get('message')
         if m.get('success') is not None:
             self.success = m.get('success')
+        return self
+
+
+class CallbackMktMediastatisticaldataRequest(TeaModel):
+    def __init__(
+        self,
+        auth_token: str = None,
+        request_id: str = None,
+        project_id: str = None,
+        media_source: str = None,
+        dimension: str = None,
+        statistical_data_list: List[StatisticalDataDTO] = None,
+    ):
+        # OAuth模式下的授权token
+        self.auth_token = auth_token
+        # 请求id
+        self.request_id = request_id
+        # 项目id
+        self.project_id = project_id
+        # 数据渠道来源，广点通(gdt) / 巨量引擎(oceanengine) / 快手(kuaishou) / 百度(baidu)
+        self.media_source = media_source
+        # 统计维度，区分账号（ACCOUNT） 、广告计划(ADVERTISEMENT) 、 素材（MATERIAL）
+        self.dimension = dimension
+        # 统计数据
+        self.statistical_data_list = statistical_data_list
+
+    def validate(self):
+        self.validate_required(self.request_id, 'request_id')
+        self.validate_required(self.project_id, 'project_id')
+        self.validate_required(self.media_source, 'media_source')
+        self.validate_required(self.dimension, 'dimension')
+        self.validate_required(self.statistical_data_list, 'statistical_data_list')
+        if self.statistical_data_list:
+            for k in self.statistical_data_list:
+                if k:
+                    k.validate()
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.auth_token is not None:
+            result['auth_token'] = self.auth_token
+        if self.request_id is not None:
+            result['request_id'] = self.request_id
+        if self.project_id is not None:
+            result['project_id'] = self.project_id
+        if self.media_source is not None:
+            result['media_source'] = self.media_source
+        if self.dimension is not None:
+            result['dimension'] = self.dimension
+        result['statistical_data_list'] = []
+        if self.statistical_data_list is not None:
+            for k in self.statistical_data_list:
+                result['statistical_data_list'].append(k.to_map() if k else None)
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('auth_token') is not None:
+            self.auth_token = m.get('auth_token')
+        if m.get('request_id') is not None:
+            self.request_id = m.get('request_id')
+        if m.get('project_id') is not None:
+            self.project_id = m.get('project_id')
+        if m.get('media_source') is not None:
+            self.media_source = m.get('media_source')
+        if m.get('dimension') is not None:
+            self.dimension = m.get('dimension')
+        self.statistical_data_list = []
+        if m.get('statistical_data_list') is not None:
+            for k in m.get('statistical_data_list'):
+                temp_model = StatisticalDataDTO()
+                self.statistical_data_list.append(temp_model.from_map(k))
+        return self
+
+
+class CallbackMktMediastatisticaldataResponse(TeaModel):
+    def __init__(
+        self,
+        req_msg_id: str = None,
+        result_code: str = None,
+        result_msg: str = None,
+        request_id: str = None,
+    ):
+        # 请求唯一ID，用于链路跟踪和问题排查
+        self.req_msg_id = req_msg_id
+        # 结果码，一般OK表示调用成功
+        self.result_code = result_code
+        # 异常信息的文本描述
+        self.result_msg = result_msg
+        # 请求id
+        self.request_id = request_id
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.req_msg_id is not None:
+            result['req_msg_id'] = self.req_msg_id
+        if self.result_code is not None:
+            result['result_code'] = self.result_code
+        if self.result_msg is not None:
+            result['result_msg'] = self.result_msg
+        if self.request_id is not None:
+            result['request_id'] = self.request_id
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('req_msg_id') is not None:
+            self.req_msg_id = m.get('req_msg_id')
+        if m.get('result_code') is not None:
+            self.result_code = m.get('result_code')
+        if m.get('result_msg') is not None:
+            self.result_msg = m.get('result_msg')
+        if m.get('request_id') is not None:
+            self.request_id = m.get('request_id')
+        return self
+
+
+class CallbackMktEffectsimpleRequest(TeaModel):
+    def __init__(
+        self,
+        auth_token: str = None,
+        request_id: str = None,
+        project_id: str = None,
+        marketing_mode: str = None,
+        insure_short_url: str = None,
+        encryption_type: str = None,
+        encrypted_user_id: str = None,
+        landing_visit_id: str = None,
+        node_type: str = None,
+        node_status: str = None,
+        event_time: str = None,
+    ):
+        # OAuth模式下的授权token
+        self.auth_token = auth_token
+        # 请求id，每一次请求保持唯一；若重复，则更新原数据；
+        self.request_id = request_id
+        # 项目ID，待蚂蚁分配
+        self.project_id = project_id
+        # 营销模式，AI_HANGUP_SMS("AI挂短")， AI_OFFICIAL_ACCOUNT("AI公众号"), BPO_WECHAT("BPO企微"), AI_BPO("AI_BPO")
+        self.marketing_mode = marketing_mode
+        # 投保特征短链
+        self.insure_short_url = insure_short_url
+        # 加密类型：MD5，32位[小]
+        self.encryption_type = encryption_type
+        # 加密用户标识
+        self.encrypted_user_id = encrypted_user_id
+        # 应以识别当前用户点击投保页面的唯一标识
+        self.landing_visit_id = landing_visit_id
+        # 节点类型
+        self.node_type = node_type
+        # 节点状态（0-未完成；1-已完成）
+        self.node_status = node_status
+        # 事件完成时间（yyyy-MM-dd HH:mm:ss）
+        self.event_time = event_time
+
+    def validate(self):
+        self.validate_required(self.request_id, 'request_id')
+        self.validate_required(self.project_id, 'project_id')
+        self.validate_required(self.insure_short_url, 'insure_short_url')
+        self.validate_required(self.encryption_type, 'encryption_type')
+        self.validate_required(self.encrypted_user_id, 'encrypted_user_id')
+        self.validate_required(self.landing_visit_id, 'landing_visit_id')
+        self.validate_required(self.node_type, 'node_type')
+        self.validate_required(self.node_status, 'node_status')
+        self.validate_required(self.event_time, 'event_time')
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.auth_token is not None:
+            result['auth_token'] = self.auth_token
+        if self.request_id is not None:
+            result['request_id'] = self.request_id
+        if self.project_id is not None:
+            result['project_id'] = self.project_id
+        if self.marketing_mode is not None:
+            result['marketing_mode'] = self.marketing_mode
+        if self.insure_short_url is not None:
+            result['insure_short_url'] = self.insure_short_url
+        if self.encryption_type is not None:
+            result['encryption_type'] = self.encryption_type
+        if self.encrypted_user_id is not None:
+            result['encrypted_user_id'] = self.encrypted_user_id
+        if self.landing_visit_id is not None:
+            result['landing_visit_id'] = self.landing_visit_id
+        if self.node_type is not None:
+            result['node_type'] = self.node_type
+        if self.node_status is not None:
+            result['node_status'] = self.node_status
+        if self.event_time is not None:
+            result['event_time'] = self.event_time
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('auth_token') is not None:
+            self.auth_token = m.get('auth_token')
+        if m.get('request_id') is not None:
+            self.request_id = m.get('request_id')
+        if m.get('project_id') is not None:
+            self.project_id = m.get('project_id')
+        if m.get('marketing_mode') is not None:
+            self.marketing_mode = m.get('marketing_mode')
+        if m.get('insure_short_url') is not None:
+            self.insure_short_url = m.get('insure_short_url')
+        if m.get('encryption_type') is not None:
+            self.encryption_type = m.get('encryption_type')
+        if m.get('encrypted_user_id') is not None:
+            self.encrypted_user_id = m.get('encrypted_user_id')
+        if m.get('landing_visit_id') is not None:
+            self.landing_visit_id = m.get('landing_visit_id')
+        if m.get('node_type') is not None:
+            self.node_type = m.get('node_type')
+        if m.get('node_status') is not None:
+            self.node_status = m.get('node_status')
+        if m.get('event_time') is not None:
+            self.event_time = m.get('event_time')
+        return self
+
+
+class CallbackMktEffectsimpleResponse(TeaModel):
+    def __init__(
+        self,
+        req_msg_id: str = None,
+        result_code: str = None,
+        result_msg: str = None,
+        request_id: str = None,
+    ):
+        # 请求唯一ID，用于链路跟踪和问题排查
+        self.req_msg_id = req_msg_id
+        # 结果码，一般OK表示调用成功
+        self.result_code = result_code
+        # 异常信息的文本描述
+        self.result_msg = result_msg
+        # 请求id，每一次请求保持唯一；
+        self.request_id = request_id
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.req_msg_id is not None:
+            result['req_msg_id'] = self.req_msg_id
+        if self.result_code is not None:
+            result['result_code'] = self.result_code
+        if self.result_msg is not None:
+            result['result_msg'] = self.result_msg
+        if self.request_id is not None:
+            result['request_id'] = self.request_id
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('req_msg_id') is not None:
+            self.req_msg_id = m.get('req_msg_id')
+        if m.get('result_code') is not None:
+            self.result_code = m.get('result_code')
+        if m.get('result_msg') is not None:
+            self.result_msg = m.get('result_msg')
+        if m.get('request_id') is not None:
+            self.request_id = m.get('request_id')
+        return self
+
+
+class ApplyMktserviceproviderAudiencecircleRequest(TeaModel):
+    def __init__(
+        self,
+        auth_token: str = None,
+        request_id: str = None,
+        project_id: str = None,
+        biz_scene: str = None,
+        encryption_type: str = None,
+        encrypted_user_ids: List[str] = None,
+    ):
+        # OAuth模式下的授权token
+        self.auth_token = auth_token
+        # 请求id，每一次请求保持唯一；
+        self.request_id = request_id
+        # 项目ID，待蚂蚁分配
+        self.project_id = project_id
+        # 业务场景标识
+        self.biz_scene = biz_scene
+        # 加密类型，MD5 32位小写
+        self.encryption_type = encryption_type
+        # 加密用户标识
+        self.encrypted_user_ids = encrypted_user_ids
+
+    def validate(self):
+        self.validate_required(self.request_id, 'request_id')
+        self.validate_required(self.project_id, 'project_id')
+        self.validate_required(self.biz_scene, 'biz_scene')
+        self.validate_required(self.encryption_type, 'encryption_type')
+        self.validate_required(self.encrypted_user_ids, 'encrypted_user_ids')
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.auth_token is not None:
+            result['auth_token'] = self.auth_token
+        if self.request_id is not None:
+            result['request_id'] = self.request_id
+        if self.project_id is not None:
+            result['project_id'] = self.project_id
+        if self.biz_scene is not None:
+            result['biz_scene'] = self.biz_scene
+        if self.encryption_type is not None:
+            result['encryption_type'] = self.encryption_type
+        if self.encrypted_user_ids is not None:
+            result['encrypted_user_ids'] = self.encrypted_user_ids
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('auth_token') is not None:
+            self.auth_token = m.get('auth_token')
+        if m.get('request_id') is not None:
+            self.request_id = m.get('request_id')
+        if m.get('project_id') is not None:
+            self.project_id = m.get('project_id')
+        if m.get('biz_scene') is not None:
+            self.biz_scene = m.get('biz_scene')
+        if m.get('encryption_type') is not None:
+            self.encryption_type = m.get('encryption_type')
+        if m.get('encrypted_user_ids') is not None:
+            self.encrypted_user_ids = m.get('encrypted_user_ids')
+        return self
+
+
+class ApplyMktserviceproviderAudiencecircleResponse(TeaModel):
+    def __init__(
+        self,
+        req_msg_id: str = None,
+        result_code: str = None,
+        result_msg: str = None,
+        request_id: str = None,
+        batch_no: str = None,
+    ):
+        # 请求唯一ID，用于链路跟踪和问题排查
+        self.req_msg_id = req_msg_id
+        # 结果码，一般OK表示调用成功
+        self.result_code = result_code
+        # 异常信息的文本描述
+        self.result_msg = result_msg
+        # 请求id，每一次请求保持唯一；
+        self.request_id = request_id
+        # 批次号
+        self.batch_no = batch_no
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.req_msg_id is not None:
+            result['req_msg_id'] = self.req_msg_id
+        if self.result_code is not None:
+            result['result_code'] = self.result_code
+        if self.result_msg is not None:
+            result['result_msg'] = self.result_msg
+        if self.request_id is not None:
+            result['request_id'] = self.request_id
+        if self.batch_no is not None:
+            result['batch_no'] = self.batch_no
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('req_msg_id') is not None:
+            self.req_msg_id = m.get('req_msg_id')
+        if m.get('result_code') is not None:
+            self.result_code = m.get('result_code')
+        if m.get('result_msg') is not None:
+            self.result_msg = m.get('result_msg')
+        if m.get('request_id') is not None:
+            self.request_id = m.get('request_id')
+        if m.get('batch_no') is not None:
+            self.batch_no = m.get('batch_no')
         return self
 
 
@@ -7027,7 +7567,6 @@ class CallbackMktEffectRequest(TeaModel):
         self.validate_required(self.project_id, 'project_id')
         if self.project_id is not None:
             self.validate_max_length(self.project_id, 'project_id', 64)
-        self.validate_required(self.marketing_mode, 'marketing_mode')
         if self.marketing_mode is not None:
             self.validate_max_length(self.marketing_mode, 'marketing_mode', 64)
         if self.insure_short_url is not None:
