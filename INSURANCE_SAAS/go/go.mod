@@ -1,4 +1,4 @@
-module github.com/alipay/insurance_saas
+module github.com/antchain-openapi-sdk-go/insurance_saas
 
 go 1.22.1
 
