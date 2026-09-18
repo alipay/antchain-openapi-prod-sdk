@@ -11,6 +11,7 @@ class ApplyMktserviceproviderAudiencecircleResponse extends Model {
         'resultCode' => 'result_code',
         'resultMsg' => 'result_msg',
         'requestId' => 'request_id',
+        'batchNo' => 'batch_no',
     ];
     public function validate() {}
     public function toMap() {
@@ -26,6 +27,9 @@ class ApplyMktserviceproviderAudiencecircleResponse extends Model {
         }
         if (null !== $this->requestId) {
             $res['request_id'] = $this->requestId;
+        }
+        if (null !== $this->batchNo) {
+            $res['batch_no'] = $this->batchNo;
         }
         return $res;
     }
@@ -46,6 +50,9 @@ class ApplyMktserviceproviderAudiencecircleResponse extends Model {
         }
         if(isset($map['request_id'])){
             $model->requestId = $map['request_id'];
+        }
+        if(isset($map['batch_no'])){
+            $model->batchNo = $map['batch_no'];
         }
         return $model;
     }
@@ -72,5 +79,11 @@ class ApplyMktserviceproviderAudiencecircleResponse extends Model {
      * @var string
      */
     public $requestId;
+
+    // 批次号
+    /**
+     * @var string
+     */
+    public $batchNo;
 
 }
