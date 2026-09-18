@@ -189,6 +189,38 @@ func (s *Config) SetMaxRequestsPerHost(v int) *Config {
 	return s
 }
 
+// 转化数据条目
+type ConversionDataDTO struct {
+	// 转化目标类型
+	// example:
+	//
+	// FORMBOOK
+	ConversionType *string `json:"conversion_type,omitempty" xml:"conversion_type,omitempty" require:"true"`
+	// 目标转化量
+	// example:
+	//
+	// 100
+	ConversionCount *int64 `json:"conversion_count,omitempty" xml:"conversion_count,omitempty" require:"true"`
+}
+
+func (s ConversionDataDTO) String() string {
+	return tea.Prettify(s)
+}
+
+func (s ConversionDataDTO) GoString() string {
+	return s.String()
+}
+
+func (s *ConversionDataDTO) SetConversionType(v string) *ConversionDataDTO {
+	s.ConversionType = &v
+	return s
+}
+
+func (s *ConversionDataDTO) SetConversionCount(v int64) *ConversionDataDTO {
+	s.ConversionCount = &v
+	return s
+}
+
 // 文件结构
 type FileNode struct {
 	// 可访问的文件链接
@@ -218,6 +250,108 @@ func (s *FileNode) SetUrl(v string) *FileNode {
 
 func (s *FileNode) SetName(v string) *FileNode {
 	s.Name = &v
+	return s
+}
+
+// 媒体统计数据条目
+type StatisticalDataDTO struct {
+	// 项目标识
+	// example:
+	//
+	// 2026072000000138312001
+	Project *string `json:"project,omitempty" xml:"project,omitempty" require:"true"`
+	// 统计维度id
+	// example:
+	//
+	// 2026072000000138312001
+	DimensionId *string `json:"dimension_id,omitempty" xml:"dimension_id,omitempty" require:"true"`
+	// 时间维度
+	// example:
+	//
+	// hour
+	TimePeriod *string `json:"time_period,omitempty" xml:"time_period,omitempty" require:"true"`
+	// 开始时间
+	// example:
+	//
+	// yyyy-MM-dd HH:mm
+	StartTime *string `json:"start_time,omitempty" xml:"start_time,omitempty" require:"true"`
+	// 结束时间
+	// example:
+	//
+	// yyyy-MM-dd HH:mm
+	EndTime *string `json:"end_time,omitempty" xml:"end_time,omitempty" require:"true"`
+	// 花费金额
+	// example:
+	//
+	// 6666.66
+	CostMoney *string `json:"cost_money,omitempty" xml:"cost_money,omitempty" require:"true"`
+	// 曝光量
+	// example:
+	//
+	// 100
+	MediaImpressionCount *int64 `json:"media_impression_count,omitempty" xml:"media_impression_count,omitempty" require:"true"`
+	// 点击量
+	// example:
+	//
+	// 100
+	MediaClickCount *int64 `json:"media_click_count,omitempty" xml:"media_click_count,omitempty" require:"true"`
+	// 目标转化量相关数据
+	// example:
+	//
+	// undefined
+	ConversionDataList []*ConversionDataDTO `json:"conversion_data_list,omitempty" xml:"conversion_data_list,omitempty" require:"true" type:"Repeated"`
+}
+
+func (s StatisticalDataDTO) String() string {
+	return tea.Prettify(s)
+}
+
+func (s StatisticalDataDTO) GoString() string {
+	return s.String()
+}
+
+func (s *StatisticalDataDTO) SetProject(v string) *StatisticalDataDTO {
+	s.Project = &v
+	return s
+}
+
+func (s *StatisticalDataDTO) SetDimensionId(v string) *StatisticalDataDTO {
+	s.DimensionId = &v
+	return s
+}
+
+func (s *StatisticalDataDTO) SetTimePeriod(v string) *StatisticalDataDTO {
+	s.TimePeriod = &v
+	return s
+}
+
+func (s *StatisticalDataDTO) SetStartTime(v string) *StatisticalDataDTO {
+	s.StartTime = &v
+	return s
+}
+
+func (s *StatisticalDataDTO) SetEndTime(v string) *StatisticalDataDTO {
+	s.EndTime = &v
+	return s
+}
+
+func (s *StatisticalDataDTO) SetCostMoney(v string) *StatisticalDataDTO {
+	s.CostMoney = &v
+	return s
+}
+
+func (s *StatisticalDataDTO) SetMediaImpressionCount(v int64) *StatisticalDataDTO {
+	s.MediaImpressionCount = &v
+	return s
+}
+
+func (s *StatisticalDataDTO) SetMediaClickCount(v int64) *StatisticalDataDTO {
+	s.MediaClickCount = &v
+	return s
+}
+
+func (s *StatisticalDataDTO) SetConversionDataList(v []*ConversionDataDTO) *StatisticalDataDTO {
+	s.ConversionDataList = v
 	return s
 }
 
@@ -1216,7 +1350,7 @@ type CallbackMktMediastatisticaldataRequest struct {
 	// 统计维度，区分账号（ACCOUNT） 、广告计划(ADVERTISEMENT) 、 素材（MATERIAL）
 	Dimension *string `json:"dimension,omitempty" xml:"dimension,omitempty" require:"true"`
 	// 统计数据
-	StatisticalDataList *string `json:"statistical_data_list,omitempty" xml:"statistical_data_list,omitempty" require:"true"`
+	StatisticalDataList []*StatisticalDataDTO `json:"statistical_data_list,omitempty" xml:"statistical_data_list,omitempty" require:"true" type:"Repeated"`
 }
 
 func (s CallbackMktMediastatisticaldataRequest) String() string {
@@ -1252,8 +1386,8 @@ func (s *CallbackMktMediastatisticaldataRequest) SetDimension(v string) *Callbac
 	return s
 }
 
-func (s *CallbackMktMediastatisticaldataRequest) SetStatisticalDataList(v string) *CallbackMktMediastatisticaldataRequest {
-	s.StatisticalDataList = &v
+func (s *CallbackMktMediastatisticaldataRequest) SetStatisticalDataList(v []*StatisticalDataDTO) *CallbackMktMediastatisticaldataRequest {
+	s.StatisticalDataList = v
 	return s
 }
 
@@ -1304,7 +1438,7 @@ type CallbackMktEffectsimpleRequest struct {
 	// 项目ID，待蚂蚁分配
 	ProjectId *string `json:"project_id,omitempty" xml:"project_id,omitempty" require:"true"`
 	// 营销模式，AI_HANGUP_SMS("AI挂短")， AI_OFFICIAL_ACCOUNT("AI公众号"), BPO_WECHAT("BPO企微"), AI_BPO("AI_BPO")
-	MarketingMode *string `json:"marketing_mode,omitempty" xml:"marketing_mode,omitempty" require:"true"`
+	MarketingMode *string `json:"marketing_mode,omitempty" xml:"marketing_mode,omitempty"`
 	// 投保特征短链
 	InsureShortUrl *string `json:"insure_short_url,omitempty" xml:"insure_short_url,omitempty" require:"true"`
 	// 加密类型：MD5，32位[小]
@@ -1485,6 +1619,8 @@ type ApplyMktserviceproviderAudiencecircleResponse struct {
 	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
 	// 请求id，每一次请求保持唯一；
 	RequestId *string `json:"request_id,omitempty" xml:"request_id,omitempty"`
+	// 批次号
+	BatchNo *string `json:"batch_no,omitempty" xml:"batch_no,omitempty"`
 }
 
 func (s ApplyMktserviceproviderAudiencecircleResponse) String() string {
@@ -1512,6 +1648,11 @@ func (s *ApplyMktserviceproviderAudiencecircleResponse) SetResultMsg(v string) *
 
 func (s *ApplyMktserviceproviderAudiencecircleResponse) SetRequestId(v string) *ApplyMktserviceproviderAudiencecircleResponse {
 	s.RequestId = &v
+	return s
+}
+
+func (s *ApplyMktserviceproviderAudiencecircleResponse) SetBatchNo(v string) *ApplyMktserviceproviderAudiencecircleResponse {
+	s.BatchNo = &v
 	return s
 }
 
@@ -6067,7 +6208,7 @@ type CallbackMktEffectRequest struct {
 	// AI_OFFICIAL_ACCOUNT("AI公众号"),
 	// BPO_WECHAT("BPO企微"),
 	// AI_BPO("AI_BPO")
-	MarketingMode *string `json:"marketing_mode,omitempty" xml:"marketing_mode,omitempty" require:"true" maxLength:"64"`
+	MarketingMode *string `json:"marketing_mode,omitempty" xml:"marketing_mode,omitempty" maxLength:"64"`
 	// 投保特征短链
 	InsureShortUrl *string `json:"insure_short_url,omitempty" xml:"insure_short_url,omitempty" maxLength:"256"`
 	// 加密类型：MD5，32位[小]
@@ -6535,7 +6676,7 @@ func (client *Client) DoRequest(version *string, action *string, protocol *strin
 				"req_msg_id":       antchainutil.GetNonce(),
 				"access_key":       client.AccessKeyId,
 				"base_sdk_version": tea.String("TeaSDK-2.0"),
-				"sdk_version":      tea.String("1.12.53"),
+				"sdk_version":      tea.String("1.12.59"),
 				"_prod_code":       tea.String("INSURANCE_SAAS"),
 				"_prod_channel":    tea.String("undefined"),
 			}
@@ -6847,9 +6988,9 @@ func (client *Client) NotifyEmbedoemautoinsuranceEventEx(request *NotifyEmbedoem
 
 // Description:
 //
-// Description: 1
+// Description: 媒体点击统计数据回传
 //
-// Summary: 1
+// Summary: 媒体点击统计数据回传
 func (client *Client) CallbackMktMediastatisticaldata(request *CallbackMktMediastatisticaldataRequest) (_result *CallbackMktMediastatisticaldataResponse, _err error) {
 	runtime := &util.RuntimeOptions{}
 	headers := make(map[string]*string)
@@ -6864,9 +7005,9 @@ func (client *Client) CallbackMktMediastatisticaldata(request *CallbackMktMedias
 
 // Description:
 //
-// Description: 1
+// Description: 媒体点击统计数据回传
 //
-// Summary: 1
+// Summary: 媒体点击统计数据回传
 func (client *Client) CallbackMktMediastatisticaldataEx(request *CallbackMktMediastatisticaldataRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *CallbackMktMediastatisticaldataResponse, _err error) {
 	_err = util.ValidateModel(request)
 	if _err != nil {
