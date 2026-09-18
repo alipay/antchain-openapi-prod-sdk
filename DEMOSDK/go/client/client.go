@@ -316,6 +316,28 @@ func (s *TestParamB) SetStructListB(v *TestParamC) *TestParamB {
 	return s
 }
 
+// 返回结果测试类-11
+type ResultTest struct {
+	// 姓名
+	// example:
+	//
+	// 张三
+	Name *string `json:"name,omitempty" xml:"name,omitempty"`
+}
+
+func (s ResultTest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s ResultTest) GoString() string {
+	return s.String()
+}
+
+func (s *ResultTest) SetName(v string) *ResultTest {
+	s.Name = &v
+	return s
+}
+
 // test for edit
 type TestParamA struct {
 	// string_param
@@ -385,87 +407,6 @@ func (s *TestParamA) SetStructListA(v []*TestParamB) *TestParamA {
 	return s
 }
 
-// a
-type TestDemo struct {
-	// a
-	// example:
-	//
-	// a
-	Timeout *string `json:"timeout,omitempty" xml:"timeout,omitempty"`
-}
-
-func (s TestDemo) String() string {
-	return tea.Prettify(s)
-}
-
-func (s TestDemo) GoString() string {
-	return s.String()
-}
-
-func (s *TestDemo) SetTimeout(v string) *TestDemo {
-	s.Timeout = &v
-	return s
-}
-
-// Demo类1
-type DemoClass struct {
-	// 字符串测试
-	// example:
-	//
-	// some string
-	SomeString *string `json:"some_string,omitempty" xml:"some_string,omitempty" require:"true"`
-	// 日期测试
-	// example:
-	//
-	// 3
-	SomeDate *string `json:"some_date,omitempty" xml:"some_date,omitempty" require:"true" pattern:"\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}([Z]|([\\.]\\d{1,9})?[\\+]\\d{2}[\\:]?\\d{2})"`
-	// Boolean测试
-	// example:
-	//
-	// true
-	SomeBoolean *bool `json:"some_boolean,omitempty" xml:"some_boolean,omitempty" require:"true"`
-	// 整数测试
-	// example:
-	//
-	// 3
-	SomeInt *int64 `json:"some_int,omitempty" xml:"some_int,omitempty" require:"true" maximum:"2000" minimum:"1"`
-	// 列表测试
-	SomeList []*string `json:"some_list,omitempty" xml:"some_list,omitempty" require:"true" type:"Repeated"`
-}
-
-func (s DemoClass) String() string {
-	return tea.Prettify(s)
-}
-
-func (s DemoClass) GoString() string {
-	return s.String()
-}
-
-func (s *DemoClass) SetSomeString(v string) *DemoClass {
-	s.SomeString = &v
-	return s
-}
-
-func (s *DemoClass) SetSomeDate(v string) *DemoClass {
-	s.SomeDate = &v
-	return s
-}
-
-func (s *DemoClass) SetSomeBoolean(v bool) *DemoClass {
-	s.SomeBoolean = &v
-	return s
-}
-
-func (s *DemoClass) SetSomeInt(v int64) *DemoClass {
-	s.SomeInt = &v
-	return s
-}
-
-func (s *DemoClass) SetSomeList(v []*string) *DemoClass {
-	s.SomeList = v
-	return s
-}
-
 // 测试11-22
 type TestParams struct {
 	// a
@@ -520,87 +461,75 @@ func (s *OrderA) SetAaa(v string) *OrderA {
 	return s
 }
 
-// DEMOSDK结构体A·edit for test18
-type DemosdkStructA struct {
-	// 【公司名称】
+// mcp验证使用结构体
+type McpTestStruct struct {
+	// string入参
 	// example:
 	//
-	// xx公司
-	CompanyName *string `json:"company_name,omitempty" xml:"company_name,omitempty"`
-	// 【业务类型】
+	// string入参
+	StructString *string `json:"struct_string,omitempty" xml:"struct_string,omitempty" require:"true"`
+	// number入参
 	// example:
 	//
-	// 运营
-	ProductMainClass *string `json:"product_main_class,omitempty" xml:"product_main_class,omitempty"`
-	// 【公司地址】
+	// 100
+	StructNumber *int64 `json:"struct_number,omitempty" xml:"struct_number,omitempty" require:"true"`
+	// boolean入参
 	// example:
 	//
-	// xx市xx区
-	CompanyAddress *string `json:"company_address,omitempty" xml:"company_address,omitempty"`
-	// 【联系人】
+	// true
+	StructBoolean *bool `json:"struct_boolean,omitempty" xml:"struct_boolean,omitempty" require:"true"`
+	// date入参
 	// example:
 	//
-	// 张三
-	ContactName *string `json:"contact_name,omitempty" xml:"contact_name,omitempty"`
-	// 【联系人手机号】
+	// 2026-09-16 10:00:00
+	StructDate *string `json:"struct_date,omitempty" xml:"struct_date,omitempty" require:"true" pattern:"\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}([Z]|([\\.]\\d{1,9})?[\\+]\\d{2}[\\:]?\\d{2})"`
+	// list_string入参
 	// example:
 	//
-	// 13688888888
-	ContactMobile *string `json:"contact_mobile,omitempty" xml:"contact_mobile,omitempty"`
+	// ["VIP","新用户"]
+	StructList []*string `json:"struct_list,omitempty" xml:"struct_list,omitempty" require:"true" type:"Repeated"`
+	// struct入参
+	// example:
+	//
+	// undefined
+	StructStruct *ResultTest `json:"struct_struct,omitempty" xml:"struct_struct,omitempty" require:"true"`
 }
 
-func (s DemosdkStructA) String() string {
+func (s McpTestStruct) String() string {
 	return tea.Prettify(s)
 }
 
-func (s DemosdkStructA) GoString() string {
+func (s McpTestStruct) GoString() string {
 	return s.String()
 }
 
-func (s *DemosdkStructA) SetCompanyName(v string) *DemosdkStructA {
-	s.CompanyName = &v
+func (s *McpTestStruct) SetStructString(v string) *McpTestStruct {
+	s.StructString = &v
 	return s
 }
 
-func (s *DemosdkStructA) SetProductMainClass(v string) *DemosdkStructA {
-	s.ProductMainClass = &v
+func (s *McpTestStruct) SetStructNumber(v int64) *McpTestStruct {
+	s.StructNumber = &v
 	return s
 }
 
-func (s *DemosdkStructA) SetCompanyAddress(v string) *DemosdkStructA {
-	s.CompanyAddress = &v
+func (s *McpTestStruct) SetStructBoolean(v bool) *McpTestStruct {
+	s.StructBoolean = &v
 	return s
 }
 
-func (s *DemosdkStructA) SetContactName(v string) *DemosdkStructA {
-	s.ContactName = &v
+func (s *McpTestStruct) SetStructDate(v string) *McpTestStruct {
+	s.StructDate = &v
 	return s
 }
 
-func (s *DemosdkStructA) SetContactMobile(v string) *DemosdkStructA {
-	s.ContactMobile = &v
+func (s *McpTestStruct) SetStructList(v []*string) *McpTestStruct {
+	s.StructList = v
 	return s
 }
 
-// 返回结果测试类-11
-type ResultTest struct {
-	// 姓名
-	// example:
-	//
-	// 张三
-	Name *string `json:"name,omitempty" xml:"name,omitempty"`
-}
-
-func (s ResultTest) String() string {
-	return tea.Prettify(s)
-}
-
-func (s ResultTest) GoString() string {
-	return s.String()
-}
-
-func (s *ResultTest) SetName(v string) *ResultTest {
-	s.Name = &v
+func (s *McpTestStruct) SetStructStruct(v *ResultTest) *McpTestStruct {
+	s.StructStruct = v
 	return s
 }
 
@@ -687,6 +616,324 @@ func (s SumBean) GoString() string {
 
 func (s *SumBean) SetA(v int64) *SumBean {
 	s.A = &v
+	return s
+}
+
+// a
+type TestDemo struct {
+	// a
+	// example:
+	//
+	// a
+	Timeout *string `json:"timeout,omitempty" xml:"timeout,omitempty"`
+}
+
+func (s TestDemo) String() string {
+	return tea.Prettify(s)
+}
+
+func (s TestDemo) GoString() string {
+	return s.String()
+}
+
+func (s *TestDemo) SetTimeout(v string) *TestDemo {
+	s.Timeout = &v
+	return s
+}
+
+// Demo类1
+type DemoClass struct {
+	// 字符串测试
+	// example:
+	//
+	// some string
+	SomeString *string `json:"some_string,omitempty" xml:"some_string,omitempty" require:"true"`
+	// 日期测试
+	// example:
+	//
+	// 3
+	SomeDate *string `json:"some_date,omitempty" xml:"some_date,omitempty" require:"true" pattern:"\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}([Z]|([\\.]\\d{1,9})?[\\+]\\d{2}[\\:]?\\d{2})"`
+	// Boolean测试
+	// example:
+	//
+	// true
+	SomeBoolean *bool `json:"some_boolean,omitempty" xml:"some_boolean,omitempty" require:"true"`
+	// 整数测试
+	// example:
+	//
+	// 3
+	SomeInt *int64 `json:"some_int,omitempty" xml:"some_int,omitempty" require:"true" maximum:"2000" minimum:"1"`
+	// 列表测试
+	SomeList []*string `json:"some_list,omitempty" xml:"some_list,omitempty" require:"true" type:"Repeated"`
+}
+
+func (s DemoClass) String() string {
+	return tea.Prettify(s)
+}
+
+func (s DemoClass) GoString() string {
+	return s.String()
+}
+
+func (s *DemoClass) SetSomeString(v string) *DemoClass {
+	s.SomeString = &v
+	return s
+}
+
+func (s *DemoClass) SetSomeDate(v string) *DemoClass {
+	s.SomeDate = &v
+	return s
+}
+
+func (s *DemoClass) SetSomeBoolean(v bool) *DemoClass {
+	s.SomeBoolean = &v
+	return s
+}
+
+func (s *DemoClass) SetSomeInt(v int64) *DemoClass {
+	s.SomeInt = &v
+	return s
+}
+
+func (s *DemoClass) SetSomeList(v []*string) *DemoClass {
+	s.SomeList = v
+	return s
+}
+
+// DEMOSDK结构体A·edit for test18
+type DemosdkStructA struct {
+	// 【公司名称】
+	// example:
+	//
+	// xx公司
+	CompanyName *string `json:"company_name,omitempty" xml:"company_name,omitempty"`
+	// 【业务类型】
+	// example:
+	//
+	// 运营
+	ProductMainClass *string `json:"product_main_class,omitempty" xml:"product_main_class,omitempty"`
+	// 【公司地址】
+	// example:
+	//
+	// xx市xx区
+	CompanyAddress *string `json:"company_address,omitempty" xml:"company_address,omitempty"`
+	// 【联系人】
+	// example:
+	//
+	// 张三
+	ContactName *string `json:"contact_name,omitempty" xml:"contact_name,omitempty"`
+	// 【联系人手机号】
+	// example:
+	//
+	// 13688888888
+	ContactMobile *string `json:"contact_mobile,omitempty" xml:"contact_mobile,omitempty"`
+}
+
+func (s DemosdkStructA) String() string {
+	return tea.Prettify(s)
+}
+
+func (s DemosdkStructA) GoString() string {
+	return s.String()
+}
+
+func (s *DemosdkStructA) SetCompanyName(v string) *DemosdkStructA {
+	s.CompanyName = &v
+	return s
+}
+
+func (s *DemosdkStructA) SetProductMainClass(v string) *DemosdkStructA {
+	s.ProductMainClass = &v
+	return s
+}
+
+func (s *DemosdkStructA) SetCompanyAddress(v string) *DemosdkStructA {
+	s.CompanyAddress = &v
+	return s
+}
+
+func (s *DemosdkStructA) SetContactName(v string) *DemosdkStructA {
+	s.ContactName = &v
+	return s
+}
+
+func (s *DemosdkStructA) SetContactMobile(v string) *DemosdkStructA {
+	s.ContactMobile = &v
+	return s
+}
+
+type QueryAlltestApiRequest struct {
+	// OAuth模式下的授权token
+	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
+}
+
+func (s QueryAlltestApiRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s QueryAlltestApiRequest) GoString() string {
+	return s.String()
+}
+
+func (s *QueryAlltestApiRequest) SetAuthToken(v string) *QueryAlltestApiRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *QueryAlltestApiRequest) SetProductInstanceId(v string) *QueryAlltestApiRequest {
+	s.ProductInstanceId = &v
+	return s
+}
+
+type QueryAlltestApiResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+}
+
+func (s QueryAlltestApiResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s QueryAlltestApiResponse) GoString() string {
+	return s.String()
+}
+
+func (s *QueryAlltestApiResponse) SetReqMsgId(v string) *QueryAlltestApiResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *QueryAlltestApiResponse) SetResultCode(v string) *QueryAlltestApiResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *QueryAlltestApiResponse) SetResultMsg(v string) *QueryAlltestApiResponse {
+	s.ResultMsg = &v
+	return s
+}
+
+type TypeMcpResponseRequest struct {
+	// OAuth模式下的授权token
+	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
+	// string类型入参
+	StringParameter *string `json:"string_parameter,omitempty" xml:"string_parameter,omitempty"`
+	// number类型入参
+	NumberParameter *int64 `json:"number_parameter,omitempty" xml:"number_parameter,omitempty"`
+	// boolean类型入参
+	BooleanParameter *bool `json:"boolean_parameter,omitempty" xml:"boolean_parameter,omitempty"`
+	// date类型入参
+	DateParameter *string `json:"date_parameter,omitempty" xml:"date_parameter,omitempty" pattern:"\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}([Z]|([\\.]\\d{1,9})?[\\+]\\d{2}[\\:]?\\d{2})"`
+	// list_struct类型入参
+	ListParameter []*McpTestStruct `json:"list_parameter,omitempty" xml:"list_parameter,omitempty" type:"Repeated"`
+	// struct类型入参
+	StructParameter *McpTestStruct `json:"struct_parameter,omitempty" xml:"struct_parameter,omitempty"`
+	// 超时时间
+	Timeout *string `json:"timeout,omitempty" xml:"timeout,omitempty" require:"true"`
+}
+
+func (s TypeMcpResponseRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s TypeMcpResponseRequest) GoString() string {
+	return s.String()
+}
+
+func (s *TypeMcpResponseRequest) SetAuthToken(v string) *TypeMcpResponseRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *TypeMcpResponseRequest) SetProductInstanceId(v string) *TypeMcpResponseRequest {
+	s.ProductInstanceId = &v
+	return s
+}
+
+func (s *TypeMcpResponseRequest) SetStringParameter(v string) *TypeMcpResponseRequest {
+	s.StringParameter = &v
+	return s
+}
+
+func (s *TypeMcpResponseRequest) SetNumberParameter(v int64) *TypeMcpResponseRequest {
+	s.NumberParameter = &v
+	return s
+}
+
+func (s *TypeMcpResponseRequest) SetBooleanParameter(v bool) *TypeMcpResponseRequest {
+	s.BooleanParameter = &v
+	return s
+}
+
+func (s *TypeMcpResponseRequest) SetDateParameter(v string) *TypeMcpResponseRequest {
+	s.DateParameter = &v
+	return s
+}
+
+func (s *TypeMcpResponseRequest) SetListParameter(v []*McpTestStruct) *TypeMcpResponseRequest {
+	s.ListParameter = v
+	return s
+}
+
+func (s *TypeMcpResponseRequest) SetStructParameter(v *McpTestStruct) *TypeMcpResponseRequest {
+	s.StructParameter = v
+	return s
+}
+
+func (s *TypeMcpResponseRequest) SetTimeout(v string) *TypeMcpResponseRequest {
+	s.Timeout = &v
+	return s
+}
+
+type TypeMcpResponseResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// 状态码
+	Stauts *string `json:"stauts,omitempty" xml:"stauts,omitempty"`
+	// 状态描述
+	Msg *string `json:"msg,omitempty" xml:"msg,omitempty"`
+}
+
+func (s TypeMcpResponseResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s TypeMcpResponseResponse) GoString() string {
+	return s.String()
+}
+
+func (s *TypeMcpResponseResponse) SetReqMsgId(v string) *TypeMcpResponseResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *TypeMcpResponseResponse) SetResultCode(v string) *TypeMcpResponseResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *TypeMcpResponseResponse) SetResultMsg(v string) *TypeMcpResponseResponse {
+	s.ResultMsg = &v
+	return s
+}
+
+func (s *TypeMcpResponseResponse) SetStauts(v string) *TypeMcpResponseResponse {
+	s.Stauts = &v
+	return s
+}
+
+func (s *TypeMcpResponseResponse) SetMsg(v string) *TypeMcpResponseResponse {
+	s.Msg = &v
 	return s
 }
 
@@ -1401,6 +1648,139 @@ func (s *ConfigQueryApiResponse) SetStauts(v string) *ConfigQueryApiResponse {
 
 func (s *ConfigQueryApiResponse) SetMsg(v string) *ConfigQueryApiResponse {
 	s.Msg = &v
+	return s
+}
+
+type SsssQaadsWwwdRequest struct {
+	// OAuth模式下的授权token
+	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
+}
+
+func (s SsssQaadsWwwdRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s SsssQaadsWwwdRequest) GoString() string {
+	return s.String()
+}
+
+func (s *SsssQaadsWwwdRequest) SetAuthToken(v string) *SsssQaadsWwwdRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *SsssQaadsWwwdRequest) SetProductInstanceId(v string) *SsssQaadsWwwdRequest {
+	s.ProductInstanceId = &v
+	return s
+}
+
+type SsssQaadsWwwdResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+}
+
+func (s SsssQaadsWwwdResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s SsssQaadsWwwdResponse) GoString() string {
+	return s.String()
+}
+
+func (s *SsssQaadsWwwdResponse) SetReqMsgId(v string) *SsssQaadsWwwdResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *SsssQaadsWwwdResponse) SetResultCode(v string) *SsssQaadsWwwdResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *SsssQaadsWwwdResponse) SetResultMsg(v string) *SsssQaadsWwwdResponse {
+	s.ResultMsg = &v
+	return s
+}
+
+type ApiaCliAutocreateRequest struct {
+	// OAuth模式下的授权token
+	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
+	// 超时时间
+	Timeout *string `json:"timeout,omitempty" xml:"timeout,omitempty" require:"true"`
+}
+
+func (s ApiaCliAutocreateRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s ApiaCliAutocreateRequest) GoString() string {
+	return s.String()
+}
+
+func (s *ApiaCliAutocreateRequest) SetAuthToken(v string) *ApiaCliAutocreateRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *ApiaCliAutocreateRequest) SetProductInstanceId(v string) *ApiaCliAutocreateRequest {
+	s.ProductInstanceId = &v
+	return s
+}
+
+func (s *ApiaCliAutocreateRequest) SetTimeout(v string) *ApiaCliAutocreateRequest {
+	s.Timeout = &v
+	return s
+}
+
+type ApiaCliAutocreateResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// 状态描述
+	Msg *string `json:"msg,omitempty" xml:"msg,omitempty"`
+	// 状态码
+	Status *string `json:"status,omitempty" xml:"status,omitempty"`
+}
+
+func (s ApiaCliAutocreateResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s ApiaCliAutocreateResponse) GoString() string {
+	return s.String()
+}
+
+func (s *ApiaCliAutocreateResponse) SetReqMsgId(v string) *ApiaCliAutocreateResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *ApiaCliAutocreateResponse) SetResultCode(v string) *ApiaCliAutocreateResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *ApiaCliAutocreateResponse) SetResultMsg(v string) *ApiaCliAutocreateResponse {
+	s.ResultMsg = &v
+	return s
+}
+
+func (s *ApiaCliAutocreateResponse) SetMsg(v string) *ApiaCliAutocreateResponse {
+	s.Msg = &v
+	return s
+}
+
+func (s *ApiaCliAutocreateResponse) SetStatus(v string) *ApiaCliAutocreateResponse {
+	s.Status = &v
 	return s
 }
 
@@ -3011,7 +3391,7 @@ func (client *Client) DoRequest(version *string, action *string, protocol *strin
 				"req_msg_id":       antchainutil.GetNonce(),
 				"access_key":       client.AccessKeyId,
 				"base_sdk_version": tea.String("TeaSDK-2.0"),
-				"sdk_version":      tea.String("1.3.66"),
+				"sdk_version":      tea.String("1.3.68"),
 				"_prod_code":       tea.String("DEMOSDK"),
 				"_prod_channel":    tea.String("default"),
 			}
@@ -3067,6 +3447,78 @@ func (client *Client) DoRequest(version *string, action *string, protocol *strin
 	}
 
 	return _resp, _err
+}
+
+// Description:
+//
+// Description: a
+//
+// Summary: a
+func (client *Client) QueryAlltestApi(request *QueryAlltestApiRequest) (_result *QueryAlltestApiResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &QueryAlltestApiResponse{}
+	_body, _err := client.QueryAlltestApiEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+// Description:
+//
+// Description: a
+//
+// Summary: a
+func (client *Client) QueryAlltestApiEx(request *QueryAlltestApiRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *QueryAlltestApiResponse, _err error) {
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &QueryAlltestApiResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("antchain.demosdk.alltest.api.query"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
+}
+
+// Description:
+//
+// Description: mcp入参类型验证
+//
+// Summary: mcp入参类型验证
+func (client *Client) TypeMcpResponse(request *TypeMcpResponseRequest) (_result *TypeMcpResponseResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &TypeMcpResponseResponse{}
+	_body, _err := client.TypeMcpResponseEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+// Description:
+//
+// Description: mcp入参类型验证
+//
+// Summary: mcp入参类型验证
+func (client *Client) TypeMcpResponseEx(request *TypeMcpResponseRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *TypeMcpResponseResponse, _err error) {
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &TypeMcpResponseResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("antchain.demosdk.mcp.response.type"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
 }
 
 // Description:
@@ -3458,6 +3910,78 @@ func (client *Client) ConfigQueryApiEx(request *ConfigQueryApiRequest, headers m
 	}
 	_result = &ConfigQueryApiResponse{}
 	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("antchain.demosdk.query.api.config"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
+}
+
+// Description:
+//
+// Description: test
+//
+// Summary: test
+func (client *Client) SsssQaadsWwwd(request *SsssQaadsWwwdRequest) (_result *SsssQaadsWwwdResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &SsssQaadsWwwdResponse{}
+	_body, _err := client.SsssQaadsWwwdEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+// Description:
+//
+// Description: test
+//
+// Summary: test
+func (client *Client) SsssQaadsWwwdEx(request *SsssQaadsWwwdRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *SsssQaadsWwwdResponse, _err error) {
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &SsssQaadsWwwdResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("antchain.demosdk.qaads.wwwd.ssss"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
+}
+
+// Description:
+//
+// Description: 这是cli自动创建的接口
+//
+// Summary: 这是cli自动创建的接口
+func (client *Client) ApiaCliAutocreate(request *ApiaCliAutocreateRequest) (_result *ApiaCliAutocreateResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &ApiaCliAutocreateResponse{}
+	_body, _err := client.ApiaCliAutocreateEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+// Description:
+//
+// Description: 这是cli自动创建的接口
+//
+// Summary: 这是cli自动创建的接口
+func (client *Client) ApiaCliAutocreateEx(request *ApiaCliAutocreateRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *ApiaCliAutocreateResponse, _err error) {
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &ApiaCliAutocreateResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("antchain.demosdk.cli.autocreate.apia"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
 	if _err != nil {
 		return _result, _err
 	}
