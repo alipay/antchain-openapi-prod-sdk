@@ -126,7 +126,7 @@ public class Client {
                     new TeaPair("req_msg_id", com.antgroup.antchain.openapi.antchain.util.AntchainUtils.getNonce()),
                     new TeaPair("access_key", _accessKeyId),
                     new TeaPair("base_sdk_version", "TeaSDK-2.0"),
-                    new TeaPair("sdk_version", "1.3.66"),
+                    new TeaPair("sdk_version", "1.3.67"),
                     new TeaPair("_prod_code", "DEMOSDK"),
                     new TeaPair("_prod_channel", "default")
                 );
@@ -186,6 +186,48 @@ public class Client {
 
     public void addResponseInterceptor(ResponseInterceptor interceptor) {
         interceptorChain.addResponseInterceptor(interceptor);
+    }
+
+    /**
+     * <b>description</b> :
+     * <p>Description: a
+     * Summary: a</p>
+     */
+    public QueryAlltestApiResponse queryAlltestApi(QueryAlltestApiRequest request) throws Exception {
+        com.aliyun.teautil.models.RuntimeOptions runtime = new com.aliyun.teautil.models.RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.queryAlltestApiEx(request, headers, runtime);
+    }
+
+    /**
+     * <b>description</b> :
+     * <p>Description: a
+     * Summary: a</p>
+     */
+    public QueryAlltestApiResponse queryAlltestApiEx(QueryAlltestApiRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "antchain.demosdk.alltest.api.query", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new QueryAlltestApiResponse());
+    }
+
+    /**
+     * <b>description</b> :
+     * <p>Description: mcp入参类型验证
+     * Summary: mcp入参类型验证</p>
+     */
+    public TypeMcpResponseResponse typeMcpResponse(TypeMcpResponseRequest request) throws Exception {
+        com.aliyun.teautil.models.RuntimeOptions runtime = new com.aliyun.teautil.models.RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.typeMcpResponseEx(request, headers, runtime);
+    }
+
+    /**
+     * <b>description</b> :
+     * <p>Description: mcp入参类型验证
+     * Summary: mcp入参类型验证</p>
+     */
+    public TypeMcpResponseResponse typeMcpResponseEx(TypeMcpResponseRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "antchain.demosdk.mcp.response.type", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new TypeMcpResponseResponse());
     }
 
     /**
@@ -417,6 +459,48 @@ public class Client {
     public ConfigQueryApiResponse configQueryApiEx(ConfigQueryApiRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
         com.aliyun.teautil.Common.validateModel(request);
         return TeaModel.toModel(this.doRequest("1.0", "antchain.demosdk.query.api.config", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new ConfigQueryApiResponse());
+    }
+
+    /**
+     * <b>description</b> :
+     * <p>Description: test
+     * Summary: test</p>
+     */
+    public SsssQaadsWwwdResponse ssssQaadsWwwd(SsssQaadsWwwdRequest request) throws Exception {
+        com.aliyun.teautil.models.RuntimeOptions runtime = new com.aliyun.teautil.models.RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.ssssQaadsWwwdEx(request, headers, runtime);
+    }
+
+    /**
+     * <b>description</b> :
+     * <p>Description: test
+     * Summary: test</p>
+     */
+    public SsssQaadsWwwdResponse ssssQaadsWwwdEx(SsssQaadsWwwdRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "antchain.demosdk.qaads.wwwd.ssss", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new SsssQaadsWwwdResponse());
+    }
+
+    /**
+     * <b>description</b> :
+     * <p>Description: 这是cli自动创建的接口
+     * Summary: 这是cli自动创建的接口</p>
+     */
+    public ApiaCliAutocreateResponse apiaCliAutocreate(ApiaCliAutocreateRequest request) throws Exception {
+        com.aliyun.teautil.models.RuntimeOptions runtime = new com.aliyun.teautil.models.RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.apiaCliAutocreateEx(request, headers, runtime);
+    }
+
+    /**
+     * <b>description</b> :
+     * <p>Description: 这是cli自动创建的接口
+     * Summary: 这是cli自动创建的接口</p>
+     */
+    public ApiaCliAutocreateResponse apiaCliAutocreateEx(ApiaCliAutocreateRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "antchain.demosdk.cli.autocreate.apia", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new ApiaCliAutocreateResponse());
     }
 
     /**
