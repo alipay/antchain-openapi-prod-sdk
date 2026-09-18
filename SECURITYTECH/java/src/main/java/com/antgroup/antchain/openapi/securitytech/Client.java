@@ -126,7 +126,7 @@ public class Client {
                     new TeaPair("req_msg_id", com.antgroup.antchain.openapi.antchain.util.AntchainUtils.getNonce()),
                     new TeaPair("access_key", _accessKeyId),
                     new TeaPair("base_sdk_version", "TeaSDK-2.0"),
-                    new TeaPair("sdk_version", "1.7.15"),
+                    new TeaPair("sdk_version", "1.7.30"),
                     new TeaPair("_prod_code", "SECURITYTECH"),
                     new TeaPair("_prod_channel", "undefined")
                 );
@@ -1557,6 +1557,322 @@ public class Client {
 
     /**
      * <b>description</b> :
+     * <p>Description: 天枢交易状态变更时回调 eKYT
+     * Summary: 天枢交易状态变更时回调 eKYT</p>
+     */
+    public NotifyPoiTradeResponse notifyPoiTrade(NotifyPoiTradeRequest request) throws Exception {
+        com.aliyun.teautil.models.RuntimeOptions runtime = new com.aliyun.teautil.models.RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.notifyPoiTradeEx(request, headers, runtime);
+    }
+
+    /**
+     * <b>description</b> :
+     * <p>Description: 天枢交易状态变更时回调 eKYT
+     * Summary: 天枢交易状态变更时回调 eKYT</p>
+     */
+    public NotifyPoiTradeResponse notifyPoiTradeEx(NotifyPoiTradeRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "antsecuritytech.gateway.poi.trade.notify", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new NotifyPoiTradeResponse());
+    }
+
+    /**
+     * <b>description</b> :
+     * <p>Description: 商户入驻申请
+     * Summary: 商户入驻申请</p>
+     */
+    public CreateMerchantApplyResponse createMerchantApply(CreateMerchantApplyRequest request) throws Exception {
+        com.aliyun.teautil.models.RuntimeOptions runtime = new com.aliyun.teautil.models.RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.createMerchantApplyEx(request, headers, runtime);
+    }
+
+    /**
+     * <b>description</b> :
+     * <p>Description: 商户入驻申请
+     * Summary: 商户入驻申请</p>
+     */
+    public CreateMerchantApplyResponse createMerchantApplyEx(CreateMerchantApplyRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "antsecuritytech.gateway.merchant.apply.create", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new CreateMerchantApplyResponse());
+    }
+
+    /**
+     * <b>description</b> :
+     * <p>Description: 商户信息修改
+     * Summary: 商户信息修改</p>
+     */
+    public UpdateMerchantApplyResponse updateMerchantApply(UpdateMerchantApplyRequest request) throws Exception {
+        com.aliyun.teautil.models.RuntimeOptions runtime = new com.aliyun.teautil.models.RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.updateMerchantApplyEx(request, headers, runtime);
+    }
+
+    /**
+     * <b>description</b> :
+     * <p>Description: 商户信息修改
+     * Summary: 商户信息修改</p>
+     */
+    public UpdateMerchantApplyResponse updateMerchantApplyEx(UpdateMerchantApplyRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "antsecuritytech.gateway.merchant.apply.update", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new UpdateMerchantApplyResponse());
+    }
+
+    /**
+     * <b>description</b> :
+     * <p>Description: 商户信息查询
+     * Summary: 商户信息查询</p>
+     */
+    public QueryMerchantResponse queryMerchant(QueryMerchantRequest request) throws Exception {
+        com.aliyun.teautil.models.RuntimeOptions runtime = new com.aliyun.teautil.models.RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.queryMerchantEx(request, headers, runtime);
+    }
+
+    /**
+     * <b>description</b> :
+     * <p>Description: 商户信息查询
+     * Summary: 商户信息查询</p>
+     */
+    public QueryMerchantResponse queryMerchantEx(QueryMerchantRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "antsecuritytech.gateway.merchant.query", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new QueryMerchantResponse());
+    }
+
+    /**
+     * <b>description</b> :
+     * <p>Description: 商户信息批量查询
+     * Summary: 商户信息批量查询</p>
+     */
+    public QueryMerchantBatchResponse queryMerchantBatch(QueryMerchantBatchRequest request) throws Exception {
+        com.aliyun.teautil.models.RuntimeOptions runtime = new com.aliyun.teautil.models.RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.queryMerchantBatchEx(request, headers, runtime);
+    }
+
+    /**
+     * <b>description</b> :
+     * <p>Description: 商户信息批量查询
+     * Summary: 商户信息批量查询</p>
+     */
+    public QueryMerchantBatchResponse queryMerchantBatchEx(QueryMerchantBatchRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "antsecuritytech.gateway.merchant.batch.query", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new QueryMerchantBatchResponse());
+    }
+
+    /**
+     * <b>description</b> :
+     * <p>Description: 审核结果回调接收
+     * Summary: 审核结果回调接收</p>
+     */
+    public CallbackMerchantRiskResponse callbackMerchantRisk(CallbackMerchantRiskRequest request) throws Exception {
+        com.aliyun.teautil.models.RuntimeOptions runtime = new com.aliyun.teautil.models.RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.callbackMerchantRiskEx(request, headers, runtime);
+    }
+
+    /**
+     * <b>description</b> :
+     * <p>Description: 审核结果回调接收
+     * Summary: 审核结果回调接收</p>
+     */
+    public CallbackMerchantRiskResponse callbackMerchantRiskEx(CallbackMerchantRiskRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "antsecuritytech.gateway.merchant.risk.callback", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new CallbackMerchantRiskResponse());
+    }
+
+    /**
+     * <b>description</b> :
+     * <p>Description: 文件file_id回调
+     * Summary: 文件file_id回调</p>
+     */
+    public ReceiveFileidCallbackResponse receiveFileidCallback(ReceiveFileidCallbackRequest request) throws Exception {
+        com.aliyun.teautil.models.RuntimeOptions runtime = new com.aliyun.teautil.models.RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.receiveFileidCallbackEx(request, headers, runtime);
+    }
+
+    /**
+     * <b>description</b> :
+     * <p>Description: 文件file_id回调
+     * Summary: 文件file_id回调</p>
+     */
+    public ReceiveFileidCallbackResponse receiveFileidCallbackEx(ReceiveFileidCallbackRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
+        if (!com.aliyun.teautil.Common.isUnset(request.fileObject)) {
+            CreateAntcloudGatewayxFileUploadRequest uploadReq = CreateAntcloudGatewayxFileUploadRequest.build(TeaConverter.buildMap(
+                new TeaPair("authToken", request.authToken),
+                new TeaPair("apiCode", "antsecuritytech.gateway.fileid.callback.receive"),
+                new TeaPair("fileName", request.fileObjectName)
+            ));
+            CreateAntcloudGatewayxFileUploadResponse uploadResp = this.createAntcloudGatewayxFileUploadEx(uploadReq, headers, runtime);
+            if (!com.antgroup.antchain.openapi.antchain.util.AntchainUtils.isSuccess(uploadResp.resultCode, "ok")) {
+                ReceiveFileidCallbackResponse receiveFileidCallbackResponse = ReceiveFileidCallbackResponse.build(TeaConverter.buildMap(
+                    new TeaPair("reqMsgId", uploadResp.reqMsgId),
+                    new TeaPair("resultCode", uploadResp.resultCode),
+                    new TeaPair("resultMsg", uploadResp.resultMsg)
+                ));
+                return receiveFileidCallbackResponse;
+            }
+
+            java.util.Map<String, String> uploadHeaders = com.antgroup.antchain.openapi.antchain.util.AntchainUtils.parseUploadHeaders(uploadResp.uploadHeaders);
+            com.antgroup.antchain.openapi.antchain.util.AntchainUtils.putObject(request.fileObject, uploadHeaders, uploadResp.uploadUrl);
+            request.fileId = uploadResp.fileId;
+            request.fileObject = null;
+        }
+
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "antsecuritytech.gateway.fileid.callback.receive", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new ReceiveFileidCallbackResponse());
+    }
+
+    /**
+     * <b>description</b> :
+     * <p>Description: 积分订单创建
+     * Summary: 积分订单创建</p>
+     */
+    public CreatePoiMallorderResponse createPoiMallorder(CreatePoiMallorderRequest request) throws Exception {
+        com.aliyun.teautil.models.RuntimeOptions runtime = new com.aliyun.teautil.models.RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.createPoiMallorderEx(request, headers, runtime);
+    }
+
+    /**
+     * <b>description</b> :
+     * <p>Description: 积分订单创建
+     * Summary: 积分订单创建</p>
+     */
+    public CreatePoiMallorderResponse createPoiMallorderEx(CreatePoiMallorderRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "antsecuritytech.gateway.poi.mallorder.create", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new CreatePoiMallorderResponse());
+    }
+
+    /**
+     * <b>description</b> :
+     * <p>Description: 订单状态更新
+     * Summary: 订单状态更新</p>
+     */
+    public UpdatePoiOrderResponse updatePoiOrder(UpdatePoiOrderRequest request) throws Exception {
+        com.aliyun.teautil.models.RuntimeOptions runtime = new com.aliyun.teautil.models.RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.updatePoiOrderEx(request, headers, runtime);
+    }
+
+    /**
+     * <b>description</b> :
+     * <p>Description: 订单状态更新
+     * Summary: 订单状态更新</p>
+     */
+    public UpdatePoiOrderResponse updatePoiOrderEx(UpdatePoiOrderRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "antsecuritytech.gateway.poi.order.update", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new UpdatePoiOrderResponse());
+    }
+
+    /**
+     * <b>description</b> :
+     * <p>Description: 订单退款申请
+     * Summary: 订单退款申请</p>
+     */
+    public ApplyPoiRefundResponse applyPoiRefund(ApplyPoiRefundRequest request) throws Exception {
+        com.aliyun.teautil.models.RuntimeOptions runtime = new com.aliyun.teautil.models.RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.applyPoiRefundEx(request, headers, runtime);
+    }
+
+    /**
+     * <b>description</b> :
+     * <p>Description: 订单退款申请
+     * Summary: 订单退款申请</p>
+     */
+    public ApplyPoiRefundResponse applyPoiRefundEx(ApplyPoiRefundRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "antsecuritytech.gateway.poi.refund.apply", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new ApplyPoiRefundResponse());
+    }
+
+    /**
+     * <b>description</b> :
+     * <p>Description: 退款结果查询
+     * Summary: 退款结果查询</p>
+     */
+    public QueryPoiRefundResponse queryPoiRefund(QueryPoiRefundRequest request) throws Exception {
+        com.aliyun.teautil.models.RuntimeOptions runtime = new com.aliyun.teautil.models.RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.queryPoiRefundEx(request, headers, runtime);
+    }
+
+    /**
+     * <b>description</b> :
+     * <p>Description: 退款结果查询
+     * Summary: 退款结果查询</p>
+     */
+    public QueryPoiRefundResponse queryPoiRefundEx(QueryPoiRefundRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "antsecuritytech.gateway.poi.refund.query", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new QueryPoiRefundResponse());
+    }
+
+    /**
+     * <b>description</b> :
+     * <p>Description: 分账结果通知
+     * Summary: 分账结果通知</p>
+     */
+    public NotifyPoiTransferResponse notifyPoiTransfer(NotifyPoiTransferRequest request) throws Exception {
+        com.aliyun.teautil.models.RuntimeOptions runtime = new com.aliyun.teautil.models.RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.notifyPoiTransferEx(request, headers, runtime);
+    }
+
+    /**
+     * <b>description</b> :
+     * <p>Description: 分账结果通知
+     * Summary: 分账结果通知</p>
+     */
+    public NotifyPoiTransferResponse notifyPoiTransferEx(NotifyPoiTransferRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "antsecuritytech.gateway.poi.transfer.notify", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new NotifyPoiTransferResponse());
+    }
+
+    /**
+     * <b>description</b> :
+     * <p>Description: 退款结果通知
+     * Summary: 退款结果通知</p>
+     */
+    public NotifyPoiRefundResponse notifyPoiRefund(NotifyPoiRefundRequest request) throws Exception {
+        com.aliyun.teautil.models.RuntimeOptions runtime = new com.aliyun.teautil.models.RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.notifyPoiRefundEx(request, headers, runtime);
+    }
+
+    /**
+     * <b>description</b> :
+     * <p>Description: 退款结果通知
+     * Summary: 退款结果通知</p>
+     */
+    public NotifyPoiRefundResponse notifyPoiRefundEx(NotifyPoiRefundRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "antsecuritytech.gateway.poi.refund.notify", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new NotifyPoiRefundResponse());
+    }
+
+    /**
+     * <b>description</b> :
+     * <p>Description: 余额查询
+     * Summary: 余额查询</p>
+     */
+    public QueryPoiFundResponse queryPoiFund(QueryPoiFundRequest request) throws Exception {
+        com.aliyun.teautil.models.RuntimeOptions runtime = new com.aliyun.teautil.models.RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.queryPoiFundEx(request, headers, runtime);
+    }
+
+    /**
+     * <b>description</b> :
+     * <p>Description: 余额查询
+     * Summary: 余额查询</p>
+     */
+    public QueryPoiFundResponse queryPoiFundEx(QueryPoiFundRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "antsecuritytech.gateway.poi.fund.query", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new QueryPoiFundResponse());
+    }
+
+    /**
+     * <b>description</b> :
      * <p>Description: 蓝盾安全图片生成
      * Summary: 蓝盾安全图片生成</p>
      */
@@ -2351,5 +2667,26 @@ public class Client {
     public CheckOpticalIdentifyResponse checkOpticalIdentifyEx(CheckOpticalIdentifyRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
         com.aliyun.teautil.Common.validateModel(request);
         return TeaModel.toModel(this.doRequest("1.0", "antsecuritytech.gateway.optical.identify.check", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new CheckOpticalIdentifyResponse());
+    }
+
+    /**
+     * <b>description</b> :
+     * <p>Description: 创建HTTP PUT提交的文件上传
+     * Summary: 文件上传创建</p>
+     */
+    public CreateAntcloudGatewayxFileUploadResponse createAntcloudGatewayxFileUpload(CreateAntcloudGatewayxFileUploadRequest request) throws Exception {
+        com.aliyun.teautil.models.RuntimeOptions runtime = new com.aliyun.teautil.models.RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.createAntcloudGatewayxFileUploadEx(request, headers, runtime);
+    }
+
+    /**
+     * <b>description</b> :
+     * <p>Description: 创建HTTP PUT提交的文件上传
+     * Summary: 文件上传创建</p>
+     */
+    public CreateAntcloudGatewayxFileUploadResponse createAntcloudGatewayxFileUploadEx(CreateAntcloudGatewayxFileUploadRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "antcloud.gatewayx.file.upload.create", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new CreateAntcloudGatewayxFileUploadResponse());
     }
 }
