@@ -8,7 +8,7 @@ using Tea;
 
 namespace AntChain.SDK.INSURANCE_SAAS.Models
 {
-    public class CallbackMktEffectRequest : TeaModel {
+    public class CallbackMktEffectsimpleRequest : TeaModel {
         // OAuth模式下的授权token
         [NameInMap("auth_token")]
         [Validation(Required=false)]
@@ -16,66 +16,53 @@ namespace AntChain.SDK.INSURANCE_SAAS.Models
 
         // 请求id，每一次请求保持唯一；若重复，则更新原数据；
         [NameInMap("request_id")]
-        [Validation(Required=true, MaxLength=128)]
+        [Validation(Required=true)]
         public string RequestId { get; set; }
 
         // 项目ID，待蚂蚁分配
         [NameInMap("project_id")]
-        [Validation(Required=true, MaxLength=64)]
+        [Validation(Required=true)]
         public string ProjectId { get; set; }
 
-        // 营销模式，AI_HANGUP_SMS("AI挂短")，
-        // AI_OFFICIAL_ACCOUNT("AI公众号"),
-        // BPO_WECHAT("BPO企微"),
-        // AI_BPO("AI_BPO")
+        // 营销模式，AI_HANGUP_SMS("AI挂短")， AI_OFFICIAL_ACCOUNT("AI公众号"), BPO_WECHAT("BPO企微"), AI_BPO("AI_BPO")
         [NameInMap("marketing_mode")]
-        [Validation(Required=false, MaxLength=64)]
+        [Validation(Required=false)]
         public string MarketingMode { get; set; }
 
         // 投保特征短链
         [NameInMap("insure_short_url")]
-        [Validation(Required=false, MaxLength=256)]
+        [Validation(Required=true)]
         public string InsureShortUrl { get; set; }
 
         // 加密类型：MD5，32位[小]
         [NameInMap("encryption_type")]
-        [Validation(Required=true, MaxLength=32)]
+        [Validation(Required=true)]
         public string EncryptionType { get; set; }
 
         // 加密用户标识
         [NameInMap("encrypted_user_id")]
-        [Validation(Required=true, MaxLength=64)]
+        [Validation(Required=true)]
         public string EncryptedUserId { get; set; }
 
         // 应以识别当前用户点击投保页面的唯一标识
         [NameInMap("landing_visit_id")]
-        [Validation(Required=true, MaxLength=128)]
+        [Validation(Required=true)]
         public string LandingVisitId { get; set; }
-
-        // 用户点击进入页面时间（格式：yyyy-MM-dd HH:mm:ss）
-        [NameInMap("click_time")]
-        [Validation(Required=false, MaxLength=32)]
-        public string ClickTime { get; set; }
-
-        // 事件完成时间（yyyy-MM-dd HH:mm:ss）
-        [NameInMap("event_time")]
-        [Validation(Required=true, MaxLength=32)]
-        public string EventTime { get; set; }
 
         // 节点类型
         [NameInMap("node_type")]
-        [Validation(Required=true, MaxLength=64)]
+        [Validation(Required=true)]
         public string NodeType { get; set; }
 
-        // 节点详细信息
-        [NameInMap("node_info")]
-        [Validation(Required=false, MaxLength=2048)]
-        public string NodeInfo { get; set; }
+        // 节点状态（0-未完成；1-已完成）
+        [NameInMap("node_status")]
+        [Validation(Required=true)]
+        public string NodeStatus { get; set; }
 
-        // 产品 ID
-        [NameInMap("product_id")]
-        [Validation(Required=false)]
-        public string ProductId { get; set; }
+        // 事件完成时间（yyyy-MM-dd HH:mm:ss）
+        [NameInMap("event_time")]
+        [Validation(Required=true)]
+        public string EventTime { get; set; }
 
     }
 

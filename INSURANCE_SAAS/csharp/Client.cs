@@ -158,7 +158,7 @@ namespace AntChain.SDK.INSURANCE_SAAS
                         {"req_msg_id", AntChain.AlipayUtil.AntchainUtils.GetNonce()},
                         {"access_key", _accessKeyId},
                         {"base_sdk_version", "TeaSDK-2.0"},
-                        {"sdk_version", "1.12.49"},
+                        {"sdk_version", "1.12.59"},
                         {"_prod_code", "INSURANCE_SAAS"},
                         {"_prod_channel", "undefined"},
                     };
@@ -301,7 +301,7 @@ namespace AntChain.SDK.INSURANCE_SAAS
                         {"req_msg_id", AntChain.AlipayUtil.AntchainUtils.GetNonce()},
                         {"access_key", _accessKeyId},
                         {"base_sdk_version", "TeaSDK-2.0"},
-                        {"sdk_version", "1.12.49"},
+                        {"sdk_version", "1.12.59"},
                         {"_prod_code", "INSURANCE_SAAS"},
                         {"_prod_channel", "undefined"},
                     };
@@ -499,8 +499,8 @@ namespace AntChain.SDK.INSURANCE_SAAS
 
         /// <term><b>Description:</b></term>
         /// <description>
-        /// <para>Description: 保险营销效果回传接口——直播通道
-        /// Summary: 保险营销效果回传接口——直播通道</para>
+        /// <para>Description: 保险营销效果回传接口——媒体
+        /// Summary: 保险营销效果回传接口——媒体</para>
         /// </description>
         public CallbackMktLiveeffectResponse CallbackMktLiveeffect(CallbackMktLiveeffectRequest request)
         {
@@ -511,8 +511,8 @@ namespace AntChain.SDK.INSURANCE_SAAS
 
         /// <term><b>Description:</b></term>
         /// <description>
-        /// <para>Description: 保险营销效果回传接口——直播通道
-        /// Summary: 保险营销效果回传接口——直播通道</para>
+        /// <para>Description: 保险营销效果回传接口——媒体
+        /// Summary: 保险营销效果回传接口——媒体</para>
         /// </description>
         public async Task<CallbackMktLiveeffectResponse> CallbackMktLiveeffectAsync(CallbackMktLiveeffectRequest request)
         {
@@ -523,8 +523,8 @@ namespace AntChain.SDK.INSURANCE_SAAS
 
         /// <term><b>Description:</b></term>
         /// <description>
-        /// <para>Description: 保险营销效果回传接口——直播通道
-        /// Summary: 保险营销效果回传接口——直播通道</para>
+        /// <para>Description: 保险营销效果回传接口——媒体
+        /// Summary: 保险营销效果回传接口——媒体</para>
         /// </description>
         public CallbackMktLiveeffectResponse CallbackMktLiveeffectEx(CallbackMktLiveeffectRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
         {
@@ -534,8 +534,8 @@ namespace AntChain.SDK.INSURANCE_SAAS
 
         /// <term><b>Description:</b></term>
         /// <description>
-        /// <para>Description: 保险营销效果回传接口——直播通道
-        /// Summary: 保险营销效果回传接口——直播通道</para>
+        /// <para>Description: 保险营销效果回传接口——媒体
+        /// Summary: 保险营销效果回传接口——媒体</para>
         /// </description>
         public async Task<CallbackMktLiveeffectResponse> CallbackMktLiveeffectExAsync(CallbackMktLiveeffectRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
         {
@@ -679,6 +679,144 @@ namespace AntChain.SDK.INSURANCE_SAAS
         {
             AlibabaCloud.TeaUtil.Common.ValidateModel(request);
             return TeaModel.ToObject<NotifyEmbedoemautoinsuranceEventResponse>(await DoRequestAsync("1.0", "antcloud.insurance.embedoemautoinsurance.event.notify", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /// <term><b>Description:</b></term>
+        /// <description>
+        /// <para>Description: 媒体点击统计数据回传
+        /// Summary: 媒体点击统计数据回传</para>
+        /// </description>
+        public CallbackMktMediastatisticaldataResponse CallbackMktMediastatisticaldata(CallbackMktMediastatisticaldataRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return CallbackMktMediastatisticaldataEx(request, headers, runtime);
+        }
+
+        /// <term><b>Description:</b></term>
+        /// <description>
+        /// <para>Description: 媒体点击统计数据回传
+        /// Summary: 媒体点击统计数据回传</para>
+        /// </description>
+        public async Task<CallbackMktMediastatisticaldataResponse> CallbackMktMediastatisticaldataAsync(CallbackMktMediastatisticaldataRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return await CallbackMktMediastatisticaldataExAsync(request, headers, runtime);
+        }
+
+        /// <term><b>Description:</b></term>
+        /// <description>
+        /// <para>Description: 媒体点击统计数据回传
+        /// Summary: 媒体点击统计数据回传</para>
+        /// </description>
+        public CallbackMktMediastatisticaldataResponse CallbackMktMediastatisticaldataEx(CallbackMktMediastatisticaldataRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<CallbackMktMediastatisticaldataResponse>(DoRequest("1.0", "antcloud.insurance.mkt.mediastatisticaldata.callback", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /// <term><b>Description:</b></term>
+        /// <description>
+        /// <para>Description: 媒体点击统计数据回传
+        /// Summary: 媒体点击统计数据回传</para>
+        /// </description>
+        public async Task<CallbackMktMediastatisticaldataResponse> CallbackMktMediastatisticaldataExAsync(CallbackMktMediastatisticaldataRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<CallbackMktMediastatisticaldataResponse>(await DoRequestAsync("1.0", "antcloud.insurance.mkt.mediastatisticaldata.callback", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /// <term><b>Description:</b></term>
+        /// <description>
+        /// <para>Description: 营销效果节点数据（简版）
+        /// Summary: 营销效果节点数据（简版）</para>
+        /// </description>
+        public CallbackMktEffectsimpleResponse CallbackMktEffectsimple(CallbackMktEffectsimpleRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return CallbackMktEffectsimpleEx(request, headers, runtime);
+        }
+
+        /// <term><b>Description:</b></term>
+        /// <description>
+        /// <para>Description: 营销效果节点数据（简版）
+        /// Summary: 营销效果节点数据（简版）</para>
+        /// </description>
+        public async Task<CallbackMktEffectsimpleResponse> CallbackMktEffectsimpleAsync(CallbackMktEffectsimpleRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return await CallbackMktEffectsimpleExAsync(request, headers, runtime);
+        }
+
+        /// <term><b>Description:</b></term>
+        /// <description>
+        /// <para>Description: 营销效果节点数据（简版）
+        /// Summary: 营销效果节点数据（简版）</para>
+        /// </description>
+        public CallbackMktEffectsimpleResponse CallbackMktEffectsimpleEx(CallbackMktEffectsimpleRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<CallbackMktEffectsimpleResponse>(DoRequest("1.0", "antcloud.insurance.mkt.effectsimple.callback", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /// <term><b>Description:</b></term>
+        /// <description>
+        /// <para>Description: 营销效果节点数据（简版）
+        /// Summary: 营销效果节点数据（简版）</para>
+        /// </description>
+        public async Task<CallbackMktEffectsimpleResponse> CallbackMktEffectsimpleExAsync(CallbackMktEffectsimpleRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<CallbackMktEffectsimpleResponse>(await DoRequestAsync("1.0", "antcloud.insurance.mkt.effectsimple.callback", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /// <term><b>Description:</b></term>
+        /// <description>
+        /// <para>Description: 保险营销服务商人群圈选
+        /// Summary: 保险营销服务商人群圈选</para>
+        /// </description>
+        public ApplyMktserviceproviderAudiencecircleResponse ApplyMktserviceproviderAudiencecircle(ApplyMktserviceproviderAudiencecircleRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return ApplyMktserviceproviderAudiencecircleEx(request, headers, runtime);
+        }
+
+        /// <term><b>Description:</b></term>
+        /// <description>
+        /// <para>Description: 保险营销服务商人群圈选
+        /// Summary: 保险营销服务商人群圈选</para>
+        /// </description>
+        public async Task<ApplyMktserviceproviderAudiencecircleResponse> ApplyMktserviceproviderAudiencecircleAsync(ApplyMktserviceproviderAudiencecircleRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return await ApplyMktserviceproviderAudiencecircleExAsync(request, headers, runtime);
+        }
+
+        /// <term><b>Description:</b></term>
+        /// <description>
+        /// <para>Description: 保险营销服务商人群圈选
+        /// Summary: 保险营销服务商人群圈选</para>
+        /// </description>
+        public ApplyMktserviceproviderAudiencecircleResponse ApplyMktserviceproviderAudiencecircleEx(ApplyMktserviceproviderAudiencecircleRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<ApplyMktserviceproviderAudiencecircleResponse>(DoRequest("1.0", "antcloud.insurance.mktserviceprovider.audiencecircle.apply", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /// <term><b>Description:</b></term>
+        /// <description>
+        /// <para>Description: 保险营销服务商人群圈选
+        /// Summary: 保险营销服务商人群圈选</para>
+        /// </description>
+        public async Task<ApplyMktserviceproviderAudiencecircleResponse> ApplyMktserviceproviderAudiencecircleExAsync(ApplyMktserviceproviderAudiencecircleRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<ApplyMktserviceproviderAudiencecircleResponse>(await DoRequestAsync("1.0", "antcloud.insurance.mktserviceprovider.audiencecircle.apply", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
         }
 
         /// <term><b>Description:</b></term>

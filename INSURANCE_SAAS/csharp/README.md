@@ -1,13 +1,13 @@
 English | [简体中文](README-CN.md)
 
-# Ant Chain ABC SDK for C#
+# Ant Chain INSURANCE_SAAS SDK for C#
 
 ## Installation
 
 ### .NET
 
 ```bash
-donet add package AntChain.SDK.INSURANCE_SAAS
+dotnet add package AntChain.SDK.INSURANCE_SAAS
 ```
 
 ## Issues
