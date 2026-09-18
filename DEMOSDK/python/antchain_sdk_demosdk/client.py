@@ -135,7 +135,7 @@ class Client:
                     'req_msg_id': AntchainUtils.get_nonce(),
                     'access_key': self._access_key_id,
                     'base_sdk_version': 'TeaSDK-2.0',
-                    'sdk_version': '1.3.65',
+                    'sdk_version': '1.3.68',
                     '_prod_code': 'DEMOSDK',
                     '_prod_channel': 'default'
                 }
@@ -239,7 +239,7 @@ class Client:
                     'req_msg_id': AntchainUtils.get_nonce(),
                     'access_key': self._access_key_id,
                     'base_sdk_version': 'TeaSDK-2.0',
-                    'sdk_version': '1.3.65',
+                    'sdk_version': '1.3.68',
                     '_prod_code': 'DEMOSDK',
                     '_prod_channel': 'default'
                 }
@@ -274,6 +274,118 @@ class Client:
                     continue
                 raise e
         raise UnretryableException(_last_request, _last_exception)
+
+    def query_alltest_api(
+        self,
+        request: demosdk_models.QueryAlltestApiRequest,
+    ) -> demosdk_models.QueryAlltestApiResponse:
+        """
+        Description: a
+        Summary: a
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.query_alltest_api_ex(request, headers, runtime)
+
+    async def query_alltest_api_async(
+        self,
+        request: demosdk_models.QueryAlltestApiRequest,
+    ) -> demosdk_models.QueryAlltestApiResponse:
+        """
+        Description: a
+        Summary: a
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.query_alltest_api_ex_async(request, headers, runtime)
+
+    def query_alltest_api_ex(
+        self,
+        request: demosdk_models.QueryAlltestApiRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> demosdk_models.QueryAlltestApiResponse:
+        """
+        Description: a
+        Summary: a
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            demosdk_models.QueryAlltestApiResponse(),
+            self.do_request('1.0', 'antchain.demosdk.alltest.api.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def query_alltest_api_ex_async(
+        self,
+        request: demosdk_models.QueryAlltestApiRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> demosdk_models.QueryAlltestApiResponse:
+        """
+        Description: a
+        Summary: a
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            demosdk_models.QueryAlltestApiResponse(),
+            await self.do_request_async('1.0', 'antchain.demosdk.alltest.api.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def type_mcp_response(
+        self,
+        request: demosdk_models.TypeMcpResponseRequest,
+    ) -> demosdk_models.TypeMcpResponseResponse:
+        """
+        Description: mcp入参类型验证
+        Summary: mcp入参类型验证
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.type_mcp_response_ex(request, headers, runtime)
+
+    async def type_mcp_response_async(
+        self,
+        request: demosdk_models.TypeMcpResponseRequest,
+    ) -> demosdk_models.TypeMcpResponseResponse:
+        """
+        Description: mcp入参类型验证
+        Summary: mcp入参类型验证
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.type_mcp_response_ex_async(request, headers, runtime)
+
+    def type_mcp_response_ex(
+        self,
+        request: demosdk_models.TypeMcpResponseRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> demosdk_models.TypeMcpResponseResponse:
+        """
+        Description: mcp入参类型验证
+        Summary: mcp入参类型验证
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            demosdk_models.TypeMcpResponseResponse(),
+            self.do_request('1.0', 'antchain.demosdk.mcp.response.type', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def type_mcp_response_ex_async(
+        self,
+        request: demosdk_models.TypeMcpResponseRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> demosdk_models.TypeMcpResponseResponse:
+        """
+        Description: mcp入参类型验证
+        Summary: mcp入参类型验证
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            demosdk_models.TypeMcpResponseResponse(),
+            await self.do_request_async('1.0', 'antchain.demosdk.mcp.response.type', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
 
     def test_struct_online(
         self,
@@ -889,6 +1001,118 @@ class Client:
         return TeaCore.from_map(
             demosdk_models.ConfigQueryApiResponse(),
             await self.do_request_async('1.0', 'antchain.demosdk.query.api.config', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def ssss_qaads_wwwd(
+        self,
+        request: demosdk_models.SsssQaadsWwwdRequest,
+    ) -> demosdk_models.SsssQaadsWwwdResponse:
+        """
+        Description: test
+        Summary: test
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.ssss_qaads_wwwd_ex(request, headers, runtime)
+
+    async def ssss_qaads_wwwd_async(
+        self,
+        request: demosdk_models.SsssQaadsWwwdRequest,
+    ) -> demosdk_models.SsssQaadsWwwdResponse:
+        """
+        Description: test
+        Summary: test
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.ssss_qaads_wwwd_ex_async(request, headers, runtime)
+
+    def ssss_qaads_wwwd_ex(
+        self,
+        request: demosdk_models.SsssQaadsWwwdRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> demosdk_models.SsssQaadsWwwdResponse:
+        """
+        Description: test
+        Summary: test
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            demosdk_models.SsssQaadsWwwdResponse(),
+            self.do_request('1.0', 'antchain.demosdk.qaads.wwwd.ssss', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def ssss_qaads_wwwd_ex_async(
+        self,
+        request: demosdk_models.SsssQaadsWwwdRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> demosdk_models.SsssQaadsWwwdResponse:
+        """
+        Description: test
+        Summary: test
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            demosdk_models.SsssQaadsWwwdResponse(),
+            await self.do_request_async('1.0', 'antchain.demosdk.qaads.wwwd.ssss', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def apia_cli_autocreate(
+        self,
+        request: demosdk_models.ApiaCliAutocreateRequest,
+    ) -> demosdk_models.ApiaCliAutocreateResponse:
+        """
+        Description: 这是cli自动创建的接口
+        Summary: 这是cli自动创建的接口
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.apia_cli_autocreate_ex(request, headers, runtime)
+
+    async def apia_cli_autocreate_async(
+        self,
+        request: demosdk_models.ApiaCliAutocreateRequest,
+    ) -> demosdk_models.ApiaCliAutocreateResponse:
+        """
+        Description: 这是cli自动创建的接口
+        Summary: 这是cli自动创建的接口
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.apia_cli_autocreate_ex_async(request, headers, runtime)
+
+    def apia_cli_autocreate_ex(
+        self,
+        request: demosdk_models.ApiaCliAutocreateRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> demosdk_models.ApiaCliAutocreateResponse:
+        """
+        Description: 这是cli自动创建的接口
+        Summary: 这是cli自动创建的接口
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            demosdk_models.ApiaCliAutocreateResponse(),
+            self.do_request('1.0', 'antchain.demosdk.cli.autocreate.apia', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def apia_cli_autocreate_ex_async(
+        self,
+        request: demosdk_models.ApiaCliAutocreateRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> demosdk_models.ApiaCliAutocreateResponse:
+        """
+        Description: 这是cli自动创建的接口
+        Summary: 这是cli自动创建的接口
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            demosdk_models.ApiaCliAutocreateResponse(),
+            await self.do_request_async('1.0', 'antchain.demosdk.cli.autocreate.apia', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
     def apia_aci_create(

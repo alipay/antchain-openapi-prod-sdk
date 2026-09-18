@@ -282,6 +282,34 @@ class TestParamB(TeaModel):
         return self
 
 
+class ResultTest(TeaModel):
+    def __init__(
+        self,
+        name: str = None,
+    ):
+        # 姓名
+        self.name = name
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.name is not None:
+            result['name'] = self.name
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('name') is not None:
+            self.name = m.get('name')
+        return self
+
+
 class TestParamA(TeaModel):
     def __init__(
         self,
@@ -359,99 +387,6 @@ class TestParamA(TeaModel):
         return self
 
 
-class TestDemo(TeaModel):
-    def __init__(
-        self,
-        timeout: str = None,
-    ):
-        # a
-        self.timeout = timeout
-
-    def validate(self):
-        pass
-
-    def to_map(self):
-        _map = super().to_map()
-        if _map is not None:
-            return _map
-
-        result = dict()
-        if self.timeout is not None:
-            result['timeout'] = self.timeout
-        return result
-
-    def from_map(self, m: dict = None):
-        m = m or dict()
-        if m.get('timeout') is not None:
-            self.timeout = m.get('timeout')
-        return self
-
-
-class DemoClass(TeaModel):
-    def __init__(
-        self,
-        some_string: str = None,
-        some_date: str = None,
-        some_boolean: bool = None,
-        some_int: int = None,
-        some_list: List[str] = None,
-    ):
-        # 字符串测试
-        self.some_string = some_string
-        # 日期测试
-        self.some_date = some_date
-        # Boolean测试
-        self.some_boolean = some_boolean
-        # 整数测试
-        self.some_int = some_int
-        # 列表测试
-        self.some_list = some_list
-
-    def validate(self):
-        self.validate_required(self.some_string, 'some_string')
-        self.validate_required(self.some_date, 'some_date')
-        if self.some_date is not None:
-            self.validate_pattern(self.some_date, 'some_date', '\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}([Z]|([\\.]\\d{1,9})?[\\+]\\d{2}[\\:]?\\d{2})')
-        self.validate_required(self.some_boolean, 'some_boolean')
-        self.validate_required(self.some_int, 'some_int')
-        if self.some_int is not None:
-            self.validate_maximum(self.some_int, 'some_int', 2000)
-            self.validate_minimum(self.some_int, 'some_int', 1)
-        self.validate_required(self.some_list, 'some_list')
-
-    def to_map(self):
-        _map = super().to_map()
-        if _map is not None:
-            return _map
-
-        result = dict()
-        if self.some_string is not None:
-            result['some_string'] = self.some_string
-        if self.some_date is not None:
-            result['some_date'] = self.some_date
-        if self.some_boolean is not None:
-            result['some_boolean'] = self.some_boolean
-        if self.some_int is not None:
-            result['some_int'] = self.some_int
-        if self.some_list is not None:
-            result['some_list'] = self.some_list
-        return result
-
-    def from_map(self, m: dict = None):
-        m = m or dict()
-        if m.get('some_string') is not None:
-            self.some_string = m.get('some_string')
-        if m.get('some_date') is not None:
-            self.some_date = m.get('some_date')
-        if m.get('some_boolean') is not None:
-            self.some_boolean = m.get('some_boolean')
-        if m.get('some_int') is not None:
-            self.some_int = m.get('some_int')
-        if m.get('some_list') is not None:
-            self.some_list = m.get('some_list')
-        return self
-
-
 class TestParams(TeaModel):
     def __init__(
         self,
@@ -517,28 +452,40 @@ class OrderA(TeaModel):
         return self
 
 
-class DemosdkStructA(TeaModel):
+class McpTestStruct(TeaModel):
     def __init__(
         self,
-        company_name: str = None,
-        product_main_class: str = None,
-        company_address: str = None,
-        contact_name: str = None,
-        contact_mobile: str = None,
+        struct_string: str = None,
+        struct_number: int = None,
+        struct_boolean: bool = None,
+        struct_date: str = None,
+        struct_list: List[str] = None,
+        struct_struct: ResultTest = None,
     ):
-        # 【公司名称】
-        self.company_name = company_name
-        # 【业务类型】
-        self.product_main_class = product_main_class
-        # 【公司地址】
-        self.company_address = company_address
-        # 【联系人】
-        self.contact_name = contact_name
-        # 【联系人手机号】
-        self.contact_mobile = contact_mobile
+        # string入参
+        self.struct_string = struct_string
+        # number入参
+        self.struct_number = struct_number
+        # boolean入参
+        self.struct_boolean = struct_boolean
+        # date入参
+        self.struct_date = struct_date
+        # list_string入参
+        self.struct_list = struct_list
+        # struct入参
+        self.struct_struct = struct_struct
 
     def validate(self):
-        pass
+        self.validate_required(self.struct_string, 'struct_string')
+        self.validate_required(self.struct_number, 'struct_number')
+        self.validate_required(self.struct_boolean, 'struct_boolean')
+        self.validate_required(self.struct_date, 'struct_date')
+        if self.struct_date is not None:
+            self.validate_pattern(self.struct_date, 'struct_date', '\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}([Z]|([\\.]\\d{1,9})?[\\+]\\d{2}[\\:]?\\d{2})')
+        self.validate_required(self.struct_list, 'struct_list')
+        self.validate_required(self.struct_struct, 'struct_struct')
+        if self.struct_struct:
+            self.struct_struct.validate()
 
     def to_map(self):
         _map = super().to_map()
@@ -546,58 +493,35 @@ class DemosdkStructA(TeaModel):
             return _map
 
         result = dict()
-        if self.company_name is not None:
-            result['company_name'] = self.company_name
-        if self.product_main_class is not None:
-            result['product_main_class'] = self.product_main_class
-        if self.company_address is not None:
-            result['company_address'] = self.company_address
-        if self.contact_name is not None:
-            result['contact_name'] = self.contact_name
-        if self.contact_mobile is not None:
-            result['contact_mobile'] = self.contact_mobile
+        if self.struct_string is not None:
+            result['struct_string'] = self.struct_string
+        if self.struct_number is not None:
+            result['struct_number'] = self.struct_number
+        if self.struct_boolean is not None:
+            result['struct_boolean'] = self.struct_boolean
+        if self.struct_date is not None:
+            result['struct_date'] = self.struct_date
+        if self.struct_list is not None:
+            result['struct_list'] = self.struct_list
+        if self.struct_struct is not None:
+            result['struct_struct'] = self.struct_struct.to_map()
         return result
 
     def from_map(self, m: dict = None):
         m = m or dict()
-        if m.get('company_name') is not None:
-            self.company_name = m.get('company_name')
-        if m.get('product_main_class') is not None:
-            self.product_main_class = m.get('product_main_class')
-        if m.get('company_address') is not None:
-            self.company_address = m.get('company_address')
-        if m.get('contact_name') is not None:
-            self.contact_name = m.get('contact_name')
-        if m.get('contact_mobile') is not None:
-            self.contact_mobile = m.get('contact_mobile')
-        return self
-
-
-class ResultTest(TeaModel):
-    def __init__(
-        self,
-        name: str = None,
-    ):
-        # 姓名
-        self.name = name
-
-    def validate(self):
-        pass
-
-    def to_map(self):
-        _map = super().to_map()
-        if _map is not None:
-            return _map
-
-        result = dict()
-        if self.name is not None:
-            result['name'] = self.name
-        return result
-
-    def from_map(self, m: dict = None):
-        m = m or dict()
-        if m.get('name') is not None:
-            self.name = m.get('name')
+        if m.get('struct_string') is not None:
+            self.struct_string = m.get('struct_string')
+        if m.get('struct_number') is not None:
+            self.struct_number = m.get('struct_number')
+        if m.get('struct_boolean') is not None:
+            self.struct_boolean = m.get('struct_boolean')
+        if m.get('struct_date') is not None:
+            self.struct_date = m.get('struct_date')
+        if m.get('struct_list') is not None:
+            self.struct_list = m.get('struct_list')
+        if m.get('struct_struct') is not None:
+            temp_model = ResultTest()
+            self.struct_struct = temp_model.from_map(m['struct_struct'])
         return self
 
 
@@ -696,6 +620,384 @@ class SumBean(TeaModel):
         m = m or dict()
         if m.get('a') is not None:
             self.a = m.get('a')
+        return self
+
+
+class TestDemo(TeaModel):
+    def __init__(
+        self,
+        timeout: str = None,
+    ):
+        # a
+        self.timeout = timeout
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.timeout is not None:
+            result['timeout'] = self.timeout
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('timeout') is not None:
+            self.timeout = m.get('timeout')
+        return self
+
+
+class DemoClass(TeaModel):
+    def __init__(
+        self,
+        some_string: str = None,
+        some_date: str = None,
+        some_boolean: bool = None,
+        some_int: int = None,
+        some_list: List[str] = None,
+    ):
+        # 字符串测试
+        self.some_string = some_string
+        # 日期测试
+        self.some_date = some_date
+        # Boolean测试
+        self.some_boolean = some_boolean
+        # 整数测试
+        self.some_int = some_int
+        # 列表测试
+        self.some_list = some_list
+
+    def validate(self):
+        self.validate_required(self.some_string, 'some_string')
+        self.validate_required(self.some_date, 'some_date')
+        if self.some_date is not None:
+            self.validate_pattern(self.some_date, 'some_date', '\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}([Z]|([\\.]\\d{1,9})?[\\+]\\d{2}[\\:]?\\d{2})')
+        self.validate_required(self.some_boolean, 'some_boolean')
+        self.validate_required(self.some_int, 'some_int')
+        if self.some_int is not None:
+            self.validate_maximum(self.some_int, 'some_int', 2000)
+            self.validate_minimum(self.some_int, 'some_int', 1)
+        self.validate_required(self.some_list, 'some_list')
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.some_string is not None:
+            result['some_string'] = self.some_string
+        if self.some_date is not None:
+            result['some_date'] = self.some_date
+        if self.some_boolean is not None:
+            result['some_boolean'] = self.some_boolean
+        if self.some_int is not None:
+            result['some_int'] = self.some_int
+        if self.some_list is not None:
+            result['some_list'] = self.some_list
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('some_string') is not None:
+            self.some_string = m.get('some_string')
+        if m.get('some_date') is not None:
+            self.some_date = m.get('some_date')
+        if m.get('some_boolean') is not None:
+            self.some_boolean = m.get('some_boolean')
+        if m.get('some_int') is not None:
+            self.some_int = m.get('some_int')
+        if m.get('some_list') is not None:
+            self.some_list = m.get('some_list')
+        return self
+
+
+class DemosdkStructA(TeaModel):
+    def __init__(
+        self,
+        company_name: str = None,
+        product_main_class: str = None,
+        company_address: str = None,
+        contact_name: str = None,
+        contact_mobile: str = None,
+    ):
+        # 【公司名称】
+        self.company_name = company_name
+        # 【业务类型】
+        self.product_main_class = product_main_class
+        # 【公司地址】
+        self.company_address = company_address
+        # 【联系人】
+        self.contact_name = contact_name
+        # 【联系人手机号】
+        self.contact_mobile = contact_mobile
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.company_name is not None:
+            result['company_name'] = self.company_name
+        if self.product_main_class is not None:
+            result['product_main_class'] = self.product_main_class
+        if self.company_address is not None:
+            result['company_address'] = self.company_address
+        if self.contact_name is not None:
+            result['contact_name'] = self.contact_name
+        if self.contact_mobile is not None:
+            result['contact_mobile'] = self.contact_mobile
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('company_name') is not None:
+            self.company_name = m.get('company_name')
+        if m.get('product_main_class') is not None:
+            self.product_main_class = m.get('product_main_class')
+        if m.get('company_address') is not None:
+            self.company_address = m.get('company_address')
+        if m.get('contact_name') is not None:
+            self.contact_name = m.get('contact_name')
+        if m.get('contact_mobile') is not None:
+            self.contact_mobile = m.get('contact_mobile')
+        return self
+
+
+class QueryAlltestApiRequest(TeaModel):
+    def __init__(
+        self,
+        auth_token: str = None,
+        product_instance_id: str = None,
+    ):
+        # OAuth模式下的授权token
+        self.auth_token = auth_token
+        self.product_instance_id = product_instance_id
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.auth_token is not None:
+            result['auth_token'] = self.auth_token
+        if self.product_instance_id is not None:
+            result['product_instance_id'] = self.product_instance_id
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('auth_token') is not None:
+            self.auth_token = m.get('auth_token')
+        if m.get('product_instance_id') is not None:
+            self.product_instance_id = m.get('product_instance_id')
+        return self
+
+
+class QueryAlltestApiResponse(TeaModel):
+    def __init__(
+        self,
+        req_msg_id: str = None,
+        result_code: str = None,
+        result_msg: str = None,
+    ):
+        # 请求唯一ID，用于链路跟踪和问题排查
+        self.req_msg_id = req_msg_id
+        # 结果码，一般OK表示调用成功
+        self.result_code = result_code
+        # 异常信息的文本描述
+        self.result_msg = result_msg
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.req_msg_id is not None:
+            result['req_msg_id'] = self.req_msg_id
+        if self.result_code is not None:
+            result['result_code'] = self.result_code
+        if self.result_msg is not None:
+            result['result_msg'] = self.result_msg
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('req_msg_id') is not None:
+            self.req_msg_id = m.get('req_msg_id')
+        if m.get('result_code') is not None:
+            self.result_code = m.get('result_code')
+        if m.get('result_msg') is not None:
+            self.result_msg = m.get('result_msg')
+        return self
+
+
+class TypeMcpResponseRequest(TeaModel):
+    def __init__(
+        self,
+        auth_token: str = None,
+        product_instance_id: str = None,
+        string_parameter: str = None,
+        number_parameter: int = None,
+        boolean_parameter: bool = None,
+        date_parameter: str = None,
+        list_parameter: List[McpTestStruct] = None,
+        struct_parameter: McpTestStruct = None,
+        timeout: str = None,
+    ):
+        # OAuth模式下的授权token
+        self.auth_token = auth_token
+        self.product_instance_id = product_instance_id
+        # string类型入参
+        self.string_parameter = string_parameter
+        # number类型入参
+        self.number_parameter = number_parameter
+        # boolean类型入参
+        self.boolean_parameter = boolean_parameter
+        # date类型入参
+        self.date_parameter = date_parameter
+        # list_struct类型入参
+        self.list_parameter = list_parameter
+        # struct类型入参
+        self.struct_parameter = struct_parameter
+        # 超时时间
+        self.timeout = timeout
+
+    def validate(self):
+        if self.date_parameter is not None:
+            self.validate_pattern(self.date_parameter, 'date_parameter', '\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}([Z]|([\\.]\\d{1,9})?[\\+]\\d{2}[\\:]?\\d{2})')
+        if self.list_parameter:
+            for k in self.list_parameter:
+                if k:
+                    k.validate()
+        if self.struct_parameter:
+            self.struct_parameter.validate()
+        self.validate_required(self.timeout, 'timeout')
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.auth_token is not None:
+            result['auth_token'] = self.auth_token
+        if self.product_instance_id is not None:
+            result['product_instance_id'] = self.product_instance_id
+        if self.string_parameter is not None:
+            result['string_parameter'] = self.string_parameter
+        if self.number_parameter is not None:
+            result['number_parameter'] = self.number_parameter
+        if self.boolean_parameter is not None:
+            result['boolean_parameter'] = self.boolean_parameter
+        if self.date_parameter is not None:
+            result['date_parameter'] = self.date_parameter
+        result['list_parameter'] = []
+        if self.list_parameter is not None:
+            for k in self.list_parameter:
+                result['list_parameter'].append(k.to_map() if k else None)
+        if self.struct_parameter is not None:
+            result['struct_parameter'] = self.struct_parameter.to_map()
+        if self.timeout is not None:
+            result['timeout'] = self.timeout
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('auth_token') is not None:
+            self.auth_token = m.get('auth_token')
+        if m.get('product_instance_id') is not None:
+            self.product_instance_id = m.get('product_instance_id')
+        if m.get('string_parameter') is not None:
+            self.string_parameter = m.get('string_parameter')
+        if m.get('number_parameter') is not None:
+            self.number_parameter = m.get('number_parameter')
+        if m.get('boolean_parameter') is not None:
+            self.boolean_parameter = m.get('boolean_parameter')
+        if m.get('date_parameter') is not None:
+            self.date_parameter = m.get('date_parameter')
+        self.list_parameter = []
+        if m.get('list_parameter') is not None:
+            for k in m.get('list_parameter'):
+                temp_model = McpTestStruct()
+                self.list_parameter.append(temp_model.from_map(k))
+        if m.get('struct_parameter') is not None:
+            temp_model = McpTestStruct()
+            self.struct_parameter = temp_model.from_map(m['struct_parameter'])
+        if m.get('timeout') is not None:
+            self.timeout = m.get('timeout')
+        return self
+
+
+class TypeMcpResponseResponse(TeaModel):
+    def __init__(
+        self,
+        req_msg_id: str = None,
+        result_code: str = None,
+        result_msg: str = None,
+        stauts: str = None,
+        msg: str = None,
+    ):
+        # 请求唯一ID，用于链路跟踪和问题排查
+        self.req_msg_id = req_msg_id
+        # 结果码，一般OK表示调用成功
+        self.result_code = result_code
+        # 异常信息的文本描述
+        self.result_msg = result_msg
+        # 状态码
+        self.stauts = stauts
+        # 状态描述
+        self.msg = msg
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.req_msg_id is not None:
+            result['req_msg_id'] = self.req_msg_id
+        if self.result_code is not None:
+            result['result_code'] = self.result_code
+        if self.result_msg is not None:
+            result['result_msg'] = self.result_msg
+        if self.stauts is not None:
+            result['stauts'] = self.stauts
+        if self.msg is not None:
+            result['msg'] = self.msg
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('req_msg_id') is not None:
+            self.req_msg_id = m.get('req_msg_id')
+        if m.get('result_code') is not None:
+            self.result_code = m.get('result_code')
+        if m.get('result_msg') is not None:
+            self.result_msg = m.get('result_msg')
+        if m.get('stauts') is not None:
+            self.stauts = m.get('stauts')
+        if m.get('msg') is not None:
+            self.msg = m.get('msg')
         return self
 
 
@@ -1636,6 +1938,179 @@ class ConfigQueryApiResponse(TeaModel):
             self.stauts = m.get('stauts')
         if m.get('msg') is not None:
             self.msg = m.get('msg')
+        return self
+
+
+class SsssQaadsWwwdRequest(TeaModel):
+    def __init__(
+        self,
+        auth_token: str = None,
+        product_instance_id: str = None,
+    ):
+        # OAuth模式下的授权token
+        self.auth_token = auth_token
+        self.product_instance_id = product_instance_id
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.auth_token is not None:
+            result['auth_token'] = self.auth_token
+        if self.product_instance_id is not None:
+            result['product_instance_id'] = self.product_instance_id
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('auth_token') is not None:
+            self.auth_token = m.get('auth_token')
+        if m.get('product_instance_id') is not None:
+            self.product_instance_id = m.get('product_instance_id')
+        return self
+
+
+class SsssQaadsWwwdResponse(TeaModel):
+    def __init__(
+        self,
+        req_msg_id: str = None,
+        result_code: str = None,
+        result_msg: str = None,
+    ):
+        # 请求唯一ID，用于链路跟踪和问题排查
+        self.req_msg_id = req_msg_id
+        # 结果码，一般OK表示调用成功
+        self.result_code = result_code
+        # 异常信息的文本描述
+        self.result_msg = result_msg
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.req_msg_id is not None:
+            result['req_msg_id'] = self.req_msg_id
+        if self.result_code is not None:
+            result['result_code'] = self.result_code
+        if self.result_msg is not None:
+            result['result_msg'] = self.result_msg
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('req_msg_id') is not None:
+            self.req_msg_id = m.get('req_msg_id')
+        if m.get('result_code') is not None:
+            self.result_code = m.get('result_code')
+        if m.get('result_msg') is not None:
+            self.result_msg = m.get('result_msg')
+        return self
+
+
+class ApiaCliAutocreateRequest(TeaModel):
+    def __init__(
+        self,
+        auth_token: str = None,
+        product_instance_id: str = None,
+        timeout: str = None,
+    ):
+        # OAuth模式下的授权token
+        self.auth_token = auth_token
+        self.product_instance_id = product_instance_id
+        # 超时时间
+        self.timeout = timeout
+
+    def validate(self):
+        self.validate_required(self.timeout, 'timeout')
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.auth_token is not None:
+            result['auth_token'] = self.auth_token
+        if self.product_instance_id is not None:
+            result['product_instance_id'] = self.product_instance_id
+        if self.timeout is not None:
+            result['timeout'] = self.timeout
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('auth_token') is not None:
+            self.auth_token = m.get('auth_token')
+        if m.get('product_instance_id') is not None:
+            self.product_instance_id = m.get('product_instance_id')
+        if m.get('timeout') is not None:
+            self.timeout = m.get('timeout')
+        return self
+
+
+class ApiaCliAutocreateResponse(TeaModel):
+    def __init__(
+        self,
+        req_msg_id: str = None,
+        result_code: str = None,
+        result_msg: str = None,
+        msg: str = None,
+        status: str = None,
+    ):
+        # 请求唯一ID，用于链路跟踪和问题排查
+        self.req_msg_id = req_msg_id
+        # 结果码，一般OK表示调用成功
+        self.result_code = result_code
+        # 异常信息的文本描述
+        self.result_msg = result_msg
+        # 状态描述
+        self.msg = msg
+        # 状态码
+        self.status = status
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.req_msg_id is not None:
+            result['req_msg_id'] = self.req_msg_id
+        if self.result_code is not None:
+            result['result_code'] = self.result_code
+        if self.result_msg is not None:
+            result['result_msg'] = self.result_msg
+        if self.msg is not None:
+            result['msg'] = self.msg
+        if self.status is not None:
+            result['status'] = self.status
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('req_msg_id') is not None:
+            self.req_msg_id = m.get('req_msg_id')
+        if m.get('result_code') is not None:
+            self.result_code = m.get('result_code')
+        if m.get('result_msg') is not None:
+            self.result_msg = m.get('result_msg')
+        if m.get('msg') is not None:
+            self.msg = m.get('msg')
+        if m.get('status') is not None:
+            self.status = m.get('status')
         return self
 
 
