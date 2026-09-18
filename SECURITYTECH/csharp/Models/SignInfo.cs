@@ -1,0 +1,98 @@
+// This file is auto-generated, don't edit it. Thanks.
+
+using System;
+using System.Collections.Generic;
+using System.IO;
+
+using Tea;
+
+namespace AntChain.SDK.SECURITYTECH.Models
+{
+    // 司机签约信息列表
+    public class SignInfo : TeaModel {
+        // 司机证件号
+        /// <summary>
+        /// <b>Example:</b>
+        /// <para>310681200001017789</para>
+        /// </summary>
+        [NameInMap("employee_cert_no")]
+        [Validation(Required=true)]
+        public string EmployeeCertNo { get; set; }
+
+        // 灵工卡号
+        /// <summary>
+        /// <b>Example:</b>
+        /// <para>111222190002309999</para>
+        /// </summary>
+        [NameInMap("employee_card_no")]
+        [Validation(Required=true)]
+        public string EmployeeCardNo { get; set; }
+
+        // 借贷专户ID，用于后续资金相关操作
+        /// <summary>
+        /// <b>Example:</b>
+        /// <para>111222190002309999</para>
+        /// </summary>
+        [NameInMap("account_book_id")]
+        [Validation(Required=true)]
+        public string AccountBookId { get; set; }
+
+        // 签约状态，枚举值
+        // ● SIGNED：已签约【灵工卡状态正常，可入金出金】
+        // ● TERMINATED：已解约【不可入金出金】
+        /// <summary>
+        /// <b>Example:</b>
+        /// <para>SIGNED</para>
+        /// </summary>
+        [NameInMap("status")]
+        [Validation(Required=true)]
+        public string Status { get; set; }
+
+        // 签约时间 "yyyy-MM-dd HH:mm:ss"
+        /// <summary>
+        /// <b>Example:</b>
+        /// <para>2000-10-10 00:00:00</para>
+        /// </summary>
+        [NameInMap("sign_time")]
+        [Validation(Required=false)]
+        public string SignTime { get; set; }
+
+        // 解约时间 "yyyy-MM-dd HH:mm:ss"
+        /// <summary>
+        /// <b>Example:</b>
+        /// <para>2000-10-10 00:00:00</para>
+        /// </summary>
+        [NameInMap("terminate_time")]
+        [Validation(Required=false)]
+        public string TerminateTime { get; set; }
+
+        // 签约协议生效时间
+        /// <summary>
+        /// <b>Example:</b>
+        /// <para>2000-10-10 00:00:00</para>
+        /// </summary>
+        [NameInMap("effect_time")]
+        [Validation(Required=true)]
+        public string EffectTime { get; set; }
+
+        // 签约协议解约时间
+        /// <summary>
+        /// <b>Example:</b>
+        /// <para>2000-10-10 00:00:00</para>
+        /// </summary>
+        [NameInMap("expire_time")]
+        [Validation(Required=true)]
+        public string ExpireTime { get; set; }
+
+        // 月租金额：单位为元
+        /// <summary>
+        /// <b>Example:</b>
+        /// <para>100</para>
+        /// </summary>
+        [NameInMap("payment_amount")]
+        [Validation(Required=true)]
+        public string PaymentAmount { get; set; }
+
+    }
+
+}

@@ -1,0 +1,42 @@
+// This file is auto-generated, don't edit it. Thanks.
+
+using System;
+using System.Collections.Generic;
+using System.IO;
+
+using Tea;
+
+namespace AntChain.SDK.SECURITYTECH.Models
+{
+    // 商城收货信息
+    public class PointReceiverInfo : TeaModel {
+        // 联系人名称
+        /// <summary>
+        /// <b>Example:</b>
+        /// <para>张三</para>
+        /// </summary>
+        [NameInMap("contact_name")]
+        [Validation(Required=true)]
+        public string ContactName { get; set; }
+
+        // 手机号
+        /// <summary>
+        /// <b>Example:</b>
+        /// <para>13000000000</para>
+        /// </summary>
+        [NameInMap("mobile")]
+        [Validation(Required=true)]
+        public string Mobile { get; set; }
+
+        // 收货地址
+        /// <summary>
+        /// <b>Example:</b>
+        /// <para>上海市</para>
+        /// </summary>
+        [NameInMap("address")]
+        [Validation(Required=true)]
+        public string Address { get; set; }
+
+    }
+
+}
