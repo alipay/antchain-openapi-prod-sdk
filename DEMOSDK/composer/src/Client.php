@@ -13,6 +13,10 @@ use AntChain\Util\UtilClient;
 use AlibabaCloud\Tea\RpcUtils\RpcUtils;
 
 use AlibabaCloud\Tea\Utils\Utils\RuntimeOptions;
+use AntChain\DEMOSDK\Models\QueryAlltestApiRequest;
+use AntChain\DEMOSDK\Models\QueryAlltestApiResponse;
+use AntChain\DEMOSDK\Models\TypeMcpResponseRequest;
+use AntChain\DEMOSDK\Models\TypeMcpResponseResponse;
 use AntChain\DEMOSDK\Models\TestStructOnlineRequest;
 use AntChain\DEMOSDK\Models\TestStructOnlineResponse;
 use AntChain\DEMOSDK\Models\TestaStructCreateRequest;
@@ -35,6 +39,10 @@ use AntChain\DEMOSDK\Models\IamApipushForRequest;
 use AntChain\DEMOSDK\Models\IamApipushForResponse;
 use AntChain\DEMOSDK\Models\ConfigQueryApiRequest;
 use AntChain\DEMOSDK\Models\ConfigQueryApiResponse;
+use AntChain\DEMOSDK\Models\SsssQaadsWwwdRequest;
+use AntChain\DEMOSDK\Models\SsssQaadsWwwdResponse;
+use AntChain\DEMOSDK\Models\ApiaCliAutocreateRequest;
+use AntChain\DEMOSDK\Models\ApiaCliAutocreateResponse;
 use AntChain\DEMOSDK\Models\ApiaAciCreateRequest;
 use AntChain\DEMOSDK\Models\ApiaAciCreateResponse;
 use AntChain\DEMOSDK\Models\BindAaaBbbCccRequest;
@@ -209,7 +217,7 @@ class Client {
                     "req_msg_id" => UtilClient::getNonce(),
                     "access_key" => $this->_accessKeyId,
                     "base_sdk_version" => "TeaSDK-2.0",
-                    "sdk_version" => "1.3.65",
+                    "sdk_version" => "1.3.68",
                     "_prod_code" => "DEMOSDK",
                     "_prod_channel" => "default"
                 ];
@@ -252,6 +260,56 @@ class Client {
             }
         }
         throw new TeaUnableRetryError($_lastRequest, $_lastException);
+    }
+
+    /**
+     * Description: a
+     * Summary: a
+     * @param QueryAlltestApiRequest $request
+     * @return QueryAlltestApiResponse
+     */
+    public function queryAlltestApi($request){
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+        return $this->queryAlltestApiEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: a
+     * Summary: a
+     * @param QueryAlltestApiRequest $request
+     * @param string[] $headers
+     * @param RuntimeOptions $runtime
+     * @return QueryAlltestApiResponse
+     */
+    public function queryAlltestApiEx($request, $headers, $runtime){
+        Utils::validateModel($request);
+        return QueryAlltestApiResponse::fromMap($this->doRequest("1.0", "antchain.demosdk.alltest.api.query", "HTTPS", "POST", "/gateway.do", Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: mcp入参类型验证
+     * Summary: mcp入参类型验证
+     * @param TypeMcpResponseRequest $request
+     * @return TypeMcpResponseResponse
+     */
+    public function typeMcpResponse($request){
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+        return $this->typeMcpResponseEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: mcp入参类型验证
+     * Summary: mcp入参类型验证
+     * @param TypeMcpResponseRequest $request
+     * @param string[] $headers
+     * @param RuntimeOptions $runtime
+     * @return TypeMcpResponseResponse
+     */
+    public function typeMcpResponseEx($request, $headers, $runtime){
+        Utils::validateModel($request);
+        return TypeMcpResponseResponse::fromMap($this->doRequest("1.0", "antchain.demosdk.mcp.response.type", "HTTPS", "POST", "/gateway.do", Tea::merge($request), $headers, $runtime));
     }
 
     /**
@@ -527,6 +585,56 @@ class Client {
     public function configQueryApiEx($request, $headers, $runtime){
         Utils::validateModel($request);
         return ConfigQueryApiResponse::fromMap($this->doRequest("1.0", "antchain.demosdk.query.api.config", "HTTPS", "POST", "/gateway.do", Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: test
+     * Summary: test
+     * @param SsssQaadsWwwdRequest $request
+     * @return SsssQaadsWwwdResponse
+     */
+    public function ssssQaadsWwwd($request){
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+        return $this->ssssQaadsWwwdEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: test
+     * Summary: test
+     * @param SsssQaadsWwwdRequest $request
+     * @param string[] $headers
+     * @param RuntimeOptions $runtime
+     * @return SsssQaadsWwwdResponse
+     */
+    public function ssssQaadsWwwdEx($request, $headers, $runtime){
+        Utils::validateModel($request);
+        return SsssQaadsWwwdResponse::fromMap($this->doRequest("1.0", "antchain.demosdk.qaads.wwwd.ssss", "HTTPS", "POST", "/gateway.do", Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 这是cli自动创建的接口
+     * Summary: 这是cli自动创建的接口
+     * @param ApiaCliAutocreateRequest $request
+     * @return ApiaCliAutocreateResponse
+     */
+    public function apiaCliAutocreate($request){
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+        return $this->apiaCliAutocreateEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 这是cli自动创建的接口
+     * Summary: 这是cli自动创建的接口
+     * @param ApiaCliAutocreateRequest $request
+     * @param string[] $headers
+     * @param RuntimeOptions $runtime
+     * @return ApiaCliAutocreateResponse
+     */
+    public function apiaCliAutocreateEx($request, $headers, $runtime){
+        Utils::validateModel($request);
+        return ApiaCliAutocreateResponse::fromMap($this->doRequest("1.0", "antchain.demosdk.cli.autocreate.apia", "HTTPS", "POST", "/gateway.do", Tea::merge($request), $headers, $runtime));
     }
 
     /**
