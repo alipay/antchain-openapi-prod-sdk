@@ -294,6 +294,31 @@ export class TestParamB extends $tea.Model {
   }
 }
 
+// 返回结果测试类-11
+export class ResultTest extends $tea.Model {
+  // 姓名
+  /**
+   * @example
+   * 张三
+   */
+  name?: string;
+  static names(): { [key: string]: string } {
+    return {
+      name: 'name',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      name: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
 // test for edit
 export class TestParamA extends $tea.Model {
   // string_param
@@ -347,84 +372,6 @@ export class TestParamA extends $tea.Model {
       dateParam: 'string',
       structParama: TestParamB,
       structListA: { 'type': 'array', 'itemType': TestParamB },
-    };
-  }
-
-  constructor(map?: { [key: string]: any }) {
-    super(map);
-  }
-}
-
-// a
-export class TestDemo extends $tea.Model {
-  // a
-  /**
-   * @example
-   * a
-   */
-  timeout?: string;
-  static names(): { [key: string]: string } {
-    return {
-      timeout: 'timeout',
-    };
-  }
-
-  static types(): { [key: string]: any } {
-    return {
-      timeout: 'string',
-    };
-  }
-
-  constructor(map?: { [key: string]: any }) {
-    super(map);
-  }
-}
-
-// Demo类1
-export class DemoClass extends $tea.Model {
-  // 字符串测试
-  /**
-   * @example
-   * some string
-   */
-  someString: string;
-  // 日期测试
-  /**
-   * @example
-   * 3
-   */
-  someDate: string;
-  // Boolean测试
-  /**
-   * @example
-   * true
-   */
-  someBoolean: boolean;
-  // 整数测试
-  /**
-   * @example
-   * 3
-   */
-  someInt: number;
-  // 列表测试
-  someList: string[];
-  static names(): { [key: string]: string } {
-    return {
-      someString: 'some_string',
-      someDate: 'some_date',
-      someBoolean: 'some_boolean',
-      someInt: 'some_int',
-      someList: 'some_list',
-    };
-  }
-
-  static types(): { [key: string]: any } {
-    return {
-      someString: 'string',
-      someDate: 'string',
-      someBoolean: 'boolean',
-      someInt: 'number',
-      someList: { 'type': 'array', 'itemType': 'string' },
     };
   }
 
@@ -491,80 +438,63 @@ export class OrderA extends $tea.Model {
   }
 }
 
-// DEMOSDK结构体A·edit for test18
-export class DemosdkStructA extends $tea.Model {
-  // 【公司名称】
+// mcp验证使用结构体
+export class McpTestStruct extends $tea.Model {
+  // string入参
   /**
    * @example
-   * xx公司
+   * string入参
    */
-  companyName?: string;
-  // 【业务类型】
+  structString: string;
+  // number入参
   /**
    * @example
-   * 运营
+   * 100
    */
-  productMainClass?: string;
-  // 【公司地址】
+  structNumber: number;
+  // boolean入参
   /**
    * @example
-   * xx市xx区
+   * true
    */
-  companyAddress?: string;
-  // 【联系人】
+  structBoolean: boolean;
+  // date入参
   /**
    * @example
-   * 张三
+   * 2026-09-16 10:00:00
    */
-  contactName?: string;
-  // 【联系人手机号】
+  structDate: string;
+  // list_string入参
   /**
    * @example
-   * 13688888888
+   * ["VIP","新用户"]
    */
-  contactMobile?: string;
+  structList: string[];
+  // struct入参
+  /**
+   * @example
+   * undefined
+   */
+  structStruct: ResultTest;
   static names(): { [key: string]: string } {
     return {
-      companyName: 'company_name',
-      productMainClass: 'product_main_class',
-      companyAddress: 'company_address',
-      contactName: 'contact_name',
-      contactMobile: 'contact_mobile',
+      structString: 'struct_string',
+      structNumber: 'struct_number',
+      structBoolean: 'struct_boolean',
+      structDate: 'struct_date',
+      structList: 'struct_list',
+      structStruct: 'struct_struct',
     };
   }
 
   static types(): { [key: string]: any } {
     return {
-      companyName: 'string',
-      productMainClass: 'string',
-      companyAddress: 'string',
-      contactName: 'string',
-      contactMobile: 'string',
-    };
-  }
-
-  constructor(map?: { [key: string]: any }) {
-    super(map);
-  }
-}
-
-// 返回结果测试类-11
-export class ResultTest extends $tea.Model {
-  // 姓名
-  /**
-   * @example
-   * 张三
-   */
-  name?: string;
-  static names(): { [key: string]: string } {
-    return {
-      name: 'name',
-    };
-  }
-
-  static types(): { [key: string]: any } {
-    return {
-      name: 'string',
+      structString: 'string',
+      structNumber: 'number',
+      structBoolean: 'boolean',
+      structDate: 'string',
+      structList: { 'type': 'array', 'itemType': 'string' },
+      structStruct: ResultTest,
     };
   }
 
@@ -656,6 +586,279 @@ export class SumBean extends $tea.Model {
   static types(): { [key: string]: any } {
     return {
       a: 'number',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+// a
+export class TestDemo extends $tea.Model {
+  // a
+  /**
+   * @example
+   * a
+   */
+  timeout?: string;
+  static names(): { [key: string]: string } {
+    return {
+      timeout: 'timeout',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      timeout: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+// Demo类1
+export class DemoClass extends $tea.Model {
+  // 字符串测试
+  /**
+   * @example
+   * some string
+   */
+  someString: string;
+  // 日期测试
+  /**
+   * @example
+   * 3
+   */
+  someDate: string;
+  // Boolean测试
+  /**
+   * @example
+   * true
+   */
+  someBoolean: boolean;
+  // 整数测试
+  /**
+   * @example
+   * 3
+   */
+  someInt: number;
+  // 列表测试
+  someList: string[];
+  static names(): { [key: string]: string } {
+    return {
+      someString: 'some_string',
+      someDate: 'some_date',
+      someBoolean: 'some_boolean',
+      someInt: 'some_int',
+      someList: 'some_list',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      someString: 'string',
+      someDate: 'string',
+      someBoolean: 'boolean',
+      someInt: 'number',
+      someList: { 'type': 'array', 'itemType': 'string' },
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+// DEMOSDK结构体A·edit for test18
+export class DemosdkStructA extends $tea.Model {
+  // 【公司名称】
+  /**
+   * @example
+   * xx公司
+   */
+  companyName?: string;
+  // 【业务类型】
+  /**
+   * @example
+   * 运营
+   */
+  productMainClass?: string;
+  // 【公司地址】
+  /**
+   * @example
+   * xx市xx区
+   */
+  companyAddress?: string;
+  // 【联系人】
+  /**
+   * @example
+   * 张三
+   */
+  contactName?: string;
+  // 【联系人手机号】
+  /**
+   * @example
+   * 13688888888
+   */
+  contactMobile?: string;
+  static names(): { [key: string]: string } {
+    return {
+      companyName: 'company_name',
+      productMainClass: 'product_main_class',
+      companyAddress: 'company_address',
+      contactName: 'contact_name',
+      contactMobile: 'contact_mobile',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      companyName: 'string',
+      productMainClass: 'string',
+      companyAddress: 'string',
+      contactName: 'string',
+      contactMobile: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class QueryAlltestApiRequest extends $tea.Model {
+  // OAuth模式下的授权token
+  authToken?: string;
+  productInstanceId?: string;
+  static names(): { [key: string]: string } {
+    return {
+      authToken: 'auth_token',
+      productInstanceId: 'product_instance_id',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      authToken: 'string',
+      productInstanceId: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class QueryAlltestApiResponse extends $tea.Model {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string;
+  // 结果码，一般OK表示调用成功
+  resultCode?: string;
+  // 异常信息的文本描述
+  resultMsg?: string;
+  static names(): { [key: string]: string } {
+    return {
+      reqMsgId: 'req_msg_id',
+      resultCode: 'result_code',
+      resultMsg: 'result_msg',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      reqMsgId: 'string',
+      resultCode: 'string',
+      resultMsg: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class TypeMcpResponseRequest extends $tea.Model {
+  // OAuth模式下的授权token
+  authToken?: string;
+  productInstanceId?: string;
+  // string类型入参
+  stringParameter?: string;
+  // number类型入参
+  numberParameter?: number;
+  // boolean类型入参
+  booleanParameter?: boolean;
+  // date类型入参
+  dateParameter?: string;
+  // list_struct类型入参
+  listParameter?: McpTestStruct[];
+  // struct类型入参
+  structParameter?: McpTestStruct;
+  // 超时时间
+  timeout: string;
+  static names(): { [key: string]: string } {
+    return {
+      authToken: 'auth_token',
+      productInstanceId: 'product_instance_id',
+      stringParameter: 'string_parameter',
+      numberParameter: 'number_parameter',
+      booleanParameter: 'boolean_parameter',
+      dateParameter: 'date_parameter',
+      listParameter: 'list_parameter',
+      structParameter: 'struct_parameter',
+      timeout: 'timeout',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      authToken: 'string',
+      productInstanceId: 'string',
+      stringParameter: 'string',
+      numberParameter: 'number',
+      booleanParameter: 'boolean',
+      dateParameter: 'string',
+      listParameter: { 'type': 'array', 'itemType': McpTestStruct },
+      structParameter: McpTestStruct,
+      timeout: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class TypeMcpResponseResponse extends $tea.Model {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string;
+  // 结果码，一般OK表示调用成功
+  resultCode?: string;
+  // 异常信息的文本描述
+  resultMsg?: string;
+  // 状态码
+  stauts?: string;
+  // 状态描述
+  msg?: string;
+  static names(): { [key: string]: string } {
+    return {
+      reqMsgId: 'req_msg_id',
+      resultCode: 'result_code',
+      resultMsg: 'result_msg',
+      stauts: 'stauts',
+      msg: 'msg',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      reqMsgId: 'string',
+      resultCode: 'string',
+      resultMsg: 'string',
+      stauts: 'string',
+      msg: 'string',
     };
   }
 
@@ -1273,6 +1476,120 @@ export class ConfigQueryApiResponse extends $tea.Model {
       resultMsg: 'string',
       stauts: 'string',
       msg: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class SsssQaadsWwwdRequest extends $tea.Model {
+  // OAuth模式下的授权token
+  authToken?: string;
+  productInstanceId?: string;
+  static names(): { [key: string]: string } {
+    return {
+      authToken: 'auth_token',
+      productInstanceId: 'product_instance_id',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      authToken: 'string',
+      productInstanceId: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class SsssQaadsWwwdResponse extends $tea.Model {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string;
+  // 结果码，一般OK表示调用成功
+  resultCode?: string;
+  // 异常信息的文本描述
+  resultMsg?: string;
+  static names(): { [key: string]: string } {
+    return {
+      reqMsgId: 'req_msg_id',
+      resultCode: 'result_code',
+      resultMsg: 'result_msg',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      reqMsgId: 'string',
+      resultCode: 'string',
+      resultMsg: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class ApiaCliAutocreateRequest extends $tea.Model {
+  // OAuth模式下的授权token
+  authToken?: string;
+  productInstanceId?: string;
+  // 超时时间
+  timeout: string;
+  static names(): { [key: string]: string } {
+    return {
+      authToken: 'auth_token',
+      productInstanceId: 'product_instance_id',
+      timeout: 'timeout',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      authToken: 'string',
+      productInstanceId: 'string',
+      timeout: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class ApiaCliAutocreateResponse extends $tea.Model {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string;
+  // 结果码，一般OK表示调用成功
+  resultCode?: string;
+  // 异常信息的文本描述
+  resultMsg?: string;
+  // 状态描述
+  msg?: string;
+  // 状态码
+  status?: string;
+  static names(): { [key: string]: string } {
+    return {
+      reqMsgId: 'req_msg_id',
+      resultCode: 'result_code',
+      resultMsg: 'result_msg',
+      msg: 'msg',
+      status: 'status',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      reqMsgId: 'string',
+      resultCode: 'string',
+      resultMsg: 'string',
+      msg: 'string',
+      status: 'string',
     };
   }
 
@@ -2603,7 +2920,7 @@ export default class Client {
           req_msg_id: AntchainUtil.getNonce(),
           access_key: this._accessKeyId,
           base_sdk_version: "TeaSDK-2.0",
-          sdk_version: "1.3.65",
+          sdk_version: "1.3.68",
           _prod_code: "DEMOSDK",
           _prod_channel: "default",
         };
@@ -2649,6 +2966,48 @@ export default class Client {
     }
 
     throw $tea.newUnretryableError(_lastRequest);
+  }
+
+  /**
+   * @remarks
+   * Description: a
+   * Summary: a
+   */
+  async queryAlltestApi(request: QueryAlltestApiRequest): Promise<QueryAlltestApiResponse> {
+    let runtime = new $Util.RuntimeOptions({ });
+    let headers : {[key: string ]: string} = { };
+    return await this.queryAlltestApiEx(request, headers, runtime);
+  }
+
+  /**
+   * @remarks
+   * Description: a
+   * Summary: a
+   */
+  async queryAlltestApiEx(request: QueryAlltestApiRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<QueryAlltestApiResponse> {
+    Util.validateModel(request);
+    return $tea.cast<QueryAlltestApiResponse>(await this.doRequest("1.0", "antchain.demosdk.alltest.api.query", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new QueryAlltestApiResponse({}));
+  }
+
+  /**
+   * @remarks
+   * Description: mcp入参类型验证
+   * Summary: mcp入参类型验证
+   */
+  async typeMcpResponse(request: TypeMcpResponseRequest): Promise<TypeMcpResponseResponse> {
+    let runtime = new $Util.RuntimeOptions({ });
+    let headers : {[key: string ]: string} = { };
+    return await this.typeMcpResponseEx(request, headers, runtime);
+  }
+
+  /**
+   * @remarks
+   * Description: mcp入参类型验证
+   * Summary: mcp入参类型验证
+   */
+  async typeMcpResponseEx(request: TypeMcpResponseRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<TypeMcpResponseResponse> {
+    Util.validateModel(request);
+    return $tea.cast<TypeMcpResponseResponse>(await this.doRequest("1.0", "antchain.demosdk.mcp.response.type", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new TypeMcpResponseResponse({}));
   }
 
   /**
@@ -2880,6 +3239,48 @@ export default class Client {
   async configQueryApiEx(request: ConfigQueryApiRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<ConfigQueryApiResponse> {
     Util.validateModel(request);
     return $tea.cast<ConfigQueryApiResponse>(await this.doRequest("1.0", "antchain.demosdk.query.api.config", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new ConfigQueryApiResponse({}));
+  }
+
+  /**
+   * @remarks
+   * Description: test
+   * Summary: test
+   */
+  async ssssQaadsWwwd(request: SsssQaadsWwwdRequest): Promise<SsssQaadsWwwdResponse> {
+    let runtime = new $Util.RuntimeOptions({ });
+    let headers : {[key: string ]: string} = { };
+    return await this.ssssQaadsWwwdEx(request, headers, runtime);
+  }
+
+  /**
+   * @remarks
+   * Description: test
+   * Summary: test
+   */
+  async ssssQaadsWwwdEx(request: SsssQaadsWwwdRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<SsssQaadsWwwdResponse> {
+    Util.validateModel(request);
+    return $tea.cast<SsssQaadsWwwdResponse>(await this.doRequest("1.0", "antchain.demosdk.qaads.wwwd.ssss", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new SsssQaadsWwwdResponse({}));
+  }
+
+  /**
+   * @remarks
+   * Description: 这是cli自动创建的接口
+   * Summary: 这是cli自动创建的接口
+   */
+  async apiaCliAutocreate(request: ApiaCliAutocreateRequest): Promise<ApiaCliAutocreateResponse> {
+    let runtime = new $Util.RuntimeOptions({ });
+    let headers : {[key: string ]: string} = { };
+    return await this.apiaCliAutocreateEx(request, headers, runtime);
+  }
+
+  /**
+   * @remarks
+   * Description: 这是cli自动创建的接口
+   * Summary: 这是cli自动创建的接口
+   */
+  async apiaCliAutocreateEx(request: ApiaCliAutocreateRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<ApiaCliAutocreateResponse> {
+    Util.validateModel(request);
+    return $tea.cast<ApiaCliAutocreateResponse>(await this.doRequest("1.0", "antchain.demosdk.cli.autocreate.apia", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new ApiaCliAutocreateResponse({}));
   }
 
   /**
