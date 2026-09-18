@@ -5,6 +5,8 @@ namespace AntChain\INSURANCE_SAAS\Models;
 
 use AlibabaCloud\Tea\Model;
 
+use AntChain\INSURANCE_SAAS\Models\StatisticalDataDTO;
+
 class CallbackMktMediastatisticaldataRequest extends Model {
     protected $_name = [
         'authToken' => 'auth_token',
@@ -39,7 +41,13 @@ class CallbackMktMediastatisticaldataRequest extends Model {
             $res['dimension'] = $this->dimension;
         }
         if (null !== $this->statisticalDataList) {
-            $res['statistical_data_list'] = $this->statisticalDataList;
+            $res['statistical_data_list'] = [];
+            if(null !== $this->statisticalDataList && is_array($this->statisticalDataList)){
+                $n = 0;
+                foreach($this->statisticalDataList as $item){
+                    $res['statistical_data_list'][$n++] = null !== $item ? $item->toMap() : $item;
+                }
+            }
         }
         return $res;
     }
@@ -65,7 +73,13 @@ class CallbackMktMediastatisticaldataRequest extends Model {
             $model->dimension = $map['dimension'];
         }
         if(isset($map['statistical_data_list'])){
-            $model->statisticalDataList = $map['statistical_data_list'];
+            if(!empty($map['statistical_data_list'])){
+                $model->statisticalDataList = [];
+                $n = 0;
+                foreach($map['statistical_data_list'] as $item) {
+                    $model->statisticalDataList[$n++] = null !== $item ? StatisticalDataDTO::fromMap($item) : $item;
+                }
+            }
         }
         return $model;
     }
@@ -101,7 +115,7 @@ class CallbackMktMediastatisticaldataRequest extends Model {
 
     // 统计数据
     /**
-     * @var string
+     * @var StatisticalDataDTO[]
      */
     public $statisticalDataList;
 
