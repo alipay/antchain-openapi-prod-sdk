@@ -1,0 +1,120 @@
+<?php
+
+// This file is auto-generated, don't edit it. Thanks.
+namespace AntChain\SECURITYTECH\Models;
+
+use AlibabaCloud\Tea\Model;
+
+class ConfirmSimLoginRequest extends Model {
+    protected $_name = [
+        'authToken' => 'auth_token',
+        'productInstanceId' => 'product_instance_id',
+        'deviceId' => 'device_id',
+        'token' => 'token',
+        'salesId' => 'sales_id',
+        'storeId' => 'store_id',
+        'brandId' => 'brand_id',
+    ];
+    public function validate() {
+        Model::validateRequired('deviceId', $this->deviceId, true);
+        Model::validateRequired('token', $this->token, true);
+        Model::validateRequired('salesId', $this->salesId, true);
+        Model::validateRequired('storeId', $this->storeId, true);
+        Model::validateRequired('brandId', $this->brandId, true);
+    }
+    public function toMap() {
+        $res = [];
+        if (null !== $this->authToken) {
+            $res['auth_token'] = $this->authToken;
+        }
+        if (null !== $this->productInstanceId) {
+            $res['product_instance_id'] = $this->productInstanceId;
+        }
+        if (null !== $this->deviceId) {
+            $res['device_id'] = $this->deviceId;
+        }
+        if (null !== $this->token) {
+            $res['token'] = $this->token;
+        }
+        if (null !== $this->salesId) {
+            $res['sales_id'] = $this->salesId;
+        }
+        if (null !== $this->storeId) {
+            $res['store_id'] = $this->storeId;
+        }
+        if (null !== $this->brandId) {
+            $res['brand_id'] = $this->brandId;
+        }
+        return $res;
+    }
+    /**
+     * @param array $map
+     * @return ConfirmSimLoginRequest
+     */
+    public static function fromMap($map = []) {
+        $model = new self();
+        if(isset($map['auth_token'])){
+            $model->authToken = $map['auth_token'];
+        }
+        if(isset($map['product_instance_id'])){
+            $model->productInstanceId = $map['product_instance_id'];
+        }
+        if(isset($map['device_id'])){
+            $model->deviceId = $map['device_id'];
+        }
+        if(isset($map['token'])){
+            $model->token = $map['token'];
+        }
+        if(isset($map['sales_id'])){
+            $model->salesId = $map['sales_id'];
+        }
+        if(isset($map['store_id'])){
+            $model->storeId = $map['store_id'];
+        }
+        if(isset($map['brand_id'])){
+            $model->brandId = $map['brand_id'];
+        }
+        return $model;
+    }
+    // OAuth模式下的授权token
+    /**
+     * @var string
+     */
+    public $authToken;
+
+    /**
+     * @var string
+     */
+    public $productInstanceId;
+
+    // 设备编号
+    /**
+     * @var string
+     */
+    public $deviceId;
+
+    // 登录态token
+    /**
+     * @var string
+     */
+    public $token;
+
+    // 登录销售id
+    /**
+     * @var string
+     */
+    public $salesId;
+
+    // 选择登录门店id
+    /**
+     * @var string
+     */
+    public $storeId;
+
+    // 门店品牌id
+    /**
+     * @var string
+     */
+    public $brandId;
+
+}

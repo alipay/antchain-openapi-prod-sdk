@@ -1,0 +1,3404 @@
+<?php
+
+// This file is auto-generated, don't edit it. Thanks.
+namespace AntChain\SECURITYTECH;
+
+use AlibabaCloud\Tea\Utils\Utils;
+use AlibabaCloud\Tea\Exception\TeaError;
+use \Exception;
+use AlibabaCloud\Tea\Exception\TeaUnableRetryError;
+use AlibabaCloud\Tea\Tea;
+use AlibabaCloud\Tea\Request;
+use AntChain\Util\UtilClient;
+use AlibabaCloud\Tea\RpcUtils\RpcUtils;
+
+use AlibabaCloud\Tea\Utils\Utils\RuntimeOptions;
+use AntChain\SECURITYTECH\Models\RunGeneralRequest;
+use AntChain\SECURITYTECH\Models\RunGeneralResponse;
+use AntChain\SECURITYTECH\Models\ExecEkytInsureRequest;
+use AntChain\SECURITYTECH\Models\ExecEkytInsureResponse;
+use AntChain\SECURITYTECH\Models\ListDcpRequest;
+use AntChain\SECURITYTECH\Models\ListDcpResponse;
+use AntChain\SECURITYTECH\Models\ListDcpAccountbookRequest;
+use AntChain\SECURITYTECH\Models\ListDcpAccountbookResponse;
+use AntChain\SECURITYTECH\Models\QueryEtcVehicleRequest;
+use AntChain\SECURITYTECH\Models\QueryEtcVehicleResponse;
+use AntChain\SECURITYTECH\Models\UploadEtcWaybillRequest;
+use AntChain\SECURITYTECH\Models\UploadEtcWaybillResponse;
+use AntChain\SECURITYTECH\Models\QueryEtcTripRequest;
+use AntChain\SECURITYTECH\Models\QueryEtcTripResponse;
+use AntChain\SECURITYTECH\Models\InitSimLoginRequest;
+use AntChain\SECURITYTECH\Models\InitSimLoginResponse;
+use AntChain\SECURITYTECH\Models\QuerySimLoginRequest;
+use AntChain\SECURITYTECH\Models\QuerySimLoginResponse;
+use AntChain\SECURITYTECH\Models\ListSimCampaignRequest;
+use AntChain\SECURITYTECH\Models\ListSimCampaignResponse;
+use AntChain\SECURITYTECH\Models\QuerySimSkuRequest;
+use AntChain\SECURITYTECH\Models\QuerySimSkuResponse;
+use AntChain\SECURITYTECH\Models\ListSimSkuRequest;
+use AntChain\SECURITYTECH\Models\ListSimSkuResponse;
+use AntChain\SECURITYTECH\Models\CreateSimOrderRequest;
+use AntChain\SECURITYTECH\Models\CreateSimOrderResponse;
+use AntChain\SECURITYTECH\Models\QuerySimOrderRequest;
+use AntChain\SECURITYTECH\Models\QuerySimOrderResponse;
+use AntChain\SECURITYTECH\Models\ListSimOrderRequest;
+use AntChain\SECURITYTECH\Models\ListSimOrderResponse;
+use AntChain\SECURITYTECH\Models\CancelSimOrderRequest;
+use AntChain\SECURITYTECH\Models\CancelSimOrderResponse;
+use AntChain\SECURITYTECH\Models\PullSimSkuRequest;
+use AntChain\SECURITYTECH\Models\PullSimSkuResponse;
+use AntChain\SECURITYTECH\Models\ConfirmSimOrderRequest;
+use AntChain\SECURITYTECH\Models\ConfirmSimOrderResponse;
+use AntChain\SECURITYTECH\Models\UploadSimQrcodeRequest;
+use AntChain\SECURITYTECH\Models\UploadSimQrcodeResponse;
+use AntChain\SECURITYTECH\Models\QuerySpuListRequest;
+use AntChain\SECURITYTECH\Models\QuerySpuListResponse;
+use AntChain\SECURITYTECH\Models\QueryLoginSignRequest;
+use AntChain\SECURITYTECH\Models\QueryLoginSignResponse;
+use AntChain\SECURITYTECH\Models\ResetOrderLinkRequest;
+use AntChain\SECURITYTECH\Models\ResetOrderLinkResponse;
+use AntChain\SECURITYTECH\Models\UploadSimRiskdataRequest;
+use AntChain\SECURITYTECH\Models\UploadSimRiskdataResponse;
+use AntChain\SECURITYTECH\Models\QueryDigitalkeyUserinfoRequest;
+use AntChain\SECURITYTECH\Models\QueryDigitalkeyUserinfoResponse;
+use AntChain\SECURITYTECH\Models\QueryTwevPositionRequest;
+use AntChain\SECURITYTECH\Models\QueryTwevPositionResponse;
+use AntChain\SECURITYTECH\Models\OperateTwevSearchRequest;
+use AntChain\SECURITYTECH\Models\OperateTwevSearchResponse;
+use AntChain\SECURITYTECH\Models\OperateTwevPowerRequest;
+use AntChain\SECURITYTECH\Models\OperateTwevPowerResponse;
+use AntChain\SECURITYTECH\Models\QueryTwevTaskRequest;
+use AntChain\SECURITYTECH\Models\QueryTwevTaskResponse;
+use AntChain\SECURITYTECH\Models\ApplyDigitalkeyCredRequest;
+use AntChain\SECURITYTECH\Models\ApplyDigitalkeyCredResponse;
+use AntChain\SECURITYTECH\Models\InitDigitalkeyCorpRequest;
+use AntChain\SECURITYTECH\Models\InitDigitalkeyCorpResponse;
+use AntChain\SECURITYTECH\Models\QueryDigitalkeyNfccarinfoRequest;
+use AntChain\SECURITYTECH\Models\QueryDigitalkeyNfccarinfoResponse;
+use AntChain\SECURITYTECH\Models\ConfirmSimLoginRequest;
+use AntChain\SECURITYTECH\Models\ConfirmSimLoginResponse;
+use AntChain\SECURITYTECH\Models\UpdateSimSkuRequest;
+use AntChain\SECURITYTECH\Models\UpdateSimSkuResponse;
+use AntChain\SECURITYTECH\Models\QueryTwevCarRequest;
+use AntChain\SECURITYTECH\Models\QueryTwevCarResponse;
+use AntChain\SECURITYTECH\Models\QueryTwevTravelRequest;
+use AntChain\SECURITYTECH\Models\QueryTwevTravelResponse;
+use AntChain\SECURITYTECH\Models\OperateTwevCarRequest;
+use AntChain\SECURITYTECH\Models\OperateTwevCarResponse;
+use AntChain\SECURITYTECH\Models\QueryTwevCardataRequest;
+use AntChain\SECURITYTECH\Models\QueryTwevCardataResponse;
+use AntChain\SECURITYTECH\Models\QueryTwevCartravelRequest;
+use AntChain\SECURITYTECH\Models\QueryTwevCartravelResponse;
+use AntChain\SECURITYTECH\Models\DeleteDigitalkeyCredRequest;
+use AntChain\SECURITYTECH\Models\DeleteDigitalkeyCredResponse;
+use AntChain\SECURITYTECH\Models\ActivateDigitalkeyRentalRequest;
+use AntChain\SECURITYTECH\Models\ActivateDigitalkeyRentalResponse;
+use AntChain\SECURITYTECH\Models\ShareDigitalkeyRentalRequest;
+use AntChain\SECURITYTECH\Models\ShareDigitalkeyRentalResponse;
+use AntChain\SECURITYTECH\Models\RevokeDigitalkeyRentalRequest;
+use AntChain\SECURITYTECH\Models\RevokeDigitalkeyRentalResponse;
+use AntChain\SECURITYTECH\Models\QueryDigitalkeyRentalcarRequest;
+use AntChain\SECURITYTECH\Models\QueryDigitalkeyRentalcarResponse;
+use AntChain\SECURITYTECH\Models\ListDigitalkeyRentaltripRequest;
+use AntChain\SECURITYTECH\Models\ListDigitalkeyRentaltripResponse;
+use AntChain\SECURITYTECH\Models\QueryDigitalkeyRentaltrippointRequest;
+use AntChain\SECURITYTECH\Models\QueryDigitalkeyRentaltrippointResponse;
+use AntChain\SECURITYTECH\Models\RechargeMallPointRequest;
+use AntChain\SECURITYTECH\Models\RechargeMallPointResponse;
+use AntChain\SECURITYTECH\Models\OverdueTerminationRequest;
+use AntChain\SECURITYTECH\Models\OverdueTerminationResponse;
+use AntChain\SECURITYTECH\Models\QueryMallPointbalanceRequest;
+use AntChain\SECURITYTECH\Models\QueryMallPointbalanceResponse;
+use AntChain\SECURITYTECH\Models\QueryTerminationRequest;
+use AntChain\SECURITYTECH\Models\QueryTerminationResponse;
+use AntChain\SECURITYTECH\Models\ApplyTerminationRequest;
+use AntChain\SECURITYTECH\Models\ApplyTerminationResponse;
+use AntChain\SECURITYTECH\Models\QueryMallPointaccountRequest;
+use AntChain\SECURITYTECH\Models\QueryMallPointaccountResponse;
+use AntChain\SECURITYTECH\Models\FreezeMallPointRequest;
+use AntChain\SECURITYTECH\Models\FreezeMallPointResponse;
+use AntChain\SECURITYTECH\Models\UnfreezeMallPointRequest;
+use AntChain\SECURITYTECH\Models\UnfreezeMallPointResponse;
+use AntChain\SECURITYTECH\Models\DeductMallPointRequest;
+use AntChain\SECURITYTECH\Models\DeductMallPointResponse;
+use AntChain\SECURITYTECH\Models\QueryPoiOrderRequest;
+use AntChain\SECURITYTECH\Models\QueryPoiOrderResponse;
+use AntChain\SECURITYTECH\Models\RechargePoiMallpointRequest;
+use AntChain\SECURITYTECH\Models\RechargePoiMallpointResponse;
+use AntChain\SECURITYTECH\Models\OverduePoiTerminationRequest;
+use AntChain\SECURITYTECH\Models\OverduePoiTerminationResponse;
+use AntChain\SECURITYTECH\Models\QueryPoiMallpointbalanceRequest;
+use AntChain\SECURITYTECH\Models\QueryPoiMallpointbalanceResponse;
+use AntChain\SECURITYTECH\Models\QueryPoiTerminationRequest;
+use AntChain\SECURITYTECH\Models\QueryPoiTerminationResponse;
+use AntChain\SECURITYTECH\Models\ApplyPoiTerminationRequest;
+use AntChain\SECURITYTECH\Models\ApplyPoiTerminationResponse;
+use AntChain\SECURITYTECH\Models\QueryPoiMallpointaccountRequest;
+use AntChain\SECURITYTECH\Models\QueryPoiMallpointaccountResponse;
+use AntChain\SECURITYTECH\Models\FreezePoiMallpointRequest;
+use AntChain\SECURITYTECH\Models\FreezePoiMallpointResponse;
+use AntChain\SECURITYTECH\Models\UnfreezePoiMallpointRequest;
+use AntChain\SECURITYTECH\Models\UnfreezePoiMallpointResponse;
+use AntChain\SECURITYTECH\Models\DeductPoiMallpointRequest;
+use AntChain\SECURITYTECH\Models\DeductPoiMallpointResponse;
+use AntChain\SECURITYTECH\Models\CancelPoiOrderRequest;
+use AntChain\SECURITYTECH\Models\CancelPoiOrderResponse;
+use AntChain\SECURITYTECH\Models\NotifyPoiTradeRequest;
+use AntChain\SECURITYTECH\Models\NotifyPoiTradeResponse;
+use AntChain\SECURITYTECH\Models\CreateMerchantApplyRequest;
+use AntChain\SECURITYTECH\Models\CreateMerchantApplyResponse;
+use AntChain\SECURITYTECH\Models\UpdateMerchantApplyRequest;
+use AntChain\SECURITYTECH\Models\UpdateMerchantApplyResponse;
+use AntChain\SECURITYTECH\Models\QueryMerchantRequest;
+use AntChain\SECURITYTECH\Models\QueryMerchantResponse;
+use AntChain\SECURITYTECH\Models\QueryMerchantBatchRequest;
+use AntChain\SECURITYTECH\Models\QueryMerchantBatchResponse;
+use AntChain\SECURITYTECH\Models\CallbackMerchantRiskRequest;
+use AntChain\SECURITYTECH\Models\CallbackMerchantRiskResponse;
+use AntChain\SECURITYTECH\Models\ReceiveFileidCallbackRequest;
+use AntChain\SECURITYTECH\Models\ReceiveFileidCallbackResponse;
+use AntChain\SECURITYTECH\Models\CreateAntcloudGatewayxFileUploadRequest;
+use AntChain\SECURITYTECH\Models\CreatePoiMallorderRequest;
+use AntChain\SECURITYTECH\Models\CreatePoiMallorderResponse;
+use AntChain\SECURITYTECH\Models\UpdatePoiOrderRequest;
+use AntChain\SECURITYTECH\Models\UpdatePoiOrderResponse;
+use AntChain\SECURITYTECH\Models\ApplyPoiRefundRequest;
+use AntChain\SECURITYTECH\Models\ApplyPoiRefundResponse;
+use AntChain\SECURITYTECH\Models\QueryPoiRefundRequest;
+use AntChain\SECURITYTECH\Models\QueryPoiRefundResponse;
+use AntChain\SECURITYTECH\Models\NotifyPoiTransferRequest;
+use AntChain\SECURITYTECH\Models\NotifyPoiTransferResponse;
+use AntChain\SECURITYTECH\Models\NotifyPoiRefundRequest;
+use AntChain\SECURITYTECH\Models\NotifyPoiRefundResponse;
+use AntChain\SECURITYTECH\Models\QueryPoiFundRequest;
+use AntChain\SECURITYTECH\Models\QueryPoiFundResponse;
+use AntChain\SECURITYTECH\Models\CreateBssecpicRequest;
+use AntChain\SECURITYTECH\Models\CreateBssecpicResponse;
+use AntChain\SECURITYTECH\Models\CreateBlueshieldSecuritypictureRequest;
+use AntChain\SECURITYTECH\Models\CreateBlueshieldSecuritypictureResponse;
+use AntChain\SECURITYTECH\Models\QueryFaceshieldNativeRequest;
+use AntChain\SECURITYTECH\Models\QueryFaceshieldNativeResponse;
+use AntChain\SECURITYTECH\Models\QueryFaceshieldWebRequest;
+use AntChain\SECURITYTECH\Models\QueryFaceshieldWebResponse;
+use AntChain\SECURITYTECH\Models\InitIifaaDeviceRequest;
+use AntChain\SECURITYTECH\Models\InitIifaaDeviceResponse;
+use AntChain\SECURITYTECH\Models\RecognizeIifaaDeviceRequest;
+use AntChain\SECURITYTECH\Models\RecognizeIifaaDeviceResponse;
+use AntChain\SECURITYTECH\Models\VerifyIifaaDeviceRequest;
+use AntChain\SECURITYTECH\Models\VerifyIifaaDeviceResponse;
+use AntChain\SECURITYTECH\Models\RegisterIifaaCorpRequest;
+use AntChain\SECURITYTECH\Models\RegisterIifaaCorpResponse;
+use AntChain\SECURITYTECH\Models\DeprecateIifaaDeviceRequest;
+use AntChain\SECURITYTECH\Models\DeprecateIifaaDeviceResponse;
+use AntChain\SECURITYTECH\Models\RunXhunterSpiRequest;
+use AntChain\SECURITYTECH\Models\RunXhunterSpiResponse;
+use AntChain\SECURITYTECH\Models\ExecIifaaInsureRequest;
+use AntChain\SECURITYTECH\Models\ExecIifaaInsureResponse;
+use AntChain\SECURITYTECH\Models\QueryCctPictureRequest;
+use AntChain\SECURITYTECH\Models\QueryCctPictureResponse;
+use AntChain\SECURITYTECH\Models\RecognizeCctAnalyzeRequest;
+use AntChain\SECURITYTECH\Models\RecognizeCctAnalyzeResponse;
+use AntChain\SECURITYTECH\Models\QueryRiskGeneralRequest;
+use AntChain\SECURITYTECH\Models\QueryRiskGeneralResponse;
+use AntChain\SECURITYTECH\Models\QueryDeviceriskFingerRequest;
+use AntChain\SECURITYTECH\Models\QueryDeviceriskFingerResponse;
+use AntChain\SECURITYTECH\Models\QueryDeviceriskRisklabelRequest;
+use AntChain\SECURITYTECH\Models\QueryDeviceriskRisklabelResponse;
+use AntChain\SECURITYTECH\Models\QueryDeviceriskDeviceriskRequest;
+use AntChain\SECURITYTECH\Models\QueryDeviceriskDeviceriskResponse;
+use AntChain\SECURITYTECH\Models\SubmitDeviceriskReportRequest;
+use AntChain\SECURITYTECH\Models\SubmitDeviceriskReportResponse;
+use AntChain\SECURITYTECH\Models\QueryEkytDriverRequest;
+use AntChain\SECURITYTECH\Models\QueryEkytDriverResponse;
+use AntChain\SECURITYTECH\Models\ApplyIifaaDevicekeyRequest;
+use AntChain\SECURITYTECH\Models\ApplyIifaaDevicekeyResponse;
+use AntChain\SECURITYTECH\Models\QueryDeviceplusRiskqueryRequest;
+use AntChain\SECURITYTECH\Models\QueryDeviceplusRiskqueryResponse;
+use AntChain\SECURITYTECH\Models\QueryDeviceplusMpaasRequest;
+use AntChain\SECURITYTECH\Models\QueryDeviceplusMpaasResponse;
+use AntChain\SECURITYTECH\Models\SubmitAshieldPeriodhardeningtaskRequest;
+use AntChain\SECURITYTECH\Models\SubmitAshieldPeriodhardeningtaskResponse;
+use AntChain\SECURITYTECH\Models\GetAshieldFiletokenRequest;
+use AntChain\SECURITYTECH\Models\GetAshieldFiletokenResponse;
+use AntChain\SECURITYTECH\Models\SubmitAshieldHardeningtaskRequest;
+use AntChain\SECURITYTECH\Models\SubmitAshieldHardeningtaskResponse;
+use AntChain\SECURITYTECH\Models\GetAshieldHardeningtaskprocessRequest;
+use AntChain\SECURITYTECH\Models\GetAshieldHardeningtaskprocessResponse;
+use AntChain\SECURITYTECH\Models\GetAshieldHardeningresultRequest;
+use AntChain\SECURITYTECH\Models\GetAshieldHardeningresultResponse;
+use AntChain\SECURITYTECH\Models\GetAshieldHardeninglogRequest;
+use AntChain\SECURITYTECH\Models\GetAshieldHardeninglogResponse;
+use AntChain\SECURITYTECH\Models\InitEkytTrustsignRequest;
+use AntChain\SECURITYTECH\Models\InitEkytTrustsignResponse;
+use AntChain\SECURITYTECH\Models\QueryEkytTrustsignRequest;
+use AntChain\SECURITYTECH\Models\QueryEkytTrustsignResponse;
+use AntChain\SECURITYTECH\Models\InitEkytFaceverifyRequest;
+use AntChain\SECURITYTECH\Models\InitEkytFaceverifyResponse;
+use AntChain\SECURITYTECH\Models\QueryEkytFaceverifyRequest;
+use AntChain\SECURITYTECH\Models\QueryEkytFaceverifyResponse;
+use AntChain\SECURITYTECH\Models\ImportYhllRequest;
+use AntChain\SECURITYTECH\Models\ImportYhllResponse;
+use AntChain\SECURITYTECH\Models\QueryYhllRequest;
+use AntChain\SECURITYTECH\Models\QueryYhllResponse;
+use AntChain\SECURITYTECH\Models\QueryGuardAskRequest;
+use AntChain\SECURITYTECH\Models\QueryGuardAskResponse;
+use AntChain\SECURITYTECH\Models\QueryGuardAnswerRequest;
+use AntChain\SECURITYTECH\Models\QueryGuardAnswerResponse;
+use AntChain\SECURITYTECH\Models\DeleteIifaaDigitalkeyRequest;
+use AntChain\SECURITYTECH\Models\DeleteIifaaDigitalkeyResponse;
+use AntChain\SECURITYTECH\Models\CheckOpticalIdentifyRequest;
+use AntChain\SECURITYTECH\Models\CheckOpticalIdentifyResponse;
+use AntChain\SECURITYTECH\Models\CreateAntcloudGatewayxFileUploadResponse;
+
+class Client {
+    protected $_endpoint;
+
+    protected $_regionId;
+
+    protected $_accessKeyId;
+
+    protected $_accessKeySecret;
+
+    protected $_protocol;
+
+    protected $_userAgent;
+
+    protected $_readTimeout;
+
+    protected $_connectTimeout;
+
+    protected $_httpProxy;
+
+    protected $_httpsProxy;
+
+    protected $_socks5Proxy;
+
+    protected $_socks5NetWork;
+
+    protected $_noProxy;
+
+    protected $_maxIdleConns;
+
+    protected $_securityToken;
+
+    protected $_maxIdleTimeMillis;
+
+    protected $_keepAliveDurationMillis;
+
+    protected $_maxRequests;
+
+    protected $_maxRequestsPerHost;
+
+    /**
+     * Init client with Config
+     * @param config config contains the necessary information to create a client
+     */
+    public function __construct($config){
+        if (Utils::isUnset($config)) {
+            throw new TeaError([
+                "code" => "ParameterMissing",
+                "message" => "'config' can not be unset"
+            ]);
+        }
+        $this->_accessKeyId = $config->accessKeyId;
+        $this->_accessKeySecret = $config->accessKeySecret;
+        $this->_securityToken = $config->securityToken;
+        $this->_endpoint = $config->endpoint;
+        $this->_protocol = $config->protocol;
+        $this->_userAgent = $config->userAgent;
+        $this->_readTimeout = Utils::defaultNumber($config->readTimeout, 20000);
+        $this->_connectTimeout = Utils::defaultNumber($config->connectTimeout, 20000);
+        $this->_httpProxy = $config->httpProxy;
+        $this->_httpsProxy = $config->httpsProxy;
+        $this->_noProxy = $config->noProxy;
+        $this->_socks5Proxy = $config->socks5Proxy;
+        $this->_socks5NetWork = $config->socks5NetWork;
+        $this->_maxIdleConns = Utils::defaultNumber($config->maxIdleConns, 60000);
+        $this->_maxIdleTimeMillis = Utils::defaultNumber($config->maxIdleTimeMillis, 5);
+        $this->_keepAliveDurationMillis = Utils::defaultNumber($config->keepAliveDurationMillis, 5000);
+        $this->_maxRequests = Utils::defaultNumber($config->maxRequests, 100);
+        $this->_maxRequestsPerHost = Utils::defaultNumber($config->maxRequestsPerHost, 100);
+    }
+
+    /**
+     * Encapsulate the request and invoke the network
+     * @param string $version
+     * @param string $action api name
+     * @param string $protocol http or https
+     * @param string $method e.g. GET
+     * @param string $pathname pathname of every api
+     * @param mixed[] $request which contains request params
+     * @param string[] $headers
+     * @param RuntimeOptions $runtime which controls some details of call api, such as retry times
+     * @return array the response
+     * @throws TeaError
+     * @throws Exception
+     * @throws TeaUnableRetryError
+     */
+    public function doRequest($version, $action, $protocol, $method, $pathname, $request, $headers, $runtime){
+        $runtime->validate();
+        $_runtime = [
+            "timeouted" => "retry",
+            "readTimeout" => Utils::defaultNumber($runtime->readTimeout, $this->_readTimeout),
+            "connectTimeout" => Utils::defaultNumber($runtime->connectTimeout, $this->_connectTimeout),
+            "httpProxy" => Utils::defaultString($runtime->httpProxy, $this->_httpProxy),
+            "httpsProxy" => Utils::defaultString($runtime->httpsProxy, $this->_httpsProxy),
+            "noProxy" => Utils::defaultString($runtime->noProxy, $this->_noProxy),
+            "maxIdleConns" => Utils::defaultNumber($runtime->maxIdleConns, $this->_maxIdleConns),
+            "maxIdleTimeMillis" => $this->_maxIdleTimeMillis,
+            "keepAliveDuration" => $this->_keepAliveDurationMillis,
+            "maxRequests" => $this->_maxRequests,
+            "maxRequestsPerHost" => $this->_maxRequestsPerHost,
+            "retry" => [
+                "retryable" => $runtime->autoretry,
+                "maxAttempts" => Utils::defaultNumber($runtime->maxAttempts, 3)
+            ],
+            "backoff" => [
+                "policy" => Utils::defaultString($runtime->backoffPolicy, "no"),
+                "period" => Utils::defaultNumber($runtime->backoffPeriod, 1)
+            ],
+            "ignoreSSL" => $runtime->ignoreSSL,
+            // 商户入驻-省/市/区编码
+        ];
+        $_lastRequest = null;
+        $_lastException = null;
+        $_now = time();
+        $_retryTimes = 0;
+        while (Tea::allowRetry(@$_runtime["retry"], $_retryTimes, $_now)) {
+            if ($_retryTimes > 0) {
+                $_backoffTime = Tea::getBackoffTime(@$_runtime["backoff"], $_retryTimes);
+                if ($_backoffTime > 0) {
+                    Tea::sleep($_backoffTime);
+                }
+            }
+            $_retryTimes = $_retryTimes + 1;
+            try {
+                $_request = new Request();
+                $_request->protocol = Utils::defaultString($this->_protocol, $protocol);
+                $_request->method = $method;
+                $_request->pathname = $pathname;
+                $_request->query = [
+                    "method" => $action,
+                    "version" => $version,
+                    "sign_type" => "HmacSHA1",
+                    "req_time" => UtilClient::getTimestamp(),
+                    "req_msg_id" => UtilClient::getNonce(),
+                    "access_key" => $this->_accessKeyId,
+                    "base_sdk_version" => "TeaSDK-2.0",
+                    "sdk_version" => "1.7.30",
+                    "_prod_code" => "SECURITYTECH",
+                    "_prod_channel" => "undefined"
+                ];
+                if (!Utils::empty_($this->_securityToken)) {
+                    $_request->query["security_token"] = $this->_securityToken;
+                }
+                $_request->headers = Tea::merge([
+                    "host" => Utils::defaultString($this->_endpoint, "openapi.antchain.antgroup.com"),
+                    "user-agent" => Utils::getUserAgent($this->_userAgent)
+                ], $headers);
+                $tmp = Utils::anyifyMapValue(RpcUtils::query($request));
+                $_request->body = Utils::toFormString($tmp);
+                $_request->headers["content-type"] = "application/x-www-form-urlencoded";
+                $signedParam = Tea::merge($_request->query, RpcUtils::query($request));
+                $_request->query["sign"] = UtilClient::getSignature($signedParam, $this->_accessKeySecret);
+                $_lastRequest = $_request;
+                $_response= Tea::send($_request, $_runtime);
+                $raw = Utils::readAsString($_response->body);
+                $obj = Utils::parseJSON($raw);
+                $res = Utils::assertAsMap($obj);
+                $resp = Utils::assertAsMap(@$res["response"]);
+                if (UtilClient::hasError($raw, $this->_accessKeySecret)) {
+                    throw new TeaError([
+                        "message" => @$resp["result_msg"],
+                        "data" => $resp,
+                        "code" => @$resp["result_code"]
+                    ]);
+                }
+                return $resp;
+            }
+            catch (Exception $e) {
+                if (!($e instanceof TeaError)) {
+                    $e = new TeaError([], $e->getMessage(), $e->getCode(), $e);
+                }
+                if (Tea::isRetryable($e)) {
+                    $_lastException = $e;
+                    continue;
+                }
+                throw $e;
+            }
+        }
+        throw new TeaUnableRetryError($_lastRequest, $_lastException);
+    }
+
+    /**
+     * Description: 安全科技网关通用运行接口
+     * Summary: 安全科技网关通用运行接口
+     * @param RunGeneralRequest $request
+     * @return RunGeneralResponse
+     */
+    public function runGeneral($request){
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+        return $this->runGeneralEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 安全科技网关通用运行接口
+     * Summary: 安全科技网关通用运行接口
+     * @param RunGeneralRequest $request
+     * @param string[] $headers
+     * @param RuntimeOptions $runtime
+     * @return RunGeneralResponse
+     */
+    public function runGeneralEx($request, $headers, $runtime){
+        Utils::validateModel($request);
+        return RunGeneralResponse::fromMap($this->doRequest("1.0", "antsecuritytech.gateway.general.run", "HTTPS", "POST", "/gateway.do", Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 租赁住房保险产品，开放接口
+     * 调用方：上海远点网络科技有限公司
+     * Summary: 租赁住房保险产品，接口开放给租房平台
+     * @param ExecEkytInsureRequest $request
+     * @return ExecEkytInsureResponse
+     */
+    public function execEkytInsure($request){
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+        return $this->execEkytInsureEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 租赁住房保险产品，开放接口
+     * 调用方：上海远点网络科技有限公司
+     * Summary: 租赁住房保险产品，接口开放给租房平台
+     * @param ExecEkytInsureRequest $request
+     * @param string[] $headers
+     * @param RuntimeOptions $runtime
+     * @return ExecEkytInsureResponse
+     */
+    public function execEkytInsureEx($request, $headers, $runtime){
+        Utils::validateModel($request);
+        return ExecEkytInsureResponse::fromMap($this->doRequest("1.0", "antsecuritytech.gateway.ekyt.insure.exec", "HTTPS", "POST", "/gateway.do", Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 获取EKYT平台入驻的车队信息列表
+     * Summary: 获取EKYT平台入驻的车队信息列表
+     * @param ListDcpRequest $request
+     * @return ListDcpResponse
+     */
+    public function listDcp($request){
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+        return $this->listDcpEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 获取EKYT平台入驻的车队信息列表
+     * Summary: 获取EKYT平台入驻的车队信息列表
+     * @param ListDcpRequest $request
+     * @param string[] $headers
+     * @param RuntimeOptions $runtime
+     * @return ListDcpResponse
+     */
+    public function listDcpEx($request, $headers, $runtime){
+        Utils::validateModel($request);
+        return ListDcpResponse::fromMap($this->doRequest("1.0", "antsecuritytech.gateway.dcp.list", "HTTPS", "POST", "/gateway.do", Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 获取EKYT平台入驻的司机灵工卡信息列表
+     * Summary: 获取EKYT平台入驻的司机灵工卡信息列表
+     * @param ListDcpAccountbookRequest $request
+     * @return ListDcpAccountbookResponse
+     */
+    public function listDcpAccountbook($request){
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+        return $this->listDcpAccountbookEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 获取EKYT平台入驻的司机灵工卡信息列表
+     * Summary: 获取EKYT平台入驻的司机灵工卡信息列表
+     * @param ListDcpAccountbookRequest $request
+     * @param string[] $headers
+     * @param RuntimeOptions $runtime
+     * @return ListDcpAccountbookResponse
+     */
+    public function listDcpAccountbookEx($request, $headers, $runtime){
+        Utils::validateModel($request);
+        return ListDcpAccountbookResponse::fromMap($this->doRequest("1.0", "antsecuritytech.gateway.dcp.accountbook.list", "HTTPS", "POST", "/gateway.do", Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 企业ETC入驻车辆查询
+     * Summary: 企业ETC入驻车辆查询
+     * @param QueryEtcVehicleRequest $request
+     * @return QueryEtcVehicleResponse
+     */
+    public function queryEtcVehicle($request){
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+        return $this->queryEtcVehicleEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 企业ETC入驻车辆查询
+     * Summary: 企业ETC入驻车辆查询
+     * @param QueryEtcVehicleRequest $request
+     * @param string[] $headers
+     * @param RuntimeOptions $runtime
+     * @return QueryEtcVehicleResponse
+     */
+    public function queryEtcVehicleEx($request, $headers, $runtime){
+        Utils::validateModel($request);
+        return QueryEtcVehicleResponse::fromMap($this->doRequest("1.0", "antsecuritytech.gateway.etc.vehicle.query", "HTTPS", "POST", "/gateway.do", Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 企业ETC运单上传
+     * Summary: 企业ETC运单上传
+     * @param UploadEtcWaybillRequest $request
+     * @return UploadEtcWaybillResponse
+     */
+    public function uploadEtcWaybill($request){
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+        return $this->uploadEtcWaybillEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 企业ETC运单上传
+     * Summary: 企业ETC运单上传
+     * @param UploadEtcWaybillRequest $request
+     * @param string[] $headers
+     * @param RuntimeOptions $runtime
+     * @return UploadEtcWaybillResponse
+     */
+    public function uploadEtcWaybillEx($request, $headers, $runtime){
+        Utils::validateModel($request);
+        return UploadEtcWaybillResponse::fromMap($this->doRequest("1.0", "antsecuritytech.gateway.etc.waybill.upload", "HTTPS", "POST", "/gateway.do", Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 企业ETC车辆行程查询
+     * Summary: 企业ETC车辆行程查询
+     * @param QueryEtcTripRequest $request
+     * @return QueryEtcTripResponse
+     */
+    public function queryEtcTrip($request){
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+        return $this->queryEtcTripEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 企业ETC车辆行程查询
+     * Summary: 企业ETC车辆行程查询
+     * @param QueryEtcTripRequest $request
+     * @param string[] $headers
+     * @param RuntimeOptions $runtime
+     * @return QueryEtcTripResponse
+     */
+    public function queryEtcTripEx($request, $headers, $runtime){
+        Utils::validateModel($request);
+        return QueryEtcTripResponse::fromMap($this->doRequest("1.0", "antsecuritytech.gateway.etc.trip.query", "HTTPS", "POST", "/gateway.do", Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 两轮车一体机获取授权登录地址
+     * Summary: 两轮车一体机获取授权登录地址
+     * @param InitSimLoginRequest $request
+     * @return InitSimLoginResponse
+     */
+    public function initSimLogin($request){
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+        return $this->initSimLoginEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 两轮车一体机获取授权登录地址
+     * Summary: 两轮车一体机获取授权登录地址
+     * @param InitSimLoginRequest $request
+     * @param string[] $headers
+     * @param RuntimeOptions $runtime
+     * @return InitSimLoginResponse
+     */
+    public function initSimLoginEx($request, $headers, $runtime){
+        Utils::validateModel($request);
+        return InitSimLoginResponse::fromMap($this->doRequest("1.0", "antsecuritytech.gateway.sim.login.init", "HTTPS", "POST", "/gateway.do", Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 两轮车一体机查询登录结果
+     * Summary: 两轮车一体机查询登录结果
+     * @param QuerySimLoginRequest $request
+     * @return QuerySimLoginResponse
+     */
+    public function querySimLogin($request){
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+        return $this->querySimLoginEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 两轮车一体机查询登录结果
+     * Summary: 两轮车一体机查询登录结果
+     * @param QuerySimLoginRequest $request
+     * @param string[] $headers
+     * @param RuntimeOptions $runtime
+     * @return QuerySimLoginResponse
+     */
+    public function querySimLoginEx($request, $headers, $runtime){
+        Utils::validateModel($request);
+        return QuerySimLoginResponse::fromMap($this->doRequest("1.0", "antsecuritytech.gateway.sim.login.query", "HTTPS", "POST", "/gateway.do", Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 两轮车一体机获取营销活动
+     * Summary: 两轮车一体机获取营销活动
+     * @param ListSimCampaignRequest $request
+     * @return ListSimCampaignResponse
+     */
+    public function listSimCampaign($request){
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+        return $this->listSimCampaignEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 两轮车一体机获取营销活动
+     * Summary: 两轮车一体机获取营销活动
+     * @param ListSimCampaignRequest $request
+     * @param string[] $headers
+     * @param RuntimeOptions $runtime
+     * @return ListSimCampaignResponse
+     */
+    public function listSimCampaignEx($request, $headers, $runtime){
+        Utils::validateModel($request);
+        return ListSimCampaignResponse::fromMap($this->doRequest("1.0", "antsecuritytech.gateway.sim.campaign.list", "HTTPS", "POST", "/gateway.do", Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 两轮车一体机查询车辆SKU
+     * Summary: 两轮车一体机查询车辆SKU
+     * @param QuerySimSkuRequest $request
+     * @return QuerySimSkuResponse
+     */
+    public function querySimSku($request){
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+        return $this->querySimSkuEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 两轮车一体机查询车辆SKU
+     * Summary: 两轮车一体机查询车辆SKU
+     * @param QuerySimSkuRequest $request
+     * @param string[] $headers
+     * @param RuntimeOptions $runtime
+     * @return QuerySimSkuResponse
+     */
+    public function querySimSkuEx($request, $headers, $runtime){
+        Utils::validateModel($request);
+        return QuerySimSkuResponse::fromMap($this->doRequest("1.0", "antsecuritytech.gateway.sim.sku.query", "HTTPS", "POST", "/gateway.do", Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 两轮车一体机列举车辆SKU
+     * Summary: 两轮车一体机列举车辆SKU
+     * @param ListSimSkuRequest $request
+     * @return ListSimSkuResponse
+     */
+    public function listSimSku($request){
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+        return $this->listSimSkuEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 两轮车一体机列举车辆SKU
+     * Summary: 两轮车一体机列举车辆SKU
+     * @param ListSimSkuRequest $request
+     * @param string[] $headers
+     * @param RuntimeOptions $runtime
+     * @return ListSimSkuResponse
+     */
+    public function listSimSkuEx($request, $headers, $runtime){
+        Utils::validateModel($request);
+        return ListSimSkuResponse::fromMap($this->doRequest("1.0", "antsecuritytech.gateway.sim.sku.list", "HTTPS", "POST", "/gateway.do", Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 两轮车一体机创建订单信息
+     * Summary: 两轮车一体机创建订单信息
+     * @param CreateSimOrderRequest $request
+     * @return CreateSimOrderResponse
+     */
+    public function createSimOrder($request){
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+        return $this->createSimOrderEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 两轮车一体机创建订单信息
+     * Summary: 两轮车一体机创建订单信息
+     * @param CreateSimOrderRequest $request
+     * @param string[] $headers
+     * @param RuntimeOptions $runtime
+     * @return CreateSimOrderResponse
+     */
+    public function createSimOrderEx($request, $headers, $runtime){
+        Utils::validateModel($request);
+        return CreateSimOrderResponse::fromMap($this->doRequest("1.0", "antsecuritytech.gateway.sim.order.create", "HTTPS", "POST", "/gateway.do", Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 两轮车一体机查询订单信息
+     * Summary: 两轮车一体机查询订单信息
+     * @param QuerySimOrderRequest $request
+     * @return QuerySimOrderResponse
+     */
+    public function querySimOrder($request){
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+        return $this->querySimOrderEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 两轮车一体机查询订单信息
+     * Summary: 两轮车一体机查询订单信息
+     * @param QuerySimOrderRequest $request
+     * @param string[] $headers
+     * @param RuntimeOptions $runtime
+     * @return QuerySimOrderResponse
+     */
+    public function querySimOrderEx($request, $headers, $runtime){
+        Utils::validateModel($request);
+        return QuerySimOrderResponse::fromMap($this->doRequest("1.0", "antsecuritytech.gateway.sim.order.query", "HTTPS", "POST", "/gateway.do", Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 两轮车一体机列举订单信息
+     * Summary: 两轮车一体机列举订单信息
+     * @param ListSimOrderRequest $request
+     * @return ListSimOrderResponse
+     */
+    public function listSimOrder($request){
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+        return $this->listSimOrderEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 两轮车一体机列举订单信息
+     * Summary: 两轮车一体机列举订单信息
+     * @param ListSimOrderRequest $request
+     * @param string[] $headers
+     * @param RuntimeOptions $runtime
+     * @return ListSimOrderResponse
+     */
+    public function listSimOrderEx($request, $headers, $runtime){
+        Utils::validateModel($request);
+        return ListSimOrderResponse::fromMap($this->doRequest("1.0", "antsecuritytech.gateway.sim.order.list", "HTTPS", "POST", "/gateway.do", Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 两轮车一体机取消订单信息
+     * Summary: 两轮车一体机取消订单信息
+     * @param CancelSimOrderRequest $request
+     * @return CancelSimOrderResponse
+     */
+    public function cancelSimOrder($request){
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+        return $this->cancelSimOrderEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 两轮车一体机取消订单信息
+     * Summary: 两轮车一体机取消订单信息
+     * @param CancelSimOrderRequest $request
+     * @param string[] $headers
+     * @param RuntimeOptions $runtime
+     * @return CancelSimOrderResponse
+     */
+    public function cancelSimOrderEx($request, $headers, $runtime){
+        Utils::validateModel($request);
+        return CancelSimOrderResponse::fromMap($this->doRequest("1.0", "antsecuritytech.gateway.sim.order.cancel", "HTTPS", "POST", "/gateway.do", Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 两轮车一体机拉取车辆SKU
+     * Summary: 两轮车一体机拉取车辆SKU
+     * @param PullSimSkuRequest $request
+     * @return PullSimSkuResponse
+     */
+    public function pullSimSku($request){
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+        return $this->pullSimSkuEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 两轮车一体机拉取车辆SKU
+     * Summary: 两轮车一体机拉取车辆SKU
+     * @param PullSimSkuRequest $request
+     * @param string[] $headers
+     * @param RuntimeOptions $runtime
+     * @return PullSimSkuResponse
+     */
+    public function pullSimSkuEx($request, $headers, $runtime){
+        Utils::validateModel($request);
+        return PullSimSkuResponse::fromMap($this->doRequest("1.0", "antsecuritytech.gateway.sim.sku.pull", "HTTPS", "POST", "/gateway.do", Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 一体机购车订单支付确认请求
+     * Summary: 一体机购车订单支付确认请求
+     * @param ConfirmSimOrderRequest $request
+     * @return ConfirmSimOrderResponse
+     */
+    public function confirmSimOrder($request){
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+        return $this->confirmSimOrderEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 一体机购车订单支付确认请求
+     * Summary: 一体机购车订单支付确认请求
+     * @param ConfirmSimOrderRequest $request
+     * @param string[] $headers
+     * @param RuntimeOptions $runtime
+     * @return ConfirmSimOrderResponse
+     */
+    public function confirmSimOrderEx($request, $headers, $runtime){
+        Utils::validateModel($request);
+        return ConfirmSimOrderResponse::fromMap($this->doRequest("1.0", "antsecuritytech.gateway.sim.order.confirm", "HTTPS", "POST", "/gateway.do", Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 门店一体机车辆码上传解析接口
+     * Summary: 门店一体机车辆码上传解析接口
+     * @param UploadSimQrcodeRequest $request
+     * @return UploadSimQrcodeResponse
+     */
+    public function uploadSimQrcode($request){
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+        return $this->uploadSimQrcodeEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 门店一体机车辆码上传解析接口
+     * Summary: 门店一体机车辆码上传解析接口
+     * @param UploadSimQrcodeRequest $request
+     * @param string[] $headers
+     * @param RuntimeOptions $runtime
+     * @return UploadSimQrcodeResponse
+     */
+    public function uploadSimQrcodeEx($request, $headers, $runtime){
+        Utils::validateModel($request);
+        return UploadSimQrcodeResponse::fromMap($this->doRequest("1.0", "antsecuritytech.gateway.sim.qrcode.upload", "HTTPS", "POST", "/gateway.do", Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 查询spu列表
+     * Summary: 两轮车一体机列举车辆SPU
+     * @param QuerySpuListRequest $request
+     * @return QuerySpuListResponse
+     */
+    public function querySpuList($request){
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+        return $this->querySpuListEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 查询spu列表
+     * Summary: 两轮车一体机列举车辆SPU
+     * @param QuerySpuListRequest $request
+     * @param string[] $headers
+     * @param RuntimeOptions $runtime
+     * @return QuerySpuListResponse
+     */
+    public function querySpuListEx($request, $headers, $runtime){
+        Utils::validateModel($request);
+        return QuerySpuListResponse::fromMap($this->doRequest("1.0", "antsecuritytech.gateway.spu.list.query", "HTTPS", "POST", "/gateway.do", Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 两轮车一体机轮询门店签约结果
+     * Summary: 两轮车一体机轮询门店签约结果
+     * @param QueryLoginSignRequest $request
+     * @return QueryLoginSignResponse
+     */
+    public function queryLoginSign($request){
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+        return $this->queryLoginSignEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 两轮车一体机轮询门店签约结果
+     * Summary: 两轮车一体机轮询门店签约结果
+     * @param QueryLoginSignRequest $request
+     * @param string[] $headers
+     * @param RuntimeOptions $runtime
+     * @return QueryLoginSignResponse
+     */
+    public function queryLoginSignEx($request, $headers, $runtime){
+        Utils::validateModel($request);
+        return QueryLoginSignResponse::fromMap($this->doRequest("1.0", "antsecuritytech.gateway.login.sign.query", "HTTPS", "POST", "/gateway.do", Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 刷新订单链接
+     * Summary: 刷新订单链接
+     * @param ResetOrderLinkRequest $request
+     * @return ResetOrderLinkResponse
+     */
+    public function resetOrderLink($request){
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+        return $this->resetOrderLinkEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 刷新订单链接
+     * Summary: 刷新订单链接
+     * @param ResetOrderLinkRequest $request
+     * @param string[] $headers
+     * @param RuntimeOptions $runtime
+     * @return ResetOrderLinkResponse
+     */
+    public function resetOrderLinkEx($request, $headers, $runtime){
+        Utils::validateModel($request);
+        return ResetOrderLinkResponse::fromMap($this->doRequest("1.0", "antsecuritytech.gateway.order.link.reset", "HTTPS", "POST", "/gateway.do", Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 一体机风控信息上传接口
+     * Summary: 一体机风控信息上传接口
+     * @param UploadSimRiskdataRequest $request
+     * @return UploadSimRiskdataResponse
+     */
+    public function uploadSimRiskdata($request){
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+        return $this->uploadSimRiskdataEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 一体机风控信息上传接口
+     * Summary: 一体机风控信息上传接口
+     * @param UploadSimRiskdataRequest $request
+     * @param string[] $headers
+     * @param RuntimeOptions $runtime
+     * @return UploadSimRiskdataResponse
+     */
+    public function uploadSimRiskdataEx($request, $headers, $runtime){
+        Utils::validateModel($request);
+        return UploadSimRiskdataResponse::fromMap($this->doRequest("1.0", "antsecuritytech.gateway.sim.riskdata.upload", "HTTPS", "POST", "/gateway.do", Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 数字钥匙通过联登TOKEN获取用户信息
+     * Summary: 数字钥匙通过联登TOKEN获取用户信息
+     * @param QueryDigitalkeyUserinfoRequest $request
+     * @return QueryDigitalkeyUserinfoResponse
+     */
+    public function queryDigitalkeyUserinfo($request){
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+        return $this->queryDigitalkeyUserinfoEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 数字钥匙通过联登TOKEN获取用户信息
+     * Summary: 数字钥匙通过联登TOKEN获取用户信息
+     * @param QueryDigitalkeyUserinfoRequest $request
+     * @param string[] $headers
+     * @param RuntimeOptions $runtime
+     * @return QueryDigitalkeyUserinfoResponse
+     */
+    public function queryDigitalkeyUserinfoEx($request, $headers, $runtime){
+        Utils::validateModel($request);
+        return QueryDigitalkeyUserinfoResponse::fromMap($this->doRequest("1.0", "antsecuritytech.gateway.digitalkey.userinfo.query", "HTTPS", "POST", "/gateway.do", Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 车辆gps定位查询接口
+     * Summary: 车辆gps定位查询接口
+     * @param QueryTwevPositionRequest $request
+     * @return QueryTwevPositionResponse
+     */
+    public function queryTwevPosition($request){
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+        return $this->queryTwevPositionEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 车辆gps定位查询接口
+     * Summary: 车辆gps定位查询接口
+     * @param QueryTwevPositionRequest $request
+     * @param string[] $headers
+     * @param RuntimeOptions $runtime
+     * @return QueryTwevPositionResponse
+     */
+    public function queryTwevPositionEx($request, $headers, $runtime){
+        Utils::validateModel($request);
+        return QueryTwevPositionResponse::fromMap($this->doRequest("1.0", "antsecuritytech.gateway.twev.position.query", "HTTPS", "POST", "/gateway.do", Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 寻车鸣笛
+     * Summary: 寻车鸣笛
+     * @param OperateTwevSearchRequest $request
+     * @return OperateTwevSearchResponse
+     */
+    public function operateTwevSearch($request){
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+        return $this->operateTwevSearchEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 寻车鸣笛
+     * Summary: 寻车鸣笛
+     * @param OperateTwevSearchRequest $request
+     * @param string[] $headers
+     * @param RuntimeOptions $runtime
+     * @return OperateTwevSearchResponse
+     */
+    public function operateTwevSearchEx($request, $headers, $runtime){
+        Utils::validateModel($request);
+        return OperateTwevSearchResponse::fromMap($this->doRequest("1.0", "antsecuritytech.gateway.twev.search.operate", "HTTPS", "POST", "/gateway.do", Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 二轮车锁车/解锁
+     * Summary: 二轮车锁车/解锁
+     * @param OperateTwevPowerRequest $request
+     * @return OperateTwevPowerResponse
+     */
+    public function operateTwevPower($request){
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+        return $this->operateTwevPowerEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 二轮车锁车/解锁
+     * Summary: 二轮车锁车/解锁
+     * @param OperateTwevPowerRequest $request
+     * @param string[] $headers
+     * @param RuntimeOptions $runtime
+     * @return OperateTwevPowerResponse
+     */
+    public function operateTwevPowerEx($request, $headers, $runtime){
+        Utils::validateModel($request);
+        return OperateTwevPowerResponse::fromMap($this->doRequest("1.0", "antsecuritytech.gateway.twev.power.operate", "HTTPS", "POST", "/gateway.do", Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 二轮车异步任务结果查询
+     * Summary: 二轮车异步任务结果查询
+     * @param QueryTwevTaskRequest $request
+     * @return QueryTwevTaskResponse
+     */
+    public function queryTwevTask($request){
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+        return $this->queryTwevTaskEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 二轮车异步任务结果查询
+     * Summary: 二轮车异步任务结果查询
+     * @param QueryTwevTaskRequest $request
+     * @param string[] $headers
+     * @param RuntimeOptions $runtime
+     * @return QueryTwevTaskResponse
+     */
+    public function queryTwevTaskEx($request, $headers, $runtime){
+        Utils::validateModel($request);
+        return QueryTwevTaskResponse::fromMap($this->doRequest("1.0", "antsecuritytech.gateway.twev.task.query", "HTTPS", "POST", "/gateway.do", Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 数字钥匙设备凭证数据申请
+     * Summary: 数字钥匙设备凭证数据申请
+     * @param ApplyDigitalkeyCredRequest $request
+     * @return ApplyDigitalkeyCredResponse
+     */
+    public function applyDigitalkeyCred($request){
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+        return $this->applyDigitalkeyCredEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 数字钥匙设备凭证数据申请
+     * Summary: 数字钥匙设备凭证数据申请
+     * @param ApplyDigitalkeyCredRequest $request
+     * @param string[] $headers
+     * @param RuntimeOptions $runtime
+     * @return ApplyDigitalkeyCredResponse
+     */
+    public function applyDigitalkeyCredEx($request, $headers, $runtime){
+        Utils::validateModel($request);
+        return ApplyDigitalkeyCredResponse::fromMap($this->doRequest("1.0", "antsecuritytech.gateway.digitalkey.cred.apply", "HTTPS", "POST", "/gateway.do", Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 客户信息初始化
+     * Summary: 客户信息初始化
+     * @param InitDigitalkeyCorpRequest $request
+     * @return InitDigitalkeyCorpResponse
+     */
+    public function initDigitalkeyCorp($request){
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+        return $this->initDigitalkeyCorpEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 客户信息初始化
+     * Summary: 客户信息初始化
+     * @param InitDigitalkeyCorpRequest $request
+     * @param string[] $headers
+     * @param RuntimeOptions $runtime
+     * @return InitDigitalkeyCorpResponse
+     */
+    public function initDigitalkeyCorpEx($request, $headers, $runtime){
+        Utils::validateModel($request);
+        return InitDigitalkeyCorpResponse::fromMap($this->doRequest("1.0", "antsecuritytech.gateway.digitalkey.corp.init", "HTTPS", "POST", "/gateway.do", Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 数字钥匙nfc车辆信息查询
+     * Summary: 数字钥匙nfc车辆信息查询
+     * @param QueryDigitalkeyNfccarinfoRequest $request
+     * @return QueryDigitalkeyNfccarinfoResponse
+     */
+    public function queryDigitalkeyNfccarinfo($request){
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+        return $this->queryDigitalkeyNfccarinfoEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 数字钥匙nfc车辆信息查询
+     * Summary: 数字钥匙nfc车辆信息查询
+     * @param QueryDigitalkeyNfccarinfoRequest $request
+     * @param string[] $headers
+     * @param RuntimeOptions $runtime
+     * @return QueryDigitalkeyNfccarinfoResponse
+     */
+    public function queryDigitalkeyNfccarinfoEx($request, $headers, $runtime){
+        Utils::validateModel($request);
+        return QueryDigitalkeyNfccarinfoResponse::fromMap($this->doRequest("1.0", "antsecuritytech.gateway.digitalkey.nfccarinfo.query", "HTTPS", "POST", "/gateway.do", Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 两轮车一体机选择门店登录
+     * Summary: 两轮车一体机选择门店登录
+     * @param ConfirmSimLoginRequest $request
+     * @return ConfirmSimLoginResponse
+     */
+    public function confirmSimLogin($request){
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+        return $this->confirmSimLoginEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 两轮车一体机选择门店登录
+     * Summary: 两轮车一体机选择门店登录
+     * @param ConfirmSimLoginRequest $request
+     * @param string[] $headers
+     * @param RuntimeOptions $runtime
+     * @return ConfirmSimLoginResponse
+     */
+    public function confirmSimLoginEx($request, $headers, $runtime){
+        Utils::validateModel($request);
+        return ConfirmSimLoginResponse::fromMap($this->doRequest("1.0", "antsecuritytech.gateway.sim.login.confirm", "HTTPS", "POST", "/gateway.do", Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 两轮车一体机门店设置sku价格
+     * Summary: 两轮车一体机门店设置sku价格
+     * @param UpdateSimSkuRequest $request
+     * @return UpdateSimSkuResponse
+     */
+    public function updateSimSku($request){
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+        return $this->updateSimSkuEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 两轮车一体机门店设置sku价格
+     * Summary: 两轮车一体机门店设置sku价格
+     * @param UpdateSimSkuRequest $request
+     * @param string[] $headers
+     * @param RuntimeOptions $runtime
+     * @return UpdateSimSkuResponse
+     */
+    public function updateSimSkuEx($request, $headers, $runtime){
+        Utils::validateModel($request);
+        return UpdateSimSkuResponse::fromMap($this->doRequest("1.0", "antsecuritytech.gateway.sim.sku.update", "HTTPS", "POST", "/gateway.do", Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 贷后控车查询车辆定位数据
+     * Summary: 贷后控车查询车辆定位数据
+     * @param QueryTwevCarRequest $request
+     * @return QueryTwevCarResponse
+     */
+    public function queryTwevCar($request){
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+        return $this->queryTwevCarEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 贷后控车查询车辆定位数据
+     * Summary: 贷后控车查询车辆定位数据
+     * @param QueryTwevCarRequest $request
+     * @param string[] $headers
+     * @param RuntimeOptions $runtime
+     * @return QueryTwevCarResponse
+     */
+    public function queryTwevCarEx($request, $headers, $runtime){
+        Utils::validateModel($request);
+        return QueryTwevCarResponse::fromMap($this->doRequest("1.0", "antsecuritytech.gateway.twev.car.query", "HTTPS", "POST", "/gateway.do", Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 贷后控车查询车辆gps轨迹
+     * Summary: 贷后控车查询车辆gps轨迹
+     * @param QueryTwevTravelRequest $request
+     * @return QueryTwevTravelResponse
+     */
+    public function queryTwevTravel($request){
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+        return $this->queryTwevTravelEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 贷后控车查询车辆gps轨迹
+     * Summary: 贷后控车查询车辆gps轨迹
+     * @param QueryTwevTravelRequest $request
+     * @param string[] $headers
+     * @param RuntimeOptions $runtime
+     * @return QueryTwevTravelResponse
+     */
+    public function queryTwevTravelEx($request, $headers, $runtime){
+        Utils::validateModel($request);
+        return QueryTwevTravelResponse::fromMap($this->doRequest("1.0", "antsecuritytech.gateway.twev.travel.query", "HTTPS", "POST", "/gateway.do", Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 贷后控车车辆控制
+     * Summary: 贷后控车车辆控制
+     * @param OperateTwevCarRequest $request
+     * @return OperateTwevCarResponse
+     */
+    public function operateTwevCar($request){
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+        return $this->operateTwevCarEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 贷后控车车辆控制
+     * Summary: 贷后控车车辆控制
+     * @param OperateTwevCarRequest $request
+     * @param string[] $headers
+     * @param RuntimeOptions $runtime
+     * @return OperateTwevCarResponse
+     */
+    public function operateTwevCarEx($request, $headers, $runtime){
+        Utils::validateModel($request);
+        return OperateTwevCarResponse::fromMap($this->doRequest("1.0", "antsecuritytech.gateway.twev.car.operate", "HTTPS", "POST", "/gateway.do", Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 新接口-查询车辆行程统计数据
+     * Summary: 新接口-查询车辆行程统计数据
+     * @param QueryTwevCardataRequest $request
+     * @return QueryTwevCardataResponse
+     */
+    public function queryTwevCardata($request){
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+        return $this->queryTwevCardataEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 新接口-查询车辆行程统计数据
+     * Summary: 新接口-查询车辆行程统计数据
+     * @param QueryTwevCardataRequest $request
+     * @param string[] $headers
+     * @param RuntimeOptions $runtime
+     * @return QueryTwevCardataResponse
+     */
+    public function queryTwevCardataEx($request, $headers, $runtime){
+        Utils::validateModel($request);
+        return QueryTwevCardataResponse::fromMap($this->doRequest("1.0", "antsecuritytech.gateway.twev.cardata.query", "HTTPS", "POST", "/gateway.do", Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 新接口-分页查询车辆行程记录
+     * Summary: 新接口-分页查询车辆行程记录
+     * @param QueryTwevCartravelRequest $request
+     * @return QueryTwevCartravelResponse
+     */
+    public function queryTwevCartravel($request){
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+        return $this->queryTwevCartravelEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 新接口-分页查询车辆行程记录
+     * Summary: 新接口-分页查询车辆行程记录
+     * @param QueryTwevCartravelRequest $request
+     * @param string[] $headers
+     * @param RuntimeOptions $runtime
+     * @return QueryTwevCartravelResponse
+     */
+    public function queryTwevCartravelEx($request, $headers, $runtime){
+        Utils::validateModel($request);
+        return QueryTwevCartravelResponse::fromMap($this->doRequest("1.0", "antsecuritytech.gateway.twev.cartravel.query", "HTTPS", "POST", "/gateway.do", Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 数字钥匙设备凭证数据删除
+     * Summary: 数字钥匙设备凭证数据删除
+     * @param DeleteDigitalkeyCredRequest $request
+     * @return DeleteDigitalkeyCredResponse
+     */
+    public function deleteDigitalkeyCred($request){
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+        return $this->deleteDigitalkeyCredEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 数字钥匙设备凭证数据删除
+     * Summary: 数字钥匙设备凭证数据删除
+     * @param DeleteDigitalkeyCredRequest $request
+     * @param string[] $headers
+     * @param RuntimeOptions $runtime
+     * @return DeleteDigitalkeyCredResponse
+     */
+    public function deleteDigitalkeyCredEx($request, $headers, $runtime){
+        Utils::validateModel($request);
+        return DeleteDigitalkeyCredResponse::fromMap($this->doRequest("1.0", "antsecuritytech.gateway.digitalkey.cred.delete", "HTTPS", "POST", "/gateway.do", Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 租赁车辆激活接口
+     * Summary: 租赁车辆激活接口
+     * @param ActivateDigitalkeyRentalRequest $request
+     * @return ActivateDigitalkeyRentalResponse
+     */
+    public function activateDigitalkeyRental($request){
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+        return $this->activateDigitalkeyRentalEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 租赁车辆激活接口
+     * Summary: 租赁车辆激活接口
+     * @param ActivateDigitalkeyRentalRequest $request
+     * @param string[] $headers
+     * @param RuntimeOptions $runtime
+     * @return ActivateDigitalkeyRentalResponse
+     */
+    public function activateDigitalkeyRentalEx($request, $headers, $runtime){
+        Utils::validateModel($request);
+        return ActivateDigitalkeyRentalResponse::fromMap($this->doRequest("1.0", "antsecuritytech.gateway.digitalkey.rental.activate", "HTTPS", "POST", "/gateway.do", Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 租赁钥匙分享接口
+     * Summary: 租赁钥匙分享接口
+     * @param ShareDigitalkeyRentalRequest $request
+     * @return ShareDigitalkeyRentalResponse
+     */
+    public function shareDigitalkeyRental($request){
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+        return $this->shareDigitalkeyRentalEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 租赁钥匙分享接口
+     * Summary: 租赁钥匙分享接口
+     * @param ShareDigitalkeyRentalRequest $request
+     * @param string[] $headers
+     * @param RuntimeOptions $runtime
+     * @return ShareDigitalkeyRentalResponse
+     */
+    public function shareDigitalkeyRentalEx($request, $headers, $runtime){
+        Utils::validateModel($request);
+        return ShareDigitalkeyRentalResponse::fromMap($this->doRequest("1.0", "antsecuritytech.gateway.digitalkey.rental.share", "HTTPS", "POST", "/gateway.do", Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 租赁钥匙收回接口
+     * Summary: 租赁钥匙收回接口
+     * @param RevokeDigitalkeyRentalRequest $request
+     * @return RevokeDigitalkeyRentalResponse
+     */
+    public function revokeDigitalkeyRental($request){
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+        return $this->revokeDigitalkeyRentalEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 租赁钥匙收回接口
+     * Summary: 租赁钥匙收回接口
+     * @param RevokeDigitalkeyRentalRequest $request
+     * @param string[] $headers
+     * @param RuntimeOptions $runtime
+     * @return RevokeDigitalkeyRentalResponse
+     */
+    public function revokeDigitalkeyRentalEx($request, $headers, $runtime){
+        Utils::validateModel($request);
+        return RevokeDigitalkeyRentalResponse::fromMap($this->doRequest("1.0", "antsecuritytech.gateway.digitalkey.rental.revoke", "HTTPS", "POST", "/gateway.do", Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 租赁车辆数据查询接口
+     * Summary: 租赁车辆数据查询接口
+     * @param QueryDigitalkeyRentalcarRequest $request
+     * @return QueryDigitalkeyRentalcarResponse
+     */
+    public function queryDigitalkeyRentalcar($request){
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+        return $this->queryDigitalkeyRentalcarEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 租赁车辆数据查询接口
+     * Summary: 租赁车辆数据查询接口
+     * @param QueryDigitalkeyRentalcarRequest $request
+     * @param string[] $headers
+     * @param RuntimeOptions $runtime
+     * @return QueryDigitalkeyRentalcarResponse
+     */
+    public function queryDigitalkeyRentalcarEx($request, $headers, $runtime){
+        Utils::validateModel($request);
+        return QueryDigitalkeyRentalcarResponse::fromMap($this->doRequest("1.0", "antsecuritytech.gateway.digitalkey.rentalcar.query", "HTTPS", "POST", "/gateway.do", Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 租赁车辆轨迹查询接口
+     * Summary: 租赁车辆轨迹查询接口
+     * @param ListDigitalkeyRentaltripRequest $request
+     * @return ListDigitalkeyRentaltripResponse
+     */
+    public function listDigitalkeyRentaltrip($request){
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+        return $this->listDigitalkeyRentaltripEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 租赁车辆轨迹查询接口
+     * Summary: 租赁车辆轨迹查询接口
+     * @param ListDigitalkeyRentaltripRequest $request
+     * @param string[] $headers
+     * @param RuntimeOptions $runtime
+     * @return ListDigitalkeyRentaltripResponse
+     */
+    public function listDigitalkeyRentaltripEx($request, $headers, $runtime){
+        Utils::validateModel($request);
+        return ListDigitalkeyRentaltripResponse::fromMap($this->doRequest("1.0", "antsecuritytech.gateway.digitalkey.rentaltrip.list", "HTTPS", "POST", "/gateway.do", Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 行程轨迹点接口
+     * Summary: 行程轨迹点接口
+     * @param QueryDigitalkeyRentaltrippointRequest $request
+     * @return QueryDigitalkeyRentaltrippointResponse
+     */
+    public function queryDigitalkeyRentaltrippoint($request){
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+        return $this->queryDigitalkeyRentaltrippointEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 行程轨迹点接口
+     * Summary: 行程轨迹点接口
+     * @param QueryDigitalkeyRentaltrippointRequest $request
+     * @param string[] $headers
+     * @param RuntimeOptions $runtime
+     * @return QueryDigitalkeyRentaltrippointResponse
+     */
+    public function queryDigitalkeyRentaltrippointEx($request, $headers, $runtime){
+        Utils::validateModel($request);
+        return QueryDigitalkeyRentaltrippointResponse::fromMap($this->doRequest("1.0", "antsecuritytech.gateway.digitalkey.rentaltrippoint.query", "HTTPS", "POST", "/gateway.do", Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 积分充值
+     * Summary: 积分充值
+     * @param RechargeMallPointRequest $request
+     * @return RechargeMallPointResponse
+     */
+    public function rechargeMallPoint($request){
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+        return $this->rechargeMallPointEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 积分充值
+     * Summary: 积分充值
+     * @param RechargeMallPointRequest $request
+     * @param string[] $headers
+     * @param RuntimeOptions $runtime
+     * @return RechargeMallPointResponse
+     */
+    public function rechargeMallPointEx($request, $headers, $runtime){
+        Utils::validateModel($request);
+        return RechargeMallPointResponse::fromMap($this->doRequest("1.0", "antsecuritytech.gateway.mall.point.recharge", "HTTPS", "POST", "/gateway.do", Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 逾期通知
+     * Summary: 逾期通知
+     * @param OverdueTerminationRequest $request
+     * @return OverdueTerminationResponse
+     */
+    public function overdueTermination($request){
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+        return $this->overdueTerminationEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 逾期通知
+     * Summary: 逾期通知
+     * @param OverdueTerminationRequest $request
+     * @param string[] $headers
+     * @param RuntimeOptions $runtime
+     * @return OverdueTerminationResponse
+     */
+    public function overdueTerminationEx($request, $headers, $runtime){
+        Utils::validateModel($request);
+        return OverdueTerminationResponse::fromMap($this->doRequest("1.0", "antsecuritytech.gateway.termination.overdue", "HTTPS", "POST", "/gateway.do", Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 余额查询
+     * Summary: 余额查询
+     * @param QueryMallPointbalanceRequest $request
+     * @return QueryMallPointbalanceResponse
+     */
+    public function queryMallPointbalance($request){
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+        return $this->queryMallPointbalanceEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 余额查询
+     * Summary: 余额查询
+     * @param QueryMallPointbalanceRequest $request
+     * @param string[] $headers
+     * @param RuntimeOptions $runtime
+     * @return QueryMallPointbalanceResponse
+     */
+    public function queryMallPointbalanceEx($request, $headers, $runtime){
+        Utils::validateModel($request);
+        return QueryMallPointbalanceResponse::fromMap($this->doRequest("1.0", "antsecuritytech.gateway.mall.pointbalance.query", "HTTPS", "POST", "/gateway.do", Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 解约信息查询
+     * Summary: 解约信息查询
+     * @param QueryTerminationRequest $request
+     * @return QueryTerminationResponse
+     */
+    public function queryTermination($request){
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+        return $this->queryTerminationEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 解约信息查询
+     * Summary: 解约信息查询
+     * @param QueryTerminationRequest $request
+     * @param string[] $headers
+     * @param RuntimeOptions $runtime
+     * @return QueryTerminationResponse
+     */
+    public function queryTerminationEx($request, $headers, $runtime){
+        Utils::validateModel($request);
+        return QueryTerminationResponse::fromMap($this->doRequest("1.0", "antsecuritytech.gateway.termination.query", "HTTPS", "POST", "/gateway.do", Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 解约
+     * Summary: 解约
+     * @param ApplyTerminationRequest $request
+     * @return ApplyTerminationResponse
+     */
+    public function applyTermination($request){
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+        return $this->applyTerminationEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 解约
+     * Summary: 解约
+     * @param ApplyTerminationRequest $request
+     * @param string[] $headers
+     * @param RuntimeOptions $runtime
+     * @return ApplyTerminationResponse
+     */
+    public function applyTerminationEx($request, $headers, $runtime){
+        Utils::validateModel($request);
+        return ApplyTerminationResponse::fromMap($this->doRequest("1.0", "antsecuritytech.gateway.termination.apply", "HTTPS", "POST", "/gateway.do", Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 账户查询
+     * Summary: 账户查询
+     * @param QueryMallPointaccountRequest $request
+     * @return QueryMallPointaccountResponse
+     */
+    public function queryMallPointaccount($request){
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+        return $this->queryMallPointaccountEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 账户查询
+     * Summary: 账户查询
+     * @param QueryMallPointaccountRequest $request
+     * @param string[] $headers
+     * @param RuntimeOptions $runtime
+     * @return QueryMallPointaccountResponse
+     */
+    public function queryMallPointaccountEx($request, $headers, $runtime){
+        Utils::validateModel($request);
+        return QueryMallPointaccountResponse::fromMap($this->doRequest("1.0", "antsecuritytech.gateway.mall.pointaccount.query", "HTTPS", "POST", "/gateway.do", Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 积分冻结
+     * Summary: 积分冻结
+     * @param FreezeMallPointRequest $request
+     * @return FreezeMallPointResponse
+     */
+    public function freezeMallPoint($request){
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+        return $this->freezeMallPointEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 积分冻结
+     * Summary: 积分冻结
+     * @param FreezeMallPointRequest $request
+     * @param string[] $headers
+     * @param RuntimeOptions $runtime
+     * @return FreezeMallPointResponse
+     */
+    public function freezeMallPointEx($request, $headers, $runtime){
+        Utils::validateModel($request);
+        return FreezeMallPointResponse::fromMap($this->doRequest("1.0", "antsecuritytech.gateway.mall.point.freeze", "HTTPS", "POST", "/gateway.do", Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 积分解冻
+     * Summary: 积分解冻
+     * @param UnfreezeMallPointRequest $request
+     * @return UnfreezeMallPointResponse
+     */
+    public function unfreezeMallPoint($request){
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+        return $this->unfreezeMallPointEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 积分解冻
+     * Summary: 积分解冻
+     * @param UnfreezeMallPointRequest $request
+     * @param string[] $headers
+     * @param RuntimeOptions $runtime
+     * @return UnfreezeMallPointResponse
+     */
+    public function unfreezeMallPointEx($request, $headers, $runtime){
+        Utils::validateModel($request);
+        return UnfreezeMallPointResponse::fromMap($this->doRequest("1.0", "antsecuritytech.gateway.mall.point.unfreeze", "HTTPS", "POST", "/gateway.do", Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 积分扣减
+     * Summary: 积分扣减
+     * @param DeductMallPointRequest $request
+     * @return DeductMallPointResponse
+     */
+    public function deductMallPoint($request){
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+        return $this->deductMallPointEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 积分扣减
+     * Summary: 积分扣减
+     * @param DeductMallPointRequest $request
+     * @param string[] $headers
+     * @param RuntimeOptions $runtime
+     * @return DeductMallPointResponse
+     */
+    public function deductMallPointEx($request, $headers, $runtime){
+        Utils::validateModel($request);
+        return DeductMallPointResponse::fromMap($this->doRequest("1.0", "antsecuritytech.gateway.mall.point.deduct", "HTTPS", "POST", "/gateway.do", Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 订单状态查询接口
+     * Summary: 订单状态查询接口
+     * @param QueryPoiOrderRequest $request
+     * @return QueryPoiOrderResponse
+     */
+    public function queryPoiOrder($request){
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+        return $this->queryPoiOrderEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 订单状态查询接口
+     * Summary: 订单状态查询接口
+     * @param QueryPoiOrderRequest $request
+     * @param string[] $headers
+     * @param RuntimeOptions $runtime
+     * @return QueryPoiOrderResponse
+     */
+    public function queryPoiOrderEx($request, $headers, $runtime){
+        Utils::validateModel($request);
+        return QueryPoiOrderResponse::fromMap($this->doRequest("1.0", "antsecuritytech.gateway.poi.order.query", "HTTPS", "POST", "/gateway.do", Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 积分充值
+     * Summary: 积分充值
+     * @param RechargePoiMallpointRequest $request
+     * @return RechargePoiMallpointResponse
+     */
+    public function rechargePoiMallpoint($request){
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+        return $this->rechargePoiMallpointEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 积分充值
+     * Summary: 积分充值
+     * @param RechargePoiMallpointRequest $request
+     * @param string[] $headers
+     * @param RuntimeOptions $runtime
+     * @return RechargePoiMallpointResponse
+     */
+    public function rechargePoiMallpointEx($request, $headers, $runtime){
+        Utils::validateModel($request);
+        return RechargePoiMallpointResponse::fromMap($this->doRequest("1.0", "antsecuritytech.gateway.poi.mallpoint.recharge", "HTTPS", "POST", "/gateway.do", Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 逾期通知
+     * Summary: 逾期通知
+     * @param OverduePoiTerminationRequest $request
+     * @return OverduePoiTerminationResponse
+     */
+    public function overduePoiTermination($request){
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+        return $this->overduePoiTerminationEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 逾期通知
+     * Summary: 逾期通知
+     * @param OverduePoiTerminationRequest $request
+     * @param string[] $headers
+     * @param RuntimeOptions $runtime
+     * @return OverduePoiTerminationResponse
+     */
+    public function overduePoiTerminationEx($request, $headers, $runtime){
+        Utils::validateModel($request);
+        return OverduePoiTerminationResponse::fromMap($this->doRequest("1.0", "antsecuritytech.gateway.poi.termination.overdue", "HTTPS", "POST", "/gateway.do", Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 余额查询
+     * Summary: 余额查询
+     * @param QueryPoiMallpointbalanceRequest $request
+     * @return QueryPoiMallpointbalanceResponse
+     */
+    public function queryPoiMallpointbalance($request){
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+        return $this->queryPoiMallpointbalanceEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 余额查询
+     * Summary: 余额查询
+     * @param QueryPoiMallpointbalanceRequest $request
+     * @param string[] $headers
+     * @param RuntimeOptions $runtime
+     * @return QueryPoiMallpointbalanceResponse
+     */
+    public function queryPoiMallpointbalanceEx($request, $headers, $runtime){
+        Utils::validateModel($request);
+        return QueryPoiMallpointbalanceResponse::fromMap($this->doRequest("1.0", "antsecuritytech.gateway.poi.mallpointbalance.query", "HTTPS", "POST", "/gateway.do", Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 解约信息查询
+     * Summary: 解约信息查询
+     * @param QueryPoiTerminationRequest $request
+     * @return QueryPoiTerminationResponse
+     */
+    public function queryPoiTermination($request){
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+        return $this->queryPoiTerminationEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 解约信息查询
+     * Summary: 解约信息查询
+     * @param QueryPoiTerminationRequest $request
+     * @param string[] $headers
+     * @param RuntimeOptions $runtime
+     * @return QueryPoiTerminationResponse
+     */
+    public function queryPoiTerminationEx($request, $headers, $runtime){
+        Utils::validateModel($request);
+        return QueryPoiTerminationResponse::fromMap($this->doRequest("1.0", "antsecuritytech.gateway.poi.termination.query", "HTTPS", "POST", "/gateway.do", Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 解约
+     * Summary: 解约
+     * @param ApplyPoiTerminationRequest $request
+     * @return ApplyPoiTerminationResponse
+     */
+    public function applyPoiTermination($request){
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+        return $this->applyPoiTerminationEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 解约
+     * Summary: 解约
+     * @param ApplyPoiTerminationRequest $request
+     * @param string[] $headers
+     * @param RuntimeOptions $runtime
+     * @return ApplyPoiTerminationResponse
+     */
+    public function applyPoiTerminationEx($request, $headers, $runtime){
+        Utils::validateModel($request);
+        return ApplyPoiTerminationResponse::fromMap($this->doRequest("1.0", "antsecuritytech.gateway.poi.termination.apply", "HTTPS", "POST", "/gateway.do", Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 账户查询
+     * Summary: 账户查询
+     * @param QueryPoiMallpointaccountRequest $request
+     * @return QueryPoiMallpointaccountResponse
+     */
+    public function queryPoiMallpointaccount($request){
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+        return $this->queryPoiMallpointaccountEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 账户查询
+     * Summary: 账户查询
+     * @param QueryPoiMallpointaccountRequest $request
+     * @param string[] $headers
+     * @param RuntimeOptions $runtime
+     * @return QueryPoiMallpointaccountResponse
+     */
+    public function queryPoiMallpointaccountEx($request, $headers, $runtime){
+        Utils::validateModel($request);
+        return QueryPoiMallpointaccountResponse::fromMap($this->doRequest("1.0", "antsecuritytech.gateway.poi.mallpointaccount.query", "HTTPS", "POST", "/gateway.do", Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 积分冻结
+     * Summary: 积分冻结
+     * @param FreezePoiMallpointRequest $request
+     * @return FreezePoiMallpointResponse
+     */
+    public function freezePoiMallpoint($request){
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+        return $this->freezePoiMallpointEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 积分冻结
+     * Summary: 积分冻结
+     * @param FreezePoiMallpointRequest $request
+     * @param string[] $headers
+     * @param RuntimeOptions $runtime
+     * @return FreezePoiMallpointResponse
+     */
+    public function freezePoiMallpointEx($request, $headers, $runtime){
+        Utils::validateModel($request);
+        return FreezePoiMallpointResponse::fromMap($this->doRequest("1.0", "antsecuritytech.gateway.poi.mallpoint.freeze", "HTTPS", "POST", "/gateway.do", Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 积分解冻
+     * Summary: 积分解冻
+     * @param UnfreezePoiMallpointRequest $request
+     * @return UnfreezePoiMallpointResponse
+     */
+    public function unfreezePoiMallpoint($request){
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+        return $this->unfreezePoiMallpointEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 积分解冻
+     * Summary: 积分解冻
+     * @param UnfreezePoiMallpointRequest $request
+     * @param string[] $headers
+     * @param RuntimeOptions $runtime
+     * @return UnfreezePoiMallpointResponse
+     */
+    public function unfreezePoiMallpointEx($request, $headers, $runtime){
+        Utils::validateModel($request);
+        return UnfreezePoiMallpointResponse::fromMap($this->doRequest("1.0", "antsecuritytech.gateway.poi.mallpoint.unfreeze", "HTTPS", "POST", "/gateway.do", Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 积分扣减
+     * Summary: 积分扣减
+     * @param DeductPoiMallpointRequest $request
+     * @return DeductPoiMallpointResponse
+     */
+    public function deductPoiMallpoint($request){
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+        return $this->deductPoiMallpointEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 积分扣减
+     * Summary: 积分扣减
+     * @param DeductPoiMallpointRequest $request
+     * @param string[] $headers
+     * @param RuntimeOptions $runtime
+     * @return DeductPoiMallpointResponse
+     */
+    public function deductPoiMallpointEx($request, $headers, $runtime){
+        Utils::validateModel($request);
+        return DeductPoiMallpointResponse::fromMap($this->doRequest("1.0", "antsecuritytech.gateway.poi.mallpoint.deduct", "HTTPS", "POST", "/gateway.do", Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: ISV取消订单接口
+     * Summary: ISV取消订单接口
+     * @param CancelPoiOrderRequest $request
+     * @return CancelPoiOrderResponse
+     */
+    public function cancelPoiOrder($request){
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+        return $this->cancelPoiOrderEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: ISV取消订单接口
+     * Summary: ISV取消订单接口
+     * @param CancelPoiOrderRequest $request
+     * @param string[] $headers
+     * @param RuntimeOptions $runtime
+     * @return CancelPoiOrderResponse
+     */
+    public function cancelPoiOrderEx($request, $headers, $runtime){
+        Utils::validateModel($request);
+        return CancelPoiOrderResponse::fromMap($this->doRequest("1.0", "antsecuritytech.gateway.poi.order.cancel", "HTTPS", "POST", "/gateway.do", Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 天枢交易状态变更时回调 eKYT
+     * Summary: 天枢交易状态变更时回调 eKYT
+     * @param NotifyPoiTradeRequest $request
+     * @return NotifyPoiTradeResponse
+     */
+    public function notifyPoiTrade($request){
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+        return $this->notifyPoiTradeEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 天枢交易状态变更时回调 eKYT
+     * Summary: 天枢交易状态变更时回调 eKYT
+     * @param NotifyPoiTradeRequest $request
+     * @param string[] $headers
+     * @param RuntimeOptions $runtime
+     * @return NotifyPoiTradeResponse
+     */
+    public function notifyPoiTradeEx($request, $headers, $runtime){
+        Utils::validateModel($request);
+        return NotifyPoiTradeResponse::fromMap($this->doRequest("1.0", "antsecuritytech.gateway.poi.trade.notify", "HTTPS", "POST", "/gateway.do", Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 商户入驻申请
+     * Summary: 商户入驻申请
+     * @param CreateMerchantApplyRequest $request
+     * @return CreateMerchantApplyResponse
+     */
+    public function createMerchantApply($request){
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+        return $this->createMerchantApplyEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 商户入驻申请
+     * Summary: 商户入驻申请
+     * @param CreateMerchantApplyRequest $request
+     * @param string[] $headers
+     * @param RuntimeOptions $runtime
+     * @return CreateMerchantApplyResponse
+     */
+    public function createMerchantApplyEx($request, $headers, $runtime){
+        Utils::validateModel($request);
+        return CreateMerchantApplyResponse::fromMap($this->doRequest("1.0", "antsecuritytech.gateway.merchant.apply.create", "HTTPS", "POST", "/gateway.do", Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 商户信息修改
+     * Summary: 商户信息修改
+     * @param UpdateMerchantApplyRequest $request
+     * @return UpdateMerchantApplyResponse
+     */
+    public function updateMerchantApply($request){
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+        return $this->updateMerchantApplyEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 商户信息修改
+     * Summary: 商户信息修改
+     * @param UpdateMerchantApplyRequest $request
+     * @param string[] $headers
+     * @param RuntimeOptions $runtime
+     * @return UpdateMerchantApplyResponse
+     */
+    public function updateMerchantApplyEx($request, $headers, $runtime){
+        Utils::validateModel($request);
+        return UpdateMerchantApplyResponse::fromMap($this->doRequest("1.0", "antsecuritytech.gateway.merchant.apply.update", "HTTPS", "POST", "/gateway.do", Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 商户信息查询
+     * Summary: 商户信息查询
+     * @param QueryMerchantRequest $request
+     * @return QueryMerchantResponse
+     */
+    public function queryMerchant($request){
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+        return $this->queryMerchantEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 商户信息查询
+     * Summary: 商户信息查询
+     * @param QueryMerchantRequest $request
+     * @param string[] $headers
+     * @param RuntimeOptions $runtime
+     * @return QueryMerchantResponse
+     */
+    public function queryMerchantEx($request, $headers, $runtime){
+        Utils::validateModel($request);
+        return QueryMerchantResponse::fromMap($this->doRequest("1.0", "antsecuritytech.gateway.merchant.query", "HTTPS", "POST", "/gateway.do", Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 商户信息批量查询
+     * Summary: 商户信息批量查询
+     * @param QueryMerchantBatchRequest $request
+     * @return QueryMerchantBatchResponse
+     */
+    public function queryMerchantBatch($request){
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+        return $this->queryMerchantBatchEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 商户信息批量查询
+     * Summary: 商户信息批量查询
+     * @param QueryMerchantBatchRequest $request
+     * @param string[] $headers
+     * @param RuntimeOptions $runtime
+     * @return QueryMerchantBatchResponse
+     */
+    public function queryMerchantBatchEx($request, $headers, $runtime){
+        Utils::validateModel($request);
+        return QueryMerchantBatchResponse::fromMap($this->doRequest("1.0", "antsecuritytech.gateway.merchant.batch.query", "HTTPS", "POST", "/gateway.do", Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 审核结果回调接收
+     * Summary: 审核结果回调接收
+     * @param CallbackMerchantRiskRequest $request
+     * @return CallbackMerchantRiskResponse
+     */
+    public function callbackMerchantRisk($request){
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+        return $this->callbackMerchantRiskEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 审核结果回调接收
+     * Summary: 审核结果回调接收
+     * @param CallbackMerchantRiskRequest $request
+     * @param string[] $headers
+     * @param RuntimeOptions $runtime
+     * @return CallbackMerchantRiskResponse
+     */
+    public function callbackMerchantRiskEx($request, $headers, $runtime){
+        Utils::validateModel($request);
+        return CallbackMerchantRiskResponse::fromMap($this->doRequest("1.0", "antsecuritytech.gateway.merchant.risk.callback", "HTTPS", "POST", "/gateway.do", Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 文件file_id回调
+     * Summary: 文件file_id回调
+     * @param ReceiveFileidCallbackRequest $request
+     * @return ReceiveFileidCallbackResponse
+     */
+    public function receiveFileidCallback($request){
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+        return $this->receiveFileidCallbackEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 文件file_id回调
+     * Summary: 文件file_id回调
+     * @param ReceiveFileidCallbackRequest $request
+     * @param string[] $headers
+     * @param RuntimeOptions $runtime
+     * @return ReceiveFileidCallbackResponse
+     */
+    public function receiveFileidCallbackEx($request, $headers, $runtime){
+        if (!Utils::isUnset($request->fileObject)) {
+            $uploadReq = new CreateAntcloudGatewayxFileUploadRequest([
+                "authToken" => $request->authToken,
+                "apiCode" => "antsecuritytech.gateway.fileid.callback.receive",
+                "fileName" => $request->fileObjectName
+            ]);
+            $uploadResp = $this->createAntcloudGatewayxFileUploadEx($uploadReq, $headers, $runtime);
+            if (!UtilClient::isSuccess($uploadResp->resultCode, "ok")) {
+                $receiveFileidCallbackResponse = new ReceiveFileidCallbackResponse([
+                    "reqMsgId" => $uploadResp->reqMsgId,
+                    "resultCode" => $uploadResp->resultCode,
+                    "resultMsg" => $uploadResp->resultMsg
+                ]);
+                return $receiveFileidCallbackResponse;
+            }
+            $uploadHeaders = UtilClient::parseUploadHeaders($uploadResp->uploadHeaders);
+            UtilClient::putObject($request->fileObject, $uploadHeaders, $uploadResp->uploadUrl);
+            $request->fileId = $uploadResp->fileId;
+            $request->fileObject = null;
+        }
+        Utils::validateModel($request);
+        return ReceiveFileidCallbackResponse::fromMap($this->doRequest("1.0", "antsecuritytech.gateway.fileid.callback.receive", "HTTPS", "POST", "/gateway.do", Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 积分订单创建
+     * Summary: 积分订单创建
+     * @param CreatePoiMallorderRequest $request
+     * @return CreatePoiMallorderResponse
+     */
+    public function createPoiMallorder($request){
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+        return $this->createPoiMallorderEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 积分订单创建
+     * Summary: 积分订单创建
+     * @param CreatePoiMallorderRequest $request
+     * @param string[] $headers
+     * @param RuntimeOptions $runtime
+     * @return CreatePoiMallorderResponse
+     */
+    public function createPoiMallorderEx($request, $headers, $runtime){
+        Utils::validateModel($request);
+        return CreatePoiMallorderResponse::fromMap($this->doRequest("1.0", "antsecuritytech.gateway.poi.mallorder.create", "HTTPS", "POST", "/gateway.do", Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 订单状态更新
+     * Summary: 订单状态更新
+     * @param UpdatePoiOrderRequest $request
+     * @return UpdatePoiOrderResponse
+     */
+    public function updatePoiOrder($request){
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+        return $this->updatePoiOrderEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 订单状态更新
+     * Summary: 订单状态更新
+     * @param UpdatePoiOrderRequest $request
+     * @param string[] $headers
+     * @param RuntimeOptions $runtime
+     * @return UpdatePoiOrderResponse
+     */
+    public function updatePoiOrderEx($request, $headers, $runtime){
+        Utils::validateModel($request);
+        return UpdatePoiOrderResponse::fromMap($this->doRequest("1.0", "antsecuritytech.gateway.poi.order.update", "HTTPS", "POST", "/gateway.do", Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 订单退款申请
+     * Summary: 订单退款申请
+     * @param ApplyPoiRefundRequest $request
+     * @return ApplyPoiRefundResponse
+     */
+    public function applyPoiRefund($request){
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+        return $this->applyPoiRefundEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 订单退款申请
+     * Summary: 订单退款申请
+     * @param ApplyPoiRefundRequest $request
+     * @param string[] $headers
+     * @param RuntimeOptions $runtime
+     * @return ApplyPoiRefundResponse
+     */
+    public function applyPoiRefundEx($request, $headers, $runtime){
+        Utils::validateModel($request);
+        return ApplyPoiRefundResponse::fromMap($this->doRequest("1.0", "antsecuritytech.gateway.poi.refund.apply", "HTTPS", "POST", "/gateway.do", Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 退款结果查询
+     * Summary: 退款结果查询
+     * @param QueryPoiRefundRequest $request
+     * @return QueryPoiRefundResponse
+     */
+    public function queryPoiRefund($request){
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+        return $this->queryPoiRefundEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 退款结果查询
+     * Summary: 退款结果查询
+     * @param QueryPoiRefundRequest $request
+     * @param string[] $headers
+     * @param RuntimeOptions $runtime
+     * @return QueryPoiRefundResponse
+     */
+    public function queryPoiRefundEx($request, $headers, $runtime){
+        Utils::validateModel($request);
+        return QueryPoiRefundResponse::fromMap($this->doRequest("1.0", "antsecuritytech.gateway.poi.refund.query", "HTTPS", "POST", "/gateway.do", Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 分账结果通知
+     * Summary: 分账结果通知
+     * @param NotifyPoiTransferRequest $request
+     * @return NotifyPoiTransferResponse
+     */
+    public function notifyPoiTransfer($request){
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+        return $this->notifyPoiTransferEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 分账结果通知
+     * Summary: 分账结果通知
+     * @param NotifyPoiTransferRequest $request
+     * @param string[] $headers
+     * @param RuntimeOptions $runtime
+     * @return NotifyPoiTransferResponse
+     */
+    public function notifyPoiTransferEx($request, $headers, $runtime){
+        Utils::validateModel($request);
+        return NotifyPoiTransferResponse::fromMap($this->doRequest("1.0", "antsecuritytech.gateway.poi.transfer.notify", "HTTPS", "POST", "/gateway.do", Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 退款结果通知
+     * Summary: 退款结果通知
+     * @param NotifyPoiRefundRequest $request
+     * @return NotifyPoiRefundResponse
+     */
+    public function notifyPoiRefund($request){
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+        return $this->notifyPoiRefundEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 退款结果通知
+     * Summary: 退款结果通知
+     * @param NotifyPoiRefundRequest $request
+     * @param string[] $headers
+     * @param RuntimeOptions $runtime
+     * @return NotifyPoiRefundResponse
+     */
+    public function notifyPoiRefundEx($request, $headers, $runtime){
+        Utils::validateModel($request);
+        return NotifyPoiRefundResponse::fromMap($this->doRequest("1.0", "antsecuritytech.gateway.poi.refund.notify", "HTTPS", "POST", "/gateway.do", Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 余额查询
+     * Summary: 余额查询
+     * @param QueryPoiFundRequest $request
+     * @return QueryPoiFundResponse
+     */
+    public function queryPoiFund($request){
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+        return $this->queryPoiFundEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 余额查询
+     * Summary: 余额查询
+     * @param QueryPoiFundRequest $request
+     * @param string[] $headers
+     * @param RuntimeOptions $runtime
+     * @return QueryPoiFundResponse
+     */
+    public function queryPoiFundEx($request, $headers, $runtime){
+        Utils::validateModel($request);
+        return QueryPoiFundResponse::fromMap($this->doRequest("1.0", "antsecuritytech.gateway.poi.fund.query", "HTTPS", "POST", "/gateway.do", Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 蓝盾安全图片生成
+     * Summary: 蓝盾安全图片生成
+     * @param CreateBssecpicRequest $request
+     * @return CreateBssecpicResponse
+     */
+    public function createBssecpic($request){
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+        return $this->createBssecpicEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 蓝盾安全图片生成
+     * Summary: 蓝盾安全图片生成
+     * @param CreateBssecpicRequest $request
+     * @param string[] $headers
+     * @param RuntimeOptions $runtime
+     * @return CreateBssecpicResponse
+     */
+    public function createBssecpicEx($request, $headers, $runtime){
+        Utils::validateModel($request);
+        return CreateBssecpicResponse::fromMap($this->doRequest("1.0", "antsecuritytech.gateway.bssecpic.create", "HTTPS", "POST", "/gateway.do", Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 蓝盾安全图片生成
+     * Summary: 蓝盾安全图片生成
+     * @param CreateBlueshieldSecuritypictureRequest $request
+     * @return CreateBlueshieldSecuritypictureResponse
+     */
+    public function createBlueshieldSecuritypicture($request){
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+        return $this->createBlueshieldSecuritypictureEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 蓝盾安全图片生成
+     * Summary: 蓝盾安全图片生成
+     * @param CreateBlueshieldSecuritypictureRequest $request
+     * @param string[] $headers
+     * @param RuntimeOptions $runtime
+     * @return CreateBlueshieldSecuritypictureResponse
+     */
+    public function createBlueshieldSecuritypictureEx($request, $headers, $runtime){
+        Utils::validateModel($request);
+        return CreateBlueshieldSecuritypictureResponse::fromMap($this->doRequest("1.0", "antsecuritytech.gateway.blueshield.securitypicture.create", "HTTPS", "POST", "/gateway.do", Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 终端安全人脸盾Native查询
+     * Summary: 人脸盾Native查询
+     * @param QueryFaceshieldNativeRequest $request
+     * @return QueryFaceshieldNativeResponse
+     */
+    public function queryFaceshieldNative($request){
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+        return $this->queryFaceshieldNativeEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 终端安全人脸盾Native查询
+     * Summary: 人脸盾Native查询
+     * @param QueryFaceshieldNativeRequest $request
+     * @param string[] $headers
+     * @param RuntimeOptions $runtime
+     * @return QueryFaceshieldNativeResponse
+     */
+    public function queryFaceshieldNativeEx($request, $headers, $runtime){
+        Utils::validateModel($request);
+        return QueryFaceshieldNativeResponse::fromMap($this->doRequest("1.0", "antsecuritytech.gateway.faceshield.native.query", "HTTPS", "POST", "/gateway.do", Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 终端安全人脸盾Web查询
+     * Summary: 人脸盾Web查询
+     * @param QueryFaceshieldWebRequest $request
+     * @return QueryFaceshieldWebResponse
+     */
+    public function queryFaceshieldWeb($request){
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+        return $this->queryFaceshieldWebEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 终端安全人脸盾Web查询
+     * Summary: 人脸盾Web查询
+     * @param QueryFaceshieldWebRequest $request
+     * @param string[] $headers
+     * @param RuntimeOptions $runtime
+     * @return QueryFaceshieldWebResponse
+     */
+    public function queryFaceshieldWebEx($request, $headers, $runtime){
+        Utils::validateModel($request);
+        return QueryFaceshieldWebResponse::fromMap($this->doRequest("1.0", "antsecuritytech.gateway.faceshield.web.query", "HTTPS", "POST", "/gateway.do", Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 设备激活
+     * Summary: 可信设备认证设备初始化，设备激活
+     * @param InitIifaaDeviceRequest $request
+     * @return InitIifaaDeviceResponse
+     */
+    public function initIifaaDevice($request){
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+        return $this->initIifaaDeviceEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 设备激活
+     * Summary: 可信设备认证设备初始化，设备激活
+     * @param InitIifaaDeviceRequest $request
+     * @param string[] $headers
+     * @param RuntimeOptions $runtime
+     * @return InitIifaaDeviceResponse
+     */
+    public function initIifaaDeviceEx($request, $headers, $runtime){
+        Utils::validateModel($request);
+        return InitIifaaDeviceResponse::fromMap($this->doRequest("1.0", "antsecuritytech.gateway.iifaa.device.init", "HTTPS", "POST", "/gateway.do", Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 可信设备认证风险咨询，获取预认证数据
+     * Summary: 可信设备认证风险咨询，获取预认证数据
+     * @param RecognizeIifaaDeviceRequest $request
+     * @return RecognizeIifaaDeviceResponse
+     */
+    public function recognizeIifaaDevice($request){
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+        return $this->recognizeIifaaDeviceEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 可信设备认证风险咨询，获取预认证数据
+     * Summary: 可信设备认证风险咨询，获取预认证数据
+     * @param RecognizeIifaaDeviceRequest $request
+     * @param string[] $headers
+     * @param RuntimeOptions $runtime
+     * @return RecognizeIifaaDeviceResponse
+     */
+    public function recognizeIifaaDeviceEx($request, $headers, $runtime){
+        Utils::validateModel($request);
+        return RecognizeIifaaDeviceResponse::fromMap($this->doRequest("1.0", "antsecuritytech.gateway.iifaa.device.recognize", "HTTPS", "POST", "/gateway.do", Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 可信设备认证，设备验证
+     * Summary: 可信设备认证，设备验证
+     * @param VerifyIifaaDeviceRequest $request
+     * @return VerifyIifaaDeviceResponse
+     */
+    public function verifyIifaaDevice($request){
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+        return $this->verifyIifaaDeviceEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 可信设备认证，设备验证
+     * Summary: 可信设备认证，设备验证
+     * @param VerifyIifaaDeviceRequest $request
+     * @param string[] $headers
+     * @param RuntimeOptions $runtime
+     * @return VerifyIifaaDeviceResponse
+     */
+    public function verifyIifaaDeviceEx($request, $headers, $runtime){
+        Utils::validateModel($request);
+        return VerifyIifaaDeviceResponse::fromMap($this->doRequest("1.0", "antsecuritytech.gateway.iifaa.device.verify", "HTTPS", "POST", "/gateway.do", Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 可信设备认证，产商注册
+     * Summary: 可信设备认证，产商注册
+     * @param RegisterIifaaCorpRequest $request
+     * @return RegisterIifaaCorpResponse
+     */
+    public function registerIifaaCorp($request){
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+        return $this->registerIifaaCorpEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 可信设备认证，产商注册
+     * Summary: 可信设备认证，产商注册
+     * @param RegisterIifaaCorpRequest $request
+     * @param string[] $headers
+     * @param RuntimeOptions $runtime
+     * @return RegisterIifaaCorpResponse
+     */
+    public function registerIifaaCorpEx($request, $headers, $runtime){
+        Utils::validateModel($request);
+        return RegisterIifaaCorpResponse::fromMap($this->doRequest("1.0", "antsecuritytech.gateway.iifaa.corp.register", "HTTPS", "POST", "/gateway.do", Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 可信设备认证，擦除设备信息
+     * Summary: 可信设备认证，擦除设备信息
+     * @param DeprecateIifaaDeviceRequest $request
+     * @return DeprecateIifaaDeviceResponse
+     */
+    public function deprecateIifaaDevice($request){
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+        return $this->deprecateIifaaDeviceEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 可信设备认证，擦除设备信息
+     * Summary: 可信设备认证，擦除设备信息
+     * @param DeprecateIifaaDeviceRequest $request
+     * @param string[] $headers
+     * @param RuntimeOptions $runtime
+     * @return DeprecateIifaaDeviceResponse
+     */
+    public function deprecateIifaaDeviceEx($request, $headers, $runtime){
+        Utils::validateModel($request);
+        return DeprecateIifaaDeviceResponse::fromMap($this->doRequest("1.0", "antsecuritytech.gateway.iifaa.device.deprecate", "HTTPS", "POST", "/gateway.do", Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 巡检商业化
+     * Summary: 巡检商业化
+     * @param RunXhunterSpiRequest $request
+     * @return RunXhunterSpiResponse
+     */
+    public function runXhunterSpi($request){
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+        return $this->runXhunterSpiEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 巡检商业化
+     * Summary: 巡检商业化
+     * @param RunXhunterSpiRequest $request
+     * @param string[] $headers
+     * @param RuntimeOptions $runtime
+     * @return RunXhunterSpiResponse
+     */
+    public function runXhunterSpiEx($request, $headers, $runtime){
+        Utils::validateModel($request);
+        return RunXhunterSpiResponse::fromMap($this->doRequest("1.0", "antsecuritytech.gateway.xhunter.spi.run", "HTTPS", "POST", "/gateway.do", Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 租凭住房保险产品，接口开放给租房平台
+     * Summary: 租凭住房保险产品，接口开放给租房平台
+     * @param ExecIifaaInsureRequest $request
+     * @return ExecIifaaInsureResponse
+     */
+    public function execIifaaInsure($request){
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+        return $this->execIifaaInsureEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 租凭住房保险产品，接口开放给租房平台
+     * Summary: 租凭住房保险产品，接口开放给租房平台
+     * @param ExecIifaaInsureRequest $request
+     * @param string[] $headers
+     * @param RuntimeOptions $runtime
+     * @return ExecIifaaInsureResponse
+     */
+    public function execIifaaInsureEx($request, $headers, $runtime){
+        Utils::validateModel($request);
+        return ExecIifaaInsureResponse::fromMap($this->doRequest("1.0", "antsecuritytech.gateway.iifaa.insure.exec", "HTTPS", "POST", "/gateway.do", Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 内容安全图片同步检测
+     * Summary: 内容安全图片同步检测
+     * @param QueryCctPictureRequest $request
+     * @return QueryCctPictureResponse
+     */
+    public function queryCctPicture($request){
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+        return $this->queryCctPictureEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 内容安全图片同步检测
+     * Summary: 内容安全图片同步检测
+     * @param QueryCctPictureRequest $request
+     * @param string[] $headers
+     * @param RuntimeOptions $runtime
+     * @return QueryCctPictureResponse
+     */
+    public function queryCctPictureEx($request, $headers, $runtime){
+        Utils::validateModel($request);
+        return QueryCctPictureResponse::fromMap($this->doRequest("1.0", "antsecuritytech.gateway.cct.picture.query", "HTTPS", "POST", "/gateway.do", Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 内容安全主站同步检测
+     * Summary: 内容安全主站同步检测
+     * @param RecognizeCctAnalyzeRequest $request
+     * @return RecognizeCctAnalyzeResponse
+     */
+    public function recognizeCctAnalyze($request){
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+        return $this->recognizeCctAnalyzeEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 内容安全主站同步检测
+     * Summary: 内容安全主站同步检测
+     * @param RecognizeCctAnalyzeRequest $request
+     * @param string[] $headers
+     * @param RuntimeOptions $runtime
+     * @return RecognizeCctAnalyzeResponse
+     */
+    public function recognizeCctAnalyzeEx($request, $headers, $runtime){
+        Utils::validateModel($request);
+        return RecognizeCctAnalyzeResponse::fromMap($this->doRequest("1.0", "antsecuritytech.gateway.cct.analyze.recognize", "HTTPS", "POST", "/gateway.do", Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: RAAS数据服务统一接口
+     * Summary: RAAS数据服务统一接口
+     * @param QueryRiskGeneralRequest $request
+     * @return QueryRiskGeneralResponse
+     */
+    public function queryRiskGeneral($request){
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+        return $this->queryRiskGeneralEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: RAAS数据服务统一接口
+     * Summary: RAAS数据服务统一接口
+     * @param QueryRiskGeneralRequest $request
+     * @param string[] $headers
+     * @param RuntimeOptions $runtime
+     * @return QueryRiskGeneralResponse
+     */
+    public function queryRiskGeneralEx($request, $headers, $runtime){
+        Utils::validateModel($request);
+        return QueryRiskGeneralResponse::fromMap($this->doRequest("1.0", "antsecuritytech.gateway.risk.general.query", "HTTPS", "POST", "/gateway.do", Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 设备指纹查询
+     * Summary: 设备指纹查询
+     * @param QueryDeviceriskFingerRequest $request
+     * @return QueryDeviceriskFingerResponse
+     */
+    public function queryDeviceriskFinger($request){
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+        return $this->queryDeviceriskFingerEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 设备指纹查询
+     * Summary: 设备指纹查询
+     * @param QueryDeviceriskFingerRequest $request
+     * @param string[] $headers
+     * @param RuntimeOptions $runtime
+     * @return QueryDeviceriskFingerResponse
+     */
+    public function queryDeviceriskFingerEx($request, $headers, $runtime){
+        Utils::validateModel($request);
+        return QueryDeviceriskFingerResponse::fromMap($this->doRequest("1.0", "antsecuritytech.gateway.devicerisk.finger.query", "HTTPS", "POST", "/gateway.do", Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 风险标签查询
+     * Summary: 风险标签查询
+     * @param QueryDeviceriskRisklabelRequest $request
+     * @return QueryDeviceriskRisklabelResponse
+     */
+    public function queryDeviceriskRisklabel($request){
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+        return $this->queryDeviceriskRisklabelEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 风险标签查询
+     * Summary: 风险标签查询
+     * @param QueryDeviceriskRisklabelRequest $request
+     * @param string[] $headers
+     * @param RuntimeOptions $runtime
+     * @return QueryDeviceriskRisklabelResponse
+     */
+    public function queryDeviceriskRisklabelEx($request, $headers, $runtime){
+        Utils::validateModel($request);
+        return QueryDeviceriskRisklabelResponse::fromMap($this->doRequest("1.0", "antsecuritytech.gateway.devicerisk.risklabel.query", "HTTPS", "POST", "/gateway.do", Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 设备风险查询
+     * Summary: 设备风险查询
+     * @param QueryDeviceriskDeviceriskRequest $request
+     * @return QueryDeviceriskDeviceriskResponse
+     */
+    public function queryDeviceriskDevicerisk($request){
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+        return $this->queryDeviceriskDeviceriskEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 设备风险查询
+     * Summary: 设备风险查询
+     * @param QueryDeviceriskDeviceriskRequest $request
+     * @param string[] $headers
+     * @param RuntimeOptions $runtime
+     * @return QueryDeviceriskDeviceriskResponse
+     */
+    public function queryDeviceriskDeviceriskEx($request, $headers, $runtime){
+        Utils::validateModel($request);
+        return QueryDeviceriskDeviceriskResponse::fromMap($this->doRequest("1.0", "antsecuritytech.gateway.devicerisk.devicerisk.query", "HTTPS", "POST", "/gateway.do", Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 设备信息上报
+     * Summary: 设备信息上报
+     * @param SubmitDeviceriskReportRequest $request
+     * @return SubmitDeviceriskReportResponse
+     */
+    public function submitDeviceriskReport($request){
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+        return $this->submitDeviceriskReportEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 设备信息上报
+     * Summary: 设备信息上报
+     * @param SubmitDeviceriskReportRequest $request
+     * @param string[] $headers
+     * @param RuntimeOptions $runtime
+     * @return SubmitDeviceriskReportResponse
+     */
+    public function submitDeviceriskReportEx($request, $headers, $runtime){
+        Utils::validateModel($request);
+        return SubmitDeviceriskReportResponse::fromMap($this->doRequest("1.0", "antsecuritytech.gateway.devicerisk.report.submit", "HTTPS", "POST", "/gateway.do", Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: eKYT风险评估服务-出行场景司机
+     * Summary: eKYT风险评估服务-出行场景司机
+     * @param QueryEkytDriverRequest $request
+     * @return QueryEkytDriverResponse
+     */
+    public function queryEkytDriver($request){
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+        return $this->queryEkytDriverEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: eKYT风险评估服务-出行场景司机
+     * Summary: eKYT风险评估服务-出行场景司机
+     * @param QueryEkytDriverRequest $request
+     * @param string[] $headers
+     * @param RuntimeOptions $runtime
+     * @return QueryEkytDriverResponse
+     */
+    public function queryEkytDriverEx($request, $headers, $runtime){
+        Utils::validateModel($request);
+        return QueryEkytDriverResponse::fromMap($this->doRequest("1.0", "antsecuritytech.gateway.ekyt.driver.query", "HTTPS", "POST", "/gateway.do", Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 申请设备设备密钥
+     * Summary: 申请设备设备密钥
+     * @param ApplyIifaaDevicekeyRequest $request
+     * @return ApplyIifaaDevicekeyResponse
+     */
+    public function applyIifaaDevicekey($request){
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+        return $this->applyIifaaDevicekeyEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 申请设备设备密钥
+     * Summary: 申请设备设备密钥
+     * @param ApplyIifaaDevicekeyRequest $request
+     * @param string[] $headers
+     * @param RuntimeOptions $runtime
+     * @return ApplyIifaaDevicekeyResponse
+     */
+    public function applyIifaaDevicekeyEx($request, $headers, $runtime){
+        Utils::validateModel($request);
+        return ApplyIifaaDevicekeyResponse::fromMap($this->doRequest("1.0", "antsecuritytech.gateway.iifaa.devicekey.apply", "HTTPS", "POST", "/gateway.do", Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 设备风险咨询
+     * Summary: 设备风险咨询
+     * @param QueryDeviceplusRiskqueryRequest $request
+     * @return QueryDeviceplusRiskqueryResponse
+     */
+    public function queryDeviceplusRiskquery($request){
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+        return $this->queryDeviceplusRiskqueryEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 设备风险咨询
+     * Summary: 设备风险咨询
+     * @param QueryDeviceplusRiskqueryRequest $request
+     * @param string[] $headers
+     * @param RuntimeOptions $runtime
+     * @return QueryDeviceplusRiskqueryResponse
+     */
+    public function queryDeviceplusRiskqueryEx($request, $headers, $runtime){
+        Utils::validateModel($request);
+        return QueryDeviceplusRiskqueryResponse::fromMap($this->doRequest("1.0", "antsecuritytech.gateway.deviceplus.riskquery.query", "HTTPS", "POST", "/gateway.do", Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 设备风险咨询mpaas
+     * Summary: 设备风险咨询mpaas
+     * @param QueryDeviceplusMpaasRequest $request
+     * @return QueryDeviceplusMpaasResponse
+     */
+    public function queryDeviceplusMpaas($request){
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+        return $this->queryDeviceplusMpaasEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 设备风险咨询mpaas
+     * Summary: 设备风险咨询mpaas
+     * @param QueryDeviceplusMpaasRequest $request
+     * @param string[] $headers
+     * @param RuntimeOptions $runtime
+     * @return QueryDeviceplusMpaasResponse
+     */
+    public function queryDeviceplusMpaasEx($request, $headers, $runtime){
+        Utils::validateModel($request);
+        return QueryDeviceplusMpaasResponse::fromMap($this->doRequest("1.0", "antsecuritytech.gateway.deviceplus.mpaas.query", "HTTPS", "POST", "/gateway.do", Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 终端安全-Android应用加固-启动加固任务(包月)
+     * Summary: 启动加固任务(包月)
+     * @param SubmitAshieldPeriodhardeningtaskRequest $request
+     * @return SubmitAshieldPeriodhardeningtaskResponse
+     */
+    public function submitAshieldPeriodhardeningtask($request){
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+        return $this->submitAshieldPeriodhardeningtaskEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 终端安全-Android应用加固-启动加固任务(包月)
+     * Summary: 启动加固任务(包月)
+     * @param SubmitAshieldPeriodhardeningtaskRequest $request
+     * @param string[] $headers
+     * @param RuntimeOptions $runtime
+     * @return SubmitAshieldPeriodhardeningtaskResponse
+     */
+    public function submitAshieldPeriodhardeningtaskEx($request, $headers, $runtime){
+        Utils::validateModel($request);
+        return SubmitAshieldPeriodhardeningtaskResponse::fromMap($this->doRequest("1.0", "antsecuritytech.gateway.ashield.periodhardeningtask.submit", "HTTPS", "POST", "/gateway.do", Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 终端安全-Android应用加固-获取上传文件的临时URL
+     * Summary: 获取上传文件的临时URL
+     * @param GetAshieldFiletokenRequest $request
+     * @return GetAshieldFiletokenResponse
+     */
+    public function getAshieldFiletoken($request){
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+        return $this->getAshieldFiletokenEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 终端安全-Android应用加固-获取上传文件的临时URL
+     * Summary: 获取上传文件的临时URL
+     * @param GetAshieldFiletokenRequest $request
+     * @param string[] $headers
+     * @param RuntimeOptions $runtime
+     * @return GetAshieldFiletokenResponse
+     */
+    public function getAshieldFiletokenEx($request, $headers, $runtime){
+        Utils::validateModel($request);
+        return GetAshieldFiletokenResponse::fromMap($this->doRequest("1.0", "antsecuritytech.gateway.ashield.filetoken.get", "HTTPS", "POST", "/gateway.do", Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 终端安全-Android应用加固-启动加固任务
+     * Summary: 启动加固任务(按次计费)
+     * @param SubmitAshieldHardeningtaskRequest $request
+     * @return SubmitAshieldHardeningtaskResponse
+     */
+    public function submitAshieldHardeningtask($request){
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+        return $this->submitAshieldHardeningtaskEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 终端安全-Android应用加固-启动加固任务
+     * Summary: 启动加固任务(按次计费)
+     * @param SubmitAshieldHardeningtaskRequest $request
+     * @param string[] $headers
+     * @param RuntimeOptions $runtime
+     * @return SubmitAshieldHardeningtaskResponse
+     */
+    public function submitAshieldHardeningtaskEx($request, $headers, $runtime){
+        Utils::validateModel($request);
+        return SubmitAshieldHardeningtaskResponse::fromMap($this->doRequest("1.0", "antsecuritytech.gateway.ashield.hardeningtask.submit", "HTTPS", "POST", "/gateway.do", Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 终端安全-Android应用加固-查询加固任务进度
+     * Summary: 查询加固任务进度
+     * @param GetAshieldHardeningtaskprocessRequest $request
+     * @return GetAshieldHardeningtaskprocessResponse
+     */
+    public function getAshieldHardeningtaskprocess($request){
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+        return $this->getAshieldHardeningtaskprocessEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 终端安全-Android应用加固-查询加固任务进度
+     * Summary: 查询加固任务进度
+     * @param GetAshieldHardeningtaskprocessRequest $request
+     * @param string[] $headers
+     * @param RuntimeOptions $runtime
+     * @return GetAshieldHardeningtaskprocessResponse
+     */
+    public function getAshieldHardeningtaskprocessEx($request, $headers, $runtime){
+        Utils::validateModel($request);
+        return GetAshieldHardeningtaskprocessResponse::fromMap($this->doRequest("1.0", "antsecuritytech.gateway.ashield.hardeningtaskprocess.get", "HTTPS", "POST", "/gateway.do", Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 终端安全-Android应用加固-查询加固后的产物下载链接
+     * Summary: 查询加固后的产物下载链接
+     * @param GetAshieldHardeningresultRequest $request
+     * @return GetAshieldHardeningresultResponse
+     */
+    public function getAshieldHardeningresult($request){
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+        return $this->getAshieldHardeningresultEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 终端安全-Android应用加固-查询加固后的产物下载链接
+     * Summary: 查询加固后的产物下载链接
+     * @param GetAshieldHardeningresultRequest $request
+     * @param string[] $headers
+     * @param RuntimeOptions $runtime
+     * @return GetAshieldHardeningresultResponse
+     */
+    public function getAshieldHardeningresultEx($request, $headers, $runtime){
+        Utils::validateModel($request);
+        return GetAshieldHardeningresultResponse::fromMap($this->doRequest("1.0", "antsecuritytech.gateway.ashield.hardeningresult.get", "HTTPS", "POST", "/gateway.do", Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 终端安全-Android应用加固-查询加固后的日志下载链接
+     * Summary: 查询加固后的日志下载链接
+     * @param GetAshieldHardeninglogRequest $request
+     * @return GetAshieldHardeninglogResponse
+     */
+    public function getAshieldHardeninglog($request){
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+        return $this->getAshieldHardeninglogEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 终端安全-Android应用加固-查询加固后的日志下载链接
+     * Summary: 查询加固后的日志下载链接
+     * @param GetAshieldHardeninglogRequest $request
+     * @param string[] $headers
+     * @param RuntimeOptions $runtime
+     * @return GetAshieldHardeninglogResponse
+     */
+    public function getAshieldHardeninglogEx($request, $headers, $runtime){
+        Utils::validateModel($request);
+        return GetAshieldHardeninglogResponse::fromMap($this->doRequest("1.0", "antsecuritytech.gateway.ashield.hardeninglog.get", "HTTPS", "POST", "/gateway.do", Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: eKYT可信签约初始化
+     * Summary: eKYT可信签约-初始化
+     * @param InitEkytTrustsignRequest $request
+     * @return InitEkytTrustsignResponse
+     */
+    public function initEkytTrustsign($request){
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+        return $this->initEkytTrustsignEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: eKYT可信签约初始化
+     * Summary: eKYT可信签约-初始化
+     * @param InitEkytTrustsignRequest $request
+     * @param string[] $headers
+     * @param RuntimeOptions $runtime
+     * @return InitEkytTrustsignResponse
+     */
+    public function initEkytTrustsignEx($request, $headers, $runtime){
+        Utils::validateModel($request);
+        return InitEkytTrustsignResponse::fromMap($this->doRequest("1.0", "antsecuritytech.gateway.ekyt.trustsign.init", "HTTPS", "POST", "/gateway.do", Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: eKYT可信签约签约单查询
+     * Summary: eKYT可信签约-签约单查询
+     * @param QueryEkytTrustsignRequest $request
+     * @return QueryEkytTrustsignResponse
+     */
+    public function queryEkytTrustsign($request){
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+        return $this->queryEkytTrustsignEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: eKYT可信签约签约单查询
+     * Summary: eKYT可信签约-签约单查询
+     * @param QueryEkytTrustsignRequest $request
+     * @param string[] $headers
+     * @param RuntimeOptions $runtime
+     * @return QueryEkytTrustsignResponse
+     */
+    public function queryEkytTrustsignEx($request, $headers, $runtime){
+        Utils::validateModel($request);
+        return QueryEkytTrustsignResponse::fromMap($this->doRequest("1.0", "antsecuritytech.gateway.ekyt.trustsign.query", "HTTPS", "POST", "/gateway.do", Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: eKYT人脸核身初始化
+     * Summary: eKYT人脸核身-初始化
+     * @param InitEkytFaceverifyRequest $request
+     * @return InitEkytFaceverifyResponse
+     */
+    public function initEkytFaceverify($request){
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+        return $this->initEkytFaceverifyEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: eKYT人脸核身初始化
+     * Summary: eKYT人脸核身-初始化
+     * @param InitEkytFaceverifyRequest $request
+     * @param string[] $headers
+     * @param RuntimeOptions $runtime
+     * @return InitEkytFaceverifyResponse
+     */
+    public function initEkytFaceverifyEx($request, $headers, $runtime){
+        Utils::validateModel($request);
+        return InitEkytFaceverifyResponse::fromMap($this->doRequest("1.0", "antsecuritytech.gateway.ekyt.faceverify.init", "HTTPS", "POST", "/gateway.do", Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: eKYT人脸核身结果查询
+     * Summary: eKYT人脸核身-结果查询
+     * @param QueryEkytFaceverifyRequest $request
+     * @return QueryEkytFaceverifyResponse
+     */
+    public function queryEkytFaceverify($request){
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+        return $this->queryEkytFaceverifyEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: eKYT人脸核身结果查询
+     * Summary: eKYT人脸核身-结果查询
+     * @param QueryEkytFaceverifyRequest $request
+     * @param string[] $headers
+     * @param RuntimeOptions $runtime
+     * @return QueryEkytFaceverifyResponse
+     */
+    public function queryEkytFaceverifyEx($request, $headers, $runtime){
+        Utils::validateModel($request);
+        return QueryEkytFaceverifyResponse::fromMap($this->doRequest("1.0", "antsecuritytech.gateway.ekyt.faceverify.query", "HTTPS", "POST", "/gateway.do", Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 友活来了创建任务api
+     * Summary: 友活来了创建任务api
+     * @param ImportYhllRequest $request
+     * @return ImportYhllResponse
+     */
+    public function importYhll($request){
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+        return $this->importYhllEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 友活来了创建任务api
+     * Summary: 友活来了创建任务api
+     * @param ImportYhllRequest $request
+     * @param string[] $headers
+     * @param RuntimeOptions $runtime
+     * @return ImportYhllResponse
+     */
+    public function importYhllEx($request, $headers, $runtime){
+        Utils::validateModel($request);
+        return ImportYhllResponse::fromMap($this->doRequest("1.0", "antsecuritytech.gateway.yhll.import", "HTTPS", "POST", "/gateway.do", Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 友活来了任务查询api
+     * Summary: 友活来了任务查询api
+     * @param QueryYhllRequest $request
+     * @return QueryYhllResponse
+     */
+    public function queryYhll($request){
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+        return $this->queryYhllEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 友活来了任务查询api
+     * Summary: 友活来了任务查询api
+     * @param QueryYhllRequest $request
+     * @param string[] $headers
+     * @param RuntimeOptions $runtime
+     * @return QueryYhllResponse
+     */
+    public function queryYhllEx($request, $headers, $runtime){
+        Utils::validateModel($request);
+        return QueryYhllResponse::fromMap($this->doRequest("1.0", "antsecuritytech.gateway.yhll.query", "HTTPS", "POST", "/gateway.do", Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 天鉴ask接口
+     * Summary: 天鉴ask接口
+     * @param QueryGuardAskRequest $request
+     * @return QueryGuardAskResponse
+     */
+    public function queryGuardAsk($request){
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+        return $this->queryGuardAskEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 天鉴ask接口
+     * Summary: 天鉴ask接口
+     * @param QueryGuardAskRequest $request
+     * @param string[] $headers
+     * @param RuntimeOptions $runtime
+     * @return QueryGuardAskResponse
+     */
+    public function queryGuardAskEx($request, $headers, $runtime){
+        Utils::validateModel($request);
+        return QueryGuardAskResponse::fromMap($this->doRequest("1.0", "antsecuritytech.gateway.guard.ask.query", "HTTPS", "POST", "/gateway.do", Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 天鉴answer接口
+     * Summary: 天鉴answer接口
+     * @param QueryGuardAnswerRequest $request
+     * @return QueryGuardAnswerResponse
+     */
+    public function queryGuardAnswer($request){
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+        return $this->queryGuardAnswerEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 天鉴answer接口
+     * Summary: 天鉴answer接口
+     * @param QueryGuardAnswerRequest $request
+     * @param string[] $headers
+     * @param RuntimeOptions $runtime
+     * @return QueryGuardAnswerResponse
+     */
+    public function queryGuardAnswerEx($request, $headers, $runtime){
+        Utils::validateModel($request);
+        return QueryGuardAnswerResponse::fromMap($this->doRequest("1.0", "antsecuritytech.gateway.guard.answer.query", "HTTPS", "POST", "/gateway.do", Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 开放给设备产商，删除数字钥匙
+     * Summary: 删除数字钥匙
+     * @param DeleteIifaaDigitalkeyRequest $request
+     * @return DeleteIifaaDigitalkeyResponse
+     */
+    public function deleteIifaaDigitalkey($request){
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+        return $this->deleteIifaaDigitalkeyEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 开放给设备产商，删除数字钥匙
+     * Summary: 删除数字钥匙
+     * @param DeleteIifaaDigitalkeyRequest $request
+     * @param string[] $headers
+     * @param RuntimeOptions $runtime
+     * @return DeleteIifaaDigitalkeyResponse
+     */
+    public function deleteIifaaDigitalkeyEx($request, $headers, $runtime){
+        Utils::validateModel($request);
+        return DeleteIifaaDigitalkeyResponse::fromMap($this->doRequest("1.0", "antsecuritytech.gateway.iifaa.digitalkey.delete", "HTTPS", "POST", "/gateway.do", Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 光鉴智能凭证
+     * Summary: 光鉴智能凭证
+     * @param CheckOpticalIdentifyRequest $request
+     * @return CheckOpticalIdentifyResponse
+     */
+    public function checkOpticalIdentify($request){
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+        return $this->checkOpticalIdentifyEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 光鉴智能凭证
+     * Summary: 光鉴智能凭证
+     * @param CheckOpticalIdentifyRequest $request
+     * @param string[] $headers
+     * @param RuntimeOptions $runtime
+     * @return CheckOpticalIdentifyResponse
+     */
+    public function checkOpticalIdentifyEx($request, $headers, $runtime){
+        Utils::validateModel($request);
+        return CheckOpticalIdentifyResponse::fromMap($this->doRequest("1.0", "antsecuritytech.gateway.optical.identify.check", "HTTPS", "POST", "/gateway.do", Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 创建HTTP PUT提交的文件上传
+     * Summary: 文件上传创建
+     * @param CreateAntcloudGatewayxFileUploadRequest $request
+     * @return CreateAntcloudGatewayxFileUploadResponse
+     */
+    public function createAntcloudGatewayxFileUpload($request){
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+        return $this->createAntcloudGatewayxFileUploadEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 创建HTTP PUT提交的文件上传
+     * Summary: 文件上传创建
+     * @param CreateAntcloudGatewayxFileUploadRequest $request
+     * @param string[] $headers
+     * @param RuntimeOptions $runtime
+     * @return CreateAntcloudGatewayxFileUploadResponse
+     */
+    public function createAntcloudGatewayxFileUploadEx($request, $headers, $runtime){
+        Utils::validateModel($request);
+        return CreateAntcloudGatewayxFileUploadResponse::fromMap($this->doRequest("1.0", "antcloud.gatewayx.file.upload.create", "HTTPS", "POST", "/gateway.do", Tea::merge($request), $headers, $runtime));
+    }
+}
