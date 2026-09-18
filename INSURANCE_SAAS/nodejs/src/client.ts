@@ -181,6 +181,39 @@ export class Config extends $tea.Model {
   }
 }
 
+// 转化数据条目
+export class ConversionDataDTO extends $tea.Model {
+  // 转化目标类型
+  /**
+   * @example
+   * FORMBOOK
+   */
+  conversionType: string;
+  // 目标转化量
+  /**
+   * @example
+   * 100
+   */
+  conversionCount: number;
+  static names(): { [key: string]: string } {
+    return {
+      conversionType: 'conversion_type',
+      conversionCount: 'conversion_count',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      conversionType: 'string',
+      conversionCount: 'number',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
 // 文件结构
 export class FileNode extends $tea.Model {
   // 可访问的文件链接
@@ -206,6 +239,95 @@ export class FileNode extends $tea.Model {
     return {
       url: 'string',
       name: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+// 媒体统计数据条目
+export class StatisticalDataDTO extends $tea.Model {
+  // 项目标识
+  /**
+   * @example
+   * 2026072000000138312001
+   */
+  project: string;
+  // 统计维度id
+  /**
+   * @example
+   * 2026072000000138312001
+   */
+  dimensionId: string;
+  // 时间维度
+  /**
+   * @example
+   * hour
+   */
+  timePeriod: string;
+  // 开始时间
+  /**
+   * @example
+   * yyyy-MM-dd HH:mm
+   */
+  startTime: string;
+  // 结束时间
+  /**
+   * @example
+   * yyyy-MM-dd HH:mm
+   */
+  endTime: string;
+  // 花费金额
+  /**
+   * @example
+   * 6666.66
+   */
+  costMoney: string;
+  // 曝光量
+  /**
+   * @example
+   * 100
+   */
+  mediaImpressionCount: number;
+  // 点击量
+  /**
+   * @example
+   * 100
+   */
+  mediaClickCount: number;
+  // 目标转化量相关数据
+  /**
+   * @example
+   * undefined
+   */
+  conversionDataList: ConversionDataDTO[];
+  static names(): { [key: string]: string } {
+    return {
+      project: 'project',
+      dimensionId: 'dimension_id',
+      timePeriod: 'time_period',
+      startTime: 'start_time',
+      endTime: 'end_time',
+      costMoney: 'cost_money',
+      mediaImpressionCount: 'media_impression_count',
+      mediaClickCount: 'media_click_count',
+      conversionDataList: 'conversion_data_list',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      project: 'string',
+      dimensionId: 'string',
+      timePeriod: 'string',
+      startTime: 'string',
+      endTime: 'string',
+      costMoney: 'string',
+      mediaImpressionCount: 'number',
+      mediaClickCount: 'number',
+      conversionDataList: { 'type': 'array', 'itemType': ConversionDataDTO },
     };
   }
 
@@ -1000,6 +1122,246 @@ export class NotifyEmbedoemautoinsuranceEventResponse extends $tea.Model {
       code: 'number',
       message: 'string',
       success: 'boolean',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class CallbackMktMediastatisticaldataRequest extends $tea.Model {
+  // OAuth模式下的授权token
+  authToken?: string;
+  // 请求id
+  requestId: string;
+  // 项目id
+  projectId: string;
+  // 数据渠道来源，广点通(gdt) / 巨量引擎(oceanengine) / 快手(kuaishou) / 百度(baidu)
+  mediaSource: string;
+  // 统计维度，区分账号（ACCOUNT） 、广告计划(ADVERTISEMENT) 、 素材（MATERIAL）
+  dimension: string;
+  // 统计数据
+  statisticalDataList: StatisticalDataDTO[];
+  static names(): { [key: string]: string } {
+    return {
+      authToken: 'auth_token',
+      requestId: 'request_id',
+      projectId: 'project_id',
+      mediaSource: 'media_source',
+      dimension: 'dimension',
+      statisticalDataList: 'statistical_data_list',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      authToken: 'string',
+      requestId: 'string',
+      projectId: 'string',
+      mediaSource: 'string',
+      dimension: 'string',
+      statisticalDataList: { 'type': 'array', 'itemType': StatisticalDataDTO },
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class CallbackMktMediastatisticaldataResponse extends $tea.Model {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string;
+  // 结果码，一般OK表示调用成功
+  resultCode?: string;
+  // 异常信息的文本描述
+  resultMsg?: string;
+  // 请求id
+  requestId?: string;
+  static names(): { [key: string]: string } {
+    return {
+      reqMsgId: 'req_msg_id',
+      resultCode: 'result_code',
+      resultMsg: 'result_msg',
+      requestId: 'request_id',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      reqMsgId: 'string',
+      resultCode: 'string',
+      resultMsg: 'string',
+      requestId: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class CallbackMktEffectsimpleRequest extends $tea.Model {
+  // OAuth模式下的授权token
+  authToken?: string;
+  // 请求id，每一次请求保持唯一；若重复，则更新原数据；
+  requestId: string;
+  // 项目ID，待蚂蚁分配
+  projectId: string;
+  // 营销模式，AI_HANGUP_SMS("AI挂短")， AI_OFFICIAL_ACCOUNT("AI公众号"), BPO_WECHAT("BPO企微"), AI_BPO("AI_BPO")
+  marketingMode?: string;
+  // 投保特征短链
+  insureShortUrl: string;
+  // 加密类型：MD5，32位[小]
+  encryptionType: string;
+  // 加密用户标识
+  encryptedUserId: string;
+  // 应以识别当前用户点击投保页面的唯一标识
+  landingVisitId: string;
+  // 节点类型
+  nodeType: string;
+  // 节点状态（0-未完成；1-已完成）
+  nodeStatus: string;
+  // 事件完成时间（yyyy-MM-dd HH:mm:ss）
+  eventTime: string;
+  static names(): { [key: string]: string } {
+    return {
+      authToken: 'auth_token',
+      requestId: 'request_id',
+      projectId: 'project_id',
+      marketingMode: 'marketing_mode',
+      insureShortUrl: 'insure_short_url',
+      encryptionType: 'encryption_type',
+      encryptedUserId: 'encrypted_user_id',
+      landingVisitId: 'landing_visit_id',
+      nodeType: 'node_type',
+      nodeStatus: 'node_status',
+      eventTime: 'event_time',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      authToken: 'string',
+      requestId: 'string',
+      projectId: 'string',
+      marketingMode: 'string',
+      insureShortUrl: 'string',
+      encryptionType: 'string',
+      encryptedUserId: 'string',
+      landingVisitId: 'string',
+      nodeType: 'string',
+      nodeStatus: 'string',
+      eventTime: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class CallbackMktEffectsimpleResponse extends $tea.Model {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string;
+  // 结果码，一般OK表示调用成功
+  resultCode?: string;
+  // 异常信息的文本描述
+  resultMsg?: string;
+  // 请求id，每一次请求保持唯一；
+  requestId?: string;
+  static names(): { [key: string]: string } {
+    return {
+      reqMsgId: 'req_msg_id',
+      resultCode: 'result_code',
+      resultMsg: 'result_msg',
+      requestId: 'request_id',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      reqMsgId: 'string',
+      resultCode: 'string',
+      resultMsg: 'string',
+      requestId: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class ApplyMktserviceproviderAudiencecircleRequest extends $tea.Model {
+  // OAuth模式下的授权token
+  authToken?: string;
+  // 请求id，每一次请求保持唯一；
+  requestId: string;
+  // 项目ID，待蚂蚁分配
+  projectId: string;
+  // 业务场景标识
+  bizScene: string;
+  // 加密类型，MD5 32位小写
+  encryptionType: string;
+  // 加密用户标识
+  encryptedUserIds: string[];
+  static names(): { [key: string]: string } {
+    return {
+      authToken: 'auth_token',
+      requestId: 'request_id',
+      projectId: 'project_id',
+      bizScene: 'biz_scene',
+      encryptionType: 'encryption_type',
+      encryptedUserIds: 'encrypted_user_ids',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      authToken: 'string',
+      requestId: 'string',
+      projectId: 'string',
+      bizScene: 'string',
+      encryptionType: 'string',
+      encryptedUserIds: { 'type': 'array', 'itemType': 'string' },
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class ApplyMktserviceproviderAudiencecircleResponse extends $tea.Model {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string;
+  // 结果码，一般OK表示调用成功
+  resultCode?: string;
+  // 异常信息的文本描述
+  resultMsg?: string;
+  // 请求id，每一次请求保持唯一；
+  requestId?: string;
+  // 批次号
+  batchNo?: string;
+  static names(): { [key: string]: string } {
+    return {
+      reqMsgId: 'req_msg_id',
+      resultCode: 'result_code',
+      resultMsg: 'result_msg',
+      requestId: 'request_id',
+      batchNo: 'batch_no',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      reqMsgId: 'string',
+      resultCode: 'string',
+      resultMsg: 'string',
+      requestId: 'string',
+      batchNo: 'string',
     };
   }
 
@@ -4390,7 +4752,7 @@ export class CallbackMktEffectRequest extends $tea.Model {
   // AI_OFFICIAL_ACCOUNT("AI公众号"),
   // BPO_WECHAT("BPO企微"),
   // AI_BPO("AI_BPO")
-  marketingMode: string;
+  marketingMode?: string;
   // 投保特征短链
   insureShortUrl?: string;
   // 加密类型：MD5，32位[小]
@@ -4755,7 +5117,7 @@ export default class Client {
           req_msg_id: AntchainUtil.getNonce(),
           access_key: this._accessKeyId,
           base_sdk_version: "TeaSDK-2.0",
-          sdk_version: "1.12.49",
+          sdk_version: "1.12.59",
           _prod_code: "INSURANCE_SAAS",
           _prod_channel: "undefined",
         };
@@ -4868,8 +5230,8 @@ export default class Client {
 
   /**
    * @remarks
-   * Description: 保险营销效果回传接口——直播通道
-   * Summary: 保险营销效果回传接口——直播通道
+   * Description: 保险营销效果回传接口——媒体
+   * Summary: 保险营销效果回传接口——媒体
    */
   async callbackMktLiveeffect(request: CallbackMktLiveeffectRequest): Promise<CallbackMktLiveeffectResponse> {
     let runtime = new $Util.RuntimeOptions({ });
@@ -4879,8 +5241,8 @@ export default class Client {
 
   /**
    * @remarks
-   * Description: 保险营销效果回传接口——直播通道
-   * Summary: 保险营销效果回传接口——直播通道
+   * Description: 保险营销效果回传接口——媒体
+   * Summary: 保险营销效果回传接口——媒体
    */
   async callbackMktLiveeffectEx(request: CallbackMktLiveeffectRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<CallbackMktLiveeffectResponse> {
     Util.validateModel(request);
@@ -4948,6 +5310,69 @@ export default class Client {
   async notifyEmbedoemautoinsuranceEventEx(request: NotifyEmbedoemautoinsuranceEventRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<NotifyEmbedoemautoinsuranceEventResponse> {
     Util.validateModel(request);
     return $tea.cast<NotifyEmbedoemautoinsuranceEventResponse>(await this.doRequest("1.0", "antcloud.insurance.embedoemautoinsurance.event.notify", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new NotifyEmbedoemautoinsuranceEventResponse({}));
+  }
+
+  /**
+   * @remarks
+   * Description: 媒体点击统计数据回传
+   * Summary: 媒体点击统计数据回传
+   */
+  async callbackMktMediastatisticaldata(request: CallbackMktMediastatisticaldataRequest): Promise<CallbackMktMediastatisticaldataResponse> {
+    let runtime = new $Util.RuntimeOptions({ });
+    let headers : {[key: string ]: string} = { };
+    return await this.callbackMktMediastatisticaldataEx(request, headers, runtime);
+  }
+
+  /**
+   * @remarks
+   * Description: 媒体点击统计数据回传
+   * Summary: 媒体点击统计数据回传
+   */
+  async callbackMktMediastatisticaldataEx(request: CallbackMktMediastatisticaldataRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<CallbackMktMediastatisticaldataResponse> {
+    Util.validateModel(request);
+    return $tea.cast<CallbackMktMediastatisticaldataResponse>(await this.doRequest("1.0", "antcloud.insurance.mkt.mediastatisticaldata.callback", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new CallbackMktMediastatisticaldataResponse({}));
+  }
+
+  /**
+   * @remarks
+   * Description: 营销效果节点数据（简版）
+   * Summary: 营销效果节点数据（简版）
+   */
+  async callbackMktEffectsimple(request: CallbackMktEffectsimpleRequest): Promise<CallbackMktEffectsimpleResponse> {
+    let runtime = new $Util.RuntimeOptions({ });
+    let headers : {[key: string ]: string} = { };
+    return await this.callbackMktEffectsimpleEx(request, headers, runtime);
+  }
+
+  /**
+   * @remarks
+   * Description: 营销效果节点数据（简版）
+   * Summary: 营销效果节点数据（简版）
+   */
+  async callbackMktEffectsimpleEx(request: CallbackMktEffectsimpleRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<CallbackMktEffectsimpleResponse> {
+    Util.validateModel(request);
+    return $tea.cast<CallbackMktEffectsimpleResponse>(await this.doRequest("1.0", "antcloud.insurance.mkt.effectsimple.callback", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new CallbackMktEffectsimpleResponse({}));
+  }
+
+  /**
+   * @remarks
+   * Description: 保险营销服务商人群圈选
+   * Summary: 保险营销服务商人群圈选
+   */
+  async applyMktserviceproviderAudiencecircle(request: ApplyMktserviceproviderAudiencecircleRequest): Promise<ApplyMktserviceproviderAudiencecircleResponse> {
+    let runtime = new $Util.RuntimeOptions({ });
+    let headers : {[key: string ]: string} = { };
+    return await this.applyMktserviceproviderAudiencecircleEx(request, headers, runtime);
+  }
+
+  /**
+   * @remarks
+   * Description: 保险营销服务商人群圈选
+   * Summary: 保险营销服务商人群圈选
+   */
+  async applyMktserviceproviderAudiencecircleEx(request: ApplyMktserviceproviderAudiencecircleRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<ApplyMktserviceproviderAudiencecircleResponse> {
+    Util.validateModel(request);
+    return $tea.cast<ApplyMktserviceproviderAudiencecircleResponse>(await this.doRequest("1.0", "antcloud.insurance.mktserviceprovider.audiencecircle.apply", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new ApplyMktserviceproviderAudiencecircleResponse({}));
   }
 
   /**
