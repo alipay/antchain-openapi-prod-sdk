@@ -591,6 +591,63 @@ export class RiskDetail extends $tea.Model {
   }
 }
 
+// 账户明细
+export class FundItemDetail extends $tea.Model {
+  // 账户类型，PET-活体、GOODS-商品、POINT_PACKAGE-积分包（储值卡）
+  /**
+   * @example
+   * POINT_PACKAGE
+   */
+  fundType: string;
+  // 可用金额，不含冻结占用，无可用返回0，单位元
+  /**
+   * @example
+   * 199.68
+   */
+  availableAmount: string;
+  // 最高可退金额，涵盖了手续费，无可用返回0，单位元
+  /**
+   * @example
+   * 199.68
+   */
+  canRefundAmount: string;
+  // 冻结金额，无冻结返回0，单位元
+  /**
+   * @example
+   * 199.68
+   */
+  frozenAmount: string;
+  // 账户归属的入驻id
+  /**
+   * @example
+   * xxx
+   */
+  merchantId: string;
+  static names(): { [key: string]: string } {
+    return {
+      fundType: 'fund_type',
+      availableAmount: 'available_amount',
+      canRefundAmount: 'can_refund_amount',
+      frozenAmount: 'frozen_amount',
+      merchantId: 'merchant_id',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      fundType: 'string',
+      availableAmount: 'string',
+      canRefundAmount: 'string',
+      frozenAmount: 'string',
+      merchantId: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
 // 经营数据
 export class EcMonthData extends $tea.Model {
   // 月份格式为YYYYMM
@@ -1704,6 +1761,55 @@ export class AirDomainInfos extends $tea.Model {
       domainCode: 'string',
       domainDecision: 'string',
       decisionFlows: { 'type': 'array', 'itemType': AirDecisionFlows },
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+// 商品明细数组
+export class ProductItem extends $tea.Model {
+  // 订单商品类型，PET-活体、GOODS-商品、POINT_PACKAGE-积分包（积分商品订单专用，区分普通实物商品）、MEMBER-会员订阅
+  /**
+   * @example
+   * PET
+   */
+  productType: string;
+  // 商品名称
+  /**
+   * @example
+   * xxx
+   */
+  productName: string;
+  // 商品金额，单位元，两位小数
+  /**
+   * @example
+   * 99.22
+   */
+  productAmount: string;
+  // 该行商品收款主体
+  /**
+   * @example
+   * xxx
+   */
+  merchantId: string;
+  static names(): { [key: string]: string } {
+    return {
+      productType: 'product_type',
+      productName: 'product_name',
+      productAmount: 'product_amount',
+      merchantId: 'merchant_id',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      productType: 'string',
+      productName: 'string',
+      productAmount: 'string',
+      merchantId: 'string',
     };
   }
 
@@ -4871,6 +4977,63 @@ export class RpcommonResp extends $tea.Model {
   }
 }
 
+// 补充信息
+export class ReplenishInfo extends $tea.Model {
+  // 客户姓名
+  /**
+   * @example
+   * 张三
+   */
+  customName?: string;
+  // 手机号
+  /**
+   * @example
+   * 13800000000
+   */
+  mobile?: string;
+  // 省份
+  /**
+   * @example
+   * 浙江省
+   */
+  province?: string;
+  // 城市
+  /**
+   * @example
+   * 杭州市
+   */
+  city?: string;
+  // 地区名称
+  /**
+   * @example
+   * 滨江区
+   */
+  area?: string;
+  static names(): { [key: string]: string } {
+    return {
+      customName: 'custom_name',
+      mobile: 'mobile',
+      province: 'province',
+      city: 'city',
+      area: 'area',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      customName: 'string',
+      mobile: 'string',
+      province: 'string',
+      city: 'string',
+      area: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
 // 渠道扩展信息
 export class PetCashierApplyExtInfo extends $tea.Model {
   // 门店名称
@@ -7765,6 +7928,51 @@ export class OverdueInfoResponse extends $tea.Model {
       loanTime: 'string',
       settleFlag: 'boolean',
       nearestRepayTime: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+// 用户资金
+export class UserFundInfo extends $tea.Model {
+  // 业务订单号
+  /**
+   * @example
+   * xxx
+   */
+  bizOrderNo: string;
+  // 关联交易单号
+  /**
+   * @example
+   * xxx
+   */
+  tradeNo: string;
+  // 订单支付金额，单位：元
+  /**
+   * @example
+   * 199.68
+   */
+  amount: string;
+  // 金额明细
+  details: FundItemDetail[];
+  static names(): { [key: string]: string } {
+    return {
+      bizOrderNo: 'biz_order_no',
+      tradeNo: 'trade_no',
+      amount: 'amount',
+      details: 'details',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      bizOrderNo: 'string',
+      tradeNo: 'string',
+      amount: 'string',
+      details: { 'type': 'array', 'itemType': FundItemDetail },
     };
   }
 
@@ -11463,6 +11671,8 @@ export class ExecFlowRunResponse extends $tea.Model {
   flowCode?: string;
   // 创建完成后的执行状态，固定返回 RUNNING。
   status?: string;
+  // 用户须知，用于展示本平台的使用须知。
+  userNotice?: string;
   static names(): { [key: string]: string } {
     return {
       reqMsgId: 'req_msg_id',
@@ -11471,6 +11681,7 @@ export class ExecFlowRunResponse extends $tea.Model {
       runNo: 'run_no',
       flowCode: 'flow_code',
       status: 'status',
+      userNotice: 'user_notice',
     };
   }
 
@@ -11482,6 +11693,7 @@ export class ExecFlowRunResponse extends $tea.Model {
       runNo: 'string',
       flowCode: 'string',
       status: 'string',
+      userNotice: 'string',
     };
   }
 
@@ -11532,6 +11744,8 @@ export class QueryFlowRunResponse extends $tea.Model {
   status?: string;
   // Flow 执行产出列表，每个元素为 FlowRunOutput 结构。仅当 status=SUCCESS 时返回产出内容；可包含文本、数字、布尔值、JSON 和文件。FILE 类型的 value 为短期有效的 HTTPS 下载地址。存在多个产出或多个文件时返回多个列表元素；RUNNING 或 FAILED 状态下返回空列表。
   outputs?: FlowRunOutput[];
+  // 用户须知，用于展示本平台的使用须知。
+  userNotice?: string;
   static names(): { [key: string]: string } {
     return {
       reqMsgId: 'req_msg_id',
@@ -11541,6 +11755,7 @@ export class QueryFlowRunResponse extends $tea.Model {
       flowCode: 'flow_code',
       status: 'status',
       outputs: 'outputs',
+      userNotice: 'user_notice',
     };
   }
 
@@ -11553,6 +11768,7 @@ export class QueryFlowRunResponse extends $tea.Model {
       flowCode: 'string',
       status: 'string',
       outputs: { 'type': 'array', 'itemType': FlowRunOutput },
+      userNotice: 'string',
     };
   }
 
@@ -12009,6 +12225,89 @@ export class QueryBenefithubReportEffectiveResponse extends $tea.Model {
       reportValid: 'string',
       reportValidFrom: 'string',
       reportValidTo: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class QueryBenefithubSubscriptionlinkRequest extends $tea.Model {
+  // OAuth模式下的授权token
+  authToken?: string;
+  productInstanceId?: string;
+  // 平台码 注：不同平台的平台码都是固定好的，如果传入的平台码有误会抛出平台码错误的信息
+  platformCode: string;
+  // 用户id
+  userUniqueId: string;
+  // 产品code必填，后续多产品时可以区分
+  productCode?: string;
+  // 渠道、平台方推送的手机号
+  mobile: string;
+  // 场景配置信息字符串，用于透传
+  sceneConfig: string;
+  // 区分流量来源
+  trafficSource?: string;
+  // json字符串包含姓名md5、手机号md5、身份证md5，（非必传，用于后续扩展字段使用）
+  extraInfo?: string;
+  static names(): { [key: string]: string } {
+    return {
+      authToken: 'auth_token',
+      productInstanceId: 'product_instance_id',
+      platformCode: 'platform_code',
+      userUniqueId: 'user_unique_id',
+      productCode: 'product_code',
+      mobile: 'mobile',
+      sceneConfig: 'scene_config',
+      trafficSource: 'traffic_source',
+      extraInfo: 'extra_info',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      authToken: 'string',
+      productInstanceId: 'string',
+      platformCode: 'string',
+      userUniqueId: 'string',
+      productCode: 'string',
+      mobile: 'string',
+      sceneConfig: 'string',
+      trafficSource: 'string',
+      extraInfo: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class QueryBenefithubSubscriptionlinkResponse extends $tea.Model {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string;
+  // 结果码，一般OK表示调用成功
+  resultCode?: string;
+  // 异常信息的文本描述
+  resultMsg?: string;
+  // h5跳转链接
+  h5Url?: string;
+  static names(): { [key: string]: string } {
+    return {
+      reqMsgId: 'req_msg_id',
+      resultCode: 'result_code',
+      resultMsg: 'result_msg',
+      h5Url: 'h5_url',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      reqMsgId: 'string',
+      resultCode: 'string',
+      resultMsg: 'string',
+      h5Url: 'string',
     };
   }
 
@@ -22416,14 +22715,16 @@ export class QueryDubbridgePetorderRequest extends $tea.Model {
   channelCode: string;
   // 流量平台
   trafficPlatform: string;
-  // 门店id
-  storeId: string;
+  // decrepted，请使用 merchant_id
+  storeId?: string;
   // 原始订单号
   bizOrderNo: string;
   // 交易单号
   tradeNo: string;
-  // 商家社信码
-  certNo: string;
+  // decrepted
+  certNo?: string;
+  // 正单归属主体，入驻主体 id
+  merchantId?: string;
   static names(): { [key: string]: string } {
     return {
       authToken: 'auth_token',
@@ -22434,6 +22735,7 @@ export class QueryDubbridgePetorderRequest extends $tea.Model {
       bizOrderNo: 'biz_order_no',
       tradeNo: 'trade_no',
       certNo: 'cert_no',
+      merchantId: 'merchant_id',
     };
   }
 
@@ -22447,6 +22749,7 @@ export class QueryDubbridgePetorderRequest extends $tea.Model {
       bizOrderNo: 'string',
       tradeNo: 'string',
       certNo: 'string',
+      merchantId: 'string',
     };
   }
 
@@ -22480,7 +22783,7 @@ export class QueryDubbridgePetorderResponse extends $tea.Model {
   paymentChannelCode?: string;
   // 支付机构编码	String
   payInstitutionCode?: string;
-  // 分期期数
+  // 分期期数，只有发生贴息交易时才存在
   installNum?: string;
   static names(): { [key: string]: string } {
     return {
@@ -22515,6 +22818,834 @@ export class QueryDubbridgePetorderResponse extends $tea.Model {
       paymentChannelCode: 'string',
       payInstitutionCode: 'string',
       installNum: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class SyncDubbridgeCustomRequest extends $tea.Model {
+  // OAuth模式下的授权token
+  authToken?: string;
+  productInstanceId?: string;
+  // 资产方用户唯一标识
+  openId: string;
+  // 补充信息
+  replenishInfo?: ReplenishInfo;
+  // 扩展信息，json格式字符串
+  extInfo?: string;
+  // 资金方编码
+  fundCode?: string;
+  static names(): { [key: string]: string } {
+    return {
+      authToken: 'auth_token',
+      productInstanceId: 'product_instance_id',
+      openId: 'open_id',
+      replenishInfo: 'replenish_info',
+      extInfo: 'ext_info',
+      fundCode: 'fund_code',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      authToken: 'string',
+      productInstanceId: 'string',
+      openId: 'string',
+      replenishInfo: ReplenishInfo,
+      extInfo: 'string',
+      fundCode: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class SyncDubbridgeCustomResponse extends $tea.Model {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string;
+  // 结果码，一般OK表示调用成功
+  resultCode?: string;
+  // 异常信息的文本描述
+  resultMsg?: string;
+  // 信息同步结果， Y-成功；N-失败
+  syncResult?: string;
+  // 同步失败原因
+  failReason?: string;
+  // 客户号
+  customerNo?: string;
+  static names(): { [key: string]: string } {
+    return {
+      reqMsgId: 'req_msg_id',
+      resultCode: 'result_code',
+      resultMsg: 'result_msg',
+      syncResult: 'sync_result',
+      failReason: 'fail_reason',
+      customerNo: 'customer_no',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      reqMsgId: 'string',
+      resultCode: 'string',
+      resultMsg: 'string',
+      syncResult: 'string',
+      failReason: 'string',
+      customerNo: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class QueryDubbridgeMerchantriskRequest extends $tea.Model {
+  // OAuth模式下的授权token
+  authToken?: string;
+  productInstanceId?: string;
+  // 申请单号
+  applyNo: string;
+  // 渠道租户
+  channelTenant: string;
+  // 来源类型
+  sourceType?: string;
+  static names(): { [key: string]: string } {
+    return {
+      authToken: 'auth_token',
+      productInstanceId: 'product_instance_id',
+      applyNo: 'apply_no',
+      channelTenant: 'channel_tenant',
+      sourceType: 'source_type',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      authToken: 'string',
+      productInstanceId: 'string',
+      applyNo: 'string',
+      channelTenant: 'string',
+      sourceType: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class QueryDubbridgeMerchantriskResponse extends $tea.Model {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string;
+  // 结果码，一般OK表示调用成功
+  resultCode?: string;
+  // 异常信息的文本描述
+  resultMsg?: string;
+  // 申请单号
+  applyNo?: string;
+  // 风控状态
+  riskStatus?: string;
+  // 扩展信息
+  extInfo?: string;
+  static names(): { [key: string]: string } {
+    return {
+      reqMsgId: 'req_msg_id',
+      resultCode: 'result_code',
+      resultMsg: 'result_msg',
+      applyNo: 'apply_no',
+      riskStatus: 'risk_status',
+      extInfo: 'ext_info',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      reqMsgId: 'string',
+      resultCode: 'string',
+      resultMsg: 'string',
+      applyNo: 'string',
+      riskStatus: 'string',
+      extInfo: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class ApplyDubbridgePetcashierGeneralRequest extends $tea.Model {
+  // OAuth模式下的授权token
+  authToken?: string;
+  productInstanceId?: string;
+  // 渠道编码
+  channelCode: string;
+  // 流量平台
+  trafficPlatform: string;
+  // 买家Id
+  buyerId: string;
+  // 业务订单号
+  bizOrderNo: string;
+  // 订单金额，单位元，两位小数
+  amount: string;
+  // 产品模式：PET_PACKAGE-领宠模式（活体+商城套餐）、PET-单活体、GOODS-单商品、MEMBER-会员订阅
+  productMode: string;
+  // 订单标题
+  subject: string;
+  // 时间戳
+  timestamp: string;
+  // 过期时间
+  expireTime?: string;
+  // 支付场景
+  payScene: string;
+  // 订单归属主体，入驻到平台的id
+  merchantId: string;
+  // 支付机构编码
+  payInstitutionCode: string;
+  // 支付后返回地址
+  returnUrl?: string;
+  // 商品明细数组
+  productList: ProductItem[];
+  // 扩展信息，JSON串
+  extInfo?: string;
+  static names(): { [key: string]: string } {
+    return {
+      authToken: 'auth_token',
+      productInstanceId: 'product_instance_id',
+      channelCode: 'channel_code',
+      trafficPlatform: 'traffic_platform',
+      buyerId: 'buyer_id',
+      bizOrderNo: 'biz_order_no',
+      amount: 'amount',
+      productMode: 'product_mode',
+      subject: 'subject',
+      timestamp: 'timestamp',
+      expireTime: 'expire_time',
+      payScene: 'pay_scene',
+      merchantId: 'merchant_id',
+      payInstitutionCode: 'pay_institution_code',
+      returnUrl: 'return_url',
+      productList: 'product_list',
+      extInfo: 'ext_info',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      authToken: 'string',
+      productInstanceId: 'string',
+      channelCode: 'string',
+      trafficPlatform: 'string',
+      buyerId: 'string',
+      bizOrderNo: 'string',
+      amount: 'string',
+      productMode: 'string',
+      subject: 'string',
+      timestamp: 'string',
+      expireTime: 'string',
+      payScene: 'string',
+      merchantId: 'string',
+      payInstitutionCode: 'string',
+      returnUrl: 'string',
+      productList: { 'type': 'array', 'itemType': ProductItem },
+      extInfo: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class ApplyDubbridgePetcashierGeneralResponse extends $tea.Model {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string;
+  // 结果码，一般OK表示调用成功
+  resultCode?: string;
+  // 异常信息的文本描述
+  resultMsg?: string;
+  // 跳转url（短链）/小程序场景为支付宝侧单号
+  pageRedirectionData?: string;
+  // 原始跳转url
+  originUrl?: string;
+  // 交易单号
+  tradeNo?: string;
+  static names(): { [key: string]: string } {
+    return {
+      reqMsgId: 'req_msg_id',
+      resultCode: 'result_code',
+      resultMsg: 'result_msg',
+      pageRedirectionData: 'page_redirection_data',
+      originUrl: 'origin_url',
+      tradeNo: 'trade_no',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      reqMsgId: 'string',
+      resultCode: 'string',
+      resultMsg: 'string',
+      pageRedirectionData: 'string',
+      originUrl: 'string',
+      tradeNo: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class QueryDubbridgePetFundRequest extends $tea.Model {
+  // OAuth模式下的授权token
+  authToken?: string;
+  productInstanceId?: string;
+  // 渠道编码
+  channelCode: string;
+  // 流量平台
+  trafficPlatform: string;
+  // 买家用户id
+  buyerId: string;
+  // 关联交易单号
+  tradeNo?: string;
+  // 订单归属主体入驻ID
+  merchantId?: string;
+  static names(): { [key: string]: string } {
+    return {
+      authToken: 'auth_token',
+      productInstanceId: 'product_instance_id',
+      channelCode: 'channel_code',
+      trafficPlatform: 'traffic_platform',
+      buyerId: 'buyer_id',
+      tradeNo: 'trade_no',
+      merchantId: 'merchant_id',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      authToken: 'string',
+      productInstanceId: 'string',
+      channelCode: 'string',
+      trafficPlatform: 'string',
+      buyerId: 'string',
+      tradeNo: 'string',
+      merchantId: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class QueryDubbridgePetFundResponse extends $tea.Model {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string;
+  // 结果码，一般OK表示调用成功
+  resultCode?: string;
+  // 异常信息的文本描述
+  resultMsg?: string;
+  // 用户资金信息
+  fundList?: UserFundInfo[];
+  static names(): { [key: string]: string } {
+    return {
+      reqMsgId: 'req_msg_id',
+      resultCode: 'result_code',
+      resultMsg: 'result_msg',
+      fundList: 'fund_list',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      reqMsgId: 'string',
+      resultCode: 'string',
+      resultMsg: 'string',
+      fundList: { 'type': 'array', 'itemType': UserFundInfo },
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class CreateDubbridgePetmallorderRequest extends $tea.Model {
+  // OAuth模式下的授权token
+  authToken?: string;
+  productInstanceId?: string;
+  // 渠道编码
+  channelCode: string;
+  // 流量平台
+  trafficPlatform: string;
+  // 买家用户id
+  buyerId: string;
+  // 商户入驻id
+  merchantId?: string;
+  // 商城订单号
+  bizOrderNo: string;
+  // 关联交易单号，储值卡来源 trade_no，储值卡金额只能消耗该 trade_no 下的余额
+  tradeNo: string;
+  // 商品名称
+  goodsName: string;
+  // 商品标价，单位：元
+  settleAmount: string;
+  // 储值卡支付结算金额，用于冻结/出账/分账的基数，单位元，两位小数
+  pointAmount: string;
+  static names(): { [key: string]: string } {
+    return {
+      authToken: 'auth_token',
+      productInstanceId: 'product_instance_id',
+      channelCode: 'channel_code',
+      trafficPlatform: 'traffic_platform',
+      buyerId: 'buyer_id',
+      merchantId: 'merchant_id',
+      bizOrderNo: 'biz_order_no',
+      tradeNo: 'trade_no',
+      goodsName: 'goods_name',
+      settleAmount: 'settle_amount',
+      pointAmount: 'point_amount',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      authToken: 'string',
+      productInstanceId: 'string',
+      channelCode: 'string',
+      trafficPlatform: 'string',
+      buyerId: 'string',
+      merchantId: 'string',
+      bizOrderNo: 'string',
+      tradeNo: 'string',
+      goodsName: 'string',
+      settleAmount: 'string',
+      pointAmount: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class CreateDubbridgePetmallorderResponse extends $tea.Model {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string;
+  // 结果码，一般OK表示调用成功
+  resultCode?: string;
+  // 异常信息的文本描述
+  resultMsg?: string;
+  // 商城业务订单号
+  bizOrderNo?: string;
+  // 积分订单创建结果，Y-成功；N-失败
+  createResult?: string;
+  // 失败原因
+  failReason?: string;
+  // 商城订单的交易单号
+  ownTradeNo?: string;
+  static names(): { [key: string]: string } {
+    return {
+      reqMsgId: 'req_msg_id',
+      resultCode: 'result_code',
+      resultMsg: 'result_msg',
+      bizOrderNo: 'biz_order_no',
+      createResult: 'create_result',
+      failReason: 'fail_reason',
+      ownTradeNo: 'own_trade_no',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      reqMsgId: 'string',
+      resultCode: 'string',
+      resultMsg: 'string',
+      bizOrderNo: 'string',
+      createResult: 'string',
+      failReason: 'string',
+      ownTradeNo: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class UpdateDubbridgePetmallorderRequest extends $tea.Model {
+  // OAuth模式下的授权token
+  authToken?: string;
+  productInstanceId?: string;
+  // 渠道编码
+  channelCode: string;
+  // 流量平台
+  trafficPlatform?: string;
+  // 买家用户id
+  buyerId: string;
+  // 商户入驻id
+  merchantId?: string;
+  // 关联交易单号
+  tradeNo?: string;
+  // 商城业务订单号
+  bizOrderNo: string;
+  // SHIPPED: 已发货
+  // CANCELED: 取消
+  // RECEIVED: 确认收货
+  status: string;
+  static names(): { [key: string]: string } {
+    return {
+      authToken: 'auth_token',
+      productInstanceId: 'product_instance_id',
+      channelCode: 'channel_code',
+      trafficPlatform: 'traffic_platform',
+      buyerId: 'buyer_id',
+      merchantId: 'merchant_id',
+      tradeNo: 'trade_no',
+      bizOrderNo: 'biz_order_no',
+      status: 'status',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      authToken: 'string',
+      productInstanceId: 'string',
+      channelCode: 'string',
+      trafficPlatform: 'string',
+      buyerId: 'string',
+      merchantId: 'string',
+      tradeNo: 'string',
+      bizOrderNo: 'string',
+      status: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class UpdateDubbridgePetmallorderResponse extends $tea.Model {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string;
+  // 结果码，一般OK表示调用成功
+  resultCode?: string;
+  // 异常信息的文本描述
+  resultMsg?: string;
+  // 商城业务订单号
+  bizOrderNo?: string;
+  // Y-成功
+  // N-失败
+  updateResult?: string;
+  // 失败原因
+  failReason?: string;
+  static names(): { [key: string]: string } {
+    return {
+      reqMsgId: 'req_msg_id',
+      resultCode: 'result_code',
+      resultMsg: 'result_msg',
+      bizOrderNo: 'biz_order_no',
+      updateResult: 'update_result',
+      failReason: 'fail_reason',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      reqMsgId: 'string',
+      resultCode: 'string',
+      resultMsg: 'string',
+      bizOrderNo: 'string',
+      updateResult: 'string',
+      failReason: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class ApplyDubbridgePetrefundRequest extends $tea.Model {
+  // OAuth模式下的授权token
+  authToken?: string;
+  productInstanceId?: string;
+  // 渠道编码
+  channelCode: string;
+  // 流量平台
+  trafficPlatform?: string;
+  // 退款单号，渠道/商城侧唯一
+  refundNo: string;
+  // 业务订单号
+  bizOrderNo: string;
+  // 关联交易单号
+  tradeNo?: string;
+  // 活体部分退款金额，单位元，两位小数
+  petRefundAmount?: string;
+  // 商城部分退款金额，单位元，两位小数
+  mallRefundAmount?: string;
+  // 退款原因
+  refundReason?: string;
+  static names(): { [key: string]: string } {
+    return {
+      authToken: 'auth_token',
+      productInstanceId: 'product_instance_id',
+      channelCode: 'channel_code',
+      trafficPlatform: 'traffic_platform',
+      refundNo: 'refund_no',
+      bizOrderNo: 'biz_order_no',
+      tradeNo: 'trade_no',
+      petRefundAmount: 'pet_refund_amount',
+      mallRefundAmount: 'mall_refund_amount',
+      refundReason: 'refund_reason',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      authToken: 'string',
+      productInstanceId: 'string',
+      channelCode: 'string',
+      trafficPlatform: 'string',
+      refundNo: 'string',
+      bizOrderNo: 'string',
+      tradeNo: 'string',
+      petRefundAmount: 'string',
+      mallRefundAmount: 'string',
+      refundReason: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class ApplyDubbridgePetrefundResponse extends $tea.Model {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string;
+  // 结果码，一般OK表示调用成功
+  resultCode?: string;
+  // 异常信息的文本描述
+  resultMsg?: string;
+  // 退款单号
+  refundNo?: string;
+  // 退款申请结果，Y-提交成功，N-提交失败
+  refundStatus?: string;
+  remark?: string;
+  // 业务订单号
+  bizOrderNo?: string;
+  static names(): { [key: string]: string } {
+    return {
+      reqMsgId: 'req_msg_id',
+      resultCode: 'result_code',
+      resultMsg: 'result_msg',
+      refundNo: 'refund_no',
+      refundStatus: 'refund_status',
+      remark: 'remark',
+      bizOrderNo: 'biz_order_no',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      reqMsgId: 'string',
+      resultCode: 'string',
+      resultMsg: 'string',
+      refundNo: 'string',
+      refundStatus: 'string',
+      remark: 'string',
+      bizOrderNo: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class QueryDubbridgePetrefundRequest extends $tea.Model {
+  // OAuth模式下的授权token
+  authToken?: string;
+  productInstanceId?: string;
+  // 渠道编码
+  channelCode: string;
+  // 流量平台
+  trafficPlatform?: string;
+  // 退款单号
+  refundNo: string;
+  // 关联交易单号
+  tradeNo?: string;
+  static names(): { [key: string]: string } {
+    return {
+      authToken: 'auth_token',
+      productInstanceId: 'product_instance_id',
+      channelCode: 'channel_code',
+      trafficPlatform: 'traffic_platform',
+      refundNo: 'refund_no',
+      tradeNo: 'trade_no',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      authToken: 'string',
+      productInstanceId: 'string',
+      channelCode: 'string',
+      trafficPlatform: 'string',
+      refundNo: 'string',
+      tradeNo: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class QueryDubbridgePetrefundResponse extends $tea.Model {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string;
+  // 结果码，一般OK表示调用成功
+  resultCode?: string;
+  // 异常信息的文本描述
+  resultMsg?: string;
+  // 活体部分退款金额，单位：元
+  petRefundAmount?: string;
+  // 商城部分退款金额，单位：元
+  mallRefundAmount?: string;
+  // 退款状态，INIT/PROCESSING/SUCCESS/FAILED
+  refundStatus?: string;
+  remark?: string;
+  // 业务订单号
+  bizOrderNo?: string;
+  // 退款单号
+  refundNo?: string;
+  static names(): { [key: string]: string } {
+    return {
+      reqMsgId: 'req_msg_id',
+      resultCode: 'result_code',
+      resultMsg: 'result_msg',
+      petRefundAmount: 'pet_refund_amount',
+      mallRefundAmount: 'mall_refund_amount',
+      refundStatus: 'refund_status',
+      remark: 'remark',
+      bizOrderNo: 'biz_order_no',
+      refundNo: 'refund_no',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      reqMsgId: 'string',
+      resultCode: 'string',
+      resultMsg: 'string',
+      petRefundAmount: 'string',
+      mallRefundAmount: 'string',
+      refundStatus: 'string',
+      remark: 'string',
+      bizOrderNo: 'string',
+      refundNo: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class ApplyDubbridgePetmallorderTransferRequest extends $tea.Model {
+  // OAuth模式下的授权token
+  authToken?: string;
+  productInstanceId?: string;
+  // 渠道编码
+  channelCode: string;
+  // 流量平台
+  trafficPlatform: string;
+  // 买家用户id
+  buyerId: string;
+  // 入驻主体id，业务订单归属
+  merchantId?: string;
+  // 业务订单号
+  bizOrderNo: string;
+  // 交易单号
+  tradeNo?: string;
+  static names(): { [key: string]: string } {
+    return {
+      authToken: 'auth_token',
+      productInstanceId: 'product_instance_id',
+      channelCode: 'channel_code',
+      trafficPlatform: 'traffic_platform',
+      buyerId: 'buyer_id',
+      merchantId: 'merchant_id',
+      bizOrderNo: 'biz_order_no',
+      tradeNo: 'trade_no',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      authToken: 'string',
+      productInstanceId: 'string',
+      channelCode: 'string',
+      trafficPlatform: 'string',
+      buyerId: 'string',
+      merchantId: 'string',
+      bizOrderNo: 'string',
+      tradeNo: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class ApplyDubbridgePetmallorderTransferResponse extends $tea.Model {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string;
+  // 结果码，一般OK表示调用成功
+  resultCode?: string;
+  // 异常信息的文本描述
+  resultMsg?: string;
+  // 业务订单
+  bizOrderNo?: string;
+  // 受理结果：Y-受理成功、N-受理失败
+  settleResult?: string;
+  // 失败原因
+  failReason?: string;
+  // 分账单号，提交成功时返回
+  transferNo?: string;
+  static names(): { [key: string]: string } {
+    return {
+      reqMsgId: 'req_msg_id',
+      resultCode: 'result_code',
+      resultMsg: 'result_msg',
+      bizOrderNo: 'biz_order_no',
+      settleResult: 'settle_result',
+      failReason: 'fail_reason',
+      transferNo: 'transfer_no',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      reqMsgId: 'string',
+      resultCode: 'string',
+      resultMsg: 'string',
+      bizOrderNo: 'string',
+      settleResult: 'string',
+      failReason: 'string',
+      transferNo: 'string',
     };
   }
 
@@ -36282,7 +37413,7 @@ export default class Client {
           req_msg_id: AntchainUtil.getNonce(),
           access_key: this._accessKeyId,
           base_sdk_version: "TeaSDK-2.0",
-          sdk_version: "1.31.31",
+          sdk_version: "1.33.1",
           _prod_code: "RISKPLUS",
           _prod_channel: "undefined",
         };
@@ -36475,6 +37606,27 @@ export default class Client {
   async queryBenefithubReportEffectiveEx(request: QueryBenefithubReportEffectiveRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<QueryBenefithubReportEffectiveResponse> {
     Util.validateModel(request);
     return $tea.cast<QueryBenefithubReportEffectiveResponse>(await this.doRequest("1.0", "riskplus.benefithub.report.effective.query", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new QueryBenefithubReportEffectiveResponse({}));
+  }
+
+  /**
+   * @remarks
+   * Description: 风险报告包月订阅页面链接获取接口
+   * Summary: 风险报告包月订阅页面链接获取接口
+   */
+  async queryBenefithubSubscriptionlink(request: QueryBenefithubSubscriptionlinkRequest): Promise<QueryBenefithubSubscriptionlinkResponse> {
+    let runtime = new $Util.RuntimeOptions({ });
+    let headers : {[key: string ]: string} = { };
+    return await this.queryBenefithubSubscriptionlinkEx(request, headers, runtime);
+  }
+
+  /**
+   * @remarks
+   * Description: 风险报告包月订阅页面链接获取接口
+   * Summary: 风险报告包月订阅页面链接获取接口
+   */
+  async queryBenefithubSubscriptionlinkEx(request: QueryBenefithubSubscriptionlinkRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<QueryBenefithubSubscriptionlinkResponse> {
+    Util.validateModel(request);
+    return $tea.cast<QueryBenefithubSubscriptionlinkResponse>(await this.doRequest("1.0", "riskplus.benefithub.subscriptionlink.query", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new QueryBenefithubSubscriptionlinkResponse({}));
   }
 
   /**
@@ -39080,6 +40232,195 @@ export default class Client {
   async queryDubbridgePetorderEx(request: QueryDubbridgePetorderRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<QueryDubbridgePetorderResponse> {
     Util.validateModel(request);
     return $tea.cast<QueryDubbridgePetorderResponse>(await this.doRequest("1.0", "riskplus.dubbridge.petorder.query", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new QueryDubbridgePetorderResponse({}));
+  }
+
+  /**
+   * @remarks
+   * Description: 用户信息补充并同步至下游资金方
+   * Summary: 用户信息补充并同步至下游资金方
+   */
+  async syncDubbridgeCustom(request: SyncDubbridgeCustomRequest): Promise<SyncDubbridgeCustomResponse> {
+    let runtime = new $Util.RuntimeOptions({ });
+    let headers : {[key: string ]: string} = { };
+    return await this.syncDubbridgeCustomEx(request, headers, runtime);
+  }
+
+  /**
+   * @remarks
+   * Description: 用户信息补充并同步至下游资金方
+   * Summary: 用户信息补充并同步至下游资金方
+   */
+  async syncDubbridgeCustomEx(request: SyncDubbridgeCustomRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<SyncDubbridgeCustomResponse> {
+    Util.validateModel(request);
+    return $tea.cast<SyncDubbridgeCustomResponse>(await this.doRequest("1.0", "riskplus.dubbridge.custom.sync", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new SyncDubbridgeCustomResponse({}));
+  }
+
+  /**
+   * @remarks
+   * Description: 商户入驻风控结果查询
+   * Summary: 商户入驻风控结果查询
+   */
+  async queryDubbridgeMerchantrisk(request: QueryDubbridgeMerchantriskRequest): Promise<QueryDubbridgeMerchantriskResponse> {
+    let runtime = new $Util.RuntimeOptions({ });
+    let headers : {[key: string ]: string} = { };
+    return await this.queryDubbridgeMerchantriskEx(request, headers, runtime);
+  }
+
+  /**
+   * @remarks
+   * Description: 商户入驻风控结果查询
+   * Summary: 商户入驻风控结果查询
+   */
+  async queryDubbridgeMerchantriskEx(request: QueryDubbridgeMerchantriskRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<QueryDubbridgeMerchantriskResponse> {
+    Util.validateModel(request);
+    return $tea.cast<QueryDubbridgeMerchantriskResponse>(await this.doRequest("1.0", "riskplus.dubbridge.merchantrisk.query", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new QueryDubbridgeMerchantriskResponse({}));
+  }
+
+  /**
+   * @remarks
+   * Description: 聚合收银台申请
+   * Summary: 聚合收银台申请
+   */
+  async applyDubbridgePetcashierGeneral(request: ApplyDubbridgePetcashierGeneralRequest): Promise<ApplyDubbridgePetcashierGeneralResponse> {
+    let runtime = new $Util.RuntimeOptions({ });
+    let headers : {[key: string ]: string} = { };
+    return await this.applyDubbridgePetcashierGeneralEx(request, headers, runtime);
+  }
+
+  /**
+   * @remarks
+   * Description: 聚合收银台申请
+   * Summary: 聚合收银台申请
+   */
+  async applyDubbridgePetcashierGeneralEx(request: ApplyDubbridgePetcashierGeneralRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<ApplyDubbridgePetcashierGeneralResponse> {
+    Util.validateModel(request);
+    return $tea.cast<ApplyDubbridgePetcashierGeneralResponse>(await this.doRequest("1.0", "riskplus.dubbridge.petcashier.general.apply", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new ApplyDubbridgePetcashierGeneralResponse({}));
+  }
+
+  /**
+   * @remarks
+   * Description: 余额查询
+   * Summary: 余额查询
+   */
+  async queryDubbridgePetFund(request: QueryDubbridgePetFundRequest): Promise<QueryDubbridgePetFundResponse> {
+    let runtime = new $Util.RuntimeOptions({ });
+    let headers : {[key: string ]: string} = { };
+    return await this.queryDubbridgePetFundEx(request, headers, runtime);
+  }
+
+  /**
+   * @remarks
+   * Description: 余额查询
+   * Summary: 余额查询
+   */
+  async queryDubbridgePetFundEx(request: QueryDubbridgePetFundRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<QueryDubbridgePetFundResponse> {
+    Util.validateModel(request);
+    return $tea.cast<QueryDubbridgePetFundResponse>(await this.doRequest("1.0", "riskplus.dubbridge.pet.fund.query", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new QueryDubbridgePetFundResponse({}));
+  }
+
+  /**
+   * @remarks
+   * Description: 商城创建储值卡消费订单（纯储值卡余额支付）
+   * Summary: 商城创建储值卡消费订单（纯储值卡余额支付）
+   */
+  async createDubbridgePetmallorder(request: CreateDubbridgePetmallorderRequest): Promise<CreateDubbridgePetmallorderResponse> {
+    let runtime = new $Util.RuntimeOptions({ });
+    let headers : {[key: string ]: string} = { };
+    return await this.createDubbridgePetmallorderEx(request, headers, runtime);
+  }
+
+  /**
+   * @remarks
+   * Description: 商城创建储值卡消费订单（纯储值卡余额支付）
+   * Summary: 商城创建储值卡消费订单（纯储值卡余额支付）
+   */
+  async createDubbridgePetmallorderEx(request: CreateDubbridgePetmallorderRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<CreateDubbridgePetmallorderResponse> {
+    Util.validateModel(request);
+    return $tea.cast<CreateDubbridgePetmallorderResponse>(await this.doRequest("1.0", "riskplus.dubbridge.petmallorder.create", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new CreateDubbridgePetmallorderResponse({}));
+  }
+
+  /**
+   * @remarks
+   * Description: 商城订单状态更新
+   * Summary: 商城订单状态更新
+   */
+  async updateDubbridgePetmallorder(request: UpdateDubbridgePetmallorderRequest): Promise<UpdateDubbridgePetmallorderResponse> {
+    let runtime = new $Util.RuntimeOptions({ });
+    let headers : {[key: string ]: string} = { };
+    return await this.updateDubbridgePetmallorderEx(request, headers, runtime);
+  }
+
+  /**
+   * @remarks
+   * Description: 商城订单状态更新
+   * Summary: 商城订单状态更新
+   */
+  async updateDubbridgePetmallorderEx(request: UpdateDubbridgePetmallorderRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<UpdateDubbridgePetmallorderResponse> {
+    Util.validateModel(request);
+    return $tea.cast<UpdateDubbridgePetmallorderResponse>(await this.doRequest("1.0", "riskplus.dubbridge.petmallorder.update", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new UpdateDubbridgePetmallorderResponse({}));
+  }
+
+  /**
+   * @remarks
+   * Description: 退款申请
+   * Summary: 退款申请
+   */
+  async applyDubbridgePetrefund(request: ApplyDubbridgePetrefundRequest): Promise<ApplyDubbridgePetrefundResponse> {
+    let runtime = new $Util.RuntimeOptions({ });
+    let headers : {[key: string ]: string} = { };
+    return await this.applyDubbridgePetrefundEx(request, headers, runtime);
+  }
+
+  /**
+   * @remarks
+   * Description: 退款申请
+   * Summary: 退款申请
+   */
+  async applyDubbridgePetrefundEx(request: ApplyDubbridgePetrefundRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<ApplyDubbridgePetrefundResponse> {
+    Util.validateModel(request);
+    return $tea.cast<ApplyDubbridgePetrefundResponse>(await this.doRequest("1.0", "riskplus.dubbridge.petrefund.apply", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new ApplyDubbridgePetrefundResponse({}));
+  }
+
+  /**
+   * @remarks
+   * Description: 退款结果查询
+   * Summary: 退款结果查询
+   */
+  async queryDubbridgePetrefund(request: QueryDubbridgePetrefundRequest): Promise<QueryDubbridgePetrefundResponse> {
+    let runtime = new $Util.RuntimeOptions({ });
+    let headers : {[key: string ]: string} = { };
+    return await this.queryDubbridgePetrefundEx(request, headers, runtime);
+  }
+
+  /**
+   * @remarks
+   * Description: 退款结果查询
+   * Summary: 退款结果查询
+   */
+  async queryDubbridgePetrefundEx(request: QueryDubbridgePetrefundRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<QueryDubbridgePetrefundResponse> {
+    Util.validateModel(request);
+    return $tea.cast<QueryDubbridgePetrefundResponse>(await this.doRequest("1.0", "riskplus.dubbridge.petrefund.query", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new QueryDubbridgePetrefundResponse({}));
+  }
+
+  /**
+   * @remarks
+   * Description: 分账提交，接口支持幂等
+   * Summary: 分账提交，接口支持幂等
+   */
+  async applyDubbridgePetmallorderTransfer(request: ApplyDubbridgePetmallorderTransferRequest): Promise<ApplyDubbridgePetmallorderTransferResponse> {
+    let runtime = new $Util.RuntimeOptions({ });
+    let headers : {[key: string ]: string} = { };
+    return await this.applyDubbridgePetmallorderTransferEx(request, headers, runtime);
+  }
+
+  /**
+   * @remarks
+   * Description: 分账提交，接口支持幂等
+   * Summary: 分账提交，接口支持幂等
+   */
+  async applyDubbridgePetmallorderTransferEx(request: ApplyDubbridgePetmallorderTransferRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<ApplyDubbridgePetmallorderTransferResponse> {
+    Util.validateModel(request);
+    return $tea.cast<ApplyDubbridgePetmallorderTransferResponse>(await this.doRequest("1.0", "riskplus.dubbridge.petmallorder.transfer.apply", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new ApplyDubbridgePetmallorderTransferResponse({}));
   }
 
   /**
