@@ -158,7 +158,7 @@ namespace AntChain.SDK.AIOSPRODUCT
                         {"req_msg_id", AntChain.AlipayUtil.AntchainUtils.GetNonce()},
                         {"access_key", _accessKeyId},
                         {"base_sdk_version", "TeaSDK-2.0"},
-                        {"sdk_version", "1.0.9"},
+                        {"sdk_version", "1.0.16"},
                         {"_prod_code", "AIOSPRODUCT"},
                         {"_prod_channel", "default"},
                     };
@@ -301,7 +301,7 @@ namespace AntChain.SDK.AIOSPRODUCT
                         {"req_msg_id", AntChain.AlipayUtil.AntchainUtils.GetNonce()},
                         {"access_key", _accessKeyId},
                         {"base_sdk_version", "TeaSDK-2.0"},
-                        {"sdk_version", "1.0.9"},
+                        {"sdk_version", "1.0.16"},
                         {"_prod_code", "AIOSPRODUCT"},
                         {"_prod_channel", "default"},
                     };
@@ -955,6 +955,650 @@ namespace AntChain.SDK.AIOSPRODUCT
         {
             AlibabaCloud.TeaUtil.Common.ValidateModel(request);
             return TeaModel.ToObject<QueryGwchildinsurancePlanningtargetslatestResponse>(await DoRequestAsync("1.0", "antdigital.aiosproduct.gwchildinsurance.planningtargetslatest.query", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /// <term><b>Description:</b></term>
+        /// <description>
+        /// <para>Description: 查询推荐方案详情
+        /// Summary: 查询推荐方案详情</para>
+        /// </description>
+        public QueryGwchildinsuranceRecommendationplandetailResponse QueryGwchildinsuranceRecommendationplandetail(QueryGwchildinsuranceRecommendationplandetailRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return QueryGwchildinsuranceRecommendationplandetailEx(request, headers, runtime);
+        }
+
+        /// <term><b>Description:</b></term>
+        /// <description>
+        /// <para>Description: 查询推荐方案详情
+        /// Summary: 查询推荐方案详情</para>
+        /// </description>
+        public async Task<QueryGwchildinsuranceRecommendationplandetailResponse> QueryGwchildinsuranceRecommendationplandetailAsync(QueryGwchildinsuranceRecommendationplandetailRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return await QueryGwchildinsuranceRecommendationplandetailExAsync(request, headers, runtime);
+        }
+
+        /// <term><b>Description:</b></term>
+        /// <description>
+        /// <para>Description: 查询推荐方案详情
+        /// Summary: 查询推荐方案详情</para>
+        /// </description>
+        public QueryGwchildinsuranceRecommendationplandetailResponse QueryGwchildinsuranceRecommendationplandetailEx(QueryGwchildinsuranceRecommendationplandetailRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<QueryGwchildinsuranceRecommendationplandetailResponse>(DoRequest("1.0", "antdigital.aiosproduct.gwchildinsurance.recommendationplandetail.query", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /// <term><b>Description:</b></term>
+        /// <description>
+        /// <para>Description: 查询推荐方案详情
+        /// Summary: 查询推荐方案详情</para>
+        /// </description>
+        public async Task<QueryGwchildinsuranceRecommendationplandetailResponse> QueryGwchildinsuranceRecommendationplandetailExAsync(QueryGwchildinsuranceRecommendationplandetailRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<QueryGwchildinsuranceRecommendationplandetailResponse>(await DoRequestAsync("1.0", "antdigital.aiosproduct.gwchildinsurance.recommendationplandetail.query", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /// <term><b>Description:</b></term>
+        /// <description>
+        /// <para>Description: 保存H5调整后的方案版本
+        /// Summary: 保存H5调整后的方案版本</para>
+        /// </description>
+        public SaveGwchildinsuranceRecommendationplanadjustResponse SaveGwchildinsuranceRecommendationplanadjust(SaveGwchildinsuranceRecommendationplanadjustRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return SaveGwchildinsuranceRecommendationplanadjustEx(request, headers, runtime);
+        }
+
+        /// <term><b>Description:</b></term>
+        /// <description>
+        /// <para>Description: 保存H5调整后的方案版本
+        /// Summary: 保存H5调整后的方案版本</para>
+        /// </description>
+        public async Task<SaveGwchildinsuranceRecommendationplanadjustResponse> SaveGwchildinsuranceRecommendationplanadjustAsync(SaveGwchildinsuranceRecommendationplanadjustRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return await SaveGwchildinsuranceRecommendationplanadjustExAsync(request, headers, runtime);
+        }
+
+        /// <term><b>Description:</b></term>
+        /// <description>
+        /// <para>Description: 保存H5调整后的方案版本
+        /// Summary: 保存H5调整后的方案版本</para>
+        /// </description>
+        public SaveGwchildinsuranceRecommendationplanadjustResponse SaveGwchildinsuranceRecommendationplanadjustEx(SaveGwchildinsuranceRecommendationplanadjustRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<SaveGwchildinsuranceRecommendationplanadjustResponse>(DoRequest("1.0", "antdigital.aiosproduct.gwchildinsurance.recommendationplanadjust.save", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /// <term><b>Description:</b></term>
+        /// <description>
+        /// <para>Description: 保存H5调整后的方案版本
+        /// Summary: 保存H5调整后的方案版本</para>
+        /// </description>
+        public async Task<SaveGwchildinsuranceRecommendationplanadjustResponse> SaveGwchildinsuranceRecommendationplanadjustExAsync(SaveGwchildinsuranceRecommendationplanadjustRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<SaveGwchildinsuranceRecommendationplanadjustResponse>(await DoRequestAsync("1.0", "antdigital.aiosproduct.gwchildinsurance.recommendationplanadjust.save", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /// <term><b>Description:</b></term>
+        /// <description>
+        /// <para>Description: 确认方案及最终价格
+        /// Summary: 确认方案及最终价格</para>
+        /// </description>
+        public SaveGwchildinsuranceRecommendationplanconfirmResponse SaveGwchildinsuranceRecommendationplanconfirm(SaveGwchildinsuranceRecommendationplanconfirmRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return SaveGwchildinsuranceRecommendationplanconfirmEx(request, headers, runtime);
+        }
+
+        /// <term><b>Description:</b></term>
+        /// <description>
+        /// <para>Description: 确认方案及最终价格
+        /// Summary: 确认方案及最终价格</para>
+        /// </description>
+        public async Task<SaveGwchildinsuranceRecommendationplanconfirmResponse> SaveGwchildinsuranceRecommendationplanconfirmAsync(SaveGwchildinsuranceRecommendationplanconfirmRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return await SaveGwchildinsuranceRecommendationplanconfirmExAsync(request, headers, runtime);
+        }
+
+        /// <term><b>Description:</b></term>
+        /// <description>
+        /// <para>Description: 确认方案及最终价格
+        /// Summary: 确认方案及最终价格</para>
+        /// </description>
+        public SaveGwchildinsuranceRecommendationplanconfirmResponse SaveGwchildinsuranceRecommendationplanconfirmEx(SaveGwchildinsuranceRecommendationplanconfirmRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<SaveGwchildinsuranceRecommendationplanconfirmResponse>(DoRequest("1.0", "antdigital.aiosproduct.gwchildinsurance.recommendationplanconfirm.save", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /// <term><b>Description:</b></term>
+        /// <description>
+        /// <para>Description: 确认方案及最终价格
+        /// Summary: 确认方案及最终价格</para>
+        /// </description>
+        public async Task<SaveGwchildinsuranceRecommendationplanconfirmResponse> SaveGwchildinsuranceRecommendationplanconfirmExAsync(SaveGwchildinsuranceRecommendationplanconfirmRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<SaveGwchildinsuranceRecommendationplanconfirmResponse>(await DoRequestAsync("1.0", "antdigital.aiosproduct.gwchildinsurance.recommendationplanconfirm.save", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /// <term><b>Description:</b></term>
+        /// <description>
+        /// <para>Description: 查询历史推荐方案
+        /// Summary: 查询历史推荐方案</para>
+        /// </description>
+        public QueryGwchildinsuranceRecommendationplanhistoryResponse QueryGwchildinsuranceRecommendationplanhistory(QueryGwchildinsuranceRecommendationplanhistoryRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return QueryGwchildinsuranceRecommendationplanhistoryEx(request, headers, runtime);
+        }
+
+        /// <term><b>Description:</b></term>
+        /// <description>
+        /// <para>Description: 查询历史推荐方案
+        /// Summary: 查询历史推荐方案</para>
+        /// </description>
+        public async Task<QueryGwchildinsuranceRecommendationplanhistoryResponse> QueryGwchildinsuranceRecommendationplanhistoryAsync(QueryGwchildinsuranceRecommendationplanhistoryRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return await QueryGwchildinsuranceRecommendationplanhistoryExAsync(request, headers, runtime);
+        }
+
+        /// <term><b>Description:</b></term>
+        /// <description>
+        /// <para>Description: 查询历史推荐方案
+        /// Summary: 查询历史推荐方案</para>
+        /// </description>
+        public QueryGwchildinsuranceRecommendationplanhistoryResponse QueryGwchildinsuranceRecommendationplanhistoryEx(QueryGwchildinsuranceRecommendationplanhistoryRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<QueryGwchildinsuranceRecommendationplanhistoryResponse>(DoRequest("1.0", "antdigital.aiosproduct.gwchildinsurance.recommendationplanhistory.query", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /// <term><b>Description:</b></term>
+        /// <description>
+        /// <para>Description: 查询历史推荐方案
+        /// Summary: 查询历史推荐方案</para>
+        /// </description>
+        public async Task<QueryGwchildinsuranceRecommendationplanhistoryResponse> QueryGwchildinsuranceRecommendationplanhistoryExAsync(QueryGwchildinsuranceRecommendationplanhistoryRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<QueryGwchildinsuranceRecommendationplanhistoryResponse>(await DoRequestAsync("1.0", "antdigital.aiosproduct.gwchildinsurance.recommendationplanhistory.query", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /// <term><b>Description:</b></term>
+        /// <description>
+        /// <para>Description: 少儿保险当前孩子设置
+        /// Summary: 少儿保险当前孩子设置</para>
+        /// </description>
+        public SaveGwchildinsuranceActivetargetResponse SaveGwchildinsuranceActivetarget(SaveGwchildinsuranceActivetargetRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return SaveGwchildinsuranceActivetargetEx(request, headers, runtime);
+        }
+
+        /// <term><b>Description:</b></term>
+        /// <description>
+        /// <para>Description: 少儿保险当前孩子设置
+        /// Summary: 少儿保险当前孩子设置</para>
+        /// </description>
+        public async Task<SaveGwchildinsuranceActivetargetResponse> SaveGwchildinsuranceActivetargetAsync(SaveGwchildinsuranceActivetargetRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return await SaveGwchildinsuranceActivetargetExAsync(request, headers, runtime);
+        }
+
+        /// <term><b>Description:</b></term>
+        /// <description>
+        /// <para>Description: 少儿保险当前孩子设置
+        /// Summary: 少儿保险当前孩子设置</para>
+        /// </description>
+        public SaveGwchildinsuranceActivetargetResponse SaveGwchildinsuranceActivetargetEx(SaveGwchildinsuranceActivetargetRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<SaveGwchildinsuranceActivetargetResponse>(DoRequest("1.0", "antdigital.aiosproduct.gwchildinsurance.activetarget.save", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /// <term><b>Description:</b></term>
+        /// <description>
+        /// <para>Description: 少儿保险当前孩子设置
+        /// Summary: 少儿保险当前孩子设置</para>
+        /// </description>
+        public async Task<SaveGwchildinsuranceActivetargetResponse> SaveGwchildinsuranceActivetargetExAsync(SaveGwchildinsuranceActivetargetRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<SaveGwchildinsuranceActivetargetResponse>(await DoRequestAsync("1.0", "antdigital.aiosproduct.gwchildinsurance.activetarget.save", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /// <term><b>Description:</b></term>
+        /// <description>
+        /// <para>Description: 少儿保险当前孩子查询
+        /// Summary: 少儿保险当前孩子查询</para>
+        /// </description>
+        public QueryGwchildinsuranceActivetargetResponse QueryGwchildinsuranceActivetarget(QueryGwchildinsuranceActivetargetRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return QueryGwchildinsuranceActivetargetEx(request, headers, runtime);
+        }
+
+        /// <term><b>Description:</b></term>
+        /// <description>
+        /// <para>Description: 少儿保险当前孩子查询
+        /// Summary: 少儿保险当前孩子查询</para>
+        /// </description>
+        public async Task<QueryGwchildinsuranceActivetargetResponse> QueryGwchildinsuranceActivetargetAsync(QueryGwchildinsuranceActivetargetRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return await QueryGwchildinsuranceActivetargetExAsync(request, headers, runtime);
+        }
+
+        /// <term><b>Description:</b></term>
+        /// <description>
+        /// <para>Description: 少儿保险当前孩子查询
+        /// Summary: 少儿保险当前孩子查询</para>
+        /// </description>
+        public QueryGwchildinsuranceActivetargetResponse QueryGwchildinsuranceActivetargetEx(QueryGwchildinsuranceActivetargetRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<QueryGwchildinsuranceActivetargetResponse>(DoRequest("1.0", "antdigital.aiosproduct.gwchildinsurance.activetarget.query", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /// <term><b>Description:</b></term>
+        /// <description>
+        /// <para>Description: 少儿保险当前孩子查询
+        /// Summary: 少儿保险当前孩子查询</para>
+        /// </description>
+        public async Task<QueryGwchildinsuranceActivetargetResponse> QueryGwchildinsuranceActivetargetExAsync(QueryGwchildinsuranceActivetargetRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<QueryGwchildinsuranceActivetargetResponse>(await DoRequestAsync("1.0", "antdigital.aiosproduct.gwchildinsurance.activetarget.query", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /// <term><b>Description:</b></term>
+        /// <description>
+        /// <para>Description: 少儿保险推荐候选详情查询
+        /// Summary: 少儿保险推荐候选详情查询</para>
+        /// </description>
+        public QueryGwchildinsuranceRecommendationcandidateResponse QueryGwchildinsuranceRecommendationcandidate(QueryGwchildinsuranceRecommendationcandidateRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return QueryGwchildinsuranceRecommendationcandidateEx(request, headers, runtime);
+        }
+
+        /// <term><b>Description:</b></term>
+        /// <description>
+        /// <para>Description: 少儿保险推荐候选详情查询
+        /// Summary: 少儿保险推荐候选详情查询</para>
+        /// </description>
+        public async Task<QueryGwchildinsuranceRecommendationcandidateResponse> QueryGwchildinsuranceRecommendationcandidateAsync(QueryGwchildinsuranceRecommendationcandidateRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return await QueryGwchildinsuranceRecommendationcandidateExAsync(request, headers, runtime);
+        }
+
+        /// <term><b>Description:</b></term>
+        /// <description>
+        /// <para>Description: 少儿保险推荐候选详情查询
+        /// Summary: 少儿保险推荐候选详情查询</para>
+        /// </description>
+        public QueryGwchildinsuranceRecommendationcandidateResponse QueryGwchildinsuranceRecommendationcandidateEx(QueryGwchildinsuranceRecommendationcandidateRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<QueryGwchildinsuranceRecommendationcandidateResponse>(DoRequest("1.0", "antdigital.aiosproduct.gwchildinsurance.recommendationcandidate.query", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /// <term><b>Description:</b></term>
+        /// <description>
+        /// <para>Description: 少儿保险推荐候选详情查询
+        /// Summary: 少儿保险推荐候选详情查询</para>
+        /// </description>
+        public async Task<QueryGwchildinsuranceRecommendationcandidateResponse> QueryGwchildinsuranceRecommendationcandidateExAsync(QueryGwchildinsuranceRecommendationcandidateRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<QueryGwchildinsuranceRecommendationcandidateResponse>(await DoRequestAsync("1.0", "antdigital.aiosproduct.gwchildinsurance.recommendationcandidate.query", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /// <term><b>Description:</b></term>
+        /// <description>
+        /// <para>Description: 选择预览
+        /// Summary: 选择预览</para>
+        /// </description>
+        public ResetGwchildinsuranceRecommendationcandidateResponse ResetGwchildinsuranceRecommendationcandidate(ResetGwchildinsuranceRecommendationcandidateRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return ResetGwchildinsuranceRecommendationcandidateEx(request, headers, runtime);
+        }
+
+        /// <term><b>Description:</b></term>
+        /// <description>
+        /// <para>Description: 选择预览
+        /// Summary: 选择预览</para>
+        /// </description>
+        public async Task<ResetGwchildinsuranceRecommendationcandidateResponse> ResetGwchildinsuranceRecommendationcandidateAsync(ResetGwchildinsuranceRecommendationcandidateRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return await ResetGwchildinsuranceRecommendationcandidateExAsync(request, headers, runtime);
+        }
+
+        /// <term><b>Description:</b></term>
+        /// <description>
+        /// <para>Description: 选择预览
+        /// Summary: 选择预览</para>
+        /// </description>
+        public ResetGwchildinsuranceRecommendationcandidateResponse ResetGwchildinsuranceRecommendationcandidateEx(ResetGwchildinsuranceRecommendationcandidateRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<ResetGwchildinsuranceRecommendationcandidateResponse>(DoRequest("1.0", "antdigital.aiosproduct.gwchildinsurance.recommendationcandidate.reset", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /// <term><b>Description:</b></term>
+        /// <description>
+        /// <para>Description: 选择预览
+        /// Summary: 选择预览</para>
+        /// </description>
+        public async Task<ResetGwchildinsuranceRecommendationcandidateResponse> ResetGwchildinsuranceRecommendationcandidateExAsync(ResetGwchildinsuranceRecommendationcandidateRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<ResetGwchildinsuranceRecommendationcandidateResponse>(await DoRequestAsync("1.0", "antdigital.aiosproduct.gwchildinsurance.recommendationcandidate.reset", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /// <term><b>Description:</b></term>
+        /// <description>
+        /// <para>Description: 商品对比列表查询
+        /// Summary: 商品对比列表查询</para>
+        /// </description>
+        public QueryGwchildinsuranceCompareproductlistResponse QueryGwchildinsuranceCompareproductlist(QueryGwchildinsuranceCompareproductlistRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return QueryGwchildinsuranceCompareproductlistEx(request, headers, runtime);
+        }
+
+        /// <term><b>Description:</b></term>
+        /// <description>
+        /// <para>Description: 商品对比列表查询
+        /// Summary: 商品对比列表查询</para>
+        /// </description>
+        public async Task<QueryGwchildinsuranceCompareproductlistResponse> QueryGwchildinsuranceCompareproductlistAsync(QueryGwchildinsuranceCompareproductlistRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return await QueryGwchildinsuranceCompareproductlistExAsync(request, headers, runtime);
+        }
+
+        /// <term><b>Description:</b></term>
+        /// <description>
+        /// <para>Description: 商品对比列表查询
+        /// Summary: 商品对比列表查询</para>
+        /// </description>
+        public QueryGwchildinsuranceCompareproductlistResponse QueryGwchildinsuranceCompareproductlistEx(QueryGwchildinsuranceCompareproductlistRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<QueryGwchildinsuranceCompareproductlistResponse>(DoRequest("1.0", "antdigital.aiosproduct.gwchildinsurance.compareproductlist.query", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /// <term><b>Description:</b></term>
+        /// <description>
+        /// <para>Description: 商品对比列表查询
+        /// Summary: 商品对比列表查询</para>
+        /// </description>
+        public async Task<QueryGwchildinsuranceCompareproductlistResponse> QueryGwchildinsuranceCompareproductlistExAsync(QueryGwchildinsuranceCompareproductlistRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<QueryGwchildinsuranceCompareproductlistResponse>(await DoRequestAsync("1.0", "antdigital.aiosproduct.gwchildinsurance.compareproductlist.query", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /// <term><b>Description:</b></term>
+        /// <description>
+        /// <para>Description: 商品对比详情查询
+        /// Summary: 商品对比详情查询</para>
+        /// </description>
+        public QueryGwchildinsuranceCompareproductdetailResponse QueryGwchildinsuranceCompareproductdetail(QueryGwchildinsuranceCompareproductdetailRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return QueryGwchildinsuranceCompareproductdetailEx(request, headers, runtime);
+        }
+
+        /// <term><b>Description:</b></term>
+        /// <description>
+        /// <para>Description: 商品对比详情查询
+        /// Summary: 商品对比详情查询</para>
+        /// </description>
+        public async Task<QueryGwchildinsuranceCompareproductdetailResponse> QueryGwchildinsuranceCompareproductdetailAsync(QueryGwchildinsuranceCompareproductdetailRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return await QueryGwchildinsuranceCompareproductdetailExAsync(request, headers, runtime);
+        }
+
+        /// <term><b>Description:</b></term>
+        /// <description>
+        /// <para>Description: 商品对比详情查询
+        /// Summary: 商品对比详情查询</para>
+        /// </description>
+        public QueryGwchildinsuranceCompareproductdetailResponse QueryGwchildinsuranceCompareproductdetailEx(QueryGwchildinsuranceCompareproductdetailRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<QueryGwchildinsuranceCompareproductdetailResponse>(DoRequest("1.0", "antdigital.aiosproduct.gwchildinsurance.compareproductdetail.query", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /// <term><b>Description:</b></term>
+        /// <description>
+        /// <para>Description: 商品对比详情查询
+        /// Summary: 商品对比详情查询</para>
+        /// </description>
+        public async Task<QueryGwchildinsuranceCompareproductdetailResponse> QueryGwchildinsuranceCompareproductdetailExAsync(QueryGwchildinsuranceCompareproductdetailRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<QueryGwchildinsuranceCompareproductdetailResponse>(await DoRequestAsync("1.0", "antdigital.aiosproduct.gwchildinsurance.compareproductdetail.query", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /// <term><b>Description:</b></term>
+        /// <description>
+        /// <para>Description: 产品对比 ID 列表查询
+        /// Summary: 产品对比 ID 列表查询</para>
+        /// </description>
+        public QueryGwchildinsuranceCompareproductlistidsResponse QueryGwchildinsuranceCompareproductlistids(QueryGwchildinsuranceCompareproductlistidsRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return QueryGwchildinsuranceCompareproductlistidsEx(request, headers, runtime);
+        }
+
+        /// <term><b>Description:</b></term>
+        /// <description>
+        /// <para>Description: 产品对比 ID 列表查询
+        /// Summary: 产品对比 ID 列表查询</para>
+        /// </description>
+        public async Task<QueryGwchildinsuranceCompareproductlistidsResponse> QueryGwchildinsuranceCompareproductlistidsAsync(QueryGwchildinsuranceCompareproductlistidsRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return await QueryGwchildinsuranceCompareproductlistidsExAsync(request, headers, runtime);
+        }
+
+        /// <term><b>Description:</b></term>
+        /// <description>
+        /// <para>Description: 产品对比 ID 列表查询
+        /// Summary: 产品对比 ID 列表查询</para>
+        /// </description>
+        public QueryGwchildinsuranceCompareproductlistidsResponse QueryGwchildinsuranceCompareproductlistidsEx(QueryGwchildinsuranceCompareproductlistidsRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<QueryGwchildinsuranceCompareproductlistidsResponse>(DoRequest("1.0", "antdigital.aiosproduct.gwchildinsurance.compareproductlistids.query", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /// <term><b>Description:</b></term>
+        /// <description>
+        /// <para>Description: 产品对比 ID 列表查询
+        /// Summary: 产品对比 ID 列表查询</para>
+        /// </description>
+        public async Task<QueryGwchildinsuranceCompareproductlistidsResponse> QueryGwchildinsuranceCompareproductlistidsExAsync(QueryGwchildinsuranceCompareproductlistidsRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<QueryGwchildinsuranceCompareproductlistidsResponse>(await DoRequestAsync("1.0", "antdigital.aiosproduct.gwchildinsurance.compareproductlistids.query", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /// <term><b>Description:</b></term>
+        /// <description>
+        /// <para>Description: 按 ID 获取产品对比数据
+        /// Summary: 按 ID 获取产品对比数据</para>
+        /// </description>
+        public QueryGwchildinsuranceCompareproductbyidsResponse QueryGwchildinsuranceCompareproductbyids(QueryGwchildinsuranceCompareproductbyidsRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return QueryGwchildinsuranceCompareproductbyidsEx(request, headers, runtime);
+        }
+
+        /// <term><b>Description:</b></term>
+        /// <description>
+        /// <para>Description: 按 ID 获取产品对比数据
+        /// Summary: 按 ID 获取产品对比数据</para>
+        /// </description>
+        public async Task<QueryGwchildinsuranceCompareproductbyidsResponse> QueryGwchildinsuranceCompareproductbyidsAsync(QueryGwchildinsuranceCompareproductbyidsRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return await QueryGwchildinsuranceCompareproductbyidsExAsync(request, headers, runtime);
+        }
+
+        /// <term><b>Description:</b></term>
+        /// <description>
+        /// <para>Description: 按 ID 获取产品对比数据
+        /// Summary: 按 ID 获取产品对比数据</para>
+        /// </description>
+        public QueryGwchildinsuranceCompareproductbyidsResponse QueryGwchildinsuranceCompareproductbyidsEx(QueryGwchildinsuranceCompareproductbyidsRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<QueryGwchildinsuranceCompareproductbyidsResponse>(DoRequest("1.0", "antdigital.aiosproduct.gwchildinsurance.compareproductbyids.query", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /// <term><b>Description:</b></term>
+        /// <description>
+        /// <para>Description: 按 ID 获取产品对比数据
+        /// Summary: 按 ID 获取产品对比数据</para>
+        /// </description>
+        public async Task<QueryGwchildinsuranceCompareproductbyidsResponse> QueryGwchildinsuranceCompareproductbyidsExAsync(QueryGwchildinsuranceCompareproductbyidsRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<QueryGwchildinsuranceCompareproductbyidsResponse>(await DoRequestAsync("1.0", "antdigital.aiosproduct.gwchildinsurance.compareproductbyids.query", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /// <term><b>Description:</b></term>
+        /// <description>
+        /// <para>Description: 可选责任计划详情查询
+        /// Summary: 可选责任计划详情查询</para>
+        /// </description>
+        public DetailGwchildinsuranceOptionalresponsibilityplanResponse DetailGwchildinsuranceOptionalresponsibilityplan(DetailGwchildinsuranceOptionalresponsibilityplanRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return DetailGwchildinsuranceOptionalresponsibilityplanEx(request, headers, runtime);
+        }
+
+        /// <term><b>Description:</b></term>
+        /// <description>
+        /// <para>Description: 可选责任计划详情查询
+        /// Summary: 可选责任计划详情查询</para>
+        /// </description>
+        public async Task<DetailGwchildinsuranceOptionalresponsibilityplanResponse> DetailGwchildinsuranceOptionalresponsibilityplanAsync(DetailGwchildinsuranceOptionalresponsibilityplanRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return await DetailGwchildinsuranceOptionalresponsibilityplanExAsync(request, headers, runtime);
+        }
+
+        /// <term><b>Description:</b></term>
+        /// <description>
+        /// <para>Description: 可选责任计划详情查询
+        /// Summary: 可选责任计划详情查询</para>
+        /// </description>
+        public DetailGwchildinsuranceOptionalresponsibilityplanResponse DetailGwchildinsuranceOptionalresponsibilityplanEx(DetailGwchildinsuranceOptionalresponsibilityplanRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<DetailGwchildinsuranceOptionalresponsibilityplanResponse>(DoRequest("1.0", "antdigital.aiosproduct.gwchildinsurance.optionalresponsibilityplan.detail", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /// <term><b>Description:</b></term>
+        /// <description>
+        /// <para>Description: 可选责任计划详情查询
+        /// Summary: 可选责任计划详情查询</para>
+        /// </description>
+        public async Task<DetailGwchildinsuranceOptionalresponsibilityplanResponse> DetailGwchildinsuranceOptionalresponsibilityplanExAsync(DetailGwchildinsuranceOptionalresponsibilityplanRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<DetailGwchildinsuranceOptionalresponsibilityplanResponse>(await DoRequestAsync("1.0", "antdigital.aiosproduct.gwchildinsurance.optionalresponsibilityplan.detail", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /// <term><b>Description:</b></term>
+        /// <description>
+        /// <para>Description: 可选责任计划按因子反查
+        /// Summary: 可选责任计划按因子反查</para>
+        /// </description>
+        public ResolveGwchildinsuranceOptionalresponsibilityplanResponse ResolveGwchildinsuranceOptionalresponsibilityplan(ResolveGwchildinsuranceOptionalresponsibilityplanRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return ResolveGwchildinsuranceOptionalresponsibilityplanEx(request, headers, runtime);
+        }
+
+        /// <term><b>Description:</b></term>
+        /// <description>
+        /// <para>Description: 可选责任计划按因子反查
+        /// Summary: 可选责任计划按因子反查</para>
+        /// </description>
+        public async Task<ResolveGwchildinsuranceOptionalresponsibilityplanResponse> ResolveGwchildinsuranceOptionalresponsibilityplanAsync(ResolveGwchildinsuranceOptionalresponsibilityplanRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return await ResolveGwchildinsuranceOptionalresponsibilityplanExAsync(request, headers, runtime);
+        }
+
+        /// <term><b>Description:</b></term>
+        /// <description>
+        /// <para>Description: 可选责任计划按因子反查
+        /// Summary: 可选责任计划按因子反查</para>
+        /// </description>
+        public ResolveGwchildinsuranceOptionalresponsibilityplanResponse ResolveGwchildinsuranceOptionalresponsibilityplanEx(ResolveGwchildinsuranceOptionalresponsibilityplanRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<ResolveGwchildinsuranceOptionalresponsibilityplanResponse>(DoRequest("1.0", "antdigital.aiosproduct.gwchildinsurance.optionalresponsibilityplan.resolve", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /// <term><b>Description:</b></term>
+        /// <description>
+        /// <para>Description: 可选责任计划按因子反查
+        /// Summary: 可选责任计划按因子反查</para>
+        /// </description>
+        public async Task<ResolveGwchildinsuranceOptionalresponsibilityplanResponse> ResolveGwchildinsuranceOptionalresponsibilityplanExAsync(ResolveGwchildinsuranceOptionalresponsibilityplanRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<ResolveGwchildinsuranceOptionalresponsibilityplanResponse>(await DoRequestAsync("1.0", "antdigital.aiosproduct.gwchildinsurance.optionalresponsibilityplan.resolve", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
         }
 
     }
