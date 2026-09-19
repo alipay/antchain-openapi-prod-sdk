@@ -3,7 +3,7 @@ package com.antgroup.antchain.openapi.riskplus.models;
 
 import com.aliyun.tea.*;
 
-public class QueryDubbridgePetorderRequest extends TeaModel {
+public class QueryDubbridgePetFundRequest extends TeaModel {
     // OAuth模式下的授权token
     @NameInMap("auth_token")
     public String authToken;
@@ -21,34 +21,25 @@ public class QueryDubbridgePetorderRequest extends TeaModel {
     @Validation(required = true)
     public String trafficPlatform;
 
-    // decrepted，请使用 merchant_id
-    @NameInMap("store_id")
-    public String storeId;
-
-    // 原始订单号
-    @NameInMap("biz_order_no")
+    // 买家用户id
+    @NameInMap("buyer_id")
     @Validation(required = true)
-    public String bizOrderNo;
+    public String buyerId;
 
-    // 交易单号
+    // 关联交易单号
     @NameInMap("trade_no")
-    @Validation(required = true)
     public String tradeNo;
 
-    // decrepted
-    @NameInMap("cert_no")
-    public String certNo;
-
-    // 正单归属主体，入驻主体 id
+    // 订单归属主体入驻ID
     @NameInMap("merchant_id")
     public String merchantId;
 
-    public static QueryDubbridgePetorderRequest build(java.util.Map<String, ?> map) throws Exception {
-        QueryDubbridgePetorderRequest self = new QueryDubbridgePetorderRequest();
+    public static QueryDubbridgePetFundRequest build(java.util.Map<String, ?> map) throws Exception {
+        QueryDubbridgePetFundRequest self = new QueryDubbridgePetFundRequest();
         return TeaModel.build(map, self);
     }
 
-    public QueryDubbridgePetorderRequest setAuthToken(String authToken) {
+    public QueryDubbridgePetFundRequest setAuthToken(String authToken) {
         this.authToken = authToken;
         return this;
     }
@@ -56,7 +47,7 @@ public class QueryDubbridgePetorderRequest extends TeaModel {
         return this.authToken;
     }
 
-    public QueryDubbridgePetorderRequest setProductInstanceId(String productInstanceId) {
+    public QueryDubbridgePetFundRequest setProductInstanceId(String productInstanceId) {
         this.productInstanceId = productInstanceId;
         return this;
     }
@@ -64,7 +55,7 @@ public class QueryDubbridgePetorderRequest extends TeaModel {
         return this.productInstanceId;
     }
 
-    public QueryDubbridgePetorderRequest setChannelCode(String channelCode) {
+    public QueryDubbridgePetFundRequest setChannelCode(String channelCode) {
         this.channelCode = channelCode;
         return this;
     }
@@ -72,7 +63,7 @@ public class QueryDubbridgePetorderRequest extends TeaModel {
         return this.channelCode;
     }
 
-    public QueryDubbridgePetorderRequest setTrafficPlatform(String trafficPlatform) {
+    public QueryDubbridgePetFundRequest setTrafficPlatform(String trafficPlatform) {
         this.trafficPlatform = trafficPlatform;
         return this;
     }
@@ -80,23 +71,15 @@ public class QueryDubbridgePetorderRequest extends TeaModel {
         return this.trafficPlatform;
     }
 
-    public QueryDubbridgePetorderRequest setStoreId(String storeId) {
-        this.storeId = storeId;
+    public QueryDubbridgePetFundRequest setBuyerId(String buyerId) {
+        this.buyerId = buyerId;
         return this;
     }
-    public String getStoreId() {
-        return this.storeId;
+    public String getBuyerId() {
+        return this.buyerId;
     }
 
-    public QueryDubbridgePetorderRequest setBizOrderNo(String bizOrderNo) {
-        this.bizOrderNo = bizOrderNo;
-        return this;
-    }
-    public String getBizOrderNo() {
-        return this.bizOrderNo;
-    }
-
-    public QueryDubbridgePetorderRequest setTradeNo(String tradeNo) {
+    public QueryDubbridgePetFundRequest setTradeNo(String tradeNo) {
         this.tradeNo = tradeNo;
         return this;
     }
@@ -104,15 +87,7 @@ public class QueryDubbridgePetorderRequest extends TeaModel {
         return this.tradeNo;
     }
 
-    public QueryDubbridgePetorderRequest setCertNo(String certNo) {
-        this.certNo = certNo;
-        return this;
-    }
-    public String getCertNo() {
-        return this.certNo;
-    }
-
-    public QueryDubbridgePetorderRequest setMerchantId(String merchantId) {
+    public QueryDubbridgePetFundRequest setMerchantId(String merchantId) {
         this.merchantId = merchantId;
         return this;
     }

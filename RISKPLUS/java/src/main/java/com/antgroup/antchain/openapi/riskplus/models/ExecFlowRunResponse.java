@@ -28,6 +28,10 @@ public class ExecFlowRunResponse extends TeaModel {
     @NameInMap("status")
     public String status;
 
+    // 用户须知，用于展示本平台的使用须知。
+    @NameInMap("user_notice")
+    public String userNotice;
+
     public static ExecFlowRunResponse build(java.util.Map<String, ?> map) throws Exception {
         ExecFlowRunResponse self = new ExecFlowRunResponse();
         return TeaModel.build(map, self);
@@ -79,6 +83,14 @@ public class ExecFlowRunResponse extends TeaModel {
     }
     public String getStatus() {
         return this.status;
+    }
+
+    public ExecFlowRunResponse setUserNotice(String userNotice) {
+        this.userNotice = userNotice;
+        return this;
+    }
+    public String getUserNotice() {
+        return this.userNotice;
     }
 
 }

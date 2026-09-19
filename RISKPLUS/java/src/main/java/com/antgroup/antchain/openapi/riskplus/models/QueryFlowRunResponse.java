@@ -32,6 +32,10 @@ public class QueryFlowRunResponse extends TeaModel {
     @NameInMap("outputs")
     public java.util.List<FlowRunOutput> outputs;
 
+    // 用户须知，用于展示本平台的使用须知。
+    @NameInMap("user_notice")
+    public String userNotice;
+
     public static QueryFlowRunResponse build(java.util.Map<String, ?> map) throws Exception {
         QueryFlowRunResponse self = new QueryFlowRunResponse();
         return TeaModel.build(map, self);
@@ -91,6 +95,14 @@ public class QueryFlowRunResponse extends TeaModel {
     }
     public java.util.List<FlowRunOutput> getOutputs() {
         return this.outputs;
+    }
+
+    public QueryFlowRunResponse setUserNotice(String userNotice) {
+        this.userNotice = userNotice;
+        return this;
+    }
+    public String getUserNotice() {
+        return this.userNotice;
     }
 
 }

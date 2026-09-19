@@ -52,7 +52,7 @@ public class QueryDubbridgePetorderResponse extends TeaModel {
     @NameInMap("pay_institution_code")
     public String payInstitutionCode;
 
-    // 分期期数
+    // 分期期数，只有发生贴息交易时才存在
     @NameInMap("install_num")
     public String installNum;
 

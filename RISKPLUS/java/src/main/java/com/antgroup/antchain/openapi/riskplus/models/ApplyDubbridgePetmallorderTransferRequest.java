@@ -3,7 +3,7 @@ package com.antgroup.antchain.openapi.riskplus.models;
 
 import com.aliyun.tea.*;
 
-public class QueryDubbridgePetorderRequest extends TeaModel {
+public class ApplyDubbridgePetmallorderTransferRequest extends TeaModel {
     // OAuth模式下的授权token
     @NameInMap("auth_token")
     public String authToken;
@@ -21,34 +21,30 @@ public class QueryDubbridgePetorderRequest extends TeaModel {
     @Validation(required = true)
     public String trafficPlatform;
 
-    // decrepted，请使用 merchant_id
-    @NameInMap("store_id")
-    public String storeId;
+    // 买家用户id
+    @NameInMap("buyer_id")
+    @Validation(required = true)
+    public String buyerId;
 
-    // 原始订单号
+    // 入驻主体id，业务订单归属
+    @NameInMap("merchant_id")
+    public String merchantId;
+
+    // 业务订单号
     @NameInMap("biz_order_no")
     @Validation(required = true)
     public String bizOrderNo;
 
     // 交易单号
     @NameInMap("trade_no")
-    @Validation(required = true)
     public String tradeNo;
 
-    // decrepted
-    @NameInMap("cert_no")
-    public String certNo;
-
-    // 正单归属主体，入驻主体 id
-    @NameInMap("merchant_id")
-    public String merchantId;
-
-    public static QueryDubbridgePetorderRequest build(java.util.Map<String, ?> map) throws Exception {
-        QueryDubbridgePetorderRequest self = new QueryDubbridgePetorderRequest();
+    public static ApplyDubbridgePetmallorderTransferRequest build(java.util.Map<String, ?> map) throws Exception {
+        ApplyDubbridgePetmallorderTransferRequest self = new ApplyDubbridgePetmallorderTransferRequest();
         return TeaModel.build(map, self);
     }
 
-    public QueryDubbridgePetorderRequest setAuthToken(String authToken) {
+    public ApplyDubbridgePetmallorderTransferRequest setAuthToken(String authToken) {
         this.authToken = authToken;
         return this;
     }
@@ -56,7 +52,7 @@ public class QueryDubbridgePetorderRequest extends TeaModel {
         return this.authToken;
     }
 
-    public QueryDubbridgePetorderRequest setProductInstanceId(String productInstanceId) {
+    public ApplyDubbridgePetmallorderTransferRequest setProductInstanceId(String productInstanceId) {
         this.productInstanceId = productInstanceId;
         return this;
     }
@@ -64,7 +60,7 @@ public class QueryDubbridgePetorderRequest extends TeaModel {
         return this.productInstanceId;
     }
 
-    public QueryDubbridgePetorderRequest setChannelCode(String channelCode) {
+    public ApplyDubbridgePetmallorderTransferRequest setChannelCode(String channelCode) {
         this.channelCode = channelCode;
         return this;
     }
@@ -72,7 +68,7 @@ public class QueryDubbridgePetorderRequest extends TeaModel {
         return this.channelCode;
     }
 
-    public QueryDubbridgePetorderRequest setTrafficPlatform(String trafficPlatform) {
+    public ApplyDubbridgePetmallorderTransferRequest setTrafficPlatform(String trafficPlatform) {
         this.trafficPlatform = trafficPlatform;
         return this;
     }
@@ -80,15 +76,23 @@ public class QueryDubbridgePetorderRequest extends TeaModel {
         return this.trafficPlatform;
     }
 
-    public QueryDubbridgePetorderRequest setStoreId(String storeId) {
-        this.storeId = storeId;
+    public ApplyDubbridgePetmallorderTransferRequest setBuyerId(String buyerId) {
+        this.buyerId = buyerId;
         return this;
     }
-    public String getStoreId() {
-        return this.storeId;
+    public String getBuyerId() {
+        return this.buyerId;
     }
 
-    public QueryDubbridgePetorderRequest setBizOrderNo(String bizOrderNo) {
+    public ApplyDubbridgePetmallorderTransferRequest setMerchantId(String merchantId) {
+        this.merchantId = merchantId;
+        return this;
+    }
+    public String getMerchantId() {
+        return this.merchantId;
+    }
+
+    public ApplyDubbridgePetmallorderTransferRequest setBizOrderNo(String bizOrderNo) {
         this.bizOrderNo = bizOrderNo;
         return this;
     }
@@ -96,28 +100,12 @@ public class QueryDubbridgePetorderRequest extends TeaModel {
         return this.bizOrderNo;
     }
 
-    public QueryDubbridgePetorderRequest setTradeNo(String tradeNo) {
+    public ApplyDubbridgePetmallorderTransferRequest setTradeNo(String tradeNo) {
         this.tradeNo = tradeNo;
         return this;
     }
     public String getTradeNo() {
         return this.tradeNo;
-    }
-
-    public QueryDubbridgePetorderRequest setCertNo(String certNo) {
-        this.certNo = certNo;
-        return this;
-    }
-    public String getCertNo() {
-        return this.certNo;
-    }
-
-    public QueryDubbridgePetorderRequest setMerchantId(String merchantId) {
-        this.merchantId = merchantId;
-        return this;
-    }
-    public String getMerchantId() {
-        return this.merchantId;
     }
 
 }

@@ -126,7 +126,7 @@ public class Client {
                     new TeaPair("req_msg_id", com.antgroup.antchain.openapi.antchain.util.AntchainUtils.getNonce()),
                     new TeaPair("access_key", _accessKeyId),
                     new TeaPair("base_sdk_version", "TeaSDK-2.0"),
-                    new TeaPair("sdk_version", "1.31.32"),
+                    new TeaPair("sdk_version", "1.33.1"),
                     new TeaPair("_prod_code", "RISKPLUS"),
                     new TeaPair("_prod_channel", "undefined")
                 );
@@ -333,6 +333,27 @@ public class Client {
     public QueryBenefithubReportEffectiveResponse queryBenefithubReportEffectiveEx(QueryBenefithubReportEffectiveRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
         com.aliyun.teautil.Common.validateModel(request);
         return TeaModel.toModel(this.doRequest("1.0", "riskplus.benefithub.report.effective.query", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new QueryBenefithubReportEffectiveResponse());
+    }
+
+    /**
+     * <b>description</b> :
+     * <p>Description: 风险报告包月订阅页面链接获取接口
+     * Summary: 风险报告包月订阅页面链接获取接口</p>
+     */
+    public QueryBenefithubSubscriptionlinkResponse queryBenefithubSubscriptionlink(QueryBenefithubSubscriptionlinkRequest request) throws Exception {
+        com.aliyun.teautil.models.RuntimeOptions runtime = new com.aliyun.teautil.models.RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.queryBenefithubSubscriptionlinkEx(request, headers, runtime);
+    }
+
+    /**
+     * <b>description</b> :
+     * <p>Description: 风险报告包月订阅页面链接获取接口
+     * Summary: 风险报告包月订阅页面链接获取接口</p>
+     */
+    public QueryBenefithubSubscriptionlinkResponse queryBenefithubSubscriptionlinkEx(QueryBenefithubSubscriptionlinkRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "riskplus.benefithub.subscriptionlink.query", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new QueryBenefithubSubscriptionlinkResponse());
     }
 
     /**
@@ -2959,6 +2980,174 @@ public class Client {
     public SyncDubbridgeCustomResponse syncDubbridgeCustomEx(SyncDubbridgeCustomRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
         com.aliyun.teautil.Common.validateModel(request);
         return TeaModel.toModel(this.doRequest("1.0", "riskplus.dubbridge.custom.sync", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new SyncDubbridgeCustomResponse());
+    }
+
+    /**
+     * <b>description</b> :
+     * <p>Description: 商户入驻风控结果查询
+     * Summary: 商户入驻风控结果查询</p>
+     */
+    public QueryDubbridgeMerchantriskResponse queryDubbridgeMerchantrisk(QueryDubbridgeMerchantriskRequest request) throws Exception {
+        com.aliyun.teautil.models.RuntimeOptions runtime = new com.aliyun.teautil.models.RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.queryDubbridgeMerchantriskEx(request, headers, runtime);
+    }
+
+    /**
+     * <b>description</b> :
+     * <p>Description: 商户入驻风控结果查询
+     * Summary: 商户入驻风控结果查询</p>
+     */
+    public QueryDubbridgeMerchantriskResponse queryDubbridgeMerchantriskEx(QueryDubbridgeMerchantriskRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "riskplus.dubbridge.merchantrisk.query", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new QueryDubbridgeMerchantriskResponse());
+    }
+
+    /**
+     * <b>description</b> :
+     * <p>Description: 聚合收银台申请
+     * Summary: 聚合收银台申请</p>
+     */
+    public ApplyDubbridgePetcashierGeneralResponse applyDubbridgePetcashierGeneral(ApplyDubbridgePetcashierGeneralRequest request) throws Exception {
+        com.aliyun.teautil.models.RuntimeOptions runtime = new com.aliyun.teautil.models.RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.applyDubbridgePetcashierGeneralEx(request, headers, runtime);
+    }
+
+    /**
+     * <b>description</b> :
+     * <p>Description: 聚合收银台申请
+     * Summary: 聚合收银台申请</p>
+     */
+    public ApplyDubbridgePetcashierGeneralResponse applyDubbridgePetcashierGeneralEx(ApplyDubbridgePetcashierGeneralRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "riskplus.dubbridge.petcashier.general.apply", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new ApplyDubbridgePetcashierGeneralResponse());
+    }
+
+    /**
+     * <b>description</b> :
+     * <p>Description: 余额查询
+     * Summary: 余额查询</p>
+     */
+    public QueryDubbridgePetFundResponse queryDubbridgePetFund(QueryDubbridgePetFundRequest request) throws Exception {
+        com.aliyun.teautil.models.RuntimeOptions runtime = new com.aliyun.teautil.models.RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.queryDubbridgePetFundEx(request, headers, runtime);
+    }
+
+    /**
+     * <b>description</b> :
+     * <p>Description: 余额查询
+     * Summary: 余额查询</p>
+     */
+    public QueryDubbridgePetFundResponse queryDubbridgePetFundEx(QueryDubbridgePetFundRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "riskplus.dubbridge.pet.fund.query", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new QueryDubbridgePetFundResponse());
+    }
+
+    /**
+     * <b>description</b> :
+     * <p>Description: 商城创建储值卡消费订单（纯储值卡余额支付）
+     * Summary: 商城创建储值卡消费订单（纯储值卡余额支付）</p>
+     */
+    public CreateDubbridgePetmallorderResponse createDubbridgePetmallorder(CreateDubbridgePetmallorderRequest request) throws Exception {
+        com.aliyun.teautil.models.RuntimeOptions runtime = new com.aliyun.teautil.models.RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.createDubbridgePetmallorderEx(request, headers, runtime);
+    }
+
+    /**
+     * <b>description</b> :
+     * <p>Description: 商城创建储值卡消费订单（纯储值卡余额支付）
+     * Summary: 商城创建储值卡消费订单（纯储值卡余额支付）</p>
+     */
+    public CreateDubbridgePetmallorderResponse createDubbridgePetmallorderEx(CreateDubbridgePetmallorderRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "riskplus.dubbridge.petmallorder.create", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new CreateDubbridgePetmallorderResponse());
+    }
+
+    /**
+     * <b>description</b> :
+     * <p>Description: 商城订单状态更新
+     * Summary: 商城订单状态更新</p>
+     */
+    public UpdateDubbridgePetmallorderResponse updateDubbridgePetmallorder(UpdateDubbridgePetmallorderRequest request) throws Exception {
+        com.aliyun.teautil.models.RuntimeOptions runtime = new com.aliyun.teautil.models.RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.updateDubbridgePetmallorderEx(request, headers, runtime);
+    }
+
+    /**
+     * <b>description</b> :
+     * <p>Description: 商城订单状态更新
+     * Summary: 商城订单状态更新</p>
+     */
+    public UpdateDubbridgePetmallorderResponse updateDubbridgePetmallorderEx(UpdateDubbridgePetmallorderRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "riskplus.dubbridge.petmallorder.update", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new UpdateDubbridgePetmallorderResponse());
+    }
+
+    /**
+     * <b>description</b> :
+     * <p>Description: 退款申请
+     * Summary: 退款申请</p>
+     */
+    public ApplyDubbridgePetrefundResponse applyDubbridgePetrefund(ApplyDubbridgePetrefundRequest request) throws Exception {
+        com.aliyun.teautil.models.RuntimeOptions runtime = new com.aliyun.teautil.models.RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.applyDubbridgePetrefundEx(request, headers, runtime);
+    }
+
+    /**
+     * <b>description</b> :
+     * <p>Description: 退款申请
+     * Summary: 退款申请</p>
+     */
+    public ApplyDubbridgePetrefundResponse applyDubbridgePetrefundEx(ApplyDubbridgePetrefundRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "riskplus.dubbridge.petrefund.apply", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new ApplyDubbridgePetrefundResponse());
+    }
+
+    /**
+     * <b>description</b> :
+     * <p>Description: 退款结果查询
+     * Summary: 退款结果查询</p>
+     */
+    public QueryDubbridgePetrefundResponse queryDubbridgePetrefund(QueryDubbridgePetrefundRequest request) throws Exception {
+        com.aliyun.teautil.models.RuntimeOptions runtime = new com.aliyun.teautil.models.RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.queryDubbridgePetrefundEx(request, headers, runtime);
+    }
+
+    /**
+     * <b>description</b> :
+     * <p>Description: 退款结果查询
+     * Summary: 退款结果查询</p>
+     */
+    public QueryDubbridgePetrefundResponse queryDubbridgePetrefundEx(QueryDubbridgePetrefundRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "riskplus.dubbridge.petrefund.query", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new QueryDubbridgePetrefundResponse());
+    }
+
+    /**
+     * <b>description</b> :
+     * <p>Description: 分账提交，接口支持幂等
+     * Summary: 分账提交，接口支持幂等</p>
+     */
+    public ApplyDubbridgePetmallorderTransferResponse applyDubbridgePetmallorderTransfer(ApplyDubbridgePetmallorderTransferRequest request) throws Exception {
+        com.aliyun.teautil.models.RuntimeOptions runtime = new com.aliyun.teautil.models.RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.applyDubbridgePetmallorderTransferEx(request, headers, runtime);
+    }
+
+    /**
+     * <b>description</b> :
+     * <p>Description: 分账提交，接口支持幂等
+     * Summary: 分账提交，接口支持幂等</p>
+     */
+    public ApplyDubbridgePetmallorderTransferResponse applyDubbridgePetmallorderTransferEx(ApplyDubbridgePetmallorderTransferRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "riskplus.dubbridge.petmallorder.transfer.apply", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new ApplyDubbridgePetmallorderTransferResponse());
     }
 
     /**
