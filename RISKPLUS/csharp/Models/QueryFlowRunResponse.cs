@@ -44,6 +44,11 @@ namespace AntChain.SDK.RISKPLUS.Models
         [Validation(Required=false)]
         public List<FlowRunOutput> Outputs { get; set; }
 
+        // 用户须知，用于展示本平台的使用须知。
+        [NameInMap("user_notice")]
+        [Validation(Required=false)]
+        public string UserNotice { get; set; }
+
     }
 
 }

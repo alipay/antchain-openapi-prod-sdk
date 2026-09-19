@@ -8,7 +8,7 @@ using Tea;
 
 namespace AntChain.SDK.RISKPLUS.Models
 {
-    public class QueryDubbridgePetorderRequest : TeaModel {
+    public class CreateDubbridgePetmallorderRequest : TeaModel {
         // OAuth模式下的授权token
         [NameInMap("auth_token")]
         [Validation(Required=false)]
@@ -28,30 +28,40 @@ namespace AntChain.SDK.RISKPLUS.Models
         [Validation(Required=true)]
         public string TrafficPlatform { get; set; }
 
-        // decrepted，请使用 merchant_id
-        [NameInMap("store_id")]
-        [Validation(Required=false)]
-        public string StoreId { get; set; }
+        // 买家用户id
+        [NameInMap("buyer_id")]
+        [Validation(Required=true)]
+        public string BuyerId { get; set; }
 
-        // 原始订单号
+        // 商户入驻id
+        [NameInMap("merchant_id")]
+        [Validation(Required=false)]
+        public string MerchantId { get; set; }
+
+        // 商城订单号
         [NameInMap("biz_order_no")]
         [Validation(Required=true)]
         public string BizOrderNo { get; set; }
 
-        // 交易单号
+        // 关联交易单号，储值卡来源 trade_no，储值卡金额只能消耗该 trade_no 下的余额
         [NameInMap("trade_no")]
         [Validation(Required=true)]
         public string TradeNo { get; set; }
 
-        // decrepted
-        [NameInMap("cert_no")]
-        [Validation(Required=false)]
-        public string CertNo { get; set; }
+        // 商品名称
+        [NameInMap("goods_name")]
+        [Validation(Required=true)]
+        public string GoodsName { get; set; }
 
-        // 正单归属主体，入驻主体 id
-        [NameInMap("merchant_id")]
-        [Validation(Required=false)]
-        public string MerchantId { get; set; }
+        // 商品标价，单位：元
+        [NameInMap("settle_amount")]
+        [Validation(Required=true)]
+        public string SettleAmount { get; set; }
+
+        // 储值卡支付结算金额，用于冻结/出账/分账的基数，单位元，两位小数
+        [NameInMap("point_amount")]
+        [Validation(Required=true)]
+        public string PointAmount { get; set; }
 
     }
 

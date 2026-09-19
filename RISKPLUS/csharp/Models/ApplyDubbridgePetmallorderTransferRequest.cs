@@ -8,7 +8,7 @@ using Tea;
 
 namespace AntChain.SDK.RISKPLUS.Models
 {
-    public class QueryDubbridgePetorderRequest : TeaModel {
+    public class ApplyDubbridgePetmallorderTransferRequest : TeaModel {
         // OAuth模式下的授权token
         [NameInMap("auth_token")]
         [Validation(Required=false)]
@@ -28,30 +28,25 @@ namespace AntChain.SDK.RISKPLUS.Models
         [Validation(Required=true)]
         public string TrafficPlatform { get; set; }
 
-        // decrepted，请使用 merchant_id
-        [NameInMap("store_id")]
-        [Validation(Required=false)]
-        public string StoreId { get; set; }
+        // 买家用户id
+        [NameInMap("buyer_id")]
+        [Validation(Required=true)]
+        public string BuyerId { get; set; }
 
-        // 原始订单号
+        // 入驻主体id，业务订单归属
+        [NameInMap("merchant_id")]
+        [Validation(Required=false)]
+        public string MerchantId { get; set; }
+
+        // 业务订单号
         [NameInMap("biz_order_no")]
         [Validation(Required=true)]
         public string BizOrderNo { get; set; }
 
         // 交易单号
         [NameInMap("trade_no")]
-        [Validation(Required=true)]
+        [Validation(Required=false)]
         public string TradeNo { get; set; }
-
-        // decrepted
-        [NameInMap("cert_no")]
-        [Validation(Required=false)]
-        public string CertNo { get; set; }
-
-        // 正单归属主体，入驻主体 id
-        [NameInMap("merchant_id")]
-        [Validation(Required=false)]
-        public string MerchantId { get; set; }
 
     }
 

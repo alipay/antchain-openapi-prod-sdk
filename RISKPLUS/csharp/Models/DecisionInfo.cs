@@ -64,6 +64,15 @@ namespace AntChain.SDK.RISKPLUS.Models
         [Validation(Required=false)]
         public long? ReturnResultId { get; set; }
 
+        // 分层计划id
+        /// <summary>
+        /// <b>Example:</b>
+        /// <para>123</para>
+        /// </summary>
+        [NameInMap("decision_plan_id")]
+        [Validation(Required=true)]
+        public long? DecisionPlanId { get; set; }
+
     }
 
 }

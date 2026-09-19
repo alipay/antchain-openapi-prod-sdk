@@ -8,7 +8,7 @@ using Tea;
 
 namespace AntChain.SDK.RISKPLUS.Models
 {
-    public class QueryQmpOfflinehostplanDecisionresultsRequest : TeaModel {
+    public class QueryDubbridgeMerchantriskRequest : TeaModel {
         // OAuth模式下的授权token
         [NameInMap("auth_token")]
         [Validation(Required=false)]
@@ -18,10 +18,20 @@ namespace AntChain.SDK.RISKPLUS.Models
         [Validation(Required=false)]
         public string ProductInstanceId { get; set; }
 
-        // 任务串联任务id
-        [NameInMap("task_uuid")]
+        // 申请单号
+        [NameInMap("apply_no")]
         [Validation(Required=true)]
-        public string TaskUuid { get; set; }
+        public string ApplyNo { get; set; }
+
+        // 渠道租户
+        [NameInMap("channel_tenant")]
+        [Validation(Required=true)]
+        public string ChannelTenant { get; set; }
+
+        // 来源类型
+        [NameInMap("source_type")]
+        [Validation(Required=false)]
+        public string SourceType { get; set; }
 
     }
 

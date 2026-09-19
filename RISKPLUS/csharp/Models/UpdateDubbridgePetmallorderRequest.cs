@@ -8,7 +8,7 @@ using Tea;
 
 namespace AntChain.SDK.RISKPLUS.Models
 {
-    public class QueryDubbridgePetorderRequest : TeaModel {
+    public class UpdateDubbridgePetmallorderRequest : TeaModel {
         // OAuth模式下的授权token
         [NameInMap("auth_token")]
         [Validation(Required=false)]
@@ -25,33 +25,35 @@ namespace AntChain.SDK.RISKPLUS.Models
 
         // 流量平台
         [NameInMap("traffic_platform")]
-        [Validation(Required=true)]
+        [Validation(Required=false)]
         public string TrafficPlatform { get; set; }
 
-        // decrepted，请使用 merchant_id
-        [NameInMap("store_id")]
-        [Validation(Required=false)]
-        public string StoreId { get; set; }
+        // 买家用户id
+        [NameInMap("buyer_id")]
+        [Validation(Required=true)]
+        public string BuyerId { get; set; }
 
-        // 原始订单号
+        // 商户入驻id
+        [NameInMap("merchant_id")]
+        [Validation(Required=false)]
+        public string MerchantId { get; set; }
+
+        // 关联交易单号
+        [NameInMap("trade_no")]
+        [Validation(Required=false)]
+        public string TradeNo { get; set; }
+
+        // 商城业务订单号
         [NameInMap("biz_order_no")]
         [Validation(Required=true)]
         public string BizOrderNo { get; set; }
 
-        // 交易单号
-        [NameInMap("trade_no")]
+        // SHIPPED: 已发货
+        // CANCELED: 取消
+        // RECEIVED: 确认收货
+        [NameInMap("status")]
         [Validation(Required=true)]
-        public string TradeNo { get; set; }
-
-        // decrepted
-        [NameInMap("cert_no")]
-        [Validation(Required=false)]
-        public string CertNo { get; set; }
-
-        // 正单归属主体，入驻主体 id
-        [NameInMap("merchant_id")]
-        [Validation(Required=false)]
-        public string MerchantId { get; set; }
+        public string Status { get; set; }
 
     }
 

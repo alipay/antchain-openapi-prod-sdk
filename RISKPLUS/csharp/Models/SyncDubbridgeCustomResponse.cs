@@ -8,7 +8,7 @@ using Tea;
 
 namespace AntChain.SDK.RISKPLUS.Models
 {
-    public class ExecFlowRunResponse : TeaModel {
+    public class SyncDubbridgeCustomResponse : TeaModel {
         // 请求唯一ID，用于链路跟踪和问题排查
         [NameInMap("req_msg_id")]
         [Validation(Required=false)]
@@ -24,25 +24,20 @@ namespace AntChain.SDK.RISKPLUS.Models
         [Validation(Required=false)]
         public string ResultMsg { get; set; }
 
-        // 生成的 Flow 执行单号，用于后续内部执行和问题排查。
-        [NameInMap("run_no")]
+        // 信息同步结果， Y-成功；N-失败
+        [NameInMap("sync_result")]
         [Validation(Required=false)]
-        public string RunNo { get; set; }
+        public string SyncResult { get; set; }
 
-        // 本次执行对应的已发布 Flow 编码。
-        [NameInMap("flow_code")]
+        // 同步失败原因
+        [NameInMap("fail_reason")]
         [Validation(Required=false)]
-        public string FlowCode { get; set; }
+        public string FailReason { get; set; }
 
-        // 创建完成后的执行状态，固定返回 RUNNING。
-        [NameInMap("status")]
+        // 客户号
+        [NameInMap("customer_no")]
         [Validation(Required=false)]
-        public string Status { get; set; }
-
-        // 用户须知，用于展示本平台的使用须知。
-        [NameInMap("user_notice")]
-        [Validation(Required=false)]
-        public string UserNotice { get; set; }
+        public string CustomerNo { get; set; }
 
     }
 

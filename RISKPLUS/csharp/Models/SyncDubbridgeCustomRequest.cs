@@ -1,0 +1,43 @@
+// This file is auto-generated, don't edit it. Thanks.
+
+using System;
+using System.Collections.Generic;
+using System.IO;
+
+using Tea;
+
+namespace AntChain.SDK.RISKPLUS.Models
+{
+    public class SyncDubbridgeCustomRequest : TeaModel {
+        // OAuth模式下的授权token
+        [NameInMap("auth_token")]
+        [Validation(Required=false)]
+        public string AuthToken { get; set; }
+
+        [NameInMap("product_instance_id")]
+        [Validation(Required=false)]
+        public string ProductInstanceId { get; set; }
+
+        // 资产方用户唯一标识
+        [NameInMap("open_id")]
+        [Validation(Required=true)]
+        public string OpenId { get; set; }
+
+        // 补充信息
+        [NameInMap("replenish_info")]
+        [Validation(Required=false)]
+        public ReplenishInfo ReplenishInfo { get; set; }
+
+        // 扩展信息，json格式字符串
+        [NameInMap("ext_info")]
+        [Validation(Required=false)]
+        public string ExtInfo { get; set; }
+
+        // 资金方编码
+        [NameInMap("fund_code")]
+        [Validation(Required=false)]
+        public string FundCode { get; set; }
+
+    }
+
+}

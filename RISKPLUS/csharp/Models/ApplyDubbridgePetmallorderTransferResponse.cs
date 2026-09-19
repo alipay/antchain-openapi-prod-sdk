@@ -8,7 +8,7 @@ using Tea;
 
 namespace AntChain.SDK.RISKPLUS.Models
 {
-    public class ExecFlowRunResponse : TeaModel {
+    public class ApplyDubbridgePetmallorderTransferResponse : TeaModel {
         // 请求唯一ID，用于链路跟踪和问题排查
         [NameInMap("req_msg_id")]
         [Validation(Required=false)]
@@ -24,25 +24,25 @@ namespace AntChain.SDK.RISKPLUS.Models
         [Validation(Required=false)]
         public string ResultMsg { get; set; }
 
-        // 生成的 Flow 执行单号，用于后续内部执行和问题排查。
-        [NameInMap("run_no")]
+        // 业务订单
+        [NameInMap("biz_order_no")]
         [Validation(Required=false)]
-        public string RunNo { get; set; }
+        public string BizOrderNo { get; set; }
 
-        // 本次执行对应的已发布 Flow 编码。
-        [NameInMap("flow_code")]
+        // 受理结果：Y-受理成功、N-受理失败
+        [NameInMap("settle_result")]
         [Validation(Required=false)]
-        public string FlowCode { get; set; }
+        public string SettleResult { get; set; }
 
-        // 创建完成后的执行状态，固定返回 RUNNING。
-        [NameInMap("status")]
+        // 失败原因
+        [NameInMap("fail_reason")]
         [Validation(Required=false)]
-        public string Status { get; set; }
+        public string FailReason { get; set; }
 
-        // 用户须知，用于展示本平台的使用须知。
-        [NameInMap("user_notice")]
+        // 分账单号，提交成功时返回
+        [NameInMap("transfer_no")]
         [Validation(Required=false)]
-        public string UserNotice { get; set; }
+        public string TransferNo { get; set; }
 
     }
 
