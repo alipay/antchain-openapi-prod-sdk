@@ -16,6 +16,7 @@ class QueryFlowRunResponse extends Model {
         'flowCode' => 'flow_code',
         'status' => 'status',
         'outputs' => 'outputs',
+        'userNotice' => 'user_notice',
     ];
     public function validate() {}
     public function toMap() {
@@ -46,6 +47,9 @@ class QueryFlowRunResponse extends Model {
                     $res['outputs'][$n++] = null !== $item ? $item->toMap() : $item;
                 }
             }
+        }
+        if (null !== $this->userNotice) {
+            $res['user_notice'] = $this->userNotice;
         }
         return $res;
     }
@@ -81,6 +85,9 @@ class QueryFlowRunResponse extends Model {
                     $model->outputs[$n++] = null !== $item ? FlowRunOutput::fromMap($item) : $item;
                 }
             }
+        }
+        if(isset($map['user_notice'])){
+            $model->userNotice = $map['user_notice'];
         }
         return $model;
     }
@@ -125,5 +132,11 @@ class QueryFlowRunResponse extends Model {
      * @var FlowRunOutput[]
      */
     public $outputs;
+
+    // 用户须知，用于展示本平台的使用须知。
+    /**
+     * @var string
+     */
+    public $userNotice;
 
 }

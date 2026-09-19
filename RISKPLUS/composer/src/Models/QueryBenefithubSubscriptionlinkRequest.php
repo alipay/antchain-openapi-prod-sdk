@@ -1,0 +1,145 @@
+<?php
+
+// This file is auto-generated, don't edit it. Thanks.
+namespace AntChain\RISKPLUS\Models;
+
+use AlibabaCloud\Tea\Model;
+
+class QueryBenefithubSubscriptionlinkRequest extends Model {
+    protected $_name = [
+        'authToken' => 'auth_token',
+        'productInstanceId' => 'product_instance_id',
+        'platformCode' => 'platform_code',
+        'userUniqueId' => 'user_unique_id',
+        'productCode' => 'product_code',
+        'mobile' => 'mobile',
+        'sceneConfig' => 'scene_config',
+        'trafficSource' => 'traffic_source',
+        'extraInfo' => 'extra_info',
+    ];
+    public function validate() {
+        Model::validateRequired('platformCode', $this->platformCode, true);
+        Model::validateRequired('userUniqueId', $this->userUniqueId, true);
+        Model::validateRequired('mobile', $this->mobile, true);
+        Model::validateRequired('sceneConfig', $this->sceneConfig, true);
+    }
+    public function toMap() {
+        $res = [];
+        if (null !== $this->authToken) {
+            $res['auth_token'] = $this->authToken;
+        }
+        if (null !== $this->productInstanceId) {
+            $res['product_instance_id'] = $this->productInstanceId;
+        }
+        if (null !== $this->platformCode) {
+            $res['platform_code'] = $this->platformCode;
+        }
+        if (null !== $this->userUniqueId) {
+            $res['user_unique_id'] = $this->userUniqueId;
+        }
+        if (null !== $this->productCode) {
+            $res['product_code'] = $this->productCode;
+        }
+        if (null !== $this->mobile) {
+            $res['mobile'] = $this->mobile;
+        }
+        if (null !== $this->sceneConfig) {
+            $res['scene_config'] = $this->sceneConfig;
+        }
+        if (null !== $this->trafficSource) {
+            $res['traffic_source'] = $this->trafficSource;
+        }
+        if (null !== $this->extraInfo) {
+            $res['extra_info'] = $this->extraInfo;
+        }
+        return $res;
+    }
+    /**
+     * @param array $map
+     * @return QueryBenefithubSubscriptionlinkRequest
+     */
+    public static function fromMap($map = []) {
+        $model = new self();
+        if(isset($map['auth_token'])){
+            $model->authToken = $map['auth_token'];
+        }
+        if(isset($map['product_instance_id'])){
+            $model->productInstanceId = $map['product_instance_id'];
+        }
+        if(isset($map['platform_code'])){
+            $model->platformCode = $map['platform_code'];
+        }
+        if(isset($map['user_unique_id'])){
+            $model->userUniqueId = $map['user_unique_id'];
+        }
+        if(isset($map['product_code'])){
+            $model->productCode = $map['product_code'];
+        }
+        if(isset($map['mobile'])){
+            $model->mobile = $map['mobile'];
+        }
+        if(isset($map['scene_config'])){
+            $model->sceneConfig = $map['scene_config'];
+        }
+        if(isset($map['traffic_source'])){
+            $model->trafficSource = $map['traffic_source'];
+        }
+        if(isset($map['extra_info'])){
+            $model->extraInfo = $map['extra_info'];
+        }
+        return $model;
+    }
+    // OAuth模式下的授权token
+    /**
+     * @var string
+     */
+    public $authToken;
+
+    /**
+     * @var string
+     */
+    public $productInstanceId;
+
+    // 平台码 注：不同平台的平台码都是固定好的，如果传入的平台码有误会抛出平台码错误的信息
+    /**
+     * @var string
+     */
+    public $platformCode;
+
+    // 用户id
+    /**
+     * @var string
+     */
+    public $userUniqueId;
+
+    // 产品code必填，后续多产品时可以区分
+    /**
+     * @var string
+     */
+    public $productCode;
+
+    // 渠道、平台方推送的手机号
+    /**
+     * @var string
+     */
+    public $mobile;
+
+    // 场景配置信息字符串，用于透传
+    /**
+     * @var string
+     */
+    public $sceneConfig;
+
+    // 区分流量来源
+    /**
+     * @var string
+     */
+    public $trafficSource;
+
+    // json字符串包含姓名md5、手机号md5、身份证md5，（非必传，用于后续扩展字段使用）
+    /**
+     * @var string
+     */
+    public $extraInfo;
+
+}

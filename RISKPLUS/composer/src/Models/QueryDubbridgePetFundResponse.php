@@ -5,15 +5,14 @@ namespace AntChain\RISKPLUS\Models;
 
 use AlibabaCloud\Tea\Model;
 
-class ExecFlowRunResponse extends Model {
+use AntChain\RISKPLUS\Models\UserFundInfo;
+
+class QueryDubbridgePetFundResponse extends Model {
     protected $_name = [
         'reqMsgId' => 'req_msg_id',
         'resultCode' => 'result_code',
         'resultMsg' => 'result_msg',
-        'runNo' => 'run_no',
-        'flowCode' => 'flow_code',
-        'status' => 'status',
-        'userNotice' => 'user_notice',
+        'fundList' => 'fund_list',
     ];
     public function validate() {}
     public function toMap() {
@@ -27,23 +26,20 @@ class ExecFlowRunResponse extends Model {
         if (null !== $this->resultMsg) {
             $res['result_msg'] = $this->resultMsg;
         }
-        if (null !== $this->runNo) {
-            $res['run_no'] = $this->runNo;
-        }
-        if (null !== $this->flowCode) {
-            $res['flow_code'] = $this->flowCode;
-        }
-        if (null !== $this->status) {
-            $res['status'] = $this->status;
-        }
-        if (null !== $this->userNotice) {
-            $res['user_notice'] = $this->userNotice;
+        if (null !== $this->fundList) {
+            $res['fund_list'] = [];
+            if(null !== $this->fundList && is_array($this->fundList)){
+                $n = 0;
+                foreach($this->fundList as $item){
+                    $res['fund_list'][$n++] = null !== $item ? $item->toMap() : $item;
+                }
+            }
         }
         return $res;
     }
     /**
      * @param array $map
-     * @return ExecFlowRunResponse
+     * @return QueryDubbridgePetFundResponse
      */
     public static function fromMap($map = []) {
         $model = new self();
@@ -56,17 +52,14 @@ class ExecFlowRunResponse extends Model {
         if(isset($map['result_msg'])){
             $model->resultMsg = $map['result_msg'];
         }
-        if(isset($map['run_no'])){
-            $model->runNo = $map['run_no'];
-        }
-        if(isset($map['flow_code'])){
-            $model->flowCode = $map['flow_code'];
-        }
-        if(isset($map['status'])){
-            $model->status = $map['status'];
-        }
-        if(isset($map['user_notice'])){
-            $model->userNotice = $map['user_notice'];
+        if(isset($map['fund_list'])){
+            if(!empty($map['fund_list'])){
+                $model->fundList = [];
+                $n = 0;
+                foreach($map['fund_list'] as $item) {
+                    $model->fundList[$n++] = null !== $item ? UserFundInfo::fromMap($item) : $item;
+                }
+            }
         }
         return $model;
     }
@@ -88,28 +81,10 @@ class ExecFlowRunResponse extends Model {
      */
     public $resultMsg;
 
-    // 生成的 Flow 执行单号，用于后续内部执行和问题排查。
+    // 用户资金信息
     /**
-     * @var string
+     * @var UserFundInfo[]
      */
-    public $runNo;
-
-    // 本次执行对应的已发布 Flow 编码。
-    /**
-     * @var string
-     */
-    public $flowCode;
-
-    // 创建完成后的执行状态，固定返回 RUNNING。
-    /**
-     * @var string
-     */
-    public $status;
-
-    // 用户须知，用于展示本平台的使用须知。
-    /**
-     * @var string
-     */
-    public $userNotice;
+    public $fundList;
 
 }

@@ -5,15 +5,15 @@ namespace AntChain\RISKPLUS\Models;
 
 use AlibabaCloud\Tea\Model;
 
-class ExecFlowRunResponse extends Model {
+class ApplyDubbridgePetrefundResponse extends Model {
     protected $_name = [
         'reqMsgId' => 'req_msg_id',
         'resultCode' => 'result_code',
         'resultMsg' => 'result_msg',
-        'runNo' => 'run_no',
-        'flowCode' => 'flow_code',
-        'status' => 'status',
-        'userNotice' => 'user_notice',
+        'refundNo' => 'refund_no',
+        'refundStatus' => 'refund_status',
+        'remark' => 'remark',
+        'bizOrderNo' => 'biz_order_no',
     ];
     public function validate() {}
     public function toMap() {
@@ -27,23 +27,23 @@ class ExecFlowRunResponse extends Model {
         if (null !== $this->resultMsg) {
             $res['result_msg'] = $this->resultMsg;
         }
-        if (null !== $this->runNo) {
-            $res['run_no'] = $this->runNo;
+        if (null !== $this->refundNo) {
+            $res['refund_no'] = $this->refundNo;
         }
-        if (null !== $this->flowCode) {
-            $res['flow_code'] = $this->flowCode;
+        if (null !== $this->refundStatus) {
+            $res['refund_status'] = $this->refundStatus;
         }
-        if (null !== $this->status) {
-            $res['status'] = $this->status;
+        if (null !== $this->remark) {
+            $res['remark'] = $this->remark;
         }
-        if (null !== $this->userNotice) {
-            $res['user_notice'] = $this->userNotice;
+        if (null !== $this->bizOrderNo) {
+            $res['biz_order_no'] = $this->bizOrderNo;
         }
         return $res;
     }
     /**
      * @param array $map
-     * @return ExecFlowRunResponse
+     * @return ApplyDubbridgePetrefundResponse
      */
     public static function fromMap($map = []) {
         $model = new self();
@@ -56,17 +56,17 @@ class ExecFlowRunResponse extends Model {
         if(isset($map['result_msg'])){
             $model->resultMsg = $map['result_msg'];
         }
-        if(isset($map['run_no'])){
-            $model->runNo = $map['run_no'];
+        if(isset($map['refund_no'])){
+            $model->refundNo = $map['refund_no'];
         }
-        if(isset($map['flow_code'])){
-            $model->flowCode = $map['flow_code'];
+        if(isset($map['refund_status'])){
+            $model->refundStatus = $map['refund_status'];
         }
-        if(isset($map['status'])){
-            $model->status = $map['status'];
+        if(isset($map['remark'])){
+            $model->remark = $map['remark'];
         }
-        if(isset($map['user_notice'])){
-            $model->userNotice = $map['user_notice'];
+        if(isset($map['biz_order_no'])){
+            $model->bizOrderNo = $map['biz_order_no'];
         }
         return $model;
     }
@@ -88,28 +88,27 @@ class ExecFlowRunResponse extends Model {
      */
     public $resultMsg;
 
-    // 生成的 Flow 执行单号，用于后续内部执行和问题排查。
+    // 退款单号
     /**
      * @var string
      */
-    public $runNo;
+    public $refundNo;
 
-    // 本次执行对应的已发布 Flow 编码。
+    // 退款申请结果，Y-提交成功，N-提交失败
     /**
      * @var string
      */
-    public $flowCode;
+    public $refundStatus;
 
-    // 创建完成后的执行状态，固定返回 RUNNING。
     /**
      * @var string
      */
-    public $status;
+    public $remark;
 
-    // 用户须知，用于展示本平台的使用须知。
+    // 业务订单号
     /**
      * @var string
      */
-    public $userNotice;
+    public $bizOrderNo;
 
 }
