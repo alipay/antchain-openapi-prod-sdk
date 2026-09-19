@@ -27,6 +27,8 @@ use AntChain\RISKPLUS\Models\QueryBenefithubReportInformationRequest;
 use AntChain\RISKPLUS\Models\QueryBenefithubReportInformationResponse;
 use AntChain\RISKPLUS\Models\QueryBenefithubReportEffectiveRequest;
 use AntChain\RISKPLUS\Models\QueryBenefithubReportEffectiveResponse;
+use AntChain\RISKPLUS\Models\QueryBenefithubSubscriptionlinkRequest;
+use AntChain\RISKPLUS\Models\QueryBenefithubSubscriptionlinkResponse;
 use AntChain\RISKPLUS\Models\BatchqueryCreditshieldProductInfoRequest;
 use AntChain\RISKPLUS\Models\BatchqueryCreditshieldProductInfoResponse;
 use AntChain\RISKPLUS\Models\QueryCreditshieldProductCallbackRequest;
@@ -274,6 +276,24 @@ use AntChain\RISKPLUS\Models\ApplyDubbridgePetcashierRequest;
 use AntChain\RISKPLUS\Models\ApplyDubbridgePetcashierResponse;
 use AntChain\RISKPLUS\Models\QueryDubbridgePetorderRequest;
 use AntChain\RISKPLUS\Models\QueryDubbridgePetorderResponse;
+use AntChain\RISKPLUS\Models\SyncDubbridgeCustomRequest;
+use AntChain\RISKPLUS\Models\SyncDubbridgeCustomResponse;
+use AntChain\RISKPLUS\Models\QueryDubbridgeMerchantriskRequest;
+use AntChain\RISKPLUS\Models\QueryDubbridgeMerchantriskResponse;
+use AntChain\RISKPLUS\Models\ApplyDubbridgePetcashierGeneralRequest;
+use AntChain\RISKPLUS\Models\ApplyDubbridgePetcashierGeneralResponse;
+use AntChain\RISKPLUS\Models\QueryDubbridgePetFundRequest;
+use AntChain\RISKPLUS\Models\QueryDubbridgePetFundResponse;
+use AntChain\RISKPLUS\Models\CreateDubbridgePetmallorderRequest;
+use AntChain\RISKPLUS\Models\CreateDubbridgePetmallorderResponse;
+use AntChain\RISKPLUS\Models\UpdateDubbridgePetmallorderRequest;
+use AntChain\RISKPLUS\Models\UpdateDubbridgePetmallorderResponse;
+use AntChain\RISKPLUS\Models\ApplyDubbridgePetrefundRequest;
+use AntChain\RISKPLUS\Models\ApplyDubbridgePetrefundResponse;
+use AntChain\RISKPLUS\Models\QueryDubbridgePetrefundRequest;
+use AntChain\RISKPLUS\Models\QueryDubbridgePetrefundResponse;
+use AntChain\RISKPLUS\Models\ApplyDubbridgePetmallorderTransferRequest;
+use AntChain\RISKPLUS\Models\ApplyDubbridgePetmallorderTransferResponse;
 use AntChain\RISKPLUS\Models\VerifyFinserviceZhimaIdentifyRequest;
 use AntChain\RISKPLUS\Models\VerifyFinserviceZhimaIdentifyResponse;
 use AntChain\RISKPLUS\Models\QueryFinserviceZhimaIdentifyRequest;
@@ -755,7 +775,7 @@ class Client {
                     "req_msg_id" => UtilClient::getNonce(),
                     "access_key" => $this->_accessKeyId,
                     "base_sdk_version" => "TeaSDK-2.0",
-                    "sdk_version" => "1.31.31",
+                    "sdk_version" => "1.33.1",
                     "_prod_code" => "RISKPLUS",
                     "_prod_channel" => "undefined"
                 ];
@@ -973,6 +993,31 @@ class Client {
     public function queryBenefithubReportEffectiveEx($request, $headers, $runtime){
         Utils::validateModel($request);
         return QueryBenefithubReportEffectiveResponse::fromMap($this->doRequest("1.0", "riskplus.benefithub.report.effective.query", "HTTPS", "POST", "/gateway.do", Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 风险报告包月订阅页面链接获取接口
+     * Summary: 风险报告包月订阅页面链接获取接口
+     * @param QueryBenefithubSubscriptionlinkRequest $request
+     * @return QueryBenefithubSubscriptionlinkResponse
+     */
+    public function queryBenefithubSubscriptionlink($request){
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+        return $this->queryBenefithubSubscriptionlinkEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 风险报告包月订阅页面链接获取接口
+     * Summary: 风险报告包月订阅页面链接获取接口
+     * @param QueryBenefithubSubscriptionlinkRequest $request
+     * @param string[] $headers
+     * @param RuntimeOptions $runtime
+     * @return QueryBenefithubSubscriptionlinkResponse
+     */
+    public function queryBenefithubSubscriptionlinkEx($request, $headers, $runtime){
+        Utils::validateModel($request);
+        return QueryBenefithubSubscriptionlinkResponse::fromMap($this->doRequest("1.0", "riskplus.benefithub.subscriptionlink.query", "HTTPS", "POST", "/gateway.do", Tea::merge($request), $headers, $runtime));
     }
 
     /**
@@ -4068,6 +4113,231 @@ class Client {
     public function queryDubbridgePetorderEx($request, $headers, $runtime){
         Utils::validateModel($request);
         return QueryDubbridgePetorderResponse::fromMap($this->doRequest("1.0", "riskplus.dubbridge.petorder.query", "HTTPS", "POST", "/gateway.do", Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 用户信息补充并同步至下游资金方
+     * Summary: 用户信息补充并同步至下游资金方
+     * @param SyncDubbridgeCustomRequest $request
+     * @return SyncDubbridgeCustomResponse
+     */
+    public function syncDubbridgeCustom($request){
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+        return $this->syncDubbridgeCustomEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 用户信息补充并同步至下游资金方
+     * Summary: 用户信息补充并同步至下游资金方
+     * @param SyncDubbridgeCustomRequest $request
+     * @param string[] $headers
+     * @param RuntimeOptions $runtime
+     * @return SyncDubbridgeCustomResponse
+     */
+    public function syncDubbridgeCustomEx($request, $headers, $runtime){
+        Utils::validateModel($request);
+        return SyncDubbridgeCustomResponse::fromMap($this->doRequest("1.0", "riskplus.dubbridge.custom.sync", "HTTPS", "POST", "/gateway.do", Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 商户入驻风控结果查询
+     * Summary: 商户入驻风控结果查询
+     * @param QueryDubbridgeMerchantriskRequest $request
+     * @return QueryDubbridgeMerchantriskResponse
+     */
+    public function queryDubbridgeMerchantrisk($request){
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+        return $this->queryDubbridgeMerchantriskEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 商户入驻风控结果查询
+     * Summary: 商户入驻风控结果查询
+     * @param QueryDubbridgeMerchantriskRequest $request
+     * @param string[] $headers
+     * @param RuntimeOptions $runtime
+     * @return QueryDubbridgeMerchantriskResponse
+     */
+    public function queryDubbridgeMerchantriskEx($request, $headers, $runtime){
+        Utils::validateModel($request);
+        return QueryDubbridgeMerchantriskResponse::fromMap($this->doRequest("1.0", "riskplus.dubbridge.merchantrisk.query", "HTTPS", "POST", "/gateway.do", Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 聚合收银台申请
+     * Summary: 聚合收银台申请
+     * @param ApplyDubbridgePetcashierGeneralRequest $request
+     * @return ApplyDubbridgePetcashierGeneralResponse
+     */
+    public function applyDubbridgePetcashierGeneral($request){
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+        return $this->applyDubbridgePetcashierGeneralEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 聚合收银台申请
+     * Summary: 聚合收银台申请
+     * @param ApplyDubbridgePetcashierGeneralRequest $request
+     * @param string[] $headers
+     * @param RuntimeOptions $runtime
+     * @return ApplyDubbridgePetcashierGeneralResponse
+     */
+    public function applyDubbridgePetcashierGeneralEx($request, $headers, $runtime){
+        Utils::validateModel($request);
+        return ApplyDubbridgePetcashierGeneralResponse::fromMap($this->doRequest("1.0", "riskplus.dubbridge.petcashier.general.apply", "HTTPS", "POST", "/gateway.do", Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 余额查询
+     * Summary: 余额查询
+     * @param QueryDubbridgePetFundRequest $request
+     * @return QueryDubbridgePetFundResponse
+     */
+    public function queryDubbridgePetFund($request){
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+        return $this->queryDubbridgePetFundEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 余额查询
+     * Summary: 余额查询
+     * @param QueryDubbridgePetFundRequest $request
+     * @param string[] $headers
+     * @param RuntimeOptions $runtime
+     * @return QueryDubbridgePetFundResponse
+     */
+    public function queryDubbridgePetFundEx($request, $headers, $runtime){
+        Utils::validateModel($request);
+        return QueryDubbridgePetFundResponse::fromMap($this->doRequest("1.0", "riskplus.dubbridge.pet.fund.query", "HTTPS", "POST", "/gateway.do", Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 商城创建储值卡消费订单（纯储值卡余额支付）
+     * Summary: 商城创建储值卡消费订单（纯储值卡余额支付）
+     * @param CreateDubbridgePetmallorderRequest $request
+     * @return CreateDubbridgePetmallorderResponse
+     */
+    public function createDubbridgePetmallorder($request){
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+        return $this->createDubbridgePetmallorderEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 商城创建储值卡消费订单（纯储值卡余额支付）
+     * Summary: 商城创建储值卡消费订单（纯储值卡余额支付）
+     * @param CreateDubbridgePetmallorderRequest $request
+     * @param string[] $headers
+     * @param RuntimeOptions $runtime
+     * @return CreateDubbridgePetmallorderResponse
+     */
+    public function createDubbridgePetmallorderEx($request, $headers, $runtime){
+        Utils::validateModel($request);
+        return CreateDubbridgePetmallorderResponse::fromMap($this->doRequest("1.0", "riskplus.dubbridge.petmallorder.create", "HTTPS", "POST", "/gateway.do", Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 商城订单状态更新
+     * Summary: 商城订单状态更新
+     * @param UpdateDubbridgePetmallorderRequest $request
+     * @return UpdateDubbridgePetmallorderResponse
+     */
+    public function updateDubbridgePetmallorder($request){
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+        return $this->updateDubbridgePetmallorderEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 商城订单状态更新
+     * Summary: 商城订单状态更新
+     * @param UpdateDubbridgePetmallorderRequest $request
+     * @param string[] $headers
+     * @param RuntimeOptions $runtime
+     * @return UpdateDubbridgePetmallorderResponse
+     */
+    public function updateDubbridgePetmallorderEx($request, $headers, $runtime){
+        Utils::validateModel($request);
+        return UpdateDubbridgePetmallorderResponse::fromMap($this->doRequest("1.0", "riskplus.dubbridge.petmallorder.update", "HTTPS", "POST", "/gateway.do", Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 退款申请
+     * Summary: 退款申请
+     * @param ApplyDubbridgePetrefundRequest $request
+     * @return ApplyDubbridgePetrefundResponse
+     */
+    public function applyDubbridgePetrefund($request){
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+        return $this->applyDubbridgePetrefundEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 退款申请
+     * Summary: 退款申请
+     * @param ApplyDubbridgePetrefundRequest $request
+     * @param string[] $headers
+     * @param RuntimeOptions $runtime
+     * @return ApplyDubbridgePetrefundResponse
+     */
+    public function applyDubbridgePetrefundEx($request, $headers, $runtime){
+        Utils::validateModel($request);
+        return ApplyDubbridgePetrefundResponse::fromMap($this->doRequest("1.0", "riskplus.dubbridge.petrefund.apply", "HTTPS", "POST", "/gateway.do", Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 退款结果查询
+     * Summary: 退款结果查询
+     * @param QueryDubbridgePetrefundRequest $request
+     * @return QueryDubbridgePetrefundResponse
+     */
+    public function queryDubbridgePetrefund($request){
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+        return $this->queryDubbridgePetrefundEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 退款结果查询
+     * Summary: 退款结果查询
+     * @param QueryDubbridgePetrefundRequest $request
+     * @param string[] $headers
+     * @param RuntimeOptions $runtime
+     * @return QueryDubbridgePetrefundResponse
+     */
+    public function queryDubbridgePetrefundEx($request, $headers, $runtime){
+        Utils::validateModel($request);
+        return QueryDubbridgePetrefundResponse::fromMap($this->doRequest("1.0", "riskplus.dubbridge.petrefund.query", "HTTPS", "POST", "/gateway.do", Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 分账提交，接口支持幂等
+     * Summary: 分账提交，接口支持幂等
+     * @param ApplyDubbridgePetmallorderTransferRequest $request
+     * @return ApplyDubbridgePetmallorderTransferResponse
+     */
+    public function applyDubbridgePetmallorderTransfer($request){
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+        return $this->applyDubbridgePetmallorderTransferEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 分账提交，接口支持幂等
+     * Summary: 分账提交，接口支持幂等
+     * @param ApplyDubbridgePetmallorderTransferRequest $request
+     * @param string[] $headers
+     * @param RuntimeOptions $runtime
+     * @return ApplyDubbridgePetmallorderTransferResponse
+     */
+    public function applyDubbridgePetmallorderTransferEx($request, $headers, $runtime){
+        Utils::validateModel($request);
+        return ApplyDubbridgePetmallorderTransferResponse::fromMap($this->doRequest("1.0", "riskplus.dubbridge.petmallorder.transfer.apply", "HTTPS", "POST", "/gateway.do", Tea::merge($request), $headers, $runtime));
     }
 
     /**

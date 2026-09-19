@@ -5,23 +5,29 @@ namespace AntChain\RISKPLUS\Models;
 
 use AlibabaCloud\Tea\Model;
 
-class QueryDubbridgePetorderRequest extends Model {
+class CreateDubbridgePetmallorderRequest extends Model {
     protected $_name = [
         'authToken' => 'auth_token',
         'productInstanceId' => 'product_instance_id',
         'channelCode' => 'channel_code',
         'trafficPlatform' => 'traffic_platform',
-        'storeId' => 'store_id',
+        'buyerId' => 'buyer_id',
+        'merchantId' => 'merchant_id',
         'bizOrderNo' => 'biz_order_no',
         'tradeNo' => 'trade_no',
-        'certNo' => 'cert_no',
-        'merchantId' => 'merchant_id',
+        'goodsName' => 'goods_name',
+        'settleAmount' => 'settle_amount',
+        'pointAmount' => 'point_amount',
     ];
     public function validate() {
         Model::validateRequired('channelCode', $this->channelCode, true);
         Model::validateRequired('trafficPlatform', $this->trafficPlatform, true);
+        Model::validateRequired('buyerId', $this->buyerId, true);
         Model::validateRequired('bizOrderNo', $this->bizOrderNo, true);
         Model::validateRequired('tradeNo', $this->tradeNo, true);
+        Model::validateRequired('goodsName', $this->goodsName, true);
+        Model::validateRequired('settleAmount', $this->settleAmount, true);
+        Model::validateRequired('pointAmount', $this->pointAmount, true);
     }
     public function toMap() {
         $res = [];
@@ -37,8 +43,11 @@ class QueryDubbridgePetorderRequest extends Model {
         if (null !== $this->trafficPlatform) {
             $res['traffic_platform'] = $this->trafficPlatform;
         }
-        if (null !== $this->storeId) {
-            $res['store_id'] = $this->storeId;
+        if (null !== $this->buyerId) {
+            $res['buyer_id'] = $this->buyerId;
+        }
+        if (null !== $this->merchantId) {
+            $res['merchant_id'] = $this->merchantId;
         }
         if (null !== $this->bizOrderNo) {
             $res['biz_order_no'] = $this->bizOrderNo;
@@ -46,17 +55,20 @@ class QueryDubbridgePetorderRequest extends Model {
         if (null !== $this->tradeNo) {
             $res['trade_no'] = $this->tradeNo;
         }
-        if (null !== $this->certNo) {
-            $res['cert_no'] = $this->certNo;
+        if (null !== $this->goodsName) {
+            $res['goods_name'] = $this->goodsName;
         }
-        if (null !== $this->merchantId) {
-            $res['merchant_id'] = $this->merchantId;
+        if (null !== $this->settleAmount) {
+            $res['settle_amount'] = $this->settleAmount;
+        }
+        if (null !== $this->pointAmount) {
+            $res['point_amount'] = $this->pointAmount;
         }
         return $res;
     }
     /**
      * @param array $map
-     * @return QueryDubbridgePetorderRequest
+     * @return CreateDubbridgePetmallorderRequest
      */
     public static function fromMap($map = []) {
         $model = new self();
@@ -72,8 +84,11 @@ class QueryDubbridgePetorderRequest extends Model {
         if(isset($map['traffic_platform'])){
             $model->trafficPlatform = $map['traffic_platform'];
         }
-        if(isset($map['store_id'])){
-            $model->storeId = $map['store_id'];
+        if(isset($map['buyer_id'])){
+            $model->buyerId = $map['buyer_id'];
+        }
+        if(isset($map['merchant_id'])){
+            $model->merchantId = $map['merchant_id'];
         }
         if(isset($map['biz_order_no'])){
             $model->bizOrderNo = $map['biz_order_no'];
@@ -81,11 +96,14 @@ class QueryDubbridgePetorderRequest extends Model {
         if(isset($map['trade_no'])){
             $model->tradeNo = $map['trade_no'];
         }
-        if(isset($map['cert_no'])){
-            $model->certNo = $map['cert_no'];
+        if(isset($map['goods_name'])){
+            $model->goodsName = $map['goods_name'];
         }
-        if(isset($map['merchant_id'])){
-            $model->merchantId = $map['merchant_id'];
+        if(isset($map['settle_amount'])){
+            $model->settleAmount = $map['settle_amount'];
+        }
+        if(isset($map['point_amount'])){
+            $model->pointAmount = $map['point_amount'];
         }
         return $model;
     }
@@ -112,34 +130,46 @@ class QueryDubbridgePetorderRequest extends Model {
      */
     public $trafficPlatform;
 
-    // decrepted，请使用 merchant_id
+    // 买家用户id
     /**
      * @var string
      */
-    public $storeId;
+    public $buyerId;
 
-    // 原始订单号
+    // 商户入驻id
+    /**
+     * @var string
+     */
+    public $merchantId;
+
+    // 商城订单号
     /**
      * @var string
      */
     public $bizOrderNo;
 
-    // 交易单号
+    // 关联交易单号，储值卡来源 trade_no，储值卡金额只能消耗该 trade_no 下的余额
     /**
      * @var string
      */
     public $tradeNo;
 
-    // decrepted
+    // 商品名称
     /**
      * @var string
      */
-    public $certNo;
+    public $goodsName;
 
-    // 正单归属主体，入驻主体 id
+    // 商品标价，单位：元
     /**
      * @var string
      */
-    public $merchantId;
+    public $settleAmount;
+
+    // 储值卡支付结算金额，用于冻结/出账/分账的基数，单位元，两位小数
+    /**
+     * @var string
+     */
+    public $pointAmount;
 
 }

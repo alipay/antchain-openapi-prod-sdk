@@ -5,23 +5,23 @@ namespace AntChain\RISKPLUS\Models;
 
 use AlibabaCloud\Tea\Model;
 
-class QueryDubbridgePetorderRequest extends Model {
+class ApplyDubbridgePetrefundRequest extends Model {
     protected $_name = [
         'authToken' => 'auth_token',
         'productInstanceId' => 'product_instance_id',
         'channelCode' => 'channel_code',
         'trafficPlatform' => 'traffic_platform',
-        'storeId' => 'store_id',
+        'refundNo' => 'refund_no',
         'bizOrderNo' => 'biz_order_no',
         'tradeNo' => 'trade_no',
-        'certNo' => 'cert_no',
-        'merchantId' => 'merchant_id',
+        'petRefundAmount' => 'pet_refund_amount',
+        'mallRefundAmount' => 'mall_refund_amount',
+        'refundReason' => 'refund_reason',
     ];
     public function validate() {
         Model::validateRequired('channelCode', $this->channelCode, true);
-        Model::validateRequired('trafficPlatform', $this->trafficPlatform, true);
+        Model::validateRequired('refundNo', $this->refundNo, true);
         Model::validateRequired('bizOrderNo', $this->bizOrderNo, true);
-        Model::validateRequired('tradeNo', $this->tradeNo, true);
     }
     public function toMap() {
         $res = [];
@@ -37,8 +37,8 @@ class QueryDubbridgePetorderRequest extends Model {
         if (null !== $this->trafficPlatform) {
             $res['traffic_platform'] = $this->trafficPlatform;
         }
-        if (null !== $this->storeId) {
-            $res['store_id'] = $this->storeId;
+        if (null !== $this->refundNo) {
+            $res['refund_no'] = $this->refundNo;
         }
         if (null !== $this->bizOrderNo) {
             $res['biz_order_no'] = $this->bizOrderNo;
@@ -46,17 +46,20 @@ class QueryDubbridgePetorderRequest extends Model {
         if (null !== $this->tradeNo) {
             $res['trade_no'] = $this->tradeNo;
         }
-        if (null !== $this->certNo) {
-            $res['cert_no'] = $this->certNo;
+        if (null !== $this->petRefundAmount) {
+            $res['pet_refund_amount'] = $this->petRefundAmount;
         }
-        if (null !== $this->merchantId) {
-            $res['merchant_id'] = $this->merchantId;
+        if (null !== $this->mallRefundAmount) {
+            $res['mall_refund_amount'] = $this->mallRefundAmount;
+        }
+        if (null !== $this->refundReason) {
+            $res['refund_reason'] = $this->refundReason;
         }
         return $res;
     }
     /**
      * @param array $map
-     * @return QueryDubbridgePetorderRequest
+     * @return ApplyDubbridgePetrefundRequest
      */
     public static function fromMap($map = []) {
         $model = new self();
@@ -72,8 +75,8 @@ class QueryDubbridgePetorderRequest extends Model {
         if(isset($map['traffic_platform'])){
             $model->trafficPlatform = $map['traffic_platform'];
         }
-        if(isset($map['store_id'])){
-            $model->storeId = $map['store_id'];
+        if(isset($map['refund_no'])){
+            $model->refundNo = $map['refund_no'];
         }
         if(isset($map['biz_order_no'])){
             $model->bizOrderNo = $map['biz_order_no'];
@@ -81,11 +84,14 @@ class QueryDubbridgePetorderRequest extends Model {
         if(isset($map['trade_no'])){
             $model->tradeNo = $map['trade_no'];
         }
-        if(isset($map['cert_no'])){
-            $model->certNo = $map['cert_no'];
+        if(isset($map['pet_refund_amount'])){
+            $model->petRefundAmount = $map['pet_refund_amount'];
         }
-        if(isset($map['merchant_id'])){
-            $model->merchantId = $map['merchant_id'];
+        if(isset($map['mall_refund_amount'])){
+            $model->mallRefundAmount = $map['mall_refund_amount'];
+        }
+        if(isset($map['refund_reason'])){
+            $model->refundReason = $map['refund_reason'];
         }
         return $model;
     }
@@ -112,34 +118,40 @@ class QueryDubbridgePetorderRequest extends Model {
      */
     public $trafficPlatform;
 
-    // decrepted，请使用 merchant_id
+    // 退款单号，渠道/商城侧唯一
     /**
      * @var string
      */
-    public $storeId;
+    public $refundNo;
 
-    // 原始订单号
+    // 业务订单号
     /**
      * @var string
      */
     public $bizOrderNo;
 
-    // 交易单号
+    // 关联交易单号
     /**
      * @var string
      */
     public $tradeNo;
 
-    // decrepted
+    // 活体部分退款金额，单位元，两位小数
     /**
      * @var string
      */
-    public $certNo;
+    public $petRefundAmount;
 
-    // 正单归属主体，入驻主体 id
+    // 商城部分退款金额，单位元，两位小数
     /**
      * @var string
      */
-    public $merchantId;
+    public $mallRefundAmount;
+
+    // 退款原因
+    /**
+     * @var string
+     */
+    public $refundReason;
 
 }

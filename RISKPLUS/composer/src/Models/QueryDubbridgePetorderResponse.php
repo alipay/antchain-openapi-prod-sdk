@@ -184,7 +184,7 @@ class QueryDubbridgePetorderResponse extends Model {
      */
     public $payInstitutionCode;
 
-    // 分期期数
+    // 分期期数，只有发生贴息交易时才存在
     /**
      * @var string
      */
