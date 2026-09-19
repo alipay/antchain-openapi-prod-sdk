@@ -27,6 +27,46 @@ use AntChain\AIOSPRODUCT\Models\QueryGwchildinsuranceProfiledetailRequest;
 use AntChain\AIOSPRODUCT\Models\QueryGwchildinsuranceProfiledetailResponse;
 use AntChain\AIOSPRODUCT\Models\SaveGwchildinsuranceProfileRequest;
 use AntChain\AIOSPRODUCT\Models\SaveGwchildinsuranceProfileResponse;
+use AntChain\AIOSPRODUCT\Models\QueryGwchildinsuranceSolutionkycdetailRequest;
+use AntChain\AIOSPRODUCT\Models\QueryGwchildinsuranceSolutionkycdetailResponse;
+use AntChain\AIOSPRODUCT\Models\SaveGwchildinsuranceSolutionkycRequest;
+use AntChain\AIOSPRODUCT\Models\SaveGwchildinsuranceSolutionkycResponse;
+use AntChain\AIOSPRODUCT\Models\QueryGwmcpdefaultChatRequest;
+use AntChain\AIOSPRODUCT\Models\QueryGwmcpdefaultChatResponse;
+use AntChain\AIOSPRODUCT\Models\SaveGwchildinsurancePlanningtargetsRequest;
+use AntChain\AIOSPRODUCT\Models\SaveGwchildinsurancePlanningtargetsResponse;
+use AntChain\AIOSPRODUCT\Models\QueryGwchildinsurancePlanningtargetsRequest;
+use AntChain\AIOSPRODUCT\Models\QueryGwchildinsurancePlanningtargetsResponse;
+use AntChain\AIOSPRODUCT\Models\QueryGwchildinsurancePlanningtargetslatestRequest;
+use AntChain\AIOSPRODUCT\Models\QueryGwchildinsurancePlanningtargetslatestResponse;
+use AntChain\AIOSPRODUCT\Models\QueryGwchildinsuranceRecommendationplandetailRequest;
+use AntChain\AIOSPRODUCT\Models\QueryGwchildinsuranceRecommendationplandetailResponse;
+use AntChain\AIOSPRODUCT\Models\SaveGwchildinsuranceRecommendationplanadjustRequest;
+use AntChain\AIOSPRODUCT\Models\SaveGwchildinsuranceRecommendationplanadjustResponse;
+use AntChain\AIOSPRODUCT\Models\SaveGwchildinsuranceRecommendationplanconfirmRequest;
+use AntChain\AIOSPRODUCT\Models\SaveGwchildinsuranceRecommendationplanconfirmResponse;
+use AntChain\AIOSPRODUCT\Models\QueryGwchildinsuranceRecommendationplanhistoryRequest;
+use AntChain\AIOSPRODUCT\Models\QueryGwchildinsuranceRecommendationplanhistoryResponse;
+use AntChain\AIOSPRODUCT\Models\SaveGwchildinsuranceActivetargetRequest;
+use AntChain\AIOSPRODUCT\Models\SaveGwchildinsuranceActivetargetResponse;
+use AntChain\AIOSPRODUCT\Models\QueryGwchildinsuranceActivetargetRequest;
+use AntChain\AIOSPRODUCT\Models\QueryGwchildinsuranceActivetargetResponse;
+use AntChain\AIOSPRODUCT\Models\QueryGwchildinsuranceRecommendationcandidateRequest;
+use AntChain\AIOSPRODUCT\Models\QueryGwchildinsuranceRecommendationcandidateResponse;
+use AntChain\AIOSPRODUCT\Models\ResetGwchildinsuranceRecommendationcandidateRequest;
+use AntChain\AIOSPRODUCT\Models\ResetGwchildinsuranceRecommendationcandidateResponse;
+use AntChain\AIOSPRODUCT\Models\QueryGwchildinsuranceCompareproductlistRequest;
+use AntChain\AIOSPRODUCT\Models\QueryGwchildinsuranceCompareproductlistResponse;
+use AntChain\AIOSPRODUCT\Models\QueryGwchildinsuranceCompareproductdetailRequest;
+use AntChain\AIOSPRODUCT\Models\QueryGwchildinsuranceCompareproductdetailResponse;
+use AntChain\AIOSPRODUCT\Models\QueryGwchildinsuranceCompareproductlistidsRequest;
+use AntChain\AIOSPRODUCT\Models\QueryGwchildinsuranceCompareproductlistidsResponse;
+use AntChain\AIOSPRODUCT\Models\QueryGwchildinsuranceCompareproductbyidsRequest;
+use AntChain\AIOSPRODUCT\Models\QueryGwchildinsuranceCompareproductbyidsResponse;
+use AntChain\AIOSPRODUCT\Models\DetailGwchildinsuranceOptionalresponsibilityplanRequest;
+use AntChain\AIOSPRODUCT\Models\DetailGwchildinsuranceOptionalresponsibilityplanResponse;
+use AntChain\AIOSPRODUCT\Models\ResolveGwchildinsuranceOptionalresponsibilityplanRequest;
+use AntChain\AIOSPRODUCT\Models\ResolveGwchildinsuranceOptionalresponsibilityplanResponse;
 
 class Client {
     protected $_endpoint;
@@ -162,7 +202,7 @@ class Client {
                     "req_msg_id" => UtilClient::getNonce(),
                     "access_key" => $this->_accessKeyId,
                     "base_sdk_version" => "TeaSDK-2.0",
-                    "sdk_version" => "1.0.6",
+                    "sdk_version" => "1.0.16",
                     "_prod_code" => "AIOSPRODUCT",
                     "_prod_channel" => "default"
                 ];
@@ -380,5 +420,505 @@ class Client {
     public function saveGwchildinsuranceProfileEx($request, $headers, $runtime){
         Utils::validateModel($request);
         return SaveGwchildinsuranceProfileResponse::fromMap($this->doRequest("1.0", "antdigital.aiosproduct.gwchildinsurance.profile.save", "HTTPS", "POST", "/gateway.do", Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 少儿保险 KYC 查询
+     * Summary: 少儿保险 KYC 查询
+     * @param QueryGwchildinsuranceSolutionkycdetailRequest $request
+     * @return QueryGwchildinsuranceSolutionkycdetailResponse
+     */
+    public function queryGwchildinsuranceSolutionkycdetail($request){
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+        return $this->queryGwchildinsuranceSolutionkycdetailEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 少儿保险 KYC 查询
+     * Summary: 少儿保险 KYC 查询
+     * @param QueryGwchildinsuranceSolutionkycdetailRequest $request
+     * @param string[] $headers
+     * @param RuntimeOptions $runtime
+     * @return QueryGwchildinsuranceSolutionkycdetailResponse
+     */
+    public function queryGwchildinsuranceSolutionkycdetailEx($request, $headers, $runtime){
+        Utils::validateModel($request);
+        return QueryGwchildinsuranceSolutionkycdetailResponse::fromMap($this->doRequest("1.0", "antdigital.aiosproduct.gwchildinsurance.solutionkycdetail.query", "HTTPS", "POST", "/gateway.do", Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 少儿保险 KYC 保存
+     * Summary: 少儿保险 KYC 保存
+     * @param SaveGwchildinsuranceSolutionkycRequest $request
+     * @return SaveGwchildinsuranceSolutionkycResponse
+     */
+    public function saveGwchildinsuranceSolutionkyc($request){
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+        return $this->saveGwchildinsuranceSolutionkycEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 少儿保险 KYC 保存
+     * Summary: 少儿保险 KYC 保存
+     * @param SaveGwchildinsuranceSolutionkycRequest $request
+     * @param string[] $headers
+     * @param RuntimeOptions $runtime
+     * @return SaveGwchildinsuranceSolutionkycResponse
+     */
+    public function saveGwchildinsuranceSolutionkycEx($request, $headers, $runtime){
+        Utils::validateModel($request);
+        return SaveGwchildinsuranceSolutionkycResponse::fromMap($this->doRequest("1.0", "antdigital.aiosproduct.gwchildinsurance.solutionkyc.save", "HTTPS", "POST", "/gateway.do", Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: mcp网关调用
+     * Summary: mcp网关调用
+     * @param QueryGwmcpdefaultChatRequest $request
+     * @return QueryGwmcpdefaultChatResponse
+     */
+    public function queryGwmcpdefaultChat($request){
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+        return $this->queryGwmcpdefaultChatEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: mcp网关调用
+     * Summary: mcp网关调用
+     * @param QueryGwmcpdefaultChatRequest $request
+     * @param string[] $headers
+     * @param RuntimeOptions $runtime
+     * @return QueryGwmcpdefaultChatResponse
+     */
+    public function queryGwmcpdefaultChatEx($request, $headers, $runtime){
+        Utils::validateModel($request);
+        return QueryGwmcpdefaultChatResponse::fromMap($this->doRequest("1.0", "antdigital.aiosproduct.gwmcpdefault.chat.query", "HTTPS", "POST", "/gateway.do", Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 根据最新画像版本，保存指定用户、指定会话参与保险规划的稳定 `childIds`，并返回最新规划上下文。调用方必须传 `profileVersion`、`childIds`、`idempotencyKey`；不按昵称或数组位置选择。
+     * Summary: 根据最新画像版本，保存指定用户、指定会话参与保险规划的稳定 `childIds`，并返回最新规划上下文。调用方必须传 `profileVersion`、`childIds`、`idempotencyKey`；不按昵称或数组位置选择。
+     * @param SaveGwchildinsurancePlanningtargetsRequest $request
+     * @return SaveGwchildinsurancePlanningtargetsResponse
+     */
+    public function saveGwchildinsurancePlanningtargets($request){
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+        return $this->saveGwchildinsurancePlanningtargetsEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 根据最新画像版本，保存指定用户、指定会话参与保险规划的稳定 `childIds`，并返回最新规划上下文。调用方必须传 `profileVersion`、`childIds`、`idempotencyKey`；不按昵称或数组位置选择。
+     * Summary: 根据最新画像版本，保存指定用户、指定会话参与保险规划的稳定 `childIds`，并返回最新规划上下文。调用方必须传 `profileVersion`、`childIds`、`idempotencyKey`；不按昵称或数组位置选择。
+     * @param SaveGwchildinsurancePlanningtargetsRequest $request
+     * @param string[] $headers
+     * @param RuntimeOptions $runtime
+     * @return SaveGwchildinsurancePlanningtargetsResponse
+     */
+    public function saveGwchildinsurancePlanningtargetsEx($request, $headers, $runtime){
+        Utils::validateModel($request);
+        return SaveGwchildinsurancePlanningtargetsResponse::fromMap($this->doRequest("1.0", "antdigital.aiosproduct.gwchildinsurance.planningtargets.save", "HTTPS", "POST", "/gateway.do", Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 查询指定用户和会话当前生效的少儿保险规划目标。
+     * Summary: 查询指定用户和会话当前生效的少儿保险规划目标。
+     * @param QueryGwchildinsurancePlanningtargetsRequest $request
+     * @return QueryGwchildinsurancePlanningtargetsResponse
+     */
+    public function queryGwchildinsurancePlanningtargets($request){
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+        return $this->queryGwchildinsurancePlanningtargetsEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 查询指定用户和会话当前生效的少儿保险规划目标。
+     * Summary: 查询指定用户和会话当前生效的少儿保险规划目标。
+     * @param QueryGwchildinsurancePlanningtargetsRequest $request
+     * @param string[] $headers
+     * @param RuntimeOptions $runtime
+     * @return QueryGwchildinsurancePlanningtargetsResponse
+     */
+    public function queryGwchildinsurancePlanningtargetsEx($request, $headers, $runtime){
+        Utils::validateModel($request);
+        return QueryGwchildinsurancePlanningtargetsResponse::fromMap($this->doRequest("1.0", "antdigital.aiosproduct.gwchildinsurance.planningtargets.query", "HTTPS", "POST", "/gateway.do", Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 查询最近选择的孩子
+     * Summary: 查询最近选择的孩子
+     * @param QueryGwchildinsurancePlanningtargetslatestRequest $request
+     * @return QueryGwchildinsurancePlanningtargetslatestResponse
+     */
+    public function queryGwchildinsurancePlanningtargetslatest($request){
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+        return $this->queryGwchildinsurancePlanningtargetslatestEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 查询最近选择的孩子
+     * Summary: 查询最近选择的孩子
+     * @param QueryGwchildinsurancePlanningtargetslatestRequest $request
+     * @param string[] $headers
+     * @param RuntimeOptions $runtime
+     * @return QueryGwchildinsurancePlanningtargetslatestResponse
+     */
+    public function queryGwchildinsurancePlanningtargetslatestEx($request, $headers, $runtime){
+        Utils::validateModel($request);
+        return QueryGwchildinsurancePlanningtargetslatestResponse::fromMap($this->doRequest("1.0", "antdigital.aiosproduct.gwchildinsurance.planningtargetslatest.query", "HTTPS", "POST", "/gateway.do", Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 查询推荐方案详情
+     * Summary: 查询推荐方案详情
+     * @param QueryGwchildinsuranceRecommendationplandetailRequest $request
+     * @return QueryGwchildinsuranceRecommendationplandetailResponse
+     */
+    public function queryGwchildinsuranceRecommendationplandetail($request){
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+        return $this->queryGwchildinsuranceRecommendationplandetailEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 查询推荐方案详情
+     * Summary: 查询推荐方案详情
+     * @param QueryGwchildinsuranceRecommendationplandetailRequest $request
+     * @param string[] $headers
+     * @param RuntimeOptions $runtime
+     * @return QueryGwchildinsuranceRecommendationplandetailResponse
+     */
+    public function queryGwchildinsuranceRecommendationplandetailEx($request, $headers, $runtime){
+        Utils::validateModel($request);
+        return QueryGwchildinsuranceRecommendationplandetailResponse::fromMap($this->doRequest("1.0", "antdigital.aiosproduct.gwchildinsurance.recommendationplandetail.query", "HTTPS", "POST", "/gateway.do", Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 保存H5调整后的方案版本
+     * Summary: 保存H5调整后的方案版本
+     * @param SaveGwchildinsuranceRecommendationplanadjustRequest $request
+     * @return SaveGwchildinsuranceRecommendationplanadjustResponse
+     */
+    public function saveGwchildinsuranceRecommendationplanadjust($request){
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+        return $this->saveGwchildinsuranceRecommendationplanadjustEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 保存H5调整后的方案版本
+     * Summary: 保存H5调整后的方案版本
+     * @param SaveGwchildinsuranceRecommendationplanadjustRequest $request
+     * @param string[] $headers
+     * @param RuntimeOptions $runtime
+     * @return SaveGwchildinsuranceRecommendationplanadjustResponse
+     */
+    public function saveGwchildinsuranceRecommendationplanadjustEx($request, $headers, $runtime){
+        Utils::validateModel($request);
+        return SaveGwchildinsuranceRecommendationplanadjustResponse::fromMap($this->doRequest("1.0", "antdigital.aiosproduct.gwchildinsurance.recommendationplanadjust.save", "HTTPS", "POST", "/gateway.do", Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 确认方案及最终价格
+     * Summary: 确认方案及最终价格
+     * @param SaveGwchildinsuranceRecommendationplanconfirmRequest $request
+     * @return SaveGwchildinsuranceRecommendationplanconfirmResponse
+     */
+    public function saveGwchildinsuranceRecommendationplanconfirm($request){
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+        return $this->saveGwchildinsuranceRecommendationplanconfirmEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 确认方案及最终价格
+     * Summary: 确认方案及最终价格
+     * @param SaveGwchildinsuranceRecommendationplanconfirmRequest $request
+     * @param string[] $headers
+     * @param RuntimeOptions $runtime
+     * @return SaveGwchildinsuranceRecommendationplanconfirmResponse
+     */
+    public function saveGwchildinsuranceRecommendationplanconfirmEx($request, $headers, $runtime){
+        Utils::validateModel($request);
+        return SaveGwchildinsuranceRecommendationplanconfirmResponse::fromMap($this->doRequest("1.0", "antdigital.aiosproduct.gwchildinsurance.recommendationplanconfirm.save", "HTTPS", "POST", "/gateway.do", Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 查询历史推荐方案
+     * Summary: 查询历史推荐方案
+     * @param QueryGwchildinsuranceRecommendationplanhistoryRequest $request
+     * @return QueryGwchildinsuranceRecommendationplanhistoryResponse
+     */
+    public function queryGwchildinsuranceRecommendationplanhistory($request){
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+        return $this->queryGwchildinsuranceRecommendationplanhistoryEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 查询历史推荐方案
+     * Summary: 查询历史推荐方案
+     * @param QueryGwchildinsuranceRecommendationplanhistoryRequest $request
+     * @param string[] $headers
+     * @param RuntimeOptions $runtime
+     * @return QueryGwchildinsuranceRecommendationplanhistoryResponse
+     */
+    public function queryGwchildinsuranceRecommendationplanhistoryEx($request, $headers, $runtime){
+        Utils::validateModel($request);
+        return QueryGwchildinsuranceRecommendationplanhistoryResponse::fromMap($this->doRequest("1.0", "antdigital.aiosproduct.gwchildinsurance.recommendationplanhistory.query", "HTTPS", "POST", "/gateway.do", Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 少儿保险当前孩子设置
+     * Summary: 少儿保险当前孩子设置
+     * @param SaveGwchildinsuranceActivetargetRequest $request
+     * @return SaveGwchildinsuranceActivetargetResponse
+     */
+    public function saveGwchildinsuranceActivetarget($request){
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+        return $this->saveGwchildinsuranceActivetargetEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 少儿保险当前孩子设置
+     * Summary: 少儿保险当前孩子设置
+     * @param SaveGwchildinsuranceActivetargetRequest $request
+     * @param string[] $headers
+     * @param RuntimeOptions $runtime
+     * @return SaveGwchildinsuranceActivetargetResponse
+     */
+    public function saveGwchildinsuranceActivetargetEx($request, $headers, $runtime){
+        Utils::validateModel($request);
+        return SaveGwchildinsuranceActivetargetResponse::fromMap($this->doRequest("1.0", "antdigital.aiosproduct.gwchildinsurance.activetarget.save", "HTTPS", "POST", "/gateway.do", Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 少儿保险当前孩子查询
+     * Summary: 少儿保险当前孩子查询
+     * @param QueryGwchildinsuranceActivetargetRequest $request
+     * @return QueryGwchildinsuranceActivetargetResponse
+     */
+    public function queryGwchildinsuranceActivetarget($request){
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+        return $this->queryGwchildinsuranceActivetargetEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 少儿保险当前孩子查询
+     * Summary: 少儿保险当前孩子查询
+     * @param QueryGwchildinsuranceActivetargetRequest $request
+     * @param string[] $headers
+     * @param RuntimeOptions $runtime
+     * @return QueryGwchildinsuranceActivetargetResponse
+     */
+    public function queryGwchildinsuranceActivetargetEx($request, $headers, $runtime){
+        Utils::validateModel($request);
+        return QueryGwchildinsuranceActivetargetResponse::fromMap($this->doRequest("1.0", "antdigital.aiosproduct.gwchildinsurance.activetarget.query", "HTTPS", "POST", "/gateway.do", Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 少儿保险推荐候选详情查询
+     * Summary: 少儿保险推荐候选详情查询
+     * @param QueryGwchildinsuranceRecommendationcandidateRequest $request
+     * @return QueryGwchildinsuranceRecommendationcandidateResponse
+     */
+    public function queryGwchildinsuranceRecommendationcandidate($request){
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+        return $this->queryGwchildinsuranceRecommendationcandidateEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 少儿保险推荐候选详情查询
+     * Summary: 少儿保险推荐候选详情查询
+     * @param QueryGwchildinsuranceRecommendationcandidateRequest $request
+     * @param string[] $headers
+     * @param RuntimeOptions $runtime
+     * @return QueryGwchildinsuranceRecommendationcandidateResponse
+     */
+    public function queryGwchildinsuranceRecommendationcandidateEx($request, $headers, $runtime){
+        Utils::validateModel($request);
+        return QueryGwchildinsuranceRecommendationcandidateResponse::fromMap($this->doRequest("1.0", "antdigital.aiosproduct.gwchildinsurance.recommendationcandidate.query", "HTTPS", "POST", "/gateway.do", Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 选择预览
+     * Summary: 选择预览
+     * @param ResetGwchildinsuranceRecommendationcandidateRequest $request
+     * @return ResetGwchildinsuranceRecommendationcandidateResponse
+     */
+    public function resetGwchildinsuranceRecommendationcandidate($request){
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+        return $this->resetGwchildinsuranceRecommendationcandidateEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 选择预览
+     * Summary: 选择预览
+     * @param ResetGwchildinsuranceRecommendationcandidateRequest $request
+     * @param string[] $headers
+     * @param RuntimeOptions $runtime
+     * @return ResetGwchildinsuranceRecommendationcandidateResponse
+     */
+    public function resetGwchildinsuranceRecommendationcandidateEx($request, $headers, $runtime){
+        Utils::validateModel($request);
+        return ResetGwchildinsuranceRecommendationcandidateResponse::fromMap($this->doRequest("1.0", "antdigital.aiosproduct.gwchildinsurance.recommendationcandidate.reset", "HTTPS", "POST", "/gateway.do", Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 商品对比列表查询
+     * Summary: 商品对比列表查询
+     * @param QueryGwchildinsuranceCompareproductlistRequest $request
+     * @return QueryGwchildinsuranceCompareproductlistResponse
+     */
+    public function queryGwchildinsuranceCompareproductlist($request){
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+        return $this->queryGwchildinsuranceCompareproductlistEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 商品对比列表查询
+     * Summary: 商品对比列表查询
+     * @param QueryGwchildinsuranceCompareproductlistRequest $request
+     * @param string[] $headers
+     * @param RuntimeOptions $runtime
+     * @return QueryGwchildinsuranceCompareproductlistResponse
+     */
+    public function queryGwchildinsuranceCompareproductlistEx($request, $headers, $runtime){
+        Utils::validateModel($request);
+        return QueryGwchildinsuranceCompareproductlistResponse::fromMap($this->doRequest("1.0", "antdigital.aiosproduct.gwchildinsurance.compareproductlist.query", "HTTPS", "POST", "/gateway.do", Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 商品对比详情查询
+     * Summary: 商品对比详情查询
+     * @param QueryGwchildinsuranceCompareproductdetailRequest $request
+     * @return QueryGwchildinsuranceCompareproductdetailResponse
+     */
+    public function queryGwchildinsuranceCompareproductdetail($request){
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+        return $this->queryGwchildinsuranceCompareproductdetailEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 商品对比详情查询
+     * Summary: 商品对比详情查询
+     * @param QueryGwchildinsuranceCompareproductdetailRequest $request
+     * @param string[] $headers
+     * @param RuntimeOptions $runtime
+     * @return QueryGwchildinsuranceCompareproductdetailResponse
+     */
+    public function queryGwchildinsuranceCompareproductdetailEx($request, $headers, $runtime){
+        Utils::validateModel($request);
+        return QueryGwchildinsuranceCompareproductdetailResponse::fromMap($this->doRequest("1.0", "antdigital.aiosproduct.gwchildinsurance.compareproductdetail.query", "HTTPS", "POST", "/gateway.do", Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 产品对比 ID 列表查询
+     * Summary: 产品对比 ID 列表查询
+     * @param QueryGwchildinsuranceCompareproductlistidsRequest $request
+     * @return QueryGwchildinsuranceCompareproductlistidsResponse
+     */
+    public function queryGwchildinsuranceCompareproductlistids($request){
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+        return $this->queryGwchildinsuranceCompareproductlistidsEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 产品对比 ID 列表查询
+     * Summary: 产品对比 ID 列表查询
+     * @param QueryGwchildinsuranceCompareproductlistidsRequest $request
+     * @param string[] $headers
+     * @param RuntimeOptions $runtime
+     * @return QueryGwchildinsuranceCompareproductlistidsResponse
+     */
+    public function queryGwchildinsuranceCompareproductlistidsEx($request, $headers, $runtime){
+        Utils::validateModel($request);
+        return QueryGwchildinsuranceCompareproductlistidsResponse::fromMap($this->doRequest("1.0", "antdigital.aiosproduct.gwchildinsurance.compareproductlistids.query", "HTTPS", "POST", "/gateway.do", Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 按 ID 获取产品对比数据
+     * Summary: 按 ID 获取产品对比数据
+     * @param QueryGwchildinsuranceCompareproductbyidsRequest $request
+     * @return QueryGwchildinsuranceCompareproductbyidsResponse
+     */
+    public function queryGwchildinsuranceCompareproductbyids($request){
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+        return $this->queryGwchildinsuranceCompareproductbyidsEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 按 ID 获取产品对比数据
+     * Summary: 按 ID 获取产品对比数据
+     * @param QueryGwchildinsuranceCompareproductbyidsRequest $request
+     * @param string[] $headers
+     * @param RuntimeOptions $runtime
+     * @return QueryGwchildinsuranceCompareproductbyidsResponse
+     */
+    public function queryGwchildinsuranceCompareproductbyidsEx($request, $headers, $runtime){
+        Utils::validateModel($request);
+        return QueryGwchildinsuranceCompareproductbyidsResponse::fromMap($this->doRequest("1.0", "antdigital.aiosproduct.gwchildinsurance.compareproductbyids.query", "HTTPS", "POST", "/gateway.do", Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 可选责任计划详情查询
+     * Summary: 可选责任计划详情查询
+     * @param DetailGwchildinsuranceOptionalresponsibilityplanRequest $request
+     * @return DetailGwchildinsuranceOptionalresponsibilityplanResponse
+     */
+    public function detailGwchildinsuranceOptionalresponsibilityplan($request){
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+        return $this->detailGwchildinsuranceOptionalresponsibilityplanEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 可选责任计划详情查询
+     * Summary: 可选责任计划详情查询
+     * @param DetailGwchildinsuranceOptionalresponsibilityplanRequest $request
+     * @param string[] $headers
+     * @param RuntimeOptions $runtime
+     * @return DetailGwchildinsuranceOptionalresponsibilityplanResponse
+     */
+    public function detailGwchildinsuranceOptionalresponsibilityplanEx($request, $headers, $runtime){
+        Utils::validateModel($request);
+        return DetailGwchildinsuranceOptionalresponsibilityplanResponse::fromMap($this->doRequest("1.0", "antdigital.aiosproduct.gwchildinsurance.optionalresponsibilityplan.detail", "HTTPS", "POST", "/gateway.do", Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 可选责任计划按因子反查
+     * Summary: 可选责任计划按因子反查
+     * @param ResolveGwchildinsuranceOptionalresponsibilityplanRequest $request
+     * @return ResolveGwchildinsuranceOptionalresponsibilityplanResponse
+     */
+    public function resolveGwchildinsuranceOptionalresponsibilityplan($request){
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+        return $this->resolveGwchildinsuranceOptionalresponsibilityplanEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 可选责任计划按因子反查
+     * Summary: 可选责任计划按因子反查
+     * @param ResolveGwchildinsuranceOptionalresponsibilityplanRequest $request
+     * @param string[] $headers
+     * @param RuntimeOptions $runtime
+     * @return ResolveGwchildinsuranceOptionalresponsibilityplanResponse
+     */
+    public function resolveGwchildinsuranceOptionalresponsibilityplanEx($request, $headers, $runtime){
+        Utils::validateModel($request);
+        return ResolveGwchildinsuranceOptionalresponsibilityplanResponse::fromMap($this->doRequest("1.0", "antdigital.aiosproduct.gwchildinsurance.optionalresponsibilityplan.resolve", "HTTPS", "POST", "/gateway.do", Tea::merge($request), $headers, $runtime));
     }
 }
