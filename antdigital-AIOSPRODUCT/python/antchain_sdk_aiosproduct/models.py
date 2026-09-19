@@ -1953,3 +1953,1569 @@ class QueryGwchildinsurancePlanningtargetslatestResponse(TeaModel):
         return self
 
 
+class QueryGwchildinsuranceRecommendationplandetailRequest(TeaModel):
+    def __init__(
+        self,
+        auth_token: str = None,
+        product_instance_id: str = None,
+        tenant_id: str = None,
+        request_data: str = None,
+    ):
+        # OAuth模式下的授权token
+        self.auth_token = auth_token
+        self.product_instance_id = product_instance_id
+        # 当前联调租户；必须精确命中 finaigateway 发布白名单
+        self.tenant_id = tenant_id
+        # 输入参数
+        self.request_data = request_data
+
+    def validate(self):
+        self.validate_required(self.tenant_id, 'tenant_id')
+        self.validate_required(self.request_data, 'request_data')
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.auth_token is not None:
+            result['auth_token'] = self.auth_token
+        if self.product_instance_id is not None:
+            result['product_instance_id'] = self.product_instance_id
+        if self.tenant_id is not None:
+            result['tenant_id'] = self.tenant_id
+        if self.request_data is not None:
+            result['request_data'] = self.request_data
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('auth_token') is not None:
+            self.auth_token = m.get('auth_token')
+        if m.get('product_instance_id') is not None:
+            self.product_instance_id = m.get('product_instance_id')
+        if m.get('tenant_id') is not None:
+            self.tenant_id = m.get('tenant_id')
+        if m.get('request_data') is not None:
+            self.request_data = m.get('request_data')
+        return self
+
+
+class QueryGwchildinsuranceRecommendationplandetailResponse(TeaModel):
+    def __init__(
+        self,
+        req_msg_id: str = None,
+        result_code: str = None,
+        result_msg: str = None,
+        data: str = None,
+        message: str = None,
+        success: bool = None,
+    ):
+        # 请求唯一ID，用于链路跟踪和问题排查
+        self.req_msg_id = req_msg_id
+        # 结果码，一般OK表示调用成功
+        self.result_code = result_code
+        # 异常信息的文本描述
+        self.result_msg = result_msg
+        # 业务数据 JSON 字符串
+        self.data = data
+        # 成功时允许为 null，失败时返回可理解原因
+        self.message = message
+        # 业务处理是否成功
+        self.success = success
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.req_msg_id is not None:
+            result['req_msg_id'] = self.req_msg_id
+        if self.result_code is not None:
+            result['result_code'] = self.result_code
+        if self.result_msg is not None:
+            result['result_msg'] = self.result_msg
+        if self.data is not None:
+            result['data'] = self.data
+        if self.message is not None:
+            result['message'] = self.message
+        if self.success is not None:
+            result['success'] = self.success
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('req_msg_id') is not None:
+            self.req_msg_id = m.get('req_msg_id')
+        if m.get('result_code') is not None:
+            self.result_code = m.get('result_code')
+        if m.get('result_msg') is not None:
+            self.result_msg = m.get('result_msg')
+        if m.get('data') is not None:
+            self.data = m.get('data')
+        if m.get('message') is not None:
+            self.message = m.get('message')
+        if m.get('success') is not None:
+            self.success = m.get('success')
+        return self
+
+
+class SaveGwchildinsuranceRecommendationplanadjustRequest(TeaModel):
+    def __init__(
+        self,
+        auth_token: str = None,
+        product_instance_id: str = None,
+        tenant_id: str = None,
+        request_data: str = None,
+    ):
+        # OAuth模式下的授权token
+        self.auth_token = auth_token
+        self.product_instance_id = product_instance_id
+        # 当前联调租户；必须精确命中 finaigateway 发布白名单
+        self.tenant_id = tenant_id
+        # 输入参数
+        self.request_data = request_data
+
+    def validate(self):
+        self.validate_required(self.tenant_id, 'tenant_id')
+        self.validate_required(self.request_data, 'request_data')
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.auth_token is not None:
+            result['auth_token'] = self.auth_token
+        if self.product_instance_id is not None:
+            result['product_instance_id'] = self.product_instance_id
+        if self.tenant_id is not None:
+            result['tenant_id'] = self.tenant_id
+        if self.request_data is not None:
+            result['request_data'] = self.request_data
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('auth_token') is not None:
+            self.auth_token = m.get('auth_token')
+        if m.get('product_instance_id') is not None:
+            self.product_instance_id = m.get('product_instance_id')
+        if m.get('tenant_id') is not None:
+            self.tenant_id = m.get('tenant_id')
+        if m.get('request_data') is not None:
+            self.request_data = m.get('request_data')
+        return self
+
+
+class SaveGwchildinsuranceRecommendationplanadjustResponse(TeaModel):
+    def __init__(
+        self,
+        req_msg_id: str = None,
+        result_code: str = None,
+        result_msg: str = None,
+        data: str = None,
+        message: str = None,
+        success: bool = None,
+    ):
+        # 请求唯一ID，用于链路跟踪和问题排查
+        self.req_msg_id = req_msg_id
+        # 结果码，一般OK表示调用成功
+        self.result_code = result_code
+        # 异常信息的文本描述
+        self.result_msg = result_msg
+        # 业务数据 JSON 字符串
+        self.data = data
+        # 成功时允许为 null，失败时返回可理解原因
+        self.message = message
+        # 业务处理是否成功
+        self.success = success
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.req_msg_id is not None:
+            result['req_msg_id'] = self.req_msg_id
+        if self.result_code is not None:
+            result['result_code'] = self.result_code
+        if self.result_msg is not None:
+            result['result_msg'] = self.result_msg
+        if self.data is not None:
+            result['data'] = self.data
+        if self.message is not None:
+            result['message'] = self.message
+        if self.success is not None:
+            result['success'] = self.success
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('req_msg_id') is not None:
+            self.req_msg_id = m.get('req_msg_id')
+        if m.get('result_code') is not None:
+            self.result_code = m.get('result_code')
+        if m.get('result_msg') is not None:
+            self.result_msg = m.get('result_msg')
+        if m.get('data') is not None:
+            self.data = m.get('data')
+        if m.get('message') is not None:
+            self.message = m.get('message')
+        if m.get('success') is not None:
+            self.success = m.get('success')
+        return self
+
+
+class SaveGwchildinsuranceRecommendationplanconfirmRequest(TeaModel):
+    def __init__(
+        self,
+        auth_token: str = None,
+        product_instance_id: str = None,
+        tenant_id: str = None,
+        request_data: str = None,
+    ):
+        # OAuth模式下的授权token
+        self.auth_token = auth_token
+        self.product_instance_id = product_instance_id
+        # 当前联调租户；必须精确命中 finaigateway 发布白名单
+        self.tenant_id = tenant_id
+        # 输入参数
+        self.request_data = request_data
+
+    def validate(self):
+        self.validate_required(self.tenant_id, 'tenant_id')
+        self.validate_required(self.request_data, 'request_data')
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.auth_token is not None:
+            result['auth_token'] = self.auth_token
+        if self.product_instance_id is not None:
+            result['product_instance_id'] = self.product_instance_id
+        if self.tenant_id is not None:
+            result['tenant_id'] = self.tenant_id
+        if self.request_data is not None:
+            result['request_data'] = self.request_data
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('auth_token') is not None:
+            self.auth_token = m.get('auth_token')
+        if m.get('product_instance_id') is not None:
+            self.product_instance_id = m.get('product_instance_id')
+        if m.get('tenant_id') is not None:
+            self.tenant_id = m.get('tenant_id')
+        if m.get('request_data') is not None:
+            self.request_data = m.get('request_data')
+        return self
+
+
+class SaveGwchildinsuranceRecommendationplanconfirmResponse(TeaModel):
+    def __init__(
+        self,
+        req_msg_id: str = None,
+        result_code: str = None,
+        result_msg: str = None,
+        data: str = None,
+        message: str = None,
+        success: bool = None,
+    ):
+        # 请求唯一ID，用于链路跟踪和问题排查
+        self.req_msg_id = req_msg_id
+        # 结果码，一般OK表示调用成功
+        self.result_code = result_code
+        # 异常信息的文本描述
+        self.result_msg = result_msg
+        # 业务数据 JSON 字符串
+        self.data = data
+        # 成功时允许为 null，失败时返回可理解原因
+        self.message = message
+        # 业务处理是否成功
+        self.success = success
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.req_msg_id is not None:
+            result['req_msg_id'] = self.req_msg_id
+        if self.result_code is not None:
+            result['result_code'] = self.result_code
+        if self.result_msg is not None:
+            result['result_msg'] = self.result_msg
+        if self.data is not None:
+            result['data'] = self.data
+        if self.message is not None:
+            result['message'] = self.message
+        if self.success is not None:
+            result['success'] = self.success
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('req_msg_id') is not None:
+            self.req_msg_id = m.get('req_msg_id')
+        if m.get('result_code') is not None:
+            self.result_code = m.get('result_code')
+        if m.get('result_msg') is not None:
+            self.result_msg = m.get('result_msg')
+        if m.get('data') is not None:
+            self.data = m.get('data')
+        if m.get('message') is not None:
+            self.message = m.get('message')
+        if m.get('success') is not None:
+            self.success = m.get('success')
+        return self
+
+
+class QueryGwchildinsuranceRecommendationplanhistoryRequest(TeaModel):
+    def __init__(
+        self,
+        auth_token: str = None,
+        product_instance_id: str = None,
+        tenant_id: str = None,
+        request_data: str = None,
+    ):
+        # OAuth模式下的授权token
+        self.auth_token = auth_token
+        self.product_instance_id = product_instance_id
+        # 当前联调租户；必须精确命中 finaigateway 发布白名单
+        self.tenant_id = tenant_id
+        # 输入参数
+        self.request_data = request_data
+
+    def validate(self):
+        self.validate_required(self.tenant_id, 'tenant_id')
+        self.validate_required(self.request_data, 'request_data')
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.auth_token is not None:
+            result['auth_token'] = self.auth_token
+        if self.product_instance_id is not None:
+            result['product_instance_id'] = self.product_instance_id
+        if self.tenant_id is not None:
+            result['tenant_id'] = self.tenant_id
+        if self.request_data is not None:
+            result['request_data'] = self.request_data
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('auth_token') is not None:
+            self.auth_token = m.get('auth_token')
+        if m.get('product_instance_id') is not None:
+            self.product_instance_id = m.get('product_instance_id')
+        if m.get('tenant_id') is not None:
+            self.tenant_id = m.get('tenant_id')
+        if m.get('request_data') is not None:
+            self.request_data = m.get('request_data')
+        return self
+
+
+class QueryGwchildinsuranceRecommendationplanhistoryResponse(TeaModel):
+    def __init__(
+        self,
+        req_msg_id: str = None,
+        result_code: str = None,
+        result_msg: str = None,
+        data: str = None,
+        message: str = None,
+        success: bool = None,
+    ):
+        # 请求唯一ID，用于链路跟踪和问题排查
+        self.req_msg_id = req_msg_id
+        # 结果码，一般OK表示调用成功
+        self.result_code = result_code
+        # 异常信息的文本描述
+        self.result_msg = result_msg
+        # 业务数据 JSON 字符串
+        self.data = data
+        # 成功时允许为 null，失败时返回可理解原因
+        self.message = message
+        # 业务处理是否成功
+        self.success = success
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.req_msg_id is not None:
+            result['req_msg_id'] = self.req_msg_id
+        if self.result_code is not None:
+            result['result_code'] = self.result_code
+        if self.result_msg is not None:
+            result['result_msg'] = self.result_msg
+        if self.data is not None:
+            result['data'] = self.data
+        if self.message is not None:
+            result['message'] = self.message
+        if self.success is not None:
+            result['success'] = self.success
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('req_msg_id') is not None:
+            self.req_msg_id = m.get('req_msg_id')
+        if m.get('result_code') is not None:
+            self.result_code = m.get('result_code')
+        if m.get('result_msg') is not None:
+            self.result_msg = m.get('result_msg')
+        if m.get('data') is not None:
+            self.data = m.get('data')
+        if m.get('message') is not None:
+            self.message = m.get('message')
+        if m.get('success') is not None:
+            self.success = m.get('success')
+        return self
+
+
+class SaveGwchildinsuranceActivetargetRequest(TeaModel):
+    def __init__(
+        self,
+        auth_token: str = None,
+        product_instance_id: str = None,
+        tenant_id: str = None,
+        request_data: str = None,
+    ):
+        # OAuth模式下的授权token
+        self.auth_token = auth_token
+        self.product_instance_id = product_instance_id
+        # 当前联调租户；必须精确命中 finaigateway 发布白名单
+        self.tenant_id = tenant_id
+        # 输入参数
+        self.request_data = request_data
+
+    def validate(self):
+        self.validate_required(self.tenant_id, 'tenant_id')
+        self.validate_required(self.request_data, 'request_data')
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.auth_token is not None:
+            result['auth_token'] = self.auth_token
+        if self.product_instance_id is not None:
+            result['product_instance_id'] = self.product_instance_id
+        if self.tenant_id is not None:
+            result['tenant_id'] = self.tenant_id
+        if self.request_data is not None:
+            result['request_data'] = self.request_data
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('auth_token') is not None:
+            self.auth_token = m.get('auth_token')
+        if m.get('product_instance_id') is not None:
+            self.product_instance_id = m.get('product_instance_id')
+        if m.get('tenant_id') is not None:
+            self.tenant_id = m.get('tenant_id')
+        if m.get('request_data') is not None:
+            self.request_data = m.get('request_data')
+        return self
+
+
+class SaveGwchildinsuranceActivetargetResponse(TeaModel):
+    def __init__(
+        self,
+        req_msg_id: str = None,
+        result_code: str = None,
+        result_msg: str = None,
+        data: str = None,
+        message: str = None,
+        success: bool = None,
+    ):
+        # 请求唯一ID，用于链路跟踪和问题排查
+        self.req_msg_id = req_msg_id
+        # 结果码，一般OK表示调用成功
+        self.result_code = result_code
+        # 异常信息的文本描述
+        self.result_msg = result_msg
+        # 业务数据 JSON 字符串
+        self.data = data
+        # 成功时允许为 null，失败时返回可理解原因
+        self.message = message
+        # 业务处理是否成功
+        self.success = success
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.req_msg_id is not None:
+            result['req_msg_id'] = self.req_msg_id
+        if self.result_code is not None:
+            result['result_code'] = self.result_code
+        if self.result_msg is not None:
+            result['result_msg'] = self.result_msg
+        if self.data is not None:
+            result['data'] = self.data
+        if self.message is not None:
+            result['message'] = self.message
+        if self.success is not None:
+            result['success'] = self.success
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('req_msg_id') is not None:
+            self.req_msg_id = m.get('req_msg_id')
+        if m.get('result_code') is not None:
+            self.result_code = m.get('result_code')
+        if m.get('result_msg') is not None:
+            self.result_msg = m.get('result_msg')
+        if m.get('data') is not None:
+            self.data = m.get('data')
+        if m.get('message') is not None:
+            self.message = m.get('message')
+        if m.get('success') is not None:
+            self.success = m.get('success')
+        return self
+
+
+class QueryGwchildinsuranceActivetargetRequest(TeaModel):
+    def __init__(
+        self,
+        auth_token: str = None,
+        product_instance_id: str = None,
+        tenant_id: str = None,
+        request_data: str = None,
+    ):
+        # OAuth模式下的授权token
+        self.auth_token = auth_token
+        self.product_instance_id = product_instance_id
+        # 当前联调租户；必须精确命中 finaigateway 发布白名单
+        self.tenant_id = tenant_id
+        # 输入参数
+        self.request_data = request_data
+
+    def validate(self):
+        self.validate_required(self.tenant_id, 'tenant_id')
+        self.validate_required(self.request_data, 'request_data')
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.auth_token is not None:
+            result['auth_token'] = self.auth_token
+        if self.product_instance_id is not None:
+            result['product_instance_id'] = self.product_instance_id
+        if self.tenant_id is not None:
+            result['tenant_id'] = self.tenant_id
+        if self.request_data is not None:
+            result['request_data'] = self.request_data
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('auth_token') is not None:
+            self.auth_token = m.get('auth_token')
+        if m.get('product_instance_id') is not None:
+            self.product_instance_id = m.get('product_instance_id')
+        if m.get('tenant_id') is not None:
+            self.tenant_id = m.get('tenant_id')
+        if m.get('request_data') is not None:
+            self.request_data = m.get('request_data')
+        return self
+
+
+class QueryGwchildinsuranceActivetargetResponse(TeaModel):
+    def __init__(
+        self,
+        req_msg_id: str = None,
+        result_code: str = None,
+        result_msg: str = None,
+        data: str = None,
+        message: str = None,
+        success: bool = None,
+    ):
+        # 请求唯一ID，用于链路跟踪和问题排查
+        self.req_msg_id = req_msg_id
+        # 结果码，一般OK表示调用成功
+        self.result_code = result_code
+        # 异常信息的文本描述
+        self.result_msg = result_msg
+        # 业务数据 JSON 字符串
+        self.data = data
+        # 成功时允许为 null，失败时返回可理解原因
+        self.message = message
+        # 业务处理是否成功
+        self.success = success
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.req_msg_id is not None:
+            result['req_msg_id'] = self.req_msg_id
+        if self.result_code is not None:
+            result['result_code'] = self.result_code
+        if self.result_msg is not None:
+            result['result_msg'] = self.result_msg
+        if self.data is not None:
+            result['data'] = self.data
+        if self.message is not None:
+            result['message'] = self.message
+        if self.success is not None:
+            result['success'] = self.success
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('req_msg_id') is not None:
+            self.req_msg_id = m.get('req_msg_id')
+        if m.get('result_code') is not None:
+            self.result_code = m.get('result_code')
+        if m.get('result_msg') is not None:
+            self.result_msg = m.get('result_msg')
+        if m.get('data') is not None:
+            self.data = m.get('data')
+        if m.get('message') is not None:
+            self.message = m.get('message')
+        if m.get('success') is not None:
+            self.success = m.get('success')
+        return self
+
+
+class QueryGwchildinsuranceRecommendationcandidateRequest(TeaModel):
+    def __init__(
+        self,
+        auth_token: str = None,
+        product_instance_id: str = None,
+        tenant_id: str = None,
+        request_data: str = None,
+    ):
+        # OAuth模式下的授权token
+        self.auth_token = auth_token
+        self.product_instance_id = product_instance_id
+        # 租户
+        self.tenant_id = tenant_id
+        # 请求
+        self.request_data = request_data
+
+    def validate(self):
+        self.validate_required(self.tenant_id, 'tenant_id')
+        self.validate_required(self.request_data, 'request_data')
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.auth_token is not None:
+            result['auth_token'] = self.auth_token
+        if self.product_instance_id is not None:
+            result['product_instance_id'] = self.product_instance_id
+        if self.tenant_id is not None:
+            result['tenant_id'] = self.tenant_id
+        if self.request_data is not None:
+            result['request_data'] = self.request_data
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('auth_token') is not None:
+            self.auth_token = m.get('auth_token')
+        if m.get('product_instance_id') is not None:
+            self.product_instance_id = m.get('product_instance_id')
+        if m.get('tenant_id') is not None:
+            self.tenant_id = m.get('tenant_id')
+        if m.get('request_data') is not None:
+            self.request_data = m.get('request_data')
+        return self
+
+
+class QueryGwchildinsuranceRecommendationcandidateResponse(TeaModel):
+    def __init__(
+        self,
+        req_msg_id: str = None,
+        result_code: str = None,
+        result_msg: str = None,
+        data: str = None,
+        message: str = None,
+        success: bool = None,
+    ):
+        # 请求唯一ID，用于链路跟踪和问题排查
+        self.req_msg_id = req_msg_id
+        # 结果码，一般OK表示调用成功
+        self.result_code = result_code
+        # 异常信息的文本描述
+        self.result_msg = result_msg
+        # 业务数据 JSON 字符串
+        self.data = data
+        # 成功时允许为 null，失败时返回可理解原因
+        self.message = message
+        # 业务处理是否成功
+        self.success = success
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.req_msg_id is not None:
+            result['req_msg_id'] = self.req_msg_id
+        if self.result_code is not None:
+            result['result_code'] = self.result_code
+        if self.result_msg is not None:
+            result['result_msg'] = self.result_msg
+        if self.data is not None:
+            result['data'] = self.data
+        if self.message is not None:
+            result['message'] = self.message
+        if self.success is not None:
+            result['success'] = self.success
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('req_msg_id') is not None:
+            self.req_msg_id = m.get('req_msg_id')
+        if m.get('result_code') is not None:
+            self.result_code = m.get('result_code')
+        if m.get('result_msg') is not None:
+            self.result_msg = m.get('result_msg')
+        if m.get('data') is not None:
+            self.data = m.get('data')
+        if m.get('message') is not None:
+            self.message = m.get('message')
+        if m.get('success') is not None:
+            self.success = m.get('success')
+        return self
+
+
+class ResetGwchildinsuranceRecommendationcandidateRequest(TeaModel):
+    def __init__(
+        self,
+        auth_token: str = None,
+        product_instance_id: str = None,
+        tenant_id: str = None,
+        request_data: str = None,
+    ):
+        # OAuth模式下的授权token
+        self.auth_token = auth_token
+        self.product_instance_id = product_instance_id
+        # 当前联调租户；必须精确命中 finaigateway 发布白名单
+        self.tenant_id = tenant_id
+        # 输入参数
+        self.request_data = request_data
+
+    def validate(self):
+        self.validate_required(self.tenant_id, 'tenant_id')
+        self.validate_required(self.request_data, 'request_data')
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.auth_token is not None:
+            result['auth_token'] = self.auth_token
+        if self.product_instance_id is not None:
+            result['product_instance_id'] = self.product_instance_id
+        if self.tenant_id is not None:
+            result['tenant_id'] = self.tenant_id
+        if self.request_data is not None:
+            result['request_data'] = self.request_data
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('auth_token') is not None:
+            self.auth_token = m.get('auth_token')
+        if m.get('product_instance_id') is not None:
+            self.product_instance_id = m.get('product_instance_id')
+        if m.get('tenant_id') is not None:
+            self.tenant_id = m.get('tenant_id')
+        if m.get('request_data') is not None:
+            self.request_data = m.get('request_data')
+        return self
+
+
+class ResetGwchildinsuranceRecommendationcandidateResponse(TeaModel):
+    def __init__(
+        self,
+        req_msg_id: str = None,
+        result_code: str = None,
+        result_msg: str = None,
+        data: str = None,
+        message: str = None,
+        success: str = None,
+    ):
+        # 请求唯一ID，用于链路跟踪和问题排查
+        self.req_msg_id = req_msg_id
+        # 结果码，一般OK表示调用成功
+        self.result_code = result_code
+        # 异常信息的文本描述
+        self.result_msg = result_msg
+        # 业务数据 JSON 字符串
+        self.data = data
+        # 成功时允许为 null，失败时返回可理解原因
+        self.message = message
+        # 业务处理是否成功
+        self.success = success
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.req_msg_id is not None:
+            result['req_msg_id'] = self.req_msg_id
+        if self.result_code is not None:
+            result['result_code'] = self.result_code
+        if self.result_msg is not None:
+            result['result_msg'] = self.result_msg
+        if self.data is not None:
+            result['data'] = self.data
+        if self.message is not None:
+            result['message'] = self.message
+        if self.success is not None:
+            result['success'] = self.success
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('req_msg_id') is not None:
+            self.req_msg_id = m.get('req_msg_id')
+        if m.get('result_code') is not None:
+            self.result_code = m.get('result_code')
+        if m.get('result_msg') is not None:
+            self.result_msg = m.get('result_msg')
+        if m.get('data') is not None:
+            self.data = m.get('data')
+        if m.get('message') is not None:
+            self.message = m.get('message')
+        if m.get('success') is not None:
+            self.success = m.get('success')
+        return self
+
+
+class QueryGwchildinsuranceCompareproductlistRequest(TeaModel):
+    def __init__(
+        self,
+        auth_token: str = None,
+        product_instance_id: str = None,
+        tenant_id: str = None,
+        request_data: str = None,
+    ):
+        # OAuth模式下的授权token
+        self.auth_token = auth_token
+        self.product_instance_id = product_instance_id
+        # 当前联调租户；必须精确命中 finaigateway 发布白名单
+        self.tenant_id = tenant_id
+        # 输入参数
+        self.request_data = request_data
+
+    def validate(self):
+        self.validate_required(self.tenant_id, 'tenant_id')
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.auth_token is not None:
+            result['auth_token'] = self.auth_token
+        if self.product_instance_id is not None:
+            result['product_instance_id'] = self.product_instance_id
+        if self.tenant_id is not None:
+            result['tenant_id'] = self.tenant_id
+        if self.request_data is not None:
+            result['request_data'] = self.request_data
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('auth_token') is not None:
+            self.auth_token = m.get('auth_token')
+        if m.get('product_instance_id') is not None:
+            self.product_instance_id = m.get('product_instance_id')
+        if m.get('tenant_id') is not None:
+            self.tenant_id = m.get('tenant_id')
+        if m.get('request_data') is not None:
+            self.request_data = m.get('request_data')
+        return self
+
+
+class QueryGwchildinsuranceCompareproductlistResponse(TeaModel):
+    def __init__(
+        self,
+        req_msg_id: str = None,
+        result_code: str = None,
+        result_msg: str = None,
+        data: str = None,
+        message: str = None,
+        success: str = None,
+    ):
+        # 请求唯一ID，用于链路跟踪和问题排查
+        self.req_msg_id = req_msg_id
+        # 结果码，一般OK表示调用成功
+        self.result_code = result_code
+        # 异常信息的文本描述
+        self.result_msg = result_msg
+        # 业务数据 JSON 字符串
+        self.data = data
+        # 成功时允许为 null，失败时返回可理解原因
+        self.message = message
+        # 业务处理是否成功
+        self.success = success
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.req_msg_id is not None:
+            result['req_msg_id'] = self.req_msg_id
+        if self.result_code is not None:
+            result['result_code'] = self.result_code
+        if self.result_msg is not None:
+            result['result_msg'] = self.result_msg
+        if self.data is not None:
+            result['data'] = self.data
+        if self.message is not None:
+            result['message'] = self.message
+        if self.success is not None:
+            result['success'] = self.success
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('req_msg_id') is not None:
+            self.req_msg_id = m.get('req_msg_id')
+        if m.get('result_code') is not None:
+            self.result_code = m.get('result_code')
+        if m.get('result_msg') is not None:
+            self.result_msg = m.get('result_msg')
+        if m.get('data') is not None:
+            self.data = m.get('data')
+        if m.get('message') is not None:
+            self.message = m.get('message')
+        if m.get('success') is not None:
+            self.success = m.get('success')
+        return self
+
+
+class QueryGwchildinsuranceCompareproductdetailRequest(TeaModel):
+    def __init__(
+        self,
+        auth_token: str = None,
+        product_instance_id: str = None,
+        tenant_id: str = None,
+        request_data: str = None,
+    ):
+        # OAuth模式下的授权token
+        self.auth_token = auth_token
+        self.product_instance_id = product_instance_id
+        # 当前联调租户；必须精确命中 finaigateway 发布白名单
+        self.tenant_id = tenant_id
+        # 输入参数
+        self.request_data = request_data
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.auth_token is not None:
+            result['auth_token'] = self.auth_token
+        if self.product_instance_id is not None:
+            result['product_instance_id'] = self.product_instance_id
+        if self.tenant_id is not None:
+            result['tenant_id'] = self.tenant_id
+        if self.request_data is not None:
+            result['request_data'] = self.request_data
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('auth_token') is not None:
+            self.auth_token = m.get('auth_token')
+        if m.get('product_instance_id') is not None:
+            self.product_instance_id = m.get('product_instance_id')
+        if m.get('tenant_id') is not None:
+            self.tenant_id = m.get('tenant_id')
+        if m.get('request_data') is not None:
+            self.request_data = m.get('request_data')
+        return self
+
+
+class QueryGwchildinsuranceCompareproductdetailResponse(TeaModel):
+    def __init__(
+        self,
+        req_msg_id: str = None,
+        result_code: str = None,
+        result_msg: str = None,
+        data: str = None,
+        message: str = None,
+        success: str = None,
+    ):
+        # 请求唯一ID，用于链路跟踪和问题排查
+        self.req_msg_id = req_msg_id
+        # 结果码，一般OK表示调用成功
+        self.result_code = result_code
+        # 异常信息的文本描述
+        self.result_msg = result_msg
+        # 业务数据 JSON 字符串
+        self.data = data
+        # 成功时允许为 null，失败时返回可理解原因
+        self.message = message
+        # 业务处理是否成功
+        self.success = success
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.req_msg_id is not None:
+            result['req_msg_id'] = self.req_msg_id
+        if self.result_code is not None:
+            result['result_code'] = self.result_code
+        if self.result_msg is not None:
+            result['result_msg'] = self.result_msg
+        if self.data is not None:
+            result['data'] = self.data
+        if self.message is not None:
+            result['message'] = self.message
+        if self.success is not None:
+            result['success'] = self.success
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('req_msg_id') is not None:
+            self.req_msg_id = m.get('req_msg_id')
+        if m.get('result_code') is not None:
+            self.result_code = m.get('result_code')
+        if m.get('result_msg') is not None:
+            self.result_msg = m.get('result_msg')
+        if m.get('data') is not None:
+            self.data = m.get('data')
+        if m.get('message') is not None:
+            self.message = m.get('message')
+        if m.get('success') is not None:
+            self.success = m.get('success')
+        return self
+
+
+class QueryGwchildinsuranceCompareproductlistidsRequest(TeaModel):
+    def __init__(
+        self,
+        auth_token: str = None,
+        product_instance_id: str = None,
+        tenant_id: str = None,
+        request_data: str = None,
+    ):
+        # OAuth模式下的授权token
+        self.auth_token = auth_token
+        self.product_instance_id = product_instance_id
+        # 当前联调租户；必须精确命中 finaigateway 发布白名单
+        self.tenant_id = tenant_id
+        # 输入参数
+        self.request_data = request_data
+
+    def validate(self):
+        self.validate_required(self.tenant_id, 'tenant_id')
+        self.validate_required(self.request_data, 'request_data')
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.auth_token is not None:
+            result['auth_token'] = self.auth_token
+        if self.product_instance_id is not None:
+            result['product_instance_id'] = self.product_instance_id
+        if self.tenant_id is not None:
+            result['tenant_id'] = self.tenant_id
+        if self.request_data is not None:
+            result['request_data'] = self.request_data
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('auth_token') is not None:
+            self.auth_token = m.get('auth_token')
+        if m.get('product_instance_id') is not None:
+            self.product_instance_id = m.get('product_instance_id')
+        if m.get('tenant_id') is not None:
+            self.tenant_id = m.get('tenant_id')
+        if m.get('request_data') is not None:
+            self.request_data = m.get('request_data')
+        return self
+
+
+class QueryGwchildinsuranceCompareproductlistidsResponse(TeaModel):
+    def __init__(
+        self,
+        req_msg_id: str = None,
+        result_code: str = None,
+        result_msg: str = None,
+        data: str = None,
+        message: str = None,
+        success: str = None,
+    ):
+        # 请求唯一ID，用于链路跟踪和问题排查
+        self.req_msg_id = req_msg_id
+        # 结果码，一般OK表示调用成功
+        self.result_code = result_code
+        # 异常信息的文本描述
+        self.result_msg = result_msg
+        # 业务数据 JSON 字符串
+        self.data = data
+        # 成功时允许为 null，失败时返回可理解原因
+        self.message = message
+        # 业务处理是否成功
+        self.success = success
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.req_msg_id is not None:
+            result['req_msg_id'] = self.req_msg_id
+        if self.result_code is not None:
+            result['result_code'] = self.result_code
+        if self.result_msg is not None:
+            result['result_msg'] = self.result_msg
+        if self.data is not None:
+            result['data'] = self.data
+        if self.message is not None:
+            result['message'] = self.message
+        if self.success is not None:
+            result['success'] = self.success
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('req_msg_id') is not None:
+            self.req_msg_id = m.get('req_msg_id')
+        if m.get('result_code') is not None:
+            self.result_code = m.get('result_code')
+        if m.get('result_msg') is not None:
+            self.result_msg = m.get('result_msg')
+        if m.get('data') is not None:
+            self.data = m.get('data')
+        if m.get('message') is not None:
+            self.message = m.get('message')
+        if m.get('success') is not None:
+            self.success = m.get('success')
+        return self
+
+
+class QueryGwchildinsuranceCompareproductbyidsRequest(TeaModel):
+    def __init__(
+        self,
+        auth_token: str = None,
+        product_instance_id: str = None,
+        tenant_id: str = None,
+        request_data: str = None,
+    ):
+        # OAuth模式下的授权token
+        self.auth_token = auth_token
+        self.product_instance_id = product_instance_id
+        # 当前联调租户；必须精确命中 finaigateway 发布白名单
+        self.tenant_id = tenant_id
+        # 输入参数
+        self.request_data = request_data
+
+    def validate(self):
+        self.validate_required(self.tenant_id, 'tenant_id')
+        self.validate_required(self.request_data, 'request_data')
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.auth_token is not None:
+            result['auth_token'] = self.auth_token
+        if self.product_instance_id is not None:
+            result['product_instance_id'] = self.product_instance_id
+        if self.tenant_id is not None:
+            result['tenant_id'] = self.tenant_id
+        if self.request_data is not None:
+            result['request_data'] = self.request_data
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('auth_token') is not None:
+            self.auth_token = m.get('auth_token')
+        if m.get('product_instance_id') is not None:
+            self.product_instance_id = m.get('product_instance_id')
+        if m.get('tenant_id') is not None:
+            self.tenant_id = m.get('tenant_id')
+        if m.get('request_data') is not None:
+            self.request_data = m.get('request_data')
+        return self
+
+
+class QueryGwchildinsuranceCompareproductbyidsResponse(TeaModel):
+    def __init__(
+        self,
+        req_msg_id: str = None,
+        result_code: str = None,
+        result_msg: str = None,
+        data: str = None,
+        message: str = None,
+        success: str = None,
+    ):
+        # 请求唯一ID，用于链路跟踪和问题排查
+        self.req_msg_id = req_msg_id
+        # 结果码，一般OK表示调用成功
+        self.result_code = result_code
+        # 异常信息的文本描述
+        self.result_msg = result_msg
+        # 业务数据 JSON 字符串
+        self.data = data
+        # 成功时允许为 null，失败时返回可理解原因
+        self.message = message
+        # 业务处理是否成功
+        self.success = success
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.req_msg_id is not None:
+            result['req_msg_id'] = self.req_msg_id
+        if self.result_code is not None:
+            result['result_code'] = self.result_code
+        if self.result_msg is not None:
+            result['result_msg'] = self.result_msg
+        if self.data is not None:
+            result['data'] = self.data
+        if self.message is not None:
+            result['message'] = self.message
+        if self.success is not None:
+            result['success'] = self.success
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('req_msg_id') is not None:
+            self.req_msg_id = m.get('req_msg_id')
+        if m.get('result_code') is not None:
+            self.result_code = m.get('result_code')
+        if m.get('result_msg') is not None:
+            self.result_msg = m.get('result_msg')
+        if m.get('data') is not None:
+            self.data = m.get('data')
+        if m.get('message') is not None:
+            self.message = m.get('message')
+        if m.get('success') is not None:
+            self.success = m.get('success')
+        return self
+
+
+class DetailGwchildinsuranceOptionalresponsibilityplanRequest(TeaModel):
+    def __init__(
+        self,
+        auth_token: str = None,
+        product_instance_id: str = None,
+        tenant_id: str = None,
+        request_data: str = None,
+    ):
+        # OAuth模式下的授权token
+        self.auth_token = auth_token
+        self.product_instance_id = product_instance_id
+        # 当前联调租户；必须精确命中 finaigateway 发布白名单
+        self.tenant_id = tenant_id
+        # 输入参数
+        self.request_data = request_data
+
+    def validate(self):
+        self.validate_required(self.tenant_id, 'tenant_id')
+        self.validate_required(self.request_data, 'request_data')
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.auth_token is not None:
+            result['auth_token'] = self.auth_token
+        if self.product_instance_id is not None:
+            result['product_instance_id'] = self.product_instance_id
+        if self.tenant_id is not None:
+            result['tenant_id'] = self.tenant_id
+        if self.request_data is not None:
+            result['request_data'] = self.request_data
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('auth_token') is not None:
+            self.auth_token = m.get('auth_token')
+        if m.get('product_instance_id') is not None:
+            self.product_instance_id = m.get('product_instance_id')
+        if m.get('tenant_id') is not None:
+            self.tenant_id = m.get('tenant_id')
+        if m.get('request_data') is not None:
+            self.request_data = m.get('request_data')
+        return self
+
+
+class DetailGwchildinsuranceOptionalresponsibilityplanResponse(TeaModel):
+    def __init__(
+        self,
+        req_msg_id: str = None,
+        result_code: str = None,
+        result_msg: str = None,
+        data: str = None,
+        message: str = None,
+        success: str = None,
+    ):
+        # 请求唯一ID，用于链路跟踪和问题排查
+        self.req_msg_id = req_msg_id
+        # 结果码，一般OK表示调用成功
+        self.result_code = result_code
+        # 异常信息的文本描述
+        self.result_msg = result_msg
+        # 业务数据 JSON 字符串
+        self.data = data
+        # 成功时允许为 null，失败时返回可理解原因
+        self.message = message
+        # 业务处理是否成功
+        self.success = success
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.req_msg_id is not None:
+            result['req_msg_id'] = self.req_msg_id
+        if self.result_code is not None:
+            result['result_code'] = self.result_code
+        if self.result_msg is not None:
+            result['result_msg'] = self.result_msg
+        if self.data is not None:
+            result['data'] = self.data
+        if self.message is not None:
+            result['message'] = self.message
+        if self.success is not None:
+            result['success'] = self.success
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('req_msg_id') is not None:
+            self.req_msg_id = m.get('req_msg_id')
+        if m.get('result_code') is not None:
+            self.result_code = m.get('result_code')
+        if m.get('result_msg') is not None:
+            self.result_msg = m.get('result_msg')
+        if m.get('data') is not None:
+            self.data = m.get('data')
+        if m.get('message') is not None:
+            self.message = m.get('message')
+        if m.get('success') is not None:
+            self.success = m.get('success')
+        return self
+
+
+class ResolveGwchildinsuranceOptionalresponsibilityplanRequest(TeaModel):
+    def __init__(
+        self,
+        auth_token: str = None,
+        product_instance_id: str = None,
+        tenant_id: str = None,
+        request_data: str = None,
+    ):
+        # OAuth模式下的授权token
+        self.auth_token = auth_token
+        self.product_instance_id = product_instance_id
+        # 当前联调租户；必须精确命中 finaigateway 发布白名单
+        self.tenant_id = tenant_id
+        # 输入参数
+        self.request_data = request_data
+
+    def validate(self):
+        self.validate_required(self.tenant_id, 'tenant_id')
+        self.validate_required(self.request_data, 'request_data')
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.auth_token is not None:
+            result['auth_token'] = self.auth_token
+        if self.product_instance_id is not None:
+            result['product_instance_id'] = self.product_instance_id
+        if self.tenant_id is not None:
+            result['tenant_id'] = self.tenant_id
+        if self.request_data is not None:
+            result['request_data'] = self.request_data
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('auth_token') is not None:
+            self.auth_token = m.get('auth_token')
+        if m.get('product_instance_id') is not None:
+            self.product_instance_id = m.get('product_instance_id')
+        if m.get('tenant_id') is not None:
+            self.tenant_id = m.get('tenant_id')
+        if m.get('request_data') is not None:
+            self.request_data = m.get('request_data')
+        return self
+
+
+class ResolveGwchildinsuranceOptionalresponsibilityplanResponse(TeaModel):
+    def __init__(
+        self,
+        req_msg_id: str = None,
+        result_code: str = None,
+        result_msg: str = None,
+        data: str = None,
+        message: str = None,
+        success: str = None,
+    ):
+        # 请求唯一ID，用于链路跟踪和问题排查
+        self.req_msg_id = req_msg_id
+        # 结果码，一般OK表示调用成功
+        self.result_code = result_code
+        # 异常信息的文本描述
+        self.result_msg = result_msg
+        # 业务数据 JSON 字符串
+        self.data = data
+        # 成功时允许为 null，失败时返回可理解原因
+        self.message = message
+        # 业务处理是否成功
+        self.success = success
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.req_msg_id is not None:
+            result['req_msg_id'] = self.req_msg_id
+        if self.result_code is not None:
+            result['result_code'] = self.result_code
+        if self.result_msg is not None:
+            result['result_msg'] = self.result_msg
+        if self.data is not None:
+            result['data'] = self.data
+        if self.message is not None:
+            result['message'] = self.message
+        if self.success is not None:
+            result['success'] = self.success
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('req_msg_id') is not None:
+            self.req_msg_id = m.get('req_msg_id')
+        if m.get('result_code') is not None:
+            self.result_code = m.get('result_code')
+        if m.get('result_msg') is not None:
+            self.result_msg = m.get('result_msg')
+        if m.get('data') is not None:
+            self.data = m.get('data')
+        if m.get('message') is not None:
+            self.message = m.get('message')
+        if m.get('success') is not None:
+            self.success = m.get('success')
+        return self
+
+

@@ -134,7 +134,7 @@ class Client:
                     'req_msg_id': AntchainUtils.get_nonce(),
                     'access_key': self._access_key_id,
                     'base_sdk_version': 'TeaSDK-2.0',
-                    'sdk_version': '1.0.9',
+                    'sdk_version': '1.0.16',
                     '_prod_code': 'AIOSPRODUCT',
                     '_prod_channel': 'default'
                 }
@@ -237,7 +237,7 @@ class Client:
                     'req_msg_id': AntchainUtils.get_nonce(),
                     'access_key': self._access_key_id,
                     'base_sdk_version': 'TeaSDK-2.0',
-                    'sdk_version': '1.0.9',
+                    'sdk_version': '1.0.16',
                     '_prod_code': 'AIOSPRODUCT',
                     '_prod_channel': 'default'
                 }
@@ -999,4 +999,788 @@ class Client:
         return TeaCore.from_map(
             aiosproduct_models.QueryGwchildinsurancePlanningtargetslatestResponse(),
             await self.do_request_async('1.0', 'antdigital.aiosproduct.gwchildinsurance.planningtargetslatest.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def query_gwchildinsurance_recommendationplandetail(
+        self,
+        request: aiosproduct_models.QueryGwchildinsuranceRecommendationplandetailRequest,
+    ) -> aiosproduct_models.QueryGwchildinsuranceRecommendationplandetailResponse:
+        """
+        Description: 查询推荐方案详情
+        Summary: 查询推荐方案详情
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.query_gwchildinsurance_recommendationplandetail_ex(request, headers, runtime)
+
+    async def query_gwchildinsurance_recommendationplandetail_async(
+        self,
+        request: aiosproduct_models.QueryGwchildinsuranceRecommendationplandetailRequest,
+    ) -> aiosproduct_models.QueryGwchildinsuranceRecommendationplandetailResponse:
+        """
+        Description: 查询推荐方案详情
+        Summary: 查询推荐方案详情
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.query_gwchildinsurance_recommendationplandetail_ex_async(request, headers, runtime)
+
+    def query_gwchildinsurance_recommendationplandetail_ex(
+        self,
+        request: aiosproduct_models.QueryGwchildinsuranceRecommendationplandetailRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> aiosproduct_models.QueryGwchildinsuranceRecommendationplandetailResponse:
+        """
+        Description: 查询推荐方案详情
+        Summary: 查询推荐方案详情
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            aiosproduct_models.QueryGwchildinsuranceRecommendationplandetailResponse(),
+            self.do_request('1.0', 'antdigital.aiosproduct.gwchildinsurance.recommendationplandetail.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def query_gwchildinsurance_recommendationplandetail_ex_async(
+        self,
+        request: aiosproduct_models.QueryGwchildinsuranceRecommendationplandetailRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> aiosproduct_models.QueryGwchildinsuranceRecommendationplandetailResponse:
+        """
+        Description: 查询推荐方案详情
+        Summary: 查询推荐方案详情
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            aiosproduct_models.QueryGwchildinsuranceRecommendationplandetailResponse(),
+            await self.do_request_async('1.0', 'antdigital.aiosproduct.gwchildinsurance.recommendationplandetail.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def save_gwchildinsurance_recommendationplanadjust(
+        self,
+        request: aiosproduct_models.SaveGwchildinsuranceRecommendationplanadjustRequest,
+    ) -> aiosproduct_models.SaveGwchildinsuranceRecommendationplanadjustResponse:
+        """
+        Description: 保存H5调整后的方案版本
+        Summary: 保存H5调整后的方案版本
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.save_gwchildinsurance_recommendationplanadjust_ex(request, headers, runtime)
+
+    async def save_gwchildinsurance_recommendationplanadjust_async(
+        self,
+        request: aiosproduct_models.SaveGwchildinsuranceRecommendationplanadjustRequest,
+    ) -> aiosproduct_models.SaveGwchildinsuranceRecommendationplanadjustResponse:
+        """
+        Description: 保存H5调整后的方案版本
+        Summary: 保存H5调整后的方案版本
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.save_gwchildinsurance_recommendationplanadjust_ex_async(request, headers, runtime)
+
+    def save_gwchildinsurance_recommendationplanadjust_ex(
+        self,
+        request: aiosproduct_models.SaveGwchildinsuranceRecommendationplanadjustRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> aiosproduct_models.SaveGwchildinsuranceRecommendationplanadjustResponse:
+        """
+        Description: 保存H5调整后的方案版本
+        Summary: 保存H5调整后的方案版本
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            aiosproduct_models.SaveGwchildinsuranceRecommendationplanadjustResponse(),
+            self.do_request('1.0', 'antdigital.aiosproduct.gwchildinsurance.recommendationplanadjust.save', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def save_gwchildinsurance_recommendationplanadjust_ex_async(
+        self,
+        request: aiosproduct_models.SaveGwchildinsuranceRecommendationplanadjustRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> aiosproduct_models.SaveGwchildinsuranceRecommendationplanadjustResponse:
+        """
+        Description: 保存H5调整后的方案版本
+        Summary: 保存H5调整后的方案版本
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            aiosproduct_models.SaveGwchildinsuranceRecommendationplanadjustResponse(),
+            await self.do_request_async('1.0', 'antdigital.aiosproduct.gwchildinsurance.recommendationplanadjust.save', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def save_gwchildinsurance_recommendationplanconfirm(
+        self,
+        request: aiosproduct_models.SaveGwchildinsuranceRecommendationplanconfirmRequest,
+    ) -> aiosproduct_models.SaveGwchildinsuranceRecommendationplanconfirmResponse:
+        """
+        Description: 确认方案及最终价格
+        Summary: 确认方案及最终价格
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.save_gwchildinsurance_recommendationplanconfirm_ex(request, headers, runtime)
+
+    async def save_gwchildinsurance_recommendationplanconfirm_async(
+        self,
+        request: aiosproduct_models.SaveGwchildinsuranceRecommendationplanconfirmRequest,
+    ) -> aiosproduct_models.SaveGwchildinsuranceRecommendationplanconfirmResponse:
+        """
+        Description: 确认方案及最终价格
+        Summary: 确认方案及最终价格
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.save_gwchildinsurance_recommendationplanconfirm_ex_async(request, headers, runtime)
+
+    def save_gwchildinsurance_recommendationplanconfirm_ex(
+        self,
+        request: aiosproduct_models.SaveGwchildinsuranceRecommendationplanconfirmRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> aiosproduct_models.SaveGwchildinsuranceRecommendationplanconfirmResponse:
+        """
+        Description: 确认方案及最终价格
+        Summary: 确认方案及最终价格
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            aiosproduct_models.SaveGwchildinsuranceRecommendationplanconfirmResponse(),
+            self.do_request('1.0', 'antdigital.aiosproduct.gwchildinsurance.recommendationplanconfirm.save', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def save_gwchildinsurance_recommendationplanconfirm_ex_async(
+        self,
+        request: aiosproduct_models.SaveGwchildinsuranceRecommendationplanconfirmRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> aiosproduct_models.SaveGwchildinsuranceRecommendationplanconfirmResponse:
+        """
+        Description: 确认方案及最终价格
+        Summary: 确认方案及最终价格
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            aiosproduct_models.SaveGwchildinsuranceRecommendationplanconfirmResponse(),
+            await self.do_request_async('1.0', 'antdigital.aiosproduct.gwchildinsurance.recommendationplanconfirm.save', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def query_gwchildinsurance_recommendationplanhistory(
+        self,
+        request: aiosproduct_models.QueryGwchildinsuranceRecommendationplanhistoryRequest,
+    ) -> aiosproduct_models.QueryGwchildinsuranceRecommendationplanhistoryResponse:
+        """
+        Description: 查询历史推荐方案
+        Summary: 查询历史推荐方案
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.query_gwchildinsurance_recommendationplanhistory_ex(request, headers, runtime)
+
+    async def query_gwchildinsurance_recommendationplanhistory_async(
+        self,
+        request: aiosproduct_models.QueryGwchildinsuranceRecommendationplanhistoryRequest,
+    ) -> aiosproduct_models.QueryGwchildinsuranceRecommendationplanhistoryResponse:
+        """
+        Description: 查询历史推荐方案
+        Summary: 查询历史推荐方案
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.query_gwchildinsurance_recommendationplanhistory_ex_async(request, headers, runtime)
+
+    def query_gwchildinsurance_recommendationplanhistory_ex(
+        self,
+        request: aiosproduct_models.QueryGwchildinsuranceRecommendationplanhistoryRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> aiosproduct_models.QueryGwchildinsuranceRecommendationplanhistoryResponse:
+        """
+        Description: 查询历史推荐方案
+        Summary: 查询历史推荐方案
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            aiosproduct_models.QueryGwchildinsuranceRecommendationplanhistoryResponse(),
+            self.do_request('1.0', 'antdigital.aiosproduct.gwchildinsurance.recommendationplanhistory.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def query_gwchildinsurance_recommendationplanhistory_ex_async(
+        self,
+        request: aiosproduct_models.QueryGwchildinsuranceRecommendationplanhistoryRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> aiosproduct_models.QueryGwchildinsuranceRecommendationplanhistoryResponse:
+        """
+        Description: 查询历史推荐方案
+        Summary: 查询历史推荐方案
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            aiosproduct_models.QueryGwchildinsuranceRecommendationplanhistoryResponse(),
+            await self.do_request_async('1.0', 'antdigital.aiosproduct.gwchildinsurance.recommendationplanhistory.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def save_gwchildinsurance_activetarget(
+        self,
+        request: aiosproduct_models.SaveGwchildinsuranceActivetargetRequest,
+    ) -> aiosproduct_models.SaveGwchildinsuranceActivetargetResponse:
+        """
+        Description: 少儿保险当前孩子设置
+        Summary: 少儿保险当前孩子设置
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.save_gwchildinsurance_activetarget_ex(request, headers, runtime)
+
+    async def save_gwchildinsurance_activetarget_async(
+        self,
+        request: aiosproduct_models.SaveGwchildinsuranceActivetargetRequest,
+    ) -> aiosproduct_models.SaveGwchildinsuranceActivetargetResponse:
+        """
+        Description: 少儿保险当前孩子设置
+        Summary: 少儿保险当前孩子设置
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.save_gwchildinsurance_activetarget_ex_async(request, headers, runtime)
+
+    def save_gwchildinsurance_activetarget_ex(
+        self,
+        request: aiosproduct_models.SaveGwchildinsuranceActivetargetRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> aiosproduct_models.SaveGwchildinsuranceActivetargetResponse:
+        """
+        Description: 少儿保险当前孩子设置
+        Summary: 少儿保险当前孩子设置
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            aiosproduct_models.SaveGwchildinsuranceActivetargetResponse(),
+            self.do_request('1.0', 'antdigital.aiosproduct.gwchildinsurance.activetarget.save', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def save_gwchildinsurance_activetarget_ex_async(
+        self,
+        request: aiosproduct_models.SaveGwchildinsuranceActivetargetRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> aiosproduct_models.SaveGwchildinsuranceActivetargetResponse:
+        """
+        Description: 少儿保险当前孩子设置
+        Summary: 少儿保险当前孩子设置
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            aiosproduct_models.SaveGwchildinsuranceActivetargetResponse(),
+            await self.do_request_async('1.0', 'antdigital.aiosproduct.gwchildinsurance.activetarget.save', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def query_gwchildinsurance_activetarget(
+        self,
+        request: aiosproduct_models.QueryGwchildinsuranceActivetargetRequest,
+    ) -> aiosproduct_models.QueryGwchildinsuranceActivetargetResponse:
+        """
+        Description: 少儿保险当前孩子查询
+        Summary: 少儿保险当前孩子查询
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.query_gwchildinsurance_activetarget_ex(request, headers, runtime)
+
+    async def query_gwchildinsurance_activetarget_async(
+        self,
+        request: aiosproduct_models.QueryGwchildinsuranceActivetargetRequest,
+    ) -> aiosproduct_models.QueryGwchildinsuranceActivetargetResponse:
+        """
+        Description: 少儿保险当前孩子查询
+        Summary: 少儿保险当前孩子查询
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.query_gwchildinsurance_activetarget_ex_async(request, headers, runtime)
+
+    def query_gwchildinsurance_activetarget_ex(
+        self,
+        request: aiosproduct_models.QueryGwchildinsuranceActivetargetRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> aiosproduct_models.QueryGwchildinsuranceActivetargetResponse:
+        """
+        Description: 少儿保险当前孩子查询
+        Summary: 少儿保险当前孩子查询
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            aiosproduct_models.QueryGwchildinsuranceActivetargetResponse(),
+            self.do_request('1.0', 'antdigital.aiosproduct.gwchildinsurance.activetarget.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def query_gwchildinsurance_activetarget_ex_async(
+        self,
+        request: aiosproduct_models.QueryGwchildinsuranceActivetargetRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> aiosproduct_models.QueryGwchildinsuranceActivetargetResponse:
+        """
+        Description: 少儿保险当前孩子查询
+        Summary: 少儿保险当前孩子查询
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            aiosproduct_models.QueryGwchildinsuranceActivetargetResponse(),
+            await self.do_request_async('1.0', 'antdigital.aiosproduct.gwchildinsurance.activetarget.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def query_gwchildinsurance_recommendationcandidate(
+        self,
+        request: aiosproduct_models.QueryGwchildinsuranceRecommendationcandidateRequest,
+    ) -> aiosproduct_models.QueryGwchildinsuranceRecommendationcandidateResponse:
+        """
+        Description: 少儿保险推荐候选详情查询
+        Summary: 少儿保险推荐候选详情查询
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.query_gwchildinsurance_recommendationcandidate_ex(request, headers, runtime)
+
+    async def query_gwchildinsurance_recommendationcandidate_async(
+        self,
+        request: aiosproduct_models.QueryGwchildinsuranceRecommendationcandidateRequest,
+    ) -> aiosproduct_models.QueryGwchildinsuranceRecommendationcandidateResponse:
+        """
+        Description: 少儿保险推荐候选详情查询
+        Summary: 少儿保险推荐候选详情查询
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.query_gwchildinsurance_recommendationcandidate_ex_async(request, headers, runtime)
+
+    def query_gwchildinsurance_recommendationcandidate_ex(
+        self,
+        request: aiosproduct_models.QueryGwchildinsuranceRecommendationcandidateRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> aiosproduct_models.QueryGwchildinsuranceRecommendationcandidateResponse:
+        """
+        Description: 少儿保险推荐候选详情查询
+        Summary: 少儿保险推荐候选详情查询
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            aiosproduct_models.QueryGwchildinsuranceRecommendationcandidateResponse(),
+            self.do_request('1.0', 'antdigital.aiosproduct.gwchildinsurance.recommendationcandidate.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def query_gwchildinsurance_recommendationcandidate_ex_async(
+        self,
+        request: aiosproduct_models.QueryGwchildinsuranceRecommendationcandidateRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> aiosproduct_models.QueryGwchildinsuranceRecommendationcandidateResponse:
+        """
+        Description: 少儿保险推荐候选详情查询
+        Summary: 少儿保险推荐候选详情查询
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            aiosproduct_models.QueryGwchildinsuranceRecommendationcandidateResponse(),
+            await self.do_request_async('1.0', 'antdigital.aiosproduct.gwchildinsurance.recommendationcandidate.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def reset_gwchildinsurance_recommendationcandidate(
+        self,
+        request: aiosproduct_models.ResetGwchildinsuranceRecommendationcandidateRequest,
+    ) -> aiosproduct_models.ResetGwchildinsuranceRecommendationcandidateResponse:
+        """
+        Description: 选择预览
+        Summary: 选择预览
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.reset_gwchildinsurance_recommendationcandidate_ex(request, headers, runtime)
+
+    async def reset_gwchildinsurance_recommendationcandidate_async(
+        self,
+        request: aiosproduct_models.ResetGwchildinsuranceRecommendationcandidateRequest,
+    ) -> aiosproduct_models.ResetGwchildinsuranceRecommendationcandidateResponse:
+        """
+        Description: 选择预览
+        Summary: 选择预览
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.reset_gwchildinsurance_recommendationcandidate_ex_async(request, headers, runtime)
+
+    def reset_gwchildinsurance_recommendationcandidate_ex(
+        self,
+        request: aiosproduct_models.ResetGwchildinsuranceRecommendationcandidateRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> aiosproduct_models.ResetGwchildinsuranceRecommendationcandidateResponse:
+        """
+        Description: 选择预览
+        Summary: 选择预览
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            aiosproduct_models.ResetGwchildinsuranceRecommendationcandidateResponse(),
+            self.do_request('1.0', 'antdigital.aiosproduct.gwchildinsurance.recommendationcandidate.reset', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def reset_gwchildinsurance_recommendationcandidate_ex_async(
+        self,
+        request: aiosproduct_models.ResetGwchildinsuranceRecommendationcandidateRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> aiosproduct_models.ResetGwchildinsuranceRecommendationcandidateResponse:
+        """
+        Description: 选择预览
+        Summary: 选择预览
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            aiosproduct_models.ResetGwchildinsuranceRecommendationcandidateResponse(),
+            await self.do_request_async('1.0', 'antdigital.aiosproduct.gwchildinsurance.recommendationcandidate.reset', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def query_gwchildinsurance_compareproductlist(
+        self,
+        request: aiosproduct_models.QueryGwchildinsuranceCompareproductlistRequest,
+    ) -> aiosproduct_models.QueryGwchildinsuranceCompareproductlistResponse:
+        """
+        Description: 商品对比列表查询
+        Summary: 商品对比列表查询
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.query_gwchildinsurance_compareproductlist_ex(request, headers, runtime)
+
+    async def query_gwchildinsurance_compareproductlist_async(
+        self,
+        request: aiosproduct_models.QueryGwchildinsuranceCompareproductlistRequest,
+    ) -> aiosproduct_models.QueryGwchildinsuranceCompareproductlistResponse:
+        """
+        Description: 商品对比列表查询
+        Summary: 商品对比列表查询
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.query_gwchildinsurance_compareproductlist_ex_async(request, headers, runtime)
+
+    def query_gwchildinsurance_compareproductlist_ex(
+        self,
+        request: aiosproduct_models.QueryGwchildinsuranceCompareproductlistRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> aiosproduct_models.QueryGwchildinsuranceCompareproductlistResponse:
+        """
+        Description: 商品对比列表查询
+        Summary: 商品对比列表查询
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            aiosproduct_models.QueryGwchildinsuranceCompareproductlistResponse(),
+            self.do_request('1.0', 'antdigital.aiosproduct.gwchildinsurance.compareproductlist.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def query_gwchildinsurance_compareproductlist_ex_async(
+        self,
+        request: aiosproduct_models.QueryGwchildinsuranceCompareproductlistRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> aiosproduct_models.QueryGwchildinsuranceCompareproductlistResponse:
+        """
+        Description: 商品对比列表查询
+        Summary: 商品对比列表查询
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            aiosproduct_models.QueryGwchildinsuranceCompareproductlistResponse(),
+            await self.do_request_async('1.0', 'antdigital.aiosproduct.gwchildinsurance.compareproductlist.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def query_gwchildinsurance_compareproductdetail(
+        self,
+        request: aiosproduct_models.QueryGwchildinsuranceCompareproductdetailRequest,
+    ) -> aiosproduct_models.QueryGwchildinsuranceCompareproductdetailResponse:
+        """
+        Description: 商品对比详情查询
+        Summary: 商品对比详情查询
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.query_gwchildinsurance_compareproductdetail_ex(request, headers, runtime)
+
+    async def query_gwchildinsurance_compareproductdetail_async(
+        self,
+        request: aiosproduct_models.QueryGwchildinsuranceCompareproductdetailRequest,
+    ) -> aiosproduct_models.QueryGwchildinsuranceCompareproductdetailResponse:
+        """
+        Description: 商品对比详情查询
+        Summary: 商品对比详情查询
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.query_gwchildinsurance_compareproductdetail_ex_async(request, headers, runtime)
+
+    def query_gwchildinsurance_compareproductdetail_ex(
+        self,
+        request: aiosproduct_models.QueryGwchildinsuranceCompareproductdetailRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> aiosproduct_models.QueryGwchildinsuranceCompareproductdetailResponse:
+        """
+        Description: 商品对比详情查询
+        Summary: 商品对比详情查询
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            aiosproduct_models.QueryGwchildinsuranceCompareproductdetailResponse(),
+            self.do_request('1.0', 'antdigital.aiosproduct.gwchildinsurance.compareproductdetail.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def query_gwchildinsurance_compareproductdetail_ex_async(
+        self,
+        request: aiosproduct_models.QueryGwchildinsuranceCompareproductdetailRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> aiosproduct_models.QueryGwchildinsuranceCompareproductdetailResponse:
+        """
+        Description: 商品对比详情查询
+        Summary: 商品对比详情查询
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            aiosproduct_models.QueryGwchildinsuranceCompareproductdetailResponse(),
+            await self.do_request_async('1.0', 'antdigital.aiosproduct.gwchildinsurance.compareproductdetail.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def query_gwchildinsurance_compareproductlistids(
+        self,
+        request: aiosproduct_models.QueryGwchildinsuranceCompareproductlistidsRequest,
+    ) -> aiosproduct_models.QueryGwchildinsuranceCompareproductlistidsResponse:
+        """
+        Description: 产品对比 ID 列表查询
+        Summary: 产品对比 ID 列表查询
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.query_gwchildinsurance_compareproductlistids_ex(request, headers, runtime)
+
+    async def query_gwchildinsurance_compareproductlistids_async(
+        self,
+        request: aiosproduct_models.QueryGwchildinsuranceCompareproductlistidsRequest,
+    ) -> aiosproduct_models.QueryGwchildinsuranceCompareproductlistidsResponse:
+        """
+        Description: 产品对比 ID 列表查询
+        Summary: 产品对比 ID 列表查询
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.query_gwchildinsurance_compareproductlistids_ex_async(request, headers, runtime)
+
+    def query_gwchildinsurance_compareproductlistids_ex(
+        self,
+        request: aiosproduct_models.QueryGwchildinsuranceCompareproductlistidsRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> aiosproduct_models.QueryGwchildinsuranceCompareproductlistidsResponse:
+        """
+        Description: 产品对比 ID 列表查询
+        Summary: 产品对比 ID 列表查询
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            aiosproduct_models.QueryGwchildinsuranceCompareproductlistidsResponse(),
+            self.do_request('1.0', 'antdigital.aiosproduct.gwchildinsurance.compareproductlistids.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def query_gwchildinsurance_compareproductlistids_ex_async(
+        self,
+        request: aiosproduct_models.QueryGwchildinsuranceCompareproductlistidsRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> aiosproduct_models.QueryGwchildinsuranceCompareproductlistidsResponse:
+        """
+        Description: 产品对比 ID 列表查询
+        Summary: 产品对比 ID 列表查询
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            aiosproduct_models.QueryGwchildinsuranceCompareproductlistidsResponse(),
+            await self.do_request_async('1.0', 'antdigital.aiosproduct.gwchildinsurance.compareproductlistids.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def query_gwchildinsurance_compareproductbyids(
+        self,
+        request: aiosproduct_models.QueryGwchildinsuranceCompareproductbyidsRequest,
+    ) -> aiosproduct_models.QueryGwchildinsuranceCompareproductbyidsResponse:
+        """
+        Description: 按 ID 获取产品对比数据
+        Summary: 按 ID 获取产品对比数据
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.query_gwchildinsurance_compareproductbyids_ex(request, headers, runtime)
+
+    async def query_gwchildinsurance_compareproductbyids_async(
+        self,
+        request: aiosproduct_models.QueryGwchildinsuranceCompareproductbyidsRequest,
+    ) -> aiosproduct_models.QueryGwchildinsuranceCompareproductbyidsResponse:
+        """
+        Description: 按 ID 获取产品对比数据
+        Summary: 按 ID 获取产品对比数据
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.query_gwchildinsurance_compareproductbyids_ex_async(request, headers, runtime)
+
+    def query_gwchildinsurance_compareproductbyids_ex(
+        self,
+        request: aiosproduct_models.QueryGwchildinsuranceCompareproductbyidsRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> aiosproduct_models.QueryGwchildinsuranceCompareproductbyidsResponse:
+        """
+        Description: 按 ID 获取产品对比数据
+        Summary: 按 ID 获取产品对比数据
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            aiosproduct_models.QueryGwchildinsuranceCompareproductbyidsResponse(),
+            self.do_request('1.0', 'antdigital.aiosproduct.gwchildinsurance.compareproductbyids.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def query_gwchildinsurance_compareproductbyids_ex_async(
+        self,
+        request: aiosproduct_models.QueryGwchildinsuranceCompareproductbyidsRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> aiosproduct_models.QueryGwchildinsuranceCompareproductbyidsResponse:
+        """
+        Description: 按 ID 获取产品对比数据
+        Summary: 按 ID 获取产品对比数据
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            aiosproduct_models.QueryGwchildinsuranceCompareproductbyidsResponse(),
+            await self.do_request_async('1.0', 'antdigital.aiosproduct.gwchildinsurance.compareproductbyids.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def detail_gwchildinsurance_optionalresponsibilityplan(
+        self,
+        request: aiosproduct_models.DetailGwchildinsuranceOptionalresponsibilityplanRequest,
+    ) -> aiosproduct_models.DetailGwchildinsuranceOptionalresponsibilityplanResponse:
+        """
+        Description: 可选责任计划详情查询
+        Summary: 可选责任计划详情查询
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.detail_gwchildinsurance_optionalresponsibilityplan_ex(request, headers, runtime)
+
+    async def detail_gwchildinsurance_optionalresponsibilityplan_async(
+        self,
+        request: aiosproduct_models.DetailGwchildinsuranceOptionalresponsibilityplanRequest,
+    ) -> aiosproduct_models.DetailGwchildinsuranceOptionalresponsibilityplanResponse:
+        """
+        Description: 可选责任计划详情查询
+        Summary: 可选责任计划详情查询
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.detail_gwchildinsurance_optionalresponsibilityplan_ex_async(request, headers, runtime)
+
+    def detail_gwchildinsurance_optionalresponsibilityplan_ex(
+        self,
+        request: aiosproduct_models.DetailGwchildinsuranceOptionalresponsibilityplanRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> aiosproduct_models.DetailGwchildinsuranceOptionalresponsibilityplanResponse:
+        """
+        Description: 可选责任计划详情查询
+        Summary: 可选责任计划详情查询
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            aiosproduct_models.DetailGwchildinsuranceOptionalresponsibilityplanResponse(),
+            self.do_request('1.0', 'antdigital.aiosproduct.gwchildinsurance.optionalresponsibilityplan.detail', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def detail_gwchildinsurance_optionalresponsibilityplan_ex_async(
+        self,
+        request: aiosproduct_models.DetailGwchildinsuranceOptionalresponsibilityplanRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> aiosproduct_models.DetailGwchildinsuranceOptionalresponsibilityplanResponse:
+        """
+        Description: 可选责任计划详情查询
+        Summary: 可选责任计划详情查询
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            aiosproduct_models.DetailGwchildinsuranceOptionalresponsibilityplanResponse(),
+            await self.do_request_async('1.0', 'antdigital.aiosproduct.gwchildinsurance.optionalresponsibilityplan.detail', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def resolve_gwchildinsurance_optionalresponsibilityplan(
+        self,
+        request: aiosproduct_models.ResolveGwchildinsuranceOptionalresponsibilityplanRequest,
+    ) -> aiosproduct_models.ResolveGwchildinsuranceOptionalresponsibilityplanResponse:
+        """
+        Description: 可选责任计划按因子反查
+        Summary: 可选责任计划按因子反查
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.resolve_gwchildinsurance_optionalresponsibilityplan_ex(request, headers, runtime)
+
+    async def resolve_gwchildinsurance_optionalresponsibilityplan_async(
+        self,
+        request: aiosproduct_models.ResolveGwchildinsuranceOptionalresponsibilityplanRequest,
+    ) -> aiosproduct_models.ResolveGwchildinsuranceOptionalresponsibilityplanResponse:
+        """
+        Description: 可选责任计划按因子反查
+        Summary: 可选责任计划按因子反查
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.resolve_gwchildinsurance_optionalresponsibilityplan_ex_async(request, headers, runtime)
+
+    def resolve_gwchildinsurance_optionalresponsibilityplan_ex(
+        self,
+        request: aiosproduct_models.ResolveGwchildinsuranceOptionalresponsibilityplanRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> aiosproduct_models.ResolveGwchildinsuranceOptionalresponsibilityplanResponse:
+        """
+        Description: 可选责任计划按因子反查
+        Summary: 可选责任计划按因子反查
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            aiosproduct_models.ResolveGwchildinsuranceOptionalresponsibilityplanResponse(),
+            self.do_request('1.0', 'antdigital.aiosproduct.gwchildinsurance.optionalresponsibilityplan.resolve', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def resolve_gwchildinsurance_optionalresponsibilityplan_ex_async(
+        self,
+        request: aiosproduct_models.ResolveGwchildinsuranceOptionalresponsibilityplanRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> aiosproduct_models.ResolveGwchildinsuranceOptionalresponsibilityplanResponse:
+        """
+        Description: 可选责任计划按因子反查
+        Summary: 可选责任计划按因子反查
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            aiosproduct_models.ResolveGwchildinsuranceOptionalresponsibilityplanResponse(),
+            await self.do_request_async('1.0', 'antdigital.aiosproduct.gwchildinsurance.optionalresponsibilityplan.resolve', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
