@@ -635,6 +635,11 @@ type FundItemDetail struct {
 	//
 	// xxx
 	MerchantId *string `json:"merchant_id,omitempty" xml:"merchant_id,omitempty" require:"true"`
+	// 原支付金额
+	// example:
+	//
+	// 199.68
+	OriginalAmount *string `json:"original_amount,omitempty" xml:"original_amount,omitempty" require:"true"`
 }
 
 func (s FundItemDetail) String() string {
@@ -667,6 +672,11 @@ func (s *FundItemDetail) SetFrozenAmount(v string) *FundItemDetail {
 
 func (s *FundItemDetail) SetMerchantId(v string) *FundItemDetail {
 	s.MerchantId = &v
+	return s
+}
+
+func (s *FundItemDetail) SetOriginalAmount(v string) *FundItemDetail {
+	s.OriginalAmount = &v
 	return s
 }
 
@@ -47587,7 +47597,7 @@ func (client *Client) DoRequest(version *string, action *string, protocol *strin
 				"req_msg_id":       antchainutil.GetNonce(),
 				"access_key":       client.AccessKeyId,
 				"base_sdk_version": tea.String("TeaSDK-2.0"),
-				"sdk_version":      tea.String("1.33.1"),
+				"sdk_version":      tea.String("1.33.2"),
 				"_prod_code":       tea.String("RISKPLUS"),
 				"_prod_channel":    tea.String("undefined"),
 			}
