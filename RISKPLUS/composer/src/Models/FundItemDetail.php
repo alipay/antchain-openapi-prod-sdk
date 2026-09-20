@@ -12,6 +12,7 @@ class FundItemDetail extends Model {
         'canRefundAmount' => 'can_refund_amount',
         'frozenAmount' => 'frozen_amount',
         'merchantId' => 'merchant_id',
+        'originalAmount' => 'original_amount',
     ];
     public function validate() {
         Model::validateRequired('fundType', $this->fundType, true);
@@ -19,6 +20,7 @@ class FundItemDetail extends Model {
         Model::validateRequired('canRefundAmount', $this->canRefundAmount, true);
         Model::validateRequired('frozenAmount', $this->frozenAmount, true);
         Model::validateRequired('merchantId', $this->merchantId, true);
+        Model::validateRequired('originalAmount', $this->originalAmount, true);
     }
     public function toMap() {
         $res = [];
@@ -36,6 +38,9 @@ class FundItemDetail extends Model {
         }
         if (null !== $this->merchantId) {
             $res['merchant_id'] = $this->merchantId;
+        }
+        if (null !== $this->originalAmount) {
+            $res['original_amount'] = $this->originalAmount;
         }
         return $res;
     }
@@ -59,6 +64,9 @@ class FundItemDetail extends Model {
         }
         if(isset($map['merchant_id'])){
             $model->merchantId = $map['merchant_id'];
+        }
+        if(isset($map['original_amount'])){
+            $model->originalAmount = $map['original_amount'];
         }
         return $model;
     }
@@ -96,5 +104,12 @@ class FundItemDetail extends Model {
      * @var string
      */
     public $merchantId;
+
+    // 原支付金额
+    /**
+     * @example 199.68
+     * @var string
+     */
+    public $originalAmount;
 
 }
