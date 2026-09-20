@@ -27,7 +27,6 @@ public class NotifyPoiRefundRequest extends TeaModel {
 
     // 商城部分退款金额
     @NameInMap("mall_refund_amount")
-    @Validation(required = true)
     public String mallRefundAmount;
 
     // 退款状态：SUCCESS / FAILED（FAILED时金额恢复可用余额）

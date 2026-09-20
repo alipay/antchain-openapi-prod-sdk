@@ -39,6 +39,15 @@ public class FundItem extends TeaModel {
     @Validation(required = true)
     public String frozenAmount;
 
+    // 原价
+    /**
+     * <strong>example:</strong>
+     * <p>300.00</p>
+     */
+    @NameInMap("original_amount")
+    @Validation(required = true)
+    public String originalAmount;
+
     public static FundItem build(java.util.Map<String, ?> map) throws Exception {
         FundItem self = new FundItem();
         return TeaModel.build(map, self);
@@ -74,6 +83,14 @@ public class FundItem extends TeaModel {
     }
     public String getFrozenAmount() {
         return this.frozenAmount;
+    }
+
+    public FundItem setOriginalAmount(String originalAmount) {
+        this.originalAmount = originalAmount;
+        return this;
+    }
+    public String getOriginalAmount() {
+        return this.originalAmount;
     }
 
 }
