@@ -55,6 +55,15 @@ namespace AntChain.SDK.RISKPLUS.Models
         [Validation(Required=true)]
         public string MerchantId { get; set; }
 
+        // 原支付金额
+        /// <summary>
+        /// <b>Example:</b>
+        /// <para>199.68</para>
+        /// </summary>
+        [NameInMap("original_amount")]
+        [Validation(Required=true)]
+        public string OriginalAmount { get; set; }
+
     }
 
 }
