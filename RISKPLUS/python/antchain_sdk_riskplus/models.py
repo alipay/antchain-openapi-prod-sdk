@@ -605,6 +605,7 @@ class FundItemDetail(TeaModel):
         can_refund_amount: str = None,
         frozen_amount: str = None,
         merchant_id: str = None,
+        original_amount: str = None,
     ):
         # 账户类型，PET-活体、GOODS-商品、POINT_PACKAGE-积分包（储值卡）
         self.fund_type = fund_type
@@ -616,6 +617,8 @@ class FundItemDetail(TeaModel):
         self.frozen_amount = frozen_amount
         # 账户归属的入驻id
         self.merchant_id = merchant_id
+        # 原支付金额
+        self.original_amount = original_amount
 
     def validate(self):
         self.validate_required(self.fund_type, 'fund_type')
@@ -623,6 +626,7 @@ class FundItemDetail(TeaModel):
         self.validate_required(self.can_refund_amount, 'can_refund_amount')
         self.validate_required(self.frozen_amount, 'frozen_amount')
         self.validate_required(self.merchant_id, 'merchant_id')
+        self.validate_required(self.original_amount, 'original_amount')
 
     def to_map(self):
         _map = super().to_map()
@@ -640,6 +644,8 @@ class FundItemDetail(TeaModel):
             result['frozen_amount'] = self.frozen_amount
         if self.merchant_id is not None:
             result['merchant_id'] = self.merchant_id
+        if self.original_amount is not None:
+            result['original_amount'] = self.original_amount
         return result
 
     def from_map(self, m: dict = None):
@@ -654,6 +660,8 @@ class FundItemDetail(TeaModel):
             self.frozen_amount = m.get('frozen_amount')
         if m.get('merchant_id') is not None:
             self.merchant_id = m.get('merchant_id')
+        if m.get('original_amount') is not None:
+            self.original_amount = m.get('original_amount')
         return self
 
 
