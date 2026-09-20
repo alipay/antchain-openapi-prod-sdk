@@ -623,6 +623,12 @@ export class FundItemDetail extends $tea.Model {
    * xxx
    */
   merchantId: string;
+  // 原支付金额
+  /**
+   * @example
+   * 199.68
+   */
+  originalAmount: string;
   static names(): { [key: string]: string } {
     return {
       fundType: 'fund_type',
@@ -630,6 +636,7 @@ export class FundItemDetail extends $tea.Model {
       canRefundAmount: 'can_refund_amount',
       frozenAmount: 'frozen_amount',
       merchantId: 'merchant_id',
+      originalAmount: 'original_amount',
     };
   }
 
@@ -640,6 +647,7 @@ export class FundItemDetail extends $tea.Model {
       canRefundAmount: 'string',
       frozenAmount: 'string',
       merchantId: 'string',
+      originalAmount: 'string',
     };
   }
 
@@ -37413,7 +37421,7 @@ export default class Client {
           req_msg_id: AntchainUtil.getNonce(),
           access_key: this._accessKeyId,
           base_sdk_version: "TeaSDK-2.0",
-          sdk_version: "1.33.1",
+          sdk_version: "1.33.2",
           _prod_code: "RISKPLUS",
           _prod_channel: "undefined",
         };
