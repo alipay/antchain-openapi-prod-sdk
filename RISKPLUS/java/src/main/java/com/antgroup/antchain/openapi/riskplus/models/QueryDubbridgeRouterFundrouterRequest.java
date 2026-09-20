@@ -102,6 +102,10 @@ public class QueryDubbridgeRouterFundrouterRequest extends TeaModel {
     @NameInMap("ext_info")
     public String extInfo;
 
+    // 商户入驻id
+    @NameInMap("merchant_external_id")
+    public String merchantExternalId;
+
     public static QueryDubbridgeRouterFundrouterRequest build(java.util.Map<String, ?> map) throws Exception {
         QueryDubbridgeRouterFundrouterRequest self = new QueryDubbridgeRouterFundrouterRequest();
         return TeaModel.build(map, self);
@@ -289,6 +293,14 @@ public class QueryDubbridgeRouterFundrouterRequest extends TeaModel {
     }
     public String getExtInfo() {
         return this.extInfo;
+    }
+
+    public QueryDubbridgeRouterFundrouterRequest setMerchantExternalId(String merchantExternalId) {
+        this.merchantExternalId = merchantExternalId;
+        return this;
+    }
+    public String getMerchantExternalId() {
+        return this.merchantExternalId;
     }
 
 }

@@ -126,7 +126,7 @@ public class Client {
                     new TeaPair("req_msg_id", com.antgroup.antchain.openapi.antchain.util.AntchainUtils.getNonce()),
                     new TeaPair("access_key", _accessKeyId),
                     new TeaPair("base_sdk_version", "TeaSDK-2.0"),
-                    new TeaPair("sdk_version", "1.33.2"),
+                    new TeaPair("sdk_version", "1.33.3"),
                     new TeaPair("_prod_code", "RISKPLUS"),
                     new TeaPair("_prod_channel", "undefined")
                 );
@@ -1052,7 +1052,7 @@ public class Client {
     /**
      * <b>description</b> :
      * <p>Description: 资金路由接口，获取资金方编号
-     * Summary: 天枢系统资金方代码(资金路由)查询</p>
+     * Summary: 资金路由接口，获取资金方编号</p>
      */
     public QueryDubbridgeRouterFundrouterResponse queryDubbridgeRouterFundrouter(QueryDubbridgeRouterFundrouterRequest request) throws Exception {
         com.aliyun.teautil.models.RuntimeOptions runtime = new com.aliyun.teautil.models.RuntimeOptions();
@@ -1063,7 +1063,7 @@ public class Client {
     /**
      * <b>description</b> :
      * <p>Description: 资金路由接口，获取资金方编号
-     * Summary: 天枢系统资金方代码(资金路由)查询</p>
+     * Summary: 资金路由接口，获取资金方编号</p>
      */
     public QueryDubbridgeRouterFundrouterResponse queryDubbridgeRouterFundrouterEx(QueryDubbridgeRouterFundrouterRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
         com.aliyun.teautil.Common.validateModel(request);
@@ -3148,6 +3148,48 @@ public class Client {
     public ApplyDubbridgePetmallorderTransferResponse applyDubbridgePetmallorderTransferEx(ApplyDubbridgePetmallorderTransferRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
         com.aliyun.teautil.Common.validateModel(request);
         return TeaModel.toModel(this.doRequest("1.0", "riskplus.dubbridge.petmallorder.transfer.apply", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new ApplyDubbridgePetmallorderTransferResponse());
+    }
+
+    /**
+     * <b>description</b> :
+     * <p>Description: 跳端地址获取
+     * Summary: 跳端地址获取</p>
+     */
+    public GetDubbridgeJumpurlResponse getDubbridgeJumpurl(GetDubbridgeJumpurlRequest request) throws Exception {
+        com.aliyun.teautil.models.RuntimeOptions runtime = new com.aliyun.teautil.models.RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.getDubbridgeJumpurlEx(request, headers, runtime);
+    }
+
+    /**
+     * <b>description</b> :
+     * <p>Description: 跳端地址获取
+     * Summary: 跳端地址获取</p>
+     */
+    public GetDubbridgeJumpurlResponse getDubbridgeJumpurlEx(GetDubbridgeJumpurlRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "riskplus.dubbridge.jumpurl.get", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new GetDubbridgeJumpurlResponse());
+    }
+
+    /**
+     * <b>description</b> :
+     * <p>Description: 跳端结果查询
+     * Summary: 跳端结果查询</p>
+     */
+    public QueryDubbridgeJumpresultResponse queryDubbridgeJumpresult(QueryDubbridgeJumpresultRequest request) throws Exception {
+        com.aliyun.teautil.models.RuntimeOptions runtime = new com.aliyun.teautil.models.RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.queryDubbridgeJumpresultEx(request, headers, runtime);
+    }
+
+    /**
+     * <b>description</b> :
+     * <p>Description: 跳端结果查询
+     * Summary: 跳端结果查询</p>
+     */
+    public QueryDubbridgeJumpresultResponse queryDubbridgeJumpresultEx(QueryDubbridgeJumpresultRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "riskplus.dubbridge.jumpresult.query", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new QueryDubbridgeJumpresultResponse());
     }
 
     /**

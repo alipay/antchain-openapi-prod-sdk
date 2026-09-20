@@ -91,6 +91,10 @@ public class ApplyDubbridgeCreditRequest extends TeaModel {
     @NameInMap("prod_type")
     public String prodType;
 
+    // 商户入驻id
+    @NameInMap("merchant_external_id")
+    public String merchantExternalId;
+
     public static ApplyDubbridgeCreditRequest build(java.util.Map<String, ?> map) throws Exception {
         ApplyDubbridgeCreditRequest self = new ApplyDubbridgeCreditRequest();
         return TeaModel.build(map, self);
@@ -262,6 +266,14 @@ public class ApplyDubbridgeCreditRequest extends TeaModel {
     }
     public String getProdType() {
         return this.prodType;
+    }
+
+    public ApplyDubbridgeCreditRequest setMerchantExternalId(String merchantExternalId) {
+        this.merchantExternalId = merchantExternalId;
+        return this;
+    }
+    public String getMerchantExternalId() {
+        return this.merchantExternalId;
     }
 
 }
