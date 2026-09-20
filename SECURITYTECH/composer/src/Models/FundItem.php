@@ -11,11 +11,13 @@ class FundItem extends Model {
         'availableAmount' => 'available_amount',
         'canRefundAmount' => 'can_refund_amount',
         'frozenAmount' => 'frozen_amount',
+        'originalAmount' => 'original_amount',
     ];
     public function validate() {
         Model::validateRequired('fundType', $this->fundType, true);
         Model::validateRequired('availableAmount', $this->availableAmount, true);
         Model::validateRequired('frozenAmount', $this->frozenAmount, true);
+        Model::validateRequired('originalAmount', $this->originalAmount, true);
     }
     public function toMap() {
         $res = [];
@@ -30,6 +32,9 @@ class FundItem extends Model {
         }
         if (null !== $this->frozenAmount) {
             $res['frozen_amount'] = $this->frozenAmount;
+        }
+        if (null !== $this->originalAmount) {
+            $res['original_amount'] = $this->originalAmount;
         }
         return $res;
     }
@@ -50,6 +55,9 @@ class FundItem extends Model {
         }
         if(isset($map['frozen_amount'])){
             $model->frozenAmount = $map['frozen_amount'];
+        }
+        if(isset($map['original_amount'])){
+            $model->originalAmount = $map['original_amount'];
         }
         return $model;
     }
@@ -80,5 +88,12 @@ class FundItem extends Model {
      * @var string
      */
     public $frozenAmount;
+
+    // 原价
+    /**
+     * @example 300.00
+     * @var string
+     */
+    public $originalAmount;
 
 }

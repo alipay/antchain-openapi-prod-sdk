@@ -20,7 +20,6 @@ class NotifyPoiRefundRequest extends Model {
     public function validate() {
         Model::validateRequired('refundNo', $this->refundNo, true);
         Model::validateRequired('tradeNo', $this->tradeNo, true);
-        Model::validateRequired('mallRefundAmount', $this->mallRefundAmount, true);
         Model::validateRequired('refundStatus', $this->refundStatus, true);
     }
     public function toMap() {
