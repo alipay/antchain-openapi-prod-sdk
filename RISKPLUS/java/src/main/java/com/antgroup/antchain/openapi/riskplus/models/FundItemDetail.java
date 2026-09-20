@@ -49,6 +49,15 @@ public class FundItemDetail extends TeaModel {
     @Validation(required = true)
     public String merchantId;
 
+    // 原支付金额
+    /**
+     * <strong>example:</strong>
+     * <p>199.68</p>
+     */
+    @NameInMap("original_amount")
+    @Validation(required = true)
+    public String originalAmount;
+
     public static FundItemDetail build(java.util.Map<String, ?> map) throws Exception {
         FundItemDetail self = new FundItemDetail();
         return TeaModel.build(map, self);
@@ -92,6 +101,14 @@ public class FundItemDetail extends TeaModel {
     }
     public String getMerchantId() {
         return this.merchantId;
+    }
+
+    public FundItemDetail setOriginalAmount(String originalAmount) {
+        this.originalAmount = originalAmount;
+        return this;
+    }
+    public String getOriginalAmount() {
+        return this.originalAmount;
     }
 
 }
