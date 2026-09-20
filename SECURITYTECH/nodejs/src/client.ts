@@ -1082,12 +1082,19 @@ export class FundItem extends $tea.Model {
    * 300.00
    */
   frozenAmount: string;
+  // 原价
+  /**
+   * @example
+   * 300.00
+   */
+  originalAmount: string;
   static names(): { [key: string]: string } {
     return {
       fundType: 'fund_type',
       availableAmount: 'available_amount',
       canRefundAmount: 'can_refund_amount',
       frozenAmount: 'frozen_amount',
+      originalAmount: 'original_amount',
     };
   }
 
@@ -1097,6 +1104,7 @@ export class FundItem extends $tea.Model {
       availableAmount: 'string',
       canRefundAmount: 'string',
       frozenAmount: 'string',
+      originalAmount: 'string',
     };
   }
 
@@ -10621,7 +10629,7 @@ export class NotifyPoiRefundRequest extends $tea.Model {
   // 活体部分退款金额（渠道报文）
   petRefundAmount?: string;
   // 商城部分退款金额
-  mallRefundAmount: string;
+  mallRefundAmount?: string;
   // 退款状态：SUCCESS / FAILED（FAILED时金额恢复可用余额）
   refundStatus: string;
   // 买家用户id（商城报文携带）
@@ -14154,7 +14162,7 @@ export default class Client {
           req_msg_id: AntchainUtil.getNonce(),
           access_key: this._accessKeyId,
           base_sdk_version: "TeaSDK-2.0",
-          sdk_version: "1.7.30",
+          sdk_version: "1.7.31",
           _prod_code: "SECURITYTECH",
           _prod_channel: "undefined",
         };
