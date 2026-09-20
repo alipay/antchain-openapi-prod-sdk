@@ -46,6 +46,15 @@ namespace AntChain.SDK.SECURITYTECH.Models
         [Validation(Required=true)]
         public string FrozenAmount { get; set; }
 
+        // 原价
+        /// <summary>
+        /// <b>Example:</b>
+        /// <para>300.00</para>
+        /// </summary>
+        [NameInMap("original_amount")]
+        [Validation(Required=true)]
+        public string OriginalAmount { get; set; }
+
     }
 
 }

@@ -35,7 +35,7 @@ namespace AntChain.SDK.SECURITYTECH.Models
 
         // 商城部分退款金额
         [NameInMap("mall_refund_amount")]
-        [Validation(Required=true)]
+        [Validation(Required=false)]
         public string MallRefundAmount { get; set; }
 
         // 退款状态：SUCCESS / FAILED（FAILED时金额恢复可用余额）
