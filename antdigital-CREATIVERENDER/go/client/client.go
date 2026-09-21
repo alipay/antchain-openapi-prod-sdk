@@ -370,6 +370,208 @@ func (s *AssistantExtra) SetResultUrl(v []*string) *AssistantExtra {
 	return s
 }
 
+// 素材
+type CreativeMaterial struct {
+	// Creative 行业产品代码：FUND / RETAIL，查询时缺省为 RETAIL
+	// example:
+	//
+	// RETAIL
+	ProductCode *string `json:"product_code,omitempty" xml:"product_code,omitempty"`
+	// 素材ID
+	// example:
+	//
+	// d55ad74641ce8895ad1321e8b36c4d70
+	MaterialId *string `json:"material_id,omitempty" xml:"material_id,omitempty"`
+	// 素材类型，如 IMAGE / ANIMATION / FONT
+	// example:
+	//
+	// IMAGE
+	MaterialType *string `json:"material_type,omitempty" xml:"material_type,omitempty"`
+	// 素材形式（SINGLE/PACKAGE）
+	// example:
+	//
+	// SINGLE
+	MaterialForm *string `json:"material_form,omitempty" xml:"material_form,omitempty"`
+	// 父素材ID
+	// example:
+	//
+	// c96a7673a96a4178809f6c0f4da40558
+	ParentMaterialId *string `json:"parent_material_id,omitempty" xml:"parent_material_id,omitempty"`
+	// 是否为封面
+	// example:
+	//
+	// false
+	Cover *bool `json:"cover,omitempty" xml:"cover,omitempty"`
+	// 素材名称
+	// example:
+	//
+	// 海报
+	Name *string `json:"name,omitempty" xml:"name,omitempty"`
+	// 素材文件URL
+	// example:
+	//
+	// creative/20260909/sample.jpg
+	FileUrl *string `json:"file_url,omitempty" xml:"file_url,omitempty"`
+	// 宽度（像素）
+	// example:
+	//
+	// 1080
+	Width *int64 `json:"width,omitempty" xml:"width,omitempty"`
+	// 高度（像素）
+	// example:
+	//
+	// 1920
+	Height *int64 `json:"height,omitempty" xml:"height,omitempty"`
+	// 字体族名（仅 FONT 类型）
+	// example:
+	//
+	// DEMO_FONT
+	FontFamily *string `json:"font_family,omitempty" xml:"font_family,omitempty"`
+	// 使用场景
+	// example:
+	//
+	// BANNER
+	Scene *string `json:"scene,omitempty" xml:"scene,omitempty"`
+	// 素材用途：REFERENCE_STYLE=参考样式，INPUT_ELEMENT=输入元素
+	// example:
+	//
+	// REFERENCE_STYLE
+	MaterialUsage *string `json:"material_usage,omitempty" xml:"material_usage,omitempty"`
+	// RETAIL
+	// example:
+	//
+	// 行业
+	Industry *string `json:"industry,omitempty" xml:"industry,omitempty"`
+	// 投放平台，多个值使用英文逗号分隔
+	// example:
+	//
+	// ALIPAY
+	PublishPlatforms *string `json:"publish_platforms,omitempty" xml:"publish_platforms,omitempty"`
+	// 尺寸类型（16:9、9:16、1:1、4:3、3:4、OTHER）
+	// example:
+	//
+	// 9:16
+	MaterialSizeType *string `json:"material_size_type,omitempty" xml:"material_size_type,omitempty"`
+	// 空间类型：PERSONAL / ENTERPRISE
+	// example:
+	//
+	// ENTERPRISE
+	SpaceType *string `json:"space_type,omitempty" xml:"space_type,omitempty"`
+	// 所有者名称
+	// example:
+	//
+	// name
+	OwnerName *string `json:"owner_name,omitempty" xml:"owner_name,omitempty"`
+	// 创建时间，格式 yyyy-MM-dd HH:mm:ss
+	// example:
+	//
+	// 2026-09-21 12:00:00
+	GmtCreate *string `json:"gmt_create,omitempty" xml:"gmt_create,omitempty"`
+}
+
+func (s CreativeMaterial) String() string {
+	return tea.Prettify(s)
+}
+
+func (s CreativeMaterial) GoString() string {
+	return s.String()
+}
+
+func (s *CreativeMaterial) SetProductCode(v string) *CreativeMaterial {
+	s.ProductCode = &v
+	return s
+}
+
+func (s *CreativeMaterial) SetMaterialId(v string) *CreativeMaterial {
+	s.MaterialId = &v
+	return s
+}
+
+func (s *CreativeMaterial) SetMaterialType(v string) *CreativeMaterial {
+	s.MaterialType = &v
+	return s
+}
+
+func (s *CreativeMaterial) SetMaterialForm(v string) *CreativeMaterial {
+	s.MaterialForm = &v
+	return s
+}
+
+func (s *CreativeMaterial) SetParentMaterialId(v string) *CreativeMaterial {
+	s.ParentMaterialId = &v
+	return s
+}
+
+func (s *CreativeMaterial) SetCover(v bool) *CreativeMaterial {
+	s.Cover = &v
+	return s
+}
+
+func (s *CreativeMaterial) SetName(v string) *CreativeMaterial {
+	s.Name = &v
+	return s
+}
+
+func (s *CreativeMaterial) SetFileUrl(v string) *CreativeMaterial {
+	s.FileUrl = &v
+	return s
+}
+
+func (s *CreativeMaterial) SetWidth(v int64) *CreativeMaterial {
+	s.Width = &v
+	return s
+}
+
+func (s *CreativeMaterial) SetHeight(v int64) *CreativeMaterial {
+	s.Height = &v
+	return s
+}
+
+func (s *CreativeMaterial) SetFontFamily(v string) *CreativeMaterial {
+	s.FontFamily = &v
+	return s
+}
+
+func (s *CreativeMaterial) SetScene(v string) *CreativeMaterial {
+	s.Scene = &v
+	return s
+}
+
+func (s *CreativeMaterial) SetMaterialUsage(v string) *CreativeMaterial {
+	s.MaterialUsage = &v
+	return s
+}
+
+func (s *CreativeMaterial) SetIndustry(v string) *CreativeMaterial {
+	s.Industry = &v
+	return s
+}
+
+func (s *CreativeMaterial) SetPublishPlatforms(v string) *CreativeMaterial {
+	s.PublishPlatforms = &v
+	return s
+}
+
+func (s *CreativeMaterial) SetMaterialSizeType(v string) *CreativeMaterial {
+	s.MaterialSizeType = &v
+	return s
+}
+
+func (s *CreativeMaterial) SetSpaceType(v string) *CreativeMaterial {
+	s.SpaceType = &v
+	return s
+}
+
+func (s *CreativeMaterial) SetOwnerName(v string) *CreativeMaterial {
+	s.OwnerName = &v
+	return s
+}
+
+func (s *CreativeMaterial) SetGmtCreate(v string) *CreativeMaterial {
+	s.GmtCreate = &v
+	return s
+}
+
 // 参考样式素材引用
 type CreativeAssetRef struct {
 	// 素材来源
@@ -806,6 +1008,8 @@ type QueryAntcloudMarketingagentCreativeResultResponse struct {
 	Content *string `json:"content,omitempty" xml:"content,omitempty"`
 	// agent消息扩展信息
 	AssistantExtra *AssistantExtra `json:"assistant_extra,omitempty" xml:"assistant_extra,omitempty"`
+	// 当前会话的 Credit 计费总数
+	TotalCredit *string `json:"total_credit,omitempty" xml:"total_credit,omitempty"`
 }
 
 func (s QueryAntcloudMarketingagentCreativeResultResponse) String() string {
@@ -853,6 +1057,244 @@ func (s *QueryAntcloudMarketingagentCreativeResultResponse) SetContent(v string)
 
 func (s *QueryAntcloudMarketingagentCreativeResultResponse) SetAssistantExtra(v *AssistantExtra) *QueryAntcloudMarketingagentCreativeResultResponse {
 	s.AssistantExtra = v
+	return s
+}
+
+func (s *QueryAntcloudMarketingagentCreativeResultResponse) SetTotalCredit(v string) *QueryAntcloudMarketingagentCreativeResultResponse {
+	s.TotalCredit = &v
+	return s
+}
+
+type QueryAntcloudMarketingagentTaskCreditRequest struct {
+	// OAuth模式下的授权token
+	AuthToken *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	// 从问数接口返回trace_id值
+	TraceId *string `json:"trace_id,omitempty" xml:"trace_id,omitempty" require:"true"`
+}
+
+func (s QueryAntcloudMarketingagentTaskCreditRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s QueryAntcloudMarketingagentTaskCreditRequest) GoString() string {
+	return s.String()
+}
+
+func (s *QueryAntcloudMarketingagentTaskCreditRequest) SetAuthToken(v string) *QueryAntcloudMarketingagentTaskCreditRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *QueryAntcloudMarketingagentTaskCreditRequest) SetTraceId(v string) *QueryAntcloudMarketingagentTaskCreditRequest {
+	s.TraceId = &v
+	return s
+}
+
+type QueryAntcloudMarketingagentTaskCreditResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// credit消耗
+	Credits *string `json:"credits,omitempty" xml:"credits,omitempty"`
+}
+
+func (s QueryAntcloudMarketingagentTaskCreditResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s QueryAntcloudMarketingagentTaskCreditResponse) GoString() string {
+	return s.String()
+}
+
+func (s *QueryAntcloudMarketingagentTaskCreditResponse) SetReqMsgId(v string) *QueryAntcloudMarketingagentTaskCreditResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *QueryAntcloudMarketingagentTaskCreditResponse) SetResultCode(v string) *QueryAntcloudMarketingagentTaskCreditResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *QueryAntcloudMarketingagentTaskCreditResponse) SetResultMsg(v string) *QueryAntcloudMarketingagentTaskCreditResponse {
+	s.ResultMsg = &v
+	return s
+}
+
+func (s *QueryAntcloudMarketingagentTaskCreditResponse) SetCredits(v string) *QueryAntcloudMarketingagentTaskCreditResponse {
+	s.Credits = &v
+	return s
+}
+
+type QueryAntcloudMarketingagentCreativeMaterialRequest struct {
+	// OAuth模式下的授权token
+	AuthToken *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	// 页码，从1开始
+	PageNum *int64 `json:"page_num,omitempty" xml:"page_num,omitempty"`
+	// 每页条数
+	PageSize *int64 `json:"page_size,omitempty" xml:"page_size,omitempty"`
+	// Creative 行业产品代码：FUND / RETAIL，查询时缺省为 RETAIL
+	ProductCode *string `json:"product_code,omitempty" xml:"product_code,omitempty"`
+	// 空间类型：PERSONAL / ENTERPRISE
+	SpaceType *string `json:"space_type,omitempty" xml:"space_type,omitempty"`
+	// 素材类型，如 IMAGE / ANIMATION / FONT
+	MaterialType *string `json:"material_type,omitempty" xml:"material_type,omitempty"`
+	// 使用场景
+	Scene *string `json:"scene,omitempty" xml:"scene,omitempty"`
+	// 素材用途：REFERENCE_STYLE=参考样式，INPUT_ELEMENT=输入元素
+	MaterialUsage *string `json:"material_usage,omitempty" xml:"material_usage,omitempty"`
+	// 行业
+	Industry *string `json:"industry,omitempty" xml:"industry,omitempty"`
+	// 投放平台，支持多选，多个值使用英文逗号分隔
+	PublishPlatforms *string `json:"publish_platforms,omitempty" xml:"publish_platforms,omitempty"`
+	// 尺寸类型（16:9、9:16、1:1、4:3、3:4、OTHER）
+	MaterialSizeType *string `json:"material_size_type,omitempty" xml:"material_size_type,omitempty"`
+	// 搜索关键词
+	Keyword *string `json:"keyword,omitempty" xml:"keyword,omitempty"`
+	// 是否平铺展示（true 时展开素材包子素材，不返回素材包父记录）
+	Flatten *bool `json:"flatten,omitempty" xml:"flatten,omitempty"`
+}
+
+func (s QueryAntcloudMarketingagentCreativeMaterialRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s QueryAntcloudMarketingagentCreativeMaterialRequest) GoString() string {
+	return s.String()
+}
+
+func (s *QueryAntcloudMarketingagentCreativeMaterialRequest) SetAuthToken(v string) *QueryAntcloudMarketingagentCreativeMaterialRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *QueryAntcloudMarketingagentCreativeMaterialRequest) SetPageNum(v int64) *QueryAntcloudMarketingagentCreativeMaterialRequest {
+	s.PageNum = &v
+	return s
+}
+
+func (s *QueryAntcloudMarketingagentCreativeMaterialRequest) SetPageSize(v int64) *QueryAntcloudMarketingagentCreativeMaterialRequest {
+	s.PageSize = &v
+	return s
+}
+
+func (s *QueryAntcloudMarketingagentCreativeMaterialRequest) SetProductCode(v string) *QueryAntcloudMarketingagentCreativeMaterialRequest {
+	s.ProductCode = &v
+	return s
+}
+
+func (s *QueryAntcloudMarketingagentCreativeMaterialRequest) SetSpaceType(v string) *QueryAntcloudMarketingagentCreativeMaterialRequest {
+	s.SpaceType = &v
+	return s
+}
+
+func (s *QueryAntcloudMarketingagentCreativeMaterialRequest) SetMaterialType(v string) *QueryAntcloudMarketingagentCreativeMaterialRequest {
+	s.MaterialType = &v
+	return s
+}
+
+func (s *QueryAntcloudMarketingagentCreativeMaterialRequest) SetScene(v string) *QueryAntcloudMarketingagentCreativeMaterialRequest {
+	s.Scene = &v
+	return s
+}
+
+func (s *QueryAntcloudMarketingagentCreativeMaterialRequest) SetMaterialUsage(v string) *QueryAntcloudMarketingagentCreativeMaterialRequest {
+	s.MaterialUsage = &v
+	return s
+}
+
+func (s *QueryAntcloudMarketingagentCreativeMaterialRequest) SetIndustry(v string) *QueryAntcloudMarketingagentCreativeMaterialRequest {
+	s.Industry = &v
+	return s
+}
+
+func (s *QueryAntcloudMarketingagentCreativeMaterialRequest) SetPublishPlatforms(v string) *QueryAntcloudMarketingagentCreativeMaterialRequest {
+	s.PublishPlatforms = &v
+	return s
+}
+
+func (s *QueryAntcloudMarketingagentCreativeMaterialRequest) SetMaterialSizeType(v string) *QueryAntcloudMarketingagentCreativeMaterialRequest {
+	s.MaterialSizeType = &v
+	return s
+}
+
+func (s *QueryAntcloudMarketingagentCreativeMaterialRequest) SetKeyword(v string) *QueryAntcloudMarketingagentCreativeMaterialRequest {
+	s.Keyword = &v
+	return s
+}
+
+func (s *QueryAntcloudMarketingagentCreativeMaterialRequest) SetFlatten(v bool) *QueryAntcloudMarketingagentCreativeMaterialRequest {
+	s.Flatten = &v
+	return s
+}
+
+type QueryAntcloudMarketingagentCreativeMaterialResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// 总记录数
+	TotalCount *int64 `json:"total_count,omitempty" xml:"total_count,omitempty"`
+	// 当前页码
+	PageNum *int64 `json:"page_num,omitempty" xml:"page_num,omitempty"`
+	// 每页条数
+	PageSize *int64 `json:"page_size,omitempty" xml:"page_size,omitempty"`
+	// 总页数
+	PageCount *int64 `json:"page_count,omitempty" xml:"page_count,omitempty"`
+	// 当前页素材列表
+	Materials []*CreativeMaterial `json:"materials,omitempty" xml:"materials,omitempty" type:"Repeated"`
+}
+
+func (s QueryAntcloudMarketingagentCreativeMaterialResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s QueryAntcloudMarketingagentCreativeMaterialResponse) GoString() string {
+	return s.String()
+}
+
+func (s *QueryAntcloudMarketingagentCreativeMaterialResponse) SetReqMsgId(v string) *QueryAntcloudMarketingagentCreativeMaterialResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *QueryAntcloudMarketingagentCreativeMaterialResponse) SetResultCode(v string) *QueryAntcloudMarketingagentCreativeMaterialResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *QueryAntcloudMarketingagentCreativeMaterialResponse) SetResultMsg(v string) *QueryAntcloudMarketingagentCreativeMaterialResponse {
+	s.ResultMsg = &v
+	return s
+}
+
+func (s *QueryAntcloudMarketingagentCreativeMaterialResponse) SetTotalCount(v int64) *QueryAntcloudMarketingagentCreativeMaterialResponse {
+	s.TotalCount = &v
+	return s
+}
+
+func (s *QueryAntcloudMarketingagentCreativeMaterialResponse) SetPageNum(v int64) *QueryAntcloudMarketingagentCreativeMaterialResponse {
+	s.PageNum = &v
+	return s
+}
+
+func (s *QueryAntcloudMarketingagentCreativeMaterialResponse) SetPageSize(v int64) *QueryAntcloudMarketingagentCreativeMaterialResponse {
+	s.PageSize = &v
+	return s
+}
+
+func (s *QueryAntcloudMarketingagentCreativeMaterialResponse) SetPageCount(v int64) *QueryAntcloudMarketingagentCreativeMaterialResponse {
+	s.PageCount = &v
+	return s
+}
+
+func (s *QueryAntcloudMarketingagentCreativeMaterialResponse) SetMaterials(v []*CreativeMaterial) *QueryAntcloudMarketingagentCreativeMaterialResponse {
+	s.Materials = v
 	return s
 }
 
@@ -986,7 +1428,7 @@ func (client *Client) DoRequest(version *string, action *string, protocol *strin
 				"req_msg_id":       antchainutil.GetNonce(),
 				"access_key":       client.AccessKeyId,
 				"base_sdk_version": tea.String("TeaSDK-2.0"),
-				"sdk_version":      tea.String("2.0.4"),
+				"sdk_version":      tea.String("2.0.7"),
 				"_prod_code":       tea.String("CREATIVERENDER"),
 				"_prod_channel":    tea.String("default"),
 			}
@@ -1145,6 +1587,78 @@ func (client *Client) QueryAntcloudMarketingagentCreativeResultEx(request *Query
 	}
 	_result = &QueryAntcloudMarketingagentCreativeResultResponse{}
 	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("antcloud.marketingagent.creative.result.query"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
+}
+
+// Description:
+//
+// Description: credit查询
+//
+// Summary: credit查询
+func (client *Client) QueryAntcloudMarketingagentTaskCredit(request *QueryAntcloudMarketingagentTaskCreditRequest) (_result *QueryAntcloudMarketingagentTaskCreditResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &QueryAntcloudMarketingagentTaskCreditResponse{}
+	_body, _err := client.QueryAntcloudMarketingagentTaskCreditEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+// Description:
+//
+// Description: credit查询
+//
+// Summary: credit查询
+func (client *Client) QueryAntcloudMarketingagentTaskCreditEx(request *QueryAntcloudMarketingagentTaskCreditRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *QueryAntcloudMarketingagentTaskCreditResponse, _err error) {
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &QueryAntcloudMarketingagentTaskCreditResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("antcloud.marketingagent.task.credit.query"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
+}
+
+// Description:
+//
+// Description: 素材查询接口
+//
+// Summary: 素材查询接口
+func (client *Client) QueryAntcloudMarketingagentCreativeMaterial(request *QueryAntcloudMarketingagentCreativeMaterialRequest) (_result *QueryAntcloudMarketingagentCreativeMaterialResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &QueryAntcloudMarketingagentCreativeMaterialResponse{}
+	_body, _err := client.QueryAntcloudMarketingagentCreativeMaterialEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+// Description:
+//
+// Description: 素材查询接口
+//
+// Summary: 素材查询接口
+func (client *Client) QueryAntcloudMarketingagentCreativeMaterialEx(request *QueryAntcloudMarketingagentCreativeMaterialRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *QueryAntcloudMarketingagentCreativeMaterialResponse, _err error) {
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &QueryAntcloudMarketingagentCreativeMaterialResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("antcloud.marketingagent.creative.material.query"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
 	if _err != nil {
 		return _result, _err
 	}
