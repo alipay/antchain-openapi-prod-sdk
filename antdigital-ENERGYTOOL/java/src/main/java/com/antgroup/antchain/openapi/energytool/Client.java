@@ -126,7 +126,7 @@ public class Client {
                     new TeaPair("req_msg_id", com.antgroup.antchain.openapi.antchain.util.AntchainUtils.getNonce()),
                     new TeaPair("access_key", _accessKeyId),
                     new TeaPair("base_sdk_version", "TeaSDK-2.0"),
-                    new TeaPair("sdk_version", "1.1.2"),
+                    new TeaPair("sdk_version", "1.2.0"),
                     new TeaPair("_prod_code", "ENERGYTOOL"),
                     new TeaPair("_prod_channel", "default")
                 );
@@ -400,6 +400,48 @@ public class Client {
 
     /**
      * <b>description</b> :
+     * <p>Description: 天气中短期预测服务，支持15天以内的天气数据查询
+     * Summary: 天气中短期预测服务，支持15天以内的天气数据查询</p>
+     */
+    public QueryWeatherForecastResponse queryWeatherForecast(QueryWeatherForecastRequest request) throws Exception {
+        com.aliyun.teautil.models.RuntimeOptions runtime = new com.aliyun.teautil.models.RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.queryWeatherForecastEx(request, headers, runtime);
+    }
+
+    /**
+     * <b>description</b> :
+     * <p>Description: 天气中短期预测服务，支持15天以内的天气数据查询
+     * Summary: 天气中短期预测服务，支持15天以内的天气数据查询</p>
+     */
+    public QueryWeatherForecastResponse queryWeatherForecastEx(QueryWeatherForecastRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "antcloud.energytool.weather.forecast.query", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new QueryWeatherForecastResponse());
+    }
+
+    /**
+     * <b>description</b> :
+     * <p>Description: 天气中长期预测服务，支持未来第 16～45 天的天气数据查询
+     * Summary: 天气中长期预测服务，支持未来第 16～45 天的天气数据查询</p>
+     */
+    public QueryWeatherLongrangeResponse queryWeatherLongrange(QueryWeatherLongrangeRequest request) throws Exception {
+        com.aliyun.teautil.models.RuntimeOptions runtime = new com.aliyun.teautil.models.RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.queryWeatherLongrangeEx(request, headers, runtime);
+    }
+
+    /**
+     * <b>description</b> :
+     * <p>Description: 天气中长期预测服务，支持未来第 16～45 天的天气数据查询
+     * Summary: 天气中长期预测服务，支持未来第 16～45 天的天气数据查询</p>
+     */
+    public QueryWeatherLongrangeResponse queryWeatherLongrangeEx(QueryWeatherLongrangeRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "antcloud.energytool.weather.longrange.query", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new QueryWeatherLongrangeResponse());
+    }
+
+    /**
+     * <b>description</b> :
      * <p>Description: 能源数采对外开放api
      * Summary: 能源数采对外开放api</p>
      */
@@ -459,5 +501,47 @@ public class Client {
     public QueryElectricMarketpriceResponse queryElectricMarketpriceEx(QueryElectricMarketpriceRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
         com.aliyun.teautil.Common.validateModel(request);
         return TeaModel.toModel(this.doRequest("1.0", "antcloud.energytool.electric.marketprice.query", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new QueryElectricMarketpriceResponse());
+    }
+
+    /**
+     * <b>description</b> :
+     * <p>Description: 电力行情主数据查询接口
+     * Summary: 电力行情主数据查询接口</p>
+     */
+    public QueryElectricCommondataResponse queryElectricCommondata(QueryElectricCommondataRequest request) throws Exception {
+        com.aliyun.teautil.models.RuntimeOptions runtime = new com.aliyun.teautil.models.RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.queryElectricCommondataEx(request, headers, runtime);
+    }
+
+    /**
+     * <b>description</b> :
+     * <p>Description: 电力行情主数据查询接口
+     * Summary: 电力行情主数据查询接口</p>
+     */
+    public QueryElectricCommondataResponse queryElectricCommondataEx(QueryElectricCommondataRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "antcloud.energytool.electric.commondata.query", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new QueryElectricCommondataResponse());
+    }
+
+    /**
+     * <b>description</b> :
+     * <p>Description: 电力行情主数据通用开放接口
+     * Summary: 电力行情主数据通用开放接口</p>
+     */
+    public QueryAppmarketCommondataResponse queryAppmarketCommondata(QueryAppmarketCommondataRequest request) throws Exception {
+        com.aliyun.teautil.models.RuntimeOptions runtime = new com.aliyun.teautil.models.RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.queryAppmarketCommondataEx(request, headers, runtime);
+    }
+
+    /**
+     * <b>description</b> :
+     * <p>Description: 电力行情主数据通用开放接口
+     * Summary: 电力行情主数据通用开放接口</p>
+     */
+    public QueryAppmarketCommondataResponse queryAppmarketCommondataEx(QueryAppmarketCommondataRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "antcloud.energytool.appmarket.commondata.query", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new QueryAppmarketCommondataResponse());
     }
 }
