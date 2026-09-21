@@ -36,6 +36,10 @@ public class QueryAntcloudMarketingagentCreativeResultResponse extends TeaModel 
     @NameInMap("assistant_extra")
     public AssistantExtra assistantExtra;
 
+    // 当前会话的 Credit 计费总数
+    @NameInMap("total_credit")
+    public String totalCredit;
+
     public static QueryAntcloudMarketingagentCreativeResultResponse build(java.util.Map<String, ?> map) throws Exception {
         QueryAntcloudMarketingagentCreativeResultResponse self = new QueryAntcloudMarketingagentCreativeResultResponse();
         return TeaModel.build(map, self);
@@ -103,6 +107,14 @@ public class QueryAntcloudMarketingagentCreativeResultResponse extends TeaModel 
     }
     public AssistantExtra getAssistantExtra() {
         return this.assistantExtra;
+    }
+
+    public QueryAntcloudMarketingagentCreativeResultResponse setTotalCredit(String totalCredit) {
+        this.totalCredit = totalCredit;
+        return this;
+    }
+    public String getTotalCredit() {
+        return this.totalCredit;
     }
 
 }
