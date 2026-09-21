@@ -135,7 +135,7 @@ class Client:
                     'req_msg_id': AntchainUtils.get_nonce(),
                     'access_key': self._access_key_id,
                     'base_sdk_version': 'TeaSDK-2.0',
-                    'sdk_version': '2.0.4',
+                    'sdk_version': '2.0.7',
                     '_prod_code': 'CREATIVERENDER',
                     '_prod_channel': 'default'
                 }
@@ -239,7 +239,7 @@ class Client:
                     'req_msg_id': AntchainUtils.get_nonce(),
                     'access_key': self._access_key_id,
                     'base_sdk_version': 'TeaSDK-2.0',
-                    'sdk_version': '2.0.4',
+                    'sdk_version': '2.0.7',
                     '_prod_code': 'CREATIVERENDER',
                     '_prod_channel': 'default'
                 }
@@ -441,4 +441,116 @@ class Client:
         return TeaCore.from_map(
             creativerender_models.QueryAntcloudMarketingagentCreativeResultResponse(),
             await self.do_request_async('1.0', 'antcloud.marketingagent.creative.result.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def query_antcloud_marketingagent_task_credit(
+        self,
+        request: creativerender_models.QueryAntcloudMarketingagentTaskCreditRequest,
+    ) -> creativerender_models.QueryAntcloudMarketingagentTaskCreditResponse:
+        """
+        Description: credit查询
+        Summary: credit查询
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.query_antcloud_marketingagent_task_credit_ex(request, headers, runtime)
+
+    async def query_antcloud_marketingagent_task_credit_async(
+        self,
+        request: creativerender_models.QueryAntcloudMarketingagentTaskCreditRequest,
+    ) -> creativerender_models.QueryAntcloudMarketingagentTaskCreditResponse:
+        """
+        Description: credit查询
+        Summary: credit查询
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.query_antcloud_marketingagent_task_credit_ex_async(request, headers, runtime)
+
+    def query_antcloud_marketingagent_task_credit_ex(
+        self,
+        request: creativerender_models.QueryAntcloudMarketingagentTaskCreditRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> creativerender_models.QueryAntcloudMarketingagentTaskCreditResponse:
+        """
+        Description: credit查询
+        Summary: credit查询
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            creativerender_models.QueryAntcloudMarketingagentTaskCreditResponse(),
+            self.do_request('1.0', 'antcloud.marketingagent.task.credit.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def query_antcloud_marketingagent_task_credit_ex_async(
+        self,
+        request: creativerender_models.QueryAntcloudMarketingagentTaskCreditRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> creativerender_models.QueryAntcloudMarketingagentTaskCreditResponse:
+        """
+        Description: credit查询
+        Summary: credit查询
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            creativerender_models.QueryAntcloudMarketingagentTaskCreditResponse(),
+            await self.do_request_async('1.0', 'antcloud.marketingagent.task.credit.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def query_antcloud_marketingagent_creative_material(
+        self,
+        request: creativerender_models.QueryAntcloudMarketingagentCreativeMaterialRequest,
+    ) -> creativerender_models.QueryAntcloudMarketingagentCreativeMaterialResponse:
+        """
+        Description: 素材查询接口
+        Summary: 素材查询接口
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.query_antcloud_marketingagent_creative_material_ex(request, headers, runtime)
+
+    async def query_antcloud_marketingagent_creative_material_async(
+        self,
+        request: creativerender_models.QueryAntcloudMarketingagentCreativeMaterialRequest,
+    ) -> creativerender_models.QueryAntcloudMarketingagentCreativeMaterialResponse:
+        """
+        Description: 素材查询接口
+        Summary: 素材查询接口
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.query_antcloud_marketingagent_creative_material_ex_async(request, headers, runtime)
+
+    def query_antcloud_marketingagent_creative_material_ex(
+        self,
+        request: creativerender_models.QueryAntcloudMarketingagentCreativeMaterialRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> creativerender_models.QueryAntcloudMarketingagentCreativeMaterialResponse:
+        """
+        Description: 素材查询接口
+        Summary: 素材查询接口
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            creativerender_models.QueryAntcloudMarketingagentCreativeMaterialResponse(),
+            self.do_request('1.0', 'antcloud.marketingagent.creative.material.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def query_antcloud_marketingagent_creative_material_ex_async(
+        self,
+        request: creativerender_models.QueryAntcloudMarketingagentCreativeMaterialRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> creativerender_models.QueryAntcloudMarketingagentCreativeMaterialResponse:
+        """
+        Description: 素材查询接口
+        Summary: 素材查询接口
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            creativerender_models.QueryAntcloudMarketingagentCreativeMaterialResponse(),
+            await self.do_request_async('1.0', 'antcloud.marketingagent.creative.material.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )

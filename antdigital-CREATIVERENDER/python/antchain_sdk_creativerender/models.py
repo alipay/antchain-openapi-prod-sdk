@@ -388,6 +388,160 @@ class AssistantExtra(TeaModel):
         return self
 
 
+class CreativeMaterial(TeaModel):
+    def __init__(
+        self,
+        product_code: str = None,
+        material_id: str = None,
+        material_type: str = None,
+        material_form: str = None,
+        parent_material_id: str = None,
+        cover: bool = None,
+        name: str = None,
+        file_url: str = None,
+        width: int = None,
+        height: int = None,
+        font_family: str = None,
+        scene: str = None,
+        material_usage: str = None,
+        industry: str = None,
+        publish_platforms: str = None,
+        material_size_type: str = None,
+        space_type: str = None,
+        owner_name: str = None,
+        gmt_create: str = None,
+    ):
+        # Creative 行业产品代码：FUND / RETAIL，查询时缺省为 RETAIL
+        self.product_code = product_code
+        # 素材ID
+        self.material_id = material_id
+        # 素材类型，如 IMAGE / ANIMATION / FONT
+        self.material_type = material_type
+        # 素材形式（SINGLE/PACKAGE）
+        self.material_form = material_form
+        # 父素材ID
+        self.parent_material_id = parent_material_id
+        # 是否为封面
+        self.cover = cover
+        # 素材名称
+        self.name = name
+        # 素材文件URL
+        self.file_url = file_url
+        # 宽度（像素）
+        self.width = width
+        # 高度（像素）
+        self.height = height
+        # 字体族名（仅 FONT 类型）
+        self.font_family = font_family
+        # 使用场景
+        self.scene = scene
+        # 素材用途：REFERENCE_STYLE=参考样式，INPUT_ELEMENT=输入元素
+        self.material_usage = material_usage
+        # RETAIL
+        self.industry = industry
+        # 投放平台，多个值使用英文逗号分隔
+        self.publish_platforms = publish_platforms
+        # 尺寸类型（16:9、9:16、1:1、4:3、3:4、OTHER）
+        self.material_size_type = material_size_type
+        # 空间类型：PERSONAL / ENTERPRISE
+        self.space_type = space_type
+        # 所有者名称
+        self.owner_name = owner_name
+        # 创建时间，格式 yyyy-MM-dd HH:mm:ss
+        self.gmt_create = gmt_create
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.product_code is not None:
+            result['product_code'] = self.product_code
+        if self.material_id is not None:
+            result['material_id'] = self.material_id
+        if self.material_type is not None:
+            result['material_type'] = self.material_type
+        if self.material_form is not None:
+            result['material_form'] = self.material_form
+        if self.parent_material_id is not None:
+            result['parent_material_id'] = self.parent_material_id
+        if self.cover is not None:
+            result['cover'] = self.cover
+        if self.name is not None:
+            result['name'] = self.name
+        if self.file_url is not None:
+            result['file_url'] = self.file_url
+        if self.width is not None:
+            result['width'] = self.width
+        if self.height is not None:
+            result['height'] = self.height
+        if self.font_family is not None:
+            result['font_family'] = self.font_family
+        if self.scene is not None:
+            result['scene'] = self.scene
+        if self.material_usage is not None:
+            result['material_usage'] = self.material_usage
+        if self.industry is not None:
+            result['industry'] = self.industry
+        if self.publish_platforms is not None:
+            result['publish_platforms'] = self.publish_platforms
+        if self.material_size_type is not None:
+            result['material_size_type'] = self.material_size_type
+        if self.space_type is not None:
+            result['space_type'] = self.space_type
+        if self.owner_name is not None:
+            result['owner_name'] = self.owner_name
+        if self.gmt_create is not None:
+            result['gmt_create'] = self.gmt_create
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('product_code') is not None:
+            self.product_code = m.get('product_code')
+        if m.get('material_id') is not None:
+            self.material_id = m.get('material_id')
+        if m.get('material_type') is not None:
+            self.material_type = m.get('material_type')
+        if m.get('material_form') is not None:
+            self.material_form = m.get('material_form')
+        if m.get('parent_material_id') is not None:
+            self.parent_material_id = m.get('parent_material_id')
+        if m.get('cover') is not None:
+            self.cover = m.get('cover')
+        if m.get('name') is not None:
+            self.name = m.get('name')
+        if m.get('file_url') is not None:
+            self.file_url = m.get('file_url')
+        if m.get('width') is not None:
+            self.width = m.get('width')
+        if m.get('height') is not None:
+            self.height = m.get('height')
+        if m.get('font_family') is not None:
+            self.font_family = m.get('font_family')
+        if m.get('scene') is not None:
+            self.scene = m.get('scene')
+        if m.get('material_usage') is not None:
+            self.material_usage = m.get('material_usage')
+        if m.get('industry') is not None:
+            self.industry = m.get('industry')
+        if m.get('publish_platforms') is not None:
+            self.publish_platforms = m.get('publish_platforms')
+        if m.get('material_size_type') is not None:
+            self.material_size_type = m.get('material_size_type')
+        if m.get('space_type') is not None:
+            self.space_type = m.get('space_type')
+        if m.get('owner_name') is not None:
+            self.owner_name = m.get('owner_name')
+        if m.get('gmt_create') is not None:
+            self.gmt_create = m.get('gmt_create')
+        return self
+
+
 class CreativeAssetRef(TeaModel):
     def __init__(
         self,
@@ -910,6 +1064,7 @@ class QueryAntcloudMarketingagentCreativeResultResponse(TeaModel):
         status: str = None,
         content: str = None,
         assistant_extra: AssistantExtra = None,
+        total_credit: str = None,
     ):
         # 请求唯一ID，用于链路跟踪和问题排查
         self.req_msg_id = req_msg_id
@@ -927,6 +1082,8 @@ class QueryAntcloudMarketingagentCreativeResultResponse(TeaModel):
         self.content = content
         # agent消息扩展信息
         self.assistant_extra = assistant_extra
+        # 当前会话的 Credit 计费总数
+        self.total_credit = total_credit
 
     def validate(self):
         if self.assistant_extra:
@@ -954,6 +1111,8 @@ class QueryAntcloudMarketingagentCreativeResultResponse(TeaModel):
             result['content'] = self.content
         if self.assistant_extra is not None:
             result['assistant_extra'] = self.assistant_extra.to_map()
+        if self.total_credit is not None:
+            result['total_credit'] = self.total_credit
         return result
 
     def from_map(self, m: dict = None):
@@ -975,6 +1134,289 @@ class QueryAntcloudMarketingagentCreativeResultResponse(TeaModel):
         if m.get('assistant_extra') is not None:
             temp_model = AssistantExtra()
             self.assistant_extra = temp_model.from_map(m['assistant_extra'])
+        if m.get('total_credit') is not None:
+            self.total_credit = m.get('total_credit')
+        return self
+
+
+class QueryAntcloudMarketingagentTaskCreditRequest(TeaModel):
+    def __init__(
+        self,
+        auth_token: str = None,
+        trace_id: str = None,
+    ):
+        # OAuth模式下的授权token
+        self.auth_token = auth_token
+        # 从问数接口返回trace_id值
+        self.trace_id = trace_id
+
+    def validate(self):
+        self.validate_required(self.trace_id, 'trace_id')
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.auth_token is not None:
+            result['auth_token'] = self.auth_token
+        if self.trace_id is not None:
+            result['trace_id'] = self.trace_id
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('auth_token') is not None:
+            self.auth_token = m.get('auth_token')
+        if m.get('trace_id') is not None:
+            self.trace_id = m.get('trace_id')
+        return self
+
+
+class QueryAntcloudMarketingagentTaskCreditResponse(TeaModel):
+    def __init__(
+        self,
+        req_msg_id: str = None,
+        result_code: str = None,
+        result_msg: str = None,
+        credits: str = None,
+    ):
+        # 请求唯一ID，用于链路跟踪和问题排查
+        self.req_msg_id = req_msg_id
+        # 结果码，一般OK表示调用成功
+        self.result_code = result_code
+        # 异常信息的文本描述
+        self.result_msg = result_msg
+        # credit消耗
+        self.credits = credits
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.req_msg_id is not None:
+            result['req_msg_id'] = self.req_msg_id
+        if self.result_code is not None:
+            result['result_code'] = self.result_code
+        if self.result_msg is not None:
+            result['result_msg'] = self.result_msg
+        if self.credits is not None:
+            result['credits'] = self.credits
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('req_msg_id') is not None:
+            self.req_msg_id = m.get('req_msg_id')
+        if m.get('result_code') is not None:
+            self.result_code = m.get('result_code')
+        if m.get('result_msg') is not None:
+            self.result_msg = m.get('result_msg')
+        if m.get('credits') is not None:
+            self.credits = m.get('credits')
+        return self
+
+
+class QueryAntcloudMarketingagentCreativeMaterialRequest(TeaModel):
+    def __init__(
+        self,
+        auth_token: str = None,
+        page_num: int = None,
+        page_size: int = None,
+        product_code: str = None,
+        space_type: str = None,
+        material_type: str = None,
+        scene: str = None,
+        material_usage: str = None,
+        industry: str = None,
+        publish_platforms: str = None,
+        material_size_type: str = None,
+        keyword: str = None,
+        flatten: bool = None,
+    ):
+        # OAuth模式下的授权token
+        self.auth_token = auth_token
+        # 页码，从1开始
+        self.page_num = page_num
+        # 每页条数
+        self.page_size = page_size
+        # Creative 行业产品代码：FUND / RETAIL，查询时缺省为 RETAIL
+        self.product_code = product_code
+        # 空间类型：PERSONAL / ENTERPRISE
+        self.space_type = space_type
+        # 素材类型，如 IMAGE / ANIMATION / FONT
+        self.material_type = material_type
+        # 使用场景
+        self.scene = scene
+        # 素材用途：REFERENCE_STYLE=参考样式，INPUT_ELEMENT=输入元素
+        self.material_usage = material_usage
+        # 行业
+        self.industry = industry
+        # 投放平台，支持多选，多个值使用英文逗号分隔
+        self.publish_platforms = publish_platforms
+        # 尺寸类型（16:9、9:16、1:1、4:3、3:4、OTHER）
+        self.material_size_type = material_size_type
+        # 搜索关键词
+        self.keyword = keyword
+        # 是否平铺展示（true 时展开素材包子素材，不返回素材包父记录）
+        self.flatten = flatten
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.auth_token is not None:
+            result['auth_token'] = self.auth_token
+        if self.page_num is not None:
+            result['page_num'] = self.page_num
+        if self.page_size is not None:
+            result['page_size'] = self.page_size
+        if self.product_code is not None:
+            result['product_code'] = self.product_code
+        if self.space_type is not None:
+            result['space_type'] = self.space_type
+        if self.material_type is not None:
+            result['material_type'] = self.material_type
+        if self.scene is not None:
+            result['scene'] = self.scene
+        if self.material_usage is not None:
+            result['material_usage'] = self.material_usage
+        if self.industry is not None:
+            result['industry'] = self.industry
+        if self.publish_platforms is not None:
+            result['publish_platforms'] = self.publish_platforms
+        if self.material_size_type is not None:
+            result['material_size_type'] = self.material_size_type
+        if self.keyword is not None:
+            result['keyword'] = self.keyword
+        if self.flatten is not None:
+            result['flatten'] = self.flatten
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('auth_token') is not None:
+            self.auth_token = m.get('auth_token')
+        if m.get('page_num') is not None:
+            self.page_num = m.get('page_num')
+        if m.get('page_size') is not None:
+            self.page_size = m.get('page_size')
+        if m.get('product_code') is not None:
+            self.product_code = m.get('product_code')
+        if m.get('space_type') is not None:
+            self.space_type = m.get('space_type')
+        if m.get('material_type') is not None:
+            self.material_type = m.get('material_type')
+        if m.get('scene') is not None:
+            self.scene = m.get('scene')
+        if m.get('material_usage') is not None:
+            self.material_usage = m.get('material_usage')
+        if m.get('industry') is not None:
+            self.industry = m.get('industry')
+        if m.get('publish_platforms') is not None:
+            self.publish_platforms = m.get('publish_platforms')
+        if m.get('material_size_type') is not None:
+            self.material_size_type = m.get('material_size_type')
+        if m.get('keyword') is not None:
+            self.keyword = m.get('keyword')
+        if m.get('flatten') is not None:
+            self.flatten = m.get('flatten')
+        return self
+
+
+class QueryAntcloudMarketingagentCreativeMaterialResponse(TeaModel):
+    def __init__(
+        self,
+        req_msg_id: str = None,
+        result_code: str = None,
+        result_msg: str = None,
+        total_count: int = None,
+        page_num: int = None,
+        page_size: int = None,
+        page_count: int = None,
+        materials: List[CreativeMaterial] = None,
+    ):
+        # 请求唯一ID，用于链路跟踪和问题排查
+        self.req_msg_id = req_msg_id
+        # 结果码，一般OK表示调用成功
+        self.result_code = result_code
+        # 异常信息的文本描述
+        self.result_msg = result_msg
+        # 总记录数
+        self.total_count = total_count
+        # 当前页码
+        self.page_num = page_num
+        # 每页条数
+        self.page_size = page_size
+        # 总页数
+        self.page_count = page_count
+        # 当前页素材列表
+        self.materials = materials
+
+    def validate(self):
+        if self.materials:
+            for k in self.materials:
+                if k:
+                    k.validate()
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.req_msg_id is not None:
+            result['req_msg_id'] = self.req_msg_id
+        if self.result_code is not None:
+            result['result_code'] = self.result_code
+        if self.result_msg is not None:
+            result['result_msg'] = self.result_msg
+        if self.total_count is not None:
+            result['total_count'] = self.total_count
+        if self.page_num is not None:
+            result['page_num'] = self.page_num
+        if self.page_size is not None:
+            result['page_size'] = self.page_size
+        if self.page_count is not None:
+            result['page_count'] = self.page_count
+        result['materials'] = []
+        if self.materials is not None:
+            for k in self.materials:
+                result['materials'].append(k.to_map() if k else None)
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('req_msg_id') is not None:
+            self.req_msg_id = m.get('req_msg_id')
+        if m.get('result_code') is not None:
+            self.result_code = m.get('result_code')
+        if m.get('result_msg') is not None:
+            self.result_msg = m.get('result_msg')
+        if m.get('total_count') is not None:
+            self.total_count = m.get('total_count')
+        if m.get('page_num') is not None:
+            self.page_num = m.get('page_num')
+        if m.get('page_size') is not None:
+            self.page_size = m.get('page_size')
+        if m.get('page_count') is not None:
+            self.page_count = m.get('page_count')
+        self.materials = []
+        if m.get('materials') is not None:
+            for k in m.get('materials'):
+                temp_model = CreativeMaterial()
+                self.materials.append(temp_model.from_map(k))
         return self
 
 
