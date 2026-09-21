@@ -364,6 +364,175 @@ export class AssistantExtra extends $tea.Model {
   }
 }
 
+// 素材
+export class CreativeMaterial extends $tea.Model {
+  // Creative 行业产品代码：FUND / RETAIL，查询时缺省为 RETAIL
+  /**
+   * @example
+   * RETAIL
+   */
+  productCode?: string;
+  // 素材ID
+  /**
+   * @example
+   * d55ad74641ce8895ad1321e8b36c4d70
+   */
+  materialId?: string;
+  // 素材类型，如 IMAGE / ANIMATION / FONT
+  /**
+   * @example
+   * IMAGE
+   */
+  materialType?: string;
+  // 素材形式（SINGLE/PACKAGE）
+  /**
+   * @example
+   * SINGLE
+   */
+  materialForm?: string;
+  // 父素材ID
+  /**
+   * @example
+   * c96a7673a96a4178809f6c0f4da40558
+   */
+  parentMaterialId?: string;
+  // 是否为封面
+  /**
+   * @example
+   * false
+   */
+  cover?: boolean;
+  // 素材名称
+  /**
+   * @example
+   * 海报
+   */
+  name?: string;
+  // 素材文件URL
+  /**
+   * @example
+   * creative/20260909/sample.jpg
+   */
+  fileUrl?: string;
+  // 宽度（像素）
+  /**
+   * @example
+   * 1080
+   */
+  width?: number;
+  // 高度（像素）
+  /**
+   * @example
+   * 1920
+   */
+  height?: number;
+  // 字体族名（仅 FONT 类型）
+  /**
+   * @example
+   * DEMO_FONT
+   */
+  fontFamily?: string;
+  // 使用场景
+  /**
+   * @example
+   * BANNER
+   */
+  scene?: string;
+  // 素材用途：REFERENCE_STYLE=参考样式，INPUT_ELEMENT=输入元素
+  /**
+   * @example
+   * REFERENCE_STYLE
+   */
+  materialUsage?: string;
+  // RETAIL
+  /**
+   * @example
+   * 行业
+   */
+  industry?: string;
+  // 投放平台，多个值使用英文逗号分隔
+  /**
+   * @example
+   * ALIPAY
+   */
+  publishPlatforms?: string;
+  // 尺寸类型（16:9、9:16、1:1、4:3、3:4、OTHER）
+  /**
+   * @example
+   * 9:16
+   */
+  materialSizeType?: string;
+  // 空间类型：PERSONAL / ENTERPRISE
+  /**
+   * @example
+   * ENTERPRISE
+   */
+  spaceType?: string;
+  // 所有者名称
+  /**
+   * @example
+   * name
+   */
+  ownerName?: string;
+  // 创建时间，格式 yyyy-MM-dd HH:mm:ss
+  /**
+   * @example
+   * 2026-09-21 12:00:00
+   */
+  gmtCreate?: string;
+  static names(): { [key: string]: string } {
+    return {
+      productCode: 'product_code',
+      materialId: 'material_id',
+      materialType: 'material_type',
+      materialForm: 'material_form',
+      parentMaterialId: 'parent_material_id',
+      cover: 'cover',
+      name: 'name',
+      fileUrl: 'file_url',
+      width: 'width',
+      height: 'height',
+      fontFamily: 'font_family',
+      scene: 'scene',
+      materialUsage: 'material_usage',
+      industry: 'industry',
+      publishPlatforms: 'publish_platforms',
+      materialSizeType: 'material_size_type',
+      spaceType: 'space_type',
+      ownerName: 'owner_name',
+      gmtCreate: 'gmt_create',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      productCode: 'string',
+      materialId: 'string',
+      materialType: 'string',
+      materialForm: 'string',
+      parentMaterialId: 'string',
+      cover: 'boolean',
+      name: 'string',
+      fileUrl: 'string',
+      width: 'number',
+      height: 'number',
+      fontFamily: 'string',
+      scene: 'string',
+      materialUsage: 'string',
+      industry: 'string',
+      publishPlatforms: 'string',
+      materialSizeType: 'string',
+      spaceType: 'string',
+      ownerName: 'string',
+      gmtCreate: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
 // 参考样式素材引用
 export class CreativeAssetRef extends $tea.Model {
   // 素材来源
@@ -703,6 +872,8 @@ export class QueryAntcloudMarketingagentCreativeResultResponse extends $tea.Mode
   content?: string;
   // agent消息扩展信息
   assistantExtra?: AssistantExtra;
+  // 当前会话的 Credit 计费总数
+  totalCredit?: string;
   static names(): { [key: string]: string } {
     return {
       reqMsgId: 'req_msg_id',
@@ -713,6 +884,7 @@ export class QueryAntcloudMarketingagentCreativeResultResponse extends $tea.Mode
       status: 'status',
       content: 'content',
       assistantExtra: 'assistant_extra',
+      totalCredit: 'total_credit',
     };
   }
 
@@ -726,6 +898,179 @@ export class QueryAntcloudMarketingagentCreativeResultResponse extends $tea.Mode
       status: 'string',
       content: 'string',
       assistantExtra: AssistantExtra,
+      totalCredit: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class QueryAntcloudMarketingagentTaskCreditRequest extends $tea.Model {
+  // OAuth模式下的授权token
+  authToken?: string;
+  // 从问数接口返回trace_id值
+  traceId: string;
+  static names(): { [key: string]: string } {
+    return {
+      authToken: 'auth_token',
+      traceId: 'trace_id',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      authToken: 'string',
+      traceId: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class QueryAntcloudMarketingagentTaskCreditResponse extends $tea.Model {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string;
+  // 结果码，一般OK表示调用成功
+  resultCode?: string;
+  // 异常信息的文本描述
+  resultMsg?: string;
+  // credit消耗
+  credits?: string;
+  static names(): { [key: string]: string } {
+    return {
+      reqMsgId: 'req_msg_id',
+      resultCode: 'result_code',
+      resultMsg: 'result_msg',
+      credits: 'credits',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      reqMsgId: 'string',
+      resultCode: 'string',
+      resultMsg: 'string',
+      credits: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class QueryAntcloudMarketingagentCreativeMaterialRequest extends $tea.Model {
+  // OAuth模式下的授权token
+  authToken?: string;
+  // 页码，从1开始
+  pageNum?: number;
+  // 每页条数
+  pageSize?: number;
+  // Creative 行业产品代码：FUND / RETAIL，查询时缺省为 RETAIL
+  productCode?: string;
+  // 空间类型：PERSONAL / ENTERPRISE
+  spaceType?: string;
+  // 素材类型，如 IMAGE / ANIMATION / FONT
+  materialType?: string;
+  // 使用场景
+  scene?: string;
+  // 素材用途：REFERENCE_STYLE=参考样式，INPUT_ELEMENT=输入元素
+  materialUsage?: string;
+  // 行业
+  industry?: string;
+  // 投放平台，支持多选，多个值使用英文逗号分隔
+  publishPlatforms?: string;
+  // 尺寸类型（16:9、9:16、1:1、4:3、3:4、OTHER）
+  materialSizeType?: string;
+  // 搜索关键词
+  keyword?: string;
+  // 是否平铺展示（true 时展开素材包子素材，不返回素材包父记录）
+  flatten?: boolean;
+  static names(): { [key: string]: string } {
+    return {
+      authToken: 'auth_token',
+      pageNum: 'page_num',
+      pageSize: 'page_size',
+      productCode: 'product_code',
+      spaceType: 'space_type',
+      materialType: 'material_type',
+      scene: 'scene',
+      materialUsage: 'material_usage',
+      industry: 'industry',
+      publishPlatforms: 'publish_platforms',
+      materialSizeType: 'material_size_type',
+      keyword: 'keyword',
+      flatten: 'flatten',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      authToken: 'string',
+      pageNum: 'number',
+      pageSize: 'number',
+      productCode: 'string',
+      spaceType: 'string',
+      materialType: 'string',
+      scene: 'string',
+      materialUsage: 'string',
+      industry: 'string',
+      publishPlatforms: 'string',
+      materialSizeType: 'string',
+      keyword: 'string',
+      flatten: 'boolean',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class QueryAntcloudMarketingagentCreativeMaterialResponse extends $tea.Model {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string;
+  // 结果码，一般OK表示调用成功
+  resultCode?: string;
+  // 异常信息的文本描述
+  resultMsg?: string;
+  // 总记录数
+  totalCount?: number;
+  // 当前页码
+  pageNum?: number;
+  // 每页条数
+  pageSize?: number;
+  // 总页数
+  pageCount?: number;
+  // 当前页素材列表
+  materials?: CreativeMaterial[];
+  static names(): { [key: string]: string } {
+    return {
+      reqMsgId: 'req_msg_id',
+      resultCode: 'result_code',
+      resultMsg: 'result_msg',
+      totalCount: 'total_count',
+      pageNum: 'page_num',
+      pageSize: 'page_size',
+      pageCount: 'page_count',
+      materials: 'materials',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      reqMsgId: 'string',
+      resultCode: 'string',
+      resultMsg: 'string',
+      totalCount: 'number',
+      pageNum: 'number',
+      pageSize: 'number',
+      pageCount: 'number',
+      materials: { 'type': 'array', 'itemType': CreativeMaterial },
     };
   }
 
@@ -851,7 +1196,7 @@ export default class Client {
           req_msg_id: AntchainUtil.getNonce(),
           access_key: this._accessKeyId,
           base_sdk_version: "TeaSDK-2.0",
-          sdk_version: "2.0.4",
+          sdk_version: "2.0.7",
           _prod_code: "CREATIVERENDER",
           _prod_channel: "default",
         };
@@ -960,6 +1305,48 @@ export default class Client {
   async queryAntcloudMarketingagentCreativeResultEx(request: QueryAntcloudMarketingagentCreativeResultRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<QueryAntcloudMarketingagentCreativeResultResponse> {
     Util.validateModel(request);
     return $tea.cast<QueryAntcloudMarketingagentCreativeResultResponse>(await this.doRequest("1.0", "antcloud.marketingagent.creative.result.query", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new QueryAntcloudMarketingagentCreativeResultResponse({}));
+  }
+
+  /**
+   * @remarks
+   * Description: credit查询
+   * Summary: credit查询
+   */
+  async queryAntcloudMarketingagentTaskCredit(request: QueryAntcloudMarketingagentTaskCreditRequest): Promise<QueryAntcloudMarketingagentTaskCreditResponse> {
+    let runtime = new $Util.RuntimeOptions({ });
+    let headers : {[key: string ]: string} = { };
+    return await this.queryAntcloudMarketingagentTaskCreditEx(request, headers, runtime);
+  }
+
+  /**
+   * @remarks
+   * Description: credit查询
+   * Summary: credit查询
+   */
+  async queryAntcloudMarketingagentTaskCreditEx(request: QueryAntcloudMarketingagentTaskCreditRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<QueryAntcloudMarketingagentTaskCreditResponse> {
+    Util.validateModel(request);
+    return $tea.cast<QueryAntcloudMarketingagentTaskCreditResponse>(await this.doRequest("1.0", "antcloud.marketingagent.task.credit.query", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new QueryAntcloudMarketingagentTaskCreditResponse({}));
+  }
+
+  /**
+   * @remarks
+   * Description: 素材查询接口
+   * Summary: 素材查询接口
+   */
+  async queryAntcloudMarketingagentCreativeMaterial(request: QueryAntcloudMarketingagentCreativeMaterialRequest): Promise<QueryAntcloudMarketingagentCreativeMaterialResponse> {
+    let runtime = new $Util.RuntimeOptions({ });
+    let headers : {[key: string ]: string} = { };
+    return await this.queryAntcloudMarketingagentCreativeMaterialEx(request, headers, runtime);
+  }
+
+  /**
+   * @remarks
+   * Description: 素材查询接口
+   * Summary: 素材查询接口
+   */
+  async queryAntcloudMarketingagentCreativeMaterialEx(request: QueryAntcloudMarketingagentCreativeMaterialRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<QueryAntcloudMarketingagentCreativeMaterialResponse> {
+    Util.validateModel(request);
+    return $tea.cast<QueryAntcloudMarketingagentCreativeMaterialResponse>(await this.doRequest("1.0", "antcloud.marketingagent.creative.material.query", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new QueryAntcloudMarketingagentCreativeMaterialResponse({}));
   }
 
 }
