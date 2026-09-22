@@ -8,7 +8,7 @@ using Tea;
 
 namespace AntChain.SDK.CREATIVERENDER.Models
 {
-    public class QueryAntcloudMarketingagentCreativeResultResponse : TeaModel {
+    public class QueryAntcloudMarketingagentCreativeVideoResponse : TeaModel {
         // 请求唯一ID，用于链路跟踪和问题排查
         [NameInMap("req_msg_id")]
         [Validation(Required=false)]
@@ -24,35 +24,35 @@ namespace AntChain.SDK.CREATIVERENDER.Models
         [Validation(Required=false)]
         public string ResultMsg { get; set; }
 
-        // 会话ID
-        [NameInMap("session_id")]
+        // 视频任务 ID
+        [NameInMap("task_id")]
         [Validation(Required=false)]
-        public string SessionId { get; set; }
+        public string TaskId { get; set; }
 
-        // 消息ID
-        [NameInMap("message_id")]
-        [Validation(Required=false)]
-        public string MessageId { get; set; }
-
-        // 消息状态
+        // PENDING、PROCESSING、COMPLETED、FAILED
         [NameInMap("status")]
         [Validation(Required=false)]
         public string Status { get; set; }
 
-        // 消息内容
-        [NameInMap("content")]
+        // 视频产物列表
+        [NameInMap("outputs")]
         [Validation(Required=false)]
-        public string Content { get; set; }
+        public List<VideoOutput> Outputs { get; set; }
 
-        // agent消息扩展信息
-        [NameInMap("assistant_extra")]
+        // 扩写后的脚本，上游提供时返回
+        [NameInMap("script")]
         [Validation(Required=false)]
-        public AssistantExtra AssistantExtra { get; set; }
+        public string Script { get; set; }
 
-        // 当前会话的 Credit 计费总数
-        [NameInMap("total_credit")]
+        // 视频耗费credits
+        [NameInMap("credits")]
         [Validation(Required=false)]
-        public string TotalCredit { get; set; }
+        public string Credits { get; set; }
+
+        // 任务失败原因
+        [NameInMap("error_message")]
+        [Validation(Required=false)]
+        public string ErrorMessage { get; set; }
 
     }
 

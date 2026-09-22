@@ -8,7 +8,7 @@ using Tea;
 
 namespace AntChain.SDK.CREATIVERENDER.Models
 {
-    public class QueryAntcloudMarketingagentCreativeResultResponse : TeaModel {
+    public class ExecAntcloudMarketingagentCreativeVideoResponse : TeaModel {
         // 请求唯一ID，用于链路跟踪和问题排查
         [NameInMap("req_msg_id")]
         [Validation(Required=false)]
@@ -24,35 +24,15 @@ namespace AntChain.SDK.CREATIVERENDER.Models
         [Validation(Required=false)]
         public string ResultMsg { get; set; }
 
-        // 会话ID
-        [NameInMap("session_id")]
+        // 本服务分配的稳定任务 ID，用于查询
+        [NameInMap("task_id")]
         [Validation(Required=false)]
-        public string SessionId { get; set; }
+        public string TaskId { get; set; }
 
-        // 消息ID
-        [NameInMap("message_id")]
-        [Validation(Required=false)]
-        public string MessageId { get; set; }
-
-        // 消息状态
+        // 视频任务状态
         [NameInMap("status")]
         [Validation(Required=false)]
         public string Status { get; set; }
-
-        // 消息内容
-        [NameInMap("content")]
-        [Validation(Required=false)]
-        public string Content { get; set; }
-
-        // agent消息扩展信息
-        [NameInMap("assistant_extra")]
-        [Validation(Required=false)]
-        public AssistantExtra AssistantExtra { get; set; }
-
-        // 当前会话的 Credit 计费总数
-        [NameInMap("total_credit")]
-        [Validation(Required=false)]
-        public string TotalCredit { get; set; }
 
     }
 
