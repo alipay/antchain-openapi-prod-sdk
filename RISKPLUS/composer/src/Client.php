@@ -294,6 +294,10 @@ use AntChain\RISKPLUS\Models\QueryDubbridgePetrefundRequest;
 use AntChain\RISKPLUS\Models\QueryDubbridgePetrefundResponse;
 use AntChain\RISKPLUS\Models\ApplyDubbridgePetmallorderTransferRequest;
 use AntChain\RISKPLUS\Models\ApplyDubbridgePetmallorderTransferResponse;
+use AntChain\RISKPLUS\Models\GetDubbridgeJumpurlRequest;
+use AntChain\RISKPLUS\Models\GetDubbridgeJumpurlResponse;
+use AntChain\RISKPLUS\Models\QueryDubbridgeJumpresultRequest;
+use AntChain\RISKPLUS\Models\QueryDubbridgeJumpresultResponse;
 use AntChain\RISKPLUS\Models\VerifyFinserviceZhimaIdentifyRequest;
 use AntChain\RISKPLUS\Models\VerifyFinserviceZhimaIdentifyResponse;
 use AntChain\RISKPLUS\Models\QueryFinserviceZhimaIdentifyRequest;
@@ -775,7 +779,7 @@ class Client {
                     "req_msg_id" => UtilClient::getNonce(),
                     "access_key" => $this->_accessKeyId,
                     "base_sdk_version" => "TeaSDK-2.0",
-                    "sdk_version" => "1.33.2",
+                    "sdk_version" => "1.33.4",
                     "_prod_code" => "RISKPLUS",
                     "_prod_channel" => "undefined"
                 ];
@@ -1847,7 +1851,7 @@ class Client {
 
     /**
      * Description: 资金路由接口，获取资金方编号
-     * Summary: 天枢系统资金方代码(资金路由)查询
+     * Summary: 资金路由接口，获取资金方编号
      * @param QueryDubbridgeRouterFundrouterRequest $request
      * @return QueryDubbridgeRouterFundrouterResponse
      */
@@ -1859,7 +1863,7 @@ class Client {
 
     /**
      * Description: 资金路由接口，获取资金方编号
-     * Summary: 天枢系统资金方代码(资金路由)查询
+     * Summary: 资金路由接口，获取资金方编号
      * @param QueryDubbridgeRouterFundrouterRequest $request
      * @param string[] $headers
      * @param RuntimeOptions $runtime
@@ -4338,6 +4342,56 @@ class Client {
     public function applyDubbridgePetmallorderTransferEx($request, $headers, $runtime){
         Utils::validateModel($request);
         return ApplyDubbridgePetmallorderTransferResponse::fromMap($this->doRequest("1.0", "riskplus.dubbridge.petmallorder.transfer.apply", "HTTPS", "POST", "/gateway.do", Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 跳端地址获取
+     * Summary: 跳端地址获取
+     * @param GetDubbridgeJumpurlRequest $request
+     * @return GetDubbridgeJumpurlResponse
+     */
+    public function getDubbridgeJumpurl($request){
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+        return $this->getDubbridgeJumpurlEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 跳端地址获取
+     * Summary: 跳端地址获取
+     * @param GetDubbridgeJumpurlRequest $request
+     * @param string[] $headers
+     * @param RuntimeOptions $runtime
+     * @return GetDubbridgeJumpurlResponse
+     */
+    public function getDubbridgeJumpurlEx($request, $headers, $runtime){
+        Utils::validateModel($request);
+        return GetDubbridgeJumpurlResponse::fromMap($this->doRequest("1.0", "riskplus.dubbridge.jumpurl.get", "HTTPS", "POST", "/gateway.do", Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 跳端结果查询
+     * Summary: 跳端结果查询
+     * @param QueryDubbridgeJumpresultRequest $request
+     * @return QueryDubbridgeJumpresultResponse
+     */
+    public function queryDubbridgeJumpresult($request){
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+        return $this->queryDubbridgeJumpresultEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 跳端结果查询
+     * Summary: 跳端结果查询
+     * @param QueryDubbridgeJumpresultRequest $request
+     * @param string[] $headers
+     * @param RuntimeOptions $runtime
+     * @return QueryDubbridgeJumpresultResponse
+     */
+    public function queryDubbridgeJumpresultEx($request, $headers, $runtime){
+        Utils::validateModel($request);
+        return QueryDubbridgeJumpresultResponse::fromMap($this->doRequest("1.0", "riskplus.dubbridge.jumpresult.query", "HTTPS", "POST", "/gateway.do", Tea::merge($request), $headers, $runtime));
     }
 
     /**

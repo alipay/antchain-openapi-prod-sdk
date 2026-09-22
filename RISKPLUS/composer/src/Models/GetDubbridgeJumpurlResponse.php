@@ -5,14 +5,12 @@ namespace AntChain\RISKPLUS\Models;
 
 use AlibabaCloud\Tea\Model;
 
-class ApplyDubbridgePetmallorderTransferResponse extends Model {
+class GetDubbridgeJumpurlResponse extends Model {
     protected $_name = [
         'reqMsgId' => 'req_msg_id',
         'resultCode' => 'result_code',
         'resultMsg' => 'result_msg',
-        'bizOrderNo' => 'biz_order_no',
-        'settleResult' => 'settle_result',
-        'failReason' => 'fail_reason',
+        'url' => 'url',
     ];
     public function validate() {}
     public function toMap() {
@@ -26,20 +24,14 @@ class ApplyDubbridgePetmallorderTransferResponse extends Model {
         if (null !== $this->resultMsg) {
             $res['result_msg'] = $this->resultMsg;
         }
-        if (null !== $this->bizOrderNo) {
-            $res['biz_order_no'] = $this->bizOrderNo;
-        }
-        if (null !== $this->settleResult) {
-            $res['settle_result'] = $this->settleResult;
-        }
-        if (null !== $this->failReason) {
-            $res['fail_reason'] = $this->failReason;
+        if (null !== $this->url) {
+            $res['url'] = $this->url;
         }
         return $res;
     }
     /**
      * @param array $map
-     * @return ApplyDubbridgePetmallorderTransferResponse
+     * @return GetDubbridgeJumpurlResponse
      */
     public static function fromMap($map = []) {
         $model = new self();
@@ -52,14 +44,8 @@ class ApplyDubbridgePetmallorderTransferResponse extends Model {
         if(isset($map['result_msg'])){
             $model->resultMsg = $map['result_msg'];
         }
-        if(isset($map['biz_order_no'])){
-            $model->bizOrderNo = $map['biz_order_no'];
-        }
-        if(isset($map['settle_result'])){
-            $model->settleResult = $map['settle_result'];
-        }
-        if(isset($map['fail_reason'])){
-            $model->failReason = $map['fail_reason'];
+        if(isset($map['url'])){
+            $model->url = $map['url'];
         }
         return $model;
     }
@@ -81,22 +67,10 @@ class ApplyDubbridgePetmallorderTransferResponse extends Model {
      */
     public $resultMsg;
 
-    // 业务订单
+    // 跳转URL，请求成功返回
     /**
      * @var string
      */
-    public $bizOrderNo;
-
-    // 受理结果：Y-受理成功、N-受理失败
-    /**
-     * @var string
-     */
-    public $settleResult;
-
-    // 失败原因
-    /**
-     * @var string
-     */
-    public $failReason;
+    public $url;
 
 }

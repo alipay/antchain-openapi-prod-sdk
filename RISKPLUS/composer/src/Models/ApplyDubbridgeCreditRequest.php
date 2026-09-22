@@ -33,6 +33,7 @@ class ApplyDubbridgeCreditRequest extends Model {
         'fundCode' => 'fund_code',
         'bizOrderNo' => 'biz_order_no',
         'prodType' => 'prod_type',
+        'merchantExternalId' => 'merchant_external_id',
     ];
     public function validate() {
         Model::validateRequired('personalInfo', $this->personalInfo, true);
@@ -111,6 +112,9 @@ class ApplyDubbridgeCreditRequest extends Model {
         if (null !== $this->prodType) {
             $res['prod_type'] = $this->prodType;
         }
+        if (null !== $this->merchantExternalId) {
+            $res['merchant_external_id'] = $this->merchantExternalId;
+        }
         return $res;
     }
     /**
@@ -187,6 +191,9 @@ class ApplyDubbridgeCreditRequest extends Model {
         }
         if(isset($map['prod_type'])){
             $model->prodType = $map['prod_type'];
+        }
+        if(isset($map['merchant_external_id'])){
+            $model->merchantExternalId = $map['merchant_external_id'];
         }
         return $model;
     }
@@ -314,5 +321,11 @@ class ApplyDubbridgeCreditRequest extends Model {
      * @var string
      */
     public $prodType;
+
+    // 商户入驻id
+    /**
+     * @var string
+     */
+    public $merchantExternalId;
 
 }

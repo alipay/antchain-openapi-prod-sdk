@@ -5,14 +5,16 @@ namespace AntChain\RISKPLUS\Models;
 
 use AlibabaCloud\Tea\Model;
 
-class ApplyDubbridgePetmallorderTransferResponse extends Model {
+use AntChain\RISKPLUS\Models\CustCheckInfo;
+
+class QueryDubbridgeJumpresultResponse extends Model {
     protected $_name = [
         'reqMsgId' => 'req_msg_id',
         'resultCode' => 'result_code',
         'resultMsg' => 'result_msg',
-        'bizOrderNo' => 'biz_order_no',
-        'settleResult' => 'settle_result',
-        'failReason' => 'fail_reason',
+        'jumpNo' => 'jump_no',
+        'pageUrl' => 'page_url',
+        'custCheckInfo' => 'cust_check_info',
     ];
     public function validate() {}
     public function toMap() {
@@ -26,20 +28,20 @@ class ApplyDubbridgePetmallorderTransferResponse extends Model {
         if (null !== $this->resultMsg) {
             $res['result_msg'] = $this->resultMsg;
         }
-        if (null !== $this->bizOrderNo) {
-            $res['biz_order_no'] = $this->bizOrderNo;
+        if (null !== $this->jumpNo) {
+            $res['jump_no'] = $this->jumpNo;
         }
-        if (null !== $this->settleResult) {
-            $res['settle_result'] = $this->settleResult;
+        if (null !== $this->pageUrl) {
+            $res['page_url'] = $this->pageUrl;
         }
-        if (null !== $this->failReason) {
-            $res['fail_reason'] = $this->failReason;
+        if (null !== $this->custCheckInfo) {
+            $res['cust_check_info'] = null !== $this->custCheckInfo ? $this->custCheckInfo->toMap() : null;
         }
         return $res;
     }
     /**
      * @param array $map
-     * @return ApplyDubbridgePetmallorderTransferResponse
+     * @return QueryDubbridgeJumpresultResponse
      */
     public static function fromMap($map = []) {
         $model = new self();
@@ -52,14 +54,14 @@ class ApplyDubbridgePetmallorderTransferResponse extends Model {
         if(isset($map['result_msg'])){
             $model->resultMsg = $map['result_msg'];
         }
-        if(isset($map['biz_order_no'])){
-            $model->bizOrderNo = $map['biz_order_no'];
+        if(isset($map['jump_no'])){
+            $model->jumpNo = $map['jump_no'];
         }
-        if(isset($map['settle_result'])){
-            $model->settleResult = $map['settle_result'];
+        if(isset($map['page_url'])){
+            $model->pageUrl = $map['page_url'];
         }
-        if(isset($map['fail_reason'])){
-            $model->failReason = $map['fail_reason'];
+        if(isset($map['cust_check_info'])){
+            $model->custCheckInfo = CustCheckInfo::fromMap($map['cust_check_info']);
         }
         return $model;
     }
@@ -81,22 +83,22 @@ class ApplyDubbridgePetmallorderTransferResponse extends Model {
      */
     public $resultMsg;
 
-    // 业务订单
+    // 跳端申请唯一流水号
     /**
      * @var string
      */
-    public $bizOrderNo;
+    public $jumpNo;
 
-    // 受理结果：Y-受理成功、N-受理失败
+    // 借款确认页URL
     /**
      * @var string
      */
-    public $settleResult;
+    public $pageUrl;
 
-    // 失败原因
+    // 借款确认页客户确认信息
     /**
-     * @var string
+     * @var CustCheckInfo
      */
-    public $failReason;
+    public $custCheckInfo;
 
 }
