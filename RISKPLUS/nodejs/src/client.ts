@@ -469,6 +469,63 @@ export class SecurityScene extends $tea.Model {
   }
 }
 
+// 还款计划
+export class RepayPlan extends $tea.Model {
+  // 期次号，还款期次序号
+  /**
+   * @example
+   * 2023343380112
+   */
+  termNo: string;
+  // 本期开始时间，格式：yyyy-MM-dd
+  /**
+   * @example
+   * 2000-01-01
+   */
+  termStart?: string;
+  // 本期结束时间，格式：yyyy-MM-dd
+  /**
+   * @example
+   * 1999-01-01
+   */
+  termEnd: string;
+  // 本期本金，单位：元，2 位小数
+  /**
+   * @example
+   * 1000.00
+   */
+  termPrin: string;
+  // 本期利息，单位：元，2 位小数
+  /**
+   * @example
+   * 1000.00
+   */
+  termInt: string;
+  static names(): { [key: string]: string } {
+    return {
+      termNo: 'term_no',
+      termStart: 'term_start',
+      termEnd: 'term_end',
+      termPrin: 'term_prin',
+      termInt: 'term_int',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      termNo: 'string',
+      termStart: 'string',
+      termEnd: 'string',
+      termPrin: 'string',
+      termInt: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
 // 天枢系统Contact结构体
 export class Contact extends $tea.Model {
   // 联系人类型
@@ -4242,6 +4299,39 @@ export class StrategyDetails extends $tea.Model {
   }
 }
 
+// 回跳平台方地址
+export class PlatJumpUrl extends $tea.Model {
+  // 确认跳转URL，确认后回跳平台地址
+  /**
+   * @example
+   * http://platform.com/confirm/ca
+   */
+  confirmUrl: string;
+  // 取消跳转URL，取消后回跳平台地址，失效也是这个链接
+  /**
+   * @example
+   * http://platform.com/confirm/ca
+   */
+  cancelUrl: string;
+  static names(): { [key: string]: string } {
+    return {
+      confirmUrl: 'confirm_url',
+      cancelUrl: 'cancel_url',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      confirmUrl: 'string',
+      cancelUrl: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
 // 反欺诈风险数据服务决策结果
 export class SecurityResultInfos extends $tea.Model {
   // 反欺诈风险数据服务风险建议决策
@@ -7388,6 +7478,270 @@ export class CustomerBankCardInfo extends $tea.Model {
       signed: 'string',
       acctBankCard: 'string',
       protocolNo: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+// 借款确认信息
+export class LoanConfirmInfo extends $tea.Model {
+  // 借款本金
+  /**
+   * @example
+   * 1000.00
+   */
+  loanPrin: string;
+  // 还款方式
+  /**
+   * @example
+   * 1
+   */
+  repayType: string;
+  // 实际年化利率,单位：%，2
+  // 位小数
+  /**
+   * @example
+   * 15.00
+   */
+  actualRate: string;
+  // 优惠前年化利率,单位：%，2
+  // 位小数
+  /**
+   * @example
+   * 15.00
+   */
+  preDiscRate?: string;
+  // 借款期数
+  /**
+   * @example
+   * 12
+   */
+  loanTerm: string;
+  // 借款总利息,单位：元，
+  // 2 位小数
+  /**
+   * @example
+   * 213.00
+   */
+  totalInt?: string;
+  // 借款起始日,整笔借据的
+  // 开始时间 格
+  // 式：yyyy-
+  // MM-dd
+  /**
+   * @example
+   * 1999-01-01
+   */
+  startDate: string;
+  // 借款到期日,格式：yyyy-MM-dd
+  /**
+   * @example
+   * 2000-01-01
+   */
+  expireDate: string;
+  // 借款总天数，单位：天，不传expire_date时上送
+  /**
+   * @example
+   * 120
+   */
+  totalDays?: string;
+  // 还款计划列表
+  /**
+   * @example
+   * undefined
+   */
+  repayPlans: RepayPlan[];
+  // 客户姓名
+  /**
+   * @example
+   * 张三
+   */
+  custName: string;
+  // 身份证号
+  /**
+   * @example
+   * 101101200101011234
+   */
+  certNo: string;
+  // 联系电话
+  /**
+   * @example
+   * 18612341234
+   */
+  mobile: string;
+  // 居住地址
+  /**
+   * @example
+   * XX省XX市XX区
+   */
+  homeAddr: string;
+  // 银行卡号
+  /**
+   * @example
+   * 8888888888888888888
+   */
+  bankCardNo: string;
+  // 开户行
+  /**
+   * @example
+   * 中国工商银行
+   */
+  bankName: string;
+  // 银行编码
+  /**
+   * @example
+   * ICBC
+   */
+  bankCode?: string;
+  // 户籍所在地
+  /**
+   * @example
+   * XX省XX市XX区
+   */
+  certAddr?: string;
+  // 常用地址
+  /**
+   * @example
+   * XX省XX市XX区
+   */
+  commAddr?: string;
+  // 优惠前还款计划，有优惠时必填
+  /**
+   * @example
+   * undefined
+   */
+  discPlans?: RepayPlan[];
+  // 优惠信息，优惠活动说明
+  /**
+   * @example
+   * 首笔利率 8 折
+   */
+  discInfo?: string;
+  // 逾期罚息利率，单位 %，2位小数
+  /**
+   * @example
+   * 15.33
+   */
+  overdueRate?: string;
+  // 挪用罚息利率，单位 %，2位小数
+  /**
+   * @example
+   * 15.00
+   */
+  misuseRate?: string;
+  // lpr利率，固定一年期,
+  // 单位%
+  /**
+   * @example
+   * 3.50
+   */
+  lpr?: string;
+  // lpr发布时间，格式：yyyy-MM-dd
+  /**
+   * @example
+   * 1999-01-01
+   */
+  lprDay?: string;
+  // 上浮基点，100bp=1%
+  /**
+   * @example
+   * 1500
+   */
+  bp?: string;
+  // 手续费利率，增信服务费年利率，单位 %
+  /**
+   * @example
+   * 3.12
+   */
+  feeRate?: string;
+  // 固收利率，固守年利率，单位 %
+  /**
+   * @example
+   * 3.12
+   */
+  fixRate?: string;
+  // 固收主体，默认：浙江宁银消费金融股份有限公司
+  /**
+   * @example
+   * 浙江宁 银消费金融 股份有限公 司
+   */
+  fixCompany?: string;
+  // 融担公司主体,若有多家融担公司，以逗号分隔
+  /**
+   * @example
+   * 融担公司1，融担公司2
+   */
+  feeCompany?: string;
+  static names(): { [key: string]: string } {
+    return {
+      loanPrin: 'loan_prin',
+      repayType: 'repay_type',
+      actualRate: 'actual_rate',
+      preDiscRate: 'pre_disc_rate',
+      loanTerm: 'loan_term',
+      totalInt: 'total_int',
+      startDate: 'start_date',
+      expireDate: 'expire_date',
+      totalDays: 'total_days',
+      repayPlans: 'repay_plans',
+      custName: 'cust_name',
+      certNo: 'cert_no',
+      mobile: 'mobile',
+      homeAddr: 'home_addr',
+      bankCardNo: 'bank_card_no',
+      bankName: 'bank_name',
+      bankCode: 'bank_code',
+      certAddr: 'cert_addr',
+      commAddr: 'comm_addr',
+      discPlans: 'disc_plans',
+      discInfo: 'disc_info',
+      overdueRate: 'overdue_rate',
+      misuseRate: 'misuse_rate',
+      lpr: 'lpr',
+      lprDay: 'lpr_day',
+      bp: 'bp',
+      feeRate: 'fee_rate',
+      fixRate: 'fix_rate',
+      fixCompany: 'fix_company',
+      feeCompany: 'fee_company',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      loanPrin: 'string',
+      repayType: 'string',
+      actualRate: 'string',
+      preDiscRate: 'string',
+      loanTerm: 'string',
+      totalInt: 'string',
+      startDate: 'string',
+      expireDate: 'string',
+      totalDays: 'string',
+      repayPlans: { 'type': 'array', 'itemType': RepayPlan },
+      custName: 'string',
+      certNo: 'string',
+      mobile: 'string',
+      homeAddr: 'string',
+      bankCardNo: 'string',
+      bankName: 'string',
+      bankCode: 'string',
+      certAddr: 'string',
+      commAddr: 'string',
+      discPlans: { 'type': 'array', 'itemType': RepayPlan },
+      discInfo: 'string',
+      overdueRate: 'string',
+      misuseRate: 'string',
+      lpr: 'string',
+      lprDay: 'string',
+      bp: 'string',
+      feeRate: 'string',
+      fixRate: 'string',
+      fixCompany: 'string',
+      feeCompany: 'string',
     };
   }
 
@@ -11082,6 +11436,31 @@ export class Item extends $tea.Model {
       certNo: 'string',
       mobile: 'string',
       sampleBackDate: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+// 借款确认页客户确认信息
+export class CustCheckInfo extends $tea.Model {
+  // 签约结果,01 - 处理中，02 - 成功，03 失败（当超过链接有效期却还未收到前端给出的跳端成功结果后，会将此次跳端结果设置为失败）
+  /**
+   * @example
+   * 01
+   */
+  signResult: string;
+  static names(): { [key: string]: string } {
+    return {
+      signResult: 'sign_result',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      signResult: 'string',
     };
   }
 
@@ -14961,6 +15340,8 @@ export class QueryDubbridgeRouterFundrouterRequest extends $tea.Model {
   riskData?: string;
   // 扩展字段
   extInfo?: string;
+  // 商户入驻id
+  merchantExternalId?: string;
   static names(): { [key: string]: string } {
     return {
       authToken: 'auth_token',
@@ -14986,6 +15367,7 @@ export class QueryDubbridgeRouterFundrouterRequest extends $tea.Model {
       clickId: 'click_id',
       riskData: 'risk_data',
       extInfo: 'ext_info',
+      merchantExternalId: 'merchant_external_id',
     };
   }
 
@@ -15014,6 +15396,7 @@ export class QueryDubbridgeRouterFundrouterRequest extends $tea.Model {
       clickId: 'string',
       riskData: 'string',
       extInfo: 'string',
+      merchantExternalId: 'string',
     };
   }
 
@@ -15108,6 +15491,8 @@ export class ApplyDubbridgeCreditRequest extends $tea.Model {
   bizOrderNo?: string;
   // 业务类型
   prodType?: string;
+  // 商户入驻id
+  merchantExternalId?: string;
   static names(): { [key: string]: string } {
     return {
       authToken: 'auth_token',
@@ -15131,6 +15516,7 @@ export class ApplyDubbridgeCreditRequest extends $tea.Model {
       fundCode: 'fund_code',
       bizOrderNo: 'biz_order_no',
       prodType: 'prod_type',
+      merchantExternalId: 'merchant_external_id',
     };
   }
 
@@ -15157,6 +15543,7 @@ export class ApplyDubbridgeCreditRequest extends $tea.Model {
       fundCode: 'string',
       bizOrderNo: 'string',
       prodType: 'string',
+      merchantExternalId: 'string',
     };
   }
 
@@ -17258,6 +17645,8 @@ export class ApplyDubbridgeUsecreditRequest extends $tea.Model {
   trafficPlatform?: string;
   // 业务方订单号
   bizOrderNo?: string;
+  // 商户入驻id
+  merchantExternalId?: string;
   static names(): { [key: string]: string } {
     return {
       authToken: 'auth_token',
@@ -17279,6 +17668,7 @@ export class ApplyDubbridgeUsecreditRequest extends $tea.Model {
       couponId: 'coupon_id',
       trafficPlatform: 'traffic_platform',
       bizOrderNo: 'biz_order_no',
+      merchantExternalId: 'merchant_external_id',
     };
   }
 
@@ -17303,6 +17693,7 @@ export class ApplyDubbridgeUsecreditRequest extends $tea.Model {
       couponId: 'string',
       trafficPlatform: 'string',
       bizOrderNo: 'string',
+      merchantExternalId: 'string',
     };
   }
 
@@ -23205,7 +23596,7 @@ export class CreateDubbridgePetmallorderRequest extends $tea.Model {
   // 商品名称
   goodsName: string;
   // 商品标价，单位：元
-  settleAmount: string;
+  productAmount: string;
   // 储值卡支付结算金额，用于冻结/出账/分账的基数，单位元，两位小数
   pointAmount: string;
   static names(): { [key: string]: string } {
@@ -23219,7 +23610,7 @@ export class CreateDubbridgePetmallorderRequest extends $tea.Model {
       bizOrderNo: 'biz_order_no',
       tradeNo: 'trade_no',
       goodsName: 'goods_name',
-      settleAmount: 'settle_amount',
+      productAmount: 'product_amount',
       pointAmount: 'point_amount',
     };
   }
@@ -23235,7 +23626,7 @@ export class CreateDubbridgePetmallorderRequest extends $tea.Model {
       bizOrderNo: 'string',
       tradeNo: 'string',
       goodsName: 'string',
-      settleAmount: 'string',
+      productAmount: 'string',
       pointAmount: 'string',
     };
   }
@@ -23631,8 +24022,6 @@ export class ApplyDubbridgePetmallorderTransferResponse extends $tea.Model {
   settleResult?: string;
   // 失败原因
   failReason?: string;
-  // 分账单号，提交成功时返回
-  transferNo?: string;
   static names(): { [key: string]: string } {
     return {
       reqMsgId: 'req_msg_id',
@@ -23641,7 +24030,6 @@ export class ApplyDubbridgePetmallorderTransferResponse extends $tea.Model {
       bizOrderNo: 'biz_order_no',
       settleResult: 'settle_result',
       failReason: 'fail_reason',
-      transferNo: 'transfer_no',
     };
   }
 
@@ -23653,7 +24041,172 @@ export class ApplyDubbridgePetmallorderTransferResponse extends $tea.Model {
       bizOrderNo: 'string',
       settleResult: 'string',
       failReason: 'string',
-      transferNo: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class GetDubbridgeJumpurlRequest extends $tea.Model {
+  // OAuth模式下的授权token
+  authToken?: string;
+  productInstanceId?: string;
+  // 请求唯一id
+  orderNo: string;
+  // 授信流水号
+  creditNo?: string;
+  // 支用流水号
+  loanNo?: string;
+  // 跳端申请流水号
+  jumpNo: string;
+  // 借款确认信息
+  loanConfirmInfo: LoanConfirmInfo;
+  // 回跳平台方地址
+  platJumpUrl: PlatJumpUrl;
+  // 合作方渠道标示，用于区分产品
+  channelId: string;
+  // 拓展信息，json格式字符串
+  extInfo?: string;
+  static names(): { [key: string]: string } {
+    return {
+      authToken: 'auth_token',
+      productInstanceId: 'product_instance_id',
+      orderNo: 'order_no',
+      creditNo: 'credit_no',
+      loanNo: 'loan_no',
+      jumpNo: 'jump_no',
+      loanConfirmInfo: 'loan_confirm_info',
+      platJumpUrl: 'plat_jump_url',
+      channelId: 'channel_id',
+      extInfo: 'ext_info',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      authToken: 'string',
+      productInstanceId: 'string',
+      orderNo: 'string',
+      creditNo: 'string',
+      loanNo: 'string',
+      jumpNo: 'string',
+      loanConfirmInfo: LoanConfirmInfo,
+      platJumpUrl: PlatJumpUrl,
+      channelId: 'string',
+      extInfo: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class GetDubbridgeJumpurlResponse extends $tea.Model {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string;
+  // 结果码，一般OK表示调用成功
+  resultCode?: string;
+  // 异常信息的文本描述
+  resultMsg?: string;
+  // 跳转URL，请求成功返回
+  url?: string;
+  static names(): { [key: string]: string } {
+    return {
+      reqMsgId: 'req_msg_id',
+      resultCode: 'result_code',
+      resultMsg: 'result_msg',
+      url: 'url',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      reqMsgId: 'string',
+      resultCode: 'string',
+      resultMsg: 'string',
+      url: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class QueryDubbridgeJumpresultRequest extends $tea.Model {
+  // OAuth模式下的授权token
+  authToken?: string;
+  productInstanceId?: string;
+  // 请求唯一id
+  orderNo: string;
+  // 跳端申请唯一流水号，一个流水号对应一个URL
+  jumpNo: string;
+  // 合作方渠道标示,用于区分产品
+  channelId: string;
+  // 拓展信息,json格式字符串
+  extInfo?: string;
+  static names(): { [key: string]: string } {
+    return {
+      authToken: 'auth_token',
+      productInstanceId: 'product_instance_id',
+      orderNo: 'order_no',
+      jumpNo: 'jump_no',
+      channelId: 'channel_id',
+      extInfo: 'ext_info',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      authToken: 'string',
+      productInstanceId: 'string',
+      orderNo: 'string',
+      jumpNo: 'string',
+      channelId: 'string',
+      extInfo: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class QueryDubbridgeJumpresultResponse extends $tea.Model {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string;
+  // 结果码，一般OK表示调用成功
+  resultCode?: string;
+  // 异常信息的文本描述
+  resultMsg?: string;
+  // 跳端申请唯一流水号
+  jumpNo?: string;
+  // 借款确认页URL
+  pageUrl?: string;
+  // 借款确认页客户确认信息
+  custCheckInfo?: CustCheckInfo;
+  static names(): { [key: string]: string } {
+    return {
+      reqMsgId: 'req_msg_id',
+      resultCode: 'result_code',
+      resultMsg: 'result_msg',
+      jumpNo: 'jump_no',
+      pageUrl: 'page_url',
+      custCheckInfo: 'cust_check_info',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      reqMsgId: 'string',
+      resultCode: 'string',
+      resultMsg: 'string',
+      jumpNo: 'string',
+      pageUrl: 'string',
+      custCheckInfo: CustCheckInfo,
     };
   }
 
@@ -37421,7 +37974,7 @@ export default class Client {
           req_msg_id: AntchainUtil.getNonce(),
           access_key: this._accessKeyId,
           base_sdk_version: "TeaSDK-2.0",
-          sdk_version: "1.33.2",
+          sdk_version: "1.33.4",
           _prod_code: "RISKPLUS",
           _prod_channel: "undefined",
         };
@@ -38333,7 +38886,7 @@ export default class Client {
   /**
    * @remarks
    * Description: 资金路由接口，获取资金方编号
-   * Summary: 天枢系统资金方代码(资金路由)查询
+   * Summary: 资金路由接口，获取资金方编号
    */
   async queryDubbridgeRouterFundrouter(request: QueryDubbridgeRouterFundrouterRequest): Promise<QueryDubbridgeRouterFundrouterResponse> {
     let runtime = new $Util.RuntimeOptions({ });
@@ -38344,7 +38897,7 @@ export default class Client {
   /**
    * @remarks
    * Description: 资金路由接口，获取资金方编号
-   * Summary: 天枢系统资金方代码(资金路由)查询
+   * Summary: 资金路由接口，获取资金方编号
    */
   async queryDubbridgeRouterFundrouterEx(request: QueryDubbridgeRouterFundrouterRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<QueryDubbridgeRouterFundrouterResponse> {
     Util.validateModel(request);
@@ -40429,6 +40982,48 @@ export default class Client {
   async applyDubbridgePetmallorderTransferEx(request: ApplyDubbridgePetmallorderTransferRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<ApplyDubbridgePetmallorderTransferResponse> {
     Util.validateModel(request);
     return $tea.cast<ApplyDubbridgePetmallorderTransferResponse>(await this.doRequest("1.0", "riskplus.dubbridge.petmallorder.transfer.apply", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new ApplyDubbridgePetmallorderTransferResponse({}));
+  }
+
+  /**
+   * @remarks
+   * Description: 跳端地址获取
+   * Summary: 跳端地址获取
+   */
+  async getDubbridgeJumpurl(request: GetDubbridgeJumpurlRequest): Promise<GetDubbridgeJumpurlResponse> {
+    let runtime = new $Util.RuntimeOptions({ });
+    let headers : {[key: string ]: string} = { };
+    return await this.getDubbridgeJumpurlEx(request, headers, runtime);
+  }
+
+  /**
+   * @remarks
+   * Description: 跳端地址获取
+   * Summary: 跳端地址获取
+   */
+  async getDubbridgeJumpurlEx(request: GetDubbridgeJumpurlRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<GetDubbridgeJumpurlResponse> {
+    Util.validateModel(request);
+    return $tea.cast<GetDubbridgeJumpurlResponse>(await this.doRequest("1.0", "riskplus.dubbridge.jumpurl.get", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new GetDubbridgeJumpurlResponse({}));
+  }
+
+  /**
+   * @remarks
+   * Description: 跳端结果查询
+   * Summary: 跳端结果查询
+   */
+  async queryDubbridgeJumpresult(request: QueryDubbridgeJumpresultRequest): Promise<QueryDubbridgeJumpresultResponse> {
+    let runtime = new $Util.RuntimeOptions({ });
+    let headers : {[key: string ]: string} = { };
+    return await this.queryDubbridgeJumpresultEx(request, headers, runtime);
+  }
+
+  /**
+   * @remarks
+   * Description: 跳端结果查询
+   * Summary: 跳端结果查询
+   */
+  async queryDubbridgeJumpresultEx(request: QueryDubbridgeJumpresultRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<QueryDubbridgeJumpresultResponse> {
+    Util.validateModel(request);
+    return $tea.cast<QueryDubbridgeJumpresultResponse>(await this.doRequest("1.0", "riskplus.dubbridge.jumpresult.query", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new QueryDubbridgeJumpresultResponse({}));
   }
 
   /**
