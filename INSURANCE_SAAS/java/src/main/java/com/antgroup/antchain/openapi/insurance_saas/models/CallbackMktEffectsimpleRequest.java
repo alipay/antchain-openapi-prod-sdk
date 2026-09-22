@@ -20,7 +20,6 @@ public class CallbackMktEffectsimpleRequest extends TeaModel {
 
     // 营销模式，AI_HANGUP_SMS("AI挂短")， AI_OFFICIAL_ACCOUNT("AI公众号"), BPO_WECHAT("BPO企微"), AI_BPO("AI_BPO")
     @NameInMap("marketing_mode")
-    @Validation(required = true)
     public String marketingMode;
 
     // 投保特征短链

@@ -20,6 +20,10 @@ public class ApplyMktserviceproviderAudiencecircleResponse extends TeaModel {
     @NameInMap("request_id")
     public String requestId;
 
+    // 批次号
+    @NameInMap("batch_no")
+    public String batchNo;
+
     public static ApplyMktserviceproviderAudiencecircleResponse build(java.util.Map<String, ?> map) throws Exception {
         ApplyMktserviceproviderAudiencecircleResponse self = new ApplyMktserviceproviderAudiencecircleResponse();
         return TeaModel.build(map, self);
@@ -55,6 +59,14 @@ public class ApplyMktserviceproviderAudiencecircleResponse extends TeaModel {
     }
     public String getRequestId() {
         return this.requestId;
+    }
+
+    public ApplyMktserviceproviderAudiencecircleResponse setBatchNo(String batchNo) {
+        this.batchNo = batchNo;
+        return this;
+    }
+    public String getBatchNo() {
+        return this.batchNo;
     }
 
 }

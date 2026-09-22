@@ -23,7 +23,7 @@ public class CallbackMktEffectRequest extends TeaModel {
     // BPO_WECHAT("BPO企微"),
     // AI_BPO("AI_BPO")
     @NameInMap("marketing_mode")
-    @Validation(required = true, maxLength = 64)
+    @Validation(maxLength = 64)
     public String marketingMode;
 
     // 投保特征短链
