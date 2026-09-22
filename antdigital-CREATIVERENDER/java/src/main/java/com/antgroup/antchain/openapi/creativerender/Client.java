@@ -126,7 +126,7 @@ public class Client {
                     new TeaPair("req_msg_id", com.antgroup.antchain.openapi.antchain.util.AntchainUtils.getNonce()),
                     new TeaPair("access_key", _accessKeyId),
                     new TeaPair("base_sdk_version", "TeaSDK-2.0"),
-                    new TeaPair("sdk_version", "2.0.7"),
+                    new TeaPair("sdk_version", "2.0.9"),
                     new TeaPair("_prod_code", "CREATIVERENDER"),
                     new TeaPair("_prod_channel", "default")
                 );
@@ -291,5 +291,47 @@ public class Client {
     public QueryAntcloudMarketingagentCreativeMaterialResponse queryAntcloudMarketingagentCreativeMaterialEx(QueryAntcloudMarketingagentCreativeMaterialRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
         com.aliyun.teautil.Common.validateModel(request);
         return TeaModel.toModel(this.doRequest("1.0", "antcloud.marketingagent.creative.material.query", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new QueryAntcloudMarketingagentCreativeMaterialResponse());
+    }
+
+    /**
+     * <b>description</b> :
+     * <p>Description: AI视频生成接口
+     * Summary: AI视频生成接口</p>
+     */
+    public ExecAntcloudMarketingagentCreativeVideoResponse execAntcloudMarketingagentCreativeVideo(ExecAntcloudMarketingagentCreativeVideoRequest request) throws Exception {
+        com.aliyun.teautil.models.RuntimeOptions runtime = new com.aliyun.teautil.models.RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.execAntcloudMarketingagentCreativeVideoEx(request, headers, runtime);
+    }
+
+    /**
+     * <b>description</b> :
+     * <p>Description: AI视频生成接口
+     * Summary: AI视频生成接口</p>
+     */
+    public ExecAntcloudMarketingagentCreativeVideoResponse execAntcloudMarketingagentCreativeVideoEx(ExecAntcloudMarketingagentCreativeVideoRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "antcloud.marketingagent.creative.video.exec", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new ExecAntcloudMarketingagentCreativeVideoResponse());
+    }
+
+    /**
+     * <b>description</b> :
+     * <p>Description: 视频任务查询接口
+     * Summary: 视频任务查询接口</p>
+     */
+    public QueryAntcloudMarketingagentCreativeVideoResponse queryAntcloudMarketingagentCreativeVideo(QueryAntcloudMarketingagentCreativeVideoRequest request) throws Exception {
+        com.aliyun.teautil.models.RuntimeOptions runtime = new com.aliyun.teautil.models.RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.queryAntcloudMarketingagentCreativeVideoEx(request, headers, runtime);
+    }
+
+    /**
+     * <b>description</b> :
+     * <p>Description: 视频任务查询接口
+     * Summary: 视频任务查询接口</p>
+     */
+    public QueryAntcloudMarketingagentCreativeVideoResponse queryAntcloudMarketingagentCreativeVideoEx(QueryAntcloudMarketingagentCreativeVideoRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "antcloud.marketingagent.creative.video.query", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new QueryAntcloudMarketingagentCreativeVideoResponse());
     }
 }
