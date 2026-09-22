@@ -8,7 +8,7 @@ using Tea;
 
 namespace AntChain.SDK.CREATIVERENDER.Models
 {
-    public class QueryAntcloudMarketingagentCreativeResultResponse : TeaModel {
+    public class QueryAntcloudMarketingagentCreativeMaterialResponse : TeaModel {
         // 请求唯一ID，用于链路跟踪和问题排查
         [NameInMap("req_msg_id")]
         [Validation(Required=false)]
@@ -24,35 +24,30 @@ namespace AntChain.SDK.CREATIVERENDER.Models
         [Validation(Required=false)]
         public string ResultMsg { get; set; }
 
-        // 会话ID
-        [NameInMap("session_id")]
+        // 总记录数
+        [NameInMap("total_count")]
         [Validation(Required=false)]
-        public string SessionId { get; set; }
+        public long? TotalCount { get; set; }
 
-        // 消息ID
-        [NameInMap("message_id")]
+        // 当前页码
+        [NameInMap("page_num")]
         [Validation(Required=false)]
-        public string MessageId { get; set; }
+        public long? PageNum { get; set; }
 
-        // 消息状态
-        [NameInMap("status")]
+        // 每页条数
+        [NameInMap("page_size")]
         [Validation(Required=false)]
-        public string Status { get; set; }
+        public long? PageSize { get; set; }
 
-        // 消息内容
-        [NameInMap("content")]
+        // 总页数
+        [NameInMap("page_count")]
         [Validation(Required=false)]
-        public string Content { get; set; }
+        public long? PageCount { get; set; }
 
-        // agent消息扩展信息
-        [NameInMap("assistant_extra")]
+        // 当前页素材列表
+        [NameInMap("materials")]
         [Validation(Required=false)]
-        public AssistantExtra AssistantExtra { get; set; }
-
-        // 当前会话的 Credit 计费总数
-        [NameInMap("total_credit")]
-        [Validation(Required=false)]
-        public string TotalCredit { get; set; }
+        public List<CreativeMaterial> Materials { get; set; }
 
     }
 
