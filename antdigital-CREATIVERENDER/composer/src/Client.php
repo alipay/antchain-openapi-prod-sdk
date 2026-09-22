@@ -19,6 +19,14 @@ use AntChain\CREATIVERENDER\Models\ExecAntcloudMarketingagentCreativeChatRequest
 use AntChain\CREATIVERENDER\Models\ExecAntcloudMarketingagentCreativeChatResponse;
 use AntChain\CREATIVERENDER\Models\QueryAntcloudMarketingagentCreativeResultRequest;
 use AntChain\CREATIVERENDER\Models\QueryAntcloudMarketingagentCreativeResultResponse;
+use AntChain\CREATIVERENDER\Models\QueryAntcloudMarketingagentTaskCreditRequest;
+use AntChain\CREATIVERENDER\Models\QueryAntcloudMarketingagentTaskCreditResponse;
+use AntChain\CREATIVERENDER\Models\QueryAntcloudMarketingagentCreativeMaterialRequest;
+use AntChain\CREATIVERENDER\Models\QueryAntcloudMarketingagentCreativeMaterialResponse;
+use AntChain\CREATIVERENDER\Models\ExecAntcloudMarketingagentCreativeVideoRequest;
+use AntChain\CREATIVERENDER\Models\ExecAntcloudMarketingagentCreativeVideoResponse;
+use AntChain\CREATIVERENDER\Models\QueryAntcloudMarketingagentCreativeVideoRequest;
+use AntChain\CREATIVERENDER\Models\QueryAntcloudMarketingagentCreativeVideoResponse;
 
 class Client {
     protected $_endpoint;
@@ -155,7 +163,7 @@ class Client {
                     "req_msg_id" => UtilClient::getNonce(),
                     "access_key" => $this->_accessKeyId,
                     "base_sdk_version" => "TeaSDK-2.0",
-                    "sdk_version" => "2.0.4",
+                    "sdk_version" => "2.0.9",
                     "_prod_code" => "CREATIVERENDER",
                     "_prod_channel" => "default"
                 ];
@@ -273,5 +281,105 @@ class Client {
     public function queryAntcloudMarketingagentCreativeResultEx($request, $headers, $runtime){
         Utils::validateModel($request);
         return QueryAntcloudMarketingagentCreativeResultResponse::fromMap($this->doRequest("1.0", "antcloud.marketingagent.creative.result.query", "HTTPS", "POST", "/gateway.do", Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: credit查询
+     * Summary: credit查询
+     * @param QueryAntcloudMarketingagentTaskCreditRequest $request
+     * @return QueryAntcloudMarketingagentTaskCreditResponse
+     */
+    public function queryAntcloudMarketingagentTaskCredit($request){
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+        return $this->queryAntcloudMarketingagentTaskCreditEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: credit查询
+     * Summary: credit查询
+     * @param QueryAntcloudMarketingagentTaskCreditRequest $request
+     * @param string[] $headers
+     * @param RuntimeOptions $runtime
+     * @return QueryAntcloudMarketingagentTaskCreditResponse
+     */
+    public function queryAntcloudMarketingagentTaskCreditEx($request, $headers, $runtime){
+        Utils::validateModel($request);
+        return QueryAntcloudMarketingagentTaskCreditResponse::fromMap($this->doRequest("1.0", "antcloud.marketingagent.task.credit.query", "HTTPS", "POST", "/gateway.do", Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 素材查询接口
+     * Summary: 素材查询接口
+     * @param QueryAntcloudMarketingagentCreativeMaterialRequest $request
+     * @return QueryAntcloudMarketingagentCreativeMaterialResponse
+     */
+    public function queryAntcloudMarketingagentCreativeMaterial($request){
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+        return $this->queryAntcloudMarketingagentCreativeMaterialEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 素材查询接口
+     * Summary: 素材查询接口
+     * @param QueryAntcloudMarketingagentCreativeMaterialRequest $request
+     * @param string[] $headers
+     * @param RuntimeOptions $runtime
+     * @return QueryAntcloudMarketingagentCreativeMaterialResponse
+     */
+    public function queryAntcloudMarketingagentCreativeMaterialEx($request, $headers, $runtime){
+        Utils::validateModel($request);
+        return QueryAntcloudMarketingagentCreativeMaterialResponse::fromMap($this->doRequest("1.0", "antcloud.marketingagent.creative.material.query", "HTTPS", "POST", "/gateway.do", Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: AI视频生成接口
+     * Summary: AI视频生成接口
+     * @param ExecAntcloudMarketingagentCreativeVideoRequest $request
+     * @return ExecAntcloudMarketingagentCreativeVideoResponse
+     */
+    public function execAntcloudMarketingagentCreativeVideo($request){
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+        return $this->execAntcloudMarketingagentCreativeVideoEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: AI视频生成接口
+     * Summary: AI视频生成接口
+     * @param ExecAntcloudMarketingagentCreativeVideoRequest $request
+     * @param string[] $headers
+     * @param RuntimeOptions $runtime
+     * @return ExecAntcloudMarketingagentCreativeVideoResponse
+     */
+    public function execAntcloudMarketingagentCreativeVideoEx($request, $headers, $runtime){
+        Utils::validateModel($request);
+        return ExecAntcloudMarketingagentCreativeVideoResponse::fromMap($this->doRequest("1.0", "antcloud.marketingagent.creative.video.exec", "HTTPS", "POST", "/gateway.do", Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 视频任务查询接口
+     * Summary: 视频任务查询接口
+     * @param QueryAntcloudMarketingagentCreativeVideoRequest $request
+     * @return QueryAntcloudMarketingagentCreativeVideoResponse
+     */
+    public function queryAntcloudMarketingagentCreativeVideo($request){
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+        return $this->queryAntcloudMarketingagentCreativeVideoEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 视频任务查询接口
+     * Summary: 视频任务查询接口
+     * @param QueryAntcloudMarketingagentCreativeVideoRequest $request
+     * @param string[] $headers
+     * @param RuntimeOptions $runtime
+     * @return QueryAntcloudMarketingagentCreativeVideoResponse
+     */
+    public function queryAntcloudMarketingagentCreativeVideoEx($request, $headers, $runtime){
+        Utils::validateModel($request);
+        return QueryAntcloudMarketingagentCreativeVideoResponse::fromMap($this->doRequest("1.0", "antcloud.marketingagent.creative.video.query", "HTTPS", "POST", "/gateway.do", Tea::merge($request), $headers, $runtime));
     }
 }

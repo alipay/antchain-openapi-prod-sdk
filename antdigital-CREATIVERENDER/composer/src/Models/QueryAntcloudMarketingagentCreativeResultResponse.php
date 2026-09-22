@@ -17,6 +17,7 @@ class QueryAntcloudMarketingagentCreativeResultResponse extends Model {
         'status' => 'status',
         'content' => 'content',
         'assistantExtra' => 'assistant_extra',
+        'totalCredit' => 'total_credit',
     ];
     public function validate() {}
     public function toMap() {
@@ -44,6 +45,9 @@ class QueryAntcloudMarketingagentCreativeResultResponse extends Model {
         }
         if (null !== $this->assistantExtra) {
             $res['assistant_extra'] = null !== $this->assistantExtra ? $this->assistantExtra->toMap() : null;
+        }
+        if (null !== $this->totalCredit) {
+            $res['total_credit'] = $this->totalCredit;
         }
         return $res;
     }
@@ -76,6 +80,9 @@ class QueryAntcloudMarketingagentCreativeResultResponse extends Model {
         }
         if(isset($map['assistant_extra'])){
             $model->assistantExtra = AssistantExtra::fromMap($map['assistant_extra']);
+        }
+        if(isset($map['total_credit'])){
+            $model->totalCredit = $map['total_credit'];
         }
         return $model;
     }
@@ -126,5 +133,11 @@ class QueryAntcloudMarketingagentCreativeResultResponse extends Model {
      * @var AssistantExtra
      */
     public $assistantExtra;
+
+    // 当前会话的 Credit 计费总数
+    /**
+     * @var string
+     */
+    public $totalCredit;
 
 }
