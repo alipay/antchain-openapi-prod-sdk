@@ -135,7 +135,7 @@ class Client:
                     'req_msg_id': AntchainUtils.get_nonce(),
                     'access_key': self._access_key_id,
                     'base_sdk_version': 'TeaSDK-2.0',
-                    'sdk_version': '1.33.2',
+                    'sdk_version': '1.33.4',
                     '_prod_code': 'RISKPLUS',
                     '_prod_channel': 'undefined'
                 }
@@ -239,7 +239,7 @@ class Client:
                     'req_msg_id': AntchainUtils.get_nonce(),
                     'access_key': self._access_key_id,
                     'base_sdk_version': 'TeaSDK-2.0',
-                    'sdk_version': '1.33.2',
+                    'sdk_version': '1.33.4',
                     '_prod_code': 'RISKPLUS',
                     '_prod_channel': 'undefined'
                 }
@@ -2577,7 +2577,7 @@ class Client:
     ) -> riskplus_models.QueryDubbridgeRouterFundrouterResponse:
         """
         Description: 资金路由接口，获取资金方编号
-        Summary: 天枢系统资金方代码(资金路由)查询
+        Summary: 资金路由接口，获取资金方编号
         """
         runtime = util_models.RuntimeOptions()
         headers = {}
@@ -2589,7 +2589,7 @@ class Client:
     ) -> riskplus_models.QueryDubbridgeRouterFundrouterResponse:
         """
         Description: 资金路由接口，获取资金方编号
-        Summary: 天枢系统资金方代码(资金路由)查询
+        Summary: 资金路由接口，获取资金方编号
         """
         runtime = util_models.RuntimeOptions()
         headers = {}
@@ -2603,7 +2603,7 @@ class Client:
     ) -> riskplus_models.QueryDubbridgeRouterFundrouterResponse:
         """
         Description: 资金路由接口，获取资金方编号
-        Summary: 天枢系统资金方代码(资金路由)查询
+        Summary: 资金路由接口，获取资金方编号
         """
         UtilClient.validate_model(request)
         return TeaCore.from_map(
@@ -2619,7 +2619,7 @@ class Client:
     ) -> riskplus_models.QueryDubbridgeRouterFundrouterResponse:
         """
         Description: 资金路由接口，获取资金方编号
-        Summary: 天枢系统资金方代码(资金路由)查询
+        Summary: 资金路由接口，获取资金方编号
         """
         UtilClient.validate_model(request)
         return TeaCore.from_map(
@@ -8149,6 +8149,118 @@ class Client:
         return TeaCore.from_map(
             riskplus_models.ApplyDubbridgePetmallorderTransferResponse(),
             await self.do_request_async('1.0', 'riskplus.dubbridge.petmallorder.transfer.apply', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def get_dubbridge_jumpurl(
+        self,
+        request: riskplus_models.GetDubbridgeJumpurlRequest,
+    ) -> riskplus_models.GetDubbridgeJumpurlResponse:
+        """
+        Description: 跳端地址获取
+        Summary: 跳端地址获取
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.get_dubbridge_jumpurl_ex(request, headers, runtime)
+
+    async def get_dubbridge_jumpurl_async(
+        self,
+        request: riskplus_models.GetDubbridgeJumpurlRequest,
+    ) -> riskplus_models.GetDubbridgeJumpurlResponse:
+        """
+        Description: 跳端地址获取
+        Summary: 跳端地址获取
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.get_dubbridge_jumpurl_ex_async(request, headers, runtime)
+
+    def get_dubbridge_jumpurl_ex(
+        self,
+        request: riskplus_models.GetDubbridgeJumpurlRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> riskplus_models.GetDubbridgeJumpurlResponse:
+        """
+        Description: 跳端地址获取
+        Summary: 跳端地址获取
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            riskplus_models.GetDubbridgeJumpurlResponse(),
+            self.do_request('1.0', 'riskplus.dubbridge.jumpurl.get', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def get_dubbridge_jumpurl_ex_async(
+        self,
+        request: riskplus_models.GetDubbridgeJumpurlRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> riskplus_models.GetDubbridgeJumpurlResponse:
+        """
+        Description: 跳端地址获取
+        Summary: 跳端地址获取
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            riskplus_models.GetDubbridgeJumpurlResponse(),
+            await self.do_request_async('1.0', 'riskplus.dubbridge.jumpurl.get', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def query_dubbridge_jumpresult(
+        self,
+        request: riskplus_models.QueryDubbridgeJumpresultRequest,
+    ) -> riskplus_models.QueryDubbridgeJumpresultResponse:
+        """
+        Description: 跳端结果查询
+        Summary: 跳端结果查询
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.query_dubbridge_jumpresult_ex(request, headers, runtime)
+
+    async def query_dubbridge_jumpresult_async(
+        self,
+        request: riskplus_models.QueryDubbridgeJumpresultRequest,
+    ) -> riskplus_models.QueryDubbridgeJumpresultResponse:
+        """
+        Description: 跳端结果查询
+        Summary: 跳端结果查询
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.query_dubbridge_jumpresult_ex_async(request, headers, runtime)
+
+    def query_dubbridge_jumpresult_ex(
+        self,
+        request: riskplus_models.QueryDubbridgeJumpresultRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> riskplus_models.QueryDubbridgeJumpresultResponse:
+        """
+        Description: 跳端结果查询
+        Summary: 跳端结果查询
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            riskplus_models.QueryDubbridgeJumpresultResponse(),
+            self.do_request('1.0', 'riskplus.dubbridge.jumpresult.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def query_dubbridge_jumpresult_ex_async(
+        self,
+        request: riskplus_models.QueryDubbridgeJumpresultRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> riskplus_models.QueryDubbridgeJumpresultResponse:
+        """
+        Description: 跳端结果查询
+        Summary: 跳端结果查询
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            riskplus_models.QueryDubbridgeJumpresultResponse(),
+            await self.do_request_async('1.0', 'riskplus.dubbridge.jumpresult.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
     def verify_finservice_zhima_identify(
