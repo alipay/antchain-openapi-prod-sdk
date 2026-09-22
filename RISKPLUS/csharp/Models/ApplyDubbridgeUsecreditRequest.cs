@@ -103,6 +103,11 @@ namespace AntChain.SDK.RISKPLUS.Models
         [Validation(Required=false)]
         public string BizOrderNo { get; set; }
 
+        // 商户入驻id
+        [NameInMap("merchant_external_id")]
+        [Validation(Required=false)]
+        public string MerchantExternalId { get; set; }
+
     }
 
 }

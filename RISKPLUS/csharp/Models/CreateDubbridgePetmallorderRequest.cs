@@ -54,9 +54,9 @@ namespace AntChain.SDK.RISKPLUS.Models
         public string GoodsName { get; set; }
 
         // 商品标价，单位：元
-        [NameInMap("settle_amount")]
+        [NameInMap("product_amount")]
         [Validation(Required=true)]
-        public string SettleAmount { get; set; }
+        public string ProductAmount { get; set; }
 
         // 储值卡支付结算金额，用于冻结/出账/分账的基数，单位元，两位小数
         [NameInMap("point_amount")]

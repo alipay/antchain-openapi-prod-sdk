@@ -8,7 +8,7 @@ using Tea;
 
 namespace AntChain.SDK.RISKPLUS.Models
 {
-    public class ApplyDubbridgePetmallorderTransferResponse : TeaModel {
+    public class QueryDubbridgeJumpresultResponse : TeaModel {
         // 请求唯一ID，用于链路跟踪和问题排查
         [NameInMap("req_msg_id")]
         [Validation(Required=false)]
@@ -24,20 +24,20 @@ namespace AntChain.SDK.RISKPLUS.Models
         [Validation(Required=false)]
         public string ResultMsg { get; set; }
 
-        // 业务订单
-        [NameInMap("biz_order_no")]
+        // 跳端申请唯一流水号
+        [NameInMap("jump_no")]
         [Validation(Required=false)]
-        public string BizOrderNo { get; set; }
+        public string JumpNo { get; set; }
 
-        // 受理结果：Y-受理成功、N-受理失败
-        [NameInMap("settle_result")]
+        // 借款确认页URL
+        [NameInMap("page_url")]
         [Validation(Required=false)]
-        public string SettleResult { get; set; }
+        public string PageUrl { get; set; }
 
-        // 失败原因
-        [NameInMap("fail_reason")]
+        // 借款确认页客户确认信息
+        [NameInMap("cust_check_info")]
         [Validation(Required=false)]
-        public string FailReason { get; set; }
+        public CustCheckInfo CustCheckInfo { get; set; }
 
     }
 

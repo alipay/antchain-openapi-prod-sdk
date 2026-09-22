@@ -158,7 +158,7 @@ namespace AntChain.SDK.RISKPLUS
                         {"req_msg_id", AntChain.AlipayUtil.AntchainUtils.GetNonce()},
                         {"access_key", _accessKeyId},
                         {"base_sdk_version", "TeaSDK-2.0"},
-                        {"sdk_version", "1.33.2"},
+                        {"sdk_version", "1.33.4"},
                         {"_prod_code", "RISKPLUS"},
                         {"_prod_channel", "undefined"},
                     };
@@ -301,7 +301,7 @@ namespace AntChain.SDK.RISKPLUS
                         {"req_msg_id", AntChain.AlipayUtil.AntchainUtils.GetNonce()},
                         {"access_key", _accessKeyId},
                         {"base_sdk_version", "TeaSDK-2.0"},
-                        {"sdk_version", "1.33.2"},
+                        {"sdk_version", "1.33.4"},
                         {"_prod_code", "RISKPLUS"},
                         {"_prod_channel", "undefined"},
                     };
@@ -2248,7 +2248,7 @@ namespace AntChain.SDK.RISKPLUS
         /// <term><b>Description:</b></term>
         /// <description>
         /// <para>Description: 资金路由接口，获取资金方编号
-        /// Summary: 天枢系统资金方代码(资金路由)查询</para>
+        /// Summary: 资金路由接口，获取资金方编号</para>
         /// </description>
         public QueryDubbridgeRouterFundrouterResponse QueryDubbridgeRouterFundrouter(QueryDubbridgeRouterFundrouterRequest request)
         {
@@ -2260,7 +2260,7 @@ namespace AntChain.SDK.RISKPLUS
         /// <term><b>Description:</b></term>
         /// <description>
         /// <para>Description: 资金路由接口，获取资金方编号
-        /// Summary: 天枢系统资金方代码(资金路由)查询</para>
+        /// Summary: 资金路由接口，获取资金方编号</para>
         /// </description>
         public async Task<QueryDubbridgeRouterFundrouterResponse> QueryDubbridgeRouterFundrouterAsync(QueryDubbridgeRouterFundrouterRequest request)
         {
@@ -2272,7 +2272,7 @@ namespace AntChain.SDK.RISKPLUS
         /// <term><b>Description:</b></term>
         /// <description>
         /// <para>Description: 资金路由接口，获取资金方编号
-        /// Summary: 天枢系统资金方代码(资金路由)查询</para>
+        /// Summary: 资金路由接口，获取资金方编号</para>
         /// </description>
         public QueryDubbridgeRouterFundrouterResponse QueryDubbridgeRouterFundrouterEx(QueryDubbridgeRouterFundrouterRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
         {
@@ -2283,7 +2283,7 @@ namespace AntChain.SDK.RISKPLUS
         /// <term><b>Description:</b></term>
         /// <description>
         /// <para>Description: 资金路由接口，获取资金方编号
-        /// Summary: 天枢系统资金方代码(资金路由)查询</para>
+        /// Summary: 资金路由接口，获取资金方编号</para>
         /// </description>
         public async Task<QueryDubbridgeRouterFundrouterResponse> QueryDubbridgeRouterFundrouterExAsync(QueryDubbridgeRouterFundrouterRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
         {
@@ -6845,6 +6845,98 @@ namespace AntChain.SDK.RISKPLUS
         {
             AlibabaCloud.TeaUtil.Common.ValidateModel(request);
             return TeaModel.ToObject<ApplyDubbridgePetmallorderTransferResponse>(await DoRequestAsync("1.0", "riskplus.dubbridge.petmallorder.transfer.apply", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /// <term><b>Description:</b></term>
+        /// <description>
+        /// <para>Description: 跳端地址获取
+        /// Summary: 跳端地址获取</para>
+        /// </description>
+        public GetDubbridgeJumpurlResponse GetDubbridgeJumpurl(GetDubbridgeJumpurlRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return GetDubbridgeJumpurlEx(request, headers, runtime);
+        }
+
+        /// <term><b>Description:</b></term>
+        /// <description>
+        /// <para>Description: 跳端地址获取
+        /// Summary: 跳端地址获取</para>
+        /// </description>
+        public async Task<GetDubbridgeJumpurlResponse> GetDubbridgeJumpurlAsync(GetDubbridgeJumpurlRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return await GetDubbridgeJumpurlExAsync(request, headers, runtime);
+        }
+
+        /// <term><b>Description:</b></term>
+        /// <description>
+        /// <para>Description: 跳端地址获取
+        /// Summary: 跳端地址获取</para>
+        /// </description>
+        public GetDubbridgeJumpurlResponse GetDubbridgeJumpurlEx(GetDubbridgeJumpurlRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<GetDubbridgeJumpurlResponse>(DoRequest("1.0", "riskplus.dubbridge.jumpurl.get", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /// <term><b>Description:</b></term>
+        /// <description>
+        /// <para>Description: 跳端地址获取
+        /// Summary: 跳端地址获取</para>
+        /// </description>
+        public async Task<GetDubbridgeJumpurlResponse> GetDubbridgeJumpurlExAsync(GetDubbridgeJumpurlRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<GetDubbridgeJumpurlResponse>(await DoRequestAsync("1.0", "riskplus.dubbridge.jumpurl.get", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /// <term><b>Description:</b></term>
+        /// <description>
+        /// <para>Description: 跳端结果查询
+        /// Summary: 跳端结果查询</para>
+        /// </description>
+        public QueryDubbridgeJumpresultResponse QueryDubbridgeJumpresult(QueryDubbridgeJumpresultRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return QueryDubbridgeJumpresultEx(request, headers, runtime);
+        }
+
+        /// <term><b>Description:</b></term>
+        /// <description>
+        /// <para>Description: 跳端结果查询
+        /// Summary: 跳端结果查询</para>
+        /// </description>
+        public async Task<QueryDubbridgeJumpresultResponse> QueryDubbridgeJumpresultAsync(QueryDubbridgeJumpresultRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return await QueryDubbridgeJumpresultExAsync(request, headers, runtime);
+        }
+
+        /// <term><b>Description:</b></term>
+        /// <description>
+        /// <para>Description: 跳端结果查询
+        /// Summary: 跳端结果查询</para>
+        /// </description>
+        public QueryDubbridgeJumpresultResponse QueryDubbridgeJumpresultEx(QueryDubbridgeJumpresultRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<QueryDubbridgeJumpresultResponse>(DoRequest("1.0", "riskplus.dubbridge.jumpresult.query", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /// <term><b>Description:</b></term>
+        /// <description>
+        /// <para>Description: 跳端结果查询
+        /// Summary: 跳端结果查询</para>
+        /// </description>
+        public async Task<QueryDubbridgeJumpresultResponse> QueryDubbridgeJumpresultExAsync(QueryDubbridgeJumpresultRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<QueryDubbridgeJumpresultResponse>(await DoRequestAsync("1.0", "riskplus.dubbridge.jumpresult.query", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
         }
 
         /// <term><b>Description:</b></term>
