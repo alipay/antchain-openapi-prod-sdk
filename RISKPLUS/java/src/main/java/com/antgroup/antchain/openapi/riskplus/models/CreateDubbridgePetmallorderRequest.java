@@ -46,9 +46,9 @@ public class CreateDubbridgePetmallorderRequest extends TeaModel {
     public String goodsName;
 
     // 商品标价，单位：元
-    @NameInMap("settle_amount")
+    @NameInMap("product_amount")
     @Validation(required = true)
-    public String settleAmount;
+    public String productAmount;
 
     // 储值卡支付结算金额，用于冻结/出账/分账的基数，单位元，两位小数
     @NameInMap("point_amount")
@@ -132,12 +132,12 @@ public class CreateDubbridgePetmallorderRequest extends TeaModel {
         return this.goodsName;
     }
 
-    public CreateDubbridgePetmallorderRequest setSettleAmount(String settleAmount) {
-        this.settleAmount = settleAmount;
+    public CreateDubbridgePetmallorderRequest setProductAmount(String productAmount) {
+        this.productAmount = productAmount;
         return this;
     }
-    public String getSettleAmount() {
-        return this.settleAmount;
+    public String getProductAmount() {
+        return this.productAmount;
     }
 
     public CreateDubbridgePetmallorderRequest setPointAmount(String pointAmount) {

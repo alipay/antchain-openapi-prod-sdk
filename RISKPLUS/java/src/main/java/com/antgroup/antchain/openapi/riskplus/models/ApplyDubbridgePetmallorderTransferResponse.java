@@ -28,10 +28,6 @@ public class ApplyDubbridgePetmallorderTransferResponse extends TeaModel {
     @NameInMap("fail_reason")
     public String failReason;
 
-    // 分账单号，提交成功时返回
-    @NameInMap("transfer_no")
-    public String transferNo;
-
     public static ApplyDubbridgePetmallorderTransferResponse build(java.util.Map<String, ?> map) throws Exception {
         ApplyDubbridgePetmallorderTransferResponse self = new ApplyDubbridgePetmallorderTransferResponse();
         return TeaModel.build(map, self);
@@ -83,14 +79,6 @@ public class ApplyDubbridgePetmallorderTransferResponse extends TeaModel {
     }
     public String getFailReason() {
         return this.failReason;
-    }
-
-    public ApplyDubbridgePetmallorderTransferResponse setTransferNo(String transferNo) {
-        this.transferNo = transferNo;
-        return this;
-    }
-    public String getTransferNo() {
-        return this.transferNo;
     }
 
 }
