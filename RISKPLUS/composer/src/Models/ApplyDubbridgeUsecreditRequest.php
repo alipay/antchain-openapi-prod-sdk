@@ -28,6 +28,7 @@ class ApplyDubbridgeUsecreditRequest extends Model {
         'couponId' => 'coupon_id',
         'trafficPlatform' => 'traffic_platform',
         'bizOrderNo' => 'biz_order_no',
+        'merchantExternalId' => 'merchant_external_id',
     ];
     public function validate() {
         Model::validateRequired('originalOrderNo', $this->originalOrderNo, true);
@@ -103,6 +104,9 @@ class ApplyDubbridgeUsecreditRequest extends Model {
         if (null !== $this->bizOrderNo) {
             $res['biz_order_no'] = $this->bizOrderNo;
         }
+        if (null !== $this->merchantExternalId) {
+            $res['merchant_external_id'] = $this->merchantExternalId;
+        }
         return $res;
     }
     /**
@@ -173,6 +177,9 @@ class ApplyDubbridgeUsecreditRequest extends Model {
         }
         if(isset($map['biz_order_no'])){
             $model->bizOrderNo = $map['biz_order_no'];
+        }
+        if(isset($map['merchant_external_id'])){
+            $model->merchantExternalId = $map['merchant_external_id'];
         }
         return $model;
     }
@@ -288,5 +295,11 @@ class ApplyDubbridgeUsecreditRequest extends Model {
      * @var string
      */
     public $bizOrderNo;
+
+    // 商户入驻id
+    /**
+     * @var string
+     */
+    public $merchantExternalId;
 
 }

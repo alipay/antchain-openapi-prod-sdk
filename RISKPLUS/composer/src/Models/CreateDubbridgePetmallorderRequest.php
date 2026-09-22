@@ -16,7 +16,7 @@ class CreateDubbridgePetmallorderRequest extends Model {
         'bizOrderNo' => 'biz_order_no',
         'tradeNo' => 'trade_no',
         'goodsName' => 'goods_name',
-        'settleAmount' => 'settle_amount',
+        'productAmount' => 'product_amount',
         'pointAmount' => 'point_amount',
     ];
     public function validate() {
@@ -26,7 +26,7 @@ class CreateDubbridgePetmallorderRequest extends Model {
         Model::validateRequired('bizOrderNo', $this->bizOrderNo, true);
         Model::validateRequired('tradeNo', $this->tradeNo, true);
         Model::validateRequired('goodsName', $this->goodsName, true);
-        Model::validateRequired('settleAmount', $this->settleAmount, true);
+        Model::validateRequired('productAmount', $this->productAmount, true);
         Model::validateRequired('pointAmount', $this->pointAmount, true);
     }
     public function toMap() {
@@ -58,8 +58,8 @@ class CreateDubbridgePetmallorderRequest extends Model {
         if (null !== $this->goodsName) {
             $res['goods_name'] = $this->goodsName;
         }
-        if (null !== $this->settleAmount) {
-            $res['settle_amount'] = $this->settleAmount;
+        if (null !== $this->productAmount) {
+            $res['product_amount'] = $this->productAmount;
         }
         if (null !== $this->pointAmount) {
             $res['point_amount'] = $this->pointAmount;
@@ -99,8 +99,8 @@ class CreateDubbridgePetmallorderRequest extends Model {
         if(isset($map['goods_name'])){
             $model->goodsName = $map['goods_name'];
         }
-        if(isset($map['settle_amount'])){
-            $model->settleAmount = $map['settle_amount'];
+        if(isset($map['product_amount'])){
+            $model->productAmount = $map['product_amount'];
         }
         if(isset($map['point_amount'])){
             $model->pointAmount = $map['point_amount'];
@@ -164,7 +164,7 @@ class CreateDubbridgePetmallorderRequest extends Model {
     /**
      * @var string
      */
-    public $settleAmount;
+    public $productAmount;
 
     // 储值卡支付结算金额，用于冻结/出账/分账的基数，单位元，两位小数
     /**

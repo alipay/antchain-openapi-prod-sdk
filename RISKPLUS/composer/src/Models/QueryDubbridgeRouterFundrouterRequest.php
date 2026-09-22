@@ -30,6 +30,7 @@ class QueryDubbridgeRouterFundrouterRequest extends Model {
         'clickId' => 'click_id',
         'riskData' => 'risk_data',
         'extInfo' => 'ext_info',
+        'merchantExternalId' => 'merchant_external_id',
     ];
     public function validate() {}
     public function toMap() {
@@ -102,6 +103,9 @@ class QueryDubbridgeRouterFundrouterRequest extends Model {
         }
         if (null !== $this->extInfo) {
             $res['ext_info'] = $this->extInfo;
+        }
+        if (null !== $this->merchantExternalId) {
+            $res['merchant_external_id'] = $this->merchantExternalId;
         }
         return $res;
     }
@@ -179,6 +183,9 @@ class QueryDubbridgeRouterFundrouterRequest extends Model {
         }
         if(isset($map['ext_info'])){
             $model->extInfo = $map['ext_info'];
+        }
+        if(isset($map['merchant_external_id'])){
+            $model->merchantExternalId = $map['merchant_external_id'];
         }
         return $model;
     }
@@ -325,5 +332,11 @@ class QueryDubbridgeRouterFundrouterRequest extends Model {
      * @var string
      */
     public $extInfo;
+
+    // 商户入驻id
+    /**
+     * @var string
+     */
+    public $merchantExternalId;
 
 }
