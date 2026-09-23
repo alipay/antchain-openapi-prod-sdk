@@ -28,7 +28,7 @@ namespace AntChain.SDK.ATO.Models
         [Validation(Required=false)]
         public long? PeriodNum { get; set; }
 
-        // 取消订单某一期代扣计划中以其他方式还款金额，单位为分，单期取消必填
+        // 取其他方式还款的时间，单期取消必填
         [NameInMap("gmt_pay")]
         [Validation(Required=false, Pattern="\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}([Z]|([\\.]\\d{1,9})?[\\+]\\d{2}[\\:]?\\d{2})")]
         public string GmtPay { get; set; }

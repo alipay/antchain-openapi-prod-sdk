@@ -68,6 +68,12 @@ namespace AntChain.SDK.ATO.Models
         [Validation(Required=false)]
         public string Role { get; set; }
 
+        // 商家进件时，可自行选择是否需要开通周期代扣产品，默认开通
+        // false：不开通
+        [NameInMap("need_withholding")]
+        [Validation(Required=false)]
+        public bool? NeedWithholding { get; set; }
+
     }
 
 }

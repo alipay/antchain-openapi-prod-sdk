@@ -40,6 +40,11 @@ namespace AntChain.SDK.ATO.Models
         [Validation(Required=true)]
         public string Type { get; set; }
 
+        // 支付宝uid
+        [NameInMap("alipay_uid")]
+        [Validation(Required=false)]
+        public string AlipayUid { get; set; }
+
     }
 
 }

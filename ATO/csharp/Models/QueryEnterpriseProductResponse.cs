@@ -34,6 +34,31 @@ namespace AntChain.SDK.ATO.Models
         [Validation(Required=false)]
         public string Event { get; set; }
 
+        // 支付串
+        [NameInMap("trade_no")]
+        [Validation(Required=false)]
+        public string TradeNo { get; set; }
+
+        // 订单类型 NEW=新购 RENEW=续费
+        [NameInMap("order_type")]
+        [Validation(Required=false)]
+        public string OrderType { get; set; }
+
+        // 产品码
+        [NameInMap("commodity_code")]
+        [Validation(Required=false)]
+        public string CommodityCode { get; set; }
+
+        // 认购类型
+        [NameInMap("duration_type")]
+        [Validation(Required=false)]
+        public string DurationType { get; set; }
+
+        // 认购时长
+        [NameInMap("duration_value")]
+        [Validation(Required=false)]
+        public string DurationValue { get; set; }
+
     }
 
 }
