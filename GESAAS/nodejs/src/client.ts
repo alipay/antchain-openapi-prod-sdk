@@ -279,6 +279,64 @@ export class RepayStrategy extends $tea.Model {
   }
 }
 
+// 工具用量
+export class ToolUsage extends $tea.Model {
+  // 联网搜索调用次数
+  /**
+   * @example
+   * 1
+   */
+  webSearch: number;
+  static names(): { [key: string]: string } {
+    return {
+      webSearch: 'web_search',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      webSearch: 'number',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+// 图片素材
+export class ImageInfoDto extends $tea.Model {
+  // 图片url
+  /**
+   * @example
+   * https://xxx.alipay.com/paths/xx.png
+   */
+  url: string;
+  // 角色/用途   首帧:first_frame、尾帧:last_frame 、参考图：reference_image
+  /**
+   * @example
+   * first_frame
+   */
+  role?: string;
+  static names(): { [key: string]: string } {
+    return {
+      url: 'url',
+      role: 'role',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      url: 'string',
+      role: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
 // 分账账号详情，针对某一笔分账
 export class OrderSplitDetailList extends $tea.Model {
   // 某笔分账状态：PROCESSING-处理中,SUCCESS-成功,CLOSE-关闭,FAILED-失败
@@ -345,6 +403,47 @@ export class OrderSplitDetailList extends $tea.Model {
   }
 }
 
+// token 用量
+export class TokenUsageDto extends $tea.Model {
+  // 生成视频消耗的 token 数
+  /**
+   * @example
+   * 235436757
+   */
+  completionTokens: number;
+  // 消耗总 token 数
+  /**
+   * @example
+   * 235436546
+   */
+  totalTokens: number;
+  // 工具用量
+  /**
+   * @example
+   * undefined
+   */
+  toolUsage?: ToolUsage;
+  static names(): { [key: string]: string } {
+    return {
+      completionTokens: 'completion_tokens',
+      totalTokens: 'total_tokens',
+      toolUsage: 'tool_usage',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      completionTokens: 'number',
+      totalTokens: 'number',
+      toolUsage: ToolUsage,
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
 // 订单详情列表
 export class OrderDetail extends $tea.Model {
   // 券码
@@ -362,6 +461,182 @@ export class OrderDetail extends $tea.Model {
   static types(): { [key: string]: any } {
     return {
       voucherCode: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+// 任务错误信息
+export class TaskErrorDto extends $tea.Model {
+  // 错误码
+  /**
+   * @example
+   * 402
+   */
+  code: string;
+  // 错误提示信息
+  /**
+   * @example
+   * 未知异常
+   */
+  message?: string;
+  static names(): { [key: string]: string } {
+    return {
+      code: 'code',
+      message: 'message',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      code: 'string',
+      message: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+// 订单还款计划
+export class OrderPromise extends $tea.Model {
+  // 宽限期/天
+  // 不传默认为0
+  /**
+   * @example
+   * 1233
+   */
+  gracePeriodDays?: number;
+  // 罚息类型
+  //  NONE : 没有罚息  PENALTY_FEE： 罚息（暂不支持）
+  /**
+   * @example
+   * NONE
+   */
+  punishmentType?: string;
+  // 租期
+  // 租期最小值为1
+  /**
+   * @example
+   * 11
+   */
+  payPeriod: number;
+  // 租赁公司支付宝UID
+  /**
+   * @example
+   * 2088Id
+   */
+  leaseAlipayUid: string;
+  // 还款策略 
+  // repayStrategyList长度 == payPeriod
+  repayStrategyList: RepayStrategy[];
+  static names(): { [key: string]: string } {
+    return {
+      gracePeriodDays: 'grace_period_days',
+      punishmentType: 'punishment_type',
+      payPeriod: 'pay_period',
+      leaseAlipayUid: 'lease_alipay_uid',
+      repayStrategyList: 'repay_strategy_list',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      gracePeriodDays: 'number',
+      punishmentType: 'string',
+      payPeriod: 'number',
+      leaseAlipayUid: 'string',
+      repayStrategyList: { 'type': 'array', 'itemType': RepayStrategy },
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+// 文件信息
+export class FileInfoDto extends $tea.Model {
+  // 文件url
+  /**
+   * @example
+   * https://xxx.alipay.com/paths/xx.png
+   */
+  url: string;
+  static names(): { [key: string]: string } {
+    return {
+      url: 'url',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      url: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+// 模型工具
+export class ModelToolDto extends $tea.Model {
+  // 指定使用的工具类型。
+  // 枚举值：
+  // + web_search（联网搜索工具。开启联网搜索后，模型会根据用户的提示词自主判断是否搜索互联网内容（如商品、天气等）。可提升生成视频的时效性，但也会增加一定的时延）0
+  /**
+   * @example
+   * web_search
+   */
+  type: string;
+  static names(): { [key: string]: string } {
+    return {
+      type: 'type',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      type: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+// 输出内容
+export class ContentInfoDto extends $tea.Model {
+  // 视频地址 有效期为 24 小时
+  /**
+   * @example
+   * https://xxx.alipay.com/paths/xx.png
+   */
+  videoUrl: string;
+  // 尾帧图像 URL 有效期为 24 小时
+  // 任务创建 returnLastFrame=true时返回
+  /**
+   * @example
+   * https://xxx.alipay.com/paths/xx.png
+   */
+  lastFrameUrl?: string;
+  static names(): { [key: string]: string } {
+    return {
+      videoUrl: 'video_url',
+      lastFrameUrl: 'last_frame_url',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      videoUrl: 'string',
+      lastFrameUrl: 'string',
     };
   }
 
@@ -432,55 +707,23 @@ export class OrderInfoReq extends $tea.Model {
   }
 }
 
-// 订单还款计划
-export class OrderPromise extends $tea.Model {
-  // 宽限期/天
-  // 不传默认为0
+// 文本素材
+export class TextInfoDto extends $tea.Model {
+  // 文本素材信息
   /**
    * @example
-   * 1233
+   * 文本素材信息
    */
-  gracePeriodDays?: number;
-  // 罚息类型
-  //  NONE : 没有罚息  PENALTY_FEE： 罚息（暂不支持）
-  /**
-   * @example
-   * NONE
-   */
-  punishmentType?: string;
-  // 租期
-  // 租期最小值为1
-  /**
-   * @example
-   * 11
-   */
-  payPeriod: number;
-  // 租赁公司支付宝UID
-  /**
-   * @example
-   * 2088Id
-   */
-  leaseAlipayUid: string;
-  // 还款策略 
-  // repayStrategyList长度 == payPeriod
-  repayStrategyList: RepayStrategy[];
+  text: string;
   static names(): { [key: string]: string } {
     return {
-      gracePeriodDays: 'grace_period_days',
-      punishmentType: 'punishment_type',
-      payPeriod: 'pay_period',
-      leaseAlipayUid: 'lease_alipay_uid',
-      repayStrategyList: 'repay_strategy_list',
+      text: 'text',
     };
   }
 
   static types(): { [key: string]: any } {
     return {
-      gracePeriodDays: 'number',
-      punishmentType: 'string',
-      payPeriod: 'number',
-      leaseAlipayUid: 'string',
-      repayStrategyList: { 'type': 'array', 'itemType': RepayStrategy },
+      text: 'string',
     };
   }
 
@@ -675,6 +918,301 @@ export class OrderFullInfoReq extends $tea.Model {
   }
 }
 
+// 任务结果详情
+export class TaskResultInfoDto extends $tea.Model {
+  // 任务ID
+  /**
+   * @example
+   * 1798234932684395
+   */
+  taskId: string;
+  // 模型名称与版本
+  // 格式为 模型名称-版本
+  /**
+   * @example
+   * doubao-seedance-2-0-260128
+   */
+  model: string;
+  // 任务状态
+  // + creating: 任务创建中
+  // + queued：排队中
+  // + running：任务运行中
+  // + cancelled：取消任务，取消状态 24h 自动删除（只支持排队中状态的任务被取消）
+  // + succeeded：任务成功
+  // + failed：任务失败
+  // + expired：任务超时
+  /**
+   * @example
+   * creating
+   */
+  status: string;
+  // 错误信息（任务失败时返回错误数据）
+  /**
+   * @example
+   * undefined
+   */
+  error?: TaskErrorDto;
+  // 输出内容
+  /**
+   * @example
+   * undefined
+   */
+  content?: ContentInfoDto;
+  // token 用量
+  /**
+   * @example
+   * undefined
+   */
+  usage?: TokenUsageDto;
+  // 视频时长（秒）
+  /**
+   * @example
+   * 1
+   */
+  duration?: number;
+  // 视频帧数
+  // 说明： duration 和 frames 参数只会返回一个 。
+  /**
+   * @example
+   * 323
+   */
+  frames?: number;
+  // 分辨率
+  /**
+   * @example
+   * 4k
+   */
+  resolution?: string;
+  // 宽高比
+  /**
+   * @example
+   * 4:3
+   */
+  ratio?: string;
+  // 随机种子
+  /**
+   * @example
+   * 233
+   */
+  seed?: number;
+  // 视频帧率
+  /**
+   * @example
+   * 321
+   */
+  framespersecond: number;
+  // 是否生成同步音频
+  /**
+   * @example
+   * false
+   */
+  generateAudio?: boolean;
+  // 服务等级
+  /**
+   * @example
+   * default
+   */
+  serviceTier?: string;
+  // 任务超时阈值（秒）
+  /**
+   * @example
+   * 23543
+   */
+  executionExpiresAfter?: number;
+  // 执行优先级
+  /**
+   * @example
+   * 1
+   */
+  priority?: number;
+  // 终端用户标识
+  /**
+   * @example
+   * tools
+   */
+  safetyIdentifier?: string;
+  // 任务实际创建时间 格式 yyyy-MM-dd HH:mm:ss
+  /**
+   * @example
+   * 2026-06-10 10:09:01
+   */
+  createdAt?: string;
+  // 更新时间  格式 yyyy-MM-dd HH:mm:ss
+  /**
+   * @example
+   * 2026-06-10 10:09:01
+   */
+  updatedAt?: string;
+  // 实际使用的工具
+  /**
+   * @example
+   * undefined
+   */
+  tools?: ModelToolDto[];
+  static names(): { [key: string]: string } {
+    return {
+      taskId: 'task_id',
+      model: 'model',
+      status: 'status',
+      error: 'error',
+      content: 'content',
+      usage: 'usage',
+      duration: 'duration',
+      frames: 'frames',
+      resolution: 'resolution',
+      ratio: 'ratio',
+      seed: 'seed',
+      framespersecond: 'framespersecond',
+      generateAudio: 'generate_audio',
+      serviceTier: 'service_tier',
+      executionExpiresAfter: 'execution_expires_after',
+      priority: 'priority',
+      safetyIdentifier: 'safety_identifier',
+      createdAt: 'created_at',
+      updatedAt: 'updated_at',
+      tools: 'tools',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      taskId: 'string',
+      model: 'string',
+      status: 'string',
+      error: TaskErrorDto,
+      content: ContentInfoDto,
+      usage: TokenUsageDto,
+      duration: 'number',
+      frames: 'number',
+      resolution: 'string',
+      ratio: 'string',
+      seed: 'number',
+      framespersecond: 'number',
+      generateAudio: 'boolean',
+      serviceTier: 'string',
+      executionExpiresAfter: 'number',
+      priority: 'number',
+      safetyIdentifier: 'string',
+      createdAt: 'string',
+      updatedAt: 'string',
+      tools: { 'type': 'array', 'itemType': ModelToolDto },
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+// 券基本信息
+export class VoucherBaseInfoVO extends $tea.Model {
+  // 2088xxxxxx0001
+  /**
+   * @example
+   * 用户ID
+   */
+  userId?: string;
+  // 手机号
+  /**
+   * @example
+   * 15700001111
+   */
+  phoneNumber?: string;
+  // 权益编号
+  /**
+   * @example
+   * RC188955110502576765
+   */
+  rightsCode: string;
+  // 权益名称
+  /**
+   * @example
+   * 满10元减2元
+   */
+  rightsName: string;
+  // 券码
+  /**
+   * @example
+   * 202601160007300227760ZT3CMQY
+   */
+  voucherCode: string;
+  // 券状态
+  // WAIT_EFFECT：待生效 
+  // WAIT_VERIFY：待核销 
+  // EXPIRED：已过期 
+  // VERIFY_SUCCESS：核销成功（已核销） 
+  // 公域场景下只会包含以上四种状态，私域场景会包含下方状态基
+  // FREEZE：已冻结 
+  // VERIFYING：核销处理中 
+  // VERIFY_FAIL：核销失败 
+  // VERIFY_CANCELING：核销撤销中
+  // INVALID：已失效 
+  // NO_NEED_VERIFY：无需核销 
+  /**
+   * @example
+   * WAIT_VERIFY
+   */
+  status: string;
+  static names(): { [key: string]: string } {
+    return {
+      userId: 'user_id',
+      phoneNumber: 'phone_number',
+      rightsCode: 'rights_code',
+      rightsName: 'rights_name',
+      voucherCode: 'voucher_code',
+      status: 'status',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      userId: 'string',
+      phoneNumber: 'string',
+      rightsCode: 'string',
+      rightsName: 'string',
+      voucherCode: 'string',
+      status: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+// 退款账户明细信息
+export class RefundDetail extends $tea.Model {
+  // 支出方账户ID，如果是支付宝：以2088开头的纯16位数字
+  /**
+   * @example
+   * 2088101126765726
+   */
+  transOutAccount?: string;
+  // 分账的金额，单位为分
+  /**
+   * @example
+   * 990
+   */
+  amount?: number;
+  static names(): { [key: string]: string } {
+    return {
+      transOutAccount: 'trans_out_account',
+      amount: 'amount',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      transOutAccount: 'string',
+      amount: 'number',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
 // 响应结果基类
 export class CommonResponse extends $tea.Model {
   // 结果码
@@ -840,107 +1378,47 @@ export class RightsGrantResultVO extends $tea.Model {
   }
 }
 
-// 券基本信息
-export class VoucherBaseInfoVO extends $tea.Model {
-  // 2088xxxxxx0001
+// 素材内容
+export class MaterialContentDto extends $tea.Model {
+  // 文本素材信息列表
   /**
    * @example
-   * 用户ID
+   * undefined
    */
-  userId?: string;
-  // 手机号
+  textInfoDtos?: TextInfoDto[];
+  // 图片素材列表
   /**
    * @example
-   * 15700001111
+   * undefined
    */
-  phoneNumber?: string;
-  // 权益编号
+  imageInfoDtos?: ImageInfoDto[];
+  // 视频素材内容列表
   /**
    * @example
-   * RC188955110502576765
+   * undefined
    */
-  rightsCode: string;
-  // 权益名称
+  videoInfoDtos?: FileInfoDto[];
+  // 音频素材内容列表
   /**
    * @example
-   * 满10元减2元
+   * undefined
    */
-  rightsName: string;
-  // 券码
-  /**
-   * @example
-   * 202601160007300227760ZT3CMQY
-   */
-  voucherCode: string;
-  // 券状态
-  // WAIT_EFFECT：待生效 
-  // WAIT_VERIFY：待核销 
-  // EXPIRED：已过期 
-  // VERIFY_SUCCESS：核销成功（已核销） 
-  // 公域场景下只会包含以上四种状态，私域场景会包含下方状态基
-  // FREEZE：已冻结 
-  // VERIFYING：核销处理中 
-  // VERIFY_FAIL：核销失败 
-  // VERIFY_CANCELING：核销撤销中
-  // INVALID：已失效 
-  // NO_NEED_VERIFY：无需核销 
-  /**
-   * @example
-   * WAIT_VERIFY
-   */
-  status: string;
+  audioInfoDtos?: FileInfoDto[];
   static names(): { [key: string]: string } {
     return {
-      userId: 'user_id',
-      phoneNumber: 'phone_number',
-      rightsCode: 'rights_code',
-      rightsName: 'rights_name',
-      voucherCode: 'voucher_code',
-      status: 'status',
+      textInfoDtos: 'text_info_dtos',
+      imageInfoDtos: 'image_info_dtos',
+      videoInfoDtos: 'video_info_dtos',
+      audioInfoDtos: 'audio_info_dtos',
     };
   }
 
   static types(): { [key: string]: any } {
     return {
-      userId: 'string',
-      phoneNumber: 'string',
-      rightsCode: 'string',
-      rightsName: 'string',
-      voucherCode: 'string',
-      status: 'string',
-    };
-  }
-
-  constructor(map?: { [key: string]: any }) {
-    super(map);
-  }
-}
-
-// 退款账户明细信息
-export class RefundDetail extends $tea.Model {
-  // 支出方账户ID，如果是支付宝：以2088开头的纯16位数字
-  /**
-   * @example
-   * 2088101126765726
-   */
-  transOutAccount?: string;
-  // 分账的金额，单位为分
-  /**
-   * @example
-   * 990
-   */
-  amount?: number;
-  static names(): { [key: string]: string } {
-    return {
-      transOutAccount: 'trans_out_account',
-      amount: 'amount',
-    };
-  }
-
-  static types(): { [key: string]: any } {
-    return {
-      transOutAccount: 'string',
-      amount: 'number',
+      textInfoDtos: { 'type': 'array', 'itemType': TextInfoDto },
+      imageInfoDtos: { 'type': 'array', 'itemType': ImageInfoDto },
+      videoInfoDtos: { 'type': 'array', 'itemType': FileInfoDto },
+      audioInfoDtos: { 'type': 'array', 'itemType': FileInfoDto },
     };
   }
 
@@ -1013,6 +1491,18 @@ export class PushOrderSettlementRequest extends $tea.Model {
   payChannel?: string;
   // 支付渠道是ALIPAY场景下传入支付宝用户2088xxxx
   payChannelUserId: string;
+  // 支付场景，ONLINE(在线)/OFFLINE (离线)，默认：ONLINE
+  scene?: string;
+  // 付款码，商家扫码场景必填，补充：
+  // 微信付款码：以 10–15 开头的 18 位纯数字。
+  // 支付宝付款码：以 25–30 开头，且长度为 16～24 位的纯数字。
+  authCode?: string;
+  // 终端号，商家扫码场景必填
+  terminalId?: string;
+  // 用户真实IP地址
+  userIp: string;
+  // 商家公众号ID,微信小程序，微信公众号产品必填
+  appId?: string;
   static names(): { [key: string]: string } {
     return {
       authToken: 'auth_token',
@@ -1026,6 +1516,11 @@ export class PushOrderSettlementRequest extends $tea.Model {
       paySubject: 'pay_subject',
       payChannel: 'pay_channel',
       payChannelUserId: 'pay_channel_user_id',
+      scene: 'scene',
+      authCode: 'auth_code',
+      terminalId: 'terminal_id',
+      userIp: 'user_ip',
+      appId: 'app_id',
     };
   }
 
@@ -1042,6 +1537,11 @@ export class PushOrderSettlementRequest extends $tea.Model {
       paySubject: 'string',
       payChannel: 'string',
       payChannelUserId: 'string',
+      scene: 'string',
+      authCode: 'string',
+      terminalId: 'string',
+      userIp: 'string',
+      appId: 'string',
     };
   }
 
@@ -1059,12 +1559,15 @@ export class PushOrderSettlementResponse extends $tea.Model {
   resultMsg?: string;
   // 支付宝/微信/其他 平台订单号
   tradeNo?: string;
+  // 预支付凭证，仅商家扫码场景为空
+  prePayTn?: string;
   static names(): { [key: string]: string } {
     return {
       reqMsgId: 'req_msg_id',
       resultCode: 'result_code',
       resultMsg: 'result_msg',
       tradeNo: 'trade_no',
+      prePayTn: 'pre_pay_tn',
     };
   }
 
@@ -1074,6 +1577,7 @@ export class PushOrderSettlementResponse extends $tea.Model {
       resultCode: 'string',
       resultMsg: 'string',
       tradeNo: 'string',
+      prePayTn: 'string',
     };
   }
 
@@ -1405,9 +1909,6 @@ export class QueryOrderRefundResponse extends $tea.Model {
   refundStatus?: string;
   // 退款退分账申请金额
   refundAmount?: number;
-  // 本次退款申请的实际退款金额，单位：分
-  // 条件返回：refundStatus=SUCCESS 返回
-  sendBackAmount?: number;
   // 退款退分账失败原因，条件返回：refundStatus=FAILED 返回
   refundFailedReason?: string;
   // 退款退分账时间，格式为yyyy-MM-dd HH:mm:ss 
@@ -1425,7 +1926,6 @@ export class QueryOrderRefundResponse extends $tea.Model {
       refundRequestNo: 'refund_request_no',
       refundStatus: 'refund_status',
       refundAmount: 'refund_amount',
-      sendBackAmount: 'send_back_amount',
       refundFailedReason: 'refund_failed_reason',
       refundTime: 'refund_time',
       refundDetailItemList: 'refund_detail_item_list',
@@ -1441,7 +1941,6 @@ export class QueryOrderRefundResponse extends $tea.Model {
       refundRequestNo: 'string',
       refundStatus: 'string',
       refundAmount: 'number',
-      sendBackAmount: 'number',
       refundFailedReason: 'string',
       refundTime: 'string',
       refundDetailItemList: { 'type': 'array', 'itemType': RefundDetailItemList },
@@ -1551,6 +2050,215 @@ export class CheckOmngRiskResponse extends $tea.Model {
       resultCode: 'string',
       resultMsg: 'string',
       infoStr: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class SaveOmngGenerationtaskRequest extends $tea.Model {
+  // OAuth模式下的授权token
+  authToken?: string;
+  productInstanceId?: string;
+  // 任务ID、幂等处理
+  taskId: string;
+  // 模型ID
+  model: string;
+  // 素材内容
+  materialContentDto: MaterialContentDto;
+  // 生成有声视频
+  generateAudio?: boolean;
+  // 视频宽高比
+  // 枚举值：16:9、4:3、1:1、3:4、9:16、21:9、adaptive
+  ratio?: string;
+  // 生成视频时长（单位：秒）。设置为 -1 时，实际生成视频的时长可通过 **视频生成任务查询接口 **返回的 duration 字段获取。视频时长与计费相关，请谨慎设置。
+  // 目前最大值 仅支持 30、最小值-1。
+  duration?: number;
+  // 视频分辨率 可选值：480p、720p、1080p、4k
+  resolution?: string;
+  // 输出格式 枚举值:mp4、mov
+  // 默认值：mp4
+  outputFormat?: string;
+  // 视频水印
+  // 默认值：false
+  //  true：生成视频右下角会展示 AI 生成 水印。
+  watermark?: boolean;
+  // 种子整数，用于控制生成内容的随机性
+  seed?: number;
+  // 返回尾帧 默认值 false
+  // false/true
+  returnLastFrame?: boolean;
+  // 配置模型要调用的工具
+  tools?: ModelToolDto[];
+  // 指定处理本次请求的服务等级类型 默认值 default
+  // + default：在线推理模式
+  // + flex：离线推理模式
+  serviceTier?: string;
+  // 默认值 172800 秒 （48小时）
+  // 3600 <=取值限制<= 259200
+  executionExpiresAfter?: number;
+  // 终端用户的唯一标识符
+  safetyIdentifier?: string;
+  // 执行优先级 默认值 0
+  // 数值越大，优先级越高。
+  priority?: number;
+  // seedance视频大模型2.0版本
+  productCode: string;
+  static names(): { [key: string]: string } {
+    return {
+      authToken: 'auth_token',
+      productInstanceId: 'product_instance_id',
+      taskId: 'task_id',
+      model: 'model',
+      materialContentDto: 'material_content_dto',
+      generateAudio: 'generate_audio',
+      ratio: 'ratio',
+      duration: 'duration',
+      resolution: 'resolution',
+      outputFormat: 'output_format',
+      watermark: 'watermark',
+      seed: 'seed',
+      returnLastFrame: 'return_last_frame',
+      tools: 'tools',
+      serviceTier: 'service_tier',
+      executionExpiresAfter: 'execution_expires_after',
+      safetyIdentifier: 'safety_identifier',
+      priority: 'priority',
+      productCode: 'product_code',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      authToken: 'string',
+      productInstanceId: 'string',
+      taskId: 'string',
+      model: 'string',
+      materialContentDto: MaterialContentDto,
+      generateAudio: 'boolean',
+      ratio: 'string',
+      duration: 'number',
+      resolution: 'string',
+      outputFormat: 'string',
+      watermark: 'boolean',
+      seed: 'number',
+      returnLastFrame: 'boolean',
+      tools: { 'type': 'array', 'itemType': ModelToolDto },
+      serviceTier: 'string',
+      executionExpiresAfter: 'number',
+      safetyIdentifier: 'string',
+      priority: 'number',
+      productCode: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class SaveOmngGenerationtaskResponse extends $tea.Model {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string;
+  // 结果码，一般OK表示调用成功
+  resultCode?: string;
+  // 异常信息的文本描述
+  resultMsg?: string;
+  // 创建结果
+  // 成功：success
+  // 创建中：creating
+  // 失败：fail
+  result?: string;
+  // 失败原因
+  failMsg?: string;
+  static names(): { [key: string]: string } {
+    return {
+      reqMsgId: 'req_msg_id',
+      resultCode: 'result_code',
+      resultMsg: 'result_msg',
+      result: 'result',
+      failMsg: 'fail_msg',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      reqMsgId: 'string',
+      resultCode: 'string',
+      resultMsg: 'string',
+      result: 'string',
+      failMsg: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class QueryOmngGenerationtaskRequest extends $tea.Model {
+  // OAuth模式下的授权token
+  authToken?: string;
+  productInstanceId?: string;
+  // 任务ID
+  taskId: string;
+  static names(): { [key: string]: string } {
+    return {
+      authToken: 'auth_token',
+      productInstanceId: 'product_instance_id',
+      taskId: 'task_id',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      authToken: 'string',
+      productInstanceId: 'string',
+      taskId: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class QueryOmngGenerationtaskResponse extends $tea.Model {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string;
+  // 结果码，一般OK表示调用成功
+  resultCode?: string;
+  // 异常信息的文本描述
+  resultMsg?: string;
+  // 查询结果
+  // 成功：success
+  // 失败：fail
+  result?: string;
+  // 查询失败原因
+  failMsg?: string;
+  // 视频场景任务结果信息
+  taskResultInfoDto?: TaskResultInfoDto;
+  static names(): { [key: string]: string } {
+    return {
+      reqMsgId: 'req_msg_id',
+      resultCode: 'result_code',
+      resultMsg: 'result_msg',
+      result: 'result',
+      failMsg: 'fail_msg',
+      taskResultInfoDto: 'task_result_info_dto',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      reqMsgId: 'string',
+      resultCode: 'string',
+      resultMsg: 'string',
+      result: 'string',
+      failMsg: 'string',
+      taskResultInfoDto: TaskResultInfoDto,
     };
   }
 
@@ -2187,7 +2895,7 @@ export default class Client {
           req_msg_id: AntchainUtil.getNonce(),
           access_key: this._accessKeyId,
           base_sdk_version: "TeaSDK-2.0",
-          sdk_version: "1.3.15",
+          sdk_version: "1.6.0",
           _prod_code: "GESAAS",
           _prod_channel: "default",
         };
@@ -2380,6 +3088,48 @@ export default class Client {
   async checkOmngRiskEx(request: CheckOmngRiskRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<CheckOmngRiskResponse> {
     Util.validateModel(request);
     return $tea.cast<CheckOmngRiskResponse>(await this.doRequest("1.0", "antdigital.gesaas.omng.risk.check", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new CheckOmngRiskResponse({}));
+  }
+
+  /**
+   * @remarks
+   * Description: 视频生成任务创建
+   * Summary: 视频生成任务创建
+   */
+  async saveOmngGenerationtask(request: SaveOmngGenerationtaskRequest): Promise<SaveOmngGenerationtaskResponse> {
+    let runtime = new $Util.RuntimeOptions({ });
+    let headers : {[key: string ]: string} = { };
+    return await this.saveOmngGenerationtaskEx(request, headers, runtime);
+  }
+
+  /**
+   * @remarks
+   * Description: 视频生成任务创建
+   * Summary: 视频生成任务创建
+   */
+  async saveOmngGenerationtaskEx(request: SaveOmngGenerationtaskRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<SaveOmngGenerationtaskResponse> {
+    Util.validateModel(request);
+    return $tea.cast<SaveOmngGenerationtaskResponse>(await this.doRequest("1.0", "antdigital.gesaas.omng.generationtask.save", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new SaveOmngGenerationtaskResponse({}));
+  }
+
+  /**
+   * @remarks
+   * Description: 视频生成任务结果查询
+   * Summary: 视频生成任务结果查询
+   */
+  async queryOmngGenerationtask(request: QueryOmngGenerationtaskRequest): Promise<QueryOmngGenerationtaskResponse> {
+    let runtime = new $Util.RuntimeOptions({ });
+    let headers : {[key: string ]: string} = { };
+    return await this.queryOmngGenerationtaskEx(request, headers, runtime);
+  }
+
+  /**
+   * @remarks
+   * Description: 视频生成任务结果查询
+   * Summary: 视频生成任务结果查询
+   */
+  async queryOmngGenerationtaskEx(request: QueryOmngGenerationtaskRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<QueryOmngGenerationtaskResponse> {
+    Util.validateModel(request);
+    return $tea.cast<QueryOmngGenerationtaskResponse>(await this.doRequest("1.0", "antdigital.gesaas.omng.generationtask.query", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new QueryOmngGenerationtaskResponse({}));
   }
 
   /**
