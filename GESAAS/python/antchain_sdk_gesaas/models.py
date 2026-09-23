@@ -1609,6 +1609,11 @@ class PushOrderSettlementRequest(TeaModel):
         pay_subject: str = None,
         pay_channel: str = None,
         pay_channel_user_id: str = None,
+        scene: str = None,
+        auth_code: str = None,
+        terminal_id: str = None,
+        user_ip: str = None,
+        app_id: str = None,
     ):
         # OAuth模式下的授权token
         self.auth_token = auth_token
@@ -1631,6 +1636,18 @@ class PushOrderSettlementRequest(TeaModel):
         self.pay_channel = pay_channel
         # 支付渠道是ALIPAY场景下传入支付宝用户2088xxxx
         self.pay_channel_user_id = pay_channel_user_id
+        # 支付场景，ONLINE(在线)/OFFLINE (离线)，默认：ONLINE
+        self.scene = scene
+        # 付款码，商家扫码场景必填，补充：
+        # 微信付款码：以 10–15 开头的 18 位纯数字。
+        # 支付宝付款码：以 25–30 开头，且长度为 16～24 位的纯数字。
+        self.auth_code = auth_code
+        # 终端号，商家扫码场景必填
+        self.terminal_id = terminal_id
+        # 用户真实IP地址
+        self.user_ip = user_ip
+        # 商家公众号ID,微信小程序，微信公众号产品必填
+        self.app_id = app_id
 
     def validate(self):
         self.validate_required(self.out_product_id, 'out_product_id')
@@ -1639,6 +1656,7 @@ class PushOrderSettlementRequest(TeaModel):
         self.validate_required(self.order_create_time, 'order_create_time')
         self.validate_required(self.pay_subject, 'pay_subject')
         self.validate_required(self.pay_channel_user_id, 'pay_channel_user_id')
+        self.validate_required(self.user_ip, 'user_ip')
 
     def to_map(self):
         _map = super().to_map()
@@ -1668,6 +1686,16 @@ class PushOrderSettlementRequest(TeaModel):
             result['pay_channel'] = self.pay_channel
         if self.pay_channel_user_id is not None:
             result['pay_channel_user_id'] = self.pay_channel_user_id
+        if self.scene is not None:
+            result['scene'] = self.scene
+        if self.auth_code is not None:
+            result['auth_code'] = self.auth_code
+        if self.terminal_id is not None:
+            result['terminal_id'] = self.terminal_id
+        if self.user_ip is not None:
+            result['user_ip'] = self.user_ip
+        if self.app_id is not None:
+            result['app_id'] = self.app_id
         return result
 
     def from_map(self, m: dict = None):
@@ -1694,6 +1722,16 @@ class PushOrderSettlementRequest(TeaModel):
             self.pay_channel = m.get('pay_channel')
         if m.get('pay_channel_user_id') is not None:
             self.pay_channel_user_id = m.get('pay_channel_user_id')
+        if m.get('scene') is not None:
+            self.scene = m.get('scene')
+        if m.get('auth_code') is not None:
+            self.auth_code = m.get('auth_code')
+        if m.get('terminal_id') is not None:
+            self.terminal_id = m.get('terminal_id')
+        if m.get('user_ip') is not None:
+            self.user_ip = m.get('user_ip')
+        if m.get('app_id') is not None:
+            self.app_id = m.get('app_id')
         return self
 
 
@@ -1704,6 +1742,7 @@ class PushOrderSettlementResponse(TeaModel):
         result_code: str = None,
         result_msg: str = None,
         trade_no: str = None,
+        pre_pay_tn: str = None,
     ):
         # 请求唯一ID，用于链路跟踪和问题排查
         self.req_msg_id = req_msg_id
@@ -1713,6 +1752,8 @@ class PushOrderSettlementResponse(TeaModel):
         self.result_msg = result_msg
         # 支付宝/微信/其他 平台订单号
         self.trade_no = trade_no
+        # 预支付凭证，仅商家扫码场景为空
+        self.pre_pay_tn = pre_pay_tn
 
     def validate(self):
         pass
@@ -1731,6 +1772,8 @@ class PushOrderSettlementResponse(TeaModel):
             result['result_msg'] = self.result_msg
         if self.trade_no is not None:
             result['trade_no'] = self.trade_no
+        if self.pre_pay_tn is not None:
+            result['pre_pay_tn'] = self.pre_pay_tn
         return result
 
     def from_map(self, m: dict = None):
@@ -1743,6 +1786,8 @@ class PushOrderSettlementResponse(TeaModel):
             self.result_msg = m.get('result_msg')
         if m.get('trade_no') is not None:
             self.trade_no = m.get('trade_no')
+        if m.get('pre_pay_tn') is not None:
+            self.pre_pay_tn = m.get('pre_pay_tn')
         return self
 
 
@@ -2527,6 +2572,7 @@ class SaveOmngGenerationtaskRequest(TeaModel):
         execution_expires_after: int = None,
         safety_identifier: str = None,
         priority: int = None,
+        product_code: str = None,
     ):
         # OAuth模式下的授权token
         self.auth_token = auth_token
@@ -2573,6 +2619,8 @@ class SaveOmngGenerationtaskRequest(TeaModel):
         # 执行优先级 默认值 0
         # 数值越大，优先级越高。
         self.priority = priority
+        # seedance视频大模型2.0版本
+        self.product_code = product_code
 
     def validate(self):
         self.validate_required(self.task_id, 'task_id')
@@ -2584,6 +2632,7 @@ class SaveOmngGenerationtaskRequest(TeaModel):
             for k in self.tools:
                 if k:
                     k.validate()
+        self.validate_required(self.product_code, 'product_code')
 
     def to_map(self):
         _map = super().to_map()
@@ -2629,6 +2678,8 @@ class SaveOmngGenerationtaskRequest(TeaModel):
             result['safety_identifier'] = self.safety_identifier
         if self.priority is not None:
             result['priority'] = self.priority
+        if self.product_code is not None:
+            result['product_code'] = self.product_code
         return result
 
     def from_map(self, m: dict = None):
@@ -2673,6 +2724,8 @@ class SaveOmngGenerationtaskRequest(TeaModel):
             self.safety_identifier = m.get('safety_identifier')
         if m.get('priority') is not None:
             self.priority = m.get('priority')
+        if m.get('product_code') is not None:
+            self.product_code = m.get('product_code')
         return self
 
 
