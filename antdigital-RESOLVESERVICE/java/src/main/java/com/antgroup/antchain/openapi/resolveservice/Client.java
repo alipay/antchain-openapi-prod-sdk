@@ -126,7 +126,7 @@ public class Client {
                     new TeaPair("req_msg_id", com.antgroup.antchain.openapi.antchain.util.AntchainUtils.getNonce()),
                     new TeaPair("access_key", _accessKeyId),
                     new TeaPair("base_sdk_version", "TeaSDK-2.0"),
-                    new TeaPair("sdk_version", "1.0.0"),
+                    new TeaPair("sdk_version", "1.1.1"),
                     new TeaPair("_prod_code", "RESOLVESERVICE"),
                     new TeaPair("_prod_channel", "default")
                 );
@@ -333,5 +333,47 @@ public class Client {
     public PushCustomerInternalmsgResponse pushCustomerInternalmsgEx(PushCustomerInternalmsgRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
         com.aliyun.teautil.Common.validateModel(request);
         return TeaModel.toModel(this.doRequest("1.0", "antdigital.resolveservice.customer.internalmsg.push", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new PushCustomerInternalmsgResponse());
+    }
+
+    /**
+     * <b>description</b> :
+     * <p>Description: 供应商回执回调
+     * Summary: 供应商回执回调</p>
+     */
+    public CallbackProviderRobotcallResponse callbackProviderRobotcall(CallbackProviderRobotcallRequest request) throws Exception {
+        com.aliyun.teautil.models.RuntimeOptions runtime = new com.aliyun.teautil.models.RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.callbackProviderRobotcallEx(request, headers, runtime);
+    }
+
+    /**
+     * <b>description</b> :
+     * <p>Description: 供应商回执回调
+     * Summary: 供应商回执回调</p>
+     */
+    public CallbackProviderRobotcallResponse callbackProviderRobotcallEx(CallbackProviderRobotcallRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "antdigital.resolveservice.provider.robotcall.callback", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new CallbackProviderRobotcallResponse());
+    }
+
+    /**
+     * <b>description</b> :
+     * <p>Description: 律光外呼回执
+     * Summary: 律光外呼回执</p>
+     */
+    public CallbackLvRobotcallResponse callbackLvRobotcall(CallbackLvRobotcallRequest request) throws Exception {
+        com.aliyun.teautil.models.RuntimeOptions runtime = new com.aliyun.teautil.models.RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.callbackLvRobotcallEx(request, headers, runtime);
+    }
+
+    /**
+     * <b>description</b> :
+     * <p>Description: 律光外呼回执
+     * Summary: 律光外呼回执</p>
+     */
+    public CallbackLvRobotcallResponse callbackLvRobotcallEx(CallbackLvRobotcallRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "antdigital.resolveservice.lv.robotcall.callback", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new CallbackLvRobotcallResponse());
     }
 }
