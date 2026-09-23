@@ -33,6 +33,10 @@ public class GetFundCompensatesignurlRequest extends TeaModel {
     @Validation(required = true)
     public String type;
 
+    // 支付宝uid
+    @NameInMap("alipay_uid")
+    public String alipayUid;
+
     public static GetFundCompensatesignurlRequest build(java.util.Map<String, ?> map) throws Exception {
         GetFundCompensatesignurlRequest self = new GetFundCompensatesignurlRequest();
         return TeaModel.build(map, self);
@@ -84,6 +88,14 @@ public class GetFundCompensatesignurlRequest extends TeaModel {
     }
     public String getType() {
         return this.type;
+    }
+
+    public GetFundCompensatesignurlRequest setAlipayUid(String alipayUid) {
+        this.alipayUid = alipayUid;
+        return this;
+    }
+    public String getAlipayUid() {
+        return this.alipayUid;
     }
 
 }

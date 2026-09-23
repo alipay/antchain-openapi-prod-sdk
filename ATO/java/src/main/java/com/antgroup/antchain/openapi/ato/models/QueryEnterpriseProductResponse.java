@@ -24,6 +24,26 @@ public class QueryEnterpriseProductResponse extends TeaModel {
     @NameInMap("event")
     public String event;
 
+    // 支付串
+    @NameInMap("trade_no")
+    public String tradeNo;
+
+    // 订单类型 NEW=新购 RENEW=续费
+    @NameInMap("order_type")
+    public String orderType;
+
+    // 产品码
+    @NameInMap("commodity_code")
+    public String commodityCode;
+
+    // 认购类型
+    @NameInMap("duration_type")
+    public String durationType;
+
+    // 认购时长
+    @NameInMap("duration_value")
+    public String durationValue;
+
     public static QueryEnterpriseProductResponse build(java.util.Map<String, ?> map) throws Exception {
         QueryEnterpriseProductResponse self = new QueryEnterpriseProductResponse();
         return TeaModel.build(map, self);
@@ -67,6 +87,46 @@ public class QueryEnterpriseProductResponse extends TeaModel {
     }
     public String getEvent() {
         return this.event;
+    }
+
+    public QueryEnterpriseProductResponse setTradeNo(String tradeNo) {
+        this.tradeNo = tradeNo;
+        return this;
+    }
+    public String getTradeNo() {
+        return this.tradeNo;
+    }
+
+    public QueryEnterpriseProductResponse setOrderType(String orderType) {
+        this.orderType = orderType;
+        return this;
+    }
+    public String getOrderType() {
+        return this.orderType;
+    }
+
+    public QueryEnterpriseProductResponse setCommodityCode(String commodityCode) {
+        this.commodityCode = commodityCode;
+        return this;
+    }
+    public String getCommodityCode() {
+        return this.commodityCode;
+    }
+
+    public QueryEnterpriseProductResponse setDurationType(String durationType) {
+        this.durationType = durationType;
+        return this;
+    }
+    public String getDurationType() {
+        return this.durationType;
+    }
+
+    public QueryEnterpriseProductResponse setDurationValue(String durationValue) {
+        this.durationValue = durationValue;
+        return this;
+    }
+    public String getDurationValue() {
+        return this.durationValue;
     }
 
 }

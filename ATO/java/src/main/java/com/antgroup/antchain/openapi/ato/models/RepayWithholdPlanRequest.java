@@ -20,7 +20,7 @@ public class RepayWithholdPlanRequest extends TeaModel {
     @NameInMap("period_num")
     public Long periodNum;
 
-    // 取消订单某一期代扣计划中以其他方式还款金额，单位为分，单期取消必填
+    // 取其他方式还款的时间，单期取消必填
     @NameInMap("gmt_pay")
     @Validation(pattern = "\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}([Z]|([\\.]\\d{1,9})?[\\+]\\d{2}[\\:]?\\d{2})")
     public String gmtPay;

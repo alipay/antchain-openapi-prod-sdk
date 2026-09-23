@@ -55,6 +55,11 @@ public class RegisterMerchantexpandMerchantRequest extends TeaModel {
     @NameInMap("role")
     public String role;
 
+    // 商家进件时，可自行选择是否需要开通周期代扣产品，默认开通
+    // false：不开通
+    @NameInMap("need_withholding")
+    public Boolean needWithholding;
+
     public static RegisterMerchantexpandMerchantRequest build(java.util.Map<String, ?> map) throws Exception {
         RegisterMerchantexpandMerchantRequest self = new RegisterMerchantexpandMerchantRequest();
         return TeaModel.build(map, self);
@@ -146,6 +151,14 @@ public class RegisterMerchantexpandMerchantRequest extends TeaModel {
     }
     public String getRole() {
         return this.role;
+    }
+
+    public RegisterMerchantexpandMerchantRequest setNeedWithholding(Boolean needWithholding) {
+        this.needWithholding = needWithholding;
+        return this;
+    }
+    public Boolean getNeedWithholding() {
+        return this.needWithholding;
     }
 
 }
