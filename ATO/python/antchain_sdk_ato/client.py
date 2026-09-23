@@ -135,7 +135,7 @@ class Client:
                     'req_msg_id': AntchainUtils.get_nonce(),
                     'access_key': self._access_key_id,
                     'base_sdk_version': 'TeaSDK-2.0',
-                    'sdk_version': '1.19.82',
+                    'sdk_version': '1.20.20',
                     '_prod_code': 'ATO',
                     '_prod_channel': 'undefined'
                 }
@@ -239,7 +239,7 @@ class Client:
                     'req_msg_id': AntchainUtils.get_nonce(),
                     'access_key': self._access_key_id,
                     'base_sdk_version': 'TeaSDK-2.0',
-                    'sdk_version': '1.19.82',
+                    'sdk_version': '1.20.20',
                     '_prod_code': 'ATO',
                     '_prod_channel': 'undefined'
                 }
@@ -274,6 +274,286 @@ class Client:
                     continue
                 raise e
         raise UnretryableException(_last_request, _last_exception)
+
+    def test_agenticnesxus_demo(
+        self,
+        request: ato_models.TestAgenticnesxusDemoRequest,
+    ) -> ato_models.TestAgenticnesxusDemoResponse:
+        """
+        Description: 基础项目搭建
+        Summary: 基础项目搭建
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.test_agenticnesxus_demo_ex(request, headers, runtime)
+
+    async def test_agenticnesxus_demo_async(
+        self,
+        request: ato_models.TestAgenticnesxusDemoRequest,
+    ) -> ato_models.TestAgenticnesxusDemoResponse:
+        """
+        Description: 基础项目搭建
+        Summary: 基础项目搭建
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.test_agenticnesxus_demo_ex_async(request, headers, runtime)
+
+    def test_agenticnesxus_demo_ex(
+        self,
+        request: ato_models.TestAgenticnesxusDemoRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> ato_models.TestAgenticnesxusDemoResponse:
+        """
+        Description: 基础项目搭建
+        Summary: 基础项目搭建
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            ato_models.TestAgenticnesxusDemoResponse(),
+            self.do_request('1.0', 'antchain.ato.agenticnesxus.demo.test', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def test_agenticnesxus_demo_ex_async(
+        self,
+        request: ato_models.TestAgenticnesxusDemoRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> ato_models.TestAgenticnesxusDemoResponse:
+        """
+        Description: 基础项目搭建
+        Summary: 基础项目搭建
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            ato_models.TestAgenticnesxusDemoResponse(),
+            await self.do_request_async('1.0', 'antchain.ato.agenticnesxus.demo.test', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def test_agenticnexus_demo(
+        self,
+        request: ato_models.TestAgenticnexusDemoRequest,
+    ) -> ato_models.TestAgenticnexusDemoResponse:
+        """
+        Description: 基础项目搭建-测试连通性
+        Summary: 基础项目搭建-测试连通性
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.test_agenticnexus_demo_ex(request, headers, runtime)
+
+    async def test_agenticnexus_demo_async(
+        self,
+        request: ato_models.TestAgenticnexusDemoRequest,
+    ) -> ato_models.TestAgenticnexusDemoResponse:
+        """
+        Description: 基础项目搭建-测试连通性
+        Summary: 基础项目搭建-测试连通性
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.test_agenticnexus_demo_ex_async(request, headers, runtime)
+
+    def test_agenticnexus_demo_ex(
+        self,
+        request: ato_models.TestAgenticnexusDemoRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> ato_models.TestAgenticnexusDemoResponse:
+        """
+        Description: 基础项目搭建-测试连通性
+        Summary: 基础项目搭建-测试连通性
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            ato_models.TestAgenticnexusDemoResponse(),
+            self.do_request('1.0', 'antchain.ato.agenticnexus.demo.test', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def test_agenticnexus_demo_ex_async(
+        self,
+        request: ato_models.TestAgenticnexusDemoRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> ato_models.TestAgenticnexusDemoResponse:
+        """
+        Description: 基础项目搭建-测试连通性
+        Summary: 基础项目搭建-测试连通性
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            ato_models.TestAgenticnexusDemoResponse(),
+            await self.do_request_async('1.0', 'antchain.ato.agenticnexus.demo.test', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def summary_agenticnexus_dashboard(
+        self,
+        request: ato_models.SummaryAgenticnexusDashboardRequest,
+    ) -> ato_models.SummaryAgenticnexusDashboardResponse:
+        """
+        Description: 营销大脑看板- 总结
+        Summary: 营销大脑看板- 总结
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.summary_agenticnexus_dashboard_ex(request, headers, runtime)
+
+    async def summary_agenticnexus_dashboard_async(
+        self,
+        request: ato_models.SummaryAgenticnexusDashboardRequest,
+    ) -> ato_models.SummaryAgenticnexusDashboardResponse:
+        """
+        Description: 营销大脑看板- 总结
+        Summary: 营销大脑看板- 总结
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.summary_agenticnexus_dashboard_ex_async(request, headers, runtime)
+
+    def summary_agenticnexus_dashboard_ex(
+        self,
+        request: ato_models.SummaryAgenticnexusDashboardRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> ato_models.SummaryAgenticnexusDashboardResponse:
+        """
+        Description: 营销大脑看板- 总结
+        Summary: 营销大脑看板- 总结
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            ato_models.SummaryAgenticnexusDashboardResponse(),
+            self.do_request('1.0', 'antchain.ato.agenticnexus.dashboard.summary', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def summary_agenticnexus_dashboard_ex_async(
+        self,
+        request: ato_models.SummaryAgenticnexusDashboardRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> ato_models.SummaryAgenticnexusDashboardResponse:
+        """
+        Description: 营销大脑看板- 总结
+        Summary: 营销大脑看板- 总结
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            ato_models.SummaryAgenticnexusDashboardResponse(),
+            await self.do_request_async('1.0', 'antchain.ato.agenticnexus.dashboard.summary', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def invoke_agenticnexus_aioperation(
+        self,
+        request: ato_models.InvokeAgenticnexusAioperationRequest,
+    ) -> ato_models.InvokeAgenticnexusAioperationResponse:
+        """
+        Description: AI经营智能体统一invoke接口
+        Summary: AI经营智能体统一invoke接口
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.invoke_agenticnexus_aioperation_ex(request, headers, runtime)
+
+    async def invoke_agenticnexus_aioperation_async(
+        self,
+        request: ato_models.InvokeAgenticnexusAioperationRequest,
+    ) -> ato_models.InvokeAgenticnexusAioperationResponse:
+        """
+        Description: AI经营智能体统一invoke接口
+        Summary: AI经营智能体统一invoke接口
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.invoke_agenticnexus_aioperation_ex_async(request, headers, runtime)
+
+    def invoke_agenticnexus_aioperation_ex(
+        self,
+        request: ato_models.InvokeAgenticnexusAioperationRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> ato_models.InvokeAgenticnexusAioperationResponse:
+        """
+        Description: AI经营智能体统一invoke接口
+        Summary: AI经营智能体统一invoke接口
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            ato_models.InvokeAgenticnexusAioperationResponse(),
+            self.do_request('1.0', 'antchain.ato.agenticnexus.aioperation.invoke', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def invoke_agenticnexus_aioperation_ex_async(
+        self,
+        request: ato_models.InvokeAgenticnexusAioperationRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> ato_models.InvokeAgenticnexusAioperationResponse:
+        """
+        Description: AI经营智能体统一invoke接口
+        Summary: AI经营智能体统一invoke接口
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            ato_models.InvokeAgenticnexusAioperationResponse(),
+            await self.do_request_async('1.0', 'antchain.ato.agenticnexus.aioperation.invoke', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def invoke_agenticnexus_ailongoperation(
+        self,
+        request: ato_models.InvokeAgenticnexusAilongoperationRequest,
+    ) -> ato_models.InvokeAgenticnexusAilongoperationResponse:
+        """
+        Description: AI经营智能体统一invoke接口(长耗时)
+        Summary: AI经营智能体统一invoke接口(长耗时)
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.invoke_agenticnexus_ailongoperation_ex(request, headers, runtime)
+
+    async def invoke_agenticnexus_ailongoperation_async(
+        self,
+        request: ato_models.InvokeAgenticnexusAilongoperationRequest,
+    ) -> ato_models.InvokeAgenticnexusAilongoperationResponse:
+        """
+        Description: AI经营智能体统一invoke接口(长耗时)
+        Summary: AI经营智能体统一invoke接口(长耗时)
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.invoke_agenticnexus_ailongoperation_ex_async(request, headers, runtime)
+
+    def invoke_agenticnexus_ailongoperation_ex(
+        self,
+        request: ato_models.InvokeAgenticnexusAilongoperationRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> ato_models.InvokeAgenticnexusAilongoperationResponse:
+        """
+        Description: AI经营智能体统一invoke接口(长耗时)
+        Summary: AI经营智能体统一invoke接口(长耗时)
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            ato_models.InvokeAgenticnexusAilongoperationResponse(),
+            self.do_request('1.0', 'antchain.ato.agenticnexus.ailongoperation.invoke', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def invoke_agenticnexus_ailongoperation_ex_async(
+        self,
+        request: ato_models.InvokeAgenticnexusAilongoperationRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> ato_models.InvokeAgenticnexusAilongoperationResponse:
+        """
+        Description: AI经营智能体统一invoke接口(长耗时)
+        Summary: AI经营智能体统一invoke接口(长耗时)
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            ato_models.InvokeAgenticnexusAilongoperationResponse(),
+            await self.do_request_async('1.0', 'antchain.ato.agenticnexus.ailongoperation.invoke', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
 
     def init_fund_alipaysettletocard(
         self,
@@ -915,6 +1195,118 @@ class Client:
             await self.do_request_async('1.0', 'antchain.ato.onetime.refund.create', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
+    def exec_fund_plan(
+        self,
+        request: ato_models.ExecFundPlanRequest,
+    ) -> ato_models.ExecFundPlanResponse:
+        """
+        Description: 新融资状态机资方主动重试接口
+        Summary: 新融资状态机资方主动重试接口
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.exec_fund_plan_ex(request, headers, runtime)
+
+    async def exec_fund_plan_async(
+        self,
+        request: ato_models.ExecFundPlanRequest,
+    ) -> ato_models.ExecFundPlanResponse:
+        """
+        Description: 新融资状态机资方主动重试接口
+        Summary: 新融资状态机资方主动重试接口
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.exec_fund_plan_ex_async(request, headers, runtime)
+
+    def exec_fund_plan_ex(
+        self,
+        request: ato_models.ExecFundPlanRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> ato_models.ExecFundPlanResponse:
+        """
+        Description: 新融资状态机资方主动重试接口
+        Summary: 新融资状态机资方主动重试接口
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            ato_models.ExecFundPlanResponse(),
+            self.do_request('1.0', 'antchain.ato.fund.plan.exec', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def exec_fund_plan_ex_async(
+        self,
+        request: ato_models.ExecFundPlanRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> ato_models.ExecFundPlanResponse:
+        """
+        Description: 新融资状态机资方主动重试接口
+        Summary: 新融资状态机资方主动重试接口
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            ato_models.ExecFundPlanResponse(),
+            await self.do_request_async('1.0', 'antchain.ato.fund.plan.exec', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def query_inner_aioperationlist(
+        self,
+        request: ato_models.QueryInnerAioperationlistRequest,
+    ) -> ato_models.QueryInnerAioperationlistResponse:
+        """
+        Description: AI经营团队项目,查询租户对应的数据列表
+        Summary: AI经营团队项目,查询租户对应的数据列表
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.query_inner_aioperationlist_ex(request, headers, runtime)
+
+    async def query_inner_aioperationlist_async(
+        self,
+        request: ato_models.QueryInnerAioperationlistRequest,
+    ) -> ato_models.QueryInnerAioperationlistResponse:
+        """
+        Description: AI经营团队项目,查询租户对应的数据列表
+        Summary: AI经营团队项目,查询租户对应的数据列表
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.query_inner_aioperationlist_ex_async(request, headers, runtime)
+
+    def query_inner_aioperationlist_ex(
+        self,
+        request: ato_models.QueryInnerAioperationlistRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> ato_models.QueryInnerAioperationlistResponse:
+        """
+        Description: AI经营团队项目,查询租户对应的数据列表
+        Summary: AI经营团队项目,查询租户对应的数据列表
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            ato_models.QueryInnerAioperationlistResponse(),
+            self.do_request('1.0', 'antchain.ato.inner.aioperationlist.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def query_inner_aioperationlist_ex_async(
+        self,
+        request: ato_models.QueryInnerAioperationlistRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> ato_models.QueryInnerAioperationlistResponse:
+        """
+        Description: AI经营团队项目,查询租户对应的数据列表
+        Summary: AI经营团队项目,查询租户对应的数据列表
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            ato_models.QueryInnerAioperationlistResponse(),
+            await self.do_request_async('1.0', 'antchain.ato.inner.aioperationlist.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
     def query_inner_fundassetpackagerepayment(
         self,
         request: ato_models.QueryInnerFundassetpackagerepaymentRequest,
@@ -1081,6 +1473,1014 @@ class Client:
         return TeaCore.from_map(
             ato_models.QueryInnerAprepaymentallocatedetailResponse(),
             await self.do_request_async('1.0', 'antchain.ato.inner.aprepaymentallocatedetail.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def query_inner_mermngdemo(
+        self,
+        request: ato_models.QueryInnerMermngdemoRequest,
+    ) -> ato_models.QueryInnerMermngdemoResponse:
+        """
+        Description: 商户管理demo接口
+        Summary: 商户管理demo接口
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.query_inner_mermngdemo_ex(request, headers, runtime)
+
+    async def query_inner_mermngdemo_async(
+        self,
+        request: ato_models.QueryInnerMermngdemoRequest,
+    ) -> ato_models.QueryInnerMermngdemoResponse:
+        """
+        Description: 商户管理demo接口
+        Summary: 商户管理demo接口
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.query_inner_mermngdemo_ex_async(request, headers, runtime)
+
+    def query_inner_mermngdemo_ex(
+        self,
+        request: ato_models.QueryInnerMermngdemoRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> ato_models.QueryInnerMermngdemoResponse:
+        """
+        Description: 商户管理demo接口
+        Summary: 商户管理demo接口
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            ato_models.QueryInnerMermngdemoResponse(),
+            self.do_request('1.0', 'antchain.ato.inner.mermngdemo.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def query_inner_mermngdemo_ex_async(
+        self,
+        request: ato_models.QueryInnerMermngdemoRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> ato_models.QueryInnerMermngdemoResponse:
+        """
+        Description: 商户管理demo接口
+        Summary: 商户管理demo接口
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            ato_models.QueryInnerMermngdemoResponse(),
+            await self.do_request_async('1.0', 'antchain.ato.inner.mermngdemo.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def query_inner_mermngcontractextract(
+        self,
+        request: ato_models.QueryInnerMermngcontractextractRequest,
+    ) -> ato_models.QueryInnerMermngcontractextractResponse:
+        """
+        Description: 立场提取查询
+        Summary: 立场提取查询
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.query_inner_mermngcontractextract_ex(request, headers, runtime)
+
+    async def query_inner_mermngcontractextract_async(
+        self,
+        request: ato_models.QueryInnerMermngcontractextractRequest,
+    ) -> ato_models.QueryInnerMermngcontractextractResponse:
+        """
+        Description: 立场提取查询
+        Summary: 立场提取查询
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.query_inner_mermngcontractextract_ex_async(request, headers, runtime)
+
+    def query_inner_mermngcontractextract_ex(
+        self,
+        request: ato_models.QueryInnerMermngcontractextractRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> ato_models.QueryInnerMermngcontractextractResponse:
+        """
+        Description: 立场提取查询
+        Summary: 立场提取查询
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            ato_models.QueryInnerMermngcontractextractResponse(),
+            self.do_request('1.0', 'antchain.ato.inner.mermngcontractextract.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def query_inner_mermngcontractextract_ex_async(
+        self,
+        request: ato_models.QueryInnerMermngcontractextractRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> ato_models.QueryInnerMermngcontractextractResponse:
+        """
+        Description: 立场提取查询
+        Summary: 立场提取查询
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            ato_models.QueryInnerMermngcontractextractResponse(),
+            await self.do_request_async('1.0', 'antchain.ato.inner.mermngcontractextract.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def sumbit_inner_mermngcontractextract(
+        self,
+        request: ato_models.SumbitInnerMermngcontractextractRequest,
+    ) -> ato_models.SumbitInnerMermngcontractextractResponse:
+        """
+        Description: 合同立场提取
+        Summary: 合同立场提取
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.sumbit_inner_mermngcontractextract_ex(request, headers, runtime)
+
+    async def sumbit_inner_mermngcontractextract_async(
+        self,
+        request: ato_models.SumbitInnerMermngcontractextractRequest,
+    ) -> ato_models.SumbitInnerMermngcontractextractResponse:
+        """
+        Description: 合同立场提取
+        Summary: 合同立场提取
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.sumbit_inner_mermngcontractextract_ex_async(request, headers, runtime)
+
+    def sumbit_inner_mermngcontractextract_ex(
+        self,
+        request: ato_models.SumbitInnerMermngcontractextractRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> ato_models.SumbitInnerMermngcontractextractResponse:
+        """
+        Description: 合同立场提取
+        Summary: 合同立场提取
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            ato_models.SumbitInnerMermngcontractextractResponse(),
+            self.do_request('1.0', 'antchain.ato.inner.mermngcontractextract.sumbit', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def sumbit_inner_mermngcontractextract_ex_async(
+        self,
+        request: ato_models.SumbitInnerMermngcontractextractRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> ato_models.SumbitInnerMermngcontractextractResponse:
+        """
+        Description: 合同立场提取
+        Summary: 合同立场提取
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            ato_models.SumbitInnerMermngcontractextractResponse(),
+            await self.do_request_async('1.0', 'antchain.ato.inner.mermngcontractextract.sumbit', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def sumbit_inner_mermngcontractaudit(
+        self,
+        request: ato_models.SumbitInnerMermngcontractauditRequest,
+    ) -> ato_models.SumbitInnerMermngcontractauditResponse:
+        """
+        Description: 提交合同审核
+        Summary: 提交合同审核
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.sumbit_inner_mermngcontractaudit_ex(request, headers, runtime)
+
+    async def sumbit_inner_mermngcontractaudit_async(
+        self,
+        request: ato_models.SumbitInnerMermngcontractauditRequest,
+    ) -> ato_models.SumbitInnerMermngcontractauditResponse:
+        """
+        Description: 提交合同审核
+        Summary: 提交合同审核
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.sumbit_inner_mermngcontractaudit_ex_async(request, headers, runtime)
+
+    def sumbit_inner_mermngcontractaudit_ex(
+        self,
+        request: ato_models.SumbitInnerMermngcontractauditRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> ato_models.SumbitInnerMermngcontractauditResponse:
+        """
+        Description: 提交合同审核
+        Summary: 提交合同审核
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            ato_models.SumbitInnerMermngcontractauditResponse(),
+            self.do_request('1.0', 'antchain.ato.inner.mermngcontractaudit.sumbit', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def sumbit_inner_mermngcontractaudit_ex_async(
+        self,
+        request: ato_models.SumbitInnerMermngcontractauditRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> ato_models.SumbitInnerMermngcontractauditResponse:
+        """
+        Description: 提交合同审核
+        Summary: 提交合同审核
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            ato_models.SumbitInnerMermngcontractauditResponse(),
+            await self.do_request_async('1.0', 'antchain.ato.inner.mermngcontractaudit.sumbit', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def query_inner_mermngcontractaudit(
+        self,
+        request: ato_models.QueryInnerMermngcontractauditRequest,
+    ) -> ato_models.QueryInnerMermngcontractauditResponse:
+        """
+        Description: 合同审核查询
+        Summary: 合同审核查询
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.query_inner_mermngcontractaudit_ex(request, headers, runtime)
+
+    async def query_inner_mermngcontractaudit_async(
+        self,
+        request: ato_models.QueryInnerMermngcontractauditRequest,
+    ) -> ato_models.QueryInnerMermngcontractauditResponse:
+        """
+        Description: 合同审核查询
+        Summary: 合同审核查询
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.query_inner_mermngcontractaudit_ex_async(request, headers, runtime)
+
+    def query_inner_mermngcontractaudit_ex(
+        self,
+        request: ato_models.QueryInnerMermngcontractauditRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> ato_models.QueryInnerMermngcontractauditResponse:
+        """
+        Description: 合同审核查询
+        Summary: 合同审核查询
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            ato_models.QueryInnerMermngcontractauditResponse(),
+            self.do_request('1.0', 'antchain.ato.inner.mermngcontractaudit.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def query_inner_mermngcontractaudit_ex_async(
+        self,
+        request: ato_models.QueryInnerMermngcontractauditRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> ato_models.QueryInnerMermngcontractauditResponse:
+        """
+        Description: 合同审核查询
+        Summary: 合同审核查询
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            ato_models.QueryInnerMermngcontractauditResponse(),
+            await self.do_request_async('1.0', 'antchain.ato.inner.mermngcontractaudit.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def finish_inner_mermngcontractaudit(
+        self,
+        request: ato_models.FinishInnerMermngcontractauditRequest,
+    ) -> ato_models.FinishInnerMermngcontractauditResponse:
+        """
+        Description: 审核完结
+        Summary: 审核完结
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.finish_inner_mermngcontractaudit_ex(request, headers, runtime)
+
+    async def finish_inner_mermngcontractaudit_async(
+        self,
+        request: ato_models.FinishInnerMermngcontractauditRequest,
+    ) -> ato_models.FinishInnerMermngcontractauditResponse:
+        """
+        Description: 审核完结
+        Summary: 审核完结
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.finish_inner_mermngcontractaudit_ex_async(request, headers, runtime)
+
+    def finish_inner_mermngcontractaudit_ex(
+        self,
+        request: ato_models.FinishInnerMermngcontractauditRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> ato_models.FinishInnerMermngcontractauditResponse:
+        """
+        Description: 审核完结
+        Summary: 审核完结
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            ato_models.FinishInnerMermngcontractauditResponse(),
+            self.do_request('1.0', 'antchain.ato.inner.mermngcontractaudit.finish', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def finish_inner_mermngcontractaudit_ex_async(
+        self,
+        request: ato_models.FinishInnerMermngcontractauditRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> ato_models.FinishInnerMermngcontractauditResponse:
+        """
+        Description: 审核完结
+        Summary: 审核完结
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            ato_models.FinishInnerMermngcontractauditResponse(),
+            await self.do_request_async('1.0', 'antchain.ato.inner.mermngcontractaudit.finish', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def edit_inner_mermngcontractauditdetail(
+        self,
+        request: ato_models.EditInnerMermngcontractauditdetailRequest,
+    ) -> ato_models.EditInnerMermngcontractauditdetailResponse:
+        """
+        Description: 审核详情编辑
+        Summary: 审核详情编辑
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.edit_inner_mermngcontractauditdetail_ex(request, headers, runtime)
+
+    async def edit_inner_mermngcontractauditdetail_async(
+        self,
+        request: ato_models.EditInnerMermngcontractauditdetailRequest,
+    ) -> ato_models.EditInnerMermngcontractauditdetailResponse:
+        """
+        Description: 审核详情编辑
+        Summary: 审核详情编辑
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.edit_inner_mermngcontractauditdetail_ex_async(request, headers, runtime)
+
+    def edit_inner_mermngcontractauditdetail_ex(
+        self,
+        request: ato_models.EditInnerMermngcontractauditdetailRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> ato_models.EditInnerMermngcontractauditdetailResponse:
+        """
+        Description: 审核详情编辑
+        Summary: 审核详情编辑
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            ato_models.EditInnerMermngcontractauditdetailResponse(),
+            self.do_request('1.0', 'antchain.ato.inner.mermngcontractauditdetail.edit', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def edit_inner_mermngcontractauditdetail_ex_async(
+        self,
+        request: ato_models.EditInnerMermngcontractauditdetailRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> ato_models.EditInnerMermngcontractauditdetailResponse:
+        """
+        Description: 审核详情编辑
+        Summary: 审核详情编辑
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            ato_models.EditInnerMermngcontractauditdetailResponse(),
+            await self.do_request_async('1.0', 'antchain.ato.inner.mermngcontractauditdetail.edit', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def feedback_inner_mermngcontractaudit(
+        self,
+        request: ato_models.FeedbackInnerMermngcontractauditRequest,
+    ) -> ato_models.FeedbackInnerMermngcontractauditResponse:
+        """
+        Description: 审核反馈
+        Summary: 审核反馈
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.feedback_inner_mermngcontractaudit_ex(request, headers, runtime)
+
+    async def feedback_inner_mermngcontractaudit_async(
+        self,
+        request: ato_models.FeedbackInnerMermngcontractauditRequest,
+    ) -> ato_models.FeedbackInnerMermngcontractauditResponse:
+        """
+        Description: 审核反馈
+        Summary: 审核反馈
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.feedback_inner_mermngcontractaudit_ex_async(request, headers, runtime)
+
+    def feedback_inner_mermngcontractaudit_ex(
+        self,
+        request: ato_models.FeedbackInnerMermngcontractauditRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> ato_models.FeedbackInnerMermngcontractauditResponse:
+        """
+        Description: 审核反馈
+        Summary: 审核反馈
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            ato_models.FeedbackInnerMermngcontractauditResponse(),
+            self.do_request('1.0', 'antchain.ato.inner.mermngcontractaudit.feedback', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def feedback_inner_mermngcontractaudit_ex_async(
+        self,
+        request: ato_models.FeedbackInnerMermngcontractauditRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> ato_models.FeedbackInnerMermngcontractauditResponse:
+        """
+        Description: 审核反馈
+        Summary: 审核反馈
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            ato_models.FeedbackInnerMermngcontractauditResponse(),
+            await self.do_request_async('1.0', 'antchain.ato.inner.mermngcontractaudit.feedback', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def query_inner_mermngcontractfeedback(
+        self,
+        request: ato_models.QueryInnerMermngcontractfeedbackRequest,
+    ) -> ato_models.QueryInnerMermngcontractfeedbackResponse:
+        """
+        Description: 审核反馈查询
+        Summary: 审核反馈查询
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.query_inner_mermngcontractfeedback_ex(request, headers, runtime)
+
+    async def query_inner_mermngcontractfeedback_async(
+        self,
+        request: ato_models.QueryInnerMermngcontractfeedbackRequest,
+    ) -> ato_models.QueryInnerMermngcontractfeedbackResponse:
+        """
+        Description: 审核反馈查询
+        Summary: 审核反馈查询
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.query_inner_mermngcontractfeedback_ex_async(request, headers, runtime)
+
+    def query_inner_mermngcontractfeedback_ex(
+        self,
+        request: ato_models.QueryInnerMermngcontractfeedbackRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> ato_models.QueryInnerMermngcontractfeedbackResponse:
+        """
+        Description: 审核反馈查询
+        Summary: 审核反馈查询
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            ato_models.QueryInnerMermngcontractfeedbackResponse(),
+            self.do_request('1.0', 'antchain.ato.inner.mermngcontractfeedback.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def query_inner_mermngcontractfeedback_ex_async(
+        self,
+        request: ato_models.QueryInnerMermngcontractfeedbackRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> ato_models.QueryInnerMermngcontractfeedbackResponse:
+        """
+        Description: 审核反馈查询
+        Summary: 审核反馈查询
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            ato_models.QueryInnerMermngcontractfeedbackResponse(),
+            await self.do_request_async('1.0', 'antchain.ato.inner.mermngcontractfeedback.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def feedback_inner_mermngcontractauditincomplete(
+        self,
+        request: ato_models.FeedbackInnerMermngcontractauditincompleteRequest,
+    ) -> ato_models.FeedbackInnerMermngcontractauditincompleteResponse:
+        """
+        Description: 提交漏审信息
+        Summary: 提交漏审信息
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.feedback_inner_mermngcontractauditincomplete_ex(request, headers, runtime)
+
+    async def feedback_inner_mermngcontractauditincomplete_async(
+        self,
+        request: ato_models.FeedbackInnerMermngcontractauditincompleteRequest,
+    ) -> ato_models.FeedbackInnerMermngcontractauditincompleteResponse:
+        """
+        Description: 提交漏审信息
+        Summary: 提交漏审信息
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.feedback_inner_mermngcontractauditincomplete_ex_async(request, headers, runtime)
+
+    def feedback_inner_mermngcontractauditincomplete_ex(
+        self,
+        request: ato_models.FeedbackInnerMermngcontractauditincompleteRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> ato_models.FeedbackInnerMermngcontractauditincompleteResponse:
+        """
+        Description: 提交漏审信息
+        Summary: 提交漏审信息
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            ato_models.FeedbackInnerMermngcontractauditincompleteResponse(),
+            self.do_request('1.0', 'antchain.ato.inner.mermngcontractauditincomplete.feedback', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def feedback_inner_mermngcontractauditincomplete_ex_async(
+        self,
+        request: ato_models.FeedbackInnerMermngcontractauditincompleteRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> ato_models.FeedbackInnerMermngcontractauditincompleteResponse:
+        """
+        Description: 提交漏审信息
+        Summary: 提交漏审信息
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            ato_models.FeedbackInnerMermngcontractauditincompleteResponse(),
+            await self.do_request_async('1.0', 'antchain.ato.inner.mermngcontractauditincomplete.feedback', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def query_inner_mermngcontractwebofficetoken(
+        self,
+        request: ato_models.QueryInnerMermngcontractwebofficetokenRequest,
+    ) -> ato_models.QueryInnerMermngcontractwebofficetokenResponse:
+        """
+        Description: 生成weboffice编辑token
+        Summary: 生成weboffice编辑token
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.query_inner_mermngcontractwebofficetoken_ex(request, headers, runtime)
+
+    async def query_inner_mermngcontractwebofficetoken_async(
+        self,
+        request: ato_models.QueryInnerMermngcontractwebofficetokenRequest,
+    ) -> ato_models.QueryInnerMermngcontractwebofficetokenResponse:
+        """
+        Description: 生成weboffice编辑token
+        Summary: 生成weboffice编辑token
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.query_inner_mermngcontractwebofficetoken_ex_async(request, headers, runtime)
+
+    def query_inner_mermngcontractwebofficetoken_ex(
+        self,
+        request: ato_models.QueryInnerMermngcontractwebofficetokenRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> ato_models.QueryInnerMermngcontractwebofficetokenResponse:
+        """
+        Description: 生成weboffice编辑token
+        Summary: 生成weboffice编辑token
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            ato_models.QueryInnerMermngcontractwebofficetokenResponse(),
+            self.do_request('1.0', 'antchain.ato.inner.mermngcontractwebofficetoken.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def query_inner_mermngcontractwebofficetoken_ex_async(
+        self,
+        request: ato_models.QueryInnerMermngcontractwebofficetokenRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> ato_models.QueryInnerMermngcontractwebofficetokenResponse:
+        """
+        Description: 生成weboffice编辑token
+        Summary: 生成weboffice编辑token
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            ato_models.QueryInnerMermngcontractwebofficetokenResponse(),
+            await self.do_request_async('1.0', 'antchain.ato.inner.mermngcontractwebofficetoken.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def reset_inner_mermngcontractwebofficetoken(
+        self,
+        request: ato_models.ResetInnerMermngcontractwebofficetokenRequest,
+    ) -> ato_models.ResetInnerMermngcontractwebofficetokenResponse:
+        """
+        Description: 刷新编辑token
+        Summary: 刷新编辑token
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.reset_inner_mermngcontractwebofficetoken_ex(request, headers, runtime)
+
+    async def reset_inner_mermngcontractwebofficetoken_async(
+        self,
+        request: ato_models.ResetInnerMermngcontractwebofficetokenRequest,
+    ) -> ato_models.ResetInnerMermngcontractwebofficetokenResponse:
+        """
+        Description: 刷新编辑token
+        Summary: 刷新编辑token
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.reset_inner_mermngcontractwebofficetoken_ex_async(request, headers, runtime)
+
+    def reset_inner_mermngcontractwebofficetoken_ex(
+        self,
+        request: ato_models.ResetInnerMermngcontractwebofficetokenRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> ato_models.ResetInnerMermngcontractwebofficetokenResponse:
+        """
+        Description: 刷新编辑token
+        Summary: 刷新编辑token
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            ato_models.ResetInnerMermngcontractwebofficetokenResponse(),
+            self.do_request('1.0', 'antchain.ato.inner.mermngcontractwebofficetoken.reset', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def reset_inner_mermngcontractwebofficetoken_ex_async(
+        self,
+        request: ato_models.ResetInnerMermngcontractwebofficetokenRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> ato_models.ResetInnerMermngcontractwebofficetokenResponse:
+        """
+        Description: 刷新编辑token
+        Summary: 刷新编辑token
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            ato_models.ResetInnerMermngcontractwebofficetokenResponse(),
+            await self.do_request_async('1.0', 'antchain.ato.inner.mermngcontractwebofficetoken.reset', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def open_inner_enterpriseproduct(
+        self,
+        request: ato_models.OpenInnerEnterpriseproductRequest,
+    ) -> ato_models.OpenInnerEnterpriseproductResponse:
+        """
+        Description: 企业码数科计收产品开通接口
+        Summary: 企业码数科计收产品开通接口
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.open_inner_enterpriseproduct_ex(request, headers, runtime)
+
+    async def open_inner_enterpriseproduct_async(
+        self,
+        request: ato_models.OpenInnerEnterpriseproductRequest,
+    ) -> ato_models.OpenInnerEnterpriseproductResponse:
+        """
+        Description: 企业码数科计收产品开通接口
+        Summary: 企业码数科计收产品开通接口
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.open_inner_enterpriseproduct_ex_async(request, headers, runtime)
+
+    def open_inner_enterpriseproduct_ex(
+        self,
+        request: ato_models.OpenInnerEnterpriseproductRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> ato_models.OpenInnerEnterpriseproductResponse:
+        """
+        Description: 企业码数科计收产品开通接口
+        Summary: 企业码数科计收产品开通接口
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            ato_models.OpenInnerEnterpriseproductResponse(),
+            self.do_request('1.0', 'antchain.ato.inner.enterpriseproduct.open', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def open_inner_enterpriseproduct_ex_async(
+        self,
+        request: ato_models.OpenInnerEnterpriseproductRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> ato_models.OpenInnerEnterpriseproductResponse:
+        """
+        Description: 企业码数科计收产品开通接口
+        Summary: 企业码数科计收产品开通接口
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            ato_models.OpenInnerEnterpriseproductResponse(),
+            await self.do_request_async('1.0', 'antchain.ato.inner.enterpriseproduct.open', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def create_inner_enterprisetenant(
+        self,
+        request: ato_models.CreateInnerEnterprisetenantRequest,
+    ) -> ato_models.CreateInnerEnterprisetenantResponse:
+        """
+        Description: 企业码数科计收企业账户开通接口
+        Summary: 企业码数科计收企业账户开通接口
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.create_inner_enterprisetenant_ex(request, headers, runtime)
+
+    async def create_inner_enterprisetenant_async(
+        self,
+        request: ato_models.CreateInnerEnterprisetenantRequest,
+    ) -> ato_models.CreateInnerEnterprisetenantResponse:
+        """
+        Description: 企业码数科计收企业账户开通接口
+        Summary: 企业码数科计收企业账户开通接口
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.create_inner_enterprisetenant_ex_async(request, headers, runtime)
+
+    def create_inner_enterprisetenant_ex(
+        self,
+        request: ato_models.CreateInnerEnterprisetenantRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> ato_models.CreateInnerEnterprisetenantResponse:
+        """
+        Description: 企业码数科计收企业账户开通接口
+        Summary: 企业码数科计收企业账户开通接口
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            ato_models.CreateInnerEnterprisetenantResponse(),
+            self.do_request('1.0', 'antchain.ato.inner.enterprisetenant.create', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def create_inner_enterprisetenant_ex_async(
+        self,
+        request: ato_models.CreateInnerEnterprisetenantRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> ato_models.CreateInnerEnterprisetenantResponse:
+        """
+        Description: 企业码数科计收企业账户开通接口
+        Summary: 企业码数科计收企业账户开通接口
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            ato_models.CreateInnerEnterprisetenantResponse(),
+            await self.do_request_async('1.0', 'antchain.ato.inner.enterprisetenant.create', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def query_inner_enterpriseevent(
+        self,
+        request: ato_models.QueryInnerEnterpriseeventRequest,
+    ) -> ato_models.QueryInnerEnterpriseeventResponse:
+        """
+        Description: 企业码数科计收支付结果&开通结果查询接口
+        Summary: 企业码数科计收支付结果&开通结果查询接口
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.query_inner_enterpriseevent_ex(request, headers, runtime)
+
+    async def query_inner_enterpriseevent_async(
+        self,
+        request: ato_models.QueryInnerEnterpriseeventRequest,
+    ) -> ato_models.QueryInnerEnterpriseeventResponse:
+        """
+        Description: 企业码数科计收支付结果&开通结果查询接口
+        Summary: 企业码数科计收支付结果&开通结果查询接口
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.query_inner_enterpriseevent_ex_async(request, headers, runtime)
+
+    def query_inner_enterpriseevent_ex(
+        self,
+        request: ato_models.QueryInnerEnterpriseeventRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> ato_models.QueryInnerEnterpriseeventResponse:
+        """
+        Description: 企业码数科计收支付结果&开通结果查询接口
+        Summary: 企业码数科计收支付结果&开通结果查询接口
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            ato_models.QueryInnerEnterpriseeventResponse(),
+            self.do_request('1.0', 'antchain.ato.inner.enterpriseevent.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def query_inner_enterpriseevent_ex_async(
+        self,
+        request: ato_models.QueryInnerEnterpriseeventRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> ato_models.QueryInnerEnterpriseeventResponse:
+        """
+        Description: 企业码数科计收支付结果&开通结果查询接口
+        Summary: 企业码数科计收支付结果&开通结果查询接口
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            ato_models.QueryInnerEnterpriseeventResponse(),
+            await self.do_request_async('1.0', 'antchain.ato.inner.enterpriseevent.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def open_enterprise_product(
+        self,
+        request: ato_models.OpenEnterpriseProductRequest,
+    ) -> ato_models.OpenEnterpriseProductResponse:
+        """
+        Description: 企业码数科计收产品开通接口
+        Summary: 企业码数科计收产品开通接口
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.open_enterprise_product_ex(request, headers, runtime)
+
+    async def open_enterprise_product_async(
+        self,
+        request: ato_models.OpenEnterpriseProductRequest,
+    ) -> ato_models.OpenEnterpriseProductResponse:
+        """
+        Description: 企业码数科计收产品开通接口
+        Summary: 企业码数科计收产品开通接口
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.open_enterprise_product_ex_async(request, headers, runtime)
+
+    def open_enterprise_product_ex(
+        self,
+        request: ato_models.OpenEnterpriseProductRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> ato_models.OpenEnterpriseProductResponse:
+        """
+        Description: 企业码数科计收产品开通接口
+        Summary: 企业码数科计收产品开通接口
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            ato_models.OpenEnterpriseProductResponse(),
+            self.do_request('1.0', 'antchain.ato.enterprise.product.open', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def open_enterprise_product_ex_async(
+        self,
+        request: ato_models.OpenEnterpriseProductRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> ato_models.OpenEnterpriseProductResponse:
+        """
+        Description: 企业码数科计收产品开通接口
+        Summary: 企业码数科计收产品开通接口
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            ato_models.OpenEnterpriseProductResponse(),
+            await self.do_request_async('1.0', 'antchain.ato.enterprise.product.open', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def create_enterprise_tenant(
+        self,
+        request: ato_models.CreateEnterpriseTenantRequest,
+    ) -> ato_models.CreateEnterpriseTenantResponse:
+        """
+        Description: 企业码数科计收企业账户开通接口
+        Summary: 企业码数科计收企业账户开通接口
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.create_enterprise_tenant_ex(request, headers, runtime)
+
+    async def create_enterprise_tenant_async(
+        self,
+        request: ato_models.CreateEnterpriseTenantRequest,
+    ) -> ato_models.CreateEnterpriseTenantResponse:
+        """
+        Description: 企业码数科计收企业账户开通接口
+        Summary: 企业码数科计收企业账户开通接口
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.create_enterprise_tenant_ex_async(request, headers, runtime)
+
+    def create_enterprise_tenant_ex(
+        self,
+        request: ato_models.CreateEnterpriseTenantRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> ato_models.CreateEnterpriseTenantResponse:
+        """
+        Description: 企业码数科计收企业账户开通接口
+        Summary: 企业码数科计收企业账户开通接口
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            ato_models.CreateEnterpriseTenantResponse(),
+            self.do_request('1.0', 'antchain.ato.enterprise.tenant.create', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def create_enterprise_tenant_ex_async(
+        self,
+        request: ato_models.CreateEnterpriseTenantRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> ato_models.CreateEnterpriseTenantResponse:
+        """
+        Description: 企业码数科计收企业账户开通接口
+        Summary: 企业码数科计收企业账户开通接口
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            ato_models.CreateEnterpriseTenantResponse(),
+            await self.do_request_async('1.0', 'antchain.ato.enterprise.tenant.create', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def query_enterprise_product(
+        self,
+        request: ato_models.QueryEnterpriseProductRequest,
+    ) -> ato_models.QueryEnterpriseProductResponse:
+        """
+        Description: 企业码数科计收支付结果&开通结果查询接口
+        Summary: 企业码数科计收支付结果&开通结果查询接口
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.query_enterprise_product_ex(request, headers, runtime)
+
+    async def query_enterprise_product_async(
+        self,
+        request: ato_models.QueryEnterpriseProductRequest,
+    ) -> ato_models.QueryEnterpriseProductResponse:
+        """
+        Description: 企业码数科计收支付结果&开通结果查询接口
+        Summary: 企业码数科计收支付结果&开通结果查询接口
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.query_enterprise_product_ex_async(request, headers, runtime)
+
+    def query_enterprise_product_ex(
+        self,
+        request: ato_models.QueryEnterpriseProductRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> ato_models.QueryEnterpriseProductResponse:
+        """
+        Description: 企业码数科计收支付结果&开通结果查询接口
+        Summary: 企业码数科计收支付结果&开通结果查询接口
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            ato_models.QueryEnterpriseProductResponse(),
+            self.do_request('1.0', 'antchain.ato.enterprise.product.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def query_enterprise_product_ex_async(
+        self,
+        request: ato_models.QueryEnterpriseProductRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> ato_models.QueryEnterpriseProductResponse:
+        """
+        Description: 企业码数科计收支付结果&开通结果查询接口
+        Summary: 企业码数科计收支付结果&开通结果查询接口
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            ato_models.QueryEnterpriseProductResponse(),
+            await self.do_request_async('1.0', 'antchain.ato.enterprise.product.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
     def transfer_broker_userdata(
@@ -15779,6 +17179,510 @@ class Client:
             await self.do_request_async('1.0', 'antchain.ato.promotion.userunvisitedappid.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
+    def query_inner_sppdemo(
+        self,
+        request: ato_models.QueryInnerSppdemoRequest,
+    ) -> ato_models.QueryInnerSppdemoResponse:
+        """
+        Description: spp（SmartPromotion 智能营销系统）demo测试接口
+        Summary: spp（SmartPromotion 智能营销系统）demo测试接口
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.query_inner_sppdemo_ex(request, headers, runtime)
+
+    async def query_inner_sppdemo_async(
+        self,
+        request: ato_models.QueryInnerSppdemoRequest,
+    ) -> ato_models.QueryInnerSppdemoResponse:
+        """
+        Description: spp（SmartPromotion 智能营销系统）demo测试接口
+        Summary: spp（SmartPromotion 智能营销系统）demo测试接口
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.query_inner_sppdemo_ex_async(request, headers, runtime)
+
+    def query_inner_sppdemo_ex(
+        self,
+        request: ato_models.QueryInnerSppdemoRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> ato_models.QueryInnerSppdemoResponse:
+        """
+        Description: spp（SmartPromotion 智能营销系统）demo测试接口
+        Summary: spp（SmartPromotion 智能营销系统）demo测试接口
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            ato_models.QueryInnerSppdemoResponse(),
+            self.do_request('1.0', 'antchain.ato.inner.sppdemo.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def query_inner_sppdemo_ex_async(
+        self,
+        request: ato_models.QueryInnerSppdemoRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> ato_models.QueryInnerSppdemoResponse:
+        """
+        Description: spp（SmartPromotion 智能营销系统）demo测试接口
+        Summary: spp（SmartPromotion 智能营销系统）demo测试接口
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            ato_models.QueryInnerSppdemoResponse(),
+            await self.do_request_async('1.0', 'antchain.ato.inner.sppdemo.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def query_inner_sppdashboardtraffic(
+        self,
+        request: ato_models.QueryInnerSppdashboardtrafficRequest,
+    ) -> ato_models.QueryInnerSppdashboardtrafficResponse:
+        """
+        Description: 流量看板查询
+        Summary: 流量看板查询
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.query_inner_sppdashboardtraffic_ex(request, headers, runtime)
+
+    async def query_inner_sppdashboardtraffic_async(
+        self,
+        request: ato_models.QueryInnerSppdashboardtrafficRequest,
+    ) -> ato_models.QueryInnerSppdashboardtrafficResponse:
+        """
+        Description: 流量看板查询
+        Summary: 流量看板查询
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.query_inner_sppdashboardtraffic_ex_async(request, headers, runtime)
+
+    def query_inner_sppdashboardtraffic_ex(
+        self,
+        request: ato_models.QueryInnerSppdashboardtrafficRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> ato_models.QueryInnerSppdashboardtrafficResponse:
+        """
+        Description: 流量看板查询
+        Summary: 流量看板查询
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            ato_models.QueryInnerSppdashboardtrafficResponse(),
+            self.do_request('1.0', 'antchain.ato.inner.sppdashboardtraffic.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def query_inner_sppdashboardtraffic_ex_async(
+        self,
+        request: ato_models.QueryInnerSppdashboardtrafficRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> ato_models.QueryInnerSppdashboardtrafficResponse:
+        """
+        Description: 流量看板查询
+        Summary: 流量看板查询
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            ato_models.QueryInnerSppdashboardtrafficResponse(),
+            await self.do_request_async('1.0', 'antchain.ato.inner.sppdashboardtraffic.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def query_inner_sppdashboardscreening(
+        self,
+        request: ato_models.QueryInnerSppdashboardscreeningRequest,
+    ) -> ato_models.QueryInnerSppdashboardscreeningResponse:
+        """
+        Description: 前筛查询
+        Summary: 前筛查询
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.query_inner_sppdashboardscreening_ex(request, headers, runtime)
+
+    async def query_inner_sppdashboardscreening_async(
+        self,
+        request: ato_models.QueryInnerSppdashboardscreeningRequest,
+    ) -> ato_models.QueryInnerSppdashboardscreeningResponse:
+        """
+        Description: 前筛查询
+        Summary: 前筛查询
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.query_inner_sppdashboardscreening_ex_async(request, headers, runtime)
+
+    def query_inner_sppdashboardscreening_ex(
+        self,
+        request: ato_models.QueryInnerSppdashboardscreeningRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> ato_models.QueryInnerSppdashboardscreeningResponse:
+        """
+        Description: 前筛查询
+        Summary: 前筛查询
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            ato_models.QueryInnerSppdashboardscreeningResponse(),
+            self.do_request('1.0', 'antchain.ato.inner.sppdashboardscreening.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def query_inner_sppdashboardscreening_ex_async(
+        self,
+        request: ato_models.QueryInnerSppdashboardscreeningRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> ato_models.QueryInnerSppdashboardscreeningResponse:
+        """
+        Description: 前筛查询
+        Summary: 前筛查询
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            ato_models.QueryInnerSppdashboardscreeningResponse(),
+            await self.do_request_async('1.0', 'antchain.ato.inner.sppdashboardscreening.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def query_inner_sppdashboardpurchase(
+        self,
+        request: ato_models.QueryInnerSppdashboardpurchaseRequest,
+    ) -> ato_models.QueryInnerSppdashboardpurchaseResponse:
+        """
+        Description: 采买查询
+        Summary: 采买查询
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.query_inner_sppdashboardpurchase_ex(request, headers, runtime)
+
+    async def query_inner_sppdashboardpurchase_async(
+        self,
+        request: ato_models.QueryInnerSppdashboardpurchaseRequest,
+    ) -> ato_models.QueryInnerSppdashboardpurchaseResponse:
+        """
+        Description: 采买查询
+        Summary: 采买查询
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.query_inner_sppdashboardpurchase_ex_async(request, headers, runtime)
+
+    def query_inner_sppdashboardpurchase_ex(
+        self,
+        request: ato_models.QueryInnerSppdashboardpurchaseRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> ato_models.QueryInnerSppdashboardpurchaseResponse:
+        """
+        Description: 采买查询
+        Summary: 采买查询
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            ato_models.QueryInnerSppdashboardpurchaseResponse(),
+            self.do_request('1.0', 'antchain.ato.inner.sppdashboardpurchase.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def query_inner_sppdashboardpurchase_ex_async(
+        self,
+        request: ato_models.QueryInnerSppdashboardpurchaseRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> ato_models.QueryInnerSppdashboardpurchaseResponse:
+        """
+        Description: 采买查询
+        Summary: 采买查询
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            ato_models.QueryInnerSppdashboardpurchaseResponse(),
+            await self.do_request_async('1.0', 'antchain.ato.inner.sppdashboardpurchase.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def query_inner_sppdashboarddistribution(
+        self,
+        request: ato_models.QueryInnerSppdashboarddistributionRequest,
+    ) -> ato_models.QueryInnerSppdashboarddistributionResponse:
+        """
+        Description: 分发查询
+        Summary: 分发查询
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.query_inner_sppdashboarddistribution_ex(request, headers, runtime)
+
+    async def query_inner_sppdashboarddistribution_async(
+        self,
+        request: ato_models.QueryInnerSppdashboarddistributionRequest,
+    ) -> ato_models.QueryInnerSppdashboarddistributionResponse:
+        """
+        Description: 分发查询
+        Summary: 分发查询
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.query_inner_sppdashboarddistribution_ex_async(request, headers, runtime)
+
+    def query_inner_sppdashboarddistribution_ex(
+        self,
+        request: ato_models.QueryInnerSppdashboarddistributionRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> ato_models.QueryInnerSppdashboarddistributionResponse:
+        """
+        Description: 分发查询
+        Summary: 分发查询
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            ato_models.QueryInnerSppdashboarddistributionResponse(),
+            self.do_request('1.0', 'antchain.ato.inner.sppdashboarddistribution.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def query_inner_sppdashboarddistribution_ex_async(
+        self,
+        request: ato_models.QueryInnerSppdashboarddistributionRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> ato_models.QueryInnerSppdashboarddistributionResponse:
+        """
+        Description: 分发查询
+        Summary: 分发查询
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            ato_models.QueryInnerSppdashboarddistributionResponse(),
+            await self.do_request_async('1.0', 'antchain.ato.inner.sppdashboarddistribution.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def query_inner_sppdashboardsentinel(
+        self,
+        request: ato_models.QueryInnerSppdashboardsentinelRequest,
+    ) -> ato_models.QueryInnerSppdashboardsentinelResponse:
+        """
+        Description: 预警查询
+        Summary: 预警查询
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.query_inner_sppdashboardsentinel_ex(request, headers, runtime)
+
+    async def query_inner_sppdashboardsentinel_async(
+        self,
+        request: ato_models.QueryInnerSppdashboardsentinelRequest,
+    ) -> ato_models.QueryInnerSppdashboardsentinelResponse:
+        """
+        Description: 预警查询
+        Summary: 预警查询
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.query_inner_sppdashboardsentinel_ex_async(request, headers, runtime)
+
+    def query_inner_sppdashboardsentinel_ex(
+        self,
+        request: ato_models.QueryInnerSppdashboardsentinelRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> ato_models.QueryInnerSppdashboardsentinelResponse:
+        """
+        Description: 预警查询
+        Summary: 预警查询
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            ato_models.QueryInnerSppdashboardsentinelResponse(),
+            self.do_request('1.0', 'antchain.ato.inner.sppdashboardsentinel.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def query_inner_sppdashboardsentinel_ex_async(
+        self,
+        request: ato_models.QueryInnerSppdashboardsentinelRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> ato_models.QueryInnerSppdashboardsentinelResponse:
+        """
+        Description: 预警查询
+        Summary: 预警查询
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            ato_models.QueryInnerSppdashboardsentinelResponse(),
+            await self.do_request_async('1.0', 'antchain.ato.inner.sppdashboardsentinel.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def query_inner_sppdashboardsummary(
+        self,
+        request: ato_models.QueryInnerSppdashboardsummaryRequest,
+    ) -> ato_models.QueryInnerSppdashboardsummaryResponse:
+        """
+        Description: 前筛/采买/分发/预警 4 部分的数据总结
+        Summary: 前筛/采买/分发/预警 4 部分的数据总结
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.query_inner_sppdashboardsummary_ex(request, headers, runtime)
+
+    async def query_inner_sppdashboardsummary_async(
+        self,
+        request: ato_models.QueryInnerSppdashboardsummaryRequest,
+    ) -> ato_models.QueryInnerSppdashboardsummaryResponse:
+        """
+        Description: 前筛/采买/分发/预警 4 部分的数据总结
+        Summary: 前筛/采买/分发/预警 4 部分的数据总结
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.query_inner_sppdashboardsummary_ex_async(request, headers, runtime)
+
+    def query_inner_sppdashboardsummary_ex(
+        self,
+        request: ato_models.QueryInnerSppdashboardsummaryRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> ato_models.QueryInnerSppdashboardsummaryResponse:
+        """
+        Description: 前筛/采买/分发/预警 4 部分的数据总结
+        Summary: 前筛/采买/分发/预警 4 部分的数据总结
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            ato_models.QueryInnerSppdashboardsummaryResponse(),
+            self.do_request('1.0', 'antchain.ato.inner.sppdashboardsummary.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def query_inner_sppdashboardsummary_ex_async(
+        self,
+        request: ato_models.QueryInnerSppdashboardsummaryRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> ato_models.QueryInnerSppdashboardsummaryResponse:
+        """
+        Description: 前筛/采买/分发/预警 4 部分的数据总结
+        Summary: 前筛/采买/分发/预警 4 部分的数据总结
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            ato_models.QueryInnerSppdashboardsummaryResponse(),
+            await self.do_request_async('1.0', 'antchain.ato.inner.sppdashboardsummary.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def query_inner_sppdashboardreasoning(
+        self,
+        request: ato_models.QueryInnerSppdashboardreasoningRequest,
+    ) -> ato_models.QueryInnerSppdashboardreasoningResponse:
+        """
+        Description: 思考过程查询
+        Summary: 思考过程查询
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.query_inner_sppdashboardreasoning_ex(request, headers, runtime)
+
+    async def query_inner_sppdashboardreasoning_async(
+        self,
+        request: ato_models.QueryInnerSppdashboardreasoningRequest,
+    ) -> ato_models.QueryInnerSppdashboardreasoningResponse:
+        """
+        Description: 思考过程查询
+        Summary: 思考过程查询
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.query_inner_sppdashboardreasoning_ex_async(request, headers, runtime)
+
+    def query_inner_sppdashboardreasoning_ex(
+        self,
+        request: ato_models.QueryInnerSppdashboardreasoningRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> ato_models.QueryInnerSppdashboardreasoningResponse:
+        """
+        Description: 思考过程查询
+        Summary: 思考过程查询
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            ato_models.QueryInnerSppdashboardreasoningResponse(),
+            self.do_request('1.0', 'antchain.ato.inner.sppdashboardreasoning.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def query_inner_sppdashboardreasoning_ex_async(
+        self,
+        request: ato_models.QueryInnerSppdashboardreasoningRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> ato_models.QueryInnerSppdashboardreasoningResponse:
+        """
+        Description: 思考过程查询
+        Summary: 思考过程查询
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            ato_models.QueryInnerSppdashboardreasoningResponse(),
+            await self.do_request_async('1.0', 'antchain.ato.inner.sppdashboardreasoning.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def query_inner_sppdashboardprefilter(
+        self,
+        request: ato_models.QueryInnerSppdashboardprefilterRequest,
+    ) -> ato_models.QueryInnerSppdashboardprefilterResponse:
+        """
+        Description: 前筛查询
+        Summary: 前筛查询
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.query_inner_sppdashboardprefilter_ex(request, headers, runtime)
+
+    async def query_inner_sppdashboardprefilter_async(
+        self,
+        request: ato_models.QueryInnerSppdashboardprefilterRequest,
+    ) -> ato_models.QueryInnerSppdashboardprefilterResponse:
+        """
+        Description: 前筛查询
+        Summary: 前筛查询
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.query_inner_sppdashboardprefilter_ex_async(request, headers, runtime)
+
+    def query_inner_sppdashboardprefilter_ex(
+        self,
+        request: ato_models.QueryInnerSppdashboardprefilterRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> ato_models.QueryInnerSppdashboardprefilterResponse:
+        """
+        Description: 前筛查询
+        Summary: 前筛查询
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            ato_models.QueryInnerSppdashboardprefilterResponse(),
+            self.do_request('1.0', 'antchain.ato.inner.sppdashboardprefilter.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def query_inner_sppdashboardprefilter_ex_async(
+        self,
+        request: ato_models.QueryInnerSppdashboardprefilterRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> ato_models.QueryInnerSppdashboardprefilterResponse:
+        """
+        Description: 前筛查询
+        Summary: 前筛查询
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            ato_models.QueryInnerSppdashboardprefilterResponse(),
+            await self.do_request_async('1.0', 'antchain.ato.inner.sppdashboardprefilter.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
     def sync_trade(
         self,
         request: ato_models.SyncTradeRequest,
@@ -17635,7 +19539,9 @@ class Client:
         Description: 重要说明：
         1. 这个接口是取消订单某一、多期代扣计划中以其他方式还款的金额，取消之后代扣不再执行该期计划。
         2. 对通过其他方式还款的第三方单号留存;例如：银行流水号或微信流水号。
-        Summary: 单期多期代扣取消
+        Summary: 重要说明：
+        1. 这个接口是取消订单某一、多期代扣计划中以其他方式还款的金额，取消之后代扣不再执行该期计划。
+        2. 对通过其他方式还款的第三方单号留存;例如：银行流水号或微信流水号。
         """
         runtime = util_models.RuntimeOptions()
         headers = {}
@@ -17649,7 +19555,9 @@ class Client:
         Description: 重要说明：
         1. 这个接口是取消订单某一、多期代扣计划中以其他方式还款的金额，取消之后代扣不再执行该期计划。
         2. 对通过其他方式还款的第三方单号留存;例如：银行流水号或微信流水号。
-        Summary: 单期多期代扣取消
+        Summary: 重要说明：
+        1. 这个接口是取消订单某一、多期代扣计划中以其他方式还款的金额，取消之后代扣不再执行该期计划。
+        2. 对通过其他方式还款的第三方单号留存;例如：银行流水号或微信流水号。
         """
         runtime = util_models.RuntimeOptions()
         headers = {}
@@ -17665,7 +19573,9 @@ class Client:
         Description: 重要说明：
         1. 这个接口是取消订单某一、多期代扣计划中以其他方式还款的金额，取消之后代扣不再执行该期计划。
         2. 对通过其他方式还款的第三方单号留存;例如：银行流水号或微信流水号。
-        Summary: 单期多期代扣取消
+        Summary: 重要说明：
+        1. 这个接口是取消订单某一、多期代扣计划中以其他方式还款的金额，取消之后代扣不再执行该期计划。
+        2. 对通过其他方式还款的第三方单号留存;例如：银行流水号或微信流水号。
         """
         UtilClient.validate_model(request)
         return TeaCore.from_map(
@@ -17683,7 +19593,9 @@ class Client:
         Description: 重要说明：
         1. 这个接口是取消订单某一、多期代扣计划中以其他方式还款的金额，取消之后代扣不再执行该期计划。
         2. 对通过其他方式还款的第三方单号留存;例如：银行流水号或微信流水号。
-        Summary: 单期多期代扣取消
+        Summary: 重要说明：
+        1. 这个接口是取消订单某一、多期代扣计划中以其他方式还款的金额，取消之后代扣不再执行该期计划。
+        2. 对通过其他方式还款的第三方单号留存;例如：银行流水号或微信流水号。
         """
         UtilClient.validate_model(request)
         return TeaCore.from_map(
