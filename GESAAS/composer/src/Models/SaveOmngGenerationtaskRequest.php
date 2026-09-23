@@ -28,11 +28,13 @@ class SaveOmngGenerationtaskRequest extends Model {
         'executionExpiresAfter' => 'execution_expires_after',
         'safetyIdentifier' => 'safety_identifier',
         'priority' => 'priority',
+        'productCode' => 'product_code',
     ];
     public function validate() {
         Model::validateRequired('taskId', $this->taskId, true);
         Model::validateRequired('model', $this->model, true);
         Model::validateRequired('materialContentDto', $this->materialContentDto, true);
+        Model::validateRequired('productCode', $this->productCode, true);
     }
     public function toMap() {
         $res = [];
@@ -95,6 +97,9 @@ class SaveOmngGenerationtaskRequest extends Model {
         }
         if (null !== $this->priority) {
             $res['priority'] = $this->priority;
+        }
+        if (null !== $this->productCode) {
+            $res['product_code'] = $this->productCode;
         }
         return $res;
     }
@@ -163,6 +168,9 @@ class SaveOmngGenerationtaskRequest extends Model {
         }
         if(isset($map['priority'])){
             $model->priority = $map['priority'];
+        }
+        if(isset($map['product_code'])){
+            $model->productCode = $map['product_code'];
         }
         return $model;
     }
@@ -282,5 +290,11 @@ class SaveOmngGenerationtaskRequest extends Model {
      * @var int
      */
     public $priority;
+
+    // seedance视频大模型2.0版本
+    /**
+     * @var string
+     */
+    public $productCode;
 
 }

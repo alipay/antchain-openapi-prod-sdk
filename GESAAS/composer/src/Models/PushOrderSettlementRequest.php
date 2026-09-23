@@ -18,6 +18,11 @@ class PushOrderSettlementRequest extends Model {
         'paySubject' => 'pay_subject',
         'payChannel' => 'pay_channel',
         'payChannelUserId' => 'pay_channel_user_id',
+        'scene' => 'scene',
+        'authCode' => 'auth_code',
+        'terminalId' => 'terminal_id',
+        'userIp' => 'user_ip',
+        'appId' => 'app_id',
     ];
     public function validate() {
         Model::validateRequired('outProductId', $this->outProductId, true);
@@ -26,6 +31,7 @@ class PushOrderSettlementRequest extends Model {
         Model::validateRequired('orderCreateTime', $this->orderCreateTime, true);
         Model::validateRequired('paySubject', $this->paySubject, true);
         Model::validateRequired('payChannelUserId', $this->payChannelUserId, true);
+        Model::validateRequired('userIp', $this->userIp, true);
     }
     public function toMap() {
         $res = [];
@@ -61,6 +67,21 @@ class PushOrderSettlementRequest extends Model {
         }
         if (null !== $this->payChannelUserId) {
             $res['pay_channel_user_id'] = $this->payChannelUserId;
+        }
+        if (null !== $this->scene) {
+            $res['scene'] = $this->scene;
+        }
+        if (null !== $this->authCode) {
+            $res['auth_code'] = $this->authCode;
+        }
+        if (null !== $this->terminalId) {
+            $res['terminal_id'] = $this->terminalId;
+        }
+        if (null !== $this->userIp) {
+            $res['user_ip'] = $this->userIp;
+        }
+        if (null !== $this->appId) {
+            $res['app_id'] = $this->appId;
         }
         return $res;
     }
@@ -102,6 +123,21 @@ class PushOrderSettlementRequest extends Model {
         }
         if(isset($map['pay_channel_user_id'])){
             $model->payChannelUserId = $map['pay_channel_user_id'];
+        }
+        if(isset($map['scene'])){
+            $model->scene = $map['scene'];
+        }
+        if(isset($map['auth_code'])){
+            $model->authCode = $map['auth_code'];
+        }
+        if(isset($map['terminal_id'])){
+            $model->terminalId = $map['terminal_id'];
+        }
+        if(isset($map['user_ip'])){
+            $model->userIp = $map['user_ip'];
+        }
+        if(isset($map['app_id'])){
+            $model->appId = $map['app_id'];
         }
         return $model;
     }
@@ -169,5 +205,37 @@ class PushOrderSettlementRequest extends Model {
      * @var string
      */
     public $payChannelUserId;
+
+    // 支付场景，ONLINE(在线)/OFFLINE (离线)，默认：ONLINE
+    /**
+     * @var string
+     */
+    public $scene;
+
+    // 付款码，商家扫码场景必填，补充：
+    // 微信付款码：以 10–15 开头的 18 位纯数字。
+    // 支付宝付款码：以 25–30 开头，且长度为 16～24 位的纯数字。
+    /**
+     * @var string
+     */
+    public $authCode;
+
+    // 终端号，商家扫码场景必填
+    /**
+     * @var string
+     */
+    public $terminalId;
+
+    // 用户真实IP地址
+    /**
+     * @var string
+     */
+    public $userIp;
+
+    // 商家公众号ID,微信小程序，微信公众号产品必填
+    /**
+     * @var string
+     */
+    public $appId;
 
 }

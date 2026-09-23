@@ -11,6 +11,7 @@ class PushOrderSettlementResponse extends Model {
         'resultCode' => 'result_code',
         'resultMsg' => 'result_msg',
         'tradeNo' => 'trade_no',
+        'prePayTn' => 'pre_pay_tn',
     ];
     public function validate() {}
     public function toMap() {
@@ -26,6 +27,9 @@ class PushOrderSettlementResponse extends Model {
         }
         if (null !== $this->tradeNo) {
             $res['trade_no'] = $this->tradeNo;
+        }
+        if (null !== $this->prePayTn) {
+            $res['pre_pay_tn'] = $this->prePayTn;
         }
         return $res;
     }
@@ -46,6 +50,9 @@ class PushOrderSettlementResponse extends Model {
         }
         if(isset($map['trade_no'])){
             $model->tradeNo = $map['trade_no'];
+        }
+        if(isset($map['pre_pay_tn'])){
+            $model->prePayTn = $map['pre_pay_tn'];
         }
         return $model;
     }
@@ -72,5 +79,11 @@ class PushOrderSettlementResponse extends Model {
      * @var string
      */
     public $tradeNo;
+
+    // 预支付凭证，仅商家扫码场景为空
+    /**
+     * @var string
+     */
+    public $prePayTn;
 
 }
