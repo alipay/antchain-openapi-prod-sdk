@@ -24,6 +24,7 @@ class RegisterMerchantexpandMerchantRequest extends Model {
         'merchantSettleInfo' => 'merchant_settle_info',
         'payChannel' => 'pay_channel',
         'role' => 'role',
+        'needWithholding' => 'need_withholding',
     ];
     public function validate() {
         Model::validateRequired('companyInfo', $this->companyInfo, true);
@@ -65,6 +66,9 @@ class RegisterMerchantexpandMerchantRequest extends Model {
         if (null !== $this->role) {
             $res['role'] = $this->role;
         }
+        if (null !== $this->needWithholding) {
+            $res['need_withholding'] = $this->needWithholding;
+        }
         return $res;
     }
     /**
@@ -105,6 +109,9 @@ class RegisterMerchantexpandMerchantRequest extends Model {
         }
         if(isset($map['role'])){
             $model->role = $map['role'];
+        }
+        if(isset($map['need_withholding'])){
+            $model->needWithholding = $map['need_withholding'];
         }
         return $model;
     }
@@ -177,5 +184,12 @@ class RegisterMerchantexpandMerchantRequest extends Model {
      * @var string
      */
     public $role;
+
+    // 商家进件时，可自行选择是否需要开通周期代扣产品，默认开通
+    // false：不开通
+    /**
+     * @var bool
+     */
+    public $needWithholding;
 
 }

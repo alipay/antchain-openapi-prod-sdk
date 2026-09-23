@@ -12,6 +12,11 @@ class QueryEnterpriseProductResponse extends Model {
         'resultMsg' => 'result_msg',
         'orderId' => 'order_id',
         'event' => 'event',
+        'tradeNo' => 'trade_no',
+        'orderType' => 'order_type',
+        'commodityCode' => 'commodity_code',
+        'durationType' => 'duration_type',
+        'durationValue' => 'duration_value',
     ];
     public function validate() {}
     public function toMap() {
@@ -30,6 +35,21 @@ class QueryEnterpriseProductResponse extends Model {
         }
         if (null !== $this->event) {
             $res['event'] = $this->event;
+        }
+        if (null !== $this->tradeNo) {
+            $res['trade_no'] = $this->tradeNo;
+        }
+        if (null !== $this->orderType) {
+            $res['order_type'] = $this->orderType;
+        }
+        if (null !== $this->commodityCode) {
+            $res['commodity_code'] = $this->commodityCode;
+        }
+        if (null !== $this->durationType) {
+            $res['duration_type'] = $this->durationType;
+        }
+        if (null !== $this->durationValue) {
+            $res['duration_value'] = $this->durationValue;
         }
         return $res;
     }
@@ -53,6 +73,21 @@ class QueryEnterpriseProductResponse extends Model {
         }
         if(isset($map['event'])){
             $model->event = $map['event'];
+        }
+        if(isset($map['trade_no'])){
+            $model->tradeNo = $map['trade_no'];
+        }
+        if(isset($map['order_type'])){
+            $model->orderType = $map['order_type'];
+        }
+        if(isset($map['commodity_code'])){
+            $model->commodityCode = $map['commodity_code'];
+        }
+        if(isset($map['duration_type'])){
+            $model->durationType = $map['duration_type'];
+        }
+        if(isset($map['duration_value'])){
+            $model->durationValue = $map['duration_value'];
         }
         return $model;
     }
@@ -85,5 +120,35 @@ class QueryEnterpriseProductResponse extends Model {
      * @var string
      */
     public $event;
+
+    // 支付串
+    /**
+     * @var string
+     */
+    public $tradeNo;
+
+    // 订单类型 NEW=新购 RENEW=续费
+    /**
+     * @var string
+     */
+    public $orderType;
+
+    // 产品码
+    /**
+     * @var string
+     */
+    public $commodityCode;
+
+    // 认购类型
+    /**
+     * @var string
+     */
+    public $durationType;
+
+    // 认购时长
+    /**
+     * @var string
+     */
+    public $durationValue;
 
 }

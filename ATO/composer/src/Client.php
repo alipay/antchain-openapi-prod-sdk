@@ -13,6 +13,16 @@ use AntChain\Util\UtilClient;
 use AlibabaCloud\Tea\RpcUtils\RpcUtils;
 
 use AlibabaCloud\Tea\Utils\Utils\RuntimeOptions;
+use AntChain\ATO\Models\TestAgenticnesxusDemoRequest;
+use AntChain\ATO\Models\TestAgenticnesxusDemoResponse;
+use AntChain\ATO\Models\TestAgenticnexusDemoRequest;
+use AntChain\ATO\Models\TestAgenticnexusDemoResponse;
+use AntChain\ATO\Models\SummaryAgenticnexusDashboardRequest;
+use AntChain\ATO\Models\SummaryAgenticnexusDashboardResponse;
+use AntChain\ATO\Models\InvokeAgenticnexusAioperationRequest;
+use AntChain\ATO\Models\InvokeAgenticnexusAioperationResponse;
+use AntChain\ATO\Models\InvokeAgenticnexusAilongoperationRequest;
+use AntChain\ATO\Models\InvokeAgenticnexusAilongoperationResponse;
 use AntChain\ATO\Models\InitFundAlipaysettletocardRequest;
 use AntChain\ATO\Models\InitFundAlipaysettletocardResponse;
 use AntChain\ATO\Models\QueryFundAlipaysettletocardRequest;
@@ -37,6 +47,8 @@ use AntChain\ATO\Models\CreateOnetimeRefundRequest;
 use AntChain\ATO\Models\CreateOnetimeRefundResponse;
 use AntChain\ATO\Models\ExecFundPlanRequest;
 use AntChain\ATO\Models\ExecFundPlanResponse;
+use AntChain\ATO\Models\QueryInnerAioperationlistRequest;
+use AntChain\ATO\Models\QueryInnerAioperationlistResponse;
 use AntChain\ATO\Models\QueryInnerFundassetpackagerepaymentRequest;
 use AntChain\ATO\Models\QueryInnerFundassetpackagerepaymentResponse;
 use AntChain\ATO\Models\QueryInnerAprepaymentdetailRequest;
@@ -600,6 +612,24 @@ use AntChain\ATO\Models\CreateSignFlowRequest;
 use AntChain\ATO\Models\CreateSignFlowResponse;
 use AntChain\ATO\Models\QueryPromotionUserunvisitedappidRequest;
 use AntChain\ATO\Models\QueryPromotionUserunvisitedappidResponse;
+use AntChain\ATO\Models\QueryInnerSppdemoRequest;
+use AntChain\ATO\Models\QueryInnerSppdemoResponse;
+use AntChain\ATO\Models\QueryInnerSppdashboardtrafficRequest;
+use AntChain\ATO\Models\QueryInnerSppdashboardtrafficResponse;
+use AntChain\ATO\Models\QueryInnerSppdashboardscreeningRequest;
+use AntChain\ATO\Models\QueryInnerSppdashboardscreeningResponse;
+use AntChain\ATO\Models\QueryInnerSppdashboardpurchaseRequest;
+use AntChain\ATO\Models\QueryInnerSppdashboardpurchaseResponse;
+use AntChain\ATO\Models\QueryInnerSppdashboarddistributionRequest;
+use AntChain\ATO\Models\QueryInnerSppdashboarddistributionResponse;
+use AntChain\ATO\Models\QueryInnerSppdashboardsentinelRequest;
+use AntChain\ATO\Models\QueryInnerSppdashboardsentinelResponse;
+use AntChain\ATO\Models\QueryInnerSppdashboardsummaryRequest;
+use AntChain\ATO\Models\QueryInnerSppdashboardsummaryResponse;
+use AntChain\ATO\Models\QueryInnerSppdashboardreasoningRequest;
+use AntChain\ATO\Models\QueryInnerSppdashboardreasoningResponse;
+use AntChain\ATO\Models\QueryInnerSppdashboardprefilterRequest;
+use AntChain\ATO\Models\QueryInnerSppdashboardprefilterResponse;
 use AntChain\ATO\Models\SyncTradeRequest;
 use AntChain\ATO\Models\SyncTradeResponse;
 use AntChain\ATO\Models\GetTradeRequest;
@@ -825,7 +855,7 @@ class Client {
                     "req_msg_id" => UtilClient::getNonce(),
                     "access_key" => $this->_accessKeyId,
                     "base_sdk_version" => "TeaSDK-2.0",
-                    "sdk_version" => "1.20.4",
+                    "sdk_version" => "1.20.21",
                     "_prod_code" => "ATO",
                     "_prod_channel" => "undefined"
                 ];
@@ -868,6 +898,131 @@ class Client {
             }
         }
         throw new TeaUnableRetryError($_lastRequest, $_lastException);
+    }
+
+    /**
+     * Description: 基础项目搭建
+     * Summary: 基础项目搭建
+     * @param TestAgenticnesxusDemoRequest $request
+     * @return TestAgenticnesxusDemoResponse
+     */
+    public function testAgenticnesxusDemo($request){
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+        return $this->testAgenticnesxusDemoEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 基础项目搭建
+     * Summary: 基础项目搭建
+     * @param TestAgenticnesxusDemoRequest $request
+     * @param string[] $headers
+     * @param RuntimeOptions $runtime
+     * @return TestAgenticnesxusDemoResponse
+     */
+    public function testAgenticnesxusDemoEx($request, $headers, $runtime){
+        Utils::validateModel($request);
+        return TestAgenticnesxusDemoResponse::fromMap($this->doRequest("1.0", "antchain.ato.agenticnesxus.demo.test", "HTTPS", "POST", "/gateway.do", Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 基础项目搭建-测试连通性
+     * Summary: 基础项目搭建-测试连通性
+     * @param TestAgenticnexusDemoRequest $request
+     * @return TestAgenticnexusDemoResponse
+     */
+    public function testAgenticnexusDemo($request){
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+        return $this->testAgenticnexusDemoEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 基础项目搭建-测试连通性
+     * Summary: 基础项目搭建-测试连通性
+     * @param TestAgenticnexusDemoRequest $request
+     * @param string[] $headers
+     * @param RuntimeOptions $runtime
+     * @return TestAgenticnexusDemoResponse
+     */
+    public function testAgenticnexusDemoEx($request, $headers, $runtime){
+        Utils::validateModel($request);
+        return TestAgenticnexusDemoResponse::fromMap($this->doRequest("1.0", "antchain.ato.agenticnexus.demo.test", "HTTPS", "POST", "/gateway.do", Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 营销大脑看板- 总结
+     * Summary: 营销大脑看板- 总结
+     * @param SummaryAgenticnexusDashboardRequest $request
+     * @return SummaryAgenticnexusDashboardResponse
+     */
+    public function summaryAgenticnexusDashboard($request){
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+        return $this->summaryAgenticnexusDashboardEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 营销大脑看板- 总结
+     * Summary: 营销大脑看板- 总结
+     * @param SummaryAgenticnexusDashboardRequest $request
+     * @param string[] $headers
+     * @param RuntimeOptions $runtime
+     * @return SummaryAgenticnexusDashboardResponse
+     */
+    public function summaryAgenticnexusDashboardEx($request, $headers, $runtime){
+        Utils::validateModel($request);
+        return SummaryAgenticnexusDashboardResponse::fromMap($this->doRequest("1.0", "antchain.ato.agenticnexus.dashboard.summary", "HTTPS", "POST", "/gateway.do", Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: AI经营智能体统一invoke接口
+     * Summary: AI经营智能体统一invoke接口
+     * @param InvokeAgenticnexusAioperationRequest $request
+     * @return InvokeAgenticnexusAioperationResponse
+     */
+    public function invokeAgenticnexusAioperation($request){
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+        return $this->invokeAgenticnexusAioperationEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: AI经营智能体统一invoke接口
+     * Summary: AI经营智能体统一invoke接口
+     * @param InvokeAgenticnexusAioperationRequest $request
+     * @param string[] $headers
+     * @param RuntimeOptions $runtime
+     * @return InvokeAgenticnexusAioperationResponse
+     */
+    public function invokeAgenticnexusAioperationEx($request, $headers, $runtime){
+        Utils::validateModel($request);
+        return InvokeAgenticnexusAioperationResponse::fromMap($this->doRequest("1.0", "antchain.ato.agenticnexus.aioperation.invoke", "HTTPS", "POST", "/gateway.do", Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: AI经营智能体统一invoke接口(长耗时)
+     * Summary: AI经营智能体统一invoke接口(长耗时)
+     * @param InvokeAgenticnexusAilongoperationRequest $request
+     * @return InvokeAgenticnexusAilongoperationResponse
+     */
+    public function invokeAgenticnexusAilongoperation($request){
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+        return $this->invokeAgenticnexusAilongoperationEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: AI经营智能体统一invoke接口(长耗时)
+     * Summary: AI经营智能体统一invoke接口(长耗时)
+     * @param InvokeAgenticnexusAilongoperationRequest $request
+     * @param string[] $headers
+     * @param RuntimeOptions $runtime
+     * @return InvokeAgenticnexusAilongoperationResponse
+     */
+    public function invokeAgenticnexusAilongoperationEx($request, $headers, $runtime){
+        Utils::validateModel($request);
+        return InvokeAgenticnexusAilongoperationResponse::fromMap($this->doRequest("1.0", "antchain.ato.agenticnexus.ailongoperation.invoke", "HTTPS", "POST", "/gateway.do", Tea::merge($request), $headers, $runtime));
     }
 
     /**
@@ -1180,6 +1335,31 @@ class Client {
     public function execFundPlanEx($request, $headers, $runtime){
         Utils::validateModel($request);
         return ExecFundPlanResponse::fromMap($this->doRequest("1.0", "antchain.ato.fund.plan.exec", "HTTPS", "POST", "/gateway.do", Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: AI经营团队项目,查询租户对应的数据列表
+     * Summary: AI经营团队项目,查询租户对应的数据列表
+     * @param QueryInnerAioperationlistRequest $request
+     * @return QueryInnerAioperationlistResponse
+     */
+    public function queryInnerAioperationlist($request){
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+        return $this->queryInnerAioperationlistEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: AI经营团队项目,查询租户对应的数据列表
+     * Summary: AI经营团队项目,查询租户对应的数据列表
+     * @param QueryInnerAioperationlistRequest $request
+     * @param string[] $headers
+     * @param RuntimeOptions $runtime
+     * @return QueryInnerAioperationlistResponse
+     */
+    public function queryInnerAioperationlistEx($request, $headers, $runtime){
+        Utils::validateModel($request);
+        return QueryInnerAioperationlistResponse::fromMap($this->doRequest("1.0", "antchain.ato.inner.aioperationlist.query", "HTTPS", "POST", "/gateway.do", Tea::merge($request), $headers, $runtime));
     }
 
     /**
@@ -8282,6 +8462,231 @@ class Client {
     }
 
     /**
+     * Description: spp（SmartPromotion 智能营销系统）demo测试接口
+     * Summary: spp（SmartPromotion 智能营销系统）demo测试接口
+     * @param QueryInnerSppdemoRequest $request
+     * @return QueryInnerSppdemoResponse
+     */
+    public function queryInnerSppdemo($request){
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+        return $this->queryInnerSppdemoEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: spp（SmartPromotion 智能营销系统）demo测试接口
+     * Summary: spp（SmartPromotion 智能营销系统）demo测试接口
+     * @param QueryInnerSppdemoRequest $request
+     * @param string[] $headers
+     * @param RuntimeOptions $runtime
+     * @return QueryInnerSppdemoResponse
+     */
+    public function queryInnerSppdemoEx($request, $headers, $runtime){
+        Utils::validateModel($request);
+        return QueryInnerSppdemoResponse::fromMap($this->doRequest("1.0", "antchain.ato.inner.sppdemo.query", "HTTPS", "POST", "/gateway.do", Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 流量看板查询
+     * Summary: 流量看板查询
+     * @param QueryInnerSppdashboardtrafficRequest $request
+     * @return QueryInnerSppdashboardtrafficResponse
+     */
+    public function queryInnerSppdashboardtraffic($request){
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+        return $this->queryInnerSppdashboardtrafficEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 流量看板查询
+     * Summary: 流量看板查询
+     * @param QueryInnerSppdashboardtrafficRequest $request
+     * @param string[] $headers
+     * @param RuntimeOptions $runtime
+     * @return QueryInnerSppdashboardtrafficResponse
+     */
+    public function queryInnerSppdashboardtrafficEx($request, $headers, $runtime){
+        Utils::validateModel($request);
+        return QueryInnerSppdashboardtrafficResponse::fromMap($this->doRequest("1.0", "antchain.ato.inner.sppdashboardtraffic.query", "HTTPS", "POST", "/gateway.do", Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 前筛查询
+     * Summary: 前筛查询
+     * @param QueryInnerSppdashboardscreeningRequest $request
+     * @return QueryInnerSppdashboardscreeningResponse
+     */
+    public function queryInnerSppdashboardscreening($request){
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+        return $this->queryInnerSppdashboardscreeningEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 前筛查询
+     * Summary: 前筛查询
+     * @param QueryInnerSppdashboardscreeningRequest $request
+     * @param string[] $headers
+     * @param RuntimeOptions $runtime
+     * @return QueryInnerSppdashboardscreeningResponse
+     */
+    public function queryInnerSppdashboardscreeningEx($request, $headers, $runtime){
+        Utils::validateModel($request);
+        return QueryInnerSppdashboardscreeningResponse::fromMap($this->doRequest("1.0", "antchain.ato.inner.sppdashboardscreening.query", "HTTPS", "POST", "/gateway.do", Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 采买查询
+     * Summary: 采买查询
+     * @param QueryInnerSppdashboardpurchaseRequest $request
+     * @return QueryInnerSppdashboardpurchaseResponse
+     */
+    public function queryInnerSppdashboardpurchase($request){
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+        return $this->queryInnerSppdashboardpurchaseEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 采买查询
+     * Summary: 采买查询
+     * @param QueryInnerSppdashboardpurchaseRequest $request
+     * @param string[] $headers
+     * @param RuntimeOptions $runtime
+     * @return QueryInnerSppdashboardpurchaseResponse
+     */
+    public function queryInnerSppdashboardpurchaseEx($request, $headers, $runtime){
+        Utils::validateModel($request);
+        return QueryInnerSppdashboardpurchaseResponse::fromMap($this->doRequest("1.0", "antchain.ato.inner.sppdashboardpurchase.query", "HTTPS", "POST", "/gateway.do", Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 分发查询
+     * Summary: 分发查询
+     * @param QueryInnerSppdashboarddistributionRequest $request
+     * @return QueryInnerSppdashboarddistributionResponse
+     */
+    public function queryInnerSppdashboarddistribution($request){
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+        return $this->queryInnerSppdashboarddistributionEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 分发查询
+     * Summary: 分发查询
+     * @param QueryInnerSppdashboarddistributionRequest $request
+     * @param string[] $headers
+     * @param RuntimeOptions $runtime
+     * @return QueryInnerSppdashboarddistributionResponse
+     */
+    public function queryInnerSppdashboarddistributionEx($request, $headers, $runtime){
+        Utils::validateModel($request);
+        return QueryInnerSppdashboarddistributionResponse::fromMap($this->doRequest("1.0", "antchain.ato.inner.sppdashboarddistribution.query", "HTTPS", "POST", "/gateway.do", Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 预警查询
+     * Summary: 预警查询
+     * @param QueryInnerSppdashboardsentinelRequest $request
+     * @return QueryInnerSppdashboardsentinelResponse
+     */
+    public function queryInnerSppdashboardsentinel($request){
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+        return $this->queryInnerSppdashboardsentinelEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 预警查询
+     * Summary: 预警查询
+     * @param QueryInnerSppdashboardsentinelRequest $request
+     * @param string[] $headers
+     * @param RuntimeOptions $runtime
+     * @return QueryInnerSppdashboardsentinelResponse
+     */
+    public function queryInnerSppdashboardsentinelEx($request, $headers, $runtime){
+        Utils::validateModel($request);
+        return QueryInnerSppdashboardsentinelResponse::fromMap($this->doRequest("1.0", "antchain.ato.inner.sppdashboardsentinel.query", "HTTPS", "POST", "/gateway.do", Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 前筛/采买/分发/预警 4 部分的数据总结
+     * Summary: 前筛/采买/分发/预警 4 部分的数据总结
+     * @param QueryInnerSppdashboardsummaryRequest $request
+     * @return QueryInnerSppdashboardsummaryResponse
+     */
+    public function queryInnerSppdashboardsummary($request){
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+        return $this->queryInnerSppdashboardsummaryEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 前筛/采买/分发/预警 4 部分的数据总结
+     * Summary: 前筛/采买/分发/预警 4 部分的数据总结
+     * @param QueryInnerSppdashboardsummaryRequest $request
+     * @param string[] $headers
+     * @param RuntimeOptions $runtime
+     * @return QueryInnerSppdashboardsummaryResponse
+     */
+    public function queryInnerSppdashboardsummaryEx($request, $headers, $runtime){
+        Utils::validateModel($request);
+        return QueryInnerSppdashboardsummaryResponse::fromMap($this->doRequest("1.0", "antchain.ato.inner.sppdashboardsummary.query", "HTTPS", "POST", "/gateway.do", Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 思考过程查询
+     * Summary: 思考过程查询
+     * @param QueryInnerSppdashboardreasoningRequest $request
+     * @return QueryInnerSppdashboardreasoningResponse
+     */
+    public function queryInnerSppdashboardreasoning($request){
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+        return $this->queryInnerSppdashboardreasoningEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 思考过程查询
+     * Summary: 思考过程查询
+     * @param QueryInnerSppdashboardreasoningRequest $request
+     * @param string[] $headers
+     * @param RuntimeOptions $runtime
+     * @return QueryInnerSppdashboardreasoningResponse
+     */
+    public function queryInnerSppdashboardreasoningEx($request, $headers, $runtime){
+        Utils::validateModel($request);
+        return QueryInnerSppdashboardreasoningResponse::fromMap($this->doRequest("1.0", "antchain.ato.inner.sppdashboardreasoning.query", "HTTPS", "POST", "/gateway.do", Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 前筛查询
+     * Summary: 前筛查询
+     * @param QueryInnerSppdashboardprefilterRequest $request
+     * @return QueryInnerSppdashboardprefilterResponse
+     */
+    public function queryInnerSppdashboardprefilter($request){
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+        return $this->queryInnerSppdashboardprefilterEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 前筛查询
+     * Summary: 前筛查询
+     * @param QueryInnerSppdashboardprefilterRequest $request
+     * @param string[] $headers
+     * @param RuntimeOptions $runtime
+     * @return QueryInnerSppdashboardprefilterResponse
+     */
+    public function queryInnerSppdashboardprefilterEx($request, $headers, $runtime){
+        Utils::validateModel($request);
+        return QueryInnerSppdashboardprefilterResponse::fromMap($this->doRequest("1.0", "antchain.ato.inner.sppdashboardprefilter.query", "HTTPS", "POST", "/gateway.do", Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
      * Description: 对账saas交易信息同步接口
      * Summary: 对账saas交易信息同步接口
      * @param SyncTradeRequest $request
@@ -9110,7 +9515,9 @@ class Client {
      * Description: 重要说明：
      *     1. 这个接口是取消订单某一、多期代扣计划中以其他方式还款的金额，取消之后代扣不再执行该期计划。
      *     2. 对通过其他方式还款的第三方单号留存;例如：银行流水号或微信流水号。
-     * Summary: 单期多期代扣取消
+     * Summary: 重要说明：
+     *     1. 这个接口是取消订单某一、多期代扣计划中以其他方式还款的金额，取消之后代扣不再执行该期计划。
+     *     2. 对通过其他方式还款的第三方单号留存;例如：银行流水号或微信流水号。
      * @param RepayWithholdPlanRequest $request
      * @return RepayWithholdPlanResponse
      */
@@ -9124,7 +9531,9 @@ class Client {
      * Description: 重要说明：
      *     1. 这个接口是取消订单某一、多期代扣计划中以其他方式还款的金额，取消之后代扣不再执行该期计划。
      *     2. 对通过其他方式还款的第三方单号留存;例如：银行流水号或微信流水号。
-     * Summary: 单期多期代扣取消
+     * Summary: 重要说明：
+     *     1. 这个接口是取消订单某一、多期代扣计划中以其他方式还款的金额，取消之后代扣不再执行该期计划。
+     *     2. 对通过其他方式还款的第三方单号留存;例如：银行流水号或微信流水号。
      * @param RepayWithholdPlanRequest $request
      * @param string[] $headers
      * @param RuntimeOptions $runtime

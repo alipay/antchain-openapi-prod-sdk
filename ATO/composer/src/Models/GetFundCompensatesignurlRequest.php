@@ -13,6 +13,7 @@ class GetFundCompensatesignurlRequest extends Model {
         'merchantTenantId' => 'merchant_tenant_id',
         'merchantId' => 'merchant_id',
         'type' => 'type',
+        'alipayUid' => 'alipay_uid',
     ];
     public function validate() {
         Model::validateRequired('fundId', $this->fundId, true);
@@ -40,6 +41,9 @@ class GetFundCompensatesignurlRequest extends Model {
         if (null !== $this->type) {
             $res['type'] = $this->type;
         }
+        if (null !== $this->alipayUid) {
+            $res['alipay_uid'] = $this->alipayUid;
+        }
         return $res;
     }
     /**
@@ -65,6 +69,9 @@ class GetFundCompensatesignurlRequest extends Model {
         }
         if(isset($map['type'])){
             $model->type = $map['type'];
+        }
+        if(isset($map['alipay_uid'])){
+            $model->alipayUid = $map['alipay_uid'];
         }
         return $model;
     }
@@ -104,5 +111,11 @@ class GetFundCompensatesignurlRequest extends Model {
      * @var string
      */
     public $type;
+
+    // 支付宝uid
+    /**
+     * @var string
+     */
+    public $alipayUid;
 
 }

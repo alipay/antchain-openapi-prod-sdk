@@ -28,8 +28,6 @@ class RepayWithholdPlanRequest extends Model {
         Model::validateMaxLength('payOffNo', $this->payOffNo, 64);
         Model::validateMaxLength('payOffBankName', $this->payOffBankName, 64);
         Model::validateMaxLength('operation', $this->operation, 64);
-        Model::validateMinimum('periodNum', $this->periodNum, 1);
-        Model::validateMinimum('payOffAmount', $this->payOffAmount, 0);
         Model::validatePattern('gmtPay', $this->gmtPay, '\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}([Z]|([\\.]\\d{1,9})?[\\+]\\d{2}[\\:]?\\d{2})');
         Model::validateMinLength('operation', $this->operation, 0);
     }
@@ -146,7 +144,7 @@ class RepayWithholdPlanRequest extends Model {
      */
     public $periodNum;
 
-    // 取消订单某一期代扣计划中以其他方式还款金额，单位为分，单期取消必填
+    // 取其他方式还款的时间，单期取消必填
     /**
      * @var string
      */
