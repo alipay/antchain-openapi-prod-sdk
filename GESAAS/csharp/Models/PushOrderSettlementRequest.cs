@@ -63,6 +63,33 @@ namespace AntChain.SDK.GESAAS.Models
         [Validation(Required=true)]
         public string PayChannelUserId { get; set; }
 
+        // 支付场景，ONLINE(在线)/OFFLINE (离线)，默认：ONLINE
+        [NameInMap("scene")]
+        [Validation(Required=false)]
+        public string Scene { get; set; }
+
+        // 付款码，商家扫码场景必填，补充：
+        // 微信付款码：以 10–15 开头的 18 位纯数字。
+        // 支付宝付款码：以 25–30 开头，且长度为 16～24 位的纯数字。
+        [NameInMap("auth_code")]
+        [Validation(Required=false)]
+        public string AuthCode { get; set; }
+
+        // 终端号，商家扫码场景必填
+        [NameInMap("terminal_id")]
+        [Validation(Required=false)]
+        public string TerminalId { get; set; }
+
+        // 用户真实IP地址
+        [NameInMap("user_ip")]
+        [Validation(Required=true)]
+        public string UserIp { get; set; }
+
+        // 商家公众号ID,微信小程序，微信公众号产品必填
+        [NameInMap("app_id")]
+        [Validation(Required=false)]
+        public string AppId { get; set; }
+
     }
 
 }

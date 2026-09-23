@@ -29,6 +29,11 @@ namespace AntChain.SDK.GESAAS.Models
         [Validation(Required=false)]
         public string TradeNo { get; set; }
 
+        // 预支付凭证，仅商家扫码场景为空
+        [NameInMap("pre_pay_tn")]
+        [Validation(Required=false)]
+        public string PrePayTn { get; set; }
+
     }
 
 }
