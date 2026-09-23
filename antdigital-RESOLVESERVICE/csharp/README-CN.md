@@ -1,13 +1,13 @@
 [English](README.md) | 简体中文
 
-# Ant Chain ABC SDK for C#
+# Ant Chain antdigital-RESOLVESERVICE SDK for C#
 
 ## 安装
 
 ### .NET
 
 ```bash
-donet add package AntChain.SDK.antdigital-RESOLVESERVICE
+dotnet add package AntChain.SDK.antdigital-RESOLVESERVICE
 ```
 
 ## 问题

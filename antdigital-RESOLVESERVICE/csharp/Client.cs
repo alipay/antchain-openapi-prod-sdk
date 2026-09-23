@@ -158,7 +158,7 @@ namespace AntChain.SDK.RESOLVESERVICE
                         {"req_msg_id", AntChain.AlipayUtil.AntchainUtils.GetNonce()},
                         {"access_key", _accessKeyId},
                         {"base_sdk_version", "TeaSDK-2.0"},
-                        {"sdk_version", "1.0.0"},
+                        {"sdk_version", "1.1.1"},
                         {"_prod_code", "RESOLVESERVICE"},
                         {"_prod_channel", "default"},
                     };
@@ -301,7 +301,7 @@ namespace AntChain.SDK.RESOLVESERVICE
                         {"req_msg_id", AntChain.AlipayUtil.AntchainUtils.GetNonce()},
                         {"access_key", _accessKeyId},
                         {"base_sdk_version", "TeaSDK-2.0"},
-                        {"sdk_version", "1.0.0"},
+                        {"sdk_version", "1.1.1"},
                         {"_prod_code", "RESOLVESERVICE"},
                         {"_prod_channel", "default"},
                     };
@@ -679,6 +679,98 @@ namespace AntChain.SDK.RESOLVESERVICE
         {
             AlibabaCloud.TeaUtil.Common.ValidateModel(request);
             return TeaModel.ToObject<PushCustomerInternalmsgResponse>(await DoRequestAsync("1.0", "antdigital.resolveservice.customer.internalmsg.push", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /// <term><b>Description:</b></term>
+        /// <description>
+        /// <para>Description: 供应商回执回调
+        /// Summary: 供应商回执回调</para>
+        /// </description>
+        public CallbackProviderRobotcallResponse CallbackProviderRobotcall(CallbackProviderRobotcallRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return CallbackProviderRobotcallEx(request, headers, runtime);
+        }
+
+        /// <term><b>Description:</b></term>
+        /// <description>
+        /// <para>Description: 供应商回执回调
+        /// Summary: 供应商回执回调</para>
+        /// </description>
+        public async Task<CallbackProviderRobotcallResponse> CallbackProviderRobotcallAsync(CallbackProviderRobotcallRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return await CallbackProviderRobotcallExAsync(request, headers, runtime);
+        }
+
+        /// <term><b>Description:</b></term>
+        /// <description>
+        /// <para>Description: 供应商回执回调
+        /// Summary: 供应商回执回调</para>
+        /// </description>
+        public CallbackProviderRobotcallResponse CallbackProviderRobotcallEx(CallbackProviderRobotcallRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<CallbackProviderRobotcallResponse>(DoRequest("1.0", "antdigital.resolveservice.provider.robotcall.callback", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /// <term><b>Description:</b></term>
+        /// <description>
+        /// <para>Description: 供应商回执回调
+        /// Summary: 供应商回执回调</para>
+        /// </description>
+        public async Task<CallbackProviderRobotcallResponse> CallbackProviderRobotcallExAsync(CallbackProviderRobotcallRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<CallbackProviderRobotcallResponse>(await DoRequestAsync("1.0", "antdigital.resolveservice.provider.robotcall.callback", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /// <term><b>Description:</b></term>
+        /// <description>
+        /// <para>Description: 律光外呼回执
+        /// Summary: 律光外呼回执</para>
+        /// </description>
+        public CallbackLvRobotcallResponse CallbackLvRobotcall(CallbackLvRobotcallRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return CallbackLvRobotcallEx(request, headers, runtime);
+        }
+
+        /// <term><b>Description:</b></term>
+        /// <description>
+        /// <para>Description: 律光外呼回执
+        /// Summary: 律光外呼回执</para>
+        /// </description>
+        public async Task<CallbackLvRobotcallResponse> CallbackLvRobotcallAsync(CallbackLvRobotcallRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return await CallbackLvRobotcallExAsync(request, headers, runtime);
+        }
+
+        /// <term><b>Description:</b></term>
+        /// <description>
+        /// <para>Description: 律光外呼回执
+        /// Summary: 律光外呼回执</para>
+        /// </description>
+        public CallbackLvRobotcallResponse CallbackLvRobotcallEx(CallbackLvRobotcallRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<CallbackLvRobotcallResponse>(DoRequest("1.0", "antdigital.resolveservice.lv.robotcall.callback", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /// <term><b>Description:</b></term>
+        /// <description>
+        /// <para>Description: 律光外呼回执
+        /// Summary: 律光外呼回执</para>
+        /// </description>
+        public async Task<CallbackLvRobotcallResponse> CallbackLvRobotcallExAsync(CallbackLvRobotcallRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<CallbackLvRobotcallResponse>(await DoRequestAsync("1.0", "antdigital.resolveservice.lv.robotcall.callback", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
         }
 
     }
