@@ -1,6 +1,6 @@
 English | [简体中文](README-CN.md)
 
-## Ant Chain ABC SDK for Python
+## Ant Chain antdigital-RESOLVESERVICE SDK for Python
 
 ## Requirements
 

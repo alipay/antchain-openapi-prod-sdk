@@ -109,7 +109,8 @@ class Client:
                 'policy': UtilClient.default_string(runtime.backoff_policy, 'no'),
                 'period': UtilClient.default_number(runtime.backoff_period, 1)
             },
-            'ignoreSSL': runtime.ignore_ssl
+            'ignoreSSL': runtime.ignore_ssl,
+            # 通话标签
         }
         _last_request = None
         _last_exception = None
@@ -134,7 +135,7 @@ class Client:
                     'req_msg_id': AntchainUtils.get_nonce(),
                     'access_key': self._access_key_id,
                     'base_sdk_version': 'TeaSDK-2.0',
-                    'sdk_version': '1.0.0',
+                    'sdk_version': '1.1.1',
                     '_prod_code': 'RESOLVESERVICE',
                     '_prod_channel': 'default'
                 }
@@ -212,7 +213,8 @@ class Client:
                 'policy': UtilClient.default_string(runtime.backoff_policy, 'no'),
                 'period': UtilClient.default_number(runtime.backoff_period, 1)
             },
-            'ignoreSSL': runtime.ignore_ssl
+            'ignoreSSL': runtime.ignore_ssl,
+            # 通话标签
         }
         _last_request = None
         _last_exception = None
@@ -237,7 +239,7 @@ class Client:
                     'req_msg_id': AntchainUtils.get_nonce(),
                     'access_key': self._access_key_id,
                     'base_sdk_version': 'TeaSDK-2.0',
-                    'sdk_version': '1.0.0',
+                    'sdk_version': '1.1.1',
                     '_prod_code': 'RESOLVESERVICE',
                     '_prod_channel': 'default'
                 }
@@ -663,4 +665,116 @@ class Client:
         return TeaCore.from_map(
             resolveservice_models.PushCustomerInternalmsgResponse(),
             await self.do_request_async('1.0', 'antdigital.resolveservice.customer.internalmsg.push', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def callback_provider_robotcall(
+        self,
+        request: resolveservice_models.CallbackProviderRobotcallRequest,
+    ) -> resolveservice_models.CallbackProviderRobotcallResponse:
+        """
+        Description: 供应商回执回调
+        Summary: 供应商回执回调
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.callback_provider_robotcall_ex(request, headers, runtime)
+
+    async def callback_provider_robotcall_async(
+        self,
+        request: resolveservice_models.CallbackProviderRobotcallRequest,
+    ) -> resolveservice_models.CallbackProviderRobotcallResponse:
+        """
+        Description: 供应商回执回调
+        Summary: 供应商回执回调
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.callback_provider_robotcall_ex_async(request, headers, runtime)
+
+    def callback_provider_robotcall_ex(
+        self,
+        request: resolveservice_models.CallbackProviderRobotcallRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> resolveservice_models.CallbackProviderRobotcallResponse:
+        """
+        Description: 供应商回执回调
+        Summary: 供应商回执回调
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            resolveservice_models.CallbackProviderRobotcallResponse(),
+            self.do_request('1.0', 'antdigital.resolveservice.provider.robotcall.callback', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def callback_provider_robotcall_ex_async(
+        self,
+        request: resolveservice_models.CallbackProviderRobotcallRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> resolveservice_models.CallbackProviderRobotcallResponse:
+        """
+        Description: 供应商回执回调
+        Summary: 供应商回执回调
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            resolveservice_models.CallbackProviderRobotcallResponse(),
+            await self.do_request_async('1.0', 'antdigital.resolveservice.provider.robotcall.callback', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def callback_lv_robotcall(
+        self,
+        request: resolveservice_models.CallbackLvRobotcallRequest,
+    ) -> resolveservice_models.CallbackLvRobotcallResponse:
+        """
+        Description: 律光外呼回执
+        Summary: 律光外呼回执
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.callback_lv_robotcall_ex(request, headers, runtime)
+
+    async def callback_lv_robotcall_async(
+        self,
+        request: resolveservice_models.CallbackLvRobotcallRequest,
+    ) -> resolveservice_models.CallbackLvRobotcallResponse:
+        """
+        Description: 律光外呼回执
+        Summary: 律光外呼回执
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.callback_lv_robotcall_ex_async(request, headers, runtime)
+
+    def callback_lv_robotcall_ex(
+        self,
+        request: resolveservice_models.CallbackLvRobotcallRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> resolveservice_models.CallbackLvRobotcallResponse:
+        """
+        Description: 律光外呼回执
+        Summary: 律光外呼回执
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            resolveservice_models.CallbackLvRobotcallResponse(),
+            self.do_request('1.0', 'antdigital.resolveservice.lv.robotcall.callback', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def callback_lv_robotcall_ex_async(
+        self,
+        request: resolveservice_models.CallbackLvRobotcallRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> resolveservice_models.CallbackLvRobotcallResponse:
+        """
+        Description: 律光外呼回执
+        Summary: 律光外呼回执
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            resolveservice_models.CallbackLvRobotcallResponse(),
+            await self.do_request_async('1.0', 'antdigital.resolveservice.lv.robotcall.callback', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
