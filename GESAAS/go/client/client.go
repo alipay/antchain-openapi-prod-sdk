@@ -1590,6 +1590,18 @@ type PushOrderSettlementRequest struct {
 	PayChannel *string `json:"pay_channel,omitempty" xml:"pay_channel,omitempty"`
 	// 支付渠道是ALIPAY场景下传入支付宝用户2088xxxx
 	PayChannelUserId *string `json:"pay_channel_user_id,omitempty" xml:"pay_channel_user_id,omitempty" require:"true"`
+	// 支付场景，ONLINE(在线)/OFFLINE (离线)，默认：ONLINE
+	Scene *string `json:"scene,omitempty" xml:"scene,omitempty"`
+	// 付款码，商家扫码场景必填，补充：
+	// 微信付款码：以 10–15 开头的 18 位纯数字。
+	// 支付宝付款码：以 25–30 开头，且长度为 16～24 位的纯数字。
+	AuthCode *string `json:"auth_code,omitempty" xml:"auth_code,omitempty"`
+	// 终端号，商家扫码场景必填
+	TerminalId *string `json:"terminal_id,omitempty" xml:"terminal_id,omitempty"`
+	// 用户真实IP地址
+	UserIp *string `json:"user_ip,omitempty" xml:"user_ip,omitempty" require:"true"`
+	// 商家公众号ID,微信小程序，微信公众号产品必填
+	AppId *string `json:"app_id,omitempty" xml:"app_id,omitempty"`
 }
 
 func (s PushOrderSettlementRequest) String() string {
@@ -1655,6 +1667,31 @@ func (s *PushOrderSettlementRequest) SetPayChannelUserId(v string) *PushOrderSet
 	return s
 }
 
+func (s *PushOrderSettlementRequest) SetScene(v string) *PushOrderSettlementRequest {
+	s.Scene = &v
+	return s
+}
+
+func (s *PushOrderSettlementRequest) SetAuthCode(v string) *PushOrderSettlementRequest {
+	s.AuthCode = &v
+	return s
+}
+
+func (s *PushOrderSettlementRequest) SetTerminalId(v string) *PushOrderSettlementRequest {
+	s.TerminalId = &v
+	return s
+}
+
+func (s *PushOrderSettlementRequest) SetUserIp(v string) *PushOrderSettlementRequest {
+	s.UserIp = &v
+	return s
+}
+
+func (s *PushOrderSettlementRequest) SetAppId(v string) *PushOrderSettlementRequest {
+	s.AppId = &v
+	return s
+}
+
 type PushOrderSettlementResponse struct {
 	// 请求唯一ID，用于链路跟踪和问题排查
 	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
@@ -1664,6 +1701,8 @@ type PushOrderSettlementResponse struct {
 	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
 	// 支付宝/微信/其他 平台订单号
 	TradeNo *string `json:"trade_no,omitempty" xml:"trade_no,omitempty"`
+	// 预支付凭证，仅商家扫码场景为空
+	PrePayTn *string `json:"pre_pay_tn,omitempty" xml:"pre_pay_tn,omitempty"`
 }
 
 func (s PushOrderSettlementResponse) String() string {
@@ -1691,6 +1730,11 @@ func (s *PushOrderSettlementResponse) SetResultMsg(v string) *PushOrderSettlemen
 
 func (s *PushOrderSettlementResponse) SetTradeNo(v string) *PushOrderSettlementResponse {
 	s.TradeNo = &v
+	return s
+}
+
+func (s *PushOrderSettlementResponse) SetPrePayTn(v string) *PushOrderSettlementResponse {
+	s.PrePayTn = &v
 	return s
 }
 
@@ -2353,6 +2397,8 @@ type SaveOmngGenerationtaskRequest struct {
 	// 执行优先级 默认值 0
 	// 数值越大，优先级越高。
 	Priority *int64 `json:"priority,omitempty" xml:"priority,omitempty"`
+	// seedance视频大模型2.0版本
+	ProductCode *string `json:"product_code,omitempty" xml:"product_code,omitempty" require:"true"`
 }
 
 func (s SaveOmngGenerationtaskRequest) String() string {
@@ -2450,6 +2496,11 @@ func (s *SaveOmngGenerationtaskRequest) SetSafetyIdentifier(v string) *SaveOmngG
 
 func (s *SaveOmngGenerationtaskRequest) SetPriority(v int64) *SaveOmngGenerationtaskRequest {
 	s.Priority = &v
+	return s
+}
+
+func (s *SaveOmngGenerationtaskRequest) SetProductCode(v string) *SaveOmngGenerationtaskRequest {
+	s.ProductCode = &v
 	return s
 }
 
@@ -3400,7 +3451,7 @@ func (client *Client) DoRequest(version *string, action *string, protocol *strin
 				"req_msg_id":       antchainutil.GetNonce(),
 				"access_key":       client.AccessKeyId,
 				"base_sdk_version": tea.String("TeaSDK-2.0"),
-				"sdk_version":      tea.String("1.4.1"),
+				"sdk_version":      tea.String("1.6.0"),
 				"_prod_code":       tea.String("GESAAS"),
 				"_prod_channel":    tea.String("default"),
 			}
