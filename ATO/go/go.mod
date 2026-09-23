@@ -1,4 +1,4 @@
-module github.com/alipay/ato
+module github.com/antchain-openapi-sdk-go/ato
 
 go 1.22.1
 
