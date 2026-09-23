@@ -108,6 +108,11 @@ namespace AntChain.SDK.GESAAS.Models
         [Validation(Required=false)]
         public long? Priority { get; set; }
 
+        // seedance视频大模型2.0版本
+        [NameInMap("product_code")]
+        [Validation(Required=true)]
+        public string ProductCode { get; set; }
+
     }
 
 }
