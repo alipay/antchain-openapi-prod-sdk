@@ -54,6 +54,11 @@ namespace AntChain.SDK.CREATIVERENDER.Models
         [Validation(Required=false)]
         public long? Height { get; set; }
 
+        // 额外参数
+        [NameInMap("extra_params")]
+        [Validation(Required=false)]
+        public List<MapStruct> ExtraParams { get; set; }
+
     }
 
 }
