@@ -126,7 +126,7 @@ public class Client {
                     new TeaPair("req_msg_id", com.antgroup.antchain.openapi.antchain.util.AntchainUtils.getNonce()),
                     new TeaPair("access_key", _accessKeyId),
                     new TeaPair("base_sdk_version", "TeaSDK-2.0"),
-                    new TeaPair("sdk_version", "1.0.26"),
+                    new TeaPair("sdk_version", "1.0.28"),
                     new TeaPair("_prod_code", "DTKYA"),
                     new TeaPair("_prod_channel", "undefined")
                 );
@@ -711,5 +711,47 @@ public class Client {
     public QueryAntchainDasKyaEvaluationdetailResponse queryAntchainDasKyaEvaluationdetailEx(QueryAntchainDasKyaEvaluationdetailRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
         com.aliyun.teautil.Common.validateModel(request);
         return TeaModel.toModel(this.doRequest("1.0", "antchain.das.kya.evaluationdetail.query", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new QueryAntchainDasKyaEvaluationdetailResponse());
+    }
+
+    /**
+     * <b>description</b> :
+     * <p>Description: 提交AI付链上存证
+     * Summary: 提交AI付链上存证</p>
+     */
+    public SubmitAntchainDasKyaEvidenceResponse submitAntchainDasKyaEvidence(SubmitAntchainDasKyaEvidenceRequest request) throws Exception {
+        com.aliyun.teautil.models.RuntimeOptions runtime = new com.aliyun.teautil.models.RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.submitAntchainDasKyaEvidenceEx(request, headers, runtime);
+    }
+
+    /**
+     * <b>description</b> :
+     * <p>Description: 提交AI付链上存证
+     * Summary: 提交AI付链上存证</p>
+     */
+    public SubmitAntchainDasKyaEvidenceResponse submitAntchainDasKyaEvidenceEx(SubmitAntchainDasKyaEvidenceRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "antchain.das.kya.evidence.submit", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new SubmitAntchainDasKyaEvidenceResponse());
+    }
+
+    /**
+     * <b>description</b> :
+     * <p>Description: 核验链上存证：交易哈希或业务ID二选一，与原始payload比对；未确认及查询异常返回错误
+     * Summary: 核验链上存证：交易哈希或业务ID二选一，与原始payload比对；未确认及查询异常返回错误</p>
+     */
+    public VerifyAntchainDasKyaEvidenceResponse verifyAntchainDasKyaEvidence(VerifyAntchainDasKyaEvidenceRequest request) throws Exception {
+        com.aliyun.teautil.models.RuntimeOptions runtime = new com.aliyun.teautil.models.RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.verifyAntchainDasKyaEvidenceEx(request, headers, runtime);
+    }
+
+    /**
+     * <b>description</b> :
+     * <p>Description: 核验链上存证：交易哈希或业务ID二选一，与原始payload比对；未确认及查询异常返回错误
+     * Summary: 核验链上存证：交易哈希或业务ID二选一，与原始payload比对；未确认及查询异常返回错误</p>
+     */
+    public VerifyAntchainDasKyaEvidenceResponse verifyAntchainDasKyaEvidenceEx(VerifyAntchainDasKyaEvidenceRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "antchain.das.kya.evidence.verify", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new VerifyAntchainDasKyaEvidenceResponse());
     }
 }
