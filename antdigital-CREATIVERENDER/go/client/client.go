@@ -370,6 +370,38 @@ func (s *AssistantExtra) SetResultUrl(v []*string) *AssistantExtra {
 	return s
 }
 
+// map结构体
+type MapStruct struct {
+	// 生图数量
+	// example:
+	//
+	// generationCount
+	Key *string `json:"key,omitempty" xml:"key,omitempty" require:"true"`
+	// key对应的值
+	// example:
+	//
+	// 1
+	Value *string `json:"value,omitempty" xml:"value,omitempty" require:"true"`
+}
+
+func (s MapStruct) String() string {
+	return tea.Prettify(s)
+}
+
+func (s MapStruct) GoString() string {
+	return s.String()
+}
+
+func (s *MapStruct) SetKey(v string) *MapStruct {
+	s.Key = &v
+	return s
+}
+
+func (s *MapStruct) SetValue(v string) *MapStruct {
+	s.Value = &v
+	return s
+}
+
 // 素材
 type CreativeMaterial struct {
 	// Creative 行业产品代码：FUND / RETAIL，查询时缺省为 RETAIL
@@ -751,6 +783,8 @@ type ExecAntcloudMarketingagentChatCreativeRequest struct {
 	Width *int64 `json:"width,omitempty" xml:"width,omitempty"`
 	// 生图高度
 	Height *int64 `json:"height,omitempty" xml:"height,omitempty"`
+	// 扩展参数
+	ExtraParams []*MapStruct `json:"extra_params,omitempty" xml:"extra_params,omitempty" type:"Repeated"`
 }
 
 func (s ExecAntcloudMarketingagentChatCreativeRequest) String() string {
@@ -803,6 +837,11 @@ func (s *ExecAntcloudMarketingagentChatCreativeRequest) SetWidth(v int64) *ExecA
 
 func (s *ExecAntcloudMarketingagentChatCreativeRequest) SetHeight(v int64) *ExecAntcloudMarketingagentChatCreativeRequest {
 	s.Height = &v
+	return s
+}
+
+func (s *ExecAntcloudMarketingagentChatCreativeRequest) SetExtraParams(v []*MapStruct) *ExecAntcloudMarketingagentChatCreativeRequest {
+	s.ExtraParams = v
 	return s
 }
 
@@ -1723,7 +1762,7 @@ func (client *Client) DoRequest(version *string, action *string, protocol *strin
 				"req_msg_id":       antchainutil.GetNonce(),
 				"access_key":       client.AccessKeyId,
 				"base_sdk_version": tea.String("TeaSDK-2.0"),
-				"sdk_version":      tea.String("2.0.9"),
+				"sdk_version":      tea.String("2.0.10"),
 				"_prod_code":       tea.String("CREATIVERENDER"),
 				"_prod_channel":    tea.String("default"),
 			}
