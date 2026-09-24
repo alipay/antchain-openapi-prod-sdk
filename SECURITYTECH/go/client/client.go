@@ -3385,6 +3385,11 @@ type OrderFundItem struct {
 	Amount *string `json:"amount,omitempty" xml:"amount,omitempty" require:"true"`
 	// 详细
 	Details []*FundItem `json:"details,omitempty" xml:"details,omitempty" require:"true" type:"Repeated"`
+	// 查询
+	// example:
+	//
+	// METL202004041220123456
+	PayeeMerchantId *string `json:"payee_merchant_id,omitempty" xml:"payee_merchant_id,omitempty" require:"true"`
 }
 
 func (s OrderFundItem) String() string {
@@ -3412,6 +3417,11 @@ func (s *OrderFundItem) SetAmount(v string) *OrderFundItem {
 
 func (s *OrderFundItem) SetDetails(v []*FundItem) *OrderFundItem {
 	s.Details = v
+	return s
+}
+
+func (s *OrderFundItem) SetPayeeMerchantId(v string) *OrderFundItem {
+	s.PayeeMerchantId = &v
 	return s
 }
 
@@ -17601,7 +17611,7 @@ func (client *Client) DoRequest(version *string, action *string, protocol *strin
 				"req_msg_id":       antchainutil.GetNonce(),
 				"access_key":       client.AccessKeyId,
 				"base_sdk_version": tea.String("TeaSDK-2.0"),
-				"sdk_version":      tea.String("1.7.32"),
+				"sdk_version":      tea.String("1.7.33"),
 				"_prod_code":       tea.String("SECURITYTECH"),
 				"_prod_channel":    tea.String("undefined"),
 			}
