@@ -28,6 +28,11 @@ public class QueryDubbridgePetFundRequest extends TeaModel {
     @NameInMap("merchant_id")
     public String merchantId;
 
+    // 渠道编码
+    @NameInMap("channel_code")
+    @Validation(required = true)
+    public String channelCode;
+
     public static QueryDubbridgePetFundRequest build(java.util.Map<String, ?> map) throws Exception {
         QueryDubbridgePetFundRequest self = new QueryDubbridgePetFundRequest();
         return TeaModel.build(map, self);
@@ -79,6 +84,14 @@ public class QueryDubbridgePetFundRequest extends TeaModel {
     }
     public String getMerchantId() {
         return this.merchantId;
+    }
+
+    public QueryDubbridgePetFundRequest setChannelCode(String channelCode) {
+        this.channelCode = channelCode;
+        return this;
+    }
+    public String getChannelCode() {
+        return this.channelCode;
     }
 
 }
