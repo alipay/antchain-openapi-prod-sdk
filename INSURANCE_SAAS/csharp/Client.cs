@@ -158,7 +158,7 @@ namespace AntChain.SDK.INSURANCE_SAAS
                         {"req_msg_id", AntChain.AlipayUtil.AntchainUtils.GetNonce()},
                         {"access_key", _accessKeyId},
                         {"base_sdk_version", "TeaSDK-2.0"},
-                        {"sdk_version", "1.12.59"},
+                        {"sdk_version", "1.12.60"},
                         {"_prod_code", "INSURANCE_SAAS"},
                         {"_prod_channel", "undefined"},
                     };
@@ -301,7 +301,7 @@ namespace AntChain.SDK.INSURANCE_SAAS
                         {"req_msg_id", AntChain.AlipayUtil.AntchainUtils.GetNonce()},
                         {"access_key", _accessKeyId},
                         {"base_sdk_version", "TeaSDK-2.0"},
-                        {"sdk_version", "1.12.59"},
+                        {"sdk_version", "1.12.60"},
                         {"_prod_code", "INSURANCE_SAAS"},
                         {"_prod_channel", "undefined"},
                     };
@@ -817,6 +817,190 @@ namespace AntChain.SDK.INSURANCE_SAAS
         {
             AlibabaCloud.TeaUtil.Common.ValidateModel(request);
             return TeaModel.ToObject<ApplyMktserviceproviderAudiencecircleResponse>(await DoRequestAsync("1.0", "antcloud.insurance.mktserviceprovider.audiencecircle.apply", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /// <term><b>Description:</b></term>
+        /// <description>
+        /// <para>Description: 银行卡活跃度查询
+        /// Summary: 银行卡活跃度查询</para>
+        /// </description>
+        public QueryAasBankcardLivenessResponse QueryAasBankcardLiveness(QueryAasBankcardLivenessRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return QueryAasBankcardLivenessEx(request, headers, runtime);
+        }
+
+        /// <term><b>Description:</b></term>
+        /// <description>
+        /// <para>Description: 银行卡活跃度查询
+        /// Summary: 银行卡活跃度查询</para>
+        /// </description>
+        public async Task<QueryAasBankcardLivenessResponse> QueryAasBankcardLivenessAsync(QueryAasBankcardLivenessRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return await QueryAasBankcardLivenessExAsync(request, headers, runtime);
+        }
+
+        /// <term><b>Description:</b></term>
+        /// <description>
+        /// <para>Description: 银行卡活跃度查询
+        /// Summary: 银行卡活跃度查询</para>
+        /// </description>
+        public QueryAasBankcardLivenessResponse QueryAasBankcardLivenessEx(QueryAasBankcardLivenessRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<QueryAasBankcardLivenessResponse>(DoRequest("1.0", "antcloud.insurancesaas.bankcard.liveness.query", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /// <term><b>Description:</b></term>
+        /// <description>
+        /// <para>Description: 银行卡活跃度查询
+        /// Summary: 银行卡活跃度查询</para>
+        /// </description>
+        public async Task<QueryAasBankcardLivenessResponse> QueryAasBankcardLivenessExAsync(QueryAasBankcardLivenessRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<QueryAasBankcardLivenessResponse>(await DoRequestAsync("1.0", "antcloud.insurancesaas.bankcard.liveness.query", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /// <term><b>Description:</b></term>
+        /// <description>
+        /// <para>Description: 付款后数据回传
+        /// Summary: 付款后数据回传</para>
+        /// </description>
+        public CallbackAasBankcardLivenessResponse CallbackAasBankcardLiveness(CallbackAasBankcardLivenessRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return CallbackAasBankcardLivenessEx(request, headers, runtime);
+        }
+
+        /// <term><b>Description:</b></term>
+        /// <description>
+        /// <para>Description: 付款后数据回传
+        /// Summary: 付款后数据回传</para>
+        /// </description>
+        public async Task<CallbackAasBankcardLivenessResponse> CallbackAasBankcardLivenessAsync(CallbackAasBankcardLivenessRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return await CallbackAasBankcardLivenessExAsync(request, headers, runtime);
+        }
+
+        /// <term><b>Description:</b></term>
+        /// <description>
+        /// <para>Description: 付款后数据回传
+        /// Summary: 付款后数据回传</para>
+        /// </description>
+        public CallbackAasBankcardLivenessResponse CallbackAasBankcardLivenessEx(CallbackAasBankcardLivenessRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<CallbackAasBankcardLivenessResponse>(DoRequest("1.0", "antcloud.insurancesaas.bankcard.liveness.callback", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /// <term><b>Description:</b></term>
+        /// <description>
+        /// <para>Description: 付款后数据回传
+        /// Summary: 付款后数据回传</para>
+        /// </description>
+        public async Task<CallbackAasBankcardLivenessResponse> CallbackAasBankcardLivenessExAsync(CallbackAasBankcardLivenessRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<CallbackAasBankcardLivenessResponse>(await DoRequestAsync("1.0", "antcloud.insurancesaas.bankcard.liveness.callback", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /// <term><b>Description:</b></term>
+        /// <description>
+        /// <para>Description: 银行卡活跃度查询
+        /// Summary: 银行卡活跃度查询</para>
+        /// </description>
+        public QueryAasDataBankcardlivenessResponse QueryAasDataBankcardliveness(QueryAasDataBankcardlivenessRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return QueryAasDataBankcardlivenessEx(request, headers, runtime);
+        }
+
+        /// <term><b>Description:</b></term>
+        /// <description>
+        /// <para>Description: 银行卡活跃度查询
+        /// Summary: 银行卡活跃度查询</para>
+        /// </description>
+        public async Task<QueryAasDataBankcardlivenessResponse> QueryAasDataBankcardlivenessAsync(QueryAasDataBankcardlivenessRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return await QueryAasDataBankcardlivenessExAsync(request, headers, runtime);
+        }
+
+        /// <term><b>Description:</b></term>
+        /// <description>
+        /// <para>Description: 银行卡活跃度查询
+        /// Summary: 银行卡活跃度查询</para>
+        /// </description>
+        public QueryAasDataBankcardlivenessResponse QueryAasDataBankcardlivenessEx(QueryAasDataBankcardlivenessRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<QueryAasDataBankcardlivenessResponse>(DoRequest("1.0", "antcloud.insurancesaas.data.bankcardliveness.query", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /// <term><b>Description:</b></term>
+        /// <description>
+        /// <para>Description: 银行卡活跃度查询
+        /// Summary: 银行卡活跃度查询</para>
+        /// </description>
+        public async Task<QueryAasDataBankcardlivenessResponse> QueryAasDataBankcardlivenessExAsync(QueryAasDataBankcardlivenessRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<QueryAasDataBankcardlivenessResponse>(await DoRequestAsync("1.0", "antcloud.insurancesaas.data.bankcardliveness.query", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /// <term><b>Description:</b></term>
+        /// <description>
+        /// <para>Description: 付款后数据回传
+        /// Summary: 付款后数据回传</para>
+        /// </description>
+        public CallbackAasDataBankcardlivenessResponse CallbackAasDataBankcardliveness(CallbackAasDataBankcardlivenessRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return CallbackAasDataBankcardlivenessEx(request, headers, runtime);
+        }
+
+        /// <term><b>Description:</b></term>
+        /// <description>
+        /// <para>Description: 付款后数据回传
+        /// Summary: 付款后数据回传</para>
+        /// </description>
+        public async Task<CallbackAasDataBankcardlivenessResponse> CallbackAasDataBankcardlivenessAsync(CallbackAasDataBankcardlivenessRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return await CallbackAasDataBankcardlivenessExAsync(request, headers, runtime);
+        }
+
+        /// <term><b>Description:</b></term>
+        /// <description>
+        /// <para>Description: 付款后数据回传
+        /// Summary: 付款后数据回传</para>
+        /// </description>
+        public CallbackAasDataBankcardlivenessResponse CallbackAasDataBankcardlivenessEx(CallbackAasDataBankcardlivenessRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<CallbackAasDataBankcardlivenessResponse>(DoRequest("1.0", "antcloud.insurancesaas.data.bankcardliveness.callback", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /// <term><b>Description:</b></term>
+        /// <description>
+        /// <para>Description: 付款后数据回传
+        /// Summary: 付款后数据回传</para>
+        /// </description>
+        public async Task<CallbackAasDataBankcardlivenessResponse> CallbackAasDataBankcardlivenessExAsync(CallbackAasDataBankcardlivenessRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<CallbackAasDataBankcardlivenessResponse>(await DoRequestAsync("1.0", "antcloud.insurancesaas.data.bankcardliveness.callback", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
         }
 
         /// <term><b>Description:</b></term>

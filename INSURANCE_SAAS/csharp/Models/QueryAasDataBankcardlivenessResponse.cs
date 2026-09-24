@@ -8,7 +8,7 @@ using Tea;
 
 namespace AntChain.SDK.INSURANCE_SAAS.Models
 {
-    public class CreateAntcloudGatewayxFileUploadResponse : TeaModel {
+    public class QueryAasDataBankcardlivenessResponse : TeaModel {
         // 请求唯一ID，用于链路跟踪和问题排查
         [NameInMap("req_msg_id")]
         [Validation(Required=false)]
@@ -24,25 +24,15 @@ namespace AntChain.SDK.INSURANCE_SAAS.Models
         [Validation(Required=false)]
         public string ResultMsg { get; set; }
 
-        // 上传有效期
-        [NameInMap("expired_time")]
-        [Validation(Required=false, Pattern="\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}([Z]|([\\.]\\d{1,9})?[\\+]\\d{2}[\\:]?\\d{2})")]
-        public string ExpiredTime { get; set; }
-
-        // 32位文件唯一id
-        [NameInMap("file_id")]
+        // 响应ID（安科req_msg_id），回传接口必传
+        [NameInMap("history_request_id")]
         [Validation(Required=false)]
-        public string FileId { get; set; }
+        public string HistoryRequestId { get; set; }
 
-        // 放入http请求头里
-        [NameInMap("upload_headers")]
+        // 银行活跃度详情（JSONArray，排最前最活跃）
+        [NameInMap("liveness_info")]
         [Validation(Required=false)]
-        public List<NameValuePair> UploadHeaders { get; set; }
-
-        // 文件上传地址
-        [NameInMap("upload_url")]
-        [Validation(Required=false)]
-        public string UploadUrl { get; set; }
+        public string LivenessInfo { get; set; }
 
     }
 
