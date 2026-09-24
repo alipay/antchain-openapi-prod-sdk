@@ -3289,6 +3289,7 @@ class OrderFundItem(TeaModel):
         trade_no: str = None,
         amount: str = None,
         details: List[FundItem] = None,
+        payee_merchant_id: str = None,
     ):
         # order_id
         self.order_id = order_id
@@ -3298,6 +3299,8 @@ class OrderFundItem(TeaModel):
         self.amount = amount
         # 详细
         self.details = details
+        # 查询
+        self.payee_merchant_id = payee_merchant_id
 
     def validate(self):
         self.validate_required(self.order_id, 'order_id')
@@ -3308,6 +3311,7 @@ class OrderFundItem(TeaModel):
             for k in self.details:
                 if k:
                     k.validate()
+        self.validate_required(self.payee_merchant_id, 'payee_merchant_id')
 
     def to_map(self):
         _map = super().to_map()
@@ -3325,6 +3329,8 @@ class OrderFundItem(TeaModel):
         if self.details is not None:
             for k in self.details:
                 result['details'].append(k.to_map() if k else None)
+        if self.payee_merchant_id is not None:
+            result['payee_merchant_id'] = self.payee_merchant_id
         return result
 
     def from_map(self, m: dict = None):
@@ -3340,6 +3346,8 @@ class OrderFundItem(TeaModel):
             for k in m.get('details'):
                 temp_model = FundItem()
                 self.details.append(temp_model.from_map(k))
+        if m.get('payee_merchant_id') is not None:
+            self.payee_merchant_id = m.get('payee_merchant_id')
         return self
 
 
