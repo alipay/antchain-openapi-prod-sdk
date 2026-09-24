@@ -135,7 +135,7 @@ class Client:
                     'req_msg_id': AntchainUtils.get_nonce(),
                     'access_key': self._access_key_id,
                     'base_sdk_version': 'TeaSDK-2.0',
-                    'sdk_version': '2.0.7',
+                    'sdk_version': '2.0.10',
                     '_prod_code': 'CREATIVERENDER',
                     '_prod_channel': 'default'
                 }
@@ -239,7 +239,7 @@ class Client:
                     'req_msg_id': AntchainUtils.get_nonce(),
                     'access_key': self._access_key_id,
                     'base_sdk_version': 'TeaSDK-2.0',
-                    'sdk_version': '2.0.7',
+                    'sdk_version': '2.0.10',
                     '_prod_code': 'CREATIVERENDER',
                     '_prod_channel': 'default'
                 }
@@ -553,4 +553,116 @@ class Client:
         return TeaCore.from_map(
             creativerender_models.QueryAntcloudMarketingagentCreativeMaterialResponse(),
             await self.do_request_async('1.0', 'antcloud.marketingagent.creative.material.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def exec_antcloud_marketingagent_creative_video(
+        self,
+        request: creativerender_models.ExecAntcloudMarketingagentCreativeVideoRequest,
+    ) -> creativerender_models.ExecAntcloudMarketingagentCreativeVideoResponse:
+        """
+        Description: AI视频生成接口
+        Summary: AI视频生成接口
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.exec_antcloud_marketingagent_creative_video_ex(request, headers, runtime)
+
+    async def exec_antcloud_marketingagent_creative_video_async(
+        self,
+        request: creativerender_models.ExecAntcloudMarketingagentCreativeVideoRequest,
+    ) -> creativerender_models.ExecAntcloudMarketingagentCreativeVideoResponse:
+        """
+        Description: AI视频生成接口
+        Summary: AI视频生成接口
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.exec_antcloud_marketingagent_creative_video_ex_async(request, headers, runtime)
+
+    def exec_antcloud_marketingagent_creative_video_ex(
+        self,
+        request: creativerender_models.ExecAntcloudMarketingagentCreativeVideoRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> creativerender_models.ExecAntcloudMarketingagentCreativeVideoResponse:
+        """
+        Description: AI视频生成接口
+        Summary: AI视频生成接口
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            creativerender_models.ExecAntcloudMarketingagentCreativeVideoResponse(),
+            self.do_request('1.0', 'antcloud.marketingagent.creative.video.exec', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def exec_antcloud_marketingagent_creative_video_ex_async(
+        self,
+        request: creativerender_models.ExecAntcloudMarketingagentCreativeVideoRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> creativerender_models.ExecAntcloudMarketingagentCreativeVideoResponse:
+        """
+        Description: AI视频生成接口
+        Summary: AI视频生成接口
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            creativerender_models.ExecAntcloudMarketingagentCreativeVideoResponse(),
+            await self.do_request_async('1.0', 'antcloud.marketingagent.creative.video.exec', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def query_antcloud_marketingagent_creative_video(
+        self,
+        request: creativerender_models.QueryAntcloudMarketingagentCreativeVideoRequest,
+    ) -> creativerender_models.QueryAntcloudMarketingagentCreativeVideoResponse:
+        """
+        Description: 视频任务查询接口
+        Summary: 视频任务查询接口
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.query_antcloud_marketingagent_creative_video_ex(request, headers, runtime)
+
+    async def query_antcloud_marketingagent_creative_video_async(
+        self,
+        request: creativerender_models.QueryAntcloudMarketingagentCreativeVideoRequest,
+    ) -> creativerender_models.QueryAntcloudMarketingagentCreativeVideoResponse:
+        """
+        Description: 视频任务查询接口
+        Summary: 视频任务查询接口
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.query_antcloud_marketingagent_creative_video_ex_async(request, headers, runtime)
+
+    def query_antcloud_marketingagent_creative_video_ex(
+        self,
+        request: creativerender_models.QueryAntcloudMarketingagentCreativeVideoRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> creativerender_models.QueryAntcloudMarketingagentCreativeVideoResponse:
+        """
+        Description: 视频任务查询接口
+        Summary: 视频任务查询接口
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            creativerender_models.QueryAntcloudMarketingagentCreativeVideoResponse(),
+            self.do_request('1.0', 'antcloud.marketingagent.creative.video.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def query_antcloud_marketingagent_creative_video_ex_async(
+        self,
+        request: creativerender_models.QueryAntcloudMarketingagentCreativeVideoRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> creativerender_models.QueryAntcloudMarketingagentCreativeVideoResponse:
+        """
+        Description: 视频任务查询接口
+        Summary: 视频任务查询接口
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            creativerender_models.QueryAntcloudMarketingagentCreativeVideoResponse(),
+            await self.do_request_async('1.0', 'antcloud.marketingagent.creative.video.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )

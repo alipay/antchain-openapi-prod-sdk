@@ -388,6 +388,42 @@ class AssistantExtra(TeaModel):
         return self
 
 
+class MapStruct(TeaModel):
+    def __init__(
+        self,
+        key: str = None,
+        value: str = None,
+    ):
+        # 生图数量
+        self.key = key
+        # key对应的值
+        self.value = value
+
+    def validate(self):
+        self.validate_required(self.key, 'key')
+        self.validate_required(self.value, 'value')
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.key is not None:
+            result['key'] = self.key
+        if self.value is not None:
+            result['value'] = self.value
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('key') is not None:
+            self.key = m.get('key')
+        if m.get('value') is not None:
+            self.value = m.get('value')
+        return self
+
+
 class CreativeMaterial(TeaModel):
     def __init__(
         self,
@@ -591,6 +627,62 @@ class CreativeAssetRef(TeaModel):
         return self
 
 
+class VideoOutput(TeaModel):
+    def __init__(
+        self,
+        type: str = None,
+        url: str = None,
+        id: str = None,
+        duration: int = None,
+        expire_time: int = None,
+    ):
+        # 产物类型
+        self.type = type
+        # 可下载的视频地址
+        self.url = url
+        # 产物 ID
+        self.id = id
+        # 实际视频时长，单位秒
+        self.duration = duration
+        # URL 过期时间，毫秒时间戳；能确定时返回
+        self.expire_time = expire_time
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.type is not None:
+            result['type'] = self.type
+        if self.url is not None:
+            result['url'] = self.url
+        if self.id is not None:
+            result['id'] = self.id
+        if self.duration is not None:
+            result['duration'] = self.duration
+        if self.expire_time is not None:
+            result['expire_time'] = self.expire_time
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('type') is not None:
+            self.type = m.get('type')
+        if m.get('url') is not None:
+            self.url = m.get('url')
+        if m.get('id') is not None:
+            self.id = m.get('id')
+        if m.get('duration') is not None:
+            self.duration = m.get('duration')
+        if m.get('expire_time') is not None:
+            self.expire_time = m.get('expire_time')
+        return self
+
+
 class Task(TeaModel):
     def __init__(
         self,
@@ -666,6 +758,7 @@ class ExecAntcloudMarketingagentChatCreativeRequest(TeaModel):
         scene: str = None,
         width: int = None,
         height: int = None,
+        extra_params: List[MapStruct] = None,
     ):
         # OAuth模式下的授权token
         self.auth_token = auth_token
@@ -685,6 +778,8 @@ class ExecAntcloudMarketingagentChatCreativeRequest(TeaModel):
         self.width = width
         # 生图高度
         self.height = height
+        # 扩展参数
+        self.extra_params = extra_params
 
     def validate(self):
         self.validate_required(self.prompt, 'prompt')
@@ -692,6 +787,10 @@ class ExecAntcloudMarketingagentChatCreativeRequest(TeaModel):
             self.reference_style.validate()
         if self.input_elements:
             for k in self.input_elements:
+                if k:
+                    k.validate()
+        if self.extra_params:
+            for k in self.extra_params:
                 if k:
                     k.validate()
 
@@ -721,6 +820,10 @@ class ExecAntcloudMarketingagentChatCreativeRequest(TeaModel):
             result['width'] = self.width
         if self.height is not None:
             result['height'] = self.height
+        result['extra_params'] = []
+        if self.extra_params is not None:
+            for k in self.extra_params:
+                result['extra_params'].append(k.to_map() if k else None)
         return result
 
     def from_map(self, m: dict = None):
@@ -747,6 +850,11 @@ class ExecAntcloudMarketingagentChatCreativeRequest(TeaModel):
             self.width = m.get('width')
         if m.get('height') is not None:
             self.height = m.get('height')
+        self.extra_params = []
+        if m.get('extra_params') is not None:
+            for k in m.get('extra_params'):
+                temp_model = MapStruct()
+                self.extra_params.append(temp_model.from_map(k))
         return self
 
 
@@ -1417,6 +1525,296 @@ class QueryAntcloudMarketingagentCreativeMaterialResponse(TeaModel):
             for k in m.get('materials'):
                 temp_model = CreativeMaterial()
                 self.materials.append(temp_model.from_map(k))
+        return self
+
+
+class ExecAntcloudMarketingagentCreativeVideoRequest(TeaModel):
+    def __init__(
+        self,
+        auth_token: str = None,
+        prompt: str = None,
+        input_elements: List[CreativeAssetRef] = None,
+        model: str = None,
+        scene: str = None,
+        ratio: str = None,
+        duration: int = None,
+        resolution: int = None,
+        generate_audio: bool = None,
+        expand_script: bool = None,
+        generate_subtitle: bool = None,
+    ):
+        # OAuth模式下的授权token
+        self.auth_token = auth_token
+        # 视频描述，文生视频、图生视频均不能为空
+        self.prompt = prompt
+        # 参考图片，最多 5 张；不传或空数组表示文生视频
+        self.input_elements = input_elements
+        # 模型标识，不传使用服务端默认模型；可用值需与上游确认
+        self.model = model
+        # STORE_VISIT_VIDEO：探店视频；PRODUCT_PROMOTION_VIDEO：带货视频
+        self.scene = scene
+        # 支持 9:16、1:1、16:9、4:3、3:4，默认 9:16
+        self.ratio = ratio
+        # 视频时长，单位秒，4～30 的整数，默认 15
+        self.duration = duration
+        # 分辨率，支持 480、720、1080，默认 720
+        self.resolution = resolution
+        # 是否生成音频，默认 true
+        self.generate_audio = generate_audio
+        # 是否扩写脚本，默认true
+        self.expand_script = expand_script
+        # 是否生成字幕，默认 true
+        self.generate_subtitle = generate_subtitle
+
+    def validate(self):
+        self.validate_required(self.prompt, 'prompt')
+        if self.input_elements:
+            for k in self.input_elements:
+                if k:
+                    k.validate()
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.auth_token is not None:
+            result['auth_token'] = self.auth_token
+        if self.prompt is not None:
+            result['prompt'] = self.prompt
+        result['input_elements'] = []
+        if self.input_elements is not None:
+            for k in self.input_elements:
+                result['input_elements'].append(k.to_map() if k else None)
+        if self.model is not None:
+            result['model'] = self.model
+        if self.scene is not None:
+            result['scene'] = self.scene
+        if self.ratio is not None:
+            result['ratio'] = self.ratio
+        if self.duration is not None:
+            result['duration'] = self.duration
+        if self.resolution is not None:
+            result['resolution'] = self.resolution
+        if self.generate_audio is not None:
+            result['generate_audio'] = self.generate_audio
+        if self.expand_script is not None:
+            result['expand_script'] = self.expand_script
+        if self.generate_subtitle is not None:
+            result['generate_subtitle'] = self.generate_subtitle
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('auth_token') is not None:
+            self.auth_token = m.get('auth_token')
+        if m.get('prompt') is not None:
+            self.prompt = m.get('prompt')
+        self.input_elements = []
+        if m.get('input_elements') is not None:
+            for k in m.get('input_elements'):
+                temp_model = CreativeAssetRef()
+                self.input_elements.append(temp_model.from_map(k))
+        if m.get('model') is not None:
+            self.model = m.get('model')
+        if m.get('scene') is not None:
+            self.scene = m.get('scene')
+        if m.get('ratio') is not None:
+            self.ratio = m.get('ratio')
+        if m.get('duration') is not None:
+            self.duration = m.get('duration')
+        if m.get('resolution') is not None:
+            self.resolution = m.get('resolution')
+        if m.get('generate_audio') is not None:
+            self.generate_audio = m.get('generate_audio')
+        if m.get('expand_script') is not None:
+            self.expand_script = m.get('expand_script')
+        if m.get('generate_subtitle') is not None:
+            self.generate_subtitle = m.get('generate_subtitle')
+        return self
+
+
+class ExecAntcloudMarketingagentCreativeVideoResponse(TeaModel):
+    def __init__(
+        self,
+        req_msg_id: str = None,
+        result_code: str = None,
+        result_msg: str = None,
+        task_id: str = None,
+        status: str = None,
+    ):
+        # 请求唯一ID，用于链路跟踪和问题排查
+        self.req_msg_id = req_msg_id
+        # 结果码，一般OK表示调用成功
+        self.result_code = result_code
+        # 异常信息的文本描述
+        self.result_msg = result_msg
+        # 本服务分配的稳定任务 ID，用于查询
+        self.task_id = task_id
+        # 视频任务状态
+        self.status = status
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.req_msg_id is not None:
+            result['req_msg_id'] = self.req_msg_id
+        if self.result_code is not None:
+            result['result_code'] = self.result_code
+        if self.result_msg is not None:
+            result['result_msg'] = self.result_msg
+        if self.task_id is not None:
+            result['task_id'] = self.task_id
+        if self.status is not None:
+            result['status'] = self.status
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('req_msg_id') is not None:
+            self.req_msg_id = m.get('req_msg_id')
+        if m.get('result_code') is not None:
+            self.result_code = m.get('result_code')
+        if m.get('result_msg') is not None:
+            self.result_msg = m.get('result_msg')
+        if m.get('task_id') is not None:
+            self.task_id = m.get('task_id')
+        if m.get('status') is not None:
+            self.status = m.get('status')
+        return self
+
+
+class QueryAntcloudMarketingagentCreativeVideoRequest(TeaModel):
+    def __init__(
+        self,
+        auth_token: str = None,
+        task_id: str = None,
+    ):
+        # OAuth模式下的授权token
+        self.auth_token = auth_token
+        # 创建接口返回的任务 ID
+        self.task_id = task_id
+
+    def validate(self):
+        self.validate_required(self.task_id, 'task_id')
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.auth_token is not None:
+            result['auth_token'] = self.auth_token
+        if self.task_id is not None:
+            result['task_id'] = self.task_id
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('auth_token') is not None:
+            self.auth_token = m.get('auth_token')
+        if m.get('task_id') is not None:
+            self.task_id = m.get('task_id')
+        return self
+
+
+class QueryAntcloudMarketingagentCreativeVideoResponse(TeaModel):
+    def __init__(
+        self,
+        req_msg_id: str = None,
+        result_code: str = None,
+        result_msg: str = None,
+        task_id: str = None,
+        status: str = None,
+        outputs: List[VideoOutput] = None,
+        script: str = None,
+        credits: str = None,
+        error_message: str = None,
+    ):
+        # 请求唯一ID，用于链路跟踪和问题排查
+        self.req_msg_id = req_msg_id
+        # 结果码，一般OK表示调用成功
+        self.result_code = result_code
+        # 异常信息的文本描述
+        self.result_msg = result_msg
+        # 视频任务 ID
+        self.task_id = task_id
+        # PENDING、PROCESSING、COMPLETED、FAILED
+        self.status = status
+        # 视频产物列表
+        self.outputs = outputs
+        # 扩写后的脚本，上游提供时返回
+        self.script = script
+        # 视频耗费credits
+        self.credits = credits
+        # 任务失败原因
+        self.error_message = error_message
+
+    def validate(self):
+        if self.outputs:
+            for k in self.outputs:
+                if k:
+                    k.validate()
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.req_msg_id is not None:
+            result['req_msg_id'] = self.req_msg_id
+        if self.result_code is not None:
+            result['result_code'] = self.result_code
+        if self.result_msg is not None:
+            result['result_msg'] = self.result_msg
+        if self.task_id is not None:
+            result['task_id'] = self.task_id
+        if self.status is not None:
+            result['status'] = self.status
+        result['outputs'] = []
+        if self.outputs is not None:
+            for k in self.outputs:
+                result['outputs'].append(k.to_map() if k else None)
+        if self.script is not None:
+            result['script'] = self.script
+        if self.credits is not None:
+            result['credits'] = self.credits
+        if self.error_message is not None:
+            result['error_message'] = self.error_message
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('req_msg_id') is not None:
+            self.req_msg_id = m.get('req_msg_id')
+        if m.get('result_code') is not None:
+            self.result_code = m.get('result_code')
+        if m.get('result_msg') is not None:
+            self.result_msg = m.get('result_msg')
+        if m.get('task_id') is not None:
+            self.task_id = m.get('task_id')
+        if m.get('status') is not None:
+            self.status = m.get('status')
+        self.outputs = []
+        if m.get('outputs') is not None:
+            for k in m.get('outputs'):
+                temp_model = VideoOutput()
+                self.outputs.append(temp_model.from_map(k))
+        if m.get('script') is not None:
+            self.script = m.get('script')
+        if m.get('credits') is not None:
+            self.credits = m.get('credits')
+        if m.get('error_message') is not None:
+            self.error_message = m.get('error_message')
         return self
 
 
