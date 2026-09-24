@@ -574,7 +574,7 @@ func (s *RealtimeMktAudience) SetExtInfo(v string) *RealtimeMktAudience {
 }
 
 // 键值对
-type XNameValuePair struct {
+type NameValuePair struct {
 	// 键名
 	// example:
 	//
@@ -587,20 +587,20 @@ type XNameValuePair struct {
 	Value *string `json:"value,omitempty" xml:"value,omitempty" require:"true"`
 }
 
-func (s XNameValuePair) String() string {
+func (s NameValuePair) String() string {
 	return tea.Prettify(s)
 }
 
-func (s XNameValuePair) GoString() string {
+func (s NameValuePair) GoString() string {
 	return s.String()
 }
 
-func (s *XNameValuePair) SetName(v string) *XNameValuePair {
+func (s *NameValuePair) SetName(v string) *NameValuePair {
 	s.Name = &v
 	return s
 }
 
-func (s *XNameValuePair) SetValue(v string) *XNameValuePair {
+func (s *NameValuePair) SetValue(v string) *NameValuePair {
 	s.Value = &v
 	return s
 }
@@ -1653,6 +1653,521 @@ func (s *ApplyMktserviceproviderAudiencecircleResponse) SetRequestId(v string) *
 
 func (s *ApplyMktserviceproviderAudiencecircleResponse) SetBatchNo(v string) *ApplyMktserviceproviderAudiencecircleResponse {
 	s.BatchNo = &v
+	return s
+}
+
+type QueryAasBankcardLivenessRequest struct {
+	// OAuth模式下的授权token
+	AuthToken *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	// 产品码：BANKCARD_LIVENESS
+	ProductCode *string `json:"product_code,omitempty" xml:"product_code,omitempty" require:"true"`
+	// 请求ID，最大32位字母数字，客户生成保证唯一
+	RequestId *string `json:"request_id,omitempty" xml:"request_id,omitempty" require:"true"`
+	// 银行卡号（AES加密）
+	BankCardNo *string `json:"bank_card_no,omitempty" xml:"bank_card_no,omitempty" require:"true"`
+	// 银行卡类型：1-借记卡+贷记卡（默认），2-借记卡，3-贷记卡
+	BankCardType *string `json:"bank_card_type,omitempty" xml:"bank_card_type,omitempty"`
+	// 加密类型
+	EncryptionType *string `json:"encryption_type,omitempty" xml:"encryption_type,omitempty"`
+	// 加密用户ID（身份证号或手机号的AES加密）
+	EncryptedUserId *string `json:"encrypted_user_id,omitempty" xml:"encrypted_user_id,omitempty" require:"true"`
+	// 查询日期，格式yyyyMMdd
+	QueryDate *string `json:"query_date,omitempty" xml:"query_date,omitempty"`
+	// 扩展信息（JSON字符串）
+	ExtInfo *string `json:"ext_info,omitempty" xml:"ext_info,omitempty"`
+}
+
+func (s QueryAasBankcardLivenessRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s QueryAasBankcardLivenessRequest) GoString() string {
+	return s.String()
+}
+
+func (s *QueryAasBankcardLivenessRequest) SetAuthToken(v string) *QueryAasBankcardLivenessRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *QueryAasBankcardLivenessRequest) SetProductCode(v string) *QueryAasBankcardLivenessRequest {
+	s.ProductCode = &v
+	return s
+}
+
+func (s *QueryAasBankcardLivenessRequest) SetRequestId(v string) *QueryAasBankcardLivenessRequest {
+	s.RequestId = &v
+	return s
+}
+
+func (s *QueryAasBankcardLivenessRequest) SetBankCardNo(v string) *QueryAasBankcardLivenessRequest {
+	s.BankCardNo = &v
+	return s
+}
+
+func (s *QueryAasBankcardLivenessRequest) SetBankCardType(v string) *QueryAasBankcardLivenessRequest {
+	s.BankCardType = &v
+	return s
+}
+
+func (s *QueryAasBankcardLivenessRequest) SetEncryptionType(v string) *QueryAasBankcardLivenessRequest {
+	s.EncryptionType = &v
+	return s
+}
+
+func (s *QueryAasBankcardLivenessRequest) SetEncryptedUserId(v string) *QueryAasBankcardLivenessRequest {
+	s.EncryptedUserId = &v
+	return s
+}
+
+func (s *QueryAasBankcardLivenessRequest) SetQueryDate(v string) *QueryAasBankcardLivenessRequest {
+	s.QueryDate = &v
+	return s
+}
+
+func (s *QueryAasBankcardLivenessRequest) SetExtInfo(v string) *QueryAasBankcardLivenessRequest {
+	s.ExtInfo = &v
+	return s
+}
+
+type QueryAasBankcardLivenessResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// 业务结果（JSON字符串）
+	BizResult *string `json:"biz_result,omitempty" xml:"biz_result,omitempty"`
+}
+
+func (s QueryAasBankcardLivenessResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s QueryAasBankcardLivenessResponse) GoString() string {
+	return s.String()
+}
+
+func (s *QueryAasBankcardLivenessResponse) SetReqMsgId(v string) *QueryAasBankcardLivenessResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *QueryAasBankcardLivenessResponse) SetResultCode(v string) *QueryAasBankcardLivenessResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *QueryAasBankcardLivenessResponse) SetResultMsg(v string) *QueryAasBankcardLivenessResponse {
+	s.ResultMsg = &v
+	return s
+}
+
+func (s *QueryAasBankcardLivenessResponse) SetBizResult(v string) *QueryAasBankcardLivenessResponse {
+	s.BizResult = &v
+	return s
+}
+
+type CallbackAasBankcardLivenessRequest struct {
+	// OAuth模式下的授权token
+	AuthToken *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	// 产品码：BANKCARD_LIVENESS
+	ProductCode *string `json:"product_code,omitempty" xml:"product_code,omitempty" require:"true"`
+	// 请求ID，最大32位字母数字
+	RequestId *string `json:"request_id,omitempty" xml:"request_id,omitempty" require:"true"`
+	// 银行卡号（AES加密）
+	BankCardNo *string `json:"bank_card_no,omitempty" xml:"bank_card_no,omitempty" require:"true"`
+	// 加密用户ID（身份证号或手机号的AES加密）
+	EncryptedUserId *string `json:"encrypted_user_id,omitempty" xml:"encrypted_user_id,omitempty" require:"true"`
+	// 活跃度结果
+	LivenessResult *string `json:"liveness_result,omitempty" xml:"liveness_result,omitempty" require:"true"`
+	// 活跃度评分（0-100）
+	LivenessScore *string `json:"liveness_score,omitempty" xml:"liveness_score,omitempty"`
+	// 原查询日期，格式yyyyMMdd
+	QueryDate *string `json:"query_date,omitempty" xml:"query_date,omitempty"`
+	// 回调时间，格式yyyyMMddHHmmss
+	CallbackTime *string `json:"callback_time,omitempty" xml:"callback_time,omitempty"`
+	// 扩展信息（JSON字符串）
+	ExtInfo *string `json:"ext_info,omitempty" xml:"ext_info,omitempty"`
+}
+
+func (s CallbackAasBankcardLivenessRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s CallbackAasBankcardLivenessRequest) GoString() string {
+	return s.String()
+}
+
+func (s *CallbackAasBankcardLivenessRequest) SetAuthToken(v string) *CallbackAasBankcardLivenessRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *CallbackAasBankcardLivenessRequest) SetProductCode(v string) *CallbackAasBankcardLivenessRequest {
+	s.ProductCode = &v
+	return s
+}
+
+func (s *CallbackAasBankcardLivenessRequest) SetRequestId(v string) *CallbackAasBankcardLivenessRequest {
+	s.RequestId = &v
+	return s
+}
+
+func (s *CallbackAasBankcardLivenessRequest) SetBankCardNo(v string) *CallbackAasBankcardLivenessRequest {
+	s.BankCardNo = &v
+	return s
+}
+
+func (s *CallbackAasBankcardLivenessRequest) SetEncryptedUserId(v string) *CallbackAasBankcardLivenessRequest {
+	s.EncryptedUserId = &v
+	return s
+}
+
+func (s *CallbackAasBankcardLivenessRequest) SetLivenessResult(v string) *CallbackAasBankcardLivenessRequest {
+	s.LivenessResult = &v
+	return s
+}
+
+func (s *CallbackAasBankcardLivenessRequest) SetLivenessScore(v string) *CallbackAasBankcardLivenessRequest {
+	s.LivenessScore = &v
+	return s
+}
+
+func (s *CallbackAasBankcardLivenessRequest) SetQueryDate(v string) *CallbackAasBankcardLivenessRequest {
+	s.QueryDate = &v
+	return s
+}
+
+func (s *CallbackAasBankcardLivenessRequest) SetCallbackTime(v string) *CallbackAasBankcardLivenessRequest {
+	s.CallbackTime = &v
+	return s
+}
+
+func (s *CallbackAasBankcardLivenessRequest) SetExtInfo(v string) *CallbackAasBankcardLivenessRequest {
+	s.ExtInfo = &v
+	return s
+}
+
+type CallbackAasBankcardLivenessResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// 业务结果（JSON字符串）
+	BizResult *string `json:"biz_result,omitempty" xml:"biz_result,omitempty"`
+}
+
+func (s CallbackAasBankcardLivenessResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s CallbackAasBankcardLivenessResponse) GoString() string {
+	return s.String()
+}
+
+func (s *CallbackAasBankcardLivenessResponse) SetReqMsgId(v string) *CallbackAasBankcardLivenessResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *CallbackAasBankcardLivenessResponse) SetResultCode(v string) *CallbackAasBankcardLivenessResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *CallbackAasBankcardLivenessResponse) SetResultMsg(v string) *CallbackAasBankcardLivenessResponse {
+	s.ResultMsg = &v
+	return s
+}
+
+func (s *CallbackAasBankcardLivenessResponse) SetBizResult(v string) *CallbackAasBankcardLivenessResponse {
+	s.BizResult = &v
+	return s
+}
+
+type QueryAasDataBankcardlivenessRequest struct {
+	// OAuth模式下的授权token
+	AuthToken *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	// 产品码：BANKCARD_LIVENESS
+	ProductCode *string `json:"product_code,omitempty" xml:"product_code,omitempty" require:"true"`
+	// 请求ID，最大32位字母数字，客户生成保证唯一
+	RequestId *string `json:"request_id,omitempty" xml:"request_id,omitempty" require:"true"`
+	// 身份证号（AES加密），与mobile_no二选一
+	IdNumber *string `json:"id_number,omitempty" xml:"id_number,omitempty"`
+	// 身份类型：ID_CARD（默认）/PASSPORT
+	IdType *string `json:"id_type,omitempty" xml:"id_type,omitempty"`
+	// 手机号（AES加密），与id_number二选一
+	MobileNo *string `json:"mobile_no,omitempty" xml:"mobile_no,omitempty"`
+	// 姓名（AES加密）
+	CertName *string `json:"cert_name,omitempty" xml:"cert_name,omitempty"`
+	// 银行编码列表（JSONArray字符串）
+	BankCode *string `json:"bank_code,omitempty" xml:"bank_code,omitempty" require:"true"`
+	// 查询卡种：1-借记卡+贷记卡（默认），2-借记卡，3-贷记卡
+	BankCardType *string `json:"bank_card_type,omitempty" xml:"bank_card_type,omitempty"`
+	// 扩展字段-版本号
+	ExternParam *string `json:"extern_param,omitempty" xml:"extern_param,omitempty"`
+}
+
+func (s QueryAasDataBankcardlivenessRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s QueryAasDataBankcardlivenessRequest) GoString() string {
+	return s.String()
+}
+
+func (s *QueryAasDataBankcardlivenessRequest) SetAuthToken(v string) *QueryAasDataBankcardlivenessRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *QueryAasDataBankcardlivenessRequest) SetProductCode(v string) *QueryAasDataBankcardlivenessRequest {
+	s.ProductCode = &v
+	return s
+}
+
+func (s *QueryAasDataBankcardlivenessRequest) SetRequestId(v string) *QueryAasDataBankcardlivenessRequest {
+	s.RequestId = &v
+	return s
+}
+
+func (s *QueryAasDataBankcardlivenessRequest) SetIdNumber(v string) *QueryAasDataBankcardlivenessRequest {
+	s.IdNumber = &v
+	return s
+}
+
+func (s *QueryAasDataBankcardlivenessRequest) SetIdType(v string) *QueryAasDataBankcardlivenessRequest {
+	s.IdType = &v
+	return s
+}
+
+func (s *QueryAasDataBankcardlivenessRequest) SetMobileNo(v string) *QueryAasDataBankcardlivenessRequest {
+	s.MobileNo = &v
+	return s
+}
+
+func (s *QueryAasDataBankcardlivenessRequest) SetCertName(v string) *QueryAasDataBankcardlivenessRequest {
+	s.CertName = &v
+	return s
+}
+
+func (s *QueryAasDataBankcardlivenessRequest) SetBankCode(v string) *QueryAasDataBankcardlivenessRequest {
+	s.BankCode = &v
+	return s
+}
+
+func (s *QueryAasDataBankcardlivenessRequest) SetBankCardType(v string) *QueryAasDataBankcardlivenessRequest {
+	s.BankCardType = &v
+	return s
+}
+
+func (s *QueryAasDataBankcardlivenessRequest) SetExternParam(v string) *QueryAasDataBankcardlivenessRequest {
+	s.ExternParam = &v
+	return s
+}
+
+type QueryAasDataBankcardlivenessResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// 响应ID（安科req_msg_id），回传接口必传
+	HistoryRequestId *string `json:"history_request_id,omitempty" xml:"history_request_id,omitempty"`
+	// 银行活跃度详情（JSONArray，排最前最活跃）
+	LivenessInfo *string `json:"liveness_info,omitempty" xml:"liveness_info,omitempty"`
+}
+
+func (s QueryAasDataBankcardlivenessResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s QueryAasDataBankcardlivenessResponse) GoString() string {
+	return s.String()
+}
+
+func (s *QueryAasDataBankcardlivenessResponse) SetReqMsgId(v string) *QueryAasDataBankcardlivenessResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *QueryAasDataBankcardlivenessResponse) SetResultCode(v string) *QueryAasDataBankcardlivenessResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *QueryAasDataBankcardlivenessResponse) SetResultMsg(v string) *QueryAasDataBankcardlivenessResponse {
+	s.ResultMsg = &v
+	return s
+}
+
+func (s *QueryAasDataBankcardlivenessResponse) SetHistoryRequestId(v string) *QueryAasDataBankcardlivenessResponse {
+	s.HistoryRequestId = &v
+	return s
+}
+
+func (s *QueryAasDataBankcardlivenessResponse) SetLivenessInfo(v string) *QueryAasDataBankcardlivenessResponse {
+	s.LivenessInfo = &v
+	return s
+}
+
+type CallbackAasDataBankcardlivenessRequest struct {
+	// OAuth模式下的授权token
+	AuthToken *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	// 产品码：BANKCARD_LIVENESS
+	ProductCode *string `json:"product_code,omitempty" xml:"product_code,omitempty" require:"true"`
+	// 请求ID，最大32位字母数字
+	RequestId *string `json:"request_id,omitempty" xml:"request_id,omitempty" require:"true"`
+	// 响应ID（原查询接口返回的history_request_id）
+	HistoryRequestId *string `json:"history_request_id,omitempty" xml:"history_request_id,omitempty" require:"true"`
+	// 绑卡页面银行排序（从上到下）
+	BankDisplay *string `json:"bank_display,omitempty" xml:"bank_display,omitempty"`
+	// 用户选卡银行
+	InterimSelectedBankCode *string `json:"interim_selected_bank_code,omitempty" xml:"interim_selected_bank_code,omitempty"`
+	// 用户绑卡银行
+	BindBankCode *string `json:"bind_bank_code,omitempty" xml:"bind_bank_code,omitempty" require:"true"`
+	// 用户最终绑卡银行在页面上的排序
+	BindBankDisplay *string `json:"bind_bank_display,omitempty" xml:"bind_bank_display,omitempty"`
+	// 卡类型：DC-储蓄卡，CC-信用卡
+	BankType *string `json:"bank_type,omitempty" xml:"bank_type,omitempty" require:"true"`
+	// 第一期是否扣款成功
+	FirstDeduction *bool `json:"first_deduction,omitempty" xml:"first_deduction,omitempty" require:"true"`
+	// 第一期扣款金额
+	FirstDeductionAmount *string `json:"first_deduction_amount,omitempty" xml:"first_deduction_amount,omitempty"`
+	// 第二期是否扣款成功
+	SecondDeduction *bool `json:"second_deduction,omitempty" xml:"second_deduction,omitempty"`
+	// 第二期扣款金额
+	SecondDeductionAmount *string `json:"second_deduction_amount,omitempty" xml:"second_deduction_amount,omitempty"`
+	// 第三期是否扣款成功
+	ThirdDeduction *bool `json:"third_deduction,omitempty" xml:"third_deduction,omitempty"`
+	// 第三期扣款金额
+	ThirdDeductionAmount *string `json:"third_deduction_amount,omitempty" xml:"third_deduction_amount,omitempty"`
+	// 扩展信息
+	ExtInfo *string `json:"ext_info,omitempty" xml:"ext_info,omitempty"`
+}
+
+func (s CallbackAasDataBankcardlivenessRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s CallbackAasDataBankcardlivenessRequest) GoString() string {
+	return s.String()
+}
+
+func (s *CallbackAasDataBankcardlivenessRequest) SetAuthToken(v string) *CallbackAasDataBankcardlivenessRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *CallbackAasDataBankcardlivenessRequest) SetProductCode(v string) *CallbackAasDataBankcardlivenessRequest {
+	s.ProductCode = &v
+	return s
+}
+
+func (s *CallbackAasDataBankcardlivenessRequest) SetRequestId(v string) *CallbackAasDataBankcardlivenessRequest {
+	s.RequestId = &v
+	return s
+}
+
+func (s *CallbackAasDataBankcardlivenessRequest) SetHistoryRequestId(v string) *CallbackAasDataBankcardlivenessRequest {
+	s.HistoryRequestId = &v
+	return s
+}
+
+func (s *CallbackAasDataBankcardlivenessRequest) SetBankDisplay(v string) *CallbackAasDataBankcardlivenessRequest {
+	s.BankDisplay = &v
+	return s
+}
+
+func (s *CallbackAasDataBankcardlivenessRequest) SetInterimSelectedBankCode(v string) *CallbackAasDataBankcardlivenessRequest {
+	s.InterimSelectedBankCode = &v
+	return s
+}
+
+func (s *CallbackAasDataBankcardlivenessRequest) SetBindBankCode(v string) *CallbackAasDataBankcardlivenessRequest {
+	s.BindBankCode = &v
+	return s
+}
+
+func (s *CallbackAasDataBankcardlivenessRequest) SetBindBankDisplay(v string) *CallbackAasDataBankcardlivenessRequest {
+	s.BindBankDisplay = &v
+	return s
+}
+
+func (s *CallbackAasDataBankcardlivenessRequest) SetBankType(v string) *CallbackAasDataBankcardlivenessRequest {
+	s.BankType = &v
+	return s
+}
+
+func (s *CallbackAasDataBankcardlivenessRequest) SetFirstDeduction(v bool) *CallbackAasDataBankcardlivenessRequest {
+	s.FirstDeduction = &v
+	return s
+}
+
+func (s *CallbackAasDataBankcardlivenessRequest) SetFirstDeductionAmount(v string) *CallbackAasDataBankcardlivenessRequest {
+	s.FirstDeductionAmount = &v
+	return s
+}
+
+func (s *CallbackAasDataBankcardlivenessRequest) SetSecondDeduction(v bool) *CallbackAasDataBankcardlivenessRequest {
+	s.SecondDeduction = &v
+	return s
+}
+
+func (s *CallbackAasDataBankcardlivenessRequest) SetSecondDeductionAmount(v string) *CallbackAasDataBankcardlivenessRequest {
+	s.SecondDeductionAmount = &v
+	return s
+}
+
+func (s *CallbackAasDataBankcardlivenessRequest) SetThirdDeduction(v bool) *CallbackAasDataBankcardlivenessRequest {
+	s.ThirdDeduction = &v
+	return s
+}
+
+func (s *CallbackAasDataBankcardlivenessRequest) SetThirdDeductionAmount(v string) *CallbackAasDataBankcardlivenessRequest {
+	s.ThirdDeductionAmount = &v
+	return s
+}
+
+func (s *CallbackAasDataBankcardlivenessRequest) SetExtInfo(v string) *CallbackAasDataBankcardlivenessRequest {
+	s.ExtInfo = &v
+	return s
+}
+
+type CallbackAasDataBankcardlivenessResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+}
+
+func (s CallbackAasDataBankcardlivenessResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s CallbackAasDataBankcardlivenessResponse) GoString() string {
+	return s.String()
+}
+
+func (s *CallbackAasDataBankcardlivenessResponse) SetReqMsgId(v string) *CallbackAasDataBankcardlivenessResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *CallbackAasDataBankcardlivenessResponse) SetResultCode(v string) *CallbackAasDataBankcardlivenessResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *CallbackAasDataBankcardlivenessResponse) SetResultMsg(v string) *CallbackAasDataBankcardlivenessResponse {
+	s.ResultMsg = &v
 	return s
 }
 
@@ -6429,6 +6944,8 @@ func (s *ReceiveBusinessOpportunitiesResponse) SetBizResult(v string) *ReceiveBu
 type CreateAntcloudGatewayxFileUploadRequest struct {
 	// OAuth模式下的授权token
 	AuthToken *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	// 产品方的api归属集群，即productInstanceId
+	ApiCluster *string `json:"api_cluster,omitempty" xml:"api_cluster,omitempty"`
 	// 上传文件作用的openapi method
 	ApiCode *string `json:"api_code,omitempty" xml:"api_code,omitempty" require:"true"`
 	// 文件标签，多个标签;分割
@@ -6439,8 +6956,6 @@ type CreateAntcloudGatewayxFileUploadRequest struct {
 	FileName *string `json:"file_name,omitempty" xml:"file_name,omitempty" maxLength:"100"`
 	// 文件的多媒体类型
 	MimeType *string `json:"mime_type,omitempty" xml:"mime_type,omitempty"`
-	// 产品方的api归属集群，即productInstanceId
-	ApiCluster *string `json:"api_cluster,omitempty" xml:"api_cluster,omitempty"`
 }
 
 func (s CreateAntcloudGatewayxFileUploadRequest) String() string {
@@ -6453,6 +6968,11 @@ func (s CreateAntcloudGatewayxFileUploadRequest) GoString() string {
 
 func (s *CreateAntcloudGatewayxFileUploadRequest) SetAuthToken(v string) *CreateAntcloudGatewayxFileUploadRequest {
 	s.AuthToken = &v
+	return s
+}
+
+func (s *CreateAntcloudGatewayxFileUploadRequest) SetApiCluster(v string) *CreateAntcloudGatewayxFileUploadRequest {
+	s.ApiCluster = &v
 	return s
 }
 
@@ -6481,11 +7001,6 @@ func (s *CreateAntcloudGatewayxFileUploadRequest) SetMimeType(v string) *CreateA
 	return s
 }
 
-func (s *CreateAntcloudGatewayxFileUploadRequest) SetApiCluster(v string) *CreateAntcloudGatewayxFileUploadRequest {
-	s.ApiCluster = &v
-	return s
-}
-
 type CreateAntcloudGatewayxFileUploadResponse struct {
 	// 请求唯一ID，用于链路跟踪和问题排查
 	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
@@ -6498,7 +7013,7 @@ type CreateAntcloudGatewayxFileUploadResponse struct {
 	// 32位文件唯一id
 	FileId *string `json:"file_id,omitempty" xml:"file_id,omitempty"`
 	// 放入http请求头里
-	UploadHeaders []*XNameValuePair `json:"upload_headers,omitempty" xml:"upload_headers,omitempty" type:"Repeated"`
+	UploadHeaders []*NameValuePair `json:"upload_headers,omitempty" xml:"upload_headers,omitempty" type:"Repeated"`
 	// 文件上传地址
 	UploadUrl *string `json:"upload_url,omitempty" xml:"upload_url,omitempty"`
 }
@@ -6536,7 +7051,7 @@ func (s *CreateAntcloudGatewayxFileUploadResponse) SetFileId(v string) *CreateAn
 	return s
 }
 
-func (s *CreateAntcloudGatewayxFileUploadResponse) SetUploadHeaders(v []*XNameValuePair) *CreateAntcloudGatewayxFileUploadResponse {
+func (s *CreateAntcloudGatewayxFileUploadResponse) SetUploadHeaders(v []*NameValuePair) *CreateAntcloudGatewayxFileUploadResponse {
 	s.UploadHeaders = v
 	return s
 }
@@ -6676,7 +7191,7 @@ func (client *Client) DoRequest(version *string, action *string, protocol *strin
 				"req_msg_id":       antchainutil.GetNonce(),
 				"access_key":       client.AccessKeyId,
 				"base_sdk_version": tea.String("TeaSDK-2.0"),
-				"sdk_version":      tea.String("1.12.59"),
+				"sdk_version":      tea.String("1.12.60"),
 				"_prod_code":       tea.String("INSURANCE_SAAS"),
 				"_prod_channel":    tea.String("undefined"),
 			}
@@ -7087,6 +7602,150 @@ func (client *Client) ApplyMktserviceproviderAudiencecircleEx(request *ApplyMkts
 	}
 	_result = &ApplyMktserviceproviderAudiencecircleResponse{}
 	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("antcloud.insurance.mktserviceprovider.audiencecircle.apply"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
+}
+
+// Description:
+//
+// Description: 银行卡活跃度查询
+//
+// Summary: 银行卡活跃度查询
+func (client *Client) QueryAasBankcardLiveness(request *QueryAasBankcardLivenessRequest) (_result *QueryAasBankcardLivenessResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &QueryAasBankcardLivenessResponse{}
+	_body, _err := client.QueryAasBankcardLivenessEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+// Description:
+//
+// Description: 银行卡活跃度查询
+//
+// Summary: 银行卡活跃度查询
+func (client *Client) QueryAasBankcardLivenessEx(request *QueryAasBankcardLivenessRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *QueryAasBankcardLivenessResponse, _err error) {
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &QueryAasBankcardLivenessResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("antcloud.insurancesaas.bankcard.liveness.query"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
+}
+
+// Description:
+//
+// Description: 付款后数据回传
+//
+// Summary: 付款后数据回传
+func (client *Client) CallbackAasBankcardLiveness(request *CallbackAasBankcardLivenessRequest) (_result *CallbackAasBankcardLivenessResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &CallbackAasBankcardLivenessResponse{}
+	_body, _err := client.CallbackAasBankcardLivenessEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+// Description:
+//
+// Description: 付款后数据回传
+//
+// Summary: 付款后数据回传
+func (client *Client) CallbackAasBankcardLivenessEx(request *CallbackAasBankcardLivenessRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *CallbackAasBankcardLivenessResponse, _err error) {
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &CallbackAasBankcardLivenessResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("antcloud.insurancesaas.bankcard.liveness.callback"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
+}
+
+// Description:
+//
+// Description: 银行卡活跃度查询
+//
+// Summary: 银行卡活跃度查询
+func (client *Client) QueryAasDataBankcardliveness(request *QueryAasDataBankcardlivenessRequest) (_result *QueryAasDataBankcardlivenessResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &QueryAasDataBankcardlivenessResponse{}
+	_body, _err := client.QueryAasDataBankcardlivenessEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+// Description:
+//
+// Description: 银行卡活跃度查询
+//
+// Summary: 银行卡活跃度查询
+func (client *Client) QueryAasDataBankcardlivenessEx(request *QueryAasDataBankcardlivenessRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *QueryAasDataBankcardlivenessResponse, _err error) {
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &QueryAasDataBankcardlivenessResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("antcloud.insurancesaas.data.bankcardliveness.query"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
+}
+
+// Description:
+//
+// Description: 付款后数据回传
+//
+// Summary: 付款后数据回传
+func (client *Client) CallbackAasDataBankcardliveness(request *CallbackAasDataBankcardlivenessRequest) (_result *CallbackAasDataBankcardlivenessResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &CallbackAasDataBankcardlivenessResponse{}
+	_body, _err := client.CallbackAasDataBankcardlivenessEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+// Description:
+//
+// Description: 付款后数据回传
+//
+// Summary: 付款后数据回传
+func (client *Client) CallbackAasDataBankcardlivenessEx(request *CallbackAasDataBankcardlivenessRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *CallbackAasDataBankcardlivenessResponse, _err error) {
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &CallbackAasDataBankcardlivenessResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("antcloud.insurancesaas.data.bankcardliveness.callback"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
 	if _err != nil {
 		return _result, _err
 	}
