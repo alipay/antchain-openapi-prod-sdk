@@ -33,6 +33,14 @@ use AntChain\INSURANCE_SAAS\Models\CallbackMktEffectsimpleRequest;
 use AntChain\INSURANCE_SAAS\Models\CallbackMktEffectsimpleResponse;
 use AntChain\INSURANCE_SAAS\Models\ApplyMktserviceproviderAudiencecircleRequest;
 use AntChain\INSURANCE_SAAS\Models\ApplyMktserviceproviderAudiencecircleResponse;
+use AntChain\INSURANCE_SAAS\Models\QueryAasBankcardLivenessRequest;
+use AntChain\INSURANCE_SAAS\Models\QueryAasBankcardLivenessResponse;
+use AntChain\INSURANCE_SAAS\Models\CallbackAasBankcardLivenessRequest;
+use AntChain\INSURANCE_SAAS\Models\CallbackAasBankcardLivenessResponse;
+use AntChain\INSURANCE_SAAS\Models\QueryAasDataBankcardlivenessRequest;
+use AntChain\INSURANCE_SAAS\Models\QueryAasDataBankcardlivenessResponse;
+use AntChain\INSURANCE_SAAS\Models\CallbackAasDataBankcardlivenessRequest;
+use AntChain\INSURANCE_SAAS\Models\CallbackAasDataBankcardlivenessResponse;
 use AntChain\INSURANCE_SAAS\Models\QueryInquiryRequest;
 use AntChain\INSURANCE_SAAS\Models\QueryInquiryResponse;
 use AntChain\INSURANCE_SAAS\Models\SubmitInquiryRequest;
@@ -253,7 +261,7 @@ class Client {
                     "req_msg_id" => UtilClient::getNonce(),
                     "access_key" => $this->_accessKeyId,
                     "base_sdk_version" => "TeaSDK-2.0",
-                    "sdk_version" => "1.12.59",
+                    "sdk_version" => "1.12.60",
                     "_prod_code" => "INSURANCE_SAAS",
                     "_prod_channel" => "undefined"
                 ];
@@ -546,6 +554,106 @@ class Client {
     public function applyMktserviceproviderAudiencecircleEx($request, $headers, $runtime){
         Utils::validateModel($request);
         return ApplyMktserviceproviderAudiencecircleResponse::fromMap($this->doRequest("1.0", "antcloud.insurance.mktserviceprovider.audiencecircle.apply", "HTTPS", "POST", "/gateway.do", Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 银行卡活跃度查询
+     * Summary: 银行卡活跃度查询
+     * @param QueryAasBankcardLivenessRequest $request
+     * @return QueryAasBankcardLivenessResponse
+     */
+    public function queryAasBankcardLiveness($request){
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+        return $this->queryAasBankcardLivenessEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 银行卡活跃度查询
+     * Summary: 银行卡活跃度查询
+     * @param QueryAasBankcardLivenessRequest $request
+     * @param string[] $headers
+     * @param RuntimeOptions $runtime
+     * @return QueryAasBankcardLivenessResponse
+     */
+    public function queryAasBankcardLivenessEx($request, $headers, $runtime){
+        Utils::validateModel($request);
+        return QueryAasBankcardLivenessResponse::fromMap($this->doRequest("1.0", "antcloud.insurancesaas.bankcard.liveness.query", "HTTPS", "POST", "/gateway.do", Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 付款后数据回传
+     * Summary: 付款后数据回传
+     * @param CallbackAasBankcardLivenessRequest $request
+     * @return CallbackAasBankcardLivenessResponse
+     */
+    public function callbackAasBankcardLiveness($request){
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+        return $this->callbackAasBankcardLivenessEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 付款后数据回传
+     * Summary: 付款后数据回传
+     * @param CallbackAasBankcardLivenessRequest $request
+     * @param string[] $headers
+     * @param RuntimeOptions $runtime
+     * @return CallbackAasBankcardLivenessResponse
+     */
+    public function callbackAasBankcardLivenessEx($request, $headers, $runtime){
+        Utils::validateModel($request);
+        return CallbackAasBankcardLivenessResponse::fromMap($this->doRequest("1.0", "antcloud.insurancesaas.bankcard.liveness.callback", "HTTPS", "POST", "/gateway.do", Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 银行卡活跃度查询
+     * Summary: 银行卡活跃度查询
+     * @param QueryAasDataBankcardlivenessRequest $request
+     * @return QueryAasDataBankcardlivenessResponse
+     */
+    public function queryAasDataBankcardliveness($request){
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+        return $this->queryAasDataBankcardlivenessEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 银行卡活跃度查询
+     * Summary: 银行卡活跃度查询
+     * @param QueryAasDataBankcardlivenessRequest $request
+     * @param string[] $headers
+     * @param RuntimeOptions $runtime
+     * @return QueryAasDataBankcardlivenessResponse
+     */
+    public function queryAasDataBankcardlivenessEx($request, $headers, $runtime){
+        Utils::validateModel($request);
+        return QueryAasDataBankcardlivenessResponse::fromMap($this->doRequest("1.0", "antcloud.insurancesaas.data.bankcardliveness.query", "HTTPS", "POST", "/gateway.do", Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 付款后数据回传
+     * Summary: 付款后数据回传
+     * @param CallbackAasDataBankcardlivenessRequest $request
+     * @return CallbackAasDataBankcardlivenessResponse
+     */
+    public function callbackAasDataBankcardliveness($request){
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+        return $this->callbackAasDataBankcardlivenessEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 付款后数据回传
+     * Summary: 付款后数据回传
+     * @param CallbackAasDataBankcardlivenessRequest $request
+     * @param string[] $headers
+     * @param RuntimeOptions $runtime
+     * @return CallbackAasDataBankcardlivenessResponse
+     */
+    public function callbackAasDataBankcardlivenessEx($request, $headers, $runtime){
+        Utils::validateModel($request);
+        return CallbackAasDataBankcardlivenessResponse::fromMap($this->doRequest("1.0", "antcloud.insurancesaas.data.bankcardliveness.callback", "HTTPS", "POST", "/gateway.do", Tea::merge($request), $headers, $runtime));
     }
 
     /**

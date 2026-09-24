@@ -5,7 +5,7 @@ namespace AntChain\INSURANCE_SAAS\Models;
 
 use AlibabaCloud\Tea\Model;
 
-class XNameValuePair extends Model {
+class NameValuePair extends Model {
     protected $_name = [
         'name' => 'name',
         'value' => 'value',
@@ -26,7 +26,7 @@ class XNameValuePair extends Model {
     }
     /**
      * @param array $map
-     * @return XNameValuePair
+     * @return NameValuePair
      */
     public static function fromMap($map = []) {
         $model = new self();
