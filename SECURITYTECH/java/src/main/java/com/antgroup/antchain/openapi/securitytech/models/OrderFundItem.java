@@ -36,6 +36,15 @@ public class OrderFundItem extends TeaModel {
     @Validation(required = true)
     public java.util.List<FundItem> details;
 
+    // 查询
+    /**
+     * <strong>example:</strong>
+     * <p>METL202004041220123456</p>
+     */
+    @NameInMap("payee_merchant_id")
+    @Validation(required = true)
+    public String payeeMerchantId;
+
     public static OrderFundItem build(java.util.Map<String, ?> map) throws Exception {
         OrderFundItem self = new OrderFundItem();
         return TeaModel.build(map, self);
@@ -71,6 +80,14 @@ public class OrderFundItem extends TeaModel {
     }
     public java.util.List<FundItem> getDetails() {
         return this.details;
+    }
+
+    public OrderFundItem setPayeeMerchantId(String payeeMerchantId) {
+        this.payeeMerchantId = payeeMerchantId;
+        return this;
+    }
+    public String getPayeeMerchantId() {
+        return this.payeeMerchantId;
     }
 
 }
