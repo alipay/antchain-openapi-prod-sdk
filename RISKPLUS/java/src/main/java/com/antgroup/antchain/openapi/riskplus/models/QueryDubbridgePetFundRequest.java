@@ -11,14 +11,8 @@ public class QueryDubbridgePetFundRequest extends TeaModel {
     @NameInMap("product_instance_id")
     public String productInstanceId;
 
-    // 渠道编码
-    @NameInMap("channel_code")
-    @Validation(required = true)
-    public String channelCode;
-
     // 流量平台
     @NameInMap("traffic_platform")
-    @Validation(required = true)
     public String trafficPlatform;
 
     // 买家用户id
@@ -53,14 +47,6 @@ public class QueryDubbridgePetFundRequest extends TeaModel {
     }
     public String getProductInstanceId() {
         return this.productInstanceId;
-    }
-
-    public QueryDubbridgePetFundRequest setChannelCode(String channelCode) {
-        this.channelCode = channelCode;
-        return this;
-    }
-    public String getChannelCode() {
-        return this.channelCode;
     }
 
     public QueryDubbridgePetFundRequest setTrafficPlatform(String trafficPlatform) {

@@ -36,6 +36,14 @@ public class UserFundInfo extends TeaModel {
     @Validation(required = true)
     public java.util.List<FundItemDetail> details;
 
+    // 收款方id
+    /**
+     * <strong>example:</strong>
+     * <p>11111111</p>
+     */
+    @NameInMap("payee_id")
+    public String payeeId;
+
     public static UserFundInfo build(java.util.Map<String, ?> map) throws Exception {
         UserFundInfo self = new UserFundInfo();
         return TeaModel.build(map, self);
@@ -71,6 +79,14 @@ public class UserFundInfo extends TeaModel {
     }
     public java.util.List<FundItemDetail> getDetails() {
         return this.details;
+    }
+
+    public UserFundInfo setPayeeId(String payeeId) {
+        this.payeeId = payeeId;
+        return this;
+    }
+    public String getPayeeId() {
+        return this.payeeId;
     }
 
 }

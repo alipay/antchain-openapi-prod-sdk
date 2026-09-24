@@ -40,15 +40,6 @@ public class FundItemDetail extends TeaModel {
     @Validation(required = true)
     public String frozenAmount;
 
-    // 账户归属的入驻id
-    /**
-     * <strong>example:</strong>
-     * <p>xxx</p>
-     */
-    @NameInMap("merchant_id")
-    @Validation(required = true)
-    public String merchantId;
-
     // 原支付金额
     /**
      * <strong>example:</strong>
@@ -93,14 +84,6 @@ public class FundItemDetail extends TeaModel {
     }
     public String getFrozenAmount() {
         return this.frozenAmount;
-    }
-
-    public FundItemDetail setMerchantId(String merchantId) {
-        this.merchantId = merchantId;
-        return this;
-    }
-    public String getMerchantId() {
-        return this.merchantId;
     }
 
     public FundItemDetail setOriginalAmount(String originalAmount) {
