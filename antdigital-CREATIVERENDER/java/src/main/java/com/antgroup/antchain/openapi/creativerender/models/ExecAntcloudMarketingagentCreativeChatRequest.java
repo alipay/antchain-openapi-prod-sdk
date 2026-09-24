@@ -41,6 +41,10 @@ public class ExecAntcloudMarketingagentCreativeChatRequest extends TeaModel {
     @NameInMap("height")
     public Long height;
 
+    // 额外参数
+    @NameInMap("extra_params")
+    public MapStruct extraParams;
+
     public static ExecAntcloudMarketingagentCreativeChatRequest build(java.util.Map<String, ?> map) throws Exception {
         ExecAntcloudMarketingagentCreativeChatRequest self = new ExecAntcloudMarketingagentCreativeChatRequest();
         return TeaModel.build(map, self);
@@ -116,6 +120,14 @@ public class ExecAntcloudMarketingagentCreativeChatRequest extends TeaModel {
     }
     public Long getHeight() {
         return this.height;
+    }
+
+    public ExecAntcloudMarketingagentCreativeChatRequest setExtraParams(MapStruct extraParams) {
+        this.extraParams = extraParams;
+        return this;
+    }
+    public MapStruct getExtraParams() {
+        return this.extraParams;
     }
 
 }
