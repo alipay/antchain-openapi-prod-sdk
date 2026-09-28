@@ -12778,11 +12778,13 @@ type NotifyPoiTransferRequest struct {
 	// 原始正向订单号（仅MALL携带，余额来源业务订单号）
 	OriginalOrderNo *string `json:"original_order_no,omitempty" xml:"original_order_no,omitempty"`
 	// 分账时间，格式yyyy-MM-dd HH:mm:ss
-	GmtTransfer *string `json:"gmt_transfer,omitempty" xml:"gmt_transfer,omitempty" require:"true"`
+	GmtTransfer *string `json:"gmt_transfer,omitempty" xml:"gmt_transfer,omitempty"`
 	// 结算类型：PET-活体 / MALL-商城消费 / SCORE-充值余额整笔 / MEMBER-会员
 	SettleType *string `json:"settle_type,omitempty" xml:"settle_type,omitempty" require:"true"`
 	// 分账明细JSON数组（天枢每批次收款主体唯一，单元素数组；元素：cert_no收款主体社信码、transfer_amount结算金额元）
 	TransferDetails *string `json:"transfer_details,omitempty" xml:"transfer_details,omitempty" require:"true"`
+	// 分账状态
+	TransferStatus *string `json:"transfer_status,omitempty" xml:"transfer_status,omitempty" require:"true"`
 }
 
 func (s NotifyPoiTransferRequest) String() string {
@@ -12830,6 +12832,11 @@ func (s *NotifyPoiTransferRequest) SetSettleType(v string) *NotifyPoiTransferReq
 
 func (s *NotifyPoiTransferRequest) SetTransferDetails(v string) *NotifyPoiTransferRequest {
 	s.TransferDetails = &v
+	return s
+}
+
+func (s *NotifyPoiTransferRequest) SetTransferStatus(v string) *NotifyPoiTransferRequest {
+	s.TransferStatus = &v
 	return s
 }
 
@@ -17611,7 +17618,7 @@ func (client *Client) DoRequest(version *string, action *string, protocol *strin
 				"req_msg_id":       antchainutil.GetNonce(),
 				"access_key":       client.AccessKeyId,
 				"base_sdk_version": tea.String("TeaSDK-2.0"),
-				"sdk_version":      tea.String("1.7.33"),
+				"sdk_version":      tea.String("1.7.34"),
 				"_prod_code":       tea.String("SECURITYTECH"),
 				"_prod_channel":    tea.String("undefined"),
 			}
