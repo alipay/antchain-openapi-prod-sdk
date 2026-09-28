@@ -27,7 +27,6 @@ public class NotifyPoiTransferRequest extends TeaModel {
 
     // 分账时间，格式yyyy-MM-dd HH:mm:ss
     @NameInMap("gmt_transfer")
-    @Validation(required = true)
     public String gmtTransfer;
 
     // 结算类型：PET-活体 / MALL-商城消费 / SCORE-充值余额整笔 / MEMBER-会员
@@ -39,6 +38,11 @@ public class NotifyPoiTransferRequest extends TeaModel {
     @NameInMap("transfer_details")
     @Validation(required = true)
     public String transferDetails;
+
+    // 分账状态
+    @NameInMap("transfer_status")
+    @Validation(required = true)
+    public String transferStatus;
 
     public static NotifyPoiTransferRequest build(java.util.Map<String, ?> map) throws Exception {
         NotifyPoiTransferRequest self = new NotifyPoiTransferRequest();
@@ -107,6 +111,14 @@ public class NotifyPoiTransferRequest extends TeaModel {
     }
     public String getTransferDetails() {
         return this.transferDetails;
+    }
+
+    public NotifyPoiTransferRequest setTransferStatus(String transferStatus) {
+        this.transferStatus = transferStatus;
+        return this;
+    }
+    public String getTransferStatus() {
+        return this.transferStatus;
     }
 
 }
