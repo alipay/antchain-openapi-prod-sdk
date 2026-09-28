@@ -35,7 +35,7 @@ namespace AntChain.SDK.SECURITYTECH.Models
 
         // 分账时间，格式yyyy-MM-dd HH:mm:ss
         [NameInMap("gmt_transfer")]
-        [Validation(Required=true)]
+        [Validation(Required=false)]
         public string GmtTransfer { get; set; }
 
         // 结算类型：PET-活体 / MALL-商城消费 / SCORE-充值余额整笔 / MEMBER-会员
@@ -47,6 +47,11 @@ namespace AntChain.SDK.SECURITYTECH.Models
         [NameInMap("transfer_details")]
         [Validation(Required=true)]
         public string TransferDetails { get; set; }
+
+        // 分账状态
+        [NameInMap("transfer_status")]
+        [Validation(Required=true)]
+        public string TransferStatus { get; set; }
 
     }
 

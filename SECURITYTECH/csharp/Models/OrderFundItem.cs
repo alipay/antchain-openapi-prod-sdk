@@ -42,6 +42,15 @@ namespace AntChain.SDK.SECURITYTECH.Models
         [Validation(Required=true)]
         public List<FundItem> Details { get; set; }
 
+        // 查询
+        /// <summary>
+        /// <b>Example:</b>
+        /// <para>METL202004041220123456</para>
+        /// </summary>
+        [NameInMap("payee_merchant_id")]
+        [Validation(Required=true)]
+        public string PayeeMerchantId { get; set; }
+
     }
 
 }
