@@ -15,13 +15,14 @@ class NotifyPoiTransferRequest extends Model {
         'gmtTransfer' => 'gmt_transfer',
         'settleType' => 'settle_type',
         'transferDetails' => 'transfer_details',
+        'transferStatus' => 'transfer_status',
     ];
     public function validate() {
         Model::validateRequired('tradeNo', $this->tradeNo, true);
         Model::validateRequired('bizOrderNo', $this->bizOrderNo, true);
-        Model::validateRequired('gmtTransfer', $this->gmtTransfer, true);
         Model::validateRequired('settleType', $this->settleType, true);
         Model::validateRequired('transferDetails', $this->transferDetails, true);
+        Model::validateRequired('transferStatus', $this->transferStatus, true);
     }
     public function toMap() {
         $res = [];
@@ -48,6 +49,9 @@ class NotifyPoiTransferRequest extends Model {
         }
         if (null !== $this->transferDetails) {
             $res['transfer_details'] = $this->transferDetails;
+        }
+        if (null !== $this->transferStatus) {
+            $res['transfer_status'] = $this->transferStatus;
         }
         return $res;
     }
@@ -80,6 +84,9 @@ class NotifyPoiTransferRequest extends Model {
         }
         if(isset($map['transfer_details'])){
             $model->transferDetails = $map['transfer_details'];
+        }
+        if(isset($map['transfer_status'])){
+            $model->transferStatus = $map['transfer_status'];
         }
         return $model;
     }
@@ -129,5 +136,11 @@ class NotifyPoiTransferRequest extends Model {
      * @var string
      */
     public $transferDetails;
+
+    // 分账状态
+    /**
+     * @var string
+     */
+    public $transferStatus;
 
 }

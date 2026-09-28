@@ -13,12 +13,14 @@ class OrderFundItem extends Model {
         'tradeNo' => 'trade_no',
         'amount' => 'amount',
         'details' => 'details',
+        'payeeMerchantId' => 'payee_merchant_id',
     ];
     public function validate() {
         Model::validateRequired('orderId', $this->orderId, true);
         Model::validateRequired('tradeNo', $this->tradeNo, true);
         Model::validateRequired('amount', $this->amount, true);
         Model::validateRequired('details', $this->details, true);
+        Model::validateRequired('payeeMerchantId', $this->payeeMerchantId, true);
     }
     public function toMap() {
         $res = [];
@@ -39,6 +41,9 @@ class OrderFundItem extends Model {
                     $res['details'][$n++] = null !== $item ? $item->toMap() : $item;
                 }
             }
+        }
+        if (null !== $this->payeeMerchantId) {
+            $res['payee_merchant_id'] = $this->payeeMerchantId;
         }
         return $res;
     }
@@ -65,6 +70,9 @@ class OrderFundItem extends Model {
                     $model->details[$n++] = null !== $item ? FundItem::fromMap($item) : $item;
                 }
             }
+        }
+        if(isset($map['payee_merchant_id'])){
+            $model->payeeMerchantId = $map['payee_merchant_id'];
         }
         return $model;
     }
@@ -95,5 +103,12 @@ class OrderFundItem extends Model {
      * @var FundItem[]
      */
     public $details;
+
+    // 查询
+    /**
+     * @example METL202004041220123456
+     * @var string
+     */
+    public $payeeMerchantId;
 
 }
