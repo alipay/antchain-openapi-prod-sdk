@@ -8,7 +8,7 @@ using Tea;
 
 namespace AntChain.SDK.INSURANCE_SAAS.Models
 {
-    public class CallbackAasDataBankcardlivenessRequest : TeaModel {
+    public class V2AasDataBankcardlivenessCallbackRequest : TeaModel {
         // OAuth模式下的授权token
         [NameInMap("auth_token")]
         [Validation(Required=false)]
@@ -56,7 +56,7 @@ namespace AntChain.SDK.INSURANCE_SAAS.Models
 
         // 第一期是否扣款成功
         [NameInMap("first_deduction")]
-        [Validation(Required=true)]
+        [Validation(Required=false)]
         public bool? FirstDeduction { get; set; }
 
         // 第一期扣款金额
@@ -99,7 +99,7 @@ namespace AntChain.SDK.INSURANCE_SAAS.Models
         [Validation(Required=false)]
         public bool? FifthDeduction { get; set; }
 
-        // 第五期扣款成功金额
+        // 第五期扣款金额
         [NameInMap("fifth_deduction_amount")]
         [Validation(Required=false)]
         public string FifthDeductionAmount { get; set; }
