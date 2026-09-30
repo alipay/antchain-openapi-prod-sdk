@@ -41,6 +41,8 @@ use AntChain\INSURANCE_SAAS\Models\QueryAasDataBankcardlivenessRequest;
 use AntChain\INSURANCE_SAAS\Models\QueryAasDataBankcardlivenessResponse;
 use AntChain\INSURANCE_SAAS\Models\CallbackAasDataBankcardlivenessRequest;
 use AntChain\INSURANCE_SAAS\Models\CallbackAasDataBankcardlivenessResponse;
+use AntChain\INSURANCE_SAAS\Models\V2AasDataBankcardlivenessCallbackRequest;
+use AntChain\INSURANCE_SAAS\Models\V2AasDataBankcardlivenessCallbackResponse;
 use AntChain\INSURANCE_SAAS\Models\QueryInquiryRequest;
 use AntChain\INSURANCE_SAAS\Models\QueryInquiryResponse;
 use AntChain\INSURANCE_SAAS\Models\SubmitInquiryRequest;
@@ -261,7 +263,7 @@ class Client {
                     "req_msg_id" => UtilClient::getNonce(),
                     "access_key" => $this->_accessKeyId,
                     "base_sdk_version" => "TeaSDK-2.0",
-                    "sdk_version" => "1.12.60",
+                    "sdk_version" => "1.12.61",
                     "_prod_code" => "INSURANCE_SAAS",
                     "_prod_channel" => "undefined"
                 ];
@@ -654,6 +656,31 @@ class Client {
     public function callbackAasDataBankcardlivenessEx($request, $headers, $runtime){
         Utils::validateModel($request);
         return CallbackAasDataBankcardlivenessResponse::fromMap($this->doRequest("1.0", "antcloud.insurancesaas.data.bankcardliveness.callback", "HTTPS", "POST", "/gateway.do", Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 付款后数据回传v2-含第四期至第十三期扣款字段
+     * Summary: 付款后数据回传v2-含第四期至第十三期扣款字段
+     * @param V2AasDataBankcardlivenessCallbackRequest $request
+     * @return V2AasDataBankcardlivenessCallbackResponse
+     */
+    public function v2AasDataBankcardlivenessCallback($request){
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+        return $this->v2AasDataBankcardlivenessCallbackEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 付款后数据回传v2-含第四期至第十三期扣款字段
+     * Summary: 付款后数据回传v2-含第四期至第十三期扣款字段
+     * @param V2AasDataBankcardlivenessCallbackRequest $request
+     * @param string[] $headers
+     * @param RuntimeOptions $runtime
+     * @return V2AasDataBankcardlivenessCallbackResponse
+     */
+    public function v2AasDataBankcardlivenessCallbackEx($request, $headers, $runtime){
+        Utils::validateModel($request);
+        return V2AasDataBankcardlivenessCallbackResponse::fromMap($this->doRequest("1.0", "antcloud.insurancesaas.data.bankcardliveness.callback.v2", "HTTPS", "POST", "/gateway.do", Tea::merge($request), $headers, $runtime));
     }
 
     /**

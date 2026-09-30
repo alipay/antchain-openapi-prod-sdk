@@ -5,7 +5,7 @@ namespace AntChain\INSURANCE_SAAS\Models;
 
 use AlibabaCloud\Tea\Model;
 
-class CallbackAasDataBankcardlivenessRequest extends Model {
+class V2AasDataBankcardlivenessCallbackRequest extends Model {
     protected $_name = [
         'authToken' => 'auth_token',
         'productCode' => 'product_code',
@@ -50,7 +50,6 @@ class CallbackAasDataBankcardlivenessRequest extends Model {
         Model::validateRequired('historyRequestId', $this->historyRequestId, true);
         Model::validateRequired('bindBankCode', $this->bindBankCode, true);
         Model::validateRequired('bankType', $this->bankType, true);
-        Model::validateRequired('firstDeduction', $this->firstDeduction, true);
     }
     public function toMap() {
         $res = [];
@@ -166,7 +165,7 @@ class CallbackAasDataBankcardlivenessRequest extends Model {
     }
     /**
      * @param array $map
-     * @return CallbackAasDataBankcardlivenessRequest
+     * @return V2AasDataBankcardlivenessCallbackRequest
      */
     public static function fromMap($map = []) {
         $model = new self();
@@ -388,7 +387,7 @@ class CallbackAasDataBankcardlivenessRequest extends Model {
      */
     public $fifthDeduction;
 
-    // 第五期扣款成功金额
+    // 第五期扣款金额
     /**
      * @var string
      */
