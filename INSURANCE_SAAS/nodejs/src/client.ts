@@ -1370,6 +1370,646 @@ export class ApplyMktserviceproviderAudiencecircleResponse extends $tea.Model {
   }
 }
 
+export class QueryAasBankcardLivenessRequest extends $tea.Model {
+  // OAuth模式下的授权token
+  authToken?: string;
+  // 产品码：BANKCARD_LIVENESS
+  productCode: string;
+  // 请求ID，最大32位字母数字，客户生成保证唯一
+  requestId: string;
+  // 银行卡号（AES加密）
+  bankCardNo: string;
+  // 银行卡类型：1-借记卡+贷记卡（默认），2-借记卡，3-贷记卡
+  bankCardType?: string;
+  // 加密类型
+  encryptionType?: string;
+  // 加密用户ID（身份证号或手机号的AES加密）
+  encryptedUserId: string;
+  // 查询日期，格式yyyyMMdd
+  queryDate?: string;
+  // 扩展信息（JSON字符串）
+  extInfo?: string;
+  static names(): { [key: string]: string } {
+    return {
+      authToken: 'auth_token',
+      productCode: 'product_code',
+      requestId: 'request_id',
+      bankCardNo: 'bank_card_no',
+      bankCardType: 'bank_card_type',
+      encryptionType: 'encryption_type',
+      encryptedUserId: 'encrypted_user_id',
+      queryDate: 'query_date',
+      extInfo: 'ext_info',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      authToken: 'string',
+      productCode: 'string',
+      requestId: 'string',
+      bankCardNo: 'string',
+      bankCardType: 'string',
+      encryptionType: 'string',
+      encryptedUserId: 'string',
+      queryDate: 'string',
+      extInfo: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class QueryAasBankcardLivenessResponse extends $tea.Model {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string;
+  // 结果码，一般OK表示调用成功
+  resultCode?: string;
+  // 异常信息的文本描述
+  resultMsg?: string;
+  // 业务结果（JSON字符串）
+  bizResult?: string;
+  static names(): { [key: string]: string } {
+    return {
+      reqMsgId: 'req_msg_id',
+      resultCode: 'result_code',
+      resultMsg: 'result_msg',
+      bizResult: 'biz_result',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      reqMsgId: 'string',
+      resultCode: 'string',
+      resultMsg: 'string',
+      bizResult: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class CallbackAasBankcardLivenessRequest extends $tea.Model {
+  // OAuth模式下的授权token
+  authToken?: string;
+  // 产品码：BANKCARD_LIVENESS
+  productCode: string;
+  // 请求ID，最大32位字母数字
+  requestId: string;
+  // 银行卡号（AES加密）
+  bankCardNo: string;
+  // 加密用户ID（身份证号或手机号的AES加密）
+  encryptedUserId: string;
+  // 活跃度结果
+  livenessResult: string;
+  // 活跃度评分（0-100）
+  livenessScore?: string;
+  // 原查询日期，格式yyyyMMdd
+  queryDate?: string;
+  // 回调时间，格式yyyyMMddHHmmss
+  callbackTime?: string;
+  // 扩展信息（JSON字符串）
+  extInfo?: string;
+  static names(): { [key: string]: string } {
+    return {
+      authToken: 'auth_token',
+      productCode: 'product_code',
+      requestId: 'request_id',
+      bankCardNo: 'bank_card_no',
+      encryptedUserId: 'encrypted_user_id',
+      livenessResult: 'liveness_result',
+      livenessScore: 'liveness_score',
+      queryDate: 'query_date',
+      callbackTime: 'callback_time',
+      extInfo: 'ext_info',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      authToken: 'string',
+      productCode: 'string',
+      requestId: 'string',
+      bankCardNo: 'string',
+      encryptedUserId: 'string',
+      livenessResult: 'string',
+      livenessScore: 'string',
+      queryDate: 'string',
+      callbackTime: 'string',
+      extInfo: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class CallbackAasBankcardLivenessResponse extends $tea.Model {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string;
+  // 结果码，一般OK表示调用成功
+  resultCode?: string;
+  // 异常信息的文本描述
+  resultMsg?: string;
+  // 业务结果（JSON字符串）
+  bizResult?: string;
+  static names(): { [key: string]: string } {
+    return {
+      reqMsgId: 'req_msg_id',
+      resultCode: 'result_code',
+      resultMsg: 'result_msg',
+      bizResult: 'biz_result',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      reqMsgId: 'string',
+      resultCode: 'string',
+      resultMsg: 'string',
+      bizResult: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class QueryAasDataBankcardlivenessRequest extends $tea.Model {
+  // OAuth模式下的授权token
+  authToken?: string;
+  // 产品码：BANKCARD_LIVENESS
+  productCode: string;
+  // 请求ID，最大32位字母数字，客户生成保证唯一
+  requestId: string;
+  // 身份证号（AES加密），与mobile_no二选一
+  idNumber?: string;
+  // 身份类型：ID_CARD（默认）/PASSPORT
+  idType?: string;
+  // 手机号（AES加密），与id_number二选一
+  mobileNo?: string;
+  // 姓名（AES加密）
+  certName?: string;
+  // 银行编码列表（JSONArray字符串）
+  bankCode: string;
+  // 查询卡种：1-借记卡+贷记卡（默认），2-借记卡，3-贷记卡
+  bankCardType?: string;
+  // 扩展字段-版本号
+  externParam?: string;
+  static names(): { [key: string]: string } {
+    return {
+      authToken: 'auth_token',
+      productCode: 'product_code',
+      requestId: 'request_id',
+      idNumber: 'id_number',
+      idType: 'id_type',
+      mobileNo: 'mobile_no',
+      certName: 'cert_name',
+      bankCode: 'bank_code',
+      bankCardType: 'bank_card_type',
+      externParam: 'extern_param',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      authToken: 'string',
+      productCode: 'string',
+      requestId: 'string',
+      idNumber: 'string',
+      idType: 'string',
+      mobileNo: 'string',
+      certName: 'string',
+      bankCode: 'string',
+      bankCardType: 'string',
+      externParam: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class QueryAasDataBankcardlivenessResponse extends $tea.Model {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string;
+  // 结果码，一般OK表示调用成功
+  resultCode?: string;
+  // 异常信息的文本描述
+  resultMsg?: string;
+  // 响应ID（安科req_msg_id），回传接口必传
+  historyRequestId?: string;
+  // 银行活跃度详情（JSONArray，排最前最活跃）
+  livenessInfo?: string;
+  static names(): { [key: string]: string } {
+    return {
+      reqMsgId: 'req_msg_id',
+      resultCode: 'result_code',
+      resultMsg: 'result_msg',
+      historyRequestId: 'history_request_id',
+      livenessInfo: 'liveness_info',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      reqMsgId: 'string',
+      resultCode: 'string',
+      resultMsg: 'string',
+      historyRequestId: 'string',
+      livenessInfo: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class CallbackAasDataBankcardlivenessRequest extends $tea.Model {
+  // OAuth模式下的授权token
+  authToken?: string;
+  // 产品码：BANKCARD_LIVENESS
+  productCode: string;
+  // 请求ID，最大32位字母数字
+  requestId: string;
+  // 响应ID（原查询接口返回的history_request_id）
+  historyRequestId: string;
+  // 绑卡页面银行排序（从上到下）
+  bankDisplay?: string;
+  // 用户选卡银行
+  interimSelectedBankCode?: string;
+  // 用户绑卡银行
+  bindBankCode: string;
+  // 用户最终绑卡银行在页面上的排序
+  bindBankDisplay?: string;
+  // 卡类型：DC-储蓄卡，CC-信用卡
+  bankType: string;
+  // 第一期是否扣款成功
+  firstDeduction: boolean;
+  // 第一期扣款金额
+  firstDeductionAmount?: string;
+  // 第二期是否扣款成功
+  secondDeduction?: boolean;
+  // 第二期扣款金额
+  secondDeductionAmount?: string;
+  // 第三期是否扣款成功
+  thirdDeduction?: boolean;
+  // 第三期扣款金额
+  thirdDeductionAmount?: string;
+  // 第四期是否扣款成功
+  fourthDeduction?: boolean;
+  // 第四期扣款金额
+  fourthDeductionAmount?: string;
+  // 第五期是否扣款成功
+  fifthDeduction?: boolean;
+  // 第五期扣款成功金额
+  fifthDeductionAmount?: string;
+  // 第六期是否扣款成功
+  sixthDeduction?: boolean;
+  // 第六期扣款金额
+  sixthDeductionAmount?: string;
+  // 第七期是否扣款成功
+  seventhDeduction?: boolean;
+  // 第七期扣款金额
+  seventhDeductionAmount?: string;
+  // 第八期是否扣款成功
+  eighthDeduction?: boolean;
+  // 第八期扣款金额
+  eighthDeductionAmount?: string;
+  // 第九期是否扣款成功
+  ninthDeduction?: boolean;
+  // 第九期扣款金额
+  ninthDeductionAmount?: string;
+  // 第十期是否扣款成功
+  tenthDeduction?: boolean;
+  // 第十期扣款金额
+  tenthDeductionAmount?: string;
+  // 第十一期是否扣款成功
+  eleventhDeduction?: boolean;
+  // 第十一期扣款金额
+  eleventhDeductionAmount?: string;
+  // 第十二期是否扣款成功
+  twelfthDeduction?: boolean;
+  // 第十二期扣款金额
+  twelfthDeductionAmount?: string;
+  // 第十三期是否扣款成功
+  thirteenthDeduction?: boolean;
+  // 第十三期扣款金额
+  thirteenthDeductionAmount?: string;
+  // 扩展信息
+  extInfo?: string;
+  static names(): { [key: string]: string } {
+    return {
+      authToken: 'auth_token',
+      productCode: 'product_code',
+      requestId: 'request_id',
+      historyRequestId: 'history_request_id',
+      bankDisplay: 'bank_display',
+      interimSelectedBankCode: 'interim_selected_bank_code',
+      bindBankCode: 'bind_bank_code',
+      bindBankDisplay: 'bind_bank_display',
+      bankType: 'bank_type',
+      firstDeduction: 'first_deduction',
+      firstDeductionAmount: 'first_deduction_amount',
+      secondDeduction: 'second_deduction',
+      secondDeductionAmount: 'second_deduction_amount',
+      thirdDeduction: 'third_deduction',
+      thirdDeductionAmount: 'third_deduction_amount',
+      fourthDeduction: 'fourth_deduction',
+      fourthDeductionAmount: 'fourth_deduction_amount',
+      fifthDeduction: 'fifth_deduction',
+      fifthDeductionAmount: 'fifth_deduction_amount',
+      sixthDeduction: 'sixth_deduction',
+      sixthDeductionAmount: 'sixth_deduction_amount',
+      seventhDeduction: 'seventh_deduction',
+      seventhDeductionAmount: 'seventh_deduction_amount',
+      eighthDeduction: 'eighth_deduction',
+      eighthDeductionAmount: 'eighth_deduction_amount',
+      ninthDeduction: 'ninth_deduction',
+      ninthDeductionAmount: 'ninth_deduction_amount',
+      tenthDeduction: 'tenth_deduction',
+      tenthDeductionAmount: 'tenth_deduction_amount',
+      eleventhDeduction: 'eleventh_deduction',
+      eleventhDeductionAmount: 'eleventh_deduction_amount',
+      twelfthDeduction: 'twelfth_deduction',
+      twelfthDeductionAmount: 'twelfth_deduction_amount',
+      thirteenthDeduction: 'thirteenth_deduction',
+      thirteenthDeductionAmount: 'thirteenth_deduction_amount',
+      extInfo: 'ext_info',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      authToken: 'string',
+      productCode: 'string',
+      requestId: 'string',
+      historyRequestId: 'string',
+      bankDisplay: 'string',
+      interimSelectedBankCode: 'string',
+      bindBankCode: 'string',
+      bindBankDisplay: 'string',
+      bankType: 'string',
+      firstDeduction: 'boolean',
+      firstDeductionAmount: 'string',
+      secondDeduction: 'boolean',
+      secondDeductionAmount: 'string',
+      thirdDeduction: 'boolean',
+      thirdDeductionAmount: 'string',
+      fourthDeduction: 'boolean',
+      fourthDeductionAmount: 'string',
+      fifthDeduction: 'boolean',
+      fifthDeductionAmount: 'string',
+      sixthDeduction: 'boolean',
+      sixthDeductionAmount: 'string',
+      seventhDeduction: 'boolean',
+      seventhDeductionAmount: 'string',
+      eighthDeduction: 'boolean',
+      eighthDeductionAmount: 'string',
+      ninthDeduction: 'boolean',
+      ninthDeductionAmount: 'string',
+      tenthDeduction: 'boolean',
+      tenthDeductionAmount: 'string',
+      eleventhDeduction: 'boolean',
+      eleventhDeductionAmount: 'string',
+      twelfthDeduction: 'boolean',
+      twelfthDeductionAmount: 'string',
+      thirteenthDeduction: 'boolean',
+      thirteenthDeductionAmount: 'string',
+      extInfo: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class CallbackAasDataBankcardlivenessResponse extends $tea.Model {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string;
+  // 结果码，一般OK表示调用成功
+  resultCode?: string;
+  // 异常信息的文本描述
+  resultMsg?: string;
+  static names(): { [key: string]: string } {
+    return {
+      reqMsgId: 'req_msg_id',
+      resultCode: 'result_code',
+      resultMsg: 'result_msg',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      reqMsgId: 'string',
+      resultCode: 'string',
+      resultMsg: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class V2AasDataBankcardlivenessCallbackRequest extends $tea.Model {
+  // OAuth模式下的授权token
+  authToken?: string;
+  // 产品码：BANKCARD_LIVENESS
+  productCode: string;
+  // 请求ID，最大32位字母数字
+  requestId: string;
+  // 响应ID（原查询接口返回的history_request_id）
+  historyRequestId: string;
+  // 绑卡页面银行排序（从上到下）
+  bankDisplay?: string;
+  // 用户选卡银行
+  interimSelectedBankCode?: string;
+  // 用户绑卡银行
+  bindBankCode: string;
+  // 用户最终绑卡银行在页面上的排序
+  bindBankDisplay?: string;
+  // 卡类型：DC-储蓄卡，CC-信用卡
+  bankType: string;
+  // 第一期是否扣款成功
+  firstDeduction?: boolean;
+  // 第一期扣款金额
+  firstDeductionAmount?: string;
+  // 第二期是否扣款成功
+  secondDeduction?: boolean;
+  // 第二期扣款金额
+  secondDeductionAmount?: string;
+  // 第三期是否扣款成功
+  thirdDeduction?: boolean;
+  // 第三期扣款金额
+  thirdDeductionAmount?: string;
+  // 第四期是否扣款成功
+  fourthDeduction?: boolean;
+  // 第四期扣款金额
+  fourthDeductionAmount?: string;
+  // 第五期是否扣款成功
+  fifthDeduction?: boolean;
+  // 第五期扣款金额
+  fifthDeductionAmount?: string;
+  // 第六期是否扣款成功
+  sixthDeduction?: boolean;
+  // 第六期扣款金额
+  sixthDeductionAmount?: string;
+  // 第七期是否扣款成功
+  seventhDeduction?: boolean;
+  // 第七期扣款金额
+  seventhDeductionAmount?: string;
+  // 第八期是否扣款成功
+  eighthDeduction?: boolean;
+  // 第八期扣款金额
+  eighthDeductionAmount?: string;
+  // 第九期是否扣款成功
+  ninthDeduction?: boolean;
+  // 第九期扣款金额
+  ninthDeductionAmount?: string;
+  // 第十期是否扣款成功
+  tenthDeduction?: boolean;
+  // 第十期扣款金额
+  tenthDeductionAmount?: string;
+  // 第十一期是否扣款成功
+  eleventhDeduction?: boolean;
+  // 第十一期扣款金额
+  eleventhDeductionAmount?: string;
+  // 第十二期是否扣款成功
+  twelfthDeduction?: boolean;
+  // 第十二期扣款金额
+  twelfthDeductionAmount?: string;
+  // 第十三期是否扣款成功
+  thirteenthDeduction?: boolean;
+  // 第十三期扣款金额
+  thirteenthDeductionAmount?: string;
+  // 扩展信息
+  extInfo?: string;
+  static names(): { [key: string]: string } {
+    return {
+      authToken: 'auth_token',
+      productCode: 'product_code',
+      requestId: 'request_id',
+      historyRequestId: 'history_request_id',
+      bankDisplay: 'bank_display',
+      interimSelectedBankCode: 'interim_selected_bank_code',
+      bindBankCode: 'bind_bank_code',
+      bindBankDisplay: 'bind_bank_display',
+      bankType: 'bank_type',
+      firstDeduction: 'first_deduction',
+      firstDeductionAmount: 'first_deduction_amount',
+      secondDeduction: 'second_deduction',
+      secondDeductionAmount: 'second_deduction_amount',
+      thirdDeduction: 'third_deduction',
+      thirdDeductionAmount: 'third_deduction_amount',
+      fourthDeduction: 'fourth_deduction',
+      fourthDeductionAmount: 'fourth_deduction_amount',
+      fifthDeduction: 'fifth_deduction',
+      fifthDeductionAmount: 'fifth_deduction_amount',
+      sixthDeduction: 'sixth_deduction',
+      sixthDeductionAmount: 'sixth_deduction_amount',
+      seventhDeduction: 'seventh_deduction',
+      seventhDeductionAmount: 'seventh_deduction_amount',
+      eighthDeduction: 'eighth_deduction',
+      eighthDeductionAmount: 'eighth_deduction_amount',
+      ninthDeduction: 'ninth_deduction',
+      ninthDeductionAmount: 'ninth_deduction_amount',
+      tenthDeduction: 'tenth_deduction',
+      tenthDeductionAmount: 'tenth_deduction_amount',
+      eleventhDeduction: 'eleventh_deduction',
+      eleventhDeductionAmount: 'eleventh_deduction_amount',
+      twelfthDeduction: 'twelfth_deduction',
+      twelfthDeductionAmount: 'twelfth_deduction_amount',
+      thirteenthDeduction: 'thirteenth_deduction',
+      thirteenthDeductionAmount: 'thirteenth_deduction_amount',
+      extInfo: 'ext_info',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      authToken: 'string',
+      productCode: 'string',
+      requestId: 'string',
+      historyRequestId: 'string',
+      bankDisplay: 'string',
+      interimSelectedBankCode: 'string',
+      bindBankCode: 'string',
+      bindBankDisplay: 'string',
+      bankType: 'string',
+      firstDeduction: 'boolean',
+      firstDeductionAmount: 'string',
+      secondDeduction: 'boolean',
+      secondDeductionAmount: 'string',
+      thirdDeduction: 'boolean',
+      thirdDeductionAmount: 'string',
+      fourthDeduction: 'boolean',
+      fourthDeductionAmount: 'string',
+      fifthDeduction: 'boolean',
+      fifthDeductionAmount: 'string',
+      sixthDeduction: 'boolean',
+      sixthDeductionAmount: 'string',
+      seventhDeduction: 'boolean',
+      seventhDeductionAmount: 'string',
+      eighthDeduction: 'boolean',
+      eighthDeductionAmount: 'string',
+      ninthDeduction: 'boolean',
+      ninthDeductionAmount: 'string',
+      tenthDeduction: 'boolean',
+      tenthDeductionAmount: 'string',
+      eleventhDeduction: 'boolean',
+      eleventhDeductionAmount: 'string',
+      twelfthDeduction: 'boolean',
+      twelfthDeductionAmount: 'string',
+      thirteenthDeduction: 'boolean',
+      thirteenthDeductionAmount: 'string',
+      extInfo: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class V2AasDataBankcardlivenessCallbackResponse extends $tea.Model {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string;
+  // 结果码，一般OK表示调用成功
+  resultCode?: string;
+  // 异常信息的文本描述
+  resultMsg?: string;
+  static names(): { [key: string]: string } {
+    return {
+      reqMsgId: 'req_msg_id',
+      resultCode: 'result_code',
+      resultMsg: 'result_msg',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      reqMsgId: 'string',
+      resultCode: 'string',
+      resultMsg: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
 export class QueryInquiryRequest extends $tea.Model {
   // OAuth模式下的授权token
   authToken?: string;
@@ -5117,7 +5757,7 @@ export default class Client {
           req_msg_id: AntchainUtil.getNonce(),
           access_key: this._accessKeyId,
           base_sdk_version: "TeaSDK-2.0",
-          sdk_version: "1.12.59",
+          sdk_version: "1.12.61",
           _prod_code: "INSURANCE_SAAS",
           _prod_channel: "undefined",
         };
@@ -5373,6 +6013,111 @@ export default class Client {
   async applyMktserviceproviderAudiencecircleEx(request: ApplyMktserviceproviderAudiencecircleRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<ApplyMktserviceproviderAudiencecircleResponse> {
     Util.validateModel(request);
     return $tea.cast<ApplyMktserviceproviderAudiencecircleResponse>(await this.doRequest("1.0", "antcloud.insurance.mktserviceprovider.audiencecircle.apply", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new ApplyMktserviceproviderAudiencecircleResponse({}));
+  }
+
+  /**
+   * @remarks
+   * Description: 银行卡活跃度查询
+   * Summary: 银行卡活跃度查询
+   */
+  async queryAasBankcardLiveness(request: QueryAasBankcardLivenessRequest): Promise<QueryAasBankcardLivenessResponse> {
+    let runtime = new $Util.RuntimeOptions({ });
+    let headers : {[key: string ]: string} = { };
+    return await this.queryAasBankcardLivenessEx(request, headers, runtime);
+  }
+
+  /**
+   * @remarks
+   * Description: 银行卡活跃度查询
+   * Summary: 银行卡活跃度查询
+   */
+  async queryAasBankcardLivenessEx(request: QueryAasBankcardLivenessRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<QueryAasBankcardLivenessResponse> {
+    Util.validateModel(request);
+    return $tea.cast<QueryAasBankcardLivenessResponse>(await this.doRequest("1.0", "antcloud.insurancesaas.bankcard.liveness.query", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new QueryAasBankcardLivenessResponse({}));
+  }
+
+  /**
+   * @remarks
+   * Description: 付款后数据回传
+   * Summary: 付款后数据回传
+   */
+  async callbackAasBankcardLiveness(request: CallbackAasBankcardLivenessRequest): Promise<CallbackAasBankcardLivenessResponse> {
+    let runtime = new $Util.RuntimeOptions({ });
+    let headers : {[key: string ]: string} = { };
+    return await this.callbackAasBankcardLivenessEx(request, headers, runtime);
+  }
+
+  /**
+   * @remarks
+   * Description: 付款后数据回传
+   * Summary: 付款后数据回传
+   */
+  async callbackAasBankcardLivenessEx(request: CallbackAasBankcardLivenessRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<CallbackAasBankcardLivenessResponse> {
+    Util.validateModel(request);
+    return $tea.cast<CallbackAasBankcardLivenessResponse>(await this.doRequest("1.0", "antcloud.insurancesaas.bankcard.liveness.callback", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new CallbackAasBankcardLivenessResponse({}));
+  }
+
+  /**
+   * @remarks
+   * Description: 银行卡活跃度查询
+   * Summary: 银行卡活跃度查询
+   */
+  async queryAasDataBankcardliveness(request: QueryAasDataBankcardlivenessRequest): Promise<QueryAasDataBankcardlivenessResponse> {
+    let runtime = new $Util.RuntimeOptions({ });
+    let headers : {[key: string ]: string} = { };
+    return await this.queryAasDataBankcardlivenessEx(request, headers, runtime);
+  }
+
+  /**
+   * @remarks
+   * Description: 银行卡活跃度查询
+   * Summary: 银行卡活跃度查询
+   */
+  async queryAasDataBankcardlivenessEx(request: QueryAasDataBankcardlivenessRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<QueryAasDataBankcardlivenessResponse> {
+    Util.validateModel(request);
+    return $tea.cast<QueryAasDataBankcardlivenessResponse>(await this.doRequest("1.0", "antcloud.insurancesaas.data.bankcardliveness.query", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new QueryAasDataBankcardlivenessResponse({}));
+  }
+
+  /**
+   * @remarks
+   * Description: 付款后数据回传
+   * Summary: 付款后数据回传
+   */
+  async callbackAasDataBankcardliveness(request: CallbackAasDataBankcardlivenessRequest): Promise<CallbackAasDataBankcardlivenessResponse> {
+    let runtime = new $Util.RuntimeOptions({ });
+    let headers : {[key: string ]: string} = { };
+    return await this.callbackAasDataBankcardlivenessEx(request, headers, runtime);
+  }
+
+  /**
+   * @remarks
+   * Description: 付款后数据回传
+   * Summary: 付款后数据回传
+   */
+  async callbackAasDataBankcardlivenessEx(request: CallbackAasDataBankcardlivenessRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<CallbackAasDataBankcardlivenessResponse> {
+    Util.validateModel(request);
+    return $tea.cast<CallbackAasDataBankcardlivenessResponse>(await this.doRequest("1.0", "antcloud.insurancesaas.data.bankcardliveness.callback", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new CallbackAasDataBankcardlivenessResponse({}));
+  }
+
+  /**
+   * @remarks
+   * Description: 付款后数据回传v2-含第四期至第十三期扣款字段
+   * Summary: 付款后数据回传v2-含第四期至第十三期扣款字段
+   */
+  async v2AasDataBankcardlivenessCallback(request: V2AasDataBankcardlivenessCallbackRequest): Promise<V2AasDataBankcardlivenessCallbackResponse> {
+    let runtime = new $Util.RuntimeOptions({ });
+    let headers : {[key: string ]: string} = { };
+    return await this.v2AasDataBankcardlivenessCallbackEx(request, headers, runtime);
+  }
+
+  /**
+   * @remarks
+   * Description: 付款后数据回传v2-含第四期至第十三期扣款字段
+   * Summary: 付款后数据回传v2-含第四期至第十三期扣款字段
+   */
+  async v2AasDataBankcardlivenessCallbackEx(request: V2AasDataBankcardlivenessCallbackRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<V2AasDataBankcardlivenessCallbackResponse> {
+    Util.validateModel(request);
+    return $tea.cast<V2AasDataBankcardlivenessCallbackResponse>(await this.doRequest("1.0", "antcloud.insurancesaas.data.bankcardliveness.callback.v2", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new V2AasDataBankcardlivenessCallbackResponse({}));
   }
 
   /**
