@@ -3,7 +3,7 @@ package com.antgroup.antchain.openapi.insurance_saas.models;
 
 import com.aliyun.tea.*;
 
-public class CallbackAasDataBankcardlivenessRequest extends TeaModel {
+public class V2AasDataBankcardlivenessCallbackRequest extends TeaModel {
     // OAuth模式下的授权token
     @NameInMap("auth_token")
     public String authToken;
@@ -47,7 +47,6 @@ public class CallbackAasDataBankcardlivenessRequest extends TeaModel {
 
     // 第一期是否扣款成功
     @NameInMap("first_deduction")
-    @Validation(required = true)
     public Boolean firstDeduction;
 
     // 第一期扣款金额
@@ -82,7 +81,7 @@ public class CallbackAasDataBankcardlivenessRequest extends TeaModel {
     @NameInMap("fifth_deduction")
     public Boolean fifthDeduction;
 
-    // 第五期扣款成功金额
+    // 第五期扣款金额
     @NameInMap("fifth_deduction_amount")
     public String fifthDeductionAmount;
 
@@ -154,12 +153,12 @@ public class CallbackAasDataBankcardlivenessRequest extends TeaModel {
     @NameInMap("ext_info")
     public String extInfo;
 
-    public static CallbackAasDataBankcardlivenessRequest build(java.util.Map<String, ?> map) throws Exception {
-        CallbackAasDataBankcardlivenessRequest self = new CallbackAasDataBankcardlivenessRequest();
+    public static V2AasDataBankcardlivenessCallbackRequest build(java.util.Map<String, ?> map) throws Exception {
+        V2AasDataBankcardlivenessCallbackRequest self = new V2AasDataBankcardlivenessCallbackRequest();
         return TeaModel.build(map, self);
     }
 
-    public CallbackAasDataBankcardlivenessRequest setAuthToken(String authToken) {
+    public V2AasDataBankcardlivenessCallbackRequest setAuthToken(String authToken) {
         this.authToken = authToken;
         return this;
     }
@@ -167,7 +166,7 @@ public class CallbackAasDataBankcardlivenessRequest extends TeaModel {
         return this.authToken;
     }
 
-    public CallbackAasDataBankcardlivenessRequest setProductCode(String productCode) {
+    public V2AasDataBankcardlivenessCallbackRequest setProductCode(String productCode) {
         this.productCode = productCode;
         return this;
     }
@@ -175,7 +174,7 @@ public class CallbackAasDataBankcardlivenessRequest extends TeaModel {
         return this.productCode;
     }
 
-    public CallbackAasDataBankcardlivenessRequest setRequestId(String requestId) {
+    public V2AasDataBankcardlivenessCallbackRequest setRequestId(String requestId) {
         this.requestId = requestId;
         return this;
     }
@@ -183,7 +182,7 @@ public class CallbackAasDataBankcardlivenessRequest extends TeaModel {
         return this.requestId;
     }
 
-    public CallbackAasDataBankcardlivenessRequest setHistoryRequestId(String historyRequestId) {
+    public V2AasDataBankcardlivenessCallbackRequest setHistoryRequestId(String historyRequestId) {
         this.historyRequestId = historyRequestId;
         return this;
     }
@@ -191,7 +190,7 @@ public class CallbackAasDataBankcardlivenessRequest extends TeaModel {
         return this.historyRequestId;
     }
 
-    public CallbackAasDataBankcardlivenessRequest setBankDisplay(String bankDisplay) {
+    public V2AasDataBankcardlivenessCallbackRequest setBankDisplay(String bankDisplay) {
         this.bankDisplay = bankDisplay;
         return this;
     }
@@ -199,7 +198,7 @@ public class CallbackAasDataBankcardlivenessRequest extends TeaModel {
         return this.bankDisplay;
     }
 
-    public CallbackAasDataBankcardlivenessRequest setInterimSelectedBankCode(String interimSelectedBankCode) {
+    public V2AasDataBankcardlivenessCallbackRequest setInterimSelectedBankCode(String interimSelectedBankCode) {
         this.interimSelectedBankCode = interimSelectedBankCode;
         return this;
     }
@@ -207,7 +206,7 @@ public class CallbackAasDataBankcardlivenessRequest extends TeaModel {
         return this.interimSelectedBankCode;
     }
 
-    public CallbackAasDataBankcardlivenessRequest setBindBankCode(String bindBankCode) {
+    public V2AasDataBankcardlivenessCallbackRequest setBindBankCode(String bindBankCode) {
         this.bindBankCode = bindBankCode;
         return this;
     }
@@ -215,7 +214,7 @@ public class CallbackAasDataBankcardlivenessRequest extends TeaModel {
         return this.bindBankCode;
     }
 
-    public CallbackAasDataBankcardlivenessRequest setBindBankDisplay(String bindBankDisplay) {
+    public V2AasDataBankcardlivenessCallbackRequest setBindBankDisplay(String bindBankDisplay) {
         this.bindBankDisplay = bindBankDisplay;
         return this;
     }
@@ -223,7 +222,7 @@ public class CallbackAasDataBankcardlivenessRequest extends TeaModel {
         return this.bindBankDisplay;
     }
 
-    public CallbackAasDataBankcardlivenessRequest setBankType(String bankType) {
+    public V2AasDataBankcardlivenessCallbackRequest setBankType(String bankType) {
         this.bankType = bankType;
         return this;
     }
@@ -231,7 +230,7 @@ public class CallbackAasDataBankcardlivenessRequest extends TeaModel {
         return this.bankType;
     }
 
-    public CallbackAasDataBankcardlivenessRequest setFirstDeduction(Boolean firstDeduction) {
+    public V2AasDataBankcardlivenessCallbackRequest setFirstDeduction(Boolean firstDeduction) {
         this.firstDeduction = firstDeduction;
         return this;
     }
@@ -239,7 +238,7 @@ public class CallbackAasDataBankcardlivenessRequest extends TeaModel {
         return this.firstDeduction;
     }
 
-    public CallbackAasDataBankcardlivenessRequest setFirstDeductionAmount(String firstDeductionAmount) {
+    public V2AasDataBankcardlivenessCallbackRequest setFirstDeductionAmount(String firstDeductionAmount) {
         this.firstDeductionAmount = firstDeductionAmount;
         return this;
     }
@@ -247,7 +246,7 @@ public class CallbackAasDataBankcardlivenessRequest extends TeaModel {
         return this.firstDeductionAmount;
     }
 
-    public CallbackAasDataBankcardlivenessRequest setSecondDeduction(Boolean secondDeduction) {
+    public V2AasDataBankcardlivenessCallbackRequest setSecondDeduction(Boolean secondDeduction) {
         this.secondDeduction = secondDeduction;
         return this;
     }
@@ -255,7 +254,7 @@ public class CallbackAasDataBankcardlivenessRequest extends TeaModel {
         return this.secondDeduction;
     }
 
-    public CallbackAasDataBankcardlivenessRequest setSecondDeductionAmount(String secondDeductionAmount) {
+    public V2AasDataBankcardlivenessCallbackRequest setSecondDeductionAmount(String secondDeductionAmount) {
         this.secondDeductionAmount = secondDeductionAmount;
         return this;
     }
@@ -263,7 +262,7 @@ public class CallbackAasDataBankcardlivenessRequest extends TeaModel {
         return this.secondDeductionAmount;
     }
 
-    public CallbackAasDataBankcardlivenessRequest setThirdDeduction(Boolean thirdDeduction) {
+    public V2AasDataBankcardlivenessCallbackRequest setThirdDeduction(Boolean thirdDeduction) {
         this.thirdDeduction = thirdDeduction;
         return this;
     }
@@ -271,7 +270,7 @@ public class CallbackAasDataBankcardlivenessRequest extends TeaModel {
         return this.thirdDeduction;
     }
 
-    public CallbackAasDataBankcardlivenessRequest setThirdDeductionAmount(String thirdDeductionAmount) {
+    public V2AasDataBankcardlivenessCallbackRequest setThirdDeductionAmount(String thirdDeductionAmount) {
         this.thirdDeductionAmount = thirdDeductionAmount;
         return this;
     }
@@ -279,7 +278,7 @@ public class CallbackAasDataBankcardlivenessRequest extends TeaModel {
         return this.thirdDeductionAmount;
     }
 
-    public CallbackAasDataBankcardlivenessRequest setFourthDeduction(Boolean fourthDeduction) {
+    public V2AasDataBankcardlivenessCallbackRequest setFourthDeduction(Boolean fourthDeduction) {
         this.fourthDeduction = fourthDeduction;
         return this;
     }
@@ -287,7 +286,7 @@ public class CallbackAasDataBankcardlivenessRequest extends TeaModel {
         return this.fourthDeduction;
     }
 
-    public CallbackAasDataBankcardlivenessRequest setFourthDeductionAmount(String fourthDeductionAmount) {
+    public V2AasDataBankcardlivenessCallbackRequest setFourthDeductionAmount(String fourthDeductionAmount) {
         this.fourthDeductionAmount = fourthDeductionAmount;
         return this;
     }
@@ -295,7 +294,7 @@ public class CallbackAasDataBankcardlivenessRequest extends TeaModel {
         return this.fourthDeductionAmount;
     }
 
-    public CallbackAasDataBankcardlivenessRequest setFifthDeduction(Boolean fifthDeduction) {
+    public V2AasDataBankcardlivenessCallbackRequest setFifthDeduction(Boolean fifthDeduction) {
         this.fifthDeduction = fifthDeduction;
         return this;
     }
@@ -303,7 +302,7 @@ public class CallbackAasDataBankcardlivenessRequest extends TeaModel {
         return this.fifthDeduction;
     }
 
-    public CallbackAasDataBankcardlivenessRequest setFifthDeductionAmount(String fifthDeductionAmount) {
+    public V2AasDataBankcardlivenessCallbackRequest setFifthDeductionAmount(String fifthDeductionAmount) {
         this.fifthDeductionAmount = fifthDeductionAmount;
         return this;
     }
@@ -311,7 +310,7 @@ public class CallbackAasDataBankcardlivenessRequest extends TeaModel {
         return this.fifthDeductionAmount;
     }
 
-    public CallbackAasDataBankcardlivenessRequest setSixthDeduction(Boolean sixthDeduction) {
+    public V2AasDataBankcardlivenessCallbackRequest setSixthDeduction(Boolean sixthDeduction) {
         this.sixthDeduction = sixthDeduction;
         return this;
     }
@@ -319,7 +318,7 @@ public class CallbackAasDataBankcardlivenessRequest extends TeaModel {
         return this.sixthDeduction;
     }
 
-    public CallbackAasDataBankcardlivenessRequest setSixthDeductionAmount(String sixthDeductionAmount) {
+    public V2AasDataBankcardlivenessCallbackRequest setSixthDeductionAmount(String sixthDeductionAmount) {
         this.sixthDeductionAmount = sixthDeductionAmount;
         return this;
     }
@@ -327,7 +326,7 @@ public class CallbackAasDataBankcardlivenessRequest extends TeaModel {
         return this.sixthDeductionAmount;
     }
 
-    public CallbackAasDataBankcardlivenessRequest setSeventhDeduction(Boolean seventhDeduction) {
+    public V2AasDataBankcardlivenessCallbackRequest setSeventhDeduction(Boolean seventhDeduction) {
         this.seventhDeduction = seventhDeduction;
         return this;
     }
@@ -335,7 +334,7 @@ public class CallbackAasDataBankcardlivenessRequest extends TeaModel {
         return this.seventhDeduction;
     }
 
-    public CallbackAasDataBankcardlivenessRequest setSeventhDeductionAmount(String seventhDeductionAmount) {
+    public V2AasDataBankcardlivenessCallbackRequest setSeventhDeductionAmount(String seventhDeductionAmount) {
         this.seventhDeductionAmount = seventhDeductionAmount;
         return this;
     }
@@ -343,7 +342,7 @@ public class CallbackAasDataBankcardlivenessRequest extends TeaModel {
         return this.seventhDeductionAmount;
     }
 
-    public CallbackAasDataBankcardlivenessRequest setEighthDeduction(Boolean eighthDeduction) {
+    public V2AasDataBankcardlivenessCallbackRequest setEighthDeduction(Boolean eighthDeduction) {
         this.eighthDeduction = eighthDeduction;
         return this;
     }
@@ -351,7 +350,7 @@ public class CallbackAasDataBankcardlivenessRequest extends TeaModel {
         return this.eighthDeduction;
     }
 
-    public CallbackAasDataBankcardlivenessRequest setEighthDeductionAmount(String eighthDeductionAmount) {
+    public V2AasDataBankcardlivenessCallbackRequest setEighthDeductionAmount(String eighthDeductionAmount) {
         this.eighthDeductionAmount = eighthDeductionAmount;
         return this;
     }
@@ -359,7 +358,7 @@ public class CallbackAasDataBankcardlivenessRequest extends TeaModel {
         return this.eighthDeductionAmount;
     }
 
-    public CallbackAasDataBankcardlivenessRequest setNinthDeduction(Boolean ninthDeduction) {
+    public V2AasDataBankcardlivenessCallbackRequest setNinthDeduction(Boolean ninthDeduction) {
         this.ninthDeduction = ninthDeduction;
         return this;
     }
@@ -367,7 +366,7 @@ public class CallbackAasDataBankcardlivenessRequest extends TeaModel {
         return this.ninthDeduction;
     }
 
-    public CallbackAasDataBankcardlivenessRequest setNinthDeductionAmount(String ninthDeductionAmount) {
+    public V2AasDataBankcardlivenessCallbackRequest setNinthDeductionAmount(String ninthDeductionAmount) {
         this.ninthDeductionAmount = ninthDeductionAmount;
         return this;
     }
@@ -375,7 +374,7 @@ public class CallbackAasDataBankcardlivenessRequest extends TeaModel {
         return this.ninthDeductionAmount;
     }
 
-    public CallbackAasDataBankcardlivenessRequest setTenthDeduction(Boolean tenthDeduction) {
+    public V2AasDataBankcardlivenessCallbackRequest setTenthDeduction(Boolean tenthDeduction) {
         this.tenthDeduction = tenthDeduction;
         return this;
     }
@@ -383,7 +382,7 @@ public class CallbackAasDataBankcardlivenessRequest extends TeaModel {
         return this.tenthDeduction;
     }
 
-    public CallbackAasDataBankcardlivenessRequest setTenthDeductionAmount(String tenthDeductionAmount) {
+    public V2AasDataBankcardlivenessCallbackRequest setTenthDeductionAmount(String tenthDeductionAmount) {
         this.tenthDeductionAmount = tenthDeductionAmount;
         return this;
     }
@@ -391,7 +390,7 @@ public class CallbackAasDataBankcardlivenessRequest extends TeaModel {
         return this.tenthDeductionAmount;
     }
 
-    public CallbackAasDataBankcardlivenessRequest setEleventhDeduction(Boolean eleventhDeduction) {
+    public V2AasDataBankcardlivenessCallbackRequest setEleventhDeduction(Boolean eleventhDeduction) {
         this.eleventhDeduction = eleventhDeduction;
         return this;
     }
@@ -399,7 +398,7 @@ public class CallbackAasDataBankcardlivenessRequest extends TeaModel {
         return this.eleventhDeduction;
     }
 
-    public CallbackAasDataBankcardlivenessRequest setEleventhDeductionAmount(String eleventhDeductionAmount) {
+    public V2AasDataBankcardlivenessCallbackRequest setEleventhDeductionAmount(String eleventhDeductionAmount) {
         this.eleventhDeductionAmount = eleventhDeductionAmount;
         return this;
     }
@@ -407,7 +406,7 @@ public class CallbackAasDataBankcardlivenessRequest extends TeaModel {
         return this.eleventhDeductionAmount;
     }
 
-    public CallbackAasDataBankcardlivenessRequest setTwelfthDeduction(Boolean twelfthDeduction) {
+    public V2AasDataBankcardlivenessCallbackRequest setTwelfthDeduction(Boolean twelfthDeduction) {
         this.twelfthDeduction = twelfthDeduction;
         return this;
     }
@@ -415,7 +414,7 @@ public class CallbackAasDataBankcardlivenessRequest extends TeaModel {
         return this.twelfthDeduction;
     }
 
-    public CallbackAasDataBankcardlivenessRequest setTwelfthDeductionAmount(String twelfthDeductionAmount) {
+    public V2AasDataBankcardlivenessCallbackRequest setTwelfthDeductionAmount(String twelfthDeductionAmount) {
         this.twelfthDeductionAmount = twelfthDeductionAmount;
         return this;
     }
@@ -423,7 +422,7 @@ public class CallbackAasDataBankcardlivenessRequest extends TeaModel {
         return this.twelfthDeductionAmount;
     }
 
-    public CallbackAasDataBankcardlivenessRequest setThirteenthDeduction(Boolean thirteenthDeduction) {
+    public V2AasDataBankcardlivenessCallbackRequest setThirteenthDeduction(Boolean thirteenthDeduction) {
         this.thirteenthDeduction = thirteenthDeduction;
         return this;
     }
@@ -431,7 +430,7 @@ public class CallbackAasDataBankcardlivenessRequest extends TeaModel {
         return this.thirteenthDeduction;
     }
 
-    public CallbackAasDataBankcardlivenessRequest setThirteenthDeductionAmount(String thirteenthDeductionAmount) {
+    public V2AasDataBankcardlivenessCallbackRequest setThirteenthDeductionAmount(String thirteenthDeductionAmount) {
         this.thirteenthDeductionAmount = thirteenthDeductionAmount;
         return this;
     }
@@ -439,7 +438,7 @@ public class CallbackAasDataBankcardlivenessRequest extends TeaModel {
         return this.thirteenthDeductionAmount;
     }
 
-    public CallbackAasDataBankcardlivenessRequest setExtInfo(String extInfo) {
+    public V2AasDataBankcardlivenessCallbackRequest setExtInfo(String extInfo) {
         this.extInfo = extInfo;
         return this;
     }
