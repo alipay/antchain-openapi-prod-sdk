@@ -574,7 +574,7 @@ func (s *RealtimeMktAudience) SetExtInfo(v string) *RealtimeMktAudience {
 }
 
 // 键值对
-type NameValuePair struct {
+type XNameValuePair struct {
 	// 键名
 	// example:
 	//
@@ -587,20 +587,20 @@ type NameValuePair struct {
 	Value *string `json:"value,omitempty" xml:"value,omitempty" require:"true"`
 }
 
-func (s NameValuePair) String() string {
+func (s XNameValuePair) String() string {
 	return tea.Prettify(s)
 }
 
-func (s NameValuePair) GoString() string {
+func (s XNameValuePair) GoString() string {
 	return s.String()
 }
 
-func (s *NameValuePair) SetName(v string) *NameValuePair {
+func (s *XNameValuePair) SetName(v string) *XNameValuePair {
 	s.Name = &v
 	return s
 }
 
-func (s *NameValuePair) SetValue(v string) *NameValuePair {
+func (s *XNameValuePair) SetValue(v string) *XNameValuePair {
 	s.Value = &v
 	return s
 }
@@ -2047,6 +2047,46 @@ type CallbackAasDataBankcardlivenessRequest struct {
 	ThirdDeduction *bool `json:"third_deduction,omitempty" xml:"third_deduction,omitempty"`
 	// 第三期扣款金额
 	ThirdDeductionAmount *string `json:"third_deduction_amount,omitempty" xml:"third_deduction_amount,omitempty"`
+	// 第四期是否扣款成功
+	FourthDeduction *bool `json:"fourth_deduction,omitempty" xml:"fourth_deduction,omitempty"`
+	// 第四期扣款金额
+	FourthDeductionAmount *string `json:"fourth_deduction_amount,omitempty" xml:"fourth_deduction_amount,omitempty"`
+	// 第五期是否扣款成功
+	FifthDeduction *bool `json:"fifth_deduction,omitempty" xml:"fifth_deduction,omitempty"`
+	// 第五期扣款成功金额
+	FifthDeductionAmount *string `json:"fifth_deduction_amount,omitempty" xml:"fifth_deduction_amount,omitempty"`
+	// 第六期是否扣款成功
+	SixthDeduction *bool `json:"sixth_deduction,omitempty" xml:"sixth_deduction,omitempty"`
+	// 第六期扣款金额
+	SixthDeductionAmount *string `json:"sixth_deduction_amount,omitempty" xml:"sixth_deduction_amount,omitempty"`
+	// 第七期是否扣款成功
+	SeventhDeduction *bool `json:"seventh_deduction,omitempty" xml:"seventh_deduction,omitempty"`
+	// 第七期扣款金额
+	SeventhDeductionAmount *string `json:"seventh_deduction_amount,omitempty" xml:"seventh_deduction_amount,omitempty"`
+	// 第八期是否扣款成功
+	EighthDeduction *bool `json:"eighth_deduction,omitempty" xml:"eighth_deduction,omitempty"`
+	// 第八期扣款金额
+	EighthDeductionAmount *string `json:"eighth_deduction_amount,omitempty" xml:"eighth_deduction_amount,omitempty"`
+	// 第九期是否扣款成功
+	NinthDeduction *bool `json:"ninth_deduction,omitempty" xml:"ninth_deduction,omitempty"`
+	// 第九期扣款金额
+	NinthDeductionAmount *string `json:"ninth_deduction_amount,omitempty" xml:"ninth_deduction_amount,omitempty"`
+	// 第十期是否扣款成功
+	TenthDeduction *bool `json:"tenth_deduction,omitempty" xml:"tenth_deduction,omitempty"`
+	// 第十期扣款金额
+	TenthDeductionAmount *string `json:"tenth_deduction_amount,omitempty" xml:"tenth_deduction_amount,omitempty"`
+	// 第十一期是否扣款成功
+	EleventhDeduction *bool `json:"eleventh_deduction,omitempty" xml:"eleventh_deduction,omitempty"`
+	// 第十一期扣款金额
+	EleventhDeductionAmount *string `json:"eleventh_deduction_amount,omitempty" xml:"eleventh_deduction_amount,omitempty"`
+	// 第十二期是否扣款成功
+	TwelfthDeduction *bool `json:"twelfth_deduction,omitempty" xml:"twelfth_deduction,omitempty"`
+	// 第十二期扣款金额
+	TwelfthDeductionAmount *string `json:"twelfth_deduction_amount,omitempty" xml:"twelfth_deduction_amount,omitempty"`
+	// 第十三期是否扣款成功
+	ThirteenthDeduction *bool `json:"thirteenth_deduction,omitempty" xml:"thirteenth_deduction,omitempty"`
+	// 第十三期扣款金额
+	ThirteenthDeductionAmount *string `json:"thirteenth_deduction_amount,omitempty" xml:"thirteenth_deduction_amount,omitempty"`
 	// 扩展信息
 	ExtInfo *string `json:"ext_info,omitempty" xml:"ext_info,omitempty"`
 }
@@ -2134,6 +2174,106 @@ func (s *CallbackAasDataBankcardlivenessRequest) SetThirdDeductionAmount(v strin
 	return s
 }
 
+func (s *CallbackAasDataBankcardlivenessRequest) SetFourthDeduction(v bool) *CallbackAasDataBankcardlivenessRequest {
+	s.FourthDeduction = &v
+	return s
+}
+
+func (s *CallbackAasDataBankcardlivenessRequest) SetFourthDeductionAmount(v string) *CallbackAasDataBankcardlivenessRequest {
+	s.FourthDeductionAmount = &v
+	return s
+}
+
+func (s *CallbackAasDataBankcardlivenessRequest) SetFifthDeduction(v bool) *CallbackAasDataBankcardlivenessRequest {
+	s.FifthDeduction = &v
+	return s
+}
+
+func (s *CallbackAasDataBankcardlivenessRequest) SetFifthDeductionAmount(v string) *CallbackAasDataBankcardlivenessRequest {
+	s.FifthDeductionAmount = &v
+	return s
+}
+
+func (s *CallbackAasDataBankcardlivenessRequest) SetSixthDeduction(v bool) *CallbackAasDataBankcardlivenessRequest {
+	s.SixthDeduction = &v
+	return s
+}
+
+func (s *CallbackAasDataBankcardlivenessRequest) SetSixthDeductionAmount(v string) *CallbackAasDataBankcardlivenessRequest {
+	s.SixthDeductionAmount = &v
+	return s
+}
+
+func (s *CallbackAasDataBankcardlivenessRequest) SetSeventhDeduction(v bool) *CallbackAasDataBankcardlivenessRequest {
+	s.SeventhDeduction = &v
+	return s
+}
+
+func (s *CallbackAasDataBankcardlivenessRequest) SetSeventhDeductionAmount(v string) *CallbackAasDataBankcardlivenessRequest {
+	s.SeventhDeductionAmount = &v
+	return s
+}
+
+func (s *CallbackAasDataBankcardlivenessRequest) SetEighthDeduction(v bool) *CallbackAasDataBankcardlivenessRequest {
+	s.EighthDeduction = &v
+	return s
+}
+
+func (s *CallbackAasDataBankcardlivenessRequest) SetEighthDeductionAmount(v string) *CallbackAasDataBankcardlivenessRequest {
+	s.EighthDeductionAmount = &v
+	return s
+}
+
+func (s *CallbackAasDataBankcardlivenessRequest) SetNinthDeduction(v bool) *CallbackAasDataBankcardlivenessRequest {
+	s.NinthDeduction = &v
+	return s
+}
+
+func (s *CallbackAasDataBankcardlivenessRequest) SetNinthDeductionAmount(v string) *CallbackAasDataBankcardlivenessRequest {
+	s.NinthDeductionAmount = &v
+	return s
+}
+
+func (s *CallbackAasDataBankcardlivenessRequest) SetTenthDeduction(v bool) *CallbackAasDataBankcardlivenessRequest {
+	s.TenthDeduction = &v
+	return s
+}
+
+func (s *CallbackAasDataBankcardlivenessRequest) SetTenthDeductionAmount(v string) *CallbackAasDataBankcardlivenessRequest {
+	s.TenthDeductionAmount = &v
+	return s
+}
+
+func (s *CallbackAasDataBankcardlivenessRequest) SetEleventhDeduction(v bool) *CallbackAasDataBankcardlivenessRequest {
+	s.EleventhDeduction = &v
+	return s
+}
+
+func (s *CallbackAasDataBankcardlivenessRequest) SetEleventhDeductionAmount(v string) *CallbackAasDataBankcardlivenessRequest {
+	s.EleventhDeductionAmount = &v
+	return s
+}
+
+func (s *CallbackAasDataBankcardlivenessRequest) SetTwelfthDeduction(v bool) *CallbackAasDataBankcardlivenessRequest {
+	s.TwelfthDeduction = &v
+	return s
+}
+
+func (s *CallbackAasDataBankcardlivenessRequest) SetTwelfthDeductionAmount(v string) *CallbackAasDataBankcardlivenessRequest {
+	s.TwelfthDeductionAmount = &v
+	return s
+}
+
+func (s *CallbackAasDataBankcardlivenessRequest) SetThirteenthDeduction(v bool) *CallbackAasDataBankcardlivenessRequest {
+	s.ThirteenthDeduction = &v
+	return s
+}
+
+func (s *CallbackAasDataBankcardlivenessRequest) SetThirteenthDeductionAmount(v string) *CallbackAasDataBankcardlivenessRequest {
+	s.ThirteenthDeductionAmount = &v
+	return s
+}
+
 func (s *CallbackAasDataBankcardlivenessRequest) SetExtInfo(v string) *CallbackAasDataBankcardlivenessRequest {
 	s.ExtInfo = &v
 	return s
@@ -2167,6 +2307,301 @@ func (s *CallbackAasDataBankcardlivenessResponse) SetResultCode(v string) *Callb
 }
 
 func (s *CallbackAasDataBankcardlivenessResponse) SetResultMsg(v string) *CallbackAasDataBankcardlivenessResponse {
+	s.ResultMsg = &v
+	return s
+}
+
+type V2AasDataBankcardlivenessCallbackRequest struct {
+	// OAuth模式下的授权token
+	AuthToken *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	// 产品码：BANKCARD_LIVENESS
+	ProductCode *string `json:"product_code,omitempty" xml:"product_code,omitempty" require:"true"`
+	// 请求ID，最大32位字母数字
+	RequestId *string `json:"request_id,omitempty" xml:"request_id,omitempty" require:"true"`
+	// 响应ID（原查询接口返回的history_request_id）
+	HistoryRequestId *string `json:"history_request_id,omitempty" xml:"history_request_id,omitempty" require:"true"`
+	// 绑卡页面银行排序（从上到下）
+	BankDisplay *string `json:"bank_display,omitempty" xml:"bank_display,omitempty"`
+	// 用户选卡银行
+	InterimSelectedBankCode *string `json:"interim_selected_bank_code,omitempty" xml:"interim_selected_bank_code,omitempty"`
+	// 用户绑卡银行
+	BindBankCode *string `json:"bind_bank_code,omitempty" xml:"bind_bank_code,omitempty" require:"true"`
+	// 用户最终绑卡银行在页面上的排序
+	BindBankDisplay *string `json:"bind_bank_display,omitempty" xml:"bind_bank_display,omitempty"`
+	// 卡类型：DC-储蓄卡，CC-信用卡
+	BankType *string `json:"bank_type,omitempty" xml:"bank_type,omitempty" require:"true"`
+	// 第一期是否扣款成功
+	FirstDeduction *bool `json:"first_deduction,omitempty" xml:"first_deduction,omitempty"`
+	// 第一期扣款金额
+	FirstDeductionAmount *string `json:"first_deduction_amount,omitempty" xml:"first_deduction_amount,omitempty"`
+	// 第二期是否扣款成功
+	SecondDeduction *bool `json:"second_deduction,omitempty" xml:"second_deduction,omitempty"`
+	// 第二期扣款金额
+	SecondDeductionAmount *string `json:"second_deduction_amount,omitempty" xml:"second_deduction_amount,omitempty"`
+	// 第三期是否扣款成功
+	ThirdDeduction *bool `json:"third_deduction,omitempty" xml:"third_deduction,omitempty"`
+	// 第三期扣款金额
+	ThirdDeductionAmount *string `json:"third_deduction_amount,omitempty" xml:"third_deduction_amount,omitempty"`
+	// 第四期是否扣款成功
+	FourthDeduction *bool `json:"fourth_deduction,omitempty" xml:"fourth_deduction,omitempty"`
+	// 第四期扣款金额
+	FourthDeductionAmount *string `json:"fourth_deduction_amount,omitempty" xml:"fourth_deduction_amount,omitempty"`
+	// 第五期是否扣款成功
+	FifthDeduction *bool `json:"fifth_deduction,omitempty" xml:"fifth_deduction,omitempty"`
+	// 第五期扣款金额
+	FifthDeductionAmount *string `json:"fifth_deduction_amount,omitempty" xml:"fifth_deduction_amount,omitempty"`
+	// 第六期是否扣款成功
+	SixthDeduction *bool `json:"sixth_deduction,omitempty" xml:"sixth_deduction,omitempty"`
+	// 第六期扣款金额
+	SixthDeductionAmount *string `json:"sixth_deduction_amount,omitempty" xml:"sixth_deduction_amount,omitempty"`
+	// 第七期是否扣款成功
+	SeventhDeduction *bool `json:"seventh_deduction,omitempty" xml:"seventh_deduction,omitempty"`
+	// 第七期扣款金额
+	SeventhDeductionAmount *string `json:"seventh_deduction_amount,omitempty" xml:"seventh_deduction_amount,omitempty"`
+	// 第八期是否扣款成功
+	EighthDeduction *bool `json:"eighth_deduction,omitempty" xml:"eighth_deduction,omitempty"`
+	// 第八期扣款金额
+	EighthDeductionAmount *string `json:"eighth_deduction_amount,omitempty" xml:"eighth_deduction_amount,omitempty"`
+	// 第九期是否扣款成功
+	NinthDeduction *bool `json:"ninth_deduction,omitempty" xml:"ninth_deduction,omitempty"`
+	// 第九期扣款金额
+	NinthDeductionAmount *string `json:"ninth_deduction_amount,omitempty" xml:"ninth_deduction_amount,omitempty"`
+	// 第十期是否扣款成功
+	TenthDeduction *bool `json:"tenth_deduction,omitempty" xml:"tenth_deduction,omitempty"`
+	// 第十期扣款金额
+	TenthDeductionAmount *string `json:"tenth_deduction_amount,omitempty" xml:"tenth_deduction_amount,omitempty"`
+	// 第十一期是否扣款成功
+	EleventhDeduction *bool `json:"eleventh_deduction,omitempty" xml:"eleventh_deduction,omitempty"`
+	// 第十一期扣款金额
+	EleventhDeductionAmount *string `json:"eleventh_deduction_amount,omitempty" xml:"eleventh_deduction_amount,omitempty"`
+	// 第十二期是否扣款成功
+	TwelfthDeduction *bool `json:"twelfth_deduction,omitempty" xml:"twelfth_deduction,omitempty"`
+	// 第十二期扣款金额
+	TwelfthDeductionAmount *string `json:"twelfth_deduction_amount,omitempty" xml:"twelfth_deduction_amount,omitempty"`
+	// 第十三期是否扣款成功
+	ThirteenthDeduction *bool `json:"thirteenth_deduction,omitempty" xml:"thirteenth_deduction,omitempty"`
+	// 第十三期扣款金额
+	ThirteenthDeductionAmount *string `json:"thirteenth_deduction_amount,omitempty" xml:"thirteenth_deduction_amount,omitempty"`
+	// 扩展信息
+	ExtInfo *string `json:"ext_info,omitempty" xml:"ext_info,omitempty"`
+}
+
+func (s V2AasDataBankcardlivenessCallbackRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s V2AasDataBankcardlivenessCallbackRequest) GoString() string {
+	return s.String()
+}
+
+func (s *V2AasDataBankcardlivenessCallbackRequest) SetAuthToken(v string) *V2AasDataBankcardlivenessCallbackRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *V2AasDataBankcardlivenessCallbackRequest) SetProductCode(v string) *V2AasDataBankcardlivenessCallbackRequest {
+	s.ProductCode = &v
+	return s
+}
+
+func (s *V2AasDataBankcardlivenessCallbackRequest) SetRequestId(v string) *V2AasDataBankcardlivenessCallbackRequest {
+	s.RequestId = &v
+	return s
+}
+
+func (s *V2AasDataBankcardlivenessCallbackRequest) SetHistoryRequestId(v string) *V2AasDataBankcardlivenessCallbackRequest {
+	s.HistoryRequestId = &v
+	return s
+}
+
+func (s *V2AasDataBankcardlivenessCallbackRequest) SetBankDisplay(v string) *V2AasDataBankcardlivenessCallbackRequest {
+	s.BankDisplay = &v
+	return s
+}
+
+func (s *V2AasDataBankcardlivenessCallbackRequest) SetInterimSelectedBankCode(v string) *V2AasDataBankcardlivenessCallbackRequest {
+	s.InterimSelectedBankCode = &v
+	return s
+}
+
+func (s *V2AasDataBankcardlivenessCallbackRequest) SetBindBankCode(v string) *V2AasDataBankcardlivenessCallbackRequest {
+	s.BindBankCode = &v
+	return s
+}
+
+func (s *V2AasDataBankcardlivenessCallbackRequest) SetBindBankDisplay(v string) *V2AasDataBankcardlivenessCallbackRequest {
+	s.BindBankDisplay = &v
+	return s
+}
+
+func (s *V2AasDataBankcardlivenessCallbackRequest) SetBankType(v string) *V2AasDataBankcardlivenessCallbackRequest {
+	s.BankType = &v
+	return s
+}
+
+func (s *V2AasDataBankcardlivenessCallbackRequest) SetFirstDeduction(v bool) *V2AasDataBankcardlivenessCallbackRequest {
+	s.FirstDeduction = &v
+	return s
+}
+
+func (s *V2AasDataBankcardlivenessCallbackRequest) SetFirstDeductionAmount(v string) *V2AasDataBankcardlivenessCallbackRequest {
+	s.FirstDeductionAmount = &v
+	return s
+}
+
+func (s *V2AasDataBankcardlivenessCallbackRequest) SetSecondDeduction(v bool) *V2AasDataBankcardlivenessCallbackRequest {
+	s.SecondDeduction = &v
+	return s
+}
+
+func (s *V2AasDataBankcardlivenessCallbackRequest) SetSecondDeductionAmount(v string) *V2AasDataBankcardlivenessCallbackRequest {
+	s.SecondDeductionAmount = &v
+	return s
+}
+
+func (s *V2AasDataBankcardlivenessCallbackRequest) SetThirdDeduction(v bool) *V2AasDataBankcardlivenessCallbackRequest {
+	s.ThirdDeduction = &v
+	return s
+}
+
+func (s *V2AasDataBankcardlivenessCallbackRequest) SetThirdDeductionAmount(v string) *V2AasDataBankcardlivenessCallbackRequest {
+	s.ThirdDeductionAmount = &v
+	return s
+}
+
+func (s *V2AasDataBankcardlivenessCallbackRequest) SetFourthDeduction(v bool) *V2AasDataBankcardlivenessCallbackRequest {
+	s.FourthDeduction = &v
+	return s
+}
+
+func (s *V2AasDataBankcardlivenessCallbackRequest) SetFourthDeductionAmount(v string) *V2AasDataBankcardlivenessCallbackRequest {
+	s.FourthDeductionAmount = &v
+	return s
+}
+
+func (s *V2AasDataBankcardlivenessCallbackRequest) SetFifthDeduction(v bool) *V2AasDataBankcardlivenessCallbackRequest {
+	s.FifthDeduction = &v
+	return s
+}
+
+func (s *V2AasDataBankcardlivenessCallbackRequest) SetFifthDeductionAmount(v string) *V2AasDataBankcardlivenessCallbackRequest {
+	s.FifthDeductionAmount = &v
+	return s
+}
+
+func (s *V2AasDataBankcardlivenessCallbackRequest) SetSixthDeduction(v bool) *V2AasDataBankcardlivenessCallbackRequest {
+	s.SixthDeduction = &v
+	return s
+}
+
+func (s *V2AasDataBankcardlivenessCallbackRequest) SetSixthDeductionAmount(v string) *V2AasDataBankcardlivenessCallbackRequest {
+	s.SixthDeductionAmount = &v
+	return s
+}
+
+func (s *V2AasDataBankcardlivenessCallbackRequest) SetSeventhDeduction(v bool) *V2AasDataBankcardlivenessCallbackRequest {
+	s.SeventhDeduction = &v
+	return s
+}
+
+func (s *V2AasDataBankcardlivenessCallbackRequest) SetSeventhDeductionAmount(v string) *V2AasDataBankcardlivenessCallbackRequest {
+	s.SeventhDeductionAmount = &v
+	return s
+}
+
+func (s *V2AasDataBankcardlivenessCallbackRequest) SetEighthDeduction(v bool) *V2AasDataBankcardlivenessCallbackRequest {
+	s.EighthDeduction = &v
+	return s
+}
+
+func (s *V2AasDataBankcardlivenessCallbackRequest) SetEighthDeductionAmount(v string) *V2AasDataBankcardlivenessCallbackRequest {
+	s.EighthDeductionAmount = &v
+	return s
+}
+
+func (s *V2AasDataBankcardlivenessCallbackRequest) SetNinthDeduction(v bool) *V2AasDataBankcardlivenessCallbackRequest {
+	s.NinthDeduction = &v
+	return s
+}
+
+func (s *V2AasDataBankcardlivenessCallbackRequest) SetNinthDeductionAmount(v string) *V2AasDataBankcardlivenessCallbackRequest {
+	s.NinthDeductionAmount = &v
+	return s
+}
+
+func (s *V2AasDataBankcardlivenessCallbackRequest) SetTenthDeduction(v bool) *V2AasDataBankcardlivenessCallbackRequest {
+	s.TenthDeduction = &v
+	return s
+}
+
+func (s *V2AasDataBankcardlivenessCallbackRequest) SetTenthDeductionAmount(v string) *V2AasDataBankcardlivenessCallbackRequest {
+	s.TenthDeductionAmount = &v
+	return s
+}
+
+func (s *V2AasDataBankcardlivenessCallbackRequest) SetEleventhDeduction(v bool) *V2AasDataBankcardlivenessCallbackRequest {
+	s.EleventhDeduction = &v
+	return s
+}
+
+func (s *V2AasDataBankcardlivenessCallbackRequest) SetEleventhDeductionAmount(v string) *V2AasDataBankcardlivenessCallbackRequest {
+	s.EleventhDeductionAmount = &v
+	return s
+}
+
+func (s *V2AasDataBankcardlivenessCallbackRequest) SetTwelfthDeduction(v bool) *V2AasDataBankcardlivenessCallbackRequest {
+	s.TwelfthDeduction = &v
+	return s
+}
+
+func (s *V2AasDataBankcardlivenessCallbackRequest) SetTwelfthDeductionAmount(v string) *V2AasDataBankcardlivenessCallbackRequest {
+	s.TwelfthDeductionAmount = &v
+	return s
+}
+
+func (s *V2AasDataBankcardlivenessCallbackRequest) SetThirteenthDeduction(v bool) *V2AasDataBankcardlivenessCallbackRequest {
+	s.ThirteenthDeduction = &v
+	return s
+}
+
+func (s *V2AasDataBankcardlivenessCallbackRequest) SetThirteenthDeductionAmount(v string) *V2AasDataBankcardlivenessCallbackRequest {
+	s.ThirteenthDeductionAmount = &v
+	return s
+}
+
+func (s *V2AasDataBankcardlivenessCallbackRequest) SetExtInfo(v string) *V2AasDataBankcardlivenessCallbackRequest {
+	s.ExtInfo = &v
+	return s
+}
+
+type V2AasDataBankcardlivenessCallbackResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+}
+
+func (s V2AasDataBankcardlivenessCallbackResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s V2AasDataBankcardlivenessCallbackResponse) GoString() string {
+	return s.String()
+}
+
+func (s *V2AasDataBankcardlivenessCallbackResponse) SetReqMsgId(v string) *V2AasDataBankcardlivenessCallbackResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *V2AasDataBankcardlivenessCallbackResponse) SetResultCode(v string) *V2AasDataBankcardlivenessCallbackResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *V2AasDataBankcardlivenessCallbackResponse) SetResultMsg(v string) *V2AasDataBankcardlivenessCallbackResponse {
 	s.ResultMsg = &v
 	return s
 }
@@ -6944,8 +7379,6 @@ func (s *ReceiveBusinessOpportunitiesResponse) SetBizResult(v string) *ReceiveBu
 type CreateAntcloudGatewayxFileUploadRequest struct {
 	// OAuth模式下的授权token
 	AuthToken *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
-	// 产品方的api归属集群，即productInstanceId
-	ApiCluster *string `json:"api_cluster,omitempty" xml:"api_cluster,omitempty"`
 	// 上传文件作用的openapi method
 	ApiCode *string `json:"api_code,omitempty" xml:"api_code,omitempty" require:"true"`
 	// 文件标签，多个标签;分割
@@ -6956,6 +7389,8 @@ type CreateAntcloudGatewayxFileUploadRequest struct {
 	FileName *string `json:"file_name,omitempty" xml:"file_name,omitempty" maxLength:"100"`
 	// 文件的多媒体类型
 	MimeType *string `json:"mime_type,omitempty" xml:"mime_type,omitempty"`
+	// 产品方的api归属集群，即productInstanceId
+	ApiCluster *string `json:"api_cluster,omitempty" xml:"api_cluster,omitempty"`
 }
 
 func (s CreateAntcloudGatewayxFileUploadRequest) String() string {
@@ -6968,11 +7403,6 @@ func (s CreateAntcloudGatewayxFileUploadRequest) GoString() string {
 
 func (s *CreateAntcloudGatewayxFileUploadRequest) SetAuthToken(v string) *CreateAntcloudGatewayxFileUploadRequest {
 	s.AuthToken = &v
-	return s
-}
-
-func (s *CreateAntcloudGatewayxFileUploadRequest) SetApiCluster(v string) *CreateAntcloudGatewayxFileUploadRequest {
-	s.ApiCluster = &v
 	return s
 }
 
@@ -7001,6 +7431,11 @@ func (s *CreateAntcloudGatewayxFileUploadRequest) SetMimeType(v string) *CreateA
 	return s
 }
 
+func (s *CreateAntcloudGatewayxFileUploadRequest) SetApiCluster(v string) *CreateAntcloudGatewayxFileUploadRequest {
+	s.ApiCluster = &v
+	return s
+}
+
 type CreateAntcloudGatewayxFileUploadResponse struct {
 	// 请求唯一ID，用于链路跟踪和问题排查
 	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
@@ -7013,7 +7448,7 @@ type CreateAntcloudGatewayxFileUploadResponse struct {
 	// 32位文件唯一id
 	FileId *string `json:"file_id,omitempty" xml:"file_id,omitempty"`
 	// 放入http请求头里
-	UploadHeaders []*NameValuePair `json:"upload_headers,omitempty" xml:"upload_headers,omitempty" type:"Repeated"`
+	UploadHeaders []*XNameValuePair `json:"upload_headers,omitempty" xml:"upload_headers,omitempty" type:"Repeated"`
 	// 文件上传地址
 	UploadUrl *string `json:"upload_url,omitempty" xml:"upload_url,omitempty"`
 }
@@ -7051,7 +7486,7 @@ func (s *CreateAntcloudGatewayxFileUploadResponse) SetFileId(v string) *CreateAn
 	return s
 }
 
-func (s *CreateAntcloudGatewayxFileUploadResponse) SetUploadHeaders(v []*NameValuePair) *CreateAntcloudGatewayxFileUploadResponse {
+func (s *CreateAntcloudGatewayxFileUploadResponse) SetUploadHeaders(v []*XNameValuePair) *CreateAntcloudGatewayxFileUploadResponse {
 	s.UploadHeaders = v
 	return s
 }
@@ -7191,7 +7626,7 @@ func (client *Client) DoRequest(version *string, action *string, protocol *strin
 				"req_msg_id":       antchainutil.GetNonce(),
 				"access_key":       client.AccessKeyId,
 				"base_sdk_version": tea.String("TeaSDK-2.0"),
-				"sdk_version":      tea.String("1.12.60"),
+				"sdk_version":      tea.String("1.12.61"),
 				"_prod_code":       tea.String("INSURANCE_SAAS"),
 				"_prod_channel":    tea.String("undefined"),
 			}
@@ -7746,6 +8181,42 @@ func (client *Client) CallbackAasDataBankcardlivenessEx(request *CallbackAasData
 	}
 	_result = &CallbackAasDataBankcardlivenessResponse{}
 	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("antcloud.insurancesaas.data.bankcardliveness.callback"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
+}
+
+// Description:
+//
+// Description: 付款后数据回传v2-含第四期至第十三期扣款字段
+//
+// Summary: 付款后数据回传v2-含第四期至第十三期扣款字段
+func (client *Client) V2AasDataBankcardlivenessCallback(request *V2AasDataBankcardlivenessCallbackRequest) (_result *V2AasDataBankcardlivenessCallbackResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &V2AasDataBankcardlivenessCallbackResponse{}
+	_body, _err := client.V2AasDataBankcardlivenessCallbackEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+// Description:
+//
+// Description: 付款后数据回传v2-含第四期至第十三期扣款字段
+//
+// Summary: 付款后数据回传v2-含第四期至第十三期扣款字段
+func (client *Client) V2AasDataBankcardlivenessCallbackEx(request *V2AasDataBankcardlivenessCallbackRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *V2AasDataBankcardlivenessCallbackResponse, _err error) {
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &V2AasDataBankcardlivenessCallbackResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("antcloud.insurancesaas.data.bankcardliveness.callback.v2"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
 	if _err != nil {
 		return _result, _err
 	}
