@@ -1896,6 +1896,1074 @@ class ApplyMktserviceproviderAudiencecircleResponse(TeaModel):
         return self
 
 
+class QueryAasBankcardLivenessRequest(TeaModel):
+    def __init__(
+        self,
+        auth_token: str = None,
+        product_code: str = None,
+        request_id: str = None,
+        bank_card_no: str = None,
+        bank_card_type: str = None,
+        encryption_type: str = None,
+        encrypted_user_id: str = None,
+        query_date: str = None,
+        ext_info: str = None,
+    ):
+        # OAuth模式下的授权token
+        self.auth_token = auth_token
+        # 产品码：BANKCARD_LIVENESS
+        self.product_code = product_code
+        # 请求ID，最大32位字母数字，客户生成保证唯一
+        self.request_id = request_id
+        # 银行卡号（AES加密）
+        self.bank_card_no = bank_card_no
+        # 银行卡类型：1-借记卡+贷记卡（默认），2-借记卡，3-贷记卡
+        self.bank_card_type = bank_card_type
+        # 加密类型
+        self.encryption_type = encryption_type
+        # 加密用户ID（身份证号或手机号的AES加密）
+        self.encrypted_user_id = encrypted_user_id
+        # 查询日期，格式yyyyMMdd
+        self.query_date = query_date
+        # 扩展信息（JSON字符串）
+        self.ext_info = ext_info
+
+    def validate(self):
+        self.validate_required(self.product_code, 'product_code')
+        self.validate_required(self.request_id, 'request_id')
+        self.validate_required(self.bank_card_no, 'bank_card_no')
+        self.validate_required(self.encrypted_user_id, 'encrypted_user_id')
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.auth_token is not None:
+            result['auth_token'] = self.auth_token
+        if self.product_code is not None:
+            result['product_code'] = self.product_code
+        if self.request_id is not None:
+            result['request_id'] = self.request_id
+        if self.bank_card_no is not None:
+            result['bank_card_no'] = self.bank_card_no
+        if self.bank_card_type is not None:
+            result['bank_card_type'] = self.bank_card_type
+        if self.encryption_type is not None:
+            result['encryption_type'] = self.encryption_type
+        if self.encrypted_user_id is not None:
+            result['encrypted_user_id'] = self.encrypted_user_id
+        if self.query_date is not None:
+            result['query_date'] = self.query_date
+        if self.ext_info is not None:
+            result['ext_info'] = self.ext_info
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('auth_token') is not None:
+            self.auth_token = m.get('auth_token')
+        if m.get('product_code') is not None:
+            self.product_code = m.get('product_code')
+        if m.get('request_id') is not None:
+            self.request_id = m.get('request_id')
+        if m.get('bank_card_no') is not None:
+            self.bank_card_no = m.get('bank_card_no')
+        if m.get('bank_card_type') is not None:
+            self.bank_card_type = m.get('bank_card_type')
+        if m.get('encryption_type') is not None:
+            self.encryption_type = m.get('encryption_type')
+        if m.get('encrypted_user_id') is not None:
+            self.encrypted_user_id = m.get('encrypted_user_id')
+        if m.get('query_date') is not None:
+            self.query_date = m.get('query_date')
+        if m.get('ext_info') is not None:
+            self.ext_info = m.get('ext_info')
+        return self
+
+
+class QueryAasBankcardLivenessResponse(TeaModel):
+    def __init__(
+        self,
+        req_msg_id: str = None,
+        result_code: str = None,
+        result_msg: str = None,
+        biz_result: str = None,
+    ):
+        # 请求唯一ID，用于链路跟踪和问题排查
+        self.req_msg_id = req_msg_id
+        # 结果码，一般OK表示调用成功
+        self.result_code = result_code
+        # 异常信息的文本描述
+        self.result_msg = result_msg
+        # 业务结果（JSON字符串）
+        self.biz_result = biz_result
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.req_msg_id is not None:
+            result['req_msg_id'] = self.req_msg_id
+        if self.result_code is not None:
+            result['result_code'] = self.result_code
+        if self.result_msg is not None:
+            result['result_msg'] = self.result_msg
+        if self.biz_result is not None:
+            result['biz_result'] = self.biz_result
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('req_msg_id') is not None:
+            self.req_msg_id = m.get('req_msg_id')
+        if m.get('result_code') is not None:
+            self.result_code = m.get('result_code')
+        if m.get('result_msg') is not None:
+            self.result_msg = m.get('result_msg')
+        if m.get('biz_result') is not None:
+            self.biz_result = m.get('biz_result')
+        return self
+
+
+class CallbackAasBankcardLivenessRequest(TeaModel):
+    def __init__(
+        self,
+        auth_token: str = None,
+        product_code: str = None,
+        request_id: str = None,
+        bank_card_no: str = None,
+        encrypted_user_id: str = None,
+        liveness_result: str = None,
+        liveness_score: str = None,
+        query_date: str = None,
+        callback_time: str = None,
+        ext_info: str = None,
+    ):
+        # OAuth模式下的授权token
+        self.auth_token = auth_token
+        # 产品码：BANKCARD_LIVENESS
+        self.product_code = product_code
+        # 请求ID，最大32位字母数字
+        self.request_id = request_id
+        # 银行卡号（AES加密）
+        self.bank_card_no = bank_card_no
+        # 加密用户ID（身份证号或手机号的AES加密）
+        self.encrypted_user_id = encrypted_user_id
+        # 活跃度结果
+        self.liveness_result = liveness_result
+        # 活跃度评分（0-100）
+        self.liveness_score = liveness_score
+        # 原查询日期，格式yyyyMMdd
+        self.query_date = query_date
+        # 回调时间，格式yyyyMMddHHmmss
+        self.callback_time = callback_time
+        # 扩展信息（JSON字符串）
+        self.ext_info = ext_info
+
+    def validate(self):
+        self.validate_required(self.product_code, 'product_code')
+        self.validate_required(self.request_id, 'request_id')
+        self.validate_required(self.bank_card_no, 'bank_card_no')
+        self.validate_required(self.encrypted_user_id, 'encrypted_user_id')
+        self.validate_required(self.liveness_result, 'liveness_result')
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.auth_token is not None:
+            result['auth_token'] = self.auth_token
+        if self.product_code is not None:
+            result['product_code'] = self.product_code
+        if self.request_id is not None:
+            result['request_id'] = self.request_id
+        if self.bank_card_no is not None:
+            result['bank_card_no'] = self.bank_card_no
+        if self.encrypted_user_id is not None:
+            result['encrypted_user_id'] = self.encrypted_user_id
+        if self.liveness_result is not None:
+            result['liveness_result'] = self.liveness_result
+        if self.liveness_score is not None:
+            result['liveness_score'] = self.liveness_score
+        if self.query_date is not None:
+            result['query_date'] = self.query_date
+        if self.callback_time is not None:
+            result['callback_time'] = self.callback_time
+        if self.ext_info is not None:
+            result['ext_info'] = self.ext_info
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('auth_token') is not None:
+            self.auth_token = m.get('auth_token')
+        if m.get('product_code') is not None:
+            self.product_code = m.get('product_code')
+        if m.get('request_id') is not None:
+            self.request_id = m.get('request_id')
+        if m.get('bank_card_no') is not None:
+            self.bank_card_no = m.get('bank_card_no')
+        if m.get('encrypted_user_id') is not None:
+            self.encrypted_user_id = m.get('encrypted_user_id')
+        if m.get('liveness_result') is not None:
+            self.liveness_result = m.get('liveness_result')
+        if m.get('liveness_score') is not None:
+            self.liveness_score = m.get('liveness_score')
+        if m.get('query_date') is not None:
+            self.query_date = m.get('query_date')
+        if m.get('callback_time') is not None:
+            self.callback_time = m.get('callback_time')
+        if m.get('ext_info') is not None:
+            self.ext_info = m.get('ext_info')
+        return self
+
+
+class CallbackAasBankcardLivenessResponse(TeaModel):
+    def __init__(
+        self,
+        req_msg_id: str = None,
+        result_code: str = None,
+        result_msg: str = None,
+        biz_result: str = None,
+    ):
+        # 请求唯一ID，用于链路跟踪和问题排查
+        self.req_msg_id = req_msg_id
+        # 结果码，一般OK表示调用成功
+        self.result_code = result_code
+        # 异常信息的文本描述
+        self.result_msg = result_msg
+        # 业务结果（JSON字符串）
+        self.biz_result = biz_result
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.req_msg_id is not None:
+            result['req_msg_id'] = self.req_msg_id
+        if self.result_code is not None:
+            result['result_code'] = self.result_code
+        if self.result_msg is not None:
+            result['result_msg'] = self.result_msg
+        if self.biz_result is not None:
+            result['biz_result'] = self.biz_result
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('req_msg_id') is not None:
+            self.req_msg_id = m.get('req_msg_id')
+        if m.get('result_code') is not None:
+            self.result_code = m.get('result_code')
+        if m.get('result_msg') is not None:
+            self.result_msg = m.get('result_msg')
+        if m.get('biz_result') is not None:
+            self.biz_result = m.get('biz_result')
+        return self
+
+
+class QueryAasDataBankcardlivenessRequest(TeaModel):
+    def __init__(
+        self,
+        auth_token: str = None,
+        product_code: str = None,
+        request_id: str = None,
+        id_number: str = None,
+        id_type: str = None,
+        mobile_no: str = None,
+        cert_name: str = None,
+        bank_code: str = None,
+        bank_card_type: str = None,
+        extern_param: str = None,
+    ):
+        # OAuth模式下的授权token
+        self.auth_token = auth_token
+        # 产品码：BANKCARD_LIVENESS
+        self.product_code = product_code
+        # 请求ID，最大32位字母数字，客户生成保证唯一
+        self.request_id = request_id
+        # 身份证号（AES加密），与mobile_no二选一
+        self.id_number = id_number
+        # 身份类型：ID_CARD（默认）/PASSPORT
+        self.id_type = id_type
+        # 手机号（AES加密），与id_number二选一
+        self.mobile_no = mobile_no
+        # 姓名（AES加密）
+        self.cert_name = cert_name
+        # 银行编码列表（JSONArray字符串）
+        self.bank_code = bank_code
+        # 查询卡种：1-借记卡+贷记卡（默认），2-借记卡，3-贷记卡
+        self.bank_card_type = bank_card_type
+        # 扩展字段-版本号
+        self.extern_param = extern_param
+
+    def validate(self):
+        self.validate_required(self.product_code, 'product_code')
+        self.validate_required(self.request_id, 'request_id')
+        self.validate_required(self.bank_code, 'bank_code')
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.auth_token is not None:
+            result['auth_token'] = self.auth_token
+        if self.product_code is not None:
+            result['product_code'] = self.product_code
+        if self.request_id is not None:
+            result['request_id'] = self.request_id
+        if self.id_number is not None:
+            result['id_number'] = self.id_number
+        if self.id_type is not None:
+            result['id_type'] = self.id_type
+        if self.mobile_no is not None:
+            result['mobile_no'] = self.mobile_no
+        if self.cert_name is not None:
+            result['cert_name'] = self.cert_name
+        if self.bank_code is not None:
+            result['bank_code'] = self.bank_code
+        if self.bank_card_type is not None:
+            result['bank_card_type'] = self.bank_card_type
+        if self.extern_param is not None:
+            result['extern_param'] = self.extern_param
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('auth_token') is not None:
+            self.auth_token = m.get('auth_token')
+        if m.get('product_code') is not None:
+            self.product_code = m.get('product_code')
+        if m.get('request_id') is not None:
+            self.request_id = m.get('request_id')
+        if m.get('id_number') is not None:
+            self.id_number = m.get('id_number')
+        if m.get('id_type') is not None:
+            self.id_type = m.get('id_type')
+        if m.get('mobile_no') is not None:
+            self.mobile_no = m.get('mobile_no')
+        if m.get('cert_name') is not None:
+            self.cert_name = m.get('cert_name')
+        if m.get('bank_code') is not None:
+            self.bank_code = m.get('bank_code')
+        if m.get('bank_card_type') is not None:
+            self.bank_card_type = m.get('bank_card_type')
+        if m.get('extern_param') is not None:
+            self.extern_param = m.get('extern_param')
+        return self
+
+
+class QueryAasDataBankcardlivenessResponse(TeaModel):
+    def __init__(
+        self,
+        req_msg_id: str = None,
+        result_code: str = None,
+        result_msg: str = None,
+        history_request_id: str = None,
+        liveness_info: str = None,
+    ):
+        # 请求唯一ID，用于链路跟踪和问题排查
+        self.req_msg_id = req_msg_id
+        # 结果码，一般OK表示调用成功
+        self.result_code = result_code
+        # 异常信息的文本描述
+        self.result_msg = result_msg
+        # 响应ID（安科req_msg_id），回传接口必传
+        self.history_request_id = history_request_id
+        # 银行活跃度详情（JSONArray，排最前最活跃）
+        self.liveness_info = liveness_info
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.req_msg_id is not None:
+            result['req_msg_id'] = self.req_msg_id
+        if self.result_code is not None:
+            result['result_code'] = self.result_code
+        if self.result_msg is not None:
+            result['result_msg'] = self.result_msg
+        if self.history_request_id is not None:
+            result['history_request_id'] = self.history_request_id
+        if self.liveness_info is not None:
+            result['liveness_info'] = self.liveness_info
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('req_msg_id') is not None:
+            self.req_msg_id = m.get('req_msg_id')
+        if m.get('result_code') is not None:
+            self.result_code = m.get('result_code')
+        if m.get('result_msg') is not None:
+            self.result_msg = m.get('result_msg')
+        if m.get('history_request_id') is not None:
+            self.history_request_id = m.get('history_request_id')
+        if m.get('liveness_info') is not None:
+            self.liveness_info = m.get('liveness_info')
+        return self
+
+
+class CallbackAasDataBankcardlivenessRequest(TeaModel):
+    def __init__(
+        self,
+        auth_token: str = None,
+        product_code: str = None,
+        request_id: str = None,
+        history_request_id: str = None,
+        bank_display: str = None,
+        interim_selected_bank_code: str = None,
+        bind_bank_code: str = None,
+        bind_bank_display: str = None,
+        bank_type: str = None,
+        first_deduction: bool = None,
+        first_deduction_amount: str = None,
+        second_deduction: bool = None,
+        second_deduction_amount: str = None,
+        third_deduction: bool = None,
+        third_deduction_amount: str = None,
+        fourth_deduction: bool = None,
+        fourth_deduction_amount: str = None,
+        fifth_deduction: bool = None,
+        fifth_deduction_amount: str = None,
+        sixth_deduction: bool = None,
+        sixth_deduction_amount: str = None,
+        seventh_deduction: bool = None,
+        seventh_deduction_amount: str = None,
+        eighth_deduction: bool = None,
+        eighth_deduction_amount: str = None,
+        ninth_deduction: bool = None,
+        ninth_deduction_amount: str = None,
+        tenth_deduction: bool = None,
+        tenth_deduction_amount: str = None,
+        eleventh_deduction: bool = None,
+        eleventh_deduction_amount: str = None,
+        twelfth_deduction: bool = None,
+        twelfth_deduction_amount: str = None,
+        thirteenth_deduction: bool = None,
+        thirteenth_deduction_amount: str = None,
+        ext_info: str = None,
+    ):
+        # OAuth模式下的授权token
+        self.auth_token = auth_token
+        # 产品码：BANKCARD_LIVENESS
+        self.product_code = product_code
+        # 请求ID，最大32位字母数字
+        self.request_id = request_id
+        # 响应ID（原查询接口返回的history_request_id）
+        self.history_request_id = history_request_id
+        # 绑卡页面银行排序（从上到下）
+        self.bank_display = bank_display
+        # 用户选卡银行
+        self.interim_selected_bank_code = interim_selected_bank_code
+        # 用户绑卡银行
+        self.bind_bank_code = bind_bank_code
+        # 用户最终绑卡银行在页面上的排序
+        self.bind_bank_display = bind_bank_display
+        # 卡类型：DC-储蓄卡，CC-信用卡
+        self.bank_type = bank_type
+        # 第一期是否扣款成功
+        self.first_deduction = first_deduction
+        # 第一期扣款金额
+        self.first_deduction_amount = first_deduction_amount
+        # 第二期是否扣款成功
+        self.second_deduction = second_deduction
+        # 第二期扣款金额
+        self.second_deduction_amount = second_deduction_amount
+        # 第三期是否扣款成功
+        self.third_deduction = third_deduction
+        # 第三期扣款金额
+        self.third_deduction_amount = third_deduction_amount
+        # 第四期是否扣款成功
+        self.fourth_deduction = fourth_deduction
+        # 第四期扣款金额
+        self.fourth_deduction_amount = fourth_deduction_amount
+        # 第五期是否扣款成功
+        self.fifth_deduction = fifth_deduction
+        # 第五期扣款成功金额
+        self.fifth_deduction_amount = fifth_deduction_amount
+        # 第六期是否扣款成功
+        self.sixth_deduction = sixth_deduction
+        # 第六期扣款金额
+        self.sixth_deduction_amount = sixth_deduction_amount
+        # 第七期是否扣款成功
+        self.seventh_deduction = seventh_deduction
+        # 第七期扣款金额
+        self.seventh_deduction_amount = seventh_deduction_amount
+        # 第八期是否扣款成功
+        self.eighth_deduction = eighth_deduction
+        # 第八期扣款金额
+        self.eighth_deduction_amount = eighth_deduction_amount
+        # 第九期是否扣款成功
+        self.ninth_deduction = ninth_deduction
+        # 第九期扣款金额
+        self.ninth_deduction_amount = ninth_deduction_amount
+        # 第十期是否扣款成功
+        self.tenth_deduction = tenth_deduction
+        # 第十期扣款金额
+        self.tenth_deduction_amount = tenth_deduction_amount
+        # 第十一期是否扣款成功
+        self.eleventh_deduction = eleventh_deduction
+        # 第十一期扣款金额
+        self.eleventh_deduction_amount = eleventh_deduction_amount
+        # 第十二期是否扣款成功
+        self.twelfth_deduction = twelfth_deduction
+        # 第十二期扣款金额
+        self.twelfth_deduction_amount = twelfth_deduction_amount
+        # 第十三期是否扣款成功
+        self.thirteenth_deduction = thirteenth_deduction
+        # 第十三期扣款金额
+        self.thirteenth_deduction_amount = thirteenth_deduction_amount
+        # 扩展信息
+        self.ext_info = ext_info
+
+    def validate(self):
+        self.validate_required(self.product_code, 'product_code')
+        self.validate_required(self.request_id, 'request_id')
+        self.validate_required(self.history_request_id, 'history_request_id')
+        self.validate_required(self.bind_bank_code, 'bind_bank_code')
+        self.validate_required(self.bank_type, 'bank_type')
+        self.validate_required(self.first_deduction, 'first_deduction')
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.auth_token is not None:
+            result['auth_token'] = self.auth_token
+        if self.product_code is not None:
+            result['product_code'] = self.product_code
+        if self.request_id is not None:
+            result['request_id'] = self.request_id
+        if self.history_request_id is not None:
+            result['history_request_id'] = self.history_request_id
+        if self.bank_display is not None:
+            result['bank_display'] = self.bank_display
+        if self.interim_selected_bank_code is not None:
+            result['interim_selected_bank_code'] = self.interim_selected_bank_code
+        if self.bind_bank_code is not None:
+            result['bind_bank_code'] = self.bind_bank_code
+        if self.bind_bank_display is not None:
+            result['bind_bank_display'] = self.bind_bank_display
+        if self.bank_type is not None:
+            result['bank_type'] = self.bank_type
+        if self.first_deduction is not None:
+            result['first_deduction'] = self.first_deduction
+        if self.first_deduction_amount is not None:
+            result['first_deduction_amount'] = self.first_deduction_amount
+        if self.second_deduction is not None:
+            result['second_deduction'] = self.second_deduction
+        if self.second_deduction_amount is not None:
+            result['second_deduction_amount'] = self.second_deduction_amount
+        if self.third_deduction is not None:
+            result['third_deduction'] = self.third_deduction
+        if self.third_deduction_amount is not None:
+            result['third_deduction_amount'] = self.third_deduction_amount
+        if self.fourth_deduction is not None:
+            result['fourth_deduction'] = self.fourth_deduction
+        if self.fourth_deduction_amount is not None:
+            result['fourth_deduction_amount'] = self.fourth_deduction_amount
+        if self.fifth_deduction is not None:
+            result['fifth_deduction'] = self.fifth_deduction
+        if self.fifth_deduction_amount is not None:
+            result['fifth_deduction_amount'] = self.fifth_deduction_amount
+        if self.sixth_deduction is not None:
+            result['sixth_deduction'] = self.sixth_deduction
+        if self.sixth_deduction_amount is not None:
+            result['sixth_deduction_amount'] = self.sixth_deduction_amount
+        if self.seventh_deduction is not None:
+            result['seventh_deduction'] = self.seventh_deduction
+        if self.seventh_deduction_amount is not None:
+            result['seventh_deduction_amount'] = self.seventh_deduction_amount
+        if self.eighth_deduction is not None:
+            result['eighth_deduction'] = self.eighth_deduction
+        if self.eighth_deduction_amount is not None:
+            result['eighth_deduction_amount'] = self.eighth_deduction_amount
+        if self.ninth_deduction is not None:
+            result['ninth_deduction'] = self.ninth_deduction
+        if self.ninth_deduction_amount is not None:
+            result['ninth_deduction_amount'] = self.ninth_deduction_amount
+        if self.tenth_deduction is not None:
+            result['tenth_deduction'] = self.tenth_deduction
+        if self.tenth_deduction_amount is not None:
+            result['tenth_deduction_amount'] = self.tenth_deduction_amount
+        if self.eleventh_deduction is not None:
+            result['eleventh_deduction'] = self.eleventh_deduction
+        if self.eleventh_deduction_amount is not None:
+            result['eleventh_deduction_amount'] = self.eleventh_deduction_amount
+        if self.twelfth_deduction is not None:
+            result['twelfth_deduction'] = self.twelfth_deduction
+        if self.twelfth_deduction_amount is not None:
+            result['twelfth_deduction_amount'] = self.twelfth_deduction_amount
+        if self.thirteenth_deduction is not None:
+            result['thirteenth_deduction'] = self.thirteenth_deduction
+        if self.thirteenth_deduction_amount is not None:
+            result['thirteenth_deduction_amount'] = self.thirteenth_deduction_amount
+        if self.ext_info is not None:
+            result['ext_info'] = self.ext_info
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('auth_token') is not None:
+            self.auth_token = m.get('auth_token')
+        if m.get('product_code') is not None:
+            self.product_code = m.get('product_code')
+        if m.get('request_id') is not None:
+            self.request_id = m.get('request_id')
+        if m.get('history_request_id') is not None:
+            self.history_request_id = m.get('history_request_id')
+        if m.get('bank_display') is not None:
+            self.bank_display = m.get('bank_display')
+        if m.get('interim_selected_bank_code') is not None:
+            self.interim_selected_bank_code = m.get('interim_selected_bank_code')
+        if m.get('bind_bank_code') is not None:
+            self.bind_bank_code = m.get('bind_bank_code')
+        if m.get('bind_bank_display') is not None:
+            self.bind_bank_display = m.get('bind_bank_display')
+        if m.get('bank_type') is not None:
+            self.bank_type = m.get('bank_type')
+        if m.get('first_deduction') is not None:
+            self.first_deduction = m.get('first_deduction')
+        if m.get('first_deduction_amount') is not None:
+            self.first_deduction_amount = m.get('first_deduction_amount')
+        if m.get('second_deduction') is not None:
+            self.second_deduction = m.get('second_deduction')
+        if m.get('second_deduction_amount') is not None:
+            self.second_deduction_amount = m.get('second_deduction_amount')
+        if m.get('third_deduction') is not None:
+            self.third_deduction = m.get('third_deduction')
+        if m.get('third_deduction_amount') is not None:
+            self.third_deduction_amount = m.get('third_deduction_amount')
+        if m.get('fourth_deduction') is not None:
+            self.fourth_deduction = m.get('fourth_deduction')
+        if m.get('fourth_deduction_amount') is not None:
+            self.fourth_deduction_amount = m.get('fourth_deduction_amount')
+        if m.get('fifth_deduction') is not None:
+            self.fifth_deduction = m.get('fifth_deduction')
+        if m.get('fifth_deduction_amount') is not None:
+            self.fifth_deduction_amount = m.get('fifth_deduction_amount')
+        if m.get('sixth_deduction') is not None:
+            self.sixth_deduction = m.get('sixth_deduction')
+        if m.get('sixth_deduction_amount') is not None:
+            self.sixth_deduction_amount = m.get('sixth_deduction_amount')
+        if m.get('seventh_deduction') is not None:
+            self.seventh_deduction = m.get('seventh_deduction')
+        if m.get('seventh_deduction_amount') is not None:
+            self.seventh_deduction_amount = m.get('seventh_deduction_amount')
+        if m.get('eighth_deduction') is not None:
+            self.eighth_deduction = m.get('eighth_deduction')
+        if m.get('eighth_deduction_amount') is not None:
+            self.eighth_deduction_amount = m.get('eighth_deduction_amount')
+        if m.get('ninth_deduction') is not None:
+            self.ninth_deduction = m.get('ninth_deduction')
+        if m.get('ninth_deduction_amount') is not None:
+            self.ninth_deduction_amount = m.get('ninth_deduction_amount')
+        if m.get('tenth_deduction') is not None:
+            self.tenth_deduction = m.get('tenth_deduction')
+        if m.get('tenth_deduction_amount') is not None:
+            self.tenth_deduction_amount = m.get('tenth_deduction_amount')
+        if m.get('eleventh_deduction') is not None:
+            self.eleventh_deduction = m.get('eleventh_deduction')
+        if m.get('eleventh_deduction_amount') is not None:
+            self.eleventh_deduction_amount = m.get('eleventh_deduction_amount')
+        if m.get('twelfth_deduction') is not None:
+            self.twelfth_deduction = m.get('twelfth_deduction')
+        if m.get('twelfth_deduction_amount') is not None:
+            self.twelfth_deduction_amount = m.get('twelfth_deduction_amount')
+        if m.get('thirteenth_deduction') is not None:
+            self.thirteenth_deduction = m.get('thirteenth_deduction')
+        if m.get('thirteenth_deduction_amount') is not None:
+            self.thirteenth_deduction_amount = m.get('thirteenth_deduction_amount')
+        if m.get('ext_info') is not None:
+            self.ext_info = m.get('ext_info')
+        return self
+
+
+class CallbackAasDataBankcardlivenessResponse(TeaModel):
+    def __init__(
+        self,
+        req_msg_id: str = None,
+        result_code: str = None,
+        result_msg: str = None,
+    ):
+        # 请求唯一ID，用于链路跟踪和问题排查
+        self.req_msg_id = req_msg_id
+        # 结果码，一般OK表示调用成功
+        self.result_code = result_code
+        # 异常信息的文本描述
+        self.result_msg = result_msg
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.req_msg_id is not None:
+            result['req_msg_id'] = self.req_msg_id
+        if self.result_code is not None:
+            result['result_code'] = self.result_code
+        if self.result_msg is not None:
+            result['result_msg'] = self.result_msg
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('req_msg_id') is not None:
+            self.req_msg_id = m.get('req_msg_id')
+        if m.get('result_code') is not None:
+            self.result_code = m.get('result_code')
+        if m.get('result_msg') is not None:
+            self.result_msg = m.get('result_msg')
+        return self
+
+
+class V2AasDataBankcardlivenessCallbackRequest(TeaModel):
+    def __init__(
+        self,
+        auth_token: str = None,
+        product_code: str = None,
+        request_id: str = None,
+        history_request_id: str = None,
+        bank_display: str = None,
+        interim_selected_bank_code: str = None,
+        bind_bank_code: str = None,
+        bind_bank_display: str = None,
+        bank_type: str = None,
+        first_deduction: bool = None,
+        first_deduction_amount: str = None,
+        second_deduction: bool = None,
+        second_deduction_amount: str = None,
+        third_deduction: bool = None,
+        third_deduction_amount: str = None,
+        fourth_deduction: bool = None,
+        fourth_deduction_amount: str = None,
+        fifth_deduction: bool = None,
+        fifth_deduction_amount: str = None,
+        sixth_deduction: bool = None,
+        sixth_deduction_amount: str = None,
+        seventh_deduction: bool = None,
+        seventh_deduction_amount: str = None,
+        eighth_deduction: bool = None,
+        eighth_deduction_amount: str = None,
+        ninth_deduction: bool = None,
+        ninth_deduction_amount: str = None,
+        tenth_deduction: bool = None,
+        tenth_deduction_amount: str = None,
+        eleventh_deduction: bool = None,
+        eleventh_deduction_amount: str = None,
+        twelfth_deduction: bool = None,
+        twelfth_deduction_amount: str = None,
+        thirteenth_deduction: bool = None,
+        thirteenth_deduction_amount: str = None,
+        ext_info: str = None,
+    ):
+        # OAuth模式下的授权token
+        self.auth_token = auth_token
+        # 产品码：BANKCARD_LIVENESS
+        self.product_code = product_code
+        # 请求ID，最大32位字母数字
+        self.request_id = request_id
+        # 响应ID（原查询接口返回的history_request_id）
+        self.history_request_id = history_request_id
+        # 绑卡页面银行排序（从上到下）
+        self.bank_display = bank_display
+        # 用户选卡银行
+        self.interim_selected_bank_code = interim_selected_bank_code
+        # 用户绑卡银行
+        self.bind_bank_code = bind_bank_code
+        # 用户最终绑卡银行在页面上的排序
+        self.bind_bank_display = bind_bank_display
+        # 卡类型：DC-储蓄卡，CC-信用卡
+        self.bank_type = bank_type
+        # 第一期是否扣款成功
+        self.first_deduction = first_deduction
+        # 第一期扣款金额
+        self.first_deduction_amount = first_deduction_amount
+        # 第二期是否扣款成功
+        self.second_deduction = second_deduction
+        # 第二期扣款金额
+        self.second_deduction_amount = second_deduction_amount
+        # 第三期是否扣款成功
+        self.third_deduction = third_deduction
+        # 第三期扣款金额
+        self.third_deduction_amount = third_deduction_amount
+        # 第四期是否扣款成功
+        self.fourth_deduction = fourth_deduction
+        # 第四期扣款金额
+        self.fourth_deduction_amount = fourth_deduction_amount
+        # 第五期是否扣款成功
+        self.fifth_deduction = fifth_deduction
+        # 第五期扣款金额
+        self.fifth_deduction_amount = fifth_deduction_amount
+        # 第六期是否扣款成功
+        self.sixth_deduction = sixth_deduction
+        # 第六期扣款金额
+        self.sixth_deduction_amount = sixth_deduction_amount
+        # 第七期是否扣款成功
+        self.seventh_deduction = seventh_deduction
+        # 第七期扣款金额
+        self.seventh_deduction_amount = seventh_deduction_amount
+        # 第八期是否扣款成功
+        self.eighth_deduction = eighth_deduction
+        # 第八期扣款金额
+        self.eighth_deduction_amount = eighth_deduction_amount
+        # 第九期是否扣款成功
+        self.ninth_deduction = ninth_deduction
+        # 第九期扣款金额
+        self.ninth_deduction_amount = ninth_deduction_amount
+        # 第十期是否扣款成功
+        self.tenth_deduction = tenth_deduction
+        # 第十期扣款金额
+        self.tenth_deduction_amount = tenth_deduction_amount
+        # 第十一期是否扣款成功
+        self.eleventh_deduction = eleventh_deduction
+        # 第十一期扣款金额
+        self.eleventh_deduction_amount = eleventh_deduction_amount
+        # 第十二期是否扣款成功
+        self.twelfth_deduction = twelfth_deduction
+        # 第十二期扣款金额
+        self.twelfth_deduction_amount = twelfth_deduction_amount
+        # 第十三期是否扣款成功
+        self.thirteenth_deduction = thirteenth_deduction
+        # 第十三期扣款金额
+        self.thirteenth_deduction_amount = thirteenth_deduction_amount
+        # 扩展信息
+        self.ext_info = ext_info
+
+    def validate(self):
+        self.validate_required(self.product_code, 'product_code')
+        self.validate_required(self.request_id, 'request_id')
+        self.validate_required(self.history_request_id, 'history_request_id')
+        self.validate_required(self.bind_bank_code, 'bind_bank_code')
+        self.validate_required(self.bank_type, 'bank_type')
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.auth_token is not None:
+            result['auth_token'] = self.auth_token
+        if self.product_code is not None:
+            result['product_code'] = self.product_code
+        if self.request_id is not None:
+            result['request_id'] = self.request_id
+        if self.history_request_id is not None:
+            result['history_request_id'] = self.history_request_id
+        if self.bank_display is not None:
+            result['bank_display'] = self.bank_display
+        if self.interim_selected_bank_code is not None:
+            result['interim_selected_bank_code'] = self.interim_selected_bank_code
+        if self.bind_bank_code is not None:
+            result['bind_bank_code'] = self.bind_bank_code
+        if self.bind_bank_display is not None:
+            result['bind_bank_display'] = self.bind_bank_display
+        if self.bank_type is not None:
+            result['bank_type'] = self.bank_type
+        if self.first_deduction is not None:
+            result['first_deduction'] = self.first_deduction
+        if self.first_deduction_amount is not None:
+            result['first_deduction_amount'] = self.first_deduction_amount
+        if self.second_deduction is not None:
+            result['second_deduction'] = self.second_deduction
+        if self.second_deduction_amount is not None:
+            result['second_deduction_amount'] = self.second_deduction_amount
+        if self.third_deduction is not None:
+            result['third_deduction'] = self.third_deduction
+        if self.third_deduction_amount is not None:
+            result['third_deduction_amount'] = self.third_deduction_amount
+        if self.fourth_deduction is not None:
+            result['fourth_deduction'] = self.fourth_deduction
+        if self.fourth_deduction_amount is not None:
+            result['fourth_deduction_amount'] = self.fourth_deduction_amount
+        if self.fifth_deduction is not None:
+            result['fifth_deduction'] = self.fifth_deduction
+        if self.fifth_deduction_amount is not None:
+            result['fifth_deduction_amount'] = self.fifth_deduction_amount
+        if self.sixth_deduction is not None:
+            result['sixth_deduction'] = self.sixth_deduction
+        if self.sixth_deduction_amount is not None:
+            result['sixth_deduction_amount'] = self.sixth_deduction_amount
+        if self.seventh_deduction is not None:
+            result['seventh_deduction'] = self.seventh_deduction
+        if self.seventh_deduction_amount is not None:
+            result['seventh_deduction_amount'] = self.seventh_deduction_amount
+        if self.eighth_deduction is not None:
+            result['eighth_deduction'] = self.eighth_deduction
+        if self.eighth_deduction_amount is not None:
+            result['eighth_deduction_amount'] = self.eighth_deduction_amount
+        if self.ninth_deduction is not None:
+            result['ninth_deduction'] = self.ninth_deduction
+        if self.ninth_deduction_amount is not None:
+            result['ninth_deduction_amount'] = self.ninth_deduction_amount
+        if self.tenth_deduction is not None:
+            result['tenth_deduction'] = self.tenth_deduction
+        if self.tenth_deduction_amount is not None:
+            result['tenth_deduction_amount'] = self.tenth_deduction_amount
+        if self.eleventh_deduction is not None:
+            result['eleventh_deduction'] = self.eleventh_deduction
+        if self.eleventh_deduction_amount is not None:
+            result['eleventh_deduction_amount'] = self.eleventh_deduction_amount
+        if self.twelfth_deduction is not None:
+            result['twelfth_deduction'] = self.twelfth_deduction
+        if self.twelfth_deduction_amount is not None:
+            result['twelfth_deduction_amount'] = self.twelfth_deduction_amount
+        if self.thirteenth_deduction is not None:
+            result['thirteenth_deduction'] = self.thirteenth_deduction
+        if self.thirteenth_deduction_amount is not None:
+            result['thirteenth_deduction_amount'] = self.thirteenth_deduction_amount
+        if self.ext_info is not None:
+            result['ext_info'] = self.ext_info
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('auth_token') is not None:
+            self.auth_token = m.get('auth_token')
+        if m.get('product_code') is not None:
+            self.product_code = m.get('product_code')
+        if m.get('request_id') is not None:
+            self.request_id = m.get('request_id')
+        if m.get('history_request_id') is not None:
+            self.history_request_id = m.get('history_request_id')
+        if m.get('bank_display') is not None:
+            self.bank_display = m.get('bank_display')
+        if m.get('interim_selected_bank_code') is not None:
+            self.interim_selected_bank_code = m.get('interim_selected_bank_code')
+        if m.get('bind_bank_code') is not None:
+            self.bind_bank_code = m.get('bind_bank_code')
+        if m.get('bind_bank_display') is not None:
+            self.bind_bank_display = m.get('bind_bank_display')
+        if m.get('bank_type') is not None:
+            self.bank_type = m.get('bank_type')
+        if m.get('first_deduction') is not None:
+            self.first_deduction = m.get('first_deduction')
+        if m.get('first_deduction_amount') is not None:
+            self.first_deduction_amount = m.get('first_deduction_amount')
+        if m.get('second_deduction') is not None:
+            self.second_deduction = m.get('second_deduction')
+        if m.get('second_deduction_amount') is not None:
+            self.second_deduction_amount = m.get('second_deduction_amount')
+        if m.get('third_deduction') is not None:
+            self.third_deduction = m.get('third_deduction')
+        if m.get('third_deduction_amount') is not None:
+            self.third_deduction_amount = m.get('third_deduction_amount')
+        if m.get('fourth_deduction') is not None:
+            self.fourth_deduction = m.get('fourth_deduction')
+        if m.get('fourth_deduction_amount') is not None:
+            self.fourth_deduction_amount = m.get('fourth_deduction_amount')
+        if m.get('fifth_deduction') is not None:
+            self.fifth_deduction = m.get('fifth_deduction')
+        if m.get('fifth_deduction_amount') is not None:
+            self.fifth_deduction_amount = m.get('fifth_deduction_amount')
+        if m.get('sixth_deduction') is not None:
+            self.sixth_deduction = m.get('sixth_deduction')
+        if m.get('sixth_deduction_amount') is not None:
+            self.sixth_deduction_amount = m.get('sixth_deduction_amount')
+        if m.get('seventh_deduction') is not None:
+            self.seventh_deduction = m.get('seventh_deduction')
+        if m.get('seventh_deduction_amount') is not None:
+            self.seventh_deduction_amount = m.get('seventh_deduction_amount')
+        if m.get('eighth_deduction') is not None:
+            self.eighth_deduction = m.get('eighth_deduction')
+        if m.get('eighth_deduction_amount') is not None:
+            self.eighth_deduction_amount = m.get('eighth_deduction_amount')
+        if m.get('ninth_deduction') is not None:
+            self.ninth_deduction = m.get('ninth_deduction')
+        if m.get('ninth_deduction_amount') is not None:
+            self.ninth_deduction_amount = m.get('ninth_deduction_amount')
+        if m.get('tenth_deduction') is not None:
+            self.tenth_deduction = m.get('tenth_deduction')
+        if m.get('tenth_deduction_amount') is not None:
+            self.tenth_deduction_amount = m.get('tenth_deduction_amount')
+        if m.get('eleventh_deduction') is not None:
+            self.eleventh_deduction = m.get('eleventh_deduction')
+        if m.get('eleventh_deduction_amount') is not None:
+            self.eleventh_deduction_amount = m.get('eleventh_deduction_amount')
+        if m.get('twelfth_deduction') is not None:
+            self.twelfth_deduction = m.get('twelfth_deduction')
+        if m.get('twelfth_deduction_amount') is not None:
+            self.twelfth_deduction_amount = m.get('twelfth_deduction_amount')
+        if m.get('thirteenth_deduction') is not None:
+            self.thirteenth_deduction = m.get('thirteenth_deduction')
+        if m.get('thirteenth_deduction_amount') is not None:
+            self.thirteenth_deduction_amount = m.get('thirteenth_deduction_amount')
+        if m.get('ext_info') is not None:
+            self.ext_info = m.get('ext_info')
+        return self
+
+
+class V2AasDataBankcardlivenessCallbackResponse(TeaModel):
+    def __init__(
+        self,
+        req_msg_id: str = None,
+        result_code: str = None,
+        result_msg: str = None,
+    ):
+        # 请求唯一ID，用于链路跟踪和问题排查
+        self.req_msg_id = req_msg_id
+        # 结果码，一般OK表示调用成功
+        self.result_code = result_code
+        # 异常信息的文本描述
+        self.result_msg = result_msg
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.req_msg_id is not None:
+            result['req_msg_id'] = self.req_msg_id
+        if self.result_code is not None:
+            result['result_code'] = self.result_code
+        if self.result_msg is not None:
+            result['result_msg'] = self.result_msg
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('req_msg_id') is not None:
+            self.req_msg_id = m.get('req_msg_id')
+        if m.get('result_code') is not None:
+            self.result_code = m.get('result_code')
+        if m.get('result_msg') is not None:
+            self.result_msg = m.get('result_msg')
+        return self
+
+
 class QueryInquiryRequest(TeaModel):
     def __init__(
         self,

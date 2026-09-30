@@ -135,7 +135,7 @@ class Client:
                     'req_msg_id': AntchainUtils.get_nonce(),
                     'access_key': self._access_key_id,
                     'base_sdk_version': 'TeaSDK-2.0',
-                    'sdk_version': '1.12.59',
+                    'sdk_version': '1.12.61',
                     '_prod_code': 'INSURANCE_SAAS',
                     '_prod_channel': 'undefined'
                 }
@@ -239,7 +239,7 @@ class Client:
                     'req_msg_id': AntchainUtils.get_nonce(),
                     'access_key': self._access_key_id,
                     'base_sdk_version': 'TeaSDK-2.0',
-                    'sdk_version': '1.12.59',
+                    'sdk_version': '1.12.61',
                     '_prod_code': 'INSURANCE_SAAS',
                     '_prod_channel': 'undefined'
                 }
@@ -833,6 +833,286 @@ class Client:
         return TeaCore.from_map(
             insurance__saas_models.ApplyMktserviceproviderAudiencecircleResponse(),
             await self.do_request_async('1.0', 'antcloud.insurance.mktserviceprovider.audiencecircle.apply', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def query_aas_bankcard_liveness(
+        self,
+        request: insurance__saas_models.QueryAasBankcardLivenessRequest,
+    ) -> insurance__saas_models.QueryAasBankcardLivenessResponse:
+        """
+        Description: 银行卡活跃度查询
+        Summary: 银行卡活跃度查询
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.query_aas_bankcard_liveness_ex(request, headers, runtime)
+
+    async def query_aas_bankcard_liveness_async(
+        self,
+        request: insurance__saas_models.QueryAasBankcardLivenessRequest,
+    ) -> insurance__saas_models.QueryAasBankcardLivenessResponse:
+        """
+        Description: 银行卡活跃度查询
+        Summary: 银行卡活跃度查询
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.query_aas_bankcard_liveness_ex_async(request, headers, runtime)
+
+    def query_aas_bankcard_liveness_ex(
+        self,
+        request: insurance__saas_models.QueryAasBankcardLivenessRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> insurance__saas_models.QueryAasBankcardLivenessResponse:
+        """
+        Description: 银行卡活跃度查询
+        Summary: 银行卡活跃度查询
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            insurance__saas_models.QueryAasBankcardLivenessResponse(),
+            self.do_request('1.0', 'antcloud.insurancesaas.bankcard.liveness.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def query_aas_bankcard_liveness_ex_async(
+        self,
+        request: insurance__saas_models.QueryAasBankcardLivenessRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> insurance__saas_models.QueryAasBankcardLivenessResponse:
+        """
+        Description: 银行卡活跃度查询
+        Summary: 银行卡活跃度查询
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            insurance__saas_models.QueryAasBankcardLivenessResponse(),
+            await self.do_request_async('1.0', 'antcloud.insurancesaas.bankcard.liveness.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def callback_aas_bankcard_liveness(
+        self,
+        request: insurance__saas_models.CallbackAasBankcardLivenessRequest,
+    ) -> insurance__saas_models.CallbackAasBankcardLivenessResponse:
+        """
+        Description: 付款后数据回传
+        Summary: 付款后数据回传
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.callback_aas_bankcard_liveness_ex(request, headers, runtime)
+
+    async def callback_aas_bankcard_liveness_async(
+        self,
+        request: insurance__saas_models.CallbackAasBankcardLivenessRequest,
+    ) -> insurance__saas_models.CallbackAasBankcardLivenessResponse:
+        """
+        Description: 付款后数据回传
+        Summary: 付款后数据回传
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.callback_aas_bankcard_liveness_ex_async(request, headers, runtime)
+
+    def callback_aas_bankcard_liveness_ex(
+        self,
+        request: insurance__saas_models.CallbackAasBankcardLivenessRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> insurance__saas_models.CallbackAasBankcardLivenessResponse:
+        """
+        Description: 付款后数据回传
+        Summary: 付款后数据回传
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            insurance__saas_models.CallbackAasBankcardLivenessResponse(),
+            self.do_request('1.0', 'antcloud.insurancesaas.bankcard.liveness.callback', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def callback_aas_bankcard_liveness_ex_async(
+        self,
+        request: insurance__saas_models.CallbackAasBankcardLivenessRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> insurance__saas_models.CallbackAasBankcardLivenessResponse:
+        """
+        Description: 付款后数据回传
+        Summary: 付款后数据回传
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            insurance__saas_models.CallbackAasBankcardLivenessResponse(),
+            await self.do_request_async('1.0', 'antcloud.insurancesaas.bankcard.liveness.callback', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def query_aas_data_bankcardliveness(
+        self,
+        request: insurance__saas_models.QueryAasDataBankcardlivenessRequest,
+    ) -> insurance__saas_models.QueryAasDataBankcardlivenessResponse:
+        """
+        Description: 银行卡活跃度查询
+        Summary: 银行卡活跃度查询
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.query_aas_data_bankcardliveness_ex(request, headers, runtime)
+
+    async def query_aas_data_bankcardliveness_async(
+        self,
+        request: insurance__saas_models.QueryAasDataBankcardlivenessRequest,
+    ) -> insurance__saas_models.QueryAasDataBankcardlivenessResponse:
+        """
+        Description: 银行卡活跃度查询
+        Summary: 银行卡活跃度查询
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.query_aas_data_bankcardliveness_ex_async(request, headers, runtime)
+
+    def query_aas_data_bankcardliveness_ex(
+        self,
+        request: insurance__saas_models.QueryAasDataBankcardlivenessRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> insurance__saas_models.QueryAasDataBankcardlivenessResponse:
+        """
+        Description: 银行卡活跃度查询
+        Summary: 银行卡活跃度查询
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            insurance__saas_models.QueryAasDataBankcardlivenessResponse(),
+            self.do_request('1.0', 'antcloud.insurancesaas.data.bankcardliveness.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def query_aas_data_bankcardliveness_ex_async(
+        self,
+        request: insurance__saas_models.QueryAasDataBankcardlivenessRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> insurance__saas_models.QueryAasDataBankcardlivenessResponse:
+        """
+        Description: 银行卡活跃度查询
+        Summary: 银行卡活跃度查询
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            insurance__saas_models.QueryAasDataBankcardlivenessResponse(),
+            await self.do_request_async('1.0', 'antcloud.insurancesaas.data.bankcardliveness.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def callback_aas_data_bankcardliveness(
+        self,
+        request: insurance__saas_models.CallbackAasDataBankcardlivenessRequest,
+    ) -> insurance__saas_models.CallbackAasDataBankcardlivenessResponse:
+        """
+        Description: 付款后数据回传
+        Summary: 付款后数据回传
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.callback_aas_data_bankcardliveness_ex(request, headers, runtime)
+
+    async def callback_aas_data_bankcardliveness_async(
+        self,
+        request: insurance__saas_models.CallbackAasDataBankcardlivenessRequest,
+    ) -> insurance__saas_models.CallbackAasDataBankcardlivenessResponse:
+        """
+        Description: 付款后数据回传
+        Summary: 付款后数据回传
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.callback_aas_data_bankcardliveness_ex_async(request, headers, runtime)
+
+    def callback_aas_data_bankcardliveness_ex(
+        self,
+        request: insurance__saas_models.CallbackAasDataBankcardlivenessRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> insurance__saas_models.CallbackAasDataBankcardlivenessResponse:
+        """
+        Description: 付款后数据回传
+        Summary: 付款后数据回传
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            insurance__saas_models.CallbackAasDataBankcardlivenessResponse(),
+            self.do_request('1.0', 'antcloud.insurancesaas.data.bankcardliveness.callback', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def callback_aas_data_bankcardliveness_ex_async(
+        self,
+        request: insurance__saas_models.CallbackAasDataBankcardlivenessRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> insurance__saas_models.CallbackAasDataBankcardlivenessResponse:
+        """
+        Description: 付款后数据回传
+        Summary: 付款后数据回传
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            insurance__saas_models.CallbackAasDataBankcardlivenessResponse(),
+            await self.do_request_async('1.0', 'antcloud.insurancesaas.data.bankcardliveness.callback', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def v_2aas_data_bankcardliveness_callback(
+        self,
+        request: insurance__saas_models.V2AasDataBankcardlivenessCallbackRequest,
+    ) -> insurance__saas_models.V2AasDataBankcardlivenessCallbackResponse:
+        """
+        Description: 付款后数据回传v2-含第四期至第十三期扣款字段
+        Summary: 付款后数据回传v2-含第四期至第十三期扣款字段
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.v_2aas_data_bankcardliveness_callback_ex(request, headers, runtime)
+
+    async def v_2aas_data_bankcardliveness_callback_async(
+        self,
+        request: insurance__saas_models.V2AasDataBankcardlivenessCallbackRequest,
+    ) -> insurance__saas_models.V2AasDataBankcardlivenessCallbackResponse:
+        """
+        Description: 付款后数据回传v2-含第四期至第十三期扣款字段
+        Summary: 付款后数据回传v2-含第四期至第十三期扣款字段
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.v_2aas_data_bankcardliveness_callback_ex_async(request, headers, runtime)
+
+    def v_2aas_data_bankcardliveness_callback_ex(
+        self,
+        request: insurance__saas_models.V2AasDataBankcardlivenessCallbackRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> insurance__saas_models.V2AasDataBankcardlivenessCallbackResponse:
+        """
+        Description: 付款后数据回传v2-含第四期至第十三期扣款字段
+        Summary: 付款后数据回传v2-含第四期至第十三期扣款字段
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            insurance__saas_models.V2AasDataBankcardlivenessCallbackResponse(),
+            self.do_request('1.0', 'antcloud.insurancesaas.data.bankcardliveness.callback.v2', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def v_2aas_data_bankcardliveness_callback_ex_async(
+        self,
+        request: insurance__saas_models.V2AasDataBankcardlivenessCallbackRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> insurance__saas_models.V2AasDataBankcardlivenessCallbackResponse:
+        """
+        Description: 付款后数据回传v2-含第四期至第十三期扣款字段
+        Summary: 付款后数据回传v2-含第四期至第十三期扣款字段
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            insurance__saas_models.V2AasDataBankcardlivenessCallbackResponse(),
+            await self.do_request_async('1.0', 'antcloud.insurancesaas.data.bankcardliveness.callback.v2', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
     def query_inquiry(
