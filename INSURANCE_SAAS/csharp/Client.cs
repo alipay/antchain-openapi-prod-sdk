@@ -158,7 +158,7 @@ namespace AntChain.SDK.INSURANCE_SAAS
                         {"req_msg_id", AntChain.AlipayUtil.AntchainUtils.GetNonce()},
                         {"access_key", _accessKeyId},
                         {"base_sdk_version", "TeaSDK-2.0"},
-                        {"sdk_version", "1.12.60"},
+                        {"sdk_version", "1.12.61"},
                         {"_prod_code", "INSURANCE_SAAS"},
                         {"_prod_channel", "undefined"},
                     };
@@ -301,7 +301,7 @@ namespace AntChain.SDK.INSURANCE_SAAS
                         {"req_msg_id", AntChain.AlipayUtil.AntchainUtils.GetNonce()},
                         {"access_key", _accessKeyId},
                         {"base_sdk_version", "TeaSDK-2.0"},
-                        {"sdk_version", "1.12.60"},
+                        {"sdk_version", "1.12.61"},
                         {"_prod_code", "INSURANCE_SAAS"},
                         {"_prod_channel", "undefined"},
                     };
@@ -1001,6 +1001,52 @@ namespace AntChain.SDK.INSURANCE_SAAS
         {
             AlibabaCloud.TeaUtil.Common.ValidateModel(request);
             return TeaModel.ToObject<CallbackAasDataBankcardlivenessResponse>(await DoRequestAsync("1.0", "antcloud.insurancesaas.data.bankcardliveness.callback", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /// <term><b>Description:</b></term>
+        /// <description>
+        /// <para>Description: 付款后数据回传v2-含第四期至第十三期扣款字段
+        /// Summary: 付款后数据回传v2-含第四期至第十三期扣款字段</para>
+        /// </description>
+        public V2AasDataBankcardlivenessCallbackResponse V2AasDataBankcardlivenessCallback(V2AasDataBankcardlivenessCallbackRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return V2AasDataBankcardlivenessCallbackEx(request, headers, runtime);
+        }
+
+        /// <term><b>Description:</b></term>
+        /// <description>
+        /// <para>Description: 付款后数据回传v2-含第四期至第十三期扣款字段
+        /// Summary: 付款后数据回传v2-含第四期至第十三期扣款字段</para>
+        /// </description>
+        public async Task<V2AasDataBankcardlivenessCallbackResponse> V2AasDataBankcardlivenessCallbackAsync(V2AasDataBankcardlivenessCallbackRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return await V2AasDataBankcardlivenessCallbackExAsync(request, headers, runtime);
+        }
+
+        /// <term><b>Description:</b></term>
+        /// <description>
+        /// <para>Description: 付款后数据回传v2-含第四期至第十三期扣款字段
+        /// Summary: 付款后数据回传v2-含第四期至第十三期扣款字段</para>
+        /// </description>
+        public V2AasDataBankcardlivenessCallbackResponse V2AasDataBankcardlivenessCallbackEx(V2AasDataBankcardlivenessCallbackRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<V2AasDataBankcardlivenessCallbackResponse>(DoRequest("1.0", "antcloud.insurancesaas.data.bankcardliveness.callback.v2", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /// <term><b>Description:</b></term>
+        /// <description>
+        /// <para>Description: 付款后数据回传v2-含第四期至第十三期扣款字段
+        /// Summary: 付款后数据回传v2-含第四期至第十三期扣款字段</para>
+        /// </description>
+        public async Task<V2AasDataBankcardlivenessCallbackResponse> V2AasDataBankcardlivenessCallbackExAsync(V2AasDataBankcardlivenessCallbackRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<V2AasDataBankcardlivenessCallbackResponse>(await DoRequestAsync("1.0", "antcloud.insurancesaas.data.bankcardliveness.callback.v2", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
         }
 
         /// <term><b>Description:</b></term>

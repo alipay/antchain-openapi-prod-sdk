@@ -9,7 +9,7 @@ using Tea;
 namespace AntChain.SDK.INSURANCE_SAAS.Models
 {
     // 键值对
-    public class NameValuePair : TeaModel {
+    public class XNameValuePair : TeaModel {
         // 键名
         /// <summary>
         /// <b>Example:</b>
