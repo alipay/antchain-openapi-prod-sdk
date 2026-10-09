@@ -956,6 +956,8 @@ class ExecAntcloudMarketingagentCreativeChatRequest(TeaModel):
         scene: str = None,
         width: int = None,
         height: int = None,
+        extra_params: List[MapStruct] = None,
+        product_code: str = None,
     ):
         # OAuth模式下的授权token
         self.auth_token = auth_token
@@ -975,6 +977,10 @@ class ExecAntcloudMarketingagentCreativeChatRequest(TeaModel):
         self.width = width
         # 生图高度
         self.height = height
+        # 额外参数
+        self.extra_params = extra_params
+        # 产品码
+        self.product_code = product_code
 
     def validate(self):
         self.validate_required(self.prompt, 'prompt')
@@ -982,6 +988,10 @@ class ExecAntcloudMarketingagentCreativeChatRequest(TeaModel):
             self.reference_style.validate()
         if self.input_elements:
             for k in self.input_elements:
+                if k:
+                    k.validate()
+        if self.extra_params:
+            for k in self.extra_params:
                 if k:
                     k.validate()
 
@@ -1011,6 +1021,12 @@ class ExecAntcloudMarketingagentCreativeChatRequest(TeaModel):
             result['width'] = self.width
         if self.height is not None:
             result['height'] = self.height
+        result['extra_params'] = []
+        if self.extra_params is not None:
+            for k in self.extra_params:
+                result['extra_params'].append(k.to_map() if k else None)
+        if self.product_code is not None:
+            result['product_code'] = self.product_code
         return result
 
     def from_map(self, m: dict = None):
@@ -1037,6 +1053,13 @@ class ExecAntcloudMarketingagentCreativeChatRequest(TeaModel):
             self.width = m.get('width')
         if m.get('height') is not None:
             self.height = m.get('height')
+        self.extra_params = []
+        if m.get('extra_params') is not None:
+            for k in m.get('extra_params'):
+                temp_model = MapStruct()
+                self.extra_params.append(temp_model.from_map(k))
+        if m.get('product_code') is not None:
+            self.product_code = m.get('product_code')
         return self
 
 
