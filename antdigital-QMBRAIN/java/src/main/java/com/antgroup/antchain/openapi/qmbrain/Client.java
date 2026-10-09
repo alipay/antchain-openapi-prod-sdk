@@ -126,7 +126,7 @@ public class Client {
                     new TeaPair("req_msg_id", com.antgroup.antchain.openapi.antchain.util.AntchainUtils.getNonce()),
                     new TeaPair("access_key", _accessKeyId),
                     new TeaPair("base_sdk_version", "TeaSDK-2.0"),
-                    new TeaPair("sdk_version", "1.0.6"),
+                    new TeaPair("sdk_version", "1.0.7"),
                     new TeaPair("_prod_code", "QMBRAIN"),
                     new TeaPair("_prod_channel", "default")
                 );
@@ -228,5 +228,47 @@ public class Client {
     public ExecOperationagentSsechatResponse execOperationagentSsechatEx(ExecOperationagentSsechatRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
         com.aliyun.teautil.Common.validateModel(request);
         return TeaModel.toModel(this.doRequest("1.0", "antdigital.qmbrain.operationagent.ssechat.exec", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new ExecOperationagentSsechatResponse());
+    }
+
+    /**
+     * <b>description</b> :
+     * <p>Description: 执行智能体底座flow调用
+     * Summary: 执行智能体底座flow调用</p>
+     */
+    public ExecFlowRunResponse execFlowRun(ExecFlowRunRequest request) throws Exception {
+        com.aliyun.teautil.models.RuntimeOptions runtime = new com.aliyun.teautil.models.RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.execFlowRunEx(request, headers, runtime);
+    }
+
+    /**
+     * <b>description</b> :
+     * <p>Description: 执行智能体底座flow调用
+     * Summary: 执行智能体底座flow调用</p>
+     */
+    public ExecFlowRunResponse execFlowRunEx(ExecFlowRunRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "antdigital.qmbrain.flow.run.exec", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new ExecFlowRunResponse());
+    }
+
+    /**
+     * <b>description</b> :
+     * <p>Description: 查询任务执行状态或者结果
+     * Summary: 查询任务执行状态或者结果</p>
+     */
+    public QueryFlowRunResponse queryFlowRun(QueryFlowRunRequest request) throws Exception {
+        com.aliyun.teautil.models.RuntimeOptions runtime = new com.aliyun.teautil.models.RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.queryFlowRunEx(request, headers, runtime);
+    }
+
+    /**
+     * <b>description</b> :
+     * <p>Description: 查询任务执行状态或者结果
+     * Summary: 查询任务执行状态或者结果</p>
+     */
+    public QueryFlowRunResponse queryFlowRunEx(QueryFlowRunRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "antdigital.qmbrain.flow.run.query", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new QueryFlowRunResponse());
     }
 }
