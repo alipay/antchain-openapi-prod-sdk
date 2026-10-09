@@ -59,6 +59,11 @@ namespace AntChain.SDK.CREATIVERENDER.Models
         [Validation(Required=false)]
         public List<MapStruct> ExtraParams { get; set; }
 
+        // 产品码
+        [NameInMap("product_code")]
+        [Validation(Required=false)]
+        public string ProductCode { get; set; }
+
     }
 
 }
