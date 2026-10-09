@@ -364,6 +364,39 @@ export class AssistantExtra extends $tea.Model {
   }
 }
 
+// map结构体
+export class MapStruct extends $tea.Model {
+  // 生图数量
+  /**
+   * @example
+   * generationCount
+   */
+  key: string;
+  // key对应的值
+  /**
+   * @example
+   * 1
+   */
+  value: string;
+  static names(): { [key: string]: string } {
+    return {
+      key: 'key',
+      value: 'value',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      key: 'string',
+      value: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
 // 素材
 export class CreativeMaterial extends $tea.Model {
   // Creative 行业产品代码：FUND / RETAIL，查询时缺省为 RETAIL
@@ -699,6 +732,8 @@ export class ExecAntcloudMarketingagentChatCreativeRequest extends $tea.Model {
   width?: number;
   // 生图高度
   height?: number;
+  // 扩展参数
+  extraParams?: MapStruct[];
   static names(): { [key: string]: string } {
     return {
       authToken: 'auth_token',
@@ -710,6 +745,7 @@ export class ExecAntcloudMarketingagentChatCreativeRequest extends $tea.Model {
       scene: 'scene',
       width: 'width',
       height: 'height',
+      extraParams: 'extra_params',
     };
   }
 
@@ -724,6 +760,7 @@ export class ExecAntcloudMarketingagentChatCreativeRequest extends $tea.Model {
       scene: 'string',
       width: 'number',
       height: 'number',
+      extraParams: { 'type': 'array', 'itemType': MapStruct },
     };
   }
 
@@ -803,6 +840,10 @@ export class ExecAntcloudMarketingagentCreativeChatRequest extends $tea.Model {
   width?: number;
   // 生图高度
   height?: number;
+  // 额外参数
+  extraParams?: MapStruct[];
+  // 产品码
+  productCode?: string;
   static names(): { [key: string]: string } {
     return {
       authToken: 'auth_token',
@@ -814,6 +855,8 @@ export class ExecAntcloudMarketingagentCreativeChatRequest extends $tea.Model {
       scene: 'scene',
       width: 'width',
       height: 'height',
+      extraParams: 'extra_params',
+      productCode: 'product_code',
     };
   }
 
@@ -828,6 +871,8 @@ export class ExecAntcloudMarketingagentCreativeChatRequest extends $tea.Model {
       scene: 'string',
       width: 'number',
       height: 'number',
+      extraParams: { 'type': 'array', 'itemType': MapStruct },
+      productCode: 'string',
     };
   }
 
@@ -1425,7 +1470,7 @@ export default class Client {
           req_msg_id: AntchainUtil.getNonce(),
           access_key: this._accessKeyId,
           base_sdk_version: "TeaSDK-2.0",
-          sdk_version: "2.0.9",
+          sdk_version: "2.1.1",
           _prod_code: "CREATIVERENDER",
           _prod_channel: "default",
         };
