@@ -6,6 +6,7 @@ namespace AntChain\CREATIVERENDER\Models;
 use AlibabaCloud\Tea\Model;
 
 use AntChain\CREATIVERENDER\Models\CreativeAssetRef;
+use AntChain\CREATIVERENDER\Models\MapStruct;
 
 class ExecAntcloudMarketingagentChatCreativeRequest extends Model {
     protected $_name = [
@@ -18,6 +19,7 @@ class ExecAntcloudMarketingagentChatCreativeRequest extends Model {
         'scene' => 'scene',
         'width' => 'width',
         'height' => 'height',
+        'extraParams' => 'extra_params',
     ];
     public function validate() {
         Model::validateRequired('prompt', $this->prompt, true);
@@ -56,6 +58,15 @@ class ExecAntcloudMarketingagentChatCreativeRequest extends Model {
         }
         if (null !== $this->height) {
             $res['height'] = $this->height;
+        }
+        if (null !== $this->extraParams) {
+            $res['extra_params'] = [];
+            if(null !== $this->extraParams && is_array($this->extraParams)){
+                $n = 0;
+                foreach($this->extraParams as $item){
+                    $res['extra_params'][$n++] = null !== $item ? $item->toMap() : $item;
+                }
+            }
         }
         return $res;
     }
@@ -97,6 +108,15 @@ class ExecAntcloudMarketingagentChatCreativeRequest extends Model {
         }
         if(isset($map['height'])){
             $model->height = $map['height'];
+        }
+        if(isset($map['extra_params'])){
+            if(!empty($map['extra_params'])){
+                $model->extraParams = [];
+                $n = 0;
+                foreach($map['extra_params'] as $item) {
+                    $model->extraParams[$n++] = null !== $item ? MapStruct::fromMap($item) : $item;
+                }
+            }
         }
         return $model;
     }
@@ -153,5 +173,11 @@ class ExecAntcloudMarketingagentChatCreativeRequest extends Model {
      * @var int
      */
     public $height;
+
+    // 扩展参数
+    /**
+     * @var MapStruct[]
+     */
+    public $extraParams;
 
 }
