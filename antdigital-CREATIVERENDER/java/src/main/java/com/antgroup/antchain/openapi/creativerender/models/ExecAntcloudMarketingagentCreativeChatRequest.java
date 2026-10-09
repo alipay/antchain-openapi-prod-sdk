@@ -43,7 +43,11 @@ public class ExecAntcloudMarketingagentCreativeChatRequest extends TeaModel {
 
     // 额外参数
     @NameInMap("extra_params")
-    public MapStruct extraParams;
+    public java.util.List<MapStruct> extraParams;
+
+    // 产品码
+    @NameInMap("product_code")
+    public String productCode;
 
     public static ExecAntcloudMarketingagentCreativeChatRequest build(java.util.Map<String, ?> map) throws Exception {
         ExecAntcloudMarketingagentCreativeChatRequest self = new ExecAntcloudMarketingagentCreativeChatRequest();
@@ -122,12 +126,20 @@ public class ExecAntcloudMarketingagentCreativeChatRequest extends TeaModel {
         return this.height;
     }
 
-    public ExecAntcloudMarketingagentCreativeChatRequest setExtraParams(MapStruct extraParams) {
+    public ExecAntcloudMarketingagentCreativeChatRequest setExtraParams(java.util.List<MapStruct> extraParams) {
         this.extraParams = extraParams;
         return this;
     }
-    public MapStruct getExtraParams() {
+    public java.util.List<MapStruct> getExtraParams() {
         return this.extraParams;
+    }
+
+    public ExecAntcloudMarketingagentCreativeChatRequest setProductCode(String productCode) {
+        this.productCode = productCode;
+        return this;
+    }
+    public String getProductCode() {
+        return this.productCode;
     }
 
 }
