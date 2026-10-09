@@ -7,6 +7,7 @@ use AlibabaCloud\Tea\Model;
 
 use AntChain\CREATIVERENDER\Models\CreativeAssetRef;
 use AntChain\CREATIVERENDER\Models\AssistantExtra;
+use AntChain\CREATIVERENDER\Models\MapStruct;
 
 class ExecAntcloudMarketingagentCreativeChatRequest extends Model {
     protected $_name = [
@@ -19,6 +20,8 @@ class ExecAntcloudMarketingagentCreativeChatRequest extends Model {
         'scene' => 'scene',
         'width' => 'width',
         'height' => 'height',
+        'extraParams' => 'extra_params',
+        'productCode' => 'product_code',
     ];
     public function validate() {
         Model::validateRequired('prompt', $this->prompt, true);
@@ -57,6 +60,18 @@ class ExecAntcloudMarketingagentCreativeChatRequest extends Model {
         }
         if (null !== $this->height) {
             $res['height'] = $this->height;
+        }
+        if (null !== $this->extraParams) {
+            $res['extra_params'] = [];
+            if(null !== $this->extraParams && is_array($this->extraParams)){
+                $n = 0;
+                foreach($this->extraParams as $item){
+                    $res['extra_params'][$n++] = null !== $item ? $item->toMap() : $item;
+                }
+            }
+        }
+        if (null !== $this->productCode) {
+            $res['product_code'] = $this->productCode;
         }
         return $res;
     }
@@ -98,6 +113,18 @@ class ExecAntcloudMarketingagentCreativeChatRequest extends Model {
         }
         if(isset($map['height'])){
             $model->height = $map['height'];
+        }
+        if(isset($map['extra_params'])){
+            if(!empty($map['extra_params'])){
+                $model->extraParams = [];
+                $n = 0;
+                foreach($map['extra_params'] as $item) {
+                    $model->extraParams[$n++] = null !== $item ? MapStruct::fromMap($item) : $item;
+                }
+            }
+        }
+        if(isset($map['product_code'])){
+            $model->productCode = $map['product_code'];
         }
         return $model;
     }
@@ -154,5 +181,17 @@ class ExecAntcloudMarketingagentCreativeChatRequest extends Model {
      * @var int
      */
     public $height;
+
+    // 额外参数
+    /**
+     * @var MapStruct[]
+     */
+    public $extraParams;
+
+    // 产品码
+    /**
+     * @var string
+     */
+    public $productCode;
 
 }
