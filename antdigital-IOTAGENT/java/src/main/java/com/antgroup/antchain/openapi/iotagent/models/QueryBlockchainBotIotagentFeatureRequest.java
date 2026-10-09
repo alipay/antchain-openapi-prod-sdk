@@ -16,6 +16,11 @@ public class QueryBlockchainBotIotagentFeatureRequest extends TeaModel {
     @Validation(required = true)
     public String tenantId;
 
+    // 要素项目ID
+    @NameInMap("asset_element_project_id")
+    @Validation(required = true)
+    public String assetElementProjectId;
+
     public static QueryBlockchainBotIotagentFeatureRequest build(java.util.Map<String, ?> map) throws Exception {
         QueryBlockchainBotIotagentFeatureRequest self = new QueryBlockchainBotIotagentFeatureRequest();
         return TeaModel.build(map, self);
@@ -43,6 +48,14 @@ public class QueryBlockchainBotIotagentFeatureRequest extends TeaModel {
     }
     public String getTenantId() {
         return this.tenantId;
+    }
+
+    public QueryBlockchainBotIotagentFeatureRequest setAssetElementProjectId(String assetElementProjectId) {
+        this.assetElementProjectId = assetElementProjectId;
+        return this;
+    }
+    public String getAssetElementProjectId() {
+        return this.assetElementProjectId;
     }
 
 }

@@ -47,7 +47,7 @@ public class SubAgentInfo extends TeaModel {
      */
     @NameInMap("skills")
     @Validation(required = true)
-    public java.util.List<String> skills;
+    public java.util.List<SkillInfo> skills;
 
     // mcp功能
     /**
@@ -56,7 +56,7 @@ public class SubAgentInfo extends TeaModel {
      */
     @NameInMap("mcps")
     @Validation(required = true)
-    public java.util.List<String> mcps;
+    public java.util.List<McpInfo> mcps;
 
     // 实例id
     /**
@@ -104,19 +104,19 @@ public class SubAgentInfo extends TeaModel {
         return this.modelId;
     }
 
-    public SubAgentInfo setSkills(java.util.List<String> skills) {
+    public SubAgentInfo setSkills(java.util.List<SkillInfo> skills) {
         this.skills = skills;
         return this;
     }
-    public java.util.List<String> getSkills() {
+    public java.util.List<SkillInfo> getSkills() {
         return this.skills;
     }
 
-    public SubAgentInfo setMcps(java.util.List<String> mcps) {
+    public SubAgentInfo setMcps(java.util.List<McpInfo> mcps) {
         this.mcps = mcps;
         return this;
     }
-    public java.util.List<String> getMcps() {
+    public java.util.List<McpInfo> getMcps() {
         return this.mcps;
     }
 
