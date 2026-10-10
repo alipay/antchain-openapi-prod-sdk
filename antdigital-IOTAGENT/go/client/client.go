@@ -6,6 +6,7 @@ import (
 	util "github.com/alibabacloud-go/tea-utils/v2/service"
 	"github.com/alibabacloud-go/tea/tea"
 	antchainutil "github.com/antchain-openapi-sdk-go/antchain-util/service"
+	"io"
 )
 
 // Description:
@@ -586,6 +587,78 @@ func (s *ContinuousOtaOpenApiRuleResponse) SetCreateRequestId(v string) *Continu
 	return s
 }
 
+// mcp协议字段信息
+type McpInfo struct {
+	// mcp名字
+	// example:
+	//
+	// mcp名字
+	Name *string `json:"name,omitempty" xml:"name,omitempty" require:"true"`
+	// 协议类型
+	// example:
+	//
+	// streamable_http / sse /stadio
+	Transport *string `json:"transport,omitempty" xml:"transport,omitempty" require:"true"`
+	// 协议地址
+	// example:
+	//
+	// 协议地址
+	Endpoint *string `json:"endpoint,omitempty" xml:"endpoint,omitempty"`
+	// json
+	// example:
+	//
+	// {}
+	Headers *string `json:"headers,omitempty" xml:"headers,omitempty"`
+	// mcp_id
+	// example:
+	//
+	// mcp_id
+	McpId *string `json:"mcp_id,omitempty" xml:"mcp_id,omitempty" require:"true"`
+	// 工具名字
+	// example:
+	//
+	// undefined
+	Tools []*string `json:"tools,omitempty" xml:"tools,omitempty" type:"Repeated"`
+}
+
+func (s McpInfo) String() string {
+	return tea.Prettify(s)
+}
+
+func (s McpInfo) GoString() string {
+	return s.String()
+}
+
+func (s *McpInfo) SetName(v string) *McpInfo {
+	s.Name = &v
+	return s
+}
+
+func (s *McpInfo) SetTransport(v string) *McpInfo {
+	s.Transport = &v
+	return s
+}
+
+func (s *McpInfo) SetEndpoint(v string) *McpInfo {
+	s.Endpoint = &v
+	return s
+}
+
+func (s *McpInfo) SetHeaders(v string) *McpInfo {
+	s.Headers = &v
+	return s
+}
+
+func (s *McpInfo) SetMcpId(v string) *McpInfo {
+	s.McpId = &v
+	return s
+}
+
+func (s *McpInfo) SetTools(v []*string) *McpInfo {
+	s.Tools = v
+	return s
+}
+
 // 资源定位信息
 type BaiResourceLocation struct {
 	// 资源定位类型
@@ -617,6 +690,58 @@ func (s *BaiResourceLocation) SetLocationType(v string) *BaiResourceLocation {
 
 func (s *BaiResourceLocation) SetLocationValue(v string) *BaiResourceLocation {
 	s.LocationValue = &v
+	return s
+}
+
+// skill信息
+type SkillInfo struct {
+	// skill名称
+	// example:
+	//
+	// xxx
+	Name *string `json:"name,omitempty" xml:"name,omitempty" require:"true"`
+	// 版本
+	// example:
+	//
+	// 1.2
+	Version *string `json:"version,omitempty" xml:"version,omitempty" require:"true"`
+	// oss地址
+	// example:
+	//
+	// url
+	Url *string `json:"url,omitempty" xml:"url,omitempty" require:"true"`
+	// skillId
+	// example:
+	//
+	// 11223344556778899
+	SkillId *string `json:"skill_id,omitempty" xml:"skill_id,omitempty" require:"true"`
+}
+
+func (s SkillInfo) String() string {
+	return tea.Prettify(s)
+}
+
+func (s SkillInfo) GoString() string {
+	return s.String()
+}
+
+func (s *SkillInfo) SetName(v string) *SkillInfo {
+	s.Name = &v
+	return s
+}
+
+func (s *SkillInfo) SetVersion(v string) *SkillInfo {
+	s.Version = &v
+	return s
+}
+
+func (s *SkillInfo) SetUrl(v string) *SkillInfo {
+	s.Url = &v
+	return s
+}
+
+func (s *SkillInfo) SetSkillId(v string) *SkillInfo {
+	s.SkillId = &v
 	return s
 }
 
@@ -2154,6 +2279,88 @@ func (s *AlertStrategy) SetRemark(v string) *AlertStrategy {
 	return s
 }
 
+// 子智能体详情
+type SubAgentInfo struct {
+	// 智能体ID
+	// example:
+	//
+	// 智能体ID
+	AgentId *string `json:"agent_id,omitempty" xml:"agent_id,omitempty" require:"true"`
+	// 智能体名称
+	// example:
+	//
+	// 碳矩阵智能体
+	AgentName *string `json:"agent_name,omitempty" xml:"agent_name,omitempty" require:"true"`
+	// 模型提供方
+	// example:
+	//
+	// aliyun
+	ModelProvider *string `json:"model_provider,omitempty" xml:"model_provider,omitempty" require:"true"`
+	// 模型
+	// example:
+	//
+	// qwen-plus
+	ModelId *string `json:"model_id,omitempty" xml:"model_id,omitempty" require:"true"`
+	// skill信息
+	// example:
+	//
+	// undefined
+	Skills []*SkillInfo `json:"skills,omitempty" xml:"skills,omitempty" require:"true" type:"Repeated"`
+	// mcp功能
+	// example:
+	//
+	// undefined
+	Mcps []*McpInfo `json:"mcps,omitempty" xml:"mcps,omitempty" require:"true" type:"Repeated"`
+	// 实例id
+	// example:
+	//
+	// 实例id
+	InstanceId *string `json:"instance_id,omitempty" xml:"instance_id,omitempty" require:"true"`
+}
+
+func (s SubAgentInfo) String() string {
+	return tea.Prettify(s)
+}
+
+func (s SubAgentInfo) GoString() string {
+	return s.String()
+}
+
+func (s *SubAgentInfo) SetAgentId(v string) *SubAgentInfo {
+	s.AgentId = &v
+	return s
+}
+
+func (s *SubAgentInfo) SetAgentName(v string) *SubAgentInfo {
+	s.AgentName = &v
+	return s
+}
+
+func (s *SubAgentInfo) SetModelProvider(v string) *SubAgentInfo {
+	s.ModelProvider = &v
+	return s
+}
+
+func (s *SubAgentInfo) SetModelId(v string) *SubAgentInfo {
+	s.ModelId = &v
+	return s
+}
+
+func (s *SubAgentInfo) SetSkills(v []*SkillInfo) *SubAgentInfo {
+	s.Skills = v
+	return s
+}
+
+func (s *SubAgentInfo) SetMcps(v []*McpInfo) *SubAgentInfo {
+	s.Mcps = v
+	return s
+}
+
+func (s *SubAgentInfo) SetInstanceId(v string) *SubAgentInfo {
+	s.InstanceId = &v
+	return s
+}
+
 // 商品的鉴定点图片信息
 type BaiGoodsPoint struct {
 	// 鉴定点名称
@@ -3055,6 +3262,38 @@ func (s *IotbasicReleaseOrderInfo) SetReleaseFinished(v int64) *IotbasicReleaseO
 
 func (s *IotbasicReleaseOrderInfo) SetStatusChangeTime(v string) *IotbasicReleaseOrderInfo {
 	s.StatusChangeTime = &v
+	return s
+}
+
+// AI仪表下发请求响应
+type AiPanelPushResponse struct {
+	// 是否已成功进入设备下发链路
+	// example:
+	//
+	// true
+	Accepted *bool `json:"accepted,omitempty" xml:"accepted,omitempty"`
+	// 任务标识，与请求消息标识一致
+	// example:
+	//
+	// ac1002c017876357242061390225
+	TaskId *string `json:"task_id,omitempty" xml:"task_id,omitempty"`
+}
+
+func (s AiPanelPushResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s AiPanelPushResponse) GoString() string {
+	return s.String()
+}
+
+func (s *AiPanelPushResponse) SetAccepted(v bool) *AiPanelPushResponse {
+	s.Accepted = &v
+	return s
+}
+
+func (s *AiPanelPushResponse) SetTaskId(v string) *AiPanelPushResponse {
+	s.TaskId = &v
 	return s
 }
 
@@ -4655,6 +4894,68 @@ func (s *XrUserTicketDetail) SetXrApps(v string) *XrUserTicketDetail {
 	return s
 }
 
+// 附件信息
+type FileInfo struct {
+	// 文件名称
+	// example:
+	//
+	// 文件名称
+	Name *string `json:"name,omitempty" xml:"name,omitempty" require:"true"`
+	// 文件类型
+	// example:
+	//
+	// 文件类型
+	Type *string `json:"type,omitempty" xml:"type,omitempty" require:"true"`
+	// oss地址
+	// example:
+	//
+	// oss地址
+	Url *string `json:"url,omitempty" xml:"url,omitempty" require:"true"`
+	// 创建时间
+	// example:
+	//
+	// 11223344556778899
+	CreatedAt *int64 `json:"created_at,omitempty" xml:"created_at,omitempty" require:"true"`
+	// id
+	// example:
+	//
+	// 11223344556778899
+	Id *string `json:"id,omitempty" xml:"id,omitempty" require:"true"`
+}
+
+func (s FileInfo) String() string {
+	return tea.Prettify(s)
+}
+
+func (s FileInfo) GoString() string {
+	return s.String()
+}
+
+func (s *FileInfo) SetName(v string) *FileInfo {
+	s.Name = &v
+	return s
+}
+
+func (s *FileInfo) SetType(v string) *FileInfo {
+	s.Type = &v
+	return s
+}
+
+func (s *FileInfo) SetUrl(v string) *FileInfo {
+	s.Url = &v
+	return s
+}
+
+func (s *FileInfo) SetCreatedAt(v int64) *FileInfo {
+	s.CreatedAt = &v
+	return s
+}
+
+func (s *FileInfo) SetId(v string) *FileInfo {
+	s.Id = &v
+	return s
+}
+
 // 商品鉴定返回结果
 type BaiGoodsComparisonResponse struct {
 	// 鉴定结果（REAL：为真   FAKE：为假   UNABLE_IDENTIFY：无法鉴定）
@@ -5303,6 +5604,38 @@ func (s *XrVerificationModelVo) SetType(v string) *XrVerificationModelVo {
 	return s
 }
 
+// 智能问数据返回
+type AskdataJobResult struct {
+	// 任务ID
+	// example:
+	//
+	// 97F385D2D8595AA4DC262C72965507
+	JobId *string `json:"job_id,omitempty" xml:"job_id,omitempty" require:"true"`
+	// 唯一标识
+	// example:
+	//
+	// 97F385D2D8595AA4DC262C72965507
+	RequestId *string `json:"request_id,omitempty" xml:"request_id,omitempty" require:"true"`
+}
+
+func (s AskdataJobResult) String() string {
+	return tea.Prettify(s)
+}
+
+func (s AskdataJobResult) GoString() string {
+	return s.String()
+}
+
+func (s *AskdataJobResult) SetJobId(v string) *AskdataJobResult {
+	s.JobId = &v
+	return s
+}
+
+func (s *AskdataJobResult) SetRequestId(v string) *AskdataJobResult {
+	s.RequestId = &v
+	return s
+}
+
 // 实体身份注册请求结构体
 type ThingsDidRegisterReq struct {
 	// 业务编码，暂时保留，不需传入
@@ -5672,6 +6005,48 @@ func (s *TripStatistics) SetTotalCount(v int64) *TripStatistics {
 
 func (s *TripStatistics) SetPeriodCode(v int64) *TripStatistics {
 	s.PeriodCode = &v
+	return s
+}
+
+// 预览文件信息
+type PreviewFileInfo struct {
+	Name     *string `json:"name,omitempty" xml:"name,omitempty" require:"true"`
+	Type     *string `json:"type,omitempty" xml:"type,omitempty" require:"true"`
+	Url      *string `json:"url,omitempty" xml:"url,omitempty" require:"true"`
+	ExpireAt *int64  `json:"expire_at,omitempty" xml:"expire_at,omitempty" require:"true"`
+	Id       *string `json:"id,omitempty" xml:"id,omitempty" require:"true"`
+}
+
+func (s PreviewFileInfo) String() string {
+	return tea.Prettify(s)
+}
+
+func (s PreviewFileInfo) GoString() string {
+	return s.String()
+}
+
+func (s *PreviewFileInfo) SetName(v string) *PreviewFileInfo {
+	s.Name = &v
+	return s
+}
+
+func (s *PreviewFileInfo) SetType(v string) *PreviewFileInfo {
+	s.Type = &v
+	return s
+}
+
+func (s *PreviewFileInfo) SetUrl(v string) *PreviewFileInfo {
+	s.Url = &v
+	return s
+}
+
+func (s *PreviewFileInfo) SetExpireAt(v int64) *PreviewFileInfo {
+	s.ExpireAt = &v
+	return s
+}
+
+func (s *PreviewFileInfo) SetId(v string) *PreviewFileInfo {
+	s.Id = &v
 	return s
 }
 
@@ -7105,6 +7480,118 @@ func (s *BaiQrcodeComparisonRespData) SetIdentificationMessage(v string) *BaiQrc
 
 func (s *BaiQrcodeComparisonRespData) SetUnableIdentifySolution(v string) *BaiQrcodeComparisonRespData {
 	s.UnableIdentifySolution = &v
+	return s
+}
+
+// 智能体信息
+type AgentInfo struct {
+	// 智能体id
+	// example:
+	//
+	// 11223344556778899
+	AgentId *string `json:"agent_id,omitempty" xml:"agent_id,omitempty" require:"true"`
+	// 智能体名字
+	// example:
+	//
+	// 碳矩阵智能体
+	AgentName *string `json:"agent_name,omitempty" xml:"agent_name,omitempty" require:"true"`
+	// 系统提示词
+	// example:
+	//
+	// 你是碳矩阵智能助手
+	SystemPrompt *string `json:"system_prompt,omitempty" xml:"system_prompt,omitempty" require:"true"`
+	// 模型提供方
+	// example:
+	//
+	// aliyun
+	ModelProvider *string `json:"model_provider,omitempty" xml:"model_provider,omitempty" require:"true"`
+	// 模型
+	// example:
+	//
+	// 11223344556778899
+	ModelId *string `json:"model_id,omitempty" xml:"model_id,omitempty" require:"true"`
+	// skills信息
+	// example:
+	//
+	// undefined
+	Skills []*SkillInfo `json:"skills,omitempty" xml:"skills,omitempty" require:"true" type:"Repeated"`
+	// mcp信息
+	// example:
+	//
+	// undefined
+	Mcps []*McpInfo `json:"mcps,omitempty" xml:"mcps,omitempty" require:"true" type:"Repeated"`
+	// 子智能体id
+	// example:
+	//
+	// undefined
+	SubAgents []*string `json:"sub_agents,omitempty" xml:"sub_agents,omitempty" type:"Repeated"`
+	// 子智能体详情
+	// example:
+	//
+	// undefined
+	SubAgentInfoList []*SubAgentInfo `json:"sub_agent_info_list,omitempty" xml:"sub_agent_info_list,omitempty" type:"Repeated"`
+	// 实例id
+	// example:
+	//
+	// 11223344556778899
+	InstanceId *string `json:"instance_id,omitempty" xml:"instance_id,omitempty" require:"true"`
+}
+
+func (s AgentInfo) String() string {
+	return tea.Prettify(s)
+}
+
+func (s AgentInfo) GoString() string {
+	return s.String()
+}
+
+func (s *AgentInfo) SetAgentId(v string) *AgentInfo {
+	s.AgentId = &v
+	return s
+}
+
+func (s *AgentInfo) SetAgentName(v string) *AgentInfo {
+	s.AgentName = &v
+	return s
+}
+
+func (s *AgentInfo) SetSystemPrompt(v string) *AgentInfo {
+	s.SystemPrompt = &v
+	return s
+}
+
+func (s *AgentInfo) SetModelProvider(v string) *AgentInfo {
+	s.ModelProvider = &v
+	return s
+}
+
+func (s *AgentInfo) SetModelId(v string) *AgentInfo {
+	s.ModelId = &v
+	return s
+}
+
+func (s *AgentInfo) SetSkills(v []*SkillInfo) *AgentInfo {
+	s.Skills = v
+	return s
+}
+
+func (s *AgentInfo) SetMcps(v []*McpInfo) *AgentInfo {
+	s.Mcps = v
+	return s
+}
+
+func (s *AgentInfo) SetSubAgents(v []*string) *AgentInfo {
+	s.SubAgents = v
+	return s
+}
+
+func (s *AgentInfo) SetSubAgentInfoList(v []*SubAgentInfo) *AgentInfo {
+	s.SubAgentInfoList = v
+	return s
+}
+
+func (s *AgentInfo) SetInstanceId(v string) *AgentInfo {
+	s.InstanceId = &v
 	return s
 }
 
@@ -11872,6 +12359,42 @@ func (s *DeviceTripProperties) SetEqst(v string) *DeviceTripProperties {
 	return s
 }
 
+// ThingModelFeatureResponse
+type ThingModelFeatureResponse struct {
+	FeatureId       *string `json:"feature_id,omitempty" xml:"feature_id,omitempty" require:"true"`
+	Identifier      *string `json:"identifier,omitempty" xml:"identifier,omitempty" require:"true"`
+	Name            *string `json:"name,omitempty" xml:"name,omitempty" require:"true"`
+	EventProperties *string `json:"event_properties,omitempty" xml:"event_properties,omitempty" require:"true"`
+}
+
+func (s ThingModelFeatureResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s ThingModelFeatureResponse) GoString() string {
+	return s.String()
+}
+
+func (s *ThingModelFeatureResponse) SetFeatureId(v string) *ThingModelFeatureResponse {
+	s.FeatureId = &v
+	return s
+}
+
+func (s *ThingModelFeatureResponse) SetIdentifier(v string) *ThingModelFeatureResponse {
+	s.Identifier = &v
+	return s
+}
+
+func (s *ThingModelFeatureResponse) SetName(v string) *ThingModelFeatureResponse {
+	s.Name = &v
+	return s
+}
+
+func (s *ThingModelFeatureResponse) SetEventProperties(v string) *ThingModelFeatureResponse {
+	s.EventProperties = &v
+	return s
+}
+
 // 行程详情
 type TripDetail struct {
 	// 行程id
@@ -13681,6 +14204,38 @@ func (s *GoodsDigitalFingerprintRegisterResultData) SetDescribe(v string) *Goods
 	return s
 }
 
+// 会话信息列表
+type SessionInfo struct {
+	// 会话名称
+	// example:
+	//
+	// 碳矩阵智能体
+	SessionName *string `json:"session_name,omitempty" xml:"session_name,omitempty" require:"true"`
+	// 会话id
+	// example:
+	//
+	// 会话id
+	SessionId *string `json:"session_id,omitempty" xml:"session_id,omitempty" require:"true"`
+}
+
+func (s SessionInfo) String() string {
+	return tea.Prettify(s)
+}
+
+func (s SessionInfo) GoString() string {
+	return s.String()
+}
+
+func (s *SessionInfo) SetSessionName(v string) *SessionInfo {
+	s.SessionName = &v
+	return s
+}
+
+func (s *SessionInfo) SetSessionId(v string) *SessionInfo {
+	s.SessionId = &v
+	return s
+}
+
 // 租户项目创建请求结构体模型
 type TenantProjectCreateReq struct {
 	// 业务类型，默认空
@@ -13873,6 +14428,58 @@ func (s *DeviceCollectResult) SetCollectId(v string) *DeviceCollectResult {
 
 func (s *DeviceCollectResult) SetAntchainId(v string) *DeviceCollectResult {
 	s.AntchainId = &v
+	return s
+}
+
+// 音频规格
+type AudioSpec struct {
+	// 容器，如 WAV
+	// example:
+	//
+	// WAV
+	Container *string `json:"container,omitempty" xml:"container,omitempty" require:"true"`
+	// 编码，如 PCM_S16LE
+	// example:
+	//
+	// PCM_S16LE
+	Codec *string `json:"codec,omitempty" xml:"codec,omitempty" require:"true"`
+	// 采样率，单位 Hz，如 16000
+	// example:
+	//
+	// 16000
+	SampleRate *int64 `json:"sample_rate,omitempty" xml:"sample_rate,omitempty" require:"true"`
+	// 声道数，如 1
+	// example:
+	//
+	// 1
+	Channels *int64 `json:"channels,omitempty" xml:"channels,omitempty" require:"true"`
+}
+
+func (s AudioSpec) String() string {
+	return tea.Prettify(s)
+}
+
+func (s AudioSpec) GoString() string {
+	return s.String()
+}
+
+func (s *AudioSpec) SetContainer(v string) *AudioSpec {
+	s.Container = &v
+	return s
+}
+
+func (s *AudioSpec) SetCodec(v string) *AudioSpec {
+	s.Codec = &v
+	return s
+}
+
+func (s *AudioSpec) SetSampleRate(v int64) *AudioSpec {
+	s.SampleRate = &v
+	return s
+}
+
+func (s *AudioSpec) SetChannels(v int64) *AudioSpec {
+	s.Channels = &v
 	return s
 }
 
@@ -14528,6 +15135,128 @@ func (s *IotBasicDeviceRegisterResult) SetSecKey(v string) *IotBasicDeviceRegist
 
 func (s *IotBasicDeviceRegisterResult) SetServiceStatus(v string) *IotBasicDeviceRegisterResult {
 	s.ServiceStatus = &v
+	return s
+}
+
+// 智能体云音乐歌曲
+type AgentMusicSong struct {
+	// 歌曲 ID
+	// example:
+	//
+	// id123456
+	SongId *string `json:"song_id,omitempty" xml:"song_id,omitempty"`
+	// 歌名
+	// example:
+	//
+	// 三只松鼠
+	SongName *string `json:"song_name,omitempty" xml:"song_name,omitempty"`
+	// 歌手（多歌手用 / 分隔）
+	// example:
+	//
+	// 林君杰/周伦
+	ArtistName *string `json:"artist_name,omitempty" xml:"artist_name,omitempty"`
+	// 时长(ms)
+	// example:
+	//
+	// 208888
+	Duration *int64 `json:"duration,omitempty" xml:"duration,omitempty"`
+	// 是否已添加红心
+	// example:
+	//
+	// true
+	IsLiked *bool `json:"is_liked,omitempty" xml:"is_liked,omitempty"`
+	// 播放标记，取值范围：0=可播放 / 1=不可播放
+	// example:
+	//
+	// 0
+	PlayFlag *int64 `json:"play_flag,omitempty" xml:"play_flag,omitempty"`
+	// VIP 播放标记，取值范围：0=免费（非 VIP 限制） / 1=VIP 专享
+	// example:
+	//
+	// 0
+	VipPlayFlag *int64 `json:"vip_play_flag,omitempty" xml:"vip_play_flag,omitempty"`
+	// VIP 标记（0=否，1=是）
+	// example:
+	//
+	// 0
+	VipFlag *int64 `json:"vip_flag,omitempty" xml:"vip_flag,omitempty"`
+	// 收费类型，取值范围：0=免费 / 1=VIP / 4=付费专辑 / 8=低质量免费
+	// example:
+	//
+	// 0
+	SongFee *int64 `json:"song_fee,omitempty" xml:"song_fee,omitempty"`
+	// 封面 URL
+	// example:
+	//
+	// http://p2.music.126.net/t8H-_P4uF567.jpg
+	CoverImgUrl *string `json:"cover_img_url,omitempty" xml:"cover_img_url,omitempty"`
+	// 可用音质 code 列表，取值范围：vividMusic=Audio Vivid / dolbyMusic=杜比 / skMusic=沉浸环绕声 / jyMasterMusic=超清母带 / jyEffectMusic=高清臻音 / hrMusic=Hi-Res / sqMusic=无损 / hmusic=极高 / mmusic=较高 / lmusic=标准
+	// example:
+	//
+	// ["dolbyMusic","hrMusic"]
+	Qualities []*string `json:"qualities,omitempty" xml:"qualities,omitempty" type:"Repeated"`
+}
+
+func (s AgentMusicSong) String() string {
+	return tea.Prettify(s)
+}
+
+func (s AgentMusicSong) GoString() string {
+	return s.String()
+}
+
+func (s *AgentMusicSong) SetSongId(v string) *AgentMusicSong {
+	s.SongId = &v
+	return s
+}
+
+func (s *AgentMusicSong) SetSongName(v string) *AgentMusicSong {
+	s.SongName = &v
+	return s
+}
+
+func (s *AgentMusicSong) SetArtistName(v string) *AgentMusicSong {
+	s.ArtistName = &v
+	return s
+}
+
+func (s *AgentMusicSong) SetDuration(v int64) *AgentMusicSong {
+	s.Duration = &v
+	return s
+}
+
+func (s *AgentMusicSong) SetIsLiked(v bool) *AgentMusicSong {
+	s.IsLiked = &v
+	return s
+}
+
+func (s *AgentMusicSong) SetPlayFlag(v int64) *AgentMusicSong {
+	s.PlayFlag = &v
+	return s
+}
+
+func (s *AgentMusicSong) SetVipPlayFlag(v int64) *AgentMusicSong {
+	s.VipPlayFlag = &v
+	return s
+}
+
+func (s *AgentMusicSong) SetVipFlag(v int64) *AgentMusicSong {
+	s.VipFlag = &v
+	return s
+}
+
+func (s *AgentMusicSong) SetSongFee(v int64) *AgentMusicSong {
+	s.SongFee = &v
+	return s
+}
+
+func (s *AgentMusicSong) SetCoverImgUrl(v string) *AgentMusicSong {
+	s.CoverImgUrl = &v
+	return s
+}
+
+func (s *AgentMusicSong) SetQualities(v []*string) *AgentMusicSong {
+	s.Qualities = v
 	return s
 }
 
@@ -15473,6 +16202,221 @@ func (s *DeviceorderRequest) SetOrderDeviceList(v []*IotBasicDeviceOrderItem) *D
 
 func (s *DeviceorderRequest) SetTotalAmount(v string) *DeviceorderRequest {
 	s.TotalAmount = &v
+	return s
+}
+
+// 键值对
+type XNameValuePair struct {
+	// 键名
+	// example:
+	//
+	// key
+	Name *string `json:"name,omitempty" xml:"name,omitempty" require:"true"`
+	// 键值
+	// example:
+	//
+	// value
+	Value *string `json:"value,omitempty" xml:"value,omitempty" require:"true"`
+}
+
+func (s XNameValuePair) String() string {
+	return tea.Prettify(s)
+}
+
+func (s XNameValuePair) GoString() string {
+	return s.String()
+}
+
+func (s *XNameValuePair) SetName(v string) *XNameValuePair {
+	s.Name = &v
+	return s
+}
+
+func (s *XNameValuePair) SetValue(v string) *XNameValuePair {
+	s.Value = &v
+	return s
+}
+
+type QueryBlockchainBotIotagentUseridsRequest struct {
+	// OAuth模式下的授权token
+	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
+	// 客户租户名
+	TenantId  *string `json:"tenant_id,omitempty" xml:"tenant_id,omitempty" require:"true"`
+	PageIndex *int64  `json:"page_index,omitempty" xml:"page_index,omitempty" require:"true"`
+	PageSize  *int64  `json:"page_size,omitempty" xml:"page_size,omitempty" require:"true"`
+}
+
+func (s QueryBlockchainBotIotagentUseridsRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s QueryBlockchainBotIotagentUseridsRequest) GoString() string {
+	return s.String()
+}
+
+func (s *QueryBlockchainBotIotagentUseridsRequest) SetAuthToken(v string) *QueryBlockchainBotIotagentUseridsRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *QueryBlockchainBotIotagentUseridsRequest) SetProductInstanceId(v string) *QueryBlockchainBotIotagentUseridsRequest {
+	s.ProductInstanceId = &v
+	return s
+}
+
+func (s *QueryBlockchainBotIotagentUseridsRequest) SetTenantId(v string) *QueryBlockchainBotIotagentUseridsRequest {
+	s.TenantId = &v
+	return s
+}
+
+func (s *QueryBlockchainBotIotagentUseridsRequest) SetPageIndex(v int64) *QueryBlockchainBotIotagentUseridsRequest {
+	s.PageIndex = &v
+	return s
+}
+
+func (s *QueryBlockchainBotIotagentUseridsRequest) SetPageSize(v int64) *QueryBlockchainBotIotagentUseridsRequest {
+	s.PageSize = &v
+	return s
+}
+
+type QueryBlockchainBotIotagentUseridsResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	Total     *int64  `json:"total,omitempty" xml:"total,omitempty"`
+	PageSize  *int64  `json:"page_size,omitempty" xml:"page_size,omitempty"`
+	PageNum   *int64  `json:"page_num,omitempty" xml:"page_num,omitempty"`
+	// user_id 列表
+	Pages []*string `json:"pages,omitempty" xml:"pages,omitempty" type:"Repeated"`
+}
+
+func (s QueryBlockchainBotIotagentUseridsResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s QueryBlockchainBotIotagentUseridsResponse) GoString() string {
+	return s.String()
+}
+
+func (s *QueryBlockchainBotIotagentUseridsResponse) SetReqMsgId(v string) *QueryBlockchainBotIotagentUseridsResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *QueryBlockchainBotIotagentUseridsResponse) SetResultCode(v string) *QueryBlockchainBotIotagentUseridsResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *QueryBlockchainBotIotagentUseridsResponse) SetResultMsg(v string) *QueryBlockchainBotIotagentUseridsResponse {
+	s.ResultMsg = &v
+	return s
+}
+
+func (s *QueryBlockchainBotIotagentUseridsResponse) SetTotal(v int64) *QueryBlockchainBotIotagentUseridsResponse {
+	s.Total = &v
+	return s
+}
+
+func (s *QueryBlockchainBotIotagentUseridsResponse) SetPageSize(v int64) *QueryBlockchainBotIotagentUseridsResponse {
+	s.PageSize = &v
+	return s
+}
+
+func (s *QueryBlockchainBotIotagentUseridsResponse) SetPageNum(v int64) *QueryBlockchainBotIotagentUseridsResponse {
+	s.PageNum = &v
+	return s
+}
+
+func (s *QueryBlockchainBotIotagentUseridsResponse) SetPages(v []*string) *QueryBlockchainBotIotagentUseridsResponse {
+	s.Pages = v
+	return s
+}
+
+type TestBlockchainBotIotagentPluginRequest struct {
+	// OAuth模式下的授权token
+	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
+	// string
+	// 待上传文件
+	FileObject io.Reader `json:"fileObject,omitempty" xml:"fileObject,omitempty"`
+	// 待上传文件名
+	FileObjectName *string `json:"fileObjectName,omitempty" xml:"fileObjectName,omitempty"`
+	FileId         *string `json:"file_id,omitempty" xml:"file_id,omitempty" require:"true"`
+	PluginId       *string `json:"plugin_id,omitempty" xml:"plugin_id,omitempty" require:"true"`
+}
+
+func (s TestBlockchainBotIotagentPluginRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s TestBlockchainBotIotagentPluginRequest) GoString() string {
+	return s.String()
+}
+
+func (s *TestBlockchainBotIotagentPluginRequest) SetAuthToken(v string) *TestBlockchainBotIotagentPluginRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *TestBlockchainBotIotagentPluginRequest) SetProductInstanceId(v string) *TestBlockchainBotIotagentPluginRequest {
+	s.ProductInstanceId = &v
+	return s
+}
+
+func (s *TestBlockchainBotIotagentPluginRequest) SetFileObject(v io.Reader) *TestBlockchainBotIotagentPluginRequest {
+	s.FileObject = v
+	return s
+}
+
+func (s *TestBlockchainBotIotagentPluginRequest) SetFileObjectName(v string) *TestBlockchainBotIotagentPluginRequest {
+	s.FileObjectName = &v
+	return s
+}
+
+func (s *TestBlockchainBotIotagentPluginRequest) SetFileId(v string) *TestBlockchainBotIotagentPluginRequest {
+	s.FileId = &v
+	return s
+}
+
+func (s *TestBlockchainBotIotagentPluginRequest) SetPluginId(v string) *TestBlockchainBotIotagentPluginRequest {
+	s.PluginId = &v
+	return s
+}
+
+type TestBlockchainBotIotagentPluginResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+}
+
+func (s TestBlockchainBotIotagentPluginResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s TestBlockchainBotIotagentPluginResponse) GoString() string {
+	return s.String()
+}
+
+func (s *TestBlockchainBotIotagentPluginResponse) SetReqMsgId(v string) *TestBlockchainBotIotagentPluginResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *TestBlockchainBotIotagentPluginResponse) SetResultCode(v string) *TestBlockchainBotIotagentPluginResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *TestBlockchainBotIotagentPluginResponse) SetResultMsg(v string) *TestBlockchainBotIotagentPluginResponse {
+	s.ResultMsg = &v
 	return s
 }
 
@@ -16454,6 +17398,3833 @@ func (s *QueryBlockchainBotIotagentPlugincontractResponse) SetContractStatus(v s
 	return s
 }
 
+type QueryBlockchainBotIotagentUseridRequest struct {
+	// OAuth模式下的授权token
+	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
+	// 租户名
+	TenantId *string `json:"tenant_id,omitempty" xml:"tenant_id,omitempty" require:"true"`
+	// 页码
+	PageIndex *int64 `json:"page_index,omitempty" xml:"page_index,omitempty"`
+	PageSize  *int64 `json:"page_size,omitempty" xml:"page_size,omitempty"`
+}
+
+func (s QueryBlockchainBotIotagentUseridRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s QueryBlockchainBotIotagentUseridRequest) GoString() string {
+	return s.String()
+}
+
+func (s *QueryBlockchainBotIotagentUseridRequest) SetAuthToken(v string) *QueryBlockchainBotIotagentUseridRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *QueryBlockchainBotIotagentUseridRequest) SetProductInstanceId(v string) *QueryBlockchainBotIotagentUseridRequest {
+	s.ProductInstanceId = &v
+	return s
+}
+
+func (s *QueryBlockchainBotIotagentUseridRequest) SetTenantId(v string) *QueryBlockchainBotIotagentUseridRequest {
+	s.TenantId = &v
+	return s
+}
+
+func (s *QueryBlockchainBotIotagentUseridRequest) SetPageIndex(v int64) *QueryBlockchainBotIotagentUseridRequest {
+	s.PageIndex = &v
+	return s
+}
+
+func (s *QueryBlockchainBotIotagentUseridRequest) SetPageSize(v int64) *QueryBlockchainBotIotagentUseridRequest {
+	s.PageSize = &v
+	return s
+}
+
+type QueryBlockchainBotIotagentUseridResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// 对应租户名下的user_id
+	UserIdList []*string `json:"user_id_list,omitempty" xml:"user_id_list,omitempty" type:"Repeated"`
+	Total      *int64    `json:"total,omitempty" xml:"total,omitempty"`
+	PageNum    *int64    `json:"page_num,omitempty" xml:"page_num,omitempty"`
+	PageSize   *int64    `json:"page_size,omitempty" xml:"page_size,omitempty"`
+}
+
+func (s QueryBlockchainBotIotagentUseridResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s QueryBlockchainBotIotagentUseridResponse) GoString() string {
+	return s.String()
+}
+
+func (s *QueryBlockchainBotIotagentUseridResponse) SetReqMsgId(v string) *QueryBlockchainBotIotagentUseridResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *QueryBlockchainBotIotagentUseridResponse) SetResultCode(v string) *QueryBlockchainBotIotagentUseridResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *QueryBlockchainBotIotagentUseridResponse) SetResultMsg(v string) *QueryBlockchainBotIotagentUseridResponse {
+	s.ResultMsg = &v
+	return s
+}
+
+func (s *QueryBlockchainBotIotagentUseridResponse) SetUserIdList(v []*string) *QueryBlockchainBotIotagentUseridResponse {
+	s.UserIdList = v
+	return s
+}
+
+func (s *QueryBlockchainBotIotagentUseridResponse) SetTotal(v int64) *QueryBlockchainBotIotagentUseridResponse {
+	s.Total = &v
+	return s
+}
+
+func (s *QueryBlockchainBotIotagentUseridResponse) SetPageNum(v int64) *QueryBlockchainBotIotagentUseridResponse {
+	s.PageNum = &v
+	return s
+}
+
+func (s *QueryBlockchainBotIotagentUseridResponse) SetPageSize(v int64) *QueryBlockchainBotIotagentUseridResponse {
+	s.PageSize = &v
+	return s
+}
+
+type QueryBlockchainBotIotagentFeatureRequest struct {
+	// OAuth模式下的授权token
+	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
+	// 租户名
+	TenantId *string `json:"tenant_id,omitempty" xml:"tenant_id,omitempty" require:"true"`
+	// 要素项目ID
+	AssetElementProjectId *string `json:"asset_element_project_id,omitempty" xml:"asset_element_project_id,omitempty" require:"true"`
+}
+
+func (s QueryBlockchainBotIotagentFeatureRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s QueryBlockchainBotIotagentFeatureRequest) GoString() string {
+	return s.String()
+}
+
+func (s *QueryBlockchainBotIotagentFeatureRequest) SetAuthToken(v string) *QueryBlockchainBotIotagentFeatureRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *QueryBlockchainBotIotagentFeatureRequest) SetProductInstanceId(v string) *QueryBlockchainBotIotagentFeatureRequest {
+	s.ProductInstanceId = &v
+	return s
+}
+
+func (s *QueryBlockchainBotIotagentFeatureRequest) SetTenantId(v string) *QueryBlockchainBotIotagentFeatureRequest {
+	s.TenantId = &v
+	return s
+}
+
+func (s *QueryBlockchainBotIotagentFeatureRequest) SetAssetElementProjectId(v string) *QueryBlockchainBotIotagentFeatureRequest {
+	s.AssetElementProjectId = &v
+	return s
+}
+
+type QueryBlockchainBotIotagentFeatureResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// ThingModelFeatureList
+	Data []*ThingModelFeatureResponse `json:"data,omitempty" xml:"data,omitempty" type:"Repeated"`
+}
+
+func (s QueryBlockchainBotIotagentFeatureResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s QueryBlockchainBotIotagentFeatureResponse) GoString() string {
+	return s.String()
+}
+
+func (s *QueryBlockchainBotIotagentFeatureResponse) SetReqMsgId(v string) *QueryBlockchainBotIotagentFeatureResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *QueryBlockchainBotIotagentFeatureResponse) SetResultCode(v string) *QueryBlockchainBotIotagentFeatureResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *QueryBlockchainBotIotagentFeatureResponse) SetResultMsg(v string) *QueryBlockchainBotIotagentFeatureResponse {
+	s.ResultMsg = &v
+	return s
+}
+
+func (s *QueryBlockchainBotIotagentFeatureResponse) SetData(v []*ThingModelFeatureResponse) *QueryBlockchainBotIotagentFeatureResponse {
+	s.Data = v
+	return s
+}
+
+type CreateBlockchainBotIotagentAgentRequest struct {
+	// OAuth模式下的授权token
+	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
+	// 智能体名称
+	AgentName *string `json:"agent_name,omitempty" xml:"agent_name,omitempty" require:"true"`
+	// 实例Id
+	InstanceId *string `json:"instance_id,omitempty" xml:"instance_id,omitempty" require:"true"`
+	// 系统提示词
+	SystemPrompt *string `json:"system_prompt,omitempty" xml:"system_prompt,omitempty"`
+	// 模型提供方
+	ModelProvider *string `json:"model_provider,omitempty" xml:"model_provider,omitempty" require:"true"`
+	// 模型名称
+	ModelId *string `json:"model_id,omitempty" xml:"model_id,omitempty" require:"true"`
+	// sklil内容
+	Skills []*SkillInfo `json:"skills,omitempty" xml:"skills,omitempty" type:"Repeated"`
+	// mcp配置
+	Mcps []*McpInfo `json:"mcps,omitempty" xml:"mcps,omitempty" type:"Repeated"`
+}
+
+func (s CreateBlockchainBotIotagentAgentRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s CreateBlockchainBotIotagentAgentRequest) GoString() string {
+	return s.String()
+}
+
+func (s *CreateBlockchainBotIotagentAgentRequest) SetAuthToken(v string) *CreateBlockchainBotIotagentAgentRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *CreateBlockchainBotIotagentAgentRequest) SetProductInstanceId(v string) *CreateBlockchainBotIotagentAgentRequest {
+	s.ProductInstanceId = &v
+	return s
+}
+
+func (s *CreateBlockchainBotIotagentAgentRequest) SetAgentName(v string) *CreateBlockchainBotIotagentAgentRequest {
+	s.AgentName = &v
+	return s
+}
+
+func (s *CreateBlockchainBotIotagentAgentRequest) SetInstanceId(v string) *CreateBlockchainBotIotagentAgentRequest {
+	s.InstanceId = &v
+	return s
+}
+
+func (s *CreateBlockchainBotIotagentAgentRequest) SetSystemPrompt(v string) *CreateBlockchainBotIotagentAgentRequest {
+	s.SystemPrompt = &v
+	return s
+}
+
+func (s *CreateBlockchainBotIotagentAgentRequest) SetModelProvider(v string) *CreateBlockchainBotIotagentAgentRequest {
+	s.ModelProvider = &v
+	return s
+}
+
+func (s *CreateBlockchainBotIotagentAgentRequest) SetModelId(v string) *CreateBlockchainBotIotagentAgentRequest {
+	s.ModelId = &v
+	return s
+}
+
+func (s *CreateBlockchainBotIotagentAgentRequest) SetSkills(v []*SkillInfo) *CreateBlockchainBotIotagentAgentRequest {
+	s.Skills = v
+	return s
+}
+
+func (s *CreateBlockchainBotIotagentAgentRequest) SetMcps(v []*McpInfo) *CreateBlockchainBotIotagentAgentRequest {
+	s.Mcps = v
+	return s
+}
+
+type CreateBlockchainBotIotagentAgentResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// agentId
+	AgentId *string `json:"agent_id,omitempty" xml:"agent_id,omitempty"`
+}
+
+func (s CreateBlockchainBotIotagentAgentResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s CreateBlockchainBotIotagentAgentResponse) GoString() string {
+	return s.String()
+}
+
+func (s *CreateBlockchainBotIotagentAgentResponse) SetReqMsgId(v string) *CreateBlockchainBotIotagentAgentResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *CreateBlockchainBotIotagentAgentResponse) SetResultCode(v string) *CreateBlockchainBotIotagentAgentResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *CreateBlockchainBotIotagentAgentResponse) SetResultMsg(v string) *CreateBlockchainBotIotagentAgentResponse {
+	s.ResultMsg = &v
+	return s
+}
+
+func (s *CreateBlockchainBotIotagentAgentResponse) SetAgentId(v string) *CreateBlockchainBotIotagentAgentResponse {
+	s.AgentId = &v
+	return s
+}
+
+type UpdateBlockchainBotIotagentAgentRequest struct {
+	// OAuth模式下的授权token
+	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
+	// 智能体id
+	AgentId *string `json:"agent_id,omitempty" xml:"agent_id,omitempty" require:"true"`
+	// 智能体名字
+	AgentName *string `json:"agent_name,omitempty" xml:"agent_name,omitempty" require:"true"`
+	// 智能体提示词
+	SystemPrompt *string `json:"system_prompt,omitempty" xml:"system_prompt,omitempty"`
+	// 模型提供方
+	ModelProvider *string `json:"model_provider,omitempty" xml:"model_provider,omitempty" require:"true"`
+	// 模型id
+	ModelId *string `json:"model_id,omitempty" xml:"model_id,omitempty" require:"true"`
+	// skill集合
+	Skills []*SkillInfo `json:"skills,omitempty" xml:"skills,omitempty" require:"true" type:"Repeated"`
+	// mcp配置
+	Mcps []*McpInfo `json:"mcps,omitempty" xml:"mcps,omitempty" type:"Repeated"`
+	// 实例id，不允许编辑
+	InstanceId *string `json:"instance_id,omitempty" xml:"instance_id,omitempty" require:"true"`
+}
+
+func (s UpdateBlockchainBotIotagentAgentRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s UpdateBlockchainBotIotagentAgentRequest) GoString() string {
+	return s.String()
+}
+
+func (s *UpdateBlockchainBotIotagentAgentRequest) SetAuthToken(v string) *UpdateBlockchainBotIotagentAgentRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *UpdateBlockchainBotIotagentAgentRequest) SetProductInstanceId(v string) *UpdateBlockchainBotIotagentAgentRequest {
+	s.ProductInstanceId = &v
+	return s
+}
+
+func (s *UpdateBlockchainBotIotagentAgentRequest) SetAgentId(v string) *UpdateBlockchainBotIotagentAgentRequest {
+	s.AgentId = &v
+	return s
+}
+
+func (s *UpdateBlockchainBotIotagentAgentRequest) SetAgentName(v string) *UpdateBlockchainBotIotagentAgentRequest {
+	s.AgentName = &v
+	return s
+}
+
+func (s *UpdateBlockchainBotIotagentAgentRequest) SetSystemPrompt(v string) *UpdateBlockchainBotIotagentAgentRequest {
+	s.SystemPrompt = &v
+	return s
+}
+
+func (s *UpdateBlockchainBotIotagentAgentRequest) SetModelProvider(v string) *UpdateBlockchainBotIotagentAgentRequest {
+	s.ModelProvider = &v
+	return s
+}
+
+func (s *UpdateBlockchainBotIotagentAgentRequest) SetModelId(v string) *UpdateBlockchainBotIotagentAgentRequest {
+	s.ModelId = &v
+	return s
+}
+
+func (s *UpdateBlockchainBotIotagentAgentRequest) SetSkills(v []*SkillInfo) *UpdateBlockchainBotIotagentAgentRequest {
+	s.Skills = v
+	return s
+}
+
+func (s *UpdateBlockchainBotIotagentAgentRequest) SetMcps(v []*McpInfo) *UpdateBlockchainBotIotagentAgentRequest {
+	s.Mcps = v
+	return s
+}
+
+func (s *UpdateBlockchainBotIotagentAgentRequest) SetInstanceId(v string) *UpdateBlockchainBotIotagentAgentRequest {
+	s.InstanceId = &v
+	return s
+}
+
+type UpdateBlockchainBotIotagentAgentResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+}
+
+func (s UpdateBlockchainBotIotagentAgentResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s UpdateBlockchainBotIotagentAgentResponse) GoString() string {
+	return s.String()
+}
+
+func (s *UpdateBlockchainBotIotagentAgentResponse) SetReqMsgId(v string) *UpdateBlockchainBotIotagentAgentResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *UpdateBlockchainBotIotagentAgentResponse) SetResultCode(v string) *UpdateBlockchainBotIotagentAgentResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *UpdateBlockchainBotIotagentAgentResponse) SetResultMsg(v string) *UpdateBlockchainBotIotagentAgentResponse {
+	s.ResultMsg = &v
+	return s
+}
+
+type DeleteBlockchainBotIotagentAgentRequest struct {
+	// OAuth模式下的授权token
+	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
+	// 智能体Id
+	AgentId *string `json:"agent_id,omitempty" xml:"agent_id,omitempty" require:"true"`
+	// 实例ID
+	InstanceId *string `json:"instance_id,omitempty" xml:"instance_id,omitempty" require:"true"`
+}
+
+func (s DeleteBlockchainBotIotagentAgentRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s DeleteBlockchainBotIotagentAgentRequest) GoString() string {
+	return s.String()
+}
+
+func (s *DeleteBlockchainBotIotagentAgentRequest) SetAuthToken(v string) *DeleteBlockchainBotIotagentAgentRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *DeleteBlockchainBotIotagentAgentRequest) SetProductInstanceId(v string) *DeleteBlockchainBotIotagentAgentRequest {
+	s.ProductInstanceId = &v
+	return s
+}
+
+func (s *DeleteBlockchainBotIotagentAgentRequest) SetAgentId(v string) *DeleteBlockchainBotIotagentAgentRequest {
+	s.AgentId = &v
+	return s
+}
+
+func (s *DeleteBlockchainBotIotagentAgentRequest) SetInstanceId(v string) *DeleteBlockchainBotIotagentAgentRequest {
+	s.InstanceId = &v
+	return s
+}
+
+type DeleteBlockchainBotIotagentAgentResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+}
+
+func (s DeleteBlockchainBotIotagentAgentResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s DeleteBlockchainBotIotagentAgentResponse) GoString() string {
+	return s.String()
+}
+
+func (s *DeleteBlockchainBotIotagentAgentResponse) SetReqMsgId(v string) *DeleteBlockchainBotIotagentAgentResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *DeleteBlockchainBotIotagentAgentResponse) SetResultCode(v string) *DeleteBlockchainBotIotagentAgentResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *DeleteBlockchainBotIotagentAgentResponse) SetResultMsg(v string) *DeleteBlockchainBotIotagentAgentResponse {
+	s.ResultMsg = &v
+	return s
+}
+
+type ListBlockchainBotIotagentAgentRequest struct {
+	// OAuth模式下的授权token
+	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
+	// 实例id
+	InstanceId *string `json:"instance_id,omitempty" xml:"instance_id,omitempty" require:"true"`
+	// 当前页
+	PageIndex *int64 `json:"page_index,omitempty" xml:"page_index,omitempty" require:"true"`
+	// 页面大小
+	PageSize *int64 `json:"page_size,omitempty" xml:"page_size,omitempty" require:"true"`
+}
+
+func (s ListBlockchainBotIotagentAgentRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s ListBlockchainBotIotagentAgentRequest) GoString() string {
+	return s.String()
+}
+
+func (s *ListBlockchainBotIotagentAgentRequest) SetAuthToken(v string) *ListBlockchainBotIotagentAgentRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *ListBlockchainBotIotagentAgentRequest) SetProductInstanceId(v string) *ListBlockchainBotIotagentAgentRequest {
+	s.ProductInstanceId = &v
+	return s
+}
+
+func (s *ListBlockchainBotIotagentAgentRequest) SetInstanceId(v string) *ListBlockchainBotIotagentAgentRequest {
+	s.InstanceId = &v
+	return s
+}
+
+func (s *ListBlockchainBotIotagentAgentRequest) SetPageIndex(v int64) *ListBlockchainBotIotagentAgentRequest {
+	s.PageIndex = &v
+	return s
+}
+
+func (s *ListBlockchainBotIotagentAgentRequest) SetPageSize(v int64) *ListBlockchainBotIotagentAgentRequest {
+	s.PageSize = &v
+	return s
+}
+
+type ListBlockchainBotIotagentAgentResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// 智能体列表
+	AgentInfoList []*AgentInfo `json:"agent_info_list,omitempty" xml:"agent_info_list,omitempty" type:"Repeated"`
+	// 总页数
+	Pages *int64 `json:"pages,omitempty" xml:"pages,omitempty"`
+	// 总数
+	Total *int64 `json:"total,omitempty" xml:"total,omitempty"`
+	// 当前页
+	PageIndex *int64 `json:"page_index,omitempty" xml:"page_index,omitempty"`
+	// 页面大小
+	PageSize *int64 `json:"page_size,omitempty" xml:"page_size,omitempty"`
+}
+
+func (s ListBlockchainBotIotagentAgentResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s ListBlockchainBotIotagentAgentResponse) GoString() string {
+	return s.String()
+}
+
+func (s *ListBlockchainBotIotagentAgentResponse) SetReqMsgId(v string) *ListBlockchainBotIotagentAgentResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *ListBlockchainBotIotagentAgentResponse) SetResultCode(v string) *ListBlockchainBotIotagentAgentResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *ListBlockchainBotIotagentAgentResponse) SetResultMsg(v string) *ListBlockchainBotIotagentAgentResponse {
+	s.ResultMsg = &v
+	return s
+}
+
+func (s *ListBlockchainBotIotagentAgentResponse) SetAgentInfoList(v []*AgentInfo) *ListBlockchainBotIotagentAgentResponse {
+	s.AgentInfoList = v
+	return s
+}
+
+func (s *ListBlockchainBotIotagentAgentResponse) SetPages(v int64) *ListBlockchainBotIotagentAgentResponse {
+	s.Pages = &v
+	return s
+}
+
+func (s *ListBlockchainBotIotagentAgentResponse) SetTotal(v int64) *ListBlockchainBotIotagentAgentResponse {
+	s.Total = &v
+	return s
+}
+
+func (s *ListBlockchainBotIotagentAgentResponse) SetPageIndex(v int64) *ListBlockchainBotIotagentAgentResponse {
+	s.PageIndex = &v
+	return s
+}
+
+func (s *ListBlockchainBotIotagentAgentResponse) SetPageSize(v int64) *ListBlockchainBotIotagentAgentResponse {
+	s.PageSize = &v
+	return s
+}
+
+type CreateBlockchainBotIotagentAgentteamRequest struct {
+	// OAuth模式下的授权token
+	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
+	// 实例Id
+	InstanceId *string `json:"instance_id,omitempty" xml:"instance_id,omitempty" require:"true"`
+	// 智能体名称
+	AgentName *string `json:"agent_name,omitempty" xml:"agent_name,omitempty" require:"true"`
+	// 系统提示词
+	SystemPrompt *string `json:"system_prompt,omitempty" xml:"system_prompt,omitempty"`
+	// 模型提供方
+	ModelProvider *string `json:"model_provider,omitempty" xml:"model_provider,omitempty" require:"true"`
+	// 实例id
+	ModelId *string `json:"model_id,omitempty" xml:"model_id,omitempty" require:"true"`
+	// 子智能体ids
+	SubAgents []*string `json:"sub_agents,omitempty" xml:"sub_agents,omitempty" require:"true" type:"Repeated"`
+}
+
+func (s CreateBlockchainBotIotagentAgentteamRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s CreateBlockchainBotIotagentAgentteamRequest) GoString() string {
+	return s.String()
+}
+
+func (s *CreateBlockchainBotIotagentAgentteamRequest) SetAuthToken(v string) *CreateBlockchainBotIotagentAgentteamRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *CreateBlockchainBotIotagentAgentteamRequest) SetProductInstanceId(v string) *CreateBlockchainBotIotagentAgentteamRequest {
+	s.ProductInstanceId = &v
+	return s
+}
+
+func (s *CreateBlockchainBotIotagentAgentteamRequest) SetInstanceId(v string) *CreateBlockchainBotIotagentAgentteamRequest {
+	s.InstanceId = &v
+	return s
+}
+
+func (s *CreateBlockchainBotIotagentAgentteamRequest) SetAgentName(v string) *CreateBlockchainBotIotagentAgentteamRequest {
+	s.AgentName = &v
+	return s
+}
+
+func (s *CreateBlockchainBotIotagentAgentteamRequest) SetSystemPrompt(v string) *CreateBlockchainBotIotagentAgentteamRequest {
+	s.SystemPrompt = &v
+	return s
+}
+
+func (s *CreateBlockchainBotIotagentAgentteamRequest) SetModelProvider(v string) *CreateBlockchainBotIotagentAgentteamRequest {
+	s.ModelProvider = &v
+	return s
+}
+
+func (s *CreateBlockchainBotIotagentAgentteamRequest) SetModelId(v string) *CreateBlockchainBotIotagentAgentteamRequest {
+	s.ModelId = &v
+	return s
+}
+
+func (s *CreateBlockchainBotIotagentAgentteamRequest) SetSubAgents(v []*string) *CreateBlockchainBotIotagentAgentteamRequest {
+	s.SubAgents = v
+	return s
+}
+
+type CreateBlockchainBotIotagentAgentteamResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// 智能体ID
+	AgentId *string `json:"agent_id,omitempty" xml:"agent_id,omitempty"`
+}
+
+func (s CreateBlockchainBotIotagentAgentteamResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s CreateBlockchainBotIotagentAgentteamResponse) GoString() string {
+	return s.String()
+}
+
+func (s *CreateBlockchainBotIotagentAgentteamResponse) SetReqMsgId(v string) *CreateBlockchainBotIotagentAgentteamResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *CreateBlockchainBotIotagentAgentteamResponse) SetResultCode(v string) *CreateBlockchainBotIotagentAgentteamResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *CreateBlockchainBotIotagentAgentteamResponse) SetResultMsg(v string) *CreateBlockchainBotIotagentAgentteamResponse {
+	s.ResultMsg = &v
+	return s
+}
+
+func (s *CreateBlockchainBotIotagentAgentteamResponse) SetAgentId(v string) *CreateBlockchainBotIotagentAgentteamResponse {
+	s.AgentId = &v
+	return s
+}
+
+type UpdateBlockchainBotIotagentAgentteamRequest struct {
+	// OAuth模式下的授权token
+	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
+	// 智能体ID
+	AgentId *string `json:"agent_id,omitempty" xml:"agent_id,omitempty" require:"true"`
+	// 实例id
+	InstanceId *string `json:"instance_id,omitempty" xml:"instance_id,omitempty" require:"true"`
+	// 系统提示词
+	SystemPrompt *string `json:"system_prompt,omitempty" xml:"system_prompt,omitempty"`
+	// 模型提供方
+	ModelProvider *string `json:"model_provider,omitempty" xml:"model_provider,omitempty" require:"true"`
+	// 模型
+	ModelId *string `json:"model_id,omitempty" xml:"model_id,omitempty" require:"true"`
+	// 子智能体ids
+	SubAgents []*string `json:"sub_agents,omitempty" xml:"sub_agents,omitempty" require:"true" type:"Repeated"`
+}
+
+func (s UpdateBlockchainBotIotagentAgentteamRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s UpdateBlockchainBotIotagentAgentteamRequest) GoString() string {
+	return s.String()
+}
+
+func (s *UpdateBlockchainBotIotagentAgentteamRequest) SetAuthToken(v string) *UpdateBlockchainBotIotagentAgentteamRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *UpdateBlockchainBotIotagentAgentteamRequest) SetProductInstanceId(v string) *UpdateBlockchainBotIotagentAgentteamRequest {
+	s.ProductInstanceId = &v
+	return s
+}
+
+func (s *UpdateBlockchainBotIotagentAgentteamRequest) SetAgentId(v string) *UpdateBlockchainBotIotagentAgentteamRequest {
+	s.AgentId = &v
+	return s
+}
+
+func (s *UpdateBlockchainBotIotagentAgentteamRequest) SetInstanceId(v string) *UpdateBlockchainBotIotagentAgentteamRequest {
+	s.InstanceId = &v
+	return s
+}
+
+func (s *UpdateBlockchainBotIotagentAgentteamRequest) SetSystemPrompt(v string) *UpdateBlockchainBotIotagentAgentteamRequest {
+	s.SystemPrompt = &v
+	return s
+}
+
+func (s *UpdateBlockchainBotIotagentAgentteamRequest) SetModelProvider(v string) *UpdateBlockchainBotIotagentAgentteamRequest {
+	s.ModelProvider = &v
+	return s
+}
+
+func (s *UpdateBlockchainBotIotagentAgentteamRequest) SetModelId(v string) *UpdateBlockchainBotIotagentAgentteamRequest {
+	s.ModelId = &v
+	return s
+}
+
+func (s *UpdateBlockchainBotIotagentAgentteamRequest) SetSubAgents(v []*string) *UpdateBlockchainBotIotagentAgentteamRequest {
+	s.SubAgents = v
+	return s
+}
+
+type UpdateBlockchainBotIotagentAgentteamResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+}
+
+func (s UpdateBlockchainBotIotagentAgentteamResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s UpdateBlockchainBotIotagentAgentteamResponse) GoString() string {
+	return s.String()
+}
+
+func (s *UpdateBlockchainBotIotagentAgentteamResponse) SetReqMsgId(v string) *UpdateBlockchainBotIotagentAgentteamResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *UpdateBlockchainBotIotagentAgentteamResponse) SetResultCode(v string) *UpdateBlockchainBotIotagentAgentteamResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *UpdateBlockchainBotIotagentAgentteamResponse) SetResultMsg(v string) *UpdateBlockchainBotIotagentAgentteamResponse {
+	s.ResultMsg = &v
+	return s
+}
+
+type DetailBlockchainBotIotagentAgentRequest struct {
+	// OAuth模式下的授权token
+	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
+	// 智能体id
+	AgentId *string `json:"agent_id,omitempty" xml:"agent_id,omitempty" require:"true"`
+	// 实例ID
+	InstanceId *string `json:"instance_id,omitempty" xml:"instance_id,omitempty" require:"true"`
+}
+
+func (s DetailBlockchainBotIotagentAgentRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s DetailBlockchainBotIotagentAgentRequest) GoString() string {
+	return s.String()
+}
+
+func (s *DetailBlockchainBotIotagentAgentRequest) SetAuthToken(v string) *DetailBlockchainBotIotagentAgentRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *DetailBlockchainBotIotagentAgentRequest) SetProductInstanceId(v string) *DetailBlockchainBotIotagentAgentRequest {
+	s.ProductInstanceId = &v
+	return s
+}
+
+func (s *DetailBlockchainBotIotagentAgentRequest) SetAgentId(v string) *DetailBlockchainBotIotagentAgentRequest {
+	s.AgentId = &v
+	return s
+}
+
+func (s *DetailBlockchainBotIotagentAgentRequest) SetInstanceId(v string) *DetailBlockchainBotIotagentAgentRequest {
+	s.InstanceId = &v
+	return s
+}
+
+type DetailBlockchainBotIotagentAgentResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// 智能体详情
+	AgentInfo *AgentInfo `json:"agent_info,omitempty" xml:"agent_info,omitempty"`
+}
+
+func (s DetailBlockchainBotIotagentAgentResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s DetailBlockchainBotIotagentAgentResponse) GoString() string {
+	return s.String()
+}
+
+func (s *DetailBlockchainBotIotagentAgentResponse) SetReqMsgId(v string) *DetailBlockchainBotIotagentAgentResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *DetailBlockchainBotIotagentAgentResponse) SetResultCode(v string) *DetailBlockchainBotIotagentAgentResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *DetailBlockchainBotIotagentAgentResponse) SetResultMsg(v string) *DetailBlockchainBotIotagentAgentResponse {
+	s.ResultMsg = &v
+	return s
+}
+
+func (s *DetailBlockchainBotIotagentAgentResponse) SetAgentInfo(v *AgentInfo) *DetailBlockchainBotIotagentAgentResponse {
+	s.AgentInfo = v
+	return s
+}
+
+type CreateBlockchainBotIotagentSessionRequest struct {
+	// OAuth模式下的授权token
+	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
+	// 智能体ID
+	AgentId *string `json:"agent_id,omitempty" xml:"agent_id,omitempty" require:"true"`
+	// 用户ID
+	UserId *string `json:"user_id,omitempty" xml:"user_id,omitempty"`
+	// 实例ID
+	InstanceId *string `json:"instance_id,omitempty" xml:"instance_id,omitempty" require:"true"`
+}
+
+func (s CreateBlockchainBotIotagentSessionRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s CreateBlockchainBotIotagentSessionRequest) GoString() string {
+	return s.String()
+}
+
+func (s *CreateBlockchainBotIotagentSessionRequest) SetAuthToken(v string) *CreateBlockchainBotIotagentSessionRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *CreateBlockchainBotIotagentSessionRequest) SetProductInstanceId(v string) *CreateBlockchainBotIotagentSessionRequest {
+	s.ProductInstanceId = &v
+	return s
+}
+
+func (s *CreateBlockchainBotIotagentSessionRequest) SetAgentId(v string) *CreateBlockchainBotIotagentSessionRequest {
+	s.AgentId = &v
+	return s
+}
+
+func (s *CreateBlockchainBotIotagentSessionRequest) SetUserId(v string) *CreateBlockchainBotIotagentSessionRequest {
+	s.UserId = &v
+	return s
+}
+
+func (s *CreateBlockchainBotIotagentSessionRequest) SetInstanceId(v string) *CreateBlockchainBotIotagentSessionRequest {
+	s.InstanceId = &v
+	return s
+}
+
+type CreateBlockchainBotIotagentSessionResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// 会话id
+	SessionId *string `json:"session_id,omitempty" xml:"session_id,omitempty"`
+}
+
+func (s CreateBlockchainBotIotagentSessionResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s CreateBlockchainBotIotagentSessionResponse) GoString() string {
+	return s.String()
+}
+
+func (s *CreateBlockchainBotIotagentSessionResponse) SetReqMsgId(v string) *CreateBlockchainBotIotagentSessionResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *CreateBlockchainBotIotagentSessionResponse) SetResultCode(v string) *CreateBlockchainBotIotagentSessionResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *CreateBlockchainBotIotagentSessionResponse) SetResultMsg(v string) *CreateBlockchainBotIotagentSessionResponse {
+	s.ResultMsg = &v
+	return s
+}
+
+func (s *CreateBlockchainBotIotagentSessionResponse) SetSessionId(v string) *CreateBlockchainBotIotagentSessionResponse {
+	s.SessionId = &v
+	return s
+}
+
+type RenameBlockchainBotIotagentSessionRequest struct {
+	// OAuth模式下的授权token
+	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
+	// 智能体ID
+	AgentId *string `json:"agent_id,omitempty" xml:"agent_id,omitempty" require:"true"`
+	// 实例id
+	InstanceId *string `json:"instance_id,omitempty" xml:"instance_id,omitempty" require:"true"`
+	// session名称
+	SessionName *string `json:"session_name,omitempty" xml:"session_name,omitempty" require:"true"`
+	// session Id
+	SessionId *string `json:"session_id,omitempty" xml:"session_id,omitempty" require:"true"`
+	// 用户Id
+	UserId *string `json:"user_id,omitempty" xml:"user_id,omitempty"`
+}
+
+func (s RenameBlockchainBotIotagentSessionRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s RenameBlockchainBotIotagentSessionRequest) GoString() string {
+	return s.String()
+}
+
+func (s *RenameBlockchainBotIotagentSessionRequest) SetAuthToken(v string) *RenameBlockchainBotIotagentSessionRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *RenameBlockchainBotIotagentSessionRequest) SetProductInstanceId(v string) *RenameBlockchainBotIotagentSessionRequest {
+	s.ProductInstanceId = &v
+	return s
+}
+
+func (s *RenameBlockchainBotIotagentSessionRequest) SetAgentId(v string) *RenameBlockchainBotIotagentSessionRequest {
+	s.AgentId = &v
+	return s
+}
+
+func (s *RenameBlockchainBotIotagentSessionRequest) SetInstanceId(v string) *RenameBlockchainBotIotagentSessionRequest {
+	s.InstanceId = &v
+	return s
+}
+
+func (s *RenameBlockchainBotIotagentSessionRequest) SetSessionName(v string) *RenameBlockchainBotIotagentSessionRequest {
+	s.SessionName = &v
+	return s
+}
+
+func (s *RenameBlockchainBotIotagentSessionRequest) SetSessionId(v string) *RenameBlockchainBotIotagentSessionRequest {
+	s.SessionId = &v
+	return s
+}
+
+func (s *RenameBlockchainBotIotagentSessionRequest) SetUserId(v string) *RenameBlockchainBotIotagentSessionRequest {
+	s.UserId = &v
+	return s
+}
+
+type RenameBlockchainBotIotagentSessionResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+}
+
+func (s RenameBlockchainBotIotagentSessionResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s RenameBlockchainBotIotagentSessionResponse) GoString() string {
+	return s.String()
+}
+
+func (s *RenameBlockchainBotIotagentSessionResponse) SetReqMsgId(v string) *RenameBlockchainBotIotagentSessionResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *RenameBlockchainBotIotagentSessionResponse) SetResultCode(v string) *RenameBlockchainBotIotagentSessionResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *RenameBlockchainBotIotagentSessionResponse) SetResultMsg(v string) *RenameBlockchainBotIotagentSessionResponse {
+	s.ResultMsg = &v
+	return s
+}
+
+type DeleteBlockchainBotIotagentSessionRequest struct {
+	// OAuth模式下的授权token
+	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
+	// 会话Id
+	SessionId *string `json:"session_id,omitempty" xml:"session_id,omitempty" require:"true"`
+	// 实例id
+	InstanceId *string `json:"instance_id,omitempty" xml:"instance_id,omitempty" require:"true"`
+	// agentid
+	AgentId *string `json:"agent_id,omitempty" xml:"agent_id,omitempty" require:"true"`
+	// 用户id
+	UserId *string `json:"user_id,omitempty" xml:"user_id,omitempty"`
+}
+
+func (s DeleteBlockchainBotIotagentSessionRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s DeleteBlockchainBotIotagentSessionRequest) GoString() string {
+	return s.String()
+}
+
+func (s *DeleteBlockchainBotIotagentSessionRequest) SetAuthToken(v string) *DeleteBlockchainBotIotagentSessionRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *DeleteBlockchainBotIotagentSessionRequest) SetProductInstanceId(v string) *DeleteBlockchainBotIotagentSessionRequest {
+	s.ProductInstanceId = &v
+	return s
+}
+
+func (s *DeleteBlockchainBotIotagentSessionRequest) SetSessionId(v string) *DeleteBlockchainBotIotagentSessionRequest {
+	s.SessionId = &v
+	return s
+}
+
+func (s *DeleteBlockchainBotIotagentSessionRequest) SetInstanceId(v string) *DeleteBlockchainBotIotagentSessionRequest {
+	s.InstanceId = &v
+	return s
+}
+
+func (s *DeleteBlockchainBotIotagentSessionRequest) SetAgentId(v string) *DeleteBlockchainBotIotagentSessionRequest {
+	s.AgentId = &v
+	return s
+}
+
+func (s *DeleteBlockchainBotIotagentSessionRequest) SetUserId(v string) *DeleteBlockchainBotIotagentSessionRequest {
+	s.UserId = &v
+	return s
+}
+
+type DeleteBlockchainBotIotagentSessionResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+}
+
+func (s DeleteBlockchainBotIotagentSessionResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s DeleteBlockchainBotIotagentSessionResponse) GoString() string {
+	return s.String()
+}
+
+func (s *DeleteBlockchainBotIotagentSessionResponse) SetReqMsgId(v string) *DeleteBlockchainBotIotagentSessionResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *DeleteBlockchainBotIotagentSessionResponse) SetResultCode(v string) *DeleteBlockchainBotIotagentSessionResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *DeleteBlockchainBotIotagentSessionResponse) SetResultMsg(v string) *DeleteBlockchainBotIotagentSessionResponse {
+	s.ResultMsg = &v
+	return s
+}
+
+type HistoryBlockchainBotIotagentSessionRequest struct {
+	// OAuth模式下的授权token
+	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
+	// 智能体Id
+	AgentId *string `json:"agent_id,omitempty" xml:"agent_id,omitempty" require:"true"`
+	// 会话id
+	SessionId *string `json:"session_id,omitempty" xml:"session_id,omitempty" require:"true"`
+	// 实例id
+	InstanceId *string `json:"instance_id,omitempty" xml:"instance_id,omitempty" require:"true"`
+	// 用户id
+	UserId *string `json:"user_id,omitempty" xml:"user_id,omitempty"`
+	// 页面大小
+	PageSize *int64 `json:"page_size,omitempty" xml:"page_size,omitempty" require:"true"`
+	// 当前页面
+	PageIndex *int64 `json:"page_index,omitempty" xml:"page_index,omitempty" require:"true"`
+}
+
+func (s HistoryBlockchainBotIotagentSessionRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s HistoryBlockchainBotIotagentSessionRequest) GoString() string {
+	return s.String()
+}
+
+func (s *HistoryBlockchainBotIotagentSessionRequest) SetAuthToken(v string) *HistoryBlockchainBotIotagentSessionRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *HistoryBlockchainBotIotagentSessionRequest) SetProductInstanceId(v string) *HistoryBlockchainBotIotagentSessionRequest {
+	s.ProductInstanceId = &v
+	return s
+}
+
+func (s *HistoryBlockchainBotIotagentSessionRequest) SetAgentId(v string) *HistoryBlockchainBotIotagentSessionRequest {
+	s.AgentId = &v
+	return s
+}
+
+func (s *HistoryBlockchainBotIotagentSessionRequest) SetSessionId(v string) *HistoryBlockchainBotIotagentSessionRequest {
+	s.SessionId = &v
+	return s
+}
+
+func (s *HistoryBlockchainBotIotagentSessionRequest) SetInstanceId(v string) *HistoryBlockchainBotIotagentSessionRequest {
+	s.InstanceId = &v
+	return s
+}
+
+func (s *HistoryBlockchainBotIotagentSessionRequest) SetUserId(v string) *HistoryBlockchainBotIotagentSessionRequest {
+	s.UserId = &v
+	return s
+}
+
+func (s *HistoryBlockchainBotIotagentSessionRequest) SetPageSize(v int64) *HistoryBlockchainBotIotagentSessionRequest {
+	s.PageSize = &v
+	return s
+}
+
+func (s *HistoryBlockchainBotIotagentSessionRequest) SetPageIndex(v int64) *HistoryBlockchainBotIotagentSessionRequest {
+	s.PageIndex = &v
+	return s
+}
+
+type HistoryBlockchainBotIotagentSessionResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// 会话历史
+	SessionList *string `json:"session_list,omitempty" xml:"session_list,omitempty"`
+	// 总条数
+	Total *int64 `json:"total,omitempty" xml:"total,omitempty"`
+	// 总页数
+	Pages *int64 `json:"pages,omitempty" xml:"pages,omitempty"`
+	// 当前页
+	PageIndex *int64 `json:"page_index,omitempty" xml:"page_index,omitempty"`
+	// 页面大小
+	PageSize *int64 `json:"page_size,omitempty" xml:"page_size,omitempty"`
+}
+
+func (s HistoryBlockchainBotIotagentSessionResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s HistoryBlockchainBotIotagentSessionResponse) GoString() string {
+	return s.String()
+}
+
+func (s *HistoryBlockchainBotIotagentSessionResponse) SetReqMsgId(v string) *HistoryBlockchainBotIotagentSessionResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *HistoryBlockchainBotIotagentSessionResponse) SetResultCode(v string) *HistoryBlockchainBotIotagentSessionResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *HistoryBlockchainBotIotagentSessionResponse) SetResultMsg(v string) *HistoryBlockchainBotIotagentSessionResponse {
+	s.ResultMsg = &v
+	return s
+}
+
+func (s *HistoryBlockchainBotIotagentSessionResponse) SetSessionList(v string) *HistoryBlockchainBotIotagentSessionResponse {
+	s.SessionList = &v
+	return s
+}
+
+func (s *HistoryBlockchainBotIotagentSessionResponse) SetTotal(v int64) *HistoryBlockchainBotIotagentSessionResponse {
+	s.Total = &v
+	return s
+}
+
+func (s *HistoryBlockchainBotIotagentSessionResponse) SetPages(v int64) *HistoryBlockchainBotIotagentSessionResponse {
+	s.Pages = &v
+	return s
+}
+
+func (s *HistoryBlockchainBotIotagentSessionResponse) SetPageIndex(v int64) *HistoryBlockchainBotIotagentSessionResponse {
+	s.PageIndex = &v
+	return s
+}
+
+func (s *HistoryBlockchainBotIotagentSessionResponse) SetPageSize(v int64) *HistoryBlockchainBotIotagentSessionResponse {
+	s.PageSize = &v
+	return s
+}
+
+type ListBlockchainBotIotagentSessionRequest struct {
+	// OAuth模式下的授权token
+	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
+	// 智能体id
+	AgentId *string `json:"agent_id,omitempty" xml:"agent_id,omitempty" require:"true"`
+	// 用户id
+	UserId *string `json:"user_id,omitempty" xml:"user_id,omitempty"`
+	// 实例id
+	InstanceId *string `json:"instance_id,omitempty" xml:"instance_id,omitempty" require:"true"`
+	// 当前页
+	PageIndex *int64 `json:"page_index,omitempty" xml:"page_index,omitempty" require:"true"`
+	// 页面大小
+	PageSize *int64 `json:"page_size,omitempty" xml:"page_size,omitempty" require:"true"`
+}
+
+func (s ListBlockchainBotIotagentSessionRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s ListBlockchainBotIotagentSessionRequest) GoString() string {
+	return s.String()
+}
+
+func (s *ListBlockchainBotIotagentSessionRequest) SetAuthToken(v string) *ListBlockchainBotIotagentSessionRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *ListBlockchainBotIotagentSessionRequest) SetProductInstanceId(v string) *ListBlockchainBotIotagentSessionRequest {
+	s.ProductInstanceId = &v
+	return s
+}
+
+func (s *ListBlockchainBotIotagentSessionRequest) SetAgentId(v string) *ListBlockchainBotIotagentSessionRequest {
+	s.AgentId = &v
+	return s
+}
+
+func (s *ListBlockchainBotIotagentSessionRequest) SetUserId(v string) *ListBlockchainBotIotagentSessionRequest {
+	s.UserId = &v
+	return s
+}
+
+func (s *ListBlockchainBotIotagentSessionRequest) SetInstanceId(v string) *ListBlockchainBotIotagentSessionRequest {
+	s.InstanceId = &v
+	return s
+}
+
+func (s *ListBlockchainBotIotagentSessionRequest) SetPageIndex(v int64) *ListBlockchainBotIotagentSessionRequest {
+	s.PageIndex = &v
+	return s
+}
+
+func (s *ListBlockchainBotIotagentSessionRequest) SetPageSize(v int64) *ListBlockchainBotIotagentSessionRequest {
+	s.PageSize = &v
+	return s
+}
+
+type ListBlockchainBotIotagentSessionResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// session 信息
+	SessionList []*SessionInfo `json:"session_list,omitempty" xml:"session_list,omitempty" type:"Repeated"`
+	// 总数
+	Total *int64 `json:"total,omitempty" xml:"total,omitempty"`
+	// 总页数
+	Pages *int64 `json:"pages,omitempty" xml:"pages,omitempty"`
+	// 当前页面
+	PageIndex *int64 `json:"page_index,omitempty" xml:"page_index,omitempty"`
+	// 页面大小
+	PageSize *int64 `json:"page_size,omitempty" xml:"page_size,omitempty"`
+}
+
+func (s ListBlockchainBotIotagentSessionResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s ListBlockchainBotIotagentSessionResponse) GoString() string {
+	return s.String()
+}
+
+func (s *ListBlockchainBotIotagentSessionResponse) SetReqMsgId(v string) *ListBlockchainBotIotagentSessionResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *ListBlockchainBotIotagentSessionResponse) SetResultCode(v string) *ListBlockchainBotIotagentSessionResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *ListBlockchainBotIotagentSessionResponse) SetResultMsg(v string) *ListBlockchainBotIotagentSessionResponse {
+	s.ResultMsg = &v
+	return s
+}
+
+func (s *ListBlockchainBotIotagentSessionResponse) SetSessionList(v []*SessionInfo) *ListBlockchainBotIotagentSessionResponse {
+	s.SessionList = v
+	return s
+}
+
+func (s *ListBlockchainBotIotagentSessionResponse) SetTotal(v int64) *ListBlockchainBotIotagentSessionResponse {
+	s.Total = &v
+	return s
+}
+
+func (s *ListBlockchainBotIotagentSessionResponse) SetPages(v int64) *ListBlockchainBotIotagentSessionResponse {
+	s.Pages = &v
+	return s
+}
+
+func (s *ListBlockchainBotIotagentSessionResponse) SetPageIndex(v int64) *ListBlockchainBotIotagentSessionResponse {
+	s.PageIndex = &v
+	return s
+}
+
+func (s *ListBlockchainBotIotagentSessionResponse) SetPageSize(v int64) *ListBlockchainBotIotagentSessionResponse {
+	s.PageSize = &v
+	return s
+}
+
+type ChatBlockchainBotIotagentSessionRequest struct {
+	// OAuth模式下的授权token
+	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
+	// 智能体id
+	AgentId *string `json:"agent_id,omitempty" xml:"agent_id,omitempty" require:"true"`
+	// 会话id
+	SessionId *string `json:"session_id,omitempty" xml:"session_id,omitempty" require:"true"`
+	// 用户ID
+	UserId *string `json:"user_id,omitempty" xml:"user_id,omitempty"`
+	// 会话类型
+	Type *string `json:"type,omitempty" xml:"type,omitempty" require:"true"`
+	// 问题
+	Query *string `json:"query,omitempty" xml:"query,omitempty" require:"true"`
+	// 附件
+	AttachFiles []*FileInfo `json:"attach_files,omitempty" xml:"attach_files,omitempty" type:"Repeated"`
+	// josn字符串
+	ExtraParams *string `json:"extra_params,omitempty" xml:"extra_params,omitempty"`
+}
+
+func (s ChatBlockchainBotIotagentSessionRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s ChatBlockchainBotIotagentSessionRequest) GoString() string {
+	return s.String()
+}
+
+func (s *ChatBlockchainBotIotagentSessionRequest) SetAuthToken(v string) *ChatBlockchainBotIotagentSessionRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *ChatBlockchainBotIotagentSessionRequest) SetProductInstanceId(v string) *ChatBlockchainBotIotagentSessionRequest {
+	s.ProductInstanceId = &v
+	return s
+}
+
+func (s *ChatBlockchainBotIotagentSessionRequest) SetAgentId(v string) *ChatBlockchainBotIotagentSessionRequest {
+	s.AgentId = &v
+	return s
+}
+
+func (s *ChatBlockchainBotIotagentSessionRequest) SetSessionId(v string) *ChatBlockchainBotIotagentSessionRequest {
+	s.SessionId = &v
+	return s
+}
+
+func (s *ChatBlockchainBotIotagentSessionRequest) SetUserId(v string) *ChatBlockchainBotIotagentSessionRequest {
+	s.UserId = &v
+	return s
+}
+
+func (s *ChatBlockchainBotIotagentSessionRequest) SetType(v string) *ChatBlockchainBotIotagentSessionRequest {
+	s.Type = &v
+	return s
+}
+
+func (s *ChatBlockchainBotIotagentSessionRequest) SetQuery(v string) *ChatBlockchainBotIotagentSessionRequest {
+	s.Query = &v
+	return s
+}
+
+func (s *ChatBlockchainBotIotagentSessionRequest) SetAttachFiles(v []*FileInfo) *ChatBlockchainBotIotagentSessionRequest {
+	s.AttachFiles = v
+	return s
+}
+
+func (s *ChatBlockchainBotIotagentSessionRequest) SetExtraParams(v string) *ChatBlockchainBotIotagentSessionRequest {
+	s.ExtraParams = &v
+	return s
+}
+
+type ChatBlockchainBotIotagentSessionResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// 返回的json信息
+	ChatCompletionObject *string `json:"chat_completion_object,omitempty" xml:"chat_completion_object,omitempty"`
+}
+
+func (s ChatBlockchainBotIotagentSessionResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s ChatBlockchainBotIotagentSessionResponse) GoString() string {
+	return s.String()
+}
+
+func (s *ChatBlockchainBotIotagentSessionResponse) SetReqMsgId(v string) *ChatBlockchainBotIotagentSessionResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *ChatBlockchainBotIotagentSessionResponse) SetResultCode(v string) *ChatBlockchainBotIotagentSessionResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *ChatBlockchainBotIotagentSessionResponse) SetResultMsg(v string) *ChatBlockchainBotIotagentSessionResponse {
+	s.ResultMsg = &v
+	return s
+}
+
+func (s *ChatBlockchainBotIotagentSessionResponse) SetChatCompletionObject(v string) *ChatBlockchainBotIotagentSessionResponse {
+	s.ChatCompletionObject = &v
+	return s
+}
+
+type InterruptBlockchainBotIotagentSessionRequest struct {
+	// OAuth模式下的授权token
+	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
+	// 智能体id
+	AgentId *string `json:"agent_id,omitempty" xml:"agent_id,omitempty" require:"true"`
+	// 会话id
+	SessionId *string `json:"session_id,omitempty" xml:"session_id,omitempty" require:"true"`
+	// 用户ID
+	UserId *string `json:"user_id,omitempty" xml:"user_id,omitempty"`
+	// 实例ID
+	InstanceId *string `json:"instance_id,omitempty" xml:"instance_id,omitempty" require:"true"`
+}
+
+func (s InterruptBlockchainBotIotagentSessionRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s InterruptBlockchainBotIotagentSessionRequest) GoString() string {
+	return s.String()
+}
+
+func (s *InterruptBlockchainBotIotagentSessionRequest) SetAuthToken(v string) *InterruptBlockchainBotIotagentSessionRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *InterruptBlockchainBotIotagentSessionRequest) SetProductInstanceId(v string) *InterruptBlockchainBotIotagentSessionRequest {
+	s.ProductInstanceId = &v
+	return s
+}
+
+func (s *InterruptBlockchainBotIotagentSessionRequest) SetAgentId(v string) *InterruptBlockchainBotIotagentSessionRequest {
+	s.AgentId = &v
+	return s
+}
+
+func (s *InterruptBlockchainBotIotagentSessionRequest) SetSessionId(v string) *InterruptBlockchainBotIotagentSessionRequest {
+	s.SessionId = &v
+	return s
+}
+
+func (s *InterruptBlockchainBotIotagentSessionRequest) SetUserId(v string) *InterruptBlockchainBotIotagentSessionRequest {
+	s.UserId = &v
+	return s
+}
+
+func (s *InterruptBlockchainBotIotagentSessionRequest) SetInstanceId(v string) *InterruptBlockchainBotIotagentSessionRequest {
+	s.InstanceId = &v
+	return s
+}
+
+type InterruptBlockchainBotIotagentSessionResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+}
+
+func (s InterruptBlockchainBotIotagentSessionResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s InterruptBlockchainBotIotagentSessionResponse) GoString() string {
+	return s.String()
+}
+
+func (s *InterruptBlockchainBotIotagentSessionResponse) SetReqMsgId(v string) *InterruptBlockchainBotIotagentSessionResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *InterruptBlockchainBotIotagentSessionResponse) SetResultCode(v string) *InterruptBlockchainBotIotagentSessionResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *InterruptBlockchainBotIotagentSessionResponse) SetResultMsg(v string) *InterruptBlockchainBotIotagentSessionResponse {
+	s.ResultMsg = &v
+	return s
+}
+
+type PushBlockchainBotIotagentMessageRequest struct {
+	// OAuth模式下的授权token
+	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
+	// 消息ID，用于幂等
+	MessageId *string `json:"message_id,omitempty" xml:"message_id,omitempty" require:"true"`
+	// 指令类型。消息播报用 AUDIO_BROADCAST；未来可扩展其他指令
+	OperationType *string `json:"operation_type,omitempty" xml:"operation_type,omitempty" require:"true"`
+	// 播报/指令文案
+	Instruction *string `json:"instruction,omitempty" xml:"instruction,omitempty" require:"true"`
+	// 已解析的设备身份（tenantId/agentId/clientType/clientId/sessionId），非aiotdatalink调用时，需传；
+	// aiotdatalink调用时，不传。
+	Source *string `json:"source,omitempty" xml:"source,omitempty"`
+	// 用户身份ID，source 没传时用，当aiotdatalink调用时必传
+	OutUserId *string `json:"out_user_id,omitempty" xml:"out_user_id,omitempty"`
+	// 用户身份类型，source没传时用，当aiotdatalink调用时必传
+	// 取值范围：ALIPAY_UID->支付宝UID;
+	OutUserType *string `json:"out_user_type,omitempty" xml:"out_user_type,omitempty"`
+	// 业务扩展信息宽字段，值是有效的json。aiotdatalink调用时的AntFinanceAssistant业务消息字段（screenText/screenTip/messageType/generatedTime/contextId/contextExpireTime/priority 等）放这里
+	ExtraInfo *string `json:"extra_info,omitempty" xml:"extra_info,omitempty"`
+	// 最晚允许播放时间。超时消息不播报
+	ExpireTime *string `json:"expire_time,omitempty" xml:"expire_time,omitempty" require:"true" pattern:"\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}([Z]|([\\.]\\d{1,9})?[\\+]\\d{2}[\\:]?\\d{2})"`
+}
+
+func (s PushBlockchainBotIotagentMessageRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s PushBlockchainBotIotagentMessageRequest) GoString() string {
+	return s.String()
+}
+
+func (s *PushBlockchainBotIotagentMessageRequest) SetAuthToken(v string) *PushBlockchainBotIotagentMessageRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *PushBlockchainBotIotagentMessageRequest) SetProductInstanceId(v string) *PushBlockchainBotIotagentMessageRequest {
+	s.ProductInstanceId = &v
+	return s
+}
+
+func (s *PushBlockchainBotIotagentMessageRequest) SetMessageId(v string) *PushBlockchainBotIotagentMessageRequest {
+	s.MessageId = &v
+	return s
+}
+
+func (s *PushBlockchainBotIotagentMessageRequest) SetOperationType(v string) *PushBlockchainBotIotagentMessageRequest {
+	s.OperationType = &v
+	return s
+}
+
+func (s *PushBlockchainBotIotagentMessageRequest) SetInstruction(v string) *PushBlockchainBotIotagentMessageRequest {
+	s.Instruction = &v
+	return s
+}
+
+func (s *PushBlockchainBotIotagentMessageRequest) SetSource(v string) *PushBlockchainBotIotagentMessageRequest {
+	s.Source = &v
+	return s
+}
+
+func (s *PushBlockchainBotIotagentMessageRequest) SetOutUserId(v string) *PushBlockchainBotIotagentMessageRequest {
+	s.OutUserId = &v
+	return s
+}
+
+func (s *PushBlockchainBotIotagentMessageRequest) SetOutUserType(v string) *PushBlockchainBotIotagentMessageRequest {
+	s.OutUserType = &v
+	return s
+}
+
+func (s *PushBlockchainBotIotagentMessageRequest) SetExtraInfo(v string) *PushBlockchainBotIotagentMessageRequest {
+	s.ExtraInfo = &v
+	return s
+}
+
+func (s *PushBlockchainBotIotagentMessageRequest) SetExpireTime(v string) *PushBlockchainBotIotagentMessageRequest {
+	s.ExpireTime = &v
+	return s
+}
+
+type PushBlockchainBotIotagentMessageResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// 受理标识，后续可通过该标识查询消息/指令推送进度
+	ReceiptId *string `json:"receipt_id,omitempty" xml:"receipt_id,omitempty"`
+}
+
+func (s PushBlockchainBotIotagentMessageResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s PushBlockchainBotIotagentMessageResponse) GoString() string {
+	return s.String()
+}
+
+func (s *PushBlockchainBotIotagentMessageResponse) SetReqMsgId(v string) *PushBlockchainBotIotagentMessageResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *PushBlockchainBotIotagentMessageResponse) SetResultCode(v string) *PushBlockchainBotIotagentMessageResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *PushBlockchainBotIotagentMessageResponse) SetResultMsg(v string) *PushBlockchainBotIotagentMessageResponse {
+	s.ResultMsg = &v
+	return s
+}
+
+func (s *PushBlockchainBotIotagentMessageResponse) SetReceiptId(v string) *PushBlockchainBotIotagentMessageResponse {
+	s.ReceiptId = &v
+	return s
+}
+
+type QuerypushstatusBlockchainBotIotagentMessageRequest struct {
+	// OAuth模式下的授权token
+	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
+	// push接口返回的受理标识，与message_id至少填一个
+	ReceiptId *string `json:"receipt_id,omitempty" xml:"receipt_id,omitempty"`
+	// 消息ID，与receipt_id至少填一个
+	MessageId *string `json:"message_id,omitempty" xml:"message_id,omitempty"`
+}
+
+func (s QuerypushstatusBlockchainBotIotagentMessageRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s QuerypushstatusBlockchainBotIotagentMessageRequest) GoString() string {
+	return s.String()
+}
+
+func (s *QuerypushstatusBlockchainBotIotagentMessageRequest) SetAuthToken(v string) *QuerypushstatusBlockchainBotIotagentMessageRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *QuerypushstatusBlockchainBotIotagentMessageRequest) SetProductInstanceId(v string) *QuerypushstatusBlockchainBotIotagentMessageRequest {
+	s.ProductInstanceId = &v
+	return s
+}
+
+func (s *QuerypushstatusBlockchainBotIotagentMessageRequest) SetReceiptId(v string) *QuerypushstatusBlockchainBotIotagentMessageRequest {
+	s.ReceiptId = &v
+	return s
+}
+
+func (s *QuerypushstatusBlockchainBotIotagentMessageRequest) SetMessageId(v string) *QuerypushstatusBlockchainBotIotagentMessageRequest {
+	s.MessageId = &v
+	return s
+}
+
+type QuerypushstatusBlockchainBotIotagentMessageResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// 推送消息的受理标识
+	ReceiptId *string `json:"receipt_id,omitempty" xml:"receipt_id,omitempty"`
+	// 消息ID
+	MessageId *string `json:"message_id,omitempty" xml:"message_id,omitempty"`
+	// 客户端ID
+	ClientId *string `json:"client_id,omitempty" xml:"client_id,omitempty"`
+	// 最后的状态更新时间
+	UpdateTime *string `json:"update_time,omitempty" xml:"update_time,omitempty" pattern:"\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}([Z]|([\\.]\\d{1,9})?[\\+]\\d{2}[\\:]?\\d{2})"`
+	// 失败的异常信息
+	FailedReason *string `json:"failed_reason,omitempty" xml:"failed_reason,omitempty"`
+	// 状态，取值范围：PENDING->已入队；WAITING->等待中（设备离线/忙碌）;EXECUTING->已下发设备、执行中；SUCCEEDED->成功；FAILED->失败；EXPIRED->已过期
+	Status *string `json:"status,omitempty" xml:"status,omitempty"`
+}
+
+func (s QuerypushstatusBlockchainBotIotagentMessageResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s QuerypushstatusBlockchainBotIotagentMessageResponse) GoString() string {
+	return s.String()
+}
+
+func (s *QuerypushstatusBlockchainBotIotagentMessageResponse) SetReqMsgId(v string) *QuerypushstatusBlockchainBotIotagentMessageResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *QuerypushstatusBlockchainBotIotagentMessageResponse) SetResultCode(v string) *QuerypushstatusBlockchainBotIotagentMessageResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *QuerypushstatusBlockchainBotIotagentMessageResponse) SetResultMsg(v string) *QuerypushstatusBlockchainBotIotagentMessageResponse {
+	s.ResultMsg = &v
+	return s
+}
+
+func (s *QuerypushstatusBlockchainBotIotagentMessageResponse) SetReceiptId(v string) *QuerypushstatusBlockchainBotIotagentMessageResponse {
+	s.ReceiptId = &v
+	return s
+}
+
+func (s *QuerypushstatusBlockchainBotIotagentMessageResponse) SetMessageId(v string) *QuerypushstatusBlockchainBotIotagentMessageResponse {
+	s.MessageId = &v
+	return s
+}
+
+func (s *QuerypushstatusBlockchainBotIotagentMessageResponse) SetClientId(v string) *QuerypushstatusBlockchainBotIotagentMessageResponse {
+	s.ClientId = &v
+	return s
+}
+
+func (s *QuerypushstatusBlockchainBotIotagentMessageResponse) SetUpdateTime(v string) *QuerypushstatusBlockchainBotIotagentMessageResponse {
+	s.UpdateTime = &v
+	return s
+}
+
+func (s *QuerypushstatusBlockchainBotIotagentMessageResponse) SetFailedReason(v string) *QuerypushstatusBlockchainBotIotagentMessageResponse {
+	s.FailedReason = &v
+	return s
+}
+
+func (s *QuerypushstatusBlockchainBotIotagentMessageResponse) SetStatus(v string) *QuerypushstatusBlockchainBotIotagentMessageResponse {
+	s.Status = &v
+	return s
+}
+
+type ListfilesBlockchainBotIotagentSessionRequest struct {
+	// OAuth模式下的授权token
+	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
+	// 智能体id
+	AgentId *string `json:"agent_id,omitempty" xml:"agent_id,omitempty" require:"true"`
+	// 实例id
+	InstanceId *string `json:"instance_id,omitempty" xml:"instance_id,omitempty" require:"true"`
+	// 用户id
+	UserId *string `json:"user_id,omitempty" xml:"user_id,omitempty"`
+	// 会话id
+	SessionId *string `json:"session_id,omitempty" xml:"session_id,omitempty" require:"true"`
+	// 当前页
+	PageIndex *int64 `json:"page_index,omitempty" xml:"page_index,omitempty" require:"true"`
+	// 页面大小
+	PageSize *int64 `json:"page_size,omitempty" xml:"page_size,omitempty" require:"true"`
+}
+
+func (s ListfilesBlockchainBotIotagentSessionRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s ListfilesBlockchainBotIotagentSessionRequest) GoString() string {
+	return s.String()
+}
+
+func (s *ListfilesBlockchainBotIotagentSessionRequest) SetAuthToken(v string) *ListfilesBlockchainBotIotagentSessionRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *ListfilesBlockchainBotIotagentSessionRequest) SetProductInstanceId(v string) *ListfilesBlockchainBotIotagentSessionRequest {
+	s.ProductInstanceId = &v
+	return s
+}
+
+func (s *ListfilesBlockchainBotIotagentSessionRequest) SetAgentId(v string) *ListfilesBlockchainBotIotagentSessionRequest {
+	s.AgentId = &v
+	return s
+}
+
+func (s *ListfilesBlockchainBotIotagentSessionRequest) SetInstanceId(v string) *ListfilesBlockchainBotIotagentSessionRequest {
+	s.InstanceId = &v
+	return s
+}
+
+func (s *ListfilesBlockchainBotIotagentSessionRequest) SetUserId(v string) *ListfilesBlockchainBotIotagentSessionRequest {
+	s.UserId = &v
+	return s
+}
+
+func (s *ListfilesBlockchainBotIotagentSessionRequest) SetSessionId(v string) *ListfilesBlockchainBotIotagentSessionRequest {
+	s.SessionId = &v
+	return s
+}
+
+func (s *ListfilesBlockchainBotIotagentSessionRequest) SetPageIndex(v int64) *ListfilesBlockchainBotIotagentSessionRequest {
+	s.PageIndex = &v
+	return s
+}
+
+func (s *ListfilesBlockchainBotIotagentSessionRequest) SetPageSize(v int64) *ListfilesBlockchainBotIotagentSessionRequest {
+	s.PageSize = &v
+	return s
+}
+
+type ListfilesBlockchainBotIotagentSessionResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// 空间id
+	WorkspaceId *string `json:"workspace_id,omitempty" xml:"workspace_id,omitempty"`
+	// 文件列表
+	Data []*FileInfo `json:"data,omitempty" xml:"data,omitempty" type:"Repeated"`
+	// 总记录
+	Total *int64 `json:"total,omitempty" xml:"total,omitempty"`
+	// 10
+	Pages *int64 `json:"pages,omitempty" xml:"pages,omitempty"`
+	// 当前页面
+	PageIndex *int64 `json:"page_index,omitempty" xml:"page_index,omitempty"`
+	// 页面大小
+	PageSize *int64 `json:"page_size,omitempty" xml:"page_size,omitempty"`
+}
+
+func (s ListfilesBlockchainBotIotagentSessionResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s ListfilesBlockchainBotIotagentSessionResponse) GoString() string {
+	return s.String()
+}
+
+func (s *ListfilesBlockchainBotIotagentSessionResponse) SetReqMsgId(v string) *ListfilesBlockchainBotIotagentSessionResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *ListfilesBlockchainBotIotagentSessionResponse) SetResultCode(v string) *ListfilesBlockchainBotIotagentSessionResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *ListfilesBlockchainBotIotagentSessionResponse) SetResultMsg(v string) *ListfilesBlockchainBotIotagentSessionResponse {
+	s.ResultMsg = &v
+	return s
+}
+
+func (s *ListfilesBlockchainBotIotagentSessionResponse) SetWorkspaceId(v string) *ListfilesBlockchainBotIotagentSessionResponse {
+	s.WorkspaceId = &v
+	return s
+}
+
+func (s *ListfilesBlockchainBotIotagentSessionResponse) SetData(v []*FileInfo) *ListfilesBlockchainBotIotagentSessionResponse {
+	s.Data = v
+	return s
+}
+
+func (s *ListfilesBlockchainBotIotagentSessionResponse) SetTotal(v int64) *ListfilesBlockchainBotIotagentSessionResponse {
+	s.Total = &v
+	return s
+}
+
+func (s *ListfilesBlockchainBotIotagentSessionResponse) SetPages(v int64) *ListfilesBlockchainBotIotagentSessionResponse {
+	s.Pages = &v
+	return s
+}
+
+func (s *ListfilesBlockchainBotIotagentSessionResponse) SetPageIndex(v int64) *ListfilesBlockchainBotIotagentSessionResponse {
+	s.PageIndex = &v
+	return s
+}
+
+func (s *ListfilesBlockchainBotIotagentSessionResponse) SetPageSize(v int64) *ListfilesBlockchainBotIotagentSessionResponse {
+	s.PageSize = &v
+	return s
+}
+
+type FliedownloadBlockchainBotIotagentSessionRequest struct {
+	// OAuth模式下的授权token
+	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
+	// 空间id
+	WorkspaceId *string `json:"workspace_id,omitempty" xml:"workspace_id,omitempty" require:"true"`
+	// 文件id
+	// 待上传文件
+	FileObject io.Reader `json:"fileObject,omitempty" xml:"fileObject,omitempty"`
+	// 待上传文件名
+	FileObjectName *string `json:"fileObjectName,omitempty" xml:"fileObjectName,omitempty"`
+	FileId         *string `json:"file_id,omitempty" xml:"file_id,omitempty" require:"true"`
+	// 实例ID
+	InstanceId *string `json:"instance_id,omitempty" xml:"instance_id,omitempty" require:"true"`
+	// 会话id
+	SessionId *string `json:"session_id,omitempty" xml:"session_id,omitempty" require:"true"`
+	// 用户id
+	UserId *string `json:"user_id,omitempty" xml:"user_id,omitempty"`
+	// 智能体id
+	AgentId *string `json:"agent_id,omitempty" xml:"agent_id,omitempty" require:"true"`
+}
+
+func (s FliedownloadBlockchainBotIotagentSessionRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s FliedownloadBlockchainBotIotagentSessionRequest) GoString() string {
+	return s.String()
+}
+
+func (s *FliedownloadBlockchainBotIotagentSessionRequest) SetAuthToken(v string) *FliedownloadBlockchainBotIotagentSessionRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *FliedownloadBlockchainBotIotagentSessionRequest) SetProductInstanceId(v string) *FliedownloadBlockchainBotIotagentSessionRequest {
+	s.ProductInstanceId = &v
+	return s
+}
+
+func (s *FliedownloadBlockchainBotIotagentSessionRequest) SetWorkspaceId(v string) *FliedownloadBlockchainBotIotagentSessionRequest {
+	s.WorkspaceId = &v
+	return s
+}
+
+func (s *FliedownloadBlockchainBotIotagentSessionRequest) SetFileObject(v io.Reader) *FliedownloadBlockchainBotIotagentSessionRequest {
+	s.FileObject = v
+	return s
+}
+
+func (s *FliedownloadBlockchainBotIotagentSessionRequest) SetFileObjectName(v string) *FliedownloadBlockchainBotIotagentSessionRequest {
+	s.FileObjectName = &v
+	return s
+}
+
+func (s *FliedownloadBlockchainBotIotagentSessionRequest) SetFileId(v string) *FliedownloadBlockchainBotIotagentSessionRequest {
+	s.FileId = &v
+	return s
+}
+
+func (s *FliedownloadBlockchainBotIotagentSessionRequest) SetInstanceId(v string) *FliedownloadBlockchainBotIotagentSessionRequest {
+	s.InstanceId = &v
+	return s
+}
+
+func (s *FliedownloadBlockchainBotIotagentSessionRequest) SetSessionId(v string) *FliedownloadBlockchainBotIotagentSessionRequest {
+	s.SessionId = &v
+	return s
+}
+
+func (s *FliedownloadBlockchainBotIotagentSessionRequest) SetUserId(v string) *FliedownloadBlockchainBotIotagentSessionRequest {
+	s.UserId = &v
+	return s
+}
+
+func (s *FliedownloadBlockchainBotIotagentSessionRequest) SetAgentId(v string) *FliedownloadBlockchainBotIotagentSessionRequest {
+	s.AgentId = &v
+	return s
+}
+
+type FliedownloadBlockchainBotIotagentSessionResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// 文件信息
+	File *FileInfo `json:"file,omitempty" xml:"file,omitempty"`
+}
+
+func (s FliedownloadBlockchainBotIotagentSessionResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s FliedownloadBlockchainBotIotagentSessionResponse) GoString() string {
+	return s.String()
+}
+
+func (s *FliedownloadBlockchainBotIotagentSessionResponse) SetReqMsgId(v string) *FliedownloadBlockchainBotIotagentSessionResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *FliedownloadBlockchainBotIotagentSessionResponse) SetResultCode(v string) *FliedownloadBlockchainBotIotagentSessionResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *FliedownloadBlockchainBotIotagentSessionResponse) SetResultMsg(v string) *FliedownloadBlockchainBotIotagentSessionResponse {
+	s.ResultMsg = &v
+	return s
+}
+
+func (s *FliedownloadBlockchainBotIotagentSessionResponse) SetFile(v *FileInfo) *FliedownloadBlockchainBotIotagentSessionResponse {
+	s.File = v
+	return s
+}
+
+type FilepreviewBlockchainBotIotagentSessionRequest struct {
+	// OAuth模式下的授权token
+	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
+	WorkspaceId       *string `json:"workspace_id,omitempty" xml:"workspace_id,omitempty" require:"true"`
+	// 待上传文件
+	FileObject io.Reader `json:"fileObject,omitempty" xml:"fileObject,omitempty"`
+	// 待上传文件名
+	FileObjectName *string `json:"fileObjectName,omitempty" xml:"fileObjectName,omitempty"`
+	FileId         *string `json:"file_id,omitempty" xml:"file_id,omitempty" require:"true"`
+	InstanceId     *string `json:"instance_id,omitempty" xml:"instance_id,omitempty" require:"true"`
+	SessionId      *string `json:"session_id,omitempty" xml:"session_id,omitempty" require:"true"`
+	UserId         *string `json:"user_id,omitempty" xml:"user_id,omitempty"`
+	AgentId        *string `json:"agent_id,omitempty" xml:"agent_id,omitempty" require:"true"`
+}
+
+func (s FilepreviewBlockchainBotIotagentSessionRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s FilepreviewBlockchainBotIotagentSessionRequest) GoString() string {
+	return s.String()
+}
+
+func (s *FilepreviewBlockchainBotIotagentSessionRequest) SetAuthToken(v string) *FilepreviewBlockchainBotIotagentSessionRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *FilepreviewBlockchainBotIotagentSessionRequest) SetProductInstanceId(v string) *FilepreviewBlockchainBotIotagentSessionRequest {
+	s.ProductInstanceId = &v
+	return s
+}
+
+func (s *FilepreviewBlockchainBotIotagentSessionRequest) SetWorkspaceId(v string) *FilepreviewBlockchainBotIotagentSessionRequest {
+	s.WorkspaceId = &v
+	return s
+}
+
+func (s *FilepreviewBlockchainBotIotagentSessionRequest) SetFileObject(v io.Reader) *FilepreviewBlockchainBotIotagentSessionRequest {
+	s.FileObject = v
+	return s
+}
+
+func (s *FilepreviewBlockchainBotIotagentSessionRequest) SetFileObjectName(v string) *FilepreviewBlockchainBotIotagentSessionRequest {
+	s.FileObjectName = &v
+	return s
+}
+
+func (s *FilepreviewBlockchainBotIotagentSessionRequest) SetFileId(v string) *FilepreviewBlockchainBotIotagentSessionRequest {
+	s.FileId = &v
+	return s
+}
+
+func (s *FilepreviewBlockchainBotIotagentSessionRequest) SetInstanceId(v string) *FilepreviewBlockchainBotIotagentSessionRequest {
+	s.InstanceId = &v
+	return s
+}
+
+func (s *FilepreviewBlockchainBotIotagentSessionRequest) SetSessionId(v string) *FilepreviewBlockchainBotIotagentSessionRequest {
+	s.SessionId = &v
+	return s
+}
+
+func (s *FilepreviewBlockchainBotIotagentSessionRequest) SetUserId(v string) *FilepreviewBlockchainBotIotagentSessionRequest {
+	s.UserId = &v
+	return s
+}
+
+func (s *FilepreviewBlockchainBotIotagentSessionRequest) SetAgentId(v string) *FilepreviewBlockchainBotIotagentSessionRequest {
+	s.AgentId = &v
+	return s
+}
+
+type FilepreviewBlockchainBotIotagentSessionResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string          `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	File      *PreviewFileInfo `json:"file,omitempty" xml:"file,omitempty"`
+}
+
+func (s FilepreviewBlockchainBotIotagentSessionResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s FilepreviewBlockchainBotIotagentSessionResponse) GoString() string {
+	return s.String()
+}
+
+func (s *FilepreviewBlockchainBotIotagentSessionResponse) SetReqMsgId(v string) *FilepreviewBlockchainBotIotagentSessionResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *FilepreviewBlockchainBotIotagentSessionResponse) SetResultCode(v string) *FilepreviewBlockchainBotIotagentSessionResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *FilepreviewBlockchainBotIotagentSessionResponse) SetResultMsg(v string) *FilepreviewBlockchainBotIotagentSessionResponse {
+	s.ResultMsg = &v
+	return s
+}
+
+func (s *FilepreviewBlockchainBotIotagentSessionResponse) SetFile(v *PreviewFileInfo) *FilepreviewBlockchainBotIotagentSessionResponse {
+	s.File = v
+	return s
+}
+
+type PushBlockchainBotIotagentAudioscribeRequest struct {
+	// OAuth模式下的授权token
+	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
+	// string
+	// 待上传文件
+	FileObject io.Reader `json:"fileObject,omitempty" xml:"fileObject,omitempty"`
+	// 待上传文件名
+	FileObjectName *string `json:"fileObjectName,omitempty" xml:"fileObjectName,omitempty"`
+	FileId         *string `json:"file_id,omitempty" xml:"file_id,omitempty" require:"true"`
+	Type           *string `json:"type,omitempty" xml:"type,omitempty" require:"true"`
+	MessageId      *string `json:"message_id,omitempty" xml:"message_id,omitempty" require:"true"`
+	TargetPluginId *string `json:"target_plugin_id,omitempty" xml:"target_plugin_id,omitempty" require:"true"`
+	// 如： audio_push、status_query、detail_query、asr_retry、summary_retry
+	MessageType *string `json:"message_type,omitempty" xml:"message_type,omitempty" require:"true"`
+	// 业务字段，JSON格式
+	Payload *string `json:"payload,omitempty" xml:"payload,omitempty" require:"true"`
+	// Unix Epoch 毫秒
+	Timestamp *int64 `json:"timestamp,omitempty" xml:"timestamp,omitempty" require:"true"`
+}
+
+func (s PushBlockchainBotIotagentAudioscribeRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s PushBlockchainBotIotagentAudioscribeRequest) GoString() string {
+	return s.String()
+}
+
+func (s *PushBlockchainBotIotagentAudioscribeRequest) SetAuthToken(v string) *PushBlockchainBotIotagentAudioscribeRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *PushBlockchainBotIotagentAudioscribeRequest) SetProductInstanceId(v string) *PushBlockchainBotIotagentAudioscribeRequest {
+	s.ProductInstanceId = &v
+	return s
+}
+
+func (s *PushBlockchainBotIotagentAudioscribeRequest) SetFileObject(v io.Reader) *PushBlockchainBotIotagentAudioscribeRequest {
+	s.FileObject = v
+	return s
+}
+
+func (s *PushBlockchainBotIotagentAudioscribeRequest) SetFileObjectName(v string) *PushBlockchainBotIotagentAudioscribeRequest {
+	s.FileObjectName = &v
+	return s
+}
+
+func (s *PushBlockchainBotIotagentAudioscribeRequest) SetFileId(v string) *PushBlockchainBotIotagentAudioscribeRequest {
+	s.FileId = &v
+	return s
+}
+
+func (s *PushBlockchainBotIotagentAudioscribeRequest) SetType(v string) *PushBlockchainBotIotagentAudioscribeRequest {
+	s.Type = &v
+	return s
+}
+
+func (s *PushBlockchainBotIotagentAudioscribeRequest) SetMessageId(v string) *PushBlockchainBotIotagentAudioscribeRequest {
+	s.MessageId = &v
+	return s
+}
+
+func (s *PushBlockchainBotIotagentAudioscribeRequest) SetTargetPluginId(v string) *PushBlockchainBotIotagentAudioscribeRequest {
+	s.TargetPluginId = &v
+	return s
+}
+
+func (s *PushBlockchainBotIotagentAudioscribeRequest) SetMessageType(v string) *PushBlockchainBotIotagentAudioscribeRequest {
+	s.MessageType = &v
+	return s
+}
+
+func (s *PushBlockchainBotIotagentAudioscribeRequest) SetPayload(v string) *PushBlockchainBotIotagentAudioscribeRequest {
+	s.Payload = &v
+	return s
+}
+
+func (s *PushBlockchainBotIotagentAudioscribeRequest) SetTimestamp(v int64) *PushBlockchainBotIotagentAudioscribeRequest {
+	s.Timestamp = &v
+	return s
+}
+
+type PushBlockchainBotIotagentAudioscribeResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg      *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	Type           *string `json:"type,omitempty" xml:"type,omitempty"`
+	MessageId      *string `json:"message_id,omitempty" xml:"message_id,omitempty"`
+	TargetPluginId *string `json:"target_plugin_id,omitempty" xml:"target_plugin_id,omitempty"`
+	MessageType    *string `json:"message_type,omitempty" xml:"message_type,omitempty"`
+	// 业务响应，json格式
+	Payload *string `json:"payload,omitempty" xml:"payload,omitempty"`
+	// Unix Epoch 毫秒
+	Timestamp *int64 `json:"timestamp,omitempty" xml:"timestamp,omitempty"`
+}
+
+func (s PushBlockchainBotIotagentAudioscribeResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s PushBlockchainBotIotagentAudioscribeResponse) GoString() string {
+	return s.String()
+}
+
+func (s *PushBlockchainBotIotagentAudioscribeResponse) SetReqMsgId(v string) *PushBlockchainBotIotagentAudioscribeResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *PushBlockchainBotIotagentAudioscribeResponse) SetResultCode(v string) *PushBlockchainBotIotagentAudioscribeResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *PushBlockchainBotIotagentAudioscribeResponse) SetResultMsg(v string) *PushBlockchainBotIotagentAudioscribeResponse {
+	s.ResultMsg = &v
+	return s
+}
+
+func (s *PushBlockchainBotIotagentAudioscribeResponse) SetType(v string) *PushBlockchainBotIotagentAudioscribeResponse {
+	s.Type = &v
+	return s
+}
+
+func (s *PushBlockchainBotIotagentAudioscribeResponse) SetMessageId(v string) *PushBlockchainBotIotagentAudioscribeResponse {
+	s.MessageId = &v
+	return s
+}
+
+func (s *PushBlockchainBotIotagentAudioscribeResponse) SetTargetPluginId(v string) *PushBlockchainBotIotagentAudioscribeResponse {
+	s.TargetPluginId = &v
+	return s
+}
+
+func (s *PushBlockchainBotIotagentAudioscribeResponse) SetMessageType(v string) *PushBlockchainBotIotagentAudioscribeResponse {
+	s.MessageType = &v
+	return s
+}
+
+func (s *PushBlockchainBotIotagentAudioscribeResponse) SetPayload(v string) *PushBlockchainBotIotagentAudioscribeResponse {
+	s.Payload = &v
+	return s
+}
+
+func (s *PushBlockchainBotIotagentAudioscribeResponse) SetTimestamp(v int64) *PushBlockchainBotIotagentAudioscribeResponse {
+	s.Timestamp = &v
+	return s
+}
+
+type ExecBlockchainBotIotagentPluginRequest struct {
+	// OAuth模式下的授权token
+	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
+	// dt-plugin
+	Type      *string `json:"type,omitempty" xml:"type,omitempty" require:"true"`
+	MessageId *string `json:"message_id,omitempty" xml:"message_id,omitempty" require:"true"`
+	// audio_scribe
+	TargetPluginId *string `json:"target_plugin_id,omitempty" xml:"target_plugin_id,omitempty" require:"true"`
+	MessageType    *string `json:"message_type,omitempty" xml:"message_type,omitempty" require:"true"`
+	// 业务数据，JSON格式
+	Payload *string `json:"payload,omitempty" xml:"payload,omitempty" require:"true"`
+	// Unix Epoch 毫秒
+	Timestamp *int64 `json:"timestamp,omitempty" xml:"timestamp,omitempty" require:"true"`
+}
+
+func (s ExecBlockchainBotIotagentPluginRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s ExecBlockchainBotIotagentPluginRequest) GoString() string {
+	return s.String()
+}
+
+func (s *ExecBlockchainBotIotagentPluginRequest) SetAuthToken(v string) *ExecBlockchainBotIotagentPluginRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *ExecBlockchainBotIotagentPluginRequest) SetProductInstanceId(v string) *ExecBlockchainBotIotagentPluginRequest {
+	s.ProductInstanceId = &v
+	return s
+}
+
+func (s *ExecBlockchainBotIotagentPluginRequest) SetType(v string) *ExecBlockchainBotIotagentPluginRequest {
+	s.Type = &v
+	return s
+}
+
+func (s *ExecBlockchainBotIotagentPluginRequest) SetMessageId(v string) *ExecBlockchainBotIotagentPluginRequest {
+	s.MessageId = &v
+	return s
+}
+
+func (s *ExecBlockchainBotIotagentPluginRequest) SetTargetPluginId(v string) *ExecBlockchainBotIotagentPluginRequest {
+	s.TargetPluginId = &v
+	return s
+}
+
+func (s *ExecBlockchainBotIotagentPluginRequest) SetMessageType(v string) *ExecBlockchainBotIotagentPluginRequest {
+	s.MessageType = &v
+	return s
+}
+
+func (s *ExecBlockchainBotIotagentPluginRequest) SetPayload(v string) *ExecBlockchainBotIotagentPluginRequest {
+	s.Payload = &v
+	return s
+}
+
+func (s *ExecBlockchainBotIotagentPluginRequest) SetTimestamp(v int64) *ExecBlockchainBotIotagentPluginRequest {
+	s.Timestamp = &v
+	return s
+}
+
+type ExecBlockchainBotIotagentPluginResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg      *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	Type           *string `json:"type,omitempty" xml:"type,omitempty"`
+	TargetPluginId *string `json:"target_plugin_id,omitempty" xml:"target_plugin_id,omitempty"`
+	MessageId      *string `json:"message_id,omitempty" xml:"message_id,omitempty"`
+	MessageType    *string `json:"message_type,omitempty" xml:"message_type,omitempty"`
+	// 业务响应数据，JSON格式
+	Payload *string `json:"payload,omitempty" xml:"payload,omitempty"`
+	// Unix Epoch 毫秒
+	Timestamp *int64 `json:"timestamp,omitempty" xml:"timestamp,omitempty"`
+}
+
+func (s ExecBlockchainBotIotagentPluginResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s ExecBlockchainBotIotagentPluginResponse) GoString() string {
+	return s.String()
+}
+
+func (s *ExecBlockchainBotIotagentPluginResponse) SetReqMsgId(v string) *ExecBlockchainBotIotagentPluginResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *ExecBlockchainBotIotagentPluginResponse) SetResultCode(v string) *ExecBlockchainBotIotagentPluginResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *ExecBlockchainBotIotagentPluginResponse) SetResultMsg(v string) *ExecBlockchainBotIotagentPluginResponse {
+	s.ResultMsg = &v
+	return s
+}
+
+func (s *ExecBlockchainBotIotagentPluginResponse) SetType(v string) *ExecBlockchainBotIotagentPluginResponse {
+	s.Type = &v
+	return s
+}
+
+func (s *ExecBlockchainBotIotagentPluginResponse) SetTargetPluginId(v string) *ExecBlockchainBotIotagentPluginResponse {
+	s.TargetPluginId = &v
+	return s
+}
+
+func (s *ExecBlockchainBotIotagentPluginResponse) SetMessageId(v string) *ExecBlockchainBotIotagentPluginResponse {
+	s.MessageId = &v
+	return s
+}
+
+func (s *ExecBlockchainBotIotagentPluginResponse) SetMessageType(v string) *ExecBlockchainBotIotagentPluginResponse {
+	s.MessageType = &v
+	return s
+}
+
+func (s *ExecBlockchainBotIotagentPluginResponse) SetPayload(v string) *ExecBlockchainBotIotagentPluginResponse {
+	s.Payload = &v
+	return s
+}
+
+func (s *ExecBlockchainBotIotagentPluginResponse) SetTimestamp(v int64) *ExecBlockchainBotIotagentPluginResponse {
+	s.Timestamp = &v
+	return s
+}
+
+type PushBlockchainBotIotagentWorkspaceRequest struct {
+	// OAuth模式下的授权token
+	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
+	FileName          *string `json:"file_name,omitempty" xml:"file_name,omitempty" require:"true"`
+	MediaType         *string `json:"media_type,omitempty" xml:"media_type,omitempty" require:"true"`
+	SizeBytes         *int64  `json:"size_bytes,omitempty" xml:"size_bytes,omitempty" require:"true"`
+	Sha256            *string `json:"sha256,omitempty" xml:"sha256,omitempty"`
+	ClientId          *string `json:"client_id,omitempty" xml:"client_id,omitempty"`
+	SessionId         *string `json:"session_id,omitempty" xml:"session_id,omitempty" require:"true"`
+}
+
+func (s PushBlockchainBotIotagentWorkspaceRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s PushBlockchainBotIotagentWorkspaceRequest) GoString() string {
+	return s.String()
+}
+
+func (s *PushBlockchainBotIotagentWorkspaceRequest) SetAuthToken(v string) *PushBlockchainBotIotagentWorkspaceRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *PushBlockchainBotIotagentWorkspaceRequest) SetProductInstanceId(v string) *PushBlockchainBotIotagentWorkspaceRequest {
+	s.ProductInstanceId = &v
+	return s
+}
+
+func (s *PushBlockchainBotIotagentWorkspaceRequest) SetFileName(v string) *PushBlockchainBotIotagentWorkspaceRequest {
+	s.FileName = &v
+	return s
+}
+
+func (s *PushBlockchainBotIotagentWorkspaceRequest) SetMediaType(v string) *PushBlockchainBotIotagentWorkspaceRequest {
+	s.MediaType = &v
+	return s
+}
+
+func (s *PushBlockchainBotIotagentWorkspaceRequest) SetSizeBytes(v int64) *PushBlockchainBotIotagentWorkspaceRequest {
+	s.SizeBytes = &v
+	return s
+}
+
+func (s *PushBlockchainBotIotagentWorkspaceRequest) SetSha256(v string) *PushBlockchainBotIotagentWorkspaceRequest {
+	s.Sha256 = &v
+	return s
+}
+
+func (s *PushBlockchainBotIotagentWorkspaceRequest) SetClientId(v string) *PushBlockchainBotIotagentWorkspaceRequest {
+	s.ClientId = &v
+	return s
+}
+
+func (s *PushBlockchainBotIotagentWorkspaceRequest) SetSessionId(v string) *PushBlockchainBotIotagentWorkspaceRequest {
+	s.SessionId = &v
+	return s
+}
+
+type PushBlockchainBotIotagentWorkspaceResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	FileId    *string `json:"file_id,omitempty" xml:"file_id,omitempty"`
+	// 短期OSS PUT 预签名URL
+	UploadUrl *string `json:"upload_url,omitempty" xml:"upload_url,omitempty"`
+	ExpireAt  *string `json:"expire_at,omitempty" xml:"expire_at,omitempty" pattern:"\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}([Z]|([\\.]\\d{1,9})?[\\+]\\d{2}[\\:]?\\d{2})"`
+}
+
+func (s PushBlockchainBotIotagentWorkspaceResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s PushBlockchainBotIotagentWorkspaceResponse) GoString() string {
+	return s.String()
+}
+
+func (s *PushBlockchainBotIotagentWorkspaceResponse) SetReqMsgId(v string) *PushBlockchainBotIotagentWorkspaceResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *PushBlockchainBotIotagentWorkspaceResponse) SetResultCode(v string) *PushBlockchainBotIotagentWorkspaceResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *PushBlockchainBotIotagentWorkspaceResponse) SetResultMsg(v string) *PushBlockchainBotIotagentWorkspaceResponse {
+	s.ResultMsg = &v
+	return s
+}
+
+func (s *PushBlockchainBotIotagentWorkspaceResponse) SetFileId(v string) *PushBlockchainBotIotagentWorkspaceResponse {
+	s.FileId = &v
+	return s
+}
+
+func (s *PushBlockchainBotIotagentWorkspaceResponse) SetUploadUrl(v string) *PushBlockchainBotIotagentWorkspaceResponse {
+	s.UploadUrl = &v
+	return s
+}
+
+func (s *PushBlockchainBotIotagentWorkspaceResponse) SetExpireAt(v string) *PushBlockchainBotIotagentWorkspaceResponse {
+	s.ExpireAt = &v
+	return s
+}
+
+type ConfirmBlockchainBotIotagentWorkspaceRequest struct {
+	// OAuth模式下的授权token
+	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
+	// 待上传文件
+	FileObject io.Reader `json:"fileObject,omitempty" xml:"fileObject,omitempty"`
+	// 待上传文件名
+	FileObjectName *string `json:"fileObjectName,omitempty" xml:"fileObjectName,omitempty"`
+	FileId         *string `json:"file_id,omitempty" xml:"file_id,omitempty" require:"true"`
+	SizeBytes      *int64  `json:"size_bytes,omitempty" xml:"size_bytes,omitempty"`
+	Sha256         *string `json:"sha256,omitempty" xml:"sha256,omitempty"`
+}
+
+func (s ConfirmBlockchainBotIotagentWorkspaceRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s ConfirmBlockchainBotIotagentWorkspaceRequest) GoString() string {
+	return s.String()
+}
+
+func (s *ConfirmBlockchainBotIotagentWorkspaceRequest) SetAuthToken(v string) *ConfirmBlockchainBotIotagentWorkspaceRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *ConfirmBlockchainBotIotagentWorkspaceRequest) SetProductInstanceId(v string) *ConfirmBlockchainBotIotagentWorkspaceRequest {
+	s.ProductInstanceId = &v
+	return s
+}
+
+func (s *ConfirmBlockchainBotIotagentWorkspaceRequest) SetFileObject(v io.Reader) *ConfirmBlockchainBotIotagentWorkspaceRequest {
+	s.FileObject = v
+	return s
+}
+
+func (s *ConfirmBlockchainBotIotagentWorkspaceRequest) SetFileObjectName(v string) *ConfirmBlockchainBotIotagentWorkspaceRequest {
+	s.FileObjectName = &v
+	return s
+}
+
+func (s *ConfirmBlockchainBotIotagentWorkspaceRequest) SetFileId(v string) *ConfirmBlockchainBotIotagentWorkspaceRequest {
+	s.FileId = &v
+	return s
+}
+
+func (s *ConfirmBlockchainBotIotagentWorkspaceRequest) SetSizeBytes(v int64) *ConfirmBlockchainBotIotagentWorkspaceRequest {
+	s.SizeBytes = &v
+	return s
+}
+
+func (s *ConfirmBlockchainBotIotagentWorkspaceRequest) SetSha256(v string) *ConfirmBlockchainBotIotagentWorkspaceRequest {
+	s.Sha256 = &v
+	return s
+}
+
+type ConfirmBlockchainBotIotagentWorkspaceResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	FileId    *string `json:"file_id,omitempty" xml:"file_id,omitempty"`
+	FileName  *string `json:"file_name,omitempty" xml:"file_name,omitempty"`
+	MediaType *string `json:"media_type,omitempty" xml:"media_type,omitempty"`
+	SizeBytes *int64  `json:"size_bytes,omitempty" xml:"size_bytes,omitempty"`
+	CreatedAt *string `json:"created_at,omitempty" xml:"created_at,omitempty" pattern:"\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}([Z]|([\\.]\\d{1,9})?[\\+]\\d{2}[\\:]?\\d{2})"`
+}
+
+func (s ConfirmBlockchainBotIotagentWorkspaceResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s ConfirmBlockchainBotIotagentWorkspaceResponse) GoString() string {
+	return s.String()
+}
+
+func (s *ConfirmBlockchainBotIotagentWorkspaceResponse) SetReqMsgId(v string) *ConfirmBlockchainBotIotagentWorkspaceResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *ConfirmBlockchainBotIotagentWorkspaceResponse) SetResultCode(v string) *ConfirmBlockchainBotIotagentWorkspaceResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *ConfirmBlockchainBotIotagentWorkspaceResponse) SetResultMsg(v string) *ConfirmBlockchainBotIotagentWorkspaceResponse {
+	s.ResultMsg = &v
+	return s
+}
+
+func (s *ConfirmBlockchainBotIotagentWorkspaceResponse) SetFileId(v string) *ConfirmBlockchainBotIotagentWorkspaceResponse {
+	s.FileId = &v
+	return s
+}
+
+func (s *ConfirmBlockchainBotIotagentWorkspaceResponse) SetFileName(v string) *ConfirmBlockchainBotIotagentWorkspaceResponse {
+	s.FileName = &v
+	return s
+}
+
+func (s *ConfirmBlockchainBotIotagentWorkspaceResponse) SetMediaType(v string) *ConfirmBlockchainBotIotagentWorkspaceResponse {
+	s.MediaType = &v
+	return s
+}
+
+func (s *ConfirmBlockchainBotIotagentWorkspaceResponse) SetSizeBytes(v int64) *ConfirmBlockchainBotIotagentWorkspaceResponse {
+	s.SizeBytes = &v
+	return s
+}
+
+func (s *ConfirmBlockchainBotIotagentWorkspaceResponse) SetCreatedAt(v string) *ConfirmBlockchainBotIotagentWorkspaceResponse {
+	s.CreatedAt = &v
+	return s
+}
+
+type StatusBlockchainBotIotagentMusicRequest struct {
+	// OAuth模式下的授权token
+	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
+	// 智能体 ID，与client_id至少填1项
+	AgentId *string `json:"agent_id,omitempty" xml:"agent_id,omitempty"`
+	// 客户端 ID，与agent_id至少填1项
+	ClientId *string `json:"client_id,omitempty" xml:"client_id,omitempty"`
+}
+
+func (s StatusBlockchainBotIotagentMusicRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s StatusBlockchainBotIotagentMusicRequest) GoString() string {
+	return s.String()
+}
+
+func (s *StatusBlockchainBotIotagentMusicRequest) SetAuthToken(v string) *StatusBlockchainBotIotagentMusicRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *StatusBlockchainBotIotagentMusicRequest) SetProductInstanceId(v string) *StatusBlockchainBotIotagentMusicRequest {
+	s.ProductInstanceId = &v
+	return s
+}
+
+func (s *StatusBlockchainBotIotagentMusicRequest) SetAgentId(v string) *StatusBlockchainBotIotagentMusicRequest {
+	s.AgentId = &v
+	return s
+}
+
+func (s *StatusBlockchainBotIotagentMusicRequest) SetClientId(v string) *StatusBlockchainBotIotagentMusicRequest {
+	s.ClientId = &v
+	return s
+}
+
+type StatusBlockchainBotIotagentMusicResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// token 类型，取值范围：NONE=未登录 / ANONYMOUS=匿名 token / FORMAL=正式登录
+	TokenType *string `json:"token_type,omitempty" xml:"token_type,omitempty"`
+	// 昵称
+	Nickname *string `json:"nickname,omitempty" xml:"nickname,omitempty"`
+	// 头像 URL
+	AvatarUrl *string `json:"avatar_url,omitempty" xml:"avatar_url,omitempty"`
+	// 性别，取值范围：0=未知 / 1=男 / 2=女
+	Gender *int64 `json:"gender,omitempty" xml:"gender,omitempty"`
+	// VIP 类型，取值范围：FREE=非会员 / BLACK_VIP=黑胶 VIP / SVIP=SVIP / SINGLE_DEVICE=单设备会员
+	VipType *string `json:"vip_type,omitempty" xml:"vip_type,omitempty"`
+	// VIP 到期时间（毫秒时间戳）
+	VipExpireTime *int64 `json:"vip_expire_time,omitempty" xml:"vip_expire_time,omitempty"`
+}
+
+func (s StatusBlockchainBotIotagentMusicResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s StatusBlockchainBotIotagentMusicResponse) GoString() string {
+	return s.String()
+}
+
+func (s *StatusBlockchainBotIotagentMusicResponse) SetReqMsgId(v string) *StatusBlockchainBotIotagentMusicResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *StatusBlockchainBotIotagentMusicResponse) SetResultCode(v string) *StatusBlockchainBotIotagentMusicResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *StatusBlockchainBotIotagentMusicResponse) SetResultMsg(v string) *StatusBlockchainBotIotagentMusicResponse {
+	s.ResultMsg = &v
+	return s
+}
+
+func (s *StatusBlockchainBotIotagentMusicResponse) SetTokenType(v string) *StatusBlockchainBotIotagentMusicResponse {
+	s.TokenType = &v
+	return s
+}
+
+func (s *StatusBlockchainBotIotagentMusicResponse) SetNickname(v string) *StatusBlockchainBotIotagentMusicResponse {
+	s.Nickname = &v
+	return s
+}
+
+func (s *StatusBlockchainBotIotagentMusicResponse) SetAvatarUrl(v string) *StatusBlockchainBotIotagentMusicResponse {
+	s.AvatarUrl = &v
+	return s
+}
+
+func (s *StatusBlockchainBotIotagentMusicResponse) SetGender(v int64) *StatusBlockchainBotIotagentMusicResponse {
+	s.Gender = &v
+	return s
+}
+
+func (s *StatusBlockchainBotIotagentMusicResponse) SetVipType(v string) *StatusBlockchainBotIotagentMusicResponse {
+	s.VipType = &v
+	return s
+}
+
+func (s *StatusBlockchainBotIotagentMusicResponse) SetVipExpireTime(v int64) *StatusBlockchainBotIotagentMusicResponse {
+	s.VipExpireTime = &v
+	return s
+}
+
+type LoginurlBlockchainBotIotagentMusicRequest struct {
+	// OAuth模式下的授权token
+	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
+	// 智能体 ID，与client_id至少填1项
+	AgentId *string `json:"agent_id,omitempty" xml:"agent_id,omitempty"`
+	// 客户端 ID，与agent_id至少填1项
+	ClientId *string `json:"client_id,omitempty" xml:"client_id,omitempty"`
+}
+
+func (s LoginurlBlockchainBotIotagentMusicRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s LoginurlBlockchainBotIotagentMusicRequest) GoString() string {
+	return s.String()
+}
+
+func (s *LoginurlBlockchainBotIotagentMusicRequest) SetAuthToken(v string) *LoginurlBlockchainBotIotagentMusicRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *LoginurlBlockchainBotIotagentMusicRequest) SetProductInstanceId(v string) *LoginurlBlockchainBotIotagentMusicRequest {
+	s.ProductInstanceId = &v
+	return s
+}
+
+func (s *LoginurlBlockchainBotIotagentMusicRequest) SetAgentId(v string) *LoginurlBlockchainBotIotagentMusicRequest {
+	s.AgentId = &v
+	return s
+}
+
+func (s *LoginurlBlockchainBotIotagentMusicRequest) SetClientId(v string) *LoginurlBlockchainBotIotagentMusicRequest {
+	s.ClientId = &v
+	return s
+}
+
+type LoginurlBlockchainBotIotagentMusicResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// 云音乐 H5 登录 URL
+	LoginUrl *string `json:"login_url,omitempty" xml:"login_url,omitempty"`
+	// OAuth state（回调校验用）
+	State *string `json:"state,omitempty" xml:"state,omitempty"`
+}
+
+func (s LoginurlBlockchainBotIotagentMusicResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s LoginurlBlockchainBotIotagentMusicResponse) GoString() string {
+	return s.String()
+}
+
+func (s *LoginurlBlockchainBotIotagentMusicResponse) SetReqMsgId(v string) *LoginurlBlockchainBotIotagentMusicResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *LoginurlBlockchainBotIotagentMusicResponse) SetResultCode(v string) *LoginurlBlockchainBotIotagentMusicResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *LoginurlBlockchainBotIotagentMusicResponse) SetResultMsg(v string) *LoginurlBlockchainBotIotagentMusicResponse {
+	s.ResultMsg = &v
+	return s
+}
+
+func (s *LoginurlBlockchainBotIotagentMusicResponse) SetLoginUrl(v string) *LoginurlBlockchainBotIotagentMusicResponse {
+	s.LoginUrl = &v
+	return s
+}
+
+func (s *LoginurlBlockchainBotIotagentMusicResponse) SetState(v string) *LoginurlBlockchainBotIotagentMusicResponse {
+	s.State = &v
+	return s
+}
+
+type PlayhistoryBlockchainBotIotagentMusicRequest struct {
+	// OAuth模式下的授权token
+	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
+	// 智能体 ID，与client_id至少填1项
+	AgentId *string `json:"agent_id,omitempty" xml:"agent_id,omitempty"`
+	// 客户端 ID，与agent_id至少填1项
+	ClientId *string `json:"client_id,omitempty" xml:"client_id,omitempty"`
+	// 返回条数，默认 50
+	Limit *int64 `json:"limit,omitempty" xml:"limit,omitempty"`
+}
+
+func (s PlayhistoryBlockchainBotIotagentMusicRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s PlayhistoryBlockchainBotIotagentMusicRequest) GoString() string {
+	return s.String()
+}
+
+func (s *PlayhistoryBlockchainBotIotagentMusicRequest) SetAuthToken(v string) *PlayhistoryBlockchainBotIotagentMusicRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *PlayhistoryBlockchainBotIotagentMusicRequest) SetProductInstanceId(v string) *PlayhistoryBlockchainBotIotagentMusicRequest {
+	s.ProductInstanceId = &v
+	return s
+}
+
+func (s *PlayhistoryBlockchainBotIotagentMusicRequest) SetAgentId(v string) *PlayhistoryBlockchainBotIotagentMusicRequest {
+	s.AgentId = &v
+	return s
+}
+
+func (s *PlayhistoryBlockchainBotIotagentMusicRequest) SetClientId(v string) *PlayhistoryBlockchainBotIotagentMusicRequest {
+	s.ClientId = &v
+	return s
+}
+
+func (s *PlayhistoryBlockchainBotIotagentMusicRequest) SetLimit(v int64) *PlayhistoryBlockchainBotIotagentMusicRequest {
+	s.Limit = &v
+	return s
+}
+
+type PlayhistoryBlockchainBotIotagentMusicResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// 历史歌曲列表
+	Songs []*AgentMusicSong `json:"songs,omitempty" xml:"songs,omitempty" type:"Repeated"`
+	// 总数
+	Total *int64 `json:"total,omitempty" xml:"total,omitempty"`
+}
+
+func (s PlayhistoryBlockchainBotIotagentMusicResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s PlayhistoryBlockchainBotIotagentMusicResponse) GoString() string {
+	return s.String()
+}
+
+func (s *PlayhistoryBlockchainBotIotagentMusicResponse) SetReqMsgId(v string) *PlayhistoryBlockchainBotIotagentMusicResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *PlayhistoryBlockchainBotIotagentMusicResponse) SetResultCode(v string) *PlayhistoryBlockchainBotIotagentMusicResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *PlayhistoryBlockchainBotIotagentMusicResponse) SetResultMsg(v string) *PlayhistoryBlockchainBotIotagentMusicResponse {
+	s.ResultMsg = &v
+	return s
+}
+
+func (s *PlayhistoryBlockchainBotIotagentMusicResponse) SetSongs(v []*AgentMusicSong) *PlayhistoryBlockchainBotIotagentMusicResponse {
+	s.Songs = v
+	return s
+}
+
+func (s *PlayhistoryBlockchainBotIotagentMusicResponse) SetTotal(v int64) *PlayhistoryBlockchainBotIotagentMusicResponse {
+	s.Total = &v
+	return s
+}
+
+type FavoritesBlockchainBotIotagentMusicRequest struct {
+	// OAuth模式下的授权token
+	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
+	// 智能体 ID，与client_id至少填1项
+	AgentId *string `json:"agent_id,omitempty" xml:"agent_id,omitempty"`
+	// 客户端 ID，与agent_id至少填1项
+	ClientId *string `json:"client_id,omitempty" xml:"client_id,omitempty"`
+	// 返回条数，默认 30
+	Limit *int64 `json:"limit,omitempty" xml:"limit,omitempty"`
+	// 偏移量，默认 0
+	Offset *int64 `json:"offset,omitempty" xml:"offset,omitempty"`
+}
+
+func (s FavoritesBlockchainBotIotagentMusicRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s FavoritesBlockchainBotIotagentMusicRequest) GoString() string {
+	return s.String()
+}
+
+func (s *FavoritesBlockchainBotIotagentMusicRequest) SetAuthToken(v string) *FavoritesBlockchainBotIotagentMusicRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *FavoritesBlockchainBotIotagentMusicRequest) SetProductInstanceId(v string) *FavoritesBlockchainBotIotagentMusicRequest {
+	s.ProductInstanceId = &v
+	return s
+}
+
+func (s *FavoritesBlockchainBotIotagentMusicRequest) SetAgentId(v string) *FavoritesBlockchainBotIotagentMusicRequest {
+	s.AgentId = &v
+	return s
+}
+
+func (s *FavoritesBlockchainBotIotagentMusicRequest) SetClientId(v string) *FavoritesBlockchainBotIotagentMusicRequest {
+	s.ClientId = &v
+	return s
+}
+
+func (s *FavoritesBlockchainBotIotagentMusicRequest) SetLimit(v int64) *FavoritesBlockchainBotIotagentMusicRequest {
+	s.Limit = &v
+	return s
+}
+
+func (s *FavoritesBlockchainBotIotagentMusicRequest) SetOffset(v int64) *FavoritesBlockchainBotIotagentMusicRequest {
+	s.Offset = &v
+	return s
+}
+
+type FavoritesBlockchainBotIotagentMusicResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// 红心歌曲列表
+	Songs []*AgentMusicSong `json:"songs,omitempty" xml:"songs,omitempty" type:"Repeated"`
+}
+
+func (s FavoritesBlockchainBotIotagentMusicResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s FavoritesBlockchainBotIotagentMusicResponse) GoString() string {
+	return s.String()
+}
+
+func (s *FavoritesBlockchainBotIotagentMusicResponse) SetReqMsgId(v string) *FavoritesBlockchainBotIotagentMusicResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *FavoritesBlockchainBotIotagentMusicResponse) SetResultCode(v string) *FavoritesBlockchainBotIotagentMusicResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *FavoritesBlockchainBotIotagentMusicResponse) SetResultMsg(v string) *FavoritesBlockchainBotIotagentMusicResponse {
+	s.ResultMsg = &v
+	return s
+}
+
+func (s *FavoritesBlockchainBotIotagentMusicResponse) SetSongs(v []*AgentMusicSong) *FavoritesBlockchainBotIotagentMusicResponse {
+	s.Songs = v
+	return s
+}
+
+type LyricsBlockchainBotIotagentMusicRequest struct {
+	// OAuth模式下的授权token
+	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
+	// 智能体 ID，与client_id至少填1项
+	AgentId *string `json:"agent_id,omitempty" xml:"agent_id,omitempty"`
+	// 客户端 ID，与agent_id至少填1项
+	ClientId *string `json:"client_id,omitempty" xml:"client_id,omitempty"`
+	// 歌曲 ID
+	SongId *string `json:"song_id,omitempty" xml:"song_id,omitempty" require:"true"`
+}
+
+func (s LyricsBlockchainBotIotagentMusicRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s LyricsBlockchainBotIotagentMusicRequest) GoString() string {
+	return s.String()
+}
+
+func (s *LyricsBlockchainBotIotagentMusicRequest) SetAuthToken(v string) *LyricsBlockchainBotIotagentMusicRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *LyricsBlockchainBotIotagentMusicRequest) SetProductInstanceId(v string) *LyricsBlockchainBotIotagentMusicRequest {
+	s.ProductInstanceId = &v
+	return s
+}
+
+func (s *LyricsBlockchainBotIotagentMusicRequest) SetAgentId(v string) *LyricsBlockchainBotIotagentMusicRequest {
+	s.AgentId = &v
+	return s
+}
+
+func (s *LyricsBlockchainBotIotagentMusicRequest) SetClientId(v string) *LyricsBlockchainBotIotagentMusicRequest {
+	s.ClientId = &v
+	return s
+}
+
+func (s *LyricsBlockchainBotIotagentMusicRequest) SetSongId(v string) *LyricsBlockchainBotIotagentMusicRequest {
+	s.SongId = &v
+	return s
+}
+
+type LyricsBlockchainBotIotagentMusicResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// 原文歌词（带时间戳）
+	Lyric *string `json:"lyric,omitempty" xml:"lyric,omitempty"`
+	// 译文歌词
+	TransLyric *string `json:"trans_lyric,omitempty" xml:"trans_lyric,omitempty"`
+	// 纯文本歌词
+	TxtLyric *string `json:"txt_lyric,omitempty" xml:"txt_lyric,omitempty"`
+	// 是否无歌词（true=无歌词）
+	NoLyric *bool `json:"no_lyric,omitempty" xml:"no_lyric,omitempty"`
+}
+
+func (s LyricsBlockchainBotIotagentMusicResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s LyricsBlockchainBotIotagentMusicResponse) GoString() string {
+	return s.String()
+}
+
+func (s *LyricsBlockchainBotIotagentMusicResponse) SetReqMsgId(v string) *LyricsBlockchainBotIotagentMusicResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *LyricsBlockchainBotIotagentMusicResponse) SetResultCode(v string) *LyricsBlockchainBotIotagentMusicResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *LyricsBlockchainBotIotagentMusicResponse) SetResultMsg(v string) *LyricsBlockchainBotIotagentMusicResponse {
+	s.ResultMsg = &v
+	return s
+}
+
+func (s *LyricsBlockchainBotIotagentMusicResponse) SetLyric(v string) *LyricsBlockchainBotIotagentMusicResponse {
+	s.Lyric = &v
+	return s
+}
+
+func (s *LyricsBlockchainBotIotagentMusicResponse) SetTransLyric(v string) *LyricsBlockchainBotIotagentMusicResponse {
+	s.TransLyric = &v
+	return s
+}
+
+func (s *LyricsBlockchainBotIotagentMusicResponse) SetTxtLyric(v string) *LyricsBlockchainBotIotagentMusicResponse {
+	s.TxtLyric = &v
+	return s
+}
+
+func (s *LyricsBlockchainBotIotagentMusicResponse) SetNoLyric(v bool) *LyricsBlockchainBotIotagentMusicResponse {
+	s.NoLyric = &v
+	return s
+}
+
+type LikeBlockchainBotIotagentMusicRequest struct {
+	// OAuth模式下的授权token
+	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
+	// 智能体 ID，与client_id至少填1项
+	AgentId *string `json:"agent_id,omitempty" xml:"agent_id,omitempty"`
+	// 客户端 ID，与agent_id至少填1项
+	ClientId *string `json:"client_id,omitempty" xml:"client_id,omitempty"`
+	// 歌曲 ID
+	SongId *string `json:"song_id,omitempty" xml:"song_id,omitempty" require:"true"`
+	// 红心操作：true=喜欢，false=取消
+	IsLike *bool `json:"is_like,omitempty" xml:"is_like,omitempty" require:"true"`
+}
+
+func (s LikeBlockchainBotIotagentMusicRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s LikeBlockchainBotIotagentMusicRequest) GoString() string {
+	return s.String()
+}
+
+func (s *LikeBlockchainBotIotagentMusicRequest) SetAuthToken(v string) *LikeBlockchainBotIotagentMusicRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *LikeBlockchainBotIotagentMusicRequest) SetProductInstanceId(v string) *LikeBlockchainBotIotagentMusicRequest {
+	s.ProductInstanceId = &v
+	return s
+}
+
+func (s *LikeBlockchainBotIotagentMusicRequest) SetAgentId(v string) *LikeBlockchainBotIotagentMusicRequest {
+	s.AgentId = &v
+	return s
+}
+
+func (s *LikeBlockchainBotIotagentMusicRequest) SetClientId(v string) *LikeBlockchainBotIotagentMusicRequest {
+	s.ClientId = &v
+	return s
+}
+
+func (s *LikeBlockchainBotIotagentMusicRequest) SetSongId(v string) *LikeBlockchainBotIotagentMusicRequest {
+	s.SongId = &v
+	return s
+}
+
+func (s *LikeBlockchainBotIotagentMusicRequest) SetIsLike(v bool) *LikeBlockchainBotIotagentMusicRequest {
+	s.IsLike = &v
+	return s
+}
+
+type LikeBlockchainBotIotagentMusicResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+}
+
+func (s LikeBlockchainBotIotagentMusicResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s LikeBlockchainBotIotagentMusicResponse) GoString() string {
+	return s.String()
+}
+
+func (s *LikeBlockchainBotIotagentMusicResponse) SetReqMsgId(v string) *LikeBlockchainBotIotagentMusicResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *LikeBlockchainBotIotagentMusicResponse) SetResultCode(v string) *LikeBlockchainBotIotagentMusicResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *LikeBlockchainBotIotagentMusicResponse) SetResultMsg(v string) *LikeBlockchainBotIotagentMusicResponse {
+	s.ResultMsg = &v
+	return s
+}
+
+type LogoutBlockchainBotIotagentMusicRequest struct {
+	// OAuth模式下的授权token
+	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
+	// 智能体 ID，与client_id至少填1项
+	AgentId *string `json:"agent_id,omitempty" xml:"agent_id,omitempty"`
+	// 客户端 ID，与agent_id至少填1项
+	ClientId *string `json:"client_id,omitempty" xml:"client_id,omitempty"`
+}
+
+func (s LogoutBlockchainBotIotagentMusicRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s LogoutBlockchainBotIotagentMusicRequest) GoString() string {
+	return s.String()
+}
+
+func (s *LogoutBlockchainBotIotagentMusicRequest) SetAuthToken(v string) *LogoutBlockchainBotIotagentMusicRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *LogoutBlockchainBotIotagentMusicRequest) SetProductInstanceId(v string) *LogoutBlockchainBotIotagentMusicRequest {
+	s.ProductInstanceId = &v
+	return s
+}
+
+func (s *LogoutBlockchainBotIotagentMusicRequest) SetAgentId(v string) *LogoutBlockchainBotIotagentMusicRequest {
+	s.AgentId = &v
+	return s
+}
+
+func (s *LogoutBlockchainBotIotagentMusicRequest) SetClientId(v string) *LogoutBlockchainBotIotagentMusicRequest {
+	s.ClientId = &v
+	return s
+}
+
+type LogoutBlockchainBotIotagentMusicResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+}
+
+func (s LogoutBlockchainBotIotagentMusicResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s LogoutBlockchainBotIotagentMusicResponse) GoString() string {
+	return s.String()
+}
+
+func (s *LogoutBlockchainBotIotagentMusicResponse) SetReqMsgId(v string) *LogoutBlockchainBotIotagentMusicResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *LogoutBlockchainBotIotagentMusicResponse) SetResultCode(v string) *LogoutBlockchainBotIotagentMusicResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *LogoutBlockchainBotIotagentMusicResponse) SetResultMsg(v string) *LogoutBlockchainBotIotagentMusicResponse {
+	s.ResultMsg = &v
+	return s
+}
+
+type QuerycontractBlockchainBotAiotdatalinkAntfinanceassistantRequest struct {
+	// OAuth模式下的授权token
+	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
+	// 支付宝用户UID
+	UserId *string `json:"user_id,omitempty" xml:"user_id,omitempty" require:"true"`
+}
+
+func (s QuerycontractBlockchainBotAiotdatalinkAntfinanceassistantRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s QuerycontractBlockchainBotAiotdatalinkAntfinanceassistantRequest) GoString() string {
+	return s.String()
+}
+
+func (s *QuerycontractBlockchainBotAiotdatalinkAntfinanceassistantRequest) SetAuthToken(v string) *QuerycontractBlockchainBotAiotdatalinkAntfinanceassistantRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *QuerycontractBlockchainBotAiotdatalinkAntfinanceassistantRequest) SetProductInstanceId(v string) *QuerycontractBlockchainBotAiotdatalinkAntfinanceassistantRequest {
+	s.ProductInstanceId = &v
+	return s
+}
+
+func (s *QuerycontractBlockchainBotAiotdatalinkAntfinanceassistantRequest) SetUserId(v string) *QuerycontractBlockchainBotAiotdatalinkAntfinanceassistantRequest {
+	s.UserId = &v
+	return s
+}
+
+type QuerycontractBlockchainBotAiotdatalinkAntfinanceassistantResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// 是否已签约
+	AgreementSigned *bool `json:"agreement_signed,omitempty" xml:"agreement_signed,omitempty"`
+}
+
+func (s QuerycontractBlockchainBotAiotdatalinkAntfinanceassistantResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s QuerycontractBlockchainBotAiotdatalinkAntfinanceassistantResponse) GoString() string {
+	return s.String()
+}
+
+func (s *QuerycontractBlockchainBotAiotdatalinkAntfinanceassistantResponse) SetReqMsgId(v string) *QuerycontractBlockchainBotAiotdatalinkAntfinanceassistantResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *QuerycontractBlockchainBotAiotdatalinkAntfinanceassistantResponse) SetResultCode(v string) *QuerycontractBlockchainBotAiotdatalinkAntfinanceassistantResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *QuerycontractBlockchainBotAiotdatalinkAntfinanceassistantResponse) SetResultMsg(v string) *QuerycontractBlockchainBotAiotdatalinkAntfinanceassistantResponse {
+	s.ResultMsg = &v
+	return s
+}
+
+func (s *QuerycontractBlockchainBotAiotdatalinkAntfinanceassistantResponse) SetAgreementSigned(v bool) *QuerycontractBlockchainBotAiotdatalinkAntfinanceassistantResponse {
+	s.AgreementSigned = &v
+	return s
+}
+
+type SigncontractBlockchainBotAiotdatalinkAntfinanceassistantRequest struct {
+	// OAuth模式下的授权token
+	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
+	// 支付宝用户UID
+	UserId *string `json:"user_id,omitempty" xml:"user_id,omitempty" require:"true"`
+}
+
+func (s SigncontractBlockchainBotAiotdatalinkAntfinanceassistantRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s SigncontractBlockchainBotAiotdatalinkAntfinanceassistantRequest) GoString() string {
+	return s.String()
+}
+
+func (s *SigncontractBlockchainBotAiotdatalinkAntfinanceassistantRequest) SetAuthToken(v string) *SigncontractBlockchainBotAiotdatalinkAntfinanceassistantRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *SigncontractBlockchainBotAiotdatalinkAntfinanceassistantRequest) SetProductInstanceId(v string) *SigncontractBlockchainBotAiotdatalinkAntfinanceassistantRequest {
+	s.ProductInstanceId = &v
+	return s
+}
+
+func (s *SigncontractBlockchainBotAiotdatalinkAntfinanceassistantRequest) SetUserId(v string) *SigncontractBlockchainBotAiotdatalinkAntfinanceassistantRequest {
+	s.UserId = &v
+	return s
+}
+
+type SigncontractBlockchainBotAiotdatalinkAntfinanceassistantResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// 是否签约成功
+	SignSuccess *bool `json:"sign_success,omitempty" xml:"sign_success,omitempty"`
+}
+
+func (s SigncontractBlockchainBotAiotdatalinkAntfinanceassistantResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s SigncontractBlockchainBotAiotdatalinkAntfinanceassistantResponse) GoString() string {
+	return s.String()
+}
+
+func (s *SigncontractBlockchainBotAiotdatalinkAntfinanceassistantResponse) SetReqMsgId(v string) *SigncontractBlockchainBotAiotdatalinkAntfinanceassistantResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *SigncontractBlockchainBotAiotdatalinkAntfinanceassistantResponse) SetResultCode(v string) *SigncontractBlockchainBotAiotdatalinkAntfinanceassistantResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *SigncontractBlockchainBotAiotdatalinkAntfinanceassistantResponse) SetResultMsg(v string) *SigncontractBlockchainBotAiotdatalinkAntfinanceassistantResponse {
+	s.ResultMsg = &v
+	return s
+}
+
+func (s *SigncontractBlockchainBotAiotdatalinkAntfinanceassistantResponse) SetSignSuccess(v bool) *SigncontractBlockchainBotAiotdatalinkAntfinanceassistantResponse {
+	s.SignSuccess = &v
+	return s
+}
+
+type ChatBlockchainBotAiotdatalinkAntfinanceassistantRequest struct {
+	// OAuth模式下的授权token
+	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
+	// 支付宝用户UID
+	UserId *string `json:"user_id,omitempty" xml:"user_id,omitempty" require:"true"`
+	// 语言
+	Language *string `json:"language,omitempty" xml:"language,omitempty" require:"true"`
+	// 用户/会话维度的扩展信息，JSON对应类型：map<string,string>
+	UserInfoMap *string `json:"user_info_map,omitempty" xml:"user_info_map,omitempty" require:"true"`
+	// 透传扩展参数，JSON对应类型：map<string,string>
+	ExtParams *string `json:"ext_params,omitempty" xml:"ext_params,omitempty" require:"true"`
+	// 科技板块怎么样
+	UserQuery *string `json:"user_query,omitempty" xml:"user_query,omitempty" require:"true"`
+	// query 类型，枚举（手输：user_input、语音输入：voice_input、sug点击：card_click）
+	QueryType *string `json:"query_type,omitempty" xml:"query_type,omitempty" require:"true"`
+	// 会话 ID，用于上下文延续
+	SessionId *string `json:"session_id,omitempty" xml:"session_id,omitempty"`
+	// 引用的上一轮 chatId（上下文引用，可空）
+	RefChatId *string `json:"ref_chat_id,omitempty" xml:"ref_chat_id,omitempty"`
+}
+
+func (s ChatBlockchainBotAiotdatalinkAntfinanceassistantRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s ChatBlockchainBotAiotdatalinkAntfinanceassistantRequest) GoString() string {
+	return s.String()
+}
+
+func (s *ChatBlockchainBotAiotdatalinkAntfinanceassistantRequest) SetAuthToken(v string) *ChatBlockchainBotAiotdatalinkAntfinanceassistantRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *ChatBlockchainBotAiotdatalinkAntfinanceassistantRequest) SetProductInstanceId(v string) *ChatBlockchainBotAiotdatalinkAntfinanceassistantRequest {
+	s.ProductInstanceId = &v
+	return s
+}
+
+func (s *ChatBlockchainBotAiotdatalinkAntfinanceassistantRequest) SetUserId(v string) *ChatBlockchainBotAiotdatalinkAntfinanceassistantRequest {
+	s.UserId = &v
+	return s
+}
+
+func (s *ChatBlockchainBotAiotdatalinkAntfinanceassistantRequest) SetLanguage(v string) *ChatBlockchainBotAiotdatalinkAntfinanceassistantRequest {
+	s.Language = &v
+	return s
+}
+
+func (s *ChatBlockchainBotAiotdatalinkAntfinanceassistantRequest) SetUserInfoMap(v string) *ChatBlockchainBotAiotdatalinkAntfinanceassistantRequest {
+	s.UserInfoMap = &v
+	return s
+}
+
+func (s *ChatBlockchainBotAiotdatalinkAntfinanceassistantRequest) SetExtParams(v string) *ChatBlockchainBotAiotdatalinkAntfinanceassistantRequest {
+	s.ExtParams = &v
+	return s
+}
+
+func (s *ChatBlockchainBotAiotdatalinkAntfinanceassistantRequest) SetUserQuery(v string) *ChatBlockchainBotAiotdatalinkAntfinanceassistantRequest {
+	s.UserQuery = &v
+	return s
+}
+
+func (s *ChatBlockchainBotAiotdatalinkAntfinanceassistantRequest) SetQueryType(v string) *ChatBlockchainBotAiotdatalinkAntfinanceassistantRequest {
+	s.QueryType = &v
+	return s
+}
+
+func (s *ChatBlockchainBotAiotdatalinkAntfinanceassistantRequest) SetSessionId(v string) *ChatBlockchainBotAiotdatalinkAntfinanceassistantRequest {
+	s.SessionId = &v
+	return s
+}
+
+func (s *ChatBlockchainBotAiotdatalinkAntfinanceassistantRequest) SetRefChatId(v string) *ChatBlockchainBotAiotdatalinkAntfinanceassistantRequest {
+	s.RefChatId = &v
+	return s
+}
+
+type ChatBlockchainBotAiotdatalinkAntfinanceassistantResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// 会话ID,多轮场景需要回传
+	SessionId *string `json:"session_id,omitempty" xml:"session_id,omitempty"`
+	// 扩展参数（JSON 字符串）
+	ExtParams *string `json:"ext_params,omitempty" xml:"ext_params,omitempty"`
+	// 本轮对话唯一ID
+	ChatId *string `json:"chat_id,omitempty" xml:"chat_id,omitempty"`
+	// 响应文本
+	Response *string `json:"response,omitempty" xml:"response,omitempty"`
+	// 回复置信度分数
+	Score *string `json:"score,omitempty" xml:"score,omitempty"`
+	// 响应标题
+	ResponseTitle *string `json:"response_title,omitempty" xml:"response_title,omitempty"`
+	// 回复生效的条件
+	ResponseCondition *string `json:"response_condition,omitempty" xml:"response_condition,omitempty"`
+}
+
+func (s ChatBlockchainBotAiotdatalinkAntfinanceassistantResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s ChatBlockchainBotAiotdatalinkAntfinanceassistantResponse) GoString() string {
+	return s.String()
+}
+
+func (s *ChatBlockchainBotAiotdatalinkAntfinanceassistantResponse) SetReqMsgId(v string) *ChatBlockchainBotAiotdatalinkAntfinanceassistantResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *ChatBlockchainBotAiotdatalinkAntfinanceassistantResponse) SetResultCode(v string) *ChatBlockchainBotAiotdatalinkAntfinanceassistantResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *ChatBlockchainBotAiotdatalinkAntfinanceassistantResponse) SetResultMsg(v string) *ChatBlockchainBotAiotdatalinkAntfinanceassistantResponse {
+	s.ResultMsg = &v
+	return s
+}
+
+func (s *ChatBlockchainBotAiotdatalinkAntfinanceassistantResponse) SetSessionId(v string) *ChatBlockchainBotAiotdatalinkAntfinanceassistantResponse {
+	s.SessionId = &v
+	return s
+}
+
+func (s *ChatBlockchainBotAiotdatalinkAntfinanceassistantResponse) SetExtParams(v string) *ChatBlockchainBotAiotdatalinkAntfinanceassistantResponse {
+	s.ExtParams = &v
+	return s
+}
+
+func (s *ChatBlockchainBotAiotdatalinkAntfinanceassistantResponse) SetChatId(v string) *ChatBlockchainBotAiotdatalinkAntfinanceassistantResponse {
+	s.ChatId = &v
+	return s
+}
+
+func (s *ChatBlockchainBotAiotdatalinkAntfinanceassistantResponse) SetResponse(v string) *ChatBlockchainBotAiotdatalinkAntfinanceassistantResponse {
+	s.Response = &v
+	return s
+}
+
+func (s *ChatBlockchainBotAiotdatalinkAntfinanceassistantResponse) SetScore(v string) *ChatBlockchainBotAiotdatalinkAntfinanceassistantResponse {
+	s.Score = &v
+	return s
+}
+
+func (s *ChatBlockchainBotAiotdatalinkAntfinanceassistantResponse) SetResponseTitle(v string) *ChatBlockchainBotAiotdatalinkAntfinanceassistantResponse {
+	s.ResponseTitle = &v
+	return s
+}
+
+func (s *ChatBlockchainBotAiotdatalinkAntfinanceassistantResponse) SetResponseCondition(v string) *ChatBlockchainBotAiotdatalinkAntfinanceassistantResponse {
+	s.ResponseCondition = &v
+	return s
+}
+
+type StreamchatBlockchainBotAiotdatalinkAntfinanceassistantRequest struct {
+	// OAuth模式下的授权token
+	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
+	// 请求内容，内容为json字符串
+	ChatRequest *string `json:"chat_request,omitempty" xml:"chat_request,omitempty" require:"true"`
+}
+
+func (s StreamchatBlockchainBotAiotdatalinkAntfinanceassistantRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s StreamchatBlockchainBotAiotdatalinkAntfinanceassistantRequest) GoString() string {
+	return s.String()
+}
+
+func (s *StreamchatBlockchainBotAiotdatalinkAntfinanceassistantRequest) SetAuthToken(v string) *StreamchatBlockchainBotAiotdatalinkAntfinanceassistantRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *StreamchatBlockchainBotAiotdatalinkAntfinanceassistantRequest) SetProductInstanceId(v string) *StreamchatBlockchainBotAiotdatalinkAntfinanceassistantRequest {
+	s.ProductInstanceId = &v
+	return s
+}
+
+func (s *StreamchatBlockchainBotAiotdatalinkAntfinanceassistantRequest) SetChatRequest(v string) *StreamchatBlockchainBotAiotdatalinkAntfinanceassistantRequest {
+	s.ChatRequest = &v
+	return s
+}
+
+type StreamchatBlockchainBotAiotdatalinkAntfinanceassistantResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// 会话结果
+	ChatCompletionObject *string `json:"chat_completion_object,omitempty" xml:"chat_completion_object,omitempty"`
+}
+
+func (s StreamchatBlockchainBotAiotdatalinkAntfinanceassistantResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s StreamchatBlockchainBotAiotdatalinkAntfinanceassistantResponse) GoString() string {
+	return s.String()
+}
+
+func (s *StreamchatBlockchainBotAiotdatalinkAntfinanceassistantResponse) SetReqMsgId(v string) *StreamchatBlockchainBotAiotdatalinkAntfinanceassistantResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *StreamchatBlockchainBotAiotdatalinkAntfinanceassistantResponse) SetResultCode(v string) *StreamchatBlockchainBotAiotdatalinkAntfinanceassistantResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *StreamchatBlockchainBotAiotdatalinkAntfinanceassistantResponse) SetResultMsg(v string) *StreamchatBlockchainBotAiotdatalinkAntfinanceassistantResponse {
+	s.ResultMsg = &v
+	return s
+}
+
+func (s *StreamchatBlockchainBotAiotdatalinkAntfinanceassistantResponse) SetChatCompletionObject(v string) *StreamchatBlockchainBotAiotdatalinkAntfinanceassistantResponse {
+	s.ChatCompletionObject = &v
+	return s
+}
+
+type CreateAntcloudGatewayxFileUploadRequest struct {
+	// OAuth模式下的授权token
+	AuthToken *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	// 上传文件作用的openapi method
+	ApiCode *string `json:"api_code,omitempty" xml:"api_code,omitempty" require:"true"`
+	// 文件标签，多个标签;分割
+	FileLabel *string `json:"file_label,omitempty" xml:"file_label,omitempty" maxLength:"100"`
+	// 自定义的文件元数据
+	FileMetadata *string `json:"file_metadata,omitempty" xml:"file_metadata,omitempty" maxLength:"1000"`
+	// 文件名，不传则随机生成文件名
+	FileName *string `json:"file_name,omitempty" xml:"file_name,omitempty" maxLength:"100"`
+	// 文件的多媒体类型
+	MimeType *string `json:"mime_type,omitempty" xml:"mime_type,omitempty"`
+	// 产品方的api归属集群，即productInstanceId
+	ApiCluster *string `json:"api_cluster,omitempty" xml:"api_cluster,omitempty"`
+}
+
+func (s CreateAntcloudGatewayxFileUploadRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s CreateAntcloudGatewayxFileUploadRequest) GoString() string {
+	return s.String()
+}
+
+func (s *CreateAntcloudGatewayxFileUploadRequest) SetAuthToken(v string) *CreateAntcloudGatewayxFileUploadRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *CreateAntcloudGatewayxFileUploadRequest) SetApiCode(v string) *CreateAntcloudGatewayxFileUploadRequest {
+	s.ApiCode = &v
+	return s
+}
+
+func (s *CreateAntcloudGatewayxFileUploadRequest) SetFileLabel(v string) *CreateAntcloudGatewayxFileUploadRequest {
+	s.FileLabel = &v
+	return s
+}
+
+func (s *CreateAntcloudGatewayxFileUploadRequest) SetFileMetadata(v string) *CreateAntcloudGatewayxFileUploadRequest {
+	s.FileMetadata = &v
+	return s
+}
+
+func (s *CreateAntcloudGatewayxFileUploadRequest) SetFileName(v string) *CreateAntcloudGatewayxFileUploadRequest {
+	s.FileName = &v
+	return s
+}
+
+func (s *CreateAntcloudGatewayxFileUploadRequest) SetMimeType(v string) *CreateAntcloudGatewayxFileUploadRequest {
+	s.MimeType = &v
+	return s
+}
+
+func (s *CreateAntcloudGatewayxFileUploadRequest) SetApiCluster(v string) *CreateAntcloudGatewayxFileUploadRequest {
+	s.ApiCluster = &v
+	return s
+}
+
+type CreateAntcloudGatewayxFileUploadResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// 上传有效期
+	ExpiredTime *string `json:"expired_time,omitempty" xml:"expired_time,omitempty" pattern:"\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}([Z]|([\\.]\\d{1,9})?[\\+]\\d{2}[\\:]?\\d{2})"`
+	// 32位文件唯一id
+	FileId *string `json:"file_id,omitempty" xml:"file_id,omitempty"`
+	// 放入http请求头里
+	UploadHeaders []*XNameValuePair `json:"upload_headers,omitempty" xml:"upload_headers,omitempty" type:"Repeated"`
+	// 文件上传地址
+	UploadUrl *string `json:"upload_url,omitempty" xml:"upload_url,omitempty"`
+}
+
+func (s CreateAntcloudGatewayxFileUploadResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s CreateAntcloudGatewayxFileUploadResponse) GoString() string {
+	return s.String()
+}
+
+func (s *CreateAntcloudGatewayxFileUploadResponse) SetReqMsgId(v string) *CreateAntcloudGatewayxFileUploadResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *CreateAntcloudGatewayxFileUploadResponse) SetResultCode(v string) *CreateAntcloudGatewayxFileUploadResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *CreateAntcloudGatewayxFileUploadResponse) SetResultMsg(v string) *CreateAntcloudGatewayxFileUploadResponse {
+	s.ResultMsg = &v
+	return s
+}
+
+func (s *CreateAntcloudGatewayxFileUploadResponse) SetExpiredTime(v string) *CreateAntcloudGatewayxFileUploadResponse {
+	s.ExpiredTime = &v
+	return s
+}
+
+func (s *CreateAntcloudGatewayxFileUploadResponse) SetFileId(v string) *CreateAntcloudGatewayxFileUploadResponse {
+	s.FileId = &v
+	return s
+}
+
+func (s *CreateAntcloudGatewayxFileUploadResponse) SetUploadHeaders(v []*XNameValuePair) *CreateAntcloudGatewayxFileUploadResponse {
+	s.UploadHeaders = v
+	return s
+}
+
+func (s *CreateAntcloudGatewayxFileUploadResponse) SetUploadUrl(v string) *CreateAntcloudGatewayxFileUploadResponse {
+	s.UploadUrl = &v
+	return s
+}
+
 type Client struct {
 	Endpoint                *string
 	RegionId                *string
@@ -16584,7 +21355,7 @@ func (client *Client) DoRequest(version *string, action *string, protocol *strin
 				"req_msg_id":       antchainutil.GetNonce(),
 				"access_key":       client.AccessKeyId,
 				"base_sdk_version": tea.String("TeaSDK-2.0"),
-				"sdk_version":      tea.String("1.2.3"),
+				"sdk_version":      tea.String("1.2.14"),
 				"_prod_code":       tea.String("IOTAGENT"),
 				"_prod_channel":    tea.String("undefined"),
 			}
@@ -16640,6 +21411,108 @@ func (client *Client) DoRequest(version *string, action *string, protocol *strin
 	}
 
 	return _resp, _err
+}
+
+// Description:
+//
+// Description: 查询租户下的userid
+//
+// Summary: 查询租户下的userid
+func (client *Client) QueryBlockchainBotIotagentUserids(request *QueryBlockchainBotIotagentUseridsRequest) (_result *QueryBlockchainBotIotagentUseridsResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &QueryBlockchainBotIotagentUseridsResponse{}
+	_body, _err := client.QueryBlockchainBotIotagentUseridsEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+// Description:
+//
+// Description: 查询租户下的userid
+//
+// Summary: 查询租户下的userid
+func (client *Client) QueryBlockchainBotIotagentUseridsEx(request *QueryBlockchainBotIotagentUseridsRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *QueryBlockchainBotIotagentUseridsResponse, _err error) {
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &QueryBlockchainBotIotagentUseridsResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("blockchain.bot.iotagent.userids.query"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
+}
+
+// Description:
+//
+// Description: 测试用
+//
+// Summary: 测试用
+func (client *Client) TestBlockchainBotIotagentPlugin(request *TestBlockchainBotIotagentPluginRequest) (_result *TestBlockchainBotIotagentPluginResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &TestBlockchainBotIotagentPluginResponse{}
+	_body, _err := client.TestBlockchainBotIotagentPluginEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+// Description:
+//
+// Description: 测试用
+//
+// Summary: 测试用
+func (client *Client) TestBlockchainBotIotagentPluginEx(request *TestBlockchainBotIotagentPluginRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *TestBlockchainBotIotagentPluginResponse, _err error) {
+	if !tea.BoolValue(util.IsUnset(request.FileObject)) {
+		uploadReq := &CreateAntcloudGatewayxFileUploadRequest{
+			AuthToken: request.AuthToken,
+			ApiCode:   tea.String("blockchain.bot.iotagent.plugin.test"),
+			FileName:  request.FileObjectName,
+		}
+		uploadResp, _err := client.CreateAntcloudGatewayxFileUploadEx(uploadReq, headers, runtime)
+		if _err != nil {
+			return _result, _err
+		}
+
+		if !tea.BoolValue(antchainutil.IsSuccess(uploadResp.ResultCode, tea.String("ok"))) {
+			testBlockchainBotIotagentPluginResponse := &TestBlockchainBotIotagentPluginResponse{
+				ReqMsgId:   uploadResp.ReqMsgId,
+				ResultCode: uploadResp.ResultCode,
+				ResultMsg:  uploadResp.ResultMsg,
+			}
+			_result = testBlockchainBotIotagentPluginResponse
+			return _result, _err
+		}
+
+		uploadHeaders := antchainutil.ParseUploadHeaders(uploadResp.UploadHeaders)
+		_err = antchainutil.PutObject(request.FileObject, uploadHeaders, uploadResp.UploadUrl)
+		if _err != nil {
+			return _result, _err
+		}
+		request.FileId = uploadResp.FileId
+		request.FileObject = nil
+	}
+
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &TestBlockchainBotIotagentPluginResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("blockchain.bot.iotagent.plugin.test"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
 }
 
 // Description:
@@ -16995,6 +21868,1368 @@ func (client *Client) QueryBlockchainBotIotagentPlugincontractEx(request *QueryB
 	}
 	_result = &QueryBlockchainBotIotagentPlugincontractResponse{}
 	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("blockchain.bot.iotagent.plugincontract.query"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
+}
+
+// Description:
+//
+// Description: 根据tenant获取tenant下的userId
+//
+// Summary: 根据tenant获取tenant下的userId
+func (client *Client) QueryBlockchainBotIotagentUserid(request *QueryBlockchainBotIotagentUseridRequest) (_result *QueryBlockchainBotIotagentUseridResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &QueryBlockchainBotIotagentUseridResponse{}
+	_body, _err := client.QueryBlockchainBotIotagentUseridEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+// Description:
+//
+// Description: 根据tenant获取tenant下的userId
+//
+// Summary: 根据tenant获取tenant下的userId
+func (client *Client) QueryBlockchainBotIotagentUseridEx(request *QueryBlockchainBotIotagentUseridRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *QueryBlockchainBotIotagentUseridResponse, _err error) {
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &QueryBlockchainBotIotagentUseridResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("blockchain.bot.iotagent.userid.query"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
+}
+
+// Description:
+//
+// Description: 根据tenant获取featureId
+//
+// Summary: 根据tenant获取featureId
+func (client *Client) QueryBlockchainBotIotagentFeature(request *QueryBlockchainBotIotagentFeatureRequest) (_result *QueryBlockchainBotIotagentFeatureResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &QueryBlockchainBotIotagentFeatureResponse{}
+	_body, _err := client.QueryBlockchainBotIotagentFeatureEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+// Description:
+//
+// Description: 根据tenant获取featureId
+//
+// Summary: 根据tenant获取featureId
+func (client *Client) QueryBlockchainBotIotagentFeatureEx(request *QueryBlockchainBotIotagentFeatureRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *QueryBlockchainBotIotagentFeatureResponse, _err error) {
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &QueryBlockchainBotIotagentFeatureResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("blockchain.bot.iotagent.feature.query"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
+}
+
+// Description:
+//
+// Description: 智能体创建
+//
+// Summary: 智能体创建
+func (client *Client) CreateBlockchainBotIotagentAgent(request *CreateBlockchainBotIotagentAgentRequest) (_result *CreateBlockchainBotIotagentAgentResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &CreateBlockchainBotIotagentAgentResponse{}
+	_body, _err := client.CreateBlockchainBotIotagentAgentEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+// Description:
+//
+// Description: 智能体创建
+//
+// Summary: 智能体创建
+func (client *Client) CreateBlockchainBotIotagentAgentEx(request *CreateBlockchainBotIotagentAgentRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *CreateBlockchainBotIotagentAgentResponse, _err error) {
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &CreateBlockchainBotIotagentAgentResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("blockchain.bot.iotagent.agent.create"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
+}
+
+// Description:
+//
+// Description: 智能体更新
+//
+// Summary: 智能体更新
+func (client *Client) UpdateBlockchainBotIotagentAgent(request *UpdateBlockchainBotIotagentAgentRequest) (_result *UpdateBlockchainBotIotagentAgentResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &UpdateBlockchainBotIotagentAgentResponse{}
+	_body, _err := client.UpdateBlockchainBotIotagentAgentEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+// Description:
+//
+// Description: 智能体更新
+//
+// Summary: 智能体更新
+func (client *Client) UpdateBlockchainBotIotagentAgentEx(request *UpdateBlockchainBotIotagentAgentRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *UpdateBlockchainBotIotagentAgentResponse, _err error) {
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &UpdateBlockchainBotIotagentAgentResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("blockchain.bot.iotagent.agent.update"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
+}
+
+// Description:
+//
+// Description: 智能体删除
+//
+// Summary: 智能体删除
+func (client *Client) DeleteBlockchainBotIotagentAgent(request *DeleteBlockchainBotIotagentAgentRequest) (_result *DeleteBlockchainBotIotagentAgentResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &DeleteBlockchainBotIotagentAgentResponse{}
+	_body, _err := client.DeleteBlockchainBotIotagentAgentEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+// Description:
+//
+// Description: 智能体删除
+//
+// Summary: 智能体删除
+func (client *Client) DeleteBlockchainBotIotagentAgentEx(request *DeleteBlockchainBotIotagentAgentRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *DeleteBlockchainBotIotagentAgentResponse, _err error) {
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &DeleteBlockchainBotIotagentAgentResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("blockchain.bot.iotagent.agent.delete"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
+}
+
+// Description:
+//
+// Description: 智能体列表
+//
+// Summary: 智能体列表
+func (client *Client) ListBlockchainBotIotagentAgent(request *ListBlockchainBotIotagentAgentRequest) (_result *ListBlockchainBotIotagentAgentResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &ListBlockchainBotIotagentAgentResponse{}
+	_body, _err := client.ListBlockchainBotIotagentAgentEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+// Description:
+//
+// Description: 智能体列表
+//
+// Summary: 智能体列表
+func (client *Client) ListBlockchainBotIotagentAgentEx(request *ListBlockchainBotIotagentAgentRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *ListBlockchainBotIotagentAgentResponse, _err error) {
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &ListBlockchainBotIotagentAgentResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("blockchain.bot.iotagent.agent.list"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
+}
+
+// Description:
+//
+// Description: 智能体团队创建
+//
+// Summary: 智能体团队创建
+func (client *Client) CreateBlockchainBotIotagentAgentteam(request *CreateBlockchainBotIotagentAgentteamRequest) (_result *CreateBlockchainBotIotagentAgentteamResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &CreateBlockchainBotIotagentAgentteamResponse{}
+	_body, _err := client.CreateBlockchainBotIotagentAgentteamEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+// Description:
+//
+// Description: 智能体团队创建
+//
+// Summary: 智能体团队创建
+func (client *Client) CreateBlockchainBotIotagentAgentteamEx(request *CreateBlockchainBotIotagentAgentteamRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *CreateBlockchainBotIotagentAgentteamResponse, _err error) {
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &CreateBlockchainBotIotagentAgentteamResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("blockchain.bot.iotagent.agentteam.create"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
+}
+
+// Description:
+//
+// Description: 智能体团队编辑
+//
+// Summary: 智能体团队编辑
+func (client *Client) UpdateBlockchainBotIotagentAgentteam(request *UpdateBlockchainBotIotagentAgentteamRequest) (_result *UpdateBlockchainBotIotagentAgentteamResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &UpdateBlockchainBotIotagentAgentteamResponse{}
+	_body, _err := client.UpdateBlockchainBotIotagentAgentteamEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+// Description:
+//
+// Description: 智能体团队编辑
+//
+// Summary: 智能体团队编辑
+func (client *Client) UpdateBlockchainBotIotagentAgentteamEx(request *UpdateBlockchainBotIotagentAgentteamRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *UpdateBlockchainBotIotagentAgentteamResponse, _err error) {
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &UpdateBlockchainBotIotagentAgentteamResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("blockchain.bot.iotagent.agentteam.update"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
+}
+
+// Description:
+//
+// Description: 智能体详情
+//
+// Summary: 智能体详情
+func (client *Client) DetailBlockchainBotIotagentAgent(request *DetailBlockchainBotIotagentAgentRequest) (_result *DetailBlockchainBotIotagentAgentResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &DetailBlockchainBotIotagentAgentResponse{}
+	_body, _err := client.DetailBlockchainBotIotagentAgentEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+// Description:
+//
+// Description: 智能体详情
+//
+// Summary: 智能体详情
+func (client *Client) DetailBlockchainBotIotagentAgentEx(request *DetailBlockchainBotIotagentAgentRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *DetailBlockchainBotIotagentAgentResponse, _err error) {
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &DetailBlockchainBotIotagentAgentResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("blockchain.bot.iotagent.agent.detail"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
+}
+
+// Description:
+//
+// Description: session创建
+//
+// Summary: session创建
+func (client *Client) CreateBlockchainBotIotagentSession(request *CreateBlockchainBotIotagentSessionRequest) (_result *CreateBlockchainBotIotagentSessionResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &CreateBlockchainBotIotagentSessionResponse{}
+	_body, _err := client.CreateBlockchainBotIotagentSessionEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+// Description:
+//
+// Description: session创建
+//
+// Summary: session创建
+func (client *Client) CreateBlockchainBotIotagentSessionEx(request *CreateBlockchainBotIotagentSessionRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *CreateBlockchainBotIotagentSessionResponse, _err error) {
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &CreateBlockchainBotIotagentSessionResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("blockchain.bot.iotagent.session.create"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
+}
+
+// Description:
+//
+// Description: seesion名字修改
+//
+// Summary: seesion名字修改
+func (client *Client) RenameBlockchainBotIotagentSession(request *RenameBlockchainBotIotagentSessionRequest) (_result *RenameBlockchainBotIotagentSessionResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &RenameBlockchainBotIotagentSessionResponse{}
+	_body, _err := client.RenameBlockchainBotIotagentSessionEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+// Description:
+//
+// Description: seesion名字修改
+//
+// Summary: seesion名字修改
+func (client *Client) RenameBlockchainBotIotagentSessionEx(request *RenameBlockchainBotIotagentSessionRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *RenameBlockchainBotIotagentSessionResponse, _err error) {
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &RenameBlockchainBotIotagentSessionResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("blockchain.bot.iotagent.session.rename"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
+}
+
+// Description:
+//
+// Description: session删除
+//
+// Summary: session删除
+func (client *Client) DeleteBlockchainBotIotagentSession(request *DeleteBlockchainBotIotagentSessionRequest) (_result *DeleteBlockchainBotIotagentSessionResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &DeleteBlockchainBotIotagentSessionResponse{}
+	_body, _err := client.DeleteBlockchainBotIotagentSessionEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+// Description:
+//
+// Description: session删除
+//
+// Summary: session删除
+func (client *Client) DeleteBlockchainBotIotagentSessionEx(request *DeleteBlockchainBotIotagentSessionRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *DeleteBlockchainBotIotagentSessionResponse, _err error) {
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &DeleteBlockchainBotIotagentSessionResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("blockchain.bot.iotagent.session.delete"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
+}
+
+// Description:
+//
+// Description: session对话历史
+//
+// Summary: session对话历史
+func (client *Client) HistoryBlockchainBotIotagentSession(request *HistoryBlockchainBotIotagentSessionRequest) (_result *HistoryBlockchainBotIotagentSessionResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &HistoryBlockchainBotIotagentSessionResponse{}
+	_body, _err := client.HistoryBlockchainBotIotagentSessionEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+// Description:
+//
+// Description: session对话历史
+//
+// Summary: session对话历史
+func (client *Client) HistoryBlockchainBotIotagentSessionEx(request *HistoryBlockchainBotIotagentSessionRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *HistoryBlockchainBotIotagentSessionResponse, _err error) {
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &HistoryBlockchainBotIotagentSessionResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("blockchain.bot.iotagent.session.history"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
+}
+
+// Description:
+//
+// Description: session 列表
+//
+// Summary: session 列表
+func (client *Client) ListBlockchainBotIotagentSession(request *ListBlockchainBotIotagentSessionRequest) (_result *ListBlockchainBotIotagentSessionResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &ListBlockchainBotIotagentSessionResponse{}
+	_body, _err := client.ListBlockchainBotIotagentSessionEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+// Description:
+//
+// Description: session 列表
+//
+// Summary: session 列表
+func (client *Client) ListBlockchainBotIotagentSessionEx(request *ListBlockchainBotIotagentSessionRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *ListBlockchainBotIotagentSessionResponse, _err error) {
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &ListBlockchainBotIotagentSessionResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("blockchain.bot.iotagent.session.list"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
+}
+
+// Description:
+//
+// Description: sse聊天
+//
+// Summary: sse聊天
+func (client *Client) ChatBlockchainBotIotagentSession(request *ChatBlockchainBotIotagentSessionRequest) (_result *ChatBlockchainBotIotagentSessionResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &ChatBlockchainBotIotagentSessionResponse{}
+	_body, _err := client.ChatBlockchainBotIotagentSessionEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+// Description:
+//
+// Description: sse聊天
+//
+// Summary: sse聊天
+func (client *Client) ChatBlockchainBotIotagentSessionEx(request *ChatBlockchainBotIotagentSessionRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *ChatBlockchainBotIotagentSessionResponse, _err error) {
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &ChatBlockchainBotIotagentSessionResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("blockchain.bot.iotagent.session.chat"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
+}
+
+// Description:
+//
+// Description: 会话打断
+//
+// Summary: 会话打断
+func (client *Client) InterruptBlockchainBotIotagentSession(request *InterruptBlockchainBotIotagentSessionRequest) (_result *InterruptBlockchainBotIotagentSessionResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &InterruptBlockchainBotIotagentSessionResponse{}
+	_body, _err := client.InterruptBlockchainBotIotagentSessionEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+// Description:
+//
+// Description: 会话打断
+//
+// Summary: 会话打断
+func (client *Client) InterruptBlockchainBotIotagentSessionEx(request *InterruptBlockchainBotIotagentSessionRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *InterruptBlockchainBotIotagentSessionResponse, _err error) {
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &InterruptBlockchainBotIotagentSessionResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("blockchain.bot.iotagent.session.interrupt"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
+}
+
+// Description:
+//
+// Description: 智能体消息/指令推送
+//
+// Summary: 智能体消息/指令推送
+func (client *Client) PushBlockchainBotIotagentMessage(request *PushBlockchainBotIotagentMessageRequest) (_result *PushBlockchainBotIotagentMessageResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &PushBlockchainBotIotagentMessageResponse{}
+	_body, _err := client.PushBlockchainBotIotagentMessageEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+// Description:
+//
+// Description: 智能体消息/指令推送
+//
+// Summary: 智能体消息/指令推送
+func (client *Client) PushBlockchainBotIotagentMessageEx(request *PushBlockchainBotIotagentMessageRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *PushBlockchainBotIotagentMessageResponse, _err error) {
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &PushBlockchainBotIotagentMessageResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("blockchain.bot.iotagent.message.push"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
+}
+
+// Description:
+//
+// Description: 查询智能体消息/指令推送状态
+//
+// Summary: 查询智能体消息/指令推送状态
+func (client *Client) QuerypushstatusBlockchainBotIotagentMessage(request *QuerypushstatusBlockchainBotIotagentMessageRequest) (_result *QuerypushstatusBlockchainBotIotagentMessageResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &QuerypushstatusBlockchainBotIotagentMessageResponse{}
+	_body, _err := client.QuerypushstatusBlockchainBotIotagentMessageEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+// Description:
+//
+// Description: 查询智能体消息/指令推送状态
+//
+// Summary: 查询智能体消息/指令推送状态
+func (client *Client) QuerypushstatusBlockchainBotIotagentMessageEx(request *QuerypushstatusBlockchainBotIotagentMessageRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *QuerypushstatusBlockchainBotIotagentMessageResponse, _err error) {
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &QuerypushstatusBlockchainBotIotagentMessageResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("blockchain.bot.iotagent.message.querypushstatus"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
+}
+
+// Description:
+//
+// Description: session下的文件列表
+//
+// Summary: session下的文件列表
+func (client *Client) ListfilesBlockchainBotIotagentSession(request *ListfilesBlockchainBotIotagentSessionRequest) (_result *ListfilesBlockchainBotIotagentSessionResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &ListfilesBlockchainBotIotagentSessionResponse{}
+	_body, _err := client.ListfilesBlockchainBotIotagentSessionEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+// Description:
+//
+// Description: session下的文件列表
+//
+// Summary: session下的文件列表
+func (client *Client) ListfilesBlockchainBotIotagentSessionEx(request *ListfilesBlockchainBotIotagentSessionRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *ListfilesBlockchainBotIotagentSessionResponse, _err error) {
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &ListfilesBlockchainBotIotagentSessionResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("blockchain.bot.iotagent.session.listfiles"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
+}
+
+// Description:
+//
+// Description: 文件下载
+//
+// Summary: 文件下载
+func (client *Client) FliedownloadBlockchainBotIotagentSession(request *FliedownloadBlockchainBotIotagentSessionRequest) (_result *FliedownloadBlockchainBotIotagentSessionResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &FliedownloadBlockchainBotIotagentSessionResponse{}
+	_body, _err := client.FliedownloadBlockchainBotIotagentSessionEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+// Description:
+//
+// Description: 文件下载
+//
+// Summary: 文件下载
+func (client *Client) FliedownloadBlockchainBotIotagentSessionEx(request *FliedownloadBlockchainBotIotagentSessionRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *FliedownloadBlockchainBotIotagentSessionResponse, _err error) {
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &FliedownloadBlockchainBotIotagentSessionResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("blockchain.bot.iotagent.session.fliedownload"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
+}
+
+// Description:
+//
+// Description: 文件预览
+//
+// Summary: 文件预览
+func (client *Client) FilepreviewBlockchainBotIotagentSession(request *FilepreviewBlockchainBotIotagentSessionRequest) (_result *FilepreviewBlockchainBotIotagentSessionResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &FilepreviewBlockchainBotIotagentSessionResponse{}
+	_body, _err := client.FilepreviewBlockchainBotIotagentSessionEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+// Description:
+//
+// Description: 文件预览
+//
+// Summary: 文件预览
+func (client *Client) FilepreviewBlockchainBotIotagentSessionEx(request *FilepreviewBlockchainBotIotagentSessionRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *FilepreviewBlockchainBotIotagentSessionResponse, _err error) {
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &FilepreviewBlockchainBotIotagentSessionResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("blockchain.bot.iotagent.session.filepreview"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
+}
+
+// Description:
+//
+// Description: 插件接口
+//
+// Summary: 插件接口
+func (client *Client) PushBlockchainBotIotagentAudioscribe(request *PushBlockchainBotIotagentAudioscribeRequest) (_result *PushBlockchainBotIotagentAudioscribeResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &PushBlockchainBotIotagentAudioscribeResponse{}
+	_body, _err := client.PushBlockchainBotIotagentAudioscribeEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+// Description:
+//
+// Description: 插件接口
+//
+// Summary: 插件接口
+func (client *Client) PushBlockchainBotIotagentAudioscribeEx(request *PushBlockchainBotIotagentAudioscribeRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *PushBlockchainBotIotagentAudioscribeResponse, _err error) {
+	if !tea.BoolValue(util.IsUnset(request.FileObject)) {
+		uploadReq := &CreateAntcloudGatewayxFileUploadRequest{
+			AuthToken: request.AuthToken,
+			ApiCode:   tea.String("blockchain.bot.iotagent.audioscribe.push"),
+			FileName:  request.FileObjectName,
+		}
+		uploadResp, _err := client.CreateAntcloudGatewayxFileUploadEx(uploadReq, headers, runtime)
+		if _err != nil {
+			return _result, _err
+		}
+
+		if !tea.BoolValue(antchainutil.IsSuccess(uploadResp.ResultCode, tea.String("ok"))) {
+			pushBlockchainBotIotagentAudioscribeResponse := &PushBlockchainBotIotagentAudioscribeResponse{
+				ReqMsgId:   uploadResp.ReqMsgId,
+				ResultCode: uploadResp.ResultCode,
+				ResultMsg:  uploadResp.ResultMsg,
+			}
+			_result = pushBlockchainBotIotagentAudioscribeResponse
+			return _result, _err
+		}
+
+		uploadHeaders := antchainutil.ParseUploadHeaders(uploadResp.UploadHeaders)
+		_err = antchainutil.PutObject(request.FileObject, uploadHeaders, uploadResp.UploadUrl)
+		if _err != nil {
+			return _result, _err
+		}
+		request.FileId = uploadResp.FileId
+		request.FileObject = nil
+	}
+
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &PushBlockchainBotIotagentAudioscribeResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("blockchain.bot.iotagent.audioscribe.push"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
+}
+
+// Description:
+//
+// Description: 插件通用HTTP接口
+//
+// Summary: 插件通用HTTP接口
+func (client *Client) ExecBlockchainBotIotagentPlugin(request *ExecBlockchainBotIotagentPluginRequest) (_result *ExecBlockchainBotIotagentPluginResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &ExecBlockchainBotIotagentPluginResponse{}
+	_body, _err := client.ExecBlockchainBotIotagentPluginEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+// Description:
+//
+// Description: 插件通用HTTP接口
+//
+// Summary: 插件通用HTTP接口
+func (client *Client) ExecBlockchainBotIotagentPluginEx(request *ExecBlockchainBotIotagentPluginRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *ExecBlockchainBotIotagentPluginResponse, _err error) {
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &ExecBlockchainBotIotagentPluginResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("blockchain.bot.iotagent.plugin.exec"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
+}
+
+// Description:
+//
+// Description: 文件上传
+//
+// Summary: 文件上传
+func (client *Client) PushBlockchainBotIotagentWorkspace(request *PushBlockchainBotIotagentWorkspaceRequest) (_result *PushBlockchainBotIotagentWorkspaceResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &PushBlockchainBotIotagentWorkspaceResponse{}
+	_body, _err := client.PushBlockchainBotIotagentWorkspaceEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+// Description:
+//
+// Description: 文件上传
+//
+// Summary: 文件上传
+func (client *Client) PushBlockchainBotIotagentWorkspaceEx(request *PushBlockchainBotIotagentWorkspaceRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *PushBlockchainBotIotagentWorkspaceResponse, _err error) {
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &PushBlockchainBotIotagentWorkspaceResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("blockchain.bot.iotagent.workspace.push"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
+}
+
+// Description:
+//
+// Description: 文件上传确认
+//
+// Summary: 文件上传确认
+func (client *Client) ConfirmBlockchainBotIotagentWorkspace(request *ConfirmBlockchainBotIotagentWorkspaceRequest) (_result *ConfirmBlockchainBotIotagentWorkspaceResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &ConfirmBlockchainBotIotagentWorkspaceResponse{}
+	_body, _err := client.ConfirmBlockchainBotIotagentWorkspaceEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+// Description:
+//
+// Description: 文件上传确认
+//
+// Summary: 文件上传确认
+func (client *Client) ConfirmBlockchainBotIotagentWorkspaceEx(request *ConfirmBlockchainBotIotagentWorkspaceRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *ConfirmBlockchainBotIotagentWorkspaceResponse, _err error) {
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &ConfirmBlockchainBotIotagentWorkspaceResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("blockchain.bot.iotagent.workspace.confirm"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
+}
+
+// Description:
+//
+// Description: 查询设备的云音乐登录状态及用户/VIP 信息。
+//
+// Summary: 查询设备的云音乐登录状态及用户/VIP 信息。
+func (client *Client) StatusBlockchainBotIotagentMusic(request *StatusBlockchainBotIotagentMusicRequest) (_result *StatusBlockchainBotIotagentMusicResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &StatusBlockchainBotIotagentMusicResponse{}
+	_body, _err := client.StatusBlockchainBotIotagentMusicEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+// Description:
+//
+// Description: 查询设备的云音乐登录状态及用户/VIP 信息。
+//
+// Summary: 查询设备的云音乐登录状态及用户/VIP 信息。
+func (client *Client) StatusBlockchainBotIotagentMusicEx(request *StatusBlockchainBotIotagentMusicRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *StatusBlockchainBotIotagentMusicResponse, _err error) {
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &StatusBlockchainBotIotagentMusicResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("blockchain.bot.iotagent.music.status"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
+}
+
+// Description:
+//
+// Description: 获取云音乐 H5 OAuth 登录 URL（用于设备端引导用户授权）
+//
+// Summary: 获取云音乐 H5 OAuth 登录 URL（用于设备端引导用户授权）
+func (client *Client) LoginurlBlockchainBotIotagentMusic(request *LoginurlBlockchainBotIotagentMusicRequest) (_result *LoginurlBlockchainBotIotagentMusicResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &LoginurlBlockchainBotIotagentMusicResponse{}
+	_body, _err := client.LoginurlBlockchainBotIotagentMusicEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+// Description:
+//
+// Description: 获取云音乐 H5 OAuth 登录 URL（用于设备端引导用户授权）
+//
+// Summary: 获取云音乐 H5 OAuth 登录 URL（用于设备端引导用户授权）
+func (client *Client) LoginurlBlockchainBotIotagentMusicEx(request *LoginurlBlockchainBotIotagentMusicRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *LoginurlBlockchainBotIotagentMusicResponse, _err error) {
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &LoginurlBlockchainBotIotagentMusicResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("blockchain.bot.iotagent.music.loginurl"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
+}
+
+// Description:
+//
+// Description: 查询云音乐播放历史
+//
+// Summary: 查询云音乐播放历史
+func (client *Client) PlayhistoryBlockchainBotIotagentMusic(request *PlayhistoryBlockchainBotIotagentMusicRequest) (_result *PlayhistoryBlockchainBotIotagentMusicResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &PlayhistoryBlockchainBotIotagentMusicResponse{}
+	_body, _err := client.PlayhistoryBlockchainBotIotagentMusicEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+// Description:
+//
+// Description: 查询云音乐播放历史
+//
+// Summary: 查询云音乐播放历史
+func (client *Client) PlayhistoryBlockchainBotIotagentMusicEx(request *PlayhistoryBlockchainBotIotagentMusicRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *PlayhistoryBlockchainBotIotagentMusicResponse, _err error) {
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &PlayhistoryBlockchainBotIotagentMusicResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("blockchain.bot.iotagent.music.playhistory"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
+}
+
+// Description:
+//
+// Description: 分页查询红心歌曲
+//
+// Summary: 分页查询红心歌曲
+func (client *Client) FavoritesBlockchainBotIotagentMusic(request *FavoritesBlockchainBotIotagentMusicRequest) (_result *FavoritesBlockchainBotIotagentMusicResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &FavoritesBlockchainBotIotagentMusicResponse{}
+	_body, _err := client.FavoritesBlockchainBotIotagentMusicEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+// Description:
+//
+// Description: 分页查询红心歌曲
+//
+// Summary: 分页查询红心歌曲
+func (client *Client) FavoritesBlockchainBotIotagentMusicEx(request *FavoritesBlockchainBotIotagentMusicRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *FavoritesBlockchainBotIotagentMusicResponse, _err error) {
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &FavoritesBlockchainBotIotagentMusicResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("blockchain.bot.iotagent.music.favorites"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
+}
+
+// Description:
+//
+// Description: 查询指定歌曲的歌词。
+//
+// Summary: 查询指定歌曲的歌词。
+func (client *Client) LyricsBlockchainBotIotagentMusic(request *LyricsBlockchainBotIotagentMusicRequest) (_result *LyricsBlockchainBotIotagentMusicResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &LyricsBlockchainBotIotagentMusicResponse{}
+	_body, _err := client.LyricsBlockchainBotIotagentMusicEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+// Description:
+//
+// Description: 查询指定歌曲的歌词。
+//
+// Summary: 查询指定歌曲的歌词。
+func (client *Client) LyricsBlockchainBotIotagentMusicEx(request *LyricsBlockchainBotIotagentMusicRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *LyricsBlockchainBotIotagentMusicResponse, _err error) {
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &LyricsBlockchainBotIotagentMusicResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("blockchain.bot.iotagent.music.lyrics"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
+}
+
+// Description:
+//
+// Description: 对一首歌进行红心/取消红心操作。
+//
+// Summary: 对一首歌进行红心/取消红心操作。
+func (client *Client) LikeBlockchainBotIotagentMusic(request *LikeBlockchainBotIotagentMusicRequest) (_result *LikeBlockchainBotIotagentMusicResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &LikeBlockchainBotIotagentMusicResponse{}
+	_body, _err := client.LikeBlockchainBotIotagentMusicEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+// Description:
+//
+// Description: 对一首歌进行红心/取消红心操作。
+//
+// Summary: 对一首歌进行红心/取消红心操作。
+func (client *Client) LikeBlockchainBotIotagentMusicEx(request *LikeBlockchainBotIotagentMusicRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *LikeBlockchainBotIotagentMusicResponse, _err error) {
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &LikeBlockchainBotIotagentMusicResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("blockchain.bot.iotagent.music.like"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
+}
+
+// Description:
+//
+// Description: 退出云音乐登录，清理 token
+//
+// Summary: 退出云音乐登录，清理 token
+func (client *Client) LogoutBlockchainBotIotagentMusic(request *LogoutBlockchainBotIotagentMusicRequest) (_result *LogoutBlockchainBotIotagentMusicResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &LogoutBlockchainBotIotagentMusicResponse{}
+	_body, _err := client.LogoutBlockchainBotIotagentMusicEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+// Description:
+//
+// Description: 退出云音乐登录，清理 token
+//
+// Summary: 退出云音乐登录，清理 token
+func (client *Client) LogoutBlockchainBotIotagentMusicEx(request *LogoutBlockchainBotIotagentMusicRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *LogoutBlockchainBotIotagentMusicResponse, _err error) {
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &LogoutBlockchainBotIotagentMusicResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("blockchain.bot.iotagent.music.logout"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
+}
+
+// Description:
+//
+// Description: 蚂小财签约状态查询，参考RPC接口文档：https://yuque.antfin.com/pw3zzd/cplb7g/ghfep7wirmlxlg3u#ZHvWp
+//
+// Summary: 蚂小财签约状态查询，参考RPC接口文档：https://yuque.antfin.com/pw3zzd/cplb7g/ghfep7wirmlxlg3u#ZHvWp
+func (client *Client) QuerycontractBlockchainBotAiotdatalinkAntfinanceassistant(request *QuerycontractBlockchainBotAiotdatalinkAntfinanceassistantRequest) (_result *QuerycontractBlockchainBotAiotdatalinkAntfinanceassistantResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &QuerycontractBlockchainBotAiotdatalinkAntfinanceassistantResponse{}
+	_body, _err := client.QuerycontractBlockchainBotAiotdatalinkAntfinanceassistantEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+// Description:
+//
+// Description: 蚂小财签约状态查询，参考RPC接口文档：https://yuque.antfin.com/pw3zzd/cplb7g/ghfep7wirmlxlg3u#ZHvWp
+//
+// Summary: 蚂小财签约状态查询，参考RPC接口文档：https://yuque.antfin.com/pw3zzd/cplb7g/ghfep7wirmlxlg3u#ZHvWp
+func (client *Client) QuerycontractBlockchainBotAiotdatalinkAntfinanceassistantEx(request *QuerycontractBlockchainBotAiotdatalinkAntfinanceassistantRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *QuerycontractBlockchainBotAiotdatalinkAntfinanceassistantResponse, _err error) {
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &QuerycontractBlockchainBotAiotdatalinkAntfinanceassistantResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("blockchain.bot.aiotdatalink.antfinanceassistant.querycontract"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
+}
+
+// Description:
+//
+// Description: 蚂小财签约，参考RPC接口文档：https://yuque.antfin.com/pw3zzd/cplb7g/ghfep7wirmlxlg3u#bs3M4
+//
+// Summary: 蚂小财签约，参考RPC接口文档：https://yuque.antfin.com/pw3zzd/cplb7g/ghfep7wirmlxlg3u#bs3M4
+func (client *Client) SigncontractBlockchainBotAiotdatalinkAntfinanceassistant(request *SigncontractBlockchainBotAiotdatalinkAntfinanceassistantRequest) (_result *SigncontractBlockchainBotAiotdatalinkAntfinanceassistantResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &SigncontractBlockchainBotAiotdatalinkAntfinanceassistantResponse{}
+	_body, _err := client.SigncontractBlockchainBotAiotdatalinkAntfinanceassistantEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+// Description:
+//
+// Description: 蚂小财签约，参考RPC接口文档：https://yuque.antfin.com/pw3zzd/cplb7g/ghfep7wirmlxlg3u#bs3M4
+//
+// Summary: 蚂小财签约，参考RPC接口文档：https://yuque.antfin.com/pw3zzd/cplb7g/ghfep7wirmlxlg3u#bs3M4
+func (client *Client) SigncontractBlockchainBotAiotdatalinkAntfinanceassistantEx(request *SigncontractBlockchainBotAiotdatalinkAntfinanceassistantRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *SigncontractBlockchainBotAiotdatalinkAntfinanceassistantResponse, _err error) {
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &SigncontractBlockchainBotAiotdatalinkAntfinanceassistantResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("blockchain.bot.aiotdatalink.antfinanceassistant.signcontract"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
+}
+
+// Description:
+//
+// Description: 蚂小财对话，参考RPC接口文档：https://yuque.antfin.com/pw3zzd/cplb7g/ghfep7wirmlxlg3u#nzb6S
+//
+// Summary: 蚂小财对话，参考RPC接口文档：https://yuque.antfin.com/pw3zzd/cplb7g/ghfep7wirmlxlg3u#nzb6S
+func (client *Client) ChatBlockchainBotAiotdatalinkAntfinanceassistant(request *ChatBlockchainBotAiotdatalinkAntfinanceassistantRequest) (_result *ChatBlockchainBotAiotdatalinkAntfinanceassistantResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &ChatBlockchainBotAiotdatalinkAntfinanceassistantResponse{}
+	_body, _err := client.ChatBlockchainBotAiotdatalinkAntfinanceassistantEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+// Description:
+//
+// Description: 蚂小财对话，参考RPC接口文档：https://yuque.antfin.com/pw3zzd/cplb7g/ghfep7wirmlxlg3u#nzb6S
+//
+// Summary: 蚂小财对话，参考RPC接口文档：https://yuque.antfin.com/pw3zzd/cplb7g/ghfep7wirmlxlg3u#nzb6S
+func (client *Client) ChatBlockchainBotAiotdatalinkAntfinanceassistantEx(request *ChatBlockchainBotAiotdatalinkAntfinanceassistantRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *ChatBlockchainBotAiotdatalinkAntfinanceassistantResponse, _err error) {
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &ChatBlockchainBotAiotdatalinkAntfinanceassistantResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("blockchain.bot.aiotdatalink.antfinanceassistant.chat"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
+}
+
+// Description:
+//
+// Description: 蚂小财对话流式接口，参考RPC接口文档：https://yuque.antfin.com/pw3zzd/cplb7g/ghfep7wirmlxlg3u#nzb6S
+//
+// Summary: 蚂小财对话流式接口，参考RPC接口文档：https://yuque.antfin.com/pw3zzd/cplb7g/ghfep7wirmlxlg3u#nzb6S
+func (client *Client) StreamchatBlockchainBotAiotdatalinkAntfinanceassistant(request *StreamchatBlockchainBotAiotdatalinkAntfinanceassistantRequest) (_result *StreamchatBlockchainBotAiotdatalinkAntfinanceassistantResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &StreamchatBlockchainBotAiotdatalinkAntfinanceassistantResponse{}
+	_body, _err := client.StreamchatBlockchainBotAiotdatalinkAntfinanceassistantEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+// Description:
+//
+// Description: 蚂小财对话流式接口，参考RPC接口文档：https://yuque.antfin.com/pw3zzd/cplb7g/ghfep7wirmlxlg3u#nzb6S
+//
+// Summary: 蚂小财对话流式接口，参考RPC接口文档：https://yuque.antfin.com/pw3zzd/cplb7g/ghfep7wirmlxlg3u#nzb6S
+func (client *Client) StreamchatBlockchainBotAiotdatalinkAntfinanceassistantEx(request *StreamchatBlockchainBotAiotdatalinkAntfinanceassistantRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *StreamchatBlockchainBotAiotdatalinkAntfinanceassistantResponse, _err error) {
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &StreamchatBlockchainBotAiotdatalinkAntfinanceassistantResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("blockchain.bot.aiotdatalink.antfinanceassistant.streamchat"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
+}
+
+// Description:
+//
+// Description: 创建HTTP PUT提交的文件上传
+//
+// Summary: 文件上传创建
+func (client *Client) CreateAntcloudGatewayxFileUpload(request *CreateAntcloudGatewayxFileUploadRequest) (_result *CreateAntcloudGatewayxFileUploadResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &CreateAntcloudGatewayxFileUploadResponse{}
+	_body, _err := client.CreateAntcloudGatewayxFileUploadEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+// Description:
+//
+// Description: 创建HTTP PUT提交的文件上传
+//
+// Summary: 文件上传创建
+func (client *Client) CreateAntcloudGatewayxFileUploadEx(request *CreateAntcloudGatewayxFileUploadRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *CreateAntcloudGatewayxFileUploadResponse, _err error) {
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &CreateAntcloudGatewayxFileUploadResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("antcloud.gatewayx.file.upload.create"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
 	if _err != nil {
 		return _result, _err
 	}
