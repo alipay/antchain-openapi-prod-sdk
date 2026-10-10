@@ -36,6 +36,14 @@ public class QueryVideogenerationResponse extends TeaModel {
     @NameInMap("error_message")
     public String errorMessage;
 
+    // 用量信息
+    @NameInMap("usage")
+    public Usage usage;
+
+    // 附加信息
+    @NameInMap("extra_info")
+    public ExtraInfo extraInfo;
+
     public static QueryVideogenerationResponse build(java.util.Map<String, ?> map) throws Exception {
         QueryVideogenerationResponse self = new QueryVideogenerationResponse();
         return TeaModel.build(map, self);
@@ -103,6 +111,22 @@ public class QueryVideogenerationResponse extends TeaModel {
     }
     public String getErrorMessage() {
         return this.errorMessage;
+    }
+
+    public QueryVideogenerationResponse setUsage(Usage usage) {
+        this.usage = usage;
+        return this;
+    }
+    public Usage getUsage() {
+        return this.usage;
+    }
+
+    public QueryVideogenerationResponse setExtraInfo(ExtraInfo extraInfo) {
+        this.extraInfo = extraInfo;
+        return this;
+    }
+    public ExtraInfo getExtraInfo() {
+        return this.extraInfo;
     }
 
 }
