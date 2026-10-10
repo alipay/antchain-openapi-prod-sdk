@@ -1,0 +1,90 @@
+<?php
+
+// This file is auto-generated, don't edit it. Thanks.
+namespace AntChain\IOTAGENT\Models;
+
+use AlibabaCloud\Tea\Model;
+
+class LyricsBlockchainBotIotagentMusicRequest extends Model {
+    protected $_name = [
+        'authToken' => 'auth_token',
+        'productInstanceId' => 'product_instance_id',
+        'agentId' => 'agent_id',
+        'clientId' => 'client_id',
+        'songId' => 'song_id',
+    ];
+    public function validate() {
+        Model::validateRequired('songId', $this->songId, true);
+    }
+    public function toMap() {
+        $res = [];
+        if (null !== $this->authToken) {
+            $res['auth_token'] = $this->authToken;
+        }
+        if (null !== $this->productInstanceId) {
+            $res['product_instance_id'] = $this->productInstanceId;
+        }
+        if (null !== $this->agentId) {
+            $res['agent_id'] = $this->agentId;
+        }
+        if (null !== $this->clientId) {
+            $res['client_id'] = $this->clientId;
+        }
+        if (null !== $this->songId) {
+            $res['song_id'] = $this->songId;
+        }
+        return $res;
+    }
+    /**
+     * @param array $map
+     * @return LyricsBlockchainBotIotagentMusicRequest
+     */
+    public static function fromMap($map = []) {
+        $model = new self();
+        if(isset($map['auth_token'])){
+            $model->authToken = $map['auth_token'];
+        }
+        if(isset($map['product_instance_id'])){
+            $model->productInstanceId = $map['product_instance_id'];
+        }
+        if(isset($map['agent_id'])){
+            $model->agentId = $map['agent_id'];
+        }
+        if(isset($map['client_id'])){
+            $model->clientId = $map['client_id'];
+        }
+        if(isset($map['song_id'])){
+            $model->songId = $map['song_id'];
+        }
+        return $model;
+    }
+    // OAuth模式下的授权token
+    /**
+     * @var string
+     */
+    public $authToken;
+
+    /**
+     * @var string
+     */
+    public $productInstanceId;
+
+    // 智能体 ID，与client_id至少填1项
+    /**
+     * @var string
+     */
+    public $agentId;
+
+    // 客户端 ID，与agent_id至少填1项
+    /**
+     * @var string
+     */
+    public $clientId;
+
+    // 歌曲 ID
+    /**
+     * @var string
+     */
+    public $songId;
+
+}
