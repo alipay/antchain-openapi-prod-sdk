@@ -24,7 +24,7 @@ from setuptools import setup, find_packages
 """
 setup module for antchain_iotagent.
 
-Created on 12/08/2026
+Created on 10/10/2026
 
 @author: Ant Chain SDK
 """
