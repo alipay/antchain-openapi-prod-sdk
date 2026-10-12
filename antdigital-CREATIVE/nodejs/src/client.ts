@@ -180,6 +180,104 @@ export class Config extends $tea.Model {
   }
 }
 
+// 附加信息
+export class ExtraInfo extends $tea.Model {
+  // 原厂任务ID
+  /**
+   * @example
+   * xxx-xxx-xxx
+   */
+  originalTaskId?: string;
+  // 原厂视频输出URL
+  /**
+   * @example
+   * https://xxx
+   */
+  originalVideoUrl?: string;
+  // 原厂响应体快照
+  /**
+   * @example
+   * "{"task_id":"csg-xxx-xx"...}"
+   */
+  originalResponseSnapshot?: string;
+  static names(): { [key: string]: string } {
+    return {
+      originalTaskId: 'original_task_id',
+      originalVideoUrl: 'original_video_url',
+      originalResponseSnapshot: 'original_response_snapshot',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      originalTaskId: 'string',
+      originalVideoUrl: 'string',
+      originalResponseSnapshot: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+// 用量信息
+export class Usage extends $tea.Model {
+  // 分辨率
+  /**
+   * @example
+   * 720p，1080p
+   */
+  resolution?: string;
+  // 视频时长（单位：秒）
+  /**
+   * @example
+   * 15
+   */
+  duration?: number;
+  // 视频比例
+  /**
+   * @example
+   * 16:9
+   */
+  ratio?: string;
+  // 消耗 token 数
+  /**
+   * @example
+   * 10800
+   */
+  completionTokens?: number;
+  // 消耗credit数
+  /**
+   * @example
+   * 7
+   */
+  completionCredits?: number;
+  static names(): { [key: string]: string } {
+    return {
+      resolution: 'resolution',
+      duration: 'duration',
+      ratio: 'ratio',
+      completionTokens: 'completion_tokens',
+      completionCredits: 'completion_credits',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      resolution: 'string',
+      duration: 'number',
+      ratio: 'string',
+      completionTokens: 'number',
+      completionCredits: 'number',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
 export class PushVideogenerationRequest extends $tea.Model {
   // OAuth模式下的授权token
   authToken?: string;
@@ -327,6 +425,10 @@ export class QueryVideogenerationResponse extends $tea.Model {
   errorCode?: string;
   // 错误信息
   errorMessage?: string;
+  // 用量信息
+  usage?: Usage;
+  // 附加信息
+  extraInfo?: ExtraInfo;
   static names(): { [key: string]: string } {
     return {
       reqMsgId: 'req_msg_id',
@@ -337,6 +439,8 @@ export class QueryVideogenerationResponse extends $tea.Model {
       videoUrl: 'video_url',
       errorCode: 'error_code',
       errorMessage: 'error_message',
+      usage: 'usage',
+      extraInfo: 'extra_info',
     };
   }
 
@@ -350,6 +454,8 @@ export class QueryVideogenerationResponse extends $tea.Model {
       videoUrl: 'string',
       errorCode: 'string',
       errorMessage: 'string',
+      usage: Usage,
+      extraInfo: ExtraInfo,
     };
   }
 
@@ -629,7 +735,7 @@ export default class Client {
           req_msg_id: AntchainUtil.getNonce(),
           access_key: this._accessKeyId,
           base_sdk_version: "TeaSDK-2.0",
-          sdk_version: "1.0.3",
+          sdk_version: "1.0.7",
           _prod_code: "CREATIVE",
           _prod_channel: "default",
         };
