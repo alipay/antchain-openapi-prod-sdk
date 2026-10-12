@@ -49,6 +49,16 @@ namespace AntChain.SDK.CREATIVE.Models
         [Validation(Required=false)]
         public string ErrorMessage { get; set; }
 
+        // 用量信息
+        [NameInMap("usage")]
+        [Validation(Required=false)]
+        public Usage Usage { get; set; }
+
+        // 附加信息
+        [NameInMap("extra_info")]
+        [Validation(Required=false)]
+        public ExtraInfo ExtraInfo { get; set; }
+
     }
 
 }
