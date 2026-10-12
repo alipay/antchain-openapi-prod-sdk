@@ -188,6 +188,110 @@ func (s *Config) SetMaxRequestsPerHost(v int) *Config {
 	return s
 }
 
+// 附加信息
+type ExtraInfo struct {
+	// 原厂任务ID
+	// example:
+	//
+	// xxx-xxx-xxx
+	OriginalTaskId *string `json:"original_task_id,omitempty" xml:"original_task_id,omitempty"`
+	// 原厂视频输出URL
+	// example:
+	//
+	// https://xxx
+	OriginalVideoUrl *string `json:"original_video_url,omitempty" xml:"original_video_url,omitempty"`
+	// 原厂响应体快照
+	// example:
+	//
+	// "{"task_id":"csg-xxx-xx"...}"
+	OriginalResponseSnapshot *string `json:"original_response_snapshot,omitempty" xml:"original_response_snapshot,omitempty"`
+}
+
+func (s ExtraInfo) String() string {
+	return tea.Prettify(s)
+}
+
+func (s ExtraInfo) GoString() string {
+	return s.String()
+}
+
+func (s *ExtraInfo) SetOriginalTaskId(v string) *ExtraInfo {
+	s.OriginalTaskId = &v
+	return s
+}
+
+func (s *ExtraInfo) SetOriginalVideoUrl(v string) *ExtraInfo {
+	s.OriginalVideoUrl = &v
+	return s
+}
+
+func (s *ExtraInfo) SetOriginalResponseSnapshot(v string) *ExtraInfo {
+	s.OriginalResponseSnapshot = &v
+	return s
+}
+
+// 用量信息
+type Usage struct {
+	// 分辨率
+	// example:
+	//
+	// 720p，1080p
+	Resolution *string `json:"resolution,omitempty" xml:"resolution,omitempty"`
+	// 视频时长（单位：秒）
+	// example:
+	//
+	// 15
+	Duration *int64 `json:"duration,omitempty" xml:"duration,omitempty"`
+	// 视频比例
+	// example:
+	//
+	// 16:9
+	Ratio *string `json:"ratio,omitempty" xml:"ratio,omitempty"`
+	// 消耗 token 数
+	// example:
+	//
+	// 10800
+	CompletionTokens *int64 `json:"completion_tokens,omitempty" xml:"completion_tokens,omitempty"`
+	// 消耗credit数
+	// example:
+	//
+	// 7
+	CompletionCredits *int64 `json:"completion_credits,omitempty" xml:"completion_credits,omitempty"`
+}
+
+func (s Usage) String() string {
+	return tea.Prettify(s)
+}
+
+func (s Usage) GoString() string {
+	return s.String()
+}
+
+func (s *Usage) SetResolution(v string) *Usage {
+	s.Resolution = &v
+	return s
+}
+
+func (s *Usage) SetDuration(v int64) *Usage {
+	s.Duration = &v
+	return s
+}
+
+func (s *Usage) SetRatio(v string) *Usage {
+	s.Ratio = &v
+	return s
+}
+
+func (s *Usage) SetCompletionTokens(v int64) *Usage {
+	s.CompletionTokens = &v
+	return s
+}
+
+func (s *Usage) SetCompletionCredits(v int64) *Usage {
+	s.CompletionCredits = &v
+	return s
+}
+
 type PushVideogenerationRequest struct {
 	// OAuth模式下的授权token
 	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
@@ -383,6 +487,10 @@ type QueryVideogenerationResponse struct {
 	ErrorCode *string `json:"error_code,omitempty" xml:"error_code,omitempty"`
 	// 错误信息
 	ErrorMessage *string `json:"error_message,omitempty" xml:"error_message,omitempty"`
+	// 用量信息
+	Usage *Usage `json:"usage,omitempty" xml:"usage,omitempty"`
+	// 附加信息
+	ExtraInfo *ExtraInfo `json:"extra_info,omitempty" xml:"extra_info,omitempty"`
 }
 
 func (s QueryVideogenerationResponse) String() string {
@@ -430,6 +538,16 @@ func (s *QueryVideogenerationResponse) SetErrorCode(v string) *QueryVideogenerat
 
 func (s *QueryVideogenerationResponse) SetErrorMessage(v string) *QueryVideogenerationResponse {
 	s.ErrorMessage = &v
+	return s
+}
+
+func (s *QueryVideogenerationResponse) SetUsage(v *Usage) *QueryVideogenerationResponse {
+	s.Usage = v
+	return s
+}
+
+func (s *QueryVideogenerationResponse) SetExtraInfo(v *ExtraInfo) *QueryVideogenerationResponse {
+	s.ExtraInfo = v
 	return s
 }
 
@@ -766,7 +884,7 @@ func (client *Client) DoRequest(version *string, action *string, protocol *strin
 				"req_msg_id":       antchainutil.GetNonce(),
 				"access_key":       client.AccessKeyId,
 				"base_sdk_version": tea.String("TeaSDK-2.0"),
-				"sdk_version":      tea.String("1.0.3"),
+				"sdk_version":      tea.String("1.0.7"),
 				"_prod_code":       tea.String("CREATIVE"),
 				"_prod_channel":    tea.String("default"),
 			}
