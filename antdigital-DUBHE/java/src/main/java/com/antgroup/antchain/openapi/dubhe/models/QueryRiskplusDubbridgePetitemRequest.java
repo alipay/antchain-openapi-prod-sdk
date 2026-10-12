@@ -1,0 +1,139 @@
+// This file is auto-generated, don't edit it. Thanks.
+package com.antgroup.antchain.openapi.dubhe.models;
+
+import com.aliyun.tea.*;
+
+public class QueryRiskplusDubbridgePetitemRequest extends TeaModel {
+    // OAuth模式下的授权token
+    @NameInMap("auth_token")
+    public String authToken;
+
+    @NameInMap("product_instance_id")
+    public String productInstanceId;
+
+    // 小程序客户号
+    @NameInMap("open_id")
+    @Validation(required = true)
+    public String openId;
+
+    // 子渠道号(唯一标识)
+    @NameInMap("traffic_platform")
+    @Validation(required = true)
+    public String trafficPlatform;
+
+    // 门店ID
+    @NameInMap("store_id")
+    @Validation(required = true)
+    public String storeId;
+
+    // 分期订单号
+    @NameInMap("biz_order_no")
+    @Validation(required = true)
+    public String bizOrderNo;
+
+    // 渠道号
+    @NameInMap("channel_code")
+    @Validation(required = true)
+    public String channelCode;
+
+    // 商城可用余额
+    @NameInMap("mall_available_balance")
+    @Validation(required = true)
+    public String mallAvailableBalance;
+
+    // 商城消费在途未结算订单
+    @NameInMap("mall_consume_unsettle_orders")
+    @Validation(required = true)
+    public java.util.List<GoodsOrderInfo> mallConsumeUnsettleOrders;
+
+    // 请求流水号(通过此流水号幂等判断是否是同一个请求)
+    @NameInMap("request_no")
+    @Validation(required = true)
+    public String requestNo;
+
+    public static QueryRiskplusDubbridgePetitemRequest build(java.util.Map<String, ?> map) throws Exception {
+        QueryRiskplusDubbridgePetitemRequest self = new QueryRiskplusDubbridgePetitemRequest();
+        return TeaModel.build(map, self);
+    }
+
+    public QueryRiskplusDubbridgePetitemRequest setAuthToken(String authToken) {
+        this.authToken = authToken;
+        return this;
+    }
+    public String getAuthToken() {
+        return this.authToken;
+    }
+
+    public QueryRiskplusDubbridgePetitemRequest setProductInstanceId(String productInstanceId) {
+        this.productInstanceId = productInstanceId;
+        return this;
+    }
+    public String getProductInstanceId() {
+        return this.productInstanceId;
+    }
+
+    public QueryRiskplusDubbridgePetitemRequest setOpenId(String openId) {
+        this.openId = openId;
+        return this;
+    }
+    public String getOpenId() {
+        return this.openId;
+    }
+
+    public QueryRiskplusDubbridgePetitemRequest setTrafficPlatform(String trafficPlatform) {
+        this.trafficPlatform = trafficPlatform;
+        return this;
+    }
+    public String getTrafficPlatform() {
+        return this.trafficPlatform;
+    }
+
+    public QueryRiskplusDubbridgePetitemRequest setStoreId(String storeId) {
+        this.storeId = storeId;
+        return this;
+    }
+    public String getStoreId() {
+        return this.storeId;
+    }
+
+    public QueryRiskplusDubbridgePetitemRequest setBizOrderNo(String bizOrderNo) {
+        this.bizOrderNo = bizOrderNo;
+        return this;
+    }
+    public String getBizOrderNo() {
+        return this.bizOrderNo;
+    }
+
+    public QueryRiskplusDubbridgePetitemRequest setChannelCode(String channelCode) {
+        this.channelCode = channelCode;
+        return this;
+    }
+    public String getChannelCode() {
+        return this.channelCode;
+    }
+
+    public QueryRiskplusDubbridgePetitemRequest setMallAvailableBalance(String mallAvailableBalance) {
+        this.mallAvailableBalance = mallAvailableBalance;
+        return this;
+    }
+    public String getMallAvailableBalance() {
+        return this.mallAvailableBalance;
+    }
+
+    public QueryRiskplusDubbridgePetitemRequest setMallConsumeUnsettleOrders(java.util.List<GoodsOrderInfo> mallConsumeUnsettleOrders) {
+        this.mallConsumeUnsettleOrders = mallConsumeUnsettleOrders;
+        return this;
+    }
+    public java.util.List<GoodsOrderInfo> getMallConsumeUnsettleOrders() {
+        return this.mallConsumeUnsettleOrders;
+    }
+
+    public QueryRiskplusDubbridgePetitemRequest setRequestNo(String requestNo) {
+        this.requestNo = requestNo;
+        return this;
+    }
+    public String getRequestNo() {
+        return this.requestNo;
+    }
+
+}

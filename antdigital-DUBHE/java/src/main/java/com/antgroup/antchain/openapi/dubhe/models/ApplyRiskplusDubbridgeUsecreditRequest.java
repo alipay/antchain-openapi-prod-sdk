@@ -1,0 +1,258 @@
+// This file is auto-generated, don't edit it. Thanks.
+package com.antgroup.antchain.openapi.dubhe.models;
+
+import com.aliyun.tea.*;
+
+public class ApplyRiskplusDubbridgeUsecreditRequest extends TeaModel {
+    // OAuth模式下的授权token
+    @NameInMap("auth_token")
+    public String authToken;
+
+    @NameInMap("product_instance_id")
+    public String productInstanceId;
+
+    // 授信申请订单号
+    @NameInMap("original_order_no")
+    @Validation(required = true)
+    public String originalOrderNo;
+
+    // 用信金额
+    @NameInMap("loan_amount")
+    @Validation(required = true)
+    public Long loanAmount;
+
+    // 期数
+    @NameInMap("period")
+    @Validation(required = true)
+    public Long period;
+
+    // 资产方用户唯一标识
+    @NameInMap("open_id")
+    @Validation(required = true)
+    public String openId;
+
+    // 订单号
+    @NameInMap("order_no")
+    @Validation(required = true)
+    public String orderNo;
+
+    // 还款方式:1：等额本息，2：等额本金
+    @NameInMap("repay_type")
+    @Validation(required = true)
+    public String repayType;
+
+    // 1：手机数码 2：旅游 3：装修 4：教育 5：婚庆 6：租房 7：家具家居 8：健康医疗 9：其他消费 10：家用电器
+    @NameInMap("loan_way")
+    @Validation(required = true)
+    public String loanWay;
+
+    // 还款日
+    @NameInMap("repay_date")
+    public String repayDate;
+
+    // 渠道类型
+    @NameInMap("channel_type")
+    public String channelType;
+
+    // 客户类型
+    @NameInMap("custom_type")
+    public String customType;
+
+    // 风险数据对象（json字符串）
+    @NameInMap("risk_data")
+    public String riskData;
+
+    // 资金源编码
+    @NameInMap("loan_inst_code")
+    public String loanInstCode;
+
+    // 银行卡号
+    @NameInMap("bank_card_no")
+    public String bankCardNo;
+
+    // 影像件信息
+    @NameInMap("materials")
+    public java.util.List<Material> materials;
+
+    // 优惠券id
+    @NameInMap("coupon_id")
+    public String couponId;
+
+    // 导流平台
+    @NameInMap("traffic_platform")
+    public String trafficPlatform;
+
+    // 业务方订单号
+    @NameInMap("biz_order_no")
+    public String bizOrderNo;
+
+    // 商户入驻id
+    @NameInMap("merchant_external_id")
+    public String merchantExternalId;
+
+    public static ApplyRiskplusDubbridgeUsecreditRequest build(java.util.Map<String, ?> map) throws Exception {
+        ApplyRiskplusDubbridgeUsecreditRequest self = new ApplyRiskplusDubbridgeUsecreditRequest();
+        return TeaModel.build(map, self);
+    }
+
+    public ApplyRiskplusDubbridgeUsecreditRequest setAuthToken(String authToken) {
+        this.authToken = authToken;
+        return this;
+    }
+    public String getAuthToken() {
+        return this.authToken;
+    }
+
+    public ApplyRiskplusDubbridgeUsecreditRequest setProductInstanceId(String productInstanceId) {
+        this.productInstanceId = productInstanceId;
+        return this;
+    }
+    public String getProductInstanceId() {
+        return this.productInstanceId;
+    }
+
+    public ApplyRiskplusDubbridgeUsecreditRequest setOriginalOrderNo(String originalOrderNo) {
+        this.originalOrderNo = originalOrderNo;
+        return this;
+    }
+    public String getOriginalOrderNo() {
+        return this.originalOrderNo;
+    }
+
+    public ApplyRiskplusDubbridgeUsecreditRequest setLoanAmount(Long loanAmount) {
+        this.loanAmount = loanAmount;
+        return this;
+    }
+    public Long getLoanAmount() {
+        return this.loanAmount;
+    }
+
+    public ApplyRiskplusDubbridgeUsecreditRequest setPeriod(Long period) {
+        this.period = period;
+        return this;
+    }
+    public Long getPeriod() {
+        return this.period;
+    }
+
+    public ApplyRiskplusDubbridgeUsecreditRequest setOpenId(String openId) {
+        this.openId = openId;
+        return this;
+    }
+    public String getOpenId() {
+        return this.openId;
+    }
+
+    public ApplyRiskplusDubbridgeUsecreditRequest setOrderNo(String orderNo) {
+        this.orderNo = orderNo;
+        return this;
+    }
+    public String getOrderNo() {
+        return this.orderNo;
+    }
+
+    public ApplyRiskplusDubbridgeUsecreditRequest setRepayType(String repayType) {
+        this.repayType = repayType;
+        return this;
+    }
+    public String getRepayType() {
+        return this.repayType;
+    }
+
+    public ApplyRiskplusDubbridgeUsecreditRequest setLoanWay(String loanWay) {
+        this.loanWay = loanWay;
+        return this;
+    }
+    public String getLoanWay() {
+        return this.loanWay;
+    }
+
+    public ApplyRiskplusDubbridgeUsecreditRequest setRepayDate(String repayDate) {
+        this.repayDate = repayDate;
+        return this;
+    }
+    public String getRepayDate() {
+        return this.repayDate;
+    }
+
+    public ApplyRiskplusDubbridgeUsecreditRequest setChannelType(String channelType) {
+        this.channelType = channelType;
+        return this;
+    }
+    public String getChannelType() {
+        return this.channelType;
+    }
+
+    public ApplyRiskplusDubbridgeUsecreditRequest setCustomType(String customType) {
+        this.customType = customType;
+        return this;
+    }
+    public String getCustomType() {
+        return this.customType;
+    }
+
+    public ApplyRiskplusDubbridgeUsecreditRequest setRiskData(String riskData) {
+        this.riskData = riskData;
+        return this;
+    }
+    public String getRiskData() {
+        return this.riskData;
+    }
+
+    public ApplyRiskplusDubbridgeUsecreditRequest setLoanInstCode(String loanInstCode) {
+        this.loanInstCode = loanInstCode;
+        return this;
+    }
+    public String getLoanInstCode() {
+        return this.loanInstCode;
+    }
+
+    public ApplyRiskplusDubbridgeUsecreditRequest setBankCardNo(String bankCardNo) {
+        this.bankCardNo = bankCardNo;
+        return this;
+    }
+    public String getBankCardNo() {
+        return this.bankCardNo;
+    }
+
+    public ApplyRiskplusDubbridgeUsecreditRequest setMaterials(java.util.List<Material> materials) {
+        this.materials = materials;
+        return this;
+    }
+    public java.util.List<Material> getMaterials() {
+        return this.materials;
+    }
+
+    public ApplyRiskplusDubbridgeUsecreditRequest setCouponId(String couponId) {
+        this.couponId = couponId;
+        return this;
+    }
+    public String getCouponId() {
+        return this.couponId;
+    }
+
+    public ApplyRiskplusDubbridgeUsecreditRequest setTrafficPlatform(String trafficPlatform) {
+        this.trafficPlatform = trafficPlatform;
+        return this;
+    }
+    public String getTrafficPlatform() {
+        return this.trafficPlatform;
+    }
+
+    public ApplyRiskplusDubbridgeUsecreditRequest setBizOrderNo(String bizOrderNo) {
+        this.bizOrderNo = bizOrderNo;
+        return this;
+    }
+    public String getBizOrderNo() {
+        return this.bizOrderNo;
+    }
+
+    public ApplyRiskplusDubbridgeUsecreditRequest setMerchantExternalId(String merchantExternalId) {
+        this.merchantExternalId = merchantExternalId;
+        return this;
+    }
+    public String getMerchantExternalId() {
+        return this.merchantExternalId;
+    }
+
+}

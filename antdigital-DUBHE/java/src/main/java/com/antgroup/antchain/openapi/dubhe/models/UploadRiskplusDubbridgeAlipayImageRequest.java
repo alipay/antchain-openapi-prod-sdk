@@ -1,0 +1,159 @@
+// This file is auto-generated, don't edit it. Thanks.
+package com.antgroup.antchain.openapi.dubhe.models;
+
+import com.aliyun.tea.*;
+
+public class UploadRiskplusDubbridgeAlipayImageRequest extends TeaModel {
+    // OAuth模式下的授权token
+    @NameInMap("auth_token")
+    public String authToken;
+
+    @NameInMap("product_instance_id")
+    public String productInstanceId;
+
+    // request请求单号，每次请求唯一，如uuid
+    @NameInMap("order_no")
+    @Validation(required = true)
+    public String orderNo;
+
+    // 门店Id
+    @NameInMap("store_id")
+    public String storeId;
+
+    // 门店所属子品牌，
+    // TBJHF: 赛鸽出行-
+    // AIJNBJ: 智迈电动车
+    // KJOKJBO: 金箭出行
+    // IFJRJTIJ: 骑士智行
+    // KVMPOH: 巨龙智行
+    // NPGBRVBO: 摩生态A
+    @NameInMap("traffic_platform")
+    @Validation(required = true)
+    public String trafficPlatform;
+
+    // 图片种类，
+    // 10: 营业执照
+    // 20: 门头照
+    // 21: 内景照
+    @NameInMap("image_category")
+    @Validation(required = true)
+    public String imageCategory;
+
+    // 文件base64字符串，最大10M
+    @NameInMap("image_content")
+    public String imageContent;
+
+    // 图片文件路径，（建议），http、https为前缀
+    @NameInMap("image_path")
+    public String imagePath;
+
+    // 图片格式，
+    // 支持格式：bmp、jpg、jpeg、png、gif
+    @NameInMap("image_type")
+    @Validation(required = true)
+    public String imageType;
+
+    // 入驻类型: 001-支付宝入驻、004-数科入驻
+    @NameInMap("enter_type")
+    @Validation(required = true)
+    public String enterType;
+
+    // 统一社会信用代码
+    @NameInMap("usci")
+    @Validation(required = true)
+    public String usci;
+
+    public static UploadRiskplusDubbridgeAlipayImageRequest build(java.util.Map<String, ?> map) throws Exception {
+        UploadRiskplusDubbridgeAlipayImageRequest self = new UploadRiskplusDubbridgeAlipayImageRequest();
+        return TeaModel.build(map, self);
+    }
+
+    public UploadRiskplusDubbridgeAlipayImageRequest setAuthToken(String authToken) {
+        this.authToken = authToken;
+        return this;
+    }
+    public String getAuthToken() {
+        return this.authToken;
+    }
+
+    public UploadRiskplusDubbridgeAlipayImageRequest setProductInstanceId(String productInstanceId) {
+        this.productInstanceId = productInstanceId;
+        return this;
+    }
+    public String getProductInstanceId() {
+        return this.productInstanceId;
+    }
+
+    public UploadRiskplusDubbridgeAlipayImageRequest setOrderNo(String orderNo) {
+        this.orderNo = orderNo;
+        return this;
+    }
+    public String getOrderNo() {
+        return this.orderNo;
+    }
+
+    public UploadRiskplusDubbridgeAlipayImageRequest setStoreId(String storeId) {
+        this.storeId = storeId;
+        return this;
+    }
+    public String getStoreId() {
+        return this.storeId;
+    }
+
+    public UploadRiskplusDubbridgeAlipayImageRequest setTrafficPlatform(String trafficPlatform) {
+        this.trafficPlatform = trafficPlatform;
+        return this;
+    }
+    public String getTrafficPlatform() {
+        return this.trafficPlatform;
+    }
+
+    public UploadRiskplusDubbridgeAlipayImageRequest setImageCategory(String imageCategory) {
+        this.imageCategory = imageCategory;
+        return this;
+    }
+    public String getImageCategory() {
+        return this.imageCategory;
+    }
+
+    public UploadRiskplusDubbridgeAlipayImageRequest setImageContent(String imageContent) {
+        this.imageContent = imageContent;
+        return this;
+    }
+    public String getImageContent() {
+        return this.imageContent;
+    }
+
+    public UploadRiskplusDubbridgeAlipayImageRequest setImagePath(String imagePath) {
+        this.imagePath = imagePath;
+        return this;
+    }
+    public String getImagePath() {
+        return this.imagePath;
+    }
+
+    public UploadRiskplusDubbridgeAlipayImageRequest setImageType(String imageType) {
+        this.imageType = imageType;
+        return this;
+    }
+    public String getImageType() {
+        return this.imageType;
+    }
+
+    public UploadRiskplusDubbridgeAlipayImageRequest setEnterType(String enterType) {
+        this.enterType = enterType;
+        return this;
+    }
+    public String getEnterType() {
+        return this.enterType;
+    }
+
+    public UploadRiskplusDubbridgeAlipayImageRequest setUsci(String usci) {
+        this.usci = usci;
+        return this;
+    }
+    public String getUsci() {
+        return this.usci;
+    }
+
+}
