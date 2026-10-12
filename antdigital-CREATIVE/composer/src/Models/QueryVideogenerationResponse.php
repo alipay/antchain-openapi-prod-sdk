@@ -5,6 +5,9 @@ namespace AntChain\CREATIVE\Models;
 
 use AlibabaCloud\Tea\Model;
 
+use AntChain\CREATIVE\Models\Usage;
+use AntChain\CREATIVE\Models\ExtraInfo;
+
 class QueryVideogenerationResponse extends Model {
     protected $_name = [
         'reqMsgId' => 'req_msg_id',
@@ -15,6 +18,8 @@ class QueryVideogenerationResponse extends Model {
         'videoUrl' => 'video_url',
         'errorCode' => 'error_code',
         'errorMessage' => 'error_message',
+        'usage' => 'usage',
+        'extraInfo' => 'extra_info',
     ];
     public function validate() {}
     public function toMap() {
@@ -42,6 +47,12 @@ class QueryVideogenerationResponse extends Model {
         }
         if (null !== $this->errorMessage) {
             $res['error_message'] = $this->errorMessage;
+        }
+        if (null !== $this->usage) {
+            $res['usage'] = null !== $this->usage ? $this->usage->toMap() : null;
+        }
+        if (null !== $this->extraInfo) {
+            $res['extra_info'] = null !== $this->extraInfo ? $this->extraInfo->toMap() : null;
         }
         return $res;
     }
@@ -74,6 +85,12 @@ class QueryVideogenerationResponse extends Model {
         }
         if(isset($map['error_message'])){
             $model->errorMessage = $map['error_message'];
+        }
+        if(isset($map['usage'])){
+            $model->usage = Usage::fromMap($map['usage']);
+        }
+        if(isset($map['extra_info'])){
+            $model->extraInfo = ExtraInfo::fromMap($map['extra_info']);
         }
         return $model;
     }
@@ -124,5 +141,17 @@ class QueryVideogenerationResponse extends Model {
      * @var string
      */
     public $errorMessage;
+
+    // 用量信息
+    /**
+     * @var Usage
+     */
+    public $usage;
+
+    // 附加信息
+    /**
+     * @var ExtraInfo
+     */
+    public $extraInfo;
 
 }
