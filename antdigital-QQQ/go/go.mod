@@ -1,4 +1,4 @@
-module github.com/alipay/antdigital-qqq
+module github.com/antchain-openapi-sdk-go/antdigital-qqq
 
 go 1.22.1
 
