@@ -213,6 +213,7 @@ class WebItem(TeaModel):
         author: str = None,
         logo_url: str = None,
         content_formats: str = None,
+        trusty_level: str = None,
     ):
         # 搜索结果唯一标识
         self.id = id
@@ -238,6 +239,8 @@ class WebItem(TeaModel):
         self.logo_url = logo_url
         # 随 Content 返回正文实际格式，当前为 text；未返回 Content 时省略
         self.content_formats = content_formats
+        # 可信等级，取值低/中/高
+        self.trusty_level = trusty_level
 
     def validate(self):
         self.validate_required(self.id, 'id')
@@ -245,6 +248,7 @@ class WebItem(TeaModel):
         self.validate_required(self.sort_id, 'sort_id')
         self.validate_required(self.title, 'title')
         self.validate_required(self.summary, 'summary')
+        self.validate_required(self.trusty_level, 'trusty_level')
 
     def to_map(self):
         _map = super().to_map()
@@ -276,6 +280,8 @@ class WebItem(TeaModel):
             result['logo_url'] = self.logo_url
         if self.content_formats is not None:
             result['content_formats'] = self.content_formats
+        if self.trusty_level is not None:
+            result['trusty_level'] = self.trusty_level
         return result
 
     def from_map(self, m: dict = None):
@@ -304,6 +310,8 @@ class WebItem(TeaModel):
             self.logo_url = m.get('logo_url')
         if m.get('content_formats') is not None:
             self.content_formats = m.get('content_formats')
+        if m.get('trusty_level') is not None:
+            self.trusty_level = m.get('trusty_level')
         return self
 
 
