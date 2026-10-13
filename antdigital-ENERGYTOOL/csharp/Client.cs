@@ -158,7 +158,7 @@ namespace AntChain.SDK.ENERGYTOOL
                         {"req_msg_id", AntChain.AlipayUtil.AntchainUtils.GetNonce()},
                         {"access_key", _accessKeyId},
                         {"base_sdk_version", "TeaSDK-2.0"},
-                        {"sdk_version", "1.1.2"},
+                        {"sdk_version", "1.2.0"},
                         {"_prod_code", "ENERGYTOOL"},
                         {"_prod_channel", "default"},
                     };
@@ -301,7 +301,7 @@ namespace AntChain.SDK.ENERGYTOOL
                         {"req_msg_id", AntChain.AlipayUtil.AntchainUtils.GetNonce()},
                         {"access_key", _accessKeyId},
                         {"base_sdk_version", "TeaSDK-2.0"},
-                        {"sdk_version", "1.1.2"},
+                        {"sdk_version", "1.2.0"},
                         {"_prod_code", "ENERGYTOOL"},
                         {"_prod_channel", "default"},
                     };
@@ -821,6 +821,98 @@ namespace AntChain.SDK.ENERGYTOOL
 
         /// <term><b>Description:</b></term>
         /// <description>
+        /// <para>Description: 天气中短期预测服务，支持15天以内的天气数据查询
+        /// Summary: 天气中短期预测服务，支持15天以内的天气数据查询</para>
+        /// </description>
+        public QueryWeatherForecastResponse QueryWeatherForecast(QueryWeatherForecastRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return QueryWeatherForecastEx(request, headers, runtime);
+        }
+
+        /// <term><b>Description:</b></term>
+        /// <description>
+        /// <para>Description: 天气中短期预测服务，支持15天以内的天气数据查询
+        /// Summary: 天气中短期预测服务，支持15天以内的天气数据查询</para>
+        /// </description>
+        public async Task<QueryWeatherForecastResponse> QueryWeatherForecastAsync(QueryWeatherForecastRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return await QueryWeatherForecastExAsync(request, headers, runtime);
+        }
+
+        /// <term><b>Description:</b></term>
+        /// <description>
+        /// <para>Description: 天气中短期预测服务，支持15天以内的天气数据查询
+        /// Summary: 天气中短期预测服务，支持15天以内的天气数据查询</para>
+        /// </description>
+        public QueryWeatherForecastResponse QueryWeatherForecastEx(QueryWeatherForecastRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<QueryWeatherForecastResponse>(DoRequest("1.0", "antcloud.energytool.weather.forecast.query", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /// <term><b>Description:</b></term>
+        /// <description>
+        /// <para>Description: 天气中短期预测服务，支持15天以内的天气数据查询
+        /// Summary: 天气中短期预测服务，支持15天以内的天气数据查询</para>
+        /// </description>
+        public async Task<QueryWeatherForecastResponse> QueryWeatherForecastExAsync(QueryWeatherForecastRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<QueryWeatherForecastResponse>(await DoRequestAsync("1.0", "antcloud.energytool.weather.forecast.query", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /// <term><b>Description:</b></term>
+        /// <description>
+        /// <para>Description: 天气中长期预测服务，支持未来第 16～45 天的天气数据查询
+        /// Summary: 天气中长期预测服务，支持未来第 16～45 天的天气数据查询</para>
+        /// </description>
+        public QueryWeatherLongrangeResponse QueryWeatherLongrange(QueryWeatherLongrangeRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return QueryWeatherLongrangeEx(request, headers, runtime);
+        }
+
+        /// <term><b>Description:</b></term>
+        /// <description>
+        /// <para>Description: 天气中长期预测服务，支持未来第 16～45 天的天气数据查询
+        /// Summary: 天气中长期预测服务，支持未来第 16～45 天的天气数据查询</para>
+        /// </description>
+        public async Task<QueryWeatherLongrangeResponse> QueryWeatherLongrangeAsync(QueryWeatherLongrangeRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return await QueryWeatherLongrangeExAsync(request, headers, runtime);
+        }
+
+        /// <term><b>Description:</b></term>
+        /// <description>
+        /// <para>Description: 天气中长期预测服务，支持未来第 16～45 天的天气数据查询
+        /// Summary: 天气中长期预测服务，支持未来第 16～45 天的天气数据查询</para>
+        /// </description>
+        public QueryWeatherLongrangeResponse QueryWeatherLongrangeEx(QueryWeatherLongrangeRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<QueryWeatherLongrangeResponse>(DoRequest("1.0", "antcloud.energytool.weather.longrange.query", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /// <term><b>Description:</b></term>
+        /// <description>
+        /// <para>Description: 天气中长期预测服务，支持未来第 16～45 天的天气数据查询
+        /// Summary: 天气中长期预测服务，支持未来第 16～45 天的天气数据查询</para>
+        /// </description>
+        public async Task<QueryWeatherLongrangeResponse> QueryWeatherLongrangeExAsync(QueryWeatherLongrangeRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<QueryWeatherLongrangeResponse>(await DoRequestAsync("1.0", "antcloud.energytool.weather.longrange.query", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /// <term><b>Description:</b></term>
+        /// <description>
         /// <para>Description: 能源数采对外开放api
         /// Summary: 能源数采对外开放api</para>
         /// </description>
@@ -955,6 +1047,98 @@ namespace AntChain.SDK.ENERGYTOOL
         {
             AlibabaCloud.TeaUtil.Common.ValidateModel(request);
             return TeaModel.ToObject<QueryElectricMarketpriceResponse>(await DoRequestAsync("1.0", "antcloud.energytool.electric.marketprice.query", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /// <term><b>Description:</b></term>
+        /// <description>
+        /// <para>Description: 电力行情主数据查询接口
+        /// Summary: 电力行情主数据查询接口</para>
+        /// </description>
+        public QueryElectricCommondataResponse QueryElectricCommondata(QueryElectricCommondataRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return QueryElectricCommondataEx(request, headers, runtime);
+        }
+
+        /// <term><b>Description:</b></term>
+        /// <description>
+        /// <para>Description: 电力行情主数据查询接口
+        /// Summary: 电力行情主数据查询接口</para>
+        /// </description>
+        public async Task<QueryElectricCommondataResponse> QueryElectricCommondataAsync(QueryElectricCommondataRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return await QueryElectricCommondataExAsync(request, headers, runtime);
+        }
+
+        /// <term><b>Description:</b></term>
+        /// <description>
+        /// <para>Description: 电力行情主数据查询接口
+        /// Summary: 电力行情主数据查询接口</para>
+        /// </description>
+        public QueryElectricCommondataResponse QueryElectricCommondataEx(QueryElectricCommondataRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<QueryElectricCommondataResponse>(DoRequest("1.0", "antcloud.energytool.electric.commondata.query", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /// <term><b>Description:</b></term>
+        /// <description>
+        /// <para>Description: 电力行情主数据查询接口
+        /// Summary: 电力行情主数据查询接口</para>
+        /// </description>
+        public async Task<QueryElectricCommondataResponse> QueryElectricCommondataExAsync(QueryElectricCommondataRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<QueryElectricCommondataResponse>(await DoRequestAsync("1.0", "antcloud.energytool.electric.commondata.query", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /// <term><b>Description:</b></term>
+        /// <description>
+        /// <para>Description: 电力行情主数据通用开放接口
+        /// Summary: 电力行情主数据通用开放接口</para>
+        /// </description>
+        public QueryAppmarketCommondataResponse QueryAppmarketCommondata(QueryAppmarketCommondataRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return QueryAppmarketCommondataEx(request, headers, runtime);
+        }
+
+        /// <term><b>Description:</b></term>
+        /// <description>
+        /// <para>Description: 电力行情主数据通用开放接口
+        /// Summary: 电力行情主数据通用开放接口</para>
+        /// </description>
+        public async Task<QueryAppmarketCommondataResponse> QueryAppmarketCommondataAsync(QueryAppmarketCommondataRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return await QueryAppmarketCommondataExAsync(request, headers, runtime);
+        }
+
+        /// <term><b>Description:</b></term>
+        /// <description>
+        /// <para>Description: 电力行情主数据通用开放接口
+        /// Summary: 电力行情主数据通用开放接口</para>
+        /// </description>
+        public QueryAppmarketCommondataResponse QueryAppmarketCommondataEx(QueryAppmarketCommondataRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<QueryAppmarketCommondataResponse>(DoRequest("1.0", "antcloud.energytool.appmarket.commondata.query", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /// <term><b>Description:</b></term>
+        /// <description>
+        /// <para>Description: 电力行情主数据通用开放接口
+        /// Summary: 电力行情主数据通用开放接口</para>
+        /// </description>
+        public async Task<QueryAppmarketCommondataResponse> QueryAppmarketCommondataExAsync(QueryAppmarketCommondataRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<QueryAppmarketCommondataResponse>(await DoRequestAsync("1.0", "antcloud.energytool.appmarket.commondata.query", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
         }
 
     }
