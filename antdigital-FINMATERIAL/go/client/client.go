@@ -292,6 +292,11 @@ type WebItem struct {
 	//
 	// -
 	ContentFormats *string `json:"content_formats,omitempty" xml:"content_formats,omitempty"`
+	// 可信等级，取值低/中/高
+	// example:
+	//
+	// 中
+	TrustyLevel *string `json:"trusty_level,omitempty" xml:"trusty_level,omitempty" require:"true"`
 }
 
 func (s WebItem) String() string {
@@ -359,6 +364,11 @@ func (s *WebItem) SetLogoUrl(v string) *WebItem {
 
 func (s *WebItem) SetContentFormats(v string) *WebItem {
 	s.ContentFormats = &v
+	return s
+}
+
+func (s *WebItem) SetTrustyLevel(v string) *WebItem {
+	s.TrustyLevel = &v
 	return s
 }
 
@@ -1281,7 +1291,7 @@ func (client *Client) DoRequest(version *string, action *string, protocol *strin
 				"req_msg_id":       antchainutil.GetNonce(),
 				"access_key":       client.AccessKeyId,
 				"base_sdk_version": tea.String("TeaSDK-2.0"),
-				"sdk_version":      tea.String("1.0.8"),
+				"sdk_version":      tea.String("1.0.12"),
 				"_prod_code":       tea.String("FINMATERIAL"),
 				"_prod_channel":    tea.String("default"),
 			}
