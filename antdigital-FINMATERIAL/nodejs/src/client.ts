@@ -295,6 +295,12 @@ export class WebItem extends $tea.Model {
    * -
    */
   contentFormats?: string;
+  // 可信等级，取值低/中/高
+  /**
+   * @example
+   * 中
+   */
+  trustyLevel: string;
   static names(): { [key: string]: string } {
     return {
       id: 'id',
@@ -309,6 +315,7 @@ export class WebItem extends $tea.Model {
       author: 'author',
       logoUrl: 'logo_url',
       contentFormats: 'content_formats',
+      trustyLevel: 'trusty_level',
     };
   }
 
@@ -326,6 +333,7 @@ export class WebItem extends $tea.Model {
       author: 'string',
       logoUrl: 'string',
       contentFormats: 'string',
+      trustyLevel: 'string',
     };
   }
 
@@ -1088,7 +1096,7 @@ export default class Client {
           req_msg_id: AntchainUtil.getNonce(),
           access_key: this._accessKeyId,
           base_sdk_version: "TeaSDK-2.0",
-          sdk_version: "1.0.8",
+          sdk_version: "1.0.12",
           _prod_code: "FINMATERIAL",
           _prod_channel: "default",
         };
