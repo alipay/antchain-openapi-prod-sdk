@@ -127,6 +127,15 @@ public class WebItem extends TeaModel {
     @NameInMap("content_formats")
     public String contentFormats;
 
+    // 可信等级，取值低/中/高
+    /**
+     * <strong>example:</strong>
+     * <p>中</p>
+     */
+    @NameInMap("trusty_level")
+    @Validation(required = true)
+    public String trustyLevel;
+
     public static WebItem build(java.util.Map<String, ?> map) throws Exception {
         WebItem self = new WebItem();
         return TeaModel.build(map, self);
@@ -226,6 +235,14 @@ public class WebItem extends TeaModel {
     }
     public String getContentFormats() {
         return this.contentFormats;
+    }
+
+    public WebItem setTrustyLevel(String trustyLevel) {
+        this.trustyLevel = trustyLevel;
+        return this;
+    }
+    public String getTrustyLevel() {
+        return this.trustyLevel;
     }
 
 }

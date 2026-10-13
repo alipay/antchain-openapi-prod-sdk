@@ -8,7 +8,7 @@
 <dependency>
    <groupId>com.antgroup.antchain.openapi</groupId>
    <artifactId>antdigital-finmaterial</artifactId>
-   <version>1.0.8</version>
+   <version>1.0.12</version>
 </dependency>
 ```
 
