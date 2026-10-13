@@ -1,4 +1,4 @@
-module github.com/alipay/antdigital-energytool
+module github.com/antchain-openapi-sdk-go/antdigital-energytool
 
 go 1.22.1
 
