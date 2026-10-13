@@ -140,6 +140,15 @@ namespace AntChain.SDK.FINMATERIAL.Models
         [Validation(Required=false)]
         public string ContentFormats { get; set; }
 
+        // 可信等级，取值低/中/高
+        /// <summary>
+        /// <b>Example:</b>
+        /// <para>中</para>
+        /// </summary>
+        [NameInMap("trusty_level")]
+        [Validation(Required=true)]
+        public string TrustyLevel { get; set; }
+
     }
 
 }
