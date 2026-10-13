@@ -33,12 +33,20 @@ use AntChain\ENERGYTOOL\Models\SyncKmDocumentRequest;
 use AntChain\ENERGYTOOL\Models\SyncKmDocumentResponse;
 use AntChain\ENERGYTOOL\Models\QueryKmRagRequest;
 use AntChain\ENERGYTOOL\Models\QueryKmRagResponse;
+use AntChain\ENERGYTOOL\Models\QueryWeatherForecastRequest;
+use AntChain\ENERGYTOOL\Models\QueryWeatherForecastResponse;
+use AntChain\ENERGYTOOL\Models\QueryWeatherLongrangeRequest;
+use AntChain\ENERGYTOOL\Models\QueryWeatherLongrangeResponse;
 use AntChain\ENERGYTOOL\Models\QueryPanoraindexPolicyRequest;
 use AntChain\ENERGYTOOL\Models\QueryPanoraindexPolicyResponse;
 use AntChain\ENERGYTOOL\Models\QueryTraderesultRequest;
 use AntChain\ENERGYTOOL\Models\QueryTraderesultResponse;
 use AntChain\ENERGYTOOL\Models\QueryElectricMarketpriceRequest;
 use AntChain\ENERGYTOOL\Models\QueryElectricMarketpriceResponse;
+use AntChain\ENERGYTOOL\Models\QueryElectricCommondataRequest;
+use AntChain\ENERGYTOOL\Models\QueryElectricCommondataResponse;
+use AntChain\ENERGYTOOL\Models\QueryAppmarketCommondataRequest;
+use AntChain\ENERGYTOOL\Models\QueryAppmarketCommondataResponse;
 
 class Client {
     protected $_endpoint;
@@ -175,7 +183,7 @@ class Client {
                     "req_msg_id" => UtilClient::getNonce(),
                     "access_key" => $this->_accessKeyId,
                     "base_sdk_version" => "TeaSDK-2.0",
-                    "sdk_version" => "1.1.2",
+                    "sdk_version" => "1.2.0",
                     "_prod_code" => "ENERGYTOOL",
                     "_prod_channel" => "default"
                 ];
@@ -471,6 +479,56 @@ class Client {
     }
 
     /**
+     * Description: 天气中短期预测服务，支持15天以内的天气数据查询
+     * Summary: 天气中短期预测服务，支持15天以内的天气数据查询
+     * @param QueryWeatherForecastRequest $request
+     * @return QueryWeatherForecastResponse
+     */
+    public function queryWeatherForecast($request){
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+        return $this->queryWeatherForecastEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 天气中短期预测服务，支持15天以内的天气数据查询
+     * Summary: 天气中短期预测服务，支持15天以内的天气数据查询
+     * @param QueryWeatherForecastRequest $request
+     * @param string[] $headers
+     * @param RuntimeOptions $runtime
+     * @return QueryWeatherForecastResponse
+     */
+    public function queryWeatherForecastEx($request, $headers, $runtime){
+        Utils::validateModel($request);
+        return QueryWeatherForecastResponse::fromMap($this->doRequest("1.0", "antcloud.energytool.weather.forecast.query", "HTTPS", "POST", "/gateway.do", Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 天气中长期预测服务，支持未来第 16～45 天的天气数据查询
+     * Summary: 天气中长期预测服务，支持未来第 16～45 天的天气数据查询
+     * @param QueryWeatherLongrangeRequest $request
+     * @return QueryWeatherLongrangeResponse
+     */
+    public function queryWeatherLongrange($request){
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+        return $this->queryWeatherLongrangeEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 天气中长期预测服务，支持未来第 16～45 天的天气数据查询
+     * Summary: 天气中长期预测服务，支持未来第 16～45 天的天气数据查询
+     * @param QueryWeatherLongrangeRequest $request
+     * @param string[] $headers
+     * @param RuntimeOptions $runtime
+     * @return QueryWeatherLongrangeResponse
+     */
+    public function queryWeatherLongrangeEx($request, $headers, $runtime){
+        Utils::validateModel($request);
+        return QueryWeatherLongrangeResponse::fromMap($this->doRequest("1.0", "antcloud.energytool.weather.longrange.query", "HTTPS", "POST", "/gateway.do", Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
      * Description: 能源数采对外开放api
      * Summary: 能源数采对外开放api
      * @param QueryPanoraindexPolicyRequest $request
@@ -543,5 +601,55 @@ class Client {
     public function queryElectricMarketpriceEx($request, $headers, $runtime){
         Utils::validateModel($request);
         return QueryElectricMarketpriceResponse::fromMap($this->doRequest("1.0", "antcloud.energytool.electric.marketprice.query", "HTTPS", "POST", "/gateway.do", Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 电力行情主数据查询接口
+     * Summary: 电力行情主数据查询接口
+     * @param QueryElectricCommondataRequest $request
+     * @return QueryElectricCommondataResponse
+     */
+    public function queryElectricCommondata($request){
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+        return $this->queryElectricCommondataEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 电力行情主数据查询接口
+     * Summary: 电力行情主数据查询接口
+     * @param QueryElectricCommondataRequest $request
+     * @param string[] $headers
+     * @param RuntimeOptions $runtime
+     * @return QueryElectricCommondataResponse
+     */
+    public function queryElectricCommondataEx($request, $headers, $runtime){
+        Utils::validateModel($request);
+        return QueryElectricCommondataResponse::fromMap($this->doRequest("1.0", "antcloud.energytool.electric.commondata.query", "HTTPS", "POST", "/gateway.do", Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 电力行情主数据通用开放接口
+     * Summary: 电力行情主数据通用开放接口
+     * @param QueryAppmarketCommondataRequest $request
+     * @return QueryAppmarketCommondataResponse
+     */
+    public function queryAppmarketCommondata($request){
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+        return $this->queryAppmarketCommondataEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 电力行情主数据通用开放接口
+     * Summary: 电力行情主数据通用开放接口
+     * @param QueryAppmarketCommondataRequest $request
+     * @param string[] $headers
+     * @param RuntimeOptions $runtime
+     * @return QueryAppmarketCommondataResponse
+     */
+    public function queryAppmarketCommondataEx($request, $headers, $runtime){
+        Utils::validateModel($request);
+        return QueryAppmarketCommondataResponse::fromMap($this->doRequest("1.0", "antcloud.energytool.appmarket.commondata.query", "HTTPS", "POST", "/gateway.do", Tea::merge($request), $headers, $runtime));
     }
 }
