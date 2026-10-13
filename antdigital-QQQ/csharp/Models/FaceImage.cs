@@ -8,9 +8,9 @@ using Tea;
 
 namespace AntChain.SDK.QQQ.Models
 {
-    // 模拟大安全类型
+    // 大安全佐罗测试接口结构体
     public class FaceImage : TeaModel {
-        // 1123
+        // 123
         /// <summary>
         /// <b>Example:</b>
         /// <para>123</para>
@@ -19,13 +19,13 @@ namespace AntChain.SDK.QQQ.Models
         [Validation(Required=false)]
         public string Content { get; set; }
 
-        // 123
+        // 213
         /// <summary>
         /// <b>Example:</b>
-        /// <para>123</para>
+        /// <para>13</para>
         /// </summary>
         [NameInMap("rect")]
-        [Validation(Required=true)]
+        [Validation(Required=false)]
         public string Rect { get; set; }
 
     }

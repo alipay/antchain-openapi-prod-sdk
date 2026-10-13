@@ -8,16 +8,16 @@ using Tea;
 
 namespace AntChain.SDK.QQQ.Models
 {
-    // TestDemo
+    // a
     public class TestDemo : TeaModel {
-        // id
+        // a
         /// <summary>
         /// <b>Example:</b>
-        /// <para>id</para>
+        /// <para>a</para>
         /// </summary>
-        [NameInMap("demo")]
-        [Validation(Required=true)]
-        public string Demo { get; set; }
+        [NameInMap("timeout")]
+        [Validation(Required=false)]
+        public string Timeout { get; set; }
 
     }
 

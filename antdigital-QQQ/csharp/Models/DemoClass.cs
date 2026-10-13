@@ -8,7 +8,7 @@ using Tea;
 
 namespace AntChain.SDK.QQQ.Models
 {
-    // Demo类1
+    // Demo类1111-11
     public class DemoClass : TeaModel {
         // 字符串测试
         /// <summary>
@@ -46,10 +46,10 @@ namespace AntChain.SDK.QQQ.Models
         [Validation(Required=true)]
         public long? SomeInt { get; set; }
 
-        // 列表测试
-        [NameInMap("some_list")]
+        // 结构体字段
+        [NameInMap("some_struct")]
         [Validation(Required=true)]
-        public List<string> SomeList { get; set; }
+        public AnotherClass SomeStruct { get; set; }
 
     }
 

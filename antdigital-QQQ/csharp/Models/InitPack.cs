@@ -8,27 +8,27 @@ using Tea;
 
 namespace AntChain.SDK.QQQ.Models
 {
-    // 初始
+    // init接口响应结果，map类型
     public class InitPack : TeaModel {
-        // 请求时间
+        // 返回接收到请求的当前时间
         /// <summary>
         /// <b>Example:</b>
-        /// <para>2018-10-10T10:10:00Z</para>
+        /// <para>2022-11-07 14:48</para>
         /// </summary>
         [NameInMap("time")]
-        [Validation(Required=true, Pattern="\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}([Z]|([\\.]\\d{1,9})?[\\+]\\d{2}[\\:]?\\d{2})")]
+        [Validation(Required=true)]
         public string Time { get; set; }
 
-        // 请求人
+        // 操作人
         /// <summary>
         /// <b>Example:</b>
-        /// <para>张三</para>
+        /// <para>wanyi</para>
         /// </summary>
-        [NameInMap("operate")]
+        [NameInMap("operator")]
         [Validation(Required=true)]
-        public string Operate { get; set; }
+        public string Operator { get; set; }
 
-        // 编号
+        // 请求编号
         /// <summary>
         /// <b>Example:</b>
         /// <para>1</para>
