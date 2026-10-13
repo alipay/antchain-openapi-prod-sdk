@@ -24,7 +24,7 @@ from setuptools import setup, find_packages
 """
 setup module for antchain_qqq.
 
-Created on 28/05/2026
+Created on 13/10/2026
 
 @author: Ant Chain SDK
 """
