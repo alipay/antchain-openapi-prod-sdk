@@ -1,14 +1,15 @@
-# TypeScript SDK
+# Ant Chain antdigital-QQQ SDK for TypeScript
 
 ## Installation
 
-## Requirements
+```bash
+npm install @antchain/antdigital-QQQ
+```
 
-- Node.js 12+
-- npm/yarn
+## Issues
 
-## Usage
-
-## Documentation
+[Open an issue](https://github.com/alipay/antchain-openapi-prod-sdk/issues/new)
 
 ## License
+
+[Apache-2.0](http://www.apache.org/licenses/LICENSE-2.0)
