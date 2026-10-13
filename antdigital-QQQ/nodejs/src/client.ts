@@ -2,7 +2,6 @@
 import AntchainUtil from '@antchain/alipay-util';
 import Util, * as $Util from '@alicloud/tea-util';
 import RPCUtil from '@alicloud/rpc-util';
-import { Readable } from 'stream';
 import * as $tea from '@alicloud/tea-typescript';
 
 /**
@@ -181,15 +180,15 @@ export class Config extends $tea.Model {
   }
 }
 
-// 子结构体
-export class SubDemoStruct extends $tea.Model {
-  // name
+// 键值对，兼容map用
+export class NameValuePair extends $tea.Model {
+  // 键名
   /**
    * @example
-   * name
+   * key
    */
   name: string;
-  // value
+  // 键值
   /**
    * @example
    * value
@@ -214,71 +213,420 @@ export class SubDemoStruct extends $tea.Model {
   }
 }
 
-// ABC示例结构体
-export class AbcDemoStruct extends $tea.Model {
-  // 字符串属性
+// Map<String,Object> 集合
+export class QueryMap extends $tea.Model {
+  // 键值
   /**
    * @example
-   * str
+   * BUSINESS_CODE
    */
-  someString?: string;
-  // Long型属性
+  name: string;
+  // 额外用户信息
+  value?: NameValuePair[];
+  static names(): { [key: string]: string } {
+    return {
+      name: 'name',
+      value: 'value',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      name: 'string',
+      value: { 'type': 'array', 'itemType': NameValuePair },
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+// host
+export class Host extends $tea.Model {
+  // test_2e1ae924805f
   /**
    * @example
-   * 100
+   * test_2e1ae924805f
    */
-  someNumber: number;
-  // 布尔型
+  systemName: string;
+  // 地址
   /**
    * @example
-   * true, false
+   * test_941f18a4013b
+   */
+  address: string;
+  static names(): { [key: string]: string } {
+    return {
+      systemName: 'system_name',
+      address: 'address',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      systemName: 'string',
+      address: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+// 另一个Demo类
+export class AnotherClass extends $tea.Model {
+  // 测试字段
+  /**
+   * @example
+   * some string
+   */
+  bar: string;
+  // 引用字段
+  ref: QueryMap;
+  // 新增结构体
+  /**
+   * @example
+   * new structs
+   */
+  newStruct?: string;
+  static names(): { [key: string]: string } {
+    return {
+      bar: 'bar',
+      ref: 'ref',
+      newStruct: 'new_struct',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      bar: 'string',
+      ref: QueryMap,
+      newStruct: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+// 身份
+export class Identity extends $tea.Model {
+  // ak
+  /**
+   * @example
+   * test_0efe42463f8f
+   */
+  ak: string;
+  static names(): { [key: string]: string } {
+    return {
+      ak: 'ak',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      ak: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+// SCRealEstateQueryResponseData
+export class SCRealEstateQueryResponseData extends $tea.Model {
+  // area_code
+  /**
+   * @example
+   * 510108
+   */
+  areaCode: string;
+  // area_name
+  /**
+   * @example
+   * area_name
+   */
+  areaName: string;
+  // bdcdyh
+  /**
+   * @example
+   * bdcdyh
+   */
+  bdcdyh: string;
+  // bdcqzh
+  /**
+   * @example
+   * bdcqzh
+   */
+  bdcqzh: string;
+  // djsj
+  /**
+   * @example
+   * djsj
+   */
+  djsj: string;
+  // fwyt1
+  /**
+   * @example
+   * fwyt1
+   */
+  fwyt1: string;
+  // gyqk
+  /**
+   * @example
+   * gyqk
+   */
+  gyqk: string;
+  // qllx
+  /**
+   * @example
+   * qllx
+   */
+  qllx: string;
+  // qlrmc
+  /**
+   * @example
+   * qlrmc
+   */
+  qlrmc: string;
+  // scjzmj
+  /**
+   * @example
+   * scjzmj
+   */
+  scjzmj: string;
+  static names(): { [key: string]: string } {
+    return {
+      areaCode: 'area_code',
+      areaName: 'area_name',
+      bdcdyh: 'bdcdyh',
+      bdcqzh: 'bdcqzh',
+      djsj: 'djsj',
+      fwyt1: 'fwyt1',
+      gyqk: 'gyqk',
+      qllx: 'qllx',
+      qlrmc: 'qlrmc',
+      scjzmj: 'scjzmj',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      areaCode: 'string',
+      areaName: 'string',
+      bdcdyh: 'string',
+      bdcqzh: 'string',
+      djsj: 'string',
+      fwyt1: 'string',
+      gyqk: 'string',
+      qllx: 'string',
+      qlrmc: 'string',
+      scjzmj: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+// 头文件
+export class Header extends $tea.Model {
+  // 身份信息
+  /**
+   * @example
+   * "identity": {       "ak": "test_0efe42463f8f"     }
+   */
+  identity: Identity;
+  // 调用链编号
+  /**
+   * @example
+   * test_6db79b5d2e48
+   */
+  traceId: string;
+  // host信息
+  /**
+   * @example
+   * "host": {       "systemName": "test_2e1ae924805f",       "address": "test_941f18a4013b"     }
+   */
+  host: Host;
+  // 方向
+  /**
+   * @example
+   * REQUEST
+   */
+  direction: string;
+  // 请求类型
+  /**
+   * @example
+   * INVOKE
+   */
+  requestType: string;
+  // 协议版本
+  /**
+   * @example
+   * test_6709e9002606
+   */
+  protocolVersion: string;
+  static names(): { [key: string]: string } {
+    return {
+      identity: 'identity',
+      traceId: 'trace_id',
+      host: 'host',
+      direction: 'direction',
+      requestType: 'request_type',
+      protocolVersion: 'protocol_version',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      identity: Identity,
+      traceId: 'string',
+      host: Host,
+      direction: 'string',
+      requestType: 'string',
+      protocolVersion: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+// routeCondition
+export class RouteCondition extends $tea.Model {
+  // 渠道编号
+  /**
+   * @example
+   * HZZKZTKJ
+   */
+  channelId: string;
+  static names(): { [key: string]: string } {
+    return {
+      channelId: 'channel_id',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      channelId: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+// 订单详情
+export class OrderDetail extends $tea.Model {
+  // 商品名称
+  /**
+   * @example
+   * 商品A
+   */
+  itemName: string;
+  // 数量
+  /**
+   * @example
+   * 2
+   */
+  quantity: number;
+  // 单价
+  /**
+   * @example
+   * 50
+   */
+  price: number;
+  static names(): { [key: string]: string } {
+    return {
+      itemName: 'item_name',
+      quantity: 'quantity',
+      price: 'price',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      itemName: 'string',
+      quantity: 'number',
+      price: 'number',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+// testAtestB
+export class SCRealEstateQueryBody extends $tea.Model {
+  static names(): { [key: string]: string } {
+    return {
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+// Demo类1111-11
+export class DemoClass extends $tea.Model {
+  // 字符串测试
+  /**
+   * @example
+   * some string
+   */
+  someString: string;
+  // 日期测试
+  /**
+   * @example
+   * 3
+   */
+  someDate: string;
+  // Boolean测试
+  /**
+   * @example
+   * true
    */
   someBoolean: boolean;
-  // ISO8601格式字符串：yyyy-MM-dd_T_HH:mm:ss_Z_
+  // 整数测试
   /**
    * @example
-   * 2018-10-10T10:10:00Z
+   * 3
    */
-  someDate?: string;
-  // 字符串数组
-  /**
-   * @example
-   * somestring
-   */
-  someStringList?: string[];
-  // 子结构体
-  /**
-   * @example
-   * { "name": "value" }
-   */
-  someStruct: SubDemoStruct;
-  // 结构体数组
-  /**
-   * @example
-   * [{"name": "value"}]
-   */
-  someStructList: SubDemoStruct[];
+  someInt: number;
+  // 结构体字段
+  someStruct: AnotherClass;
   static names(): { [key: string]: string } {
     return {
       someString: 'some_string',
-      someNumber: 'some_number',
-      someBoolean: 'some_boolean',
       someDate: 'some_date',
-      someStringList: 'some_string_list',
+      someBoolean: 'some_boolean',
+      someInt: 'some_int',
       someStruct: 'some_struct',
-      someStructList: 'some_struct_list',
     };
   }
 
   static types(): { [key: string]: any } {
     return {
       someString: 'string',
-      someNumber: 'number',
-      someBoolean: 'boolean',
       someDate: 'string',
-      someStringList: { 'type': 'array', 'itemType': 'string' },
-      someStruct: SubDemoStruct,
-      someStructList: { 'type': 'array', 'itemType': SubDemoStruct },
+      someBoolean: 'boolean',
+      someInt: 'number',
+      someStruct: AnotherClass,
     };
   }
 
@@ -287,23 +635,27 @@ export class AbcDemoStruct extends $tea.Model {
   }
 }
 
-// TestDemo
-export class TestDemo extends $tea.Model {
-  // id
+// 卡片信息
+export class CardInfos extends $tea.Model {
+  // x
+  domianInfo: Identity;
+  // 12
   /**
    * @example
-   * id
+   * 张三
    */
-  demo: string;
+  test: string;
   static names(): { [key: string]: string } {
     return {
-      demo: 'demo',
+      domianInfo: 'domian_info',
+      test: 'test',
     };
   }
 
   static types(): { [key: string]: any } {
     return {
-      demo: 'string',
+      domianInfo: Identity,
+      test: 'string',
     };
   }
 
@@ -312,20 +664,189 @@ export class TestDemo extends $tea.Model {
   }
 }
 
-// 模拟大安全类型
-export class FaceImage extends $tea.Model {
-  // 1123
+// SCRealEstateQueryRequestPayload
+export class SCRealEstateQueryRequestPayload extends $tea.Model {
+  // xm
   /**
    * @example
-   * 123
+   * 张三
    */
-  content?: string;
+  xm: string;
+  // sfz
+  /**
+   * @example
+   * 51382219970820817X
+   */
+  sfz: string;
+  static names(): { [key: string]: string } {
+    return {
+      xm: 'xm',
+      sfz: 'sfz',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      xm: 'string',
+      sfz: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+// 编码
+export class Cmd extends $tea.Model {
+  // cmd编码
+  /**
+   * @example
+   * SC-RealEstate-Query
+   */
+  cmdCode: string;
+  // 版本号
+  /**
+   * @example
+   * test_d19bd9d59915
+   */
+  version: string;
+  static names(): { [key: string]: string } {
+    return {
+      cmdCode: 'cmd_code',
+      version: 'version',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      cmdCode: 'string',
+      version: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+// 测试
+export class ATest extends $tea.Model {
+  // cc
+  /**
+   * @example
+   * aaa
+   */
+  datay?: string;
+  static names(): { [key: string]: string } {
+    return {
+      datay: 'datay',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      datay: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+// SCRealEstateQueryResponsePayload
+export class SCRealEstateQueryResponsePayload extends $tea.Model {
+  // code
+  /**
+   * @example
+   * 200
+   */
+  code: string;
+  // data
+  data: SCRealEstateQueryResponseData[];
+  // uuid
+  /**
+   * @example
+   * uuid
+   */
+  uuid: string;
+  // ret_msg
+  /**
+   * @example
+   * ret_msg
+   */
+  retMsg: string;
+  static names(): { [key: string]: string } {
+    return {
+      code: 'code',
+      data: 'data',
+      uuid: 'uuid',
+      retMsg: 'ret_msg',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      code: 'string',
+      data: { 'type': 'array', 'itemType': SCRealEstateQueryResponseData },
+      uuid: 'string',
+      retMsg: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+// 键值对
+export class Map extends $tea.Model {
+  // 键
+  /**
+   * @example
+   * key1
+   */
+  key: string;
+  // 值
+  /**
+   * @example
+   * value1
+   */
+  value?: string;
+  static names(): { [key: string]: string } {
+    return {
+      key: 'key',
+      value: 'value',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      key: 'string',
+      value: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+// 大安全佐罗测试接口结构体
+export class FaceImage extends $tea.Model {
   // 123
   /**
    * @example
    * 123
    */
-  rect: string;
+  content?: string;
+  // 213
+  /**
+   * @example
+   * 13
+   */
+  rect?: string;
   static names(): { [key: string]: string } {
     return {
       content: 'content',
@@ -345,39 +866,31 @@ export class FaceImage extends $tea.Model {
   }
 }
 
-// 结构体返回结构
-export class ResultListDemo extends $tea.Model {
-  // 返回结果码
+// SCRealEstateQuery
+export class SCRealEstateQueryInvokerRequest extends $tea.Model {
+  // header
   /**
    * @example
-   * {"name":"value"}
+   * "header": {}
    */
-  code: AbcDemoStruct;
-  // 返回结果
+  header: Header;
+  // body
   /**
    * @example
-   * {"name":{"key":"value"}}
+   * "body":{}
    */
-  data: AbcDemoStruct;
-  // 返回信息
-  /**
-   * @example
-   * {"message":"success"}
-   */
-  message: AbcDemoStruct;
+  body: SCRealEstateQueryBody;
   static names(): { [key: string]: string } {
     return {
-      code: 'code',
-      data: 'data',
-      message: 'message',
+      header: 'header',
+      body: 'body',
     };
   }
 
   static types(): { [key: string]: any } {
     return {
-      code: AbcDemoStruct,
-      data: AbcDemoStruct,
-      message: AbcDemoStruct,
+      header: Header,
+      body: SCRealEstateQueryBody,
     };
   }
 
@@ -386,15 +899,1129 @@ export class ResultListDemo extends $tea.Model {
   }
 }
 
-// 姓名和年龄
-export class NameAndAge extends $tea.Model {
-  // 姓名
+// 订单DTO
+export class OrderDTO extends $tea.Model {
+  // 订单编号
+  /**
+   * @example
+   * ORD001
+   */
+  orderNo: string;
+  // 状态
+  /**
+   * @example
+   * SUCCESS
+   */
+  status: string;
+  static names(): { [key: string]: string } {
+    return {
+      orderNo: 'order_no',
+      status: 'status',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      orderNo: 'string',
+      status: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class OrderItem extends $tea.Model {
+  // 商品ID
+  /**
+   * @example
+   * SKU001
+   */
+  itemId: string;
+  // 数量
+  /**
+   * @example
+   * 2
+   */
+  quantity: number;
+  static names(): { [key: string]: string } {
+    return {
+      itemId: 'item_id',
+      quantity: 'quantity',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      itemId: 'string',
+      quantity: 'number',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+// 风险评估因子明细
+export class RiskFactorDetail extends $tea.Model {
+  // 风险评估因子类型
+  /**
+   * @example
+   * BLACKLIST
+   */
+  factorType?: string;
+  // 分数
+  /**
+   * @example
+   * 85
+   */
+  score?: number;
+  // 风险事件
+  /**
+   * @example
+   * ["关联账户被冻结", "高频异常交易"]
+   */
+  evidence?: string[];
+  static names(): { [key: string]: string } {
+    return {
+      factorType: 'factor_type',
+      score: 'score',
+      evidence: 'evidence',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      factorType: 'string',
+      score: 'number',
+      evidence: { 'type': 'array', 'itemType': 'string' },
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+// 用于上海非金迭代的测试使用
+export class ShangHaiTest extends $tea.Model {
+  // string
+  /**
+   * @example
+   * test
+   */
+  param1?: string;
+  // number
+  /**
+   * @example
+   * 1
+   */
+  param2?: number;
+  static names(): { [key: string]: string } {
+    return {
+      param1: 'param_1',
+      param2: 'param_2',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      param1: 'string',
+      param2: 'number',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+// init接口响应结果，map类型
+export class InitPack extends $tea.Model {
+  // 返回接收到请求的当前时间
+  /**
+   * @example
+   * 2022-11-07 14:48
+   */
+  time: string;
+  // 操作人
+  /**
+   * @example
+   * wanyi
+   */
+  operator: string;
+  // 请求编号
+  /**
+   * @example
+   * 1
+   */
+  count: number;
+  static names(): { [key: string]: string } {
+    return {
+      time: 'time',
+      operator: 'operator',
+      count: 'count',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      time: 'string',
+      operator: 'string',
+      count: 'number',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+// 交易明细信息
+export class TransactionDetails extends $tea.Model {
+  // 金额
+  /**
+   * @example
+   * 85000.00
+   */
+  amount?: number;
+  // 币种
+  /**
+   * @example
+   * CNY
+   */
+  currency?: string;
+  // 渠道
+  /**
+   * @example
+   * ATM
+   */
+  channel?: string;
+  // 地址
+  /**
+   * @example
+   * 上海分行
+   */
+  location?: string;
+  // 时间
+  /**
+   * @example
+   * 2018-10-10T10:10:00Z
+   */
+  time?: string;
+  static names(): { [key: string]: string } {
+    return {
+      amount: 'amount',
+      currency: 'currency',
+      channel: 'channel',
+      location: 'location',
+      time: 'time',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      amount: 'number',
+      currency: 'string',
+      channel: 'string',
+      location: 'string',
+      time: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+// 订单信息
+export class OrderInfo extends $tea.Model {
+  // 订单号
+  /**
+   * @example
+   * ORD001
+   */
+  orderId: string;
+  // 金额
+  /**
+   * @example
+   * 100
+   */
+  amount: number;
+  // 详情
+  /**
+   * @example
+   * {}
+   */
+  detail?: OrderDetail;
+  static names(): { [key: string]: string } {
+    return {
+      orderId: 'order_id',
+      amount: 'amount',
+      detail: 'detail',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      orderId: 'string',
+      amount: 'number',
+      detail: OrderDetail,
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+// 数字类型
+export class NumberTest extends $tea.Model {
+  // 1
+  /**
+   * @example
+   * 1
+   */
+  parameter1: number;
+  // 2
+  /**
+   * @example
+   * 2
+   */
+  parameter2: number;
+  // 3
+  /**
+   * @example
+   * 3
+   */
+  parameter3: number;
+  // 4
+  /**
+   * @example
+   * 4
+   */
+  parameter4: number;
+  // 5
+  /**
+   * @example
+   * 5
+   */
+  parameter5: DemoClass;
+  static names(): { [key: string]: string } {
+    return {
+      parameter1: 'parameter_1',
+      parameter2: 'parameter_2',
+      parameter3: 'parameter_3',
+      parameter4: 'parameter_4',
+      parameter5: 'parameter_5',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      parameter1: 'number',
+      parameter2: 'number',
+      parameter3: 'number',
+      parameter4: 'number',
+      parameter5: DemoClass,
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+// 测试类结构体
+export class TestClass extends $tea.Model {
+  // 字符串字段
+  /**
+   * @example
+   * string_param
+   */
+  stringParam: string;
+  // 数字字段
+  /**
+   * @example
+   * 100
+   */
+  numberParam: number;
+  // 布尔值参数
+  /**
+   * @example
+   * true, false
+   */
+  booleanParam: boolean;
+  // 日期参数
+  /**
+   * @example
+   * 2026-02-10T10:10:00Z
+   */
+  dateParam: string;
+  // 数组参数
+  /**
+   * @example
+   * {a,b,c,d}
+   */
+  arrayParam: string[];
+  // 结构体参数
+  structParam: DemoClass;
+  static names(): { [key: string]: string } {
+    return {
+      stringParam: 'string_param',
+      numberParam: 'number_param',
+      booleanParam: 'boolean_param',
+      dateParam: 'date_param',
+      arrayParam: 'array_param',
+      structParam: 'struct_param',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      stringParam: 'string',
+      numberParam: 'number',
+      booleanParam: 'boolean',
+      dateParam: 'string',
+      arrayParam: { 'type': 'array', 'itemType': 'string' },
+      structParam: DemoClass,
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+// TestStruct
+export class TestStruct extends $tea.Model {
+  // x
+  /**
+   * @example
+   * x
+   */
+  x: string;
+  // y
+  /**
+   * @example
+   * y
+   */
+  y: DemoClass;
+  // z
+  z: DemoClass[];
+  static names(): { [key: string]: string } {
+    return {
+      x: 'x',
+      y: 'y',
+      z: 'z',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      x: 'string',
+      y: DemoClass,
+      z: { 'type': 'array', 'itemType': DemoClass },
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+// x
+export class CardInfo extends $tea.Model {
+  // 1
+  demoInfo: DemoClass;
+  // 测试
   /**
    * @example
    * 张三
    */
   name?: string;
+  static names(): { [key: string]: string } {
+    return {
+      demoInfo: 'demo_info',
+      name: 'name',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      demoInfo: DemoClass,
+      name: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+// 测试
+export class TestObject extends $tea.Model {
+  // 主键
+  /**
+   * @example
+   * 12
+   */
+  id: number;
+  // 名称
+  /**
+   * @example
+   * 小蜜
+   */
+  name: string;
+  static names(): { [key: string]: string } {
+    return {
+      id: 'id',
+      name: 'name',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      id: 'number',
+      name: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+// DemoTestx
+export class DemoTestx extends $tea.Model {
+  // ability_id
+  /**
+   * @example
+   * 8000
+   */
+  abilityId: string;
+  static names(): { [key: string]: string } {
+    return {
+      abilityId: 'ability_id',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      abilityId: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+// 自动生成单测代码model
+export class AutoCodeModel extends $tea.Model {
+  // 111
+  /**
+   * @example
+   * 111
+   */
+  modelStringParam: string;
+  // 111
+  /**
+   * @example
+   * 2018-10-10T10:10:00Z
+   */
+  modelDateParam: string;
+  // 111
+  /**
+   * @example
+   * 111
+   */
+  modelArrayParam: string[];
+  static names(): { [key: string]: string } {
+    return {
+      modelStringParam: 'model_string_param',
+      modelDateParam: 'model_date_param',
+      modelArrayParam: 'model_array_param',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      modelStringParam: 'string',
+      modelDateParam: 'string',
+      modelArrayParam: { 'type': 'array', 'itemType': 'string' },
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+// SCRealEstateQueryRequestBody
+export class SCRealEstateQueryRequestBody extends $tea.Model {
+  // cmd
+  /**
+   * @example
+   * "cmd": {       "cmdCode": "SC-RealEstate-Query",       "version": "test_d19bd9d59915"     }
+   */
+  cmd: Cmd;
+  // 路由信息
+  /**
+   * @example
+   * "routeCondition": {       "channelId": "HZZKZTKJ"     }
+   */
+  routeCondition: RouteCondition;
+  // requestId
+  /**
+   * @example
+   * test_8c964bb7781a
+   */
+  requestId: string;
+  // payload
+  /**
+   * @example
+   * { "xm": "张三",   "sfz": "51382219970820817X"}
+   */
+  payload: SCRealEstateQueryRequestPayload;
+  static names(): { [key: string]: string } {
+    return {
+      cmd: 'cmd',
+      routeCondition: 'route_condition',
+      requestId: 'request_id',
+      payload: 'payload',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      cmd: Cmd,
+      routeCondition: RouteCondition,
+      requestId: 'string',
+      payload: SCRealEstateQueryRequestPayload,
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+// 1
+export class DemoT extends $tea.Model {
+  // 1
+  /**
+   * @example
+   * 3000
+   */
+  timeout?: string;
+  static names(): { [key: string]: string } {
+    return {
+      timeout: 'timeout',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      timeout: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+// ss
+export class TestStrcuct extends $tea.Model {
+  // ss
+  /**
+   * @example
+   * 张三
+   */
+  name?: string;
+  static names(): { [key: string]: string } {
+    return {
+      name: 'name',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      name: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+// 嵌套结构
+export class NestModel extends $tea.Model {
+  // aaaa
+  /**
+   * @example
+   * aaa
+   */
+  a: string;
+  static names(): { [key: string]: string } {
+    return {
+      a: 'a',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      a: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+// btest
+export class Btest extends $tea.Model {
+  // atest
+  /**
+   * @example
+   * atest
+   */
+  atest: ATest;
+  static names(): { [key: string]: string } {
+    return {
+      atest: 'atest',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      atest: ATest,
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+// 测试
+export class TestAPIObject extends $tea.Model {
+  // test
+  /**
+   * @example
+   * 21
+   */
+  id: number;
+  static names(): { [key: string]: string } {
+    return {
+      id: 'id',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      id: 'number',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+// ResponseBody
+export class SCRealEstateQueryResponseBody extends $tea.Model {
+  // cost
+  /**
+   * @example
+   * 1234
+   */
+  cost: number;
+  // response_status
+  /**
+   * @example
+   * response_status
+   */
+  responseStatus: string;
+  // response_code
+  /**
+   * @example
+   * 200
+   */
+  responseCode: string;
+  // request_id
+  /**
+   * @example
+   * request_id
+   */
+  requestId: string;
+  // payload
+  payload: SCRealEstateQueryResponsePayload;
+  static names(): { [key: string]: string } {
+    return {
+      cost: 'cost',
+      responseStatus: 'response_status',
+      responseCode: 'response_code',
+      requestId: 'request_id',
+      payload: 'payload',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      cost: 'number',
+      responseStatus: 'string',
+      responseCode: 'string',
+      requestId: 'string',
+      payload: SCRealEstateQueryResponsePayload,
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+// 用户基础信息
+export class UserProfile extends $tea.Model {
+  // 用户ID
+  /**
+   * @example
+   * 1234567890
+   */
+  userId?: string;
+  // 用户身份证号
+  /**
+   * @example
+   * 110101199003072516
+   */
+  idNumber?: string;
+  // 手机号
+  /**
+   * @example
+   * 13800138000
+   */
+  mobile?: string;
   // 年龄
+  /**
+   * @example
+   * 32
+   */
+  age?: number;
+  // 信用评分
+  /**
+   * @example
+   * 720
+   */
+  creditScore?: number;
+  static names(): { [key: string]: string } {
+    return {
+      userId: 'user_id',
+      idNumber: 'id_number',
+      mobile: 'mobile',
+      age: 'age',
+      creditScore: 'credit_score',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      userId: 'string',
+      idNumber: 'string',
+      mobile: 'string',
+      age: 'number',
+      creditScore: 'number',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+// x
+export class PersonInfo extends $tea.Model {
+  // 1
+  /**
+   * @example
+   * 张三
+   */
+  cardInfos: CardInfos;
+  // 123
+  /**
+   * @example
+   * 张三
+   */
+  name: string;
+  static names(): { [key: string]: string } {
+    return {
+      cardInfos: 'card_infos',
+      name: 'name',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      cardInfos: CardInfos,
+      name: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+// aaa
+export class A extends $tea.Model {
+  static names(): { [key: string]: string } {
+    return {
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+// 123
+export class TestA extends $tea.Model {
+  // 1
+  /**
+   * @example
+   * 1
+   */
+  parameter1: string;
+  // 2
+  /**
+   * @example
+   * 2
+   */
+  parameter2: string;
+  // 3
+  /**
+   * @example
+   * 3
+   */
+  parameter3: string;
+  // 4
+  /**
+   * @example
+   * 4
+   */
+  parameter4: string;
+  // 5
+  /**
+   * @example
+   * 5
+   */
+  parameter5: string;
+  // 6
+  /**
+   * @example
+   * 6
+   */
+  parameter6: string;
+  // 7
+  /**
+   * @example
+   * 7
+   */
+  parameter7: string;
+  // 8
+  /**
+   * @example
+   * 8
+   */
+  parameter8: string;
+  // 9
+  /**
+   * @example
+   * 9
+   */
+  parameter9: string;
+  // 10
+  /**
+   * @example
+   * 10
+   */
+  parameter10: string;
+  static names(): { [key: string]: string } {
+    return {
+      parameter1: 'parameter_1',
+      parameter2: 'parameter_2',
+      parameter3: 'parameter_3',
+      parameter4: 'parameter_4',
+      parameter5: 'parameter_5',
+      parameter6: 'parameter_6',
+      parameter7: 'parameter_7',
+      parameter8: 'parameter_8',
+      parameter9: 'parameter_9',
+      parameter10: 'parameter_10',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      parameter1: 'string',
+      parameter2: 'string',
+      parameter3: 'string',
+      parameter4: 'string',
+      parameter5: 'string',
+      parameter6: 'string',
+      parameter7: 'string',
+      parameter8: 'string',
+      parameter9: 'string',
+      parameter10: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+// ABC结构体C
+export class AbcStructC extends $tea.Model {
+  // string_c
+  /**
+   * @example
+   * string_c
+   */
+  stringParamC?: string;
+  // number_c
+  /**
+   * @example
+   * 200
+   */
+  numberParamC?: number;
+  // boolean_c
+  /**
+   * @example
+   * true, false
+   */
+  booleanParamC?: boolean;
+  // date_c
+  /**
+   * @example
+   * 2018-10-10T10:10:00Z
+   */
+  dateParamC?: string;
+  // string_c
+  /**
+   * @example
+   * string_c
+   */
+  arrayParamC?: string[];
+  static names(): { [key: string]: string } {
+    return {
+      stringParamC: 'string_param_c',
+      numberParamC: 'number_param_c',
+      booleanParamC: 'boolean_param_c',
+      dateParamC: 'date_param_c',
+      arrayParamC: 'array_param_c',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      stringParamC: 'string',
+      numberParamC: 'number',
+      booleanParamC: 'boolean',
+      dateParamC: 'string',
+      arrayParamC: { 'type': 'array', 'itemType': 'string' },
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+// ABC结构体B
+export class AbcStructB extends $tea.Model {
+  // string_b
+  /**
+   * @example
+   * string_b
+   */
+  stringParamB?: string;
+  // number_b
+  /**
+   * @example
+   * 200
+   */
+  numberParamB?: number;
+  // boolean_b
+  /**
+   * @example
+   * true, false
+   */
+  booleanParamB?: boolean;
+  // date_b
+  /**
+   * @example
+   * 2018-10-10T10:10:00Z
+   */
+  dateParamB?: string;
+  // array_b
+  /**
+   * @example
+   * array_param
+   */
+  arrayParamB?: AbcStructC[];
+  // struct_b
+  /**
+   * @example
+   * struct_param
+   */
+  structParamB?: AbcStructC;
+  static names(): { [key: string]: string } {
+    return {
+      stringParamB: 'string_param_b',
+      numberParamB: 'number_param_b',
+      booleanParamB: 'boolean_param_b',
+      dateParamB: 'date_param_b',
+      arrayParamB: 'array_param_b',
+      structParamB: 'struct_param_b',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      stringParamB: 'string',
+      numberParamB: 'number',
+      booleanParamB: 'boolean',
+      dateParamB: 'string',
+      arrayParamB: { 'type': 'array', 'itemType': AbcStructC },
+      structParamB: AbcStructC,
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+// ABC产品结构体A
+export class AbcCreateStructA extends $tea.Model {
+  // 【姓名】
+  /**
+   * @example
+   * 张三
+   */
+  name?: string;
+  // 【年龄】
   /**
    * @example
    * 18
@@ -419,15 +2046,31 @@ export class NameAndAge extends $tea.Model {
   }
 }
 
-// 共享能力六期接入rasp回归
-export class GongXiangnengli extends $tea.Model {
+// ABC产品结构体B
+export class AbcCreateStructB extends $tea.Model {
+  // 【信息描述】
+  /**
+   * @example
+   * 这是关于xxx的资料信息
+   */
+  info?: string;
+  // 【地区】
+  /**
+   * @example
+   * 浙江省杭州市
+   */
+  region?: string;
   static names(): { [key: string]: string } {
     return {
+      info: 'info',
+      region: 'region',
     };
   }
 
   static types(): { [key: string]: any } {
     return {
+      info: 'string',
+      region: 'string',
     };
   }
 
@@ -436,39 +2079,39 @@ export class GongXiangnengli extends $tea.Model {
   }
 }
 
-// 初始参数
-export class InitParks extends $tea.Model {
-  // 返回接收到请求的当前时间
+// ABC产品结构体C
+export class AbcCreateStructC extends $tea.Model {
+  // 【个人信息】
   /**
    * @example
-   * 2024-11-03 14:00
+   * {"name":"张三","age":"18"}
    */
-  time: string;
-  // 操作人
+  personalInformation?: AbcCreateStructA;
+  // 【地区信息】
   /**
    * @example
-   * 姜泽琦
+   * {"info":"xxxxx","region":"浙江省杭州市西湖区xx街道xxx-xx幢-xx号"}
    */
-  operator: string;
-  // 请求编号
+  regionalInformation?: AbcCreateStructB;
+  // 【用例类型】
   /**
    * @example
-   * 1
+   * caseType
    */
-  count: number;
+  caseName?: string;
   static names(): { [key: string]: string } {
     return {
-      time: 'time',
-      operator: 'operator',
-      count: 'count',
+      personalInformation: 'personal_information',
+      regionalInformation: 'regional_information',
+      caseName: 'case_name',
     };
   }
 
   static types(): { [key: string]: any } {
     return {
-      time: 'string',
-      operator: 'string',
-      count: 'number',
+      personalInformation: AbcCreateStructA,
+      regionalInformation: AbcCreateStructB,
+      caseName: 'string',
     };
   }
 
@@ -477,23 +2120,63 @@ export class InitParks extends $tea.Model {
   }
 }
 
-// 11
-export class InitPark extends $tea.Model {
-  // 1
+// ABC产品结构体D
+export class AbcCreateStructD extends $tea.Model {
+  // 应用场景（payChannel =JDPAY仅支持MINI_APP） MINI_APP 小程序 APP 自有app ALL 两种都有
   /**
    * @example
-   * 1
+   * ALL
    */
-  demo: string;
+  applicationScene?: string;
+  // 小程序id
+  /**
+   * @example
+   * 小程序id
+   */
+  tinyAppId?: string;
+  // 小程序名称
+  /**
+   * @example
+   * xx小程序
+   */
+  siteName?: string;
+  // 网站地址（pay_channel=ALIPAY必填）
+  /**
+   * @example
+   * http://asdasas.com
+   */
+  sitUrl?: string;
+  // 商户名称。（pay_channel=ALIPAY必填） 修改后的商户名称，将同步支付宝代扣签约页面字段展示
+  /**
+   * @example
+   * xx商户
+   */
+  merchantName?: string;
+  // 商户服务名称。（pay_channel=ALIPAY必填） 修改后的商户服务名称，将同步支付宝代扣签约页面字段展示
+  /**
+   * @example
+   * xx商户服务
+   */
+  merchantServiceName?: string;
   static names(): { [key: string]: string } {
     return {
-      demo: 'demo',
+      applicationScene: 'application_scene',
+      tinyAppId: 'tiny_app_id',
+      siteName: 'site_name',
+      sitUrl: 'sit_url',
+      merchantName: 'merchant_name',
+      merchantServiceName: 'merchant_service_name',
     };
   }
 
   static types(): { [key: string]: any } {
     return {
-      demo: 'string',
+      applicationScene: 'string',
+      tinyAppId: 'string',
+      siteName: 'string',
+      sitUrl: 'string',
+      merchantName: 'string',
+      merchantServiceName: 'string',
     };
   }
 
@@ -502,39 +2185,80 @@ export class InitPark extends $tea.Model {
   }
 }
 
-// 初始
-export class InitPack extends $tea.Model {
-  // 请求时间
+// ABC示例结构体（这是编辑后上线的）
+export class AbcDemoStruct extends $tea.Model {
+  // 字符串属性
+  /**
+   * @example
+   * str
+   */
+  someString?: string;
+  static names(): { [key: string]: string } {
+    return {
+      someString: 'some_string',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      someString: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+// ABC结构体A
+export class AbcStructA extends $tea.Model {
+  // string_a
+  /**
+   * @example
+   * string
+   */
+  stringParamA?: string;
+  // number_a
+  /**
+   * @example
+   * 800
+   */
+  numberParamA?: number;
+  // boolean_a
+  /**
+   * @example
+   * true, false
+   */
+  booleanParamA?: boolean;
+  // date_a
   /**
    * @example
    * 2018-10-10T10:10:00Z
    */
-  time: string;
-  // 请求人
+  dateParamA?: string;
+  // struct_a
   /**
    * @example
-   * 张三
+   * struct_param
    */
-  operate: string;
-  // 编号
-  /**
-   * @example
-   * 1
-   */
-  count: number;
+  structParamA?: AbcStructB;
   static names(): { [key: string]: string } {
     return {
-      time: 'time',
-      operate: 'operate',
-      count: 'count',
+      stringParamA: 'string_param_a',
+      numberParamA: 'number_param_a',
+      booleanParamA: 'boolean_param_a',
+      dateParamA: 'date_param_a',
+      structParamA: 'struct_param_a',
     };
   }
 
   static types(): { [key: string]: any } {
     return {
-      time: 'string',
-      operate: 'string',
-      count: 'number',
+      stringParamA: 'string',
+      numberParamA: 'number',
+      booleanParamA: 'boolean',
+      dateParamA: 'string',
+      structParamA: AbcStructB,
     };
   }
 
@@ -543,39 +2267,39 @@ export class InitPack extends $tea.Model {
   }
 }
 
-// 测试使用
-export class TestPark extends $tea.Model {
-  // 请求时间
+// 子结构体（这是编辑后的）
+export class SubDemoStruct extends $tea.Model {
+  // name
   /**
    * @example
-   * 2022-11-07 14:48
+   * name
    */
-  time: string;
-  // 请求人
+  name: string;
+  // value
   /**
    * @example
-   * 张三
+   * value
    */
-  operator: string;
-  // 请求编号
+  value: string;
+  // a
   /**
    * @example
-   * 1
+   * a
    */
-  count: number;
+  a: string;
   static names(): { [key: string]: string } {
     return {
-      time: 'time',
-      operator: 'operator',
-      count: 'count',
+      name: 'name',
+      value: 'value',
+      a: 'a',
     };
   }
 
   static types(): { [key: string]: any } {
     return {
-      time: 'string',
-      operator: 'string',
-      count: 'number',
+      name: 'string',
+      value: 'string',
+      a: 'string',
     };
   }
 
@@ -584,14 +2308,189 @@ export class TestPark extends $tea.Model {
   }
 }
 
-// dev测试
-export class DevTest extends $tea.Model {
-  // 超时时间
+// test
+export class TestParamC extends $tea.Model {
+  // string_param
   /**
    * @example
-   * 200
+   * string_param
    */
-  timeout: string;
+  stringParam?: string;
+  // number_param
+  /**
+   * @example
+   * 1
+   */
+  numberParam?: number;
+  // boolean_param
+  /**
+   * @example
+   * true, false
+   */
+  booleanParam?: boolean;
+  // date_param
+  /**
+   * @example
+   * 2018-10-10T10:10:00Z
+   */
+  dateParam?: string;
+  // string
+  arrayParam?: string[];
+  static names(): { [key: string]: string } {
+    return {
+      stringParam: 'string_param',
+      numberParam: 'number_param',
+      booleanParam: 'boolean_param',
+      dateParam: 'date_param',
+      arrayParam: 'array_param',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      stringParam: 'string',
+      numberParam: 'number',
+      booleanParam: 'boolean',
+      dateParam: 'string',
+      arrayParam: { 'type': 'array', 'itemType': 'string' },
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+// test for edit
+export class TestParamB extends $tea.Model {
+  // string_param
+  /**
+   * @example
+   * string_param
+   */
+  stringParam?: string;
+  // number_param
+  /**
+   * @example
+   * 1
+   */
+  numberParam?: number;
+  // boolean_param
+  /**
+   * @example
+   * true, false
+   */
+  booleanParam?: boolean;
+  // date_param
+  /**
+   * @example
+   * 2018-10-10T10:10:00Z
+   */
+  dateParam?: string;
+  // struct_param
+  structParam: TestParamC;
+  // aa
+  /**
+   * @example
+   * 3000
+   */
+  structListB?: TestParamC;
+  static names(): { [key: string]: string } {
+    return {
+      stringParam: 'string_param',
+      numberParam: 'number_param',
+      booleanParam: 'boolean_param',
+      dateParam: 'date_param',
+      structParam: 'struct_param',
+      structListB: 'struct_list_b',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      stringParam: 'string',
+      numberParam: 'number',
+      booleanParam: 'boolean',
+      dateParam: 'string',
+      structParam: TestParamC,
+      structListB: TestParamC,
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+// test for edit
+export class TestParamA extends $tea.Model {
+  // string_param
+  /**
+   * @example
+   * string_param
+   */
+  stringParam?: string;
+  // number_param
+  /**
+   * @example
+   * 1
+   */
+  numberParam?: number;
+  // boolean_param
+  /**
+   * @example
+   * true, false
+   */
+  booleanParam?: boolean;
+  // date_param
+  /**
+   * @example
+   * 2018-10-10T10:10:00Z
+   */
+  dateParam?: string;
+  // struct_parama
+  structParama: TestParamB;
+  // 结构体列表a
+  /**
+   * @example
+   * undefined
+   */
+  structListA?: TestParamB[];
+  static names(): { [key: string]: string } {
+    return {
+      stringParam: 'string_param',
+      numberParam: 'number_param',
+      booleanParam: 'boolean_param',
+      dateParam: 'date_param',
+      structParama: 'struct_parama',
+      structListA: 'struct_list_a',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      stringParam: 'string',
+      numberParam: 'number',
+      booleanParam: 'boolean',
+      dateParam: 'string',
+      structParama: TestParamB,
+      structListA: { 'type': 'array', 'itemType': TestParamB },
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+// a
+export class TestDemo extends $tea.Model {
+  // a
+  /**
+   * @example
+   * a
+   */
+  timeout?: string;
   static names(): { [key: string]: string } {
     return {
       timeout: 'timeout',
@@ -609,8 +2508,198 @@ export class DevTest extends $tea.Model {
   }
 }
 
+// 测试11-22
+export class TestParams extends $tea.Model {
+  // a
+  /**
+   * @example
+   * undefined
+   */
+  parameter?: TestParamA;
+  // string
+  /**
+   * @example
+   * string
+   */
+  string?: string;
+  static names(): { [key: string]: string } {
+    return {
+      parameter: 'parameter',
+      string: 'string',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      parameter: TestParamA,
+      string: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+// aa
+export class OrderA extends $tea.Model {
+  // aa
+  /**
+   * @example
+   * a
+   */
+  aaa?: string;
+  static names(): { [key: string]: string } {
+    return {
+      aaa: 'aaa',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      aaa: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+// DEMOSDK结构体A·edit for test18
+export class DemosdkStructA extends $tea.Model {
+  // 【公司名称】
+  /**
+   * @example
+   * xx公司
+   */
+  companyName?: string;
+  // 【业务类型】
+  /**
+   * @example
+   * 运营
+   */
+  productMainClass?: string;
+  // 【公司地址】
+  /**
+   * @example
+   * xx市xx区
+   */
+  companyAddress?: string;
+  // 【联系人】
+  /**
+   * @example
+   * 张三
+   */
+  contactName?: string;
+  // 【联系人手机号】
+  /**
+   * @example
+   * 13688888888
+   */
+  contactMobile?: string;
+  static names(): { [key: string]: string } {
+    return {
+      companyName: 'company_name',
+      productMainClass: 'product_main_class',
+      companyAddress: 'company_address',
+      contactName: 'contact_name',
+      contactMobile: 'contact_mobile',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      companyName: 'string',
+      productMainClass: 'string',
+      companyAddress: 'string',
+      contactName: 'string',
+      contactMobile: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+// 返回结果测试类-11
+export class ResultTest extends $tea.Model {
+  // 姓名
+  /**
+   * @example
+   * 张三
+   */
+  name?: string;
+  static names(): { [key: string]: string } {
+    return {
+      name: 'name',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      name: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+// aaa
+export class CreateStructA extends $tea.Model {
+  // 超时时间
+  /**
+   * @example
+   * 3000
+   */
+  timeouta?: string;
+  static names(): { [key: string]: string } {
+    return {
+      timeouta: 'timeouta',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      timeouta: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+// a
+export class SumBean extends $tea.Model {
+  // 1
+  /**
+   * @example
+   * 1
+   */
+  a?: number;
+  static names(): { [key: string]: string } {
+    return {
+      a: 'a',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      a: 'number',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
 // Demo类1
-export class DemoClass extends $tea.Model {
+export class DemoClasses extends $tea.Model {
   // 字符串测试
   /**
    * @example
@@ -662,31 +2751,23 @@ export class DemoClass extends $tea.Model {
   }
 }
 
-// 返回结果测试类
-export class ResultTest extends $tea.Model {
-  // 姓名
+// 测试返回类
+export class TesRes extends $tea.Model {
+  // 证件号
   /**
    * @example
-   * 张三
+   * 12345
    */
-  name?: string;
-  // test
-  /**
-   * @example
-   * undefined
-   */
-  list: DemoClass;
+  idcard: string;
   static names(): { [key: string]: string } {
     return {
-      name: 'name',
-      list: 'list',
+      idcard: 'idcard',
     };
   }
 
   static types(): { [key: string]: any } {
     return {
-      name: 'string',
-      list: DemoClass,
+      idcard: 'string',
     };
   }
 
@@ -695,130 +2776,218 @@ export class ResultTest extends $tea.Model {
   }
 }
 
-// 返回结果测试类
-export class ResultTests extends $tea.Model {
-  // 姓名
-  /**
-   * @example
-   * 张三
-   */
-  name?: string;
-  // 年龄
-  /**
-   * @example
-   * 18
-   */
-  age: string;
-  static names(): { [key: string]: string } {
-    return {
-      name: 'name',
-      age: 'age',
-    };
-  }
-
-  static types(): { [key: string]: any } {
-    return {
-      name: 'string',
-      age: 'string',
-    };
-  }
-
-  constructor(map?: { [key: string]: any }) {
-    super(map);
-  }
-}
-
-// test
-export class DemoTestHf extends $tea.Model {
-  // test
-  /**
-   * @example
-   * undefined
-   */
-  info: ResultTest;
-  static names(): { [key: string]: string } {
-    return {
-      info: 'info',
-    };
-  }
-
-  static types(): { [key: string]: any } {
-    return {
-      info: ResultTest,
-    };
-  }
-
-  constructor(map?: { [key: string]: any }) {
-    super(map);
-  }
-}
-
-// 测试实体
-export class SumBean extends $tea.Model {
-  // 元素名称
-  /**
-   * @example
-   * 张三
-   */
-  eName?: string;
-  // 数量
-  /**
-   * @example
-   * 23
-   */
-  num?: number;
-  // test
-  /**
-   * @example
-   * undefined
-   */
-  info: ResultTests;
-  static names(): { [key: string]: string } {
-    return {
-      eName: 'e_name',
-      num: 'num',
-      info: 'info',
-    };
-  }
-
-  static types(): { [key: string]: any } {
-    return {
-      eName: 'string',
-      num: 'number',
-      info: ResultTests,
-    };
-  }
-
-  constructor(map?: { [key: string]: any }) {
-    super(map);
-  }
-}
-
-// 键值对
-export class XNameValuePair extends $tea.Model {
-  // 键名
-  /**
-   * @example
-   * key
-   */
+export class QueryDemoStreamTestRequest extends $tea.Model {
+  // OAuth模式下的授权token
+  authToken?: string;
+  productInstanceId?: string;
+  // 名称
   name: string;
-  // 键值
-  /**
-   * @example
-   * value
-   */
-  value: string;
   static names(): { [key: string]: string } {
     return {
+      authToken: 'auth_token',
+      productInstanceId: 'product_instance_id',
       name: 'name',
-      value: 'value',
     };
   }
 
   static types(): { [key: string]: any } {
     return {
+      authToken: 'string',
+      productInstanceId: 'string',
       name: 'string',
-      value: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class QueryDemoStreamTestResponse extends $tea.Model {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string;
+  // 结果码，一般OK表示调用成功
+  resultCode?: string;
+  // 异常信息的文本描述
+  resultMsg?: string;
+  static names(): { [key: string]: string } {
+    return {
+      reqMsgId: 'req_msg_id',
+      resultCode: 'result_code',
+      resultMsg: 'result_msg',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      reqMsgId: 'string',
+      resultCode: 'string',
+      resultMsg: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class QueryDemoTestTimeTestaRequest extends $tea.Model {
+  // OAuth模式下的授权token
+  authToken?: string;
+  productInstanceId?: string;
+  // a
+  a?: string;
+  // b
+  b?: TestClass;
+  static names(): { [key: string]: string } {
+    return {
+      authToken: 'auth_token',
+      productInstanceId: 'product_instance_id',
+      a: 'a',
+      b: 'b',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      authToken: 'string',
+      productInstanceId: 'string',
+      a: 'string',
+      b: TestClass,
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class QueryDemoTestTimeTestaResponse extends $tea.Model {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string;
+  // 结果码，一般OK表示调用成功
+  resultCode?: string;
+  // 异常信息的文本描述
+  resultMsg?: string;
+  static names(): { [key: string]: string } {
+    return {
+      reqMsgId: 'req_msg_id',
+      resultCode: 'result_code',
+      resultMsg: 'result_msg',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      reqMsgId: 'string',
+      resultCode: 'string',
+      resultMsg: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class QueryDemoTtUseRequest extends $tea.Model {
+  // OAuth模式下的授权token
+  authToken?: string;
+  productInstanceId?: string;
+  // 测试
+  idCard?: string;
+  static names(): { [key: string]: string } {
+    return {
+      authToken: 'auth_token',
+      productInstanceId: 'product_instance_id',
+      idCard: 'id_card',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      authToken: 'string',
+      productInstanceId: 'string',
+      idCard: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class QueryDemoTtUseResponse extends $tea.Model {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string;
+  // 结果码，一般OK表示调用成功
+  resultCode?: string;
+  // 异常信息的文本描述
+  resultMsg?: string;
+  static names(): { [key: string]: string } {
+    return {
+      reqMsgId: 'req_msg_id',
+      resultCode: 'result_code',
+      resultMsg: 'result_msg',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      reqMsgId: 'string',
+      resultCode: 'string',
+      resultMsg: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class QueryDemoUtListRequest extends $tea.Model {
+  // OAuth模式下的授权token
+  authToken?: string;
+  productInstanceId?: string;
+  static names(): { [key: string]: string } {
+    return {
+      authToken: 'auth_token',
+      productInstanceId: 'product_instance_id',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      authToken: 'string',
+      productInstanceId: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class QueryDemoUtListResponse extends $tea.Model {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string;
+  // 结果码，一般OK表示调用成功
+  resultCode?: string;
+  // 异常信息的文本描述
+  resultMsg?: string;
+  static names(): { [key: string]: string } {
+    return {
+      reqMsgId: 'req_msg_id',
+      resultCode: 'result_code',
+      resultMsg: 'result_msg',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      reqMsgId: 'string',
+      resultCode: 'string',
+      resultMsg: 'string',
     };
   }
 
@@ -1083,6 +3252,73 @@ export class QueryAntchainAbcOneLimitResponse extends $tea.Model {
   }
 }
 
+export class ImportAntchainAbcOneLimitRequest extends $tea.Model {
+  // OAuth模式下的授权token
+  authToken?: string;
+  productInstanceId?: string;
+  // 超时时间
+  timeout: string;
+  // 123
+  idcard?: AbcDemoStruct;
+  static names(): { [key: string]: string } {
+    return {
+      authToken: 'auth_token',
+      productInstanceId: 'product_instance_id',
+      timeout: 'timeout',
+      idcard: 'idcard',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      authToken: 'string',
+      productInstanceId: 'string',
+      timeout: 'string',
+      idcard: AbcDemoStruct,
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class ImportAntchainAbcOneLimitResponse extends $tea.Model {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string;
+  // 结果码，一般OK表示调用成功
+  resultCode?: string;
+  // 异常信息的文本描述
+  resultMsg?: string;
+  // 状态码
+  stauts?: string;
+  // 状态描述
+  msg?: string;
+  static names(): { [key: string]: string } {
+    return {
+      reqMsgId: 'req_msg_id',
+      resultCode: 'result_code',
+      resultMsg: 'result_msg',
+      stauts: 'stauts',
+      msg: 'msg',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      reqMsgId: 'string',
+      resultCode: 'string',
+      resultMsg: 'string',
+      stauts: 'string',
+      msg: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
 export class UnstabilizeAntchainAbcOneLimitRequest extends $tea.Model {
   // OAuth模式下的授权token
   authToken?: string;
@@ -1146,62 +3382,7 @@ export class UnstabilizeAntchainAbcOneLimitResponse extends $tea.Model {
   }
 }
 
-export class QueryAntchainDemosdkBbbEeeRequest extends $tea.Model {
-  // OAuth模式下的授权token
-  authToken?: string;
-  productInstanceId?: string;
-  // 姓名
-  name: string;
-  static names(): { [key: string]: string } {
-    return {
-      authToken: 'auth_token',
-      productInstanceId: 'product_instance_id',
-      name: 'name',
-    };
-  }
-
-  static types(): { [key: string]: any } {
-    return {
-      authToken: 'string',
-      productInstanceId: 'string',
-      name: 'string',
-    };
-  }
-
-  constructor(map?: { [key: string]: any }) {
-    super(map);
-  }
-}
-
-export class QueryAntchainDemosdkBbbEeeResponse extends $tea.Model {
-  // 请求唯一ID，用于链路跟踪和问题排查
-  reqMsgId?: string;
-  // 结果码，一般OK表示调用成功
-  resultCode?: string;
-  // 异常信息的文本描述
-  resultMsg?: string;
-  static names(): { [key: string]: string } {
-    return {
-      reqMsgId: 'req_msg_id',
-      resultCode: 'result_code',
-      resultMsg: 'result_msg',
-    };
-  }
-
-  static types(): { [key: string]: any } {
-    return {
-      reqMsgId: 'string',
-      resultCode: 'string',
-      resultMsg: 'string',
-    };
-  }
-
-  constructor(map?: { [key: string]: any }) {
-    super(map);
-  }
-}
-
-export class QueryAntchainDemosdkAaaTestRequest extends $tea.Model {
+export class ApibAntchainDemointernationalxjpInternationalPushRequest extends $tea.Model {
   // OAuth模式下的授权token
   authToken?: string;
   productInstanceId?: string;
@@ -1224,235 +3405,7 @@ export class QueryAntchainDemosdkAaaTestRequest extends $tea.Model {
   }
 }
 
-export class QueryAntchainDemosdkAaaTestResponse extends $tea.Model {
-  // 请求唯一ID，用于链路跟踪和问题排查
-  reqMsgId?: string;
-  // 结果码，一般OK表示调用成功
-  resultCode?: string;
-  // 异常信息的文本描述
-  resultMsg?: string;
-  static names(): { [key: string]: string } {
-    return {
-      reqMsgId: 'req_msg_id',
-      resultCode: 'result_code',
-      resultMsg: 'result_msg',
-    };
-  }
-
-  static types(): { [key: string]: any } {
-    return {
-      reqMsgId: 'string',
-      resultCode: 'string',
-      resultMsg: 'string',
-    };
-  }
-
-  constructor(map?: { [key: string]: any }) {
-    super(map);
-  }
-}
-
-export class StabilizeAntchainDemosdkBbbCccRequest extends $tea.Model {
-  // OAuth模式下的授权token
-  authToken?: string;
-  productInstanceId?: string;
-  // 测试
-  test?: string;
-  static names(): { [key: string]: string } {
-    return {
-      authToken: 'auth_token',
-      productInstanceId: 'product_instance_id',
-      test: 'test',
-    };
-  }
-
-  static types(): { [key: string]: any } {
-    return {
-      authToken: 'string',
-      productInstanceId: 'string',
-      test: 'string',
-    };
-  }
-
-  constructor(map?: { [key: string]: any }) {
-    super(map);
-  }
-}
-
-export class StabilizeAntchainDemosdkBbbCccResponse extends $tea.Model {
-  // 请求唯一ID，用于链路跟踪和问题排查
-  reqMsgId?: string;
-  // 结果码，一般OK表示调用成功
-  resultCode?: string;
-  // 异常信息的文本描述
-  resultMsg?: string;
-  static names(): { [key: string]: string } {
-    return {
-      reqMsgId: 'req_msg_id',
-      resultCode: 'result_code',
-      resultMsg: 'result_msg',
-    };
-  }
-
-  static types(): { [key: string]: any } {
-    return {
-      reqMsgId: 'string',
-      resultCode: 'string',
-      resultMsg: 'string',
-    };
-  }
-
-  constructor(map?: { [key: string]: any }) {
-    super(map);
-  }
-}
-
-export class QueryAntchainDemosdkMultiCccRequest extends $tea.Model {
-  // OAuth模式下的授权token
-  authToken?: string;
-  productInstanceId?: string;
-  // 名称
-  name: string;
-  static names(): { [key: string]: string } {
-    return {
-      authToken: 'auth_token',
-      productInstanceId: 'product_instance_id',
-      name: 'name',
-    };
-  }
-
-  static types(): { [key: string]: any } {
-    return {
-      authToken: 'string',
-      productInstanceId: 'string',
-      name: 'string',
-    };
-  }
-
-  constructor(map?: { [key: string]: any }) {
-    super(map);
-  }
-}
-
-export class QueryAntchainDemosdkMultiCccResponse extends $tea.Model {
-  // 请求唯一ID，用于链路跟踪和问题排查
-  reqMsgId?: string;
-  // 结果码，一般OK表示调用成功
-  resultCode?: string;
-  // 异常信息的文本描述
-  resultMsg?: string;
-  // 测试
-  body?: string[];
-  static names(): { [key: string]: string } {
-    return {
-      reqMsgId: 'req_msg_id',
-      resultCode: 'result_code',
-      resultMsg: 'result_msg',
-      body: 'body',
-    };
-  }
-
-  static types(): { [key: string]: any } {
-    return {
-      reqMsgId: 'string',
-      resultCode: 'string',
-      resultMsg: 'string',
-      body: { 'type': 'array', 'itemType': 'string' },
-    };
-  }
-
-  constructor(map?: { [key: string]: any }) {
-    super(map);
-  }
-}
-
-export class QueryAntchainDemosdkAaaCciRequest extends $tea.Model {
-  // OAuth模式下的授权token
-  authToken?: string;
-  productInstanceId?: string;
-  // 姓名
-  name: string;
-  static names(): { [key: string]: string } {
-    return {
-      authToken: 'auth_token',
-      productInstanceId: 'product_instance_id',
-      name: 'name',
-    };
-  }
-
-  static types(): { [key: string]: any } {
-    return {
-      authToken: 'string',
-      productInstanceId: 'string',
-      name: 'string',
-    };
-  }
-
-  constructor(map?: { [key: string]: any }) {
-    super(map);
-  }
-}
-
-export class QueryAntchainDemosdkAaaCciResponse extends $tea.Model {
-  // 请求唯一ID，用于链路跟踪和问题排查
-  reqMsgId?: string;
-  // 结果码，一般OK表示调用成功
-  resultCode?: string;
-  // 异常信息的文本描述
-  resultMsg?: string;
-  // 测试
-  test?: string;
-  // 1
-  num?: string;
-  static names(): { [key: string]: string } {
-    return {
-      reqMsgId: 'req_msg_id',
-      resultCode: 'result_code',
-      resultMsg: 'result_msg',
-      test: 'test',
-      num: 'num',
-    };
-  }
-
-  static types(): { [key: string]: any } {
-    return {
-      reqMsgId: 'string',
-      resultCode: 'string',
-      resultMsg: 'string',
-      test: 'string',
-      num: 'string',
-    };
-  }
-
-  constructor(map?: { [key: string]: any }) {
-    super(map);
-  }
-}
-
-export class ResetAntchainDemosdkBbbCccRequest extends $tea.Model {
-  // OAuth模式下的授权token
-  authToken?: string;
-  productInstanceId?: string;
-  static names(): { [key: string]: string } {
-    return {
-      authToken: 'auth_token',
-      productInstanceId: 'product_instance_id',
-    };
-  }
-
-  static types(): { [key: string]: any } {
-    return {
-      authToken: 'string',
-      productInstanceId: 'string',
-    };
-  }
-
-  constructor(map?: { [key: string]: any }) {
-    super(map);
-  }
-}
-
-export class ResetAntchainDemosdkBbbCccResponse extends $tea.Model {
+export class ApibAntchainDemointernationalxjpInternationalPushResponse extends $tea.Model {
   // 请求唯一ID，用于链路跟踪和问题排查
   reqMsgId?: string;
   // 结果码，一般OK表示调用成功
@@ -1539,721 +3492,6 @@ export class BindAntchainDemosdkXxxResponse extends $tea.Model {
   }
 }
 
-export class QueryAntchainDemosdkCcXxRequest extends $tea.Model {
-  // OAuth模式下的授权token
-  authToken?: string;
-  productInstanceId?: string;
-  // aa
-  name: string;
-  // 测试
-  msg: ResultTest;
-  static names(): { [key: string]: string } {
-    return {
-      authToken: 'auth_token',
-      productInstanceId: 'product_instance_id',
-      name: 'name',
-      msg: 'msg',
-    };
-  }
-
-  static types(): { [key: string]: any } {
-    return {
-      authToken: 'string',
-      productInstanceId: 'string',
-      name: 'string',
-      msg: ResultTest,
-    };
-  }
-
-  constructor(map?: { [key: string]: any }) {
-    super(map);
-  }
-}
-
-export class QueryAntchainDemosdkCcXxResponse extends $tea.Model {
-  // 请求唯一ID，用于链路跟踪和问题排查
-  reqMsgId?: string;
-  // 结果码，一般OK表示调用成功
-  resultCode?: string;
-  // 异常信息的文本描述
-  resultMsg?: string;
-  // 1213
-  test?: string;
-  static names(): { [key: string]: string } {
-    return {
-      reqMsgId: 'req_msg_id',
-      resultCode: 'result_code',
-      resultMsg: 'result_msg',
-      test: 'test',
-    };
-  }
-
-  static types(): { [key: string]: any } {
-    return {
-      reqMsgId: 'string',
-      resultCode: 'string',
-      resultMsg: 'string',
-      test: 'string',
-    };
-  }
-
-  constructor(map?: { [key: string]: any }) {
-    super(map);
-  }
-}
-
-export class ResetAntchainDemosdkAbcdLimitRequest extends $tea.Model {
-  // OAuth模式下的授权token
-  authToken?: string;
-  productInstanceId?: string;
-  // 超时时间
-  timeout?: string;
-  // 请求编号
-  count?: string;
-  // 请求时间
-  time?: string;
-  // 请求描述
-  desc?: string;
-  // 操作者
-  operator?: string;
-  static names(): { [key: string]: string } {
-    return {
-      authToken: 'auth_token',
-      productInstanceId: 'product_instance_id',
-      timeout: 'timeout',
-      count: 'count',
-      time: 'time',
-      desc: 'desc',
-      operator: 'operator',
-    };
-  }
-
-  static types(): { [key: string]: any } {
-    return {
-      authToken: 'string',
-      productInstanceId: 'string',
-      timeout: 'string',
-      count: 'string',
-      time: 'string',
-      desc: 'string',
-      operator: 'string',
-    };
-  }
-
-  constructor(map?: { [key: string]: any }) {
-    super(map);
-  }
-}
-
-export class ResetAntchainDemosdkAbcdLimitResponse extends $tea.Model {
-  // 请求唯一ID，用于链路跟踪和问题排查
-  reqMsgId?: string;
-  // 结果码，一般OK表示调用成功
-  resultCode?: string;
-  // 异常信息的文本描述
-  resultMsg?: string;
-  // 返回结果
-  stauts?: string;
-  // 返回描述
-  msg?: string;
-  static names(): { [key: string]: string } {
-    return {
-      reqMsgId: 'req_msg_id',
-      resultCode: 'result_code',
-      resultMsg: 'result_msg',
-      stauts: 'stauts',
-      msg: 'msg',
-    };
-  }
-
-  static types(): { [key: string]: any } {
-    return {
-      reqMsgId: 'string',
-      resultCode: 'string',
-      resultMsg: 'string',
-      stauts: 'string',
-      msg: 'string',
-    };
-  }
-
-  constructor(map?: { [key: string]: any }) {
-    super(map);
-  }
-}
-
-export class ImportAntchainDemosdkCreateOneRequest extends $tea.Model {
-  // OAuth模式下的授权token
-  authToken?: string;
-  productInstanceId?: string;
-  // 3000
-  timeout: string;
-  static names(): { [key: string]: string } {
-    return {
-      authToken: 'auth_token',
-      productInstanceId: 'product_instance_id',
-      timeout: 'timeout',
-    };
-  }
-
-  static types(): { [key: string]: any } {
-    return {
-      authToken: 'string',
-      productInstanceId: 'string',
-      timeout: 'string',
-    };
-  }
-
-  constructor(map?: { [key: string]: any }) {
-    super(map);
-  }
-}
-
-export class ImportAntchainDemosdkCreateOneResponse extends $tea.Model {
-  // 请求唯一ID，用于链路跟踪和问题排查
-  reqMsgId?: string;
-  // 结果码，一般OK表示调用成功
-  resultCode?: string;
-  // 异常信息的文本描述
-  resultMsg?: string;
-  // 200
-  status?: string;
-  // SUCCESS le
-  msg?: string;
-  static names(): { [key: string]: string } {
-    return {
-      reqMsgId: 'req_msg_id',
-      resultCode: 'result_code',
-      resultMsg: 'result_msg',
-      status: 'status',
-      msg: 'msg',
-    };
-  }
-
-  static types(): { [key: string]: any } {
-    return {
-      reqMsgId: 'string',
-      resultCode: 'string',
-      resultMsg: 'string',
-      status: 'string',
-      msg: 'string',
-    };
-  }
-
-  constructor(map?: { [key: string]: any }) {
-    super(map);
-  }
-}
-
-export class WithdrawAntchainDemosdkTwiceOneRequest extends $tea.Model {
-  // OAuth模式下的授权token
-  authToken?: string;
-  productInstanceId?: string;
-  // 超时时间
-  timeout?: string;
-  static names(): { [key: string]: string } {
-    return {
-      authToken: 'auth_token',
-      productInstanceId: 'product_instance_id',
-      timeout: 'timeout',
-    };
-  }
-
-  static types(): { [key: string]: any } {
-    return {
-      authToken: 'string',
-      productInstanceId: 'string',
-      timeout: 'string',
-    };
-  }
-
-  constructor(map?: { [key: string]: any }) {
-    super(map);
-  }
-}
-
-export class WithdrawAntchainDemosdkTwiceOneResponse extends $tea.Model {
-  // 请求唯一ID，用于链路跟踪和问题排查
-  reqMsgId?: string;
-  // 结果码，一般OK表示调用成功
-  resultCode?: string;
-  // 异常信息的文本描述
-  resultMsg?: string;
-  // 返回结果码
-  stauts?: string;
-  // 返回结果描述
-  msg?: string;
-  static names(): { [key: string]: string } {
-    return {
-      reqMsgId: 'req_msg_id',
-      resultCode: 'result_code',
-      resultMsg: 'result_msg',
-      stauts: 'stauts',
-      msg: 'msg',
-    };
-  }
-
-  static types(): { [key: string]: any } {
-    return {
-      reqMsgId: 'string',
-      resultCode: 'string',
-      resultMsg: 'string',
-      stauts: 'string',
-      msg: 'string',
-    };
-  }
-
-  constructor(map?: { [key: string]: any }) {
-    super(map);
-  }
-}
-
-export class OperateAntchainDemosdkTwiceOneRequest extends $tea.Model {
-  // OAuth模式下的授权token
-  authToken?: string;
-  productInstanceId?: string;
-  // 超时时间
-  timeout?: string;
-  static names(): { [key: string]: string } {
-    return {
-      authToken: 'auth_token',
-      productInstanceId: 'product_instance_id',
-      timeout: 'timeout',
-    };
-  }
-
-  static types(): { [key: string]: any } {
-    return {
-      authToken: 'string',
-      productInstanceId: 'string',
-      timeout: 'string',
-    };
-  }
-
-  constructor(map?: { [key: string]: any }) {
-    super(map);
-  }
-}
-
-export class OperateAntchainDemosdkTwiceOneResponse extends $tea.Model {
-  // 请求唯一ID，用于链路跟踪和问题排查
-  reqMsgId?: string;
-  // 结果码，一般OK表示调用成功
-  resultCode?: string;
-  // 异常信息的文本描述
-  resultMsg?: string;
-  // 状态码
-  stauts?: string;
-  // 返回结果描述
-  msg?: string;
-  static names(): { [key: string]: string } {
-    return {
-      reqMsgId: 'req_msg_id',
-      resultCode: 'result_code',
-      resultMsg: 'result_msg',
-      stauts: 'stauts',
-      msg: 'msg',
-    };
-  }
-
-  static types(): { [key: string]: any } {
-    return {
-      reqMsgId: 'string',
-      resultCode: 'string',
-      resultMsg: 'string',
-      stauts: 'string',
-      msg: 'string',
-    };
-  }
-
-  constructor(map?: { [key: string]: any }) {
-    super(map);
-  }
-}
-
-export class QueryAntchainDemosdkTwiceThreeRequest extends $tea.Model {
-  // OAuth模式下的授权token
-  authToken?: string;
-  productInstanceId?: string;
-  // 超时时间
-  timeout?: string;
-  // 11
-  aa?: DemoClass;
-  static names(): { [key: string]: string } {
-    return {
-      authToken: 'auth_token',
-      productInstanceId: 'product_instance_id',
-      timeout: 'timeout',
-      aa: 'aa',
-    };
-  }
-
-  static types(): { [key: string]: any } {
-    return {
-      authToken: 'string',
-      productInstanceId: 'string',
-      timeout: 'string',
-      aa: DemoClass,
-    };
-  }
-
-  constructor(map?: { [key: string]: any }) {
-    super(map);
-  }
-}
-
-export class QueryAntchainDemosdkTwiceThreeResponse extends $tea.Model {
-  // 请求唯一ID，用于链路跟踪和问题排查
-  reqMsgId?: string;
-  // 结果码，一般OK表示调用成功
-  resultCode?: string;
-  // 异常信息的文本描述
-  resultMsg?: string;
-  // 状态码
-  stauts?: string;
-  // 状态描述
-  msg?: string;
-  static names(): { [key: string]: string } {
-    return {
-      reqMsgId: 'req_msg_id',
-      resultCode: 'result_code',
-      resultMsg: 'result_msg',
-      stauts: 'stauts',
-      msg: 'msg',
-    };
-  }
-
-  static types(): { [key: string]: any } {
-    return {
-      reqMsgId: 'string',
-      resultCode: 'string',
-      resultMsg: 'string',
-      stauts: 'string',
-      msg: 'string',
-    };
-  }
-
-  constructor(map?: { [key: string]: any }) {
-    super(map);
-  }
-}
-
-export class UnstabilizeAntchainDemosdkTwiceThreeRequest extends $tea.Model {
-  // OAuth模式下的授权token
-  authToken?: string;
-  productInstanceId?: string;
-  // 超时时间
-  timeout?: string;
-  static names(): { [key: string]: string } {
-    return {
-      authToken: 'auth_token',
-      productInstanceId: 'product_instance_id',
-      timeout: 'timeout',
-    };
-  }
-
-  static types(): { [key: string]: any } {
-    return {
-      authToken: 'string',
-      productInstanceId: 'string',
-      timeout: 'string',
-    };
-  }
-
-  constructor(map?: { [key: string]: any }) {
-    super(map);
-  }
-}
-
-export class UnstabilizeAntchainDemosdkTwiceThreeResponse extends $tea.Model {
-  // 请求唯一ID，用于链路跟踪和问题排查
-  reqMsgId?: string;
-  // 结果码，一般OK表示调用成功
-  resultCode?: string;
-  // 异常信息的文本描述
-  resultMsg?: string;
-  // 状态码
-  stauts?: string;
-  // 状态描述
-  msg?: string;
-  static names(): { [key: string]: string } {
-    return {
-      reqMsgId: 'req_msg_id',
-      resultCode: 'result_code',
-      resultMsg: 'result_msg',
-      stauts: 'stauts',
-      msg: 'msg',
-    };
-  }
-
-  static types(): { [key: string]: any } {
-    return {
-      reqMsgId: 'string',
-      resultCode: 'string',
-      resultMsg: 'string',
-      stauts: 'string',
-      msg: 'string',
-    };
-  }
-
-  constructor(map?: { [key: string]: any }) {
-    super(map);
-  }
-}
-
-export class QueryAntchainDemosdkTesxRequest extends $tea.Model {
-  // OAuth模式下的授权token
-  authToken?: string;
-  productInstanceId?: string;
-  // 名称
-  name: string;
-  // 12
-  test?: DemoClass;
-  // 12
-  testNew?: TestDemo;
-  static names(): { [key: string]: string } {
-    return {
-      authToken: 'auth_token',
-      productInstanceId: 'product_instance_id',
-      name: 'name',
-      test: 'test',
-      testNew: 'test_new',
-    };
-  }
-
-  static types(): { [key: string]: any } {
-    return {
-      authToken: 'string',
-      productInstanceId: 'string',
-      name: 'string',
-      test: DemoClass,
-      testNew: TestDemo,
-    };
-  }
-
-  constructor(map?: { [key: string]: any }) {
-    super(map);
-  }
-}
-
-export class QueryAntchainDemosdkTesxResponse extends $tea.Model {
-  // 请求唯一ID，用于链路跟踪和问题排查
-  reqMsgId?: string;
-  // 结果码，一般OK表示调用成功
-  resultCode?: string;
-  // 异常信息的文本描述
-  resultMsg?: string;
-  static names(): { [key: string]: string } {
-    return {
-      reqMsgId: 'req_msg_id',
-      resultCode: 'result_code',
-      resultMsg: 'result_msg',
-    };
-  }
-
-  static types(): { [key: string]: any } {
-    return {
-      reqMsgId: 'string',
-      resultCode: 'string',
-      resultMsg: 'string',
-    };
-  }
-
-  constructor(map?: { [key: string]: any }) {
-    super(map);
-  }
-}
-
-export class TestAntchainDemosdkPreFullRequest extends $tea.Model {
-  // OAuth模式下的授权token
-  authToken?: string;
-  productInstanceId?: string;
-  // string
-  /**
-   * @remarks
-   * 待上传文件
-   */
-  fileObject?: Readable;
-  /**
-   * @remarks
-   * 待上传文件名
-   */
-  fileObjectName?: string;
-  fileId: string;
-  static names(): { [key: string]: string } {
-    return {
-      authToken: 'auth_token',
-      productInstanceId: 'product_instance_id',
-      fileObject: 'fileObject',
-      fileObjectName: 'fileObjectName',
-      fileId: 'file_id',
-    };
-  }
-
-  static types(): { [key: string]: any } {
-    return {
-      authToken: 'string',
-      productInstanceId: 'string',
-      fileObject: 'Readable',
-      fileObjectName: 'string',
-      fileId: 'string',
-    };
-  }
-
-  constructor(map?: { [key: string]: any }) {
-    super(map);
-  }
-}
-
-export class TestAntchainDemosdkPreFullResponse extends $tea.Model {
-  // 请求唯一ID，用于链路跟踪和问题排查
-  reqMsgId?: string;
-  // 结果码，一般OK表示调用成功
-  resultCode?: string;
-  // 异常信息的文本描述
-  resultMsg?: string;
-  static names(): { [key: string]: string } {
-    return {
-      reqMsgId: 'req_msg_id',
-      resultCode: 'result_code',
-      resultMsg: 'result_msg',
-    };
-  }
-
-  static types(): { [key: string]: any } {
-    return {
-      reqMsgId: 'string',
-      resultCode: 'string',
-      resultMsg: 'string',
-    };
-  }
-
-  constructor(map?: { [key: string]: any }) {
-    super(map);
-  }
-}
-
-export class QueryAntchainDemosdkTestapiRequest extends $tea.Model {
-  // OAuth模式下的授权token
-  authToken?: string;
-  productInstanceId?: string;
-  // 名称
-  name: string;
-  // 测试
-  className?: DemoClass;
-  static names(): { [key: string]: string } {
-    return {
-      authToken: 'auth_token',
-      productInstanceId: 'product_instance_id',
-      name: 'name',
-      className: 'class_name',
-    };
-  }
-
-  static types(): { [key: string]: any } {
-    return {
-      authToken: 'string',
-      productInstanceId: 'string',
-      name: 'string',
-      className: DemoClass,
-    };
-  }
-
-  constructor(map?: { [key: string]: any }) {
-    super(map);
-  }
-}
-
-export class QueryAntchainDemosdkTestapiResponse extends $tea.Model {
-  // 请求唯一ID，用于链路跟踪和问题排查
-  reqMsgId?: string;
-  // 结果码，一般OK表示调用成功
-  resultCode?: string;
-  // 异常信息的文本描述
-  resultMsg?: string;
-  static names(): { [key: string]: string } {
-    return {
-      reqMsgId: 'req_msg_id',
-      resultCode: 'result_code',
-      resultMsg: 'result_msg',
-    };
-  }
-
-  static types(): { [key: string]: any } {
-    return {
-      reqMsgId: 'string',
-      resultCode: 'string',
-      resultMsg: 'string',
-    };
-  }
-
-  constructor(map?: { [key: string]: any }) {
-    super(map);
-  }
-}
-
-export class QueryAntchainDemosdkTumRequest extends $tea.Model {
-  // OAuth模式下的授权token
-  authToken?: string;
-  productInstanceId?: string;
-  // 名称
-  name?: string;
-  // 测试bean
-  testBean?: SumBean;
-  static names(): { [key: string]: string } {
-    return {
-      authToken: 'auth_token',
-      productInstanceId: 'product_instance_id',
-      name: 'name',
-      testBean: 'test_bean',
-    };
-  }
-
-  static types(): { [key: string]: any } {
-    return {
-      authToken: 'string',
-      productInstanceId: 'string',
-      name: 'string',
-      testBean: SumBean,
-    };
-  }
-
-  constructor(map?: { [key: string]: any }) {
-    super(map);
-  }
-}
-
-export class QueryAntchainDemosdkTumResponse extends $tea.Model {
-  // 请求唯一ID，用于链路跟踪和问题排查
-  reqMsgId?: string;
-  // 结果码，一般OK表示调用成功
-  resultCode?: string;
-  // 异常信息的文本描述
-  resultMsg?: string;
-  // 名称
-  name?: string;
-  static names(): { [key: string]: string } {
-    return {
-      reqMsgId: 'req_msg_id',
-      resultCode: 'result_code',
-      resultMsg: 'result_msg',
-      name: 'name',
-    };
-  }
-
-  static types(): { [key: string]: any } {
-    return {
-      reqMsgId: 'string',
-      resultCode: 'string',
-      resultMsg: 'string',
-      name: 'string',
-    };
-  }
-
-  constructor(map?: { [key: string]: any }) {
-    super(map);
-  }
-}
-
 export class ZzzAntchainDemosdkAaaBbbRequest extends $tea.Model {
   // OAuth模式下的授权token
   authToken?: string;
@@ -2317,42 +3555,21 @@ export class ZzzAntchainDemosdkAaaBbbResponse extends $tea.Model {
   }
 }
 
-export class CreateAntcloudGatewayxFileUploadRequest extends $tea.Model {
+export class CallDemoAaaBbbCccRequest extends $tea.Model {
   // OAuth模式下的授权token
   authToken?: string;
-  // 上传文件作用的openapi method
-  apiCode: string;
-  // 文件标签，多个标签;分割
-  fileLabel?: string;
-  // 自定义的文件元数据
-  fileMetadata?: string;
-  // 文件名，不传则随机生成文件名
-  fileName?: string;
-  // 文件的多媒体类型
-  mimeType?: string;
-  // 产品方的api归属集群，即productInstanceId
-  apiCluster?: string;
+  productInstanceId?: string;
   static names(): { [key: string]: string } {
     return {
       authToken: 'auth_token',
-      apiCode: 'api_code',
-      fileLabel: 'file_label',
-      fileMetadata: 'file_metadata',
-      fileName: 'file_name',
-      mimeType: 'mime_type',
-      apiCluster: 'api_cluster',
+      productInstanceId: 'product_instance_id',
     };
   }
 
   static types(): { [key: string]: any } {
     return {
       authToken: 'string',
-      apiCode: 'string',
-      fileLabel: 'string',
-      fileMetadata: 'string',
-      fileName: 'string',
-      mimeType: 'string',
-      apiCluster: 'string',
+      productInstanceId: 'string',
     };
   }
 
@@ -2361,30 +3578,18 @@ export class CreateAntcloudGatewayxFileUploadRequest extends $tea.Model {
   }
 }
 
-export class CreateAntcloudGatewayxFileUploadResponse extends $tea.Model {
+export class CallDemoAaaBbbCccResponse extends $tea.Model {
   // 请求唯一ID，用于链路跟踪和问题排查
   reqMsgId?: string;
   // 结果码，一般OK表示调用成功
   resultCode?: string;
   // 异常信息的文本描述
   resultMsg?: string;
-  // 上传有效期
-  expiredTime?: string;
-  // 32位文件唯一id
-  fileId?: string;
-  // 放入http请求头里
-  uploadHeaders?: XNameValuePair[];
-  // 文件上传地址
-  uploadUrl?: string;
   static names(): { [key: string]: string } {
     return {
       reqMsgId: 'req_msg_id',
       resultCode: 'result_code',
       resultMsg: 'result_msg',
-      expiredTime: 'expired_time',
-      fileId: 'file_id',
-      uploadHeaders: 'upload_headers',
-      uploadUrl: 'upload_url',
     };
   }
 
@@ -2393,10 +3598,6 @@ export class CreateAntcloudGatewayxFileUploadResponse extends $tea.Model {
       reqMsgId: 'string',
       resultCode: 'string',
       resultMsg: 'string',
-      expiredTime: 'string',
-      fileId: 'string',
-      uploadHeaders: { 'type': 'array', 'itemType': XNameValuePair },
-      uploadUrl: 'string',
     };
   }
 
@@ -2522,7 +3723,7 @@ export default class Client {
           req_msg_id: AntchainUtil.getNonce(),
           access_key: this._accessKeyId,
           base_sdk_version: "TeaSDK-2.0",
-          sdk_version: "2.0.7",
+          sdk_version: "2.0.5",
           _prod_code: "QQQ",
           _prod_channel: "default",
         };
@@ -2568,6 +3769,90 @@ export default class Client {
     }
 
     throw $tea.newUnretryableError(_lastRequest);
+  }
+
+  /**
+   * @remarks
+   * Description: 流失查询测试
+   * Summary: 流失查询测试
+   */
+  async queryDemoStreamTest(request: QueryDemoStreamTestRequest): Promise<QueryDemoStreamTestResponse> {
+    let runtime = new $Util.RuntimeOptions({ });
+    let headers : {[key: string ]: string} = { };
+    return await this.queryDemoStreamTestEx(request, headers, runtime);
+  }
+
+  /**
+   * @remarks
+   * Description: 流失查询测试
+   * Summary: 流失查询测试
+   */
+  async queryDemoStreamTestEx(request: QueryDemoStreamTestRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<QueryDemoStreamTestResponse> {
+    Util.validateModel(request);
+    return $tea.cast<QueryDemoStreamTestResponse>(await this.doRequest("1.0", "demo.stream.test.query", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new QueryDemoStreamTestResponse({}));
+  }
+
+  /**
+   * @remarks
+   * Description: 个人工作台二期测试
+   * Summary: 个人工作台二期测试
+   */
+  async queryDemoTestTimeTesta(request: QueryDemoTestTimeTestaRequest): Promise<QueryDemoTestTimeTestaResponse> {
+    let runtime = new $Util.RuntimeOptions({ });
+    let headers : {[key: string ]: string} = { };
+    return await this.queryDemoTestTimeTestaEx(request, headers, runtime);
+  }
+
+  /**
+   * @remarks
+   * Description: 个人工作台二期测试
+   * Summary: 个人工作台二期测试
+   */
+  async queryDemoTestTimeTestaEx(request: QueryDemoTestTimeTestaRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<QueryDemoTestTimeTestaResponse> {
+    Util.validateModel(request);
+    return $tea.cast<QueryDemoTestTimeTestaResponse>(await this.doRequest("1.0", "demo.test.time.testa.query", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new QueryDemoTestTimeTestaResponse({}));
+  }
+
+  /**
+   * @remarks
+   * Description: s
+   * Summary: s
+   */
+  async queryDemoTtUse(request: QueryDemoTtUseRequest): Promise<QueryDemoTtUseResponse> {
+    let runtime = new $Util.RuntimeOptions({ });
+    let headers : {[key: string ]: string} = { };
+    return await this.queryDemoTtUseEx(request, headers, runtime);
+  }
+
+  /**
+   * @remarks
+   * Description: s
+   * Summary: s
+   */
+  async queryDemoTtUseEx(request: QueryDemoTtUseRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<QueryDemoTtUseResponse> {
+    Util.validateModel(request);
+    return $tea.cast<QueryDemoTtUseResponse>(await this.doRequest("1.0", "demo.tt.use.query", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new QueryDemoTtUseResponse({}));
+  }
+
+  /**
+   * @remarks
+   * Description: x
+   * Summary: x
+   */
+  async queryDemoUtList(request: QueryDemoUtListRequest): Promise<QueryDemoUtListResponse> {
+    let runtime = new $Util.RuntimeOptions({ });
+    let headers : {[key: string ]: string} = { };
+    return await this.queryDemoUtListEx(request, headers, runtime);
+  }
+
+  /**
+   * @remarks
+   * Description: x
+   * Summary: x
+   */
+  async queryDemoUtListEx(request: QueryDemoUtListRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<QueryDemoUtListResponse> {
+    Util.validateModel(request);
+    return $tea.cast<QueryDemoUtListResponse>(await this.doRequest("1.0", "demo.ut.list.query", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new QueryDemoUtListResponse({}));
   }
 
   /**
@@ -2656,6 +3941,27 @@ export default class Client {
 
   /**
    * @remarks
+   * Description: 个人工作台二期预发测试
+   * Summary: 个人工作台二期预发测试
+   */
+  async importAntchainAbcOneLimit(request: ImportAntchainAbcOneLimitRequest): Promise<ImportAntchainAbcOneLimitResponse> {
+    let runtime = new $Util.RuntimeOptions({ });
+    let headers : {[key: string ]: string} = { };
+    return await this.importAntchainAbcOneLimitEx(request, headers, runtime);
+  }
+
+  /**
+   * @remarks
+   * Description: 个人工作台二期预发测试
+   * Summary: 个人工作台二期预发测试
+   */
+  async importAntchainAbcOneLimitEx(request: ImportAntchainAbcOneLimitRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<ImportAntchainAbcOneLimitResponse> {
+    Util.validateModel(request);
+    return $tea.cast<ImportAntchainAbcOneLimitResponse>(await this.doRequest("1.0", "antchain.abc.one.limit.import", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new ImportAntchainAbcOneLimitResponse({}));
+  }
+
+  /**
+   * @remarks
    * Description: 个人工作台二期测试接口
    * Summary: 个人工作台二期测试接口
    */
@@ -2677,128 +3983,23 @@ export default class Client {
 
   /**
    * @remarks
-   * Description: 测试接口
-   * Summary: 测试接口
+   * Description: 新加坡push
+   * Summary: 新加坡push
    */
-  async queryAntchainDemosdkBbbEee(request: QueryAntchainDemosdkBbbEeeRequest): Promise<QueryAntchainDemosdkBbbEeeResponse> {
+  async apibAntchainDemointernationalxjpInternationalPush(request: ApibAntchainDemointernationalxjpInternationalPushRequest): Promise<ApibAntchainDemointernationalxjpInternationalPushResponse> {
     let runtime = new $Util.RuntimeOptions({ });
     let headers : {[key: string ]: string} = { };
-    return await this.queryAntchainDemosdkBbbEeeEx(request, headers, runtime);
+    return await this.apibAntchainDemointernationalxjpInternationalPushEx(request, headers, runtime);
   }
 
   /**
    * @remarks
-   * Description: 测试接口
-   * Summary: 测试接口
+   * Description: 新加坡push
+   * Summary: 新加坡push
    */
-  async queryAntchainDemosdkBbbEeeEx(request: QueryAntchainDemosdkBbbEeeRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<QueryAntchainDemosdkBbbEeeResponse> {
+  async apibAntchainDemointernationalxjpInternationalPushEx(request: ApibAntchainDemointernationalxjpInternationalPushRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<ApibAntchainDemointernationalxjpInternationalPushResponse> {
     Util.validateModel(request);
-    return $tea.cast<QueryAntchainDemosdkBbbEeeResponse>(await this.doRequest("1.0", "antchain.demosdk.bbb.eee.query", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new QueryAntchainDemosdkBbbEeeResponse({}));
-  }
-
-  /**
-   * @remarks
-   * Description: 测试用
-   * Summary: 测试用
-   */
-  async queryAntchainDemosdkAaaTest(request: QueryAntchainDemosdkAaaTestRequest): Promise<QueryAntchainDemosdkAaaTestResponse> {
-    let runtime = new $Util.RuntimeOptions({ });
-    let headers : {[key: string ]: string} = { };
-    return await this.queryAntchainDemosdkAaaTestEx(request, headers, runtime);
-  }
-
-  /**
-   * @remarks
-   * Description: 测试用
-   * Summary: 测试用
-   */
-  async queryAntchainDemosdkAaaTestEx(request: QueryAntchainDemosdkAaaTestRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<QueryAntchainDemosdkAaaTestResponse> {
-    Util.validateModel(request);
-    return $tea.cast<QueryAntchainDemosdkAaaTestResponse>(await this.doRequest("1.0", "antchain.demosdk.aaa.test.query", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new QueryAntchainDemosdkAaaTestResponse({}));
-  }
-
-  /**
-   * @remarks
-   * Description: 测试
-   * Summary: 测试
-   */
-  async stabilizeAntchainDemosdkBbbCcc(request: StabilizeAntchainDemosdkBbbCccRequest): Promise<StabilizeAntchainDemosdkBbbCccResponse> {
-    let runtime = new $Util.RuntimeOptions({ });
-    let headers : {[key: string ]: string} = { };
-    return await this.stabilizeAntchainDemosdkBbbCccEx(request, headers, runtime);
-  }
-
-  /**
-   * @remarks
-   * Description: 测试
-   * Summary: 测试
-   */
-  async stabilizeAntchainDemosdkBbbCccEx(request: StabilizeAntchainDemosdkBbbCccRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<StabilizeAntchainDemosdkBbbCccResponse> {
-    Util.validateModel(request);
-    return $tea.cast<StabilizeAntchainDemosdkBbbCccResponse>(await this.doRequest("1.0", "antchain.demosdk.bbb.ccc.stabilize", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new StabilizeAntchainDemosdkBbbCccResponse({}));
-  }
-
-  /**
-   * @remarks
-   * Description: r
-   * Summary: r
-   */
-  async queryAntchainDemosdkMultiCcc(request: QueryAntchainDemosdkMultiCccRequest): Promise<QueryAntchainDemosdkMultiCccResponse> {
-    let runtime = new $Util.RuntimeOptions({ });
-    let headers : {[key: string ]: string} = { };
-    return await this.queryAntchainDemosdkMultiCccEx(request, headers, runtime);
-  }
-
-  /**
-   * @remarks
-   * Description: r
-   * Summary: r
-   */
-  async queryAntchainDemosdkMultiCccEx(request: QueryAntchainDemosdkMultiCccRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<QueryAntchainDemosdkMultiCccResponse> {
-    Util.validateModel(request);
-    return $tea.cast<QueryAntchainDemosdkMultiCccResponse>(await this.doRequest("1.0", "antchain.demosdk.multi.ccc.query", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new QueryAntchainDemosdkMultiCccResponse({}));
-  }
-
-  /**
-   * @remarks
-   * Description: l
-   * Summary: l
-   */
-  async queryAntchainDemosdkAaaCci(request: QueryAntchainDemosdkAaaCciRequest): Promise<QueryAntchainDemosdkAaaCciResponse> {
-    let runtime = new $Util.RuntimeOptions({ });
-    let headers : {[key: string ]: string} = { };
-    return await this.queryAntchainDemosdkAaaCciEx(request, headers, runtime);
-  }
-
-  /**
-   * @remarks
-   * Description: l
-   * Summary: l
-   */
-  async queryAntchainDemosdkAaaCciEx(request: QueryAntchainDemosdkAaaCciRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<QueryAntchainDemosdkAaaCciResponse> {
-    Util.validateModel(request);
-    return $tea.cast<QueryAntchainDemosdkAaaCciResponse>(await this.doRequest("1.0", "antchain.demosdk.aaa.cci.query", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new QueryAntchainDemosdkAaaCciResponse({}));
-  }
-
-  /**
-   * @remarks
-   * Description: 测试接口
-   * Summary: 测试接口
-   */
-  async resetAntchainDemosdkBbbCcc(request: ResetAntchainDemosdkBbbCccRequest): Promise<ResetAntchainDemosdkBbbCccResponse> {
-    let runtime = new $Util.RuntimeOptions({ });
-    let headers : {[key: string ]: string} = { };
-    return await this.resetAntchainDemosdkBbbCccEx(request, headers, runtime);
-  }
-
-  /**
-   * @remarks
-   * Description: 测试接口
-   * Summary: 测试接口
-   */
-  async resetAntchainDemosdkBbbCccEx(request: ResetAntchainDemosdkBbbCccRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<ResetAntchainDemosdkBbbCccResponse> {
-    Util.validateModel(request);
-    return $tea.cast<ResetAntchainDemosdkBbbCccResponse>(await this.doRequest("1.0", "antchain.demosdk.bbb.ccc.reset", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new ResetAntchainDemosdkBbbCccResponse({}));
+    return $tea.cast<ApibAntchainDemointernationalxjpInternationalPushResponse>(await this.doRequest("1.0", "antchain.demointernationalxjp.international.push.apib", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new ApibAntchainDemointernationalxjpInternationalPushResponse({}));
   }
 
   /**
@@ -2824,259 +4025,6 @@ export default class Client {
 
   /**
    * @remarks
-   * Description: 测试
-   * Summary: 测试
-   */
-  async queryAntchainDemosdkCcXx(request: QueryAntchainDemosdkCcXxRequest): Promise<QueryAntchainDemosdkCcXxResponse> {
-    let runtime = new $Util.RuntimeOptions({ });
-    let headers : {[key: string ]: string} = { };
-    return await this.queryAntchainDemosdkCcXxEx(request, headers, runtime);
-  }
-
-  /**
-   * @remarks
-   * Description: 测试
-   * Summary: 测试
-   */
-  async queryAntchainDemosdkCcXxEx(request: QueryAntchainDemosdkCcXxRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<QueryAntchainDemosdkCcXxResponse> {
-    Util.validateModel(request);
-    return $tea.cast<QueryAntchainDemosdkCcXxResponse>(await this.doRequest("1.0", "antchain.demosdk.cc.xx.query", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new QueryAntchainDemosdkCcXxResponse({}));
-  }
-
-  /**
-   * @remarks
-   * Description: 个人工作台二期分组路由灰度测试接口
-   * Summary: 个人工作台二期分组路由灰度测试接口
-   */
-  async resetAntchainDemosdkAbcdLimit(request: ResetAntchainDemosdkAbcdLimitRequest): Promise<ResetAntchainDemosdkAbcdLimitResponse> {
-    let runtime = new $Util.RuntimeOptions({ });
-    let headers : {[key: string ]: string} = { };
-    return await this.resetAntchainDemosdkAbcdLimitEx(request, headers, runtime);
-  }
-
-  /**
-   * @remarks
-   * Description: 个人工作台二期分组路由灰度测试接口
-   * Summary: 个人工作台二期分组路由灰度测试接口
-   */
-  async resetAntchainDemosdkAbcdLimitEx(request: ResetAntchainDemosdkAbcdLimitRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<ResetAntchainDemosdkAbcdLimitResponse> {
-    Util.validateModel(request);
-    return $tea.cast<ResetAntchainDemosdkAbcdLimitResponse>(await this.doRequest("1.0", "antchain.demosdk.abcd.limit.reset", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new ResetAntchainDemosdkAbcdLimitResponse({}));
-  }
-
-  /**
-   * @remarks
-   * Description: 用于个人工作台二期测试使用
-   * Summary: 用于个人工作台二期测试使用
-   */
-  async importAntchainDemosdkCreateOne(request: ImportAntchainDemosdkCreateOneRequest): Promise<ImportAntchainDemosdkCreateOneResponse> {
-    let runtime = new $Util.RuntimeOptions({ });
-    let headers : {[key: string ]: string} = { };
-    return await this.importAntchainDemosdkCreateOneEx(request, headers, runtime);
-  }
-
-  /**
-   * @remarks
-   * Description: 用于个人工作台二期测试使用
-   * Summary: 用于个人工作台二期测试使用
-   */
-  async importAntchainDemosdkCreateOneEx(request: ImportAntchainDemosdkCreateOneRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<ImportAntchainDemosdkCreateOneResponse> {
-    Util.validateModel(request);
-    return $tea.cast<ImportAntchainDemosdkCreateOneResponse>(await this.doRequest("1.0", "antchain.demosdk.create.one.import", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new ImportAntchainDemosdkCreateOneResponse({}));
-  }
-
-  /**
-   * @remarks
-   * Description: 个人工作台二期预发测试
-   * Summary: 个人工作台二期预发测试
-   */
-  async withdrawAntchainDemosdkTwiceOne(request: WithdrawAntchainDemosdkTwiceOneRequest): Promise<WithdrawAntchainDemosdkTwiceOneResponse> {
-    let runtime = new $Util.RuntimeOptions({ });
-    let headers : {[key: string ]: string} = { };
-    return await this.withdrawAntchainDemosdkTwiceOneEx(request, headers, runtime);
-  }
-
-  /**
-   * @remarks
-   * Description: 个人工作台二期预发测试
-   * Summary: 个人工作台二期预发测试
-   */
-  async withdrawAntchainDemosdkTwiceOneEx(request: WithdrawAntchainDemosdkTwiceOneRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<WithdrawAntchainDemosdkTwiceOneResponse> {
-    Util.validateModel(request);
-    return $tea.cast<WithdrawAntchainDemosdkTwiceOneResponse>(await this.doRequest("1.0", "antchain.demosdk.twice.one.withdraw", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new WithdrawAntchainDemosdkTwiceOneResponse({}));
-  }
-
-  /**
-   * @remarks
-   * Description: 个人工作台二期预发测试
-   * Summary: 个人工作台二期预发测试
-   */
-  async operateAntchainDemosdkTwiceOne(request: OperateAntchainDemosdkTwiceOneRequest): Promise<OperateAntchainDemosdkTwiceOneResponse> {
-    let runtime = new $Util.RuntimeOptions({ });
-    let headers : {[key: string ]: string} = { };
-    return await this.operateAntchainDemosdkTwiceOneEx(request, headers, runtime);
-  }
-
-  /**
-   * @remarks
-   * Description: 个人工作台二期预发测试
-   * Summary: 个人工作台二期预发测试
-   */
-  async operateAntchainDemosdkTwiceOneEx(request: OperateAntchainDemosdkTwiceOneRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<OperateAntchainDemosdkTwiceOneResponse> {
-    Util.validateModel(request);
-    return $tea.cast<OperateAntchainDemosdkTwiceOneResponse>(await this.doRequest("1.0", "antchain.demosdk.twice.one.operate", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new OperateAntchainDemosdkTwiceOneResponse({}));
-  }
-
-  /**
-   * @remarks
-   * Description: 个人工作台二期预发测试
-   * Summary: 个人工作台二期预发测试
-   */
-  async queryAntchainDemosdkTwiceThree(request: QueryAntchainDemosdkTwiceThreeRequest): Promise<QueryAntchainDemosdkTwiceThreeResponse> {
-    let runtime = new $Util.RuntimeOptions({ });
-    let headers : {[key: string ]: string} = { };
-    return await this.queryAntchainDemosdkTwiceThreeEx(request, headers, runtime);
-  }
-
-  /**
-   * @remarks
-   * Description: 个人工作台二期预发测试
-   * Summary: 个人工作台二期预发测试
-   */
-  async queryAntchainDemosdkTwiceThreeEx(request: QueryAntchainDemosdkTwiceThreeRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<QueryAntchainDemosdkTwiceThreeResponse> {
-    Util.validateModel(request);
-    return $tea.cast<QueryAntchainDemosdkTwiceThreeResponse>(await this.doRequest("1.0", "antchain.demosdk.twice.three.query", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new QueryAntchainDemosdkTwiceThreeResponse({}));
-  }
-
-  /**
-   * @remarks
-   * Description: 个人工作台二期预发测试
-   * Summary: 个人工作台二期预发测试
-   */
-  async unstabilizeAntchainDemosdkTwiceThree(request: UnstabilizeAntchainDemosdkTwiceThreeRequest): Promise<UnstabilizeAntchainDemosdkTwiceThreeResponse> {
-    let runtime = new $Util.RuntimeOptions({ });
-    let headers : {[key: string ]: string} = { };
-    return await this.unstabilizeAntchainDemosdkTwiceThreeEx(request, headers, runtime);
-  }
-
-  /**
-   * @remarks
-   * Description: 个人工作台二期预发测试
-   * Summary: 个人工作台二期预发测试
-   */
-  async unstabilizeAntchainDemosdkTwiceThreeEx(request: UnstabilizeAntchainDemosdkTwiceThreeRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<UnstabilizeAntchainDemosdkTwiceThreeResponse> {
-    Util.validateModel(request);
-    return $tea.cast<UnstabilizeAntchainDemosdkTwiceThreeResponse>(await this.doRequest("1.0", "antchain.demosdk.twice.three.unstabilize", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new UnstabilizeAntchainDemosdkTwiceThreeResponse({}));
-  }
-
-  /**
-   * @remarks
-   * Description: 测试接口
-   * Summary: 测试接口
-   */
-  async queryAntchainDemosdkTesx(request: QueryAntchainDemosdkTesxRequest): Promise<QueryAntchainDemosdkTesxResponse> {
-    let runtime = new $Util.RuntimeOptions({ });
-    let headers : {[key: string ]: string} = { };
-    return await this.queryAntchainDemosdkTesxEx(request, headers, runtime);
-  }
-
-  /**
-   * @remarks
-   * Description: 测试接口
-   * Summary: 测试接口
-   */
-  async queryAntchainDemosdkTesxEx(request: QueryAntchainDemosdkTesxRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<QueryAntchainDemosdkTesxResponse> {
-    Util.validateModel(request);
-    return $tea.cast<QueryAntchainDemosdkTesxResponse>(await this.doRequest("1.0", "antchain.demosdk.tesx.query", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new QueryAntchainDemosdkTesxResponse({}));
-  }
-
-  /**
-   * @remarks
-   * Description: 1
-   * Summary: 1
-   */
-  async testAntchainDemosdkPreFull(request: TestAntchainDemosdkPreFullRequest): Promise<TestAntchainDemosdkPreFullResponse> {
-    let runtime = new $Util.RuntimeOptions({ });
-    let headers : {[key: string ]: string} = { };
-    return await this.testAntchainDemosdkPreFullEx(request, headers, runtime);
-  }
-
-  /**
-   * @remarks
-   * Description: 1
-   * Summary: 1
-   */
-  async testAntchainDemosdkPreFullEx(request: TestAntchainDemosdkPreFullRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<TestAntchainDemosdkPreFullResponse> {
-    if (!Util.isUnset(request.fileObject)) {
-      let uploadReq = new CreateAntcloudGatewayxFileUploadRequest({
-        authToken: request.authToken,
-        apiCode: "antchain.demosdk.pre.full.test",
-        fileName: request.fileObjectName,
-      });
-      let uploadResp = await this.createAntcloudGatewayxFileUploadEx(uploadReq, headers, runtime);
-      if (!AntchainUtil.isSuccess(uploadResp.resultCode, "ok")) {
-        let testAntchainDemosdkPreFullResponse = new TestAntchainDemosdkPreFullResponse({
-          reqMsgId: uploadResp.reqMsgId,
-          resultCode: uploadResp.resultCode,
-          resultMsg: uploadResp.resultMsg,
-        });
-        return testAntchainDemosdkPreFullResponse;
-      }
-
-      let uploadHeaders = AntchainUtil.parseUploadHeaders(uploadResp.uploadHeaders);
-      await AntchainUtil.putObject(request.fileObject, uploadHeaders, uploadResp.uploadUrl);
-      request.fileId = uploadResp.fileId;
-      request.fileObject = null;
-    }
-
-    Util.validateModel(request);
-    return $tea.cast<TestAntchainDemosdkPreFullResponse>(await this.doRequest("1.0", "antchain.demosdk.pre.full.test", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new TestAntchainDemosdkPreFullResponse({}));
-  }
-
-  /**
-   * @remarks
-   * Description: 测试接口
-   * Summary: 测试接口
-   */
-  async queryAntchainDemosdkTestapi(request: QueryAntchainDemosdkTestapiRequest): Promise<QueryAntchainDemosdkTestapiResponse> {
-    let runtime = new $Util.RuntimeOptions({ });
-    let headers : {[key: string ]: string} = { };
-    return await this.queryAntchainDemosdkTestapiEx(request, headers, runtime);
-  }
-
-  /**
-   * @remarks
-   * Description: 测试接口
-   * Summary: 测试接口
-   */
-  async queryAntchainDemosdkTestapiEx(request: QueryAntchainDemosdkTestapiRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<QueryAntchainDemosdkTestapiResponse> {
-    Util.validateModel(request);
-    return $tea.cast<QueryAntchainDemosdkTestapiResponse>(await this.doRequest("1.0", "antchain.demosdk.testapi.query", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new QueryAntchainDemosdkTestapiResponse({}));
-  }
-
-  /**
-   * @remarks
-   * Description: 测试
-   * Summary: 测试
-   */
-  async queryAntchainDemosdkTum(request: QueryAntchainDemosdkTumRequest): Promise<QueryAntchainDemosdkTumResponse> {
-    let runtime = new $Util.RuntimeOptions({ });
-    let headers : {[key: string ]: string} = { };
-    return await this.queryAntchainDemosdkTumEx(request, headers, runtime);
-  }
-
-  /**
-   * @remarks
-   * Description: 测试
-   * Summary: 测试
-   */
-  async queryAntchainDemosdkTumEx(request: QueryAntchainDemosdkTumRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<QueryAntchainDemosdkTumResponse> {
-    Util.validateModel(request);
-    return $tea.cast<QueryAntchainDemosdkTumResponse>(await this.doRequest("1.0", "antchain.demosdk.tum.query", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new QueryAntchainDemosdkTumResponse({}));
-  }
-
-  /**
-   * @remarks
    * Description: 自动化测试创建test，请勿修改、删除
    * Summary: 自动化测试创建test，请勿修改、删除
    */
@@ -3098,23 +4046,23 @@ export default class Client {
 
   /**
    * @remarks
-   * Description: 创建HTTP PUT提交的文件上传
-   * Summary: 文件上传创建
+   * Description: 自动化测试创建test，请勿修改、删除
+   * Summary: 自动化测试创建test，请勿修改、删除
    */
-  async createAntcloudGatewayxFileUpload(request: CreateAntcloudGatewayxFileUploadRequest): Promise<CreateAntcloudGatewayxFileUploadResponse> {
+  async callDemoAaaBbbCcc(request: CallDemoAaaBbbCccRequest): Promise<CallDemoAaaBbbCccResponse> {
     let runtime = new $Util.RuntimeOptions({ });
     let headers : {[key: string ]: string} = { };
-    return await this.createAntcloudGatewayxFileUploadEx(request, headers, runtime);
+    return await this.callDemoAaaBbbCccEx(request, headers, runtime);
   }
 
   /**
    * @remarks
-   * Description: 创建HTTP PUT提交的文件上传
-   * Summary: 文件上传创建
+   * Description: 自动化测试创建test，请勿修改、删除
+   * Summary: 自动化测试创建test，请勿修改、删除
    */
-  async createAntcloudGatewayxFileUploadEx(request: CreateAntcloudGatewayxFileUploadRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<CreateAntcloudGatewayxFileUploadResponse> {
+  async callDemoAaaBbbCccEx(request: CallDemoAaaBbbCccRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<CallDemoAaaBbbCccResponse> {
     Util.validateModel(request);
-    return $tea.cast<CreateAntcloudGatewayxFileUploadResponse>(await this.doRequest("1.0", "antcloud.gatewayx.file.upload.create", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new CreateAntcloudGatewayxFileUploadResponse({}));
+    return $tea.cast<CallDemoAaaBbbCccResponse>(await this.doRequest("1.0", "demo.aaa.bbb.ccc.call", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new CallDemoAaaBbbCccResponse({}));
   }
 
 }
