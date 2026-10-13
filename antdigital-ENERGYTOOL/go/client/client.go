@@ -1041,6 +1041,278 @@ func (s *AheadRealtimePriceCompareData) SetPriceDiffAvg(v string) *AheadRealtime
 	return s
 }
 
+// 中长期预测单时刻数据，6 小时间隔。字段按网关要求使用下划线命名，描述注明对应 WeatherLongRangeVariableDTO 属性；未请求或缺失的要素可为空。
+type WeatherLongRangeVariable struct {
+	// 预测数据时刻，格式 yyyy-MM-dd HH:mm:ss，对应 variableDate。
+	// example:
+	//
+	// 2026-10-07 00:00:00
+	VariableDate *string `json:"variable_date,omitempty" xml:"variable_date,omitempty" pattern:"\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}([Z]|([\\.]\\d{1,9})?[\\+]\\d{2}[\\:]?\\d{2})"`
+	// 预测数据批次时间，格式 yyyy-MM-dd HH:mm:ss，对应 forecastBatchTime。
+	// example:
+	//
+	// 2026-09-21 08:00:00
+	ForecastBatchTime *string `json:"forecast_batch_time,omitempty" xml:"forecast_batch_time,omitempty" pattern:"\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}([Z]|([\\.]\\d{1,9})?[\\+]\\d{2}[\\:]?\\d{2})"`
+	// 2 米气温，单位 ℃；对应 temperature2m。
+	// example:
+	//
+	// 25.3
+	Temperature2m *string `json:"temperature_2m,omitempty" xml:"temperature_2m,omitempty"`
+	// 2 米露点温度，单位 ℃；对应 dewPoint2m。
+	// example:
+	//
+	// 18.2
+	DewPoint2m *string `json:"dew_point_2m,omitempty" xml:"dew_point_2m,omitempty"`
+	// 体感温度，单位 ℃；对应 apparentTemperature。
+	// example:
+	//
+	// 27.1
+	ApparentTemperature *string `json:"apparent_temperature,omitempty" xml:"apparent_temperature,omitempty"`
+	// 2 米相对湿度，单位 %；对应 relativeHumidity2m。
+	// example:
+	//
+	// 65
+	RelativeHumidity2m *string `json:"relative_humidity_2m,omitempty" xml:"relative_humidity_2m,omitempty"`
+	// 海平面气压，单位 hPa；对应 pressureMsl。
+	// example:
+	//
+	// 1013.2
+	PressureMsl *string `json:"pressure_msl,omitempty" xml:"pressure_msl,omitempty"`
+	// 地表气压，单位 hPa；对应 surfacePressure。
+	// example:
+	//
+	// 1008.6
+	SurfacePressure *string `json:"surface_pressure,omitempty" xml:"surface_pressure,omitempty"`
+	// 平台天气编码，由源天气编码转换；对应 weatherCode。
+	// example:
+	//
+	// 3
+	WeatherCode *string `json:"weather_code,omitempty" xml:"weather_code,omitempty"`
+	// 降水量，单位 mm；对应 precipitation。
+	// example:
+	//
+	// 0.3
+	Precipitation *string `json:"precipitation,omitempty" xml:"precipitation,omitempty"`
+	// 云量，单位 %；对应 cloudCover。
+	// example:
+	//
+	// 60
+	CloudCover *string `json:"cloud_cover,omitempty" xml:"cloud_cover,omitempty"`
+	// 10 米风速，单位 m/s；对应 windSpeed10m。
+	// example:
+	//
+	// 3.2
+	WindSpeed10m *string `json:"wind_speed_10m,omitempty" xml:"wind_speed_10m,omitempty"`
+	// 100 米风速，单位 m/s；对应 windSpeed100m。
+	// example:
+	//
+	// 5.6
+	WindSpeed100m *string `json:"wind_speed_100m,omitempty" xml:"wind_speed_100m,omitempty"`
+	// 200 米风速，单位 m/s；对应 windSpeed200m。
+	// example:
+	//
+	// 7.0
+	WindSpeed200m *string `json:"wind_speed_200m,omitempty" xml:"wind_speed_200m,omitempty"`
+	// 10 米风向，单位 °；对应 windDirection10m。
+	// example:
+	//
+	// 180
+	WindDirection10m *string `json:"wind_direction_10m,omitempty" xml:"wind_direction_10m,omitempty"`
+	// 100 米风向，单位 °；对应 windDirection100m。
+	// example:
+	//
+	// 185
+	WindDirection100m *string `json:"wind_direction_100m,omitempty" xml:"wind_direction_100m,omitempty"`
+	// 200 米风向，单位 °；对应 windDirection200m。
+	// example:
+	//
+	// 190
+	WindDirection200m *string `json:"wind_direction_200m,omitempty" xml:"wind_direction_200m,omitempty"`
+	// 瞬时短波辐射，单位 W/m²；对应 shortwaveRadiationInstant。
+	// example:
+	//
+	// 600
+	ShortwaveRadiationInstant *string `json:"shortwave_radiation_instant,omitempty" xml:"shortwave_radiation_instant,omitempty"`
+	// 瞬时直接辐射，单位 W/m²；对应 directRadiationInstant。
+	// example:
+	//
+	// 450
+	DirectRadiationInstant *string `json:"direct_radiation_instant,omitempty" xml:"direct_radiation_instant,omitempty"`
+	// 瞬时散射辐射，单位 W/m²；对应 diffuseRadiationInstant。
+	// example:
+	//
+	// 150
+	DiffuseRadiationInstant *string `json:"diffuse_radiation_instant,omitempty" xml:"diffuse_radiation_instant,omitempty"`
+	// 短波辐射，单位 W/m²；对应 shortwaveRadiation。
+	// example:
+	//
+	// 550
+	ShortwaveRadiation *string `json:"shortwave_radiation,omitempty" xml:"shortwave_radiation,omitempty"`
+	// 直接辐射，单位 W/m²；对应 directRadiation。
+	// example:
+	//
+	// 400
+	DirectRadiation *string `json:"direct_radiation,omitempty" xml:"direct_radiation,omitempty"`
+	// 散射辐射，单位 W/m²；对应 diffuseRadiation。
+	// example:
+	//
+	// 150
+	DiffuseRadiation *string `json:"diffuse_radiation,omitempty" xml:"diffuse_radiation,omitempty"`
+	// 10 米阵风风速，单位 m/s；对应 windGusts10m。
+	// example:
+	//
+	// 6.2
+	WindGusts10m *string `json:"wind_gusts_10m,omitempty" xml:"wind_gusts_10m,omitempty"`
+	// 2 米最高气温，单位 ℃；对应 temperatureMax2m。
+	// example:
+	//
+	// 30.2
+	Temperature2mMax *string `json:"temperature_2m_max,omitempty" xml:"temperature_2m_max,omitempty"`
+	// 2 米最低气温，单位 ℃；对应 temperatureMin2m。
+	// example:
+	//
+	// 19.1
+	Temperature2mMin *string `json:"temperature_2m_min,omitempty" xml:"temperature_2m_min,omitempty"`
+}
+
+func (s WeatherLongRangeVariable) String() string {
+	return tea.Prettify(s)
+}
+
+func (s WeatherLongRangeVariable) GoString() string {
+	return s.String()
+}
+
+func (s *WeatherLongRangeVariable) SetVariableDate(v string) *WeatherLongRangeVariable {
+	s.VariableDate = &v
+	return s
+}
+
+func (s *WeatherLongRangeVariable) SetForecastBatchTime(v string) *WeatherLongRangeVariable {
+	s.ForecastBatchTime = &v
+	return s
+}
+
+func (s *WeatherLongRangeVariable) SetTemperature2m(v string) *WeatherLongRangeVariable {
+	s.Temperature2m = &v
+	return s
+}
+
+func (s *WeatherLongRangeVariable) SetDewPoint2m(v string) *WeatherLongRangeVariable {
+	s.DewPoint2m = &v
+	return s
+}
+
+func (s *WeatherLongRangeVariable) SetApparentTemperature(v string) *WeatherLongRangeVariable {
+	s.ApparentTemperature = &v
+	return s
+}
+
+func (s *WeatherLongRangeVariable) SetRelativeHumidity2m(v string) *WeatherLongRangeVariable {
+	s.RelativeHumidity2m = &v
+	return s
+}
+
+func (s *WeatherLongRangeVariable) SetPressureMsl(v string) *WeatherLongRangeVariable {
+	s.PressureMsl = &v
+	return s
+}
+
+func (s *WeatherLongRangeVariable) SetSurfacePressure(v string) *WeatherLongRangeVariable {
+	s.SurfacePressure = &v
+	return s
+}
+
+func (s *WeatherLongRangeVariable) SetWeatherCode(v string) *WeatherLongRangeVariable {
+	s.WeatherCode = &v
+	return s
+}
+
+func (s *WeatherLongRangeVariable) SetPrecipitation(v string) *WeatherLongRangeVariable {
+	s.Precipitation = &v
+	return s
+}
+
+func (s *WeatherLongRangeVariable) SetCloudCover(v string) *WeatherLongRangeVariable {
+	s.CloudCover = &v
+	return s
+}
+
+func (s *WeatherLongRangeVariable) SetWindSpeed10m(v string) *WeatherLongRangeVariable {
+	s.WindSpeed10m = &v
+	return s
+}
+
+func (s *WeatherLongRangeVariable) SetWindSpeed100m(v string) *WeatherLongRangeVariable {
+	s.WindSpeed100m = &v
+	return s
+}
+
+func (s *WeatherLongRangeVariable) SetWindSpeed200m(v string) *WeatherLongRangeVariable {
+	s.WindSpeed200m = &v
+	return s
+}
+
+func (s *WeatherLongRangeVariable) SetWindDirection10m(v string) *WeatherLongRangeVariable {
+	s.WindDirection10m = &v
+	return s
+}
+
+func (s *WeatherLongRangeVariable) SetWindDirection100m(v string) *WeatherLongRangeVariable {
+	s.WindDirection100m = &v
+	return s
+}
+
+func (s *WeatherLongRangeVariable) SetWindDirection200m(v string) *WeatherLongRangeVariable {
+	s.WindDirection200m = &v
+	return s
+}
+
+func (s *WeatherLongRangeVariable) SetShortwaveRadiationInstant(v string) *WeatherLongRangeVariable {
+	s.ShortwaveRadiationInstant = &v
+	return s
+}
+
+func (s *WeatherLongRangeVariable) SetDirectRadiationInstant(v string) *WeatherLongRangeVariable {
+	s.DirectRadiationInstant = &v
+	return s
+}
+
+func (s *WeatherLongRangeVariable) SetDiffuseRadiationInstant(v string) *WeatherLongRangeVariable {
+	s.DiffuseRadiationInstant = &v
+	return s
+}
+
+func (s *WeatherLongRangeVariable) SetShortwaveRadiation(v string) *WeatherLongRangeVariable {
+	s.ShortwaveRadiation = &v
+	return s
+}
+
+func (s *WeatherLongRangeVariable) SetDirectRadiation(v string) *WeatherLongRangeVariable {
+	s.DirectRadiation = &v
+	return s
+}
+
+func (s *WeatherLongRangeVariable) SetDiffuseRadiation(v string) *WeatherLongRangeVariable {
+	s.DiffuseRadiation = &v
+	return s
+}
+
+func (s *WeatherLongRangeVariable) SetWindGusts10m(v string) *WeatherLongRangeVariable {
+	s.WindGusts10m = &v
+	return s
+}
+
+func (s *WeatherLongRangeVariable) SetTemperature2mMax(v string) *WeatherLongRangeVariable {
+	s.Temperature2mMax = &v
+	return s
+}
+
+func (s *WeatherLongRangeVariable) SetTemperature2mMin(v string) *WeatherLongRangeVariable {
+	s.Temperature2mMin = &v
+	return s
+}
+
 // 快照文档详情
 type SnapshotDocumentItem struct {
 	// 节点ID
@@ -1150,6 +1422,358 @@ func (s *SnapshotDocumentItem) SetSourceExt(v string) *SnapshotDocumentItem {
 
 func (s *SnapshotDocumentItem) SetTags(v []*string) *SnapshotDocumentItem {
 	s.Tags = v
+	return s
+}
+
+// 单个时间点的天气数据，对应 WeatherVariableDTO；气象要素值为字符串，按请求要素及数据可用性返回。
+type WeatherVariable struct {
+	// 气象数据对应的时间点，Java 类型 Date。
+	// example:
+	//
+	// 2026-09-20 09:00:00
+	VariableDate *string `json:"variable_date,omitempty" xml:"variable_date,omitempty" pattern:"\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}([Z]|([\\.]\\d{1,9})?[\\+]\\d{2}[\\:]?\\d{2})"`
+	// 该条气象数据的预测批次时间，Java 类型 Date，可能为空。
+	// example:
+	//
+	// 2026-09-20 08:00:00
+	ForecastBatchTime *string `json:"forecast_batch_time,omitempty" xml:"forecast_batch_time,omitempty" pattern:"\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}([Z]|([\\.]\\d{1,9})?[\\+]\\d{2}[\\:]?\\d{2})"`
+	// 地面 2 米处空气温度，单位 °C。
+	// example:
+	//
+	// 25.3
+	Temperature2m *string `json:"temperature_2m,omitempty" xml:"temperature_2m,omitempty"`
+	// 地面 2 米处相对空气湿度，单位 %。
+	// example:
+	//
+	// 65
+	RelativeHumidity2m *string `json:"relative_humidity_2m,omitempty" xml:"relative_humidity_2m,omitempty"`
+	// 地面 2 米处露点温度，单位 °C。
+	// example:
+	//
+	// 18.2
+	DewPoint2m *string `json:"dew_point_2m,omitempty" xml:"dew_point_2m,omitempty"`
+	// 海平面大气压，单位 hPa。
+	// example:
+	//
+	// 1013.2
+	PressureMsl *string `json:"pressure_msl,omitempty" xml:"pressure_msl,omitempty"`
+	// 地表大气压，单位 hPa。
+	// example:
+	//
+	// 1008.6
+	SurfacePressure *string `json:"surface_pressure,omitempty" xml:"surface_pressure,omitempty"`
+	// 未来一小时降水量大于 0.1mm 的概率，单位 %。
+	// example:
+	//
+	// 40
+	PrecipitationProbability *string `json:"precipitation_probability,omitempty" xml:"precipitation_probability,omitempty"`
+	// 总云量，单位 %。
+	// example:
+	//
+	// 60
+	CloudCover *string `json:"cloud_cover,omitempty" xml:"cloud_cover,omitempty"`
+	// 低云量，单位 %。
+	// example:
+	//
+	// 20
+	CloudCoverLow *string `json:"cloud_cover_low,omitempty" xml:"cloud_cover_low,omitempty"`
+	// 中云量，单位 %。
+	// example:
+	//
+	// 30
+	CloudCoverMid *string `json:"cloud_cover_mid,omitempty" xml:"cloud_cover_mid,omitempty"`
+	// 高云量，单位 %。
+	// example:
+	//
+	// 10
+	CloudCoverHigh *string `json:"cloud_cover_high,omitempty" xml:"cloud_cover_high,omitempty"`
+	// 短波辐照，未来一小时平均，单位 W/m²。
+	// example:
+	//
+	// 500
+	ShortwaveRadiation *string `json:"shortwave_radiation,omitempty" xml:"shortwave_radiation,omitempty"`
+	// 直接辐照，代码注释定义为未来一小时累计，单位 W/m²。
+	// example:
+	//
+	// 350
+	DirectRadiation *string `json:"direct_radiation,omitempty" xml:"direct_radiation,omitempty"`
+	// 直接法向辐照，未来一小时平均，单位 W/m²。
+	// example:
+	//
+	// 420
+	DirectNormalIrradiance *string `json:"direct_normal_irradiance,omitempty" xml:"direct_normal_irradiance,omitempty"`
+	// 散射辐照，未来一小时平均，单位 W/m²。
+	// example:
+	//
+	// 150
+	DiffuseRadiation *string `json:"diffuse_radiation,omitempty" xml:"diffuse_radiation,omitempty"`
+	// 地面 10 米处风速，单位 m/s。
+	// example:
+	//
+	// 3.2
+	WindSpeed10m *string `json:"wind_speed_10m,omitempty" xml:"wind_speed_10m,omitempty"`
+	// 地面 80 米处风速，单位 m/s。
+	// example:
+	//
+	// 5.6
+	WindSpeed80m *string `json:"wind_speed_80m,omitempty" xml:"wind_speed_80m,omitempty"`
+	// 地面 120 米处风速，单位 m/s。
+	// example:
+	//
+	// 6.1
+	WindSpeed120m *string `json:"wind_speed_120m,omitempty" xml:"wind_speed_120m,omitempty"`
+	// 地面 10 米处风向，单位 °。
+	// example:
+	//
+	// 180
+	WindDirection10m *string `json:"wind_direction_10m,omitempty" xml:"wind_direction_10m,omitempty"`
+	// 地面 80 米处风向，单位 °。
+	// example:
+	//
+	// 185
+	WindDirection80m *string `json:"wind_direction_80m,omitempty" xml:"wind_direction_80m,omitempty"`
+	// 地面 120 米处风向，单位 °。
+	// example:
+	//
+	// 190
+	WindDirection120m *string `json:"wind_direction_120m,omitempty" xml:"wind_direction_120m,omitempty"`
+	// 天气代码，采用 WMO 天气编码。
+	// example:
+	//
+	// 3
+	WeatherCode *string `json:"weather_code,omitempty" xml:"weather_code,omitempty"`
+	// 体感温度，单位 °C。
+	// example:
+	//
+	// 27.1
+	ApparentTemperature *string `json:"apparent_temperature,omitempty" xml:"apparent_temperature,omitempty"`
+	// 降雨量，单位 mm。
+	// example:
+	//
+	// 0.2
+	Rain *string `json:"rain,omitempty" xml:"rain,omitempty"`
+	// 降水量，包含所有降水形式，单位 mm。
+	// example:
+	//
+	// 0.3
+	Precipitation *string `json:"precipitation,omitempty" xml:"precipitation,omitempty"`
+	// 降雪量，单位 cm。
+	// example:
+	//
+	// 0
+	Snowfall *string `json:"snowfall,omitempty" xml:"snowfall,omitempty"`
+	// 短波辐照瞬时值，单位 W/m²。
+	// example:
+	//
+	// 510
+	ShortwaveRadiationInstant *string `json:"shortwave_radiation_instant,omitempty" xml:"shortwave_radiation_instant,omitempty"`
+	// 直接辐照瞬时值，单位 W/m²。
+	// example:
+	//
+	// 360
+	DirectRadiationInstant *string `json:"direct_radiation_instant,omitempty" xml:"direct_radiation_instant,omitempty"`
+	// 散射辐照瞬时值，单位 W/m²。
+	// example:
+	//
+	// 150
+	DiffuseRadiationInstant *string `json:"diffuse_radiation_instant,omitempty" xml:"diffuse_radiation_instant,omitempty"`
+	// 直接法向辐照瞬时值，单位 W/m²。
+	// example:
+	//
+	// 430
+	DirectNormalIrradianceInstant *string `json:"direct_normal_irradiance_instant,omitempty" xml:"direct_normal_irradiance_instant,omitempty"`
+	// 地面 180 米处风速，单位 m/s。
+	// example:
+	//
+	// 7.0
+	WindSpeed180m *string `json:"wind_speed_180m,omitempty" xml:"wind_speed_180m,omitempty"`
+	// 地面 180 米处风向，单位 °。
+	// example:
+	//
+	// 195
+	WindDirection180m *string `json:"wind_direction_180m,omitempty" xml:"wind_direction_180m,omitempty"`
+	// DTO 保留的短时降雨量字段，单位 mm。本 queryWeather 接口拒绝查询 short_term_rain，须调用独立 queryShortTermRain 接口。
+	// example:
+	//
+	// 0
+	ShortTermRain *string `json:"short_term_rain,omitempty" xml:"short_term_rain,omitempty"`
+}
+
+func (s WeatherVariable) String() string {
+	return tea.Prettify(s)
+}
+
+func (s WeatherVariable) GoString() string {
+	return s.String()
+}
+
+func (s *WeatherVariable) SetVariableDate(v string) *WeatherVariable {
+	s.VariableDate = &v
+	return s
+}
+
+func (s *WeatherVariable) SetForecastBatchTime(v string) *WeatherVariable {
+	s.ForecastBatchTime = &v
+	return s
+}
+
+func (s *WeatherVariable) SetTemperature2m(v string) *WeatherVariable {
+	s.Temperature2m = &v
+	return s
+}
+
+func (s *WeatherVariable) SetRelativeHumidity2m(v string) *WeatherVariable {
+	s.RelativeHumidity2m = &v
+	return s
+}
+
+func (s *WeatherVariable) SetDewPoint2m(v string) *WeatherVariable {
+	s.DewPoint2m = &v
+	return s
+}
+
+func (s *WeatherVariable) SetPressureMsl(v string) *WeatherVariable {
+	s.PressureMsl = &v
+	return s
+}
+
+func (s *WeatherVariable) SetSurfacePressure(v string) *WeatherVariable {
+	s.SurfacePressure = &v
+	return s
+}
+
+func (s *WeatherVariable) SetPrecipitationProbability(v string) *WeatherVariable {
+	s.PrecipitationProbability = &v
+	return s
+}
+
+func (s *WeatherVariable) SetCloudCover(v string) *WeatherVariable {
+	s.CloudCover = &v
+	return s
+}
+
+func (s *WeatherVariable) SetCloudCoverLow(v string) *WeatherVariable {
+	s.CloudCoverLow = &v
+	return s
+}
+
+func (s *WeatherVariable) SetCloudCoverMid(v string) *WeatherVariable {
+	s.CloudCoverMid = &v
+	return s
+}
+
+func (s *WeatherVariable) SetCloudCoverHigh(v string) *WeatherVariable {
+	s.CloudCoverHigh = &v
+	return s
+}
+
+func (s *WeatherVariable) SetShortwaveRadiation(v string) *WeatherVariable {
+	s.ShortwaveRadiation = &v
+	return s
+}
+
+func (s *WeatherVariable) SetDirectRadiation(v string) *WeatherVariable {
+	s.DirectRadiation = &v
+	return s
+}
+
+func (s *WeatherVariable) SetDirectNormalIrradiance(v string) *WeatherVariable {
+	s.DirectNormalIrradiance = &v
+	return s
+}
+
+func (s *WeatherVariable) SetDiffuseRadiation(v string) *WeatherVariable {
+	s.DiffuseRadiation = &v
+	return s
+}
+
+func (s *WeatherVariable) SetWindSpeed10m(v string) *WeatherVariable {
+	s.WindSpeed10m = &v
+	return s
+}
+
+func (s *WeatherVariable) SetWindSpeed80m(v string) *WeatherVariable {
+	s.WindSpeed80m = &v
+	return s
+}
+
+func (s *WeatherVariable) SetWindSpeed120m(v string) *WeatherVariable {
+	s.WindSpeed120m = &v
+	return s
+}
+
+func (s *WeatherVariable) SetWindDirection10m(v string) *WeatherVariable {
+	s.WindDirection10m = &v
+	return s
+}
+
+func (s *WeatherVariable) SetWindDirection80m(v string) *WeatherVariable {
+	s.WindDirection80m = &v
+	return s
+}
+
+func (s *WeatherVariable) SetWindDirection120m(v string) *WeatherVariable {
+	s.WindDirection120m = &v
+	return s
+}
+
+func (s *WeatherVariable) SetWeatherCode(v string) *WeatherVariable {
+	s.WeatherCode = &v
+	return s
+}
+
+func (s *WeatherVariable) SetApparentTemperature(v string) *WeatherVariable {
+	s.ApparentTemperature = &v
+	return s
+}
+
+func (s *WeatherVariable) SetRain(v string) *WeatherVariable {
+	s.Rain = &v
+	return s
+}
+
+func (s *WeatherVariable) SetPrecipitation(v string) *WeatherVariable {
+	s.Precipitation = &v
+	return s
+}
+
+func (s *WeatherVariable) SetSnowfall(v string) *WeatherVariable {
+	s.Snowfall = &v
+	return s
+}
+
+func (s *WeatherVariable) SetShortwaveRadiationInstant(v string) *WeatherVariable {
+	s.ShortwaveRadiationInstant = &v
+	return s
+}
+
+func (s *WeatherVariable) SetDirectRadiationInstant(v string) *WeatherVariable {
+	s.DirectRadiationInstant = &v
+	return s
+}
+
+func (s *WeatherVariable) SetDiffuseRadiationInstant(v string) *WeatherVariable {
+	s.DiffuseRadiationInstant = &v
+	return s
+}
+
+func (s *WeatherVariable) SetDirectNormalIrradianceInstant(v string) *WeatherVariable {
+	s.DirectNormalIrradianceInstant = &v
+	return s
+}
+
+func (s *WeatherVariable) SetWindSpeed180m(v string) *WeatherVariable {
+	s.WindSpeed180m = &v
+	return s
+}
+
+func (s *WeatherVariable) SetWindDirection180m(v string) *WeatherVariable {
+	s.WindDirection180m = &v
+	return s
+}
+
+func (s *WeatherVariable) SetShortTermRain(v string) *WeatherVariable {
+	s.ShortTermRain = &v
 	return s
 }
 
@@ -2035,6 +2659,239 @@ func (s *QueryKmRagResponse) SetReferences(v []*string) *QueryKmRagResponse {
 	return s
 }
 
+type QueryWeatherForecastRequest struct {
+	// OAuth模式下的授权token
+	AuthToken *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	// 请求 ID，由调用方生成，用于请求追踪，不可为空。
+	RequestId *string `json:"request_id,omitempty" xml:"request_id,omitempty" require:"true"`
+	// 纬度，十进制度数；Java 类型 BigDecimal。查询位置须符合产品合约的站点授权范围。
+	Latitude *string `json:"latitude,omitempty" xml:"latitude,omitempty" require:"true"`
+	// 经度，十进制度数；Java 类型 BigDecimal。查询位置须符合产品合约的站点授权范围。
+	Longitude *string `json:"longitude,omitempty" xml:"longitude,omitempty" require:"true"`
+	// 需要预测的天数；未传 past_days 时必须大于等于 1；当前产品面向 15 天以内预测。注意：当输入为1时表示预测今天的数据，输入2时表示预测明天数据，以此推类。
+	ForecastDays *int64 `json:"forecast_days,omitempty" xml:"forecast_days,omitempty" require:"true"`
+	// 此前预测的天数，可选且不能为负数。内部数据查询未传时按 0 处理，查询起点为当天减去 past_days。
+	PastDays *int64 `json:"past_days,omitempty" xml:"past_days,omitempty"`
+	// 气象要素编码列表，不可为空，数量不得超过合约许可。示例包含温度、湿度、天气代码、10米风速、降水量和总云量；short_term_rain 须使用独立短临降水接口。
+	WeatherVariables []*string `json:"weather_variables,omitempty" xml:"weather_variables,omitempty" require:"true" type:"Repeated"`
+}
+
+func (s QueryWeatherForecastRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s QueryWeatherForecastRequest) GoString() string {
+	return s.String()
+}
+
+func (s *QueryWeatherForecastRequest) SetAuthToken(v string) *QueryWeatherForecastRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *QueryWeatherForecastRequest) SetRequestId(v string) *QueryWeatherForecastRequest {
+	s.RequestId = &v
+	return s
+}
+
+func (s *QueryWeatherForecastRequest) SetLatitude(v string) *QueryWeatherForecastRequest {
+	s.Latitude = &v
+	return s
+}
+
+func (s *QueryWeatherForecastRequest) SetLongitude(v string) *QueryWeatherForecastRequest {
+	s.Longitude = &v
+	return s
+}
+
+func (s *QueryWeatherForecastRequest) SetForecastDays(v int64) *QueryWeatherForecastRequest {
+	s.ForecastDays = &v
+	return s
+}
+
+func (s *QueryWeatherForecastRequest) SetPastDays(v int64) *QueryWeatherForecastRequest {
+	s.PastDays = &v
+	return s
+}
+
+func (s *QueryWeatherForecastRequest) SetWeatherVariables(v []*string) *QueryWeatherForecastRequest {
+	s.WeatherVariables = v
+	return s
+}
+
+type QueryWeatherForecastResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// 本次查询消耗的额度，Java 类型 BigDecimal；内部数据链路成功查询固定消耗 1，MAYA 链路取下游返回值，可能为空。
+	QuotaCost *string `json:"quota_cost,omitempty" xml:"quota_cost,omitempty"`
+	// 实际返回的气象预测数据批次时间，Java 类型 Date；数据链路未提供批次时可能为空。
+	ForecastBatchTime *string `json:"forecast_batch_time,omitempty" xml:"forecast_batch_time,omitempty" pattern:"\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}([Z]|([\\.]\\d{1,9})?[\\+]\\d{2}[\\:]?\\d{2})"`
+	// 气象数据列表，每个元素为 WeatherVariableDTO，包含时间、预测批次及各气象要素。要素值在 Java DTO 中为 String，未返回或缺测时可能为空。
+	WeatherVariablesList []*WeatherVariable `json:"weather_variables_list,omitempty" xml:"weather_variables_list,omitempty" type:"Repeated"`
+	// 本次请求 ID
+	RequestId *string `json:"request_id,omitempty" xml:"request_id,omitempty"`
+}
+
+func (s QueryWeatherForecastResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s QueryWeatherForecastResponse) GoString() string {
+	return s.String()
+}
+
+func (s *QueryWeatherForecastResponse) SetReqMsgId(v string) *QueryWeatherForecastResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *QueryWeatherForecastResponse) SetResultCode(v string) *QueryWeatherForecastResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *QueryWeatherForecastResponse) SetResultMsg(v string) *QueryWeatherForecastResponse {
+	s.ResultMsg = &v
+	return s
+}
+
+func (s *QueryWeatherForecastResponse) SetQuotaCost(v string) *QueryWeatherForecastResponse {
+	s.QuotaCost = &v
+	return s
+}
+
+func (s *QueryWeatherForecastResponse) SetForecastBatchTime(v string) *QueryWeatherForecastResponse {
+	s.ForecastBatchTime = &v
+	return s
+}
+
+func (s *QueryWeatherForecastResponse) SetWeatherVariablesList(v []*WeatherVariable) *QueryWeatherForecastResponse {
+	s.WeatherVariablesList = v
+	return s
+}
+
+func (s *QueryWeatherForecastResponse) SetRequestId(v string) *QueryWeatherForecastResponse {
+	s.RequestId = &v
+	return s
+}
+
+type QueryWeatherLongrangeRequest struct {
+	// OAuth模式下的授权token
+	AuthToken *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	// 请求唯一标识，用于请求追踪和问题定位。
+	RequestId *string `json:"request_id,omitempty" xml:"request_id,omitempty" require:"true"`
+	// 查询地点纬度，取值范围 -90～90。
+	Latitude *string `json:"latitude,omitempty" xml:"latitude,omitempty" require:"true"`
+	// 查询地点经度，取值范围 -180～180。
+	Longitude *string `json:"longitude,omitempty" xml:"longitude,omitempty" require:"true"`
+	// 预测截止天数，整数 16～45。返回未来第 16 天至第 forecast_days 天（含）的预测数据，每 6 小时一个数据点；
+	ForecastDays *int64 `json:"forecast_days,omitempty" xml:"forecast_days,omitempty" require:"true"`
+	// 气象要素编码列表，至少一项，使用代码定义的驼峰编码，如 temperature2m、windSpeed10m；仅返回指定要素。
+	WeatherVariables []*string `json:"weather_variables,omitempty" xml:"weather_variables,omitempty" require:"true" type:"Repeated"`
+}
+
+func (s QueryWeatherLongrangeRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s QueryWeatherLongrangeRequest) GoString() string {
+	return s.String()
+}
+
+func (s *QueryWeatherLongrangeRequest) SetAuthToken(v string) *QueryWeatherLongrangeRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *QueryWeatherLongrangeRequest) SetRequestId(v string) *QueryWeatherLongrangeRequest {
+	s.RequestId = &v
+	return s
+}
+
+func (s *QueryWeatherLongrangeRequest) SetLatitude(v string) *QueryWeatherLongrangeRequest {
+	s.Latitude = &v
+	return s
+}
+
+func (s *QueryWeatherLongrangeRequest) SetLongitude(v string) *QueryWeatherLongrangeRequest {
+	s.Longitude = &v
+	return s
+}
+
+func (s *QueryWeatherLongrangeRequest) SetForecastDays(v int64) *QueryWeatherLongrangeRequest {
+	s.ForecastDays = &v
+	return s
+}
+
+func (s *QueryWeatherLongrangeRequest) SetWeatherVariables(v []*string) *QueryWeatherLongrangeRequest {
+	s.WeatherVariables = v
+	return s
+}
+
+type QueryWeatherLongrangeResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// 请求唯一标识，与入参一致；对应 Java requestId。
+	RequestId *string `json:"request_id,omitempty" xml:"request_id,omitempty"`
+	// 本次查询配额消耗，对应 quotaCost，成功查询固定为 1。
+	QuotaCost *string `json:"quota_cost,omitempty" xml:"quota_cost,omitempty"`
+	// 预测数据批次时间，格式 yyyy-MM-dd HH:mm:ss。
+	ForecastBatchTime *string `json:"forecast_batch_time,omitempty" xml:"forecast_batch_time,omitempty" pattern:"\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}([Z]|([\\.]\\d{1,9})?[\\+]\\d{2}[\\:]?\\d{2})"`
+	// 中长期气象预测数据列表，未来第 16 天至指定截止天，每 6 小时一个数据点。仅返回请求指定的气象要素；网关字段需映射至 WeatherLongRangeVariableDTO 对应 Java 属性。
+	WeatherVariablesList []*WeatherLongRangeVariable `json:"weather_variables_list,omitempty" xml:"weather_variables_list,omitempty" type:"Repeated"`
+}
+
+func (s QueryWeatherLongrangeResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s QueryWeatherLongrangeResponse) GoString() string {
+	return s.String()
+}
+
+func (s *QueryWeatherLongrangeResponse) SetReqMsgId(v string) *QueryWeatherLongrangeResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *QueryWeatherLongrangeResponse) SetResultCode(v string) *QueryWeatherLongrangeResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *QueryWeatherLongrangeResponse) SetResultMsg(v string) *QueryWeatherLongrangeResponse {
+	s.ResultMsg = &v
+	return s
+}
+
+func (s *QueryWeatherLongrangeResponse) SetRequestId(v string) *QueryWeatherLongrangeResponse {
+	s.RequestId = &v
+	return s
+}
+
+func (s *QueryWeatherLongrangeResponse) SetQuotaCost(v string) *QueryWeatherLongrangeResponse {
+	s.QuotaCost = &v
+	return s
+}
+
+func (s *QueryWeatherLongrangeResponse) SetForecastBatchTime(v string) *QueryWeatherLongrangeResponse {
+	s.ForecastBatchTime = &v
+	return s
+}
+
+func (s *QueryWeatherLongrangeResponse) SetWeatherVariablesList(v []*WeatherLongRangeVariable) *QueryWeatherLongrangeResponse {
+	s.WeatherVariablesList = v
+	return s
+}
+
 type QueryPanoraindexPolicyRequest struct {
 	// OAuth模式下的授权token
 	AuthToken *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
@@ -2388,6 +3245,274 @@ func (s *QueryElectricMarketpriceResponse) SetData(v []*MarketPrice) *QueryElect
 	return s
 }
 
+type QueryElectricCommondataRequest struct {
+	// OAuth模式下的授权token
+	AuthToken *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	// 主数据实体稳定编码
+	EntityCode *string `json:"entity_code,omitempty" xml:"entity_code,omitempty" require:"true"`
+	// 实体结构版本
+	SchemaVersion *string `json:"schema_version,omitempty" xml:"schema_version,omitempty" require:"true"`
+	// JSON 查询条件；无条件时传 {}
+	QueryJson *string `json:"query_json,omitempty" xml:"query_json,omitempty" require:"true"`
+	// 页码，默认1，最小1
+	PageNo *int64 `json:"page_no,omitempty" xml:"page_no,omitempty"`
+	// 每页数量，默认200，最大1000
+	PageSize *int64 `json:"page_size,omitempty" xml:"page_size,omitempty"`
+}
+
+func (s QueryElectricCommondataRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s QueryElectricCommondataRequest) GoString() string {
+	return s.String()
+}
+
+func (s *QueryElectricCommondataRequest) SetAuthToken(v string) *QueryElectricCommondataRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *QueryElectricCommondataRequest) SetEntityCode(v string) *QueryElectricCommondataRequest {
+	s.EntityCode = &v
+	return s
+}
+
+func (s *QueryElectricCommondataRequest) SetSchemaVersion(v string) *QueryElectricCommondataRequest {
+	s.SchemaVersion = &v
+	return s
+}
+
+func (s *QueryElectricCommondataRequest) SetQueryJson(v string) *QueryElectricCommondataRequest {
+	s.QueryJson = &v
+	return s
+}
+
+func (s *QueryElectricCommondataRequest) SetPageNo(v int64) *QueryElectricCommondataRequest {
+	s.PageNo = &v
+	return s
+}
+
+func (s *QueryElectricCommondataRequest) SetPageSize(v int64) *QueryElectricCommondataRequest {
+	s.PageSize = &v
+	return s
+}
+
+type QueryElectricCommondataResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// 实际返回的实体编码
+	EntityCode *string `json:"entity_code,omitempty" xml:"entity_code,omitempty"`
+	// 实际返回的实体结构版本
+	SchemaVersion *string `json:"schema_version,omitempty" xml:"schema_version,omitempty"`
+	// JSON数组字符串；成功但无数据时为 []
+	DataJson *string `json:"data_json,omitempty" xml:"data_json,omitempty"`
+	// 完整性、覆盖范围和来源等元数据
+	MetaJson *string `json:"meta_json,omitempty" xml:"meta_json,omitempty"`
+	// 符合条件的总记录数
+	TotalCount *int64 `json:"total_count,omitempty" xml:"total_count,omitempty"`
+	// 当前页码
+	PageNo *int64 `json:"page_no,omitempty" xml:"page_no,omitempty"`
+	// 当前分页大小
+	PageSize *int64 `json:"page_size,omitempty" xml:"page_size,omitempty"`
+}
+
+func (s QueryElectricCommondataResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s QueryElectricCommondataResponse) GoString() string {
+	return s.String()
+}
+
+func (s *QueryElectricCommondataResponse) SetReqMsgId(v string) *QueryElectricCommondataResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *QueryElectricCommondataResponse) SetResultCode(v string) *QueryElectricCommondataResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *QueryElectricCommondataResponse) SetResultMsg(v string) *QueryElectricCommondataResponse {
+	s.ResultMsg = &v
+	return s
+}
+
+func (s *QueryElectricCommondataResponse) SetEntityCode(v string) *QueryElectricCommondataResponse {
+	s.EntityCode = &v
+	return s
+}
+
+func (s *QueryElectricCommondataResponse) SetSchemaVersion(v string) *QueryElectricCommondataResponse {
+	s.SchemaVersion = &v
+	return s
+}
+
+func (s *QueryElectricCommondataResponse) SetDataJson(v string) *QueryElectricCommondataResponse {
+	s.DataJson = &v
+	return s
+}
+
+func (s *QueryElectricCommondataResponse) SetMetaJson(v string) *QueryElectricCommondataResponse {
+	s.MetaJson = &v
+	return s
+}
+
+func (s *QueryElectricCommondataResponse) SetTotalCount(v int64) *QueryElectricCommondataResponse {
+	s.TotalCount = &v
+	return s
+}
+
+func (s *QueryElectricCommondataResponse) SetPageNo(v int64) *QueryElectricCommondataResponse {
+	s.PageNo = &v
+	return s
+}
+
+func (s *QueryElectricCommondataResponse) SetPageSize(v int64) *QueryElectricCommondataResponse {
+	s.PageSize = &v
+	return s
+}
+
+type QueryAppmarketCommondataRequest struct {
+	// OAuth模式下的授权token
+	AuthToken *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	// 实体编码：WeatherData、WeatherWarning、BiddingSpace
+	EntityCode *string `json:"entity_code,omitempty" xml:"entity_code,omitempty" require:"true"`
+	// 实体数据结构版本
+	SchemaVersion *string `json:"schema_version,omitempty" xml:"schema_version,omitempty" require:"true"`
+	// JSON 对象字符串，放实体自身的查询条件
+	QueryJson *string `json:"query_json,omitempty" xml:"query_json,omitempty" require:"true"`
+	// 页码，默认 1
+	PageNo *int64 `json:"page_no,omitempty" xml:"page_no,omitempty"`
+	// 每页条数，默认 200，最大建议 1000
+	PageSize *int64 `json:"page_size,omitempty" xml:"page_size,omitempty"`
+}
+
+func (s QueryAppmarketCommondataRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s QueryAppmarketCommondataRequest) GoString() string {
+	return s.String()
+}
+
+func (s *QueryAppmarketCommondataRequest) SetAuthToken(v string) *QueryAppmarketCommondataRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *QueryAppmarketCommondataRequest) SetEntityCode(v string) *QueryAppmarketCommondataRequest {
+	s.EntityCode = &v
+	return s
+}
+
+func (s *QueryAppmarketCommondataRequest) SetSchemaVersion(v string) *QueryAppmarketCommondataRequest {
+	s.SchemaVersion = &v
+	return s
+}
+
+func (s *QueryAppmarketCommondataRequest) SetQueryJson(v string) *QueryAppmarketCommondataRequest {
+	s.QueryJson = &v
+	return s
+}
+
+func (s *QueryAppmarketCommondataRequest) SetPageNo(v int64) *QueryAppmarketCommondataRequest {
+	s.PageNo = &v
+	return s
+}
+
+func (s *QueryAppmarketCommondataRequest) SetPageSize(v int64) *QueryAppmarketCommondataRequest {
+	s.PageSize = &v
+	return s
+}
+
+type QueryAppmarketCommondataResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// 实际返回的实体编码
+	EntityCode *string `json:"entity_code,omitempty" xml:"entity_code,omitempty"`
+	// 实际返回的结构版本
+	SchemaVersion *string `json:"schema_version,omitempty" xml:"schema_version,omitempty"`
+	// JSON 数组字符串；即使无数据也返回 []，不要配置成 ARRAY / OBJECT
+	DataJson *string `json:"data_json,omitempty" xml:"data_json,omitempty"`
+	// JSON 对象字符串，放数据范围、口径、溯源等元信息
+	MetaJson *string `json:"meta_json,omitempty" xml:"meta_json,omitempty"`
+	// 满足条件的总记录数
+	TotalCount *int64 `json:"total_count,omitempty" xml:"total_count,omitempty"`
+	// 实际页码
+	PageNo *int64 `json:"page_no,omitempty" xml:"page_no,omitempty"`
+	// 实际每页条数
+	PageSize *int64 `json:"page_size,omitempty" xml:"page_size,omitempty"`
+}
+
+func (s QueryAppmarketCommondataResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s QueryAppmarketCommondataResponse) GoString() string {
+	return s.String()
+}
+
+func (s *QueryAppmarketCommondataResponse) SetReqMsgId(v string) *QueryAppmarketCommondataResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *QueryAppmarketCommondataResponse) SetResultCode(v string) *QueryAppmarketCommondataResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *QueryAppmarketCommondataResponse) SetResultMsg(v string) *QueryAppmarketCommondataResponse {
+	s.ResultMsg = &v
+	return s
+}
+
+func (s *QueryAppmarketCommondataResponse) SetEntityCode(v string) *QueryAppmarketCommondataResponse {
+	s.EntityCode = &v
+	return s
+}
+
+func (s *QueryAppmarketCommondataResponse) SetSchemaVersion(v string) *QueryAppmarketCommondataResponse {
+	s.SchemaVersion = &v
+	return s
+}
+
+func (s *QueryAppmarketCommondataResponse) SetDataJson(v string) *QueryAppmarketCommondataResponse {
+	s.DataJson = &v
+	return s
+}
+
+func (s *QueryAppmarketCommondataResponse) SetMetaJson(v string) *QueryAppmarketCommondataResponse {
+	s.MetaJson = &v
+	return s
+}
+
+func (s *QueryAppmarketCommondataResponse) SetTotalCount(v int64) *QueryAppmarketCommondataResponse {
+	s.TotalCount = &v
+	return s
+}
+
+func (s *QueryAppmarketCommondataResponse) SetPageNo(v int64) *QueryAppmarketCommondataResponse {
+	s.PageNo = &v
+	return s
+}
+
+func (s *QueryAppmarketCommondataResponse) SetPageSize(v int64) *QueryAppmarketCommondataResponse {
+	s.PageSize = &v
+	return s
+}
+
 type Client struct {
 	Endpoint                *string
 	RegionId                *string
@@ -2518,7 +3643,7 @@ func (client *Client) DoRequest(version *string, action *string, protocol *strin
 				"req_msg_id":       antchainutil.GetNonce(),
 				"access_key":       client.AccessKeyId,
 				"base_sdk_version": tea.String("TeaSDK-2.0"),
-				"sdk_version":      tea.String("1.1.2"),
+				"sdk_version":      tea.String("1.2.0"),
 				"_prod_code":       tea.String("ENERGYTOOL"),
 				"_prod_channel":    tea.String("default"),
 			}
@@ -2938,6 +4063,78 @@ func (client *Client) QueryKmRagEx(request *QueryKmRagRequest, headers map[strin
 
 // Description:
 //
+// Description: 天气中短期预测服务，支持15天以内的天气数据查询
+//
+// Summary: 天气中短期预测服务，支持15天以内的天气数据查询
+func (client *Client) QueryWeatherForecast(request *QueryWeatherForecastRequest) (_result *QueryWeatherForecastResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &QueryWeatherForecastResponse{}
+	_body, _err := client.QueryWeatherForecastEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+// Description:
+//
+// Description: 天气中短期预测服务，支持15天以内的天气数据查询
+//
+// Summary: 天气中短期预测服务，支持15天以内的天气数据查询
+func (client *Client) QueryWeatherForecastEx(request *QueryWeatherForecastRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *QueryWeatherForecastResponse, _err error) {
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &QueryWeatherForecastResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("antcloud.energytool.weather.forecast.query"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
+}
+
+// Description:
+//
+// Description: 天气中长期预测服务，支持未来第 16～45 天的天气数据查询
+//
+// Summary: 天气中长期预测服务，支持未来第 16～45 天的天气数据查询
+func (client *Client) QueryWeatherLongrange(request *QueryWeatherLongrangeRequest) (_result *QueryWeatherLongrangeResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &QueryWeatherLongrangeResponse{}
+	_body, _err := client.QueryWeatherLongrangeEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+// Description:
+//
+// Description: 天气中长期预测服务，支持未来第 16～45 天的天气数据查询
+//
+// Summary: 天气中长期预测服务，支持未来第 16～45 天的天气数据查询
+func (client *Client) QueryWeatherLongrangeEx(request *QueryWeatherLongrangeRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *QueryWeatherLongrangeResponse, _err error) {
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &QueryWeatherLongrangeResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("antcloud.energytool.weather.longrange.query"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
+}
+
+// Description:
+//
 // Description: 能源数采对外开放api
 //
 // Summary: 能源数采对外开放api
@@ -3037,6 +4234,78 @@ func (client *Client) QueryElectricMarketpriceEx(request *QueryElectricMarketpri
 	}
 	_result = &QueryElectricMarketpriceResponse{}
 	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("antcloud.energytool.electric.marketprice.query"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
+}
+
+// Description:
+//
+// Description: 电力行情主数据查询接口
+//
+// Summary: 电力行情主数据查询接口
+func (client *Client) QueryElectricCommondata(request *QueryElectricCommondataRequest) (_result *QueryElectricCommondataResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &QueryElectricCommondataResponse{}
+	_body, _err := client.QueryElectricCommondataEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+// Description:
+//
+// Description: 电力行情主数据查询接口
+//
+// Summary: 电力行情主数据查询接口
+func (client *Client) QueryElectricCommondataEx(request *QueryElectricCommondataRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *QueryElectricCommondataResponse, _err error) {
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &QueryElectricCommondataResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("antcloud.energytool.electric.commondata.query"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
+}
+
+// Description:
+//
+// Description: 电力行情主数据通用开放接口
+//
+// Summary: 电力行情主数据通用开放接口
+func (client *Client) QueryAppmarketCommondata(request *QueryAppmarketCommondataRequest) (_result *QueryAppmarketCommondataResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &QueryAppmarketCommondataResponse{}
+	_body, _err := client.QueryAppmarketCommondataEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+// Description:
+//
+// Description: 电力行情主数据通用开放接口
+//
+// Summary: 电力行情主数据通用开放接口
+func (client *Client) QueryAppmarketCommondataEx(request *QueryAppmarketCommondataRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *QueryAppmarketCommondataResponse, _err error) {
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &QueryAppmarketCommondataResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("antcloud.energytool.appmarket.commondata.query"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
 	if _err != nil {
 		return _result, _err
 	}
