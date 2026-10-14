@@ -126,7 +126,7 @@ public class Client {
                     new TeaPair("req_msg_id", com.antgroup.antchain.openapi.antchain.util.AntchainUtils.getNonce()),
                     new TeaPair("access_key", _accessKeyId),
                     new TeaPair("base_sdk_version", "TeaSDK-2.0"),
-                    new TeaPair("sdk_version", "1.33.7"),
+                    new TeaPair("sdk_version", "1.33.8"),
                     new TeaPair("_prod_code", "RISKPLUS"),
                     new TeaPair("_prod_channel", "undefined")
                 );
@@ -354,6 +354,48 @@ public class Client {
     public QueryBenefithubSubscriptionlinkResponse queryBenefithubSubscriptionlinkEx(QueryBenefithubSubscriptionlinkRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
         com.aliyun.teautil.Common.validateModel(request);
         return TeaModel.toModel(this.doRequest("1.0", "riskplus.benefithub.subscriptionlink.query", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new QueryBenefithubSubscriptionlinkResponse());
+    }
+
+    /**
+     * <b>description</b> :
+     * <p>Description: 风险报告用户黑名单接口，作用：渠道新增黑名单使用
+     * Summary: 风险报告用户黑名单接口，作用：渠道新增黑名单使用</p>
+     */
+    public PushBenefithubBlacklistResponse pushBenefithubBlacklist(PushBenefithubBlacklistRequest request) throws Exception {
+        com.aliyun.teautil.models.RuntimeOptions runtime = new com.aliyun.teautil.models.RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.pushBenefithubBlacklistEx(request, headers, runtime);
+    }
+
+    /**
+     * <b>description</b> :
+     * <p>Description: 风险报告用户黑名单接口，作用：渠道新增黑名单使用
+     * Summary: 风险报告用户黑名单接口，作用：渠道新增黑名单使用</p>
+     */
+    public PushBenefithubBlacklistResponse pushBenefithubBlacklistEx(PushBenefithubBlacklistRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "riskplus.benefithub.blacklist.push", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new PushBenefithubBlacklistResponse());
+    }
+
+    /**
+     * <b>description</b> :
+     * <p>Description: 渠道判断用户黑名单接口
+     * Summary: 渠道判断用户黑名单接口</p>
+     */
+    public QueryBenefithubBlacklistResponse queryBenefithubBlacklist(QueryBenefithubBlacklistRequest request) throws Exception {
+        com.aliyun.teautil.models.RuntimeOptions runtime = new com.aliyun.teautil.models.RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.queryBenefithubBlacklistEx(request, headers, runtime);
+    }
+
+    /**
+     * <b>description</b> :
+     * <p>Description: 渠道判断用户黑名单接口
+     * Summary: 渠道判断用户黑名单接口</p>
+     */
+    public QueryBenefithubBlacklistResponse queryBenefithubBlacklistEx(QueryBenefithubBlacklistRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "riskplus.benefithub.blacklist.query", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new QueryBenefithubBlacklistResponse());
     }
 
     /**
