@@ -76,6 +76,10 @@ public class DetailAntdigitalWebttsDacDepositResponse extends TeaModel {
     @NameInMap("transaction_time")
     public String transactionTime;
 
+    // checker审批备注
+    @NameInMap("checker_remark")
+    public String checkerRemark;
+
     public static DetailAntdigitalWebttsDacDepositResponse build(java.util.Map<String, ?> map) throws Exception {
         DetailAntdigitalWebttsDacDepositResponse self = new DetailAntdigitalWebttsDacDepositResponse();
         return TeaModel.build(map, self);
@@ -223,6 +227,14 @@ public class DetailAntdigitalWebttsDacDepositResponse extends TeaModel {
     }
     public String getTransactionTime() {
         return this.transactionTime;
+    }
+
+    public DetailAntdigitalWebttsDacDepositResponse setCheckerRemark(String checkerRemark) {
+        this.checkerRemark = checkerRemark;
+        return this;
+    }
+    public String getCheckerRemark() {
+        return this.checkerRemark;
     }
 
 }

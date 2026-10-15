@@ -31,6 +31,10 @@ public class AuditAntdigitalWebttsDacDepositRequest extends TeaModel {
     @Validation(required = true)
     public String checkerResult;
 
+    // 1
+    @NameInMap("checker_remark")
+    public String checkerRemark;
+
     public static AuditAntdigitalWebttsDacDepositRequest build(java.util.Map<String, ?> map) throws Exception {
         AuditAntdigitalWebttsDacDepositRequest self = new AuditAntdigitalWebttsDacDepositRequest();
         return TeaModel.build(map, self);
@@ -82,6 +86,14 @@ public class AuditAntdigitalWebttsDacDepositRequest extends TeaModel {
     }
     public String getCheckerResult() {
         return this.checkerResult;
+    }
+
+    public AuditAntdigitalWebttsDacDepositRequest setCheckerRemark(String checkerRemark) {
+        this.checkerRemark = checkerRemark;
+        return this;
+    }
+    public String getCheckerRemark() {
+        return this.checkerRemark;
     }
 
 }

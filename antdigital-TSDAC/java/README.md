@@ -8,7 +8,7 @@
 <dependency>
    <groupId>com.antgroup.antchain.openapi</groupId>
    <artifactId>antdigital-tsdac</artifactId>
-   <version>1.2.18</version>
+   <version>1.2.19</version>
 </dependency>
 ```
 

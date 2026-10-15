@@ -130,6 +130,14 @@ public class TransactionHistoryItem extends TeaModel {
     @Validation(required = true)
     public String transactionTime;
 
+    // checker审批的备注
+    /**
+     * <strong>example:</strong>
+     * <p>123</p>
+     */
+    @NameInMap("checker_remark")
+    public String checkerRemark;
+
     public static TransactionHistoryItem build(java.util.Map<String, ?> map) throws Exception {
         TransactionHistoryItem self = new TransactionHistoryItem();
         return TeaModel.build(map, self);
@@ -245,6 +253,14 @@ public class TransactionHistoryItem extends TeaModel {
     }
     public String getTransactionTime() {
         return this.transactionTime;
+    }
+
+    public TransactionHistoryItem setCheckerRemark(String checkerRemark) {
+        this.checkerRemark = checkerRemark;
+        return this;
+    }
+    public String getCheckerRemark() {
+        return this.checkerRemark;
     }
 
 }

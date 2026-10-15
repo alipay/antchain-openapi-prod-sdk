@@ -139,6 +139,14 @@ public class DepositOrderItem extends TeaModel {
     @Validation(required = true)
     public String transactionTime;
 
+    // 123
+    /**
+     * <strong>example:</strong>
+     * <p>123</p>
+     */
+    @NameInMap("checker_remark")
+    public String checkerRemark;
+
     public static DepositOrderItem build(java.util.Map<String, ?> map) throws Exception {
         DepositOrderItem self = new DepositOrderItem();
         return TeaModel.build(map, self);
@@ -262,6 +270,14 @@ public class DepositOrderItem extends TeaModel {
     }
     public String getTransactionTime() {
         return this.transactionTime;
+    }
+
+    public DepositOrderItem setCheckerRemark(String checkerRemark) {
+        this.checkerRemark = checkerRemark;
+        return this;
+    }
+    public String getCheckerRemark() {
+        return this.checkerRemark;
     }
 
 }
