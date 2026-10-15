@@ -126,7 +126,7 @@ public class Client {
                     new TeaPair("req_msg_id", com.antgroup.antchain.openapi.antchain.util.AntchainUtils.getNonce()),
                     new TeaPair("access_key", _accessKeyId),
                     new TeaPair("base_sdk_version", "TeaSDK-2.0"),
-                    new TeaPair("sdk_version", "1.0.0"),
+                    new TeaPair("sdk_version", "1.0.1"),
                     new TeaPair("_prod_code", "DATACOLLECTION"),
                     new TeaPair("_prod_channel", "default")
                 );
@@ -228,5 +228,47 @@ public class Client {
     public QueryTaskInstResponse queryTaskInstEx(QueryTaskInstRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
         com.aliyun.teautil.Common.validateModel(request);
         return TeaModel.toModel(this.doRequest("1.0", "antcloud.datacollection.task.inst.query", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new QueryTaskInstResponse());
+    }
+
+    /**
+     * <b>description</b> :
+     * <p>Description: 任务触发
+     * Summary: 任务触发</p>
+     */
+    public ExecTaskTriggerResponse execTaskTrigger(ExecTaskTriggerRequest request) throws Exception {
+        com.aliyun.teautil.models.RuntimeOptions runtime = new com.aliyun.teautil.models.RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.execTaskTriggerEx(request, headers, runtime);
+    }
+
+    /**
+     * <b>description</b> :
+     * <p>Description: 任务触发
+     * Summary: 任务触发</p>
+     */
+    public ExecTaskTriggerResponse execTaskTriggerEx(ExecTaskTriggerRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "antcloud.datacollection.task.trigger.exec", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new ExecTaskTriggerResponse());
+    }
+
+    /**
+     * <b>description</b> :
+     * <p>Description: 触发记录查询
+     * Summary: 触发记录查询</p>
+     */
+    public QueryTaskTriggerResponse queryTaskTrigger(QueryTaskTriggerRequest request) throws Exception {
+        com.aliyun.teautil.models.RuntimeOptions runtime = new com.aliyun.teautil.models.RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.queryTaskTriggerEx(request, headers, runtime);
+    }
+
+    /**
+     * <b>description</b> :
+     * <p>Description: 触发记录查询
+     * Summary: 触发记录查询</p>
+     */
+    public QueryTaskTriggerResponse queryTaskTriggerEx(QueryTaskTriggerRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "antcloud.datacollection.task.trigger.query", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new QueryTaskTriggerResponse());
     }
 }
