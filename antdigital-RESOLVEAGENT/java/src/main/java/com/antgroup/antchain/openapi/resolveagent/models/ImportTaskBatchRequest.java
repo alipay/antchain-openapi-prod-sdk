@@ -21,6 +21,11 @@ public class ImportTaskBatchRequest extends TeaModel {
     @Validation(required = true)
     public java.util.List<String> list;
 
+    // 任务id
+    @NameInMap("task_id")
+    @Validation(required = true)
+    public String taskId;
+
     public static ImportTaskBatchRequest build(java.util.Map<String, ?> map) throws Exception {
         ImportTaskBatchRequest self = new ImportTaskBatchRequest();
         return TeaModel.build(map, self);
@@ -56,6 +61,14 @@ public class ImportTaskBatchRequest extends TeaModel {
     }
     public java.util.List<String> getList() {
         return this.list;
+    }
+
+    public ImportTaskBatchRequest setTaskId(String taskId) {
+        this.taskId = taskId;
+        return this;
+    }
+    public String getTaskId() {
+        return this.taskId;
     }
 
 }
