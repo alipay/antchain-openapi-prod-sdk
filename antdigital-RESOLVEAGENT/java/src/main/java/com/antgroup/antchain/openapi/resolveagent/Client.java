@@ -126,7 +126,7 @@ public class Client {
                     new TeaPair("req_msg_id", com.antgroup.antchain.openapi.antchain.util.AntchainUtils.getNonce()),
                     new TeaPair("access_key", _accessKeyId),
                     new TeaPair("base_sdk_version", "TeaSDK-2.0"),
-                    new TeaPair("sdk_version", "1.0.1"),
+                    new TeaPair("sdk_version", "1.0.2"),
                     new TeaPair("_prod_code", "RESOLVEAGENT"),
                     new TeaPair("_prod_channel", "default")
                 );
@@ -228,5 +228,47 @@ public class Client {
     public ImportTaskRateinfoResponse importTaskRateinfoEx(ImportTaskRateinfoRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
         com.aliyun.teautil.Common.validateModel(request);
         return TeaModel.toModel(this.doRequest("1.0", "antdigital.resolveagent.task.rateinfo.import", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new ImportTaskRateinfoResponse());
+    }
+
+    /**
+     * <b>description</b> :
+     * <p>Description: 贷后360客户是否逾期查询接口
+     * Summary: 贷后360客户是否逾期查询接口</p>
+     */
+    public QueryCustomerOverdueResponse queryCustomerOverdue(QueryCustomerOverdueRequest request) throws Exception {
+        com.aliyun.teautil.models.RuntimeOptions runtime = new com.aliyun.teautil.models.RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.queryCustomerOverdueEx(request, headers, runtime);
+    }
+
+    /**
+     * <b>description</b> :
+     * <p>Description: 贷后360客户是否逾期查询接口
+     * Summary: 贷后360客户是否逾期查询接口</p>
+     */
+    public QueryCustomerOverdueResponse queryCustomerOverdueEx(QueryCustomerOverdueRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "antdigital.resolveagent.customer.overdue.query", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new QueryCustomerOverdueResponse());
+    }
+
+    /**
+     * <b>description</b> :
+     * <p>Description: 360站内信用户信息推送
+     * Summary: 360站内信用户信息推送</p>
+     */
+    public PushCustomerLogininfoResponse pushCustomerLogininfo(PushCustomerLogininfoRequest request) throws Exception {
+        com.aliyun.teautil.models.RuntimeOptions runtime = new com.aliyun.teautil.models.RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.pushCustomerLogininfoEx(request, headers, runtime);
+    }
+
+    /**
+     * <b>description</b> :
+     * <p>Description: 360站内信用户信息推送
+     * Summary: 360站内信用户信息推送</p>
+     */
+    public PushCustomerLogininfoResponse pushCustomerLogininfoEx(PushCustomerLogininfoRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "antdigital.resolveagent.customer.logininfo.push", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new PushCustomerLogininfoResponse());
     }
 }

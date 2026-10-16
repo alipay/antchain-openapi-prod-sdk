@@ -11,11 +11,6 @@ public class ImportTaskBatchRequest extends TeaModel {
     @NameInMap("product_instance_id")
     public String productInstanceId;
 
-    // 任务id
-    @NameInMap("task_id")
-    @Validation(required = true)
-    public String taskId;
-
     // 批次号
     @NameInMap("batch_no")
     @Validation(required = true)
@@ -45,14 +40,6 @@ public class ImportTaskBatchRequest extends TeaModel {
     }
     public String getProductInstanceId() {
         return this.productInstanceId;
-    }
-
-    public ImportTaskBatchRequest setTaskId(String taskId) {
-        this.taskId = taskId;
-        return this;
-    }
-    public String getTaskId() {
-        return this.taskId;
     }
 
     public ImportTaskBatchRequest setBatchNo(String batchNo) {
