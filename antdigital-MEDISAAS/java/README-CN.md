@@ -8,7 +8,7 @@
 <dependency>
    <groupId>com.antgroup.antchain.openapi</groupId>
    <artifactId>antdigital-medisaas</artifactId>
-   <version>1.2.3</version>
+   <version>1.2.4</version>
 </dependency>
 ```
 

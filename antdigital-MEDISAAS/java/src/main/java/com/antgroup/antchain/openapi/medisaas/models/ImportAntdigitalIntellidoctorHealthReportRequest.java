@@ -26,6 +26,18 @@ public class ImportAntdigitalIntellidoctorHealthReportRequest extends TeaModel {
     @Validation(required = true)
     public String datalist;
 
+    // 用户设定的语言, 默认为zh-Hans即简体中文, 当前只支持zh-Hans和en
+    @NameInMap("language")
+    public String language;
+
+    // 时区
+    @NameInMap("timezone")
+    public String timezone;
+
+    // 所在地
+    @NameInMap("location")
+    public String location;
+
     public static ImportAntdigitalIntellidoctorHealthReportRequest build(java.util.Map<String, ?> map) throws Exception {
         ImportAntdigitalIntellidoctorHealthReportRequest self = new ImportAntdigitalIntellidoctorHealthReportRequest();
         return TeaModel.build(map, self);
@@ -69,6 +81,30 @@ public class ImportAntdigitalIntellidoctorHealthReportRequest extends TeaModel {
     }
     public String getDatalist() {
         return this.datalist;
+    }
+
+    public ImportAntdigitalIntellidoctorHealthReportRequest setLanguage(String language) {
+        this.language = language;
+        return this;
+    }
+    public String getLanguage() {
+        return this.language;
+    }
+
+    public ImportAntdigitalIntellidoctorHealthReportRequest setTimezone(String timezone) {
+        this.timezone = timezone;
+        return this;
+    }
+    public String getTimezone() {
+        return this.timezone;
+    }
+
+    public ImportAntdigitalIntellidoctorHealthReportRequest setLocation(String location) {
+        this.location = location;
+        return this;
+    }
+    public String getLocation() {
+        return this.location;
     }
 
 }
