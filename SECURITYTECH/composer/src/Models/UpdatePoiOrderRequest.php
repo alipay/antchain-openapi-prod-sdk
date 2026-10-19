@@ -14,6 +14,8 @@ class UpdatePoiOrderRequest extends Model {
         'orderId' => 'order_id',
         'fulfillStatus' => 'fulfill_status',
         'statusGmt' => 'status_gmt',
+        'logisticsCode' => 'logistics_code',
+        'trackingNo' => 'tracking_no',
     ];
     public function validate() {
         Model::validateRequired('openId', $this->openId, true);
@@ -43,6 +45,12 @@ class UpdatePoiOrderRequest extends Model {
         if (null !== $this->statusGmt) {
             $res['status_gmt'] = $this->statusGmt;
         }
+        if (null !== $this->logisticsCode) {
+            $res['logistics_code'] = $this->logisticsCode;
+        }
+        if (null !== $this->trackingNo) {
+            $res['tracking_no'] = $this->trackingNo;
+        }
         return $res;
     }
     /**
@@ -71,6 +79,12 @@ class UpdatePoiOrderRequest extends Model {
         }
         if(isset($map['status_gmt'])){
             $model->statusGmt = $map['status_gmt'];
+        }
+        if(isset($map['logistics_code'])){
+            $model->logisticsCode = $map['logistics_code'];
+        }
+        if(isset($map['tracking_no'])){
+            $model->trackingNo = $map['tracking_no'];
         }
         return $model;
     }
@@ -114,5 +128,19 @@ class UpdatePoiOrderRequest extends Model {
      * @var string
      */
     public $statusGmt;
+
+    // 物流快递公司ID，枚举值，详见接口文档
+    // 若上送，需要和tracking_no同时上送
+    /**
+     * @var string
+     */
+    public $logisticsCode;
+
+    // 订单物流单号
+    // 若上送，需要和logistics_code同时上送
+    /**
+     * @var string
+     */
+    public $trackingNo;
 
 }

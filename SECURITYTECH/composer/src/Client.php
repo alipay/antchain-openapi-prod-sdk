@@ -172,6 +172,8 @@ use AntChain\SECURITYTECH\Models\NotifyPoiRefundRequest;
 use AntChain\SECURITYTECH\Models\NotifyPoiRefundResponse;
 use AntChain\SECURITYTECH\Models\QueryPoiFundRequest;
 use AntChain\SECURITYTECH\Models\QueryPoiFundResponse;
+use AntChain\SECURITYTECH\Models\NotifyPoiCouponRequest;
+use AntChain\SECURITYTECH\Models\NotifyPoiCouponResponse;
 use AntChain\SECURITYTECH\Models\CreateBssecpicRequest;
 use AntChain\SECURITYTECH\Models\CreateBssecpicResponse;
 use AntChain\SECURITYTECH\Models\CreateBlueshieldSecuritypictureRequest;
@@ -385,7 +387,7 @@ class Client {
                     "req_msg_id" => UtilClient::getNonce(),
                     "access_key" => $this->_accessKeyId,
                     "base_sdk_version" => "TeaSDK-2.0",
-                    "sdk_version" => "1.7.34",
+                    "sdk_version" => "1.7.35",
                     "_prod_code" => "SECURITYTECH",
                     "_prod_channel" => "undefined"
                 ];
@@ -2425,6 +2427,31 @@ class Client {
     public function queryPoiFundEx($request, $headers, $runtime){
         Utils::validateModel($request);
         return QueryPoiFundResponse::fromMap($this->doRequest("1.0", "antsecuritytech.gateway.poi.fund.query", "HTTPS", "POST", "/gateway.do", Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 优惠券通知
+     * Summary: 优惠券通知
+     * @param NotifyPoiCouponRequest $request
+     * @return NotifyPoiCouponResponse
+     */
+    public function notifyPoiCoupon($request){
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+        return $this->notifyPoiCouponEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 优惠券通知
+     * Summary: 优惠券通知
+     * @param NotifyPoiCouponRequest $request
+     * @param string[] $headers
+     * @param RuntimeOptions $runtime
+     * @return NotifyPoiCouponResponse
+     */
+    public function notifyPoiCouponEx($request, $headers, $runtime){
+        Utils::validateModel($request);
+        return NotifyPoiCouponResponse::fromMap($this->doRequest("1.0", "antsecuritytech.gateway.poi.coupon.notify", "HTTPS", "POST", "/gateway.do", Tea::merge($request), $headers, $runtime));
     }
 
     /**
