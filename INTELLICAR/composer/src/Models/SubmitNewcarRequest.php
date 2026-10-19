@@ -20,6 +20,7 @@ class SubmitNewcarRequest extends Model {
         'submitId' => 'submit_id',
         'qcCarSeriesId' => 'qc_car_series_id',
         'matchSource' => 'match_source',
+        'channelNo' => 'channel_no',
     ];
     public function validate() {
         Model::validateRequired('sceneCode', $this->sceneCode, true);
@@ -61,6 +62,9 @@ class SubmitNewcarRequest extends Model {
         if (null !== $this->matchSource) {
             $res['match_source'] = $this->matchSource;
         }
+        if (null !== $this->channelNo) {
+            $res['channel_no'] = $this->channelNo;
+        }
         return $res;
     }
     /**
@@ -101,6 +105,9 @@ class SubmitNewcarRequest extends Model {
         }
         if(isset($map['match_source'])){
             $model->matchSource = $map['match_source'];
+        }
+        if(isset($map['channel_no'])){
+            $model->channelNo = $map['channel_no'];
         }
         return $model;
     }
@@ -169,5 +176,11 @@ class SubmitNewcarRequest extends Model {
      * @var string
      */
     public $matchSource;
+
+    // 渠道号
+    /**
+     * @var string
+     */
+    public $channelNo;
 
 }

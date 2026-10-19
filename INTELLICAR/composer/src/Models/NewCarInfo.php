@@ -17,6 +17,7 @@ class NewCarInfo extends Model {
         'userInfo' => 'user_info',
         'matchSource' => 'match_source',
         'qcCarSeriesId' => 'qc_car_series_id',
+        'channelNo' => 'channel_no',
     ];
     public function validate() {
         Model::validateRequired('carSeries', $this->carSeries, true);
@@ -47,6 +48,9 @@ class NewCarInfo extends Model {
         }
         if (null !== $this->qcCarSeriesId) {
             $res['qc_car_series_id'] = $this->qcCarSeriesId;
+        }
+        if (null !== $this->channelNo) {
+            $res['channel_no'] = $this->channelNo;
         }
         return $res;
     }
@@ -79,6 +83,9 @@ class NewCarInfo extends Model {
         }
         if(isset($map['qc_car_series_id'])){
             $model->qcCarSeriesId = $map['qc_car_series_id'];
+        }
+        if(isset($map['channel_no'])){
+            $model->channelNo = $map['channel_no'];
         }
         return $model;
     }
@@ -137,5 +144,12 @@ class NewCarInfo extends Model {
      * @var string
      */
     public $qcCarSeriesId;
+
+    // 渠道号
+    /**
+     * @example xxx
+     * @var string
+     */
+    public $channelNo;
 
 }
