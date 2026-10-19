@@ -217,7 +217,7 @@ class Client {
                     "req_msg_id" => UtilClient::getNonce(),
                     "access_key" => $this->_accessKeyId,
                     "base_sdk_version" => "TeaSDK-2.0",
-                    "sdk_version" => "1.2.5",
+                    "sdk_version" => "1.2.6",
                     "_prod_code" => "INTELLICAR",
                     "_prod_channel" => "default"
                 ];
@@ -339,7 +339,7 @@ class Client {
 
     /**
      * Description: 提交新车线索
-     * Summary:  提交新车线索
+     * Summary: 提交新车线索
      * @param SubmitNewcarRequest $request
      * @return SubmitNewcarResponse
      */
@@ -351,7 +351,7 @@ class Client {
 
     /**
      * Description: 提交新车线索
-     * Summary:  提交新车线索
+     * Summary: 提交新车线索
      * @param SubmitNewcarRequest $request
      * @param string[] $headers
      * @param RuntimeOptions $runtime
