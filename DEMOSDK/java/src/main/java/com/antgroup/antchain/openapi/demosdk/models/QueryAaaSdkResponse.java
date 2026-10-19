@@ -16,6 +16,10 @@ public class QueryAaaSdkResponse extends TeaModel {
     @NameInMap("result_msg")
     public String resultMsg;
 
+    // 名称
+    @NameInMap("name")
+    public String name;
+
     public static QueryAaaSdkResponse build(java.util.Map<String, ?> map) throws Exception {
         QueryAaaSdkResponse self = new QueryAaaSdkResponse();
         return TeaModel.build(map, self);
@@ -43,6 +47,14 @@ public class QueryAaaSdkResponse extends TeaModel {
     }
     public String getResultMsg() {
         return this.resultMsg;
+    }
+
+    public QueryAaaSdkResponse setName(String name) {
+        this.name = name;
+        return this;
+    }
+    public String getName() {
+        return this.name;
     }
 
 }
