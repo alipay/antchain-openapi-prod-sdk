@@ -34,6 +34,16 @@ public class UpdatePoiOrderRequest extends TeaModel {
     @NameInMap("status_gmt")
     public String statusGmt;
 
+    // 物流快递公司ID，枚举值，详见接口文档
+    // 若上送，需要和tracking_no同时上送
+    @NameInMap("logistics_code")
+    public String logisticsCode;
+
+    // 订单物流单号
+    // 若上送，需要和logistics_code同时上送
+    @NameInMap("tracking_no")
+    public String trackingNo;
+
     public static UpdatePoiOrderRequest build(java.util.Map<String, ?> map) throws Exception {
         UpdatePoiOrderRequest self = new UpdatePoiOrderRequest();
         return TeaModel.build(map, self);
@@ -93,6 +103,22 @@ public class UpdatePoiOrderRequest extends TeaModel {
     }
     public String getStatusGmt() {
         return this.statusGmt;
+    }
+
+    public UpdatePoiOrderRequest setLogisticsCode(String logisticsCode) {
+        this.logisticsCode = logisticsCode;
+        return this;
+    }
+    public String getLogisticsCode() {
+        return this.logisticsCode;
+    }
+
+    public UpdatePoiOrderRequest setTrackingNo(String trackingNo) {
+        this.trackingNo = trackingNo;
+        return this;
+    }
+    public String getTrackingNo() {
+        return this.trackingNo;
     }
 
 }
