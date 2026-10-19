@@ -43,6 +43,18 @@ namespace AntChain.SDK.SECURITYTECH.Models
         [Validation(Required=false)]
         public string StatusGmt { get; set; }
 
+        // 物流快递公司ID，枚举值，详见接口文档
+        // 若上送，需要和tracking_no同时上送
+        [NameInMap("logistics_code")]
+        [Validation(Required=false)]
+        public string LogisticsCode { get; set; }
+
+        // 订单物流单号
+        // 若上送，需要和logistics_code同时上送
+        [NameInMap("tracking_no")]
+        [Validation(Required=false)]
+        public string TrackingNo { get; set; }
+
     }
 
 }
