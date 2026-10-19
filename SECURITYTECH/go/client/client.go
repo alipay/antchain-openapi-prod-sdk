@@ -12452,6 +12452,12 @@ type UpdatePoiOrderRequest struct {
 	FulfillStatus *string `json:"fulfill_status,omitempty" xml:"fulfill_status,omitempty" require:"true"`
 	// 状态发生业务时间，格式yyyy-MM-dd HH:mm:ss，建议传入便于对账
 	StatusGmt *string `json:"status_gmt,omitempty" xml:"status_gmt,omitempty"`
+	// 物流快递公司ID，枚举值，详见接口文档
+	// 若上送，需要和tracking_no同时上送
+	LogisticsCode *string `json:"logistics_code,omitempty" xml:"logistics_code,omitempty"`
+	// 订单物流单号
+	// 若上送，需要和logistics_code同时上送
+	TrackingNo *string `json:"tracking_no,omitempty" xml:"tracking_no,omitempty"`
 }
 
 func (s UpdatePoiOrderRequest) String() string {
@@ -12494,6 +12500,16 @@ func (s *UpdatePoiOrderRequest) SetFulfillStatus(v string) *UpdatePoiOrderReques
 
 func (s *UpdatePoiOrderRequest) SetStatusGmt(v string) *UpdatePoiOrderRequest {
 	s.StatusGmt = &v
+	return s
+}
+
+func (s *UpdatePoiOrderRequest) SetLogisticsCode(v string) *UpdatePoiOrderRequest {
+	s.LogisticsCode = &v
+	return s
+}
+
+func (s *UpdatePoiOrderRequest) SetTrackingNo(v string) *UpdatePoiOrderRequest {
+	s.TrackingNo = &v
 	return s
 }
 
@@ -13058,6 +13074,105 @@ func (s *QueryPoiFundResponse) SetResultMsg(v string) *QueryPoiFundResponse {
 
 func (s *QueryPoiFundResponse) SetFundList(v []*OrderFundItem) *QueryPoiFundResponse {
 	s.FundList = v
+	return s
+}
+
+type NotifyPoiCouponRequest struct {
+	// OAuth模式下的授权token
+	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
+	// 支付宝小程序用户唯一ID
+	OpenId *string `json:"open_id,omitempty" xml:"open_id,omitempty" require:"true"`
+	// 通知模版枚举值：
+	// COUPON_RECEIVE_REMIND-优惠券领取提醒（用户接收频次：2周1次）；COUPON_EXPIRE_REMIND-优惠券到期提醒（用户接收频次：1周1次）。
+	NotifyTemplate *string `json:"notify_template,omitempty" xml:"notify_template,omitempty" require:"true"`
+	// 通知模版内容（JSON格式）
+	Data *string `json:"data,omitempty" xml:"data,omitempty" require:"true"`
+}
+
+func (s NotifyPoiCouponRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s NotifyPoiCouponRequest) GoString() string {
+	return s.String()
+}
+
+func (s *NotifyPoiCouponRequest) SetAuthToken(v string) *NotifyPoiCouponRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *NotifyPoiCouponRequest) SetProductInstanceId(v string) *NotifyPoiCouponRequest {
+	s.ProductInstanceId = &v
+	return s
+}
+
+func (s *NotifyPoiCouponRequest) SetOpenId(v string) *NotifyPoiCouponRequest {
+	s.OpenId = &v
+	return s
+}
+
+func (s *NotifyPoiCouponRequest) SetNotifyTemplate(v string) *NotifyPoiCouponRequest {
+	s.NotifyTemplate = &v
+	return s
+}
+
+func (s *NotifyPoiCouponRequest) SetData(v string) *NotifyPoiCouponRequest {
+	s.Data = &v
+	return s
+}
+
+type NotifyPoiCouponResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// open_id（回显）
+	OrderId *string `json:"order_id,omitempty" xml:"order_id,omitempty"`
+	// 通知结果
+	NotifyResult *string `json:"notify_result,omitempty" xml:"notify_result,omitempty"`
+	// 失败原因（notify_result=FAILED 时返回，通知成功为空）。
+	FailReason *string `json:"fail_reason,omitempty" xml:"fail_reason,omitempty"`
+}
+
+func (s NotifyPoiCouponResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s NotifyPoiCouponResponse) GoString() string {
+	return s.String()
+}
+
+func (s *NotifyPoiCouponResponse) SetReqMsgId(v string) *NotifyPoiCouponResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *NotifyPoiCouponResponse) SetResultCode(v string) *NotifyPoiCouponResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *NotifyPoiCouponResponse) SetResultMsg(v string) *NotifyPoiCouponResponse {
+	s.ResultMsg = &v
+	return s
+}
+
+func (s *NotifyPoiCouponResponse) SetOrderId(v string) *NotifyPoiCouponResponse {
+	s.OrderId = &v
+	return s
+}
+
+func (s *NotifyPoiCouponResponse) SetNotifyResult(v string) *NotifyPoiCouponResponse {
+	s.NotifyResult = &v
+	return s
+}
+
+func (s *NotifyPoiCouponResponse) SetFailReason(v string) *NotifyPoiCouponResponse {
+	s.FailReason = &v
 	return s
 }
 
@@ -17618,7 +17733,7 @@ func (client *Client) DoRequest(version *string, action *string, protocol *strin
 				"req_msg_id":       antchainutil.GetNonce(),
 				"access_key":       client.AccessKeyId,
 				"base_sdk_version": tea.String("TeaSDK-2.0"),
-				"sdk_version":      tea.String("1.7.34"),
+				"sdk_version":      tea.String("1.7.35"),
 				"_prod_code":       tea.String("SECURITYTECH"),
 				"_prod_channel":    tea.String("undefined"),
 			}
@@ -20547,6 +20662,42 @@ func (client *Client) QueryPoiFundEx(request *QueryPoiFundRequest, headers map[s
 	}
 	_result = &QueryPoiFundResponse{}
 	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("antsecuritytech.gateway.poi.fund.query"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
+}
+
+// Description:
+//
+// Description: 优惠券通知
+//
+// Summary: 优惠券通知
+func (client *Client) NotifyPoiCoupon(request *NotifyPoiCouponRequest) (_result *NotifyPoiCouponResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &NotifyPoiCouponResponse{}
+	_body, _err := client.NotifyPoiCouponEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+// Description:
+//
+// Description: 优惠券通知
+//
+// Summary: 优惠券通知
+func (client *Client) NotifyPoiCouponEx(request *NotifyPoiCouponRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *NotifyPoiCouponResponse, _err error) {
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &NotifyPoiCouponResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("antsecuritytech.gateway.poi.coupon.notify"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
 	if _err != nil {
 		return _result, _err
 	}
