@@ -1249,6 +1249,7 @@ class NewCarInfo(TeaModel):
         user_info: CarUserInfo = None,
         match_source: str = None,
         qc_car_series_id: str = None,
+        channel_no: str = None,
     ):
         # 车系
         self.car_series = car_series
@@ -1266,6 +1267,8 @@ class NewCarInfo(TeaModel):
         self.match_source = match_source
         # 汽车之家车型id
         self.qc_car_series_id = qc_car_series_id
+        # 渠道号
+        self.channel_no = channel_no
 
     def validate(self):
         self.validate_required(self.car_series, 'car_series')
@@ -1295,6 +1298,8 @@ class NewCarInfo(TeaModel):
             result['match_source'] = self.match_source
         if self.qc_car_series_id is not None:
             result['qc_car_series_id'] = self.qc_car_series_id
+        if self.channel_no is not None:
+            result['channel_no'] = self.channel_no
         return result
 
     def from_map(self, m: dict = None):
@@ -1316,6 +1321,8 @@ class NewCarInfo(TeaModel):
             self.match_source = m.get('match_source')
         if m.get('qc_car_series_id') is not None:
             self.qc_car_series_id = m.get('qc_car_series_id')
+        if m.get('channel_no') is not None:
+            self.channel_no = m.get('channel_no')
         return self
 
 
@@ -3214,6 +3221,7 @@ class SubmitNewcarRequest(TeaModel):
         submit_id: str = None,
         qc_car_series_id: str = None,
         match_source: str = None,
+        channel_no: str = None,
     ):
         # OAuth模式下的授权token
         self.auth_token = auth_token
@@ -3237,6 +3245,8 @@ class SubmitNewcarRequest(TeaModel):
         self.qc_car_series_id = qc_car_series_id
         # 匹配源
         self.match_source = match_source
+        # 渠道号
+        self.channel_no = channel_no
 
     def validate(self):
         self.validate_required(self.scene_code, 'scene_code')
@@ -3273,6 +3283,8 @@ class SubmitNewcarRequest(TeaModel):
             result['qc_car_series_id'] = self.qc_car_series_id
         if self.match_source is not None:
             result['match_source'] = self.match_source
+        if self.channel_no is not None:
+            result['channel_no'] = self.channel_no
         return result
 
     def from_map(self, m: dict = None):
@@ -3300,6 +3312,8 @@ class SubmitNewcarRequest(TeaModel):
             self.qc_car_series_id = m.get('qc_car_series_id')
         if m.get('match_source') is not None:
             self.match_source = m.get('match_source')
+        if m.get('channel_no') is not None:
+            self.channel_no = m.get('channel_no')
         return self
 
 

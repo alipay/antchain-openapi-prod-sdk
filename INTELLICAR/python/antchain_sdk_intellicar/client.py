@@ -135,7 +135,7 @@ class Client:
                     'req_msg_id': AntchainUtils.get_nonce(),
                     'access_key': self._access_key_id,
                     'base_sdk_version': 'TeaSDK-2.0',
-                    'sdk_version': '1.2.5',
+                    'sdk_version': '1.2.6',
                     '_prod_code': 'INTELLICAR',
                     '_prod_channel': 'default'
                 }
@@ -239,7 +239,7 @@ class Client:
                     'req_msg_id': AntchainUtils.get_nonce(),
                     'access_key': self._access_key_id,
                     'base_sdk_version': 'TeaSDK-2.0',
-                    'sdk_version': '1.2.5',
+                    'sdk_version': '1.2.6',
                     '_prod_code': 'INTELLICAR',
                     '_prod_channel': 'default'
                 }
@@ -449,7 +449,7 @@ class Client:
     ) -> intellicar_models.SubmitNewcarResponse:
         """
         Description: 提交新车线索
-        Summary:  提交新车线索
+        Summary: 提交新车线索
         """
         runtime = util_models.RuntimeOptions()
         headers = {}
@@ -461,7 +461,7 @@ class Client:
     ) -> intellicar_models.SubmitNewcarResponse:
         """
         Description: 提交新车线索
-        Summary:  提交新车线索
+        Summary: 提交新车线索
         """
         runtime = util_models.RuntimeOptions()
         headers = {}
@@ -475,7 +475,7 @@ class Client:
     ) -> intellicar_models.SubmitNewcarResponse:
         """
         Description: 提交新车线索
-        Summary:  提交新车线索
+        Summary: 提交新车线索
         """
         UtilClient.validate_model(request)
         return TeaCore.from_map(
@@ -491,7 +491,7 @@ class Client:
     ) -> intellicar_models.SubmitNewcarResponse:
         """
         Description: 提交新车线索
-        Summary:  提交新车线索
+        Summary: 提交新车线索
         """
         UtilClient.validate_model(request)
         return TeaCore.from_map(
