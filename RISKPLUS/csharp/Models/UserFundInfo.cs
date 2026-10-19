@@ -42,6 +42,15 @@ namespace AntChain.SDK.RISKPLUS.Models
         [Validation(Required=true)]
         public List<FundItemDetail> Details { get; set; }
 
+        // 收款方id
+        /// <summary>
+        /// <b>Example:</b>
+        /// <para>11111111</para>
+        /// </summary>
+        [NameInMap("payee_id")]
+        [Validation(Required=false)]
+        public string PayeeId { get; set; }
+
     }
 
 }

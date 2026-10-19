@@ -158,7 +158,7 @@ namespace AntChain.SDK.RISKPLUS
                         {"req_msg_id", AntChain.AlipayUtil.AntchainUtils.GetNonce()},
                         {"access_key", _accessKeyId},
                         {"base_sdk_version", "TeaSDK-2.0"},
-                        {"sdk_version", "1.33.4"},
+                        {"sdk_version", "1.33.8"},
                         {"_prod_code", "RISKPLUS"},
                         {"_prod_channel", "undefined"},
                     };
@@ -301,7 +301,7 @@ namespace AntChain.SDK.RISKPLUS
                         {"req_msg_id", AntChain.AlipayUtil.AntchainUtils.GetNonce()},
                         {"access_key", _accessKeyId},
                         {"base_sdk_version", "TeaSDK-2.0"},
-                        {"sdk_version", "1.33.4"},
+                        {"sdk_version", "1.33.8"},
                         {"_prod_code", "RISKPLUS"},
                         {"_prod_channel", "undefined"},
                     };
@@ -725,6 +725,98 @@ namespace AntChain.SDK.RISKPLUS
         {
             AlibabaCloud.TeaUtil.Common.ValidateModel(request);
             return TeaModel.ToObject<QueryBenefithubSubscriptionlinkResponse>(await DoRequestAsync("1.0", "riskplus.benefithub.subscriptionlink.query", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /// <term><b>Description:</b></term>
+        /// <description>
+        /// <para>Description: 风险报告用户黑名单接口，作用：渠道新增黑名单使用
+        /// Summary: 风险报告用户黑名单接口，作用：渠道新增黑名单使用</para>
+        /// </description>
+        public PushBenefithubBlacklistResponse PushBenefithubBlacklist(PushBenefithubBlacklistRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return PushBenefithubBlacklistEx(request, headers, runtime);
+        }
+
+        /// <term><b>Description:</b></term>
+        /// <description>
+        /// <para>Description: 风险报告用户黑名单接口，作用：渠道新增黑名单使用
+        /// Summary: 风险报告用户黑名单接口，作用：渠道新增黑名单使用</para>
+        /// </description>
+        public async Task<PushBenefithubBlacklistResponse> PushBenefithubBlacklistAsync(PushBenefithubBlacklistRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return await PushBenefithubBlacklistExAsync(request, headers, runtime);
+        }
+
+        /// <term><b>Description:</b></term>
+        /// <description>
+        /// <para>Description: 风险报告用户黑名单接口，作用：渠道新增黑名单使用
+        /// Summary: 风险报告用户黑名单接口，作用：渠道新增黑名单使用</para>
+        /// </description>
+        public PushBenefithubBlacklistResponse PushBenefithubBlacklistEx(PushBenefithubBlacklistRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<PushBenefithubBlacklistResponse>(DoRequest("1.0", "riskplus.benefithub.blacklist.push", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /// <term><b>Description:</b></term>
+        /// <description>
+        /// <para>Description: 风险报告用户黑名单接口，作用：渠道新增黑名单使用
+        /// Summary: 风险报告用户黑名单接口，作用：渠道新增黑名单使用</para>
+        /// </description>
+        public async Task<PushBenefithubBlacklistResponse> PushBenefithubBlacklistExAsync(PushBenefithubBlacklistRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<PushBenefithubBlacklistResponse>(await DoRequestAsync("1.0", "riskplus.benefithub.blacklist.push", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /// <term><b>Description:</b></term>
+        /// <description>
+        /// <para>Description: 渠道判断用户黑名单接口
+        /// Summary: 渠道判断用户黑名单接口</para>
+        /// </description>
+        public QueryBenefithubBlacklistResponse QueryBenefithubBlacklist(QueryBenefithubBlacklistRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return QueryBenefithubBlacklistEx(request, headers, runtime);
+        }
+
+        /// <term><b>Description:</b></term>
+        /// <description>
+        /// <para>Description: 渠道判断用户黑名单接口
+        /// Summary: 渠道判断用户黑名单接口</para>
+        /// </description>
+        public async Task<QueryBenefithubBlacklistResponse> QueryBenefithubBlacklistAsync(QueryBenefithubBlacklistRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return await QueryBenefithubBlacklistExAsync(request, headers, runtime);
+        }
+
+        /// <term><b>Description:</b></term>
+        /// <description>
+        /// <para>Description: 渠道判断用户黑名单接口
+        /// Summary: 渠道判断用户黑名单接口</para>
+        /// </description>
+        public QueryBenefithubBlacklistResponse QueryBenefithubBlacklistEx(QueryBenefithubBlacklistRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<QueryBenefithubBlacklistResponse>(DoRequest("1.0", "riskplus.benefithub.blacklist.query", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /// <term><b>Description:</b></term>
+        /// <description>
+        /// <para>Description: 渠道判断用户黑名单接口
+        /// Summary: 渠道判断用户黑名单接口</para>
+        /// </description>
+        public async Task<QueryBenefithubBlacklistResponse> QueryBenefithubBlacklistExAsync(QueryBenefithubBlacklistRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<QueryBenefithubBlacklistResponse>(await DoRequestAsync("1.0", "riskplus.benefithub.blacklist.query", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
         }
 
         /// <term><b>Description:</b></term>
@@ -6937,6 +7029,52 @@ namespace AntChain.SDK.RISKPLUS
         {
             AlibabaCloud.TeaUtil.Common.ValidateModel(request);
             return TeaModel.ToObject<QueryDubbridgeJumpresultResponse>(await DoRequestAsync("1.0", "riskplus.dubbridge.jumpresult.query", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /// <term><b>Description:</b></term>
+        /// <description>
+        /// <para>Description: 账户流水查询接口(线下还款)
+        /// Summary: 账户流水查询接口(线下还款)</para>
+        /// </description>
+        public QueryDubbridgeRepayofflineaccountResponse QueryDubbridgeRepayofflineaccount(QueryDubbridgeRepayofflineaccountRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return QueryDubbridgeRepayofflineaccountEx(request, headers, runtime);
+        }
+
+        /// <term><b>Description:</b></term>
+        /// <description>
+        /// <para>Description: 账户流水查询接口(线下还款)
+        /// Summary: 账户流水查询接口(线下还款)</para>
+        /// </description>
+        public async Task<QueryDubbridgeRepayofflineaccountResponse> QueryDubbridgeRepayofflineaccountAsync(QueryDubbridgeRepayofflineaccountRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return await QueryDubbridgeRepayofflineaccountExAsync(request, headers, runtime);
+        }
+
+        /// <term><b>Description:</b></term>
+        /// <description>
+        /// <para>Description: 账户流水查询接口(线下还款)
+        /// Summary: 账户流水查询接口(线下还款)</para>
+        /// </description>
+        public QueryDubbridgeRepayofflineaccountResponse QueryDubbridgeRepayofflineaccountEx(QueryDubbridgeRepayofflineaccountRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<QueryDubbridgeRepayofflineaccountResponse>(DoRequest("1.0", "riskplus.dubbridge.repayofflineaccount.query", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /// <term><b>Description:</b></term>
+        /// <description>
+        /// <para>Description: 账户流水查询接口(线下还款)
+        /// Summary: 账户流水查询接口(线下还款)</para>
+        /// </description>
+        public async Task<QueryDubbridgeRepayofflineaccountResponse> QueryDubbridgeRepayofflineaccountExAsync(QueryDubbridgeRepayofflineaccountRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<QueryDubbridgeRepayofflineaccountResponse>(await DoRequestAsync("1.0", "riskplus.dubbridge.repayofflineaccount.query", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
         }
 
         /// <term><b>Description:</b></term>

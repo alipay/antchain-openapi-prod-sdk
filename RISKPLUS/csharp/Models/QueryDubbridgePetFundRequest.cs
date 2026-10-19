@@ -18,14 +18,9 @@ namespace AntChain.SDK.RISKPLUS.Models
         [Validation(Required=false)]
         public string ProductInstanceId { get; set; }
 
-        // 渠道编码
-        [NameInMap("channel_code")]
-        [Validation(Required=true)]
-        public string ChannelCode { get; set; }
-
         // 流量平台
         [NameInMap("traffic_platform")]
-        [Validation(Required=true)]
+        [Validation(Required=false)]
         public string TrafficPlatform { get; set; }
 
         // 买家用户id
@@ -42,6 +37,11 @@ namespace AntChain.SDK.RISKPLUS.Models
         [NameInMap("merchant_id")]
         [Validation(Required=false)]
         public string MerchantId { get; set; }
+
+        // 渠道编码
+        [NameInMap("channel_code")]
+        [Validation(Required=true)]
+        public string ChannelCode { get; set; }
 
     }
 

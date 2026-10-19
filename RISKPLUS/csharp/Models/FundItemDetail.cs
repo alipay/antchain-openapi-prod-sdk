@@ -46,15 +46,6 @@ namespace AntChain.SDK.RISKPLUS.Models
         [Validation(Required=true)]
         public string FrozenAmount { get; set; }
 
-        // 账户归属的入驻id
-        /// <summary>
-        /// <b>Example:</b>
-        /// <para>xxx</para>
-        /// </summary>
-        [NameInMap("merchant_id")]
-        [Validation(Required=true)]
-        public string MerchantId { get; set; }
-
         // 原支付金额
         /// <summary>
         /// <b>Example:</b>
