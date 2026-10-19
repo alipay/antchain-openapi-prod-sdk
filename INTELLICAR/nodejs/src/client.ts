@@ -1176,6 +1176,12 @@ export class NewCarInfo extends $tea.Model {
    * 123
    */
   qcCarSeriesId?: string;
+  // 渠道号
+  /**
+   * @example
+   * xxx
+   */
+  channelNo?: string;
   static names(): { [key: string]: string } {
     return {
       carSeries: 'car_series',
@@ -1186,6 +1192,7 @@ export class NewCarInfo extends $tea.Model {
       userInfo: 'user_info',
       matchSource: 'match_source',
       qcCarSeriesId: 'qc_car_series_id',
+      channelNo: 'channel_no',
     };
   }
 
@@ -1199,6 +1206,7 @@ export class NewCarInfo extends $tea.Model {
       userInfo: CarUserInfo,
       matchSource: 'string',
       qcCarSeriesId: 'string',
+      channelNo: 'string',
     };
   }
 
@@ -2809,6 +2817,8 @@ export class SubmitNewcarRequest extends $tea.Model {
   qcCarSeriesId?: string;
   // 匹配源
   matchSource?: string;
+  // 渠道号
+  channelNo?: string;
   static names(): { [key: string]: string } {
     return {
       authToken: 'auth_token',
@@ -2822,6 +2832,7 @@ export class SubmitNewcarRequest extends $tea.Model {
       submitId: 'submit_id',
       qcCarSeriesId: 'qc_car_series_id',
       matchSource: 'match_source',
+      channelNo: 'channel_no',
     };
   }
 
@@ -2838,6 +2849,7 @@ export class SubmitNewcarRequest extends $tea.Model {
       submitId: 'string',
       qcCarSeriesId: 'string',
       matchSource: 'string',
+      channelNo: 'string',
     };
   }
 
@@ -5273,7 +5285,7 @@ export default class Client {
           req_msg_id: AntchainUtil.getNonce(),
           access_key: this._accessKeyId,
           base_sdk_version: "TeaSDK-2.0",
-          sdk_version: "1.2.5",
+          sdk_version: "1.2.6",
           _prod_code: "INTELLICAR",
           _prod_channel: "default",
         };
@@ -5387,7 +5399,7 @@ export default class Client {
   /**
    * @remarks
    * Description: 提交新车线索
-   * Summary:  提交新车线索
+   * Summary: 提交新车线索
    */
   async submitNewcar(request: SubmitNewcarRequest): Promise<SubmitNewcarResponse> {
     let runtime = new $Util.RuntimeOptions({ });
@@ -5398,7 +5410,7 @@ export default class Client {
   /**
    * @remarks
    * Description: 提交新车线索
-   * Summary:  提交新车线索
+   * Summary: 提交新车线索
    */
   async submitNewcarEx(request: SubmitNewcarRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<SubmitNewcarResponse> {
     Util.validateModel(request);
