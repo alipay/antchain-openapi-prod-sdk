@@ -158,7 +158,7 @@ namespace AntChain.SDK.INTELLICAR
                         {"req_msg_id", AntChain.AlipayUtil.AntchainUtils.GetNonce()},
                         {"access_key", _accessKeyId},
                         {"base_sdk_version", "TeaSDK-2.0"},
-                        {"sdk_version", "1.2.5"},
+                        {"sdk_version", "1.2.6"},
                         {"_prod_code", "INTELLICAR"},
                         {"_prod_channel", "default"},
                     };
@@ -301,7 +301,7 @@ namespace AntChain.SDK.INTELLICAR
                         {"req_msg_id", AntChain.AlipayUtil.AntchainUtils.GetNonce()},
                         {"access_key", _accessKeyId},
                         {"base_sdk_version", "TeaSDK-2.0"},
-                        {"sdk_version", "1.2.5"},
+                        {"sdk_version", "1.2.6"},
                         {"_prod_code", "INTELLICAR"},
                         {"_prod_channel", "default"},
                     };
@@ -500,7 +500,7 @@ namespace AntChain.SDK.INTELLICAR
         /// <term><b>Description:</b></term>
         /// <description>
         /// <para>Description: 提交新车线索
-        /// Summary:  提交新车线索</para>
+        /// Summary: 提交新车线索</para>
         /// </description>
         public SubmitNewcarResponse SubmitNewcar(SubmitNewcarRequest request)
         {
@@ -512,7 +512,7 @@ namespace AntChain.SDK.INTELLICAR
         /// <term><b>Description:</b></term>
         /// <description>
         /// <para>Description: 提交新车线索
-        /// Summary:  提交新车线索</para>
+        /// Summary: 提交新车线索</para>
         /// </description>
         public async Task<SubmitNewcarResponse> SubmitNewcarAsync(SubmitNewcarRequest request)
         {
@@ -524,7 +524,7 @@ namespace AntChain.SDK.INTELLICAR
         /// <term><b>Description:</b></term>
         /// <description>
         /// <para>Description: 提交新车线索
-        /// Summary:  提交新车线索</para>
+        /// Summary: 提交新车线索</para>
         /// </description>
         public SubmitNewcarResponse SubmitNewcarEx(SubmitNewcarRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
         {
@@ -535,7 +535,7 @@ namespace AntChain.SDK.INTELLICAR
         /// <term><b>Description:</b></term>
         /// <description>
         /// <para>Description: 提交新车线索
-        /// Summary:  提交新车线索</para>
+        /// Summary: 提交新车线索</para>
         /// </description>
         public async Task<SubmitNewcarResponse> SubmitNewcarExAsync(SubmitNewcarRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
         {
