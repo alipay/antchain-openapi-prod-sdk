@@ -3099,12 +3099,19 @@ export class OrderFundItem extends $tea.Model {
   amount: string;
   // 详细
   details: FundItem[];
+  // 查询
+  /**
+   * @example
+   * METL202004041220123456
+   */
+  payeeMerchantId: string;
   static names(): { [key: string]: string } {
     return {
       orderId: 'order_id',
       tradeNo: 'trade_no',
       amount: 'amount',
       details: 'details',
+      payeeMerchantId: 'payee_merchant_id',
     };
   }
 
@@ -3114,6 +3121,7 @@ export class OrderFundItem extends $tea.Model {
       tradeNo: 'string',
       amount: 'string',
       details: { 'type': 'array', 'itemType': FundItem },
+      payeeMerchantId: 'string',
     };
   }
 
@@ -10312,6 +10320,12 @@ export class UpdatePoiOrderRequest extends $tea.Model {
   fulfillStatus: string;
   // 状态发生业务时间，格式yyyy-MM-dd HH:mm:ss，建议传入便于对账
   statusGmt?: string;
+  // 物流快递公司ID，枚举值，详见接口文档
+  // 若上送，需要和tracking_no同时上送
+  logisticsCode?: string;
+  // 订单物流单号
+  // 若上送，需要和logistics_code同时上送
+  trackingNo?: string;
   static names(): { [key: string]: string } {
     return {
       authToken: 'auth_token',
@@ -10321,6 +10335,8 @@ export class UpdatePoiOrderRequest extends $tea.Model {
       orderId: 'order_id',
       fulfillStatus: 'fulfill_status',
       statusGmt: 'status_gmt',
+      logisticsCode: 'logistics_code',
+      trackingNo: 'tracking_no',
     };
   }
 
@@ -10333,6 +10349,8 @@ export class UpdatePoiOrderRequest extends $tea.Model {
       orderId: 'string',
       fulfillStatus: 'string',
       statusGmt: 'string',
+      logisticsCode: 'string',
+      trackingNo: 'string',
     };
   }
 
@@ -10554,11 +10572,13 @@ export class NotifyPoiTransferRequest extends $tea.Model {
   // 原始正向订单号（仅MALL携带，余额来源业务订单号）
   originalOrderNo?: string;
   // 分账时间，格式yyyy-MM-dd HH:mm:ss
-  gmtTransfer: string;
+  gmtTransfer?: string;
   // 结算类型：PET-活体 / MALL-商城消费 / SCORE-充值余额整笔 / MEMBER-会员
   settleType: string;
   // 分账明细JSON数组（天枢每批次收款主体唯一，单元素数组；元素：cert_no收款主体社信码、transfer_amount结算金额元）
   transferDetails: string;
+  // 分账状态
+  transferStatus: string;
   static names(): { [key: string]: string } {
     return {
       authToken: 'auth_token',
@@ -10569,6 +10589,7 @@ export class NotifyPoiTransferRequest extends $tea.Model {
       gmtTransfer: 'gmt_transfer',
       settleType: 'settle_type',
       transferDetails: 'transfer_details',
+      transferStatus: 'transfer_status',
     };
   }
 
@@ -10582,6 +10603,7 @@ export class NotifyPoiTransferRequest extends $tea.Model {
       gmtTransfer: 'string',
       settleType: 'string',
       transferDetails: 'string',
+      transferStatus: 'string',
     };
   }
 
@@ -10756,6 +10778,82 @@ export class QueryPoiFundResponse extends $tea.Model {
       resultCode: 'string',
       resultMsg: 'string',
       fundList: { 'type': 'array', 'itemType': OrderFundItem },
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class NotifyPoiCouponRequest extends $tea.Model {
+  // OAuth模式下的授权token
+  authToken?: string;
+  productInstanceId?: string;
+  // 支付宝小程序用户唯一ID
+  openId: string;
+  // 通知模版枚举值：
+  // COUPON_RECEIVE_REMIND-优惠券领取提醒（用户接收频次：2周1次）；COUPON_EXPIRE_REMIND-优惠券到期提醒（用户接收频次：1周1次）。
+  notifyTemplate: string;
+  // 通知模版内容（JSON格式）
+  data: string;
+  static names(): { [key: string]: string } {
+    return {
+      authToken: 'auth_token',
+      productInstanceId: 'product_instance_id',
+      openId: 'open_id',
+      notifyTemplate: 'notify_template',
+      data: 'data',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      authToken: 'string',
+      productInstanceId: 'string',
+      openId: 'string',
+      notifyTemplate: 'string',
+      data: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class NotifyPoiCouponResponse extends $tea.Model {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string;
+  // 结果码，一般OK表示调用成功
+  resultCode?: string;
+  // 异常信息的文本描述
+  resultMsg?: string;
+  // open_id（回显）
+  orderId?: string;
+  // 通知结果
+  notifyResult?: string;
+  // 失败原因（notify_result=FAILED 时返回，通知成功为空）。
+  failReason?: string;
+  static names(): { [key: string]: string } {
+    return {
+      reqMsgId: 'req_msg_id',
+      resultCode: 'result_code',
+      resultMsg: 'result_msg',
+      orderId: 'order_id',
+      notifyResult: 'notify_result',
+      failReason: 'fail_reason',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      reqMsgId: 'string',
+      resultCode: 'string',
+      resultMsg: 'string',
+      orderId: 'string',
+      notifyResult: 'string',
+      failReason: 'string',
     };
   }
 
@@ -14162,7 +14260,7 @@ export default class Client {
           req_msg_id: AntchainUtil.getNonce(),
           access_key: this._accessKeyId,
           base_sdk_version: "TeaSDK-2.0",
-          sdk_version: "1.7.32",
+          sdk_version: "1.7.35",
           _prod_code: "SECURITYTECH",
           _prod_channel: "undefined",
         };
@@ -15891,6 +15989,27 @@ export default class Client {
   async queryPoiFundEx(request: QueryPoiFundRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<QueryPoiFundResponse> {
     Util.validateModel(request);
     return $tea.cast<QueryPoiFundResponse>(await this.doRequest("1.0", "antsecuritytech.gateway.poi.fund.query", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new QueryPoiFundResponse({}));
+  }
+
+  /**
+   * @remarks
+   * Description: 优惠券通知
+   * Summary: 优惠券通知
+   */
+  async notifyPoiCoupon(request: NotifyPoiCouponRequest): Promise<NotifyPoiCouponResponse> {
+    let runtime = new $Util.RuntimeOptions({ });
+    let headers : {[key: string ]: string} = { };
+    return await this.notifyPoiCouponEx(request, headers, runtime);
+  }
+
+  /**
+   * @remarks
+   * Description: 优惠券通知
+   * Summary: 优惠券通知
+   */
+  async notifyPoiCouponEx(request: NotifyPoiCouponRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<NotifyPoiCouponResponse> {
+    Util.validateModel(request);
+    return $tea.cast<NotifyPoiCouponResponse>(await this.doRequest("1.0", "antsecuritytech.gateway.poi.coupon.notify", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new NotifyPoiCouponResponse({}));
   }
 
   /**
