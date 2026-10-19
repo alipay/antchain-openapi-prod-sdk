@@ -64,6 +64,11 @@ namespace AntChain.SDK.INTELLICAR.Models
         [Validation(Required=false)]
         public string MatchSource { get; set; }
 
+        // 渠道号
+        [NameInMap("channel_no")]
+        [Validation(Required=false)]
+        public string ChannelNo { get; set; }
+
     }
 
 }

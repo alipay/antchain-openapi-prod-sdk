@@ -78,6 +78,15 @@ namespace AntChain.SDK.INTELLICAR.Models
         [Validation(Required=false)]
         public string QcCarSeriesId { get; set; }
 
+        // 渠道号
+        /// <summary>
+        /// <b>Example:</b>
+        /// <para>xxx</para>
+        /// </summary>
+        [NameInMap("channel_no")]
+        [Validation(Required=false)]
+        public string ChannelNo { get; set; }
+
     }
 
 }
