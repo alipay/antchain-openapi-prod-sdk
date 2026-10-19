@@ -1339,6 +1339,11 @@ type NewCarInfo struct {
 	//
 	// 123
 	QcCarSeriesId *string `json:"qc_car_series_id,omitempty" xml:"qc_car_series_id,omitempty"`
+	// 渠道号
+	// example:
+	//
+	// xxx
+	ChannelNo *string `json:"channel_no,omitempty" xml:"channel_no,omitempty"`
 }
 
 func (s NewCarInfo) String() string {
@@ -1386,6 +1391,11 @@ func (s *NewCarInfo) SetMatchSource(v string) *NewCarInfo {
 
 func (s *NewCarInfo) SetQcCarSeriesId(v string) *NewCarInfo {
 	s.QcCarSeriesId = &v
+	return s
+}
+
+func (s *NewCarInfo) SetChannelNo(v string) *NewCarInfo {
+	s.ChannelNo = &v
 	return s
 }
 
@@ -3183,6 +3193,8 @@ type SubmitNewcarRequest struct {
 	QcCarSeriesId *string `json:"qc_car_series_id,omitempty" xml:"qc_car_series_id,omitempty"`
 	// 匹配源
 	MatchSource *string `json:"match_source,omitempty" xml:"match_source,omitempty"`
+	// 渠道号
+	ChannelNo *string `json:"channel_no,omitempty" xml:"channel_no,omitempty"`
 }
 
 func (s SubmitNewcarRequest) String() string {
@@ -3245,6 +3257,11 @@ func (s *SubmitNewcarRequest) SetQcCarSeriesId(v string) *SubmitNewcarRequest {
 
 func (s *SubmitNewcarRequest) SetMatchSource(v string) *SubmitNewcarRequest {
 	s.MatchSource = &v
+	return s
+}
+
+func (s *SubmitNewcarRequest) SetChannelNo(v string) *SubmitNewcarRequest {
+	s.ChannelNo = &v
 	return s
 }
 
@@ -6388,7 +6405,7 @@ func (client *Client) DoRequest(version *string, action *string, protocol *strin
 				"req_msg_id":       antchainutil.GetNonce(),
 				"access_key":       client.AccessKeyId,
 				"base_sdk_version": tea.String("TeaSDK-2.0"),
-				"sdk_version":      tea.String("1.2.5"),
+				"sdk_version":      tea.String("1.2.6"),
 				"_prod_code":       tea.String("INTELLICAR"),
 				"_prod_channel":    tea.String("default"),
 			}
@@ -6558,7 +6575,7 @@ func (client *Client) BatchcreateNewcarEx(request *BatchcreateNewcarRequest, hea
 //
 // Description: 提交新车线索
 //
-// Summary:  提交新车线索
+// Summary: 提交新车线索
 func (client *Client) SubmitNewcar(request *SubmitNewcarRequest) (_result *SubmitNewcarResponse, _err error) {
 	runtime := &util.RuntimeOptions{}
 	headers := make(map[string]*string)
@@ -6575,7 +6592,7 @@ func (client *Client) SubmitNewcar(request *SubmitNewcarRequest) (_result *Submi
 //
 // Description: 提交新车线索
 //
-// Summary:  提交新车线索
+// Summary: 提交新车线索
 func (client *Client) SubmitNewcarEx(request *SubmitNewcarRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *SubmitNewcarResponse, _err error) {
 	_err = util.ValidateModel(request)
 	if _err != nil {
