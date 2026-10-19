@@ -663,7 +663,6 @@ class FundItemDetail(TeaModel):
         available_amount: str = None,
         can_refund_amount: str = None,
         frozen_amount: str = None,
-        merchant_id: str = None,
         original_amount: str = None,
     ):
         # 账户类型，PET-活体、GOODS-商品、POINT_PACKAGE-积分包（储值卡）
@@ -674,8 +673,6 @@ class FundItemDetail(TeaModel):
         self.can_refund_amount = can_refund_amount
         # 冻结金额，无冻结返回0，单位元
         self.frozen_amount = frozen_amount
-        # 账户归属的入驻id
-        self.merchant_id = merchant_id
         # 原支付金额
         self.original_amount = original_amount
 
@@ -684,7 +681,6 @@ class FundItemDetail(TeaModel):
         self.validate_required(self.available_amount, 'available_amount')
         self.validate_required(self.can_refund_amount, 'can_refund_amount')
         self.validate_required(self.frozen_amount, 'frozen_amount')
-        self.validate_required(self.merchant_id, 'merchant_id')
         self.validate_required(self.original_amount, 'original_amount')
 
     def to_map(self):
@@ -701,8 +697,6 @@ class FundItemDetail(TeaModel):
             result['can_refund_amount'] = self.can_refund_amount
         if self.frozen_amount is not None:
             result['frozen_amount'] = self.frozen_amount
-        if self.merchant_id is not None:
-            result['merchant_id'] = self.merchant_id
         if self.original_amount is not None:
             result['original_amount'] = self.original_amount
         return result
@@ -717,8 +711,6 @@ class FundItemDetail(TeaModel):
             self.can_refund_amount = m.get('can_refund_amount')
         if m.get('frozen_amount') is not None:
             self.frozen_amount = m.get('frozen_amount')
-        if m.get('merchant_id') is not None:
-            self.merchant_id = m.get('merchant_id')
         if m.get('original_amount') is not None:
             self.original_amount = m.get('original_amount')
         return self
@@ -3829,6 +3821,128 @@ class RtopCompanyRiskInfo(TeaModel):
             self.tags_clue = m.get('tags_clue')
         if m.get('tags_clue_detail') is not None:
             self.tags_clue_detail = m.get('tags_clue_detail')
+        return self
+
+
+class AccountDetail(TeaModel):
+    def __init__(
+        self,
+        merchant_no: str = None,
+        trade_time: str = None,
+        trade_no: str = None,
+        account_no: str = None,
+        account_name: str = None,
+        trade_amt: str = None,
+        dc_flag: str = None,
+        oth_account_no: str = None,
+        oth_account_name: str = None,
+        oth_bank_code: str = None,
+        oth_bank_name: str = None,
+        trade_remark: str = None,
+        actual_bal_amt: str = None,
+    ):
+        # 商户号
+        self.merchant_no = merchant_no
+        # 交易时间
+        self.trade_time = trade_time
+        # 交易流水号
+        self.trade_no = trade_no
+        # 账号
+        self.account_no = account_no
+        # 户名
+        self.account_name = account_name
+        # 交易金额
+        self.trade_amt = trade_amt
+        # 借贷标识	基础类型
+        self.dc_flag = dc_flag
+        # 对手账号
+        self.oth_account_no = oth_account_no
+        # 对手户名
+        self.oth_account_name = oth_account_name
+        # 对手行号
+        self.oth_bank_code = oth_bank_code
+        # 对手行名
+        self.oth_bank_name = oth_bank_name
+        # 交易备注
+        self.trade_remark = trade_remark
+        # 交易后余额
+        self.actual_bal_amt = actual_bal_amt
+
+    def validate(self):
+        self.validate_required(self.merchant_no, 'merchant_no')
+        self.validate_required(self.trade_time, 'trade_time')
+        self.validate_required(self.trade_no, 'trade_no')
+        self.validate_required(self.account_no, 'account_no')
+        self.validate_required(self.trade_amt, 'trade_amt')
+        self.validate_required(self.dc_flag, 'dc_flag')
+        self.validate_required(self.oth_account_no, 'oth_account_no')
+        self.validate_required(self.oth_account_name, 'oth_account_name')
+        self.validate_required(self.oth_bank_code, 'oth_bank_code')
+        self.validate_required(self.oth_bank_name, 'oth_bank_name')
+        self.validate_required(self.trade_remark, 'trade_remark')
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.merchant_no is not None:
+            result['merchant_no'] = self.merchant_no
+        if self.trade_time is not None:
+            result['trade_time'] = self.trade_time
+        if self.trade_no is not None:
+            result['trade_no'] = self.trade_no
+        if self.account_no is not None:
+            result['account_no'] = self.account_no
+        if self.account_name is not None:
+            result['account_name'] = self.account_name
+        if self.trade_amt is not None:
+            result['trade_amt'] = self.trade_amt
+        if self.dc_flag is not None:
+            result['dc_flag'] = self.dc_flag
+        if self.oth_account_no is not None:
+            result['oth_account_no'] = self.oth_account_no
+        if self.oth_account_name is not None:
+            result['oth_account_name'] = self.oth_account_name
+        if self.oth_bank_code is not None:
+            result['oth_bank_code'] = self.oth_bank_code
+        if self.oth_bank_name is not None:
+            result['oth_bank_name'] = self.oth_bank_name
+        if self.trade_remark is not None:
+            result['trade_remark'] = self.trade_remark
+        if self.actual_bal_amt is not None:
+            result['actual_bal_amt'] = self.actual_bal_amt
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('merchant_no') is not None:
+            self.merchant_no = m.get('merchant_no')
+        if m.get('trade_time') is not None:
+            self.trade_time = m.get('trade_time')
+        if m.get('trade_no') is not None:
+            self.trade_no = m.get('trade_no')
+        if m.get('account_no') is not None:
+            self.account_no = m.get('account_no')
+        if m.get('account_name') is not None:
+            self.account_name = m.get('account_name')
+        if m.get('trade_amt') is not None:
+            self.trade_amt = m.get('trade_amt')
+        if m.get('dc_flag') is not None:
+            self.dc_flag = m.get('dc_flag')
+        if m.get('oth_account_no') is not None:
+            self.oth_account_no = m.get('oth_account_no')
+        if m.get('oth_account_name') is not None:
+            self.oth_account_name = m.get('oth_account_name')
+        if m.get('oth_bank_code') is not None:
+            self.oth_bank_code = m.get('oth_bank_code')
+        if m.get('oth_bank_name') is not None:
+            self.oth_bank_name = m.get('oth_bank_name')
+        if m.get('trade_remark') is not None:
+            self.trade_remark = m.get('trade_remark')
+        if m.get('actual_bal_amt') is not None:
+            self.actual_bal_amt = m.get('actual_bal_amt')
         return self
 
 
@@ -9032,6 +9146,7 @@ class UserFundInfo(TeaModel):
         trade_no: str = None,
         amount: str = None,
         details: List[FundItemDetail] = None,
+        payee_id: str = None,
     ):
         # 业务订单号
         self.biz_order_no = biz_order_no
@@ -9041,6 +9156,8 @@ class UserFundInfo(TeaModel):
         self.amount = amount
         # 金额明细
         self.details = details
+        # 收款方id
+        self.payee_id = payee_id
 
     def validate(self):
         self.validate_required(self.biz_order_no, 'biz_order_no')
@@ -9068,6 +9185,8 @@ class UserFundInfo(TeaModel):
         if self.details is not None:
             for k in self.details:
                 result['details'].append(k.to_map() if k else None)
+        if self.payee_id is not None:
+            result['payee_id'] = self.payee_id
         return result
 
     def from_map(self, m: dict = None):
@@ -9083,6 +9202,8 @@ class UserFundInfo(TeaModel):
             for k in m.get('details'):
                 temp_model = FundItemDetail()
                 self.details.append(temp_model.from_map(k))
+        if m.get('payee_id') is not None:
+            self.payee_id = m.get('payee_id')
         return self
 
 
@@ -14080,6 +14201,244 @@ class QueryBenefithubSubscriptionlinkResponse(TeaModel):
             self.result_msg = m.get('result_msg')
         if m.get('h5_url') is not None:
             self.h_5url = m.get('h5_url')
+        return self
+
+
+class PushBenefithubBlacklistRequest(TeaModel):
+    def __init__(
+        self,
+        auth_token: str = None,
+        product_instance_id: str = None,
+        platform_code: str = None,
+        user_unique_id: str = None,
+        user_name: str = None,
+        mobile: str = None,
+        cert_no: str = None,
+        reason: str = None,
+    ):
+        # OAuth模式下的授权token
+        self.auth_token = auth_token
+        self.product_instance_id = product_instance_id
+        # 流量平台编码
+        self.platform_code = platform_code
+        # 流量平台用户唯一id
+        self.user_unique_id = user_unique_id
+        # 用户姓名
+        self.user_name = user_name
+        # 手机号
+        self.mobile = mobile
+        # 身份证号
+        self.cert_no = cert_no
+        # 加黑名单理由
+        self.reason = reason
+
+    def validate(self):
+        self.validate_required(self.platform_code, 'platform_code')
+        self.validate_required(self.user_unique_id, 'user_unique_id')
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.auth_token is not None:
+            result['auth_token'] = self.auth_token
+        if self.product_instance_id is not None:
+            result['product_instance_id'] = self.product_instance_id
+        if self.platform_code is not None:
+            result['platform_code'] = self.platform_code
+        if self.user_unique_id is not None:
+            result['user_unique_id'] = self.user_unique_id
+        if self.user_name is not None:
+            result['user_name'] = self.user_name
+        if self.mobile is not None:
+            result['mobile'] = self.mobile
+        if self.cert_no is not None:
+            result['cert_no'] = self.cert_no
+        if self.reason is not None:
+            result['reason'] = self.reason
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('auth_token') is not None:
+            self.auth_token = m.get('auth_token')
+        if m.get('product_instance_id') is not None:
+            self.product_instance_id = m.get('product_instance_id')
+        if m.get('platform_code') is not None:
+            self.platform_code = m.get('platform_code')
+        if m.get('user_unique_id') is not None:
+            self.user_unique_id = m.get('user_unique_id')
+        if m.get('user_name') is not None:
+            self.user_name = m.get('user_name')
+        if m.get('mobile') is not None:
+            self.mobile = m.get('mobile')
+        if m.get('cert_no') is not None:
+            self.cert_no = m.get('cert_no')
+        if m.get('reason') is not None:
+            self.reason = m.get('reason')
+        return self
+
+
+class PushBenefithubBlacklistResponse(TeaModel):
+    def __init__(
+        self,
+        req_msg_id: str = None,
+        result_code: str = None,
+        result_msg: str = None,
+    ):
+        # 请求唯一ID，用于链路跟踪和问题排查
+        self.req_msg_id = req_msg_id
+        # 结果码，一般OK表示调用成功
+        self.result_code = result_code
+        # 异常信息的文本描述
+        self.result_msg = result_msg
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.req_msg_id is not None:
+            result['req_msg_id'] = self.req_msg_id
+        if self.result_code is not None:
+            result['result_code'] = self.result_code
+        if self.result_msg is not None:
+            result['result_msg'] = self.result_msg
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('req_msg_id') is not None:
+            self.req_msg_id = m.get('req_msg_id')
+        if m.get('result_code') is not None:
+            self.result_code = m.get('result_code')
+        if m.get('result_msg') is not None:
+            self.result_msg = m.get('result_msg')
+        return self
+
+
+class QueryBenefithubBlacklistRequest(TeaModel):
+    def __init__(
+        self,
+        auth_token: str = None,
+        product_instance_id: str = None,
+        platform_code: str = None,
+        user_unique_id: str = None,
+        mobile: str = None,
+        cert_no: str = None,
+    ):
+        # OAuth模式下的授权token
+        self.auth_token = auth_token
+        self.product_instance_id = product_instance_id
+        # 流量平台编码
+        self.platform_code = platform_code
+        # 流量平台用户唯一id
+        self.user_unique_id = user_unique_id
+        # 手机号
+        self.mobile = mobile
+        # 身份证号
+        self.cert_no = cert_no
+
+    def validate(self):
+        self.validate_required(self.platform_code, 'platform_code')
+        self.validate_required(self.user_unique_id, 'user_unique_id')
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.auth_token is not None:
+            result['auth_token'] = self.auth_token
+        if self.product_instance_id is not None:
+            result['product_instance_id'] = self.product_instance_id
+        if self.platform_code is not None:
+            result['platform_code'] = self.platform_code
+        if self.user_unique_id is not None:
+            result['user_unique_id'] = self.user_unique_id
+        if self.mobile is not None:
+            result['mobile'] = self.mobile
+        if self.cert_no is not None:
+            result['cert_no'] = self.cert_no
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('auth_token') is not None:
+            self.auth_token = m.get('auth_token')
+        if m.get('product_instance_id') is not None:
+            self.product_instance_id = m.get('product_instance_id')
+        if m.get('platform_code') is not None:
+            self.platform_code = m.get('platform_code')
+        if m.get('user_unique_id') is not None:
+            self.user_unique_id = m.get('user_unique_id')
+        if m.get('mobile') is not None:
+            self.mobile = m.get('mobile')
+        if m.get('cert_no') is not None:
+            self.cert_no = m.get('cert_no')
+        return self
+
+
+class QueryBenefithubBlacklistResponse(TeaModel):
+    def __init__(
+        self,
+        req_msg_id: str = None,
+        result_code: str = None,
+        result_msg: str = None,
+        hit: bool = None,
+        hit_type: str = None,
+    ):
+        # 请求唯一ID，用于链路跟踪和问题排查
+        self.req_msg_id = req_msg_id
+        # 结果码，一般OK表示调用成功
+        self.result_code = result_code
+        # 异常信息的文本描述
+        self.result_msg = result_msg
+        # true-命中黑名单,false-非命中黑名单
+        self.hit = hit
+        # UUID-流量平台用户id维度命中，MOBILE-手机号匹配命中。
+        self.hit_type = hit_type
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.req_msg_id is not None:
+            result['req_msg_id'] = self.req_msg_id
+        if self.result_code is not None:
+            result['result_code'] = self.result_code
+        if self.result_msg is not None:
+            result['result_msg'] = self.result_msg
+        if self.hit is not None:
+            result['hit'] = self.hit
+        if self.hit_type is not None:
+            result['hit_type'] = self.hit_type
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('req_msg_id') is not None:
+            self.req_msg_id = m.get('req_msg_id')
+        if m.get('result_code') is not None:
+            self.result_code = m.get('result_code')
+        if m.get('result_msg') is not None:
+            self.result_msg = m.get('result_msg')
+        if m.get('hit') is not None:
+            self.hit = m.get('hit')
+        if m.get('hit_type') is not None:
+            self.hit_type = m.get('hit_type')
         return self
 
 
@@ -32076,17 +32435,15 @@ class QueryDubbridgePetFundRequest(TeaModel):
         self,
         auth_token: str = None,
         product_instance_id: str = None,
-        channel_code: str = None,
         traffic_platform: str = None,
         buyer_id: str = None,
         trade_no: str = None,
         merchant_id: str = None,
+        channel_code: str = None,
     ):
         # OAuth模式下的授权token
         self.auth_token = auth_token
         self.product_instance_id = product_instance_id
-        # 渠道编码
-        self.channel_code = channel_code
         # 流量平台
         self.traffic_platform = traffic_platform
         # 买家用户id
@@ -32095,11 +32452,12 @@ class QueryDubbridgePetFundRequest(TeaModel):
         self.trade_no = trade_no
         # 订单归属主体入驻ID
         self.merchant_id = merchant_id
+        # 渠道编码
+        self.channel_code = channel_code
 
     def validate(self):
-        self.validate_required(self.channel_code, 'channel_code')
-        self.validate_required(self.traffic_platform, 'traffic_platform')
         self.validate_required(self.buyer_id, 'buyer_id')
+        self.validate_required(self.channel_code, 'channel_code')
 
     def to_map(self):
         _map = super().to_map()
@@ -32111,8 +32469,6 @@ class QueryDubbridgePetFundRequest(TeaModel):
             result['auth_token'] = self.auth_token
         if self.product_instance_id is not None:
             result['product_instance_id'] = self.product_instance_id
-        if self.channel_code is not None:
-            result['channel_code'] = self.channel_code
         if self.traffic_platform is not None:
             result['traffic_platform'] = self.traffic_platform
         if self.buyer_id is not None:
@@ -32121,6 +32477,8 @@ class QueryDubbridgePetFundRequest(TeaModel):
             result['trade_no'] = self.trade_no
         if self.merchant_id is not None:
             result['merchant_id'] = self.merchant_id
+        if self.channel_code is not None:
+            result['channel_code'] = self.channel_code
         return result
 
     def from_map(self, m: dict = None):
@@ -32129,8 +32487,6 @@ class QueryDubbridgePetFundRequest(TeaModel):
             self.auth_token = m.get('auth_token')
         if m.get('product_instance_id') is not None:
             self.product_instance_id = m.get('product_instance_id')
-        if m.get('channel_code') is not None:
-            self.channel_code = m.get('channel_code')
         if m.get('traffic_platform') is not None:
             self.traffic_platform = m.get('traffic_platform')
         if m.get('buyer_id') is not None:
@@ -32139,6 +32495,8 @@ class QueryDubbridgePetFundRequest(TeaModel):
             self.trade_no = m.get('trade_no')
         if m.get('merchant_id') is not None:
             self.merchant_id = m.get('merchant_id')
+        if m.get('channel_code') is not None:
+            self.channel_code = m.get('channel_code')
         return self
 
 
@@ -33249,6 +33607,173 @@ class QueryDubbridgeJumpresultResponse(TeaModel):
         if m.get('cust_check_info') is not None:
             temp_model = CustCheckInfo()
             self.cust_check_info = temp_model.from_map(m['cust_check_info'])
+        return self
+
+
+class QueryDubbridgeRepayofflineaccountRequest(TeaModel):
+    def __init__(
+        self,
+        auth_token: str = None,
+        product_instance_id: str = None,
+        order_no: str = None,
+        use_credit_order_no: str = None,
+        start_date: str = None,
+        end_date: str = None,
+        account_no: str = None,
+        dc_flag: str = None,
+        current_page: str = None,
+        page_num: str = None,
+    ):
+        # OAuth模式下的授权token
+        self.auth_token = auth_token
+        self.product_instance_id = product_instance_id
+        # 请求唯一id
+        self.order_no = order_no
+        # 关联的天枢用信申请订单号
+        self.use_credit_order_no = use_credit_order_no
+        # 开始日期
+        self.start_date = start_date
+        # 结束日期
+        self.end_date = end_date
+        # 账号
+        self.account_no = account_no
+        # 借贷标识:D-借,C-贷
+        self.dc_flag = dc_flag
+        # 当前页码
+        self.current_page = current_page
+        # 每页记录数
+        self.page_num = page_num
+
+    def validate(self):
+        self.validate_required(self.order_no, 'order_no')
+        self.validate_required(self.use_credit_order_no, 'use_credit_order_no')
+        self.validate_required(self.start_date, 'start_date')
+        self.validate_required(self.end_date, 'end_date')
+        self.validate_required(self.account_no, 'account_no')
+        self.validate_required(self.current_page, 'current_page')
+        self.validate_required(self.page_num, 'page_num')
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.auth_token is not None:
+            result['auth_token'] = self.auth_token
+        if self.product_instance_id is not None:
+            result['product_instance_id'] = self.product_instance_id
+        if self.order_no is not None:
+            result['order_no'] = self.order_no
+        if self.use_credit_order_no is not None:
+            result['use_credit_order_no'] = self.use_credit_order_no
+        if self.start_date is not None:
+            result['start_date'] = self.start_date
+        if self.end_date is not None:
+            result['end_date'] = self.end_date
+        if self.account_no is not None:
+            result['account_no'] = self.account_no
+        if self.dc_flag is not None:
+            result['dc_flag'] = self.dc_flag
+        if self.current_page is not None:
+            result['current_page'] = self.current_page
+        if self.page_num is not None:
+            result['page_num'] = self.page_num
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('auth_token') is not None:
+            self.auth_token = m.get('auth_token')
+        if m.get('product_instance_id') is not None:
+            self.product_instance_id = m.get('product_instance_id')
+        if m.get('order_no') is not None:
+            self.order_no = m.get('order_no')
+        if m.get('use_credit_order_no') is not None:
+            self.use_credit_order_no = m.get('use_credit_order_no')
+        if m.get('start_date') is not None:
+            self.start_date = m.get('start_date')
+        if m.get('end_date') is not None:
+            self.end_date = m.get('end_date')
+        if m.get('account_no') is not None:
+            self.account_no = m.get('account_no')
+        if m.get('dc_flag') is not None:
+            self.dc_flag = m.get('dc_flag')
+        if m.get('current_page') is not None:
+            self.current_page = m.get('current_page')
+        if m.get('page_num') is not None:
+            self.page_num = m.get('page_num')
+        return self
+
+
+class QueryDubbridgeRepayofflineaccountResponse(TeaModel):
+    def __init__(
+        self,
+        req_msg_id: str = None,
+        result_code: str = None,
+        result_msg: str = None,
+        total_num: str = None,
+        total_page: str = None,
+        account_detail_list: List[AccountDetail] = None,
+    ):
+        # 请求唯一ID，用于链路跟踪和问题排查
+        self.req_msg_id = req_msg_id
+        # 结果码，一般OK表示调用成功
+        self.result_code = result_code
+        # 异常信息的文本描述
+        self.result_msg = result_msg
+        # 总条数
+        self.total_num = total_num
+        # 总页数
+        self.total_page = total_page
+        # 账户流水信息
+        self.account_detail_list = account_detail_list
+
+    def validate(self):
+        if self.account_detail_list:
+            for k in self.account_detail_list:
+                if k:
+                    k.validate()
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.req_msg_id is not None:
+            result['req_msg_id'] = self.req_msg_id
+        if self.result_code is not None:
+            result['result_code'] = self.result_code
+        if self.result_msg is not None:
+            result['result_msg'] = self.result_msg
+        if self.total_num is not None:
+            result['total_num'] = self.total_num
+        if self.total_page is not None:
+            result['total_page'] = self.total_page
+        result['account_detail_list'] = []
+        if self.account_detail_list is not None:
+            for k in self.account_detail_list:
+                result['account_detail_list'].append(k.to_map() if k else None)
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('req_msg_id') is not None:
+            self.req_msg_id = m.get('req_msg_id')
+        if m.get('result_code') is not None:
+            self.result_code = m.get('result_code')
+        if m.get('result_msg') is not None:
+            self.result_msg = m.get('result_msg')
+        if m.get('total_num') is not None:
+            self.total_num = m.get('total_num')
+        if m.get('total_page') is not None:
+            self.total_page = m.get('total_page')
+        self.account_detail_list = []
+        if m.get('account_detail_list') is not None:
+            for k in m.get('account_detail_list'):
+                temp_model = AccountDetail()
+                self.account_detail_list.append(temp_model.from_map(k))
         return self
 
 

@@ -135,7 +135,7 @@ class Client:
                     'req_msg_id': AntchainUtils.get_nonce(),
                     'access_key': self._access_key_id,
                     'base_sdk_version': 'TeaSDK-2.0',
-                    'sdk_version': '1.33.4',
+                    'sdk_version': '1.33.8',
                     '_prod_code': 'RISKPLUS',
                     '_prod_channel': 'undefined'
                 }
@@ -239,7 +239,7 @@ class Client:
                     'req_msg_id': AntchainUtils.get_nonce(),
                     'access_key': self._access_key_id,
                     'base_sdk_version': 'TeaSDK-2.0',
-                    'sdk_version': '1.33.4',
+                    'sdk_version': '1.33.8',
                     '_prod_code': 'RISKPLUS',
                     '_prod_channel': 'undefined'
                 }
@@ -721,6 +721,118 @@ class Client:
         return TeaCore.from_map(
             riskplus_models.QueryBenefithubSubscriptionlinkResponse(),
             await self.do_request_async('1.0', 'riskplus.benefithub.subscriptionlink.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def push_benefithub_blacklist(
+        self,
+        request: riskplus_models.PushBenefithubBlacklistRequest,
+    ) -> riskplus_models.PushBenefithubBlacklistResponse:
+        """
+        Description: 风险报告用户黑名单接口，作用：渠道新增黑名单使用
+        Summary: 风险报告用户黑名单接口，作用：渠道新增黑名单使用
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.push_benefithub_blacklist_ex(request, headers, runtime)
+
+    async def push_benefithub_blacklist_async(
+        self,
+        request: riskplus_models.PushBenefithubBlacklistRequest,
+    ) -> riskplus_models.PushBenefithubBlacklistResponse:
+        """
+        Description: 风险报告用户黑名单接口，作用：渠道新增黑名单使用
+        Summary: 风险报告用户黑名单接口，作用：渠道新增黑名单使用
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.push_benefithub_blacklist_ex_async(request, headers, runtime)
+
+    def push_benefithub_blacklist_ex(
+        self,
+        request: riskplus_models.PushBenefithubBlacklistRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> riskplus_models.PushBenefithubBlacklistResponse:
+        """
+        Description: 风险报告用户黑名单接口，作用：渠道新增黑名单使用
+        Summary: 风险报告用户黑名单接口，作用：渠道新增黑名单使用
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            riskplus_models.PushBenefithubBlacklistResponse(),
+            self.do_request('1.0', 'riskplus.benefithub.blacklist.push', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def push_benefithub_blacklist_ex_async(
+        self,
+        request: riskplus_models.PushBenefithubBlacklistRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> riskplus_models.PushBenefithubBlacklistResponse:
+        """
+        Description: 风险报告用户黑名单接口，作用：渠道新增黑名单使用
+        Summary: 风险报告用户黑名单接口，作用：渠道新增黑名单使用
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            riskplus_models.PushBenefithubBlacklistResponse(),
+            await self.do_request_async('1.0', 'riskplus.benefithub.blacklist.push', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def query_benefithub_blacklist(
+        self,
+        request: riskplus_models.QueryBenefithubBlacklistRequest,
+    ) -> riskplus_models.QueryBenefithubBlacklistResponse:
+        """
+        Description: 渠道判断用户黑名单接口
+        Summary: 渠道判断用户黑名单接口
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.query_benefithub_blacklist_ex(request, headers, runtime)
+
+    async def query_benefithub_blacklist_async(
+        self,
+        request: riskplus_models.QueryBenefithubBlacklistRequest,
+    ) -> riskplus_models.QueryBenefithubBlacklistResponse:
+        """
+        Description: 渠道判断用户黑名单接口
+        Summary: 渠道判断用户黑名单接口
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.query_benefithub_blacklist_ex_async(request, headers, runtime)
+
+    def query_benefithub_blacklist_ex(
+        self,
+        request: riskplus_models.QueryBenefithubBlacklistRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> riskplus_models.QueryBenefithubBlacklistResponse:
+        """
+        Description: 渠道判断用户黑名单接口
+        Summary: 渠道判断用户黑名单接口
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            riskplus_models.QueryBenefithubBlacklistResponse(),
+            self.do_request('1.0', 'riskplus.benefithub.blacklist.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def query_benefithub_blacklist_ex_async(
+        self,
+        request: riskplus_models.QueryBenefithubBlacklistRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> riskplus_models.QueryBenefithubBlacklistResponse:
+        """
+        Description: 渠道判断用户黑名单接口
+        Summary: 渠道判断用户黑名单接口
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            riskplus_models.QueryBenefithubBlacklistResponse(),
+            await self.do_request_async('1.0', 'riskplus.benefithub.blacklist.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
     def batchquery_creditshield_product_info(
@@ -8261,6 +8373,62 @@ class Client:
         return TeaCore.from_map(
             riskplus_models.QueryDubbridgeJumpresultResponse(),
             await self.do_request_async('1.0', 'riskplus.dubbridge.jumpresult.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def query_dubbridge_repayofflineaccount(
+        self,
+        request: riskplus_models.QueryDubbridgeRepayofflineaccountRequest,
+    ) -> riskplus_models.QueryDubbridgeRepayofflineaccountResponse:
+        """
+        Description: 账户流水查询接口(线下还款)
+        Summary: 账户流水查询接口(线下还款)
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.query_dubbridge_repayofflineaccount_ex(request, headers, runtime)
+
+    async def query_dubbridge_repayofflineaccount_async(
+        self,
+        request: riskplus_models.QueryDubbridgeRepayofflineaccountRequest,
+    ) -> riskplus_models.QueryDubbridgeRepayofflineaccountResponse:
+        """
+        Description: 账户流水查询接口(线下还款)
+        Summary: 账户流水查询接口(线下还款)
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.query_dubbridge_repayofflineaccount_ex_async(request, headers, runtime)
+
+    def query_dubbridge_repayofflineaccount_ex(
+        self,
+        request: riskplus_models.QueryDubbridgeRepayofflineaccountRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> riskplus_models.QueryDubbridgeRepayofflineaccountResponse:
+        """
+        Description: 账户流水查询接口(线下还款)
+        Summary: 账户流水查询接口(线下还款)
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            riskplus_models.QueryDubbridgeRepayofflineaccountResponse(),
+            self.do_request('1.0', 'riskplus.dubbridge.repayofflineaccount.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def query_dubbridge_repayofflineaccount_ex_async(
+        self,
+        request: riskplus_models.QueryDubbridgeRepayofflineaccountRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> riskplus_models.QueryDubbridgeRepayofflineaccountResponse:
+        """
+        Description: 账户流水查询接口(线下还款)
+        Summary: 账户流水查询接口(线下还款)
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            riskplus_models.QueryDubbridgeRepayofflineaccountResponse(),
+            await self.do_request_async('1.0', 'riskplus.dubbridge.repayofflineaccount.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
     def verify_finservice_zhima_identify(
