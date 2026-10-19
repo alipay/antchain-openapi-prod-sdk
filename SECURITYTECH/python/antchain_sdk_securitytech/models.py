@@ -14214,6 +14214,8 @@ class UpdatePoiOrderRequest(TeaModel):
         order_id: str = None,
         fulfill_status: str = None,
         status_gmt: str = None,
+        logistics_code: str = None,
+        tracking_no: str = None,
     ):
         # OAuth模式下的授权token
         self.auth_token = auth_token
@@ -14228,6 +14230,12 @@ class UpdatePoiOrderRequest(TeaModel):
         self.fulfill_status = fulfill_status
         # 状态发生业务时间，格式yyyy-MM-dd HH:mm:ss，建议传入便于对账
         self.status_gmt = status_gmt
+        # 物流快递公司ID，枚举值，详见接口文档
+        # 若上送，需要和tracking_no同时上送
+        self.logistics_code = logistics_code
+        # 订单物流单号
+        # 若上送，需要和logistics_code同时上送
+        self.tracking_no = tracking_no
 
     def validate(self):
         self.validate_required(self.open_id, 'open_id')
@@ -14254,6 +14262,10 @@ class UpdatePoiOrderRequest(TeaModel):
             result['fulfill_status'] = self.fulfill_status
         if self.status_gmt is not None:
             result['status_gmt'] = self.status_gmt
+        if self.logistics_code is not None:
+            result['logistics_code'] = self.logistics_code
+        if self.tracking_no is not None:
+            result['tracking_no'] = self.tracking_no
         return result
 
     def from_map(self, m: dict = None):
@@ -14272,6 +14284,10 @@ class UpdatePoiOrderRequest(TeaModel):
             self.fulfill_status = m.get('fulfill_status')
         if m.get('status_gmt') is not None:
             self.status_gmt = m.get('status_gmt')
+        if m.get('logistics_code') is not None:
+            self.logistics_code = m.get('logistics_code')
+        if m.get('tracking_no') is not None:
+            self.tracking_no = m.get('tracking_no')
         return self
 
 
@@ -14611,6 +14627,7 @@ class NotifyPoiTransferRequest(TeaModel):
         gmt_transfer: str = None,
         settle_type: str = None,
         transfer_details: str = None,
+        transfer_status: str = None,
     ):
         # OAuth模式下的授权token
         self.auth_token = auth_token
@@ -14627,13 +14644,15 @@ class NotifyPoiTransferRequest(TeaModel):
         self.settle_type = settle_type
         # 分账明细JSON数组（天枢每批次收款主体唯一，单元素数组；元素：cert_no收款主体社信码、transfer_amount结算金额元）
         self.transfer_details = transfer_details
+        # 分账状态
+        self.transfer_status = transfer_status
 
     def validate(self):
         self.validate_required(self.trade_no, 'trade_no')
         self.validate_required(self.biz_order_no, 'biz_order_no')
-        self.validate_required(self.gmt_transfer, 'gmt_transfer')
         self.validate_required(self.settle_type, 'settle_type')
         self.validate_required(self.transfer_details, 'transfer_details')
+        self.validate_required(self.transfer_status, 'transfer_status')
 
     def to_map(self):
         _map = super().to_map()
@@ -14657,6 +14676,8 @@ class NotifyPoiTransferRequest(TeaModel):
             result['settle_type'] = self.settle_type
         if self.transfer_details is not None:
             result['transfer_details'] = self.transfer_details
+        if self.transfer_status is not None:
+            result['transfer_status'] = self.transfer_status
         return result
 
     def from_map(self, m: dict = None):
@@ -14677,6 +14698,8 @@ class NotifyPoiTransferRequest(TeaModel):
             self.settle_type = m.get('settle_type')
         if m.get('transfer_details') is not None:
             self.transfer_details = m.get('transfer_details')
+        if m.get('transfer_status') is not None:
+            self.transfer_status = m.get('transfer_status')
         return self
 
 
@@ -14958,6 +14981,127 @@ class QueryPoiFundResponse(TeaModel):
             for k in m.get('fund_list'):
                 temp_model = OrderFundItem()
                 self.fund_list.append(temp_model.from_map(k))
+        return self
+
+
+class NotifyPoiCouponRequest(TeaModel):
+    def __init__(
+        self,
+        auth_token: str = None,
+        product_instance_id: str = None,
+        open_id: str = None,
+        notify_template: str = None,
+        data: str = None,
+    ):
+        # OAuth模式下的授权token
+        self.auth_token = auth_token
+        self.product_instance_id = product_instance_id
+        # 支付宝小程序用户唯一ID
+        self.open_id = open_id
+        # 通知模版枚举值：
+        # COUPON_RECEIVE_REMIND-优惠券领取提醒（用户接收频次：2周1次）；COUPON_EXPIRE_REMIND-优惠券到期提醒（用户接收频次：1周1次）。
+        self.notify_template = notify_template
+        # 通知模版内容（JSON格式）
+        self.data = data
+
+    def validate(self):
+        self.validate_required(self.open_id, 'open_id')
+        self.validate_required(self.notify_template, 'notify_template')
+        self.validate_required(self.data, 'data')
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.auth_token is not None:
+            result['auth_token'] = self.auth_token
+        if self.product_instance_id is not None:
+            result['product_instance_id'] = self.product_instance_id
+        if self.open_id is not None:
+            result['open_id'] = self.open_id
+        if self.notify_template is not None:
+            result['notify_template'] = self.notify_template
+        if self.data is not None:
+            result['data'] = self.data
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('auth_token') is not None:
+            self.auth_token = m.get('auth_token')
+        if m.get('product_instance_id') is not None:
+            self.product_instance_id = m.get('product_instance_id')
+        if m.get('open_id') is not None:
+            self.open_id = m.get('open_id')
+        if m.get('notify_template') is not None:
+            self.notify_template = m.get('notify_template')
+        if m.get('data') is not None:
+            self.data = m.get('data')
+        return self
+
+
+class NotifyPoiCouponResponse(TeaModel):
+    def __init__(
+        self,
+        req_msg_id: str = None,
+        result_code: str = None,
+        result_msg: str = None,
+        order_id: str = None,
+        notify_result: str = None,
+        fail_reason: str = None,
+    ):
+        # 请求唯一ID，用于链路跟踪和问题排查
+        self.req_msg_id = req_msg_id
+        # 结果码，一般OK表示调用成功
+        self.result_code = result_code
+        # 异常信息的文本描述
+        self.result_msg = result_msg
+        # open_id（回显）
+        self.order_id = order_id
+        # 通知结果
+        self.notify_result = notify_result
+        # 失败原因（notify_result=FAILED 时返回，通知成功为空）。
+        self.fail_reason = fail_reason
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.req_msg_id is not None:
+            result['req_msg_id'] = self.req_msg_id
+        if self.result_code is not None:
+            result['result_code'] = self.result_code
+        if self.result_msg is not None:
+            result['result_msg'] = self.result_msg
+        if self.order_id is not None:
+            result['order_id'] = self.order_id
+        if self.notify_result is not None:
+            result['notify_result'] = self.notify_result
+        if self.fail_reason is not None:
+            result['fail_reason'] = self.fail_reason
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('req_msg_id') is not None:
+            self.req_msg_id = m.get('req_msg_id')
+        if m.get('result_code') is not None:
+            self.result_code = m.get('result_code')
+        if m.get('result_msg') is not None:
+            self.result_msg = m.get('result_msg')
+        if m.get('order_id') is not None:
+            self.order_id = m.get('order_id')
+        if m.get('notify_result') is not None:
+            self.notify_result = m.get('notify_result')
+        if m.get('fail_reason') is not None:
+            self.fail_reason = m.get('fail_reason')
         return self
 
 

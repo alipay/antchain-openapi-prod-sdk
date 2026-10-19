@@ -135,7 +135,7 @@ class Client:
                     'req_msg_id': AntchainUtils.get_nonce(),
                     'access_key': self._access_key_id,
                     'base_sdk_version': 'TeaSDK-2.0',
-                    'sdk_version': '1.7.33',
+                    'sdk_version': '1.7.35',
                     '_prod_code': 'SECURITYTECH',
                     '_prod_channel': 'undefined'
                 }
@@ -239,7 +239,7 @@ class Client:
                     'req_msg_id': AntchainUtils.get_nonce(),
                     'access_key': self._access_key_id,
                     'base_sdk_version': 'TeaSDK-2.0',
-                    'sdk_version': '1.7.33',
+                    'sdk_version': '1.7.35',
                     '_prod_code': 'SECURITYTECH',
                     '_prod_channel': 'undefined'
                 }
@@ -4737,6 +4737,62 @@ class Client:
         return TeaCore.from_map(
             securitytech_models.QueryPoiFundResponse(),
             await self.do_request_async('1.0', 'antsecuritytech.gateway.poi.fund.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def notify_poi_coupon(
+        self,
+        request: securitytech_models.NotifyPoiCouponRequest,
+    ) -> securitytech_models.NotifyPoiCouponResponse:
+        """
+        Description: 优惠券通知
+        Summary: 优惠券通知
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.notify_poi_coupon_ex(request, headers, runtime)
+
+    async def notify_poi_coupon_async(
+        self,
+        request: securitytech_models.NotifyPoiCouponRequest,
+    ) -> securitytech_models.NotifyPoiCouponResponse:
+        """
+        Description: 优惠券通知
+        Summary: 优惠券通知
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.notify_poi_coupon_ex_async(request, headers, runtime)
+
+    def notify_poi_coupon_ex(
+        self,
+        request: securitytech_models.NotifyPoiCouponRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> securitytech_models.NotifyPoiCouponResponse:
+        """
+        Description: 优惠券通知
+        Summary: 优惠券通知
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            securitytech_models.NotifyPoiCouponResponse(),
+            self.do_request('1.0', 'antsecuritytech.gateway.poi.coupon.notify', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def notify_poi_coupon_ex_async(
+        self,
+        request: securitytech_models.NotifyPoiCouponRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> securitytech_models.NotifyPoiCouponResponse:
+        """
+        Description: 优惠券通知
+        Summary: 优惠券通知
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            securitytech_models.NotifyPoiCouponResponse(),
+            await self.do_request_async('1.0', 'antsecuritytech.gateway.poi.coupon.notify', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
     def create_bssecpic(
