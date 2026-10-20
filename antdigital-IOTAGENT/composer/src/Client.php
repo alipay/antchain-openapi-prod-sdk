@@ -102,6 +102,8 @@ use AntChain\IOTAGENT\Models\LikeBlockchainBotIotagentMusicRequest;
 use AntChain\IOTAGENT\Models\LikeBlockchainBotIotagentMusicResponse;
 use AntChain\IOTAGENT\Models\LogoutBlockchainBotIotagentMusicRequest;
 use AntChain\IOTAGENT\Models\LogoutBlockchainBotIotagentMusicResponse;
+use AntChain\IOTAGENT\Models\CallbackBlockchainBotIotagentMusicRequest;
+use AntChain\IOTAGENT\Models\CallbackBlockchainBotIotagentMusicResponse;
 use AntChain\IOTAGENT\Models\QuerycontractBlockchainBotAiotdatalinkAntfinanceassistantRequest;
 use AntChain\IOTAGENT\Models\QuerycontractBlockchainBotAiotdatalinkAntfinanceassistantResponse;
 use AntChain\IOTAGENT\Models\SigncontractBlockchainBotAiotdatalinkAntfinanceassistantRequest;
@@ -247,7 +249,7 @@ class Client {
                     "req_msg_id" => UtilClient::getNonce(),
                     "access_key" => $this->_accessKeyId,
                     "base_sdk_version" => "TeaSDK-2.0",
-                    "sdk_version" => "1.2.14",
+                    "sdk_version" => "1.2.15",
                     "_prod_code" => "IOTAGENT",
                     "_prod_channel" => "undefined"
                 ];
@@ -1430,6 +1432,31 @@ class Client {
     public function logoutBlockchainBotIotagentMusicEx($request, $headers, $runtime){
         Utils::validateModel($request);
         return LogoutBlockchainBotIotagentMusicResponse::fromMap($this->doRequest("1.0", "blockchain.bot.iotagent.music.logout", "HTTPS", "POST", "/gateway.do", Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 云音乐回调接口
+     * Summary: 云音乐回调接口
+     * @param CallbackBlockchainBotIotagentMusicRequest $request
+     * @return CallbackBlockchainBotIotagentMusicResponse
+     */
+    public function callbackBlockchainBotIotagentMusic($request){
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+        return $this->callbackBlockchainBotIotagentMusicEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 云音乐回调接口
+     * Summary: 云音乐回调接口
+     * @param CallbackBlockchainBotIotagentMusicRequest $request
+     * @param string[] $headers
+     * @param RuntimeOptions $runtime
+     * @return CallbackBlockchainBotIotagentMusicResponse
+     */
+    public function callbackBlockchainBotIotagentMusicEx($request, $headers, $runtime){
+        Utils::validateModel($request);
+        return CallbackBlockchainBotIotagentMusicResponse::fromMap($this->doRequest("1.0", "blockchain.bot.iotagent.music.callback", "HTTPS", "POST", "/gateway.do", Tea::merge($request), $headers, $runtime));
     }
 
     /**
