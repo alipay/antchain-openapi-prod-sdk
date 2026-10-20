@@ -20,6 +20,10 @@ public class ExecTaskTriggerRequest extends TeaModel {
     @NameInMap("unique_id")
     public String uniqueId;
 
+    // queue上个未完成排队、error上个未完成抛错、parallel上个未完成并行
+    @NameInMap("trigger_policy")
+    public String triggerPolicy;
+
     public static ExecTaskTriggerRequest build(java.util.Map<String, ?> map) throws Exception {
         ExecTaskTriggerRequest self = new ExecTaskTriggerRequest();
         return TeaModel.build(map, self);
@@ -55,6 +59,14 @@ public class ExecTaskTriggerRequest extends TeaModel {
     }
     public String getUniqueId() {
         return this.uniqueId;
+    }
+
+    public ExecTaskTriggerRequest setTriggerPolicy(String triggerPolicy) {
+        this.triggerPolicy = triggerPolicy;
+        return this;
+    }
+    public String getTriggerPolicy() {
+        return this.triggerPolicy;
     }
 
 }
