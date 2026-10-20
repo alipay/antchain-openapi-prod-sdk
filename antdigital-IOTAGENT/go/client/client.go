@@ -20734,6 +20734,83 @@ func (s *LogoutBlockchainBotIotagentMusicResponse) SetResultMsg(v string) *Logou
 	return s
 }
 
+type CallbackBlockchainBotIotagentMusicRequest struct {
+	// OAuth模式下的授权token
+	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
+	// 云音乐授权码
+	Code *string `json:"code,omitempty" xml:"code,omitempty" require:"true"`
+	// 云音乐CSRF状态码
+	State *string `json:"state,omitempty" xml:"state,omitempty" require:"true"`
+}
+
+func (s CallbackBlockchainBotIotagentMusicRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s CallbackBlockchainBotIotagentMusicRequest) GoString() string {
+	return s.String()
+}
+
+func (s *CallbackBlockchainBotIotagentMusicRequest) SetAuthToken(v string) *CallbackBlockchainBotIotagentMusicRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *CallbackBlockchainBotIotagentMusicRequest) SetProductInstanceId(v string) *CallbackBlockchainBotIotagentMusicRequest {
+	s.ProductInstanceId = &v
+	return s
+}
+
+func (s *CallbackBlockchainBotIotagentMusicRequest) SetCode(v string) *CallbackBlockchainBotIotagentMusicRequest {
+	s.Code = &v
+	return s
+}
+
+func (s *CallbackBlockchainBotIotagentMusicRequest) SetState(v string) *CallbackBlockchainBotIotagentMusicRequest {
+	s.State = &v
+	return s
+}
+
+type CallbackBlockchainBotIotagentMusicResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// 智能体ID
+	AgentId *string `json:"agent_id,omitempty" xml:"agent_id,omitempty"`
+}
+
+func (s CallbackBlockchainBotIotagentMusicResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s CallbackBlockchainBotIotagentMusicResponse) GoString() string {
+	return s.String()
+}
+
+func (s *CallbackBlockchainBotIotagentMusicResponse) SetReqMsgId(v string) *CallbackBlockchainBotIotagentMusicResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *CallbackBlockchainBotIotagentMusicResponse) SetResultCode(v string) *CallbackBlockchainBotIotagentMusicResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *CallbackBlockchainBotIotagentMusicResponse) SetResultMsg(v string) *CallbackBlockchainBotIotagentMusicResponse {
+	s.ResultMsg = &v
+	return s
+}
+
+func (s *CallbackBlockchainBotIotagentMusicResponse) SetAgentId(v string) *CallbackBlockchainBotIotagentMusicResponse {
+	s.AgentId = &v
+	return s
+}
+
 type QuerycontractBlockchainBotAiotdatalinkAntfinanceassistantRequest struct {
 	// OAuth模式下的授权token
 	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
@@ -21355,7 +21432,7 @@ func (client *Client) DoRequest(version *string, action *string, protocol *strin
 				"req_msg_id":       antchainutil.GetNonce(),
 				"access_key":       client.AccessKeyId,
 				"base_sdk_version": tea.String("TeaSDK-2.0"),
-				"sdk_version":      tea.String("1.2.14"),
+				"sdk_version":      tea.String("1.2.15"),
 				"_prod_code":       tea.String("IOTAGENT"),
 				"_prod_channel":    tea.String("undefined"),
 			}
@@ -23050,6 +23127,42 @@ func (client *Client) LogoutBlockchainBotIotagentMusicEx(request *LogoutBlockcha
 	}
 	_result = &LogoutBlockchainBotIotagentMusicResponse{}
 	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("blockchain.bot.iotagent.music.logout"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
+}
+
+// Description:
+//
+// Description: 云音乐回调接口
+//
+// Summary: 云音乐回调接口
+func (client *Client) CallbackBlockchainBotIotagentMusic(request *CallbackBlockchainBotIotagentMusicRequest) (_result *CallbackBlockchainBotIotagentMusicResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &CallbackBlockchainBotIotagentMusicResponse{}
+	_body, _err := client.CallbackBlockchainBotIotagentMusicEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+// Description:
+//
+// Description: 云音乐回调接口
+//
+// Summary: 云音乐回调接口
+func (client *Client) CallbackBlockchainBotIotagentMusicEx(request *CallbackBlockchainBotIotagentMusicRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *CallbackBlockchainBotIotagentMusicResponse, _err error) {
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &CallbackBlockchainBotIotagentMusicResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("blockchain.bot.iotagent.music.callback"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
 	if _err != nil {
 		return _result, _err
 	}
