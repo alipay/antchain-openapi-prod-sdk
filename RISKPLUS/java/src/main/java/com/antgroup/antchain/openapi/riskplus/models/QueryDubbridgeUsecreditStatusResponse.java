@@ -40,6 +40,10 @@ public class QueryDubbridgeUsecreditStatusResponse extends TeaModel {
     @NameInMap("credit_contract_no")
     public String creditContractNo;
 
+    // 扩展信息
+    @NameInMap("ext_info")
+    public String extInfo;
+
     public static QueryDubbridgeUsecreditStatusResponse build(java.util.Map<String, ?> map) throws Exception {
         QueryDubbridgeUsecreditStatusResponse self = new QueryDubbridgeUsecreditStatusResponse();
         return TeaModel.build(map, self);
@@ -115,6 +119,14 @@ public class QueryDubbridgeUsecreditStatusResponse extends TeaModel {
     }
     public String getCreditContractNo() {
         return this.creditContractNo;
+    }
+
+    public QueryDubbridgeUsecreditStatusResponse setExtInfo(String extInfo) {
+        this.extInfo = extInfo;
+        return this;
+    }
+    public String getExtInfo() {
+        return this.extInfo;
     }
 
 }

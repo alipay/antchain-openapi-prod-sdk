@@ -126,7 +126,7 @@ public class Client {
                     new TeaPair("req_msg_id", com.antgroup.antchain.openapi.antchain.util.AntchainUtils.getNonce()),
                     new TeaPair("access_key", _accessKeyId),
                     new TeaPair("base_sdk_version", "TeaSDK-2.0"),
-                    new TeaPair("sdk_version", "1.33.8"),
+                    new TeaPair("sdk_version", "1.33.9"),
                     new TeaPair("_prod_code", "RISKPLUS"),
                     new TeaPair("_prod_channel", "undefined")
                 );
@@ -1578,7 +1578,7 @@ public class Client {
     /**
      * <b>description</b> :
      * <p>Description: 天枢系统还款试算，根据借据号计算还款金额
-     * Summary: 天枢系统还款试算</p>
+     * Summary: 天枢系统还款试算，根据借据号计算还款金额</p>
      */
     public CountDubbridgeRepayTrialResponse countDubbridgeRepayTrial(CountDubbridgeRepayTrialRequest request) throws Exception {
         com.aliyun.teautil.models.RuntimeOptions runtime = new com.aliyun.teautil.models.RuntimeOptions();
@@ -1589,7 +1589,7 @@ public class Client {
     /**
      * <b>description</b> :
      * <p>Description: 天枢系统还款试算，根据借据号计算还款金额
-     * Summary: 天枢系统还款试算</p>
+     * Summary: 天枢系统还款试算，根据借据号计算还款金额</p>
      */
     public CountDubbridgeRepayTrialResponse countDubbridgeRepayTrialEx(CountDubbridgeRepayTrialRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
         com.aliyun.teautil.Common.validateModel(request);
@@ -4962,6 +4962,27 @@ public class Client {
 
         com.aliyun.teautil.Common.validateModel(request);
         return TeaModel.toModel(this.doRequest("1.0", "riskplus.rbb.overseacompany.profile.receive", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new ReceiveRbbOverseacompanyProfileResponse());
+    }
+
+    /**
+     * <b>description</b> :
+     * <p>Description: 测试网关连通性
+     * Summary: 测试网关连通性</p>
+     */
+    public InitGateWayServiceResponse initGateWayService(InitGateWayServiceRequest request) throws Exception {
+        com.aliyun.teautil.models.RuntimeOptions runtime = new com.aliyun.teautil.models.RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.initGateWayServiceEx(request, headers, runtime);
+    }
+
+    /**
+     * <b>description</b> :
+     * <p>Description: 测试网关连通性
+     * Summary: 测试网关连通性</p>
+     */
+    public InitGateWayServiceResponse initGateWayServiceEx(InitGateWayServiceRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "riskplus.gate.way.service.init", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new InitGateWayServiceResponse());
     }
 
     /**

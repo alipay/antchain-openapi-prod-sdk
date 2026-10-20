@@ -38,6 +38,10 @@ public class CountDubbridgeRepayTrialRequest extends TeaModel {
     @NameInMap("reference_ratio")
     public String referenceRatio;
 
+    // 扩展信息
+    @NameInMap("ext_info")
+    public String extInfo;
+
     public static CountDubbridgeRepayTrialRequest build(java.util.Map<String, ?> map) throws Exception {
         CountDubbridgeRepayTrialRequest self = new CountDubbridgeRepayTrialRequest();
         return TeaModel.build(map, self);
@@ -105,6 +109,14 @@ public class CountDubbridgeRepayTrialRequest extends TeaModel {
     }
     public String getReferenceRatio() {
         return this.referenceRatio;
+    }
+
+    public CountDubbridgeRepayTrialRequest setExtInfo(String extInfo) {
+        this.extInfo = extInfo;
+        return this;
+    }
+    public String getExtInfo() {
+        return this.extInfo;
     }
 
 }
