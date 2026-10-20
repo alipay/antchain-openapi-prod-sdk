@@ -135,7 +135,7 @@ class Client:
                     'req_msg_id': AntchainUtils.get_nonce(),
                     'access_key': self._access_key_id,
                     'base_sdk_version': 'TeaSDK-2.0',
-                    'sdk_version': '1.2.14',
+                    'sdk_version': '1.2.15',
                     '_prod_code': 'IOTAGENT',
                     '_prod_channel': 'undefined'
                 }
@@ -239,7 +239,7 @@ class Client:
                     'req_msg_id': AntchainUtils.get_nonce(),
                     'access_key': self._access_key_id,
                     'base_sdk_version': 'TeaSDK-2.0',
-                    'sdk_version': '1.2.14',
+                    'sdk_version': '1.2.15',
                     '_prod_code': 'IOTAGENT',
                     '_prod_channel': 'undefined'
                 }
@@ -2809,6 +2809,62 @@ class Client:
         return TeaCore.from_map(
             iotagent_models.LogoutBlockchainBotIotagentMusicResponse(),
             await self.do_request_async('1.0', 'blockchain.bot.iotagent.music.logout', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def callback_blockchain_bot_iotagent_music(
+        self,
+        request: iotagent_models.CallbackBlockchainBotIotagentMusicRequest,
+    ) -> iotagent_models.CallbackBlockchainBotIotagentMusicResponse:
+        """
+        Description: 云音乐回调接口
+        Summary: 云音乐回调接口
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.callback_blockchain_bot_iotagent_music_ex(request, headers, runtime)
+
+    async def callback_blockchain_bot_iotagent_music_async(
+        self,
+        request: iotagent_models.CallbackBlockchainBotIotagentMusicRequest,
+    ) -> iotagent_models.CallbackBlockchainBotIotagentMusicResponse:
+        """
+        Description: 云音乐回调接口
+        Summary: 云音乐回调接口
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.callback_blockchain_bot_iotagent_music_ex_async(request, headers, runtime)
+
+    def callback_blockchain_bot_iotagent_music_ex(
+        self,
+        request: iotagent_models.CallbackBlockchainBotIotagentMusicRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> iotagent_models.CallbackBlockchainBotIotagentMusicResponse:
+        """
+        Description: 云音乐回调接口
+        Summary: 云音乐回调接口
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            iotagent_models.CallbackBlockchainBotIotagentMusicResponse(),
+            self.do_request('1.0', 'blockchain.bot.iotagent.music.callback', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def callback_blockchain_bot_iotagent_music_ex_async(
+        self,
+        request: iotagent_models.CallbackBlockchainBotIotagentMusicRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> iotagent_models.CallbackBlockchainBotIotagentMusicResponse:
+        """
+        Description: 云音乐回调接口
+        Summary: 云音乐回调接口
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            iotagent_models.CallbackBlockchainBotIotagentMusicResponse(),
+            await self.do_request_async('1.0', 'blockchain.bot.iotagent.music.callback', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
     def querycontract_blockchain_bot_aiotdatalink_antfinanceassistant(
