@@ -126,7 +126,7 @@ public class Client {
                     new TeaPair("req_msg_id", com.antgroup.antchain.openapi.antchain.util.AntchainUtils.getNonce()),
                     new TeaPair("access_key", _accessKeyId),
                     new TeaPair("base_sdk_version", "TeaSDK-2.0"),
-                    new TeaPair("sdk_version", "1.7.35"),
+                    new TeaPair("sdk_version", "1.7.36"),
                     new TeaPair("_prod_code", "SECURITYTECH"),
                     new TeaPair("_prod_channel", "undefined")
                 );
@@ -1890,6 +1890,195 @@ public class Client {
     public NotifyPoiCouponResponse notifyPoiCouponEx(NotifyPoiCouponRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
         com.aliyun.teautil.Common.validateModel(request);
         return TeaModel.toModel(this.doRequest("1.0", "antsecuritytech.gateway.poi.coupon.notify", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new NotifyPoiCouponResponse());
+    }
+
+    /**
+     * <b>description</b> :
+     * <p>Description: 保存设备联系人
+     * Summary: 保存设备联系人</p>
+     */
+    public SaveHealthContactResponse saveHealthContact(SaveHealthContactRequest request) throws Exception {
+        com.aliyun.teautil.models.RuntimeOptions runtime = new com.aliyun.teautil.models.RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.saveHealthContactEx(request, headers, runtime);
+    }
+
+    /**
+     * <b>description</b> :
+     * <p>Description: 保存设备联系人
+     * Summary: 保存设备联系人</p>
+     */
+    public SaveHealthContactResponse saveHealthContactEx(SaveHealthContactRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "antsecuritytech.gateway.health.contact.save", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new SaveHealthContactResponse());
+    }
+
+    /**
+     * <b>description</b> :
+     * <p>Description: 删除设备联系人
+     * Summary: 删除设备联系人</p>
+     */
+    public DeleteHealthContactResponse deleteHealthContact(DeleteHealthContactRequest request) throws Exception {
+        com.aliyun.teautil.models.RuntimeOptions runtime = new com.aliyun.teautil.models.RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.deleteHealthContactEx(request, headers, runtime);
+    }
+
+    /**
+     * <b>description</b> :
+     * <p>Description: 删除设备联系人
+     * Summary: 删除设备联系人</p>
+     */
+    public DeleteHealthContactResponse deleteHealthContactEx(DeleteHealthContactRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "antsecuritytech.gateway.health.contact.delete", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new DeleteHealthContactResponse());
+    }
+
+    /**
+     * <b>description</b> :
+     * <p>Description: 根据设备唯一id查询联系人信息列表
+     * Summary: 根据设备唯一id查询联系人信息列表</p>
+     */
+    public QueryHealthContactResponse queryHealthContact(QueryHealthContactRequest request) throws Exception {
+        com.aliyun.teautil.models.RuntimeOptions runtime = new com.aliyun.teautil.models.RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.queryHealthContactEx(request, headers, runtime);
+    }
+
+    /**
+     * <b>description</b> :
+     * <p>Description: 根据设备唯一id查询联系人信息列表
+     * Summary: 根据设备唯一id查询联系人信息列表</p>
+     */
+    public QueryHealthContactResponse queryHealthContactEx(QueryHealthContactRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "antsecuritytech.gateway.health.contact.query", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new QueryHealthContactResponse());
+    }
+
+    /**
+     * <b>description</b> :
+     * <p>Description: 品牌方设备校验并绑定
+     * Summary: 品牌方设备校验并绑定</p>
+     */
+    public RegisterHealthDeviceResponse registerHealthDevice(RegisterHealthDeviceRequest request) throws Exception {
+        com.aliyun.teautil.models.RuntimeOptions runtime = new com.aliyun.teautil.models.RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.registerHealthDeviceEx(request, headers, runtime);
+    }
+
+    /**
+     * <b>description</b> :
+     * <p>Description: 品牌方设备校验并绑定
+     * Summary: 品牌方设备校验并绑定</p>
+     */
+    public RegisterHealthDeviceResponse registerHealthDeviceEx(RegisterHealthDeviceRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "antsecuritytech.gateway.health.device.register", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new RegisterHealthDeviceResponse());
+    }
+
+    /**
+     * <b>description</b> :
+     * <p>Description: 品牌方设备解除绑定
+     * Summary: 品牌方设备解除绑定</p>
+     */
+    public ResetHealthDeviceResponse resetHealthDevice(ResetHealthDeviceRequest request) throws Exception {
+        com.aliyun.teautil.models.RuntimeOptions runtime = new com.aliyun.teautil.models.RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.resetHealthDeviceEx(request, headers, runtime);
+    }
+
+    /**
+     * <b>description</b> :
+     * <p>Description: 品牌方设备解除绑定
+     * Summary: 品牌方设备解除绑定</p>
+     */
+    public ResetHealthDeviceResponse resetHealthDeviceEx(ResetHealthDeviceRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "antsecuritytech.gateway.health.device.reset", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new ResetHealthDeviceResponse());
+    }
+
+    /**
+     * <b>description</b> :
+     * <p>Description: 查询设备详细信息
+     * Summary: 查询设备详细信息</p>
+     */
+    public QueryHealthDeviceResponse queryHealthDevice(QueryHealthDeviceRequest request) throws Exception {
+        com.aliyun.teautil.models.RuntimeOptions runtime = new com.aliyun.teautil.models.RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.queryHealthDeviceEx(request, headers, runtime);
+    }
+
+    /**
+     * <b>description</b> :
+     * <p>Description: 查询设备详细信息
+     * Summary: 查询设备详细信息</p>
+     */
+    public QueryHealthDeviceResponse queryHealthDeviceEx(QueryHealthDeviceRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "antsecuritytech.gateway.health.device.query", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new QueryHealthDeviceResponse());
+    }
+
+    /**
+     * <b>description</b> :
+     * <p>Description: 查询设备定位信息
+     * Summary: 查询设备定位信息</p>
+     */
+    public QueryHealthLocationResponse queryHealthLocation(QueryHealthLocationRequest request) throws Exception {
+        com.aliyun.teautil.models.RuntimeOptions runtime = new com.aliyun.teautil.models.RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.queryHealthLocationEx(request, headers, runtime);
+    }
+
+    /**
+     * <b>description</b> :
+     * <p>Description: 查询设备定位信息
+     * Summary: 查询设备定位信息</p>
+     */
+    public QueryHealthLocationResponse queryHealthLocationEx(QueryHealthLocationRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "antsecuritytech.gateway.health.location.query", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new QueryHealthLocationResponse());
+    }
+
+    /**
+     * <b>description</b> :
+     * <p>Description: 查询设备健康指标数据
+     * Summary: 查询设备健康指标数据</p>
+     */
+    public QueryHealthDataResponse queryHealthData(QueryHealthDataRequest request) throws Exception {
+        com.aliyun.teautil.models.RuntimeOptions runtime = new com.aliyun.teautil.models.RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.queryHealthDataEx(request, headers, runtime);
+    }
+
+    /**
+     * <b>description</b> :
+     * <p>Description: 查询设备健康指标数据
+     * Summary: 查询设备健康指标数据</p>
+     */
+    public QueryHealthDataResponse queryHealthDataEx(QueryHealthDataRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "antsecuritytech.gateway.health.data.query", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new QueryHealthDataResponse());
+    }
+
+    /**
+     * <b>description</b> :
+     * <p>Description: 设备厂商标准化数据上报
+     * Summary: 设备厂商标准化数据上报</p>
+     */
+    public ReportHealthDataResponse reportHealthData(ReportHealthDataRequest request) throws Exception {
+        com.aliyun.teautil.models.RuntimeOptions runtime = new com.aliyun.teautil.models.RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.reportHealthDataEx(request, headers, runtime);
+    }
+
+    /**
+     * <b>description</b> :
+     * <p>Description: 设备厂商标准化数据上报
+     * Summary: 设备厂商标准化数据上报</p>
+     */
+    public ReportHealthDataResponse reportHealthDataEx(ReportHealthDataRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "antsecuritytech.gateway.health.data.report", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new ReportHealthDataResponse());
     }
 
     /**
