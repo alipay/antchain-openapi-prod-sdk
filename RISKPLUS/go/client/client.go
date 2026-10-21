@@ -21143,6 +21143,8 @@ type CountDubbridgeRepayTrialRequest struct {
 	InterestSubsidyRatio *string `json:"interest_subsidy_ratio,omitempty" xml:"interest_subsidy_ratio,omitempty"`
 	// 参考定价
 	ReferenceRatio *string `json:"reference_ratio,omitempty" xml:"reference_ratio,omitempty"`
+	// 扩展信息
+	ExtInfo *string `json:"ext_info,omitempty" xml:"ext_info,omitempty"`
 }
 
 func (s CountDubbridgeRepayTrialRequest) String() string {
@@ -21190,6 +21192,11 @@ func (s *CountDubbridgeRepayTrialRequest) SetInterestSubsidyRatio(v string) *Cou
 
 func (s *CountDubbridgeRepayTrialRequest) SetReferenceRatio(v string) *CountDubbridgeRepayTrialRequest {
 	s.ReferenceRatio = &v
+	return s
+}
+
+func (s *CountDubbridgeRepayTrialRequest) SetExtInfo(v string) *CountDubbridgeRepayTrialRequest {
+	s.ExtInfo = &v
 	return s
 }
 
@@ -21773,6 +21780,8 @@ type QueryDubbridgeUsecreditStatusResponse struct {
 	DisburseContractNo *string `json:"disburse_contract_no,omitempty" xml:"disburse_contract_no,omitempty"`
 	// 授信合同编号
 	CreditContractNo *string `json:"credit_contract_no,omitempty" xml:"credit_contract_no,omitempty"`
+	// 扩展信息
+	ExtInfo *string `json:"ext_info,omitempty" xml:"ext_info,omitempty"`
 }
 
 func (s QueryDubbridgeUsecreditStatusResponse) String() string {
@@ -21825,6 +21834,11 @@ func (s *QueryDubbridgeUsecreditStatusResponse) SetDisburseContractNo(v string) 
 
 func (s *QueryDubbridgeUsecreditStatusResponse) SetCreditContractNo(v string) *QueryDubbridgeUsecreditStatusResponse {
 	s.CreditContractNo = &v
+	return s
+}
+
+func (s *QueryDubbridgeUsecreditStatusResponse) SetExtInfo(v string) *QueryDubbridgeUsecreditStatusResponse {
+	s.ExtInfo = &v
 	return s
 }
 
@@ -37603,6 +37617,83 @@ func (s *ReceiveRbbOverseacompanyProfileResponse) SetData(v string) *ReceiveRbbO
 	return s
 }
 
+type InitGateWayServiceRequest struct {
+	// OAuth模式下的授权token
+	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
+	// 测试
+	User *string `json:"user,omitempty" xml:"user,omitempty" require:"true"`
+	// 测试
+	Pass *string `json:"pass,omitempty" xml:"pass,omitempty" require:"true"`
+}
+
+func (s InitGateWayServiceRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s InitGateWayServiceRequest) GoString() string {
+	return s.String()
+}
+
+func (s *InitGateWayServiceRequest) SetAuthToken(v string) *InitGateWayServiceRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *InitGateWayServiceRequest) SetProductInstanceId(v string) *InitGateWayServiceRequest {
+	s.ProductInstanceId = &v
+	return s
+}
+
+func (s *InitGateWayServiceRequest) SetUser(v string) *InitGateWayServiceRequest {
+	s.User = &v
+	return s
+}
+
+func (s *InitGateWayServiceRequest) SetPass(v string) *InitGateWayServiceRequest {
+	s.Pass = &v
+	return s
+}
+
+type InitGateWayServiceResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// 测试
+	Result *string `json:"result,omitempty" xml:"result,omitempty"`
+}
+
+func (s InitGateWayServiceResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s InitGateWayServiceResponse) GoString() string {
+	return s.String()
+}
+
+func (s *InitGateWayServiceResponse) SetReqMsgId(v string) *InitGateWayServiceResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *InitGateWayServiceResponse) SetResultCode(v string) *InitGateWayServiceResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *InitGateWayServiceResponse) SetResultMsg(v string) *InitGateWayServiceResponse {
+	s.ResultMsg = &v
+	return s
+}
+
+func (s *InitGateWayServiceResponse) SetResult(v string) *InitGateWayServiceResponse {
+	s.Result = &v
+	return s
+}
+
 type QueryCreditshieldRestrictedRequest struct {
 	// OAuth模式下的授权token
 	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
@@ -48702,7 +48793,7 @@ func (client *Client) DoRequest(version *string, action *string, protocol *strin
 				"req_msg_id":       antchainutil.GetNonce(),
 				"access_key":       client.AccessKeyId,
 				"base_sdk_version": tea.String("TeaSDK-2.0"),
-				"sdk_version":      tea.String("1.33.8"),
+				"sdk_version":      tea.String("1.33.9"),
 				"_prod_code":       tea.String("RISKPLUS"),
 				"_prod_channel":    tea.String("undefined"),
 			}
@@ -51134,7 +51225,7 @@ func (client *Client) CountDubbridgeRepayReftrialEx(request *CountDubbridgeRepay
 //
 // Description: 天枢系统还款试算，根据借据号计算还款金额
 //
-// Summary: 天枢系统还款试算
+// Summary: 天枢系统还款试算，根据借据号计算还款金额
 func (client *Client) CountDubbridgeRepayTrial(request *CountDubbridgeRepayTrialRequest) (_result *CountDubbridgeRepayTrialResponse, _err error) {
 	runtime := &util.RuntimeOptions{}
 	headers := make(map[string]*string)
@@ -51151,7 +51242,7 @@ func (client *Client) CountDubbridgeRepayTrial(request *CountDubbridgeRepayTrial
 //
 // Description: 天枢系统还款试算，根据借据号计算还款金额
 //
-// Summary: 天枢系统还款试算
+// Summary: 天枢系统还款试算，根据借据号计算还款金额
 func (client *Client) CountDubbridgeRepayTrialEx(request *CountDubbridgeRepayTrialRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *CountDubbridgeRepayTrialResponse, _err error) {
 	_err = util.ValidateModel(request)
 	if _err != nil {
@@ -56859,6 +56950,42 @@ func (client *Client) ReceiveRbbOverseacompanyProfileEx(request *ReceiveRbbOvers
 	}
 	_result = &ReceiveRbbOverseacompanyProfileResponse{}
 	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("riskplus.rbb.overseacompany.profile.receive"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
+}
+
+// Description:
+//
+// Description: 测试网关连通性
+//
+// Summary: 测试网关连通性
+func (client *Client) InitGateWayService(request *InitGateWayServiceRequest) (_result *InitGateWayServiceResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &InitGateWayServiceResponse{}
+	_body, _err := client.InitGateWayServiceEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+// Description:
+//
+// Description: 测试网关连通性
+//
+// Summary: 测试网关连通性
+func (client *Client) InitGateWayServiceEx(request *InitGateWayServiceRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *InitGateWayServiceResponse, _err error) {
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &InitGateWayServiceResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("riskplus.gate.way.service.init"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
 	if _err != nil {
 		return _result, _err
 	}
