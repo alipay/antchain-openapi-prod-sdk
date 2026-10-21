@@ -18581,6 +18581,16 @@ type ApplyDubbridgeCreditRequest struct {
 	ProdType *string `json:"prod_type,omitempty" xml:"prod_type,omitempty"`
 	// 商户入驻id
 	MerchantExternalId *string `json:"merchant_external_id,omitempty" xml:"merchant_external_id,omitempty"`
+	// 扩展字段
+	ExtInfo *string `json:"ext_info,omitempty" xml:"ext_info,omitempty"`
+	// 申请金额
+	ApplicationsAmount *string `json:"applications_amount,omitempty" xml:"applications_amount,omitempty"`
+	// 申请期限（月）
+	ApplicationDeadline *string `json:"application_deadline,omitempty" xml:"application_deadline,omitempty"`
+	// 发证机关名称
+	AuthorityName *string `json:"authority_name,omitempty" xml:"authority_name,omitempty"`
+	// 月收入
+	MonthSalary *string `json:"month_salary,omitempty" xml:"month_salary,omitempty"`
 }
 
 func (s ApplyDubbridgeCreditRequest) String() string {
@@ -18698,6 +18708,31 @@ func (s *ApplyDubbridgeCreditRequest) SetProdType(v string) *ApplyDubbridgeCredi
 
 func (s *ApplyDubbridgeCreditRequest) SetMerchantExternalId(v string) *ApplyDubbridgeCreditRequest {
 	s.MerchantExternalId = &v
+	return s
+}
+
+func (s *ApplyDubbridgeCreditRequest) SetExtInfo(v string) *ApplyDubbridgeCreditRequest {
+	s.ExtInfo = &v
+	return s
+}
+
+func (s *ApplyDubbridgeCreditRequest) SetApplicationsAmount(v string) *ApplyDubbridgeCreditRequest {
+	s.ApplicationsAmount = &v
+	return s
+}
+
+func (s *ApplyDubbridgeCreditRequest) SetApplicationDeadline(v string) *ApplyDubbridgeCreditRequest {
+	s.ApplicationDeadline = &v
+	return s
+}
+
+func (s *ApplyDubbridgeCreditRequest) SetAuthorityName(v string) *ApplyDubbridgeCreditRequest {
+	s.AuthorityName = &v
+	return s
+}
+
+func (s *ApplyDubbridgeCreditRequest) SetMonthSalary(v string) *ApplyDubbridgeCreditRequest {
+	s.MonthSalary = &v
 	return s
 }
 
@@ -48793,7 +48828,7 @@ func (client *Client) DoRequest(version *string, action *string, protocol *strin
 				"req_msg_id":       antchainutil.GetNonce(),
 				"access_key":       client.AccessKeyId,
 				"base_sdk_version": tea.String("TeaSDK-2.0"),
-				"sdk_version":      tea.String("1.33.9"),
+				"sdk_version":      tea.String("1.33.10"),
 				"_prod_code":       tea.String("RISKPLUS"),
 				"_prod_channel":    tea.String("undefined"),
 			}
