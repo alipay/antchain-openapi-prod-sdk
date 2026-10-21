@@ -19122,6 +19122,11 @@ class ApplyDubbridgeCreditRequest(TeaModel):
         biz_order_no: str = None,
         prod_type: str = None,
         merchant_external_id: str = None,
+        ext_info: str = None,
+        applications_amount: str = None,
+        application_deadline: str = None,
+        authority_name: str = None,
+        month_salary: str = None,
     ):
         # OAuth模式下的授权token
         self.auth_token = auth_token
@@ -19166,6 +19171,16 @@ class ApplyDubbridgeCreditRequest(TeaModel):
         self.prod_type = prod_type
         # 商户入驻id
         self.merchant_external_id = merchant_external_id
+        # 扩展字段
+        self.ext_info = ext_info
+        # 申请金额
+        self.applications_amount = applications_amount
+        # 申请期限（月）
+        self.application_deadline = application_deadline
+        # 发证机关名称
+        self.authority_name = authority_name
+        # 月收入
+        self.month_salary = month_salary
 
     def validate(self):
         self.validate_required(self.personal_info, 'personal_info')
@@ -19235,6 +19250,16 @@ class ApplyDubbridgeCreditRequest(TeaModel):
             result['prod_type'] = self.prod_type
         if self.merchant_external_id is not None:
             result['merchant_external_id'] = self.merchant_external_id
+        if self.ext_info is not None:
+            result['ext_info'] = self.ext_info
+        if self.applications_amount is not None:
+            result['applications_amount'] = self.applications_amount
+        if self.application_deadline is not None:
+            result['application_deadline'] = self.application_deadline
+        if self.authority_name is not None:
+            result['authority_name'] = self.authority_name
+        if self.month_salary is not None:
+            result['month_salary'] = self.month_salary
         return result
 
     def from_map(self, m: dict = None):
@@ -19289,6 +19314,16 @@ class ApplyDubbridgeCreditRequest(TeaModel):
             self.prod_type = m.get('prod_type')
         if m.get('merchant_external_id') is not None:
             self.merchant_external_id = m.get('merchant_external_id')
+        if m.get('ext_info') is not None:
+            self.ext_info = m.get('ext_info')
+        if m.get('applications_amount') is not None:
+            self.applications_amount = m.get('applications_amount')
+        if m.get('application_deadline') is not None:
+            self.application_deadline = m.get('application_deadline')
+        if m.get('authority_name') is not None:
+            self.authority_name = m.get('authority_name')
+        if m.get('month_salary') is not None:
+            self.month_salary = m.get('month_salary')
         return self
 
 
