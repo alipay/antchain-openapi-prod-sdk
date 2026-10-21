@@ -118,6 +118,31 @@ namespace AntChain.SDK.RISKPLUS.Models
         [Validation(Required=false)]
         public string MerchantExternalId { get; set; }
 
+        // 扩展字段
+        [NameInMap("ext_info")]
+        [Validation(Required=false)]
+        public string ExtInfo { get; set; }
+
+        // 申请金额
+        [NameInMap("applications_amount")]
+        [Validation(Required=false)]
+        public string ApplicationsAmount { get; set; }
+
+        // 申请期限（月）
+        [NameInMap("application_deadline")]
+        [Validation(Required=false)]
+        public string ApplicationDeadline { get; set; }
+
+        // 发证机关名称
+        [NameInMap("authority_name")]
+        [Validation(Required=false)]
+        public string AuthorityName { get; set; }
+
+        // 月收入
+        [NameInMap("month_salary")]
+        [Validation(Required=false)]
+        public string MonthSalary { get; set; }
+
     }
 
 }
