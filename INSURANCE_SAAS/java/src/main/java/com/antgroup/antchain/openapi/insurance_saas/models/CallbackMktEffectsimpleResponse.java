@@ -16,7 +16,7 @@ public class CallbackMktEffectsimpleResponse extends TeaModel {
     @NameInMap("result_msg")
     public String resultMsg;
 
-    // 请求id，每一次请求保持唯一；
+    // 请求id
     @NameInMap("request_id")
     public String requestId;
 
