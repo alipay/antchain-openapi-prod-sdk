@@ -67,7 +67,7 @@ class CallbackMktEffectsimpleResponse extends Model {
      */
     public $resultMsg;
 
-    // 请求id，每一次请求保持唯一；
+    // 请求id
     /**
      * @var string
      */
