@@ -574,7 +574,7 @@ func (s *RealtimeMktAudience) SetExtInfo(v string) *RealtimeMktAudience {
 }
 
 // 键值对
-type XNameValuePair struct {
+type NameValuePair struct {
 	// 键名
 	// example:
 	//
@@ -587,20 +587,20 @@ type XNameValuePair struct {
 	Value *string `json:"value,omitempty" xml:"value,omitempty" require:"true"`
 }
 
-func (s XNameValuePair) String() string {
+func (s NameValuePair) String() string {
 	return tea.Prettify(s)
 }
 
-func (s XNameValuePair) GoString() string {
+func (s NameValuePair) GoString() string {
 	return s.String()
 }
 
-func (s *XNameValuePair) SetName(v string) *XNameValuePair {
+func (s *NameValuePair) SetName(v string) *NameValuePair {
 	s.Name = &v
 	return s
 }
 
-func (s *XNameValuePair) SetValue(v string) *XNameValuePair {
+func (s *NameValuePair) SetValue(v string) *NameValuePair {
 	s.Value = &v
 	return s
 }
@@ -1433,26 +1433,28 @@ func (s *CallbackMktMediastatisticaldataResponse) SetRequestId(v string) *Callba
 type CallbackMktEffectsimpleRequest struct {
 	// OAuth模式下的授权token
 	AuthToken *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
-	// 请求id，每一次请求保持唯一；若重复，则更新原数据；
+	// 请求id，每一次请求保持唯一；若重复，则更新原数据
 	RequestId *string `json:"request_id,omitempty" xml:"request_id,omitempty" require:"true"`
 	// 项目ID，待蚂蚁分配
 	ProjectId *string `json:"project_id,omitempty" xml:"project_id,omitempty" require:"true"`
-	// 营销模式，AI_HANGUP_SMS("AI挂短")， AI_OFFICIAL_ACCOUNT("AI公众号"), BPO_WECHAT("BPO企微"), AI_BPO("AI_BPO")
+	// 营销模式，枚举：LIVE_STREAMING-直播投流、ADVERTISING-广告投流、AI_WECHAT-AI企微、BPO_SHORT_HANG-BPO挂短、BPO_OFFICIAL_ACCOUNT-BPO公众号、SMS-短信
 	MarketingMode *string `json:"marketing_mode,omitempty" xml:"marketing_mode,omitempty"`
-	// 投保特征短链
-	InsureShortUrl *string `json:"insure_short_url,omitempty" xml:"insure_short_url,omitempty" require:"true"`
+	// 投保特征短链，挂短模式必填
+	InsureShortUrl *string `json:"insure_short_url,omitempty" xml:"insure_short_url,omitempty"`
 	// 加密类型：MD5，32位[小]
 	EncryptionType *string `json:"encryption_type,omitempty" xml:"encryption_type,omitempty" require:"true"`
 	// 加密用户标识
 	EncryptedUserId *string `json:"encrypted_user_id,omitempty" xml:"encrypted_user_id,omitempty" require:"true"`
-	// 应以识别当前用户点击投保页面的唯一标识
+	// 用以识别当前用户点击投保页面的唯一标识
 	LandingVisitId *string `json:"landing_visit_id,omitempty" xml:"landing_visit_id,omitempty" require:"true"`
-	// 节点类型
+	// 事件类型（节点类：LIVE_STREAMING_START/LIVE_STREAMING_END/FORM_SUBMIT/POLICY_ISSUE/PREMIUM_PAYMENT/UNDERWRITING；标签类：LABEL_SMS_SEND/LABEL_ADD/LABEL_RENEWAL_M2/LABEL_RENEWAL_M3/LABEL_INTENTION）
 	NodeType *string `json:"node_type,omitempty" xml:"node_type,omitempty" require:"true"`
-	// 节点状态（0-未完成；1-已完成）
+	// 事件状态，节点类：0-未完成 1-已完成；标签类：支持1-X格式（X为标签值）
 	NodeStatus *string `json:"node_status,omitempty" xml:"node_status,omitempty" require:"true"`
 	// 事件完成时间（yyyy-MM-dd HH:mm:ss）
 	EventTime *string `json:"event_time,omitempty" xml:"event_time,omitempty" require:"true"`
+	// 扩展json字段，最大2048字符，用于传递isfrommy数据源、年化保费等扩展信息
+	ExtInfo *string `json:"ext_info,omitempty" xml:"ext_info,omitempty"`
 }
 
 func (s CallbackMktEffectsimpleRequest) String() string {
@@ -1518,6 +1520,11 @@ func (s *CallbackMktEffectsimpleRequest) SetEventTime(v string) *CallbackMktEffe
 	return s
 }
 
+func (s *CallbackMktEffectsimpleRequest) SetExtInfo(v string) *CallbackMktEffectsimpleRequest {
+	s.ExtInfo = &v
+	return s
+}
+
 type CallbackMktEffectsimpleResponse struct {
 	// 请求唯一ID，用于链路跟踪和问题排查
 	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
@@ -1525,7 +1532,7 @@ type CallbackMktEffectsimpleResponse struct {
 	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
 	// 异常信息的文本描述
 	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
-	// 请求id，每一次请求保持唯一；
+	// 请求id
 	RequestId *string `json:"request_id,omitempty" xml:"request_id,omitempty"`
 }
 
@@ -7379,6 +7386,8 @@ func (s *ReceiveBusinessOpportunitiesResponse) SetBizResult(v string) *ReceiveBu
 type CreateAntcloudGatewayxFileUploadRequest struct {
 	// OAuth模式下的授权token
 	AuthToken *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	// 产品方的api归属集群，即productInstanceId
+	ApiCluster *string `json:"api_cluster,omitempty" xml:"api_cluster,omitempty"`
 	// 上传文件作用的openapi method
 	ApiCode *string `json:"api_code,omitempty" xml:"api_code,omitempty" require:"true"`
 	// 文件标签，多个标签;分割
@@ -7389,8 +7398,6 @@ type CreateAntcloudGatewayxFileUploadRequest struct {
 	FileName *string `json:"file_name,omitempty" xml:"file_name,omitempty" maxLength:"100"`
 	// 文件的多媒体类型
 	MimeType *string `json:"mime_type,omitempty" xml:"mime_type,omitempty"`
-	// 产品方的api归属集群，即productInstanceId
-	ApiCluster *string `json:"api_cluster,omitempty" xml:"api_cluster,omitempty"`
 }
 
 func (s CreateAntcloudGatewayxFileUploadRequest) String() string {
@@ -7403,6 +7410,11 @@ func (s CreateAntcloudGatewayxFileUploadRequest) GoString() string {
 
 func (s *CreateAntcloudGatewayxFileUploadRequest) SetAuthToken(v string) *CreateAntcloudGatewayxFileUploadRequest {
 	s.AuthToken = &v
+	return s
+}
+
+func (s *CreateAntcloudGatewayxFileUploadRequest) SetApiCluster(v string) *CreateAntcloudGatewayxFileUploadRequest {
+	s.ApiCluster = &v
 	return s
 }
 
@@ -7431,11 +7443,6 @@ func (s *CreateAntcloudGatewayxFileUploadRequest) SetMimeType(v string) *CreateA
 	return s
 }
 
-func (s *CreateAntcloudGatewayxFileUploadRequest) SetApiCluster(v string) *CreateAntcloudGatewayxFileUploadRequest {
-	s.ApiCluster = &v
-	return s
-}
-
 type CreateAntcloudGatewayxFileUploadResponse struct {
 	// 请求唯一ID，用于链路跟踪和问题排查
 	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
@@ -7448,7 +7455,7 @@ type CreateAntcloudGatewayxFileUploadResponse struct {
 	// 32位文件唯一id
 	FileId *string `json:"file_id,omitempty" xml:"file_id,omitempty"`
 	// 放入http请求头里
-	UploadHeaders []*XNameValuePair `json:"upload_headers,omitempty" xml:"upload_headers,omitempty" type:"Repeated"`
+	UploadHeaders []*NameValuePair `json:"upload_headers,omitempty" xml:"upload_headers,omitempty" type:"Repeated"`
 	// 文件上传地址
 	UploadUrl *string `json:"upload_url,omitempty" xml:"upload_url,omitempty"`
 }
@@ -7486,7 +7493,7 @@ func (s *CreateAntcloudGatewayxFileUploadResponse) SetFileId(v string) *CreateAn
 	return s
 }
 
-func (s *CreateAntcloudGatewayxFileUploadResponse) SetUploadHeaders(v []*XNameValuePair) *CreateAntcloudGatewayxFileUploadResponse {
+func (s *CreateAntcloudGatewayxFileUploadResponse) SetUploadHeaders(v []*NameValuePair) *CreateAntcloudGatewayxFileUploadResponse {
 	s.UploadHeaders = v
 	return s
 }
@@ -7626,7 +7633,7 @@ func (client *Client) DoRequest(version *string, action *string, protocol *strin
 				"req_msg_id":       antchainutil.GetNonce(),
 				"access_key":       client.AccessKeyId,
 				"base_sdk_version": tea.String("TeaSDK-2.0"),
-				"sdk_version":      tea.String("1.12.61"),
+				"sdk_version":      tea.String("1.12.62"),
 				"_prod_code":       tea.String("INSURANCE_SAAS"),
 				"_prod_channel":    tea.String("undefined"),
 			}
