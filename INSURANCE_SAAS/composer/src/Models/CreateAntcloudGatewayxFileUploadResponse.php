@@ -5,7 +5,7 @@ namespace AntChain\INSURANCE_SAAS\Models;
 
 use AlibabaCloud\Tea\Model;
 
-use AntChain\INSURANCE_SAAS\Models\XNameValuePair;
+use AntChain\INSURANCE_SAAS\Models\NameValuePair;
 
 class CreateAntcloudGatewayxFileUploadResponse extends Model {
     protected $_name = [
@@ -77,7 +77,7 @@ class CreateAntcloudGatewayxFileUploadResponse extends Model {
                 $model->uploadHeaders = [];
                 $n = 0;
                 foreach($map['upload_headers'] as $item) {
-                    $model->uploadHeaders[$n++] = null !== $item ? XNameValuePair::fromMap($item) : $item;
+                    $model->uploadHeaders[$n++] = null !== $item ? NameValuePair::fromMap($item) : $item;
                 }
             }
         }
@@ -118,7 +118,7 @@ class CreateAntcloudGatewayxFileUploadResponse extends Model {
 
     // 放入http请求头里
     /**
-     * @var XNameValuePair[]
+     * @var NameValuePair[]
      */
     public $uploadHeaders;
 
