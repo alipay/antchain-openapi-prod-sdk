@@ -15712,6 +15712,16 @@ export class ApplyDubbridgeCreditRequest extends $tea.Model {
   prodType?: string;
   // 商户入驻id
   merchantExternalId?: string;
+  // 扩展字段
+  extInfo?: string;
+  // 申请金额
+  applicationsAmount?: string;
+  // 申请期限（月）
+  applicationDeadline?: string;
+  // 发证机关名称
+  authorityName?: string;
+  // 月收入
+  monthSalary?: string;
   static names(): { [key: string]: string } {
     return {
       authToken: 'auth_token',
@@ -15736,6 +15746,11 @@ export class ApplyDubbridgeCreditRequest extends $tea.Model {
       bizOrderNo: 'biz_order_no',
       prodType: 'prod_type',
       merchantExternalId: 'merchant_external_id',
+      extInfo: 'ext_info',
+      applicationsAmount: 'applications_amount',
+      applicationDeadline: 'application_deadline',
+      authorityName: 'authority_name',
+      monthSalary: 'month_salary',
     };
   }
 
@@ -15763,6 +15778,11 @@ export class ApplyDubbridgeCreditRequest extends $tea.Model {
       bizOrderNo: 'string',
       prodType: 'string',
       merchantExternalId: 'string',
+      extInfo: 'string',
+      applicationsAmount: 'string',
+      applicationDeadline: 'string',
+      authorityName: 'string',
+      monthSalary: 'string',
     };
   }
 
@@ -38359,7 +38379,7 @@ export default class Client {
           req_msg_id: AntchainUtil.getNonce(),
           access_key: this._accessKeyId,
           base_sdk_version: "TeaSDK-2.0",
-          sdk_version: "1.33.9",
+          sdk_version: "1.33.10",
           _prod_code: "RISKPLUS",
           _prod_channel: "undefined",
         };
