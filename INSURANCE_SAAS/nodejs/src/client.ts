@@ -541,7 +541,7 @@ export class RealtimeMktAudience extends $tea.Model {
 }
 
 // 键值对
-export class XNameValuePair extends $tea.Model {
+export class NameValuePair extends $tea.Model {
   // 键名
   /**
    * @example
@@ -1205,26 +1205,28 @@ export class CallbackMktMediastatisticaldataResponse extends $tea.Model {
 export class CallbackMktEffectsimpleRequest extends $tea.Model {
   // OAuth模式下的授权token
   authToken?: string;
-  // 请求id，每一次请求保持唯一；若重复，则更新原数据；
+  // 请求id，每一次请求保持唯一；若重复，则更新原数据
   requestId: string;
   // 项目ID，待蚂蚁分配
   projectId: string;
-  // 营销模式，AI_HANGUP_SMS("AI挂短")， AI_OFFICIAL_ACCOUNT("AI公众号"), BPO_WECHAT("BPO企微"), AI_BPO("AI_BPO")
+  // 营销模式，枚举：LIVE_STREAMING-直播投流、ADVERTISING-广告投流、AI_WECHAT-AI企微、BPO_SHORT_HANG-BPO挂短、BPO_OFFICIAL_ACCOUNT-BPO公众号、SMS-短信
   marketingMode?: string;
-  // 投保特征短链
-  insureShortUrl: string;
+  // 投保特征短链，挂短模式必填
+  insureShortUrl?: string;
   // 加密类型：MD5，32位[小]
   encryptionType: string;
   // 加密用户标识
   encryptedUserId: string;
-  // 应以识别当前用户点击投保页面的唯一标识
+  // 用以识别当前用户点击投保页面的唯一标识
   landingVisitId: string;
-  // 节点类型
+  // 事件类型（节点类：LIVE_STREAMING_START/LIVE_STREAMING_END/FORM_SUBMIT/POLICY_ISSUE/PREMIUM_PAYMENT/UNDERWRITING；标签类：LABEL_SMS_SEND/LABEL_ADD/LABEL_RENEWAL_M2/LABEL_RENEWAL_M3/LABEL_INTENTION）
   nodeType: string;
-  // 节点状态（0-未完成；1-已完成）
+  // 事件状态，节点类：0-未完成 1-已完成；标签类：支持1-X格式（X为标签值）
   nodeStatus: string;
   // 事件完成时间（yyyy-MM-dd HH:mm:ss）
   eventTime: string;
+  // 扩展json字段，最大2048字符，用于传递isfrommy数据源、年化保费等扩展信息
+  extInfo?: string;
   static names(): { [key: string]: string } {
     return {
       authToken: 'auth_token',
@@ -1238,6 +1240,7 @@ export class CallbackMktEffectsimpleRequest extends $tea.Model {
       nodeType: 'node_type',
       nodeStatus: 'node_status',
       eventTime: 'event_time',
+      extInfo: 'ext_info',
     };
   }
 
@@ -1254,6 +1257,7 @@ export class CallbackMktEffectsimpleRequest extends $tea.Model {
       nodeType: 'string',
       nodeStatus: 'string',
       eventTime: 'string',
+      extInfo: 'string',
     };
   }
 
@@ -1269,7 +1273,7 @@ export class CallbackMktEffectsimpleResponse extends $tea.Model {
   resultCode?: string;
   // 异常信息的文本描述
   resultMsg?: string;
-  // 请求id，每一次请求保持唯一；
+  // 请求id
   requestId?: string;
   static names(): { [key: string]: string } {
     return {
@@ -5555,6 +5559,8 @@ export class ReceiveBusinessOpportunitiesResponse extends $tea.Model {
 export class CreateAntcloudGatewayxFileUploadRequest extends $tea.Model {
   // OAuth模式下的授权token
   authToken?: string;
+  // 产品方的api归属集群，即productInstanceId
+  apiCluster?: string;
   // 上传文件作用的openapi method
   apiCode: string;
   // 文件标签，多个标签;分割
@@ -5565,29 +5571,27 @@ export class CreateAntcloudGatewayxFileUploadRequest extends $tea.Model {
   fileName?: string;
   // 文件的多媒体类型
   mimeType?: string;
-  // 产品方的api归属集群，即productInstanceId
-  apiCluster?: string;
   static names(): { [key: string]: string } {
     return {
       authToken: 'auth_token',
+      apiCluster: 'api_cluster',
       apiCode: 'api_code',
       fileLabel: 'file_label',
       fileMetadata: 'file_metadata',
       fileName: 'file_name',
       mimeType: 'mime_type',
-      apiCluster: 'api_cluster',
     };
   }
 
   static types(): { [key: string]: any } {
     return {
       authToken: 'string',
+      apiCluster: 'string',
       apiCode: 'string',
       fileLabel: 'string',
       fileMetadata: 'string',
       fileName: 'string',
       mimeType: 'string',
-      apiCluster: 'string',
     };
   }
 
@@ -5608,7 +5612,7 @@ export class CreateAntcloudGatewayxFileUploadResponse extends $tea.Model {
   // 32位文件唯一id
   fileId?: string;
   // 放入http请求头里
-  uploadHeaders?: XNameValuePair[];
+  uploadHeaders?: NameValuePair[];
   // 文件上传地址
   uploadUrl?: string;
   static names(): { [key: string]: string } {
@@ -5630,7 +5634,7 @@ export class CreateAntcloudGatewayxFileUploadResponse extends $tea.Model {
       resultMsg: 'string',
       expiredTime: 'string',
       fileId: 'string',
-      uploadHeaders: { 'type': 'array', 'itemType': XNameValuePair },
+      uploadHeaders: { 'type': 'array', 'itemType': NameValuePair },
       uploadUrl: 'string',
     };
   }
@@ -5757,7 +5761,7 @@ export default class Client {
           req_msg_id: AntchainUtil.getNonce(),
           access_key: this._accessKeyId,
           base_sdk_version: "TeaSDK-2.0",
-          sdk_version: "1.12.61",
+          sdk_version: "1.12.62",
           _prod_code: "INSURANCE_SAAS",
           _prod_channel: "undefined",
         };
