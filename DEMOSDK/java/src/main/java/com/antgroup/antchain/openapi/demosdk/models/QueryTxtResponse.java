@@ -16,9 +16,9 @@ public class QueryTxtResponse extends TeaModel {
     @NameInMap("result_msg")
     public String resultMsg;
 
-    // 证件号
+    // imj yaa
     @NameInMap("idcard")
-    public String idcard;
+    public ResultTest idcard;
 
     public static QueryTxtResponse build(java.util.Map<String, ?> map) throws Exception {
         QueryTxtResponse self = new QueryTxtResponse();
@@ -49,11 +49,11 @@ public class QueryTxtResponse extends TeaModel {
         return this.resultMsg;
     }
 
-    public QueryTxtResponse setIdcard(String idcard) {
+    public QueryTxtResponse setIdcard(ResultTest idcard) {
         this.idcard = idcard;
         return this;
     }
-    public String getIdcard() {
+    public ResultTest getIdcard() {
         return this.idcard;
     }
 
