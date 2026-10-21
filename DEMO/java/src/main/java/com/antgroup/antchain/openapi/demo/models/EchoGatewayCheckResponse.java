@@ -16,7 +16,7 @@ public class EchoGatewayCheckResponse extends TeaModel {
     @NameInMap("result_msg")
     public String resultMsg;
 
-    // output_demo
+    // output_demo测试
     @NameInMap("output_demo")
     public DemoClass outputDemo;
 

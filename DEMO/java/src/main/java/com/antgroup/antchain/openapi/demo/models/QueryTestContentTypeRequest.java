@@ -15,6 +15,14 @@ public class QueryTestContentTypeRequest extends TeaModel {
     @NameInMap("data")
     public String data;
 
+    // datax
+    @NameInMap("datax")
+    public String datax;
+
+    // y的描述
+    @NameInMap("datay")
+    public Boolean datay;
+
     public static QueryTestContentTypeRequest build(java.util.Map<String, ?> map) throws Exception {
         QueryTestContentTypeRequest self = new QueryTestContentTypeRequest();
         return TeaModel.build(map, self);
@@ -42,6 +50,22 @@ public class QueryTestContentTypeRequest extends TeaModel {
     }
     public String getData() {
         return this.data;
+    }
+
+    public QueryTestContentTypeRequest setDatax(String datax) {
+        this.datax = datax;
+        return this;
+    }
+    public String getDatax() {
+        return this.datax;
+    }
+
+    public QueryTestContentTypeRequest setDatay(Boolean datay) {
+        this.datay = datay;
+        return this;
+    }
+    public Boolean getDatay() {
+        return this.datay;
     }
 
 }

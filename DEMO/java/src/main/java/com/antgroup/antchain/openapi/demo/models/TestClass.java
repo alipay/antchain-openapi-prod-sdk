@@ -4,77 +4,107 @@ package com.antgroup.antchain.openapi.demo.models;
 import com.aliyun.tea.*;
 
 public class TestClass extends TeaModel {
-    // 1
+    // 字符串字段
     /**
      * <strong>example:</strong>
-     * <p>testclass</p>
+     * <p>string_param</p>
      */
-    @NameInMap("test")
+    @NameInMap("string_param")
     @Validation(required = true)
-    public String test;
+    public String stringParam;
 
-    // 2
+    // 数字字段
     /**
      * <strong>example:</strong>
-     * <p>testclass</p>
+     * <p>100</p>
      */
-    @NameInMap("demo")
+    @NameInMap("number_param")
     @Validation(required = true)
-    public String demo;
+    public Long numberParam;
 
-    // 3
+    // 布尔值参数
     /**
      * <strong>example:</strong>
-     * <p>id2</p>
+     * <p>true, false</p>
      */
-    @NameInMap("demo1")
+    @NameInMap("boolean_param")
     @Validation(required = true)
-    public String demo1;
+    public Boolean booleanParam;
 
-    // 22
+    // 日期参数
     /**
      * <strong>example:</strong>
-     * <p>12</p>
+     * <p>2026-02-10T10:10:00Z</p>
      */
-    @NameInMap("demo2")
+    @NameInMap("date_param")
+    @Validation(required = true, pattern = "\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}([Z]|([\\.]\\d{1,9})?[\\+]\\d{2}[\\:]?\\d{2})")
+    public String dateParam;
+
+    // 数组参数
+    /**
+     * <strong>example:</strong>
+     * <p>{a,b,c,d}</p>
+     */
+    @NameInMap("array_param")
     @Validation(required = true)
-    public String demo2;
+    public java.util.List<String> arrayParam;
+
+    // 结构体参数
+    @NameInMap("struct_param")
+    @Validation(required = true)
+    public DemoClass structParam;
 
     public static TestClass build(java.util.Map<String, ?> map) throws Exception {
         TestClass self = new TestClass();
         return TeaModel.build(map, self);
     }
 
-    public TestClass setTest(String test) {
-        this.test = test;
+    public TestClass setStringParam(String stringParam) {
+        this.stringParam = stringParam;
         return this;
     }
-    public String getTest() {
-        return this.test;
+    public String getStringParam() {
+        return this.stringParam;
     }
 
-    public TestClass setDemo(String demo) {
-        this.demo = demo;
+    public TestClass setNumberParam(Long numberParam) {
+        this.numberParam = numberParam;
         return this;
     }
-    public String getDemo() {
-        return this.demo;
+    public Long getNumberParam() {
+        return this.numberParam;
     }
 
-    public TestClass setDemo1(String demo1) {
-        this.demo1 = demo1;
+    public TestClass setBooleanParam(Boolean booleanParam) {
+        this.booleanParam = booleanParam;
         return this;
     }
-    public String getDemo1() {
-        return this.demo1;
+    public Boolean getBooleanParam() {
+        return this.booleanParam;
     }
 
-    public TestClass setDemo2(String demo2) {
-        this.demo2 = demo2;
+    public TestClass setDateParam(String dateParam) {
+        this.dateParam = dateParam;
         return this;
     }
-    public String getDemo2() {
-        return this.demo2;
+    public String getDateParam() {
+        return this.dateParam;
+    }
+
+    public TestClass setArrayParam(java.util.List<String> arrayParam) {
+        this.arrayParam = arrayParam;
+        return this;
+    }
+    public java.util.List<String> getArrayParam() {
+        return this.arrayParam;
+    }
+
+    public TestClass setStructParam(DemoClass structParam) {
+        this.structParam = structParam;
+        return this;
+    }
+    public DemoClass getStructParam() {
+        return this.structParam;
     }
 
 }

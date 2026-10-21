@@ -37,13 +37,13 @@ public class DemoClass extends TeaModel {
      * <p>3</p>
      */
     @NameInMap("some_int")
-    @Validation(required = true, maximum = 2000, minimum = 1)
+    @Validation(required = true)
     public Long someInt;
 
-    // 列表测试
-    @NameInMap("some_list")
+    // 结构体字段
+    @NameInMap("some_struct")
     @Validation(required = true)
-    public java.util.List<String> someList;
+    public AnotherClass someStruct;
 
     public static DemoClass build(java.util.Map<String, ?> map) throws Exception {
         DemoClass self = new DemoClass();
@@ -82,12 +82,12 @@ public class DemoClass extends TeaModel {
         return this.someInt;
     }
 
-    public DemoClass setSomeList(java.util.List<String> someList) {
-        this.someList = someList;
+    public DemoClass setSomeStruct(AnotherClass someStruct) {
+        this.someStruct = someStruct;
         return this;
     }
-    public java.util.List<String> getSomeList() {
-        return this.someList;
+    public AnotherClass getSomeStruct() {
+        return this.someStruct;
     }
 
 }

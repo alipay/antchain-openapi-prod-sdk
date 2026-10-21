@@ -16,11 +16,15 @@ public class AnotherClass extends TeaModel {
     // 引用字段
     @NameInMap("ref")
     @Validation(required = true)
-    public DemoClass ref;
+    public QueryMap ref;
 
-    // 列表引用Struct
-    @NameInMap("refList")
-    public java.util.List<DemoClass> refList;
+    // 新增结构体
+    /**
+     * <strong>example:</strong>
+     * <p>new structs</p>
+     */
+    @NameInMap("new_struct")
+    public String newStruct;
 
     public static AnotherClass build(java.util.Map<String, ?> map) throws Exception {
         AnotherClass self = new AnotherClass();
@@ -35,20 +39,20 @@ public class AnotherClass extends TeaModel {
         return this.bar;
     }
 
-    public AnotherClass setRef(DemoClass ref) {
+    public AnotherClass setRef(QueryMap ref) {
         this.ref = ref;
         return this;
     }
-    public DemoClass getRef() {
+    public QueryMap getRef() {
         return this.ref;
     }
 
-    public AnotherClass setRefList(java.util.List<DemoClass> refList) {
-        this.refList = refList;
+    public AnotherClass setNewStruct(String newStruct) {
+        this.newStruct = newStruct;
         return this;
     }
-    public java.util.List<DemoClass> getRefList() {
-        return this.refList;
+    public String getNewStruct() {
+        return this.newStruct;
     }
 
 }

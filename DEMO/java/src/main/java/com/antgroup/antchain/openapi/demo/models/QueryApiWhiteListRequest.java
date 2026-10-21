@@ -3,7 +3,7 @@ package com.antgroup.antchain.openapi.demo.models;
 
 import com.aliyun.tea.*;
 
-public class ImportTestsysyRequest extends TeaModel {
+public class QueryApiWhiteListRequest extends TeaModel {
     // OAuth模式下的授权token
     @NameInMap("auth_token")
     public String authToken;
@@ -11,17 +11,17 @@ public class ImportTestsysyRequest extends TeaModel {
     @NameInMap("product_instance_id")
     public String productInstanceId;
 
-    // name
-    @NameInMap("name")
+    // 查询输入
+    @NameInMap("data")
     @Validation(required = true)
-    public String name;
+    public String data;
 
-    public static ImportTestsysyRequest build(java.util.Map<String, ?> map) throws Exception {
-        ImportTestsysyRequest self = new ImportTestsysyRequest();
+    public static QueryApiWhiteListRequest build(java.util.Map<String, ?> map) throws Exception {
+        QueryApiWhiteListRequest self = new QueryApiWhiteListRequest();
         return TeaModel.build(map, self);
     }
 
-    public ImportTestsysyRequest setAuthToken(String authToken) {
+    public QueryApiWhiteListRequest setAuthToken(String authToken) {
         this.authToken = authToken;
         return this;
     }
@@ -29,7 +29,7 @@ public class ImportTestsysyRequest extends TeaModel {
         return this.authToken;
     }
 
-    public ImportTestsysyRequest setProductInstanceId(String productInstanceId) {
+    public QueryApiWhiteListRequest setProductInstanceId(String productInstanceId) {
         this.productInstanceId = productInstanceId;
         return this;
     }
@@ -37,12 +37,12 @@ public class ImportTestsysyRequest extends TeaModel {
         return this.productInstanceId;
     }
 
-    public ImportTestsysyRequest setName(String name) {
-        this.name = name;
+    public QueryApiWhiteListRequest setData(String data) {
+        this.data = data;
         return this;
     }
-    public String getName() {
-        return this.name;
+    public String getData() {
+        return this.data;
     }
 
 }
