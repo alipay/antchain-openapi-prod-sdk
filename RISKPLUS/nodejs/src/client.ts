@@ -17569,6 +17569,8 @@ export class CountDubbridgeRepayTrialRequest extends $tea.Model {
   interestSubsidyRatio?: string;
   // 参考定价
   referenceRatio?: string;
+  // 扩展信息
+  extInfo?: string;
   static names(): { [key: string]: string } {
     return {
       authToken: 'auth_token',
@@ -17579,6 +17581,7 @@ export class CountDubbridgeRepayTrialRequest extends $tea.Model {
       periodList: 'period_list',
       interestSubsidyRatio: 'interest_subsidy_ratio',
       referenceRatio: 'reference_ratio',
+      extInfo: 'ext_info',
     };
   }
 
@@ -17592,6 +17595,7 @@ export class CountDubbridgeRepayTrialRequest extends $tea.Model {
       periodList: { 'type': 'array', 'itemType': 'number' },
       interestSubsidyRatio: 'string',
       referenceRatio: 'string',
+      extInfo: 'string',
     };
   }
 
@@ -18016,6 +18020,8 @@ export class QueryDubbridgeUsecreditStatusResponse extends $tea.Model {
   disburseContractNo?: string;
   // 授信合同编号
   creditContractNo?: string;
+  // 扩展信息
+  extInfo?: string;
   static names(): { [key: string]: string } {
     return {
       reqMsgId: 'req_msg_id',
@@ -18027,6 +18033,7 @@ export class QueryDubbridgeUsecreditStatusResponse extends $tea.Model {
       repayRef: 'repay_ref',
       disburseContractNo: 'disburse_contract_no',
       creditContractNo: 'credit_contract_no',
+      extInfo: 'ext_info',
     };
   }
 
@@ -18041,6 +18048,7 @@ export class QueryDubbridgeUsecreditStatusResponse extends $tea.Model {
       repayRef: { 'type': 'array', 'itemType': RepayRef },
       disburseContractNo: 'string',
       creditContractNo: 'string',
+      extInfo: 'string',
     };
   }
 
@@ -29932,6 +29940,69 @@ export class ReceiveRbbOverseacompanyProfileResponse extends $tea.Model {
   }
 }
 
+export class InitGateWayServiceRequest extends $tea.Model {
+  // OAuth模式下的授权token
+  authToken?: string;
+  productInstanceId?: string;
+  // 测试
+  user: string;
+  // 测试
+  pass: string;
+  static names(): { [key: string]: string } {
+    return {
+      authToken: 'auth_token',
+      productInstanceId: 'product_instance_id',
+      user: 'user',
+      pass: 'pass',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      authToken: 'string',
+      productInstanceId: 'string',
+      user: 'string',
+      pass: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class InitGateWayServiceResponse extends $tea.Model {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string;
+  // 结果码，一般OK表示调用成功
+  resultCode?: string;
+  // 异常信息的文本描述
+  resultMsg?: string;
+  // 测试
+  result?: string;
+  static names(): { [key: string]: string } {
+    return {
+      reqMsgId: 'req_msg_id',
+      resultCode: 'result_code',
+      resultMsg: 'result_msg',
+      result: 'result',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      reqMsgId: 'string',
+      resultCode: 'string',
+      resultMsg: 'string',
+      result: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
 export class QueryCreditshieldRestrictedRequest extends $tea.Model {
   // OAuth模式下的授权token
   authToken?: string;
@@ -38288,7 +38359,7 @@ export default class Client {
           req_msg_id: AntchainUtil.getNonce(),
           access_key: this._accessKeyId,
           base_sdk_version: "TeaSDK-2.0",
-          sdk_version: "1.33.8",
+          sdk_version: "1.33.9",
           _prod_code: "RISKPLUS",
           _prod_channel: "undefined",
         };
@@ -39726,7 +39797,7 @@ export default class Client {
   /**
    * @remarks
    * Description: 天枢系统还款试算，根据借据号计算还款金额
-   * Summary: 天枢系统还款试算
+   * Summary: 天枢系统还款试算，根据借据号计算还款金额
    */
   async countDubbridgeRepayTrial(request: CountDubbridgeRepayTrialRequest): Promise<CountDubbridgeRepayTrialResponse> {
     let runtime = new $Util.RuntimeOptions({ });
@@ -39737,7 +39808,7 @@ export default class Client {
   /**
    * @remarks
    * Description: 天枢系统还款试算，根据借据号计算还款金额
-   * Summary: 天枢系统还款试算
+   * Summary: 天枢系统还款试算，根据借据号计算还款金额
    */
   async countDubbridgeRepayTrialEx(request: CountDubbridgeRepayTrialRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<CountDubbridgeRepayTrialResponse> {
     Util.validateModel(request);
@@ -43112,6 +43183,27 @@ export default class Client {
 
     Util.validateModel(request);
     return $tea.cast<ReceiveRbbOverseacompanyProfileResponse>(await this.doRequest("1.0", "riskplus.rbb.overseacompany.profile.receive", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new ReceiveRbbOverseacompanyProfileResponse({}));
+  }
+
+  /**
+   * @remarks
+   * Description: 测试网关连通性
+   * Summary: 测试网关连通性
+   */
+  async initGateWayService(request: InitGateWayServiceRequest): Promise<InitGateWayServiceResponse> {
+    let runtime = new $Util.RuntimeOptions({ });
+    let headers : {[key: string ]: string} = { };
+    return await this.initGateWayServiceEx(request, headers, runtime);
+  }
+
+  /**
+   * @remarks
+   * Description: 测试网关连通性
+   * Summary: 测试网关连通性
+   */
+  async initGateWayServiceEx(request: InitGateWayServiceRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<InitGateWayServiceResponse> {
+    Util.validateModel(request);
+    return $tea.cast<InitGateWayServiceResponse>(await this.doRequest("1.0", "riskplus.gate.way.service.init", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new InitGateWayServiceResponse({}));
   }
 
   /**
