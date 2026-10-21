@@ -24,7 +24,7 @@ namespace AntChain.SDK.INSURANCE_SAAS.Models
         [Validation(Required=false)]
         public string ResultMsg { get; set; }
 
-        // 请求id，每一次请求保持唯一；
+        // 请求id
         [NameInMap("request_id")]
         [Validation(Required=false)]
         public string RequestId { get; set; }
