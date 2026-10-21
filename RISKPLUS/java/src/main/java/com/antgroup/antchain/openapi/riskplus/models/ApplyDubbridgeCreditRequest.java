@@ -95,6 +95,26 @@ public class ApplyDubbridgeCreditRequest extends TeaModel {
     @NameInMap("merchant_external_id")
     public String merchantExternalId;
 
+    // 扩展字段
+    @NameInMap("ext_info")
+    public String extInfo;
+
+    // 申请金额
+    @NameInMap("applications_amount")
+    public String applicationsAmount;
+
+    // 申请期限（月）
+    @NameInMap("application_deadline")
+    public String applicationDeadline;
+
+    // 发证机关名称
+    @NameInMap("authority_name")
+    public String authorityName;
+
+    // 月收入
+    @NameInMap("month_salary")
+    public String monthSalary;
+
     public static ApplyDubbridgeCreditRequest build(java.util.Map<String, ?> map) throws Exception {
         ApplyDubbridgeCreditRequest self = new ApplyDubbridgeCreditRequest();
         return TeaModel.build(map, self);
@@ -274,6 +294,46 @@ public class ApplyDubbridgeCreditRequest extends TeaModel {
     }
     public String getMerchantExternalId() {
         return this.merchantExternalId;
+    }
+
+    public ApplyDubbridgeCreditRequest setExtInfo(String extInfo) {
+        this.extInfo = extInfo;
+        return this;
+    }
+    public String getExtInfo() {
+        return this.extInfo;
+    }
+
+    public ApplyDubbridgeCreditRequest setApplicationsAmount(String applicationsAmount) {
+        this.applicationsAmount = applicationsAmount;
+        return this;
+    }
+    public String getApplicationsAmount() {
+        return this.applicationsAmount;
+    }
+
+    public ApplyDubbridgeCreditRequest setApplicationDeadline(String applicationDeadline) {
+        this.applicationDeadline = applicationDeadline;
+        return this;
+    }
+    public String getApplicationDeadline() {
+        return this.applicationDeadline;
+    }
+
+    public ApplyDubbridgeCreditRequest setAuthorityName(String authorityName) {
+        this.authorityName = authorityName;
+        return this;
+    }
+    public String getAuthorityName() {
+        return this.authorityName;
+    }
+
+    public ApplyDubbridgeCreditRequest setMonthSalary(String monthSalary) {
+        this.monthSalary = monthSalary;
+        return this;
+    }
+    public String getMonthSalary() {
+        return this.monthSalary;
     }
 
 }
