@@ -48,6 +48,11 @@ namespace AntChain.SDK.RISKPLUS.Models
         [Validation(Required=false)]
         public string ReferenceRatio { get; set; }
 
+        // 扩展信息
+        [NameInMap("ext_info")]
+        [Validation(Required=false)]
+        public string ExtInfo { get; set; }
+
     }
 
 }

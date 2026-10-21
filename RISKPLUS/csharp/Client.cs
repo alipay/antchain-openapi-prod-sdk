@@ -158,7 +158,7 @@ namespace AntChain.SDK.RISKPLUS
                         {"req_msg_id", AntChain.AlipayUtil.AntchainUtils.GetNonce()},
                         {"access_key", _accessKeyId},
                         {"base_sdk_version", "TeaSDK-2.0"},
-                        {"sdk_version", "1.33.8"},
+                        {"sdk_version", "1.33.9"},
                         {"_prod_code", "RISKPLUS"},
                         {"_prod_channel", "undefined"},
                     };
@@ -301,7 +301,7 @@ namespace AntChain.SDK.RISKPLUS
                         {"req_msg_id", AntChain.AlipayUtil.AntchainUtils.GetNonce()},
                         {"access_key", _accessKeyId},
                         {"base_sdk_version", "TeaSDK-2.0"},
-                        {"sdk_version", "1.33.8"},
+                        {"sdk_version", "1.33.9"},
                         {"_prod_code", "RISKPLUS"},
                         {"_prod_channel", "undefined"},
                     };
@@ -3400,7 +3400,7 @@ namespace AntChain.SDK.RISKPLUS
         /// <term><b>Description:</b></term>
         /// <description>
         /// <para>Description: 天枢系统还款试算，根据借据号计算还款金额
-        /// Summary: 天枢系统还款试算</para>
+        /// Summary: 天枢系统还款试算，根据借据号计算还款金额</para>
         /// </description>
         public CountDubbridgeRepayTrialResponse CountDubbridgeRepayTrial(CountDubbridgeRepayTrialRequest request)
         {
@@ -3412,7 +3412,7 @@ namespace AntChain.SDK.RISKPLUS
         /// <term><b>Description:</b></term>
         /// <description>
         /// <para>Description: 天枢系统还款试算，根据借据号计算还款金额
-        /// Summary: 天枢系统还款试算</para>
+        /// Summary: 天枢系统还款试算，根据借据号计算还款金额</para>
         /// </description>
         public async Task<CountDubbridgeRepayTrialResponse> CountDubbridgeRepayTrialAsync(CountDubbridgeRepayTrialRequest request)
         {
@@ -3424,7 +3424,7 @@ namespace AntChain.SDK.RISKPLUS
         /// <term><b>Description:</b></term>
         /// <description>
         /// <para>Description: 天枢系统还款试算，根据借据号计算还款金额
-        /// Summary: 天枢系统还款试算</para>
+        /// Summary: 天枢系统还款试算，根据借据号计算还款金额</para>
         /// </description>
         public CountDubbridgeRepayTrialResponse CountDubbridgeRepayTrialEx(CountDubbridgeRepayTrialRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
         {
@@ -3435,7 +3435,7 @@ namespace AntChain.SDK.RISKPLUS
         /// <term><b>Description:</b></term>
         /// <description>
         /// <para>Description: 天枢系统还款试算，根据借据号计算还款金额
-        /// Summary: 天枢系统还款试算</para>
+        /// Summary: 天枢系统还款试算，根据借据号计算还款金额</para>
         /// </description>
         public async Task<CountDubbridgeRepayTrialResponse> CountDubbridgeRepayTrialExAsync(CountDubbridgeRepayTrialRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
         {
@@ -10817,6 +10817,52 @@ namespace AntChain.SDK.RISKPLUS
             }
             AlibabaCloud.TeaUtil.Common.ValidateModel(request);
             return TeaModel.ToObject<ReceiveRbbOverseacompanyProfileResponse>(await DoRequestAsync("1.0", "riskplus.rbb.overseacompany.profile.receive", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /// <term><b>Description:</b></term>
+        /// <description>
+        /// <para>Description: 测试网关连通性
+        /// Summary: 测试网关连通性</para>
+        /// </description>
+        public InitGateWayServiceResponse InitGateWayService(InitGateWayServiceRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return InitGateWayServiceEx(request, headers, runtime);
+        }
+
+        /// <term><b>Description:</b></term>
+        /// <description>
+        /// <para>Description: 测试网关连通性
+        /// Summary: 测试网关连通性</para>
+        /// </description>
+        public async Task<InitGateWayServiceResponse> InitGateWayServiceAsync(InitGateWayServiceRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return await InitGateWayServiceExAsync(request, headers, runtime);
+        }
+
+        /// <term><b>Description:</b></term>
+        /// <description>
+        /// <para>Description: 测试网关连通性
+        /// Summary: 测试网关连通性</para>
+        /// </description>
+        public InitGateWayServiceResponse InitGateWayServiceEx(InitGateWayServiceRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<InitGateWayServiceResponse>(DoRequest("1.0", "riskplus.gate.way.service.init", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /// <term><b>Description:</b></term>
+        /// <description>
+        /// <para>Description: 测试网关连通性
+        /// Summary: 测试网关连通性</para>
+        /// </description>
+        public async Task<InitGateWayServiceResponse> InitGateWayServiceExAsync(InitGateWayServiceRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<InitGateWayServiceResponse>(await DoRequestAsync("1.0", "riskplus.gate.way.service.init", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
         }
 
         /// <term><b>Description:</b></term>
