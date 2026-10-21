@@ -34,6 +34,11 @@ class ApplyDubbridgeCreditRequest extends Model {
         'bizOrderNo' => 'biz_order_no',
         'prodType' => 'prod_type',
         'merchantExternalId' => 'merchant_external_id',
+        'extInfo' => 'ext_info',
+        'applicationsAmount' => 'applications_amount',
+        'applicationDeadline' => 'application_deadline',
+        'authorityName' => 'authority_name',
+        'monthSalary' => 'month_salary',
     ];
     public function validate() {
         Model::validateRequired('personalInfo', $this->personalInfo, true);
@@ -115,6 +120,21 @@ class ApplyDubbridgeCreditRequest extends Model {
         if (null !== $this->merchantExternalId) {
             $res['merchant_external_id'] = $this->merchantExternalId;
         }
+        if (null !== $this->extInfo) {
+            $res['ext_info'] = $this->extInfo;
+        }
+        if (null !== $this->applicationsAmount) {
+            $res['applications_amount'] = $this->applicationsAmount;
+        }
+        if (null !== $this->applicationDeadline) {
+            $res['application_deadline'] = $this->applicationDeadline;
+        }
+        if (null !== $this->authorityName) {
+            $res['authority_name'] = $this->authorityName;
+        }
+        if (null !== $this->monthSalary) {
+            $res['month_salary'] = $this->monthSalary;
+        }
         return $res;
     }
     /**
@@ -194,6 +214,21 @@ class ApplyDubbridgeCreditRequest extends Model {
         }
         if(isset($map['merchant_external_id'])){
             $model->merchantExternalId = $map['merchant_external_id'];
+        }
+        if(isset($map['ext_info'])){
+            $model->extInfo = $map['ext_info'];
+        }
+        if(isset($map['applications_amount'])){
+            $model->applicationsAmount = $map['applications_amount'];
+        }
+        if(isset($map['application_deadline'])){
+            $model->applicationDeadline = $map['application_deadline'];
+        }
+        if(isset($map['authority_name'])){
+            $model->authorityName = $map['authority_name'];
+        }
+        if(isset($map['month_salary'])){
+            $model->monthSalary = $map['month_salary'];
         }
         return $model;
     }
@@ -327,5 +362,35 @@ class ApplyDubbridgeCreditRequest extends Model {
      * @var string
      */
     public $merchantExternalId;
+
+    // 扩展字段
+    /**
+     * @var string
+     */
+    public $extInfo;
+
+    // 申请金额
+    /**
+     * @var string
+     */
+    public $applicationsAmount;
+
+    // 申请期限（月）
+    /**
+     * @var string
+     */
+    public $applicationDeadline;
+
+    // 发证机关名称
+    /**
+     * @var string
+     */
+    public $authorityName;
+
+    // 月收入
+    /**
+     * @var string
+     */
+    public $monthSalary;
 
 }
