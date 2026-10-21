@@ -22236,6 +22236,7 @@ class CountDubbridgeRepayTrialRequest(TeaModel):
         period_list: List[int] = None,
         interest_subsidy_ratio: str = None,
         reference_ratio: str = None,
+        ext_info: str = None,
     ):
         # OAuth模式下的授权token
         self.auth_token = auth_token
@@ -22252,6 +22253,8 @@ class CountDubbridgeRepayTrialRequest(TeaModel):
         self.interest_subsidy_ratio = interest_subsidy_ratio
         # 参考定价
         self.reference_ratio = reference_ratio
+        # 扩展信息
+        self.ext_info = ext_info
 
     def validate(self):
         self.validate_required(self.original_order_no, 'original_order_no')
@@ -22280,6 +22283,8 @@ class CountDubbridgeRepayTrialRequest(TeaModel):
             result['interest_subsidy_ratio'] = self.interest_subsidy_ratio
         if self.reference_ratio is not None:
             result['reference_ratio'] = self.reference_ratio
+        if self.ext_info is not None:
+            result['ext_info'] = self.ext_info
         return result
 
     def from_map(self, m: dict = None):
@@ -22300,6 +22305,8 @@ class CountDubbridgeRepayTrialRequest(TeaModel):
             self.interest_subsidy_ratio = m.get('interest_subsidy_ratio')
         if m.get('reference_ratio') is not None:
             self.reference_ratio = m.get('reference_ratio')
+        if m.get('ext_info') is not None:
+            self.ext_info = m.get('ext_info')
         return self
 
 
@@ -22990,6 +22997,7 @@ class QueryDubbridgeUsecreditStatusResponse(TeaModel):
         repay_ref: List[RepayRef] = None,
         disburse_contract_no: str = None,
         credit_contract_no: str = None,
+        ext_info: str = None,
     ):
         # 请求唯一ID，用于链路跟踪和问题排查
         self.req_msg_id = req_msg_id
@@ -23009,6 +23017,8 @@ class QueryDubbridgeUsecreditStatusResponse(TeaModel):
         self.disburse_contract_no = disburse_contract_no
         # 授信合同编号
         self.credit_contract_no = credit_contract_no
+        # 扩展信息
+        self.ext_info = ext_info
 
     def validate(self):
         if self.receipt_info:
@@ -23044,6 +23054,8 @@ class QueryDubbridgeUsecreditStatusResponse(TeaModel):
             result['disburse_contract_no'] = self.disburse_contract_no
         if self.credit_contract_no is not None:
             result['credit_contract_no'] = self.credit_contract_no
+        if self.ext_info is not None:
+            result['ext_info'] = self.ext_info
         return result
 
     def from_map(self, m: dict = None):
@@ -23070,6 +23082,8 @@ class QueryDubbridgeUsecreditStatusResponse(TeaModel):
             self.disburse_contract_no = m.get('disburse_contract_no')
         if m.get('credit_contract_no') is not None:
             self.credit_contract_no = m.get('credit_contract_no')
+        if m.get('ext_info') is not None:
+            self.ext_info = m.get('ext_info')
         return self
 
 
@@ -42482,6 +42496,104 @@ class ReceiveRbbOverseacompanyProfileResponse(TeaModel):
             self.result_msg = m.get('result_msg')
         if m.get('data') is not None:
             self.data = m.get('data')
+        return self
+
+
+class InitGateWayServiceRequest(TeaModel):
+    def __init__(
+        self,
+        auth_token: str = None,
+        product_instance_id: str = None,
+        user: str = None,
+        pass_: str = None,
+    ):
+        # OAuth模式下的授权token
+        self.auth_token = auth_token
+        self.product_instance_id = product_instance_id
+        # 测试
+        self.user = user
+        # 测试
+        self.pass_ = pass_
+
+    def validate(self):
+        self.validate_required(self.user, 'user')
+        self.validate_required(self.pass_, 'pass_')
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.auth_token is not None:
+            result['auth_token'] = self.auth_token
+        if self.product_instance_id is not None:
+            result['product_instance_id'] = self.product_instance_id
+        if self.user is not None:
+            result['user'] = self.user
+        if self.pass_ is not None:
+            result['pass'] = self.pass_
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('auth_token') is not None:
+            self.auth_token = m.get('auth_token')
+        if m.get('product_instance_id') is not None:
+            self.product_instance_id = m.get('product_instance_id')
+        if m.get('user') is not None:
+            self.user = m.get('user')
+        if m.get('pass') is not None:
+            self.pass_ = m.get('pass')
+        return self
+
+
+class InitGateWayServiceResponse(TeaModel):
+    def __init__(
+        self,
+        req_msg_id: str = None,
+        result_code: str = None,
+        result_msg: str = None,
+        result: str = None,
+    ):
+        # 请求唯一ID，用于链路跟踪和问题排查
+        self.req_msg_id = req_msg_id
+        # 结果码，一般OK表示调用成功
+        self.result_code = result_code
+        # 异常信息的文本描述
+        self.result_msg = result_msg
+        # 测试
+        self.result = result
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.req_msg_id is not None:
+            result['req_msg_id'] = self.req_msg_id
+        if self.result_code is not None:
+            result['result_code'] = self.result_code
+        if self.result_msg is not None:
+            result['result_msg'] = self.result_msg
+        if self.result is not None:
+            result['result'] = self.result
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('req_msg_id') is not None:
+            self.req_msg_id = m.get('req_msg_id')
+        if m.get('result_code') is not None:
+            self.result_code = m.get('result_code')
+        if m.get('result_msg') is not None:
+            self.result_msg = m.get('result_msg')
+        if m.get('result') is not None:
+            self.result = m.get('result')
         return self
 
 

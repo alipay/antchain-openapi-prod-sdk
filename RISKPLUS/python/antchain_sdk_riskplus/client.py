@@ -135,7 +135,7 @@ class Client:
                     'req_msg_id': AntchainUtils.get_nonce(),
                     'access_key': self._access_key_id,
                     'base_sdk_version': 'TeaSDK-2.0',
-                    'sdk_version': '1.33.8',
+                    'sdk_version': '1.33.9',
                     '_prod_code': 'RISKPLUS',
                     '_prod_channel': 'undefined'
                 }
@@ -239,7 +239,7 @@ class Client:
                     'req_msg_id': AntchainUtils.get_nonce(),
                     'access_key': self._access_key_id,
                     'base_sdk_version': 'TeaSDK-2.0',
-                    'sdk_version': '1.33.8',
+                    'sdk_version': '1.33.9',
                     '_prod_code': 'RISKPLUS',
                     '_prod_channel': 'undefined'
                 }
@@ -3957,7 +3957,7 @@ class Client:
     ) -> riskplus_models.CountDubbridgeRepayTrialResponse:
         """
         Description: 天枢系统还款试算，根据借据号计算还款金额
-        Summary: 天枢系统还款试算
+        Summary: 天枢系统还款试算，根据借据号计算还款金额
         """
         runtime = util_models.RuntimeOptions()
         headers = {}
@@ -3969,7 +3969,7 @@ class Client:
     ) -> riskplus_models.CountDubbridgeRepayTrialResponse:
         """
         Description: 天枢系统还款试算，根据借据号计算还款金额
-        Summary: 天枢系统还款试算
+        Summary: 天枢系统还款试算，根据借据号计算还款金额
         """
         runtime = util_models.RuntimeOptions()
         headers = {}
@@ -3983,7 +3983,7 @@ class Client:
     ) -> riskplus_models.CountDubbridgeRepayTrialResponse:
         """
         Description: 天枢系统还款试算，根据借据号计算还款金额
-        Summary: 天枢系统还款试算
+        Summary: 天枢系统还款试算，根据借据号计算还款金额
         """
         UtilClient.validate_model(request)
         return TeaCore.from_map(
@@ -3999,7 +3999,7 @@ class Client:
     ) -> riskplus_models.CountDubbridgeRepayTrialResponse:
         """
         Description: 天枢系统还款试算，根据借据号计算还款金额
-        Summary: 天枢系统还款试算
+        Summary: 天枢系统还款试算，根据借据号计算还款金额
         """
         UtilClient.validate_model(request)
         return TeaCore.from_map(
@@ -12765,6 +12765,62 @@ class Client:
         return TeaCore.from_map(
             riskplus_models.ReceiveRbbOverseacompanyProfileResponse(),
             await self.do_request_async('1.0', 'riskplus.rbb.overseacompany.profile.receive', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def init_gate_way_service(
+        self,
+        request: riskplus_models.InitGateWayServiceRequest,
+    ) -> riskplus_models.InitGateWayServiceResponse:
+        """
+        Description: 测试网关连通性
+        Summary: 测试网关连通性
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.init_gate_way_service_ex(request, headers, runtime)
+
+    async def init_gate_way_service_async(
+        self,
+        request: riskplus_models.InitGateWayServiceRequest,
+    ) -> riskplus_models.InitGateWayServiceResponse:
+        """
+        Description: 测试网关连通性
+        Summary: 测试网关连通性
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.init_gate_way_service_ex_async(request, headers, runtime)
+
+    def init_gate_way_service_ex(
+        self,
+        request: riskplus_models.InitGateWayServiceRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> riskplus_models.InitGateWayServiceResponse:
+        """
+        Description: 测试网关连通性
+        Summary: 测试网关连通性
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            riskplus_models.InitGateWayServiceResponse(),
+            self.do_request('1.0', 'riskplus.gate.way.service.init', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def init_gate_way_service_ex_async(
+        self,
+        request: riskplus_models.InitGateWayServiceRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> riskplus_models.InitGateWayServiceResponse:
+        """
+        Description: 测试网关连通性
+        Summary: 测试网关连通性
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            riskplus_models.InitGateWayServiceResponse(),
+            await self.do_request_async('1.0', 'riskplus.gate.way.service.init', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
     def query_creditshield_restricted(
