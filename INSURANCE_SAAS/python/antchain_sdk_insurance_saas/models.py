@@ -552,7 +552,7 @@ class RealtimeMktAudience(TeaModel):
         return self
 
 
-class XNameValuePair(TeaModel):
+class NameValuePair(TeaModel):
     def __init__(
         self,
         name: str = None,
@@ -1632,34 +1632,36 @@ class CallbackMktEffectsimpleRequest(TeaModel):
         node_type: str = None,
         node_status: str = None,
         event_time: str = None,
+        ext_info: str = None,
     ):
         # OAuth模式下的授权token
         self.auth_token = auth_token
-        # 请求id，每一次请求保持唯一；若重复，则更新原数据；
+        # 请求id，每一次请求保持唯一；若重复，则更新原数据
         self.request_id = request_id
         # 项目ID，待蚂蚁分配
         self.project_id = project_id
-        # 营销模式，AI_HANGUP_SMS("AI挂短")， AI_OFFICIAL_ACCOUNT("AI公众号"), BPO_WECHAT("BPO企微"), AI_BPO("AI_BPO")
+        # 营销模式，枚举：LIVE_STREAMING-直播投流、ADVERTISING-广告投流、AI_WECHAT-AI企微、BPO_SHORT_HANG-BPO挂短、BPO_OFFICIAL_ACCOUNT-BPO公众号、SMS-短信
         self.marketing_mode = marketing_mode
-        # 投保特征短链
+        # 投保特征短链，挂短模式必填
         self.insure_short_url = insure_short_url
         # 加密类型：MD5，32位[小]
         self.encryption_type = encryption_type
         # 加密用户标识
         self.encrypted_user_id = encrypted_user_id
-        # 应以识别当前用户点击投保页面的唯一标识
+        # 用以识别当前用户点击投保页面的唯一标识
         self.landing_visit_id = landing_visit_id
-        # 节点类型
+        # 事件类型（节点类：LIVE_STREAMING_START/LIVE_STREAMING_END/FORM_SUBMIT/POLICY_ISSUE/PREMIUM_PAYMENT/UNDERWRITING；标签类：LABEL_SMS_SEND/LABEL_ADD/LABEL_RENEWAL_M2/LABEL_RENEWAL_M3/LABEL_INTENTION）
         self.node_type = node_type
-        # 节点状态（0-未完成；1-已完成）
+        # 事件状态，节点类：0-未完成 1-已完成；标签类：支持1-X格式（X为标签值）
         self.node_status = node_status
         # 事件完成时间（yyyy-MM-dd HH:mm:ss）
         self.event_time = event_time
+        # 扩展json字段，最大2048字符，用于传递isfrommy数据源、年化保费等扩展信息
+        self.ext_info = ext_info
 
     def validate(self):
         self.validate_required(self.request_id, 'request_id')
         self.validate_required(self.project_id, 'project_id')
-        self.validate_required(self.insure_short_url, 'insure_short_url')
         self.validate_required(self.encryption_type, 'encryption_type')
         self.validate_required(self.encrypted_user_id, 'encrypted_user_id')
         self.validate_required(self.landing_visit_id, 'landing_visit_id')
@@ -1695,6 +1697,8 @@ class CallbackMktEffectsimpleRequest(TeaModel):
             result['node_status'] = self.node_status
         if self.event_time is not None:
             result['event_time'] = self.event_time
+        if self.ext_info is not None:
+            result['ext_info'] = self.ext_info
         return result
 
     def from_map(self, m: dict = None):
@@ -1721,6 +1725,8 @@ class CallbackMktEffectsimpleRequest(TeaModel):
             self.node_status = m.get('node_status')
         if m.get('event_time') is not None:
             self.event_time = m.get('event_time')
+        if m.get('ext_info') is not None:
+            self.ext_info = m.get('ext_info')
         return self
 
 
@@ -1738,7 +1744,7 @@ class CallbackMktEffectsimpleResponse(TeaModel):
         self.result_code = result_code
         # 异常信息的文本描述
         self.result_msg = result_msg
-        # 请求id，每一次请求保持唯一；
+        # 请求id
         self.request_id = request_id
 
     def validate(self):
@@ -8885,15 +8891,17 @@ class CreateAntcloudGatewayxFileUploadRequest(TeaModel):
     def __init__(
         self,
         auth_token: str = None,
+        api_cluster: str = None,
         api_code: str = None,
         file_label: str = None,
         file_metadata: str = None,
         file_name: str = None,
         mime_type: str = None,
-        api_cluster: str = None,
     ):
         # OAuth模式下的授权token
         self.auth_token = auth_token
+        # 产品方的api归属集群，即productInstanceId
+        self.api_cluster = api_cluster
         # 上传文件作用的openapi method
         self.api_code = api_code
         # 文件标签，多个标签;分割
@@ -8904,8 +8912,6 @@ class CreateAntcloudGatewayxFileUploadRequest(TeaModel):
         self.file_name = file_name
         # 文件的多媒体类型
         self.mime_type = mime_type
-        # 产品方的api归属集群，即productInstanceId
-        self.api_cluster = api_cluster
 
     def validate(self):
         self.validate_required(self.api_code, 'api_code')
@@ -8924,6 +8930,8 @@ class CreateAntcloudGatewayxFileUploadRequest(TeaModel):
         result = dict()
         if self.auth_token is not None:
             result['auth_token'] = self.auth_token
+        if self.api_cluster is not None:
+            result['api_cluster'] = self.api_cluster
         if self.api_code is not None:
             result['api_code'] = self.api_code
         if self.file_label is not None:
@@ -8934,14 +8942,14 @@ class CreateAntcloudGatewayxFileUploadRequest(TeaModel):
             result['file_name'] = self.file_name
         if self.mime_type is not None:
             result['mime_type'] = self.mime_type
-        if self.api_cluster is not None:
-            result['api_cluster'] = self.api_cluster
         return result
 
     def from_map(self, m: dict = None):
         m = m or dict()
         if m.get('auth_token') is not None:
             self.auth_token = m.get('auth_token')
+        if m.get('api_cluster') is not None:
+            self.api_cluster = m.get('api_cluster')
         if m.get('api_code') is not None:
             self.api_code = m.get('api_code')
         if m.get('file_label') is not None:
@@ -8952,8 +8960,6 @@ class CreateAntcloudGatewayxFileUploadRequest(TeaModel):
             self.file_name = m.get('file_name')
         if m.get('mime_type') is not None:
             self.mime_type = m.get('mime_type')
-        if m.get('api_cluster') is not None:
-            self.api_cluster = m.get('api_cluster')
         return self
 
 
@@ -8965,7 +8971,7 @@ class CreateAntcloudGatewayxFileUploadResponse(TeaModel):
         result_msg: str = None,
         expired_time: str = None,
         file_id: str = None,
-        upload_headers: List[XNameValuePair] = None,
+        upload_headers: List[NameValuePair] = None,
         upload_url: str = None,
     ):
         # 请求唯一ID，用于链路跟踪和问题排查
@@ -9030,7 +9036,7 @@ class CreateAntcloudGatewayxFileUploadResponse(TeaModel):
         self.upload_headers = []
         if m.get('upload_headers') is not None:
             for k in m.get('upload_headers'):
-                temp_model = XNameValuePair()
+                temp_model = NameValuePair()
                 self.upload_headers.append(temp_model.from_map(k))
         if m.get('upload_url') is not None:
             self.upload_url = m.get('upload_url')
