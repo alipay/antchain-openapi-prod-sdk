@@ -1,0 +1,78 @@
+<?php
+
+// This file is auto-generated, don't edit it. Thanks.
+namespace AntChain\ENERGENT\Models;
+
+use AlibabaCloud\Tea\Model;
+
+class ActivateKmVersionRequest extends Model {
+    protected $_name = [
+        'authToken' => 'auth_token',
+        'productInstanceId' => 'product_instance_id',
+        'treeId' => 'tree_id',
+        'versionId' => 'version_id',
+    ];
+    public function validate() {
+        Model::validateRequired('treeId', $this->treeId, true);
+        Model::validateRequired('versionId', $this->versionId, true);
+    }
+    public function toMap() {
+        $res = [];
+        if (null !== $this->authToken) {
+            $res['auth_token'] = $this->authToken;
+        }
+        if (null !== $this->productInstanceId) {
+            $res['product_instance_id'] = $this->productInstanceId;
+        }
+        if (null !== $this->treeId) {
+            $res['tree_id'] = $this->treeId;
+        }
+        if (null !== $this->versionId) {
+            $res['version_id'] = $this->versionId;
+        }
+        return $res;
+    }
+    /**
+     * @param array $map
+     * @return ActivateKmVersionRequest
+     */
+    public static function fromMap($map = []) {
+        $model = new self();
+        if(isset($map['auth_token'])){
+            $model->authToken = $map['auth_token'];
+        }
+        if(isset($map['product_instance_id'])){
+            $model->productInstanceId = $map['product_instance_id'];
+        }
+        if(isset($map['tree_id'])){
+            $model->treeId = $map['tree_id'];
+        }
+        if(isset($map['version_id'])){
+            $model->versionId = $map['version_id'];
+        }
+        return $model;
+    }
+    // OAuth模式下的授权token
+    /**
+     * @var string
+     */
+    public $authToken;
+
+    /**
+     * @var string
+     */
+    public $productInstanceId;
+
+    // 知识库ID
+    /**
+     * @var string
+     */
+    public $treeId;
+
+    // 目标版本ID
+    /**
+     * @var string
+     */
+    public $versionId;
+
+}
