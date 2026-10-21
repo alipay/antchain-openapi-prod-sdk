@@ -29,6 +29,10 @@ use AntChain\RISKPLUS\Models\QueryBenefithubReportEffectiveRequest;
 use AntChain\RISKPLUS\Models\QueryBenefithubReportEffectiveResponse;
 use AntChain\RISKPLUS\Models\QueryBenefithubSubscriptionlinkRequest;
 use AntChain\RISKPLUS\Models\QueryBenefithubSubscriptionlinkResponse;
+use AntChain\RISKPLUS\Models\PushBenefithubBlacklistRequest;
+use AntChain\RISKPLUS\Models\PushBenefithubBlacklistResponse;
+use AntChain\RISKPLUS\Models\QueryBenefithubBlacklistRequest;
+use AntChain\RISKPLUS\Models\QueryBenefithubBlacklistResponse;
 use AntChain\RISKPLUS\Models\BatchqueryCreditshieldProductInfoRequest;
 use AntChain\RISKPLUS\Models\BatchqueryCreditshieldProductInfoResponse;
 use AntChain\RISKPLUS\Models\QueryCreditshieldProductCallbackRequest;
@@ -298,6 +302,8 @@ use AntChain\RISKPLUS\Models\GetDubbridgeJumpurlRequest;
 use AntChain\RISKPLUS\Models\GetDubbridgeJumpurlResponse;
 use AntChain\RISKPLUS\Models\QueryDubbridgeJumpresultRequest;
 use AntChain\RISKPLUS\Models\QueryDubbridgeJumpresultResponse;
+use AntChain\RISKPLUS\Models\QueryDubbridgeRepayofflineaccountRequest;
+use AntChain\RISKPLUS\Models\QueryDubbridgeRepayofflineaccountResponse;
 use AntChain\RISKPLUS\Models\VerifyFinserviceZhimaIdentifyRequest;
 use AntChain\RISKPLUS\Models\VerifyFinserviceZhimaIdentifyResponse;
 use AntChain\RISKPLUS\Models\QueryFinserviceZhimaIdentifyRequest;
@@ -440,6 +446,8 @@ use AntChain\RISKPLUS\Models\ReceiveRbbParamsFileRequest;
 use AntChain\RISKPLUS\Models\ReceiveRbbParamsFileResponse;
 use AntChain\RISKPLUS\Models\ReceiveRbbOverseacompanyProfileRequest;
 use AntChain\RISKPLUS\Models\ReceiveRbbOverseacompanyProfileResponse;
+use AntChain\RISKPLUS\Models\InitGateWayServiceRequest;
+use AntChain\RISKPLUS\Models\InitGateWayServiceResponse;
 use AntChain\RISKPLUS\Models\QueryCreditshieldRestrictedRequest;
 use AntChain\RISKPLUS\Models\QueryCreditshieldRestrictedResponse;
 use AntChain\RISKPLUS\Models\QueryCreditshieldFixcontactRequest;
@@ -779,7 +787,7 @@ class Client {
                     "req_msg_id" => UtilClient::getNonce(),
                     "access_key" => $this->_accessKeyId,
                     "base_sdk_version" => "TeaSDK-2.0",
-                    "sdk_version" => "1.33.4",
+                    "sdk_version" => "1.33.9",
                     "_prod_code" => "RISKPLUS",
                     "_prod_channel" => "undefined"
                 ];
@@ -1022,6 +1030,56 @@ class Client {
     public function queryBenefithubSubscriptionlinkEx($request, $headers, $runtime){
         Utils::validateModel($request);
         return QueryBenefithubSubscriptionlinkResponse::fromMap($this->doRequest("1.0", "riskplus.benefithub.subscriptionlink.query", "HTTPS", "POST", "/gateway.do", Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 风险报告用户黑名单接口，作用：渠道新增黑名单使用
+     * Summary: 风险报告用户黑名单接口，作用：渠道新增黑名单使用
+     * @param PushBenefithubBlacklistRequest $request
+     * @return PushBenefithubBlacklistResponse
+     */
+    public function pushBenefithubBlacklist($request){
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+        return $this->pushBenefithubBlacklistEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 风险报告用户黑名单接口，作用：渠道新增黑名单使用
+     * Summary: 风险报告用户黑名单接口，作用：渠道新增黑名单使用
+     * @param PushBenefithubBlacklistRequest $request
+     * @param string[] $headers
+     * @param RuntimeOptions $runtime
+     * @return PushBenefithubBlacklistResponse
+     */
+    public function pushBenefithubBlacklistEx($request, $headers, $runtime){
+        Utils::validateModel($request);
+        return PushBenefithubBlacklistResponse::fromMap($this->doRequest("1.0", "riskplus.benefithub.blacklist.push", "HTTPS", "POST", "/gateway.do", Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 渠道判断用户黑名单接口
+     * Summary: 渠道判断用户黑名单接口
+     * @param QueryBenefithubBlacklistRequest $request
+     * @return QueryBenefithubBlacklistResponse
+     */
+    public function queryBenefithubBlacklist($request){
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+        return $this->queryBenefithubBlacklistEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 渠道判断用户黑名单接口
+     * Summary: 渠道判断用户黑名单接口
+     * @param QueryBenefithubBlacklistRequest $request
+     * @param string[] $headers
+     * @param RuntimeOptions $runtime
+     * @return QueryBenefithubBlacklistResponse
+     */
+    public function queryBenefithubBlacklistEx($request, $headers, $runtime){
+        Utils::validateModel($request);
+        return QueryBenefithubBlacklistResponse::fromMap($this->doRequest("1.0", "riskplus.benefithub.blacklist.query", "HTTPS", "POST", "/gateway.do", Tea::merge($request), $headers, $runtime));
     }
 
     /**
@@ -2421,7 +2479,7 @@ class Client {
 
     /**
      * Description: 天枢系统还款试算，根据借据号计算还款金额
-     * Summary: 天枢系统还款试算
+     * Summary: 天枢系统还款试算，根据借据号计算还款金额
      * @param CountDubbridgeRepayTrialRequest $request
      * @return CountDubbridgeRepayTrialResponse
      */
@@ -2433,7 +2491,7 @@ class Client {
 
     /**
      * Description: 天枢系统还款试算，根据借据号计算还款金额
-     * Summary: 天枢系统还款试算
+     * Summary: 天枢系统还款试算，根据借据号计算还款金额
      * @param CountDubbridgeRepayTrialRequest $request
      * @param string[] $headers
      * @param RuntimeOptions $runtime
@@ -4392,6 +4450,31 @@ class Client {
     public function queryDubbridgeJumpresultEx($request, $headers, $runtime){
         Utils::validateModel($request);
         return QueryDubbridgeJumpresultResponse::fromMap($this->doRequest("1.0", "riskplus.dubbridge.jumpresult.query", "HTTPS", "POST", "/gateway.do", Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 账户流水查询接口(线下还款)
+     * Summary: 账户流水查询接口(线下还款)
+     * @param QueryDubbridgeRepayofflineaccountRequest $request
+     * @return QueryDubbridgeRepayofflineaccountResponse
+     */
+    public function queryDubbridgeRepayofflineaccount($request){
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+        return $this->queryDubbridgeRepayofflineaccountEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 账户流水查询接口(线下还款)
+     * Summary: 账户流水查询接口(线下还款)
+     * @param QueryDubbridgeRepayofflineaccountRequest $request
+     * @param string[] $headers
+     * @param RuntimeOptions $runtime
+     * @return QueryDubbridgeRepayofflineaccountResponse
+     */
+    public function queryDubbridgeRepayofflineaccountEx($request, $headers, $runtime){
+        Utils::validateModel($request);
+        return QueryDubbridgeRepayofflineaccountResponse::fromMap($this->doRequest("1.0", "riskplus.dubbridge.repayofflineaccount.query", "HTTPS", "POST", "/gateway.do", Tea::merge($request), $headers, $runtime));
     }
 
     /**
@@ -6367,6 +6450,31 @@ class Client {
         }
         Utils::validateModel($request);
         return ReceiveRbbOverseacompanyProfileResponse::fromMap($this->doRequest("1.0", "riskplus.rbb.overseacompany.profile.receive", "HTTPS", "POST", "/gateway.do", Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 测试网关连通性
+     * Summary: 测试网关连通性
+     * @param InitGateWayServiceRequest $request
+     * @return InitGateWayServiceResponse
+     */
+    public function initGateWayService($request){
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+        return $this->initGateWayServiceEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 测试网关连通性
+     * Summary: 测试网关连通性
+     * @param InitGateWayServiceRequest $request
+     * @param string[] $headers
+     * @param RuntimeOptions $runtime
+     * @return InitGateWayServiceResponse
+     */
+    public function initGateWayServiceEx($request, $headers, $runtime){
+        Utils::validateModel($request);
+        return InitGateWayServiceResponse::fromMap($this->doRequest("1.0", "riskplus.gate.way.service.init", "HTTPS", "POST", "/gateway.do", Tea::merge($request), $headers, $runtime));
     }
 
     /**

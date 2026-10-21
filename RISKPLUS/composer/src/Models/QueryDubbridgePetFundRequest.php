@@ -9,16 +9,15 @@ class QueryDubbridgePetFundRequest extends Model {
     protected $_name = [
         'authToken' => 'auth_token',
         'productInstanceId' => 'product_instance_id',
-        'channelCode' => 'channel_code',
         'trafficPlatform' => 'traffic_platform',
         'buyerId' => 'buyer_id',
         'tradeNo' => 'trade_no',
         'merchantId' => 'merchant_id',
+        'channelCode' => 'channel_code',
     ];
     public function validate() {
-        Model::validateRequired('channelCode', $this->channelCode, true);
-        Model::validateRequired('trafficPlatform', $this->trafficPlatform, true);
         Model::validateRequired('buyerId', $this->buyerId, true);
+        Model::validateRequired('channelCode', $this->channelCode, true);
     }
     public function toMap() {
         $res = [];
@@ -27,9 +26,6 @@ class QueryDubbridgePetFundRequest extends Model {
         }
         if (null !== $this->productInstanceId) {
             $res['product_instance_id'] = $this->productInstanceId;
-        }
-        if (null !== $this->channelCode) {
-            $res['channel_code'] = $this->channelCode;
         }
         if (null !== $this->trafficPlatform) {
             $res['traffic_platform'] = $this->trafficPlatform;
@@ -42,6 +38,9 @@ class QueryDubbridgePetFundRequest extends Model {
         }
         if (null !== $this->merchantId) {
             $res['merchant_id'] = $this->merchantId;
+        }
+        if (null !== $this->channelCode) {
+            $res['channel_code'] = $this->channelCode;
         }
         return $res;
     }
@@ -57,9 +56,6 @@ class QueryDubbridgePetFundRequest extends Model {
         if(isset($map['product_instance_id'])){
             $model->productInstanceId = $map['product_instance_id'];
         }
-        if(isset($map['channel_code'])){
-            $model->channelCode = $map['channel_code'];
-        }
         if(isset($map['traffic_platform'])){
             $model->trafficPlatform = $map['traffic_platform'];
         }
@@ -71,6 +67,9 @@ class QueryDubbridgePetFundRequest extends Model {
         }
         if(isset($map['merchant_id'])){
             $model->merchantId = $map['merchant_id'];
+        }
+        if(isset($map['channel_code'])){
+            $model->channelCode = $map['channel_code'];
         }
         return $model;
     }
@@ -84,12 +83,6 @@ class QueryDubbridgePetFundRequest extends Model {
      * @var string
      */
     public $productInstanceId;
-
-    // 渠道编码
-    /**
-     * @var string
-     */
-    public $channelCode;
 
     // 流量平台
     /**
@@ -114,5 +107,11 @@ class QueryDubbridgePetFundRequest extends Model {
      * @var string
      */
     public $merchantId;
+
+    // 渠道编码
+    /**
+     * @var string
+     */
+    public $channelCode;
 
 }
