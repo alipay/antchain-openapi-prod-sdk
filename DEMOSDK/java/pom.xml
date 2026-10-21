@@ -6,9 +6,9 @@
 
     <!-- 基础信息 -->
     <groupId>com.antgroup.antchain.openapi</groupId>
-    <!-- 注意：变量 openapi-demosdk 和 1.4.64 需要在命令行或 properties 中定义 -->
+    <!-- 注意：变量 openapi-demosdk 和 1.3.69 需要在命令行或 properties 中定义 -->
     <artifactId>openapi-demosdk</artifactId>
-    <version>1.4.64</version>
+    <version>1.3.69</version>
     <packaging>jar</packaging>
 
     <name>openapi-demosdk</name>
@@ -48,7 +48,7 @@
         <dependency>
             <groupId>com.antgroup.antchain.openapi</groupId>
             <artifactId>antchain-util</artifactId>
-            <version>0.1.12</version>
+            <version>0.1.9</version>
         </dependency>
         <dependency>
             <groupId>com.aliyun</groupId>
