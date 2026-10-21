@@ -13,6 +13,7 @@ class UserFundInfo extends Model {
         'tradeNo' => 'trade_no',
         'amount' => 'amount',
         'details' => 'details',
+        'payeeId' => 'payee_id',
     ];
     public function validate() {
         Model::validateRequired('bizOrderNo', $this->bizOrderNo, true);
@@ -40,6 +41,9 @@ class UserFundInfo extends Model {
                 }
             }
         }
+        if (null !== $this->payeeId) {
+            $res['payee_id'] = $this->payeeId;
+        }
         return $res;
     }
     /**
@@ -65,6 +69,9 @@ class UserFundInfo extends Model {
                     $model->details[$n++] = null !== $item ? FundItemDetail::fromMap($item) : $item;
                 }
             }
+        }
+        if(isset($map['payee_id'])){
+            $model->payeeId = $map['payee_id'];
         }
         return $model;
     }
@@ -95,5 +102,12 @@ class UserFundInfo extends Model {
      * @var FundItemDetail[]
      */
     public $details;
+
+    // 收款方id
+    /**
+     * @example 11111111
+     * @var string
+     */
+    public $payeeId;
 
 }

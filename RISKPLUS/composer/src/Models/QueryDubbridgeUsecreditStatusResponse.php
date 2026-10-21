@@ -19,6 +19,7 @@ class QueryDubbridgeUsecreditStatusResponse extends Model {
         'repayRef' => 'repay_ref',
         'disburseContractNo' => 'disburse_contract_no',
         'creditContractNo' => 'credit_contract_no',
+        'extInfo' => 'ext_info',
     ];
     public function validate() {}
     public function toMap() {
@@ -55,6 +56,9 @@ class QueryDubbridgeUsecreditStatusResponse extends Model {
         }
         if (null !== $this->creditContractNo) {
             $res['credit_contract_no'] = $this->creditContractNo;
+        }
+        if (null !== $this->extInfo) {
+            $res['ext_info'] = $this->extInfo;
         }
         return $res;
     }
@@ -96,6 +100,9 @@ class QueryDubbridgeUsecreditStatusResponse extends Model {
         }
         if(isset($map['credit_contract_no'])){
             $model->creditContractNo = $map['credit_contract_no'];
+        }
+        if(isset($map['ext_info'])){
+            $model->extInfo = $map['ext_info'];
         }
         return $model;
     }
@@ -152,5 +159,11 @@ class QueryDubbridgeUsecreditStatusResponse extends Model {
      * @var string
      */
     public $creditContractNo;
+
+    // 扩展信息
+    /**
+     * @var string
+     */
+    public $extInfo;
 
 }

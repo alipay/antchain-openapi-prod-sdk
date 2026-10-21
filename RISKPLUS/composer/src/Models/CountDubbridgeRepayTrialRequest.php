@@ -15,6 +15,7 @@ class CountDubbridgeRepayTrialRequest extends Model {
         'periodList' => 'period_list',
         'interestSubsidyRatio' => 'interest_subsidy_ratio',
         'referenceRatio' => 'reference_ratio',
+        'extInfo' => 'ext_info',
     ];
     public function validate() {
         Model::validateRequired('originalOrderNo', $this->originalOrderNo, true);
@@ -46,6 +47,9 @@ class CountDubbridgeRepayTrialRequest extends Model {
         }
         if (null !== $this->referenceRatio) {
             $res['reference_ratio'] = $this->referenceRatio;
+        }
+        if (null !== $this->extInfo) {
+            $res['ext_info'] = $this->extInfo;
         }
         return $res;
     }
@@ -80,6 +84,9 @@ class CountDubbridgeRepayTrialRequest extends Model {
         }
         if(isset($map['reference_ratio'])){
             $model->referenceRatio = $map['reference_ratio'];
+        }
+        if(isset($map['ext_info'])){
+            $model->extInfo = $map['ext_info'];
         }
         return $model;
     }
@@ -129,5 +136,11 @@ class CountDubbridgeRepayTrialRequest extends Model {
      * @var string
      */
     public $referenceRatio;
+
+    // 扩展信息
+    /**
+     * @var string
+     */
+    public $extInfo;
 
 }

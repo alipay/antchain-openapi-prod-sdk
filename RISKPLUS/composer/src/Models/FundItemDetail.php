@@ -11,7 +11,6 @@ class FundItemDetail extends Model {
         'availableAmount' => 'available_amount',
         'canRefundAmount' => 'can_refund_amount',
         'frozenAmount' => 'frozen_amount',
-        'merchantId' => 'merchant_id',
         'originalAmount' => 'original_amount',
     ];
     public function validate() {
@@ -19,7 +18,6 @@ class FundItemDetail extends Model {
         Model::validateRequired('availableAmount', $this->availableAmount, true);
         Model::validateRequired('canRefundAmount', $this->canRefundAmount, true);
         Model::validateRequired('frozenAmount', $this->frozenAmount, true);
-        Model::validateRequired('merchantId', $this->merchantId, true);
         Model::validateRequired('originalAmount', $this->originalAmount, true);
     }
     public function toMap() {
@@ -35,9 +33,6 @@ class FundItemDetail extends Model {
         }
         if (null !== $this->frozenAmount) {
             $res['frozen_amount'] = $this->frozenAmount;
-        }
-        if (null !== $this->merchantId) {
-            $res['merchant_id'] = $this->merchantId;
         }
         if (null !== $this->originalAmount) {
             $res['original_amount'] = $this->originalAmount;
@@ -61,9 +56,6 @@ class FundItemDetail extends Model {
         }
         if(isset($map['frozen_amount'])){
             $model->frozenAmount = $map['frozen_amount'];
-        }
-        if(isset($map['merchant_id'])){
-            $model->merchantId = $map['merchant_id'];
         }
         if(isset($map['original_amount'])){
             $model->originalAmount = $map['original_amount'];
@@ -97,13 +89,6 @@ class FundItemDetail extends Model {
      * @var string
      */
     public $frozenAmount;
-
-    // 账户归属的入驻id
-    /**
-     * @example xxx
-     * @var string
-     */
-    public $merchantId;
 
     // 原支付金额
     /**
