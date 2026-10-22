@@ -126,9 +126,9 @@ public class Client {
                     new TeaPair("req_msg_id", com.antgroup.antchain.openapi.antchain.util.AntchainUtils.getNonce()),
                     new TeaPair("access_key", _accessKeyId),
                     new TeaPair("base_sdk_version", "TeaSDK-2.0"),
-                    new TeaPair("sdk_version", "1.1.6"),
+                    new TeaPair("sdk_version", "1.1.7"),
                     new TeaPair("_prod_code", "IDPROOFING"),
-                    new TeaPair("_prod_channel", "undefined")
+                    new TeaPair("_prod_channel", "default")
                 );
                 if (!com.aliyun.teautil.Common.empty(_securityToken)) {
                     request_.query.put("security_token", _securityToken);
@@ -249,5 +249,26 @@ public class Client {
     public VerifyZolozhkRaasIdentityAadhaarResponse verifyZolozhkRaasIdentityAadhaarEx(VerifyZolozhkRaasIdentityAadhaarRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
         com.aliyun.teautil.Common.validateModel(request);
         return TeaModel.toModel(this.doRequest("1.0", "zolozhk.raas.identity.aadhaar.verify", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new VerifyZolozhkRaasIdentityAadhaarResponse());
+    }
+
+    /**
+     * <b>description</b> :
+     * <p>Description: 印度 Aadhaar 官方库核验接口
+     * Summary: 印度 Aadhaar 官方库核验接口</p>
+     */
+    public VerifyZolozmyRaasIdentityAadhaarResponse verifyZolozmyRaasIdentityAadhaar(VerifyZolozmyRaasIdentityAadhaarRequest request) throws Exception {
+        com.aliyun.teautil.models.RuntimeOptions runtime = new com.aliyun.teautil.models.RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.verifyZolozmyRaasIdentityAadhaarEx(request, headers, runtime);
+    }
+
+    /**
+     * <b>description</b> :
+     * <p>Description: 印度 Aadhaar 官方库核验接口
+     * Summary: 印度 Aadhaar 官方库核验接口</p>
+     */
+    public VerifyZolozmyRaasIdentityAadhaarResponse verifyZolozmyRaasIdentityAadhaarEx(VerifyZolozmyRaasIdentityAadhaarRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "zolozmy.raas.identity.aadhaar.verify", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new VerifyZolozmyRaasIdentityAadhaarResponse());
     }
 }
