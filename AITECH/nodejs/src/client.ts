@@ -627,6 +627,31 @@ export class SubLabelModel extends $tea.Model {
   }
 }
 
+// 提示词攻击手法二级标签
+export class AttackSubLabelModel extends $tea.Model {
+  // 提示词攻击手法二级标签
+  /**
+   * @example
+   * jailbreak_attack
+   */
+  attackSubLabel?: string;
+  static names(): { [key: string]: string } {
+    return {
+      attackSubLabel: 'attack_sub_label',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      attackSubLabel: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
 // logo审核结果
 export class LogoAuditResult extends $tea.Model {
   // 检测到LOGO个数
@@ -644,6 +669,167 @@ export class LogoAuditResult extends $tea.Model {
     return {
       detectNum: 'number',
       details: { 'type': 'array', 'itemType': LogoDetail },
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+// 图像排黑排白检测结果
+export class ImageBlackWhiteResult extends $tea.Model {
+  // 是否命中（任一维度命中即 true）
+  /**
+   * @example
+   * true
+   */
+  matched?: boolean;
+  // 命中名单类型：BLACK / WHITE
+  /**
+   * @example
+   * WHITE
+   */
+  matchType?: string;
+  // 命中向量来源：FULL_IMAGE / FACE
+  /**
+   * @example
+   * FULL_IMAGE
+   */
+  matchSource?: string;
+  // 命中得分（ES 返回 score 经归一化后值）
+  /**
+   * @example
+   * 1.1
+   */
+  matchScore?: number;
+  // 命中所用阈值
+  /**
+   * @example
+   * 1.1
+   */
+  matchThreshold?: number;
+  // 命中图片 id
+  /**
+   * @example
+   * 1
+   */
+  matchedImageId?: string;
+  // 命中图库名称
+  /**
+   * @example
+   * test
+   */
+  matchedLibraryName?: string;
+  // 是否执行了全图维度（存在启用的全图库）
+  /**
+   * @example
+   * true
+   */
+  executedFullImage?: boolean;
+  // 是否执行了人脸维度（存在启用的人脸库）
+  /**
+   * @example
+   * true
+   */
+  executedFace?: boolean;
+  // 人脸检测结果（YuNet）：null 表示未执行人脸维度
+  /**
+   * @example
+   * true
+   */
+  faceDetected?: boolean;
+  // 全图向量化状态：SUCCESS / SKIP / DEGRADE
+  /**
+   * @example
+   * SUCCESS
+   */
+  fullImageEmbedStatus?: string;
+  // 人脸向量化状态：SUCCESS / SKIP（无人脸或未执行）/ DEGRADE
+  /**
+   * @example
+   * SUCCESS
+   */
+  faceEmbedStatus?: string;
+  // 全图维度 ES 最高分（未命中也记录，便于阈值对比；无检索为 null）
+  /**
+   * @example
+   * 1.2
+   */
+  fullImageTopScore?: number;
+  // 全图维度阈值
+  /**
+   * @example
+   * 1.2
+   */
+  fullImageThreshold?: number;
+  // 人脸维度 ES 最高分（未命中也记录；无检索为 null）
+  /**
+   * @example
+   * 1.2
+   */
+  faceTopScore?: number;
+  // 人脸维度阈值
+  /**
+   * @example
+   * 1
+   */
+  faceThreshold?: number;
+  // 是否降级（异常/服务不可用导致跳过排黑排白）
+  /**
+   * @example
+   * true
+   */
+  degraded?: boolean;
+  // 降级或短路原因（参数缺失/无启用库/下载失败/向量化异常等）
+  /**
+   * @example
+   * 参数缺失
+   */
+  degradeReason?: string;
+  static names(): { [key: string]: string } {
+    return {
+      matched: 'matched',
+      matchType: 'match_type',
+      matchSource: 'match_source',
+      matchScore: 'match_score',
+      matchThreshold: 'match_threshold',
+      matchedImageId: 'matched_image_id',
+      matchedLibraryName: 'matched_library_name',
+      executedFullImage: 'executed_full_image',
+      executedFace: 'executed_face',
+      faceDetected: 'face_detected',
+      fullImageEmbedStatus: 'full_image_embed_status',
+      faceEmbedStatus: 'face_embed_status',
+      fullImageTopScore: 'full_image_top_score',
+      fullImageThreshold: 'full_image_threshold',
+      faceTopScore: 'face_top_score',
+      faceThreshold: 'face_threshold',
+      degraded: 'degraded',
+      degradeReason: 'degrade_reason',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      matched: 'boolean',
+      matchType: 'string',
+      matchSource: 'string',
+      matchScore: 'number',
+      matchThreshold: 'number',
+      matchedImageId: 'string',
+      matchedLibraryName: 'string',
+      executedFullImage: 'boolean',
+      executedFace: 'boolean',
+      faceDetected: 'boolean',
+      fullImageEmbedStatus: 'string',
+      faceEmbedStatus: 'string',
+      fullImageTopScore: 'number',
+      fullImageThreshold: 'number',
+      faceTopScore: 'number',
+      faceThreshold: 'number',
+      degraded: 'boolean',
+      degradeReason: 'string',
     };
   }
 
@@ -847,6 +1033,144 @@ export class AntCloudProdProviderHttpResponse extends $tea.Model {
     return {
       response: MayaStreamResult,
       sign: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+// 提示词攻击手法
+export class AttackLabelModel extends $tea.Model {
+  // 提示词攻击手法一级标签
+  /**
+   * @example
+   * jailbreak_attack
+   */
+  attackLabel?: string;
+  // 提示词攻击手法二级标签
+  /**
+   * @example
+   * {}
+   */
+  attackSubLabels?: AttackSubLabelModel[];
+  static names(): { [key: string]: string } {
+    return {
+      attackLabel: 'attack_label',
+      attackSubLabels: 'attack_sub_labels',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      attackLabel: 'string',
+      attackSubLabels: { 'type': 'array', 'itemType': AttackSubLabelModel },
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+// 单次接口请求内的模型 token 汇总。
+export class TokenUsageSummary extends $tea.Model {
+  // 标识该对象是请求级汇总，便于 BI 侧过滤代理阶段日志。
+  /**
+   * @example
+   * REQUEST
+   */
+  scope?: string;
+  // 提示词token
+  /**
+   * @example
+   * 1
+   */
+  promptTokens?: number;
+  // 模型生成回答时输出的 token 数量
+  /**
+   * @example
+   * 1
+   */
+  completionTokens?: number;
+  // 总tokens
+  /**
+   * @example
+   * 1
+   */
+  totalTokens?: number;
+  // 护栏内部模型（含 Embedding）总 token。
+  /**
+   * @example
+   * 1
+   */
+  guardTotalTokens?: number;
+  // 代理转发的上游大模型总 token。
+  /**
+   * @example
+   * 1
+   */
+  upstreamTotalTokens?: number;
+  // 已实际发起的模型调用数，包括尚未返回的调用
+  /**
+   * @example
+   * 1
+   */
+  modelCallCount?: number;
+  // 能够确定 total_tokens 的模型调用数。
+  /**
+   * @example
+   * 1
+   */
+  reportedCallCount?: number;
+  // 已结束但无法确定 total_tokens 的模型调用数
+  /**
+   * @example
+   * 1
+   */
+  unreportedCallCount?: number;
+  // 当前快照时仍在执行的模型调用数。
+  /**
+   * @example
+   * 1
+   */
+  inFlightCallCount?: number;
+  // 仅当所有已发起调用都结束且均能确定 total_tokens，并且业务未发生提前返回时为 true。
+  /**
+   * @example
+   * true
+   */
+  complete?: boolean;
+  static names(): { [key: string]: string } {
+    return {
+      scope: 'scope',
+      promptTokens: 'prompt_tokens',
+      completionTokens: 'completion_tokens',
+      totalTokens: 'total_tokens',
+      guardTotalTokens: 'guard_total_tokens',
+      upstreamTotalTokens: 'upstream_total_tokens',
+      modelCallCount: 'model_call_count',
+      reportedCallCount: 'reported_call_count',
+      unreportedCallCount: 'unreported_call_count',
+      inFlightCallCount: 'in_flight_call_count',
+      complete: 'complete',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      scope: 'string',
+      promptTokens: 'number',
+      completionTokens: 'number',
+      totalTokens: 'number',
+      guardTotalTokens: 'number',
+      upstreamTotalTokens: 'number',
+      modelCallCount: 'number',
+      reportedCallCount: 'number',
+      unreportedCallCount: 'number',
+      inFlightCallCount: 'number',
+      complete: 'boolean',
     };
   }
 
@@ -1395,6 +1719,243 @@ export class UpdateMeiyouItagRelationWebInfo extends $tea.Model {
       auditResult: 'string',
       auditUser: 'string',
       auditTime: 'number',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class QueryAdvisormarketDataRequest extends $tea.Model {
+  // OAuth模式下的授权token
+  authToken?: string;
+  productInstanceId?: string;
+  // 查询类型STATION_LIST、STATION_DETAIL、REACHABLE_ROADS、VEHICLE_TYPE_DISTRIBUTION、ENTRY_FLOW、FRONT_FLOW、SURROUNDING_FLOW、NEW_ENTRY_VEHICLES、FREQUENT_ENTRY、INFREQUENT_ENTRY
+  type: string;
+  // 行政区名称，如“浙江省”、“杭州市”；type=STATION_LIST时必填
+  region?: string;
+  // 品牌清单筛选，如 ["中石油", "中石化"]；不传则返回所有品牌；仅 type=STATION_LIST 时生效
+  brands?: string[];
+  // 站点名称列表，支持批量查询；type 非 STATION_LIST 时必填
+  names?: string[];
+  // 起始日期，yyyy-MM-dd；时间类查询时必填
+  startdate?: string;
+  // 结束日期，yyyy-MM-dd；时间类查询时必填
+  enddate?: string;
+  // 最低进站次数阈值，默认 3；仅 type=FREQUENT_ENTRY 时生效
+  mintimes?: string;
+  // 最高进站次数阈值（不含），默认 3；仅 type=INFREQUENT_ENTRY 时生效
+  maxtimes?: string;
+  static names(): { [key: string]: string } {
+    return {
+      authToken: 'auth_token',
+      productInstanceId: 'product_instance_id',
+      type: 'type',
+      region: 'region',
+      brands: 'brands',
+      names: 'names',
+      startdate: 'startdate',
+      enddate: 'enddate',
+      mintimes: 'mintimes',
+      maxtimes: 'maxtimes',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      authToken: 'string',
+      productInstanceId: 'string',
+      type: 'string',
+      region: 'string',
+      brands: { 'type': 'array', 'itemType': 'string' },
+      names: { 'type': 'array', 'itemType': 'string' },
+      startdate: 'string',
+      enddate: 'string',
+      mintimes: 'string',
+      maxtimes: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class QueryAdvisormarketDataResponse extends $tea.Model {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string;
+  // 结果码，一般OK表示调用成功
+  resultCode?: string;
+  // 异常信息的文本描述
+  resultMsg?: string;
+  // 状态码，"0" 表示成功，非 "0" 为失败
+  code?: string;
+  // 状态描述
+  message?: string;
+  // 请求追踪ID，用于问题排查
+  requestid?: string;
+  // 服务端响应时间戳（毫秒）
+  timestamp?: string;
+  // 业务数据 JSON 字符串，调用方需反序列化后使用，具体结构见各 type 定义
+  data?: string;
+  static names(): { [key: string]: string } {
+    return {
+      reqMsgId: 'req_msg_id',
+      resultCode: 'result_code',
+      resultMsg: 'result_msg',
+      code: 'code',
+      message: 'message',
+      requestid: 'requestid',
+      timestamp: 'timestamp',
+      data: 'data',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      reqMsgId: 'string',
+      resultCode: 'string',
+      resultMsg: 'string',
+      code: 'string',
+      message: 'string',
+      requestid: 'string',
+      timestamp: 'string',
+      data: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class PushAdvisormarketAnalysisRequest extends $tea.Model {
+  // OAuth模式下的授权token
+  authToken?: string;
+  productInstanceId?: string;
+  // 分析能力标识。当前仅支持 YINLI_CROWD_ANALYSIS。
+  analysisType: string;
+  // UTF-8 JSON 对象字符串，禁止二次编码。示例：{"city":"深圳","time_range":{"start_date":"2026-09-01","end_date":"2026-09-30"},"business_area":{"name":"中心商圈","aoi":{"geometry":{"type":"Polygon","coordinates":[[[114,22],[115,22],[114,23],[114,22]]]}},"reachable_aoi":{"geometry":{"type":"Polygon","coordinates":[[[113,21],[116,21],[113,24],[113,21]]]}}},"audience_path":"/a.txt.pgp"}。日期格式为 YYYY-MM-DD；两个 coordinates 均为闭合的 GeoJSON Polygon；audience_path 必须以 .txt.pgp 结尾。
+  input: string;
+  static names(): { [key: string]: string } {
+    return {
+      authToken: 'auth_token',
+      productInstanceId: 'product_instance_id',
+      analysisType: 'analysis_type',
+      input: 'input',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      authToken: 'string',
+      productInstanceId: 'string',
+      analysisType: 'string',
+      input: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class PushAdvisormarketAnalysisResponse extends $tea.Model {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string;
+  // 结果码，一般OK表示调用成功
+  resultCode?: string;
+  // 异常信息的文本描述
+  resultMsg?: string;
+  // 创建成功后生成的任务唯一 ID。请保存该值，并在查询接口中作为 task_id 使用。
+  taskId?: string;
+  // 创建成功固定返回 QUEUED，表示任务已进入待人工处理队列，尚未产出分析结果。
+  status?: string;
+  static names(): { [key: string]: string } {
+    return {
+      reqMsgId: 'req_msg_id',
+      resultCode: 'result_code',
+      resultMsg: 'result_msg',
+      taskId: 'task_id',
+      status: 'status',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      reqMsgId: 'string',
+      resultCode: 'string',
+      resultMsg: 'string',
+      taskId: 'string',
+      status: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class QueryAdvisormarketAnalysisRequest extends $tea.Model {
+  // OAuth模式下的授权token
+  authToken?: string;
+  productInstanceId?: string;
+  // 创建接口返回的任务 ID。type=result 时必填；type=status 时用于精确查询，不能与 task_status 同时传入。
+  taskId?: string;
+  // 查询模式。status 查询状态或任务列表；result 查询指定成功任务的结果下载地址。可选值：status、result。
+  type: string;
+  // 状态列表筛选条件，仅在 type=status 且未传 task_id 时使用。可选值：QUEUED、PROCESSING、SUCCESS、FAILED；不要传 CLOSED。
+  taskStatus?: string;
+  static names(): { [key: string]: string } {
+    return {
+      authToken: 'auth_token',
+      productInstanceId: 'product_instance_id',
+      taskId: 'task_id',
+      type: 'type',
+      taskStatus: 'task_status',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      authToken: 'string',
+      productInstanceId: 'string',
+      taskId: 'string',
+      type: 'string',
+      taskStatus: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class QueryAdvisormarketAnalysisResponse extends $tea.Model {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string;
+  // 结果码，一般OK表示调用成功
+  resultCode?: string;
+  // 异常信息的文本描述
+  resultMsg?: string;
+  // JSON 数组字符串，调用方需再次解析。示例：[{"task_id":"ana_01K5A1B2","display_name":"中心商圈","analysis_type":"YINLI_CROWD_ANALYSIS","status":"PROCESSING","result_url":null,"created_at":"2026-09-14 15:30:00"}]。无数据返回 []；仅 SUCCESS 任务的结果查询会返回 result_url。
+  data?: string;
+  static names(): { [key: string]: string } {
+    return {
+      reqMsgId: 'req_msg_id',
+      resultCode: 'result_code',
+      resultMsg: 'result_msg',
+      data: 'data',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      reqMsgId: 'string',
+      resultCode: 'string',
+      resultMsg: 'string',
+      data: 'string',
     };
   }
 
@@ -5927,6 +6488,14 @@ export class QuerySecurityQuestionRequest extends $tea.Model {
   privacyDataDetection?: string;
   // 是否开启安全代答功能
   securityAnswer?: string;
+  // 自定义白库检测，默认开启，仅 N 关闭
+  customWhiteCheck?: string;
+  // 自定义黑词检测，默认开启，仅 N 关闭
+  customBlackWordCheck?: string;
+  // 前置知识库代答，默认开启，仅 N 关闭
+  preSecurityAnswer?: string;
+  // Universal/金融图谱案例召回，默认开启，仅 N 关闭
+  graphCaseRecall?: string;
   static names(): { [key: string]: string } {
     return {
       authToken: 'auth_token',
@@ -5944,6 +6513,10 @@ export class QuerySecurityQuestionRequest extends $tea.Model {
       promptAttackDefense: 'prompt_attack_defense',
       privacyDataDetection: 'privacy_data_detection',
       securityAnswer: 'security_answer',
+      customWhiteCheck: 'custom_white_check',
+      customBlackWordCheck: 'custom_black_word_check',
+      preSecurityAnswer: 'pre_security_answer',
+      graphCaseRecall: 'graph_case_recall',
     };
   }
 
@@ -5964,6 +6537,10 @@ export class QuerySecurityQuestionRequest extends $tea.Model {
       promptAttackDefense: 'string',
       privacyDataDetection: 'string',
       securityAnswer: 'string',
+      customWhiteCheck: 'string',
+      customBlackWordCheck: 'string',
+      preSecurityAnswer: 'string',
+      graphCaseRecall: 'string',
     };
   }
 
@@ -5999,6 +6576,29 @@ export class QuerySecurityQuestionResponse extends $tea.Model {
   attackLabels?: AttackLabel;
   // 领域标签信息
   fieldInfo?: FieldModel;
+  // 安全代答匹配到的Q
+  matchQ?: string;
+  // 越狱手法标签
+  jailbreakLabel?: string;
+  // universal模型请求参数
+  universalPrompt?: string;
+  // universal模型返回结果
+  universalOutput?: string;
+  // 金融V3模型请求参数
+  financePrompt?: string;
+  // 金融V3模型返回结果
+  financeOutput?: string;
+  // 策略版本号
+  strategyVersion?: string;
+  // 本次接口请求内所有大模型及 Embedding 调用的 token 汇总。
+  tokenUsage?: TokenUsageSummary;
+  // 调试信息（X-Debug-Mode: true 时返回；语音检测内含 audioAsrInfo 子结构）
+  //  对应的结果为Map转化的JSON字符串
+  debugInfo?: string;
+  // 金融合规深度审核——命中的风险点列表（JSON 数组字符串；仅深审开时返回，非深审场景不输出）
+  findeepdiveResult?: string;
+  // 金融合规深度审核——整体结论（block/warning/pass；仅深审开时返回）
+  finDeepDiveOverall?: string;
   static names(): { [key: string]: string } {
     return {
       reqMsgId: 'req_msg_id',
@@ -6014,6 +6614,17 @@ export class QuerySecurityQuestionResponse extends $tea.Model {
       securityPrompt: 'security_prompt',
       attackLabels: 'attack_labels',
       fieldInfo: 'field_info',
+      matchQ: 'match_q',
+      jailbreakLabel: 'jailbreak_label',
+      universalPrompt: 'universal_prompt',
+      universalOutput: 'universal_output',
+      financePrompt: 'finance_prompt',
+      financeOutput: 'finance_output',
+      strategyVersion: 'strategy_version',
+      tokenUsage: 'token_usage',
+      debugInfo: 'debug_info',
+      findeepdiveResult: 'findeepdive_result',
+      finDeepDiveOverall: 'fin_deep_dive_overall',
     };
   }
 
@@ -6032,6 +6643,17 @@ export class QuerySecurityQuestionResponse extends $tea.Model {
       securityPrompt: 'string',
       attackLabels: AttackLabel,
       fieldInfo: FieldModel,
+      matchQ: 'string',
+      jailbreakLabel: 'string',
+      universalPrompt: 'string',
+      universalOutput: 'string',
+      financePrompt: 'string',
+      financeOutput: 'string',
+      strategyVersion: 'string',
+      tokenUsage: TokenUsageSummary,
+      debugInfo: 'string',
+      findeepdiveResult: 'string',
+      finDeepDiveOverall: 'string',
     };
   }
 
@@ -6064,6 +6686,14 @@ export class QuerySecurityAnswerRequest extends $tea.Model {
   privacyDataObfuscation?: string;
   // 是否开启隐私数据泄露的专项检测（新字段，老privacy废弃）
   privacyDataDetection?: string;
+  // 用户原提问（输出 max 接口必需，用于医疗合规检测送模型）
+  question?: string;
+  // 自定义白库检测，默认开启，仅 N 关闭
+  customWhiteCheck?: string;
+  // 自定义黑词检测，默认开启，仅 N 关闭
+  customBlackWordCheck?: string;
+  // Universal/金融图谱案例召回，默认开启，仅 N 关闭
+  graphCaseRecall?: string;
   static names(): { [key: string]: string } {
     return {
       authToken: 'auth_token',
@@ -6078,6 +6708,10 @@ export class QuerySecurityAnswerRequest extends $tea.Model {
       messageId: 'message_id',
       privacyDataObfuscation: 'privacy_data_obfuscation',
       privacyDataDetection: 'privacy_data_detection',
+      question: 'question',
+      customWhiteCheck: 'custom_white_check',
+      customBlackWordCheck: 'custom_black_word_check',
+      graphCaseRecall: 'graph_case_recall',
     };
   }
 
@@ -6095,6 +6729,10 @@ export class QuerySecurityAnswerRequest extends $tea.Model {
       messageId: 'string',
       privacyDataObfuscation: 'string',
       privacyDataDetection: 'string',
+      question: 'string',
+      customWhiteCheck: 'string',
+      customBlackWordCheck: 'string',
+      graphCaseRecall: 'string',
     };
   }
 
@@ -6126,6 +6764,21 @@ export class QuerySecurityAnswerResponse extends $tea.Model {
   messageId?: string;
   // 兜底话术
   securityAnswer?: string;
+  // universal模型请求参数
+  universalPrompt?: string;
+  // universal模型返回结果
+  universalOutput?: string;
+  // 金融V3模型请求参数
+  financePrompt?: string;
+  // 金融V3模型返回结果
+  financeOutput?: string;
+  // 策略版本号
+  strategyVersion?: string;
+  // 本次接口请求内所有大模型及 Embedding 调用的 token 汇总。
+  tokenUsage?: TokenUsageSummary;
+  // 调试信息（X-Debug-Mode: true 时返回；语音检测内含 audioAsrInfo 子结构） 
+  // 对应的结果为Map转化的JSON字符串
+  debugInfo?: string;
   static names(): { [key: string]: string } {
     return {
       reqMsgId: 'req_msg_id',
@@ -6138,6 +6791,13 @@ export class QuerySecurityAnswerResponse extends $tea.Model {
       flowMsgId: 'flow_msg_id',
       messageId: 'message_id',
       securityAnswer: 'security_answer',
+      universalPrompt: 'universal_prompt',
+      universalOutput: 'universal_output',
+      financePrompt: 'finance_prompt',
+      financeOutput: 'finance_output',
+      strategyVersion: 'strategy_version',
+      tokenUsage: 'token_usage',
+      debugInfo: 'debug_info',
     };
   }
 
@@ -6153,6 +6813,13 @@ export class QuerySecurityAnswerResponse extends $tea.Model {
       flowMsgId: 'string',
       messageId: 'string',
       securityAnswer: 'string',
+      universalPrompt: 'string',
+      universalOutput: 'string',
+      financePrompt: 'string',
+      financeOutput: 'string',
+      strategyVersion: 'string',
+      tokenUsage: TokenUsageSummary,
+      debugInfo: 'string',
     };
   }
 
@@ -6217,12 +6884,18 @@ export class QuerySecurityImageResponse extends $tea.Model {
   resultMsg?: string;
   // 代表风险等级和建议的处置结论
   actionCode?: string;
+  // 排黑排白命中结果（命中时携带详细信息，未命中或未启用为 null）
+  imageBlackWhiteResult?: ImageBlackWhiteResult;
+  // 本次接口请求内所有大模型调用的 token 汇总。
+  tokenUsage?: TokenUsageSummary;
   static names(): { [key: string]: string } {
     return {
       reqMsgId: 'req_msg_id',
       resultCode: 'result_code',
       resultMsg: 'result_msg',
       actionCode: 'action_code',
+      imageBlackWhiteResult: 'image_black_white_result',
+      tokenUsage: 'token_usage',
     };
   }
 
@@ -6232,6 +6905,856 @@ export class QuerySecurityImageResponse extends $tea.Model {
       resultCode: 'string',
       resultMsg: 'string',
       actionCode: 'string',
+      imageBlackWhiteResult: ImageBlackWhiteResult,
+      tokenUsage: TokenUsageSummary,
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class UploadSecurityQuestionRequest extends $tea.Model {
+  // OAuth模式下的授权token
+  authToken?: string;
+  productInstanceId?: string;
+  // txt/pdf 文件，解析为文本（FileParseUtil），空内容报「文件内容为空」
+  fileUrl: string;
+  // 归一化后须 question 前缀，否则兜底 LLM_INPUT_DETECTION
+  sceneCode: string;
+  // 租户标识（老值兼容替换）
+  businessId: string;
+  // 企业标识
+  enterprise?: string;
+  // 访问控制维度
+  accountId?: string;
+  // 消息 ID
+  messageId?: string;
+  // 多轮会话 ID
+  sessionId?: string;
+  // 多轮检测开关
+  multiSessionDetect?: string;
+  // 安全改写开关
+  promptReword?: string;
+  // 安全代答开关
+  securityAnswer?: string;
+  // 领域识别开关
+  fieldIdentify?: string;
+  static names(): { [key: string]: string } {
+    return {
+      authToken: 'auth_token',
+      productInstanceId: 'product_instance_id',
+      fileUrl: 'file_url',
+      sceneCode: 'scene_code',
+      businessId: 'business_id',
+      enterprise: 'enterprise',
+      accountId: 'account_id',
+      messageId: 'message_id',
+      sessionId: 'session_id',
+      multiSessionDetect: 'multi_session_detect',
+      promptReword: 'prompt_reword',
+      securityAnswer: 'security_answer',
+      fieldIdentify: 'field_identify',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      authToken: 'string',
+      productInstanceId: 'string',
+      fileUrl: 'string',
+      sceneCode: 'string',
+      businessId: 'string',
+      enterprise: 'string',
+      accountId: 'string',
+      messageId: 'string',
+      sessionId: 'string',
+      multiSessionDetect: 'string',
+      promptReword: 'string',
+      securityAnswer: 'string',
+      fieldIdentify: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class UploadSecurityQuestionResponse extends $tea.Model {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string;
+  // 结果码，一般OK表示调用成功
+  resultCode?: string;
+  // 异常信息的文本描述
+  resultMsg?: string;
+  // PASS/BLOCK/SECURITY_ANSWER/SECURITY_WARNING
+  actionCode?: string;
+  // 风险标签（label + subLabels[]：subLabel/riskWords/riskWordsIndex/thirdLabels）
+  labels?: LabelModel[];
+  // 命中自定义风险词
+  customizeRiskWord?: string[];
+  // 拒答话术
+  limitAnswer?: string;
+  // 回传消息 ID
+  messageId?: string;
+  // 知识库匹配提问
+  matchQ?: string;
+  // 安全代答内容
+  securityAnswer?: string;
+  // 安全提示
+  securityPrompt?: string;
+  // 越狱标签（旧字段）
+  jailbreakLabel?: string;
+  // 攻击标签（attackLabel + attackSubLabels[]）
+  attackLabels?: AttackLabelModel[];
+  // 领域识别（fieldCategory/fieldLabel/fieldScore:Double）
+  fieldInfo?: FieldModel;
+  // 回传会话 ID
+  sessionId?: string;
+  // 本次接口请求内所有大模型及 Embedding 调用的 token 汇总。
+  tokenUsage?: TokenUsageSummary;
+  // ASR 转写文本（文本链路恒 null）
+  transcribedText?: string;
+  // 调试信息（当前链路无填充，恒 null）
+  debugInfo?: string;
+  // 金融深挖结果
+  findeepdiveResult?: string;
+  // 金融深挖总览
+  finDeepDiveOverall?: string;
+  // Universal 调试-提示词
+  universalPrompt?: string;
+  // Universal 调试-输出
+  universalOutput?: string;
+  // 金融调试-提示词
+  financePrompt?: string;
+  // 金融调试-输出
+  financeOutput?: string;
+  // 策略版本
+  strategyVersion?: string;
+  static names(): { [key: string]: string } {
+    return {
+      reqMsgId: 'req_msg_id',
+      resultCode: 'result_code',
+      resultMsg: 'result_msg',
+      actionCode: 'action_code',
+      labels: 'labels',
+      customizeRiskWord: 'customize_risk_word',
+      limitAnswer: 'limit_answer',
+      messageId: 'message_id',
+      matchQ: 'match_q',
+      securityAnswer: 'security_answer',
+      securityPrompt: 'security_prompt',
+      jailbreakLabel: 'jailbreak_label',
+      attackLabels: 'attack_labels',
+      fieldInfo: 'field_info',
+      sessionId: 'session_id',
+      tokenUsage: 'token_usage',
+      transcribedText: 'transcribed_text',
+      debugInfo: 'debug_info',
+      findeepdiveResult: 'findeepdive_result',
+      finDeepDiveOverall: 'fin_deep_dive_overall',
+      universalPrompt: 'universal_prompt',
+      universalOutput: 'universal_output',
+      financePrompt: 'finance_prompt',
+      financeOutput: 'finance_output',
+      strategyVersion: 'strategy_version',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      reqMsgId: 'string',
+      resultCode: 'string',
+      resultMsg: 'string',
+      actionCode: 'string',
+      labels: { 'type': 'array', 'itemType': LabelModel },
+      customizeRiskWord: { 'type': 'array', 'itemType': 'string' },
+      limitAnswer: 'string',
+      messageId: 'string',
+      matchQ: 'string',
+      securityAnswer: 'string',
+      securityPrompt: 'string',
+      jailbreakLabel: 'string',
+      attackLabels: { 'type': 'array', 'itemType': AttackLabelModel },
+      fieldInfo: FieldModel,
+      sessionId: 'string',
+      tokenUsage: TokenUsageSummary,
+      transcribedText: 'string',
+      debugInfo: 'string',
+      findeepdiveResult: 'string',
+      finDeepDiveOverall: 'string',
+      universalPrompt: 'string',
+      universalOutput: 'string',
+      financePrompt: 'string',
+      financeOutput: 'string',
+      strategyVersion: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class UploadSecurityAnswerRequest extends $tea.Model {
+  // OAuth模式下的授权token
+  authToken?: string;
+  productInstanceId?: string;
+  // txt/pdf 文件
+  fileUrl: string;
+  // 须 answer 前缀，否则兜底 LLM_OUTPUT_DETECTION_LITE
+  sceneCode: string;
+  // 租户标识
+  businessId: string;
+  // 企业标识
+  enterprise?: string;
+  // 访问控制维度
+  accountId?: string;
+  // 消息 ID
+  messageId?: string;
+  // 流式消息 ID
+  flowMsgId?: string;
+  // 流式检测开关
+  flowDetect?: string;
+  // 流结束标记
+  flowEnd?: string;
+  static names(): { [key: string]: string } {
+    return {
+      authToken: 'auth_token',
+      productInstanceId: 'product_instance_id',
+      fileUrl: 'file_url',
+      sceneCode: 'scene_code',
+      businessId: 'business_id',
+      enterprise: 'enterprise',
+      accountId: 'account_id',
+      messageId: 'message_id',
+      flowMsgId: 'flow_msg_id',
+      flowDetect: 'flow_detect',
+      flowEnd: 'flow_end',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      authToken: 'string',
+      productInstanceId: 'string',
+      fileUrl: 'string',
+      sceneCode: 'string',
+      businessId: 'string',
+      enterprise: 'string',
+      accountId: 'string',
+      messageId: 'string',
+      flowMsgId: 'string',
+      flowDetect: 'string',
+      flowEnd: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class UploadSecurityAnswerResponse extends $tea.Model {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string;
+  // 结果码，一般OK表示调用成功
+  resultCode?: string;
+  // 异常信息的文本描述
+  resultMsg?: string;
+  // 四种动作码
+  actionCode?: string;
+  // 风险标签
+  labels?: LabelModel[];
+  // 命中自定义风险词
+  customizeRiskWord?: string[];
+  // 拒答话术
+  limitAnswer?: string;
+  // 回传
+  messageId?: string;
+  // 回传
+  flowMsgId?: string;
+  // 脱敏后内容
+  obfuscationData?: string;
+  // 流式处理状态（终态 done）
+  flowProcessState?: string;
+  // 调试字段
+  universalPrompt?: string;
+  // 调试字段
+  universalOutput?: string;
+  // 调试字段
+  financePrompt?: string;
+  // 调试字段
+  financeOutput?: string;
+  // 策略版本
+  strategyVersion?: string;
+  // token 用量
+  tokenUsage?: TokenUsageSummary;
+  // 调试信息（X-Debug-Mode: true 时返回；语音检测内含 audioAsrInfo 子结构）
+  debugInfo?: string;
+  // ASR 转写文本（文本链路恒 null）
+  transcribedText?: string;
+  // 金融深挖结果
+  findeepdiveResult?: string;
+  // 金融深挖总览
+  finDeepDiveOverall?: string;
+  static names(): { [key: string]: string } {
+    return {
+      reqMsgId: 'req_msg_id',
+      resultCode: 'result_code',
+      resultMsg: 'result_msg',
+      actionCode: 'action_code',
+      labels: 'labels',
+      customizeRiskWord: 'customize_risk_word',
+      limitAnswer: 'limit_answer',
+      messageId: 'message_id',
+      flowMsgId: 'flow_msg_id',
+      obfuscationData: 'obfuscation_data',
+      flowProcessState: 'flow_process_state',
+      universalPrompt: 'universal_prompt',
+      universalOutput: 'universal_output',
+      financePrompt: 'finance_prompt',
+      financeOutput: 'finance_output',
+      strategyVersion: 'strategy_version',
+      tokenUsage: 'token_usage',
+      debugInfo: 'debug_info',
+      transcribedText: 'transcribed_text',
+      findeepdiveResult: 'findeepdive_result',
+      finDeepDiveOverall: 'fin_deep_dive_overall',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      reqMsgId: 'string',
+      resultCode: 'string',
+      resultMsg: 'string',
+      actionCode: 'string',
+      labels: { 'type': 'array', 'itemType': LabelModel },
+      customizeRiskWord: { 'type': 'array', 'itemType': 'string' },
+      limitAnswer: 'string',
+      messageId: 'string',
+      flowMsgId: 'string',
+      obfuscationData: 'string',
+      flowProcessState: 'string',
+      universalPrompt: 'string',
+      universalOutput: 'string',
+      financePrompt: 'string',
+      financeOutput: 'string',
+      strategyVersion: 'string',
+      tokenUsage: TokenUsageSummary,
+      debugInfo: 'string',
+      transcribedText: 'string',
+      findeepdiveResult: 'string',
+      finDeepDiveOverall: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class UploadSecurityImageRequest extends $tea.Model {
+  // OAuth模式下的授权token
+  authToken?: string;
+  productInstanceId?: string;
+  // ≤10MB；jpeg/png/jpg/bmp/webp/gif 直传或 PDF 逐页转图片
+  fileUrl: string;
+  // 归一化后须 image 前缀，否则拒绝「非法场景码」
+  sceneCode: string;
+  // 租户标识
+  businessId: string;
+  // 企业标识
+  enterprise?: string;
+  // 访问控制维度
+  accountId?: string;
+  static names(): { [key: string]: string } {
+    return {
+      authToken: 'auth_token',
+      productInstanceId: 'product_instance_id',
+      fileUrl: 'file_url',
+      sceneCode: 'scene_code',
+      businessId: 'business_id',
+      enterprise: 'enterprise',
+      accountId: 'account_id',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      authToken: 'string',
+      productInstanceId: 'string',
+      fileUrl: 'string',
+      sceneCode: 'string',
+      businessId: 'string',
+      enterprise: 'string',
+      accountId: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class UploadSecurityImageResponse extends $tea.Model {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string;
+  // 结果码，一般OK表示调用成功
+  resultCode?: string;
+  // 异常信息的文本描述
+  resultMsg?: string;
+  // PASS/BLOCK
+  actionCode?: string;
+  // 黑白库命中明细（18 字段）
+  imageBlackWhiteResult?: ImageBlackWhiteResult;
+  // token 用量（11 字段）
+  tokenUsage?: TokenUsageSummary;
+  static names(): { [key: string]: string } {
+    return {
+      reqMsgId: 'req_msg_id',
+      resultCode: 'result_code',
+      resultMsg: 'result_msg',
+      actionCode: 'action_code',
+      imageBlackWhiteResult: 'image_black_white_result',
+      tokenUsage: 'token_usage',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      reqMsgId: 'string',
+      resultCode: 'string',
+      resultMsg: 'string',
+      actionCode: 'string',
+      imageBlackWhiteResult: ImageBlackWhiteResult,
+      tokenUsage: TokenUsageSummary,
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class QuerySecurityTextdetoxificationRequest extends $tea.Model {
+  // OAuth模式下的授权token
+  authToken?: string;
+  productInstanceId?: string;
+  // 待祛毒语料文本
+  question: string;
+  // 租户标识
+  businessId?: string;
+  // 应用码
+  appCode: string;
+  static names(): { [key: string]: string } {
+    return {
+      authToken: 'auth_token',
+      productInstanceId: 'product_instance_id',
+      question: 'question',
+      businessId: 'business_id',
+      appCode: 'app_code',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      authToken: 'string',
+      productInstanceId: 'string',
+      question: 'string',
+      businessId: 'string',
+      appCode: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class QuerySecurityTextdetoxificationResponse extends $tea.Model {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string;
+  // 结果码，一般OK表示调用成功
+  resultCode?: string;
+  // 异常信息的文本描述
+  resultMsg?: string;
+  // 是否安全无风险
+  safe?: boolean;
+  // 一级风险分类
+  riskCategory?: string;
+  // 二级风险明细分类
+  riskLabel?: string;
+  // 风险分数
+  riskScore?: number;
+  // 风险关键词列表
+  riskWords?: string[];
+  // 关键词索引
+  riskWordsIndex?: string[];
+  static names(): { [key: string]: string } {
+    return {
+      reqMsgId: 'req_msg_id',
+      resultCode: 'result_code',
+      resultMsg: 'result_msg',
+      safe: 'safe',
+      riskCategory: 'risk_category',
+      riskLabel: 'risk_label',
+      riskScore: 'risk_score',
+      riskWords: 'risk_words',
+      riskWordsIndex: 'risk_words_index',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      reqMsgId: 'string',
+      resultCode: 'string',
+      resultMsg: 'string',
+      safe: 'boolean',
+      riskCategory: 'string',
+      riskLabel: 'string',
+      riskScore: 'number',
+      riskWords: { 'type': 'array', 'itemType': 'string' },
+      riskWordsIndex: { 'type': 'array', 'itemType': 'string' },
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class QuerySecurityVideoRequest extends $tea.Model {
+  // OAuth模式下的授权token
+  authToken?: string;
+  productInstanceId?: string;
+  // 视频公开访问 URL
+  videoUrl: string;
+  // 归一化后须 video 前缀，否则拒绝「非法场景码」
+  sceneCode: string;
+  // 租户标识（老值兼容替换）
+  businessId?: string;
+  // 应用码
+  appCode?: string;
+  // 消息 ID
+  messageId?: string;
+  // 企业标识
+  enterprise?: string;
+  // 访问控制维度
+  accountId?: string;
+  static names(): { [key: string]: string } {
+    return {
+      authToken: 'auth_token',
+      productInstanceId: 'product_instance_id',
+      videoUrl: 'video_url',
+      sceneCode: 'scene_code',
+      businessId: 'business_id',
+      appCode: 'app_code',
+      messageId: 'message_id',
+      enterprise: 'enterprise',
+      accountId: 'account_id',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      authToken: 'string',
+      productInstanceId: 'string',
+      videoUrl: 'string',
+      sceneCode: 'string',
+      businessId: 'string',
+      appCode: 'string',
+      messageId: 'string',
+      enterprise: 'string',
+      accountId: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class QuerySecurityVideoResponse extends $tea.Model {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string;
+  // 结果码，一般OK表示调用成功
+  resultCode?: string;
+  // 异常信息的文本描述
+  resultMsg?: string;
+  // PASS/BLOCK
+  actionCode?: string;
+  // token 用量（11 字段）
+  tokenUsage?: TokenUsageSummary;
+  // 黑白库命中明细（18 字段）
+  imageBlackWhiteResult?: ImageBlackWhiteResult;
+  static names(): { [key: string]: string } {
+    return {
+      reqMsgId: 'req_msg_id',
+      resultCode: 'result_code',
+      resultMsg: 'result_msg',
+      actionCode: 'action_code',
+      tokenUsage: 'token_usage',
+      imageBlackWhiteResult: 'image_black_white_result',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      reqMsgId: 'string',
+      resultCode: 'string',
+      resultMsg: 'string',
+      actionCode: 'string',
+      tokenUsage: TokenUsageSummary,
+      imageBlackWhiteResult: ImageBlackWhiteResult,
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class UploadSecurityVideoRequest extends $tea.Model {
+  // OAuth模式下的授权token
+  authToken?: string;
+  productInstanceId?: string;
+  // 视频文件 URL（大小/格式由 VideoCheckApplicationService 校验）
+  fileUrl: string;
+  // 须 video 前缀
+  sceneCode: string;
+  // 租户标识
+  businessId: string;
+  static names(): { [key: string]: string } {
+    return {
+      authToken: 'auth_token',
+      productInstanceId: 'product_instance_id',
+      fileUrl: 'file_url',
+      sceneCode: 'scene_code',
+      businessId: 'business_id',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      authToken: 'string',
+      productInstanceId: 'string',
+      fileUrl: 'string',
+      sceneCode: 'string',
+      businessId: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class UploadSecurityVideoResponse extends $tea.Model {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string;
+  // 结果码，一般OK表示调用成功
+  resultCode?: string;
+  // 异常信息的文本描述
+  resultMsg?: string;
+  // PASS/BLOCK
+  actionCode?: string;
+  // 黑白库命中明细（18 字段）
+  imageBlackWhiteResult?: ImageBlackWhiteResult;
+  // token 用量（11 字段）
+  tokenUsage?: TokenUsageSummary;
+  static names(): { [key: string]: string } {
+    return {
+      reqMsgId: 'req_msg_id',
+      resultCode: 'result_code',
+      resultMsg: 'result_msg',
+      actionCode: 'action_code',
+      imageBlackWhiteResult: 'image_black_white_result',
+      tokenUsage: 'token_usage',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      reqMsgId: 'string',
+      resultCode: 'string',
+      resultMsg: 'string',
+      actionCode: 'string',
+      imageBlackWhiteResult: ImageBlackWhiteResult,
+      tokenUsage: TokenUsageSummary,
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class QuerySecurityAudioRequest extends $tea.Model {
+  // OAuth模式下的授权token
+  authToken?: string;
+  productInstanceId?: string;
+  // 音频公网 URL（与 audio 二选一，网关侧仅支持 URL 方式）
+  audioUrl: string;
+  // wav/mp3/flac/m4a/aiff/alac/ape，缺省从 URL 后缀或 magic number 推断
+  audioFormat?: string;
+  // Boolean 降噪（null 时服务端默认 true）
+  denoise?: string;
+  // 须 audio 前缀，audio_input_*/audio_output_*
+  sceneCode: string;
+  // 租户标识（老值兼容替换）
+  businessId: string;
+  // 应用码
+  appCode?: string;
+  // 消息 ID
+  messageId?: string;
+  // 企业标识
+  enterprise?: string;
+  // 访问控制维度
+  accountId?: string;
+  static names(): { [key: string]: string } {
+    return {
+      authToken: 'auth_token',
+      productInstanceId: 'product_instance_id',
+      audioUrl: 'audio_url',
+      audioFormat: 'audio_format',
+      denoise: 'denoise',
+      sceneCode: 'scene_code',
+      businessId: 'business_id',
+      appCode: 'app_code',
+      messageId: 'message_id',
+      enterprise: 'enterprise',
+      accountId: 'account_id',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      authToken: 'string',
+      productInstanceId: 'string',
+      audioUrl: 'string',
+      audioFormat: 'string',
+      denoise: 'string',
+      sceneCode: 'string',
+      businessId: 'string',
+      appCode: 'string',
+      messageId: 'string',
+      enterprise: 'string',
+      accountId: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class QuerySecurityAudioResponse extends $tea.Model {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string;
+  // 结果码，一般OK表示调用成功
+  resultCode?: string;
+  // 异常信息的文本描述
+  resultMsg?: string;
+  // 检测结果,使用JSON字符串反馈给调用方,由对应的调用方进行解析使用
+  result?: string;
+  static names(): { [key: string]: string } {
+    return {
+      reqMsgId: 'req_msg_id',
+      resultCode: 'result_code',
+      resultMsg: 'result_msg',
+      result: 'result',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      reqMsgId: 'string',
+      resultCode: 'string',
+      resultMsg: 'string',
+      result: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class UploadSecurityAudioRequest extends $tea.Model {
+  // OAuth模式下的授权token
+  authToken?: string;
+  productInstanceId?: string;
+  // 音频文件 URL（非空校验）
+  fileUrl: string;
+  // 须 audio 前缀
+  sceneCode: string;
+  // 租户标识
+  businessId: string;
+  // 降噪开关（字符串，Boolean.parseBoolean 解析）
+  denoise?: string;
+  // 音频格式（缺省用原始文件名或 audio.wav）
+  audioFormat?: string;
+  // 消息 ID
+  messageId?: string;
+  static names(): { [key: string]: string } {
+    return {
+      authToken: 'auth_token',
+      productInstanceId: 'product_instance_id',
+      fileUrl: 'file_url',
+      sceneCode: 'scene_code',
+      businessId: 'business_id',
+      denoise: 'denoise',
+      audioFormat: 'audio_format',
+      messageId: 'message_id',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      authToken: 'string',
+      productInstanceId: 'string',
+      fileUrl: 'string',
+      sceneCode: 'string',
+      businessId: 'string',
+      denoise: 'string',
+      audioFormat: 'string',
+      messageId: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class UploadSecurityAudioResponse extends $tea.Model {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string;
+  // 结果码，一般OK表示调用成功
+  resultCode?: string;
+  // 异常信息的文本描述
+  resultMsg?: string;
+  // 检测结果,使用JSON字符串反馈给调用方,由对应的调用方进行解析使用
+  result?: string;
+  static names(): { [key: string]: string } {
+    return {
+      reqMsgId: 'req_msg_id',
+      resultCode: 'result_code',
+      resultMsg: 'result_msg',
+      result: 'result',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      reqMsgId: 'string',
+      resultCode: 'string',
+      resultMsg: 'string',
+      result: 'string',
     };
   }
 
@@ -6357,7 +7880,7 @@ export default class Client {
           req_msg_id: AntchainUtil.getNonce(),
           access_key: this._accessKeyId,
           base_sdk_version: "TeaSDK-2.0",
-          sdk_version: "1.1.64",
+          sdk_version: "1.1.65",
           _prod_code: "AITECH",
           _prod_channel: "default",
         };
@@ -6403,6 +7926,69 @@ export default class Client {
     }
 
     throw $tea.newUnretryableError(_lastRequest);
+  }
+
+  /**
+   * @remarks
+   * Description: 客户统计结果查询
+   * Summary: 客户统计结果查询
+   */
+  async queryAdvisormarketData(request: QueryAdvisormarketDataRequest): Promise<QueryAdvisormarketDataResponse> {
+    let runtime = new $Util.RuntimeOptions({ });
+    let headers : {[key: string ]: string} = { };
+    return await this.queryAdvisormarketDataEx(request, headers, runtime);
+  }
+
+  /**
+   * @remarks
+   * Description: 客户统计结果查询
+   * Summary: 客户统计结果查询
+   */
+  async queryAdvisormarketDataEx(request: QueryAdvisormarketDataRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<QueryAdvisormarketDataResponse> {
+    Util.validateModel(request);
+    return $tea.cast<QueryAdvisormarketDataResponse>(await this.doRequest("1.0", "aitech.comm.advisormarket.data.query", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new QueryAdvisormarketDataResponse({}));
+  }
+
+  /**
+   * @remarks
+   * Description: 创建异步商圈客群分析任务。接口仅校验参数并创建 QUEUED 任务，不同步执行分析。请保存返回的 task_id，并使用查询接口查询状态或结果。
+   * Summary: 创建异步商圈客群分析任务。接口仅校验参数并创建 QUEUED 任务，不同步执行分析。请保存返回的 task_id，并使用查询接口查询状态或结果。
+   */
+  async pushAdvisormarketAnalysis(request: PushAdvisormarketAnalysisRequest): Promise<PushAdvisormarketAnalysisResponse> {
+    let runtime = new $Util.RuntimeOptions({ });
+    let headers : {[key: string ]: string} = { };
+    return await this.pushAdvisormarketAnalysisEx(request, headers, runtime);
+  }
+
+  /**
+   * @remarks
+   * Description: 创建异步商圈客群分析任务。接口仅校验参数并创建 QUEUED 任务，不同步执行分析。请保存返回的 task_id，并使用查询接口查询状态或结果。
+   * Summary: 创建异步商圈客群分析任务。接口仅校验参数并创建 QUEUED 任务，不同步执行分析。请保存返回的 task_id，并使用查询接口查询状态或结果。
+   */
+  async pushAdvisormarketAnalysisEx(request: PushAdvisormarketAnalysisRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<PushAdvisormarketAnalysisResponse> {
+    Util.validateModel(request);
+    return $tea.cast<PushAdvisormarketAnalysisResponse>(await this.doRequest("1.0", "aitech.comm.advisormarket.analysis.push", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new PushAdvisormarketAnalysisResponse({}));
+  }
+
+  /**
+   * @remarks
+   * Description: 查询当前租户的异步商圈客群分析任务。
+   * Summary: 查询当前租户的异步商圈客群分析任务。
+   */
+  async queryAdvisormarketAnalysis(request: QueryAdvisormarketAnalysisRequest): Promise<QueryAdvisormarketAnalysisResponse> {
+    let runtime = new $Util.RuntimeOptions({ });
+    let headers : {[key: string ]: string} = { };
+    return await this.queryAdvisormarketAnalysisEx(request, headers, runtime);
+  }
+
+  /**
+   * @remarks
+   * Description: 查询当前租户的异步商圈客群分析任务。
+   * Summary: 查询当前租户的异步商圈客群分析任务。
+   */
+  async queryAdvisormarketAnalysisEx(request: QueryAdvisormarketAnalysisRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<QueryAdvisormarketAnalysisResponse> {
+    Util.validateModel(request);
+    return $tea.cast<QueryAdvisormarketAnalysisResponse>(await this.doRequest("1.0", "aitech.comm.advisormarket.analysis.query", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new QueryAdvisormarketAnalysisResponse({}));
   }
 
   /**
@@ -7689,7 +9275,7 @@ export default class Client {
   /**
    * @remarks
    * Description: 天鉴图片检测功能saas版本
-   * Summary: 天鉴图片检测功能saas
+   * Summary: 天鉴图片检测功能saas版本
    */
   async querySecurityImage(request: QuerySecurityImageRequest): Promise<QuerySecurityImageResponse> {
     let runtime = new $Util.RuntimeOptions({ });
@@ -7700,11 +9286,179 @@ export default class Client {
   /**
    * @remarks
    * Description: 天鉴图片检测功能saas版本
-   * Summary: 天鉴图片检测功能saas
+   * Summary: 天鉴图片检测功能saas版本
    */
   async querySecurityImageEx(request: QuerySecurityImageRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<QuerySecurityImageResponse> {
     Util.validateModel(request);
     return $tea.cast<QuerySecurityImageResponse>(await this.doRequest("1.0", "aitech.comm.security.image.query", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new QuerySecurityImageResponse({}));
+  }
+
+  /**
+   * @remarks
+   * Description: 提问检测-文件上传
+   * Summary: 提问检测-文件上传
+   */
+  async uploadSecurityQuestion(request: UploadSecurityQuestionRequest): Promise<UploadSecurityQuestionResponse> {
+    let runtime = new $Util.RuntimeOptions({ });
+    let headers : {[key: string ]: string} = { };
+    return await this.uploadSecurityQuestionEx(request, headers, runtime);
+  }
+
+  /**
+   * @remarks
+   * Description: 提问检测-文件上传
+   * Summary: 提问检测-文件上传
+   */
+  async uploadSecurityQuestionEx(request: UploadSecurityQuestionRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<UploadSecurityQuestionResponse> {
+    Util.validateModel(request);
+    return $tea.cast<UploadSecurityQuestionResponse>(await this.doRequest("1.0", "aitech.comm.security.question.upload", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new UploadSecurityQuestionResponse({}));
+  }
+
+  /**
+   * @remarks
+   * Description: 回答检测-文件上传
+   * Summary: 回答检测-文件上传
+   */
+  async uploadSecurityAnswer(request: UploadSecurityAnswerRequest): Promise<UploadSecurityAnswerResponse> {
+    let runtime = new $Util.RuntimeOptions({ });
+    let headers : {[key: string ]: string} = { };
+    return await this.uploadSecurityAnswerEx(request, headers, runtime);
+  }
+
+  /**
+   * @remarks
+   * Description: 回答检测-文件上传
+   * Summary: 回答检测-文件上传
+   */
+  async uploadSecurityAnswerEx(request: UploadSecurityAnswerRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<UploadSecurityAnswerResponse> {
+    Util.validateModel(request);
+    return $tea.cast<UploadSecurityAnswerResponse>(await this.doRequest("1.0", "aitech.comm.security.answer.upload", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new UploadSecurityAnswerResponse({}));
+  }
+
+  /**
+   * @remarks
+   * Description: 图片/PDF 检测-文件上传
+   * Summary: 图片/PDF 检测-文件上传
+   */
+  async uploadSecurityImage(request: UploadSecurityImageRequest): Promise<UploadSecurityImageResponse> {
+    let runtime = new $Util.RuntimeOptions({ });
+    let headers : {[key: string ]: string} = { };
+    return await this.uploadSecurityImageEx(request, headers, runtime);
+  }
+
+  /**
+   * @remarks
+   * Description: 图片/PDF 检测-文件上传
+   * Summary: 图片/PDF 检测-文件上传
+   */
+  async uploadSecurityImageEx(request: UploadSecurityImageRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<UploadSecurityImageResponse> {
+    Util.validateModel(request);
+    return $tea.cast<UploadSecurityImageResponse>(await this.doRequest("1.0", "aitech.comm.security.image.upload", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new UploadSecurityImageResponse({}));
+  }
+
+  /**
+   * @remarks
+   * Description: 语料祛毒
+   * Summary: 语料祛毒
+   */
+  async querySecurityTextdetoxification(request: QuerySecurityTextdetoxificationRequest): Promise<QuerySecurityTextdetoxificationResponse> {
+    let runtime = new $Util.RuntimeOptions({ });
+    let headers : {[key: string ]: string} = { };
+    return await this.querySecurityTextdetoxificationEx(request, headers, runtime);
+  }
+
+  /**
+   * @remarks
+   * Description: 语料祛毒
+   * Summary: 语料祛毒
+   */
+  async querySecurityTextdetoxificationEx(request: QuerySecurityTextdetoxificationRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<QuerySecurityTextdetoxificationResponse> {
+    Util.validateModel(request);
+    return $tea.cast<QuerySecurityTextdetoxificationResponse>(await this.doRequest("1.0", "aitech.comm.security.textdetoxification.query", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new QuerySecurityTextdetoxificationResponse({}));
+  }
+
+  /**
+   * @remarks
+   * Description: 视频公开访问 URL
+   * Summary: 视频公开访问 URL
+   */
+  async querySecurityVideo(request: QuerySecurityVideoRequest): Promise<QuerySecurityVideoResponse> {
+    let runtime = new $Util.RuntimeOptions({ });
+    let headers : {[key: string ]: string} = { };
+    return await this.querySecurityVideoEx(request, headers, runtime);
+  }
+
+  /**
+   * @remarks
+   * Description: 视频公开访问 URL
+   * Summary: 视频公开访问 URL
+   */
+  async querySecurityVideoEx(request: QuerySecurityVideoRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<QuerySecurityVideoResponse> {
+    Util.validateModel(request);
+    return $tea.cast<QuerySecurityVideoResponse>(await this.doRequest("1.0", "aitech.comm.security.video.query", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new QuerySecurityVideoResponse({}));
+  }
+
+  /**
+   * @remarks
+   * Description: 视频检测-文件上传
+   * Summary: 视频检测-文件上传
+   */
+  async uploadSecurityVideo(request: UploadSecurityVideoRequest): Promise<UploadSecurityVideoResponse> {
+    let runtime = new $Util.RuntimeOptions({ });
+    let headers : {[key: string ]: string} = { };
+    return await this.uploadSecurityVideoEx(request, headers, runtime);
+  }
+
+  /**
+   * @remarks
+   * Description: 视频检测-文件上传
+   * Summary: 视频检测-文件上传
+   */
+  async uploadSecurityVideoEx(request: UploadSecurityVideoRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<UploadSecurityVideoResponse> {
+    Util.validateModel(request);
+    return $tea.cast<UploadSecurityVideoResponse>(await this.doRequest("1.0", "aitech.comm.security.video.upload", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new UploadSecurityVideoResponse({}));
+  }
+
+  /**
+   * @remarks
+   * Description: 语音检测-JSON 模式
+   * Summary: 语音检测-JSON 模式
+   */
+  async querySecurityAudio(request: QuerySecurityAudioRequest): Promise<QuerySecurityAudioResponse> {
+    let runtime = new $Util.RuntimeOptions({ });
+    let headers : {[key: string ]: string} = { };
+    return await this.querySecurityAudioEx(request, headers, runtime);
+  }
+
+  /**
+   * @remarks
+   * Description: 语音检测-JSON 模式
+   * Summary: 语音检测-JSON 模式
+   */
+  async querySecurityAudioEx(request: QuerySecurityAudioRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<QuerySecurityAudioResponse> {
+    Util.validateModel(request);
+    return $tea.cast<QuerySecurityAudioResponse>(await this.doRequest("1.0", "aitech.comm.security.audio.query", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new QuerySecurityAudioResponse({}));
+  }
+
+  /**
+   * @remarks
+   * Description: 语音检测-文件上传
+   * Summary: 语音检测-文件上传
+   */
+  async uploadSecurityAudio(request: UploadSecurityAudioRequest): Promise<UploadSecurityAudioResponse> {
+    let runtime = new $Util.RuntimeOptions({ });
+    let headers : {[key: string ]: string} = { };
+    return await this.uploadSecurityAudioEx(request, headers, runtime);
+  }
+
+  /**
+   * @remarks
+   * Description: 语音检测-文件上传
+   * Summary: 语音检测-文件上传
+   */
+  async uploadSecurityAudioEx(request: UploadSecurityAudioRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<UploadSecurityAudioResponse> {
+    Util.validateModel(request);
+    return $tea.cast<UploadSecurityAudioResponse>(await this.doRequest("1.0", "aitech.comm.security.audio.upload", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new UploadSecurityAudioResponse({}));
   }
 
 }
