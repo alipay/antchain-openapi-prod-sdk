@@ -15936,6 +15936,8 @@ export class BindDubbridgeCustomerBankcardRequest extends $tea.Model {
   prodType?: string;
   // 银行编码
   bankCode?: string;
+  // 授信申请order_no
+  creditOrderNo?: string;
   static names(): { [key: string]: string } {
     return {
       authToken: 'auth_token',
@@ -15950,6 +15952,7 @@ export class BindDubbridgeCustomerBankcardRequest extends $tea.Model {
       mobile: 'mobile',
       prodType: 'prod_type',
       bankCode: 'bank_code',
+      creditOrderNo: 'credit_order_no',
     };
   }
 
@@ -15967,6 +15970,7 @@ export class BindDubbridgeCustomerBankcardRequest extends $tea.Model {
       mobile: 'string',
       prodType: 'string',
       bankCode: 'string',
+      creditOrderNo: 'string',
     };
   }
 
@@ -38379,7 +38383,7 @@ export default class Client {
           req_msg_id: AntchainUtil.getNonce(),
           access_key: this._accessKeyId,
           base_sdk_version: "TeaSDK-2.0",
-          sdk_version: "1.33.10",
+          sdk_version: "1.33.11",
           _prod_code: "RISKPLUS",
           _prod_channel: "undefined",
         };
@@ -39418,7 +39422,7 @@ export default class Client {
   /**
    * @remarks
    * Description: 代扣签约绑卡接口
-   * Summary: 代扣协议签约申请(银行卡绑卡)
+   * Summary: 代扣签约绑卡接口
    */
   async bindDubbridgeCustomerBankcard(request: BindDubbridgeCustomerBankcardRequest): Promise<BindDubbridgeCustomerBankcardResponse> {
     let runtime = new $Util.RuntimeOptions({ });
@@ -39429,7 +39433,7 @@ export default class Client {
   /**
    * @remarks
    * Description: 代扣签约绑卡接口
-   * Summary: 代扣协议签约申请(银行卡绑卡)
+   * Summary: 代扣签约绑卡接口
    */
   async bindDubbridgeCustomerBankcardEx(request: BindDubbridgeCustomerBankcardRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<BindDubbridgeCustomerBankcardResponse> {
     Util.validateModel(request);
