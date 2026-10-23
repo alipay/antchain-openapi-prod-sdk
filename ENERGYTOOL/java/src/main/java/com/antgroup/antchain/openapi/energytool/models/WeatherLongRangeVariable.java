@@ -27,7 +27,7 @@ public class WeatherLongRangeVariable extends TeaModel {
      * <strong>example:</strong>
      * <p>25.3</p>
      */
-    @NameInMap("temperature_2m")
+    @NameInMap("temperature2m")
     public String temperature2m;
 
     // 2 米露点温度，单位 ℃；对应 dewPoint2m。
@@ -35,7 +35,7 @@ public class WeatherLongRangeVariable extends TeaModel {
      * <strong>example:</strong>
      * <p>18.2</p>
      */
-    @NameInMap("dew_point_2m")
+    @NameInMap("dew_point2m")
     public String dewPoint2m;
 
     // 体感温度，单位 ℃；对应 apparentTemperature。
@@ -51,7 +51,7 @@ public class WeatherLongRangeVariable extends TeaModel {
      * <strong>example:</strong>
      * <p>65</p>
      */
-    @NameInMap("relative_humidity_2m")
+    @NameInMap("relative_humidity2m")
     public String relativeHumidity2m;
 
     // 海平面气压，单位 hPa；对应 pressureMsl。
@@ -70,10 +70,10 @@ public class WeatherLongRangeVariable extends TeaModel {
     @NameInMap("surface_pressure")
     public String surfacePressure;
 
-    // 平台天气编码，由源天气编码转换；对应 weatherCode。
+    // 平台天气现象枚举，如 RAIN_LIGHT（小雨）；对应 weatherCode。
     /**
      * <strong>example:</strong>
-     * <p>3</p>
+     * <p>RAIN_LIGHT</p>
      */
     @NameInMap("weather_code")
     public String weatherCode;
@@ -99,7 +99,7 @@ public class WeatherLongRangeVariable extends TeaModel {
      * <strong>example:</strong>
      * <p>3.2</p>
      */
-    @NameInMap("wind_speed_10m")
+    @NameInMap("wind_speed10m")
     public String windSpeed10m;
 
     // 100 米风速，单位 m/s；对应 windSpeed100m。
@@ -107,7 +107,7 @@ public class WeatherLongRangeVariable extends TeaModel {
      * <strong>example:</strong>
      * <p>5.6</p>
      */
-    @NameInMap("wind_speed_100m")
+    @NameInMap("wind_speed100m")
     public String windSpeed100m;
 
     // 200 米风速，单位 m/s；对应 windSpeed200m。
@@ -115,7 +115,7 @@ public class WeatherLongRangeVariable extends TeaModel {
      * <strong>example:</strong>
      * <p>7.0</p>
      */
-    @NameInMap("wind_speed_200m")
+    @NameInMap("wind_speed200m")
     public String windSpeed200m;
 
     // 10 米风向，单位 °；对应 windDirection10m。
@@ -123,7 +123,7 @@ public class WeatherLongRangeVariable extends TeaModel {
      * <strong>example:</strong>
      * <p>180</p>
      */
-    @NameInMap("wind_direction_10m")
+    @NameInMap("wind_direction10m")
     public String windDirection10m;
 
     // 100 米风向，单位 °；对应 windDirection100m。
@@ -131,7 +131,7 @@ public class WeatherLongRangeVariable extends TeaModel {
      * <strong>example:</strong>
      * <p>185</p>
      */
-    @NameInMap("wind_direction_100m")
+    @NameInMap("wind_direction100m")
     public String windDirection100m;
 
     // 200 米风向，单位 °；对应 windDirection200m。
@@ -139,7 +139,7 @@ public class WeatherLongRangeVariable extends TeaModel {
      * <strong>example:</strong>
      * <p>190</p>
      */
-    @NameInMap("wind_direction_200m")
+    @NameInMap("wind_direction200m")
     public String windDirection200m;
 
     // 瞬时短波辐射，单位 W/m²；对应 shortwaveRadiationInstant。
@@ -195,7 +195,7 @@ public class WeatherLongRangeVariable extends TeaModel {
      * <strong>example:</strong>
      * <p>6.2</p>
      */
-    @NameInMap("wind_gusts_10m")
+    @NameInMap("wind_gusts10m")
     public String windGusts10m;
 
     // 2 米最高气温，单位 ℃；对应 temperatureMax2m。
@@ -203,7 +203,7 @@ public class WeatherLongRangeVariable extends TeaModel {
      * <strong>example:</strong>
      * <p>30.2</p>
      */
-    @NameInMap("temperature_2m_max")
+    @NameInMap("temperature2m_max")
     public String temperature2mMax;
 
     // 2 米最低气温，单位 ℃；对应 temperatureMin2m。
@@ -211,7 +211,7 @@ public class WeatherLongRangeVariable extends TeaModel {
      * <strong>example:</strong>
      * <p>19.1</p>
      */
-    @NameInMap("temperature_2m_min")
+    @NameInMap("temperature2m_min")
     public String temperature2mMin;
 
     // 平台枚举映射前的原始天气现象数值码，整型数值字符串，如 61；对应 Java 属性 weatherTypeCode。按需返回，保留 weather_code 平台枚举字段。

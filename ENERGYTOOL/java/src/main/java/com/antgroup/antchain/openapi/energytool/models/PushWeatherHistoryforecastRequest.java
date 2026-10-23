@@ -17,7 +17,7 @@ public class PushWeatherHistoryforecastRequest extends TeaModel {
     @NameInMap("longitude")
     public String longitude;
 
-    // 纬度字符串，范围 -90～90，可用逗号分隔；数量、顺序与 longitude 一致，最多 100 组。所有点须符合合约站点授权。
+    // 纬度字符串，范围 -90～90，可用逗号分隔；数量、顺序与 longitude 一致，最多 100 组。
     @NameInMap("latitude")
     public String latitude;
 

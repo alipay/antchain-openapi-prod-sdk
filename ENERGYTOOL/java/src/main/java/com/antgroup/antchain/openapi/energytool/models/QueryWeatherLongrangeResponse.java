@@ -16,7 +16,7 @@ public class QueryWeatherLongrangeResponse extends TeaModel {
     @NameInMap("result_msg")
     public String resultMsg;
 
-    // 请求唯一标识，与入参一致；对应 Java requestId。
+    // 请求唯一标识，与入参一致；
     @NameInMap("request_id")
     public String requestId;
 
@@ -29,7 +29,7 @@ public class QueryWeatherLongrangeResponse extends TeaModel {
     @Validation(pattern = "\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}([Z]|([\\.]\\d{1,9})?[\\+]\\d{2}[\\:]?\\d{2})")
     public String forecastBatchTime;
 
-    // 中长期气象预测数据列表，元素结构为WeatherLongRangeVariable，包含数据时间、预测批次时间及按需返回的气象要素。返回未来第16天至forecast_days指定截止天的数据，每6小时一个点。完整可查询code及说明见本接口weather_variables入参。weather_code为平台天气枚举，如RAIN_LIGHT（小雨）；weather_type_code为枚举映射前的原始整数天气码字符串，如61。所有气象要素值为字符串，未请求或缺测时可能为空。
+    // 中长期气象预测数据列表，元素结构为WeatherLongRangeVariable，包含数据时间、预测批次时间及按需返回的气象要素。返回未来第16天至forecast_days指定截止天的数据，每6小时一个点。完整可查询code及说明见本接口weather_variables入参。weather_code为平台天气枚举，如RAIN_LIGHT（小雨）；weather_type_code为枚举映射前的原始整数天气码字符串，如61。所有气象要素值为字符串，未请求或缺测时可能为空。 请求要素编码与出参字段名可能不同，例如windSpeed100m返回wind_speed100m，temperatureMax2m返回temperature2m_max；出参名称以WeatherLongRangeVariable结构体定义及实际响应为准。
     @NameInMap("weather_variables_list")
     public java.util.List<WeatherLongRangeVariable> weatherVariablesList;
 

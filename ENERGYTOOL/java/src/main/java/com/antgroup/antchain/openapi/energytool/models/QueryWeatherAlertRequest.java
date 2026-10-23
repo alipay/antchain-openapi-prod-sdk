@@ -13,7 +13,7 @@ public class QueryWeatherAlertRequest extends TeaModel {
     @Validation(required = true)
     public String requestId;
 
-    // 查询地点经度，十进制度数字符串，范围 -180～180。经纬度必须同时提供，与省市区地区输入二选一；查询点须符合合约站点授权。
+    // 查询地点经度，十进制度数字符串，范围 -180～180。经纬度必须同时提供，与省市区地区输入二选一。
     @NameInMap("longitude")
     public String longitude;
 

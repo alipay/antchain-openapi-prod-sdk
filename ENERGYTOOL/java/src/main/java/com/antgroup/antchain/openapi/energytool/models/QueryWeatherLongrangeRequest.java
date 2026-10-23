@@ -13,11 +13,11 @@ public class QueryWeatherLongrangeRequest extends TeaModel {
     @Validation(required = true)
     public String requestId;
 
-    // 纬度，十进制度数，范围[-90,90]，Java类型BigDecimal。与longitude成对传入；经纬度和province/city/district地区查询方式必须二选一，按地区查询时不传。查询位置须符合合约授权范围。
+    // 纬度，十进制度数，范围[-90,90]。与longitude成对传入；经纬度和province/city/district地区查询方式必须二选一，按地区查询时不传。
     @NameInMap("latitude")
     public String latitude;
 
-    // 经度，十进制度数，范围[-180,180]，Java类型BigDecimal。与latitude成对传入；经纬度和province/city/district地区查询方式必须二选一，按地区查询时不传。查询位置须符合合约授权范围。
+    // 经度，十进制度数，范围[-180,180]。与latitude成对传入；经纬度和province/city/district地区查询方式必须二选一，按地区查询时不传。
     @NameInMap("longitude")
     public String longitude;
 
@@ -60,15 +60,15 @@ public class QueryWeatherLongrangeRequest extends TeaModel {
     @NameInMap("agreement_code")
     public String agreementCode;
 
-    // 省级行政区名称。地区查询时province/city/district至少填一项，须唯一匹配行政区；同名地区请补充上级地区。与latitude、longitude经纬度方式必须二选一。查询行政区中心点天气，位置须符合合约授权范围。
+    // 省级行政区名称。地区查询时province/city/district至少填一项，须唯一匹配行政区；同名地区请补充上级地区。与latitude、longitude经纬度方式必须二选一。
     @NameInMap("province")
     public String province;
 
-    // 市级行政区名称。地区查询时province/city/district至少填一项，须唯一匹配行政区；同名城市请补充province。与latitude、longitude经纬度方式必须二选一。查询行政区中心点天气，位置须符合合约授权范围。
+    // 市级行政区名称。地区查询时province/city/district至少填一项，须唯一匹配行政区；同名城市请补充province。与latitude、longitude经纬度方式必须二选一。
     @NameInMap("city")
     public String city;
 
-    // 区县级行政区名称。地区查询时province/city/district至少填一项，须唯一匹配行政区；同名区县请补充province、city。与latitude、longitude经纬度方式必须二选一。查询行政区中心点天气，位置须符合合约授权范围。
+    // 区县级行政区名称。地区查询时province/city/district至少填一项，须唯一匹配行政区；同名区县请补充province、city。与latitude、longitude经纬度方式必须二选一。
     @NameInMap("district")
     public String district;
 

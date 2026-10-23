@@ -20,7 +20,7 @@ public class QueryWeatherHistoryResponse extends TeaModel {
     @NameInMap("request_id")
     public String requestId;
 
-    // 本次查询消耗的额度，十进制字符串，对应 Java BigDecimal；成功查询按现有服务规则计量。
+    // 本次查询消耗的额度，十进制字符串；成功查询按现有服务规则计量。
     @NameInMap("quota_cost")
     public String quotaCost;
 

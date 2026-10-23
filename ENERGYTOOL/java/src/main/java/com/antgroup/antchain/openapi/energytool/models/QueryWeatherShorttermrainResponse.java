@@ -20,7 +20,7 @@ public class QueryWeatherShorttermrainResponse extends TeaModel {
     @NameInMap("request_id")
     public String requestId;
 
-    // 本次查询消耗的额度，十进制字符串，对应 Java BigDecimal；按现有短临降水服务规则独立计量。
+    // 本次查询消耗的额度，十进制字符串；按现有短临降水服务规则独立计量。
     @NameInMap("quota_cost")
     public String quotaCost;
 

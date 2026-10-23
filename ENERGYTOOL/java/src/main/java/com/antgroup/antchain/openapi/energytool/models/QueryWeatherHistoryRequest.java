@@ -13,7 +13,7 @@ public class QueryWeatherHistoryRequest extends TeaModel {
     @Validation(required = true)
     public String requestId;
 
-    // 查询地点经度，十进制度数字符串，范围 -180～180。经纬度需同时提供，与 province/city/district 地区输入二选一；查询地点须在合约站点授权范围内。
+    // 查询地点经度，十进制度数字符串，范围 -180～180。经纬度需同时提供，与 province/city/district 地区输入二选一；
     @NameInMap("longitude")
     public String longitude;
 
@@ -33,7 +33,7 @@ public class QueryWeatherHistoryRequest extends TeaModel {
     @NameInMap("district")
     public String district;
 
-    // 实测查询开始日期，字符串格式 yyyyMMdd，包含当天；不得晚于 date_end。对应 Java Date，适配层按 yyyyMMdd 解析。
+    // 实测查询开始日期，字符串格式 yyyyMMdd，包含当天；不得晚于 date_end。格式按 yyyyMMdd 解析。
     @NameInMap("date_start")
     @Validation(required = true)
     public String dateStart;

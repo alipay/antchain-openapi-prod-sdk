@@ -20,7 +20,7 @@ public class QueryWeatherAlertResponse extends TeaModel {
     @NameInMap("request_id")
     public String requestId;
 
-    // 本次查询额度消耗，十进制字符串，对应 Java BigDecimal；无预警的正常查询仍按现有服务规则计次。
+    // 本次查询额度消耗，十进制字符串；无预警的正常查询仍按现有服务规则计次。
     @NameInMap("quota_cost")
     public String quotaCost;
 

@@ -27,7 +27,7 @@ public class WeatherVariable extends TeaModel {
      * <strong>example:</strong>
      * <p>25.3</p>
      */
-    @NameInMap("temperature_2m")
+    @NameInMap("temperature2m")
     public String temperature2m;
 
     // 地面 2 米处相对空气湿度，单位 %。
@@ -35,7 +35,7 @@ public class WeatherVariable extends TeaModel {
      * <strong>example:</strong>
      * <p>65</p>
      */
-    @NameInMap("relative_humidity_2m")
+    @NameInMap("relative_humidity2m")
     public String relativeHumidity2m;
 
     // 地面 2 米处露点温度，单位 °C。
@@ -43,7 +43,7 @@ public class WeatherVariable extends TeaModel {
      * <strong>example:</strong>
      * <p>18.2</p>
      */
-    @NameInMap("dew_point_2m")
+    @NameInMap("dew_point2m")
     public String dewPoint2m;
 
     // 海平面大气压，单位 hPa。
@@ -139,7 +139,7 @@ public class WeatherVariable extends TeaModel {
      * <strong>example:</strong>
      * <p>3.2</p>
      */
-    @NameInMap("wind_speed_10m")
+    @NameInMap("wind_speed10m")
     public String windSpeed10m;
 
     // 地面 80 米处风速，单位 m/s。
@@ -147,7 +147,7 @@ public class WeatherVariable extends TeaModel {
      * <strong>example:</strong>
      * <p>5.6</p>
      */
-    @NameInMap("wind_speed_80m")
+    @NameInMap("wind_speed80m")
     public String windSpeed80m;
 
     // 地面 120 米处风速，单位 m/s。
@@ -155,7 +155,7 @@ public class WeatherVariable extends TeaModel {
      * <strong>example:</strong>
      * <p>6.1</p>
      */
-    @NameInMap("wind_speed_120m")
+    @NameInMap("wind_speed120m")
     public String windSpeed120m;
 
     // 地面 10 米处风向，单位 °。
@@ -163,7 +163,7 @@ public class WeatherVariable extends TeaModel {
      * <strong>example:</strong>
      * <p>180</p>
      */
-    @NameInMap("wind_direction_10m")
+    @NameInMap("wind_direction10m")
     public String windDirection10m;
 
     // 地面 80 米处风向，单位 °。
@@ -171,7 +171,7 @@ public class WeatherVariable extends TeaModel {
      * <strong>example:</strong>
      * <p>185</p>
      */
-    @NameInMap("wind_direction_80m")
+    @NameInMap("wind_direction80m")
     public String windDirection80m;
 
     // 地面 120 米处风向，单位 °。
@@ -179,7 +179,7 @@ public class WeatherVariable extends TeaModel {
      * <strong>example:</strong>
      * <p>190</p>
      */
-    @NameInMap("wind_direction_120m")
+    @NameInMap("wind_direction120m")
     public String windDirection120m;
 
     // 天气代码，采用 WMO 天气编码。
@@ -259,7 +259,7 @@ public class WeatherVariable extends TeaModel {
      * <strong>example:</strong>
      * <p>7.0</p>
      */
-    @NameInMap("wind_speed_180m")
+    @NameInMap("wind_speed180m")
     public String windSpeed180m;
 
     // 地面 180 米处风向，单位 °。
@@ -267,7 +267,7 @@ public class WeatherVariable extends TeaModel {
      * <strong>example:</strong>
      * <p>195</p>
      */
-    @NameInMap("wind_direction_180m")
+    @NameInMap("wind_direction180m")
     public String windDirection180m;
 
     // DTO 保留的短时降雨量字段，单位 mm。本 queryWeather 接口拒绝查询 short_term_rain，须调用独立 queryShortTermRain 接口。
@@ -307,7 +307,7 @@ public class WeatherVariable extends TeaModel {
      * <strong>example:</strong>
      * <p>5.8</p>
      */
-    @NameInMap("wind_speed_100m")
+    @NameInMap("wind_speed100m")
     public String windSpeed100m;
 
     // 地面 100 米处风向，单位 °；对应 Java 属性 windDirection100m，按需返回。
@@ -315,7 +315,7 @@ public class WeatherVariable extends TeaModel {
      * <strong>example:</strong>
      * <p>188</p>
      */
-    @NameInMap("wind_direction_100m")
+    @NameInMap("wind_direction100m")
     public String windDirection100m;
 
     // 地面 10 米处阵风，单位 m/s；对应 Java 属性 windGusts10m，按需返回。
@@ -323,7 +323,7 @@ public class WeatherVariable extends TeaModel {
      * <strong>example:</strong>
      * <p>7.5</p>
      */
-    @NameInMap("wind_gusts_10m")
+    @NameInMap("wind_gusts10m")
     public String windGusts10m;
 
     // 地面 10 米处 U 风速分量，单位 m/s；对应 Java 属性 uWind10m，保留正负号，按需返回。
@@ -331,7 +331,7 @@ public class WeatherVariable extends TeaModel {
      * <strong>example:</strong>
      * <p>-2.1</p>
      */
-    @NameInMap("u_wind_10m")
+    @NameInMap("u_wind10m")
     public String uWind10m;
 
     // 地面 10 米处 V 风速分量，单位 m/s；对应 Java 属性 vWind10m，保留正负号，按需返回。
@@ -339,7 +339,7 @@ public class WeatherVariable extends TeaModel {
      * <strong>example:</strong>
      * <p>1.8</p>
      */
-    @NameInMap("v_wind_10m")
+    @NameInMap("v_wind10m")
     public String vWind10m;
 
     // 地面 80 米处 U 风速分量，单位 m/s；对应 Java 属性 uWind80m，保留正负号，按需返回。
@@ -347,7 +347,7 @@ public class WeatherVariable extends TeaModel {
      * <strong>example:</strong>
      * <p>-3.2</p>
      */
-    @NameInMap("u_wind_80m")
+    @NameInMap("u_wind80m")
     public String uWind80m;
 
     // 地面 80 米处 V 风速分量，单位 m/s；对应 Java 属性 vWind80m，保留正负号，按需返回。
@@ -355,7 +355,7 @@ public class WeatherVariable extends TeaModel {
      * <strong>example:</strong>
      * <p>2.7</p>
      */
-    @NameInMap("v_wind_80m")
+    @NameInMap("v_wind80m")
     public String vWind80m;
 
     // 地面 100 米处 U 风速分量，单位 m/s；对应 Java 属性 uWind100m，保留正负号，按需返回。
@@ -363,7 +363,7 @@ public class WeatherVariable extends TeaModel {
      * <strong>example:</strong>
      * <p>-3.5</p>
      */
-    @NameInMap("u_wind_100m")
+    @NameInMap("u_wind100m")
     public String uWind100m;
 
     // 地面 100 米处 V 风速分量，单位 m/s；对应 Java 属性 vWind100m，保留正负号，按需返回。
@@ -371,7 +371,7 @@ public class WeatherVariable extends TeaModel {
      * <strong>example:</strong>
      * <p>2.9</p>
      */
-    @NameInMap("v_wind_100m")
+    @NameInMap("v_wind100m")
     public String vWind100m;
 
     // 地面 120 米处 U 风速分量，单位 m/s；对应 Java 属性 uWind120m，保留正负号，按需返回。
@@ -379,7 +379,7 @@ public class WeatherVariable extends TeaModel {
      * <strong>example:</strong>
      * <p>-3.8</p>
      */
-    @NameInMap("u_wind_120m")
+    @NameInMap("u_wind120m")
     public String uWind120m;
 
     // 地面 120 米处 V 风速分量，单位 m/s；对应 Java 属性 vWind120m，保留正负号，按需返回。
@@ -387,7 +387,7 @@ public class WeatherVariable extends TeaModel {
      * <strong>example:</strong>
      * <p>3.1</p>
      */
-    @NameInMap("v_wind_120m")
+    @NameInMap("v_wind120m")
     public String vWind120m;
 
     // 地面 180 米处 U 风速分量，单位 m/s；对应 Java 属性 uWind180m，保留正负号，按需返回。
@@ -395,7 +395,7 @@ public class WeatherVariable extends TeaModel {
      * <strong>example:</strong>
      * <p>-4.2</p>
      */
-    @NameInMap("u_wind_180m")
+    @NameInMap("u_wind180m")
     public String uWind180m;
 
     // 地面 180 米处 V 风速分量，单位 m/s；对应 Java 属性 vWind180m，保留正负号，按需返回。
@@ -403,7 +403,7 @@ public class WeatherVariable extends TeaModel {
      * <strong>example:</strong>
      * <p>3.6</p>
      */
-    @NameInMap("v_wind_180m")
+    @NameInMap("v_wind180m")
     public String vWind180m;
 
     // 原始天气现象数值码，整型数值字符串，如 61；对应 Java 属性 weatherTypeCode。按需返回，保留 weather_code 兼容字段。

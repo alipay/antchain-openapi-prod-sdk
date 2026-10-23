@@ -126,7 +126,7 @@ public class Client {
                     new TeaPair("req_msg_id", com.antgroup.antchain.openapi.antchain.util.AntchainUtils.getNonce()),
                     new TeaPair("access_key", _accessKeyId),
                     new TeaPair("base_sdk_version", "TeaSDK-2.0"),
-                    new TeaPair("sdk_version", "1.3.0"),
+                    new TeaPair("sdk_version", "1.3.1"),
                     new TeaPair("_prod_code", "ENERGYTOOL"),
                     new TeaPair("_prod_channel", "default")
                 );
@@ -526,8 +526,8 @@ public class Client {
 
     /**
      * <b>description</b> :
-     * <p>Description: 天气中短期预测，支持15天以内查询。经纬度须成对传入，与省/市/区名称方式二选一；地区须唯一匹配，同名时补充上级地区。地区查询返回行政区中心点天气，位置须符合合约授权范围。
-     * Summary: 天气中短期预测，支持15天以内查询。经纬度须成对传入，与省/市/区名称方式二选一；地区须唯一匹配，同名时补充上级地区。地区查询返回行政区中心点天气，位置须符合合约授权范围。</p>
+     * <p>Description: 天气中短期预测，支持15天以内查询。
+     * Summary: 天气中短期预测，支持15天以内查询。</p>
      */
     public QueryWeatherForecastResponse queryWeatherForecast(QueryWeatherForecastRequest request) throws Exception {
         com.aliyun.teautil.models.RuntimeOptions runtime = new com.aliyun.teautil.models.RuntimeOptions();
@@ -537,8 +537,8 @@ public class Client {
 
     /**
      * <b>description</b> :
-     * <p>Description: 天气中短期预测，支持15天以内查询。经纬度须成对传入，与省/市/区名称方式二选一；地区须唯一匹配，同名时补充上级地区。地区查询返回行政区中心点天气，位置须符合合约授权范围。
-     * Summary: 天气中短期预测，支持15天以内查询。经纬度须成对传入，与省/市/区名称方式二选一；地区须唯一匹配，同名时补充上级地区。地区查询返回行政区中心点天气，位置须符合合约授权范围。</p>
+     * <p>Description: 天气中短期预测，支持15天以内查询。
+     * Summary: 天气中短期预测，支持15天以内查询。</p>
      */
     public QueryWeatherForecastResponse queryWeatherForecastEx(QueryWeatherForecastRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
         com.aliyun.teautil.Common.validateModel(request);
@@ -547,8 +547,8 @@ public class Client {
 
     /**
      * <b>description</b> :
-     * <p>Description: 天气中长期预测，支持未来第16～45天查询。经纬度须成对传入，与省/市/区名称方式二选一；地区须唯一匹配，同名时补充上级地区。地区查询返回行政区中心点天气，位置须符合合约授权范围。
-     * Summary: 天气中长期预测，支持未来第16～45天查询。经纬度须成对传入，与省/市/区名称方式二选一；地区须唯一匹配，同名时补充上级地区。地区查询返回行政区中心点天气，位置须符合合约授权范围。</p>
+     * <p>Description: 天气中长期预测，支持未来第16～45天查询。
+     * Summary: 天气中长期预测，支持未来第16～45天查询。</p>
      */
     public QueryWeatherLongrangeResponse queryWeatherLongrange(QueryWeatherLongrangeRequest request) throws Exception {
         com.aliyun.teautil.models.RuntimeOptions runtime = new com.aliyun.teautil.models.RuntimeOptions();
@@ -558,8 +558,8 @@ public class Client {
 
     /**
      * <b>description</b> :
-     * <p>Description: 天气中长期预测，支持未来第16～45天查询。经纬度须成对传入，与省/市/区名称方式二选一；地区须唯一匹配，同名时补充上级地区。地区查询返回行政区中心点天气，位置须符合合约授权范围。
-     * Summary: 天气中长期预测，支持未来第16～45天查询。经纬度须成对传入，与省/市/区名称方式二选一；地区须唯一匹配，同名时补充上级地区。地区查询返回行政区中心点天气，位置须符合合约授权范围。</p>
+     * <p>Description: 天气中长期预测，支持未来第16～45天查询。
+     * Summary: 天气中长期预测，支持未来第16～45天查询。</p>
      */
     public QueryWeatherLongrangeResponse queryWeatherLongrangeEx(QueryWeatherLongrangeRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
         com.aliyun.teautil.Common.validateModel(request);
@@ -568,8 +568,8 @@ public class Client {
 
     /**
      * <b>description</b> :
-     * <p>Description: 历史实测天气查询，支持按经纬度或省市区查询指定日期范围的 20 个气象要素，单次最多 21 天，按 15 分钟时间点返回。
-     * Summary: 历史实测天气查询，支持按经纬度或省市区查询指定日期范围的 20 个气象要素，单次最多 21 天，按 15 分钟时间点返回。</p>
+     * <p>Description: 历史实测天气查询。
+     * Summary: 历史实测天气查询。</p>
      */
     public QueryWeatherHistoryResponse queryWeatherHistory(QueryWeatherHistoryRequest request) throws Exception {
         com.aliyun.teautil.models.RuntimeOptions runtime = new com.aliyun.teautil.models.RuntimeOptions();
@@ -579,8 +579,8 @@ public class Client {
 
     /**
      * <b>description</b> :
-     * <p>Description: 历史实测天气查询，支持按经纬度或省市区查询指定日期范围的 20 个气象要素，单次最多 21 天，按 15 分钟时间点返回。
-     * Summary: 历史实测天气查询，支持按经纬度或省市区查询指定日期范围的 20 个气象要素，单次最多 21 天，按 15 分钟时间点返回。</p>
+     * <p>Description: 历史实测天气查询。
+     * Summary: 历史实测天气查询。</p>
      */
     public QueryWeatherHistoryResponse queryWeatherHistoryEx(QueryWeatherHistoryRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
         com.aliyun.teautil.Common.validateModel(request);
@@ -589,8 +589,8 @@ public class Client {
 
     /**
      * <b>description</b> :
-     * <p>Description: 提交历史天气预测导出请求，支持近三年历史批次、最多 100 个坐标点或单个省市区，异步生成 CSV 分组 ZIP；受理返回原 request_id，使用结果查询 API 轮询下载。
-     * Summary: 提交历史天气预测导出请求，支持近三年历史批次、最多 100 个坐标点或单个省市区，异步生成 CSV 分组 ZIP；受理返回原 request_id，使用结果查询 API 轮询下载。</p>
+     * <p>Description: 提交历史天气预测导出请求，受理返回原 request_id，使用结果查询 API 轮询下载。
+     * Summary: 提交历史天气预测导出请求，受理返回原 request_id，使用结果查询 API 轮询下载。</p>
      */
     public PushWeatherHistoryforecastResponse pushWeatherHistoryforecast(PushWeatherHistoryforecastRequest request) throws Exception {
         com.aliyun.teautil.models.RuntimeOptions runtime = new com.aliyun.teautil.models.RuntimeOptions();
@@ -600,8 +600,8 @@ public class Client {
 
     /**
      * <b>description</b> :
-     * <p>Description: 提交历史天气预测导出请求，支持近三年历史批次、最多 100 个坐标点或单个省市区，异步生成 CSV 分组 ZIP；受理返回原 request_id，使用结果查询 API 轮询下载。
-     * Summary: 提交历史天气预测导出请求，支持近三年历史批次、最多 100 个坐标点或单个省市区，异步生成 CSV 分组 ZIP；受理返回原 request_id，使用结果查询 API 轮询下载。</p>
+     * <p>Description: 提交历史天气预测导出请求，受理返回原 request_id，使用结果查询 API 轮询下载。
+     * Summary: 提交历史天气预测导出请求，受理返回原 request_id，使用结果查询 API 轮询下载。</p>
      */
     public PushWeatherHistoryforecastResponse pushWeatherHistoryforecastEx(PushWeatherHistoryforecastRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
         com.aliyun.teautil.Common.validateModel(request);
@@ -610,8 +610,8 @@ public class Client {
 
     /**
      * <b>description</b> :
-     * <p>Description: 查询本合约已受理的历史天气预测导出结果；准备中正常返回 data_ready=false，完成后返回 ZIP 下载地址与文件信息，结果从发布成功起固定 12 小时有效，轮询不顺延。
-     * Summary: 查询本合约已受理的历史天气预测导出结果；准备中正常返回 data_ready=false，完成后返回 ZIP 下载地址与文件信息，结果从发布成功起固定 12 小时有效，轮询不顺延。</p>
+     * <p>Description: 查询已受理的历史天气预测导出结果。
+     * Summary: 查询已受理的历史天气预测导出结果。</p>
      */
     public QueryWeatherHistoryforecastResponse queryWeatherHistoryforecast(QueryWeatherHistoryforecastRequest request) throws Exception {
         com.aliyun.teautil.models.RuntimeOptions runtime = new com.aliyun.teautil.models.RuntimeOptions();
@@ -621,8 +621,8 @@ public class Client {
 
     /**
      * <b>description</b> :
-     * <p>Description: 查询本合约已受理的历史天气预测导出结果；准备中正常返回 data_ready=false，完成后返回 ZIP 下载地址与文件信息，结果从发布成功起固定 12 小时有效，轮询不顺延。
-     * Summary: 查询本合约已受理的历史天气预测导出结果；准备中正常返回 data_ready=false，完成后返回 ZIP 下载地址与文件信息，结果从发布成功起固定 12 小时有效，轮询不顺延。</p>
+     * <p>Description: 查询已受理的历史天气预测导出结果。
+     * Summary: 查询已受理的历史天气预测导出结果。</p>
      */
     public QueryWeatherHistoryforecastResponse queryWeatherHistoryforecastEx(QueryWeatherHistoryforecastRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
         com.aliyun.teautil.Common.validateModel(request);
@@ -631,8 +631,8 @@ public class Client {
 
     /**
      * <b>description</b> :
-     * <p>Description: 查询指定经纬度或省市区代表点当前生效的极端天气预警，返回平台预警编码、发生确定性、生效及失效时间等信息；无预警时正常返回空列表。
-     * Summary: 查询指定经纬度或省市区代表点当前生效的极端天气预警，返回平台预警编码、发生确定性、生效及失效时间等信息；无预警时正常返回空列表。</p>
+     * <p>Description: 查询指定经纬度或省市区代表点当前的极端天气预警。
+     * Summary: 查询指定经纬度或省市区代表点当前的极端天气预警。</p>
      */
     public QueryWeatherAlertResponse queryWeatherAlert(QueryWeatherAlertRequest request) throws Exception {
         com.aliyun.teautil.models.RuntimeOptions runtime = new com.aliyun.teautil.models.RuntimeOptions();
@@ -642,8 +642,8 @@ public class Client {
 
     /**
      * <b>description</b> :
-     * <p>Description: 查询指定经纬度或省市区代表点当前生效的极端天气预警，返回平台预警编码、发生确定性、生效及失效时间等信息；无预警时正常返回空列表。
-     * Summary: 查询指定经纬度或省市区代表点当前生效的极端天气预警，返回平台预警编码、发生确定性、生效及失效时间等信息；无预警时正常返回空列表。</p>
+     * <p>Description: 查询指定经纬度或省市区代表点当前的极端天气预警。
+     * Summary: 查询指定经纬度或省市区代表点当前的极端天气预警。</p>
      */
     public QueryWeatherAlertResponse queryWeatherAlertEx(QueryWeatherAlertRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
         com.aliyun.teautil.Common.validateModel(request);
@@ -652,8 +652,8 @@ public class Client {
 
     /**
      * <b>description</b> :
-     * <p>Description: 独立查询指定经纬度或省市区代表点的分钟级短临降水预报，返回预报时间、降水量及降水类型；无可用预报时正常返回空列表，不通过普通天气要素查询接口混用。
-     * Summary: 独立查询指定经纬度或省市区代表点的分钟级短临降水预报，返回预报时间、降水量及降水类型；无可用预报时正常返回空列表，不通过普通天气要素查询接口混用。</p>
+     * <p>Description: 独立查询指定经纬度或省市区代表点的分钟级短临降水预报。
+     * Summary: 独立查询指定经纬度或省市区代表点的分钟级短临降水预报。</p>
      */
     public QueryWeatherShorttermrainResponse queryWeatherShorttermrain(QueryWeatherShorttermrainRequest request) throws Exception {
         com.aliyun.teautil.models.RuntimeOptions runtime = new com.aliyun.teautil.models.RuntimeOptions();
@@ -663,8 +663,8 @@ public class Client {
 
     /**
      * <b>description</b> :
-     * <p>Description: 独立查询指定经纬度或省市区代表点的分钟级短临降水预报，返回预报时间、降水量及降水类型；无可用预报时正常返回空列表，不通过普通天气要素查询接口混用。
-     * Summary: 独立查询指定经纬度或省市区代表点的分钟级短临降水预报，返回预报时间、降水量及降水类型；无可用预报时正常返回空列表，不通过普通天气要素查询接口混用。</p>
+     * <p>Description: 独立查询指定经纬度或省市区代表点的分钟级短临降水预报。
+     * Summary: 独立查询指定经纬度或省市区代表点的分钟级短临降水预报。</p>
      */
     public QueryWeatherShorttermrainResponse queryWeatherShorttermrainEx(QueryWeatherShorttermrainRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
         com.aliyun.teautil.Common.validateModel(request);
