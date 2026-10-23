@@ -55,6 +55,10 @@ public class BindDubbridgeCustomerBankcardRequest extends TeaModel {
     @NameInMap("bank_code")
     public String bankCode;
 
+    // 授信申请order_no
+    @NameInMap("credit_order_no")
+    public String creditOrderNo;
+
     public static BindDubbridgeCustomerBankcardRequest build(java.util.Map<String, ?> map) throws Exception {
         BindDubbridgeCustomerBankcardRequest self = new BindDubbridgeCustomerBankcardRequest();
         return TeaModel.build(map, self);
@@ -154,6 +158,14 @@ public class BindDubbridgeCustomerBankcardRequest extends TeaModel {
     }
     public String getBankCode() {
         return this.bankCode;
+    }
+
+    public BindDubbridgeCustomerBankcardRequest setCreditOrderNo(String creditOrderNo) {
+        this.creditOrderNo = creditOrderNo;
+        return this;
+    }
+    public String getCreditOrderNo() {
+        return this.creditOrderNo;
     }
 
 }

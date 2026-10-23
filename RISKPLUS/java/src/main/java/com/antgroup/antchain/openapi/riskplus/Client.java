@@ -126,7 +126,7 @@ public class Client {
                     new TeaPair("req_msg_id", com.antgroup.antchain.openapi.antchain.util.AntchainUtils.getNonce()),
                     new TeaPair("access_key", _accessKeyId),
                     new TeaPair("base_sdk_version", "TeaSDK-2.0"),
-                    new TeaPair("sdk_version", "1.33.10"),
+                    new TeaPair("sdk_version", "1.33.11"),
                     new TeaPair("_prod_code", "RISKPLUS"),
                     new TeaPair("_prod_channel", "undefined")
                 );
@@ -1179,7 +1179,7 @@ public class Client {
     /**
      * <b>description</b> :
      * <p>Description: 代扣签约绑卡接口
-     * Summary: 代扣协议签约申请(银行卡绑卡)</p>
+     * Summary: 代扣签约绑卡接口</p>
      */
     public BindDubbridgeCustomerBankcardResponse bindDubbridgeCustomerBankcard(BindDubbridgeCustomerBankcardRequest request) throws Exception {
         com.aliyun.teautil.models.RuntimeOptions runtime = new com.aliyun.teautil.models.RuntimeOptions();
@@ -1190,7 +1190,7 @@ public class Client {
     /**
      * <b>description</b> :
      * <p>Description: 代扣签约绑卡接口
-     * Summary: 代扣协议签约申请(银行卡绑卡)</p>
+     * Summary: 代扣签约绑卡接口</p>
      */
     public BindDubbridgeCustomerBankcardResponse bindDubbridgeCustomerBankcardEx(BindDubbridgeCustomerBankcardRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
         com.aliyun.teautil.Common.validateModel(request);

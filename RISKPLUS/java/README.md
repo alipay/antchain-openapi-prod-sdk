@@ -8,7 +8,7 @@
 <dependency>
    <groupId>com.antgroup.antchain.openapi</groupId>
    <artifactId>riskplus</artifactId>
-   <version>1.33.10</version>
+   <version>1.33.11</version>
 </dependency>
 ```
 
