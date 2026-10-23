@@ -8,7 +8,7 @@
 <dependency>
    <groupId>com.antgroup.antchain.openapi</groupId>
    <artifactId>antdigital-creativerender</artifactId>
-   <version>2.1.2</version>
+   <version>2.1.3</version>
 </dependency>
 ```
 
