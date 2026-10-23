@@ -787,7 +787,7 @@ class Client {
                     "req_msg_id" => UtilClient::getNonce(),
                     "access_key" => $this->_accessKeyId,
                     "base_sdk_version" => "TeaSDK-2.0",
-                    "sdk_version" => "1.33.10",
+                    "sdk_version" => "1.33.11",
                     "_prod_code" => "RISKPLUS",
                     "_prod_channel" => "undefined"
                 ];
@@ -2004,7 +2004,7 @@ class Client {
 
     /**
      * Description: 代扣签约绑卡接口
-     * Summary: 代扣协议签约申请(银行卡绑卡)
+     * Summary: 代扣签约绑卡接口
      * @param BindDubbridgeCustomerBankcardRequest $request
      * @return BindDubbridgeCustomerBankcardResponse
      */
@@ -2016,7 +2016,7 @@ class Client {
 
     /**
      * Description: 代扣签约绑卡接口
-     * Summary: 代扣协议签约申请(银行卡绑卡)
+     * Summary: 代扣签约绑卡接口
      * @param BindDubbridgeCustomerBankcardRequest $request
      * @param string[] $headers
      * @param RuntimeOptions $runtime

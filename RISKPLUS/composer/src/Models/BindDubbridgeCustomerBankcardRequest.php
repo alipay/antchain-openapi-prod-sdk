@@ -19,6 +19,7 @@ class BindDubbridgeCustomerBankcardRequest extends Model {
         'mobile' => 'mobile',
         'prodType' => 'prod_type',
         'bankCode' => 'bank_code',
+        'creditOrderNo' => 'credit_order_no',
     ];
     public function validate() {
         Model::validateRequired('orderNo', $this->orderNo, true);
@@ -64,6 +65,9 @@ class BindDubbridgeCustomerBankcardRequest extends Model {
         if (null !== $this->bankCode) {
             $res['bank_code'] = $this->bankCode;
         }
+        if (null !== $this->creditOrderNo) {
+            $res['credit_order_no'] = $this->creditOrderNo;
+        }
         return $res;
     }
     /**
@@ -107,6 +111,9 @@ class BindDubbridgeCustomerBankcardRequest extends Model {
         }
         if(isset($map['bank_code'])){
             $model->bankCode = $map['bank_code'];
+        }
+        if(isset($map['credit_order_no'])){
+            $model->creditOrderNo = $map['credit_order_no'];
         }
         return $model;
     }
@@ -180,5 +187,11 @@ class BindDubbridgeCustomerBankcardRequest extends Model {
      * @var string
      */
     public $bankCode;
+
+    // 授信申请order_no
+    /**
+     * @var string
+     */
+    public $creditOrderNo;
 
 }
