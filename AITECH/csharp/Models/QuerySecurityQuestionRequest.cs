@@ -83,6 +83,26 @@ namespace AntChain.SDK.AITECH.Models
         [Validation(Required=false)]
         public string SecurityAnswer { get; set; }
 
+        // 自定义白库检测，默认开启，仅 N 关闭
+        [NameInMap("custom_white_check")]
+        [Validation(Required=false)]
+        public string CustomWhiteCheck { get; set; }
+
+        // 自定义黑词检测，默认开启，仅 N 关闭
+        [NameInMap("custom_black_word_check")]
+        [Validation(Required=false)]
+        public string CustomBlackWordCheck { get; set; }
+
+        // 前置知识库代答，默认开启，仅 N 关闭
+        [NameInMap("pre_security_answer")]
+        [Validation(Required=false)]
+        public string PreSecurityAnswer { get; set; }
+
+        // Universal/金融图谱案例召回，默认开启，仅 N 关闭
+        [NameInMap("graph_case_recall")]
+        [Validation(Required=false)]
+        public string GraphCaseRecall { get; set; }
+
     }
 
 }

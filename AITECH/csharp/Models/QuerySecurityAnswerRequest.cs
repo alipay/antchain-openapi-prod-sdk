@@ -68,6 +68,26 @@ namespace AntChain.SDK.AITECH.Models
         [Validation(Required=false)]
         public string PrivacyDataDetection { get; set; }
 
+        // 用户原提问（输出 max 接口必需，用于医疗合规检测送模型）
+        [NameInMap("question")]
+        [Validation(Required=false)]
+        public string Question { get; set; }
+
+        // 自定义白库检测，默认开启，仅 N 关闭
+        [NameInMap("custom_white_check")]
+        [Validation(Required=false)]
+        public string CustomWhiteCheck { get; set; }
+
+        // 自定义黑词检测，默认开启，仅 N 关闭
+        [NameInMap("custom_black_word_check")]
+        [Validation(Required=false)]
+        public string CustomBlackWordCheck { get; set; }
+
+        // Universal/金融图谱案例召回，默认开启，仅 N 关闭
+        [NameInMap("graph_case_recall")]
+        [Validation(Required=false)]
+        public string GraphCaseRecall { get; set; }
+
     }
 
 }

@@ -29,6 +29,16 @@ namespace AntChain.SDK.AITECH.Models
         [Validation(Required=false)]
         public string ActionCode { get; set; }
 
+        // 排黑排白命中结果（命中时携带详细信息，未命中或未启用为 null）
+        [NameInMap("image_black_white_result")]
+        [Validation(Required=false)]
+        public ImageBlackWhiteResult ImageBlackWhiteResult { get; set; }
+
+        // 本次接口请求内所有大模型调用的 token 汇总。
+        [NameInMap("token_usage")]
+        [Validation(Required=false)]
+        public TokenUsageSummary TokenUsage { get; set; }
+
     }
 
 }

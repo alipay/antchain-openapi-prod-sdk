@@ -61,6 +61,42 @@ namespace AntChain.SDK.AITECH.Models
         [Validation(Required=false)]
         public string SecurityAnswer { get; set; }
 
+        // universal模型请求参数
+        [NameInMap("universal_prompt")]
+        [Validation(Required=false)]
+        public string UniversalPrompt { get; set; }
+
+        // universal模型返回结果
+        [NameInMap("universal_output")]
+        [Validation(Required=false)]
+        public string UniversalOutput { get; set; }
+
+        // 金融V3模型请求参数
+        [NameInMap("finance_prompt")]
+        [Validation(Required=false)]
+        public string FinancePrompt { get; set; }
+
+        // 金融V3模型返回结果
+        [NameInMap("finance_output")]
+        [Validation(Required=false)]
+        public string FinanceOutput { get; set; }
+
+        // 策略版本号
+        [NameInMap("strategy_version")]
+        [Validation(Required=false)]
+        public string StrategyVersion { get; set; }
+
+        // 本次接口请求内所有大模型及 Embedding 调用的 token 汇总。
+        [NameInMap("token_usage")]
+        [Validation(Required=false)]
+        public TokenUsageSummary TokenUsage { get; set; }
+
+        // 调试信息（X-Debug-Mode: true 时返回；语音检测内含 audioAsrInfo 子结构） 
+        // 对应的结果为Map转化的JSON字符串
+        [NameInMap("debug_info")]
+        [Validation(Required=false)]
+        public string DebugInfo { get; set; }
+
     }
 
 }
