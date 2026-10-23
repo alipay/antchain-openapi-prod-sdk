@@ -19531,6 +19531,7 @@ class BindDubbridgeCustomerBankcardRequest(TeaModel):
         mobile: str = None,
         prod_type: str = None,
         bank_code: str = None,
+        credit_order_no: str = None,
     ):
         # OAuth模式下的授权token
         self.auth_token = auth_token
@@ -19555,6 +19556,8 @@ class BindDubbridgeCustomerBankcardRequest(TeaModel):
         self.prod_type = prod_type
         # 银行编码
         self.bank_code = bank_code
+        # 授信申请order_no
+        self.credit_order_no = credit_order_no
 
     def validate(self):
         self.validate_required(self.order_no, 'order_no')
@@ -19592,6 +19595,8 @@ class BindDubbridgeCustomerBankcardRequest(TeaModel):
             result['prod_type'] = self.prod_type
         if self.bank_code is not None:
             result['bank_code'] = self.bank_code
+        if self.credit_order_no is not None:
+            result['credit_order_no'] = self.credit_order_no
         return result
 
     def from_map(self, m: dict = None):
@@ -19620,6 +19625,8 @@ class BindDubbridgeCustomerBankcardRequest(TeaModel):
             self.prod_type = m.get('prod_type')
         if m.get('bank_code') is not None:
             self.bank_code = m.get('bank_code')
+        if m.get('credit_order_no') is not None:
+            self.credit_order_no = m.get('credit_order_no')
         return self
 
 
