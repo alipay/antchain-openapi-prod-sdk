@@ -323,6 +323,95 @@ export class TaskStatus extends $tea.Model {
   }
 }
 
+// 基金长图分段当前快照，包含头图和正文段图及其版本信息。
+export class LongImageSegment extends $tea.Model {
+  // 全局唯一的分段业务 ID。
+  /**
+   * @example
+   * LS_xxx
+   */
+  segmentId?: string;
+  // 分段类型：BANNER 为长图头图；CONTENT 为正文段图。
+  /**
+   * @example
+   * BANNER
+   */
+  segmentType?: string;
+  // 展示顺序，从 0 开始；头图固定为 0，正文从 1 开始，值越小越靠前。
+  /**
+   * @example
+   * 0
+   */
+  sortNo?: number;
+  // 首次生成该分段使用的原文，后续编辑或回滚不会修改。
+  /**
+   * @example
+   * 基金投资亮点
+   */
+  sourceText?: string;
+  // 当前分段版本 ID；仅在 current_status 为 SUCCESS 时可作为子图编辑来源。
+  /**
+   * @example
+   * LV_xxx
+   */
+  currentVersionId?: string;
+  // 当前版本状态：PROCESSING、SUCCESS、FAILED、CONFLICT。
+  /**
+   * @example
+   * SUCCESS
+   */
+  currentStatus?: string;
+  // 当前版本的图片地址。
+  /**
+   * @example
+   * https://example.com/segment.png
+   */
+  currentImageUrl?: string;
+  // 最近可用的成功版本 ID，可作为子图编辑来源；没有成功版本时为空。
+  /**
+   * @example
+   * LV_xxx
+   */
+  lastSuccessVersionId?: string;
+  // last_success_version_id 对应的图片地址；没有成功成果时为空。
+  /**
+   * @example
+   * https://example.com/segment.png
+   */
+  lastSuccessImageUrl?: string;
+  static names(): { [key: string]: string } {
+    return {
+      segmentId: 'segment_id',
+      segmentType: 'segment_type',
+      sortNo: 'sort_no',
+      sourceText: 'source_text',
+      currentVersionId: 'current_version_id',
+      currentStatus: 'current_status',
+      currentImageUrl: 'current_image_url',
+      lastSuccessVersionId: 'last_success_version_id',
+      lastSuccessImageUrl: 'last_success_image_url',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      segmentId: 'string',
+      segmentType: 'string',
+      sortNo: 'number',
+      sourceText: 'string',
+      currentVersionId: 'string',
+      currentStatus: 'string',
+      currentImageUrl: 'string',
+      lastSuccessVersionId: 'string',
+      lastSuccessImageUrl: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
 // ASSISTANT 消息特有信息
 export class AssistantExtra extends $tea.Model {
   // 任务id
@@ -343,11 +432,18 @@ export class AssistantExtra extends $tea.Model {
    * undefined
    */
   resultUrl?: string[];
+  // 基金长图子图列表，仅在 return_sub_images 为 true 且长图生成完成时返回。
+  /**
+   * @example
+   * undefined
+   */
+  subImages?: LongImageSegment[];
   static names(): { [key: string]: string } {
     return {
       taskId: 'task_id',
       renderStatus: 'render_status',
       resultUrl: 'result_url',
+      subImages: 'sub_images',
     };
   }
 
@@ -356,6 +452,7 @@ export class AssistantExtra extends $tea.Model {
       taskId: 'string',
       renderStatus: 'string',
       resultUrl: { 'type': 'array', 'itemType': 'string' },
+      subImages: { 'type': 'array', 'itemType': LongImageSegment },
     };
   }
 
@@ -938,10 +1035,13 @@ export class QueryAntcloudMarketingagentCreativeResultRequest extends $tea.Model
   authToken?: string;
   // 消息ID
   messageId: string;
+  // 是否返回基金长图的子图列表，默认 false。为 true 时，在长图生成完成后返回 assistant_extra.sub_images；不影响长图生成流程。
+  returnSubImages?: boolean;
   static names(): { [key: string]: string } {
     return {
       authToken: 'auth_token',
       messageId: 'message_id',
+      returnSubImages: 'return_sub_images',
     };
   }
 
@@ -949,6 +1049,7 @@ export class QueryAntcloudMarketingagentCreativeResultRequest extends $tea.Model
     return {
       authToken: 'string',
       messageId: 'string',
+      returnSubImages: 'boolean',
     };
   }
 
@@ -1353,6 +1454,146 @@ export class QueryAntcloudMarketingagentCreativeVideoResponse extends $tea.Model
   }
 }
 
+export class ExecAntcloudMarketingagentCreativeImageeditRequest extends $tea.Model {
+  // OAuth模式下的授权token
+  authToken?: string;
+  // 产品代码，当前仅支持 FUND（基金）。
+  productCode: string;
+  // 来源子图成功版本 ID，必须属于当前调用用户及租户；可使用子图列表中的成功版本或上一轮编辑成功返回的新版本。
+  segmentVersionId: string;
+  // 本轮图片修改要求，不能为空。源图和输出宽高由服务端根据来源版本解析。
+  prompt: string;
+  static names(): { [key: string]: string } {
+    return {
+      authToken: 'auth_token',
+      productCode: 'product_code',
+      segmentVersionId: 'segment_version_id',
+      prompt: 'prompt',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      authToken: 'string',
+      productCode: 'string',
+      segmentVersionId: 'string',
+      prompt: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class ExecAntcloudMarketingagentCreativeImageeditResponse extends $tea.Model {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string;
+  // 结果码，一般OK表示调用成功
+  resultCode?: string;
+  // 异常信息的文本描述
+  resultMsg?: string;
+  // 本次子图编辑任务的独立消息 ID，用于调用子图编辑查询接口获取进度和结果。
+  messageId?: string;
+  // 本次编辑新建的版本 ID。任务提交成功不代表图片生成成功；查询确认成功后可作为下一轮修改来源。
+  segmentVersionId?: string;
+  static names(): { [key: string]: string } {
+    return {
+      reqMsgId: 'req_msg_id',
+      resultCode: 'result_code',
+      resultMsg: 'result_msg',
+      messageId: 'message_id',
+      segmentVersionId: 'segment_version_id',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      reqMsgId: 'string',
+      resultCode: 'string',
+      resultMsg: 'string',
+      messageId: 'string',
+      segmentVersionId: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class QueryAntcloudMarketingagentCreativeImageeditRequest extends $tea.Model {
+  // OAuth模式下的授权token
+  authToken?: string;
+  // 子图编辑接口返回的独立消息 ID，必须属于当前调用用户及租户。
+  messageId: string;
+  static names(): { [key: string]: string } {
+    return {
+      authToken: 'auth_token',
+      messageId: 'message_id',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      authToken: 'string',
+      messageId: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class QueryAntcloudMarketingagentCreativeImageeditResponse extends $tea.Model {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string;
+  // 结果码，一般OK表示调用成功
+  resultCode?: string;
+  // 异常信息的文本描述
+  resultMsg?: string;
+  // 本次子图编辑任务的独立消息 ID。
+  messageId?: string;
+  // 本次编辑生成的新版本 ID，任务成功后可作为下一轮编辑的来源版本。
+  segmentVersionId?: string;
+  // 任务状态：PROCESSING（处理中）、COMPLETED（成功）、FAILED（失败）。查询接口调用成功不代表任务生成成功。
+  status?: string;
+  // 编辑成功后的图片地址，仅在 status 为 COMPLETED 时返回。
+  resultUrl?: string;
+  // 编辑失败原因，在 status 为 FAILED 时返回。
+  failReason?: string;
+  static names(): { [key: string]: string } {
+    return {
+      reqMsgId: 'req_msg_id',
+      resultCode: 'result_code',
+      resultMsg: 'result_msg',
+      messageId: 'message_id',
+      segmentVersionId: 'segment_version_id',
+      status: 'status',
+      resultUrl: 'result_url',
+      failReason: 'fail_reason',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      reqMsgId: 'string',
+      resultCode: 'string',
+      resultMsg: 'string',
+      messageId: 'string',
+      segmentVersionId: 'string',
+      status: 'string',
+      resultUrl: 'string',
+      failReason: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
 
 export default class Client {
   _endpoint: string;
@@ -1470,7 +1711,7 @@ export default class Client {
           req_msg_id: AntchainUtil.getNonce(),
           access_key: this._accessKeyId,
           base_sdk_version: "TeaSDK-2.0",
-          sdk_version: "2.1.1",
+          sdk_version: "2.1.2",
           _prod_code: "CREATIVERENDER",
           _prod_channel: "default",
         };
@@ -1663,6 +1904,48 @@ export default class Client {
   async queryAntcloudMarketingagentCreativeVideoEx(request: QueryAntcloudMarketingagentCreativeVideoRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<QueryAntcloudMarketingagentCreativeVideoResponse> {
     Util.validateModel(request);
     return $tea.cast<QueryAntcloudMarketingagentCreativeVideoResponse>(await this.doRequest("1.0", "antcloud.marketingagent.creative.video.query", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new QueryAntcloudMarketingagentCreativeVideoResponse({}));
+  }
+
+  /**
+   * @remarks
+   * Description: 基于已有成功子图版本提交提示词编辑，异步生成修改后的图片。返回独立 messageId 和新 segmentVersionId，通过子图编辑查询接口获取任务进度及结果；成功版本可用于下一轮修改。
+   * Summary: 基于已有成功子图版本提交提示词编辑，异步生成修改后的图片。返回独立 messageId 和新 segmentVersionId，通过子图编辑查询接口获取任务进度及结果；成功版本可用于下一轮修改。
+   */
+  async execAntcloudMarketingagentCreativeImageedit(request: ExecAntcloudMarketingagentCreativeImageeditRequest): Promise<ExecAntcloudMarketingagentCreativeImageeditResponse> {
+    let runtime = new $Util.RuntimeOptions({ });
+    let headers : {[key: string ]: string} = { };
+    return await this.execAntcloudMarketingagentCreativeImageeditEx(request, headers, runtime);
+  }
+
+  /**
+   * @remarks
+   * Description: 基于已有成功子图版本提交提示词编辑，异步生成修改后的图片。返回独立 messageId 和新 segmentVersionId，通过子图编辑查询接口获取任务进度及结果；成功版本可用于下一轮修改。
+   * Summary: 基于已有成功子图版本提交提示词编辑，异步生成修改后的图片。返回独立 messageId 和新 segmentVersionId，通过子图编辑查询接口获取任务进度及结果；成功版本可用于下一轮修改。
+   */
+  async execAntcloudMarketingagentCreativeImageeditEx(request: ExecAntcloudMarketingagentCreativeImageeditRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<ExecAntcloudMarketingagentCreativeImageeditResponse> {
+    Util.validateModel(request);
+    return $tea.cast<ExecAntcloudMarketingagentCreativeImageeditResponse>(await this.doRequest("1.0", "antcloud.marketingagent.creative.imageedit.exec", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new ExecAntcloudMarketingagentCreativeImageeditResponse({}));
+  }
+
+  /**
+   * @remarks
+   * Description: 根据子图编辑接口返回的 message_id，查询当前调用用户及租户下的子图编辑任务进度和结果。返回新版本 ID、任务状态、成功图片地址或失败原因；查询成功不代表图片生成成功。
+   * Summary: 根据子图编辑接口返回的 message_id，查询当前调用用户及租户下的子图编辑任务进度和结果。返回新版本 ID、任务状态、成功图片地址或失败原因；查询成功不代表图片生成成功。
+   */
+  async queryAntcloudMarketingagentCreativeImageedit(request: QueryAntcloudMarketingagentCreativeImageeditRequest): Promise<QueryAntcloudMarketingagentCreativeImageeditResponse> {
+    let runtime = new $Util.RuntimeOptions({ });
+    let headers : {[key: string ]: string} = { };
+    return await this.queryAntcloudMarketingagentCreativeImageeditEx(request, headers, runtime);
+  }
+
+  /**
+   * @remarks
+   * Description: 根据子图编辑接口返回的 message_id，查询当前调用用户及租户下的子图编辑任务进度和结果。返回新版本 ID、任务状态、成功图片地址或失败原因；查询成功不代表图片生成成功。
+   * Summary: 根据子图编辑接口返回的 message_id，查询当前调用用户及租户下的子图编辑任务进度和结果。返回新版本 ID、任务状态、成功图片地址或失败原因；查询成功不代表图片生成成功。
+   */
+  async queryAntcloudMarketingagentCreativeImageeditEx(request: QueryAntcloudMarketingagentCreativeImageeditRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<QueryAntcloudMarketingagentCreativeImageeditResponse> {
+    Util.validateModel(request);
+    return $tea.cast<QueryAntcloudMarketingagentCreativeImageeditResponse>(await this.doRequest("1.0", "antcloud.marketingagent.creative.imageedit.query", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new QueryAntcloudMarketingagentCreativeImageeditResponse({}));
   }
 
 }
