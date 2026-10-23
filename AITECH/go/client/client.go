@@ -681,6 +681,28 @@ func (s *SubLabelModel) SetThirdLabels(v []*string) *SubLabelModel {
 	return s
 }
 
+// 提示词攻击手法二级标签
+type AttackSubLabelModel struct {
+	// 提示词攻击手法二级标签
+	// example:
+	//
+	// jailbreak_attack
+	AttackSubLabel *string `json:"attack_sub_label,omitempty" xml:"attack_sub_label,omitempty"`
+}
+
+func (s AttackSubLabelModel) String() string {
+	return tea.Prettify(s)
+}
+
+func (s AttackSubLabelModel) GoString() string {
+	return s.String()
+}
+
+func (s *AttackSubLabelModel) SetAttackSubLabel(v string) *AttackSubLabelModel {
+	s.AttackSubLabel = &v
+	return s
+}
+
 // logo审核结果
 type LogoAuditResult struct {
 	// 检测到LOGO个数
@@ -704,6 +726,198 @@ func (s *LogoAuditResult) SetDetectNum(v int64) *LogoAuditResult {
 
 func (s *LogoAuditResult) SetDetails(v []*LogoDetail) *LogoAuditResult {
 	s.Details = v
+	return s
+}
+
+// 图像排黑排白检测结果
+type ImageBlackWhiteResult struct {
+	// 是否命中（任一维度命中即 true）
+	// example:
+	//
+	// true
+	Matched *bool `json:"matched,omitempty" xml:"matched,omitempty"`
+	// 命中名单类型：BLACK / WHITE
+	// example:
+	//
+	// WHITE
+	MatchType *string `json:"match_type,omitempty" xml:"match_type,omitempty"`
+	// 命中向量来源：FULL_IMAGE / FACE
+	// example:
+	//
+	// FULL_IMAGE
+	MatchSource *string `json:"match_source,omitempty" xml:"match_source,omitempty"`
+	// 命中得分（ES 返回 score 经归一化后值）
+	// example:
+	//
+	// 1.1
+	MatchScore *int64 `json:"match_score,omitempty" xml:"match_score,omitempty"`
+	// 命中所用阈值
+	// example:
+	//
+	// 1.1
+	MatchThreshold *int64 `json:"match_threshold,omitempty" xml:"match_threshold,omitempty"`
+	// 命中图片 id
+	// example:
+	//
+	// 1
+	MatchedImageId *string `json:"matched_image_id,omitempty" xml:"matched_image_id,omitempty"`
+	// 命中图库名称
+	// example:
+	//
+	// test
+	MatchedLibraryName *string `json:"matched_library_name,omitempty" xml:"matched_library_name,omitempty"`
+	// 是否执行了全图维度（存在启用的全图库）
+	// example:
+	//
+	// true
+	ExecutedFullImage *bool `json:"executed_full_image,omitempty" xml:"executed_full_image,omitempty"`
+	// 是否执行了人脸维度（存在启用的人脸库）
+	// example:
+	//
+	// true
+	ExecutedFace *bool `json:"executed_face,omitempty" xml:"executed_face,omitempty"`
+	// 人脸检测结果（YuNet）：null 表示未执行人脸维度
+	// example:
+	//
+	// true
+	FaceDetected *bool `json:"face_detected,omitempty" xml:"face_detected,omitempty"`
+	// 全图向量化状态：SUCCESS / SKIP / DEGRADE
+	// example:
+	//
+	// SUCCESS
+	FullImageEmbedStatus *string `json:"full_image_embed_status,omitempty" xml:"full_image_embed_status,omitempty"`
+	// 人脸向量化状态：SUCCESS / SKIP（无人脸或未执行）/ DEGRADE
+	// example:
+	//
+	// SUCCESS
+	FaceEmbedStatus *string `json:"face_embed_status,omitempty" xml:"face_embed_status,omitempty"`
+	// 全图维度 ES 最高分（未命中也记录，便于阈值对比；无检索为 null）
+	// example:
+	//
+	// 1.2
+	FullImageTopScore *int64 `json:"full_image_top_score,omitempty" xml:"full_image_top_score,omitempty"`
+	// 全图维度阈值
+	// example:
+	//
+	// 1.2
+	FullImageThreshold *int64 `json:"full_image_threshold,omitempty" xml:"full_image_threshold,omitempty"`
+	// 人脸维度 ES 最高分（未命中也记录；无检索为 null）
+	// example:
+	//
+	// 1.2
+	FaceTopScore *int64 `json:"face_top_score,omitempty" xml:"face_top_score,omitempty"`
+	// 人脸维度阈值
+	// example:
+	//
+	// 1
+	FaceThreshold *int64 `json:"face_threshold,omitempty" xml:"face_threshold,omitempty"`
+	// 是否降级（异常/服务不可用导致跳过排黑排白）
+	// example:
+	//
+	// true
+	Degraded *bool `json:"degraded,omitempty" xml:"degraded,omitempty"`
+	// 降级或短路原因（参数缺失/无启用库/下载失败/向量化异常等）
+	// example:
+	//
+	// 参数缺失
+	DegradeReason *string `json:"degrade_reason,omitempty" xml:"degrade_reason,omitempty"`
+}
+
+func (s ImageBlackWhiteResult) String() string {
+	return tea.Prettify(s)
+}
+
+func (s ImageBlackWhiteResult) GoString() string {
+	return s.String()
+}
+
+func (s *ImageBlackWhiteResult) SetMatched(v bool) *ImageBlackWhiteResult {
+	s.Matched = &v
+	return s
+}
+
+func (s *ImageBlackWhiteResult) SetMatchType(v string) *ImageBlackWhiteResult {
+	s.MatchType = &v
+	return s
+}
+
+func (s *ImageBlackWhiteResult) SetMatchSource(v string) *ImageBlackWhiteResult {
+	s.MatchSource = &v
+	return s
+}
+
+func (s *ImageBlackWhiteResult) SetMatchScore(v int64) *ImageBlackWhiteResult {
+	s.MatchScore = &v
+	return s
+}
+
+func (s *ImageBlackWhiteResult) SetMatchThreshold(v int64) *ImageBlackWhiteResult {
+	s.MatchThreshold = &v
+	return s
+}
+
+func (s *ImageBlackWhiteResult) SetMatchedImageId(v string) *ImageBlackWhiteResult {
+	s.MatchedImageId = &v
+	return s
+}
+
+func (s *ImageBlackWhiteResult) SetMatchedLibraryName(v string) *ImageBlackWhiteResult {
+	s.MatchedLibraryName = &v
+	return s
+}
+
+func (s *ImageBlackWhiteResult) SetExecutedFullImage(v bool) *ImageBlackWhiteResult {
+	s.ExecutedFullImage = &v
+	return s
+}
+
+func (s *ImageBlackWhiteResult) SetExecutedFace(v bool) *ImageBlackWhiteResult {
+	s.ExecutedFace = &v
+	return s
+}
+
+func (s *ImageBlackWhiteResult) SetFaceDetected(v bool) *ImageBlackWhiteResult {
+	s.FaceDetected = &v
+	return s
+}
+
+func (s *ImageBlackWhiteResult) SetFullImageEmbedStatus(v string) *ImageBlackWhiteResult {
+	s.FullImageEmbedStatus = &v
+	return s
+}
+
+func (s *ImageBlackWhiteResult) SetFaceEmbedStatus(v string) *ImageBlackWhiteResult {
+	s.FaceEmbedStatus = &v
+	return s
+}
+
+func (s *ImageBlackWhiteResult) SetFullImageTopScore(v int64) *ImageBlackWhiteResult {
+	s.FullImageTopScore = &v
+	return s
+}
+
+func (s *ImageBlackWhiteResult) SetFullImageThreshold(v int64) *ImageBlackWhiteResult {
+	s.FullImageThreshold = &v
+	return s
+}
+
+func (s *ImageBlackWhiteResult) SetFaceTopScore(v int64) *ImageBlackWhiteResult {
+	s.FaceTopScore = &v
+	return s
+}
+
+func (s *ImageBlackWhiteResult) SetFaceThreshold(v int64) *ImageBlackWhiteResult {
+	s.FaceThreshold = &v
+	return s
+}
+
+func (s *ImageBlackWhiteResult) SetDegraded(v bool) *ImageBlackWhiteResult {
+	s.Degraded = &v
+	return s
+}
+
+func (s *ImageBlackWhiteResult) SetDegradeReason(v string) *ImageBlackWhiteResult {
+	s.DegradeReason = &v
 	return s
 }
 
@@ -934,6 +1148,160 @@ func (s *AntCloudProdProviderHttpResponse) SetResponse(v *MayaStreamResult) *Ant
 
 func (s *AntCloudProdProviderHttpResponse) SetSign(v string) *AntCloudProdProviderHttpResponse {
 	s.Sign = &v
+	return s
+}
+
+// 提示词攻击手法
+type AttackLabelModel struct {
+	// 提示词攻击手法一级标签
+	// example:
+	//
+	// jailbreak_attack
+	AttackLabel *string `json:"attack_label,omitempty" xml:"attack_label,omitempty"`
+	// 提示词攻击手法二级标签
+	// example:
+	//
+	// {}
+	AttackSubLabels []*AttackSubLabelModel `json:"attack_sub_labels,omitempty" xml:"attack_sub_labels,omitempty" type:"Repeated"`
+}
+
+func (s AttackLabelModel) String() string {
+	return tea.Prettify(s)
+}
+
+func (s AttackLabelModel) GoString() string {
+	return s.String()
+}
+
+func (s *AttackLabelModel) SetAttackLabel(v string) *AttackLabelModel {
+	s.AttackLabel = &v
+	return s
+}
+
+func (s *AttackLabelModel) SetAttackSubLabels(v []*AttackSubLabelModel) *AttackLabelModel {
+	s.AttackSubLabels = v
+	return s
+}
+
+// 单次接口请求内的模型 token 汇总。
+type TokenUsageSummary struct {
+	// 标识该对象是请求级汇总，便于 BI 侧过滤代理阶段日志。
+	// example:
+	//
+	// REQUEST
+	Scope *string `json:"scope,omitempty" xml:"scope,omitempty"`
+	// 提示词token
+	// example:
+	//
+	// 1
+	PromptTokens *int64 `json:"prompt_tokens,omitempty" xml:"prompt_tokens,omitempty"`
+	// 模型生成回答时输出的 token 数量
+	// example:
+	//
+	// 1
+	CompletionTokens *int64 `json:"completion_tokens,omitempty" xml:"completion_tokens,omitempty"`
+	// 总tokens
+	// example:
+	//
+	// 1
+	TotalTokens *int64 `json:"total_tokens,omitempty" xml:"total_tokens,omitempty"`
+	// 护栏内部模型（含 Embedding）总 token。
+	// example:
+	//
+	// 1
+	GuardTotalTokens *int64 `json:"guard_total_tokens,omitempty" xml:"guard_total_tokens,omitempty"`
+	// 代理转发的上游大模型总 token。
+	// example:
+	//
+	// 1
+	UpstreamTotalTokens *int64 `json:"upstream_total_tokens,omitempty" xml:"upstream_total_tokens,omitempty"`
+	// 已实际发起的模型调用数，包括尚未返回的调用
+	// example:
+	//
+	// 1
+	ModelCallCount *int64 `json:"model_call_count,omitempty" xml:"model_call_count,omitempty"`
+	// 能够确定 total_tokens 的模型调用数。
+	// example:
+	//
+	// 1
+	ReportedCallCount *int64 `json:"reported_call_count,omitempty" xml:"reported_call_count,omitempty"`
+	// 已结束但无法确定 total_tokens 的模型调用数
+	// example:
+	//
+	// 1
+	UnreportedCallCount *int64 `json:"unreported_call_count,omitempty" xml:"unreported_call_count,omitempty"`
+	// 当前快照时仍在执行的模型调用数。
+	// example:
+	//
+	// 1
+	InFlightCallCount *int64 `json:"in_flight_call_count,omitempty" xml:"in_flight_call_count,omitempty"`
+	// 仅当所有已发起调用都结束且均能确定 total_tokens，并且业务未发生提前返回时为 true。
+	// example:
+	//
+	// true
+	Complete *bool `json:"complete,omitempty" xml:"complete,omitempty"`
+}
+
+func (s TokenUsageSummary) String() string {
+	return tea.Prettify(s)
+}
+
+func (s TokenUsageSummary) GoString() string {
+	return s.String()
+}
+
+func (s *TokenUsageSummary) SetScope(v string) *TokenUsageSummary {
+	s.Scope = &v
+	return s
+}
+
+func (s *TokenUsageSummary) SetPromptTokens(v int64) *TokenUsageSummary {
+	s.PromptTokens = &v
+	return s
+}
+
+func (s *TokenUsageSummary) SetCompletionTokens(v int64) *TokenUsageSummary {
+	s.CompletionTokens = &v
+	return s
+}
+
+func (s *TokenUsageSummary) SetTotalTokens(v int64) *TokenUsageSummary {
+	s.TotalTokens = &v
+	return s
+}
+
+func (s *TokenUsageSummary) SetGuardTotalTokens(v int64) *TokenUsageSummary {
+	s.GuardTotalTokens = &v
+	return s
+}
+
+func (s *TokenUsageSummary) SetUpstreamTotalTokens(v int64) *TokenUsageSummary {
+	s.UpstreamTotalTokens = &v
+	return s
+}
+
+func (s *TokenUsageSummary) SetModelCallCount(v int64) *TokenUsageSummary {
+	s.ModelCallCount = &v
+	return s
+}
+
+func (s *TokenUsageSummary) SetReportedCallCount(v int64) *TokenUsageSummary {
+	s.ReportedCallCount = &v
+	return s
+}
+
+func (s *TokenUsageSummary) SetUnreportedCallCount(v int64) *TokenUsageSummary {
+	s.UnreportedCallCount = &v
+	return s
+}
+
+func (s *TokenUsageSummary) SetInFlightCallCount(v int64) *TokenUsageSummary {
+	s.InFlightCallCount = &v
+	return s
+}
+
+func (s *TokenUsageSummary) SetComplete(v bool) *TokenUsageSummary {
+	s.Complete = &v
 	return s
 }
 
@@ -1564,6 +1932,321 @@ func (s *UpdateMeiyouItagRelationWebInfo) SetAuditUser(v string) *UpdateMeiyouIt
 
 func (s *UpdateMeiyouItagRelationWebInfo) SetAuditTime(v int64) *UpdateMeiyouItagRelationWebInfo {
 	s.AuditTime = &v
+	return s
+}
+
+type QueryAdvisormarketDataRequest struct {
+	// OAuth模式下的授权token
+	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
+	// 查询类型STATION_LIST、STATION_DETAIL、REACHABLE_ROADS、VEHICLE_TYPE_DISTRIBUTION、ENTRY_FLOW、FRONT_FLOW、SURROUNDING_FLOW、NEW_ENTRY_VEHICLES、FREQUENT_ENTRY、INFREQUENT_ENTRY
+	Type *string `json:"type,omitempty" xml:"type,omitempty" require:"true"`
+	// 行政区名称，如“浙江省”、“杭州市”；type=STATION_LIST时必填
+	Region *string `json:"region,omitempty" xml:"region,omitempty"`
+	// 品牌清单筛选，如 ["中石油", "中石化"]；不传则返回所有品牌；仅 type=STATION_LIST 时生效
+	Brands []*string `json:"brands,omitempty" xml:"brands,omitempty" type:"Repeated"`
+	// 站点名称列表，支持批量查询；type 非 STATION_LIST 时必填
+	Names []*string `json:"names,omitempty" xml:"names,omitempty" type:"Repeated"`
+	// 起始日期，yyyy-MM-dd；时间类查询时必填
+	Startdate *string `json:"startdate,omitempty" xml:"startdate,omitempty"`
+	// 结束日期，yyyy-MM-dd；时间类查询时必填
+	Enddate *string `json:"enddate,omitempty" xml:"enddate,omitempty"`
+	// 最低进站次数阈值，默认 3；仅 type=FREQUENT_ENTRY 时生效
+	Mintimes *string `json:"mintimes,omitempty" xml:"mintimes,omitempty"`
+	// 最高进站次数阈值（不含），默认 3；仅 type=INFREQUENT_ENTRY 时生效
+	Maxtimes *string `json:"maxtimes,omitempty" xml:"maxtimes,omitempty"`
+}
+
+func (s QueryAdvisormarketDataRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s QueryAdvisormarketDataRequest) GoString() string {
+	return s.String()
+}
+
+func (s *QueryAdvisormarketDataRequest) SetAuthToken(v string) *QueryAdvisormarketDataRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *QueryAdvisormarketDataRequest) SetProductInstanceId(v string) *QueryAdvisormarketDataRequest {
+	s.ProductInstanceId = &v
+	return s
+}
+
+func (s *QueryAdvisormarketDataRequest) SetType(v string) *QueryAdvisormarketDataRequest {
+	s.Type = &v
+	return s
+}
+
+func (s *QueryAdvisormarketDataRequest) SetRegion(v string) *QueryAdvisormarketDataRequest {
+	s.Region = &v
+	return s
+}
+
+func (s *QueryAdvisormarketDataRequest) SetBrands(v []*string) *QueryAdvisormarketDataRequest {
+	s.Brands = v
+	return s
+}
+
+func (s *QueryAdvisormarketDataRequest) SetNames(v []*string) *QueryAdvisormarketDataRequest {
+	s.Names = v
+	return s
+}
+
+func (s *QueryAdvisormarketDataRequest) SetStartdate(v string) *QueryAdvisormarketDataRequest {
+	s.Startdate = &v
+	return s
+}
+
+func (s *QueryAdvisormarketDataRequest) SetEnddate(v string) *QueryAdvisormarketDataRequest {
+	s.Enddate = &v
+	return s
+}
+
+func (s *QueryAdvisormarketDataRequest) SetMintimes(v string) *QueryAdvisormarketDataRequest {
+	s.Mintimes = &v
+	return s
+}
+
+func (s *QueryAdvisormarketDataRequest) SetMaxtimes(v string) *QueryAdvisormarketDataRequest {
+	s.Maxtimes = &v
+	return s
+}
+
+type QueryAdvisormarketDataResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// 状态码，"0" 表示成功，非 "0" 为失败
+	Code *string `json:"code,omitempty" xml:"code,omitempty"`
+	// 状态描述
+	Message *string `json:"message,omitempty" xml:"message,omitempty"`
+	// 请求追踪ID，用于问题排查
+	Requestid *string `json:"requestid,omitempty" xml:"requestid,omitempty"`
+	// 服务端响应时间戳（毫秒）
+	Timestamp *string `json:"timestamp,omitempty" xml:"timestamp,omitempty"`
+	// 业务数据 JSON 字符串，调用方需反序列化后使用，具体结构见各 type 定义
+	Data *string `json:"data,omitempty" xml:"data,omitempty"`
+}
+
+func (s QueryAdvisormarketDataResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s QueryAdvisormarketDataResponse) GoString() string {
+	return s.String()
+}
+
+func (s *QueryAdvisormarketDataResponse) SetReqMsgId(v string) *QueryAdvisormarketDataResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *QueryAdvisormarketDataResponse) SetResultCode(v string) *QueryAdvisormarketDataResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *QueryAdvisormarketDataResponse) SetResultMsg(v string) *QueryAdvisormarketDataResponse {
+	s.ResultMsg = &v
+	return s
+}
+
+func (s *QueryAdvisormarketDataResponse) SetCode(v string) *QueryAdvisormarketDataResponse {
+	s.Code = &v
+	return s
+}
+
+func (s *QueryAdvisormarketDataResponse) SetMessage(v string) *QueryAdvisormarketDataResponse {
+	s.Message = &v
+	return s
+}
+
+func (s *QueryAdvisormarketDataResponse) SetRequestid(v string) *QueryAdvisormarketDataResponse {
+	s.Requestid = &v
+	return s
+}
+
+func (s *QueryAdvisormarketDataResponse) SetTimestamp(v string) *QueryAdvisormarketDataResponse {
+	s.Timestamp = &v
+	return s
+}
+
+func (s *QueryAdvisormarketDataResponse) SetData(v string) *QueryAdvisormarketDataResponse {
+	s.Data = &v
+	return s
+}
+
+type PushAdvisormarketAnalysisRequest struct {
+	// OAuth模式下的授权token
+	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
+	// 分析能力标识。当前仅支持 YINLI_CROWD_ANALYSIS。
+	AnalysisType *string `json:"analysis_type,omitempty" xml:"analysis_type,omitempty" require:"true"`
+	// UTF-8 JSON 对象字符串，禁止二次编码。示例：{"city":"深圳","time_range":{"start_date":"2026-09-01","end_date":"2026-09-30"},"business_area":{"name":"中心商圈","aoi":{"geometry":{"type":"Polygon","coordinates":[[[114,22],[115,22],[114,23],[114,22]]]}},"reachable_aoi":{"geometry":{"type":"Polygon","coordinates":[[[113,21],[116,21],[113,24],[113,21]]]}}},"audience_path":"/a.txt.pgp"}。日期格式为 YYYY-MM-DD；两个 coordinates 均为闭合的 GeoJSON Polygon；audience_path 必须以 .txt.pgp 结尾。
+	Input *string `json:"input,omitempty" xml:"input,omitempty" require:"true"`
+}
+
+func (s PushAdvisormarketAnalysisRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s PushAdvisormarketAnalysisRequest) GoString() string {
+	return s.String()
+}
+
+func (s *PushAdvisormarketAnalysisRequest) SetAuthToken(v string) *PushAdvisormarketAnalysisRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *PushAdvisormarketAnalysisRequest) SetProductInstanceId(v string) *PushAdvisormarketAnalysisRequest {
+	s.ProductInstanceId = &v
+	return s
+}
+
+func (s *PushAdvisormarketAnalysisRequest) SetAnalysisType(v string) *PushAdvisormarketAnalysisRequest {
+	s.AnalysisType = &v
+	return s
+}
+
+func (s *PushAdvisormarketAnalysisRequest) SetInput(v string) *PushAdvisormarketAnalysisRequest {
+	s.Input = &v
+	return s
+}
+
+type PushAdvisormarketAnalysisResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// 创建成功后生成的任务唯一 ID。请保存该值，并在查询接口中作为 task_id 使用。
+	TaskId *string `json:"task_id,omitempty" xml:"task_id,omitempty"`
+	// 创建成功固定返回 QUEUED，表示任务已进入待人工处理队列，尚未产出分析结果。
+	Status *string `json:"status,omitempty" xml:"status,omitempty"`
+}
+
+func (s PushAdvisormarketAnalysisResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s PushAdvisormarketAnalysisResponse) GoString() string {
+	return s.String()
+}
+
+func (s *PushAdvisormarketAnalysisResponse) SetReqMsgId(v string) *PushAdvisormarketAnalysisResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *PushAdvisormarketAnalysisResponse) SetResultCode(v string) *PushAdvisormarketAnalysisResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *PushAdvisormarketAnalysisResponse) SetResultMsg(v string) *PushAdvisormarketAnalysisResponse {
+	s.ResultMsg = &v
+	return s
+}
+
+func (s *PushAdvisormarketAnalysisResponse) SetTaskId(v string) *PushAdvisormarketAnalysisResponse {
+	s.TaskId = &v
+	return s
+}
+
+func (s *PushAdvisormarketAnalysisResponse) SetStatus(v string) *PushAdvisormarketAnalysisResponse {
+	s.Status = &v
+	return s
+}
+
+type QueryAdvisormarketAnalysisRequest struct {
+	// OAuth模式下的授权token
+	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
+	// 创建接口返回的任务 ID。type=result 时必填；type=status 时用于精确查询，不能与 task_status 同时传入。
+	TaskId *string `json:"task_id,omitempty" xml:"task_id,omitempty"`
+	// 查询模式。status 查询状态或任务列表；result 查询指定成功任务的结果下载地址。可选值：status、result。
+	Type *string `json:"type,omitempty" xml:"type,omitempty" require:"true"`
+	// 状态列表筛选条件，仅在 type=status 且未传 task_id 时使用。可选值：QUEUED、PROCESSING、SUCCESS、FAILED；不要传 CLOSED。
+	TaskStatus *string `json:"task_status,omitempty" xml:"task_status,omitempty"`
+}
+
+func (s QueryAdvisormarketAnalysisRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s QueryAdvisormarketAnalysisRequest) GoString() string {
+	return s.String()
+}
+
+func (s *QueryAdvisormarketAnalysisRequest) SetAuthToken(v string) *QueryAdvisormarketAnalysisRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *QueryAdvisormarketAnalysisRequest) SetProductInstanceId(v string) *QueryAdvisormarketAnalysisRequest {
+	s.ProductInstanceId = &v
+	return s
+}
+
+func (s *QueryAdvisormarketAnalysisRequest) SetTaskId(v string) *QueryAdvisormarketAnalysisRequest {
+	s.TaskId = &v
+	return s
+}
+
+func (s *QueryAdvisormarketAnalysisRequest) SetType(v string) *QueryAdvisormarketAnalysisRequest {
+	s.Type = &v
+	return s
+}
+
+func (s *QueryAdvisormarketAnalysisRequest) SetTaskStatus(v string) *QueryAdvisormarketAnalysisRequest {
+	s.TaskStatus = &v
+	return s
+}
+
+type QueryAdvisormarketAnalysisResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// JSON 数组字符串，调用方需再次解析。示例：[{"task_id":"ana_01K5A1B2","display_name":"中心商圈","analysis_type":"YINLI_CROWD_ANALYSIS","status":"PROCESSING","result_url":null,"created_at":"2026-09-14 15:30:00"}]。无数据返回 []；仅 SUCCESS 任务的结果查询会返回 result_url。
+	Data *string `json:"data,omitempty" xml:"data,omitempty"`
+}
+
+func (s QueryAdvisormarketAnalysisResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s QueryAdvisormarketAnalysisResponse) GoString() string {
+	return s.String()
+}
+
+func (s *QueryAdvisormarketAnalysisResponse) SetReqMsgId(v string) *QueryAdvisormarketAnalysisResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *QueryAdvisormarketAnalysisResponse) SetResultCode(v string) *QueryAdvisormarketAnalysisResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *QueryAdvisormarketAnalysisResponse) SetResultMsg(v string) *QueryAdvisormarketAnalysisResponse {
+	s.ResultMsg = &v
+	return s
+}
+
+func (s *QueryAdvisormarketAnalysisResponse) SetData(v string) *QueryAdvisormarketAnalysisResponse {
+	s.Data = &v
 	return s
 }
 
@@ -7466,6 +8149,14 @@ type QuerySecurityQuestionRequest struct {
 	PrivacyDataDetection *string `json:"privacy_data_detection,omitempty" xml:"privacy_data_detection,omitempty"`
 	// 是否开启安全代答功能
 	SecurityAnswer *string `json:"security_answer,omitempty" xml:"security_answer,omitempty"`
+	// 自定义白库检测，默认开启，仅 N 关闭
+	CustomWhiteCheck *string `json:"custom_white_check,omitempty" xml:"custom_white_check,omitempty"`
+	// 自定义黑词检测，默认开启，仅 N 关闭
+	CustomBlackWordCheck *string `json:"custom_black_word_check,omitempty" xml:"custom_black_word_check,omitempty"`
+	// 前置知识库代答，默认开启，仅 N 关闭
+	PreSecurityAnswer *string `json:"pre_security_answer,omitempty" xml:"pre_security_answer,omitempty"`
+	// Universal/金融图谱案例召回，默认开启，仅 N 关闭
+	GraphCaseRecall *string `json:"graph_case_recall,omitempty" xml:"graph_case_recall,omitempty"`
 }
 
 func (s QuerySecurityQuestionRequest) String() string {
@@ -7551,6 +8242,26 @@ func (s *QuerySecurityQuestionRequest) SetSecurityAnswer(v string) *QuerySecurit
 	return s
 }
 
+func (s *QuerySecurityQuestionRequest) SetCustomWhiteCheck(v string) *QuerySecurityQuestionRequest {
+	s.CustomWhiteCheck = &v
+	return s
+}
+
+func (s *QuerySecurityQuestionRequest) SetCustomBlackWordCheck(v string) *QuerySecurityQuestionRequest {
+	s.CustomBlackWordCheck = &v
+	return s
+}
+
+func (s *QuerySecurityQuestionRequest) SetPreSecurityAnswer(v string) *QuerySecurityQuestionRequest {
+	s.PreSecurityAnswer = &v
+	return s
+}
+
+func (s *QuerySecurityQuestionRequest) SetGraphCaseRecall(v string) *QuerySecurityQuestionRequest {
+	s.GraphCaseRecall = &v
+	return s
+}
+
 type QuerySecurityQuestionResponse struct {
 	// 请求唯一ID，用于链路跟踪和问题排查
 	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
@@ -7578,6 +8289,29 @@ type QuerySecurityQuestionResponse struct {
 	AttackLabels *AttackLabel `json:"attack_labels,omitempty" xml:"attack_labels,omitempty"`
 	// 领域标签信息
 	FieldInfo *FieldModel `json:"field_info,omitempty" xml:"field_info,omitempty"`
+	// 安全代答匹配到的Q
+	MatchQ *string `json:"match_q,omitempty" xml:"match_q,omitempty"`
+	// 越狱手法标签
+	JailbreakLabel *string `json:"jailbreak_label,omitempty" xml:"jailbreak_label,omitempty"`
+	// universal模型请求参数
+	UniversalPrompt *string `json:"universal_prompt,omitempty" xml:"universal_prompt,omitempty"`
+	// universal模型返回结果
+	UniversalOutput *string `json:"universal_output,omitempty" xml:"universal_output,omitempty"`
+	// 金融V3模型请求参数
+	FinancePrompt *string `json:"finance_prompt,omitempty" xml:"finance_prompt,omitempty"`
+	// 金融V3模型返回结果
+	FinanceOutput *string `json:"finance_output,omitempty" xml:"finance_output,omitempty"`
+	// 策略版本号
+	StrategyVersion *string `json:"strategy_version,omitempty" xml:"strategy_version,omitempty"`
+	// 本次接口请求内所有大模型及 Embedding 调用的 token 汇总。
+	TokenUsage *TokenUsageSummary `json:"token_usage,omitempty" xml:"token_usage,omitempty"`
+	// 调试信息（X-Debug-Mode: true 时返回；语音检测内含 audioAsrInfo 子结构）
+	//  对应的结果为Map转化的JSON字符串
+	DebugInfo *string `json:"debug_info,omitempty" xml:"debug_info,omitempty"`
+	// 金融合规深度审核——命中的风险点列表（JSON 数组字符串；仅深审开时返回，非深审场景不输出）
+	FindeepdiveResult *string `json:"findeepdive_result,omitempty" xml:"findeepdive_result,omitempty"`
+	// 金融合规深度审核——整体结论（block/warning/pass；仅深审开时返回）
+	FinDeepDiveOverall *string `json:"fin_deep_dive_overall,omitempty" xml:"fin_deep_dive_overall,omitempty"`
 }
 
 func (s QuerySecurityQuestionResponse) String() string {
@@ -7653,6 +8387,61 @@ func (s *QuerySecurityQuestionResponse) SetFieldInfo(v *FieldModel) *QuerySecuri
 	return s
 }
 
+func (s *QuerySecurityQuestionResponse) SetMatchQ(v string) *QuerySecurityQuestionResponse {
+	s.MatchQ = &v
+	return s
+}
+
+func (s *QuerySecurityQuestionResponse) SetJailbreakLabel(v string) *QuerySecurityQuestionResponse {
+	s.JailbreakLabel = &v
+	return s
+}
+
+func (s *QuerySecurityQuestionResponse) SetUniversalPrompt(v string) *QuerySecurityQuestionResponse {
+	s.UniversalPrompt = &v
+	return s
+}
+
+func (s *QuerySecurityQuestionResponse) SetUniversalOutput(v string) *QuerySecurityQuestionResponse {
+	s.UniversalOutput = &v
+	return s
+}
+
+func (s *QuerySecurityQuestionResponse) SetFinancePrompt(v string) *QuerySecurityQuestionResponse {
+	s.FinancePrompt = &v
+	return s
+}
+
+func (s *QuerySecurityQuestionResponse) SetFinanceOutput(v string) *QuerySecurityQuestionResponse {
+	s.FinanceOutput = &v
+	return s
+}
+
+func (s *QuerySecurityQuestionResponse) SetStrategyVersion(v string) *QuerySecurityQuestionResponse {
+	s.StrategyVersion = &v
+	return s
+}
+
+func (s *QuerySecurityQuestionResponse) SetTokenUsage(v *TokenUsageSummary) *QuerySecurityQuestionResponse {
+	s.TokenUsage = v
+	return s
+}
+
+func (s *QuerySecurityQuestionResponse) SetDebugInfo(v string) *QuerySecurityQuestionResponse {
+	s.DebugInfo = &v
+	return s
+}
+
+func (s *QuerySecurityQuestionResponse) SetFindeepdiveResult(v string) *QuerySecurityQuestionResponse {
+	s.FindeepdiveResult = &v
+	return s
+}
+
+func (s *QuerySecurityQuestionResponse) SetFinDeepDiveOverall(v string) *QuerySecurityQuestionResponse {
+	s.FinDeepDiveOverall = &v
+	return s
+}
+
 type QuerySecurityAnswerRequest struct {
 	// OAuth模式下的授权token
 	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
@@ -7677,6 +8466,14 @@ type QuerySecurityAnswerRequest struct {
 	PrivacyDataObfuscation *string `json:"privacy_data_obfuscation,omitempty" xml:"privacy_data_obfuscation,omitempty"`
 	// 是否开启隐私数据泄露的专项检测（新字段，老privacy废弃）
 	PrivacyDataDetection *string `json:"privacy_data_detection,omitempty" xml:"privacy_data_detection,omitempty"`
+	// 用户原提问（输出 max 接口必需，用于医疗合规检测送模型）
+	Question *string `json:"question,omitempty" xml:"question,omitempty"`
+	// 自定义白库检测，默认开启，仅 N 关闭
+	CustomWhiteCheck *string `json:"custom_white_check,omitempty" xml:"custom_white_check,omitempty"`
+	// 自定义黑词检测，默认开启，仅 N 关闭
+	CustomBlackWordCheck *string `json:"custom_black_word_check,omitempty" xml:"custom_black_word_check,omitempty"`
+	// Universal/金融图谱案例召回，默认开启，仅 N 关闭
+	GraphCaseRecall *string `json:"graph_case_recall,omitempty" xml:"graph_case_recall,omitempty"`
 }
 
 func (s QuerySecurityAnswerRequest) String() string {
@@ -7747,6 +8544,26 @@ func (s *QuerySecurityAnswerRequest) SetPrivacyDataDetection(v string) *QuerySec
 	return s
 }
 
+func (s *QuerySecurityAnswerRequest) SetQuestion(v string) *QuerySecurityAnswerRequest {
+	s.Question = &v
+	return s
+}
+
+func (s *QuerySecurityAnswerRequest) SetCustomWhiteCheck(v string) *QuerySecurityAnswerRequest {
+	s.CustomWhiteCheck = &v
+	return s
+}
+
+func (s *QuerySecurityAnswerRequest) SetCustomBlackWordCheck(v string) *QuerySecurityAnswerRequest {
+	s.CustomBlackWordCheck = &v
+	return s
+}
+
+func (s *QuerySecurityAnswerRequest) SetGraphCaseRecall(v string) *QuerySecurityAnswerRequest {
+	s.GraphCaseRecall = &v
+	return s
+}
+
 type QuerySecurityAnswerResponse struct {
 	// 请求唯一ID，用于链路跟踪和问题排查
 	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
@@ -7770,6 +8587,21 @@ type QuerySecurityAnswerResponse struct {
 	MessageId *string `json:"message_id,omitempty" xml:"message_id,omitempty"`
 	// 兜底话术
 	SecurityAnswer *string `json:"security_answer,omitempty" xml:"security_answer,omitempty"`
+	// universal模型请求参数
+	UniversalPrompt *string `json:"universal_prompt,omitempty" xml:"universal_prompt,omitempty"`
+	// universal模型返回结果
+	UniversalOutput *string `json:"universal_output,omitempty" xml:"universal_output,omitempty"`
+	// 金融V3模型请求参数
+	FinancePrompt *string `json:"finance_prompt,omitempty" xml:"finance_prompt,omitempty"`
+	// 金融V3模型返回结果
+	FinanceOutput *string `json:"finance_output,omitempty" xml:"finance_output,omitempty"`
+	// 策略版本号
+	StrategyVersion *string `json:"strategy_version,omitempty" xml:"strategy_version,omitempty"`
+	// 本次接口请求内所有大模型及 Embedding 调用的 token 汇总。
+	TokenUsage *TokenUsageSummary `json:"token_usage,omitempty" xml:"token_usage,omitempty"`
+	// 调试信息（X-Debug-Mode: true 时返回；语音检测内含 audioAsrInfo 子结构）
+	// 对应的结果为Map转化的JSON字符串
+	DebugInfo *string `json:"debug_info,omitempty" xml:"debug_info,omitempty"`
 }
 
 func (s QuerySecurityAnswerResponse) String() string {
@@ -7827,6 +8659,41 @@ func (s *QuerySecurityAnswerResponse) SetMessageId(v string) *QuerySecurityAnswe
 
 func (s *QuerySecurityAnswerResponse) SetSecurityAnswer(v string) *QuerySecurityAnswerResponse {
 	s.SecurityAnswer = &v
+	return s
+}
+
+func (s *QuerySecurityAnswerResponse) SetUniversalPrompt(v string) *QuerySecurityAnswerResponse {
+	s.UniversalPrompt = &v
+	return s
+}
+
+func (s *QuerySecurityAnswerResponse) SetUniversalOutput(v string) *QuerySecurityAnswerResponse {
+	s.UniversalOutput = &v
+	return s
+}
+
+func (s *QuerySecurityAnswerResponse) SetFinancePrompt(v string) *QuerySecurityAnswerResponse {
+	s.FinancePrompt = &v
+	return s
+}
+
+func (s *QuerySecurityAnswerResponse) SetFinanceOutput(v string) *QuerySecurityAnswerResponse {
+	s.FinanceOutput = &v
+	return s
+}
+
+func (s *QuerySecurityAnswerResponse) SetStrategyVersion(v string) *QuerySecurityAnswerResponse {
+	s.StrategyVersion = &v
+	return s
+}
+
+func (s *QuerySecurityAnswerResponse) SetTokenUsage(v *TokenUsageSummary) *QuerySecurityAnswerResponse {
+	s.TokenUsage = v
+	return s
+}
+
+func (s *QuerySecurityAnswerResponse) SetDebugInfo(v string) *QuerySecurityAnswerResponse {
+	s.DebugInfo = &v
 	return s
 }
 
@@ -7905,6 +8772,10 @@ type QuerySecurityImageResponse struct {
 	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
 	// 代表风险等级和建议的处置结论
 	ActionCode *string `json:"action_code,omitempty" xml:"action_code,omitempty"`
+	// 排黑排白命中结果（命中时携带详细信息，未命中或未启用为 null）
+	ImageBlackWhiteResult *ImageBlackWhiteResult `json:"image_black_white_result,omitempty" xml:"image_black_white_result,omitempty"`
+	// 本次接口请求内所有大模型调用的 token 汇总。
+	TokenUsage *TokenUsageSummary `json:"token_usage,omitempty" xml:"token_usage,omitempty"`
 }
 
 func (s QuerySecurityImageResponse) String() string {
@@ -7932,6 +8803,1234 @@ func (s *QuerySecurityImageResponse) SetResultMsg(v string) *QuerySecurityImageR
 
 func (s *QuerySecurityImageResponse) SetActionCode(v string) *QuerySecurityImageResponse {
 	s.ActionCode = &v
+	return s
+}
+
+func (s *QuerySecurityImageResponse) SetImageBlackWhiteResult(v *ImageBlackWhiteResult) *QuerySecurityImageResponse {
+	s.ImageBlackWhiteResult = v
+	return s
+}
+
+func (s *QuerySecurityImageResponse) SetTokenUsage(v *TokenUsageSummary) *QuerySecurityImageResponse {
+	s.TokenUsage = v
+	return s
+}
+
+type UploadSecurityQuestionRequest struct {
+	// OAuth模式下的授权token
+	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
+	// txt/pdf 文件，解析为文本（FileParseUtil），空内容报「文件内容为空」
+	FileUrl *string `json:"file_url,omitempty" xml:"file_url,omitempty" require:"true"`
+	// 归一化后须 question 前缀，否则兜底 LLM_INPUT_DETECTION
+	SceneCode *string `json:"scene_code,omitempty" xml:"scene_code,omitempty" require:"true"`
+	// 租户标识（老值兼容替换）
+	BusinessId *string `json:"business_id,omitempty" xml:"business_id,omitempty" require:"true"`
+	// 企业标识
+	Enterprise *string `json:"enterprise,omitempty" xml:"enterprise,omitempty"`
+	// 访问控制维度
+	AccountId *string `json:"account_id,omitempty" xml:"account_id,omitempty"`
+	// 消息 ID
+	MessageId *string `json:"message_id,omitempty" xml:"message_id,omitempty"`
+	// 多轮会话 ID
+	SessionId *string `json:"session_id,omitempty" xml:"session_id,omitempty"`
+	// 多轮检测开关
+	MultiSessionDetect *string `json:"multi_session_detect,omitempty" xml:"multi_session_detect,omitempty"`
+	// 安全改写开关
+	PromptReword *string `json:"prompt_reword,omitempty" xml:"prompt_reword,omitempty"`
+	// 安全代答开关
+	SecurityAnswer *string `json:"security_answer,omitempty" xml:"security_answer,omitempty"`
+	// 领域识别开关
+	FieldIdentify *string `json:"field_identify,omitempty" xml:"field_identify,omitempty"`
+}
+
+func (s UploadSecurityQuestionRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s UploadSecurityQuestionRequest) GoString() string {
+	return s.String()
+}
+
+func (s *UploadSecurityQuestionRequest) SetAuthToken(v string) *UploadSecurityQuestionRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *UploadSecurityQuestionRequest) SetProductInstanceId(v string) *UploadSecurityQuestionRequest {
+	s.ProductInstanceId = &v
+	return s
+}
+
+func (s *UploadSecurityQuestionRequest) SetFileUrl(v string) *UploadSecurityQuestionRequest {
+	s.FileUrl = &v
+	return s
+}
+
+func (s *UploadSecurityQuestionRequest) SetSceneCode(v string) *UploadSecurityQuestionRequest {
+	s.SceneCode = &v
+	return s
+}
+
+func (s *UploadSecurityQuestionRequest) SetBusinessId(v string) *UploadSecurityQuestionRequest {
+	s.BusinessId = &v
+	return s
+}
+
+func (s *UploadSecurityQuestionRequest) SetEnterprise(v string) *UploadSecurityQuestionRequest {
+	s.Enterprise = &v
+	return s
+}
+
+func (s *UploadSecurityQuestionRequest) SetAccountId(v string) *UploadSecurityQuestionRequest {
+	s.AccountId = &v
+	return s
+}
+
+func (s *UploadSecurityQuestionRequest) SetMessageId(v string) *UploadSecurityQuestionRequest {
+	s.MessageId = &v
+	return s
+}
+
+func (s *UploadSecurityQuestionRequest) SetSessionId(v string) *UploadSecurityQuestionRequest {
+	s.SessionId = &v
+	return s
+}
+
+func (s *UploadSecurityQuestionRequest) SetMultiSessionDetect(v string) *UploadSecurityQuestionRequest {
+	s.MultiSessionDetect = &v
+	return s
+}
+
+func (s *UploadSecurityQuestionRequest) SetPromptReword(v string) *UploadSecurityQuestionRequest {
+	s.PromptReword = &v
+	return s
+}
+
+func (s *UploadSecurityQuestionRequest) SetSecurityAnswer(v string) *UploadSecurityQuestionRequest {
+	s.SecurityAnswer = &v
+	return s
+}
+
+func (s *UploadSecurityQuestionRequest) SetFieldIdentify(v string) *UploadSecurityQuestionRequest {
+	s.FieldIdentify = &v
+	return s
+}
+
+type UploadSecurityQuestionResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// PASS/BLOCK/SECURITY_ANSWER/SECURITY_WARNING
+	ActionCode *string `json:"action_code,omitempty" xml:"action_code,omitempty"`
+	// 风险标签（label + subLabels[]：subLabel/riskWords/riskWordsIndex/thirdLabels）
+	Labels []*LabelModel `json:"labels,omitempty" xml:"labels,omitempty" type:"Repeated"`
+	// 命中自定义风险词
+	CustomizeRiskWord []*string `json:"customize_risk_word,omitempty" xml:"customize_risk_word,omitempty" type:"Repeated"`
+	// 拒答话术
+	LimitAnswer *string `json:"limit_answer,omitempty" xml:"limit_answer,omitempty"`
+	// 回传消息 ID
+	MessageId *string `json:"message_id,omitempty" xml:"message_id,omitempty"`
+	// 知识库匹配提问
+	MatchQ *string `json:"match_q,omitempty" xml:"match_q,omitempty"`
+	// 安全代答内容
+	SecurityAnswer *string `json:"security_answer,omitempty" xml:"security_answer,omitempty"`
+	// 安全提示
+	SecurityPrompt *string `json:"security_prompt,omitempty" xml:"security_prompt,omitempty"`
+	// 越狱标签（旧字段）
+	JailbreakLabel *string `json:"jailbreak_label,omitempty" xml:"jailbreak_label,omitempty"`
+	// 攻击标签（attackLabel + attackSubLabels[]）
+	AttackLabels []*AttackLabelModel `json:"attack_labels,omitempty" xml:"attack_labels,omitempty" type:"Repeated"`
+	// 领域识别（fieldCategory/fieldLabel/fieldScore:Double）
+	FieldInfo *FieldModel `json:"field_info,omitempty" xml:"field_info,omitempty"`
+	// 回传会话 ID
+	SessionId *string `json:"session_id,omitempty" xml:"session_id,omitempty"`
+	// 本次接口请求内所有大模型及 Embedding 调用的 token 汇总。
+	TokenUsage *TokenUsageSummary `json:"token_usage,omitempty" xml:"token_usage,omitempty"`
+	// ASR 转写文本（文本链路恒 null）
+	TranscribedText *string `json:"transcribed_text,omitempty" xml:"transcribed_text,omitempty"`
+	// 调试信息（当前链路无填充，恒 null）
+	DebugInfo *string `json:"debug_info,omitempty" xml:"debug_info,omitempty"`
+	// 金融深挖结果
+	FindeepdiveResult *string `json:"findeepdive_result,omitempty" xml:"findeepdive_result,omitempty"`
+	// 金融深挖总览
+	FinDeepDiveOverall *string `json:"fin_deep_dive_overall,omitempty" xml:"fin_deep_dive_overall,omitempty"`
+	// Universal 调试-提示词
+	UniversalPrompt *string `json:"universal_prompt,omitempty" xml:"universal_prompt,omitempty"`
+	// Universal 调试-输出
+	UniversalOutput *string `json:"universal_output,omitempty" xml:"universal_output,omitempty"`
+	// 金融调试-提示词
+	FinancePrompt *string `json:"finance_prompt,omitempty" xml:"finance_prompt,omitempty"`
+	// 金融调试-输出
+	FinanceOutput *string `json:"finance_output,omitempty" xml:"finance_output,omitempty"`
+	// 策略版本
+	StrategyVersion *string `json:"strategy_version,omitempty" xml:"strategy_version,omitempty"`
+}
+
+func (s UploadSecurityQuestionResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s UploadSecurityQuestionResponse) GoString() string {
+	return s.String()
+}
+
+func (s *UploadSecurityQuestionResponse) SetReqMsgId(v string) *UploadSecurityQuestionResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *UploadSecurityQuestionResponse) SetResultCode(v string) *UploadSecurityQuestionResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *UploadSecurityQuestionResponse) SetResultMsg(v string) *UploadSecurityQuestionResponse {
+	s.ResultMsg = &v
+	return s
+}
+
+func (s *UploadSecurityQuestionResponse) SetActionCode(v string) *UploadSecurityQuestionResponse {
+	s.ActionCode = &v
+	return s
+}
+
+func (s *UploadSecurityQuestionResponse) SetLabels(v []*LabelModel) *UploadSecurityQuestionResponse {
+	s.Labels = v
+	return s
+}
+
+func (s *UploadSecurityQuestionResponse) SetCustomizeRiskWord(v []*string) *UploadSecurityQuestionResponse {
+	s.CustomizeRiskWord = v
+	return s
+}
+
+func (s *UploadSecurityQuestionResponse) SetLimitAnswer(v string) *UploadSecurityQuestionResponse {
+	s.LimitAnswer = &v
+	return s
+}
+
+func (s *UploadSecurityQuestionResponse) SetMessageId(v string) *UploadSecurityQuestionResponse {
+	s.MessageId = &v
+	return s
+}
+
+func (s *UploadSecurityQuestionResponse) SetMatchQ(v string) *UploadSecurityQuestionResponse {
+	s.MatchQ = &v
+	return s
+}
+
+func (s *UploadSecurityQuestionResponse) SetSecurityAnswer(v string) *UploadSecurityQuestionResponse {
+	s.SecurityAnswer = &v
+	return s
+}
+
+func (s *UploadSecurityQuestionResponse) SetSecurityPrompt(v string) *UploadSecurityQuestionResponse {
+	s.SecurityPrompt = &v
+	return s
+}
+
+func (s *UploadSecurityQuestionResponse) SetJailbreakLabel(v string) *UploadSecurityQuestionResponse {
+	s.JailbreakLabel = &v
+	return s
+}
+
+func (s *UploadSecurityQuestionResponse) SetAttackLabels(v []*AttackLabelModel) *UploadSecurityQuestionResponse {
+	s.AttackLabels = v
+	return s
+}
+
+func (s *UploadSecurityQuestionResponse) SetFieldInfo(v *FieldModel) *UploadSecurityQuestionResponse {
+	s.FieldInfo = v
+	return s
+}
+
+func (s *UploadSecurityQuestionResponse) SetSessionId(v string) *UploadSecurityQuestionResponse {
+	s.SessionId = &v
+	return s
+}
+
+func (s *UploadSecurityQuestionResponse) SetTokenUsage(v *TokenUsageSummary) *UploadSecurityQuestionResponse {
+	s.TokenUsage = v
+	return s
+}
+
+func (s *UploadSecurityQuestionResponse) SetTranscribedText(v string) *UploadSecurityQuestionResponse {
+	s.TranscribedText = &v
+	return s
+}
+
+func (s *UploadSecurityQuestionResponse) SetDebugInfo(v string) *UploadSecurityQuestionResponse {
+	s.DebugInfo = &v
+	return s
+}
+
+func (s *UploadSecurityQuestionResponse) SetFindeepdiveResult(v string) *UploadSecurityQuestionResponse {
+	s.FindeepdiveResult = &v
+	return s
+}
+
+func (s *UploadSecurityQuestionResponse) SetFinDeepDiveOverall(v string) *UploadSecurityQuestionResponse {
+	s.FinDeepDiveOverall = &v
+	return s
+}
+
+func (s *UploadSecurityQuestionResponse) SetUniversalPrompt(v string) *UploadSecurityQuestionResponse {
+	s.UniversalPrompt = &v
+	return s
+}
+
+func (s *UploadSecurityQuestionResponse) SetUniversalOutput(v string) *UploadSecurityQuestionResponse {
+	s.UniversalOutput = &v
+	return s
+}
+
+func (s *UploadSecurityQuestionResponse) SetFinancePrompt(v string) *UploadSecurityQuestionResponse {
+	s.FinancePrompt = &v
+	return s
+}
+
+func (s *UploadSecurityQuestionResponse) SetFinanceOutput(v string) *UploadSecurityQuestionResponse {
+	s.FinanceOutput = &v
+	return s
+}
+
+func (s *UploadSecurityQuestionResponse) SetStrategyVersion(v string) *UploadSecurityQuestionResponse {
+	s.StrategyVersion = &v
+	return s
+}
+
+type UploadSecurityAnswerRequest struct {
+	// OAuth模式下的授权token
+	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
+	// txt/pdf 文件
+	FileUrl *string `json:"file_url,omitempty" xml:"file_url,omitempty" require:"true"`
+	// 须 answer 前缀，否则兜底 LLM_OUTPUT_DETECTION_LITE
+	SceneCode *string `json:"scene_code,omitempty" xml:"scene_code,omitempty" require:"true"`
+	// 租户标识
+	BusinessId *string `json:"business_id,omitempty" xml:"business_id,omitempty" require:"true"`
+	// 企业标识
+	Enterprise *string `json:"enterprise,omitempty" xml:"enterprise,omitempty"`
+	// 访问控制维度
+	AccountId *string `json:"account_id,omitempty" xml:"account_id,omitempty"`
+	// 消息 ID
+	MessageId *string `json:"message_id,omitempty" xml:"message_id,omitempty"`
+	// 流式消息 ID
+	FlowMsgId *string `json:"flow_msg_id,omitempty" xml:"flow_msg_id,omitempty"`
+	// 流式检测开关
+	FlowDetect *string `json:"flow_detect,omitempty" xml:"flow_detect,omitempty"`
+	// 流结束标记
+	FlowEnd *string `json:"flow_end,omitempty" xml:"flow_end,omitempty"`
+}
+
+func (s UploadSecurityAnswerRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s UploadSecurityAnswerRequest) GoString() string {
+	return s.String()
+}
+
+func (s *UploadSecurityAnswerRequest) SetAuthToken(v string) *UploadSecurityAnswerRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *UploadSecurityAnswerRequest) SetProductInstanceId(v string) *UploadSecurityAnswerRequest {
+	s.ProductInstanceId = &v
+	return s
+}
+
+func (s *UploadSecurityAnswerRequest) SetFileUrl(v string) *UploadSecurityAnswerRequest {
+	s.FileUrl = &v
+	return s
+}
+
+func (s *UploadSecurityAnswerRequest) SetSceneCode(v string) *UploadSecurityAnswerRequest {
+	s.SceneCode = &v
+	return s
+}
+
+func (s *UploadSecurityAnswerRequest) SetBusinessId(v string) *UploadSecurityAnswerRequest {
+	s.BusinessId = &v
+	return s
+}
+
+func (s *UploadSecurityAnswerRequest) SetEnterprise(v string) *UploadSecurityAnswerRequest {
+	s.Enterprise = &v
+	return s
+}
+
+func (s *UploadSecurityAnswerRequest) SetAccountId(v string) *UploadSecurityAnswerRequest {
+	s.AccountId = &v
+	return s
+}
+
+func (s *UploadSecurityAnswerRequest) SetMessageId(v string) *UploadSecurityAnswerRequest {
+	s.MessageId = &v
+	return s
+}
+
+func (s *UploadSecurityAnswerRequest) SetFlowMsgId(v string) *UploadSecurityAnswerRequest {
+	s.FlowMsgId = &v
+	return s
+}
+
+func (s *UploadSecurityAnswerRequest) SetFlowDetect(v string) *UploadSecurityAnswerRequest {
+	s.FlowDetect = &v
+	return s
+}
+
+func (s *UploadSecurityAnswerRequest) SetFlowEnd(v string) *UploadSecurityAnswerRequest {
+	s.FlowEnd = &v
+	return s
+}
+
+type UploadSecurityAnswerResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// 四种动作码
+	ActionCode *string `json:"action_code,omitempty" xml:"action_code,omitempty"`
+	// 风险标签
+	Labels []*LabelModel `json:"labels,omitempty" xml:"labels,omitempty" type:"Repeated"`
+	// 命中自定义风险词
+	CustomizeRiskWord []*string `json:"customize_risk_word,omitempty" xml:"customize_risk_word,omitempty" type:"Repeated"`
+	// 拒答话术
+	LimitAnswer *string `json:"limit_answer,omitempty" xml:"limit_answer,omitempty"`
+	// 回传
+	MessageId *string `json:"message_id,omitempty" xml:"message_id,omitempty"`
+	// 回传
+	FlowMsgId *string `json:"flow_msg_id,omitempty" xml:"flow_msg_id,omitempty"`
+	// 脱敏后内容
+	ObfuscationData *string `json:"obfuscation_data,omitempty" xml:"obfuscation_data,omitempty"`
+	// 流式处理状态（终态 done）
+	FlowProcessState *string `json:"flow_process_state,omitempty" xml:"flow_process_state,omitempty"`
+	// 调试字段
+	UniversalPrompt *string `json:"universal_prompt,omitempty" xml:"universal_prompt,omitempty"`
+	// 调试字段
+	UniversalOutput *string `json:"universal_output,omitempty" xml:"universal_output,omitempty"`
+	// 调试字段
+	FinancePrompt *string `json:"finance_prompt,omitempty" xml:"finance_prompt,omitempty"`
+	// 调试字段
+	FinanceOutput *string `json:"finance_output,omitempty" xml:"finance_output,omitempty"`
+	// 策略版本
+	StrategyVersion *string `json:"strategy_version,omitempty" xml:"strategy_version,omitempty"`
+	// token 用量
+	TokenUsage *TokenUsageSummary `json:"token_usage,omitempty" xml:"token_usage,omitempty"`
+	// 调试信息（X-Debug-Mode: true 时返回；语音检测内含 audioAsrInfo 子结构）
+	DebugInfo *string `json:"debug_info,omitempty" xml:"debug_info,omitempty"`
+	// ASR 转写文本（文本链路恒 null）
+	TranscribedText *string `json:"transcribed_text,omitempty" xml:"transcribed_text,omitempty"`
+	// 金融深挖结果
+	FindeepdiveResult *string `json:"findeepdive_result,omitempty" xml:"findeepdive_result,omitempty"`
+	// 金融深挖总览
+	FinDeepDiveOverall *string `json:"fin_deep_dive_overall,omitempty" xml:"fin_deep_dive_overall,omitempty"`
+}
+
+func (s UploadSecurityAnswerResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s UploadSecurityAnswerResponse) GoString() string {
+	return s.String()
+}
+
+func (s *UploadSecurityAnswerResponse) SetReqMsgId(v string) *UploadSecurityAnswerResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *UploadSecurityAnswerResponse) SetResultCode(v string) *UploadSecurityAnswerResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *UploadSecurityAnswerResponse) SetResultMsg(v string) *UploadSecurityAnswerResponse {
+	s.ResultMsg = &v
+	return s
+}
+
+func (s *UploadSecurityAnswerResponse) SetActionCode(v string) *UploadSecurityAnswerResponse {
+	s.ActionCode = &v
+	return s
+}
+
+func (s *UploadSecurityAnswerResponse) SetLabels(v []*LabelModel) *UploadSecurityAnswerResponse {
+	s.Labels = v
+	return s
+}
+
+func (s *UploadSecurityAnswerResponse) SetCustomizeRiskWord(v []*string) *UploadSecurityAnswerResponse {
+	s.CustomizeRiskWord = v
+	return s
+}
+
+func (s *UploadSecurityAnswerResponse) SetLimitAnswer(v string) *UploadSecurityAnswerResponse {
+	s.LimitAnswer = &v
+	return s
+}
+
+func (s *UploadSecurityAnswerResponse) SetMessageId(v string) *UploadSecurityAnswerResponse {
+	s.MessageId = &v
+	return s
+}
+
+func (s *UploadSecurityAnswerResponse) SetFlowMsgId(v string) *UploadSecurityAnswerResponse {
+	s.FlowMsgId = &v
+	return s
+}
+
+func (s *UploadSecurityAnswerResponse) SetObfuscationData(v string) *UploadSecurityAnswerResponse {
+	s.ObfuscationData = &v
+	return s
+}
+
+func (s *UploadSecurityAnswerResponse) SetFlowProcessState(v string) *UploadSecurityAnswerResponse {
+	s.FlowProcessState = &v
+	return s
+}
+
+func (s *UploadSecurityAnswerResponse) SetUniversalPrompt(v string) *UploadSecurityAnswerResponse {
+	s.UniversalPrompt = &v
+	return s
+}
+
+func (s *UploadSecurityAnswerResponse) SetUniversalOutput(v string) *UploadSecurityAnswerResponse {
+	s.UniversalOutput = &v
+	return s
+}
+
+func (s *UploadSecurityAnswerResponse) SetFinancePrompt(v string) *UploadSecurityAnswerResponse {
+	s.FinancePrompt = &v
+	return s
+}
+
+func (s *UploadSecurityAnswerResponse) SetFinanceOutput(v string) *UploadSecurityAnswerResponse {
+	s.FinanceOutput = &v
+	return s
+}
+
+func (s *UploadSecurityAnswerResponse) SetStrategyVersion(v string) *UploadSecurityAnswerResponse {
+	s.StrategyVersion = &v
+	return s
+}
+
+func (s *UploadSecurityAnswerResponse) SetTokenUsage(v *TokenUsageSummary) *UploadSecurityAnswerResponse {
+	s.TokenUsage = v
+	return s
+}
+
+func (s *UploadSecurityAnswerResponse) SetDebugInfo(v string) *UploadSecurityAnswerResponse {
+	s.DebugInfo = &v
+	return s
+}
+
+func (s *UploadSecurityAnswerResponse) SetTranscribedText(v string) *UploadSecurityAnswerResponse {
+	s.TranscribedText = &v
+	return s
+}
+
+func (s *UploadSecurityAnswerResponse) SetFindeepdiveResult(v string) *UploadSecurityAnswerResponse {
+	s.FindeepdiveResult = &v
+	return s
+}
+
+func (s *UploadSecurityAnswerResponse) SetFinDeepDiveOverall(v string) *UploadSecurityAnswerResponse {
+	s.FinDeepDiveOverall = &v
+	return s
+}
+
+type UploadSecurityImageRequest struct {
+	// OAuth模式下的授权token
+	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
+	// ≤10MB；jpeg/png/jpg/bmp/webp/gif 直传或 PDF 逐页转图片
+	FileUrl *string `json:"file_url,omitempty" xml:"file_url,omitempty" require:"true"`
+	// 归一化后须 image 前缀，否则拒绝「非法场景码」
+	SceneCode *string `json:"scene_code,omitempty" xml:"scene_code,omitempty" require:"true"`
+	// 租户标识
+	BusinessId *string `json:"business_id,omitempty" xml:"business_id,omitempty" require:"true"`
+	// 企业标识
+	Enterprise *string `json:"enterprise,omitempty" xml:"enterprise,omitempty"`
+	// 访问控制维度
+	AccountId *string `json:"account_id,omitempty" xml:"account_id,omitempty"`
+}
+
+func (s UploadSecurityImageRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s UploadSecurityImageRequest) GoString() string {
+	return s.String()
+}
+
+func (s *UploadSecurityImageRequest) SetAuthToken(v string) *UploadSecurityImageRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *UploadSecurityImageRequest) SetProductInstanceId(v string) *UploadSecurityImageRequest {
+	s.ProductInstanceId = &v
+	return s
+}
+
+func (s *UploadSecurityImageRequest) SetFileUrl(v string) *UploadSecurityImageRequest {
+	s.FileUrl = &v
+	return s
+}
+
+func (s *UploadSecurityImageRequest) SetSceneCode(v string) *UploadSecurityImageRequest {
+	s.SceneCode = &v
+	return s
+}
+
+func (s *UploadSecurityImageRequest) SetBusinessId(v string) *UploadSecurityImageRequest {
+	s.BusinessId = &v
+	return s
+}
+
+func (s *UploadSecurityImageRequest) SetEnterprise(v string) *UploadSecurityImageRequest {
+	s.Enterprise = &v
+	return s
+}
+
+func (s *UploadSecurityImageRequest) SetAccountId(v string) *UploadSecurityImageRequest {
+	s.AccountId = &v
+	return s
+}
+
+type UploadSecurityImageResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// PASS/BLOCK
+	ActionCode *string `json:"action_code,omitempty" xml:"action_code,omitempty"`
+	// 黑白库命中明细（18 字段）
+	ImageBlackWhiteResult *ImageBlackWhiteResult `json:"image_black_white_result,omitempty" xml:"image_black_white_result,omitempty"`
+	// token 用量（11 字段）
+	TokenUsage *TokenUsageSummary `json:"token_usage,omitempty" xml:"token_usage,omitempty"`
+}
+
+func (s UploadSecurityImageResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s UploadSecurityImageResponse) GoString() string {
+	return s.String()
+}
+
+func (s *UploadSecurityImageResponse) SetReqMsgId(v string) *UploadSecurityImageResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *UploadSecurityImageResponse) SetResultCode(v string) *UploadSecurityImageResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *UploadSecurityImageResponse) SetResultMsg(v string) *UploadSecurityImageResponse {
+	s.ResultMsg = &v
+	return s
+}
+
+func (s *UploadSecurityImageResponse) SetActionCode(v string) *UploadSecurityImageResponse {
+	s.ActionCode = &v
+	return s
+}
+
+func (s *UploadSecurityImageResponse) SetImageBlackWhiteResult(v *ImageBlackWhiteResult) *UploadSecurityImageResponse {
+	s.ImageBlackWhiteResult = v
+	return s
+}
+
+func (s *UploadSecurityImageResponse) SetTokenUsage(v *TokenUsageSummary) *UploadSecurityImageResponse {
+	s.TokenUsage = v
+	return s
+}
+
+type QuerySecurityTextdetoxificationRequest struct {
+	// OAuth模式下的授权token
+	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
+	// 待祛毒语料文本
+	Question *string `json:"question,omitempty" xml:"question,omitempty" require:"true"`
+	// 租户标识
+	BusinessId *string `json:"business_id,omitempty" xml:"business_id,omitempty"`
+	// 应用码
+	AppCode *string `json:"app_code,omitempty" xml:"app_code,omitempty" require:"true"`
+}
+
+func (s QuerySecurityTextdetoxificationRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s QuerySecurityTextdetoxificationRequest) GoString() string {
+	return s.String()
+}
+
+func (s *QuerySecurityTextdetoxificationRequest) SetAuthToken(v string) *QuerySecurityTextdetoxificationRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *QuerySecurityTextdetoxificationRequest) SetProductInstanceId(v string) *QuerySecurityTextdetoxificationRequest {
+	s.ProductInstanceId = &v
+	return s
+}
+
+func (s *QuerySecurityTextdetoxificationRequest) SetQuestion(v string) *QuerySecurityTextdetoxificationRequest {
+	s.Question = &v
+	return s
+}
+
+func (s *QuerySecurityTextdetoxificationRequest) SetBusinessId(v string) *QuerySecurityTextdetoxificationRequest {
+	s.BusinessId = &v
+	return s
+}
+
+func (s *QuerySecurityTextdetoxificationRequest) SetAppCode(v string) *QuerySecurityTextdetoxificationRequest {
+	s.AppCode = &v
+	return s
+}
+
+type QuerySecurityTextdetoxificationResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// 是否安全无风险
+	Safe *bool `json:"safe,omitempty" xml:"safe,omitempty"`
+	// 一级风险分类
+	RiskCategory *string `json:"risk_category,omitempty" xml:"risk_category,omitempty"`
+	// 二级风险明细分类
+	RiskLabel *string `json:"risk_label,omitempty" xml:"risk_label,omitempty"`
+	// 风险分数
+	RiskScore *int64 `json:"risk_score,omitempty" xml:"risk_score,omitempty"`
+	// 风险关键词列表
+	RiskWords []*string `json:"risk_words,omitempty" xml:"risk_words,omitempty" type:"Repeated"`
+	// 关键词索引
+	RiskWordsIndex []*string `json:"risk_words_index,omitempty" xml:"risk_words_index,omitempty" type:"Repeated"`
+}
+
+func (s QuerySecurityTextdetoxificationResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s QuerySecurityTextdetoxificationResponse) GoString() string {
+	return s.String()
+}
+
+func (s *QuerySecurityTextdetoxificationResponse) SetReqMsgId(v string) *QuerySecurityTextdetoxificationResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *QuerySecurityTextdetoxificationResponse) SetResultCode(v string) *QuerySecurityTextdetoxificationResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *QuerySecurityTextdetoxificationResponse) SetResultMsg(v string) *QuerySecurityTextdetoxificationResponse {
+	s.ResultMsg = &v
+	return s
+}
+
+func (s *QuerySecurityTextdetoxificationResponse) SetSafe(v bool) *QuerySecurityTextdetoxificationResponse {
+	s.Safe = &v
+	return s
+}
+
+func (s *QuerySecurityTextdetoxificationResponse) SetRiskCategory(v string) *QuerySecurityTextdetoxificationResponse {
+	s.RiskCategory = &v
+	return s
+}
+
+func (s *QuerySecurityTextdetoxificationResponse) SetRiskLabel(v string) *QuerySecurityTextdetoxificationResponse {
+	s.RiskLabel = &v
+	return s
+}
+
+func (s *QuerySecurityTextdetoxificationResponse) SetRiskScore(v int64) *QuerySecurityTextdetoxificationResponse {
+	s.RiskScore = &v
+	return s
+}
+
+func (s *QuerySecurityTextdetoxificationResponse) SetRiskWords(v []*string) *QuerySecurityTextdetoxificationResponse {
+	s.RiskWords = v
+	return s
+}
+
+func (s *QuerySecurityTextdetoxificationResponse) SetRiskWordsIndex(v []*string) *QuerySecurityTextdetoxificationResponse {
+	s.RiskWordsIndex = v
+	return s
+}
+
+type QuerySecurityVideoRequest struct {
+	// OAuth模式下的授权token
+	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
+	// 视频公开访问 URL
+	VideoUrl *string `json:"video_url,omitempty" xml:"video_url,omitempty" require:"true"`
+	// 归一化后须 video 前缀，否则拒绝「非法场景码」
+	SceneCode *string `json:"scene_code,omitempty" xml:"scene_code,omitempty" require:"true"`
+	// 租户标识（老值兼容替换）
+	BusinessId *string `json:"business_id,omitempty" xml:"business_id,omitempty"`
+	// 应用码
+	AppCode *string `json:"app_code,omitempty" xml:"app_code,omitempty"`
+	// 消息 ID
+	MessageId *string `json:"message_id,omitempty" xml:"message_id,omitempty"`
+	// 企业标识
+	Enterprise *string `json:"enterprise,omitempty" xml:"enterprise,omitempty"`
+	// 访问控制维度
+	AccountId *string `json:"account_id,omitempty" xml:"account_id,omitempty"`
+}
+
+func (s QuerySecurityVideoRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s QuerySecurityVideoRequest) GoString() string {
+	return s.String()
+}
+
+func (s *QuerySecurityVideoRequest) SetAuthToken(v string) *QuerySecurityVideoRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *QuerySecurityVideoRequest) SetProductInstanceId(v string) *QuerySecurityVideoRequest {
+	s.ProductInstanceId = &v
+	return s
+}
+
+func (s *QuerySecurityVideoRequest) SetVideoUrl(v string) *QuerySecurityVideoRequest {
+	s.VideoUrl = &v
+	return s
+}
+
+func (s *QuerySecurityVideoRequest) SetSceneCode(v string) *QuerySecurityVideoRequest {
+	s.SceneCode = &v
+	return s
+}
+
+func (s *QuerySecurityVideoRequest) SetBusinessId(v string) *QuerySecurityVideoRequest {
+	s.BusinessId = &v
+	return s
+}
+
+func (s *QuerySecurityVideoRequest) SetAppCode(v string) *QuerySecurityVideoRequest {
+	s.AppCode = &v
+	return s
+}
+
+func (s *QuerySecurityVideoRequest) SetMessageId(v string) *QuerySecurityVideoRequest {
+	s.MessageId = &v
+	return s
+}
+
+func (s *QuerySecurityVideoRequest) SetEnterprise(v string) *QuerySecurityVideoRequest {
+	s.Enterprise = &v
+	return s
+}
+
+func (s *QuerySecurityVideoRequest) SetAccountId(v string) *QuerySecurityVideoRequest {
+	s.AccountId = &v
+	return s
+}
+
+type QuerySecurityVideoResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// PASS/BLOCK
+	ActionCode *string `json:"action_code,omitempty" xml:"action_code,omitempty"`
+	// token 用量（11 字段）
+	TokenUsage *TokenUsageSummary `json:"token_usage,omitempty" xml:"token_usage,omitempty"`
+	// 黑白库命中明细（18 字段）
+	ImageBlackWhiteResult *ImageBlackWhiteResult `json:"image_black_white_result,omitempty" xml:"image_black_white_result,omitempty"`
+}
+
+func (s QuerySecurityVideoResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s QuerySecurityVideoResponse) GoString() string {
+	return s.String()
+}
+
+func (s *QuerySecurityVideoResponse) SetReqMsgId(v string) *QuerySecurityVideoResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *QuerySecurityVideoResponse) SetResultCode(v string) *QuerySecurityVideoResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *QuerySecurityVideoResponse) SetResultMsg(v string) *QuerySecurityVideoResponse {
+	s.ResultMsg = &v
+	return s
+}
+
+func (s *QuerySecurityVideoResponse) SetActionCode(v string) *QuerySecurityVideoResponse {
+	s.ActionCode = &v
+	return s
+}
+
+func (s *QuerySecurityVideoResponse) SetTokenUsage(v *TokenUsageSummary) *QuerySecurityVideoResponse {
+	s.TokenUsage = v
+	return s
+}
+
+func (s *QuerySecurityVideoResponse) SetImageBlackWhiteResult(v *ImageBlackWhiteResult) *QuerySecurityVideoResponse {
+	s.ImageBlackWhiteResult = v
+	return s
+}
+
+type UploadSecurityVideoRequest struct {
+	// OAuth模式下的授权token
+	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
+	// 视频文件 URL（大小/格式由 VideoCheckApplicationService 校验）
+	FileUrl *string `json:"file_url,omitempty" xml:"file_url,omitempty" require:"true"`
+	// 须 video 前缀
+	SceneCode *string `json:"scene_code,omitempty" xml:"scene_code,omitempty" require:"true"`
+	// 租户标识
+	BusinessId *string `json:"business_id,omitempty" xml:"business_id,omitempty" require:"true"`
+}
+
+func (s UploadSecurityVideoRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s UploadSecurityVideoRequest) GoString() string {
+	return s.String()
+}
+
+func (s *UploadSecurityVideoRequest) SetAuthToken(v string) *UploadSecurityVideoRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *UploadSecurityVideoRequest) SetProductInstanceId(v string) *UploadSecurityVideoRequest {
+	s.ProductInstanceId = &v
+	return s
+}
+
+func (s *UploadSecurityVideoRequest) SetFileUrl(v string) *UploadSecurityVideoRequest {
+	s.FileUrl = &v
+	return s
+}
+
+func (s *UploadSecurityVideoRequest) SetSceneCode(v string) *UploadSecurityVideoRequest {
+	s.SceneCode = &v
+	return s
+}
+
+func (s *UploadSecurityVideoRequest) SetBusinessId(v string) *UploadSecurityVideoRequest {
+	s.BusinessId = &v
+	return s
+}
+
+type UploadSecurityVideoResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// PASS/BLOCK
+	ActionCode *string `json:"action_code,omitempty" xml:"action_code,omitempty"`
+	// 黑白库命中明细（18 字段）
+	ImageBlackWhiteResult *ImageBlackWhiteResult `json:"image_black_white_result,omitempty" xml:"image_black_white_result,omitempty"`
+	// token 用量（11 字段）
+	TokenUsage *TokenUsageSummary `json:"token_usage,omitempty" xml:"token_usage,omitempty"`
+}
+
+func (s UploadSecurityVideoResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s UploadSecurityVideoResponse) GoString() string {
+	return s.String()
+}
+
+func (s *UploadSecurityVideoResponse) SetReqMsgId(v string) *UploadSecurityVideoResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *UploadSecurityVideoResponse) SetResultCode(v string) *UploadSecurityVideoResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *UploadSecurityVideoResponse) SetResultMsg(v string) *UploadSecurityVideoResponse {
+	s.ResultMsg = &v
+	return s
+}
+
+func (s *UploadSecurityVideoResponse) SetActionCode(v string) *UploadSecurityVideoResponse {
+	s.ActionCode = &v
+	return s
+}
+
+func (s *UploadSecurityVideoResponse) SetImageBlackWhiteResult(v *ImageBlackWhiteResult) *UploadSecurityVideoResponse {
+	s.ImageBlackWhiteResult = v
+	return s
+}
+
+func (s *UploadSecurityVideoResponse) SetTokenUsage(v *TokenUsageSummary) *UploadSecurityVideoResponse {
+	s.TokenUsage = v
+	return s
+}
+
+type QuerySecurityAudioRequest struct {
+	// OAuth模式下的授权token
+	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
+	// 音频公网 URL（与 audio 二选一，网关侧仅支持 URL 方式）
+	AudioUrl *string `json:"audio_url,omitempty" xml:"audio_url,omitempty" require:"true"`
+	// wav/mp3/flac/m4a/aiff/alac/ape，缺省从 URL 后缀或 magic number 推断
+	AudioFormat *string `json:"audio_format,omitempty" xml:"audio_format,omitempty"`
+	// Boolean 降噪（null 时服务端默认 true）
+	Denoise *string `json:"denoise,omitempty" xml:"denoise,omitempty"`
+	// 须 audio 前缀，audio_input_*/audio_output_*
+	SceneCode *string `json:"scene_code,omitempty" xml:"scene_code,omitempty" require:"true"`
+	// 租户标识（老值兼容替换）
+	BusinessId *string `json:"business_id,omitempty" xml:"business_id,omitempty" require:"true"`
+	// 应用码
+	AppCode *string `json:"app_code,omitempty" xml:"app_code,omitempty"`
+	// 消息 ID
+	MessageId *string `json:"message_id,omitempty" xml:"message_id,omitempty"`
+	// 企业标识
+	Enterprise *string `json:"enterprise,omitempty" xml:"enterprise,omitempty"`
+	// 访问控制维度
+	AccountId *string `json:"account_id,omitempty" xml:"account_id,omitempty"`
+}
+
+func (s QuerySecurityAudioRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s QuerySecurityAudioRequest) GoString() string {
+	return s.String()
+}
+
+func (s *QuerySecurityAudioRequest) SetAuthToken(v string) *QuerySecurityAudioRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *QuerySecurityAudioRequest) SetProductInstanceId(v string) *QuerySecurityAudioRequest {
+	s.ProductInstanceId = &v
+	return s
+}
+
+func (s *QuerySecurityAudioRequest) SetAudioUrl(v string) *QuerySecurityAudioRequest {
+	s.AudioUrl = &v
+	return s
+}
+
+func (s *QuerySecurityAudioRequest) SetAudioFormat(v string) *QuerySecurityAudioRequest {
+	s.AudioFormat = &v
+	return s
+}
+
+func (s *QuerySecurityAudioRequest) SetDenoise(v string) *QuerySecurityAudioRequest {
+	s.Denoise = &v
+	return s
+}
+
+func (s *QuerySecurityAudioRequest) SetSceneCode(v string) *QuerySecurityAudioRequest {
+	s.SceneCode = &v
+	return s
+}
+
+func (s *QuerySecurityAudioRequest) SetBusinessId(v string) *QuerySecurityAudioRequest {
+	s.BusinessId = &v
+	return s
+}
+
+func (s *QuerySecurityAudioRequest) SetAppCode(v string) *QuerySecurityAudioRequest {
+	s.AppCode = &v
+	return s
+}
+
+func (s *QuerySecurityAudioRequest) SetMessageId(v string) *QuerySecurityAudioRequest {
+	s.MessageId = &v
+	return s
+}
+
+func (s *QuerySecurityAudioRequest) SetEnterprise(v string) *QuerySecurityAudioRequest {
+	s.Enterprise = &v
+	return s
+}
+
+func (s *QuerySecurityAudioRequest) SetAccountId(v string) *QuerySecurityAudioRequest {
+	s.AccountId = &v
+	return s
+}
+
+type QuerySecurityAudioResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// 检测结果,使用JSON字符串反馈给调用方,由对应的调用方进行解析使用
+	Result *string `json:"result,omitempty" xml:"result,omitempty"`
+}
+
+func (s QuerySecurityAudioResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s QuerySecurityAudioResponse) GoString() string {
+	return s.String()
+}
+
+func (s *QuerySecurityAudioResponse) SetReqMsgId(v string) *QuerySecurityAudioResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *QuerySecurityAudioResponse) SetResultCode(v string) *QuerySecurityAudioResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *QuerySecurityAudioResponse) SetResultMsg(v string) *QuerySecurityAudioResponse {
+	s.ResultMsg = &v
+	return s
+}
+
+func (s *QuerySecurityAudioResponse) SetResult(v string) *QuerySecurityAudioResponse {
+	s.Result = &v
+	return s
+}
+
+type UploadSecurityAudioRequest struct {
+	// OAuth模式下的授权token
+	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
+	// 音频文件 URL（非空校验）
+	FileUrl *string `json:"file_url,omitempty" xml:"file_url,omitempty" require:"true"`
+	// 须 audio 前缀
+	SceneCode *string `json:"scene_code,omitempty" xml:"scene_code,omitempty" require:"true"`
+	// 租户标识
+	BusinessId *string `json:"business_id,omitempty" xml:"business_id,omitempty" require:"true"`
+	// 降噪开关（字符串，Boolean.parseBoolean 解析）
+	Denoise *string `json:"denoise,omitempty" xml:"denoise,omitempty"`
+	// 音频格式（缺省用原始文件名或 audio.wav）
+	AudioFormat *string `json:"audio_format,omitempty" xml:"audio_format,omitempty"`
+	// 消息 ID
+	MessageId *string `json:"message_id,omitempty" xml:"message_id,omitempty"`
+}
+
+func (s UploadSecurityAudioRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s UploadSecurityAudioRequest) GoString() string {
+	return s.String()
+}
+
+func (s *UploadSecurityAudioRequest) SetAuthToken(v string) *UploadSecurityAudioRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *UploadSecurityAudioRequest) SetProductInstanceId(v string) *UploadSecurityAudioRequest {
+	s.ProductInstanceId = &v
+	return s
+}
+
+func (s *UploadSecurityAudioRequest) SetFileUrl(v string) *UploadSecurityAudioRequest {
+	s.FileUrl = &v
+	return s
+}
+
+func (s *UploadSecurityAudioRequest) SetSceneCode(v string) *UploadSecurityAudioRequest {
+	s.SceneCode = &v
+	return s
+}
+
+func (s *UploadSecurityAudioRequest) SetBusinessId(v string) *UploadSecurityAudioRequest {
+	s.BusinessId = &v
+	return s
+}
+
+func (s *UploadSecurityAudioRequest) SetDenoise(v string) *UploadSecurityAudioRequest {
+	s.Denoise = &v
+	return s
+}
+
+func (s *UploadSecurityAudioRequest) SetAudioFormat(v string) *UploadSecurityAudioRequest {
+	s.AudioFormat = &v
+	return s
+}
+
+func (s *UploadSecurityAudioRequest) SetMessageId(v string) *UploadSecurityAudioRequest {
+	s.MessageId = &v
+	return s
+}
+
+type UploadSecurityAudioResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// 检测结果,使用JSON字符串反馈给调用方,由对应的调用方进行解析使用
+	Result *string `json:"result,omitempty" xml:"result,omitempty"`
+}
+
+func (s UploadSecurityAudioResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s UploadSecurityAudioResponse) GoString() string {
+	return s.String()
+}
+
+func (s *UploadSecurityAudioResponse) SetReqMsgId(v string) *UploadSecurityAudioResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *UploadSecurityAudioResponse) SetResultCode(v string) *UploadSecurityAudioResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *UploadSecurityAudioResponse) SetResultMsg(v string) *UploadSecurityAudioResponse {
+	s.ResultMsg = &v
+	return s
+}
+
+func (s *UploadSecurityAudioResponse) SetResult(v string) *UploadSecurityAudioResponse {
+	s.Result = &v
 	return s
 }
 
@@ -8065,7 +10164,7 @@ func (client *Client) DoRequest(version *string, action *string, protocol *strin
 				"req_msg_id":       antchainutil.GetNonce(),
 				"access_key":       client.AccessKeyId,
 				"base_sdk_version": tea.String("TeaSDK-2.0"),
-				"sdk_version":      tea.String("1.1.64"),
+				"sdk_version":      tea.String("1.1.65"),
 				"_prod_code":       tea.String("AITECH"),
 				"_prod_channel":    tea.String("default"),
 			}
@@ -8121,6 +10220,114 @@ func (client *Client) DoRequest(version *string, action *string, protocol *strin
 	}
 
 	return _resp, _err
+}
+
+// Description:
+//
+// Description: 客户统计结果查询
+//
+// Summary: 客户统计结果查询
+func (client *Client) QueryAdvisormarketData(request *QueryAdvisormarketDataRequest) (_result *QueryAdvisormarketDataResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &QueryAdvisormarketDataResponse{}
+	_body, _err := client.QueryAdvisormarketDataEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+// Description:
+//
+// Description: 客户统计结果查询
+//
+// Summary: 客户统计结果查询
+func (client *Client) QueryAdvisormarketDataEx(request *QueryAdvisormarketDataRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *QueryAdvisormarketDataResponse, _err error) {
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &QueryAdvisormarketDataResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("aitech.comm.advisormarket.data.query"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
+}
+
+// Description:
+//
+// Description: 创建异步商圈客群分析任务。接口仅校验参数并创建 QUEUED 任务，不同步执行分析。请保存返回的 task_id，并使用查询接口查询状态或结果。
+//
+// Summary: 创建异步商圈客群分析任务。接口仅校验参数并创建 QUEUED 任务，不同步执行分析。请保存返回的 task_id，并使用查询接口查询状态或结果。
+func (client *Client) PushAdvisormarketAnalysis(request *PushAdvisormarketAnalysisRequest) (_result *PushAdvisormarketAnalysisResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &PushAdvisormarketAnalysisResponse{}
+	_body, _err := client.PushAdvisormarketAnalysisEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+// Description:
+//
+// Description: 创建异步商圈客群分析任务。接口仅校验参数并创建 QUEUED 任务，不同步执行分析。请保存返回的 task_id，并使用查询接口查询状态或结果。
+//
+// Summary: 创建异步商圈客群分析任务。接口仅校验参数并创建 QUEUED 任务，不同步执行分析。请保存返回的 task_id，并使用查询接口查询状态或结果。
+func (client *Client) PushAdvisormarketAnalysisEx(request *PushAdvisormarketAnalysisRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *PushAdvisormarketAnalysisResponse, _err error) {
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &PushAdvisormarketAnalysisResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("aitech.comm.advisormarket.analysis.push"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
+}
+
+// Description:
+//
+// Description: 查询当前租户的异步商圈客群分析任务。
+//
+// Summary: 查询当前租户的异步商圈客群分析任务。
+func (client *Client) QueryAdvisormarketAnalysis(request *QueryAdvisormarketAnalysisRequest) (_result *QueryAdvisormarketAnalysisResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &QueryAdvisormarketAnalysisResponse{}
+	_body, _err := client.QueryAdvisormarketAnalysisEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+// Description:
+//
+// Description: 查询当前租户的异步商圈客群分析任务。
+//
+// Summary: 查询当前租户的异步商圈客群分析任务。
+func (client *Client) QueryAdvisormarketAnalysisEx(request *QueryAdvisormarketAnalysisRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *QueryAdvisormarketAnalysisResponse, _err error) {
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &QueryAdvisormarketAnalysisResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("aitech.comm.advisormarket.analysis.query"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
 }
 
 // Description:
@@ -10323,7 +12530,7 @@ func (client *Client) QuerySecurityAnswerEx(request *QuerySecurityAnswerRequest,
 //
 // Description: 天鉴图片检测功能saas版本
 //
-// Summary: 天鉴图片检测功能saas
+// Summary: 天鉴图片检测功能saas版本
 func (client *Client) QuerySecurityImage(request *QuerySecurityImageRequest) (_result *QuerySecurityImageResponse, _err error) {
 	runtime := &util.RuntimeOptions{}
 	headers := make(map[string]*string)
@@ -10340,7 +12547,7 @@ func (client *Client) QuerySecurityImage(request *QuerySecurityImageRequest) (_r
 //
 // Description: 天鉴图片检测功能saas版本
 //
-// Summary: 天鉴图片检测功能saas
+// Summary: 天鉴图片检测功能saas版本
 func (client *Client) QuerySecurityImageEx(request *QuerySecurityImageRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *QuerySecurityImageResponse, _err error) {
 	_err = util.ValidateModel(request)
 	if _err != nil {
@@ -10348,6 +12555,294 @@ func (client *Client) QuerySecurityImageEx(request *QuerySecurityImageRequest, h
 	}
 	_result = &QuerySecurityImageResponse{}
 	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("aitech.comm.security.image.query"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
+}
+
+// Description:
+//
+// Description: 提问检测-文件上传
+//
+// Summary: 提问检测-文件上传
+func (client *Client) UploadSecurityQuestion(request *UploadSecurityQuestionRequest) (_result *UploadSecurityQuestionResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &UploadSecurityQuestionResponse{}
+	_body, _err := client.UploadSecurityQuestionEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+// Description:
+//
+// Description: 提问检测-文件上传
+//
+// Summary: 提问检测-文件上传
+func (client *Client) UploadSecurityQuestionEx(request *UploadSecurityQuestionRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *UploadSecurityQuestionResponse, _err error) {
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &UploadSecurityQuestionResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("aitech.comm.security.question.upload"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
+}
+
+// Description:
+//
+// Description: 回答检测-文件上传
+//
+// Summary: 回答检测-文件上传
+func (client *Client) UploadSecurityAnswer(request *UploadSecurityAnswerRequest) (_result *UploadSecurityAnswerResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &UploadSecurityAnswerResponse{}
+	_body, _err := client.UploadSecurityAnswerEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+// Description:
+//
+// Description: 回答检测-文件上传
+//
+// Summary: 回答检测-文件上传
+func (client *Client) UploadSecurityAnswerEx(request *UploadSecurityAnswerRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *UploadSecurityAnswerResponse, _err error) {
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &UploadSecurityAnswerResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("aitech.comm.security.answer.upload"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
+}
+
+// Description:
+//
+// Description: 图片/PDF 检测-文件上传
+//
+// Summary: 图片/PDF 检测-文件上传
+func (client *Client) UploadSecurityImage(request *UploadSecurityImageRequest) (_result *UploadSecurityImageResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &UploadSecurityImageResponse{}
+	_body, _err := client.UploadSecurityImageEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+// Description:
+//
+// Description: 图片/PDF 检测-文件上传
+//
+// Summary: 图片/PDF 检测-文件上传
+func (client *Client) UploadSecurityImageEx(request *UploadSecurityImageRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *UploadSecurityImageResponse, _err error) {
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &UploadSecurityImageResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("aitech.comm.security.image.upload"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
+}
+
+// Description:
+//
+// Description: 语料祛毒
+//
+// Summary: 语料祛毒
+func (client *Client) QuerySecurityTextdetoxification(request *QuerySecurityTextdetoxificationRequest) (_result *QuerySecurityTextdetoxificationResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &QuerySecurityTextdetoxificationResponse{}
+	_body, _err := client.QuerySecurityTextdetoxificationEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+// Description:
+//
+// Description: 语料祛毒
+//
+// Summary: 语料祛毒
+func (client *Client) QuerySecurityTextdetoxificationEx(request *QuerySecurityTextdetoxificationRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *QuerySecurityTextdetoxificationResponse, _err error) {
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &QuerySecurityTextdetoxificationResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("aitech.comm.security.textdetoxification.query"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
+}
+
+// Description:
+//
+// Description: 视频公开访问 URL
+//
+// Summary: 视频公开访问 URL
+func (client *Client) QuerySecurityVideo(request *QuerySecurityVideoRequest) (_result *QuerySecurityVideoResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &QuerySecurityVideoResponse{}
+	_body, _err := client.QuerySecurityVideoEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+// Description:
+//
+// Description: 视频公开访问 URL
+//
+// Summary: 视频公开访问 URL
+func (client *Client) QuerySecurityVideoEx(request *QuerySecurityVideoRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *QuerySecurityVideoResponse, _err error) {
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &QuerySecurityVideoResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("aitech.comm.security.video.query"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
+}
+
+// Description:
+//
+// Description: 视频检测-文件上传
+//
+// Summary: 视频检测-文件上传
+func (client *Client) UploadSecurityVideo(request *UploadSecurityVideoRequest) (_result *UploadSecurityVideoResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &UploadSecurityVideoResponse{}
+	_body, _err := client.UploadSecurityVideoEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+// Description:
+//
+// Description: 视频检测-文件上传
+//
+// Summary: 视频检测-文件上传
+func (client *Client) UploadSecurityVideoEx(request *UploadSecurityVideoRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *UploadSecurityVideoResponse, _err error) {
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &UploadSecurityVideoResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("aitech.comm.security.video.upload"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
+}
+
+// Description:
+//
+// Description: 语音检测-JSON 模式
+//
+// Summary: 语音检测-JSON 模式
+func (client *Client) QuerySecurityAudio(request *QuerySecurityAudioRequest) (_result *QuerySecurityAudioResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &QuerySecurityAudioResponse{}
+	_body, _err := client.QuerySecurityAudioEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+// Description:
+//
+// Description: 语音检测-JSON 模式
+//
+// Summary: 语音检测-JSON 模式
+func (client *Client) QuerySecurityAudioEx(request *QuerySecurityAudioRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *QuerySecurityAudioResponse, _err error) {
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &QuerySecurityAudioResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("aitech.comm.security.audio.query"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
+}
+
+// Description:
+//
+// Description: 语音检测-文件上传
+//
+// Summary: 语音检测-文件上传
+func (client *Client) UploadSecurityAudio(request *UploadSecurityAudioRequest) (_result *UploadSecurityAudioResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &UploadSecurityAudioResponse{}
+	_body, _err := client.UploadSecurityAudioEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+// Description:
+//
+// Description: 语音检测-文件上传
+//
+// Summary: 语音检测-文件上传
+func (client *Client) UploadSecurityAudioEx(request *UploadSecurityAudioRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *UploadSecurityAudioResponse, _err error) {
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &UploadSecurityAudioResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("aitech.comm.security.audio.upload"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
 	if _err != nil {
 		return _result, _err
 	}
