@@ -31,6 +31,10 @@ use AntChain\CREATIVERENDER\Models\ExecAntcloudMarketingagentCreativeImageeditRe
 use AntChain\CREATIVERENDER\Models\ExecAntcloudMarketingagentCreativeImageeditResponse;
 use AntChain\CREATIVERENDER\Models\QueryAntcloudMarketingagentCreativeImageeditRequest;
 use AntChain\CREATIVERENDER\Models\QueryAntcloudMarketingagentCreativeImageeditResponse;
+use AntChain\CREATIVERENDER\Models\ExecAntcloudMarketingagentFileUploadRequest;
+use AntChain\CREATIVERENDER\Models\ExecAntcloudMarketingagentFileUploadResponse;
+use AntChain\CREATIVERENDER\Models\CreateAntcloudGatewayxFileUploadRequest;
+use AntChain\CREATIVERENDER\Models\CreateAntcloudGatewayxFileUploadResponse;
 
 class Client {
     protected $_endpoint;
@@ -167,7 +171,7 @@ class Client {
                     "req_msg_id" => UtilClient::getNonce(),
                     "access_key" => $this->_accessKeyId,
                     "base_sdk_version" => "TeaSDK-2.0",
-                    "sdk_version" => "2.1.2",
+                    "sdk_version" => "2.1.3",
                     "_prod_code" => "CREATIVERENDER",
                     "_prod_channel" => "default"
                 ];
@@ -435,5 +439,75 @@ class Client {
     public function queryAntcloudMarketingagentCreativeImageeditEx($request, $headers, $runtime){
         Utils::validateModel($request);
         return QueryAntcloudMarketingagentCreativeImageeditResponse::fromMap($this->doRequest("1.0", "antcloud.marketingagent.creative.imageedit.query", "HTTPS", "POST", "/gateway.do", Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 上传创意图片文件，返回文件 ID、OSS 路径和可访问 URL，供文生视频使用。支持 JPG、JPEG、PNG，文件最大 30 MiB。
+     * Summary: 上传创意图片文件，返回文件 ID、OSS 路径和可访问 URL，供文生视频使用。支持 JPG、JPEG、PNG，文件最大 30 MiB。
+     * @param ExecAntcloudMarketingagentFileUploadRequest $request
+     * @return ExecAntcloudMarketingagentFileUploadResponse
+     */
+    public function execAntcloudMarketingagentFileUpload($request){
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+        return $this->execAntcloudMarketingagentFileUploadEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 上传创意图片文件，返回文件 ID、OSS 路径和可访问 URL，供文生视频使用。支持 JPG、JPEG、PNG，文件最大 30 MiB。
+     * Summary: 上传创意图片文件，返回文件 ID、OSS 路径和可访问 URL，供文生视频使用。支持 JPG、JPEG、PNG，文件最大 30 MiB。
+     * @param ExecAntcloudMarketingagentFileUploadRequest $request
+     * @param string[] $headers
+     * @param RuntimeOptions $runtime
+     * @return ExecAntcloudMarketingagentFileUploadResponse
+     */
+    public function execAntcloudMarketingagentFileUploadEx($request, $headers, $runtime){
+        if (!Utils::isUnset($request->fileObject)) {
+            $uploadReq = new CreateAntcloudGatewayxFileUploadRequest([
+                "authToken" => $request->authToken,
+                "apiCode" => "antcloud.marketingagent.file.upload.exec",
+                "fileName" => $request->fileObjectName
+            ]);
+            $uploadResp = $this->createAntcloudGatewayxFileUploadEx($uploadReq, $headers, $runtime);
+            if (!UtilClient::isSuccess($uploadResp->resultCode, "ok")) {
+                $execAntcloudMarketingagentFileUploadResponse = new ExecAntcloudMarketingagentFileUploadResponse([
+                    "reqMsgId" => $uploadResp->reqMsgId,
+                    "resultCode" => $uploadResp->resultCode,
+                    "resultMsg" => $uploadResp->resultMsg
+                ]);
+                return $execAntcloudMarketingagentFileUploadResponse;
+            }
+            $uploadHeaders = UtilClient::parseUploadHeaders($uploadResp->uploadHeaders);
+            UtilClient::putObject($request->fileObject, $uploadHeaders, $uploadResp->uploadUrl);
+            $request->fileId = $uploadResp->fileId;
+            $request->fileObject = null;
+        }
+        Utils::validateModel($request);
+        return ExecAntcloudMarketingagentFileUploadResponse::fromMap($this->doRequest("1.0", "antcloud.marketingagent.file.upload.exec", "HTTPS", "POST", "/gateway.do", Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 创建HTTP PUT提交的文件上传
+     * Summary: 文件上传创建
+     * @param CreateAntcloudGatewayxFileUploadRequest $request
+     * @return CreateAntcloudGatewayxFileUploadResponse
+     */
+    public function createAntcloudGatewayxFileUpload($request){
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+        return $this->createAntcloudGatewayxFileUploadEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 创建HTTP PUT提交的文件上传
+     * Summary: 文件上传创建
+     * @param CreateAntcloudGatewayxFileUploadRequest $request
+     * @param string[] $headers
+     * @param RuntimeOptions $runtime
+     * @return CreateAntcloudGatewayxFileUploadResponse
+     */
+    public function createAntcloudGatewayxFileUploadEx($request, $headers, $runtime){
+        Utils::validateModel($request);
+        return CreateAntcloudGatewayxFileUploadResponse::fromMap($this->doRequest("1.0", "antcloud.gatewayx.file.upload.create", "HTTPS", "POST", "/gateway.do", Tea::merge($request), $headers, $runtime));
     }
 }
