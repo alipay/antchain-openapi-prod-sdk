@@ -13,6 +13,12 @@ use AntChain\Util\UtilClient;
 use AlibabaCloud\Tea\RpcUtils\RpcUtils;
 
 use AlibabaCloud\Tea\Utils\Utils\RuntimeOptions;
+use AntChain\AITECH\Models\QueryAdvisormarketDataRequest;
+use AntChain\AITECH\Models\QueryAdvisormarketDataResponse;
+use AntChain\AITECH\Models\PushAdvisormarketAnalysisRequest;
+use AntChain\AITECH\Models\PushAdvisormarketAnalysisResponse;
+use AntChain\AITECH\Models\QueryAdvisormarketAnalysisRequest;
+use AntChain\AITECH\Models\QueryAdvisormarketAnalysisResponse;
 use AntChain\AITECH\Models\ApplyAuditImageRequest;
 use AntChain\AITECH\Models\ApplyAuditImageResponse;
 use AntChain\AITECH\Models\CallbackSofaAuditRequest;
@@ -137,6 +143,22 @@ use AntChain\AITECH\Models\QuerySecurityAnswerRequest;
 use AntChain\AITECH\Models\QuerySecurityAnswerResponse;
 use AntChain\AITECH\Models\QuerySecurityImageRequest;
 use AntChain\AITECH\Models\QuerySecurityImageResponse;
+use AntChain\AITECH\Models\UploadSecurityQuestionRequest;
+use AntChain\AITECH\Models\UploadSecurityQuestionResponse;
+use AntChain\AITECH\Models\UploadSecurityAnswerRequest;
+use AntChain\AITECH\Models\UploadSecurityAnswerResponse;
+use AntChain\AITECH\Models\UploadSecurityImageRequest;
+use AntChain\AITECH\Models\UploadSecurityImageResponse;
+use AntChain\AITECH\Models\QuerySecurityTextdetoxificationRequest;
+use AntChain\AITECH\Models\QuerySecurityTextdetoxificationResponse;
+use AntChain\AITECH\Models\QuerySecurityVideoRequest;
+use AntChain\AITECH\Models\QuerySecurityVideoResponse;
+use AntChain\AITECH\Models\UploadSecurityVideoRequest;
+use AntChain\AITECH\Models\UploadSecurityVideoResponse;
+use AntChain\AITECH\Models\QuerySecurityAudioRequest;
+use AntChain\AITECH\Models\QuerySecurityAudioResponse;
+use AntChain\AITECH\Models\UploadSecurityAudioRequest;
+use AntChain\AITECH\Models\UploadSecurityAudioResponse;
 
 class Client {
     protected $_endpoint;
@@ -273,7 +295,7 @@ class Client {
                     "req_msg_id" => UtilClient::getNonce(),
                     "access_key" => $this->_accessKeyId,
                     "base_sdk_version" => "TeaSDK-2.0",
-                    "sdk_version" => "1.1.64",
+                    "sdk_version" => "1.1.65",
                     "_prod_code" => "AITECH",
                     "_prod_channel" => "default"
                 ];
@@ -316,6 +338,81 @@ class Client {
             }
         }
         throw new TeaUnableRetryError($_lastRequest, $_lastException);
+    }
+
+    /**
+     * Description: 客户统计结果查询
+     * Summary: 客户统计结果查询
+     * @param QueryAdvisormarketDataRequest $request
+     * @return QueryAdvisormarketDataResponse
+     */
+    public function queryAdvisormarketData($request){
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+        return $this->queryAdvisormarketDataEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 客户统计结果查询
+     * Summary: 客户统计结果查询
+     * @param QueryAdvisormarketDataRequest $request
+     * @param string[] $headers
+     * @param RuntimeOptions $runtime
+     * @return QueryAdvisormarketDataResponse
+     */
+    public function queryAdvisormarketDataEx($request, $headers, $runtime){
+        Utils::validateModel($request);
+        return QueryAdvisormarketDataResponse::fromMap($this->doRequest("1.0", "aitech.comm.advisormarket.data.query", "HTTPS", "POST", "/gateway.do", Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 创建异步商圈客群分析任务。接口仅校验参数并创建 QUEUED 任务，不同步执行分析。请保存返回的 task_id，并使用查询接口查询状态或结果。
+     * Summary: 创建异步商圈客群分析任务。接口仅校验参数并创建 QUEUED 任务，不同步执行分析。请保存返回的 task_id，并使用查询接口查询状态或结果。
+     * @param PushAdvisormarketAnalysisRequest $request
+     * @return PushAdvisormarketAnalysisResponse
+     */
+    public function pushAdvisormarketAnalysis($request){
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+        return $this->pushAdvisormarketAnalysisEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 创建异步商圈客群分析任务。接口仅校验参数并创建 QUEUED 任务，不同步执行分析。请保存返回的 task_id，并使用查询接口查询状态或结果。
+     * Summary: 创建异步商圈客群分析任务。接口仅校验参数并创建 QUEUED 任务，不同步执行分析。请保存返回的 task_id，并使用查询接口查询状态或结果。
+     * @param PushAdvisormarketAnalysisRequest $request
+     * @param string[] $headers
+     * @param RuntimeOptions $runtime
+     * @return PushAdvisormarketAnalysisResponse
+     */
+    public function pushAdvisormarketAnalysisEx($request, $headers, $runtime){
+        Utils::validateModel($request);
+        return PushAdvisormarketAnalysisResponse::fromMap($this->doRequest("1.0", "aitech.comm.advisormarket.analysis.push", "HTTPS", "POST", "/gateway.do", Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 查询当前租户的异步商圈客群分析任务。
+     * Summary: 查询当前租户的异步商圈客群分析任务。
+     * @param QueryAdvisormarketAnalysisRequest $request
+     * @return QueryAdvisormarketAnalysisResponse
+     */
+    public function queryAdvisormarketAnalysis($request){
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+        return $this->queryAdvisormarketAnalysisEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 查询当前租户的异步商圈客群分析任务。
+     * Summary: 查询当前租户的异步商圈客群分析任务。
+     * @param QueryAdvisormarketAnalysisRequest $request
+     * @param string[] $headers
+     * @param RuntimeOptions $runtime
+     * @return QueryAdvisormarketAnalysisResponse
+     */
+    public function queryAdvisormarketAnalysisEx($request, $headers, $runtime){
+        Utils::validateModel($request);
+        return QueryAdvisormarketAnalysisResponse::fromMap($this->doRequest("1.0", "aitech.comm.advisormarket.analysis.query", "HTTPS", "POST", "/gateway.do", Tea::merge($request), $headers, $runtime));
     }
 
     /**
@@ -1845,7 +1942,7 @@ class Client {
 
     /**
      * Description: 天鉴图片检测功能saas版本
-     * Summary: 天鉴图片检测功能saas
+     * Summary: 天鉴图片检测功能saas版本
      * @param QuerySecurityImageRequest $request
      * @return QuerySecurityImageResponse
      */
@@ -1857,7 +1954,7 @@ class Client {
 
     /**
      * Description: 天鉴图片检测功能saas版本
-     * Summary: 天鉴图片检测功能saas
+     * Summary: 天鉴图片检测功能saas版本
      * @param QuerySecurityImageRequest $request
      * @param string[] $headers
      * @param RuntimeOptions $runtime
@@ -1866,5 +1963,205 @@ class Client {
     public function querySecurityImageEx($request, $headers, $runtime){
         Utils::validateModel($request);
         return QuerySecurityImageResponse::fromMap($this->doRequest("1.0", "aitech.comm.security.image.query", "HTTPS", "POST", "/gateway.do", Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 提问检测-文件上传
+     * Summary: 提问检测-文件上传
+     * @param UploadSecurityQuestionRequest $request
+     * @return UploadSecurityQuestionResponse
+     */
+    public function uploadSecurityQuestion($request){
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+        return $this->uploadSecurityQuestionEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 提问检测-文件上传
+     * Summary: 提问检测-文件上传
+     * @param UploadSecurityQuestionRequest $request
+     * @param string[] $headers
+     * @param RuntimeOptions $runtime
+     * @return UploadSecurityQuestionResponse
+     */
+    public function uploadSecurityQuestionEx($request, $headers, $runtime){
+        Utils::validateModel($request);
+        return UploadSecurityQuestionResponse::fromMap($this->doRequest("1.0", "aitech.comm.security.question.upload", "HTTPS", "POST", "/gateway.do", Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 回答检测-文件上传
+     * Summary: 回答检测-文件上传
+     * @param UploadSecurityAnswerRequest $request
+     * @return UploadSecurityAnswerResponse
+     */
+    public function uploadSecurityAnswer($request){
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+        return $this->uploadSecurityAnswerEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 回答检测-文件上传
+     * Summary: 回答检测-文件上传
+     * @param UploadSecurityAnswerRequest $request
+     * @param string[] $headers
+     * @param RuntimeOptions $runtime
+     * @return UploadSecurityAnswerResponse
+     */
+    public function uploadSecurityAnswerEx($request, $headers, $runtime){
+        Utils::validateModel($request);
+        return UploadSecurityAnswerResponse::fromMap($this->doRequest("1.0", "aitech.comm.security.answer.upload", "HTTPS", "POST", "/gateway.do", Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 图片/PDF 检测-文件上传
+     * Summary: 图片/PDF 检测-文件上传
+     * @param UploadSecurityImageRequest $request
+     * @return UploadSecurityImageResponse
+     */
+    public function uploadSecurityImage($request){
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+        return $this->uploadSecurityImageEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 图片/PDF 检测-文件上传
+     * Summary: 图片/PDF 检测-文件上传
+     * @param UploadSecurityImageRequest $request
+     * @param string[] $headers
+     * @param RuntimeOptions $runtime
+     * @return UploadSecurityImageResponse
+     */
+    public function uploadSecurityImageEx($request, $headers, $runtime){
+        Utils::validateModel($request);
+        return UploadSecurityImageResponse::fromMap($this->doRequest("1.0", "aitech.comm.security.image.upload", "HTTPS", "POST", "/gateway.do", Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 语料祛毒
+     * Summary: 语料祛毒
+     * @param QuerySecurityTextdetoxificationRequest $request
+     * @return QuerySecurityTextdetoxificationResponse
+     */
+    public function querySecurityTextdetoxification($request){
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+        return $this->querySecurityTextdetoxificationEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 语料祛毒
+     * Summary: 语料祛毒
+     * @param QuerySecurityTextdetoxificationRequest $request
+     * @param string[] $headers
+     * @param RuntimeOptions $runtime
+     * @return QuerySecurityTextdetoxificationResponse
+     */
+    public function querySecurityTextdetoxificationEx($request, $headers, $runtime){
+        Utils::validateModel($request);
+        return QuerySecurityTextdetoxificationResponse::fromMap($this->doRequest("1.0", "aitech.comm.security.textdetoxification.query", "HTTPS", "POST", "/gateway.do", Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 视频公开访问 URL
+     * Summary: 视频公开访问 URL
+     * @param QuerySecurityVideoRequest $request
+     * @return QuerySecurityVideoResponse
+     */
+    public function querySecurityVideo($request){
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+        return $this->querySecurityVideoEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 视频公开访问 URL
+     * Summary: 视频公开访问 URL
+     * @param QuerySecurityVideoRequest $request
+     * @param string[] $headers
+     * @param RuntimeOptions $runtime
+     * @return QuerySecurityVideoResponse
+     */
+    public function querySecurityVideoEx($request, $headers, $runtime){
+        Utils::validateModel($request);
+        return QuerySecurityVideoResponse::fromMap($this->doRequest("1.0", "aitech.comm.security.video.query", "HTTPS", "POST", "/gateway.do", Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 视频检测-文件上传
+     * Summary: 视频检测-文件上传
+     * @param UploadSecurityVideoRequest $request
+     * @return UploadSecurityVideoResponse
+     */
+    public function uploadSecurityVideo($request){
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+        return $this->uploadSecurityVideoEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 视频检测-文件上传
+     * Summary: 视频检测-文件上传
+     * @param UploadSecurityVideoRequest $request
+     * @param string[] $headers
+     * @param RuntimeOptions $runtime
+     * @return UploadSecurityVideoResponse
+     */
+    public function uploadSecurityVideoEx($request, $headers, $runtime){
+        Utils::validateModel($request);
+        return UploadSecurityVideoResponse::fromMap($this->doRequest("1.0", "aitech.comm.security.video.upload", "HTTPS", "POST", "/gateway.do", Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 语音检测-JSON 模式
+     * Summary: 语音检测-JSON 模式
+     * @param QuerySecurityAudioRequest $request
+     * @return QuerySecurityAudioResponse
+     */
+    public function querySecurityAudio($request){
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+        return $this->querySecurityAudioEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 语音检测-JSON 模式
+     * Summary: 语音检测-JSON 模式
+     * @param QuerySecurityAudioRequest $request
+     * @param string[] $headers
+     * @param RuntimeOptions $runtime
+     * @return QuerySecurityAudioResponse
+     */
+    public function querySecurityAudioEx($request, $headers, $runtime){
+        Utils::validateModel($request);
+        return QuerySecurityAudioResponse::fromMap($this->doRequest("1.0", "aitech.comm.security.audio.query", "HTTPS", "POST", "/gateway.do", Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 语音检测-文件上传
+     * Summary: 语音检测-文件上传
+     * @param UploadSecurityAudioRequest $request
+     * @return UploadSecurityAudioResponse
+     */
+    public function uploadSecurityAudio($request){
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+        return $this->uploadSecurityAudioEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 语音检测-文件上传
+     * Summary: 语音检测-文件上传
+     * @param UploadSecurityAudioRequest $request
+     * @param string[] $headers
+     * @param RuntimeOptions $runtime
+     * @return UploadSecurityAudioResponse
+     */
+    public function uploadSecurityAudioEx($request, $headers, $runtime){
+        Utils::validateModel($request);
+        return UploadSecurityAudioResponse::fromMap($this->doRequest("1.0", "aitech.comm.security.audio.upload", "HTTPS", "POST", "/gateway.do", Tea::merge($request), $headers, $runtime));
     }
 }

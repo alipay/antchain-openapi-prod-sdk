@@ -5,12 +5,17 @@ namespace AntChain\AITECH\Models;
 
 use AlibabaCloud\Tea\Model;
 
+use AntChain\AITECH\Models\ImageBlackWhiteResult;
+use AntChain\AITECH\Models\TokenUsageSummary;
+
 class QuerySecurityImageResponse extends Model {
     protected $_name = [
         'reqMsgId' => 'req_msg_id',
         'resultCode' => 'result_code',
         'resultMsg' => 'result_msg',
         'actionCode' => 'action_code',
+        'imageBlackWhiteResult' => 'image_black_white_result',
+        'tokenUsage' => 'token_usage',
     ];
     public function validate() {}
     public function toMap() {
@@ -26,6 +31,12 @@ class QuerySecurityImageResponse extends Model {
         }
         if (null !== $this->actionCode) {
             $res['action_code'] = $this->actionCode;
+        }
+        if (null !== $this->imageBlackWhiteResult) {
+            $res['image_black_white_result'] = null !== $this->imageBlackWhiteResult ? $this->imageBlackWhiteResult->toMap() : null;
+        }
+        if (null !== $this->tokenUsage) {
+            $res['token_usage'] = null !== $this->tokenUsage ? $this->tokenUsage->toMap() : null;
         }
         return $res;
     }
@@ -46,6 +57,12 @@ class QuerySecurityImageResponse extends Model {
         }
         if(isset($map['action_code'])){
             $model->actionCode = $map['action_code'];
+        }
+        if(isset($map['image_black_white_result'])){
+            $model->imageBlackWhiteResult = ImageBlackWhiteResult::fromMap($map['image_black_white_result']);
+        }
+        if(isset($map['token_usage'])){
+            $model->tokenUsage = TokenUsageSummary::fromMap($map['token_usage']);
         }
         return $model;
     }
@@ -72,5 +89,17 @@ class QuerySecurityImageResponse extends Model {
      * @var string
      */
     public $actionCode;
+
+    // 排黑排白命中结果（命中时携带详细信息，未命中或未启用为 null）
+    /**
+     * @var ImageBlackWhiteResult
+     */
+    public $imageBlackWhiteResult;
+
+    // 本次接口请求内所有大模型调用的 token 汇总。
+    /**
+     * @var TokenUsageSummary
+     */
+    public $tokenUsage;
 
 }

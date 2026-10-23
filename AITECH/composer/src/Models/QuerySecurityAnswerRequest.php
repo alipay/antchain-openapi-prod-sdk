@@ -19,6 +19,10 @@ class QuerySecurityAnswerRequest extends Model {
         'messageId' => 'message_id',
         'privacyDataObfuscation' => 'privacy_data_obfuscation',
         'privacyDataDetection' => 'privacy_data_detection',
+        'question' => 'question',
+        'customWhiteCheck' => 'custom_white_check',
+        'customBlackWordCheck' => 'custom_black_word_check',
+        'graphCaseRecall' => 'graph_case_recall',
     ];
     public function validate() {
         Model::validateRequired('businessId', $this->businessId, true);
@@ -64,6 +68,18 @@ class QuerySecurityAnswerRequest extends Model {
         if (null !== $this->privacyDataDetection) {
             $res['privacy_data_detection'] = $this->privacyDataDetection;
         }
+        if (null !== $this->question) {
+            $res['question'] = $this->question;
+        }
+        if (null !== $this->customWhiteCheck) {
+            $res['custom_white_check'] = $this->customWhiteCheck;
+        }
+        if (null !== $this->customBlackWordCheck) {
+            $res['custom_black_word_check'] = $this->customBlackWordCheck;
+        }
+        if (null !== $this->graphCaseRecall) {
+            $res['graph_case_recall'] = $this->graphCaseRecall;
+        }
         return $res;
     }
     /**
@@ -107,6 +123,18 @@ class QuerySecurityAnswerRequest extends Model {
         }
         if(isset($map['privacy_data_detection'])){
             $model->privacyDataDetection = $map['privacy_data_detection'];
+        }
+        if(isset($map['question'])){
+            $model->question = $map['question'];
+        }
+        if(isset($map['custom_white_check'])){
+            $model->customWhiteCheck = $map['custom_white_check'];
+        }
+        if(isset($map['custom_black_word_check'])){
+            $model->customBlackWordCheck = $map['custom_black_word_check'];
+        }
+        if(isset($map['graph_case_recall'])){
+            $model->graphCaseRecall = $map['graph_case_recall'];
         }
         return $model;
     }
@@ -180,5 +208,29 @@ class QuerySecurityAnswerRequest extends Model {
      * @var string
      */
     public $privacyDataDetection;
+
+    // 用户原提问（输出 max 接口必需，用于医疗合规检测送模型）
+    /**
+     * @var string
+     */
+    public $question;
+
+    // 自定义白库检测，默认开启，仅 N 关闭
+    /**
+     * @var string
+     */
+    public $customWhiteCheck;
+
+    // 自定义黑词检测，默认开启，仅 N 关闭
+    /**
+     * @var string
+     */
+    public $customBlackWordCheck;
+
+    // Universal/金融图谱案例召回，默认开启，仅 N 关闭
+    /**
+     * @var string
+     */
+    public $graphCaseRecall;
 
 }

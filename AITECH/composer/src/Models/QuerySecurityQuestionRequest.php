@@ -22,6 +22,10 @@ class QuerySecurityQuestionRequest extends Model {
         'promptAttackDefense' => 'prompt_attack_defense',
         'privacyDataDetection' => 'privacy_data_detection',
         'securityAnswer' => 'security_answer',
+        'customWhiteCheck' => 'custom_white_check',
+        'customBlackWordCheck' => 'custom_black_word_check',
+        'preSecurityAnswer' => 'pre_security_answer',
+        'graphCaseRecall' => 'graph_case_recall',
     ];
     public function validate() {
         Model::validateRequired('question', $this->question, true);
@@ -76,6 +80,18 @@ class QuerySecurityQuestionRequest extends Model {
         if (null !== $this->securityAnswer) {
             $res['security_answer'] = $this->securityAnswer;
         }
+        if (null !== $this->customWhiteCheck) {
+            $res['custom_white_check'] = $this->customWhiteCheck;
+        }
+        if (null !== $this->customBlackWordCheck) {
+            $res['custom_black_word_check'] = $this->customBlackWordCheck;
+        }
+        if (null !== $this->preSecurityAnswer) {
+            $res['pre_security_answer'] = $this->preSecurityAnswer;
+        }
+        if (null !== $this->graphCaseRecall) {
+            $res['graph_case_recall'] = $this->graphCaseRecall;
+        }
         return $res;
     }
     /**
@@ -128,6 +144,18 @@ class QuerySecurityQuestionRequest extends Model {
         }
         if(isset($map['security_answer'])){
             $model->securityAnswer = $map['security_answer'];
+        }
+        if(isset($map['custom_white_check'])){
+            $model->customWhiteCheck = $map['custom_white_check'];
+        }
+        if(isset($map['custom_black_word_check'])){
+            $model->customBlackWordCheck = $map['custom_black_word_check'];
+        }
+        if(isset($map['pre_security_answer'])){
+            $model->preSecurityAnswer = $map['pre_security_answer'];
+        }
+        if(isset($map['graph_case_recall'])){
+            $model->graphCaseRecall = $map['graph_case_recall'];
         }
         return $model;
     }
@@ -219,5 +247,29 @@ class QuerySecurityQuestionRequest extends Model {
      * @var string
      */
     public $securityAnswer;
+
+    // 自定义白库检测，默认开启，仅 N 关闭
+    /**
+     * @var string
+     */
+    public $customWhiteCheck;
+
+    // 自定义黑词检测，默认开启，仅 N 关闭
+    /**
+     * @var string
+     */
+    public $customBlackWordCheck;
+
+    // 前置知识库代答，默认开启，仅 N 关闭
+    /**
+     * @var string
+     */
+    public $preSecurityAnswer;
+
+    // Universal/金融图谱案例召回，默认开启，仅 N 关闭
+    /**
+     * @var string
+     */
+    public $graphCaseRecall;
 
 }
