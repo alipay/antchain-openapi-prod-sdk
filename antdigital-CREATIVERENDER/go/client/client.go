@@ -328,6 +328,108 @@ func (s *TaskStatus) SetMessage(v *Message) *TaskStatus {
 	return s
 }
 
+// 基金长图分段当前快照，包含头图和正文段图及其版本信息。
+type LongImageSegment struct {
+	// 全局唯一的分段业务 ID。
+	// example:
+	//
+	// LS_xxx
+	SegmentId *string `json:"segment_id,omitempty" xml:"segment_id,omitempty"`
+	// 分段类型：BANNER 为长图头图；CONTENT 为正文段图。
+	// example:
+	//
+	// BANNER
+	SegmentType *string `json:"segment_type,omitempty" xml:"segment_type,omitempty"`
+	// 展示顺序，从 0 开始；头图固定为 0，正文从 1 开始，值越小越靠前。
+	// example:
+	//
+	// 0
+	SortNo *int64 `json:"sort_no,omitempty" xml:"sort_no,omitempty"`
+	// 首次生成该分段使用的原文，后续编辑或回滚不会修改。
+	// example:
+	//
+	// 基金投资亮点
+	SourceText *string `json:"source_text,omitempty" xml:"source_text,omitempty"`
+	// 当前分段版本 ID；仅在 current_status 为 SUCCESS 时可作为子图编辑来源。
+	// example:
+	//
+	// LV_xxx
+	CurrentVersionId *string `json:"current_version_id,omitempty" xml:"current_version_id,omitempty"`
+	// 当前版本状态：PROCESSING、SUCCESS、FAILED、CONFLICT。
+	// example:
+	//
+	// SUCCESS
+	CurrentStatus *string `json:"current_status,omitempty" xml:"current_status,omitempty"`
+	// 当前版本的图片地址。
+	// example:
+	//
+	// https://example.com/segment.png
+	CurrentImageUrl *string `json:"current_image_url,omitempty" xml:"current_image_url,omitempty"`
+	// 最近可用的成功版本 ID，可作为子图编辑来源；没有成功版本时为空。
+	// example:
+	//
+	// LV_xxx
+	LastSuccessVersionId *string `json:"last_success_version_id,omitempty" xml:"last_success_version_id,omitempty"`
+	// last_success_version_id 对应的图片地址；没有成功成果时为空。
+	// example:
+	//
+	// https://example.com/segment.png
+	LastSuccessImageUrl *string `json:"last_success_image_url,omitempty" xml:"last_success_image_url,omitempty"`
+}
+
+func (s LongImageSegment) String() string {
+	return tea.Prettify(s)
+}
+
+func (s LongImageSegment) GoString() string {
+	return s.String()
+}
+
+func (s *LongImageSegment) SetSegmentId(v string) *LongImageSegment {
+	s.SegmentId = &v
+	return s
+}
+
+func (s *LongImageSegment) SetSegmentType(v string) *LongImageSegment {
+	s.SegmentType = &v
+	return s
+}
+
+func (s *LongImageSegment) SetSortNo(v int64) *LongImageSegment {
+	s.SortNo = &v
+	return s
+}
+
+func (s *LongImageSegment) SetSourceText(v string) *LongImageSegment {
+	s.SourceText = &v
+	return s
+}
+
+func (s *LongImageSegment) SetCurrentVersionId(v string) *LongImageSegment {
+	s.CurrentVersionId = &v
+	return s
+}
+
+func (s *LongImageSegment) SetCurrentStatus(v string) *LongImageSegment {
+	s.CurrentStatus = &v
+	return s
+}
+
+func (s *LongImageSegment) SetCurrentImageUrl(v string) *LongImageSegment {
+	s.CurrentImageUrl = &v
+	return s
+}
+
+func (s *LongImageSegment) SetLastSuccessVersionId(v string) *LongImageSegment {
+	s.LastSuccessVersionId = &v
+	return s
+}
+
+func (s *LongImageSegment) SetLastSuccessImageUrl(v string) *LongImageSegment {
+	s.LastSuccessImageUrl = &v
+	return s
+}
+
 // ASSISTANT 消息特有信息
 type AssistantExtra struct {
 	// 任务id
@@ -345,6 +447,11 @@ type AssistantExtra struct {
 	//
 	// undefined
 	ResultUrl []*string `json:"result_url,omitempty" xml:"result_url,omitempty" type:"Repeated"`
+	// 基金长图子图列表，仅在 return_sub_images 为 true 且长图生成完成时返回。
+	// example:
+	//
+	// undefined
+	SubImages []*LongImageSegment `json:"sub_images,omitempty" xml:"sub_images,omitempty" type:"Repeated"`
 }
 
 func (s AssistantExtra) String() string {
@@ -367,6 +474,11 @@ func (s *AssistantExtra) SetRenderStatus(v string) *AssistantExtra {
 
 func (s *AssistantExtra) SetResultUrl(v []*string) *AssistantExtra {
 	s.ResultUrl = v
+	return s
+}
+
+func (s *AssistantExtra) SetSubImages(v []*LongImageSegment) *AssistantExtra {
+	s.SubImages = v
 	return s
 }
 
@@ -1086,6 +1198,8 @@ type QueryAntcloudMarketingagentCreativeResultRequest struct {
 	AuthToken *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
 	// 消息ID
 	MessageId *string `json:"message_id,omitempty" xml:"message_id,omitempty" require:"true"`
+	// 是否返回基金长图的子图列表，默认 false。为 true 时，在长图生成完成后返回 assistant_extra.sub_images；不影响长图生成流程。
+	ReturnSubImages *bool `json:"return_sub_images,omitempty" xml:"return_sub_images,omitempty"`
 }
 
 func (s QueryAntcloudMarketingagentCreativeResultRequest) String() string {
@@ -1103,6 +1217,11 @@ func (s *QueryAntcloudMarketingagentCreativeResultRequest) SetAuthToken(v string
 
 func (s *QueryAntcloudMarketingagentCreativeResultRequest) SetMessageId(v string) *QueryAntcloudMarketingagentCreativeResultRequest {
 	s.MessageId = &v
+	return s
+}
+
+func (s *QueryAntcloudMarketingagentCreativeResultRequest) SetReturnSubImages(v bool) *QueryAntcloudMarketingagentCreativeResultRequest {
+	s.ReturnSubImages = &v
 	return s
 }
 
@@ -1646,6 +1765,183 @@ func (s *QueryAntcloudMarketingagentCreativeVideoResponse) SetErrorMessage(v str
 	return s
 }
 
+type ExecAntcloudMarketingagentCreativeImageeditRequest struct {
+	// OAuth模式下的授权token
+	AuthToken *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	// 产品代码，当前仅支持 FUND（基金）。
+	ProductCode *string `json:"product_code,omitempty" xml:"product_code,omitempty" require:"true"`
+	// 来源子图成功版本 ID，必须属于当前调用用户及租户；可使用子图列表中的成功版本或上一轮编辑成功返回的新版本。
+	SegmentVersionId *string `json:"segment_version_id,omitempty" xml:"segment_version_id,omitempty" require:"true"`
+	// 本轮图片修改要求，不能为空。源图和输出宽高由服务端根据来源版本解析。
+	Prompt *string `json:"prompt,omitempty" xml:"prompt,omitempty" require:"true"`
+}
+
+func (s ExecAntcloudMarketingagentCreativeImageeditRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s ExecAntcloudMarketingagentCreativeImageeditRequest) GoString() string {
+	return s.String()
+}
+
+func (s *ExecAntcloudMarketingagentCreativeImageeditRequest) SetAuthToken(v string) *ExecAntcloudMarketingagentCreativeImageeditRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *ExecAntcloudMarketingagentCreativeImageeditRequest) SetProductCode(v string) *ExecAntcloudMarketingagentCreativeImageeditRequest {
+	s.ProductCode = &v
+	return s
+}
+
+func (s *ExecAntcloudMarketingagentCreativeImageeditRequest) SetSegmentVersionId(v string) *ExecAntcloudMarketingagentCreativeImageeditRequest {
+	s.SegmentVersionId = &v
+	return s
+}
+
+func (s *ExecAntcloudMarketingagentCreativeImageeditRequest) SetPrompt(v string) *ExecAntcloudMarketingagentCreativeImageeditRequest {
+	s.Prompt = &v
+	return s
+}
+
+type ExecAntcloudMarketingagentCreativeImageeditResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// 本次子图编辑任务的独立消息 ID，用于调用子图编辑查询接口获取进度和结果。
+	MessageId *string `json:"message_id,omitempty" xml:"message_id,omitempty"`
+	// 本次编辑新建的版本 ID。任务提交成功不代表图片生成成功；查询确认成功后可作为下一轮修改来源。
+	SegmentVersionId *string `json:"segment_version_id,omitempty" xml:"segment_version_id,omitempty"`
+}
+
+func (s ExecAntcloudMarketingagentCreativeImageeditResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s ExecAntcloudMarketingagentCreativeImageeditResponse) GoString() string {
+	return s.String()
+}
+
+func (s *ExecAntcloudMarketingagentCreativeImageeditResponse) SetReqMsgId(v string) *ExecAntcloudMarketingagentCreativeImageeditResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *ExecAntcloudMarketingagentCreativeImageeditResponse) SetResultCode(v string) *ExecAntcloudMarketingagentCreativeImageeditResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *ExecAntcloudMarketingagentCreativeImageeditResponse) SetResultMsg(v string) *ExecAntcloudMarketingagentCreativeImageeditResponse {
+	s.ResultMsg = &v
+	return s
+}
+
+func (s *ExecAntcloudMarketingagentCreativeImageeditResponse) SetMessageId(v string) *ExecAntcloudMarketingagentCreativeImageeditResponse {
+	s.MessageId = &v
+	return s
+}
+
+func (s *ExecAntcloudMarketingagentCreativeImageeditResponse) SetSegmentVersionId(v string) *ExecAntcloudMarketingagentCreativeImageeditResponse {
+	s.SegmentVersionId = &v
+	return s
+}
+
+type QueryAntcloudMarketingagentCreativeImageeditRequest struct {
+	// OAuth模式下的授权token
+	AuthToken *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	// 子图编辑接口返回的独立消息 ID，必须属于当前调用用户及租户。
+	MessageId *string `json:"message_id,omitempty" xml:"message_id,omitempty" require:"true"`
+}
+
+func (s QueryAntcloudMarketingagentCreativeImageeditRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s QueryAntcloudMarketingagentCreativeImageeditRequest) GoString() string {
+	return s.String()
+}
+
+func (s *QueryAntcloudMarketingagentCreativeImageeditRequest) SetAuthToken(v string) *QueryAntcloudMarketingagentCreativeImageeditRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *QueryAntcloudMarketingagentCreativeImageeditRequest) SetMessageId(v string) *QueryAntcloudMarketingagentCreativeImageeditRequest {
+	s.MessageId = &v
+	return s
+}
+
+type QueryAntcloudMarketingagentCreativeImageeditResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// 本次子图编辑任务的独立消息 ID。
+	MessageId *string `json:"message_id,omitempty" xml:"message_id,omitempty"`
+	// 本次编辑生成的新版本 ID，任务成功后可作为下一轮编辑的来源版本。
+	SegmentVersionId *string `json:"segment_version_id,omitempty" xml:"segment_version_id,omitempty"`
+	// 任务状态：PROCESSING（处理中）、COMPLETED（成功）、FAILED（失败）。查询接口调用成功不代表任务生成成功。
+	Status *string `json:"status,omitempty" xml:"status,omitempty"`
+	// 编辑成功后的图片地址，仅在 status 为 COMPLETED 时返回。
+	ResultUrl *string `json:"result_url,omitempty" xml:"result_url,omitempty"`
+	// 编辑失败原因，在 status 为 FAILED 时返回。
+	FailReason *string `json:"fail_reason,omitempty" xml:"fail_reason,omitempty"`
+}
+
+func (s QueryAntcloudMarketingagentCreativeImageeditResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s QueryAntcloudMarketingagentCreativeImageeditResponse) GoString() string {
+	return s.String()
+}
+
+func (s *QueryAntcloudMarketingagentCreativeImageeditResponse) SetReqMsgId(v string) *QueryAntcloudMarketingagentCreativeImageeditResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *QueryAntcloudMarketingagentCreativeImageeditResponse) SetResultCode(v string) *QueryAntcloudMarketingagentCreativeImageeditResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *QueryAntcloudMarketingagentCreativeImageeditResponse) SetResultMsg(v string) *QueryAntcloudMarketingagentCreativeImageeditResponse {
+	s.ResultMsg = &v
+	return s
+}
+
+func (s *QueryAntcloudMarketingagentCreativeImageeditResponse) SetMessageId(v string) *QueryAntcloudMarketingagentCreativeImageeditResponse {
+	s.MessageId = &v
+	return s
+}
+
+func (s *QueryAntcloudMarketingagentCreativeImageeditResponse) SetSegmentVersionId(v string) *QueryAntcloudMarketingagentCreativeImageeditResponse {
+	s.SegmentVersionId = &v
+	return s
+}
+
+func (s *QueryAntcloudMarketingagentCreativeImageeditResponse) SetStatus(v string) *QueryAntcloudMarketingagentCreativeImageeditResponse {
+	s.Status = &v
+	return s
+}
+
+func (s *QueryAntcloudMarketingagentCreativeImageeditResponse) SetResultUrl(v string) *QueryAntcloudMarketingagentCreativeImageeditResponse {
+	s.ResultUrl = &v
+	return s
+}
+
+func (s *QueryAntcloudMarketingagentCreativeImageeditResponse) SetFailReason(v string) *QueryAntcloudMarketingagentCreativeImageeditResponse {
+	s.FailReason = &v
+	return s
+}
+
 type Client struct {
 	Endpoint                *string
 	RegionId                *string
@@ -1776,7 +2072,7 @@ func (client *Client) DoRequest(version *string, action *string, protocol *strin
 				"req_msg_id":       antchainutil.GetNonce(),
 				"access_key":       client.AccessKeyId,
 				"base_sdk_version": tea.String("TeaSDK-2.0"),
-				"sdk_version":      tea.String("2.1.1"),
+				"sdk_version":      tea.String("2.1.2"),
 				"_prod_code":       tea.String("CREATIVERENDER"),
 				"_prod_channel":    tea.String("default"),
 			}
@@ -2079,6 +2375,78 @@ func (client *Client) QueryAntcloudMarketingagentCreativeVideoEx(request *QueryA
 	}
 	_result = &QueryAntcloudMarketingagentCreativeVideoResponse{}
 	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("antcloud.marketingagent.creative.video.query"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
+}
+
+// Description:
+//
+// Description: 基于已有成功子图版本提交提示词编辑，异步生成修改后的图片。返回独立 messageId 和新 segmentVersionId，通过子图编辑查询接口获取任务进度及结果；成功版本可用于下一轮修改。
+//
+// Summary: 基于已有成功子图版本提交提示词编辑，异步生成修改后的图片。返回独立 messageId 和新 segmentVersionId，通过子图编辑查询接口获取任务进度及结果；成功版本可用于下一轮修改。
+func (client *Client) ExecAntcloudMarketingagentCreativeImageedit(request *ExecAntcloudMarketingagentCreativeImageeditRequest) (_result *ExecAntcloudMarketingagentCreativeImageeditResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &ExecAntcloudMarketingagentCreativeImageeditResponse{}
+	_body, _err := client.ExecAntcloudMarketingagentCreativeImageeditEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+// Description:
+//
+// Description: 基于已有成功子图版本提交提示词编辑，异步生成修改后的图片。返回独立 messageId 和新 segmentVersionId，通过子图编辑查询接口获取任务进度及结果；成功版本可用于下一轮修改。
+//
+// Summary: 基于已有成功子图版本提交提示词编辑，异步生成修改后的图片。返回独立 messageId 和新 segmentVersionId，通过子图编辑查询接口获取任务进度及结果；成功版本可用于下一轮修改。
+func (client *Client) ExecAntcloudMarketingagentCreativeImageeditEx(request *ExecAntcloudMarketingagentCreativeImageeditRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *ExecAntcloudMarketingagentCreativeImageeditResponse, _err error) {
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &ExecAntcloudMarketingagentCreativeImageeditResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("antcloud.marketingagent.creative.imageedit.exec"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
+}
+
+// Description:
+//
+// Description: 根据子图编辑接口返回的 message_id，查询当前调用用户及租户下的子图编辑任务进度和结果。返回新版本 ID、任务状态、成功图片地址或失败原因；查询成功不代表图片生成成功。
+//
+// Summary: 根据子图编辑接口返回的 message_id，查询当前调用用户及租户下的子图编辑任务进度和结果。返回新版本 ID、任务状态、成功图片地址或失败原因；查询成功不代表图片生成成功。
+func (client *Client) QueryAntcloudMarketingagentCreativeImageedit(request *QueryAntcloudMarketingagentCreativeImageeditRequest) (_result *QueryAntcloudMarketingagentCreativeImageeditResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &QueryAntcloudMarketingagentCreativeImageeditResponse{}
+	_body, _err := client.QueryAntcloudMarketingagentCreativeImageeditEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+// Description:
+//
+// Description: 根据子图编辑接口返回的 message_id，查询当前调用用户及租户下的子图编辑任务进度和结果。返回新版本 ID、任务状态、成功图片地址或失败原因；查询成功不代表图片生成成功。
+//
+// Summary: 根据子图编辑接口返回的 message_id，查询当前调用用户及租户下的子图编辑任务进度和结果。返回新版本 ID、任务状态、成功图片地址或失败原因；查询成功不代表图片生成成功。
+func (client *Client) QueryAntcloudMarketingagentCreativeImageeditEx(request *QueryAntcloudMarketingagentCreativeImageeditRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *QueryAntcloudMarketingagentCreativeImageeditResponse, _err error) {
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &QueryAntcloudMarketingagentCreativeImageeditResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("antcloud.marketingagent.creative.imageedit.query"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
 	if _err != nil {
 		return _result, _err
 	}
