@@ -135,7 +135,7 @@ class Client:
                     'req_msg_id': AntchainUtils.get_nonce(),
                     'access_key': self._access_key_id,
                     'base_sdk_version': 'TeaSDK-2.0',
-                    'sdk_version': '1.1.64',
+                    'sdk_version': '1.1.65',
                     '_prod_code': 'AITECH',
                     '_prod_channel': 'default'
                 }
@@ -239,7 +239,7 @@ class Client:
                     'req_msg_id': AntchainUtils.get_nonce(),
                     'access_key': self._access_key_id,
                     'base_sdk_version': 'TeaSDK-2.0',
-                    'sdk_version': '1.1.64',
+                    'sdk_version': '1.1.65',
                     '_prod_code': 'AITECH',
                     '_prod_channel': 'default'
                 }
@@ -274,6 +274,174 @@ class Client:
                     continue
                 raise e
         raise UnretryableException(_last_request, _last_exception)
+
+    def query_advisormarket_data(
+        self,
+        request: aitech_models.QueryAdvisormarketDataRequest,
+    ) -> aitech_models.QueryAdvisormarketDataResponse:
+        """
+        Description: 客户统计结果查询
+        Summary: 客户统计结果查询
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.query_advisormarket_data_ex(request, headers, runtime)
+
+    async def query_advisormarket_data_async(
+        self,
+        request: aitech_models.QueryAdvisormarketDataRequest,
+    ) -> aitech_models.QueryAdvisormarketDataResponse:
+        """
+        Description: 客户统计结果查询
+        Summary: 客户统计结果查询
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.query_advisormarket_data_ex_async(request, headers, runtime)
+
+    def query_advisormarket_data_ex(
+        self,
+        request: aitech_models.QueryAdvisormarketDataRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> aitech_models.QueryAdvisormarketDataResponse:
+        """
+        Description: 客户统计结果查询
+        Summary: 客户统计结果查询
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            aitech_models.QueryAdvisormarketDataResponse(),
+            self.do_request('1.0', 'aitech.comm.advisormarket.data.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def query_advisormarket_data_ex_async(
+        self,
+        request: aitech_models.QueryAdvisormarketDataRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> aitech_models.QueryAdvisormarketDataResponse:
+        """
+        Description: 客户统计结果查询
+        Summary: 客户统计结果查询
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            aitech_models.QueryAdvisormarketDataResponse(),
+            await self.do_request_async('1.0', 'aitech.comm.advisormarket.data.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def push_advisormarket_analysis(
+        self,
+        request: aitech_models.PushAdvisormarketAnalysisRequest,
+    ) -> aitech_models.PushAdvisormarketAnalysisResponse:
+        """
+        Description: 创建异步商圈客群分析任务。接口仅校验参数并创建 QUEUED 任务，不同步执行分析。请保存返回的 task_id，并使用查询接口查询状态或结果。
+        Summary: 创建异步商圈客群分析任务。接口仅校验参数并创建 QUEUED 任务，不同步执行分析。请保存返回的 task_id，并使用查询接口查询状态或结果。
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.push_advisormarket_analysis_ex(request, headers, runtime)
+
+    async def push_advisormarket_analysis_async(
+        self,
+        request: aitech_models.PushAdvisormarketAnalysisRequest,
+    ) -> aitech_models.PushAdvisormarketAnalysisResponse:
+        """
+        Description: 创建异步商圈客群分析任务。接口仅校验参数并创建 QUEUED 任务，不同步执行分析。请保存返回的 task_id，并使用查询接口查询状态或结果。
+        Summary: 创建异步商圈客群分析任务。接口仅校验参数并创建 QUEUED 任务，不同步执行分析。请保存返回的 task_id，并使用查询接口查询状态或结果。
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.push_advisormarket_analysis_ex_async(request, headers, runtime)
+
+    def push_advisormarket_analysis_ex(
+        self,
+        request: aitech_models.PushAdvisormarketAnalysisRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> aitech_models.PushAdvisormarketAnalysisResponse:
+        """
+        Description: 创建异步商圈客群分析任务。接口仅校验参数并创建 QUEUED 任务，不同步执行分析。请保存返回的 task_id，并使用查询接口查询状态或结果。
+        Summary: 创建异步商圈客群分析任务。接口仅校验参数并创建 QUEUED 任务，不同步执行分析。请保存返回的 task_id，并使用查询接口查询状态或结果。
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            aitech_models.PushAdvisormarketAnalysisResponse(),
+            self.do_request('1.0', 'aitech.comm.advisormarket.analysis.push', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def push_advisormarket_analysis_ex_async(
+        self,
+        request: aitech_models.PushAdvisormarketAnalysisRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> aitech_models.PushAdvisormarketAnalysisResponse:
+        """
+        Description: 创建异步商圈客群分析任务。接口仅校验参数并创建 QUEUED 任务，不同步执行分析。请保存返回的 task_id，并使用查询接口查询状态或结果。
+        Summary: 创建异步商圈客群分析任务。接口仅校验参数并创建 QUEUED 任务，不同步执行分析。请保存返回的 task_id，并使用查询接口查询状态或结果。
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            aitech_models.PushAdvisormarketAnalysisResponse(),
+            await self.do_request_async('1.0', 'aitech.comm.advisormarket.analysis.push', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def query_advisormarket_analysis(
+        self,
+        request: aitech_models.QueryAdvisormarketAnalysisRequest,
+    ) -> aitech_models.QueryAdvisormarketAnalysisResponse:
+        """
+        Description: 查询当前租户的异步商圈客群分析任务。
+        Summary: 查询当前租户的异步商圈客群分析任务。
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.query_advisormarket_analysis_ex(request, headers, runtime)
+
+    async def query_advisormarket_analysis_async(
+        self,
+        request: aitech_models.QueryAdvisormarketAnalysisRequest,
+    ) -> aitech_models.QueryAdvisormarketAnalysisResponse:
+        """
+        Description: 查询当前租户的异步商圈客群分析任务。
+        Summary: 查询当前租户的异步商圈客群分析任务。
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.query_advisormarket_analysis_ex_async(request, headers, runtime)
+
+    def query_advisormarket_analysis_ex(
+        self,
+        request: aitech_models.QueryAdvisormarketAnalysisRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> aitech_models.QueryAdvisormarketAnalysisResponse:
+        """
+        Description: 查询当前租户的异步商圈客群分析任务。
+        Summary: 查询当前租户的异步商圈客群分析任务。
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            aitech_models.QueryAdvisormarketAnalysisResponse(),
+            self.do_request('1.0', 'aitech.comm.advisormarket.analysis.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def query_advisormarket_analysis_ex_async(
+        self,
+        request: aitech_models.QueryAdvisormarketAnalysisRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> aitech_models.QueryAdvisormarketAnalysisResponse:
+        """
+        Description: 查询当前租户的异步商圈客群分析任务。
+        Summary: 查询当前租户的异步商圈客群分析任务。
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            aitech_models.QueryAdvisormarketAnalysisResponse(),
+            await self.do_request_async('1.0', 'aitech.comm.advisormarket.analysis.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
 
     def apply_audit_image(
         self,
@@ -3697,7 +3865,7 @@ class Client:
     ) -> aitech_models.QuerySecurityImageResponse:
         """
         Description: 天鉴图片检测功能saas版本
-        Summary: 天鉴图片检测功能saas
+        Summary: 天鉴图片检测功能saas版本
         """
         runtime = util_models.RuntimeOptions()
         headers = {}
@@ -3709,7 +3877,7 @@ class Client:
     ) -> aitech_models.QuerySecurityImageResponse:
         """
         Description: 天鉴图片检测功能saas版本
-        Summary: 天鉴图片检测功能saas
+        Summary: 天鉴图片检测功能saas版本
         """
         runtime = util_models.RuntimeOptions()
         headers = {}
@@ -3723,7 +3891,7 @@ class Client:
     ) -> aitech_models.QuerySecurityImageResponse:
         """
         Description: 天鉴图片检测功能saas版本
-        Summary: 天鉴图片检测功能saas
+        Summary: 天鉴图片检测功能saas版本
         """
         UtilClient.validate_model(request)
         return TeaCore.from_map(
@@ -3739,10 +3907,458 @@ class Client:
     ) -> aitech_models.QuerySecurityImageResponse:
         """
         Description: 天鉴图片检测功能saas版本
-        Summary: 天鉴图片检测功能saas
+        Summary: 天鉴图片检测功能saas版本
         """
         UtilClient.validate_model(request)
         return TeaCore.from_map(
             aitech_models.QuerySecurityImageResponse(),
             await self.do_request_async('1.0', 'aitech.comm.security.image.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def upload_security_question(
+        self,
+        request: aitech_models.UploadSecurityQuestionRequest,
+    ) -> aitech_models.UploadSecurityQuestionResponse:
+        """
+        Description: 提问检测-文件上传
+        Summary: 提问检测-文件上传
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.upload_security_question_ex(request, headers, runtime)
+
+    async def upload_security_question_async(
+        self,
+        request: aitech_models.UploadSecurityQuestionRequest,
+    ) -> aitech_models.UploadSecurityQuestionResponse:
+        """
+        Description: 提问检测-文件上传
+        Summary: 提问检测-文件上传
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.upload_security_question_ex_async(request, headers, runtime)
+
+    def upload_security_question_ex(
+        self,
+        request: aitech_models.UploadSecurityQuestionRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> aitech_models.UploadSecurityQuestionResponse:
+        """
+        Description: 提问检测-文件上传
+        Summary: 提问检测-文件上传
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            aitech_models.UploadSecurityQuestionResponse(),
+            self.do_request('1.0', 'aitech.comm.security.question.upload', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def upload_security_question_ex_async(
+        self,
+        request: aitech_models.UploadSecurityQuestionRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> aitech_models.UploadSecurityQuestionResponse:
+        """
+        Description: 提问检测-文件上传
+        Summary: 提问检测-文件上传
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            aitech_models.UploadSecurityQuestionResponse(),
+            await self.do_request_async('1.0', 'aitech.comm.security.question.upload', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def upload_security_answer(
+        self,
+        request: aitech_models.UploadSecurityAnswerRequest,
+    ) -> aitech_models.UploadSecurityAnswerResponse:
+        """
+        Description: 回答检测-文件上传
+        Summary: 回答检测-文件上传
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.upload_security_answer_ex(request, headers, runtime)
+
+    async def upload_security_answer_async(
+        self,
+        request: aitech_models.UploadSecurityAnswerRequest,
+    ) -> aitech_models.UploadSecurityAnswerResponse:
+        """
+        Description: 回答检测-文件上传
+        Summary: 回答检测-文件上传
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.upload_security_answer_ex_async(request, headers, runtime)
+
+    def upload_security_answer_ex(
+        self,
+        request: aitech_models.UploadSecurityAnswerRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> aitech_models.UploadSecurityAnswerResponse:
+        """
+        Description: 回答检测-文件上传
+        Summary: 回答检测-文件上传
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            aitech_models.UploadSecurityAnswerResponse(),
+            self.do_request('1.0', 'aitech.comm.security.answer.upload', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def upload_security_answer_ex_async(
+        self,
+        request: aitech_models.UploadSecurityAnswerRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> aitech_models.UploadSecurityAnswerResponse:
+        """
+        Description: 回答检测-文件上传
+        Summary: 回答检测-文件上传
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            aitech_models.UploadSecurityAnswerResponse(),
+            await self.do_request_async('1.0', 'aitech.comm.security.answer.upload', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def upload_security_image(
+        self,
+        request: aitech_models.UploadSecurityImageRequest,
+    ) -> aitech_models.UploadSecurityImageResponse:
+        """
+        Description: 图片/PDF 检测-文件上传
+        Summary: 图片/PDF 检测-文件上传
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.upload_security_image_ex(request, headers, runtime)
+
+    async def upload_security_image_async(
+        self,
+        request: aitech_models.UploadSecurityImageRequest,
+    ) -> aitech_models.UploadSecurityImageResponse:
+        """
+        Description: 图片/PDF 检测-文件上传
+        Summary: 图片/PDF 检测-文件上传
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.upload_security_image_ex_async(request, headers, runtime)
+
+    def upload_security_image_ex(
+        self,
+        request: aitech_models.UploadSecurityImageRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> aitech_models.UploadSecurityImageResponse:
+        """
+        Description: 图片/PDF 检测-文件上传
+        Summary: 图片/PDF 检测-文件上传
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            aitech_models.UploadSecurityImageResponse(),
+            self.do_request('1.0', 'aitech.comm.security.image.upload', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def upload_security_image_ex_async(
+        self,
+        request: aitech_models.UploadSecurityImageRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> aitech_models.UploadSecurityImageResponse:
+        """
+        Description: 图片/PDF 检测-文件上传
+        Summary: 图片/PDF 检测-文件上传
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            aitech_models.UploadSecurityImageResponse(),
+            await self.do_request_async('1.0', 'aitech.comm.security.image.upload', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def query_security_textdetoxification(
+        self,
+        request: aitech_models.QuerySecurityTextdetoxificationRequest,
+    ) -> aitech_models.QuerySecurityTextdetoxificationResponse:
+        """
+        Description: 语料祛毒
+        Summary: 语料祛毒
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.query_security_textdetoxification_ex(request, headers, runtime)
+
+    async def query_security_textdetoxification_async(
+        self,
+        request: aitech_models.QuerySecurityTextdetoxificationRequest,
+    ) -> aitech_models.QuerySecurityTextdetoxificationResponse:
+        """
+        Description: 语料祛毒
+        Summary: 语料祛毒
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.query_security_textdetoxification_ex_async(request, headers, runtime)
+
+    def query_security_textdetoxification_ex(
+        self,
+        request: aitech_models.QuerySecurityTextdetoxificationRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> aitech_models.QuerySecurityTextdetoxificationResponse:
+        """
+        Description: 语料祛毒
+        Summary: 语料祛毒
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            aitech_models.QuerySecurityTextdetoxificationResponse(),
+            self.do_request('1.0', 'aitech.comm.security.textdetoxification.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def query_security_textdetoxification_ex_async(
+        self,
+        request: aitech_models.QuerySecurityTextdetoxificationRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> aitech_models.QuerySecurityTextdetoxificationResponse:
+        """
+        Description: 语料祛毒
+        Summary: 语料祛毒
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            aitech_models.QuerySecurityTextdetoxificationResponse(),
+            await self.do_request_async('1.0', 'aitech.comm.security.textdetoxification.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def query_security_video(
+        self,
+        request: aitech_models.QuerySecurityVideoRequest,
+    ) -> aitech_models.QuerySecurityVideoResponse:
+        """
+        Description: 视频公开访问 URL
+        Summary: 视频公开访问 URL
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.query_security_video_ex(request, headers, runtime)
+
+    async def query_security_video_async(
+        self,
+        request: aitech_models.QuerySecurityVideoRequest,
+    ) -> aitech_models.QuerySecurityVideoResponse:
+        """
+        Description: 视频公开访问 URL
+        Summary: 视频公开访问 URL
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.query_security_video_ex_async(request, headers, runtime)
+
+    def query_security_video_ex(
+        self,
+        request: aitech_models.QuerySecurityVideoRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> aitech_models.QuerySecurityVideoResponse:
+        """
+        Description: 视频公开访问 URL
+        Summary: 视频公开访问 URL
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            aitech_models.QuerySecurityVideoResponse(),
+            self.do_request('1.0', 'aitech.comm.security.video.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def query_security_video_ex_async(
+        self,
+        request: aitech_models.QuerySecurityVideoRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> aitech_models.QuerySecurityVideoResponse:
+        """
+        Description: 视频公开访问 URL
+        Summary: 视频公开访问 URL
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            aitech_models.QuerySecurityVideoResponse(),
+            await self.do_request_async('1.0', 'aitech.comm.security.video.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def upload_security_video(
+        self,
+        request: aitech_models.UploadSecurityVideoRequest,
+    ) -> aitech_models.UploadSecurityVideoResponse:
+        """
+        Description: 视频检测-文件上传
+        Summary: 视频检测-文件上传
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.upload_security_video_ex(request, headers, runtime)
+
+    async def upload_security_video_async(
+        self,
+        request: aitech_models.UploadSecurityVideoRequest,
+    ) -> aitech_models.UploadSecurityVideoResponse:
+        """
+        Description: 视频检测-文件上传
+        Summary: 视频检测-文件上传
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.upload_security_video_ex_async(request, headers, runtime)
+
+    def upload_security_video_ex(
+        self,
+        request: aitech_models.UploadSecurityVideoRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> aitech_models.UploadSecurityVideoResponse:
+        """
+        Description: 视频检测-文件上传
+        Summary: 视频检测-文件上传
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            aitech_models.UploadSecurityVideoResponse(),
+            self.do_request('1.0', 'aitech.comm.security.video.upload', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def upload_security_video_ex_async(
+        self,
+        request: aitech_models.UploadSecurityVideoRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> aitech_models.UploadSecurityVideoResponse:
+        """
+        Description: 视频检测-文件上传
+        Summary: 视频检测-文件上传
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            aitech_models.UploadSecurityVideoResponse(),
+            await self.do_request_async('1.0', 'aitech.comm.security.video.upload', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def query_security_audio(
+        self,
+        request: aitech_models.QuerySecurityAudioRequest,
+    ) -> aitech_models.QuerySecurityAudioResponse:
+        """
+        Description: 语音检测-JSON 模式
+        Summary: 语音检测-JSON 模式
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.query_security_audio_ex(request, headers, runtime)
+
+    async def query_security_audio_async(
+        self,
+        request: aitech_models.QuerySecurityAudioRequest,
+    ) -> aitech_models.QuerySecurityAudioResponse:
+        """
+        Description: 语音检测-JSON 模式
+        Summary: 语音检测-JSON 模式
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.query_security_audio_ex_async(request, headers, runtime)
+
+    def query_security_audio_ex(
+        self,
+        request: aitech_models.QuerySecurityAudioRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> aitech_models.QuerySecurityAudioResponse:
+        """
+        Description: 语音检测-JSON 模式
+        Summary: 语音检测-JSON 模式
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            aitech_models.QuerySecurityAudioResponse(),
+            self.do_request('1.0', 'aitech.comm.security.audio.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def query_security_audio_ex_async(
+        self,
+        request: aitech_models.QuerySecurityAudioRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> aitech_models.QuerySecurityAudioResponse:
+        """
+        Description: 语音检测-JSON 模式
+        Summary: 语音检测-JSON 模式
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            aitech_models.QuerySecurityAudioResponse(),
+            await self.do_request_async('1.0', 'aitech.comm.security.audio.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def upload_security_audio(
+        self,
+        request: aitech_models.UploadSecurityAudioRequest,
+    ) -> aitech_models.UploadSecurityAudioResponse:
+        """
+        Description: 语音检测-文件上传
+        Summary: 语音检测-文件上传
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.upload_security_audio_ex(request, headers, runtime)
+
+    async def upload_security_audio_async(
+        self,
+        request: aitech_models.UploadSecurityAudioRequest,
+    ) -> aitech_models.UploadSecurityAudioResponse:
+        """
+        Description: 语音检测-文件上传
+        Summary: 语音检测-文件上传
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.upload_security_audio_ex_async(request, headers, runtime)
+
+    def upload_security_audio_ex(
+        self,
+        request: aitech_models.UploadSecurityAudioRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> aitech_models.UploadSecurityAudioResponse:
+        """
+        Description: 语音检测-文件上传
+        Summary: 语音检测-文件上传
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            aitech_models.UploadSecurityAudioResponse(),
+            self.do_request('1.0', 'aitech.comm.security.audio.upload', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def upload_security_audio_ex_async(
+        self,
+        request: aitech_models.UploadSecurityAudioRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> aitech_models.UploadSecurityAudioResponse:
+        """
+        Description: 语音检测-文件上传
+        Summary: 语音检测-文件上传
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            aitech_models.UploadSecurityAudioResponse(),
+            await self.do_request_async('1.0', 'aitech.comm.security.audio.upload', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
