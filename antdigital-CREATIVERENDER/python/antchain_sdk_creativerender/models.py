@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 # This file is auto-generated, don't edit it. Thanks.
 from Tea.model import TeaModel
-from typing import List
+from typing import List, BinaryIO
 
 
 class Config(TeaModel):
@@ -346,12 +346,97 @@ class TaskStatus(TeaModel):
         return self
 
 
+class LongImageSegment(TeaModel):
+    def __init__(
+        self,
+        segment_id: str = None,
+        segment_type: str = None,
+        sort_no: int = None,
+        source_text: str = None,
+        current_version_id: str = None,
+        current_status: str = None,
+        current_image_url: str = None,
+        last_success_version_id: str = None,
+        last_success_image_url: str = None,
+    ):
+        # 全局唯一的分段业务 ID。
+        self.segment_id = segment_id
+        # 分段类型：BANNER 为长图头图；CONTENT 为正文段图。
+        self.segment_type = segment_type
+        # 展示顺序，从 0 开始；头图固定为 0，正文从 1 开始，值越小越靠前。
+        self.sort_no = sort_no
+        # 首次生成该分段使用的原文，后续编辑或回滚不会修改。
+        self.source_text = source_text
+        # 当前分段版本 ID；仅在 current_status 为 SUCCESS 时可作为子图编辑来源。
+        self.current_version_id = current_version_id
+        # 当前版本状态：PROCESSING、SUCCESS、FAILED、CONFLICT。
+        self.current_status = current_status
+        # 当前版本的图片地址。
+        self.current_image_url = current_image_url
+        # 最近可用的成功版本 ID，可作为子图编辑来源；没有成功版本时为空。
+        self.last_success_version_id = last_success_version_id
+        # last_success_version_id 对应的图片地址；没有成功成果时为空。
+        self.last_success_image_url = last_success_image_url
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.segment_id is not None:
+            result['segment_id'] = self.segment_id
+        if self.segment_type is not None:
+            result['segment_type'] = self.segment_type
+        if self.sort_no is not None:
+            result['sort_no'] = self.sort_no
+        if self.source_text is not None:
+            result['source_text'] = self.source_text
+        if self.current_version_id is not None:
+            result['current_version_id'] = self.current_version_id
+        if self.current_status is not None:
+            result['current_status'] = self.current_status
+        if self.current_image_url is not None:
+            result['current_image_url'] = self.current_image_url
+        if self.last_success_version_id is not None:
+            result['last_success_version_id'] = self.last_success_version_id
+        if self.last_success_image_url is not None:
+            result['last_success_image_url'] = self.last_success_image_url
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('segment_id') is not None:
+            self.segment_id = m.get('segment_id')
+        if m.get('segment_type') is not None:
+            self.segment_type = m.get('segment_type')
+        if m.get('sort_no') is not None:
+            self.sort_no = m.get('sort_no')
+        if m.get('source_text') is not None:
+            self.source_text = m.get('source_text')
+        if m.get('current_version_id') is not None:
+            self.current_version_id = m.get('current_version_id')
+        if m.get('current_status') is not None:
+            self.current_status = m.get('current_status')
+        if m.get('current_image_url') is not None:
+            self.current_image_url = m.get('current_image_url')
+        if m.get('last_success_version_id') is not None:
+            self.last_success_version_id = m.get('last_success_version_id')
+        if m.get('last_success_image_url') is not None:
+            self.last_success_image_url = m.get('last_success_image_url')
+        return self
+
+
 class AssistantExtra(TeaModel):
     def __init__(
         self,
         task_id: str = None,
         render_status: str = None,
         result_url: List[str] = None,
+        sub_images: List[LongImageSegment] = None,
     ):
         # 任务id
         self.task_id = task_id
@@ -359,9 +444,14 @@ class AssistantExtra(TeaModel):
         self.render_status = render_status
         # 生图结果
         self.result_url = result_url
+        # 基金长图子图列表，仅在 return_sub_images 为 true 且长图生成完成时返回。
+        self.sub_images = sub_images
 
     def validate(self):
-        pass
+        if self.sub_images:
+            for k in self.sub_images:
+                if k:
+                    k.validate()
 
     def to_map(self):
         _map = super().to_map()
@@ -375,6 +465,10 @@ class AssistantExtra(TeaModel):
             result['render_status'] = self.render_status
         if self.result_url is not None:
             result['result_url'] = self.result_url
+        result['sub_images'] = []
+        if self.sub_images is not None:
+            for k in self.sub_images:
+                result['sub_images'].append(k.to_map() if k else None)
         return result
 
     def from_map(self, m: dict = None):
@@ -385,6 +479,11 @@ class AssistantExtra(TeaModel):
             self.render_status = m.get('render_status')
         if m.get('result_url') is not None:
             self.result_url = m.get('result_url')
+        self.sub_images = []
+        if m.get('sub_images') is not None:
+            for k in m.get('sub_images'):
+                temp_model = LongImageSegment()
+                self.sub_images.append(temp_model.from_map(k))
         return self
 
 
@@ -743,6 +842,42 @@ class Task(TeaModel):
             for k in m.get('artifacts'):
                 temp_model = Artifact()
                 self.artifacts.append(temp_model.from_map(k))
+        return self
+
+
+class XNameValuePair(TeaModel):
+    def __init__(
+        self,
+        name: str = None,
+        value: str = None,
+    ):
+        # 键名
+        self.name = name
+        # 键值
+        self.value = value
+
+    def validate(self):
+        self.validate_required(self.name, 'name')
+        self.validate_required(self.value, 'value')
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.name is not None:
+            result['name'] = self.name
+        if self.value is not None:
+            result['value'] = self.value
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('name') is not None:
+            self.name = m.get('name')
+        if m.get('value') is not None:
+            self.value = m.get('value')
         return self
 
 
@@ -1154,11 +1289,14 @@ class QueryAntcloudMarketingagentCreativeResultRequest(TeaModel):
         self,
         auth_token: str = None,
         message_id: str = None,
+        return_sub_images: bool = None,
     ):
         # OAuth模式下的授权token
         self.auth_token = auth_token
         # 消息ID
         self.message_id = message_id
+        # 是否返回基金长图的子图列表，默认 false。为 true 时，在长图生成完成后返回 assistant_extra.sub_images；不影响长图生成流程。
+        self.return_sub_images = return_sub_images
 
     def validate(self):
         self.validate_required(self.message_id, 'message_id')
@@ -1173,6 +1311,8 @@ class QueryAntcloudMarketingagentCreativeResultRequest(TeaModel):
             result['auth_token'] = self.auth_token
         if self.message_id is not None:
             result['message_id'] = self.message_id
+        if self.return_sub_images is not None:
+            result['return_sub_images'] = self.return_sub_images
         return result
 
     def from_map(self, m: dict = None):
@@ -1181,6 +1321,8 @@ class QueryAntcloudMarketingagentCreativeResultRequest(TeaModel):
             self.auth_token = m.get('auth_token')
         if m.get('message_id') is not None:
             self.message_id = m.get('message_id')
+        if m.get('return_sub_images') is not None:
+            self.return_sub_images = m.get('return_sub_images')
         return self
 
 
@@ -1838,6 +1980,493 @@ class QueryAntcloudMarketingagentCreativeVideoResponse(TeaModel):
             self.credits = m.get('credits')
         if m.get('error_message') is not None:
             self.error_message = m.get('error_message')
+        return self
+
+
+class ExecAntcloudMarketingagentCreativeImageeditRequest(TeaModel):
+    def __init__(
+        self,
+        auth_token: str = None,
+        product_code: str = None,
+        segment_version_id: str = None,
+        prompt: str = None,
+    ):
+        # OAuth模式下的授权token
+        self.auth_token = auth_token
+        # 产品代码，当前仅支持 FUND（基金）。
+        self.product_code = product_code
+        # 来源子图成功版本 ID，必须属于当前调用用户及租户；可使用子图列表中的成功版本或上一轮编辑成功返回的新版本。
+        self.segment_version_id = segment_version_id
+        # 本轮图片修改要求，不能为空。源图和输出宽高由服务端根据来源版本解析。
+        self.prompt = prompt
+
+    def validate(self):
+        self.validate_required(self.product_code, 'product_code')
+        self.validate_required(self.segment_version_id, 'segment_version_id')
+        self.validate_required(self.prompt, 'prompt')
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.auth_token is not None:
+            result['auth_token'] = self.auth_token
+        if self.product_code is not None:
+            result['product_code'] = self.product_code
+        if self.segment_version_id is not None:
+            result['segment_version_id'] = self.segment_version_id
+        if self.prompt is not None:
+            result['prompt'] = self.prompt
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('auth_token') is not None:
+            self.auth_token = m.get('auth_token')
+        if m.get('product_code') is not None:
+            self.product_code = m.get('product_code')
+        if m.get('segment_version_id') is not None:
+            self.segment_version_id = m.get('segment_version_id')
+        if m.get('prompt') is not None:
+            self.prompt = m.get('prompt')
+        return self
+
+
+class ExecAntcloudMarketingagentCreativeImageeditResponse(TeaModel):
+    def __init__(
+        self,
+        req_msg_id: str = None,
+        result_code: str = None,
+        result_msg: str = None,
+        message_id: str = None,
+        segment_version_id: str = None,
+    ):
+        # 请求唯一ID，用于链路跟踪和问题排查
+        self.req_msg_id = req_msg_id
+        # 结果码，一般OK表示调用成功
+        self.result_code = result_code
+        # 异常信息的文本描述
+        self.result_msg = result_msg
+        # 本次子图编辑任务的独立消息 ID，用于调用子图编辑查询接口获取进度和结果。
+        self.message_id = message_id
+        # 本次编辑新建的版本 ID。任务提交成功不代表图片生成成功；查询确认成功后可作为下一轮修改来源。
+        self.segment_version_id = segment_version_id
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.req_msg_id is not None:
+            result['req_msg_id'] = self.req_msg_id
+        if self.result_code is not None:
+            result['result_code'] = self.result_code
+        if self.result_msg is not None:
+            result['result_msg'] = self.result_msg
+        if self.message_id is not None:
+            result['message_id'] = self.message_id
+        if self.segment_version_id is not None:
+            result['segment_version_id'] = self.segment_version_id
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('req_msg_id') is not None:
+            self.req_msg_id = m.get('req_msg_id')
+        if m.get('result_code') is not None:
+            self.result_code = m.get('result_code')
+        if m.get('result_msg') is not None:
+            self.result_msg = m.get('result_msg')
+        if m.get('message_id') is not None:
+            self.message_id = m.get('message_id')
+        if m.get('segment_version_id') is not None:
+            self.segment_version_id = m.get('segment_version_id')
+        return self
+
+
+class QueryAntcloudMarketingagentCreativeImageeditRequest(TeaModel):
+    def __init__(
+        self,
+        auth_token: str = None,
+        message_id: str = None,
+    ):
+        # OAuth模式下的授权token
+        self.auth_token = auth_token
+        # 子图编辑接口返回的独立消息 ID，必须属于当前调用用户及租户。
+        self.message_id = message_id
+
+    def validate(self):
+        self.validate_required(self.message_id, 'message_id')
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.auth_token is not None:
+            result['auth_token'] = self.auth_token
+        if self.message_id is not None:
+            result['message_id'] = self.message_id
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('auth_token') is not None:
+            self.auth_token = m.get('auth_token')
+        if m.get('message_id') is not None:
+            self.message_id = m.get('message_id')
+        return self
+
+
+class QueryAntcloudMarketingagentCreativeImageeditResponse(TeaModel):
+    def __init__(
+        self,
+        req_msg_id: str = None,
+        result_code: str = None,
+        result_msg: str = None,
+        message_id: str = None,
+        segment_version_id: str = None,
+        status: str = None,
+        result_url: str = None,
+        fail_reason: str = None,
+    ):
+        # 请求唯一ID，用于链路跟踪和问题排查
+        self.req_msg_id = req_msg_id
+        # 结果码，一般OK表示调用成功
+        self.result_code = result_code
+        # 异常信息的文本描述
+        self.result_msg = result_msg
+        # 本次子图编辑任务的独立消息 ID。
+        self.message_id = message_id
+        # 本次编辑生成的新版本 ID，任务成功后可作为下一轮编辑的来源版本。
+        self.segment_version_id = segment_version_id
+        # 任务状态：PROCESSING（处理中）、COMPLETED（成功）、FAILED（失败）。查询接口调用成功不代表任务生成成功。
+        self.status = status
+        # 编辑成功后的图片地址，仅在 status 为 COMPLETED 时返回。
+        self.result_url = result_url
+        # 编辑失败原因，在 status 为 FAILED 时返回。
+        self.fail_reason = fail_reason
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.req_msg_id is not None:
+            result['req_msg_id'] = self.req_msg_id
+        if self.result_code is not None:
+            result['result_code'] = self.result_code
+        if self.result_msg is not None:
+            result['result_msg'] = self.result_msg
+        if self.message_id is not None:
+            result['message_id'] = self.message_id
+        if self.segment_version_id is not None:
+            result['segment_version_id'] = self.segment_version_id
+        if self.status is not None:
+            result['status'] = self.status
+        if self.result_url is not None:
+            result['result_url'] = self.result_url
+        if self.fail_reason is not None:
+            result['fail_reason'] = self.fail_reason
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('req_msg_id') is not None:
+            self.req_msg_id = m.get('req_msg_id')
+        if m.get('result_code') is not None:
+            self.result_code = m.get('result_code')
+        if m.get('result_msg') is not None:
+            self.result_msg = m.get('result_msg')
+        if m.get('message_id') is not None:
+            self.message_id = m.get('message_id')
+        if m.get('segment_version_id') is not None:
+            self.segment_version_id = m.get('segment_version_id')
+        if m.get('status') is not None:
+            self.status = m.get('status')
+        if m.get('result_url') is not None:
+            self.result_url = m.get('result_url')
+        if m.get('fail_reason') is not None:
+            self.fail_reason = m.get('fail_reason')
+        return self
+
+
+class ExecAntcloudMarketingagentFileUploadRequest(TeaModel):
+    def __init__(
+        self,
+        auth_token: str = None,
+        file_object: BinaryIO = None,
+        file_object_name: str = None,
+        file_id: str = None,
+    ):
+        # OAuth模式下的授权token
+        self.auth_token = auth_token
+        # string
+        # 待上传文件
+        self.file_object = file_object
+        # 待上传文件名
+        self.file_object_name = file_object_name
+        self.file_id = file_id
+
+    def validate(self):
+        self.validate_required(self.file_id, 'file_id')
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.auth_token is not None:
+            result['auth_token'] = self.auth_token
+        if self.file_object is not None:
+            result['fileObject'] = self.file_object
+        if self.file_object_name is not None:
+            result['fileObjectName'] = self.file_object_name
+        if self.file_id is not None:
+            result['file_id'] = self.file_id
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('auth_token') is not None:
+            self.auth_token = m.get('auth_token')
+        if m.get('fileObject') is not None:
+            self.file_object = m.get('fileObject')
+        if m.get('fileObjectName') is not None:
+            self.file_object_name = m.get('fileObjectName')
+        if m.get('file_id') is not None:
+            self.file_id = m.get('file_id')
+        return self
+
+
+class ExecAntcloudMarketingagentFileUploadResponse(TeaModel):
+    def __init__(
+        self,
+        req_msg_id: str = None,
+        result_code: str = None,
+        result_msg: str = None,
+        file_id: str = None,
+        oss_file_path: str = None,
+        access_url: str = None,
+    ):
+        # 请求唯一ID，用于链路跟踪和问题排查
+        self.req_msg_id = req_msg_id
+        # 结果码，一般OK表示调用成功
+        self.result_code = result_code
+        # 异常信息的文本描述
+        self.result_msg = result_msg
+        # 上传后的 AFTS 文件 ID
+        self.file_id = file_id
+        # OSS 对象路径
+        self.oss_file_path = oss_file_path
+        # 图片访问地址，可用于视频生成 input_elements[].url
+        self.access_url = access_url
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.req_msg_id is not None:
+            result['req_msg_id'] = self.req_msg_id
+        if self.result_code is not None:
+            result['result_code'] = self.result_code
+        if self.result_msg is not None:
+            result['result_msg'] = self.result_msg
+        if self.file_id is not None:
+            result['file_id'] = self.file_id
+        if self.oss_file_path is not None:
+            result['oss_file_path'] = self.oss_file_path
+        if self.access_url is not None:
+            result['access_url'] = self.access_url
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('req_msg_id') is not None:
+            self.req_msg_id = m.get('req_msg_id')
+        if m.get('result_code') is not None:
+            self.result_code = m.get('result_code')
+        if m.get('result_msg') is not None:
+            self.result_msg = m.get('result_msg')
+        if m.get('file_id') is not None:
+            self.file_id = m.get('file_id')
+        if m.get('oss_file_path') is not None:
+            self.oss_file_path = m.get('oss_file_path')
+        if m.get('access_url') is not None:
+            self.access_url = m.get('access_url')
+        return self
+
+
+class CreateAntcloudGatewayxFileUploadRequest(TeaModel):
+    def __init__(
+        self,
+        auth_token: str = None,
+        api_code: str = None,
+        file_label: str = None,
+        file_metadata: str = None,
+        file_name: str = None,
+        mime_type: str = None,
+        api_cluster: str = None,
+    ):
+        # OAuth模式下的授权token
+        self.auth_token = auth_token
+        # 上传文件作用的openapi method
+        self.api_code = api_code
+        # 文件标签，多个标签;分割
+        self.file_label = file_label
+        # 自定义的文件元数据
+        self.file_metadata = file_metadata
+        # 文件名，不传则随机生成文件名
+        self.file_name = file_name
+        # 文件的多媒体类型
+        self.mime_type = mime_type
+        # 产品方的api归属集群，即productInstanceId
+        self.api_cluster = api_cluster
+
+    def validate(self):
+        self.validate_required(self.api_code, 'api_code')
+        if self.file_label is not None:
+            self.validate_max_length(self.file_label, 'file_label', 100)
+        if self.file_metadata is not None:
+            self.validate_max_length(self.file_metadata, 'file_metadata', 1000)
+        if self.file_name is not None:
+            self.validate_max_length(self.file_name, 'file_name', 100)
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.auth_token is not None:
+            result['auth_token'] = self.auth_token
+        if self.api_code is not None:
+            result['api_code'] = self.api_code
+        if self.file_label is not None:
+            result['file_label'] = self.file_label
+        if self.file_metadata is not None:
+            result['file_metadata'] = self.file_metadata
+        if self.file_name is not None:
+            result['file_name'] = self.file_name
+        if self.mime_type is not None:
+            result['mime_type'] = self.mime_type
+        if self.api_cluster is not None:
+            result['api_cluster'] = self.api_cluster
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('auth_token') is not None:
+            self.auth_token = m.get('auth_token')
+        if m.get('api_code') is not None:
+            self.api_code = m.get('api_code')
+        if m.get('file_label') is not None:
+            self.file_label = m.get('file_label')
+        if m.get('file_metadata') is not None:
+            self.file_metadata = m.get('file_metadata')
+        if m.get('file_name') is not None:
+            self.file_name = m.get('file_name')
+        if m.get('mime_type') is not None:
+            self.mime_type = m.get('mime_type')
+        if m.get('api_cluster') is not None:
+            self.api_cluster = m.get('api_cluster')
+        return self
+
+
+class CreateAntcloudGatewayxFileUploadResponse(TeaModel):
+    def __init__(
+        self,
+        req_msg_id: str = None,
+        result_code: str = None,
+        result_msg: str = None,
+        expired_time: str = None,
+        file_id: str = None,
+        upload_headers: List[XNameValuePair] = None,
+        upload_url: str = None,
+    ):
+        # 请求唯一ID，用于链路跟踪和问题排查
+        self.req_msg_id = req_msg_id
+        # 结果码，一般OK表示调用成功
+        self.result_code = result_code
+        # 异常信息的文本描述
+        self.result_msg = result_msg
+        # 上传有效期
+        self.expired_time = expired_time
+        # 32位文件唯一id
+        self.file_id = file_id
+        # 放入http请求头里
+        self.upload_headers = upload_headers
+        # 文件上传地址
+        self.upload_url = upload_url
+
+    def validate(self):
+        if self.expired_time is not None:
+            self.validate_pattern(self.expired_time, 'expired_time', '\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}([Z]|([\\.]\\d{1,9})?[\\+]\\d{2}[\\:]?\\d{2})')
+        if self.upload_headers:
+            for k in self.upload_headers:
+                if k:
+                    k.validate()
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.req_msg_id is not None:
+            result['req_msg_id'] = self.req_msg_id
+        if self.result_code is not None:
+            result['result_code'] = self.result_code
+        if self.result_msg is not None:
+            result['result_msg'] = self.result_msg
+        if self.expired_time is not None:
+            result['expired_time'] = self.expired_time
+        if self.file_id is not None:
+            result['file_id'] = self.file_id
+        result['upload_headers'] = []
+        if self.upload_headers is not None:
+            for k in self.upload_headers:
+                result['upload_headers'].append(k.to_map() if k else None)
+        if self.upload_url is not None:
+            result['upload_url'] = self.upload_url
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('req_msg_id') is not None:
+            self.req_msg_id = m.get('req_msg_id')
+        if m.get('result_code') is not None:
+            self.result_code = m.get('result_code')
+        if m.get('result_msg') is not None:
+            self.result_msg = m.get('result_msg')
+        if m.get('expired_time') is not None:
+            self.expired_time = m.get('expired_time')
+        if m.get('file_id') is not None:
+            self.file_id = m.get('file_id')
+        self.upload_headers = []
+        if m.get('upload_headers') is not None:
+            for k in m.get('upload_headers'):
+                temp_model = XNameValuePair()
+                self.upload_headers.append(temp_model.from_map(k))
+        if m.get('upload_url') is not None:
+            self.upload_url = m.get('upload_url')
         return self
 
 

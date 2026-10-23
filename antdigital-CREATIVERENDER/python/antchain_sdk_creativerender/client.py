@@ -135,7 +135,7 @@ class Client:
                     'req_msg_id': AntchainUtils.get_nonce(),
                     'access_key': self._access_key_id,
                     'base_sdk_version': 'TeaSDK-2.0',
-                    'sdk_version': '2.1.1',
+                    'sdk_version': '2.1.3',
                     '_prod_code': 'CREATIVERENDER',
                     '_prod_channel': 'default'
                 }
@@ -239,7 +239,7 @@ class Client:
                     'req_msg_id': AntchainUtils.get_nonce(),
                     'access_key': self._access_key_id,
                     'base_sdk_version': 'TeaSDK-2.0',
-                    'sdk_version': '2.1.1',
+                    'sdk_version': '2.1.3',
                     '_prod_code': 'CREATIVERENDER',
                     '_prod_channel': 'default'
                 }
@@ -665,4 +665,264 @@ class Client:
         return TeaCore.from_map(
             creativerender_models.QueryAntcloudMarketingagentCreativeVideoResponse(),
             await self.do_request_async('1.0', 'antcloud.marketingagent.creative.video.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def exec_antcloud_marketingagent_creative_imageedit(
+        self,
+        request: creativerender_models.ExecAntcloudMarketingagentCreativeImageeditRequest,
+    ) -> creativerender_models.ExecAntcloudMarketingagentCreativeImageeditResponse:
+        """
+        Description: 基于已有成功子图版本提交提示词编辑，异步生成修改后的图片。返回独立 messageId 和新 segmentVersionId，通过子图编辑查询接口获取任务进度及结果；成功版本可用于下一轮修改。
+        Summary: 基于已有成功子图版本提交提示词编辑，异步生成修改后的图片。返回独立 messageId 和新 segmentVersionId，通过子图编辑查询接口获取任务进度及结果；成功版本可用于下一轮修改。
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.exec_antcloud_marketingagent_creative_imageedit_ex(request, headers, runtime)
+
+    async def exec_antcloud_marketingagent_creative_imageedit_async(
+        self,
+        request: creativerender_models.ExecAntcloudMarketingagentCreativeImageeditRequest,
+    ) -> creativerender_models.ExecAntcloudMarketingagentCreativeImageeditResponse:
+        """
+        Description: 基于已有成功子图版本提交提示词编辑，异步生成修改后的图片。返回独立 messageId 和新 segmentVersionId，通过子图编辑查询接口获取任务进度及结果；成功版本可用于下一轮修改。
+        Summary: 基于已有成功子图版本提交提示词编辑，异步生成修改后的图片。返回独立 messageId 和新 segmentVersionId，通过子图编辑查询接口获取任务进度及结果；成功版本可用于下一轮修改。
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.exec_antcloud_marketingagent_creative_imageedit_ex_async(request, headers, runtime)
+
+    def exec_antcloud_marketingagent_creative_imageedit_ex(
+        self,
+        request: creativerender_models.ExecAntcloudMarketingagentCreativeImageeditRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> creativerender_models.ExecAntcloudMarketingagentCreativeImageeditResponse:
+        """
+        Description: 基于已有成功子图版本提交提示词编辑，异步生成修改后的图片。返回独立 messageId 和新 segmentVersionId，通过子图编辑查询接口获取任务进度及结果；成功版本可用于下一轮修改。
+        Summary: 基于已有成功子图版本提交提示词编辑，异步生成修改后的图片。返回独立 messageId 和新 segmentVersionId，通过子图编辑查询接口获取任务进度及结果；成功版本可用于下一轮修改。
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            creativerender_models.ExecAntcloudMarketingagentCreativeImageeditResponse(),
+            self.do_request('1.0', 'antcloud.marketingagent.creative.imageedit.exec', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def exec_antcloud_marketingagent_creative_imageedit_ex_async(
+        self,
+        request: creativerender_models.ExecAntcloudMarketingagentCreativeImageeditRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> creativerender_models.ExecAntcloudMarketingagentCreativeImageeditResponse:
+        """
+        Description: 基于已有成功子图版本提交提示词编辑，异步生成修改后的图片。返回独立 messageId 和新 segmentVersionId，通过子图编辑查询接口获取任务进度及结果；成功版本可用于下一轮修改。
+        Summary: 基于已有成功子图版本提交提示词编辑，异步生成修改后的图片。返回独立 messageId 和新 segmentVersionId，通过子图编辑查询接口获取任务进度及结果；成功版本可用于下一轮修改。
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            creativerender_models.ExecAntcloudMarketingagentCreativeImageeditResponse(),
+            await self.do_request_async('1.0', 'antcloud.marketingagent.creative.imageedit.exec', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def query_antcloud_marketingagent_creative_imageedit(
+        self,
+        request: creativerender_models.QueryAntcloudMarketingagentCreativeImageeditRequest,
+    ) -> creativerender_models.QueryAntcloudMarketingagentCreativeImageeditResponse:
+        """
+        Description: 根据子图编辑接口返回的 message_id，查询当前调用用户及租户下的子图编辑任务进度和结果。返回新版本 ID、任务状态、成功图片地址或失败原因；查询成功不代表图片生成成功。
+        Summary: 根据子图编辑接口返回的 message_id，查询当前调用用户及租户下的子图编辑任务进度和结果。返回新版本 ID、任务状态、成功图片地址或失败原因；查询成功不代表图片生成成功。
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.query_antcloud_marketingagent_creative_imageedit_ex(request, headers, runtime)
+
+    async def query_antcloud_marketingagent_creative_imageedit_async(
+        self,
+        request: creativerender_models.QueryAntcloudMarketingagentCreativeImageeditRequest,
+    ) -> creativerender_models.QueryAntcloudMarketingagentCreativeImageeditResponse:
+        """
+        Description: 根据子图编辑接口返回的 message_id，查询当前调用用户及租户下的子图编辑任务进度和结果。返回新版本 ID、任务状态、成功图片地址或失败原因；查询成功不代表图片生成成功。
+        Summary: 根据子图编辑接口返回的 message_id，查询当前调用用户及租户下的子图编辑任务进度和结果。返回新版本 ID、任务状态、成功图片地址或失败原因；查询成功不代表图片生成成功。
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.query_antcloud_marketingagent_creative_imageedit_ex_async(request, headers, runtime)
+
+    def query_antcloud_marketingagent_creative_imageedit_ex(
+        self,
+        request: creativerender_models.QueryAntcloudMarketingagentCreativeImageeditRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> creativerender_models.QueryAntcloudMarketingagentCreativeImageeditResponse:
+        """
+        Description: 根据子图编辑接口返回的 message_id，查询当前调用用户及租户下的子图编辑任务进度和结果。返回新版本 ID、任务状态、成功图片地址或失败原因；查询成功不代表图片生成成功。
+        Summary: 根据子图编辑接口返回的 message_id，查询当前调用用户及租户下的子图编辑任务进度和结果。返回新版本 ID、任务状态、成功图片地址或失败原因；查询成功不代表图片生成成功。
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            creativerender_models.QueryAntcloudMarketingagentCreativeImageeditResponse(),
+            self.do_request('1.0', 'antcloud.marketingagent.creative.imageedit.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def query_antcloud_marketingagent_creative_imageedit_ex_async(
+        self,
+        request: creativerender_models.QueryAntcloudMarketingagentCreativeImageeditRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> creativerender_models.QueryAntcloudMarketingagentCreativeImageeditResponse:
+        """
+        Description: 根据子图编辑接口返回的 message_id，查询当前调用用户及租户下的子图编辑任务进度和结果。返回新版本 ID、任务状态、成功图片地址或失败原因；查询成功不代表图片生成成功。
+        Summary: 根据子图编辑接口返回的 message_id，查询当前调用用户及租户下的子图编辑任务进度和结果。返回新版本 ID、任务状态、成功图片地址或失败原因；查询成功不代表图片生成成功。
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            creativerender_models.QueryAntcloudMarketingagentCreativeImageeditResponse(),
+            await self.do_request_async('1.0', 'antcloud.marketingagent.creative.imageedit.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def exec_antcloud_marketingagent_file_upload(
+        self,
+        request: creativerender_models.ExecAntcloudMarketingagentFileUploadRequest,
+    ) -> creativerender_models.ExecAntcloudMarketingagentFileUploadResponse:
+        """
+        Description: 上传创意图片文件，返回文件 ID、OSS 路径和可访问 URL，供文生视频使用。支持 JPG、JPEG、PNG，文件最大 30 MiB。
+        Summary: 上传创意图片文件，返回文件 ID、OSS 路径和可访问 URL，供文生视频使用。支持 JPG、JPEG、PNG，文件最大 30 MiB。
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.exec_antcloud_marketingagent_file_upload_ex(request, headers, runtime)
+
+    async def exec_antcloud_marketingagent_file_upload_async(
+        self,
+        request: creativerender_models.ExecAntcloudMarketingagentFileUploadRequest,
+    ) -> creativerender_models.ExecAntcloudMarketingagentFileUploadResponse:
+        """
+        Description: 上传创意图片文件，返回文件 ID、OSS 路径和可访问 URL，供文生视频使用。支持 JPG、JPEG、PNG，文件最大 30 MiB。
+        Summary: 上传创意图片文件，返回文件 ID、OSS 路径和可访问 URL，供文生视频使用。支持 JPG、JPEG、PNG，文件最大 30 MiB。
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.exec_antcloud_marketingagent_file_upload_ex_async(request, headers, runtime)
+
+    def exec_antcloud_marketingagent_file_upload_ex(
+        self,
+        request: creativerender_models.ExecAntcloudMarketingagentFileUploadRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> creativerender_models.ExecAntcloudMarketingagentFileUploadResponse:
+        """
+        Description: 上传创意图片文件，返回文件 ID、OSS 路径和可访问 URL，供文生视频使用。支持 JPG、JPEG、PNG，文件最大 30 MiB。
+        Summary: 上传创意图片文件，返回文件 ID、OSS 路径和可访问 URL，供文生视频使用。支持 JPG、JPEG、PNG，文件最大 30 MiB。
+        """
+        if not UtilClient.is_unset(request.file_object):
+            upload_req = creativerender_models.CreateAntcloudGatewayxFileUploadRequest(
+                auth_token=request.auth_token,
+                api_code='antcloud.marketingagent.file.upload.exec',
+                file_name=request.file_object_name
+            )
+            upload_resp = self.create_antcloud_gatewayx_file_upload_ex(upload_req, headers, runtime)
+            if not AntchainUtils.is_success(upload_resp.result_code, 'ok'):
+                exec_antcloud_marketingagent_file_upload_response = creativerender_models.ExecAntcloudMarketingagentFileUploadResponse(
+                    req_msg_id=upload_resp.req_msg_id,
+                    result_code=upload_resp.result_code,
+                    result_msg=upload_resp.result_msg
+                )
+                return exec_antcloud_marketingagent_file_upload_response
+            upload_headers = AntchainUtils.parse_upload_headers(upload_resp.upload_headers)
+            AntchainUtils.put_object(request.file_object, upload_headers, upload_resp.upload_url)
+            request.file_id = upload_resp.file_id
+            request.file_object = None
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            creativerender_models.ExecAntcloudMarketingagentFileUploadResponse(),
+            self.do_request('1.0', 'antcloud.marketingagent.file.upload.exec', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def exec_antcloud_marketingagent_file_upload_ex_async(
+        self,
+        request: creativerender_models.ExecAntcloudMarketingagentFileUploadRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> creativerender_models.ExecAntcloudMarketingagentFileUploadResponse:
+        """
+        Description: 上传创意图片文件，返回文件 ID、OSS 路径和可访问 URL，供文生视频使用。支持 JPG、JPEG、PNG，文件最大 30 MiB。
+        Summary: 上传创意图片文件，返回文件 ID、OSS 路径和可访问 URL，供文生视频使用。支持 JPG、JPEG、PNG，文件最大 30 MiB。
+        """
+        if not UtilClient.is_unset(request.file_object):
+            upload_req = creativerender_models.CreateAntcloudGatewayxFileUploadRequest(
+                auth_token=request.auth_token,
+                api_code='antcloud.marketingagent.file.upload.exec',
+                file_name=request.file_object_name
+            )
+            upload_resp = await self.create_antcloud_gatewayx_file_upload_ex_async(upload_req, headers, runtime)
+            if not AntchainUtils.is_success(upload_resp.result_code, 'ok'):
+                exec_antcloud_marketingagent_file_upload_response = creativerender_models.ExecAntcloudMarketingagentFileUploadResponse(
+                    req_msg_id=upload_resp.req_msg_id,
+                    result_code=upload_resp.result_code,
+                    result_msg=upload_resp.result_msg
+                )
+                return exec_antcloud_marketingagent_file_upload_response
+            upload_headers = AntchainUtils.parse_upload_headers(upload_resp.upload_headers)
+            await AntchainUtils.put_object_async(request.file_object, upload_headers, upload_resp.upload_url)
+            request.file_id = upload_resp.file_id
+            request.file_object = None
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            creativerender_models.ExecAntcloudMarketingagentFileUploadResponse(),
+            await self.do_request_async('1.0', 'antcloud.marketingagent.file.upload.exec', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def create_antcloud_gatewayx_file_upload(
+        self,
+        request: creativerender_models.CreateAntcloudGatewayxFileUploadRequest,
+    ) -> creativerender_models.CreateAntcloudGatewayxFileUploadResponse:
+        """
+        Description: 创建HTTP PUT提交的文件上传
+        Summary: 文件上传创建
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.create_antcloud_gatewayx_file_upload_ex(request, headers, runtime)
+
+    async def create_antcloud_gatewayx_file_upload_async(
+        self,
+        request: creativerender_models.CreateAntcloudGatewayxFileUploadRequest,
+    ) -> creativerender_models.CreateAntcloudGatewayxFileUploadResponse:
+        """
+        Description: 创建HTTP PUT提交的文件上传
+        Summary: 文件上传创建
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.create_antcloud_gatewayx_file_upload_ex_async(request, headers, runtime)
+
+    def create_antcloud_gatewayx_file_upload_ex(
+        self,
+        request: creativerender_models.CreateAntcloudGatewayxFileUploadRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> creativerender_models.CreateAntcloudGatewayxFileUploadResponse:
+        """
+        Description: 创建HTTP PUT提交的文件上传
+        Summary: 文件上传创建
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            creativerender_models.CreateAntcloudGatewayxFileUploadResponse(),
+            self.do_request('1.0', 'antcloud.gatewayx.file.upload.create', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def create_antcloud_gatewayx_file_upload_ex_async(
+        self,
+        request: creativerender_models.CreateAntcloudGatewayxFileUploadRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> creativerender_models.CreateAntcloudGatewayxFileUploadResponse:
+        """
+        Description: 创建HTTP PUT提交的文件上传
+        Summary: 文件上传创建
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            creativerender_models.CreateAntcloudGatewayxFileUploadResponse(),
+            await self.do_request_async('1.0', 'antcloud.gatewayx.file.upload.create', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
