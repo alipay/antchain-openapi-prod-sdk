@@ -6,6 +6,7 @@ namespace AntChain\AITECH\Models;
 use AlibabaCloud\Tea\Model;
 
 use AntChain\AITECH\Models\LabelModel;
+use AntChain\AITECH\Models\TokenUsageSummary;
 
 class QuerySecurityAnswerResponse extends Model {
     protected $_name = [
@@ -19,6 +20,13 @@ class QuerySecurityAnswerResponse extends Model {
         'flowMsgId' => 'flow_msg_id',
         'messageId' => 'message_id',
         'securityAnswer' => 'security_answer',
+        'universalPrompt' => 'universal_prompt',
+        'universalOutput' => 'universal_output',
+        'financePrompt' => 'finance_prompt',
+        'financeOutput' => 'finance_output',
+        'strategyVersion' => 'strategy_version',
+        'tokenUsage' => 'token_usage',
+        'debugInfo' => 'debug_info',
     ];
     public function validate() {}
     public function toMap() {
@@ -58,6 +66,27 @@ class QuerySecurityAnswerResponse extends Model {
         }
         if (null !== $this->securityAnswer) {
             $res['security_answer'] = $this->securityAnswer;
+        }
+        if (null !== $this->universalPrompt) {
+            $res['universal_prompt'] = $this->universalPrompt;
+        }
+        if (null !== $this->universalOutput) {
+            $res['universal_output'] = $this->universalOutput;
+        }
+        if (null !== $this->financePrompt) {
+            $res['finance_prompt'] = $this->financePrompt;
+        }
+        if (null !== $this->financeOutput) {
+            $res['finance_output'] = $this->financeOutput;
+        }
+        if (null !== $this->strategyVersion) {
+            $res['strategy_version'] = $this->strategyVersion;
+        }
+        if (null !== $this->tokenUsage) {
+            $res['token_usage'] = null !== $this->tokenUsage ? $this->tokenUsage->toMap() : null;
+        }
+        if (null !== $this->debugInfo) {
+            $res['debug_info'] = $this->debugInfo;
         }
         return $res;
     }
@@ -104,6 +133,27 @@ class QuerySecurityAnswerResponse extends Model {
         }
         if(isset($map['security_answer'])){
             $model->securityAnswer = $map['security_answer'];
+        }
+        if(isset($map['universal_prompt'])){
+            $model->universalPrompt = $map['universal_prompt'];
+        }
+        if(isset($map['universal_output'])){
+            $model->universalOutput = $map['universal_output'];
+        }
+        if(isset($map['finance_prompt'])){
+            $model->financePrompt = $map['finance_prompt'];
+        }
+        if(isset($map['finance_output'])){
+            $model->financeOutput = $map['finance_output'];
+        }
+        if(isset($map['strategy_version'])){
+            $model->strategyVersion = $map['strategy_version'];
+        }
+        if(isset($map['token_usage'])){
+            $model->tokenUsage = TokenUsageSummary::fromMap($map['token_usage']);
+        }
+        if(isset($map['debug_info'])){
+            $model->debugInfo = $map['debug_info'];
         }
         return $model;
     }
@@ -168,5 +218,48 @@ class QuerySecurityAnswerResponse extends Model {
      * @var string
      */
     public $securityAnswer;
+
+    // universal模型请求参数
+    /**
+     * @var string
+     */
+    public $universalPrompt;
+
+    // universal模型返回结果
+    /**
+     * @var string
+     */
+    public $universalOutput;
+
+    // 金融V3模型请求参数
+    /**
+     * @var string
+     */
+    public $financePrompt;
+
+    // 金融V3模型返回结果
+    /**
+     * @var string
+     */
+    public $financeOutput;
+
+    // 策略版本号
+    /**
+     * @var string
+     */
+    public $strategyVersion;
+
+    // 本次接口请求内所有大模型及 Embedding 调用的 token 汇总。
+    /**
+     * @var TokenUsageSummary
+     */
+    public $tokenUsage;
+
+    // 调试信息（X-Debug-Mode: true 时返回；语音检测内含 audioAsrInfo 子结构）
+    // 对应的结果为Map转化的JSON字符串
+    /**
+     * @var string
+     */
+    public $debugInfo;
 
 }

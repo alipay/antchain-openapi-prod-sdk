@@ -8,6 +8,7 @@ use AlibabaCloud\Tea\Model;
 use AntChain\AITECH\Models\LabelModel;
 use AntChain\AITECH\Models\AttackLabel;
 use AntChain\AITECH\Models\FieldModel;
+use AntChain\AITECH\Models\TokenUsageSummary;
 
 class QuerySecurityQuestionResponse extends Model {
     protected $_name = [
@@ -24,6 +25,17 @@ class QuerySecurityQuestionResponse extends Model {
         'securityPrompt' => 'security_prompt',
         'attackLabels' => 'attack_labels',
         'fieldInfo' => 'field_info',
+        'matchQ' => 'match_q',
+        'jailbreakLabel' => 'jailbreak_label',
+        'universalPrompt' => 'universal_prompt',
+        'universalOutput' => 'universal_output',
+        'financePrompt' => 'finance_prompt',
+        'financeOutput' => 'finance_output',
+        'strategyVersion' => 'strategy_version',
+        'tokenUsage' => 'token_usage',
+        'debugInfo' => 'debug_info',
+        'findeepdiveResult' => 'findeepdive_result',
+        'finDeepDiveOverall' => 'fin_deep_dive_overall',
     ];
     public function validate() {}
     public function toMap() {
@@ -72,6 +84,39 @@ class QuerySecurityQuestionResponse extends Model {
         }
         if (null !== $this->fieldInfo) {
             $res['field_info'] = null !== $this->fieldInfo ? $this->fieldInfo->toMap() : null;
+        }
+        if (null !== $this->matchQ) {
+            $res['match_q'] = $this->matchQ;
+        }
+        if (null !== $this->jailbreakLabel) {
+            $res['jailbreak_label'] = $this->jailbreakLabel;
+        }
+        if (null !== $this->universalPrompt) {
+            $res['universal_prompt'] = $this->universalPrompt;
+        }
+        if (null !== $this->universalOutput) {
+            $res['universal_output'] = $this->universalOutput;
+        }
+        if (null !== $this->financePrompt) {
+            $res['finance_prompt'] = $this->financePrompt;
+        }
+        if (null !== $this->financeOutput) {
+            $res['finance_output'] = $this->financeOutput;
+        }
+        if (null !== $this->strategyVersion) {
+            $res['strategy_version'] = $this->strategyVersion;
+        }
+        if (null !== $this->tokenUsage) {
+            $res['token_usage'] = null !== $this->tokenUsage ? $this->tokenUsage->toMap() : null;
+        }
+        if (null !== $this->debugInfo) {
+            $res['debug_info'] = $this->debugInfo;
+        }
+        if (null !== $this->findeepdiveResult) {
+            $res['findeepdive_result'] = $this->findeepdiveResult;
+        }
+        if (null !== $this->finDeepDiveOverall) {
+            $res['fin_deep_dive_overall'] = $this->finDeepDiveOverall;
         }
         return $res;
     }
@@ -127,6 +172,39 @@ class QuerySecurityQuestionResponse extends Model {
         }
         if(isset($map['field_info'])){
             $model->fieldInfo = FieldModel::fromMap($map['field_info']);
+        }
+        if(isset($map['match_q'])){
+            $model->matchQ = $map['match_q'];
+        }
+        if(isset($map['jailbreak_label'])){
+            $model->jailbreakLabel = $map['jailbreak_label'];
+        }
+        if(isset($map['universal_prompt'])){
+            $model->universalPrompt = $map['universal_prompt'];
+        }
+        if(isset($map['universal_output'])){
+            $model->universalOutput = $map['universal_output'];
+        }
+        if(isset($map['finance_prompt'])){
+            $model->financePrompt = $map['finance_prompt'];
+        }
+        if(isset($map['finance_output'])){
+            $model->financeOutput = $map['finance_output'];
+        }
+        if(isset($map['strategy_version'])){
+            $model->strategyVersion = $map['strategy_version'];
+        }
+        if(isset($map['token_usage'])){
+            $model->tokenUsage = TokenUsageSummary::fromMap($map['token_usage']);
+        }
+        if(isset($map['debug_info'])){
+            $model->debugInfo = $map['debug_info'];
+        }
+        if(isset($map['findeepdive_result'])){
+            $model->findeepdiveResult = $map['findeepdive_result'];
+        }
+        if(isset($map['fin_deep_dive_overall'])){
+            $model->finDeepDiveOverall = $map['fin_deep_dive_overall'];
         }
         return $model;
     }
@@ -207,5 +285,72 @@ class QuerySecurityQuestionResponse extends Model {
      * @var FieldModel
      */
     public $fieldInfo;
+
+    // 安全代答匹配到的Q
+    /**
+     * @var string
+     */
+    public $matchQ;
+
+    // 越狱手法标签
+    /**
+     * @var string
+     */
+    public $jailbreakLabel;
+
+    // universal模型请求参数
+    /**
+     * @var string
+     */
+    public $universalPrompt;
+
+    // universal模型返回结果
+    /**
+     * @var string
+     */
+    public $universalOutput;
+
+    // 金融V3模型请求参数
+    /**
+     * @var string
+     */
+    public $financePrompt;
+
+    // 金融V3模型返回结果
+    /**
+     * @var string
+     */
+    public $financeOutput;
+
+    // 策略版本号
+    /**
+     * @var string
+     */
+    public $strategyVersion;
+
+    // 本次接口请求内所有大模型及 Embedding 调用的 token 汇总。
+    /**
+     * @var TokenUsageSummary
+     */
+    public $tokenUsage;
+
+    // 调试信息（X-Debug-Mode: true 时返回；语音检测内含 audioAsrInfo 子结构）
+    // 对应的结果为Map转化的JSON字符串
+    /**
+     * @var string
+     */
+    public $debugInfo;
+
+    // 金融合规深度审核——命中的风险点列表（JSON 数组字符串；仅深审开时返回，非深审场景不输出）
+    /**
+     * @var string
+     */
+    public $findeepdiveResult;
+
+    // 金融合规深度审核——整体结论（block/warning/pass；仅深审开时返回）
+    /**
+     * @var string
+     */
+    public $finDeepDiveOverall;
 
 }
