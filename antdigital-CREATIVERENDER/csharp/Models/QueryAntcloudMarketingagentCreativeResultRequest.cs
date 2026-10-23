@@ -19,6 +19,11 @@ namespace AntChain.SDK.CREATIVERENDER.Models
         [Validation(Required=true)]
         public string MessageId { get; set; }
 
+        // 是否返回基金长图的子图列表，默认 false。为 true 时，在长图生成完成后返回 assistant_extra.sub_images；不影响长图生成流程。
+        [NameInMap("return_sub_images")]
+        [Validation(Required=false)]
+        public bool? ReturnSubImages { get; set; }
+
     }
 
 }

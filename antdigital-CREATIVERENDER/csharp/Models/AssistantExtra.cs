@@ -37,6 +37,15 @@ namespace AntChain.SDK.CREATIVERENDER.Models
         [Validation(Required=false)]
         public List<string> ResultUrl { get; set; }
 
+        // 基金长图子图列表，仅在 return_sub_images 为 true 且长图生成完成时返回。
+        /// <summary>
+        /// <b>Example:</b>
+        /// <para>undefined</para>
+        /// </summary>
+        [NameInMap("sub_images")]
+        [Validation(Required=false)]
+        public List<LongImageSegment> SubImages { get; set; }
+
     }
 
 }
