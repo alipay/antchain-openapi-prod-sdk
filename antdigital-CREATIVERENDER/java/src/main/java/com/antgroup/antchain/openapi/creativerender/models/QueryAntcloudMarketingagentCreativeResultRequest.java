@@ -13,6 +13,10 @@ public class QueryAntcloudMarketingagentCreativeResultRequest extends TeaModel {
     @Validation(required = true)
     public String messageId;
 
+    // 是否返回基金长图的子图列表，默认 false。为 true 时，在长图生成完成后返回 assistant_extra.sub_images；不影响长图生成流程。
+    @NameInMap("return_sub_images")
+    public Boolean returnSubImages;
+
     public static QueryAntcloudMarketingagentCreativeResultRequest build(java.util.Map<String, ?> map) throws Exception {
         QueryAntcloudMarketingagentCreativeResultRequest self = new QueryAntcloudMarketingagentCreativeResultRequest();
         return TeaModel.build(map, self);
@@ -32,6 +36,14 @@ public class QueryAntcloudMarketingagentCreativeResultRequest extends TeaModel {
     }
     public String getMessageId() {
         return this.messageId;
+    }
+
+    public QueryAntcloudMarketingagentCreativeResultRequest setReturnSubImages(Boolean returnSubImages) {
+        this.returnSubImages = returnSubImages;
+        return this;
+    }
+    public Boolean getReturnSubImages() {
+        return this.returnSubImages;
     }
 
 }

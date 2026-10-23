@@ -28,6 +28,14 @@ public class AssistantExtra extends TeaModel {
     @NameInMap("result_url")
     public java.util.List<String> resultUrl;
 
+    // 基金长图子图列表，仅在 return_sub_images 为 true 且长图生成完成时返回。
+    /**
+     * <strong>example:</strong>
+     * <p>undefined</p>
+     */
+    @NameInMap("sub_images")
+    public java.util.List<LongImageSegment> subImages;
+
     public static AssistantExtra build(java.util.Map<String, ?> map) throws Exception {
         AssistantExtra self = new AssistantExtra();
         return TeaModel.build(map, self);
@@ -55,6 +63,14 @@ public class AssistantExtra extends TeaModel {
     }
     public java.util.List<String> getResultUrl() {
         return this.resultUrl;
+    }
+
+    public AssistantExtra setSubImages(java.util.List<LongImageSegment> subImages) {
+        this.subImages = subImages;
+        return this;
+    }
+    public java.util.List<LongImageSegment> getSubImages() {
+        return this.subImages;
     }
 
 }
