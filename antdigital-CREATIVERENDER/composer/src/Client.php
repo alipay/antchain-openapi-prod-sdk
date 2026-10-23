@@ -27,6 +27,10 @@ use AntChain\CREATIVERENDER\Models\ExecAntcloudMarketingagentCreativeVideoReques
 use AntChain\CREATIVERENDER\Models\ExecAntcloudMarketingagentCreativeVideoResponse;
 use AntChain\CREATIVERENDER\Models\QueryAntcloudMarketingagentCreativeVideoRequest;
 use AntChain\CREATIVERENDER\Models\QueryAntcloudMarketingagentCreativeVideoResponse;
+use AntChain\CREATIVERENDER\Models\ExecAntcloudMarketingagentCreativeImageeditRequest;
+use AntChain\CREATIVERENDER\Models\ExecAntcloudMarketingagentCreativeImageeditResponse;
+use AntChain\CREATIVERENDER\Models\QueryAntcloudMarketingagentCreativeImageeditRequest;
+use AntChain\CREATIVERENDER\Models\QueryAntcloudMarketingagentCreativeImageeditResponse;
 
 class Client {
     protected $_endpoint;
@@ -163,7 +167,7 @@ class Client {
                     "req_msg_id" => UtilClient::getNonce(),
                     "access_key" => $this->_accessKeyId,
                     "base_sdk_version" => "TeaSDK-2.0",
-                    "sdk_version" => "2.1.1",
+                    "sdk_version" => "2.1.2",
                     "_prod_code" => "CREATIVERENDER",
                     "_prod_channel" => "default"
                 ];
@@ -381,5 +385,55 @@ class Client {
     public function queryAntcloudMarketingagentCreativeVideoEx($request, $headers, $runtime){
         Utils::validateModel($request);
         return QueryAntcloudMarketingagentCreativeVideoResponse::fromMap($this->doRequest("1.0", "antcloud.marketingagent.creative.video.query", "HTTPS", "POST", "/gateway.do", Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 基于已有成功子图版本提交提示词编辑，异步生成修改后的图片。返回独立 messageId 和新 segmentVersionId，通过子图编辑查询接口获取任务进度及结果；成功版本可用于下一轮修改。
+     * Summary: 基于已有成功子图版本提交提示词编辑，异步生成修改后的图片。返回独立 messageId 和新 segmentVersionId，通过子图编辑查询接口获取任务进度及结果；成功版本可用于下一轮修改。
+     * @param ExecAntcloudMarketingagentCreativeImageeditRequest $request
+     * @return ExecAntcloudMarketingagentCreativeImageeditResponse
+     */
+    public function execAntcloudMarketingagentCreativeImageedit($request){
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+        return $this->execAntcloudMarketingagentCreativeImageeditEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 基于已有成功子图版本提交提示词编辑，异步生成修改后的图片。返回独立 messageId 和新 segmentVersionId，通过子图编辑查询接口获取任务进度及结果；成功版本可用于下一轮修改。
+     * Summary: 基于已有成功子图版本提交提示词编辑，异步生成修改后的图片。返回独立 messageId 和新 segmentVersionId，通过子图编辑查询接口获取任务进度及结果；成功版本可用于下一轮修改。
+     * @param ExecAntcloudMarketingagentCreativeImageeditRequest $request
+     * @param string[] $headers
+     * @param RuntimeOptions $runtime
+     * @return ExecAntcloudMarketingagentCreativeImageeditResponse
+     */
+    public function execAntcloudMarketingagentCreativeImageeditEx($request, $headers, $runtime){
+        Utils::validateModel($request);
+        return ExecAntcloudMarketingagentCreativeImageeditResponse::fromMap($this->doRequest("1.0", "antcloud.marketingagent.creative.imageedit.exec", "HTTPS", "POST", "/gateway.do", Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 根据子图编辑接口返回的 message_id，查询当前调用用户及租户下的子图编辑任务进度和结果。返回新版本 ID、任务状态、成功图片地址或失败原因；查询成功不代表图片生成成功。
+     * Summary: 根据子图编辑接口返回的 message_id，查询当前调用用户及租户下的子图编辑任务进度和结果。返回新版本 ID、任务状态、成功图片地址或失败原因；查询成功不代表图片生成成功。
+     * @param QueryAntcloudMarketingagentCreativeImageeditRequest $request
+     * @return QueryAntcloudMarketingagentCreativeImageeditResponse
+     */
+    public function queryAntcloudMarketingagentCreativeImageedit($request){
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+        return $this->queryAntcloudMarketingagentCreativeImageeditEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 根据子图编辑接口返回的 message_id，查询当前调用用户及租户下的子图编辑任务进度和结果。返回新版本 ID、任务状态、成功图片地址或失败原因；查询成功不代表图片生成成功。
+     * Summary: 根据子图编辑接口返回的 message_id，查询当前调用用户及租户下的子图编辑任务进度和结果。返回新版本 ID、任务状态、成功图片地址或失败原因；查询成功不代表图片生成成功。
+     * @param QueryAntcloudMarketingagentCreativeImageeditRequest $request
+     * @param string[] $headers
+     * @param RuntimeOptions $runtime
+     * @return QueryAntcloudMarketingagentCreativeImageeditResponse
+     */
+    public function queryAntcloudMarketingagentCreativeImageeditEx($request, $headers, $runtime){
+        Utils::validateModel($request);
+        return QueryAntcloudMarketingagentCreativeImageeditResponse::fromMap($this->doRequest("1.0", "antcloud.marketingagent.creative.imageedit.query", "HTTPS", "POST", "/gateway.do", Tea::merge($request), $headers, $runtime));
     }
 }

@@ -5,11 +5,14 @@ namespace AntChain\CREATIVERENDER\Models;
 
 use AlibabaCloud\Tea\Model;
 
+use AntChain\CREATIVERENDER\Models\LongImageSegment;
+
 class AssistantExtra extends Model {
     protected $_name = [
         'taskId' => 'task_id',
         'renderStatus' => 'render_status',
         'resultUrl' => 'result_url',
+        'subImages' => 'sub_images',
     ];
     public function validate() {}
     public function toMap() {
@@ -22,6 +25,15 @@ class AssistantExtra extends Model {
         }
         if (null !== $this->resultUrl) {
             $res['result_url'] = $this->resultUrl;
+        }
+        if (null !== $this->subImages) {
+            $res['sub_images'] = [];
+            if(null !== $this->subImages && is_array($this->subImages)){
+                $n = 0;
+                foreach($this->subImages as $item){
+                    $res['sub_images'][$n++] = null !== $item ? $item->toMap() : $item;
+                }
+            }
         }
         return $res;
     }
@@ -40,6 +52,15 @@ class AssistantExtra extends Model {
         if(isset($map['result_url'])){
             if(!empty($map['result_url'])){
                 $model->resultUrl = $map['result_url'];
+            }
+        }
+        if(isset($map['sub_images'])){
+            if(!empty($map['sub_images'])){
+                $model->subImages = [];
+                $n = 0;
+                foreach($map['sub_images'] as $item) {
+                    $model->subImages[$n++] = null !== $item ? LongImageSegment::fromMap($item) : $item;
+                }
             }
         }
         return $model;
@@ -64,5 +85,12 @@ class AssistantExtra extends Model {
      * @var string[]
      */
     public $resultUrl;
+
+    // 基金长图子图列表，仅在 return_sub_images 为 true 且长图生成完成时返回。
+    /**
+     * @example undefined
+     * @var LongImageSegment[]
+     */
+    public $subImages;
 
 }
