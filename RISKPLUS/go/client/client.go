@@ -18911,6 +18911,8 @@ type BindDubbridgeCustomerBankcardRequest struct {
 	ProdType *string `json:"prod_type,omitempty" xml:"prod_type,omitempty"`
 	// 银行编码
 	BankCode *string `json:"bank_code,omitempty" xml:"bank_code,omitempty"`
+	// 授信申请order_no
+	CreditOrderNo *string `json:"credit_order_no,omitempty" xml:"credit_order_no,omitempty"`
 }
 
 func (s BindDubbridgeCustomerBankcardRequest) String() string {
@@ -18978,6 +18980,11 @@ func (s *BindDubbridgeCustomerBankcardRequest) SetProdType(v string) *BindDubbri
 
 func (s *BindDubbridgeCustomerBankcardRequest) SetBankCode(v string) *BindDubbridgeCustomerBankcardRequest {
 	s.BankCode = &v
+	return s
+}
+
+func (s *BindDubbridgeCustomerBankcardRequest) SetCreditOrderNo(v string) *BindDubbridgeCustomerBankcardRequest {
+	s.CreditOrderNo = &v
 	return s
 }
 
@@ -48828,7 +48835,7 @@ func (client *Client) DoRequest(version *string, action *string, protocol *strin
 				"req_msg_id":       antchainutil.GetNonce(),
 				"access_key":       client.AccessKeyId,
 				"base_sdk_version": tea.String("TeaSDK-2.0"),
-				"sdk_version":      tea.String("1.33.10"),
+				"sdk_version":      tea.String("1.33.11"),
 				"_prod_code":       tea.String("RISKPLUS"),
 				"_prod_channel":    tea.String("undefined"),
 			}
@@ -50576,7 +50583,7 @@ func (client *Client) UploadDubbridgeFileEx(request *UploadDubbridgeFileRequest,
 //
 // Description: 代扣签约绑卡接口
 //
-// Summary: 代扣协议签约申请(银行卡绑卡)
+// Summary: 代扣签约绑卡接口
 func (client *Client) BindDubbridgeCustomerBankcard(request *BindDubbridgeCustomerBankcardRequest) (_result *BindDubbridgeCustomerBankcardResponse, _err error) {
 	runtime := &util.RuntimeOptions{}
 	headers := make(map[string]*string)
@@ -50593,7 +50600,7 @@ func (client *Client) BindDubbridgeCustomerBankcard(request *BindDubbridgeCustom
 //
 // Description: 代扣签约绑卡接口
 //
-// Summary: 代扣协议签约申请(银行卡绑卡)
+// Summary: 代扣签约绑卡接口
 func (client *Client) BindDubbridgeCustomerBankcardEx(request *BindDubbridgeCustomerBankcardRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *BindDubbridgeCustomerBankcardResponse, _err error) {
 	_err = util.ValidateModel(request)
 	if _err != nil {
