@@ -227,7 +227,7 @@ class QuerySecurityAnswerRequest extends Model {
      */
     public $customBlackWordCheck;
 
-    // Universal/金融图谱案例召回，默认开启，仅 N 关闭
+    // Universal金融图谱案例召回，默认开启，仅 N 关闭
     /**
      * @var string
      */

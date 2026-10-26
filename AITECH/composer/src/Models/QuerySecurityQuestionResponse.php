@@ -334,8 +334,7 @@ class QuerySecurityQuestionResponse extends Model {
      */
     public $tokenUsage;
 
-    // 调试信息（X-Debug-Mode: true 时返回；语音检测内含 audioAsrInfo 子结构）
-    // 对应的结果为Map转化的JSON字符串
+    // 调试信息 对应的结果为Map转化的JSON字符串
     /**
      * @var string
      */
@@ -347,7 +346,7 @@ class QuerySecurityQuestionResponse extends Model {
      */
     public $findeepdiveResult;
 
-    // 金融合规深度审核——整体结论（block/warning/pass；仅深审开时返回）
+    // 金融合规深度审核——整体结论
     /**
      * @var string
      */

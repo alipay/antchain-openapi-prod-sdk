@@ -113,7 +113,7 @@ class UploadSecurityAnswerRequest extends Model {
      */
     public $productInstanceId;
 
-    // txt/pdf 文件
+    // txt和pdf 文件
     /**
      * @var string
      */

@@ -194,7 +194,7 @@ class QuerySecurityQuestionRequest extends Model {
      */
     public $sceneCode;
 
-    // 标示是否是同一个Q&A
+    // 标示是否是同一个
     /**
      * @var string
      */

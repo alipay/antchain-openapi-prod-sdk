@@ -113,13 +113,13 @@ class QuerySecurityAudioRequest extends Model {
      */
     public $productInstanceId;
 
-    // 音频公网 URL（与 audio 二选一，网关侧仅支持 URL 方式）
+    // 音频公网 URL
     /**
      * @var string
      */
     public $audioUrl;
 
-    // wav/mp3/flac/m4a/aiff/alac/ape，缺省从 URL 后缀或 magic number 推断
+    // 缺省从 URL 后缀或 magic number 推断
     /**
      * @var string
      */
@@ -131,7 +131,7 @@ class QuerySecurityAudioRequest extends Model {
      */
     public $denoise;
 
-    // 须 audio 前缀，audio_input_*/audio_output_*
+    // 须 audio 前缀，
     /**
      * @var string
      */

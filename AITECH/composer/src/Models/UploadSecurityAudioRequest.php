@@ -92,7 +92,7 @@ class UploadSecurityAudioRequest extends Model {
      */
     public $productInstanceId;
 
-    // 音频文件 URL（非空校验）
+    // 音频文件 URL
     /**
      * @var string
      */
@@ -110,13 +110,13 @@ class UploadSecurityAudioRequest extends Model {
      */
     public $businessId;
 
-    // 降噪开关（字符串，Boolean.parseBoolean 解析）
+    // 降噪开关
     /**
      * @var string
      */
     public $denoise;
 
-    // 音频格式（缺省用原始文件名或 audio.wav）
+    // 音频格式
     /**
      * @var string
      */

@@ -127,7 +127,7 @@ class UploadSecurityQuestionRequest extends Model {
      */
     public $productInstanceId;
 
-    // txt/pdf 文件，解析为文本（FileParseUtil），空内容报「文件内容为空」
+    // txt和pdf 文件
     /**
      * @var string
      */

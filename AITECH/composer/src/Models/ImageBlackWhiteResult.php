@@ -154,14 +154,14 @@ class ImageBlackWhiteResult extends Model {
      */
     public $matched;
 
-    // 命中名单类型：BLACK / WHITE
+    // 命中名单类型
     /**
      * @example WHITE
      * @var string
      */
     public $matchType;
 
-    // 命中向量来源：FULL_IMAGE / FACE
+    // 命中向量来源
     /**
      * @example FULL_IMAGE
      * @var string
@@ -210,28 +210,28 @@ class ImageBlackWhiteResult extends Model {
      */
     public $executedFace;
 
-    // 人脸检测结果（YuNet）：null 表示未执行人脸维度
+    // 人脸检测结果
     /**
      * @example true
      * @var bool
      */
     public $faceDetected;
 
-    // 全图向量化状态：SUCCESS / SKIP / DEGRADE
+    // 全图向量化状态
     /**
      * @example SUCCESS
      * @var string
      */
     public $fullImageEmbedStatus;
 
-    // 人脸向量化状态：SUCCESS / SKIP（无人脸或未执行）/ DEGRADE
+    // 人脸向量化状态
     /**
      * @example SUCCESS
      * @var string
      */
     public $faceEmbedStatus;
 
-    // 全图维度 ES 最高分（未命中也记录，便于阈值对比；无检索为 null）
+    // 全图维度 ES 最高分
     /**
      * @example 1.2
      * @var int
@@ -245,7 +245,7 @@ class ImageBlackWhiteResult extends Model {
      */
     public $fullImageThreshold;
 
-    // 人脸维度 ES 最高分（未命中也记录；无检索为 null）
+    // 人脸维度 ES 最高分
     /**
      * @example 1.2
      * @var int
@@ -259,14 +259,14 @@ class ImageBlackWhiteResult extends Model {
      */
     public $faceThreshold;
 
-    // 是否降级（异常/服务不可用导致跳过排黑排白）
+    // 是否降级
     /**
      * @example true
      * @var bool
      */
     public $degraded;
 
-    // 降级或短路原因（参数缺失/无启用库/下载失败/向量化异常等）
+    // 降级或短路原因
     /**
      * @example 参数缺失
      * @var string

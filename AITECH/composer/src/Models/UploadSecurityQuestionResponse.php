@@ -245,13 +245,13 @@ class UploadSecurityQuestionResponse extends Model {
      */
     public $resultMsg;
 
-    // PASS/BLOCK/SECURITY_ANSWER/SECURITY_WARNING
+    // PASS
     /**
      * @var string
      */
     public $actionCode;
 
-    // 风险标签（label + subLabels[]：subLabel/riskWords/riskWordsIndex/thirdLabels）
+    // 风险标签
     /**
      * @var LabelModel[]
      */
@@ -299,13 +299,13 @@ class UploadSecurityQuestionResponse extends Model {
      */
     public $jailbreakLabel;
 
-    // 攻击标签（attackLabel + attackSubLabels[]）
+    // 攻击标签
     /**
      * @var AttackLabelModel[]
      */
     public $attackLabels;
 
-    // 领域识别（fieldCategory/fieldLabel/fieldScore:Double）
+    // 领域识别
     /**
      * @var FieldModel
      */
@@ -323,13 +323,13 @@ class UploadSecurityQuestionResponse extends Model {
      */
     public $tokenUsage;
 
-    // ASR 转写文本（文本链路恒 null）
+    // ASR 转写文本
     /**
      * @var string
      */
     public $transcribedText;
 
-    // 调试信息（当前链路无填充，恒 null）
+    // 调试信息
     /**
      * @var string
      */

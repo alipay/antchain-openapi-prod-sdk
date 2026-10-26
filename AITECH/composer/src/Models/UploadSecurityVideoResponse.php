@@ -84,7 +84,7 @@ class UploadSecurityVideoResponse extends Model {
      */
     public $resultMsg;
 
-    // PASS/BLOCK
+    // PASS
     /**
      * @var string
      */

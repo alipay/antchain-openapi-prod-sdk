@@ -84,7 +84,7 @@ class UploadSecurityImageResponse extends Model {
      */
     public $resultMsg;
 
-    // PASS/BLOCK
+    // PASS
     /**
      * @var string
      */

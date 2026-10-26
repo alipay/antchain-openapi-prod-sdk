@@ -287,13 +287,13 @@ class UploadSecurityAnswerResponse extends Model {
      */
     public $tokenUsage;
 
-    // 调试信息（X-Debug-Mode: true 时返回；语音检测内含 audioAsrInfo 子结构）
+    // 调试信息
     /**
      * @var string
      */
     public $debugInfo;
 
-    // ASR 转写文本（文本链路恒 null）
+    // ASR 转写文本
     /**
      * @var string
      */

@@ -104,7 +104,7 @@ class QuerySecurityVideoRequest extends Model {
      */
     public $videoUrl;
 
-    // 归一化后须 video 前缀，否则拒绝「非法场景码」
+    // 归一化后须 video 前缀，否则拒绝
     /**
      * @var string
      */
