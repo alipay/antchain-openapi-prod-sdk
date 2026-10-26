@@ -758,9 +758,9 @@ class ImageBlackWhiteResult(TeaModel):
     ):
         # 是否命中（任一维度命中即 true）
         self.matched = matched
-        # 命中名单类型：BLACK / WHITE
+        # 命中名单类型
         self.match_type = match_type
-        # 命中向量来源：FULL_IMAGE / FACE
+        # 命中向量来源
         self.match_source = match_source
         # 命中得分（ES 返回 score 经归一化后值）
         self.match_score = match_score
@@ -774,23 +774,23 @@ class ImageBlackWhiteResult(TeaModel):
         self.executed_full_image = executed_full_image
         # 是否执行了人脸维度（存在启用的人脸库）
         self.executed_face = executed_face
-        # 人脸检测结果（YuNet）：null 表示未执行人脸维度
+        # 人脸检测结果
         self.face_detected = face_detected
-        # 全图向量化状态：SUCCESS / SKIP / DEGRADE
+        # 全图向量化状态
         self.full_image_embed_status = full_image_embed_status
-        # 人脸向量化状态：SUCCESS / SKIP（无人脸或未执行）/ DEGRADE
+        # 人脸向量化状态
         self.face_embed_status = face_embed_status
-        # 全图维度 ES 最高分（未命中也记录，便于阈值对比；无检索为 null）
+        # 全图维度 ES 最高分
         self.full_image_top_score = full_image_top_score
         # 全图维度阈值
         self.full_image_threshold = full_image_threshold
-        # 人脸维度 ES 最高分（未命中也记录；无检索为 null）
+        # 人脸维度 ES 最高分
         self.face_top_score = face_top_score
         # 人脸维度阈值
         self.face_threshold = face_threshold
-        # 是否降级（异常/服务不可用导致跳过排黑排白）
+        # 是否降级
         self.degraded = degraded
-        # 降级或短路原因（参数缺失/无启用库/下载失败/向量化异常等）
+        # 降级或短路原因
         self.degrade_reason = degrade_reason
 
     def validate(self):
@@ -9395,7 +9395,7 @@ class QuerySecurityQuestionRequest(TeaModel):
         self.business_id = business_id
         # 场景code
         self.scene_code = scene_code
-        # 标示是否是同一个Q&A
+        # 标示是否是同一个
         self.message_id = message_id
         # 会话ID
         self.session_id = session_id
@@ -9588,12 +9588,11 @@ class QuerySecurityQuestionResponse(TeaModel):
         self.strategy_version = strategy_version
         # 本次接口请求内所有大模型及 Embedding 调用的 token 汇总。
         self.token_usage = token_usage
-        # 调试信息（X-Debug-Mode: true 时返回；语音检测内含 audioAsrInfo 子结构）
-        # 对应的结果为Map转化的JSON字符串
+        # 调试信息 对应的结果为Map转化的JSON字符串
         self.debug_info = debug_info
         # 金融合规深度审核——命中的风险点列表（JSON 数组字符串；仅深审开时返回，非深审场景不输出）
         self.findeepdive_result = findeepdive_result
-        # 金融合规深度审核——整体结论（block/warning/pass；仅深审开时返回）
+        # 金融合规深度审核——整体结论
         self.fin_deep_dive_overall = fin_deep_dive_overall
 
     def validate(self):
@@ -9774,7 +9773,7 @@ class QuerySecurityAnswerRequest(TeaModel):
         self.custom_white_check = custom_white_check
         # 自定义黑词检测，默认开启，仅 N 关闭
         self.custom_black_word_check = custom_black_word_check
-        # Universal/金融图谱案例召回，默认开启，仅 N 关闭
+        # Universal金融图谱案例召回，默认开启，仅 N 关闭
         self.graph_case_recall = graph_case_recall
 
     def validate(self):
@@ -10182,7 +10181,7 @@ class UploadSecurityQuestionRequest(TeaModel):
         # OAuth模式下的授权token
         self.auth_token = auth_token
         self.product_instance_id = product_instance_id
-        # txt/pdf 文件，解析为文本（FileParseUtil），空内容报「文件内容为空」
+        # txt和pdf 文件
         self.file_url = file_url
         # 归一化后须 question 前缀，否则兜底 LLM_INPUT_DETECTION
         self.scene_code = scene_code
@@ -10310,9 +10309,9 @@ class UploadSecurityQuestionResponse(TeaModel):
         self.result_code = result_code
         # 异常信息的文本描述
         self.result_msg = result_msg
-        # PASS/BLOCK/SECURITY_ANSWER/SECURITY_WARNING
+        # PASS
         self.action_code = action_code
-        # 风险标签（label + subLabels[]：subLabel/riskWords/riskWordsIndex/thirdLabels）
+        # 风险标签
         self.labels = labels
         # 命中自定义风险词
         self.customize_risk_word = customize_risk_word
@@ -10328,17 +10327,17 @@ class UploadSecurityQuestionResponse(TeaModel):
         self.security_prompt = security_prompt
         # 越狱标签（旧字段）
         self.jailbreak_label = jailbreak_label
-        # 攻击标签（attackLabel + attackSubLabels[]）
+        # 攻击标签
         self.attack_labels = attack_labels
-        # 领域识别（fieldCategory/fieldLabel/fieldScore:Double）
+        # 领域识别
         self.field_info = field_info
         # 回传会话 ID
         self.session_id = session_id
         # 本次接口请求内所有大模型及 Embedding 调用的 token 汇总。
         self.token_usage = token_usage
-        # ASR 转写文本（文本链路恒 null）
+        # ASR 转写文本
         self.transcribed_text = transcribed_text
-        # 调试信息（当前链路无填充，恒 null）
+        # 调试信息
         self.debug_info = debug_info
         # 金融深挖结果
         self.findeepdive_result = findeepdive_result
@@ -10512,7 +10511,7 @@ class UploadSecurityAnswerRequest(TeaModel):
         # OAuth模式下的授权token
         self.auth_token = auth_token
         self.product_instance_id = product_instance_id
-        # txt/pdf 文件
+        # txt和pdf 文件
         self.file_url = file_url
         # 须 answer 前缀，否则兜底 LLM_OUTPUT_DETECTION_LITE
         self.scene_code = scene_code
@@ -10652,9 +10651,9 @@ class UploadSecurityAnswerResponse(TeaModel):
         self.strategy_version = strategy_version
         # token 用量
         self.token_usage = token_usage
-        # 调试信息（X-Debug-Mode: true 时返回；语音检测内含 audioAsrInfo 子结构）
+        # 调试信息
         self.debug_info = debug_info
-        # ASR 转写文本（文本链路恒 null）
+        # ASR 转写文本
         self.transcribed_text = transcribed_text
         # 金融深挖结果
         self.findeepdive_result = findeepdive_result
@@ -10786,9 +10785,9 @@ class UploadSecurityImageRequest(TeaModel):
         # OAuth模式下的授权token
         self.auth_token = auth_token
         self.product_instance_id = product_instance_id
-        # ≤10MB；jpeg/png/jpg/bmp/webp/gif 直传或 PDF 逐页转图片
+        # 直传或 PDF 逐页转图片
         self.file_url = file_url
-        # 归一化后须 image 前缀，否则拒绝「非法场景码」
+        # 归一化后须 image 前缀，否则拒绝
         self.scene_code = scene_code
         # 租户标识
         self.business_id = business_id
@@ -10859,7 +10858,7 @@ class UploadSecurityImageResponse(TeaModel):
         self.result_code = result_code
         # 异常信息的文本描述
         self.result_msg = result_msg
-        # PASS/BLOCK
+        # PASS
         self.action_code = action_code
         # 黑白库命中明细（18 字段）
         self.image_black_white_result = image_black_white_result
@@ -11069,7 +11068,7 @@ class QuerySecurityVideoRequest(TeaModel):
         self.product_instance_id = product_instance_id
         # 视频公开访问 URL
         self.video_url = video_url
-        # 归一化后须 video 前缀，否则拒绝「非法场景码」
+        # 归一化后须 video 前缀，否则拒绝
         self.scene_code = scene_code
         # 租户标识（老值兼容替换）
         self.business_id = business_id
@@ -11215,7 +11214,7 @@ class UploadSecurityVideoRequest(TeaModel):
         # OAuth模式下的授权token
         self.auth_token = auth_token
         self.product_instance_id = product_instance_id
-        # 视频文件 URL（大小/格式由 VideoCheckApplicationService 校验）
+        # 视频文件 URL
         self.file_url = file_url
         # 须 video 前缀
         self.scene_code = scene_code
@@ -11276,7 +11275,7 @@ class UploadSecurityVideoResponse(TeaModel):
         self.result_code = result_code
         # 异常信息的文本描述
         self.result_msg = result_msg
-        # PASS/BLOCK
+        # PASS
         self.action_code = action_code
         # 黑白库命中明细（18 字段）
         self.image_black_white_result = image_black_white_result
@@ -11346,13 +11345,13 @@ class QuerySecurityAudioRequest(TeaModel):
         # OAuth模式下的授权token
         self.auth_token = auth_token
         self.product_instance_id = product_instance_id
-        # 音频公网 URL（与 audio 二选一，网关侧仅支持 URL 方式）
+        # 音频公网 URL
         self.audio_url = audio_url
-        # wav/mp3/flac/m4a/aiff/alac/ape，缺省从 URL 后缀或 magic number 推断
+        # 缺省从 URL 后缀或 magic number 推断
         self.audio_format = audio_format
         # Boolean 降噪（null 时服务端默认 true）
         self.denoise = denoise
-        # 须 audio 前缀，audio_input_*/audio_output_*\
+        # 须 audio 前缀，
         self.scene_code = scene_code
         # 租户标识（老值兼容替换）
         self.business_id = business_id
@@ -11491,15 +11490,15 @@ class UploadSecurityAudioRequest(TeaModel):
         # OAuth模式下的授权token
         self.auth_token = auth_token
         self.product_instance_id = product_instance_id
-        # 音频文件 URL（非空校验）
+        # 音频文件 URL
         self.file_url = file_url
         # 须 audio 前缀
         self.scene_code = scene_code
         # 租户标识
         self.business_id = business_id
-        # 降噪开关（字符串，Boolean.parseBoolean 解析）
+        # 降噪开关
         self.denoise = denoise
-        # 音频格式（缺省用原始文件名或 audio.wav）
+        # 音频格式
         self.audio_format = audio_format
         # 消息 ID
         self.message_id = message_id
