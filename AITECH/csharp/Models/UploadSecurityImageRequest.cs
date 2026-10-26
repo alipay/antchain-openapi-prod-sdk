@@ -18,12 +18,12 @@ namespace AntChain.SDK.AITECH.Models
         [Validation(Required=false)]
         public string ProductInstanceId { get; set; }
 
-        // ≤10MB；jpeg/png/jpg/bmp/webp/gif 直传或 PDF 逐页转图片
+        // 直传或 PDF 逐页转图片
         [NameInMap("file_url")]
         [Validation(Required=true)]
         public string FileUrl { get; set; }
 
-        // 归一化后须 image 前缀，否则拒绝「非法场景码」
+        // 归一化后须 image 前缀，否则拒绝
         [NameInMap("scene_code")]
         [Validation(Required=true)]
         public string SceneCode { get; set; }

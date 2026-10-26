@@ -24,7 +24,7 @@ namespace AntChain.SDK.AITECH.Models
         [Validation(Required=false)]
         public string ResultMsg { get; set; }
 
-        // PASS/BLOCK
+        // PASS
         [NameInMap("action_code")]
         [Validation(Required=false)]
         public string ActionCode { get; set; }

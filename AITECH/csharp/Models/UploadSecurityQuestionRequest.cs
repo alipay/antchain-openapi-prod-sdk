@@ -18,7 +18,7 @@ namespace AntChain.SDK.AITECH.Models
         [Validation(Required=false)]
         public string ProductInstanceId { get; set; }
 
-        // txt/pdf 文件，解析为文本（FileParseUtil），空内容报「文件内容为空」
+        // txt和pdf 文件
         [NameInMap("file_url")]
         [Validation(Required=true)]
         public string FileUrl { get; set; }

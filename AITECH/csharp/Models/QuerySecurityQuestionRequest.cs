@@ -38,7 +38,7 @@ namespace AntChain.SDK.AITECH.Models
         [Validation(Required=true)]
         public string SceneCode { get; set; }
 
-        // 标示是否是同一个Q&A
+        // 标示是否是同一个
         [NameInMap("message_id")]
         [Validation(Required=false)]
         public string MessageId { get; set; }
