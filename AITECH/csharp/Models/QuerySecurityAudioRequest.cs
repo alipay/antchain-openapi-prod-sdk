@@ -18,12 +18,12 @@ namespace AntChain.SDK.AITECH.Models
         [Validation(Required=false)]
         public string ProductInstanceId { get; set; }
 
-        // 音频公网 URL（与 audio 二选一，网关侧仅支持 URL 方式）
+        // 音频公网 URL
         [NameInMap("audio_url")]
         [Validation(Required=true)]
         public string AudioUrl { get; set; }
 
-        // wav/mp3/flac/m4a/aiff/alac/ape，缺省从 URL 后缀或 magic number 推断
+        // 缺省从 URL 后缀或 magic number 推断
         [NameInMap("audio_format")]
         [Validation(Required=false)]
         public string AudioFormat { get; set; }
@@ -33,7 +33,7 @@ namespace AntChain.SDK.AITECH.Models
         [Validation(Required=false)]
         public string Denoise { get; set; }
 
-        // 须 audio 前缀，audio_input_*/audio_output_*
+        // 须 audio 前缀，
         [NameInMap("scene_code")]
         [Validation(Required=true)]
         public string SceneCode { get; set; }

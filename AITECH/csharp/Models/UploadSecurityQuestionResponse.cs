@@ -24,12 +24,12 @@ namespace AntChain.SDK.AITECH.Models
         [Validation(Required=false)]
         public string ResultMsg { get; set; }
 
-        // PASS/BLOCK/SECURITY_ANSWER/SECURITY_WARNING
+        // PASS
         [NameInMap("action_code")]
         [Validation(Required=false)]
         public string ActionCode { get; set; }
 
-        // 风险标签（label + subLabels[]：subLabel/riskWords/riskWordsIndex/thirdLabels）
+        // 风险标签
         [NameInMap("labels")]
         [Validation(Required=false)]
         public List<LabelModel> Labels { get; set; }
@@ -69,12 +69,12 @@ namespace AntChain.SDK.AITECH.Models
         [Validation(Required=false)]
         public string JailbreakLabel { get; set; }
 
-        // 攻击标签（attackLabel + attackSubLabels[]）
+        // 攻击标签
         [NameInMap("attack_labels")]
         [Validation(Required=false)]
         public List<AttackLabelModel> AttackLabels { get; set; }
 
-        // 领域识别（fieldCategory/fieldLabel/fieldScore:Double）
+        // 领域识别
         [NameInMap("field_info")]
         [Validation(Required=false)]
         public FieldModel FieldInfo { get; set; }
@@ -89,12 +89,12 @@ namespace AntChain.SDK.AITECH.Models
         [Validation(Required=false)]
         public TokenUsageSummary TokenUsage { get; set; }
 
-        // ASR 转写文本（文本链路恒 null）
+        // ASR 转写文本
         [NameInMap("transcribed_text")]
         [Validation(Required=false)]
         public string TranscribedText { get; set; }
 
-        // 调试信息（当前链路无填充，恒 null）
+        // 调试信息
         [NameInMap("debug_info")]
         [Validation(Required=false)]
         public string DebugInfo { get; set; }

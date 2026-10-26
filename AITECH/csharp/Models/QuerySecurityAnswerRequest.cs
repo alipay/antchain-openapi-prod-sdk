@@ -83,7 +83,7 @@ namespace AntChain.SDK.AITECH.Models
         [Validation(Required=false)]
         public string CustomBlackWordCheck { get; set; }
 
-        // Universal/金融图谱案例召回，默认开启，仅 N 关闭
+        // Universal金融图谱案例召回，默认开启，仅 N 关闭
         [NameInMap("graph_case_recall")]
         [Validation(Required=false)]
         public string GraphCaseRecall { get; set; }

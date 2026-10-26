@@ -19,7 +19,7 @@ namespace AntChain.SDK.AITECH.Models
         [Validation(Required=false)]
         public bool? Matched { get; set; }
 
-        // 命中名单类型：BLACK / WHITE
+        // 命中名单类型
         /// <summary>
         /// <b>Example:</b>
         /// <para>WHITE</para>
@@ -28,7 +28,7 @@ namespace AntChain.SDK.AITECH.Models
         [Validation(Required=false)]
         public string MatchType { get; set; }
 
-        // 命中向量来源：FULL_IMAGE / FACE
+        // 命中向量来源
         /// <summary>
         /// <b>Example:</b>
         /// <para>FULL_IMAGE</para>
@@ -91,7 +91,7 @@ namespace AntChain.SDK.AITECH.Models
         [Validation(Required=false)]
         public bool? ExecutedFace { get; set; }
 
-        // 人脸检测结果（YuNet）：null 表示未执行人脸维度
+        // 人脸检测结果
         /// <summary>
         /// <b>Example:</b>
         /// <para>true</para>
@@ -100,7 +100,7 @@ namespace AntChain.SDK.AITECH.Models
         [Validation(Required=false)]
         public bool? FaceDetected { get; set; }
 
-        // 全图向量化状态：SUCCESS / SKIP / DEGRADE
+        // 全图向量化状态
         /// <summary>
         /// <b>Example:</b>
         /// <para>SUCCESS</para>
@@ -109,7 +109,7 @@ namespace AntChain.SDK.AITECH.Models
         [Validation(Required=false)]
         public string FullImageEmbedStatus { get; set; }
 
-        // 人脸向量化状态：SUCCESS / SKIP（无人脸或未执行）/ DEGRADE
+        // 人脸向量化状态
         /// <summary>
         /// <b>Example:</b>
         /// <para>SUCCESS</para>
@@ -118,7 +118,7 @@ namespace AntChain.SDK.AITECH.Models
         [Validation(Required=false)]
         public string FaceEmbedStatus { get; set; }
 
-        // 全图维度 ES 最高分（未命中也记录，便于阈值对比；无检索为 null）
+        // 全图维度 ES 最高分
         /// <summary>
         /// <b>Example:</b>
         /// <para>1.2</para>
@@ -136,7 +136,7 @@ namespace AntChain.SDK.AITECH.Models
         [Validation(Required=false)]
         public long? FullImageThreshold { get; set; }
 
-        // 人脸维度 ES 最高分（未命中也记录；无检索为 null）
+        // 人脸维度 ES 最高分
         /// <summary>
         /// <b>Example:</b>
         /// <para>1.2</para>
@@ -154,7 +154,7 @@ namespace AntChain.SDK.AITECH.Models
         [Validation(Required=false)]
         public long? FaceThreshold { get; set; }
 
-        // 是否降级（异常/服务不可用导致跳过排黑排白）
+        // 是否降级
         /// <summary>
         /// <b>Example:</b>
         /// <para>true</para>
@@ -163,7 +163,7 @@ namespace AntChain.SDK.AITECH.Models
         [Validation(Required=false)]
         public bool? Degraded { get; set; }
 
-        // 降级或短路原因（参数缺失/无启用库/下载失败/向量化异常等）
+        // 降级或短路原因
         /// <summary>
         /// <b>Example:</b>
         /// <para>参数缺失</para>

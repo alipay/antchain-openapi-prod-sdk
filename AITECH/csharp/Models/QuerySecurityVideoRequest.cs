@@ -23,7 +23,7 @@ namespace AntChain.SDK.AITECH.Models
         [Validation(Required=true)]
         public string VideoUrl { get; set; }
 
-        // 归一化后须 video 前缀，否则拒绝「非法场景码」
+        // 归一化后须 video 前缀，否则拒绝
         [NameInMap("scene_code")]
         [Validation(Required=true)]
         public string SceneCode { get; set; }

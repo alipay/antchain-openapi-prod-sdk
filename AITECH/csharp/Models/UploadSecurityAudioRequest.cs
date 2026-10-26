@@ -18,7 +18,7 @@ namespace AntChain.SDK.AITECH.Models
         [Validation(Required=false)]
         public string ProductInstanceId { get; set; }
 
-        // 音频文件 URL（非空校验）
+        // 音频文件 URL
         [NameInMap("file_url")]
         [Validation(Required=true)]
         public string FileUrl { get; set; }
@@ -33,12 +33,12 @@ namespace AntChain.SDK.AITECH.Models
         [Validation(Required=true)]
         public string BusinessId { get; set; }
 
-        // 降噪开关（字符串，Boolean.parseBoolean 解析）
+        // 降噪开关
         [NameInMap("denoise")]
         [Validation(Required=false)]
         public string Denoise { get; set; }
 
-        // 音频格式（缺省用原始文件名或 audio.wav）
+        // 音频格式
         [NameInMap("audio_format")]
         [Validation(Required=false)]
         public string AudioFormat { get; set; }

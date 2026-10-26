@@ -114,8 +114,7 @@ namespace AntChain.SDK.AITECH.Models
         [Validation(Required=false)]
         public TokenUsageSummary TokenUsage { get; set; }
 
-        // 调试信息（X-Debug-Mode: true 时返回；语音检测内含 audioAsrInfo 子结构）
-        //  对应的结果为Map转化的JSON字符串
+        // 调试信息 对应的结果为Map转化的JSON字符串
         [NameInMap("debug_info")]
         [Validation(Required=false)]
         public string DebugInfo { get; set; }
@@ -125,7 +124,7 @@ namespace AntChain.SDK.AITECH.Models
         [Validation(Required=false)]
         public string FindeepdiveResult { get; set; }
 
-        // 金融合规深度审核——整体结论（block/warning/pass；仅深审开时返回）
+        // 金融合规深度审核——整体结论
         [NameInMap("fin_deep_dive_overall")]
         [Validation(Required=false)]
         public string FinDeepDiveOverall { get; set; }
