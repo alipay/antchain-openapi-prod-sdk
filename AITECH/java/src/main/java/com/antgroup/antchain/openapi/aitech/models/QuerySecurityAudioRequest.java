@@ -11,12 +11,12 @@ public class QuerySecurityAudioRequest extends TeaModel {
     @NameInMap("product_instance_id")
     public String productInstanceId;
 
-    // 音频公网 URL（与 audio 二选一，网关侧仅支持 URL 方式）
+    // 音频公网 URL
     @NameInMap("audio_url")
     @Validation(required = true)
     public String audioUrl;
 
-    // wav/mp3/flac/m4a/aiff/alac/ape，缺省从 URL 后缀或 magic number 推断
+    // 缺省从 URL 后缀或 magic number 推断
     @NameInMap("audio_format")
     public String audioFormat;
 
@@ -24,7 +24,7 @@ public class QuerySecurityAudioRequest extends TeaModel {
     @NameInMap("denoise")
     public String denoise;
 
-    // 须 audio 前缀，audio_input_*/audio_output_*
+    // 须 audio 前缀，
     @NameInMap("scene_code")
     @Validation(required = true)
     public String sceneCode;

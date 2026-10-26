@@ -16,7 +16,7 @@ public class QuerySecurityVideoRequest extends TeaModel {
     @Validation(required = true)
     public String videoUrl;
 
-    // 归一化后须 video 前缀，否则拒绝「非法场景码」
+    // 归一化后须 video 前缀，否则拒绝
     @NameInMap("scene_code")
     @Validation(required = true)
     public String sceneCode;

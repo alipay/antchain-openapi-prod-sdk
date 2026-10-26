@@ -11,7 +11,7 @@ public class UploadSecurityQuestionRequest extends TeaModel {
     @NameInMap("product_instance_id")
     public String productInstanceId;
 
-    // txt/pdf 文件，解析为文本（FileParseUtil），空内容报「文件内容为空」
+    // txt和pdf 文件
     @NameInMap("file_url")
     @Validation(required = true)
     public String fileUrl;

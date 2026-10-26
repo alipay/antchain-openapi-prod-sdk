@@ -11,7 +11,7 @@ public class UploadSecurityVideoRequest extends TeaModel {
     @NameInMap("product_instance_id")
     public String productInstanceId;
 
-    // 视频文件 URL（大小/格式由 VideoCheckApplicationService 校验）
+    // 视频文件 URL
     @NameInMap("file_url")
     @Validation(required = true)
     public String fileUrl;

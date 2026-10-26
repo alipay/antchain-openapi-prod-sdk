@@ -66,7 +66,7 @@ public class QuerySecurityAnswerRequest extends TeaModel {
     @NameInMap("custom_black_word_check")
     public String customBlackWordCheck;
 
-    // Universal/金融图谱案例召回，默认开启，仅 N 关闭
+    // Universal金融图谱案例召回，默认开启，仅 N 关闭
     @NameInMap("graph_case_recall")
     public String graphCaseRecall;
 

@@ -16,7 +16,7 @@ public class UploadSecurityVideoResponse extends TeaModel {
     @NameInMap("result_msg")
     public String resultMsg;
 
-    // PASS/BLOCK
+    // PASS
     @NameInMap("action_code")
     public String actionCode;
 

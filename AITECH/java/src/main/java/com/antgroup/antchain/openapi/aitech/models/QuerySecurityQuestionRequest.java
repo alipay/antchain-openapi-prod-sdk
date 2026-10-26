@@ -30,7 +30,7 @@ public class QuerySecurityQuestionRequest extends TeaModel {
     @Validation(required = true)
     public String sceneCode;
 
-    // 标示是否是同一个Q&A
+    // 标示是否是同一个
     @NameInMap("message_id")
     public String messageId;
 

@@ -11,7 +11,7 @@ public class UploadSecurityAnswerRequest extends TeaModel {
     @NameInMap("product_instance_id")
     public String productInstanceId;
 
-    // txt/pdf 文件
+    // txt和pdf 文件
     @NameInMap("file_url")
     @Validation(required = true)
     public String fileUrl;

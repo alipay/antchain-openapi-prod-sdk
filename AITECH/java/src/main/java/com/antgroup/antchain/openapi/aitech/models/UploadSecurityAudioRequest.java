@@ -11,7 +11,7 @@ public class UploadSecurityAudioRequest extends TeaModel {
     @NameInMap("product_instance_id")
     public String productInstanceId;
 
-    // 音频文件 URL（非空校验）
+    // 音频文件 URL
     @NameInMap("file_url")
     @Validation(required = true)
     public String fileUrl;
@@ -26,11 +26,11 @@ public class UploadSecurityAudioRequest extends TeaModel {
     @Validation(required = true)
     public String businessId;
 
-    // 降噪开关（字符串，Boolean.parseBoolean 解析）
+    // 降噪开关
     @NameInMap("denoise")
     public String denoise;
 
-    // 音频格式（缺省用原始文件名或 audio.wav）
+    // 音频格式
     @NameInMap("audio_format")
     public String audioFormat;
 
