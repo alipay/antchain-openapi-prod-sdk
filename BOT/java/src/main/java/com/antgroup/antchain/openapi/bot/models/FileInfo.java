@@ -31,12 +31,22 @@ public class FileInfo extends TeaModel {
     @Validation(required = true)
     public String url;
 
+    // 创建时间
+    /**
+     * <strong>example:</strong>
+     * <p>11223344556778899</p>
+     */
+    @NameInMap("created_at")
+    @Validation(required = true)
+    public Long createdAt;
+
     // id
     /**
      * <strong>example:</strong>
      * <p>11223344556778899</p>
      */
     @NameInMap("id")
+    @Validation(required = true)
     public String id;
 
     public static FileInfo build(java.util.Map<String, ?> map) throws Exception {
@@ -66,6 +76,14 @@ public class FileInfo extends TeaModel {
     }
     public String getUrl() {
         return this.url;
+    }
+
+    public FileInfo setCreatedAt(Long createdAt) {
+        this.createdAt = createdAt;
+        return this;
+    }
+    public Long getCreatedAt() {
+        return this.createdAt;
     }
 
     public FileInfo setId(String id) {

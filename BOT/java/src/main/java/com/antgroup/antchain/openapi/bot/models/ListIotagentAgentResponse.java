@@ -20,6 +20,22 @@ public class ListIotagentAgentResponse extends TeaModel {
     @NameInMap("agent_info_list")
     public java.util.List<AgentInfo> agentInfoList;
 
+    // 总页数
+    @NameInMap("pages")
+    public Long pages;
+
+    // 总数
+    @NameInMap("total")
+    public Long total;
+
+    // 当前页
+    @NameInMap("page_index")
+    public Long pageIndex;
+
+    // 页面大小
+    @NameInMap("page_size")
+    public Long pageSize;
+
     public static ListIotagentAgentResponse build(java.util.Map<String, ?> map) throws Exception {
         ListIotagentAgentResponse self = new ListIotagentAgentResponse();
         return TeaModel.build(map, self);
@@ -55,6 +71,38 @@ public class ListIotagentAgentResponse extends TeaModel {
     }
     public java.util.List<AgentInfo> getAgentInfoList() {
         return this.agentInfoList;
+    }
+
+    public ListIotagentAgentResponse setPages(Long pages) {
+        this.pages = pages;
+        return this;
+    }
+    public Long getPages() {
+        return this.pages;
+    }
+
+    public ListIotagentAgentResponse setTotal(Long total) {
+        this.total = total;
+        return this;
+    }
+    public Long getTotal() {
+        return this.total;
+    }
+
+    public ListIotagentAgentResponse setPageIndex(Long pageIndex) {
+        this.pageIndex = pageIndex;
+        return this;
+    }
+    public Long getPageIndex() {
+        return this.pageIndex;
+    }
+
+    public ListIotagentAgentResponse setPageSize(Long pageSize) {
+        this.pageSize = pageSize;
+        return this;
+    }
+    public Long getPageSize() {
+        return this.pageSize;
     }
 
 }

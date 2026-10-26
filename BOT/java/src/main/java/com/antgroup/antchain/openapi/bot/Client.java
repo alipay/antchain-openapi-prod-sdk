@@ -126,7 +126,7 @@ public class Client {
                     new TeaPair("req_msg_id", com.antgroup.antchain.openapi.antchain.util.AntchainUtils.getNonce()),
                     new TeaPair("access_key", _accessKeyId),
                     new TeaPair("base_sdk_version", "TeaSDK-2.0"),
-                    new TeaPair("sdk_version", "1.21.11"),
+                    new TeaPair("sdk_version", "1.22.0"),
                     new TeaPair("_prod_code", "BOT"),
                     new TeaPair("_prod_channel", "undefined")
                 );
@@ -396,6 +396,69 @@ public class Client {
     public ChatAiotdatalinkAntfinanceassistantResponse chatAiotdatalinkAntfinanceassistantEx(ChatAiotdatalinkAntfinanceassistantRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
         com.aliyun.teautil.Common.validateModel(request);
         return TeaModel.toModel(this.doRequest("1.0", "blockchain.bot.aiotdatalink.antfinanceassistant.chat", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new ChatAiotdatalinkAntfinanceassistantResponse());
+    }
+
+    /**
+     * <b>description</b> :
+     * <p>Description: 蚂小财对话流式接口，参考RPC接口文档：<a href="https://yuque.antfin.com/pw3zzd/cplb7g/ghfep7wirmlxlg3u#nzb6S">https://yuque.antfin.com/pw3zzd/cplb7g/ghfep7wirmlxlg3u#nzb6S</a>
+     * Summary: 蚂小财对话流式接口，参考RPC接口文档：<a href="https://yuque.antfin.com/pw3zzd/cplb7g/ghfep7wirmlxlg3u#nzb6S">https://yuque.antfin.com/pw3zzd/cplb7g/ghfep7wirmlxlg3u#nzb6S</a></p>
+     */
+    public StreamchatAiotdatalinkAntfinanceassistantResponse streamchatAiotdatalinkAntfinanceassistant(StreamchatAiotdatalinkAntfinanceassistantRequest request) throws Exception {
+        com.aliyun.teautil.models.RuntimeOptions runtime = new com.aliyun.teautil.models.RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.streamchatAiotdatalinkAntfinanceassistantEx(request, headers, runtime);
+    }
+
+    /**
+     * <b>description</b> :
+     * <p>Description: 蚂小财对话流式接口，参考RPC接口文档：<a href="https://yuque.antfin.com/pw3zzd/cplb7g/ghfep7wirmlxlg3u#nzb6S">https://yuque.antfin.com/pw3zzd/cplb7g/ghfep7wirmlxlg3u#nzb6S</a>
+     * Summary: 蚂小财对话流式接口，参考RPC接口文档：<a href="https://yuque.antfin.com/pw3zzd/cplb7g/ghfep7wirmlxlg3u#nzb6S">https://yuque.antfin.com/pw3zzd/cplb7g/ghfep7wirmlxlg3u#nzb6S</a></p>
+     */
+    public StreamchatAiotdatalinkAntfinanceassistantResponse streamchatAiotdatalinkAntfinanceassistantEx(StreamchatAiotdatalinkAntfinanceassistantRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "blockchain.bot.aiotdatalink.antfinanceassistant.streamchat", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new StreamchatAiotdatalinkAntfinanceassistantResponse());
+    }
+
+    /**
+     * <b>description</b> :
+     * <p>Description: 智能问数sse接口
+     * Summary: 智能问数sse接口</p>
+     */
+    public QueryAiotdatalinkAskdataResponse queryAiotdatalinkAskdata(QueryAiotdatalinkAskdataRequest request) throws Exception {
+        com.aliyun.teautil.models.RuntimeOptions runtime = new com.aliyun.teautil.models.RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.queryAiotdatalinkAskdataEx(request, headers, runtime);
+    }
+
+    /**
+     * <b>description</b> :
+     * <p>Description: 智能问数sse接口
+     * Summary: 智能问数sse接口</p>
+     */
+    public QueryAiotdatalinkAskdataResponse queryAiotdatalinkAskdataEx(QueryAiotdatalinkAskdataRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "blockchain.bot.aiotdatalink.askdata.query", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new QueryAiotdatalinkAskdataResponse());
+    }
+
+    /**
+     * <b>description</b> :
+     * <p>Description: 智能问数chat 接口
+     * Summary: 智能问数chat 接口</p>
+     */
+    public ChatAiotdatalinkAskdataResponse chatAiotdatalinkAskdata(ChatAiotdatalinkAskdataRequest request) throws Exception {
+        com.aliyun.teautil.models.RuntimeOptions runtime = new com.aliyun.teautil.models.RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.chatAiotdatalinkAskdataEx(request, headers, runtime);
+    }
+
+    /**
+     * <b>description</b> :
+     * <p>Description: 智能问数chat 接口
+     * Summary: 智能问数chat 接口</p>
+     */
+    public ChatAiotdatalinkAskdataResponse chatAiotdatalinkAskdataEx(ChatAiotdatalinkAskdataRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "blockchain.bot.aiotdatalink.askdata.chat", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new ChatAiotdatalinkAskdataResponse());
     }
 
     /**
@@ -1699,6 +1762,364 @@ public class Client {
     public FliedownloadIotagentSessionResponse fliedownloadIotagentSessionEx(FliedownloadIotagentSessionRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
         com.aliyun.teautil.Common.validateModel(request);
         return TeaModel.toModel(this.doRequest("1.0", "blockchain.bot.iotagent.session.fliedownload", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new FliedownloadIotagentSessionResponse());
+    }
+
+    /**
+     * <b>description</b> :
+     * <p>Description: 文件预览
+     * Summary: 文件预览</p>
+     */
+    public FilepreviewIotagentSessionResponse filepreviewIotagentSession(FilepreviewIotagentSessionRequest request) throws Exception {
+        com.aliyun.teautil.models.RuntimeOptions runtime = new com.aliyun.teautil.models.RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.filepreviewIotagentSessionEx(request, headers, runtime);
+    }
+
+    /**
+     * <b>description</b> :
+     * <p>Description: 文件预览
+     * Summary: 文件预览</p>
+     */
+    public FilepreviewIotagentSessionResponse filepreviewIotagentSessionEx(FilepreviewIotagentSessionRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "blockchain.bot.iotagent.session.filepreview", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new FilepreviewIotagentSessionResponse());
+    }
+
+    /**
+     * <b>description</b> :
+     * <p>Description: 插件接口
+     * Summary: 插件接口</p>
+     */
+    public PushIotagentAudioscribeResponse pushIotagentAudioscribe(PushIotagentAudioscribeRequest request) throws Exception {
+        com.aliyun.teautil.models.RuntimeOptions runtime = new com.aliyun.teautil.models.RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.pushIotagentAudioscribeEx(request, headers, runtime);
+    }
+
+    /**
+     * <b>description</b> :
+     * <p>Description: 插件接口
+     * Summary: 插件接口</p>
+     */
+    public PushIotagentAudioscribeResponse pushIotagentAudioscribeEx(PushIotagentAudioscribeRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
+        if (!com.aliyun.teautil.Common.isUnset(request.fileObject)) {
+            CreateAntcloudGatewayxFileUploadRequest uploadReq = CreateAntcloudGatewayxFileUploadRequest.build(TeaConverter.buildMap(
+                new TeaPair("authToken", request.authToken),
+                new TeaPair("apiCode", "blockchain.bot.iotagent.audioscribe.push"),
+                new TeaPair("fileName", request.fileObjectName)
+            ));
+            CreateAntcloudGatewayxFileUploadResponse uploadResp = this.createAntcloudGatewayxFileUploadEx(uploadReq, headers, runtime);
+            if (!com.antgroup.antchain.openapi.antchain.util.AntchainUtils.isSuccess(uploadResp.resultCode, "ok")) {
+                PushIotagentAudioscribeResponse pushIotagentAudioscribeResponse = PushIotagentAudioscribeResponse.build(TeaConverter.buildMap(
+                    new TeaPair("reqMsgId", uploadResp.reqMsgId),
+                    new TeaPair("resultCode", uploadResp.resultCode),
+                    new TeaPair("resultMsg", uploadResp.resultMsg)
+                ));
+                return pushIotagentAudioscribeResponse;
+            }
+
+            java.util.Map<String, String> uploadHeaders = com.antgroup.antchain.openapi.antchain.util.AntchainUtils.parseUploadHeaders(uploadResp.uploadHeaders);
+            com.antgroup.antchain.openapi.antchain.util.AntchainUtils.putObject(request.fileObject, uploadHeaders, uploadResp.uploadUrl);
+            request.fileId = uploadResp.fileId;
+            request.fileObject = null;
+        }
+
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "blockchain.bot.iotagent.audioscribe.push", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new PushIotagentAudioscribeResponse());
+    }
+
+    /**
+     * <b>description</b> :
+     * <p>Description: 插件通用HTTP接口
+     * Summary: 插件通用HTTP接口</p>
+     */
+    public ExecIotagentPluginResponse execIotagentPlugin(ExecIotagentPluginRequest request) throws Exception {
+        com.aliyun.teautil.models.RuntimeOptions runtime = new com.aliyun.teautil.models.RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.execIotagentPluginEx(request, headers, runtime);
+    }
+
+    /**
+     * <b>description</b> :
+     * <p>Description: 插件通用HTTP接口
+     * Summary: 插件通用HTTP接口</p>
+     */
+    public ExecIotagentPluginResponse execIotagentPluginEx(ExecIotagentPluginRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "blockchain.bot.iotagent.plugin.exec", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new ExecIotagentPluginResponse());
+    }
+
+    /**
+     * <b>description</b> :
+     * <p>Description: 文件上传
+     * Summary: 文件上传</p>
+     */
+    public PushIotagentWorkspaceResponse pushIotagentWorkspace(PushIotagentWorkspaceRequest request) throws Exception {
+        com.aliyun.teautil.models.RuntimeOptions runtime = new com.aliyun.teautil.models.RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.pushIotagentWorkspaceEx(request, headers, runtime);
+    }
+
+    /**
+     * <b>description</b> :
+     * <p>Description: 文件上传
+     * Summary: 文件上传</p>
+     */
+    public PushIotagentWorkspaceResponse pushIotagentWorkspaceEx(PushIotagentWorkspaceRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "blockchain.bot.iotagent.workspace.push", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new PushIotagentWorkspaceResponse());
+    }
+
+    /**
+     * <b>description</b> :
+     * <p>Description: 文件上传确认
+     * Summary: 文件上传确认</p>
+     */
+    public ConfirmIotagentWorkspaceResponse confirmIotagentWorkspace(ConfirmIotagentWorkspaceRequest request) throws Exception {
+        com.aliyun.teautil.models.RuntimeOptions runtime = new com.aliyun.teautil.models.RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.confirmIotagentWorkspaceEx(request, headers, runtime);
+    }
+
+    /**
+     * <b>description</b> :
+     * <p>Description: 文件上传确认
+     * Summary: 文件上传确认</p>
+     */
+    public ConfirmIotagentWorkspaceResponse confirmIotagentWorkspaceEx(ConfirmIotagentWorkspaceRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "blockchain.bot.iotagent.workspace.confirm", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new ConfirmIotagentWorkspaceResponse());
+    }
+
+    /**
+     * <b>description</b> :
+     * <p>Description: 查询设备的云音乐登录状态及用户/VIP 信息。
+     * Summary: 查询设备的云音乐登录状态及用户/VIP 信息。</p>
+     */
+    public StatusIotagentMusicResponse statusIotagentMusic(StatusIotagentMusicRequest request) throws Exception {
+        com.aliyun.teautil.models.RuntimeOptions runtime = new com.aliyun.teautil.models.RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.statusIotagentMusicEx(request, headers, runtime);
+    }
+
+    /**
+     * <b>description</b> :
+     * <p>Description: 查询设备的云音乐登录状态及用户/VIP 信息。
+     * Summary: 查询设备的云音乐登录状态及用户/VIP 信息。</p>
+     */
+    public StatusIotagentMusicResponse statusIotagentMusicEx(StatusIotagentMusicRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "blockchain.bot.iotagent.music.status", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new StatusIotagentMusicResponse());
+    }
+
+    /**
+     * <b>description</b> :
+     * <p>Description: 获取云音乐 H5 OAuth 登录 URL（用于设备端引导用户授权）
+     * Summary: 获取云音乐 H5 OAuth 登录 URL（用于设备端引导用户授权）</p>
+     */
+    public LoginurlIotagentMusicResponse loginurlIotagentMusic(LoginurlIotagentMusicRequest request) throws Exception {
+        com.aliyun.teautil.models.RuntimeOptions runtime = new com.aliyun.teautil.models.RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.loginurlIotagentMusicEx(request, headers, runtime);
+    }
+
+    /**
+     * <b>description</b> :
+     * <p>Description: 获取云音乐 H5 OAuth 登录 URL（用于设备端引导用户授权）
+     * Summary: 获取云音乐 H5 OAuth 登录 URL（用于设备端引导用户授权）</p>
+     */
+    public LoginurlIotagentMusicResponse loginurlIotagentMusicEx(LoginurlIotagentMusicRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "blockchain.bot.iotagent.music.loginurl", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new LoginurlIotagentMusicResponse());
+    }
+
+    /**
+     * <b>description</b> :
+     * <p>Description: 查询云音乐播放历史
+     * Summary: 查询云音乐播放历史</p>
+     */
+    public PlayhistoryIotagentMusicResponse playhistoryIotagentMusic(PlayhistoryIotagentMusicRequest request) throws Exception {
+        com.aliyun.teautil.models.RuntimeOptions runtime = new com.aliyun.teautil.models.RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.playhistoryIotagentMusicEx(request, headers, runtime);
+    }
+
+    /**
+     * <b>description</b> :
+     * <p>Description: 查询云音乐播放历史
+     * Summary: 查询云音乐播放历史</p>
+     */
+    public PlayhistoryIotagentMusicResponse playhistoryIotagentMusicEx(PlayhistoryIotagentMusicRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "blockchain.bot.iotagent.music.playhistory", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new PlayhistoryIotagentMusicResponse());
+    }
+
+    /**
+     * <b>description</b> :
+     * <p>Description: 分页查询红心歌曲
+     * Summary: 分页查询红心歌曲</p>
+     */
+    public FavoritesIotagentMusicResponse favoritesIotagentMusic(FavoritesIotagentMusicRequest request) throws Exception {
+        com.aliyun.teautil.models.RuntimeOptions runtime = new com.aliyun.teautil.models.RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.favoritesIotagentMusicEx(request, headers, runtime);
+    }
+
+    /**
+     * <b>description</b> :
+     * <p>Description: 分页查询红心歌曲
+     * Summary: 分页查询红心歌曲</p>
+     */
+    public FavoritesIotagentMusicResponse favoritesIotagentMusicEx(FavoritesIotagentMusicRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "blockchain.bot.iotagent.music.favorites", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new FavoritesIotagentMusicResponse());
+    }
+
+    /**
+     * <b>description</b> :
+     * <p>Description: 查询指定歌曲的歌词。
+     * Summary: 查询指定歌曲的歌词。</p>
+     */
+    public LyricsIotagentMusicResponse lyricsIotagentMusic(LyricsIotagentMusicRequest request) throws Exception {
+        com.aliyun.teautil.models.RuntimeOptions runtime = new com.aliyun.teautil.models.RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.lyricsIotagentMusicEx(request, headers, runtime);
+    }
+
+    /**
+     * <b>description</b> :
+     * <p>Description: 查询指定歌曲的歌词。
+     * Summary: 查询指定歌曲的歌词。</p>
+     */
+    public LyricsIotagentMusicResponse lyricsIotagentMusicEx(LyricsIotagentMusicRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "blockchain.bot.iotagent.music.lyrics", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new LyricsIotagentMusicResponse());
+    }
+
+    /**
+     * <b>description</b> :
+     * <p>Description: 对一首歌进行红心/取消红心操作。
+     * Summary: 对一首歌进行红心/取消红心操作。</p>
+     */
+    public LikeIotagentMusicResponse likeIotagentMusic(LikeIotagentMusicRequest request) throws Exception {
+        com.aliyun.teautil.models.RuntimeOptions runtime = new com.aliyun.teautil.models.RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.likeIotagentMusicEx(request, headers, runtime);
+    }
+
+    /**
+     * <b>description</b> :
+     * <p>Description: 对一首歌进行红心/取消红心操作。
+     * Summary: 对一首歌进行红心/取消红心操作。</p>
+     */
+    public LikeIotagentMusicResponse likeIotagentMusicEx(LikeIotagentMusicRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "blockchain.bot.iotagent.music.like", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new LikeIotagentMusicResponse());
+    }
+
+    /**
+     * <b>description</b> :
+     * <p>Description: 退出云音乐登录，清理 token
+     * Summary: 退出云音乐登录，清理 token</p>
+     */
+    public LogoutIotagentMusicResponse logoutIotagentMusic(LogoutIotagentMusicRequest request) throws Exception {
+        com.aliyun.teautil.models.RuntimeOptions runtime = new com.aliyun.teautil.models.RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.logoutIotagentMusicEx(request, headers, runtime);
+    }
+
+    /**
+     * <b>description</b> :
+     * <p>Description: 退出云音乐登录，清理 token
+     * Summary: 退出云音乐登录，清理 token</p>
+     */
+    public LogoutIotagentMusicResponse logoutIotagentMusicEx(LogoutIotagentMusicRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "blockchain.bot.iotagent.music.logout", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new LogoutIotagentMusicResponse());
+    }
+
+    /**
+     * <b>description</b> :
+     * <p>Description: 云音乐回调接口
+     * Summary: 云音乐回调接口</p>
+     */
+    public CallbackIotagentMusicResponse callbackIotagentMusic(CallbackIotagentMusicRequest request) throws Exception {
+        com.aliyun.teautil.models.RuntimeOptions runtime = new com.aliyun.teautil.models.RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.callbackIotagentMusicEx(request, headers, runtime);
+    }
+
+    /**
+     * <b>description</b> :
+     * <p>Description: 云音乐回调接口
+     * Summary: 云音乐回调接口</p>
+     */
+    public CallbackIotagentMusicResponse callbackIotagentMusicEx(CallbackIotagentMusicRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "blockchain.bot.iotagent.music.callback", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new CallbackIotagentMusicResponse());
+    }
+
+    /**
+     * <b>description</b> :
+     * <p>Description: 查询会话用量（按 sessionId 聚合  usage 记录，返回会话总量 + 轮次明细分页）
+     * Summary: 查询会话用量（按 sessionId 聚合  usage 记录，返回会话总量 + 轮次明细分页）</p>
+     */
+    public UsageIotagentSessionResponse usageIotagentSession(UsageIotagentSessionRequest request) throws Exception {
+        com.aliyun.teautil.models.RuntimeOptions runtime = new com.aliyun.teautil.models.RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.usageIotagentSessionEx(request, headers, runtime);
+    }
+
+    /**
+     * <b>description</b> :
+     * <p>Description: 查询会话用量（按 sessionId 聚合  usage 记录，返回会话总量 + 轮次明细分页）
+     * Summary: 查询会话用量（按 sessionId 聚合  usage 记录，返回会话总量 + 轮次明细分页）</p>
+     */
+    public UsageIotagentSessionResponse usageIotagentSessionEx(UsageIotagentSessionRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "blockchain.bot.iotagent.session.usage", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new UsageIotagentSessionResponse());
+    }
+
+    /**
+     * <b>description</b> :
+     * <p>Description: 会话上下文处理操作
+     * Summary: 会话上下文处理操作</p>
+     */
+    public ActionIotagentSessioncontextResponse actionIotagentSessioncontext(ActionIotagentSessioncontextRequest request) throws Exception {
+        com.aliyun.teautil.models.RuntimeOptions runtime = new com.aliyun.teautil.models.RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.actionIotagentSessioncontextEx(request, headers, runtime);
+    }
+
+    /**
+     * <b>description</b> :
+     * <p>Description: 会话上下文处理操作
+     * Summary: 会话上下文处理操作</p>
+     */
+    public ActionIotagentSessioncontextResponse actionIotagentSessioncontextEx(ActionIotagentSessioncontextRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "blockchain.bot.iotagent.sessioncontext.action", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new ActionIotagentSessioncontextResponse());
+    }
+
+    /**
+     * <b>description</b> :
+     * <p>Description: 查询上下文压缩操作结构
+     * Summary: 查询上下文压缩操作结构</p>
+     */
+    public QueryIotagentSessioncontextactionResponse queryIotagentSessioncontextaction(QueryIotagentSessioncontextactionRequest request) throws Exception {
+        com.aliyun.teautil.models.RuntimeOptions runtime = new com.aliyun.teautil.models.RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.queryIotagentSessioncontextactionEx(request, headers, runtime);
+    }
+
+    /**
+     * <b>description</b> :
+     * <p>Description: 查询上下文压缩操作结构
+     * Summary: 查询上下文压缩操作结构</p>
+     */
+    public QueryIotagentSessioncontextactionResponse queryIotagentSessioncontextactionEx(QueryIotagentSessioncontextactionRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "blockchain.bot.iotagent.sessioncontextaction.query", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new QueryIotagentSessioncontextactionResponse());
     }
 
     /**
@@ -7538,6 +7959,49 @@ public class Client {
     public QueryIotagentUseridsResponse queryIotagentUseridsEx(QueryIotagentUseridsRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
         com.aliyun.teautil.Common.validateModel(request);
         return TeaModel.toModel(this.doRequest("1.0", "blockchain.bot.iotagent.userids.query", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new QueryIotagentUseridsResponse());
+    }
+
+    /**
+     * <b>description</b> :
+     * <p>Description: 测试用
+     * Summary: 测试用</p>
+     */
+    public TestIotagentPluginResponse testIotagentPlugin(TestIotagentPluginRequest request) throws Exception {
+        com.aliyun.teautil.models.RuntimeOptions runtime = new com.aliyun.teautil.models.RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.testIotagentPluginEx(request, headers, runtime);
+    }
+
+    /**
+     * <b>description</b> :
+     * <p>Description: 测试用
+     * Summary: 测试用</p>
+     */
+    public TestIotagentPluginResponse testIotagentPluginEx(TestIotagentPluginRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
+        if (!com.aliyun.teautil.Common.isUnset(request.fileObject)) {
+            CreateAntcloudGatewayxFileUploadRequest uploadReq = CreateAntcloudGatewayxFileUploadRequest.build(TeaConverter.buildMap(
+                new TeaPair("authToken", request.authToken),
+                new TeaPair("apiCode", "blockchain.bot.iotagent.plugin.test"),
+                new TeaPair("fileName", request.fileObjectName)
+            ));
+            CreateAntcloudGatewayxFileUploadResponse uploadResp = this.createAntcloudGatewayxFileUploadEx(uploadReq, headers, runtime);
+            if (!com.antgroup.antchain.openapi.antchain.util.AntchainUtils.isSuccess(uploadResp.resultCode, "ok")) {
+                TestIotagentPluginResponse testIotagentPluginResponse = TestIotagentPluginResponse.build(TeaConverter.buildMap(
+                    new TeaPair("reqMsgId", uploadResp.reqMsgId),
+                    new TeaPair("resultCode", uploadResp.resultCode),
+                    new TeaPair("resultMsg", uploadResp.resultMsg)
+                ));
+                return testIotagentPluginResponse;
+            }
+
+            java.util.Map<String, String> uploadHeaders = com.antgroup.antchain.openapi.antchain.util.AntchainUtils.parseUploadHeaders(uploadResp.uploadHeaders);
+            com.antgroup.antchain.openapi.antchain.util.AntchainUtils.putObject(request.fileObject, uploadHeaders, uploadResp.uploadUrl);
+            request.fileId = uploadResp.fileId;
+            request.fileObject = null;
+        }
+
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "blockchain.bot.iotagent.plugin.test", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new TestIotagentPluginResponse());
     }
 
     /**

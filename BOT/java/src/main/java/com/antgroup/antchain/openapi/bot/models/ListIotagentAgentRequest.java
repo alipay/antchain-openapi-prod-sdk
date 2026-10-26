@@ -16,6 +16,16 @@ public class ListIotagentAgentRequest extends TeaModel {
     @Validation(required = true)
     public String instanceId;
 
+    // 当前页
+    @NameInMap("page_index")
+    @Validation(required = true)
+    public Long pageIndex;
+
+    // 页面大小
+    @NameInMap("page_size")
+    @Validation(required = true)
+    public Long pageSize;
+
     public static ListIotagentAgentRequest build(java.util.Map<String, ?> map) throws Exception {
         ListIotagentAgentRequest self = new ListIotagentAgentRequest();
         return TeaModel.build(map, self);
@@ -43,6 +53,22 @@ public class ListIotagentAgentRequest extends TeaModel {
     }
     public String getInstanceId() {
         return this.instanceId;
+    }
+
+    public ListIotagentAgentRequest setPageIndex(Long pageIndex) {
+        this.pageIndex = pageIndex;
+        return this;
+    }
+    public Long getPageIndex() {
+        return this.pageIndex;
+    }
+
+    public ListIotagentAgentRequest setPageSize(Long pageSize) {
+        this.pageSize = pageSize;
+        return this;
+    }
+    public Long getPageSize() {
+        return this.pageSize;
     }
 
 }
