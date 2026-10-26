@@ -126,7 +126,7 @@ public class Client {
                     new TeaPair("req_msg_id", com.antgroup.antchain.openapi.antchain.util.AntchainUtils.getNonce()),
                     new TeaPair("access_key", _accessKeyId),
                     new TeaPair("base_sdk_version", "TeaSDK-2.0"),
-                    new TeaPair("sdk_version", "1.1.0"),
+                    new TeaPair("sdk_version", "1.2.0"),
                     new TeaPair("_prod_code", "GATEWAY"),
                     new TeaPair("_prod_channel", "undefined")
                 );
@@ -228,5 +228,26 @@ public class Client {
     public InitRiskplusGateWayServiceResponse initRiskplusGateWayServiceEx(InitRiskplusGateWayServiceRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
         com.aliyun.teautil.Common.validateModel(request);
         return TeaModel.toModel(this.doRequest("1.0", "riskplus.gate.way.service.init", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new InitRiskplusGateWayServiceResponse());
+    }
+
+    /**
+     * <b>description</b> :
+     * <p>Description: 评分服务OpenAPI
+     * Summary: 评分服务OpenAPI</p>
+     */
+    public QueryRiskplusRiskDataScoreResponse queryRiskplusRiskDataScore(QueryRiskplusRiskDataScoreRequest request) throws Exception {
+        com.aliyun.teautil.models.RuntimeOptions runtime = new com.aliyun.teautil.models.RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.queryRiskplusRiskDataScoreEx(request, headers, runtime);
+    }
+
+    /**
+     * <b>description</b> :
+     * <p>Description: 评分服务OpenAPI
+     * Summary: 评分服务OpenAPI</p>
+     */
+    public QueryRiskplusRiskDataScoreResponse queryRiskplusRiskDataScoreEx(QueryRiskplusRiskDataScoreRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "riskplus.risk.data.score.query", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new QueryRiskplusRiskDataScoreResponse());
     }
 }
