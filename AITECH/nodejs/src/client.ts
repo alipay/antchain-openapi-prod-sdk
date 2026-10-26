@@ -685,13 +685,13 @@ export class ImageBlackWhiteResult extends $tea.Model {
    * true
    */
   matched?: boolean;
-  // 命中名单类型：BLACK / WHITE
+  // 命中名单类型
   /**
    * @example
    * WHITE
    */
   matchType?: string;
-  // 命中向量来源：FULL_IMAGE / FACE
+  // 命中向量来源
   /**
    * @example
    * FULL_IMAGE
@@ -733,25 +733,25 @@ export class ImageBlackWhiteResult extends $tea.Model {
    * true
    */
   executedFace?: boolean;
-  // 人脸检测结果（YuNet）：null 表示未执行人脸维度
+  // 人脸检测结果
   /**
    * @example
    * true
    */
   faceDetected?: boolean;
-  // 全图向量化状态：SUCCESS / SKIP / DEGRADE
+  // 全图向量化状态
   /**
    * @example
    * SUCCESS
    */
   fullImageEmbedStatus?: string;
-  // 人脸向量化状态：SUCCESS / SKIP（无人脸或未执行）/ DEGRADE
+  // 人脸向量化状态
   /**
    * @example
    * SUCCESS
    */
   faceEmbedStatus?: string;
-  // 全图维度 ES 最高分（未命中也记录，便于阈值对比；无检索为 null）
+  // 全图维度 ES 最高分
   /**
    * @example
    * 1.2
@@ -763,7 +763,7 @@ export class ImageBlackWhiteResult extends $tea.Model {
    * 1.2
    */
   fullImageThreshold?: number;
-  // 人脸维度 ES 最高分（未命中也记录；无检索为 null）
+  // 人脸维度 ES 最高分
   /**
    * @example
    * 1.2
@@ -775,13 +775,13 @@ export class ImageBlackWhiteResult extends $tea.Model {
    * 1
    */
   faceThreshold?: number;
-  // 是否降级（异常/服务不可用导致跳过排黑排白）
+  // 是否降级
   /**
    * @example
    * true
    */
   degraded?: boolean;
-  // 降级或短路原因（参数缺失/无启用库/下载失败/向量化异常等）
+  // 降级或短路原因
   /**
    * @example
    * 参数缺失
@@ -6470,7 +6470,7 @@ export class QuerySecurityQuestionRequest extends $tea.Model {
   businessId: string;
   // 场景code
   sceneCode: string;
-  // 标示是否是同一个Q&A
+  // 标示是否是同一个
   messageId?: string;
   // 会话ID
   sessionId?: string;
@@ -6592,12 +6592,11 @@ export class QuerySecurityQuestionResponse extends $tea.Model {
   strategyVersion?: string;
   // 本次接口请求内所有大模型及 Embedding 调用的 token 汇总。
   tokenUsage?: TokenUsageSummary;
-  // 调试信息（X-Debug-Mode: true 时返回；语音检测内含 audioAsrInfo 子结构）
-  //  对应的结果为Map转化的JSON字符串
+  // 调试信息 对应的结果为Map转化的JSON字符串
   debugInfo?: string;
   // 金融合规深度审核——命中的风险点列表（JSON 数组字符串；仅深审开时返回，非深审场景不输出）
   findeepdiveResult?: string;
-  // 金融合规深度审核——整体结论（block/warning/pass；仅深审开时返回）
+  // 金融合规深度审核——整体结论
   finDeepDiveOverall?: string;
   static names(): { [key: string]: string } {
     return {
@@ -6692,7 +6691,7 @@ export class QuerySecurityAnswerRequest extends $tea.Model {
   customWhiteCheck?: string;
   // 自定义黑词检测，默认开启，仅 N 关闭
   customBlackWordCheck?: string;
-  // Universal/金融图谱案例召回，默认开启，仅 N 关闭
+  // Universal金融图谱案例召回，默认开启，仅 N 关闭
   graphCaseRecall?: string;
   static names(): { [key: string]: string } {
     return {
@@ -6919,7 +6918,7 @@ export class UploadSecurityQuestionRequest extends $tea.Model {
   // OAuth模式下的授权token
   authToken?: string;
   productInstanceId?: string;
-  // txt/pdf 文件，解析为文本（FileParseUtil），空内容报「文件内容为空」
+  // txt和pdf 文件
   fileUrl: string;
   // 归一化后须 question 前缀，否则兜底 LLM_INPUT_DETECTION
   sceneCode: string;
@@ -6989,9 +6988,9 @@ export class UploadSecurityQuestionResponse extends $tea.Model {
   resultCode?: string;
   // 异常信息的文本描述
   resultMsg?: string;
-  // PASS/BLOCK/SECURITY_ANSWER/SECURITY_WARNING
+  // PASS
   actionCode?: string;
-  // 风险标签（label + subLabels[]：subLabel/riskWords/riskWordsIndex/thirdLabels）
+  // 风险标签
   labels?: LabelModel[];
   // 命中自定义风险词
   customizeRiskWord?: string[];
@@ -7007,17 +7006,17 @@ export class UploadSecurityQuestionResponse extends $tea.Model {
   securityPrompt?: string;
   // 越狱标签（旧字段）
   jailbreakLabel?: string;
-  // 攻击标签（attackLabel + attackSubLabels[]）
+  // 攻击标签
   attackLabels?: AttackLabelModel[];
-  // 领域识别（fieldCategory/fieldLabel/fieldScore:Double）
+  // 领域识别
   fieldInfo?: FieldModel;
   // 回传会话 ID
   sessionId?: string;
   // 本次接口请求内所有大模型及 Embedding 调用的 token 汇总。
   tokenUsage?: TokenUsageSummary;
-  // ASR 转写文本（文本链路恒 null）
+  // ASR 转写文本
   transcribedText?: string;
-  // 调试信息（当前链路无填充，恒 null）
+  // 调试信息
   debugInfo?: string;
   // 金融深挖结果
   findeepdiveResult?: string;
@@ -7102,7 +7101,7 @@ export class UploadSecurityAnswerRequest extends $tea.Model {
   // OAuth模式下的授权token
   authToken?: string;
   productInstanceId?: string;
-  // txt/pdf 文件
+  // txt和pdf 文件
   fileUrl: string;
   // 须 answer 前缀，否则兜底 LLM_OUTPUT_DETECTION_LITE
   sceneCode: string;
@@ -7192,9 +7191,9 @@ export class UploadSecurityAnswerResponse extends $tea.Model {
   strategyVersion?: string;
   // token 用量
   tokenUsage?: TokenUsageSummary;
-  // 调试信息（X-Debug-Mode: true 时返回；语音检测内含 audioAsrInfo 子结构）
+  // 调试信息
   debugInfo?: string;
-  // ASR 转写文本（文本链路恒 null）
+  // ASR 转写文本
   transcribedText?: string;
   // 金融深挖结果
   findeepdiveResult?: string;
@@ -7261,9 +7260,9 @@ export class UploadSecurityImageRequest extends $tea.Model {
   // OAuth模式下的授权token
   authToken?: string;
   productInstanceId?: string;
-  // ≤10MB；jpeg/png/jpg/bmp/webp/gif 直传或 PDF 逐页转图片
+  // 直传或 PDF 逐页转图片
   fileUrl: string;
-  // 归一化后须 image 前缀，否则拒绝「非法场景码」
+  // 归一化后须 image 前缀，否则拒绝
   sceneCode: string;
   // 租户标识
   businessId: string;
@@ -7307,7 +7306,7 @@ export class UploadSecurityImageResponse extends $tea.Model {
   resultCode?: string;
   // 异常信息的文本描述
   resultMsg?: string;
-  // PASS/BLOCK
+  // PASS
   actionCode?: string;
   // 黑白库命中明细（18 字段）
   imageBlackWhiteResult?: ImageBlackWhiteResult;
@@ -7433,7 +7432,7 @@ export class QuerySecurityVideoRequest extends $tea.Model {
   productInstanceId?: string;
   // 视频公开访问 URL
   videoUrl: string;
-  // 归一化后须 video 前缀，否则拒绝「非法场景码」
+  // 归一化后须 video 前缀，否则拒绝
   sceneCode: string;
   // 租户标识（老值兼容替换）
   businessId?: string;
@@ -7522,7 +7521,7 @@ export class UploadSecurityVideoRequest extends $tea.Model {
   // OAuth模式下的授权token
   authToken?: string;
   productInstanceId?: string;
-  // 视频文件 URL（大小/格式由 VideoCheckApplicationService 校验）
+  // 视频文件 URL
   fileUrl: string;
   // 须 video 前缀
   sceneCode: string;
@@ -7560,7 +7559,7 @@ export class UploadSecurityVideoResponse extends $tea.Model {
   resultCode?: string;
   // 异常信息的文本描述
   resultMsg?: string;
-  // PASS/BLOCK
+  // PASS
   actionCode?: string;
   // 黑白库命中明细（18 字段）
   imageBlackWhiteResult?: ImageBlackWhiteResult;
@@ -7597,13 +7596,13 @@ export class QuerySecurityAudioRequest extends $tea.Model {
   // OAuth模式下的授权token
   authToken?: string;
   productInstanceId?: string;
-  // 音频公网 URL（与 audio 二选一，网关侧仅支持 URL 方式）
+  // 音频公网 URL
   audioUrl: string;
-  // wav/mp3/flac/m4a/aiff/alac/ape，缺省从 URL 后缀或 magic number 推断
+  // 缺省从 URL 后缀或 magic number 推断
   audioFormat?: string;
   // Boolean 降噪（null 时服务端默认 true）
   denoise?: string;
-  // 须 audio 前缀，audio_input_*/audio_output_*
+  // 须 audio 前缀，
   sceneCode: string;
   // 租户标识（老值兼容替换）
   businessId: string;
@@ -7688,15 +7687,15 @@ export class UploadSecurityAudioRequest extends $tea.Model {
   // OAuth模式下的授权token
   authToken?: string;
   productInstanceId?: string;
-  // 音频文件 URL（非空校验）
+  // 音频文件 URL
   fileUrl: string;
   // 须 audio 前缀
   sceneCode: string;
   // 租户标识
   businessId: string;
-  // 降噪开关（字符串，Boolean.parseBoolean 解析）
+  // 降噪开关
   denoise?: string;
-  // 音频格式（缺省用原始文件名或 audio.wav）
+  // 音频格式
   audioFormat?: string;
   // 消息 ID
   messageId?: string;
@@ -7880,7 +7879,7 @@ export default class Client {
           req_msg_id: AntchainUtil.getNonce(),
           access_key: this._accessKeyId,
           base_sdk_version: "TeaSDK-2.0",
-          sdk_version: "1.1.69",
+          sdk_version: "1.1.70",
           _prod_code: "AITECH",
           _prod_channel: "default",
         };
