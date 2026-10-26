@@ -736,12 +736,12 @@ type ImageBlackWhiteResult struct {
 	//
 	// true
 	Matched *bool `json:"matched,omitempty" xml:"matched,omitempty"`
-	// 命中名单类型：BLACK / WHITE
+	// 命中名单类型
 	// example:
 	//
 	// WHITE
 	MatchType *string `json:"match_type,omitempty" xml:"match_type,omitempty"`
-	// 命中向量来源：FULL_IMAGE / FACE
+	// 命中向量来源
 	// example:
 	//
 	// FULL_IMAGE
@@ -776,22 +776,22 @@ type ImageBlackWhiteResult struct {
 	//
 	// true
 	ExecutedFace *bool `json:"executed_face,omitempty" xml:"executed_face,omitempty"`
-	// 人脸检测结果（YuNet）：null 表示未执行人脸维度
+	// 人脸检测结果
 	// example:
 	//
 	// true
 	FaceDetected *bool `json:"face_detected,omitempty" xml:"face_detected,omitempty"`
-	// 全图向量化状态：SUCCESS / SKIP / DEGRADE
+	// 全图向量化状态
 	// example:
 	//
 	// SUCCESS
 	FullImageEmbedStatus *string `json:"full_image_embed_status,omitempty" xml:"full_image_embed_status,omitempty"`
-	// 人脸向量化状态：SUCCESS / SKIP（无人脸或未执行）/ DEGRADE
+	// 人脸向量化状态
 	// example:
 	//
 	// SUCCESS
 	FaceEmbedStatus *string `json:"face_embed_status,omitempty" xml:"face_embed_status,omitempty"`
-	// 全图维度 ES 最高分（未命中也记录，便于阈值对比；无检索为 null）
+	// 全图维度 ES 最高分
 	// example:
 	//
 	// 1.2
@@ -801,7 +801,7 @@ type ImageBlackWhiteResult struct {
 	//
 	// 1.2
 	FullImageThreshold *int64 `json:"full_image_threshold,omitempty" xml:"full_image_threshold,omitempty"`
-	// 人脸维度 ES 最高分（未命中也记录；无检索为 null）
+	// 人脸维度 ES 最高分
 	// example:
 	//
 	// 1.2
@@ -811,12 +811,12 @@ type ImageBlackWhiteResult struct {
 	//
 	// 1
 	FaceThreshold *int64 `json:"face_threshold,omitempty" xml:"face_threshold,omitempty"`
-	// 是否降级（异常/服务不可用导致跳过排黑排白）
+	// 是否降级
 	// example:
 	//
 	// true
 	Degraded *bool `json:"degraded,omitempty" xml:"degraded,omitempty"`
-	// 降级或短路原因（参数缺失/无启用库/下载失败/向量化异常等）
+	// 降级或短路原因
 	// example:
 	//
 	// 参数缺失
@@ -8131,7 +8131,7 @@ type QuerySecurityQuestionRequest struct {
 	BusinessId *string `json:"business_id,omitempty" xml:"business_id,omitempty" require:"true"`
 	// 场景code
 	SceneCode *string `json:"scene_code,omitempty" xml:"scene_code,omitempty" require:"true"`
-	// 标示是否是同一个Q&A
+	// 标示是否是同一个
 	MessageId *string `json:"message_id,omitempty" xml:"message_id,omitempty"`
 	// 会话ID
 	SessionId *string `json:"session_id,omitempty" xml:"session_id,omitempty"`
@@ -8305,12 +8305,11 @@ type QuerySecurityQuestionResponse struct {
 	StrategyVersion *string `json:"strategy_version,omitempty" xml:"strategy_version,omitempty"`
 	// 本次接口请求内所有大模型及 Embedding 调用的 token 汇总。
 	TokenUsage *TokenUsageSummary `json:"token_usage,omitempty" xml:"token_usage,omitempty"`
-	// 调试信息（X-Debug-Mode: true 时返回；语音检测内含 audioAsrInfo 子结构）
-	//  对应的结果为Map转化的JSON字符串
+	// 调试信息 对应的结果为Map转化的JSON字符串
 	DebugInfo *string `json:"debug_info,omitempty" xml:"debug_info,omitempty"`
 	// 金融合规深度审核——命中的风险点列表（JSON 数组字符串；仅深审开时返回，非深审场景不输出）
 	FindeepdiveResult *string `json:"findeepdive_result,omitempty" xml:"findeepdive_result,omitempty"`
-	// 金融合规深度审核——整体结论（block/warning/pass；仅深审开时返回）
+	// 金融合规深度审核——整体结论
 	FinDeepDiveOverall *string `json:"fin_deep_dive_overall,omitempty" xml:"fin_deep_dive_overall,omitempty"`
 }
 
@@ -8472,7 +8471,7 @@ type QuerySecurityAnswerRequest struct {
 	CustomWhiteCheck *string `json:"custom_white_check,omitempty" xml:"custom_white_check,omitempty"`
 	// 自定义黑词检测，默认开启，仅 N 关闭
 	CustomBlackWordCheck *string `json:"custom_black_word_check,omitempty" xml:"custom_black_word_check,omitempty"`
-	// Universal/金融图谱案例召回，默认开启，仅 N 关闭
+	// Universal金融图谱案例召回，默认开启，仅 N 关闭
 	GraphCaseRecall *string `json:"graph_case_recall,omitempty" xml:"graph_case_recall,omitempty"`
 }
 
@@ -8820,7 +8819,7 @@ type UploadSecurityQuestionRequest struct {
 	// OAuth模式下的授权token
 	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
 	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
-	// txt/pdf 文件，解析为文本（FileParseUtil），空内容报「文件内容为空」
+	// txt和pdf 文件
 	FileUrl *string `json:"file_url,omitempty" xml:"file_url,omitempty" require:"true"`
 	// 归一化后须 question 前缀，否则兜底 LLM_INPUT_DETECTION
 	SceneCode *string `json:"scene_code,omitempty" xml:"scene_code,omitempty" require:"true"`
@@ -8924,9 +8923,9 @@ type UploadSecurityQuestionResponse struct {
 	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
 	// 异常信息的文本描述
 	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
-	// PASS/BLOCK/SECURITY_ANSWER/SECURITY_WARNING
+	// PASS
 	ActionCode *string `json:"action_code,omitempty" xml:"action_code,omitempty"`
-	// 风险标签（label + subLabels[]：subLabel/riskWords/riskWordsIndex/thirdLabels）
+	// 风险标签
 	Labels []*LabelModel `json:"labels,omitempty" xml:"labels,omitempty" type:"Repeated"`
 	// 命中自定义风险词
 	CustomizeRiskWord []*string `json:"customize_risk_word,omitempty" xml:"customize_risk_word,omitempty" type:"Repeated"`
@@ -8942,17 +8941,17 @@ type UploadSecurityQuestionResponse struct {
 	SecurityPrompt *string `json:"security_prompt,omitempty" xml:"security_prompt,omitempty"`
 	// 越狱标签（旧字段）
 	JailbreakLabel *string `json:"jailbreak_label,omitempty" xml:"jailbreak_label,omitempty"`
-	// 攻击标签（attackLabel + attackSubLabels[]）
+	// 攻击标签
 	AttackLabels []*AttackLabelModel `json:"attack_labels,omitempty" xml:"attack_labels,omitempty" type:"Repeated"`
-	// 领域识别（fieldCategory/fieldLabel/fieldScore:Double）
+	// 领域识别
 	FieldInfo *FieldModel `json:"field_info,omitempty" xml:"field_info,omitempty"`
 	// 回传会话 ID
 	SessionId *string `json:"session_id,omitempty" xml:"session_id,omitempty"`
 	// 本次接口请求内所有大模型及 Embedding 调用的 token 汇总。
 	TokenUsage *TokenUsageSummary `json:"token_usage,omitempty" xml:"token_usage,omitempty"`
-	// ASR 转写文本（文本链路恒 null）
+	// ASR 转写文本
 	TranscribedText *string `json:"transcribed_text,omitempty" xml:"transcribed_text,omitempty"`
-	// 调试信息（当前链路无填充，恒 null）
+	// 调试信息
 	DebugInfo *string `json:"debug_info,omitempty" xml:"debug_info,omitempty"`
 	// 金融深挖结果
 	FindeepdiveResult *string `json:"findeepdive_result,omitempty" xml:"findeepdive_result,omitempty"`
@@ -9107,7 +9106,7 @@ type UploadSecurityAnswerRequest struct {
 	// OAuth模式下的授权token
 	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
 	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
-	// txt/pdf 文件
+	// txt和pdf 文件
 	FileUrl *string `json:"file_url,omitempty" xml:"file_url,omitempty" require:"true"`
 	// 须 answer 前缀，否则兜底 LLM_OUTPUT_DETECTION_LITE
 	SceneCode *string `json:"scene_code,omitempty" xml:"scene_code,omitempty" require:"true"`
@@ -9225,9 +9224,9 @@ type UploadSecurityAnswerResponse struct {
 	StrategyVersion *string `json:"strategy_version,omitempty" xml:"strategy_version,omitempty"`
 	// token 用量
 	TokenUsage *TokenUsageSummary `json:"token_usage,omitempty" xml:"token_usage,omitempty"`
-	// 调试信息（X-Debug-Mode: true 时返回；语音检测内含 audioAsrInfo 子结构）
+	// 调试信息
 	DebugInfo *string `json:"debug_info,omitempty" xml:"debug_info,omitempty"`
-	// ASR 转写文本（文本链路恒 null）
+	// ASR 转写文本
 	TranscribedText *string `json:"transcribed_text,omitempty" xml:"transcribed_text,omitempty"`
 	// 金融深挖结果
 	FindeepdiveResult *string `json:"findeepdive_result,omitempty" xml:"findeepdive_result,omitempty"`
@@ -9352,9 +9351,9 @@ type UploadSecurityImageRequest struct {
 	// OAuth模式下的授权token
 	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
 	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
-	// ≤10MB；jpeg/png/jpg/bmp/webp/gif 直传或 PDF 逐页转图片
+	// 直传或 PDF 逐页转图片
 	FileUrl *string `json:"file_url,omitempty" xml:"file_url,omitempty" require:"true"`
-	// 归一化后须 image 前缀，否则拒绝「非法场景码」
+	// 归一化后须 image 前缀，否则拒绝
 	SceneCode *string `json:"scene_code,omitempty" xml:"scene_code,omitempty" require:"true"`
 	// 租户标识
 	BusinessId *string `json:"business_id,omitempty" xml:"business_id,omitempty" require:"true"`
@@ -9414,7 +9413,7 @@ type UploadSecurityImageResponse struct {
 	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
 	// 异常信息的文本描述
 	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
-	// PASS/BLOCK
+	// PASS
 	ActionCode *string `json:"action_code,omitempty" xml:"action_code,omitempty"`
 	// 黑白库命中明细（18 字段）
 	ImageBlackWhiteResult *ImageBlackWhiteResult `json:"image_black_white_result,omitempty" xml:"image_black_white_result,omitempty"`
@@ -9585,7 +9584,7 @@ type QuerySecurityVideoRequest struct {
 	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
 	// 视频公开访问 URL
 	VideoUrl *string `json:"video_url,omitempty" xml:"video_url,omitempty" require:"true"`
-	// 归一化后须 video 前缀，否则拒绝「非法场景码」
+	// 归一化后须 video 前缀，否则拒绝
 	SceneCode *string `json:"scene_code,omitempty" xml:"scene_code,omitempty" require:"true"`
 	// 租户标识（老值兼容替换）
 	BusinessId *string `json:"business_id,omitempty" xml:"business_id,omitempty"`
@@ -9709,7 +9708,7 @@ type UploadSecurityVideoRequest struct {
 	// OAuth模式下的授权token
 	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
 	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
-	// 视频文件 URL（大小/格式由 VideoCheckApplicationService 校验）
+	// 视频文件 URL
 	FileUrl *string `json:"file_url,omitempty" xml:"file_url,omitempty" require:"true"`
 	// 须 video 前缀
 	SceneCode *string `json:"scene_code,omitempty" xml:"scene_code,omitempty" require:"true"`
@@ -9757,7 +9756,7 @@ type UploadSecurityVideoResponse struct {
 	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
 	// 异常信息的文本描述
 	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
-	// PASS/BLOCK
+	// PASS
 	ActionCode *string `json:"action_code,omitempty" xml:"action_code,omitempty"`
 	// 黑白库命中明细（18 字段）
 	ImageBlackWhiteResult *ImageBlackWhiteResult `json:"image_black_white_result,omitempty" xml:"image_black_white_result,omitempty"`
@@ -9807,13 +9806,13 @@ type QuerySecurityAudioRequest struct {
 	// OAuth模式下的授权token
 	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
 	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
-	// 音频公网 URL（与 audio 二选一，网关侧仅支持 URL 方式）
+	// 音频公网 URL
 	AudioUrl *string `json:"audio_url,omitempty" xml:"audio_url,omitempty" require:"true"`
-	// wav/mp3/flac/m4a/aiff/alac/ape，缺省从 URL 后缀或 magic number 推断
+	// 缺省从 URL 后缀或 magic number 推断
 	AudioFormat *string `json:"audio_format,omitempty" xml:"audio_format,omitempty"`
 	// Boolean 降噪（null 时服务端默认 true）
 	Denoise *string `json:"denoise,omitempty" xml:"denoise,omitempty"`
-	// 须 audio 前缀，audio_input_*/audio_output_*
+	// 须 audio 前缀，
 	SceneCode *string `json:"scene_code,omitempty" xml:"scene_code,omitempty" require:"true"`
 	// 租户标识（老值兼容替换）
 	BusinessId *string `json:"business_id,omitempty" xml:"business_id,omitempty" require:"true"`
@@ -9933,15 +9932,15 @@ type UploadSecurityAudioRequest struct {
 	// OAuth模式下的授权token
 	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
 	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
-	// 音频文件 URL（非空校验）
+	// 音频文件 URL
 	FileUrl *string `json:"file_url,omitempty" xml:"file_url,omitempty" require:"true"`
 	// 须 audio 前缀
 	SceneCode *string `json:"scene_code,omitempty" xml:"scene_code,omitempty" require:"true"`
 	// 租户标识
 	BusinessId *string `json:"business_id,omitempty" xml:"business_id,omitempty" require:"true"`
-	// 降噪开关（字符串，Boolean.parseBoolean 解析）
+	// 降噪开关
 	Denoise *string `json:"denoise,omitempty" xml:"denoise,omitempty"`
-	// 音频格式（缺省用原始文件名或 audio.wav）
+	// 音频格式
 	AudioFormat *string `json:"audio_format,omitempty" xml:"audio_format,omitempty"`
 	// 消息 ID
 	MessageId *string `json:"message_id,omitempty" xml:"message_id,omitempty"`
@@ -10164,7 +10163,7 @@ func (client *Client) DoRequest(version *string, action *string, protocol *strin
 				"req_msg_id":       antchainutil.GetNonce(),
 				"access_key":       client.AccessKeyId,
 				"base_sdk_version": tea.String("TeaSDK-2.0"),
-				"sdk_version":      tea.String("1.1.69"),
+				"sdk_version":      tea.String("1.1.70"),
 				"_prod_code":       tea.String("AITECH"),
 				"_prod_channel":    tea.String("default"),
 			}
