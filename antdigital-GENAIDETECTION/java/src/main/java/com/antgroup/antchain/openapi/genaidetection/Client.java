@@ -126,9 +126,9 @@ public class Client {
                     new TeaPair("req_msg_id", com.antgroup.antchain.openapi.antchain.util.AntchainUtils.getNonce()),
                     new TeaPair("access_key", _accessKeyId),
                     new TeaPair("base_sdk_version", "TeaSDK-2.0"),
-                    new TeaPair("sdk_version", "1.1.6"),
+                    new TeaPair("sdk_version", "1.1.7"),
                     new TeaPair("_prod_code", "GENAIDETECTION"),
-                    new TeaPair("_prod_channel", "undefined")
+                    new TeaPair("_prod_channel", "default")
                 );
                 if (!com.aliyun.teautil.Common.empty(_securityToken)) {
                     request_.query.put("security_token", _securityToken);
@@ -375,5 +375,68 @@ public class Client {
     public AsynccheckresultZolozsgRaasGenaidetectionResponse asynccheckresultZolozsgRaasGenaidetectionEx(AsynccheckresultZolozsgRaasGenaidetectionRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
         com.aliyun.teautil.Common.validateModel(request);
         return TeaModel.toModel(this.doRequest("1.0", "zolozsg.raas.genaidetection.asynccheckresult", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new AsynccheckresultZolozsgRaasGenaidetectionResponse());
+    }
+
+    /**
+     * <b>description</b> :
+     * <p>Description: GenAI Detection 同步 detect 接口
+     * Summary: GenAI Detection 同步 detect 接口</p>
+     */
+    public DetectZolozmyRaasGenaidetectionResponse detectZolozmyRaasGenaidetection(DetectZolozmyRaasGenaidetectionRequest request) throws Exception {
+        com.aliyun.teautil.models.RuntimeOptions runtime = new com.aliyun.teautil.models.RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.detectZolozmyRaasGenaidetectionEx(request, headers, runtime);
+    }
+
+    /**
+     * <b>description</b> :
+     * <p>Description: GenAI Detection 同步 detect 接口
+     * Summary: GenAI Detection 同步 detect 接口</p>
+     */
+    public DetectZolozmyRaasGenaidetectionResponse detectZolozmyRaasGenaidetectionEx(DetectZolozmyRaasGenaidetectionRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "zolozmy.raas.genaidetection.detect", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new DetectZolozmyRaasGenaidetectionResponse());
+    }
+
+    /**
+     * <b>description</b> :
+     * <p>Description: GenAI Detection 异步 detect 接口
+     * Summary: GenAI Detection 异步 detect 接口</p>
+     */
+    public AsyncdetectZolozmyRaasGenaidetectionResponse asyncdetectZolozmyRaasGenaidetection(AsyncdetectZolozmyRaasGenaidetectionRequest request) throws Exception {
+        com.aliyun.teautil.models.RuntimeOptions runtime = new com.aliyun.teautil.models.RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.asyncdetectZolozmyRaasGenaidetectionEx(request, headers, runtime);
+    }
+
+    /**
+     * <b>description</b> :
+     * <p>Description: GenAI Detection 异步 detect 接口
+     * Summary: GenAI Detection 异步 detect 接口</p>
+     */
+    public AsyncdetectZolozmyRaasGenaidetectionResponse asyncdetectZolozmyRaasGenaidetectionEx(AsyncdetectZolozmyRaasGenaidetectionRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "zolozmy.raas.genaidetection.asyncdetect", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new AsyncdetectZolozmyRaasGenaidetectionResponse());
+    }
+
+    /**
+     * <b>description</b> :
+     * <p>Description: GenAI Detection 异步检查结果接口
+     * Summary: GenAI Detection 异步检查结果接口</p>
+     */
+    public AsynccheckresultZolozmyRaasGenaidetectionResponse asynccheckresultZolozmyRaasGenaidetection(AsynccheckresultZolozmyRaasGenaidetectionRequest request) throws Exception {
+        com.aliyun.teautil.models.RuntimeOptions runtime = new com.aliyun.teautil.models.RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.asynccheckresultZolozmyRaasGenaidetectionEx(request, headers, runtime);
+    }
+
+    /**
+     * <b>description</b> :
+     * <p>Description: GenAI Detection 异步检查结果接口
+     * Summary: GenAI Detection 异步检查结果接口</p>
+     */
+    public AsynccheckresultZolozmyRaasGenaidetectionResponse asynccheckresultZolozmyRaasGenaidetectionEx(AsynccheckresultZolozmyRaasGenaidetectionRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "zolozmy.raas.genaidetection.asynccheckresult", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new AsynccheckresultZolozmyRaasGenaidetectionResponse());
     }
 }
