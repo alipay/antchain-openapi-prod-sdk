@@ -126,7 +126,7 @@ public class Client {
                     new TeaPair("req_msg_id", com.antgroup.antchain.openapi.antchain.util.AntchainUtils.getNonce()),
                     new TeaPair("access_key", _accessKeyId),
                     new TeaPair("base_sdk_version", "TeaSDK-2.0"),
-                    new TeaPair("sdk_version", "1.12.62"),
+                    new TeaPair("sdk_version", "1.12.63"),
                     new TeaPair("_prod_code", "INSURANCE_SAAS"),
                     new TeaPair("_prod_channel", "undefined")
                 );
@@ -501,6 +501,27 @@ public class Client {
     public V2AasDataBankcardlivenessCallbackResponse v2AasDataBankcardlivenessCallbackEx(V2AasDataBankcardlivenessCallbackRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
         com.aliyun.teautil.Common.validateModel(request);
         return TeaModel.toModel(this.doRequest("1.0", "antcloud.insurancesaas.data.bankcardliveness.callback.v2", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new V2AasDataBankcardlivenessCallbackResponse());
+    }
+
+    /**
+     * <b>description</b> :
+     * <p>Description: 营销人群底包析出结果查询
+     * Summary: 营销人群底包析出结果查询</p>
+     */
+    public GetMktExtresulturlResponse getMktExtresulturl(GetMktExtresulturlRequest request) throws Exception {
+        com.aliyun.teautil.models.RuntimeOptions runtime = new com.aliyun.teautil.models.RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.getMktExtresulturlEx(request, headers, runtime);
+    }
+
+    /**
+     * <b>description</b> :
+     * <p>Description: 营销人群底包析出结果查询
+     * Summary: 营销人群底包析出结果查询</p>
+     */
+    public GetMktExtresulturlResponse getMktExtresulturlEx(GetMktExtresulturlRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "antcloud.insurance.mkt.extresulturl.get", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new GetMktExtresulturlResponse());
     }
 
     /**
