@@ -1,4 +1,4 @@
-module github.com/alipay/antdigital-testjzq
+module github.com/antchain-openapi-sdk-go/antdigital-testjzq
 
 go 1.22.1
 
