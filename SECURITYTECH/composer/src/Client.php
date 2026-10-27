@@ -174,6 +174,24 @@ use AntChain\SECURITYTECH\Models\QueryPoiFundRequest;
 use AntChain\SECURITYTECH\Models\QueryPoiFundResponse;
 use AntChain\SECURITYTECH\Models\NotifyPoiCouponRequest;
 use AntChain\SECURITYTECH\Models\NotifyPoiCouponResponse;
+use AntChain\SECURITYTECH\Models\SaveHealthContactRequest;
+use AntChain\SECURITYTECH\Models\SaveHealthContactResponse;
+use AntChain\SECURITYTECH\Models\DeleteHealthContactRequest;
+use AntChain\SECURITYTECH\Models\DeleteHealthContactResponse;
+use AntChain\SECURITYTECH\Models\QueryHealthContactRequest;
+use AntChain\SECURITYTECH\Models\QueryHealthContactResponse;
+use AntChain\SECURITYTECH\Models\RegisterHealthDeviceRequest;
+use AntChain\SECURITYTECH\Models\RegisterHealthDeviceResponse;
+use AntChain\SECURITYTECH\Models\ResetHealthDeviceRequest;
+use AntChain\SECURITYTECH\Models\ResetHealthDeviceResponse;
+use AntChain\SECURITYTECH\Models\QueryHealthDeviceRequest;
+use AntChain\SECURITYTECH\Models\QueryHealthDeviceResponse;
+use AntChain\SECURITYTECH\Models\QueryHealthLocationRequest;
+use AntChain\SECURITYTECH\Models\QueryHealthLocationResponse;
+use AntChain\SECURITYTECH\Models\QueryHealthDataRequest;
+use AntChain\SECURITYTECH\Models\QueryHealthDataResponse;
+use AntChain\SECURITYTECH\Models\ReportHealthDataRequest;
+use AntChain\SECURITYTECH\Models\ReportHealthDataResponse;
 use AntChain\SECURITYTECH\Models\CreateBssecpicRequest;
 use AntChain\SECURITYTECH\Models\CreateBssecpicResponse;
 use AntChain\SECURITYTECH\Models\CreateBlueshieldSecuritypictureRequest;
@@ -387,7 +405,7 @@ class Client {
                     "req_msg_id" => UtilClient::getNonce(),
                     "access_key" => $this->_accessKeyId,
                     "base_sdk_version" => "TeaSDK-2.0",
-                    "sdk_version" => "1.7.35",
+                    "sdk_version" => "1.7.36",
                     "_prod_code" => "SECURITYTECH",
                     "_prod_channel" => "undefined"
                 ];
@@ -2452,6 +2470,231 @@ class Client {
     public function notifyPoiCouponEx($request, $headers, $runtime){
         Utils::validateModel($request);
         return NotifyPoiCouponResponse::fromMap($this->doRequest("1.0", "antsecuritytech.gateway.poi.coupon.notify", "HTTPS", "POST", "/gateway.do", Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 保存设备联系人
+     * Summary: 保存设备联系人
+     * @param SaveHealthContactRequest $request
+     * @return SaveHealthContactResponse
+     */
+    public function saveHealthContact($request){
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+        return $this->saveHealthContactEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 保存设备联系人
+     * Summary: 保存设备联系人
+     * @param SaveHealthContactRequest $request
+     * @param string[] $headers
+     * @param RuntimeOptions $runtime
+     * @return SaveHealthContactResponse
+     */
+    public function saveHealthContactEx($request, $headers, $runtime){
+        Utils::validateModel($request);
+        return SaveHealthContactResponse::fromMap($this->doRequest("1.0", "antsecuritytech.gateway.health.contact.save", "HTTPS", "POST", "/gateway.do", Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 删除设备联系人
+     * Summary: 删除设备联系人
+     * @param DeleteHealthContactRequest $request
+     * @return DeleteHealthContactResponse
+     */
+    public function deleteHealthContact($request){
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+        return $this->deleteHealthContactEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 删除设备联系人
+     * Summary: 删除设备联系人
+     * @param DeleteHealthContactRequest $request
+     * @param string[] $headers
+     * @param RuntimeOptions $runtime
+     * @return DeleteHealthContactResponse
+     */
+    public function deleteHealthContactEx($request, $headers, $runtime){
+        Utils::validateModel($request);
+        return DeleteHealthContactResponse::fromMap($this->doRequest("1.0", "antsecuritytech.gateway.health.contact.delete", "HTTPS", "POST", "/gateway.do", Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 根据设备唯一id查询联系人信息列表
+     * Summary: 根据设备唯一id查询联系人信息列表
+     * @param QueryHealthContactRequest $request
+     * @return QueryHealthContactResponse
+     */
+    public function queryHealthContact($request){
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+        return $this->queryHealthContactEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 根据设备唯一id查询联系人信息列表
+     * Summary: 根据设备唯一id查询联系人信息列表
+     * @param QueryHealthContactRequest $request
+     * @param string[] $headers
+     * @param RuntimeOptions $runtime
+     * @return QueryHealthContactResponse
+     */
+    public function queryHealthContactEx($request, $headers, $runtime){
+        Utils::validateModel($request);
+        return QueryHealthContactResponse::fromMap($this->doRequest("1.0", "antsecuritytech.gateway.health.contact.query", "HTTPS", "POST", "/gateway.do", Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 品牌方设备校验并绑定
+     * Summary: 品牌方设备校验并绑定
+     * @param RegisterHealthDeviceRequest $request
+     * @return RegisterHealthDeviceResponse
+     */
+    public function registerHealthDevice($request){
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+        return $this->registerHealthDeviceEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 品牌方设备校验并绑定
+     * Summary: 品牌方设备校验并绑定
+     * @param RegisterHealthDeviceRequest $request
+     * @param string[] $headers
+     * @param RuntimeOptions $runtime
+     * @return RegisterHealthDeviceResponse
+     */
+    public function registerHealthDeviceEx($request, $headers, $runtime){
+        Utils::validateModel($request);
+        return RegisterHealthDeviceResponse::fromMap($this->doRequest("1.0", "antsecuritytech.gateway.health.device.register", "HTTPS", "POST", "/gateway.do", Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 品牌方设备解除绑定
+     * Summary: 品牌方设备解除绑定
+     * @param ResetHealthDeviceRequest $request
+     * @return ResetHealthDeviceResponse
+     */
+    public function resetHealthDevice($request){
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+        return $this->resetHealthDeviceEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 品牌方设备解除绑定
+     * Summary: 品牌方设备解除绑定
+     * @param ResetHealthDeviceRequest $request
+     * @param string[] $headers
+     * @param RuntimeOptions $runtime
+     * @return ResetHealthDeviceResponse
+     */
+    public function resetHealthDeviceEx($request, $headers, $runtime){
+        Utils::validateModel($request);
+        return ResetHealthDeviceResponse::fromMap($this->doRequest("1.0", "antsecuritytech.gateway.health.device.reset", "HTTPS", "POST", "/gateway.do", Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 查询设备详细信息
+     * Summary: 查询设备详细信息
+     * @param QueryHealthDeviceRequest $request
+     * @return QueryHealthDeviceResponse
+     */
+    public function queryHealthDevice($request){
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+        return $this->queryHealthDeviceEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 查询设备详细信息
+     * Summary: 查询设备详细信息
+     * @param QueryHealthDeviceRequest $request
+     * @param string[] $headers
+     * @param RuntimeOptions $runtime
+     * @return QueryHealthDeviceResponse
+     */
+    public function queryHealthDeviceEx($request, $headers, $runtime){
+        Utils::validateModel($request);
+        return QueryHealthDeviceResponse::fromMap($this->doRequest("1.0", "antsecuritytech.gateway.health.device.query", "HTTPS", "POST", "/gateway.do", Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 查询设备定位信息
+     * Summary: 查询设备定位信息
+     * @param QueryHealthLocationRequest $request
+     * @return QueryHealthLocationResponse
+     */
+    public function queryHealthLocation($request){
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+        return $this->queryHealthLocationEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 查询设备定位信息
+     * Summary: 查询设备定位信息
+     * @param QueryHealthLocationRequest $request
+     * @param string[] $headers
+     * @param RuntimeOptions $runtime
+     * @return QueryHealthLocationResponse
+     */
+    public function queryHealthLocationEx($request, $headers, $runtime){
+        Utils::validateModel($request);
+        return QueryHealthLocationResponse::fromMap($this->doRequest("1.0", "antsecuritytech.gateway.health.location.query", "HTTPS", "POST", "/gateway.do", Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 查询设备健康指标数据
+     * Summary: 查询设备健康指标数据
+     * @param QueryHealthDataRequest $request
+     * @return QueryHealthDataResponse
+     */
+    public function queryHealthData($request){
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+        return $this->queryHealthDataEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 查询设备健康指标数据
+     * Summary: 查询设备健康指标数据
+     * @param QueryHealthDataRequest $request
+     * @param string[] $headers
+     * @param RuntimeOptions $runtime
+     * @return QueryHealthDataResponse
+     */
+    public function queryHealthDataEx($request, $headers, $runtime){
+        Utils::validateModel($request);
+        return QueryHealthDataResponse::fromMap($this->doRequest("1.0", "antsecuritytech.gateway.health.data.query", "HTTPS", "POST", "/gateway.do", Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 设备厂商标准化数据上报
+     * Summary: 设备厂商标准化数据上报
+     * @param ReportHealthDataRequest $request
+     * @return ReportHealthDataResponse
+     */
+    public function reportHealthData($request){
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+        return $this->reportHealthDataEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 设备厂商标准化数据上报
+     * Summary: 设备厂商标准化数据上报
+     * @param ReportHealthDataRequest $request
+     * @param string[] $headers
+     * @param RuntimeOptions $runtime
+     * @return ReportHealthDataResponse
+     */
+    public function reportHealthDataEx($request, $headers, $runtime){
+        Utils::validateModel($request);
+        return ReportHealthDataResponse::fromMap($this->doRequest("1.0", "antsecuritytech.gateway.health.data.report", "HTTPS", "POST", "/gateway.do", Tea::merge($request), $headers, $runtime));
     }
 
     /**
