@@ -49,6 +49,15 @@ public class SessionUsage extends TeaModel {
     @Validation(required = true)
     public Boolean complete;
 
+    // 当前轮次请求耗时
+    /**
+     * <strong>example:</strong>
+     * <p>1000</p>
+     */
+    @NameInMap("turn_duration_ms")
+    @Validation(required = true)
+    public Long turnDurationMs;
+
     public static SessionUsage build(java.util.Map<String, ?> map) throws Exception {
         SessionUsage self = new SessionUsage();
         return TeaModel.build(map, self);
@@ -92,6 +101,14 @@ public class SessionUsage extends TeaModel {
     }
     public Boolean getComplete() {
         return this.complete;
+    }
+
+    public SessionUsage setTurnDurationMs(Long turnDurationMs) {
+        this.turnDurationMs = turnDurationMs;
+        return this;
+    }
+    public Long getTurnDurationMs() {
+        return this.turnDurationMs;
     }
 
 }

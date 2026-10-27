@@ -27,9 +27,9 @@ public class ActionIotagentSessioncontextRequest extends TeaModel {
     public String sessionId;
 
     // 操作类型：COMPACT_CURRENT
-    @NameInMap("action")
+    @NameInMap("operation_type")
     @Validation(required = true)
-    public String action;
+    public String operationType;
 
     public static ActionIotagentSessioncontextRequest build(java.util.Map<String, ?> map) throws Exception {
         ActionIotagentSessioncontextRequest self = new ActionIotagentSessioncontextRequest();
@@ -76,12 +76,12 @@ public class ActionIotagentSessioncontextRequest extends TeaModel {
         return this.sessionId;
     }
 
-    public ActionIotagentSessioncontextRequest setAction(String action) {
-        this.action = action;
+    public ActionIotagentSessioncontextRequest setOperationType(String operationType) {
+        this.operationType = operationType;
         return this;
     }
-    public String getAction() {
-        return this.action;
+    public String getOperationType() {
+        return this.operationType;
     }
 
 }

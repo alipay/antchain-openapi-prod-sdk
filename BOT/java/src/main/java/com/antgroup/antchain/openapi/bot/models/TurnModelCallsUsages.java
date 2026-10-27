@@ -73,6 +73,15 @@ public class TurnModelCallsUsages extends TeaModel {
     @NameInMap("cached_write_tokens")
     public Long cachedWriteTokens;
 
+    // 当前模型调用耗时
+    /**
+     * <strong>example:</strong>
+     * <p>1000</p>
+     */
+    @NameInMap("model_duration_ms")
+    @Validation(required = true)
+    public Long modelDurationMs;
+
     public static TurnModelCallsUsages build(java.util.Map<String, ?> map) throws Exception {
         TurnModelCallsUsages self = new TurnModelCallsUsages();
         return TeaModel.build(map, self);
@@ -140,6 +149,14 @@ public class TurnModelCallsUsages extends TeaModel {
     }
     public Long getCachedWriteTokens() {
         return this.cachedWriteTokens;
+    }
+
+    public TurnModelCallsUsages setModelDurationMs(Long modelDurationMs) {
+        this.modelDurationMs = modelDurationMs;
+        return this;
+    }
+    public Long getModelDurationMs() {
+        return this.modelDurationMs;
     }
 
 }

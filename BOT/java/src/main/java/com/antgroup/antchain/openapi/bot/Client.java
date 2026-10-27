@@ -126,7 +126,7 @@ public class Client {
                     new TeaPair("req_msg_id", com.antgroup.antchain.openapi.antchain.util.AntchainUtils.getNonce()),
                     new TeaPair("access_key", _accessKeyId),
                     new TeaPair("base_sdk_version", "TeaSDK-2.0"),
-                    new TeaPair("sdk_version", "1.22.0"),
+                    new TeaPair("sdk_version", "1.22.1"),
                     new TeaPair("_prod_code", "BOT"),
                     new TeaPair("_prod_channel", "undefined")
                 );
@@ -2103,8 +2103,8 @@ public class Client {
 
     /**
      * <b>description</b> :
-     * <p>Description: 查询上下文压缩操作结构
-     * Summary: 查询上下文压缩操作结构</p>
+     * <p>Description: 查询上下文压缩操作结果
+     * Summary: 查询上下文压缩操作结果</p>
      */
     public QueryIotagentSessioncontextactionResponse queryIotagentSessioncontextaction(QueryIotagentSessioncontextactionRequest request) throws Exception {
         com.aliyun.teautil.models.RuntimeOptions runtime = new com.aliyun.teautil.models.RuntimeOptions();
@@ -2114,8 +2114,8 @@ public class Client {
 
     /**
      * <b>description</b> :
-     * <p>Description: 查询上下文压缩操作结构
-     * Summary: 查询上下文压缩操作结构</p>
+     * <p>Description: 查询上下文压缩操作结果
+     * Summary: 查询上下文压缩操作结果</p>
      */
     public QueryIotagentSessioncontextactionResponse queryIotagentSessioncontextactionEx(QueryIotagentSessioncontextactionRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
         com.aliyun.teautil.Common.validateModel(request);
