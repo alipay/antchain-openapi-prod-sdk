@@ -2613,6 +2613,91 @@ func (s *V2AasDataBankcardlivenessCallbackResponse) SetResultMsg(v string) *V2Aa
 	return s
 }
 
+type GetMktExtresulturlRequest struct {
+	// OAuth模式下的授权token
+	AuthToken *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	// 请求id，每一次请求保持唯一，若重复，则报错
+	RequestId *string `json:"request_id,omitempty" xml:"request_id,omitempty" require:"true" maxLength:"128"`
+	// 项目ID，蚂蚁分配
+	ProjectId *string `json:"project_id,omitempty" xml:"project_id,omitempty" require:"true" maxLength:"64"`
+	// 上传营销标识，来源于上传结果通知中的uploadMktNo
+	UploadMktNo *string `json:"upload_mkt_no,omitempty" xml:"upload_mkt_no,omitempty" require:"true" maxLength:"64"`
+}
+
+func (s GetMktExtresulturlRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s GetMktExtresulturlRequest) GoString() string {
+	return s.String()
+}
+
+func (s *GetMktExtresulturlRequest) SetAuthToken(v string) *GetMktExtresulturlRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *GetMktExtresulturlRequest) SetRequestId(v string) *GetMktExtresulturlRequest {
+	s.RequestId = &v
+	return s
+}
+
+func (s *GetMktExtresulturlRequest) SetProjectId(v string) *GetMktExtresulturlRequest {
+	s.ProjectId = &v
+	return s
+}
+
+func (s *GetMktExtresulturlRequest) SetUploadMktNo(v string) *GetMktExtresulturlRequest {
+	s.UploadMktNo = &v
+	return s
+}
+
+type GetMktExtresulturlResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// 请求id
+	RequestId *string `json:"request_id,omitempty" xml:"request_id,omitempty" require:"true" maxLength:"128"`
+	// 析出文件下载链接（OSS签名URL，当前有效期24小时）；为空表示析出结果尚未生成，请稍后重试。从底包上传开始7日内链接失效仍可继续获取
+	FileUrl *string `json:"file_url,omitempty" xml:"file_url,omitempty" maxLength:"1024"`
+}
+
+func (s GetMktExtresulturlResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s GetMktExtresulturlResponse) GoString() string {
+	return s.String()
+}
+
+func (s *GetMktExtresulturlResponse) SetReqMsgId(v string) *GetMktExtresulturlResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *GetMktExtresulturlResponse) SetResultCode(v string) *GetMktExtresulturlResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *GetMktExtresulturlResponse) SetResultMsg(v string) *GetMktExtresulturlResponse {
+	s.ResultMsg = &v
+	return s
+}
+
+func (s *GetMktExtresulturlResponse) SetRequestId(v string) *GetMktExtresulturlResponse {
+	s.RequestId = &v
+	return s
+}
+
+func (s *GetMktExtresulturlResponse) SetFileUrl(v string) *GetMktExtresulturlResponse {
+	s.FileUrl = &v
+	return s
+}
+
 type QueryInquiryRequest struct {
 	// OAuth模式下的授权token
 	AuthToken *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
@@ -7633,7 +7718,7 @@ func (client *Client) DoRequest(version *string, action *string, protocol *strin
 				"req_msg_id":       antchainutil.GetNonce(),
 				"access_key":       client.AccessKeyId,
 				"base_sdk_version": tea.String("TeaSDK-2.0"),
-				"sdk_version":      tea.String("1.12.62"),
+				"sdk_version":      tea.String("1.12.63"),
 				"_prod_code":       tea.String("INSURANCE_SAAS"),
 				"_prod_channel":    tea.String("undefined"),
 			}
@@ -8224,6 +8309,42 @@ func (client *Client) V2AasDataBankcardlivenessCallbackEx(request *V2AasDataBank
 	}
 	_result = &V2AasDataBankcardlivenessCallbackResponse{}
 	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("antcloud.insurancesaas.data.bankcardliveness.callback.v2"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
+}
+
+// Description:
+//
+// Description: 营销人群底包析出结果查询
+//
+// Summary: 营销人群底包析出结果查询
+func (client *Client) GetMktExtresulturl(request *GetMktExtresulturlRequest) (_result *GetMktExtresulturlResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &GetMktExtresulturlResponse{}
+	_body, _err := client.GetMktExtresulturlEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+// Description:
+//
+// Description: 营销人群底包析出结果查询
+//
+// Summary: 营销人群底包析出结果查询
+func (client *Client) GetMktExtresulturlEx(request *GetMktExtresulturlRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *GetMktExtresulturlResponse, _err error) {
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &GetMktExtresulturlResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("antcloud.insurance.mkt.extresulturl.get"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
 	if _err != nil {
 		return _result, _err
 	}
