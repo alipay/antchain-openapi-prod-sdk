@@ -43,6 +43,8 @@ use AntChain\INSURANCE_SAAS\Models\CallbackAasDataBankcardlivenessRequest;
 use AntChain\INSURANCE_SAAS\Models\CallbackAasDataBankcardlivenessResponse;
 use AntChain\INSURANCE_SAAS\Models\V2AasDataBankcardlivenessCallbackRequest;
 use AntChain\INSURANCE_SAAS\Models\V2AasDataBankcardlivenessCallbackResponse;
+use AntChain\INSURANCE_SAAS\Models\GetMktExtresulturlRequest;
+use AntChain\INSURANCE_SAAS\Models\GetMktExtresulturlResponse;
 use AntChain\INSURANCE_SAAS\Models\QueryInquiryRequest;
 use AntChain\INSURANCE_SAAS\Models\QueryInquiryResponse;
 use AntChain\INSURANCE_SAAS\Models\SubmitInquiryRequest;
@@ -263,7 +265,7 @@ class Client {
                     "req_msg_id" => UtilClient::getNonce(),
                     "access_key" => $this->_accessKeyId,
                     "base_sdk_version" => "TeaSDK-2.0",
-                    "sdk_version" => "1.12.62",
+                    "sdk_version" => "1.12.63",
                     "_prod_code" => "INSURANCE_SAAS",
                     "_prod_channel" => "undefined"
                 ];
@@ -681,6 +683,31 @@ class Client {
     public function v2AasDataBankcardlivenessCallbackEx($request, $headers, $runtime){
         Utils::validateModel($request);
         return V2AasDataBankcardlivenessCallbackResponse::fromMap($this->doRequest("1.0", "antcloud.insurancesaas.data.bankcardliveness.callback.v2", "HTTPS", "POST", "/gateway.do", Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 营销人群底包析出结果查询
+     * Summary: 营销人群底包析出结果查询
+     * @param GetMktExtresulturlRequest $request
+     * @return GetMktExtresulturlResponse
+     */
+    public function getMktExtresulturl($request){
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+        return $this->getMktExtresulturlEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 营销人群底包析出结果查询
+     * Summary: 营销人群底包析出结果查询
+     * @param GetMktExtresulturlRequest $request
+     * @param string[] $headers
+     * @param RuntimeOptions $runtime
+     * @return GetMktExtresulturlResponse
+     */
+    public function getMktExtresulturlEx($request, $headers, $runtime){
+        Utils::validateModel($request);
+        return GetMktExtresulturlResponse::fromMap($this->doRequest("1.0", "antcloud.insurance.mkt.extresulturl.get", "HTTPS", "POST", "/gateway.do", Tea::merge($request), $headers, $runtime));
     }
 
     /**
