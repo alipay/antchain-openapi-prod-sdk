@@ -158,7 +158,7 @@ namespace AntChain.SDK.INSURANCE_SAAS
                         {"req_msg_id", AntChain.AlipayUtil.AntchainUtils.GetNonce()},
                         {"access_key", _accessKeyId},
                         {"base_sdk_version", "TeaSDK-2.0"},
-                        {"sdk_version", "1.12.62"},
+                        {"sdk_version", "1.12.63"},
                         {"_prod_code", "INSURANCE_SAAS"},
                         {"_prod_channel", "undefined"},
                     };
@@ -301,7 +301,7 @@ namespace AntChain.SDK.INSURANCE_SAAS
                         {"req_msg_id", AntChain.AlipayUtil.AntchainUtils.GetNonce()},
                         {"access_key", _accessKeyId},
                         {"base_sdk_version", "TeaSDK-2.0"},
-                        {"sdk_version", "1.12.62"},
+                        {"sdk_version", "1.12.63"},
                         {"_prod_code", "INSURANCE_SAAS"},
                         {"_prod_channel", "undefined"},
                     };
@@ -1047,6 +1047,52 @@ namespace AntChain.SDK.INSURANCE_SAAS
         {
             AlibabaCloud.TeaUtil.Common.ValidateModel(request);
             return TeaModel.ToObject<V2AasDataBankcardlivenessCallbackResponse>(await DoRequestAsync("1.0", "antcloud.insurancesaas.data.bankcardliveness.callback.v2", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /// <term><b>Description:</b></term>
+        /// <description>
+        /// <para>Description: 营销人群底包析出结果查询
+        /// Summary: 营销人群底包析出结果查询</para>
+        /// </description>
+        public GetMktExtresulturlResponse GetMktExtresulturl(GetMktExtresulturlRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return GetMktExtresulturlEx(request, headers, runtime);
+        }
+
+        /// <term><b>Description:</b></term>
+        /// <description>
+        /// <para>Description: 营销人群底包析出结果查询
+        /// Summary: 营销人群底包析出结果查询</para>
+        /// </description>
+        public async Task<GetMktExtresulturlResponse> GetMktExtresulturlAsync(GetMktExtresulturlRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return await GetMktExtresulturlExAsync(request, headers, runtime);
+        }
+
+        /// <term><b>Description:</b></term>
+        /// <description>
+        /// <para>Description: 营销人群底包析出结果查询
+        /// Summary: 营销人群底包析出结果查询</para>
+        /// </description>
+        public GetMktExtresulturlResponse GetMktExtresulturlEx(GetMktExtresulturlRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<GetMktExtresulturlResponse>(DoRequest("1.0", "antcloud.insurance.mkt.extresulturl.get", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /// <term><b>Description:</b></term>
+        /// <description>
+        /// <para>Description: 营销人群底包析出结果查询
+        /// Summary: 营销人群底包析出结果查询</para>
+        /// </description>
+        public async Task<GetMktExtresulturlResponse> GetMktExtresulturlExAsync(GetMktExtresulturlRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<GetMktExtresulturlResponse>(await DoRequestAsync("1.0", "antcloud.insurance.mkt.extresulturl.get", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
         }
 
         /// <term><b>Description:</b></term>
