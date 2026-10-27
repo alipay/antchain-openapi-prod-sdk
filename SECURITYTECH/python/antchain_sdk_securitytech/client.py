@@ -135,7 +135,7 @@ class Client:
                     'req_msg_id': AntchainUtils.get_nonce(),
                     'access_key': self._access_key_id,
                     'base_sdk_version': 'TeaSDK-2.0',
-                    'sdk_version': '1.7.35',
+                    'sdk_version': '1.7.36',
                     '_prod_code': 'SECURITYTECH',
                     '_prod_channel': 'undefined'
                 }
@@ -239,7 +239,7 @@ class Client:
                     'req_msg_id': AntchainUtils.get_nonce(),
                     'access_key': self._access_key_id,
                     'base_sdk_version': 'TeaSDK-2.0',
-                    'sdk_version': '1.7.35',
+                    'sdk_version': '1.7.36',
                     '_prod_code': 'SECURITYTECH',
                     '_prod_channel': 'undefined'
                 }
@@ -4793,6 +4793,510 @@ class Client:
         return TeaCore.from_map(
             securitytech_models.NotifyPoiCouponResponse(),
             await self.do_request_async('1.0', 'antsecuritytech.gateway.poi.coupon.notify', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def save_health_contact(
+        self,
+        request: securitytech_models.SaveHealthContactRequest,
+    ) -> securitytech_models.SaveHealthContactResponse:
+        """
+        Description: 保存设备联系人
+        Summary: 保存设备联系人
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.save_health_contact_ex(request, headers, runtime)
+
+    async def save_health_contact_async(
+        self,
+        request: securitytech_models.SaveHealthContactRequest,
+    ) -> securitytech_models.SaveHealthContactResponse:
+        """
+        Description: 保存设备联系人
+        Summary: 保存设备联系人
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.save_health_contact_ex_async(request, headers, runtime)
+
+    def save_health_contact_ex(
+        self,
+        request: securitytech_models.SaveHealthContactRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> securitytech_models.SaveHealthContactResponse:
+        """
+        Description: 保存设备联系人
+        Summary: 保存设备联系人
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            securitytech_models.SaveHealthContactResponse(),
+            self.do_request('1.0', 'antsecuritytech.gateway.health.contact.save', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def save_health_contact_ex_async(
+        self,
+        request: securitytech_models.SaveHealthContactRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> securitytech_models.SaveHealthContactResponse:
+        """
+        Description: 保存设备联系人
+        Summary: 保存设备联系人
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            securitytech_models.SaveHealthContactResponse(),
+            await self.do_request_async('1.0', 'antsecuritytech.gateway.health.contact.save', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def delete_health_contact(
+        self,
+        request: securitytech_models.DeleteHealthContactRequest,
+    ) -> securitytech_models.DeleteHealthContactResponse:
+        """
+        Description: 删除设备联系人
+        Summary: 删除设备联系人
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.delete_health_contact_ex(request, headers, runtime)
+
+    async def delete_health_contact_async(
+        self,
+        request: securitytech_models.DeleteHealthContactRequest,
+    ) -> securitytech_models.DeleteHealthContactResponse:
+        """
+        Description: 删除设备联系人
+        Summary: 删除设备联系人
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.delete_health_contact_ex_async(request, headers, runtime)
+
+    def delete_health_contact_ex(
+        self,
+        request: securitytech_models.DeleteHealthContactRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> securitytech_models.DeleteHealthContactResponse:
+        """
+        Description: 删除设备联系人
+        Summary: 删除设备联系人
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            securitytech_models.DeleteHealthContactResponse(),
+            self.do_request('1.0', 'antsecuritytech.gateway.health.contact.delete', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def delete_health_contact_ex_async(
+        self,
+        request: securitytech_models.DeleteHealthContactRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> securitytech_models.DeleteHealthContactResponse:
+        """
+        Description: 删除设备联系人
+        Summary: 删除设备联系人
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            securitytech_models.DeleteHealthContactResponse(),
+            await self.do_request_async('1.0', 'antsecuritytech.gateway.health.contact.delete', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def query_health_contact(
+        self,
+        request: securitytech_models.QueryHealthContactRequest,
+    ) -> securitytech_models.QueryHealthContactResponse:
+        """
+        Description: 根据设备唯一id查询联系人信息列表
+        Summary: 根据设备唯一id查询联系人信息列表
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.query_health_contact_ex(request, headers, runtime)
+
+    async def query_health_contact_async(
+        self,
+        request: securitytech_models.QueryHealthContactRequest,
+    ) -> securitytech_models.QueryHealthContactResponse:
+        """
+        Description: 根据设备唯一id查询联系人信息列表
+        Summary: 根据设备唯一id查询联系人信息列表
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.query_health_contact_ex_async(request, headers, runtime)
+
+    def query_health_contact_ex(
+        self,
+        request: securitytech_models.QueryHealthContactRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> securitytech_models.QueryHealthContactResponse:
+        """
+        Description: 根据设备唯一id查询联系人信息列表
+        Summary: 根据设备唯一id查询联系人信息列表
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            securitytech_models.QueryHealthContactResponse(),
+            self.do_request('1.0', 'antsecuritytech.gateway.health.contact.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def query_health_contact_ex_async(
+        self,
+        request: securitytech_models.QueryHealthContactRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> securitytech_models.QueryHealthContactResponse:
+        """
+        Description: 根据设备唯一id查询联系人信息列表
+        Summary: 根据设备唯一id查询联系人信息列表
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            securitytech_models.QueryHealthContactResponse(),
+            await self.do_request_async('1.0', 'antsecuritytech.gateway.health.contact.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def register_health_device(
+        self,
+        request: securitytech_models.RegisterHealthDeviceRequest,
+    ) -> securitytech_models.RegisterHealthDeviceResponse:
+        """
+        Description: 品牌方设备校验并绑定
+        Summary: 品牌方设备校验并绑定
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.register_health_device_ex(request, headers, runtime)
+
+    async def register_health_device_async(
+        self,
+        request: securitytech_models.RegisterHealthDeviceRequest,
+    ) -> securitytech_models.RegisterHealthDeviceResponse:
+        """
+        Description: 品牌方设备校验并绑定
+        Summary: 品牌方设备校验并绑定
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.register_health_device_ex_async(request, headers, runtime)
+
+    def register_health_device_ex(
+        self,
+        request: securitytech_models.RegisterHealthDeviceRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> securitytech_models.RegisterHealthDeviceResponse:
+        """
+        Description: 品牌方设备校验并绑定
+        Summary: 品牌方设备校验并绑定
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            securitytech_models.RegisterHealthDeviceResponse(),
+            self.do_request('1.0', 'antsecuritytech.gateway.health.device.register', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def register_health_device_ex_async(
+        self,
+        request: securitytech_models.RegisterHealthDeviceRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> securitytech_models.RegisterHealthDeviceResponse:
+        """
+        Description: 品牌方设备校验并绑定
+        Summary: 品牌方设备校验并绑定
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            securitytech_models.RegisterHealthDeviceResponse(),
+            await self.do_request_async('1.0', 'antsecuritytech.gateway.health.device.register', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def reset_health_device(
+        self,
+        request: securitytech_models.ResetHealthDeviceRequest,
+    ) -> securitytech_models.ResetHealthDeviceResponse:
+        """
+        Description: 品牌方设备解除绑定
+        Summary: 品牌方设备解除绑定
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.reset_health_device_ex(request, headers, runtime)
+
+    async def reset_health_device_async(
+        self,
+        request: securitytech_models.ResetHealthDeviceRequest,
+    ) -> securitytech_models.ResetHealthDeviceResponse:
+        """
+        Description: 品牌方设备解除绑定
+        Summary: 品牌方设备解除绑定
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.reset_health_device_ex_async(request, headers, runtime)
+
+    def reset_health_device_ex(
+        self,
+        request: securitytech_models.ResetHealthDeviceRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> securitytech_models.ResetHealthDeviceResponse:
+        """
+        Description: 品牌方设备解除绑定
+        Summary: 品牌方设备解除绑定
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            securitytech_models.ResetHealthDeviceResponse(),
+            self.do_request('1.0', 'antsecuritytech.gateway.health.device.reset', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def reset_health_device_ex_async(
+        self,
+        request: securitytech_models.ResetHealthDeviceRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> securitytech_models.ResetHealthDeviceResponse:
+        """
+        Description: 品牌方设备解除绑定
+        Summary: 品牌方设备解除绑定
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            securitytech_models.ResetHealthDeviceResponse(),
+            await self.do_request_async('1.0', 'antsecuritytech.gateway.health.device.reset', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def query_health_device(
+        self,
+        request: securitytech_models.QueryHealthDeviceRequest,
+    ) -> securitytech_models.QueryHealthDeviceResponse:
+        """
+        Description: 查询设备详细信息
+        Summary: 查询设备详细信息
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.query_health_device_ex(request, headers, runtime)
+
+    async def query_health_device_async(
+        self,
+        request: securitytech_models.QueryHealthDeviceRequest,
+    ) -> securitytech_models.QueryHealthDeviceResponse:
+        """
+        Description: 查询设备详细信息
+        Summary: 查询设备详细信息
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.query_health_device_ex_async(request, headers, runtime)
+
+    def query_health_device_ex(
+        self,
+        request: securitytech_models.QueryHealthDeviceRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> securitytech_models.QueryHealthDeviceResponse:
+        """
+        Description: 查询设备详细信息
+        Summary: 查询设备详细信息
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            securitytech_models.QueryHealthDeviceResponse(),
+            self.do_request('1.0', 'antsecuritytech.gateway.health.device.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def query_health_device_ex_async(
+        self,
+        request: securitytech_models.QueryHealthDeviceRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> securitytech_models.QueryHealthDeviceResponse:
+        """
+        Description: 查询设备详细信息
+        Summary: 查询设备详细信息
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            securitytech_models.QueryHealthDeviceResponse(),
+            await self.do_request_async('1.0', 'antsecuritytech.gateway.health.device.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def query_health_location(
+        self,
+        request: securitytech_models.QueryHealthLocationRequest,
+    ) -> securitytech_models.QueryHealthLocationResponse:
+        """
+        Description: 查询设备定位信息
+        Summary: 查询设备定位信息
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.query_health_location_ex(request, headers, runtime)
+
+    async def query_health_location_async(
+        self,
+        request: securitytech_models.QueryHealthLocationRequest,
+    ) -> securitytech_models.QueryHealthLocationResponse:
+        """
+        Description: 查询设备定位信息
+        Summary: 查询设备定位信息
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.query_health_location_ex_async(request, headers, runtime)
+
+    def query_health_location_ex(
+        self,
+        request: securitytech_models.QueryHealthLocationRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> securitytech_models.QueryHealthLocationResponse:
+        """
+        Description: 查询设备定位信息
+        Summary: 查询设备定位信息
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            securitytech_models.QueryHealthLocationResponse(),
+            self.do_request('1.0', 'antsecuritytech.gateway.health.location.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def query_health_location_ex_async(
+        self,
+        request: securitytech_models.QueryHealthLocationRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> securitytech_models.QueryHealthLocationResponse:
+        """
+        Description: 查询设备定位信息
+        Summary: 查询设备定位信息
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            securitytech_models.QueryHealthLocationResponse(),
+            await self.do_request_async('1.0', 'antsecuritytech.gateway.health.location.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def query_health_data(
+        self,
+        request: securitytech_models.QueryHealthDataRequest,
+    ) -> securitytech_models.QueryHealthDataResponse:
+        """
+        Description: 查询设备健康指标数据
+        Summary: 查询设备健康指标数据
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.query_health_data_ex(request, headers, runtime)
+
+    async def query_health_data_async(
+        self,
+        request: securitytech_models.QueryHealthDataRequest,
+    ) -> securitytech_models.QueryHealthDataResponse:
+        """
+        Description: 查询设备健康指标数据
+        Summary: 查询设备健康指标数据
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.query_health_data_ex_async(request, headers, runtime)
+
+    def query_health_data_ex(
+        self,
+        request: securitytech_models.QueryHealthDataRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> securitytech_models.QueryHealthDataResponse:
+        """
+        Description: 查询设备健康指标数据
+        Summary: 查询设备健康指标数据
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            securitytech_models.QueryHealthDataResponse(),
+            self.do_request('1.0', 'antsecuritytech.gateway.health.data.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def query_health_data_ex_async(
+        self,
+        request: securitytech_models.QueryHealthDataRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> securitytech_models.QueryHealthDataResponse:
+        """
+        Description: 查询设备健康指标数据
+        Summary: 查询设备健康指标数据
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            securitytech_models.QueryHealthDataResponse(),
+            await self.do_request_async('1.0', 'antsecuritytech.gateway.health.data.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def report_health_data(
+        self,
+        request: securitytech_models.ReportHealthDataRequest,
+    ) -> securitytech_models.ReportHealthDataResponse:
+        """
+        Description: 设备厂商标准化数据上报
+        Summary: 设备厂商标准化数据上报
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.report_health_data_ex(request, headers, runtime)
+
+    async def report_health_data_async(
+        self,
+        request: securitytech_models.ReportHealthDataRequest,
+    ) -> securitytech_models.ReportHealthDataResponse:
+        """
+        Description: 设备厂商标准化数据上报
+        Summary: 设备厂商标准化数据上报
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.report_health_data_ex_async(request, headers, runtime)
+
+    def report_health_data_ex(
+        self,
+        request: securitytech_models.ReportHealthDataRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> securitytech_models.ReportHealthDataResponse:
+        """
+        Description: 设备厂商标准化数据上报
+        Summary: 设备厂商标准化数据上报
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            securitytech_models.ReportHealthDataResponse(),
+            self.do_request('1.0', 'antsecuritytech.gateway.health.data.report', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def report_health_data_ex_async(
+        self,
+        request: securitytech_models.ReportHealthDataRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> securitytech_models.ReportHealthDataResponse:
+        """
+        Description: 设备厂商标准化数据上报
+        Summary: 设备厂商标准化数据上报
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            securitytech_models.ReportHealthDataResponse(),
+            await self.do_request_async('1.0', 'antsecuritytech.gateway.health.data.report', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
     def create_bssecpic(

@@ -1732,6 +1732,97 @@ class SimCarLocationInfo(TeaModel):
         return self
 
 
+class HealthDeviceInfo(TeaModel):
+    def __init__(
+        self,
+        channel_id: str = None,
+        tuid: str = None,
+        sn: str = None,
+        device_type: str = None,
+        device_model: str = None,
+        device_name: str = None,
+        status: int = None,
+        battery: int = None,
+        wear: bool = None,
+        extra_info: str = None,
+    ):
+        # 品牌方渠道标识
+        self.channel_id = channel_id
+        # 设备唯一id
+        self.tuid = tuid
+        # 设备sn号
+        self.sn = sn
+        # 设备类型 WATCH-手表
+        self.device_type = device_type
+        # 设备型号
+        self.device_model = device_model
+        # 设备名称
+        self.device_name = device_name
+        # 设备状态：0-未激活 1-在线 2-离线
+        self.status = status
+        # 电量百分比（0~100）
+        self.battery = battery
+        # 佩戴状态：true-已佩戴 false-未佩戴
+        self.wear = wear
+        # 预留可扩展字段json
+        self.extra_info = extra_info
+
+    def validate(self):
+        self.validate_required(self.channel_id, 'channel_id')
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.channel_id is not None:
+            result['channel_id'] = self.channel_id
+        if self.tuid is not None:
+            result['tuid'] = self.tuid
+        if self.sn is not None:
+            result['sn'] = self.sn
+        if self.device_type is not None:
+            result['device_type'] = self.device_type
+        if self.device_model is not None:
+            result['device_model'] = self.device_model
+        if self.device_name is not None:
+            result['device_name'] = self.device_name
+        if self.status is not None:
+            result['status'] = self.status
+        if self.battery is not None:
+            result['battery'] = self.battery
+        if self.wear is not None:
+            result['wear'] = self.wear
+        if self.extra_info is not None:
+            result['extra_info'] = self.extra_info
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('channel_id') is not None:
+            self.channel_id = m.get('channel_id')
+        if m.get('tuid') is not None:
+            self.tuid = m.get('tuid')
+        if m.get('sn') is not None:
+            self.sn = m.get('sn')
+        if m.get('device_type') is not None:
+            self.device_type = m.get('device_type')
+        if m.get('device_model') is not None:
+            self.device_model = m.get('device_model')
+        if m.get('device_name') is not None:
+            self.device_name = m.get('device_name')
+        if m.get('status') is not None:
+            self.status = m.get('status')
+        if m.get('battery') is not None:
+            self.battery = m.get('battery')
+        if m.get('wear') is not None:
+            self.wear = m.get('wear')
+        if m.get('extra_info') is not None:
+            self.extra_info = m.get('extra_info')
+        return self
+
+
 class PointAccountInfo(TeaModel):
     def __init__(
         self,
@@ -2284,6 +2375,57 @@ class PoiMallPointRechargeInfo(TeaModel):
             self.traffic_platform = m.get('traffic_platform')
         if m.get('point_source') is not None:
             self.point_source = m.get('point_source')
+        return self
+
+
+class DeviceLocationInfo(TeaModel):
+    def __init__(
+        self,
+        lat: str = None,
+        lng: str = None,
+        location_time: str = None,
+        extra_info: str = None,
+    ):
+        # 纬度
+        self.lat = lat
+        # 经度
+        self.lng = lng
+        # 最后一次定位上报时间
+        self.location_time = location_time
+        # 预留可扩展字段json
+        self.extra_info = extra_info
+
+    def validate(self):
+        self.validate_required(self.lat, 'lat')
+        self.validate_required(self.lng, 'lng')
+        self.validate_required(self.location_time, 'location_time')
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.lat is not None:
+            result['lat'] = self.lat
+        if self.lng is not None:
+            result['lng'] = self.lng
+        if self.location_time is not None:
+            result['location_time'] = self.location_time
+        if self.extra_info is not None:
+            result['extra_info'] = self.extra_info
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('lat') is not None:
+            self.lat = m.get('lat')
+        if m.get('lng') is not None:
+            self.lng = m.get('lng')
+        if m.get('location_time') is not None:
+            self.location_time = m.get('location_time')
+        if m.get('extra_info') is not None:
+            self.extra_info = m.get('extra_info')
         return self
 
 
@@ -4971,6 +5113,64 @@ class PointReceiverInfo(TeaModel):
             self.mobile = m.get('mobile')
         if m.get('address') is not None:
             self.address = m.get('address')
+        return self
+
+
+class MetricItemInfo(TeaModel):
+    def __init__(
+        self,
+        metric_type: str = None,
+        measure_time: int = None,
+        value: str = None,
+        unit: str = None,
+        ext: str = None,
+    ):
+        # 指标类型 心率:HEART_RATE/血氧:BLOOD_OXYGEN/体温:BODY_TEMP/步数:STEPS/睡眠:SLEEP/呼吸率:RESP_RATE/压力:STRESS/疲劳:FATIGUE/情绪:EMOTION/...
+        self.metric_type = metric_type
+        # 测量时间(毫秒级时间戳)
+        self.measure_time = measure_time
+        # 指标值
+        self.value = value
+        # 指标值单位 -平台固定值
+        self.unit = unit
+        # 扩展字段（JSON），如睡眠阶段时长等
+        self.ext = ext
+
+    def validate(self):
+        self.validate_required(self.metric_type, 'metric_type')
+        self.validate_required(self.measure_time, 'measure_time')
+        self.validate_required(self.value, 'value')
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.metric_type is not None:
+            result['metric_type'] = self.metric_type
+        if self.measure_time is not None:
+            result['measure_time'] = self.measure_time
+        if self.value is not None:
+            result['value'] = self.value
+        if self.unit is not None:
+            result['unit'] = self.unit
+        if self.ext is not None:
+            result['ext'] = self.ext
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('metric_type') is not None:
+            self.metric_type = m.get('metric_type')
+        if m.get('measure_time') is not None:
+            self.measure_time = m.get('measure_time')
+        if m.get('value') is not None:
+            self.value = m.get('value')
+        if m.get('unit') is not None:
+            self.unit = m.get('unit')
+        if m.get('ext') is not None:
+            self.ext = m.get('ext')
         return self
 
 
@@ -15102,6 +15302,1164 @@ class NotifyPoiCouponResponse(TeaModel):
             self.notify_result = m.get('notify_result')
         if m.get('fail_reason') is not None:
             self.fail_reason = m.get('fail_reason')
+        return self
+
+
+class SaveHealthContactRequest(TeaModel):
+    def __init__(
+        self,
+        auth_token: str = None,
+        product_instance_id: str = None,
+        channel_id: str = None,
+        tuid: str = None,
+        contact_id: str = None,
+        priority: int = None,
+        contact_name: str = None,
+        contact_phone: str = None,
+        locked: bool = None,
+        extra_info: str = None,
+    ):
+        # OAuth模式下的授权token
+        self.auth_token = auth_token
+        self.product_instance_id = product_instance_id
+        # 品牌方渠道标识
+        self.channel_id = channel_id
+        # 设备唯一id
+        self.tuid = tuid
+        # 联系人业务id -为空时新增/不为空时编辑
+        self.contact_id = contact_id
+        # 键位设置优先级（1=红键, 2=黄键, 3=绿键）
+        self.priority = priority
+        # 联系人名称
+        self.contact_name = contact_name
+        # 呼叫联系人手机号
+        self.contact_phone = contact_phone
+        # 是否锁定 - 锁定时不允许c端用户修改联系人信息，可通过此接口修改相关信息以及解锁
+        self.locked = locked
+        # 预留可扩展字段
+        self.extra_info = extra_info
+
+    def validate(self):
+        self.validate_required(self.channel_id, 'channel_id')
+        self.validate_required(self.tuid, 'tuid')
+        self.validate_required(self.priority, 'priority')
+        self.validate_required(self.contact_name, 'contact_name')
+        self.validate_required(self.contact_phone, 'contact_phone')
+        self.validate_required(self.locked, 'locked')
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.auth_token is not None:
+            result['auth_token'] = self.auth_token
+        if self.product_instance_id is not None:
+            result['product_instance_id'] = self.product_instance_id
+        if self.channel_id is not None:
+            result['channel_id'] = self.channel_id
+        if self.tuid is not None:
+            result['tuid'] = self.tuid
+        if self.contact_id is not None:
+            result['contact_id'] = self.contact_id
+        if self.priority is not None:
+            result['priority'] = self.priority
+        if self.contact_name is not None:
+            result['contact_name'] = self.contact_name
+        if self.contact_phone is not None:
+            result['contact_phone'] = self.contact_phone
+        if self.locked is not None:
+            result['locked'] = self.locked
+        if self.extra_info is not None:
+            result['extra_info'] = self.extra_info
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('auth_token') is not None:
+            self.auth_token = m.get('auth_token')
+        if m.get('product_instance_id') is not None:
+            self.product_instance_id = m.get('product_instance_id')
+        if m.get('channel_id') is not None:
+            self.channel_id = m.get('channel_id')
+        if m.get('tuid') is not None:
+            self.tuid = m.get('tuid')
+        if m.get('contact_id') is not None:
+            self.contact_id = m.get('contact_id')
+        if m.get('priority') is not None:
+            self.priority = m.get('priority')
+        if m.get('contact_name') is not None:
+            self.contact_name = m.get('contact_name')
+        if m.get('contact_phone') is not None:
+            self.contact_phone = m.get('contact_phone')
+        if m.get('locked') is not None:
+            self.locked = m.get('locked')
+        if m.get('extra_info') is not None:
+            self.extra_info = m.get('extra_info')
+        return self
+
+
+class SaveHealthContactResponse(TeaModel):
+    def __init__(
+        self,
+        req_msg_id: str = None,
+        result_code: str = None,
+        result_msg: str = None,
+        contact_id: str = None,
+    ):
+        # 请求唯一ID，用于链路跟踪和问题排查
+        self.req_msg_id = req_msg_id
+        # 结果码，一般OK表示调用成功
+        self.result_code = result_code
+        # 异常信息的文本描述
+        self.result_msg = result_msg
+        # 联系人业务id
+        self.contact_id = contact_id
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.req_msg_id is not None:
+            result['req_msg_id'] = self.req_msg_id
+        if self.result_code is not None:
+            result['result_code'] = self.result_code
+        if self.result_msg is not None:
+            result['result_msg'] = self.result_msg
+        if self.contact_id is not None:
+            result['contact_id'] = self.contact_id
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('req_msg_id') is not None:
+            self.req_msg_id = m.get('req_msg_id')
+        if m.get('result_code') is not None:
+            self.result_code = m.get('result_code')
+        if m.get('result_msg') is not None:
+            self.result_msg = m.get('result_msg')
+        if m.get('contact_id') is not None:
+            self.contact_id = m.get('contact_id')
+        return self
+
+
+class DeleteHealthContactRequest(TeaModel):
+    def __init__(
+        self,
+        auth_token: str = None,
+        product_instance_id: str = None,
+        contanct_id: str = None,
+        channel_id: str = None,
+    ):
+        # OAuth模式下的授权token
+        self.auth_token = auth_token
+        self.product_instance_id = product_instance_id
+        # 联系人业务id
+        self.contanct_id = contanct_id
+        # 品牌方渠道标识
+        self.channel_id = channel_id
+
+    def validate(self):
+        self.validate_required(self.contanct_id, 'contanct_id')
+        self.validate_required(self.channel_id, 'channel_id')
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.auth_token is not None:
+            result['auth_token'] = self.auth_token
+        if self.product_instance_id is not None:
+            result['product_instance_id'] = self.product_instance_id
+        if self.contanct_id is not None:
+            result['contanct_id'] = self.contanct_id
+        if self.channel_id is not None:
+            result['channel_id'] = self.channel_id
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('auth_token') is not None:
+            self.auth_token = m.get('auth_token')
+        if m.get('product_instance_id') is not None:
+            self.product_instance_id = m.get('product_instance_id')
+        if m.get('contanct_id') is not None:
+            self.contanct_id = m.get('contanct_id')
+        if m.get('channel_id') is not None:
+            self.channel_id = m.get('channel_id')
+        return self
+
+
+class DeleteHealthContactResponse(TeaModel):
+    def __init__(
+        self,
+        req_msg_id: str = None,
+        result_code: str = None,
+        result_msg: str = None,
+        result: bool = None,
+    ):
+        # 请求唯一ID，用于链路跟踪和问题排查
+        self.req_msg_id = req_msg_id
+        # 结果码，一般OK表示调用成功
+        self.result_code = result_code
+        # 异常信息的文本描述
+        self.result_msg = result_msg
+        # 删除结果
+        self.result = result
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.req_msg_id is not None:
+            result['req_msg_id'] = self.req_msg_id
+        if self.result_code is not None:
+            result['result_code'] = self.result_code
+        if self.result_msg is not None:
+            result['result_msg'] = self.result_msg
+        if self.result is not None:
+            result['result'] = self.result
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('req_msg_id') is not None:
+            self.req_msg_id = m.get('req_msg_id')
+        if m.get('result_code') is not None:
+            self.result_code = m.get('result_code')
+        if m.get('result_msg') is not None:
+            self.result_msg = m.get('result_msg')
+        if m.get('result') is not None:
+            self.result = m.get('result')
+        return self
+
+
+class QueryHealthContactRequest(TeaModel):
+    def __init__(
+        self,
+        auth_token: str = None,
+        product_instance_id: str = None,
+        channel_id: str = None,
+        tuid: str = None,
+        extra_info: str = None,
+    ):
+        # OAuth模式下的授权token
+        self.auth_token = auth_token
+        self.product_instance_id = product_instance_id
+        # 品牌方渠道标识
+        self.channel_id = channel_id
+        # 设备唯一id
+        self.tuid = tuid
+        # 预留扩展字段
+        self.extra_info = extra_info
+
+    def validate(self):
+        self.validate_required(self.channel_id, 'channel_id')
+        self.validate_required(self.tuid, 'tuid')
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.auth_token is not None:
+            result['auth_token'] = self.auth_token
+        if self.product_instance_id is not None:
+            result['product_instance_id'] = self.product_instance_id
+        if self.channel_id is not None:
+            result['channel_id'] = self.channel_id
+        if self.tuid is not None:
+            result['tuid'] = self.tuid
+        if self.extra_info is not None:
+            result['extra_info'] = self.extra_info
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('auth_token') is not None:
+            self.auth_token = m.get('auth_token')
+        if m.get('product_instance_id') is not None:
+            self.product_instance_id = m.get('product_instance_id')
+        if m.get('channel_id') is not None:
+            self.channel_id = m.get('channel_id')
+        if m.get('tuid') is not None:
+            self.tuid = m.get('tuid')
+        if m.get('extra_info') is not None:
+            self.extra_info = m.get('extra_info')
+        return self
+
+
+class QueryHealthContactResponse(TeaModel):
+    def __init__(
+        self,
+        req_msg_id: str = None,
+        result_code: str = None,
+        result_msg: str = None,
+        channe_id: str = None,
+        tuid: str = None,
+        contact_id: str = None,
+        priority: int = None,
+        contact_name: str = None,
+        contact_phone: str = None,
+        locked: bool = None,
+        extra_info: str = None,
+    ):
+        # 请求唯一ID，用于链路跟踪和问题排查
+        self.req_msg_id = req_msg_id
+        # 结果码，一般OK表示调用成功
+        self.result_code = result_code
+        # 异常信息的文本描述
+        self.result_msg = result_msg
+        # 品牌方渠道标识
+        self.channe_id = channe_id
+        # 设备唯一id
+        self.tuid = tuid
+        # 联系人业务id
+        self.contact_id = contact_id
+        # 键位设置优先级（1=红键, 2=黄键, 3=绿键）
+        self.priority = priority
+        # 联系人姓名
+        self.contact_name = contact_name
+        # 联系人手机号
+        self.contact_phone = contact_phone
+        # 是否锁定 - 锁定时不允许c端用户修改联系人信息
+        self.locked = locked
+        # 预留可扩展字段
+        self.extra_info = extra_info
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.req_msg_id is not None:
+            result['req_msg_id'] = self.req_msg_id
+        if self.result_code is not None:
+            result['result_code'] = self.result_code
+        if self.result_msg is not None:
+            result['result_msg'] = self.result_msg
+        if self.channe_id is not None:
+            result['channe_id'] = self.channe_id
+        if self.tuid is not None:
+            result['tuid'] = self.tuid
+        if self.contact_id is not None:
+            result['contact_id'] = self.contact_id
+        if self.priority is not None:
+            result['priority'] = self.priority
+        if self.contact_name is not None:
+            result['contact_name'] = self.contact_name
+        if self.contact_phone is not None:
+            result['contact_phone'] = self.contact_phone
+        if self.locked is not None:
+            result['locked'] = self.locked
+        if self.extra_info is not None:
+            result['extra_info'] = self.extra_info
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('req_msg_id') is not None:
+            self.req_msg_id = m.get('req_msg_id')
+        if m.get('result_code') is not None:
+            self.result_code = m.get('result_code')
+        if m.get('result_msg') is not None:
+            self.result_msg = m.get('result_msg')
+        if m.get('channe_id') is not None:
+            self.channe_id = m.get('channe_id')
+        if m.get('tuid') is not None:
+            self.tuid = m.get('tuid')
+        if m.get('contact_id') is not None:
+            self.contact_id = m.get('contact_id')
+        if m.get('priority') is not None:
+            self.priority = m.get('priority')
+        if m.get('contact_name') is not None:
+            self.contact_name = m.get('contact_name')
+        if m.get('contact_phone') is not None:
+            self.contact_phone = m.get('contact_phone')
+        if m.get('locked') is not None:
+            self.locked = m.get('locked')
+        if m.get('extra_info') is not None:
+            self.extra_info = m.get('extra_info')
+        return self
+
+
+class RegisterHealthDeviceRequest(TeaModel):
+    def __init__(
+        self,
+        auth_token: str = None,
+        product_instance_id: str = None,
+        channel_id: str = None,
+        tuid: str = None,
+        sn: str = None,
+        clear_history: bool = None,
+        extra_info: str = None,
+    ):
+        # OAuth模式下的授权token
+        self.auth_token = auth_token
+        self.product_instance_id = product_instance_id
+        # 品牌方渠道标识
+        self.channel_id = channel_id
+        # 设备唯一id  与sn不可同时为空
+        self.tuid = tuid
+        # 设备sn号 与tuid不可同时为空
+        self.sn = sn
+        # 是否清除设备历史数据 true-清除/false-保留
+        self.clear_history = clear_history
+        # 预留可扩展字段
+        self.extra_info = extra_info
+
+    def validate(self):
+        self.validate_required(self.channel_id, 'channel_id')
+        self.validate_required(self.clear_history, 'clear_history')
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.auth_token is not None:
+            result['auth_token'] = self.auth_token
+        if self.product_instance_id is not None:
+            result['product_instance_id'] = self.product_instance_id
+        if self.channel_id is not None:
+            result['channel_id'] = self.channel_id
+        if self.tuid is not None:
+            result['tuid'] = self.tuid
+        if self.sn is not None:
+            result['sn'] = self.sn
+        if self.clear_history is not None:
+            result['clear_history'] = self.clear_history
+        if self.extra_info is not None:
+            result['extra_info'] = self.extra_info
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('auth_token') is not None:
+            self.auth_token = m.get('auth_token')
+        if m.get('product_instance_id') is not None:
+            self.product_instance_id = m.get('product_instance_id')
+        if m.get('channel_id') is not None:
+            self.channel_id = m.get('channel_id')
+        if m.get('tuid') is not None:
+            self.tuid = m.get('tuid')
+        if m.get('sn') is not None:
+            self.sn = m.get('sn')
+        if m.get('clear_history') is not None:
+            self.clear_history = m.get('clear_history')
+        if m.get('extra_info') is not None:
+            self.extra_info = m.get('extra_info')
+        return self
+
+
+class RegisterHealthDeviceResponse(TeaModel):
+    def __init__(
+        self,
+        req_msg_id: str = None,
+        result_code: str = None,
+        result_msg: str = None,
+        channel_id: str = None,
+        tuid: str = None,
+        sn: str = None,
+        bind_status: str = None,
+        device_type: str = None,
+        device_model: str = None,
+        extra_info: str = None,
+    ):
+        # 请求唯一ID，用于链路跟踪和问题排查
+        self.req_msg_id = req_msg_id
+        # 结果码，一般OK表示调用成功
+        self.result_code = result_code
+        # 异常信息的文本描述
+        self.result_msg = result_msg
+        # 品牌方渠道标识
+        self.channel_id = channel_id
+        # 设备唯一id
+        self.tuid = tuid
+        # 设备sn号
+        self.sn = sn
+        # 绑定状态
+        self.bind_status = bind_status
+        # 设备类型 WATCH-手表
+        self.device_type = device_type
+        # 设备型号
+        self.device_model = device_model
+        # 预留可扩展字段json
+        self.extra_info = extra_info
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.req_msg_id is not None:
+            result['req_msg_id'] = self.req_msg_id
+        if self.result_code is not None:
+            result['result_code'] = self.result_code
+        if self.result_msg is not None:
+            result['result_msg'] = self.result_msg
+        if self.channel_id is not None:
+            result['channel_id'] = self.channel_id
+        if self.tuid is not None:
+            result['tuid'] = self.tuid
+        if self.sn is not None:
+            result['sn'] = self.sn
+        if self.bind_status is not None:
+            result['bind_status'] = self.bind_status
+        if self.device_type is not None:
+            result['device_type'] = self.device_type
+        if self.device_model is not None:
+            result['device_model'] = self.device_model
+        if self.extra_info is not None:
+            result['extra_info'] = self.extra_info
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('req_msg_id') is not None:
+            self.req_msg_id = m.get('req_msg_id')
+        if m.get('result_code') is not None:
+            self.result_code = m.get('result_code')
+        if m.get('result_msg') is not None:
+            self.result_msg = m.get('result_msg')
+        if m.get('channel_id') is not None:
+            self.channel_id = m.get('channel_id')
+        if m.get('tuid') is not None:
+            self.tuid = m.get('tuid')
+        if m.get('sn') is not None:
+            self.sn = m.get('sn')
+        if m.get('bind_status') is not None:
+            self.bind_status = m.get('bind_status')
+        if m.get('device_type') is not None:
+            self.device_type = m.get('device_type')
+        if m.get('device_model') is not None:
+            self.device_model = m.get('device_model')
+        if m.get('extra_info') is not None:
+            self.extra_info = m.get('extra_info')
+        return self
+
+
+class ResetHealthDeviceRequest(TeaModel):
+    def __init__(
+        self,
+        auth_token: str = None,
+        product_instance_id: str = None,
+        channel_id: str = None,
+        tuid: str = None,
+        sn: str = None,
+        extra_info: str = None,
+    ):
+        # OAuth模式下的授权token
+        self.auth_token = auth_token
+        self.product_instance_id = product_instance_id
+        # 品牌方渠道标识
+        self.channel_id = channel_id
+        # 设备唯一id 与sn不可同时为空
+        self.tuid = tuid
+        # 设备sn号 与tuid不可同时为空
+        self.sn = sn
+        # 预留可扩展字段
+        self.extra_info = extra_info
+
+    def validate(self):
+        self.validate_required(self.channel_id, 'channel_id')
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.auth_token is not None:
+            result['auth_token'] = self.auth_token
+        if self.product_instance_id is not None:
+            result['product_instance_id'] = self.product_instance_id
+        if self.channel_id is not None:
+            result['channel_id'] = self.channel_id
+        if self.tuid is not None:
+            result['tuid'] = self.tuid
+        if self.sn is not None:
+            result['sn'] = self.sn
+        if self.extra_info is not None:
+            result['extra_info'] = self.extra_info
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('auth_token') is not None:
+            self.auth_token = m.get('auth_token')
+        if m.get('product_instance_id') is not None:
+            self.product_instance_id = m.get('product_instance_id')
+        if m.get('channel_id') is not None:
+            self.channel_id = m.get('channel_id')
+        if m.get('tuid') is not None:
+            self.tuid = m.get('tuid')
+        if m.get('sn') is not None:
+            self.sn = m.get('sn')
+        if m.get('extra_info') is not None:
+            self.extra_info = m.get('extra_info')
+        return self
+
+
+class ResetHealthDeviceResponse(TeaModel):
+    def __init__(
+        self,
+        req_msg_id: str = None,
+        result_code: str = None,
+        result_msg: str = None,
+        result: bool = None,
+    ):
+        # 请求唯一ID，用于链路跟踪和问题排查
+        self.req_msg_id = req_msg_id
+        # 结果码，一般OK表示调用成功
+        self.result_code = result_code
+        # 异常信息的文本描述
+        self.result_msg = result_msg
+        # 处理结果
+        self.result = result
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.req_msg_id is not None:
+            result['req_msg_id'] = self.req_msg_id
+        if self.result_code is not None:
+            result['result_code'] = self.result_code
+        if self.result_msg is not None:
+            result['result_msg'] = self.result_msg
+        if self.result is not None:
+            result['result'] = self.result
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('req_msg_id') is not None:
+            self.req_msg_id = m.get('req_msg_id')
+        if m.get('result_code') is not None:
+            self.result_code = m.get('result_code')
+        if m.get('result_msg') is not None:
+            self.result_msg = m.get('result_msg')
+        if m.get('result') is not None:
+            self.result = m.get('result')
+        return self
+
+
+class QueryHealthDeviceRequest(TeaModel):
+    def __init__(
+        self,
+        auth_token: str = None,
+        product_instance_id: str = None,
+        channel_id: str = None,
+        tuid: str = None,
+        sn: str = None,
+        extra_info: str = None,
+    ):
+        # OAuth模式下的授权token
+        self.auth_token = auth_token
+        self.product_instance_id = product_instance_id
+        # 品牌方渠道标识
+        self.channel_id = channel_id
+        # 设备唯一id
+        self.tuid = tuid
+        # 设备sn号
+        self.sn = sn
+        # 预留可扩展字段
+        self.extra_info = extra_info
+
+    def validate(self):
+        self.validate_required(self.channel_id, 'channel_id')
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.auth_token is not None:
+            result['auth_token'] = self.auth_token
+        if self.product_instance_id is not None:
+            result['product_instance_id'] = self.product_instance_id
+        if self.channel_id is not None:
+            result['channel_id'] = self.channel_id
+        if self.tuid is not None:
+            result['tuid'] = self.tuid
+        if self.sn is not None:
+            result['sn'] = self.sn
+        if self.extra_info is not None:
+            result['extra_info'] = self.extra_info
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('auth_token') is not None:
+            self.auth_token = m.get('auth_token')
+        if m.get('product_instance_id') is not None:
+            self.product_instance_id = m.get('product_instance_id')
+        if m.get('channel_id') is not None:
+            self.channel_id = m.get('channel_id')
+        if m.get('tuid') is not None:
+            self.tuid = m.get('tuid')
+        if m.get('sn') is not None:
+            self.sn = m.get('sn')
+        if m.get('extra_info') is not None:
+            self.extra_info = m.get('extra_info')
+        return self
+
+
+class QueryHealthDeviceResponse(TeaModel):
+    def __init__(
+        self,
+        req_msg_id: str = None,
+        result_code: str = None,
+        result_msg: str = None,
+        device_info: HealthDeviceInfo = None,
+        location_info: DeviceLocationInfo = None,
+    ):
+        # 请求唯一ID，用于链路跟踪和问题排查
+        self.req_msg_id = req_msg_id
+        # 结果码，一般OK表示调用成功
+        self.result_code = result_code
+        # 异常信息的文本描述
+        self.result_msg = result_msg
+        # 设备详细信息
+        self.device_info = device_info
+        # 设备定位信息
+        self.location_info = location_info
+
+    def validate(self):
+        if self.device_info:
+            self.device_info.validate()
+        if self.location_info:
+            self.location_info.validate()
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.req_msg_id is not None:
+            result['req_msg_id'] = self.req_msg_id
+        if self.result_code is not None:
+            result['result_code'] = self.result_code
+        if self.result_msg is not None:
+            result['result_msg'] = self.result_msg
+        if self.device_info is not None:
+            result['device_info'] = self.device_info.to_map()
+        if self.location_info is not None:
+            result['location_info'] = self.location_info.to_map()
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('req_msg_id') is not None:
+            self.req_msg_id = m.get('req_msg_id')
+        if m.get('result_code') is not None:
+            self.result_code = m.get('result_code')
+        if m.get('result_msg') is not None:
+            self.result_msg = m.get('result_msg')
+        if m.get('device_info') is not None:
+            temp_model = HealthDeviceInfo()
+            self.device_info = temp_model.from_map(m['device_info'])
+        if m.get('location_info') is not None:
+            temp_model = DeviceLocationInfo()
+            self.location_info = temp_model.from_map(m['location_info'])
+        return self
+
+
+class QueryHealthLocationRequest(TeaModel):
+    def __init__(
+        self,
+        auth_token: str = None,
+        product_instance_id: str = None,
+        channel_id: str = None,
+        tuid: str = None,
+        extra_info: str = None,
+    ):
+        # OAuth模式下的授权token
+        self.auth_token = auth_token
+        self.product_instance_id = product_instance_id
+        # 品牌方渠道标识
+        self.channel_id = channel_id
+        # 设备唯一id
+        self.tuid = tuid
+        # 预留可扩展字段
+        self.extra_info = extra_info
+
+    def validate(self):
+        self.validate_required(self.channel_id, 'channel_id')
+        self.validate_required(self.tuid, 'tuid')
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.auth_token is not None:
+            result['auth_token'] = self.auth_token
+        if self.product_instance_id is not None:
+            result['product_instance_id'] = self.product_instance_id
+        if self.channel_id is not None:
+            result['channel_id'] = self.channel_id
+        if self.tuid is not None:
+            result['tuid'] = self.tuid
+        if self.extra_info is not None:
+            result['extra_info'] = self.extra_info
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('auth_token') is not None:
+            self.auth_token = m.get('auth_token')
+        if m.get('product_instance_id') is not None:
+            self.product_instance_id = m.get('product_instance_id')
+        if m.get('channel_id') is not None:
+            self.channel_id = m.get('channel_id')
+        if m.get('tuid') is not None:
+            self.tuid = m.get('tuid')
+        if m.get('extra_info') is not None:
+            self.extra_info = m.get('extra_info')
+        return self
+
+
+class QueryHealthLocationResponse(TeaModel):
+    def __init__(
+        self,
+        req_msg_id: str = None,
+        result_code: str = None,
+        result_msg: str = None,
+        lat: str = None,
+        lng: str = None,
+        location_time: str = None,
+        extra_info: str = None,
+    ):
+        # 请求唯一ID，用于链路跟踪和问题排查
+        self.req_msg_id = req_msg_id
+        # 结果码，一般OK表示调用成功
+        self.result_code = result_code
+        # 异常信息的文本描述
+        self.result_msg = result_msg
+        # 纬度
+        self.lat = lat
+        # 经度
+        self.lng = lng
+        # 定位时间，格式 yyyy-MM-dd HH:mm:ss
+        self.location_time = location_time
+        # 预留可扩展字段json
+        self.extra_info = extra_info
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.req_msg_id is not None:
+            result['req_msg_id'] = self.req_msg_id
+        if self.result_code is not None:
+            result['result_code'] = self.result_code
+        if self.result_msg is not None:
+            result['result_msg'] = self.result_msg
+        if self.lat is not None:
+            result['lat'] = self.lat
+        if self.lng is not None:
+            result['lng'] = self.lng
+        if self.location_time is not None:
+            result['location_time'] = self.location_time
+        if self.extra_info is not None:
+            result['extra_info'] = self.extra_info
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('req_msg_id') is not None:
+            self.req_msg_id = m.get('req_msg_id')
+        if m.get('result_code') is not None:
+            self.result_code = m.get('result_code')
+        if m.get('result_msg') is not None:
+            self.result_msg = m.get('result_msg')
+        if m.get('lat') is not None:
+            self.lat = m.get('lat')
+        if m.get('lng') is not None:
+            self.lng = m.get('lng')
+        if m.get('location_time') is not None:
+            self.location_time = m.get('location_time')
+        if m.get('extra_info') is not None:
+            self.extra_info = m.get('extra_info')
+        return self
+
+
+class QueryHealthDataRequest(TeaModel):
+    def __init__(
+        self,
+        auth_token: str = None,
+        product_instance_id: str = None,
+        channel_id: str = None,
+        tuid: str = None,
+        metric_type: str = None,
+        start_time: int = None,
+        end_time: int = None,
+        extra_info: str = None,
+    ):
+        # OAuth模式下的授权token
+        self.auth_token = auth_token
+        self.product_instance_id = product_instance_id
+        # channel_id
+        self.channel_id = channel_id
+        # 设备唯一id
+        self.tuid = tuid
+        # 指标类型 心率:HEART_RATE/血氧:BLOOD_OXYGEN/体温:BODY_TEMP/步数:STEPS/睡眠:SLEEP/呼吸率:RESP_RATE/压力:STRESS/疲劳:FATIGUE/情绪:EMOTION
+        self.metric_type = metric_type
+        # 查询开始时间(毫秒级时间戳)
+        self.start_time = start_time
+        # 查询结束时间（毫秒级时间戳）
+        self.end_time = end_time
+        # 预留可扩展字段json
+        self.extra_info = extra_info
+
+    def validate(self):
+        self.validate_required(self.channel_id, 'channel_id')
+        self.validate_required(self.tuid, 'tuid')
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.auth_token is not None:
+            result['auth_token'] = self.auth_token
+        if self.product_instance_id is not None:
+            result['product_instance_id'] = self.product_instance_id
+        if self.channel_id is not None:
+            result['channel_id'] = self.channel_id
+        if self.tuid is not None:
+            result['tuid'] = self.tuid
+        if self.metric_type is not None:
+            result['metric_type'] = self.metric_type
+        if self.start_time is not None:
+            result['start_time'] = self.start_time
+        if self.end_time is not None:
+            result['end_time'] = self.end_time
+        if self.extra_info is not None:
+            result['extra_info'] = self.extra_info
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('auth_token') is not None:
+            self.auth_token = m.get('auth_token')
+        if m.get('product_instance_id') is not None:
+            self.product_instance_id = m.get('product_instance_id')
+        if m.get('channel_id') is not None:
+            self.channel_id = m.get('channel_id')
+        if m.get('tuid') is not None:
+            self.tuid = m.get('tuid')
+        if m.get('metric_type') is not None:
+            self.metric_type = m.get('metric_type')
+        if m.get('start_time') is not None:
+            self.start_time = m.get('start_time')
+        if m.get('end_time') is not None:
+            self.end_time = m.get('end_time')
+        if m.get('extra_info') is not None:
+            self.extra_info = m.get('extra_info')
+        return self
+
+
+class QueryHealthDataResponse(TeaModel):
+    def __init__(
+        self,
+        req_msg_id: str = None,
+        result_code: str = None,
+        result_msg: str = None,
+        metric_list: List[MetricItemInfo] = None,
+    ):
+        # 请求唯一ID，用于链路跟踪和问题排查
+        self.req_msg_id = req_msg_id
+        # 结果码，一般OK表示调用成功
+        self.result_code = result_code
+        # 异常信息的文本描述
+        self.result_msg = result_msg
+        # 健康指标数据列表
+        self.metric_list = metric_list
+
+    def validate(self):
+        if self.metric_list:
+            for k in self.metric_list:
+                if k:
+                    k.validate()
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.req_msg_id is not None:
+            result['req_msg_id'] = self.req_msg_id
+        if self.result_code is not None:
+            result['result_code'] = self.result_code
+        if self.result_msg is not None:
+            result['result_msg'] = self.result_msg
+        result['metric_list'] = []
+        if self.metric_list is not None:
+            for k in self.metric_list:
+                result['metric_list'].append(k.to_map() if k else None)
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('req_msg_id') is not None:
+            self.req_msg_id = m.get('req_msg_id')
+        if m.get('result_code') is not None:
+            self.result_code = m.get('result_code')
+        if m.get('result_msg') is not None:
+            self.result_msg = m.get('result_msg')
+        self.metric_list = []
+        if m.get('metric_list') is not None:
+            for k in m.get('metric_list'):
+                temp_model = MetricItemInfo()
+                self.metric_list.append(temp_model.from_map(k))
+        return self
+
+
+class ReportHealthDataRequest(TeaModel):
+    def __init__(
+        self,
+        auth_token: str = None,
+        product_instance_id: str = None,
+        tuid: str = None,
+        timestamp: int = None,
+        data_category: str = None,
+        payload: str = None,
+    ):
+        # OAuth模式下的授权token
+        self.auth_token = auth_token
+        self.product_instance_id = product_instance_id
+        # 设备唯一id
+        self.tuid = tuid
+        # 上报时间时间戳
+        self.timestamp = timestamp
+        # 数据类别 健康指标:HEALTH_METRIC/GPS定位:GPS_LOCATION/告警事件:ALERT_EVENT/设备信息:DEVICE_INFO
+        self.data_category = data_category
+        # 数据内容 json传输，与不同category一一映射
+        self.payload = payload
+
+    def validate(self):
+        self.validate_required(self.tuid, 'tuid')
+        self.validate_required(self.timestamp, 'timestamp')
+        self.validate_required(self.data_category, 'data_category')
+        self.validate_required(self.payload, 'payload')
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.auth_token is not None:
+            result['auth_token'] = self.auth_token
+        if self.product_instance_id is not None:
+            result['product_instance_id'] = self.product_instance_id
+        if self.tuid is not None:
+            result['tuid'] = self.tuid
+        if self.timestamp is not None:
+            result['timestamp'] = self.timestamp
+        if self.data_category is not None:
+            result['data_category'] = self.data_category
+        if self.payload is not None:
+            result['payload'] = self.payload
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('auth_token') is not None:
+            self.auth_token = m.get('auth_token')
+        if m.get('product_instance_id') is not None:
+            self.product_instance_id = m.get('product_instance_id')
+        if m.get('tuid') is not None:
+            self.tuid = m.get('tuid')
+        if m.get('timestamp') is not None:
+            self.timestamp = m.get('timestamp')
+        if m.get('data_category') is not None:
+            self.data_category = m.get('data_category')
+        if m.get('payload') is not None:
+            self.payload = m.get('payload')
+        return self
+
+
+class ReportHealthDataResponse(TeaModel):
+    def __init__(
+        self,
+        req_msg_id: str = None,
+        result_code: str = None,
+        result_msg: str = None,
+    ):
+        # 请求唯一ID，用于链路跟踪和问题排查
+        self.req_msg_id = req_msg_id
+        # 结果码，一般OK表示调用成功
+        self.result_code = result_code
+        # 异常信息的文本描述
+        self.result_msg = result_msg
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.req_msg_id is not None:
+            result['req_msg_id'] = self.req_msg_id
+        if self.result_code is not None:
+            result['result_code'] = self.result_code
+        if self.result_msg is not None:
+            result['result_msg'] = self.result_msg
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('req_msg_id') is not None:
+            self.req_msg_id = m.get('req_msg_id')
+        if m.get('result_code') is not None:
+            self.result_code = m.get('result_code')
+        if m.get('result_msg') is not None:
+            self.result_msg = m.get('result_msg')
         return self
 
 
