@@ -685,7 +685,7 @@ func (s *InitPacks) SetCount(v int64) *InitPacks {
 }
 
 // 键值对
-type NameValuePair struct {
+type XNameValuePair struct {
 	// 键名
 	// example:
 	//
@@ -698,20 +698,20 @@ type NameValuePair struct {
 	Value *string `json:"value,omitempty" xml:"value,omitempty" require:"true"`
 }
 
-func (s NameValuePair) String() string {
+func (s XNameValuePair) String() string {
 	return tea.Prettify(s)
 }
 
-func (s NameValuePair) GoString() string {
+func (s XNameValuePair) GoString() string {
 	return s.String()
 }
 
-func (s *NameValuePair) SetName(v string) *NameValuePair {
+func (s *XNameValuePair) SetName(v string) *XNameValuePair {
 	s.Name = &v
 	return s
 }
 
-func (s *NameValuePair) SetValue(v string) *NameValuePair {
+func (s *XNameValuePair) SetValue(v string) *XNameValuePair {
 	s.Value = &v
 	return s
 }
@@ -1461,8 +1461,6 @@ func (s *QuerySsResponse) SetId(v string) *QuerySsResponse {
 type CreateAntcloudGatewayxFileUploadRequest struct {
 	// OAuth模式下的授权token
 	AuthToken *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
-	// 产品方的api归属集群，即productInstanceId
-	ApiCluster *string `json:"api_cluster,omitempty" xml:"api_cluster,omitempty"`
 	// 上传文件作用的openapi method
 	ApiCode *string `json:"api_code,omitempty" xml:"api_code,omitempty" require:"true"`
 	// 文件标签，多个标签;分割
@@ -1473,6 +1471,8 @@ type CreateAntcloudGatewayxFileUploadRequest struct {
 	FileName *string `json:"file_name,omitempty" xml:"file_name,omitempty" maxLength:"100"`
 	// 文件的多媒体类型
 	MimeType *string `json:"mime_type,omitempty" xml:"mime_type,omitempty"`
+	// 产品方的api归属集群，即productInstanceId
+	ApiCluster *string `json:"api_cluster,omitempty" xml:"api_cluster,omitempty"`
 }
 
 func (s CreateAntcloudGatewayxFileUploadRequest) String() string {
@@ -1485,11 +1485,6 @@ func (s CreateAntcloudGatewayxFileUploadRequest) GoString() string {
 
 func (s *CreateAntcloudGatewayxFileUploadRequest) SetAuthToken(v string) *CreateAntcloudGatewayxFileUploadRequest {
 	s.AuthToken = &v
-	return s
-}
-
-func (s *CreateAntcloudGatewayxFileUploadRequest) SetApiCluster(v string) *CreateAntcloudGatewayxFileUploadRequest {
-	s.ApiCluster = &v
 	return s
 }
 
@@ -1518,6 +1513,11 @@ func (s *CreateAntcloudGatewayxFileUploadRequest) SetMimeType(v string) *CreateA
 	return s
 }
 
+func (s *CreateAntcloudGatewayxFileUploadRequest) SetApiCluster(v string) *CreateAntcloudGatewayxFileUploadRequest {
+	s.ApiCluster = &v
+	return s
+}
+
 type CreateAntcloudGatewayxFileUploadResponse struct {
 	// 请求唯一ID，用于链路跟踪和问题排查
 	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
@@ -1530,7 +1530,7 @@ type CreateAntcloudGatewayxFileUploadResponse struct {
 	// 32位文件唯一id
 	FileId *string `json:"file_id,omitempty" xml:"file_id,omitempty"`
 	// 放入http请求头里
-	UploadHeaders []*NameValuePair `json:"upload_headers,omitempty" xml:"upload_headers,omitempty" type:"Repeated"`
+	UploadHeaders []*XNameValuePair `json:"upload_headers,omitempty" xml:"upload_headers,omitempty" type:"Repeated"`
 	// 文件上传地址
 	UploadUrl *string `json:"upload_url,omitempty" xml:"upload_url,omitempty"`
 }
@@ -1568,7 +1568,7 @@ func (s *CreateAntcloudGatewayxFileUploadResponse) SetFileId(v string) *CreateAn
 	return s
 }
 
-func (s *CreateAntcloudGatewayxFileUploadResponse) SetUploadHeaders(v []*NameValuePair) *CreateAntcloudGatewayxFileUploadResponse {
+func (s *CreateAntcloudGatewayxFileUploadResponse) SetUploadHeaders(v []*XNameValuePair) *CreateAntcloudGatewayxFileUploadResponse {
 	s.UploadHeaders = v
 	return s
 }
@@ -1708,7 +1708,7 @@ func (client *Client) DoRequest(version *string, action *string, protocol *strin
 				"req_msg_id":       antchainutil.GetNonce(),
 				"access_key":       client.AccessKeyId,
 				"base_sdk_version": tea.String("TeaSDK-2.0"),
-				"sdk_version":      tea.String("1.0.16"),
+				"sdk_version":      tea.String("1.0.18"),
 				"_prod_code":       tea.String("TESTJZQ"),
 				"_prod_channel":    tea.String("default"),
 			}
