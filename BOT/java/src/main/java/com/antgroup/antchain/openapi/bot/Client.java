@@ -126,7 +126,7 @@ public class Client {
                     new TeaPair("req_msg_id", com.antgroup.antchain.openapi.antchain.util.AntchainUtils.getNonce()),
                     new TeaPair("access_key", _accessKeyId),
                     new TeaPair("base_sdk_version", "TeaSDK-2.0"),
-                    new TeaPair("sdk_version", "1.22.3"),
+                    new TeaPair("sdk_version", "1.22.4"),
                     new TeaPair("_prod_code", "BOT"),
                     new TeaPair("_prod_channel", "undefined")
                 );
@@ -8086,6 +8086,48 @@ public class Client {
 
         com.aliyun.teautil.Common.validateModel(request);
         return TeaModel.toModel(this.doRequest("1.0", "blockchain.bot.iotagent.plugin.test", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new TestIotagentPluginResponse());
+    }
+
+    /**
+     * <b>description</b> :
+     * <p>Description: 智能问数执行查询OB/STARROCKS 接口
+     * Summary: 智能问数执行查询OB/STARROCKS 接口</p>
+     */
+    public ExecDatalinkSourceResponse execDatalinkSource(ExecDatalinkSourceRequest request) throws Exception {
+        com.aliyun.teautil.models.RuntimeOptions runtime = new com.aliyun.teautil.models.RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.execDatalinkSourceEx(request, headers, runtime);
+    }
+
+    /**
+     * <b>description</b> :
+     * <p>Description: 智能问数执行查询OB/STARROCKS 接口
+     * Summary: 智能问数执行查询OB/STARROCKS 接口</p>
+     */
+    public ExecDatalinkSourceResponse execDatalinkSourceEx(ExecDatalinkSourceRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "blockchain.bot.datalink.source.exec", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new ExecDatalinkSourceResponse());
+    }
+
+    /**
+     * <b>description</b> :
+     * <p>Description: 问数查询数据信息
+     * Summary: 问数查询数据信息</p>
+     */
+    public QueryDatalinkSourceResponse queryDatalinkSource(QueryDatalinkSourceRequest request) throws Exception {
+        com.aliyun.teautil.models.RuntimeOptions runtime = new com.aliyun.teautil.models.RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.queryDatalinkSourceEx(request, headers, runtime);
+    }
+
+    /**
+     * <b>description</b> :
+     * <p>Description: 问数查询数据信息
+     * Summary: 问数查询数据信息</p>
+     */
+    public QueryDatalinkSourceResponse queryDatalinkSourceEx(QueryDatalinkSourceRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "blockchain.bot.datalink.source.query", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new QueryDatalinkSourceResponse());
     }
 
     /**
