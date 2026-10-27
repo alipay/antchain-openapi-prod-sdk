@@ -126,7 +126,7 @@ public class Client {
                     new TeaPair("req_msg_id", com.antgroup.antchain.openapi.antchain.util.AntchainUtils.getNonce()),
                     new TeaPair("access_key", _accessKeyId),
                     new TeaPair("base_sdk_version", "TeaSDK-2.0"),
-                    new TeaPair("sdk_version", "1.22.2"),
+                    new TeaPair("sdk_version", "1.22.3"),
                     new TeaPair("_prod_code", "BOT"),
                     new TeaPair("_prod_channel", "undefined")
                 );
@@ -2162,6 +2162,48 @@ public class Client {
     public GenerateAgentDailysummaryResponse generateAgentDailysummaryEx(GenerateAgentDailysummaryRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
         com.aliyun.teautil.Common.validateModel(request);
         return TeaModel.toModel(this.doRequest("1.0", "blockchain.bot.agent.dailysummary.generate", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new GenerateAgentDailysummaryResponse());
+    }
+
+    /**
+     * <b>description</b> :
+     * <p>Description: 智能问数执行查询OB/STARROCKS 接口
+     * Summary: 智能问数执行查询OB/STARROCKS 接口</p>
+     */
+    public ExecAskdataSourceResponse execAskdataSource(ExecAskdataSourceRequest request) throws Exception {
+        com.aliyun.teautil.models.RuntimeOptions runtime = new com.aliyun.teautil.models.RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.execAskdataSourceEx(request, headers, runtime);
+    }
+
+    /**
+     * <b>description</b> :
+     * <p>Description: 智能问数执行查询OB/STARROCKS 接口
+     * Summary: 智能问数执行查询OB/STARROCKS 接口</p>
+     */
+    public ExecAskdataSourceResponse execAskdataSourceEx(ExecAskdataSourceRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "blockchain.bot.askdata.source.exec", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new ExecAskdataSourceResponse());
+    }
+
+    /**
+     * <b>description</b> :
+     * <p>Description: 问数查询数据信息
+     * Summary: 问数查询数据信息</p>
+     */
+    public QueryAskdataSourceResponse queryAskdataSource(QueryAskdataSourceRequest request) throws Exception {
+        com.aliyun.teautil.models.RuntimeOptions runtime = new com.aliyun.teautil.models.RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.queryAskdataSourceEx(request, headers, runtime);
+    }
+
+    /**
+     * <b>description</b> :
+     * <p>Description: 问数查询数据信息
+     * Summary: 问数查询数据信息</p>
+     */
+    public QueryAskdataSourceResponse queryAskdataSourceEx(QueryAskdataSourceRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "blockchain.bot.askdata.source.query", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new QueryAskdataSourceResponse());
     }
 
     /**
