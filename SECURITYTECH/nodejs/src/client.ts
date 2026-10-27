@@ -1639,6 +1639,91 @@ export class SimCarLocationInfo extends $tea.Model {
   }
 }
 
+// 设备信息
+export class HealthDeviceInfo extends $tea.Model {
+  // 品牌方渠道标识
+  /**
+   * @example
+   * YIHU
+   */
+  channelId: string;
+  // 设备唯一id
+  /**
+   * @example
+   * 123
+   */
+  tuid?: string;
+  // 设备sn号
+  sn?: string;
+  // 设备类型 WATCH-手表
+  /**
+   * @example
+   * WATCH
+   */
+  deviceType?: string;
+  // 设备型号
+  deviceModel?: string;
+  // 设备名称
+  /**
+   * @example
+   * 爸爸的手表
+   */
+  deviceName?: string;
+  // 设备状态：0-未激活 1-在线 2-离线
+  /**
+   * @example
+   * 1
+   */
+  status?: number;
+  // 电量百分比（0~100）
+  /**
+   * @example
+   * 20
+   */
+  battery?: number;
+  // 佩戴状态：true-已佩戴 false-未佩戴
+  /**
+   * @example
+   * true
+   */
+  wear?: boolean;
+  // 预留可扩展字段json
+  extraInfo?: string;
+  static names(): { [key: string]: string } {
+    return {
+      channelId: 'channel_id',
+      tuid: 'tuid',
+      sn: 'sn',
+      deviceType: 'device_type',
+      deviceModel: 'device_model',
+      deviceName: 'device_name',
+      status: 'status',
+      battery: 'battery',
+      wear: 'wear',
+      extraInfo: 'extra_info',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      channelId: 'string',
+      tuid: 'string',
+      sn: 'string',
+      deviceType: 'string',
+      deviceModel: 'string',
+      deviceName: 'string',
+      status: 'number',
+      battery: 'number',
+      wear: 'boolean',
+      extraInfo: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
 // 积分账户信息
 export class PointAccountInfo extends $tea.Model {
   // 门店ID
@@ -2183,6 +2268,51 @@ export class PoiMallPointRechargeInfo extends $tea.Model {
       channelCode: 'string',
       trafficPlatform: 'string',
       pointSource: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+// 设备定位信息
+export class DeviceLocationInfo extends $tea.Model {
+  // 纬度
+  /**
+   * @example
+   * 30.288701
+   */
+  lat: string;
+  // 经度
+  /**
+   * @example
+   * 120.160256
+   */
+  lng: string;
+  // 最后一次定位上报时间
+  /**
+   * @example
+   * 2026-10-13 10:00:00
+   */
+  locationTime: string;
+  // 预留可扩展字段json
+  extraInfo?: string;
+  static names(): { [key: string]: string } {
+    return {
+      lat: 'lat',
+      lng: 'lng',
+      locationTime: 'location_time',
+      extraInfo: 'extra_info',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      lat: 'string',
+      lng: 'string',
+      locationTime: 'string',
+      extraInfo: 'string',
     };
   }
 
@@ -4672,6 +4802,47 @@ export class PointReceiverInfo extends $tea.Model {
       contactName: 'string',
       mobile: 'string',
       address: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+// 健康指标数据
+export class MetricItemInfo extends $tea.Model {
+  // 指标类型 心率:HEART_RATE/血氧:BLOOD_OXYGEN/体温:BODY_TEMP/步数:STEPS/睡眠:SLEEP/呼吸率:RESP_RATE/压力:STRESS/疲劳:FATIGUE/情绪:EMOTION/...
+  /**
+   * @example
+   * HEART_RATE
+   */
+  metricType: string;
+  // 测量时间(毫秒级时间戳)
+  measureTime: number;
+  // 指标值
+  value: string;
+  // 指标值单位 -平台固定值
+  unit?: string;
+  // 扩展字段（JSON），如睡眠阶段时长等
+  ext?: string;
+  static names(): { [key: string]: string } {
+    return {
+      metricType: 'metric_type',
+      measureTime: 'measure_time',
+      value: 'value',
+      unit: 'unit',
+      ext: 'ext',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      metricType: 'string',
+      measureTime: 'number',
+      value: 'string',
+      unit: 'string',
+      ext: 'string',
     };
   }
 
@@ -10862,6 +11033,721 @@ export class NotifyPoiCouponResponse extends $tea.Model {
   }
 }
 
+export class SaveHealthContactRequest extends $tea.Model {
+  // OAuth模式下的授权token
+  authToken?: string;
+  productInstanceId?: string;
+  // 品牌方渠道标识
+  channelId: string;
+  // 设备唯一id
+  tuid: string;
+  // 联系人业务id -为空时新增/不为空时编辑
+  contactId?: string;
+  // 键位设置优先级（1=红键, 2=黄键, 3=绿键）
+  priority: number;
+  // 联系人名称
+  contactName: string;
+  // 呼叫联系人手机号
+  contactPhone: string;
+  // 是否锁定 - 锁定时不允许c端用户修改联系人信息，可通过此接口修改相关信息以及解锁
+  locked: boolean;
+  // 预留可扩展字段
+  extraInfo?: string;
+  static names(): { [key: string]: string } {
+    return {
+      authToken: 'auth_token',
+      productInstanceId: 'product_instance_id',
+      channelId: 'channel_id',
+      tuid: 'tuid',
+      contactId: 'contact_id',
+      priority: 'priority',
+      contactName: 'contact_name',
+      contactPhone: 'contact_phone',
+      locked: 'locked',
+      extraInfo: 'extra_info',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      authToken: 'string',
+      productInstanceId: 'string',
+      channelId: 'string',
+      tuid: 'string',
+      contactId: 'string',
+      priority: 'number',
+      contactName: 'string',
+      contactPhone: 'string',
+      locked: 'boolean',
+      extraInfo: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class SaveHealthContactResponse extends $tea.Model {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string;
+  // 结果码，一般OK表示调用成功
+  resultCode?: string;
+  // 异常信息的文本描述
+  resultMsg?: string;
+  // 联系人业务id
+  contactId?: string;
+  static names(): { [key: string]: string } {
+    return {
+      reqMsgId: 'req_msg_id',
+      resultCode: 'result_code',
+      resultMsg: 'result_msg',
+      contactId: 'contact_id',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      reqMsgId: 'string',
+      resultCode: 'string',
+      resultMsg: 'string',
+      contactId: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class DeleteHealthContactRequest extends $tea.Model {
+  // OAuth模式下的授权token
+  authToken?: string;
+  productInstanceId?: string;
+  // 联系人业务id
+  contanctId: string;
+  // 品牌方渠道标识
+  channelId: string;
+  static names(): { [key: string]: string } {
+    return {
+      authToken: 'auth_token',
+      productInstanceId: 'product_instance_id',
+      contanctId: 'contanct_id',
+      channelId: 'channel_id',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      authToken: 'string',
+      productInstanceId: 'string',
+      contanctId: 'string',
+      channelId: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class DeleteHealthContactResponse extends $tea.Model {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string;
+  // 结果码，一般OK表示调用成功
+  resultCode?: string;
+  // 异常信息的文本描述
+  resultMsg?: string;
+  // 删除结果
+  result?: boolean;
+  static names(): { [key: string]: string } {
+    return {
+      reqMsgId: 'req_msg_id',
+      resultCode: 'result_code',
+      resultMsg: 'result_msg',
+      result: 'result',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      reqMsgId: 'string',
+      resultCode: 'string',
+      resultMsg: 'string',
+      result: 'boolean',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class QueryHealthContactRequest extends $tea.Model {
+  // OAuth模式下的授权token
+  authToken?: string;
+  productInstanceId?: string;
+  // 品牌方渠道标识
+  channelId: string;
+  // 设备唯一id
+  tuid: string;
+  // 预留扩展字段
+  extraInfo?: string;
+  static names(): { [key: string]: string } {
+    return {
+      authToken: 'auth_token',
+      productInstanceId: 'product_instance_id',
+      channelId: 'channel_id',
+      tuid: 'tuid',
+      extraInfo: 'extra_info',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      authToken: 'string',
+      productInstanceId: 'string',
+      channelId: 'string',
+      tuid: 'string',
+      extraInfo: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class QueryHealthContactResponse extends $tea.Model {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string;
+  // 结果码，一般OK表示调用成功
+  resultCode?: string;
+  // 异常信息的文本描述
+  resultMsg?: string;
+  // 品牌方渠道标识
+  channeId?: string;
+  // 设备唯一id
+  tuid?: string;
+  // 联系人业务id
+  contactId?: string;
+  // 键位设置优先级（1=红键, 2=黄键, 3=绿键）
+  priority?: number;
+  // 联系人姓名
+  contactName?: string;
+  // 联系人手机号
+  contactPhone?: string;
+  // 是否锁定 - 锁定时不允许c端用户修改联系人信息
+  locked?: boolean;
+  // 预留可扩展字段
+  extraInfo?: string;
+  static names(): { [key: string]: string } {
+    return {
+      reqMsgId: 'req_msg_id',
+      resultCode: 'result_code',
+      resultMsg: 'result_msg',
+      channeId: 'channe_id',
+      tuid: 'tuid',
+      contactId: 'contact_id',
+      priority: 'priority',
+      contactName: 'contact_name',
+      contactPhone: 'contact_phone',
+      locked: 'locked',
+      extraInfo: 'extra_info',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      reqMsgId: 'string',
+      resultCode: 'string',
+      resultMsg: 'string',
+      channeId: 'string',
+      tuid: 'string',
+      contactId: 'string',
+      priority: 'number',
+      contactName: 'string',
+      contactPhone: 'string',
+      locked: 'boolean',
+      extraInfo: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class RegisterHealthDeviceRequest extends $tea.Model {
+  // OAuth模式下的授权token
+  authToken?: string;
+  productInstanceId?: string;
+  // 品牌方渠道标识
+  channelId: string;
+  // 设备唯一id  与sn不可同时为空
+  tuid?: string;
+  // 设备sn号 与tuid不可同时为空
+  sn?: string;
+  // 是否清除设备历史数据 true-清除/false-保留
+  clearHistory: boolean;
+  // 预留可扩展字段
+  extraInfo?: string;
+  static names(): { [key: string]: string } {
+    return {
+      authToken: 'auth_token',
+      productInstanceId: 'product_instance_id',
+      channelId: 'channel_id',
+      tuid: 'tuid',
+      sn: 'sn',
+      clearHistory: 'clear_history',
+      extraInfo: 'extra_info',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      authToken: 'string',
+      productInstanceId: 'string',
+      channelId: 'string',
+      tuid: 'string',
+      sn: 'string',
+      clearHistory: 'boolean',
+      extraInfo: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class RegisterHealthDeviceResponse extends $tea.Model {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string;
+  // 结果码，一般OK表示调用成功
+  resultCode?: string;
+  // 异常信息的文本描述
+  resultMsg?: string;
+  // 品牌方渠道标识
+  channelId?: string;
+  // 设备唯一id
+  tuid?: string;
+  // 设备sn号
+  sn?: string;
+  // 绑定状态
+  bindStatus?: string;
+  // 设备类型 WATCH-手表
+  deviceType?: string;
+  // 设备型号
+  deviceModel?: string;
+  // 预留可扩展字段json
+  extraInfo?: string;
+  static names(): { [key: string]: string } {
+    return {
+      reqMsgId: 'req_msg_id',
+      resultCode: 'result_code',
+      resultMsg: 'result_msg',
+      channelId: 'channel_id',
+      tuid: 'tuid',
+      sn: 'sn',
+      bindStatus: 'bind_status',
+      deviceType: 'device_type',
+      deviceModel: 'device_model',
+      extraInfo: 'extra_info',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      reqMsgId: 'string',
+      resultCode: 'string',
+      resultMsg: 'string',
+      channelId: 'string',
+      tuid: 'string',
+      sn: 'string',
+      bindStatus: 'string',
+      deviceType: 'string',
+      deviceModel: 'string',
+      extraInfo: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class ResetHealthDeviceRequest extends $tea.Model {
+  // OAuth模式下的授权token
+  authToken?: string;
+  productInstanceId?: string;
+  // 品牌方渠道标识
+  channelId: string;
+  // 设备唯一id 与sn不可同时为空
+  tuid?: string;
+  // 设备sn号 与tuid不可同时为空
+  sn?: string;
+  // 预留可扩展字段
+  extraInfo?: string;
+  static names(): { [key: string]: string } {
+    return {
+      authToken: 'auth_token',
+      productInstanceId: 'product_instance_id',
+      channelId: 'channel_id',
+      tuid: 'tuid',
+      sn: 'sn',
+      extraInfo: 'extra_info',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      authToken: 'string',
+      productInstanceId: 'string',
+      channelId: 'string',
+      tuid: 'string',
+      sn: 'string',
+      extraInfo: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class ResetHealthDeviceResponse extends $tea.Model {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string;
+  // 结果码，一般OK表示调用成功
+  resultCode?: string;
+  // 异常信息的文本描述
+  resultMsg?: string;
+  // 处理结果
+  result?: boolean;
+  static names(): { [key: string]: string } {
+    return {
+      reqMsgId: 'req_msg_id',
+      resultCode: 'result_code',
+      resultMsg: 'result_msg',
+      result: 'result',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      reqMsgId: 'string',
+      resultCode: 'string',
+      resultMsg: 'string',
+      result: 'boolean',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class QueryHealthDeviceRequest extends $tea.Model {
+  // OAuth模式下的授权token
+  authToken?: string;
+  productInstanceId?: string;
+  // 品牌方渠道标识
+  channelId: string;
+  // 设备唯一id
+  tuid?: string;
+  // 设备sn号
+  sn?: string;
+  // 预留可扩展字段
+  extraInfo?: string;
+  static names(): { [key: string]: string } {
+    return {
+      authToken: 'auth_token',
+      productInstanceId: 'product_instance_id',
+      channelId: 'channel_id',
+      tuid: 'tuid',
+      sn: 'sn',
+      extraInfo: 'extra_info',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      authToken: 'string',
+      productInstanceId: 'string',
+      channelId: 'string',
+      tuid: 'string',
+      sn: 'string',
+      extraInfo: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class QueryHealthDeviceResponse extends $tea.Model {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string;
+  // 结果码，一般OK表示调用成功
+  resultCode?: string;
+  // 异常信息的文本描述
+  resultMsg?: string;
+  // 设备详细信息
+  deviceInfo?: HealthDeviceInfo;
+  // 设备定位信息
+  locationInfo?: DeviceLocationInfo;
+  static names(): { [key: string]: string } {
+    return {
+      reqMsgId: 'req_msg_id',
+      resultCode: 'result_code',
+      resultMsg: 'result_msg',
+      deviceInfo: 'device_info',
+      locationInfo: 'location_info',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      reqMsgId: 'string',
+      resultCode: 'string',
+      resultMsg: 'string',
+      deviceInfo: HealthDeviceInfo,
+      locationInfo: DeviceLocationInfo,
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class QueryHealthLocationRequest extends $tea.Model {
+  // OAuth模式下的授权token
+  authToken?: string;
+  productInstanceId?: string;
+  // 品牌方渠道标识
+  channelId: string;
+  // 设备唯一id
+  tuid: string;
+  // 预留可扩展字段
+  extraInfo?: string;
+  static names(): { [key: string]: string } {
+    return {
+      authToken: 'auth_token',
+      productInstanceId: 'product_instance_id',
+      channelId: 'channel_id',
+      tuid: 'tuid',
+      extraInfo: 'extra_info',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      authToken: 'string',
+      productInstanceId: 'string',
+      channelId: 'string',
+      tuid: 'string',
+      extraInfo: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class QueryHealthLocationResponse extends $tea.Model {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string;
+  // 结果码，一般OK表示调用成功
+  resultCode?: string;
+  // 异常信息的文本描述
+  resultMsg?: string;
+  // 纬度
+  lat?: string;
+  // 经度
+  lng?: string;
+  // 定位时间，格式 yyyy-MM-dd HH:mm:ss
+  locationTime?: string;
+  // 预留可扩展字段json
+  extraInfo?: string;
+  static names(): { [key: string]: string } {
+    return {
+      reqMsgId: 'req_msg_id',
+      resultCode: 'result_code',
+      resultMsg: 'result_msg',
+      lat: 'lat',
+      lng: 'lng',
+      locationTime: 'location_time',
+      extraInfo: 'extra_info',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      reqMsgId: 'string',
+      resultCode: 'string',
+      resultMsg: 'string',
+      lat: 'string',
+      lng: 'string',
+      locationTime: 'string',
+      extraInfo: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class QueryHealthDataRequest extends $tea.Model {
+  // OAuth模式下的授权token
+  authToken?: string;
+  productInstanceId?: string;
+  // channel_id
+  channelId: string;
+  // 设备唯一id
+  tuid: string;
+  // 指标类型 心率:HEART_RATE/血氧:BLOOD_OXYGEN/体温:BODY_TEMP/步数:STEPS/睡眠:SLEEP/呼吸率:RESP_RATE/压力:STRESS/疲劳:FATIGUE/情绪:EMOTION
+  metricType?: string;
+  // 查询开始时间(毫秒级时间戳)
+  startTime?: number;
+  // 查询结束时间（毫秒级时间戳）
+  endTime?: number;
+  // 预留可扩展字段json
+  extraInfo?: string;
+  static names(): { [key: string]: string } {
+    return {
+      authToken: 'auth_token',
+      productInstanceId: 'product_instance_id',
+      channelId: 'channel_id',
+      tuid: 'tuid',
+      metricType: 'metric_type',
+      startTime: 'start_time',
+      endTime: 'end_time',
+      extraInfo: 'extra_info',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      authToken: 'string',
+      productInstanceId: 'string',
+      channelId: 'string',
+      tuid: 'string',
+      metricType: 'string',
+      startTime: 'number',
+      endTime: 'number',
+      extraInfo: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class QueryHealthDataResponse extends $tea.Model {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string;
+  // 结果码，一般OK表示调用成功
+  resultCode?: string;
+  // 异常信息的文本描述
+  resultMsg?: string;
+  // 健康指标数据列表
+  metricList?: MetricItemInfo[];
+  static names(): { [key: string]: string } {
+    return {
+      reqMsgId: 'req_msg_id',
+      resultCode: 'result_code',
+      resultMsg: 'result_msg',
+      metricList: 'metric_list',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      reqMsgId: 'string',
+      resultCode: 'string',
+      resultMsg: 'string',
+      metricList: { 'type': 'array', 'itemType': MetricItemInfo },
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class ReportHealthDataRequest extends $tea.Model {
+  // OAuth模式下的授权token
+  authToken?: string;
+  productInstanceId?: string;
+  // 设备唯一id
+  tuid: string;
+  // 上报时间时间戳
+  timestamp: number;
+  // 数据类别 健康指标:HEALTH_METRIC/GPS定位:GPS_LOCATION/告警事件:ALERT_EVENT/设备信息:DEVICE_INFO
+  dataCategory: string;
+  // 数据内容 json传输，与不同category一一映射
+  payload: string;
+  static names(): { [key: string]: string } {
+    return {
+      authToken: 'auth_token',
+      productInstanceId: 'product_instance_id',
+      tuid: 'tuid',
+      timestamp: 'timestamp',
+      dataCategory: 'data_category',
+      payload: 'payload',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      authToken: 'string',
+      productInstanceId: 'string',
+      tuid: 'string',
+      timestamp: 'number',
+      dataCategory: 'string',
+      payload: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class ReportHealthDataResponse extends $tea.Model {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string;
+  // 结果码，一般OK表示调用成功
+  resultCode?: string;
+  // 异常信息的文本描述
+  resultMsg?: string;
+  static names(): { [key: string]: string } {
+    return {
+      reqMsgId: 'req_msg_id',
+      resultCode: 'result_code',
+      resultMsg: 'result_msg',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      reqMsgId: 'string',
+      resultCode: 'string',
+      resultMsg: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
 export class CreateBssecpicRequest extends $tea.Model {
   // OAuth模式下的授权token
   authToken?: string;
@@ -14260,7 +15146,7 @@ export default class Client {
           req_msg_id: AntchainUtil.getNonce(),
           access_key: this._accessKeyId,
           base_sdk_version: "TeaSDK-2.0",
-          sdk_version: "1.7.35",
+          sdk_version: "1.7.36",
           _prod_code: "SECURITYTECH",
           _prod_channel: "undefined",
         };
@@ -16010,6 +16896,195 @@ export default class Client {
   async notifyPoiCouponEx(request: NotifyPoiCouponRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<NotifyPoiCouponResponse> {
     Util.validateModel(request);
     return $tea.cast<NotifyPoiCouponResponse>(await this.doRequest("1.0", "antsecuritytech.gateway.poi.coupon.notify", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new NotifyPoiCouponResponse({}));
+  }
+
+  /**
+   * @remarks
+   * Description: 保存设备联系人
+   * Summary: 保存设备联系人
+   */
+  async saveHealthContact(request: SaveHealthContactRequest): Promise<SaveHealthContactResponse> {
+    let runtime = new $Util.RuntimeOptions({ });
+    let headers : {[key: string ]: string} = { };
+    return await this.saveHealthContactEx(request, headers, runtime);
+  }
+
+  /**
+   * @remarks
+   * Description: 保存设备联系人
+   * Summary: 保存设备联系人
+   */
+  async saveHealthContactEx(request: SaveHealthContactRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<SaveHealthContactResponse> {
+    Util.validateModel(request);
+    return $tea.cast<SaveHealthContactResponse>(await this.doRequest("1.0", "antsecuritytech.gateway.health.contact.save", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new SaveHealthContactResponse({}));
+  }
+
+  /**
+   * @remarks
+   * Description: 删除设备联系人
+   * Summary: 删除设备联系人
+   */
+  async deleteHealthContact(request: DeleteHealthContactRequest): Promise<DeleteHealthContactResponse> {
+    let runtime = new $Util.RuntimeOptions({ });
+    let headers : {[key: string ]: string} = { };
+    return await this.deleteHealthContactEx(request, headers, runtime);
+  }
+
+  /**
+   * @remarks
+   * Description: 删除设备联系人
+   * Summary: 删除设备联系人
+   */
+  async deleteHealthContactEx(request: DeleteHealthContactRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<DeleteHealthContactResponse> {
+    Util.validateModel(request);
+    return $tea.cast<DeleteHealthContactResponse>(await this.doRequest("1.0", "antsecuritytech.gateway.health.contact.delete", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new DeleteHealthContactResponse({}));
+  }
+
+  /**
+   * @remarks
+   * Description: 根据设备唯一id查询联系人信息列表
+   * Summary: 根据设备唯一id查询联系人信息列表
+   */
+  async queryHealthContact(request: QueryHealthContactRequest): Promise<QueryHealthContactResponse> {
+    let runtime = new $Util.RuntimeOptions({ });
+    let headers : {[key: string ]: string} = { };
+    return await this.queryHealthContactEx(request, headers, runtime);
+  }
+
+  /**
+   * @remarks
+   * Description: 根据设备唯一id查询联系人信息列表
+   * Summary: 根据设备唯一id查询联系人信息列表
+   */
+  async queryHealthContactEx(request: QueryHealthContactRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<QueryHealthContactResponse> {
+    Util.validateModel(request);
+    return $tea.cast<QueryHealthContactResponse>(await this.doRequest("1.0", "antsecuritytech.gateway.health.contact.query", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new QueryHealthContactResponse({}));
+  }
+
+  /**
+   * @remarks
+   * Description: 品牌方设备校验并绑定
+   * Summary: 品牌方设备校验并绑定
+   */
+  async registerHealthDevice(request: RegisterHealthDeviceRequest): Promise<RegisterHealthDeviceResponse> {
+    let runtime = new $Util.RuntimeOptions({ });
+    let headers : {[key: string ]: string} = { };
+    return await this.registerHealthDeviceEx(request, headers, runtime);
+  }
+
+  /**
+   * @remarks
+   * Description: 品牌方设备校验并绑定
+   * Summary: 品牌方设备校验并绑定
+   */
+  async registerHealthDeviceEx(request: RegisterHealthDeviceRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<RegisterHealthDeviceResponse> {
+    Util.validateModel(request);
+    return $tea.cast<RegisterHealthDeviceResponse>(await this.doRequest("1.0", "antsecuritytech.gateway.health.device.register", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new RegisterHealthDeviceResponse({}));
+  }
+
+  /**
+   * @remarks
+   * Description: 品牌方设备解除绑定
+   * Summary: 品牌方设备解除绑定
+   */
+  async resetHealthDevice(request: ResetHealthDeviceRequest): Promise<ResetHealthDeviceResponse> {
+    let runtime = new $Util.RuntimeOptions({ });
+    let headers : {[key: string ]: string} = { };
+    return await this.resetHealthDeviceEx(request, headers, runtime);
+  }
+
+  /**
+   * @remarks
+   * Description: 品牌方设备解除绑定
+   * Summary: 品牌方设备解除绑定
+   */
+  async resetHealthDeviceEx(request: ResetHealthDeviceRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<ResetHealthDeviceResponse> {
+    Util.validateModel(request);
+    return $tea.cast<ResetHealthDeviceResponse>(await this.doRequest("1.0", "antsecuritytech.gateway.health.device.reset", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new ResetHealthDeviceResponse({}));
+  }
+
+  /**
+   * @remarks
+   * Description: 查询设备详细信息
+   * Summary: 查询设备详细信息
+   */
+  async queryHealthDevice(request: QueryHealthDeviceRequest): Promise<QueryHealthDeviceResponse> {
+    let runtime = new $Util.RuntimeOptions({ });
+    let headers : {[key: string ]: string} = { };
+    return await this.queryHealthDeviceEx(request, headers, runtime);
+  }
+
+  /**
+   * @remarks
+   * Description: 查询设备详细信息
+   * Summary: 查询设备详细信息
+   */
+  async queryHealthDeviceEx(request: QueryHealthDeviceRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<QueryHealthDeviceResponse> {
+    Util.validateModel(request);
+    return $tea.cast<QueryHealthDeviceResponse>(await this.doRequest("1.0", "antsecuritytech.gateway.health.device.query", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new QueryHealthDeviceResponse({}));
+  }
+
+  /**
+   * @remarks
+   * Description: 查询设备定位信息
+   * Summary: 查询设备定位信息
+   */
+  async queryHealthLocation(request: QueryHealthLocationRequest): Promise<QueryHealthLocationResponse> {
+    let runtime = new $Util.RuntimeOptions({ });
+    let headers : {[key: string ]: string} = { };
+    return await this.queryHealthLocationEx(request, headers, runtime);
+  }
+
+  /**
+   * @remarks
+   * Description: 查询设备定位信息
+   * Summary: 查询设备定位信息
+   */
+  async queryHealthLocationEx(request: QueryHealthLocationRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<QueryHealthLocationResponse> {
+    Util.validateModel(request);
+    return $tea.cast<QueryHealthLocationResponse>(await this.doRequest("1.0", "antsecuritytech.gateway.health.location.query", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new QueryHealthLocationResponse({}));
+  }
+
+  /**
+   * @remarks
+   * Description: 查询设备健康指标数据
+   * Summary: 查询设备健康指标数据
+   */
+  async queryHealthData(request: QueryHealthDataRequest): Promise<QueryHealthDataResponse> {
+    let runtime = new $Util.RuntimeOptions({ });
+    let headers : {[key: string ]: string} = { };
+    return await this.queryHealthDataEx(request, headers, runtime);
+  }
+
+  /**
+   * @remarks
+   * Description: 查询设备健康指标数据
+   * Summary: 查询设备健康指标数据
+   */
+  async queryHealthDataEx(request: QueryHealthDataRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<QueryHealthDataResponse> {
+    Util.validateModel(request);
+    return $tea.cast<QueryHealthDataResponse>(await this.doRequest("1.0", "antsecuritytech.gateway.health.data.query", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new QueryHealthDataResponse({}));
+  }
+
+  /**
+   * @remarks
+   * Description: 设备厂商标准化数据上报
+   * Summary: 设备厂商标准化数据上报
+   */
+  async reportHealthData(request: ReportHealthDataRequest): Promise<ReportHealthDataResponse> {
+    let runtime = new $Util.RuntimeOptions({ });
+    let headers : {[key: string ]: string} = { };
+    return await this.reportHealthDataEx(request, headers, runtime);
+  }
+
+  /**
+   * @remarks
+   * Description: 设备厂商标准化数据上报
+   * Summary: 设备厂商标准化数据上报
+   */
+  async reportHealthDataEx(request: ReportHealthDataRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<ReportHealthDataResponse> {
+    Util.validateModel(request);
+    return $tea.cast<ReportHealthDataResponse>(await this.doRequest("1.0", "antsecuritytech.gateway.health.data.report", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new ReportHealthDataResponse({}));
   }
 
   /**
