@@ -158,7 +158,7 @@ namespace AntChain.SDK.SECURITYTECH
                         {"req_msg_id", AntChain.AlipayUtil.AntchainUtils.GetNonce()},
                         {"access_key", _accessKeyId},
                         {"base_sdk_version", "TeaSDK-2.0"},
-                        {"sdk_version", "1.7.35"},
+                        {"sdk_version", "1.7.36"},
                         {"_prod_code", "SECURITYTECH"},
                         {"_prod_channel", "undefined"},
                     };
@@ -301,7 +301,7 @@ namespace AntChain.SDK.SECURITYTECH
                         {"req_msg_id", AntChain.AlipayUtil.AntchainUtils.GetNonce()},
                         {"access_key", _accessKeyId},
                         {"base_sdk_version", "TeaSDK-2.0"},
-                        {"sdk_version", "1.7.35"},
+                        {"sdk_version", "1.7.36"},
                         {"_prod_code", "SECURITYTECH"},
                         {"_prod_channel", "undefined"},
                     };
@@ -4089,6 +4089,420 @@ namespace AntChain.SDK.SECURITYTECH
         {
             AlibabaCloud.TeaUtil.Common.ValidateModel(request);
             return TeaModel.ToObject<NotifyPoiCouponResponse>(await DoRequestAsync("1.0", "antsecuritytech.gateway.poi.coupon.notify", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /// <term><b>Description:</b></term>
+        /// <description>
+        /// <para>Description: 保存设备联系人
+        /// Summary: 保存设备联系人</para>
+        /// </description>
+        public SaveHealthContactResponse SaveHealthContact(SaveHealthContactRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return SaveHealthContactEx(request, headers, runtime);
+        }
+
+        /// <term><b>Description:</b></term>
+        /// <description>
+        /// <para>Description: 保存设备联系人
+        /// Summary: 保存设备联系人</para>
+        /// </description>
+        public async Task<SaveHealthContactResponse> SaveHealthContactAsync(SaveHealthContactRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return await SaveHealthContactExAsync(request, headers, runtime);
+        }
+
+        /// <term><b>Description:</b></term>
+        /// <description>
+        /// <para>Description: 保存设备联系人
+        /// Summary: 保存设备联系人</para>
+        /// </description>
+        public SaveHealthContactResponse SaveHealthContactEx(SaveHealthContactRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<SaveHealthContactResponse>(DoRequest("1.0", "antsecuritytech.gateway.health.contact.save", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /// <term><b>Description:</b></term>
+        /// <description>
+        /// <para>Description: 保存设备联系人
+        /// Summary: 保存设备联系人</para>
+        /// </description>
+        public async Task<SaveHealthContactResponse> SaveHealthContactExAsync(SaveHealthContactRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<SaveHealthContactResponse>(await DoRequestAsync("1.0", "antsecuritytech.gateway.health.contact.save", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /// <term><b>Description:</b></term>
+        /// <description>
+        /// <para>Description: 删除设备联系人
+        /// Summary: 删除设备联系人</para>
+        /// </description>
+        public DeleteHealthContactResponse DeleteHealthContact(DeleteHealthContactRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return DeleteHealthContactEx(request, headers, runtime);
+        }
+
+        /// <term><b>Description:</b></term>
+        /// <description>
+        /// <para>Description: 删除设备联系人
+        /// Summary: 删除设备联系人</para>
+        /// </description>
+        public async Task<DeleteHealthContactResponse> DeleteHealthContactAsync(DeleteHealthContactRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return await DeleteHealthContactExAsync(request, headers, runtime);
+        }
+
+        /// <term><b>Description:</b></term>
+        /// <description>
+        /// <para>Description: 删除设备联系人
+        /// Summary: 删除设备联系人</para>
+        /// </description>
+        public DeleteHealthContactResponse DeleteHealthContactEx(DeleteHealthContactRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<DeleteHealthContactResponse>(DoRequest("1.0", "antsecuritytech.gateway.health.contact.delete", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /// <term><b>Description:</b></term>
+        /// <description>
+        /// <para>Description: 删除设备联系人
+        /// Summary: 删除设备联系人</para>
+        /// </description>
+        public async Task<DeleteHealthContactResponse> DeleteHealthContactExAsync(DeleteHealthContactRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<DeleteHealthContactResponse>(await DoRequestAsync("1.0", "antsecuritytech.gateway.health.contact.delete", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /// <term><b>Description:</b></term>
+        /// <description>
+        /// <para>Description: 根据设备唯一id查询联系人信息列表
+        /// Summary: 根据设备唯一id查询联系人信息列表</para>
+        /// </description>
+        public QueryHealthContactResponse QueryHealthContact(QueryHealthContactRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return QueryHealthContactEx(request, headers, runtime);
+        }
+
+        /// <term><b>Description:</b></term>
+        /// <description>
+        /// <para>Description: 根据设备唯一id查询联系人信息列表
+        /// Summary: 根据设备唯一id查询联系人信息列表</para>
+        /// </description>
+        public async Task<QueryHealthContactResponse> QueryHealthContactAsync(QueryHealthContactRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return await QueryHealthContactExAsync(request, headers, runtime);
+        }
+
+        /// <term><b>Description:</b></term>
+        /// <description>
+        /// <para>Description: 根据设备唯一id查询联系人信息列表
+        /// Summary: 根据设备唯一id查询联系人信息列表</para>
+        /// </description>
+        public QueryHealthContactResponse QueryHealthContactEx(QueryHealthContactRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<QueryHealthContactResponse>(DoRequest("1.0", "antsecuritytech.gateway.health.contact.query", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /// <term><b>Description:</b></term>
+        /// <description>
+        /// <para>Description: 根据设备唯一id查询联系人信息列表
+        /// Summary: 根据设备唯一id查询联系人信息列表</para>
+        /// </description>
+        public async Task<QueryHealthContactResponse> QueryHealthContactExAsync(QueryHealthContactRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<QueryHealthContactResponse>(await DoRequestAsync("1.0", "antsecuritytech.gateway.health.contact.query", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /// <term><b>Description:</b></term>
+        /// <description>
+        /// <para>Description: 品牌方设备校验并绑定
+        /// Summary: 品牌方设备校验并绑定</para>
+        /// </description>
+        public RegisterHealthDeviceResponse RegisterHealthDevice(RegisterHealthDeviceRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return RegisterHealthDeviceEx(request, headers, runtime);
+        }
+
+        /// <term><b>Description:</b></term>
+        /// <description>
+        /// <para>Description: 品牌方设备校验并绑定
+        /// Summary: 品牌方设备校验并绑定</para>
+        /// </description>
+        public async Task<RegisterHealthDeviceResponse> RegisterHealthDeviceAsync(RegisterHealthDeviceRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return await RegisterHealthDeviceExAsync(request, headers, runtime);
+        }
+
+        /// <term><b>Description:</b></term>
+        /// <description>
+        /// <para>Description: 品牌方设备校验并绑定
+        /// Summary: 品牌方设备校验并绑定</para>
+        /// </description>
+        public RegisterHealthDeviceResponse RegisterHealthDeviceEx(RegisterHealthDeviceRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<RegisterHealthDeviceResponse>(DoRequest("1.0", "antsecuritytech.gateway.health.device.register", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /// <term><b>Description:</b></term>
+        /// <description>
+        /// <para>Description: 品牌方设备校验并绑定
+        /// Summary: 品牌方设备校验并绑定</para>
+        /// </description>
+        public async Task<RegisterHealthDeviceResponse> RegisterHealthDeviceExAsync(RegisterHealthDeviceRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<RegisterHealthDeviceResponse>(await DoRequestAsync("1.0", "antsecuritytech.gateway.health.device.register", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /// <term><b>Description:</b></term>
+        /// <description>
+        /// <para>Description: 品牌方设备解除绑定
+        /// Summary: 品牌方设备解除绑定</para>
+        /// </description>
+        public ResetHealthDeviceResponse ResetHealthDevice(ResetHealthDeviceRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return ResetHealthDeviceEx(request, headers, runtime);
+        }
+
+        /// <term><b>Description:</b></term>
+        /// <description>
+        /// <para>Description: 品牌方设备解除绑定
+        /// Summary: 品牌方设备解除绑定</para>
+        /// </description>
+        public async Task<ResetHealthDeviceResponse> ResetHealthDeviceAsync(ResetHealthDeviceRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return await ResetHealthDeviceExAsync(request, headers, runtime);
+        }
+
+        /// <term><b>Description:</b></term>
+        /// <description>
+        /// <para>Description: 品牌方设备解除绑定
+        /// Summary: 品牌方设备解除绑定</para>
+        /// </description>
+        public ResetHealthDeviceResponse ResetHealthDeviceEx(ResetHealthDeviceRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<ResetHealthDeviceResponse>(DoRequest("1.0", "antsecuritytech.gateway.health.device.reset", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /// <term><b>Description:</b></term>
+        /// <description>
+        /// <para>Description: 品牌方设备解除绑定
+        /// Summary: 品牌方设备解除绑定</para>
+        /// </description>
+        public async Task<ResetHealthDeviceResponse> ResetHealthDeviceExAsync(ResetHealthDeviceRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<ResetHealthDeviceResponse>(await DoRequestAsync("1.0", "antsecuritytech.gateway.health.device.reset", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /// <term><b>Description:</b></term>
+        /// <description>
+        /// <para>Description: 查询设备详细信息
+        /// Summary: 查询设备详细信息</para>
+        /// </description>
+        public QueryHealthDeviceResponse QueryHealthDevice(QueryHealthDeviceRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return QueryHealthDeviceEx(request, headers, runtime);
+        }
+
+        /// <term><b>Description:</b></term>
+        /// <description>
+        /// <para>Description: 查询设备详细信息
+        /// Summary: 查询设备详细信息</para>
+        /// </description>
+        public async Task<QueryHealthDeviceResponse> QueryHealthDeviceAsync(QueryHealthDeviceRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return await QueryHealthDeviceExAsync(request, headers, runtime);
+        }
+
+        /// <term><b>Description:</b></term>
+        /// <description>
+        /// <para>Description: 查询设备详细信息
+        /// Summary: 查询设备详细信息</para>
+        /// </description>
+        public QueryHealthDeviceResponse QueryHealthDeviceEx(QueryHealthDeviceRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<QueryHealthDeviceResponse>(DoRequest("1.0", "antsecuritytech.gateway.health.device.query", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /// <term><b>Description:</b></term>
+        /// <description>
+        /// <para>Description: 查询设备详细信息
+        /// Summary: 查询设备详细信息</para>
+        /// </description>
+        public async Task<QueryHealthDeviceResponse> QueryHealthDeviceExAsync(QueryHealthDeviceRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<QueryHealthDeviceResponse>(await DoRequestAsync("1.0", "antsecuritytech.gateway.health.device.query", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /// <term><b>Description:</b></term>
+        /// <description>
+        /// <para>Description: 查询设备定位信息
+        /// Summary: 查询设备定位信息</para>
+        /// </description>
+        public QueryHealthLocationResponse QueryHealthLocation(QueryHealthLocationRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return QueryHealthLocationEx(request, headers, runtime);
+        }
+
+        /// <term><b>Description:</b></term>
+        /// <description>
+        /// <para>Description: 查询设备定位信息
+        /// Summary: 查询设备定位信息</para>
+        /// </description>
+        public async Task<QueryHealthLocationResponse> QueryHealthLocationAsync(QueryHealthLocationRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return await QueryHealthLocationExAsync(request, headers, runtime);
+        }
+
+        /// <term><b>Description:</b></term>
+        /// <description>
+        /// <para>Description: 查询设备定位信息
+        /// Summary: 查询设备定位信息</para>
+        /// </description>
+        public QueryHealthLocationResponse QueryHealthLocationEx(QueryHealthLocationRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<QueryHealthLocationResponse>(DoRequest("1.0", "antsecuritytech.gateway.health.location.query", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /// <term><b>Description:</b></term>
+        /// <description>
+        /// <para>Description: 查询设备定位信息
+        /// Summary: 查询设备定位信息</para>
+        /// </description>
+        public async Task<QueryHealthLocationResponse> QueryHealthLocationExAsync(QueryHealthLocationRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<QueryHealthLocationResponse>(await DoRequestAsync("1.0", "antsecuritytech.gateway.health.location.query", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /// <term><b>Description:</b></term>
+        /// <description>
+        /// <para>Description: 查询设备健康指标数据
+        /// Summary: 查询设备健康指标数据</para>
+        /// </description>
+        public QueryHealthDataResponse QueryHealthData(QueryHealthDataRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return QueryHealthDataEx(request, headers, runtime);
+        }
+
+        /// <term><b>Description:</b></term>
+        /// <description>
+        /// <para>Description: 查询设备健康指标数据
+        /// Summary: 查询设备健康指标数据</para>
+        /// </description>
+        public async Task<QueryHealthDataResponse> QueryHealthDataAsync(QueryHealthDataRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return await QueryHealthDataExAsync(request, headers, runtime);
+        }
+
+        /// <term><b>Description:</b></term>
+        /// <description>
+        /// <para>Description: 查询设备健康指标数据
+        /// Summary: 查询设备健康指标数据</para>
+        /// </description>
+        public QueryHealthDataResponse QueryHealthDataEx(QueryHealthDataRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<QueryHealthDataResponse>(DoRequest("1.0", "antsecuritytech.gateway.health.data.query", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /// <term><b>Description:</b></term>
+        /// <description>
+        /// <para>Description: 查询设备健康指标数据
+        /// Summary: 查询设备健康指标数据</para>
+        /// </description>
+        public async Task<QueryHealthDataResponse> QueryHealthDataExAsync(QueryHealthDataRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<QueryHealthDataResponse>(await DoRequestAsync("1.0", "antsecuritytech.gateway.health.data.query", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /// <term><b>Description:</b></term>
+        /// <description>
+        /// <para>Description: 设备厂商标准化数据上报
+        /// Summary: 设备厂商标准化数据上报</para>
+        /// </description>
+        public ReportHealthDataResponse ReportHealthData(ReportHealthDataRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return ReportHealthDataEx(request, headers, runtime);
+        }
+
+        /// <term><b>Description:</b></term>
+        /// <description>
+        /// <para>Description: 设备厂商标准化数据上报
+        /// Summary: 设备厂商标准化数据上报</para>
+        /// </description>
+        public async Task<ReportHealthDataResponse> ReportHealthDataAsync(ReportHealthDataRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return await ReportHealthDataExAsync(request, headers, runtime);
+        }
+
+        /// <term><b>Description:</b></term>
+        /// <description>
+        /// <para>Description: 设备厂商标准化数据上报
+        /// Summary: 设备厂商标准化数据上报</para>
+        /// </description>
+        public ReportHealthDataResponse ReportHealthDataEx(ReportHealthDataRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<ReportHealthDataResponse>(DoRequest("1.0", "antsecuritytech.gateway.health.data.report", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /// <term><b>Description:</b></term>
+        /// <description>
+        /// <para>Description: 设备厂商标准化数据上报
+        /// Summary: 设备厂商标准化数据上报</para>
+        /// </description>
+        public async Task<ReportHealthDataResponse> ReportHealthDataExAsync(ReportHealthDataRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<ReportHealthDataResponse>(await DoRequestAsync("1.0", "antsecuritytech.gateway.health.data.report", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
         }
 
         /// <term><b>Description:</b></term>
