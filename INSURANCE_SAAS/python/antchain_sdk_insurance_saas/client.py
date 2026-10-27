@@ -135,7 +135,7 @@ class Client:
                     'req_msg_id': AntchainUtils.get_nonce(),
                     'access_key': self._access_key_id,
                     'base_sdk_version': 'TeaSDK-2.0',
-                    'sdk_version': '1.12.62',
+                    'sdk_version': '1.12.63',
                     '_prod_code': 'INSURANCE_SAAS',
                     '_prod_channel': 'undefined'
                 }
@@ -239,7 +239,7 @@ class Client:
                     'req_msg_id': AntchainUtils.get_nonce(),
                     'access_key': self._access_key_id,
                     'base_sdk_version': 'TeaSDK-2.0',
-                    'sdk_version': '1.12.62',
+                    'sdk_version': '1.12.63',
                     '_prod_code': 'INSURANCE_SAAS',
                     '_prod_channel': 'undefined'
                 }
@@ -1113,6 +1113,62 @@ class Client:
         return TeaCore.from_map(
             insurance__saas_models.V2AasDataBankcardlivenessCallbackResponse(),
             await self.do_request_async('1.0', 'antcloud.insurancesaas.data.bankcardliveness.callback.v2', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def get_mkt_extresulturl(
+        self,
+        request: insurance__saas_models.GetMktExtresulturlRequest,
+    ) -> insurance__saas_models.GetMktExtresulturlResponse:
+        """
+        Description: 营销人群底包析出结果查询
+        Summary: 营销人群底包析出结果查询
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.get_mkt_extresulturl_ex(request, headers, runtime)
+
+    async def get_mkt_extresulturl_async(
+        self,
+        request: insurance__saas_models.GetMktExtresulturlRequest,
+    ) -> insurance__saas_models.GetMktExtresulturlResponse:
+        """
+        Description: 营销人群底包析出结果查询
+        Summary: 营销人群底包析出结果查询
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.get_mkt_extresulturl_ex_async(request, headers, runtime)
+
+    def get_mkt_extresulturl_ex(
+        self,
+        request: insurance__saas_models.GetMktExtresulturlRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> insurance__saas_models.GetMktExtresulturlResponse:
+        """
+        Description: 营销人群底包析出结果查询
+        Summary: 营销人群底包析出结果查询
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            insurance__saas_models.GetMktExtresulturlResponse(),
+            self.do_request('1.0', 'antcloud.insurance.mkt.extresulturl.get', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def get_mkt_extresulturl_ex_async(
+        self,
+        request: insurance__saas_models.GetMktExtresulturlRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> insurance__saas_models.GetMktExtresulturlResponse:
+        """
+        Description: 营销人群底包析出结果查询
+        Summary: 营销人群底包析出结果查询
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            insurance__saas_models.GetMktExtresulturlResponse(),
+            await self.do_request_async('1.0', 'antcloud.insurance.mkt.extresulturl.get', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
     def query_inquiry(

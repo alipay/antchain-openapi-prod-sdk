@@ -2970,6 +2970,123 @@ class V2AasDataBankcardlivenessCallbackResponse(TeaModel):
         return self
 
 
+class GetMktExtresulturlRequest(TeaModel):
+    def __init__(
+        self,
+        auth_token: str = None,
+        request_id: str = None,
+        project_id: str = None,
+        upload_mkt_no: str = None,
+    ):
+        # OAuth模式下的授权token
+        self.auth_token = auth_token
+        # 请求id，每一次请求保持唯一，若重复，则报错
+        self.request_id = request_id
+        # 项目ID，蚂蚁分配
+        self.project_id = project_id
+        # 上传营销标识，来源于上传结果通知中的uploadMktNo
+        self.upload_mkt_no = upload_mkt_no
+
+    def validate(self):
+        self.validate_required(self.request_id, 'request_id')
+        if self.request_id is not None:
+            self.validate_max_length(self.request_id, 'request_id', 128)
+        self.validate_required(self.project_id, 'project_id')
+        if self.project_id is not None:
+            self.validate_max_length(self.project_id, 'project_id', 64)
+        self.validate_required(self.upload_mkt_no, 'upload_mkt_no')
+        if self.upload_mkt_no is not None:
+            self.validate_max_length(self.upload_mkt_no, 'upload_mkt_no', 64)
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.auth_token is not None:
+            result['auth_token'] = self.auth_token
+        if self.request_id is not None:
+            result['request_id'] = self.request_id
+        if self.project_id is not None:
+            result['project_id'] = self.project_id
+        if self.upload_mkt_no is not None:
+            result['upload_mkt_no'] = self.upload_mkt_no
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('auth_token') is not None:
+            self.auth_token = m.get('auth_token')
+        if m.get('request_id') is not None:
+            self.request_id = m.get('request_id')
+        if m.get('project_id') is not None:
+            self.project_id = m.get('project_id')
+        if m.get('upload_mkt_no') is not None:
+            self.upload_mkt_no = m.get('upload_mkt_no')
+        return self
+
+
+class GetMktExtresulturlResponse(TeaModel):
+    def __init__(
+        self,
+        req_msg_id: str = None,
+        result_code: str = None,
+        result_msg: str = None,
+        request_id: str = None,
+        file_url: str = None,
+    ):
+        # 请求唯一ID，用于链路跟踪和问题排查
+        self.req_msg_id = req_msg_id
+        # 结果码，一般OK表示调用成功
+        self.result_code = result_code
+        # 异常信息的文本描述
+        self.result_msg = result_msg
+        # 请求id
+        self.request_id = request_id
+        # 析出文件下载链接（OSS签名URL，当前有效期24小时）；为空表示析出结果尚未生成，请稍后重试。从底包上传开始7日内链接失效仍可继续获取
+        self.file_url = file_url
+
+    def validate(self):
+        self.validate_required(self.request_id, 'request_id')
+        if self.request_id is not None:
+            self.validate_max_length(self.request_id, 'request_id', 128)
+        if self.file_url is not None:
+            self.validate_max_length(self.file_url, 'file_url', 1024)
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.req_msg_id is not None:
+            result['req_msg_id'] = self.req_msg_id
+        if self.result_code is not None:
+            result['result_code'] = self.result_code
+        if self.result_msg is not None:
+            result['result_msg'] = self.result_msg
+        if self.request_id is not None:
+            result['request_id'] = self.request_id
+        if self.file_url is not None:
+            result['file_url'] = self.file_url
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('req_msg_id') is not None:
+            self.req_msg_id = m.get('req_msg_id')
+        if m.get('result_code') is not None:
+            self.result_code = m.get('result_code')
+        if m.get('result_msg') is not None:
+            self.result_msg = m.get('result_msg')
+        if m.get('request_id') is not None:
+            self.request_id = m.get('request_id')
+        if m.get('file_url') is not None:
+            self.file_url = m.get('file_url')
+        return self
+
+
 class QueryInquiryRequest(TeaModel):
     def __init__(
         self,
