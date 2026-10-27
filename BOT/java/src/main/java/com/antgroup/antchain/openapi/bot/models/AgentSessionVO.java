@@ -40,6 +40,22 @@ public class AgentSessionVO extends TeaModel {
     @Validation(required = true, pattern = "\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}([Z]|([\\.]\\d{1,9})?[\\+]\\d{2}[\\:]?\\d{2})")
     public String gmtModified;
 
+    // 会话名称；会话进行中尚未命名时返回"当前会话"
+    /**
+     * <strong>example:</strong>
+     * <p>今天天气怎么样</p>
+     */
+    @NameInMap("session_name")
+    public String sessionName;
+
+    // 会话主题，可能为空
+    /**
+     * <strong>example:</strong>
+     * <p>天气</p>
+     */
+    @NameInMap("topic")
+    public String topic;
+
     public static AgentSessionVO build(java.util.Map<String, ?> map) throws Exception {
         AgentSessionVO self = new AgentSessionVO();
         return TeaModel.build(map, self);
@@ -75,6 +91,22 @@ public class AgentSessionVO extends TeaModel {
     }
     public String getGmtModified() {
         return this.gmtModified;
+    }
+
+    public AgentSessionVO setSessionName(String sessionName) {
+        this.sessionName = sessionName;
+        return this;
+    }
+    public String getSessionName() {
+        return this.sessionName;
+    }
+
+    public AgentSessionVO setTopic(String topic) {
+        this.topic = topic;
+        return this;
+    }
+    public String getTopic() {
+        return this.topic;
     }
 
 }

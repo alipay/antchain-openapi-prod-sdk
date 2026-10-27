@@ -16,25 +16,25 @@ public class QueryTrustiotMiniappResponse extends TeaModel {
     @NameInMap("result_msg")
     public String resultMsg;
 
-    // 携带 redirectToken 的跳转 URL
+    // 一次性跳转链接：`{渠道登录页地址}?redirectToken=访问令牌`。链接整体 24 小时有效（见 valid_to），令牌一次性消费、用后即失效
     @NameInMap("redirect_url")
     public String redirectUrl;
 
-    // 有效期开始时间（时间戳）
+    // 链接生效时间，秒级时间戳
     @NameInMap("valid_from")
     public Long validFrom;
 
-    // 有效期截止时间（时间戳）
+    // 链接过期时间，秒级时间戳，valid_from 起 24 小时。过期后链接不可用
     @NameInMap("valid_to")
     public Long validTo;
 
-    // 按 scene 聚合的未注册设备
-    @NameInMap("invalid_devices")
-    public java.util.List<DeviceScopeItem> invalidDevices;
+    // 清单访问中未命中登记的访问目标回显，结构与 access_scope 条目相同（scene + 设备清单）。部分无效不影响签发，全部无效返回 422（NO_VALID_DEVICE）。主体访问（类型0）恒为空数组
+    @NameInMap("invalid_targets")
+    public java.util.List<AccessScopeItem> invalidTargets;
 
-    // 实际授权的有效设备数
-    @NameInMap("valid_device_count")
-    public Long validDeviceCount;
+    // 链接实际生效的目标数：范围解析含直接子设备并集、按场景与目标去重后的总数。清单访问与主体访问均返回该口径
+    @NameInMap("valid_target_count")
+    public Long validTargetCount;
 
     public static QueryTrustiotMiniappResponse build(java.util.Map<String, ?> map) throws Exception {
         QueryTrustiotMiniappResponse self = new QueryTrustiotMiniappResponse();
@@ -89,20 +89,20 @@ public class QueryTrustiotMiniappResponse extends TeaModel {
         return this.validTo;
     }
 
-    public QueryTrustiotMiniappResponse setInvalidDevices(java.util.List<DeviceScopeItem> invalidDevices) {
-        this.invalidDevices = invalidDevices;
+    public QueryTrustiotMiniappResponse setInvalidTargets(java.util.List<AccessScopeItem> invalidTargets) {
+        this.invalidTargets = invalidTargets;
         return this;
     }
-    public java.util.List<DeviceScopeItem> getInvalidDevices() {
-        return this.invalidDevices;
+    public java.util.List<AccessScopeItem> getInvalidTargets() {
+        return this.invalidTargets;
     }
 
-    public QueryTrustiotMiniappResponse setValidDeviceCount(Long validDeviceCount) {
-        this.validDeviceCount = validDeviceCount;
+    public QueryTrustiotMiniappResponse setValidTargetCount(Long validTargetCount) {
+        this.validTargetCount = validTargetCount;
         return this;
     }
-    public Long getValidDeviceCount() {
-        return this.validDeviceCount;
+    public Long getValidTargetCount() {
+        return this.validTargetCount;
     }
 
 }
