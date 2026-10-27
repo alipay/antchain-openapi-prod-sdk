@@ -1763,6 +1763,109 @@ func (s *SimCarLocationInfo) SetLatitude(v string) *SimCarLocationInfo {
 	return s
 }
 
+// 设备信息
+type HealthDeviceInfo struct {
+	// 品牌方渠道标识
+	// example:
+	//
+	// YIHU
+	ChannelId *string `json:"channel_id,omitempty" xml:"channel_id,omitempty" require:"true"`
+	// 设备唯一id
+	// example:
+	//
+	// 123
+	Tuid *string `json:"tuid,omitempty" xml:"tuid,omitempty"`
+	// 设备sn号
+	Sn *string `json:"sn,omitempty" xml:"sn,omitempty"`
+	// 设备类型 WATCH-手表
+	// example:
+	//
+	// WATCH
+	DeviceType *string `json:"device_type,omitempty" xml:"device_type,omitempty"`
+	// 设备型号
+	DeviceModel *string `json:"device_model,omitempty" xml:"device_model,omitempty"`
+	// 设备名称
+	// example:
+	//
+	// 爸爸的手表
+	DeviceName *string `json:"device_name,omitempty" xml:"device_name,omitempty"`
+	// 设备状态：0-未激活 1-在线 2-离线
+	// example:
+	//
+	// 1
+	Status *int64 `json:"status,omitempty" xml:"status,omitempty"`
+	// 电量百分比（0~100）
+	// example:
+	//
+	// 20
+	Battery *int64 `json:"battery,omitempty" xml:"battery,omitempty"`
+	// 佩戴状态：true-已佩戴 false-未佩戴
+	// example:
+	//
+	// true
+	Wear *bool `json:"wear,omitempty" xml:"wear,omitempty"`
+	// 预留可扩展字段json
+	ExtraInfo *string `json:"extra_info,omitempty" xml:"extra_info,omitempty"`
+}
+
+func (s HealthDeviceInfo) String() string {
+	return tea.Prettify(s)
+}
+
+func (s HealthDeviceInfo) GoString() string {
+	return s.String()
+}
+
+func (s *HealthDeviceInfo) SetChannelId(v string) *HealthDeviceInfo {
+	s.ChannelId = &v
+	return s
+}
+
+func (s *HealthDeviceInfo) SetTuid(v string) *HealthDeviceInfo {
+	s.Tuid = &v
+	return s
+}
+
+func (s *HealthDeviceInfo) SetSn(v string) *HealthDeviceInfo {
+	s.Sn = &v
+	return s
+}
+
+func (s *HealthDeviceInfo) SetDeviceType(v string) *HealthDeviceInfo {
+	s.DeviceType = &v
+	return s
+}
+
+func (s *HealthDeviceInfo) SetDeviceModel(v string) *HealthDeviceInfo {
+	s.DeviceModel = &v
+	return s
+}
+
+func (s *HealthDeviceInfo) SetDeviceName(v string) *HealthDeviceInfo {
+	s.DeviceName = &v
+	return s
+}
+
+func (s *HealthDeviceInfo) SetStatus(v int64) *HealthDeviceInfo {
+	s.Status = &v
+	return s
+}
+
+func (s *HealthDeviceInfo) SetBattery(v int64) *HealthDeviceInfo {
+	s.Battery = &v
+	return s
+}
+
+func (s *HealthDeviceInfo) SetWear(v bool) *HealthDeviceInfo {
+	s.Wear = &v
+	return s
+}
+
+func (s *HealthDeviceInfo) SetExtraInfo(v string) *HealthDeviceInfo {
+	s.ExtraInfo = &v
+	return s
+}
+
 // 积分账户信息
 type PointAccountInfo struct {
 	// 门店ID
@@ -2386,6 +2489,55 @@ func (s *PoiMallPointRechargeInfo) SetTrafficPlatform(v string) *PoiMallPointRec
 
 func (s *PoiMallPointRechargeInfo) SetPointSource(v string) *PoiMallPointRechargeInfo {
 	s.PointSource = &v
+	return s
+}
+
+// 设备定位信息
+type DeviceLocationInfo struct {
+	// 纬度
+	// example:
+	//
+	// 30.288701
+	Lat *string `json:"lat,omitempty" xml:"lat,omitempty" require:"true"`
+	// 经度
+	// example:
+	//
+	// 120.160256
+	Lng *string `json:"lng,omitempty" xml:"lng,omitempty" require:"true"`
+	// 最后一次定位上报时间
+	// example:
+	//
+	// 2026-10-13 10:00:00
+	LocationTime *string `json:"location_time,omitempty" xml:"location_time,omitempty" require:"true"`
+	// 预留可扩展字段json
+	ExtraInfo *string `json:"extra_info,omitempty" xml:"extra_info,omitempty"`
+}
+
+func (s DeviceLocationInfo) String() string {
+	return tea.Prettify(s)
+}
+
+func (s DeviceLocationInfo) GoString() string {
+	return s.String()
+}
+
+func (s *DeviceLocationInfo) SetLat(v string) *DeviceLocationInfo {
+	s.Lat = &v
+	return s
+}
+
+func (s *DeviceLocationInfo) SetLng(v string) *DeviceLocationInfo {
+	s.Lng = &v
+	return s
+}
+
+func (s *DeviceLocationInfo) SetLocationTime(v string) *DeviceLocationInfo {
+	s.LocationTime = &v
+	return s
+}
+
+func (s *DeviceLocationInfo) SetExtraInfo(v string) *DeviceLocationInfo {
+	s.ExtraInfo = &v
 	return s
 }
 
@@ -5105,6 +5257,56 @@ func (s *PointReceiverInfo) SetMobile(v string) *PointReceiverInfo {
 
 func (s *PointReceiverInfo) SetAddress(v string) *PointReceiverInfo {
 	s.Address = &v
+	return s
+}
+
+// 健康指标数据
+type MetricItemInfo struct {
+	// 指标类型 心率:HEART_RATE/血氧:BLOOD_OXYGEN/体温:BODY_TEMP/步数:STEPS/睡眠:SLEEP/呼吸率:RESP_RATE/压力:STRESS/疲劳:FATIGUE/情绪:EMOTION/...
+	// example:
+	//
+	// HEART_RATE
+	MetricType *string `json:"metric_type,omitempty" xml:"metric_type,omitempty" require:"true"`
+	// 测量时间(毫秒级时间戳)
+	MeasureTime *int64 `json:"measure_time,omitempty" xml:"measure_time,omitempty" require:"true"`
+	// 指标值
+	Value *string `json:"value,omitempty" xml:"value,omitempty" require:"true"`
+	// 指标值单位 -平台固定值
+	Unit *string `json:"unit,omitempty" xml:"unit,omitempty"`
+	// 扩展字段（JSON），如睡眠阶段时长等
+	Ext *string `json:"ext,omitempty" xml:"ext,omitempty"`
+}
+
+func (s MetricItemInfo) String() string {
+	return tea.Prettify(s)
+}
+
+func (s MetricItemInfo) GoString() string {
+	return s.String()
+}
+
+func (s *MetricItemInfo) SetMetricType(v string) *MetricItemInfo {
+	s.MetricType = &v
+	return s
+}
+
+func (s *MetricItemInfo) SetMeasureTime(v int64) *MetricItemInfo {
+	s.MeasureTime = &v
+	return s
+}
+
+func (s *MetricItemInfo) SetValue(v string) *MetricItemInfo {
+	s.Value = &v
+	return s
+}
+
+func (s *MetricItemInfo) SetUnit(v string) *MetricItemInfo {
+	s.Unit = &v
+	return s
+}
+
+func (s *MetricItemInfo) SetExt(v string) *MetricItemInfo {
+	s.Ext = &v
 	return s
 }
 
@@ -13176,6 +13378,958 @@ func (s *NotifyPoiCouponResponse) SetFailReason(v string) *NotifyPoiCouponRespon
 	return s
 }
 
+type SaveHealthContactRequest struct {
+	// OAuth模式下的授权token
+	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
+	// 品牌方渠道标识
+	ChannelId *string `json:"channel_id,omitempty" xml:"channel_id,omitempty" require:"true"`
+	// 设备唯一id
+	Tuid *string `json:"tuid,omitempty" xml:"tuid,omitempty" require:"true"`
+	// 联系人业务id -为空时新增/不为空时编辑
+	ContactId *string `json:"contact_id,omitempty" xml:"contact_id,omitempty"`
+	// 键位设置优先级（1=红键, 2=黄键, 3=绿键）
+	Priority *int64 `json:"priority,omitempty" xml:"priority,omitempty" require:"true"`
+	// 联系人名称
+	ContactName *string `json:"contact_name,omitempty" xml:"contact_name,omitempty" require:"true"`
+	// 呼叫联系人手机号
+	ContactPhone *string `json:"contact_phone,omitempty" xml:"contact_phone,omitempty" require:"true"`
+	// 是否锁定 - 锁定时不允许c端用户修改联系人信息，可通过此接口修改相关信息以及解锁
+	Locked *bool `json:"locked,omitempty" xml:"locked,omitempty" require:"true"`
+	// 预留可扩展字段
+	ExtraInfo *string `json:"extra_info,omitempty" xml:"extra_info,omitempty"`
+}
+
+func (s SaveHealthContactRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s SaveHealthContactRequest) GoString() string {
+	return s.String()
+}
+
+func (s *SaveHealthContactRequest) SetAuthToken(v string) *SaveHealthContactRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *SaveHealthContactRequest) SetProductInstanceId(v string) *SaveHealthContactRequest {
+	s.ProductInstanceId = &v
+	return s
+}
+
+func (s *SaveHealthContactRequest) SetChannelId(v string) *SaveHealthContactRequest {
+	s.ChannelId = &v
+	return s
+}
+
+func (s *SaveHealthContactRequest) SetTuid(v string) *SaveHealthContactRequest {
+	s.Tuid = &v
+	return s
+}
+
+func (s *SaveHealthContactRequest) SetContactId(v string) *SaveHealthContactRequest {
+	s.ContactId = &v
+	return s
+}
+
+func (s *SaveHealthContactRequest) SetPriority(v int64) *SaveHealthContactRequest {
+	s.Priority = &v
+	return s
+}
+
+func (s *SaveHealthContactRequest) SetContactName(v string) *SaveHealthContactRequest {
+	s.ContactName = &v
+	return s
+}
+
+func (s *SaveHealthContactRequest) SetContactPhone(v string) *SaveHealthContactRequest {
+	s.ContactPhone = &v
+	return s
+}
+
+func (s *SaveHealthContactRequest) SetLocked(v bool) *SaveHealthContactRequest {
+	s.Locked = &v
+	return s
+}
+
+func (s *SaveHealthContactRequest) SetExtraInfo(v string) *SaveHealthContactRequest {
+	s.ExtraInfo = &v
+	return s
+}
+
+type SaveHealthContactResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// 联系人业务id
+	ContactId *string `json:"contact_id,omitempty" xml:"contact_id,omitempty"`
+}
+
+func (s SaveHealthContactResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s SaveHealthContactResponse) GoString() string {
+	return s.String()
+}
+
+func (s *SaveHealthContactResponse) SetReqMsgId(v string) *SaveHealthContactResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *SaveHealthContactResponse) SetResultCode(v string) *SaveHealthContactResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *SaveHealthContactResponse) SetResultMsg(v string) *SaveHealthContactResponse {
+	s.ResultMsg = &v
+	return s
+}
+
+func (s *SaveHealthContactResponse) SetContactId(v string) *SaveHealthContactResponse {
+	s.ContactId = &v
+	return s
+}
+
+type DeleteHealthContactRequest struct {
+	// OAuth模式下的授权token
+	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
+	// 联系人业务id
+	ContanctId *string `json:"contanct_id,omitempty" xml:"contanct_id,omitempty" require:"true"`
+	// 品牌方渠道标识
+	ChannelId *string `json:"channel_id,omitempty" xml:"channel_id,omitempty" require:"true"`
+}
+
+func (s DeleteHealthContactRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s DeleteHealthContactRequest) GoString() string {
+	return s.String()
+}
+
+func (s *DeleteHealthContactRequest) SetAuthToken(v string) *DeleteHealthContactRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *DeleteHealthContactRequest) SetProductInstanceId(v string) *DeleteHealthContactRequest {
+	s.ProductInstanceId = &v
+	return s
+}
+
+func (s *DeleteHealthContactRequest) SetContanctId(v string) *DeleteHealthContactRequest {
+	s.ContanctId = &v
+	return s
+}
+
+func (s *DeleteHealthContactRequest) SetChannelId(v string) *DeleteHealthContactRequest {
+	s.ChannelId = &v
+	return s
+}
+
+type DeleteHealthContactResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// 删除结果
+	Result *bool `json:"result,omitempty" xml:"result,omitempty"`
+}
+
+func (s DeleteHealthContactResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s DeleteHealthContactResponse) GoString() string {
+	return s.String()
+}
+
+func (s *DeleteHealthContactResponse) SetReqMsgId(v string) *DeleteHealthContactResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *DeleteHealthContactResponse) SetResultCode(v string) *DeleteHealthContactResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *DeleteHealthContactResponse) SetResultMsg(v string) *DeleteHealthContactResponse {
+	s.ResultMsg = &v
+	return s
+}
+
+func (s *DeleteHealthContactResponse) SetResult(v bool) *DeleteHealthContactResponse {
+	s.Result = &v
+	return s
+}
+
+type QueryHealthContactRequest struct {
+	// OAuth模式下的授权token
+	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
+	// 品牌方渠道标识
+	ChannelId *string `json:"channel_id,omitempty" xml:"channel_id,omitempty" require:"true"`
+	// 设备唯一id
+	Tuid *string `json:"tuid,omitempty" xml:"tuid,omitempty" require:"true"`
+	// 预留扩展字段
+	ExtraInfo *string `json:"extra_info,omitempty" xml:"extra_info,omitempty"`
+}
+
+func (s QueryHealthContactRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s QueryHealthContactRequest) GoString() string {
+	return s.String()
+}
+
+func (s *QueryHealthContactRequest) SetAuthToken(v string) *QueryHealthContactRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *QueryHealthContactRequest) SetProductInstanceId(v string) *QueryHealthContactRequest {
+	s.ProductInstanceId = &v
+	return s
+}
+
+func (s *QueryHealthContactRequest) SetChannelId(v string) *QueryHealthContactRequest {
+	s.ChannelId = &v
+	return s
+}
+
+func (s *QueryHealthContactRequest) SetTuid(v string) *QueryHealthContactRequest {
+	s.Tuid = &v
+	return s
+}
+
+func (s *QueryHealthContactRequest) SetExtraInfo(v string) *QueryHealthContactRequest {
+	s.ExtraInfo = &v
+	return s
+}
+
+type QueryHealthContactResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// 品牌方渠道标识
+	ChanneId *string `json:"channe_id,omitempty" xml:"channe_id,omitempty"`
+	// 设备唯一id
+	Tuid *string `json:"tuid,omitempty" xml:"tuid,omitempty"`
+	// 联系人业务id
+	ContactId *string `json:"contact_id,omitempty" xml:"contact_id,omitempty"`
+	// 键位设置优先级（1=红键, 2=黄键, 3=绿键）
+	Priority *int64 `json:"priority,omitempty" xml:"priority,omitempty"`
+	// 联系人姓名
+	ContactName *string `json:"contact_name,omitempty" xml:"contact_name,omitempty"`
+	// 联系人手机号
+	ContactPhone *string `json:"contact_phone,omitempty" xml:"contact_phone,omitempty"`
+	// 是否锁定 - 锁定时不允许c端用户修改联系人信息
+	Locked *bool `json:"locked,omitempty" xml:"locked,omitempty"`
+	// 预留可扩展字段
+	ExtraInfo *string `json:"extra_info,omitempty" xml:"extra_info,omitempty"`
+}
+
+func (s QueryHealthContactResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s QueryHealthContactResponse) GoString() string {
+	return s.String()
+}
+
+func (s *QueryHealthContactResponse) SetReqMsgId(v string) *QueryHealthContactResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *QueryHealthContactResponse) SetResultCode(v string) *QueryHealthContactResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *QueryHealthContactResponse) SetResultMsg(v string) *QueryHealthContactResponse {
+	s.ResultMsg = &v
+	return s
+}
+
+func (s *QueryHealthContactResponse) SetChanneId(v string) *QueryHealthContactResponse {
+	s.ChanneId = &v
+	return s
+}
+
+func (s *QueryHealthContactResponse) SetTuid(v string) *QueryHealthContactResponse {
+	s.Tuid = &v
+	return s
+}
+
+func (s *QueryHealthContactResponse) SetContactId(v string) *QueryHealthContactResponse {
+	s.ContactId = &v
+	return s
+}
+
+func (s *QueryHealthContactResponse) SetPriority(v int64) *QueryHealthContactResponse {
+	s.Priority = &v
+	return s
+}
+
+func (s *QueryHealthContactResponse) SetContactName(v string) *QueryHealthContactResponse {
+	s.ContactName = &v
+	return s
+}
+
+func (s *QueryHealthContactResponse) SetContactPhone(v string) *QueryHealthContactResponse {
+	s.ContactPhone = &v
+	return s
+}
+
+func (s *QueryHealthContactResponse) SetLocked(v bool) *QueryHealthContactResponse {
+	s.Locked = &v
+	return s
+}
+
+func (s *QueryHealthContactResponse) SetExtraInfo(v string) *QueryHealthContactResponse {
+	s.ExtraInfo = &v
+	return s
+}
+
+type RegisterHealthDeviceRequest struct {
+	// OAuth模式下的授权token
+	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
+	// 品牌方渠道标识
+	ChannelId *string `json:"channel_id,omitempty" xml:"channel_id,omitempty" require:"true"`
+	// 设备唯一id  与sn不可同时为空
+	Tuid *string `json:"tuid,omitempty" xml:"tuid,omitempty"`
+	// 设备sn号 与tuid不可同时为空
+	Sn *string `json:"sn,omitempty" xml:"sn,omitempty"`
+	// 是否清除设备历史数据 true-清除/false-保留
+	ClearHistory *bool `json:"clear_history,omitempty" xml:"clear_history,omitempty" require:"true"`
+	// 预留可扩展字段
+	ExtraInfo *string `json:"extra_info,omitempty" xml:"extra_info,omitempty"`
+}
+
+func (s RegisterHealthDeviceRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s RegisterHealthDeviceRequest) GoString() string {
+	return s.String()
+}
+
+func (s *RegisterHealthDeviceRequest) SetAuthToken(v string) *RegisterHealthDeviceRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *RegisterHealthDeviceRequest) SetProductInstanceId(v string) *RegisterHealthDeviceRequest {
+	s.ProductInstanceId = &v
+	return s
+}
+
+func (s *RegisterHealthDeviceRequest) SetChannelId(v string) *RegisterHealthDeviceRequest {
+	s.ChannelId = &v
+	return s
+}
+
+func (s *RegisterHealthDeviceRequest) SetTuid(v string) *RegisterHealthDeviceRequest {
+	s.Tuid = &v
+	return s
+}
+
+func (s *RegisterHealthDeviceRequest) SetSn(v string) *RegisterHealthDeviceRequest {
+	s.Sn = &v
+	return s
+}
+
+func (s *RegisterHealthDeviceRequest) SetClearHistory(v bool) *RegisterHealthDeviceRequest {
+	s.ClearHistory = &v
+	return s
+}
+
+func (s *RegisterHealthDeviceRequest) SetExtraInfo(v string) *RegisterHealthDeviceRequest {
+	s.ExtraInfo = &v
+	return s
+}
+
+type RegisterHealthDeviceResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// 品牌方渠道标识
+	ChannelId *string `json:"channel_id,omitempty" xml:"channel_id,omitempty"`
+	// 设备唯一id
+	Tuid *string `json:"tuid,omitempty" xml:"tuid,omitempty"`
+	// 设备sn号
+	Sn *string `json:"sn,omitempty" xml:"sn,omitempty"`
+	// 绑定状态
+	BindStatus *string `json:"bind_status,omitempty" xml:"bind_status,omitempty"`
+	// 设备类型 WATCH-手表
+	DeviceType *string `json:"device_type,omitempty" xml:"device_type,omitempty"`
+	// 设备型号
+	DeviceModel *string `json:"device_model,omitempty" xml:"device_model,omitempty"`
+	// 预留可扩展字段json
+	ExtraInfo *string `json:"extra_info,omitempty" xml:"extra_info,omitempty"`
+}
+
+func (s RegisterHealthDeviceResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s RegisterHealthDeviceResponse) GoString() string {
+	return s.String()
+}
+
+func (s *RegisterHealthDeviceResponse) SetReqMsgId(v string) *RegisterHealthDeviceResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *RegisterHealthDeviceResponse) SetResultCode(v string) *RegisterHealthDeviceResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *RegisterHealthDeviceResponse) SetResultMsg(v string) *RegisterHealthDeviceResponse {
+	s.ResultMsg = &v
+	return s
+}
+
+func (s *RegisterHealthDeviceResponse) SetChannelId(v string) *RegisterHealthDeviceResponse {
+	s.ChannelId = &v
+	return s
+}
+
+func (s *RegisterHealthDeviceResponse) SetTuid(v string) *RegisterHealthDeviceResponse {
+	s.Tuid = &v
+	return s
+}
+
+func (s *RegisterHealthDeviceResponse) SetSn(v string) *RegisterHealthDeviceResponse {
+	s.Sn = &v
+	return s
+}
+
+func (s *RegisterHealthDeviceResponse) SetBindStatus(v string) *RegisterHealthDeviceResponse {
+	s.BindStatus = &v
+	return s
+}
+
+func (s *RegisterHealthDeviceResponse) SetDeviceType(v string) *RegisterHealthDeviceResponse {
+	s.DeviceType = &v
+	return s
+}
+
+func (s *RegisterHealthDeviceResponse) SetDeviceModel(v string) *RegisterHealthDeviceResponse {
+	s.DeviceModel = &v
+	return s
+}
+
+func (s *RegisterHealthDeviceResponse) SetExtraInfo(v string) *RegisterHealthDeviceResponse {
+	s.ExtraInfo = &v
+	return s
+}
+
+type ResetHealthDeviceRequest struct {
+	// OAuth模式下的授权token
+	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
+	// 品牌方渠道标识
+	ChannelId *string `json:"channel_id,omitempty" xml:"channel_id,omitempty" require:"true"`
+	// 设备唯一id 与sn不可同时为空
+	Tuid *string `json:"tuid,omitempty" xml:"tuid,omitempty"`
+	// 设备sn号 与tuid不可同时为空
+	Sn *string `json:"sn,omitempty" xml:"sn,omitempty"`
+	// 预留可扩展字段
+	ExtraInfo *string `json:"extra_info,omitempty" xml:"extra_info,omitempty"`
+}
+
+func (s ResetHealthDeviceRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s ResetHealthDeviceRequest) GoString() string {
+	return s.String()
+}
+
+func (s *ResetHealthDeviceRequest) SetAuthToken(v string) *ResetHealthDeviceRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *ResetHealthDeviceRequest) SetProductInstanceId(v string) *ResetHealthDeviceRequest {
+	s.ProductInstanceId = &v
+	return s
+}
+
+func (s *ResetHealthDeviceRequest) SetChannelId(v string) *ResetHealthDeviceRequest {
+	s.ChannelId = &v
+	return s
+}
+
+func (s *ResetHealthDeviceRequest) SetTuid(v string) *ResetHealthDeviceRequest {
+	s.Tuid = &v
+	return s
+}
+
+func (s *ResetHealthDeviceRequest) SetSn(v string) *ResetHealthDeviceRequest {
+	s.Sn = &v
+	return s
+}
+
+func (s *ResetHealthDeviceRequest) SetExtraInfo(v string) *ResetHealthDeviceRequest {
+	s.ExtraInfo = &v
+	return s
+}
+
+type ResetHealthDeviceResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// 处理结果
+	Result *bool `json:"result,omitempty" xml:"result,omitempty"`
+}
+
+func (s ResetHealthDeviceResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s ResetHealthDeviceResponse) GoString() string {
+	return s.String()
+}
+
+func (s *ResetHealthDeviceResponse) SetReqMsgId(v string) *ResetHealthDeviceResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *ResetHealthDeviceResponse) SetResultCode(v string) *ResetHealthDeviceResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *ResetHealthDeviceResponse) SetResultMsg(v string) *ResetHealthDeviceResponse {
+	s.ResultMsg = &v
+	return s
+}
+
+func (s *ResetHealthDeviceResponse) SetResult(v bool) *ResetHealthDeviceResponse {
+	s.Result = &v
+	return s
+}
+
+type QueryHealthDeviceRequest struct {
+	// OAuth模式下的授权token
+	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
+	// 品牌方渠道标识
+	ChannelId *string `json:"channel_id,omitempty" xml:"channel_id,omitempty" require:"true"`
+	// 设备唯一id
+	Tuid *string `json:"tuid,omitempty" xml:"tuid,omitempty"`
+	// 设备sn号
+	Sn *string `json:"sn,omitempty" xml:"sn,omitempty"`
+	// 预留可扩展字段
+	ExtraInfo *string `json:"extra_info,omitempty" xml:"extra_info,omitempty"`
+}
+
+func (s QueryHealthDeviceRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s QueryHealthDeviceRequest) GoString() string {
+	return s.String()
+}
+
+func (s *QueryHealthDeviceRequest) SetAuthToken(v string) *QueryHealthDeviceRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *QueryHealthDeviceRequest) SetProductInstanceId(v string) *QueryHealthDeviceRequest {
+	s.ProductInstanceId = &v
+	return s
+}
+
+func (s *QueryHealthDeviceRequest) SetChannelId(v string) *QueryHealthDeviceRequest {
+	s.ChannelId = &v
+	return s
+}
+
+func (s *QueryHealthDeviceRequest) SetTuid(v string) *QueryHealthDeviceRequest {
+	s.Tuid = &v
+	return s
+}
+
+func (s *QueryHealthDeviceRequest) SetSn(v string) *QueryHealthDeviceRequest {
+	s.Sn = &v
+	return s
+}
+
+func (s *QueryHealthDeviceRequest) SetExtraInfo(v string) *QueryHealthDeviceRequest {
+	s.ExtraInfo = &v
+	return s
+}
+
+type QueryHealthDeviceResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// 设备详细信息
+	DeviceInfo *HealthDeviceInfo `json:"device_info,omitempty" xml:"device_info,omitempty"`
+	// 设备定位信息
+	LocationInfo *DeviceLocationInfo `json:"location_info,omitempty" xml:"location_info,omitempty"`
+}
+
+func (s QueryHealthDeviceResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s QueryHealthDeviceResponse) GoString() string {
+	return s.String()
+}
+
+func (s *QueryHealthDeviceResponse) SetReqMsgId(v string) *QueryHealthDeviceResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *QueryHealthDeviceResponse) SetResultCode(v string) *QueryHealthDeviceResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *QueryHealthDeviceResponse) SetResultMsg(v string) *QueryHealthDeviceResponse {
+	s.ResultMsg = &v
+	return s
+}
+
+func (s *QueryHealthDeviceResponse) SetDeviceInfo(v *HealthDeviceInfo) *QueryHealthDeviceResponse {
+	s.DeviceInfo = v
+	return s
+}
+
+func (s *QueryHealthDeviceResponse) SetLocationInfo(v *DeviceLocationInfo) *QueryHealthDeviceResponse {
+	s.LocationInfo = v
+	return s
+}
+
+type QueryHealthLocationRequest struct {
+	// OAuth模式下的授权token
+	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
+	// 品牌方渠道标识
+	ChannelId *string `json:"channel_id,omitempty" xml:"channel_id,omitempty" require:"true"`
+	// 设备唯一id
+	Tuid *string `json:"tuid,omitempty" xml:"tuid,omitempty" require:"true"`
+	// 预留可扩展字段
+	ExtraInfo *string `json:"extra_info,omitempty" xml:"extra_info,omitempty"`
+}
+
+func (s QueryHealthLocationRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s QueryHealthLocationRequest) GoString() string {
+	return s.String()
+}
+
+func (s *QueryHealthLocationRequest) SetAuthToken(v string) *QueryHealthLocationRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *QueryHealthLocationRequest) SetProductInstanceId(v string) *QueryHealthLocationRequest {
+	s.ProductInstanceId = &v
+	return s
+}
+
+func (s *QueryHealthLocationRequest) SetChannelId(v string) *QueryHealthLocationRequest {
+	s.ChannelId = &v
+	return s
+}
+
+func (s *QueryHealthLocationRequest) SetTuid(v string) *QueryHealthLocationRequest {
+	s.Tuid = &v
+	return s
+}
+
+func (s *QueryHealthLocationRequest) SetExtraInfo(v string) *QueryHealthLocationRequest {
+	s.ExtraInfo = &v
+	return s
+}
+
+type QueryHealthLocationResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// 纬度
+	Lat *string `json:"lat,omitempty" xml:"lat,omitempty"`
+	// 经度
+	Lng *string `json:"lng,omitempty" xml:"lng,omitempty"`
+	// 定位时间，格式 yyyy-MM-dd HH:mm:ss
+	LocationTime *string `json:"location_time,omitempty" xml:"location_time,omitempty"`
+	// 预留可扩展字段json
+	ExtraInfo *string `json:"extra_info,omitempty" xml:"extra_info,omitempty"`
+}
+
+func (s QueryHealthLocationResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s QueryHealthLocationResponse) GoString() string {
+	return s.String()
+}
+
+func (s *QueryHealthLocationResponse) SetReqMsgId(v string) *QueryHealthLocationResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *QueryHealthLocationResponse) SetResultCode(v string) *QueryHealthLocationResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *QueryHealthLocationResponse) SetResultMsg(v string) *QueryHealthLocationResponse {
+	s.ResultMsg = &v
+	return s
+}
+
+func (s *QueryHealthLocationResponse) SetLat(v string) *QueryHealthLocationResponse {
+	s.Lat = &v
+	return s
+}
+
+func (s *QueryHealthLocationResponse) SetLng(v string) *QueryHealthLocationResponse {
+	s.Lng = &v
+	return s
+}
+
+func (s *QueryHealthLocationResponse) SetLocationTime(v string) *QueryHealthLocationResponse {
+	s.LocationTime = &v
+	return s
+}
+
+func (s *QueryHealthLocationResponse) SetExtraInfo(v string) *QueryHealthLocationResponse {
+	s.ExtraInfo = &v
+	return s
+}
+
+type QueryHealthDataRequest struct {
+	// OAuth模式下的授权token
+	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
+	// channel_id
+	ChannelId *string `json:"channel_id,omitempty" xml:"channel_id,omitempty" require:"true"`
+	// 设备唯一id
+	Tuid *string `json:"tuid,omitempty" xml:"tuid,omitempty" require:"true"`
+	// 指标类型 心率:HEART_RATE/血氧:BLOOD_OXYGEN/体温:BODY_TEMP/步数:STEPS/睡眠:SLEEP/呼吸率:RESP_RATE/压力:STRESS/疲劳:FATIGUE/情绪:EMOTION
+	MetricType *string `json:"metric_type,omitempty" xml:"metric_type,omitempty"`
+	// 查询开始时间(毫秒级时间戳)
+	StartTime *int64 `json:"start_time,omitempty" xml:"start_time,omitempty"`
+	// 查询结束时间（毫秒级时间戳）
+	EndTime *int64 `json:"end_time,omitempty" xml:"end_time,omitempty"`
+	// 预留可扩展字段json
+	ExtraInfo *string `json:"extra_info,omitempty" xml:"extra_info,omitempty"`
+}
+
+func (s QueryHealthDataRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s QueryHealthDataRequest) GoString() string {
+	return s.String()
+}
+
+func (s *QueryHealthDataRequest) SetAuthToken(v string) *QueryHealthDataRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *QueryHealthDataRequest) SetProductInstanceId(v string) *QueryHealthDataRequest {
+	s.ProductInstanceId = &v
+	return s
+}
+
+func (s *QueryHealthDataRequest) SetChannelId(v string) *QueryHealthDataRequest {
+	s.ChannelId = &v
+	return s
+}
+
+func (s *QueryHealthDataRequest) SetTuid(v string) *QueryHealthDataRequest {
+	s.Tuid = &v
+	return s
+}
+
+func (s *QueryHealthDataRequest) SetMetricType(v string) *QueryHealthDataRequest {
+	s.MetricType = &v
+	return s
+}
+
+func (s *QueryHealthDataRequest) SetStartTime(v int64) *QueryHealthDataRequest {
+	s.StartTime = &v
+	return s
+}
+
+func (s *QueryHealthDataRequest) SetEndTime(v int64) *QueryHealthDataRequest {
+	s.EndTime = &v
+	return s
+}
+
+func (s *QueryHealthDataRequest) SetExtraInfo(v string) *QueryHealthDataRequest {
+	s.ExtraInfo = &v
+	return s
+}
+
+type QueryHealthDataResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// 健康指标数据列表
+	MetricList []*MetricItemInfo `json:"metric_list,omitempty" xml:"metric_list,omitempty" type:"Repeated"`
+}
+
+func (s QueryHealthDataResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s QueryHealthDataResponse) GoString() string {
+	return s.String()
+}
+
+func (s *QueryHealthDataResponse) SetReqMsgId(v string) *QueryHealthDataResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *QueryHealthDataResponse) SetResultCode(v string) *QueryHealthDataResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *QueryHealthDataResponse) SetResultMsg(v string) *QueryHealthDataResponse {
+	s.ResultMsg = &v
+	return s
+}
+
+func (s *QueryHealthDataResponse) SetMetricList(v []*MetricItemInfo) *QueryHealthDataResponse {
+	s.MetricList = v
+	return s
+}
+
+type ReportHealthDataRequest struct {
+	// OAuth模式下的授权token
+	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
+	// 设备唯一id
+	Tuid *string `json:"tuid,omitempty" xml:"tuid,omitempty" require:"true"`
+	// 上报时间时间戳
+	Timestamp *int64 `json:"timestamp,omitempty" xml:"timestamp,omitempty" require:"true"`
+	// 数据类别 健康指标:HEALTH_METRIC/GPS定位:GPS_LOCATION/告警事件:ALERT_EVENT/设备信息:DEVICE_INFO
+	DataCategory *string `json:"data_category,omitempty" xml:"data_category,omitempty" require:"true"`
+	// 数据内容 json传输，与不同category一一映射
+	Payload *string `json:"payload,omitempty" xml:"payload,omitempty" require:"true"`
+}
+
+func (s ReportHealthDataRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s ReportHealthDataRequest) GoString() string {
+	return s.String()
+}
+
+func (s *ReportHealthDataRequest) SetAuthToken(v string) *ReportHealthDataRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *ReportHealthDataRequest) SetProductInstanceId(v string) *ReportHealthDataRequest {
+	s.ProductInstanceId = &v
+	return s
+}
+
+func (s *ReportHealthDataRequest) SetTuid(v string) *ReportHealthDataRequest {
+	s.Tuid = &v
+	return s
+}
+
+func (s *ReportHealthDataRequest) SetTimestamp(v int64) *ReportHealthDataRequest {
+	s.Timestamp = &v
+	return s
+}
+
+func (s *ReportHealthDataRequest) SetDataCategory(v string) *ReportHealthDataRequest {
+	s.DataCategory = &v
+	return s
+}
+
+func (s *ReportHealthDataRequest) SetPayload(v string) *ReportHealthDataRequest {
+	s.Payload = &v
+	return s
+}
+
+type ReportHealthDataResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+}
+
+func (s ReportHealthDataResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s ReportHealthDataResponse) GoString() string {
+	return s.String()
+}
+
+func (s *ReportHealthDataResponse) SetReqMsgId(v string) *ReportHealthDataResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *ReportHealthDataResponse) SetResultCode(v string) *ReportHealthDataResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *ReportHealthDataResponse) SetResultMsg(v string) *ReportHealthDataResponse {
+	s.ResultMsg = &v
+	return s
+}
+
 type CreateBssecpicRequest struct {
 	// OAuth模式下的授权token
 	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
@@ -17733,7 +18887,7 @@ func (client *Client) DoRequest(version *string, action *string, protocol *strin
 				"req_msg_id":       antchainutil.GetNonce(),
 				"access_key":       client.AccessKeyId,
 				"base_sdk_version": tea.String("TeaSDK-2.0"),
-				"sdk_version":      tea.String("1.7.35"),
+				"sdk_version":      tea.String("1.7.36"),
 				"_prod_code":       tea.String("SECURITYTECH"),
 				"_prod_channel":    tea.String("undefined"),
 			}
@@ -20698,6 +21852,330 @@ func (client *Client) NotifyPoiCouponEx(request *NotifyPoiCouponRequest, headers
 	}
 	_result = &NotifyPoiCouponResponse{}
 	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("antsecuritytech.gateway.poi.coupon.notify"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
+}
+
+// Description:
+//
+// Description: 保存设备联系人
+//
+// Summary: 保存设备联系人
+func (client *Client) SaveHealthContact(request *SaveHealthContactRequest) (_result *SaveHealthContactResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &SaveHealthContactResponse{}
+	_body, _err := client.SaveHealthContactEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+// Description:
+//
+// Description: 保存设备联系人
+//
+// Summary: 保存设备联系人
+func (client *Client) SaveHealthContactEx(request *SaveHealthContactRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *SaveHealthContactResponse, _err error) {
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &SaveHealthContactResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("antsecuritytech.gateway.health.contact.save"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
+}
+
+// Description:
+//
+// Description: 删除设备联系人
+//
+// Summary: 删除设备联系人
+func (client *Client) DeleteHealthContact(request *DeleteHealthContactRequest) (_result *DeleteHealthContactResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &DeleteHealthContactResponse{}
+	_body, _err := client.DeleteHealthContactEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+// Description:
+//
+// Description: 删除设备联系人
+//
+// Summary: 删除设备联系人
+func (client *Client) DeleteHealthContactEx(request *DeleteHealthContactRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *DeleteHealthContactResponse, _err error) {
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &DeleteHealthContactResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("antsecuritytech.gateway.health.contact.delete"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
+}
+
+// Description:
+//
+// Description: 根据设备唯一id查询联系人信息列表
+//
+// Summary: 根据设备唯一id查询联系人信息列表
+func (client *Client) QueryHealthContact(request *QueryHealthContactRequest) (_result *QueryHealthContactResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &QueryHealthContactResponse{}
+	_body, _err := client.QueryHealthContactEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+// Description:
+//
+// Description: 根据设备唯一id查询联系人信息列表
+//
+// Summary: 根据设备唯一id查询联系人信息列表
+func (client *Client) QueryHealthContactEx(request *QueryHealthContactRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *QueryHealthContactResponse, _err error) {
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &QueryHealthContactResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("antsecuritytech.gateway.health.contact.query"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
+}
+
+// Description:
+//
+// Description: 品牌方设备校验并绑定
+//
+// Summary: 品牌方设备校验并绑定
+func (client *Client) RegisterHealthDevice(request *RegisterHealthDeviceRequest) (_result *RegisterHealthDeviceResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &RegisterHealthDeviceResponse{}
+	_body, _err := client.RegisterHealthDeviceEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+// Description:
+//
+// Description: 品牌方设备校验并绑定
+//
+// Summary: 品牌方设备校验并绑定
+func (client *Client) RegisterHealthDeviceEx(request *RegisterHealthDeviceRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *RegisterHealthDeviceResponse, _err error) {
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &RegisterHealthDeviceResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("antsecuritytech.gateway.health.device.register"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
+}
+
+// Description:
+//
+// Description: 品牌方设备解除绑定
+//
+// Summary: 品牌方设备解除绑定
+func (client *Client) ResetHealthDevice(request *ResetHealthDeviceRequest) (_result *ResetHealthDeviceResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &ResetHealthDeviceResponse{}
+	_body, _err := client.ResetHealthDeviceEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+// Description:
+//
+// Description: 品牌方设备解除绑定
+//
+// Summary: 品牌方设备解除绑定
+func (client *Client) ResetHealthDeviceEx(request *ResetHealthDeviceRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *ResetHealthDeviceResponse, _err error) {
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &ResetHealthDeviceResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("antsecuritytech.gateway.health.device.reset"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
+}
+
+// Description:
+//
+// Description: 查询设备详细信息
+//
+// Summary: 查询设备详细信息
+func (client *Client) QueryHealthDevice(request *QueryHealthDeviceRequest) (_result *QueryHealthDeviceResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &QueryHealthDeviceResponse{}
+	_body, _err := client.QueryHealthDeviceEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+// Description:
+//
+// Description: 查询设备详细信息
+//
+// Summary: 查询设备详细信息
+func (client *Client) QueryHealthDeviceEx(request *QueryHealthDeviceRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *QueryHealthDeviceResponse, _err error) {
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &QueryHealthDeviceResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("antsecuritytech.gateway.health.device.query"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
+}
+
+// Description:
+//
+// Description: 查询设备定位信息
+//
+// Summary: 查询设备定位信息
+func (client *Client) QueryHealthLocation(request *QueryHealthLocationRequest) (_result *QueryHealthLocationResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &QueryHealthLocationResponse{}
+	_body, _err := client.QueryHealthLocationEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+// Description:
+//
+// Description: 查询设备定位信息
+//
+// Summary: 查询设备定位信息
+func (client *Client) QueryHealthLocationEx(request *QueryHealthLocationRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *QueryHealthLocationResponse, _err error) {
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &QueryHealthLocationResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("antsecuritytech.gateway.health.location.query"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
+}
+
+// Description:
+//
+// Description: 查询设备健康指标数据
+//
+// Summary: 查询设备健康指标数据
+func (client *Client) QueryHealthData(request *QueryHealthDataRequest) (_result *QueryHealthDataResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &QueryHealthDataResponse{}
+	_body, _err := client.QueryHealthDataEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+// Description:
+//
+// Description: 查询设备健康指标数据
+//
+// Summary: 查询设备健康指标数据
+func (client *Client) QueryHealthDataEx(request *QueryHealthDataRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *QueryHealthDataResponse, _err error) {
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &QueryHealthDataResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("antsecuritytech.gateway.health.data.query"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
+}
+
+// Description:
+//
+// Description: 设备厂商标准化数据上报
+//
+// Summary: 设备厂商标准化数据上报
+func (client *Client) ReportHealthData(request *ReportHealthDataRequest) (_result *ReportHealthDataResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &ReportHealthDataResponse{}
+	_body, _err := client.ReportHealthDataEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+// Description:
+//
+// Description: 设备厂商标准化数据上报
+//
+// Summary: 设备厂商标准化数据上报
+func (client *Client) ReportHealthDataEx(request *ReportHealthDataRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *ReportHealthDataResponse, _err error) {
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &ReportHealthDataResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("antsecuritytech.gateway.health.data.report"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
 	if _err != nil {
 		return _result, _err
 	}
