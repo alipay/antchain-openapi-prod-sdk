@@ -11,7 +11,7 @@ public class QueryTxtRequest extends TeaModel {
     @NameInMap("product_instance_id")
     public String productInstanceId;
 
-    // 姓名
+    // x
     @NameInMap("name")
     public String name;
 
