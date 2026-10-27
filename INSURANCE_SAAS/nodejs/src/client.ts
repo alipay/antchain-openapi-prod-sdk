@@ -2014,6 +2014,74 @@ export class V2AasDataBankcardlivenessCallbackResponse extends $tea.Model {
   }
 }
 
+export class GetMktExtresulturlRequest extends $tea.Model {
+  // OAuth模式下的授权token
+  authToken?: string;
+  // 请求id，每一次请求保持唯一，若重复，则报错
+  requestId: string;
+  // 项目ID，蚂蚁分配
+  projectId: string;
+  // 上传营销标识，来源于上传结果通知中的uploadMktNo
+  uploadMktNo: string;
+  static names(): { [key: string]: string } {
+    return {
+      authToken: 'auth_token',
+      requestId: 'request_id',
+      projectId: 'project_id',
+      uploadMktNo: 'upload_mkt_no',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      authToken: 'string',
+      requestId: 'string',
+      projectId: 'string',
+      uploadMktNo: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class GetMktExtresulturlResponse extends $tea.Model {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string;
+  // 结果码，一般OK表示调用成功
+  resultCode?: string;
+  // 异常信息的文本描述
+  resultMsg?: string;
+  // 请求id
+  requestId: string;
+  // 析出文件下载链接（OSS签名URL，当前有效期24小时）；为空表示析出结果尚未生成，请稍后重试。从底包上传开始7日内链接失效仍可继续获取
+  fileUrl?: string;
+  static names(): { [key: string]: string } {
+    return {
+      reqMsgId: 'req_msg_id',
+      resultCode: 'result_code',
+      resultMsg: 'result_msg',
+      requestId: 'request_id',
+      fileUrl: 'file_url',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      reqMsgId: 'string',
+      resultCode: 'string',
+      resultMsg: 'string',
+      requestId: 'string',
+      fileUrl: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
 export class QueryInquiryRequest extends $tea.Model {
   // OAuth模式下的授权token
   authToken?: string;
@@ -5761,7 +5829,7 @@ export default class Client {
           req_msg_id: AntchainUtil.getNonce(),
           access_key: this._accessKeyId,
           base_sdk_version: "TeaSDK-2.0",
-          sdk_version: "1.12.62",
+          sdk_version: "1.12.63",
           _prod_code: "INSURANCE_SAAS",
           _prod_channel: "undefined",
         };
@@ -6122,6 +6190,27 @@ export default class Client {
   async v2AasDataBankcardlivenessCallbackEx(request: V2AasDataBankcardlivenessCallbackRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<V2AasDataBankcardlivenessCallbackResponse> {
     Util.validateModel(request);
     return $tea.cast<V2AasDataBankcardlivenessCallbackResponse>(await this.doRequest("1.0", "antcloud.insurancesaas.data.bankcardliveness.callback.v2", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new V2AasDataBankcardlivenessCallbackResponse({}));
+  }
+
+  /**
+   * @remarks
+   * Description: 营销人群底包析出结果查询
+   * Summary: 营销人群底包析出结果查询
+   */
+  async getMktExtresulturl(request: GetMktExtresulturlRequest): Promise<GetMktExtresulturlResponse> {
+    let runtime = new $Util.RuntimeOptions({ });
+    let headers : {[key: string ]: string} = { };
+    return await this.getMktExtresulturlEx(request, headers, runtime);
+  }
+
+  /**
+   * @remarks
+   * Description: 营销人群底包析出结果查询
+   * Summary: 营销人群底包析出结果查询
+   */
+  async getMktExtresulturlEx(request: GetMktExtresulturlRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<GetMktExtresulturlResponse> {
+    Util.validateModel(request);
+    return $tea.cast<GetMktExtresulturlResponse>(await this.doRequest("1.0", "antcloud.insurance.mkt.extresulturl.get", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new GetMktExtresulturlResponse({}));
   }
 
   /**
