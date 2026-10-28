@@ -24,29 +24,9 @@ public class QueryHealthContactResponse extends TeaModel {
     @NameInMap("tuid")
     public String tuid;
 
-    // 联系人业务id
-    @NameInMap("contact_id")
-    public String contactId;
-
-    // 键位设置优先级（1=红键, 2=黄键, 3=绿键）
-    @NameInMap("priority")
-    public Long priority;
-
-    // 联系人姓名
-    @NameInMap("contact_name")
-    public String contactName;
-
-    // 联系人手机号
-    @NameInMap("contact_phone")
-    public String contactPhone;
-
-    // 是否锁定 - 锁定时不允许c端用户修改联系人信息
-    @NameInMap("locked")
-    public Boolean locked;
-
-    // 预留可扩展字段
-    @NameInMap("extra_info")
-    public String extraInfo;
+    // 健康联系人信息
+    @NameInMap("contact_list")
+    public java.util.List<HealthContactInfo> contactList;
 
     public static QueryHealthContactResponse build(java.util.Map<String, ?> map) throws Exception {
         QueryHealthContactResponse self = new QueryHealthContactResponse();
@@ -93,52 +73,12 @@ public class QueryHealthContactResponse extends TeaModel {
         return this.tuid;
     }
 
-    public QueryHealthContactResponse setContactId(String contactId) {
-        this.contactId = contactId;
+    public QueryHealthContactResponse setContactList(java.util.List<HealthContactInfo> contactList) {
+        this.contactList = contactList;
         return this;
     }
-    public String getContactId() {
-        return this.contactId;
-    }
-
-    public QueryHealthContactResponse setPriority(Long priority) {
-        this.priority = priority;
-        return this;
-    }
-    public Long getPriority() {
-        return this.priority;
-    }
-
-    public QueryHealthContactResponse setContactName(String contactName) {
-        this.contactName = contactName;
-        return this;
-    }
-    public String getContactName() {
-        return this.contactName;
-    }
-
-    public QueryHealthContactResponse setContactPhone(String contactPhone) {
-        this.contactPhone = contactPhone;
-        return this;
-    }
-    public String getContactPhone() {
-        return this.contactPhone;
-    }
-
-    public QueryHealthContactResponse setLocked(Boolean locked) {
-        this.locked = locked;
-        return this;
-    }
-    public Boolean getLocked() {
-        return this.locked;
-    }
-
-    public QueryHealthContactResponse setExtraInfo(String extraInfo) {
-        this.extraInfo = extraInfo;
-        return this;
-    }
-    public String getExtraInfo() {
-        return this.extraInfo;
+    public java.util.List<HealthContactInfo> getContactList() {
+        return this.contactList;
     }
 
 }
