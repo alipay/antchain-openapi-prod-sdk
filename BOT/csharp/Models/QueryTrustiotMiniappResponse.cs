@@ -24,30 +24,30 @@ namespace AntChain.SDK.BOT.Models
         [Validation(Required=false)]
         public string ResultMsg { get; set; }
 
-        // 携带 redirectToken 的跳转 URL
+        // 一次性跳转链接：`{渠道登录页地址}?redirectToken=访问令牌`。链接整体 24 小时有效（见 valid_to），令牌一次性消费、用后即失效
         [NameInMap("redirect_url")]
         [Validation(Required=false)]
         public string RedirectUrl { get; set; }
 
-        // 有效期开始时间（时间戳）
+        // 链接生效时间，秒级时间戳
         [NameInMap("valid_from")]
         [Validation(Required=false)]
         public long? ValidFrom { get; set; }
 
-        // 有效期截止时间（时间戳）
+        // 链接过期时间，秒级时间戳，valid_from 起 24 小时。过期后链接不可用
         [NameInMap("valid_to")]
         [Validation(Required=false)]
         public long? ValidTo { get; set; }
 
-        // 按 scene 聚合的未注册设备
-        [NameInMap("invalid_devices")]
+        // 清单访问中未命中登记的访问目标回显，结构与 access_scope 条目相同（scene + 设备清单）。部分无效不影响签发，全部无效返回 422（NO_VALID_DEVICE）。主体访问（类型0）恒为空数组
+        [NameInMap("invalid_targets")]
         [Validation(Required=false)]
-        public List<DeviceScopeItem> InvalidDevices { get; set; }
+        public List<AccessScopeItem> InvalidTargets { get; set; }
 
-        // 实际授权的有效设备数
-        [NameInMap("valid_device_count")]
+        // 链接实际生效的目标数：范围解析含直接子设备并集、按场景与目标去重后的总数。清单访问与主体访问均返回该口径
+        [NameInMap("valid_target_count")]
         [Validation(Required=false)]
-        public long? ValidDeviceCount { get; set; }
+        public long? ValidTargetCount { get; set; }
 
     }
 

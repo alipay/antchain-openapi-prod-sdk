@@ -26,22 +26,12 @@ namespace AntChain.SDK.BOT.Models
         // 皮肤id
         [NameInMap("skin_id")]
         [Validation(Required=true)]
-        public long? SkinId { get; set; }
-
-        // 皮肤名称
-        [NameInMap("skin_name")]
-        [Validation(Required=true)]
-        public string SkinName { get; set; }
+        public string SkinId { get; set; }
 
         // 0 全量、1 背景图、2 开关机动画、3 电子宠物动画
         [NameInMap("skin_type")]
         [Validation(Required=true)]
         public long? SkinType { get; set; }
-
-        // 皮肤版本号
-        [NameInMap("skin_ver")]
-        [Validation(Required=true)]
-        public long? SkinVer { get; set; }
 
         // 文件大小，单位字节
         [NameInMap("skin_size")]
@@ -72,6 +62,11 @@ namespace AntChain.SDK.BOT.Models
         [NameInMap("ext")]
         [Validation(Required=false)]
         public string Ext { get; set; }
+
+        // 面板id
+        [NameInMap("dash_id")]
+        [Validation(Required=true)]
+        public string DashId { get; set; }
 
     }
 
