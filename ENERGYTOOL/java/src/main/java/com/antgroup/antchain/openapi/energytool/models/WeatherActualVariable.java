@@ -18,7 +18,7 @@ public class WeatherActualVariable extends TeaModel {
      * <strong>example:</strong>
      * <p>25.3</p>
      */
-    @NameInMap("temperature_2m")
+    @NameInMap("temperature2m")
     public String temperature2m;
 
     // 地面 2 米处相对湿度，单位 %；对应 Java relativeHumidity2m。
@@ -26,7 +26,7 @@ public class WeatherActualVariable extends TeaModel {
      * <strong>example:</strong>
      * <p>65</p>
      */
-    @NameInMap("relative_humidity_2m")
+    @NameInMap("relative_humidity2m")
     public String relativeHumidity2m;
 
     // 地表气压，单位 hPa；对应 Java surfacePressure。
@@ -50,7 +50,7 @@ public class WeatherActualVariable extends TeaModel {
      * <strong>example:</strong>
      * <p>3.2</p>
      */
-    @NameInMap("wind_speed_10m")
+    @NameInMap("wind_speed10m")
     public String windSpeed10m;
 
     // 地面 10 米处风向，单位 °；对应 Java windDirection10m。
@@ -58,7 +58,7 @@ public class WeatherActualVariable extends TeaModel {
      * <strong>example:</strong>
      * <p>180</p>
      */
-    @NameInMap("wind_direction_10m")
+    @NameInMap("wind_direction10m")
     public String windDirection10m;
 
     // 地面 10 米处 U 风速分量，单位 m/s，保留正负号；对应 Java uWind10m。
@@ -66,7 +66,7 @@ public class WeatherActualVariable extends TeaModel {
      * <strong>example:</strong>
      * <p>-2.1</p>
      */
-    @NameInMap("u_wind_10m")
+    @NameInMap("u_wind10m")
     public String uWind10m;
 
     // 地面 10 米处 V 风速分量，单位 m/s，保留正负号；对应 Java vWind10m。
@@ -74,7 +74,7 @@ public class WeatherActualVariable extends TeaModel {
      * <strong>example:</strong>
      * <p>1.8</p>
      */
-    @NameInMap("v_wind_10m")
+    @NameInMap("v_wind10m")
     public String vWind10m;
 
     // 总云量，单位 %；对应 Java cloudCover。
@@ -98,7 +98,7 @@ public class WeatherActualVariable extends TeaModel {
      * <strong>example:</strong>
      * <p>0.25</p>
      */
-    @NameInMap("soil_moisture_0_to_10")
+    @NameInMap("soil_moisture0_to10")
     public String soilMoisture0To10;
 
     // 10～40cm 深度土壤水分含量，单位 m³/m³；对应 Java soilMoisture10To40，源 DTO JSON 字段 soil_moisture_10_40。
@@ -106,7 +106,7 @@ public class WeatherActualVariable extends TeaModel {
      * <strong>example:</strong>
      * <p>0.25</p>
      */
-    @NameInMap("soil_moisture_10_to_40")
+    @NameInMap("soil_moisture10_to40")
     public String soilMoisture10To40;
 
     // 0～5cm 深度土壤水分含量，单位 m³/m³；对应 Java soilMoisture0To5，源 DTO JSON 字段 soil_moisture_0_5。
@@ -114,7 +114,7 @@ public class WeatherActualVariable extends TeaModel {
      * <strong>example:</strong>
      * <p>0.25</p>
      */
-    @NameInMap("soil_moisture_0_to_5")
+    @NameInMap("soil_moisture0_to5")
     public String soilMoisture0To5;
 
     // 40～100cm 深度土壤水分含量，单位 m³/m³；对应 Java soilMoisture40To100，源 DTO JSON 字段 soil_moisture_40_100。
@@ -122,7 +122,7 @@ public class WeatherActualVariable extends TeaModel {
      * <strong>example:</strong>
      * <p>0.25</p>
      */
-    @NameInMap("soil_moisture_40_to_100")
+    @NameInMap("soil_moisture40_to100")
     public String soilMoisture40To100;
 
     // 100～200cm 深度土壤水分含量，单位 m³/m³；对应 Java soilMoisture100To200，源 DTO JSON 字段 soil_moisture_100_200。
@@ -130,7 +130,7 @@ public class WeatherActualVariable extends TeaModel {
      * <strong>example:</strong>
      * <p>0.25</p>
      */
-    @NameInMap("soil_moisture_100_to_200")
+    @NameInMap("soil_moisture100_to200")
     public String soilMoisture100To200;
 
     // 5cm 深度土壤温度，单位 °C；对应 Java soilTemperature5。
@@ -138,7 +138,7 @@ public class WeatherActualVariable extends TeaModel {
      * <strong>example:</strong>
      * <p>18.5</p>
      */
-    @NameInMap("soil_temperature_5")
+    @NameInMap("soil_temperature5")
     public String soilTemperature5;
 
     // 10cm 深度土壤温度，单位 °C；对应 Java soilTemperature10。
@@ -146,7 +146,7 @@ public class WeatherActualVariable extends TeaModel {
      * <strong>example:</strong>
      * <p>18.5</p>
      */
-    @NameInMap("soil_temperature_10")
+    @NameInMap("soil_temperature10")
     public String soilTemperature10;
 
     // 40cm 深度土壤温度，单位 °C；对应 Java soilTemperature40。
@@ -154,7 +154,7 @@ public class WeatherActualVariable extends TeaModel {
      * <strong>example:</strong>
      * <p>18.5</p>
      */
-    @NameInMap("soil_temperature_40")
+    @NameInMap("soil_temperature40")
     public String soilTemperature40;
 
     // 100cm 深度土壤温度，单位 °C；对应 Java soilTemperature100。
@@ -162,7 +162,7 @@ public class WeatherActualVariable extends TeaModel {
      * <strong>example:</strong>
      * <p>18.5</p>
      */
-    @NameInMap("soil_temperature_100")
+    @NameInMap("soil_temperature100")
     public String soilTemperature100;
 
     // 200cm 深度土壤温度，单位 °C；对应 Java soilTemperature200。
@@ -170,7 +170,7 @@ public class WeatherActualVariable extends TeaModel {
      * <strong>example:</strong>
      * <p>18.5</p>
      */
-    @NameInMap("soil_temperature_200")
+    @NameInMap("soil_temperature200")
     public String soilTemperature200;
 
     public static WeatherActualVariable build(java.util.Map<String, ?> map) throws Exception {
