@@ -135,7 +135,7 @@ class Client:
                     'req_msg_id': AntchainUtils.get_nonce(),
                     'access_key': self._access_key_id,
                     'base_sdk_version': 'TeaSDK-2.0',
-                    'sdk_version': '1.21.11',
+                    'sdk_version': '1.22.5',
                     '_prod_code': 'BOT',
                     '_prod_channel': 'undefined'
                 }
@@ -239,7 +239,7 @@ class Client:
                     'req_msg_id': AntchainUtils.get_nonce(),
                     'access_key': self._access_key_id,
                     'base_sdk_version': 'TeaSDK-2.0',
-                    'sdk_version': '1.21.11',
+                    'sdk_version': '1.22.5',
                     '_prod_code': 'BOT',
                     '_prod_channel': 'undefined'
                 }
@@ -833,6 +833,174 @@ class Client:
         return TeaCore.from_map(
             bot_models.ChatAiotdatalinkAntfinanceassistantResponse(),
             await self.do_request_async('1.0', 'blockchain.bot.aiotdatalink.antfinanceassistant.chat', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def streamchat_aiotdatalink_antfinanceassistant(
+        self,
+        request: bot_models.StreamchatAiotdatalinkAntfinanceassistantRequest,
+    ) -> bot_models.StreamchatAiotdatalinkAntfinanceassistantResponse:
+        """
+        Description: 蚂小财对话流式接口，参考RPC接口文档：https://yuque.antfin.com/pw3zzd/cplb7g/ghfep7wirmlxlg3u#nzb6S
+        Summary: 蚂小财对话流式接口，参考RPC接口文档：https://yuque.antfin.com/pw3zzd/cplb7g/ghfep7wirmlxlg3u#nzb6S
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.streamchat_aiotdatalink_antfinanceassistant_ex(request, headers, runtime)
+
+    async def streamchat_aiotdatalink_antfinanceassistant_async(
+        self,
+        request: bot_models.StreamchatAiotdatalinkAntfinanceassistantRequest,
+    ) -> bot_models.StreamchatAiotdatalinkAntfinanceassistantResponse:
+        """
+        Description: 蚂小财对话流式接口，参考RPC接口文档：https://yuque.antfin.com/pw3zzd/cplb7g/ghfep7wirmlxlg3u#nzb6S
+        Summary: 蚂小财对话流式接口，参考RPC接口文档：https://yuque.antfin.com/pw3zzd/cplb7g/ghfep7wirmlxlg3u#nzb6S
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.streamchat_aiotdatalink_antfinanceassistant_ex_async(request, headers, runtime)
+
+    def streamchat_aiotdatalink_antfinanceassistant_ex(
+        self,
+        request: bot_models.StreamchatAiotdatalinkAntfinanceassistantRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> bot_models.StreamchatAiotdatalinkAntfinanceassistantResponse:
+        """
+        Description: 蚂小财对话流式接口，参考RPC接口文档：https://yuque.antfin.com/pw3zzd/cplb7g/ghfep7wirmlxlg3u#nzb6S
+        Summary: 蚂小财对话流式接口，参考RPC接口文档：https://yuque.antfin.com/pw3zzd/cplb7g/ghfep7wirmlxlg3u#nzb6S
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            bot_models.StreamchatAiotdatalinkAntfinanceassistantResponse(),
+            self.do_request('1.0', 'blockchain.bot.aiotdatalink.antfinanceassistant.streamchat', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def streamchat_aiotdatalink_antfinanceassistant_ex_async(
+        self,
+        request: bot_models.StreamchatAiotdatalinkAntfinanceassistantRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> bot_models.StreamchatAiotdatalinkAntfinanceassistantResponse:
+        """
+        Description: 蚂小财对话流式接口，参考RPC接口文档：https://yuque.antfin.com/pw3zzd/cplb7g/ghfep7wirmlxlg3u#nzb6S
+        Summary: 蚂小财对话流式接口，参考RPC接口文档：https://yuque.antfin.com/pw3zzd/cplb7g/ghfep7wirmlxlg3u#nzb6S
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            bot_models.StreamchatAiotdatalinkAntfinanceassistantResponse(),
+            await self.do_request_async('1.0', 'blockchain.bot.aiotdatalink.antfinanceassistant.streamchat', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def query_aiotdatalink_askdata(
+        self,
+        request: bot_models.QueryAiotdatalinkAskdataRequest,
+    ) -> bot_models.QueryAiotdatalinkAskdataResponse:
+        """
+        Description: 智能问数sse接口
+        Summary: 智能问数sse接口
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.query_aiotdatalink_askdata_ex(request, headers, runtime)
+
+    async def query_aiotdatalink_askdata_async(
+        self,
+        request: bot_models.QueryAiotdatalinkAskdataRequest,
+    ) -> bot_models.QueryAiotdatalinkAskdataResponse:
+        """
+        Description: 智能问数sse接口
+        Summary: 智能问数sse接口
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.query_aiotdatalink_askdata_ex_async(request, headers, runtime)
+
+    def query_aiotdatalink_askdata_ex(
+        self,
+        request: bot_models.QueryAiotdatalinkAskdataRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> bot_models.QueryAiotdatalinkAskdataResponse:
+        """
+        Description: 智能问数sse接口
+        Summary: 智能问数sse接口
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            bot_models.QueryAiotdatalinkAskdataResponse(),
+            self.do_request('1.0', 'blockchain.bot.aiotdatalink.askdata.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def query_aiotdatalink_askdata_ex_async(
+        self,
+        request: bot_models.QueryAiotdatalinkAskdataRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> bot_models.QueryAiotdatalinkAskdataResponse:
+        """
+        Description: 智能问数sse接口
+        Summary: 智能问数sse接口
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            bot_models.QueryAiotdatalinkAskdataResponse(),
+            await self.do_request_async('1.0', 'blockchain.bot.aiotdatalink.askdata.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def chat_aiotdatalink_askdata(
+        self,
+        request: bot_models.ChatAiotdatalinkAskdataRequest,
+    ) -> bot_models.ChatAiotdatalinkAskdataResponse:
+        """
+        Description: 智能问数chat 接口
+        Summary: 智能问数chat 接口
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.chat_aiotdatalink_askdata_ex(request, headers, runtime)
+
+    async def chat_aiotdatalink_askdata_async(
+        self,
+        request: bot_models.ChatAiotdatalinkAskdataRequest,
+    ) -> bot_models.ChatAiotdatalinkAskdataResponse:
+        """
+        Description: 智能问数chat 接口
+        Summary: 智能问数chat 接口
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.chat_aiotdatalink_askdata_ex_async(request, headers, runtime)
+
+    def chat_aiotdatalink_askdata_ex(
+        self,
+        request: bot_models.ChatAiotdatalinkAskdataRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> bot_models.ChatAiotdatalinkAskdataResponse:
+        """
+        Description: 智能问数chat 接口
+        Summary: 智能问数chat 接口
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            bot_models.ChatAiotdatalinkAskdataResponse(),
+            self.do_request('1.0', 'blockchain.bot.aiotdatalink.askdata.chat', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def chat_aiotdatalink_askdata_ex_async(
+        self,
+        request: bot_models.ChatAiotdatalinkAskdataRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> bot_models.ChatAiotdatalinkAskdataResponse:
+        """
+        Description: 智能问数chat 接口
+        Summary: 智能问数chat 接口
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            bot_models.ChatAiotdatalinkAskdataResponse(),
+            await self.do_request_async('1.0', 'blockchain.bot.aiotdatalink.askdata.chat', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
     def create_xr_userticket(
@@ -4285,6 +4453,1162 @@ class Client:
         return TeaCore.from_map(
             bot_models.FliedownloadIotagentSessionResponse(),
             await self.do_request_async('1.0', 'blockchain.bot.iotagent.session.fliedownload', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def filepreview_iotagent_session(
+        self,
+        request: bot_models.FilepreviewIotagentSessionRequest,
+    ) -> bot_models.FilepreviewIotagentSessionResponse:
+        """
+        Description: 文件预览
+        Summary: 文件预览
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.filepreview_iotagent_session_ex(request, headers, runtime)
+
+    async def filepreview_iotagent_session_async(
+        self,
+        request: bot_models.FilepreviewIotagentSessionRequest,
+    ) -> bot_models.FilepreviewIotagentSessionResponse:
+        """
+        Description: 文件预览
+        Summary: 文件预览
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.filepreview_iotagent_session_ex_async(request, headers, runtime)
+
+    def filepreview_iotagent_session_ex(
+        self,
+        request: bot_models.FilepreviewIotagentSessionRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> bot_models.FilepreviewIotagentSessionResponse:
+        """
+        Description: 文件预览
+        Summary: 文件预览
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            bot_models.FilepreviewIotagentSessionResponse(),
+            self.do_request('1.0', 'blockchain.bot.iotagent.session.filepreview', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def filepreview_iotagent_session_ex_async(
+        self,
+        request: bot_models.FilepreviewIotagentSessionRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> bot_models.FilepreviewIotagentSessionResponse:
+        """
+        Description: 文件预览
+        Summary: 文件预览
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            bot_models.FilepreviewIotagentSessionResponse(),
+            await self.do_request_async('1.0', 'blockchain.bot.iotagent.session.filepreview', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def push_iotagent_audioscribe(
+        self,
+        request: bot_models.PushIotagentAudioscribeRequest,
+    ) -> bot_models.PushIotagentAudioscribeResponse:
+        """
+        Description: 插件接口
+        Summary: 插件接口
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.push_iotagent_audioscribe_ex(request, headers, runtime)
+
+    async def push_iotagent_audioscribe_async(
+        self,
+        request: bot_models.PushIotagentAudioscribeRequest,
+    ) -> bot_models.PushIotagentAudioscribeResponse:
+        """
+        Description: 插件接口
+        Summary: 插件接口
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.push_iotagent_audioscribe_ex_async(request, headers, runtime)
+
+    def push_iotagent_audioscribe_ex(
+        self,
+        request: bot_models.PushIotagentAudioscribeRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> bot_models.PushIotagentAudioscribeResponse:
+        """
+        Description: 插件接口
+        Summary: 插件接口
+        """
+        if not UtilClient.is_unset(request.file_object):
+            upload_req = bot_models.CreateAntcloudGatewayxFileUploadRequest(
+                auth_token=request.auth_token,
+                api_code='blockchain.bot.iotagent.audioscribe.push',
+                file_name=request.file_object_name
+            )
+            upload_resp = self.create_antcloud_gatewayx_file_upload_ex(upload_req, headers, runtime)
+            if not AntchainUtils.is_success(upload_resp.result_code, 'ok'):
+                push_iotagent_audioscribe_response = bot_models.PushIotagentAudioscribeResponse(
+                    req_msg_id=upload_resp.req_msg_id,
+                    result_code=upload_resp.result_code,
+                    result_msg=upload_resp.result_msg
+                )
+                return push_iotagent_audioscribe_response
+            upload_headers = AntchainUtils.parse_upload_headers(upload_resp.upload_headers)
+            AntchainUtils.put_object(request.file_object, upload_headers, upload_resp.upload_url)
+            request.file_id = upload_resp.file_id
+            request.file_object = None
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            bot_models.PushIotagentAudioscribeResponse(),
+            self.do_request('1.0', 'blockchain.bot.iotagent.audioscribe.push', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def push_iotagent_audioscribe_ex_async(
+        self,
+        request: bot_models.PushIotagentAudioscribeRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> bot_models.PushIotagentAudioscribeResponse:
+        """
+        Description: 插件接口
+        Summary: 插件接口
+        """
+        if not UtilClient.is_unset(request.file_object):
+            upload_req = bot_models.CreateAntcloudGatewayxFileUploadRequest(
+                auth_token=request.auth_token,
+                api_code='blockchain.bot.iotagent.audioscribe.push',
+                file_name=request.file_object_name
+            )
+            upload_resp = await self.create_antcloud_gatewayx_file_upload_ex_async(upload_req, headers, runtime)
+            if not AntchainUtils.is_success(upload_resp.result_code, 'ok'):
+                push_iotagent_audioscribe_response = bot_models.PushIotagentAudioscribeResponse(
+                    req_msg_id=upload_resp.req_msg_id,
+                    result_code=upload_resp.result_code,
+                    result_msg=upload_resp.result_msg
+                )
+                return push_iotagent_audioscribe_response
+            upload_headers = AntchainUtils.parse_upload_headers(upload_resp.upload_headers)
+            await AntchainUtils.put_object_async(request.file_object, upload_headers, upload_resp.upload_url)
+            request.file_id = upload_resp.file_id
+            request.file_object = None
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            bot_models.PushIotagentAudioscribeResponse(),
+            await self.do_request_async('1.0', 'blockchain.bot.iotagent.audioscribe.push', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def exec_iotagent_plugin(
+        self,
+        request: bot_models.ExecIotagentPluginRequest,
+    ) -> bot_models.ExecIotagentPluginResponse:
+        """
+        Description: 插件通用HTTP接口
+        Summary: 插件通用HTTP接口
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.exec_iotagent_plugin_ex(request, headers, runtime)
+
+    async def exec_iotagent_plugin_async(
+        self,
+        request: bot_models.ExecIotagentPluginRequest,
+    ) -> bot_models.ExecIotagentPluginResponse:
+        """
+        Description: 插件通用HTTP接口
+        Summary: 插件通用HTTP接口
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.exec_iotagent_plugin_ex_async(request, headers, runtime)
+
+    def exec_iotagent_plugin_ex(
+        self,
+        request: bot_models.ExecIotagentPluginRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> bot_models.ExecIotagentPluginResponse:
+        """
+        Description: 插件通用HTTP接口
+        Summary: 插件通用HTTP接口
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            bot_models.ExecIotagentPluginResponse(),
+            self.do_request('1.0', 'blockchain.bot.iotagent.plugin.exec', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def exec_iotagent_plugin_ex_async(
+        self,
+        request: bot_models.ExecIotagentPluginRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> bot_models.ExecIotagentPluginResponse:
+        """
+        Description: 插件通用HTTP接口
+        Summary: 插件通用HTTP接口
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            bot_models.ExecIotagentPluginResponse(),
+            await self.do_request_async('1.0', 'blockchain.bot.iotagent.plugin.exec', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def push_iotagent_workspace(
+        self,
+        request: bot_models.PushIotagentWorkspaceRequest,
+    ) -> bot_models.PushIotagentWorkspaceResponse:
+        """
+        Description: 文件上传
+        Summary: 文件上传
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.push_iotagent_workspace_ex(request, headers, runtime)
+
+    async def push_iotagent_workspace_async(
+        self,
+        request: bot_models.PushIotagentWorkspaceRequest,
+    ) -> bot_models.PushIotagentWorkspaceResponse:
+        """
+        Description: 文件上传
+        Summary: 文件上传
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.push_iotagent_workspace_ex_async(request, headers, runtime)
+
+    def push_iotagent_workspace_ex(
+        self,
+        request: bot_models.PushIotagentWorkspaceRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> bot_models.PushIotagentWorkspaceResponse:
+        """
+        Description: 文件上传
+        Summary: 文件上传
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            bot_models.PushIotagentWorkspaceResponse(),
+            self.do_request('1.0', 'blockchain.bot.iotagent.workspace.push', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def push_iotagent_workspace_ex_async(
+        self,
+        request: bot_models.PushIotagentWorkspaceRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> bot_models.PushIotagentWorkspaceResponse:
+        """
+        Description: 文件上传
+        Summary: 文件上传
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            bot_models.PushIotagentWorkspaceResponse(),
+            await self.do_request_async('1.0', 'blockchain.bot.iotagent.workspace.push', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def confirm_iotagent_workspace(
+        self,
+        request: bot_models.ConfirmIotagentWorkspaceRequest,
+    ) -> bot_models.ConfirmIotagentWorkspaceResponse:
+        """
+        Description: 文件上传确认
+        Summary: 文件上传确认
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.confirm_iotagent_workspace_ex(request, headers, runtime)
+
+    async def confirm_iotagent_workspace_async(
+        self,
+        request: bot_models.ConfirmIotagentWorkspaceRequest,
+    ) -> bot_models.ConfirmIotagentWorkspaceResponse:
+        """
+        Description: 文件上传确认
+        Summary: 文件上传确认
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.confirm_iotagent_workspace_ex_async(request, headers, runtime)
+
+    def confirm_iotagent_workspace_ex(
+        self,
+        request: bot_models.ConfirmIotagentWorkspaceRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> bot_models.ConfirmIotagentWorkspaceResponse:
+        """
+        Description: 文件上传确认
+        Summary: 文件上传确认
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            bot_models.ConfirmIotagentWorkspaceResponse(),
+            self.do_request('1.0', 'blockchain.bot.iotagent.workspace.confirm', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def confirm_iotagent_workspace_ex_async(
+        self,
+        request: bot_models.ConfirmIotagentWorkspaceRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> bot_models.ConfirmIotagentWorkspaceResponse:
+        """
+        Description: 文件上传确认
+        Summary: 文件上传确认
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            bot_models.ConfirmIotagentWorkspaceResponse(),
+            await self.do_request_async('1.0', 'blockchain.bot.iotagent.workspace.confirm', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def status_iotagent_music(
+        self,
+        request: bot_models.StatusIotagentMusicRequest,
+    ) -> bot_models.StatusIotagentMusicResponse:
+        """
+        Description: 查询设备的云音乐登录状态及用户/VIP 信息。
+        Summary: 查询设备的云音乐登录状态及用户/VIP 信息。
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.status_iotagent_music_ex(request, headers, runtime)
+
+    async def status_iotagent_music_async(
+        self,
+        request: bot_models.StatusIotagentMusicRequest,
+    ) -> bot_models.StatusIotagentMusicResponse:
+        """
+        Description: 查询设备的云音乐登录状态及用户/VIP 信息。
+        Summary: 查询设备的云音乐登录状态及用户/VIP 信息。
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.status_iotagent_music_ex_async(request, headers, runtime)
+
+    def status_iotagent_music_ex(
+        self,
+        request: bot_models.StatusIotagentMusicRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> bot_models.StatusIotagentMusicResponse:
+        """
+        Description: 查询设备的云音乐登录状态及用户/VIP 信息。
+        Summary: 查询设备的云音乐登录状态及用户/VIP 信息。
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            bot_models.StatusIotagentMusicResponse(),
+            self.do_request('1.0', 'blockchain.bot.iotagent.music.status', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def status_iotagent_music_ex_async(
+        self,
+        request: bot_models.StatusIotagentMusicRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> bot_models.StatusIotagentMusicResponse:
+        """
+        Description: 查询设备的云音乐登录状态及用户/VIP 信息。
+        Summary: 查询设备的云音乐登录状态及用户/VIP 信息。
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            bot_models.StatusIotagentMusicResponse(),
+            await self.do_request_async('1.0', 'blockchain.bot.iotagent.music.status', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def loginurl_iotagent_music(
+        self,
+        request: bot_models.LoginurlIotagentMusicRequest,
+    ) -> bot_models.LoginurlIotagentMusicResponse:
+        """
+        Description: 获取云音乐 H5 OAuth 登录 URL（用于设备端引导用户授权）
+        Summary: 获取云音乐 H5 OAuth 登录 URL（用于设备端引导用户授权）
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.loginurl_iotagent_music_ex(request, headers, runtime)
+
+    async def loginurl_iotagent_music_async(
+        self,
+        request: bot_models.LoginurlIotagentMusicRequest,
+    ) -> bot_models.LoginurlIotagentMusicResponse:
+        """
+        Description: 获取云音乐 H5 OAuth 登录 URL（用于设备端引导用户授权）
+        Summary: 获取云音乐 H5 OAuth 登录 URL（用于设备端引导用户授权）
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.loginurl_iotagent_music_ex_async(request, headers, runtime)
+
+    def loginurl_iotagent_music_ex(
+        self,
+        request: bot_models.LoginurlIotagentMusicRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> bot_models.LoginurlIotagentMusicResponse:
+        """
+        Description: 获取云音乐 H5 OAuth 登录 URL（用于设备端引导用户授权）
+        Summary: 获取云音乐 H5 OAuth 登录 URL（用于设备端引导用户授权）
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            bot_models.LoginurlIotagentMusicResponse(),
+            self.do_request('1.0', 'blockchain.bot.iotagent.music.loginurl', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def loginurl_iotagent_music_ex_async(
+        self,
+        request: bot_models.LoginurlIotagentMusicRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> bot_models.LoginurlIotagentMusicResponse:
+        """
+        Description: 获取云音乐 H5 OAuth 登录 URL（用于设备端引导用户授权）
+        Summary: 获取云音乐 H5 OAuth 登录 URL（用于设备端引导用户授权）
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            bot_models.LoginurlIotagentMusicResponse(),
+            await self.do_request_async('1.0', 'blockchain.bot.iotagent.music.loginurl', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def playhistory_iotagent_music(
+        self,
+        request: bot_models.PlayhistoryIotagentMusicRequest,
+    ) -> bot_models.PlayhistoryIotagentMusicResponse:
+        """
+        Description: 查询云音乐播放历史
+        Summary: 查询云音乐播放历史
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.playhistory_iotagent_music_ex(request, headers, runtime)
+
+    async def playhistory_iotagent_music_async(
+        self,
+        request: bot_models.PlayhistoryIotagentMusicRequest,
+    ) -> bot_models.PlayhistoryIotagentMusicResponse:
+        """
+        Description: 查询云音乐播放历史
+        Summary: 查询云音乐播放历史
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.playhistory_iotagent_music_ex_async(request, headers, runtime)
+
+    def playhistory_iotagent_music_ex(
+        self,
+        request: bot_models.PlayhistoryIotagentMusicRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> bot_models.PlayhistoryIotagentMusicResponse:
+        """
+        Description: 查询云音乐播放历史
+        Summary: 查询云音乐播放历史
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            bot_models.PlayhistoryIotagentMusicResponse(),
+            self.do_request('1.0', 'blockchain.bot.iotagent.music.playhistory', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def playhistory_iotagent_music_ex_async(
+        self,
+        request: bot_models.PlayhistoryIotagentMusicRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> bot_models.PlayhistoryIotagentMusicResponse:
+        """
+        Description: 查询云音乐播放历史
+        Summary: 查询云音乐播放历史
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            bot_models.PlayhistoryIotagentMusicResponse(),
+            await self.do_request_async('1.0', 'blockchain.bot.iotagent.music.playhistory', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def favorites_iotagent_music(
+        self,
+        request: bot_models.FavoritesIotagentMusicRequest,
+    ) -> bot_models.FavoritesIotagentMusicResponse:
+        """
+        Description: 分页查询红心歌曲
+        Summary: 分页查询红心歌曲
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.favorites_iotagent_music_ex(request, headers, runtime)
+
+    async def favorites_iotagent_music_async(
+        self,
+        request: bot_models.FavoritesIotagentMusicRequest,
+    ) -> bot_models.FavoritesIotagentMusicResponse:
+        """
+        Description: 分页查询红心歌曲
+        Summary: 分页查询红心歌曲
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.favorites_iotagent_music_ex_async(request, headers, runtime)
+
+    def favorites_iotagent_music_ex(
+        self,
+        request: bot_models.FavoritesIotagentMusicRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> bot_models.FavoritesIotagentMusicResponse:
+        """
+        Description: 分页查询红心歌曲
+        Summary: 分页查询红心歌曲
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            bot_models.FavoritesIotagentMusicResponse(),
+            self.do_request('1.0', 'blockchain.bot.iotagent.music.favorites', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def favorites_iotagent_music_ex_async(
+        self,
+        request: bot_models.FavoritesIotagentMusicRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> bot_models.FavoritesIotagentMusicResponse:
+        """
+        Description: 分页查询红心歌曲
+        Summary: 分页查询红心歌曲
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            bot_models.FavoritesIotagentMusicResponse(),
+            await self.do_request_async('1.0', 'blockchain.bot.iotagent.music.favorites', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def lyrics_iotagent_music(
+        self,
+        request: bot_models.LyricsIotagentMusicRequest,
+    ) -> bot_models.LyricsIotagentMusicResponse:
+        """
+        Description: 查询指定歌曲的歌词。
+        Summary: 查询指定歌曲的歌词。
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.lyrics_iotagent_music_ex(request, headers, runtime)
+
+    async def lyrics_iotagent_music_async(
+        self,
+        request: bot_models.LyricsIotagentMusicRequest,
+    ) -> bot_models.LyricsIotagentMusicResponse:
+        """
+        Description: 查询指定歌曲的歌词。
+        Summary: 查询指定歌曲的歌词。
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.lyrics_iotagent_music_ex_async(request, headers, runtime)
+
+    def lyrics_iotagent_music_ex(
+        self,
+        request: bot_models.LyricsIotagentMusicRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> bot_models.LyricsIotagentMusicResponse:
+        """
+        Description: 查询指定歌曲的歌词。
+        Summary: 查询指定歌曲的歌词。
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            bot_models.LyricsIotagentMusicResponse(),
+            self.do_request('1.0', 'blockchain.bot.iotagent.music.lyrics', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def lyrics_iotagent_music_ex_async(
+        self,
+        request: bot_models.LyricsIotagentMusicRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> bot_models.LyricsIotagentMusicResponse:
+        """
+        Description: 查询指定歌曲的歌词。
+        Summary: 查询指定歌曲的歌词。
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            bot_models.LyricsIotagentMusicResponse(),
+            await self.do_request_async('1.0', 'blockchain.bot.iotagent.music.lyrics', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def like_iotagent_music(
+        self,
+        request: bot_models.LikeIotagentMusicRequest,
+    ) -> bot_models.LikeIotagentMusicResponse:
+        """
+        Description: 对一首歌进行红心/取消红心操作。
+        Summary: 对一首歌进行红心/取消红心操作。
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.like_iotagent_music_ex(request, headers, runtime)
+
+    async def like_iotagent_music_async(
+        self,
+        request: bot_models.LikeIotagentMusicRequest,
+    ) -> bot_models.LikeIotagentMusicResponse:
+        """
+        Description: 对一首歌进行红心/取消红心操作。
+        Summary: 对一首歌进行红心/取消红心操作。
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.like_iotagent_music_ex_async(request, headers, runtime)
+
+    def like_iotagent_music_ex(
+        self,
+        request: bot_models.LikeIotagentMusicRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> bot_models.LikeIotagentMusicResponse:
+        """
+        Description: 对一首歌进行红心/取消红心操作。
+        Summary: 对一首歌进行红心/取消红心操作。
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            bot_models.LikeIotagentMusicResponse(),
+            self.do_request('1.0', 'blockchain.bot.iotagent.music.like', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def like_iotagent_music_ex_async(
+        self,
+        request: bot_models.LikeIotagentMusicRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> bot_models.LikeIotagentMusicResponse:
+        """
+        Description: 对一首歌进行红心/取消红心操作。
+        Summary: 对一首歌进行红心/取消红心操作。
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            bot_models.LikeIotagentMusicResponse(),
+            await self.do_request_async('1.0', 'blockchain.bot.iotagent.music.like', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def logout_iotagent_music(
+        self,
+        request: bot_models.LogoutIotagentMusicRequest,
+    ) -> bot_models.LogoutIotagentMusicResponse:
+        """
+        Description: 退出云音乐登录，清理 token
+        Summary: 退出云音乐登录，清理 token
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.logout_iotagent_music_ex(request, headers, runtime)
+
+    async def logout_iotagent_music_async(
+        self,
+        request: bot_models.LogoutIotagentMusicRequest,
+    ) -> bot_models.LogoutIotagentMusicResponse:
+        """
+        Description: 退出云音乐登录，清理 token
+        Summary: 退出云音乐登录，清理 token
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.logout_iotagent_music_ex_async(request, headers, runtime)
+
+    def logout_iotagent_music_ex(
+        self,
+        request: bot_models.LogoutIotagentMusicRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> bot_models.LogoutIotagentMusicResponse:
+        """
+        Description: 退出云音乐登录，清理 token
+        Summary: 退出云音乐登录，清理 token
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            bot_models.LogoutIotagentMusicResponse(),
+            self.do_request('1.0', 'blockchain.bot.iotagent.music.logout', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def logout_iotagent_music_ex_async(
+        self,
+        request: bot_models.LogoutIotagentMusicRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> bot_models.LogoutIotagentMusicResponse:
+        """
+        Description: 退出云音乐登录，清理 token
+        Summary: 退出云音乐登录，清理 token
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            bot_models.LogoutIotagentMusicResponse(),
+            await self.do_request_async('1.0', 'blockchain.bot.iotagent.music.logout', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def callback_iotagent_music(
+        self,
+        request: bot_models.CallbackIotagentMusicRequest,
+    ) -> bot_models.CallbackIotagentMusicResponse:
+        """
+        Description: 云音乐回调接口
+        Summary: 云音乐回调接口
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.callback_iotagent_music_ex(request, headers, runtime)
+
+    async def callback_iotagent_music_async(
+        self,
+        request: bot_models.CallbackIotagentMusicRequest,
+    ) -> bot_models.CallbackIotagentMusicResponse:
+        """
+        Description: 云音乐回调接口
+        Summary: 云音乐回调接口
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.callback_iotagent_music_ex_async(request, headers, runtime)
+
+    def callback_iotagent_music_ex(
+        self,
+        request: bot_models.CallbackIotagentMusicRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> bot_models.CallbackIotagentMusicResponse:
+        """
+        Description: 云音乐回调接口
+        Summary: 云音乐回调接口
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            bot_models.CallbackIotagentMusicResponse(),
+            self.do_request('1.0', 'blockchain.bot.iotagent.music.callback', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def callback_iotagent_music_ex_async(
+        self,
+        request: bot_models.CallbackIotagentMusicRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> bot_models.CallbackIotagentMusicResponse:
+        """
+        Description: 云音乐回调接口
+        Summary: 云音乐回调接口
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            bot_models.CallbackIotagentMusicResponse(),
+            await self.do_request_async('1.0', 'blockchain.bot.iotagent.music.callback', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def usage_iotagent_session(
+        self,
+        request: bot_models.UsageIotagentSessionRequest,
+    ) -> bot_models.UsageIotagentSessionResponse:
+        """
+        Description: 查询会话用量（按 sessionId 聚合  usage 记录，返回会话总量 + 轮次明细分页）
+        Summary: 查询会话用量（按 sessionId 聚合  usage 记录，返回会话总量 + 轮次明细分页）
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.usage_iotagent_session_ex(request, headers, runtime)
+
+    async def usage_iotagent_session_async(
+        self,
+        request: bot_models.UsageIotagentSessionRequest,
+    ) -> bot_models.UsageIotagentSessionResponse:
+        """
+        Description: 查询会话用量（按 sessionId 聚合  usage 记录，返回会话总量 + 轮次明细分页）
+        Summary: 查询会话用量（按 sessionId 聚合  usage 记录，返回会话总量 + 轮次明细分页）
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.usage_iotagent_session_ex_async(request, headers, runtime)
+
+    def usage_iotagent_session_ex(
+        self,
+        request: bot_models.UsageIotagentSessionRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> bot_models.UsageIotagentSessionResponse:
+        """
+        Description: 查询会话用量（按 sessionId 聚合  usage 记录，返回会话总量 + 轮次明细分页）
+        Summary: 查询会话用量（按 sessionId 聚合  usage 记录，返回会话总量 + 轮次明细分页）
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            bot_models.UsageIotagentSessionResponse(),
+            self.do_request('1.0', 'blockchain.bot.iotagent.session.usage', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def usage_iotagent_session_ex_async(
+        self,
+        request: bot_models.UsageIotagentSessionRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> bot_models.UsageIotagentSessionResponse:
+        """
+        Description: 查询会话用量（按 sessionId 聚合  usage 记录，返回会话总量 + 轮次明细分页）
+        Summary: 查询会话用量（按 sessionId 聚合  usage 记录，返回会话总量 + 轮次明细分页）
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            bot_models.UsageIotagentSessionResponse(),
+            await self.do_request_async('1.0', 'blockchain.bot.iotagent.session.usage', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def action_iotagent_sessioncontext(
+        self,
+        request: bot_models.ActionIotagentSessioncontextRequest,
+    ) -> bot_models.ActionIotagentSessioncontextResponse:
+        """
+        Description: 会话上下文处理操作
+        Summary: 会话上下文处理操作
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.action_iotagent_sessioncontext_ex(request, headers, runtime)
+
+    async def action_iotagent_sessioncontext_async(
+        self,
+        request: bot_models.ActionIotagentSessioncontextRequest,
+    ) -> bot_models.ActionIotagentSessioncontextResponse:
+        """
+        Description: 会话上下文处理操作
+        Summary: 会话上下文处理操作
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.action_iotagent_sessioncontext_ex_async(request, headers, runtime)
+
+    def action_iotagent_sessioncontext_ex(
+        self,
+        request: bot_models.ActionIotagentSessioncontextRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> bot_models.ActionIotagentSessioncontextResponse:
+        """
+        Description: 会话上下文处理操作
+        Summary: 会话上下文处理操作
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            bot_models.ActionIotagentSessioncontextResponse(),
+            self.do_request('1.0', 'blockchain.bot.iotagent.sessioncontext.action', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def action_iotagent_sessioncontext_ex_async(
+        self,
+        request: bot_models.ActionIotagentSessioncontextRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> bot_models.ActionIotagentSessioncontextResponse:
+        """
+        Description: 会话上下文处理操作
+        Summary: 会话上下文处理操作
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            bot_models.ActionIotagentSessioncontextResponse(),
+            await self.do_request_async('1.0', 'blockchain.bot.iotagent.sessioncontext.action', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def query_iotagent_sessioncontextaction(
+        self,
+        request: bot_models.QueryIotagentSessioncontextactionRequest,
+    ) -> bot_models.QueryIotagentSessioncontextactionResponse:
+        """
+        Description: 查询上下文压缩操作结果
+        Summary: 查询上下文压缩操作结果
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.query_iotagent_sessioncontextaction_ex(request, headers, runtime)
+
+    async def query_iotagent_sessioncontextaction_async(
+        self,
+        request: bot_models.QueryIotagentSessioncontextactionRequest,
+    ) -> bot_models.QueryIotagentSessioncontextactionResponse:
+        """
+        Description: 查询上下文压缩操作结果
+        Summary: 查询上下文压缩操作结果
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.query_iotagent_sessioncontextaction_ex_async(request, headers, runtime)
+
+    def query_iotagent_sessioncontextaction_ex(
+        self,
+        request: bot_models.QueryIotagentSessioncontextactionRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> bot_models.QueryIotagentSessioncontextactionResponse:
+        """
+        Description: 查询上下文压缩操作结果
+        Summary: 查询上下文压缩操作结果
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            bot_models.QueryIotagentSessioncontextactionResponse(),
+            self.do_request('1.0', 'blockchain.bot.iotagent.sessioncontextaction.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def query_iotagent_sessioncontextaction_ex_async(
+        self,
+        request: bot_models.QueryIotagentSessioncontextactionRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> bot_models.QueryIotagentSessioncontextactionResponse:
+        """
+        Description: 查询上下文压缩操作结果
+        Summary: 查询上下文压缩操作结果
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            bot_models.QueryIotagentSessioncontextactionResponse(),
+            await self.do_request_async('1.0', 'blockchain.bot.iotagent.sessioncontextaction.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def query_agent_dailysummary(
+        self,
+        request: bot_models.QueryAgentDailysummaryRequest,
+    ) -> bot_models.QueryAgentDailysummaryResponse:
+        """
+        Description: 查询智能体指定日期的聊天总结（只读，不触发生成；content 为空表示尚未生成或当日无对话）
+        Summary: 查询智能体指定日期的聊天总结（只读，不触发生成；content 为空表示尚未生成或当日无对话）
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.query_agent_dailysummary_ex(request, headers, runtime)
+
+    async def query_agent_dailysummary_async(
+        self,
+        request: bot_models.QueryAgentDailysummaryRequest,
+    ) -> bot_models.QueryAgentDailysummaryResponse:
+        """
+        Description: 查询智能体指定日期的聊天总结（只读，不触发生成；content 为空表示尚未生成或当日无对话）
+        Summary: 查询智能体指定日期的聊天总结（只读，不触发生成；content 为空表示尚未生成或当日无对话）
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.query_agent_dailysummary_ex_async(request, headers, runtime)
+
+    def query_agent_dailysummary_ex(
+        self,
+        request: bot_models.QueryAgentDailysummaryRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> bot_models.QueryAgentDailysummaryResponse:
+        """
+        Description: 查询智能体指定日期的聊天总结（只读，不触发生成；content 为空表示尚未生成或当日无对话）
+        Summary: 查询智能体指定日期的聊天总结（只读，不触发生成；content 为空表示尚未生成或当日无对话）
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            bot_models.QueryAgentDailysummaryResponse(),
+            self.do_request('1.0', 'blockchain.bot.agent.dailysummary.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def query_agent_dailysummary_ex_async(
+        self,
+        request: bot_models.QueryAgentDailysummaryRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> bot_models.QueryAgentDailysummaryResponse:
+        """
+        Description: 查询智能体指定日期的聊天总结（只读，不触发生成；content 为空表示尚未生成或当日无对话）
+        Summary: 查询智能体指定日期的聊天总结（只读，不触发生成；content 为空表示尚未生成或当日无对话）
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            bot_models.QueryAgentDailysummaryResponse(),
+            await self.do_request_async('1.0', 'blockchain.bot.agent.dailysummary.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def generate_agent_dailysummary(
+        self,
+        request: bot_models.GenerateAgentDailysummaryRequest,
+    ) -> bot_models.GenerateAgentDailysummaryResponse:
+        """
+        Description: 触发智能体指定日期的聊天总结生成（异步受理，立即返回；同一智能体同一天 60 秒内重复触发只生成一次，生成结果通过 daily summary 查询接口获取）
+        Summary: 触发智能体指定日期的聊天总结生成（异步受理，立即返回；同一智能体同一天 60 秒内重复触发只生成一次，生成结果通过 daily summary 查询接口获取）
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.generate_agent_dailysummary_ex(request, headers, runtime)
+
+    async def generate_agent_dailysummary_async(
+        self,
+        request: bot_models.GenerateAgentDailysummaryRequest,
+    ) -> bot_models.GenerateAgentDailysummaryResponse:
+        """
+        Description: 触发智能体指定日期的聊天总结生成（异步受理，立即返回；同一智能体同一天 60 秒内重复触发只生成一次，生成结果通过 daily summary 查询接口获取）
+        Summary: 触发智能体指定日期的聊天总结生成（异步受理，立即返回；同一智能体同一天 60 秒内重复触发只生成一次，生成结果通过 daily summary 查询接口获取）
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.generate_agent_dailysummary_ex_async(request, headers, runtime)
+
+    def generate_agent_dailysummary_ex(
+        self,
+        request: bot_models.GenerateAgentDailysummaryRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> bot_models.GenerateAgentDailysummaryResponse:
+        """
+        Description: 触发智能体指定日期的聊天总结生成（异步受理，立即返回；同一智能体同一天 60 秒内重复触发只生成一次，生成结果通过 daily summary 查询接口获取）
+        Summary: 触发智能体指定日期的聊天总结生成（异步受理，立即返回；同一智能体同一天 60 秒内重复触发只生成一次，生成结果通过 daily summary 查询接口获取）
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            bot_models.GenerateAgentDailysummaryResponse(),
+            self.do_request('1.0', 'blockchain.bot.agent.dailysummary.generate', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def generate_agent_dailysummary_ex_async(
+        self,
+        request: bot_models.GenerateAgentDailysummaryRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> bot_models.GenerateAgentDailysummaryResponse:
+        """
+        Description: 触发智能体指定日期的聊天总结生成（异步受理，立即返回；同一智能体同一天 60 秒内重复触发只生成一次，生成结果通过 daily summary 查询接口获取）
+        Summary: 触发智能体指定日期的聊天总结生成（异步受理，立即返回；同一智能体同一天 60 秒内重复触发只生成一次，生成结果通过 daily summary 查询接口获取）
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            bot_models.GenerateAgentDailysummaryResponse(),
+            await self.do_request_async('1.0', 'blockchain.bot.agent.dailysummary.generate', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def exec_askdata_source(
+        self,
+        request: bot_models.ExecAskdataSourceRequest,
+    ) -> bot_models.ExecAskdataSourceResponse:
+        """
+        Description: 智能问数执行查询OB/STARROCKS 接口
+        Summary: 智能问数执行查询OB/STARROCKS 接口
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.exec_askdata_source_ex(request, headers, runtime)
+
+    async def exec_askdata_source_async(
+        self,
+        request: bot_models.ExecAskdataSourceRequest,
+    ) -> bot_models.ExecAskdataSourceResponse:
+        """
+        Description: 智能问数执行查询OB/STARROCKS 接口
+        Summary: 智能问数执行查询OB/STARROCKS 接口
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.exec_askdata_source_ex_async(request, headers, runtime)
+
+    def exec_askdata_source_ex(
+        self,
+        request: bot_models.ExecAskdataSourceRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> bot_models.ExecAskdataSourceResponse:
+        """
+        Description: 智能问数执行查询OB/STARROCKS 接口
+        Summary: 智能问数执行查询OB/STARROCKS 接口
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            bot_models.ExecAskdataSourceResponse(),
+            self.do_request('1.0', 'blockchain.bot.askdata.source.exec', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def exec_askdata_source_ex_async(
+        self,
+        request: bot_models.ExecAskdataSourceRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> bot_models.ExecAskdataSourceResponse:
+        """
+        Description: 智能问数执行查询OB/STARROCKS 接口
+        Summary: 智能问数执行查询OB/STARROCKS 接口
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            bot_models.ExecAskdataSourceResponse(),
+            await self.do_request_async('1.0', 'blockchain.bot.askdata.source.exec', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def query_askdata_source(
+        self,
+        request: bot_models.QueryAskdataSourceRequest,
+    ) -> bot_models.QueryAskdataSourceResponse:
+        """
+        Description: 问数查询数据信息
+        Summary: 问数查询数据信息
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.query_askdata_source_ex(request, headers, runtime)
+
+    async def query_askdata_source_async(
+        self,
+        request: bot_models.QueryAskdataSourceRequest,
+    ) -> bot_models.QueryAskdataSourceResponse:
+        """
+        Description: 问数查询数据信息
+        Summary: 问数查询数据信息
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.query_askdata_source_ex_async(request, headers, runtime)
+
+    def query_askdata_source_ex(
+        self,
+        request: bot_models.QueryAskdataSourceRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> bot_models.QueryAskdataSourceResponse:
+        """
+        Description: 问数查询数据信息
+        Summary: 问数查询数据信息
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            bot_models.QueryAskdataSourceResponse(),
+            self.do_request('1.0', 'blockchain.bot.askdata.source.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def query_askdata_source_ex_async(
+        self,
+        request: bot_models.QueryAskdataSourceRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> bot_models.QueryAskdataSourceResponse:
+        """
+        Description: 问数查询数据信息
+        Summary: 问数查询数据信息
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            bot_models.QueryAskdataSourceResponse(),
+            await self.do_request_async('1.0', 'blockchain.bot.askdata.source.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
     def create_acs_device(
@@ -19833,6 +21157,210 @@ class Client:
         return TeaCore.from_map(
             bot_models.QueryIotagentUseridsResponse(),
             await self.do_request_async('1.0', 'blockchain.bot.iotagent.userids.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def test_iotagent_plugin(
+        self,
+        request: bot_models.TestIotagentPluginRequest,
+    ) -> bot_models.TestIotagentPluginResponse:
+        """
+        Description: 测试用
+        Summary: 测试用
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.test_iotagent_plugin_ex(request, headers, runtime)
+
+    async def test_iotagent_plugin_async(
+        self,
+        request: bot_models.TestIotagentPluginRequest,
+    ) -> bot_models.TestIotagentPluginResponse:
+        """
+        Description: 测试用
+        Summary: 测试用
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.test_iotagent_plugin_ex_async(request, headers, runtime)
+
+    def test_iotagent_plugin_ex(
+        self,
+        request: bot_models.TestIotagentPluginRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> bot_models.TestIotagentPluginResponse:
+        """
+        Description: 测试用
+        Summary: 测试用
+        """
+        if not UtilClient.is_unset(request.file_object):
+            upload_req = bot_models.CreateAntcloudGatewayxFileUploadRequest(
+                auth_token=request.auth_token,
+                api_code='blockchain.bot.iotagent.plugin.test',
+                file_name=request.file_object_name
+            )
+            upload_resp = self.create_antcloud_gatewayx_file_upload_ex(upload_req, headers, runtime)
+            if not AntchainUtils.is_success(upload_resp.result_code, 'ok'):
+                test_iotagent_plugin_response = bot_models.TestIotagentPluginResponse(
+                    req_msg_id=upload_resp.req_msg_id,
+                    result_code=upload_resp.result_code,
+                    result_msg=upload_resp.result_msg
+                )
+                return test_iotagent_plugin_response
+            upload_headers = AntchainUtils.parse_upload_headers(upload_resp.upload_headers)
+            AntchainUtils.put_object(request.file_object, upload_headers, upload_resp.upload_url)
+            request.file_id = upload_resp.file_id
+            request.file_object = None
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            bot_models.TestIotagentPluginResponse(),
+            self.do_request('1.0', 'blockchain.bot.iotagent.plugin.test', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def test_iotagent_plugin_ex_async(
+        self,
+        request: bot_models.TestIotagentPluginRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> bot_models.TestIotagentPluginResponse:
+        """
+        Description: 测试用
+        Summary: 测试用
+        """
+        if not UtilClient.is_unset(request.file_object):
+            upload_req = bot_models.CreateAntcloudGatewayxFileUploadRequest(
+                auth_token=request.auth_token,
+                api_code='blockchain.bot.iotagent.plugin.test',
+                file_name=request.file_object_name
+            )
+            upload_resp = await self.create_antcloud_gatewayx_file_upload_ex_async(upload_req, headers, runtime)
+            if not AntchainUtils.is_success(upload_resp.result_code, 'ok'):
+                test_iotagent_plugin_response = bot_models.TestIotagentPluginResponse(
+                    req_msg_id=upload_resp.req_msg_id,
+                    result_code=upload_resp.result_code,
+                    result_msg=upload_resp.result_msg
+                )
+                return test_iotagent_plugin_response
+            upload_headers = AntchainUtils.parse_upload_headers(upload_resp.upload_headers)
+            await AntchainUtils.put_object_async(request.file_object, upload_headers, upload_resp.upload_url)
+            request.file_id = upload_resp.file_id
+            request.file_object = None
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            bot_models.TestIotagentPluginResponse(),
+            await self.do_request_async('1.0', 'blockchain.bot.iotagent.plugin.test', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def exec_datalink_source(
+        self,
+        request: bot_models.ExecDatalinkSourceRequest,
+    ) -> bot_models.ExecDatalinkSourceResponse:
+        """
+        Description: 智能问数执行查询OB/STARROCKS 接口
+        Summary: 智能问数执行查询OB/STARROCKS 接口
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.exec_datalink_source_ex(request, headers, runtime)
+
+    async def exec_datalink_source_async(
+        self,
+        request: bot_models.ExecDatalinkSourceRequest,
+    ) -> bot_models.ExecDatalinkSourceResponse:
+        """
+        Description: 智能问数执行查询OB/STARROCKS 接口
+        Summary: 智能问数执行查询OB/STARROCKS 接口
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.exec_datalink_source_ex_async(request, headers, runtime)
+
+    def exec_datalink_source_ex(
+        self,
+        request: bot_models.ExecDatalinkSourceRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> bot_models.ExecDatalinkSourceResponse:
+        """
+        Description: 智能问数执行查询OB/STARROCKS 接口
+        Summary: 智能问数执行查询OB/STARROCKS 接口
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            bot_models.ExecDatalinkSourceResponse(),
+            self.do_request('1.0', 'blockchain.bot.datalink.source.exec', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def exec_datalink_source_ex_async(
+        self,
+        request: bot_models.ExecDatalinkSourceRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> bot_models.ExecDatalinkSourceResponse:
+        """
+        Description: 智能问数执行查询OB/STARROCKS 接口
+        Summary: 智能问数执行查询OB/STARROCKS 接口
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            bot_models.ExecDatalinkSourceResponse(),
+            await self.do_request_async('1.0', 'blockchain.bot.datalink.source.exec', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def query_datalink_source(
+        self,
+        request: bot_models.QueryDatalinkSourceRequest,
+    ) -> bot_models.QueryDatalinkSourceResponse:
+        """
+        Description: 问数查询数据信息
+        Summary: 问数查询数据信息
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.query_datalink_source_ex(request, headers, runtime)
+
+    async def query_datalink_source_async(
+        self,
+        request: bot_models.QueryDatalinkSourceRequest,
+    ) -> bot_models.QueryDatalinkSourceResponse:
+        """
+        Description: 问数查询数据信息
+        Summary: 问数查询数据信息
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.query_datalink_source_ex_async(request, headers, runtime)
+
+    def query_datalink_source_ex(
+        self,
+        request: bot_models.QueryDatalinkSourceRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> bot_models.QueryDatalinkSourceResponse:
+        """
+        Description: 问数查询数据信息
+        Summary: 问数查询数据信息
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            bot_models.QueryDatalinkSourceResponse(),
+            self.do_request('1.0', 'blockchain.bot.datalink.source.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def query_datalink_source_ex_async(
+        self,
+        request: bot_models.QueryDatalinkSourceRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> bot_models.QueryDatalinkSourceResponse:
+        """
+        Description: 问数查询数据信息
+        Summary: 问数查询数据信息
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            bot_models.QueryDatalinkSourceResponse(),
+            await self.do_request_async('1.0', 'blockchain.bot.datalink.source.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
     def exec_thingsdid_oneapi(

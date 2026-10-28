@@ -495,6 +495,71 @@ class ContinuousOtaOpenApiRuleResponse(TeaModel):
         return self
 
 
+class McpInfo(TeaModel):
+    def __init__(
+        self,
+        name: str = None,
+        transport: str = None,
+        endpoint: str = None,
+        headers: str = None,
+        mcp_id: str = None,
+        tools: List[str] = None,
+    ):
+        # mcp名字
+        self.name = name
+        # 协议类型
+        self.transport = transport
+        # 协议地址
+        self.endpoint = endpoint
+        # json
+        self.headers = headers
+        # mcp_id
+        self.mcp_id = mcp_id
+        # 工具名字
+        self.tools = tools
+
+    def validate(self):
+        self.validate_required(self.name, 'name')
+        self.validate_required(self.transport, 'transport')
+        self.validate_required(self.mcp_id, 'mcp_id')
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.name is not None:
+            result['name'] = self.name
+        if self.transport is not None:
+            result['transport'] = self.transport
+        if self.endpoint is not None:
+            result['endpoint'] = self.endpoint
+        if self.headers is not None:
+            result['headers'] = self.headers
+        if self.mcp_id is not None:
+            result['mcp_id'] = self.mcp_id
+        if self.tools is not None:
+            result['tools'] = self.tools
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('name') is not None:
+            self.name = m.get('name')
+        if m.get('transport') is not None:
+            self.transport = m.get('transport')
+        if m.get('endpoint') is not None:
+            self.endpoint = m.get('endpoint')
+        if m.get('headers') is not None:
+            self.headers = m.get('headers')
+        if m.get('mcp_id') is not None:
+            self.mcp_id = m.get('mcp_id')
+        if m.get('tools') is not None:
+            self.tools = m.get('tools')
+        return self
+
+
 class BaiResourceLocation(TeaModel):
     def __init__(
         self,
@@ -530,6 +595,58 @@ class BaiResourceLocation(TeaModel):
             self.location_type = m.get('location_type')
         if m.get('location_value') is not None:
             self.location_value = m.get('location_value')
+        return self
+
+
+class SkillInfo(TeaModel):
+    def __init__(
+        self,
+        name: str = None,
+        version: str = None,
+        url: str = None,
+        skill_id: str = None,
+    ):
+        # skill名称
+        self.name = name
+        # 版本
+        self.version = version
+        # oss地址
+        self.url = url
+        # skillId
+        self.skill_id = skill_id
+
+    def validate(self):
+        self.validate_required(self.name, 'name')
+        self.validate_required(self.version, 'version')
+        self.validate_required(self.url, 'url')
+        self.validate_required(self.skill_id, 'skill_id')
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.name is not None:
+            result['name'] = self.name
+        if self.version is not None:
+            result['version'] = self.version
+        if self.url is not None:
+            result['url'] = self.url
+        if self.skill_id is not None:
+            result['skill_id'] = self.skill_id
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('name') is not None:
+            self.name = m.get('name')
+        if m.get('version') is not None:
+            self.version = m.get('version')
+        if m.get('url') is not None:
+            self.url = m.get('url')
+        if m.get('skill_id') is not None:
+            self.skill_id = m.get('skill_id')
         return self
 
 
@@ -1939,8 +2056,8 @@ class SubAgentInfo(TeaModel):
         agent_name: str = None,
         model_provider: str = None,
         model_id: str = None,
-        skills: List[str] = None,
-        mcps: List[str] = None,
+        skills: List[SkillInfo] = None,
+        mcps: List[McpInfo] = None,
         instance_id: str = None,
     ):
         # 智能体ID
@@ -1964,7 +2081,15 @@ class SubAgentInfo(TeaModel):
         self.validate_required(self.model_provider, 'model_provider')
         self.validate_required(self.model_id, 'model_id')
         self.validate_required(self.skills, 'skills')
+        if self.skills:
+            for k in self.skills:
+                if k:
+                    k.validate()
         self.validate_required(self.mcps, 'mcps')
+        if self.mcps:
+            for k in self.mcps:
+                if k:
+                    k.validate()
         self.validate_required(self.instance_id, 'instance_id')
 
     def to_map(self):
@@ -1981,10 +2106,14 @@ class SubAgentInfo(TeaModel):
             result['model_provider'] = self.model_provider
         if self.model_id is not None:
             result['model_id'] = self.model_id
+        result['skills'] = []
         if self.skills is not None:
-            result['skills'] = self.skills
+            for k in self.skills:
+                result['skills'].append(k.to_map() if k else None)
+        result['mcps'] = []
         if self.mcps is not None:
-            result['mcps'] = self.mcps
+            for k in self.mcps:
+                result['mcps'].append(k.to_map() if k else None)
         if self.instance_id is not None:
             result['instance_id'] = self.instance_id
         return result
@@ -1999,12 +2128,107 @@ class SubAgentInfo(TeaModel):
             self.model_provider = m.get('model_provider')
         if m.get('model_id') is not None:
             self.model_id = m.get('model_id')
+        self.skills = []
         if m.get('skills') is not None:
-            self.skills = m.get('skills')
+            for k in m.get('skills'):
+                temp_model = SkillInfo()
+                self.skills.append(temp_model.from_map(k))
+        self.mcps = []
         if m.get('mcps') is not None:
-            self.mcps = m.get('mcps')
+            for k in m.get('mcps'):
+                temp_model = McpInfo()
+                self.mcps.append(temp_model.from_map(k))
         if m.get('instance_id') is not None:
             self.instance_id = m.get('instance_id')
+        return self
+
+
+class TurnModelCallsUsages(TeaModel):
+    def __init__(
+        self,
+        model: str = None,
+        status: str = None,
+        input_tokens: int = None,
+        output_tokens: int = None,
+        total_tokens: int = None,
+        reasoning_tokens: int = None,
+        cached_read_tokens: int = None,
+        cached_write_tokens: int = None,
+        model_duration_ms: int = None,
+    ):
+        # 模型名称
+        self.model = model
+        # 调用状态：COMPLETED / FAILED / CANCELLED / UNKNOWN
+        self.status = status
+        # 输入 token
+        self.input_tokens = input_tokens
+        # 输出 token
+        self.output_tokens = output_tokens
+        # 总 token
+        self.total_tokens = total_tokens
+        # 推理 token（可选，有才返回）
+        self.reasoning_tokens = reasoning_tokens
+        # 缓存读取 token（可选）
+        self.cached_read_tokens = cached_read_tokens
+        # 缓存写入 token（可选）
+        self.cached_write_tokens = cached_write_tokens
+        # 当前模型调用耗时
+        self.model_duration_ms = model_duration_ms
+
+    def validate(self):
+        self.validate_required(self.model, 'model')
+        self.validate_required(self.status, 'status')
+        self.validate_required(self.input_tokens, 'input_tokens')
+        self.validate_required(self.output_tokens, 'output_tokens')
+        self.validate_required(self.total_tokens, 'total_tokens')
+        self.validate_required(self.model_duration_ms, 'model_duration_ms')
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.model is not None:
+            result['model'] = self.model
+        if self.status is not None:
+            result['status'] = self.status
+        if self.input_tokens is not None:
+            result['input_tokens'] = self.input_tokens
+        if self.output_tokens is not None:
+            result['output_tokens'] = self.output_tokens
+        if self.total_tokens is not None:
+            result['total_tokens'] = self.total_tokens
+        if self.reasoning_tokens is not None:
+            result['reasoning_tokens'] = self.reasoning_tokens
+        if self.cached_read_tokens is not None:
+            result['cached_read_tokens'] = self.cached_read_tokens
+        if self.cached_write_tokens is not None:
+            result['cached_write_tokens'] = self.cached_write_tokens
+        if self.model_duration_ms is not None:
+            result['model_duration_ms'] = self.model_duration_ms
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('model') is not None:
+            self.model = m.get('model')
+        if m.get('status') is not None:
+            self.status = m.get('status')
+        if m.get('input_tokens') is not None:
+            self.input_tokens = m.get('input_tokens')
+        if m.get('output_tokens') is not None:
+            self.output_tokens = m.get('output_tokens')
+        if m.get('total_tokens') is not None:
+            self.total_tokens = m.get('total_tokens')
+        if m.get('reasoning_tokens') is not None:
+            self.reasoning_tokens = m.get('reasoning_tokens')
+        if m.get('cached_read_tokens') is not None:
+            self.cached_read_tokens = m.get('cached_read_tokens')
+        if m.get('cached_write_tokens') is not None:
+            self.cached_write_tokens = m.get('cached_write_tokens')
+        if m.get('model_duration_ms') is not None:
+            self.model_duration_ms = m.get('model_duration_ms')
         return self
 
 
@@ -3229,6 +3453,42 @@ class CategoryInfo(TeaModel):
         return self
 
 
+class AccessScopeItem(TeaModel):
+    def __init__(
+        self,
+        scene: str = None,
+        targets: List[str] = None,
+    ):
+        # 场景码。范围项归属的业务场景，同一请求内可以出现多个不同场景的范围项。
+        self.scene = scene
+        # 访问目标 ID 清单
+        self.targets = targets
+
+    def validate(self):
+        self.validate_required(self.scene, 'scene')
+        self.validate_required(self.targets, 'targets')
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.scene is not None:
+            result['scene'] = self.scene
+        if self.targets is not None:
+            result['targets'] = self.targets
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('scene') is not None:
+            self.scene = m.get('scene')
+        if m.get('targets') is not None:
+            self.targets = m.get('targets')
+        return self
+
+
 class EntityChainData(TeaModel):
     def __init__(
         self,
@@ -4392,6 +4652,7 @@ class FileInfo(TeaModel):
         name: str = None,
         type: str = None,
         url: str = None,
+        created_at: int = None,
         id: str = None,
     ):
         # 文件名称
@@ -4400,6 +4661,8 @@ class FileInfo(TeaModel):
         self.type = type
         # oss地址
         self.url = url
+        # 创建时间
+        self.created_at = created_at
         # id
         self.id = id
 
@@ -4407,6 +4670,8 @@ class FileInfo(TeaModel):
         self.validate_required(self.name, 'name')
         self.validate_required(self.type, 'type')
         self.validate_required(self.url, 'url')
+        self.validate_required(self.created_at, 'created_at')
+        self.validate_required(self.id, 'id')
 
     def to_map(self):
         _map = super().to_map()
@@ -4420,6 +4685,8 @@ class FileInfo(TeaModel):
             result['type'] = self.type
         if self.url is not None:
             result['url'] = self.url
+        if self.created_at is not None:
+            result['created_at'] = self.created_at
         if self.id is not None:
             result['id'] = self.id
         return result
@@ -4432,6 +4699,8 @@ class FileInfo(TeaModel):
             self.type = m.get('type')
         if m.get('url') is not None:
             self.url = m.get('url')
+        if m.get('created_at') is not None:
+            self.created_at = m.get('created_at')
         if m.get('id') is not None:
             self.id = m.get('id')
         return self
@@ -5389,6 +5658,61 @@ class TripStatistics(TeaModel):
             self.total_count = m.get('total_count')
         if m.get('period_code') is not None:
             self.period_code = m.get('period_code')
+        return self
+
+
+class PreviewFileInfo(TeaModel):
+    def __init__(
+        self,
+        name: str = None,
+        type: str = None,
+        url: str = None,
+        expire_at: int = None,
+        id: str = None,
+    ):
+        self.name = name
+        self.type = type
+        self.url = url
+        self.expire_at = expire_at
+        self.id = id
+
+    def validate(self):
+        self.validate_required(self.name, 'name')
+        self.validate_required(self.type, 'type')
+        self.validate_required(self.url, 'url')
+        self.validate_required(self.expire_at, 'expire_at')
+        self.validate_required(self.id, 'id')
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.name is not None:
+            result['name'] = self.name
+        if self.type is not None:
+            result['type'] = self.type
+        if self.url is not None:
+            result['url'] = self.url
+        if self.expire_at is not None:
+            result['expire_at'] = self.expire_at
+        if self.id is not None:
+            result['id'] = self.id
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('name') is not None:
+            self.name = m.get('name')
+        if m.get('type') is not None:
+            self.type = m.get('type')
+        if m.get('url') is not None:
+            self.url = m.get('url')
+        if m.get('expire_at') is not None:
+            self.expire_at = m.get('expire_at')
+        if m.get('id') is not None:
+            self.id = m.get('id')
         return self
 
 
@@ -6736,10 +7060,10 @@ class AgentInfo(TeaModel):
         system_prompt: str = None,
         model_provider: str = None,
         model_id: str = None,
-        skills: List[str] = None,
-        mcps: List[str] = None,
+        skills: List[SkillInfo] = None,
+        mcps: List[McpInfo] = None,
         sub_agents: List[str] = None,
-        sub_agent_info_list: SubAgentInfo = None,
+        sub_agent_info_list: List[SubAgentInfo] = None,
         instance_id: str = None,
     ):
         # 智能体id
@@ -6770,9 +7094,19 @@ class AgentInfo(TeaModel):
         self.validate_required(self.model_provider, 'model_provider')
         self.validate_required(self.model_id, 'model_id')
         self.validate_required(self.skills, 'skills')
+        if self.skills:
+            for k in self.skills:
+                if k:
+                    k.validate()
         self.validate_required(self.mcps, 'mcps')
+        if self.mcps:
+            for k in self.mcps:
+                if k:
+                    k.validate()
         if self.sub_agent_info_list:
-            self.sub_agent_info_list.validate()
+            for k in self.sub_agent_info_list:
+                if k:
+                    k.validate()
         self.validate_required(self.instance_id, 'instance_id')
 
     def to_map(self):
@@ -6791,14 +7125,20 @@ class AgentInfo(TeaModel):
             result['model_provider'] = self.model_provider
         if self.model_id is not None:
             result['model_id'] = self.model_id
+        result['skills'] = []
         if self.skills is not None:
-            result['skills'] = self.skills
+            for k in self.skills:
+                result['skills'].append(k.to_map() if k else None)
+        result['mcps'] = []
         if self.mcps is not None:
-            result['mcps'] = self.mcps
+            for k in self.mcps:
+                result['mcps'].append(k.to_map() if k else None)
         if self.sub_agents is not None:
             result['sub_agents'] = self.sub_agents
+        result['sub_agent_info_list'] = []
         if self.sub_agent_info_list is not None:
-            result['sub_agent_info_list'] = self.sub_agent_info_list.to_map()
+            for k in self.sub_agent_info_list:
+                result['sub_agent_info_list'].append(k.to_map() if k else None)
         if self.instance_id is not None:
             result['instance_id'] = self.instance_id
         return result
@@ -6815,15 +7155,23 @@ class AgentInfo(TeaModel):
             self.model_provider = m.get('model_provider')
         if m.get('model_id') is not None:
             self.model_id = m.get('model_id')
+        self.skills = []
         if m.get('skills') is not None:
-            self.skills = m.get('skills')
+            for k in m.get('skills'):
+                temp_model = SkillInfo()
+                self.skills.append(temp_model.from_map(k))
+        self.mcps = []
         if m.get('mcps') is not None:
-            self.mcps = m.get('mcps')
+            for k in m.get('mcps'):
+                temp_model = McpInfo()
+                self.mcps.append(temp_model.from_map(k))
         if m.get('sub_agents') is not None:
             self.sub_agents = m.get('sub_agents')
+        self.sub_agent_info_list = []
         if m.get('sub_agent_info_list') is not None:
-            temp_model = SubAgentInfo()
-            self.sub_agent_info_list = temp_model.from_map(m['sub_agent_info_list'])
+            for k in m.get('sub_agent_info_list'):
+                temp_model = SubAgentInfo()
+                self.sub_agent_info_list.append(temp_model.from_map(k))
         if m.get('instance_id') is not None:
             self.instance_id = m.get('instance_id')
         return self
@@ -7337,71 +7685,6 @@ class LabelTrace(TeaModel):
             self.is_success = m.get('is_success')
         if m.get('version') is not None:
             self.version = m.get('version')
-        return self
-
-
-class McpInfo(TeaModel):
-    def __init__(
-        self,
-        name: str = None,
-        transport: str = None,
-        endpoint: str = None,
-        headers: str = None,
-        mcp_id: str = None,
-        tools: List[str] = None,
-    ):
-        # mcp名字
-        self.name = name
-        # 协议类型
-        self.transport = transport
-        # 协议地址
-        self.endpoint = endpoint
-        # json
-        self.headers = headers
-        # mcp_id
-        self.mcp_id = mcp_id
-        # 工具名字
-        self.tools = tools
-
-    def validate(self):
-        self.validate_required(self.name, 'name')
-        self.validate_required(self.transport, 'transport')
-        self.validate_required(self.mcp_id, 'mcp_id')
-
-    def to_map(self):
-        _map = super().to_map()
-        if _map is not None:
-            return _map
-
-        result = dict()
-        if self.name is not None:
-            result['name'] = self.name
-        if self.transport is not None:
-            result['transport'] = self.transport
-        if self.endpoint is not None:
-            result['endpoint'] = self.endpoint
-        if self.headers is not None:
-            result['headers'] = self.headers
-        if self.mcp_id is not None:
-            result['mcp_id'] = self.mcp_id
-        if self.tools is not None:
-            result['tools'] = self.tools
-        return result
-
-    def from_map(self, m: dict = None):
-        m = m or dict()
-        if m.get('name') is not None:
-            self.name = m.get('name')
-        if m.get('transport') is not None:
-            self.transport = m.get('transport')
-        if m.get('endpoint') is not None:
-            self.endpoint = m.get('endpoint')
-        if m.get('headers') is not None:
-            self.headers = m.get('headers')
-        if m.get('mcp_id') is not None:
-            self.mcp_id = m.get('mcp_id')
-        if m.get('tools') is not None:
-            self.tools = m.get('tools')
         return self
 
 
@@ -10799,6 +11082,74 @@ class DeviceOperateInfo(TeaModel):
         return self
 
 
+class SessionUsage(TeaModel):
+    def __init__(
+        self,
+        input_tokens: int = None,
+        output_tokens: int = None,
+        total_tokens: int = None,
+        model_call_count: int = None,
+        complete: bool = None,
+        turn_duration_ms: int = None,
+    ):
+        # 输入Token
+        self.input_tokens = input_tokens
+        # 输出token
+        self.output_tokens = output_tokens
+        # 总Token
+        self.total_tokens = total_tokens
+        # 模型调用次数
+        self.model_call_count = model_call_count
+        # 是否完成
+        self.complete = complete
+        # 当前轮次请求耗时
+        self.turn_duration_ms = turn_duration_ms
+
+    def validate(self):
+        self.validate_required(self.input_tokens, 'input_tokens')
+        self.validate_required(self.output_tokens, 'output_tokens')
+        self.validate_required(self.total_tokens, 'total_tokens')
+        self.validate_required(self.model_call_count, 'model_call_count')
+        self.validate_required(self.complete, 'complete')
+        self.validate_required(self.turn_duration_ms, 'turn_duration_ms')
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.input_tokens is not None:
+            result['input_tokens'] = self.input_tokens
+        if self.output_tokens is not None:
+            result['output_tokens'] = self.output_tokens
+        if self.total_tokens is not None:
+            result['total_tokens'] = self.total_tokens
+        if self.model_call_count is not None:
+            result['model_call_count'] = self.model_call_count
+        if self.complete is not None:
+            result['complete'] = self.complete
+        if self.turn_duration_ms is not None:
+            result['turn_duration_ms'] = self.turn_duration_ms
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('input_tokens') is not None:
+            self.input_tokens = m.get('input_tokens')
+        if m.get('output_tokens') is not None:
+            self.output_tokens = m.get('output_tokens')
+        if m.get('total_tokens') is not None:
+            self.total_tokens = m.get('total_tokens')
+        if m.get('model_call_count') is not None:
+            self.model_call_count = m.get('model_call_count')
+        if m.get('complete') is not None:
+            self.complete = m.get('complete')
+        if m.get('turn_duration_ms') is not None:
+            self.turn_duration_ms = m.get('turn_duration_ms')
+        return self
+
+
 class DidBaseQueryReq(TeaModel):
     def __init__(
         self,
@@ -11909,6 +12260,59 @@ class IotxOtaTaskPermanentCancelResult(TeaModel):
         return self
 
 
+class TurnUsage(TeaModel):
+    def __init__(
+        self,
+        turn_id: str = None,
+        complete: bool = None,
+        model_calls: List[TurnModelCallsUsages] = None,
+    ):
+        # 对话轮次ID
+        self.turn_id = turn_id
+        # 该轮用量是否完整
+        self.complete = complete
+        # 模型调用明细
+        self.model_calls = model_calls
+
+    def validate(self):
+        self.validate_required(self.turn_id, 'turn_id')
+        self.validate_required(self.complete, 'complete')
+        self.validate_required(self.model_calls, 'model_calls')
+        if self.model_calls:
+            for k in self.model_calls:
+                if k:
+                    k.validate()
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.turn_id is not None:
+            result['turn_id'] = self.turn_id
+        if self.complete is not None:
+            result['complete'] = self.complete
+        result['model_calls'] = []
+        if self.model_calls is not None:
+            for k in self.model_calls:
+                result['model_calls'].append(k.to_map() if k else None)
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('turn_id') is not None:
+            self.turn_id = m.get('turn_id')
+        if m.get('complete') is not None:
+            self.complete = m.get('complete')
+        self.model_calls = []
+        if m.get('model_calls') is not None:
+            for k in m.get('model_calls'):
+                temp_model = TurnModelCallsUsages()
+                self.model_calls.append(temp_model.from_map(k))
+        return self
+
+
 class BaiGoodsPointQueryRespData(TeaModel):
     def __init__(
         self,
@@ -12585,58 +12989,6 @@ class EvidenceBaseModel(TeaModel):
         return self
 
 
-class SkillInfo(TeaModel):
-    def __init__(
-        self,
-        name: str = None,
-        version: str = None,
-        url: str = None,
-        skill_id: str = None,
-    ):
-        # skill名称
-        self.name = name
-        # 版本
-        self.version = version
-        # oss地址
-        self.url = url
-        # skillId
-        self.skill_id = skill_id
-
-    def validate(self):
-        self.validate_required(self.name, 'name')
-        self.validate_required(self.version, 'version')
-        self.validate_required(self.url, 'url')
-        self.validate_required(self.skill_id, 'skill_id')
-
-    def to_map(self):
-        _map = super().to_map()
-        if _map is not None:
-            return _map
-
-        result = dict()
-        if self.name is not None:
-            result['name'] = self.name
-        if self.version is not None:
-            result['version'] = self.version
-        if self.url is not None:
-            result['url'] = self.url
-        if self.skill_id is not None:
-            result['skill_id'] = self.skill_id
-        return result
-
-    def from_map(self, m: dict = None):
-        m = m or dict()
-        if m.get('name') is not None:
-            self.name = m.get('name')
-        if m.get('version') is not None:
-            self.version = m.get('version')
-        if m.get('url') is not None:
-            self.url = m.get('url')
-        if m.get('skill_id') is not None:
-            self.skill_id = m.get('skill_id')
-        return self
-
-
 class TripTraceView(TeaModel):
     def __init__(
         self,
@@ -13300,6 +13652,8 @@ class AgentSessionVO(TeaModel):
         user_id: str = None,
         gmt_create: str = None,
         gmt_modified: str = None,
+        session_name: str = None,
+        topic: str = None,
     ):
         # 会话ID
         self.session_id = session_id
@@ -13309,6 +13663,10 @@ class AgentSessionVO(TeaModel):
         self.gmt_create = gmt_create
         # 会话修改时间
         self.gmt_modified = gmt_modified
+        # 会话名称；会话进行中尚未命名时返回"当前会话"
+        self.session_name = session_name
+        # 会话主题，可能为空
+        self.topic = topic
 
     def validate(self):
         self.validate_required(self.session_id, 'session_id')
@@ -13334,6 +13692,10 @@ class AgentSessionVO(TeaModel):
             result['gmt_create'] = self.gmt_create
         if self.gmt_modified is not None:
             result['gmt_modified'] = self.gmt_modified
+        if self.session_name is not None:
+            result['session_name'] = self.session_name
+        if self.topic is not None:
+            result['topic'] = self.topic
         return result
 
     def from_map(self, m: dict = None):
@@ -13346,6 +13708,10 @@ class AgentSessionVO(TeaModel):
             self.gmt_create = m.get('gmt_create')
         if m.get('gmt_modified') is not None:
             self.gmt_modified = m.get('gmt_modified')
+        if m.get('session_name') is not None:
+            self.session_name = m.get('session_name')
+        if m.get('topic') is not None:
+            self.topic = m.get('topic')
         return self
 
 
@@ -13381,6 +13747,58 @@ class DeviceCollectResult(TeaModel):
             self.collect_id = m.get('collect_id')
         if m.get('antchain_id') is not None:
             self.antchain_id = m.get('antchain_id')
+        return self
+
+
+class AudioSpec(TeaModel):
+    def __init__(
+        self,
+        container: str = None,
+        codec: str = None,
+        sample_rate: int = None,
+        channels: int = None,
+    ):
+        # 容器，如 WAV
+        self.container = container
+        # 编码，如 PCM_S16LE
+        self.codec = codec
+        # 采样率，单位 Hz，如 16000
+        self.sample_rate = sample_rate
+        # 声道数，如 1
+        self.channels = channels
+
+    def validate(self):
+        self.validate_required(self.container, 'container')
+        self.validate_required(self.codec, 'codec')
+        self.validate_required(self.sample_rate, 'sample_rate')
+        self.validate_required(self.channels, 'channels')
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.container is not None:
+            result['container'] = self.container
+        if self.codec is not None:
+            result['codec'] = self.codec
+        if self.sample_rate is not None:
+            result['sample_rate'] = self.sample_rate
+        if self.channels is not None:
+            result['channels'] = self.channels
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('container') is not None:
+            self.container = m.get('container')
+        if m.get('codec') is not None:
+            self.codec = m.get('codec')
+        if m.get('sample_rate') is not None:
+            self.sample_rate = m.get('sample_rate')
+        if m.get('channels') is not None:
+            self.channels = m.get('channels')
         return self
 
 
@@ -13983,6 +14401,104 @@ class IotBasicDeviceRegisterResult(TeaModel):
             self.sec_key = m.get('sec_key')
         if m.get('service_status') is not None:
             self.service_status = m.get('service_status')
+        return self
+
+
+class AgentMusicSong(TeaModel):
+    def __init__(
+        self,
+        song_id: str = None,
+        song_name: str = None,
+        artist_name: str = None,
+        duration: int = None,
+        is_liked: bool = None,
+        play_flag: int = None,
+        vip_play_flag: int = None,
+        vip_flag: int = None,
+        song_fee: int = None,
+        cover_img_url: str = None,
+        qualities: List[str] = None,
+    ):
+        # 歌曲 ID
+        self.song_id = song_id
+        # 歌名
+        self.song_name = song_name
+        # 歌手（多歌手用 / 分隔）
+        self.artist_name = artist_name
+        # 时长(ms)
+        self.duration = duration
+        # 是否已添加红心
+        self.is_liked = is_liked
+        # 播放标记，取值范围：0=可播放 / 1=不可播放
+        self.play_flag = play_flag
+        # VIP 播放标记，取值范围：0=免费（非 VIP 限制） / 1=VIP 专享
+        self.vip_play_flag = vip_play_flag
+        # VIP 标记（0=否，1=是）
+        self.vip_flag = vip_flag
+        # 收费类型，取值范围：0=免费 / 1=VIP / 4=付费专辑 / 8=低质量免费
+        self.song_fee = song_fee
+        # 封面 URL
+        self.cover_img_url = cover_img_url
+        # 可用音质 code 列表，取值范围：vividMusic=Audio Vivid / dolbyMusic=杜比 / skMusic=沉浸环绕声 / jyMasterMusic=超清母带 / jyEffectMusic=高清臻音 / hrMusic=Hi-Res / sqMusic=无损 / hmusic=极高 / mmusic=较高 / lmusic=标准
+        self.qualities = qualities
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.song_id is not None:
+            result['song_id'] = self.song_id
+        if self.song_name is not None:
+            result['song_name'] = self.song_name
+        if self.artist_name is not None:
+            result['artist_name'] = self.artist_name
+        if self.duration is not None:
+            result['duration'] = self.duration
+        if self.is_liked is not None:
+            result['is_liked'] = self.is_liked
+        if self.play_flag is not None:
+            result['play_flag'] = self.play_flag
+        if self.vip_play_flag is not None:
+            result['vip_play_flag'] = self.vip_play_flag
+        if self.vip_flag is not None:
+            result['vip_flag'] = self.vip_flag
+        if self.song_fee is not None:
+            result['song_fee'] = self.song_fee
+        if self.cover_img_url is not None:
+            result['cover_img_url'] = self.cover_img_url
+        if self.qualities is not None:
+            result['qualities'] = self.qualities
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('song_id') is not None:
+            self.song_id = m.get('song_id')
+        if m.get('song_name') is not None:
+            self.song_name = m.get('song_name')
+        if m.get('artist_name') is not None:
+            self.artist_name = m.get('artist_name')
+        if m.get('duration') is not None:
+            self.duration = m.get('duration')
+        if m.get('is_liked') is not None:
+            self.is_liked = m.get('is_liked')
+        if m.get('play_flag') is not None:
+            self.play_flag = m.get('play_flag')
+        if m.get('vip_play_flag') is not None:
+            self.vip_play_flag = m.get('vip_play_flag')
+        if m.get('vip_flag') is not None:
+            self.vip_flag = m.get('vip_flag')
+        if m.get('song_fee') is not None:
+            self.song_fee = m.get('song_fee')
+        if m.get('cover_img_url') is not None:
+            self.cover_img_url = m.get('cover_img_url')
+        if m.get('qualities') is not None:
+            self.qualities = m.get('qualities')
         return self
 
 
@@ -16068,6 +16584,406 @@ class ChatAiotdatalinkAntfinanceassistantResponse(TeaModel):
             self.response_title = m.get('response_title')
         if m.get('response_condition') is not None:
             self.response_condition = m.get('response_condition')
+        return self
+
+
+class StreamchatAiotdatalinkAntfinanceassistantRequest(TeaModel):
+    def __init__(
+        self,
+        auth_token: str = None,
+        product_instance_id: str = None,
+        chat_request: str = None,
+    ):
+        # OAuth模式下的授权token
+        self.auth_token = auth_token
+        self.product_instance_id = product_instance_id
+        # 请求内容，内容为json字符串
+        self.chat_request = chat_request
+
+    def validate(self):
+        self.validate_required(self.chat_request, 'chat_request')
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.auth_token is not None:
+            result['auth_token'] = self.auth_token
+        if self.product_instance_id is not None:
+            result['product_instance_id'] = self.product_instance_id
+        if self.chat_request is not None:
+            result['chat_request'] = self.chat_request
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('auth_token') is not None:
+            self.auth_token = m.get('auth_token')
+        if m.get('product_instance_id') is not None:
+            self.product_instance_id = m.get('product_instance_id')
+        if m.get('chat_request') is not None:
+            self.chat_request = m.get('chat_request')
+        return self
+
+
+class StreamchatAiotdatalinkAntfinanceassistantResponse(TeaModel):
+    def __init__(
+        self,
+        req_msg_id: str = None,
+        result_code: str = None,
+        result_msg: str = None,
+        chat_completion_object: str = None,
+    ):
+        # 请求唯一ID，用于链路跟踪和问题排查
+        self.req_msg_id = req_msg_id
+        # 结果码，一般OK表示调用成功
+        self.result_code = result_code
+        # 异常信息的文本描述
+        self.result_msg = result_msg
+        # 会话结果
+        self.chat_completion_object = chat_completion_object
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.req_msg_id is not None:
+            result['req_msg_id'] = self.req_msg_id
+        if self.result_code is not None:
+            result['result_code'] = self.result_code
+        if self.result_msg is not None:
+            result['result_msg'] = self.result_msg
+        if self.chat_completion_object is not None:
+            result['chat_completion_object'] = self.chat_completion_object
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('req_msg_id') is not None:
+            self.req_msg_id = m.get('req_msg_id')
+        if m.get('result_code') is not None:
+            self.result_code = m.get('result_code')
+        if m.get('result_msg') is not None:
+            self.result_msg = m.get('result_msg')
+        if m.get('chat_completion_object') is not None:
+            self.chat_completion_object = m.get('chat_completion_object')
+        return self
+
+
+class QueryAiotdatalinkAskdataRequest(TeaModel):
+    def __init__(
+        self,
+        auth_token: str = None,
+        product_instance_id: str = None,
+        tenant_id: str = None,
+        scene_code: str = None,
+        question: str = None,
+        conversation_id: str = None,
+        user_id: str = None,
+        caller: str = None,
+    ):
+        # OAuth模式下的授权token
+        self.auth_token = auth_token
+        self.product_instance_id = product_instance_id
+        # 租户ID
+        self.tenant_id = tenant_id
+        # 场景编码
+        self.scene_code = scene_code
+        # 问数的问题
+        self.question = question
+        # 会话ID
+        self.conversation_id = conversation_id
+        # 用户ID
+        self.user_id = user_id
+        # 序列号，用于表示同一时间请求序号
+        self.caller = caller
+
+    def validate(self):
+        self.validate_required(self.tenant_id, 'tenant_id')
+        self.validate_required(self.question, 'question')
+        self.validate_required(self.conversation_id, 'conversation_id')
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.auth_token is not None:
+            result['auth_token'] = self.auth_token
+        if self.product_instance_id is not None:
+            result['product_instance_id'] = self.product_instance_id
+        if self.tenant_id is not None:
+            result['tenant_id'] = self.tenant_id
+        if self.scene_code is not None:
+            result['scene_code'] = self.scene_code
+        if self.question is not None:
+            result['question'] = self.question
+        if self.conversation_id is not None:
+            result['conversation_id'] = self.conversation_id
+        if self.user_id is not None:
+            result['user_id'] = self.user_id
+        if self.caller is not None:
+            result['caller'] = self.caller
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('auth_token') is not None:
+            self.auth_token = m.get('auth_token')
+        if m.get('product_instance_id') is not None:
+            self.product_instance_id = m.get('product_instance_id')
+        if m.get('tenant_id') is not None:
+            self.tenant_id = m.get('tenant_id')
+        if m.get('scene_code') is not None:
+            self.scene_code = m.get('scene_code')
+        if m.get('question') is not None:
+            self.question = m.get('question')
+        if m.get('conversation_id') is not None:
+            self.conversation_id = m.get('conversation_id')
+        if m.get('user_id') is not None:
+            self.user_id = m.get('user_id')
+        if m.get('caller') is not None:
+            self.caller = m.get('caller')
+        return self
+
+
+class QueryAiotdatalinkAskdataResponse(TeaModel):
+    def __init__(
+        self,
+        req_msg_id: str = None,
+        result_code: str = None,
+        result_msg: str = None,
+        job_id: str = None,
+        request_id: str = None,
+        status: str = None,
+        data: str = None,
+        row_num: str = None,
+    ):
+        # 请求唯一ID，用于链路跟踪和问题排查
+        self.req_msg_id = req_msg_id
+        # 结果码，一般OK表示调用成功
+        self.result_code = result_code
+        # 异常信息的文本描述
+        self.result_msg = result_msg
+        # 任务ID
+        self.job_id = job_id
+        # 请求ID
+        self.request_id = request_id
+        # 任务状态， ACCEPTED 提交，RESOLVING_MODEL 解析寓意，INTERPRETING 生成SQL，SQL_VALIDATING sql 校验，EXECUTING 执行查询，ANALYZING 保存结果，COMPLETE 任务完成，FAILED 任务失败，CANCELLED  任务取消
+        self.status = status
+        # json 格式字符串
+        self.data = data
+        # 数据总条数
+        self.row_num = row_num
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.req_msg_id is not None:
+            result['req_msg_id'] = self.req_msg_id
+        if self.result_code is not None:
+            result['result_code'] = self.result_code
+        if self.result_msg is not None:
+            result['result_msg'] = self.result_msg
+        if self.job_id is not None:
+            result['job_id'] = self.job_id
+        if self.request_id is not None:
+            result['request_id'] = self.request_id
+        if self.status is not None:
+            result['status'] = self.status
+        if self.data is not None:
+            result['data'] = self.data
+        if self.row_num is not None:
+            result['row_num'] = self.row_num
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('req_msg_id') is not None:
+            self.req_msg_id = m.get('req_msg_id')
+        if m.get('result_code') is not None:
+            self.result_code = m.get('result_code')
+        if m.get('result_msg') is not None:
+            self.result_msg = m.get('result_msg')
+        if m.get('job_id') is not None:
+            self.job_id = m.get('job_id')
+        if m.get('request_id') is not None:
+            self.request_id = m.get('request_id')
+        if m.get('status') is not None:
+            self.status = m.get('status')
+        if m.get('data') is not None:
+            self.data = m.get('data')
+        if m.get('row_num') is not None:
+            self.row_num = m.get('row_num')
+        return self
+
+
+class ChatAiotdatalinkAskdataRequest(TeaModel):
+    def __init__(
+        self,
+        auth_token: str = None,
+        product_instance_id: str = None,
+        tenant_id: str = None,
+        scene_code: str = None,
+        question: str = None,
+        conversation_id: str = None,
+        user_id: str = None,
+        caller: str = None,
+    ):
+        # OAuth模式下的授权token
+        self.auth_token = auth_token
+        self.product_instance_id = product_instance_id
+        # 租户ID
+        self.tenant_id = tenant_id
+        # 场景编码
+        self.scene_code = scene_code
+        # 问数问题
+        self.question = question
+        # 会话ID
+        self.conversation_id = conversation_id
+        # 用户ID
+        self.user_id = user_id
+        # 序列号，用于表示同一时间请求序号
+        self.caller = caller
+
+    def validate(self):
+        self.validate_required(self.tenant_id, 'tenant_id')
+        self.validate_required(self.question, 'question')
+        self.validate_required(self.conversation_id, 'conversation_id')
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.auth_token is not None:
+            result['auth_token'] = self.auth_token
+        if self.product_instance_id is not None:
+            result['product_instance_id'] = self.product_instance_id
+        if self.tenant_id is not None:
+            result['tenant_id'] = self.tenant_id
+        if self.scene_code is not None:
+            result['scene_code'] = self.scene_code
+        if self.question is not None:
+            result['question'] = self.question
+        if self.conversation_id is not None:
+            result['conversation_id'] = self.conversation_id
+        if self.user_id is not None:
+            result['user_id'] = self.user_id
+        if self.caller is not None:
+            result['caller'] = self.caller
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('auth_token') is not None:
+            self.auth_token = m.get('auth_token')
+        if m.get('product_instance_id') is not None:
+            self.product_instance_id = m.get('product_instance_id')
+        if m.get('tenant_id') is not None:
+            self.tenant_id = m.get('tenant_id')
+        if m.get('scene_code') is not None:
+            self.scene_code = m.get('scene_code')
+        if m.get('question') is not None:
+            self.question = m.get('question')
+        if m.get('conversation_id') is not None:
+            self.conversation_id = m.get('conversation_id')
+        if m.get('user_id') is not None:
+            self.user_id = m.get('user_id')
+        if m.get('caller') is not None:
+            self.caller = m.get('caller')
+        return self
+
+
+class ChatAiotdatalinkAskdataResponse(TeaModel):
+    def __init__(
+        self,
+        req_msg_id: str = None,
+        result_code: str = None,
+        result_msg: str = None,
+        job_id: str = None,
+        request_id: str = None,
+        status: str = None,
+        data: str = None,
+        row_num: int = None,
+    ):
+        # 请求唯一ID，用于链路跟踪和问题排查
+        self.req_msg_id = req_msg_id
+        # 结果码，一般OK表示调用成功
+        self.result_code = result_code
+        # 异常信息的文本描述
+        self.result_msg = result_msg
+        # 任务Id
+        self.job_id = job_id
+        # 请求ID
+        self.request_id = request_id
+        # 任务状态， ACCEPTED 提交，RESOLVING_MODEL 解析寓意，INTERPRETING 生成SQL，SQL_VALIDATING sql 校验，EXECUTING 执行查询，ANALYZING 保存结果，COMPLETE 任务完成，FAILED 任务失败，CANCELLED 任务取消
+        self.status = status
+        # json 格式字符串
+        self.data = data
+        # 数据总条数
+        self.row_num = row_num
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.req_msg_id is not None:
+            result['req_msg_id'] = self.req_msg_id
+        if self.result_code is not None:
+            result['result_code'] = self.result_code
+        if self.result_msg is not None:
+            result['result_msg'] = self.result_msg
+        if self.job_id is not None:
+            result['job_id'] = self.job_id
+        if self.request_id is not None:
+            result['request_id'] = self.request_id
+        if self.status is not None:
+            result['status'] = self.status
+        if self.data is not None:
+            result['data'] = self.data
+        if self.row_num is not None:
+            result['row_num'] = self.row_num
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('req_msg_id') is not None:
+            self.req_msg_id = m.get('req_msg_id')
+        if m.get('result_code') is not None:
+            self.result_code = m.get('result_code')
+        if m.get('result_msg') is not None:
+            self.result_msg = m.get('result_msg')
+        if m.get('job_id') is not None:
+            self.job_id = m.get('job_id')
+        if m.get('request_id') is not None:
+            self.request_id = m.get('request_id')
+        if m.get('status') is not None:
+            self.status = m.get('status')
+        if m.get('data') is not None:
+            self.data = m.get('data')
+        if m.get('row_num') is not None:
+            self.row_num = m.get('row_num')
         return self
 
 
@@ -21818,15 +22734,23 @@ class ListIotagentAgentRequest(TeaModel):
         auth_token: str = None,
         product_instance_id: str = None,
         instance_id: str = None,
+        page_index: int = None,
+        page_size: int = None,
     ):
         # OAuth模式下的授权token
         self.auth_token = auth_token
         self.product_instance_id = product_instance_id
         # 实例id
         self.instance_id = instance_id
+        # 当前页
+        self.page_index = page_index
+        # 页面大小
+        self.page_size = page_size
 
     def validate(self):
         self.validate_required(self.instance_id, 'instance_id')
+        self.validate_required(self.page_index, 'page_index')
+        self.validate_required(self.page_size, 'page_size')
 
     def to_map(self):
         _map = super().to_map()
@@ -21840,6 +22764,10 @@ class ListIotagentAgentRequest(TeaModel):
             result['product_instance_id'] = self.product_instance_id
         if self.instance_id is not None:
             result['instance_id'] = self.instance_id
+        if self.page_index is not None:
+            result['page_index'] = self.page_index
+        if self.page_size is not None:
+            result['page_size'] = self.page_size
         return result
 
     def from_map(self, m: dict = None):
@@ -21850,6 +22778,10 @@ class ListIotagentAgentRequest(TeaModel):
             self.product_instance_id = m.get('product_instance_id')
         if m.get('instance_id') is not None:
             self.instance_id = m.get('instance_id')
+        if m.get('page_index') is not None:
+            self.page_index = m.get('page_index')
+        if m.get('page_size') is not None:
+            self.page_size = m.get('page_size')
         return self
 
 
@@ -21860,6 +22792,10 @@ class ListIotagentAgentResponse(TeaModel):
         result_code: str = None,
         result_msg: str = None,
         agent_info_list: List[AgentInfo] = None,
+        pages: int = None,
+        total: int = None,
+        page_index: int = None,
+        page_size: int = None,
     ):
         # 请求唯一ID，用于链路跟踪和问题排查
         self.req_msg_id = req_msg_id
@@ -21869,6 +22805,14 @@ class ListIotagentAgentResponse(TeaModel):
         self.result_msg = result_msg
         # 智能体列表
         self.agent_info_list = agent_info_list
+        # 总页数
+        self.pages = pages
+        # 总数
+        self.total = total
+        # 当前页
+        self.page_index = page_index
+        # 页面大小
+        self.page_size = page_size
 
     def validate(self):
         if self.agent_info_list:
@@ -21892,6 +22836,14 @@ class ListIotagentAgentResponse(TeaModel):
         if self.agent_info_list is not None:
             for k in self.agent_info_list:
                 result['agent_info_list'].append(k.to_map() if k else None)
+        if self.pages is not None:
+            result['pages'] = self.pages
+        if self.total is not None:
+            result['total'] = self.total
+        if self.page_index is not None:
+            result['page_index'] = self.page_index
+        if self.page_size is not None:
+            result['page_size'] = self.page_size
         return result
 
     def from_map(self, m: dict = None):
@@ -21907,6 +22859,14 @@ class ListIotagentAgentResponse(TeaModel):
             for k in m.get('agent_info_list'):
                 temp_model = AgentInfo()
                 self.agent_info_list.append(temp_model.from_map(k))
+        if m.get('pages') is not None:
+            self.pages = m.get('pages')
+        if m.get('total') is not None:
+            self.total = m.get('total')
+        if m.get('page_index') is not None:
+            self.page_index = m.get('page_index')
+        if m.get('page_size') is not None:
+            self.page_size = m.get('page_size')
         return self
 
 
@@ -23743,6 +24703,2508 @@ class FliedownloadIotagentSessionResponse(TeaModel):
         if m.get('file') is not None:
             temp_model = FileInfo()
             self.file = temp_model.from_map(m['file'])
+        return self
+
+
+class FilepreviewIotagentSessionRequest(TeaModel):
+    def __init__(
+        self,
+        auth_token: str = None,
+        product_instance_id: str = None,
+        workspace_id: str = None,
+        file_object: BinaryIO = None,
+        file_object_name: str = None,
+        file_id: str = None,
+        instance_id: str = None,
+        session_id: str = None,
+        user_id: str = None,
+        agent_id: str = None,
+    ):
+        # OAuth模式下的授权token
+        self.auth_token = auth_token
+        self.product_instance_id = product_instance_id
+        self.workspace_id = workspace_id
+        # 待上传文件
+        self.file_object = file_object
+        # 待上传文件名
+        self.file_object_name = file_object_name
+        self.file_id = file_id
+        self.instance_id = instance_id
+        self.session_id = session_id
+        self.user_id = user_id
+        self.agent_id = agent_id
+
+    def validate(self):
+        self.validate_required(self.workspace_id, 'workspace_id')
+        self.validate_required(self.file_id, 'file_id')
+        self.validate_required(self.instance_id, 'instance_id')
+        self.validate_required(self.session_id, 'session_id')
+        self.validate_required(self.agent_id, 'agent_id')
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.auth_token is not None:
+            result['auth_token'] = self.auth_token
+        if self.product_instance_id is not None:
+            result['product_instance_id'] = self.product_instance_id
+        if self.workspace_id is not None:
+            result['workspace_id'] = self.workspace_id
+        if self.file_object is not None:
+            result['fileObject'] = self.file_object
+        if self.file_object_name is not None:
+            result['fileObjectName'] = self.file_object_name
+        if self.file_id is not None:
+            result['file_id'] = self.file_id
+        if self.instance_id is not None:
+            result['instance_id'] = self.instance_id
+        if self.session_id is not None:
+            result['session_id'] = self.session_id
+        if self.user_id is not None:
+            result['user_id'] = self.user_id
+        if self.agent_id is not None:
+            result['agent_id'] = self.agent_id
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('auth_token') is not None:
+            self.auth_token = m.get('auth_token')
+        if m.get('product_instance_id') is not None:
+            self.product_instance_id = m.get('product_instance_id')
+        if m.get('workspace_id') is not None:
+            self.workspace_id = m.get('workspace_id')
+        if m.get('fileObject') is not None:
+            self.file_object = m.get('fileObject')
+        if m.get('fileObjectName') is not None:
+            self.file_object_name = m.get('fileObjectName')
+        if m.get('file_id') is not None:
+            self.file_id = m.get('file_id')
+        if m.get('instance_id') is not None:
+            self.instance_id = m.get('instance_id')
+        if m.get('session_id') is not None:
+            self.session_id = m.get('session_id')
+        if m.get('user_id') is not None:
+            self.user_id = m.get('user_id')
+        if m.get('agent_id') is not None:
+            self.agent_id = m.get('agent_id')
+        return self
+
+
+class FilepreviewIotagentSessionResponse(TeaModel):
+    def __init__(
+        self,
+        req_msg_id: str = None,
+        result_code: str = None,
+        result_msg: str = None,
+        file: PreviewFileInfo = None,
+    ):
+        # 请求唯一ID，用于链路跟踪和问题排查
+        self.req_msg_id = req_msg_id
+        # 结果码，一般OK表示调用成功
+        self.result_code = result_code
+        # 异常信息的文本描述
+        self.result_msg = result_msg
+        self.file = file
+
+    def validate(self):
+        if self.file:
+            self.file.validate()
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.req_msg_id is not None:
+            result['req_msg_id'] = self.req_msg_id
+        if self.result_code is not None:
+            result['result_code'] = self.result_code
+        if self.result_msg is not None:
+            result['result_msg'] = self.result_msg
+        if self.file is not None:
+            result['file'] = self.file.to_map()
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('req_msg_id') is not None:
+            self.req_msg_id = m.get('req_msg_id')
+        if m.get('result_code') is not None:
+            self.result_code = m.get('result_code')
+        if m.get('result_msg') is not None:
+            self.result_msg = m.get('result_msg')
+        if m.get('file') is not None:
+            temp_model = PreviewFileInfo()
+            self.file = temp_model.from_map(m['file'])
+        return self
+
+
+class PushIotagentAudioscribeRequest(TeaModel):
+    def __init__(
+        self,
+        auth_token: str = None,
+        product_instance_id: str = None,
+        file_object: BinaryIO = None,
+        file_object_name: str = None,
+        file_id: str = None,
+        type: str = None,
+        message_id: str = None,
+        target_plugin_id: str = None,
+        message_type: str = None,
+        payload: str = None,
+        timestamp: int = None,
+    ):
+        # OAuth模式下的授权token
+        self.auth_token = auth_token
+        self.product_instance_id = product_instance_id
+        # string
+        # 待上传文件
+        self.file_object = file_object
+        # 待上传文件名
+        self.file_object_name = file_object_name
+        self.file_id = file_id
+        self.type = type
+        self.message_id = message_id
+        self.target_plugin_id = target_plugin_id
+        # 如： audio_push、status_query、detail_query、asr_retry、summary_retry
+        self.message_type = message_type
+        # 业务字段，JSON格式
+        self.payload = payload
+        # Unix Epoch 毫秒
+        self.timestamp = timestamp
+
+    def validate(self):
+        self.validate_required(self.file_id, 'file_id')
+        self.validate_required(self.type, 'type')
+        self.validate_required(self.message_id, 'message_id')
+        self.validate_required(self.target_plugin_id, 'target_plugin_id')
+        self.validate_required(self.message_type, 'message_type')
+        self.validate_required(self.payload, 'payload')
+        self.validate_required(self.timestamp, 'timestamp')
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.auth_token is not None:
+            result['auth_token'] = self.auth_token
+        if self.product_instance_id is not None:
+            result['product_instance_id'] = self.product_instance_id
+        if self.file_object is not None:
+            result['fileObject'] = self.file_object
+        if self.file_object_name is not None:
+            result['fileObjectName'] = self.file_object_name
+        if self.file_id is not None:
+            result['file_id'] = self.file_id
+        if self.type is not None:
+            result['type'] = self.type
+        if self.message_id is not None:
+            result['message_id'] = self.message_id
+        if self.target_plugin_id is not None:
+            result['target_plugin_id'] = self.target_plugin_id
+        if self.message_type is not None:
+            result['message_type'] = self.message_type
+        if self.payload is not None:
+            result['payload'] = self.payload
+        if self.timestamp is not None:
+            result['timestamp'] = self.timestamp
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('auth_token') is not None:
+            self.auth_token = m.get('auth_token')
+        if m.get('product_instance_id') is not None:
+            self.product_instance_id = m.get('product_instance_id')
+        if m.get('fileObject') is not None:
+            self.file_object = m.get('fileObject')
+        if m.get('fileObjectName') is not None:
+            self.file_object_name = m.get('fileObjectName')
+        if m.get('file_id') is not None:
+            self.file_id = m.get('file_id')
+        if m.get('type') is not None:
+            self.type = m.get('type')
+        if m.get('message_id') is not None:
+            self.message_id = m.get('message_id')
+        if m.get('target_plugin_id') is not None:
+            self.target_plugin_id = m.get('target_plugin_id')
+        if m.get('message_type') is not None:
+            self.message_type = m.get('message_type')
+        if m.get('payload') is not None:
+            self.payload = m.get('payload')
+        if m.get('timestamp') is not None:
+            self.timestamp = m.get('timestamp')
+        return self
+
+
+class PushIotagentAudioscribeResponse(TeaModel):
+    def __init__(
+        self,
+        req_msg_id: str = None,
+        result_code: str = None,
+        result_msg: str = None,
+        type: str = None,
+        message_id: str = None,
+        target_plugin_id: str = None,
+        message_type: str = None,
+        payload: str = None,
+        timestamp: int = None,
+    ):
+        # 请求唯一ID，用于链路跟踪和问题排查
+        self.req_msg_id = req_msg_id
+        # 结果码，一般OK表示调用成功
+        self.result_code = result_code
+        # 异常信息的文本描述
+        self.result_msg = result_msg
+        self.type = type
+        self.message_id = message_id
+        self.target_plugin_id = target_plugin_id
+        self.message_type = message_type
+        # 业务响应，json格式
+        self.payload = payload
+        # Unix Epoch 毫秒
+        self.timestamp = timestamp
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.req_msg_id is not None:
+            result['req_msg_id'] = self.req_msg_id
+        if self.result_code is not None:
+            result['result_code'] = self.result_code
+        if self.result_msg is not None:
+            result['result_msg'] = self.result_msg
+        if self.type is not None:
+            result['type'] = self.type
+        if self.message_id is not None:
+            result['message_id'] = self.message_id
+        if self.target_plugin_id is not None:
+            result['target_plugin_id'] = self.target_plugin_id
+        if self.message_type is not None:
+            result['message_type'] = self.message_type
+        if self.payload is not None:
+            result['payload'] = self.payload
+        if self.timestamp is not None:
+            result['timestamp'] = self.timestamp
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('req_msg_id') is not None:
+            self.req_msg_id = m.get('req_msg_id')
+        if m.get('result_code') is not None:
+            self.result_code = m.get('result_code')
+        if m.get('result_msg') is not None:
+            self.result_msg = m.get('result_msg')
+        if m.get('type') is not None:
+            self.type = m.get('type')
+        if m.get('message_id') is not None:
+            self.message_id = m.get('message_id')
+        if m.get('target_plugin_id') is not None:
+            self.target_plugin_id = m.get('target_plugin_id')
+        if m.get('message_type') is not None:
+            self.message_type = m.get('message_type')
+        if m.get('payload') is not None:
+            self.payload = m.get('payload')
+        if m.get('timestamp') is not None:
+            self.timestamp = m.get('timestamp')
+        return self
+
+
+class ExecIotagentPluginRequest(TeaModel):
+    def __init__(
+        self,
+        auth_token: str = None,
+        product_instance_id: str = None,
+        type: str = None,
+        message_id: str = None,
+        target_plugin_id: str = None,
+        message_type: str = None,
+        payload: str = None,
+        timestamp: int = None,
+    ):
+        # OAuth模式下的授权token
+        self.auth_token = auth_token
+        self.product_instance_id = product_instance_id
+        # dt-plugin
+        self.type = type
+        self.message_id = message_id
+        # audio_scribe
+        self.target_plugin_id = target_plugin_id
+        self.message_type = message_type
+        # 业务数据，JSON格式
+        self.payload = payload
+        # Unix Epoch 毫秒
+        self.timestamp = timestamp
+
+    def validate(self):
+        self.validate_required(self.type, 'type')
+        self.validate_required(self.message_id, 'message_id')
+        self.validate_required(self.target_plugin_id, 'target_plugin_id')
+        self.validate_required(self.message_type, 'message_type')
+        self.validate_required(self.payload, 'payload')
+        self.validate_required(self.timestamp, 'timestamp')
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.auth_token is not None:
+            result['auth_token'] = self.auth_token
+        if self.product_instance_id is not None:
+            result['product_instance_id'] = self.product_instance_id
+        if self.type is not None:
+            result['type'] = self.type
+        if self.message_id is not None:
+            result['message_id'] = self.message_id
+        if self.target_plugin_id is not None:
+            result['target_plugin_id'] = self.target_plugin_id
+        if self.message_type is not None:
+            result['message_type'] = self.message_type
+        if self.payload is not None:
+            result['payload'] = self.payload
+        if self.timestamp is not None:
+            result['timestamp'] = self.timestamp
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('auth_token') is not None:
+            self.auth_token = m.get('auth_token')
+        if m.get('product_instance_id') is not None:
+            self.product_instance_id = m.get('product_instance_id')
+        if m.get('type') is not None:
+            self.type = m.get('type')
+        if m.get('message_id') is not None:
+            self.message_id = m.get('message_id')
+        if m.get('target_plugin_id') is not None:
+            self.target_plugin_id = m.get('target_plugin_id')
+        if m.get('message_type') is not None:
+            self.message_type = m.get('message_type')
+        if m.get('payload') is not None:
+            self.payload = m.get('payload')
+        if m.get('timestamp') is not None:
+            self.timestamp = m.get('timestamp')
+        return self
+
+
+class ExecIotagentPluginResponse(TeaModel):
+    def __init__(
+        self,
+        req_msg_id: str = None,
+        result_code: str = None,
+        result_msg: str = None,
+        type: str = None,
+        target_plugin_id: str = None,
+        message_id: str = None,
+        message_type: str = None,
+        payload: str = None,
+        timestamp: int = None,
+    ):
+        # 请求唯一ID，用于链路跟踪和问题排查
+        self.req_msg_id = req_msg_id
+        # 结果码，一般OK表示调用成功
+        self.result_code = result_code
+        # 异常信息的文本描述
+        self.result_msg = result_msg
+        self.type = type
+        self.target_plugin_id = target_plugin_id
+        self.message_id = message_id
+        self.message_type = message_type
+        # 业务响应数据，JSON格式
+        self.payload = payload
+        # Unix Epoch 毫秒
+        self.timestamp = timestamp
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.req_msg_id is not None:
+            result['req_msg_id'] = self.req_msg_id
+        if self.result_code is not None:
+            result['result_code'] = self.result_code
+        if self.result_msg is not None:
+            result['result_msg'] = self.result_msg
+        if self.type is not None:
+            result['type'] = self.type
+        if self.target_plugin_id is not None:
+            result['target_plugin_id'] = self.target_plugin_id
+        if self.message_id is not None:
+            result['message_id'] = self.message_id
+        if self.message_type is not None:
+            result['message_type'] = self.message_type
+        if self.payload is not None:
+            result['payload'] = self.payload
+        if self.timestamp is not None:
+            result['timestamp'] = self.timestamp
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('req_msg_id') is not None:
+            self.req_msg_id = m.get('req_msg_id')
+        if m.get('result_code') is not None:
+            self.result_code = m.get('result_code')
+        if m.get('result_msg') is not None:
+            self.result_msg = m.get('result_msg')
+        if m.get('type') is not None:
+            self.type = m.get('type')
+        if m.get('target_plugin_id') is not None:
+            self.target_plugin_id = m.get('target_plugin_id')
+        if m.get('message_id') is not None:
+            self.message_id = m.get('message_id')
+        if m.get('message_type') is not None:
+            self.message_type = m.get('message_type')
+        if m.get('payload') is not None:
+            self.payload = m.get('payload')
+        if m.get('timestamp') is not None:
+            self.timestamp = m.get('timestamp')
+        return self
+
+
+class PushIotagentWorkspaceRequest(TeaModel):
+    def __init__(
+        self,
+        auth_token: str = None,
+        product_instance_id: str = None,
+        file_name: str = None,
+        media_type: str = None,
+        size_bytes: int = None,
+        sha_256: str = None,
+        client_id: str = None,
+        session_id: str = None,
+    ):
+        # OAuth模式下的授权token
+        self.auth_token = auth_token
+        self.product_instance_id = product_instance_id
+        self.file_name = file_name
+        self.media_type = media_type
+        self.size_bytes = size_bytes
+        self.sha_256 = sha_256
+        self.client_id = client_id
+        self.session_id = session_id
+
+    def validate(self):
+        self.validate_required(self.file_name, 'file_name')
+        self.validate_required(self.media_type, 'media_type')
+        self.validate_required(self.size_bytes, 'size_bytes')
+        self.validate_required(self.session_id, 'session_id')
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.auth_token is not None:
+            result['auth_token'] = self.auth_token
+        if self.product_instance_id is not None:
+            result['product_instance_id'] = self.product_instance_id
+        if self.file_name is not None:
+            result['file_name'] = self.file_name
+        if self.media_type is not None:
+            result['media_type'] = self.media_type
+        if self.size_bytes is not None:
+            result['size_bytes'] = self.size_bytes
+        if self.sha_256 is not None:
+            result['sha256'] = self.sha_256
+        if self.client_id is not None:
+            result['client_id'] = self.client_id
+        if self.session_id is not None:
+            result['session_id'] = self.session_id
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('auth_token') is not None:
+            self.auth_token = m.get('auth_token')
+        if m.get('product_instance_id') is not None:
+            self.product_instance_id = m.get('product_instance_id')
+        if m.get('file_name') is not None:
+            self.file_name = m.get('file_name')
+        if m.get('media_type') is not None:
+            self.media_type = m.get('media_type')
+        if m.get('size_bytes') is not None:
+            self.size_bytes = m.get('size_bytes')
+        if m.get('sha256') is not None:
+            self.sha_256 = m.get('sha256')
+        if m.get('client_id') is not None:
+            self.client_id = m.get('client_id')
+        if m.get('session_id') is not None:
+            self.session_id = m.get('session_id')
+        return self
+
+
+class PushIotagentWorkspaceResponse(TeaModel):
+    def __init__(
+        self,
+        req_msg_id: str = None,
+        result_code: str = None,
+        result_msg: str = None,
+        file_id: str = None,
+        upload_url: str = None,
+        expire_at: str = None,
+    ):
+        # 请求唯一ID，用于链路跟踪和问题排查
+        self.req_msg_id = req_msg_id
+        # 结果码，一般OK表示调用成功
+        self.result_code = result_code
+        # 异常信息的文本描述
+        self.result_msg = result_msg
+        self.file_id = file_id
+        # 短期OSS PUT 预签名URL
+        self.upload_url = upload_url
+        self.expire_at = expire_at
+
+    def validate(self):
+        if self.expire_at is not None:
+            self.validate_pattern(self.expire_at, 'expire_at', '\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}([Z]|([\\.]\\d{1,9})?[\\+]\\d{2}[\\:]?\\d{2})')
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.req_msg_id is not None:
+            result['req_msg_id'] = self.req_msg_id
+        if self.result_code is not None:
+            result['result_code'] = self.result_code
+        if self.result_msg is not None:
+            result['result_msg'] = self.result_msg
+        if self.file_id is not None:
+            result['file_id'] = self.file_id
+        if self.upload_url is not None:
+            result['upload_url'] = self.upload_url
+        if self.expire_at is not None:
+            result['expire_at'] = self.expire_at
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('req_msg_id') is not None:
+            self.req_msg_id = m.get('req_msg_id')
+        if m.get('result_code') is not None:
+            self.result_code = m.get('result_code')
+        if m.get('result_msg') is not None:
+            self.result_msg = m.get('result_msg')
+        if m.get('file_id') is not None:
+            self.file_id = m.get('file_id')
+        if m.get('upload_url') is not None:
+            self.upload_url = m.get('upload_url')
+        if m.get('expire_at') is not None:
+            self.expire_at = m.get('expire_at')
+        return self
+
+
+class ConfirmIotagentWorkspaceRequest(TeaModel):
+    def __init__(
+        self,
+        auth_token: str = None,
+        product_instance_id: str = None,
+        file_object: BinaryIO = None,
+        file_object_name: str = None,
+        file_id: str = None,
+        size_bytes: int = None,
+        sha_256: str = None,
+    ):
+        # OAuth模式下的授权token
+        self.auth_token = auth_token
+        self.product_instance_id = product_instance_id
+        # 待上传文件
+        self.file_object = file_object
+        # 待上传文件名
+        self.file_object_name = file_object_name
+        self.file_id = file_id
+        self.size_bytes = size_bytes
+        self.sha_256 = sha_256
+
+    def validate(self):
+        self.validate_required(self.file_id, 'file_id')
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.auth_token is not None:
+            result['auth_token'] = self.auth_token
+        if self.product_instance_id is not None:
+            result['product_instance_id'] = self.product_instance_id
+        if self.file_object is not None:
+            result['fileObject'] = self.file_object
+        if self.file_object_name is not None:
+            result['fileObjectName'] = self.file_object_name
+        if self.file_id is not None:
+            result['file_id'] = self.file_id
+        if self.size_bytes is not None:
+            result['size_bytes'] = self.size_bytes
+        if self.sha_256 is not None:
+            result['sha256'] = self.sha_256
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('auth_token') is not None:
+            self.auth_token = m.get('auth_token')
+        if m.get('product_instance_id') is not None:
+            self.product_instance_id = m.get('product_instance_id')
+        if m.get('fileObject') is not None:
+            self.file_object = m.get('fileObject')
+        if m.get('fileObjectName') is not None:
+            self.file_object_name = m.get('fileObjectName')
+        if m.get('file_id') is not None:
+            self.file_id = m.get('file_id')
+        if m.get('size_bytes') is not None:
+            self.size_bytes = m.get('size_bytes')
+        if m.get('sha256') is not None:
+            self.sha_256 = m.get('sha256')
+        return self
+
+
+class ConfirmIotagentWorkspaceResponse(TeaModel):
+    def __init__(
+        self,
+        req_msg_id: str = None,
+        result_code: str = None,
+        result_msg: str = None,
+        file_id: str = None,
+        file_name: str = None,
+        media_type: str = None,
+        size_bytes: int = None,
+        created_at: str = None,
+    ):
+        # 请求唯一ID，用于链路跟踪和问题排查
+        self.req_msg_id = req_msg_id
+        # 结果码，一般OK表示调用成功
+        self.result_code = result_code
+        # 异常信息的文本描述
+        self.result_msg = result_msg
+        self.file_id = file_id
+        self.file_name = file_name
+        self.media_type = media_type
+        self.size_bytes = size_bytes
+        self.created_at = created_at
+
+    def validate(self):
+        if self.created_at is not None:
+            self.validate_pattern(self.created_at, 'created_at', '\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}([Z]|([\\.]\\d{1,9})?[\\+]\\d{2}[\\:]?\\d{2})')
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.req_msg_id is not None:
+            result['req_msg_id'] = self.req_msg_id
+        if self.result_code is not None:
+            result['result_code'] = self.result_code
+        if self.result_msg is not None:
+            result['result_msg'] = self.result_msg
+        if self.file_id is not None:
+            result['file_id'] = self.file_id
+        if self.file_name is not None:
+            result['file_name'] = self.file_name
+        if self.media_type is not None:
+            result['media_type'] = self.media_type
+        if self.size_bytes is not None:
+            result['size_bytes'] = self.size_bytes
+        if self.created_at is not None:
+            result['created_at'] = self.created_at
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('req_msg_id') is not None:
+            self.req_msg_id = m.get('req_msg_id')
+        if m.get('result_code') is not None:
+            self.result_code = m.get('result_code')
+        if m.get('result_msg') is not None:
+            self.result_msg = m.get('result_msg')
+        if m.get('file_id') is not None:
+            self.file_id = m.get('file_id')
+        if m.get('file_name') is not None:
+            self.file_name = m.get('file_name')
+        if m.get('media_type') is not None:
+            self.media_type = m.get('media_type')
+        if m.get('size_bytes') is not None:
+            self.size_bytes = m.get('size_bytes')
+        if m.get('created_at') is not None:
+            self.created_at = m.get('created_at')
+        return self
+
+
+class StatusIotagentMusicRequest(TeaModel):
+    def __init__(
+        self,
+        auth_token: str = None,
+        product_instance_id: str = None,
+        agent_id: str = None,
+        client_id: str = None,
+    ):
+        # OAuth模式下的授权token
+        self.auth_token = auth_token
+        self.product_instance_id = product_instance_id
+        # 智能体 ID，与client_id至少填1项
+        self.agent_id = agent_id
+        # 客户端 ID，与agent_id至少填1项
+        self.client_id = client_id
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.auth_token is not None:
+            result['auth_token'] = self.auth_token
+        if self.product_instance_id is not None:
+            result['product_instance_id'] = self.product_instance_id
+        if self.agent_id is not None:
+            result['agent_id'] = self.agent_id
+        if self.client_id is not None:
+            result['client_id'] = self.client_id
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('auth_token') is not None:
+            self.auth_token = m.get('auth_token')
+        if m.get('product_instance_id') is not None:
+            self.product_instance_id = m.get('product_instance_id')
+        if m.get('agent_id') is not None:
+            self.agent_id = m.get('agent_id')
+        if m.get('client_id') is not None:
+            self.client_id = m.get('client_id')
+        return self
+
+
+class StatusIotagentMusicResponse(TeaModel):
+    def __init__(
+        self,
+        req_msg_id: str = None,
+        result_code: str = None,
+        result_msg: str = None,
+        token_type: str = None,
+        nickname: str = None,
+        avatar_url: str = None,
+        gender: int = None,
+        vip_type: str = None,
+        vip_expire_time: int = None,
+    ):
+        # 请求唯一ID，用于链路跟踪和问题排查
+        self.req_msg_id = req_msg_id
+        # 结果码，一般OK表示调用成功
+        self.result_code = result_code
+        # 异常信息的文本描述
+        self.result_msg = result_msg
+        # token 类型，取值范围：NONE=未登录 / ANONYMOUS=匿名 token / FORMAL=正式登录
+        self.token_type = token_type
+        # 昵称
+        self.nickname = nickname
+        # 头像 URL
+        self.avatar_url = avatar_url
+        # 性别，取值范围：0=未知 / 1=男 / 2=女
+        self.gender = gender
+        # VIP 类型，取值范围：FREE=非会员 / BLACK_VIP=黑胶 VIP / SVIP=SVIP / SINGLE_DEVICE=单设备会员
+        self.vip_type = vip_type
+        # VIP 到期时间（毫秒时间戳）
+        self.vip_expire_time = vip_expire_time
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.req_msg_id is not None:
+            result['req_msg_id'] = self.req_msg_id
+        if self.result_code is not None:
+            result['result_code'] = self.result_code
+        if self.result_msg is not None:
+            result['result_msg'] = self.result_msg
+        if self.token_type is not None:
+            result['token_type'] = self.token_type
+        if self.nickname is not None:
+            result['nickname'] = self.nickname
+        if self.avatar_url is not None:
+            result['avatar_url'] = self.avatar_url
+        if self.gender is not None:
+            result['gender'] = self.gender
+        if self.vip_type is not None:
+            result['vip_type'] = self.vip_type
+        if self.vip_expire_time is not None:
+            result['vip_expire_time'] = self.vip_expire_time
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('req_msg_id') is not None:
+            self.req_msg_id = m.get('req_msg_id')
+        if m.get('result_code') is not None:
+            self.result_code = m.get('result_code')
+        if m.get('result_msg') is not None:
+            self.result_msg = m.get('result_msg')
+        if m.get('token_type') is not None:
+            self.token_type = m.get('token_type')
+        if m.get('nickname') is not None:
+            self.nickname = m.get('nickname')
+        if m.get('avatar_url') is not None:
+            self.avatar_url = m.get('avatar_url')
+        if m.get('gender') is not None:
+            self.gender = m.get('gender')
+        if m.get('vip_type') is not None:
+            self.vip_type = m.get('vip_type')
+        if m.get('vip_expire_time') is not None:
+            self.vip_expire_time = m.get('vip_expire_time')
+        return self
+
+
+class LoginurlIotagentMusicRequest(TeaModel):
+    def __init__(
+        self,
+        auth_token: str = None,
+        product_instance_id: str = None,
+        agent_id: str = None,
+        client_id: str = None,
+    ):
+        # OAuth模式下的授权token
+        self.auth_token = auth_token
+        self.product_instance_id = product_instance_id
+        # 智能体 ID，与client_id至少填1项
+        self.agent_id = agent_id
+        # 客户端 ID，与agent_id至少填1项
+        self.client_id = client_id
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.auth_token is not None:
+            result['auth_token'] = self.auth_token
+        if self.product_instance_id is not None:
+            result['product_instance_id'] = self.product_instance_id
+        if self.agent_id is not None:
+            result['agent_id'] = self.agent_id
+        if self.client_id is not None:
+            result['client_id'] = self.client_id
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('auth_token') is not None:
+            self.auth_token = m.get('auth_token')
+        if m.get('product_instance_id') is not None:
+            self.product_instance_id = m.get('product_instance_id')
+        if m.get('agent_id') is not None:
+            self.agent_id = m.get('agent_id')
+        if m.get('client_id') is not None:
+            self.client_id = m.get('client_id')
+        return self
+
+
+class LoginurlIotagentMusicResponse(TeaModel):
+    def __init__(
+        self,
+        req_msg_id: str = None,
+        result_code: str = None,
+        result_msg: str = None,
+        login_url: str = None,
+        state: str = None,
+    ):
+        # 请求唯一ID，用于链路跟踪和问题排查
+        self.req_msg_id = req_msg_id
+        # 结果码，一般OK表示调用成功
+        self.result_code = result_code
+        # 异常信息的文本描述
+        self.result_msg = result_msg
+        # 云音乐 H5 登录 URL
+        self.login_url = login_url
+        # OAuth state（回调校验用）
+        self.state = state
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.req_msg_id is not None:
+            result['req_msg_id'] = self.req_msg_id
+        if self.result_code is not None:
+            result['result_code'] = self.result_code
+        if self.result_msg is not None:
+            result['result_msg'] = self.result_msg
+        if self.login_url is not None:
+            result['login_url'] = self.login_url
+        if self.state is not None:
+            result['state'] = self.state
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('req_msg_id') is not None:
+            self.req_msg_id = m.get('req_msg_id')
+        if m.get('result_code') is not None:
+            self.result_code = m.get('result_code')
+        if m.get('result_msg') is not None:
+            self.result_msg = m.get('result_msg')
+        if m.get('login_url') is not None:
+            self.login_url = m.get('login_url')
+        if m.get('state') is not None:
+            self.state = m.get('state')
+        return self
+
+
+class PlayhistoryIotagentMusicRequest(TeaModel):
+    def __init__(
+        self,
+        auth_token: str = None,
+        product_instance_id: str = None,
+        agent_id: str = None,
+        client_id: str = None,
+        limit: int = None,
+    ):
+        # OAuth模式下的授权token
+        self.auth_token = auth_token
+        self.product_instance_id = product_instance_id
+        # 智能体 ID，与client_id至少填1项
+        self.agent_id = agent_id
+        # 客户端 ID，与agent_id至少填1项
+        self.client_id = client_id
+        # 返回条数，默认 50
+        self.limit = limit
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.auth_token is not None:
+            result['auth_token'] = self.auth_token
+        if self.product_instance_id is not None:
+            result['product_instance_id'] = self.product_instance_id
+        if self.agent_id is not None:
+            result['agent_id'] = self.agent_id
+        if self.client_id is not None:
+            result['client_id'] = self.client_id
+        if self.limit is not None:
+            result['limit'] = self.limit
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('auth_token') is not None:
+            self.auth_token = m.get('auth_token')
+        if m.get('product_instance_id') is not None:
+            self.product_instance_id = m.get('product_instance_id')
+        if m.get('agent_id') is not None:
+            self.agent_id = m.get('agent_id')
+        if m.get('client_id') is not None:
+            self.client_id = m.get('client_id')
+        if m.get('limit') is not None:
+            self.limit = m.get('limit')
+        return self
+
+
+class PlayhistoryIotagentMusicResponse(TeaModel):
+    def __init__(
+        self,
+        req_msg_id: str = None,
+        result_code: str = None,
+        result_msg: str = None,
+        songs: List[AgentMusicSong] = None,
+        total: int = None,
+    ):
+        # 请求唯一ID，用于链路跟踪和问题排查
+        self.req_msg_id = req_msg_id
+        # 结果码，一般OK表示调用成功
+        self.result_code = result_code
+        # 异常信息的文本描述
+        self.result_msg = result_msg
+        # 历史歌曲列表
+        self.songs = songs
+        # 总数
+        self.total = total
+
+    def validate(self):
+        if self.songs:
+            for k in self.songs:
+                if k:
+                    k.validate()
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.req_msg_id is not None:
+            result['req_msg_id'] = self.req_msg_id
+        if self.result_code is not None:
+            result['result_code'] = self.result_code
+        if self.result_msg is not None:
+            result['result_msg'] = self.result_msg
+        result['songs'] = []
+        if self.songs is not None:
+            for k in self.songs:
+                result['songs'].append(k.to_map() if k else None)
+        if self.total is not None:
+            result['total'] = self.total
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('req_msg_id') is not None:
+            self.req_msg_id = m.get('req_msg_id')
+        if m.get('result_code') is not None:
+            self.result_code = m.get('result_code')
+        if m.get('result_msg') is not None:
+            self.result_msg = m.get('result_msg')
+        self.songs = []
+        if m.get('songs') is not None:
+            for k in m.get('songs'):
+                temp_model = AgentMusicSong()
+                self.songs.append(temp_model.from_map(k))
+        if m.get('total') is not None:
+            self.total = m.get('total')
+        return self
+
+
+class FavoritesIotagentMusicRequest(TeaModel):
+    def __init__(
+        self,
+        auth_token: str = None,
+        product_instance_id: str = None,
+        agent_id: str = None,
+        client_id: str = None,
+        limit: int = None,
+        offset: int = None,
+    ):
+        # OAuth模式下的授权token
+        self.auth_token = auth_token
+        self.product_instance_id = product_instance_id
+        # 智能体 ID，与client_id至少填1项
+        self.agent_id = agent_id
+        # 客户端 ID，与agent_id至少填1项
+        self.client_id = client_id
+        # 返回条数，默认 30
+        self.limit = limit
+        # 偏移量，默认 0
+        self.offset = offset
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.auth_token is not None:
+            result['auth_token'] = self.auth_token
+        if self.product_instance_id is not None:
+            result['product_instance_id'] = self.product_instance_id
+        if self.agent_id is not None:
+            result['agent_id'] = self.agent_id
+        if self.client_id is not None:
+            result['client_id'] = self.client_id
+        if self.limit is not None:
+            result['limit'] = self.limit
+        if self.offset is not None:
+            result['offset'] = self.offset
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('auth_token') is not None:
+            self.auth_token = m.get('auth_token')
+        if m.get('product_instance_id') is not None:
+            self.product_instance_id = m.get('product_instance_id')
+        if m.get('agent_id') is not None:
+            self.agent_id = m.get('agent_id')
+        if m.get('client_id') is not None:
+            self.client_id = m.get('client_id')
+        if m.get('limit') is not None:
+            self.limit = m.get('limit')
+        if m.get('offset') is not None:
+            self.offset = m.get('offset')
+        return self
+
+
+class FavoritesIotagentMusicResponse(TeaModel):
+    def __init__(
+        self,
+        req_msg_id: str = None,
+        result_code: str = None,
+        result_msg: str = None,
+        songs: List[AgentMusicSong] = None,
+    ):
+        # 请求唯一ID，用于链路跟踪和问题排查
+        self.req_msg_id = req_msg_id
+        # 结果码，一般OK表示调用成功
+        self.result_code = result_code
+        # 异常信息的文本描述
+        self.result_msg = result_msg
+        # 红心歌曲列表
+        self.songs = songs
+
+    def validate(self):
+        if self.songs:
+            for k in self.songs:
+                if k:
+                    k.validate()
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.req_msg_id is not None:
+            result['req_msg_id'] = self.req_msg_id
+        if self.result_code is not None:
+            result['result_code'] = self.result_code
+        if self.result_msg is not None:
+            result['result_msg'] = self.result_msg
+        result['songs'] = []
+        if self.songs is not None:
+            for k in self.songs:
+                result['songs'].append(k.to_map() if k else None)
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('req_msg_id') is not None:
+            self.req_msg_id = m.get('req_msg_id')
+        if m.get('result_code') is not None:
+            self.result_code = m.get('result_code')
+        if m.get('result_msg') is not None:
+            self.result_msg = m.get('result_msg')
+        self.songs = []
+        if m.get('songs') is not None:
+            for k in m.get('songs'):
+                temp_model = AgentMusicSong()
+                self.songs.append(temp_model.from_map(k))
+        return self
+
+
+class LyricsIotagentMusicRequest(TeaModel):
+    def __init__(
+        self,
+        auth_token: str = None,
+        product_instance_id: str = None,
+        agent_id: str = None,
+        client_id: str = None,
+        song_id: str = None,
+    ):
+        # OAuth模式下的授权token
+        self.auth_token = auth_token
+        self.product_instance_id = product_instance_id
+        # 智能体 ID，与client_id至少填1项
+        self.agent_id = agent_id
+        # 客户端 ID，与agent_id至少填1项
+        self.client_id = client_id
+        # 歌曲 ID
+        self.song_id = song_id
+
+    def validate(self):
+        self.validate_required(self.song_id, 'song_id')
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.auth_token is not None:
+            result['auth_token'] = self.auth_token
+        if self.product_instance_id is not None:
+            result['product_instance_id'] = self.product_instance_id
+        if self.agent_id is not None:
+            result['agent_id'] = self.agent_id
+        if self.client_id is not None:
+            result['client_id'] = self.client_id
+        if self.song_id is not None:
+            result['song_id'] = self.song_id
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('auth_token') is not None:
+            self.auth_token = m.get('auth_token')
+        if m.get('product_instance_id') is not None:
+            self.product_instance_id = m.get('product_instance_id')
+        if m.get('agent_id') is not None:
+            self.agent_id = m.get('agent_id')
+        if m.get('client_id') is not None:
+            self.client_id = m.get('client_id')
+        if m.get('song_id') is not None:
+            self.song_id = m.get('song_id')
+        return self
+
+
+class LyricsIotagentMusicResponse(TeaModel):
+    def __init__(
+        self,
+        req_msg_id: str = None,
+        result_code: str = None,
+        result_msg: str = None,
+        lyric: str = None,
+        trans_lyric: str = None,
+        txt_lyric: str = None,
+        no_lyric: bool = None,
+    ):
+        # 请求唯一ID，用于链路跟踪和问题排查
+        self.req_msg_id = req_msg_id
+        # 结果码，一般OK表示调用成功
+        self.result_code = result_code
+        # 异常信息的文本描述
+        self.result_msg = result_msg
+        # 原文歌词（带时间戳）
+        self.lyric = lyric
+        # 译文歌词
+        self.trans_lyric = trans_lyric
+        # 纯文本歌词
+        self.txt_lyric = txt_lyric
+        # 是否无歌词（true=无歌词）
+        self.no_lyric = no_lyric
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.req_msg_id is not None:
+            result['req_msg_id'] = self.req_msg_id
+        if self.result_code is not None:
+            result['result_code'] = self.result_code
+        if self.result_msg is not None:
+            result['result_msg'] = self.result_msg
+        if self.lyric is not None:
+            result['lyric'] = self.lyric
+        if self.trans_lyric is not None:
+            result['trans_lyric'] = self.trans_lyric
+        if self.txt_lyric is not None:
+            result['txt_lyric'] = self.txt_lyric
+        if self.no_lyric is not None:
+            result['no_lyric'] = self.no_lyric
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('req_msg_id') is not None:
+            self.req_msg_id = m.get('req_msg_id')
+        if m.get('result_code') is not None:
+            self.result_code = m.get('result_code')
+        if m.get('result_msg') is not None:
+            self.result_msg = m.get('result_msg')
+        if m.get('lyric') is not None:
+            self.lyric = m.get('lyric')
+        if m.get('trans_lyric') is not None:
+            self.trans_lyric = m.get('trans_lyric')
+        if m.get('txt_lyric') is not None:
+            self.txt_lyric = m.get('txt_lyric')
+        if m.get('no_lyric') is not None:
+            self.no_lyric = m.get('no_lyric')
+        return self
+
+
+class LikeIotagentMusicRequest(TeaModel):
+    def __init__(
+        self,
+        auth_token: str = None,
+        product_instance_id: str = None,
+        agent_id: str = None,
+        client_id: str = None,
+        song_id: str = None,
+        is_like: bool = None,
+    ):
+        # OAuth模式下的授权token
+        self.auth_token = auth_token
+        self.product_instance_id = product_instance_id
+        # 智能体 ID，与client_id至少填1项
+        self.agent_id = agent_id
+        # 客户端 ID，与agent_id至少填1项
+        self.client_id = client_id
+        # 歌曲 ID
+        self.song_id = song_id
+        # 红心操作：true=喜欢，false=取消
+        self.is_like = is_like
+
+    def validate(self):
+        self.validate_required(self.song_id, 'song_id')
+        self.validate_required(self.is_like, 'is_like')
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.auth_token is not None:
+            result['auth_token'] = self.auth_token
+        if self.product_instance_id is not None:
+            result['product_instance_id'] = self.product_instance_id
+        if self.agent_id is not None:
+            result['agent_id'] = self.agent_id
+        if self.client_id is not None:
+            result['client_id'] = self.client_id
+        if self.song_id is not None:
+            result['song_id'] = self.song_id
+        if self.is_like is not None:
+            result['is_like'] = self.is_like
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('auth_token') is not None:
+            self.auth_token = m.get('auth_token')
+        if m.get('product_instance_id') is not None:
+            self.product_instance_id = m.get('product_instance_id')
+        if m.get('agent_id') is not None:
+            self.agent_id = m.get('agent_id')
+        if m.get('client_id') is not None:
+            self.client_id = m.get('client_id')
+        if m.get('song_id') is not None:
+            self.song_id = m.get('song_id')
+        if m.get('is_like') is not None:
+            self.is_like = m.get('is_like')
+        return self
+
+
+class LikeIotagentMusicResponse(TeaModel):
+    def __init__(
+        self,
+        req_msg_id: str = None,
+        result_code: str = None,
+        result_msg: str = None,
+    ):
+        # 请求唯一ID，用于链路跟踪和问题排查
+        self.req_msg_id = req_msg_id
+        # 结果码，一般OK表示调用成功
+        self.result_code = result_code
+        # 异常信息的文本描述
+        self.result_msg = result_msg
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.req_msg_id is not None:
+            result['req_msg_id'] = self.req_msg_id
+        if self.result_code is not None:
+            result['result_code'] = self.result_code
+        if self.result_msg is not None:
+            result['result_msg'] = self.result_msg
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('req_msg_id') is not None:
+            self.req_msg_id = m.get('req_msg_id')
+        if m.get('result_code') is not None:
+            self.result_code = m.get('result_code')
+        if m.get('result_msg') is not None:
+            self.result_msg = m.get('result_msg')
+        return self
+
+
+class LogoutIotagentMusicRequest(TeaModel):
+    def __init__(
+        self,
+        auth_token: str = None,
+        product_instance_id: str = None,
+        agent_id: str = None,
+        client_id: str = None,
+    ):
+        # OAuth模式下的授权token
+        self.auth_token = auth_token
+        self.product_instance_id = product_instance_id
+        # 智能体 ID，与client_id至少填1项
+        self.agent_id = agent_id
+        # 客户端 ID，与agent_id至少填1项
+        self.client_id = client_id
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.auth_token is not None:
+            result['auth_token'] = self.auth_token
+        if self.product_instance_id is not None:
+            result['product_instance_id'] = self.product_instance_id
+        if self.agent_id is not None:
+            result['agent_id'] = self.agent_id
+        if self.client_id is not None:
+            result['client_id'] = self.client_id
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('auth_token') is not None:
+            self.auth_token = m.get('auth_token')
+        if m.get('product_instance_id') is not None:
+            self.product_instance_id = m.get('product_instance_id')
+        if m.get('agent_id') is not None:
+            self.agent_id = m.get('agent_id')
+        if m.get('client_id') is not None:
+            self.client_id = m.get('client_id')
+        return self
+
+
+class LogoutIotagentMusicResponse(TeaModel):
+    def __init__(
+        self,
+        req_msg_id: str = None,
+        result_code: str = None,
+        result_msg: str = None,
+    ):
+        # 请求唯一ID，用于链路跟踪和问题排查
+        self.req_msg_id = req_msg_id
+        # 结果码，一般OK表示调用成功
+        self.result_code = result_code
+        # 异常信息的文本描述
+        self.result_msg = result_msg
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.req_msg_id is not None:
+            result['req_msg_id'] = self.req_msg_id
+        if self.result_code is not None:
+            result['result_code'] = self.result_code
+        if self.result_msg is not None:
+            result['result_msg'] = self.result_msg
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('req_msg_id') is not None:
+            self.req_msg_id = m.get('req_msg_id')
+        if m.get('result_code') is not None:
+            self.result_code = m.get('result_code')
+        if m.get('result_msg') is not None:
+            self.result_msg = m.get('result_msg')
+        return self
+
+
+class CallbackIotagentMusicRequest(TeaModel):
+    def __init__(
+        self,
+        auth_token: str = None,
+        product_instance_id: str = None,
+        code: str = None,
+        state: str = None,
+    ):
+        # OAuth模式下的授权token
+        self.auth_token = auth_token
+        self.product_instance_id = product_instance_id
+        # 云音乐授权码
+        self.code = code
+        # 云音乐CSRF状态码
+        self.state = state
+
+    def validate(self):
+        self.validate_required(self.code, 'code')
+        self.validate_required(self.state, 'state')
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.auth_token is not None:
+            result['auth_token'] = self.auth_token
+        if self.product_instance_id is not None:
+            result['product_instance_id'] = self.product_instance_id
+        if self.code is not None:
+            result['code'] = self.code
+        if self.state is not None:
+            result['state'] = self.state
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('auth_token') is not None:
+            self.auth_token = m.get('auth_token')
+        if m.get('product_instance_id') is not None:
+            self.product_instance_id = m.get('product_instance_id')
+        if m.get('code') is not None:
+            self.code = m.get('code')
+        if m.get('state') is not None:
+            self.state = m.get('state')
+        return self
+
+
+class CallbackIotagentMusicResponse(TeaModel):
+    def __init__(
+        self,
+        req_msg_id: str = None,
+        result_code: str = None,
+        result_msg: str = None,
+        agent_id: str = None,
+    ):
+        # 请求唯一ID，用于链路跟踪和问题排查
+        self.req_msg_id = req_msg_id
+        # 结果码，一般OK表示调用成功
+        self.result_code = result_code
+        # 异常信息的文本描述
+        self.result_msg = result_msg
+        # 智能体ID
+        self.agent_id = agent_id
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.req_msg_id is not None:
+            result['req_msg_id'] = self.req_msg_id
+        if self.result_code is not None:
+            result['result_code'] = self.result_code
+        if self.result_msg is not None:
+            result['result_msg'] = self.result_msg
+        if self.agent_id is not None:
+            result['agent_id'] = self.agent_id
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('req_msg_id') is not None:
+            self.req_msg_id = m.get('req_msg_id')
+        if m.get('result_code') is not None:
+            self.result_code = m.get('result_code')
+        if m.get('result_msg') is not None:
+            self.result_msg = m.get('result_msg')
+        if m.get('agent_id') is not None:
+            self.agent_id = m.get('agent_id')
+        return self
+
+
+class UsageIotagentSessionRequest(TeaModel):
+    def __init__(
+        self,
+        auth_token: str = None,
+        product_instance_id: str = None,
+        agent_id: str = None,
+        instance_id: str = None,
+        session_id: str = None,
+        page_index: int = None,
+        page_size: int = None,
+    ):
+        # OAuth模式下的授权token
+        self.auth_token = auth_token
+        self.product_instance_id = product_instance_id
+        # 智能体ID
+        self.agent_id = agent_id
+        # ioa平台开通的实例ID
+        self.instance_id = instance_id
+        # 会话ID
+        self.session_id = session_id
+        # 页码，从1开始，默认1
+        self.page_index = page_index
+        # 每页数量，默认20
+        self.page_size = page_size
+
+    def validate(self):
+        self.validate_required(self.agent_id, 'agent_id')
+        self.validate_required(self.instance_id, 'instance_id')
+        self.validate_required(self.session_id, 'session_id')
+        self.validate_required(self.page_index, 'page_index')
+        self.validate_required(self.page_size, 'page_size')
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.auth_token is not None:
+            result['auth_token'] = self.auth_token
+        if self.product_instance_id is not None:
+            result['product_instance_id'] = self.product_instance_id
+        if self.agent_id is not None:
+            result['agent_id'] = self.agent_id
+        if self.instance_id is not None:
+            result['instance_id'] = self.instance_id
+        if self.session_id is not None:
+            result['session_id'] = self.session_id
+        if self.page_index is not None:
+            result['page_index'] = self.page_index
+        if self.page_size is not None:
+            result['page_size'] = self.page_size
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('auth_token') is not None:
+            self.auth_token = m.get('auth_token')
+        if m.get('product_instance_id') is not None:
+            self.product_instance_id = m.get('product_instance_id')
+        if m.get('agent_id') is not None:
+            self.agent_id = m.get('agent_id')
+        if m.get('instance_id') is not None:
+            self.instance_id = m.get('instance_id')
+        if m.get('session_id') is not None:
+            self.session_id = m.get('session_id')
+        if m.get('page_index') is not None:
+            self.page_index = m.get('page_index')
+        if m.get('page_size') is not None:
+            self.page_size = m.get('page_size')
+        return self
+
+
+class UsageIotagentSessionResponse(TeaModel):
+    def __init__(
+        self,
+        req_msg_id: str = None,
+        result_code: str = None,
+        result_msg: str = None,
+        session_usage: SessionUsage = None,
+        total: int = None,
+        turns: List[TurnModelCallsUsages] = None,
+    ):
+        # 请求唯一ID，用于链路跟踪和问题排查
+        self.req_msg_id = req_msg_id
+        # 结果码，一般OK表示调用成功
+        self.result_code = result_code
+        # 异常信息的文本描述
+        self.result_msg = result_msg
+        # 会话总量（全量聚合，不随分页变化）
+        self.session_usage = session_usage
+        # 总轮次数
+        self.total = total
+        # 本页轮次明细
+        self.turns = turns
+
+    def validate(self):
+        if self.session_usage:
+            self.session_usage.validate()
+        if self.turns:
+            for k in self.turns:
+                if k:
+                    k.validate()
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.req_msg_id is not None:
+            result['req_msg_id'] = self.req_msg_id
+        if self.result_code is not None:
+            result['result_code'] = self.result_code
+        if self.result_msg is not None:
+            result['result_msg'] = self.result_msg
+        if self.session_usage is not None:
+            result['session_usage'] = self.session_usage.to_map()
+        if self.total is not None:
+            result['total'] = self.total
+        result['turns'] = []
+        if self.turns is not None:
+            for k in self.turns:
+                result['turns'].append(k.to_map() if k else None)
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('req_msg_id') is not None:
+            self.req_msg_id = m.get('req_msg_id')
+        if m.get('result_code') is not None:
+            self.result_code = m.get('result_code')
+        if m.get('result_msg') is not None:
+            self.result_msg = m.get('result_msg')
+        if m.get('session_usage') is not None:
+            temp_model = SessionUsage()
+            self.session_usage = temp_model.from_map(m['session_usage'])
+        if m.get('total') is not None:
+            self.total = m.get('total')
+        self.turns = []
+        if m.get('turns') is not None:
+            for k in m.get('turns'):
+                temp_model = TurnModelCallsUsages()
+                self.turns.append(temp_model.from_map(k))
+        return self
+
+
+class ActionIotagentSessioncontextRequest(TeaModel):
+    def __init__(
+        self,
+        auth_token: str = None,
+        product_instance_id: str = None,
+        agent_id: str = None,
+        instance_id: str = None,
+        session_id: str = None,
+        operation_type: str = None,
+    ):
+        # OAuth模式下的授权token
+        self.auth_token = auth_token
+        self.product_instance_id = product_instance_id
+        # 智能体 ID
+        self.agent_id = agent_id
+        # 实例 ID
+        self.instance_id = instance_id
+        # 会话ID
+        self.session_id = session_id
+        # 操作类型：COMPACT_CURRENT
+        self.operation_type = operation_type
+
+    def validate(self):
+        self.validate_required(self.agent_id, 'agent_id')
+        self.validate_required(self.instance_id, 'instance_id')
+        self.validate_required(self.session_id, 'session_id')
+        self.validate_required(self.operation_type, 'operation_type')
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.auth_token is not None:
+            result['auth_token'] = self.auth_token
+        if self.product_instance_id is not None:
+            result['product_instance_id'] = self.product_instance_id
+        if self.agent_id is not None:
+            result['agent_id'] = self.agent_id
+        if self.instance_id is not None:
+            result['instance_id'] = self.instance_id
+        if self.session_id is not None:
+            result['session_id'] = self.session_id
+        if self.operation_type is not None:
+            result['operation_type'] = self.operation_type
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('auth_token') is not None:
+            self.auth_token = m.get('auth_token')
+        if m.get('product_instance_id') is not None:
+            self.product_instance_id = m.get('product_instance_id')
+        if m.get('agent_id') is not None:
+            self.agent_id = m.get('agent_id')
+        if m.get('instance_id') is not None:
+            self.instance_id = m.get('instance_id')
+        if m.get('session_id') is not None:
+            self.session_id = m.get('session_id')
+        if m.get('operation_type') is not None:
+            self.operation_type = m.get('operation_type')
+        return self
+
+
+class ActionIotagentSessioncontextResponse(TeaModel):
+    def __init__(
+        self,
+        req_msg_id: str = None,
+        result_code: str = None,
+        result_msg: str = None,
+        operation_id: str = None,
+        status: str = None,
+        session_id: str = None,
+        failure_reason: str = None,
+    ):
+        # 请求唯一ID，用于链路跟踪和问题排查
+        self.req_msg_id = req_msg_id
+        # 结果码，一般OK表示调用成功
+        self.result_code = result_code
+        # 异常信息的文本描述
+        self.result_msg = result_msg
+        # 操作 ID
+        self.operation_id = operation_id
+        # 操作状态：RUNNING / SUCCEEDED / FAILED
+        self.status = status
+        # 原会话 ID
+        self.session_id = session_id
+        # 失败原因（FAILED 时返回）
+        self.failure_reason = failure_reason
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.req_msg_id is not None:
+            result['req_msg_id'] = self.req_msg_id
+        if self.result_code is not None:
+            result['result_code'] = self.result_code
+        if self.result_msg is not None:
+            result['result_msg'] = self.result_msg
+        if self.operation_id is not None:
+            result['operation_id'] = self.operation_id
+        if self.status is not None:
+            result['status'] = self.status
+        if self.session_id is not None:
+            result['session_id'] = self.session_id
+        if self.failure_reason is not None:
+            result['failure_reason'] = self.failure_reason
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('req_msg_id') is not None:
+            self.req_msg_id = m.get('req_msg_id')
+        if m.get('result_code') is not None:
+            self.result_code = m.get('result_code')
+        if m.get('result_msg') is not None:
+            self.result_msg = m.get('result_msg')
+        if m.get('operation_id') is not None:
+            self.operation_id = m.get('operation_id')
+        if m.get('status') is not None:
+            self.status = m.get('status')
+        if m.get('session_id') is not None:
+            self.session_id = m.get('session_id')
+        if m.get('failure_reason') is not None:
+            self.failure_reason = m.get('failure_reason')
+        return self
+
+
+class QueryIotagentSessioncontextactionRequest(TeaModel):
+    def __init__(
+        self,
+        auth_token: str = None,
+        product_instance_id: str = None,
+        agent_id: str = None,
+        instance_id: str = None,
+        session_id: str = None,
+        operation_id: str = None,
+    ):
+        # OAuth模式下的授权token
+        self.auth_token = auth_token
+        self.product_instance_id = product_instance_id
+        # 智能体ID
+        self.agent_id = agent_id
+        # 实例ID
+        self.instance_id = instance_id
+        # 会话ID
+        self.session_id = session_id
+        # 操作 ID（从 action 接口获取）
+        self.operation_id = operation_id
+
+    def validate(self):
+        self.validate_required(self.agent_id, 'agent_id')
+        self.validate_required(self.instance_id, 'instance_id')
+        self.validate_required(self.session_id, 'session_id')
+        self.validate_required(self.operation_id, 'operation_id')
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.auth_token is not None:
+            result['auth_token'] = self.auth_token
+        if self.product_instance_id is not None:
+            result['product_instance_id'] = self.product_instance_id
+        if self.agent_id is not None:
+            result['agent_id'] = self.agent_id
+        if self.instance_id is not None:
+            result['instance_id'] = self.instance_id
+        if self.session_id is not None:
+            result['session_id'] = self.session_id
+        if self.operation_id is not None:
+            result['operation_id'] = self.operation_id
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('auth_token') is not None:
+            self.auth_token = m.get('auth_token')
+        if m.get('product_instance_id') is not None:
+            self.product_instance_id = m.get('product_instance_id')
+        if m.get('agent_id') is not None:
+            self.agent_id = m.get('agent_id')
+        if m.get('instance_id') is not None:
+            self.instance_id = m.get('instance_id')
+        if m.get('session_id') is not None:
+            self.session_id = m.get('session_id')
+        if m.get('operation_id') is not None:
+            self.operation_id = m.get('operation_id')
+        return self
+
+
+class QueryIotagentSessioncontextactionResponse(TeaModel):
+    def __init__(
+        self,
+        req_msg_id: str = None,
+        result_code: str = None,
+        result_msg: str = None,
+        operation_id: str = None,
+        status: str = None,
+        session_id: str = None,
+        failure_reason: str = None,
+    ):
+        # 请求唯一ID，用于链路跟踪和问题排查
+        self.req_msg_id = req_msg_id
+        # 结果码，一般OK表示调用成功
+        self.result_code = result_code
+        # 异常信息的文本描述
+        self.result_msg = result_msg
+        # 操作 ID
+        self.operation_id = operation_id
+        # 操作状态：RUNNING / SUCCEEDED / FAILED
+        self.status = status
+        # 会话ID
+        self.session_id = session_id
+        # 失败原因（FAILED 时返回）
+        self.failure_reason = failure_reason
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.req_msg_id is not None:
+            result['req_msg_id'] = self.req_msg_id
+        if self.result_code is not None:
+            result['result_code'] = self.result_code
+        if self.result_msg is not None:
+            result['result_msg'] = self.result_msg
+        if self.operation_id is not None:
+            result['operation_id'] = self.operation_id
+        if self.status is not None:
+            result['status'] = self.status
+        if self.session_id is not None:
+            result['session_id'] = self.session_id
+        if self.failure_reason is not None:
+            result['failure_reason'] = self.failure_reason
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('req_msg_id') is not None:
+            self.req_msg_id = m.get('req_msg_id')
+        if m.get('result_code') is not None:
+            self.result_code = m.get('result_code')
+        if m.get('result_msg') is not None:
+            self.result_msg = m.get('result_msg')
+        if m.get('operation_id') is not None:
+            self.operation_id = m.get('operation_id')
+        if m.get('status') is not None:
+            self.status = m.get('status')
+        if m.get('session_id') is not None:
+            self.session_id = m.get('session_id')
+        if m.get('failure_reason') is not None:
+            self.failure_reason = m.get('failure_reason')
+        return self
+
+
+class QueryAgentDailysummaryRequest(TeaModel):
+    def __init__(
+        self,
+        auth_token: str = None,
+        product_instance_id: str = None,
+        client_id: str = None,
+        agent_id: str = None,
+        date: str = None,
+    ):
+        # OAuth模式下的授权token
+        self.auth_token = auth_token
+        self.product_instance_id = product_instance_id
+        # 设备客户端ID；与 agent_id 至少传一个
+        self.client_id = client_id
+        # 智能体ID；与 client_id 至少传一个，两者同时传入时必须与设备绑定的智能体一致
+        self.agent_id = agent_id
+        # 总结日期，格式 yyyy-MM-dd，按 GMT+8 自然日
+        self.date = date
+
+    def validate(self):
+        self.validate_required(self.date, 'date')
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.auth_token is not None:
+            result['auth_token'] = self.auth_token
+        if self.product_instance_id is not None:
+            result['product_instance_id'] = self.product_instance_id
+        if self.client_id is not None:
+            result['client_id'] = self.client_id
+        if self.agent_id is not None:
+            result['agent_id'] = self.agent_id
+        if self.date is not None:
+            result['date'] = self.date
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('auth_token') is not None:
+            self.auth_token = m.get('auth_token')
+        if m.get('product_instance_id') is not None:
+            self.product_instance_id = m.get('product_instance_id')
+        if m.get('client_id') is not None:
+            self.client_id = m.get('client_id')
+        if m.get('agent_id') is not None:
+            self.agent_id = m.get('agent_id')
+        if m.get('date') is not None:
+            self.date = m.get('date')
+        return self
+
+
+class QueryAgentDailysummaryResponse(TeaModel):
+    def __init__(
+        self,
+        req_msg_id: str = None,
+        result_code: str = None,
+        result_msg: str = None,
+        agent_id: str = None,
+        date: str = None,
+        content: str = None,
+        gmt_modified: str = None,
+    ):
+        # 请求唯一ID，用于链路跟踪和问题排查
+        self.req_msg_id = req_msg_id
+        # 结果码，一般OK表示调用成功
+        self.result_code = result_code
+        # 异常信息的文本描述
+        self.result_msg = result_msg
+        # 智能体ID
+        self.agent_id = agent_id
+        # 总结日期，格式 yyyy-MM-dd
+        self.date = date
+        # 总结正文；为空表示尚未生成或当日无对话
+        self.content = content
+        # 总结最近更新时间；content 为空时不返回
+        self.gmt_modified = gmt_modified
+
+    def validate(self):
+        if self.gmt_modified is not None:
+            self.validate_pattern(self.gmt_modified, 'gmt_modified', '\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}([Z]|([\\.]\\d{1,9})?[\\+]\\d{2}[\\:]?\\d{2})')
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.req_msg_id is not None:
+            result['req_msg_id'] = self.req_msg_id
+        if self.result_code is not None:
+            result['result_code'] = self.result_code
+        if self.result_msg is not None:
+            result['result_msg'] = self.result_msg
+        if self.agent_id is not None:
+            result['agent_id'] = self.agent_id
+        if self.date is not None:
+            result['date'] = self.date
+        if self.content is not None:
+            result['content'] = self.content
+        if self.gmt_modified is not None:
+            result['gmt_modified'] = self.gmt_modified
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('req_msg_id') is not None:
+            self.req_msg_id = m.get('req_msg_id')
+        if m.get('result_code') is not None:
+            self.result_code = m.get('result_code')
+        if m.get('result_msg') is not None:
+            self.result_msg = m.get('result_msg')
+        if m.get('agent_id') is not None:
+            self.agent_id = m.get('agent_id')
+        if m.get('date') is not None:
+            self.date = m.get('date')
+        if m.get('content') is not None:
+            self.content = m.get('content')
+        if m.get('gmt_modified') is not None:
+            self.gmt_modified = m.get('gmt_modified')
+        return self
+
+
+class GenerateAgentDailysummaryRequest(TeaModel):
+    def __init__(
+        self,
+        auth_token: str = None,
+        product_instance_id: str = None,
+        client_id: str = None,
+        agent_id: str = None,
+        date: str = None,
+    ):
+        # OAuth模式下的授权token
+        self.auth_token = auth_token
+        self.product_instance_id = product_instance_id
+        # 设备客户端ID
+        self.client_id = client_id
+        # 智能体ID；传入时必须与设备绑定的智能体一致
+        self.agent_id = agent_id
+        # 总结日期，格式 yyyy-MM-dd，按 GMT+8 自然日
+        self.date = date
+
+    def validate(self):
+        self.validate_required(self.client_id, 'client_id')
+        self.validate_required(self.date, 'date')
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.auth_token is not None:
+            result['auth_token'] = self.auth_token
+        if self.product_instance_id is not None:
+            result['product_instance_id'] = self.product_instance_id
+        if self.client_id is not None:
+            result['client_id'] = self.client_id
+        if self.agent_id is not None:
+            result['agent_id'] = self.agent_id
+        if self.date is not None:
+            result['date'] = self.date
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('auth_token') is not None:
+            self.auth_token = m.get('auth_token')
+        if m.get('product_instance_id') is not None:
+            self.product_instance_id = m.get('product_instance_id')
+        if m.get('client_id') is not None:
+            self.client_id = m.get('client_id')
+        if m.get('agent_id') is not None:
+            self.agent_id = m.get('agent_id')
+        if m.get('date') is not None:
+            self.date = m.get('date')
+        return self
+
+
+class GenerateAgentDailysummaryResponse(TeaModel):
+    def __init__(
+        self,
+        req_msg_id: str = None,
+        result_code: str = None,
+        result_msg: str = None,
+    ):
+        # 请求唯一ID，用于链路跟踪和问题排查
+        self.req_msg_id = req_msg_id
+        # 结果码，一般OK表示调用成功
+        self.result_code = result_code
+        # 异常信息的文本描述
+        self.result_msg = result_msg
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.req_msg_id is not None:
+            result['req_msg_id'] = self.req_msg_id
+        if self.result_code is not None:
+            result['result_code'] = self.result_code
+        if self.result_msg is not None:
+            result['result_msg'] = self.result_msg
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('req_msg_id') is not None:
+            self.req_msg_id = m.get('req_msg_id')
+        if m.get('result_code') is not None:
+            self.result_code = m.get('result_code')
+        if m.get('result_msg') is not None:
+            self.result_msg = m.get('result_msg')
+        return self
+
+
+class ExecAskdataSourceRequest(TeaModel):
+    def __init__(
+        self,
+        auth_token: str = None,
+        product_instance_id: str = None,
+        config_type: str = None,
+        alias: str = None,
+        sql: str = None,
+    ):
+        # OAuth模式下的授权token
+        self.auth_token = auth_token
+        self.product_instance_id = product_instance_id
+        # 数据源类型
+        self.config_type = config_type
+        # 数据源别称
+        self.alias = alias
+        # 执行查询的SQL
+        self.sql = sql
+
+    def validate(self):
+        self.validate_required(self.config_type, 'config_type')
+        self.validate_required(self.alias, 'alias')
+        self.validate_required(self.sql, 'sql')
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.auth_token is not None:
+            result['auth_token'] = self.auth_token
+        if self.product_instance_id is not None:
+            result['product_instance_id'] = self.product_instance_id
+        if self.config_type is not None:
+            result['config_type'] = self.config_type
+        if self.alias is not None:
+            result['alias'] = self.alias
+        if self.sql is not None:
+            result['sql'] = self.sql
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('auth_token') is not None:
+            self.auth_token = m.get('auth_token')
+        if m.get('product_instance_id') is not None:
+            self.product_instance_id = m.get('product_instance_id')
+        if m.get('config_type') is not None:
+            self.config_type = m.get('config_type')
+        if m.get('alias') is not None:
+            self.alias = m.get('alias')
+        if m.get('sql') is not None:
+            self.sql = m.get('sql')
+        return self
+
+
+class ExecAskdataSourceResponse(TeaModel):
+    def __init__(
+        self,
+        req_msg_id: str = None,
+        result_code: str = None,
+        result_msg: str = None,
+        columns: List[str] = None,
+        rows: List[str] = None,
+    ):
+        # 请求唯一ID，用于链路跟踪和问题排查
+        self.req_msg_id = req_msg_id
+        # 结果码，一般OK表示调用成功
+        self.result_code = result_code
+        # 异常信息的文本描述
+        self.result_msg = result_msg
+        # 返回字段列表
+        self.columns = columns
+        # 返回数据列表
+        self.rows = rows
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.req_msg_id is not None:
+            result['req_msg_id'] = self.req_msg_id
+        if self.result_code is not None:
+            result['result_code'] = self.result_code
+        if self.result_msg is not None:
+            result['result_msg'] = self.result_msg
+        if self.columns is not None:
+            result['columns'] = self.columns
+        if self.rows is not None:
+            result['rows'] = self.rows
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('req_msg_id') is not None:
+            self.req_msg_id = m.get('req_msg_id')
+        if m.get('result_code') is not None:
+            self.result_code = m.get('result_code')
+        if m.get('result_msg') is not None:
+            self.result_msg = m.get('result_msg')
+        if m.get('columns') is not None:
+            self.columns = m.get('columns')
+        if m.get('rows') is not None:
+            self.rows = m.get('rows')
+        return self
+
+
+class QueryAskdataSourceRequest(TeaModel):
+    def __init__(
+        self,
+        auth_token: str = None,
+        product_instance_id: str = None,
+        config_type: str = None,
+        alias: str = None,
+    ):
+        # OAuth模式下的授权token
+        self.auth_token = auth_token
+        self.product_instance_id = product_instance_id
+        # 数据源类型
+        self.config_type = config_type
+        # 数据源别称
+        self.alias = alias
+
+    def validate(self):
+        self.validate_required(self.config_type, 'config_type')
+        self.validate_required(self.alias, 'alias')
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.auth_token is not None:
+            result['auth_token'] = self.auth_token
+        if self.product_instance_id is not None:
+            result['product_instance_id'] = self.product_instance_id
+        if self.config_type is not None:
+            result['config_type'] = self.config_type
+        if self.alias is not None:
+            result['alias'] = self.alias
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('auth_token') is not None:
+            self.auth_token = m.get('auth_token')
+        if m.get('product_instance_id') is not None:
+            self.product_instance_id = m.get('product_instance_id')
+        if m.get('config_type') is not None:
+            self.config_type = m.get('config_type')
+        if m.get('alias') is not None:
+            self.alias = m.get('alias')
+        return self
+
+
+class QueryAskdataSourceResponse(TeaModel):
+    def __init__(
+        self,
+        req_msg_id: str = None,
+        result_code: str = None,
+        result_msg: str = None,
+        config_type: str = None,
+        alias: str = None,
+    ):
+        # 请求唯一ID，用于链路跟踪和问题排查
+        self.req_msg_id = req_msg_id
+        # 结果码，一般OK表示调用成功
+        self.result_code = result_code
+        # 异常信息的文本描述
+        self.result_msg = result_msg
+        # 数据源类型
+        self.config_type = config_type
+        # 数据源别称
+        self.alias = alias
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.req_msg_id is not None:
+            result['req_msg_id'] = self.req_msg_id
+        if self.result_code is not None:
+            result['result_code'] = self.result_code
+        if self.result_msg is not None:
+            result['result_msg'] = self.result_msg
+        if self.config_type is not None:
+            result['config_type'] = self.config_type
+        if self.alias is not None:
+            result['alias'] = self.alias
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('req_msg_id') is not None:
+            self.req_msg_id = m.get('req_msg_id')
+        if m.get('result_code') is not None:
+            self.result_code = m.get('result_code')
+        if m.get('result_msg') is not None:
+            self.result_msg = m.get('result_msg')
+        if m.get('config_type') is not None:
+            self.config_type = m.get('config_type')
+        if m.get('alias') is not None:
+            self.alias = m.get('alias')
         return self
 
 
@@ -59864,21 +63326,40 @@ class QueryTrustiotMiniappRequest(TeaModel):
         auth_token: str = None,
         product_instance_id: str = None,
         trace_no: str = None,
-        device_scope: List[DeviceScopeItem] = None,
+        channel: str = None,
+        visit_user_id: str = None,
+        access_type: str = None,
+        scene: str = None,
+        subject_role: str = None,
+        subject_id: str = None,
+        access_scope: List[AccessScopeItem] = None,
     ):
         # OAuth模式下的授权token
         self.auth_token = auth_token
         self.product_instance_id = product_instance_id
-        # 友宝跳转流水号
+        # 跳转流水号，全局唯一
         self.trace_no = trace_no
-        # 本次授权设备清单，可包含多个 scene
-        self.device_scope = device_scope
+        # 链接渠道：H5 或 MINIAPP，缺省按 MINIAPP
+        self.channel = channel
+        # 客户自定义的 C 端用户唯一标识，H5 必传、MINIAPP 禁传
+        self.visit_user_id = visit_user_id
+        # 访问类型：0 主体访问（按主体人解析其可访问设备）、1 设备清单访问（显式传入范围）
+        self.access_type = access_type
+        # 场景码。主体访问必填（按场景解析该主体的可访问设备）；清单访问不使用顶层 scene，以 access_scope 各项内的场景为准
+        self.scene = scene
+        # 主体访问的范围口径，与 subject_id 联合解析：0 产权人 / 1 运营人 / 2 科技主体
+        self.subject_role = subject_role
+        # 主体访问的主键标识：主体人 ID 或统一社会信用代码等唯一标识
+        self.subject_id = subject_id
+        # 设备清单访问（access_type=1 或缺省）的访问范围项集合。每项声明一个场景及该场景下的访问目标（设备清单），多项并集生效、顺序不影响结果。类型1 必填；主体访问不使用本字段
+        self.access_scope = access_scope
 
     def validate(self):
         self.validate_required(self.trace_no, 'trace_no')
-        self.validate_required(self.device_scope, 'device_scope')
-        if self.device_scope:
-            for k in self.device_scope:
+        self.validate_required(self.channel, 'channel')
+        self.validate_required(self.access_type, 'access_type')
+        if self.access_scope:
+            for k in self.access_scope:
                 if k:
                     k.validate()
 
@@ -59894,10 +63375,22 @@ class QueryTrustiotMiniappRequest(TeaModel):
             result['product_instance_id'] = self.product_instance_id
         if self.trace_no is not None:
             result['trace_no'] = self.trace_no
-        result['device_scope'] = []
-        if self.device_scope is not None:
-            for k in self.device_scope:
-                result['device_scope'].append(k.to_map() if k else None)
+        if self.channel is not None:
+            result['channel'] = self.channel
+        if self.visit_user_id is not None:
+            result['visit_user_id'] = self.visit_user_id
+        if self.access_type is not None:
+            result['access_type'] = self.access_type
+        if self.scene is not None:
+            result['scene'] = self.scene
+        if self.subject_role is not None:
+            result['subject_role'] = self.subject_role
+        if self.subject_id is not None:
+            result['subject_id'] = self.subject_id
+        result['access_scope'] = []
+        if self.access_scope is not None:
+            for k in self.access_scope:
+                result['access_scope'].append(k.to_map() if k else None)
         return result
 
     def from_map(self, m: dict = None):
@@ -59908,11 +63401,23 @@ class QueryTrustiotMiniappRequest(TeaModel):
             self.product_instance_id = m.get('product_instance_id')
         if m.get('trace_no') is not None:
             self.trace_no = m.get('trace_no')
-        self.device_scope = []
-        if m.get('device_scope') is not None:
-            for k in m.get('device_scope'):
-                temp_model = DeviceScopeItem()
-                self.device_scope.append(temp_model.from_map(k))
+        if m.get('channel') is not None:
+            self.channel = m.get('channel')
+        if m.get('visit_user_id') is not None:
+            self.visit_user_id = m.get('visit_user_id')
+        if m.get('access_type') is not None:
+            self.access_type = m.get('access_type')
+        if m.get('scene') is not None:
+            self.scene = m.get('scene')
+        if m.get('subject_role') is not None:
+            self.subject_role = m.get('subject_role')
+        if m.get('subject_id') is not None:
+            self.subject_id = m.get('subject_id')
+        self.access_scope = []
+        if m.get('access_scope') is not None:
+            for k in m.get('access_scope'):
+                temp_model = AccessScopeItem()
+                self.access_scope.append(temp_model.from_map(k))
         return self
 
 
@@ -59925,8 +63430,8 @@ class QueryTrustiotMiniappResponse(TeaModel):
         redirect_url: str = None,
         valid_from: int = None,
         valid_to: int = None,
-        invalid_devices: List[DeviceScopeItem] = None,
-        valid_device_count: int = None,
+        invalid_targets: List[AccessScopeItem] = None,
+        valid_target_count: int = None,
     ):
         # 请求唯一ID，用于链路跟踪和问题排查
         self.req_msg_id = req_msg_id
@@ -59934,20 +63439,20 @@ class QueryTrustiotMiniappResponse(TeaModel):
         self.result_code = result_code
         # 异常信息的文本描述
         self.result_msg = result_msg
-        # 携带 redirectToken 的跳转 URL
+        # 一次性跳转链接：`{渠道登录页地址}?redirectToken=访问令牌`。链接整体 24 小时有效（见 valid_to），令牌一次性消费、用后即失效
         self.redirect_url = redirect_url
-        # 有效期开始时间（时间戳）
+        # 链接生效时间，秒级时间戳
         self.valid_from = valid_from
-        # 有效期截止时间（时间戳）
+        # 链接过期时间，秒级时间戳，valid_from 起 24 小时。过期后链接不可用
         self.valid_to = valid_to
-        # 按 scene 聚合的未注册设备
-        self.invalid_devices = invalid_devices
-        # 实际授权的有效设备数
-        self.valid_device_count = valid_device_count
+        # 清单访问中未命中登记的访问目标回显，结构与 access_scope 条目相同（scene + 设备清单）。部分无效不影响签发，全部无效返回 422（NO_VALID_DEVICE）。主体访问（类型0）恒为空数组
+        self.invalid_targets = invalid_targets
+        # 链接实际生效的目标数：范围解析含直接子设备并集、按场景与目标去重后的总数。清单访问与主体访问均返回该口径
+        self.valid_target_count = valid_target_count
 
     def validate(self):
-        if self.invalid_devices:
-            for k in self.invalid_devices:
+        if self.invalid_targets:
+            for k in self.invalid_targets:
                 if k:
                     k.validate()
 
@@ -59969,12 +63474,12 @@ class QueryTrustiotMiniappResponse(TeaModel):
             result['valid_from'] = self.valid_from
         if self.valid_to is not None:
             result['valid_to'] = self.valid_to
-        result['invalid_devices'] = []
-        if self.invalid_devices is not None:
-            for k in self.invalid_devices:
-                result['invalid_devices'].append(k.to_map() if k else None)
-        if self.valid_device_count is not None:
-            result['valid_device_count'] = self.valid_device_count
+        result['invalid_targets'] = []
+        if self.invalid_targets is not None:
+            for k in self.invalid_targets:
+                result['invalid_targets'].append(k.to_map() if k else None)
+        if self.valid_target_count is not None:
+            result['valid_target_count'] = self.valid_target_count
         return result
 
     def from_map(self, m: dict = None):
@@ -59991,13 +63496,13 @@ class QueryTrustiotMiniappResponse(TeaModel):
             self.valid_from = m.get('valid_from')
         if m.get('valid_to') is not None:
             self.valid_to = m.get('valid_to')
-        self.invalid_devices = []
-        if m.get('invalid_devices') is not None:
-            for k in m.get('invalid_devices'):
-                temp_model = DeviceScopeItem()
-                self.invalid_devices.append(temp_model.from_map(k))
-        if m.get('valid_device_count') is not None:
-            self.valid_device_count = m.get('valid_device_count')
+        self.invalid_targets = []
+        if m.get('invalid_targets') is not None:
+            for k in m.get('invalid_targets'):
+                temp_model = AccessScopeItem()
+                self.invalid_targets.append(temp_model.from_map(k))
+        if m.get('valid_target_count') is not None:
+            self.valid_target_count = m.get('valid_target_count')
         return self
 
 
@@ -60120,6 +63625,328 @@ class QueryIotagentUseridsResponse(TeaModel):
             self.page_num = m.get('page_num')
         if m.get('pages') is not None:
             self.pages = m.get('pages')
+        return self
+
+
+class TestIotagentPluginRequest(TeaModel):
+    def __init__(
+        self,
+        auth_token: str = None,
+        product_instance_id: str = None,
+        file_object: BinaryIO = None,
+        file_object_name: str = None,
+        file_id: str = None,
+        plugin_id: str = None,
+    ):
+        # OAuth模式下的授权token
+        self.auth_token = auth_token
+        self.product_instance_id = product_instance_id
+        # string
+        # 待上传文件
+        self.file_object = file_object
+        # 待上传文件名
+        self.file_object_name = file_object_name
+        self.file_id = file_id
+        self.plugin_id = plugin_id
+
+    def validate(self):
+        self.validate_required(self.file_id, 'file_id')
+        self.validate_required(self.plugin_id, 'plugin_id')
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.auth_token is not None:
+            result['auth_token'] = self.auth_token
+        if self.product_instance_id is not None:
+            result['product_instance_id'] = self.product_instance_id
+        if self.file_object is not None:
+            result['fileObject'] = self.file_object
+        if self.file_object_name is not None:
+            result['fileObjectName'] = self.file_object_name
+        if self.file_id is not None:
+            result['file_id'] = self.file_id
+        if self.plugin_id is not None:
+            result['plugin_id'] = self.plugin_id
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('auth_token') is not None:
+            self.auth_token = m.get('auth_token')
+        if m.get('product_instance_id') is not None:
+            self.product_instance_id = m.get('product_instance_id')
+        if m.get('fileObject') is not None:
+            self.file_object = m.get('fileObject')
+        if m.get('fileObjectName') is not None:
+            self.file_object_name = m.get('fileObjectName')
+        if m.get('file_id') is not None:
+            self.file_id = m.get('file_id')
+        if m.get('plugin_id') is not None:
+            self.plugin_id = m.get('plugin_id')
+        return self
+
+
+class TestIotagentPluginResponse(TeaModel):
+    def __init__(
+        self,
+        req_msg_id: str = None,
+        result_code: str = None,
+        result_msg: str = None,
+    ):
+        # 请求唯一ID，用于链路跟踪和问题排查
+        self.req_msg_id = req_msg_id
+        # 结果码，一般OK表示调用成功
+        self.result_code = result_code
+        # 异常信息的文本描述
+        self.result_msg = result_msg
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.req_msg_id is not None:
+            result['req_msg_id'] = self.req_msg_id
+        if self.result_code is not None:
+            result['result_code'] = self.result_code
+        if self.result_msg is not None:
+            result['result_msg'] = self.result_msg
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('req_msg_id') is not None:
+            self.req_msg_id = m.get('req_msg_id')
+        if m.get('result_code') is not None:
+            self.result_code = m.get('result_code')
+        if m.get('result_msg') is not None:
+            self.result_msg = m.get('result_msg')
+        return self
+
+
+class ExecDatalinkSourceRequest(TeaModel):
+    def __init__(
+        self,
+        auth_token: str = None,
+        product_instance_id: str = None,
+        config_type: str = None,
+        alias: str = None,
+        sql: str = None,
+    ):
+        # OAuth模式下的授权token
+        self.auth_token = auth_token
+        self.product_instance_id = product_instance_id
+        # 数据源类型
+        self.config_type = config_type
+        # 数据源别称
+        self.alias = alias
+        # 执行查询的SQL
+        self.sql = sql
+
+    def validate(self):
+        self.validate_required(self.config_type, 'config_type')
+        self.validate_required(self.alias, 'alias')
+        self.validate_required(self.sql, 'sql')
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.auth_token is not None:
+            result['auth_token'] = self.auth_token
+        if self.product_instance_id is not None:
+            result['product_instance_id'] = self.product_instance_id
+        if self.config_type is not None:
+            result['config_type'] = self.config_type
+        if self.alias is not None:
+            result['alias'] = self.alias
+        if self.sql is not None:
+            result['sql'] = self.sql
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('auth_token') is not None:
+            self.auth_token = m.get('auth_token')
+        if m.get('product_instance_id') is not None:
+            self.product_instance_id = m.get('product_instance_id')
+        if m.get('config_type') is not None:
+            self.config_type = m.get('config_type')
+        if m.get('alias') is not None:
+            self.alias = m.get('alias')
+        if m.get('sql') is not None:
+            self.sql = m.get('sql')
+        return self
+
+
+class ExecDatalinkSourceResponse(TeaModel):
+    def __init__(
+        self,
+        req_msg_id: str = None,
+        result_code: str = None,
+        result_msg: str = None,
+        columns: List[str] = None,
+        rows: str = None,
+    ):
+        # 请求唯一ID，用于链路跟踪和问题排查
+        self.req_msg_id = req_msg_id
+        # 结果码，一般OK表示调用成功
+        self.result_code = result_code
+        # 异常信息的文本描述
+        self.result_msg = result_msg
+        # 返回字段列表
+        self.columns = columns
+        # 返回数据列表
+        self.rows = rows
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.req_msg_id is not None:
+            result['req_msg_id'] = self.req_msg_id
+        if self.result_code is not None:
+            result['result_code'] = self.result_code
+        if self.result_msg is not None:
+            result['result_msg'] = self.result_msg
+        if self.columns is not None:
+            result['columns'] = self.columns
+        if self.rows is not None:
+            result['rows'] = self.rows
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('req_msg_id') is not None:
+            self.req_msg_id = m.get('req_msg_id')
+        if m.get('result_code') is not None:
+            self.result_code = m.get('result_code')
+        if m.get('result_msg') is not None:
+            self.result_msg = m.get('result_msg')
+        if m.get('columns') is not None:
+            self.columns = m.get('columns')
+        if m.get('rows') is not None:
+            self.rows = m.get('rows')
+        return self
+
+
+class QueryDatalinkSourceRequest(TeaModel):
+    def __init__(
+        self,
+        auth_token: str = None,
+        product_instance_id: str = None,
+        config_type: str = None,
+        alias: str = None,
+    ):
+        # OAuth模式下的授权token
+        self.auth_token = auth_token
+        self.product_instance_id = product_instance_id
+        # 数据源类型
+        self.config_type = config_type
+        # 数据源别称
+        self.alias = alias
+
+    def validate(self):
+        self.validate_required(self.config_type, 'config_type')
+        self.validate_required(self.alias, 'alias')
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.auth_token is not None:
+            result['auth_token'] = self.auth_token
+        if self.product_instance_id is not None:
+            result['product_instance_id'] = self.product_instance_id
+        if self.config_type is not None:
+            result['config_type'] = self.config_type
+        if self.alias is not None:
+            result['alias'] = self.alias
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('auth_token') is not None:
+            self.auth_token = m.get('auth_token')
+        if m.get('product_instance_id') is not None:
+            self.product_instance_id = m.get('product_instance_id')
+        if m.get('config_type') is not None:
+            self.config_type = m.get('config_type')
+        if m.get('alias') is not None:
+            self.alias = m.get('alias')
+        return self
+
+
+class QueryDatalinkSourceResponse(TeaModel):
+    def __init__(
+        self,
+        req_msg_id: str = None,
+        result_code: str = None,
+        result_msg: str = None,
+        config_type: str = None,
+        alias: str = None,
+    ):
+        # 请求唯一ID，用于链路跟踪和问题排查
+        self.req_msg_id = req_msg_id
+        # 结果码，一般OK表示调用成功
+        self.result_code = result_code
+        # 异常信息的文本描述
+        self.result_msg = result_msg
+        # 数据源类型
+        self.config_type = config_type
+        # 数据源别称
+        self.alias = alias
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.req_msg_id is not None:
+            result['req_msg_id'] = self.req_msg_id
+        if self.result_code is not None:
+            result['result_code'] = self.result_code
+        if self.result_msg is not None:
+            result['result_msg'] = self.result_msg
+        if self.config_type is not None:
+            result['config_type'] = self.config_type
+        if self.alias is not None:
+            result['alias'] = self.alias
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('req_msg_id') is not None:
+            self.req_msg_id = m.get('req_msg_id')
+        if m.get('result_code') is not None:
+            self.result_code = m.get('result_code')
+        if m.get('result_msg') is not None:
+            self.result_msg = m.get('result_msg')
+        if m.get('config_type') is not None:
+            self.config_type = m.get('config_type')
+        if m.get('alias') is not None:
+            self.alias = m.get('alias')
         return self
 
 
