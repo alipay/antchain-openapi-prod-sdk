@@ -529,6 +529,71 @@ export class ContinuousOtaOpenApiRuleResponse extends $tea.Model {
   }
 }
 
+// mcp协议字段信息
+export class McpInfo extends $tea.Model {
+  // mcp名字
+  /**
+   * @example
+   * mcp名字
+   */
+  name: string;
+  // 协议类型
+  /**
+   * @example
+   * streamable_http / sse /stadio
+   */
+  transport: string;
+  // 协议地址
+  /**
+   * @example
+   * 协议地址
+   */
+  endpoint?: string;
+  // json
+  /**
+   * @example
+   * {}
+   */
+  headers?: string;
+  // mcp_id
+  /**
+   * @example
+   * mcp_id
+   */
+  mcpId: string;
+  // 工具名字
+  /**
+   * @example
+   * undefined
+   */
+  tools?: string[];
+  static names(): { [key: string]: string } {
+    return {
+      name: 'name',
+      transport: 'transport',
+      endpoint: 'endpoint',
+      headers: 'headers',
+      mcpId: 'mcp_id',
+      tools: 'tools',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      name: 'string',
+      transport: 'string',
+      endpoint: 'string',
+      headers: 'string',
+      mcpId: 'string',
+      tools: { 'type': 'array', 'itemType': 'string' },
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
 // 资源定位信息
 export class BaiResourceLocation extends $tea.Model {
   // 资源定位类型
@@ -556,6 +621,55 @@ export class BaiResourceLocation extends $tea.Model {
     return {
       locationType: 'string',
       locationValue: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+// skill信息
+export class SkillInfo extends $tea.Model {
+  // skill名称
+  /**
+   * @example
+   * xxx
+   */
+  name: string;
+  // 版本
+  /**
+   * @example
+   * 1.2
+   */
+  version: string;
+  // oss地址
+  /**
+   * @example
+   * url
+   */
+  url: string;
+  // skillId
+  /**
+   * @example
+   * 11223344556778899
+   */
+  skillId: string;
+  static names(): { [key: string]: string } {
+    return {
+      name: 'name',
+      version: 'version',
+      url: 'url',
+      skillId: 'skill_id',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      name: 'string',
+      version: 'string',
+      url: 'string',
+      skillId: 'string',
     };
   }
 
@@ -1953,13 +2067,13 @@ export class SubAgentInfo extends $tea.Model {
    * @example
    * undefined
    */
-  skills: string[];
+  skills: SkillInfo[];
   // mcp功能
   /**
    * @example
    * undefined
    */
-  mcps: string[];
+  mcps: McpInfo[];
   // 实例id
   /**
    * @example
@@ -1984,9 +2098,98 @@ export class SubAgentInfo extends $tea.Model {
       agentName: 'string',
       modelProvider: 'string',
       modelId: 'string',
-      skills: { 'type': 'array', 'itemType': 'string' },
-      mcps: { 'type': 'array', 'itemType': 'string' },
+      skills: { 'type': 'array', 'itemType': SkillInfo },
+      mcps: { 'type': 'array', 'itemType': McpInfo },
       instanceId: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+// 对话轮次中的模型调用量信息
+export class TurnModelCallsUsages extends $tea.Model {
+  // 模型名称
+  /**
+   * @example
+   * deepseek-v4.1-flash
+   */
+  model: string;
+  // 调用状态：COMPLETED / FAILED / CANCELLED / UNKNOWN
+  /**
+   * @example
+   * COMPLETED
+   */
+  status: string;
+  // 输入 token
+  /**
+   * @example
+   * 20
+   */
+  inputTokens: number;
+  // 输出 token
+  /**
+   * @example
+   * 1024
+   */
+  outputTokens: number;
+  // 总 token
+  /**
+   * @example
+   * 1024
+   */
+  totalTokens: number;
+  // 推理 token（可选，有才返回）
+  /**
+   * @example
+   * 1024
+   */
+  reasoningTokens?: number;
+  // 缓存读取 token（可选）
+  /**
+   * @example
+   * 1024
+   */
+  cachedReadTokens?: number;
+  // 缓存写入 token（可选）
+  /**
+   * @example
+   * 1024
+   */
+  cachedWriteTokens?: number;
+  // 当前模型调用耗时
+  /**
+   * @example
+   * 1000
+   */
+  modelDurationMs: number;
+  static names(): { [key: string]: string } {
+    return {
+      model: 'model',
+      status: 'status',
+      inputTokens: 'input_tokens',
+      outputTokens: 'output_tokens',
+      totalTokens: 'total_tokens',
+      reasoningTokens: 'reasoning_tokens',
+      cachedReadTokens: 'cached_read_tokens',
+      cachedWriteTokens: 'cached_write_tokens',
+      modelDurationMs: 'model_duration_ms',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      model: 'string',
+      status: 'string',
+      inputTokens: 'number',
+      outputTokens: 'number',
+      totalTokens: 'number',
+      reasoningTokens: 'number',
+      cachedReadTokens: 'number',
+      cachedWriteTokens: 'number',
+      modelDurationMs: 'number',
     };
   }
 
@@ -3150,6 +3353,39 @@ export class CategoryInfo extends $tea.Model {
   }
 }
 
+// 清单访问范围项：一个场景及其允许访问的目标 ID 集合
+export class AccessScopeItem extends $tea.Model {
+  // 场景码。范围项归属的业务场景，同一请求内可以出现多个不同场景的范围项。
+  /**
+   * @example
+   * SCENE_001
+   */
+  scene: string;
+  // 访问目标 ID 清单
+  /**
+   * @example
+   * ["dev-8801","dev-8802"]
+   */
+  targets: string[];
+  static names(): { [key: string]: string } {
+    return {
+      scene: 'scene',
+      targets: 'targets',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      scene: 'string',
+      targets: { 'type': 'array', 'itemType': 'string' },
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
 // 实体上链数据
 export class EntityChainData extends $tea.Model {
   // 实体ID
@@ -4282,17 +4518,24 @@ export class FileInfo extends $tea.Model {
    * oss地址
    */
   url: string;
+  // 创建时间
+  /**
+   * @example
+   * 11223344556778899
+   */
+  createdAt: number;
   // id
   /**
    * @example
    * 11223344556778899
    */
-  id?: string;
+  id: string;
   static names(): { [key: string]: string } {
     return {
       name: 'name',
       type: 'type',
       url: 'url',
+      createdAt: 'created_at',
       id: 'id',
     };
   }
@@ -4302,6 +4545,7 @@ export class FileInfo extends $tea.Model {
       name: 'string',
       type: 'string',
       url: 'string',
+      createdAt: 'number',
       id: 'string',
     };
   }
@@ -5238,6 +5482,38 @@ export class TripStatistics extends $tea.Model {
       totalDuration: TripDuration,
       totalCount: 'number',
       periodCode: 'number',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+// 预览文件信息
+export class PreviewFileInfo extends $tea.Model {
+  name: string;
+  type: string;
+  url: string;
+  expireAt: number;
+  id: string;
+  static names(): { [key: string]: string } {
+    return {
+      name: 'name',
+      type: 'type',
+      url: 'url',
+      expireAt: 'expire_at',
+      id: 'id',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      name: 'string',
+      type: 'string',
+      url: 'string',
+      expireAt: 'number',
+      id: 'string',
     };
   }
 
@@ -6575,13 +6851,13 @@ export class AgentInfo extends $tea.Model {
    * @example
    * undefined
    */
-  skills: string[];
+  skills: SkillInfo[];
   // mcp信息
   /**
    * @example
    * undefined
    */
-  mcps: string[];
+  mcps: McpInfo[];
   // 子智能体id
   /**
    * @example
@@ -6593,7 +6869,7 @@ export class AgentInfo extends $tea.Model {
    * @example
    * undefined
    */
-  subAgentInfoList?: SubAgentInfo;
+  subAgentInfoList?: SubAgentInfo[];
   // 实例id
   /**
    * @example
@@ -6622,10 +6898,10 @@ export class AgentInfo extends $tea.Model {
       systemPrompt: 'string',
       modelProvider: 'string',
       modelId: 'string',
-      skills: { 'type': 'array', 'itemType': 'string' },
-      mcps: { 'type': 'array', 'itemType': 'string' },
+      skills: { 'type': 'array', 'itemType': SkillInfo },
+      mcps: { 'type': 'array', 'itemType': McpInfo },
       subAgents: { 'type': 'array', 'itemType': 'string' },
-      subAgentInfoList: SubAgentInfo,
+      subAgentInfoList: { 'type': 'array', 'itemType': SubAgentInfo },
       instanceId: 'string',
     };
   }
@@ -7129,71 +7405,6 @@ export class LabelTrace extends $tea.Model {
       errorMsg: 'string',
       isSuccess: 'boolean',
       version: 'number',
-    };
-  }
-
-  constructor(map?: { [key: string]: any }) {
-    super(map);
-  }
-}
-
-// mcp协议字段信息
-export class McpInfo extends $tea.Model {
-  // mcp名字
-  /**
-   * @example
-   * mcp名字
-   */
-  name: string;
-  // 协议类型
-  /**
-   * @example
-   * streamable_http / sse /stadio
-   */
-  transport: string;
-  // 协议地址
-  /**
-   * @example
-   * 协议地址
-   */
-  endpoint?: string;
-  // json
-  /**
-   * @example
-   * {}
-   */
-  headers?: string;
-  // mcp_id
-  /**
-   * @example
-   * mcp_id
-   */
-  mcpId: string;
-  // 工具名字
-  /**
-   * @example
-   * undefined
-   */
-  tools?: string[];
-  static names(): { [key: string]: string } {
-    return {
-      name: 'name',
-      transport: 'transport',
-      endpoint: 'endpoint',
-      headers: 'headers',
-      mcpId: 'mcp_id',
-      tools: 'tools',
-    };
-  }
-
-  static types(): { [key: string]: any } {
-    return {
-      name: 'string',
-      transport: 'string',
-      endpoint: 'string',
-      headers: 'string',
-      mcpId: 'string',
-      tools: { 'type': 'array', 'itemType': 'string' },
     };
   }
 
@@ -10486,6 +10697,71 @@ export class DeviceOperateInfo extends $tea.Model {
   }
 }
 
+// 会话用量信息
+export class SessionUsage extends $tea.Model {
+  // 输入Token
+  /**
+   * @example
+   * 1024
+   */
+  inputTokens: number;
+  // 输出token
+  /**
+   * @example
+   * 1024
+   */
+  outputTokens: number;
+  // 总Token
+  /**
+   * @example
+   * 1024
+   */
+  totalTokens: number;
+  // 模型调用次数
+  /**
+   * @example
+   * 1024
+   */
+  modelCallCount: number;
+  // 是否完成
+  /**
+   * @example
+   * true
+   */
+  complete: boolean;
+  // 当前轮次请求耗时
+  /**
+   * @example
+   * 1000
+   */
+  turnDurationMs: number;
+  static names(): { [key: string]: string } {
+    return {
+      inputTokens: 'input_tokens',
+      outputTokens: 'output_tokens',
+      totalTokens: 'total_tokens',
+      modelCallCount: 'model_call_count',
+      complete: 'complete',
+      turnDurationMs: 'turn_duration_ms',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      inputTokens: 'number',
+      outputTokens: 'number',
+      totalTokens: 'number',
+      modelCallCount: 'number',
+      complete: 'boolean',
+      turnDurationMs: 'number',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
 // 信物链查询实体身份请求结构体
 export class DidBaseQueryReq extends $tea.Model {
   // * "thingId"       原始ID
@@ -11520,6 +11796,47 @@ export class IotxOtaTaskPermanentCancelResult extends $tea.Model {
   }
 }
 
+// 轮次模型用量
+export class TurnUsage extends $tea.Model {
+  // 对话轮次ID
+  /**
+   * @example
+   * 7468486322254688256
+   */
+  turnId: string;
+  // 该轮用量是否完整
+  /**
+   * @example
+   * true
+   */
+  complete: boolean;
+  // 模型调用明细
+  /**
+   * @example
+   * [{},{}]
+   */
+  modelCalls: TurnModelCallsUsages[];
+  static names(): { [key: string]: string } {
+    return {
+      turnId: 'turn_id',
+      complete: 'complete',
+      modelCalls: 'model_calls',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      turnId: 'string',
+      complete: 'boolean',
+      modelCalls: { 'type': 'array', 'itemType': TurnModelCallsUsages },
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
 // 商品鉴定点鉴定响应体
 export class BaiGoodsPointQueryRespData extends $tea.Model {
   // 识别结果
@@ -12178,55 +12495,6 @@ export class EvidenceBaseModel extends $tea.Model {
   }
 }
 
-// skill信息
-export class SkillInfo extends $tea.Model {
-  // skill名称
-  /**
-   * @example
-   * xxx
-   */
-  name: string;
-  // 版本
-  /**
-   * @example
-   * 1.2
-   */
-  version: string;
-  // oss地址
-  /**
-   * @example
-   * url
-   */
-  url: string;
-  // skillId
-  /**
-   * @example
-   * 11223344556778899
-   */
-  skillId: string;
-  static names(): { [key: string]: string } {
-    return {
-      name: 'name',
-      version: 'version',
-      url: 'url',
-      skillId: 'skill_id',
-    };
-  }
-
-  static types(): { [key: string]: any } {
-    return {
-      name: 'string',
-      version: 'string',
-      url: 'string',
-      skillId: 'string',
-    };
-  }
-
-  constructor(map?: { [key: string]: any }) {
-    super(map);
-  }
-}
-
 // 行程统计详情
 export class TripTraceView extends $tea.Model {
   // 开始时间
@@ -12864,12 +13132,26 @@ export class AgentSessionVO extends $tea.Model {
    * 2026-06-24 21:32:59
    */
   gmtModified: string;
+  // 会话名称；会话进行中尚未命名时返回"当前会话"
+  /**
+   * @example
+   * 今天天气怎么样
+   */
+  sessionName?: string;
+  // 会话主题，可能为空
+  /**
+   * @example
+   * 天气
+   */
+  topic?: string;
   static names(): { [key: string]: string } {
     return {
       sessionId: 'session_id',
       userId: 'user_id',
       gmtCreate: 'gmt_create',
       gmtModified: 'gmt_modified',
+      sessionName: 'session_name',
+      topic: 'topic',
     };
   }
 
@@ -12879,6 +13161,8 @@ export class AgentSessionVO extends $tea.Model {
       userId: 'string',
       gmtCreate: 'string',
       gmtModified: 'string',
+      sessionName: 'string',
+      topic: 'string',
     };
   }
 
@@ -12912,6 +13196,55 @@ export class DeviceCollectResult extends $tea.Model {
     return {
       collectId: 'string',
       antchainId: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+// 音频规格
+export class AudioSpec extends $tea.Model {
+  // 容器，如 WAV
+  /**
+   * @example
+   * WAV
+   */
+  container: string;
+  // 编码，如 PCM_S16LE
+  /**
+   * @example
+   * PCM_S16LE
+   */
+  codec: string;
+  // 采样率，单位 Hz，如 16000
+  /**
+   * @example
+   * 16000
+   */
+  sampleRate: number;
+  // 声道数，如 1
+  /**
+   * @example
+   * 1
+   */
+  channels: number;
+  static names(): { [key: string]: string } {
+    return {
+      container: 'container',
+      codec: 'codec',
+      sampleRate: 'sample_rate',
+      channels: 'channels',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      container: 'string',
+      codec: 'string',
+      sampleRate: 'number',
+      channels: 'number',
     };
   }
 
@@ -13501,6 +13834,111 @@ export class IotBasicDeviceRegisterResult extends $tea.Model {
       deviceSn: 'string',
       secKey: 'string',
       serviceStatus: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+// 智能体云音乐歌曲
+export class AgentMusicSong extends $tea.Model {
+  // 歌曲 ID
+  /**
+   * @example
+   * id123456
+   */
+  songId?: string;
+  // 歌名
+  /**
+   * @example
+   * 三只松鼠
+   */
+  songName?: string;
+  // 歌手（多歌手用 / 分隔）
+  /**
+   * @example
+   * 林君杰/周伦
+   */
+  artistName?: string;
+  // 时长(ms)
+  /**
+   * @example
+   * 208888
+   */
+  duration?: number;
+  // 是否已添加红心
+  /**
+   * @example
+   * true
+   */
+  isLiked?: boolean;
+  // 播放标记，取值范围：0=可播放 / 1=不可播放
+  /**
+   * @example
+   * 0
+   */
+  playFlag?: number;
+  // VIP 播放标记，取值范围：0=免费（非 VIP 限制） / 1=VIP 专享
+  /**
+   * @example
+   * 0
+   */
+  vipPlayFlag?: number;
+  // VIP 标记（0=否，1=是）
+  /**
+   * @example
+   * 0
+   */
+  vipFlag?: number;
+  // 收费类型，取值范围：0=免费 / 1=VIP / 4=付费专辑 / 8=低质量免费
+  /**
+   * @example
+   * 0
+   */
+  songFee?: number;
+  // 封面 URL
+  /**
+   * @example
+   * http://p2.music.126.net/t8H-_P4uF567.jpg
+   */
+  coverImgUrl?: string;
+  // 可用音质 code 列表，取值范围：vividMusic=Audio Vivid / dolbyMusic=杜比 / skMusic=沉浸环绕声 / jyMasterMusic=超清母带 / jyEffectMusic=高清臻音 / hrMusic=Hi-Res / sqMusic=无损 / hmusic=极高 / mmusic=较高 / lmusic=标准
+  /**
+   * @example
+   * ["dolbyMusic","hrMusic"]
+   */
+  qualities?: string[];
+  static names(): { [key: string]: string } {
+    return {
+      songId: 'song_id',
+      songName: 'song_name',
+      artistName: 'artist_name',
+      duration: 'duration',
+      isLiked: 'is_liked',
+      playFlag: 'play_flag',
+      vipPlayFlag: 'vip_play_flag',
+      vipFlag: 'vip_flag',
+      songFee: 'song_fee',
+      coverImgUrl: 'cover_img_url',
+      qualities: 'qualities',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      songId: 'string',
+      songName: 'string',
+      artistName: 'string',
+      duration: 'number',
+      isLiked: 'boolean',
+      playFlag: 'number',
+      vipPlayFlag: 'number',
+      vipFlag: 'number',
+      songFee: 'number',
+      coverImgUrl: 'string',
+      qualities: { 'type': 'array', 'itemType': 'string' },
     };
   }
 
@@ -15108,6 +15546,255 @@ export class ChatAiotdatalinkAntfinanceassistantResponse extends $tea.Model {
       score: 'string',
       responseTitle: 'string',
       responseCondition: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class StreamchatAiotdatalinkAntfinanceassistantRequest extends $tea.Model {
+  // OAuth模式下的授权token
+  authToken?: string;
+  productInstanceId?: string;
+  // 请求内容，内容为json字符串
+  chatRequest: string;
+  static names(): { [key: string]: string } {
+    return {
+      authToken: 'auth_token',
+      productInstanceId: 'product_instance_id',
+      chatRequest: 'chat_request',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      authToken: 'string',
+      productInstanceId: 'string',
+      chatRequest: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class StreamchatAiotdatalinkAntfinanceassistantResponse extends $tea.Model {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string;
+  // 结果码，一般OK表示调用成功
+  resultCode?: string;
+  // 异常信息的文本描述
+  resultMsg?: string;
+  // 会话结果
+  chatCompletionObject?: string;
+  static names(): { [key: string]: string } {
+    return {
+      reqMsgId: 'req_msg_id',
+      resultCode: 'result_code',
+      resultMsg: 'result_msg',
+      chatCompletionObject: 'chat_completion_object',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      reqMsgId: 'string',
+      resultCode: 'string',
+      resultMsg: 'string',
+      chatCompletionObject: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class QueryAiotdatalinkAskdataRequest extends $tea.Model {
+  // OAuth模式下的授权token
+  authToken?: string;
+  productInstanceId?: string;
+  // 租户ID
+  tenantId: string;
+  // 场景编码
+  sceneCode?: string;
+  // 问数的问题
+  question: string;
+  // 会话ID
+  conversationId: string;
+  // 用户ID
+  userId?: string;
+  // 序列号，用于表示同一时间请求序号
+  caller?: string;
+  static names(): { [key: string]: string } {
+    return {
+      authToken: 'auth_token',
+      productInstanceId: 'product_instance_id',
+      tenantId: 'tenant_id',
+      sceneCode: 'scene_code',
+      question: 'question',
+      conversationId: 'conversation_id',
+      userId: 'user_id',
+      caller: 'caller',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      authToken: 'string',
+      productInstanceId: 'string',
+      tenantId: 'string',
+      sceneCode: 'string',
+      question: 'string',
+      conversationId: 'string',
+      userId: 'string',
+      caller: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class QueryAiotdatalinkAskdataResponse extends $tea.Model {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string;
+  // 结果码，一般OK表示调用成功
+  resultCode?: string;
+  // 异常信息的文本描述
+  resultMsg?: string;
+  // 任务ID
+  jobId?: string;
+  // 请求ID
+  requestId?: string;
+  // 任务状态， ACCEPTED 提交，RESOLVING_MODEL 解析寓意，INTERPRETING 生成SQL，SQL_VALIDATING sql 校验，EXECUTING 执行查询，ANALYZING 保存结果，COMPLETE 任务完成，FAILED 任务失败，CANCELLED  任务取消
+  status?: string;
+  // json 格式字符串
+  data?: string;
+  // 数据总条数
+  rowNum?: string;
+  static names(): { [key: string]: string } {
+    return {
+      reqMsgId: 'req_msg_id',
+      resultCode: 'result_code',
+      resultMsg: 'result_msg',
+      jobId: 'job_id',
+      requestId: 'request_id',
+      status: 'status',
+      data: 'data',
+      rowNum: 'row_num',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      reqMsgId: 'string',
+      resultCode: 'string',
+      resultMsg: 'string',
+      jobId: 'string',
+      requestId: 'string',
+      status: 'string',
+      data: 'string',
+      rowNum: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class ChatAiotdatalinkAskdataRequest extends $tea.Model {
+  // OAuth模式下的授权token
+  authToken?: string;
+  productInstanceId?: string;
+  // 租户ID
+  tenantId: string;
+  // 场景编码
+  sceneCode?: string;
+  // 问数问题
+  question: string;
+  // 会话ID
+  conversationId: string;
+  // 用户ID
+  userId?: string;
+  // 序列号，用于表示同一时间请求序号
+  caller?: string;
+  static names(): { [key: string]: string } {
+    return {
+      authToken: 'auth_token',
+      productInstanceId: 'product_instance_id',
+      tenantId: 'tenant_id',
+      sceneCode: 'scene_code',
+      question: 'question',
+      conversationId: 'conversation_id',
+      userId: 'user_id',
+      caller: 'caller',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      authToken: 'string',
+      productInstanceId: 'string',
+      tenantId: 'string',
+      sceneCode: 'string',
+      question: 'string',
+      conversationId: 'string',
+      userId: 'string',
+      caller: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class ChatAiotdatalinkAskdataResponse extends $tea.Model {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string;
+  // 结果码，一般OK表示调用成功
+  resultCode?: string;
+  // 异常信息的文本描述
+  resultMsg?: string;
+  // 任务Id
+  jobId?: string;
+  // 请求ID
+  requestId?: string;
+  // 任务状态， ACCEPTED 提交，RESOLVING_MODEL 解析寓意，INTERPRETING 生成SQL，SQL_VALIDATING sql 校验，EXECUTING 执行查询，ANALYZING 保存结果，COMPLETE 任务完成，FAILED 任务失败，CANCELLED 任务取消
+  status?: string;
+  // json 格式字符串
+  data?: string;
+  // 数据总条数
+  rowNum?: number;
+  static names(): { [key: string]: string } {
+    return {
+      reqMsgId: 'req_msg_id',
+      resultCode: 'result_code',
+      resultMsg: 'result_msg',
+      jobId: 'job_id',
+      requestId: 'request_id',
+      status: 'status',
+      data: 'data',
+      rowNum: 'row_num',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      reqMsgId: 'string',
+      resultCode: 'string',
+      resultMsg: 'string',
+      jobId: 'string',
+      requestId: 'string',
+      status: 'string',
+      data: 'string',
+      rowNum: 'number',
     };
   }
 
@@ -18561,11 +19248,17 @@ export class ListIotagentAgentRequest extends $tea.Model {
   productInstanceId?: string;
   // 实例id
   instanceId: string;
+  // 当前页
+  pageIndex: number;
+  // 页面大小
+  pageSize: number;
   static names(): { [key: string]: string } {
     return {
       authToken: 'auth_token',
       productInstanceId: 'product_instance_id',
       instanceId: 'instance_id',
+      pageIndex: 'page_index',
+      pageSize: 'page_size',
     };
   }
 
@@ -18574,6 +19267,8 @@ export class ListIotagentAgentRequest extends $tea.Model {
       authToken: 'string',
       productInstanceId: 'string',
       instanceId: 'string',
+      pageIndex: 'number',
+      pageSize: 'number',
     };
   }
 
@@ -18591,12 +19286,24 @@ export class ListIotagentAgentResponse extends $tea.Model {
   resultMsg?: string;
   // 智能体列表
   agentInfoList?: AgentInfo[];
+  // 总页数
+  pages?: number;
+  // 总数
+  total?: number;
+  // 当前页
+  pageIndex?: number;
+  // 页面大小
+  pageSize?: number;
   static names(): { [key: string]: string } {
     return {
       reqMsgId: 'req_msg_id',
       resultCode: 'result_code',
       resultMsg: 'result_msg',
       agentInfoList: 'agent_info_list',
+      pages: 'pages',
+      total: 'total',
+      pageIndex: 'page_index',
+      pageSize: 'page_size',
     };
   }
 
@@ -18606,6 +19313,10 @@ export class ListIotagentAgentResponse extends $tea.Model {
       resultCode: 'string',
       resultMsg: 'string',
       agentInfoList: { 'type': 'array', 'itemType': AgentInfo },
+      pages: 'number',
+      total: 'number',
+      pageIndex: 'number',
+      pageSize: 'number',
     };
   }
 
@@ -19728,6 +20439,1552 @@ export class FliedownloadIotagentSessionResponse extends $tea.Model {
       resultCode: 'string',
       resultMsg: 'string',
       file: FileInfo,
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class FilepreviewIotagentSessionRequest extends $tea.Model {
+  // OAuth模式下的授权token
+  authToken?: string;
+  productInstanceId?: string;
+  workspaceId: string;
+  /**
+   * @remarks
+   * 待上传文件
+   */
+  fileObject?: Readable;
+  /**
+   * @remarks
+   * 待上传文件名
+   */
+  fileObjectName?: string;
+  fileId: string;
+  instanceId: string;
+  sessionId: string;
+  userId?: string;
+  agentId: string;
+  static names(): { [key: string]: string } {
+    return {
+      authToken: 'auth_token',
+      productInstanceId: 'product_instance_id',
+      workspaceId: 'workspace_id',
+      fileObject: 'fileObject',
+      fileObjectName: 'fileObjectName',
+      fileId: 'file_id',
+      instanceId: 'instance_id',
+      sessionId: 'session_id',
+      userId: 'user_id',
+      agentId: 'agent_id',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      authToken: 'string',
+      productInstanceId: 'string',
+      workspaceId: 'string',
+      fileObject: 'Readable',
+      fileObjectName: 'string',
+      fileId: 'string',
+      instanceId: 'string',
+      sessionId: 'string',
+      userId: 'string',
+      agentId: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class FilepreviewIotagentSessionResponse extends $tea.Model {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string;
+  // 结果码，一般OK表示调用成功
+  resultCode?: string;
+  // 异常信息的文本描述
+  resultMsg?: string;
+  file?: PreviewFileInfo;
+  static names(): { [key: string]: string } {
+    return {
+      reqMsgId: 'req_msg_id',
+      resultCode: 'result_code',
+      resultMsg: 'result_msg',
+      file: 'file',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      reqMsgId: 'string',
+      resultCode: 'string',
+      resultMsg: 'string',
+      file: PreviewFileInfo,
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class PushIotagentAudioscribeRequest extends $tea.Model {
+  // OAuth模式下的授权token
+  authToken?: string;
+  productInstanceId?: string;
+  // string
+  /**
+   * @remarks
+   * 待上传文件
+   */
+  fileObject?: Readable;
+  /**
+   * @remarks
+   * 待上传文件名
+   */
+  fileObjectName?: string;
+  fileId: string;
+  type: string;
+  messageId: string;
+  targetPluginId: string;
+  // 如： audio_push、status_query、detail_query、asr_retry、summary_retry
+  messageType: string;
+  // 业务字段，JSON格式
+  payload: string;
+  // Unix Epoch 毫秒
+  timestamp: number;
+  static names(): { [key: string]: string } {
+    return {
+      authToken: 'auth_token',
+      productInstanceId: 'product_instance_id',
+      fileObject: 'fileObject',
+      fileObjectName: 'fileObjectName',
+      fileId: 'file_id',
+      type: 'type',
+      messageId: 'message_id',
+      targetPluginId: 'target_plugin_id',
+      messageType: 'message_type',
+      payload: 'payload',
+      timestamp: 'timestamp',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      authToken: 'string',
+      productInstanceId: 'string',
+      fileObject: 'Readable',
+      fileObjectName: 'string',
+      fileId: 'string',
+      type: 'string',
+      messageId: 'string',
+      targetPluginId: 'string',
+      messageType: 'string',
+      payload: 'string',
+      timestamp: 'number',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class PushIotagentAudioscribeResponse extends $tea.Model {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string;
+  // 结果码，一般OK表示调用成功
+  resultCode?: string;
+  // 异常信息的文本描述
+  resultMsg?: string;
+  type?: string;
+  messageId?: string;
+  targetPluginId?: string;
+  messageType?: string;
+  // 业务响应，json格式
+  payload?: string;
+  // Unix Epoch 毫秒
+  timestamp?: number;
+  static names(): { [key: string]: string } {
+    return {
+      reqMsgId: 'req_msg_id',
+      resultCode: 'result_code',
+      resultMsg: 'result_msg',
+      type: 'type',
+      messageId: 'message_id',
+      targetPluginId: 'target_plugin_id',
+      messageType: 'message_type',
+      payload: 'payload',
+      timestamp: 'timestamp',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      reqMsgId: 'string',
+      resultCode: 'string',
+      resultMsg: 'string',
+      type: 'string',
+      messageId: 'string',
+      targetPluginId: 'string',
+      messageType: 'string',
+      payload: 'string',
+      timestamp: 'number',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class ExecIotagentPluginRequest extends $tea.Model {
+  // OAuth模式下的授权token
+  authToken?: string;
+  productInstanceId?: string;
+  // dt-plugin
+  type: string;
+  messageId: string;
+  // audio_scribe
+  targetPluginId: string;
+  messageType: string;
+  // 业务数据，JSON格式
+  payload: string;
+  // Unix Epoch 毫秒
+  timestamp: number;
+  static names(): { [key: string]: string } {
+    return {
+      authToken: 'auth_token',
+      productInstanceId: 'product_instance_id',
+      type: 'type',
+      messageId: 'message_id',
+      targetPluginId: 'target_plugin_id',
+      messageType: 'message_type',
+      payload: 'payload',
+      timestamp: 'timestamp',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      authToken: 'string',
+      productInstanceId: 'string',
+      type: 'string',
+      messageId: 'string',
+      targetPluginId: 'string',
+      messageType: 'string',
+      payload: 'string',
+      timestamp: 'number',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class ExecIotagentPluginResponse extends $tea.Model {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string;
+  // 结果码，一般OK表示调用成功
+  resultCode?: string;
+  // 异常信息的文本描述
+  resultMsg?: string;
+  type?: string;
+  targetPluginId?: string;
+  messageId?: string;
+  messageType?: string;
+  // 业务响应数据，JSON格式
+  payload?: string;
+  // Unix Epoch 毫秒
+  timestamp?: number;
+  static names(): { [key: string]: string } {
+    return {
+      reqMsgId: 'req_msg_id',
+      resultCode: 'result_code',
+      resultMsg: 'result_msg',
+      type: 'type',
+      targetPluginId: 'target_plugin_id',
+      messageId: 'message_id',
+      messageType: 'message_type',
+      payload: 'payload',
+      timestamp: 'timestamp',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      reqMsgId: 'string',
+      resultCode: 'string',
+      resultMsg: 'string',
+      type: 'string',
+      targetPluginId: 'string',
+      messageId: 'string',
+      messageType: 'string',
+      payload: 'string',
+      timestamp: 'number',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class PushIotagentWorkspaceRequest extends $tea.Model {
+  // OAuth模式下的授权token
+  authToken?: string;
+  productInstanceId?: string;
+  fileName: string;
+  mediaType: string;
+  sizeBytes: number;
+  sha256?: string;
+  clientId?: string;
+  sessionId: string;
+  static names(): { [key: string]: string } {
+    return {
+      authToken: 'auth_token',
+      productInstanceId: 'product_instance_id',
+      fileName: 'file_name',
+      mediaType: 'media_type',
+      sizeBytes: 'size_bytes',
+      sha256: 'sha256',
+      clientId: 'client_id',
+      sessionId: 'session_id',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      authToken: 'string',
+      productInstanceId: 'string',
+      fileName: 'string',
+      mediaType: 'string',
+      sizeBytes: 'number',
+      sha256: 'string',
+      clientId: 'string',
+      sessionId: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class PushIotagentWorkspaceResponse extends $tea.Model {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string;
+  // 结果码，一般OK表示调用成功
+  resultCode?: string;
+  // 异常信息的文本描述
+  resultMsg?: string;
+  fileId?: string;
+  // 短期OSS PUT 预签名URL
+  uploadUrl?: string;
+  expireAt?: string;
+  static names(): { [key: string]: string } {
+    return {
+      reqMsgId: 'req_msg_id',
+      resultCode: 'result_code',
+      resultMsg: 'result_msg',
+      fileId: 'file_id',
+      uploadUrl: 'upload_url',
+      expireAt: 'expire_at',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      reqMsgId: 'string',
+      resultCode: 'string',
+      resultMsg: 'string',
+      fileId: 'string',
+      uploadUrl: 'string',
+      expireAt: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class ConfirmIotagentWorkspaceRequest extends $tea.Model {
+  // OAuth模式下的授权token
+  authToken?: string;
+  productInstanceId?: string;
+  /**
+   * @remarks
+   * 待上传文件
+   */
+  fileObject?: Readable;
+  /**
+   * @remarks
+   * 待上传文件名
+   */
+  fileObjectName?: string;
+  fileId: string;
+  sizeBytes?: number;
+  sha256?: string;
+  static names(): { [key: string]: string } {
+    return {
+      authToken: 'auth_token',
+      productInstanceId: 'product_instance_id',
+      fileObject: 'fileObject',
+      fileObjectName: 'fileObjectName',
+      fileId: 'file_id',
+      sizeBytes: 'size_bytes',
+      sha256: 'sha256',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      authToken: 'string',
+      productInstanceId: 'string',
+      fileObject: 'Readable',
+      fileObjectName: 'string',
+      fileId: 'string',
+      sizeBytes: 'number',
+      sha256: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class ConfirmIotagentWorkspaceResponse extends $tea.Model {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string;
+  // 结果码，一般OK表示调用成功
+  resultCode?: string;
+  // 异常信息的文本描述
+  resultMsg?: string;
+  fileId?: string;
+  fileName?: string;
+  mediaType?: string;
+  sizeBytes?: number;
+  createdAt?: string;
+  static names(): { [key: string]: string } {
+    return {
+      reqMsgId: 'req_msg_id',
+      resultCode: 'result_code',
+      resultMsg: 'result_msg',
+      fileId: 'file_id',
+      fileName: 'file_name',
+      mediaType: 'media_type',
+      sizeBytes: 'size_bytes',
+      createdAt: 'created_at',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      reqMsgId: 'string',
+      resultCode: 'string',
+      resultMsg: 'string',
+      fileId: 'string',
+      fileName: 'string',
+      mediaType: 'string',
+      sizeBytes: 'number',
+      createdAt: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class StatusIotagentMusicRequest extends $tea.Model {
+  // OAuth模式下的授权token
+  authToken?: string;
+  productInstanceId?: string;
+  // 智能体 ID，与client_id至少填1项
+  agentId?: string;
+  // 客户端 ID，与agent_id至少填1项
+  clientId?: string;
+  static names(): { [key: string]: string } {
+    return {
+      authToken: 'auth_token',
+      productInstanceId: 'product_instance_id',
+      agentId: 'agent_id',
+      clientId: 'client_id',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      authToken: 'string',
+      productInstanceId: 'string',
+      agentId: 'string',
+      clientId: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class StatusIotagentMusicResponse extends $tea.Model {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string;
+  // 结果码，一般OK表示调用成功
+  resultCode?: string;
+  // 异常信息的文本描述
+  resultMsg?: string;
+  // token 类型，取值范围：NONE=未登录 / ANONYMOUS=匿名 token / FORMAL=正式登录
+  tokenType?: string;
+  // 昵称
+  nickname?: string;
+  // 头像 URL
+  avatarUrl?: string;
+  // 性别，取值范围：0=未知 / 1=男 / 2=女
+  gender?: number;
+  // VIP 类型，取值范围：FREE=非会员 / BLACK_VIP=黑胶 VIP / SVIP=SVIP / SINGLE_DEVICE=单设备会员
+  vipType?: string;
+  // VIP 到期时间（毫秒时间戳）
+  vipExpireTime?: number;
+  static names(): { [key: string]: string } {
+    return {
+      reqMsgId: 'req_msg_id',
+      resultCode: 'result_code',
+      resultMsg: 'result_msg',
+      tokenType: 'token_type',
+      nickname: 'nickname',
+      avatarUrl: 'avatar_url',
+      gender: 'gender',
+      vipType: 'vip_type',
+      vipExpireTime: 'vip_expire_time',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      reqMsgId: 'string',
+      resultCode: 'string',
+      resultMsg: 'string',
+      tokenType: 'string',
+      nickname: 'string',
+      avatarUrl: 'string',
+      gender: 'number',
+      vipType: 'string',
+      vipExpireTime: 'number',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class LoginurlIotagentMusicRequest extends $tea.Model {
+  // OAuth模式下的授权token
+  authToken?: string;
+  productInstanceId?: string;
+  // 智能体 ID，与client_id至少填1项
+  agentId?: string;
+  // 客户端 ID，与agent_id至少填1项
+  clientId?: string;
+  static names(): { [key: string]: string } {
+    return {
+      authToken: 'auth_token',
+      productInstanceId: 'product_instance_id',
+      agentId: 'agent_id',
+      clientId: 'client_id',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      authToken: 'string',
+      productInstanceId: 'string',
+      agentId: 'string',
+      clientId: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class LoginurlIotagentMusicResponse extends $tea.Model {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string;
+  // 结果码，一般OK表示调用成功
+  resultCode?: string;
+  // 异常信息的文本描述
+  resultMsg?: string;
+  // 云音乐 H5 登录 URL
+  loginUrl?: string;
+  // OAuth state（回调校验用）
+  state?: string;
+  static names(): { [key: string]: string } {
+    return {
+      reqMsgId: 'req_msg_id',
+      resultCode: 'result_code',
+      resultMsg: 'result_msg',
+      loginUrl: 'login_url',
+      state: 'state',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      reqMsgId: 'string',
+      resultCode: 'string',
+      resultMsg: 'string',
+      loginUrl: 'string',
+      state: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class PlayhistoryIotagentMusicRequest extends $tea.Model {
+  // OAuth模式下的授权token
+  authToken?: string;
+  productInstanceId?: string;
+  // 智能体 ID，与client_id至少填1项
+  agentId?: string;
+  // 客户端 ID，与agent_id至少填1项
+  clientId?: string;
+  // 返回条数，默认 50
+  limit?: number;
+  static names(): { [key: string]: string } {
+    return {
+      authToken: 'auth_token',
+      productInstanceId: 'product_instance_id',
+      agentId: 'agent_id',
+      clientId: 'client_id',
+      limit: 'limit',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      authToken: 'string',
+      productInstanceId: 'string',
+      agentId: 'string',
+      clientId: 'string',
+      limit: 'number',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class PlayhistoryIotagentMusicResponse extends $tea.Model {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string;
+  // 结果码，一般OK表示调用成功
+  resultCode?: string;
+  // 异常信息的文本描述
+  resultMsg?: string;
+  // 历史歌曲列表
+  songs?: AgentMusicSong[];
+  // 总数
+  total?: number;
+  static names(): { [key: string]: string } {
+    return {
+      reqMsgId: 'req_msg_id',
+      resultCode: 'result_code',
+      resultMsg: 'result_msg',
+      songs: 'songs',
+      total: 'total',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      reqMsgId: 'string',
+      resultCode: 'string',
+      resultMsg: 'string',
+      songs: { 'type': 'array', 'itemType': AgentMusicSong },
+      total: 'number',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class FavoritesIotagentMusicRequest extends $tea.Model {
+  // OAuth模式下的授权token
+  authToken?: string;
+  productInstanceId?: string;
+  // 智能体 ID，与client_id至少填1项
+  agentId?: string;
+  // 客户端 ID，与agent_id至少填1项
+  clientId?: string;
+  // 返回条数，默认 30
+  limit?: number;
+  // 偏移量，默认 0
+  offset?: number;
+  static names(): { [key: string]: string } {
+    return {
+      authToken: 'auth_token',
+      productInstanceId: 'product_instance_id',
+      agentId: 'agent_id',
+      clientId: 'client_id',
+      limit: 'limit',
+      offset: 'offset',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      authToken: 'string',
+      productInstanceId: 'string',
+      agentId: 'string',
+      clientId: 'string',
+      limit: 'number',
+      offset: 'number',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class FavoritesIotagentMusicResponse extends $tea.Model {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string;
+  // 结果码，一般OK表示调用成功
+  resultCode?: string;
+  // 异常信息的文本描述
+  resultMsg?: string;
+  // 红心歌曲列表
+  songs?: AgentMusicSong[];
+  static names(): { [key: string]: string } {
+    return {
+      reqMsgId: 'req_msg_id',
+      resultCode: 'result_code',
+      resultMsg: 'result_msg',
+      songs: 'songs',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      reqMsgId: 'string',
+      resultCode: 'string',
+      resultMsg: 'string',
+      songs: { 'type': 'array', 'itemType': AgentMusicSong },
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class LyricsIotagentMusicRequest extends $tea.Model {
+  // OAuth模式下的授权token
+  authToken?: string;
+  productInstanceId?: string;
+  // 智能体 ID，与client_id至少填1项
+  agentId?: string;
+  // 客户端 ID，与agent_id至少填1项
+  clientId?: string;
+  // 歌曲 ID
+  songId: string;
+  static names(): { [key: string]: string } {
+    return {
+      authToken: 'auth_token',
+      productInstanceId: 'product_instance_id',
+      agentId: 'agent_id',
+      clientId: 'client_id',
+      songId: 'song_id',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      authToken: 'string',
+      productInstanceId: 'string',
+      agentId: 'string',
+      clientId: 'string',
+      songId: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class LyricsIotagentMusicResponse extends $tea.Model {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string;
+  // 结果码，一般OK表示调用成功
+  resultCode?: string;
+  // 异常信息的文本描述
+  resultMsg?: string;
+  // 原文歌词（带时间戳）
+  lyric?: string;
+  // 译文歌词
+  transLyric?: string;
+  // 纯文本歌词
+  txtLyric?: string;
+  // 是否无歌词（true=无歌词）
+  noLyric?: boolean;
+  static names(): { [key: string]: string } {
+    return {
+      reqMsgId: 'req_msg_id',
+      resultCode: 'result_code',
+      resultMsg: 'result_msg',
+      lyric: 'lyric',
+      transLyric: 'trans_lyric',
+      txtLyric: 'txt_lyric',
+      noLyric: 'no_lyric',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      reqMsgId: 'string',
+      resultCode: 'string',
+      resultMsg: 'string',
+      lyric: 'string',
+      transLyric: 'string',
+      txtLyric: 'string',
+      noLyric: 'boolean',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class LikeIotagentMusicRequest extends $tea.Model {
+  // OAuth模式下的授权token
+  authToken?: string;
+  productInstanceId?: string;
+  // 智能体 ID，与client_id至少填1项
+  agentId?: string;
+  // 客户端 ID，与agent_id至少填1项
+  clientId?: string;
+  // 歌曲 ID
+  songId: string;
+  // 红心操作：true=喜欢，false=取消
+  isLike: boolean;
+  static names(): { [key: string]: string } {
+    return {
+      authToken: 'auth_token',
+      productInstanceId: 'product_instance_id',
+      agentId: 'agent_id',
+      clientId: 'client_id',
+      songId: 'song_id',
+      isLike: 'is_like',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      authToken: 'string',
+      productInstanceId: 'string',
+      agentId: 'string',
+      clientId: 'string',
+      songId: 'string',
+      isLike: 'boolean',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class LikeIotagentMusicResponse extends $tea.Model {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string;
+  // 结果码，一般OK表示调用成功
+  resultCode?: string;
+  // 异常信息的文本描述
+  resultMsg?: string;
+  static names(): { [key: string]: string } {
+    return {
+      reqMsgId: 'req_msg_id',
+      resultCode: 'result_code',
+      resultMsg: 'result_msg',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      reqMsgId: 'string',
+      resultCode: 'string',
+      resultMsg: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class LogoutIotagentMusicRequest extends $tea.Model {
+  // OAuth模式下的授权token
+  authToken?: string;
+  productInstanceId?: string;
+  // 智能体 ID，与client_id至少填1项
+  agentId?: string;
+  // 客户端 ID，与agent_id至少填1项
+  clientId?: string;
+  static names(): { [key: string]: string } {
+    return {
+      authToken: 'auth_token',
+      productInstanceId: 'product_instance_id',
+      agentId: 'agent_id',
+      clientId: 'client_id',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      authToken: 'string',
+      productInstanceId: 'string',
+      agentId: 'string',
+      clientId: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class LogoutIotagentMusicResponse extends $tea.Model {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string;
+  // 结果码，一般OK表示调用成功
+  resultCode?: string;
+  // 异常信息的文本描述
+  resultMsg?: string;
+  static names(): { [key: string]: string } {
+    return {
+      reqMsgId: 'req_msg_id',
+      resultCode: 'result_code',
+      resultMsg: 'result_msg',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      reqMsgId: 'string',
+      resultCode: 'string',
+      resultMsg: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class CallbackIotagentMusicRequest extends $tea.Model {
+  // OAuth模式下的授权token
+  authToken?: string;
+  productInstanceId?: string;
+  // 云音乐授权码
+  code: string;
+  // 云音乐CSRF状态码
+  state: string;
+  static names(): { [key: string]: string } {
+    return {
+      authToken: 'auth_token',
+      productInstanceId: 'product_instance_id',
+      code: 'code',
+      state: 'state',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      authToken: 'string',
+      productInstanceId: 'string',
+      code: 'string',
+      state: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class CallbackIotagentMusicResponse extends $tea.Model {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string;
+  // 结果码，一般OK表示调用成功
+  resultCode?: string;
+  // 异常信息的文本描述
+  resultMsg?: string;
+  // 智能体ID
+  agentId?: string;
+  static names(): { [key: string]: string } {
+    return {
+      reqMsgId: 'req_msg_id',
+      resultCode: 'result_code',
+      resultMsg: 'result_msg',
+      agentId: 'agent_id',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      reqMsgId: 'string',
+      resultCode: 'string',
+      resultMsg: 'string',
+      agentId: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class UsageIotagentSessionRequest extends $tea.Model {
+  // OAuth模式下的授权token
+  authToken?: string;
+  productInstanceId?: string;
+  // 智能体ID
+  agentId: string;
+  // ioa平台开通的实例ID
+  instanceId: string;
+  // 会话ID
+  sessionId: string;
+  // 页码，从1开始，默认1
+  pageIndex: number;
+  // 每页数量，默认20
+  pageSize: number;
+  static names(): { [key: string]: string } {
+    return {
+      authToken: 'auth_token',
+      productInstanceId: 'product_instance_id',
+      agentId: 'agent_id',
+      instanceId: 'instance_id',
+      sessionId: 'session_id',
+      pageIndex: 'page_index',
+      pageSize: 'page_size',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      authToken: 'string',
+      productInstanceId: 'string',
+      agentId: 'string',
+      instanceId: 'string',
+      sessionId: 'string',
+      pageIndex: 'number',
+      pageSize: 'number',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class UsageIotagentSessionResponse extends $tea.Model {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string;
+  // 结果码，一般OK表示调用成功
+  resultCode?: string;
+  // 异常信息的文本描述
+  resultMsg?: string;
+  // 会话总量（全量聚合，不随分页变化）
+  sessionUsage?: SessionUsage;
+  // 总轮次数
+  total?: number;
+  // 本页轮次明细
+  turns?: TurnModelCallsUsages[];
+  static names(): { [key: string]: string } {
+    return {
+      reqMsgId: 'req_msg_id',
+      resultCode: 'result_code',
+      resultMsg: 'result_msg',
+      sessionUsage: 'session_usage',
+      total: 'total',
+      turns: 'turns',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      reqMsgId: 'string',
+      resultCode: 'string',
+      resultMsg: 'string',
+      sessionUsage: SessionUsage,
+      total: 'number',
+      turns: { 'type': 'array', 'itemType': TurnModelCallsUsages },
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class ActionIotagentSessioncontextRequest extends $tea.Model {
+  // OAuth模式下的授权token
+  authToken?: string;
+  productInstanceId?: string;
+  // 智能体 ID
+  agentId: string;
+  // 实例 ID
+  instanceId: string;
+  // 会话ID
+  sessionId: string;
+  // 操作类型：COMPACT_CURRENT
+  operationType: string;
+  static names(): { [key: string]: string } {
+    return {
+      authToken: 'auth_token',
+      productInstanceId: 'product_instance_id',
+      agentId: 'agent_id',
+      instanceId: 'instance_id',
+      sessionId: 'session_id',
+      operationType: 'operation_type',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      authToken: 'string',
+      productInstanceId: 'string',
+      agentId: 'string',
+      instanceId: 'string',
+      sessionId: 'string',
+      operationType: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class ActionIotagentSessioncontextResponse extends $tea.Model {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string;
+  // 结果码，一般OK表示调用成功
+  resultCode?: string;
+  // 异常信息的文本描述
+  resultMsg?: string;
+  // 操作 ID
+  operationId?: string;
+  // 操作状态：RUNNING / SUCCEEDED / FAILED
+  status?: string;
+  // 原会话 ID
+  sessionId?: string;
+  // 失败原因（FAILED 时返回）
+  failureReason?: string;
+  static names(): { [key: string]: string } {
+    return {
+      reqMsgId: 'req_msg_id',
+      resultCode: 'result_code',
+      resultMsg: 'result_msg',
+      operationId: 'operation_id',
+      status: 'status',
+      sessionId: 'session_id',
+      failureReason: 'failure_reason',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      reqMsgId: 'string',
+      resultCode: 'string',
+      resultMsg: 'string',
+      operationId: 'string',
+      status: 'string',
+      sessionId: 'string',
+      failureReason: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class QueryIotagentSessioncontextactionRequest extends $tea.Model {
+  // OAuth模式下的授权token
+  authToken?: string;
+  productInstanceId?: string;
+  // 智能体ID
+  agentId: string;
+  // 实例ID
+  instanceId: string;
+  // 会话ID
+  sessionId: string;
+  // 操作 ID（从 action 接口获取）
+  operationId: string;
+  static names(): { [key: string]: string } {
+    return {
+      authToken: 'auth_token',
+      productInstanceId: 'product_instance_id',
+      agentId: 'agent_id',
+      instanceId: 'instance_id',
+      sessionId: 'session_id',
+      operationId: 'operation_id',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      authToken: 'string',
+      productInstanceId: 'string',
+      agentId: 'string',
+      instanceId: 'string',
+      sessionId: 'string',
+      operationId: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class QueryIotagentSessioncontextactionResponse extends $tea.Model {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string;
+  // 结果码，一般OK表示调用成功
+  resultCode?: string;
+  // 异常信息的文本描述
+  resultMsg?: string;
+  // 操作 ID
+  operationId?: string;
+  // 操作状态：RUNNING / SUCCEEDED / FAILED
+  status?: string;
+  // 会话ID
+  sessionId?: string;
+  // 失败原因（FAILED 时返回）
+  failureReason?: string;
+  static names(): { [key: string]: string } {
+    return {
+      reqMsgId: 'req_msg_id',
+      resultCode: 'result_code',
+      resultMsg: 'result_msg',
+      operationId: 'operation_id',
+      status: 'status',
+      sessionId: 'session_id',
+      failureReason: 'failure_reason',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      reqMsgId: 'string',
+      resultCode: 'string',
+      resultMsg: 'string',
+      operationId: 'string',
+      status: 'string',
+      sessionId: 'string',
+      failureReason: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class QueryAgentDailysummaryRequest extends $tea.Model {
+  // OAuth模式下的授权token
+  authToken?: string;
+  productInstanceId?: string;
+  // 设备客户端ID；与 agent_id 至少传一个
+  clientId?: string;
+  // 智能体ID；与 client_id 至少传一个，两者同时传入时必须与设备绑定的智能体一致
+  agentId?: string;
+  // 总结日期，格式 yyyy-MM-dd，按 GMT+8 自然日
+  date: string;
+  static names(): { [key: string]: string } {
+    return {
+      authToken: 'auth_token',
+      productInstanceId: 'product_instance_id',
+      clientId: 'client_id',
+      agentId: 'agent_id',
+      date: 'date',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      authToken: 'string',
+      productInstanceId: 'string',
+      clientId: 'string',
+      agentId: 'string',
+      date: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class QueryAgentDailysummaryResponse extends $tea.Model {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string;
+  // 结果码，一般OK表示调用成功
+  resultCode?: string;
+  // 异常信息的文本描述
+  resultMsg?: string;
+  // 智能体ID
+  agentId?: string;
+  // 总结日期，格式 yyyy-MM-dd
+  date?: string;
+  // 总结正文；为空表示尚未生成或当日无对话
+  content?: string;
+  // 总结最近更新时间；content 为空时不返回
+  gmtModified?: string;
+  static names(): { [key: string]: string } {
+    return {
+      reqMsgId: 'req_msg_id',
+      resultCode: 'result_code',
+      resultMsg: 'result_msg',
+      agentId: 'agent_id',
+      date: 'date',
+      content: 'content',
+      gmtModified: 'gmt_modified',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      reqMsgId: 'string',
+      resultCode: 'string',
+      resultMsg: 'string',
+      agentId: 'string',
+      date: 'string',
+      content: 'string',
+      gmtModified: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class GenerateAgentDailysummaryRequest extends $tea.Model {
+  // OAuth模式下的授权token
+  authToken?: string;
+  productInstanceId?: string;
+  // 设备客户端ID
+  clientId: string;
+  // 智能体ID；传入时必须与设备绑定的智能体一致
+  agentId?: string;
+  // 总结日期，格式 yyyy-MM-dd，按 GMT+8 自然日
+  date: string;
+  static names(): { [key: string]: string } {
+    return {
+      authToken: 'auth_token',
+      productInstanceId: 'product_instance_id',
+      clientId: 'client_id',
+      agentId: 'agent_id',
+      date: 'date',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      authToken: 'string',
+      productInstanceId: 'string',
+      clientId: 'string',
+      agentId: 'string',
+      date: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class GenerateAgentDailysummaryResponse extends $tea.Model {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string;
+  // 结果码，一般OK表示调用成功
+  resultCode?: string;
+  // 异常信息的文本描述
+  resultMsg?: string;
+  static names(): { [key: string]: string } {
+    return {
+      reqMsgId: 'req_msg_id',
+      resultCode: 'result_code',
+      resultMsg: 'result_msg',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      reqMsgId: 'string',
+      resultCode: 'string',
+      resultMsg: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class ExecAskdataSourceRequest extends $tea.Model {
+  // OAuth模式下的授权token
+  authToken?: string;
+  productInstanceId?: string;
+  // 数据源类型
+  configType: string;
+  // 数据源别称
+  alias: string;
+  // 执行查询的SQL
+  sql: string;
+  static names(): { [key: string]: string } {
+    return {
+      authToken: 'auth_token',
+      productInstanceId: 'product_instance_id',
+      configType: 'config_type',
+      alias: 'alias',
+      sql: 'sql',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      authToken: 'string',
+      productInstanceId: 'string',
+      configType: 'string',
+      alias: 'string',
+      sql: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class ExecAskdataSourceResponse extends $tea.Model {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string;
+  // 结果码，一般OK表示调用成功
+  resultCode?: string;
+  // 异常信息的文本描述
+  resultMsg?: string;
+  // 返回字段列表
+  columns?: string[];
+  // 返回数据列表
+  rows?: string[];
+  static names(): { [key: string]: string } {
+    return {
+      reqMsgId: 'req_msg_id',
+      resultCode: 'result_code',
+      resultMsg: 'result_msg',
+      columns: 'columns',
+      rows: 'rows',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      reqMsgId: 'string',
+      resultCode: 'string',
+      resultMsg: 'string',
+      columns: { 'type': 'array', 'itemType': 'string' },
+      rows: { 'type': 'array', 'itemType': 'string' },
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class QueryAskdataSourceRequest extends $tea.Model {
+  // OAuth模式下的授权token
+  authToken?: string;
+  productInstanceId?: string;
+  // 数据源类型
+  configType: string;
+  // 数据源别称
+  alias: string;
+  static names(): { [key: string]: string } {
+    return {
+      authToken: 'auth_token',
+      productInstanceId: 'product_instance_id',
+      configType: 'config_type',
+      alias: 'alias',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      authToken: 'string',
+      productInstanceId: 'string',
+      configType: 'string',
+      alias: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class QueryAskdataSourceResponse extends $tea.Model {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string;
+  // 结果码，一般OK表示调用成功
+  resultCode?: string;
+  // 异常信息的文本描述
+  resultMsg?: string;
+  // 数据源类型
+  configType?: string;
+  // 数据源别称
+  alias?: string;
+  static names(): { [key: string]: string } {
+    return {
+      reqMsgId: 'req_msg_id',
+      resultCode: 'result_code',
+      resultMsg: 'result_msg',
+      configType: 'config_type',
+      alias: 'alias',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      reqMsgId: 'string',
+      resultCode: 'string',
+      resultMsg: 'string',
+      configType: 'string',
+      alias: 'string',
     };
   }
 
@@ -41723,16 +43980,34 @@ export class QueryTrustiotMiniappRequest extends $tea.Model {
   // OAuth模式下的授权token
   authToken?: string;
   productInstanceId?: string;
-  // 友宝跳转流水号
+  // 跳转流水号，全局唯一
   traceNo: string;
-  // 本次授权设备清单，可包含多个 scene
-  deviceScope: DeviceScopeItem[];
+  // 链接渠道：H5 或 MINIAPP，缺省按 MINIAPP
+  channel: string;
+  // 客户自定义的 C 端用户唯一标识，H5 必传、MINIAPP 禁传
+  visitUserId?: string;
+  // 访问类型：0 主体访问（按主体人解析其可访问设备）、1 设备清单访问（显式传入范围）
+  accessType: string;
+  // 场景码。主体访问必填（按场景解析该主体的可访问设备）；清单访问不使用顶层 scene，以 access_scope 各项内的场景为准
+  scene?: string;
+  // 主体访问的范围口径，与 subject_id 联合解析：0 产权人 / 1 运营人 / 2 科技主体
+  subjectRole?: string;
+  // 主体访问的主键标识：主体人 ID 或统一社会信用代码等唯一标识
+  subjectId?: string;
+  // 设备清单访问（access_type=1 或缺省）的访问范围项集合。每项声明一个场景及该场景下的访问目标（设备清单），多项并集生效、顺序不影响结果。类型1 必填；主体访问不使用本字段
+  accessScope?: AccessScopeItem[];
   static names(): { [key: string]: string } {
     return {
       authToken: 'auth_token',
       productInstanceId: 'product_instance_id',
       traceNo: 'trace_no',
-      deviceScope: 'device_scope',
+      channel: 'channel',
+      visitUserId: 'visit_user_id',
+      accessType: 'access_type',
+      scene: 'scene',
+      subjectRole: 'subject_role',
+      subjectId: 'subject_id',
+      accessScope: 'access_scope',
     };
   }
 
@@ -41741,7 +44016,13 @@ export class QueryTrustiotMiniappRequest extends $tea.Model {
       authToken: 'string',
       productInstanceId: 'string',
       traceNo: 'string',
-      deviceScope: { 'type': 'array', 'itemType': DeviceScopeItem },
+      channel: 'string',
+      visitUserId: 'string',
+      accessType: 'string',
+      scene: 'string',
+      subjectRole: 'string',
+      subjectId: 'string',
+      accessScope: { 'type': 'array', 'itemType': AccessScopeItem },
     };
   }
 
@@ -41757,16 +44038,16 @@ export class QueryTrustiotMiniappResponse extends $tea.Model {
   resultCode?: string;
   // 异常信息的文本描述
   resultMsg?: string;
-  // 携带 redirectToken 的跳转 URL
+  // 一次性跳转链接：`{渠道登录页地址}?redirectToken=访问令牌`。链接整体 24 小时有效（见 valid_to），令牌一次性消费、用后即失效
   redirectUrl?: string;
-  // 有效期开始时间（时间戳）
+  // 链接生效时间，秒级时间戳
   validFrom?: number;
-  // 有效期截止时间（时间戳）
+  // 链接过期时间，秒级时间戳，valid_from 起 24 小时。过期后链接不可用
   validTo?: number;
-  // 按 scene 聚合的未注册设备
-  invalidDevices?: DeviceScopeItem[];
-  // 实际授权的有效设备数
-  validDeviceCount?: number;
+  // 清单访问中未命中登记的访问目标回显，结构与 access_scope 条目相同（scene + 设备清单）。部分无效不影响签发，全部无效返回 422（NO_VALID_DEVICE）。主体访问（类型0）恒为空数组
+  invalidTargets?: AccessScopeItem[];
+  // 链接实际生效的目标数：范围解析含直接子设备并集、按场景与目标去重后的总数。清单访问与主体访问均返回该口径
+  validTargetCount?: number;
   static names(): { [key: string]: string } {
     return {
       reqMsgId: 'req_msg_id',
@@ -41775,8 +44056,8 @@ export class QueryTrustiotMiniappResponse extends $tea.Model {
       redirectUrl: 'redirect_url',
       validFrom: 'valid_from',
       validTo: 'valid_to',
-      invalidDevices: 'invalid_devices',
-      validDeviceCount: 'valid_device_count',
+      invalidTargets: 'invalid_targets',
+      validTargetCount: 'valid_target_count',
     };
   }
 
@@ -41788,8 +44069,8 @@ export class QueryTrustiotMiniappResponse extends $tea.Model {
       redirectUrl: 'string',
       validFrom: 'number',
       validTo: 'number',
-      invalidDevices: { 'type': 'array', 'itemType': DeviceScopeItem },
-      validDeviceCount: 'number',
+      invalidTargets: { 'type': 'array', 'itemType': AccessScopeItem },
+      validTargetCount: 'number',
     };
   }
 
@@ -41864,6 +44145,216 @@ export class QueryIotagentUseridsResponse extends $tea.Model {
       pageSize: 'number',
       pageNum: 'number',
       pages: { 'type': 'array', 'itemType': 'string' },
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class TestIotagentPluginRequest extends $tea.Model {
+  // OAuth模式下的授权token
+  authToken?: string;
+  productInstanceId?: string;
+  // string
+  /**
+   * @remarks
+   * 待上传文件
+   */
+  fileObject?: Readable;
+  /**
+   * @remarks
+   * 待上传文件名
+   */
+  fileObjectName?: string;
+  fileId: string;
+  pluginId: string;
+  static names(): { [key: string]: string } {
+    return {
+      authToken: 'auth_token',
+      productInstanceId: 'product_instance_id',
+      fileObject: 'fileObject',
+      fileObjectName: 'fileObjectName',
+      fileId: 'file_id',
+      pluginId: 'plugin_id',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      authToken: 'string',
+      productInstanceId: 'string',
+      fileObject: 'Readable',
+      fileObjectName: 'string',
+      fileId: 'string',
+      pluginId: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class TestIotagentPluginResponse extends $tea.Model {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string;
+  // 结果码，一般OK表示调用成功
+  resultCode?: string;
+  // 异常信息的文本描述
+  resultMsg?: string;
+  static names(): { [key: string]: string } {
+    return {
+      reqMsgId: 'req_msg_id',
+      resultCode: 'result_code',
+      resultMsg: 'result_msg',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      reqMsgId: 'string',
+      resultCode: 'string',
+      resultMsg: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class ExecDatalinkSourceRequest extends $tea.Model {
+  // OAuth模式下的授权token
+  authToken?: string;
+  productInstanceId?: string;
+  // 数据源类型
+  configType: string;
+  // 数据源别称
+  alias: string;
+  // 执行查询的SQL
+  sql: string;
+  static names(): { [key: string]: string } {
+    return {
+      authToken: 'auth_token',
+      productInstanceId: 'product_instance_id',
+      configType: 'config_type',
+      alias: 'alias',
+      sql: 'sql',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      authToken: 'string',
+      productInstanceId: 'string',
+      configType: 'string',
+      alias: 'string',
+      sql: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class ExecDatalinkSourceResponse extends $tea.Model {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string;
+  // 结果码，一般OK表示调用成功
+  resultCode?: string;
+  // 异常信息的文本描述
+  resultMsg?: string;
+  // 返回字段列表
+  columns?: string[];
+  // 返回数据列表
+  rows?: string;
+  static names(): { [key: string]: string } {
+    return {
+      reqMsgId: 'req_msg_id',
+      resultCode: 'result_code',
+      resultMsg: 'result_msg',
+      columns: 'columns',
+      rows: 'rows',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      reqMsgId: 'string',
+      resultCode: 'string',
+      resultMsg: 'string',
+      columns: { 'type': 'array', 'itemType': 'string' },
+      rows: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class QueryDatalinkSourceRequest extends $tea.Model {
+  // OAuth模式下的授权token
+  authToken?: string;
+  productInstanceId?: string;
+  // 数据源类型
+  configType: string;
+  // 数据源别称
+  alias: string;
+  static names(): { [key: string]: string } {
+    return {
+      authToken: 'auth_token',
+      productInstanceId: 'product_instance_id',
+      configType: 'config_type',
+      alias: 'alias',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      authToken: 'string',
+      productInstanceId: 'string',
+      configType: 'string',
+      alias: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class QueryDatalinkSourceResponse extends $tea.Model {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string;
+  // 结果码，一般OK表示调用成功
+  resultCode?: string;
+  // 异常信息的文本描述
+  resultMsg?: string;
+  // 数据源类型
+  configType?: string;
+  // 数据源别称
+  alias?: string;
+  static names(): { [key: string]: string } {
+    return {
+      reqMsgId: 'req_msg_id',
+      resultCode: 'result_code',
+      resultMsg: 'result_msg',
+      configType: 'config_type',
+      alias: 'alias',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      reqMsgId: 'string',
+      resultCode: 'string',
+      resultMsg: 'string',
+      configType: 'string',
+      alias: 'string',
     };
   }
 
@@ -43258,7 +45749,7 @@ export default class Client {
           req_msg_id: AntchainUtil.getNonce(),
           access_key: this._accessKeyId,
           base_sdk_version: "TeaSDK-2.0",
-          sdk_version: "1.21.11",
+          sdk_version: "1.22.5",
           _prod_code: "BOT",
           _prod_channel: "undefined",
         };
@@ -43514,6 +46005,69 @@ export default class Client {
   async chatAiotdatalinkAntfinanceassistantEx(request: ChatAiotdatalinkAntfinanceassistantRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<ChatAiotdatalinkAntfinanceassistantResponse> {
     Util.validateModel(request);
     return $tea.cast<ChatAiotdatalinkAntfinanceassistantResponse>(await this.doRequest("1.0", "blockchain.bot.aiotdatalink.antfinanceassistant.chat", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new ChatAiotdatalinkAntfinanceassistantResponse({}));
+  }
+
+  /**
+   * @remarks
+   * Description: 蚂小财对话流式接口，参考RPC接口文档：https://yuque.antfin.com/pw3zzd/cplb7g/ghfep7wirmlxlg3u#nzb6S
+   * Summary: 蚂小财对话流式接口，参考RPC接口文档：https://yuque.antfin.com/pw3zzd/cplb7g/ghfep7wirmlxlg3u#nzb6S
+   */
+  async streamchatAiotdatalinkAntfinanceassistant(request: StreamchatAiotdatalinkAntfinanceassistantRequest): Promise<StreamchatAiotdatalinkAntfinanceassistantResponse> {
+    let runtime = new $Util.RuntimeOptions({ });
+    let headers : {[key: string ]: string} = { };
+    return await this.streamchatAiotdatalinkAntfinanceassistantEx(request, headers, runtime);
+  }
+
+  /**
+   * @remarks
+   * Description: 蚂小财对话流式接口，参考RPC接口文档：https://yuque.antfin.com/pw3zzd/cplb7g/ghfep7wirmlxlg3u#nzb6S
+   * Summary: 蚂小财对话流式接口，参考RPC接口文档：https://yuque.antfin.com/pw3zzd/cplb7g/ghfep7wirmlxlg3u#nzb6S
+   */
+  async streamchatAiotdatalinkAntfinanceassistantEx(request: StreamchatAiotdatalinkAntfinanceassistantRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<StreamchatAiotdatalinkAntfinanceassistantResponse> {
+    Util.validateModel(request);
+    return $tea.cast<StreamchatAiotdatalinkAntfinanceassistantResponse>(await this.doRequest("1.0", "blockchain.bot.aiotdatalink.antfinanceassistant.streamchat", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new StreamchatAiotdatalinkAntfinanceassistantResponse({}));
+  }
+
+  /**
+   * @remarks
+   * Description: 智能问数sse接口
+   * Summary: 智能问数sse接口
+   */
+  async queryAiotdatalinkAskdata(request: QueryAiotdatalinkAskdataRequest): Promise<QueryAiotdatalinkAskdataResponse> {
+    let runtime = new $Util.RuntimeOptions({ });
+    let headers : {[key: string ]: string} = { };
+    return await this.queryAiotdatalinkAskdataEx(request, headers, runtime);
+  }
+
+  /**
+   * @remarks
+   * Description: 智能问数sse接口
+   * Summary: 智能问数sse接口
+   */
+  async queryAiotdatalinkAskdataEx(request: QueryAiotdatalinkAskdataRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<QueryAiotdatalinkAskdataResponse> {
+    Util.validateModel(request);
+    return $tea.cast<QueryAiotdatalinkAskdataResponse>(await this.doRequest("1.0", "blockchain.bot.aiotdatalink.askdata.query", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new QueryAiotdatalinkAskdataResponse({}));
+  }
+
+  /**
+   * @remarks
+   * Description: 智能问数chat 接口
+   * Summary: 智能问数chat 接口
+   */
+  async chatAiotdatalinkAskdata(request: ChatAiotdatalinkAskdataRequest): Promise<ChatAiotdatalinkAskdataResponse> {
+    let runtime = new $Util.RuntimeOptions({ });
+    let headers : {[key: string ]: string} = { };
+    return await this.chatAiotdatalinkAskdataEx(request, headers, runtime);
+  }
+
+  /**
+   * @remarks
+   * Description: 智能问数chat 接口
+   * Summary: 智能问数chat 接口
+   */
+  async chatAiotdatalinkAskdataEx(request: ChatAiotdatalinkAskdataRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<ChatAiotdatalinkAskdataResponse> {
+    Util.validateModel(request);
+    return $tea.cast<ChatAiotdatalinkAskdataResponse>(await this.doRequest("1.0", "blockchain.bot.aiotdatalink.askdata.chat", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new ChatAiotdatalinkAskdataResponse({}));
   }
 
   /**
@@ -44817,6 +47371,448 @@ export default class Client {
   async fliedownloadIotagentSessionEx(request: FliedownloadIotagentSessionRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<FliedownloadIotagentSessionResponse> {
     Util.validateModel(request);
     return $tea.cast<FliedownloadIotagentSessionResponse>(await this.doRequest("1.0", "blockchain.bot.iotagent.session.fliedownload", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new FliedownloadIotagentSessionResponse({}));
+  }
+
+  /**
+   * @remarks
+   * Description: 文件预览
+   * Summary: 文件预览
+   */
+  async filepreviewIotagentSession(request: FilepreviewIotagentSessionRequest): Promise<FilepreviewIotagentSessionResponse> {
+    let runtime = new $Util.RuntimeOptions({ });
+    let headers : {[key: string ]: string} = { };
+    return await this.filepreviewIotagentSessionEx(request, headers, runtime);
+  }
+
+  /**
+   * @remarks
+   * Description: 文件预览
+   * Summary: 文件预览
+   */
+  async filepreviewIotagentSessionEx(request: FilepreviewIotagentSessionRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<FilepreviewIotagentSessionResponse> {
+    Util.validateModel(request);
+    return $tea.cast<FilepreviewIotagentSessionResponse>(await this.doRequest("1.0", "blockchain.bot.iotagent.session.filepreview", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new FilepreviewIotagentSessionResponse({}));
+  }
+
+  /**
+   * @remarks
+   * Description: 插件接口
+   * Summary: 插件接口
+   */
+  async pushIotagentAudioscribe(request: PushIotagentAudioscribeRequest): Promise<PushIotagentAudioscribeResponse> {
+    let runtime = new $Util.RuntimeOptions({ });
+    let headers : {[key: string ]: string} = { };
+    return await this.pushIotagentAudioscribeEx(request, headers, runtime);
+  }
+
+  /**
+   * @remarks
+   * Description: 插件接口
+   * Summary: 插件接口
+   */
+  async pushIotagentAudioscribeEx(request: PushIotagentAudioscribeRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<PushIotagentAudioscribeResponse> {
+    if (!Util.isUnset(request.fileObject)) {
+      let uploadReq = new CreateAntcloudGatewayxFileUploadRequest({
+        authToken: request.authToken,
+        apiCode: "blockchain.bot.iotagent.audioscribe.push",
+        fileName: request.fileObjectName,
+      });
+      let uploadResp = await this.createAntcloudGatewayxFileUploadEx(uploadReq, headers, runtime);
+      if (!AntchainUtil.isSuccess(uploadResp.resultCode, "ok")) {
+        let pushIotagentAudioscribeResponse = new PushIotagentAudioscribeResponse({
+          reqMsgId: uploadResp.reqMsgId,
+          resultCode: uploadResp.resultCode,
+          resultMsg: uploadResp.resultMsg,
+        });
+        return pushIotagentAudioscribeResponse;
+      }
+
+      let uploadHeaders = AntchainUtil.parseUploadHeaders(uploadResp.uploadHeaders);
+      await AntchainUtil.putObject(request.fileObject, uploadHeaders, uploadResp.uploadUrl);
+      request.fileId = uploadResp.fileId;
+      request.fileObject = null;
+    }
+
+    Util.validateModel(request);
+    return $tea.cast<PushIotagentAudioscribeResponse>(await this.doRequest("1.0", "blockchain.bot.iotagent.audioscribe.push", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new PushIotagentAudioscribeResponse({}));
+  }
+
+  /**
+   * @remarks
+   * Description: 插件通用HTTP接口
+   * Summary: 插件通用HTTP接口
+   */
+  async execIotagentPlugin(request: ExecIotagentPluginRequest): Promise<ExecIotagentPluginResponse> {
+    let runtime = new $Util.RuntimeOptions({ });
+    let headers : {[key: string ]: string} = { };
+    return await this.execIotagentPluginEx(request, headers, runtime);
+  }
+
+  /**
+   * @remarks
+   * Description: 插件通用HTTP接口
+   * Summary: 插件通用HTTP接口
+   */
+  async execIotagentPluginEx(request: ExecIotagentPluginRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<ExecIotagentPluginResponse> {
+    Util.validateModel(request);
+    return $tea.cast<ExecIotagentPluginResponse>(await this.doRequest("1.0", "blockchain.bot.iotagent.plugin.exec", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new ExecIotagentPluginResponse({}));
+  }
+
+  /**
+   * @remarks
+   * Description: 文件上传
+   * Summary: 文件上传
+   */
+  async pushIotagentWorkspace(request: PushIotagentWorkspaceRequest): Promise<PushIotagentWorkspaceResponse> {
+    let runtime = new $Util.RuntimeOptions({ });
+    let headers : {[key: string ]: string} = { };
+    return await this.pushIotagentWorkspaceEx(request, headers, runtime);
+  }
+
+  /**
+   * @remarks
+   * Description: 文件上传
+   * Summary: 文件上传
+   */
+  async pushIotagentWorkspaceEx(request: PushIotagentWorkspaceRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<PushIotagentWorkspaceResponse> {
+    Util.validateModel(request);
+    return $tea.cast<PushIotagentWorkspaceResponse>(await this.doRequest("1.0", "blockchain.bot.iotagent.workspace.push", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new PushIotagentWorkspaceResponse({}));
+  }
+
+  /**
+   * @remarks
+   * Description: 文件上传确认
+   * Summary: 文件上传确认
+   */
+  async confirmIotagentWorkspace(request: ConfirmIotagentWorkspaceRequest): Promise<ConfirmIotagentWorkspaceResponse> {
+    let runtime = new $Util.RuntimeOptions({ });
+    let headers : {[key: string ]: string} = { };
+    return await this.confirmIotagentWorkspaceEx(request, headers, runtime);
+  }
+
+  /**
+   * @remarks
+   * Description: 文件上传确认
+   * Summary: 文件上传确认
+   */
+  async confirmIotagentWorkspaceEx(request: ConfirmIotagentWorkspaceRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<ConfirmIotagentWorkspaceResponse> {
+    Util.validateModel(request);
+    return $tea.cast<ConfirmIotagentWorkspaceResponse>(await this.doRequest("1.0", "blockchain.bot.iotagent.workspace.confirm", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new ConfirmIotagentWorkspaceResponse({}));
+  }
+
+  /**
+   * @remarks
+   * Description: 查询设备的云音乐登录状态及用户/VIP 信息。
+   * Summary: 查询设备的云音乐登录状态及用户/VIP 信息。
+   */
+  async statusIotagentMusic(request: StatusIotagentMusicRequest): Promise<StatusIotagentMusicResponse> {
+    let runtime = new $Util.RuntimeOptions({ });
+    let headers : {[key: string ]: string} = { };
+    return await this.statusIotagentMusicEx(request, headers, runtime);
+  }
+
+  /**
+   * @remarks
+   * Description: 查询设备的云音乐登录状态及用户/VIP 信息。
+   * Summary: 查询设备的云音乐登录状态及用户/VIP 信息。
+   */
+  async statusIotagentMusicEx(request: StatusIotagentMusicRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<StatusIotagentMusicResponse> {
+    Util.validateModel(request);
+    return $tea.cast<StatusIotagentMusicResponse>(await this.doRequest("1.0", "blockchain.bot.iotagent.music.status", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new StatusIotagentMusicResponse({}));
+  }
+
+  /**
+   * @remarks
+   * Description: 获取云音乐 H5 OAuth 登录 URL（用于设备端引导用户授权）
+   * Summary: 获取云音乐 H5 OAuth 登录 URL（用于设备端引导用户授权）
+   */
+  async loginurlIotagentMusic(request: LoginurlIotagentMusicRequest): Promise<LoginurlIotagentMusicResponse> {
+    let runtime = new $Util.RuntimeOptions({ });
+    let headers : {[key: string ]: string} = { };
+    return await this.loginurlIotagentMusicEx(request, headers, runtime);
+  }
+
+  /**
+   * @remarks
+   * Description: 获取云音乐 H5 OAuth 登录 URL（用于设备端引导用户授权）
+   * Summary: 获取云音乐 H5 OAuth 登录 URL（用于设备端引导用户授权）
+   */
+  async loginurlIotagentMusicEx(request: LoginurlIotagentMusicRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<LoginurlIotagentMusicResponse> {
+    Util.validateModel(request);
+    return $tea.cast<LoginurlIotagentMusicResponse>(await this.doRequest("1.0", "blockchain.bot.iotagent.music.loginurl", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new LoginurlIotagentMusicResponse({}));
+  }
+
+  /**
+   * @remarks
+   * Description: 查询云音乐播放历史
+   * Summary: 查询云音乐播放历史
+   */
+  async playhistoryIotagentMusic(request: PlayhistoryIotagentMusicRequest): Promise<PlayhistoryIotagentMusicResponse> {
+    let runtime = new $Util.RuntimeOptions({ });
+    let headers : {[key: string ]: string} = { };
+    return await this.playhistoryIotagentMusicEx(request, headers, runtime);
+  }
+
+  /**
+   * @remarks
+   * Description: 查询云音乐播放历史
+   * Summary: 查询云音乐播放历史
+   */
+  async playhistoryIotagentMusicEx(request: PlayhistoryIotagentMusicRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<PlayhistoryIotagentMusicResponse> {
+    Util.validateModel(request);
+    return $tea.cast<PlayhistoryIotagentMusicResponse>(await this.doRequest("1.0", "blockchain.bot.iotagent.music.playhistory", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new PlayhistoryIotagentMusicResponse({}));
+  }
+
+  /**
+   * @remarks
+   * Description: 分页查询红心歌曲
+   * Summary: 分页查询红心歌曲
+   */
+  async favoritesIotagentMusic(request: FavoritesIotagentMusicRequest): Promise<FavoritesIotagentMusicResponse> {
+    let runtime = new $Util.RuntimeOptions({ });
+    let headers : {[key: string ]: string} = { };
+    return await this.favoritesIotagentMusicEx(request, headers, runtime);
+  }
+
+  /**
+   * @remarks
+   * Description: 分页查询红心歌曲
+   * Summary: 分页查询红心歌曲
+   */
+  async favoritesIotagentMusicEx(request: FavoritesIotagentMusicRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<FavoritesIotagentMusicResponse> {
+    Util.validateModel(request);
+    return $tea.cast<FavoritesIotagentMusicResponse>(await this.doRequest("1.0", "blockchain.bot.iotagent.music.favorites", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new FavoritesIotagentMusicResponse({}));
+  }
+
+  /**
+   * @remarks
+   * Description: 查询指定歌曲的歌词。
+   * Summary: 查询指定歌曲的歌词。
+   */
+  async lyricsIotagentMusic(request: LyricsIotagentMusicRequest): Promise<LyricsIotagentMusicResponse> {
+    let runtime = new $Util.RuntimeOptions({ });
+    let headers : {[key: string ]: string} = { };
+    return await this.lyricsIotagentMusicEx(request, headers, runtime);
+  }
+
+  /**
+   * @remarks
+   * Description: 查询指定歌曲的歌词。
+   * Summary: 查询指定歌曲的歌词。
+   */
+  async lyricsIotagentMusicEx(request: LyricsIotagentMusicRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<LyricsIotagentMusicResponse> {
+    Util.validateModel(request);
+    return $tea.cast<LyricsIotagentMusicResponse>(await this.doRequest("1.0", "blockchain.bot.iotagent.music.lyrics", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new LyricsIotagentMusicResponse({}));
+  }
+
+  /**
+   * @remarks
+   * Description: 对一首歌进行红心/取消红心操作。
+   * Summary: 对一首歌进行红心/取消红心操作。
+   */
+  async likeIotagentMusic(request: LikeIotagentMusicRequest): Promise<LikeIotagentMusicResponse> {
+    let runtime = new $Util.RuntimeOptions({ });
+    let headers : {[key: string ]: string} = { };
+    return await this.likeIotagentMusicEx(request, headers, runtime);
+  }
+
+  /**
+   * @remarks
+   * Description: 对一首歌进行红心/取消红心操作。
+   * Summary: 对一首歌进行红心/取消红心操作。
+   */
+  async likeIotagentMusicEx(request: LikeIotagentMusicRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<LikeIotagentMusicResponse> {
+    Util.validateModel(request);
+    return $tea.cast<LikeIotagentMusicResponse>(await this.doRequest("1.0", "blockchain.bot.iotagent.music.like", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new LikeIotagentMusicResponse({}));
+  }
+
+  /**
+   * @remarks
+   * Description: 退出云音乐登录，清理 token
+   * Summary: 退出云音乐登录，清理 token
+   */
+  async logoutIotagentMusic(request: LogoutIotagentMusicRequest): Promise<LogoutIotagentMusicResponse> {
+    let runtime = new $Util.RuntimeOptions({ });
+    let headers : {[key: string ]: string} = { };
+    return await this.logoutIotagentMusicEx(request, headers, runtime);
+  }
+
+  /**
+   * @remarks
+   * Description: 退出云音乐登录，清理 token
+   * Summary: 退出云音乐登录，清理 token
+   */
+  async logoutIotagentMusicEx(request: LogoutIotagentMusicRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<LogoutIotagentMusicResponse> {
+    Util.validateModel(request);
+    return $tea.cast<LogoutIotagentMusicResponse>(await this.doRequest("1.0", "blockchain.bot.iotagent.music.logout", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new LogoutIotagentMusicResponse({}));
+  }
+
+  /**
+   * @remarks
+   * Description: 云音乐回调接口
+   * Summary: 云音乐回调接口
+   */
+  async callbackIotagentMusic(request: CallbackIotagentMusicRequest): Promise<CallbackIotagentMusicResponse> {
+    let runtime = new $Util.RuntimeOptions({ });
+    let headers : {[key: string ]: string} = { };
+    return await this.callbackIotagentMusicEx(request, headers, runtime);
+  }
+
+  /**
+   * @remarks
+   * Description: 云音乐回调接口
+   * Summary: 云音乐回调接口
+   */
+  async callbackIotagentMusicEx(request: CallbackIotagentMusicRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<CallbackIotagentMusicResponse> {
+    Util.validateModel(request);
+    return $tea.cast<CallbackIotagentMusicResponse>(await this.doRequest("1.0", "blockchain.bot.iotagent.music.callback", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new CallbackIotagentMusicResponse({}));
+  }
+
+  /**
+   * @remarks
+   * Description: 查询会话用量（按 sessionId 聚合  usage 记录，返回会话总量 + 轮次明细分页）
+   * Summary: 查询会话用量（按 sessionId 聚合  usage 记录，返回会话总量 + 轮次明细分页）
+   */
+  async usageIotagentSession(request: UsageIotagentSessionRequest): Promise<UsageIotagentSessionResponse> {
+    let runtime = new $Util.RuntimeOptions({ });
+    let headers : {[key: string ]: string} = { };
+    return await this.usageIotagentSessionEx(request, headers, runtime);
+  }
+
+  /**
+   * @remarks
+   * Description: 查询会话用量（按 sessionId 聚合  usage 记录，返回会话总量 + 轮次明细分页）
+   * Summary: 查询会话用量（按 sessionId 聚合  usage 记录，返回会话总量 + 轮次明细分页）
+   */
+  async usageIotagentSessionEx(request: UsageIotagentSessionRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<UsageIotagentSessionResponse> {
+    Util.validateModel(request);
+    return $tea.cast<UsageIotagentSessionResponse>(await this.doRequest("1.0", "blockchain.bot.iotagent.session.usage", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new UsageIotagentSessionResponse({}));
+  }
+
+  /**
+   * @remarks
+   * Description: 会话上下文处理操作
+   * Summary: 会话上下文处理操作
+   */
+  async actionIotagentSessioncontext(request: ActionIotagentSessioncontextRequest): Promise<ActionIotagentSessioncontextResponse> {
+    let runtime = new $Util.RuntimeOptions({ });
+    let headers : {[key: string ]: string} = { };
+    return await this.actionIotagentSessioncontextEx(request, headers, runtime);
+  }
+
+  /**
+   * @remarks
+   * Description: 会话上下文处理操作
+   * Summary: 会话上下文处理操作
+   */
+  async actionIotagentSessioncontextEx(request: ActionIotagentSessioncontextRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<ActionIotagentSessioncontextResponse> {
+    Util.validateModel(request);
+    return $tea.cast<ActionIotagentSessioncontextResponse>(await this.doRequest("1.0", "blockchain.bot.iotagent.sessioncontext.action", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new ActionIotagentSessioncontextResponse({}));
+  }
+
+  /**
+   * @remarks
+   * Description: 查询上下文压缩操作结果
+   * Summary: 查询上下文压缩操作结果
+   */
+  async queryIotagentSessioncontextaction(request: QueryIotagentSessioncontextactionRequest): Promise<QueryIotagentSessioncontextactionResponse> {
+    let runtime = new $Util.RuntimeOptions({ });
+    let headers : {[key: string ]: string} = { };
+    return await this.queryIotagentSessioncontextactionEx(request, headers, runtime);
+  }
+
+  /**
+   * @remarks
+   * Description: 查询上下文压缩操作结果
+   * Summary: 查询上下文压缩操作结果
+   */
+  async queryIotagentSessioncontextactionEx(request: QueryIotagentSessioncontextactionRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<QueryIotagentSessioncontextactionResponse> {
+    Util.validateModel(request);
+    return $tea.cast<QueryIotagentSessioncontextactionResponse>(await this.doRequest("1.0", "blockchain.bot.iotagent.sessioncontextaction.query", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new QueryIotagentSessioncontextactionResponse({}));
+  }
+
+  /**
+   * @remarks
+   * Description: 查询智能体指定日期的聊天总结（只读，不触发生成；content 为空表示尚未生成或当日无对话）
+   * Summary: 查询智能体指定日期的聊天总结（只读，不触发生成；content 为空表示尚未生成或当日无对话）
+   */
+  async queryAgentDailysummary(request: QueryAgentDailysummaryRequest): Promise<QueryAgentDailysummaryResponse> {
+    let runtime = new $Util.RuntimeOptions({ });
+    let headers : {[key: string ]: string} = { };
+    return await this.queryAgentDailysummaryEx(request, headers, runtime);
+  }
+
+  /**
+   * @remarks
+   * Description: 查询智能体指定日期的聊天总结（只读，不触发生成；content 为空表示尚未生成或当日无对话）
+   * Summary: 查询智能体指定日期的聊天总结（只读，不触发生成；content 为空表示尚未生成或当日无对话）
+   */
+  async queryAgentDailysummaryEx(request: QueryAgentDailysummaryRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<QueryAgentDailysummaryResponse> {
+    Util.validateModel(request);
+    return $tea.cast<QueryAgentDailysummaryResponse>(await this.doRequest("1.0", "blockchain.bot.agent.dailysummary.query", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new QueryAgentDailysummaryResponse({}));
+  }
+
+  /**
+   * @remarks
+   * Description: 触发智能体指定日期的聊天总结生成（异步受理，立即返回；同一智能体同一天 60 秒内重复触发只生成一次，生成结果通过 daily summary 查询接口获取）
+   * Summary: 触发智能体指定日期的聊天总结生成（异步受理，立即返回；同一智能体同一天 60 秒内重复触发只生成一次，生成结果通过 daily summary 查询接口获取）
+   */
+  async generateAgentDailysummary(request: GenerateAgentDailysummaryRequest): Promise<GenerateAgentDailysummaryResponse> {
+    let runtime = new $Util.RuntimeOptions({ });
+    let headers : {[key: string ]: string} = { };
+    return await this.generateAgentDailysummaryEx(request, headers, runtime);
+  }
+
+  /**
+   * @remarks
+   * Description: 触发智能体指定日期的聊天总结生成（异步受理，立即返回；同一智能体同一天 60 秒内重复触发只生成一次，生成结果通过 daily summary 查询接口获取）
+   * Summary: 触发智能体指定日期的聊天总结生成（异步受理，立即返回；同一智能体同一天 60 秒内重复触发只生成一次，生成结果通过 daily summary 查询接口获取）
+   */
+  async generateAgentDailysummaryEx(request: GenerateAgentDailysummaryRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<GenerateAgentDailysummaryResponse> {
+    Util.validateModel(request);
+    return $tea.cast<GenerateAgentDailysummaryResponse>(await this.doRequest("1.0", "blockchain.bot.agent.dailysummary.generate", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new GenerateAgentDailysummaryResponse({}));
+  }
+
+  /**
+   * @remarks
+   * Description: 智能问数执行查询OB/STARROCKS 接口
+   * Summary: 智能问数执行查询OB/STARROCKS 接口
+   */
+  async execAskdataSource(request: ExecAskdataSourceRequest): Promise<ExecAskdataSourceResponse> {
+    let runtime = new $Util.RuntimeOptions({ });
+    let headers : {[key: string ]: string} = { };
+    return await this.execAskdataSourceEx(request, headers, runtime);
+  }
+
+  /**
+   * @remarks
+   * Description: 智能问数执行查询OB/STARROCKS 接口
+   * Summary: 智能问数执行查询OB/STARROCKS 接口
+   */
+  async execAskdataSourceEx(request: ExecAskdataSourceRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<ExecAskdataSourceResponse> {
+    Util.validateModel(request);
+    return $tea.cast<ExecAskdataSourceResponse>(await this.doRequest("1.0", "blockchain.bot.askdata.source.exec", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new ExecAskdataSourceResponse({}));
+  }
+
+  /**
+   * @remarks
+   * Description: 问数查询数据信息
+   * Summary: 问数查询数据信息
+   */
+  async queryAskdataSource(request: QueryAskdataSourceRequest): Promise<QueryAskdataSourceResponse> {
+    let runtime = new $Util.RuntimeOptions({ });
+    let headers : {[key: string ]: string} = { };
+    return await this.queryAskdataSourceEx(request, headers, runtime);
+  }
+
+  /**
+   * @remarks
+   * Description: 问数查询数据信息
+   * Summary: 问数查询数据信息
+   */
+  async queryAskdataSourceEx(request: QueryAskdataSourceRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<QueryAskdataSourceResponse> {
+    Util.validateModel(request);
+    return $tea.cast<QueryAskdataSourceResponse>(await this.doRequest("1.0", "blockchain.bot.askdata.source.query", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new QueryAskdataSourceResponse({}));
   }
 
   /**
@@ -50656,6 +53652,91 @@ export default class Client {
   async queryIotagentUseridsEx(request: QueryIotagentUseridsRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<QueryIotagentUseridsResponse> {
     Util.validateModel(request);
     return $tea.cast<QueryIotagentUseridsResponse>(await this.doRequest("1.0", "blockchain.bot.iotagent.userids.query", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new QueryIotagentUseridsResponse({}));
+  }
+
+  /**
+   * @remarks
+   * Description: 测试用
+   * Summary: 测试用
+   */
+  async testIotagentPlugin(request: TestIotagentPluginRequest): Promise<TestIotagentPluginResponse> {
+    let runtime = new $Util.RuntimeOptions({ });
+    let headers : {[key: string ]: string} = { };
+    return await this.testIotagentPluginEx(request, headers, runtime);
+  }
+
+  /**
+   * @remarks
+   * Description: 测试用
+   * Summary: 测试用
+   */
+  async testIotagentPluginEx(request: TestIotagentPluginRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<TestIotagentPluginResponse> {
+    if (!Util.isUnset(request.fileObject)) {
+      let uploadReq = new CreateAntcloudGatewayxFileUploadRequest({
+        authToken: request.authToken,
+        apiCode: "blockchain.bot.iotagent.plugin.test",
+        fileName: request.fileObjectName,
+      });
+      let uploadResp = await this.createAntcloudGatewayxFileUploadEx(uploadReq, headers, runtime);
+      if (!AntchainUtil.isSuccess(uploadResp.resultCode, "ok")) {
+        let testIotagentPluginResponse = new TestIotagentPluginResponse({
+          reqMsgId: uploadResp.reqMsgId,
+          resultCode: uploadResp.resultCode,
+          resultMsg: uploadResp.resultMsg,
+        });
+        return testIotagentPluginResponse;
+      }
+
+      let uploadHeaders = AntchainUtil.parseUploadHeaders(uploadResp.uploadHeaders);
+      await AntchainUtil.putObject(request.fileObject, uploadHeaders, uploadResp.uploadUrl);
+      request.fileId = uploadResp.fileId;
+      request.fileObject = null;
+    }
+
+    Util.validateModel(request);
+    return $tea.cast<TestIotagentPluginResponse>(await this.doRequest("1.0", "blockchain.bot.iotagent.plugin.test", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new TestIotagentPluginResponse({}));
+  }
+
+  /**
+   * @remarks
+   * Description: 智能问数执行查询OB/STARROCKS 接口
+   * Summary: 智能问数执行查询OB/STARROCKS 接口
+   */
+  async execDatalinkSource(request: ExecDatalinkSourceRequest): Promise<ExecDatalinkSourceResponse> {
+    let runtime = new $Util.RuntimeOptions({ });
+    let headers : {[key: string ]: string} = { };
+    return await this.execDatalinkSourceEx(request, headers, runtime);
+  }
+
+  /**
+   * @remarks
+   * Description: 智能问数执行查询OB/STARROCKS 接口
+   * Summary: 智能问数执行查询OB/STARROCKS 接口
+   */
+  async execDatalinkSourceEx(request: ExecDatalinkSourceRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<ExecDatalinkSourceResponse> {
+    Util.validateModel(request);
+    return $tea.cast<ExecDatalinkSourceResponse>(await this.doRequest("1.0", "blockchain.bot.datalink.source.exec", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new ExecDatalinkSourceResponse({}));
+  }
+
+  /**
+   * @remarks
+   * Description: 问数查询数据信息
+   * Summary: 问数查询数据信息
+   */
+  async queryDatalinkSource(request: QueryDatalinkSourceRequest): Promise<QueryDatalinkSourceResponse> {
+    let runtime = new $Util.RuntimeOptions({ });
+    let headers : {[key: string ]: string} = { };
+    return await this.queryDatalinkSourceEx(request, headers, runtime);
+  }
+
+  /**
+   * @remarks
+   * Description: 问数查询数据信息
+   * Summary: 问数查询数据信息
+   */
+  async queryDatalinkSourceEx(request: QueryDatalinkSourceRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<QueryDatalinkSourceResponse> {
+    Util.validateModel(request);
+    return $tea.cast<QueryDatalinkSourceResponse>(await this.doRequest("1.0", "blockchain.bot.datalink.source.query", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new QueryDatalinkSourceResponse({}));
   }
 
   /**
