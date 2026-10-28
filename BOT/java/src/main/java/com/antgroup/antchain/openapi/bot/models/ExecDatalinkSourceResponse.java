@@ -16,6 +16,14 @@ public class ExecDatalinkSourceResponse extends TeaModel {
     @NameInMap("result_msg")
     public String resultMsg;
 
+    // 返回字段列表
+    @NameInMap("columns")
+    public java.util.List<String> columns;
+
+    // 返回数据列表
+    @NameInMap("rows")
+    public String rows;
+
     public static ExecDatalinkSourceResponse build(java.util.Map<String, ?> map) throws Exception {
         ExecDatalinkSourceResponse self = new ExecDatalinkSourceResponse();
         return TeaModel.build(map, self);
@@ -43,6 +51,22 @@ public class ExecDatalinkSourceResponse extends TeaModel {
     }
     public String getResultMsg() {
         return this.resultMsg;
+    }
+
+    public ExecDatalinkSourceResponse setColumns(java.util.List<String> columns) {
+        this.columns = columns;
+        return this;
+    }
+    public java.util.List<String> getColumns() {
+        return this.columns;
+    }
+
+    public ExecDatalinkSourceResponse setRows(String rows) {
+        this.rows = rows;
+        return this;
+    }
+    public String getRows() {
+        return this.rows;
     }
 
 }
