@@ -13,6 +13,10 @@ class ListIotagentAgentResponse extends Model {
         'resultCode' => 'result_code',
         'resultMsg' => 'result_msg',
         'agentInfoList' => 'agent_info_list',
+        'pages' => 'pages',
+        'total' => 'total',
+        'pageIndex' => 'page_index',
+        'pageSize' => 'page_size',
     ];
     public function validate() {}
     public function toMap() {
@@ -34,6 +38,18 @@ class ListIotagentAgentResponse extends Model {
                     $res['agent_info_list'][$n++] = null !== $item ? $item->toMap() : $item;
                 }
             }
+        }
+        if (null !== $this->pages) {
+            $res['pages'] = $this->pages;
+        }
+        if (null !== $this->total) {
+            $res['total'] = $this->total;
+        }
+        if (null !== $this->pageIndex) {
+            $res['page_index'] = $this->pageIndex;
+        }
+        if (null !== $this->pageSize) {
+            $res['page_size'] = $this->pageSize;
         }
         return $res;
     }
@@ -61,6 +77,18 @@ class ListIotagentAgentResponse extends Model {
                 }
             }
         }
+        if(isset($map['pages'])){
+            $model->pages = $map['pages'];
+        }
+        if(isset($map['total'])){
+            $model->total = $map['total'];
+        }
+        if(isset($map['page_index'])){
+            $model->pageIndex = $map['page_index'];
+        }
+        if(isset($map['page_size'])){
+            $model->pageSize = $map['page_size'];
+        }
         return $model;
     }
     // 请求唯一ID，用于链路跟踪和问题排查
@@ -86,5 +114,29 @@ class ListIotagentAgentResponse extends Model {
      * @var AgentInfo[]
      */
     public $agentInfoList;
+
+    // 总页数
+    /**
+     * @var int
+     */
+    public $pages;
+
+    // 总数
+    /**
+     * @var int
+     */
+    public $total;
+
+    // 当前页
+    /**
+     * @var int
+     */
+    public $pageIndex;
+
+    // 页面大小
+    /**
+     * @var int
+     */
+    public $pageSize;
 
 }

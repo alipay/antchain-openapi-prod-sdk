@@ -5,7 +5,7 @@ namespace AntChain\BOT\Models;
 
 use AlibabaCloud\Tea\Model;
 
-use AntChain\BOT\Models\DeviceScopeItem;
+use AntChain\BOT\Models\AccessScopeItem;
 
 class QueryTrustiotMiniappResponse extends Model {
     protected $_name = [
@@ -15,8 +15,8 @@ class QueryTrustiotMiniappResponse extends Model {
         'redirectUrl' => 'redirect_url',
         'validFrom' => 'valid_from',
         'validTo' => 'valid_to',
-        'invalidDevices' => 'invalid_devices',
-        'validDeviceCount' => 'valid_device_count',
+        'invalidTargets' => 'invalid_targets',
+        'validTargetCount' => 'valid_target_count',
     ];
     public function validate() {}
     public function toMap() {
@@ -39,17 +39,17 @@ class QueryTrustiotMiniappResponse extends Model {
         if (null !== $this->validTo) {
             $res['valid_to'] = $this->validTo;
         }
-        if (null !== $this->invalidDevices) {
-            $res['invalid_devices'] = [];
-            if(null !== $this->invalidDevices && is_array($this->invalidDevices)){
+        if (null !== $this->invalidTargets) {
+            $res['invalid_targets'] = [];
+            if(null !== $this->invalidTargets && is_array($this->invalidTargets)){
                 $n = 0;
-                foreach($this->invalidDevices as $item){
-                    $res['invalid_devices'][$n++] = null !== $item ? $item->toMap() : $item;
+                foreach($this->invalidTargets as $item){
+                    $res['invalid_targets'][$n++] = null !== $item ? $item->toMap() : $item;
                 }
             }
         }
-        if (null !== $this->validDeviceCount) {
-            $res['valid_device_count'] = $this->validDeviceCount;
+        if (null !== $this->validTargetCount) {
+            $res['valid_target_count'] = $this->validTargetCount;
         }
         return $res;
     }
@@ -77,17 +77,17 @@ class QueryTrustiotMiniappResponse extends Model {
         if(isset($map['valid_to'])){
             $model->validTo = $map['valid_to'];
         }
-        if(isset($map['invalid_devices'])){
-            if(!empty($map['invalid_devices'])){
-                $model->invalidDevices = [];
+        if(isset($map['invalid_targets'])){
+            if(!empty($map['invalid_targets'])){
+                $model->invalidTargets = [];
                 $n = 0;
-                foreach($map['invalid_devices'] as $item) {
-                    $model->invalidDevices[$n++] = null !== $item ? DeviceScopeItem::fromMap($item) : $item;
+                foreach($map['invalid_targets'] as $item) {
+                    $model->invalidTargets[$n++] = null !== $item ? AccessScopeItem::fromMap($item) : $item;
                 }
             }
         }
-        if(isset($map['valid_device_count'])){
-            $model->validDeviceCount = $map['valid_device_count'];
+        if(isset($map['valid_target_count'])){
+            $model->validTargetCount = $map['valid_target_count'];
         }
         return $model;
     }
@@ -109,34 +109,34 @@ class QueryTrustiotMiniappResponse extends Model {
      */
     public $resultMsg;
 
-    // 携带 redirectToken 的跳转 URL
+    // 一次性跳转链接：`{渠道登录页地址}?redirectToken=访问令牌`。链接整体 24 小时有效（见 valid_to），令牌一次性消费、用后即失效
     /**
      * @var string
      */
     public $redirectUrl;
 
-    // 有效期开始时间（时间戳）
+    // 链接生效时间，秒级时间戳
     /**
      * @var int
      */
     public $validFrom;
 
-    // 有效期截止时间（时间戳）
+    // 链接过期时间，秒级时间戳，valid_from 起 24 小时。过期后链接不可用
     /**
      * @var int
      */
     public $validTo;
 
-    // 按 scene 聚合的未注册设备
+    // 清单访问中未命中登记的访问目标回显，结构与 access_scope 条目相同（scene + 设备清单）。部分无效不影响签发，全部无效返回 422（NO_VALID_DEVICE）。主体访问（类型0）恒为空数组
     /**
-     * @var DeviceScopeItem[]
+     * @var AccessScopeItem[]
      */
-    public $invalidDevices;
+    public $invalidTargets;
 
-    // 实际授权的有效设备数
+    // 链接实际生效的目标数：范围解析含直接子设备并集、按场景与目标去重后的总数。清单访问与主体访问均返回该口径
     /**
      * @var int
      */
-    public $validDeviceCount;
+    public $validTargetCount;
 
 }

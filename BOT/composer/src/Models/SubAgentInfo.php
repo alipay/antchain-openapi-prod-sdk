@@ -5,6 +5,9 @@ namespace AntChain\BOT\Models;
 
 use AlibabaCloud\Tea\Model;
 
+use AntChain\BOT\Models\SkillInfo;
+use AntChain\BOT\Models\McpInfo;
+
 class SubAgentInfo extends Model {
     protected $_name = [
         'agentId' => 'agent_id',
@@ -39,10 +42,22 @@ class SubAgentInfo extends Model {
             $res['model_id'] = $this->modelId;
         }
         if (null !== $this->skills) {
-            $res['skills'] = $this->skills;
+            $res['skills'] = [];
+            if(null !== $this->skills && is_array($this->skills)){
+                $n = 0;
+                foreach($this->skills as $item){
+                    $res['skills'][$n++] = null !== $item ? $item->toMap() : $item;
+                }
+            }
         }
         if (null !== $this->mcps) {
-            $res['mcps'] = $this->mcps;
+            $res['mcps'] = [];
+            if(null !== $this->mcps && is_array($this->mcps)){
+                $n = 0;
+                foreach($this->mcps as $item){
+                    $res['mcps'][$n++] = null !== $item ? $item->toMap() : $item;
+                }
+            }
         }
         if (null !== $this->instanceId) {
             $res['instance_id'] = $this->instanceId;
@@ -69,12 +84,20 @@ class SubAgentInfo extends Model {
         }
         if(isset($map['skills'])){
             if(!empty($map['skills'])){
-                $model->skills = $map['skills'];
+                $model->skills = [];
+                $n = 0;
+                foreach($map['skills'] as $item) {
+                    $model->skills[$n++] = null !== $item ? SkillInfo::fromMap($item) : $item;
+                }
             }
         }
         if(isset($map['mcps'])){
             if(!empty($map['mcps'])){
-                $model->mcps = $map['mcps'];
+                $model->mcps = [];
+                $n = 0;
+                foreach($map['mcps'] as $item) {
+                    $model->mcps[$n++] = null !== $item ? McpInfo::fromMap($item) : $item;
+                }
             }
         }
         if(isset($map['instance_id'])){
@@ -113,14 +136,14 @@ class SubAgentInfo extends Model {
     // skill信息
     /**
      * @example undefined
-     * @var string[]
+     * @var SkillInfo[]
      */
     public $skills;
 
     // mcp功能
     /**
      * @example undefined
-     * @var string[]
+     * @var McpInfo[]
      */
     public $mcps;
 

@@ -5,6 +5,8 @@ namespace AntChain\BOT\Models;
 
 use AlibabaCloud\Tea\Model;
 
+use AntChain\BOT\Models\SkillInfo;
+use AntChain\BOT\Models\McpInfo;
 use AntChain\BOT\Models\SubAgentInfo;
 
 class AgentInfo extends Model {
@@ -48,16 +50,34 @@ class AgentInfo extends Model {
             $res['model_id'] = $this->modelId;
         }
         if (null !== $this->skills) {
-            $res['skills'] = $this->skills;
+            $res['skills'] = [];
+            if(null !== $this->skills && is_array($this->skills)){
+                $n = 0;
+                foreach($this->skills as $item){
+                    $res['skills'][$n++] = null !== $item ? $item->toMap() : $item;
+                }
+            }
         }
         if (null !== $this->mcps) {
-            $res['mcps'] = $this->mcps;
+            $res['mcps'] = [];
+            if(null !== $this->mcps && is_array($this->mcps)){
+                $n = 0;
+                foreach($this->mcps as $item){
+                    $res['mcps'][$n++] = null !== $item ? $item->toMap() : $item;
+                }
+            }
         }
         if (null !== $this->subAgents) {
             $res['sub_agents'] = $this->subAgents;
         }
         if (null !== $this->subAgentInfoList) {
-            $res['sub_agent_info_list'] = null !== $this->subAgentInfoList ? $this->subAgentInfoList->toMap() : null;
+            $res['sub_agent_info_list'] = [];
+            if(null !== $this->subAgentInfoList && is_array($this->subAgentInfoList)){
+                $n = 0;
+                foreach($this->subAgentInfoList as $item){
+                    $res['sub_agent_info_list'][$n++] = null !== $item ? $item->toMap() : $item;
+                }
+            }
         }
         if (null !== $this->instanceId) {
             $res['instance_id'] = $this->instanceId;
@@ -87,12 +107,20 @@ class AgentInfo extends Model {
         }
         if(isset($map['skills'])){
             if(!empty($map['skills'])){
-                $model->skills = $map['skills'];
+                $model->skills = [];
+                $n = 0;
+                foreach($map['skills'] as $item) {
+                    $model->skills[$n++] = null !== $item ? SkillInfo::fromMap($item) : $item;
+                }
             }
         }
         if(isset($map['mcps'])){
             if(!empty($map['mcps'])){
-                $model->mcps = $map['mcps'];
+                $model->mcps = [];
+                $n = 0;
+                foreach($map['mcps'] as $item) {
+                    $model->mcps[$n++] = null !== $item ? McpInfo::fromMap($item) : $item;
+                }
             }
         }
         if(isset($map['sub_agents'])){
@@ -101,7 +129,13 @@ class AgentInfo extends Model {
             }
         }
         if(isset($map['sub_agent_info_list'])){
-            $model->subAgentInfoList = SubAgentInfo::fromMap($map['sub_agent_info_list']);
+            if(!empty($map['sub_agent_info_list'])){
+                $model->subAgentInfoList = [];
+                $n = 0;
+                foreach($map['sub_agent_info_list'] as $item) {
+                    $model->subAgentInfoList[$n++] = null !== $item ? SubAgentInfo::fromMap($item) : $item;
+                }
+            }
         }
         if(isset($map['instance_id'])){
             $model->instanceId = $map['instance_id'];
@@ -146,14 +180,14 @@ class AgentInfo extends Model {
     // skills信息
     /**
      * @example undefined
-     * @var string[]
+     * @var SkillInfo[]
      */
     public $skills;
 
     // mcp信息
     /**
      * @example undefined
-     * @var string[]
+     * @var McpInfo[]
      */
     public $mcps;
 
@@ -167,7 +201,7 @@ class AgentInfo extends Model {
     // 子智能体详情
     /**
      * @example undefined
-     * @var SubAgentInfo
+     * @var SubAgentInfo[]
      */
     public $subAgentInfoList;
 
