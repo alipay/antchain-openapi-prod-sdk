@@ -39,6 +39,11 @@ namespace AntChain.SDK.BOT.Models
         [Validation(Required=false)]
         public string Message { get; set; }
 
+        // 是否已成功进入设备下发链路
+        [NameInMap("data")]
+        [Validation(Required=false)]
+        public AiPanelPushResponse Data { get; set; }
+
     }
 
 }
