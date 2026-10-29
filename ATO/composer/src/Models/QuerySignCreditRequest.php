@@ -12,6 +12,7 @@ class QuerySignCreditRequest extends Model {
         'orderNoType' => 'order_no_type',
         'orderNo' => 'order_no',
         'merchantId' => 'merchant_id',
+        'extInfo' => 'ext_info',
     ];
     public function validate() {
         Model::validateRequired('orderNoType', $this->orderNoType, true);
@@ -33,6 +34,9 @@ class QuerySignCreditRequest extends Model {
         }
         if (null !== $this->merchantId) {
             $res['merchant_id'] = $this->merchantId;
+        }
+        if (null !== $this->extInfo) {
+            $res['ext_info'] = $this->extInfo;
         }
         return $res;
     }
@@ -56,6 +60,9 @@ class QuerySignCreditRequest extends Model {
         }
         if(isset($map['merchant_id'])){
             $model->merchantId = $map['merchant_id'];
+        }
+        if(isset($map['ext_info'])){
+            $model->extInfo = $map['ext_info'];
         }
         return $model;
     }
@@ -87,5 +94,11 @@ class QuerySignCreditRequest extends Model {
      * @var string
      */
     public $merchantId;
+
+    // 扩展信息json格式
+    /**
+     * @var string
+     */
+    public $extInfo;
 
 }

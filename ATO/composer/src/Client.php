@@ -49,6 +49,22 @@ use AntChain\ATO\Models\ExecFundPlanRequest;
 use AntChain\ATO\Models\ExecFundPlanResponse;
 use AntChain\ATO\Models\QueryInnerAioperationlistRequest;
 use AntChain\ATO\Models\QueryInnerAioperationlistResponse;
+use AntChain\ATO\Models\SubmitAcctSignflowRequest;
+use AntChain\ATO\Models\SubmitAcctSignflowResponse;
+use AntChain\ATO\Models\ExecAcctPayRequest;
+use AntChain\ATO\Models\ExecAcctPayResponse;
+use AntChain\ATO\Models\QueryAcctPayRequest;
+use AntChain\ATO\Models\QueryAcctPayResponse;
+use AntChain\ATO\Models\SyncAcctOrderRequest;
+use AntChain\ATO\Models\SyncAcctOrderResponse;
+use AntChain\ATO\Models\GetAcctOrderRequest;
+use AntChain\ATO\Models\GetAcctOrderResponse;
+use AntChain\ATO\Models\SyncAcctTradeorderRequest;
+use AntChain\ATO\Models\SyncAcctTradeorderResponse;
+use AntChain\ATO\Models\GetAcctTradeorderRequest;
+use AntChain\ATO\Models\GetAcctTradeorderResponse;
+use AntChain\ATO\Models\SyncAcctTradeorderbreachRequest;
+use AntChain\ATO\Models\SyncAcctTradeorderbreachResponse;
 use AntChain\ATO\Models\QueryInnerFundassetpackagerepaymentRequest;
 use AntChain\ATO\Models\QueryInnerFundassetpackagerepaymentResponse;
 use AntChain\ATO\Models\QueryInnerAprepaymentdetailRequest;
@@ -630,6 +646,16 @@ use AntChain\ATO\Models\QueryInnerSppdashboardreasoningRequest;
 use AntChain\ATO\Models\QueryInnerSppdashboardreasoningResponse;
 use AntChain\ATO\Models\QueryInnerSppdashboardprefilterRequest;
 use AntChain\ATO\Models\QueryInnerSppdashboardprefilterResponse;
+use AntChain\ATO\Models\QueryInnerSppdemandplanmetadataRequest;
+use AntChain\ATO\Models\QueryInnerSppdemandplanmetadataResponse;
+use AntChain\ATO\Models\QueryInnerSppdemandplanlistRequest;
+use AntChain\ATO\Models\QueryInnerSppdemandplanlistResponse;
+use AntChain\ATO\Models\QueryInnerSppdemandplanRequest;
+use AntChain\ATO\Models\QueryInnerSppdemandplanResponse;
+use AntChain\ATO\Models\PublishInnerSppdemandplanRequest;
+use AntChain\ATO\Models\PublishInnerSppdemandplanResponse;
+use AntChain\ATO\Models\SaveInnerSppdemandplanRequest;
+use AntChain\ATO\Models\SaveInnerSppdemandplanResponse;
 use AntChain\ATO\Models\SyncTradeRequest;
 use AntChain\ATO\Models\SyncTradeResponse;
 use AntChain\ATO\Models\GetTradeRequest;
@@ -855,7 +881,7 @@ class Client {
                     "req_msg_id" => UtilClient::getNonce(),
                     "access_key" => $this->_accessKeyId,
                     "base_sdk_version" => "TeaSDK-2.0",
-                    "sdk_version" => "1.20.21",
+                    "sdk_version" => "1.20.24",
                     "_prod_code" => "ATO",
                     "_prod_channel" => "undefined"
                 ];
@@ -1360,6 +1386,206 @@ class Client {
     public function queryInnerAioperationlistEx($request, $headers, $runtime){
         Utils::validateModel($request);
         return QueryInnerAioperationlistResponse::fromMap($this->doRequest("1.0", "antchain.ato.inner.aioperationlist.query", "HTTPS", "POST", "/gateway.do", Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 游戏账号交易合同签署流程发起
+     * Summary: 游戏账号交易合同签署流程发起
+     * @param SubmitAcctSignflowRequest $request
+     * @return SubmitAcctSignflowResponse
+     */
+    public function submitAcctSignflow($request){
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+        return $this->submitAcctSignflowEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 游戏账号交易合同签署流程发起
+     * Summary: 游戏账号交易合同签署流程发起
+     * @param SubmitAcctSignflowRequest $request
+     * @param string[] $headers
+     * @param RuntimeOptions $runtime
+     * @return SubmitAcctSignflowResponse
+     */
+    public function submitAcctSignflowEx($request, $headers, $runtime){
+        Utils::validateModel($request);
+        return SubmitAcctSignflowResponse::fromMap($this->doRequest("1.0", "antchain.ato.acct.signflow.submit", "HTTPS", "POST", "/gateway.do", Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 执行acct业务支付
+     * Summary: 执行acct业务支付
+     * @param ExecAcctPayRequest $request
+     * @return ExecAcctPayResponse
+     */
+    public function execAcctPay($request){
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+        return $this->execAcctPayEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 执行acct业务支付
+     * Summary: 执行acct业务支付
+     * @param ExecAcctPayRequest $request
+     * @param string[] $headers
+     * @param RuntimeOptions $runtime
+     * @return ExecAcctPayResponse
+     */
+    public function execAcctPayEx($request, $headers, $runtime){
+        Utils::validateModel($request);
+        return ExecAcctPayResponse::fromMap($this->doRequest("1.0", "antchain.ato.acct.pay.exec", "HTTPS", "POST", "/gateway.do", Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 扣款交易查询
+     * Summary: 扣款交易查询
+     * @param QueryAcctPayRequest $request
+     * @return QueryAcctPayResponse
+     */
+    public function queryAcctPay($request){
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+        return $this->queryAcctPayEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 扣款交易查询
+     * Summary: 扣款交易查询
+     * @param QueryAcctPayRequest $request
+     * @param string[] $headers
+     * @param RuntimeOptions $runtime
+     * @return QueryAcctPayResponse
+     */
+    public function queryAcctPayEx($request, $headers, $runtime){
+        Utils::validateModel($request);
+        return QueryAcctPayResponse::fromMap($this->doRequest("1.0", "antchain.ato.acct.pay.query", "HTTPS", "POST", "/gateway.do", Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 签约单同步
+     * Summary: 签约单同步
+     * @param SyncAcctOrderRequest $request
+     * @return SyncAcctOrderResponse
+     */
+    public function syncAcctOrder($request){
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+        return $this->syncAcctOrderEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 签约单同步
+     * Summary: 签约单同步
+     * @param SyncAcctOrderRequest $request
+     * @param string[] $headers
+     * @param RuntimeOptions $runtime
+     * @return SyncAcctOrderResponse
+     */
+    public function syncAcctOrderEx($request, $headers, $runtime){
+        Utils::validateModel($request);
+        return SyncAcctOrderResponse::fromMap($this->doRequest("1.0", "antchain.ato.acct.order.sync", "HTTPS", "POST", "/gateway.do", Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 签约单查询
+     * Summary: 签约单查询
+     * @param GetAcctOrderRequest $request
+     * @return GetAcctOrderResponse
+     */
+    public function getAcctOrder($request){
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+        return $this->getAcctOrderEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 签约单查询
+     * Summary: 签约单查询
+     * @param GetAcctOrderRequest $request
+     * @param string[] $headers
+     * @param RuntimeOptions $runtime
+     * @return GetAcctOrderResponse
+     */
+    public function getAcctOrderEx($request, $headers, $runtime){
+        Utils::validateModel($request);
+        return GetAcctOrderResponse::fromMap($this->doRequest("1.0", "antchain.ato.acct.order.get", "HTTPS", "POST", "/gateway.do", Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 交易订单同步
+     * Summary: 交易订单同步
+     * @param SyncAcctTradeorderRequest $request
+     * @return SyncAcctTradeorderResponse
+     */
+    public function syncAcctTradeorder($request){
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+        return $this->syncAcctTradeorderEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 交易订单同步
+     * Summary: 交易订单同步
+     * @param SyncAcctTradeorderRequest $request
+     * @param string[] $headers
+     * @param RuntimeOptions $runtime
+     * @return SyncAcctTradeorderResponse
+     */
+    public function syncAcctTradeorderEx($request, $headers, $runtime){
+        Utils::validateModel($request);
+        return SyncAcctTradeorderResponse::fromMap($this->doRequest("1.0", "antchain.ato.acct.tradeorder.sync", "HTTPS", "POST", "/gateway.do", Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 交易订单查询
+     * Summary: 交易订单查询
+     * @param GetAcctTradeorderRequest $request
+     * @return GetAcctTradeorderResponse
+     */
+    public function getAcctTradeorder($request){
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+        return $this->getAcctTradeorderEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 交易订单查询
+     * Summary: 交易订单查询
+     * @param GetAcctTradeorderRequest $request
+     * @param string[] $headers
+     * @param RuntimeOptions $runtime
+     * @return GetAcctTradeorderResponse
+     */
+    public function getAcctTradeorderEx($request, $headers, $runtime){
+        Utils::validateModel($request);
+        return GetAcctTradeorderResponse::fromMap($this->doRequest("1.0", "antchain.ato.acct.tradeorder.get", "HTTPS", "POST", "/gateway.do", Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 交易订单违约同步
+     * Summary: 交易订单违约同步
+     * @param SyncAcctTradeorderbreachRequest $request
+     * @return SyncAcctTradeorderbreachResponse
+     */
+    public function syncAcctTradeorderbreach($request){
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+        return $this->syncAcctTradeorderbreachEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 交易订单违约同步
+     * Summary: 交易订单违约同步
+     * @param SyncAcctTradeorderbreachRequest $request
+     * @param string[] $headers
+     * @param RuntimeOptions $runtime
+     * @return SyncAcctTradeorderbreachResponse
+     */
+    public function syncAcctTradeorderbreachEx($request, $headers, $runtime){
+        Utils::validateModel($request);
+        return SyncAcctTradeorderbreachResponse::fromMap($this->doRequest("1.0", "antchain.ato.acct.tradeorderbreach.sync", "HTTPS", "POST", "/gateway.do", Tea::merge($request), $headers, $runtime));
     }
 
     /**
@@ -8313,7 +8539,7 @@ class Client {
 
     /**
      * Description: 商户资产凭证上传，可以是文本或文件
-     * Summary: 商户资产凭证上传
+     * Summary: 商户资产凭证上传，可以是文本或文件
      * @param UploadSignCreditRequest $request
      * @return UploadSignCreditResponse
      */
@@ -8325,7 +8551,7 @@ class Client {
 
     /**
      * Description: 商户资产凭证上传，可以是文本或文件
-     * Summary: 商户资产凭证上传
+     * Summary: 商户资产凭证上传，可以是文本或文件
      * @param UploadSignCreditRequest $request
      * @param string[] $headers
      * @param RuntimeOptions $runtime
@@ -8338,7 +8564,7 @@ class Client {
 
     /**
      * Description: 商户资产凭证查询，需要提供订单号或资产包号
-     * Summary: 商户资产凭证查询
+     * Summary: 商户资产凭证查询，需要提供订单号或资产包号
      * @param QuerySignCreditRequest $request
      * @return QuerySignCreditResponse
      */
@@ -8350,7 +8576,7 @@ class Client {
 
     /**
      * Description: 商户资产凭证查询，需要提供订单号或资产包号
-     * Summary: 商户资产凭证查询
+     * Summary: 商户资产凭证查询，需要提供订单号或资产包号
      * @param QuerySignCreditRequest $request
      * @param string[] $headers
      * @param RuntimeOptions $runtime
@@ -8684,6 +8910,131 @@ class Client {
     public function queryInnerSppdashboardprefilterEx($request, $headers, $runtime){
         Utils::validateModel($request);
         return QueryInnerSppdashboardprefilterResponse::fromMap($this->doRequest("1.0", "antchain.ato.inner.sppdashboardprefilter.query", "HTTPS", "POST", "/gateway.do", Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 商家获流计划metadata查询
+     * Summary: 商家获流计划metadata查询
+     * @param QueryInnerSppdemandplanmetadataRequest $request
+     * @return QueryInnerSppdemandplanmetadataResponse
+     */
+    public function queryInnerSppdemandplanmetadata($request){
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+        return $this->queryInnerSppdemandplanmetadataEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 商家获流计划metadata查询
+     * Summary: 商家获流计划metadata查询
+     * @param QueryInnerSppdemandplanmetadataRequest $request
+     * @param string[] $headers
+     * @param RuntimeOptions $runtime
+     * @return QueryInnerSppdemandplanmetadataResponse
+     */
+    public function queryInnerSppdemandplanmetadataEx($request, $headers, $runtime){
+        Utils::validateModel($request);
+        return QueryInnerSppdemandplanmetadataResponse::fromMap($this->doRequest("1.0", "antchain.ato.inner.sppdemandplanmetadata.query", "HTTPS", "POST", "/gateway.do", Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 商家获流计划列表查询
+     * Summary: 商家获流计划列表查询
+     * @param QueryInnerSppdemandplanlistRequest $request
+     * @return QueryInnerSppdemandplanlistResponse
+     */
+    public function queryInnerSppdemandplanlist($request){
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+        return $this->queryInnerSppdemandplanlistEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 商家获流计划列表查询
+     * Summary: 商家获流计划列表查询
+     * @param QueryInnerSppdemandplanlistRequest $request
+     * @param string[] $headers
+     * @param RuntimeOptions $runtime
+     * @return QueryInnerSppdemandplanlistResponse
+     */
+    public function queryInnerSppdemandplanlistEx($request, $headers, $runtime){
+        Utils::validateModel($request);
+        return QueryInnerSppdemandplanlistResponse::fromMap($this->doRequest("1.0", "antchain.ato.inner.sppdemandplanlist.query", "HTTPS", "POST", "/gateway.do", Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 商家获流计划详情查询
+     * Summary: 商家获流计划详情查询
+     * @param QueryInnerSppdemandplanRequest $request
+     * @return QueryInnerSppdemandplanResponse
+     */
+    public function queryInnerSppdemandplan($request){
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+        return $this->queryInnerSppdemandplanEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 商家获流计划详情查询
+     * Summary: 商家获流计划详情查询
+     * @param QueryInnerSppdemandplanRequest $request
+     * @param string[] $headers
+     * @param RuntimeOptions $runtime
+     * @return QueryInnerSppdemandplanResponse
+     */
+    public function queryInnerSppdemandplanEx($request, $headers, $runtime){
+        Utils::validateModel($request);
+        return QueryInnerSppdemandplanResponse::fromMap($this->doRequest("1.0", "antchain.ato.inner.sppdemandplan.query", "HTTPS", "POST", "/gateway.do", Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 商家获流计划删除或下线
+     * Summary: 商家获流计划删除或下线
+     * @param PublishInnerSppdemandplanRequest $request
+     * @return PublishInnerSppdemandplanResponse
+     */
+    public function publishInnerSppdemandplan($request){
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+        return $this->publishInnerSppdemandplanEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 商家获流计划删除或下线
+     * Summary: 商家获流计划删除或下线
+     * @param PublishInnerSppdemandplanRequest $request
+     * @param string[] $headers
+     * @param RuntimeOptions $runtime
+     * @return PublishInnerSppdemandplanResponse
+     */
+    public function publishInnerSppdemandplanEx($request, $headers, $runtime){
+        Utils::validateModel($request);
+        return PublishInnerSppdemandplanResponse::fromMap($this->doRequest("1.0", "antchain.ato.inner.sppdemandplan.publish", "HTTPS", "POST", "/gateway.do", Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 商家获流计划保存
+     * Summary: 商家获流计划保存
+     * @param SaveInnerSppdemandplanRequest $request
+     * @return SaveInnerSppdemandplanResponse
+     */
+    public function saveInnerSppdemandplan($request){
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+        return $this->saveInnerSppdemandplanEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 商家获流计划保存
+     * Summary: 商家获流计划保存
+     * @param SaveInnerSppdemandplanRequest $request
+     * @param string[] $headers
+     * @param RuntimeOptions $runtime
+     * @return SaveInnerSppdemandplanResponse
+     */
+    public function saveInnerSppdemandplanEx($request, $headers, $runtime){
+        Utils::validateModel($request);
+        return SaveInnerSppdemandplanResponse::fromMap($this->doRequest("1.0", "antchain.ato.inner.sppdemandplan.save", "HTTPS", "POST", "/gateway.do", Tea::merge($request), $headers, $runtime));
     }
 
     /**
