@@ -68,6 +68,11 @@ namespace AntChain.SDK.RISKPLUS.Models
         [Validation(Required=false)]
         public string BankCode { get; set; }
 
+        // 授信申请order_no
+        [NameInMap("credit_order_no")]
+        [Validation(Required=false)]
+        public string CreditOrderNo { get; set; }
+
     }
 
 }

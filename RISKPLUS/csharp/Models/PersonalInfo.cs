@@ -147,6 +147,21 @@ namespace AntChain.SDK.RISKPLUS.Models
         [Validation(Required=false)]
         public string MaritalStatus { get; set; }
 
+        // 省份编码
+        [NameInMap("province_code")]
+        [Validation(Required=false)]
+        public string ProvinceCode { get; set; }
+
+        // 城市编码
+        [NameInMap("city_code")]
+        [Validation(Required=false)]
+        public string CityCode { get; set; }
+
+        // 区域编码
+        [NameInMap("area_code")]
+        [Validation(Required=false)]
+        public string AreaCode { get; set; }
+
     }
 
 }

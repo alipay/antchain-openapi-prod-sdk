@@ -136,6 +136,21 @@ namespace AntChain.SDK.RISKPLUS.Models
         [Validation(Required=false)]
         public string InduInvol { get; set; }
 
+        // 公司省份编码
+        [NameInMap("company_province_code")]
+        [Validation(Required=false)]
+        public string CompanyProvinceCode { get; set; }
+
+        // 公司城市编码
+        [NameInMap("company_city_code")]
+        [Validation(Required=false)]
+        public string CompanyCityCode { get; set; }
+
+        // 公司地区编码
+        [NameInMap("company_area_code")]
+        [Validation(Required=false)]
+        public string CompanyAreaCode { get; set; }
+
     }
 
 }
