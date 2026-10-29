@@ -28,6 +28,10 @@ public class UsageBlockchainBotIotagentSessionResponse extends TeaModel {
     @NameInMap("turns")
     public java.util.List<TurnModelCallsUsages> turns;
 
+    // 上下文占用分析（基于最后一次模型调用估算）
+    @NameInMap("context")
+    public ContextOccupancy context;
+
     public static UsageBlockchainBotIotagentSessionResponse build(java.util.Map<String, ?> map) throws Exception {
         UsageBlockchainBotIotagentSessionResponse self = new UsageBlockchainBotIotagentSessionResponse();
         return TeaModel.build(map, self);
@@ -79,6 +83,14 @@ public class UsageBlockchainBotIotagentSessionResponse extends TeaModel {
     }
     public java.util.List<TurnModelCallsUsages> getTurns() {
         return this.turns;
+    }
+
+    public UsageBlockchainBotIotagentSessionResponse setContext(ContextOccupancy context) {
+        this.context = context;
+        return this;
+    }
+    public ContextOccupancy getContext() {
+        return this.context;
     }
 
 }

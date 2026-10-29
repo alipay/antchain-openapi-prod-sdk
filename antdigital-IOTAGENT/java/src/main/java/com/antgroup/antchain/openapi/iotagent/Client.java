@@ -126,7 +126,7 @@ public class Client {
                     new TeaPair("req_msg_id", com.antgroup.antchain.openapi.antchain.util.AntchainUtils.getNonce()),
                     new TeaPair("access_key", _accessKeyId),
                     new TeaPair("base_sdk_version", "TeaSDK-2.0"),
-                    new TeaPair("sdk_version", "1.3.1"),
+                    new TeaPair("sdk_version", "1.3.2"),
                     new TeaPair("_prod_code", "IOTAGENT"),
                     new TeaPair("_prod_channel", "undefined")
                 );
@@ -1238,6 +1238,90 @@ public class Client {
     public QueryBlockchainBotIotagentSessioncontextactionResponse queryBlockchainBotIotagentSessioncontextactionEx(QueryBlockchainBotIotagentSessioncontextactionRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
         com.aliyun.teautil.Common.validateModel(request);
         return TeaModel.toModel(this.doRequest("1.0", "blockchain.bot.iotagent.sessioncontextaction.query", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new QueryBlockchainBotIotagentSessioncontextactionResponse());
+    }
+
+    /**
+     * <b>description</b> :
+     * <p>Description: 查询智能体指定日期的聊天总结（只读，不触发生成；content 为空表示尚未生成或当日无对话）
+     * Summary: 查询智能体指定日期的聊天总结（只读，不触发生成；content 为空表示尚未生成或当日无对话）</p>
+     */
+    public QueryBlockchainBotAgentDailysummaryResponse queryBlockchainBotAgentDailysummary(QueryBlockchainBotAgentDailysummaryRequest request) throws Exception {
+        com.aliyun.teautil.models.RuntimeOptions runtime = new com.aliyun.teautil.models.RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.queryBlockchainBotAgentDailysummaryEx(request, headers, runtime);
+    }
+
+    /**
+     * <b>description</b> :
+     * <p>Description: 查询智能体指定日期的聊天总结（只读，不触发生成；content 为空表示尚未生成或当日无对话）
+     * Summary: 查询智能体指定日期的聊天总结（只读，不触发生成；content 为空表示尚未生成或当日无对话）</p>
+     */
+    public QueryBlockchainBotAgentDailysummaryResponse queryBlockchainBotAgentDailysummaryEx(QueryBlockchainBotAgentDailysummaryRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "blockchain.bot.agent.dailysummary.query", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new QueryBlockchainBotAgentDailysummaryResponse());
+    }
+
+    /**
+     * <b>description</b> :
+     * <p>Description: 触发智能体指定日期的聊天总结生成（异步受理，立即返回；同一智能体同一天 60 秒内重复触发只生成一次，生成结果通过 daily summary 查询接口获取）
+     * Summary: 触发智能体指定日期的聊天总结生成（异步受理，立即返回；同一智能体同一天 60 秒内重复触发只生成一次，生成结果通过 daily summary 查询接口获取）</p>
+     */
+    public GenerateBlockchainBotAgentDailysummaryResponse generateBlockchainBotAgentDailysummary(GenerateBlockchainBotAgentDailysummaryRequest request) throws Exception {
+        com.aliyun.teautil.models.RuntimeOptions runtime = new com.aliyun.teautil.models.RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.generateBlockchainBotAgentDailysummaryEx(request, headers, runtime);
+    }
+
+    /**
+     * <b>description</b> :
+     * <p>Description: 触发智能体指定日期的聊天总结生成（异步受理，立即返回；同一智能体同一天 60 秒内重复触发只生成一次，生成结果通过 daily summary 查询接口获取）
+     * Summary: 触发智能体指定日期的聊天总结生成（异步受理，立即返回；同一智能体同一天 60 秒内重复触发只生成一次，生成结果通过 daily summary 查询接口获取）</p>
+     */
+    public GenerateBlockchainBotAgentDailysummaryResponse generateBlockchainBotAgentDailysummaryEx(GenerateBlockchainBotAgentDailysummaryRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "blockchain.bot.agent.dailysummary.generate", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new GenerateBlockchainBotAgentDailysummaryResponse());
+    }
+
+    /**
+     * <b>description</b> :
+     * <p>Description: 查询会话执行轨迹索引，按作用域返回轮次列表、诊断摘要和统计计数
+     * Summary: 查询会话执行轨迹索引，按作用域返回轮次列表、诊断摘要和统计计数</p>
+     */
+    public TrajectoryBlockchainBotIotagentSessionResponse trajectoryBlockchainBotIotagentSession(TrajectoryBlockchainBotIotagentSessionRequest request) throws Exception {
+        com.aliyun.teautil.models.RuntimeOptions runtime = new com.aliyun.teautil.models.RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.trajectoryBlockchainBotIotagentSessionEx(request, headers, runtime);
+    }
+
+    /**
+     * <b>description</b> :
+     * <p>Description: 查询会话执行轨迹索引，按作用域返回轮次列表、诊断摘要和统计计数
+     * Summary: 查询会话执行轨迹索引，按作用域返回轮次列表、诊断摘要和统计计数</p>
+     */
+    public TrajectoryBlockchainBotIotagentSessionResponse trajectoryBlockchainBotIotagentSessionEx(TrajectoryBlockchainBotIotagentSessionRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "blockchain.bot.iotagent.session.trajectory", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new TrajectoryBlockchainBotIotagentSessionResponse());
+    }
+
+    /**
+     * <b>description</b> :
+     * <p>Description: 查询单轮/操作的执行步骤详情，展开执行树
+     * Summary: 查询单轮/操作的执行步骤详情，展开执行树</p>
+     */
+    public StepsBlockchainBotIotagentSessionTrajectoryResponse stepsBlockchainBotIotagentSessionTrajectory(StepsBlockchainBotIotagentSessionTrajectoryRequest request) throws Exception {
+        com.aliyun.teautil.models.RuntimeOptions runtime = new com.aliyun.teautil.models.RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.stepsBlockchainBotIotagentSessionTrajectoryEx(request, headers, runtime);
+    }
+
+    /**
+     * <b>description</b> :
+     * <p>Description: 查询单轮/操作的执行步骤详情，展开执行树
+     * Summary: 查询单轮/操作的执行步骤详情，展开执行树</p>
+     */
+    public StepsBlockchainBotIotagentSessionTrajectoryResponse stepsBlockchainBotIotagentSessionTrajectoryEx(StepsBlockchainBotIotagentSessionTrajectoryRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "blockchain.bot.iotagent.session.trajectory.steps", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new StepsBlockchainBotIotagentSessionTrajectoryResponse());
     }
 
     /**
