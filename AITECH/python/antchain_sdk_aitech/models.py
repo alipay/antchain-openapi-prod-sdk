@@ -9747,7 +9747,7 @@ class QuerySecurityAnswerRequest(TeaModel):
         # OAuth模式下的授权token
         self.auth_token = auth_token
         self.product_instance_id = product_instance_id
-        # 调用标示
+        # 调用方标识
         self.enterprise = enterprise
         # 细分调用方标识
         self.business_id = business_id
@@ -10024,7 +10024,7 @@ class QuerySecurityImageRequest(TeaModel):
         scene_code: str = None,
         message_id: str = None,
         image_url: str = None,
-        content: str = None,
+        image: str = None,
     ):
         # OAuth模式下的授权token
         self.auth_token = auth_token
@@ -10040,7 +10040,7 @@ class QuerySecurityImageRequest(TeaModel):
         # 待检测图片地址
         self.image_url = image_url
         # 图片检测内容
-        self.content = content
+        self.image = image
 
     def validate(self):
         self.validate_required(self.business_id, 'business_id')
@@ -10068,8 +10068,8 @@ class QuerySecurityImageRequest(TeaModel):
             result['message_id'] = self.message_id
         if self.image_url is not None:
             result['image_url'] = self.image_url
-        if self.content is not None:
-            result['content'] = self.content
+        if self.image is not None:
+            result['image'] = self.image
         return result
 
     def from_map(self, m: dict = None):
@@ -10088,8 +10088,8 @@ class QuerySecurityImageRequest(TeaModel):
             self.message_id = m.get('message_id')
         if m.get('image_url') is not None:
             self.image_url = m.get('image_url')
-        if m.get('content') is not None:
-            self.content = m.get('content')
+        if m.get('image') is not None:
+            self.image = m.get('image')
         return self
 
 
