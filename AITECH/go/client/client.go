@@ -1193,7 +1193,7 @@ type TokenUsageSummary struct {
 	// 提示词token
 	// example:
 	//
-	// 1
+	// 10
 	PromptTokens *int64 `json:"prompt_tokens,omitempty" xml:"prompt_tokens,omitempty"`
 	// 模型生成回答时输出的 token 数量
 	// example:
@@ -8445,7 +8445,7 @@ type QuerySecurityAnswerRequest struct {
 	// OAuth模式下的授权token
 	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
 	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
-	// 调用标示
+	// 调用方标识
 	Enterprise *string `json:"enterprise,omitempty" xml:"enterprise,omitempty"`
 	// 细分调用方标识
 	BusinessId *string `json:"business_id,omitempty" xml:"business_id,omitempty" require:"true"`
@@ -8711,7 +8711,7 @@ type QuerySecurityImageRequest struct {
 	// 待检测图片地址
 	ImageUrl *string `json:"image_url,omitempty" xml:"image_url,omitempty" require:"true"`
 	// 图片检测内容
-	Content *string `json:"content,omitempty" xml:"content,omitempty"`
+	Image *string `json:"image,omitempty" xml:"image,omitempty"`
 }
 
 func (s QuerySecurityImageRequest) String() string {
@@ -8757,8 +8757,8 @@ func (s *QuerySecurityImageRequest) SetImageUrl(v string) *QuerySecurityImageReq
 	return s
 }
 
-func (s *QuerySecurityImageRequest) SetContent(v string) *QuerySecurityImageRequest {
-	s.Content = &v
+func (s *QuerySecurityImageRequest) SetImage(v string) *QuerySecurityImageRequest {
+	s.Image = &v
 	return s
 }
 
@@ -10163,7 +10163,7 @@ func (client *Client) DoRequest(version *string, action *string, protocol *strin
 				"req_msg_id":       antchainutil.GetNonce(),
 				"access_key":       client.AccessKeyId,
 				"base_sdk_version": tea.String("TeaSDK-2.0"),
-				"sdk_version":      tea.String("1.1.70"),
+				"sdk_version":      tea.String("1.1.71"),
 				"_prod_code":       tea.String("AITECH"),
 				"_prod_channel":    tea.String("default"),
 			}
