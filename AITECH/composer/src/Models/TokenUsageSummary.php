@@ -107,7 +107,7 @@ class TokenUsageSummary extends Model {
 
     // 提示词token
     /**
-     * @example 1
+     * @example 10
      * @var int
      */
     public $promptTokens;

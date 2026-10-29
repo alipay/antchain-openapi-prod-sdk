@@ -14,7 +14,7 @@ class QuerySecurityImageRequest extends Model {
         'sceneCode' => 'scene_code',
         'messageId' => 'message_id',
         'imageUrl' => 'image_url',
-        'content' => 'content',
+        'image' => 'image',
     ];
     public function validate() {
         Model::validateRequired('businessId', $this->businessId, true);
@@ -45,8 +45,8 @@ class QuerySecurityImageRequest extends Model {
         if (null !== $this->imageUrl) {
             $res['image_url'] = $this->imageUrl;
         }
-        if (null !== $this->content) {
-            $res['content'] = $this->content;
+        if (null !== $this->image) {
+            $res['image'] = $this->image;
         }
         return $res;
     }
@@ -77,8 +77,8 @@ class QuerySecurityImageRequest extends Model {
         if(isset($map['image_url'])){
             $model->imageUrl = $map['image_url'];
         }
-        if(isset($map['content'])){
-            $model->content = $map['content'];
+        if(isset($map['image'])){
+            $model->image = $map['image'];
         }
         return $model;
     }
@@ -127,6 +127,6 @@ class QuerySecurityImageRequest extends Model {
     /**
      * @var string
      */
-    public $content;
+    public $image;
 
 }

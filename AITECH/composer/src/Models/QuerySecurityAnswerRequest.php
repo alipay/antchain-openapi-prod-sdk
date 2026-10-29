@@ -149,7 +149,7 @@ class QuerySecurityAnswerRequest extends Model {
      */
     public $productInstanceId;
 
-    // 调用标示
+    // 调用方标识
     /**
      * @var string
      */
