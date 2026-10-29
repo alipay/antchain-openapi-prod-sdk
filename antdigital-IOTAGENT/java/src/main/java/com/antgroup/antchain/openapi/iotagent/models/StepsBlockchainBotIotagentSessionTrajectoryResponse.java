@@ -16,6 +16,18 @@ public class StepsBlockchainBotIotagentSessionTrajectoryResponse extends TeaMode
     @NameInMap("result_msg")
     public String resultMsg;
 
+    // 执行步骤列表(JSON)
+    @NameInMap("steps_json")
+    public String stepsJson;
+
+    // 下一页游标
+    @NameInMap("next_cursor")
+    public String nextCursor;
+
+    // 总步骤数
+    @NameInMap("total_steps")
+    public Long totalSteps;
+
     public static StepsBlockchainBotIotagentSessionTrajectoryResponse build(java.util.Map<String, ?> map) throws Exception {
         StepsBlockchainBotIotagentSessionTrajectoryResponse self = new StepsBlockchainBotIotagentSessionTrajectoryResponse();
         return TeaModel.build(map, self);
@@ -43,6 +55,30 @@ public class StepsBlockchainBotIotagentSessionTrajectoryResponse extends TeaMode
     }
     public String getResultMsg() {
         return this.resultMsg;
+    }
+
+    public StepsBlockchainBotIotagentSessionTrajectoryResponse setStepsJson(String stepsJson) {
+        this.stepsJson = stepsJson;
+        return this;
+    }
+    public String getStepsJson() {
+        return this.stepsJson;
+    }
+
+    public StepsBlockchainBotIotagentSessionTrajectoryResponse setNextCursor(String nextCursor) {
+        this.nextCursor = nextCursor;
+        return this;
+    }
+    public String getNextCursor() {
+        return this.nextCursor;
+    }
+
+    public StepsBlockchainBotIotagentSessionTrajectoryResponse setTotalSteps(Long totalSteps) {
+        this.totalSteps = totalSteps;
+        return this;
+    }
+    public Long getTotalSteps() {
+        return this.totalSteps;
     }
 
 }

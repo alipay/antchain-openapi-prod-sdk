@@ -16,6 +16,22 @@ public class TrajectoryBlockchainBotIotagentSessionResponse extends TeaModel {
     @NameInMap("result_msg")
     public String resultMsg;
 
+    // 轮次索引列表(JSON)
+    @NameInMap("scopes_json")
+    public String scopesJson;
+
+    // 覆盖状态(JSON)
+    @NameInMap("coverage_json")
+    public String coverageJson;
+
+    // 下一页游标
+    @NameInMap("next_cursor")
+    public String nextCursor;
+
+    // 总轮次数
+    @NameInMap("total_scopes")
+    public Long totalScopes;
+
     public static TrajectoryBlockchainBotIotagentSessionResponse build(java.util.Map<String, ?> map) throws Exception {
         TrajectoryBlockchainBotIotagentSessionResponse self = new TrajectoryBlockchainBotIotagentSessionResponse();
         return TeaModel.build(map, self);
@@ -43,6 +59,38 @@ public class TrajectoryBlockchainBotIotagentSessionResponse extends TeaModel {
     }
     public String getResultMsg() {
         return this.resultMsg;
+    }
+
+    public TrajectoryBlockchainBotIotagentSessionResponse setScopesJson(String scopesJson) {
+        this.scopesJson = scopesJson;
+        return this;
+    }
+    public String getScopesJson() {
+        return this.scopesJson;
+    }
+
+    public TrajectoryBlockchainBotIotagentSessionResponse setCoverageJson(String coverageJson) {
+        this.coverageJson = coverageJson;
+        return this;
+    }
+    public String getCoverageJson() {
+        return this.coverageJson;
+    }
+
+    public TrajectoryBlockchainBotIotagentSessionResponse setNextCursor(String nextCursor) {
+        this.nextCursor = nextCursor;
+        return this;
+    }
+    public String getNextCursor() {
+        return this.nextCursor;
+    }
+
+    public TrajectoryBlockchainBotIotagentSessionResponse setTotalScopes(Long totalScopes) {
+        this.totalScopes = totalScopes;
+        return this;
+    }
+    public Long getTotalScopes() {
+        return this.totalScopes;
     }
 
 }
