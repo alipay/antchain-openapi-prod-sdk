@@ -64,6 +64,21 @@ namespace AntChain.SDK.RISKPLUS.Models
         [Validation(Required=false)]
         public long? LiveYears { get; set; }
 
+        // 居住省份编码
+        [NameInMap("live_province_code")]
+        [Validation(Required=false)]
+        public string LiveProvinceCode { get; set; }
+
+        // 居住城市编码
+        [NameInMap("live_city_code")]
+        [Validation(Required=false)]
+        public string LiveCityCode { get; set; }
+
+        // 居住区域编码
+        [NameInMap("live_area_code")]
+        [Validation(Required=false)]
+        public string LiveAreaCode { get; set; }
+
     }
 
 }

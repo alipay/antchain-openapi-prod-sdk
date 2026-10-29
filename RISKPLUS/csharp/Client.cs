@@ -158,7 +158,7 @@ namespace AntChain.SDK.RISKPLUS
                         {"req_msg_id", AntChain.AlipayUtil.AntchainUtils.GetNonce()},
                         {"access_key", _accessKeyId},
                         {"base_sdk_version", "TeaSDK-2.0"},
-                        {"sdk_version", "1.33.10"},
+                        {"sdk_version", "1.33.12"},
                         {"_prod_code", "RISKPLUS"},
                         {"_prod_channel", "undefined"},
                     };
@@ -301,7 +301,7 @@ namespace AntChain.SDK.RISKPLUS
                         {"req_msg_id", AntChain.AlipayUtil.AntchainUtils.GetNonce()},
                         {"access_key", _accessKeyId},
                         {"base_sdk_version", "TeaSDK-2.0"},
-                        {"sdk_version", "1.33.10"},
+                        {"sdk_version", "1.33.12"},
                         {"_prod_code", "RISKPLUS"},
                         {"_prod_channel", "undefined"},
                     };
@@ -2526,7 +2526,7 @@ namespace AntChain.SDK.RISKPLUS
         /// <term><b>Description:</b></term>
         /// <description>
         /// <para>Description: 代扣签约绑卡接口
-        /// Summary: 代扣协议签约申请(银行卡绑卡)</para>
+        /// Summary: 代扣签约绑卡接口</para>
         /// </description>
         public BindDubbridgeCustomerBankcardResponse BindDubbridgeCustomerBankcard(BindDubbridgeCustomerBankcardRequest request)
         {
@@ -2538,7 +2538,7 @@ namespace AntChain.SDK.RISKPLUS
         /// <term><b>Description:</b></term>
         /// <description>
         /// <para>Description: 代扣签约绑卡接口
-        /// Summary: 代扣协议签约申请(银行卡绑卡)</para>
+        /// Summary: 代扣签约绑卡接口</para>
         /// </description>
         public async Task<BindDubbridgeCustomerBankcardResponse> BindDubbridgeCustomerBankcardAsync(BindDubbridgeCustomerBankcardRequest request)
         {
@@ -2550,7 +2550,7 @@ namespace AntChain.SDK.RISKPLUS
         /// <term><b>Description:</b></term>
         /// <description>
         /// <para>Description: 代扣签约绑卡接口
-        /// Summary: 代扣协议签约申请(银行卡绑卡)</para>
+        /// Summary: 代扣签约绑卡接口</para>
         /// </description>
         public BindDubbridgeCustomerBankcardResponse BindDubbridgeCustomerBankcardEx(BindDubbridgeCustomerBankcardRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
         {
@@ -2561,7 +2561,7 @@ namespace AntChain.SDK.RISKPLUS
         /// <term><b>Description:</b></term>
         /// <description>
         /// <para>Description: 代扣签约绑卡接口
-        /// Summary: 代扣协议签约申请(银行卡绑卡)</para>
+        /// Summary: 代扣签约绑卡接口</para>
         /// </description>
         public async Task<BindDubbridgeCustomerBankcardResponse> BindDubbridgeCustomerBankcardExAsync(BindDubbridgeCustomerBankcardRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
         {
@@ -10863,6 +10863,98 @@ namespace AntChain.SDK.RISKPLUS
         {
             AlibabaCloud.TeaUtil.Common.ValidateModel(request);
             return TeaModel.ToObject<InitGateWayServiceResponse>(await DoRequestAsync("1.0", "riskplus.gate.way.service.init", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /// <term><b>Description:</b></term>
+        /// <description>
+        /// <para>Description: 评分服务OpenAPI
+        /// Summary: 评分服务OpenAPI</para>
+        /// </description>
+        public QueryRiskDataScoreResponse QueryRiskDataScore(QueryRiskDataScoreRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return QueryRiskDataScoreEx(request, headers, runtime);
+        }
+
+        /// <term><b>Description:</b></term>
+        /// <description>
+        /// <para>Description: 评分服务OpenAPI
+        /// Summary: 评分服务OpenAPI</para>
+        /// </description>
+        public async Task<QueryRiskDataScoreResponse> QueryRiskDataScoreAsync(QueryRiskDataScoreRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return await QueryRiskDataScoreExAsync(request, headers, runtime);
+        }
+
+        /// <term><b>Description:</b></term>
+        /// <description>
+        /// <para>Description: 评分服务OpenAPI
+        /// Summary: 评分服务OpenAPI</para>
+        /// </description>
+        public QueryRiskDataScoreResponse QueryRiskDataScoreEx(QueryRiskDataScoreRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<QueryRiskDataScoreResponse>(DoRequest("1.0", "riskplus.risk.data.score.query", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /// <term><b>Description:</b></term>
+        /// <description>
+        /// <para>Description: 评分服务OpenAPI
+        /// Summary: 评分服务OpenAPI</para>
+        /// </description>
+        public async Task<QueryRiskDataScoreResponse> QueryRiskDataScoreExAsync(QueryRiskDataScoreRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<QueryRiskDataScoreResponse>(await DoRequestAsync("1.0", "riskplus.risk.data.score.query", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /// <term><b>Description:</b></term>
+        /// <description>
+        /// <para>Description: 风控老服务标准化
+        /// Summary: 风控老服务标准化</para>
+        /// </description>
+        public QueryScoreDataGatewayResponse QueryScoreDataGateway(QueryScoreDataGatewayRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return QueryScoreDataGatewayEx(request, headers, runtime);
+        }
+
+        /// <term><b>Description:</b></term>
+        /// <description>
+        /// <para>Description: 风控老服务标准化
+        /// Summary: 风控老服务标准化</para>
+        /// </description>
+        public async Task<QueryScoreDataGatewayResponse> QueryScoreDataGatewayAsync(QueryScoreDataGatewayRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return await QueryScoreDataGatewayExAsync(request, headers, runtime);
+        }
+
+        /// <term><b>Description:</b></term>
+        /// <description>
+        /// <para>Description: 风控老服务标准化
+        /// Summary: 风控老服务标准化</para>
+        /// </description>
+        public QueryScoreDataGatewayResponse QueryScoreDataGatewayEx(QueryScoreDataGatewayRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<QueryScoreDataGatewayResponse>(DoRequest("1.0", "riskplus.score.data.gateway.query", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /// <term><b>Description:</b></term>
+        /// <description>
+        /// <para>Description: 风控老服务标准化
+        /// Summary: 风控老服务标准化</para>
+        /// </description>
+        public async Task<QueryScoreDataGatewayResponse> QueryScoreDataGatewayExAsync(QueryScoreDataGatewayRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<QueryScoreDataGatewayResponse>(await DoRequestAsync("1.0", "riskplus.score.data.gateway.query", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
         }
 
         /// <term><b>Description:</b></term>
