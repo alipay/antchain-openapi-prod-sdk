@@ -12,15 +12,6 @@ public class ResultTest extends TeaModel {
     @NameInMap("name")
     public String name;
 
-    // test
-    /**
-     * <strong>example:</strong>
-     * <p>undefined</p>
-     */
-    @NameInMap("list")
-    @Validation(required = true)
-    public DemoClass list;
-
     public static ResultTest build(java.util.Map<String, ?> map) throws Exception {
         ResultTest self = new ResultTest();
         return TeaModel.build(map, self);
@@ -32,14 +23,6 @@ public class ResultTest extends TeaModel {
     }
     public String getName() {
         return this.name;
-    }
-
-    public ResultTest setList(DemoClass list) {
-        this.list = list;
-        return this;
-    }
-    public DemoClass getList() {
-        return this.list;
     }
 
 }

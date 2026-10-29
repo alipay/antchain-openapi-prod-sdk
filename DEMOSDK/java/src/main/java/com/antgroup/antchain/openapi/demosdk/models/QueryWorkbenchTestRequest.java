@@ -31,6 +31,10 @@ public class QueryWorkbenchTestRequest extends TeaModel {
     @NameInMap("operator")
     public String operator;
 
+    // aaaaa
+    @NameInMap("aaaaa")
+    public String aaaaa;
+
     public static QueryWorkbenchTestRequest build(java.util.Map<String, ?> map) throws Exception {
         QueryWorkbenchTestRequest self = new QueryWorkbenchTestRequest();
         return TeaModel.build(map, self);
@@ -90,6 +94,14 @@ public class QueryWorkbenchTestRequest extends TeaModel {
     }
     public String getOperator() {
         return this.operator;
+    }
+
+    public QueryWorkbenchTestRequest setAaaaa(String aaaaa) {
+        this.aaaaa = aaaaa;
+        return this;
+    }
+    public String getAaaaa() {
+        return this.aaaaa;
     }
 
 }
