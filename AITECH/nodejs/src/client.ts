@@ -1085,7 +1085,7 @@ export class TokenUsageSummary extends $tea.Model {
   // 提示词token
   /**
    * @example
-   * 1
+   * 10
    */
   promptTokens?: number;
   // 模型生成回答时输出的 token 数量
@@ -6665,7 +6665,7 @@ export class QuerySecurityAnswerRequest extends $tea.Model {
   // OAuth模式下的授权token
   authToken?: string;
   productInstanceId?: string;
-  // 调用标示
+  // 调用方标识
   enterprise?: string;
   // 细分调用方标识
   businessId: string;
@@ -6842,7 +6842,7 @@ export class QuerySecurityImageRequest extends $tea.Model {
   // 待检测图片地址
   imageUrl: string;
   // 图片检测内容
-  content?: string;
+  image?: string;
   static names(): { [key: string]: string } {
     return {
       authToken: 'auth_token',
@@ -6852,7 +6852,7 @@ export class QuerySecurityImageRequest extends $tea.Model {
       sceneCode: 'scene_code',
       messageId: 'message_id',
       imageUrl: 'image_url',
-      content: 'content',
+      image: 'image',
     };
   }
 
@@ -6865,7 +6865,7 @@ export class QuerySecurityImageRequest extends $tea.Model {
       sceneCode: 'string',
       messageId: 'string',
       imageUrl: 'string',
-      content: 'string',
+      image: 'string',
     };
   }
 
@@ -7879,7 +7879,7 @@ export default class Client {
           req_msg_id: AntchainUtil.getNonce(),
           access_key: this._accessKeyId,
           base_sdk_version: "TeaSDK-2.0",
-          sdk_version: "1.1.70",
+          sdk_version: "1.1.71",
           _prod_code: "AITECH",
           _prod_channel: "default",
         };
