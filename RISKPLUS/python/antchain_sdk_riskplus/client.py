@@ -135,7 +135,7 @@ class Client:
                     'req_msg_id': AntchainUtils.get_nonce(),
                     'access_key': self._access_key_id,
                     'base_sdk_version': 'TeaSDK-2.0',
-                    'sdk_version': '1.33.11',
+                    'sdk_version': '1.33.12',
                     '_prod_code': 'RISKPLUS',
                     '_prod_channel': 'undefined'
                 }
@@ -239,7 +239,7 @@ class Client:
                     'req_msg_id': AntchainUtils.get_nonce(),
                     'access_key': self._access_key_id,
                     'base_sdk_version': 'TeaSDK-2.0',
-                    'sdk_version': '1.33.11',
+                    'sdk_version': '1.33.12',
                     '_prod_code': 'RISKPLUS',
                     '_prod_channel': 'undefined'
                 }
@@ -12821,6 +12821,118 @@ class Client:
         return TeaCore.from_map(
             riskplus_models.InitGateWayServiceResponse(),
             await self.do_request_async('1.0', 'riskplus.gate.way.service.init', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def query_risk_data_score(
+        self,
+        request: riskplus_models.QueryRiskDataScoreRequest,
+    ) -> riskplus_models.QueryRiskDataScoreResponse:
+        """
+        Description: 评分服务OpenAPI
+        Summary: 评分服务OpenAPI
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.query_risk_data_score_ex(request, headers, runtime)
+
+    async def query_risk_data_score_async(
+        self,
+        request: riskplus_models.QueryRiskDataScoreRequest,
+    ) -> riskplus_models.QueryRiskDataScoreResponse:
+        """
+        Description: 评分服务OpenAPI
+        Summary: 评分服务OpenAPI
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.query_risk_data_score_ex_async(request, headers, runtime)
+
+    def query_risk_data_score_ex(
+        self,
+        request: riskplus_models.QueryRiskDataScoreRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> riskplus_models.QueryRiskDataScoreResponse:
+        """
+        Description: 评分服务OpenAPI
+        Summary: 评分服务OpenAPI
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            riskplus_models.QueryRiskDataScoreResponse(),
+            self.do_request('1.0', 'riskplus.risk.data.score.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def query_risk_data_score_ex_async(
+        self,
+        request: riskplus_models.QueryRiskDataScoreRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> riskplus_models.QueryRiskDataScoreResponse:
+        """
+        Description: 评分服务OpenAPI
+        Summary: 评分服务OpenAPI
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            riskplus_models.QueryRiskDataScoreResponse(),
+            await self.do_request_async('1.0', 'riskplus.risk.data.score.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def query_score_data_gateway(
+        self,
+        request: riskplus_models.QueryScoreDataGatewayRequest,
+    ) -> riskplus_models.QueryScoreDataGatewayResponse:
+        """
+        Description: 风控老服务标准化
+        Summary: 风控老服务标准化
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.query_score_data_gateway_ex(request, headers, runtime)
+
+    async def query_score_data_gateway_async(
+        self,
+        request: riskplus_models.QueryScoreDataGatewayRequest,
+    ) -> riskplus_models.QueryScoreDataGatewayResponse:
+        """
+        Description: 风控老服务标准化
+        Summary: 风控老服务标准化
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.query_score_data_gateway_ex_async(request, headers, runtime)
+
+    def query_score_data_gateway_ex(
+        self,
+        request: riskplus_models.QueryScoreDataGatewayRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> riskplus_models.QueryScoreDataGatewayResponse:
+        """
+        Description: 风控老服务标准化
+        Summary: 风控老服务标准化
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            riskplus_models.QueryScoreDataGatewayResponse(),
+            self.do_request('1.0', 'riskplus.score.data.gateway.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def query_score_data_gateway_ex_async(
+        self,
+        request: riskplus_models.QueryScoreDataGatewayRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> riskplus_models.QueryScoreDataGatewayResponse:
+        """
+        Description: 风控老服务标准化
+        Summary: 风控老服务标准化
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            riskplus_models.QueryScoreDataGatewayResponse(),
+            await self.do_request_async('1.0', 'riskplus.score.data.gateway.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
     def query_creditshield_restricted(
