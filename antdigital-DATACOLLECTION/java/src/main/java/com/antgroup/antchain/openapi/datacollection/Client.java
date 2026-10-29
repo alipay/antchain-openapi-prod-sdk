@@ -126,7 +126,7 @@ public class Client {
                     new TeaPair("req_msg_id", com.antgroup.antchain.openapi.antchain.util.AntchainUtils.getNonce()),
                     new TeaPair("access_key", _accessKeyId),
                     new TeaPair("base_sdk_version", "TeaSDK-2.0"),
-                    new TeaPair("sdk_version", "1.0.2"),
+                    new TeaPair("sdk_version", "1.0.3"),
                     new TeaPair("_prod_code", "DATACOLLECTION"),
                     new TeaPair("_prod_channel", "default")
                 );
@@ -270,5 +270,152 @@ public class Client {
     public QueryTaskTriggerResponse queryTaskTriggerEx(QueryTaskTriggerRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
         com.aliyun.teautil.Common.validateModel(request);
         return TeaModel.toModel(this.doRequest("1.0", "antcloud.datacollection.task.trigger.query", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new QueryTaskTriggerResponse());
+    }
+
+    /**
+     * <b>description</b> :
+     * <p>Description: 采集任务查询（水位与任务配置读取）
+     * Summary: 采集任务查询（水位与任务配置读取）</p>
+     */
+    public QueryTaskResponse queryTask(QueryTaskRequest request) throws Exception {
+        com.aliyun.teautil.models.RuntimeOptions runtime = new com.aliyun.teautil.models.RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.queryTaskEx(request, headers, runtime);
+    }
+
+    /**
+     * <b>description</b> :
+     * <p>Description: 采集任务查询（水位与任务配置读取）
+     * Summary: 采集任务查询（水位与任务配置读取）</p>
+     */
+    public QueryTaskResponse queryTaskEx(QueryTaskRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "antcloud.datacollection.task.query", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new QueryTaskResponse());
+    }
+
+    /**
+     * <b>description</b> :
+     * <p>Description: 采集任务config按key更新（水位写入）
+     * Summary: 采集任务config按key更新（水位写入）</p>
+     */
+    public UpdateTaskConfigResponse updateTaskConfig(UpdateTaskConfigRequest request) throws Exception {
+        com.aliyun.teautil.models.RuntimeOptions runtime = new com.aliyun.teautil.models.RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.updateTaskConfigEx(request, headers, runtime);
+    }
+
+    /**
+     * <b>description</b> :
+     * <p>Description: 采集任务config按key更新（水位写入）
+     * Summary: 采集任务config按key更新（水位写入）</p>
+     */
+    public UpdateTaskConfigResponse updateTaskConfigEx(UpdateTaskConfigRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "antcloud.datacollection.task.config.update", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new UpdateTaskConfigResponse());
+    }
+
+    /**
+     * <b>description</b> :
+     * <p>Description: 采集任务合并更新
+     * Summary: 采集任务合并更新</p>
+     */
+    public UpdateTaskResponse updateTask(UpdateTaskRequest request) throws Exception {
+        com.aliyun.teautil.models.RuntimeOptions runtime = new com.aliyun.teautil.models.RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.updateTaskEx(request, headers, runtime);
+    }
+
+    /**
+     * <b>description</b> :
+     * <p>Description: 采集任务合并更新
+     * Summary: 采集任务合并更新</p>
+     */
+    public UpdateTaskResponse updateTaskEx(UpdateTaskRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "antcloud.datacollection.task.update", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new UpdateTaskResponse());
+    }
+
+    /**
+     * <b>description</b> :
+     * <p>Description: 爬虫实例幂等启动校验
+     * Summary: 爬虫实例幂等启动校验</p>
+     */
+    public StartCrawlerResponse startCrawler(StartCrawlerRequest request) throws Exception {
+        com.aliyun.teautil.models.RuntimeOptions runtime = new com.aliyun.teautil.models.RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.startCrawlerEx(request, headers, runtime);
+    }
+
+    /**
+     * <b>description</b> :
+     * <p>Description: 爬虫实例幂等启动校验
+     * Summary: 爬虫实例幂等启动校验</p>
+     */
+    public StartCrawlerResponse startCrawlerEx(StartCrawlerRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "antcloud.datacollection.crawler.start", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new StartCrawlerResponse());
+    }
+
+    /**
+     * <b>description</b> :
+     * <p>Description: 爬虫结果批量上报
+     * Summary: 爬虫结果批量上报</p>
+     */
+    public ReportCrawlerResponse reportCrawler(ReportCrawlerRequest request) throws Exception {
+        com.aliyun.teautil.models.RuntimeOptions runtime = new com.aliyun.teautil.models.RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.reportCrawlerEx(request, headers, runtime);
+    }
+
+    /**
+     * <b>description</b> :
+     * <p>Description: 爬虫结果批量上报
+     * Summary: 爬虫结果批量上报</p>
+     */
+    public ReportCrawlerResponse reportCrawlerEx(ReportCrawlerRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "antcloud.datacollection.crawler.report", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new ReportCrawlerResponse());
+    }
+
+    /**
+     * <b>description</b> :
+     * <p>Description: 登录分布式锁抢占
+     * Summary: 登录分布式锁抢占</p>
+     */
+    public TryLoginlockResponse tryLoginlock(TryLoginlockRequest request) throws Exception {
+        com.aliyun.teautil.models.RuntimeOptions runtime = new com.aliyun.teautil.models.RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.tryLoginlockEx(request, headers, runtime);
+    }
+
+    /**
+     * <b>description</b> :
+     * <p>Description: 登录分布式锁抢占
+     * Summary: 登录分布式锁抢占</p>
+     */
+    public TryLoginlockResponse tryLoginlockEx(TryLoginlockRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "antcloud.datacollection.loginlock.try", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new TryLoginlockResponse());
+    }
+
+    /**
+     * <b>description</b> :
+     * <p>Description: 登录分布式锁释放
+     * Summary: 登录分布式锁释放</p>
+     */
+    public ReleaseLoginlockResponse releaseLoginlock(ReleaseLoginlockRequest request) throws Exception {
+        com.aliyun.teautil.models.RuntimeOptions runtime = new com.aliyun.teautil.models.RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.releaseLoginlockEx(request, headers, runtime);
+    }
+
+    /**
+     * <b>description</b> :
+     * <p>Description: 登录分布式锁释放
+     * Summary: 登录分布式锁释放</p>
+     */
+    public ReleaseLoginlockResponse releaseLoginlockEx(ReleaseLoginlockRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "antcloud.datacollection.loginlock.release", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new ReleaseLoginlockResponse());
     }
 }
