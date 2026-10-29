@@ -5981,6 +5981,58 @@ func (s *ApplicantPersonInfo) SetIdNo(v string) *ApplicantPersonInfo {
 	return s
 }
 
+// 输出参数
+type VariableDetail struct {
+	// 产品码
+	// example:
+	//
+	// test
+	ProductCode *string `json:"product_code,omitempty" xml:"product_code,omitempty" require:"true"`
+	// 变量名称
+	// example:
+	//
+	// test
+	VariableName *string `json:"variable_name,omitempty" xml:"variable_name,omitempty" require:"true"`
+	// 变量值
+	// example:
+	//
+	// test
+	VariableValue *string `json:"variable_value,omitempty" xml:"variable_value,omitempty" require:"true"`
+	// 变量类型
+	// example:
+	//
+	// hello
+	VariableType *string `json:"variable_type,omitempty" xml:"variable_type,omitempty" require:"true"`
+}
+
+func (s VariableDetail) String() string {
+	return tea.Prettify(s)
+}
+
+func (s VariableDetail) GoString() string {
+	return s.String()
+}
+
+func (s *VariableDetail) SetProductCode(v string) *VariableDetail {
+	s.ProductCode = &v
+	return s
+}
+
+func (s *VariableDetail) SetVariableName(v string) *VariableDetail {
+	s.VariableName = &v
+	return s
+}
+
+func (s *VariableDetail) SetVariableValue(v string) *VariableDetail {
+	s.VariableValue = &v
+	return s
+}
+
+func (s *VariableDetail) SetVariableType(v string) *VariableDetail {
+	s.VariableType = &v
+	return s
+}
+
 // 门店账户信息
 type StoreAccountInfo struct {
 	// 结算银行卡号
@@ -6819,6 +6871,48 @@ func (s *RiskLabelFilterConfigInfo) SetTagId(v string) *RiskLabelFilterConfigInf
 	return s
 }
 
+// 评分结果列表
+type ModelDetail struct {
+	// 产品码
+	// example:
+	//
+	// test
+	ProductCode *string `json:"product_code,omitempty" xml:"product_code,omitempty" require:"true"`
+	// 评分
+	// example:
+	//
+	// 1.0
+	Score *int64 `json:"score,omitempty" xml:"score,omitempty" require:"true"`
+	// 描述
+	// example:
+	//
+	// test
+	Desc *string `json:"desc,omitempty" xml:"desc,omitempty"`
+}
+
+func (s ModelDetail) String() string {
+	return tea.Prettify(s)
+}
+
+func (s ModelDetail) GoString() string {
+	return s.String()
+}
+
+func (s *ModelDetail) SetProductCode(v string) *ModelDetail {
+	s.ProductCode = &v
+	return s
+}
+
+func (s *ModelDetail) SetScore(v int64) *ModelDetail {
+	s.Score = &v
+	return s
+}
+
+func (s *ModelDetail) SetDesc(v string) *ModelDetail {
+	s.Desc = &v
+	return s
+}
+
 // AI外呼每个用户维度的参数信息
 type RobotCallCustomerParam struct {
 	// 手机号/手机号md5
@@ -6933,6 +7027,12 @@ type JobInfo struct {
 	//
 	// 1
 	InduInvol *string `json:"indu_invol,omitempty" xml:"indu_invol,omitempty"`
+	// 公司省份编码
+	CompanyProvinceCode *string `json:"company_province_code,omitempty" xml:"company_province_code,omitempty"`
+	// 公司城市编码
+	CompanyCityCode *string `json:"company_city_code,omitempty" xml:"company_city_code,omitempty"`
+	// 公司地区编码
+	CompanyAreaCode *string `json:"company_area_code,omitempty" xml:"company_area_code,omitempty"`
 }
 
 func (s JobInfo) String() string {
@@ -7013,6 +7113,21 @@ func (s *JobInfo) SetInduInvol(v string) *JobInfo {
 	return s
 }
 
+func (s *JobInfo) SetCompanyProvinceCode(v string) *JobInfo {
+	s.CompanyProvinceCode = &v
+	return s
+}
+
+func (s *JobInfo) SetCompanyCityCode(v string) *JobInfo {
+	s.CompanyCityCode = &v
+	return s
+}
+
+func (s *JobInfo) SetCompanyAreaCode(v string) *JobInfo {
+	s.CompanyAreaCode = &v
+	return s
+}
+
 // 天枢系统居住信息结构体
 type LiveInfo struct {
 	// 居住省份
@@ -7045,6 +7160,12 @@ type LiveInfo struct {
 	//
 	// 居住年限
 	LiveYears *int64 `json:"live_years,omitempty" xml:"live_years,omitempty"`
+	// 居住省份编码
+	LiveProvinceCode *string `json:"live_province_code,omitempty" xml:"live_province_code,omitempty"`
+	// 居住城市编码
+	LiveCityCode *string `json:"live_city_code,omitempty" xml:"live_city_code,omitempty"`
+	// 居住区域编码
+	LiveAreaCode *string `json:"live_area_code,omitempty" xml:"live_area_code,omitempty"`
 }
 
 func (s LiveInfo) String() string {
@@ -7082,6 +7203,21 @@ func (s *LiveInfo) SetLiveAddress(v string) *LiveInfo {
 
 func (s *LiveInfo) SetLiveYears(v int64) *LiveInfo {
 	s.LiveYears = &v
+	return s
+}
+
+func (s *LiveInfo) SetLiveProvinceCode(v string) *LiveInfo {
+	s.LiveProvinceCode = &v
+	return s
+}
+
+func (s *LiveInfo) SetLiveCityCode(v string) *LiveInfo {
+	s.LiveCityCode = &v
+	return s
+}
+
+func (s *LiveInfo) SetLiveAreaCode(v string) *LiveInfo {
+	s.LiveAreaCode = &v
 	return s
 }
 
@@ -8278,6 +8414,12 @@ type PersonalInfo struct {
 	//
 	// 00
 	MaritalStatus *string `json:"marital_status,omitempty" xml:"marital_status,omitempty"`
+	// 省份编码
+	ProvinceCode *string `json:"province_code,omitempty" xml:"province_code,omitempty"`
+	// 城市编码
+	CityCode *string `json:"city_code,omitempty" xml:"city_code,omitempty"`
+	// 区域编码
+	AreaCode *string `json:"area_code,omitempty" xml:"area_code,omitempty"`
 }
 
 func (s PersonalInfo) String() string {
@@ -8360,6 +8502,21 @@ func (s *PersonalInfo) SetNation(v string) *PersonalInfo {
 
 func (s *PersonalInfo) SetMaritalStatus(v string) *PersonalInfo {
 	s.MaritalStatus = &v
+	return s
+}
+
+func (s *PersonalInfo) SetProvinceCode(v string) *PersonalInfo {
+	s.ProvinceCode = &v
+	return s
+}
+
+func (s *PersonalInfo) SetCityCode(v string) *PersonalInfo {
+	s.CityCode = &v
+	return s
+}
+
+func (s *PersonalInfo) SetAreaCode(v string) *PersonalInfo {
+	s.AreaCode = &v
 	return s
 }
 
@@ -37736,6 +37893,244 @@ func (s *InitGateWayServiceResponse) SetResult(v string) *InitGateWayServiceResp
 	return s
 }
 
+type QueryRiskDataScoreRequest struct {
+	// OAuth模式下的授权token
+	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
+	// 授权码
+	BusinessCode *string `json:"business_code,omitempty" xml:"business_code,omitempty" require:"true"`
+	// 产品码
+	ProductCodes []*string `json:"product_codes,omitempty" xml:"product_codes,omitempty" require:"true" type:"Repeated"`
+	// 必要入参
+	Params *string `json:"params,omitempty" xml:"params,omitempty" require:"true"`
+	// 二级租户
+	SubTenant *string `json:"sub_tenant,omitempty" xml:"sub_tenant,omitempty" require:"true"`
+	// 业务唯一标准
+	BizUniqueId *string `json:"biz_unique_id,omitempty" xml:"biz_unique_id,omitempty"`
+	// 加密方式
+	HashType *string `json:"hash_type,omitempty" xml:"hash_type,omitempty" require:"true"`
+	// 测试标识
+	EventDataType *string `json:"event_data_type,omitempty" xml:"event_data_type,omitempty" require:"true"`
+}
+
+func (s QueryRiskDataScoreRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s QueryRiskDataScoreRequest) GoString() string {
+	return s.String()
+}
+
+func (s *QueryRiskDataScoreRequest) SetAuthToken(v string) *QueryRiskDataScoreRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *QueryRiskDataScoreRequest) SetProductInstanceId(v string) *QueryRiskDataScoreRequest {
+	s.ProductInstanceId = &v
+	return s
+}
+
+func (s *QueryRiskDataScoreRequest) SetBusinessCode(v string) *QueryRiskDataScoreRequest {
+	s.BusinessCode = &v
+	return s
+}
+
+func (s *QueryRiskDataScoreRequest) SetProductCodes(v []*string) *QueryRiskDataScoreRequest {
+	s.ProductCodes = v
+	return s
+}
+
+func (s *QueryRiskDataScoreRequest) SetParams(v string) *QueryRiskDataScoreRequest {
+	s.Params = &v
+	return s
+}
+
+func (s *QueryRiskDataScoreRequest) SetSubTenant(v string) *QueryRiskDataScoreRequest {
+	s.SubTenant = &v
+	return s
+}
+
+func (s *QueryRiskDataScoreRequest) SetBizUniqueId(v string) *QueryRiskDataScoreRequest {
+	s.BizUniqueId = &v
+	return s
+}
+
+func (s *QueryRiskDataScoreRequest) SetHashType(v string) *QueryRiskDataScoreRequest {
+	s.HashType = &v
+	return s
+}
+
+func (s *QueryRiskDataScoreRequest) SetEventDataType(v string) *QueryRiskDataScoreRequest {
+	s.EventDataType = &v
+	return s
+}
+
+type QueryRiskDataScoreResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// 请求成功标识
+	Success *bool `json:"success,omitempty" xml:"success,omitempty"`
+	// 业务入参回显
+	BizId *string `json:"biz_id,omitempty" xml:"biz_id,omitempty"`
+	// 授权码
+	BusinessCode *string `json:"business_code,omitempty" xml:"business_code,omitempty"`
+	// 详细评分列表
+	ModelDetail []*ModelDetail `json:"model_detail,omitempty" xml:"model_detail,omitempty" type:"Repeated"`
+	// 变量类型
+	VariableDetail []*VariableDetail `json:"variable_detail,omitempty" xml:"variable_detail,omitempty" type:"Repeated"`
+}
+
+func (s QueryRiskDataScoreResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s QueryRiskDataScoreResponse) GoString() string {
+	return s.String()
+}
+
+func (s *QueryRiskDataScoreResponse) SetReqMsgId(v string) *QueryRiskDataScoreResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *QueryRiskDataScoreResponse) SetResultCode(v string) *QueryRiskDataScoreResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *QueryRiskDataScoreResponse) SetResultMsg(v string) *QueryRiskDataScoreResponse {
+	s.ResultMsg = &v
+	return s
+}
+
+func (s *QueryRiskDataScoreResponse) SetSuccess(v bool) *QueryRiskDataScoreResponse {
+	s.Success = &v
+	return s
+}
+
+func (s *QueryRiskDataScoreResponse) SetBizId(v string) *QueryRiskDataScoreResponse {
+	s.BizId = &v
+	return s
+}
+
+func (s *QueryRiskDataScoreResponse) SetBusinessCode(v string) *QueryRiskDataScoreResponse {
+	s.BusinessCode = &v
+	return s
+}
+
+func (s *QueryRiskDataScoreResponse) SetModelDetail(v []*ModelDetail) *QueryRiskDataScoreResponse {
+	s.ModelDetail = v
+	return s
+}
+
+func (s *QueryRiskDataScoreResponse) SetVariableDetail(v []*VariableDetail) *QueryRiskDataScoreResponse {
+	s.VariableDetail = v
+	return s
+}
+
+type QueryScoreDataGatewayRequest struct {
+	// OAuth模式下的授权token
+	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
+	// 事件上下文属性
+	EventInfo *string `json:"event_info,omitempty" xml:"event_info,omitempty" require:"true"`
+}
+
+func (s QueryScoreDataGatewayRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s QueryScoreDataGatewayRequest) GoString() string {
+	return s.String()
+}
+
+func (s *QueryScoreDataGatewayRequest) SetAuthToken(v string) *QueryScoreDataGatewayRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *QueryScoreDataGatewayRequest) SetProductInstanceId(v string) *QueryScoreDataGatewayRequest {
+	s.ProductInstanceId = &v
+	return s
+}
+
+func (s *QueryScoreDataGatewayRequest) SetEventInfo(v string) *QueryScoreDataGatewayRequest {
+	s.EventInfo = &v
+	return s
+}
+
+type QueryScoreDataGatewayResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// 反馈成功之后的id
+	SecurityId *string `json:"security_id,omitempty" xml:"security_id,omitempty"`
+	// 安全处理结果，枚举值为：reject[拒绝],validate[校验],accept[放过]
+	SecurityResult *string `json:"security_result,omitempty" xml:"security_result,omitempty"`
+	// 1
+	ModelDetails *ModelDetails `json:"model_details,omitempty" xml:"model_details,omitempty"`
+	// 变量
+	VariableDetails *VariableDetails `json:"variable_details,omitempty" xml:"variable_details,omitempty"`
+	// 成功标识
+	Success *bool `json:"success,omitempty" xml:"success,omitempty"`
+}
+
+func (s QueryScoreDataGatewayResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s QueryScoreDataGatewayResponse) GoString() string {
+	return s.String()
+}
+
+func (s *QueryScoreDataGatewayResponse) SetReqMsgId(v string) *QueryScoreDataGatewayResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *QueryScoreDataGatewayResponse) SetResultCode(v string) *QueryScoreDataGatewayResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *QueryScoreDataGatewayResponse) SetResultMsg(v string) *QueryScoreDataGatewayResponse {
+	s.ResultMsg = &v
+	return s
+}
+
+func (s *QueryScoreDataGatewayResponse) SetSecurityId(v string) *QueryScoreDataGatewayResponse {
+	s.SecurityId = &v
+	return s
+}
+
+func (s *QueryScoreDataGatewayResponse) SetSecurityResult(v string) *QueryScoreDataGatewayResponse {
+	s.SecurityResult = &v
+	return s
+}
+
+func (s *QueryScoreDataGatewayResponse) SetModelDetails(v *ModelDetails) *QueryScoreDataGatewayResponse {
+	s.ModelDetails = v
+	return s
+}
+
+func (s *QueryScoreDataGatewayResponse) SetVariableDetails(v *VariableDetails) *QueryScoreDataGatewayResponse {
+	s.VariableDetails = v
+	return s
+}
+
+func (s *QueryScoreDataGatewayResponse) SetSuccess(v bool) *QueryScoreDataGatewayResponse {
+	s.Success = &v
+	return s
+}
+
 type QueryCreditshieldRestrictedRequest struct {
 	// OAuth模式下的授权token
 	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
@@ -48835,7 +49230,7 @@ func (client *Client) DoRequest(version *string, action *string, protocol *strin
 				"req_msg_id":       antchainutil.GetNonce(),
 				"access_key":       client.AccessKeyId,
 				"base_sdk_version": tea.String("TeaSDK-2.0"),
-				"sdk_version":      tea.String("1.33.11"),
+				"sdk_version":      tea.String("1.33.12"),
 				"_prod_code":       tea.String("RISKPLUS"),
 				"_prod_channel":    tea.String("undefined"),
 			}
@@ -57028,6 +57423,78 @@ func (client *Client) InitGateWayServiceEx(request *InitGateWayServiceRequest, h
 	}
 	_result = &InitGateWayServiceResponse{}
 	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("riskplus.gate.way.service.init"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
+}
+
+// Description:
+//
+// Description: 评分服务OpenAPI
+//
+// Summary: 评分服务OpenAPI
+func (client *Client) QueryRiskDataScore(request *QueryRiskDataScoreRequest) (_result *QueryRiskDataScoreResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &QueryRiskDataScoreResponse{}
+	_body, _err := client.QueryRiskDataScoreEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+// Description:
+//
+// Description: 评分服务OpenAPI
+//
+// Summary: 评分服务OpenAPI
+func (client *Client) QueryRiskDataScoreEx(request *QueryRiskDataScoreRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *QueryRiskDataScoreResponse, _err error) {
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &QueryRiskDataScoreResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("riskplus.risk.data.score.query"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
+}
+
+// Description:
+//
+// Description: 风控老服务标准化
+//
+// Summary: 风控老服务标准化
+func (client *Client) QueryScoreDataGateway(request *QueryScoreDataGatewayRequest) (_result *QueryScoreDataGatewayResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &QueryScoreDataGatewayResponse{}
+	_body, _err := client.QueryScoreDataGatewayEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+// Description:
+//
+// Description: 风控老服务标准化
+//
+// Summary: 风控老服务标准化
+func (client *Client) QueryScoreDataGatewayEx(request *QueryScoreDataGatewayRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *QueryScoreDataGatewayResponse, _err error) {
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &QueryScoreDataGatewayResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("riskplus.score.data.gateway.query"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
 	if _err != nil {
 		return _result, _err
 	}
