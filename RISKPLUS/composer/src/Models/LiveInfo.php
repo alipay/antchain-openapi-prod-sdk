@@ -13,6 +13,9 @@ class LiveInfo extends Model {
         'liveStreet' => 'live_street',
         'liveAddress' => 'live_address',
         'liveYears' => 'live_years',
+        'liveProvinceCode' => 'live_province_code',
+        'liveCityCode' => 'live_city_code',
+        'liveAreaCode' => 'live_area_code',
     ];
     public function validate() {}
     public function toMap() {
@@ -34,6 +37,15 @@ class LiveInfo extends Model {
         }
         if (null !== $this->liveYears) {
             $res['live_years'] = $this->liveYears;
+        }
+        if (null !== $this->liveProvinceCode) {
+            $res['live_province_code'] = $this->liveProvinceCode;
+        }
+        if (null !== $this->liveCityCode) {
+            $res['live_city_code'] = $this->liveCityCode;
+        }
+        if (null !== $this->liveAreaCode) {
+            $res['live_area_code'] = $this->liveAreaCode;
         }
         return $res;
     }
@@ -60,6 +72,15 @@ class LiveInfo extends Model {
         }
         if(isset($map['live_years'])){
             $model->liveYears = $map['live_years'];
+        }
+        if(isset($map['live_province_code'])){
+            $model->liveProvinceCode = $map['live_province_code'];
+        }
+        if(isset($map['live_city_code'])){
+            $model->liveCityCode = $map['live_city_code'];
+        }
+        if(isset($map['live_area_code'])){
+            $model->liveAreaCode = $map['live_area_code'];
         }
         return $model;
     }
@@ -104,5 +125,26 @@ class LiveInfo extends Model {
      * @var int
      */
     public $liveYears;
+
+    // 居住省份编码
+    /**
+     * @example 
+     * @var string
+     */
+    public $liveProvinceCode;
+
+    // 居住城市编码
+    /**
+     * @example 
+     * @var string
+     */
+    public $liveCityCode;
+
+    // 居住区域编码
+    /**
+     * @example 
+     * @var string
+     */
+    public $liveAreaCode;
 
 }

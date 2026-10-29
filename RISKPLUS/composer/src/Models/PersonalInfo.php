@@ -22,6 +22,9 @@ class PersonalInfo extends Model {
         'sex' => 'sex',
         'nation' => 'nation',
         'maritalStatus' => 'marital_status',
+        'provinceCode' => 'province_code',
+        'cityCode' => 'city_code',
+        'areaCode' => 'area_code',
     ];
     public function validate() {
         Model::validateRequired('customName', $this->customName, true);
@@ -79,6 +82,15 @@ class PersonalInfo extends Model {
         if (null !== $this->maritalStatus) {
             $res['marital_status'] = $this->maritalStatus;
         }
+        if (null !== $this->provinceCode) {
+            $res['province_code'] = $this->provinceCode;
+        }
+        if (null !== $this->cityCode) {
+            $res['city_code'] = $this->cityCode;
+        }
+        if (null !== $this->areaCode) {
+            $res['area_code'] = $this->areaCode;
+        }
         return $res;
     }
     /**
@@ -131,6 +143,15 @@ class PersonalInfo extends Model {
         }
         if(isset($map['marital_status'])){
             $model->maritalStatus = $map['marital_status'];
+        }
+        if(isset($map['province_code'])){
+            $model->provinceCode = $map['province_code'];
+        }
+        if(isset($map['city_code'])){
+            $model->cityCode = $map['city_code'];
+        }
+        if(isset($map['area_code'])){
+            $model->areaCode = $map['area_code'];
         }
         return $model;
     }
@@ -240,5 +261,26 @@ class PersonalInfo extends Model {
      * @var string
      */
     public $maritalStatus;
+
+    // 省份编码
+    /**
+     * @example 
+     * @var string
+     */
+    public $provinceCode;
+
+    // 城市编码
+    /**
+     * @example 
+     * @var string
+     */
+    public $cityCode;
+
+    // 区域编码
+    /**
+     * @example 
+     * @var string
+     */
+    public $areaCode;
 
 }

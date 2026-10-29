@@ -448,6 +448,10 @@ use AntChain\RISKPLUS\Models\ReceiveRbbOverseacompanyProfileRequest;
 use AntChain\RISKPLUS\Models\ReceiveRbbOverseacompanyProfileResponse;
 use AntChain\RISKPLUS\Models\InitGateWayServiceRequest;
 use AntChain\RISKPLUS\Models\InitGateWayServiceResponse;
+use AntChain\RISKPLUS\Models\QueryRiskDataScoreRequest;
+use AntChain\RISKPLUS\Models\QueryRiskDataScoreResponse;
+use AntChain\RISKPLUS\Models\QueryScoreDataGatewayRequest;
+use AntChain\RISKPLUS\Models\QueryScoreDataGatewayResponse;
 use AntChain\RISKPLUS\Models\QueryCreditshieldRestrictedRequest;
 use AntChain\RISKPLUS\Models\QueryCreditshieldRestrictedResponse;
 use AntChain\RISKPLUS\Models\QueryCreditshieldFixcontactRequest;
@@ -787,7 +791,7 @@ class Client {
                     "req_msg_id" => UtilClient::getNonce(),
                     "access_key" => $this->_accessKeyId,
                     "base_sdk_version" => "TeaSDK-2.0",
-                    "sdk_version" => "1.33.11",
+                    "sdk_version" => "1.33.12",
                     "_prod_code" => "RISKPLUS",
                     "_prod_channel" => "undefined"
                 ];
@@ -6475,6 +6479,56 @@ class Client {
     public function initGateWayServiceEx($request, $headers, $runtime){
         Utils::validateModel($request);
         return InitGateWayServiceResponse::fromMap($this->doRequest("1.0", "riskplus.gate.way.service.init", "HTTPS", "POST", "/gateway.do", Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 评分服务OpenAPI
+     * Summary: 评分服务OpenAPI
+     * @param QueryRiskDataScoreRequest $request
+     * @return QueryRiskDataScoreResponse
+     */
+    public function queryRiskDataScore($request){
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+        return $this->queryRiskDataScoreEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 评分服务OpenAPI
+     * Summary: 评分服务OpenAPI
+     * @param QueryRiskDataScoreRequest $request
+     * @param string[] $headers
+     * @param RuntimeOptions $runtime
+     * @return QueryRiskDataScoreResponse
+     */
+    public function queryRiskDataScoreEx($request, $headers, $runtime){
+        Utils::validateModel($request);
+        return QueryRiskDataScoreResponse::fromMap($this->doRequest("1.0", "riskplus.risk.data.score.query", "HTTPS", "POST", "/gateway.do", Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 风控老服务标准化
+     * Summary: 风控老服务标准化
+     * @param QueryScoreDataGatewayRequest $request
+     * @return QueryScoreDataGatewayResponse
+     */
+    public function queryScoreDataGateway($request){
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+        return $this->queryScoreDataGatewayEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 风控老服务标准化
+     * Summary: 风控老服务标准化
+     * @param QueryScoreDataGatewayRequest $request
+     * @param string[] $headers
+     * @param RuntimeOptions $runtime
+     * @return QueryScoreDataGatewayResponse
+     */
+    public function queryScoreDataGatewayEx($request, $headers, $runtime){
+        Utils::validateModel($request);
+        return QueryScoreDataGatewayResponse::fromMap($this->doRequest("1.0", "riskplus.score.data.gateway.query", "HTTPS", "POST", "/gateway.do", Tea::merge($request), $headers, $runtime));
     }
 
     /**

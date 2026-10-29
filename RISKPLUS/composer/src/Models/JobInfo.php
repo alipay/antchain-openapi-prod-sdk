@@ -21,6 +21,9 @@ class JobInfo extends Model {
         'companyAddress' => 'company_address',
         'yearSalary' => 'year_salary',
         'induInvol' => 'indu_invol',
+        'companyProvinceCode' => 'company_province_code',
+        'companyCityCode' => 'company_city_code',
+        'companyAreaCode' => 'company_area_code',
     ];
     public function validate() {}
     public function toMap() {
@@ -66,6 +69,15 @@ class JobInfo extends Model {
         }
         if (null !== $this->induInvol) {
             $res['indu_invol'] = $this->induInvol;
+        }
+        if (null !== $this->companyProvinceCode) {
+            $res['company_province_code'] = $this->companyProvinceCode;
+        }
+        if (null !== $this->companyCityCode) {
+            $res['company_city_code'] = $this->companyCityCode;
+        }
+        if (null !== $this->companyAreaCode) {
+            $res['company_area_code'] = $this->companyAreaCode;
         }
         return $res;
     }
@@ -116,6 +128,15 @@ class JobInfo extends Model {
         }
         if(isset($map['indu_invol'])){
             $model->induInvol = $map['indu_invol'];
+        }
+        if(isset($map['company_province_code'])){
+            $model->companyProvinceCode = $map['company_province_code'];
+        }
+        if(isset($map['company_city_code'])){
+            $model->companyCityCode = $map['company_city_code'];
+        }
+        if(isset($map['company_area_code'])){
+            $model->companyAreaCode = $map['company_area_code'];
         }
         return $model;
     }
@@ -216,5 +237,26 @@ class JobInfo extends Model {
      * @var string
      */
     public $induInvol;
+
+    // 公司省份编码
+    /**
+     * @example 
+     * @var string
+     */
+    public $companyProvinceCode;
+
+    // 公司城市编码
+    /**
+     * @example 
+     * @var string
+     */
+    public $companyCityCode;
+
+    // 公司地区编码
+    /**
+     * @example 
+     * @var string
+     */
+    public $companyAreaCode;
 
 }
