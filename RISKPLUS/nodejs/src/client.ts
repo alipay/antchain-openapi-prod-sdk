@@ -5299,6 +5299,55 @@ export class ApplicantPersonInfo extends $tea.Model {
   }
 }
 
+// 输出参数
+export class VariableDetail extends $tea.Model {
+  // 产品码
+  /**
+   * @example
+   * test
+   */
+  productCode: string;
+  // 变量名称
+  /**
+   * @example
+   * test
+   */
+  variableName: string;
+  // 变量值
+  /**
+   * @example
+   * test
+   */
+  variableValue: string;
+  // 变量类型
+  /**
+   * @example
+   * hello
+   */
+  variableType: string;
+  static names(): { [key: string]: string } {
+    return {
+      productCode: 'product_code',
+      variableName: 'variable_name',
+      variableValue: 'variable_value',
+      variableType: 'variable_type',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      productCode: 'string',
+      variableName: 'string',
+      variableValue: 'string',
+      variableType: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
 // 门店账户信息
 export class StoreAccountInfo extends $tea.Model {
   // 结算银行卡号
@@ -6062,6 +6111,47 @@ export class RiskLabelFilterConfigInfo extends $tea.Model {
   }
 }
 
+// 评分结果列表
+export class ModelDetail extends $tea.Model {
+  // 产品码
+  /**
+   * @example
+   * test
+   */
+  productCode: string;
+  // 评分
+  /**
+   * @example
+   * 1.0
+   */
+  score: number;
+  // 描述
+  /**
+   * @example
+   * test
+   */
+  desc?: string;
+  static names(): { [key: string]: string } {
+    return {
+      productCode: 'product_code',
+      score: 'score',
+      desc: 'desc',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      productCode: 'string',
+      score: 'number',
+      desc: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
 // AI外呼每个用户维度的参数信息
 export class RobotCallCustomerParam extends $tea.Model {
   // 手机号/手机号md5
@@ -6189,6 +6279,12 @@ export class JobInfo extends $tea.Model {
    * 1
    */
   induInvol?: string;
+  // 公司省份编码
+  companyProvinceCode?: string;
+  // 公司城市编码
+  companyCityCode?: string;
+  // 公司地区编码
+  companyAreaCode?: string;
   static names(): { [key: string]: string } {
     return {
       jobType: 'job_type',
@@ -6205,6 +6301,9 @@ export class JobInfo extends $tea.Model {
       companyAddress: 'company_address',
       yearSalary: 'year_salary',
       induInvol: 'indu_invol',
+      companyProvinceCode: 'company_province_code',
+      companyCityCode: 'company_city_code',
+      companyAreaCode: 'company_area_code',
     };
   }
 
@@ -6224,6 +6323,9 @@ export class JobInfo extends $tea.Model {
       companyAddress: 'string',
       yearSalary: 'number',
       induInvol: 'string',
+      companyProvinceCode: 'string',
+      companyCityCode: 'string',
+      companyAreaCode: 'string',
     };
   }
 
@@ -6270,6 +6372,12 @@ export class LiveInfo extends $tea.Model {
    * 居住年限
    */
   liveYears?: number;
+  // 居住省份编码
+  liveProvinceCode?: string;
+  // 居住城市编码
+  liveCityCode?: string;
+  // 居住区域编码
+  liveAreaCode?: string;
   static names(): { [key: string]: string } {
     return {
       liveProvince: 'live_province',
@@ -6278,6 +6386,9 @@ export class LiveInfo extends $tea.Model {
       liveStreet: 'live_street',
       liveAddress: 'live_address',
       liveYears: 'live_years',
+      liveProvinceCode: 'live_province_code',
+      liveCityCode: 'live_city_code',
+      liveAreaCode: 'live_area_code',
     };
   }
 
@@ -6289,6 +6400,9 @@ export class LiveInfo extends $tea.Model {
       liveStreet: 'string',
       liveAddress: 'string',
       liveYears: 'number',
+      liveProvinceCode: 'string',
+      liveCityCode: 'string',
+      liveAreaCode: 'string',
     };
   }
 
@@ -7355,6 +7469,12 @@ export class PersonalInfo extends $tea.Model {
    * 00
    */
   maritalStatus?: string;
+  // 省份编码
+  provinceCode?: string;
+  // 城市编码
+  cityCode?: string;
+  // 区域编码
+  areaCode?: string;
   static names(): { [key: string]: string } {
     return {
       customName: 'custom_name',
@@ -7372,6 +7492,9 @@ export class PersonalInfo extends $tea.Model {
       sex: 'sex',
       nation: 'nation',
       maritalStatus: 'marital_status',
+      provinceCode: 'province_code',
+      cityCode: 'city_code',
+      areaCode: 'area_code',
     };
   }
 
@@ -7392,6 +7515,9 @@ export class PersonalInfo extends $tea.Model {
       sex: 'string',
       nation: 'string',
       maritalStatus: 'string',
+      provinceCode: 'string',
+      cityCode: 'string',
+      areaCode: 'string',
     };
   }
 
@@ -30027,6 +30153,180 @@ export class InitGateWayServiceResponse extends $tea.Model {
   }
 }
 
+export class QueryRiskDataScoreRequest extends $tea.Model {
+  // OAuth模式下的授权token
+  authToken?: string;
+  productInstanceId?: string;
+  // 授权码
+  businessCode: string;
+  // 产品码
+  productCodes: string[];
+  // 必要入参
+  params: string;
+  // 二级租户
+  subTenant: string;
+  // 业务唯一标准
+  bizUniqueId?: string;
+  // 加密方式
+  hashType: string;
+  // 测试标识
+  eventDataType: string;
+  static names(): { [key: string]: string } {
+    return {
+      authToken: 'auth_token',
+      productInstanceId: 'product_instance_id',
+      businessCode: 'business_code',
+      productCodes: 'product_codes',
+      params: 'params',
+      subTenant: 'sub_tenant',
+      bizUniqueId: 'biz_unique_id',
+      hashType: 'hash_type',
+      eventDataType: 'event_data_type',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      authToken: 'string',
+      productInstanceId: 'string',
+      businessCode: 'string',
+      productCodes: { 'type': 'array', 'itemType': 'string' },
+      params: 'string',
+      subTenant: 'string',
+      bizUniqueId: 'string',
+      hashType: 'string',
+      eventDataType: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class QueryRiskDataScoreResponse extends $tea.Model {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string;
+  // 结果码，一般OK表示调用成功
+  resultCode?: string;
+  // 异常信息的文本描述
+  resultMsg?: string;
+  // 请求成功标识
+  success?: boolean;
+  // 业务入参回显
+  bizId?: string;
+  // 授权码
+  businessCode?: string;
+  // 详细评分列表
+  modelDetail?: ModelDetail[];
+  // 变量类型
+  variableDetail?: VariableDetail[];
+  static names(): { [key: string]: string } {
+    return {
+      reqMsgId: 'req_msg_id',
+      resultCode: 'result_code',
+      resultMsg: 'result_msg',
+      success: 'success',
+      bizId: 'biz_id',
+      businessCode: 'business_code',
+      modelDetail: 'model_detail',
+      variableDetail: 'variable_detail',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      reqMsgId: 'string',
+      resultCode: 'string',
+      resultMsg: 'string',
+      success: 'boolean',
+      bizId: 'string',
+      businessCode: 'string',
+      modelDetail: { 'type': 'array', 'itemType': ModelDetail },
+      variableDetail: { 'type': 'array', 'itemType': VariableDetail },
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class QueryScoreDataGatewayRequest extends $tea.Model {
+  // OAuth模式下的授权token
+  authToken?: string;
+  productInstanceId?: string;
+  // 事件上下文属性
+  eventInfo: string;
+  static names(): { [key: string]: string } {
+    return {
+      authToken: 'auth_token',
+      productInstanceId: 'product_instance_id',
+      eventInfo: 'event_info',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      authToken: 'string',
+      productInstanceId: 'string',
+      eventInfo: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class QueryScoreDataGatewayResponse extends $tea.Model {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string;
+  // 结果码，一般OK表示调用成功
+  resultCode?: string;
+  // 异常信息的文本描述
+  resultMsg?: string;
+  // 反馈成功之后的id
+  securityId?: string;
+  // 安全处理结果，枚举值为：reject[拒绝],validate[校验],accept[放过]
+  securityResult?: string;
+  // 1
+  modelDetails?: ModelDetails;
+  // 变量
+  variableDetails?: VariableDetails;
+  // 成功标识
+  success?: boolean;
+  static names(): { [key: string]: string } {
+    return {
+      reqMsgId: 'req_msg_id',
+      resultCode: 'result_code',
+      resultMsg: 'result_msg',
+      securityId: 'security_id',
+      securityResult: 'security_result',
+      modelDetails: 'model_details',
+      variableDetails: 'variable_details',
+      success: 'success',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      reqMsgId: 'string',
+      resultCode: 'string',
+      resultMsg: 'string',
+      securityId: 'string',
+      securityResult: 'string',
+      modelDetails: ModelDetails,
+      variableDetails: VariableDetails,
+      success: 'boolean',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
 export class QueryCreditshieldRestrictedRequest extends $tea.Model {
   // OAuth模式下的授权token
   authToken?: string;
@@ -38383,7 +38683,7 @@ export default class Client {
           req_msg_id: AntchainUtil.getNonce(),
           access_key: this._accessKeyId,
           base_sdk_version: "TeaSDK-2.0",
-          sdk_version: "1.33.11",
+          sdk_version: "1.33.12",
           _prod_code: "RISKPLUS",
           _prod_channel: "undefined",
         };
@@ -43228,6 +43528,48 @@ export default class Client {
   async initGateWayServiceEx(request: InitGateWayServiceRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<InitGateWayServiceResponse> {
     Util.validateModel(request);
     return $tea.cast<InitGateWayServiceResponse>(await this.doRequest("1.0", "riskplus.gate.way.service.init", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new InitGateWayServiceResponse({}));
+  }
+
+  /**
+   * @remarks
+   * Description: 评分服务OpenAPI
+   * Summary: 评分服务OpenAPI
+   */
+  async queryRiskDataScore(request: QueryRiskDataScoreRequest): Promise<QueryRiskDataScoreResponse> {
+    let runtime = new $Util.RuntimeOptions({ });
+    let headers : {[key: string ]: string} = { };
+    return await this.queryRiskDataScoreEx(request, headers, runtime);
+  }
+
+  /**
+   * @remarks
+   * Description: 评分服务OpenAPI
+   * Summary: 评分服务OpenAPI
+   */
+  async queryRiskDataScoreEx(request: QueryRiskDataScoreRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<QueryRiskDataScoreResponse> {
+    Util.validateModel(request);
+    return $tea.cast<QueryRiskDataScoreResponse>(await this.doRequest("1.0", "riskplus.risk.data.score.query", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new QueryRiskDataScoreResponse({}));
+  }
+
+  /**
+   * @remarks
+   * Description: 风控老服务标准化
+   * Summary: 风控老服务标准化
+   */
+  async queryScoreDataGateway(request: QueryScoreDataGatewayRequest): Promise<QueryScoreDataGatewayResponse> {
+    let runtime = new $Util.RuntimeOptions({ });
+    let headers : {[key: string ]: string} = { };
+    return await this.queryScoreDataGatewayEx(request, headers, runtime);
+  }
+
+  /**
+   * @remarks
+   * Description: 风控老服务标准化
+   * Summary: 风控老服务标准化
+   */
+  async queryScoreDataGatewayEx(request: QueryScoreDataGatewayRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<QueryScoreDataGatewayResponse> {
+    Util.validateModel(request);
+    return $tea.cast<QueryScoreDataGatewayResponse>(await this.doRequest("1.0", "riskplus.score.data.gateway.query", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new QueryScoreDataGatewayResponse({}));
   }
 
   /**
