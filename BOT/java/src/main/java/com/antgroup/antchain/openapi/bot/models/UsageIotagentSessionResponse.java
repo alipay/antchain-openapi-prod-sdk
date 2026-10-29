@@ -28,6 +28,10 @@ public class UsageIotagentSessionResponse extends TeaModel {
     @NameInMap("turns")
     public java.util.List<TurnModelCallsUsages> turns;
 
+    // 上下文占用分析（基于最后一次模型调用估算）
+    @NameInMap("context")
+    public ContextOccupancy context;
+
     public static UsageIotagentSessionResponse build(java.util.Map<String, ?> map) throws Exception {
         UsageIotagentSessionResponse self = new UsageIotagentSessionResponse();
         return TeaModel.build(map, self);
@@ -79,6 +83,14 @@ public class UsageIotagentSessionResponse extends TeaModel {
     }
     public java.util.List<TurnModelCallsUsages> getTurns() {
         return this.turns;
+    }
+
+    public UsageIotagentSessionResponse setContext(ContextOccupancy context) {
+        this.context = context;
+        return this;
+    }
+    public ContextOccupancy getContext() {
+        return this.context;
     }
 
 }

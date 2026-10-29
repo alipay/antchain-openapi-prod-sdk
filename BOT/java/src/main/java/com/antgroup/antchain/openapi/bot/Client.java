@@ -126,7 +126,7 @@ public class Client {
                     new TeaPair("req_msg_id", com.antgroup.antchain.openapi.antchain.util.AntchainUtils.getNonce()),
                     new TeaPair("access_key", _accessKeyId),
                     new TeaPair("base_sdk_version", "TeaSDK-2.0"),
-                    new TeaPair("sdk_version", "1.22.5"),
+                    new TeaPair("sdk_version", "1.22.6"),
                     new TeaPair("_prod_code", "BOT"),
                     new TeaPair("_prod_channel", "undefined")
                 );
@@ -2204,6 +2204,48 @@ public class Client {
     public QueryAskdataSourceResponse queryAskdataSourceEx(QueryAskdataSourceRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
         com.aliyun.teautil.Common.validateModel(request);
         return TeaModel.toModel(this.doRequest("1.0", "blockchain.bot.askdata.source.query", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new QueryAskdataSourceResponse());
+    }
+
+    /**
+     * <b>description</b> :
+     * <p>Description: 查询会话执行轨迹索引，按作用域返回轮次列表、诊断摘要和统计计数
+     * Summary: 查询会话执行轨迹索引，按作用域返回轮次列表、诊断摘要和统计计数</p>
+     */
+    public TrajectoryIotagentSessionResponse trajectoryIotagentSession(TrajectoryIotagentSessionRequest request) throws Exception {
+        com.aliyun.teautil.models.RuntimeOptions runtime = new com.aliyun.teautil.models.RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.trajectoryIotagentSessionEx(request, headers, runtime);
+    }
+
+    /**
+     * <b>description</b> :
+     * <p>Description: 查询会话执行轨迹索引，按作用域返回轮次列表、诊断摘要和统计计数
+     * Summary: 查询会话执行轨迹索引，按作用域返回轮次列表、诊断摘要和统计计数</p>
+     */
+    public TrajectoryIotagentSessionResponse trajectoryIotagentSessionEx(TrajectoryIotagentSessionRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "blockchain.bot.iotagent.session.trajectory", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new TrajectoryIotagentSessionResponse());
+    }
+
+    /**
+     * <b>description</b> :
+     * <p>Description: 查询单轮/操作的执行步骤详情，展开执行树
+     * Summary: 查询单轮/操作的执行步骤详情，展开执行树</p>
+     */
+    public StepsIotagentSessionTrajectoryResponse stepsIotagentSessionTrajectory(StepsIotagentSessionTrajectoryRequest request) throws Exception {
+        com.aliyun.teautil.models.RuntimeOptions runtime = new com.aliyun.teautil.models.RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.stepsIotagentSessionTrajectoryEx(request, headers, runtime);
+    }
+
+    /**
+     * <b>description</b> :
+     * <p>Description: 查询单轮/操作的执行步骤详情，展开执行树
+     * Summary: 查询单轮/操作的执行步骤详情，展开执行树</p>
+     */
+    public StepsIotagentSessionTrajectoryResponse stepsIotagentSessionTrajectoryEx(StepsIotagentSessionTrajectoryRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "blockchain.bot.iotagent.session.trajectory.steps", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new StepsIotagentSessionTrajectoryResponse());
     }
 
     /**
