@@ -52,6 +52,18 @@ public class LiveInfo extends TeaModel {
     @NameInMap("live_years")
     public Long liveYears;
 
+    // 居住省份编码
+    @NameInMap("live_province_code")
+    public String liveProvinceCode;
+
+    // 居住城市编码
+    @NameInMap("live_city_code")
+    public String liveCityCode;
+
+    // 居住区域编码
+    @NameInMap("live_area_code")
+    public String liveAreaCode;
+
     public static LiveInfo build(java.util.Map<String, ?> map) throws Exception {
         LiveInfo self = new LiveInfo();
         return TeaModel.build(map, self);
@@ -103,6 +115,30 @@ public class LiveInfo extends TeaModel {
     }
     public Long getLiveYears() {
         return this.liveYears;
+    }
+
+    public LiveInfo setLiveProvinceCode(String liveProvinceCode) {
+        this.liveProvinceCode = liveProvinceCode;
+        return this;
+    }
+    public String getLiveProvinceCode() {
+        return this.liveProvinceCode;
+    }
+
+    public LiveInfo setLiveCityCode(String liveCityCode) {
+        this.liveCityCode = liveCityCode;
+        return this;
+    }
+    public String getLiveCityCode() {
+        return this.liveCityCode;
+    }
+
+    public LiveInfo setLiveAreaCode(String liveAreaCode) {
+        this.liveAreaCode = liveAreaCode;
+        return this;
+    }
+    public String getLiveAreaCode() {
+        return this.liveAreaCode;
     }
 
 }

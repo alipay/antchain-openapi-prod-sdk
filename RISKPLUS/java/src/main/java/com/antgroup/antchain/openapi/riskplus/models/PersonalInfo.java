@@ -133,6 +133,18 @@ public class PersonalInfo extends TeaModel {
     @NameInMap("marital_status")
     public String maritalStatus;
 
+    // 省份编码
+    @NameInMap("province_code")
+    public String provinceCode;
+
+    // 城市编码
+    @NameInMap("city_code")
+    public String cityCode;
+
+    // 区域编码
+    @NameInMap("area_code")
+    public String areaCode;
+
     public static PersonalInfo build(java.util.Map<String, ?> map) throws Exception {
         PersonalInfo self = new PersonalInfo();
         return TeaModel.build(map, self);
@@ -256,6 +268,30 @@ public class PersonalInfo extends TeaModel {
     }
     public String getMaritalStatus() {
         return this.maritalStatus;
+    }
+
+    public PersonalInfo setProvinceCode(String provinceCode) {
+        this.provinceCode = provinceCode;
+        return this;
+    }
+    public String getProvinceCode() {
+        return this.provinceCode;
+    }
+
+    public PersonalInfo setCityCode(String cityCode) {
+        this.cityCode = cityCode;
+        return this;
+    }
+    public String getCityCode() {
+        return this.cityCode;
+    }
+
+    public PersonalInfo setAreaCode(String areaCode) {
+        this.areaCode = areaCode;
+        return this;
+    }
+    public String getAreaCode() {
+        return this.areaCode;
     }
 
 }

@@ -116,6 +116,18 @@ public class JobInfo extends TeaModel {
     @NameInMap("indu_invol")
     public String induInvol;
 
+    // 公司省份编码
+    @NameInMap("company_province_code")
+    public String companyProvinceCode;
+
+    // 公司城市编码
+    @NameInMap("company_city_code")
+    public String companyCityCode;
+
+    // 公司地区编码
+    @NameInMap("company_area_code")
+    public String companyAreaCode;
+
     public static JobInfo build(java.util.Map<String, ?> map) throws Exception {
         JobInfo self = new JobInfo();
         return TeaModel.build(map, self);
@@ -231,6 +243,30 @@ public class JobInfo extends TeaModel {
     }
     public String getInduInvol() {
         return this.induInvol;
+    }
+
+    public JobInfo setCompanyProvinceCode(String companyProvinceCode) {
+        this.companyProvinceCode = companyProvinceCode;
+        return this;
+    }
+    public String getCompanyProvinceCode() {
+        return this.companyProvinceCode;
+    }
+
+    public JobInfo setCompanyCityCode(String companyCityCode) {
+        this.companyCityCode = companyCityCode;
+        return this;
+    }
+    public String getCompanyCityCode() {
+        return this.companyCityCode;
+    }
+
+    public JobInfo setCompanyAreaCode(String companyAreaCode) {
+        this.companyAreaCode = companyAreaCode;
+        return this;
+    }
+    public String getCompanyAreaCode() {
+        return this.companyAreaCode;
     }
 
 }

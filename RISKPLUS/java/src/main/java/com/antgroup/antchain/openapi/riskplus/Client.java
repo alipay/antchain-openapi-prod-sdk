@@ -126,7 +126,7 @@ public class Client {
                     new TeaPair("req_msg_id", com.antgroup.antchain.openapi.antchain.util.AntchainUtils.getNonce()),
                     new TeaPair("access_key", _accessKeyId),
                     new TeaPair("base_sdk_version", "TeaSDK-2.0"),
-                    new TeaPair("sdk_version", "1.33.11"),
+                    new TeaPair("sdk_version", "1.33.12"),
                     new TeaPair("_prod_code", "RISKPLUS"),
                     new TeaPair("_prod_channel", "undefined")
                 );
@@ -4983,6 +4983,48 @@ public class Client {
     public InitGateWayServiceResponse initGateWayServiceEx(InitGateWayServiceRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
         com.aliyun.teautil.Common.validateModel(request);
         return TeaModel.toModel(this.doRequest("1.0", "riskplus.gate.way.service.init", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new InitGateWayServiceResponse());
+    }
+
+    /**
+     * <b>description</b> :
+     * <p>Description: 评分服务OpenAPI
+     * Summary: 评分服务OpenAPI</p>
+     */
+    public QueryRiskDataScoreResponse queryRiskDataScore(QueryRiskDataScoreRequest request) throws Exception {
+        com.aliyun.teautil.models.RuntimeOptions runtime = new com.aliyun.teautil.models.RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.queryRiskDataScoreEx(request, headers, runtime);
+    }
+
+    /**
+     * <b>description</b> :
+     * <p>Description: 评分服务OpenAPI
+     * Summary: 评分服务OpenAPI</p>
+     */
+    public QueryRiskDataScoreResponse queryRiskDataScoreEx(QueryRiskDataScoreRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "riskplus.risk.data.score.query", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new QueryRiskDataScoreResponse());
+    }
+
+    /**
+     * <b>description</b> :
+     * <p>Description: 风控老服务标准化
+     * Summary: 风控老服务标准化</p>
+     */
+    public QueryScoreDataGatewayResponse queryScoreDataGateway(QueryScoreDataGatewayRequest request) throws Exception {
+        com.aliyun.teautil.models.RuntimeOptions runtime = new com.aliyun.teautil.models.RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.queryScoreDataGatewayEx(request, headers, runtime);
+    }
+
+    /**
+     * <b>description</b> :
+     * <p>Description: 风控老服务标准化
+     * Summary: 风控老服务标准化</p>
+     */
+    public QueryScoreDataGatewayResponse queryScoreDataGatewayEx(QueryScoreDataGatewayRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "riskplus.score.data.gateway.query", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new QueryScoreDataGatewayResponse());
     }
 
     /**
