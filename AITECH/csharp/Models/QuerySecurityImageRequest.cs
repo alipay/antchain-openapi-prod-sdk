@@ -44,9 +44,9 @@ namespace AntChain.SDK.AITECH.Models
         public string ImageUrl { get; set; }
 
         // 图片检测内容
-        [NameInMap("content")]
+        [NameInMap("image")]
         [Validation(Required=false)]
-        public string Content { get; set; }
+        public string Image { get; set; }
 
     }
 

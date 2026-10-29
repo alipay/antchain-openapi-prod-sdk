@@ -18,7 +18,7 @@ namespace AntChain.SDK.AITECH.Models
         [Validation(Required=false)]
         public string ProductInstanceId { get; set; }
 
-        // 调用标示
+        // 调用方标识
         [NameInMap("enterprise")]
         [Validation(Required=false)]
         public string Enterprise { get; set; }

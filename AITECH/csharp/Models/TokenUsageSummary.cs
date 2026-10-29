@@ -22,7 +22,7 @@ namespace AntChain.SDK.AITECH.Models
         // 提示词token
         /// <summary>
         /// <b>Example:</b>
-        /// <para>1</para>
+        /// <para>10</para>
         /// </summary>
         [NameInMap("prompt_tokens")]
         [Validation(Required=false)]
