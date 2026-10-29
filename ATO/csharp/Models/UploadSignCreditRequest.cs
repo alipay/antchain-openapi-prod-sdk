@@ -58,6 +58,11 @@ namespace AntChain.SDK.ATO.Models
         [Validation(Required=false)]
         public string MerchantId { get; set; }
 
+        // 扩展信息
+        [NameInMap("ext_info")]
+        [Validation(Required=false)]
+        public string ExtInfo { get; set; }
+
     }
 
 }
