@@ -16,21 +16,9 @@ public class QueryBoardProxyResponse extends TeaModel {
     @NameInMap("result_msg")
     public String resultMsg;
 
-    // 是否成功
-    @NameInMap("success")
-    public Boolean success;
-
-    // 返回结果
-    @NameInMap("data")
-    public String data;
-
-    // SYSTEM_FAILURE
-    @NameInMap("code")
-    public String code;
-
-    // 错误信息
-    @NameInMap("message")
-    public String message;
+    // 结果
+    @NameInMap("result_json")
+    public String resultJson;
 
     public static QueryBoardProxyResponse build(java.util.Map<String, ?> map) throws Exception {
         QueryBoardProxyResponse self = new QueryBoardProxyResponse();
@@ -61,36 +49,12 @@ public class QueryBoardProxyResponse extends TeaModel {
         return this.resultMsg;
     }
 
-    public QueryBoardProxyResponse setSuccess(Boolean success) {
-        this.success = success;
+    public QueryBoardProxyResponse setResultJson(String resultJson) {
+        this.resultJson = resultJson;
         return this;
     }
-    public Boolean getSuccess() {
-        return this.success;
-    }
-
-    public QueryBoardProxyResponse setData(String data) {
-        this.data = data;
-        return this;
-    }
-    public String getData() {
-        return this.data;
-    }
-
-    public QueryBoardProxyResponse setCode(String code) {
-        this.code = code;
-        return this;
-    }
-    public String getCode() {
-        return this.code;
-    }
-
-    public QueryBoardProxyResponse setMessage(String message) {
-        this.message = message;
-        return this;
-    }
-    public String getMessage() {
-        return this.message;
+    public String getResultJson() {
+        return this.resultJson;
     }
 
 }
