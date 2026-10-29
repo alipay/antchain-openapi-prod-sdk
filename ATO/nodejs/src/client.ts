@@ -9170,6 +9170,683 @@ export class QueryInnerAioperationlistResponse extends $tea.Model {
   }
 }
 
+export class SubmitAcctSignflowRequest extends $tea.Model {
+  // OAuth模式下的授权token
+  authToken?: string;
+  productInstanceId?: string;
+  // 订单号
+  orderId: string;
+  // CRED_PSN_CH_IDCARD大陆身份证
+  userIdType?: string;
+  // 用户证件号，需要采用RSA加密传输
+  userIdNumber?: string;
+  // 姓名，需要采用RSA加密传输
+  userName?: string;
+  // 用户手机号，可不传；传的话需要采用RSA加密传输
+  userMobile?: string;
+  // 业务场景，电子合同签署协议的时候的标题
+  businessScene: string;
+  // 签署完成跳转链接
+  signedRedirectUrl?: string;
+  // 签署的电子合同模板信息，JSONArray格式，可以传入多个templateId和templateArgs。注意templateArgs的格式为key-value，其中key为模板文件中表单域的名称，value为需要填充的值。
+  templateList: string;
+  // 公司名称
+  merchantName: string;
+  // 商户签署区域标识。对应在合同模板的机构签署区域中的tag值(如果合同模板的签署区域的tag值为空，则可以不传这个参数)。必须完全对应，否则在多方签署的情况下根据tag找到不到对应的签署机构，会出错。
+  merchantTag?: string;
+  // CRED_ORG_USCC：统一社会信用代码
+  merchantIdType: string;
+  // 商户证件号，需要采用RSA加密传输
+  merchantIdNumber: string;
+  // 法人姓名，需要RSA加密传输
+  merchantLegalName?: string;
+  // 法人证件号，需要采用RSA加密传输
+  merchantLegalIdNumber?: string;
+  // 法人手机号，需RSA加密
+  merchantLegalMobile?: string;
+  // 0-手绘签名 1-模板印章签名 多种类型时逗号分割，为空不限制
+  sealType?: string;
+  static names(): { [key: string]: string } {
+    return {
+      authToken: 'auth_token',
+      productInstanceId: 'product_instance_id',
+      orderId: 'order_id',
+      userIdType: 'user_id_type',
+      userIdNumber: 'user_id_number',
+      userName: 'user_name',
+      userMobile: 'user_mobile',
+      businessScene: 'business_scene',
+      signedRedirectUrl: 'signed_redirect_url',
+      templateList: 'template_list',
+      merchantName: 'merchant_name',
+      merchantTag: 'merchant_tag',
+      merchantIdType: 'merchant_id_type',
+      merchantIdNumber: 'merchant_id_number',
+      merchantLegalName: 'merchant_legal_name',
+      merchantLegalIdNumber: 'merchant_legal_id_number',
+      merchantLegalMobile: 'merchant_legal_mobile',
+      sealType: 'seal_type',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      authToken: 'string',
+      productInstanceId: 'string',
+      orderId: 'string',
+      userIdType: 'string',
+      userIdNumber: 'string',
+      userName: 'string',
+      userMobile: 'string',
+      businessScene: 'string',
+      signedRedirectUrl: 'string',
+      templateList: 'string',
+      merchantName: 'string',
+      merchantTag: 'string',
+      merchantIdType: 'string',
+      merchantIdNumber: 'string',
+      merchantLegalName: 'string',
+      merchantLegalIdNumber: 'string',
+      merchantLegalMobile: 'string',
+      sealType: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class SubmitAcctSignflowResponse extends $tea.Model {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string;
+  // 结果码，一般OK表示调用成功
+  resultCode?: string;
+  // 异常信息的文本描述
+  resultMsg?: string;
+  // 签署合同单号
+  signNo?: string;
+  // 电子签署流程ID
+  flowId?: string;
+  // 签署用户ID
+  accountId?: string;
+  // 签署信息，包括短链接、长链接、小程序链接等。
+  signInfo?: string;
+  static names(): { [key: string]: string } {
+    return {
+      reqMsgId: 'req_msg_id',
+      resultCode: 'result_code',
+      resultMsg: 'result_msg',
+      signNo: 'sign_no',
+      flowId: 'flow_id',
+      accountId: 'account_id',
+      signInfo: 'sign_info',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      reqMsgId: 'string',
+      resultCode: 'string',
+      resultMsg: 'string',
+      signNo: 'string',
+      flowId: 'string',
+      accountId: 'string',
+      signInfo: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class ExecAcctPayRequest extends $tea.Model {
+  // OAuth模式下的授权token
+  authToken?: string;
+  productInstanceId?: string;
+  // 平台的统一社会信用代码，小于32
+  platformId: string;
+  // 签约单号
+  // ● 长度不可超过50
+  orderId: string;
+  // 订单id，长度小于50
+  acctTradeOrderId: string;
+  static names(): { [key: string]: string } {
+    return {
+      authToken: 'auth_token',
+      productInstanceId: 'product_instance_id',
+      platformId: 'platform_id',
+      orderId: 'order_id',
+      acctTradeOrderId: 'acct_trade_order_id',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      authToken: 'string',
+      productInstanceId: 'string',
+      platformId: 'string',
+      orderId: 'string',
+      acctTradeOrderId: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class ExecAcctPayResponse extends $tea.Model {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string;
+  // 结果码，一般OK表示调用成功
+  resultCode?: string;
+  // 异常信息的文本描述
+  resultMsg?: string;
+  // 我方交易号
+  payOrderNo?: string;
+  static names(): { [key: string]: string } {
+    return {
+      reqMsgId: 'req_msg_id',
+      resultCode: 'result_code',
+      resultMsg: 'result_msg',
+      payOrderNo: 'pay_order_no',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      reqMsgId: 'string',
+      resultCode: 'string',
+      resultMsg: 'string',
+      payOrderNo: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class QueryAcctPayRequest extends $tea.Model {
+  // OAuth模式下的授权token
+  authToken?: string;
+  productInstanceId?: string;
+  // 平台的统一社会信用代码，小于32
+  platformId: string;
+  // 签约单号
+  // ● 长度不可超过50
+  orderId: string;
+  // 订单id，长度小于50
+  acctTradeOrderId: string;
+  static names(): { [key: string]: string } {
+    return {
+      authToken: 'auth_token',
+      productInstanceId: 'product_instance_id',
+      platformId: 'platform_id',
+      orderId: 'order_id',
+      acctTradeOrderId: 'acct_trade_order_id',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      authToken: 'string',
+      productInstanceId: 'string',
+      platformId: 'string',
+      orderId: 'string',
+      acctTradeOrderId: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class QueryAcctPayResponse extends $tea.Model {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string;
+  // 结果码，一般OK表示调用成功
+  resultCode?: string;
+  // 异常信息的文本描述
+  resultMsg?: string;
+  // 签约单号
+  orderId?: string;
+  // 订单id
+  acctTradeOrderId?: string;
+  // 交易状态
+  // ● INIT：待扣款
+  // ● TOBE_PAY：扣款中
+  // ● SUCCESS：扣款成功【终态】
+  status?: string;
+  // 扣款金额、单位为分
+  amount?: number;
+  // 实付金额，单位为分，成功时存在
+  realPayAmount?: number;
+  // 实收金额，单位为分，成功时存在
+  realReceiptAmount?: number;
+  // 代扣完成时间，成功时存在
+  payFinish?: string;
+  // 我方交易流水号，成功时存在
+  payOrderNo?: number;
+  // 支付宝交易流水号，成功时存在
+  payTradeNo?: string;
+  // 最新的扣款发起次数
+  cmdTryNum?: number;
+  // 最新的扣款状态
+  cmdStatus?: string;
+  // 最新的扣款失败的失败原因
+  cmdFailReason?: string;
+  // 最新的我方流水号
+  cmdPayOrderNo?: string;
+  // 最新的支付宝交易流水号
+  cmdPayTradeNo?: string;
+  static names(): { [key: string]: string } {
+    return {
+      reqMsgId: 'req_msg_id',
+      resultCode: 'result_code',
+      resultMsg: 'result_msg',
+      orderId: 'order_id',
+      acctTradeOrderId: 'acct_trade_order_id',
+      status: 'status',
+      amount: 'amount',
+      realPayAmount: 'real_pay_amount',
+      realReceiptAmount: 'real_receipt_amount',
+      payFinish: 'pay_finish',
+      payOrderNo: 'pay_order_no',
+      payTradeNo: 'pay_trade_no',
+      cmdTryNum: 'cmd_try_num',
+      cmdStatus: 'cmd_status',
+      cmdFailReason: 'cmd_fail_reason',
+      cmdPayOrderNo: 'cmd_pay_order_no',
+      cmdPayTradeNo: 'cmd_pay_trade_no',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      reqMsgId: 'string',
+      resultCode: 'string',
+      resultMsg: 'string',
+      orderId: 'string',
+      acctTradeOrderId: 'string',
+      status: 'string',
+      amount: 'number',
+      realPayAmount: 'number',
+      realReceiptAmount: 'number',
+      payFinish: 'string',
+      payOrderNo: 'number',
+      payTradeNo: 'string',
+      cmdTryNum: 'number',
+      cmdStatus: 'string',
+      cmdFailReason: 'string',
+      cmdPayOrderNo: 'string',
+      cmdPayTradeNo: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class SyncAcctOrderRequest extends $tea.Model {
+  // OAuth模式下的授权token
+  authToken?: string;
+  productInstanceId?: string;
+  // 平台传入的签约单号
+  orderId: string;
+  // 平台商统一社会信用代码
+  platformId: string;
+  // 平台商名称
+  platformName: string;
+  // 签约单信息，JSON字符串，参考后文 OrderInfoRequest 定义
+  orderInfo: string;
+  // 卖家信息，JSON字符串，参考后文 UserInfoRequest 定义
+  userInfo: string;
+  static names(): { [key: string]: string } {
+    return {
+      authToken: 'auth_token',
+      productInstanceId: 'product_instance_id',
+      orderId: 'order_id',
+      platformId: 'platform_id',
+      platformName: 'platform_name',
+      orderInfo: 'order_info',
+      userInfo: 'user_info',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      authToken: 'string',
+      productInstanceId: 'string',
+      orderId: 'string',
+      platformId: 'string',
+      platformName: 'string',
+      orderInfo: 'string',
+      userInfo: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class SyncAcctOrderResponse extends $tea.Model {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string;
+  // 结果码，一般OK表示调用成功
+  resultCode?: string;
+  // 异常信息的文本描述
+  resultMsg?: string;
+  static names(): { [key: string]: string } {
+    return {
+      reqMsgId: 'req_msg_id',
+      resultCode: 'result_code',
+      resultMsg: 'result_msg',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      reqMsgId: 'string',
+      resultCode: 'string',
+      resultMsg: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class GetAcctOrderRequest extends $tea.Model {
+  // OAuth模式下的授权token
+  authToken?: string;
+  productInstanceId?: string;
+  // 签约单号，长度大于6小于50
+  orderId: string;
+  // 平台商统一社会信用代码，长度大于0小于等于32
+  platformId: string;
+  static names(): { [key: string]: string } {
+    return {
+      authToken: 'auth_token',
+      productInstanceId: 'product_instance_id',
+      orderId: 'order_id',
+      platformId: 'platform_id',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      authToken: 'string',
+      productInstanceId: 'string',
+      orderId: 'string',
+      platformId: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class GetAcctOrderResponse extends $tea.Model {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string;
+  // 结果码，一般OK表示调用成功
+  resultCode?: string;
+  // 异常信息的文本描述
+  resultMsg?: string;
+  // 签约单完整信息，AcctOrderFullInfoResp 对象的JSON字符串
+  responseData?: string;
+  static names(): { [key: string]: string } {
+    return {
+      reqMsgId: 'req_msg_id',
+      resultCode: 'result_code',
+      resultMsg: 'result_msg',
+      responseData: 'response_data',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      reqMsgId: 'string',
+      resultCode: 'string',
+      resultMsg: 'string',
+      responseData: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class SyncAcctTradeorderRequest extends $tea.Model {
+  // OAuth模式下的授权token
+  authToken?: string;
+  productInstanceId?: string;
+  // 关联的签约单号，长度大于6小于50
+  orderId: string;
+  // 平台商统一社会信用代码，长度大于0小于等于32
+  platformId: string;
+  // 平台传入的交易订单号，长度大于6小于50
+  acctTradeOrderId: string;
+  // 交易订单信息，JSON字符串，参考后文 TradeOrderInfoRequest 定义
+  orderInfo: string;
+  // 商品信息，JSON字符串，参考后文 TradeProductInfoRequest 定义
+  productInfo: string;
+  // 交易卖家信息，JSON字符串，参考后文 TradeUserInfoRequest 定义；平台账号ID、姓名、身份证号需与关联签约单一致
+  userInfo: string;
+  // 交易买家信息，JSON字符串，参考后文 TradeThirdUserInfoRequest 定义
+  thirdUserInfo: string;
+  static names(): { [key: string]: string } {
+    return {
+      authToken: 'auth_token',
+      productInstanceId: 'product_instance_id',
+      orderId: 'order_id',
+      platformId: 'platform_id',
+      acctTradeOrderId: 'acct_trade_order_id',
+      orderInfo: 'order_info',
+      productInfo: 'product_info',
+      userInfo: 'user_info',
+      thirdUserInfo: 'third_user_info',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      authToken: 'string',
+      productInstanceId: 'string',
+      orderId: 'string',
+      platformId: 'string',
+      acctTradeOrderId: 'string',
+      orderInfo: 'string',
+      productInfo: 'string',
+      userInfo: 'string',
+      thirdUserInfo: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class SyncAcctTradeorderResponse extends $tea.Model {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string;
+  // 结果码，一般OK表示调用成功
+  resultCode?: string;
+  // 异常信息的文本描述
+  resultMsg?: string;
+  static names(): { [key: string]: string } {
+    return {
+      reqMsgId: 'req_msg_id',
+      resultCode: 'result_code',
+      resultMsg: 'result_msg',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      reqMsgId: 'string',
+      resultCode: 'string',
+      resultMsg: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class GetAcctTradeorderRequest extends $tea.Model {
+  // OAuth模式下的授权token
+  authToken?: string;
+  productInstanceId?: string;
+  // 签约单号，长度大于6小于50
+  orderId: string;
+  // 平台商统一社会信用代码，长度大于0小于等于32
+  platformId: string;
+  // 交易订单号，长度大于6小于50
+  acctTradeOrderId: string;
+  static names(): { [key: string]: string } {
+    return {
+      authToken: 'auth_token',
+      productInstanceId: 'product_instance_id',
+      orderId: 'order_id',
+      platformId: 'platform_id',
+      acctTradeOrderId: 'acct_trade_order_id',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      authToken: 'string',
+      productInstanceId: 'string',
+      orderId: 'string',
+      platformId: 'string',
+      acctTradeOrderId: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class GetAcctTradeorderResponse extends $tea.Model {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string;
+  // 结果码，一般OK表示调用成功
+  resultCode?: string;
+  // 异常信息的文本描述
+  resultMsg?: string;
+  // 交易订单完整信息，AcctTradeOrderFullInfoResp 对象的JSON字符串
+  responseData?: string;
+  static names(): { [key: string]: string } {
+    return {
+      reqMsgId: 'req_msg_id',
+      resultCode: 'result_code',
+      resultMsg: 'result_msg',
+      responseData: 'response_data',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      reqMsgId: 'string',
+      resultCode: 'string',
+      resultMsg: 'string',
+      responseData: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class SyncAcctTradeorderbreachRequest extends $tea.Model {
+  // OAuth模式下的授权token
+  authToken?: string;
+  productInstanceId?: string;
+  // 签约单号，长度大于6小于50
+  orderId: string;
+  // 平台商统一社会信用代码，长度大于0小于等于32
+  platformId: string;
+  // 交易订单号，长度大于6小于50
+  acctTradeOrderId: string;
+  // 违约时间，格式 yyyy-MM-dd HH:mm:ss
+  breachedTime: string;
+  // 违约金额，单位分
+  breachedAmount: number;
+  // 违约描述，长度大于0小于等于64
+  breachedDesc: string;
+  static names(): { [key: string]: string } {
+    return {
+      authToken: 'auth_token',
+      productInstanceId: 'product_instance_id',
+      orderId: 'order_id',
+      platformId: 'platform_id',
+      acctTradeOrderId: 'acct_trade_order_id',
+      breachedTime: 'breached_time',
+      breachedAmount: 'breached_amount',
+      breachedDesc: 'breached_desc',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      authToken: 'string',
+      productInstanceId: 'string',
+      orderId: 'string',
+      platformId: 'string',
+      acctTradeOrderId: 'string',
+      breachedTime: 'string',
+      breachedAmount: 'number',
+      breachedDesc: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class SyncAcctTradeorderbreachResponse extends $tea.Model {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string;
+  // 结果码，一般OK表示调用成功
+  resultCode?: string;
+  // 异常信息的文本描述
+  resultMsg?: string;
+  static names(): { [key: string]: string } {
+    return {
+      reqMsgId: 'req_msg_id',
+      resultCode: 'result_code',
+      resultMsg: 'result_msg',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      reqMsgId: 'string',
+      resultCode: 'string',
+      resultMsg: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
 export class QueryInnerFundassetpackagerepaymentRequest extends $tea.Model {
   // OAuth模式下的授权token
   authToken?: string;
@@ -31450,6 +32127,8 @@ export class UploadSignCreditRequest extends $tea.Model {
   content?: string;
   // 商户统一社会信用代码
   merchantId?: string;
+  // 扩展信息
+  extInfo?: string;
   static names(): { [key: string]: string } {
     return {
       authToken: 'auth_token',
@@ -31462,6 +32141,7 @@ export class UploadSignCreditRequest extends $tea.Model {
       fileUrl: 'file_url',
       content: 'content',
       merchantId: 'merchant_id',
+      extInfo: 'ext_info',
     };
   }
 
@@ -31477,6 +32157,7 @@ export class UploadSignCreditRequest extends $tea.Model {
       fileUrl: 'string',
       content: 'string',
       merchantId: 'string',
+      extInfo: 'string',
     };
   }
 
@@ -31527,6 +32208,8 @@ export class QuerySignCreditRequest extends $tea.Model {
   orderNo: string;
   // 商户统一社会信用代码
   merchantId?: string;
+  // 扩展信息json格式
+  extInfo?: string;
   static names(): { [key: string]: string } {
     return {
       authToken: 'auth_token',
@@ -31534,6 +32217,7 @@ export class QuerySignCreditRequest extends $tea.Model {
       orderNoType: 'order_no_type',
       orderNo: 'order_no',
       merchantId: 'merchant_id',
+      extInfo: 'ext_info',
     };
   }
 
@@ -31544,6 +32228,7 @@ export class QuerySignCreditRequest extends $tea.Model {
       orderNoType: 'string',
       orderNo: 'string',
       merchantId: 'string',
+      extInfo: 'string',
     };
   }
 
@@ -32519,6 +33204,445 @@ export class QueryInnerSppdashboardprefilterResponse extends $tea.Model {
       resultCode: 'string',
       resultMsg: 'string',
       merchants: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class QueryInnerSppdemandplanmetadataRequest extends $tea.Model {
+  // OAuth模式下的授权token
+  authToken?: string;
+  productInstanceId?: string;
+  // 租户id
+  tenantId: string;
+  // traceid
+  traceId: string;
+  static names(): { [key: string]: string } {
+    return {
+      authToken: 'auth_token',
+      productInstanceId: 'product_instance_id',
+      tenantId: 'tenant_id',
+      traceId: 'trace_id',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      authToken: 'string',
+      productInstanceId: 'string',
+      tenantId: 'string',
+      traceId: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class QueryInnerSppdemandplanmetadataResponse extends $tea.Model {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string;
+  // 结果码，一般OK表示调用成功
+  resultCode?: string;
+  // 异常信息的文本描述
+  resultMsg?: string;
+  // JSON结构
+  metadata?: string;
+  static names(): { [key: string]: string } {
+    return {
+      reqMsgId: 'req_msg_id',
+      resultCode: 'result_code',
+      resultMsg: 'result_msg',
+      metadata: 'metadata',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      reqMsgId: 'string',
+      resultCode: 'string',
+      resultMsg: 'string',
+      metadata: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class QueryInnerSppdemandplanlistRequest extends $tea.Model {
+  // OAuth模式下的授权token
+  authToken?: string;
+  productInstanceId?: string;
+  // 业务日期 yyyy-MM-dd；不传不过滤日期
+  bizDate?: string;
+  // 产品链路APP / WECHAT
+  productForm?: string;
+  // 审核状态DRAFT / PENDING / APPROVED / REJECTED
+  auditStatus?: string;
+  // 运营状态PENDING / RUNNING / PAUSED / FINISHED
+  runStatus?: string;
+  // 页码，默认1，正整数
+  pageNo?: number;
+  // 每页大小，默认20，1～100；超范围报参数错误
+  pageSize?: number;
+  // 租户id
+  tenantId: string;
+  // traceid
+  traceId: string;
+  static names(): { [key: string]: string } {
+    return {
+      authToken: 'auth_token',
+      productInstanceId: 'product_instance_id',
+      bizDate: 'biz_date',
+      productForm: 'product_form',
+      auditStatus: 'audit_status',
+      runStatus: 'run_status',
+      pageNo: 'page_no',
+      pageSize: 'page_size',
+      tenantId: 'tenant_id',
+      traceId: 'trace_id',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      authToken: 'string',
+      productInstanceId: 'string',
+      bizDate: 'string',
+      productForm: 'string',
+      auditStatus: 'string',
+      runStatus: 'string',
+      pageNo: 'number',
+      pageSize: 'number',
+      tenantId: 'string',
+      traceId: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class QueryInnerSppdemandplanlistResponse extends $tea.Model {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string;
+  // 结果码，一般OK表示调用成功
+  resultCode?: string;
+  // 异常信息的文本描述
+  resultMsg?: string;
+  // 总记录数
+  total?: number;
+  // 当前页
+  pageNo?: number;
+  // 每页条数
+  pageSize?: number;
+  // 总页数，空列表为0
+  pages?: number;
+  // 数据（JSON数组）
+  plans?: string;
+  static names(): { [key: string]: string } {
+    return {
+      reqMsgId: 'req_msg_id',
+      resultCode: 'result_code',
+      resultMsg: 'result_msg',
+      total: 'total',
+      pageNo: 'page_no',
+      pageSize: 'page_size',
+      pages: 'pages',
+      plans: 'plans',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      reqMsgId: 'string',
+      resultCode: 'string',
+      resultMsg: 'string',
+      total: 'number',
+      pageNo: 'number',
+      pageSize: 'number',
+      pages: 'number',
+      plans: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class QueryInnerSppdemandplanRequest extends $tea.Model {
+  // OAuth模式下的授权token
+  authToken?: string;
+  productInstanceId?: string;
+  // 计划编号
+  planId: string;
+  // 租户id
+  tenantId: string;
+  // traceid
+  traceId: string;
+  static names(): { [key: string]: string } {
+    return {
+      authToken: 'auth_token',
+      productInstanceId: 'product_instance_id',
+      planId: 'plan_id',
+      tenantId: 'tenant_id',
+      traceId: 'trace_id',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      authToken: 'string',
+      productInstanceId: 'string',
+      planId: 'string',
+      tenantId: 'string',
+      traceId: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class QueryInnerSppdemandplanResponse extends $tea.Model {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string;
+  // 结果码，一般OK表示调用成功
+  resultCode?: string;
+  // 异常信息的文本描述
+  resultMsg?: string;
+  // JSON示例
+  plan?: string;
+  static names(): { [key: string]: string } {
+    return {
+      reqMsgId: 'req_msg_id',
+      resultCode: 'result_code',
+      resultMsg: 'result_msg',
+      plan: 'plan',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      reqMsgId: 'string',
+      resultCode: 'string',
+      resultMsg: 'string',
+      plan: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class PublishInnerSppdemandplanRequest extends $tea.Model {
+  // OAuth模式下的授权token
+  authToken?: string;
+  productInstanceId?: string;
+  // 租户id
+  tenantId: string;
+  // traceid
+  traceId: string;
+  // 计划id
+  planId: string;
+  // 操作类型，DELETE=删除草稿；OFFLINE=下线投放中的计划
+  operationType: string;
+  static names(): { [key: string]: string } {
+    return {
+      authToken: 'auth_token',
+      productInstanceId: 'product_instance_id',
+      tenantId: 'tenant_id',
+      traceId: 'trace_id',
+      planId: 'plan_id',
+      operationType: 'operation_type',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      authToken: 'string',
+      productInstanceId: 'string',
+      tenantId: 'string',
+      traceId: 'string',
+      planId: 'string',
+      operationType: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class PublishInnerSppdemandplanResponse extends $tea.Model {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string;
+  // 结果码，一般OK表示调用成功
+  resultCode?: string;
+  // 异常信息的文本描述
+  resultMsg?: string;
+  // 操作的计划编号
+  planId?: string;
+  // 实际完成的操作 DELETE / OFFLINE
+  operationType?: string;
+  // OFFLINE 成功时为 PAUSED；DELETE 成功时不返回
+  runStatus?: string;
+  static names(): { [key: string]: string } {
+    return {
+      reqMsgId: 'req_msg_id',
+      resultCode: 'result_code',
+      resultMsg: 'result_msg',
+      planId: 'plan_id',
+      operationType: 'operation_type',
+      runStatus: 'run_status',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      reqMsgId: 'string',
+      resultCode: 'string',
+      resultMsg: 'string',
+      planId: 'string',
+      operationType: 'string',
+      runStatus: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class SaveInnerSppdemandplanRequest extends $tea.Model {
+  // OAuth模式下的授权token
+  authToken?: string;
+  productInstanceId?: string;
+  // 商家租户ID，须校验调用方对该租户的访问授权
+  tenantId: string;
+  // 链路追踪ID，1~64字符；写操作同时作为幂等号
+  traceId: string;
+  // 空为新增，非空为编辑
+  planId?: string;
+  // APP / WECHAT
+  productForm: string;
+  // 正整数，≤metadata.maxVolume
+  targetVolume: number;
+  // 正整数，≤target_volume
+  minVolume?: number;
+  // 正整数，≥target_volume，≤metadata.maxVolume
+  maxVolume?: number;
+  // JSON数组，code数组，只允许元数据中的指标；不传或[]清空，重复元素拒绝
+  focusMetrics?: string;
+  // HH:mm:ss，与结束时间同时传或同时不传
+  dailyStartTime?: string;
+  // HH:mm:ss，须晚于开始时间；不传两者为全天，一期不支持跨日
+  dailyEndTime?: string;
+  // 元/成交，非负十进制，最多2位小数
+  targetCost?: string;
+  // 0~1，最多4位小数
+  expectedRiskPassRate?: string;
+  // 0~1，最多4位小数
+  expectedDealRate?: string;
+  // 0~1，最多4位小数
+  expectedOrderRate?: string;
+  // ≤100字符，不传清空
+  remark?: string;
+  // 默认false保存草稿；true同时提交审核
+  submitAudit?: boolean;
+  static names(): { [key: string]: string } {
+    return {
+      authToken: 'auth_token',
+      productInstanceId: 'product_instance_id',
+      tenantId: 'tenant_id',
+      traceId: 'trace_id',
+      planId: 'plan_id',
+      productForm: 'product_form',
+      targetVolume: 'target_volume',
+      minVolume: 'min_volume',
+      maxVolume: 'max_volume',
+      focusMetrics: 'focus_metrics',
+      dailyStartTime: 'daily_start_time',
+      dailyEndTime: 'daily_end_time',
+      targetCost: 'target_cost',
+      expectedRiskPassRate: 'expected_risk_pass_rate',
+      expectedDealRate: 'expected_deal_rate',
+      expectedOrderRate: 'expected_order_rate',
+      remark: 'remark',
+      submitAudit: 'submit_audit',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      authToken: 'string',
+      productInstanceId: 'string',
+      tenantId: 'string',
+      traceId: 'string',
+      planId: 'string',
+      productForm: 'string',
+      targetVolume: 'number',
+      minVolume: 'number',
+      maxVolume: 'number',
+      focusMetrics: 'string',
+      dailyStartTime: 'string',
+      dailyEndTime: 'string',
+      targetCost: 'string',
+      expectedRiskPassRate: 'string',
+      expectedDealRate: 'string',
+      expectedOrderRate: 'string',
+      remark: 'string',
+      submitAudit: 'boolean',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class SaveInnerSppdemandplanResponse extends $tea.Model {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string;
+  // 结果码，一般OK表示调用成功
+  resultCode?: string;
+  // 异常信息的文本描述
+  resultMsg?: string;
+  // 新增或编辑的计划编号
+  planId: string;
+  // DRAFT 或 PENDING
+  auditStatus: string;
+  // PENDING
+  runStatus: string;
+  static names(): { [key: string]: string } {
+    return {
+      reqMsgId: 'req_msg_id',
+      resultCode: 'result_code',
+      resultMsg: 'result_msg',
+      planId: 'plan_id',
+      auditStatus: 'audit_status',
+      runStatus: 'run_status',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      reqMsgId: 'string',
+      resultCode: 'string',
+      resultMsg: 'string',
+      planId: 'string',
+      auditStatus: 'string',
+      runStatus: 'string',
     };
   }
 
@@ -36011,7 +37135,7 @@ export default class Client {
           req_msg_id: AntchainUtil.getNonce(),
           access_key: this._accessKeyId,
           base_sdk_version: "TeaSDK-2.0",
-          sdk_version: "1.20.21",
+          sdk_version: "1.20.24",
           _prod_code: "ATO",
           _prod_channel: "undefined",
         };
@@ -36447,6 +37571,174 @@ export default class Client {
   async queryInnerAioperationlistEx(request: QueryInnerAioperationlistRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<QueryInnerAioperationlistResponse> {
     Util.validateModel(request);
     return $tea.cast<QueryInnerAioperationlistResponse>(await this.doRequest("1.0", "antchain.ato.inner.aioperationlist.query", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new QueryInnerAioperationlistResponse({}));
+  }
+
+  /**
+   * @remarks
+   * Description: 游戏账号交易合同签署流程发起
+   * Summary: 游戏账号交易合同签署流程发起
+   */
+  async submitAcctSignflow(request: SubmitAcctSignflowRequest): Promise<SubmitAcctSignflowResponse> {
+    let runtime = new $Util.RuntimeOptions({ });
+    let headers : {[key: string ]: string} = { };
+    return await this.submitAcctSignflowEx(request, headers, runtime);
+  }
+
+  /**
+   * @remarks
+   * Description: 游戏账号交易合同签署流程发起
+   * Summary: 游戏账号交易合同签署流程发起
+   */
+  async submitAcctSignflowEx(request: SubmitAcctSignflowRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<SubmitAcctSignflowResponse> {
+    Util.validateModel(request);
+    return $tea.cast<SubmitAcctSignflowResponse>(await this.doRequest("1.0", "antchain.ato.acct.signflow.submit", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new SubmitAcctSignflowResponse({}));
+  }
+
+  /**
+   * @remarks
+   * Description: 执行acct业务支付
+   * Summary: 执行acct业务支付
+   */
+  async execAcctPay(request: ExecAcctPayRequest): Promise<ExecAcctPayResponse> {
+    let runtime = new $Util.RuntimeOptions({ });
+    let headers : {[key: string ]: string} = { };
+    return await this.execAcctPayEx(request, headers, runtime);
+  }
+
+  /**
+   * @remarks
+   * Description: 执行acct业务支付
+   * Summary: 执行acct业务支付
+   */
+  async execAcctPayEx(request: ExecAcctPayRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<ExecAcctPayResponse> {
+    Util.validateModel(request);
+    return $tea.cast<ExecAcctPayResponse>(await this.doRequest("1.0", "antchain.ato.acct.pay.exec", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new ExecAcctPayResponse({}));
+  }
+
+  /**
+   * @remarks
+   * Description: 扣款交易查询
+   * Summary: 扣款交易查询
+   */
+  async queryAcctPay(request: QueryAcctPayRequest): Promise<QueryAcctPayResponse> {
+    let runtime = new $Util.RuntimeOptions({ });
+    let headers : {[key: string ]: string} = { };
+    return await this.queryAcctPayEx(request, headers, runtime);
+  }
+
+  /**
+   * @remarks
+   * Description: 扣款交易查询
+   * Summary: 扣款交易查询
+   */
+  async queryAcctPayEx(request: QueryAcctPayRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<QueryAcctPayResponse> {
+    Util.validateModel(request);
+    return $tea.cast<QueryAcctPayResponse>(await this.doRequest("1.0", "antchain.ato.acct.pay.query", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new QueryAcctPayResponse({}));
+  }
+
+  /**
+   * @remarks
+   * Description: 签约单同步
+   * Summary: 签约单同步
+   */
+  async syncAcctOrder(request: SyncAcctOrderRequest): Promise<SyncAcctOrderResponse> {
+    let runtime = new $Util.RuntimeOptions({ });
+    let headers : {[key: string ]: string} = { };
+    return await this.syncAcctOrderEx(request, headers, runtime);
+  }
+
+  /**
+   * @remarks
+   * Description: 签约单同步
+   * Summary: 签约单同步
+   */
+  async syncAcctOrderEx(request: SyncAcctOrderRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<SyncAcctOrderResponse> {
+    Util.validateModel(request);
+    return $tea.cast<SyncAcctOrderResponse>(await this.doRequest("1.0", "antchain.ato.acct.order.sync", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new SyncAcctOrderResponse({}));
+  }
+
+  /**
+   * @remarks
+   * Description: 签约单查询
+   * Summary: 签约单查询
+   */
+  async getAcctOrder(request: GetAcctOrderRequest): Promise<GetAcctOrderResponse> {
+    let runtime = new $Util.RuntimeOptions({ });
+    let headers : {[key: string ]: string} = { };
+    return await this.getAcctOrderEx(request, headers, runtime);
+  }
+
+  /**
+   * @remarks
+   * Description: 签约单查询
+   * Summary: 签约单查询
+   */
+  async getAcctOrderEx(request: GetAcctOrderRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<GetAcctOrderResponse> {
+    Util.validateModel(request);
+    return $tea.cast<GetAcctOrderResponse>(await this.doRequest("1.0", "antchain.ato.acct.order.get", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new GetAcctOrderResponse({}));
+  }
+
+  /**
+   * @remarks
+   * Description: 交易订单同步
+   * Summary: 交易订单同步
+   */
+  async syncAcctTradeorder(request: SyncAcctTradeorderRequest): Promise<SyncAcctTradeorderResponse> {
+    let runtime = new $Util.RuntimeOptions({ });
+    let headers : {[key: string ]: string} = { };
+    return await this.syncAcctTradeorderEx(request, headers, runtime);
+  }
+
+  /**
+   * @remarks
+   * Description: 交易订单同步
+   * Summary: 交易订单同步
+   */
+  async syncAcctTradeorderEx(request: SyncAcctTradeorderRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<SyncAcctTradeorderResponse> {
+    Util.validateModel(request);
+    return $tea.cast<SyncAcctTradeorderResponse>(await this.doRequest("1.0", "antchain.ato.acct.tradeorder.sync", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new SyncAcctTradeorderResponse({}));
+  }
+
+  /**
+   * @remarks
+   * Description: 交易订单查询
+   * Summary: 交易订单查询
+   */
+  async getAcctTradeorder(request: GetAcctTradeorderRequest): Promise<GetAcctTradeorderResponse> {
+    let runtime = new $Util.RuntimeOptions({ });
+    let headers : {[key: string ]: string} = { };
+    return await this.getAcctTradeorderEx(request, headers, runtime);
+  }
+
+  /**
+   * @remarks
+   * Description: 交易订单查询
+   * Summary: 交易订单查询
+   */
+  async getAcctTradeorderEx(request: GetAcctTradeorderRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<GetAcctTradeorderResponse> {
+    Util.validateModel(request);
+    return $tea.cast<GetAcctTradeorderResponse>(await this.doRequest("1.0", "antchain.ato.acct.tradeorder.get", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new GetAcctTradeorderResponse({}));
+  }
+
+  /**
+   * @remarks
+   * Description: 交易订单违约同步
+   * Summary: 交易订单违约同步
+   */
+  async syncAcctTradeorderbreach(request: SyncAcctTradeorderbreachRequest): Promise<SyncAcctTradeorderbreachResponse> {
+    let runtime = new $Util.RuntimeOptions({ });
+    let headers : {[key: string ]: string} = { };
+    return await this.syncAcctTradeorderbreachEx(request, headers, runtime);
+  }
+
+  /**
+   * @remarks
+   * Description: 交易订单违约同步
+   * Summary: 交易订单违约同步
+   */
+  async syncAcctTradeorderbreachEx(request: SyncAcctTradeorderbreachRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<SyncAcctTradeorderbreachResponse> {
+    Util.validateModel(request);
+    return $tea.cast<SyncAcctTradeorderbreachResponse>(await this.doRequest("1.0", "antchain.ato.acct.tradeorderbreach.sync", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new SyncAcctTradeorderbreachResponse({}));
   }
 
   /**
@@ -42307,7 +43599,7 @@ export default class Client {
   /**
    * @remarks
    * Description: 商户资产凭证上传，可以是文本或文件
-   * Summary: 商户资产凭证上传
+   * Summary: 商户资产凭证上传，可以是文本或文件
    */
   async uploadSignCredit(request: UploadSignCreditRequest): Promise<UploadSignCreditResponse> {
     let runtime = new $Util.RuntimeOptions({ });
@@ -42318,7 +43610,7 @@ export default class Client {
   /**
    * @remarks
    * Description: 商户资产凭证上传，可以是文本或文件
-   * Summary: 商户资产凭证上传
+   * Summary: 商户资产凭证上传，可以是文本或文件
    */
   async uploadSignCreditEx(request: UploadSignCreditRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<UploadSignCreditResponse> {
     Util.validateModel(request);
@@ -42328,7 +43620,7 @@ export default class Client {
   /**
    * @remarks
    * Description: 商户资产凭证查询，需要提供订单号或资产包号
-   * Summary: 商户资产凭证查询
+   * Summary: 商户资产凭证查询，需要提供订单号或资产包号
    */
   async querySignCredit(request: QuerySignCreditRequest): Promise<QuerySignCreditResponse> {
     let runtime = new $Util.RuntimeOptions({ });
@@ -42339,7 +43631,7 @@ export default class Client {
   /**
    * @remarks
    * Description: 商户资产凭证查询，需要提供订单号或资产包号
-   * Summary: 商户资产凭证查询
+   * Summary: 商户资产凭证查询，需要提供订单号或资产包号
    */
   async querySignCreditEx(request: QuerySignCreditRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<QuerySignCreditResponse> {
     Util.validateModel(request);
@@ -42617,6 +43909,111 @@ export default class Client {
   async queryInnerSppdashboardprefilterEx(request: QueryInnerSppdashboardprefilterRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<QueryInnerSppdashboardprefilterResponse> {
     Util.validateModel(request);
     return $tea.cast<QueryInnerSppdashboardprefilterResponse>(await this.doRequest("1.0", "antchain.ato.inner.sppdashboardprefilter.query", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new QueryInnerSppdashboardprefilterResponse({}));
+  }
+
+  /**
+   * @remarks
+   * Description: 商家获流计划metadata查询
+   * Summary: 商家获流计划metadata查询
+   */
+  async queryInnerSppdemandplanmetadata(request: QueryInnerSppdemandplanmetadataRequest): Promise<QueryInnerSppdemandplanmetadataResponse> {
+    let runtime = new $Util.RuntimeOptions({ });
+    let headers : {[key: string ]: string} = { };
+    return await this.queryInnerSppdemandplanmetadataEx(request, headers, runtime);
+  }
+
+  /**
+   * @remarks
+   * Description: 商家获流计划metadata查询
+   * Summary: 商家获流计划metadata查询
+   */
+  async queryInnerSppdemandplanmetadataEx(request: QueryInnerSppdemandplanmetadataRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<QueryInnerSppdemandplanmetadataResponse> {
+    Util.validateModel(request);
+    return $tea.cast<QueryInnerSppdemandplanmetadataResponse>(await this.doRequest("1.0", "antchain.ato.inner.sppdemandplanmetadata.query", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new QueryInnerSppdemandplanmetadataResponse({}));
+  }
+
+  /**
+   * @remarks
+   * Description: 商家获流计划列表查询
+   * Summary: 商家获流计划列表查询
+   */
+  async queryInnerSppdemandplanlist(request: QueryInnerSppdemandplanlistRequest): Promise<QueryInnerSppdemandplanlistResponse> {
+    let runtime = new $Util.RuntimeOptions({ });
+    let headers : {[key: string ]: string} = { };
+    return await this.queryInnerSppdemandplanlistEx(request, headers, runtime);
+  }
+
+  /**
+   * @remarks
+   * Description: 商家获流计划列表查询
+   * Summary: 商家获流计划列表查询
+   */
+  async queryInnerSppdemandplanlistEx(request: QueryInnerSppdemandplanlistRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<QueryInnerSppdemandplanlistResponse> {
+    Util.validateModel(request);
+    return $tea.cast<QueryInnerSppdemandplanlistResponse>(await this.doRequest("1.0", "antchain.ato.inner.sppdemandplanlist.query", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new QueryInnerSppdemandplanlistResponse({}));
+  }
+
+  /**
+   * @remarks
+   * Description: 商家获流计划详情查询
+   * Summary: 商家获流计划详情查询
+   */
+  async queryInnerSppdemandplan(request: QueryInnerSppdemandplanRequest): Promise<QueryInnerSppdemandplanResponse> {
+    let runtime = new $Util.RuntimeOptions({ });
+    let headers : {[key: string ]: string} = { };
+    return await this.queryInnerSppdemandplanEx(request, headers, runtime);
+  }
+
+  /**
+   * @remarks
+   * Description: 商家获流计划详情查询
+   * Summary: 商家获流计划详情查询
+   */
+  async queryInnerSppdemandplanEx(request: QueryInnerSppdemandplanRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<QueryInnerSppdemandplanResponse> {
+    Util.validateModel(request);
+    return $tea.cast<QueryInnerSppdemandplanResponse>(await this.doRequest("1.0", "antchain.ato.inner.sppdemandplan.query", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new QueryInnerSppdemandplanResponse({}));
+  }
+
+  /**
+   * @remarks
+   * Description: 商家获流计划删除或下线
+   * Summary: 商家获流计划删除或下线
+   */
+  async publishInnerSppdemandplan(request: PublishInnerSppdemandplanRequest): Promise<PublishInnerSppdemandplanResponse> {
+    let runtime = new $Util.RuntimeOptions({ });
+    let headers : {[key: string ]: string} = { };
+    return await this.publishInnerSppdemandplanEx(request, headers, runtime);
+  }
+
+  /**
+   * @remarks
+   * Description: 商家获流计划删除或下线
+   * Summary: 商家获流计划删除或下线
+   */
+  async publishInnerSppdemandplanEx(request: PublishInnerSppdemandplanRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<PublishInnerSppdemandplanResponse> {
+    Util.validateModel(request);
+    return $tea.cast<PublishInnerSppdemandplanResponse>(await this.doRequest("1.0", "antchain.ato.inner.sppdemandplan.publish", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new PublishInnerSppdemandplanResponse({}));
+  }
+
+  /**
+   * @remarks
+   * Description: 商家获流计划保存
+   * Summary: 商家获流计划保存
+   */
+  async saveInnerSppdemandplan(request: SaveInnerSppdemandplanRequest): Promise<SaveInnerSppdemandplanResponse> {
+    let runtime = new $Util.RuntimeOptions({ });
+    let headers : {[key: string ]: string} = { };
+    return await this.saveInnerSppdemandplanEx(request, headers, runtime);
+  }
+
+  /**
+   * @remarks
+   * Description: 商家获流计划保存
+   * Summary: 商家获流计划保存
+   */
+  async saveInnerSppdemandplanEx(request: SaveInnerSppdemandplanRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<SaveInnerSppdemandplanResponse> {
+    Util.validateModel(request);
+    return $tea.cast<SaveInnerSppdemandplanResponse>(await this.doRequest("1.0", "antchain.ato.inner.sppdemandplan.save", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new SaveInnerSppdemandplanResponse({}));
   }
 
   /**
