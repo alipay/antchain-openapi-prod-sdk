@@ -36,8 +36,8 @@ public class QuerySecurityImageRequest extends TeaModel {
     public String imageUrl;
 
     // 图片检测内容
-    @NameInMap("content")
-    public String content;
+    @NameInMap("image")
+    public String image;
 
     public static QuerySecurityImageRequest build(java.util.Map<String, ?> map) throws Exception {
         QuerySecurityImageRequest self = new QuerySecurityImageRequest();
@@ -100,12 +100,12 @@ public class QuerySecurityImageRequest extends TeaModel {
         return this.imageUrl;
     }
 
-    public QuerySecurityImageRequest setContent(String content) {
-        this.content = content;
+    public QuerySecurityImageRequest setImage(String image) {
+        this.image = image;
         return this;
     }
-    public String getContent() {
-        return this.content;
+    public String getImage() {
+        return this.image;
     }
 
 }

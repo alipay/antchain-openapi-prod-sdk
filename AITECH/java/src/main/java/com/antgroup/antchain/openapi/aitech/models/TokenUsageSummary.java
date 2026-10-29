@@ -15,7 +15,7 @@ public class TokenUsageSummary extends TeaModel {
     // 提示词token
     /**
      * <strong>example:</strong>
-     * <p>1</p>
+     * <p>10</p>
      */
     @NameInMap("prompt_tokens")
     public Long promptTokens;

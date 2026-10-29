@@ -11,7 +11,7 @@ public class QuerySecurityAnswerRequest extends TeaModel {
     @NameInMap("product_instance_id")
     public String productInstanceId;
 
-    // 调用标示
+    // 调用方标识
     @NameInMap("enterprise")
     public String enterprise;
 
