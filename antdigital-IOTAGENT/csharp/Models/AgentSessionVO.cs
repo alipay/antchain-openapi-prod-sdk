@@ -46,6 +46,24 @@ namespace AntChain.SDK.IOTAGENT.Models
         [Validation(Required=true, Pattern="\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}([Z]|([\\.]\\d{1,9})?[\\+]\\d{2}[\\:]?\\d{2})")]
         public string GmtModified { get; set; }
 
+        // 会话名称；会话进行中尚未命名时返回"当前会话"
+        /// <summary>
+        /// <b>Example:</b>
+        /// <para>今天天气怎么样</para>
+        /// </summary>
+        [NameInMap("session_name")]
+        [Validation(Required=false)]
+        public string SessionName { get; set; }
+
+        // 会话主题，可能为空
+        /// <summary>
+        /// <b>Example:</b>
+        /// <para>天气</para>
+        /// </summary>
+        [NameInMap("topic")]
+        [Validation(Required=false)]
+        public string Topic { get; set; }
+
     }
 
 }
