@@ -81,6 +81,14 @@ public class SubmitAcctSignflowRequest extends TeaModel {
     @NameInMap("seal_type")
     public String sealType;
 
+    // 签署有效期，时间戳，例如：new Date().getTime()
+    @NameInMap("sign_validity")
+    public String signValidity;
+
+    // 除商户以外的第三方签署信息，需要通过此字段传入，需要使用JSONArray格式。注意其中orgIdNumber、orgLegalName、orgLegalIdNumber需要RSA加密。
+    @NameInMap("third_signer")
+    public String thirdSigner;
+
     public static SubmitAcctSignflowRequest build(java.util.Map<String, ?> map) throws Exception {
         SubmitAcctSignflowRequest self = new SubmitAcctSignflowRequest();
         return TeaModel.build(map, self);
@@ -228,6 +236,22 @@ public class SubmitAcctSignflowRequest extends TeaModel {
     }
     public String getSealType() {
         return this.sealType;
+    }
+
+    public SubmitAcctSignflowRequest setSignValidity(String signValidity) {
+        this.signValidity = signValidity;
+        return this;
+    }
+    public String getSignValidity() {
+        return this.signValidity;
+    }
+
+    public SubmitAcctSignflowRequest setThirdSigner(String thirdSigner) {
+        this.thirdSigner = thirdSigner;
+        return this;
+    }
+    public String getThirdSigner() {
+        return this.thirdSigner;
     }
 
 }
