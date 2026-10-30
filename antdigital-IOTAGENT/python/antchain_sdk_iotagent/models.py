@@ -2143,6 +2143,95 @@ class SubAgentInfo(TeaModel):
         return self
 
 
+class TurnModelCallsUsages(TeaModel):
+    def __init__(
+        self,
+        model: str = None,
+        status: str = None,
+        input_tokens: int = None,
+        output_tokens: int = None,
+        total_tokens: int = None,
+        reasoning_tokens: int = None,
+        cached_read_tokens: int = None,
+        cached_write_tokens: int = None,
+        model_duration_ms: int = None,
+    ):
+        # 模型名称
+        self.model = model
+        # 调用状态：COMPLETED / FAILED / CANCELLED / UNKNOWN
+        self.status = status
+        # 输入 token
+        self.input_tokens = input_tokens
+        # 输出 token
+        self.output_tokens = output_tokens
+        # 总 token
+        self.total_tokens = total_tokens
+        # 推理 token（可选，有才返回）
+        self.reasoning_tokens = reasoning_tokens
+        # 缓存读取 token（可选）
+        self.cached_read_tokens = cached_read_tokens
+        # 缓存写入 token（可选）
+        self.cached_write_tokens = cached_write_tokens
+        # 当前模型调用耗时
+        self.model_duration_ms = model_duration_ms
+
+    def validate(self):
+        self.validate_required(self.model, 'model')
+        self.validate_required(self.status, 'status')
+        self.validate_required(self.input_tokens, 'input_tokens')
+        self.validate_required(self.output_tokens, 'output_tokens')
+        self.validate_required(self.total_tokens, 'total_tokens')
+        self.validate_required(self.model_duration_ms, 'model_duration_ms')
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.model is not None:
+            result['model'] = self.model
+        if self.status is not None:
+            result['status'] = self.status
+        if self.input_tokens is not None:
+            result['input_tokens'] = self.input_tokens
+        if self.output_tokens is not None:
+            result['output_tokens'] = self.output_tokens
+        if self.total_tokens is not None:
+            result['total_tokens'] = self.total_tokens
+        if self.reasoning_tokens is not None:
+            result['reasoning_tokens'] = self.reasoning_tokens
+        if self.cached_read_tokens is not None:
+            result['cached_read_tokens'] = self.cached_read_tokens
+        if self.cached_write_tokens is not None:
+            result['cached_write_tokens'] = self.cached_write_tokens
+        if self.model_duration_ms is not None:
+            result['model_duration_ms'] = self.model_duration_ms
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('model') is not None:
+            self.model = m.get('model')
+        if m.get('status') is not None:
+            self.status = m.get('status')
+        if m.get('input_tokens') is not None:
+            self.input_tokens = m.get('input_tokens')
+        if m.get('output_tokens') is not None:
+            self.output_tokens = m.get('output_tokens')
+        if m.get('total_tokens') is not None:
+            self.total_tokens = m.get('total_tokens')
+        if m.get('reasoning_tokens') is not None:
+            self.reasoning_tokens = m.get('reasoning_tokens')
+        if m.get('cached_read_tokens') is not None:
+            self.cached_read_tokens = m.get('cached_read_tokens')
+        if m.get('cached_write_tokens') is not None:
+            self.cached_write_tokens = m.get('cached_write_tokens')
+        if m.get('model_duration_ms') is not None:
+            self.model_duration_ms = m.get('model_duration_ms')
+        return self
+
+
 class BaiGoodsPoint(TeaModel):
     def __init__(
         self,
@@ -3361,6 +3450,42 @@ class CategoryInfo(TeaModel):
             self.industry = m.get('industry')
         if m.get('scene') is not None:
             self.scene = m.get('scene')
+        return self
+
+
+class AccessScopeItem(TeaModel):
+    def __init__(
+        self,
+        scene: str = None,
+        targets: List[str] = None,
+    ):
+        # 场景码。范围项归属的业务场景，同一请求内可以出现多个不同场景的范围项。
+        self.scene = scene
+        # 访问目标 ID 清单
+        self.targets = targets
+
+    def validate(self):
+        self.validate_required(self.scene, 'scene')
+        self.validate_required(self.targets, 'targets')
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.scene is not None:
+            result['scene'] = self.scene
+        if self.targets is not None:
+            result['targets'] = self.targets
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('scene') is not None:
+            self.scene = m.get('scene')
+        if m.get('targets') is not None:
+            self.targets = m.get('targets')
         return self
 
 
@@ -10662,6 +10787,69 @@ class RentBillItem(TeaModel):
         return self
 
 
+class ContextOccupancy(TeaModel):
+    def __init__(
+        self,
+        model: str = None,
+        estimated_input_tokens: int = None,
+        context_window_tokens: int = None,
+        input_window_ratio: int = None,
+        remaining_input_budget_tokens: int = None,
+        warning: str = None,
+    ):
+        # 最后一次模型调用的模型名
+        self.model = model
+        # 当前上下文占用token数
+        self.estimated_input_tokens = estimated_input_tokens
+        # 模型上下文窗口上限
+        self.context_window_tokens = context_window_tokens
+        # 上下文占用比率
+        self.input_window_ratio = input_window_ratio
+        # 剩余上下文预算token数
+        self.remaining_input_budget_tokens = remaining_input_budget_tokens
+        # 告警级别
+        self.warning = warning
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.model is not None:
+            result['model'] = self.model
+        if self.estimated_input_tokens is not None:
+            result['estimated_input_tokens'] = self.estimated_input_tokens
+        if self.context_window_tokens is not None:
+            result['context_window_tokens'] = self.context_window_tokens
+        if self.input_window_ratio is not None:
+            result['input_window_ratio'] = self.input_window_ratio
+        if self.remaining_input_budget_tokens is not None:
+            result['remaining_input_budget_tokens'] = self.remaining_input_budget_tokens
+        if self.warning is not None:
+            result['warning'] = self.warning
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('model') is not None:
+            self.model = m.get('model')
+        if m.get('estimated_input_tokens') is not None:
+            self.estimated_input_tokens = m.get('estimated_input_tokens')
+        if m.get('context_window_tokens') is not None:
+            self.context_window_tokens = m.get('context_window_tokens')
+        if m.get('input_window_ratio') is not None:
+            self.input_window_ratio = m.get('input_window_ratio')
+        if m.get('remaining_input_budget_tokens') is not None:
+            self.remaining_input_budget_tokens = m.get('remaining_input_budget_tokens')
+        if m.get('warning') is not None:
+            self.warning = m.get('warning')
+        return self
+
+
 class BaiQrcodeGenerateReqData(TeaModel):
     def __init__(
         self,
@@ -10954,6 +11142,74 @@ class DeviceOperateInfo(TeaModel):
             self.device_did = m.get('device_did')
         if m.get('signature') is not None:
             self.signature = m.get('signature')
+        return self
+
+
+class SessionUsage(TeaModel):
+    def __init__(
+        self,
+        input_tokens: int = None,
+        output_tokens: int = None,
+        total_tokens: int = None,
+        model_call_count: int = None,
+        complete: bool = None,
+        turn_duration_ms: int = None,
+    ):
+        # 输入Token
+        self.input_tokens = input_tokens
+        # 输出token
+        self.output_tokens = output_tokens
+        # 总Token
+        self.total_tokens = total_tokens
+        # 模型调用次数
+        self.model_call_count = model_call_count
+        # 是否完成
+        self.complete = complete
+        # 当前轮次请求耗时
+        self.turn_duration_ms = turn_duration_ms
+
+    def validate(self):
+        self.validate_required(self.input_tokens, 'input_tokens')
+        self.validate_required(self.output_tokens, 'output_tokens')
+        self.validate_required(self.total_tokens, 'total_tokens')
+        self.validate_required(self.model_call_count, 'model_call_count')
+        self.validate_required(self.complete, 'complete')
+        self.validate_required(self.turn_duration_ms, 'turn_duration_ms')
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.input_tokens is not None:
+            result['input_tokens'] = self.input_tokens
+        if self.output_tokens is not None:
+            result['output_tokens'] = self.output_tokens
+        if self.total_tokens is not None:
+            result['total_tokens'] = self.total_tokens
+        if self.model_call_count is not None:
+            result['model_call_count'] = self.model_call_count
+        if self.complete is not None:
+            result['complete'] = self.complete
+        if self.turn_duration_ms is not None:
+            result['turn_duration_ms'] = self.turn_duration_ms
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('input_tokens') is not None:
+            self.input_tokens = m.get('input_tokens')
+        if m.get('output_tokens') is not None:
+            self.output_tokens = m.get('output_tokens')
+        if m.get('total_tokens') is not None:
+            self.total_tokens = m.get('total_tokens')
+        if m.get('model_call_count') is not None:
+            self.model_call_count = m.get('model_call_count')
+        if m.get('complete') is not None:
+            self.complete = m.get('complete')
+        if m.get('turn_duration_ms') is not None:
+            self.turn_duration_ms = m.get('turn_duration_ms')
         return self
 
 
@@ -12064,6 +12320,59 @@ class IotxOtaTaskPermanentCancelResult(TeaModel):
             self.error_code = m.get('error_code')
         if m.get('error_message') is not None:
             self.error_message = m.get('error_message')
+        return self
+
+
+class TurnUsage(TeaModel):
+    def __init__(
+        self,
+        turn_id: str = None,
+        complete: bool = None,
+        model_calls: List[TurnModelCallsUsages] = None,
+    ):
+        # 对话轮次ID
+        self.turn_id = turn_id
+        # 该轮用量是否完整
+        self.complete = complete
+        # 模型调用明细
+        self.model_calls = model_calls
+
+    def validate(self):
+        self.validate_required(self.turn_id, 'turn_id')
+        self.validate_required(self.complete, 'complete')
+        self.validate_required(self.model_calls, 'model_calls')
+        if self.model_calls:
+            for k in self.model_calls:
+                if k:
+                    k.validate()
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.turn_id is not None:
+            result['turn_id'] = self.turn_id
+        if self.complete is not None:
+            result['complete'] = self.complete
+        result['model_calls'] = []
+        if self.model_calls is not None:
+            for k in self.model_calls:
+                result['model_calls'].append(k.to_map() if k else None)
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('turn_id') is not None:
+            self.turn_id = m.get('turn_id')
+        if m.get('complete') is not None:
+            self.complete = m.get('complete')
+        self.model_calls = []
+        if m.get('model_calls') is not None:
+            for k in m.get('model_calls'):
+                temp_model = TurnModelCallsUsages()
+                self.model_calls.append(temp_model.from_map(k))
         return self
 
 
@@ -13406,6 +13715,8 @@ class AgentSessionVO(TeaModel):
         user_id: str = None,
         gmt_create: str = None,
         gmt_modified: str = None,
+        session_name: str = None,
+        topic: str = None,
     ):
         # 会话ID
         self.session_id = session_id
@@ -13415,6 +13726,10 @@ class AgentSessionVO(TeaModel):
         self.gmt_create = gmt_create
         # 会话修改时间
         self.gmt_modified = gmt_modified
+        # 会话名称；会话进行中尚未命名时返回"当前会话"
+        self.session_name = session_name
+        # 会话主题，可能为空
+        self.topic = topic
 
     def validate(self):
         self.validate_required(self.session_id, 'session_id')
@@ -13440,6 +13755,10 @@ class AgentSessionVO(TeaModel):
             result['gmt_create'] = self.gmt_create
         if self.gmt_modified is not None:
             result['gmt_modified'] = self.gmt_modified
+        if self.session_name is not None:
+            result['session_name'] = self.session_name
+        if self.topic is not None:
+            result['topic'] = self.topic
         return result
 
     def from_map(self, m: dict = None):
@@ -13452,6 +13771,10 @@ class AgentSessionVO(TeaModel):
             self.gmt_create = m.get('gmt_create')
         if m.get('gmt_modified') is not None:
             self.gmt_modified = m.get('gmt_modified')
+        if m.get('session_name') is not None:
+            self.session_name = m.get('session_name')
+        if m.get('topic') is not None:
+            self.topic = m.get('topic')
         return self
 
 
@@ -20850,6 +21173,975 @@ class CallbackBlockchainBotIotagentMusicResponse(TeaModel):
             self.result_msg = m.get('result_msg')
         if m.get('agent_id') is not None:
             self.agent_id = m.get('agent_id')
+        return self
+
+
+class UsageBlockchainBotIotagentSessionRequest(TeaModel):
+    def __init__(
+        self,
+        auth_token: str = None,
+        product_instance_id: str = None,
+        agent_id: str = None,
+        instance_id: str = None,
+        session_id: str = None,
+        page_index: int = None,
+        page_size: int = None,
+    ):
+        # OAuth模式下的授权token
+        self.auth_token = auth_token
+        self.product_instance_id = product_instance_id
+        # 智能体ID
+        self.agent_id = agent_id
+        # ioa平台开通的实例ID
+        self.instance_id = instance_id
+        # 会话ID
+        self.session_id = session_id
+        # 页码，从1开始，默认1
+        self.page_index = page_index
+        # 每页数量，默认20
+        self.page_size = page_size
+
+    def validate(self):
+        self.validate_required(self.agent_id, 'agent_id')
+        self.validate_required(self.instance_id, 'instance_id')
+        self.validate_required(self.session_id, 'session_id')
+        self.validate_required(self.page_index, 'page_index')
+        self.validate_required(self.page_size, 'page_size')
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.auth_token is not None:
+            result['auth_token'] = self.auth_token
+        if self.product_instance_id is not None:
+            result['product_instance_id'] = self.product_instance_id
+        if self.agent_id is not None:
+            result['agent_id'] = self.agent_id
+        if self.instance_id is not None:
+            result['instance_id'] = self.instance_id
+        if self.session_id is not None:
+            result['session_id'] = self.session_id
+        if self.page_index is not None:
+            result['page_index'] = self.page_index
+        if self.page_size is not None:
+            result['page_size'] = self.page_size
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('auth_token') is not None:
+            self.auth_token = m.get('auth_token')
+        if m.get('product_instance_id') is not None:
+            self.product_instance_id = m.get('product_instance_id')
+        if m.get('agent_id') is not None:
+            self.agent_id = m.get('agent_id')
+        if m.get('instance_id') is not None:
+            self.instance_id = m.get('instance_id')
+        if m.get('session_id') is not None:
+            self.session_id = m.get('session_id')
+        if m.get('page_index') is not None:
+            self.page_index = m.get('page_index')
+        if m.get('page_size') is not None:
+            self.page_size = m.get('page_size')
+        return self
+
+
+class UsageBlockchainBotIotagentSessionResponse(TeaModel):
+    def __init__(
+        self,
+        req_msg_id: str = None,
+        result_code: str = None,
+        result_msg: str = None,
+        session_usage: SessionUsage = None,
+        total: int = None,
+        turns: List[TurnModelCallsUsages] = None,
+        context: ContextOccupancy = None,
+    ):
+        # 请求唯一ID，用于链路跟踪和问题排查
+        self.req_msg_id = req_msg_id
+        # 结果码，一般OK表示调用成功
+        self.result_code = result_code
+        # 异常信息的文本描述
+        self.result_msg = result_msg
+        # 会话总量（全量聚合，不随分页变化）
+        self.session_usage = session_usage
+        # 总轮次数
+        self.total = total
+        # 本页轮次明细
+        self.turns = turns
+        # 上下文占用分析（基于最后一次模型调用估算）
+        self.context = context
+
+    def validate(self):
+        if self.session_usage:
+            self.session_usage.validate()
+        if self.turns:
+            for k in self.turns:
+                if k:
+                    k.validate()
+        if self.context:
+            self.context.validate()
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.req_msg_id is not None:
+            result['req_msg_id'] = self.req_msg_id
+        if self.result_code is not None:
+            result['result_code'] = self.result_code
+        if self.result_msg is not None:
+            result['result_msg'] = self.result_msg
+        if self.session_usage is not None:
+            result['session_usage'] = self.session_usage.to_map()
+        if self.total is not None:
+            result['total'] = self.total
+        result['turns'] = []
+        if self.turns is not None:
+            for k in self.turns:
+                result['turns'].append(k.to_map() if k else None)
+        if self.context is not None:
+            result['context'] = self.context.to_map()
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('req_msg_id') is not None:
+            self.req_msg_id = m.get('req_msg_id')
+        if m.get('result_code') is not None:
+            self.result_code = m.get('result_code')
+        if m.get('result_msg') is not None:
+            self.result_msg = m.get('result_msg')
+        if m.get('session_usage') is not None:
+            temp_model = SessionUsage()
+            self.session_usage = temp_model.from_map(m['session_usage'])
+        if m.get('total') is not None:
+            self.total = m.get('total')
+        self.turns = []
+        if m.get('turns') is not None:
+            for k in m.get('turns'):
+                temp_model = TurnModelCallsUsages()
+                self.turns.append(temp_model.from_map(k))
+        if m.get('context') is not None:
+            temp_model = ContextOccupancy()
+            self.context = temp_model.from_map(m['context'])
+        return self
+
+
+class ActionBlockchainBotIotagentSessioncontextRequest(TeaModel):
+    def __init__(
+        self,
+        auth_token: str = None,
+        product_instance_id: str = None,
+        agent_id: str = None,
+        instance_id: str = None,
+        session_id: str = None,
+        operation_type: str = None,
+    ):
+        # OAuth模式下的授权token
+        self.auth_token = auth_token
+        self.product_instance_id = product_instance_id
+        # 智能体 ID
+        self.agent_id = agent_id
+        # 实例 ID
+        self.instance_id = instance_id
+        # 会话ID
+        self.session_id = session_id
+        # 操作类型：COMPACT_CURRENT
+        self.operation_type = operation_type
+
+    def validate(self):
+        self.validate_required(self.agent_id, 'agent_id')
+        self.validate_required(self.instance_id, 'instance_id')
+        self.validate_required(self.session_id, 'session_id')
+        self.validate_required(self.operation_type, 'operation_type')
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.auth_token is not None:
+            result['auth_token'] = self.auth_token
+        if self.product_instance_id is not None:
+            result['product_instance_id'] = self.product_instance_id
+        if self.agent_id is not None:
+            result['agent_id'] = self.agent_id
+        if self.instance_id is not None:
+            result['instance_id'] = self.instance_id
+        if self.session_id is not None:
+            result['session_id'] = self.session_id
+        if self.operation_type is not None:
+            result['operation_type'] = self.operation_type
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('auth_token') is not None:
+            self.auth_token = m.get('auth_token')
+        if m.get('product_instance_id') is not None:
+            self.product_instance_id = m.get('product_instance_id')
+        if m.get('agent_id') is not None:
+            self.agent_id = m.get('agent_id')
+        if m.get('instance_id') is not None:
+            self.instance_id = m.get('instance_id')
+        if m.get('session_id') is not None:
+            self.session_id = m.get('session_id')
+        if m.get('operation_type') is not None:
+            self.operation_type = m.get('operation_type')
+        return self
+
+
+class ActionBlockchainBotIotagentSessioncontextResponse(TeaModel):
+    def __init__(
+        self,
+        req_msg_id: str = None,
+        result_code: str = None,
+        result_msg: str = None,
+        operation_id: str = None,
+        status: str = None,
+        session_id: str = None,
+        failure_reason: str = None,
+    ):
+        # 请求唯一ID，用于链路跟踪和问题排查
+        self.req_msg_id = req_msg_id
+        # 结果码，一般OK表示调用成功
+        self.result_code = result_code
+        # 异常信息的文本描述
+        self.result_msg = result_msg
+        # 操作 ID
+        self.operation_id = operation_id
+        # 操作状态：RUNNING / SUCCEEDED / FAILED
+        self.status = status
+        # 原会话 ID
+        self.session_id = session_id
+        # 失败原因（FAILED 时返回）
+        self.failure_reason = failure_reason
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.req_msg_id is not None:
+            result['req_msg_id'] = self.req_msg_id
+        if self.result_code is not None:
+            result['result_code'] = self.result_code
+        if self.result_msg is not None:
+            result['result_msg'] = self.result_msg
+        if self.operation_id is not None:
+            result['operation_id'] = self.operation_id
+        if self.status is not None:
+            result['status'] = self.status
+        if self.session_id is not None:
+            result['session_id'] = self.session_id
+        if self.failure_reason is not None:
+            result['failure_reason'] = self.failure_reason
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('req_msg_id') is not None:
+            self.req_msg_id = m.get('req_msg_id')
+        if m.get('result_code') is not None:
+            self.result_code = m.get('result_code')
+        if m.get('result_msg') is not None:
+            self.result_msg = m.get('result_msg')
+        if m.get('operation_id') is not None:
+            self.operation_id = m.get('operation_id')
+        if m.get('status') is not None:
+            self.status = m.get('status')
+        if m.get('session_id') is not None:
+            self.session_id = m.get('session_id')
+        if m.get('failure_reason') is not None:
+            self.failure_reason = m.get('failure_reason')
+        return self
+
+
+class QueryBlockchainBotIotagentSessioncontextactionRequest(TeaModel):
+    def __init__(
+        self,
+        auth_token: str = None,
+        product_instance_id: str = None,
+        agent_id: str = None,
+        instance_id: str = None,
+        session_id: str = None,
+        operation_id: str = None,
+    ):
+        # OAuth模式下的授权token
+        self.auth_token = auth_token
+        self.product_instance_id = product_instance_id
+        # 智能体ID
+        self.agent_id = agent_id
+        # 实例ID
+        self.instance_id = instance_id
+        # 会话ID
+        self.session_id = session_id
+        # 操作 ID（从 action 接口获取）
+        self.operation_id = operation_id
+
+    def validate(self):
+        self.validate_required(self.agent_id, 'agent_id')
+        self.validate_required(self.instance_id, 'instance_id')
+        self.validate_required(self.session_id, 'session_id')
+        self.validate_required(self.operation_id, 'operation_id')
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.auth_token is not None:
+            result['auth_token'] = self.auth_token
+        if self.product_instance_id is not None:
+            result['product_instance_id'] = self.product_instance_id
+        if self.agent_id is not None:
+            result['agent_id'] = self.agent_id
+        if self.instance_id is not None:
+            result['instance_id'] = self.instance_id
+        if self.session_id is not None:
+            result['session_id'] = self.session_id
+        if self.operation_id is not None:
+            result['operation_id'] = self.operation_id
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('auth_token') is not None:
+            self.auth_token = m.get('auth_token')
+        if m.get('product_instance_id') is not None:
+            self.product_instance_id = m.get('product_instance_id')
+        if m.get('agent_id') is not None:
+            self.agent_id = m.get('agent_id')
+        if m.get('instance_id') is not None:
+            self.instance_id = m.get('instance_id')
+        if m.get('session_id') is not None:
+            self.session_id = m.get('session_id')
+        if m.get('operation_id') is not None:
+            self.operation_id = m.get('operation_id')
+        return self
+
+
+class QueryBlockchainBotIotagentSessioncontextactionResponse(TeaModel):
+    def __init__(
+        self,
+        req_msg_id: str = None,
+        result_code: str = None,
+        result_msg: str = None,
+        operation_id: str = None,
+        status: str = None,
+        session_id: str = None,
+        failure_reason: str = None,
+    ):
+        # 请求唯一ID，用于链路跟踪和问题排查
+        self.req_msg_id = req_msg_id
+        # 结果码，一般OK表示调用成功
+        self.result_code = result_code
+        # 异常信息的文本描述
+        self.result_msg = result_msg
+        # 操作 ID
+        self.operation_id = operation_id
+        # 操作状态：RUNNING / SUCCEEDED / FAILED
+        self.status = status
+        # 会话ID
+        self.session_id = session_id
+        # 失败原因（FAILED 时返回）
+        self.failure_reason = failure_reason
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.req_msg_id is not None:
+            result['req_msg_id'] = self.req_msg_id
+        if self.result_code is not None:
+            result['result_code'] = self.result_code
+        if self.result_msg is not None:
+            result['result_msg'] = self.result_msg
+        if self.operation_id is not None:
+            result['operation_id'] = self.operation_id
+        if self.status is not None:
+            result['status'] = self.status
+        if self.session_id is not None:
+            result['session_id'] = self.session_id
+        if self.failure_reason is not None:
+            result['failure_reason'] = self.failure_reason
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('req_msg_id') is not None:
+            self.req_msg_id = m.get('req_msg_id')
+        if m.get('result_code') is not None:
+            self.result_code = m.get('result_code')
+        if m.get('result_msg') is not None:
+            self.result_msg = m.get('result_msg')
+        if m.get('operation_id') is not None:
+            self.operation_id = m.get('operation_id')
+        if m.get('status') is not None:
+            self.status = m.get('status')
+        if m.get('session_id') is not None:
+            self.session_id = m.get('session_id')
+        if m.get('failure_reason') is not None:
+            self.failure_reason = m.get('failure_reason')
+        return self
+
+
+class QueryBlockchainBotAgentDailysummaryRequest(TeaModel):
+    def __init__(
+        self,
+        auth_token: str = None,
+        product_instance_id: str = None,
+        client_id: str = None,
+        agent_id: str = None,
+        date: str = None,
+    ):
+        # OAuth模式下的授权token
+        self.auth_token = auth_token
+        self.product_instance_id = product_instance_id
+        # 设备客户端ID；与 agent_id 至少传一个
+        self.client_id = client_id
+        # 智能体ID；与 client_id 至少传一个，两者同时传入时必须与设备绑定的智能体一致
+        self.agent_id = agent_id
+        # 总结日期，格式 yyyy-MM-dd，按 GMT+8 自然日
+        self.date = date
+
+    def validate(self):
+        self.validate_required(self.date, 'date')
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.auth_token is not None:
+            result['auth_token'] = self.auth_token
+        if self.product_instance_id is not None:
+            result['product_instance_id'] = self.product_instance_id
+        if self.client_id is not None:
+            result['client_id'] = self.client_id
+        if self.agent_id is not None:
+            result['agent_id'] = self.agent_id
+        if self.date is not None:
+            result['date'] = self.date
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('auth_token') is not None:
+            self.auth_token = m.get('auth_token')
+        if m.get('product_instance_id') is not None:
+            self.product_instance_id = m.get('product_instance_id')
+        if m.get('client_id') is not None:
+            self.client_id = m.get('client_id')
+        if m.get('agent_id') is not None:
+            self.agent_id = m.get('agent_id')
+        if m.get('date') is not None:
+            self.date = m.get('date')
+        return self
+
+
+class QueryBlockchainBotAgentDailysummaryResponse(TeaModel):
+    def __init__(
+        self,
+        req_msg_id: str = None,
+        result_code: str = None,
+        result_msg: str = None,
+        agent_id: str = None,
+        date: str = None,
+        content: str = None,
+        gmt_modified: str = None,
+    ):
+        # 请求唯一ID，用于链路跟踪和问题排查
+        self.req_msg_id = req_msg_id
+        # 结果码，一般OK表示调用成功
+        self.result_code = result_code
+        # 异常信息的文本描述
+        self.result_msg = result_msg
+        # 智能体ID
+        self.agent_id = agent_id
+        # 总结日期，格式 yyyy-MM-dd
+        self.date = date
+        # 总结正文；为空表示尚未生成或当日无对话
+        self.content = content
+        # 总结最近更新时间；content 为空时不返回
+        self.gmt_modified = gmt_modified
+
+    def validate(self):
+        if self.gmt_modified is not None:
+            self.validate_pattern(self.gmt_modified, 'gmt_modified', '\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}([Z]|([\\.]\\d{1,9})?[\\+]\\d{2}[\\:]?\\d{2})')
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.req_msg_id is not None:
+            result['req_msg_id'] = self.req_msg_id
+        if self.result_code is not None:
+            result['result_code'] = self.result_code
+        if self.result_msg is not None:
+            result['result_msg'] = self.result_msg
+        if self.agent_id is not None:
+            result['agent_id'] = self.agent_id
+        if self.date is not None:
+            result['date'] = self.date
+        if self.content is not None:
+            result['content'] = self.content
+        if self.gmt_modified is not None:
+            result['gmt_modified'] = self.gmt_modified
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('req_msg_id') is not None:
+            self.req_msg_id = m.get('req_msg_id')
+        if m.get('result_code') is not None:
+            self.result_code = m.get('result_code')
+        if m.get('result_msg') is not None:
+            self.result_msg = m.get('result_msg')
+        if m.get('agent_id') is not None:
+            self.agent_id = m.get('agent_id')
+        if m.get('date') is not None:
+            self.date = m.get('date')
+        if m.get('content') is not None:
+            self.content = m.get('content')
+        if m.get('gmt_modified') is not None:
+            self.gmt_modified = m.get('gmt_modified')
+        return self
+
+
+class GenerateBlockchainBotAgentDailysummaryRequest(TeaModel):
+    def __init__(
+        self,
+        auth_token: str = None,
+        product_instance_id: str = None,
+        client_id: str = None,
+        agent_id: str = None,
+        date: str = None,
+    ):
+        # OAuth模式下的授权token
+        self.auth_token = auth_token
+        self.product_instance_id = product_instance_id
+        # 设备客户端ID
+        self.client_id = client_id
+        # 智能体ID；传入时必须与设备绑定的智能体一致
+        self.agent_id = agent_id
+        # 总结日期，格式 yyyy-MM-dd，按 GMT+8 自然日
+        self.date = date
+
+    def validate(self):
+        self.validate_required(self.client_id, 'client_id')
+        self.validate_required(self.date, 'date')
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.auth_token is not None:
+            result['auth_token'] = self.auth_token
+        if self.product_instance_id is not None:
+            result['product_instance_id'] = self.product_instance_id
+        if self.client_id is not None:
+            result['client_id'] = self.client_id
+        if self.agent_id is not None:
+            result['agent_id'] = self.agent_id
+        if self.date is not None:
+            result['date'] = self.date
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('auth_token') is not None:
+            self.auth_token = m.get('auth_token')
+        if m.get('product_instance_id') is not None:
+            self.product_instance_id = m.get('product_instance_id')
+        if m.get('client_id') is not None:
+            self.client_id = m.get('client_id')
+        if m.get('agent_id') is not None:
+            self.agent_id = m.get('agent_id')
+        if m.get('date') is not None:
+            self.date = m.get('date')
+        return self
+
+
+class GenerateBlockchainBotAgentDailysummaryResponse(TeaModel):
+    def __init__(
+        self,
+        req_msg_id: str = None,
+        result_code: str = None,
+        result_msg: str = None,
+    ):
+        # 请求唯一ID，用于链路跟踪和问题排查
+        self.req_msg_id = req_msg_id
+        # 结果码，一般OK表示调用成功
+        self.result_code = result_code
+        # 异常信息的文本描述
+        self.result_msg = result_msg
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.req_msg_id is not None:
+            result['req_msg_id'] = self.req_msg_id
+        if self.result_code is not None:
+            result['result_code'] = self.result_code
+        if self.result_msg is not None:
+            result['result_msg'] = self.result_msg
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('req_msg_id') is not None:
+            self.req_msg_id = m.get('req_msg_id')
+        if m.get('result_code') is not None:
+            self.result_code = m.get('result_code')
+        if m.get('result_msg') is not None:
+            self.result_msg = m.get('result_msg')
+        return self
+
+
+class TrajectoryBlockchainBotIotagentSessionRequest(TeaModel):
+    def __init__(
+        self,
+        auth_token: str = None,
+        product_instance_id: str = None,
+        agent_id: str = None,
+        instance_id: str = None,
+        session_id: str = None,
+        scope: str = None,
+        cursor: str = None,
+        page_size: int = None,
+        diagnostics: str = None,
+        keyword: str = None,
+        top_by: str = None,
+    ):
+        # OAuth模式下的授权token
+        self.auth_token = auth_token
+        self.product_instance_id = product_instance_id
+        # 智能体ID
+        self.agent_id = agent_id
+        # 实例ID
+        self.instance_id = instance_id
+        # 会话ID
+        self.session_id = session_id
+        # 作用域类型 TURNS|CONTEXT_OPERATIONS，默认 TURNS
+        self.scope = scope
+        # 分页游标，首次为空
+        self.cursor = cursor
+        # 每页大小 1-50，默认 20
+        self.page_size = page_size
+        # 诊断标签过滤，逗号分隔
+        self.diagnostics = diagnostics
+        # 关键词搜索，最长100字
+        self.keyword = keyword
+        # 排序 NONE|DURATION|TOKENS
+        self.top_by = top_by
+
+    def validate(self):
+        self.validate_required(self.agent_id, 'agent_id')
+        self.validate_required(self.instance_id, 'instance_id')
+        self.validate_required(self.session_id, 'session_id')
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.auth_token is not None:
+            result['auth_token'] = self.auth_token
+        if self.product_instance_id is not None:
+            result['product_instance_id'] = self.product_instance_id
+        if self.agent_id is not None:
+            result['agent_id'] = self.agent_id
+        if self.instance_id is not None:
+            result['instance_id'] = self.instance_id
+        if self.session_id is not None:
+            result['session_id'] = self.session_id
+        if self.scope is not None:
+            result['scope'] = self.scope
+        if self.cursor is not None:
+            result['cursor'] = self.cursor
+        if self.page_size is not None:
+            result['page_size'] = self.page_size
+        if self.diagnostics is not None:
+            result['diagnostics'] = self.diagnostics
+        if self.keyword is not None:
+            result['keyword'] = self.keyword
+        if self.top_by is not None:
+            result['top_by'] = self.top_by
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('auth_token') is not None:
+            self.auth_token = m.get('auth_token')
+        if m.get('product_instance_id') is not None:
+            self.product_instance_id = m.get('product_instance_id')
+        if m.get('agent_id') is not None:
+            self.agent_id = m.get('agent_id')
+        if m.get('instance_id') is not None:
+            self.instance_id = m.get('instance_id')
+        if m.get('session_id') is not None:
+            self.session_id = m.get('session_id')
+        if m.get('scope') is not None:
+            self.scope = m.get('scope')
+        if m.get('cursor') is not None:
+            self.cursor = m.get('cursor')
+        if m.get('page_size') is not None:
+            self.page_size = m.get('page_size')
+        if m.get('diagnostics') is not None:
+            self.diagnostics = m.get('diagnostics')
+        if m.get('keyword') is not None:
+            self.keyword = m.get('keyword')
+        if m.get('top_by') is not None:
+            self.top_by = m.get('top_by')
+        return self
+
+
+class TrajectoryBlockchainBotIotagentSessionResponse(TeaModel):
+    def __init__(
+        self,
+        req_msg_id: str = None,
+        result_code: str = None,
+        result_msg: str = None,
+        scopes_json: str = None,
+        coverage_json: str = None,
+        next_cursor: str = None,
+        total_scopes: int = None,
+    ):
+        # 请求唯一ID，用于链路跟踪和问题排查
+        self.req_msg_id = req_msg_id
+        # 结果码，一般OK表示调用成功
+        self.result_code = result_code
+        # 异常信息的文本描述
+        self.result_msg = result_msg
+        # 轮次索引列表(JSON)
+        self.scopes_json = scopes_json
+        # 覆盖状态(JSON)
+        self.coverage_json = coverage_json
+        # 下一页游标
+        self.next_cursor = next_cursor
+        # 总轮次数
+        self.total_scopes = total_scopes
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.req_msg_id is not None:
+            result['req_msg_id'] = self.req_msg_id
+        if self.result_code is not None:
+            result['result_code'] = self.result_code
+        if self.result_msg is not None:
+            result['result_msg'] = self.result_msg
+        if self.scopes_json is not None:
+            result['scopes_json'] = self.scopes_json
+        if self.coverage_json is not None:
+            result['coverage_json'] = self.coverage_json
+        if self.next_cursor is not None:
+            result['next_cursor'] = self.next_cursor
+        if self.total_scopes is not None:
+            result['total_scopes'] = self.total_scopes
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('req_msg_id') is not None:
+            self.req_msg_id = m.get('req_msg_id')
+        if m.get('result_code') is not None:
+            self.result_code = m.get('result_code')
+        if m.get('result_msg') is not None:
+            self.result_msg = m.get('result_msg')
+        if m.get('scopes_json') is not None:
+            self.scopes_json = m.get('scopes_json')
+        if m.get('coverage_json') is not None:
+            self.coverage_json = m.get('coverage_json')
+        if m.get('next_cursor') is not None:
+            self.next_cursor = m.get('next_cursor')
+        if m.get('total_scopes') is not None:
+            self.total_scopes = m.get('total_scopes')
+        return self
+
+
+class StepsBlockchainBotIotagentSessionTrajectoryRequest(TeaModel):
+    def __init__(
+        self,
+        auth_token: str = None,
+        product_instance_id: str = None,
+        agent_id: str = None,
+        instance_id: str = None,
+        session_id: str = None,
+        turn_id: str = None,
+        cursor: str = None,
+        page_size: int = None,
+        focus_step_id: str = None,
+    ):
+        # OAuth模式下的授权token
+        self.auth_token = auth_token
+        self.product_instance_id = product_instance_id
+        # 智能体ID
+        self.agent_id = agent_id
+        # 实例ID
+        self.instance_id = instance_id
+        # 会话ID
+        self.session_id = session_id
+        # 轮次ID或操作ID
+        self.turn_id = turn_id
+        # 分页游标，首次为空
+        self.cursor = cursor
+        # 每页大小 1-200，默认 100
+        self.page_size = page_size
+        # 定位步骤ID，首次定位用，不可与cursor同传
+        self.focus_step_id = focus_step_id
+
+    def validate(self):
+        self.validate_required(self.agent_id, 'agent_id')
+        self.validate_required(self.instance_id, 'instance_id')
+        self.validate_required(self.session_id, 'session_id')
+        self.validate_required(self.turn_id, 'turn_id')
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.auth_token is not None:
+            result['auth_token'] = self.auth_token
+        if self.product_instance_id is not None:
+            result['product_instance_id'] = self.product_instance_id
+        if self.agent_id is not None:
+            result['agent_id'] = self.agent_id
+        if self.instance_id is not None:
+            result['instance_id'] = self.instance_id
+        if self.session_id is not None:
+            result['session_id'] = self.session_id
+        if self.turn_id is not None:
+            result['turn_id'] = self.turn_id
+        if self.cursor is not None:
+            result['cursor'] = self.cursor
+        if self.page_size is not None:
+            result['page_size'] = self.page_size
+        if self.focus_step_id is not None:
+            result['focus_step_id'] = self.focus_step_id
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('auth_token') is not None:
+            self.auth_token = m.get('auth_token')
+        if m.get('product_instance_id') is not None:
+            self.product_instance_id = m.get('product_instance_id')
+        if m.get('agent_id') is not None:
+            self.agent_id = m.get('agent_id')
+        if m.get('instance_id') is not None:
+            self.instance_id = m.get('instance_id')
+        if m.get('session_id') is not None:
+            self.session_id = m.get('session_id')
+        if m.get('turn_id') is not None:
+            self.turn_id = m.get('turn_id')
+        if m.get('cursor') is not None:
+            self.cursor = m.get('cursor')
+        if m.get('page_size') is not None:
+            self.page_size = m.get('page_size')
+        if m.get('focus_step_id') is not None:
+            self.focus_step_id = m.get('focus_step_id')
+        return self
+
+
+class StepsBlockchainBotIotagentSessionTrajectoryResponse(TeaModel):
+    def __init__(
+        self,
+        req_msg_id: str = None,
+        result_code: str = None,
+        result_msg: str = None,
+        steps_json: str = None,
+        next_cursor: str = None,
+        total_steps: int = None,
+    ):
+        # 请求唯一ID，用于链路跟踪和问题排查
+        self.req_msg_id = req_msg_id
+        # 结果码，一般OK表示调用成功
+        self.result_code = result_code
+        # 异常信息的文本描述
+        self.result_msg = result_msg
+        # 执行步骤列表(JSON)
+        self.steps_json = steps_json
+        # 下一页游标
+        self.next_cursor = next_cursor
+        # 总步骤数
+        self.total_steps = total_steps
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.req_msg_id is not None:
+            result['req_msg_id'] = self.req_msg_id
+        if self.result_code is not None:
+            result['result_code'] = self.result_code
+        if self.result_msg is not None:
+            result['result_msg'] = self.result_msg
+        if self.steps_json is not None:
+            result['steps_json'] = self.steps_json
+        if self.next_cursor is not None:
+            result['next_cursor'] = self.next_cursor
+        if self.total_steps is not None:
+            result['total_steps'] = self.total_steps
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('req_msg_id') is not None:
+            self.req_msg_id = m.get('req_msg_id')
+        if m.get('result_code') is not None:
+            self.result_code = m.get('result_code')
+        if m.get('result_msg') is not None:
+            self.result_msg = m.get('result_msg')
+        if m.get('steps_json') is not None:
+            self.steps_json = m.get('steps_json')
+        if m.get('next_cursor') is not None:
+            self.next_cursor = m.get('next_cursor')
+        if m.get('total_steps') is not None:
+            self.total_steps = m.get('total_steps')
         return self
 
 

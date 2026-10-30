@@ -135,7 +135,7 @@ class Client:
                     'req_msg_id': AntchainUtils.get_nonce(),
                     'access_key': self._access_key_id,
                     'base_sdk_version': 'TeaSDK-2.0',
-                    'sdk_version': '1.2.15',
+                    'sdk_version': '1.3.3',
                     '_prod_code': 'IOTAGENT',
                     '_prod_channel': 'undefined'
                 }
@@ -239,7 +239,7 @@ class Client:
                     'req_msg_id': AntchainUtils.get_nonce(),
                     'access_key': self._access_key_id,
                     'base_sdk_version': 'TeaSDK-2.0',
-                    'sdk_version': '1.2.15',
+                    'sdk_version': '1.3.3',
                     '_prod_code': 'IOTAGENT',
                     '_prod_channel': 'undefined'
                 }
@@ -2865,6 +2865,398 @@ class Client:
         return TeaCore.from_map(
             iotagent_models.CallbackBlockchainBotIotagentMusicResponse(),
             await self.do_request_async('1.0', 'blockchain.bot.iotagent.music.callback', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def usage_blockchain_bot_iotagent_session(
+        self,
+        request: iotagent_models.UsageBlockchainBotIotagentSessionRequest,
+    ) -> iotagent_models.UsageBlockchainBotIotagentSessionResponse:
+        """
+        Description: 查询会话用量（按 sessionId 聚合  usage 记录，返回会话总量 + 轮次明细分页）
+        Summary: 查询会话用量（按 sessionId 聚合  usage 记录，返回会话总量 + 轮次明细分页）
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.usage_blockchain_bot_iotagent_session_ex(request, headers, runtime)
+
+    async def usage_blockchain_bot_iotagent_session_async(
+        self,
+        request: iotagent_models.UsageBlockchainBotIotagentSessionRequest,
+    ) -> iotagent_models.UsageBlockchainBotIotagentSessionResponse:
+        """
+        Description: 查询会话用量（按 sessionId 聚合  usage 记录，返回会话总量 + 轮次明细分页）
+        Summary: 查询会话用量（按 sessionId 聚合  usage 记录，返回会话总量 + 轮次明细分页）
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.usage_blockchain_bot_iotagent_session_ex_async(request, headers, runtime)
+
+    def usage_blockchain_bot_iotagent_session_ex(
+        self,
+        request: iotagent_models.UsageBlockchainBotIotagentSessionRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> iotagent_models.UsageBlockchainBotIotagentSessionResponse:
+        """
+        Description: 查询会话用量（按 sessionId 聚合  usage 记录，返回会话总量 + 轮次明细分页）
+        Summary: 查询会话用量（按 sessionId 聚合  usage 记录，返回会话总量 + 轮次明细分页）
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            iotagent_models.UsageBlockchainBotIotagentSessionResponse(),
+            self.do_request('1.0', 'blockchain.bot.iotagent.session.usage', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def usage_blockchain_bot_iotagent_session_ex_async(
+        self,
+        request: iotagent_models.UsageBlockchainBotIotagentSessionRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> iotagent_models.UsageBlockchainBotIotagentSessionResponse:
+        """
+        Description: 查询会话用量（按 sessionId 聚合  usage 记录，返回会话总量 + 轮次明细分页）
+        Summary: 查询会话用量（按 sessionId 聚合  usage 记录，返回会话总量 + 轮次明细分页）
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            iotagent_models.UsageBlockchainBotIotagentSessionResponse(),
+            await self.do_request_async('1.0', 'blockchain.bot.iotagent.session.usage', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def action_blockchain_bot_iotagent_sessioncontext(
+        self,
+        request: iotagent_models.ActionBlockchainBotIotagentSessioncontextRequest,
+    ) -> iotagent_models.ActionBlockchainBotIotagentSessioncontextResponse:
+        """
+        Description: 会话上下文处理操作
+        Summary: 会话上下文处理操作
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.action_blockchain_bot_iotagent_sessioncontext_ex(request, headers, runtime)
+
+    async def action_blockchain_bot_iotagent_sessioncontext_async(
+        self,
+        request: iotagent_models.ActionBlockchainBotIotagentSessioncontextRequest,
+    ) -> iotagent_models.ActionBlockchainBotIotagentSessioncontextResponse:
+        """
+        Description: 会话上下文处理操作
+        Summary: 会话上下文处理操作
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.action_blockchain_bot_iotagent_sessioncontext_ex_async(request, headers, runtime)
+
+    def action_blockchain_bot_iotagent_sessioncontext_ex(
+        self,
+        request: iotagent_models.ActionBlockchainBotIotagentSessioncontextRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> iotagent_models.ActionBlockchainBotIotagentSessioncontextResponse:
+        """
+        Description: 会话上下文处理操作
+        Summary: 会话上下文处理操作
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            iotagent_models.ActionBlockchainBotIotagentSessioncontextResponse(),
+            self.do_request('1.0', 'blockchain.bot.iotagent.sessioncontext.action', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def action_blockchain_bot_iotagent_sessioncontext_ex_async(
+        self,
+        request: iotagent_models.ActionBlockchainBotIotagentSessioncontextRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> iotagent_models.ActionBlockchainBotIotagentSessioncontextResponse:
+        """
+        Description: 会话上下文处理操作
+        Summary: 会话上下文处理操作
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            iotagent_models.ActionBlockchainBotIotagentSessioncontextResponse(),
+            await self.do_request_async('1.0', 'blockchain.bot.iotagent.sessioncontext.action', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def query_blockchain_bot_iotagent_sessioncontextaction(
+        self,
+        request: iotagent_models.QueryBlockchainBotIotagentSessioncontextactionRequest,
+    ) -> iotagent_models.QueryBlockchainBotIotagentSessioncontextactionResponse:
+        """
+        Description: 查询上下文压缩操作结果
+        Summary: 查询上下文压缩操作结果
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.query_blockchain_bot_iotagent_sessioncontextaction_ex(request, headers, runtime)
+
+    async def query_blockchain_bot_iotagent_sessioncontextaction_async(
+        self,
+        request: iotagent_models.QueryBlockchainBotIotagentSessioncontextactionRequest,
+    ) -> iotagent_models.QueryBlockchainBotIotagentSessioncontextactionResponse:
+        """
+        Description: 查询上下文压缩操作结果
+        Summary: 查询上下文压缩操作结果
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.query_blockchain_bot_iotagent_sessioncontextaction_ex_async(request, headers, runtime)
+
+    def query_blockchain_bot_iotagent_sessioncontextaction_ex(
+        self,
+        request: iotagent_models.QueryBlockchainBotIotagentSessioncontextactionRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> iotagent_models.QueryBlockchainBotIotagentSessioncontextactionResponse:
+        """
+        Description: 查询上下文压缩操作结果
+        Summary: 查询上下文压缩操作结果
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            iotagent_models.QueryBlockchainBotIotagentSessioncontextactionResponse(),
+            self.do_request('1.0', 'blockchain.bot.iotagent.sessioncontextaction.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def query_blockchain_bot_iotagent_sessioncontextaction_ex_async(
+        self,
+        request: iotagent_models.QueryBlockchainBotIotagentSessioncontextactionRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> iotagent_models.QueryBlockchainBotIotagentSessioncontextactionResponse:
+        """
+        Description: 查询上下文压缩操作结果
+        Summary: 查询上下文压缩操作结果
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            iotagent_models.QueryBlockchainBotIotagentSessioncontextactionResponse(),
+            await self.do_request_async('1.0', 'blockchain.bot.iotagent.sessioncontextaction.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def query_blockchain_bot_agent_dailysummary(
+        self,
+        request: iotagent_models.QueryBlockchainBotAgentDailysummaryRequest,
+    ) -> iotagent_models.QueryBlockchainBotAgentDailysummaryResponse:
+        """
+        Description: 查询智能体指定日期的聊天总结（只读，不触发生成；content 为空表示尚未生成或当日无对话）
+        Summary: 查询智能体指定日期的聊天总结（只读，不触发生成；content 为空表示尚未生成或当日无对话）
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.query_blockchain_bot_agent_dailysummary_ex(request, headers, runtime)
+
+    async def query_blockchain_bot_agent_dailysummary_async(
+        self,
+        request: iotagent_models.QueryBlockchainBotAgentDailysummaryRequest,
+    ) -> iotagent_models.QueryBlockchainBotAgentDailysummaryResponse:
+        """
+        Description: 查询智能体指定日期的聊天总结（只读，不触发生成；content 为空表示尚未生成或当日无对话）
+        Summary: 查询智能体指定日期的聊天总结（只读，不触发生成；content 为空表示尚未生成或当日无对话）
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.query_blockchain_bot_agent_dailysummary_ex_async(request, headers, runtime)
+
+    def query_blockchain_bot_agent_dailysummary_ex(
+        self,
+        request: iotagent_models.QueryBlockchainBotAgentDailysummaryRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> iotagent_models.QueryBlockchainBotAgentDailysummaryResponse:
+        """
+        Description: 查询智能体指定日期的聊天总结（只读，不触发生成；content 为空表示尚未生成或当日无对话）
+        Summary: 查询智能体指定日期的聊天总结（只读，不触发生成；content 为空表示尚未生成或当日无对话）
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            iotagent_models.QueryBlockchainBotAgentDailysummaryResponse(),
+            self.do_request('1.0', 'blockchain.bot.agent.dailysummary.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def query_blockchain_bot_agent_dailysummary_ex_async(
+        self,
+        request: iotagent_models.QueryBlockchainBotAgentDailysummaryRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> iotagent_models.QueryBlockchainBotAgentDailysummaryResponse:
+        """
+        Description: 查询智能体指定日期的聊天总结（只读，不触发生成；content 为空表示尚未生成或当日无对话）
+        Summary: 查询智能体指定日期的聊天总结（只读，不触发生成；content 为空表示尚未生成或当日无对话）
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            iotagent_models.QueryBlockchainBotAgentDailysummaryResponse(),
+            await self.do_request_async('1.0', 'blockchain.bot.agent.dailysummary.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def generate_blockchain_bot_agent_dailysummary(
+        self,
+        request: iotagent_models.GenerateBlockchainBotAgentDailysummaryRequest,
+    ) -> iotagent_models.GenerateBlockchainBotAgentDailysummaryResponse:
+        """
+        Description: 触发智能体指定日期的聊天总结生成（异步受理，立即返回；同一智能体同一天 60 秒内重复触发只生成一次，生成结果通过 daily summary 查询接口获取）
+        Summary: 触发智能体指定日期的聊天总结生成（异步受理，立即返回；同一智能体同一天 60 秒内重复触发只生成一次，生成结果通过 daily summary 查询接口获取）
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.generate_blockchain_bot_agent_dailysummary_ex(request, headers, runtime)
+
+    async def generate_blockchain_bot_agent_dailysummary_async(
+        self,
+        request: iotagent_models.GenerateBlockchainBotAgentDailysummaryRequest,
+    ) -> iotagent_models.GenerateBlockchainBotAgentDailysummaryResponse:
+        """
+        Description: 触发智能体指定日期的聊天总结生成（异步受理，立即返回；同一智能体同一天 60 秒内重复触发只生成一次，生成结果通过 daily summary 查询接口获取）
+        Summary: 触发智能体指定日期的聊天总结生成（异步受理，立即返回；同一智能体同一天 60 秒内重复触发只生成一次，生成结果通过 daily summary 查询接口获取）
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.generate_blockchain_bot_agent_dailysummary_ex_async(request, headers, runtime)
+
+    def generate_blockchain_bot_agent_dailysummary_ex(
+        self,
+        request: iotagent_models.GenerateBlockchainBotAgentDailysummaryRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> iotagent_models.GenerateBlockchainBotAgentDailysummaryResponse:
+        """
+        Description: 触发智能体指定日期的聊天总结生成（异步受理，立即返回；同一智能体同一天 60 秒内重复触发只生成一次，生成结果通过 daily summary 查询接口获取）
+        Summary: 触发智能体指定日期的聊天总结生成（异步受理，立即返回；同一智能体同一天 60 秒内重复触发只生成一次，生成结果通过 daily summary 查询接口获取）
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            iotagent_models.GenerateBlockchainBotAgentDailysummaryResponse(),
+            self.do_request('1.0', 'blockchain.bot.agent.dailysummary.generate', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def generate_blockchain_bot_agent_dailysummary_ex_async(
+        self,
+        request: iotagent_models.GenerateBlockchainBotAgentDailysummaryRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> iotagent_models.GenerateBlockchainBotAgentDailysummaryResponse:
+        """
+        Description: 触发智能体指定日期的聊天总结生成（异步受理，立即返回；同一智能体同一天 60 秒内重复触发只生成一次，生成结果通过 daily summary 查询接口获取）
+        Summary: 触发智能体指定日期的聊天总结生成（异步受理，立即返回；同一智能体同一天 60 秒内重复触发只生成一次，生成结果通过 daily summary 查询接口获取）
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            iotagent_models.GenerateBlockchainBotAgentDailysummaryResponse(),
+            await self.do_request_async('1.0', 'blockchain.bot.agent.dailysummary.generate', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def trajectory_blockchain_bot_iotagent_session(
+        self,
+        request: iotagent_models.TrajectoryBlockchainBotIotagentSessionRequest,
+    ) -> iotagent_models.TrajectoryBlockchainBotIotagentSessionResponse:
+        """
+        Description: 查询会话执行轨迹索引，按作用域返回轮次列表、诊断摘要和统计计数
+        Summary: 查询会话执行轨迹索引，按作用域返回轮次列表、诊断摘要和统计计数
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.trajectory_blockchain_bot_iotagent_session_ex(request, headers, runtime)
+
+    async def trajectory_blockchain_bot_iotagent_session_async(
+        self,
+        request: iotagent_models.TrajectoryBlockchainBotIotagentSessionRequest,
+    ) -> iotagent_models.TrajectoryBlockchainBotIotagentSessionResponse:
+        """
+        Description: 查询会话执行轨迹索引，按作用域返回轮次列表、诊断摘要和统计计数
+        Summary: 查询会话执行轨迹索引，按作用域返回轮次列表、诊断摘要和统计计数
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.trajectory_blockchain_bot_iotagent_session_ex_async(request, headers, runtime)
+
+    def trajectory_blockchain_bot_iotagent_session_ex(
+        self,
+        request: iotagent_models.TrajectoryBlockchainBotIotagentSessionRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> iotagent_models.TrajectoryBlockchainBotIotagentSessionResponse:
+        """
+        Description: 查询会话执行轨迹索引，按作用域返回轮次列表、诊断摘要和统计计数
+        Summary: 查询会话执行轨迹索引，按作用域返回轮次列表、诊断摘要和统计计数
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            iotagent_models.TrajectoryBlockchainBotIotagentSessionResponse(),
+            self.do_request('1.0', 'blockchain.bot.iotagent.session.trajectory', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def trajectory_blockchain_bot_iotagent_session_ex_async(
+        self,
+        request: iotagent_models.TrajectoryBlockchainBotIotagentSessionRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> iotagent_models.TrajectoryBlockchainBotIotagentSessionResponse:
+        """
+        Description: 查询会话执行轨迹索引，按作用域返回轮次列表、诊断摘要和统计计数
+        Summary: 查询会话执行轨迹索引，按作用域返回轮次列表、诊断摘要和统计计数
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            iotagent_models.TrajectoryBlockchainBotIotagentSessionResponse(),
+            await self.do_request_async('1.0', 'blockchain.bot.iotagent.session.trajectory', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def steps_blockchain_bot_iotagent_session_trajectory(
+        self,
+        request: iotagent_models.StepsBlockchainBotIotagentSessionTrajectoryRequest,
+    ) -> iotagent_models.StepsBlockchainBotIotagentSessionTrajectoryResponse:
+        """
+        Description: 查询单轮/操作的执行步骤详情，展开执行树
+        Summary: 查询单轮/操作的执行步骤详情，展开执行树
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.steps_blockchain_bot_iotagent_session_trajectory_ex(request, headers, runtime)
+
+    async def steps_blockchain_bot_iotagent_session_trajectory_async(
+        self,
+        request: iotagent_models.StepsBlockchainBotIotagentSessionTrajectoryRequest,
+    ) -> iotagent_models.StepsBlockchainBotIotagentSessionTrajectoryResponse:
+        """
+        Description: 查询单轮/操作的执行步骤详情，展开执行树
+        Summary: 查询单轮/操作的执行步骤详情，展开执行树
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.steps_blockchain_bot_iotagent_session_trajectory_ex_async(request, headers, runtime)
+
+    def steps_blockchain_bot_iotagent_session_trajectory_ex(
+        self,
+        request: iotagent_models.StepsBlockchainBotIotagentSessionTrajectoryRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> iotagent_models.StepsBlockchainBotIotagentSessionTrajectoryResponse:
+        """
+        Description: 查询单轮/操作的执行步骤详情，展开执行树
+        Summary: 查询单轮/操作的执行步骤详情，展开执行树
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            iotagent_models.StepsBlockchainBotIotagentSessionTrajectoryResponse(),
+            self.do_request('1.0', 'blockchain.bot.iotagent.session.trajectory.steps', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def steps_blockchain_bot_iotagent_session_trajectory_ex_async(
+        self,
+        request: iotagent_models.StepsBlockchainBotIotagentSessionTrajectoryRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> iotagent_models.StepsBlockchainBotIotagentSessionTrajectoryResponse:
+        """
+        Description: 查询单轮/操作的执行步骤详情，展开执行树
+        Summary: 查询单轮/操作的执行步骤详情，展开执行树
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            iotagent_models.StepsBlockchainBotIotagentSessionTrajectoryResponse(),
+            await self.do_request_async('1.0', 'blockchain.bot.iotagent.session.trajectory.steps', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
     def querycontract_blockchain_bot_aiotdatalink_antfinanceassistant(
