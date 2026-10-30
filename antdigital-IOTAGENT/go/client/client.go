@@ -2361,6 +2361,108 @@ func (s *SubAgentInfo) SetInstanceId(v string) *SubAgentInfo {
 	return s
 }
 
+// 对话轮次中的模型调用量信息
+type TurnModelCallsUsages struct {
+	// 模型名称
+	// example:
+	//
+	// deepseek-v4.1-flash
+	Model *string `json:"model,omitempty" xml:"model,omitempty" require:"true"`
+	// 调用状态：COMPLETED / FAILED / CANCELLED / UNKNOWN
+	// example:
+	//
+	// COMPLETED
+	Status *string `json:"status,omitempty" xml:"status,omitempty" require:"true"`
+	// 输入 token
+	// example:
+	//
+	// 20
+	InputTokens *int64 `json:"input_tokens,omitempty" xml:"input_tokens,omitempty" require:"true"`
+	// 输出 token
+	// example:
+	//
+	// 1024
+	OutputTokens *int64 `json:"output_tokens,omitempty" xml:"output_tokens,omitempty" require:"true"`
+	// 总 token
+	// example:
+	//
+	// 1024
+	TotalTokens *int64 `json:"total_tokens,omitempty" xml:"total_tokens,omitempty" require:"true"`
+	// 推理 token（可选，有才返回）
+	// example:
+	//
+	// 1024
+	ReasoningTokens *int64 `json:"reasoning_tokens,omitempty" xml:"reasoning_tokens,omitempty"`
+	// 缓存读取 token（可选）
+	// example:
+	//
+	// 1024
+	CachedReadTokens *int64 `json:"cached_read_tokens,omitempty" xml:"cached_read_tokens,omitempty"`
+	// 缓存写入 token（可选）
+	// example:
+	//
+	// 1024
+	CachedWriteTokens *int64 `json:"cached_write_tokens,omitempty" xml:"cached_write_tokens,omitempty"`
+	// 当前模型调用耗时
+	// example:
+	//
+	// 1000
+	ModelDurationMs *int64 `json:"model_duration_ms,omitempty" xml:"model_duration_ms,omitempty" require:"true"`
+}
+
+func (s TurnModelCallsUsages) String() string {
+	return tea.Prettify(s)
+}
+
+func (s TurnModelCallsUsages) GoString() string {
+	return s.String()
+}
+
+func (s *TurnModelCallsUsages) SetModel(v string) *TurnModelCallsUsages {
+	s.Model = &v
+	return s
+}
+
+func (s *TurnModelCallsUsages) SetStatus(v string) *TurnModelCallsUsages {
+	s.Status = &v
+	return s
+}
+
+func (s *TurnModelCallsUsages) SetInputTokens(v int64) *TurnModelCallsUsages {
+	s.InputTokens = &v
+	return s
+}
+
+func (s *TurnModelCallsUsages) SetOutputTokens(v int64) *TurnModelCallsUsages {
+	s.OutputTokens = &v
+	return s
+}
+
+func (s *TurnModelCallsUsages) SetTotalTokens(v int64) *TurnModelCallsUsages {
+	s.TotalTokens = &v
+	return s
+}
+
+func (s *TurnModelCallsUsages) SetReasoningTokens(v int64) *TurnModelCallsUsages {
+	s.ReasoningTokens = &v
+	return s
+}
+
+func (s *TurnModelCallsUsages) SetCachedReadTokens(v int64) *TurnModelCallsUsages {
+	s.CachedReadTokens = &v
+	return s
+}
+
+func (s *TurnModelCallsUsages) SetCachedWriteTokens(v int64) *TurnModelCallsUsages {
+	s.CachedWriteTokens = &v
+	return s
+}
+
+func (s *TurnModelCallsUsages) SetModelDurationMs(v int64) *TurnModelCallsUsages {
+	s.ModelDurationMs = &v
+	return s
+}
+
 // 商品的鉴定点图片信息
 type BaiGoodsPoint struct {
 	// 鉴定点名称
@@ -3605,6 +3707,38 @@ func (s *CategoryInfo) SetIndustry(v string) *CategoryInfo {
 
 func (s *CategoryInfo) SetScene(v string) *CategoryInfo {
 	s.Scene = &v
+	return s
+}
+
+// 清单访问范围项：一个场景及其允许访问的目标 ID 集合
+type AccessScopeItem struct {
+	// 场景码。范围项归属的业务场景，同一请求内可以出现多个不同场景的范围项。
+	// example:
+	//
+	// SCENE_001
+	Scene *string `json:"scene,omitempty" xml:"scene,omitempty" require:"true"`
+	// 访问目标 ID 清单
+	// example:
+	//
+	// ["dev-8801","dev-8802"]
+	Targets []*string `json:"targets,omitempty" xml:"targets,omitempty" require:"true" type:"Repeated"`
+}
+
+func (s AccessScopeItem) String() string {
+	return tea.Prettify(s)
+}
+
+func (s AccessScopeItem) GoString() string {
+	return s.String()
+}
+
+func (s *AccessScopeItem) SetScene(v string) *AccessScopeItem {
+	s.Scene = &v
+	return s
+}
+
+func (s *AccessScopeItem) SetTargets(v []*string) *AccessScopeItem {
+	s.Targets = v
 	return s
 }
 
@@ -11521,6 +11655,78 @@ func (s *RentBillItem) SetPaymentState(v string) *RentBillItem {
 	return s
 }
 
+// 上下文占用分析
+type ContextOccupancy struct {
+	// 最后一次模型调用的模型名
+	// example:
+	//
+	// deepseek-flash
+	Model *string `json:"model,omitempty" xml:"model,omitempty"`
+	// 当前上下文占用token数
+	// example:
+	//
+	// 5000
+	EstimatedInputTokens *int64 `json:"estimated_input_tokens,omitempty" xml:"estimated_input_tokens,omitempty"`
+	// 模型上下文窗口上限
+	// example:
+	//
+	// 128000
+	ContextWindowTokens *int64 `json:"context_window_tokens,omitempty" xml:"context_window_tokens,omitempty"`
+	// 上下文占用比率
+	// example:
+	//
+	// 0.039
+	InputWindowRatio *int64 `json:"input_window_ratio,omitempty" xml:"input_window_ratio,omitempty"`
+	// 剩余上下文预算token数
+	// example:
+	//
+	// 123000
+	RemainingInputBudgetTokens *int64 `json:"remaining_input_budget_tokens,omitempty" xml:"remaining_input_budget_tokens,omitempty"`
+	// 告警级别
+	// example:
+	//
+	// NORMAL
+	Warning *string `json:"warning,omitempty" xml:"warning,omitempty"`
+}
+
+func (s ContextOccupancy) String() string {
+	return tea.Prettify(s)
+}
+
+func (s ContextOccupancy) GoString() string {
+	return s.String()
+}
+
+func (s *ContextOccupancy) SetModel(v string) *ContextOccupancy {
+	s.Model = &v
+	return s
+}
+
+func (s *ContextOccupancy) SetEstimatedInputTokens(v int64) *ContextOccupancy {
+	s.EstimatedInputTokens = &v
+	return s
+}
+
+func (s *ContextOccupancy) SetContextWindowTokens(v int64) *ContextOccupancy {
+	s.ContextWindowTokens = &v
+	return s
+}
+
+func (s *ContextOccupancy) SetInputWindowRatio(v int64) *ContextOccupancy {
+	s.InputWindowRatio = &v
+	return s
+}
+
+func (s *ContextOccupancy) SetRemainingInputBudgetTokens(v int64) *ContextOccupancy {
+	s.RemainingInputBudgetTokens = &v
+	return s
+}
+
+func (s *ContextOccupancy) SetWarning(v string) *ContextOccupancy {
+	s.Warning = &v
+	return s
+}
+
 // 溯源二维码生成请求的请求数据
 type BaiQrcodeGenerateReqData struct {
 	// 二维码的码值
@@ -11815,6 +12021,78 @@ func (s *DeviceOperateInfo) SetDeviceDid(v string) *DeviceOperateInfo {
 
 func (s *DeviceOperateInfo) SetSignature(v string) *DeviceOperateInfo {
 	s.Signature = &v
+	return s
+}
+
+// 会话用量信息
+type SessionUsage struct {
+	// 输入Token
+	// example:
+	//
+	// 1024
+	InputTokens *int64 `json:"input_tokens,omitempty" xml:"input_tokens,omitempty" require:"true"`
+	// 输出token
+	// example:
+	//
+	// 1024
+	OutputTokens *int64 `json:"output_tokens,omitempty" xml:"output_tokens,omitempty" require:"true"`
+	// 总Token
+	// example:
+	//
+	// 1024
+	TotalTokens *int64 `json:"total_tokens,omitempty" xml:"total_tokens,omitempty" require:"true"`
+	// 模型调用次数
+	// example:
+	//
+	// 1024
+	ModelCallCount *int64 `json:"model_call_count,omitempty" xml:"model_call_count,omitempty" require:"true"`
+	// 是否完成
+	// example:
+	//
+	// true
+	Complete *bool `json:"complete,omitempty" xml:"complete,omitempty" require:"true"`
+	// 当前轮次请求耗时
+	// example:
+	//
+	// 1000
+	TurnDurationMs *int64 `json:"turn_duration_ms,omitempty" xml:"turn_duration_ms,omitempty" require:"true"`
+}
+
+func (s SessionUsage) String() string {
+	return tea.Prettify(s)
+}
+
+func (s SessionUsage) GoString() string {
+	return s.String()
+}
+
+func (s *SessionUsage) SetInputTokens(v int64) *SessionUsage {
+	s.InputTokens = &v
+	return s
+}
+
+func (s *SessionUsage) SetOutputTokens(v int64) *SessionUsage {
+	s.OutputTokens = &v
+	return s
+}
+
+func (s *SessionUsage) SetTotalTokens(v int64) *SessionUsage {
+	s.TotalTokens = &v
+	return s
+}
+
+func (s *SessionUsage) SetModelCallCount(v int64) *SessionUsage {
+	s.ModelCallCount = &v
+	return s
+}
+
+func (s *SessionUsage) SetComplete(v bool) *SessionUsage {
+	s.Complete = &v
+	return s
+}
+
+func (s *SessionUsage) SetTurnDurationMs(v int64) *SessionUsage {
+	s.TurnDurationMs = &v
 	return s
 }
 
@@ -12966,6 +13244,48 @@ func (s *IotxOtaTaskPermanentCancelResult) SetErrorCode(v string) *IotxOtaTaskPe
 
 func (s *IotxOtaTaskPermanentCancelResult) SetErrorMessage(v string) *IotxOtaTaskPermanentCancelResult {
 	s.ErrorMessage = &v
+	return s
+}
+
+// 轮次模型用量
+type TurnUsage struct {
+	// 对话轮次ID
+	// example:
+	//
+	// 7468486322254688256
+	TurnId *string `json:"turn_id,omitempty" xml:"turn_id,omitempty" require:"true"`
+	// 该轮用量是否完整
+	// example:
+	//
+	// true
+	Complete *bool `json:"complete,omitempty" xml:"complete,omitempty" require:"true"`
+	// 模型调用明细
+	// example:
+	//
+	// [{},{}]
+	ModelCalls []*TurnModelCallsUsages `json:"model_calls,omitempty" xml:"model_calls,omitempty" require:"true" type:"Repeated"`
+}
+
+func (s TurnUsage) String() string {
+	return tea.Prettify(s)
+}
+
+func (s TurnUsage) GoString() string {
+	return s.String()
+}
+
+func (s *TurnUsage) SetTurnId(v string) *TurnUsage {
+	s.TurnId = &v
+	return s
+}
+
+func (s *TurnUsage) SetComplete(v bool) *TurnUsage {
+	s.Complete = &v
+	return s
+}
+
+func (s *TurnUsage) SetModelCalls(v []*TurnModelCallsUsages) *TurnUsage {
+	s.ModelCalls = v
 	return s
 }
 
@@ -14369,6 +14689,16 @@ type AgentSessionVO struct {
 	//
 	// 2026-06-24 21:32:59
 	GmtModified *string `json:"gmt_modified,omitempty" xml:"gmt_modified,omitempty" require:"true" pattern:"\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}([Z]|([\\.]\\d{1,9})?[\\+]\\d{2}[\\:]?\\d{2})"`
+	// 会话名称；会话进行中尚未命名时返回"当前会话"
+	// example:
+	//
+	// 今天天气怎么样
+	SessionName *string `json:"session_name,omitempty" xml:"session_name,omitempty"`
+	// 会话主题，可能为空
+	// example:
+	//
+	// 天气
+	Topic *string `json:"topic,omitempty" xml:"topic,omitempty"`
 }
 
 func (s AgentSessionVO) String() string {
@@ -14396,6 +14726,16 @@ func (s *AgentSessionVO) SetGmtCreate(v string) *AgentSessionVO {
 
 func (s *AgentSessionVO) SetGmtModified(v string) *AgentSessionVO {
 	s.GmtModified = &v
+	return s
+}
+
+func (s *AgentSessionVO) SetSessionName(v string) *AgentSessionVO {
+	s.SessionName = &v
+	return s
+}
+
+func (s *AgentSessionVO) SetTopic(v string) *AgentSessionVO {
+	s.Topic = &v
 	return s
 }
 
@@ -20811,6 +21151,804 @@ func (s *CallbackBlockchainBotIotagentMusicResponse) SetAgentId(v string) *Callb
 	return s
 }
 
+type UsageBlockchainBotIotagentSessionRequest struct {
+	// OAuth模式下的授权token
+	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
+	// 智能体ID
+	AgentId *string `json:"agent_id,omitempty" xml:"agent_id,omitempty" require:"true"`
+	// ioa平台开通的实例ID
+	InstanceId *string `json:"instance_id,omitempty" xml:"instance_id,omitempty" require:"true"`
+	// 会话ID
+	SessionId *string `json:"session_id,omitempty" xml:"session_id,omitempty" require:"true"`
+	// 页码，从1开始，默认1
+	PageIndex *int64 `json:"page_index,omitempty" xml:"page_index,omitempty" require:"true"`
+	// 每页数量，默认20
+	PageSize *int64 `json:"page_size,omitempty" xml:"page_size,omitempty" require:"true"`
+}
+
+func (s UsageBlockchainBotIotagentSessionRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s UsageBlockchainBotIotagentSessionRequest) GoString() string {
+	return s.String()
+}
+
+func (s *UsageBlockchainBotIotagentSessionRequest) SetAuthToken(v string) *UsageBlockchainBotIotagentSessionRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *UsageBlockchainBotIotagentSessionRequest) SetProductInstanceId(v string) *UsageBlockchainBotIotagentSessionRequest {
+	s.ProductInstanceId = &v
+	return s
+}
+
+func (s *UsageBlockchainBotIotagentSessionRequest) SetAgentId(v string) *UsageBlockchainBotIotagentSessionRequest {
+	s.AgentId = &v
+	return s
+}
+
+func (s *UsageBlockchainBotIotagentSessionRequest) SetInstanceId(v string) *UsageBlockchainBotIotagentSessionRequest {
+	s.InstanceId = &v
+	return s
+}
+
+func (s *UsageBlockchainBotIotagentSessionRequest) SetSessionId(v string) *UsageBlockchainBotIotagentSessionRequest {
+	s.SessionId = &v
+	return s
+}
+
+func (s *UsageBlockchainBotIotagentSessionRequest) SetPageIndex(v int64) *UsageBlockchainBotIotagentSessionRequest {
+	s.PageIndex = &v
+	return s
+}
+
+func (s *UsageBlockchainBotIotagentSessionRequest) SetPageSize(v int64) *UsageBlockchainBotIotagentSessionRequest {
+	s.PageSize = &v
+	return s
+}
+
+type UsageBlockchainBotIotagentSessionResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// 会话总量（全量聚合，不随分页变化）
+	SessionUsage *SessionUsage `json:"session_usage,omitempty" xml:"session_usage,omitempty"`
+	// 总轮次数
+	Total *int64 `json:"total,omitempty" xml:"total,omitempty"`
+	// 本页轮次明细
+	Turns []*TurnModelCallsUsages `json:"turns,omitempty" xml:"turns,omitempty" type:"Repeated"`
+	// 上下文占用分析（基于最后一次模型调用估算）
+	Context *ContextOccupancy `json:"context,omitempty" xml:"context,omitempty"`
+}
+
+func (s UsageBlockchainBotIotagentSessionResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s UsageBlockchainBotIotagentSessionResponse) GoString() string {
+	return s.String()
+}
+
+func (s *UsageBlockchainBotIotagentSessionResponse) SetReqMsgId(v string) *UsageBlockchainBotIotagentSessionResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *UsageBlockchainBotIotagentSessionResponse) SetResultCode(v string) *UsageBlockchainBotIotagentSessionResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *UsageBlockchainBotIotagentSessionResponse) SetResultMsg(v string) *UsageBlockchainBotIotagentSessionResponse {
+	s.ResultMsg = &v
+	return s
+}
+
+func (s *UsageBlockchainBotIotagentSessionResponse) SetSessionUsage(v *SessionUsage) *UsageBlockchainBotIotagentSessionResponse {
+	s.SessionUsage = v
+	return s
+}
+
+func (s *UsageBlockchainBotIotagentSessionResponse) SetTotal(v int64) *UsageBlockchainBotIotagentSessionResponse {
+	s.Total = &v
+	return s
+}
+
+func (s *UsageBlockchainBotIotagentSessionResponse) SetTurns(v []*TurnModelCallsUsages) *UsageBlockchainBotIotagentSessionResponse {
+	s.Turns = v
+	return s
+}
+
+func (s *UsageBlockchainBotIotagentSessionResponse) SetContext(v *ContextOccupancy) *UsageBlockchainBotIotagentSessionResponse {
+	s.Context = v
+	return s
+}
+
+type ActionBlockchainBotIotagentSessioncontextRequest struct {
+	// OAuth模式下的授权token
+	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
+	// 智能体 ID
+	AgentId *string `json:"agent_id,omitempty" xml:"agent_id,omitempty" require:"true"`
+	// 实例 ID
+	InstanceId *string `json:"instance_id,omitempty" xml:"instance_id,omitempty" require:"true"`
+	// 会话ID
+	SessionId *string `json:"session_id,omitempty" xml:"session_id,omitempty" require:"true"`
+	// 操作类型：COMPACT_CURRENT
+	OperationType *string `json:"operation_type,omitempty" xml:"operation_type,omitempty" require:"true"`
+}
+
+func (s ActionBlockchainBotIotagentSessioncontextRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s ActionBlockchainBotIotagentSessioncontextRequest) GoString() string {
+	return s.String()
+}
+
+func (s *ActionBlockchainBotIotagentSessioncontextRequest) SetAuthToken(v string) *ActionBlockchainBotIotagentSessioncontextRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *ActionBlockchainBotIotagentSessioncontextRequest) SetProductInstanceId(v string) *ActionBlockchainBotIotagentSessioncontextRequest {
+	s.ProductInstanceId = &v
+	return s
+}
+
+func (s *ActionBlockchainBotIotagentSessioncontextRequest) SetAgentId(v string) *ActionBlockchainBotIotagentSessioncontextRequest {
+	s.AgentId = &v
+	return s
+}
+
+func (s *ActionBlockchainBotIotagentSessioncontextRequest) SetInstanceId(v string) *ActionBlockchainBotIotagentSessioncontextRequest {
+	s.InstanceId = &v
+	return s
+}
+
+func (s *ActionBlockchainBotIotagentSessioncontextRequest) SetSessionId(v string) *ActionBlockchainBotIotagentSessioncontextRequest {
+	s.SessionId = &v
+	return s
+}
+
+func (s *ActionBlockchainBotIotagentSessioncontextRequest) SetOperationType(v string) *ActionBlockchainBotIotagentSessioncontextRequest {
+	s.OperationType = &v
+	return s
+}
+
+type ActionBlockchainBotIotagentSessioncontextResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// 操作 ID
+	OperationId *string `json:"operation_id,omitempty" xml:"operation_id,omitempty"`
+	// 操作状态：RUNNING / SUCCEEDED / FAILED
+	Status *string `json:"status,omitempty" xml:"status,omitempty"`
+	// 原会话 ID
+	SessionId *string `json:"session_id,omitempty" xml:"session_id,omitempty"`
+	// 失败原因（FAILED 时返回）
+	FailureReason *string `json:"failure_reason,omitempty" xml:"failure_reason,omitempty"`
+}
+
+func (s ActionBlockchainBotIotagentSessioncontextResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s ActionBlockchainBotIotagentSessioncontextResponse) GoString() string {
+	return s.String()
+}
+
+func (s *ActionBlockchainBotIotagentSessioncontextResponse) SetReqMsgId(v string) *ActionBlockchainBotIotagentSessioncontextResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *ActionBlockchainBotIotagentSessioncontextResponse) SetResultCode(v string) *ActionBlockchainBotIotagentSessioncontextResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *ActionBlockchainBotIotagentSessioncontextResponse) SetResultMsg(v string) *ActionBlockchainBotIotagentSessioncontextResponse {
+	s.ResultMsg = &v
+	return s
+}
+
+func (s *ActionBlockchainBotIotagentSessioncontextResponse) SetOperationId(v string) *ActionBlockchainBotIotagentSessioncontextResponse {
+	s.OperationId = &v
+	return s
+}
+
+func (s *ActionBlockchainBotIotagentSessioncontextResponse) SetStatus(v string) *ActionBlockchainBotIotagentSessioncontextResponse {
+	s.Status = &v
+	return s
+}
+
+func (s *ActionBlockchainBotIotagentSessioncontextResponse) SetSessionId(v string) *ActionBlockchainBotIotagentSessioncontextResponse {
+	s.SessionId = &v
+	return s
+}
+
+func (s *ActionBlockchainBotIotagentSessioncontextResponse) SetFailureReason(v string) *ActionBlockchainBotIotagentSessioncontextResponse {
+	s.FailureReason = &v
+	return s
+}
+
+type QueryBlockchainBotIotagentSessioncontextactionRequest struct {
+	// OAuth模式下的授权token
+	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
+	// 智能体ID
+	AgentId *string `json:"agent_id,omitempty" xml:"agent_id,omitempty" require:"true"`
+	// 实例ID
+	InstanceId *string `json:"instance_id,omitempty" xml:"instance_id,omitempty" require:"true"`
+	// 会话ID
+	SessionId *string `json:"session_id,omitempty" xml:"session_id,omitempty" require:"true"`
+	// 操作 ID（从 action 接口获取）
+	OperationId *string `json:"operation_id,omitempty" xml:"operation_id,omitempty" require:"true"`
+}
+
+func (s QueryBlockchainBotIotagentSessioncontextactionRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s QueryBlockchainBotIotagentSessioncontextactionRequest) GoString() string {
+	return s.String()
+}
+
+func (s *QueryBlockchainBotIotagentSessioncontextactionRequest) SetAuthToken(v string) *QueryBlockchainBotIotagentSessioncontextactionRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *QueryBlockchainBotIotagentSessioncontextactionRequest) SetProductInstanceId(v string) *QueryBlockchainBotIotagentSessioncontextactionRequest {
+	s.ProductInstanceId = &v
+	return s
+}
+
+func (s *QueryBlockchainBotIotagentSessioncontextactionRequest) SetAgentId(v string) *QueryBlockchainBotIotagentSessioncontextactionRequest {
+	s.AgentId = &v
+	return s
+}
+
+func (s *QueryBlockchainBotIotagentSessioncontextactionRequest) SetInstanceId(v string) *QueryBlockchainBotIotagentSessioncontextactionRequest {
+	s.InstanceId = &v
+	return s
+}
+
+func (s *QueryBlockchainBotIotagentSessioncontextactionRequest) SetSessionId(v string) *QueryBlockchainBotIotagentSessioncontextactionRequest {
+	s.SessionId = &v
+	return s
+}
+
+func (s *QueryBlockchainBotIotagentSessioncontextactionRequest) SetOperationId(v string) *QueryBlockchainBotIotagentSessioncontextactionRequest {
+	s.OperationId = &v
+	return s
+}
+
+type QueryBlockchainBotIotagentSessioncontextactionResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// 操作 ID
+	OperationId *string `json:"operation_id,omitempty" xml:"operation_id,omitempty"`
+	// 操作状态：RUNNING / SUCCEEDED / FAILED
+	Status *string `json:"status,omitempty" xml:"status,omitempty"`
+	// 会话ID
+	SessionId *string `json:"session_id,omitempty" xml:"session_id,omitempty"`
+	// 失败原因（FAILED 时返回）
+	FailureReason *string `json:"failure_reason,omitempty" xml:"failure_reason,omitempty"`
+}
+
+func (s QueryBlockchainBotIotagentSessioncontextactionResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s QueryBlockchainBotIotagentSessioncontextactionResponse) GoString() string {
+	return s.String()
+}
+
+func (s *QueryBlockchainBotIotagentSessioncontextactionResponse) SetReqMsgId(v string) *QueryBlockchainBotIotagentSessioncontextactionResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *QueryBlockchainBotIotagentSessioncontextactionResponse) SetResultCode(v string) *QueryBlockchainBotIotagentSessioncontextactionResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *QueryBlockchainBotIotagentSessioncontextactionResponse) SetResultMsg(v string) *QueryBlockchainBotIotagentSessioncontextactionResponse {
+	s.ResultMsg = &v
+	return s
+}
+
+func (s *QueryBlockchainBotIotagentSessioncontextactionResponse) SetOperationId(v string) *QueryBlockchainBotIotagentSessioncontextactionResponse {
+	s.OperationId = &v
+	return s
+}
+
+func (s *QueryBlockchainBotIotagentSessioncontextactionResponse) SetStatus(v string) *QueryBlockchainBotIotagentSessioncontextactionResponse {
+	s.Status = &v
+	return s
+}
+
+func (s *QueryBlockchainBotIotagentSessioncontextactionResponse) SetSessionId(v string) *QueryBlockchainBotIotagentSessioncontextactionResponse {
+	s.SessionId = &v
+	return s
+}
+
+func (s *QueryBlockchainBotIotagentSessioncontextactionResponse) SetFailureReason(v string) *QueryBlockchainBotIotagentSessioncontextactionResponse {
+	s.FailureReason = &v
+	return s
+}
+
+type QueryBlockchainBotAgentDailysummaryRequest struct {
+	// OAuth模式下的授权token
+	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
+	// 设备客户端ID；与 agent_id 至少传一个
+	ClientId *string `json:"client_id,omitempty" xml:"client_id,omitempty"`
+	// 智能体ID；与 client_id 至少传一个，两者同时传入时必须与设备绑定的智能体一致
+	AgentId *string `json:"agent_id,omitempty" xml:"agent_id,omitempty"`
+	// 总结日期，格式 yyyy-MM-dd，按 GMT+8 自然日
+	Date *string `json:"date,omitempty" xml:"date,omitempty" require:"true"`
+}
+
+func (s QueryBlockchainBotAgentDailysummaryRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s QueryBlockchainBotAgentDailysummaryRequest) GoString() string {
+	return s.String()
+}
+
+func (s *QueryBlockchainBotAgentDailysummaryRequest) SetAuthToken(v string) *QueryBlockchainBotAgentDailysummaryRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *QueryBlockchainBotAgentDailysummaryRequest) SetProductInstanceId(v string) *QueryBlockchainBotAgentDailysummaryRequest {
+	s.ProductInstanceId = &v
+	return s
+}
+
+func (s *QueryBlockchainBotAgentDailysummaryRequest) SetClientId(v string) *QueryBlockchainBotAgentDailysummaryRequest {
+	s.ClientId = &v
+	return s
+}
+
+func (s *QueryBlockchainBotAgentDailysummaryRequest) SetAgentId(v string) *QueryBlockchainBotAgentDailysummaryRequest {
+	s.AgentId = &v
+	return s
+}
+
+func (s *QueryBlockchainBotAgentDailysummaryRequest) SetDate(v string) *QueryBlockchainBotAgentDailysummaryRequest {
+	s.Date = &v
+	return s
+}
+
+type QueryBlockchainBotAgentDailysummaryResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// 智能体ID
+	AgentId *string `json:"agent_id,omitempty" xml:"agent_id,omitempty"`
+	// 总结日期，格式 yyyy-MM-dd
+	Date *string `json:"date,omitempty" xml:"date,omitempty"`
+	// 总结正文；为空表示尚未生成或当日无对话
+	Content *string `json:"content,omitempty" xml:"content,omitempty"`
+	// 总结最近更新时间；content 为空时不返回
+	GmtModified *string `json:"gmt_modified,omitempty" xml:"gmt_modified,omitempty" pattern:"\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}([Z]|([\\.]\\d{1,9})?[\\+]\\d{2}[\\:]?\\d{2})"`
+}
+
+func (s QueryBlockchainBotAgentDailysummaryResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s QueryBlockchainBotAgentDailysummaryResponse) GoString() string {
+	return s.String()
+}
+
+func (s *QueryBlockchainBotAgentDailysummaryResponse) SetReqMsgId(v string) *QueryBlockchainBotAgentDailysummaryResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *QueryBlockchainBotAgentDailysummaryResponse) SetResultCode(v string) *QueryBlockchainBotAgentDailysummaryResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *QueryBlockchainBotAgentDailysummaryResponse) SetResultMsg(v string) *QueryBlockchainBotAgentDailysummaryResponse {
+	s.ResultMsg = &v
+	return s
+}
+
+func (s *QueryBlockchainBotAgentDailysummaryResponse) SetAgentId(v string) *QueryBlockchainBotAgentDailysummaryResponse {
+	s.AgentId = &v
+	return s
+}
+
+func (s *QueryBlockchainBotAgentDailysummaryResponse) SetDate(v string) *QueryBlockchainBotAgentDailysummaryResponse {
+	s.Date = &v
+	return s
+}
+
+func (s *QueryBlockchainBotAgentDailysummaryResponse) SetContent(v string) *QueryBlockchainBotAgentDailysummaryResponse {
+	s.Content = &v
+	return s
+}
+
+func (s *QueryBlockchainBotAgentDailysummaryResponse) SetGmtModified(v string) *QueryBlockchainBotAgentDailysummaryResponse {
+	s.GmtModified = &v
+	return s
+}
+
+type GenerateBlockchainBotAgentDailysummaryRequest struct {
+	// OAuth模式下的授权token
+	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
+	// 设备客户端ID
+	ClientId *string `json:"client_id,omitempty" xml:"client_id,omitempty" require:"true"`
+	// 智能体ID；传入时必须与设备绑定的智能体一致
+	AgentId *string `json:"agent_id,omitempty" xml:"agent_id,omitempty"`
+	// 总结日期，格式 yyyy-MM-dd，按 GMT+8 自然日
+	Date *string `json:"date,omitempty" xml:"date,omitempty" require:"true"`
+}
+
+func (s GenerateBlockchainBotAgentDailysummaryRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s GenerateBlockchainBotAgentDailysummaryRequest) GoString() string {
+	return s.String()
+}
+
+func (s *GenerateBlockchainBotAgentDailysummaryRequest) SetAuthToken(v string) *GenerateBlockchainBotAgentDailysummaryRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *GenerateBlockchainBotAgentDailysummaryRequest) SetProductInstanceId(v string) *GenerateBlockchainBotAgentDailysummaryRequest {
+	s.ProductInstanceId = &v
+	return s
+}
+
+func (s *GenerateBlockchainBotAgentDailysummaryRequest) SetClientId(v string) *GenerateBlockchainBotAgentDailysummaryRequest {
+	s.ClientId = &v
+	return s
+}
+
+func (s *GenerateBlockchainBotAgentDailysummaryRequest) SetAgentId(v string) *GenerateBlockchainBotAgentDailysummaryRequest {
+	s.AgentId = &v
+	return s
+}
+
+func (s *GenerateBlockchainBotAgentDailysummaryRequest) SetDate(v string) *GenerateBlockchainBotAgentDailysummaryRequest {
+	s.Date = &v
+	return s
+}
+
+type GenerateBlockchainBotAgentDailysummaryResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+}
+
+func (s GenerateBlockchainBotAgentDailysummaryResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s GenerateBlockchainBotAgentDailysummaryResponse) GoString() string {
+	return s.String()
+}
+
+func (s *GenerateBlockchainBotAgentDailysummaryResponse) SetReqMsgId(v string) *GenerateBlockchainBotAgentDailysummaryResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *GenerateBlockchainBotAgentDailysummaryResponse) SetResultCode(v string) *GenerateBlockchainBotAgentDailysummaryResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *GenerateBlockchainBotAgentDailysummaryResponse) SetResultMsg(v string) *GenerateBlockchainBotAgentDailysummaryResponse {
+	s.ResultMsg = &v
+	return s
+}
+
+type TrajectoryBlockchainBotIotagentSessionRequest struct {
+	// OAuth模式下的授权token
+	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
+	// 智能体ID
+	AgentId *string `json:"agent_id,omitempty" xml:"agent_id,omitempty" require:"true"`
+	// 实例ID
+	InstanceId *string `json:"instance_id,omitempty" xml:"instance_id,omitempty" require:"true"`
+	// 会话ID
+	SessionId *string `json:"session_id,omitempty" xml:"session_id,omitempty" require:"true"`
+	// 作用域类型 TURNS|CONTEXT_OPERATIONS，默认 TURNS
+	Scope *string `json:"scope,omitempty" xml:"scope,omitempty"`
+	// 分页游标，首次为空
+	Cursor *string `json:"cursor,omitempty" xml:"cursor,omitempty"`
+	// 每页大小 1-50，默认 20
+	PageSize *int64 `json:"page_size,omitempty" xml:"page_size,omitempty"`
+	// 诊断标签过滤，逗号分隔
+	Diagnostics *string `json:"diagnostics,omitempty" xml:"diagnostics,omitempty"`
+	// 关键词搜索，最长100字
+	Keyword *string `json:"keyword,omitempty" xml:"keyword,omitempty"`
+	// 排序 NONE|DURATION|TOKENS
+	TopBy *string `json:"top_by,omitempty" xml:"top_by,omitempty"`
+}
+
+func (s TrajectoryBlockchainBotIotagentSessionRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s TrajectoryBlockchainBotIotagentSessionRequest) GoString() string {
+	return s.String()
+}
+
+func (s *TrajectoryBlockchainBotIotagentSessionRequest) SetAuthToken(v string) *TrajectoryBlockchainBotIotagentSessionRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *TrajectoryBlockchainBotIotagentSessionRequest) SetProductInstanceId(v string) *TrajectoryBlockchainBotIotagentSessionRequest {
+	s.ProductInstanceId = &v
+	return s
+}
+
+func (s *TrajectoryBlockchainBotIotagentSessionRequest) SetAgentId(v string) *TrajectoryBlockchainBotIotagentSessionRequest {
+	s.AgentId = &v
+	return s
+}
+
+func (s *TrajectoryBlockchainBotIotagentSessionRequest) SetInstanceId(v string) *TrajectoryBlockchainBotIotagentSessionRequest {
+	s.InstanceId = &v
+	return s
+}
+
+func (s *TrajectoryBlockchainBotIotagentSessionRequest) SetSessionId(v string) *TrajectoryBlockchainBotIotagentSessionRequest {
+	s.SessionId = &v
+	return s
+}
+
+func (s *TrajectoryBlockchainBotIotagentSessionRequest) SetScope(v string) *TrajectoryBlockchainBotIotagentSessionRequest {
+	s.Scope = &v
+	return s
+}
+
+func (s *TrajectoryBlockchainBotIotagentSessionRequest) SetCursor(v string) *TrajectoryBlockchainBotIotagentSessionRequest {
+	s.Cursor = &v
+	return s
+}
+
+func (s *TrajectoryBlockchainBotIotagentSessionRequest) SetPageSize(v int64) *TrajectoryBlockchainBotIotagentSessionRequest {
+	s.PageSize = &v
+	return s
+}
+
+func (s *TrajectoryBlockchainBotIotagentSessionRequest) SetDiagnostics(v string) *TrajectoryBlockchainBotIotagentSessionRequest {
+	s.Diagnostics = &v
+	return s
+}
+
+func (s *TrajectoryBlockchainBotIotagentSessionRequest) SetKeyword(v string) *TrajectoryBlockchainBotIotagentSessionRequest {
+	s.Keyword = &v
+	return s
+}
+
+func (s *TrajectoryBlockchainBotIotagentSessionRequest) SetTopBy(v string) *TrajectoryBlockchainBotIotagentSessionRequest {
+	s.TopBy = &v
+	return s
+}
+
+type TrajectoryBlockchainBotIotagentSessionResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// 轮次索引列表(JSON)
+	ScopesJson *string `json:"scopes_json,omitempty" xml:"scopes_json,omitempty"`
+	// 覆盖状态(JSON)
+	CoverageJson *string `json:"coverage_json,omitempty" xml:"coverage_json,omitempty"`
+	// 下一页游标
+	NextCursor *string `json:"next_cursor,omitempty" xml:"next_cursor,omitempty"`
+	// 总轮次数
+	TotalScopes *int64 `json:"total_scopes,omitempty" xml:"total_scopes,omitempty"`
+}
+
+func (s TrajectoryBlockchainBotIotagentSessionResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s TrajectoryBlockchainBotIotagentSessionResponse) GoString() string {
+	return s.String()
+}
+
+func (s *TrajectoryBlockchainBotIotagentSessionResponse) SetReqMsgId(v string) *TrajectoryBlockchainBotIotagentSessionResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *TrajectoryBlockchainBotIotagentSessionResponse) SetResultCode(v string) *TrajectoryBlockchainBotIotagentSessionResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *TrajectoryBlockchainBotIotagentSessionResponse) SetResultMsg(v string) *TrajectoryBlockchainBotIotagentSessionResponse {
+	s.ResultMsg = &v
+	return s
+}
+
+func (s *TrajectoryBlockchainBotIotagentSessionResponse) SetScopesJson(v string) *TrajectoryBlockchainBotIotagentSessionResponse {
+	s.ScopesJson = &v
+	return s
+}
+
+func (s *TrajectoryBlockchainBotIotagentSessionResponse) SetCoverageJson(v string) *TrajectoryBlockchainBotIotagentSessionResponse {
+	s.CoverageJson = &v
+	return s
+}
+
+func (s *TrajectoryBlockchainBotIotagentSessionResponse) SetNextCursor(v string) *TrajectoryBlockchainBotIotagentSessionResponse {
+	s.NextCursor = &v
+	return s
+}
+
+func (s *TrajectoryBlockchainBotIotagentSessionResponse) SetTotalScopes(v int64) *TrajectoryBlockchainBotIotagentSessionResponse {
+	s.TotalScopes = &v
+	return s
+}
+
+type StepsBlockchainBotIotagentSessionTrajectoryRequest struct {
+	// OAuth模式下的授权token
+	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
+	// 智能体ID
+	AgentId *string `json:"agent_id,omitempty" xml:"agent_id,omitempty" require:"true"`
+	// 实例ID
+	InstanceId *string `json:"instance_id,omitempty" xml:"instance_id,omitempty" require:"true"`
+	// 会话ID
+	SessionId *string `json:"session_id,omitempty" xml:"session_id,omitempty" require:"true"`
+	// 轮次ID或操作ID
+	TurnId *string `json:"turn_id,omitempty" xml:"turn_id,omitempty" require:"true"`
+	// 分页游标，首次为空
+	Cursor *string `json:"cursor,omitempty" xml:"cursor,omitempty"`
+	// 每页大小 1-200，默认 100
+	PageSize *int64 `json:"page_size,omitempty" xml:"page_size,omitempty"`
+	// 定位步骤ID，首次定位用，不可与cursor同传
+	FocusStepId *string `json:"focus_step_id,omitempty" xml:"focus_step_id,omitempty"`
+}
+
+func (s StepsBlockchainBotIotagentSessionTrajectoryRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s StepsBlockchainBotIotagentSessionTrajectoryRequest) GoString() string {
+	return s.String()
+}
+
+func (s *StepsBlockchainBotIotagentSessionTrajectoryRequest) SetAuthToken(v string) *StepsBlockchainBotIotagentSessionTrajectoryRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *StepsBlockchainBotIotagentSessionTrajectoryRequest) SetProductInstanceId(v string) *StepsBlockchainBotIotagentSessionTrajectoryRequest {
+	s.ProductInstanceId = &v
+	return s
+}
+
+func (s *StepsBlockchainBotIotagentSessionTrajectoryRequest) SetAgentId(v string) *StepsBlockchainBotIotagentSessionTrajectoryRequest {
+	s.AgentId = &v
+	return s
+}
+
+func (s *StepsBlockchainBotIotagentSessionTrajectoryRequest) SetInstanceId(v string) *StepsBlockchainBotIotagentSessionTrajectoryRequest {
+	s.InstanceId = &v
+	return s
+}
+
+func (s *StepsBlockchainBotIotagentSessionTrajectoryRequest) SetSessionId(v string) *StepsBlockchainBotIotagentSessionTrajectoryRequest {
+	s.SessionId = &v
+	return s
+}
+
+func (s *StepsBlockchainBotIotagentSessionTrajectoryRequest) SetTurnId(v string) *StepsBlockchainBotIotagentSessionTrajectoryRequest {
+	s.TurnId = &v
+	return s
+}
+
+func (s *StepsBlockchainBotIotagentSessionTrajectoryRequest) SetCursor(v string) *StepsBlockchainBotIotagentSessionTrajectoryRequest {
+	s.Cursor = &v
+	return s
+}
+
+func (s *StepsBlockchainBotIotagentSessionTrajectoryRequest) SetPageSize(v int64) *StepsBlockchainBotIotagentSessionTrajectoryRequest {
+	s.PageSize = &v
+	return s
+}
+
+func (s *StepsBlockchainBotIotagentSessionTrajectoryRequest) SetFocusStepId(v string) *StepsBlockchainBotIotagentSessionTrajectoryRequest {
+	s.FocusStepId = &v
+	return s
+}
+
+type StepsBlockchainBotIotagentSessionTrajectoryResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// 执行步骤列表(JSON)
+	StepsJson *string `json:"steps_json,omitempty" xml:"steps_json,omitempty"`
+	// 下一页游标
+	NextCursor *string `json:"next_cursor,omitempty" xml:"next_cursor,omitempty"`
+	// 总步骤数
+	TotalSteps *int64 `json:"total_steps,omitempty" xml:"total_steps,omitempty"`
+}
+
+func (s StepsBlockchainBotIotagentSessionTrajectoryResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s StepsBlockchainBotIotagentSessionTrajectoryResponse) GoString() string {
+	return s.String()
+}
+
+func (s *StepsBlockchainBotIotagentSessionTrajectoryResponse) SetReqMsgId(v string) *StepsBlockchainBotIotagentSessionTrajectoryResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *StepsBlockchainBotIotagentSessionTrajectoryResponse) SetResultCode(v string) *StepsBlockchainBotIotagentSessionTrajectoryResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *StepsBlockchainBotIotagentSessionTrajectoryResponse) SetResultMsg(v string) *StepsBlockchainBotIotagentSessionTrajectoryResponse {
+	s.ResultMsg = &v
+	return s
+}
+
+func (s *StepsBlockchainBotIotagentSessionTrajectoryResponse) SetStepsJson(v string) *StepsBlockchainBotIotagentSessionTrajectoryResponse {
+	s.StepsJson = &v
+	return s
+}
+
+func (s *StepsBlockchainBotIotagentSessionTrajectoryResponse) SetNextCursor(v string) *StepsBlockchainBotIotagentSessionTrajectoryResponse {
+	s.NextCursor = &v
+	return s
+}
+
+func (s *StepsBlockchainBotIotagentSessionTrajectoryResponse) SetTotalSteps(v int64) *StepsBlockchainBotIotagentSessionTrajectoryResponse {
+	s.TotalSteps = &v
+	return s
+}
+
 type QuerycontractBlockchainBotAiotdatalinkAntfinanceassistantRequest struct {
 	// OAuth模式下的授权token
 	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
@@ -21432,7 +22570,7 @@ func (client *Client) DoRequest(version *string, action *string, protocol *strin
 				"req_msg_id":       antchainutil.GetNonce(),
 				"access_key":       client.AccessKeyId,
 				"base_sdk_version": tea.String("TeaSDK-2.0"),
-				"sdk_version":      tea.String("1.2.15"),
+				"sdk_version":      tea.String("1.3.3"),
 				"_prod_code":       tea.String("IOTAGENT"),
 				"_prod_channel":    tea.String("undefined"),
 			}
@@ -23163,6 +24301,258 @@ func (client *Client) CallbackBlockchainBotIotagentMusicEx(request *CallbackBloc
 	}
 	_result = &CallbackBlockchainBotIotagentMusicResponse{}
 	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("blockchain.bot.iotagent.music.callback"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
+}
+
+// Description:
+//
+// Description: 查询会话用量（按 sessionId 聚合  usage 记录，返回会话总量 + 轮次明细分页）
+//
+// Summary: 查询会话用量（按 sessionId 聚合  usage 记录，返回会话总量 + 轮次明细分页）
+func (client *Client) UsageBlockchainBotIotagentSession(request *UsageBlockchainBotIotagentSessionRequest) (_result *UsageBlockchainBotIotagentSessionResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &UsageBlockchainBotIotagentSessionResponse{}
+	_body, _err := client.UsageBlockchainBotIotagentSessionEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+// Description:
+//
+// Description: 查询会话用量（按 sessionId 聚合  usage 记录，返回会话总量 + 轮次明细分页）
+//
+// Summary: 查询会话用量（按 sessionId 聚合  usage 记录，返回会话总量 + 轮次明细分页）
+func (client *Client) UsageBlockchainBotIotagentSessionEx(request *UsageBlockchainBotIotagentSessionRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *UsageBlockchainBotIotagentSessionResponse, _err error) {
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &UsageBlockchainBotIotagentSessionResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("blockchain.bot.iotagent.session.usage"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
+}
+
+// Description:
+//
+// Description: 会话上下文处理操作
+//
+// Summary: 会话上下文处理操作
+func (client *Client) ActionBlockchainBotIotagentSessioncontext(request *ActionBlockchainBotIotagentSessioncontextRequest) (_result *ActionBlockchainBotIotagentSessioncontextResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &ActionBlockchainBotIotagentSessioncontextResponse{}
+	_body, _err := client.ActionBlockchainBotIotagentSessioncontextEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+// Description:
+//
+// Description: 会话上下文处理操作
+//
+// Summary: 会话上下文处理操作
+func (client *Client) ActionBlockchainBotIotagentSessioncontextEx(request *ActionBlockchainBotIotagentSessioncontextRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *ActionBlockchainBotIotagentSessioncontextResponse, _err error) {
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &ActionBlockchainBotIotagentSessioncontextResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("blockchain.bot.iotagent.sessioncontext.action"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
+}
+
+// Description:
+//
+// Description: 查询上下文压缩操作结果
+//
+// Summary: 查询上下文压缩操作结果
+func (client *Client) QueryBlockchainBotIotagentSessioncontextaction(request *QueryBlockchainBotIotagentSessioncontextactionRequest) (_result *QueryBlockchainBotIotagentSessioncontextactionResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &QueryBlockchainBotIotagentSessioncontextactionResponse{}
+	_body, _err := client.QueryBlockchainBotIotagentSessioncontextactionEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+// Description:
+//
+// Description: 查询上下文压缩操作结果
+//
+// Summary: 查询上下文压缩操作结果
+func (client *Client) QueryBlockchainBotIotagentSessioncontextactionEx(request *QueryBlockchainBotIotagentSessioncontextactionRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *QueryBlockchainBotIotagentSessioncontextactionResponse, _err error) {
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &QueryBlockchainBotIotagentSessioncontextactionResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("blockchain.bot.iotagent.sessioncontextaction.query"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
+}
+
+// Description:
+//
+// Description: 查询智能体指定日期的聊天总结（只读，不触发生成；content 为空表示尚未生成或当日无对话）
+//
+// Summary: 查询智能体指定日期的聊天总结（只读，不触发生成；content 为空表示尚未生成或当日无对话）
+func (client *Client) QueryBlockchainBotAgentDailysummary(request *QueryBlockchainBotAgentDailysummaryRequest) (_result *QueryBlockchainBotAgentDailysummaryResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &QueryBlockchainBotAgentDailysummaryResponse{}
+	_body, _err := client.QueryBlockchainBotAgentDailysummaryEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+// Description:
+//
+// Description: 查询智能体指定日期的聊天总结（只读，不触发生成；content 为空表示尚未生成或当日无对话）
+//
+// Summary: 查询智能体指定日期的聊天总结（只读，不触发生成；content 为空表示尚未生成或当日无对话）
+func (client *Client) QueryBlockchainBotAgentDailysummaryEx(request *QueryBlockchainBotAgentDailysummaryRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *QueryBlockchainBotAgentDailysummaryResponse, _err error) {
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &QueryBlockchainBotAgentDailysummaryResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("blockchain.bot.agent.dailysummary.query"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
+}
+
+// Description:
+//
+// Description: 触发智能体指定日期的聊天总结生成（异步受理，立即返回；同一智能体同一天 60 秒内重复触发只生成一次，生成结果通过 daily summary 查询接口获取）
+//
+// Summary: 触发智能体指定日期的聊天总结生成（异步受理，立即返回；同一智能体同一天 60 秒内重复触发只生成一次，生成结果通过 daily summary 查询接口获取）
+func (client *Client) GenerateBlockchainBotAgentDailysummary(request *GenerateBlockchainBotAgentDailysummaryRequest) (_result *GenerateBlockchainBotAgentDailysummaryResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &GenerateBlockchainBotAgentDailysummaryResponse{}
+	_body, _err := client.GenerateBlockchainBotAgentDailysummaryEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+// Description:
+//
+// Description: 触发智能体指定日期的聊天总结生成（异步受理，立即返回；同一智能体同一天 60 秒内重复触发只生成一次，生成结果通过 daily summary 查询接口获取）
+//
+// Summary: 触发智能体指定日期的聊天总结生成（异步受理，立即返回；同一智能体同一天 60 秒内重复触发只生成一次，生成结果通过 daily summary 查询接口获取）
+func (client *Client) GenerateBlockchainBotAgentDailysummaryEx(request *GenerateBlockchainBotAgentDailysummaryRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *GenerateBlockchainBotAgentDailysummaryResponse, _err error) {
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &GenerateBlockchainBotAgentDailysummaryResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("blockchain.bot.agent.dailysummary.generate"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
+}
+
+// Description:
+//
+// Description: 查询会话执行轨迹索引，按作用域返回轮次列表、诊断摘要和统计计数
+//
+// Summary: 查询会话执行轨迹索引，按作用域返回轮次列表、诊断摘要和统计计数
+func (client *Client) TrajectoryBlockchainBotIotagentSession(request *TrajectoryBlockchainBotIotagentSessionRequest) (_result *TrajectoryBlockchainBotIotagentSessionResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &TrajectoryBlockchainBotIotagentSessionResponse{}
+	_body, _err := client.TrajectoryBlockchainBotIotagentSessionEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+// Description:
+//
+// Description: 查询会话执行轨迹索引，按作用域返回轮次列表、诊断摘要和统计计数
+//
+// Summary: 查询会话执行轨迹索引，按作用域返回轮次列表、诊断摘要和统计计数
+func (client *Client) TrajectoryBlockchainBotIotagentSessionEx(request *TrajectoryBlockchainBotIotagentSessionRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *TrajectoryBlockchainBotIotagentSessionResponse, _err error) {
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &TrajectoryBlockchainBotIotagentSessionResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("blockchain.bot.iotagent.session.trajectory"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
+}
+
+// Description:
+//
+// Description: 查询单轮/操作的执行步骤详情，展开执行树
+//
+// Summary: 查询单轮/操作的执行步骤详情，展开执行树
+func (client *Client) StepsBlockchainBotIotagentSessionTrajectory(request *StepsBlockchainBotIotagentSessionTrajectoryRequest) (_result *StepsBlockchainBotIotagentSessionTrajectoryResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &StepsBlockchainBotIotagentSessionTrajectoryResponse{}
+	_body, _err := client.StepsBlockchainBotIotagentSessionTrajectoryEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+// Description:
+//
+// Description: 查询单轮/操作的执行步骤详情，展开执行树
+//
+// Summary: 查询单轮/操作的执行步骤详情，展开执行树
+func (client *Client) StepsBlockchainBotIotagentSessionTrajectoryEx(request *StepsBlockchainBotIotagentSessionTrajectoryRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *StepsBlockchainBotIotagentSessionTrajectoryResponse, _err error) {
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &StepsBlockchainBotIotagentSessionTrajectoryResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("blockchain.bot.iotagent.session.trajectory.steps"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
 	if _err != nil {
 		return _result, _err
 	}
