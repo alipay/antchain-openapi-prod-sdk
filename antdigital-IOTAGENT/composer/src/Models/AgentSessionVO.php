@@ -11,6 +11,8 @@ class AgentSessionVO extends Model {
         'userId' => 'user_id',
         'gmtCreate' => 'gmt_create',
         'gmtModified' => 'gmt_modified',
+        'sessionName' => 'session_name',
+        'topic' => 'topic',
     ];
     public function validate() {
         Model::validateRequired('sessionId', $this->sessionId, true);
@@ -34,6 +36,12 @@ class AgentSessionVO extends Model {
         if (null !== $this->gmtModified) {
             $res['gmt_modified'] = $this->gmtModified;
         }
+        if (null !== $this->sessionName) {
+            $res['session_name'] = $this->sessionName;
+        }
+        if (null !== $this->topic) {
+            $res['topic'] = $this->topic;
+        }
         return $res;
     }
     /**
@@ -53,6 +61,12 @@ class AgentSessionVO extends Model {
         }
         if(isset($map['gmt_modified'])){
             $model->gmtModified = $map['gmt_modified'];
+        }
+        if(isset($map['session_name'])){
+            $model->sessionName = $map['session_name'];
+        }
+        if(isset($map['topic'])){
+            $model->topic = $map['topic'];
         }
         return $model;
     }
@@ -83,5 +97,19 @@ class AgentSessionVO extends Model {
      * @var string
      */
     public $gmtModified;
+
+    // 会话名称；会话进行中尚未命名时返回"当前会话"
+    /**
+     * @example 今天天气怎么样
+     * @var string
+     */
+    public $sessionName;
+
+    // 会话主题，可能为空
+    /**
+     * @example 天气
+     * @var string
+     */
+    public $topic;
 
 }

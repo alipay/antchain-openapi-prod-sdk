@@ -104,6 +104,20 @@ use AntChain\IOTAGENT\Models\LogoutBlockchainBotIotagentMusicRequest;
 use AntChain\IOTAGENT\Models\LogoutBlockchainBotIotagentMusicResponse;
 use AntChain\IOTAGENT\Models\CallbackBlockchainBotIotagentMusicRequest;
 use AntChain\IOTAGENT\Models\CallbackBlockchainBotIotagentMusicResponse;
+use AntChain\IOTAGENT\Models\UsageBlockchainBotIotagentSessionRequest;
+use AntChain\IOTAGENT\Models\UsageBlockchainBotIotagentSessionResponse;
+use AntChain\IOTAGENT\Models\ActionBlockchainBotIotagentSessioncontextRequest;
+use AntChain\IOTAGENT\Models\ActionBlockchainBotIotagentSessioncontextResponse;
+use AntChain\IOTAGENT\Models\QueryBlockchainBotIotagentSessioncontextactionRequest;
+use AntChain\IOTAGENT\Models\QueryBlockchainBotIotagentSessioncontextactionResponse;
+use AntChain\IOTAGENT\Models\QueryBlockchainBotAgentDailysummaryRequest;
+use AntChain\IOTAGENT\Models\QueryBlockchainBotAgentDailysummaryResponse;
+use AntChain\IOTAGENT\Models\GenerateBlockchainBotAgentDailysummaryRequest;
+use AntChain\IOTAGENT\Models\GenerateBlockchainBotAgentDailysummaryResponse;
+use AntChain\IOTAGENT\Models\TrajectoryBlockchainBotIotagentSessionRequest;
+use AntChain\IOTAGENT\Models\TrajectoryBlockchainBotIotagentSessionResponse;
+use AntChain\IOTAGENT\Models\StepsBlockchainBotIotagentSessionTrajectoryRequest;
+use AntChain\IOTAGENT\Models\StepsBlockchainBotIotagentSessionTrajectoryResponse;
 use AntChain\IOTAGENT\Models\QuerycontractBlockchainBotAiotdatalinkAntfinanceassistantRequest;
 use AntChain\IOTAGENT\Models\QuerycontractBlockchainBotAiotdatalinkAntfinanceassistantResponse;
 use AntChain\IOTAGENT\Models\SigncontractBlockchainBotAiotdatalinkAntfinanceassistantRequest;
@@ -249,7 +263,7 @@ class Client {
                     "req_msg_id" => UtilClient::getNonce(),
                     "access_key" => $this->_accessKeyId,
                     "base_sdk_version" => "TeaSDK-2.0",
-                    "sdk_version" => "1.2.15",
+                    "sdk_version" => "1.3.3",
                     "_prod_code" => "IOTAGENT",
                     "_prod_channel" => "undefined"
                 ];
@@ -1457,6 +1471,181 @@ class Client {
     public function callbackBlockchainBotIotagentMusicEx($request, $headers, $runtime){
         Utils::validateModel($request);
         return CallbackBlockchainBotIotagentMusicResponse::fromMap($this->doRequest("1.0", "blockchain.bot.iotagent.music.callback", "HTTPS", "POST", "/gateway.do", Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 查询会话用量（按 sessionId 聚合  usage 记录，返回会话总量 + 轮次明细分页）
+     * Summary: 查询会话用量（按 sessionId 聚合  usage 记录，返回会话总量 + 轮次明细分页）
+     * @param UsageBlockchainBotIotagentSessionRequest $request
+     * @return UsageBlockchainBotIotagentSessionResponse
+     */
+    public function usageBlockchainBotIotagentSession($request){
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+        return $this->usageBlockchainBotIotagentSessionEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 查询会话用量（按 sessionId 聚合  usage 记录，返回会话总量 + 轮次明细分页）
+     * Summary: 查询会话用量（按 sessionId 聚合  usage 记录，返回会话总量 + 轮次明细分页）
+     * @param UsageBlockchainBotIotagentSessionRequest $request
+     * @param string[] $headers
+     * @param RuntimeOptions $runtime
+     * @return UsageBlockchainBotIotagentSessionResponse
+     */
+    public function usageBlockchainBotIotagentSessionEx($request, $headers, $runtime){
+        Utils::validateModel($request);
+        return UsageBlockchainBotIotagentSessionResponse::fromMap($this->doRequest("1.0", "blockchain.bot.iotagent.session.usage", "HTTPS", "POST", "/gateway.do", Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 会话上下文处理操作
+     * Summary: 会话上下文处理操作
+     * @param ActionBlockchainBotIotagentSessioncontextRequest $request
+     * @return ActionBlockchainBotIotagentSessioncontextResponse
+     */
+    public function actionBlockchainBotIotagentSessioncontext($request){
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+        return $this->actionBlockchainBotIotagentSessioncontextEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 会话上下文处理操作
+     * Summary: 会话上下文处理操作
+     * @param ActionBlockchainBotIotagentSessioncontextRequest $request
+     * @param string[] $headers
+     * @param RuntimeOptions $runtime
+     * @return ActionBlockchainBotIotagentSessioncontextResponse
+     */
+    public function actionBlockchainBotIotagentSessioncontextEx($request, $headers, $runtime){
+        Utils::validateModel($request);
+        return ActionBlockchainBotIotagentSessioncontextResponse::fromMap($this->doRequest("1.0", "blockchain.bot.iotagent.sessioncontext.action", "HTTPS", "POST", "/gateway.do", Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 查询上下文压缩操作结果
+     * Summary: 查询上下文压缩操作结果
+     * @param QueryBlockchainBotIotagentSessioncontextactionRequest $request
+     * @return QueryBlockchainBotIotagentSessioncontextactionResponse
+     */
+    public function queryBlockchainBotIotagentSessioncontextaction($request){
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+        return $this->queryBlockchainBotIotagentSessioncontextactionEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 查询上下文压缩操作结果
+     * Summary: 查询上下文压缩操作结果
+     * @param QueryBlockchainBotIotagentSessioncontextactionRequest $request
+     * @param string[] $headers
+     * @param RuntimeOptions $runtime
+     * @return QueryBlockchainBotIotagentSessioncontextactionResponse
+     */
+    public function queryBlockchainBotIotagentSessioncontextactionEx($request, $headers, $runtime){
+        Utils::validateModel($request);
+        return QueryBlockchainBotIotagentSessioncontextactionResponse::fromMap($this->doRequest("1.0", "blockchain.bot.iotagent.sessioncontextaction.query", "HTTPS", "POST", "/gateway.do", Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 查询智能体指定日期的聊天总结（只读，不触发生成；content 为空表示尚未生成或当日无对话）
+     * Summary: 查询智能体指定日期的聊天总结（只读，不触发生成；content 为空表示尚未生成或当日无对话）
+     * @param QueryBlockchainBotAgentDailysummaryRequest $request
+     * @return QueryBlockchainBotAgentDailysummaryResponse
+     */
+    public function queryBlockchainBotAgentDailysummary($request){
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+        return $this->queryBlockchainBotAgentDailysummaryEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 查询智能体指定日期的聊天总结（只读，不触发生成；content 为空表示尚未生成或当日无对话）
+     * Summary: 查询智能体指定日期的聊天总结（只读，不触发生成；content 为空表示尚未生成或当日无对话）
+     * @param QueryBlockchainBotAgentDailysummaryRequest $request
+     * @param string[] $headers
+     * @param RuntimeOptions $runtime
+     * @return QueryBlockchainBotAgentDailysummaryResponse
+     */
+    public function queryBlockchainBotAgentDailysummaryEx($request, $headers, $runtime){
+        Utils::validateModel($request);
+        return QueryBlockchainBotAgentDailysummaryResponse::fromMap($this->doRequest("1.0", "blockchain.bot.agent.dailysummary.query", "HTTPS", "POST", "/gateway.do", Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 触发智能体指定日期的聊天总结生成（异步受理，立即返回；同一智能体同一天 60 秒内重复触发只生成一次，生成结果通过 daily summary 查询接口获取）
+     * Summary: 触发智能体指定日期的聊天总结生成（异步受理，立即返回；同一智能体同一天 60 秒内重复触发只生成一次，生成结果通过 daily summary 查询接口获取）
+     * @param GenerateBlockchainBotAgentDailysummaryRequest $request
+     * @return GenerateBlockchainBotAgentDailysummaryResponse
+     */
+    public function generateBlockchainBotAgentDailysummary($request){
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+        return $this->generateBlockchainBotAgentDailysummaryEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 触发智能体指定日期的聊天总结生成（异步受理，立即返回；同一智能体同一天 60 秒内重复触发只生成一次，生成结果通过 daily summary 查询接口获取）
+     * Summary: 触发智能体指定日期的聊天总结生成（异步受理，立即返回；同一智能体同一天 60 秒内重复触发只生成一次，生成结果通过 daily summary 查询接口获取）
+     * @param GenerateBlockchainBotAgentDailysummaryRequest $request
+     * @param string[] $headers
+     * @param RuntimeOptions $runtime
+     * @return GenerateBlockchainBotAgentDailysummaryResponse
+     */
+    public function generateBlockchainBotAgentDailysummaryEx($request, $headers, $runtime){
+        Utils::validateModel($request);
+        return GenerateBlockchainBotAgentDailysummaryResponse::fromMap($this->doRequest("1.0", "blockchain.bot.agent.dailysummary.generate", "HTTPS", "POST", "/gateway.do", Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 查询会话执行轨迹索引，按作用域返回轮次列表、诊断摘要和统计计数
+     * Summary: 查询会话执行轨迹索引，按作用域返回轮次列表、诊断摘要和统计计数
+     * @param TrajectoryBlockchainBotIotagentSessionRequest $request
+     * @return TrajectoryBlockchainBotIotagentSessionResponse
+     */
+    public function trajectoryBlockchainBotIotagentSession($request){
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+        return $this->trajectoryBlockchainBotIotagentSessionEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 查询会话执行轨迹索引，按作用域返回轮次列表、诊断摘要和统计计数
+     * Summary: 查询会话执行轨迹索引，按作用域返回轮次列表、诊断摘要和统计计数
+     * @param TrajectoryBlockchainBotIotagentSessionRequest $request
+     * @param string[] $headers
+     * @param RuntimeOptions $runtime
+     * @return TrajectoryBlockchainBotIotagentSessionResponse
+     */
+    public function trajectoryBlockchainBotIotagentSessionEx($request, $headers, $runtime){
+        Utils::validateModel($request);
+        return TrajectoryBlockchainBotIotagentSessionResponse::fromMap($this->doRequest("1.0", "blockchain.bot.iotagent.session.trajectory", "HTTPS", "POST", "/gateway.do", Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 查询单轮/操作的执行步骤详情，展开执行树
+     * Summary: 查询单轮/操作的执行步骤详情，展开执行树
+     * @param StepsBlockchainBotIotagentSessionTrajectoryRequest $request
+     * @return StepsBlockchainBotIotagentSessionTrajectoryResponse
+     */
+    public function stepsBlockchainBotIotagentSessionTrajectory($request){
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+        return $this->stepsBlockchainBotIotagentSessionTrajectoryEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 查询单轮/操作的执行步骤详情，展开执行树
+     * Summary: 查询单轮/操作的执行步骤详情，展开执行树
+     * @param StepsBlockchainBotIotagentSessionTrajectoryRequest $request
+     * @param string[] $headers
+     * @param RuntimeOptions $runtime
+     * @return StepsBlockchainBotIotagentSessionTrajectoryResponse
+     */
+    public function stepsBlockchainBotIotagentSessionTrajectoryEx($request, $headers, $runtime){
+        Utils::validateModel($request);
+        return StepsBlockchainBotIotagentSessionTrajectoryResponse::fromMap($this->doRequest("1.0", "blockchain.bot.iotagent.session.trajectory.steps", "HTTPS", "POST", "/gateway.do", Tea::merge($request), $headers, $runtime));
     }
 
     /**
