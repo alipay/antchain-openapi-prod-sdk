@@ -3834,6 +3834,69 @@ class TripStatisticInfo(TeaModel):
         return self
 
 
+class HealthContactInfo(TeaModel):
+    def __init__(
+        self,
+        contact_id: str = None,
+        priority: int = None,
+        contact_name: str = None,
+        contact_phone: str = None,
+        locked: bool = None,
+        extra_info: str = None,
+    ):
+        # 联系人业务id
+        self.contact_id = contact_id
+        # 键位设置优先级（1=红键, 2=黄键, 3=绿键）
+        self.priority = priority
+        # 联系人姓名
+        self.contact_name = contact_name
+        # 联系人手机号
+        self.contact_phone = contact_phone
+        # 是否锁定 - 锁定时不允许c端用户修改联系人信息
+        self.locked = locked
+        # 预留可扩展字段json
+        self.extra_info = extra_info
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.contact_id is not None:
+            result['contact_id'] = self.contact_id
+        if self.priority is not None:
+            result['priority'] = self.priority
+        if self.contact_name is not None:
+            result['contact_name'] = self.contact_name
+        if self.contact_phone is not None:
+            result['contact_phone'] = self.contact_phone
+        if self.locked is not None:
+            result['locked'] = self.locked
+        if self.extra_info is not None:
+            result['extra_info'] = self.extra_info
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('contact_id') is not None:
+            self.contact_id = m.get('contact_id')
+        if m.get('priority') is not None:
+            self.priority = m.get('priority')
+        if m.get('contact_name') is not None:
+            self.contact_name = m.get('contact_name')
+        if m.get('contact_phone') is not None:
+            self.contact_phone = m.get('contact_phone')
+        if m.get('locked') is not None:
+            self.locked = m.get('locked')
+        if m.get('extra_info') is not None:
+            self.extra_info = m.get('extra_info')
+        return self
+
+
 class MaoDistrict(TeaModel):
     def __init__(
         self,
@@ -15611,12 +15674,7 @@ class QueryHealthContactResponse(TeaModel):
         result_msg: str = None,
         channe_id: str = None,
         tuid: str = None,
-        contact_id: str = None,
-        priority: int = None,
-        contact_name: str = None,
-        contact_phone: str = None,
-        locked: bool = None,
-        extra_info: str = None,
+        contact_list: List[HealthContactInfo] = None,
     ):
         # 请求唯一ID，用于链路跟踪和问题排查
         self.req_msg_id = req_msg_id
@@ -15628,21 +15686,14 @@ class QueryHealthContactResponse(TeaModel):
         self.channe_id = channe_id
         # 设备唯一id
         self.tuid = tuid
-        # 联系人业务id
-        self.contact_id = contact_id
-        # 键位设置优先级（1=红键, 2=黄键, 3=绿键）
-        self.priority = priority
-        # 联系人姓名
-        self.contact_name = contact_name
-        # 联系人手机号
-        self.contact_phone = contact_phone
-        # 是否锁定 - 锁定时不允许c端用户修改联系人信息
-        self.locked = locked
-        # 预留可扩展字段
-        self.extra_info = extra_info
+        # 健康联系人信息
+        self.contact_list = contact_list
 
     def validate(self):
-        pass
+        if self.contact_list:
+            for k in self.contact_list:
+                if k:
+                    k.validate()
 
     def to_map(self):
         _map = super().to_map()
@@ -15660,18 +15711,10 @@ class QueryHealthContactResponse(TeaModel):
             result['channe_id'] = self.channe_id
         if self.tuid is not None:
             result['tuid'] = self.tuid
-        if self.contact_id is not None:
-            result['contact_id'] = self.contact_id
-        if self.priority is not None:
-            result['priority'] = self.priority
-        if self.contact_name is not None:
-            result['contact_name'] = self.contact_name
-        if self.contact_phone is not None:
-            result['contact_phone'] = self.contact_phone
-        if self.locked is not None:
-            result['locked'] = self.locked
-        if self.extra_info is not None:
-            result['extra_info'] = self.extra_info
+        result['contact_list'] = []
+        if self.contact_list is not None:
+            for k in self.contact_list:
+                result['contact_list'].append(k.to_map() if k else None)
         return result
 
     def from_map(self, m: dict = None):
@@ -15686,18 +15729,11 @@ class QueryHealthContactResponse(TeaModel):
             self.channe_id = m.get('channe_id')
         if m.get('tuid') is not None:
             self.tuid = m.get('tuid')
-        if m.get('contact_id') is not None:
-            self.contact_id = m.get('contact_id')
-        if m.get('priority') is not None:
-            self.priority = m.get('priority')
-        if m.get('contact_name') is not None:
-            self.contact_name = m.get('contact_name')
-        if m.get('contact_phone') is not None:
-            self.contact_phone = m.get('contact_phone')
-        if m.get('locked') is not None:
-            self.locked = m.get('locked')
-        if m.get('extra_info') is not None:
-            self.extra_info = m.get('extra_info')
+        self.contact_list = []
+        if m.get('contact_list') is not None:
+            for k in m.get('contact_list'):
+                temp_model = HealthContactInfo()
+                self.contact_list.append(temp_model.from_map(k))
         return self
 
 
