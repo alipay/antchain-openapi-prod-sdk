@@ -126,7 +126,7 @@ public class Client {
                     new TeaPair("req_msg_id", com.antgroup.antchain.openapi.antchain.util.AntchainUtils.getNonce()),
                     new TeaPair("access_key", _accessKeyId),
                     new TeaPair("base_sdk_version", "TeaSDK-2.0"),
-                    new TeaPair("sdk_version", "1.23.4"),
+                    new TeaPair("sdk_version", "1.23.5"),
                     new TeaPair("_prod_code", "REALPERSON"),
                     new TeaPair("_prod_channel", "undefined")
                 );
@@ -991,8 +991,8 @@ public class Client {
 
     /**
      * <b>description</b> :
-     * <p>Description: 银行活跃度
-     * Summary: 银行活跃度</p>
+     * <p>Description: 个人银行卡状态标准版
+     * Summary: 个人银行卡状态标准版</p>
      */
     public QueryBankLivenessResponse queryBankLiveness(QueryBankLivenessRequest request) throws Exception {
         com.aliyun.teautil.models.RuntimeOptions runtime = new com.aliyun.teautil.models.RuntimeOptions();
@@ -1002,8 +1002,8 @@ public class Client {
 
     /**
      * <b>description</b> :
-     * <p>Description: 银行活跃度
-     * Summary: 银行活跃度</p>
+     * <p>Description: 个人银行卡状态标准版
+     * Summary: 个人银行卡状态标准版</p>
      */
     public QueryBankLivenessResponse queryBankLivenessEx(QueryBankLivenessRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
         com.aliyun.teautil.Common.validateModel(request);
@@ -1350,8 +1350,8 @@ public class Client {
 
     /**
      * <b>description</b> :
-     * <p>Description: 个人银行卡状态验证 V4.0
-     * Summary: 个人银行卡状态验证 V4.0</p>
+     * <p>Description: 个人银行卡状态基础版
+     * Summary: 个人银行卡状态基础版</p>
      */
     public QueryBankLivenessfourResponse queryBankLivenessfour(QueryBankLivenessfourRequest request) throws Exception {
         com.aliyun.teautil.models.RuntimeOptions runtime = new com.aliyun.teautil.models.RuntimeOptions();
@@ -1361,8 +1361,8 @@ public class Client {
 
     /**
      * <b>description</b> :
-     * <p>Description: 个人银行卡状态验证 V4.0
-     * Summary: 个人银行卡状态验证 V4.0</p>
+     * <p>Description: 个人银行卡状态基础版
+     * Summary: 个人银行卡状态基础版</p>
      */
     public QueryBankLivenessfourResponse queryBankLivenessfourEx(QueryBankLivenessfourRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
         com.aliyun.teautil.Common.validateModel(request);
