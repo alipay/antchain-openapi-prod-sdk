@@ -10076,17 +10076,7 @@ export class InitServerWillauthRequest extends $tea.Model {
   authToken?: string;
   productInstanceId?: string;
   // string
-  /**
-   * @remarks
-   * 待上传文件
-   */
-  fileObject?: Readable;
-  /**
-   * @remarks
-   * 待上传文件名
-   */
-  fileObjectName?: string;
-  fileId: string;
+  fileId?: string;
   // 场景id
   sceneId: string;
   // 身份证姓名
@@ -10117,8 +10107,6 @@ export class InitServerWillauthRequest extends $tea.Model {
     return {
       authToken: 'auth_token',
       productInstanceId: 'product_instance_id',
-      fileObject: 'fileObject',
-      fileObjectName: 'fileObjectName',
       fileId: 'file_id',
       sceneId: 'scene_id',
       certName: 'cert_name',
@@ -10140,8 +10128,6 @@ export class InitServerWillauthRequest extends $tea.Model {
     return {
       authToken: 'string',
       productInstanceId: 'string',
-      fileObject: 'Readable',
-      fileObjectName: 'string',
       fileId: 'string',
       sceneId: 'string',
       certName: 'string',
@@ -11012,7 +10998,7 @@ export default class Client {
           req_msg_id: AntchainUtil.getNonce(),
           access_key: this._accessKeyId,
           base_sdk_version: "TeaSDK-2.0",
-          sdk_version: "1.23.3",
+          sdk_version: "1.23.5",
           _prod_code: "REALPERSON",
           _prod_channel: "undefined",
         };
@@ -11863,8 +11849,8 @@ export default class Client {
 
   /**
    * @remarks
-   * Description: 银行活跃度
-   * Summary: 银行活跃度
+   * Description: 个人银行卡状态标准版
+   * Summary: 个人银行卡状态标准版
    */
   async queryBankLiveness(request: QueryBankLivenessRequest): Promise<QueryBankLivenessResponse> {
     let runtime = new $Util.RuntimeOptions({ });
@@ -11874,8 +11860,8 @@ export default class Client {
 
   /**
    * @remarks
-   * Description: 银行活跃度
-   * Summary: 银行活跃度
+   * Description: 个人银行卡状态标准版
+   * Summary: 个人银行卡状态标准版
    */
   async queryBankLivenessEx(request: QueryBankLivenessRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<QueryBankLivenessResponse> {
     Util.validateModel(request);
@@ -12222,8 +12208,8 @@ export default class Client {
 
   /**
    * @remarks
-   * Description: 个人银行卡状态验证 V4.0
-   * Summary: 个人银行卡状态验证 V4.0
+   * Description: 个人银行卡状态基础版
+   * Summary: 个人银行卡状态基础版
    */
   async queryBankLivenessfour(request: QueryBankLivenessfourRequest): Promise<QueryBankLivenessfourResponse> {
     let runtime = new $Util.RuntimeOptions({ });
@@ -12233,8 +12219,8 @@ export default class Client {
 
   /**
    * @remarks
-   * Description: 个人银行卡状态验证 V4.0
-   * Summary: 个人银行卡状态验证 V4.0
+   * Description: 个人银行卡状态基础版
+   * Summary: 个人银行卡状态基础版
    */
   async queryBankLivenessfourEx(request: QueryBankLivenessfourRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<QueryBankLivenessfourResponse> {
     Util.validateModel(request);
@@ -13039,28 +13025,6 @@ export default class Client {
    * Summary: 意愿认证服务端初始化
    */
   async initServerWillauthEx(request: InitServerWillauthRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<InitServerWillauthResponse> {
-    if (!Util.isUnset(request.fileObject)) {
-      let uploadReq = new CreateAntcloudGatewayxFileUploadRequest({
-        authToken: request.authToken,
-        apiCode: "di.realperson.server.willauth.init",
-        fileName: request.fileObjectName,
-      });
-      let uploadResp = await this.createAntcloudGatewayxFileUploadEx(uploadReq, headers, runtime);
-      if (!AntchainUtil.isSuccess(uploadResp.resultCode, "ok")) {
-        let initServerWillauthResponse = new InitServerWillauthResponse({
-          reqMsgId: uploadResp.reqMsgId,
-          resultCode: uploadResp.resultCode,
-          resultMsg: uploadResp.resultMsg,
-        });
-        return initServerWillauthResponse;
-      }
-
-      let uploadHeaders = AntchainUtil.parseUploadHeaders(uploadResp.uploadHeaders);
-      await AntchainUtil.putObject(request.fileObject, uploadHeaders, uploadResp.uploadUrl);
-      request.fileId = uploadResp.fileId;
-      request.fileObject = null;
-    }
-
     Util.validateModel(request);
     return $tea.cast<InitServerWillauthResponse>(await this.doRequest("1.0", "di.realperson.server.willauth.init", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new InitServerWillauthResponse({}));
   }
