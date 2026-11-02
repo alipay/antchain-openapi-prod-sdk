@@ -135,7 +135,7 @@ class Client:
                     'req_msg_id': AntchainUtils.get_nonce(),
                     'access_key': self._access_key_id,
                     'base_sdk_version': 'TeaSDK-2.0',
-                    'sdk_version': '1.23.4',
+                    'sdk_version': '1.23.5',
                     '_prod_code': 'REALPERSON',
                     '_prod_channel': 'undefined'
                 }
@@ -239,7 +239,7 @@ class Client:
                     'req_msg_id': AntchainUtils.get_nonce(),
                     'access_key': self._access_key_id,
                     'base_sdk_version': 'TeaSDK-2.0',
-                    'sdk_version': '1.23.4',
+                    'sdk_version': '1.23.5',
                     '_prod_code': 'REALPERSON',
                     '_prod_channel': 'undefined'
                 }
@@ -2348,8 +2348,8 @@ class Client:
         request: realperson_models.QueryBankLivenessRequest,
     ) -> realperson_models.QueryBankLivenessResponse:
         """
-        Description: 银行活跃度
-        Summary: 银行活跃度
+        Description: 个人银行卡状态标准版
+        Summary: 个人银行卡状态标准版
         """
         runtime = util_models.RuntimeOptions()
         headers = {}
@@ -2360,8 +2360,8 @@ class Client:
         request: realperson_models.QueryBankLivenessRequest,
     ) -> realperson_models.QueryBankLivenessResponse:
         """
-        Description: 银行活跃度
-        Summary: 银行活跃度
+        Description: 个人银行卡状态标准版
+        Summary: 个人银行卡状态标准版
         """
         runtime = util_models.RuntimeOptions()
         headers = {}
@@ -2374,8 +2374,8 @@ class Client:
         runtime: util_models.RuntimeOptions,
     ) -> realperson_models.QueryBankLivenessResponse:
         """
-        Description: 银行活跃度
-        Summary: 银行活跃度
+        Description: 个人银行卡状态标准版
+        Summary: 个人银行卡状态标准版
         """
         UtilClient.validate_model(request)
         return TeaCore.from_map(
@@ -2390,8 +2390,8 @@ class Client:
         runtime: util_models.RuntimeOptions,
     ) -> realperson_models.QueryBankLivenessResponse:
         """
-        Description: 银行活跃度
-        Summary: 银行活跃度
+        Description: 个人银行卡状态标准版
+        Summary: 个人银行卡状态标准版
         """
         UtilClient.validate_model(request)
         return TeaCore.from_map(
@@ -3260,8 +3260,8 @@ class Client:
         request: realperson_models.QueryBankLivenessfourRequest,
     ) -> realperson_models.QueryBankLivenessfourResponse:
         """
-        Description: 个人银行卡状态验证 V4.0
-        Summary: 个人银行卡状态验证 V4.0
+        Description: 个人银行卡状态基础版
+        Summary: 个人银行卡状态基础版
         """
         runtime = util_models.RuntimeOptions()
         headers = {}
@@ -3272,8 +3272,8 @@ class Client:
         request: realperson_models.QueryBankLivenessfourRequest,
     ) -> realperson_models.QueryBankLivenessfourResponse:
         """
-        Description: 个人银行卡状态验证 V4.0
-        Summary: 个人银行卡状态验证 V4.0
+        Description: 个人银行卡状态基础版
+        Summary: 个人银行卡状态基础版
         """
         runtime = util_models.RuntimeOptions()
         headers = {}
@@ -3286,8 +3286,8 @@ class Client:
         runtime: util_models.RuntimeOptions,
     ) -> realperson_models.QueryBankLivenessfourResponse:
         """
-        Description: 个人银行卡状态验证 V4.0
-        Summary: 个人银行卡状态验证 V4.0
+        Description: 个人银行卡状态基础版
+        Summary: 个人银行卡状态基础版
         """
         UtilClient.validate_model(request)
         return TeaCore.from_map(
@@ -3302,8 +3302,8 @@ class Client:
         runtime: util_models.RuntimeOptions,
     ) -> realperson_models.QueryBankLivenessfourResponse:
         """
-        Description: 个人银行卡状态验证 V4.0
-        Summary: 个人银行卡状态验证 V4.0
+        Description: 个人银行卡状态基础版
+        Summary: 个人银行卡状态基础版
         """
         UtilClient.validate_model(request)
         return TeaCore.from_map(
