@@ -333,7 +333,7 @@ class Client {
                     "req_msg_id" => UtilClient::getNonce(),
                     "access_key" => $this->_accessKeyId,
                     "base_sdk_version" => "TeaSDK-2.0",
-                    "sdk_version" => "1.23.4",
+                    "sdk_version" => "1.23.5",
                     "_prod_code" => "REALPERSON",
                     "_prod_channel" => "undefined"
                 ];
@@ -1314,8 +1314,8 @@ class Client {
     }
 
     /**
-     * Description: 银行活跃度
-     * Summary: 银行活跃度
+     * Description: 个人银行卡状态标准版
+     * Summary: 个人银行卡状态标准版
      * @param QueryBankLivenessRequest $request
      * @return QueryBankLivenessResponse
      */
@@ -1326,8 +1326,8 @@ class Client {
     }
 
     /**
-     * Description: 银行活跃度
-     * Summary: 银行活跃度
+     * Description: 个人银行卡状态标准版
+     * Summary: 个人银行卡状态标准版
      * @param QueryBankLivenessRequest $request
      * @param string[] $headers
      * @param RuntimeOptions $runtime
@@ -1729,8 +1729,8 @@ class Client {
     }
 
     /**
-     * Description: 个人银行卡状态验证 V4.0
-     * Summary: 个人银行卡状态验证 V4.0
+     * Description: 个人银行卡状态基础版
+     * Summary: 个人银行卡状态基础版
      * @param QueryBankLivenessfourRequest $request
      * @return QueryBankLivenessfourResponse
      */
@@ -1741,8 +1741,8 @@ class Client {
     }
 
     /**
-     * Description: 个人银行卡状态验证 V4.0
-     * Summary: 个人银行卡状态验证 V4.0
+     * Description: 个人银行卡状态基础版
+     * Summary: 个人银行卡状态基础版
      * @param QueryBankLivenessfourRequest $request
      * @param string[] $headers
      * @param RuntimeOptions $runtime
