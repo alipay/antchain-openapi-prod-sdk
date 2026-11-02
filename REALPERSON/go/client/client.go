@@ -1,0 +1,18165 @@
+// This file is auto-generated, don't edit it. Thanks.
+package client
+
+import (
+	rpcutil "github.com/alibabacloud-go/tea-rpc-utils/service"
+	util "github.com/alibabacloud-go/tea-utils/v2/service"
+	"github.com/alibabacloud-go/tea/tea"
+	antchainutil "github.com/antchain-openapi-sdk-go/antchain-util/service"
+	"io"
+)
+
+// Description:
+//
+// Model for initing client
+type Config struct {
+	// accesskey id
+	AccessKeyId *string `json:"accessKeyId,omitempty" xml:"accessKeyId,omitempty"`
+	// accesskey secret
+	AccessKeySecret *string `json:"accessKeySecret,omitempty" xml:"accessKeySecret,omitempty"`
+	// security token
+	SecurityToken *string `json:"securityToken,omitempty" xml:"securityToken,omitempty"`
+	// http protocol
+	//
+	// example:
+	//
+	// http
+	Protocol *string `json:"protocol,omitempty" xml:"protocol,omitempty"`
+	// read timeout
+	//
+	// example:
+	//
+	// 10
+	ReadTimeout *int `json:"readTimeout,omitempty" xml:"readTimeout,omitempty"`
+	// connect timeout
+	//
+	// example:
+	//
+	// 10
+	ConnectTimeout *int `json:"connectTimeout,omitempty" xml:"connectTimeout,omitempty"`
+	// http proxy
+	//
+	// example:
+	//
+	// http://localhost
+	HttpProxy *string `json:"httpProxy,omitempty" xml:"httpProxy,omitempty"`
+	// https proxy
+	//
+	// example:
+	//
+	// https://localhost
+	HttpsProxy *string `json:"httpsProxy,omitempty" xml:"httpsProxy,omitempty"`
+	// endpoint
+	//
+	// example:
+	//
+	// cs.aliyuncs.com
+	Endpoint *string `json:"endpoint,omitempty" xml:"endpoint,omitempty"`
+	// proxy white list
+	//
+	// example:
+	//
+	// http://localhost
+	NoProxy *string `json:"noProxy,omitempty" xml:"noProxy,omitempty"`
+	// max idle conns
+	//
+	// example:
+	//
+	// 3
+	MaxIdleConns *int `json:"maxIdleConns,omitempty" xml:"maxIdleConns,omitempty"`
+	// user agent
+	//
+	// example:
+	//
+	// Alibabacloud/1
+	UserAgent *string `json:"userAgent,omitempty" xml:"userAgent,omitempty"`
+	// socks5 proxy
+	Socks5Proxy *string `json:"socks5Proxy,omitempty" xml:"socks5Proxy,omitempty"`
+	// socks5 network
+	//
+	// example:
+	//
+	// TCP
+	Socks5NetWork *string `json:"socks5NetWork,omitempty" xml:"socks5NetWork,omitempty"`
+	// 长链接最大空闲时长
+	MaxIdleTimeMillis *int `json:"maxIdleTimeMillis,omitempty" xml:"maxIdleTimeMillis,omitempty"`
+	// 长链接最大连接时长
+	KeepAliveDurationMillis *int `json:"keepAliveDurationMillis,omitempty" xml:"keepAliveDurationMillis,omitempty"`
+	// 最大连接数（长链接最大总数）
+	MaxRequests *int `json:"maxRequests,omitempty" xml:"maxRequests,omitempty"`
+	// 每个目标主机的最大连接数（分主机域名的长链接最大总数
+	MaxRequestsPerHost *int `json:"maxRequestsPerHost,omitempty" xml:"maxRequestsPerHost,omitempty"`
+}
+
+func (s Config) String() string {
+	return tea.Prettify(s)
+}
+
+func (s Config) GoString() string {
+	return s.String()
+}
+
+func (s *Config) SetAccessKeyId(v string) *Config {
+	s.AccessKeyId = &v
+	return s
+}
+
+func (s *Config) SetAccessKeySecret(v string) *Config {
+	s.AccessKeySecret = &v
+	return s
+}
+
+func (s *Config) SetSecurityToken(v string) *Config {
+	s.SecurityToken = &v
+	return s
+}
+
+func (s *Config) SetProtocol(v string) *Config {
+	s.Protocol = &v
+	return s
+}
+
+func (s *Config) SetReadTimeout(v int) *Config {
+	s.ReadTimeout = &v
+	return s
+}
+
+func (s *Config) SetConnectTimeout(v int) *Config {
+	s.ConnectTimeout = &v
+	return s
+}
+
+func (s *Config) SetHttpProxy(v string) *Config {
+	s.HttpProxy = &v
+	return s
+}
+
+func (s *Config) SetHttpsProxy(v string) *Config {
+	s.HttpsProxy = &v
+	return s
+}
+
+func (s *Config) SetEndpoint(v string) *Config {
+	s.Endpoint = &v
+	return s
+}
+
+func (s *Config) SetNoProxy(v string) *Config {
+	s.NoProxy = &v
+	return s
+}
+
+func (s *Config) SetMaxIdleConns(v int) *Config {
+	s.MaxIdleConns = &v
+	return s
+}
+
+func (s *Config) SetUserAgent(v string) *Config {
+	s.UserAgent = &v
+	return s
+}
+
+func (s *Config) SetSocks5Proxy(v string) *Config {
+	s.Socks5Proxy = &v
+	return s
+}
+
+func (s *Config) SetSocks5NetWork(v string) *Config {
+	s.Socks5NetWork = &v
+	return s
+}
+
+func (s *Config) SetMaxIdleTimeMillis(v int) *Config {
+	s.MaxIdleTimeMillis = &v
+	return s
+}
+
+func (s *Config) SetKeepAliveDurationMillis(v int) *Config {
+	s.KeepAliveDurationMillis = &v
+	return s
+}
+
+func (s *Config) SetMaxRequests(v int) *Config {
+	s.MaxRequests = &v
+	return s
+}
+
+func (s *Config) SetMaxRequestsPerHost(v int) *Config {
+	s.MaxRequestsPerHost = &v
+	return s
+}
+
+// 卡证OCR图片坐标
+type OcrLocation struct {
+	// 表示定位位置的长方形左上顶点的垂直坐标
+	// example:
+	//
+	// 0
+	Top *string `json:"top,omitempty" xml:"top,omitempty"`
+	// 表示定位位置的长方形左上顶点的水平坐标
+	// example:
+	//
+	// 0
+	Left *string `json:"left,omitempty" xml:"left,omitempty"`
+	// 表示定位位置的长方形的宽度
+	// example:
+	//
+	// 100
+	Width *string `json:"width,omitempty" xml:"width,omitempty"`
+	// 表示定位位置的长方形的高度
+	// example:
+	//
+	// 100
+	Height *string `json:"height,omitempty" xml:"height,omitempty"`
+}
+
+func (s OcrLocation) String() string {
+	return tea.Prettify(s)
+}
+
+func (s OcrLocation) GoString() string {
+	return s.String()
+}
+
+func (s *OcrLocation) SetTop(v string) *OcrLocation {
+	s.Top = &v
+	return s
+}
+
+func (s *OcrLocation) SetLeft(v string) *OcrLocation {
+	s.Left = &v
+	return s
+}
+
+func (s *OcrLocation) SetWidth(v string) *OcrLocation {
+	s.Width = &v
+	return s
+}
+
+func (s *OcrLocation) SetHeight(v string) *OcrLocation {
+	s.Height = &v
+	return s
+}
+
+// 卡证OCR图片质量
+type CardQuality struct {
+	// 1-清晰
+	// 0-不清晰
+	//
+	// example:
+	//
+	// 1
+	IsClear *string `json:"is_clear,omitempty" xml:"is_clear,omitempty"`
+	// 清晰度取值0-1，值越大表示图像质量越好，默认阈值0.5
+	// example:
+	//
+	// 1
+	IsClearPropobility *string `json:"is_clear_propobility,omitempty" xml:"is_clear_propobility,omitempty"`
+	// 1-边框/四角完整
+	// 0-边框/四角不完整
+	// example:
+	//
+	// 1
+	IsComplete *string `json:"is_complete,omitempty" xml:"is_complete,omitempty"`
+	// 取值0-1，值越大表示图像质量越好，默认阈值0.5
+	// example:
+	//
+	// 1
+	IsCompletePropobility *string `json:"is_complete_propobility,omitempty" xml:"is_complete_propobility,omitempty"`
+	// 1-头像、关键字段无遮挡/马赛克
+	// 0-头像、关键字段有遮挡/马赛克
+	// example:
+	//
+	// 1
+	IsNoCover *string `json:"is_no_cover,omitempty" xml:"is_no_cover,omitempty"`
+	// 有无遮挡propobility-取值0-1，值越大表示图像质量越好，默认阈值0.3
+	// example:
+	//
+	// 1
+	IsNoCoverPropobility *string `json:"is_no_cover_propobility,omitempty" xml:"is_no_cover_propobility,omitempty"`
+}
+
+func (s CardQuality) String() string {
+	return tea.Prettify(s)
+}
+
+func (s CardQuality) GoString() string {
+	return s.String()
+}
+
+func (s *CardQuality) SetIsClear(v string) *CardQuality {
+	s.IsClear = &v
+	return s
+}
+
+func (s *CardQuality) SetIsClearPropobility(v string) *CardQuality {
+	s.IsClearPropobility = &v
+	return s
+}
+
+func (s *CardQuality) SetIsComplete(v string) *CardQuality {
+	s.IsComplete = &v
+	return s
+}
+
+func (s *CardQuality) SetIsCompletePropobility(v string) *CardQuality {
+	s.IsCompletePropobility = &v
+	return s
+}
+
+func (s *CardQuality) SetIsNoCover(v string) *CardQuality {
+	s.IsNoCover = &v
+	return s
+}
+
+func (s *CardQuality) SetIsNoCoverPropobility(v string) *CardQuality {
+	s.IsNoCoverPropobility = &v
+	return s
+}
+
+// 音频元数据
+type AudioMeta struct {
+	// 采样率
+	// example:
+	//
+	// 16000
+	SampleFreq *int64 `json:"sample_freq,omitempty" xml:"sample_freq,omitempty"`
+	// 音频道数
+	// example:
+	//
+	// 1
+	ChannelsNum *int64 `json:"channels_num,omitempty" xml:"channels_num,omitempty"`
+	// 音频数据采样点所占位数
+	// example:
+	//
+	// 16
+	Bits *int64 `json:"bits,omitempty" xml:"bits,omitempty"`
+	// 语音信道分离标识
+	// example:
+	//
+	// 0
+	Channel *int64 `json:"channel,omitempty" xml:"channel,omitempty"`
+}
+
+func (s AudioMeta) String() string {
+	return tea.Prettify(s)
+}
+
+func (s AudioMeta) GoString() string {
+	return s.String()
+}
+
+func (s *AudioMeta) SetSampleFreq(v int64) *AudioMeta {
+	s.SampleFreq = &v
+	return s
+}
+
+func (s *AudioMeta) SetChannelsNum(v int64) *AudioMeta {
+	s.ChannelsNum = &v
+	return s
+}
+
+func (s *AudioMeta) SetBits(v int64) *AudioMeta {
+	s.Bits = &v
+	return s
+}
+
+func (s *AudioMeta) SetChannel(v int64) *AudioMeta {
+	s.Channel = &v
+	return s
+}
+
+// 音频文件
+type Audio struct {
+	// 音频文件名称（单次请求保持唯一）
+	// example:
+	//
+	// 81995a7fa2bfc132eb69cdc2028f0619.wav
+	Token *string `json:"token,omitempty" xml:"token,omitempty"`
+	// 待认证的音频文件，base64编码格式
+	// example:
+	//
+	// /9j/238sn382l23f4
+	RawData *string `json:"raw_data,omitempty" xml:"raw_data,omitempty"`
+	// 音频文件OSS地址
+	// example:
+	//
+	// https://xxxxxx.oss-cn-shanghai.aliyuncs.com/12345.wav
+	AudioUrl *string `json:"audio_url,omitempty" xml:"audio_url,omitempty"`
+}
+
+func (s Audio) String() string {
+	return tea.Prettify(s)
+}
+
+func (s Audio) GoString() string {
+	return s.String()
+}
+
+func (s *Audio) SetToken(v string) *Audio {
+	s.Token = &v
+	return s
+}
+
+func (s *Audio) SetRawData(v string) *Audio {
+	s.RawData = &v
+	return s
+}
+
+func (s *Audio) SetAudioUrl(v string) *Audio {
+	s.AudioUrl = &v
+	return s
+}
+
+// 银行卡代扣二级租户收支明细
+type TransactionDetail struct {
+	// 交易类型：RECHARGE 入金，TRANSFER 划拨 ，WITHDRAW 出金
+	// example:
+	//
+	// RECHARGE
+	TransType *string `json:"trans_type,omitempty" xml:"trans_type,omitempty"`
+	// 余额方向：CR-贷款（收入）/ DR-借款（支出）
+	// example:
+	//
+	// CR
+	Direction *string `json:"direction,omitempty" xml:"direction,omitempty"`
+	// 币种 CNY人民币
+	// example:
+	//
+	// CNY
+	Ccy *string `json:"ccy,omitempty" xml:"ccy,omitempty"`
+	// 交易金额，单位：元，整数部分最长10位数，保留两位小数
+	// example:
+	//
+	// 1.11
+	Amount *string `json:"amount,omitempty" xml:"amount,omitempty"`
+	// 交易后余额，单位：元，整数部分最长10位数，保留两位小数
+	// example:
+	//
+	// 2.22
+	AfterAmount *string `json:"after_amount,omitempty" xml:"after_amount,omitempty"`
+	// 创建时间，格式为：yyyy-MM-dd HH:mm:ss
+	// example:
+	//
+	// 2026-01-15 09:10:11
+	CreatTime *string `json:"creat_time,omitempty" xml:"creat_time,omitempty"`
+	// SHARE-分账
+	// OFFSET_SHARE-差额分账
+	// REFUND-退款
+	// TRANSFER-转账
+	// WITHDRAW-提现
+	// CLEAR-资金清算
+	// OTHER-其他
+	// WITHDRAW_CANCEL-提现退回
+	// example:
+	//
+	// SHARE
+	BusinessType *string `json:"business_type,omitempty" xml:"business_type,omitempty"`
+}
+
+func (s TransactionDetail) String() string {
+	return tea.Prettify(s)
+}
+
+func (s TransactionDetail) GoString() string {
+	return s.String()
+}
+
+func (s *TransactionDetail) SetTransType(v string) *TransactionDetail {
+	s.TransType = &v
+	return s
+}
+
+func (s *TransactionDetail) SetDirection(v string) *TransactionDetail {
+	s.Direction = &v
+	return s
+}
+
+func (s *TransactionDetail) SetCcy(v string) *TransactionDetail {
+	s.Ccy = &v
+	return s
+}
+
+func (s *TransactionDetail) SetAmount(v string) *TransactionDetail {
+	s.Amount = &v
+	return s
+}
+
+func (s *TransactionDetail) SetAfterAmount(v string) *TransactionDetail {
+	s.AfterAmount = &v
+	return s
+}
+
+func (s *TransactionDetail) SetCreatTime(v string) *TransactionDetail {
+	s.CreatTime = &v
+	return s
+}
+
+func (s *TransactionDetail) SetBusinessType(v string) *TransactionDetail {
+	s.BusinessType = &v
+	return s
+}
+
+// 风险咨询设备信息
+type DeviceInfo struct {
+	// 设备指纹
+	// example:
+	//
+	// eYOIkkL8SJv0Vr6YxZqaLQ/deHNIc00rQr8zp8Upj6djHBW9oC9RJcdG
+	DeviceFingerprint *string `json:"device_fingerprint,omitempty" xml:"device_fingerprint,omitempty"`
+	// 设备制造商
+	// example:
+	//
+	// xiaomi
+	DeviceBrand *string `json:"device_brand,omitempty" xml:"device_brand,omitempty"`
+	// 设备具体型号
+	// example:
+	//
+	// 2210132C
+	DeviceModel *string `json:"device_model,omitempty" xml:"device_model,omitempty"`
+	// 操作系统类型
+	// example:
+	//
+	// android
+	Os *string `json:"os,omitempty" xml:"os,omitempty"`
+	// 操作系统版本
+	// example:
+	//
+	// android 16
+	OsVersion *string `json:"os_version,omitempty" xml:"os_version,omitempty"`
+	// 设备rom版本
+	// example:
+	//
+	// 3.0.3.0.WMBCNXM
+	RomModel *string `json:"rom_model,omitempty" xml:"rom_model,omitempty"`
+	// 设备硬盘信息
+	// example:
+	//
+	// 246455967744
+	HardDisk *string `json:"hard_disk,omitempty" xml:"hard_disk,omitempty"`
+	// 内存容量
+	// example:
+	//
+	// 7603436
+	Memory *string `json:"memory,omitempty" xml:"memory,omitempty"`
+	// 设备网络ip
+	// example:
+	//
+	// 127.0.0.1
+	CameraInfo *string `json:"camera_info,omitempty" xml:"camera_info,omitempty"`
+	// 网关入口ip
+	// example:
+	//
+	// 127.0.0.1
+	GatewayIp *string `json:"gateway_ip,omitempty" xml:"gateway_ip,omitempty"`
+}
+
+func (s DeviceInfo) String() string {
+	return tea.Prettify(s)
+}
+
+func (s DeviceInfo) GoString() string {
+	return s.String()
+}
+
+func (s *DeviceInfo) SetDeviceFingerprint(v string) *DeviceInfo {
+	s.DeviceFingerprint = &v
+	return s
+}
+
+func (s *DeviceInfo) SetDeviceBrand(v string) *DeviceInfo {
+	s.DeviceBrand = &v
+	return s
+}
+
+func (s *DeviceInfo) SetDeviceModel(v string) *DeviceInfo {
+	s.DeviceModel = &v
+	return s
+}
+
+func (s *DeviceInfo) SetOs(v string) *DeviceInfo {
+	s.Os = &v
+	return s
+}
+
+func (s *DeviceInfo) SetOsVersion(v string) *DeviceInfo {
+	s.OsVersion = &v
+	return s
+}
+
+func (s *DeviceInfo) SetRomModel(v string) *DeviceInfo {
+	s.RomModel = &v
+	return s
+}
+
+func (s *DeviceInfo) SetHardDisk(v string) *DeviceInfo {
+	s.HardDisk = &v
+	return s
+}
+
+func (s *DeviceInfo) SetMemory(v string) *DeviceInfo {
+	s.Memory = &v
+	return s
+}
+
+func (s *DeviceInfo) SetCameraInfo(v string) *DeviceInfo {
+	s.CameraInfo = &v
+	return s
+}
+
+func (s *DeviceInfo) SetGatewayIp(v string) *DeviceInfo {
+	s.GatewayIp = &v
+	return s
+}
+
+// 身份四要素证件及户籍信息
+type Residency struct {
+	// 证件是否最新（1 最新、0非最新）
+	// example:
+	//
+	// 0
+	IsNewest *string `json:"is_newest,omitempty" xml:"is_newest,omitempty"`
+	// 证件是否挂失（1 挂失、0非挂失）
+	// example:
+	//
+	// 0
+	IsLosted *string `json:"is_losted,omitempty" xml:"is_losted,omitempty"`
+	// 证件是否过期（1 过期、0非过期）
+	// example:
+	//
+	// 0
+	IsExpired *string `json:"is_expired,omitempty" xml:"is_expired,omitempty"`
+	// 户籍状态
+	// 0 有效
+	// 1 有效（户籍迁出，但未迁入）
+	// 2 无效（死亡、失踪、迁出、服 兵役、出国境定居、消除重复登记人口、冻结户口、重载注销等）
+	// example:
+	//
+	// 0
+	ResidencyStatus *string `json:"residency_status,omitempty" xml:"residency_status,omitempty"`
+}
+
+func (s Residency) String() string {
+	return tea.Prettify(s)
+}
+
+func (s Residency) GoString() string {
+	return s.String()
+}
+
+func (s *Residency) SetIsNewest(v string) *Residency {
+	s.IsNewest = &v
+	return s
+}
+
+func (s *Residency) SetIsLosted(v string) *Residency {
+	s.IsLosted = &v
+	return s
+}
+
+func (s *Residency) SetIsExpired(v string) *Residency {
+	s.IsExpired = &v
+	return s
+}
+
+func (s *Residency) SetResidencyStatus(v string) *Residency {
+	s.ResidencyStatus = &v
+	return s
+}
+
+// 车辆资产验证详版车辆信息
+type CarInfoDetail struct {
+	// 车辆型号
+	// example:
+	//
+	// FV7144LBDBG
+	Clxh *string `json:"clxh,omitempty" xml:"clxh,omitempty"`
+	// 发动机号
+	// example:
+	//
+	// N10514
+	EngineCode *string `json:"engine_code,omitempty" xml:"engine_code,omitempty"`
+	// 发动机型号
+	// example:
+	//
+	// CST
+	EngineModel *string `json:"engine_model,omitempty" xml:"engine_model,omitempty"`
+	// 生产时间
+	// example:
+	//
+	// 2022-08-17
+	ProductionTime *string `json:"production_time,omitempty" xml:"production_time,omitempty"`
+	// 品牌名称
+	// example:
+	//
+	// 大众
+	BrandName *string `json:"brand_name,omitempty" xml:"brand_name,omitempty"`
+	// 高尔夫(第七代,2014-)
+	// example:
+	//
+	// series_name
+	SeriesName *string `json:"series_name,omitempty" xml:"series_name,omitempty"`
+	// 年款
+	// example:
+	//
+	// 2016
+	ModelYear *string `json:"model_year,omitempty" xml:"model_year,omitempty"`
+	// 款型名称
+	// example:
+	//
+	// 极狐αT 653S+ 160kW 22款;极狐αT 653S 160kW 22款
+	VehicleName *string `json:"vehicle_name,omitempty" xml:"vehicle_name,omitempty"`
+	// 指导价
+	// example:
+	//
+	// 28.23万;26.23万
+	GuidePrice *string `json:"guide_price,omitempty" xml:"guide_price,omitempty"`
+	// 车身颜色
+	// example:
+	//
+	// 黑/白
+	Color *string `json:"color,omitempty" xml:"color,omitempty"`
+	// 车型级别
+	// example:
+	//
+	// vehicle_level
+	VehicleLevel *string `json:"vehicle_level,omitempty" xml:"vehicle_level,omitempty"`
+	// 车型种类
+	// example:
+	//
+	// 多用途乘用车
+	VehicleType *string `json:"vehicle_type,omitempty" xml:"vehicle_type,omitempty"`
+	// 车身结构
+	// example:
+	//
+	// 两厢车
+	BodyStruct *string `json:"body_struct,omitempty" xml:"body_struct,omitempty"`
+	//  燃料种类
+	// example:
+	//
+	// 汽油
+	FuelType *string `json:"fuel_type,omitempty" xml:"fuel_type,omitempty"`
+	// 驱动方式
+	// example:
+	//
+	// 前置前驱
+	DriveWay *string `json:"drive_way,omitempty" xml:"drive_way,omitempty"`
+	// 底盘型号-商用车用
+	// example:
+	//
+	// chassis_model
+	ChassisModel *string `json:"chassis_model,omitempty" xml:"chassis_model,omitempty"`
+	// 排放标准
+	// example:
+	//
+	// GB18352.5-2013
+	EmissionStandard *string `json:"emission_standard,omitempty" xml:"emission_standard,omitempty"`
+	// 排量
+	// example:
+	//
+	// 1.4T
+	Displacement *string `json:"displacement,omitempty" xml:"displacement,omitempty"`
+	// 长
+	// example:
+	//
+	// 4255
+	Length *string `json:"length,omitempty" xml:"length,omitempty"`
+	// 宽
+	// example:
+	//
+	// 1799
+	Width *string `json:"width,omitempty" xml:"width,omitempty"`
+	// 高
+	// example:
+	//
+	// 1452
+	Height *string `json:"height,omitempty" xml:"height,omitempty"`
+	// 总质量
+	// example:
+	//
+	// 1760
+	TotalMass *string `json:"total_mass,omitempty" xml:"total_mass,omitempty"`
+	// 整备质量
+	// example:
+	//
+	// 1280
+	CurbWeight *string `json:"curb_weight,omitempty" xml:"curb_weight,omitempty"`
+	// 前轮距
+	// example:
+	//
+	// 1549
+	TireDistanceBefore *string `json:"tire_distance_before,omitempty" xml:"tire_distance_before,omitempty"`
+	// 后轮距
+	// example:
+	//
+	// 1640
+	TireDistanceAfter *string `json:"tire_distance_after,omitempty" xml:"tire_distance_after,omitempty"`
+	// 轴数
+	// example:
+	//
+	// 2
+	AxesNumber *string `json:"axes_number,omitempty" xml:"axes_number,omitempty"`
+	// 轴距
+	// example:
+	//
+	// 2637
+	WheelBase *string `json:"wheel_base,omitempty" xml:"wheel_base,omitempty"`
+	// 座位数
+	// example:
+	//
+	// 5
+	SeatingCapacity *string `json:"seating_capacity,omitempty" xml:"seating_capacity,omitempty"`
+	// 核定载质量
+	// example:
+	//
+	// approved_load
+	ApprovedLoad *string `json:"approved_load,omitempty" xml:"approved_load,omitempty"`
+	// 准牵引总质量
+	// example:
+	//
+	// quasi_traction
+	QuasiTraction *string `json:"quasi_traction,omitempty" xml:"quasi_traction,omitempty"`
+	// 轮胎规格
+	// example:
+	//
+	// tire_size
+	TireSize *string `json:"tire_size,omitempty" xml:"tire_size,omitempty"`
+	// 轮胎数
+	// example:
+	//
+	// 4
+	TireNumber *string `json:"tire_number,omitempty" xml:"tire_number,omitempty"`
+	//  变速箱
+	// example:
+	//
+	// 7挡双离合
+	Transmission *string `json:"transmission,omitempty" xml:"transmission,omitempty"`
+	//  功率
+	// example:
+	//
+	// 额定功率:70/峰值功率:160
+	Power *string `json:"power,omitempty" xml:"power,omitempty"`
+	// 油耗
+	// example:
+	//
+	// 5.80
+	FuelConsumption *string `json:"fuel_consumption,omitempty" xml:"fuel_consumption,omitempty"`
+	// 环保标准
+	// example:
+	//
+	// 国IV(国V)
+	EnvironmentalStandards *string `json:"environmental_standards,omitempty" xml:"environmental_standards,omitempty"`
+}
+
+func (s CarInfoDetail) String() string {
+	return tea.Prettify(s)
+}
+
+func (s CarInfoDetail) GoString() string {
+	return s.String()
+}
+
+func (s *CarInfoDetail) SetClxh(v string) *CarInfoDetail {
+	s.Clxh = &v
+	return s
+}
+
+func (s *CarInfoDetail) SetEngineCode(v string) *CarInfoDetail {
+	s.EngineCode = &v
+	return s
+}
+
+func (s *CarInfoDetail) SetEngineModel(v string) *CarInfoDetail {
+	s.EngineModel = &v
+	return s
+}
+
+func (s *CarInfoDetail) SetProductionTime(v string) *CarInfoDetail {
+	s.ProductionTime = &v
+	return s
+}
+
+func (s *CarInfoDetail) SetBrandName(v string) *CarInfoDetail {
+	s.BrandName = &v
+	return s
+}
+
+func (s *CarInfoDetail) SetSeriesName(v string) *CarInfoDetail {
+	s.SeriesName = &v
+	return s
+}
+
+func (s *CarInfoDetail) SetModelYear(v string) *CarInfoDetail {
+	s.ModelYear = &v
+	return s
+}
+
+func (s *CarInfoDetail) SetVehicleName(v string) *CarInfoDetail {
+	s.VehicleName = &v
+	return s
+}
+
+func (s *CarInfoDetail) SetGuidePrice(v string) *CarInfoDetail {
+	s.GuidePrice = &v
+	return s
+}
+
+func (s *CarInfoDetail) SetColor(v string) *CarInfoDetail {
+	s.Color = &v
+	return s
+}
+
+func (s *CarInfoDetail) SetVehicleLevel(v string) *CarInfoDetail {
+	s.VehicleLevel = &v
+	return s
+}
+
+func (s *CarInfoDetail) SetVehicleType(v string) *CarInfoDetail {
+	s.VehicleType = &v
+	return s
+}
+
+func (s *CarInfoDetail) SetBodyStruct(v string) *CarInfoDetail {
+	s.BodyStruct = &v
+	return s
+}
+
+func (s *CarInfoDetail) SetFuelType(v string) *CarInfoDetail {
+	s.FuelType = &v
+	return s
+}
+
+func (s *CarInfoDetail) SetDriveWay(v string) *CarInfoDetail {
+	s.DriveWay = &v
+	return s
+}
+
+func (s *CarInfoDetail) SetChassisModel(v string) *CarInfoDetail {
+	s.ChassisModel = &v
+	return s
+}
+
+func (s *CarInfoDetail) SetEmissionStandard(v string) *CarInfoDetail {
+	s.EmissionStandard = &v
+	return s
+}
+
+func (s *CarInfoDetail) SetDisplacement(v string) *CarInfoDetail {
+	s.Displacement = &v
+	return s
+}
+
+func (s *CarInfoDetail) SetLength(v string) *CarInfoDetail {
+	s.Length = &v
+	return s
+}
+
+func (s *CarInfoDetail) SetWidth(v string) *CarInfoDetail {
+	s.Width = &v
+	return s
+}
+
+func (s *CarInfoDetail) SetHeight(v string) *CarInfoDetail {
+	s.Height = &v
+	return s
+}
+
+func (s *CarInfoDetail) SetTotalMass(v string) *CarInfoDetail {
+	s.TotalMass = &v
+	return s
+}
+
+func (s *CarInfoDetail) SetCurbWeight(v string) *CarInfoDetail {
+	s.CurbWeight = &v
+	return s
+}
+
+func (s *CarInfoDetail) SetTireDistanceBefore(v string) *CarInfoDetail {
+	s.TireDistanceBefore = &v
+	return s
+}
+
+func (s *CarInfoDetail) SetTireDistanceAfter(v string) *CarInfoDetail {
+	s.TireDistanceAfter = &v
+	return s
+}
+
+func (s *CarInfoDetail) SetAxesNumber(v string) *CarInfoDetail {
+	s.AxesNumber = &v
+	return s
+}
+
+func (s *CarInfoDetail) SetWheelBase(v string) *CarInfoDetail {
+	s.WheelBase = &v
+	return s
+}
+
+func (s *CarInfoDetail) SetSeatingCapacity(v string) *CarInfoDetail {
+	s.SeatingCapacity = &v
+	return s
+}
+
+func (s *CarInfoDetail) SetApprovedLoad(v string) *CarInfoDetail {
+	s.ApprovedLoad = &v
+	return s
+}
+
+func (s *CarInfoDetail) SetQuasiTraction(v string) *CarInfoDetail {
+	s.QuasiTraction = &v
+	return s
+}
+
+func (s *CarInfoDetail) SetTireSize(v string) *CarInfoDetail {
+	s.TireSize = &v
+	return s
+}
+
+func (s *CarInfoDetail) SetTireNumber(v string) *CarInfoDetail {
+	s.TireNumber = &v
+	return s
+}
+
+func (s *CarInfoDetail) SetTransmission(v string) *CarInfoDetail {
+	s.Transmission = &v
+	return s
+}
+
+func (s *CarInfoDetail) SetPower(v string) *CarInfoDetail {
+	s.Power = &v
+	return s
+}
+
+func (s *CarInfoDetail) SetFuelConsumption(v string) *CarInfoDetail {
+	s.FuelConsumption = &v
+	return s
+}
+
+func (s *CarInfoDetail) SetEnvironmentalStandards(v string) *CarInfoDetail {
+	s.EnvironmentalStandards = &v
+	return s
+}
+
+// 银行卡代扣一键绑卡账户信息
+type AccInfo struct {
+	// 身份证号
+	// example:
+	//
+	// 111222190002309999
+	CertNo *string `json:"cert_no,omitempty" xml:"cert_no,omitempty"`
+	// 持卡人姓名
+	// example:
+	//
+	// 张三
+	CertName *string `json:"cert_name,omitempty" xml:"cert_name,omitempty"`
+	// 银行卡号
+	// example:
+	//
+	// 7881620854713
+	BankCard *string `json:"bank_card,omitempty" xml:"bank_card,omitempty"`
+	// 手机号
+	// example:
+	//
+	// 13900001234
+	Mobile *string `json:"mobile,omitempty" xml:"mobile,omitempty"`
+	// 银行卡类型，
+	// 0：借记卡
+	// 1：信用卡
+	// example:
+	//
+	// 0
+	CardType *string `json:"card_type,omitempty" xml:"card_type,omitempty"`
+}
+
+func (s AccInfo) String() string {
+	return tea.Prettify(s)
+}
+
+func (s AccInfo) GoString() string {
+	return s.String()
+}
+
+func (s *AccInfo) SetCertNo(v string) *AccInfo {
+	s.CertNo = &v
+	return s
+}
+
+func (s *AccInfo) SetCertName(v string) *AccInfo {
+	s.CertName = &v
+	return s
+}
+
+func (s *AccInfo) SetBankCard(v string) *AccInfo {
+	s.BankCard = &v
+	return s
+}
+
+func (s *AccInfo) SetMobile(v string) *AccInfo {
+	s.Mobile = &v
+	return s
+}
+
+func (s *AccInfo) SetCardType(v string) *AccInfo {
+	s.CardType = &v
+	return s
+}
+
+// AIGC风险专项检测
+type AigcRiskResult struct {
+	// AIGC风险检测评分
+	// example:
+	//
+	// safe
+	AigcRiskLevel *string `json:"aigc_risk_level,omitempty" xml:"aigc_risk_level,omitempty"`
+	// 图像伪造分数
+	// example:
+	//
+	// 0.2
+	DeepfakeScore *string `json:"deepfake_score,omitempty" xml:"deepfake_score,omitempty"`
+	// 图像伪造结论
+	// example:
+	//
+	// T
+	DeepfakeResult *string `json:"deepfake_result,omitempty" xml:"deepfake_result,omitempty"`
+	// 视频伪造分数
+	// example:
+	//
+	// 0.2
+	VideoForgeryScore *string `json:"video_forgery_score,omitempty" xml:"video_forgery_score,omitempty"`
+	// 视频伪造结论
+	// example:
+	//
+	// T
+	VideoForgeryResult *string `json:"video_forgery_result,omitempty" xml:"video_forgery_result,omitempty"`
+}
+
+func (s AigcRiskResult) String() string {
+	return tea.Prettify(s)
+}
+
+func (s AigcRiskResult) GoString() string {
+	return s.String()
+}
+
+func (s *AigcRiskResult) SetAigcRiskLevel(v string) *AigcRiskResult {
+	s.AigcRiskLevel = &v
+	return s
+}
+
+func (s *AigcRiskResult) SetDeepfakeScore(v string) *AigcRiskResult {
+	s.DeepfakeScore = &v
+	return s
+}
+
+func (s *AigcRiskResult) SetDeepfakeResult(v string) *AigcRiskResult {
+	s.DeepfakeResult = &v
+	return s
+}
+
+func (s *AigcRiskResult) SetVideoForgeryScore(v string) *AigcRiskResult {
+	s.VideoForgeryScore = &v
+	return s
+}
+
+func (s *AigcRiskResult) SetVideoForgeryResult(v string) *AigcRiskResult {
+	s.VideoForgeryResult = &v
+	return s
+}
+
+// 车辆资产验证旗舰版车辆信息
+type CarInfo struct {
+	// 是否高频使用，格式：YES/NO
+	// example:
+	//
+	// YES
+	HighFrequency *string `json:"high_frequency,omitempty" xml:"high_frequency,omitempty"`
+	// 车辆价值区间，格式：1，2，3...
+	// example:
+	//
+	// 1
+	Value *string `json:"value,omitempty" xml:"value,omitempty"`
+	// 车辆类型，格式：1，2，3
+	// example:
+	//
+	// 1
+	Type *string `json:"type,omitempty" xml:"type,omitempty"`
+	// 登记时间
+	// example:
+	//
+	// 1
+	Time *string `json:"time,omitempty" xml:"time,omitempty"`
+}
+
+func (s CarInfo) String() string {
+	return tea.Prettify(s)
+}
+
+func (s CarInfo) GoString() string {
+	return s.String()
+}
+
+func (s *CarInfo) SetHighFrequency(v string) *CarInfo {
+	s.HighFrequency = &v
+	return s
+}
+
+func (s *CarInfo) SetValue(v string) *CarInfo {
+	s.Value = &v
+	return s
+}
+
+func (s *CarInfo) SetType(v string) *CarInfo {
+	s.Type = &v
+	return s
+}
+
+func (s *CarInfo) SetTime(v string) *CarInfo {
+	s.Time = &v
+	return s
+}
+
+// 设备风险信息
+type DeviceRiskInfo struct {
+	// 设备是否root
+	IsDeviceRooted *bool `json:"is_device_rooted,omitempty" xml:"is_device_rooted,omitempty"`
+	// 设备是否hook
+	// example:
+	//
+	// true, false
+	IsDeviceHooked *bool `json:"is_device_hooked,omitempty" xml:"is_device_hooked,omitempty"`
+	// 设备是否使用定制rom
+	// example:
+	//
+	// true, false
+	IsCustomRom *bool `json:"is_custom_rom,omitempty" xml:"is_custom_rom,omitempty"`
+	// 设备是否是云手机
+	// example:
+	//
+	// true, false
+	IsCloudPhone *bool `json:"is_cloud_phone,omitempty" xml:"is_cloud_phone,omitempty"`
+	// 是否为模拟器
+	// example:
+	//
+	// true, false
+	IsEmulator *bool `json:"is_emulator,omitempty" xml:"is_emulator,omitempty"`
+	// 设备是否支持虚拟摄像头
+	// example:
+	//
+	// true, false
+	HasVirtualCamera *bool `json:"has_virtual_camera,omitempty" xml:"has_virtual_camera,omitempty"`
+	// 设备是否使用虚拟摄像头
+	// example:
+	//
+	// true, false
+	IsUsingVirtualCamera *bool `json:"is_using_virtual_camera,omitempty" xml:"is_using_virtual_camera,omitempty"`
+	// 设备是否有重打包风险
+	// example:
+	//
+	// true, false
+	HasRepackRisk *bool `json:"has_repack_risk,omitempty" xml:"has_repack_risk,omitempty"`
+	// 设备是否多开
+	// example:
+	//
+	// true, false
+	IsMultiInstance *bool `json:"is_multi_instance,omitempty" xml:"is_multi_instance,omitempty"`
+	// 设备是否开启虚拟定位
+	// example:
+	//
+	// true, false
+	IsFakeLocation *bool `json:"is_fake_location,omitempty" xml:"is_fake_location,omitempty"`
+	// 有其他注入行为
+	// example:
+	//
+	// true, false
+	HasOtherInjection *bool `json:"has_other_injection,omitempty" xml:"has_other_injection,omitempty"`
+	// 设备是否有其他自动化工具
+	// example:
+	//
+	// true, false
+	HasAtuomationTools *bool `json:"has_atuomation_tools,omitempty" xml:"has_atuomation_tools,omitempty"`
+	// 风险sdk的JSON格式数据
+	// example:
+	//
+	// {}
+	RiskSdkJson *string `json:"risk_sdk_json,omitempty" xml:"risk_sdk_json,omitempty"`
+}
+
+func (s DeviceRiskInfo) String() string {
+	return tea.Prettify(s)
+}
+
+func (s DeviceRiskInfo) GoString() string {
+	return s.String()
+}
+
+func (s *DeviceRiskInfo) SetIsDeviceRooted(v bool) *DeviceRiskInfo {
+	s.IsDeviceRooted = &v
+	return s
+}
+
+func (s *DeviceRiskInfo) SetIsDeviceHooked(v bool) *DeviceRiskInfo {
+	s.IsDeviceHooked = &v
+	return s
+}
+
+func (s *DeviceRiskInfo) SetIsCustomRom(v bool) *DeviceRiskInfo {
+	s.IsCustomRom = &v
+	return s
+}
+
+func (s *DeviceRiskInfo) SetIsCloudPhone(v bool) *DeviceRiskInfo {
+	s.IsCloudPhone = &v
+	return s
+}
+
+func (s *DeviceRiskInfo) SetIsEmulator(v bool) *DeviceRiskInfo {
+	s.IsEmulator = &v
+	return s
+}
+
+func (s *DeviceRiskInfo) SetHasVirtualCamera(v bool) *DeviceRiskInfo {
+	s.HasVirtualCamera = &v
+	return s
+}
+
+func (s *DeviceRiskInfo) SetIsUsingVirtualCamera(v bool) *DeviceRiskInfo {
+	s.IsUsingVirtualCamera = &v
+	return s
+}
+
+func (s *DeviceRiskInfo) SetHasRepackRisk(v bool) *DeviceRiskInfo {
+	s.HasRepackRisk = &v
+	return s
+}
+
+func (s *DeviceRiskInfo) SetIsMultiInstance(v bool) *DeviceRiskInfo {
+	s.IsMultiInstance = &v
+	return s
+}
+
+func (s *DeviceRiskInfo) SetIsFakeLocation(v bool) *DeviceRiskInfo {
+	s.IsFakeLocation = &v
+	return s
+}
+
+func (s *DeviceRiskInfo) SetHasOtherInjection(v bool) *DeviceRiskInfo {
+	s.HasOtherInjection = &v
+	return s
+}
+
+func (s *DeviceRiskInfo) SetHasAtuomationTools(v bool) *DeviceRiskInfo {
+	s.HasAtuomationTools = &v
+	return s
+}
+
+func (s *DeviceRiskInfo) SetRiskSdkJson(v string) *DeviceRiskInfo {
+	s.RiskSdkJson = &v
+	return s
+}
+
+// 卡证OCR风险结果
+type RiskInfo struct {
+	// 是否为复印件（仅身份证、银行卡含该字段）。0：否，1：是
+	// example:
+	//
+	// 0
+	Copy *string `json:"copy,omitempty" xml:"copy,omitempty"`
+	// 是否翻拍（仅身份证含该字段）。0：否，1：是
+	// example:
+	//
+	// 0
+	Reshoot *string `json:"reshoot,omitempty" xml:"reshoot,omitempty"`
+	// normal-识别正常
+	// non_idcard-上传的图片中不包含身份证
+	// blurred-身份证模糊
+	// other_type_card-其他类型证照
+	// over_exposure-身份证关键字段反光或过曝
+	// over_dark-身份证欠曝（亮度过低）
+	// unknown-未知状态
+	// example:
+	//
+	// []
+	ImageStatus []*string `json:"image_status,omitempty" xml:"image_status,omitempty" type:"Repeated"`
+	// 输入参数 risk_info_type=true 时，则返回该字段，判断身份证是否存在风险，返回值：
+	// normal-正常身份证；
+	// copy-复印件；
+	// temporary-临时身份证；
+	// screen-翻拍；
+	// PS-被PS修改；
+	// unknown-其他未知情况
+	// example:
+	//
+	// []
+	RiskType []*string `json:"risk_type,omitempty" xml:"risk_type,omitempty" type:"Repeated"`
+	// 图片质量
+	// example:
+	//
+	// {}
+	CardQuality *CardQuality `json:"card_quality,omitempty" xml:"card_quality,omitempty"`
+	// 证件一致性
+	// example:
+	//
+	// 1
+	IdcardNumberType *string `json:"idcard_number_type,omitempty" xml:"idcard_number_type,omitempty"`
+}
+
+func (s RiskInfo) String() string {
+	return tea.Prettify(s)
+}
+
+func (s RiskInfo) GoString() string {
+	return s.String()
+}
+
+func (s *RiskInfo) SetCopy(v string) *RiskInfo {
+	s.Copy = &v
+	return s
+}
+
+func (s *RiskInfo) SetReshoot(v string) *RiskInfo {
+	s.Reshoot = &v
+	return s
+}
+
+func (s *RiskInfo) SetImageStatus(v []*string) *RiskInfo {
+	s.ImageStatus = v
+	return s
+}
+
+func (s *RiskInfo) SetRiskType(v []*string) *RiskInfo {
+	s.RiskType = v
+	return s
+}
+
+func (s *RiskInfo) SetCardQuality(v *CardQuality) *RiskInfo {
+	s.CardQuality = v
+	return s
+}
+
+func (s *RiskInfo) SetIdcardNumberType(v string) *RiskInfo {
+	s.IdcardNumberType = &v
+	return s
+}
+
+// 分账退款信息
+type ShareRefundInfo struct {
+	// 商户id
+	// example:
+	//
+	// 1000
+	MerchantId *string `json:"merchant_id,omitempty" xml:"merchant_id,omitempty"`
+	// 分账金额,整数、单位为分
+	// example:
+	//
+	// 100
+	Amount *string `json:"amount,omitempty" xml:"amount,omitempty"`
+}
+
+func (s ShareRefundInfo) String() string {
+	return tea.Prettify(s)
+}
+
+func (s ShareRefundInfo) GoString() string {
+	return s.String()
+}
+
+func (s *ShareRefundInfo) SetMerchantId(v string) *ShareRefundInfo {
+	s.MerchantId = &v
+	return s
+}
+
+func (s *ShareRefundInfo) SetAmount(v string) *ShareRefundInfo {
+	s.Amount = &v
+	return s
+}
+
+// 分账信息
+type ShareInfo struct {
+	// 商户id
+	// example:
+	//
+	// 1000
+	MerchantId *string `json:"merchant_id,omitempty" xml:"merchant_id,omitempty"`
+	// 分账金额,整数、单位为分
+	// example:
+	//
+	// 100
+	Amount *string `json:"amount,omitempty" xml:"amount,omitempty"`
+}
+
+func (s ShareInfo) String() string {
+	return tea.Prettify(s)
+}
+
+func (s ShareInfo) GoString() string {
+	return s.String()
+}
+
+func (s *ShareInfo) SetMerchantId(v string) *ShareInfo {
+	s.MerchantId = &v
+	return s
+}
+
+func (s *ShareInfo) SetAmount(v string) *ShareInfo {
+	s.Amount = &v
+	return s
+}
+
+// 卡证OCR识别结果
+type OcrInfo struct {
+	// 当识别到身份证是人像面时返回FACE，国徽面时返回BACK
+	// example:
+	//
+	// FACE
+	Side *string `json:"side,omitempty" xml:"side,omitempty"`
+	// 当请求参数 return_photo = true时返回，头像切图的 base64 编码（无编码头，需自行处理）
+	// *当服务降级时，返回null
+	// example:
+	//
+	// BASE64String
+	Photo *string `json:"photo,omitempty" xml:"photo,omitempty"`
+	// {}	当请求参数 return_photo = true时返回，头像的位置信息（坐标0点为左上角）
+	// *当服务降级时，返回null
+	// example:
+	//
+	// {}
+	PhotoLocation *OcrLocation `json:"photo_location,omitempty" xml:"photo_location,omitempty"`
+	// 当请求参数 return_card = true时返回，身份证裁剪切图的 base64 编码（无编码头，需自行处理）
+	// *当服务降级时，返回null
+	// example:
+	//
+	// BASE64String
+	CardImage *string `json:"card_image,omitempty" xml:"card_image,omitempty"`
+	// 当请求参数 return_card = true时返回，身份证裁剪切图的位置信息（坐标0点为左上角）
+	// *当服务降级时，返回null
+	// example:
+	//
+	// {}
+	CardLocation *OcrLocation `json:"card_location,omitempty" xml:"card_location,omitempty"`
+	// 姓名
+	// example:
+	//
+	// 张三
+	Name *string `json:"name,omitempty" xml:"name,omitempty"`
+	// 性别
+	// example:
+	//
+	// 女
+	Sex *string `json:"sex,omitempty" xml:"sex,omitempty"`
+	// 民族
+	// example:
+	//
+	// 汉
+	Nationality *string `json:"nationality,omitempty" xml:"nationality,omitempty"`
+	// 出生日期（yyyyMMdd格式）
+	// example:
+	//
+	// 19620710
+	Birth *string `json:"birth,omitempty" xml:"birth,omitempty"`
+	// 住址
+	// example:
+	//
+	// 江苏省睢宁县xxxx
+	Address *string `json:"address,omitempty" xml:"address,omitempty"`
+	// 身份证号
+	// example:
+	//
+	// 320324196207101234
+	Num *string `json:"num,omitempty" xml:"num,omitempty"`
+	// 发证日期（yyyyMMdd格式）
+	// example:
+	//
+	// 20120912
+	StartDate *string `json:"start_date,omitempty" xml:"start_date,omitempty"`
+	// 到期日（yyyyMMdd格式）。
+	// 如果是长期身份证，该字段内容为“长期”（不含引号）。
+	// example:
+	//
+	// 20220912
+	EndDate *string `json:"end_date,omitempty" xml:"end_date,omitempty"`
+	// 签发机关
+	// example:
+	//
+	// 宜川县公安局
+	Issue *string `json:"issue,omitempty" xml:"issue,omitempty"`
+	// 银行卡类型（CC（贷记卡），SCC（准贷记卡），DCC（存贷合一卡），DC（储蓄卡），PC（预付卡））
+	// example:
+	//
+	// CC
+	BankCardType *string `json:"bank_card_type,omitempty" xml:"bank_card_type,omitempty"`
+	// 银行名，不能识别时为空
+	// example:
+	//
+	// 中国建设银行
+	BankName *string `json:"bank_name,omitempty" xml:"bank_name,omitempty"`
+	// 银行卡号
+	// example:
+	//
+	// 6227001223456784765
+	CardNumber *string `json:"card_number,omitempty" xml:"card_number,omitempty"`
+	// 有效期至
+	// example:
+	//
+	// 10/30
+	ValidToDate *string `json:"valid_to_date,omitempty" xml:"valid_to_date,omitempty"`
+	// 证件类别
+	// example:
+	//
+	// 港澳居民来往内地通行证
+	Title *string `json:"title,omitempty" xml:"title,omitempty"`
+	// 有效期限(yyyy.MM.dd-yyyy.MM.dd格式)
+	// example:
+	//
+	// 2017.07.13-2027.07.12
+	DateOfExpiry *string `json:"date_of_expiry,omitempty" xml:"date_of_expiry,omitempty"`
+	// 换证次数
+	// example:
+	//
+	// 01
+	ChangeNum *string `json:"change_num,omitempty" xml:"change_num,omitempty"`
+	// 初次领证日期
+	// example:
+	//
+	// 20200202
+	FirstIssue *string `json:"first_issue,omitempty" xml:"first_issue,omitempty"`
+	// 准驾车型
+	// example:
+	//
+	// C1
+	DriverClass *string `json:"driver_class,omitempty" xml:"driver_class,omitempty"`
+	// 档案编号
+	// example:
+	//
+	// 110012345678
+	DocNum *string `json:"doc_num,omitempty" xml:"doc_num,omitempty"`
+	// 电子驾驶证生成时间
+	// example:
+	//
+	// 2021年08月06日
+	IssueTime *string `json:"issue_time,omitempty" xml:"issue_time,omitempty"`
+	// 当前时间
+	// example:
+	//
+	// 2021年04月16日14:09:39
+	CurrentTime *string `json:"current_time,omitempty" xml:"current_time,omitempty"`
+	// 条形码编号
+	// example:
+	//
+	// *4360028416316*
+	BarCode *string `json:"bar_code,omitempty" xml:"bar_code,omitempty"`
+	// 累计记分
+	// example:
+	//
+	// 0
+	Points *string `json:"points,omitempty" xml:"points,omitempty"`
+	// 记录
+	// example:
+	//
+	// 请于每个记分周期结束后三十日接受审验。无记分的，免予本次审验。
+	Remark *string `json:"remark,omitempty" xml:"remark,omitempty"`
+	// 状态
+	// example:
+	//
+	// 正常
+	Status *string `json:"status,omitempty" xml:"status,omitempty"`
+	// 车辆识别代号
+	// example:
+	//
+	// SSVUDDTT2J2022558
+	Vehicle *string `json:"vehicle,omitempty" xml:"vehicle,omitempty"`
+	// 品牌型号
+	// example:
+	//
+	// 大众汽车牌SVW6474DFD
+	Model *string `json:"model,omitempty" xml:"model,omitempty"`
+	// 车辆类型
+	// example:
+	//
+	// 小型普通客车
+	Type *string `json:"type,omitempty" xml:"type,omitempty"`
+	// 使用性质
+	// example:
+	//
+	// 非运营
+	Useage *string `json:"useage,omitempty" xml:"useage,omitempty"`
+	// 发动机号码
+	// example:
+	//
+	// 111533
+	EngNum *string `json:"eng_num,omitempty" xml:"eng_num,omitempty"`
+	// 车牌号码
+	// example:
+	//
+	// 浙BF12345
+	Plate *string `json:"plate,omitempty" xml:"plate,omitempty"`
+	// 检验记录
+	// example:
+	//
+	// 2018年11月渝A()
+	InspecRecord *string `json:"inspec_record,omitempty" xml:"inspec_record,omitempty"`
+	// 核定载质量
+	// example:
+	//
+	// 1490kg
+	Load *string `json:"load,omitempty" xml:"load,omitempty"`
+	// 整备质量
+	// example:
+	//
+	// 2600kg
+	CurbMass *string `json:"curb_mass,omitempty" xml:"curb_mass,omitempty"`
+	// 外廓尺寸
+	// example:
+	//
+	// 5990X2500X4400mm
+	OverallDimension *string `json:"overall_dimension,omitempty" xml:"overall_dimension,omitempty"`
+	// 核定载人数
+	// example:
+	//
+	// 5人
+	Seating *string `json:"seating,omitempty" xml:"seating,omitempty"`
+	// 总质量
+	// example:
+	//
+	// 4290kg
+	GrossMass *string `json:"gross_mass,omitempty" xml:"gross_mass,omitempty"`
+	// 燃油类型
+	// example:
+	//
+	// 柴油
+	Fuel *string `json:"fuel,omitempty" xml:"fuel,omitempty"`
+	// 准牵引总质量
+	// example:
+	//
+	// 2700kg
+	TractionMass *string `json:"traction_mass,omitempty" xml:"traction_mass,omitempty"`
+	// 证芯编号
+	// example:
+	//
+	// 50027372380230106
+	ChipNum *string `json:"chip_num,omitempty" xml:"chip_num,omitempty"`
+	// 证件类别
+	// example:
+	//
+	// P
+	PassportType *string `json:"passport_type,omitempty" xml:"passport_type,omitempty"`
+	// 姓
+	// example:
+	//
+	// 张
+	Surname *string `json:"surname,omitempty" xml:"surname,omitempty"`
+	// 名
+	// example:
+	//
+	// 三
+	GivenName *string `json:"given_name,omitempty" xml:"given_name,omitempty"`
+	// 护照号码
+	// example:
+	//
+	// L12880801
+	PassportNumber *string `json:"passport_number,omitempty" xml:"passport_number,omitempty"`
+	// 英文姓名
+	// example:
+	//
+	// ZHENGJIAN
+	NameEn *string `json:"name_en,omitempty" xml:"name_en,omitempty"`
+	// 英文出生地
+	// example:
+	//
+	// GUANGDONG
+	BirthPlaceEn *string `json:"birth_place_en,omitempty" xml:"birth_place_en,omitempty"`
+	// 非英文出生地
+	// example:
+	//
+	// 广东
+	BirthPlace *string `json:"birth_place,omitempty" xml:"birth_place,omitempty"`
+	// 国籍
+	// example:
+	//
+	// CHINESE
+	Country *string `json:"country,omitempty" xml:"country,omitempty"`
+	// 出生日期
+	// example:
+	//
+	// 850320
+	BirthDate *string `json:"birth_date,omitempty" xml:"birth_date,omitempty"`
+	// 出生日期（年月日）
+	// example:
+	//
+	// 1985年03月20日
+	BirthDateYmd *string `json:"birth_date_ymd,omitempty" xml:"birth_date_ymd,omitempty"`
+	// 签发日期
+	// example:
+	//
+	// 2019年01月18日
+	IssueDateYmd *string `json:"issue_date_ymd,omitempty" xml:"issue_date_ymd,omitempty"`
+	// 签发地
+	// example:
+	//
+	// GUANGDONG
+	IssuePlaceEn *string `json:"issue_place_en,omitempty" xml:"issue_place_en,omitempty"`
+	// 非英文签发地
+	// example:
+	//
+	// 广东
+	IssuePlace *string `json:"issue_place,omitempty" xml:"issue_place,omitempty"`
+	// 签发机关
+	// example:
+	//
+	// National Immigration Administration, PRC
+	IssueAuthorityEn *string `json:"issue_authority_en,omitempty" xml:"issue_authority_en,omitempty"`
+	// 中华人民共和国国家移民管理局
+	// example:
+	//
+	// 非英文签发机关
+	IssueAuthority *string `json:"issue_authority,omitempty" xml:"issue_authority,omitempty"`
+	// 身份号
+	// example:
+	//
+	// 123
+	IdNumber *string `json:"id_number,omitempty" xml:"id_number,omitempty"`
+	// 机读码一
+	// example:
+	//
+	// POCHNZHENGJIAN
+	MrzLine1 *string `json:"mrz_line1,omitempty" xml:"mrz_line1,omitempty"`
+	// 机读码二
+	// example:
+	//
+	// EF12608921CHN8503208F2901178NGKELMPONBPJB978
+	MrzLine2 *string `json:"mrz_line2,omitempty" xml:"mrz_line2,omitempty"`
+	// 证件类别
+	// example:
+	//
+	// 往来台湾通行证
+	PermitType *string `json:"permit_type,omitempty" xml:"permit_type,omitempty"`
+	// 中文姓名
+	// example:
+	//
+	// 证件样本
+	NameCn *string `json:"name_cn,omitempty" xml:"name_cn,omitempty"`
+	// 有效期限 (yyyy.MM.dd-yyyy.MM.dd)
+	// example:
+	//
+	// 2019.01.18-2029.01.17
+	ValidPeriod *string `json:"valid_period,omitempty" xml:"valid_period,omitempty"`
+	// 证件号码
+	// example:
+	//
+	// H01162111
+	PermitNumber *string `json:"permit_number,omitempty" xml:"permit_number,omitempty"`
+	// 机读码
+	// example:
+	//
+	// CSCA3273201<901178<8108038<2
+	MrzCode *string `json:"mrz_code,omitempty" xml:"mrz_code,omitempty"`
+}
+
+func (s OcrInfo) String() string {
+	return tea.Prettify(s)
+}
+
+func (s OcrInfo) GoString() string {
+	return s.String()
+}
+
+func (s *OcrInfo) SetSide(v string) *OcrInfo {
+	s.Side = &v
+	return s
+}
+
+func (s *OcrInfo) SetPhoto(v string) *OcrInfo {
+	s.Photo = &v
+	return s
+}
+
+func (s *OcrInfo) SetPhotoLocation(v *OcrLocation) *OcrInfo {
+	s.PhotoLocation = v
+	return s
+}
+
+func (s *OcrInfo) SetCardImage(v string) *OcrInfo {
+	s.CardImage = &v
+	return s
+}
+
+func (s *OcrInfo) SetCardLocation(v *OcrLocation) *OcrInfo {
+	s.CardLocation = v
+	return s
+}
+
+func (s *OcrInfo) SetName(v string) *OcrInfo {
+	s.Name = &v
+	return s
+}
+
+func (s *OcrInfo) SetSex(v string) *OcrInfo {
+	s.Sex = &v
+	return s
+}
+
+func (s *OcrInfo) SetNationality(v string) *OcrInfo {
+	s.Nationality = &v
+	return s
+}
+
+func (s *OcrInfo) SetBirth(v string) *OcrInfo {
+	s.Birth = &v
+	return s
+}
+
+func (s *OcrInfo) SetAddress(v string) *OcrInfo {
+	s.Address = &v
+	return s
+}
+
+func (s *OcrInfo) SetNum(v string) *OcrInfo {
+	s.Num = &v
+	return s
+}
+
+func (s *OcrInfo) SetStartDate(v string) *OcrInfo {
+	s.StartDate = &v
+	return s
+}
+
+func (s *OcrInfo) SetEndDate(v string) *OcrInfo {
+	s.EndDate = &v
+	return s
+}
+
+func (s *OcrInfo) SetIssue(v string) *OcrInfo {
+	s.Issue = &v
+	return s
+}
+
+func (s *OcrInfo) SetBankCardType(v string) *OcrInfo {
+	s.BankCardType = &v
+	return s
+}
+
+func (s *OcrInfo) SetBankName(v string) *OcrInfo {
+	s.BankName = &v
+	return s
+}
+
+func (s *OcrInfo) SetCardNumber(v string) *OcrInfo {
+	s.CardNumber = &v
+	return s
+}
+
+func (s *OcrInfo) SetValidToDate(v string) *OcrInfo {
+	s.ValidToDate = &v
+	return s
+}
+
+func (s *OcrInfo) SetTitle(v string) *OcrInfo {
+	s.Title = &v
+	return s
+}
+
+func (s *OcrInfo) SetDateOfExpiry(v string) *OcrInfo {
+	s.DateOfExpiry = &v
+	return s
+}
+
+func (s *OcrInfo) SetChangeNum(v string) *OcrInfo {
+	s.ChangeNum = &v
+	return s
+}
+
+func (s *OcrInfo) SetFirstIssue(v string) *OcrInfo {
+	s.FirstIssue = &v
+	return s
+}
+
+func (s *OcrInfo) SetDriverClass(v string) *OcrInfo {
+	s.DriverClass = &v
+	return s
+}
+
+func (s *OcrInfo) SetDocNum(v string) *OcrInfo {
+	s.DocNum = &v
+	return s
+}
+
+func (s *OcrInfo) SetIssueTime(v string) *OcrInfo {
+	s.IssueTime = &v
+	return s
+}
+
+func (s *OcrInfo) SetCurrentTime(v string) *OcrInfo {
+	s.CurrentTime = &v
+	return s
+}
+
+func (s *OcrInfo) SetBarCode(v string) *OcrInfo {
+	s.BarCode = &v
+	return s
+}
+
+func (s *OcrInfo) SetPoints(v string) *OcrInfo {
+	s.Points = &v
+	return s
+}
+
+func (s *OcrInfo) SetRemark(v string) *OcrInfo {
+	s.Remark = &v
+	return s
+}
+
+func (s *OcrInfo) SetStatus(v string) *OcrInfo {
+	s.Status = &v
+	return s
+}
+
+func (s *OcrInfo) SetVehicle(v string) *OcrInfo {
+	s.Vehicle = &v
+	return s
+}
+
+func (s *OcrInfo) SetModel(v string) *OcrInfo {
+	s.Model = &v
+	return s
+}
+
+func (s *OcrInfo) SetType(v string) *OcrInfo {
+	s.Type = &v
+	return s
+}
+
+func (s *OcrInfo) SetUseage(v string) *OcrInfo {
+	s.Useage = &v
+	return s
+}
+
+func (s *OcrInfo) SetEngNum(v string) *OcrInfo {
+	s.EngNum = &v
+	return s
+}
+
+func (s *OcrInfo) SetPlate(v string) *OcrInfo {
+	s.Plate = &v
+	return s
+}
+
+func (s *OcrInfo) SetInspecRecord(v string) *OcrInfo {
+	s.InspecRecord = &v
+	return s
+}
+
+func (s *OcrInfo) SetLoad(v string) *OcrInfo {
+	s.Load = &v
+	return s
+}
+
+func (s *OcrInfo) SetCurbMass(v string) *OcrInfo {
+	s.CurbMass = &v
+	return s
+}
+
+func (s *OcrInfo) SetOverallDimension(v string) *OcrInfo {
+	s.OverallDimension = &v
+	return s
+}
+
+func (s *OcrInfo) SetSeating(v string) *OcrInfo {
+	s.Seating = &v
+	return s
+}
+
+func (s *OcrInfo) SetGrossMass(v string) *OcrInfo {
+	s.GrossMass = &v
+	return s
+}
+
+func (s *OcrInfo) SetFuel(v string) *OcrInfo {
+	s.Fuel = &v
+	return s
+}
+
+func (s *OcrInfo) SetTractionMass(v string) *OcrInfo {
+	s.TractionMass = &v
+	return s
+}
+
+func (s *OcrInfo) SetChipNum(v string) *OcrInfo {
+	s.ChipNum = &v
+	return s
+}
+
+func (s *OcrInfo) SetPassportType(v string) *OcrInfo {
+	s.PassportType = &v
+	return s
+}
+
+func (s *OcrInfo) SetSurname(v string) *OcrInfo {
+	s.Surname = &v
+	return s
+}
+
+func (s *OcrInfo) SetGivenName(v string) *OcrInfo {
+	s.GivenName = &v
+	return s
+}
+
+func (s *OcrInfo) SetPassportNumber(v string) *OcrInfo {
+	s.PassportNumber = &v
+	return s
+}
+
+func (s *OcrInfo) SetNameEn(v string) *OcrInfo {
+	s.NameEn = &v
+	return s
+}
+
+func (s *OcrInfo) SetBirthPlaceEn(v string) *OcrInfo {
+	s.BirthPlaceEn = &v
+	return s
+}
+
+func (s *OcrInfo) SetBirthPlace(v string) *OcrInfo {
+	s.BirthPlace = &v
+	return s
+}
+
+func (s *OcrInfo) SetCountry(v string) *OcrInfo {
+	s.Country = &v
+	return s
+}
+
+func (s *OcrInfo) SetBirthDate(v string) *OcrInfo {
+	s.BirthDate = &v
+	return s
+}
+
+func (s *OcrInfo) SetBirthDateYmd(v string) *OcrInfo {
+	s.BirthDateYmd = &v
+	return s
+}
+
+func (s *OcrInfo) SetIssueDateYmd(v string) *OcrInfo {
+	s.IssueDateYmd = &v
+	return s
+}
+
+func (s *OcrInfo) SetIssuePlaceEn(v string) *OcrInfo {
+	s.IssuePlaceEn = &v
+	return s
+}
+
+func (s *OcrInfo) SetIssuePlace(v string) *OcrInfo {
+	s.IssuePlace = &v
+	return s
+}
+
+func (s *OcrInfo) SetIssueAuthorityEn(v string) *OcrInfo {
+	s.IssueAuthorityEn = &v
+	return s
+}
+
+func (s *OcrInfo) SetIssueAuthority(v string) *OcrInfo {
+	s.IssueAuthority = &v
+	return s
+}
+
+func (s *OcrInfo) SetIdNumber(v string) *OcrInfo {
+	s.IdNumber = &v
+	return s
+}
+
+func (s *OcrInfo) SetMrzLine1(v string) *OcrInfo {
+	s.MrzLine1 = &v
+	return s
+}
+
+func (s *OcrInfo) SetMrzLine2(v string) *OcrInfo {
+	s.MrzLine2 = &v
+	return s
+}
+
+func (s *OcrInfo) SetPermitType(v string) *OcrInfo {
+	s.PermitType = &v
+	return s
+}
+
+func (s *OcrInfo) SetNameCn(v string) *OcrInfo {
+	s.NameCn = &v
+	return s
+}
+
+func (s *OcrInfo) SetValidPeriod(v string) *OcrInfo {
+	s.ValidPeriod = &v
+	return s
+}
+
+func (s *OcrInfo) SetPermitNumber(v string) *OcrInfo {
+	s.PermitNumber = &v
+	return s
+}
+
+func (s *OcrInfo) SetMrzCode(v string) *OcrInfo {
+	s.MrzCode = &v
+	return s
+}
+
+// 车辆资产验证增强版车辆信息
+type CarInfoPlus struct {
+	// 车牌号
+	// example:
+	//
+	// 京A123456
+	PlateNo *string `json:"plate_no,omitempty" xml:"plate_no,omitempty"`
+	// 车辆型号，格式：1，2，3...
+	// example:
+	//
+	// 1
+	Model *string `json:"model,omitempty" xml:"model,omitempty"`
+	// 车辆颜色，格式：1，2，3
+	// example:
+	//
+	// 1
+	Color *string `json:"color,omitempty" xml:"color,omitempty"`
+}
+
+func (s CarInfoPlus) String() string {
+	return tea.Prettify(s)
+}
+
+func (s CarInfoPlus) GoString() string {
+	return s.String()
+}
+
+func (s *CarInfoPlus) SetPlateNo(v string) *CarInfoPlus {
+	s.PlateNo = &v
+	return s
+}
+
+func (s *CarInfoPlus) SetModel(v string) *CarInfoPlus {
+	s.Model = &v
+	return s
+}
+
+func (s *CarInfoPlus) SetColor(v string) *CarInfoPlus {
+	s.Color = &v
+	return s
+}
+
+// 车辆资产验证简版车辆信息
+type CarInfoBrief struct {
+	// 生产时间
+	// example:
+	//
+	// 2015-11-16
+	ProductionTime *string `json:"production_time,omitempty" xml:"production_time,omitempty"`
+	// 品牌名称
+	// example:
+	//
+	// 大众
+	BrandName *string `json:"brand_name,omitempty" xml:"brand_name,omitempty"`
+	// 车系名称
+	// example:
+	//
+	// 高尔夫
+	SeriesName *string `json:"series_name,omitempty" xml:"series_name,omitempty"`
+	// 燃料种类
+	// example:
+	//
+	// 汽油
+	FuelType *string `json:"fuel_type,omitempty" xml:"fuel_type,omitempty"`
+	// 轴数
+	// example:
+	//
+	// 2
+	AxesNumber *string `json:"axes_number,omitempty" xml:"axes_number,omitempty"`
+	// 轴距
+	// example:
+	//
+	// 2915
+	WheelBase *string `json:"wheel_base,omitempty" xml:"wheel_base,omitempty"`
+	// 排量描述
+	// example:
+	//
+	// 1.3L
+	EngineDescribe *string `json:"engine_describe,omitempty" xml:"engine_describe,omitempty"`
+	// 车身颜色
+	// example:
+	//
+	// 黑
+	Color *string `json:"color,omitempty" xml:"color,omitempty"`
+	// 年款
+	// example:
+	//
+	// 2018
+	YearPattern *string `json:"year_pattern,omitempty" xml:"year_pattern,omitempty"`
+	// 生产厂商
+	// example:
+	//
+	// 上海通用汽车有限公司
+	ManufacturerName *string `json:"manufacturer_name,omitempty" xml:"manufacturer_name,omitempty"`
+	// 发布年月
+	// example:
+	//
+	// 201711
+	PublishDate *string `json:"publish_date,omitempty" xml:"publish_date,omitempty"`
+	// 款型
+	// example:
+	//
+	// 赛欧3 1.3L 手动挡 舒适天窗版 18款
+	SaleCode *string `json:"sale_code,omitempty" xml:"sale_code,omitempty"`
+	// 驱动形式
+	// example:
+	//
+	// 驱动形式
+	DriveForm *string `json:"drive_form,omitempty" xml:"drive_form,omitempty"`
+	// 国产/进口/合资
+	// example:
+	//
+	// 合资
+	ImportFlag *string `json:"import_flag,omitempty" xml:"import_flag,omitempty"`
+	// 后轮距
+	// example:
+	//
+	// 1468
+	TireDistanceAfter *string `json:"tire_distance_after,omitempty" xml:"tire_distance_after,omitempty"`
+	// 排量
+	// example:
+	//
+	// 1349
+	Displacement *string `json:"displacement,omitempty" xml:"displacement,omitempty"`
+	// 排放标准
+	// example:
+	//
+	// 国五
+	EmissionStandard *string `json:"emission_standard,omitempty" xml:"emission_standard,omitempty"`
+	// 功率
+	// example:
+	//
+	// 73
+	Power *string `json:"power,omitempty" xml:"power,omitempty"`
+	// 变速箱类型
+	// example:
+	//
+	// 手动档
+	Gearbox *string `json:"gearbox,omitempty" xml:"gearbox,omitempty"`
+	// 车辆类型
+	// example:
+	//
+	// 轿车
+	VehicleType *string `json:"vehicle_type,omitempty" xml:"vehicle_type,omitempty"`
+	// 发动机型号
+	// example:
+	//
+	// LEW
+	EngineModel *string `json:"engine_model,omitempty" xml:"engine_model,omitempty"`
+	// 轮胎数
+	// example:
+	//
+	// 4
+	TireCount *string `json:"tire_count,omitempty" xml:"tire_count,omitempty"`
+	// 座位数
+	// example:
+	//
+	// 5
+	RatedPassengers *string `json:"rated_passengers,omitempty" xml:"rated_passengers,omitempty"`
+	// 指导价
+	// example:
+	//
+	// 5.69万
+	GuidedPrice *string `json:"guided_price,omitempty" xml:"guided_price,omitempty"`
+	// 车长
+	// example:
+	//
+	// 4300
+	Length *string `json:"length,omitempty" xml:"length,omitempty"`
+	// 车宽
+	// example:
+	//
+	// 1735
+	Width *string `json:"width,omitempty" xml:"width,omitempty"`
+	// 车高
+	// example:
+	//
+	// 1504
+	Height *string `json:"height,omitempty" xml:"height,omitempty"`
+	// 整备质量
+	// example:
+	//
+	// 1045
+	CurbWeight *string `json:"curb_weight,omitempty" xml:"curb_weight,omitempty"`
+	// 总质量
+	// example:
+	//
+	// 1460
+	TotalWeight *string `json:"total_weight,omitempty" xml:"total_weight,omitempty"`
+	// 前轮距
+	// example:
+	//
+	// 1477
+	TireDistanceBefore *string `json:"tire_distance_before,omitempty" xml:"tire_distance_before,omitempty"`
+	// 额定载重量
+	// example:
+	//
+	// 5
+	RatedPlyload *string `json:"rated_plyload,omitempty" xml:"rated_plyload,omitempty"`
+	// 牵引总质量
+	// example:
+	//
+	// 3
+	TrailerWeight *string `json:"trailer_weight,omitempty" xml:"trailer_weight,omitempty"`
+}
+
+func (s CarInfoBrief) String() string {
+	return tea.Prettify(s)
+}
+
+func (s CarInfoBrief) GoString() string {
+	return s.String()
+}
+
+func (s *CarInfoBrief) SetProductionTime(v string) *CarInfoBrief {
+	s.ProductionTime = &v
+	return s
+}
+
+func (s *CarInfoBrief) SetBrandName(v string) *CarInfoBrief {
+	s.BrandName = &v
+	return s
+}
+
+func (s *CarInfoBrief) SetSeriesName(v string) *CarInfoBrief {
+	s.SeriesName = &v
+	return s
+}
+
+func (s *CarInfoBrief) SetFuelType(v string) *CarInfoBrief {
+	s.FuelType = &v
+	return s
+}
+
+func (s *CarInfoBrief) SetAxesNumber(v string) *CarInfoBrief {
+	s.AxesNumber = &v
+	return s
+}
+
+func (s *CarInfoBrief) SetWheelBase(v string) *CarInfoBrief {
+	s.WheelBase = &v
+	return s
+}
+
+func (s *CarInfoBrief) SetEngineDescribe(v string) *CarInfoBrief {
+	s.EngineDescribe = &v
+	return s
+}
+
+func (s *CarInfoBrief) SetColor(v string) *CarInfoBrief {
+	s.Color = &v
+	return s
+}
+
+func (s *CarInfoBrief) SetYearPattern(v string) *CarInfoBrief {
+	s.YearPattern = &v
+	return s
+}
+
+func (s *CarInfoBrief) SetManufacturerName(v string) *CarInfoBrief {
+	s.ManufacturerName = &v
+	return s
+}
+
+func (s *CarInfoBrief) SetPublishDate(v string) *CarInfoBrief {
+	s.PublishDate = &v
+	return s
+}
+
+func (s *CarInfoBrief) SetSaleCode(v string) *CarInfoBrief {
+	s.SaleCode = &v
+	return s
+}
+
+func (s *CarInfoBrief) SetDriveForm(v string) *CarInfoBrief {
+	s.DriveForm = &v
+	return s
+}
+
+func (s *CarInfoBrief) SetImportFlag(v string) *CarInfoBrief {
+	s.ImportFlag = &v
+	return s
+}
+
+func (s *CarInfoBrief) SetTireDistanceAfter(v string) *CarInfoBrief {
+	s.TireDistanceAfter = &v
+	return s
+}
+
+func (s *CarInfoBrief) SetDisplacement(v string) *CarInfoBrief {
+	s.Displacement = &v
+	return s
+}
+
+func (s *CarInfoBrief) SetEmissionStandard(v string) *CarInfoBrief {
+	s.EmissionStandard = &v
+	return s
+}
+
+func (s *CarInfoBrief) SetPower(v string) *CarInfoBrief {
+	s.Power = &v
+	return s
+}
+
+func (s *CarInfoBrief) SetGearbox(v string) *CarInfoBrief {
+	s.Gearbox = &v
+	return s
+}
+
+func (s *CarInfoBrief) SetVehicleType(v string) *CarInfoBrief {
+	s.VehicleType = &v
+	return s
+}
+
+func (s *CarInfoBrief) SetEngineModel(v string) *CarInfoBrief {
+	s.EngineModel = &v
+	return s
+}
+
+func (s *CarInfoBrief) SetTireCount(v string) *CarInfoBrief {
+	s.TireCount = &v
+	return s
+}
+
+func (s *CarInfoBrief) SetRatedPassengers(v string) *CarInfoBrief {
+	s.RatedPassengers = &v
+	return s
+}
+
+func (s *CarInfoBrief) SetGuidedPrice(v string) *CarInfoBrief {
+	s.GuidedPrice = &v
+	return s
+}
+
+func (s *CarInfoBrief) SetLength(v string) *CarInfoBrief {
+	s.Length = &v
+	return s
+}
+
+func (s *CarInfoBrief) SetWidth(v string) *CarInfoBrief {
+	s.Width = &v
+	return s
+}
+
+func (s *CarInfoBrief) SetHeight(v string) *CarInfoBrief {
+	s.Height = &v
+	return s
+}
+
+func (s *CarInfoBrief) SetCurbWeight(v string) *CarInfoBrief {
+	s.CurbWeight = &v
+	return s
+}
+
+func (s *CarInfoBrief) SetTotalWeight(v string) *CarInfoBrief {
+	s.TotalWeight = &v
+	return s
+}
+
+func (s *CarInfoBrief) SetTireDistanceBefore(v string) *CarInfoBrief {
+	s.TireDistanceBefore = &v
+	return s
+}
+
+func (s *CarInfoBrief) SetRatedPlyload(v string) *CarInfoBrief {
+	s.RatedPlyload = &v
+	return s
+}
+
+func (s *CarInfoBrief) SetTrailerWeight(v string) *CarInfoBrief {
+	s.TrailerWeight = &v
+	return s
+}
+
+// 综合风险
+type RiskResult struct {
+	// 活体检测标签
+	// example:
+	//
+	// {}
+	ImageLabels *string `json:"image_labels,omitempty" xml:"image_labels,omitempty"`
+	// 设备风险等级
+	// example:
+	//
+	// safe
+	DeviceRiskLevel *string `json:"device_risk_level,omitempty" xml:"device_risk_level,omitempty"`
+	// 设备风险标签
+	// example:
+	//
+	// {}
+	DeviceRiskLabels *string `json:"device_risk_labels,omitempty" xml:"device_risk_labels,omitempty"`
+	// 行为风险等级
+	// example:
+	//
+	// safe
+	BehaviorRiskLevel *string `json:"behavior_risk_level,omitempty" xml:"behavior_risk_level,omitempty"`
+	// 行为风险标签
+	// example:
+	//
+	// {}
+	BehaviorRiskLabels *string `json:"behavior_risk_labels,omitempty" xml:"behavior_risk_labels,omitempty"`
+	// 是否关联攻击
+	// example:
+	//
+	// true, false
+	IsCorrelate *bool `json:"is_correlate,omitempty" xml:"is_correlate,omitempty"`
+}
+
+func (s RiskResult) String() string {
+	return tea.Prettify(s)
+}
+
+func (s RiskResult) GoString() string {
+	return s.String()
+}
+
+func (s *RiskResult) SetImageLabels(v string) *RiskResult {
+	s.ImageLabels = &v
+	return s
+}
+
+func (s *RiskResult) SetDeviceRiskLevel(v string) *RiskResult {
+	s.DeviceRiskLevel = &v
+	return s
+}
+
+func (s *RiskResult) SetDeviceRiskLabels(v string) *RiskResult {
+	s.DeviceRiskLabels = &v
+	return s
+}
+
+func (s *RiskResult) SetBehaviorRiskLevel(v string) *RiskResult {
+	s.BehaviorRiskLevel = &v
+	return s
+}
+
+func (s *RiskResult) SetBehaviorRiskLabels(v string) *RiskResult {
+	s.BehaviorRiskLabels = &v
+	return s
+}
+
+func (s *RiskResult) SetIsCorrelate(v bool) *RiskResult {
+	s.IsCorrelate = &v
+	return s
+}
+
+// 键值对
+type XNameValuePair struct {
+	// 键名
+	// example:
+	//
+	// key
+	Name *string `json:"name,omitempty" xml:"name,omitempty" require:"true"`
+	// 键值
+	// example:
+	//
+	// value
+	Value *string `json:"value,omitempty" xml:"value,omitempty" require:"true"`
+}
+
+func (s XNameValuePair) String() string {
+	return tea.Prettify(s)
+}
+
+func (s XNameValuePair) GoString() string {
+	return s.String()
+}
+
+func (s *XNameValuePair) SetName(v string) *XNameValuePair {
+	s.Name = &v
+	return s
+}
+
+func (s *XNameValuePair) SetValue(v string) *XNameValuePair {
+	s.Value = &v
+	return s
+}
+
+type QueryFacevrfServerRequest struct {
+	// OAuth模式下的授权token
+	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
+	// 实人认证唯一标识
+	CertifyId *string `json:"certify_id,omitempty" xml:"certify_id,omitempty" require:"true"`
+	// 预留扩展业务参数
+	ExternParam *string `json:"extern_param,omitempty" xml:"extern_param,omitempty"`
+	// 认证材料（如人脸图像）的哈希
+	MaterialHash *string `json:"material_hash,omitempty" xml:"material_hash,omitempty"`
+	// 外部唯一标识。用于定位。
+	// 值为32位长度的字母数字组合前面几位字符是商户自定义的简称，中间可以使用一段时间，后段可以使用一个随机或递增序列
+	OuterOrderNo *string `json:"outer_order_no,omitempty" xml:"outer_order_no,omitempty" require:"true"`
+	// 场景ID
+	SceneId *string `json:"scene_id,omitempty" xml:"scene_id,omitempty" require:"true"`
+}
+
+func (s QueryFacevrfServerRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s QueryFacevrfServerRequest) GoString() string {
+	return s.String()
+}
+
+func (s *QueryFacevrfServerRequest) SetAuthToken(v string) *QueryFacevrfServerRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *QueryFacevrfServerRequest) SetProductInstanceId(v string) *QueryFacevrfServerRequest {
+	s.ProductInstanceId = &v
+	return s
+}
+
+func (s *QueryFacevrfServerRequest) SetCertifyId(v string) *QueryFacevrfServerRequest {
+	s.CertifyId = &v
+	return s
+}
+
+func (s *QueryFacevrfServerRequest) SetExternParam(v string) *QueryFacevrfServerRequest {
+	s.ExternParam = &v
+	return s
+}
+
+func (s *QueryFacevrfServerRequest) SetMaterialHash(v string) *QueryFacevrfServerRequest {
+	s.MaterialHash = &v
+	return s
+}
+
+func (s *QueryFacevrfServerRequest) SetOuterOrderNo(v string) *QueryFacevrfServerRequest {
+	s.OuterOrderNo = &v
+	return s
+}
+
+func (s *QueryFacevrfServerRequest) SetSceneId(v string) *QueryFacevrfServerRequest {
+	s.SceneId = &v
+	return s
+}
+
+type QueryFacevrfServerResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// 认证的主体信息，一般的认证场景返回为空
+	IdentityInfo *string `json:"identity_info,omitempty" xml:"identity_info,omitempty"`
+	// 认证主体附件信息，一般的认证场景都是返回空
+	MaterialInfo *string `json:"material_info,omitempty" xml:"material_info,omitempty"`
+	// 认证材料哈希是否匹配
+	MaterialMatched *string `json:"material_matched,omitempty" xml:"material_matched,omitempty"`
+	// 是否通过，通过为T，不通过为F
+	Passed *string `json:"passed,omitempty" xml:"passed,omitempty"`
+	// 业务失败原因
+	Reason *string `json:"reason,omitempty" xml:"reason,omitempty"`
+}
+
+func (s QueryFacevrfServerResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s QueryFacevrfServerResponse) GoString() string {
+	return s.String()
+}
+
+func (s *QueryFacevrfServerResponse) SetReqMsgId(v string) *QueryFacevrfServerResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *QueryFacevrfServerResponse) SetResultCode(v string) *QueryFacevrfServerResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *QueryFacevrfServerResponse) SetResultMsg(v string) *QueryFacevrfServerResponse {
+	s.ResultMsg = &v
+	return s
+}
+
+func (s *QueryFacevrfServerResponse) SetIdentityInfo(v string) *QueryFacevrfServerResponse {
+	s.IdentityInfo = &v
+	return s
+}
+
+func (s *QueryFacevrfServerResponse) SetMaterialInfo(v string) *QueryFacevrfServerResponse {
+	s.MaterialInfo = &v
+	return s
+}
+
+func (s *QueryFacevrfServerResponse) SetMaterialMatched(v string) *QueryFacevrfServerResponse {
+	s.MaterialMatched = &v
+	return s
+}
+
+func (s *QueryFacevrfServerResponse) SetPassed(v string) *QueryFacevrfServerResponse {
+	s.Passed = &v
+	return s
+}
+
+func (s *QueryFacevrfServerResponse) SetReason(v string) *QueryFacevrfServerResponse {
+	s.Reason = &v
+	return s
+}
+
+type CreateFacevrfServerRequest struct {
+	// OAuth模式下的授权token
+	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
+	// 认证模式码
+	BizCode *string `json:"biz_code,omitempty" xml:"biz_code,omitempty" require:"true"`
+	// h5认证完成后，服务端回调此地址通知商户认证结果
+	CallbackUrl *string `json:"callback_url,omitempty" xml:"callback_url,omitempty"`
+	// 真实姓名
+	CertName *string `json:"cert_name,omitempty" xml:"cert_name,omitempty"`
+	// 证件号码
+	CertNo *string `json:"cert_no,omitempty" xml:"cert_no,omitempty"`
+	// cert_name、cert_no两个字段的传入模式。0：明文1：密文
+	EncType *string `json:"enc_type,omitempty" xml:"enc_type,omitempty"`
+	// 证件类型，如身份证
+	CertType *string `json:"cert_type,omitempty" xml:"cert_type,omitempty"`
+	// 预留扩展参数
+	ExternParam *string `json:"extern_param,omitempty" xml:"extern_param,omitempty"`
+	// 自定义比对源人脸图像，base64编码格式
+	FacialPictureRef *string `json:"facial_picture_ref,omitempty" xml:"facial_picture_ref,omitempty"`
+	// 身份信息来源类型，如证件
+	IdentityType *string `json:"identity_type,omitempty" xml:"identity_type,omitempty" require:"true"`
+	// metainfo 环境参数，需要通过客户端 SDK 获取
+	MetaInfo *string `json:"meta_info,omitempty" xml:"meta_info,omitempty"`
+	// 外部唯一标识。用于定位。
+	// 值为32位长度的字母数字组合前面几位字符是商户自定义的简称，中间可以使用一段时间，后段可以使用一个随机或递增序列
+	OuterOrderNo *string `json:"outer_order_no,omitempty" xml:"outer_order_no,omitempty" require:"true"`
+	// 回跳地址
+	ReturnUrl *string `json:"return_url,omitempty" xml:"return_url,omitempty"`
+	// 场景ID
+	SceneId *string `json:"scene_id,omitempty" xml:"scene_id,omitempty" require:"true"`
+	// 商户自定义的用户ID
+	UserId *string `json:"user_id,omitempty" xml:"user_id,omitempty"`
+	// 用户的IP
+	UserIp *string `json:"user_ip,omitempty" xml:"user_ip,omitempty"`
+	// 用户的手机号
+	UserMobile *string `json:"user_mobile,omitempty" xml:"user_mobile,omitempty"`
+	// callbackUrl回调时是否需要重试，默认false(不需要重试)
+	CallbackNeedRetry *bool `json:"callback_need_retry,omitempty" xml:"callback_need_retry,omitempty"`
+	// 活体检测的类型
+	Model *string `json:"model,omitempty" xml:"model,omitempty"`
+}
+
+func (s CreateFacevrfServerRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s CreateFacevrfServerRequest) GoString() string {
+	return s.String()
+}
+
+func (s *CreateFacevrfServerRequest) SetAuthToken(v string) *CreateFacevrfServerRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *CreateFacevrfServerRequest) SetProductInstanceId(v string) *CreateFacevrfServerRequest {
+	s.ProductInstanceId = &v
+	return s
+}
+
+func (s *CreateFacevrfServerRequest) SetBizCode(v string) *CreateFacevrfServerRequest {
+	s.BizCode = &v
+	return s
+}
+
+func (s *CreateFacevrfServerRequest) SetCallbackUrl(v string) *CreateFacevrfServerRequest {
+	s.CallbackUrl = &v
+	return s
+}
+
+func (s *CreateFacevrfServerRequest) SetCertName(v string) *CreateFacevrfServerRequest {
+	s.CertName = &v
+	return s
+}
+
+func (s *CreateFacevrfServerRequest) SetCertNo(v string) *CreateFacevrfServerRequest {
+	s.CertNo = &v
+	return s
+}
+
+func (s *CreateFacevrfServerRequest) SetEncType(v string) *CreateFacevrfServerRequest {
+	s.EncType = &v
+	return s
+}
+
+func (s *CreateFacevrfServerRequest) SetCertType(v string) *CreateFacevrfServerRequest {
+	s.CertType = &v
+	return s
+}
+
+func (s *CreateFacevrfServerRequest) SetExternParam(v string) *CreateFacevrfServerRequest {
+	s.ExternParam = &v
+	return s
+}
+
+func (s *CreateFacevrfServerRequest) SetFacialPictureRef(v string) *CreateFacevrfServerRequest {
+	s.FacialPictureRef = &v
+	return s
+}
+
+func (s *CreateFacevrfServerRequest) SetIdentityType(v string) *CreateFacevrfServerRequest {
+	s.IdentityType = &v
+	return s
+}
+
+func (s *CreateFacevrfServerRequest) SetMetaInfo(v string) *CreateFacevrfServerRequest {
+	s.MetaInfo = &v
+	return s
+}
+
+func (s *CreateFacevrfServerRequest) SetOuterOrderNo(v string) *CreateFacevrfServerRequest {
+	s.OuterOrderNo = &v
+	return s
+}
+
+func (s *CreateFacevrfServerRequest) SetReturnUrl(v string) *CreateFacevrfServerRequest {
+	s.ReturnUrl = &v
+	return s
+}
+
+func (s *CreateFacevrfServerRequest) SetSceneId(v string) *CreateFacevrfServerRequest {
+	s.SceneId = &v
+	return s
+}
+
+func (s *CreateFacevrfServerRequest) SetUserId(v string) *CreateFacevrfServerRequest {
+	s.UserId = &v
+	return s
+}
+
+func (s *CreateFacevrfServerRequest) SetUserIp(v string) *CreateFacevrfServerRequest {
+	s.UserIp = &v
+	return s
+}
+
+func (s *CreateFacevrfServerRequest) SetUserMobile(v string) *CreateFacevrfServerRequest {
+	s.UserMobile = &v
+	return s
+}
+
+func (s *CreateFacevrfServerRequest) SetCallbackNeedRetry(v bool) *CreateFacevrfServerRequest {
+	s.CallbackNeedRetry = &v
+	return s
+}
+
+func (s *CreateFacevrfServerRequest) SetModel(v string) *CreateFacevrfServerRequest {
+	s.Model = &v
+	return s
+}
+
+type CreateFacevrfServerResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// 实人认证唯一标识
+	CertifyId *string `json:"certify_id,omitempty" xml:"certify_id,omitempty"`
+	// 认证地址。只在特定场景返回。
+	CertifyUrl *string `json:"certify_url,omitempty" xml:"certify_url,omitempty"`
+}
+
+func (s CreateFacevrfServerResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s CreateFacevrfServerResponse) GoString() string {
+	return s.String()
+}
+
+func (s *CreateFacevrfServerResponse) SetReqMsgId(v string) *CreateFacevrfServerResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *CreateFacevrfServerResponse) SetResultCode(v string) *CreateFacevrfServerResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *CreateFacevrfServerResponse) SetResultMsg(v string) *CreateFacevrfServerResponse {
+	s.ResultMsg = &v
+	return s
+}
+
+func (s *CreateFacevrfServerResponse) SetCertifyId(v string) *CreateFacevrfServerResponse {
+	s.CertifyId = &v
+	return s
+}
+
+func (s *CreateFacevrfServerResponse) SetCertifyUrl(v string) *CreateFacevrfServerResponse {
+	s.CertifyUrl = &v
+	return s
+}
+
+type ExecFacevrfServerRequest struct {
+	// OAuth模式下的授权token
+	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
+	// 真实姓名
+	CertName *string `json:"cert_name,omitempty" xml:"cert_name,omitempty" require:"true"`
+	// 证件号码
+	CertNo *string `json:"cert_no,omitempty" xml:"cert_no,omitempty" require:"true"`
+	// cert_name、cert_no两个字段的传入模式0：明文1：密文
+	EncType *string `json:"enc_type,omitempty" xml:"enc_type,omitempty"`
+	// 证件类型，如身份证
+	CertType *string `json:"cert_type,omitempty" xml:"cert_type,omitempty" require:"true"`
+	// 预留扩展参数
+	ExternParam *string `json:"extern_param,omitempty" xml:"extern_param,omitempty"`
+	// 自定义比对源人脸图像，base64编码格式
+	FacialPictureRef *string `json:"facial_picture_ref,omitempty" xml:"facial_picture_ref,omitempty"`
+	// 身份信息来源类型，如证件
+	IdentityType *string `json:"identity_type,omitempty" xml:"identity_type,omitempty" require:"true"`
+	// 外部唯一标识。用于定位。 值为32位长度的字母数字组合前面几位字符是商户自定义的简称，中间可以使用一段时间，后段可以使用一个随机或递增序列
+	OuterOrderNo *string `json:"outer_order_no,omitempty" xml:"outer_order_no,omitempty" require:"true"`
+	// 场景ID
+	SceneId *string `json:"scene_id,omitempty" xml:"scene_id,omitempty" require:"true"`
+	// 商户自定义的用户ID
+	UserId *string `json:"user_id,omitempty" xml:"user_id,omitempty"`
+	// 用户的IP
+	UserIp *string `json:"user_ip,omitempty" xml:"user_ip,omitempty"`
+	// 用户的手机号（或其哈希值）
+	UserMobile *string `json:"user_mobile,omitempty" xml:"user_mobile,omitempty"`
+	// 待认证的人脸图像，base64编码格式
+	FacialPictureAuth *string `json:"facial_picture_auth,omitempty" xml:"facial_picture_auth,omitempty" require:"true"`
+}
+
+func (s ExecFacevrfServerRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s ExecFacevrfServerRequest) GoString() string {
+	return s.String()
+}
+
+func (s *ExecFacevrfServerRequest) SetAuthToken(v string) *ExecFacevrfServerRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *ExecFacevrfServerRequest) SetProductInstanceId(v string) *ExecFacevrfServerRequest {
+	s.ProductInstanceId = &v
+	return s
+}
+
+func (s *ExecFacevrfServerRequest) SetCertName(v string) *ExecFacevrfServerRequest {
+	s.CertName = &v
+	return s
+}
+
+func (s *ExecFacevrfServerRequest) SetCertNo(v string) *ExecFacevrfServerRequest {
+	s.CertNo = &v
+	return s
+}
+
+func (s *ExecFacevrfServerRequest) SetEncType(v string) *ExecFacevrfServerRequest {
+	s.EncType = &v
+	return s
+}
+
+func (s *ExecFacevrfServerRequest) SetCertType(v string) *ExecFacevrfServerRequest {
+	s.CertType = &v
+	return s
+}
+
+func (s *ExecFacevrfServerRequest) SetExternParam(v string) *ExecFacevrfServerRequest {
+	s.ExternParam = &v
+	return s
+}
+
+func (s *ExecFacevrfServerRequest) SetFacialPictureRef(v string) *ExecFacevrfServerRequest {
+	s.FacialPictureRef = &v
+	return s
+}
+
+func (s *ExecFacevrfServerRequest) SetIdentityType(v string) *ExecFacevrfServerRequest {
+	s.IdentityType = &v
+	return s
+}
+
+func (s *ExecFacevrfServerRequest) SetOuterOrderNo(v string) *ExecFacevrfServerRequest {
+	s.OuterOrderNo = &v
+	return s
+}
+
+func (s *ExecFacevrfServerRequest) SetSceneId(v string) *ExecFacevrfServerRequest {
+	s.SceneId = &v
+	return s
+}
+
+func (s *ExecFacevrfServerRequest) SetUserId(v string) *ExecFacevrfServerRequest {
+	s.UserId = &v
+	return s
+}
+
+func (s *ExecFacevrfServerRequest) SetUserIp(v string) *ExecFacevrfServerRequest {
+	s.UserIp = &v
+	return s
+}
+
+func (s *ExecFacevrfServerRequest) SetUserMobile(v string) *ExecFacevrfServerRequest {
+	s.UserMobile = &v
+	return s
+}
+
+func (s *ExecFacevrfServerRequest) SetFacialPictureAuth(v string) *ExecFacevrfServerRequest {
+	s.FacialPictureAuth = &v
+	return s
+}
+
+type ExecFacevrfServerResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// 认证ID
+	CertifyId *string `json:"certify_id,omitempty" xml:"certify_id,omitempty"`
+	// 是否通过，通过为T，不通过为F
+	Passed *string `json:"passed,omitempty" xml:"passed,omitempty"`
+	// 业务失败原因
+	Reason *string `json:"reason,omitempty" xml:"reason,omitempty"`
+	// 认证主体附件信息，包含共计类型等
+	MaterialInfo *string `json:"material_info,omitempty" xml:"material_info,omitempty"`
+}
+
+func (s ExecFacevrfServerResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s ExecFacevrfServerResponse) GoString() string {
+	return s.String()
+}
+
+func (s *ExecFacevrfServerResponse) SetReqMsgId(v string) *ExecFacevrfServerResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *ExecFacevrfServerResponse) SetResultCode(v string) *ExecFacevrfServerResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *ExecFacevrfServerResponse) SetResultMsg(v string) *ExecFacevrfServerResponse {
+	s.ResultMsg = &v
+	return s
+}
+
+func (s *ExecFacevrfServerResponse) SetCertifyId(v string) *ExecFacevrfServerResponse {
+	s.CertifyId = &v
+	return s
+}
+
+func (s *ExecFacevrfServerResponse) SetPassed(v string) *ExecFacevrfServerResponse {
+	s.Passed = &v
+	return s
+}
+
+func (s *ExecFacevrfServerResponse) SetReason(v string) *ExecFacevrfServerResponse {
+	s.Reason = &v
+	return s
+}
+
+func (s *ExecFacevrfServerResponse) SetMaterialInfo(v string) *ExecFacevrfServerResponse {
+	s.MaterialInfo = &v
+	return s
+}
+
+type GetFacevrfEvidenceRequest struct {
+	// OAuth模式下的授权token
+	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
+	// 某次刷脸的certifyId
+	CertifyId *string `json:"certify_id,omitempty" xml:"certify_id,omitempty" require:"true"`
+}
+
+func (s GetFacevrfEvidenceRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s GetFacevrfEvidenceRequest) GoString() string {
+	return s.String()
+}
+
+func (s *GetFacevrfEvidenceRequest) SetAuthToken(v string) *GetFacevrfEvidenceRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *GetFacevrfEvidenceRequest) SetProductInstanceId(v string) *GetFacevrfEvidenceRequest {
+	s.ProductInstanceId = &v
+	return s
+}
+
+func (s *GetFacevrfEvidenceRequest) SetCertifyId(v string) *GetFacevrfEvidenceRequest {
+	s.CertifyId = &v
+	return s
+}
+
+type GetFacevrfEvidenceResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// 刷脸的certifyId，原样返回
+	CertifyId *string `json:"certify_id,omitempty" xml:"certify_id,omitempty"`
+	// 统一证据ID，非SUCCESS状态为null，可在控制台中持统一证据ID验证pdf文件的正确性，法院方也可用此统一证据ID在司法链控制台进行核验pdf文件的正确性。
+	OnchainId *string `json:"onchain_id,omitempty" xml:"onchain_id,omitempty"`
+	// 上链状态，`SUCCESS`表示成功、`INIT`表示正在上链
+	OnchainStatus *string `json:"onchain_status,omitempty" xml:"onchain_status,omitempty"`
+	// pdf存证是否已经过期，不支持超过6个月的存证获取
+	PdfExpired *bool `json:"pdf_expired,omitempty" xml:"pdf_expired,omitempty"`
+	// 存证pdf文件内容的base64
+	PdfContent *string `json:"pdf_content,omitempty" xml:"pdf_content,omitempty"`
+}
+
+func (s GetFacevrfEvidenceResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s GetFacevrfEvidenceResponse) GoString() string {
+	return s.String()
+}
+
+func (s *GetFacevrfEvidenceResponse) SetReqMsgId(v string) *GetFacevrfEvidenceResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *GetFacevrfEvidenceResponse) SetResultCode(v string) *GetFacevrfEvidenceResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *GetFacevrfEvidenceResponse) SetResultMsg(v string) *GetFacevrfEvidenceResponse {
+	s.ResultMsg = &v
+	return s
+}
+
+func (s *GetFacevrfEvidenceResponse) SetCertifyId(v string) *GetFacevrfEvidenceResponse {
+	s.CertifyId = &v
+	return s
+}
+
+func (s *GetFacevrfEvidenceResponse) SetOnchainId(v string) *GetFacevrfEvidenceResponse {
+	s.OnchainId = &v
+	return s
+}
+
+func (s *GetFacevrfEvidenceResponse) SetOnchainStatus(v string) *GetFacevrfEvidenceResponse {
+	s.OnchainStatus = &v
+	return s
+}
+
+func (s *GetFacevrfEvidenceResponse) SetPdfExpired(v bool) *GetFacevrfEvidenceResponse {
+	s.PdfExpired = &v
+	return s
+}
+
+func (s *GetFacevrfEvidenceResponse) SetPdfContent(v string) *GetFacevrfEvidenceResponse {
+	s.PdfContent = &v
+	return s
+}
+
+type CheckIndividualidTwometaRequest struct {
+	// OAuth模式下的授权token
+	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
+	// 外部唯一标识。用于定位。 值为32位长度的字母数字组合前面几位字符是商户自定义的简称，中间可以使用一段时间，后段可以使用一个随机或递增序列
+	OuterOrderNo *string `json:"outer_order_no,omitempty" xml:"outer_order_no,omitempty" require:"true"`
+	// 姓名
+	CertName *string `json:"cert_name,omitempty" xml:"cert_name,omitempty" require:"true"`
+	// 身份证号码
+	CertNo *string `json:"cert_no,omitempty" xml:"cert_no,omitempty" require:"true"`
+	// map结果的json数据格式，预留字段
+	ExternParam *string `json:"extern_param,omitempty" xml:"extern_param,omitempty"`
+}
+
+func (s CheckIndividualidTwometaRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s CheckIndividualidTwometaRequest) GoString() string {
+	return s.String()
+}
+
+func (s *CheckIndividualidTwometaRequest) SetAuthToken(v string) *CheckIndividualidTwometaRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *CheckIndividualidTwometaRequest) SetProductInstanceId(v string) *CheckIndividualidTwometaRequest {
+	s.ProductInstanceId = &v
+	return s
+}
+
+func (s *CheckIndividualidTwometaRequest) SetOuterOrderNo(v string) *CheckIndividualidTwometaRequest {
+	s.OuterOrderNo = &v
+	return s
+}
+
+func (s *CheckIndividualidTwometaRequest) SetCertName(v string) *CheckIndividualidTwometaRequest {
+	s.CertName = &v
+	return s
+}
+
+func (s *CheckIndividualidTwometaRequest) SetCertNo(v string) *CheckIndividualidTwometaRequest {
+	s.CertNo = &v
+	return s
+}
+
+func (s *CheckIndividualidTwometaRequest) SetExternParam(v string) *CheckIndividualidTwometaRequest {
+	s.ExternParam = &v
+	return s
+}
+
+type CheckIndividualidTwometaResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// true:匹配成功  false：匹配失败
+	Match *string `json:"match,omitempty" xml:"match,omitempty"`
+	// 户籍状态
+	Residency *string `json:"residency,omitempty" xml:"residency,omitempty"`
+	// 扩展信息，预留字段
+	ExternInfo *string `json:"extern_info,omitempty" xml:"extern_info,omitempty"`
+}
+
+func (s CheckIndividualidTwometaResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s CheckIndividualidTwometaResponse) GoString() string {
+	return s.String()
+}
+
+func (s *CheckIndividualidTwometaResponse) SetReqMsgId(v string) *CheckIndividualidTwometaResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *CheckIndividualidTwometaResponse) SetResultCode(v string) *CheckIndividualidTwometaResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *CheckIndividualidTwometaResponse) SetResultMsg(v string) *CheckIndividualidTwometaResponse {
+	s.ResultMsg = &v
+	return s
+}
+
+func (s *CheckIndividualidTwometaResponse) SetMatch(v string) *CheckIndividualidTwometaResponse {
+	s.Match = &v
+	return s
+}
+
+func (s *CheckIndividualidTwometaResponse) SetResidency(v string) *CheckIndividualidTwometaResponse {
+	s.Residency = &v
+	return s
+}
+
+func (s *CheckIndividualidTwometaResponse) SetExternInfo(v string) *CheckIndividualidTwometaResponse {
+	s.ExternInfo = &v
+	return s
+}
+
+type CheckIndividualidThreemetaRequest struct {
+	// OAuth模式下的授权token
+	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
+	// 外部唯一标识。用于定位。 值为32位长度的字母数字组合前面几位字符是商户自定义的简称，中间可以使用一段时间，后段可以使用一个随机或递增序列
+	OuterOrderNo *string `json:"outer_order_no,omitempty" xml:"outer_order_no,omitempty" require:"true"`
+	// 姓名
+	CertName *string `json:"cert_name,omitempty" xml:"cert_name,omitempty" require:"true"`
+	// 身份证号码
+	CertNo *string `json:"cert_no,omitempty" xml:"cert_no,omitempty" require:"true"`
+	// 手机号码
+	Mobile *string `json:"mobile,omitempty" xml:"mobile,omitempty" require:"true"`
+	// map结果的json数据格式，预留字段
+	//
+	ExternParam *string `json:"extern_param,omitempty" xml:"extern_param,omitempty"`
+}
+
+func (s CheckIndividualidThreemetaRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s CheckIndividualidThreemetaRequest) GoString() string {
+	return s.String()
+}
+
+func (s *CheckIndividualidThreemetaRequest) SetAuthToken(v string) *CheckIndividualidThreemetaRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *CheckIndividualidThreemetaRequest) SetProductInstanceId(v string) *CheckIndividualidThreemetaRequest {
+	s.ProductInstanceId = &v
+	return s
+}
+
+func (s *CheckIndividualidThreemetaRequest) SetOuterOrderNo(v string) *CheckIndividualidThreemetaRequest {
+	s.OuterOrderNo = &v
+	return s
+}
+
+func (s *CheckIndividualidThreemetaRequest) SetCertName(v string) *CheckIndividualidThreemetaRequest {
+	s.CertName = &v
+	return s
+}
+
+func (s *CheckIndividualidThreemetaRequest) SetCertNo(v string) *CheckIndividualidThreemetaRequest {
+	s.CertNo = &v
+	return s
+}
+
+func (s *CheckIndividualidThreemetaRequest) SetMobile(v string) *CheckIndividualidThreemetaRequest {
+	s.Mobile = &v
+	return s
+}
+
+func (s *CheckIndividualidThreemetaRequest) SetExternParam(v string) *CheckIndividualidThreemetaRequest {
+	s.ExternParam = &v
+	return s
+}
+
+type CheckIndividualidThreemetaResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// true:匹配成功 false：匹配失败
+	Match *string `json:"match,omitempty" xml:"match,omitempty"`
+	// 扩展信息，预留字段
+	//
+	ExternInfo *string `json:"extern_info,omitempty" xml:"extern_info,omitempty"`
+}
+
+func (s CheckIndividualidThreemetaResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s CheckIndividualidThreemetaResponse) GoString() string {
+	return s.String()
+}
+
+func (s *CheckIndividualidThreemetaResponse) SetReqMsgId(v string) *CheckIndividualidThreemetaResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *CheckIndividualidThreemetaResponse) SetResultCode(v string) *CheckIndividualidThreemetaResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *CheckIndividualidThreemetaResponse) SetResultMsg(v string) *CheckIndividualidThreemetaResponse {
+	s.ResultMsg = &v
+	return s
+}
+
+func (s *CheckIndividualidThreemetaResponse) SetMatch(v string) *CheckIndividualidThreemetaResponse {
+	s.Match = &v
+	return s
+}
+
+func (s *CheckIndividualidThreemetaResponse) SetExternInfo(v string) *CheckIndividualidThreemetaResponse {
+	s.ExternInfo = &v
+	return s
+}
+
+type CheckIndividualidFourmetaRequest struct {
+	// OAuth模式下的授权token
+	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
+	// 外部唯一标识。用于定位。 值为32位长度的字母数字组合前面几位字符是商户自定义的简称，中间可以使用一段时间，后段可以使用一个随机或递增序列
+	OuterOrderNo *string `json:"outer_order_no,omitempty" xml:"outer_order_no,omitempty" require:"true"`
+	// 姓名
+	//
+	CertName *string `json:"cert_name,omitempty" xml:"cert_name,omitempty" require:"true"`
+	// 身份证号码
+	CertNo *string `json:"cert_no,omitempty" xml:"cert_no,omitempty" require:"true"`
+	// 手机号码
+	Mobile *string `json:"mobile,omitempty" xml:"mobile,omitempty" require:"true"`
+	// 银行卡号
+	BankCard *string `json:"bank_card,omitempty" xml:"bank_card,omitempty" require:"true"`
+	// map结果的json数据格式，预留字段
+	//
+	ExternParam *string `json:"extern_param,omitempty" xml:"extern_param,omitempty"`
+	// 证件类型： 1：居民身份证（默认值） 2：军官证 3：护照 4：回乡证 5：台胞证 6：警官证 7：士兵证 99：其他
+	CertType *string `json:"cert_type,omitempty" xml:"cert_type,omitempty"`
+	// 入参加密模式：NONE：不加密；AES：姓名、身份证号、手机号码字段都是AES加密后的字符串。非必填，不填时默认明文
+	ReqEncType *string `json:"req_enc_type,omitempty" xml:"req_enc_type,omitempty"`
+	// 用于入参加密的AES密钥
+	EncToken *string `json:"enc_token,omitempty" xml:"enc_token,omitempty"`
+}
+
+func (s CheckIndividualidFourmetaRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s CheckIndividualidFourmetaRequest) GoString() string {
+	return s.String()
+}
+
+func (s *CheckIndividualidFourmetaRequest) SetAuthToken(v string) *CheckIndividualidFourmetaRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *CheckIndividualidFourmetaRequest) SetProductInstanceId(v string) *CheckIndividualidFourmetaRequest {
+	s.ProductInstanceId = &v
+	return s
+}
+
+func (s *CheckIndividualidFourmetaRequest) SetOuterOrderNo(v string) *CheckIndividualidFourmetaRequest {
+	s.OuterOrderNo = &v
+	return s
+}
+
+func (s *CheckIndividualidFourmetaRequest) SetCertName(v string) *CheckIndividualidFourmetaRequest {
+	s.CertName = &v
+	return s
+}
+
+func (s *CheckIndividualidFourmetaRequest) SetCertNo(v string) *CheckIndividualidFourmetaRequest {
+	s.CertNo = &v
+	return s
+}
+
+func (s *CheckIndividualidFourmetaRequest) SetMobile(v string) *CheckIndividualidFourmetaRequest {
+	s.Mobile = &v
+	return s
+}
+
+func (s *CheckIndividualidFourmetaRequest) SetBankCard(v string) *CheckIndividualidFourmetaRequest {
+	s.BankCard = &v
+	return s
+}
+
+func (s *CheckIndividualidFourmetaRequest) SetExternParam(v string) *CheckIndividualidFourmetaRequest {
+	s.ExternParam = &v
+	return s
+}
+
+func (s *CheckIndividualidFourmetaRequest) SetCertType(v string) *CheckIndividualidFourmetaRequest {
+	s.CertType = &v
+	return s
+}
+
+func (s *CheckIndividualidFourmetaRequest) SetReqEncType(v string) *CheckIndividualidFourmetaRequest {
+	s.ReqEncType = &v
+	return s
+}
+
+func (s *CheckIndividualidFourmetaRequest) SetEncToken(v string) *CheckIndividualidFourmetaRequest {
+	s.EncToken = &v
+	return s
+}
+
+type CheckIndividualidFourmetaResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// true:匹配成功 false：匹配失败
+	//
+	Match *string `json:"match,omitempty" xml:"match,omitempty"`
+	// 扩展信息，预留字段
+	//
+	ExternInfo *string `json:"extern_info,omitempty" xml:"extern_info,omitempty"`
+}
+
+func (s CheckIndividualidFourmetaResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s CheckIndividualidFourmetaResponse) GoString() string {
+	return s.String()
+}
+
+func (s *CheckIndividualidFourmetaResponse) SetReqMsgId(v string) *CheckIndividualidFourmetaResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *CheckIndividualidFourmetaResponse) SetResultCode(v string) *CheckIndividualidFourmetaResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *CheckIndividualidFourmetaResponse) SetResultMsg(v string) *CheckIndividualidFourmetaResponse {
+	s.ResultMsg = &v
+	return s
+}
+
+func (s *CheckIndividualidFourmetaResponse) SetMatch(v string) *CheckIndividualidFourmetaResponse {
+	s.Match = &v
+	return s
+}
+
+func (s *CheckIndividualidFourmetaResponse) SetExternInfo(v string) *CheckIndividualidFourmetaResponse {
+	s.ExternInfo = &v
+	return s
+}
+
+type CheckRouteThreemetaRequest struct {
+	// OAuth模式下的授权token
+	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
+	// 外部唯一标识。用于定位。 值为32位长度的字母数字组合前面几位字符是商户自定义的简称，中间可以使用一段时间，后段可以使用一个随机或递增序列
+	OuterOrderNo *string `json:"outer_order_no,omitempty" xml:"outer_order_no,omitempty" require:"true"`
+	// 姓名
+	CertName *string `json:"cert_name,omitempty" xml:"cert_name,omitempty" require:"true"`
+	// 身份证号
+	CertNo *string `json:"cert_no,omitempty" xml:"cert_no,omitempty" require:"true"`
+	// 手机号
+	Mobile *string `json:"mobile,omitempty" xml:"mobile,omitempty" require:"true"`
+	// 使用场景
+	Scene *string `json:"scene,omitempty" xml:"scene,omitempty" require:"true"`
+	// 三要素的加密方式，NONE/MD5/SHA256
+	ReqEncType *string `json:"req_enc_type,omitempty" xml:"req_enc_type,omitempty"`
+	// map结果的json数据格式，预留字段
+	ExternParam *string `json:"extern_param,omitempty" xml:"extern_param,omitempty"`
+}
+
+func (s CheckRouteThreemetaRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s CheckRouteThreemetaRequest) GoString() string {
+	return s.String()
+}
+
+func (s *CheckRouteThreemetaRequest) SetAuthToken(v string) *CheckRouteThreemetaRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *CheckRouteThreemetaRequest) SetProductInstanceId(v string) *CheckRouteThreemetaRequest {
+	s.ProductInstanceId = &v
+	return s
+}
+
+func (s *CheckRouteThreemetaRequest) SetOuterOrderNo(v string) *CheckRouteThreemetaRequest {
+	s.OuterOrderNo = &v
+	return s
+}
+
+func (s *CheckRouteThreemetaRequest) SetCertName(v string) *CheckRouteThreemetaRequest {
+	s.CertName = &v
+	return s
+}
+
+func (s *CheckRouteThreemetaRequest) SetCertNo(v string) *CheckRouteThreemetaRequest {
+	s.CertNo = &v
+	return s
+}
+
+func (s *CheckRouteThreemetaRequest) SetMobile(v string) *CheckRouteThreemetaRequest {
+	s.Mobile = &v
+	return s
+}
+
+func (s *CheckRouteThreemetaRequest) SetScene(v string) *CheckRouteThreemetaRequest {
+	s.Scene = &v
+	return s
+}
+
+func (s *CheckRouteThreemetaRequest) SetReqEncType(v string) *CheckRouteThreemetaRequest {
+	s.ReqEncType = &v
+	return s
+}
+
+func (s *CheckRouteThreemetaRequest) SetExternParam(v string) *CheckRouteThreemetaRequest {
+	s.ExternParam = &v
+	return s
+}
+
+type CheckRouteThreemetaResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// true:匹配成功 false：匹配失败
+	Match *string `json:"match,omitempty" xml:"match,omitempty"`
+	// CHINA_TELECOM：中国电信
+	// CHINA_MOBILE：中国移动
+	// CHINA_UNICOM：中国联通
+	Carrier *string `json:"carrier,omitempty" xml:"carrier,omitempty"`
+	// 扩展信息，预留字段
+	ExternInfo *string `json:"extern_info,omitempty" xml:"extern_info,omitempty"`
+}
+
+func (s CheckRouteThreemetaResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s CheckRouteThreemetaResponse) GoString() string {
+	return s.String()
+}
+
+func (s *CheckRouteThreemetaResponse) SetReqMsgId(v string) *CheckRouteThreemetaResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *CheckRouteThreemetaResponse) SetResultCode(v string) *CheckRouteThreemetaResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *CheckRouteThreemetaResponse) SetResultMsg(v string) *CheckRouteThreemetaResponse {
+	s.ResultMsg = &v
+	return s
+}
+
+func (s *CheckRouteThreemetaResponse) SetMatch(v string) *CheckRouteThreemetaResponse {
+	s.Match = &v
+	return s
+}
+
+func (s *CheckRouteThreemetaResponse) SetCarrier(v string) *CheckRouteThreemetaResponse {
+	s.Carrier = &v
+	return s
+}
+
+func (s *CheckRouteThreemetaResponse) SetExternInfo(v string) *CheckRouteThreemetaResponse {
+	s.ExternInfo = &v
+	return s
+}
+
+type CreateVoiceprintServermodeRequest struct {
+	// OAuth模式下的授权token
+	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
+	// 外部唯一标识。用于定位。 值为32位长度的字母数字组合前面几位字符是商户自定义的简称，中间可以使用一段时间，后段可以使用一个随机或递增序列
+	OuterOrderNo *string `json:"outer_order_no,omitempty" xml:"outer_order_no,omitempty" require:"true"`
+	// 商户自定义的用户ID
+	UserId *string `json:"user_id,omitempty" xml:"user_id,omitempty" require:"true"`
+	// 音频文件流
+	// 待上传文件
+	FileObject io.Reader `json:"fileObject,omitempty" xml:"fileObject,omitempty"`
+	// 待上传文件名
+	FileObjectName *string `json:"fileObjectName,omitempty" xml:"fileObjectName,omitempty"`
+	FileId         *string `json:"file_id,omitempty" xml:"file_id,omitempty"`
+	// 音频元数据
+	AudioMeta *AudioMeta `json:"audio_meta,omitempty" xml:"audio_meta,omitempty" require:"true"`
+	// 音频文件集合
+	Audios []*Audio `json:"audios,omitempty" xml:"audios,omitempty" require:"true" type:"Repeated"`
+	// 预留扩展参数
+	ExternParam *string `json:"extern_param,omitempty" xml:"extern_param,omitempty"`
+}
+
+func (s CreateVoiceprintServermodeRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s CreateVoiceprintServermodeRequest) GoString() string {
+	return s.String()
+}
+
+func (s *CreateVoiceprintServermodeRequest) SetAuthToken(v string) *CreateVoiceprintServermodeRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *CreateVoiceprintServermodeRequest) SetProductInstanceId(v string) *CreateVoiceprintServermodeRequest {
+	s.ProductInstanceId = &v
+	return s
+}
+
+func (s *CreateVoiceprintServermodeRequest) SetOuterOrderNo(v string) *CreateVoiceprintServermodeRequest {
+	s.OuterOrderNo = &v
+	return s
+}
+
+func (s *CreateVoiceprintServermodeRequest) SetUserId(v string) *CreateVoiceprintServermodeRequest {
+	s.UserId = &v
+	return s
+}
+
+func (s *CreateVoiceprintServermodeRequest) SetFileObject(v io.Reader) *CreateVoiceprintServermodeRequest {
+	s.FileObject = v
+	return s
+}
+
+func (s *CreateVoiceprintServermodeRequest) SetFileObjectName(v string) *CreateVoiceprintServermodeRequest {
+	s.FileObjectName = &v
+	return s
+}
+
+func (s *CreateVoiceprintServermodeRequest) SetFileId(v string) *CreateVoiceprintServermodeRequest {
+	s.FileId = &v
+	return s
+}
+
+func (s *CreateVoiceprintServermodeRequest) SetAudioMeta(v *AudioMeta) *CreateVoiceprintServermodeRequest {
+	s.AudioMeta = v
+	return s
+}
+
+func (s *CreateVoiceprintServermodeRequest) SetAudios(v []*Audio) *CreateVoiceprintServermodeRequest {
+	s.Audios = v
+	return s
+}
+
+func (s *CreateVoiceprintServermodeRequest) SetExternParam(v string) *CreateVoiceprintServermodeRequest {
+	s.ExternParam = &v
+	return s
+}
+
+type CreateVoiceprintServermodeResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// 扩展信息，预留字段
+	ExternInfo *string `json:"extern_info,omitempty" xml:"extern_info,omitempty"`
+	// 产品结果明细，不影响决策
+	ResultCodeSub *string `json:"result_code_sub,omitempty" xml:"result_code_sub,omitempty"`
+	// result_code_sub对应的文案
+	ResultMsgSub *string `json:"result_msg_sub,omitempty" xml:"result_msg_sub,omitempty"`
+}
+
+func (s CreateVoiceprintServermodeResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s CreateVoiceprintServermodeResponse) GoString() string {
+	return s.String()
+}
+
+func (s *CreateVoiceprintServermodeResponse) SetReqMsgId(v string) *CreateVoiceprintServermodeResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *CreateVoiceprintServermodeResponse) SetResultCode(v string) *CreateVoiceprintServermodeResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *CreateVoiceprintServermodeResponse) SetResultMsg(v string) *CreateVoiceprintServermodeResponse {
+	s.ResultMsg = &v
+	return s
+}
+
+func (s *CreateVoiceprintServermodeResponse) SetExternInfo(v string) *CreateVoiceprintServermodeResponse {
+	s.ExternInfo = &v
+	return s
+}
+
+func (s *CreateVoiceprintServermodeResponse) SetResultCodeSub(v string) *CreateVoiceprintServermodeResponse {
+	s.ResultCodeSub = &v
+	return s
+}
+
+func (s *CreateVoiceprintServermodeResponse) SetResultMsgSub(v string) *CreateVoiceprintServermodeResponse {
+	s.ResultMsgSub = &v
+	return s
+}
+
+type VerifyVoiceprintServermodeRequest struct {
+	// OAuth模式下的授权token
+	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
+	// 外部唯一标识。用于定位。 值为32位长度的字母数字组合前面几位字符是商户自定义的简称，中间可以使用一段时间，后段可以使用一个随机或递增序列
+	OuterOrderNo *string `json:"outer_order_no,omitempty" xml:"outer_order_no,omitempty" require:"true"`
+	// 商户自定义的用户ID
+	UserId *string `json:"user_id,omitempty" xml:"user_id,omitempty" require:"true"`
+	// 音频文件，base64编码格式
+	//
+	AudioAuth *string `json:"audio_auth,omitempty" xml:"audio_auth,omitempty"`
+	// 音频文件OSS地址
+	AudioUrl *string `json:"audio_url,omitempty" xml:"audio_url,omitempty"`
+	// 音频元数据
+	AudioMeta *AudioMeta `json:"audio_meta,omitempty" xml:"audio_meta,omitempty" require:"true"`
+	// 预留扩展参数
+	ExternParam *string `json:"extern_param,omitempty" xml:"extern_param,omitempty"`
+}
+
+func (s VerifyVoiceprintServermodeRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s VerifyVoiceprintServermodeRequest) GoString() string {
+	return s.String()
+}
+
+func (s *VerifyVoiceprintServermodeRequest) SetAuthToken(v string) *VerifyVoiceprintServermodeRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *VerifyVoiceprintServermodeRequest) SetProductInstanceId(v string) *VerifyVoiceprintServermodeRequest {
+	s.ProductInstanceId = &v
+	return s
+}
+
+func (s *VerifyVoiceprintServermodeRequest) SetOuterOrderNo(v string) *VerifyVoiceprintServermodeRequest {
+	s.OuterOrderNo = &v
+	return s
+}
+
+func (s *VerifyVoiceprintServermodeRequest) SetUserId(v string) *VerifyVoiceprintServermodeRequest {
+	s.UserId = &v
+	return s
+}
+
+func (s *VerifyVoiceprintServermodeRequest) SetAudioAuth(v string) *VerifyVoiceprintServermodeRequest {
+	s.AudioAuth = &v
+	return s
+}
+
+func (s *VerifyVoiceprintServermodeRequest) SetAudioUrl(v string) *VerifyVoiceprintServermodeRequest {
+	s.AudioUrl = &v
+	return s
+}
+
+func (s *VerifyVoiceprintServermodeRequest) SetAudioMeta(v *AudioMeta) *VerifyVoiceprintServermodeRequest {
+	s.AudioMeta = v
+	return s
+}
+
+func (s *VerifyVoiceprintServermodeRequest) SetExternParam(v string) *VerifyVoiceprintServermodeRequest {
+	s.ExternParam = &v
+	return s
+}
+
+type VerifyVoiceprintServermodeResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// 声纹认证唯一ID
+	CertifyId *string `json:"certify_id,omitempty" xml:"certify_id,omitempty"`
+	// 扩展信息，预留字段
+	ExternInfo *string `json:"extern_info,omitempty" xml:"extern_info,omitempty"`
+	// 产品结果明细，不影响决策
+	ResultCodeSub *string `json:"result_code_sub,omitempty" xml:"result_code_sub,omitempty"`
+	// result_code_sub对应的文案
+	ResultMsgSub *string `json:"result_msg_sub,omitempty" xml:"result_msg_sub,omitempty"`
+}
+
+func (s VerifyVoiceprintServermodeResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s VerifyVoiceprintServermodeResponse) GoString() string {
+	return s.String()
+}
+
+func (s *VerifyVoiceprintServermodeResponse) SetReqMsgId(v string) *VerifyVoiceprintServermodeResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *VerifyVoiceprintServermodeResponse) SetResultCode(v string) *VerifyVoiceprintServermodeResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *VerifyVoiceprintServermodeResponse) SetResultMsg(v string) *VerifyVoiceprintServermodeResponse {
+	s.ResultMsg = &v
+	return s
+}
+
+func (s *VerifyVoiceprintServermodeResponse) SetCertifyId(v string) *VerifyVoiceprintServermodeResponse {
+	s.CertifyId = &v
+	return s
+}
+
+func (s *VerifyVoiceprintServermodeResponse) SetExternInfo(v string) *VerifyVoiceprintServermodeResponse {
+	s.ExternInfo = &v
+	return s
+}
+
+func (s *VerifyVoiceprintServermodeResponse) SetResultCodeSub(v string) *VerifyVoiceprintServermodeResponse {
+	s.ResultCodeSub = &v
+	return s
+}
+
+func (s *VerifyVoiceprintServermodeResponse) SetResultMsgSub(v string) *VerifyVoiceprintServermodeResponse {
+	s.ResultMsgSub = &v
+	return s
+}
+
+type CheckRouteTwometaRequest struct {
+	// OAuth模式下的授权token
+	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
+	// 外部唯一标识。用于定位。 值为32位长度的字母数字组合前面几位字符是商户自定义的简称，中间可以使用一段时间，后段可以使用一个随机或递增序列
+	OuterOrderNo *string `json:"outer_order_no,omitempty" xml:"outer_order_no,omitempty" require:"true"`
+	// 姓名
+	CertName *string `json:"cert_name,omitempty" xml:"cert_name,omitempty" require:"true"`
+	// 身份证号
+	CertNo *string `json:"cert_no,omitempty" xml:"cert_no,omitempty" require:"true"`
+	// 使用场景（不再使用）
+	Scene *string `json:"scene,omitempty" xml:"scene,omitempty"`
+	// map结果的json数据格式，预留字段
+	//
+	ExternParam *string `json:"extern_param,omitempty" xml:"extern_param,omitempty"`
+	// 入参加密模式：NONE：不加密；AES：姓名、身份证号、手机号码字段都是AES加密后的字符串。非必填，不填时默认明文
+	ReqEncType *string `json:"req_enc_type,omitempty" xml:"req_enc_type,omitempty"`
+	// 用于入参加密的AES密钥
+	EncToken *string `json:"enc_token,omitempty" xml:"enc_token,omitempty"`
+}
+
+func (s CheckRouteTwometaRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s CheckRouteTwometaRequest) GoString() string {
+	return s.String()
+}
+
+func (s *CheckRouteTwometaRequest) SetAuthToken(v string) *CheckRouteTwometaRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *CheckRouteTwometaRequest) SetProductInstanceId(v string) *CheckRouteTwometaRequest {
+	s.ProductInstanceId = &v
+	return s
+}
+
+func (s *CheckRouteTwometaRequest) SetOuterOrderNo(v string) *CheckRouteTwometaRequest {
+	s.OuterOrderNo = &v
+	return s
+}
+
+func (s *CheckRouteTwometaRequest) SetCertName(v string) *CheckRouteTwometaRequest {
+	s.CertName = &v
+	return s
+}
+
+func (s *CheckRouteTwometaRequest) SetCertNo(v string) *CheckRouteTwometaRequest {
+	s.CertNo = &v
+	return s
+}
+
+func (s *CheckRouteTwometaRequest) SetScene(v string) *CheckRouteTwometaRequest {
+	s.Scene = &v
+	return s
+}
+
+func (s *CheckRouteTwometaRequest) SetExternParam(v string) *CheckRouteTwometaRequest {
+	s.ExternParam = &v
+	return s
+}
+
+func (s *CheckRouteTwometaRequest) SetReqEncType(v string) *CheckRouteTwometaRequest {
+	s.ReqEncType = &v
+	return s
+}
+
+func (s *CheckRouteTwometaRequest) SetEncToken(v string) *CheckRouteTwometaRequest {
+	s.EncToken = &v
+	return s
+}
+
+type CheckRouteTwometaResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// true:匹配成功 false：匹配失败
+	//
+	Match *string `json:"match,omitempty" xml:"match,omitempty"`
+	// 户籍状态
+	Residency *string `json:"residency,omitempty" xml:"residency,omitempty"`
+	// 扩展信息，预留字段
+	//
+	ExternInfo *string `json:"extern_info,omitempty" xml:"extern_info,omitempty"`
+}
+
+func (s CheckRouteTwometaResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s CheckRouteTwometaResponse) GoString() string {
+	return s.String()
+}
+
+func (s *CheckRouteTwometaResponse) SetReqMsgId(v string) *CheckRouteTwometaResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *CheckRouteTwometaResponse) SetResultCode(v string) *CheckRouteTwometaResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *CheckRouteTwometaResponse) SetResultMsg(v string) *CheckRouteTwometaResponse {
+	s.ResultMsg = &v
+	return s
+}
+
+func (s *CheckRouteTwometaResponse) SetMatch(v string) *CheckRouteTwometaResponse {
+	s.Match = &v
+	return s
+}
+
+func (s *CheckRouteTwometaResponse) SetResidency(v string) *CheckRouteTwometaResponse {
+	s.Residency = &v
+	return s
+}
+
+func (s *CheckRouteTwometaResponse) SetExternInfo(v string) *CheckRouteTwometaResponse {
+	s.ExternInfo = &v
+	return s
+}
+
+type QueryMobileRiskRequest struct {
+	// OAuth模式下的授权token
+	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
+	// 外部唯一标识。用于定位。 值为32位长度的字母数字组合前面几位字符是商户自定义的简称，中间可以使用一段时间，后段可以使用一个随机或递增序列
+	OuterOrderNo *string `json:"outer_order_no,omitempty" xml:"outer_order_no,omitempty" require:"true"`
+	// 设备身份临时标识
+	ApdidToken *string `json:"apdid_token,omitempty" xml:"apdid_token,omitempty" require:"true"`
+	// 接口使用场景，不同场景下接口返回字段集合会有差异，可缺省
+	Scene *string `json:"scene,omitempty" xml:"scene,omitempty"`
+}
+
+func (s QueryMobileRiskRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s QueryMobileRiskRequest) GoString() string {
+	return s.String()
+}
+
+func (s *QueryMobileRiskRequest) SetAuthToken(v string) *QueryMobileRiskRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *QueryMobileRiskRequest) SetProductInstanceId(v string) *QueryMobileRiskRequest {
+	s.ProductInstanceId = &v
+	return s
+}
+
+func (s *QueryMobileRiskRequest) SetOuterOrderNo(v string) *QueryMobileRiskRequest {
+	s.OuterOrderNo = &v
+	return s
+}
+
+func (s *QueryMobileRiskRequest) SetApdidToken(v string) *QueryMobileRiskRequest {
+	s.ApdidToken = &v
+	return s
+}
+
+func (s *QueryMobileRiskRequest) SetScene(v string) *QueryMobileRiskRequest {
+	s.Scene = &v
+	return s
+}
+
+type QueryMobileRiskResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// 设备相关数据，默认只返回apdid，由Map<String,String>序列化
+	DeviceInfo *string `json:"device_info,omitempty" xml:"device_info,omitempty"`
+	// 设备风险标签，由Map<String,String>序列化
+	RiskInfo *string `json:"risk_info,omitempty" xml:"risk_info,omitempty"`
+}
+
+func (s QueryMobileRiskResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s QueryMobileRiskResponse) GoString() string {
+	return s.String()
+}
+
+func (s *QueryMobileRiskResponse) SetReqMsgId(v string) *QueryMobileRiskResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *QueryMobileRiskResponse) SetResultCode(v string) *QueryMobileRiskResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *QueryMobileRiskResponse) SetResultMsg(v string) *QueryMobileRiskResponse {
+	s.ResultMsg = &v
+	return s
+}
+
+func (s *QueryMobileRiskResponse) SetDeviceInfo(v string) *QueryMobileRiskResponse {
+	s.DeviceInfo = &v
+	return s
+}
+
+func (s *QueryMobileRiskResponse) SetRiskInfo(v string) *QueryMobileRiskResponse {
+	s.RiskInfo = &v
+	return s
+}
+
+type DetailFacevrfServerRequest struct {
+	// OAuth模式下的授权token
+	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
+	// 实人认证唯一标识
+	CertifyId *string `json:"certify_id,omitempty" xml:"certify_id,omitempty" require:"true"`
+	// 预留扩展业务参数
+	ExternParam *string `json:"extern_param,omitempty" xml:"extern_param,omitempty"`
+}
+
+func (s DetailFacevrfServerRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s DetailFacevrfServerRequest) GoString() string {
+	return s.String()
+}
+
+func (s *DetailFacevrfServerRequest) SetAuthToken(v string) *DetailFacevrfServerRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *DetailFacevrfServerRequest) SetProductInstanceId(v string) *DetailFacevrfServerRequest {
+	s.ProductInstanceId = &v
+	return s
+}
+
+func (s *DetailFacevrfServerRequest) SetCertifyId(v string) *DetailFacevrfServerRequest {
+	s.CertifyId = &v
+	return s
+}
+
+func (s *DetailFacevrfServerRequest) SetExternParam(v string) *DetailFacevrfServerRequest {
+	s.ExternParam = &v
+	return s
+}
+
+type DetailFacevrfServerResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// PASS：认证通过
+	// FAIL：认证不通过
+	// NO_RECODE：无认证记录
+	// PROCESSING：认证中
+	State *string `json:"state,omitempty" xml:"state,omitempty"`
+	// 认证人信息，包括姓名和身份证号，不加密
+	// state为PASS/FAIL/PROCESSING时为JSON字符串，为NO_RECORD时为空
+	IdentityInfo *string `json:"identity_info,omitempty" xml:"identity_info,omitempty"`
+	// 预留扩展结果
+	ExternInfo *string `json:"extern_info,omitempty" xml:"extern_info,omitempty"`
+}
+
+func (s DetailFacevrfServerResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s DetailFacevrfServerResponse) GoString() string {
+	return s.String()
+}
+
+func (s *DetailFacevrfServerResponse) SetReqMsgId(v string) *DetailFacevrfServerResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *DetailFacevrfServerResponse) SetResultCode(v string) *DetailFacevrfServerResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *DetailFacevrfServerResponse) SetResultMsg(v string) *DetailFacevrfServerResponse {
+	s.ResultMsg = &v
+	return s
+}
+
+func (s *DetailFacevrfServerResponse) SetState(v string) *DetailFacevrfServerResponse {
+	s.State = &v
+	return s
+}
+
+func (s *DetailFacevrfServerResponse) SetIdentityInfo(v string) *DetailFacevrfServerResponse {
+	s.IdentityInfo = &v
+	return s
+}
+
+func (s *DetailFacevrfServerResponse) SetExternInfo(v string) *DetailFacevrfServerResponse {
+	s.ExternInfo = &v
+	return s
+}
+
+type CheckAnticheatPersonalRequest struct {
+	// OAuth模式下的授权token
+	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
+	// 外部请求id
+	OuterOrderNo *string `json:"outer_order_no,omitempty" xml:"outer_order_no,omitempty" require:"true"`
+	// 主体姓名
+	CertName *string `json:"cert_name,omitempty" xml:"cert_name,omitempty"`
+	// 主体身份证号
+	CertNo *string `json:"cert_no,omitempty" xml:"cert_no,omitempty" require:"true"`
+	// 受雇企业
+	CompanyName *string `json:"company_name,omitempty" xml:"company_name,omitempty" require:"true"`
+	// 组织机构代码
+	CompanyNo *string `json:"company_no,omitempty" xml:"company_no,omitempty"`
+	// 扩展字段，json格式
+	ExternParam *string `json:"extern_param,omitempty" xml:"extern_param,omitempty"`
+}
+
+func (s CheckAnticheatPersonalRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s CheckAnticheatPersonalRequest) GoString() string {
+	return s.String()
+}
+
+func (s *CheckAnticheatPersonalRequest) SetAuthToken(v string) *CheckAnticheatPersonalRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *CheckAnticheatPersonalRequest) SetProductInstanceId(v string) *CheckAnticheatPersonalRequest {
+	s.ProductInstanceId = &v
+	return s
+}
+
+func (s *CheckAnticheatPersonalRequest) SetOuterOrderNo(v string) *CheckAnticheatPersonalRequest {
+	s.OuterOrderNo = &v
+	return s
+}
+
+func (s *CheckAnticheatPersonalRequest) SetCertName(v string) *CheckAnticheatPersonalRequest {
+	s.CertName = &v
+	return s
+}
+
+func (s *CheckAnticheatPersonalRequest) SetCertNo(v string) *CheckAnticheatPersonalRequest {
+	s.CertNo = &v
+	return s
+}
+
+func (s *CheckAnticheatPersonalRequest) SetCompanyName(v string) *CheckAnticheatPersonalRequest {
+	s.CompanyName = &v
+	return s
+}
+
+func (s *CheckAnticheatPersonalRequest) SetCompanyNo(v string) *CheckAnticheatPersonalRequest {
+	s.CompanyNo = &v
+	return s
+}
+
+func (s *CheckAnticheatPersonalRequest) SetExternParam(v string) *CheckAnticheatPersonalRequest {
+	s.ExternParam = &v
+	return s
+}
+
+type CheckAnticheatPersonalResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// 风险等级
+	RiskLevel *string `json:"risk_level,omitempty" xml:"risk_level,omitempty"`
+	// 风险等级文字描述
+	RiskLevelDesc *string `json:"risk_level_desc,omitempty" xml:"risk_level_desc,omitempty"`
+	// 扩展信息
+	ExternInfo *string `json:"extern_info,omitempty" xml:"extern_info,omitempty"`
+}
+
+func (s CheckAnticheatPersonalResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s CheckAnticheatPersonalResponse) GoString() string {
+	return s.String()
+}
+
+func (s *CheckAnticheatPersonalResponse) SetReqMsgId(v string) *CheckAnticheatPersonalResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *CheckAnticheatPersonalResponse) SetResultCode(v string) *CheckAnticheatPersonalResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *CheckAnticheatPersonalResponse) SetResultMsg(v string) *CheckAnticheatPersonalResponse {
+	s.ResultMsg = &v
+	return s
+}
+
+func (s *CheckAnticheatPersonalResponse) SetRiskLevel(v string) *CheckAnticheatPersonalResponse {
+	s.RiskLevel = &v
+	return s
+}
+
+func (s *CheckAnticheatPersonalResponse) SetRiskLevelDesc(v string) *CheckAnticheatPersonalResponse {
+	s.RiskLevelDesc = &v
+	return s
+}
+
+func (s *CheckAnticheatPersonalResponse) SetExternInfo(v string) *CheckAnticheatPersonalResponse {
+	s.ExternInfo = &v
+	return s
+}
+
+type CheckTwometaHashRequest struct {
+	// OAuth模式下的授权token
+	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
+	// hash后的身份证号，不区分大小写，使用的hash算法参考hash_type字段
+	CertNoHash *string `json:"cert_no_hash,omitempty" xml:"cert_no_hash,omitempty" require:"true"`
+	// hash后的姓名，不区分大小写，使用的hash类型参考hash_type
+	CertNameHash *string `json:"cert_name_hash,omitempty" xml:"cert_name_hash,omitempty" require:"true"`
+	// 本次核验id
+	OuterOrderId *string `json:"outer_order_id,omitempty" xml:"outer_order_id,omitempty" require:"true"`
+	// 支持的hash类型
+	HashType *string `json:"hash_type,omitempty" xml:"hash_type,omitempty" require:"true"`
+	// json格式的扩展字段
+	ExternInfo *string `json:"extern_info,omitempty" xml:"extern_info,omitempty"`
+}
+
+func (s CheckTwometaHashRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s CheckTwometaHashRequest) GoString() string {
+	return s.String()
+}
+
+func (s *CheckTwometaHashRequest) SetAuthToken(v string) *CheckTwometaHashRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *CheckTwometaHashRequest) SetProductInstanceId(v string) *CheckTwometaHashRequest {
+	s.ProductInstanceId = &v
+	return s
+}
+
+func (s *CheckTwometaHashRequest) SetCertNoHash(v string) *CheckTwometaHashRequest {
+	s.CertNoHash = &v
+	return s
+}
+
+func (s *CheckTwometaHashRequest) SetCertNameHash(v string) *CheckTwometaHashRequest {
+	s.CertNameHash = &v
+	return s
+}
+
+func (s *CheckTwometaHashRequest) SetOuterOrderId(v string) *CheckTwometaHashRequest {
+	s.OuterOrderId = &v
+	return s
+}
+
+func (s *CheckTwometaHashRequest) SetHashType(v string) *CheckTwometaHashRequest {
+	s.HashType = &v
+	return s
+}
+
+func (s *CheckTwometaHashRequest) SetExternInfo(v string) *CheckTwometaHashRequest {
+	s.ExternInfo = &v
+	return s
+}
+
+type CheckTwometaHashResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+}
+
+func (s CheckTwometaHashResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s CheckTwometaHashResponse) GoString() string {
+	return s.String()
+}
+
+func (s *CheckTwometaHashResponse) SetReqMsgId(v string) *CheckTwometaHashResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *CheckTwometaHashResponse) SetResultCode(v string) *CheckTwometaHashResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *CheckTwometaHashResponse) SetResultMsg(v string) *CheckTwometaHashResponse {
+	s.ResultMsg = &v
+	return s
+}
+
+type QueryThreemetaOnlinetimeRequest struct {
+	// OAuth模式下的授权token
+	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
+	// 外部请求id
+	OuterOrderNo *string `json:"outer_order_no,omitempty" xml:"outer_order_no,omitempty" require:"true"`
+	// 姓名
+	CertName *string `json:"cert_name,omitempty" xml:"cert_name,omitempty"`
+	// 身份证号
+	CertNo *string `json:"cert_no,omitempty" xml:"cert_no,omitempty"`
+	// 手机号码
+	PhoneNo *string `json:"phone_no,omitempty" xml:"phone_no,omitempty" require:"true"`
+	// 是否区分运营商
+	DivCarrier *bool `json:"div_carrier,omitempty" xml:"div_carrier,omitempty"`
+	// 运营商类型
+	Carrier *string `json:"carrier,omitempty" xml:"carrier,omitempty"`
+	// 加密类型，填写时「支持加密」字段需要对应加密后赋值。默认使用明文模式
+	// 0：明文
+	// 1：MD5
+	EncryptType *string `json:"encrypt_type,omitempty" xml:"encrypt_type,omitempty"`
+	// 扩展参数
+	ExternParam *string `json:"extern_param,omitempty" xml:"extern_param,omitempty"`
+}
+
+func (s QueryThreemetaOnlinetimeRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s QueryThreemetaOnlinetimeRequest) GoString() string {
+	return s.String()
+}
+
+func (s *QueryThreemetaOnlinetimeRequest) SetAuthToken(v string) *QueryThreemetaOnlinetimeRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *QueryThreemetaOnlinetimeRequest) SetProductInstanceId(v string) *QueryThreemetaOnlinetimeRequest {
+	s.ProductInstanceId = &v
+	return s
+}
+
+func (s *QueryThreemetaOnlinetimeRequest) SetOuterOrderNo(v string) *QueryThreemetaOnlinetimeRequest {
+	s.OuterOrderNo = &v
+	return s
+}
+
+func (s *QueryThreemetaOnlinetimeRequest) SetCertName(v string) *QueryThreemetaOnlinetimeRequest {
+	s.CertName = &v
+	return s
+}
+
+func (s *QueryThreemetaOnlinetimeRequest) SetCertNo(v string) *QueryThreemetaOnlinetimeRequest {
+	s.CertNo = &v
+	return s
+}
+
+func (s *QueryThreemetaOnlinetimeRequest) SetPhoneNo(v string) *QueryThreemetaOnlinetimeRequest {
+	s.PhoneNo = &v
+	return s
+}
+
+func (s *QueryThreemetaOnlinetimeRequest) SetDivCarrier(v bool) *QueryThreemetaOnlinetimeRequest {
+	s.DivCarrier = &v
+	return s
+}
+
+func (s *QueryThreemetaOnlinetimeRequest) SetCarrier(v string) *QueryThreemetaOnlinetimeRequest {
+	s.Carrier = &v
+	return s
+}
+
+func (s *QueryThreemetaOnlinetimeRequest) SetEncryptType(v string) *QueryThreemetaOnlinetimeRequest {
+	s.EncryptType = &v
+	return s
+}
+
+func (s *QueryThreemetaOnlinetimeRequest) SetExternParam(v string) *QueryThreemetaOnlinetimeRequest {
+	s.ExternParam = &v
+	return s
+}
+
+type QueryThreemetaOnlinetimeResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// 在网时长标准码，规则：
+	// 1: [0,3)表示在⽹时⻓是 0~3 个⽉
+	// 2: [3,6)表示在⽹时⻓是 3~6 个⽉
+	// 3: [6,12)表示在⽹时⻓是 6~12 个⽉
+	// 4: [12,24)表示在⽹时⻓是 12~24 ⽉
+	// 5: [24,+)表示在⽹时⻓是 24个⽉及以上
+	LengthCode *string `json:"length_code,omitempty" xml:"length_code,omitempty"`
+	// CHINA_TELECOM：中国电信
+	// CHINA_MOBILE：中国移动
+	// CHINA_UNICOM：中国联通
+	Carrier *string `json:"carrier,omitempty" xml:"carrier,omitempty"`
+	// 扩展信息，json格式
+	ExternInfo *string `json:"extern_info,omitempty" xml:"extern_info,omitempty"`
+}
+
+func (s QueryThreemetaOnlinetimeResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s QueryThreemetaOnlinetimeResponse) GoString() string {
+	return s.String()
+}
+
+func (s *QueryThreemetaOnlinetimeResponse) SetReqMsgId(v string) *QueryThreemetaOnlinetimeResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *QueryThreemetaOnlinetimeResponse) SetResultCode(v string) *QueryThreemetaOnlinetimeResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *QueryThreemetaOnlinetimeResponse) SetResultMsg(v string) *QueryThreemetaOnlinetimeResponse {
+	s.ResultMsg = &v
+	return s
+}
+
+func (s *QueryThreemetaOnlinetimeResponse) SetLengthCode(v string) *QueryThreemetaOnlinetimeResponse {
+	s.LengthCode = &v
+	return s
+}
+
+func (s *QueryThreemetaOnlinetimeResponse) SetCarrier(v string) *QueryThreemetaOnlinetimeResponse {
+	s.Carrier = &v
+	return s
+}
+
+func (s *QueryThreemetaOnlinetimeResponse) SetExternInfo(v string) *QueryThreemetaOnlinetimeResponse {
+	s.ExternInfo = &v
+	return s
+}
+
+type InitFacevrfZimRequest struct {
+	// OAuth模式下的授权token
+	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
+	// 业务参数
+	BizData *string `json:"biz_data,omitempty" xml:"biz_data,omitempty"`
+	// 渠道
+	Channel *string `json:"channel,omitempty" xml:"channel,omitempty"`
+	// 商户
+	Merchant *string `json:"merchant,omitempty" xml:"merchant,omitempty"`
+	// 环境参数
+	MetaInfo *string `json:"meta_info,omitempty" xml:"meta_info,omitempty" require:"true"`
+	// 产品节点
+	ProduceNode *string `json:"produce_node,omitempty" xml:"produce_node,omitempty"`
+	// 产品名称
+	ProductName *string `json:"product_name,omitempty" xml:"product_name,omitempty"`
+	// 实人认证id
+	//
+	ZimId *string `json:"zim_id,omitempty" xml:"zim_id,omitempty" require:"true"`
+	// 身份信息参数
+	//
+	ZimPrincipal *string `json:"zim_principal,omitempty" xml:"zim_principal,omitempty"`
+}
+
+func (s InitFacevrfZimRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s InitFacevrfZimRequest) GoString() string {
+	return s.String()
+}
+
+func (s *InitFacevrfZimRequest) SetAuthToken(v string) *InitFacevrfZimRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *InitFacevrfZimRequest) SetProductInstanceId(v string) *InitFacevrfZimRequest {
+	s.ProductInstanceId = &v
+	return s
+}
+
+func (s *InitFacevrfZimRequest) SetBizData(v string) *InitFacevrfZimRequest {
+	s.BizData = &v
+	return s
+}
+
+func (s *InitFacevrfZimRequest) SetChannel(v string) *InitFacevrfZimRequest {
+	s.Channel = &v
+	return s
+}
+
+func (s *InitFacevrfZimRequest) SetMerchant(v string) *InitFacevrfZimRequest {
+	s.Merchant = &v
+	return s
+}
+
+func (s *InitFacevrfZimRequest) SetMetaInfo(v string) *InitFacevrfZimRequest {
+	s.MetaInfo = &v
+	return s
+}
+
+func (s *InitFacevrfZimRequest) SetProduceNode(v string) *InitFacevrfZimRequest {
+	s.ProduceNode = &v
+	return s
+}
+
+func (s *InitFacevrfZimRequest) SetProductName(v string) *InitFacevrfZimRequest {
+	s.ProductName = &v
+	return s
+}
+
+func (s *InitFacevrfZimRequest) SetZimId(v string) *InitFacevrfZimRequest {
+	s.ZimId = &v
+	return s
+}
+
+func (s *InitFacevrfZimRequest) SetZimPrincipal(v string) *InitFacevrfZimRequest {
+	s.ZimPrincipal = &v
+	return s
+}
+
+type InitFacevrfZimResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// 预留扩展结果
+	//
+	ExtParams *string `json:"ext_params,omitempty" xml:"ext_params,omitempty"`
+	// 描述
+	Message *string `json:"message,omitempty" xml:"message,omitempty"`
+	// 协议
+	Protocol *string `json:"protocol,omitempty" xml:"protocol,omitempty"`
+	// 返回码
+	RetCode *string `json:"ret_code,omitempty" xml:"ret_code,omitempty"`
+	// 明细返回码
+	RetCodeSub *string `json:"ret_code_sub,omitempty" xml:"ret_code_sub,omitempty"`
+	// 明细返回码对应的文案
+	RetMessageSub *string `json:"ret_message_sub,omitempty" xml:"ret_message_sub,omitempty"`
+	// 实人认证id
+	ZimId *string `json:"zim_id,omitempty" xml:"zim_id,omitempty"`
+}
+
+func (s InitFacevrfZimResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s InitFacevrfZimResponse) GoString() string {
+	return s.String()
+}
+
+func (s *InitFacevrfZimResponse) SetReqMsgId(v string) *InitFacevrfZimResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *InitFacevrfZimResponse) SetResultCode(v string) *InitFacevrfZimResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *InitFacevrfZimResponse) SetResultMsg(v string) *InitFacevrfZimResponse {
+	s.ResultMsg = &v
+	return s
+}
+
+func (s *InitFacevrfZimResponse) SetExtParams(v string) *InitFacevrfZimResponse {
+	s.ExtParams = &v
+	return s
+}
+
+func (s *InitFacevrfZimResponse) SetMessage(v string) *InitFacevrfZimResponse {
+	s.Message = &v
+	return s
+}
+
+func (s *InitFacevrfZimResponse) SetProtocol(v string) *InitFacevrfZimResponse {
+	s.Protocol = &v
+	return s
+}
+
+func (s *InitFacevrfZimResponse) SetRetCode(v string) *InitFacevrfZimResponse {
+	s.RetCode = &v
+	return s
+}
+
+func (s *InitFacevrfZimResponse) SetRetCodeSub(v string) *InitFacevrfZimResponse {
+	s.RetCodeSub = &v
+	return s
+}
+
+func (s *InitFacevrfZimResponse) SetRetMessageSub(v string) *InitFacevrfZimResponse {
+	s.RetMessageSub = &v
+	return s
+}
+
+func (s *InitFacevrfZimResponse) SetZimId(v string) *InitFacevrfZimResponse {
+	s.ZimId = &v
+	return s
+}
+
+type VerifyFacevrfZimRequest struct {
+	// OAuth模式下的授权token
+	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
+	// 扩展信息,Map的json格式
+	ExternParam *string `json:"extern_param,omitempty" xml:"extern_param,omitempty"`
+	// 人脸业务参数
+	ZimData *string `json:"zim_data,omitempty" xml:"zim_data,omitempty" require:"true"`
+	// 7501f6c2dd57e06fe0d4202d3aaab58e
+	ZimId *string `json:"zim_id,omitempty" xml:"zim_id,omitempty" require:"true"`
+}
+
+func (s VerifyFacevrfZimRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s VerifyFacevrfZimRequest) GoString() string {
+	return s.String()
+}
+
+func (s *VerifyFacevrfZimRequest) SetAuthToken(v string) *VerifyFacevrfZimRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *VerifyFacevrfZimRequest) SetProductInstanceId(v string) *VerifyFacevrfZimRequest {
+	s.ProductInstanceId = &v
+	return s
+}
+
+func (s *VerifyFacevrfZimRequest) SetExternParam(v string) *VerifyFacevrfZimRequest {
+	s.ExternParam = &v
+	return s
+}
+
+func (s *VerifyFacevrfZimRequest) SetZimData(v string) *VerifyFacevrfZimRequest {
+	s.ZimData = &v
+	return s
+}
+
+func (s *VerifyFacevrfZimRequest) SetZimId(v string) *VerifyFacevrfZimRequest {
+	s.ZimId = &v
+	return s
+}
+
+type VerifyFacevrfZimResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// 预留扩展结果
+	ExtParams *string `json:"ext_params,omitempty" xml:"ext_params,omitempty"`
+	// ""
+	HasNext *string `json:"has_next,omitempty" xml:"has_next,omitempty"`
+	// ""
+	NextProtocol *string `json:"next_protocol,omitempty" xml:"next_protocol,omitempty"`
+	// 产品返回明细码
+	ProductRetCode *string `json:"product_ret_code,omitempty" xml:"product_ret_code,omitempty"`
+	// 明细返回码
+	RetCodeSub *string `json:"ret_code_sub,omitempty" xml:"ret_code_sub,omitempty"`
+	// 明细返回码对应的文案
+	RetMessageSub *string `json:"ret_message_sub,omitempty" xml:"ret_message_sub,omitempty"`
+	// 验证返回明细码
+	ValidationRetCode *string `json:"validation_ret_code,omitempty" xml:"validation_ret_code,omitempty"`
+}
+
+func (s VerifyFacevrfZimResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s VerifyFacevrfZimResponse) GoString() string {
+	return s.String()
+}
+
+func (s *VerifyFacevrfZimResponse) SetReqMsgId(v string) *VerifyFacevrfZimResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *VerifyFacevrfZimResponse) SetResultCode(v string) *VerifyFacevrfZimResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *VerifyFacevrfZimResponse) SetResultMsg(v string) *VerifyFacevrfZimResponse {
+	s.ResultMsg = &v
+	return s
+}
+
+func (s *VerifyFacevrfZimResponse) SetExtParams(v string) *VerifyFacevrfZimResponse {
+	s.ExtParams = &v
+	return s
+}
+
+func (s *VerifyFacevrfZimResponse) SetHasNext(v string) *VerifyFacevrfZimResponse {
+	s.HasNext = &v
+	return s
+}
+
+func (s *VerifyFacevrfZimResponse) SetNextProtocol(v string) *VerifyFacevrfZimResponse {
+	s.NextProtocol = &v
+	return s
+}
+
+func (s *VerifyFacevrfZimResponse) SetProductRetCode(v string) *VerifyFacevrfZimResponse {
+	s.ProductRetCode = &v
+	return s
+}
+
+func (s *VerifyFacevrfZimResponse) SetRetCodeSub(v string) *VerifyFacevrfZimResponse {
+	s.RetCodeSub = &v
+	return s
+}
+
+func (s *VerifyFacevrfZimResponse) SetRetMessageSub(v string) *VerifyFacevrfZimResponse {
+	s.RetMessageSub = &v
+	return s
+}
+
+func (s *VerifyFacevrfZimResponse) SetValidationRetCode(v string) *VerifyFacevrfZimResponse {
+	s.ValidationRetCode = &v
+	return s
+}
+
+type RecognizeDocIndividualcardRequest struct {
+	// OAuth模式下的授权token
+	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
+	// 长度不超过32位的0-9A-Za-z字符串。
+	// 外部请求ID，由调用方自行生成并自行保证唯一，以便问题定位。
+	OutOrderNo *string `json:"out_order_no,omitempty" xml:"out_order_no,omitempty" require:"true"`
+	// 待识别的卡类型。取值约束：ID_CARD（身份证）;EEP_TO_ML_CARD（港澳来往大陆通行证）;BANK_CARD（银行卡）
+	OcrType *string `json:"ocr_type,omitempty" xml:"ocr_type,omitempty" require:"true"`
+	// 传入的图片是base64编码的图片还是图片的URL。取值约束：BASE64（类型为base64）；FILE(文件)、URL（暂不支持）
+	DataType *string `json:"data_type,omitempty" xml:"data_type,omitempty" require:"true"`
+	// 传入的图片的具体内容，需要与data_type的选择保持一致。
+	DataContent *string `json:"data_content,omitempty" xml:"data_content,omitempty"`
+	// 证件图片
+	// 待上传文件
+	FileObject io.Reader `json:"fileObject,omitempty" xml:"fileObject,omitempty"`
+	// 待上传文件名
+	FileObjectName *string `json:"fileObjectName,omitempty" xml:"fileObjectName,omitempty"`
+	FileId         *string `json:"file_id,omitempty" xml:"file_id,omitempty"`
+	// 入参data_content是否经AES加密。不填默认不加密。取值约束：0（不加密）；1（加密）
+	ReqEncType *string `json:"req_enc_type,omitempty" xml:"req_enc_type,omitempty"`
+	// 出参ocr_info是否经AES加密。不填默认不加密。取值约束：0（不加密）；1（加密）
+	RespEncType *string `json:"resp_enc_type,omitempty" xml:"resp_enc_type,omitempty"`
+	// 经过公钥RSA加密的AES密钥，用于对出参ocr_info加密。当req_enc_type = 1或resp_enc_type = 1时必填。
+	EncToken *string `json:"enc_token,omitempty" xml:"enc_token,omitempty"`
+	// 是否启用防伪检测，如果启用，出参会输出riskInfo字段。不填默认不启用防伪。取值约束：0（不启用）；1（启用）
+	RiskInfoType *string `json:"risk_info_type,omitempty" xml:"risk_info_type,omitempty"`
+	// 是否返回身份证头像照片
+	// 0：否
+	// 1：是
+	// 不填默认不返回。
+	ReturnPhoto *string `json:"return_photo,omitempty" xml:"return_photo,omitempty"`
+	// 是否返回身份证图片
+	// 0：否
+	// 1：是
+	// 不填默认不返回。
+	ReturnImage *string `json:"return_image,omitempty" xml:"return_image,omitempty"`
+	// 扩展信息JSON串。
+	ExternParam *string `json:"extern_param,omitempty" xml:"extern_param,omitempty"`
+}
+
+func (s RecognizeDocIndividualcardRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s RecognizeDocIndividualcardRequest) GoString() string {
+	return s.String()
+}
+
+func (s *RecognizeDocIndividualcardRequest) SetAuthToken(v string) *RecognizeDocIndividualcardRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *RecognizeDocIndividualcardRequest) SetProductInstanceId(v string) *RecognizeDocIndividualcardRequest {
+	s.ProductInstanceId = &v
+	return s
+}
+
+func (s *RecognizeDocIndividualcardRequest) SetOutOrderNo(v string) *RecognizeDocIndividualcardRequest {
+	s.OutOrderNo = &v
+	return s
+}
+
+func (s *RecognizeDocIndividualcardRequest) SetOcrType(v string) *RecognizeDocIndividualcardRequest {
+	s.OcrType = &v
+	return s
+}
+
+func (s *RecognizeDocIndividualcardRequest) SetDataType(v string) *RecognizeDocIndividualcardRequest {
+	s.DataType = &v
+	return s
+}
+
+func (s *RecognizeDocIndividualcardRequest) SetDataContent(v string) *RecognizeDocIndividualcardRequest {
+	s.DataContent = &v
+	return s
+}
+
+func (s *RecognizeDocIndividualcardRequest) SetFileObject(v io.Reader) *RecognizeDocIndividualcardRequest {
+	s.FileObject = v
+	return s
+}
+
+func (s *RecognizeDocIndividualcardRequest) SetFileObjectName(v string) *RecognizeDocIndividualcardRequest {
+	s.FileObjectName = &v
+	return s
+}
+
+func (s *RecognizeDocIndividualcardRequest) SetFileId(v string) *RecognizeDocIndividualcardRequest {
+	s.FileId = &v
+	return s
+}
+
+func (s *RecognizeDocIndividualcardRequest) SetReqEncType(v string) *RecognizeDocIndividualcardRequest {
+	s.ReqEncType = &v
+	return s
+}
+
+func (s *RecognizeDocIndividualcardRequest) SetRespEncType(v string) *RecognizeDocIndividualcardRequest {
+	s.RespEncType = &v
+	return s
+}
+
+func (s *RecognizeDocIndividualcardRequest) SetEncToken(v string) *RecognizeDocIndividualcardRequest {
+	s.EncToken = &v
+	return s
+}
+
+func (s *RecognizeDocIndividualcardRequest) SetRiskInfoType(v string) *RecognizeDocIndividualcardRequest {
+	s.RiskInfoType = &v
+	return s
+}
+
+func (s *RecognizeDocIndividualcardRequest) SetReturnPhoto(v string) *RecognizeDocIndividualcardRequest {
+	s.ReturnPhoto = &v
+	return s
+}
+
+func (s *RecognizeDocIndividualcardRequest) SetReturnImage(v string) *RecognizeDocIndividualcardRequest {
+	s.ReturnImage = &v
+	return s
+}
+
+func (s *RecognizeDocIndividualcardRequest) SetExternParam(v string) *RecognizeDocIndividualcardRequest {
+	s.ExternParam = &v
+	return s
+}
+
+type RecognizeDocIndividualcardResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// 返回结果码
+	RetCode *string `json:"ret_code,omitempty" xml:"ret_code,omitempty"`
+	// 错误码
+	RetCodeSub *string `json:"ret_code_sub,omitempty" xml:"ret_code_sub,omitempty"`
+	// 错误信息
+	RetMessageSub *string `json:"ret_message_sub,omitempty" xml:"ret_message_sub,omitempty"`
+	// 识别结果，为JSON串。如果入参resp_enc_type=1则是经过AES加密后的JSON串。
+	OcrInfo *string `json:"ocr_info,omitempty" xml:"ocr_info,omitempty"`
+	// 防伪结果，为JSON串。如果入参resp_enc_type=1则是经过AES加密后的JSON串。
+	// 如果不启用防伪，则不返回该字段。
+	RiskInfo *string `json:"risk_info,omitempty" xml:"risk_info,omitempty"`
+	// 扩展信息JSON串。
+	ExtInfo *string `json:"ext_info,omitempty" xml:"ext_info,omitempty"`
+}
+
+func (s RecognizeDocIndividualcardResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s RecognizeDocIndividualcardResponse) GoString() string {
+	return s.String()
+}
+
+func (s *RecognizeDocIndividualcardResponse) SetReqMsgId(v string) *RecognizeDocIndividualcardResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *RecognizeDocIndividualcardResponse) SetResultCode(v string) *RecognizeDocIndividualcardResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *RecognizeDocIndividualcardResponse) SetResultMsg(v string) *RecognizeDocIndividualcardResponse {
+	s.ResultMsg = &v
+	return s
+}
+
+func (s *RecognizeDocIndividualcardResponse) SetRetCode(v string) *RecognizeDocIndividualcardResponse {
+	s.RetCode = &v
+	return s
+}
+
+func (s *RecognizeDocIndividualcardResponse) SetRetCodeSub(v string) *RecognizeDocIndividualcardResponse {
+	s.RetCodeSub = &v
+	return s
+}
+
+func (s *RecognizeDocIndividualcardResponse) SetRetMessageSub(v string) *RecognizeDocIndividualcardResponse {
+	s.RetMessageSub = &v
+	return s
+}
+
+func (s *RecognizeDocIndividualcardResponse) SetOcrInfo(v string) *RecognizeDocIndividualcardResponse {
+	s.OcrInfo = &v
+	return s
+}
+
+func (s *RecognizeDocIndividualcardResponse) SetRiskInfo(v string) *RecognizeDocIndividualcardResponse {
+	s.RiskInfo = &v
+	return s
+}
+
+func (s *RecognizeDocIndividualcardResponse) SetExtInfo(v string) *RecognizeDocIndividualcardResponse {
+	s.ExtInfo = &v
+	return s
+}
+
+type CheckThreemetaBankcardRequest struct {
+	// OAuth模式下的授权token
+	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
+	// 外部请求ID，由调用方自行生成并自行保证唯一，以便问题定位。
+	OuterOrderNo *string `json:"outer_order_no,omitempty" xml:"outer_order_no,omitempty" require:"true"`
+	// 要素入参模式： 1：银行卡号+姓名+证件号 2：银行卡号+姓名+手机号 3：银行卡号+证件号+手机号，默认为1
+	MetaMode *string `json:"meta_mode,omitempty" xml:"meta_mode,omitempty"`
+	// 银行卡号
+	BankCard *string `json:"bank_card,omitempty" xml:"bank_card,omitempty" require:"true"`
+	// 姓名
+	CertName *string `json:"cert_name,omitempty" xml:"cert_name,omitempty"`
+	// 身份证号
+	CertNo *string `json:"cert_no,omitempty" xml:"cert_no,omitempty"`
+	// 证件类型： 1：居民身份证（默认值） 2：军官证 3：护照 4：回乡证 5：台胞证 6：警官证 7：士兵证 99：其他
+	CertType *string `json:"cert_type,omitempty" xml:"cert_type,omitempty"`
+	// 手机号码
+	Mobile *string `json:"mobile,omitempty" xml:"mobile,omitempty"`
+	// 扩展信息，Map的json格式
+	ExternParam *string `json:"extern_param,omitempty" xml:"extern_param,omitempty"`
+	// 入参加密模式：NONE：不加密；AES：姓名、身份证号、手机号码字段都是AES加密后的字符串。非必填，不填时默认明文
+	ReqEncType *string `json:"req_enc_type,omitempty" xml:"req_enc_type,omitempty"`
+	// 用于入参加密的AES密钥
+	EncToken *string `json:"enc_token,omitempty" xml:"enc_token,omitempty"`
+}
+
+func (s CheckThreemetaBankcardRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s CheckThreemetaBankcardRequest) GoString() string {
+	return s.String()
+}
+
+func (s *CheckThreemetaBankcardRequest) SetAuthToken(v string) *CheckThreemetaBankcardRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *CheckThreemetaBankcardRequest) SetProductInstanceId(v string) *CheckThreemetaBankcardRequest {
+	s.ProductInstanceId = &v
+	return s
+}
+
+func (s *CheckThreemetaBankcardRequest) SetOuterOrderNo(v string) *CheckThreemetaBankcardRequest {
+	s.OuterOrderNo = &v
+	return s
+}
+
+func (s *CheckThreemetaBankcardRequest) SetMetaMode(v string) *CheckThreemetaBankcardRequest {
+	s.MetaMode = &v
+	return s
+}
+
+func (s *CheckThreemetaBankcardRequest) SetBankCard(v string) *CheckThreemetaBankcardRequest {
+	s.BankCard = &v
+	return s
+}
+
+func (s *CheckThreemetaBankcardRequest) SetCertName(v string) *CheckThreemetaBankcardRequest {
+	s.CertName = &v
+	return s
+}
+
+func (s *CheckThreemetaBankcardRequest) SetCertNo(v string) *CheckThreemetaBankcardRequest {
+	s.CertNo = &v
+	return s
+}
+
+func (s *CheckThreemetaBankcardRequest) SetCertType(v string) *CheckThreemetaBankcardRequest {
+	s.CertType = &v
+	return s
+}
+
+func (s *CheckThreemetaBankcardRequest) SetMobile(v string) *CheckThreemetaBankcardRequest {
+	s.Mobile = &v
+	return s
+}
+
+func (s *CheckThreemetaBankcardRequest) SetExternParam(v string) *CheckThreemetaBankcardRequest {
+	s.ExternParam = &v
+	return s
+}
+
+func (s *CheckThreemetaBankcardRequest) SetReqEncType(v string) *CheckThreemetaBankcardRequest {
+	s.ReqEncType = &v
+	return s
+}
+
+func (s *CheckThreemetaBankcardRequest) SetEncToken(v string) *CheckThreemetaBankcardRequest {
+	s.EncToken = &v
+	return s
+}
+
+type CheckThreemetaBankcardResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// true:匹配成功 false：匹配失败
+	Match *string `json:"match,omitempty" xml:"match,omitempty"`
+	// 扩展信息，Map的json格式。
+	ExternInfo *string `json:"extern_info,omitempty" xml:"extern_info,omitempty"`
+}
+
+func (s CheckThreemetaBankcardResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s CheckThreemetaBankcardResponse) GoString() string {
+	return s.String()
+}
+
+func (s *CheckThreemetaBankcardResponse) SetReqMsgId(v string) *CheckThreemetaBankcardResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *CheckThreemetaBankcardResponse) SetResultCode(v string) *CheckThreemetaBankcardResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *CheckThreemetaBankcardResponse) SetResultMsg(v string) *CheckThreemetaBankcardResponse {
+	s.ResultMsg = &v
+	return s
+}
+
+func (s *CheckThreemetaBankcardResponse) SetMatch(v string) *CheckThreemetaBankcardResponse {
+	s.Match = &v
+	return s
+}
+
+func (s *CheckThreemetaBankcardResponse) SetExternInfo(v string) *CheckThreemetaBankcardResponse {
+	s.ExternInfo = &v
+	return s
+}
+
+type QueryDeepsecRiskRequest struct {
+	// OAuth模式下的授权token
+	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
+	// 区分不同应用
+	AppName *string `json:"app_name,omitempty" xml:"app_name,omitempty" require:"true"`
+	// app_key
+	AppKey *string `json:"app_key,omitempty" xml:"app_key,omitempty"`
+	// 业务数据集合，包括业务数据如zimId，Map<String,String>
+	BizData *string `json:"biz_data,omitempty" xml:"biz_data,omitempty" require:"true"`
+	// 风险数据集合，包括加密的R风险数据、设备染色数据，Map<String, String>
+	RiskData *string `json:"risk_data,omitempty" xml:"risk_data,omitempty" require:"true"`
+}
+
+func (s QueryDeepsecRiskRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s QueryDeepsecRiskRequest) GoString() string {
+	return s.String()
+}
+
+func (s *QueryDeepsecRiskRequest) SetAuthToken(v string) *QueryDeepsecRiskRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *QueryDeepsecRiskRequest) SetProductInstanceId(v string) *QueryDeepsecRiskRequest {
+	s.ProductInstanceId = &v
+	return s
+}
+
+func (s *QueryDeepsecRiskRequest) SetAppName(v string) *QueryDeepsecRiskRequest {
+	s.AppName = &v
+	return s
+}
+
+func (s *QueryDeepsecRiskRequest) SetAppKey(v string) *QueryDeepsecRiskRequest {
+	s.AppKey = &v
+	return s
+}
+
+func (s *QueryDeepsecRiskRequest) SetBizData(v string) *QueryDeepsecRiskRequest {
+	s.BizData = &v
+	return s
+}
+
+func (s *QueryDeepsecRiskRequest) SetRiskData(v string) *QueryDeepsecRiskRequest {
+	s.RiskData = &v
+	return s
+}
+
+type QueryDeepsecRiskResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// 是否调用成功
+	Success *bool `json:"success,omitempty" xml:"success,omitempty"`
+	// 业务返回码
+	Code *string `json:"code,omitempty" xml:"code,omitempty"`
+	// message	返回信息
+	Message *string `json:"message,omitempty" xml:"message,omitempty"`
+	// 设备风险标签
+	RiskInfo *string `json:"risk_info,omitempty" xml:"risk_info,omitempty"`
+	// 设备染色风险标签
+	DcRisk *string `json:"dc_risk,omitempty" xml:"dc_risk,omitempty"`
+	// 业务风险标签
+	BizRisk *string `json:"biz_risk,omitempty" xml:"biz_risk,omitempty"`
+	// 设备元数据
+	DeviceInfo *string `json:"device_info,omitempty" xml:"device_info,omitempty"`
+}
+
+func (s QueryDeepsecRiskResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s QueryDeepsecRiskResponse) GoString() string {
+	return s.String()
+}
+
+func (s *QueryDeepsecRiskResponse) SetReqMsgId(v string) *QueryDeepsecRiskResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *QueryDeepsecRiskResponse) SetResultCode(v string) *QueryDeepsecRiskResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *QueryDeepsecRiskResponse) SetResultMsg(v string) *QueryDeepsecRiskResponse {
+	s.ResultMsg = &v
+	return s
+}
+
+func (s *QueryDeepsecRiskResponse) SetSuccess(v bool) *QueryDeepsecRiskResponse {
+	s.Success = &v
+	return s
+}
+
+func (s *QueryDeepsecRiskResponse) SetCode(v string) *QueryDeepsecRiskResponse {
+	s.Code = &v
+	return s
+}
+
+func (s *QueryDeepsecRiskResponse) SetMessage(v string) *QueryDeepsecRiskResponse {
+	s.Message = &v
+	return s
+}
+
+func (s *QueryDeepsecRiskResponse) SetRiskInfo(v string) *QueryDeepsecRiskResponse {
+	s.RiskInfo = &v
+	return s
+}
+
+func (s *QueryDeepsecRiskResponse) SetDcRisk(v string) *QueryDeepsecRiskResponse {
+	s.DcRisk = &v
+	return s
+}
+
+func (s *QueryDeepsecRiskResponse) SetBizRisk(v string) *QueryDeepsecRiskResponse {
+	s.BizRisk = &v
+	return s
+}
+
+func (s *QueryDeepsecRiskResponse) SetDeviceInfo(v string) *QueryDeepsecRiskResponse {
+	s.DeviceInfo = &v
+	return s
+}
+
+type QueryDeepsecTsbmrqRequest struct {
+	// OAuth模式下的授权token
+	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
+	// 应用来源
+	AppId *string `json:"app_id,omitempty" xml:"app_id,omitempty"`
+	// 环境id
+	EnvId *string `json:"env_id,omitempty" xml:"env_id,omitempty"`
+	// request id
+	RequestId *string `json:"request_id,omitempty" xml:"request_id,omitempty"`
+	// 租户
+	TenantId *string `json:"tenant_id,omitempty" xml:"tenant_id,omitempty" require:"true"`
+	// 商户id
+	MerchantId *string `json:"merchant_id,omitempty" xml:"merchant_id,omitempty" require:"true"`
+	// 应用来源名称, 也被用作渠道名称
+	AppName *string `json:"app_name,omitempty" xml:"app_name,omitempty"`
+	// 是否测试流量, 测试流量会在处理过程中有特殊处理
+	TestFlow *bool `json:"test_flow,omitempty" xml:"test_flow,omitempty"`
+	// apdidToken
+	ApdidToken *string `json:"apdid_token,omitempty" xml:"apdid_token,omitempty" require:"true"`
+}
+
+func (s QueryDeepsecTsbmrqRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s QueryDeepsecTsbmrqRequest) GoString() string {
+	return s.String()
+}
+
+func (s *QueryDeepsecTsbmrqRequest) SetAuthToken(v string) *QueryDeepsecTsbmrqRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *QueryDeepsecTsbmrqRequest) SetProductInstanceId(v string) *QueryDeepsecTsbmrqRequest {
+	s.ProductInstanceId = &v
+	return s
+}
+
+func (s *QueryDeepsecTsbmrqRequest) SetAppId(v string) *QueryDeepsecTsbmrqRequest {
+	s.AppId = &v
+	return s
+}
+
+func (s *QueryDeepsecTsbmrqRequest) SetEnvId(v string) *QueryDeepsecTsbmrqRequest {
+	s.EnvId = &v
+	return s
+}
+
+func (s *QueryDeepsecTsbmrqRequest) SetRequestId(v string) *QueryDeepsecTsbmrqRequest {
+	s.RequestId = &v
+	return s
+}
+
+func (s *QueryDeepsecTsbmrqRequest) SetTenantId(v string) *QueryDeepsecTsbmrqRequest {
+	s.TenantId = &v
+	return s
+}
+
+func (s *QueryDeepsecTsbmrqRequest) SetMerchantId(v string) *QueryDeepsecTsbmrqRequest {
+	s.MerchantId = &v
+	return s
+}
+
+func (s *QueryDeepsecTsbmrqRequest) SetAppName(v string) *QueryDeepsecTsbmrqRequest {
+	s.AppName = &v
+	return s
+}
+
+func (s *QueryDeepsecTsbmrqRequest) SetTestFlow(v bool) *QueryDeepsecTsbmrqRequest {
+	s.TestFlow = &v
+	return s
+}
+
+func (s *QueryDeepsecTsbmrqRequest) SetApdidToken(v string) *QueryDeepsecTsbmrqRequest {
+	s.ApdidToken = &v
+	return s
+}
+
+type QueryDeepsecTsbmrqResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// 设备信息
+	DeviceInfo *string `json:"device_info,omitempty" xml:"device_info,omitempty"`
+	// 风险信息标签
+	RiskInfo *string `json:"risk_info,omitempty" xml:"risk_info,omitempty"`
+	// 业务message
+	Message *string `json:"message,omitempty" xml:"message,omitempty"`
+}
+
+func (s QueryDeepsecTsbmrqResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s QueryDeepsecTsbmrqResponse) GoString() string {
+	return s.String()
+}
+
+func (s *QueryDeepsecTsbmrqResponse) SetReqMsgId(v string) *QueryDeepsecTsbmrqResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *QueryDeepsecTsbmrqResponse) SetResultCode(v string) *QueryDeepsecTsbmrqResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *QueryDeepsecTsbmrqResponse) SetResultMsg(v string) *QueryDeepsecTsbmrqResponse {
+	s.ResultMsg = &v
+	return s
+}
+
+func (s *QueryDeepsecTsbmrqResponse) SetDeviceInfo(v string) *QueryDeepsecTsbmrqResponse {
+	s.DeviceInfo = &v
+	return s
+}
+
+func (s *QueryDeepsecTsbmrqResponse) SetRiskInfo(v string) *QueryDeepsecTsbmrqResponse {
+	s.RiskInfo = &v
+	return s
+}
+
+func (s *QueryDeepsecTsbmrqResponse) SetMessage(v string) *QueryDeepsecTsbmrqResponse {
+	s.Message = &v
+	return s
+}
+
+type QueryThreemetaPhonereuseRequest struct {
+	// OAuth模式下的授权token
+	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
+	// 外部请求ID，由调用方自行生成并自行保证唯一，以便问题定位。
+	OuterOrderNo *string `json:"outer_order_no,omitempty" xml:"outer_order_no,omitempty" require:"true"`
+	// 手机号「支持加密」
+	Mobile *string `json:"mobile,omitempty" xml:"mobile,omitempty" require:"true"`
+	// 日期
+	Date *string `json:"date,omitempty" xml:"date,omitempty" require:"true"`
+	// 运营商类型
+	Carrier *string `json:"carrier,omitempty" xml:"carrier,omitempty"`
+	// 加密类型，填写时「支持加密」字段需要对应加密后赋值。默认使用明文模式 0：明文 1：MD5
+	EncryptType *string `json:"encrypt_type,omitempty" xml:"encrypt_type,omitempty"`
+	// 扩展参数
+	ExternParam *string `json:"extern_param,omitempty" xml:"extern_param,omitempty"`
+}
+
+func (s QueryThreemetaPhonereuseRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s QueryThreemetaPhonereuseRequest) GoString() string {
+	return s.String()
+}
+
+func (s *QueryThreemetaPhonereuseRequest) SetAuthToken(v string) *QueryThreemetaPhonereuseRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *QueryThreemetaPhonereuseRequest) SetProductInstanceId(v string) *QueryThreemetaPhonereuseRequest {
+	s.ProductInstanceId = &v
+	return s
+}
+
+func (s *QueryThreemetaPhonereuseRequest) SetOuterOrderNo(v string) *QueryThreemetaPhonereuseRequest {
+	s.OuterOrderNo = &v
+	return s
+}
+
+func (s *QueryThreemetaPhonereuseRequest) SetMobile(v string) *QueryThreemetaPhonereuseRequest {
+	s.Mobile = &v
+	return s
+}
+
+func (s *QueryThreemetaPhonereuseRequest) SetDate(v string) *QueryThreemetaPhonereuseRequest {
+	s.Date = &v
+	return s
+}
+
+func (s *QueryThreemetaPhonereuseRequest) SetCarrier(v string) *QueryThreemetaPhonereuseRequest {
+	s.Carrier = &v
+	return s
+}
+
+func (s *QueryThreemetaPhonereuseRequest) SetEncryptType(v string) *QueryThreemetaPhonereuseRequest {
+	s.EncryptType = &v
+	return s
+}
+
+func (s *QueryThreemetaPhonereuseRequest) SetExternParam(v string) *QueryThreemetaPhonereuseRequest {
+	s.ExternParam = &v
+	return s
+}
+
+type QueryThreemetaPhonereuseResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// 是否二次放号
+	PhoneReuse *string `json:"phone_reuse,omitempty" xml:"phone_reuse,omitempty"`
+	// CHINA_TELECOM：中国电信
+	// CHINA_MOBILE：中国移动
+	// CHINA_UNICOM：中国联通
+	Carrier *string `json:"carrier,omitempty" xml:"carrier,omitempty"`
+	// 扩展参数
+	ExternInfo *string `json:"extern_info,omitempty" xml:"extern_info,omitempty"`
+}
+
+func (s QueryThreemetaPhonereuseResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s QueryThreemetaPhonereuseResponse) GoString() string {
+	return s.String()
+}
+
+func (s *QueryThreemetaPhonereuseResponse) SetReqMsgId(v string) *QueryThreemetaPhonereuseResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *QueryThreemetaPhonereuseResponse) SetResultCode(v string) *QueryThreemetaPhonereuseResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *QueryThreemetaPhonereuseResponse) SetResultMsg(v string) *QueryThreemetaPhonereuseResponse {
+	s.ResultMsg = &v
+	return s
+}
+
+func (s *QueryThreemetaPhonereuseResponse) SetPhoneReuse(v string) *QueryThreemetaPhonereuseResponse {
+	s.PhoneReuse = &v
+	return s
+}
+
+func (s *QueryThreemetaPhonereuseResponse) SetCarrier(v string) *QueryThreemetaPhonereuseResponse {
+	s.Carrier = &v
+	return s
+}
+
+func (s *QueryThreemetaPhonereuseResponse) SetExternInfo(v string) *QueryThreemetaPhonereuseResponse {
+	s.ExternInfo = &v
+	return s
+}
+
+type QueryTscenterDeviceRequest struct {
+	// OAuth模式下的授权token
+	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
+	// 设备token
+	ApdidToken *string `json:"apdid_token,omitempty" xml:"apdid_token,omitempty"`
+	// appname
+	AppName *string `json:"app_name,omitempty" xml:"app_name,omitempty"`
+	// app key client
+	AppKeyClient *string `json:"app_key_client,omitempty" xml:"app_key_client,omitempty"`
+	// app key server
+	AppKeyServer *string `json:"app_key_server,omitempty" xml:"app_key_server,omitempty"`
+}
+
+func (s QueryTscenterDeviceRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s QueryTscenterDeviceRequest) GoString() string {
+	return s.String()
+}
+
+func (s *QueryTscenterDeviceRequest) SetAuthToken(v string) *QueryTscenterDeviceRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *QueryTscenterDeviceRequest) SetProductInstanceId(v string) *QueryTscenterDeviceRequest {
+	s.ProductInstanceId = &v
+	return s
+}
+
+func (s *QueryTscenterDeviceRequest) SetApdidToken(v string) *QueryTscenterDeviceRequest {
+	s.ApdidToken = &v
+	return s
+}
+
+func (s *QueryTscenterDeviceRequest) SetAppName(v string) *QueryTscenterDeviceRequest {
+	s.AppName = &v
+	return s
+}
+
+func (s *QueryTscenterDeviceRequest) SetAppKeyClient(v string) *QueryTscenterDeviceRequest {
+	s.AppKeyClient = &v
+	return s
+}
+
+func (s *QueryTscenterDeviceRequest) SetAppKeyServer(v string) *QueryTscenterDeviceRequest {
+	s.AppKeyServer = &v
+	return s
+}
+
+type QueryTscenterDeviceResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// 设备信息字符串
+	DeviceInfo *string `json:"device_info,omitempty" xml:"device_info,omitempty"`
+}
+
+func (s QueryTscenterDeviceResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s QueryTscenterDeviceResponse) GoString() string {
+	return s.String()
+}
+
+func (s *QueryTscenterDeviceResponse) SetReqMsgId(v string) *QueryTscenterDeviceResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *QueryTscenterDeviceResponse) SetResultCode(v string) *QueryTscenterDeviceResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *QueryTscenterDeviceResponse) SetResultMsg(v string) *QueryTscenterDeviceResponse {
+	s.ResultMsg = &v
+	return s
+}
+
+func (s *QueryTscenterDeviceResponse) SetDeviceInfo(v string) *QueryTscenterDeviceResponse {
+	s.DeviceInfo = &v
+	return s
+}
+
+type QueryEducationInfoRequest struct {
+	// OAuth模式下的授权token
+	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
+	// 外部请求ID，为32位以内的字母数字组合，由调用方自行生成、保证唯一并留存，以便问题定位。
+	OuterOrderNo *string `json:"outer_order_no,omitempty" xml:"outer_order_no,omitempty" require:"true"`
+	// 身份证号
+	CertNo *string `json:"cert_no,omitempty" xml:"cert_no,omitempty" require:"true"`
+	// 姓名
+	CertName *string `json:"cert_name,omitempty" xml:"cert_name,omitempty" require:"true"`
+	// 用户是否授权
+	Authorized *bool `json:"authorized,omitempty" xml:"authorized,omitempty" require:"true"`
+	// 扩展信息，预留字段
+	ExternParam *string `json:"extern_param,omitempty" xml:"extern_param,omitempty"`
+}
+
+func (s QueryEducationInfoRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s QueryEducationInfoRequest) GoString() string {
+	return s.String()
+}
+
+func (s *QueryEducationInfoRequest) SetAuthToken(v string) *QueryEducationInfoRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *QueryEducationInfoRequest) SetProductInstanceId(v string) *QueryEducationInfoRequest {
+	s.ProductInstanceId = &v
+	return s
+}
+
+func (s *QueryEducationInfoRequest) SetOuterOrderNo(v string) *QueryEducationInfoRequest {
+	s.OuterOrderNo = &v
+	return s
+}
+
+func (s *QueryEducationInfoRequest) SetCertNo(v string) *QueryEducationInfoRequest {
+	s.CertNo = &v
+	return s
+}
+
+func (s *QueryEducationInfoRequest) SetCertName(v string) *QueryEducationInfoRequest {
+	s.CertName = &v
+	return s
+}
+
+func (s *QueryEducationInfoRequest) SetAuthorized(v bool) *QueryEducationInfoRequest {
+	s.Authorized = &v
+	return s
+}
+
+func (s *QueryEducationInfoRequest) SetExternParam(v string) *QueryEducationInfoRequest {
+	s.ExternParam = &v
+	return s
+}
+
+type QueryEducationInfoResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// 学历信息
+	EducationInfo *string `json:"education_info,omitempty" xml:"education_info,omitempty"`
+	// 扩展信息，预留字段
+	ExternInfo *string `json:"extern_info,omitempty" xml:"extern_info,omitempty"`
+}
+
+func (s QueryEducationInfoResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s QueryEducationInfoResponse) GoString() string {
+	return s.String()
+}
+
+func (s *QueryEducationInfoResponse) SetReqMsgId(v string) *QueryEducationInfoResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *QueryEducationInfoResponse) SetResultCode(v string) *QueryEducationInfoResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *QueryEducationInfoResponse) SetResultMsg(v string) *QueryEducationInfoResponse {
+	s.ResultMsg = &v
+	return s
+}
+
+func (s *QueryEducationInfoResponse) SetEducationInfo(v string) *QueryEducationInfoResponse {
+	s.EducationInfo = &v
+	return s
+}
+
+func (s *QueryEducationInfoResponse) SetExternInfo(v string) *QueryEducationInfoResponse {
+	s.ExternInfo = &v
+	return s
+}
+
+type QueryDemoInfoRequest struct {
+	// OAuth模式下的授权token
+	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
+	// token
+	Token *string `json:"token,omitempty" xml:"token,omitempty" require:"true"`
+}
+
+func (s QueryDemoInfoRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s QueryDemoInfoRequest) GoString() string {
+	return s.String()
+}
+
+func (s *QueryDemoInfoRequest) SetAuthToken(v string) *QueryDemoInfoRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *QueryDemoInfoRequest) SetProductInstanceId(v string) *QueryDemoInfoRequest {
+	s.ProductInstanceId = &v
+	return s
+}
+
+func (s *QueryDemoInfoRequest) SetToken(v string) *QueryDemoInfoRequest {
+	s.Token = &v
+	return s
+}
+
+type QueryDemoInfoResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// record json
+	Record *string `json:"record,omitempty" xml:"record,omitempty"`
+}
+
+func (s QueryDemoInfoResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s QueryDemoInfoResponse) GoString() string {
+	return s.String()
+}
+
+func (s *QueryDemoInfoResponse) SetReqMsgId(v string) *QueryDemoInfoResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *QueryDemoInfoResponse) SetResultCode(v string) *QueryDemoInfoResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *QueryDemoInfoResponse) SetResultMsg(v string) *QueryDemoInfoResponse {
+	s.ResultMsg = &v
+	return s
+}
+
+func (s *QueryDemoInfoResponse) SetRecord(v string) *QueryDemoInfoResponse {
+	s.Record = &v
+	return s
+}
+
+type CheckBankcardTwometaRequest struct {
+	// OAuth模式下的授权token
+	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
+	// 	外部请求ID，为32位以内的字母数字组合，由调用方自行生成、保证唯一并留存，以便问题定位。
+	OuterOrderNo *string `json:"outer_order_no,omitempty" xml:"outer_order_no,omitempty" require:"true"`
+	// 要素入参模式： 1：银行卡号+姓名 2：银行卡号+证件号 3：银行卡号+手机号
+	MetaMode *string `json:"meta_mode,omitempty" xml:"meta_mode,omitempty" require:"true"`
+	// 证件类型： 1：居民身份证（默认值） 2：军官证 3：护照 4：回乡证 5：台胞证 6：警官证 7：士兵证 99：其他
+	CertType *string `json:"cert_type,omitempty" xml:"cert_type,omitempty"`
+	// 银行卡号
+	BankCard *string `json:"bank_card,omitempty" xml:"bank_card,omitempty" require:"true"`
+	// 手机号码
+	Mobile *string `json:"mobile,omitempty" xml:"mobile,omitempty"`
+	// 姓名
+	CertName *string `json:"cert_name,omitempty" xml:"cert_name,omitempty"`
+	// 证件号
+	CertNo *string `json:"cert_no,omitempty" xml:"cert_no,omitempty"`
+	// 扩展信息，预留字段
+	ExternParam *string `json:"extern_param,omitempty" xml:"extern_param,omitempty"`
+}
+
+func (s CheckBankcardTwometaRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s CheckBankcardTwometaRequest) GoString() string {
+	return s.String()
+}
+
+func (s *CheckBankcardTwometaRequest) SetAuthToken(v string) *CheckBankcardTwometaRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *CheckBankcardTwometaRequest) SetProductInstanceId(v string) *CheckBankcardTwometaRequest {
+	s.ProductInstanceId = &v
+	return s
+}
+
+func (s *CheckBankcardTwometaRequest) SetOuterOrderNo(v string) *CheckBankcardTwometaRequest {
+	s.OuterOrderNo = &v
+	return s
+}
+
+func (s *CheckBankcardTwometaRequest) SetMetaMode(v string) *CheckBankcardTwometaRequest {
+	s.MetaMode = &v
+	return s
+}
+
+func (s *CheckBankcardTwometaRequest) SetCertType(v string) *CheckBankcardTwometaRequest {
+	s.CertType = &v
+	return s
+}
+
+func (s *CheckBankcardTwometaRequest) SetBankCard(v string) *CheckBankcardTwometaRequest {
+	s.BankCard = &v
+	return s
+}
+
+func (s *CheckBankcardTwometaRequest) SetMobile(v string) *CheckBankcardTwometaRequest {
+	s.Mobile = &v
+	return s
+}
+
+func (s *CheckBankcardTwometaRequest) SetCertName(v string) *CheckBankcardTwometaRequest {
+	s.CertName = &v
+	return s
+}
+
+func (s *CheckBankcardTwometaRequest) SetCertNo(v string) *CheckBankcardTwometaRequest {
+	s.CertNo = &v
+	return s
+}
+
+func (s *CheckBankcardTwometaRequest) SetExternParam(v string) *CheckBankcardTwometaRequest {
+	s.ExternParam = &v
+	return s
+}
+
+type CheckBankcardTwometaResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// 扩展信息，为JSONObject。
+	ExternInfo *string `json:"extern_info,omitempty" xml:"extern_info,omitempty"`
+}
+
+func (s CheckBankcardTwometaResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s CheckBankcardTwometaResponse) GoString() string {
+	return s.String()
+}
+
+func (s *CheckBankcardTwometaResponse) SetReqMsgId(v string) *CheckBankcardTwometaResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *CheckBankcardTwometaResponse) SetResultCode(v string) *CheckBankcardTwometaResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *CheckBankcardTwometaResponse) SetResultMsg(v string) *CheckBankcardTwometaResponse {
+	s.ResultMsg = &v
+	return s
+}
+
+func (s *CheckBankcardTwometaResponse) SetExternInfo(v string) *CheckBankcardTwometaResponse {
+	s.ExternInfo = &v
+	return s
+}
+
+type CheckCarrierTwometaRequest struct {
+	// OAuth模式下的授权token
+	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
+	// 外部请求ID，为32位以内的字母数字组合，由调用方自行生成、保证唯一并留存，以便问题定位。
+	OuterOrderNo *string `json:"outer_order_no,omitempty" xml:"outer_order_no,omitempty" require:"true"`
+	// 加密类型，填写时「支持加密」字段需要对应加密后赋值。默认使用明文模式
+	// 0：明文
+	// 1：MD5
+	EncryptType *string `json:"encrypt_type,omitempty" xml:"encrypt_type,omitempty"`
+	// 要素入参模式：
+	// 1：手机号+姓名
+	// 2：手机号+身份证号
+	MetaMode *string `json:"meta_mode,omitempty" xml:"meta_mode,omitempty" require:"true"`
+	// 手机号码「支持加密」
+	Mobile *string `json:"mobile,omitempty" xml:"mobile,omitempty" require:"true"`
+	// 姓名「支持加密」
+	CertName *string `json:"cert_name,omitempty" xml:"cert_name,omitempty"`
+	// 身份证号「支持加密」
+	CertNo *string `json:"cert_no,omitempty" xml:"cert_no,omitempty"`
+	// 运营商类型：
+	// CHINA_TELECOM；
+	// CHINA_MOBILE；
+	// CHINA_UNICOM
+	Carrier *string `json:"carrier,omitempty" xml:"carrier,omitempty"`
+	// 扩展信息，预留字段
+	ExternParam *string `json:"extern_param,omitempty" xml:"extern_param,omitempty"`
+}
+
+func (s CheckCarrierTwometaRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s CheckCarrierTwometaRequest) GoString() string {
+	return s.String()
+}
+
+func (s *CheckCarrierTwometaRequest) SetAuthToken(v string) *CheckCarrierTwometaRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *CheckCarrierTwometaRequest) SetProductInstanceId(v string) *CheckCarrierTwometaRequest {
+	s.ProductInstanceId = &v
+	return s
+}
+
+func (s *CheckCarrierTwometaRequest) SetOuterOrderNo(v string) *CheckCarrierTwometaRequest {
+	s.OuterOrderNo = &v
+	return s
+}
+
+func (s *CheckCarrierTwometaRequest) SetEncryptType(v string) *CheckCarrierTwometaRequest {
+	s.EncryptType = &v
+	return s
+}
+
+func (s *CheckCarrierTwometaRequest) SetMetaMode(v string) *CheckCarrierTwometaRequest {
+	s.MetaMode = &v
+	return s
+}
+
+func (s *CheckCarrierTwometaRequest) SetMobile(v string) *CheckCarrierTwometaRequest {
+	s.Mobile = &v
+	return s
+}
+
+func (s *CheckCarrierTwometaRequest) SetCertName(v string) *CheckCarrierTwometaRequest {
+	s.CertName = &v
+	return s
+}
+
+func (s *CheckCarrierTwometaRequest) SetCertNo(v string) *CheckCarrierTwometaRequest {
+	s.CertNo = &v
+	return s
+}
+
+func (s *CheckCarrierTwometaRequest) SetCarrier(v string) *CheckCarrierTwometaRequest {
+	s.Carrier = &v
+	return s
+}
+
+func (s *CheckCarrierTwometaRequest) SetExternParam(v string) *CheckCarrierTwometaRequest {
+	s.ExternParam = &v
+	return s
+}
+
+type CheckCarrierTwometaResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// 扩展信息，为JSONObject。
+	ExternInfo *string `json:"extern_info,omitempty" xml:"extern_info,omitempty"`
+	// 运营商类型： CHINA_TELECOM； CHINA_MOBILE； CHINA_UNICOM
+	Carrier *string `json:"carrier,omitempty" xml:"carrier,omitempty"`
+}
+
+func (s CheckCarrierTwometaResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s CheckCarrierTwometaResponse) GoString() string {
+	return s.String()
+}
+
+func (s *CheckCarrierTwometaResponse) SetReqMsgId(v string) *CheckCarrierTwometaResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *CheckCarrierTwometaResponse) SetResultCode(v string) *CheckCarrierTwometaResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *CheckCarrierTwometaResponse) SetResultMsg(v string) *CheckCarrierTwometaResponse {
+	s.ResultMsg = &v
+	return s
+}
+
+func (s *CheckCarrierTwometaResponse) SetExternInfo(v string) *CheckCarrierTwometaResponse {
+	s.ExternInfo = &v
+	return s
+}
+
+func (s *CheckCarrierTwometaResponse) SetCarrier(v string) *CheckCarrierTwometaResponse {
+	s.Carrier = &v
+	return s
+}
+
+type CreateNfcServerRequest struct {
+	// OAuth模式下的授权token
+	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
+	// 证件类型，ID_CARD，PASSPORT
+	CertType *string `json:"cert_type,omitempty" xml:"cert_type,omitempty" require:"true"`
+	// 证件号码
+	CertNo *string `json:"cert_no,omitempty" xml:"cert_no,omitempty"`
+	// 证件姓名
+	CertName *string `json:"cert_name,omitempty" xml:"cert_name,omitempty"`
+	// 出生日期
+	Birthday *string `json:"birthday,omitempty" xml:"birthday,omitempty"`
+	// 证件有效期
+	ValidateDate *string `json:"validate_date,omitempty" xml:"validate_date,omitempty"`
+	// 护照要素录入模式 NONE MANUAL TRANS
+	Mode *string `json:"mode,omitempty" xml:"mode,omitempty"`
+	// 扩展参数
+	// {"syntheticEdoc":"Y"     是否合成证件图"}
+	// {"obtainDocPhoto":"Y"    是否获取高清人像"}
+	ExternParam *string `json:"extern_param,omitempty" xml:"extern_param,omitempty"`
+	// metainfo 环境参数，需要通过客户端 SDK 获取
+	MetaInfo *string `json:"meta_info,omitempty" xml:"meta_info,omitempty" require:"true"`
+	// 外部唯一标识。用于定位。 值为32位长度的字母数字组合前面...
+	OuterOrderNo *string `json:"outer_order_no,omitempty" xml:"outer_order_no,omitempty" require:"true"`
+	// 场景ID
+	SceneId *string `json:"scene_id,omitempty" xml:"scene_id,omitempty" require:"true"`
+	// 商户自定义的用户ID
+	UserId *string `json:"user_id,omitempty" xml:"user_id,omitempty"`
+}
+
+func (s CreateNfcServerRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s CreateNfcServerRequest) GoString() string {
+	return s.String()
+}
+
+func (s *CreateNfcServerRequest) SetAuthToken(v string) *CreateNfcServerRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *CreateNfcServerRequest) SetProductInstanceId(v string) *CreateNfcServerRequest {
+	s.ProductInstanceId = &v
+	return s
+}
+
+func (s *CreateNfcServerRequest) SetCertType(v string) *CreateNfcServerRequest {
+	s.CertType = &v
+	return s
+}
+
+func (s *CreateNfcServerRequest) SetCertNo(v string) *CreateNfcServerRequest {
+	s.CertNo = &v
+	return s
+}
+
+func (s *CreateNfcServerRequest) SetCertName(v string) *CreateNfcServerRequest {
+	s.CertName = &v
+	return s
+}
+
+func (s *CreateNfcServerRequest) SetBirthday(v string) *CreateNfcServerRequest {
+	s.Birthday = &v
+	return s
+}
+
+func (s *CreateNfcServerRequest) SetValidateDate(v string) *CreateNfcServerRequest {
+	s.ValidateDate = &v
+	return s
+}
+
+func (s *CreateNfcServerRequest) SetMode(v string) *CreateNfcServerRequest {
+	s.Mode = &v
+	return s
+}
+
+func (s *CreateNfcServerRequest) SetExternParam(v string) *CreateNfcServerRequest {
+	s.ExternParam = &v
+	return s
+}
+
+func (s *CreateNfcServerRequest) SetMetaInfo(v string) *CreateNfcServerRequest {
+	s.MetaInfo = &v
+	return s
+}
+
+func (s *CreateNfcServerRequest) SetOuterOrderNo(v string) *CreateNfcServerRequest {
+	s.OuterOrderNo = &v
+	return s
+}
+
+func (s *CreateNfcServerRequest) SetSceneId(v string) *CreateNfcServerRequest {
+	s.SceneId = &v
+	return s
+}
+
+func (s *CreateNfcServerRequest) SetUserId(v string) *CreateNfcServerRequest {
+	s.UserId = &v
+	return s
+}
+
+type CreateNfcServerResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// 实人认证唯一标识
+	CertifyId *string `json:"certify_id,omitempty" xml:"certify_id,omitempty"`
+}
+
+func (s CreateNfcServerResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s CreateNfcServerResponse) GoString() string {
+	return s.String()
+}
+
+func (s *CreateNfcServerResponse) SetReqMsgId(v string) *CreateNfcServerResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *CreateNfcServerResponse) SetResultCode(v string) *CreateNfcServerResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *CreateNfcServerResponse) SetResultMsg(v string) *CreateNfcServerResponse {
+	s.ResultMsg = &v
+	return s
+}
+
+func (s *CreateNfcServerResponse) SetCertifyId(v string) *CreateNfcServerResponse {
+	s.CertifyId = &v
+	return s
+}
+
+type QueryNfcServerRequest struct {
+	// OAuth模式下的授权token
+	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
+	// 实人认证唯一标识
+	CertifyId *string `json:"certify_id,omitempty" xml:"certify_id,omitempty" require:"true"`
+	// 预留扩展业务参数
+	ExternParam *string `json:"extern_param,omitempty" xml:"extern_param,omitempty"`
+	// 外部唯一标识。用于定位。 值为32位长度的字母数字组合前面...
+	OuterOrderNo *string `json:"outer_order_no,omitempty" xml:"outer_order_no,omitempty" require:"true"`
+	// 场景ID
+	SceneId *string `json:"scene_id,omitempty" xml:"scene_id,omitempty" require:"true"`
+}
+
+func (s QueryNfcServerRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s QueryNfcServerRequest) GoString() string {
+	return s.String()
+}
+
+func (s *QueryNfcServerRequest) SetAuthToken(v string) *QueryNfcServerRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *QueryNfcServerRequest) SetProductInstanceId(v string) *QueryNfcServerRequest {
+	s.ProductInstanceId = &v
+	return s
+}
+
+func (s *QueryNfcServerRequest) SetCertifyId(v string) *QueryNfcServerRequest {
+	s.CertifyId = &v
+	return s
+}
+
+func (s *QueryNfcServerRequest) SetExternParam(v string) *QueryNfcServerRequest {
+	s.ExternParam = &v
+	return s
+}
+
+func (s *QueryNfcServerRequest) SetOuterOrderNo(v string) *QueryNfcServerRequest {
+	s.OuterOrderNo = &v
+	return s
+}
+
+func (s *QueryNfcServerRequest) SetSceneId(v string) *QueryNfcServerRequest {
+	s.SceneId = &v
+	return s
+}
+
+type QueryNfcServerResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// 是否通过，通过为T，不通过为F
+	Passed *string `json:"passed,omitempty" xml:"passed,omitempty"`
+	// 业务失败原因
+	Reason *string `json:"reason,omitempty" xml:"reason,omitempty"`
+	// 认证主体附件信息，一般的认证场景都是返回空
+	MaterialInfo *string `json:"material_info,omitempty" xml:"material_info,omitempty"`
+}
+
+func (s QueryNfcServerResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s QueryNfcServerResponse) GoString() string {
+	return s.String()
+}
+
+func (s *QueryNfcServerResponse) SetReqMsgId(v string) *QueryNfcServerResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *QueryNfcServerResponse) SetResultCode(v string) *QueryNfcServerResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *QueryNfcServerResponse) SetResultMsg(v string) *QueryNfcServerResponse {
+	s.ResultMsg = &v
+	return s
+}
+
+func (s *QueryNfcServerResponse) SetPassed(v string) *QueryNfcServerResponse {
+	s.Passed = &v
+	return s
+}
+
+func (s *QueryNfcServerResponse) SetReason(v string) *QueryNfcServerResponse {
+	s.Reason = &v
+	return s
+}
+
+func (s *QueryNfcServerResponse) SetMaterialInfo(v string) *QueryNfcServerResponse {
+	s.MaterialInfo = &v
+	return s
+}
+
+type QuerySocialriskDetailRequest struct {
+	// OAuth模式下的授权token
+	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
+	// 请求ID，为32位以内的字母数字组合，由调用方自行生成、保证唯一并留存，以便问题定位和授权抽查。
+	OuterOrderNo *string `json:"outer_order_no,omitempty" xml:"outer_order_no,omitempty" require:"true"`
+	// 入参加密模式：
+	// NONE：不加密；
+	// RSA：RSA加密；
+	// SM2：SM2加密。
+	EncType *string `json:"enc_type,omitempty" xml:"enc_type,omitempty" require:"true"`
+	// 姓名（根据enc_type决定加密方式）
+	CertName *string `json:"cert_name,omitempty" xml:"cert_name,omitempty" require:"true"`
+	// 身份证号（根据enc_type决定加密方式）
+	CertNo *string `json:"cert_no,omitempty" xml:"cert_no,omitempty" require:"true"`
+	// 扩展信息，预留字段
+	ExternParam *string `json:"extern_param,omitempty" xml:"extern_param,omitempty"`
+	//
+	// 场景编号
+	Scene *string `json:"scene,omitempty" xml:"scene,omitempty"`
+}
+
+func (s QuerySocialriskDetailRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s QuerySocialriskDetailRequest) GoString() string {
+	return s.String()
+}
+
+func (s *QuerySocialriskDetailRequest) SetAuthToken(v string) *QuerySocialriskDetailRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *QuerySocialriskDetailRequest) SetProductInstanceId(v string) *QuerySocialriskDetailRequest {
+	s.ProductInstanceId = &v
+	return s
+}
+
+func (s *QuerySocialriskDetailRequest) SetOuterOrderNo(v string) *QuerySocialriskDetailRequest {
+	s.OuterOrderNo = &v
+	return s
+}
+
+func (s *QuerySocialriskDetailRequest) SetEncType(v string) *QuerySocialriskDetailRequest {
+	s.EncType = &v
+	return s
+}
+
+func (s *QuerySocialriskDetailRequest) SetCertName(v string) *QuerySocialriskDetailRequest {
+	s.CertName = &v
+	return s
+}
+
+func (s *QuerySocialriskDetailRequest) SetCertNo(v string) *QuerySocialriskDetailRequest {
+	s.CertNo = &v
+	return s
+}
+
+func (s *QuerySocialriskDetailRequest) SetExternParam(v string) *QuerySocialriskDetailRequest {
+	s.ExternParam = &v
+	return s
+}
+
+func (s *QuerySocialriskDetailRequest) SetScene(v string) *QuerySocialriskDetailRequest {
+	s.Scene = &v
+	return s
+}
+
+type QuerySocialriskDetailResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// 风险信息，为JSONObject.
+	RiskInfo *string `json:"risk_info,omitempty" xml:"risk_info,omitempty"`
+	// 扩展信息，预留字段。
+	ExternInfo *string `json:"extern_info,omitempty" xml:"extern_info,omitempty"`
+}
+
+func (s QuerySocialriskDetailResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s QuerySocialriskDetailResponse) GoString() string {
+	return s.String()
+}
+
+func (s *QuerySocialriskDetailResponse) SetReqMsgId(v string) *QuerySocialriskDetailResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *QuerySocialriskDetailResponse) SetResultCode(v string) *QuerySocialriskDetailResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *QuerySocialriskDetailResponse) SetResultMsg(v string) *QuerySocialriskDetailResponse {
+	s.ResultMsg = &v
+	return s
+}
+
+func (s *QuerySocialriskDetailResponse) SetRiskInfo(v string) *QuerySocialriskDetailResponse {
+	s.RiskInfo = &v
+	return s
+}
+
+func (s *QuerySocialriskDetailResponse) SetExternInfo(v string) *QuerySocialriskDetailResponse {
+	s.ExternInfo = &v
+	return s
+}
+
+type QueryCarrierNetstatusRequest struct {
+	// OAuth模式下的授权token
+	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
+	// 外部请求ID，为32位以内的字母数字组合，由调用方自行生成、保证唯一并留存，以便问题定位。
+	OuterOrderNo *string `json:"outer_order_no,omitempty" xml:"outer_order_no,omitempty" require:"true"`
+	// 手机号码「支持加密」
+	Mobile *string `json:"mobile,omitempty" xml:"mobile,omitempty" require:"true"`
+	// 运营商类型： CHINA_TELECOM； CHINA_MOBILE； CHINA_UNICOM
+	Carrier *string `json:"carrier,omitempty" xml:"carrier,omitempty"`
+	// 加密类型，填写时「支持加密」字段需要对应加密后赋值。默认使用明文模式
+	// 0：明文
+	// 1：MD5
+	EncryptType *string `json:"encrypt_type,omitempty" xml:"encrypt_type,omitempty"`
+	// 扩展信息，预留字段
+	ExternParam *string `json:"extern_param,omitempty" xml:"extern_param,omitempty"`
+}
+
+func (s QueryCarrierNetstatusRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s QueryCarrierNetstatusRequest) GoString() string {
+	return s.String()
+}
+
+func (s *QueryCarrierNetstatusRequest) SetAuthToken(v string) *QueryCarrierNetstatusRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *QueryCarrierNetstatusRequest) SetProductInstanceId(v string) *QueryCarrierNetstatusRequest {
+	s.ProductInstanceId = &v
+	return s
+}
+
+func (s *QueryCarrierNetstatusRequest) SetOuterOrderNo(v string) *QueryCarrierNetstatusRequest {
+	s.OuterOrderNo = &v
+	return s
+}
+
+func (s *QueryCarrierNetstatusRequest) SetMobile(v string) *QueryCarrierNetstatusRequest {
+	s.Mobile = &v
+	return s
+}
+
+func (s *QueryCarrierNetstatusRequest) SetCarrier(v string) *QueryCarrierNetstatusRequest {
+	s.Carrier = &v
+	return s
+}
+
+func (s *QueryCarrierNetstatusRequest) SetEncryptType(v string) *QueryCarrierNetstatusRequest {
+	s.EncryptType = &v
+	return s
+}
+
+func (s *QueryCarrierNetstatusRequest) SetExternParam(v string) *QueryCarrierNetstatusRequest {
+	s.ExternParam = &v
+	return s
+}
+
+type QueryCarrierNetstatusResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// 在网状态结果值
+	TelNetworkStatus *string `json:"tel_network_status,omitempty" xml:"tel_network_status,omitempty"`
+	// 运营商类型： CHINA_TELECOM； CHINA_MOBILE； CHINA_UNICOM
+	Carrier *string `json:"carrier,omitempty" xml:"carrier,omitempty"`
+	// 扩展信息，为JSONObject。
+	// 包含携号转网状态，字段名telNumberTransStatus，字段类型为字符串，字段值示例"1"，描述：1-携号转网 0-未携号转网 2-未知
+	ExternInfo *string `json:"extern_info,omitempty" xml:"extern_info,omitempty"`
+}
+
+func (s QueryCarrierNetstatusResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s QueryCarrierNetstatusResponse) GoString() string {
+	return s.String()
+}
+
+func (s *QueryCarrierNetstatusResponse) SetReqMsgId(v string) *QueryCarrierNetstatusResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *QueryCarrierNetstatusResponse) SetResultCode(v string) *QueryCarrierNetstatusResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *QueryCarrierNetstatusResponse) SetResultMsg(v string) *QueryCarrierNetstatusResponse {
+	s.ResultMsg = &v
+	return s
+}
+
+func (s *QueryCarrierNetstatusResponse) SetTelNetworkStatus(v string) *QueryCarrierNetstatusResponse {
+	s.TelNetworkStatus = &v
+	return s
+}
+
+func (s *QueryCarrierNetstatusResponse) SetCarrier(v string) *QueryCarrierNetstatusResponse {
+	s.Carrier = &v
+	return s
+}
+
+func (s *QueryCarrierNetstatusResponse) SetExternInfo(v string) *QueryCarrierNetstatusResponse {
+	s.ExternInfo = &v
+	return s
+}
+
+type QuerySocialriskBriefRequest struct {
+	// OAuth模式下的授权token
+	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
+	// 请求ID，为32位以内的字母数字组合，由调用方自行生成、保证唯一并留存，以便问题定位和授权抽查。
+	OuterOrderNo *string `json:"outer_order_no,omitempty" xml:"outer_order_no,omitempty" require:"true"`
+	// 场景编号
+	Scene *string `json:"scene,omitempty" xml:"scene,omitempty"`
+	// 入参加密模式： NONE：不加密； RSA：RSA加密； SM2：SM2加密。
+	EncType *string `json:"enc_type,omitempty" xml:"enc_type,omitempty" require:"true"`
+	//
+	// 姓名（根据enc_type决定加密方式）
+	CertName *string `json:"cert_name,omitempty" xml:"cert_name,omitempty"`
+	// 身份证号（根据enc_type决定加密方式）
+	CertNo *string `json:"cert_no,omitempty" xml:"cert_no,omitempty" require:"true"`
+	// 扩展信息，预留字段
+	ExternParam *string `json:"extern_param,omitempty" xml:"extern_param,omitempty"`
+}
+
+func (s QuerySocialriskBriefRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s QuerySocialriskBriefRequest) GoString() string {
+	return s.String()
+}
+
+func (s *QuerySocialriskBriefRequest) SetAuthToken(v string) *QuerySocialriskBriefRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *QuerySocialriskBriefRequest) SetProductInstanceId(v string) *QuerySocialriskBriefRequest {
+	s.ProductInstanceId = &v
+	return s
+}
+
+func (s *QuerySocialriskBriefRequest) SetOuterOrderNo(v string) *QuerySocialriskBriefRequest {
+	s.OuterOrderNo = &v
+	return s
+}
+
+func (s *QuerySocialriskBriefRequest) SetScene(v string) *QuerySocialriskBriefRequest {
+	s.Scene = &v
+	return s
+}
+
+func (s *QuerySocialriskBriefRequest) SetEncType(v string) *QuerySocialriskBriefRequest {
+	s.EncType = &v
+	return s
+}
+
+func (s *QuerySocialriskBriefRequest) SetCertName(v string) *QuerySocialriskBriefRequest {
+	s.CertName = &v
+	return s
+}
+
+func (s *QuerySocialriskBriefRequest) SetCertNo(v string) *QuerySocialriskBriefRequest {
+	s.CertNo = &v
+	return s
+}
+
+func (s *QuerySocialriskBriefRequest) SetExternParam(v string) *QuerySocialriskBriefRequest {
+	s.ExternParam = &v
+	return s
+}
+
+type QuerySocialriskBriefResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// 风险信息
+	RiskInfo *string `json:"risk_info,omitempty" xml:"risk_info,omitempty"`
+	// 扩展信息，预留字段。
+	ExternInfo *string `json:"extern_info,omitempty" xml:"extern_info,omitempty"`
+}
+
+func (s QuerySocialriskBriefResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s QuerySocialriskBriefResponse) GoString() string {
+	return s.String()
+}
+
+func (s *QuerySocialriskBriefResponse) SetReqMsgId(v string) *QuerySocialriskBriefResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *QuerySocialriskBriefResponse) SetResultCode(v string) *QuerySocialriskBriefResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *QuerySocialriskBriefResponse) SetResultMsg(v string) *QuerySocialriskBriefResponse {
+	s.ResultMsg = &v
+	return s
+}
+
+func (s *QuerySocialriskBriefResponse) SetRiskInfo(v string) *QuerySocialriskBriefResponse {
+	s.RiskInfo = &v
+	return s
+}
+
+func (s *QuerySocialriskBriefResponse) SetExternInfo(v string) *QuerySocialriskBriefResponse {
+	s.ExternInfo = &v
+	return s
+}
+
+type QuerySocialriskTobriskRequest struct {
+	// OAuth模式下的授权token
+	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
+	// 请求ID，为32位以内的字母数字组合，由调用方自行生成、保证唯一并留存，以便问题定位和授权抽查。
+	OuterOrderNo *string `json:"outer_order_no,omitempty" xml:"outer_order_no,omitempty" require:"true"`
+	// 入参加密模式：
+	// NONE：不加密；
+	// RSA：RSA加密，请使用在示例代码中提供的公钥；
+	// SM2：SM2加密，请使用在示例代码中提供的公钥。
+	EncType *string `json:"enc_type,omitempty" xml:"enc_type,omitempty" require:"true"`
+	// 身份证号（根据enc_type决定加密方式）
+	CertNo *string `json:"cert_no,omitempty" xml:"cert_no,omitempty" require:"true"`
+	// 扩展信息，预留字段
+	ExternParam *string `json:"extern_param,omitempty" xml:"extern_param,omitempty"`
+}
+
+func (s QuerySocialriskTobriskRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s QuerySocialriskTobriskRequest) GoString() string {
+	return s.String()
+}
+
+func (s *QuerySocialriskTobriskRequest) SetAuthToken(v string) *QuerySocialriskTobriskRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *QuerySocialriskTobriskRequest) SetProductInstanceId(v string) *QuerySocialriskTobriskRequest {
+	s.ProductInstanceId = &v
+	return s
+}
+
+func (s *QuerySocialriskTobriskRequest) SetOuterOrderNo(v string) *QuerySocialriskTobriskRequest {
+	s.OuterOrderNo = &v
+	return s
+}
+
+func (s *QuerySocialriskTobriskRequest) SetEncType(v string) *QuerySocialriskTobriskRequest {
+	s.EncType = &v
+	return s
+}
+
+func (s *QuerySocialriskTobriskRequest) SetCertNo(v string) *QuerySocialriskTobriskRequest {
+	s.CertNo = &v
+	return s
+}
+
+func (s *QuerySocialriskTobriskRequest) SetExternParam(v string) *QuerySocialriskTobriskRequest {
+	s.ExternParam = &v
+	return s
+}
+
+type QuerySocialriskTobriskResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// 风险信息，为JSONObject
+	RiskInfo *string `json:"risk_info,omitempty" xml:"risk_info,omitempty"`
+	// STRING	扩展信息，预留字段。
+	ExternInfo *string `json:"extern_info,omitempty" xml:"extern_info,omitempty"`
+}
+
+func (s QuerySocialriskTobriskResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s QuerySocialriskTobriskResponse) GoString() string {
+	return s.String()
+}
+
+func (s *QuerySocialriskTobriskResponse) SetReqMsgId(v string) *QuerySocialriskTobriskResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *QuerySocialriskTobriskResponse) SetResultCode(v string) *QuerySocialriskTobriskResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *QuerySocialriskTobriskResponse) SetResultMsg(v string) *QuerySocialriskTobriskResponse {
+	s.ResultMsg = &v
+	return s
+}
+
+func (s *QuerySocialriskTobriskResponse) SetRiskInfo(v string) *QuerySocialriskTobriskResponse {
+	s.RiskInfo = &v
+	return s
+}
+
+func (s *QuerySocialriskTobriskResponse) SetExternInfo(v string) *QuerySocialriskTobriskResponse {
+	s.ExternInfo = &v
+	return s
+}
+
+type ExecFacevrfServermodeRequest struct {
+	// OAuth模式下的授权token
+	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
+	// 真实姓名
+	CertName *string `json:"cert_name,omitempty" xml:"cert_name,omitempty"`
+	// 证件号码
+	CertNo *string `json:"cert_no,omitempty" xml:"cert_no,omitempty"`
+	// cert_name、cert_no两个字段的传入模式0：明文1：密文
+	EncType *string `json:"enc_type,omitempty" xml:"enc_type,omitempty"`
+	// 证件类型，如身份证
+	CertType *string `json:"cert_type,omitempty" xml:"cert_type,omitempty"`
+	// 预留扩展参数
+	ExternParam *string `json:"extern_param,omitempty" xml:"extern_param,omitempty"`
+	// 自定义比对源人脸图像，base64编码格式
+	FacialPictureRef *string `json:"facial_picture_ref,omitempty" xml:"facial_picture_ref,omitempty"`
+	// 身份信息来源类型，如证件
+	IdentityType *string `json:"identity_type,omitempty" xml:"identity_type,omitempty" require:"true"`
+	// 外部唯一标识。用于定位。 值为32位长度的字母数字组合前面几位字符是商户自定义的简称，中间可以使用一段时间，后段可以使用一个随机或递增序列
+	OuterOrderNo *string `json:"outer_order_no,omitempty" xml:"outer_order_no,omitempty" require:"true"`
+	// 场景ID
+	SceneId *string `json:"scene_id,omitempty" xml:"scene_id,omitempty" require:"true"`
+	// 商户自定义的用户ID
+	UserId *string `json:"user_id,omitempty" xml:"user_id,omitempty"`
+	// 用户的IP
+	UserIp *string `json:"user_ip,omitempty" xml:"user_ip,omitempty"`
+	// 用户的手机号（或其哈希值）
+	UserMobile *string `json:"user_mobile,omitempty" xml:"user_mobile,omitempty"`
+	// 待认证的人脸图像，base64编码格式
+	FacialPictureAuth *string `json:"facial_picture_auth,omitempty" xml:"facial_picture_auth,omitempty"`
+	// 视频文件
+	// 待上传文件
+	FileObject io.Reader `json:"fileObject,omitempty" xml:"fileObject,omitempty"`
+	// 待上传文件名
+	FileObjectName *string `json:"fileObjectName,omitempty" xml:"fileObjectName,omitempty"`
+	FileId         *string `json:"file_id,omitempty" xml:"file_id,omitempty"`
+}
+
+func (s ExecFacevrfServermodeRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s ExecFacevrfServermodeRequest) GoString() string {
+	return s.String()
+}
+
+func (s *ExecFacevrfServermodeRequest) SetAuthToken(v string) *ExecFacevrfServermodeRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *ExecFacevrfServermodeRequest) SetProductInstanceId(v string) *ExecFacevrfServermodeRequest {
+	s.ProductInstanceId = &v
+	return s
+}
+
+func (s *ExecFacevrfServermodeRequest) SetCertName(v string) *ExecFacevrfServermodeRequest {
+	s.CertName = &v
+	return s
+}
+
+func (s *ExecFacevrfServermodeRequest) SetCertNo(v string) *ExecFacevrfServermodeRequest {
+	s.CertNo = &v
+	return s
+}
+
+func (s *ExecFacevrfServermodeRequest) SetEncType(v string) *ExecFacevrfServermodeRequest {
+	s.EncType = &v
+	return s
+}
+
+func (s *ExecFacevrfServermodeRequest) SetCertType(v string) *ExecFacevrfServermodeRequest {
+	s.CertType = &v
+	return s
+}
+
+func (s *ExecFacevrfServermodeRequest) SetExternParam(v string) *ExecFacevrfServermodeRequest {
+	s.ExternParam = &v
+	return s
+}
+
+func (s *ExecFacevrfServermodeRequest) SetFacialPictureRef(v string) *ExecFacevrfServermodeRequest {
+	s.FacialPictureRef = &v
+	return s
+}
+
+func (s *ExecFacevrfServermodeRequest) SetIdentityType(v string) *ExecFacevrfServermodeRequest {
+	s.IdentityType = &v
+	return s
+}
+
+func (s *ExecFacevrfServermodeRequest) SetOuterOrderNo(v string) *ExecFacevrfServermodeRequest {
+	s.OuterOrderNo = &v
+	return s
+}
+
+func (s *ExecFacevrfServermodeRequest) SetSceneId(v string) *ExecFacevrfServermodeRequest {
+	s.SceneId = &v
+	return s
+}
+
+func (s *ExecFacevrfServermodeRequest) SetUserId(v string) *ExecFacevrfServermodeRequest {
+	s.UserId = &v
+	return s
+}
+
+func (s *ExecFacevrfServermodeRequest) SetUserIp(v string) *ExecFacevrfServermodeRequest {
+	s.UserIp = &v
+	return s
+}
+
+func (s *ExecFacevrfServermodeRequest) SetUserMobile(v string) *ExecFacevrfServermodeRequest {
+	s.UserMobile = &v
+	return s
+}
+
+func (s *ExecFacevrfServermodeRequest) SetFacialPictureAuth(v string) *ExecFacevrfServermodeRequest {
+	s.FacialPictureAuth = &v
+	return s
+}
+
+func (s *ExecFacevrfServermodeRequest) SetFileObject(v io.Reader) *ExecFacevrfServermodeRequest {
+	s.FileObject = v
+	return s
+}
+
+func (s *ExecFacevrfServermodeRequest) SetFileObjectName(v string) *ExecFacevrfServermodeRequest {
+	s.FileObjectName = &v
+	return s
+}
+
+func (s *ExecFacevrfServermodeRequest) SetFileId(v string) *ExecFacevrfServermodeRequest {
+	s.FileId = &v
+	return s
+}
+
+type ExecFacevrfServermodeResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// 认证ID
+	CertifyId *string `json:"certify_id,omitempty" xml:"certify_id,omitempty"`
+	// 是否通过，通过为T，不通过为F
+	Passed *string `json:"passed,omitempty" xml:"passed,omitempty"`
+	// 业务失败原因
+	Reason *string `json:"reason,omitempty" xml:"reason,omitempty"`
+	// 认证主体附件信息，包含共计类型等
+	MaterialInfo *string `json:"material_info,omitempty" xml:"material_info,omitempty"`
+}
+
+func (s ExecFacevrfServermodeResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s ExecFacevrfServermodeResponse) GoString() string {
+	return s.String()
+}
+
+func (s *ExecFacevrfServermodeResponse) SetReqMsgId(v string) *ExecFacevrfServermodeResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *ExecFacevrfServermodeResponse) SetResultCode(v string) *ExecFacevrfServermodeResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *ExecFacevrfServermodeResponse) SetResultMsg(v string) *ExecFacevrfServermodeResponse {
+	s.ResultMsg = &v
+	return s
+}
+
+func (s *ExecFacevrfServermodeResponse) SetCertifyId(v string) *ExecFacevrfServermodeResponse {
+	s.CertifyId = &v
+	return s
+}
+
+func (s *ExecFacevrfServermodeResponse) SetPassed(v string) *ExecFacevrfServermodeResponse {
+	s.Passed = &v
+	return s
+}
+
+func (s *ExecFacevrfServermodeResponse) SetReason(v string) *ExecFacevrfServermodeResponse {
+	s.Reason = &v
+	return s
+}
+
+func (s *ExecFacevrfServermodeResponse) SetMaterialInfo(v string) *ExecFacevrfServermodeResponse {
+	s.MaterialInfo = &v
+	return s
+}
+
+type QueryBankLivenessRequest struct {
+	// OAuth模式下的授权token
+	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
+	// 请求ID
+	OuterOrderNo *string `json:"outer_order_no,omitempty" xml:"outer_order_no,omitempty" require:"true"`
+	// 加密方式
+	EncryptType *string `json:"encrypt_type,omitempty" xml:"encrypt_type,omitempty" require:"true"`
+	// 身份证号
+	CertNo *string `json:"cert_no,omitempty" xml:"cert_no,omitempty"`
+	// 银行编码
+	BankCode *string `json:"bank_code,omitempty" xml:"bank_code,omitempty" require:"true"`
+	// 1=借记卡+贷记卡（默认）；2=借记卡
+	BankCardType *string `json:"bank_card_type,omitempty" xml:"bank_card_type,omitempty"`
+	// 姓名
+	CertName *string `json:"cert_name,omitempty" xml:"cert_name,omitempty"`
+	// 手机号码
+	Mobile *string `json:"mobile,omitempty" xml:"mobile,omitempty"`
+	// 扩展信息，预留字段
+	ExternParam *string `json:"extern_param,omitempty" xml:"extern_param,omitempty"`
+}
+
+func (s QueryBankLivenessRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s QueryBankLivenessRequest) GoString() string {
+	return s.String()
+}
+
+func (s *QueryBankLivenessRequest) SetAuthToken(v string) *QueryBankLivenessRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *QueryBankLivenessRequest) SetProductInstanceId(v string) *QueryBankLivenessRequest {
+	s.ProductInstanceId = &v
+	return s
+}
+
+func (s *QueryBankLivenessRequest) SetOuterOrderNo(v string) *QueryBankLivenessRequest {
+	s.OuterOrderNo = &v
+	return s
+}
+
+func (s *QueryBankLivenessRequest) SetEncryptType(v string) *QueryBankLivenessRequest {
+	s.EncryptType = &v
+	return s
+}
+
+func (s *QueryBankLivenessRequest) SetCertNo(v string) *QueryBankLivenessRequest {
+	s.CertNo = &v
+	return s
+}
+
+func (s *QueryBankLivenessRequest) SetBankCode(v string) *QueryBankLivenessRequest {
+	s.BankCode = &v
+	return s
+}
+
+func (s *QueryBankLivenessRequest) SetBankCardType(v string) *QueryBankLivenessRequest {
+	s.BankCardType = &v
+	return s
+}
+
+func (s *QueryBankLivenessRequest) SetCertName(v string) *QueryBankLivenessRequest {
+	s.CertName = &v
+	return s
+}
+
+func (s *QueryBankLivenessRequest) SetMobile(v string) *QueryBankLivenessRequest {
+	s.Mobile = &v
+	return s
+}
+
+func (s *QueryBankLivenessRequest) SetExternParam(v string) *QueryBankLivenessRequest {
+	s.ExternParam = &v
+	return s
+}
+
+type QueryBankLivenessResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// 银行活跃度详情，可解析为JSONArray。
+	LivenessInfo *string `json:"liveness_info,omitempty" xml:"liveness_info,omitempty"`
+	// 扩展信息，预留字段
+	ExternInfo *string `json:"extern_info,omitempty" xml:"extern_info,omitempty"`
+}
+
+func (s QueryBankLivenessResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s QueryBankLivenessResponse) GoString() string {
+	return s.String()
+}
+
+func (s *QueryBankLivenessResponse) SetReqMsgId(v string) *QueryBankLivenessResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *QueryBankLivenessResponse) SetResultCode(v string) *QueryBankLivenessResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *QueryBankLivenessResponse) SetResultMsg(v string) *QueryBankLivenessResponse {
+	s.ResultMsg = &v
+	return s
+}
+
+func (s *QueryBankLivenessResponse) SetLivenessInfo(v string) *QueryBankLivenessResponse {
+	s.LivenessInfo = &v
+	return s
+}
+
+func (s *QueryBankLivenessResponse) SetExternInfo(v string) *QueryBankLivenessResponse {
+	s.ExternInfo = &v
+	return s
+}
+
+type CreateConsoleDomainRequest struct {
+	// OAuth模式下的授权token
+	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
+	// 场景id
+	SceneId *string `json:"scene_id,omitempty" xml:"scene_id,omitempty" require:"true"`
+	// 用于排查问题
+	BizId *string `json:"biz_id,omitempty" xml:"biz_id,omitempty" require:"true"`
+	// 客户填自己需要绑定的小程序名称
+	MiniProgramName *string `json:"mini_program_name,omitempty" xml:"mini_program_name,omitempty" require:"true"`
+	// 所属平台，微信、支付宝
+	Platform *string `json:"platform,omitempty" xml:"platform,omitempty" require:"true"`
+	// 校验文件的名称
+	CheckFileName *string `json:"check_file_name,omitempty" xml:"check_file_name,omitempty" require:"true"`
+	// 填校验文件里面的内容
+	CheckFileBody *string `json:"check_file_body,omitempty" xml:"check_file_body,omitempty" require:"true"`
+}
+
+func (s CreateConsoleDomainRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s CreateConsoleDomainRequest) GoString() string {
+	return s.String()
+}
+
+func (s *CreateConsoleDomainRequest) SetAuthToken(v string) *CreateConsoleDomainRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *CreateConsoleDomainRequest) SetProductInstanceId(v string) *CreateConsoleDomainRequest {
+	s.ProductInstanceId = &v
+	return s
+}
+
+func (s *CreateConsoleDomainRequest) SetSceneId(v string) *CreateConsoleDomainRequest {
+	s.SceneId = &v
+	return s
+}
+
+func (s *CreateConsoleDomainRequest) SetBizId(v string) *CreateConsoleDomainRequest {
+	s.BizId = &v
+	return s
+}
+
+func (s *CreateConsoleDomainRequest) SetMiniProgramName(v string) *CreateConsoleDomainRequest {
+	s.MiniProgramName = &v
+	return s
+}
+
+func (s *CreateConsoleDomainRequest) SetPlatform(v string) *CreateConsoleDomainRequest {
+	s.Platform = &v
+	return s
+}
+
+func (s *CreateConsoleDomainRequest) SetCheckFileName(v string) *CreateConsoleDomainRequest {
+	s.CheckFileName = &v
+	return s
+}
+
+func (s *CreateConsoleDomainRequest) SetCheckFileBody(v string) *CreateConsoleDomainRequest {
+	s.CheckFileBody = &v
+	return s
+}
+
+type CreateConsoleDomainResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// 返回绑定的域名
+	Domain *string `json:"domain,omitempty" xml:"domain,omitempty"`
+}
+
+func (s CreateConsoleDomainResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s CreateConsoleDomainResponse) GoString() string {
+	return s.String()
+}
+
+func (s *CreateConsoleDomainResponse) SetReqMsgId(v string) *CreateConsoleDomainResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *CreateConsoleDomainResponse) SetResultCode(v string) *CreateConsoleDomainResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *CreateConsoleDomainResponse) SetResultMsg(v string) *CreateConsoleDomainResponse {
+	s.ResultMsg = &v
+	return s
+}
+
+func (s *CreateConsoleDomainResponse) SetDomain(v string) *CreateConsoleDomainResponse {
+	s.Domain = &v
+	return s
+}
+
+type DeleteConsoleDomainRequest struct {
+	// OAuth模式下的授权token
+	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
+	// 控制台场景id
+	SceneId *string `json:"scene_id,omitempty" xml:"scene_id,omitempty" require:"true"`
+}
+
+func (s DeleteConsoleDomainRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s DeleteConsoleDomainRequest) GoString() string {
+	return s.String()
+}
+
+func (s *DeleteConsoleDomainRequest) SetAuthToken(v string) *DeleteConsoleDomainRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *DeleteConsoleDomainRequest) SetProductInstanceId(v string) *DeleteConsoleDomainRequest {
+	s.ProductInstanceId = &v
+	return s
+}
+
+func (s *DeleteConsoleDomainRequest) SetSceneId(v string) *DeleteConsoleDomainRequest {
+	s.SceneId = &v
+	return s
+}
+
+type DeleteConsoleDomainResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+}
+
+func (s DeleteConsoleDomainResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s DeleteConsoleDomainResponse) GoString() string {
+	return s.String()
+}
+
+func (s *DeleteConsoleDomainResponse) SetReqMsgId(v string) *DeleteConsoleDomainResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *DeleteConsoleDomainResponse) SetResultCode(v string) *DeleteConsoleDomainResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *DeleteConsoleDomainResponse) SetResultMsg(v string) *DeleteConsoleDomainResponse {
+	s.ResultMsg = &v
+	return s
+}
+
+type InitCarrierRepairmobileRequest struct {
+	// OAuth模式下的授权token
+	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
+	// 请求ID，为32位以内的字母数字组合，由调用方自行生成、保证唯一并留存，以便问题定位和授权核查。
+	OuterOrderNo *string `json:"outer_order_no,omitempty" xml:"outer_order_no,omitempty" require:"true"`
+	// 流程ID，为32位以内的字母数字组合，由调用方自行生成、保证唯一并留存，用于流程串联。
+	ProcessId *string `json:"process_id,omitempty" xml:"process_id,omitempty" require:"true"`
+	// 运营商类型，取值如下：
+	// CHINA_TELECOM：中国电信
+	// CHINA_MOBILE：中国移动
+	// CHINA_UNICOM：中国联通
+	Carrier *string `json:"carrier,omitempty" xml:"carrier,omitempty" require:"true"`
+	// 入参加密模式：
+	// "0"（默认值）：不加密；
+	// "2"：身份证号、曾用手机号字段都需填写SHA256加密后的字符串。
+	// 默认未"0"
+	EncryptType *string `json:"encrypt_type,omitempty" xml:"encrypt_type,omitempty"`
+	// 失联修复身份证号，使用入参加密模式加密
+	CertNo *string `json:"cert_no,omitempty" xml:"cert_no,omitempty" require:"true"`
+	// 用户姓名，明文
+	Name *string `json:"name,omitempty" xml:"name,omitempty" require:"true"`
+	// 曾用手机号码，使用入参加密模式加密
+	Mobile *string `json:"mobile,omitempty" xml:"mobile,omitempty"`
+	// 场景值
+	Scene *string `json:"scene,omitempty" xml:"scene,omitempty"`
+	// 扩展信息，预留字段
+	ExternParam *string `json:"extern_param,omitempty" xml:"extern_param,omitempty"`
+}
+
+func (s InitCarrierRepairmobileRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s InitCarrierRepairmobileRequest) GoString() string {
+	return s.String()
+}
+
+func (s *InitCarrierRepairmobileRequest) SetAuthToken(v string) *InitCarrierRepairmobileRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *InitCarrierRepairmobileRequest) SetProductInstanceId(v string) *InitCarrierRepairmobileRequest {
+	s.ProductInstanceId = &v
+	return s
+}
+
+func (s *InitCarrierRepairmobileRequest) SetOuterOrderNo(v string) *InitCarrierRepairmobileRequest {
+	s.OuterOrderNo = &v
+	return s
+}
+
+func (s *InitCarrierRepairmobileRequest) SetProcessId(v string) *InitCarrierRepairmobileRequest {
+	s.ProcessId = &v
+	return s
+}
+
+func (s *InitCarrierRepairmobileRequest) SetCarrier(v string) *InitCarrierRepairmobileRequest {
+	s.Carrier = &v
+	return s
+}
+
+func (s *InitCarrierRepairmobileRequest) SetEncryptType(v string) *InitCarrierRepairmobileRequest {
+	s.EncryptType = &v
+	return s
+}
+
+func (s *InitCarrierRepairmobileRequest) SetCertNo(v string) *InitCarrierRepairmobileRequest {
+	s.CertNo = &v
+	return s
+}
+
+func (s *InitCarrierRepairmobileRequest) SetName(v string) *InitCarrierRepairmobileRequest {
+	s.Name = &v
+	return s
+}
+
+func (s *InitCarrierRepairmobileRequest) SetMobile(v string) *InitCarrierRepairmobileRequest {
+	s.Mobile = &v
+	return s
+}
+
+func (s *InitCarrierRepairmobileRequest) SetScene(v string) *InitCarrierRepairmobileRequest {
+	s.Scene = &v
+	return s
+}
+
+func (s *InitCarrierRepairmobileRequest) SetExternParam(v string) *InitCarrierRepairmobileRequest {
+	s.ExternParam = &v
+	return s
+}
+
+type InitCarrierRepairmobileResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// 流程ID，和客户入参的process_id一致
+	ProcessId *string `json:"process_id,omitempty" xml:"process_id,omitempty"`
+}
+
+func (s InitCarrierRepairmobileResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s InitCarrierRepairmobileResponse) GoString() string {
+	return s.String()
+}
+
+func (s *InitCarrierRepairmobileResponse) SetReqMsgId(v string) *InitCarrierRepairmobileResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *InitCarrierRepairmobileResponse) SetResultCode(v string) *InitCarrierRepairmobileResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *InitCarrierRepairmobileResponse) SetResultMsg(v string) *InitCarrierRepairmobileResponse {
+	s.ResultMsg = &v
+	return s
+}
+
+func (s *InitCarrierRepairmobileResponse) SetProcessId(v string) *InitCarrierRepairmobileResponse {
+	s.ProcessId = &v
+	return s
+}
+
+type QueryCarrierRepairmobileRequest struct {
+	// OAuth模式下的授权token
+	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
+	// 请求ID，为32位以内的字母数字组合，由调用方自行生成、保证唯一并留存，以便问题定位和授权核查。
+	OuterOrderNo *string `json:"outer_order_no,omitempty" xml:"outer_order_no,omitempty" require:"true"`
+	// 失联修复初始化的流程ID
+	ProcessId *string `json:"process_id,omitempty" xml:"process_id,omitempty" require:"true"`
+	// 场景值
+	Scene *string `json:"scene,omitempty" xml:"scene,omitempty"`
+	// 扩展信息，预留字段
+	ExternParam *string `json:"extern_param,omitempty" xml:"extern_param,omitempty"`
+}
+
+func (s QueryCarrierRepairmobileRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s QueryCarrierRepairmobileRequest) GoString() string {
+	return s.String()
+}
+
+func (s *QueryCarrierRepairmobileRequest) SetAuthToken(v string) *QueryCarrierRepairmobileRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *QueryCarrierRepairmobileRequest) SetProductInstanceId(v string) *QueryCarrierRepairmobileRequest {
+	s.ProductInstanceId = &v
+	return s
+}
+
+func (s *QueryCarrierRepairmobileRequest) SetOuterOrderNo(v string) *QueryCarrierRepairmobileRequest {
+	s.OuterOrderNo = &v
+	return s
+}
+
+func (s *QueryCarrierRepairmobileRequest) SetProcessId(v string) *QueryCarrierRepairmobileRequest {
+	s.ProcessId = &v
+	return s
+}
+
+func (s *QueryCarrierRepairmobileRequest) SetScene(v string) *QueryCarrierRepairmobileRequest {
+	s.Scene = &v
+	return s
+}
+
+func (s *QueryCarrierRepairmobileRequest) SetExternParam(v string) *QueryCarrierRepairmobileRequest {
+	s.ExternParam = &v
+	return s
+}
+
+type QueryCarrierRepairmobileResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// 失联人手机号修复数量
+	Count *string `json:"count,omitempty" xml:"count,omitempty"`
+}
+
+func (s QueryCarrierRepairmobileResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s QueryCarrierRepairmobileResponse) GoString() string {
+	return s.String()
+}
+
+func (s *QueryCarrierRepairmobileResponse) SetReqMsgId(v string) *QueryCarrierRepairmobileResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *QueryCarrierRepairmobileResponse) SetResultCode(v string) *QueryCarrierRepairmobileResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *QueryCarrierRepairmobileResponse) SetResultMsg(v string) *QueryCarrierRepairmobileResponse {
+	s.ResultMsg = &v
+	return s
+}
+
+func (s *QueryCarrierRepairmobileResponse) SetCount(v string) *QueryCarrierRepairmobileResponse {
+	s.Count = &v
+	return s
+}
+
+type BindCarrierRepairmobileRequest struct {
+	// OAuth模式下的授权token
+	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
+	// 请求ID，为32位以内的字母数字组合，由调用方自行生成、保证唯一并留存，以便问题定位和授权核查。
+	OuterOrderNo *string `json:"outer_order_no,omitempty" xml:"outer_order_no,omitempty" require:"true"`
+	// 失联修复初始化的流程ID
+	ProcessId *string `json:"process_id,omitempty" xml:"process_id,omitempty" require:"true"`
+	// 身份证号，和失联修复初始化接口身份证号加密方式保持一致
+	CertNo *string `json:"cert_no,omitempty" xml:"cert_no,omitempty" require:"true"`
+	// 修复的手机号排序，例如绑定第一个修复手机号填入1
+	MobileNum *string `json:"mobile_num,omitempty" xml:"mobile_num,omitempty" require:"true"`
+	// 主叫号码
+	MobileA *string `json:"mobile_a,omitempty" xml:"mobile_a,omitempty" require:"true"`
+	// 主叫类型1-手机号码 2-固话
+	// 默认为1
+	MobileType *string `json:"mobile_type,omitempty" xml:"mobile_type,omitempty"`
+	// 场景值
+	Scene *string `json:"scene,omitempty" xml:"scene,omitempty"`
+	// 扩展信息，预留字段
+	ExternParam *string `json:"extern_param,omitempty" xml:"extern_param,omitempty"`
+}
+
+func (s BindCarrierRepairmobileRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s BindCarrierRepairmobileRequest) GoString() string {
+	return s.String()
+}
+
+func (s *BindCarrierRepairmobileRequest) SetAuthToken(v string) *BindCarrierRepairmobileRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *BindCarrierRepairmobileRequest) SetProductInstanceId(v string) *BindCarrierRepairmobileRequest {
+	s.ProductInstanceId = &v
+	return s
+}
+
+func (s *BindCarrierRepairmobileRequest) SetOuterOrderNo(v string) *BindCarrierRepairmobileRequest {
+	s.OuterOrderNo = &v
+	return s
+}
+
+func (s *BindCarrierRepairmobileRequest) SetProcessId(v string) *BindCarrierRepairmobileRequest {
+	s.ProcessId = &v
+	return s
+}
+
+func (s *BindCarrierRepairmobileRequest) SetCertNo(v string) *BindCarrierRepairmobileRequest {
+	s.CertNo = &v
+	return s
+}
+
+func (s *BindCarrierRepairmobileRequest) SetMobileNum(v string) *BindCarrierRepairmobileRequest {
+	s.MobileNum = &v
+	return s
+}
+
+func (s *BindCarrierRepairmobileRequest) SetMobileA(v string) *BindCarrierRepairmobileRequest {
+	s.MobileA = &v
+	return s
+}
+
+func (s *BindCarrierRepairmobileRequest) SetMobileType(v string) *BindCarrierRepairmobileRequest {
+	s.MobileType = &v
+	return s
+}
+
+func (s *BindCarrierRepairmobileRequest) SetScene(v string) *BindCarrierRepairmobileRequest {
+	s.Scene = &v
+	return s
+}
+
+func (s *BindCarrierRepairmobileRequest) SetExternParam(v string) *BindCarrierRepairmobileRequest {
+	s.ExternParam = &v
+	return s
+}
+
+type BindCarrierRepairmobileResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// 小号（实际拨打返回的虚拟小号）
+	MobileX *string `json:"mobile_x,omitempty" xml:"mobile_x,omitempty"`
+}
+
+func (s BindCarrierRepairmobileResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s BindCarrierRepairmobileResponse) GoString() string {
+	return s.String()
+}
+
+func (s *BindCarrierRepairmobileResponse) SetReqMsgId(v string) *BindCarrierRepairmobileResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *BindCarrierRepairmobileResponse) SetResultCode(v string) *BindCarrierRepairmobileResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *BindCarrierRepairmobileResponse) SetResultMsg(v string) *BindCarrierRepairmobileResponse {
+	s.ResultMsg = &v
+	return s
+}
+
+func (s *BindCarrierRepairmobileResponse) SetMobileX(v string) *BindCarrierRepairmobileResponse {
+	s.MobileX = &v
+	return s
+}
+
+type ApplyExtOrgdataRequest struct {
+	// OAuth模式下的授权token
+	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
+	// 请求ID，为32位以内的字母数字组合，由调用方自行生成、保证唯一并留存，以便问题定位和授权核查。
+	OuterOrderNo *string `json:"outer_order_no,omitempty" xml:"outer_order_no,omitempty" require:"true"`
+	// 是	入参加密模式：
+	// "0"（默认值）：不加密；
+	// "4"：RSA加密
+	EncryptType *string `json:"encrypt_type,omitempty" xml:"encrypt_type,omitempty" require:"true"`
+	// 星火保
+	OrgName *string `json:"org_name,omitempty" xml:"org_name,omitempty" require:"true"`
+	// 外部机构数据类型，取值如下： AXINSUR_BANK_LIVENESS：星火保蚂蚁推荐卡
+	DataType *string `json:"data_type,omitempty" xml:"data_type,omitempty" require:"true"`
+	// 机构上报数据，json数组
+	DataContent *string `json:"data_content,omitempty" xml:"data_content,omitempty" require:"true"`
+}
+
+func (s ApplyExtOrgdataRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s ApplyExtOrgdataRequest) GoString() string {
+	return s.String()
+}
+
+func (s *ApplyExtOrgdataRequest) SetAuthToken(v string) *ApplyExtOrgdataRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *ApplyExtOrgdataRequest) SetProductInstanceId(v string) *ApplyExtOrgdataRequest {
+	s.ProductInstanceId = &v
+	return s
+}
+
+func (s *ApplyExtOrgdataRequest) SetOuterOrderNo(v string) *ApplyExtOrgdataRequest {
+	s.OuterOrderNo = &v
+	return s
+}
+
+func (s *ApplyExtOrgdataRequest) SetEncryptType(v string) *ApplyExtOrgdataRequest {
+	s.EncryptType = &v
+	return s
+}
+
+func (s *ApplyExtOrgdataRequest) SetOrgName(v string) *ApplyExtOrgdataRequest {
+	s.OrgName = &v
+	return s
+}
+
+func (s *ApplyExtOrgdataRequest) SetDataType(v string) *ApplyExtOrgdataRequest {
+	s.DataType = &v
+	return s
+}
+
+func (s *ApplyExtOrgdataRequest) SetDataContent(v string) *ApplyExtOrgdataRequest {
+	s.DataContent = &v
+	return s
+}
+
+type ApplyExtOrgdataResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// 上报结果
+	Result *string `json:"result,omitempty" xml:"result,omitempty"`
+}
+
+func (s ApplyExtOrgdataResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s ApplyExtOrgdataResponse) GoString() string {
+	return s.String()
+}
+
+func (s *ApplyExtOrgdataResponse) SetReqMsgId(v string) *ApplyExtOrgdataResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *ApplyExtOrgdataResponse) SetResultCode(v string) *ApplyExtOrgdataResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *ApplyExtOrgdataResponse) SetResultMsg(v string) *ApplyExtOrgdataResponse {
+	s.ResultMsg = &v
+	return s
+}
+
+func (s *ApplyExtOrgdataResponse) SetResult(v string) *ApplyExtOrgdataResponse {
+	s.Result = &v
+	return s
+}
+
+type CreateFaceverifyServerRequest struct {
+	// OAuth模式下的授权token
+	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
+	// 外部唯一标识。用于定位。 值为32位长度的字母数字组合前面几位字符是商户自定义的简称，中间可以使用一段时间，后段可以使用一个随机或递增序列
+	OuterOrderNo *string `json:"outer_order_no,omitempty" xml:"outer_order_no,omitempty" require:"true"`
+	// 认证模式码
+	BizCode *string `json:"biz_code,omitempty" xml:"biz_code,omitempty" require:"true"`
+	// 场景ID
+	SceneId *string `json:"scene_id,omitempty" xml:"scene_id,omitempty" require:"true"`
+	// 身份信息来源类型，如证件
+	IdentityType *string `json:"identity_type,omitempty" xml:"identity_type,omitempty" require:"true"`
+	// 证件类型，如身份证
+	CertType *string `json:"cert_type,omitempty" xml:"cert_type,omitempty"`
+	// 真实姓名
+	CertName *string `json:"cert_name,omitempty" xml:"cert_name,omitempty"`
+	// 证件号码
+	CertNo *string `json:"cert_no,omitempty" xml:"cert_no,omitempty"`
+	// h5认证完成后，服务端回调此地址通知商户认证结果
+	CallbackUrl *string `json:"callback_url,omitempty" xml:"callback_url,omitempty"`
+	// cert_name、cert_no两个字段的传入模式。0：明文1：密文
+	EncType *string `json:"enc_type,omitempty" xml:"enc_type,omitempty"`
+	// 预留扩展参数
+	ExternParam *string `json:"extern_param,omitempty" xml:"extern_param,omitempty"`
+	// 自定义比对源人脸图像，base64编码格式
+	FacialPictureRef *string `json:"facial_picture_ref,omitempty" xml:"facial_picture_ref,omitempty"`
+	// metainfo 环境参数，需要通过客户端 SDK 获取
+	MetaInfo *string `json:"meta_info,omitempty" xml:"meta_info,omitempty"`
+	// 回跳地址
+	ReturnUrl *string `json:"return_url,omitempty" xml:"return_url,omitempty"`
+	// 商户自定义的用户ID
+	UserId *string `json:"user_id,omitempty" xml:"user_id,omitempty"`
+	// 用户的IP
+	UserIp *string `json:"user_ip,omitempty" xml:"user_ip,omitempty"`
+	// 用户的手机号
+	UserMobile *string `json:"user_mobile,omitempty" xml:"user_mobile,omitempty"`
+	// callbackUrl回调时是否需要重试，默认false(不需要重试)
+	CallbackNeedRetry *string `json:"callback_need_retry,omitempty" xml:"callback_need_retry,omitempty"`
+	// 活体检测的类型
+	Model *string `json:"model,omitempty" xml:"model,omitempty"`
+	// 图片文件
+	// 待上传文件
+	FileObject io.Reader `json:"fileObject,omitempty" xml:"fileObject,omitempty"`
+	// 待上传文件名
+	FileObjectName *string `json:"fileObjectName,omitempty" xml:"fileObjectName,omitempty"`
+	FileId         *string `json:"file_id,omitempty" xml:"file_id,omitempty"`
+	// 图片的传入加密模式
+	// 0：明文
+	// 1：AES加密
+	MaterialEncType *string `json:"material_enc_type,omitempty" xml:"material_enc_type,omitempty"`
+	// 公钥加密后的密钥，用于传入的加密图片/视频
+	MaterialEncToken *string `json:"material_enc_token,omitempty" xml:"material_enc_token,omitempty"`
+}
+
+func (s CreateFaceverifyServerRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s CreateFaceverifyServerRequest) GoString() string {
+	return s.String()
+}
+
+func (s *CreateFaceverifyServerRequest) SetAuthToken(v string) *CreateFaceverifyServerRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *CreateFaceverifyServerRequest) SetProductInstanceId(v string) *CreateFaceverifyServerRequest {
+	s.ProductInstanceId = &v
+	return s
+}
+
+func (s *CreateFaceverifyServerRequest) SetOuterOrderNo(v string) *CreateFaceverifyServerRequest {
+	s.OuterOrderNo = &v
+	return s
+}
+
+func (s *CreateFaceverifyServerRequest) SetBizCode(v string) *CreateFaceverifyServerRequest {
+	s.BizCode = &v
+	return s
+}
+
+func (s *CreateFaceverifyServerRequest) SetSceneId(v string) *CreateFaceverifyServerRequest {
+	s.SceneId = &v
+	return s
+}
+
+func (s *CreateFaceverifyServerRequest) SetIdentityType(v string) *CreateFaceverifyServerRequest {
+	s.IdentityType = &v
+	return s
+}
+
+func (s *CreateFaceverifyServerRequest) SetCertType(v string) *CreateFaceverifyServerRequest {
+	s.CertType = &v
+	return s
+}
+
+func (s *CreateFaceverifyServerRequest) SetCertName(v string) *CreateFaceverifyServerRequest {
+	s.CertName = &v
+	return s
+}
+
+func (s *CreateFaceverifyServerRequest) SetCertNo(v string) *CreateFaceverifyServerRequest {
+	s.CertNo = &v
+	return s
+}
+
+func (s *CreateFaceverifyServerRequest) SetCallbackUrl(v string) *CreateFaceverifyServerRequest {
+	s.CallbackUrl = &v
+	return s
+}
+
+func (s *CreateFaceverifyServerRequest) SetEncType(v string) *CreateFaceverifyServerRequest {
+	s.EncType = &v
+	return s
+}
+
+func (s *CreateFaceverifyServerRequest) SetExternParam(v string) *CreateFaceverifyServerRequest {
+	s.ExternParam = &v
+	return s
+}
+
+func (s *CreateFaceverifyServerRequest) SetFacialPictureRef(v string) *CreateFaceverifyServerRequest {
+	s.FacialPictureRef = &v
+	return s
+}
+
+func (s *CreateFaceverifyServerRequest) SetMetaInfo(v string) *CreateFaceverifyServerRequest {
+	s.MetaInfo = &v
+	return s
+}
+
+func (s *CreateFaceverifyServerRequest) SetReturnUrl(v string) *CreateFaceverifyServerRequest {
+	s.ReturnUrl = &v
+	return s
+}
+
+func (s *CreateFaceverifyServerRequest) SetUserId(v string) *CreateFaceverifyServerRequest {
+	s.UserId = &v
+	return s
+}
+
+func (s *CreateFaceverifyServerRequest) SetUserIp(v string) *CreateFaceverifyServerRequest {
+	s.UserIp = &v
+	return s
+}
+
+func (s *CreateFaceverifyServerRequest) SetUserMobile(v string) *CreateFaceverifyServerRequest {
+	s.UserMobile = &v
+	return s
+}
+
+func (s *CreateFaceverifyServerRequest) SetCallbackNeedRetry(v string) *CreateFaceverifyServerRequest {
+	s.CallbackNeedRetry = &v
+	return s
+}
+
+func (s *CreateFaceverifyServerRequest) SetModel(v string) *CreateFaceverifyServerRequest {
+	s.Model = &v
+	return s
+}
+
+func (s *CreateFaceverifyServerRequest) SetFileObject(v io.Reader) *CreateFaceverifyServerRequest {
+	s.FileObject = v
+	return s
+}
+
+func (s *CreateFaceverifyServerRequest) SetFileObjectName(v string) *CreateFaceverifyServerRequest {
+	s.FileObjectName = &v
+	return s
+}
+
+func (s *CreateFaceverifyServerRequest) SetFileId(v string) *CreateFaceverifyServerRequest {
+	s.FileId = &v
+	return s
+}
+
+func (s *CreateFaceverifyServerRequest) SetMaterialEncType(v string) *CreateFaceverifyServerRequest {
+	s.MaterialEncType = &v
+	return s
+}
+
+func (s *CreateFaceverifyServerRequest) SetMaterialEncToken(v string) *CreateFaceverifyServerRequest {
+	s.MaterialEncToken = &v
+	return s
+}
+
+type CreateFaceverifyServerResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// 实人认证唯一标识
+	CertifyId *string `json:"certify_id,omitempty" xml:"certify_id,omitempty"`
+	// 认证地址。只在特定场景返回。
+	CertifyUrl *string `json:"certify_url,omitempty" xml:"certify_url,omitempty"`
+}
+
+func (s CreateFaceverifyServerResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s CreateFaceverifyServerResponse) GoString() string {
+	return s.String()
+}
+
+func (s *CreateFaceverifyServerResponse) SetReqMsgId(v string) *CreateFaceverifyServerResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *CreateFaceverifyServerResponse) SetResultCode(v string) *CreateFaceverifyServerResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *CreateFaceverifyServerResponse) SetResultMsg(v string) *CreateFaceverifyServerResponse {
+	s.ResultMsg = &v
+	return s
+}
+
+func (s *CreateFaceverifyServerResponse) SetCertifyId(v string) *CreateFaceverifyServerResponse {
+	s.CertifyId = &v
+	return s
+}
+
+func (s *CreateFaceverifyServerResponse) SetCertifyUrl(v string) *CreateFaceverifyServerResponse {
+	s.CertifyUrl = &v
+	return s
+}
+
+type QueryFaceverifyServerRequest struct {
+	// OAuth模式下的授权token
+	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
+	// 实人认证唯一标识
+	CertifyId *string `json:"certify_id,omitempty" xml:"certify_id,omitempty" require:"true"`
+	// 外部唯一标识。用于定位。 值为32位长度的字母数字组合前面几位字符是商户自定义的简称，中间可以使用一段时间，后段可以使用一个随机或递增序列
+	OuterOrderNo *string `json:"outer_order_no,omitempty" xml:"outer_order_no,omitempty" require:"true"`
+	// 场景ID
+	SceneId *string `json:"scene_id,omitempty" xml:"scene_id,omitempty" require:"true"`
+	// 预留扩展业务参数
+	ExternParam *string `json:"extern_param,omitempty" xml:"extern_param,omitempty"`
+	// 认证材料（如人脸图像）的哈希
+	MaterialHash *string `json:"material_hash,omitempty" xml:"material_hash,omitempty"`
+}
+
+func (s QueryFaceverifyServerRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s QueryFaceverifyServerRequest) GoString() string {
+	return s.String()
+}
+
+func (s *QueryFaceverifyServerRequest) SetAuthToken(v string) *QueryFaceverifyServerRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *QueryFaceverifyServerRequest) SetProductInstanceId(v string) *QueryFaceverifyServerRequest {
+	s.ProductInstanceId = &v
+	return s
+}
+
+func (s *QueryFaceverifyServerRequest) SetCertifyId(v string) *QueryFaceverifyServerRequest {
+	s.CertifyId = &v
+	return s
+}
+
+func (s *QueryFaceverifyServerRequest) SetOuterOrderNo(v string) *QueryFaceverifyServerRequest {
+	s.OuterOrderNo = &v
+	return s
+}
+
+func (s *QueryFaceverifyServerRequest) SetSceneId(v string) *QueryFaceverifyServerRequest {
+	s.SceneId = &v
+	return s
+}
+
+func (s *QueryFaceverifyServerRequest) SetExternParam(v string) *QueryFaceverifyServerRequest {
+	s.ExternParam = &v
+	return s
+}
+
+func (s *QueryFaceverifyServerRequest) SetMaterialHash(v string) *QueryFaceverifyServerRequest {
+	s.MaterialHash = &v
+	return s
+}
+
+type QueryFaceverifyServerResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// 认证的主体信息，一般的认证场景返回为空
+	IdentityInfo *string `json:"identity_info,omitempty" xml:"identity_info,omitempty"`
+	// 认证主体附件信息，一般的认证场景都是返回空
+	MaterialInfo *string `json:"material_info,omitempty" xml:"material_info,omitempty"`
+	// 认证材料哈希是否匹配
+	MaterialMatched *string `json:"material_matched,omitempty" xml:"material_matched,omitempty"`
+	// 是否通过，通过为T，不通过为F
+	Passed *string `json:"passed,omitempty" xml:"passed,omitempty"`
+	// 业务失败原因
+	Reason *string `json:"reason,omitempty" xml:"reason,omitempty"`
+}
+
+func (s QueryFaceverifyServerResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s QueryFaceverifyServerResponse) GoString() string {
+	return s.String()
+}
+
+func (s *QueryFaceverifyServerResponse) SetReqMsgId(v string) *QueryFaceverifyServerResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *QueryFaceverifyServerResponse) SetResultCode(v string) *QueryFaceverifyServerResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *QueryFaceverifyServerResponse) SetResultMsg(v string) *QueryFaceverifyServerResponse {
+	s.ResultMsg = &v
+	return s
+}
+
+func (s *QueryFaceverifyServerResponse) SetIdentityInfo(v string) *QueryFaceverifyServerResponse {
+	s.IdentityInfo = &v
+	return s
+}
+
+func (s *QueryFaceverifyServerResponse) SetMaterialInfo(v string) *QueryFaceverifyServerResponse {
+	s.MaterialInfo = &v
+	return s
+}
+
+func (s *QueryFaceverifyServerResponse) SetMaterialMatched(v string) *QueryFaceverifyServerResponse {
+	s.MaterialMatched = &v
+	return s
+}
+
+func (s *QueryFaceverifyServerResponse) SetPassed(v string) *QueryFaceverifyServerResponse {
+	s.Passed = &v
+	return s
+}
+
+func (s *QueryFaceverifyServerResponse) SetReason(v string) *QueryFaceverifyServerResponse {
+	s.Reason = &v
+	return s
+}
+
+type QueryBankLivenessplusRequest struct {
+	// OAuth模式下的授权token
+	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
+	// 请求ID
+	OuterOrderNo *string `json:"outer_order_no,omitempty" xml:"outer_order_no,omitempty" require:"true"`
+	// 加密方式
+	EncryptType *string `json:"encrypt_type,omitempty" xml:"encrypt_type,omitempty" require:"true"`
+	// 身份证号
+	CertNo *string `json:"cert_no,omitempty" xml:"cert_no,omitempty"`
+	// 银行编码
+	BankCode *string `json:"bank_code,omitempty" xml:"bank_code,omitempty" require:"true"`
+	// 1=借记卡+贷记卡（默认）；2=借记卡
+	BankCardType *string `json:"bank_card_type,omitempty" xml:"bank_card_type,omitempty"`
+	// 姓名
+	CertName *string `json:"cert_name,omitempty" xml:"cert_name,omitempty"`
+	// 手机号码
+	Mobile *string `json:"mobile,omitempty" xml:"mobile,omitempty"`
+	// 扩展信息，预留字段
+	ExternParam *string `json:"extern_param,omitempty" xml:"extern_param,omitempty"`
+}
+
+func (s QueryBankLivenessplusRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s QueryBankLivenessplusRequest) GoString() string {
+	return s.String()
+}
+
+func (s *QueryBankLivenessplusRequest) SetAuthToken(v string) *QueryBankLivenessplusRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *QueryBankLivenessplusRequest) SetProductInstanceId(v string) *QueryBankLivenessplusRequest {
+	s.ProductInstanceId = &v
+	return s
+}
+
+func (s *QueryBankLivenessplusRequest) SetOuterOrderNo(v string) *QueryBankLivenessplusRequest {
+	s.OuterOrderNo = &v
+	return s
+}
+
+func (s *QueryBankLivenessplusRequest) SetEncryptType(v string) *QueryBankLivenessplusRequest {
+	s.EncryptType = &v
+	return s
+}
+
+func (s *QueryBankLivenessplusRequest) SetCertNo(v string) *QueryBankLivenessplusRequest {
+	s.CertNo = &v
+	return s
+}
+
+func (s *QueryBankLivenessplusRequest) SetBankCode(v string) *QueryBankLivenessplusRequest {
+	s.BankCode = &v
+	return s
+}
+
+func (s *QueryBankLivenessplusRequest) SetBankCardType(v string) *QueryBankLivenessplusRequest {
+	s.BankCardType = &v
+	return s
+}
+
+func (s *QueryBankLivenessplusRequest) SetCertName(v string) *QueryBankLivenessplusRequest {
+	s.CertName = &v
+	return s
+}
+
+func (s *QueryBankLivenessplusRequest) SetMobile(v string) *QueryBankLivenessplusRequest {
+	s.Mobile = &v
+	return s
+}
+
+func (s *QueryBankLivenessplusRequest) SetExternParam(v string) *QueryBankLivenessplusRequest {
+	s.ExternParam = &v
+	return s
+}
+
+type QueryBankLivenessplusResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// 银行活跃度详情，可解析为JSONArray。
+	LivenessInfo *string `json:"liveness_info,omitempty" xml:"liveness_info,omitempty"`
+	// 扩展信息，预留字段
+	ExternInfo *string `json:"extern_info,omitempty" xml:"extern_info,omitempty"`
+}
+
+func (s QueryBankLivenessplusResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s QueryBankLivenessplusResponse) GoString() string {
+	return s.String()
+}
+
+func (s *QueryBankLivenessplusResponse) SetReqMsgId(v string) *QueryBankLivenessplusResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *QueryBankLivenessplusResponse) SetResultCode(v string) *QueryBankLivenessplusResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *QueryBankLivenessplusResponse) SetResultMsg(v string) *QueryBankLivenessplusResponse {
+	s.ResultMsg = &v
+	return s
+}
+
+func (s *QueryBankLivenessplusResponse) SetLivenessInfo(v string) *QueryBankLivenessplusResponse {
+	s.LivenessInfo = &v
+	return s
+}
+
+func (s *QueryBankLivenessplusResponse) SetExternInfo(v string) *QueryBankLivenessplusResponse {
+	s.ExternInfo = &v
+	return s
+}
+
+type ExecFaceverifyServermodeRequest struct {
+	// OAuth模式下的授权token
+	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
+	// 真实姓名
+	CertName *string `json:"cert_name,omitempty" xml:"cert_name,omitempty"`
+	// 证件号码
+	CertNo *string `json:"cert_no,omitempty" xml:"cert_no,omitempty"`
+	// cert_name、cert_no两个字段的传入模式0：明文 1：密文
+	EncType *string `json:"enc_type,omitempty" xml:"enc_type,omitempty"`
+	// 证件类型，如身份证
+	CertType *string `json:"cert_type,omitempty" xml:"cert_type,omitempty"`
+	// 预留扩展参数
+	ExternParam *string `json:"extern_param,omitempty" xml:"extern_param,omitempty"`
+	// 自定义比对源人脸图像，base64编码格式
+	FacialPictureRef *string `json:"facial_picture_ref,omitempty" xml:"facial_picture_ref,omitempty"`
+	// 身份信息来源类型，如证件
+	IdentityType *string `json:"identity_type,omitempty" xml:"identity_type,omitempty" require:"true"`
+	// 外部唯一标识。用于定位。 值为32位长度的字母数字组合前面几位字符是商户自定义的简称，中间可以使用一段时间，后段可以使用一个随机或递增序列
+	OuterOrderNo *string `json:"outer_order_no,omitempty" xml:"outer_order_no,omitempty" require:"true"`
+	// 场景ID
+	SceneId *string `json:"scene_id,omitempty" xml:"scene_id,omitempty" require:"true"`
+	// 商户自定义的用户ID
+	UserId *string `json:"user_id,omitempty" xml:"user_id,omitempty"`
+	// 用户的IP
+	UserIp *string `json:"user_ip,omitempty" xml:"user_ip,omitempty"`
+	// 用户的手机号（或其哈希值）
+	UserMobile *string `json:"user_mobile,omitempty" xml:"user_mobile,omitempty"`
+	// 待认证的人脸图像，base64编码格式
+	FacialPictureAuth *string `json:"facial_picture_auth,omitempty" xml:"facial_picture_auth,omitempty"`
+	// 视频文件
+	// 待上传文件
+	FileObject io.Reader `json:"fileObject,omitempty" xml:"fileObject,omitempty"`
+	// 待上传文件名
+	FileObjectName *string `json:"fileObjectName,omitempty" xml:"fileObjectName,omitempty"`
+	FileId         *string `json:"file_id,omitempty" xml:"file_id,omitempty"`
+	// 图片的传入加密模式 0：明文 1：AES加密
+	MaterialEncType *string `json:"material_enc_type,omitempty" xml:"material_enc_type,omitempty"`
+	// 公钥加密后的密钥，用于传入的加密图片/视频
+	MaterialEncToken *string `json:"material_enc_token,omitempty" xml:"material_enc_token,omitempty"`
+	// 自定义比对源人脸图像 file id
+	FacialPictureRefFileId *string `json:"facial_picture_ref_file_id,omitempty" xml:"facial_picture_ref_file_id,omitempty"`
+	// 待认证的人脸图像 file id
+	FacialPictureAuthFileId *string `json:"facial_picture_auth_file_id,omitempty" xml:"facial_picture_auth_file_id,omitempty"`
+}
+
+func (s ExecFaceverifyServermodeRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s ExecFaceverifyServermodeRequest) GoString() string {
+	return s.String()
+}
+
+func (s *ExecFaceverifyServermodeRequest) SetAuthToken(v string) *ExecFaceverifyServermodeRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *ExecFaceverifyServermodeRequest) SetProductInstanceId(v string) *ExecFaceverifyServermodeRequest {
+	s.ProductInstanceId = &v
+	return s
+}
+
+func (s *ExecFaceverifyServermodeRequest) SetCertName(v string) *ExecFaceverifyServermodeRequest {
+	s.CertName = &v
+	return s
+}
+
+func (s *ExecFaceverifyServermodeRequest) SetCertNo(v string) *ExecFaceverifyServermodeRequest {
+	s.CertNo = &v
+	return s
+}
+
+func (s *ExecFaceverifyServermodeRequest) SetEncType(v string) *ExecFaceverifyServermodeRequest {
+	s.EncType = &v
+	return s
+}
+
+func (s *ExecFaceverifyServermodeRequest) SetCertType(v string) *ExecFaceverifyServermodeRequest {
+	s.CertType = &v
+	return s
+}
+
+func (s *ExecFaceverifyServermodeRequest) SetExternParam(v string) *ExecFaceverifyServermodeRequest {
+	s.ExternParam = &v
+	return s
+}
+
+func (s *ExecFaceverifyServermodeRequest) SetFacialPictureRef(v string) *ExecFaceverifyServermodeRequest {
+	s.FacialPictureRef = &v
+	return s
+}
+
+func (s *ExecFaceverifyServermodeRequest) SetIdentityType(v string) *ExecFaceverifyServermodeRequest {
+	s.IdentityType = &v
+	return s
+}
+
+func (s *ExecFaceverifyServermodeRequest) SetOuterOrderNo(v string) *ExecFaceverifyServermodeRequest {
+	s.OuterOrderNo = &v
+	return s
+}
+
+func (s *ExecFaceverifyServermodeRequest) SetSceneId(v string) *ExecFaceverifyServermodeRequest {
+	s.SceneId = &v
+	return s
+}
+
+func (s *ExecFaceverifyServermodeRequest) SetUserId(v string) *ExecFaceverifyServermodeRequest {
+	s.UserId = &v
+	return s
+}
+
+func (s *ExecFaceverifyServermodeRequest) SetUserIp(v string) *ExecFaceverifyServermodeRequest {
+	s.UserIp = &v
+	return s
+}
+
+func (s *ExecFaceverifyServermodeRequest) SetUserMobile(v string) *ExecFaceverifyServermodeRequest {
+	s.UserMobile = &v
+	return s
+}
+
+func (s *ExecFaceverifyServermodeRequest) SetFacialPictureAuth(v string) *ExecFaceverifyServermodeRequest {
+	s.FacialPictureAuth = &v
+	return s
+}
+
+func (s *ExecFaceverifyServermodeRequest) SetFileObject(v io.Reader) *ExecFaceverifyServermodeRequest {
+	s.FileObject = v
+	return s
+}
+
+func (s *ExecFaceverifyServermodeRequest) SetFileObjectName(v string) *ExecFaceverifyServermodeRequest {
+	s.FileObjectName = &v
+	return s
+}
+
+func (s *ExecFaceverifyServermodeRequest) SetFileId(v string) *ExecFaceverifyServermodeRequest {
+	s.FileId = &v
+	return s
+}
+
+func (s *ExecFaceverifyServermodeRequest) SetMaterialEncType(v string) *ExecFaceverifyServermodeRequest {
+	s.MaterialEncType = &v
+	return s
+}
+
+func (s *ExecFaceverifyServermodeRequest) SetMaterialEncToken(v string) *ExecFaceverifyServermodeRequest {
+	s.MaterialEncToken = &v
+	return s
+}
+
+func (s *ExecFaceverifyServermodeRequest) SetFacialPictureRefFileId(v string) *ExecFaceverifyServermodeRequest {
+	s.FacialPictureRefFileId = &v
+	return s
+}
+
+func (s *ExecFaceverifyServermodeRequest) SetFacialPictureAuthFileId(v string) *ExecFaceverifyServermodeRequest {
+	s.FacialPictureAuthFileId = &v
+	return s
+}
+
+type ExecFaceverifyServermodeResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// 认证ID
+	CertifyId *string `json:"certify_id,omitempty" xml:"certify_id,omitempty"`
+	// 是否通过，通过为T，不通过为F
+	Passed *string `json:"passed,omitempty" xml:"passed,omitempty"`
+	// 业务失败原因
+	Reason *string `json:"reason,omitempty" xml:"reason,omitempty"`
+	// 认证主体附件信息，包含共计类型等
+	MaterialInfo *string `json:"material_info,omitempty" xml:"material_info,omitempty"`
+}
+
+func (s ExecFaceverifyServermodeResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s ExecFaceverifyServermodeResponse) GoString() string {
+	return s.String()
+}
+
+func (s *ExecFaceverifyServermodeResponse) SetReqMsgId(v string) *ExecFaceverifyServermodeResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *ExecFaceverifyServermodeResponse) SetResultCode(v string) *ExecFaceverifyServermodeResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *ExecFaceverifyServermodeResponse) SetResultMsg(v string) *ExecFaceverifyServermodeResponse {
+	s.ResultMsg = &v
+	return s
+}
+
+func (s *ExecFaceverifyServermodeResponse) SetCertifyId(v string) *ExecFaceverifyServermodeResponse {
+	s.CertifyId = &v
+	return s
+}
+
+func (s *ExecFaceverifyServermodeResponse) SetPassed(v string) *ExecFaceverifyServermodeResponse {
+	s.Passed = &v
+	return s
+}
+
+func (s *ExecFaceverifyServermodeResponse) SetReason(v string) *ExecFaceverifyServermodeResponse {
+	s.Reason = &v
+	return s
+}
+
+func (s *ExecFaceverifyServermodeResponse) SetMaterialInfo(v string) *ExecFaceverifyServermodeResponse {
+	s.MaterialInfo = &v
+	return s
+}
+
+type CreateAlipayverifyServerRequest struct {
+	// OAuth模式下的授权token
+	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
+	// 外部唯一标识。用于定位。 值为32位长度的字母数字组合前面几位字符是商户自定义的简称，中间可以使用一段时间，后段可以使用一个随机或递增序列
+	OuterOrderNo *string `json:"outer_order_no,omitempty" xml:"outer_order_no,omitempty" require:"true"`
+	// 认证模式码
+	BizCode *string `json:"biz_code,omitempty" xml:"biz_code,omitempty" require:"true"`
+	// 场景ID
+	SceneId *string `json:"scene_id,omitempty" xml:"scene_id,omitempty" require:"true"`
+	// 身份信息来源类型，如证件
+	IdentityType *string `json:"identity_type,omitempty" xml:"identity_type,omitempty" require:"true"`
+	// 证件类型，如身份证
+	CertType *string `json:"cert_type,omitempty" xml:"cert_type,omitempty" require:"true"`
+	// 真实姓名
+	CertName *string `json:"cert_name,omitempty" xml:"cert_name,omitempty" require:"true"`
+	// 证件号码
+	CertNo *string `json:"cert_no,omitempty" xml:"cert_no,omitempty" require:"true"`
+	// h5认证完成后，服务端回调此地址通知商户认证结果
+	CallbackUrl *string `json:"callback_url,omitempty" xml:"callback_url,omitempty"`
+	// cert_name、cert_no两个字段的传入模式。0：明文1：密文
+	EncType *string `json:"enc_type,omitempty" xml:"enc_type,omitempty"`
+	// 预留扩展参数
+	ExternParam *string `json:"extern_param,omitempty" xml:"extern_param,omitempty"`
+	// 自定义比对源人脸图像，base64编码格式
+	FacialPictureRef *string `json:"facial_picture_ref,omitempty" xml:"facial_picture_ref,omitempty"`
+	// metainfo 环境参数，需要通过客户端 SDK 获取
+	MetaInfo *string `json:"meta_info,omitempty" xml:"meta_info,omitempty"`
+	// 回跳地址
+	ReturnUrl *string `json:"return_url,omitempty" xml:"return_url,omitempty"`
+	// 商户自定义的用户ID
+	UserId *string `json:"user_id,omitempty" xml:"user_id,omitempty"`
+	// 用户的IP
+	UserIp *string `json:"user_ip,omitempty" xml:"user_ip,omitempty"`
+	// 用户的手机号
+	UserMobile *string `json:"user_mobile,omitempty" xml:"user_mobile,omitempty"`
+	// callbackUrl回调时是否需要重试，默认false(不需要重试)
+	CallbackNeedRetry *string `json:"callback_need_retry,omitempty" xml:"callback_need_retry,omitempty"`
+	// 活体检测的类型
+	Model *string `json:"model,omitempty" xml:"model,omitempty"`
+}
+
+func (s CreateAlipayverifyServerRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s CreateAlipayverifyServerRequest) GoString() string {
+	return s.String()
+}
+
+func (s *CreateAlipayverifyServerRequest) SetAuthToken(v string) *CreateAlipayverifyServerRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *CreateAlipayverifyServerRequest) SetProductInstanceId(v string) *CreateAlipayverifyServerRequest {
+	s.ProductInstanceId = &v
+	return s
+}
+
+func (s *CreateAlipayverifyServerRequest) SetOuterOrderNo(v string) *CreateAlipayverifyServerRequest {
+	s.OuterOrderNo = &v
+	return s
+}
+
+func (s *CreateAlipayverifyServerRequest) SetBizCode(v string) *CreateAlipayverifyServerRequest {
+	s.BizCode = &v
+	return s
+}
+
+func (s *CreateAlipayverifyServerRequest) SetSceneId(v string) *CreateAlipayverifyServerRequest {
+	s.SceneId = &v
+	return s
+}
+
+func (s *CreateAlipayverifyServerRequest) SetIdentityType(v string) *CreateAlipayverifyServerRequest {
+	s.IdentityType = &v
+	return s
+}
+
+func (s *CreateAlipayverifyServerRequest) SetCertType(v string) *CreateAlipayverifyServerRequest {
+	s.CertType = &v
+	return s
+}
+
+func (s *CreateAlipayverifyServerRequest) SetCertName(v string) *CreateAlipayverifyServerRequest {
+	s.CertName = &v
+	return s
+}
+
+func (s *CreateAlipayverifyServerRequest) SetCertNo(v string) *CreateAlipayverifyServerRequest {
+	s.CertNo = &v
+	return s
+}
+
+func (s *CreateAlipayverifyServerRequest) SetCallbackUrl(v string) *CreateAlipayverifyServerRequest {
+	s.CallbackUrl = &v
+	return s
+}
+
+func (s *CreateAlipayverifyServerRequest) SetEncType(v string) *CreateAlipayverifyServerRequest {
+	s.EncType = &v
+	return s
+}
+
+func (s *CreateAlipayverifyServerRequest) SetExternParam(v string) *CreateAlipayverifyServerRequest {
+	s.ExternParam = &v
+	return s
+}
+
+func (s *CreateAlipayverifyServerRequest) SetFacialPictureRef(v string) *CreateAlipayverifyServerRequest {
+	s.FacialPictureRef = &v
+	return s
+}
+
+func (s *CreateAlipayverifyServerRequest) SetMetaInfo(v string) *CreateAlipayverifyServerRequest {
+	s.MetaInfo = &v
+	return s
+}
+
+func (s *CreateAlipayverifyServerRequest) SetReturnUrl(v string) *CreateAlipayverifyServerRequest {
+	s.ReturnUrl = &v
+	return s
+}
+
+func (s *CreateAlipayverifyServerRequest) SetUserId(v string) *CreateAlipayverifyServerRequest {
+	s.UserId = &v
+	return s
+}
+
+func (s *CreateAlipayverifyServerRequest) SetUserIp(v string) *CreateAlipayverifyServerRequest {
+	s.UserIp = &v
+	return s
+}
+
+func (s *CreateAlipayverifyServerRequest) SetUserMobile(v string) *CreateAlipayverifyServerRequest {
+	s.UserMobile = &v
+	return s
+}
+
+func (s *CreateAlipayverifyServerRequest) SetCallbackNeedRetry(v string) *CreateAlipayverifyServerRequest {
+	s.CallbackNeedRetry = &v
+	return s
+}
+
+func (s *CreateAlipayverifyServerRequest) SetModel(v string) *CreateAlipayverifyServerRequest {
+	s.Model = &v
+	return s
+}
+
+type CreateAlipayverifyServerResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// 实人认证唯一标识
+	CertifyId *string `json:"certify_id,omitempty" xml:"certify_id,omitempty"`
+	// 认证地址。只在特定场景返回。
+	CertifyUrl *string `json:"certify_url,omitempty" xml:"certify_url,omitempty"`
+}
+
+func (s CreateAlipayverifyServerResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s CreateAlipayverifyServerResponse) GoString() string {
+	return s.String()
+}
+
+func (s *CreateAlipayverifyServerResponse) SetReqMsgId(v string) *CreateAlipayverifyServerResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *CreateAlipayverifyServerResponse) SetResultCode(v string) *CreateAlipayverifyServerResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *CreateAlipayverifyServerResponse) SetResultMsg(v string) *CreateAlipayverifyServerResponse {
+	s.ResultMsg = &v
+	return s
+}
+
+func (s *CreateAlipayverifyServerResponse) SetCertifyId(v string) *CreateAlipayverifyServerResponse {
+	s.CertifyId = &v
+	return s
+}
+
+func (s *CreateAlipayverifyServerResponse) SetCertifyUrl(v string) *CreateAlipayverifyServerResponse {
+	s.CertifyUrl = &v
+	return s
+}
+
+type QueryAlipayverifyServerRequest struct {
+	// OAuth模式下的授权token
+	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
+	// 实人认证唯一标识
+	CertifyId *string `json:"certify_id,omitempty" xml:"certify_id,omitempty" require:"true"`
+	// 外部唯一标识。用于定位。 值为32位长度的字母数字组合前面几位字符是商户自定义的简称，中间可以使用一段时间，后段可以使用一个随机或递增序列
+	OuterOrderNo *string `json:"outer_order_no,omitempty" xml:"outer_order_no,omitempty" require:"true"`
+	// 场景ID
+	SceneId *string `json:"scene_id,omitempty" xml:"scene_id,omitempty" require:"true"`
+	// 预留扩展业务参数
+	ExternParam *string `json:"extern_param,omitempty" xml:"extern_param,omitempty"`
+	// 认证材料（如人脸图像）的哈希
+	MaterialHash *string `json:"material_hash,omitempty" xml:"material_hash,omitempty"`
+}
+
+func (s QueryAlipayverifyServerRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s QueryAlipayverifyServerRequest) GoString() string {
+	return s.String()
+}
+
+func (s *QueryAlipayverifyServerRequest) SetAuthToken(v string) *QueryAlipayverifyServerRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *QueryAlipayverifyServerRequest) SetProductInstanceId(v string) *QueryAlipayverifyServerRequest {
+	s.ProductInstanceId = &v
+	return s
+}
+
+func (s *QueryAlipayverifyServerRequest) SetCertifyId(v string) *QueryAlipayverifyServerRequest {
+	s.CertifyId = &v
+	return s
+}
+
+func (s *QueryAlipayverifyServerRequest) SetOuterOrderNo(v string) *QueryAlipayverifyServerRequest {
+	s.OuterOrderNo = &v
+	return s
+}
+
+func (s *QueryAlipayverifyServerRequest) SetSceneId(v string) *QueryAlipayverifyServerRequest {
+	s.SceneId = &v
+	return s
+}
+
+func (s *QueryAlipayverifyServerRequest) SetExternParam(v string) *QueryAlipayverifyServerRequest {
+	s.ExternParam = &v
+	return s
+}
+
+func (s *QueryAlipayverifyServerRequest) SetMaterialHash(v string) *QueryAlipayverifyServerRequest {
+	s.MaterialHash = &v
+	return s
+}
+
+type QueryAlipayverifyServerResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// 认证的主体信息，一般的认证场景返回为空
+	IdentityInfo *string `json:"identity_info,omitempty" xml:"identity_info,omitempty"`
+	// 认证主体附件信息，一般的认证场景都是返回空
+	MaterialInfo *string `json:"material_info,omitempty" xml:"material_info,omitempty"`
+	// 是否通过，通过为T，不通过为F
+	MaterialMatched *string `json:"material_matched,omitempty" xml:"material_matched,omitempty"`
+	// 是否通过，通过为T，不通过为F
+	Passed *string `json:"passed,omitempty" xml:"passed,omitempty"`
+	// 业务失败原因
+	Reason *string `json:"reason,omitempty" xml:"reason,omitempty"`
+}
+
+func (s QueryAlipayverifyServerResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s QueryAlipayverifyServerResponse) GoString() string {
+	return s.String()
+}
+
+func (s *QueryAlipayverifyServerResponse) SetReqMsgId(v string) *QueryAlipayverifyServerResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *QueryAlipayverifyServerResponse) SetResultCode(v string) *QueryAlipayverifyServerResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *QueryAlipayverifyServerResponse) SetResultMsg(v string) *QueryAlipayverifyServerResponse {
+	s.ResultMsg = &v
+	return s
+}
+
+func (s *QueryAlipayverifyServerResponse) SetIdentityInfo(v string) *QueryAlipayverifyServerResponse {
+	s.IdentityInfo = &v
+	return s
+}
+
+func (s *QueryAlipayverifyServerResponse) SetMaterialInfo(v string) *QueryAlipayverifyServerResponse {
+	s.MaterialInfo = &v
+	return s
+}
+
+func (s *QueryAlipayverifyServerResponse) SetMaterialMatched(v string) *QueryAlipayverifyServerResponse {
+	s.MaterialMatched = &v
+	return s
+}
+
+func (s *QueryAlipayverifyServerResponse) SetPassed(v string) *QueryAlipayverifyServerResponse {
+	s.Passed = &v
+	return s
+}
+
+func (s *QueryAlipayverifyServerResponse) SetReason(v string) *QueryAlipayverifyServerResponse {
+	s.Reason = &v
+	return s
+}
+
+type CheckCarTwometaRequest struct {
+	// OAuth模式下的授权token
+	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
+	// 请求ID，为32位以内的字母数字组合，由调用方自行生成、保证唯一并留存，以便问题定位和授权核查。
+	OuterOrderNo *string `json:"outer_order_no,omitempty" xml:"outer_order_no,omitempty" require:"true"`
+	// 入参加密模式：
+	// "0"：不加密；
+	EncryptType *string `json:"encrypt_type,omitempty" xml:"encrypt_type,omitempty" require:"true"`
+	// 车牌号
+	LicensePlate *string `json:"license_plate,omitempty" xml:"license_plate,omitempty" require:"true"`
+	// 姓名
+	CertName *string `json:"cert_name,omitempty" xml:"cert_name,omitempty" require:"true"`
+	// 扩展信息，预留字段
+	ExternParam *string `json:"extern_param,omitempty" xml:"extern_param,omitempty"`
+}
+
+func (s CheckCarTwometaRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s CheckCarTwometaRequest) GoString() string {
+	return s.String()
+}
+
+func (s *CheckCarTwometaRequest) SetAuthToken(v string) *CheckCarTwometaRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *CheckCarTwometaRequest) SetProductInstanceId(v string) *CheckCarTwometaRequest {
+	s.ProductInstanceId = &v
+	return s
+}
+
+func (s *CheckCarTwometaRequest) SetOuterOrderNo(v string) *CheckCarTwometaRequest {
+	s.OuterOrderNo = &v
+	return s
+}
+
+func (s *CheckCarTwometaRequest) SetEncryptType(v string) *CheckCarTwometaRequest {
+	s.EncryptType = &v
+	return s
+}
+
+func (s *CheckCarTwometaRequest) SetLicensePlate(v string) *CheckCarTwometaRequest {
+	s.LicensePlate = &v
+	return s
+}
+
+func (s *CheckCarTwometaRequest) SetCertName(v string) *CheckCarTwometaRequest {
+	s.CertName = &v
+	return s
+}
+
+func (s *CheckCarTwometaRequest) SetExternParam(v string) *CheckCarTwometaRequest {
+	s.ExternParam = &v
+	return s
+}
+
+type CheckCarTwometaResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// 扩展信息，为JSONObject。
+	ExternInfo *string `json:"extern_info,omitempty" xml:"extern_info,omitempty"`
+}
+
+func (s CheckCarTwometaResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s CheckCarTwometaResponse) GoString() string {
+	return s.String()
+}
+
+func (s *CheckCarTwometaResponse) SetReqMsgId(v string) *CheckCarTwometaResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *CheckCarTwometaResponse) SetResultCode(v string) *CheckCarTwometaResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *CheckCarTwometaResponse) SetResultMsg(v string) *CheckCarTwometaResponse {
+	s.ResultMsg = &v
+	return s
+}
+
+func (s *CheckCarTwometaResponse) SetExternInfo(v string) *CheckCarTwometaResponse {
+	s.ExternInfo = &v
+	return s
+}
+
+type QueryEducationBackgroundRequest struct {
+	// OAuth模式下的授权token
+	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
+	// 请求ID，为32位以内的字母数字组合，由调用方自行生成、保证唯一并留存，以便问题定位和授权核查。
+	OuterOrderNo *string `json:"outer_order_no,omitempty" xml:"outer_order_no,omitempty" require:"true"`
+	// 入参加密模式：
+	// "0"：不加密；
+	EncryptType *string `json:"encrypt_type,omitempty" xml:"encrypt_type,omitempty" require:"true"`
+	// 身份证号
+	CertNo *string `json:"cert_no,omitempty" xml:"cert_no,omitempty" require:"true"`
+	// 手机号码
+	Mobile *string `json:"mobile,omitempty" xml:"mobile,omitempty"`
+	// 姓名
+	CertName *string `json:"cert_name,omitempty" xml:"cert_name,omitempty" require:"true"`
+	// 扩展信息，预留字段
+	ExternParam *string `json:"extern_param,omitempty" xml:"extern_param,omitempty"`
+}
+
+func (s QueryEducationBackgroundRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s QueryEducationBackgroundRequest) GoString() string {
+	return s.String()
+}
+
+func (s *QueryEducationBackgroundRequest) SetAuthToken(v string) *QueryEducationBackgroundRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *QueryEducationBackgroundRequest) SetProductInstanceId(v string) *QueryEducationBackgroundRequest {
+	s.ProductInstanceId = &v
+	return s
+}
+
+func (s *QueryEducationBackgroundRequest) SetOuterOrderNo(v string) *QueryEducationBackgroundRequest {
+	s.OuterOrderNo = &v
+	return s
+}
+
+func (s *QueryEducationBackgroundRequest) SetEncryptType(v string) *QueryEducationBackgroundRequest {
+	s.EncryptType = &v
+	return s
+}
+
+func (s *QueryEducationBackgroundRequest) SetCertNo(v string) *QueryEducationBackgroundRequest {
+	s.CertNo = &v
+	return s
+}
+
+func (s *QueryEducationBackgroundRequest) SetMobile(v string) *QueryEducationBackgroundRequest {
+	s.Mobile = &v
+	return s
+}
+
+func (s *QueryEducationBackgroundRequest) SetCertName(v string) *QueryEducationBackgroundRequest {
+	s.CertName = &v
+	return s
+}
+
+func (s *QueryEducationBackgroundRequest) SetExternParam(v string) *QueryEducationBackgroundRequest {
+	s.ExternParam = &v
+	return s
+}
+
+type QueryEducationBackgroundResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// 学历信息，仅当结果码为OK时返回。学历信息字段为一JSONArray。
+	EducationInfo *string `json:"education_info,omitempty" xml:"education_info,omitempty"`
+	// 扩展信息，预留字段。
+	ExternInfo *string `json:"extern_info,omitempty" xml:"extern_info,omitempty"`
+}
+
+func (s QueryEducationBackgroundResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s QueryEducationBackgroundResponse) GoString() string {
+	return s.String()
+}
+
+func (s *QueryEducationBackgroundResponse) SetReqMsgId(v string) *QueryEducationBackgroundResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *QueryEducationBackgroundResponse) SetResultCode(v string) *QueryEducationBackgroundResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *QueryEducationBackgroundResponse) SetResultMsg(v string) *QueryEducationBackgroundResponse {
+	s.ResultMsg = &v
+	return s
+}
+
+func (s *QueryEducationBackgroundResponse) SetEducationInfo(v string) *QueryEducationBackgroundResponse {
+	s.EducationInfo = &v
+	return s
+}
+
+func (s *QueryEducationBackgroundResponse) SetExternInfo(v string) *QueryEducationBackgroundResponse {
+	s.ExternInfo = &v
+	return s
+}
+
+type QueryBankLivenessfourRequest struct {
+	// OAuth模式下的授权token
+	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
+	// 请求ID
+	OuterOrderNo *string `json:"outer_order_no,omitempty" xml:"outer_order_no,omitempty" require:"true"`
+	// 加密方式
+	EncryptType *string `json:"encrypt_type,omitempty" xml:"encrypt_type,omitempty" require:"true"`
+	// 身份证号
+	CertNo *string `json:"cert_no,omitempty" xml:"cert_no,omitempty"`
+	// 银行编码
+	BankCode *string `json:"bank_code,omitempty" xml:"bank_code,omitempty" require:"true"`
+	// bank_card_type
+	// 1：借记卡+贷记卡（默认）；
+	// 2：借记卡
+	// 3：贷记卡
+	BankCardType *string `json:"bank_card_type,omitempty" xml:"bank_card_type,omitempty"`
+	// 姓名
+	CertName *string `json:"cert_name,omitempty" xml:"cert_name,omitempty"`
+	// 手机号码
+	Mobile *string `json:"mobile,omitempty" xml:"mobile,omitempty"`
+	// 扩展信息，预留字段
+	ExternParam *string `json:"extern_param,omitempty" xml:"extern_param,omitempty"`
+}
+
+func (s QueryBankLivenessfourRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s QueryBankLivenessfourRequest) GoString() string {
+	return s.String()
+}
+
+func (s *QueryBankLivenessfourRequest) SetAuthToken(v string) *QueryBankLivenessfourRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *QueryBankLivenessfourRequest) SetProductInstanceId(v string) *QueryBankLivenessfourRequest {
+	s.ProductInstanceId = &v
+	return s
+}
+
+func (s *QueryBankLivenessfourRequest) SetOuterOrderNo(v string) *QueryBankLivenessfourRequest {
+	s.OuterOrderNo = &v
+	return s
+}
+
+func (s *QueryBankLivenessfourRequest) SetEncryptType(v string) *QueryBankLivenessfourRequest {
+	s.EncryptType = &v
+	return s
+}
+
+func (s *QueryBankLivenessfourRequest) SetCertNo(v string) *QueryBankLivenessfourRequest {
+	s.CertNo = &v
+	return s
+}
+
+func (s *QueryBankLivenessfourRequest) SetBankCode(v string) *QueryBankLivenessfourRequest {
+	s.BankCode = &v
+	return s
+}
+
+func (s *QueryBankLivenessfourRequest) SetBankCardType(v string) *QueryBankLivenessfourRequest {
+	s.BankCardType = &v
+	return s
+}
+
+func (s *QueryBankLivenessfourRequest) SetCertName(v string) *QueryBankLivenessfourRequest {
+	s.CertName = &v
+	return s
+}
+
+func (s *QueryBankLivenessfourRequest) SetMobile(v string) *QueryBankLivenessfourRequest {
+	s.Mobile = &v
+	return s
+}
+
+func (s *QueryBankLivenessfourRequest) SetExternParam(v string) *QueryBankLivenessfourRequest {
+	s.ExternParam = &v
+	return s
+}
+
+type QueryBankLivenessfourResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// 银行活跃度详情，可解析为JSONArray。
+	LivenessInfo *string `json:"liveness_info,omitempty" xml:"liveness_info,omitempty"`
+	// 扩展信息，预留字段
+	ExternInfo *string `json:"extern_info,omitempty" xml:"extern_info,omitempty"`
+}
+
+func (s QueryBankLivenessfourResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s QueryBankLivenessfourResponse) GoString() string {
+	return s.String()
+}
+
+func (s *QueryBankLivenessfourResponse) SetReqMsgId(v string) *QueryBankLivenessfourResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *QueryBankLivenessfourResponse) SetResultCode(v string) *QueryBankLivenessfourResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *QueryBankLivenessfourResponse) SetResultMsg(v string) *QueryBankLivenessfourResponse {
+	s.ResultMsg = &v
+	return s
+}
+
+func (s *QueryBankLivenessfourResponse) SetLivenessInfo(v string) *QueryBankLivenessfourResponse {
+	s.LivenessInfo = &v
+	return s
+}
+
+func (s *QueryBankLivenessfourResponse) SetExternInfo(v string) *QueryBankLivenessfourResponse {
+	s.ExternInfo = &v
+	return s
+}
+
+type QueryFaceverifyServermaterialRequest struct {
+	// OAuth模式下的授权token
+	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
+	// 实人认证唯一标识
+	CertifyId *string `json:"certify_id,omitempty" xml:"certify_id,omitempty" require:"true"`
+	// 外部唯一标识。用于定位。 值为32位长度的字母数字组合前面几位字符是商户自定义的简称，中间可以使用一段时间，后段可以使用一个随机或递增序列
+	OuterOrderNo *string `json:"outer_order_no,omitempty" xml:"outer_order_no,omitempty" require:"true"`
+	// 场景ID
+	SceneId *string `json:"scene_id,omitempty" xml:"scene_id,omitempty" require:"true"`
+	// 预留扩展业务参数
+	ExternParam *string `json:"extern_param,omitempty" xml:"extern_param,omitempty"`
+	// 图片的传入加密模式 0：明文 1：AES加密
+	MaterialEncType *string `json:"material_enc_type,omitempty" xml:"material_enc_type,omitempty"`
+	// 公钥加密后的密钥，用于传入的加密图片/视频
+	MaterialEncToken *string `json:"material_enc_token,omitempty" xml:"material_enc_token,omitempty"`
+}
+
+func (s QueryFaceverifyServermaterialRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s QueryFaceverifyServermaterialRequest) GoString() string {
+	return s.String()
+}
+
+func (s *QueryFaceverifyServermaterialRequest) SetAuthToken(v string) *QueryFaceverifyServermaterialRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *QueryFaceverifyServermaterialRequest) SetProductInstanceId(v string) *QueryFaceverifyServermaterialRequest {
+	s.ProductInstanceId = &v
+	return s
+}
+
+func (s *QueryFaceverifyServermaterialRequest) SetCertifyId(v string) *QueryFaceverifyServermaterialRequest {
+	s.CertifyId = &v
+	return s
+}
+
+func (s *QueryFaceverifyServermaterialRequest) SetOuterOrderNo(v string) *QueryFaceverifyServermaterialRequest {
+	s.OuterOrderNo = &v
+	return s
+}
+
+func (s *QueryFaceverifyServermaterialRequest) SetSceneId(v string) *QueryFaceverifyServermaterialRequest {
+	s.SceneId = &v
+	return s
+}
+
+func (s *QueryFaceverifyServermaterialRequest) SetExternParam(v string) *QueryFaceverifyServermaterialRequest {
+	s.ExternParam = &v
+	return s
+}
+
+func (s *QueryFaceverifyServermaterialRequest) SetMaterialEncType(v string) *QueryFaceverifyServermaterialRequest {
+	s.MaterialEncType = &v
+	return s
+}
+
+func (s *QueryFaceverifyServermaterialRequest) SetMaterialEncToken(v string) *QueryFaceverifyServermaterialRequest {
+	s.MaterialEncToken = &v
+	return s
+}
+
+type QueryFaceverifyServermaterialResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// 认证主体附件信息
+	MaterialInfo *string `json:"material_info,omitempty" xml:"material_info,omitempty"`
+}
+
+func (s QueryFaceverifyServermaterialResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s QueryFaceverifyServermaterialResponse) GoString() string {
+	return s.String()
+}
+
+func (s *QueryFaceverifyServermaterialResponse) SetReqMsgId(v string) *QueryFaceverifyServermaterialResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *QueryFaceverifyServermaterialResponse) SetResultCode(v string) *QueryFaceverifyServermaterialResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *QueryFaceverifyServermaterialResponse) SetResultMsg(v string) *QueryFaceverifyServermaterialResponse {
+	s.ResultMsg = &v
+	return s
+}
+
+func (s *QueryFaceverifyServermaterialResponse) SetMaterialInfo(v string) *QueryFaceverifyServermaterialResponse {
+	s.MaterialInfo = &v
+	return s
+}
+
+type ScaleinImageRequest struct {
+	// OAuth模式下的授权token
+	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
+	// 图片
+	// 待上传文件
+	FileObject io.Reader `json:"fileObject,omitempty" xml:"fileObject,omitempty"`
+	// 待上传文件名
+	FileObjectName *string `json:"fileObjectName,omitempty" xml:"fileObjectName,omitempty"`
+	FileId         *string `json:"file_id,omitempty" xml:"file_id,omitempty" require:"true"`
+}
+
+func (s ScaleinImageRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s ScaleinImageRequest) GoString() string {
+	return s.String()
+}
+
+func (s *ScaleinImageRequest) SetAuthToken(v string) *ScaleinImageRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *ScaleinImageRequest) SetProductInstanceId(v string) *ScaleinImageRequest {
+	s.ProductInstanceId = &v
+	return s
+}
+
+func (s *ScaleinImageRequest) SetFileObject(v io.Reader) *ScaleinImageRequest {
+	s.FileObject = v
+	return s
+}
+
+func (s *ScaleinImageRequest) SetFileObjectName(v string) *ScaleinImageRequest {
+	s.FileObjectName = &v
+	return s
+}
+
+func (s *ScaleinImageRequest) SetFileId(v string) *ScaleinImageRequest {
+	s.FileId = &v
+	return s
+}
+
+type ScaleinImageResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// 压缩后的图片base64
+	Base64 *string `json:"base64,omitempty" xml:"base64,omitempty"`
+}
+
+func (s ScaleinImageResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s ScaleinImageResponse) GoString() string {
+	return s.String()
+}
+
+func (s *ScaleinImageResponse) SetReqMsgId(v string) *ScaleinImageResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *ScaleinImageResponse) SetResultCode(v string) *ScaleinImageResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *ScaleinImageResponse) SetResultMsg(v string) *ScaleinImageResponse {
+	s.ResultMsg = &v
+	return s
+}
+
+func (s *ScaleinImageResponse) SetBase64(v string) *ScaleinImageResponse {
+	s.Base64 = &v
+	return s
+}
+
+type RecognizeOcrIndividualcardRequest struct {
+	// OAuth模式下的授权token
+	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
+	// 长度不超过32位的0-9A-Za-z字符串。 外部请求ID，由调用方自行生成并自行保证唯一，以便问题定位。
+	OuterOrderNo *string `json:"outer_order_no,omitempty" xml:"outer_order_no,omitempty" require:"true"`
+	// 待识别的卡类型。取值约束：ID_CARD（身份证）;EEP_TO_ML_CARD（港澳来往大陆通行证）;BANK_CARD（银行卡）
+	OcrType *string `json:"ocr_type,omitempty" xml:"ocr_type,omitempty" require:"true"`
+	// 传入的图片是base64编码的图片还是图片的URL。取值约束：BASE64（类型为base64）；FILE(文件)、URL（暂不支持）
+	DataType *string `json:"data_type,omitempty" xml:"data_type,omitempty" require:"true"`
+	// 传入的图片的具体内容，需要与data_type的选择保持一致。
+	//
+	DataContent *string `json:"data_content,omitempty" xml:"data_content,omitempty"`
+	// 证件图片
+	// 待上传文件
+	FileObject io.Reader `json:"fileObject,omitempty" xml:"fileObject,omitempty"`
+	// 待上传文件名
+	FileObjectName *string `json:"fileObjectName,omitempty" xml:"fileObjectName,omitempty"`
+	FileId         *string `json:"file_id,omitempty" xml:"file_id,omitempty"`
+	// 入参data_content是否经AES加密。不填默认不加密。取值约束：0（不加密）；1（加密）
+	ReqEncType *string `json:"req_enc_type,omitempty" xml:"req_enc_type,omitempty"`
+	// 出参ocr_info是否经AES加密。不填默认不加密。取值约束：0（不加密）；1（加密）
+	RespEncType *string `json:"resp_enc_type,omitempty" xml:"resp_enc_type,omitempty"`
+	// 经过公钥RSA加密的AES密钥，用于对出参ocr_info加密。当req_enc_type = 1或resp_enc_type = 1时必填。
+	EncToken *string `json:"enc_token,omitempty" xml:"enc_token,omitempty"`
+	// 是否启用防伪检测，如果启用，出参会输出riskInfo字段。不填默认不启用防伪。取值约束：0（不启用）；1（启用）
+	RiskInfoType *string `json:"risk_info_type,omitempty" xml:"risk_info_type,omitempty"`
+	// 是否返回身份证头像照片 0：否 1：是 不填默认不返回。
+	ReturnPhoto *string `json:"return_photo,omitempty" xml:"return_photo,omitempty"`
+	// 是否返回身份证图片 0：否 1：是 不填默认不返回。
+	ReturnImage *string `json:"return_image,omitempty" xml:"return_image,omitempty"`
+	// 扩展信息JSON串。
+	ExternParam *string `json:"extern_param,omitempty" xml:"extern_param,omitempty"`
+}
+
+func (s RecognizeOcrIndividualcardRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s RecognizeOcrIndividualcardRequest) GoString() string {
+	return s.String()
+}
+
+func (s *RecognizeOcrIndividualcardRequest) SetAuthToken(v string) *RecognizeOcrIndividualcardRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *RecognizeOcrIndividualcardRequest) SetProductInstanceId(v string) *RecognizeOcrIndividualcardRequest {
+	s.ProductInstanceId = &v
+	return s
+}
+
+func (s *RecognizeOcrIndividualcardRequest) SetOuterOrderNo(v string) *RecognizeOcrIndividualcardRequest {
+	s.OuterOrderNo = &v
+	return s
+}
+
+func (s *RecognizeOcrIndividualcardRequest) SetOcrType(v string) *RecognizeOcrIndividualcardRequest {
+	s.OcrType = &v
+	return s
+}
+
+func (s *RecognizeOcrIndividualcardRequest) SetDataType(v string) *RecognizeOcrIndividualcardRequest {
+	s.DataType = &v
+	return s
+}
+
+func (s *RecognizeOcrIndividualcardRequest) SetDataContent(v string) *RecognizeOcrIndividualcardRequest {
+	s.DataContent = &v
+	return s
+}
+
+func (s *RecognizeOcrIndividualcardRequest) SetFileObject(v io.Reader) *RecognizeOcrIndividualcardRequest {
+	s.FileObject = v
+	return s
+}
+
+func (s *RecognizeOcrIndividualcardRequest) SetFileObjectName(v string) *RecognizeOcrIndividualcardRequest {
+	s.FileObjectName = &v
+	return s
+}
+
+func (s *RecognizeOcrIndividualcardRequest) SetFileId(v string) *RecognizeOcrIndividualcardRequest {
+	s.FileId = &v
+	return s
+}
+
+func (s *RecognizeOcrIndividualcardRequest) SetReqEncType(v string) *RecognizeOcrIndividualcardRequest {
+	s.ReqEncType = &v
+	return s
+}
+
+func (s *RecognizeOcrIndividualcardRequest) SetRespEncType(v string) *RecognizeOcrIndividualcardRequest {
+	s.RespEncType = &v
+	return s
+}
+
+func (s *RecognizeOcrIndividualcardRequest) SetEncToken(v string) *RecognizeOcrIndividualcardRequest {
+	s.EncToken = &v
+	return s
+}
+
+func (s *RecognizeOcrIndividualcardRequest) SetRiskInfoType(v string) *RecognizeOcrIndividualcardRequest {
+	s.RiskInfoType = &v
+	return s
+}
+
+func (s *RecognizeOcrIndividualcardRequest) SetReturnPhoto(v string) *RecognizeOcrIndividualcardRequest {
+	s.ReturnPhoto = &v
+	return s
+}
+
+func (s *RecognizeOcrIndividualcardRequest) SetReturnImage(v string) *RecognizeOcrIndividualcardRequest {
+	s.ReturnImage = &v
+	return s
+}
+
+func (s *RecognizeOcrIndividualcardRequest) SetExternParam(v string) *RecognizeOcrIndividualcardRequest {
+	s.ExternParam = &v
+	return s
+}
+
+type RecognizeOcrIndividualcardResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// 识别结果，为JSON串。如果入参resp_enc_type=1则是经过AES加密后的JSON串。
+	OcrInfo *OcrInfo `json:"ocr_info,omitempty" xml:"ocr_info,omitempty"`
+	// 防伪结果，为JSON串。如果入参resp_enc_type=1则是经过AES加密后的JSON串。 如果不启用防伪，则不返回该字段。
+	RiskInfo *RiskInfo `json:"risk_info,omitempty" xml:"risk_info,omitempty"`
+	// 扩展信息JSON串。
+	ExtInfo *string `json:"ext_info,omitempty" xml:"ext_info,omitempty"`
+	// 加密后的识别结果
+	OcrInfoEncrypt *string `json:"ocr_info_encrypt,omitempty" xml:"ocr_info_encrypt,omitempty"`
+}
+
+func (s RecognizeOcrIndividualcardResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s RecognizeOcrIndividualcardResponse) GoString() string {
+	return s.String()
+}
+
+func (s *RecognizeOcrIndividualcardResponse) SetReqMsgId(v string) *RecognizeOcrIndividualcardResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *RecognizeOcrIndividualcardResponse) SetResultCode(v string) *RecognizeOcrIndividualcardResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *RecognizeOcrIndividualcardResponse) SetResultMsg(v string) *RecognizeOcrIndividualcardResponse {
+	s.ResultMsg = &v
+	return s
+}
+
+func (s *RecognizeOcrIndividualcardResponse) SetOcrInfo(v *OcrInfo) *RecognizeOcrIndividualcardResponse {
+	s.OcrInfo = v
+	return s
+}
+
+func (s *RecognizeOcrIndividualcardResponse) SetRiskInfo(v *RiskInfo) *RecognizeOcrIndividualcardResponse {
+	s.RiskInfo = v
+	return s
+}
+
+func (s *RecognizeOcrIndividualcardResponse) SetExtInfo(v string) *RecognizeOcrIndividualcardResponse {
+	s.ExtInfo = &v
+	return s
+}
+
+func (s *RecognizeOcrIndividualcardResponse) SetOcrInfoEncrypt(v string) *RecognizeOcrIndividualcardResponse {
+	s.OcrInfoEncrypt = &v
+	return s
+}
+
+type CheckIdcardFourmetaRequest struct {
+	// OAuth模式下的授权token
+	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
+	// 外部唯一标识。用于定位。 值为32位长度的字母数字组合前面几位字符是商户自定义的简称，中间可以使用一段时间，后段可以使用一个随机或递增序列
+	OuterOrderNo *string `json:"outer_order_no,omitempty" xml:"outer_order_no,omitempty" require:"true"`
+	// 姓名
+	CertName *string `json:"cert_name,omitempty" xml:"cert_name,omitempty" require:"true"`
+	// 身份证号码
+	CertNo *string `json:"cert_no,omitempty" xml:"cert_no,omitempty" require:"true"`
+	// 开始时间，yyyyMMdd格式的注册日期。
+	BeginDate *string `json:"begin_date,omitempty" xml:"begin_date,omitempty" require:"true"`
+	// 失效时间，yyyyMMdd格式的注册日期。(长期有效
+	// 身份证填 8 个 0))
+	ExpiryDate *string `json:"expiry_date,omitempty" xml:"expiry_date,omitempty" require:"true"`
+	// map结果的json数据格式，预留字段
+	ExternParam *string `json:"extern_param,omitempty" xml:"extern_param,omitempty"`
+}
+
+func (s CheckIdcardFourmetaRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s CheckIdcardFourmetaRequest) GoString() string {
+	return s.String()
+}
+
+func (s *CheckIdcardFourmetaRequest) SetAuthToken(v string) *CheckIdcardFourmetaRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *CheckIdcardFourmetaRequest) SetProductInstanceId(v string) *CheckIdcardFourmetaRequest {
+	s.ProductInstanceId = &v
+	return s
+}
+
+func (s *CheckIdcardFourmetaRequest) SetOuterOrderNo(v string) *CheckIdcardFourmetaRequest {
+	s.OuterOrderNo = &v
+	return s
+}
+
+func (s *CheckIdcardFourmetaRequest) SetCertName(v string) *CheckIdcardFourmetaRequest {
+	s.CertName = &v
+	return s
+}
+
+func (s *CheckIdcardFourmetaRequest) SetCertNo(v string) *CheckIdcardFourmetaRequest {
+	s.CertNo = &v
+	return s
+}
+
+func (s *CheckIdcardFourmetaRequest) SetBeginDate(v string) *CheckIdcardFourmetaRequest {
+	s.BeginDate = &v
+	return s
+}
+
+func (s *CheckIdcardFourmetaRequest) SetExpiryDate(v string) *CheckIdcardFourmetaRequest {
+	s.ExpiryDate = &v
+	return s
+}
+
+func (s *CheckIdcardFourmetaRequest) SetExternParam(v string) *CheckIdcardFourmetaRequest {
+	s.ExternParam = &v
+	return s
+}
+
+type CheckIdcardFourmetaResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// true:匹配成功 false：匹配失败
+	Match *string `json:"match,omitempty" xml:"match,omitempty"`
+	// 扩展信息，预留字段
+	ExternInfo *string `json:"extern_info,omitempty" xml:"extern_info,omitempty"`
+	// 证件及户籍状态
+	Residency *Residency `json:"residency,omitempty" xml:"residency,omitempty"`
+}
+
+func (s CheckIdcardFourmetaResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s CheckIdcardFourmetaResponse) GoString() string {
+	return s.String()
+}
+
+func (s *CheckIdcardFourmetaResponse) SetReqMsgId(v string) *CheckIdcardFourmetaResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *CheckIdcardFourmetaResponse) SetResultCode(v string) *CheckIdcardFourmetaResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *CheckIdcardFourmetaResponse) SetResultMsg(v string) *CheckIdcardFourmetaResponse {
+	s.ResultMsg = &v
+	return s
+}
+
+func (s *CheckIdcardFourmetaResponse) SetMatch(v string) *CheckIdcardFourmetaResponse {
+	s.Match = &v
+	return s
+}
+
+func (s *CheckIdcardFourmetaResponse) SetExternInfo(v string) *CheckIdcardFourmetaResponse {
+	s.ExternInfo = &v
+	return s
+}
+
+func (s *CheckIdcardFourmetaResponse) SetResidency(v *Residency) *CheckIdcardFourmetaResponse {
+	s.Residency = v
+	return s
+}
+
+type QueryCarinfoDetailRequest struct {
+	// OAuth模式下的授权token
+	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
+	// vin码
+	Vin *string `json:"vin,omitempty" xml:"vin,omitempty" require:"true"`
+	// 扩展信息，预留字段
+	ExternParam *string `json:"extern_param,omitempty" xml:"extern_param,omitempty"`
+	// 请求ID，为32位以内的字母数字组合，由调用方自行生成、保证唯一并留存，以便问题定位和授权核查。
+	OuterOrderNo *string `json:"outer_order_no,omitempty" xml:"outer_order_no,omitempty" require:"true"`
+}
+
+func (s QueryCarinfoDetailRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s QueryCarinfoDetailRequest) GoString() string {
+	return s.String()
+}
+
+func (s *QueryCarinfoDetailRequest) SetAuthToken(v string) *QueryCarinfoDetailRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *QueryCarinfoDetailRequest) SetProductInstanceId(v string) *QueryCarinfoDetailRequest {
+	s.ProductInstanceId = &v
+	return s
+}
+
+func (s *QueryCarinfoDetailRequest) SetVin(v string) *QueryCarinfoDetailRequest {
+	s.Vin = &v
+	return s
+}
+
+func (s *QueryCarinfoDetailRequest) SetExternParam(v string) *QueryCarinfoDetailRequest {
+	s.ExternParam = &v
+	return s
+}
+
+func (s *QueryCarinfoDetailRequest) SetOuterOrderNo(v string) *QueryCarinfoDetailRequest {
+	s.OuterOrderNo = &v
+	return s
+}
+
+type QueryCarinfoDetailResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// 扩展信息，为JSONObject。
+	ExternInfo *string `json:"extern_info,omitempty" xml:"extern_info,omitempty"`
+	// 车辆信息
+	CarInfo *CarInfoDetail `json:"car_info,omitempty" xml:"car_info,omitempty"`
+}
+
+func (s QueryCarinfoDetailResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s QueryCarinfoDetailResponse) GoString() string {
+	return s.String()
+}
+
+func (s *QueryCarinfoDetailResponse) SetReqMsgId(v string) *QueryCarinfoDetailResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *QueryCarinfoDetailResponse) SetResultCode(v string) *QueryCarinfoDetailResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *QueryCarinfoDetailResponse) SetResultMsg(v string) *QueryCarinfoDetailResponse {
+	s.ResultMsg = &v
+	return s
+}
+
+func (s *QueryCarinfoDetailResponse) SetExternInfo(v string) *QueryCarinfoDetailResponse {
+	s.ExternInfo = &v
+	return s
+}
+
+func (s *QueryCarinfoDetailResponse) SetCarInfo(v *CarInfoDetail) *QueryCarinfoDetailResponse {
+	s.CarInfo = v
+	return s
+}
+
+type QueryCarinfoBriefRequest struct {
+	// OAuth模式下的授权token
+	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
+	// extern_param
+	Vin *string `json:"vin,omitempty" xml:"vin,omitempty" require:"true"`
+	// 请求ID，为32位以内的字母数字组合，由调用方自行生成、保证唯一并留存，以便问题定位和授权核查。
+	OuterOrderNo *string `json:"outer_order_no,omitempty" xml:"outer_order_no,omitempty" require:"true"`
+	// 扩展信息，预留字段
+	ExternParam *string `json:"extern_param,omitempty" xml:"extern_param,omitempty"`
+}
+
+func (s QueryCarinfoBriefRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s QueryCarinfoBriefRequest) GoString() string {
+	return s.String()
+}
+
+func (s *QueryCarinfoBriefRequest) SetAuthToken(v string) *QueryCarinfoBriefRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *QueryCarinfoBriefRequest) SetProductInstanceId(v string) *QueryCarinfoBriefRequest {
+	s.ProductInstanceId = &v
+	return s
+}
+
+func (s *QueryCarinfoBriefRequest) SetVin(v string) *QueryCarinfoBriefRequest {
+	s.Vin = &v
+	return s
+}
+
+func (s *QueryCarinfoBriefRequest) SetOuterOrderNo(v string) *QueryCarinfoBriefRequest {
+	s.OuterOrderNo = &v
+	return s
+}
+
+func (s *QueryCarinfoBriefRequest) SetExternParam(v string) *QueryCarinfoBriefRequest {
+	s.ExternParam = &v
+	return s
+}
+
+type QueryCarinfoBriefResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// 扩展信息，为JSONObject。
+	ExternInfo *string `json:"extern_info,omitempty" xml:"extern_info,omitempty"`
+	// 车辆信息
+	CarInfo *CarInfoBrief `json:"car_info,omitempty" xml:"car_info,omitempty"`
+}
+
+func (s QueryCarinfoBriefResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s QueryCarinfoBriefResponse) GoString() string {
+	return s.String()
+}
+
+func (s *QueryCarinfoBriefResponse) SetReqMsgId(v string) *QueryCarinfoBriefResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *QueryCarinfoBriefResponse) SetResultCode(v string) *QueryCarinfoBriefResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *QueryCarinfoBriefResponse) SetResultMsg(v string) *QueryCarinfoBriefResponse {
+	s.ResultMsg = &v
+	return s
+}
+
+func (s *QueryCarinfoBriefResponse) SetExternInfo(v string) *QueryCarinfoBriefResponse {
+	s.ExternInfo = &v
+	return s
+}
+
+func (s *QueryCarinfoBriefResponse) SetCarInfo(v *CarInfoBrief) *QueryCarinfoBriefResponse {
+	s.CarInfo = v
+	return s
+}
+
+type BindCutpaymentPreRequest struct {
+	// OAuth模式下的授权token
+	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
+	// 请求ID，为32位以内的字母数字组合，由调用方自行生成、保证唯一并留存，以便问题定位和授权核查。
+	OuterOrderNo *string `json:"outer_order_no,omitempty" xml:"outer_order_no,omitempty" require:"true"`
+	// 入参加密模式：
+	// "0"（默认值）：不加密；
+	// "6"：AES加密
+	// 默认为"0"
+	EncryptType *string `json:"encrypt_type,omitempty" xml:"encrypt_type,omitempty"`
+	// 加密密钥
+	EncryptToken *string `json:"encrypt_token,omitempty" xml:"encrypt_token,omitempty"`
+	// 用户id
+	UserId *string `json:"user_id,omitempty" xml:"user_id,omitempty" require:"true"`
+	// 银行卡类型
+	// 0：借记卡
+	// 1：信用卡
+	CardType *string `json:"card_type,omitempty" xml:"card_type,omitempty" require:"true"`
+	// 银行卡属性
+	// 0私人，1公司。不填时，默认为私人0
+	CardPro *string `json:"card_pro,omitempty" xml:"card_pro,omitempty"`
+	// 银行卡卡号
+	CardNo *string `json:"card_no,omitempty" xml:"card_no,omitempty" require:"true"`
+	// 证件类型
+	// 0：身份证
+	// 1：港澳居民居住证
+	// 2：台湾居民居住证
+	// 3：外国人永久居住证
+	IdCardType *string `json:"id_card_type,omitempty" xml:"id_card_type,omitempty" require:"true"`
+	// 持卡人姓名
+	CertName *string `json:"cert_name,omitempty" xml:"cert_name,omitempty" require:"true"`
+	// 证件号
+	CertNo *string `json:"cert_no,omitempty" xml:"cert_no,omitempty" require:"true"`
+	// 手机号
+	Mobile *string `json:"mobile,omitempty" xml:"mobile,omitempty" require:"true"`
+	// 银行卡安全码
+	SecurityCode *string `json:"security_code,omitempty" xml:"security_code,omitempty"`
+	// 银行卡有期（格式为：YYMM）
+	ValidDate *string `json:"valid_date,omitempty" xml:"valid_date,omitempty"`
+}
+
+func (s BindCutpaymentPreRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s BindCutpaymentPreRequest) GoString() string {
+	return s.String()
+}
+
+func (s *BindCutpaymentPreRequest) SetAuthToken(v string) *BindCutpaymentPreRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *BindCutpaymentPreRequest) SetProductInstanceId(v string) *BindCutpaymentPreRequest {
+	s.ProductInstanceId = &v
+	return s
+}
+
+func (s *BindCutpaymentPreRequest) SetOuterOrderNo(v string) *BindCutpaymentPreRequest {
+	s.OuterOrderNo = &v
+	return s
+}
+
+func (s *BindCutpaymentPreRequest) SetEncryptType(v string) *BindCutpaymentPreRequest {
+	s.EncryptType = &v
+	return s
+}
+
+func (s *BindCutpaymentPreRequest) SetEncryptToken(v string) *BindCutpaymentPreRequest {
+	s.EncryptToken = &v
+	return s
+}
+
+func (s *BindCutpaymentPreRequest) SetUserId(v string) *BindCutpaymentPreRequest {
+	s.UserId = &v
+	return s
+}
+
+func (s *BindCutpaymentPreRequest) SetCardType(v string) *BindCutpaymentPreRequest {
+	s.CardType = &v
+	return s
+}
+
+func (s *BindCutpaymentPreRequest) SetCardPro(v string) *BindCutpaymentPreRequest {
+	s.CardPro = &v
+	return s
+}
+
+func (s *BindCutpaymentPreRequest) SetCardNo(v string) *BindCutpaymentPreRequest {
+	s.CardNo = &v
+	return s
+}
+
+func (s *BindCutpaymentPreRequest) SetIdCardType(v string) *BindCutpaymentPreRequest {
+	s.IdCardType = &v
+	return s
+}
+
+func (s *BindCutpaymentPreRequest) SetCertName(v string) *BindCutpaymentPreRequest {
+	s.CertName = &v
+	return s
+}
+
+func (s *BindCutpaymentPreRequest) SetCertNo(v string) *BindCutpaymentPreRequest {
+	s.CertNo = &v
+	return s
+}
+
+func (s *BindCutpaymentPreRequest) SetMobile(v string) *BindCutpaymentPreRequest {
+	s.Mobile = &v
+	return s
+}
+
+func (s *BindCutpaymentPreRequest) SetSecurityCode(v string) *BindCutpaymentPreRequest {
+	s.SecurityCode = &v
+	return s
+}
+
+func (s *BindCutpaymentPreRequest) SetValidDate(v string) *BindCutpaymentPreRequest {
+	s.ValidDate = &v
+	return s
+}
+
+type BindCutpaymentPreResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// 预签约唯一码
+	PreBindSn *string `json:"pre_bind_sn,omitempty" xml:"pre_bind_sn,omitempty"`
+}
+
+func (s BindCutpaymentPreResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s BindCutpaymentPreResponse) GoString() string {
+	return s.String()
+}
+
+func (s *BindCutpaymentPreResponse) SetReqMsgId(v string) *BindCutpaymentPreResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *BindCutpaymentPreResponse) SetResultCode(v string) *BindCutpaymentPreResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *BindCutpaymentPreResponse) SetResultMsg(v string) *BindCutpaymentPreResponse {
+	s.ResultMsg = &v
+	return s
+}
+
+func (s *BindCutpaymentPreResponse) SetPreBindSn(v string) *BindCutpaymentPreResponse {
+	s.PreBindSn = &v
+	return s
+}
+
+type BindCutpaymentSignRequest struct {
+	// OAuth模式下的授权token
+	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
+	// 请求ID，为32位以内的字母数字组合，由调用方自行生成、保证唯一并留存，以便问题定位和授权核查。
+	OuterOrderNo *string `json:"outer_order_no,omitempty" xml:"outer_order_no,omitempty" require:"true"`
+	// 入参加密模式：
+	// "0"（默认值）：不加密；
+	// "6"：AES加密
+	// 默认为"0"
+	EncryptType *string `json:"encrypt_type,omitempty" xml:"encrypt_type,omitempty"`
+	// 加密密钥
+	EncryptToken *string `json:"encrypt_token,omitempty" xml:"encrypt_token,omitempty"`
+	// 用户id
+	UserId *string `json:"user_id,omitempty" xml:"user_id,omitempty" require:"true"`
+	// 预签约返回的预签约唯一码
+	PreBindSn *string `json:"pre_bind_sn,omitempty" xml:"pre_bind_sn,omitempty" require:"true"`
+	// 签约短信验证码
+	SmsCode *string `json:"sms_code,omitempty" xml:"sms_code,omitempty" require:"true"`
+}
+
+func (s BindCutpaymentSignRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s BindCutpaymentSignRequest) GoString() string {
+	return s.String()
+}
+
+func (s *BindCutpaymentSignRequest) SetAuthToken(v string) *BindCutpaymentSignRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *BindCutpaymentSignRequest) SetProductInstanceId(v string) *BindCutpaymentSignRequest {
+	s.ProductInstanceId = &v
+	return s
+}
+
+func (s *BindCutpaymentSignRequest) SetOuterOrderNo(v string) *BindCutpaymentSignRequest {
+	s.OuterOrderNo = &v
+	return s
+}
+
+func (s *BindCutpaymentSignRequest) SetEncryptType(v string) *BindCutpaymentSignRequest {
+	s.EncryptType = &v
+	return s
+}
+
+func (s *BindCutpaymentSignRequest) SetEncryptToken(v string) *BindCutpaymentSignRequest {
+	s.EncryptToken = &v
+	return s
+}
+
+func (s *BindCutpaymentSignRequest) SetUserId(v string) *BindCutpaymentSignRequest {
+	s.UserId = &v
+	return s
+}
+
+func (s *BindCutpaymentSignRequest) SetPreBindSn(v string) *BindCutpaymentSignRequest {
+	s.PreBindSn = &v
+	return s
+}
+
+func (s *BindCutpaymentSignRequest) SetSmsCode(v string) *BindCutpaymentSignRequest {
+	s.SmsCode = &v
+	return s
+}
+
+type BindCutpaymentSignResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// 签约协议号
+	ProtocolNo *string `json:"protocol_no,omitempty" xml:"protocol_no,omitempty"`
+	// 签约流水号
+	SignBindSn *string `json:"sign_bind_sn,omitempty" xml:"sign_bind_sn,omitempty"`
+}
+
+func (s BindCutpaymentSignResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s BindCutpaymentSignResponse) GoString() string {
+	return s.String()
+}
+
+func (s *BindCutpaymentSignResponse) SetReqMsgId(v string) *BindCutpaymentSignResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *BindCutpaymentSignResponse) SetResultCode(v string) *BindCutpaymentSignResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *BindCutpaymentSignResponse) SetResultMsg(v string) *BindCutpaymentSignResponse {
+	s.ResultMsg = &v
+	return s
+}
+
+func (s *BindCutpaymentSignResponse) SetProtocolNo(v string) *BindCutpaymentSignResponse {
+	s.ProtocolNo = &v
+	return s
+}
+
+func (s *BindCutpaymentSignResponse) SetSignBindSn(v string) *BindCutpaymentSignResponse {
+	s.SignBindSn = &v
+	return s
+}
+
+type UnbindCutpaymentSignRequest struct {
+	// OAuth模式下的授权token
+	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
+	// 请求ID，为32位以内的字母数字组合，由调用方自行生成、保证唯一并留存，以便问题定位和授权核查。
+	OuterOrderNo *string `json:"outer_order_no,omitempty" xml:"outer_order_no,omitempty" require:"true"`
+	// 入参加密模式：
+	// "0"（默认值）：不加密；
+	// "6"：AES加密
+	// 默认为"0"
+	EncryptType *string `json:"encrypt_type,omitempty" xml:"encrypt_type,omitempty"`
+	// 加密密钥
+	EncryptToken *string `json:"encrypt_token,omitempty" xml:"encrypt_token,omitempty"`
+	// 用户在商户平台唯一ID
+	UserId *string `json:"user_id,omitempty" xml:"user_id,omitempty" require:"true"`
+	// 签约协议号
+	ProtocolNo *string `json:"protocol_no,omitempty" xml:"protocol_no,omitempty" require:"true"`
+}
+
+func (s UnbindCutpaymentSignRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s UnbindCutpaymentSignRequest) GoString() string {
+	return s.String()
+}
+
+func (s *UnbindCutpaymentSignRequest) SetAuthToken(v string) *UnbindCutpaymentSignRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *UnbindCutpaymentSignRequest) SetProductInstanceId(v string) *UnbindCutpaymentSignRequest {
+	s.ProductInstanceId = &v
+	return s
+}
+
+func (s *UnbindCutpaymentSignRequest) SetOuterOrderNo(v string) *UnbindCutpaymentSignRequest {
+	s.OuterOrderNo = &v
+	return s
+}
+
+func (s *UnbindCutpaymentSignRequest) SetEncryptType(v string) *UnbindCutpaymentSignRequest {
+	s.EncryptType = &v
+	return s
+}
+
+func (s *UnbindCutpaymentSignRequest) SetEncryptToken(v string) *UnbindCutpaymentSignRequest {
+	s.EncryptToken = &v
+	return s
+}
+
+func (s *UnbindCutpaymentSignRequest) SetUserId(v string) *UnbindCutpaymentSignRequest {
+	s.UserId = &v
+	return s
+}
+
+func (s *UnbindCutpaymentSignRequest) SetProtocolNo(v string) *UnbindCutpaymentSignRequest {
+	s.ProtocolNo = &v
+	return s
+}
+
+type UnbindCutpaymentSignResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// 解绑流水号
+	UnbindSn *string `json:"unbind_sn,omitempty" xml:"unbind_sn,omitempty"`
+}
+
+func (s UnbindCutpaymentSignResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s UnbindCutpaymentSignResponse) GoString() string {
+	return s.String()
+}
+
+func (s *UnbindCutpaymentSignResponse) SetReqMsgId(v string) *UnbindCutpaymentSignResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *UnbindCutpaymentSignResponse) SetResultCode(v string) *UnbindCutpaymentSignResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *UnbindCutpaymentSignResponse) SetResultMsg(v string) *UnbindCutpaymentSignResponse {
+	s.ResultMsg = &v
+	return s
+}
+
+func (s *UnbindCutpaymentSignResponse) SetUnbindSn(v string) *UnbindCutpaymentSignResponse {
+	s.UnbindSn = &v
+	return s
+}
+
+type QueryCutpaymentBindRequest struct {
+	// OAuth模式下的授权token
+	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
+	// 请求ID，为32位以内的字母数字组合，由调用方自行生成、保证唯一并留存，以便问题定位和授权核查。
+	OuterOrderNo *string `json:"outer_order_no,omitempty" xml:"outer_order_no,omitempty" require:"true"`
+	// 入参加密模式：
+	// "0"（默认值）：不加密；
+	// "6"：AES加密
+	// 默认为"0"
+	EncryptType *string `json:"encrypt_type,omitempty" xml:"encrypt_type,omitempty"`
+	// 加密密钥
+	EncryptToken *string `json:"encrypt_token,omitempty" xml:"encrypt_token,omitempty"`
+	// 用户id
+	UserId *string `json:"user_id,omitempty" xml:"user_id,omitempty" require:"true"`
+	// 银行卡卡号
+	CardNo *string `json:"card_no,omitempty" xml:"card_no,omitempty" require:"true"`
+	// 签约流水号
+	SignBindSn *string `json:"sign_bind_sn,omitempty" xml:"sign_bind_sn,omitempty" require:"true"`
+}
+
+func (s QueryCutpaymentBindRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s QueryCutpaymentBindRequest) GoString() string {
+	return s.String()
+}
+
+func (s *QueryCutpaymentBindRequest) SetAuthToken(v string) *QueryCutpaymentBindRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *QueryCutpaymentBindRequest) SetProductInstanceId(v string) *QueryCutpaymentBindRequest {
+	s.ProductInstanceId = &v
+	return s
+}
+
+func (s *QueryCutpaymentBindRequest) SetOuterOrderNo(v string) *QueryCutpaymentBindRequest {
+	s.OuterOrderNo = &v
+	return s
+}
+
+func (s *QueryCutpaymentBindRequest) SetEncryptType(v string) *QueryCutpaymentBindRequest {
+	s.EncryptType = &v
+	return s
+}
+
+func (s *QueryCutpaymentBindRequest) SetEncryptToken(v string) *QueryCutpaymentBindRequest {
+	s.EncryptToken = &v
+	return s
+}
+
+func (s *QueryCutpaymentBindRequest) SetUserId(v string) *QueryCutpaymentBindRequest {
+	s.UserId = &v
+	return s
+}
+
+func (s *QueryCutpaymentBindRequest) SetCardNo(v string) *QueryCutpaymentBindRequest {
+	s.CardNo = &v
+	return s
+}
+
+func (s *QueryCutpaymentBindRequest) SetSignBindSn(v string) *QueryCutpaymentBindRequest {
+	s.SignBindSn = &v
+	return s
+}
+
+type QueryCutpaymentBindResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// 签约协议号
+	ProtocolNo *string `json:"protocol_no,omitempty" xml:"protocol_no,omitempty"`
+	// 银行编码
+	BankCode *string `json:"bank_code,omitempty" xml:"bank_code,omitempty"`
+	// 银行卡号
+	BankCard *string `json:"bank_card,omitempty" xml:"bank_card,omitempty"`
+	// 用户id
+	UserId *string `json:"user_id,omitempty" xml:"user_id,omitempty"`
+}
+
+func (s QueryCutpaymentBindResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s QueryCutpaymentBindResponse) GoString() string {
+	return s.String()
+}
+
+func (s *QueryCutpaymentBindResponse) SetReqMsgId(v string) *QueryCutpaymentBindResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *QueryCutpaymentBindResponse) SetResultCode(v string) *QueryCutpaymentBindResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *QueryCutpaymentBindResponse) SetResultMsg(v string) *QueryCutpaymentBindResponse {
+	s.ResultMsg = &v
+	return s
+}
+
+func (s *QueryCutpaymentBindResponse) SetProtocolNo(v string) *QueryCutpaymentBindResponse {
+	s.ProtocolNo = &v
+	return s
+}
+
+func (s *QueryCutpaymentBindResponse) SetBankCode(v string) *QueryCutpaymentBindResponse {
+	s.BankCode = &v
+	return s
+}
+
+func (s *QueryCutpaymentBindResponse) SetBankCard(v string) *QueryCutpaymentBindResponse {
+	s.BankCard = &v
+	return s
+}
+
+func (s *QueryCutpaymentBindResponse) SetUserId(v string) *QueryCutpaymentBindResponse {
+	s.UserId = &v
+	return s
+}
+
+type ApplyCutpaymentPaymentRequest struct {
+	// OAuth模式下的授权token
+	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
+	// 请求ID，为32位以内的字母数字组合，由调用方自行生成、保证唯一并留存，以便问题定位和授权核查。
+	OuterOrderNo *string `json:"outer_order_no,omitempty" xml:"outer_order_no,omitempty" require:"true"`
+	// 入参加密模式：
+	// "0"（默认值）：不加密；
+	// "6"：AES加密
+	// 默认为"0"
+	EncryptType *string `json:"encrypt_type,omitempty" xml:"encrypt_type,omitempty"`
+	// 加密密钥
+	EncryptToken *string `json:"encrypt_token,omitempty" xml:"encrypt_token,omitempty"`
+	// 支付订单id
+	TransId *string `json:"trans_id,omitempty" xml:"trans_id,omitempty" require:"true"`
+	// 签约协议号
+	ProtocolNo *string `json:"protocol_no,omitempty" xml:"protocol_no,omitempty" require:"true"`
+	// 银行卡卡号
+	CardNo *string `json:"card_no,omitempty" xml:"card_no,omitempty" require:"true"`
+	// 用户姓名
+	CertName *string `json:"cert_name,omitempty" xml:"cert_name,omitempty" require:"true"`
+	// 交易金额，整数，单位:分
+	TxnAmt *string `json:"txn_amt,omitempty" xml:"txn_amt,omitempty" require:"true"`
+	// 用户id
+	UserId *string `json:"user_id,omitempty" xml:"user_id,omitempty" require:"true"`
+	// 安全码
+	SecurityCode *string `json:"security_code,omitempty" xml:"security_code,omitempty"`
+	// 有效期
+	ValidDate *string `json:"valid_date,omitempty" xml:"valid_date,omitempty"`
+	// 分账信息
+	ShareInfo *string `json:"share_info,omitempty" xml:"share_info,omitempty"`
+}
+
+func (s ApplyCutpaymentPaymentRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s ApplyCutpaymentPaymentRequest) GoString() string {
+	return s.String()
+}
+
+func (s *ApplyCutpaymentPaymentRequest) SetAuthToken(v string) *ApplyCutpaymentPaymentRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *ApplyCutpaymentPaymentRequest) SetProductInstanceId(v string) *ApplyCutpaymentPaymentRequest {
+	s.ProductInstanceId = &v
+	return s
+}
+
+func (s *ApplyCutpaymentPaymentRequest) SetOuterOrderNo(v string) *ApplyCutpaymentPaymentRequest {
+	s.OuterOrderNo = &v
+	return s
+}
+
+func (s *ApplyCutpaymentPaymentRequest) SetEncryptType(v string) *ApplyCutpaymentPaymentRequest {
+	s.EncryptType = &v
+	return s
+}
+
+func (s *ApplyCutpaymentPaymentRequest) SetEncryptToken(v string) *ApplyCutpaymentPaymentRequest {
+	s.EncryptToken = &v
+	return s
+}
+
+func (s *ApplyCutpaymentPaymentRequest) SetTransId(v string) *ApplyCutpaymentPaymentRequest {
+	s.TransId = &v
+	return s
+}
+
+func (s *ApplyCutpaymentPaymentRequest) SetProtocolNo(v string) *ApplyCutpaymentPaymentRequest {
+	s.ProtocolNo = &v
+	return s
+}
+
+func (s *ApplyCutpaymentPaymentRequest) SetCardNo(v string) *ApplyCutpaymentPaymentRequest {
+	s.CardNo = &v
+	return s
+}
+
+func (s *ApplyCutpaymentPaymentRequest) SetCertName(v string) *ApplyCutpaymentPaymentRequest {
+	s.CertName = &v
+	return s
+}
+
+func (s *ApplyCutpaymentPaymentRequest) SetTxnAmt(v string) *ApplyCutpaymentPaymentRequest {
+	s.TxnAmt = &v
+	return s
+}
+
+func (s *ApplyCutpaymentPaymentRequest) SetUserId(v string) *ApplyCutpaymentPaymentRequest {
+	s.UserId = &v
+	return s
+}
+
+func (s *ApplyCutpaymentPaymentRequest) SetSecurityCode(v string) *ApplyCutpaymentPaymentRequest {
+	s.SecurityCode = &v
+	return s
+}
+
+func (s *ApplyCutpaymentPaymentRequest) SetValidDate(v string) *ApplyCutpaymentPaymentRequest {
+	s.ValidDate = &v
+	return s
+}
+
+func (s *ApplyCutpaymentPaymentRequest) SetShareInfo(v string) *ApplyCutpaymentPaymentRequest {
+	s.ShareInfo = &v
+	return s
+}
+
+type ApplyCutpaymentPaymentResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// 成功金额,整数，单位:分
+	SuccAmt *string `json:"succ_amt,omitempty" xml:"succ_amt,omitempty"`
+	// 支付成功时间，yyyy-MM-dd HH:mm:ss
+	SuccTime *string `json:"succ_time,omitempty" xml:"succ_time,omitempty"`
+	// 平台订单号
+	OrderId *string `json:"order_id,omitempty" xml:"order_id,omitempty"`
+	// 商户订单号
+	TransId *string `json:"trans_id,omitempty" xml:"trans_id,omitempty"`
+}
+
+func (s ApplyCutpaymentPaymentResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s ApplyCutpaymentPaymentResponse) GoString() string {
+	return s.String()
+}
+
+func (s *ApplyCutpaymentPaymentResponse) SetReqMsgId(v string) *ApplyCutpaymentPaymentResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *ApplyCutpaymentPaymentResponse) SetResultCode(v string) *ApplyCutpaymentPaymentResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *ApplyCutpaymentPaymentResponse) SetResultMsg(v string) *ApplyCutpaymentPaymentResponse {
+	s.ResultMsg = &v
+	return s
+}
+
+func (s *ApplyCutpaymentPaymentResponse) SetSuccAmt(v string) *ApplyCutpaymentPaymentResponse {
+	s.SuccAmt = &v
+	return s
+}
+
+func (s *ApplyCutpaymentPaymentResponse) SetSuccTime(v string) *ApplyCutpaymentPaymentResponse {
+	s.SuccTime = &v
+	return s
+}
+
+func (s *ApplyCutpaymentPaymentResponse) SetOrderId(v string) *ApplyCutpaymentPaymentResponse {
+	s.OrderId = &v
+	return s
+}
+
+func (s *ApplyCutpaymentPaymentResponse) SetTransId(v string) *ApplyCutpaymentPaymentResponse {
+	s.TransId = &v
+	return s
+}
+
+type QueryCutpaymentPaymentRequest struct {
+	// OAuth模式下的授权token
+	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
+	// 请求ID，为32位以内的字母数字组合，由调用方自行生成、保证唯一并留存，以便问题定位和授权核查。
+	OuterOrderNo *string `json:"outer_order_no,omitempty" xml:"outer_order_no,omitempty" require:"true"`
+	// 入参加密模式：
+	// "0"（默认值）：不加密；
+	// "6"：AES加密
+	// 默认为"0"
+	EncryptType *string `json:"encrypt_type,omitempty" xml:"encrypt_type,omitempty"`
+	// 加密密钥
+	EncryptToken *string `json:"encrypt_token,omitempty" xml:"encrypt_token,omitempty"`
+	// 签约协议号
+	ProtocolNo *string `json:"protocol_no,omitempty" xml:"protocol_no,omitempty" require:"true"`
+	// 支付交易商户订单号
+	TransId *string `json:"trans_id,omitempty" xml:"trans_id,omitempty" require:"true"`
+	// 交易日期yyyy-MM-dd HH:mm:ss
+	OrigTradeDate *string `json:"orig_trade_date,omitempty" xml:"orig_trade_date,omitempty" require:"true"`
+	// 用户id
+	UserId *string `json:"user_id,omitempty" xml:"user_id,omitempty" require:"true"`
+}
+
+func (s QueryCutpaymentPaymentRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s QueryCutpaymentPaymentRequest) GoString() string {
+	return s.String()
+}
+
+func (s *QueryCutpaymentPaymentRequest) SetAuthToken(v string) *QueryCutpaymentPaymentRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *QueryCutpaymentPaymentRequest) SetProductInstanceId(v string) *QueryCutpaymentPaymentRequest {
+	s.ProductInstanceId = &v
+	return s
+}
+
+func (s *QueryCutpaymentPaymentRequest) SetOuterOrderNo(v string) *QueryCutpaymentPaymentRequest {
+	s.OuterOrderNo = &v
+	return s
+}
+
+func (s *QueryCutpaymentPaymentRequest) SetEncryptType(v string) *QueryCutpaymentPaymentRequest {
+	s.EncryptType = &v
+	return s
+}
+
+func (s *QueryCutpaymentPaymentRequest) SetEncryptToken(v string) *QueryCutpaymentPaymentRequest {
+	s.EncryptToken = &v
+	return s
+}
+
+func (s *QueryCutpaymentPaymentRequest) SetProtocolNo(v string) *QueryCutpaymentPaymentRequest {
+	s.ProtocolNo = &v
+	return s
+}
+
+func (s *QueryCutpaymentPaymentRequest) SetTransId(v string) *QueryCutpaymentPaymentRequest {
+	s.TransId = &v
+	return s
+}
+
+func (s *QueryCutpaymentPaymentRequest) SetOrigTradeDate(v string) *QueryCutpaymentPaymentRequest {
+	s.OrigTradeDate = &v
+	return s
+}
+
+func (s *QueryCutpaymentPaymentRequest) SetUserId(v string) *QueryCutpaymentPaymentRequest {
+	s.UserId = &v
+	return s
+}
+
+type QueryCutpaymentPaymentResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// 成功金额，整数，单位:分
+	SuccAmt *string `json:"succ_amt,omitempty" xml:"succ_amt,omitempty"`
+	// 支付成功时间，yyyy-MM-dd HH:mm:ss
+	SuccTime *string `json:"succ_time,omitempty" xml:"succ_time,omitempty"`
+	// 平台订单号
+	OrderId *string `json:"order_id,omitempty" xml:"order_id,omitempty"`
+	// 商户订单号
+	TransId *string `json:"trans_id,omitempty" xml:"trans_id,omitempty"`
+	// 订单状态
+	OrderState *string `json:"order_state,omitempty" xml:"order_state,omitempty"`
+	// 分账状态
+	ShareState *string `json:"share_state,omitempty" xml:"share_state,omitempty"`
+}
+
+func (s QueryCutpaymentPaymentResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s QueryCutpaymentPaymentResponse) GoString() string {
+	return s.String()
+}
+
+func (s *QueryCutpaymentPaymentResponse) SetReqMsgId(v string) *QueryCutpaymentPaymentResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *QueryCutpaymentPaymentResponse) SetResultCode(v string) *QueryCutpaymentPaymentResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *QueryCutpaymentPaymentResponse) SetResultMsg(v string) *QueryCutpaymentPaymentResponse {
+	s.ResultMsg = &v
+	return s
+}
+
+func (s *QueryCutpaymentPaymentResponse) SetSuccAmt(v string) *QueryCutpaymentPaymentResponse {
+	s.SuccAmt = &v
+	return s
+}
+
+func (s *QueryCutpaymentPaymentResponse) SetSuccTime(v string) *QueryCutpaymentPaymentResponse {
+	s.SuccTime = &v
+	return s
+}
+
+func (s *QueryCutpaymentPaymentResponse) SetOrderId(v string) *QueryCutpaymentPaymentResponse {
+	s.OrderId = &v
+	return s
+}
+
+func (s *QueryCutpaymentPaymentResponse) SetTransId(v string) *QueryCutpaymentPaymentResponse {
+	s.TransId = &v
+	return s
+}
+
+func (s *QueryCutpaymentPaymentResponse) SetOrderState(v string) *QueryCutpaymentPaymentResponse {
+	s.OrderState = &v
+	return s
+}
+
+func (s *QueryCutpaymentPaymentResponse) SetShareState(v string) *QueryCutpaymentPaymentResponse {
+	s.ShareState = &v
+	return s
+}
+
+type ApplyCutpaymentRefundRequest struct {
+	// OAuth模式下的授权token
+	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
+	// 请求ID，为32位以内的字母数字组合，由调用方自行生成、保证唯一并留存，以便问题定位和授权核查。
+	OuterOrderNo *string `json:"outer_order_no,omitempty" xml:"outer_order_no,omitempty" require:"true"`
+	// 入参加密模式：
+	// "0"（默认值）：不加密；
+	// "6"：AES加密
+	// 默认为"0"
+	EncryptType *string `json:"encrypt_type,omitempty" xml:"encrypt_type,omitempty"`
+	// 加密密钥
+	EncryptToken *string `json:"encrypt_token,omitempty" xml:"encrypt_token,omitempty"`
+	// 原支付商户订单号
+	PaymentTransId *string `json:"payment_trans_id,omitempty" xml:"payment_trans_id,omitempty" require:"true"`
+	// 签约协议号
+	ProtocolNo *string `json:"protocol_no,omitempty" xml:"protocol_no,omitempty" require:"true"`
+	// 退款商户订单号
+	RefundTransId *string `json:"refund_trans_id,omitempty" xml:"refund_trans_id,omitempty" require:"true"`
+	// 用户id
+	UserId *string `json:"user_id,omitempty" xml:"user_id,omitempty" require:"true"`
+	// 退款商户流水号
+	RefundSerialNo *string `json:"refund_serial_no,omitempty" xml:"refund_serial_no,omitempty" require:"true"`
+	// 退款原因
+	RefundReason *string `json:"refund_reason,omitempty" xml:"refund_reason,omitempty" require:"true"`
+	// 退款金额，整数，单位:分
+	RefundAmt *string `json:"refund_amt,omitempty" xml:"refund_amt,omitempty" require:"true"`
+	// 分账退款信息
+	ShareRefundInfo *string `json:"share_refund_info,omitempty" xml:"share_refund_info,omitempty"`
+}
+
+func (s ApplyCutpaymentRefundRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s ApplyCutpaymentRefundRequest) GoString() string {
+	return s.String()
+}
+
+func (s *ApplyCutpaymentRefundRequest) SetAuthToken(v string) *ApplyCutpaymentRefundRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *ApplyCutpaymentRefundRequest) SetProductInstanceId(v string) *ApplyCutpaymentRefundRequest {
+	s.ProductInstanceId = &v
+	return s
+}
+
+func (s *ApplyCutpaymentRefundRequest) SetOuterOrderNo(v string) *ApplyCutpaymentRefundRequest {
+	s.OuterOrderNo = &v
+	return s
+}
+
+func (s *ApplyCutpaymentRefundRequest) SetEncryptType(v string) *ApplyCutpaymentRefundRequest {
+	s.EncryptType = &v
+	return s
+}
+
+func (s *ApplyCutpaymentRefundRequest) SetEncryptToken(v string) *ApplyCutpaymentRefundRequest {
+	s.EncryptToken = &v
+	return s
+}
+
+func (s *ApplyCutpaymentRefundRequest) SetPaymentTransId(v string) *ApplyCutpaymentRefundRequest {
+	s.PaymentTransId = &v
+	return s
+}
+
+func (s *ApplyCutpaymentRefundRequest) SetProtocolNo(v string) *ApplyCutpaymentRefundRequest {
+	s.ProtocolNo = &v
+	return s
+}
+
+func (s *ApplyCutpaymentRefundRequest) SetRefundTransId(v string) *ApplyCutpaymentRefundRequest {
+	s.RefundTransId = &v
+	return s
+}
+
+func (s *ApplyCutpaymentRefundRequest) SetUserId(v string) *ApplyCutpaymentRefundRequest {
+	s.UserId = &v
+	return s
+}
+
+func (s *ApplyCutpaymentRefundRequest) SetRefundSerialNo(v string) *ApplyCutpaymentRefundRequest {
+	s.RefundSerialNo = &v
+	return s
+}
+
+func (s *ApplyCutpaymentRefundRequest) SetRefundReason(v string) *ApplyCutpaymentRefundRequest {
+	s.RefundReason = &v
+	return s
+}
+
+func (s *ApplyCutpaymentRefundRequest) SetRefundAmt(v string) *ApplyCutpaymentRefundRequest {
+	s.RefundAmt = &v
+	return s
+}
+
+func (s *ApplyCutpaymentRefundRequest) SetShareRefundInfo(v string) *ApplyCutpaymentRefundRequest {
+	s.ShareRefundInfo = &v
+	return s
+}
+
+type ApplyCutpaymentRefundResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// 退款商户订单号
+	RefundTransId *string `json:"refund_trans_id,omitempty" xml:"refund_trans_id,omitempty"`
+	// 退款商户流水号
+	RefundSerialNo *string `json:"refund_serial_no,omitempty" xml:"refund_serial_no,omitempty"`
+	// 退款金额，单位：分 整数
+	RefundAmt *string `json:"refund_amt,omitempty" xml:"refund_amt,omitempty"`
+}
+
+func (s ApplyCutpaymentRefundResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s ApplyCutpaymentRefundResponse) GoString() string {
+	return s.String()
+}
+
+func (s *ApplyCutpaymentRefundResponse) SetReqMsgId(v string) *ApplyCutpaymentRefundResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *ApplyCutpaymentRefundResponse) SetResultCode(v string) *ApplyCutpaymentRefundResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *ApplyCutpaymentRefundResponse) SetResultMsg(v string) *ApplyCutpaymentRefundResponse {
+	s.ResultMsg = &v
+	return s
+}
+
+func (s *ApplyCutpaymentRefundResponse) SetRefundTransId(v string) *ApplyCutpaymentRefundResponse {
+	s.RefundTransId = &v
+	return s
+}
+
+func (s *ApplyCutpaymentRefundResponse) SetRefundSerialNo(v string) *ApplyCutpaymentRefundResponse {
+	s.RefundSerialNo = &v
+	return s
+}
+
+func (s *ApplyCutpaymentRefundResponse) SetRefundAmt(v string) *ApplyCutpaymentRefundResponse {
+	s.RefundAmt = &v
+	return s
+}
+
+type QueryCutpaymentRefundRequest struct {
+	// OAuth模式下的授权token
+	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
+	// 请求ID，为32位以内的字母数字组合，由调用方自行生成、保证唯一并留存，以便问题定位和授权核查。
+	OuterOrderNo *string `json:"outer_order_no,omitempty" xml:"outer_order_no,omitempty" require:"true"`
+	// 入参加密模式：
+	// "0"（默认值）：不加密；
+	// "6"：AES加密
+	// 默认为"0"
+	EncryptType *string `json:"encrypt_type,omitempty" xml:"encrypt_type,omitempty"`
+	// 加密密钥
+	EncryptToken *string `json:"encrypt_token,omitempty" xml:"encrypt_token,omitempty"`
+	// 用户id
+	UserId *string `json:"user_id,omitempty" xml:"user_id,omitempty" require:"true"`
+	// 签约协议号
+	ProtocolNo *string `json:"protocol_no,omitempty" xml:"protocol_no,omitempty" require:"true"`
+	// 退款商户订单号
+	RefundTransId *string `json:"refund_trans_id,omitempty" xml:"refund_trans_id,omitempty" require:"true"`
+	// 退款商户流水号
+	RefundSerialNo *string `json:"refund_serial_no,omitempty" xml:"refund_serial_no,omitempty" require:"true"`
+}
+
+func (s QueryCutpaymentRefundRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s QueryCutpaymentRefundRequest) GoString() string {
+	return s.String()
+}
+
+func (s *QueryCutpaymentRefundRequest) SetAuthToken(v string) *QueryCutpaymentRefundRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *QueryCutpaymentRefundRequest) SetProductInstanceId(v string) *QueryCutpaymentRefundRequest {
+	s.ProductInstanceId = &v
+	return s
+}
+
+func (s *QueryCutpaymentRefundRequest) SetOuterOrderNo(v string) *QueryCutpaymentRefundRequest {
+	s.OuterOrderNo = &v
+	return s
+}
+
+func (s *QueryCutpaymentRefundRequest) SetEncryptType(v string) *QueryCutpaymentRefundRequest {
+	s.EncryptType = &v
+	return s
+}
+
+func (s *QueryCutpaymentRefundRequest) SetEncryptToken(v string) *QueryCutpaymentRefundRequest {
+	s.EncryptToken = &v
+	return s
+}
+
+func (s *QueryCutpaymentRefundRequest) SetUserId(v string) *QueryCutpaymentRefundRequest {
+	s.UserId = &v
+	return s
+}
+
+func (s *QueryCutpaymentRefundRequest) SetProtocolNo(v string) *QueryCutpaymentRefundRequest {
+	s.ProtocolNo = &v
+	return s
+}
+
+func (s *QueryCutpaymentRefundRequest) SetRefundTransId(v string) *QueryCutpaymentRefundRequest {
+	s.RefundTransId = &v
+	return s
+}
+
+func (s *QueryCutpaymentRefundRequest) SetRefundSerialNo(v string) *QueryCutpaymentRefundRequest {
+	s.RefundSerialNo = &v
+	return s
+}
+
+type QueryCutpaymentRefundResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// 成功退款金额,整数，单位:分
+	RefundAmt *string `json:"refund_amt,omitempty" xml:"refund_amt,omitempty"`
+}
+
+func (s QueryCutpaymentRefundResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s QueryCutpaymentRefundResponse) GoString() string {
+	return s.String()
+}
+
+func (s *QueryCutpaymentRefundResponse) SetReqMsgId(v string) *QueryCutpaymentRefundResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *QueryCutpaymentRefundResponse) SetResultCode(v string) *QueryCutpaymentRefundResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *QueryCutpaymentRefundResponse) SetResultMsg(v string) *QueryCutpaymentRefundResponse {
+	s.ResultMsg = &v
+	return s
+}
+
+func (s *QueryCutpaymentRefundResponse) SetRefundAmt(v string) *QueryCutpaymentRefundResponse {
+	s.RefundAmt = &v
+	return s
+}
+
+type QueryCutpaymentStatementRequest struct {
+	// OAuth模式下的授权token
+	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
+	// 请求ID，为32位以内的字母数字组合，由调用方自行生成、保证唯一并留存，以便问题定位和授权核查。
+	OuterOrderNo *string `json:"outer_order_no,omitempty" xml:"outer_order_no,omitempty" require:"true"`
+	// 对账单日期,格式：yyyy-mm-dd
+	// 使用入参加密模式加密
+	SettleDate *string `json:"settle_date,omitempty" xml:"settle_date,omitempty" require:"true"`
+}
+
+func (s QueryCutpaymentStatementRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s QueryCutpaymentStatementRequest) GoString() string {
+	return s.String()
+}
+
+func (s *QueryCutpaymentStatementRequest) SetAuthToken(v string) *QueryCutpaymentStatementRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *QueryCutpaymentStatementRequest) SetProductInstanceId(v string) *QueryCutpaymentStatementRequest {
+	s.ProductInstanceId = &v
+	return s
+}
+
+func (s *QueryCutpaymentStatementRequest) SetOuterOrderNo(v string) *QueryCutpaymentStatementRequest {
+	s.OuterOrderNo = &v
+	return s
+}
+
+func (s *QueryCutpaymentStatementRequest) SetSettleDate(v string) *QueryCutpaymentStatementRequest {
+	s.SettleDate = &v
+	return s
+}
+
+type QueryCutpaymentStatementResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// 对账单临时下载，转成txt输出格式，1个小时有效期
+	FileUrl *string `json:"file_url,omitempty" xml:"file_url,omitempty"`
+}
+
+func (s QueryCutpaymentStatementResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s QueryCutpaymentStatementResponse) GoString() string {
+	return s.String()
+}
+
+func (s *QueryCutpaymentStatementResponse) SetReqMsgId(v string) *QueryCutpaymentStatementResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *QueryCutpaymentStatementResponse) SetResultCode(v string) *QueryCutpaymentStatementResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *QueryCutpaymentStatementResponse) SetResultMsg(v string) *QueryCutpaymentStatementResponse {
+	s.ResultMsg = &v
+	return s
+}
+
+func (s *QueryCutpaymentStatementResponse) SetFileUrl(v string) *QueryCutpaymentStatementResponse {
+	s.FileUrl = &v
+	return s
+}
+
+type ExecFaceThreemetaRequest struct {
+	// OAuth模式下的授权token
+	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
+	// 真实姓名
+	CertName *string `json:"cert_name,omitempty" xml:"cert_name,omitempty" require:"true"`
+	// 证件号码
+	CertNo *string `json:"cert_no,omitempty" xml:"cert_no,omitempty" require:"true"`
+	// 商户请求的唯一标识。
+	// 值为 32 位长度的字母数字组合。其中，前面几位字符是商户自定义的简称，中间几位可以使用一段时间，后段可以使用一个随机或递增序列。该值也可以使用 UUID。
+	OuterOrderNo *string `json:"outer_order_no,omitempty" xml:"outer_order_no,omitempty" require:"true"`
+	// 固定值,BASE64
+	FileType *string `json:"file_type,omitempty" xml:"file_type,omitempty" require:"true"`
+	// 待比对的图像，BASE64 格式
+	FacialPictureAuth *string `json:"facial_picture_auth,omitempty" xml:"facial_picture_auth,omitempty" require:"true"`
+}
+
+func (s ExecFaceThreemetaRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s ExecFaceThreemetaRequest) GoString() string {
+	return s.String()
+}
+
+func (s *ExecFaceThreemetaRequest) SetAuthToken(v string) *ExecFaceThreemetaRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *ExecFaceThreemetaRequest) SetProductInstanceId(v string) *ExecFaceThreemetaRequest {
+	s.ProductInstanceId = &v
+	return s
+}
+
+func (s *ExecFaceThreemetaRequest) SetCertName(v string) *ExecFaceThreemetaRequest {
+	s.CertName = &v
+	return s
+}
+
+func (s *ExecFaceThreemetaRequest) SetCertNo(v string) *ExecFaceThreemetaRequest {
+	s.CertNo = &v
+	return s
+}
+
+func (s *ExecFaceThreemetaRequest) SetOuterOrderNo(v string) *ExecFaceThreemetaRequest {
+	s.OuterOrderNo = &v
+	return s
+}
+
+func (s *ExecFaceThreemetaRequest) SetFileType(v string) *ExecFaceThreemetaRequest {
+	s.FileType = &v
+	return s
+}
+
+func (s *ExecFaceThreemetaRequest) SetFacialPictureAuth(v string) *ExecFaceThreemetaRequest {
+	s.FacialPictureAuth = &v
+	return s
+}
+
+type ExecFaceThreemetaResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// 比对分
+	Score *string `json:"score,omitempty" xml:"score,omitempty"`
+}
+
+func (s ExecFaceThreemetaResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s ExecFaceThreemetaResponse) GoString() string {
+	return s.String()
+}
+
+func (s *ExecFaceThreemetaResponse) SetReqMsgId(v string) *ExecFaceThreemetaResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *ExecFaceThreemetaResponse) SetResultCode(v string) *ExecFaceThreemetaResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *ExecFaceThreemetaResponse) SetResultMsg(v string) *ExecFaceThreemetaResponse {
+	s.ResultMsg = &v
+	return s
+}
+
+func (s *ExecFaceThreemetaResponse) SetScore(v string) *ExecFaceThreemetaResponse {
+	s.Score = &v
+	return s
+}
+
+type QueryCarinfoUltimateRequest struct {
+	// OAuth模式下的授权token
+	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
+	// 请求ID，为32位以内的字母数字组合，由调用方自行生成、保证唯一并留存，以便问题定位和授权核查。
+	OuterOrderNo *string `json:"outer_order_no,omitempty" xml:"outer_order_no,omitempty" require:"true"`
+	// 入参加密模式：
+	// NONE：不加密；
+	// MD5：手机号码字段以MD5加密后的字符串传输
+	ReqEncType *string `json:"req_enc_type,omitempty" xml:"req_enc_type,omitempty"`
+	// 手机号支持明文和 MD5
+	Mobile *string `json:"mobile,omitempty" xml:"mobile,omitempty" require:"true"`
+	// 扩展信息，预留字段
+	//
+	ExternInfo *string `json:"extern_info,omitempty" xml:"extern_info,omitempty"`
+}
+
+func (s QueryCarinfoUltimateRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s QueryCarinfoUltimateRequest) GoString() string {
+	return s.String()
+}
+
+func (s *QueryCarinfoUltimateRequest) SetAuthToken(v string) *QueryCarinfoUltimateRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *QueryCarinfoUltimateRequest) SetProductInstanceId(v string) *QueryCarinfoUltimateRequest {
+	s.ProductInstanceId = &v
+	return s
+}
+
+func (s *QueryCarinfoUltimateRequest) SetOuterOrderNo(v string) *QueryCarinfoUltimateRequest {
+	s.OuterOrderNo = &v
+	return s
+}
+
+func (s *QueryCarinfoUltimateRequest) SetReqEncType(v string) *QueryCarinfoUltimateRequest {
+	s.ReqEncType = &v
+	return s
+}
+
+func (s *QueryCarinfoUltimateRequest) SetMobile(v string) *QueryCarinfoUltimateRequest {
+	s.Mobile = &v
+	return s
+}
+
+func (s *QueryCarinfoUltimateRequest) SetExternInfo(v string) *QueryCarinfoUltimateRequest {
+	s.ExternInfo = &v
+	return s
+}
+
+type QueryCarinfoUltimateResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// 扩展信息，为JSONObject。
+	//
+	ExternInfo *string `json:"extern_info,omitempty" xml:"extern_info,omitempty"`
+	//  用户名下车辆数量，格式：1，2，3...
+	Amont *string `json:"amont,omitempty" xml:"amont,omitempty"`
+	// 车辆信息
+	CarInfos []*CarInfo `json:"car_infos,omitempty" xml:"car_infos,omitempty" type:"Repeated"`
+}
+
+func (s QueryCarinfoUltimateResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s QueryCarinfoUltimateResponse) GoString() string {
+	return s.String()
+}
+
+func (s *QueryCarinfoUltimateResponse) SetReqMsgId(v string) *QueryCarinfoUltimateResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *QueryCarinfoUltimateResponse) SetResultCode(v string) *QueryCarinfoUltimateResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *QueryCarinfoUltimateResponse) SetResultMsg(v string) *QueryCarinfoUltimateResponse {
+	s.ResultMsg = &v
+	return s
+}
+
+func (s *QueryCarinfoUltimateResponse) SetExternInfo(v string) *QueryCarinfoUltimateResponse {
+	s.ExternInfo = &v
+	return s
+}
+
+func (s *QueryCarinfoUltimateResponse) SetAmont(v string) *QueryCarinfoUltimateResponse {
+	s.Amont = &v
+	return s
+}
+
+func (s *QueryCarinfoUltimateResponse) SetCarInfos(v []*CarInfo) *QueryCarinfoUltimateResponse {
+	s.CarInfos = v
+	return s
+}
+
+type QueryCarinfoPlusRequest struct {
+	// OAuth模式下的授权token
+	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
+	// 请求ID，为32位以内的字母数字组合，由调用方自行生成、保证唯一并留存，以便问题定位和授权核查。
+	OuterOrderNo *string `json:"outer_order_no,omitempty" xml:"outer_order_no,omitempty" require:"true"`
+	// 入参加密模式：
+	// NONE：不加密；
+	// MD5：手机号码字段以MD5加密后的字符串传输
+	ReqEncType *string `json:"req_enc_type,omitempty" xml:"req_enc_type,omitempty"`
+	// 身份证号
+	CertNo *string `json:"cert_no,omitempty" xml:"cert_no,omitempty" require:"true"`
+	// 扩展信息，预留字段
+	//
+	ExternInfo *string `json:"extern_info,omitempty" xml:"extern_info,omitempty"`
+}
+
+func (s QueryCarinfoPlusRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s QueryCarinfoPlusRequest) GoString() string {
+	return s.String()
+}
+
+func (s *QueryCarinfoPlusRequest) SetAuthToken(v string) *QueryCarinfoPlusRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *QueryCarinfoPlusRequest) SetProductInstanceId(v string) *QueryCarinfoPlusRequest {
+	s.ProductInstanceId = &v
+	return s
+}
+
+func (s *QueryCarinfoPlusRequest) SetOuterOrderNo(v string) *QueryCarinfoPlusRequest {
+	s.OuterOrderNo = &v
+	return s
+}
+
+func (s *QueryCarinfoPlusRequest) SetReqEncType(v string) *QueryCarinfoPlusRequest {
+	s.ReqEncType = &v
+	return s
+}
+
+func (s *QueryCarinfoPlusRequest) SetCertNo(v string) *QueryCarinfoPlusRequest {
+	s.CertNo = &v
+	return s
+}
+
+func (s *QueryCarinfoPlusRequest) SetExternInfo(v string) *QueryCarinfoPlusRequest {
+	s.ExternInfo = &v
+	return s
+}
+
+type QueryCarinfoPlusResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// 扩展信息，为JSONObject。
+	//
+	ExternInfo *string `json:"extern_info,omitempty" xml:"extern_info,omitempty"`
+	// 用户名下车辆数量，格式：1，2，3...
+	Amont *string `json:"amont,omitempty" xml:"amont,omitempty"`
+	// 车辆信息
+	CarInfos []*CarInfoPlus `json:"car_infos,omitempty" xml:"car_infos,omitempty" type:"Repeated"`
+}
+
+func (s QueryCarinfoPlusResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s QueryCarinfoPlusResponse) GoString() string {
+	return s.String()
+}
+
+func (s *QueryCarinfoPlusResponse) SetReqMsgId(v string) *QueryCarinfoPlusResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *QueryCarinfoPlusResponse) SetResultCode(v string) *QueryCarinfoPlusResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *QueryCarinfoPlusResponse) SetResultMsg(v string) *QueryCarinfoPlusResponse {
+	s.ResultMsg = &v
+	return s
+}
+
+func (s *QueryCarinfoPlusResponse) SetExternInfo(v string) *QueryCarinfoPlusResponse {
+	s.ExternInfo = &v
+	return s
+}
+
+func (s *QueryCarinfoPlusResponse) SetAmont(v string) *QueryCarinfoPlusResponse {
+	s.Amont = &v
+	return s
+}
+
+func (s *QueryCarinfoPlusResponse) SetCarInfos(v []*CarInfoPlus) *QueryCarinfoPlusResponse {
+	s.CarInfos = v
+	return s
+}
+
+type OpenCutpaymentsubAccountRequest struct {
+	// OAuth模式下的授权token
+	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
+	// 请求ID，为32位以内的字母数字组合，由调用方自行生成、保证唯一并留存，以便问题定位和授权核查。
+	OuterOrderNo *string `json:"outer_order_no,omitempty" xml:"outer_order_no,omitempty" require:"true"`
+	// 登录号，商户自定义，要求全局唯一，长度11位以上
+	LoginNo *string `json:"login_no,omitempty" xml:"login_no,omitempty" require:"true"`
+	// 邮箱
+	Email *string `json:"email,omitempty" xml:"email,omitempty" require:"true"`
+	// 是否个体户企业为 false个体户为 true
+	SelfEmployed *bool `json:"self_employed,omitempty" xml:"self_employed,omitempty" require:"true"`
+	// 商户名称（营业执照上的名称）
+	LicenseName *string `json:"license_name,omitempty" xml:"license_name,omitempty" require:"true"`
+	// 营业执照号
+	LicenseNo *string `json:"license_no,omitempty" xml:"license_no,omitempty" require:"true"`
+	// 法人姓名
+	CertName *string `json:"cert_name,omitempty" xml:"cert_name,omitempty" require:"true"`
+	// 法人身份证号
+	CertNo *string `json:"cert_no,omitempty" xml:"cert_no,omitempty" require:"true"`
+	// 法人手机号
+	Mobile *string `json:"mobile,omitempty" xml:"mobile,omitempty" require:"true"`
+	// 公司所属行业
+	IndustryId *string `json:"industry_id,omitempty" xml:"industry_id,omitempty" require:"true"`
+	// 银行卡号
+	BankCard *string `json:"bank_card,omitempty" xml:"bank_card,omitempty" require:"true"`
+	// 银行名称
+	BankName *string `json:"bank_name,omitempty" xml:"bank_name,omitempty" require:"true"`
+	// 开户行省份
+	BankProvince *string `json:"bank_province,omitempty" xml:"bank_province,omitempty" require:"true"`
+	// 开户行城市
+	BankCity *string `json:"bank_city,omitempty" xml:"bank_city,omitempty" require:"true"`
+	// 开户支行名称
+	BankBranchName *string `json:"bank_branch_name,omitempty" xml:"bank_branch_name,omitempty" require:"true"`
+	// 持卡人姓名
+	// 当开个体户且绑定对私卡时需传此字段,否则默认绑定对公卡
+	CardUserName *string `json:"card_user_name,omitempty" xml:"card_user_name,omitempty"`
+	// 一级商户商户号
+	FirstLevelMemberid *string `json:"first_level_memberid,omitempty" xml:"first_level_memberid,omitempty" require:"true"`
+	// 一级商户终端号
+	FirstLevelTerminalid *string `json:"first_level_terminalid,omitempty" xml:"first_level_terminalid,omitempty" require:"true"`
+	// 扩展信息，预留字段
+	ExternParam *string `json:"extern_param,omitempty" xml:"extern_param,omitempty"`
+}
+
+func (s OpenCutpaymentsubAccountRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s OpenCutpaymentsubAccountRequest) GoString() string {
+	return s.String()
+}
+
+func (s *OpenCutpaymentsubAccountRequest) SetAuthToken(v string) *OpenCutpaymentsubAccountRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *OpenCutpaymentsubAccountRequest) SetProductInstanceId(v string) *OpenCutpaymentsubAccountRequest {
+	s.ProductInstanceId = &v
+	return s
+}
+
+func (s *OpenCutpaymentsubAccountRequest) SetOuterOrderNo(v string) *OpenCutpaymentsubAccountRequest {
+	s.OuterOrderNo = &v
+	return s
+}
+
+func (s *OpenCutpaymentsubAccountRequest) SetLoginNo(v string) *OpenCutpaymentsubAccountRequest {
+	s.LoginNo = &v
+	return s
+}
+
+func (s *OpenCutpaymentsubAccountRequest) SetEmail(v string) *OpenCutpaymentsubAccountRequest {
+	s.Email = &v
+	return s
+}
+
+func (s *OpenCutpaymentsubAccountRequest) SetSelfEmployed(v bool) *OpenCutpaymentsubAccountRequest {
+	s.SelfEmployed = &v
+	return s
+}
+
+func (s *OpenCutpaymentsubAccountRequest) SetLicenseName(v string) *OpenCutpaymentsubAccountRequest {
+	s.LicenseName = &v
+	return s
+}
+
+func (s *OpenCutpaymentsubAccountRequest) SetLicenseNo(v string) *OpenCutpaymentsubAccountRequest {
+	s.LicenseNo = &v
+	return s
+}
+
+func (s *OpenCutpaymentsubAccountRequest) SetCertName(v string) *OpenCutpaymentsubAccountRequest {
+	s.CertName = &v
+	return s
+}
+
+func (s *OpenCutpaymentsubAccountRequest) SetCertNo(v string) *OpenCutpaymentsubAccountRequest {
+	s.CertNo = &v
+	return s
+}
+
+func (s *OpenCutpaymentsubAccountRequest) SetMobile(v string) *OpenCutpaymentsubAccountRequest {
+	s.Mobile = &v
+	return s
+}
+
+func (s *OpenCutpaymentsubAccountRequest) SetIndustryId(v string) *OpenCutpaymentsubAccountRequest {
+	s.IndustryId = &v
+	return s
+}
+
+func (s *OpenCutpaymentsubAccountRequest) SetBankCard(v string) *OpenCutpaymentsubAccountRequest {
+	s.BankCard = &v
+	return s
+}
+
+func (s *OpenCutpaymentsubAccountRequest) SetBankName(v string) *OpenCutpaymentsubAccountRequest {
+	s.BankName = &v
+	return s
+}
+
+func (s *OpenCutpaymentsubAccountRequest) SetBankProvince(v string) *OpenCutpaymentsubAccountRequest {
+	s.BankProvince = &v
+	return s
+}
+
+func (s *OpenCutpaymentsubAccountRequest) SetBankCity(v string) *OpenCutpaymentsubAccountRequest {
+	s.BankCity = &v
+	return s
+}
+
+func (s *OpenCutpaymentsubAccountRequest) SetBankBranchName(v string) *OpenCutpaymentsubAccountRequest {
+	s.BankBranchName = &v
+	return s
+}
+
+func (s *OpenCutpaymentsubAccountRequest) SetCardUserName(v string) *OpenCutpaymentsubAccountRequest {
+	s.CardUserName = &v
+	return s
+}
+
+func (s *OpenCutpaymentsubAccountRequest) SetFirstLevelMemberid(v string) *OpenCutpaymentsubAccountRequest {
+	s.FirstLevelMemberid = &v
+	return s
+}
+
+func (s *OpenCutpaymentsubAccountRequest) SetFirstLevelTerminalid(v string) *OpenCutpaymentsubAccountRequest {
+	s.FirstLevelTerminalid = &v
+	return s
+}
+
+func (s *OpenCutpaymentsubAccountRequest) SetExternParam(v string) *OpenCutpaymentsubAccountRequest {
+	s.ExternParam = &v
+	return s
+}
+
+type OpenCutpaymentsubAccountResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// 扩展信息，预留字段
+	ExternInfo *string `json:"extern_info,omitempty" xml:"extern_info,omitempty"`
+}
+
+func (s OpenCutpaymentsubAccountResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s OpenCutpaymentsubAccountResponse) GoString() string {
+	return s.String()
+}
+
+func (s *OpenCutpaymentsubAccountResponse) SetReqMsgId(v string) *OpenCutpaymentsubAccountResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *OpenCutpaymentsubAccountResponse) SetResultCode(v string) *OpenCutpaymentsubAccountResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *OpenCutpaymentsubAccountResponse) SetResultMsg(v string) *OpenCutpaymentsubAccountResponse {
+	s.ResultMsg = &v
+	return s
+}
+
+func (s *OpenCutpaymentsubAccountResponse) SetExternInfo(v string) *OpenCutpaymentsubAccountResponse {
+	s.ExternInfo = &v
+	return s
+}
+
+type QueryCutpaymentsubAccountRequest struct {
+	// OAuth模式下的授权token
+	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
+	// 请求ID，为32位以内的字母数字组合，由调用方自行生成、保证唯一并留存，以便问题定位和授权核查。
+	OuterOrderNo *string `json:"outer_order_no,omitempty" xml:"outer_order_no,omitempty" require:"true"`
+	// 登录号
+	LoginNo *string `json:"login_no,omitempty" xml:"login_no,omitempty" require:"true"`
+	// 一级商户商户号
+	FirstLevelMemberid *string `json:"first_level_memberid,omitempty" xml:"first_level_memberid,omitempty" require:"true"`
+	// 一级商户终端号
+	FirstLevelTerminalid *string `json:"first_level_terminalid,omitempty" xml:"first_level_terminalid,omitempty" require:"true"`
+	// 扩展信息，预留字段
+	ExternParam *string `json:"extern_param,omitempty" xml:"extern_param,omitempty"`
+}
+
+func (s QueryCutpaymentsubAccountRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s QueryCutpaymentsubAccountRequest) GoString() string {
+	return s.String()
+}
+
+func (s *QueryCutpaymentsubAccountRequest) SetAuthToken(v string) *QueryCutpaymentsubAccountRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *QueryCutpaymentsubAccountRequest) SetProductInstanceId(v string) *QueryCutpaymentsubAccountRequest {
+	s.ProductInstanceId = &v
+	return s
+}
+
+func (s *QueryCutpaymentsubAccountRequest) SetOuterOrderNo(v string) *QueryCutpaymentsubAccountRequest {
+	s.OuterOrderNo = &v
+	return s
+}
+
+func (s *QueryCutpaymentsubAccountRequest) SetLoginNo(v string) *QueryCutpaymentsubAccountRequest {
+	s.LoginNo = &v
+	return s
+}
+
+func (s *QueryCutpaymentsubAccountRequest) SetFirstLevelMemberid(v string) *QueryCutpaymentsubAccountRequest {
+	s.FirstLevelMemberid = &v
+	return s
+}
+
+func (s *QueryCutpaymentsubAccountRequest) SetFirstLevelTerminalid(v string) *QueryCutpaymentsubAccountRequest {
+	s.FirstLevelTerminalid = &v
+	return s
+}
+
+func (s *QueryCutpaymentsubAccountRequest) SetExternParam(v string) *QueryCutpaymentsubAccountRequest {
+	s.ExternParam = &v
+	return s
+}
+
+type QueryCutpaymentsubAccountResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// 二级商户号
+	ContractNo *string `json:"contract_no,omitempty" xml:"contract_no,omitempty"`
+	// 二级商户客户账户名
+	ContractName *string `json:"contract_name,omitempty" xml:"contract_name,omitempty"`
+	// 二级商户客户名
+	CustomerName *string `json:"customer_name,omitempty" xml:"customer_name,omitempty"`
+	// 扩展信息，预留字段
+	ExternInfo *string `json:"extern_info,omitempty" xml:"extern_info,omitempty"`
+}
+
+func (s QueryCutpaymentsubAccountResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s QueryCutpaymentsubAccountResponse) GoString() string {
+	return s.String()
+}
+
+func (s *QueryCutpaymentsubAccountResponse) SetReqMsgId(v string) *QueryCutpaymentsubAccountResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *QueryCutpaymentsubAccountResponse) SetResultCode(v string) *QueryCutpaymentsubAccountResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *QueryCutpaymentsubAccountResponse) SetResultMsg(v string) *QueryCutpaymentsubAccountResponse {
+	s.ResultMsg = &v
+	return s
+}
+
+func (s *QueryCutpaymentsubAccountResponse) SetContractNo(v string) *QueryCutpaymentsubAccountResponse {
+	s.ContractNo = &v
+	return s
+}
+
+func (s *QueryCutpaymentsubAccountResponse) SetContractName(v string) *QueryCutpaymentsubAccountResponse {
+	s.ContractName = &v
+	return s
+}
+
+func (s *QueryCutpaymentsubAccountResponse) SetCustomerName(v string) *QueryCutpaymentsubAccountResponse {
+	s.CustomerName = &v
+	return s
+}
+
+func (s *QueryCutpaymentsubAccountResponse) SetExternInfo(v string) *QueryCutpaymentsubAccountResponse {
+	s.ExternInfo = &v
+	return s
+}
+
+type TransferCutpaymentsubRevenueRequest struct {
+	// OAuth模式下的授权token
+	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
+	// 请求ID，为32位以内的字母数字组合，由调用方自行生成、保证唯一并留存，以便问题定位和授权核查。
+	OuterOrderNo *string `json:"outer_order_no,omitempty" xml:"outer_order_no,omitempty" require:"true"`
+	// 商户订单号需要唯一，方便定位到每一笔订单
+	OrderNo *string `json:"order_no,omitempty" xml:"order_no,omitempty" require:"true"`
+	// 01:加值；02:减值；
+	OrderType *string `json:"order_type,omitempty" xml:"order_type,omitempty" require:"true"`
+	// 分账总金额，单位：元，整数部分最长10位数，保留两位小数
+	DealAmount *string `json:"deal_amount,omitempty" xml:"deal_amount,omitempty" require:"true"`
+	// 二级商户账户号
+	ContractNo *string `json:"contract_no,omitempty" xml:"contract_no,omitempty" require:"true"`
+	// 金额，单位：元，整数部分最长10位数，保留两位小数
+	TransAmount *string `json:"trans_amount,omitempty" xml:"trans_amount,omitempty" require:"true"`
+	// 一级商户商户号
+	FirstLevelMemberid *string `json:"first_level_memberid,omitempty" xml:"first_level_memberid,omitempty" require:"true"`
+	// 一级商户终端号
+	FirstLevelTerminalid *string `json:"first_level_terminalid,omitempty" xml:"first_level_terminalid,omitempty" require:"true"`
+	// 扩展信息，预留字段
+	ExternParam *string `json:"extern_param,omitempty" xml:"extern_param,omitempty"`
+}
+
+func (s TransferCutpaymentsubRevenueRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s TransferCutpaymentsubRevenueRequest) GoString() string {
+	return s.String()
+}
+
+func (s *TransferCutpaymentsubRevenueRequest) SetAuthToken(v string) *TransferCutpaymentsubRevenueRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *TransferCutpaymentsubRevenueRequest) SetProductInstanceId(v string) *TransferCutpaymentsubRevenueRequest {
+	s.ProductInstanceId = &v
+	return s
+}
+
+func (s *TransferCutpaymentsubRevenueRequest) SetOuterOrderNo(v string) *TransferCutpaymentsubRevenueRequest {
+	s.OuterOrderNo = &v
+	return s
+}
+
+func (s *TransferCutpaymentsubRevenueRequest) SetOrderNo(v string) *TransferCutpaymentsubRevenueRequest {
+	s.OrderNo = &v
+	return s
+}
+
+func (s *TransferCutpaymentsubRevenueRequest) SetOrderType(v string) *TransferCutpaymentsubRevenueRequest {
+	s.OrderType = &v
+	return s
+}
+
+func (s *TransferCutpaymentsubRevenueRequest) SetDealAmount(v string) *TransferCutpaymentsubRevenueRequest {
+	s.DealAmount = &v
+	return s
+}
+
+func (s *TransferCutpaymentsubRevenueRequest) SetContractNo(v string) *TransferCutpaymentsubRevenueRequest {
+	s.ContractNo = &v
+	return s
+}
+
+func (s *TransferCutpaymentsubRevenueRequest) SetTransAmount(v string) *TransferCutpaymentsubRevenueRequest {
+	s.TransAmount = &v
+	return s
+}
+
+func (s *TransferCutpaymentsubRevenueRequest) SetFirstLevelMemberid(v string) *TransferCutpaymentsubRevenueRequest {
+	s.FirstLevelMemberid = &v
+	return s
+}
+
+func (s *TransferCutpaymentsubRevenueRequest) SetFirstLevelTerminalid(v string) *TransferCutpaymentsubRevenueRequest {
+	s.FirstLevelTerminalid = &v
+	return s
+}
+
+func (s *TransferCutpaymentsubRevenueRequest) SetExternParam(v string) *TransferCutpaymentsubRevenueRequest {
+	s.ExternParam = &v
+	return s
+}
+
+type TransferCutpaymentsubRevenueResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// 扩展信息，预留字段
+	ExternInfo *string `json:"extern_info,omitempty" xml:"extern_info,omitempty"`
+}
+
+func (s TransferCutpaymentsubRevenueResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s TransferCutpaymentsubRevenueResponse) GoString() string {
+	return s.String()
+}
+
+func (s *TransferCutpaymentsubRevenueResponse) SetReqMsgId(v string) *TransferCutpaymentsubRevenueResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *TransferCutpaymentsubRevenueResponse) SetResultCode(v string) *TransferCutpaymentsubRevenueResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *TransferCutpaymentsubRevenueResponse) SetResultMsg(v string) *TransferCutpaymentsubRevenueResponse {
+	s.ResultMsg = &v
+	return s
+}
+
+func (s *TransferCutpaymentsubRevenueResponse) SetExternInfo(v string) *TransferCutpaymentsubRevenueResponse {
+	s.ExternInfo = &v
+	return s
+}
+
+type QueryCutpaymentsubRevenueRequest struct {
+	// OAuth模式下的授权token
+	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
+	// 请求ID，为32位以内的字母数字组合，由调用方自行生成、保证唯一并留存，以便问题定位和授权核查。
+	OuterOrderNo *string `json:"outer_order_no,omitempty" xml:"outer_order_no,omitempty" require:"true"`
+	// 商户订单号需要唯一，方便定位到每一笔订单
+	OrderNo *string `json:"order_no,omitempty" xml:"order_no,omitempty" require:"true"`
+	// 01:加值；02:减值
+	OrderType *string `json:"order_type,omitempty" xml:"order_type,omitempty" require:"true"`
+	// 一级商户商户号
+	FirstLevelMemberid *string `json:"first_level_memberid,omitempty" xml:"first_level_memberid,omitempty" require:"true"`
+	// 一级商户终端号
+	FirstLevelTerminalid *string `json:"first_level_terminalid,omitempty" xml:"first_level_terminalid,omitempty" require:"true"`
+	// 扩展信息，预留字段
+	ExternParam *string `json:"extern_param,omitempty" xml:"extern_param,omitempty"`
+}
+
+func (s QueryCutpaymentsubRevenueRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s QueryCutpaymentsubRevenueRequest) GoString() string {
+	return s.String()
+}
+
+func (s *QueryCutpaymentsubRevenueRequest) SetAuthToken(v string) *QueryCutpaymentsubRevenueRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *QueryCutpaymentsubRevenueRequest) SetProductInstanceId(v string) *QueryCutpaymentsubRevenueRequest {
+	s.ProductInstanceId = &v
+	return s
+}
+
+func (s *QueryCutpaymentsubRevenueRequest) SetOuterOrderNo(v string) *QueryCutpaymentsubRevenueRequest {
+	s.OuterOrderNo = &v
+	return s
+}
+
+func (s *QueryCutpaymentsubRevenueRequest) SetOrderNo(v string) *QueryCutpaymentsubRevenueRequest {
+	s.OrderNo = &v
+	return s
+}
+
+func (s *QueryCutpaymentsubRevenueRequest) SetOrderType(v string) *QueryCutpaymentsubRevenueRequest {
+	s.OrderType = &v
+	return s
+}
+
+func (s *QueryCutpaymentsubRevenueRequest) SetFirstLevelMemberid(v string) *QueryCutpaymentsubRevenueRequest {
+	s.FirstLevelMemberid = &v
+	return s
+}
+
+func (s *QueryCutpaymentsubRevenueRequest) SetFirstLevelTerminalid(v string) *QueryCutpaymentsubRevenueRequest {
+	s.FirstLevelTerminalid = &v
+	return s
+}
+
+func (s *QueryCutpaymentsubRevenueRequest) SetExternParam(v string) *QueryCutpaymentsubRevenueRequest {
+	s.ExternParam = &v
+	return s
+}
+
+type QueryCutpaymentsubRevenueResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// 扩展信息，预留字段
+	ExternInfo *string `json:"extern_info,omitempty" xml:"extern_info,omitempty"`
+}
+
+func (s QueryCutpaymentsubRevenueResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s QueryCutpaymentsubRevenueResponse) GoString() string {
+	return s.String()
+}
+
+func (s *QueryCutpaymentsubRevenueResponse) SetReqMsgId(v string) *QueryCutpaymentsubRevenueResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *QueryCutpaymentsubRevenueResponse) SetResultCode(v string) *QueryCutpaymentsubRevenueResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *QueryCutpaymentsubRevenueResponse) SetResultMsg(v string) *QueryCutpaymentsubRevenueResponse {
+	s.ResultMsg = &v
+	return s
+}
+
+func (s *QueryCutpaymentsubRevenueResponse) SetExternInfo(v string) *QueryCutpaymentsubRevenueResponse {
+	s.ExternInfo = &v
+	return s
+}
+
+type CaptureCutpaymentsubWithdrawalRequest struct {
+	// OAuth模式下的授权token
+	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
+	// 请求ID，为32位以内的字母数字组合，由调用方自行生成、保证唯一并留存，以便问题定位和授权核查。
+	OuterOrderNo *string `json:"outer_order_no,omitempty" xml:"outer_order_no,omitempty" require:"true"`
+	// 提现的订单号，商户订单号需要唯一，方便定位到每一笔订单
+	WithdrawOrderId *string `json:"withdraw_order_id,omitempty" xml:"withdraw_order_id,omitempty" require:"true"`
+	// 二级商户账户号
+	ContractNo *string `json:"contract_no,omitempty" xml:"contract_no,omitempty" require:"true"`
+	// 提现金额，单位：元，整数部分最长10位数，保留两位小数
+	DealAmount *string `json:"deal_amount,omitempty" xml:"deal_amount,omitempty" require:"true"`
+	// 一级商户商户号
+	FirstLevelMemberid *string `json:"first_level_memberid,omitempty" xml:"first_level_memberid,omitempty" require:"true"`
+	// 一级商户终端号
+	FirstLevelTerminalid *string `json:"first_level_terminalid,omitempty" xml:"first_level_terminalid,omitempty" require:"true"`
+	// 扩展信息，预留字段
+	ExternParam *string `json:"extern_param,omitempty" xml:"extern_param,omitempty"`
+}
+
+func (s CaptureCutpaymentsubWithdrawalRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s CaptureCutpaymentsubWithdrawalRequest) GoString() string {
+	return s.String()
+}
+
+func (s *CaptureCutpaymentsubWithdrawalRequest) SetAuthToken(v string) *CaptureCutpaymentsubWithdrawalRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *CaptureCutpaymentsubWithdrawalRequest) SetProductInstanceId(v string) *CaptureCutpaymentsubWithdrawalRequest {
+	s.ProductInstanceId = &v
+	return s
+}
+
+func (s *CaptureCutpaymentsubWithdrawalRequest) SetOuterOrderNo(v string) *CaptureCutpaymentsubWithdrawalRequest {
+	s.OuterOrderNo = &v
+	return s
+}
+
+func (s *CaptureCutpaymentsubWithdrawalRequest) SetWithdrawOrderId(v string) *CaptureCutpaymentsubWithdrawalRequest {
+	s.WithdrawOrderId = &v
+	return s
+}
+
+func (s *CaptureCutpaymentsubWithdrawalRequest) SetContractNo(v string) *CaptureCutpaymentsubWithdrawalRequest {
+	s.ContractNo = &v
+	return s
+}
+
+func (s *CaptureCutpaymentsubWithdrawalRequest) SetDealAmount(v string) *CaptureCutpaymentsubWithdrawalRequest {
+	s.DealAmount = &v
+	return s
+}
+
+func (s *CaptureCutpaymentsubWithdrawalRequest) SetFirstLevelMemberid(v string) *CaptureCutpaymentsubWithdrawalRequest {
+	s.FirstLevelMemberid = &v
+	return s
+}
+
+func (s *CaptureCutpaymentsubWithdrawalRequest) SetFirstLevelTerminalid(v string) *CaptureCutpaymentsubWithdrawalRequest {
+	s.FirstLevelTerminalid = &v
+	return s
+}
+
+func (s *CaptureCutpaymentsubWithdrawalRequest) SetExternParam(v string) *CaptureCutpaymentsubWithdrawalRequest {
+	s.ExternParam = &v
+	return s
+}
+
+type CaptureCutpaymentsubWithdrawalResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// 扩展信息，预留字段
+	ExternInfo *string `json:"extern_info,omitempty" xml:"extern_info,omitempty"`
+}
+
+func (s CaptureCutpaymentsubWithdrawalResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s CaptureCutpaymentsubWithdrawalResponse) GoString() string {
+	return s.String()
+}
+
+func (s *CaptureCutpaymentsubWithdrawalResponse) SetReqMsgId(v string) *CaptureCutpaymentsubWithdrawalResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *CaptureCutpaymentsubWithdrawalResponse) SetResultCode(v string) *CaptureCutpaymentsubWithdrawalResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *CaptureCutpaymentsubWithdrawalResponse) SetResultMsg(v string) *CaptureCutpaymentsubWithdrawalResponse {
+	s.ResultMsg = &v
+	return s
+}
+
+func (s *CaptureCutpaymentsubWithdrawalResponse) SetExternInfo(v string) *CaptureCutpaymentsubWithdrawalResponse {
+	s.ExternInfo = &v
+	return s
+}
+
+type QueryCutpaymentsubWithdrawalRequest struct {
+	// OAuth模式下的授权token
+	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
+	// 请求ID，为32位以内的字母数字组合，由调用方自行生成、保证唯一并留存，以便问题定位和授权核查。
+	OuterOrderNo *string `json:"outer_order_no,omitempty" xml:"outer_order_no,omitempty" require:"true"`
+	// 原商户流水号
+	WithdrawOrderId *string `json:"withdraw_order_id,omitempty" xml:"withdraw_order_id,omitempty" require:"true"`
+	// 交易时间 yyyy-MM-dd，原交易日期
+	Time *string `json:"time,omitempty" xml:"time,omitempty" require:"true"`
+	// 一级商户商户号
+	FirstLevelMemberid *string `json:"first_level_memberid,omitempty" xml:"first_level_memberid,omitempty" require:"true"`
+	// 一级商户终端号
+	FirstLevelTerminalid *string `json:"first_level_terminalid,omitempty" xml:"first_level_terminalid,omitempty" require:"true"`
+	// 扩展信息，预留字段
+	ExternParam *string `json:"extern_param,omitempty" xml:"extern_param,omitempty"`
+}
+
+func (s QueryCutpaymentsubWithdrawalRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s QueryCutpaymentsubWithdrawalRequest) GoString() string {
+	return s.String()
+}
+
+func (s *QueryCutpaymentsubWithdrawalRequest) SetAuthToken(v string) *QueryCutpaymentsubWithdrawalRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *QueryCutpaymentsubWithdrawalRequest) SetProductInstanceId(v string) *QueryCutpaymentsubWithdrawalRequest {
+	s.ProductInstanceId = &v
+	return s
+}
+
+func (s *QueryCutpaymentsubWithdrawalRequest) SetOuterOrderNo(v string) *QueryCutpaymentsubWithdrawalRequest {
+	s.OuterOrderNo = &v
+	return s
+}
+
+func (s *QueryCutpaymentsubWithdrawalRequest) SetWithdrawOrderId(v string) *QueryCutpaymentsubWithdrawalRequest {
+	s.WithdrawOrderId = &v
+	return s
+}
+
+func (s *QueryCutpaymentsubWithdrawalRequest) SetTime(v string) *QueryCutpaymentsubWithdrawalRequest {
+	s.Time = &v
+	return s
+}
+
+func (s *QueryCutpaymentsubWithdrawalRequest) SetFirstLevelMemberid(v string) *QueryCutpaymentsubWithdrawalRequest {
+	s.FirstLevelMemberid = &v
+	return s
+}
+
+func (s *QueryCutpaymentsubWithdrawalRequest) SetFirstLevelTerminalid(v string) *QueryCutpaymentsubWithdrawalRequest {
+	s.FirstLevelTerminalid = &v
+	return s
+}
+
+func (s *QueryCutpaymentsubWithdrawalRequest) SetExternParam(v string) *QueryCutpaymentsubWithdrawalRequest {
+	s.ExternParam = &v
+	return s
+}
+
+type QueryCutpaymentsubWithdrawalResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// 扩展信息，预留字段
+	ExternInfo *string `json:"extern_info,omitempty" xml:"extern_info,omitempty"`
+}
+
+func (s QueryCutpaymentsubWithdrawalResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s QueryCutpaymentsubWithdrawalResponse) GoString() string {
+	return s.String()
+}
+
+func (s *QueryCutpaymentsubWithdrawalResponse) SetReqMsgId(v string) *QueryCutpaymentsubWithdrawalResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *QueryCutpaymentsubWithdrawalResponse) SetResultCode(v string) *QueryCutpaymentsubWithdrawalResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *QueryCutpaymentsubWithdrawalResponse) SetResultMsg(v string) *QueryCutpaymentsubWithdrawalResponse {
+	s.ResultMsg = &v
+	return s
+}
+
+func (s *QueryCutpaymentsubWithdrawalResponse) SetExternInfo(v string) *QueryCutpaymentsubWithdrawalResponse {
+	s.ExternInfo = &v
+	return s
+}
+
+type QueryCutpaymentsubBalanceRequest struct {
+	// OAuth模式下的授权token
+	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
+	// 请求ID，为32位以内的字母数字组合，由调用方自行生成、保证唯一并留存，以便问题定位和授权核查。
+	OuterOrderNo *string `json:"outer_order_no,omitempty" xml:"outer_order_no,omitempty" require:"true"`
+	// 二级商户账户号
+	ContractNo *string `json:"contract_no,omitempty" xml:"contract_no,omitempty" require:"true"`
+	// 一级商户商户号
+	FirstLevelMemberid *string `json:"first_level_memberid,omitempty" xml:"first_level_memberid,omitempty" require:"true"`
+	// 一级商户终端号
+	FirstLevelTerminalid *string `json:"first_level_terminalid,omitempty" xml:"first_level_terminalid,omitempty" require:"true"`
+}
+
+func (s QueryCutpaymentsubBalanceRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s QueryCutpaymentsubBalanceRequest) GoString() string {
+	return s.String()
+}
+
+func (s *QueryCutpaymentsubBalanceRequest) SetAuthToken(v string) *QueryCutpaymentsubBalanceRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *QueryCutpaymentsubBalanceRequest) SetProductInstanceId(v string) *QueryCutpaymentsubBalanceRequest {
+	s.ProductInstanceId = &v
+	return s
+}
+
+func (s *QueryCutpaymentsubBalanceRequest) SetOuterOrderNo(v string) *QueryCutpaymentsubBalanceRequest {
+	s.OuterOrderNo = &v
+	return s
+}
+
+func (s *QueryCutpaymentsubBalanceRequest) SetContractNo(v string) *QueryCutpaymentsubBalanceRequest {
+	s.ContractNo = &v
+	return s
+}
+
+func (s *QueryCutpaymentsubBalanceRequest) SetFirstLevelMemberid(v string) *QueryCutpaymentsubBalanceRequest {
+	s.FirstLevelMemberid = &v
+	return s
+}
+
+func (s *QueryCutpaymentsubBalanceRequest) SetFirstLevelTerminalid(v string) *QueryCutpaymentsubBalanceRequest {
+	s.FirstLevelTerminalid = &v
+	return s
+}
+
+type QueryCutpaymentsubBalanceResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// 账簿可用余额，单位：元；可用于提现，整数部分最长10位数，保留两位小数
+	AvailableAmount *string `json:"available_amount,omitempty" xml:"available_amount,omitempty"`
+	// 账簿余额，单位：元；整数部分最长10位数，保留两位小数
+	CurrAmount *string `json:"curr_amount,omitempty" xml:"curr_amount,omitempty"`
+	// 扩展信息，预留字段
+	ExternInfo *string `json:"extern_info,omitempty" xml:"extern_info,omitempty"`
+}
+
+func (s QueryCutpaymentsubBalanceResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s QueryCutpaymentsubBalanceResponse) GoString() string {
+	return s.String()
+}
+
+func (s *QueryCutpaymentsubBalanceResponse) SetReqMsgId(v string) *QueryCutpaymentsubBalanceResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *QueryCutpaymentsubBalanceResponse) SetResultCode(v string) *QueryCutpaymentsubBalanceResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *QueryCutpaymentsubBalanceResponse) SetResultMsg(v string) *QueryCutpaymentsubBalanceResponse {
+	s.ResultMsg = &v
+	return s
+}
+
+func (s *QueryCutpaymentsubBalanceResponse) SetAvailableAmount(v string) *QueryCutpaymentsubBalanceResponse {
+	s.AvailableAmount = &v
+	return s
+}
+
+func (s *QueryCutpaymentsubBalanceResponse) SetCurrAmount(v string) *QueryCutpaymentsubBalanceResponse {
+	s.CurrAmount = &v
+	return s
+}
+
+func (s *QueryCutpaymentsubBalanceResponse) SetExternInfo(v string) *QueryCutpaymentsubBalanceResponse {
+	s.ExternInfo = &v
+	return s
+}
+
+type QueryCutpaymentsubTransactionRequest struct {
+	// OAuth模式下的授权token
+	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
+	// 请求ID，为32位以内的字母数字组合，由调用方自行生成、保证唯一并留存，以便问题定位和授权核查。
+	OuterOrderNo *string `json:"outer_order_no,omitempty" xml:"outer_order_no,omitempty" require:"true"`
+	// 二级商户账户号
+	ContractNo *string `json:"contract_no,omitempty" xml:"contract_no,omitempty" require:"true"`
+	// 明细开始时间，格式为：yyyy-MM-dd HH:mm:ss
+	StartTime *string `json:"start_time,omitempty" xml:"start_time,omitempty"`
+	// 明细结束时间，格式为：yyyy-MM-dd HH:mm:ss，查询间隔最大支持一个月
+	EndTime *string `json:"end_time,omitempty" xml:"end_time,omitempty"`
+	// 当前页
+	PageNum *string `json:"page_num,omitempty" xml:"page_num,omitempty" require:"true"`
+	// 每页数量，每页最多100条数据
+	PageSize *string `json:"page_size,omitempty" xml:"page_size,omitempty" require:"true"`
+	// 一级商户商户号
+	FirstLevelMemberid *string `json:"first_level_memberid,omitempty" xml:"first_level_memberid,omitempty" require:"true"`
+	// 一级商户终端号
+	FirstLevelTerminalid *string `json:"first_level_terminalid,omitempty" xml:"first_level_terminalid,omitempty" require:"true"`
+}
+
+func (s QueryCutpaymentsubTransactionRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s QueryCutpaymentsubTransactionRequest) GoString() string {
+	return s.String()
+}
+
+func (s *QueryCutpaymentsubTransactionRequest) SetAuthToken(v string) *QueryCutpaymentsubTransactionRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *QueryCutpaymentsubTransactionRequest) SetProductInstanceId(v string) *QueryCutpaymentsubTransactionRequest {
+	s.ProductInstanceId = &v
+	return s
+}
+
+func (s *QueryCutpaymentsubTransactionRequest) SetOuterOrderNo(v string) *QueryCutpaymentsubTransactionRequest {
+	s.OuterOrderNo = &v
+	return s
+}
+
+func (s *QueryCutpaymentsubTransactionRequest) SetContractNo(v string) *QueryCutpaymentsubTransactionRequest {
+	s.ContractNo = &v
+	return s
+}
+
+func (s *QueryCutpaymentsubTransactionRequest) SetStartTime(v string) *QueryCutpaymentsubTransactionRequest {
+	s.StartTime = &v
+	return s
+}
+
+func (s *QueryCutpaymentsubTransactionRequest) SetEndTime(v string) *QueryCutpaymentsubTransactionRequest {
+	s.EndTime = &v
+	return s
+}
+
+func (s *QueryCutpaymentsubTransactionRequest) SetPageNum(v string) *QueryCutpaymentsubTransactionRequest {
+	s.PageNum = &v
+	return s
+}
+
+func (s *QueryCutpaymentsubTransactionRequest) SetPageSize(v string) *QueryCutpaymentsubTransactionRequest {
+	s.PageSize = &v
+	return s
+}
+
+func (s *QueryCutpaymentsubTransactionRequest) SetFirstLevelMemberid(v string) *QueryCutpaymentsubTransactionRequest {
+	s.FirstLevelMemberid = &v
+	return s
+}
+
+func (s *QueryCutpaymentsubTransactionRequest) SetFirstLevelTerminalid(v string) *QueryCutpaymentsubTransactionRequest {
+	s.FirstLevelTerminalid = &v
+	return s
+}
+
+type QueryCutpaymentsubTransactionResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// 当前页
+	PageNum *string `json:"page_num,omitempty" xml:"page_num,omitempty"`
+	// 每页数量
+	PageSize *string `json:"page_size,omitempty" xml:"page_size,omitempty"`
+	// 总页数
+	PageCount *string `json:"page_count,omitempty" xml:"page_count,omitempty"`
+	// 银行卡代扣二级租户收支明细
+	TransactionDetailList []*TransactionDetail `json:"transaction_detail_list,omitempty" xml:"transaction_detail_list,omitempty" type:"Repeated"`
+}
+
+func (s QueryCutpaymentsubTransactionResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s QueryCutpaymentsubTransactionResponse) GoString() string {
+	return s.String()
+}
+
+func (s *QueryCutpaymentsubTransactionResponse) SetReqMsgId(v string) *QueryCutpaymentsubTransactionResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *QueryCutpaymentsubTransactionResponse) SetResultCode(v string) *QueryCutpaymentsubTransactionResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *QueryCutpaymentsubTransactionResponse) SetResultMsg(v string) *QueryCutpaymentsubTransactionResponse {
+	s.ResultMsg = &v
+	return s
+}
+
+func (s *QueryCutpaymentsubTransactionResponse) SetPageNum(v string) *QueryCutpaymentsubTransactionResponse {
+	s.PageNum = &v
+	return s
+}
+
+func (s *QueryCutpaymentsubTransactionResponse) SetPageSize(v string) *QueryCutpaymentsubTransactionResponse {
+	s.PageSize = &v
+	return s
+}
+
+func (s *QueryCutpaymentsubTransactionResponse) SetPageCount(v string) *QueryCutpaymentsubTransactionResponse {
+	s.PageCount = &v
+	return s
+}
+
+func (s *QueryCutpaymentsubTransactionResponse) SetTransactionDetailList(v []*TransactionDetail) *QueryCutpaymentsubTransactionResponse {
+	s.TransactionDetailList = v
+	return s
+}
+
+type QueryRiskServerRequest struct {
+	// OAuth模式下的授权token
+	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
+	// 设备信息
+	DeviceInfo *DeviceInfo `json:"device_info,omitempty" xml:"device_info,omitempty"`
+	// 设备风险信息
+	DeviceRiskInfo *DeviceRiskInfo `json:"device_risk_info,omitempty" xml:"device_risk_info,omitempty"`
+	// 视频文件
+	// 待上传文件
+	FileObject io.Reader `json:"fileObject,omitempty" xml:"fileObject,omitempty"`
+	// 待上传文件名
+	FileObjectName *string `json:"fileObjectName,omitempty" xml:"fileObjectName,omitempty"`
+	FileId         *string `json:"file_id,omitempty" xml:"file_id,omitempty"`
+	// base64编码最佳人脸图，可加密
+	FaceImage *string `json:"face_image,omitempty" xml:"face_image,omitempty" require:"true"`
+	// 外部唯一标识。用于定位。 值为32位长度的字母数字组合前面几位字符是商户自定义的简称，中间可以使用一段时间，后段可以使用一个随机或递增序列
+	OutOrderNo *string `json:"out_order_no,omitempty" xml:"out_order_no,omitempty" require:"true"`
+	// 标识应用程序名称
+	AppName *string `json:"app_name,omitempty" xml:"app_name,omitempty"`
+	// 标识应用程序版本
+	AppVersion *string `json:"app_version,omitempty" xml:"app_version,omitempty"`
+	// 标识业务场景
+	SceneId *string `json:"scene_id,omitempty" xml:"scene_id,omitempty"`
+	// 姓名，可加密
+	CertName *string `json:"cert_name,omitempty" xml:"cert_name,omitempty"`
+	// 身份证号，可加密
+	CertNo *string `json:"cert_no,omitempty" xml:"cert_no,omitempty"`
+	// 表示用户唯一id
+	Uid *string `json:"uid,omitempty" xml:"uid,omitempty"`
+	// cert_name、cert_no两个字段的传入模式0：明文 1：密文
+	EncType *string `json:"enc_type,omitempty" xml:"enc_type,omitempty"`
+	// 图片的传入加密模式 0：明文 1：AES加密
+	MaterialEncType *string `json:"material_enc_type,omitempty" xml:"material_enc_type,omitempty"`
+	// 公钥加密后的密钥，用于传入的加密图片/视频
+	MaterialEncToken *string `json:"material_enc_token,omitempty" xml:"material_enc_token,omitempty"`
+	// 端安全产品名
+	SecurityProductName *string `json:"security_product_name,omitempty" xml:"security_product_name,omitempty" require:"true"`
+	// 调用蚂蚁终端安全或人脸保镖的token
+	SecurityProductToken *string `json:"security_product_token,omitempty" xml:"security_product_token,omitempty"`
+	// 端安全SDK版本
+	SecurityVersion *string `json:"security_version,omitempty" xml:"security_version,omitempty"`
+}
+
+func (s QueryRiskServerRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s QueryRiskServerRequest) GoString() string {
+	return s.String()
+}
+
+func (s *QueryRiskServerRequest) SetAuthToken(v string) *QueryRiskServerRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *QueryRiskServerRequest) SetProductInstanceId(v string) *QueryRiskServerRequest {
+	s.ProductInstanceId = &v
+	return s
+}
+
+func (s *QueryRiskServerRequest) SetDeviceInfo(v *DeviceInfo) *QueryRiskServerRequest {
+	s.DeviceInfo = v
+	return s
+}
+
+func (s *QueryRiskServerRequest) SetDeviceRiskInfo(v *DeviceRiskInfo) *QueryRiskServerRequest {
+	s.DeviceRiskInfo = v
+	return s
+}
+
+func (s *QueryRiskServerRequest) SetFileObject(v io.Reader) *QueryRiskServerRequest {
+	s.FileObject = v
+	return s
+}
+
+func (s *QueryRiskServerRequest) SetFileObjectName(v string) *QueryRiskServerRequest {
+	s.FileObjectName = &v
+	return s
+}
+
+func (s *QueryRiskServerRequest) SetFileId(v string) *QueryRiskServerRequest {
+	s.FileId = &v
+	return s
+}
+
+func (s *QueryRiskServerRequest) SetFaceImage(v string) *QueryRiskServerRequest {
+	s.FaceImage = &v
+	return s
+}
+
+func (s *QueryRiskServerRequest) SetOutOrderNo(v string) *QueryRiskServerRequest {
+	s.OutOrderNo = &v
+	return s
+}
+
+func (s *QueryRiskServerRequest) SetAppName(v string) *QueryRiskServerRequest {
+	s.AppName = &v
+	return s
+}
+
+func (s *QueryRiskServerRequest) SetAppVersion(v string) *QueryRiskServerRequest {
+	s.AppVersion = &v
+	return s
+}
+
+func (s *QueryRiskServerRequest) SetSceneId(v string) *QueryRiskServerRequest {
+	s.SceneId = &v
+	return s
+}
+
+func (s *QueryRiskServerRequest) SetCertName(v string) *QueryRiskServerRequest {
+	s.CertName = &v
+	return s
+}
+
+func (s *QueryRiskServerRequest) SetCertNo(v string) *QueryRiskServerRequest {
+	s.CertNo = &v
+	return s
+}
+
+func (s *QueryRiskServerRequest) SetUid(v string) *QueryRiskServerRequest {
+	s.Uid = &v
+	return s
+}
+
+func (s *QueryRiskServerRequest) SetEncType(v string) *QueryRiskServerRequest {
+	s.EncType = &v
+	return s
+}
+
+func (s *QueryRiskServerRequest) SetMaterialEncType(v string) *QueryRiskServerRequest {
+	s.MaterialEncType = &v
+	return s
+}
+
+func (s *QueryRiskServerRequest) SetMaterialEncToken(v string) *QueryRiskServerRequest {
+	s.MaterialEncToken = &v
+	return s
+}
+
+func (s *QueryRiskServerRequest) SetSecurityProductName(v string) *QueryRiskServerRequest {
+	s.SecurityProductName = &v
+	return s
+}
+
+func (s *QueryRiskServerRequest) SetSecurityProductToken(v string) *QueryRiskServerRequest {
+	s.SecurityProductToken = &v
+	return s
+}
+
+func (s *QueryRiskServerRequest) SetSecurityVersion(v string) *QueryRiskServerRequest {
+	s.SecurityVersion = &v
+	return s
+}
+
+type QueryRiskServerResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// 攻击结论
+	FaceAttack *string `json:"face_attack,omitempty" xml:"face_attack,omitempty"`
+	// 综合风险检测结果
+	RiskResult *RiskResult `json:"risk_result,omitempty" xml:"risk_result,omitempty"`
+	// Aigc风险检测结论
+	AigcRiskResult *AigcRiskResult `json:"aigc_risk_result,omitempty" xml:"aigc_risk_result,omitempty"`
+	// 是否面部遮挡
+	FaceOcclusion *bool `json:"face_occlusion,omitempty" xml:"face_occlusion,omitempty"`
+	// 人脸性别年龄预估
+	Attributes *string `json:"attributes,omitempty" xml:"attributes,omitempty"`
+	// 人脸质量分和小分
+	QualityResult *string `json:"quality_result,omitempty" xml:"quality_result,omitempty"`
+	// 风险咨询唯一标识
+	CertifyId *string `json:"certify_id,omitempty" xml:"certify_id,omitempty"`
+}
+
+func (s QueryRiskServerResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s QueryRiskServerResponse) GoString() string {
+	return s.String()
+}
+
+func (s *QueryRiskServerResponse) SetReqMsgId(v string) *QueryRiskServerResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *QueryRiskServerResponse) SetResultCode(v string) *QueryRiskServerResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *QueryRiskServerResponse) SetResultMsg(v string) *QueryRiskServerResponse {
+	s.ResultMsg = &v
+	return s
+}
+
+func (s *QueryRiskServerResponse) SetFaceAttack(v string) *QueryRiskServerResponse {
+	s.FaceAttack = &v
+	return s
+}
+
+func (s *QueryRiskServerResponse) SetRiskResult(v *RiskResult) *QueryRiskServerResponse {
+	s.RiskResult = v
+	return s
+}
+
+func (s *QueryRiskServerResponse) SetAigcRiskResult(v *AigcRiskResult) *QueryRiskServerResponse {
+	s.AigcRiskResult = v
+	return s
+}
+
+func (s *QueryRiskServerResponse) SetFaceOcclusion(v bool) *QueryRiskServerResponse {
+	s.FaceOcclusion = &v
+	return s
+}
+
+func (s *QueryRiskServerResponse) SetAttributes(v string) *QueryRiskServerResponse {
+	s.Attributes = &v
+	return s
+}
+
+func (s *QueryRiskServerResponse) SetQualityResult(v string) *QueryRiskServerResponse {
+	s.QualityResult = &v
+	return s
+}
+
+func (s *QueryRiskServerResponse) SetCertifyId(v string) *QueryRiskServerResponse {
+	s.CertifyId = &v
+	return s
+}
+
+type QueryUserAssetRequest struct {
+	// OAuth模式下的授权token
+	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
+	// 外部唯一标识。用于定位。 值为32位长度的字母数字组合前面几位字符是商户自定义的简称，中间可以使用一段时间，后段可以使用一个随机或递增序列
+	OuterOrderNo *string `json:"outer_order_no,omitempty" xml:"outer_order_no,omitempty" require:"true"`
+	// 入参加密模式：
+	// NONE：不加密；
+	// MD5：身份证号字段以MD5加密后的字符串传输
+	ReqEncType *string `json:"req_enc_type,omitempty" xml:"req_enc_type,omitempty"`
+	// 手机号码
+	Mobile *string `json:"mobile,omitempty" xml:"mobile,omitempty" require:"true"`
+	// map结果的json数据格式，预留字段
+	ExternParam *string `json:"extern_param,omitempty" xml:"extern_param,omitempty"`
+}
+
+func (s QueryUserAssetRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s QueryUserAssetRequest) GoString() string {
+	return s.String()
+}
+
+func (s *QueryUserAssetRequest) SetAuthToken(v string) *QueryUserAssetRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *QueryUserAssetRequest) SetProductInstanceId(v string) *QueryUserAssetRequest {
+	s.ProductInstanceId = &v
+	return s
+}
+
+func (s *QueryUserAssetRequest) SetOuterOrderNo(v string) *QueryUserAssetRequest {
+	s.OuterOrderNo = &v
+	return s
+}
+
+func (s *QueryUserAssetRequest) SetReqEncType(v string) *QueryUserAssetRequest {
+	s.ReqEncType = &v
+	return s
+}
+
+func (s *QueryUserAssetRequest) SetMobile(v string) *QueryUserAssetRequest {
+	s.Mobile = &v
+	return s
+}
+
+func (s *QueryUserAssetRequest) SetExternParam(v string) *QueryUserAssetRequest {
+	s.ExternParam = &v
+	return s
+}
+
+type QueryUserAssetResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// 返回分数，分数等级为 1-7
+	Score *string `json:"score,omitempty" xml:"score,omitempty"`
+	// 扩展信息，预留字段
+	ExternInfo *string `json:"extern_info,omitempty" xml:"extern_info,omitempty"`
+}
+
+func (s QueryUserAssetResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s QueryUserAssetResponse) GoString() string {
+	return s.String()
+}
+
+func (s *QueryUserAssetResponse) SetReqMsgId(v string) *QueryUserAssetResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *QueryUserAssetResponse) SetResultCode(v string) *QueryUserAssetResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *QueryUserAssetResponse) SetResultMsg(v string) *QueryUserAssetResponse {
+	s.ResultMsg = &v
+	return s
+}
+
+func (s *QueryUserAssetResponse) SetScore(v string) *QueryUserAssetResponse {
+	s.Score = &v
+	return s
+}
+
+func (s *QueryUserAssetResponse) SetExternInfo(v string) *QueryUserAssetResponse {
+	s.ExternInfo = &v
+	return s
+}
+
+type UploadFileRequest struct {
+	// OAuth模式下的授权token
+	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
+	// 文件ID
+	// 待上传文件
+	FileObject io.Reader `json:"fileObject,omitempty" xml:"fileObject,omitempty"`
+	// 待上传文件名
+	FileObjectName *string `json:"fileObjectName,omitempty" xml:"fileObjectName,omitempty"`
+	FileId         *string `json:"file_id,omitempty" xml:"file_id,omitempty" require:"true"`
+}
+
+func (s UploadFileRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s UploadFileRequest) GoString() string {
+	return s.String()
+}
+
+func (s *UploadFileRequest) SetAuthToken(v string) *UploadFileRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *UploadFileRequest) SetProductInstanceId(v string) *UploadFileRequest {
+	s.ProductInstanceId = &v
+	return s
+}
+
+func (s *UploadFileRequest) SetFileObject(v io.Reader) *UploadFileRequest {
+	s.FileObject = v
+	return s
+}
+
+func (s *UploadFileRequest) SetFileObjectName(v string) *UploadFileRequest {
+	s.FileObjectName = &v
+	return s
+}
+
+func (s *UploadFileRequest) SetFileId(v string) *UploadFileRequest {
+	s.FileId = &v
+	return s
+}
+
+type UploadFileResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// 文件ID
+	FileId *string `json:"file_id,omitempty" xml:"file_id,omitempty"`
+}
+
+func (s UploadFileResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s UploadFileResponse) GoString() string {
+	return s.String()
+}
+
+func (s *UploadFileResponse) SetReqMsgId(v string) *UploadFileResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *UploadFileResponse) SetResultCode(v string) *UploadFileResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *UploadFileResponse) SetResultMsg(v string) *UploadFileResponse {
+	s.ResultMsg = &v
+	return s
+}
+
+func (s *UploadFileResponse) SetFileId(v string) *UploadFileResponse {
+	s.FileId = &v
+	return s
+}
+
+type QueryRiderQualificationRequest struct {
+	// OAuth模式下的授权token
+	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
+	// 请求ID，为32位以内的字母数字组合，由调用方自行生成、保证唯一并留存，以便问题定位和授权核查。
+	OuterOrderNo *string `json:"outer_order_no,omitempty" xml:"outer_order_no,omitempty" require:"true"`
+	// 身份证号
+	CertNo *string `json:"cert_no,omitempty" xml:"cert_no,omitempty" require:"true"`
+	// NONE明问，MD5：手机号码字段为MD5加密后的字符串，为空默认明文
+	ReqEncType *string `json:"req_enc_type,omitempty" xml:"req_enc_type,omitempty"`
+	// 扩展信息，预留字段
+	ExternParam *string `json:"extern_param,omitempty" xml:"extern_param,omitempty"`
+}
+
+func (s QueryRiderQualificationRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s QueryRiderQualificationRequest) GoString() string {
+	return s.String()
+}
+
+func (s *QueryRiderQualificationRequest) SetAuthToken(v string) *QueryRiderQualificationRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *QueryRiderQualificationRequest) SetProductInstanceId(v string) *QueryRiderQualificationRequest {
+	s.ProductInstanceId = &v
+	return s
+}
+
+func (s *QueryRiderQualificationRequest) SetOuterOrderNo(v string) *QueryRiderQualificationRequest {
+	s.OuterOrderNo = &v
+	return s
+}
+
+func (s *QueryRiderQualificationRequest) SetCertNo(v string) *QueryRiderQualificationRequest {
+	s.CertNo = &v
+	return s
+}
+
+func (s *QueryRiderQualificationRequest) SetReqEncType(v string) *QueryRiderQualificationRequest {
+	s.ReqEncType = &v
+	return s
+}
+
+func (s *QueryRiderQualificationRequest) SetExternParam(v string) *QueryRiderQualificationRequest {
+	s.ExternParam = &v
+	return s
+}
+
+type QueryRiderQualificationResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// 资质得分
+	Score *string `json:"score,omitempty" xml:"score,omitempty"`
+	// 扩展信息，为JSONObject。
+	ExternInfo *string `json:"extern_info,omitempty" xml:"extern_info,omitempty"`
+}
+
+func (s QueryRiderQualificationResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s QueryRiderQualificationResponse) GoString() string {
+	return s.String()
+}
+
+func (s *QueryRiderQualificationResponse) SetReqMsgId(v string) *QueryRiderQualificationResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *QueryRiderQualificationResponse) SetResultCode(v string) *QueryRiderQualificationResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *QueryRiderQualificationResponse) SetResultMsg(v string) *QueryRiderQualificationResponse {
+	s.ResultMsg = &v
+	return s
+}
+
+func (s *QueryRiderQualificationResponse) SetScore(v string) *QueryRiderQualificationResponse {
+	s.Score = &v
+	return s
+}
+
+func (s *QueryRiderQualificationResponse) SetExternInfo(v string) *QueryRiderQualificationResponse {
+	s.ExternInfo = &v
+	return s
+}
+
+type VerificationUserVehicleRequest struct {
+	// OAuth模式下的授权token
+	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
+	// 车牌号
+	LicensePlate *string `json:"license_plate,omitempty" xml:"license_plate,omitempty" require:"true"`
+	// 姓名
+	CertName *string `json:"cert_name,omitempty" xml:"cert_name,omitempty" require:"true"`
+	// 请求ID，为32位以内的字母数字组合，由调用方自行生成、保证唯一并留存，以便问题定位和授权核查。
+	OuterOrderNo *string `json:"outer_order_no,omitempty" xml:"outer_order_no,omitempty" require:"true"`
+	// 入参加密模式：
+	// "0"：不加密；
+	EncryptType *string `json:"encrypt_type,omitempty" xml:"encrypt_type,omitempty" require:"true"`
+	// 扩展信息，预留字段
+	ExternParam *string `json:"extern_param,omitempty" xml:"extern_param,omitempty"`
+}
+
+func (s VerificationUserVehicleRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s VerificationUserVehicleRequest) GoString() string {
+	return s.String()
+}
+
+func (s *VerificationUserVehicleRequest) SetAuthToken(v string) *VerificationUserVehicleRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *VerificationUserVehicleRequest) SetProductInstanceId(v string) *VerificationUserVehicleRequest {
+	s.ProductInstanceId = &v
+	return s
+}
+
+func (s *VerificationUserVehicleRequest) SetLicensePlate(v string) *VerificationUserVehicleRequest {
+	s.LicensePlate = &v
+	return s
+}
+
+func (s *VerificationUserVehicleRequest) SetCertName(v string) *VerificationUserVehicleRequest {
+	s.CertName = &v
+	return s
+}
+
+func (s *VerificationUserVehicleRequest) SetOuterOrderNo(v string) *VerificationUserVehicleRequest {
+	s.OuterOrderNo = &v
+	return s
+}
+
+func (s *VerificationUserVehicleRequest) SetEncryptType(v string) *VerificationUserVehicleRequest {
+	s.EncryptType = &v
+	return s
+}
+
+func (s *VerificationUserVehicleRequest) SetExternParam(v string) *VerificationUserVehicleRequest {
+	s.ExternParam = &v
+	return s
+}
+
+type VerificationUserVehicleResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+}
+
+func (s VerificationUserVehicleResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s VerificationUserVehicleResponse) GoString() string {
+	return s.String()
+}
+
+func (s *VerificationUserVehicleResponse) SetReqMsgId(v string) *VerificationUserVehicleResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *VerificationUserVehicleResponse) SetResultCode(v string) *VerificationUserVehicleResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *VerificationUserVehicleResponse) SetResultMsg(v string) *VerificationUserVehicleResponse {
+	s.ResultMsg = &v
+	return s
+}
+
+type QueryThreemetaPhonereuseproxRequest struct {
+	// OAuth模式下的授权token
+	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
+	// 外部请求ID，由调用方自行生成并自行保证唯一，以便问题定位。
+	OuterOrderNo *string `json:"outer_order_no,omitempty" xml:"outer_order_no,omitempty" require:"true"`
+	// 手机号「支持加密」
+	Mobile *string `json:"mobile,omitempty" xml:"mobile,omitempty" require:"true"`
+	// 日期
+	Date *string `json:"date,omitempty" xml:"date,omitempty" require:"true"`
+	// 运营商类型
+	Carrier *string `json:"carrier,omitempty" xml:"carrier,omitempty"`
+	// 加密类型，填写时「支持加密」字段需要对应加密后赋值。默认使用明文模式 0：明文 1：MD5
+	EncryptType *string `json:"encrypt_type,omitempty" xml:"encrypt_type,omitempty"`
+	// 扩展参数
+	ExternParam *string `json:"extern_param,omitempty" xml:"extern_param,omitempty"`
+}
+
+func (s QueryThreemetaPhonereuseproxRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s QueryThreemetaPhonereuseproxRequest) GoString() string {
+	return s.String()
+}
+
+func (s *QueryThreemetaPhonereuseproxRequest) SetAuthToken(v string) *QueryThreemetaPhonereuseproxRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *QueryThreemetaPhonereuseproxRequest) SetProductInstanceId(v string) *QueryThreemetaPhonereuseproxRequest {
+	s.ProductInstanceId = &v
+	return s
+}
+
+func (s *QueryThreemetaPhonereuseproxRequest) SetOuterOrderNo(v string) *QueryThreemetaPhonereuseproxRequest {
+	s.OuterOrderNo = &v
+	return s
+}
+
+func (s *QueryThreemetaPhonereuseproxRequest) SetMobile(v string) *QueryThreemetaPhonereuseproxRequest {
+	s.Mobile = &v
+	return s
+}
+
+func (s *QueryThreemetaPhonereuseproxRequest) SetDate(v string) *QueryThreemetaPhonereuseproxRequest {
+	s.Date = &v
+	return s
+}
+
+func (s *QueryThreemetaPhonereuseproxRequest) SetCarrier(v string) *QueryThreemetaPhonereuseproxRequest {
+	s.Carrier = &v
+	return s
+}
+
+func (s *QueryThreemetaPhonereuseproxRequest) SetEncryptType(v string) *QueryThreemetaPhonereuseproxRequest {
+	s.EncryptType = &v
+	return s
+}
+
+func (s *QueryThreemetaPhonereuseproxRequest) SetExternParam(v string) *QueryThreemetaPhonereuseproxRequest {
+	s.ExternParam = &v
+	return s
+}
+
+type QueryThreemetaPhonereuseproxResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// 是否二次放号
+	PhoneReuse *string `json:"phone_reuse,omitempty" xml:"phone_reuse,omitempty"`
+	// CHINA_TELECOM：中国电信
+	// CHINA_MOBILE：中国移动
+	// CHINA_UNICOM：中国联通
+	Carrier *string `json:"carrier,omitempty" xml:"carrier,omitempty"`
+	// 扩展参数
+	ExternInfo *string `json:"extern_info,omitempty" xml:"extern_info,omitempty"`
+}
+
+func (s QueryThreemetaPhonereuseproxResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s QueryThreemetaPhonereuseproxResponse) GoString() string {
+	return s.String()
+}
+
+func (s *QueryThreemetaPhonereuseproxResponse) SetReqMsgId(v string) *QueryThreemetaPhonereuseproxResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *QueryThreemetaPhonereuseproxResponse) SetResultCode(v string) *QueryThreemetaPhonereuseproxResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *QueryThreemetaPhonereuseproxResponse) SetResultMsg(v string) *QueryThreemetaPhonereuseproxResponse {
+	s.ResultMsg = &v
+	return s
+}
+
+func (s *QueryThreemetaPhonereuseproxResponse) SetPhoneReuse(v string) *QueryThreemetaPhonereuseproxResponse {
+	s.PhoneReuse = &v
+	return s
+}
+
+func (s *QueryThreemetaPhonereuseproxResponse) SetCarrier(v string) *QueryThreemetaPhonereuseproxResponse {
+	s.Carrier = &v
+	return s
+}
+
+func (s *QueryThreemetaPhonereuseproxResponse) SetExternInfo(v string) *QueryThreemetaPhonereuseproxResponse {
+	s.ExternInfo = &v
+	return s
+}
+
+type QueryThreemetaPhonereusexRequest struct {
+	// OAuth模式下的授权token
+	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
+	// 外部请求ID，由调用方自行生成并自行保证唯一，以便问题定位。
+	OuterOrderNo *string `json:"outer_order_no,omitempty" xml:"outer_order_no,omitempty" require:"true"`
+	// 手机号「支持加密」
+	Mobile *string `json:"mobile,omitempty" xml:"mobile,omitempty" require:"true"`
+	// 日期
+	Date *string `json:"date,omitempty" xml:"date,omitempty" require:"true"`
+	// 运营商类型
+	Carrier *string `json:"carrier,omitempty" xml:"carrier,omitempty"`
+	// 加密类型，填写时「支持加密」字段需要对应加密后赋值。默认使用明文模式 0：明文 1：MD5
+	EncryptType *string `json:"encrypt_type,omitempty" xml:"encrypt_type,omitempty"`
+	// 扩展参数
+	ExternParam *string `json:"extern_param,omitempty" xml:"extern_param,omitempty"`
+}
+
+func (s QueryThreemetaPhonereusexRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s QueryThreemetaPhonereusexRequest) GoString() string {
+	return s.String()
+}
+
+func (s *QueryThreemetaPhonereusexRequest) SetAuthToken(v string) *QueryThreemetaPhonereusexRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *QueryThreemetaPhonereusexRequest) SetProductInstanceId(v string) *QueryThreemetaPhonereusexRequest {
+	s.ProductInstanceId = &v
+	return s
+}
+
+func (s *QueryThreemetaPhonereusexRequest) SetOuterOrderNo(v string) *QueryThreemetaPhonereusexRequest {
+	s.OuterOrderNo = &v
+	return s
+}
+
+func (s *QueryThreemetaPhonereusexRequest) SetMobile(v string) *QueryThreemetaPhonereusexRequest {
+	s.Mobile = &v
+	return s
+}
+
+func (s *QueryThreemetaPhonereusexRequest) SetDate(v string) *QueryThreemetaPhonereusexRequest {
+	s.Date = &v
+	return s
+}
+
+func (s *QueryThreemetaPhonereusexRequest) SetCarrier(v string) *QueryThreemetaPhonereusexRequest {
+	s.Carrier = &v
+	return s
+}
+
+func (s *QueryThreemetaPhonereusexRequest) SetEncryptType(v string) *QueryThreemetaPhonereusexRequest {
+	s.EncryptType = &v
+	return s
+}
+
+func (s *QueryThreemetaPhonereusexRequest) SetExternParam(v string) *QueryThreemetaPhonereusexRequest {
+	s.ExternParam = &v
+	return s
+}
+
+type QueryThreemetaPhonereusexResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// 是否二次放号
+	PhoneReuse *string `json:"phone_reuse,omitempty" xml:"phone_reuse,omitempty"`
+	// CHINA_TELECOM：中国电信
+	// CHINA_MOBILE：中国移动
+	// CHINA_UNICOM：中国联通
+	Carrier *string `json:"carrier,omitempty" xml:"carrier,omitempty"`
+	// 扩展参数
+	ExternInfo *string `json:"extern_info,omitempty" xml:"extern_info,omitempty"`
+}
+
+func (s QueryThreemetaPhonereusexResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s QueryThreemetaPhonereusexResponse) GoString() string {
+	return s.String()
+}
+
+func (s *QueryThreemetaPhonereusexResponse) SetReqMsgId(v string) *QueryThreemetaPhonereusexResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *QueryThreemetaPhonereusexResponse) SetResultCode(v string) *QueryThreemetaPhonereusexResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *QueryThreemetaPhonereusexResponse) SetResultMsg(v string) *QueryThreemetaPhonereusexResponse {
+	s.ResultMsg = &v
+	return s
+}
+
+func (s *QueryThreemetaPhonereusexResponse) SetPhoneReuse(v string) *QueryThreemetaPhonereusexResponse {
+	s.PhoneReuse = &v
+	return s
+}
+
+func (s *QueryThreemetaPhonereusexResponse) SetCarrier(v string) *QueryThreemetaPhonereusexResponse {
+	s.Carrier = &v
+	return s
+}
+
+func (s *QueryThreemetaPhonereusexResponse) SetExternInfo(v string) *QueryThreemetaPhonereusexResponse {
+	s.ExternInfo = &v
+	return s
+}
+
+type InitServerWillauthRequest struct {
+	// OAuth模式下的授权token
+	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
+	// string
+	FileId *string `json:"file_id,omitempty" xml:"file_id,omitempty"`
+	// 场景id
+	SceneId *string `json:"scene_id,omitempty" xml:"scene_id,omitempty" require:"true"`
+	// 身份证姓名
+	CertName *string `json:"cert_name,omitempty" xml:"cert_name,omitempty"`
+	// 身份证号
+	CertNo *string `json:"cert_no,omitempty" xml:"cert_no,omitempty"`
+	// 加密方式
+	EncType *string `json:"enc_type,omitempty" xml:"enc_type,omitempty"`
+	// 无源比对图片base64
+	FacialPictureRef *string `json:"facial_picture_ref,omitempty" xml:"facial_picture_ref,omitempty"`
+	// 业务回跳地址
+	ReturnUrl *string `json:"return_url,omitempty" xml:"return_url,omitempty"`
+	// 业务请求唯一标识
+	OuterOrderNo *string `json:"outer_order_no,omitempty" xml:"outer_order_no,omitempty" require:"true"`
+	// 扩展参数
+	ExternParam *string `json:"extern_param,omitempty" xml:"extern_param,omitempty"`
+	// 身份信息来源类型，当前仅支持证件（CERT_INFO）
+	IdentityType *string `json:"identity_type,omitempty" xml:"identity_type,omitempty"`
+	// 证件类型，当前仅支持身份证类型证件，包括：二代身份证、港澳居住证、台湾居住证（IDENTITY_CARD）
+	CertType *string `json:"cert_type,omitempty" xml:"cert_type,omitempty"`
+	// 要进行活体检测的类型
+	Model *string `json:"model,omitempty" xml:"model,omitempty"`
+	// 图片/视频的传入加密模式
+	MaterialEncType *string `json:"material_enc_type,omitempty" xml:"material_enc_type,omitempty"`
+	// RSA/SM2公钥加密后的AES/SM4密钥（Base64编码），用于传入的加密图片/视频。
+	MaterialEncToken *string `json:"material_enc_token,omitempty" xml:"material_enc_token,omitempty"`
+}
+
+func (s InitServerWillauthRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s InitServerWillauthRequest) GoString() string {
+	return s.String()
+}
+
+func (s *InitServerWillauthRequest) SetAuthToken(v string) *InitServerWillauthRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *InitServerWillauthRequest) SetProductInstanceId(v string) *InitServerWillauthRequest {
+	s.ProductInstanceId = &v
+	return s
+}
+
+func (s *InitServerWillauthRequest) SetFileId(v string) *InitServerWillauthRequest {
+	s.FileId = &v
+	return s
+}
+
+func (s *InitServerWillauthRequest) SetSceneId(v string) *InitServerWillauthRequest {
+	s.SceneId = &v
+	return s
+}
+
+func (s *InitServerWillauthRequest) SetCertName(v string) *InitServerWillauthRequest {
+	s.CertName = &v
+	return s
+}
+
+func (s *InitServerWillauthRequest) SetCertNo(v string) *InitServerWillauthRequest {
+	s.CertNo = &v
+	return s
+}
+
+func (s *InitServerWillauthRequest) SetEncType(v string) *InitServerWillauthRequest {
+	s.EncType = &v
+	return s
+}
+
+func (s *InitServerWillauthRequest) SetFacialPictureRef(v string) *InitServerWillauthRequest {
+	s.FacialPictureRef = &v
+	return s
+}
+
+func (s *InitServerWillauthRequest) SetReturnUrl(v string) *InitServerWillauthRequest {
+	s.ReturnUrl = &v
+	return s
+}
+
+func (s *InitServerWillauthRequest) SetOuterOrderNo(v string) *InitServerWillauthRequest {
+	s.OuterOrderNo = &v
+	return s
+}
+
+func (s *InitServerWillauthRequest) SetExternParam(v string) *InitServerWillauthRequest {
+	s.ExternParam = &v
+	return s
+}
+
+func (s *InitServerWillauthRequest) SetIdentityType(v string) *InitServerWillauthRequest {
+	s.IdentityType = &v
+	return s
+}
+
+func (s *InitServerWillauthRequest) SetCertType(v string) *InitServerWillauthRequest {
+	s.CertType = &v
+	return s
+}
+
+func (s *InitServerWillauthRequest) SetModel(v string) *InitServerWillauthRequest {
+	s.Model = &v
+	return s
+}
+
+func (s *InitServerWillauthRequest) SetMaterialEncType(v string) *InitServerWillauthRequest {
+	s.MaterialEncType = &v
+	return s
+}
+
+func (s *InitServerWillauthRequest) SetMaterialEncToken(v string) *InitServerWillauthRequest {
+	s.MaterialEncToken = &v
+	return s
+}
+
+type InitServerWillauthResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// 认证唯一标识
+	CertifyId *string `json:"certify_id,omitempty" xml:"certify_id,omitempty"`
+	// 意愿认证界面url
+	CertifyUrl *string `json:"certify_url,omitempty" xml:"certify_url,omitempty"`
+}
+
+func (s InitServerWillauthResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s InitServerWillauthResponse) GoString() string {
+	return s.String()
+}
+
+func (s *InitServerWillauthResponse) SetReqMsgId(v string) *InitServerWillauthResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *InitServerWillauthResponse) SetResultCode(v string) *InitServerWillauthResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *InitServerWillauthResponse) SetResultMsg(v string) *InitServerWillauthResponse {
+	s.ResultMsg = &v
+	return s
+}
+
+func (s *InitServerWillauthResponse) SetCertifyId(v string) *InitServerWillauthResponse {
+	s.CertifyId = &v
+	return s
+}
+
+func (s *InitServerWillauthResponse) SetCertifyUrl(v string) *InitServerWillauthResponse {
+	s.CertifyUrl = &v
+	return s
+}
+
+type QueryServerWillauthRequest struct {
+	// OAuth模式下的授权token
+	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
+	// 认证唯一标识
+	CertifyId *string `json:"certify_id,omitempty" xml:"certify_id,omitempty" require:"true"`
+	// 外部唯一标识。用于定位。 值为32位长度的字母数字组合前面几位字符是商户自定义的简称，中间可以使用一段时间，后段可以使用一个随机或递增序列
+	OuterOrderNo *string `json:"outer_order_no,omitempty" xml:"outer_order_no,omitempty" require:"true"`
+	// 场景ID
+	SceneId *string `json:"scene_id,omitempty" xml:"scene_id,omitempty" require:"true"`
+	// 预留扩展业务参数
+	ExternParam *string `json:"extern_param,omitempty" xml:"extern_param,omitempty"`
+}
+
+func (s QueryServerWillauthRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s QueryServerWillauthRequest) GoString() string {
+	return s.String()
+}
+
+func (s *QueryServerWillauthRequest) SetAuthToken(v string) *QueryServerWillauthRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *QueryServerWillauthRequest) SetProductInstanceId(v string) *QueryServerWillauthRequest {
+	s.ProductInstanceId = &v
+	return s
+}
+
+func (s *QueryServerWillauthRequest) SetCertifyId(v string) *QueryServerWillauthRequest {
+	s.CertifyId = &v
+	return s
+}
+
+func (s *QueryServerWillauthRequest) SetOuterOrderNo(v string) *QueryServerWillauthRequest {
+	s.OuterOrderNo = &v
+	return s
+}
+
+func (s *QueryServerWillauthRequest) SetSceneId(v string) *QueryServerWillauthRequest {
+	s.SceneId = &v
+	return s
+}
+
+func (s *QueryServerWillauthRequest) SetExternParam(v string) *QueryServerWillauthRequest {
+	s.ExternParam = &v
+	return s
+}
+
+type QueryServerWillauthResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// 认证主体附件信息
+	MaterialInfo *string `json:"material_info,omitempty" xml:"material_info,omitempty"`
+	// 认证是否通过（活体+比对+意愿全部通过才返回true）
+	Passed *bool `json:"passed,omitempty" xml:"passed,omitempty"`
+}
+
+func (s QueryServerWillauthResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s QueryServerWillauthResponse) GoString() string {
+	return s.String()
+}
+
+func (s *QueryServerWillauthResponse) SetReqMsgId(v string) *QueryServerWillauthResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *QueryServerWillauthResponse) SetResultCode(v string) *QueryServerWillauthResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *QueryServerWillauthResponse) SetResultMsg(v string) *QueryServerWillauthResponse {
+	s.ResultMsg = &v
+	return s
+}
+
+func (s *QueryServerWillauthResponse) SetMaterialInfo(v string) *QueryServerWillauthResponse {
+	s.MaterialInfo = &v
+	return s
+}
+
+func (s *QueryServerWillauthResponse) SetPassed(v bool) *QueryServerWillauthResponse {
+	s.Passed = &v
+	return s
+}
+
+type QueryServerWillauthmaterialRequest struct {
+	// OAuth模式下的授权token
+	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
+	// 实人认证唯一标识
+	CertifyId *string `json:"certify_id,omitempty" xml:"certify_id,omitempty" require:"true"`
+	// 扩展参数
+	ExternParam *string `json:"extern_param,omitempty" xml:"extern_param,omitempty"`
+	// 外部唯一标识。用于定位。 值为32位长度的字母数字组合前面几位字符是商户自定义的简称，中间可以使用一段时间，后段可以使用一个随机或递增序列
+	OuterOrderNo *string `json:"outer_order_no,omitempty" xml:"outer_order_no,omitempty" require:"true"`
+}
+
+func (s QueryServerWillauthmaterialRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s QueryServerWillauthmaterialRequest) GoString() string {
+	return s.String()
+}
+
+func (s *QueryServerWillauthmaterialRequest) SetAuthToken(v string) *QueryServerWillauthmaterialRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *QueryServerWillauthmaterialRequest) SetProductInstanceId(v string) *QueryServerWillauthmaterialRequest {
+	s.ProductInstanceId = &v
+	return s
+}
+
+func (s *QueryServerWillauthmaterialRequest) SetCertifyId(v string) *QueryServerWillauthmaterialRequest {
+	s.CertifyId = &v
+	return s
+}
+
+func (s *QueryServerWillauthmaterialRequest) SetExternParam(v string) *QueryServerWillauthmaterialRequest {
+	s.ExternParam = &v
+	return s
+}
+
+func (s *QueryServerWillauthmaterialRequest) SetOuterOrderNo(v string) *QueryServerWillauthmaterialRequest {
+	s.OuterOrderNo = &v
+	return s
+}
+
+type QueryServerWillauthmaterialResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// 认证材料信息
+	MaterialInfo *string `json:"material_info,omitempty" xml:"material_info,omitempty"`
+}
+
+func (s QueryServerWillauthmaterialResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s QueryServerWillauthmaterialResponse) GoString() string {
+	return s.String()
+}
+
+func (s *QueryServerWillauthmaterialResponse) SetReqMsgId(v string) *QueryServerWillauthmaterialResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *QueryServerWillauthmaterialResponse) SetResultCode(v string) *QueryServerWillauthmaterialResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *QueryServerWillauthmaterialResponse) SetResultMsg(v string) *QueryServerWillauthmaterialResponse {
+	s.ResultMsg = &v
+	return s
+}
+
+func (s *QueryServerWillauthmaterialResponse) SetMaterialInfo(v string) *QueryServerWillauthmaterialResponse {
+	s.MaterialInfo = &v
+	return s
+}
+
+type BindCutpaymentOneclickRequest struct {
+	// OAuth模式下的授权token
+	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
+	// 请求ID，为32位以内的字母数字组合，由调用方自行生成、保证唯一并留存，以便问题定位和授权核查。
+	OuterOrderNo *string `json:"outer_order_no,omitempty" xml:"outer_order_no,omitempty" require:"true"`
+	// 用户ID
+	UserId *string `json:"user_id,omitempty" xml:"user_id,omitempty"`
+	// 银行编号
+	BankCode *string `json:"bank_code,omitempty" xml:"bank_code,omitempty" require:"true"`
+	// 银行卡类型，
+	// 0：借记卡
+	// 1：信用卡
+	CardType *string `json:"card_type,omitempty" xml:"card_type,omitempty" require:"true"`
+	// 证件类型，
+	// 0：身份证
+	// 1：港澳居民居住证
+	// 2：台湾居民居住证
+	IdCardType *string `json:"id_card_type,omitempty" xml:"id_card_type,omitempty" require:"true"`
+	// 姓名
+	CertName *string `json:"cert_name,omitempty" xml:"cert_name,omitempty" require:"true"`
+	// 身份证号
+	CertNo *string `json:"cert_no,omitempty" xml:"cert_no,omitempty" require:"true"`
+	// 页面返回地址，
+	// 签约完成，页面跳转地址，注：地址后不能带参数
+	PageUrl *string `json:"page_url,omitempty" xml:"page_url,omitempty" require:"true"`
+}
+
+func (s BindCutpaymentOneclickRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s BindCutpaymentOneclickRequest) GoString() string {
+	return s.String()
+}
+
+func (s *BindCutpaymentOneclickRequest) SetAuthToken(v string) *BindCutpaymentOneclickRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *BindCutpaymentOneclickRequest) SetProductInstanceId(v string) *BindCutpaymentOneclickRequest {
+	s.ProductInstanceId = &v
+	return s
+}
+
+func (s *BindCutpaymentOneclickRequest) SetOuterOrderNo(v string) *BindCutpaymentOneclickRequest {
+	s.OuterOrderNo = &v
+	return s
+}
+
+func (s *BindCutpaymentOneclickRequest) SetUserId(v string) *BindCutpaymentOneclickRequest {
+	s.UserId = &v
+	return s
+}
+
+func (s *BindCutpaymentOneclickRequest) SetBankCode(v string) *BindCutpaymentOneclickRequest {
+	s.BankCode = &v
+	return s
+}
+
+func (s *BindCutpaymentOneclickRequest) SetCardType(v string) *BindCutpaymentOneclickRequest {
+	s.CardType = &v
+	return s
+}
+
+func (s *BindCutpaymentOneclickRequest) SetIdCardType(v string) *BindCutpaymentOneclickRequest {
+	s.IdCardType = &v
+	return s
+}
+
+func (s *BindCutpaymentOneclickRequest) SetCertName(v string) *BindCutpaymentOneclickRequest {
+	s.CertName = &v
+	return s
+}
+
+func (s *BindCutpaymentOneclickRequest) SetCertNo(v string) *BindCutpaymentOneclickRequest {
+	s.CertNo = &v
+	return s
+}
+
+func (s *BindCutpaymentOneclickRequest) SetPageUrl(v string) *BindCutpaymentOneclickRequest {
+	s.PageUrl = &v
+	return s
+}
+
+type BindCutpaymentOneclickResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// 跳转银行页面地址
+	Url *string `json:"url,omitempty" xml:"url,omitempty"`
+	// 渠道 ID
+	ChannelId *string `json:"channel_id,omitempty" xml:"channel_id,omitempty"`
+	// 前端请求银行页面的请求方法
+	QueryMethod *string `json:"query_method,omitempty" xml:"query_method,omitempty"`
+	// 前端请求银行页面的请求参数key和vaule
+	QueryValue *string `json:"query_value,omitempty" xml:"query_value,omitempty"`
+}
+
+func (s BindCutpaymentOneclickResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s BindCutpaymentOneclickResponse) GoString() string {
+	return s.String()
+}
+
+func (s *BindCutpaymentOneclickResponse) SetReqMsgId(v string) *BindCutpaymentOneclickResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *BindCutpaymentOneclickResponse) SetResultCode(v string) *BindCutpaymentOneclickResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *BindCutpaymentOneclickResponse) SetResultMsg(v string) *BindCutpaymentOneclickResponse {
+	s.ResultMsg = &v
+	return s
+}
+
+func (s *BindCutpaymentOneclickResponse) SetUrl(v string) *BindCutpaymentOneclickResponse {
+	s.Url = &v
+	return s
+}
+
+func (s *BindCutpaymentOneclickResponse) SetChannelId(v string) *BindCutpaymentOneclickResponse {
+	s.ChannelId = &v
+	return s
+}
+
+func (s *BindCutpaymentOneclickResponse) SetQueryMethod(v string) *BindCutpaymentOneclickResponse {
+	s.QueryMethod = &v
+	return s
+}
+
+func (s *BindCutpaymentOneclickResponse) SetQueryValue(v string) *BindCutpaymentOneclickResponse {
+	s.QueryValue = &v
+	return s
+}
+
+type QueryCutpaymentOneclickRequest struct {
+	// OAuth模式下的授权token
+	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
+	// 请求ID，为32位以内的字母数字组合，由调用方自行生成、保证唯一并留存，以便问题定位和授权核查。
+	OuterOrderNo *string `json:"outer_order_no,omitempty" xml:"outer_order_no,omitempty" require:"true"`
+	// 一键绑卡商户跳转的请求ID
+	PreOuterOrderNo *string `json:"pre_outer_order_no,omitempty" xml:"pre_outer_order_no,omitempty" require:"true"`
+	// 渠道ID
+	ChannelId *string `json:"channel_id,omitempty" xml:"channel_id,omitempty" require:"true"`
+}
+
+func (s QueryCutpaymentOneclickRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s QueryCutpaymentOneclickRequest) GoString() string {
+	return s.String()
+}
+
+func (s *QueryCutpaymentOneclickRequest) SetAuthToken(v string) *QueryCutpaymentOneclickRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *QueryCutpaymentOneclickRequest) SetProductInstanceId(v string) *QueryCutpaymentOneclickRequest {
+	s.ProductInstanceId = &v
+	return s
+}
+
+func (s *QueryCutpaymentOneclickRequest) SetOuterOrderNo(v string) *QueryCutpaymentOneclickRequest {
+	s.OuterOrderNo = &v
+	return s
+}
+
+func (s *QueryCutpaymentOneclickRequest) SetPreOuterOrderNo(v string) *QueryCutpaymentOneclickRequest {
+	s.PreOuterOrderNo = &v
+	return s
+}
+
+func (s *QueryCutpaymentOneclickRequest) SetChannelId(v string) *QueryCutpaymentOneclickRequest {
+	s.ChannelId = &v
+	return s
+}
+
+type QueryCutpaymentOneclickResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// 签约协议号
+	ProtocolNo *string `json:"protocol_no,omitempty" xml:"protocol_no,omitempty"`
+	// 银行卡识别码
+	SgnAcc *string `json:"sgn_acc,omitempty" xml:"sgn_acc,omitempty"`
+	// 账户信息
+	AccInfo *AccInfo `json:"acc_info,omitempty" xml:"acc_info,omitempty"`
+	// 银行编号
+	BankCode *string `json:"bank_code,omitempty" xml:"bank_code,omitempty"`
+	// 银行名称
+	BankName *string `json:"bank_name,omitempty" xml:"bank_name,omitempty"`
+}
+
+func (s QueryCutpaymentOneclickResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s QueryCutpaymentOneclickResponse) GoString() string {
+	return s.String()
+}
+
+func (s *QueryCutpaymentOneclickResponse) SetReqMsgId(v string) *QueryCutpaymentOneclickResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *QueryCutpaymentOneclickResponse) SetResultCode(v string) *QueryCutpaymentOneclickResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *QueryCutpaymentOneclickResponse) SetResultMsg(v string) *QueryCutpaymentOneclickResponse {
+	s.ResultMsg = &v
+	return s
+}
+
+func (s *QueryCutpaymentOneclickResponse) SetProtocolNo(v string) *QueryCutpaymentOneclickResponse {
+	s.ProtocolNo = &v
+	return s
+}
+
+func (s *QueryCutpaymentOneclickResponse) SetSgnAcc(v string) *QueryCutpaymentOneclickResponse {
+	s.SgnAcc = &v
+	return s
+}
+
+func (s *QueryCutpaymentOneclickResponse) SetAccInfo(v *AccInfo) *QueryCutpaymentOneclickResponse {
+	s.AccInfo = v
+	return s
+}
+
+func (s *QueryCutpaymentOneclickResponse) SetBankCode(v string) *QueryCutpaymentOneclickResponse {
+	s.BankCode = &v
+	return s
+}
+
+func (s *QueryCutpaymentOneclickResponse) SetBankName(v string) *QueryCutpaymentOneclickResponse {
+	s.BankName = &v
+	return s
+}
+
+type ApplyExtYdataRequest struct {
+	// OAuth模式下的授权token
+	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
+	// 请求ID，为32位以内的字母数字组合，由调用方自行生成、保证唯一并留存，以便问题定位和授权核查。
+	OuterOrderNo *string `json:"outer_order_no,omitempty" xml:"outer_order_no,omitempty" require:"true"`
+	// 之前调用返回的 req_msg_id
+	HistoryOrderNo *string `json:"history_order_no,omitempty" xml:"history_order_no,omitempty" require:"true"`
+	// 绑卡页面银行排序（从上到下）
+	BankDisplay *string `json:"bank_display,omitempty" xml:"bank_display,omitempty"`
+	// 用户选卡银行
+	InterimSelectedBankCode *string `json:"interim_selected_bank_code,omitempty" xml:"interim_selected_bank_code,omitempty"`
+	// 用户绑卡银行
+	BindBankCode *string `json:"bind_bank_code,omitempty" xml:"bind_bank_code,omitempty" require:"true"`
+	// 用户最终绑卡银行在页面上的排序
+	BindBankDisplay *string `json:"bind_bank_display,omitempty" xml:"bind_bank_display,omitempty"`
+	// 卡类型
+	// 储蓄卡（Debit Card）或者信用卡（Credit Card）
+	// 储蓄卡：DC
+	// 信用卡：CC
+	BankType *string `json:"bank_type,omitempty" xml:"bank_type,omitempty" require:"true"`
+	// 第一期是否扣款成功
+	FirstDeduction *bool `json:"first_deduction,omitempty" xml:"first_deduction,omitempty"`
+	// 第一期扣款金额
+	FirstDeductionAmount *string `json:"first_deduction_amount,omitempty" xml:"first_deduction_amount,omitempty"`
+	// 第二期是否扣款成功
+	SecondDeduction *bool `json:"second_deduction,omitempty" xml:"second_deduction,omitempty"`
+	// 第二期扣款金额
+	SecondDeductionAmount *string `json:"second_deduction_amount,omitempty" xml:"second_deduction_amount,omitempty"`
+	// 第三期是否扣款成功
+	ThirdDeduction *bool `json:"third_deduction,omitempty" xml:"third_deduction,omitempty"`
+	// 第三期扣款金额
+	ThirdDeductionAmount *string `json:"third_deduction_amount,omitempty" xml:"third_deduction_amount,omitempty"`
+	// 第四期是否扣款成功
+	FourthDeduction *bool `json:"fourth_deduction,omitempty" xml:"fourth_deduction,omitempty"`
+	// 第四期扣款金额
+	FourthDeductionAmount *string `json:"fourth_deduction_amount,omitempty" xml:"fourth_deduction_amount,omitempty"`
+	// 第五期是否扣款成功
+	FifthDeduction *bool `json:"fifth_deduction,omitempty" xml:"fifth_deduction,omitempty"`
+	// 第五期扣款金额
+	FifthDeductionAmount *string `json:"fifth_deduction_amount,omitempty" xml:"fifth_deduction_amount,omitempty"`
+	// 第六期是否扣款成功
+	SixthDeduction *bool `json:"sixth_deduction,omitempty" xml:"sixth_deduction,omitempty"`
+	// 第六期是否扣款成功
+	SixthDeductionAmount *string `json:"sixth_deduction_amount,omitempty" xml:"sixth_deduction_amount,omitempty"`
+	// 预留扩展参数
+	ExternParam *string `json:"extern_param,omitempty" xml:"extern_param,omitempty"`
+	// 第七期是否扣款成功
+	SeventhDeduction *bool `json:"seventh_deduction,omitempty" xml:"seventh_deduction,omitempty"`
+	// 第七期扣款金额
+	SeventhDeductionAmount *string `json:"seventh_deduction_amount,omitempty" xml:"seventh_deduction_amount,omitempty"`
+	// 第八期是否扣款成功
+	EighthDeduction *bool `json:"eighth_deduction,omitempty" xml:"eighth_deduction,omitempty"`
+	// 第八期扣款金额
+	EighthDeductionAmount *string `json:"eighth_deduction_amount,omitempty" xml:"eighth_deduction_amount,omitempty"`
+	// 第九期是否扣款成功
+	NinthDeduction *bool `json:"ninth_deduction,omitempty" xml:"ninth_deduction,omitempty"`
+	// 第九期扣款金额
+	NinthDeductionAmount *string `json:"ninth_deduction_amount,omitempty" xml:"ninth_deduction_amount,omitempty"`
+	// 第十期是否扣款成功
+	TenthDeduction *bool `json:"tenth_deduction,omitempty" xml:"tenth_deduction,omitempty"`
+	// 第十期扣款金额
+	TenthDeductionAmount *string `json:"tenth_deduction_amount,omitempty" xml:"tenth_deduction_amount,omitempty"`
+	// 第十一期是否扣款成功
+	EleventhDeduction *bool `json:"eleventh_deduction,omitempty" xml:"eleventh_deduction,omitempty"`
+	// 第十一期扣款金额
+	EleventhDeductionAmount *string `json:"eleventh_deduction_amount,omitempty" xml:"eleventh_deduction_amount,omitempty"`
+	// 第十二期是否扣款成功
+	TwelfthDeduction *bool `json:"twelfth_deduction,omitempty" xml:"twelfth_deduction,omitempty"`
+	// 第十二期扣款金额
+	TwelfthDeductionAmount *string `json:"twelfth_deduction_amount,omitempty" xml:"twelfth_deduction_amount,omitempty"`
+	// 第十三期是否扣款成功
+	ThirteenthDeduction *bool `json:"thirteenth_deduction,omitempty" xml:"thirteenth_deduction,omitempty"`
+	// 第十三期扣款金额
+	ThirteenthDeductionAmount *string `json:"thirteenth_deduction_amount,omitempty" xml:"thirteenth_deduction_amount,omitempty"`
+}
+
+func (s ApplyExtYdataRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s ApplyExtYdataRequest) GoString() string {
+	return s.String()
+}
+
+func (s *ApplyExtYdataRequest) SetAuthToken(v string) *ApplyExtYdataRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *ApplyExtYdataRequest) SetProductInstanceId(v string) *ApplyExtYdataRequest {
+	s.ProductInstanceId = &v
+	return s
+}
+
+func (s *ApplyExtYdataRequest) SetOuterOrderNo(v string) *ApplyExtYdataRequest {
+	s.OuterOrderNo = &v
+	return s
+}
+
+func (s *ApplyExtYdataRequest) SetHistoryOrderNo(v string) *ApplyExtYdataRequest {
+	s.HistoryOrderNo = &v
+	return s
+}
+
+func (s *ApplyExtYdataRequest) SetBankDisplay(v string) *ApplyExtYdataRequest {
+	s.BankDisplay = &v
+	return s
+}
+
+func (s *ApplyExtYdataRequest) SetInterimSelectedBankCode(v string) *ApplyExtYdataRequest {
+	s.InterimSelectedBankCode = &v
+	return s
+}
+
+func (s *ApplyExtYdataRequest) SetBindBankCode(v string) *ApplyExtYdataRequest {
+	s.BindBankCode = &v
+	return s
+}
+
+func (s *ApplyExtYdataRequest) SetBindBankDisplay(v string) *ApplyExtYdataRequest {
+	s.BindBankDisplay = &v
+	return s
+}
+
+func (s *ApplyExtYdataRequest) SetBankType(v string) *ApplyExtYdataRequest {
+	s.BankType = &v
+	return s
+}
+
+func (s *ApplyExtYdataRequest) SetFirstDeduction(v bool) *ApplyExtYdataRequest {
+	s.FirstDeduction = &v
+	return s
+}
+
+func (s *ApplyExtYdataRequest) SetFirstDeductionAmount(v string) *ApplyExtYdataRequest {
+	s.FirstDeductionAmount = &v
+	return s
+}
+
+func (s *ApplyExtYdataRequest) SetSecondDeduction(v bool) *ApplyExtYdataRequest {
+	s.SecondDeduction = &v
+	return s
+}
+
+func (s *ApplyExtYdataRequest) SetSecondDeductionAmount(v string) *ApplyExtYdataRequest {
+	s.SecondDeductionAmount = &v
+	return s
+}
+
+func (s *ApplyExtYdataRequest) SetThirdDeduction(v bool) *ApplyExtYdataRequest {
+	s.ThirdDeduction = &v
+	return s
+}
+
+func (s *ApplyExtYdataRequest) SetThirdDeductionAmount(v string) *ApplyExtYdataRequest {
+	s.ThirdDeductionAmount = &v
+	return s
+}
+
+func (s *ApplyExtYdataRequest) SetFourthDeduction(v bool) *ApplyExtYdataRequest {
+	s.FourthDeduction = &v
+	return s
+}
+
+func (s *ApplyExtYdataRequest) SetFourthDeductionAmount(v string) *ApplyExtYdataRequest {
+	s.FourthDeductionAmount = &v
+	return s
+}
+
+func (s *ApplyExtYdataRequest) SetFifthDeduction(v bool) *ApplyExtYdataRequest {
+	s.FifthDeduction = &v
+	return s
+}
+
+func (s *ApplyExtYdataRequest) SetFifthDeductionAmount(v string) *ApplyExtYdataRequest {
+	s.FifthDeductionAmount = &v
+	return s
+}
+
+func (s *ApplyExtYdataRequest) SetSixthDeduction(v bool) *ApplyExtYdataRequest {
+	s.SixthDeduction = &v
+	return s
+}
+
+func (s *ApplyExtYdataRequest) SetSixthDeductionAmount(v string) *ApplyExtYdataRequest {
+	s.SixthDeductionAmount = &v
+	return s
+}
+
+func (s *ApplyExtYdataRequest) SetExternParam(v string) *ApplyExtYdataRequest {
+	s.ExternParam = &v
+	return s
+}
+
+func (s *ApplyExtYdataRequest) SetSeventhDeduction(v bool) *ApplyExtYdataRequest {
+	s.SeventhDeduction = &v
+	return s
+}
+
+func (s *ApplyExtYdataRequest) SetSeventhDeductionAmount(v string) *ApplyExtYdataRequest {
+	s.SeventhDeductionAmount = &v
+	return s
+}
+
+func (s *ApplyExtYdataRequest) SetEighthDeduction(v bool) *ApplyExtYdataRequest {
+	s.EighthDeduction = &v
+	return s
+}
+
+func (s *ApplyExtYdataRequest) SetEighthDeductionAmount(v string) *ApplyExtYdataRequest {
+	s.EighthDeductionAmount = &v
+	return s
+}
+
+func (s *ApplyExtYdataRequest) SetNinthDeduction(v bool) *ApplyExtYdataRequest {
+	s.NinthDeduction = &v
+	return s
+}
+
+func (s *ApplyExtYdataRequest) SetNinthDeductionAmount(v string) *ApplyExtYdataRequest {
+	s.NinthDeductionAmount = &v
+	return s
+}
+
+func (s *ApplyExtYdataRequest) SetTenthDeduction(v bool) *ApplyExtYdataRequest {
+	s.TenthDeduction = &v
+	return s
+}
+
+func (s *ApplyExtYdataRequest) SetTenthDeductionAmount(v string) *ApplyExtYdataRequest {
+	s.TenthDeductionAmount = &v
+	return s
+}
+
+func (s *ApplyExtYdataRequest) SetEleventhDeduction(v bool) *ApplyExtYdataRequest {
+	s.EleventhDeduction = &v
+	return s
+}
+
+func (s *ApplyExtYdataRequest) SetEleventhDeductionAmount(v string) *ApplyExtYdataRequest {
+	s.EleventhDeductionAmount = &v
+	return s
+}
+
+func (s *ApplyExtYdataRequest) SetTwelfthDeduction(v bool) *ApplyExtYdataRequest {
+	s.TwelfthDeduction = &v
+	return s
+}
+
+func (s *ApplyExtYdataRequest) SetTwelfthDeductionAmount(v string) *ApplyExtYdataRequest {
+	s.TwelfthDeductionAmount = &v
+	return s
+}
+
+func (s *ApplyExtYdataRequest) SetThirteenthDeduction(v bool) *ApplyExtYdataRequest {
+	s.ThirteenthDeduction = &v
+	return s
+}
+
+func (s *ApplyExtYdataRequest) SetThirteenthDeductionAmount(v string) *ApplyExtYdataRequest {
+	s.ThirteenthDeductionAmount = &v
+	return s
+}
+
+type ApplyExtYdataResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+}
+
+func (s ApplyExtYdataResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s ApplyExtYdataResponse) GoString() string {
+	return s.String()
+}
+
+func (s *ApplyExtYdataResponse) SetReqMsgId(v string) *ApplyExtYdataResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *ApplyExtYdataResponse) SetResultCode(v string) *ApplyExtYdataResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *ApplyExtYdataResponse) SetResultMsg(v string) *ApplyExtYdataResponse {
+	s.ResultMsg = &v
+	return s
+}
+
+type QueryThreemetaPhonereuseproRequest struct {
+	// OAuth模式下的授权token
+	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
+	// 外部请求ID，由调用方自行生成并自行保证唯一，以便问题定位。
+	OuterOrderNo *string `json:"outer_order_no,omitempty" xml:"outer_order_no,omitempty" require:"true"`
+	// 手机号「支持加密」
+	Mobile *string `json:"mobile,omitempty" xml:"mobile,omitempty" require:"true"`
+	// 日期
+	Date *string `json:"date,omitempty" xml:"date,omitempty" require:"true"`
+	// 运营商类型
+	Carrier *string `json:"carrier,omitempty" xml:"carrier,omitempty"`
+	// 加密类型，填写时「支持加密」字段需要对应加密后赋值。默认使用明文模式 0：明文 1：MD5
+	EncryptType *string `json:"encrypt_type,omitempty" xml:"encrypt_type,omitempty"`
+	// 扩展参数
+	ExternParam *string `json:"extern_param,omitempty" xml:"extern_param,omitempty"`
+}
+
+func (s QueryThreemetaPhonereuseproRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s QueryThreemetaPhonereuseproRequest) GoString() string {
+	return s.String()
+}
+
+func (s *QueryThreemetaPhonereuseproRequest) SetAuthToken(v string) *QueryThreemetaPhonereuseproRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *QueryThreemetaPhonereuseproRequest) SetProductInstanceId(v string) *QueryThreemetaPhonereuseproRequest {
+	s.ProductInstanceId = &v
+	return s
+}
+
+func (s *QueryThreemetaPhonereuseproRequest) SetOuterOrderNo(v string) *QueryThreemetaPhonereuseproRequest {
+	s.OuterOrderNo = &v
+	return s
+}
+
+func (s *QueryThreemetaPhonereuseproRequest) SetMobile(v string) *QueryThreemetaPhonereuseproRequest {
+	s.Mobile = &v
+	return s
+}
+
+func (s *QueryThreemetaPhonereuseproRequest) SetDate(v string) *QueryThreemetaPhonereuseproRequest {
+	s.Date = &v
+	return s
+}
+
+func (s *QueryThreemetaPhonereuseproRequest) SetCarrier(v string) *QueryThreemetaPhonereuseproRequest {
+	s.Carrier = &v
+	return s
+}
+
+func (s *QueryThreemetaPhonereuseproRequest) SetEncryptType(v string) *QueryThreemetaPhonereuseproRequest {
+	s.EncryptType = &v
+	return s
+}
+
+func (s *QueryThreemetaPhonereuseproRequest) SetExternParam(v string) *QueryThreemetaPhonereuseproRequest {
+	s.ExternParam = &v
+	return s
+}
+
+type QueryThreemetaPhonereuseproResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// 是否二次放号
+	PhoneReuse *string `json:"phone_reuse,omitempty" xml:"phone_reuse,omitempty"`
+	// CHINA_TELECOM：中国电信 CHINA_MOBILE：中国移动 CHINA_UNICOM：中国联通
+	Carrier *string `json:"carrier,omitempty" xml:"carrier,omitempty"`
+	// 扩展参数
+	ExternInfo *string `json:"extern_info,omitempty" xml:"extern_info,omitempty"`
+}
+
+func (s QueryThreemetaPhonereuseproResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s QueryThreemetaPhonereuseproResponse) GoString() string {
+	return s.String()
+}
+
+func (s *QueryThreemetaPhonereuseproResponse) SetReqMsgId(v string) *QueryThreemetaPhonereuseproResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *QueryThreemetaPhonereuseproResponse) SetResultCode(v string) *QueryThreemetaPhonereuseproResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *QueryThreemetaPhonereuseproResponse) SetResultMsg(v string) *QueryThreemetaPhonereuseproResponse {
+	s.ResultMsg = &v
+	return s
+}
+
+func (s *QueryThreemetaPhonereuseproResponse) SetPhoneReuse(v string) *QueryThreemetaPhonereuseproResponse {
+	s.PhoneReuse = &v
+	return s
+}
+
+func (s *QueryThreemetaPhonereuseproResponse) SetCarrier(v string) *QueryThreemetaPhonereuseproResponse {
+	s.Carrier = &v
+	return s
+}
+
+func (s *QueryThreemetaPhonereuseproResponse) SetExternInfo(v string) *QueryThreemetaPhonereuseproResponse {
+	s.ExternInfo = &v
+	return s
+}
+
+type CreateAntcloudGatewayxFileUploadRequest struct {
+	// OAuth模式下的授权token
+	AuthToken *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	// 上传文件作用的openapi method
+	ApiCode *string `json:"api_code,omitempty" xml:"api_code,omitempty" require:"true"`
+	// 文件标签，多个标签;分割
+	FileLabel *string `json:"file_label,omitempty" xml:"file_label,omitempty" maxLength:"100"`
+	// 自定义的文件元数据
+	FileMetadata *string `json:"file_metadata,omitempty" xml:"file_metadata,omitempty" maxLength:"1000"`
+	// 文件名，不传则随机生成文件名
+	FileName *string `json:"file_name,omitempty" xml:"file_name,omitempty" maxLength:"100"`
+	// 文件的多媒体类型
+	MimeType *string `json:"mime_type,omitempty" xml:"mime_type,omitempty"`
+	// 产品方的api归属集群，即productInstanceId
+	ApiCluster *string `json:"api_cluster,omitempty" xml:"api_cluster,omitempty"`
+}
+
+func (s CreateAntcloudGatewayxFileUploadRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s CreateAntcloudGatewayxFileUploadRequest) GoString() string {
+	return s.String()
+}
+
+func (s *CreateAntcloudGatewayxFileUploadRequest) SetAuthToken(v string) *CreateAntcloudGatewayxFileUploadRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *CreateAntcloudGatewayxFileUploadRequest) SetApiCode(v string) *CreateAntcloudGatewayxFileUploadRequest {
+	s.ApiCode = &v
+	return s
+}
+
+func (s *CreateAntcloudGatewayxFileUploadRequest) SetFileLabel(v string) *CreateAntcloudGatewayxFileUploadRequest {
+	s.FileLabel = &v
+	return s
+}
+
+func (s *CreateAntcloudGatewayxFileUploadRequest) SetFileMetadata(v string) *CreateAntcloudGatewayxFileUploadRequest {
+	s.FileMetadata = &v
+	return s
+}
+
+func (s *CreateAntcloudGatewayxFileUploadRequest) SetFileName(v string) *CreateAntcloudGatewayxFileUploadRequest {
+	s.FileName = &v
+	return s
+}
+
+func (s *CreateAntcloudGatewayxFileUploadRequest) SetMimeType(v string) *CreateAntcloudGatewayxFileUploadRequest {
+	s.MimeType = &v
+	return s
+}
+
+func (s *CreateAntcloudGatewayxFileUploadRequest) SetApiCluster(v string) *CreateAntcloudGatewayxFileUploadRequest {
+	s.ApiCluster = &v
+	return s
+}
+
+type CreateAntcloudGatewayxFileUploadResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// 上传有效期
+	ExpiredTime *string `json:"expired_time,omitempty" xml:"expired_time,omitempty" pattern:"\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}([Z]|([\\.]\\d{1,9})?[\\+]\\d{2}[\\:]?\\d{2})"`
+	// 32位文件唯一id
+	FileId *string `json:"file_id,omitempty" xml:"file_id,omitempty"`
+	// 放入http请求头里
+	UploadHeaders []*XNameValuePair `json:"upload_headers,omitempty" xml:"upload_headers,omitempty" type:"Repeated"`
+	// 文件上传地址
+	UploadUrl *string `json:"upload_url,omitempty" xml:"upload_url,omitempty"`
+}
+
+func (s CreateAntcloudGatewayxFileUploadResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s CreateAntcloudGatewayxFileUploadResponse) GoString() string {
+	return s.String()
+}
+
+func (s *CreateAntcloudGatewayxFileUploadResponse) SetReqMsgId(v string) *CreateAntcloudGatewayxFileUploadResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *CreateAntcloudGatewayxFileUploadResponse) SetResultCode(v string) *CreateAntcloudGatewayxFileUploadResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *CreateAntcloudGatewayxFileUploadResponse) SetResultMsg(v string) *CreateAntcloudGatewayxFileUploadResponse {
+	s.ResultMsg = &v
+	return s
+}
+
+func (s *CreateAntcloudGatewayxFileUploadResponse) SetExpiredTime(v string) *CreateAntcloudGatewayxFileUploadResponse {
+	s.ExpiredTime = &v
+	return s
+}
+
+func (s *CreateAntcloudGatewayxFileUploadResponse) SetFileId(v string) *CreateAntcloudGatewayxFileUploadResponse {
+	s.FileId = &v
+	return s
+}
+
+func (s *CreateAntcloudGatewayxFileUploadResponse) SetUploadHeaders(v []*XNameValuePair) *CreateAntcloudGatewayxFileUploadResponse {
+	s.UploadHeaders = v
+	return s
+}
+
+func (s *CreateAntcloudGatewayxFileUploadResponse) SetUploadUrl(v string) *CreateAntcloudGatewayxFileUploadResponse {
+	s.UploadUrl = &v
+	return s
+}
+
+type Client struct {
+	Endpoint                *string
+	RegionId                *string
+	AccessKeyId             *string
+	AccessKeySecret         *string
+	Protocol                *string
+	UserAgent               *string
+	ReadTimeout             *int
+	ConnectTimeout          *int
+	HttpProxy               *string
+	HttpsProxy              *string
+	Socks5Proxy             *string
+	Socks5NetWork           *string
+	NoProxy                 *string
+	MaxIdleConns            *int
+	SecurityToken           *string
+	MaxIdleTimeMillis       *int
+	KeepAliveDurationMillis *int
+	MaxRequests             *int
+	MaxRequestsPerHost      *int
+}
+
+// Description:
+//
+// # Init client with Config
+//
+// @param config - config contains the necessary information to create a client
+func NewClient(config *Config) (*Client, error) {
+	client := new(Client)
+	err := client.Init(config)
+	return client, err
+}
+
+func (client *Client) Init(config *Config) (_err error) {
+	if tea.BoolValue(util.IsUnset(config)) {
+		_err = tea.NewSDKError(map[string]interface{}{
+			"code":    "ParameterMissing",
+			"message": "'config' can not be unset",
+		})
+		return _err
+	}
+
+	client.AccessKeyId = config.AccessKeyId
+	client.AccessKeySecret = config.AccessKeySecret
+	client.SecurityToken = config.SecurityToken
+	client.Endpoint = config.Endpoint
+	client.Protocol = config.Protocol
+	client.UserAgent = config.UserAgent
+	client.ReadTimeout = util.DefaultNumber(config.ReadTimeout, tea.Int(20000))
+	client.ConnectTimeout = util.DefaultNumber(config.ConnectTimeout, tea.Int(20000))
+	client.HttpProxy = config.HttpProxy
+	client.HttpsProxy = config.HttpsProxy
+	client.NoProxy = config.NoProxy
+	client.Socks5Proxy = config.Socks5Proxy
+	client.Socks5NetWork = config.Socks5NetWork
+	client.MaxIdleConns = util.DefaultNumber(config.MaxIdleConns, tea.Int(60000))
+	client.MaxIdleTimeMillis = util.DefaultNumber(config.MaxIdleTimeMillis, tea.Int(5))
+	client.KeepAliveDurationMillis = util.DefaultNumber(config.KeepAliveDurationMillis, tea.Int(5000))
+	client.MaxRequests = util.DefaultNumber(config.MaxRequests, tea.Int(100))
+	client.MaxRequestsPerHost = util.DefaultNumber(config.MaxRequestsPerHost, tea.Int(100))
+	return nil
+}
+
+// Description:
+//
+// # Encapsulate the request and invoke the network
+//
+// @param action - api name
+//
+// @param protocol - http or https
+//
+// @param method - e.g. GET
+//
+// @param pathname - pathname of every api
+//
+// @param request - which contains request params
+//
+// @param runtime - which controls some details of call api, such as retry times
+//
+// @return the response
+func (client *Client) DoRequest(version *string, action *string, protocol *string, method *string, pathname *string, request map[string]interface{}, headers map[string]*string, runtime *util.RuntimeOptions) (_result map[string]interface{}, _err error) {
+	_err = tea.Validate(runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_runtime := map[string]interface{}{
+		"timeouted":          "retry",
+		"readTimeout":        tea.IntValue(util.DefaultNumber(runtime.ReadTimeout, client.ReadTimeout)),
+		"connectTimeout":     tea.IntValue(util.DefaultNumber(runtime.ConnectTimeout, client.ConnectTimeout)),
+		"httpProxy":          tea.StringValue(util.DefaultString(runtime.HttpProxy, client.HttpProxy)),
+		"httpsProxy":         tea.StringValue(util.DefaultString(runtime.HttpsProxy, client.HttpsProxy)),
+		"noProxy":            tea.StringValue(util.DefaultString(runtime.NoProxy, client.NoProxy)),
+		"maxIdleConns":       tea.IntValue(util.DefaultNumber(runtime.MaxIdleConns, client.MaxIdleConns)),
+		"maxIdleTimeMillis":  tea.IntValue(client.MaxIdleTimeMillis),
+		"keepAliveDuration":  tea.IntValue(client.KeepAliveDurationMillis),
+		"maxRequests":        tea.IntValue(client.MaxRequests),
+		"maxRequestsPerHost": tea.IntValue(client.MaxRequestsPerHost),
+		"retry": map[string]interface{}{
+			"retryable":   tea.BoolValue(runtime.Autoretry),
+			"maxAttempts": tea.IntValue(util.DefaultNumber(runtime.MaxAttempts, tea.Int(3))),
+		},
+		"backoff": map[string]interface{}{
+			"policy": tea.StringValue(util.DefaultString(runtime.BackoffPolicy, tea.String("no"))),
+			"period": tea.IntValue(util.DefaultNumber(runtime.BackoffPeriod, tea.Int(1))),
+		},
+		"ignoreSSL": tea.BoolValue(runtime.IgnoreSSL),
+	}
+
+	_resp := make(map[string]interface{})
+	for _retryTimes := 0; tea.BoolValue(tea.AllowRetry(_runtime["retry"], tea.Int(_retryTimes))); _retryTimes++ {
+		if _retryTimes > 0 {
+			_backoffTime := tea.GetBackoffTime(_runtime["backoff"], tea.Int(_retryTimes))
+			if tea.IntValue(_backoffTime) > 0 {
+				tea.Sleep(_backoffTime)
+			}
+		}
+
+		_resp, _err = func() (map[string]interface{}, error) {
+			request_ := tea.NewRequest()
+			request_.Protocol = util.DefaultString(client.Protocol, protocol)
+			request_.Method = method
+			request_.Pathname = pathname
+			request_.Query = map[string]*string{
+				"method":           action,
+				"version":          version,
+				"sign_type":        tea.String("HmacSHA1"),
+				"req_time":         antchainutil.GetTimestamp(),
+				"req_msg_id":       antchainutil.GetNonce(),
+				"access_key":       client.AccessKeyId,
+				"base_sdk_version": tea.String("TeaSDK-2.0"),
+				"sdk_version":      tea.String("1.23.5"),
+				"_prod_code":       tea.String("REALPERSON"),
+				"_prod_channel":    tea.String("undefined"),
+			}
+			if !tea.BoolValue(util.Empty(client.SecurityToken)) {
+				request_.Query["security_token"] = client.SecurityToken
+			}
+
+			request_.Headers = tea.Merge(map[string]*string{
+				"host":       util.DefaultString(client.Endpoint, tea.String("openapi.antchain.antgroup.com")),
+				"user-agent": util.GetUserAgent(client.UserAgent),
+			}, headers)
+			tmp := util.AnyifyMapValue(rpcutil.Query(request))
+			request_.Body = tea.ToReader(util.ToFormString(tmp))
+			request_.Headers["content-type"] = tea.String("application/x-www-form-urlencoded")
+			signedParam := tea.Merge(request_.Query,
+				rpcutil.Query(request))
+			request_.Query["sign"] = antchainutil.GetSignature(signedParam, client.AccessKeySecret)
+			response_, _err := tea.DoRequest(request_, _runtime)
+			if _err != nil {
+				return _result, _err
+			}
+			raw, _err := util.ReadAsString(response_.Body)
+			if _err != nil {
+				return _result, _err
+			}
+
+			obj := util.ParseJSON(raw)
+			res, _err := util.AssertAsMap(obj)
+			if _err != nil {
+				return _result, _err
+			}
+
+			resp, _err := util.AssertAsMap(res["response"])
+			if _err != nil {
+				return _result, _err
+			}
+
+			if tea.BoolValue(antchainutil.HasError(raw, client.AccessKeySecret)) {
+				_err = tea.NewSDKError(map[string]interface{}{
+					"message": resp["result_msg"],
+					"data":    resp,
+					"code":    resp["result_code"],
+				})
+				return _result, _err
+			}
+
+			_result = resp
+			return _result, _err
+		}()
+		if !tea.BoolValue(tea.Retryable(_err)) {
+			break
+		}
+	}
+
+	return _resp, _err
+}
+
+// Description:
+//
+// Description: 查询认证的结果和相关信息
+//
+// Summary: 认证查询
+func (client *Client) QueryFacevrfServer(request *QueryFacevrfServerRequest) (_result *QueryFacevrfServerResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &QueryFacevrfServerResponse{}
+	_body, _err := client.QueryFacevrfServerEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+// Description:
+//
+// Description: 查询认证的结果和相关信息
+//
+// Summary: 认证查询
+func (client *Client) QueryFacevrfServerEx(request *QueryFacevrfServerRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *QueryFacevrfServerResponse, _err error) {
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &QueryFacevrfServerResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("di.realperson.facevrf.server.query"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
+}
+
+// Description:
+//
+// Description: 服务端认证创建，传入认证信息，获取认证ID（和url）
+//
+// Summary: 认证创建
+func (client *Client) CreateFacevrfServer(request *CreateFacevrfServerRequest) (_result *CreateFacevrfServerResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &CreateFacevrfServerResponse{}
+	_body, _err := client.CreateFacevrfServerEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+// Description:
+//
+// Description: 服务端认证创建，传入认证信息，获取认证ID（和url）
+//
+// Summary: 认证创建
+func (client *Client) CreateFacevrfServerEx(request *CreateFacevrfServerRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *CreateFacevrfServerResponse, _err error) {
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &CreateFacevrfServerResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("di.realperson.facevrf.server.create"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
+}
+
+// Description:
+//
+// Description: 纯服务端比对，直接输入待比对的图片，返回比对结果
+//
+// Summary: 纯服务端比对
+func (client *Client) ExecFacevrfServer(request *ExecFacevrfServerRequest) (_result *ExecFacevrfServerResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &ExecFacevrfServerResponse{}
+	_body, _err := client.ExecFacevrfServerEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+// Description:
+//
+// Description: 纯服务端比对，直接输入待比对的图片，返回比对结果
+//
+// Summary: 纯服务端比对
+func (client *Client) ExecFacevrfServerEx(request *ExecFacevrfServerRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *ExecFacevrfServerResponse, _err error) {
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &ExecFacevrfServerResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("di.realperson.facevrf.server.exec"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
+}
+
+// Description:
+//
+// Description: 传入某次刷脸的certifyID，获得刷脸存证的pdf文件和司法脸统一证据ID，这两份数据可以在司法链的控制台中进行核验存证是否被记录在区块链上从而证实其真实可信。
+//
+// Summary: 商户获取司法链上刷脸存证和统一证据ID
+func (client *Client) GetFacevrfEvidence(request *GetFacevrfEvidenceRequest) (_result *GetFacevrfEvidenceResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &GetFacevrfEvidenceResponse{}
+	_body, _err := client.GetFacevrfEvidenceEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+// Description:
+//
+// Description: 传入某次刷脸的certifyID，获得刷脸存证的pdf文件和司法脸统一证据ID，这两份数据可以在司法链的控制台中进行核验存证是否被记录在区块链上从而证实其真实可信。
+//
+// Summary: 商户获取司法链上刷脸存证和统一证据ID
+func (client *Client) GetFacevrfEvidenceEx(request *GetFacevrfEvidenceRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *GetFacevrfEvidenceResponse, _err error) {
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &GetFacevrfEvidenceResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("di.realperson.facevrf.evidence.get"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
+}
+
+// Description:
+//
+// Description: 个人二要素认证
+//
+// Summary: 个人二要素认证
+func (client *Client) CheckIndividualidTwometa(request *CheckIndividualidTwometaRequest) (_result *CheckIndividualidTwometaResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &CheckIndividualidTwometaResponse{}
+	_body, _err := client.CheckIndividualidTwometaEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+// Description:
+//
+// Description: 个人二要素认证
+//
+// Summary: 个人二要素认证
+func (client *Client) CheckIndividualidTwometaEx(request *CheckIndividualidTwometaRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *CheckIndividualidTwometaResponse, _err error) {
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &CheckIndividualidTwometaResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("di.realperson.individualid.twometa.check"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
+}
+
+// Description:
+//
+// Description: 个人三要素认证
+//
+// Summary: 个人三要素认证
+func (client *Client) CheckIndividualidThreemeta(request *CheckIndividualidThreemetaRequest) (_result *CheckIndividualidThreemetaResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &CheckIndividualidThreemetaResponse{}
+	_body, _err := client.CheckIndividualidThreemetaEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+// Description:
+//
+// Description: 个人三要素认证
+//
+// Summary: 个人三要素认证
+func (client *Client) CheckIndividualidThreemetaEx(request *CheckIndividualidThreemetaRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *CheckIndividualidThreemetaResponse, _err error) {
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &CheckIndividualidThreemetaResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("di.realperson.individualid.threemeta.check"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
+}
+
+// Description:
+//
+// Description: 个人四要素认证
+//
+// Summary: 个人四要素认证
+func (client *Client) CheckIndividualidFourmeta(request *CheckIndividualidFourmetaRequest) (_result *CheckIndividualidFourmetaResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &CheckIndividualidFourmetaResponse{}
+	_body, _err := client.CheckIndividualidFourmetaEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+// Description:
+//
+// Description: 个人四要素认证
+//
+// Summary: 个人四要素认证
+func (client *Client) CheckIndividualidFourmetaEx(request *CheckIndividualidFourmetaRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *CheckIndividualidFourmetaResponse, _err error) {
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &CheckIndividualidFourmetaResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("di.realperson.individualid.fourmeta.check"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
+}
+
+// Description:
+//
+// Description: 个人三要素认证（场景路由）
+//
+// Summary: 个人三要素认证（场景路由）
+func (client *Client) CheckRouteThreemeta(request *CheckRouteThreemetaRequest) (_result *CheckRouteThreemetaResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &CheckRouteThreemetaResponse{}
+	_body, _err := client.CheckRouteThreemetaEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+// Description:
+//
+// Description: 个人三要素认证（场景路由）
+//
+// Summary: 个人三要素认证（场景路由）
+func (client *Client) CheckRouteThreemetaEx(request *CheckRouteThreemetaRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *CheckRouteThreemetaResponse, _err error) {
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &CheckRouteThreemetaResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("di.realperson.route.threemeta.check"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
+}
+
+// Description:
+//
+// Description: 纯服务端声纹注册
+//
+// Summary: 纯服务端声纹注册
+func (client *Client) CreateVoiceprintServermode(request *CreateVoiceprintServermodeRequest) (_result *CreateVoiceprintServermodeResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &CreateVoiceprintServermodeResponse{}
+	_body, _err := client.CreateVoiceprintServermodeEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+// Description:
+//
+// Description: 纯服务端声纹注册
+//
+// Summary: 纯服务端声纹注册
+func (client *Client) CreateVoiceprintServermodeEx(request *CreateVoiceprintServermodeRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *CreateVoiceprintServermodeResponse, _err error) {
+	if !tea.BoolValue(util.IsUnset(request.FileObject)) {
+		uploadReq := &CreateAntcloudGatewayxFileUploadRequest{
+			AuthToken: request.AuthToken,
+			ApiCode:   tea.String("di.realperson.voiceprint.servermode.create"),
+			FileName:  request.FileObjectName,
+		}
+		uploadResp, _err := client.CreateAntcloudGatewayxFileUploadEx(uploadReq, headers, runtime)
+		if _err != nil {
+			return _result, _err
+		}
+
+		if !tea.BoolValue(antchainutil.IsSuccess(uploadResp.ResultCode, tea.String("ok"))) {
+			createVoiceprintServermodeResponse := &CreateVoiceprintServermodeResponse{
+				ReqMsgId:   uploadResp.ReqMsgId,
+				ResultCode: uploadResp.ResultCode,
+				ResultMsg:  uploadResp.ResultMsg,
+			}
+			_result = createVoiceprintServermodeResponse
+			return _result, _err
+		}
+
+		uploadHeaders := antchainutil.ParseUploadHeaders(uploadResp.UploadHeaders)
+		_err = antchainutil.PutObject(request.FileObject, uploadHeaders, uploadResp.UploadUrl)
+		if _err != nil {
+			return _result, _err
+		}
+		request.FileId = uploadResp.FileId
+		request.FileObject = nil
+	}
+
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &CreateVoiceprintServermodeResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("di.realperson.voiceprint.servermode.create"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
+}
+
+// Description:
+//
+// Description: 纯服务端声纹比对
+//
+// Summary: 纯服务端声纹比对
+func (client *Client) VerifyVoiceprintServermode(request *VerifyVoiceprintServermodeRequest) (_result *VerifyVoiceprintServermodeResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &VerifyVoiceprintServermodeResponse{}
+	_body, _err := client.VerifyVoiceprintServermodeEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+// Description:
+//
+// Description: 纯服务端声纹比对
+//
+// Summary: 纯服务端声纹比对
+func (client *Client) VerifyVoiceprintServermodeEx(request *VerifyVoiceprintServermodeRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *VerifyVoiceprintServermodeResponse, _err error) {
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &VerifyVoiceprintServermodeResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("di.realperson.voiceprint.servermode.verify"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
+}
+
+// Description:
+//
+// Description: 个人二要素认证（场景路由）
+//
+// Summary: 个人二要素认证（场景路由）
+func (client *Client) CheckRouteTwometa(request *CheckRouteTwometaRequest) (_result *CheckRouteTwometaResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &CheckRouteTwometaResponse{}
+	_body, _err := client.CheckRouteTwometaEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+// Description:
+//
+// Description: 个人二要素认证（场景路由）
+//
+// Summary: 个人二要素认证（场景路由）
+func (client *Client) CheckRouteTwometaEx(request *CheckRouteTwometaRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *CheckRouteTwometaResponse, _err error) {
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &CheckRouteTwometaResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("di.realperson.route.twometa.check"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
+}
+
+// Description:
+//
+// Description: 通过移动设备身份临时标识查询该设备相关的设备风险信息的服务
+//
+// Summary: 移动风险设备查询
+func (client *Client) QueryMobileRisk(request *QueryMobileRiskRequest) (_result *QueryMobileRiskResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &QueryMobileRiskResponse{}
+	_body, _err := client.QueryMobileRiskEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+// Description:
+//
+// Description: 通过移动设备身份临时标识查询该设备相关的设备风险信息的服务
+//
+// Summary: 移动风险设备查询
+func (client *Client) QueryMobileRiskEx(request *QueryMobileRiskRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *QueryMobileRiskResponse, _err error) {
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &QueryMobileRiskResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("di.realperson.mobile.risk.query"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
+}
+
+// Description:
+//
+// Description: 通过认证ID查询认证人、认证时间等相关信息，供智科内部使用
+//
+// Summary: 查询认证人、认证时间等相关信息
+func (client *Client) DetailFacevrfServer(request *DetailFacevrfServerRequest) (_result *DetailFacevrfServerResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &DetailFacevrfServerResponse{}
+	_body, _err := client.DetailFacevrfServerEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+// Description:
+//
+// Description: 通过认证ID查询认证人、认证时间等相关信息，供智科内部使用
+//
+// Summary: 查询认证人、认证时间等相关信息
+func (client *Client) DetailFacevrfServerEx(request *DetailFacevrfServerRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *DetailFacevrfServerResponse, _err error) {
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &DetailFacevrfServerResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("di.realperson.facevrf.server.detail"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
+}
+
+// Description:
+//
+// Description: 临工场景等场景下，通过主体的社保缴纳情况进行的反欺诈校验
+//
+// Summary: 个人反欺诈风险校验
+func (client *Client) CheckAnticheatPersonal(request *CheckAnticheatPersonalRequest) (_result *CheckAnticheatPersonalResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &CheckAnticheatPersonalResponse{}
+	_body, _err := client.CheckAnticheatPersonalEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+// Description:
+//
+// Description: 临工场景等场景下，通过主体的社保缴纳情况进行的反欺诈校验
+//
+// Summary: 个人反欺诈风险校验
+func (client *Client) CheckAnticheatPersonalEx(request *CheckAnticheatPersonalRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *CheckAnticheatPersonalResponse, _err error) {
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &CheckAnticheatPersonalResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("di.realperson.anticheat.personal.check"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
+}
+
+// Description:
+//
+// Description: 二要素支持hash主体信息
+//
+// Summary: 个人二要素核验支持hash的主体信息
+func (client *Client) CheckTwometaHash(request *CheckTwometaHashRequest) (_result *CheckTwometaHashResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &CheckTwometaHashResponse{}
+	_body, _err := client.CheckTwometaHashEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+// Description:
+//
+// Description: 二要素支持hash主体信息
+//
+// Summary: 个人二要素核验支持hash的主体信息
+func (client *Client) CheckTwometaHashEx(request *CheckTwometaHashRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *CheckTwometaHashResponse, _err error) {
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &CheckTwometaHashResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("di.realperson.twometa.hash.check"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
+}
+
+// Description:
+//
+// Description: 对接运营商等数据源查询手机号码的在网时长
+//
+// Summary: 三要素在网时长查询接口
+func (client *Client) QueryThreemetaOnlinetime(request *QueryThreemetaOnlinetimeRequest) (_result *QueryThreemetaOnlinetimeResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &QueryThreemetaOnlinetimeResponse{}
+	_body, _err := client.QueryThreemetaOnlinetimeEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+// Description:
+//
+// Description: 对接运营商等数据源查询手机号码的在网时长
+//
+// Summary: 三要素在网时长查询接口
+func (client *Client) QueryThreemetaOnlinetimeEx(request *QueryThreemetaOnlinetimeRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *QueryThreemetaOnlinetimeResponse, _err error) {
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &QueryThreemetaOnlinetimeResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("di.realperson.threemeta.onlinetime.query"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
+}
+
+// Description:
+//
+// Description: 客户端初始化认证(OEM专用)
+//
+// Summary: 客户端初始化认证(OEM专用)
+func (client *Client) InitFacevrfZim(request *InitFacevrfZimRequest) (_result *InitFacevrfZimResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &InitFacevrfZimResponse{}
+	_body, _err := client.InitFacevrfZimEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+// Description:
+//
+// Description: 客户端初始化认证(OEM专用)
+//
+// Summary: 客户端初始化认证(OEM专用)
+func (client *Client) InitFacevrfZimEx(request *InitFacevrfZimRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *InitFacevrfZimResponse, _err error) {
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &InitFacevrfZimResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("di.realperson.facevrf.zim.init"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
+}
+
+// Description:
+//
+// Description: 客户端人脸验证(OEM专用)
+//
+// Summary: 客户端人脸验证(OEM专用)
+func (client *Client) VerifyFacevrfZim(request *VerifyFacevrfZimRequest) (_result *VerifyFacevrfZimResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &VerifyFacevrfZimResponse{}
+	_body, _err := client.VerifyFacevrfZimEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+// Description:
+//
+// Description: 客户端人脸验证(OEM专用)
+//
+// Summary: 客户端人脸验证(OEM专用)
+func (client *Client) VerifyFacevrfZimEx(request *VerifyFacevrfZimRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *VerifyFacevrfZimResponse, _err error) {
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &VerifyFacevrfZimResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("di.realperson.facevrf.zim.verify"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
+}
+
+// Description:
+//
+// Description: 卡证OCR
+//
+// Summary: 卡证OCR
+func (client *Client) RecognizeDocIndividualcard(request *RecognizeDocIndividualcardRequest) (_result *RecognizeDocIndividualcardResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &RecognizeDocIndividualcardResponse{}
+	_body, _err := client.RecognizeDocIndividualcardEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+// Description:
+//
+// Description: 卡证OCR
+//
+// Summary: 卡证OCR
+func (client *Client) RecognizeDocIndividualcardEx(request *RecognizeDocIndividualcardRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *RecognizeDocIndividualcardResponse, _err error) {
+	if !tea.BoolValue(util.IsUnset(request.FileObject)) {
+		uploadReq := &CreateAntcloudGatewayxFileUploadRequest{
+			AuthToken: request.AuthToken,
+			ApiCode:   tea.String("di.realperson.doc.individualcard.recognize"),
+			FileName:  request.FileObjectName,
+		}
+		uploadResp, _err := client.CreateAntcloudGatewayxFileUploadEx(uploadReq, headers, runtime)
+		if _err != nil {
+			return _result, _err
+		}
+
+		if !tea.BoolValue(antchainutil.IsSuccess(uploadResp.ResultCode, tea.String("ok"))) {
+			recognizeDocIndividualcardResponse := &RecognizeDocIndividualcardResponse{
+				ReqMsgId:   uploadResp.ReqMsgId,
+				ResultCode: uploadResp.ResultCode,
+				ResultMsg:  uploadResp.ResultMsg,
+			}
+			_result = recognizeDocIndividualcardResponse
+			return _result, _err
+		}
+
+		uploadHeaders := antchainutil.ParseUploadHeaders(uploadResp.UploadHeaders)
+		_err = antchainutil.PutObject(request.FileObject, uploadHeaders, uploadResp.UploadUrl)
+		if _err != nil {
+			return _result, _err
+		}
+		request.FileId = uploadResp.FileId
+		request.FileObject = nil
+	}
+
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &RecognizeDocIndividualcardResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("di.realperson.doc.individualcard.recognize"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
+}
+
+// Description:
+//
+// Description: 个人银行卡三要素
+//
+// Summary: 个人银行卡三要素
+func (client *Client) CheckThreemetaBankcard(request *CheckThreemetaBankcardRequest) (_result *CheckThreemetaBankcardResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &CheckThreemetaBankcardResponse{}
+	_body, _err := client.CheckThreemetaBankcardEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+// Description:
+//
+// Description: 个人银行卡三要素
+//
+// Summary: 个人银行卡三要素
+func (client *Client) CheckThreemetaBankcardEx(request *CheckThreemetaBankcardRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *CheckThreemetaBankcardResponse, _err error) {
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &CheckThreemetaBankcardResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("di.realperson.threemeta.bankcard.check"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
+}
+
+// Description:
+//
+// Description: deepsec终端安全风险标签查询
+//
+// Summary: deepsec终端安全风险标签查询
+func (client *Client) QueryDeepsecRisk(request *QueryDeepsecRiskRequest) (_result *QueryDeepsecRiskResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &QueryDeepsecRiskResponse{}
+	_body, _err := client.QueryDeepsecRiskEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+// Description:
+//
+// Description: deepsec终端安全风险标签查询
+//
+// Summary: deepsec终端安全风险标签查询
+func (client *Client) QueryDeepsecRiskEx(request *QueryDeepsecRiskRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *QueryDeepsecRiskResponse, _err error) {
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &QueryDeepsecRiskResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("di.realperson.deepsec.risk.query"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
+}
+
+// Description:
+//
+// Description: deepsec终端安全api，用于apdid查询
+//
+// Summary: tsbmrq设备id查询入口
+func (client *Client) QueryDeepsecTsbmrq(request *QueryDeepsecTsbmrqRequest) (_result *QueryDeepsecTsbmrqResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &QueryDeepsecTsbmrqResponse{}
+	_body, _err := client.QueryDeepsecTsbmrqEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+// Description:
+//
+// Description: deepsec终端安全api，用于apdid查询
+//
+// Summary: tsbmrq设备id查询入口
+func (client *Client) QueryDeepsecTsbmrqEx(request *QueryDeepsecTsbmrqRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *QueryDeepsecTsbmrqResponse, _err error) {
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &QueryDeepsecTsbmrqResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("di.realperson.deepsec.tsbmrq.query"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
+}
+
+// Description:
+//
+// Description: 个人运营商二次放号
+//
+// Summary: 个人运营商二次放号
+func (client *Client) QueryThreemetaPhonereuse(request *QueryThreemetaPhonereuseRequest) (_result *QueryThreemetaPhonereuseResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &QueryThreemetaPhonereuseResponse{}
+	_body, _err := client.QueryThreemetaPhonereuseEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+// Description:
+//
+// Description: 个人运营商二次放号
+//
+// Summary: 个人运营商二次放号
+func (client *Client) QueryThreemetaPhonereuseEx(request *QueryThreemetaPhonereuseRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *QueryThreemetaPhonereuseResponse, _err error) {
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &QueryThreemetaPhonereuseResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("di.realperson.threemeta.phonereuse.query"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
+}
+
+// Description:
+//
+// Description: 查询设备信息
+//
+// Summary: 设备信息查询for蚁盾
+func (client *Client) QueryTscenterDevice(request *QueryTscenterDeviceRequest) (_result *QueryTscenterDeviceResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &QueryTscenterDeviceResponse{}
+	_body, _err := client.QueryTscenterDeviceEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+// Description:
+//
+// Description: 查询设备信息
+//
+// Summary: 设备信息查询for蚁盾
+func (client *Client) QueryTscenterDeviceEx(request *QueryTscenterDeviceRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *QueryTscenterDeviceResponse, _err error) {
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &QueryTscenterDeviceResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("di.realperson.tscenter.device.query"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
+}
+
+// Description:
+//
+// Description: 学历验证
+//
+// Summary: 学历验证
+func (client *Client) QueryEducationInfo(request *QueryEducationInfoRequest) (_result *QueryEducationInfoResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &QueryEducationInfoResponse{}
+	_body, _err := client.QueryEducationInfoEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+// Description:
+//
+// Description: 学历验证
+//
+// Summary: 学历验证
+func (client *Client) QueryEducationInfoEx(request *QueryEducationInfoRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *QueryEducationInfoResponse, _err error) {
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &QueryEducationInfoResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("di.realperson.education.info.query"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
+}
+
+// Description:
+//
+// Description: demo用记录查询
+//
+// Summary: demo用记录查询
+func (client *Client) QueryDemoInfo(request *QueryDemoInfoRequest) (_result *QueryDemoInfoResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &QueryDemoInfoResponse{}
+	_body, _err := client.QueryDemoInfoEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+// Description:
+//
+// Description: demo用记录查询
+//
+// Summary: demo用记录查询
+func (client *Client) QueryDemoInfoEx(request *QueryDemoInfoRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *QueryDemoInfoResponse, _err error) {
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &QueryDemoInfoResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("di.realperson.demo.info.query"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
+}
+
+// Description:
+//
+// Description: 个人银行卡二要素
+//
+// Summary: 个人银行卡二要素
+func (client *Client) CheckBankcardTwometa(request *CheckBankcardTwometaRequest) (_result *CheckBankcardTwometaResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &CheckBankcardTwometaResponse{}
+	_body, _err := client.CheckBankcardTwometaEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+// Description:
+//
+// Description: 个人银行卡二要素
+//
+// Summary: 个人银行卡二要素
+func (client *Client) CheckBankcardTwometaEx(request *CheckBankcardTwometaRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *CheckBankcardTwometaResponse, _err error) {
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &CheckBankcardTwometaResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("di.realperson.bankcard.twometa.check"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
+}
+
+// Description:
+//
+// Description: 个人运营商二要素
+//
+// Summary: 个人运营商二要素
+func (client *Client) CheckCarrierTwometa(request *CheckCarrierTwometaRequest) (_result *CheckCarrierTwometaResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &CheckCarrierTwometaResponse{}
+	_body, _err := client.CheckCarrierTwometaEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+// Description:
+//
+// Description: 个人运营商二要素
+//
+// Summary: 个人运营商二要素
+func (client *Client) CheckCarrierTwometaEx(request *CheckCarrierTwometaRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *CheckCarrierTwometaResponse, _err error) {
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &CheckCarrierTwometaResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("di.realperson.carrier.twometa.check"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
+}
+
+// Description:
+//
+// Description: NFC实证
+//
+// Summary: NFC实证
+func (client *Client) CreateNfcServer(request *CreateNfcServerRequest) (_result *CreateNfcServerResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &CreateNfcServerResponse{}
+	_body, _err := client.CreateNfcServerEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+// Description:
+//
+// Description: NFC实证
+//
+// Summary: NFC实证
+func (client *Client) CreateNfcServerEx(request *CreateNfcServerRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *CreateNfcServerResponse, _err error) {
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &CreateNfcServerResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("di.realperson.nfc.server.create"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
+}
+
+// Description:
+//
+// Description: NFC实证
+//
+// Summary: NFC实证
+func (client *Client) QueryNfcServer(request *QueryNfcServerRequest) (_result *QueryNfcServerResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &QueryNfcServerResponse{}
+	_body, _err := client.QueryNfcServerEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+// Description:
+//
+// Description: NFC实证
+//
+// Summary: NFC实证
+func (client *Client) QueryNfcServerEx(request *QueryNfcServerRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *QueryNfcServerResponse, _err error) {
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &QueryNfcServerResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("di.realperson.nfc.server.query"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
+}
+
+// Description:
+//
+// Description: 社会安全风险
+//
+// Summary: 社会安全风险
+func (client *Client) QuerySocialriskDetail(request *QuerySocialriskDetailRequest) (_result *QuerySocialriskDetailResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &QuerySocialriskDetailResponse{}
+	_body, _err := client.QuerySocialriskDetailEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+// Description:
+//
+// Description: 社会安全风险
+//
+// Summary: 社会安全风险
+func (client *Client) QuerySocialriskDetailEx(request *QuerySocialriskDetailRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *QuerySocialriskDetailResponse, _err error) {
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &QuerySocialriskDetailResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("di.realperson.socialrisk.detail.query"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
+}
+
+// Description:
+//
+// Description: 运营商在网状态查询
+//
+// Summary: 运营商在网状态查询
+func (client *Client) QueryCarrierNetstatus(request *QueryCarrierNetstatusRequest) (_result *QueryCarrierNetstatusResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &QueryCarrierNetstatusResponse{}
+	_body, _err := client.QueryCarrierNetstatusEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+// Description:
+//
+// Description: 运营商在网状态查询
+//
+// Summary: 运营商在网状态查询
+func (client *Client) QueryCarrierNetstatusEx(request *QueryCarrierNetstatusRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *QueryCarrierNetstatusResponse, _err error) {
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &QueryCarrierNetstatusResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("di.realperson.carrier.netstatus.query"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
+}
+
+// Description:
+//
+// Description: 社会安全风险（简版）
+//
+// Summary: 社会安全风险（简版）
+func (client *Client) QuerySocialriskBrief(request *QuerySocialriskBriefRequest) (_result *QuerySocialriskBriefResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &QuerySocialriskBriefResponse{}
+	_body, _err := client.QuerySocialriskBriefEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+// Description:
+//
+// Description: 社会安全风险（简版）
+//
+// Summary: 社会安全风险（简版）
+func (client *Client) QuerySocialriskBriefEx(request *QuerySocialriskBriefRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *QuerySocialriskBriefResponse, _err error) {
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &QuerySocialriskBriefResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("di.realperson.socialrisk.brief.query"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
+}
+
+// Description:
+//
+// Description: 社会安全风险（tob风控版）
+//
+// Summary: 社会安全风险（tob风控版）
+func (client *Client) QuerySocialriskTobrisk(request *QuerySocialriskTobriskRequest) (_result *QuerySocialriskTobriskResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &QuerySocialriskTobriskResponse{}
+	_body, _err := client.QuerySocialriskTobriskEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+// Description:
+//
+// Description: 社会安全风险（tob风控版）
+//
+// Summary: 社会安全风险（tob风控版）
+func (client *Client) QuerySocialriskTobriskEx(request *QuerySocialriskTobriskRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *QuerySocialriskTobriskResponse, _err error) {
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &QuerySocialriskTobriskResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("di.realperson.socialrisk.tobrisk.query"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
+}
+
+// Description:
+//
+// Description: 纯服务端比对，直接输入待比对的图片，返回比对结果
+//
+// Summary: 纯服务端比对V2版本
+func (client *Client) ExecFacevrfServermode(request *ExecFacevrfServermodeRequest) (_result *ExecFacevrfServermodeResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &ExecFacevrfServermodeResponse{}
+	_body, _err := client.ExecFacevrfServermodeEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+// Description:
+//
+// Description: 纯服务端比对，直接输入待比对的图片，返回比对结果
+//
+// Summary: 纯服务端比对V2版本
+func (client *Client) ExecFacevrfServermodeEx(request *ExecFacevrfServermodeRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *ExecFacevrfServermodeResponse, _err error) {
+	if !tea.BoolValue(util.IsUnset(request.FileObject)) {
+		uploadReq := &CreateAntcloudGatewayxFileUploadRequest{
+			AuthToken: request.AuthToken,
+			ApiCode:   tea.String("di.realperson.facevrf.servermode.exec"),
+			FileName:  request.FileObjectName,
+		}
+		uploadResp, _err := client.CreateAntcloudGatewayxFileUploadEx(uploadReq, headers, runtime)
+		if _err != nil {
+			return _result, _err
+		}
+
+		if !tea.BoolValue(antchainutil.IsSuccess(uploadResp.ResultCode, tea.String("ok"))) {
+			execFacevrfServermodeResponse := &ExecFacevrfServermodeResponse{
+				ReqMsgId:   uploadResp.ReqMsgId,
+				ResultCode: uploadResp.ResultCode,
+				ResultMsg:  uploadResp.ResultMsg,
+			}
+			_result = execFacevrfServermodeResponse
+			return _result, _err
+		}
+
+		uploadHeaders := antchainutil.ParseUploadHeaders(uploadResp.UploadHeaders)
+		_err = antchainutil.PutObject(request.FileObject, uploadHeaders, uploadResp.UploadUrl)
+		if _err != nil {
+			return _result, _err
+		}
+		request.FileId = uploadResp.FileId
+		request.FileObject = nil
+	}
+
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &ExecFacevrfServermodeResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("di.realperson.facevrf.servermode.exec"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
+}
+
+// Description:
+//
+// Description: 个人银行卡状态标准版
+//
+// Summary: 个人银行卡状态标准版
+func (client *Client) QueryBankLiveness(request *QueryBankLivenessRequest) (_result *QueryBankLivenessResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &QueryBankLivenessResponse{}
+	_body, _err := client.QueryBankLivenessEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+// Description:
+//
+// Description: 个人银行卡状态标准版
+//
+// Summary: 个人银行卡状态标准版
+func (client *Client) QueryBankLivenessEx(request *QueryBankLivenessRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *QueryBankLivenessResponse, _err error) {
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &QueryBankLivenessResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("di.realperson.bank.liveness.query"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
+}
+
+// Description:
+//
+// Description: 用于阿里云渠道小程序域名的绑定
+//
+// Summary: 新增场景与域名映射
+func (client *Client) CreateConsoleDomain(request *CreateConsoleDomainRequest) (_result *CreateConsoleDomainResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &CreateConsoleDomainResponse{}
+	_body, _err := client.CreateConsoleDomainEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+// Description:
+//
+// Description: 用于阿里云渠道小程序域名的绑定
+//
+// Summary: 新增场景与域名映射
+func (client *Client) CreateConsoleDomainEx(request *CreateConsoleDomainRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *CreateConsoleDomainResponse, _err error) {
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &CreateConsoleDomainResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("di.realperson.console.domain.create"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
+}
+
+// Description:
+//
+// Description: 阿里云控制台删除场景与域名映射
+//
+// Summary: 删除场景与域名映射
+func (client *Client) DeleteConsoleDomain(request *DeleteConsoleDomainRequest) (_result *DeleteConsoleDomainResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &DeleteConsoleDomainResponse{}
+	_body, _err := client.DeleteConsoleDomainEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+// Description:
+//
+// Description: 阿里云控制台删除场景与域名映射
+//
+// Summary: 删除场景与域名映射
+func (client *Client) DeleteConsoleDomainEx(request *DeleteConsoleDomainRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *DeleteConsoleDomainResponse, _err error) {
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &DeleteConsoleDomainResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("di.realperson.console.domain.delete"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
+}
+
+// Description:
+//
+// Description: 失联修复初始化
+//
+// Summary: 失联修复初始化
+func (client *Client) InitCarrierRepairmobile(request *InitCarrierRepairmobileRequest) (_result *InitCarrierRepairmobileResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &InitCarrierRepairmobileResponse{}
+	_body, _err := client.InitCarrierRepairmobileEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+// Description:
+//
+// Description: 失联修复初始化
+//
+// Summary: 失联修复初始化
+func (client *Client) InitCarrierRepairmobileEx(request *InitCarrierRepairmobileRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *InitCarrierRepairmobileResponse, _err error) {
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &InitCarrierRepairmobileResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("di.realperson.carrier.repairmobile.init"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
+}
+
+// Description:
+//
+// Description: 失联修复查询修复结果
+//
+// Summary: 失联修复查询修复结果
+func (client *Client) QueryCarrierRepairmobile(request *QueryCarrierRepairmobileRequest) (_result *QueryCarrierRepairmobileResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &QueryCarrierRepairmobileResponse{}
+	_body, _err := client.QueryCarrierRepairmobileEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+// Description:
+//
+// Description: 失联修复查询修复结果
+//
+// Summary: 失联修复查询修复结果
+func (client *Client) QueryCarrierRepairmobileEx(request *QueryCarrierRepairmobileRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *QueryCarrierRepairmobileResponse, _err error) {
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &QueryCarrierRepairmobileResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("di.realperson.carrier.repairmobile.query"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
+}
+
+// Description:
+//
+// Description: 失联修复小号绑定
+//
+// Summary: 失联修复小号绑定
+func (client *Client) BindCarrierRepairmobile(request *BindCarrierRepairmobileRequest) (_result *BindCarrierRepairmobileResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &BindCarrierRepairmobileResponse{}
+	_body, _err := client.BindCarrierRepairmobileEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+// Description:
+//
+// Description: 失联修复小号绑定
+//
+// Summary: 失联修复小号绑定
+func (client *Client) BindCarrierRepairmobileEx(request *BindCarrierRepairmobileRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *BindCarrierRepairmobileResponse, _err error) {
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &BindCarrierRepairmobileResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("di.realperson.carrier.repairmobile.bind"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
+}
+
+// Description:
+//
+// Description: 外部机构数据上报
+//
+// Summary: 外部机构数据上报
+func (client *Client) ApplyExtOrgdata(request *ApplyExtOrgdataRequest) (_result *ApplyExtOrgdataResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &ApplyExtOrgdataResponse{}
+	_body, _err := client.ApplyExtOrgdataEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+// Description:
+//
+// Description: 外部机构数据上报
+//
+// Summary: 外部机构数据上报
+func (client *Client) ApplyExtOrgdataEx(request *ApplyExtOrgdataRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *ApplyExtOrgdataResponse, _err error) {
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &ApplyExtOrgdataResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("di.realperson.ext.orgdata.apply"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
+}
+
+// Description:
+//
+// Description: 数科刷脸服务端初始化接口
+//
+// Summary: 数科刷脸服务端初始化接口
+func (client *Client) CreateFaceverifyServer(request *CreateFaceverifyServerRequest) (_result *CreateFaceverifyServerResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &CreateFaceverifyServerResponse{}
+	_body, _err := client.CreateFaceverifyServerEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+// Description:
+//
+// Description: 数科刷脸服务端初始化接口
+//
+// Summary: 数科刷脸服务端初始化接口
+func (client *Client) CreateFaceverifyServerEx(request *CreateFaceverifyServerRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *CreateFaceverifyServerResponse, _err error) {
+	if !tea.BoolValue(util.IsUnset(request.FileObject)) {
+		uploadReq := &CreateAntcloudGatewayxFileUploadRequest{
+			AuthToken: request.AuthToken,
+			ApiCode:   tea.String("di.realperson.faceverify.server.create"),
+			FileName:  request.FileObjectName,
+		}
+		uploadResp, _err := client.CreateAntcloudGatewayxFileUploadEx(uploadReq, headers, runtime)
+		if _err != nil {
+			return _result, _err
+		}
+
+		if !tea.BoolValue(antchainutil.IsSuccess(uploadResp.ResultCode, tea.String("ok"))) {
+			createFaceverifyServerResponse := &CreateFaceverifyServerResponse{
+				ReqMsgId:   uploadResp.ReqMsgId,
+				ResultCode: uploadResp.ResultCode,
+				ResultMsg:  uploadResp.ResultMsg,
+			}
+			_result = createFaceverifyServerResponse
+			return _result, _err
+		}
+
+		uploadHeaders := antchainutil.ParseUploadHeaders(uploadResp.UploadHeaders)
+		_err = antchainutil.PutObject(request.FileObject, uploadHeaders, uploadResp.UploadUrl)
+		if _err != nil {
+			return _result, _err
+		}
+		request.FileId = uploadResp.FileId
+		request.FileObject = nil
+	}
+
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &CreateFaceverifyServerResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("di.realperson.faceverify.server.create"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
+}
+
+// Description:
+//
+// Description: 查询认证的结果和相关信息
+//
+// Summary: 认证查询
+func (client *Client) QueryFaceverifyServer(request *QueryFaceverifyServerRequest) (_result *QueryFaceverifyServerResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &QueryFaceverifyServerResponse{}
+	_body, _err := client.QueryFaceverifyServerEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+// Description:
+//
+// Description: 查询认证的结果和相关信息
+//
+// Summary: 认证查询
+func (client *Client) QueryFaceverifyServerEx(request *QueryFaceverifyServerRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *QueryFaceverifyServerResponse, _err error) {
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &QueryFaceverifyServerResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("di.realperson.faceverify.server.query"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
+}
+
+// Description:
+//
+// Description: 个人银行卡状态增强版
+//
+// Summary: 个人银行卡状态增强版
+func (client *Client) QueryBankLivenessplus(request *QueryBankLivenessplusRequest) (_result *QueryBankLivenessplusResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &QueryBankLivenessplusResponse{}
+	_body, _err := client.QueryBankLivenessplusEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+// Description:
+//
+// Description: 个人银行卡状态增强版
+//
+// Summary: 个人银行卡状态增强版
+func (client *Client) QueryBankLivenessplusEx(request *QueryBankLivenessplusRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *QueryBankLivenessplusResponse, _err error) {
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &QueryBankLivenessplusResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("di.realperson.bank.livenessplus.query"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
+}
+
+// Description:
+//
+// Description: 纯服务端比对基础版本，直接输入待比对的图片，返回比对结果
+//
+// Summary: 纯服务端比对基础版
+func (client *Client) ExecFaceverifyServermode(request *ExecFaceverifyServermodeRequest) (_result *ExecFaceverifyServermodeResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &ExecFaceverifyServermodeResponse{}
+	_body, _err := client.ExecFaceverifyServermodeEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+// Description:
+//
+// Description: 纯服务端比对基础版本，直接输入待比对的图片，返回比对结果
+//
+// Summary: 纯服务端比对基础版
+func (client *Client) ExecFaceverifyServermodeEx(request *ExecFaceverifyServermodeRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *ExecFaceverifyServermodeResponse, _err error) {
+	if !tea.BoolValue(util.IsUnset(request.FileObject)) {
+		uploadReq := &CreateAntcloudGatewayxFileUploadRequest{
+			AuthToken: request.AuthToken,
+			ApiCode:   tea.String("di.realperson.faceverify.servermode.exec"),
+			FileName:  request.FileObjectName,
+		}
+		uploadResp, _err := client.CreateAntcloudGatewayxFileUploadEx(uploadReq, headers, runtime)
+		if _err != nil {
+			return _result, _err
+		}
+
+		if !tea.BoolValue(antchainutil.IsSuccess(uploadResp.ResultCode, tea.String("ok"))) {
+			execFaceverifyServermodeResponse := &ExecFaceverifyServermodeResponse{
+				ReqMsgId:   uploadResp.ReqMsgId,
+				ResultCode: uploadResp.ResultCode,
+				ResultMsg:  uploadResp.ResultMsg,
+			}
+			_result = execFaceverifyServermodeResponse
+			return _result, _err
+		}
+
+		uploadHeaders := antchainutil.ParseUploadHeaders(uploadResp.UploadHeaders)
+		_err = antchainutil.PutObject(request.FileObject, uploadHeaders, uploadResp.UploadUrl)
+		if _err != nil {
+			return _result, _err
+		}
+		request.FileId = uploadResp.FileId
+		request.FileObject = nil
+	}
+
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &ExecFaceverifyServermodeResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("di.realperson.faceverify.servermode.exec"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
+}
+
+// Description:
+//
+// Description: 支付宝实人认证初始化接口
+//
+// Summary: 支付宝实人认证初始化接口
+func (client *Client) CreateAlipayverifyServer(request *CreateAlipayverifyServerRequest) (_result *CreateAlipayverifyServerResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &CreateAlipayverifyServerResponse{}
+	_body, _err := client.CreateAlipayverifyServerEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+// Description:
+//
+// Description: 支付宝实人认证初始化接口
+//
+// Summary: 支付宝实人认证初始化接口
+func (client *Client) CreateAlipayverifyServerEx(request *CreateAlipayverifyServerRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *CreateAlipayverifyServerResponse, _err error) {
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &CreateAlipayverifyServerResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("di.realperson.alipayverify.server.create"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
+}
+
+// Description:
+//
+// Description: 支付宝实人认证查询接口
+//
+// Summary: 支付宝实人认证查询接口
+func (client *Client) QueryAlipayverifyServer(request *QueryAlipayverifyServerRequest) (_result *QueryAlipayverifyServerResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &QueryAlipayverifyServerResponse{}
+	_body, _err := client.QueryAlipayverifyServerEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+// Description:
+//
+// Description: 支付宝实人认证查询接口
+//
+// Summary: 支付宝实人认证查询接口
+func (client *Client) QueryAlipayverifyServerEx(request *QueryAlipayverifyServerRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *QueryAlipayverifyServerResponse, _err error) {
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &QueryAlipayverifyServerResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("di.realperson.alipayverify.server.query"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
+}
+
+// Description:
+//
+// Description: 车辆资产验证
+//
+// Summary: 车辆资产验证
+func (client *Client) CheckCarTwometa(request *CheckCarTwometaRequest) (_result *CheckCarTwometaResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &CheckCarTwometaResponse{}
+	_body, _err := client.CheckCarTwometaEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+// Description:
+//
+// Description: 车辆资产验证
+//
+// Summary: 车辆资产验证
+func (client *Client) CheckCarTwometaEx(request *CheckCarTwometaRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *CheckCarTwometaResponse, _err error) {
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &CheckCarTwometaResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("di.realperson.car.twometa.check"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
+}
+
+// Description:
+//
+// Description: 学历验证
+//
+// Summary: 学历验证
+func (client *Client) QueryEducationBackground(request *QueryEducationBackgroundRequest) (_result *QueryEducationBackgroundResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &QueryEducationBackgroundResponse{}
+	_body, _err := client.QueryEducationBackgroundEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+// Description:
+//
+// Description: 学历验证
+//
+// Summary: 学历验证
+func (client *Client) QueryEducationBackgroundEx(request *QueryEducationBackgroundRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *QueryEducationBackgroundResponse, _err error) {
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &QueryEducationBackgroundResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("di.realperson.education.background.query"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
+}
+
+// Description:
+//
+// Description: 个人银行卡状态基础版
+//
+// Summary: 个人银行卡状态基础版
+func (client *Client) QueryBankLivenessfour(request *QueryBankLivenessfourRequest) (_result *QueryBankLivenessfourResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &QueryBankLivenessfourResponse{}
+	_body, _err := client.QueryBankLivenessfourEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+// Description:
+//
+// Description: 个人银行卡状态基础版
+//
+// Summary: 个人银行卡状态基础版
+func (client *Client) QueryBankLivenessfourEx(request *QueryBankLivenessfourRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *QueryBankLivenessfourResponse, _err error) {
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &QueryBankLivenessfourResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("di.realperson.bank.livenessfour.query"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
+}
+
+// Description:
+//
+// Description: 查询认证的材料信息
+//
+// Summary: 认证材料查询
+func (client *Client) QueryFaceverifyServermaterial(request *QueryFaceverifyServermaterialRequest) (_result *QueryFaceverifyServermaterialResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &QueryFaceverifyServermaterialResponse{}
+	_body, _err := client.QueryFaceverifyServermaterialEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+// Description:
+//
+// Description: 查询认证的材料信息
+//
+// Summary: 认证材料查询
+func (client *Client) QueryFaceverifyServermaterialEx(request *QueryFaceverifyServermaterialRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *QueryFaceverifyServermaterialResponse, _err error) {
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &QueryFaceverifyServermaterialResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("di.realperson.faceverify.servermaterial.query"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
+}
+
+// Description:
+//
+// Description: 图片压缩接口
+//
+// Summary: 图片压缩接口
+func (client *Client) ScaleinImage(request *ScaleinImageRequest) (_result *ScaleinImageResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &ScaleinImageResponse{}
+	_body, _err := client.ScaleinImageEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+// Description:
+//
+// Description: 图片压缩接口
+//
+// Summary: 图片压缩接口
+func (client *Client) ScaleinImageEx(request *ScaleinImageRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *ScaleinImageResponse, _err error) {
+	if !tea.BoolValue(util.IsUnset(request.FileObject)) {
+		uploadReq := &CreateAntcloudGatewayxFileUploadRequest{
+			AuthToken: request.AuthToken,
+			ApiCode:   tea.String("di.realperson.image.scalein"),
+			FileName:  request.FileObjectName,
+		}
+		uploadResp, _err := client.CreateAntcloudGatewayxFileUploadEx(uploadReq, headers, runtime)
+		if _err != nil {
+			return _result, _err
+		}
+
+		if !tea.BoolValue(antchainutil.IsSuccess(uploadResp.ResultCode, tea.String("ok"))) {
+			scaleinImageResponse := &ScaleinImageResponse{
+				ReqMsgId:   uploadResp.ReqMsgId,
+				ResultCode: uploadResp.ResultCode,
+				ResultMsg:  uploadResp.ResultMsg,
+			}
+			_result = scaleinImageResponse
+			return _result, _err
+		}
+
+		uploadHeaders := antchainutil.ParseUploadHeaders(uploadResp.UploadHeaders)
+		_err = antchainutil.PutObject(request.FileObject, uploadHeaders, uploadResp.UploadUrl)
+		if _err != nil {
+			return _result, _err
+		}
+		request.FileId = uploadResp.FileId
+		request.FileObject = nil
+	}
+
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &ScaleinImageResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("di.realperson.image.scalein"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
+}
+
+// Description:
+//
+// Description: 要素卡证OCR
+//
+// Summary: 要素卡证OCR
+func (client *Client) RecognizeOcrIndividualcard(request *RecognizeOcrIndividualcardRequest) (_result *RecognizeOcrIndividualcardResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &RecognizeOcrIndividualcardResponse{}
+	_body, _err := client.RecognizeOcrIndividualcardEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+// Description:
+//
+// Description: 要素卡证OCR
+//
+// Summary: 要素卡证OCR
+func (client *Client) RecognizeOcrIndividualcardEx(request *RecognizeOcrIndividualcardRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *RecognizeOcrIndividualcardResponse, _err error) {
+	if !tea.BoolValue(util.IsUnset(request.FileObject)) {
+		uploadReq := &CreateAntcloudGatewayxFileUploadRequest{
+			AuthToken: request.AuthToken,
+			ApiCode:   tea.String("di.realperson.ocr.individualcard.recognize"),
+			FileName:  request.FileObjectName,
+		}
+		uploadResp, _err := client.CreateAntcloudGatewayxFileUploadEx(uploadReq, headers, runtime)
+		if _err != nil {
+			return _result, _err
+		}
+
+		if !tea.BoolValue(antchainutil.IsSuccess(uploadResp.ResultCode, tea.String("ok"))) {
+			recognizeOcrIndividualcardResponse := &RecognizeOcrIndividualcardResponse{
+				ReqMsgId:   uploadResp.ReqMsgId,
+				ResultCode: uploadResp.ResultCode,
+				ResultMsg:  uploadResp.ResultMsg,
+			}
+			_result = recognizeOcrIndividualcardResponse
+			return _result, _err
+		}
+
+		uploadHeaders := antchainutil.ParseUploadHeaders(uploadResp.UploadHeaders)
+		_err = antchainutil.PutObject(request.FileObject, uploadHeaders, uploadResp.UploadUrl)
+		if _err != nil {
+			return _result, _err
+		}
+		request.FileId = uploadResp.FileId
+		request.FileObject = nil
+	}
+
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &RecognizeOcrIndividualcardResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("di.realperson.ocr.individualcard.recognize"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
+}
+
+// Description:
+//
+// Description: 个人四要素认证
+//
+// Summary: 个人四要素认证
+func (client *Client) CheckIdcardFourmeta(request *CheckIdcardFourmetaRequest) (_result *CheckIdcardFourmetaResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &CheckIdcardFourmetaResponse{}
+	_body, _err := client.CheckIdcardFourmetaEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+// Description:
+//
+// Description: 个人四要素认证
+//
+// Summary: 个人四要素认证
+func (client *Client) CheckIdcardFourmetaEx(request *CheckIdcardFourmetaRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *CheckIdcardFourmetaResponse, _err error) {
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &CheckIdcardFourmetaResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("di.realperson.idcard.fourmeta.check"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
+}
+
+// Description:
+//
+// Description: 车辆资产验证详版
+//
+// Summary: 车辆资产验证详版
+func (client *Client) QueryCarinfoDetail(request *QueryCarinfoDetailRequest) (_result *QueryCarinfoDetailResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &QueryCarinfoDetailResponse{}
+	_body, _err := client.QueryCarinfoDetailEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+// Description:
+//
+// Description: 车辆资产验证详版
+//
+// Summary: 车辆资产验证详版
+func (client *Client) QueryCarinfoDetailEx(request *QueryCarinfoDetailRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *QueryCarinfoDetailResponse, _err error) {
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &QueryCarinfoDetailResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("di.realperson.carinfo.detail.query"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
+}
+
+// Description:
+//
+// Description: 车辆资产验证简版
+//
+// Summary: 车辆资产验证简版
+func (client *Client) QueryCarinfoBrief(request *QueryCarinfoBriefRequest) (_result *QueryCarinfoBriefResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &QueryCarinfoBriefResponse{}
+	_body, _err := client.QueryCarinfoBriefEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+// Description:
+//
+// Description: 车辆资产验证简版
+//
+// Summary: 车辆资产验证简版
+func (client *Client) QueryCarinfoBriefEx(request *QueryCarinfoBriefRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *QueryCarinfoBriefResponse, _err error) {
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &QueryCarinfoBriefResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("di.realperson.carinfo.brief.query"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
+}
+
+// Description:
+//
+// Description: 银行卡代扣预绑定
+//
+// Summary: 银行卡代扣预绑定
+func (client *Client) BindCutpaymentPre(request *BindCutpaymentPreRequest) (_result *BindCutpaymentPreResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &BindCutpaymentPreResponse{}
+	_body, _err := client.BindCutpaymentPreEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+// Description:
+//
+// Description: 银行卡代扣预绑定
+//
+// Summary: 银行卡代扣预绑定
+func (client *Client) BindCutpaymentPreEx(request *BindCutpaymentPreRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *BindCutpaymentPreResponse, _err error) {
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &BindCutpaymentPreResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("di.realperson.cutpayment.pre.bind"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
+}
+
+// Description:
+//
+// Description: 银行卡代扣绑卡签约
+//
+// Summary: 银行卡代扣绑卡签约
+func (client *Client) BindCutpaymentSign(request *BindCutpaymentSignRequest) (_result *BindCutpaymentSignResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &BindCutpaymentSignResponse{}
+	_body, _err := client.BindCutpaymentSignEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+// Description:
+//
+// Description: 银行卡代扣绑卡签约
+//
+// Summary: 银行卡代扣绑卡签约
+func (client *Client) BindCutpaymentSignEx(request *BindCutpaymentSignRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *BindCutpaymentSignResponse, _err error) {
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &BindCutpaymentSignResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("di.realperson.cutpayment.sign.bind"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
+}
+
+// Description:
+//
+// Description: 银行卡代扣解绑
+//
+// Summary: 银行卡代扣解绑
+func (client *Client) UnbindCutpaymentSign(request *UnbindCutpaymentSignRequest) (_result *UnbindCutpaymentSignResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &UnbindCutpaymentSignResponse{}
+	_body, _err := client.UnbindCutpaymentSignEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+// Description:
+//
+// Description: 银行卡代扣解绑
+//
+// Summary: 银行卡代扣解绑
+func (client *Client) UnbindCutpaymentSignEx(request *UnbindCutpaymentSignRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *UnbindCutpaymentSignResponse, _err error) {
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &UnbindCutpaymentSignResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("di.realperson.cutpayment.sign.unbind"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
+}
+
+// Description:
+//
+// Description: 银行卡代扣绑定结果查询
+//
+// Summary: 银行卡代扣绑定结果查询
+func (client *Client) QueryCutpaymentBind(request *QueryCutpaymentBindRequest) (_result *QueryCutpaymentBindResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &QueryCutpaymentBindResponse{}
+	_body, _err := client.QueryCutpaymentBindEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+// Description:
+//
+// Description: 银行卡代扣绑定结果查询
+//
+// Summary: 银行卡代扣绑定结果查询
+func (client *Client) QueryCutpaymentBindEx(request *QueryCutpaymentBindRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *QueryCutpaymentBindResponse, _err error) {
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &QueryCutpaymentBindResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("di.realperson.cutpayment.bind.query"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
+}
+
+// Description:
+//
+// Description: 银行卡代扣支付分账扣款
+//
+// Summary: 银行卡代扣支付分账扣款
+func (client *Client) ApplyCutpaymentPayment(request *ApplyCutpaymentPaymentRequest) (_result *ApplyCutpaymentPaymentResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &ApplyCutpaymentPaymentResponse{}
+	_body, _err := client.ApplyCutpaymentPaymentEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+// Description:
+//
+// Description: 银行卡代扣支付分账扣款
+//
+// Summary: 银行卡代扣支付分账扣款
+func (client *Client) ApplyCutpaymentPaymentEx(request *ApplyCutpaymentPaymentRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *ApplyCutpaymentPaymentResponse, _err error) {
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &ApplyCutpaymentPaymentResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("di.realperson.cutpayment.payment.apply"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
+}
+
+// Description:
+//
+// Description: 银行卡代扣支付分账查询
+//
+// Summary: 银行卡代扣支付分账查询
+func (client *Client) QueryCutpaymentPayment(request *QueryCutpaymentPaymentRequest) (_result *QueryCutpaymentPaymentResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &QueryCutpaymentPaymentResponse{}
+	_body, _err := client.QueryCutpaymentPaymentEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+// Description:
+//
+// Description: 银行卡代扣支付分账查询
+//
+// Summary: 银行卡代扣支付分账查询
+func (client *Client) QueryCutpaymentPaymentEx(request *QueryCutpaymentPaymentRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *QueryCutpaymentPaymentResponse, _err error) {
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &QueryCutpaymentPaymentResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("di.realperson.cutpayment.payment.query"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
+}
+
+// Description:
+//
+// Description: 银行卡代扣退款申请
+//
+// Summary: 银行卡代扣退款申请
+func (client *Client) ApplyCutpaymentRefund(request *ApplyCutpaymentRefundRequest) (_result *ApplyCutpaymentRefundResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &ApplyCutpaymentRefundResponse{}
+	_body, _err := client.ApplyCutpaymentRefundEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+// Description:
+//
+// Description: 银行卡代扣退款申请
+//
+// Summary: 银行卡代扣退款申请
+func (client *Client) ApplyCutpaymentRefundEx(request *ApplyCutpaymentRefundRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *ApplyCutpaymentRefundResponse, _err error) {
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &ApplyCutpaymentRefundResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("di.realperson.cutpayment.refund.apply"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
+}
+
+// Description:
+//
+// Description: 银行卡代扣退款查询
+//
+// Summary: 银行卡代扣退款查询
+func (client *Client) QueryCutpaymentRefund(request *QueryCutpaymentRefundRequest) (_result *QueryCutpaymentRefundResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &QueryCutpaymentRefundResponse{}
+	_body, _err := client.QueryCutpaymentRefundEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+// Description:
+//
+// Description: 银行卡代扣退款查询
+//
+// Summary: 银行卡代扣退款查询
+func (client *Client) QueryCutpaymentRefundEx(request *QueryCutpaymentRefundRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *QueryCutpaymentRefundResponse, _err error) {
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &QueryCutpaymentRefundResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("di.realperson.cutpayment.refund.query"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
+}
+
+// Description:
+//
+// Description: 银行卡代扣对账
+//
+// Summary: 银行卡代扣对账
+func (client *Client) QueryCutpaymentStatement(request *QueryCutpaymentStatementRequest) (_result *QueryCutpaymentStatementResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &QueryCutpaymentStatementResponse{}
+	_body, _err := client.QueryCutpaymentStatementEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+// Description:
+//
+// Description: 银行卡代扣对账
+//
+// Summary: 银行卡代扣对账
+func (client *Client) QueryCutpaymentStatementEx(request *QueryCutpaymentStatementRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *QueryCutpaymentStatementResponse, _err error) {
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &QueryCutpaymentStatementResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("di.realperson.cutpayment.statement.query"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
+}
+
+// Description:
+//
+// Description: 人像、证件号、姓名比对接口
+//
+// Summary: 人像、证件号、姓名比对
+func (client *Client) ExecFaceThreemeta(request *ExecFaceThreemetaRequest) (_result *ExecFaceThreemetaResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &ExecFaceThreemetaResponse{}
+	_body, _err := client.ExecFaceThreemetaEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+// Description:
+//
+// Description: 人像、证件号、姓名比对接口
+//
+// Summary: 人像、证件号、姓名比对
+func (client *Client) ExecFaceThreemetaEx(request *ExecFaceThreemetaRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *ExecFaceThreemetaResponse, _err error) {
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &ExecFaceThreemetaResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("di.realperson.face.threemeta.exec"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
+}
+
+// Description:
+//
+// Description: 用户资产验证-车辆资产验证旗舰版
+//
+// Summary: 用户资产验证-车辆资产验证旗舰版
+func (client *Client) QueryCarinfoUltimate(request *QueryCarinfoUltimateRequest) (_result *QueryCarinfoUltimateResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &QueryCarinfoUltimateResponse{}
+	_body, _err := client.QueryCarinfoUltimateEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+// Description:
+//
+// Description: 用户资产验证-车辆资产验证旗舰版
+//
+// Summary: 用户资产验证-车辆资产验证旗舰版
+func (client *Client) QueryCarinfoUltimateEx(request *QueryCarinfoUltimateRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *QueryCarinfoUltimateResponse, _err error) {
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &QueryCarinfoUltimateResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("di.realperson.carinfo.ultimate.query"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
+}
+
+// Description:
+//
+// Description: 用户资产验证-车辆资产验证增强版
+//
+// Summary: 用户资产验证-车辆资产验证增强版
+func (client *Client) QueryCarinfoPlus(request *QueryCarinfoPlusRequest) (_result *QueryCarinfoPlusResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &QueryCarinfoPlusResponse{}
+	_body, _err := client.QueryCarinfoPlusEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+// Description:
+//
+// Description: 用户资产验证-车辆资产验证增强版
+//
+// Summary: 用户资产验证-车辆资产验证增强版
+func (client *Client) QueryCarinfoPlusEx(request *QueryCarinfoPlusRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *QueryCarinfoPlusResponse, _err error) {
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &QueryCarinfoPlusResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("di.realperson.carinfo.plus.query"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
+}
+
+// Description:
+//
+// Description: 银行卡代扣二级租户开户
+//
+// Summary: 银行卡代扣二级租户开户
+func (client *Client) OpenCutpaymentsubAccount(request *OpenCutpaymentsubAccountRequest) (_result *OpenCutpaymentsubAccountResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &OpenCutpaymentsubAccountResponse{}
+	_body, _err := client.OpenCutpaymentsubAccountEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+// Description:
+//
+// Description: 银行卡代扣二级租户开户
+//
+// Summary: 银行卡代扣二级租户开户
+func (client *Client) OpenCutpaymentsubAccountEx(request *OpenCutpaymentsubAccountRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *OpenCutpaymentsubAccountResponse, _err error) {
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &OpenCutpaymentsubAccountResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("di.realperson.cutpaymentsub.account.open"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
+}
+
+// Description:
+//
+// Description: 银行卡代扣二级租户查询开户状态
+//
+// Summary: 银行卡代扣二级租户查询开户状态
+func (client *Client) QueryCutpaymentsubAccount(request *QueryCutpaymentsubAccountRequest) (_result *QueryCutpaymentsubAccountResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &QueryCutpaymentsubAccountResponse{}
+	_body, _err := client.QueryCutpaymentsubAccountEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+// Description:
+//
+// Description: 银行卡代扣二级租户查询开户状态
+//
+// Summary: 银行卡代扣二级租户查询开户状态
+func (client *Client) QueryCutpaymentsubAccountEx(request *QueryCutpaymentsubAccountRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *QueryCutpaymentsubAccountResponse, _err error) {
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &QueryCutpaymentsubAccountResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("di.realperson.cutpaymentsub.account.query"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
+}
+
+// Description:
+//
+// Description: 银行卡代扣二级租户分账
+//
+// Summary: 银行卡代扣二级租户分账
+func (client *Client) TransferCutpaymentsubRevenue(request *TransferCutpaymentsubRevenueRequest) (_result *TransferCutpaymentsubRevenueResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &TransferCutpaymentsubRevenueResponse{}
+	_body, _err := client.TransferCutpaymentsubRevenueEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+// Description:
+//
+// Description: 银行卡代扣二级租户分账
+//
+// Summary: 银行卡代扣二级租户分账
+func (client *Client) TransferCutpaymentsubRevenueEx(request *TransferCutpaymentsubRevenueRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *TransferCutpaymentsubRevenueResponse, _err error) {
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &TransferCutpaymentsubRevenueResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("di.realperson.cutpaymentsub.revenue.transfer"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
+}
+
+// Description:
+//
+// Description: 银行卡代扣二级租户查询分账
+//
+// Summary: 银行卡代扣二级租户查询分账
+func (client *Client) QueryCutpaymentsubRevenue(request *QueryCutpaymentsubRevenueRequest) (_result *QueryCutpaymentsubRevenueResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &QueryCutpaymentsubRevenueResponse{}
+	_body, _err := client.QueryCutpaymentsubRevenueEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+// Description:
+//
+// Description: 银行卡代扣二级租户查询分账
+//
+// Summary: 银行卡代扣二级租户查询分账
+func (client *Client) QueryCutpaymentsubRevenueEx(request *QueryCutpaymentsubRevenueRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *QueryCutpaymentsubRevenueResponse, _err error) {
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &QueryCutpaymentsubRevenueResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("di.realperson.cutpaymentsub.revenue.query"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
+}
+
+// Description:
+//
+// Description: 银行卡代扣二级租户提现
+//
+// Summary: 银行卡代扣二级租户提现
+func (client *Client) CaptureCutpaymentsubWithdrawal(request *CaptureCutpaymentsubWithdrawalRequest) (_result *CaptureCutpaymentsubWithdrawalResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &CaptureCutpaymentsubWithdrawalResponse{}
+	_body, _err := client.CaptureCutpaymentsubWithdrawalEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+// Description:
+//
+// Description: 银行卡代扣二级租户提现
+//
+// Summary: 银行卡代扣二级租户提现
+func (client *Client) CaptureCutpaymentsubWithdrawalEx(request *CaptureCutpaymentsubWithdrawalRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *CaptureCutpaymentsubWithdrawalResponse, _err error) {
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &CaptureCutpaymentsubWithdrawalResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("di.realperson.cutpaymentsub.withdrawal.capture"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
+}
+
+// Description:
+//
+// Description: 银行卡代扣二级租户提现查询
+//
+// Summary: 银行卡代扣二级租户提现查询
+func (client *Client) QueryCutpaymentsubWithdrawal(request *QueryCutpaymentsubWithdrawalRequest) (_result *QueryCutpaymentsubWithdrawalResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &QueryCutpaymentsubWithdrawalResponse{}
+	_body, _err := client.QueryCutpaymentsubWithdrawalEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+// Description:
+//
+// Description: 银行卡代扣二级租户提现查询
+//
+// Summary: 银行卡代扣二级租户提现查询
+func (client *Client) QueryCutpaymentsubWithdrawalEx(request *QueryCutpaymentsubWithdrawalRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *QueryCutpaymentsubWithdrawalResponse, _err error) {
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &QueryCutpaymentsubWithdrawalResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("di.realperson.cutpaymentsub.withdrawal.query"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
+}
+
+// Description:
+//
+// Description: 银行卡代扣二级租户查询余额
+//
+// Summary: 银行卡代扣二级租户查询余额
+func (client *Client) QueryCutpaymentsubBalance(request *QueryCutpaymentsubBalanceRequest) (_result *QueryCutpaymentsubBalanceResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &QueryCutpaymentsubBalanceResponse{}
+	_body, _err := client.QueryCutpaymentsubBalanceEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+// Description:
+//
+// Description: 银行卡代扣二级租户查询余额
+//
+// Summary: 银行卡代扣二级租户查询余额
+func (client *Client) QueryCutpaymentsubBalanceEx(request *QueryCutpaymentsubBalanceRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *QueryCutpaymentsubBalanceResponse, _err error) {
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &QueryCutpaymentsubBalanceResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("di.realperson.cutpaymentsub.balance.query"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
+}
+
+// Description:
+//
+// Description: 银行卡代扣二级租户查询收支明细
+//
+// Summary: 银行卡代扣二级租户查询收支明细
+func (client *Client) QueryCutpaymentsubTransaction(request *QueryCutpaymentsubTransactionRequest) (_result *QueryCutpaymentsubTransactionResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &QueryCutpaymentsubTransactionResponse{}
+	_body, _err := client.QueryCutpaymentsubTransactionEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+// Description:
+//
+// Description: 银行卡代扣二级租户查询收支明细
+//
+// Summary: 银行卡代扣二级租户查询收支明细
+func (client *Client) QueryCutpaymentsubTransactionEx(request *QueryCutpaymentsubTransactionRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *QueryCutpaymentsubTransactionResponse, _err error) {
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &QueryCutpaymentsubTransactionResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("di.realperson.cutpaymentsub.transaction.query"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
+}
+
+// Description:
+//
+// Description: 提供私有化刷脸的风险咨询
+//
+// Summary: 人脸风险咨询服务
+func (client *Client) QueryRiskServer(request *QueryRiskServerRequest) (_result *QueryRiskServerResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &QueryRiskServerResponse{}
+	_body, _err := client.QueryRiskServerEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+// Description:
+//
+// Description: 提供私有化刷脸的风险咨询
+//
+// Summary: 人脸风险咨询服务
+func (client *Client) QueryRiskServerEx(request *QueryRiskServerRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *QueryRiskServerResponse, _err error) {
+	if !tea.BoolValue(util.IsUnset(request.FileObject)) {
+		uploadReq := &CreateAntcloudGatewayxFileUploadRequest{
+			AuthToken: request.AuthToken,
+			ApiCode:   tea.String("di.realperson.risk.server.query"),
+			FileName:  request.FileObjectName,
+		}
+		uploadResp, _err := client.CreateAntcloudGatewayxFileUploadEx(uploadReq, headers, runtime)
+		if _err != nil {
+			return _result, _err
+		}
+
+		if !tea.BoolValue(antchainutil.IsSuccess(uploadResp.ResultCode, tea.String("ok"))) {
+			queryRiskServerResponse := &QueryRiskServerResponse{
+				ReqMsgId:   uploadResp.ReqMsgId,
+				ResultCode: uploadResp.ResultCode,
+				ResultMsg:  uploadResp.ResultMsg,
+			}
+			_result = queryRiskServerResponse
+			return _result, _err
+		}
+
+		uploadHeaders := antchainutil.ParseUploadHeaders(uploadResp.UploadHeaders)
+		_err = antchainutil.PutObject(request.FileObject, uploadHeaders, uploadResp.UploadUrl)
+		if _err != nil {
+			return _result, _err
+		}
+		request.FileId = uploadResp.FileId
+		request.FileObject = nil
+	}
+
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &QueryRiskServerResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("di.realperson.risk.server.query"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
+}
+
+// Description:
+//
+// Description: 用户资产验证
+//
+// Summary: 用户资产验证
+func (client *Client) QueryUserAsset(request *QueryUserAssetRequest) (_result *QueryUserAssetResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &QueryUserAssetResponse{}
+	_body, _err := client.QueryUserAssetEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+// Description:
+//
+// Description: 用户资产验证
+//
+// Summary: 用户资产验证
+func (client *Client) QueryUserAssetEx(request *QueryUserAssetRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *QueryUserAssetResponse, _err error) {
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &QueryUserAssetResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("di.realperson.user.asset.query"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
+}
+
+// Description:
+//
+// Description: 文件上传接口
+//
+// Summary: 文件上传接口
+func (client *Client) UploadFile(request *UploadFileRequest) (_result *UploadFileResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &UploadFileResponse{}
+	_body, _err := client.UploadFileEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+// Description:
+//
+// Description: 文件上传接口
+//
+// Summary: 文件上传接口
+func (client *Client) UploadFileEx(request *UploadFileRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *UploadFileResponse, _err error) {
+	if !tea.BoolValue(util.IsUnset(request.FileObject)) {
+		uploadReq := &CreateAntcloudGatewayxFileUploadRequest{
+			AuthToken: request.AuthToken,
+			ApiCode:   tea.String("di.realperson.file.upload"),
+			FileName:  request.FileObjectName,
+		}
+		uploadResp, _err := client.CreateAntcloudGatewayxFileUploadEx(uploadReq, headers, runtime)
+		if _err != nil {
+			return _result, _err
+		}
+
+		if !tea.BoolValue(antchainutil.IsSuccess(uploadResp.ResultCode, tea.String("ok"))) {
+			uploadFileResponse := &UploadFileResponse{
+				ReqMsgId:   uploadResp.ReqMsgId,
+				ResultCode: uploadResp.ResultCode,
+				ResultMsg:  uploadResp.ResultMsg,
+			}
+			_result = uploadFileResponse
+			return _result, _err
+		}
+
+		uploadHeaders := antchainutil.ParseUploadHeaders(uploadResp.UploadHeaders)
+		_err = antchainutil.PutObject(request.FileObject, uploadHeaders, uploadResp.UploadUrl)
+		if _err != nil {
+			return _result, _err
+		}
+		request.FileId = uploadResp.FileId
+		request.FileObject = nil
+	}
+
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &UploadFileResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("di.realperson.file.upload"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
+}
+
+// Description:
+//
+// Description: 用户身份核验
+//
+// Summary: 用户身份核验
+func (client *Client) QueryRiderQualification(request *QueryRiderQualificationRequest) (_result *QueryRiderQualificationResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &QueryRiderQualificationResponse{}
+	_body, _err := client.QueryRiderQualificationEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+// Description:
+//
+// Description: 用户身份核验
+//
+// Summary: 用户身份核验
+func (client *Client) QueryRiderQualificationEx(request *QueryRiderQualificationRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *QueryRiderQualificationResponse, _err error) {
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &QueryRiderQualificationResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("di.realperson.rider.qualification.query"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
+}
+
+// Description:
+//
+// Description: 用户车辆资产验证
+//
+// Summary: 用户车辆资产验证
+func (client *Client) VerificationUserVehicle(request *VerificationUserVehicleRequest) (_result *VerificationUserVehicleResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &VerificationUserVehicleResponse{}
+	_body, _err := client.VerificationUserVehicleEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+// Description:
+//
+// Description: 用户车辆资产验证
+//
+// Summary: 用户车辆资产验证
+func (client *Client) VerificationUserVehicleEx(request *VerificationUserVehicleRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *VerificationUserVehicleResponse, _err error) {
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &VerificationUserVehicleResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("di.realperson.user.vehicle.verification"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
+}
+
+// Description:
+//
+// Description: 运营商二次放号增强版扩展接口
+//
+// Summary: 运营商二次放号增强版扩展接口
+func (client *Client) QueryThreemetaPhonereuseprox(request *QueryThreemetaPhonereuseproxRequest) (_result *QueryThreemetaPhonereuseproxResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &QueryThreemetaPhonereuseproxResponse{}
+	_body, _err := client.QueryThreemetaPhonereuseproxEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+// Description:
+//
+// Description: 运营商二次放号增强版扩展接口
+//
+// Summary: 运营商二次放号增强版扩展接口
+func (client *Client) QueryThreemetaPhonereuseproxEx(request *QueryThreemetaPhonereuseproxRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *QueryThreemetaPhonereuseproxResponse, _err error) {
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &QueryThreemetaPhonereuseproxResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("di.realperson.threemeta.phonereuseprox.query"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
+}
+
+// Description:
+//
+// Description: 运营商二次放号扩展接口
+//
+// Summary: 运营商二次放号扩展接口
+func (client *Client) QueryThreemetaPhonereusex(request *QueryThreemetaPhonereusexRequest) (_result *QueryThreemetaPhonereusexResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &QueryThreemetaPhonereusexResponse{}
+	_body, _err := client.QueryThreemetaPhonereusexEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+// Description:
+//
+// Description: 运营商二次放号扩展接口
+//
+// Summary: 运营商二次放号扩展接口
+func (client *Client) QueryThreemetaPhonereusexEx(request *QueryThreemetaPhonereusexRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *QueryThreemetaPhonereusexResponse, _err error) {
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &QueryThreemetaPhonereusexResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("di.realperson.threemeta.phonereusex.query"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
+}
+
+// Description:
+//
+// Description: 意愿认证服务端初始化
+//
+// Summary: 意愿认证服务端初始化
+func (client *Client) InitServerWillauth(request *InitServerWillauthRequest) (_result *InitServerWillauthResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &InitServerWillauthResponse{}
+	_body, _err := client.InitServerWillauthEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+// Description:
+//
+// Description: 意愿认证服务端初始化
+//
+// Summary: 意愿认证服务端初始化
+func (client *Client) InitServerWillauthEx(request *InitServerWillauthRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *InitServerWillauthResponse, _err error) {
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &InitServerWillauthResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("di.realperson.server.willauth.init"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
+}
+
+// Description:
+//
+// Description: 意愿认证服务端查询
+//
+// Summary: 意愿认证服务端查询
+func (client *Client) QueryServerWillauth(request *QueryServerWillauthRequest) (_result *QueryServerWillauthResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &QueryServerWillauthResponse{}
+	_body, _err := client.QueryServerWillauthEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+// Description:
+//
+// Description: 意愿认证服务端查询
+//
+// Summary: 意愿认证服务端查询
+func (client *Client) QueryServerWillauthEx(request *QueryServerWillauthRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *QueryServerWillauthResponse, _err error) {
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &QueryServerWillauthResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("di.realperson.server.willauth.query"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
+}
+
+// Description:
+//
+// Description: 意愿认证服务端材料查询
+//
+// Summary: 意愿认证服务端材料查询
+func (client *Client) QueryServerWillauthmaterial(request *QueryServerWillauthmaterialRequest) (_result *QueryServerWillauthmaterialResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &QueryServerWillauthmaterialResponse{}
+	_body, _err := client.QueryServerWillauthmaterialEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+// Description:
+//
+// Description: 意愿认证服务端材料查询
+//
+// Summary: 意愿认证服务端材料查询
+func (client *Client) QueryServerWillauthmaterialEx(request *QueryServerWillauthmaterialRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *QueryServerWillauthmaterialResponse, _err error) {
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &QueryServerWillauthmaterialResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("di.realperson.server.willauthmaterial.query"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
+}
+
+// Description:
+//
+// Description: 银行卡代扣一键绑卡签约
+//
+// Summary: 银行卡代扣一键绑卡签约
+func (client *Client) BindCutpaymentOneclick(request *BindCutpaymentOneclickRequest) (_result *BindCutpaymentOneclickResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &BindCutpaymentOneclickResponse{}
+	_body, _err := client.BindCutpaymentOneclickEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+// Description:
+//
+// Description: 银行卡代扣一键绑卡签约
+//
+// Summary: 银行卡代扣一键绑卡签约
+func (client *Client) BindCutpaymentOneclickEx(request *BindCutpaymentOneclickRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *BindCutpaymentOneclickResponse, _err error) {
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &BindCutpaymentOneclickResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("di.realperson.cutpayment.oneclick.bind"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
+}
+
+// Description:
+//
+// Description: 银行卡代扣一键绑卡查询
+//
+// Summary: 银行卡代扣一键绑卡查询
+func (client *Client) QueryCutpaymentOneclick(request *QueryCutpaymentOneclickRequest) (_result *QueryCutpaymentOneclickResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &QueryCutpaymentOneclickResponse{}
+	_body, _err := client.QueryCutpaymentOneclickEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+// Description:
+//
+// Description: 银行卡代扣一键绑卡查询
+//
+// Summary: 银行卡代扣一键绑卡查询
+func (client *Client) QueryCutpaymentOneclickEx(request *QueryCutpaymentOneclickRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *QueryCutpaymentOneclickResponse, _err error) {
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &QueryCutpaymentOneclickResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("di.realperson.cutpayment.oneclick.query"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
+}
+
+// Description:
+//
+// Description: 卡状态 y 标回流
+//
+// Summary: 卡状态 y 标回流
+func (client *Client) ApplyExtYdata(request *ApplyExtYdataRequest) (_result *ApplyExtYdataResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &ApplyExtYdataResponse{}
+	_body, _err := client.ApplyExtYdataEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+// Description:
+//
+// Description: 卡状态 y 标回流
+//
+// Summary: 卡状态 y 标回流
+func (client *Client) ApplyExtYdataEx(request *ApplyExtYdataRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *ApplyExtYdataResponse, _err error) {
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &ApplyExtYdataResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("di.realperson.ext.ydata.apply"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
+}
+
+// Description:
+//
+// Description: 个人运营商二次放号专业版
+//
+// Summary: 个人运营商二次放号专业版
+func (client *Client) QueryThreemetaPhonereusepro(request *QueryThreemetaPhonereuseproRequest) (_result *QueryThreemetaPhonereuseproResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &QueryThreemetaPhonereuseproResponse{}
+	_body, _err := client.QueryThreemetaPhonereuseproEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+// Description:
+//
+// Description: 个人运营商二次放号专业版
+//
+// Summary: 个人运营商二次放号专业版
+func (client *Client) QueryThreemetaPhonereuseproEx(request *QueryThreemetaPhonereuseproRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *QueryThreemetaPhonereuseproResponse, _err error) {
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &QueryThreemetaPhonereuseproResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("di.realperson.threemeta.phonereusepro.query"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
+}
+
+// Description:
+//
+// Description: 创建HTTP PUT提交的文件上传
+//
+// Summary: 文件上传创建
+func (client *Client) CreateAntcloudGatewayxFileUpload(request *CreateAntcloudGatewayxFileUploadRequest) (_result *CreateAntcloudGatewayxFileUploadResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &CreateAntcloudGatewayxFileUploadResponse{}
+	_body, _err := client.CreateAntcloudGatewayxFileUploadEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+// Description:
+//
+// Description: 创建HTTP PUT提交的文件上传
+//
+// Summary: 文件上传创建
+func (client *Client) CreateAntcloudGatewayxFileUploadEx(request *CreateAntcloudGatewayxFileUploadRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *CreateAntcloudGatewayxFileUploadResponse, _err error) {
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &CreateAntcloudGatewayxFileUploadResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("antcloud.gatewayx.file.upload.create"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
+}
