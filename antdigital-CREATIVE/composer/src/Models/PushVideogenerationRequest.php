@@ -21,7 +21,6 @@ class PushVideogenerationRequest extends Model {
     ];
     public function validate() {
         Model::validateRequired('model', $this->model, true);
-        Model::validateRequired('prompt', $this->prompt, true);
     }
     public function toMap() {
         $res = [];
