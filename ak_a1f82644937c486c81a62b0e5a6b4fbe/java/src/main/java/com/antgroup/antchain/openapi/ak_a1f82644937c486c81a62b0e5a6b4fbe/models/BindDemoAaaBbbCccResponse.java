@@ -16,6 +16,10 @@ public class BindDemoAaaBbbCccResponse extends TeaModel {
     @NameInMap("result_msg")
     public String resultMsg;
 
+    // aaa
+    @NameInMap("aaa")
+    public String aaa;
+
     public static BindDemoAaaBbbCccResponse build(java.util.Map<String, ?> map) throws Exception {
         BindDemoAaaBbbCccResponse self = new BindDemoAaaBbbCccResponse();
         return TeaModel.build(map, self);
@@ -43,6 +47,14 @@ public class BindDemoAaaBbbCccResponse extends TeaModel {
     }
     public String getResultMsg() {
         return this.resultMsg;
+    }
+
+    public BindDemoAaaBbbCccResponse setAaa(String aaa) {
+        this.aaa = aaa;
+        return this;
+    }
+    public String getAaa() {
+        return this.aaa;
     }
 
 }

@@ -212,7 +212,7 @@ public class Client {
     /**
      * <b>description</b> :
      * <p>Description: 自动化测试创建test，请勿修改、删除
-     * Summary: 自动化测试创建test1</p>
+     * Summary: 自动化测试创建test，请勿修改、删除</p>
      */
     public BindDemoAaaBbbCccResponse bindDemoAaaBbbCcc(BindDemoAaaBbbCccRequest request) throws Exception {
         com.aliyun.teautil.models.RuntimeOptions runtime = new com.aliyun.teautil.models.RuntimeOptions();
@@ -223,7 +223,7 @@ public class Client {
     /**
      * <b>description</b> :
      * <p>Description: 自动化测试创建test，请勿修改、删除
-     * Summary: 自动化测试创建test1</p>
+     * Summary: 自动化测试创建test，请勿修改、删除</p>
      */
     public BindDemoAaaBbbCccResponse bindDemoAaaBbbCccEx(BindDemoAaaBbbCccRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
         com.aliyun.teautil.Common.validateModel(request);
