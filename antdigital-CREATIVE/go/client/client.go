@@ -299,7 +299,7 @@ type PushVideogenerationRequest struct {
 	// 模型标识，如 ：doubao-seedance-2-0-260128
 	Model *string `json:"model,omitempty" xml:"model,omitempty" require:"true"`
 	// 文本提示词
-	Prompt *string `json:"prompt,omitempty" xml:"prompt,omitempty" require:"true"`
+	Prompt *string `json:"prompt,omitempty" xml:"prompt,omitempty"`
 	// 图生视频参考图片 URL
 	ImageUrl []*string `json:"image_url,omitempty" xml:"image_url,omitempty" type:"Repeated"`
 	// 视频参考/续写时传入视频 URL
@@ -884,7 +884,7 @@ func (client *Client) DoRequest(version *string, action *string, protocol *strin
 				"req_msg_id":       antchainutil.GetNonce(),
 				"access_key":       client.AccessKeyId,
 				"base_sdk_version": tea.String("TeaSDK-2.0"),
-				"sdk_version":      tea.String("1.0.7"),
+				"sdk_version":      tea.String("1.0.10"),
 				"_prod_code":       tea.String("CREATIVE"),
 				"_prod_channel":    tea.String("default"),
 			}
