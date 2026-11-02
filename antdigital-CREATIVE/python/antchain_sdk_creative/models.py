@@ -154,6 +154,104 @@ class Config(TeaModel):
         return self
 
 
+class ExtraInfo(TeaModel):
+    def __init__(
+        self,
+        original_task_id: str = None,
+        original_video_url: str = None,
+        original_response_snapshot: str = None,
+    ):
+        # 原厂任务ID
+        self.original_task_id = original_task_id
+        # 原厂视频输出URL
+        self.original_video_url = original_video_url
+        # 原厂响应体快照
+        self.original_response_snapshot = original_response_snapshot
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.original_task_id is not None:
+            result['original_task_id'] = self.original_task_id
+        if self.original_video_url is not None:
+            result['original_video_url'] = self.original_video_url
+        if self.original_response_snapshot is not None:
+            result['original_response_snapshot'] = self.original_response_snapshot
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('original_task_id') is not None:
+            self.original_task_id = m.get('original_task_id')
+        if m.get('original_video_url') is not None:
+            self.original_video_url = m.get('original_video_url')
+        if m.get('original_response_snapshot') is not None:
+            self.original_response_snapshot = m.get('original_response_snapshot')
+        return self
+
+
+class Usage(TeaModel):
+    def __init__(
+        self,
+        resolution: str = None,
+        duration: int = None,
+        ratio: str = None,
+        completion_tokens: int = None,
+        completion_credits: int = None,
+    ):
+        # 分辨率
+        self.resolution = resolution
+        # 视频时长（单位：秒）
+        self.duration = duration
+        # 视频比例
+        self.ratio = ratio
+        # 消耗 token 数
+        self.completion_tokens = completion_tokens
+        # 消耗credit数
+        self.completion_credits = completion_credits
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.resolution is not None:
+            result['resolution'] = self.resolution
+        if self.duration is not None:
+            result['duration'] = self.duration
+        if self.ratio is not None:
+            result['ratio'] = self.ratio
+        if self.completion_tokens is not None:
+            result['completion_tokens'] = self.completion_tokens
+        if self.completion_credits is not None:
+            result['completion_credits'] = self.completion_credits
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('resolution') is not None:
+            self.resolution = m.get('resolution')
+        if m.get('duration') is not None:
+            self.duration = m.get('duration')
+        if m.get('ratio') is not None:
+            self.ratio = m.get('ratio')
+        if m.get('completion_tokens') is not None:
+            self.completion_tokens = m.get('completion_tokens')
+        if m.get('completion_credits') is not None:
+            self.completion_credits = m.get('completion_credits')
+        return self
+
+
 class PushVideogenerationRequest(TeaModel):
     def __init__(
         self,
@@ -193,7 +291,6 @@ class PushVideogenerationRequest(TeaModel):
 
     def validate(self):
         self.validate_required(self.model, 'model')
-        self.validate_required(self.prompt, 'prompt')
 
     def to_map(self):
         _map = super().to_map()
@@ -374,6 +471,8 @@ class QueryVideogenerationResponse(TeaModel):
         video_url: str = None,
         error_code: str = None,
         error_message: str = None,
+        usage: Usage = None,
+        extra_info: ExtraInfo = None,
     ):
         # 请求唯一ID，用于链路跟踪和问题排查
         self.req_msg_id = req_msg_id
@@ -391,9 +490,16 @@ class QueryVideogenerationResponse(TeaModel):
         self.error_code = error_code
         # 错误信息
         self.error_message = error_message
+        # 用量信息
+        self.usage = usage
+        # 附加信息
+        self.extra_info = extra_info
 
     def validate(self):
-        pass
+        if self.usage:
+            self.usage.validate()
+        if self.extra_info:
+            self.extra_info.validate()
 
     def to_map(self):
         _map = super().to_map()
@@ -417,6 +523,10 @@ class QueryVideogenerationResponse(TeaModel):
             result['error_code'] = self.error_code
         if self.error_message is not None:
             result['error_message'] = self.error_message
+        if self.usage is not None:
+            result['usage'] = self.usage.to_map()
+        if self.extra_info is not None:
+            result['extra_info'] = self.extra_info.to_map()
         return result
 
     def from_map(self, m: dict = None):
@@ -437,6 +547,12 @@ class QueryVideogenerationResponse(TeaModel):
             self.error_code = m.get('error_code')
         if m.get('error_message') is not None:
             self.error_message = m.get('error_message')
+        if m.get('usage') is not None:
+            temp_model = Usage()
+            self.usage = temp_model.from_map(m['usage'])
+        if m.get('extra_info') is not None:
+            temp_model = ExtraInfo()
+            self.extra_info = temp_model.from_map(m['extra_info'])
         return self
 
 
