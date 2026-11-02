@@ -8,9 +8,9 @@ import (
 	antchainutil "github.com/antchain-openapi-sdk-go/antchain-util/service"
 )
 
-/**
- * Model for initing client
- */
+// Description:
+//
+// Model for initing client
 type Config struct {
 	// accesskey id
 	AccessKeyId *string `json:"accessKeyId,omitempty" xml:"accessKeyId,omitempty"`
@@ -19,26 +19,66 @@ type Config struct {
 	// security token
 	SecurityToken *string `json:"securityToken,omitempty" xml:"securityToken,omitempty"`
 	// http protocol
+	//
+	// example:
+	//
+	// http
 	Protocol *string `json:"protocol,omitempty" xml:"protocol,omitempty"`
 	// read timeout
+	//
+	// example:
+	//
+	// 10
 	ReadTimeout *int `json:"readTimeout,omitempty" xml:"readTimeout,omitempty"`
 	// connect timeout
+	//
+	// example:
+	//
+	// 10
 	ConnectTimeout *int `json:"connectTimeout,omitempty" xml:"connectTimeout,omitempty"`
 	// http proxy
+	//
+	// example:
+	//
+	// http://localhost
 	HttpProxy *string `json:"httpProxy,omitempty" xml:"httpProxy,omitempty"`
 	// https proxy
+	//
+	// example:
+	//
+	// https://localhost
 	HttpsProxy *string `json:"httpsProxy,omitempty" xml:"httpsProxy,omitempty"`
 	// endpoint
+	//
+	// example:
+	//
+	// cs.aliyuncs.com
 	Endpoint *string `json:"endpoint,omitempty" xml:"endpoint,omitempty"`
 	// proxy white list
+	//
+	// example:
+	//
+	// http://localhost
 	NoProxy *string `json:"noProxy,omitempty" xml:"noProxy,omitempty"`
 	// max idle conns
+	//
+	// example:
+	//
+	// 3
 	MaxIdleConns *int `json:"maxIdleConns,omitempty" xml:"maxIdleConns,omitempty"`
 	// user agent
+	//
+	// example:
+	//
+	// Alibabacloud/1
 	UserAgent *string `json:"userAgent,omitempty" xml:"userAgent,omitempty"`
 	// socks5 proxy
 	Socks5Proxy *string `json:"socks5Proxy,omitempty" xml:"socks5Proxy,omitempty"`
 	// socks5 network
+	//
+	// example:
+	//
+	// TCP
 	Socks5NetWork *string `json:"socks5NetWork,omitempty" xml:"socks5NetWork,omitempty"`
 	// 长链接最大空闲时长
 	MaxIdleTimeMillis *int `json:"maxIdleTimeMillis,omitempty" xml:"maxIdleTimeMillis,omitempty"`
@@ -151,16 +191,34 @@ func (s *Config) SetMaxRequestsPerHost(v int) *Config {
 // api信息结构体
 type ApiInfoModel struct {
 	// api名称
+	// example:
+	//
+	// demo.sss.ss.ss.bind
 	ApiName *string `json:"api_name,omitempty" xml:"api_name,omitempty" require:"true"`
 	// API所属网关技术产品码
+	// example:
+	//
+	// demo
 	ProdCode *string `json:"prod_code,omitempty" xml:"prod_code,omitempty" require:"true"`
 	// 是否是内部接口 0对外 1对内
+	// example:
+	//
+	// 0
 	Internal *int64 `json:"internal,omitempty" xml:"internal,omitempty" require:"true"`
 	// api版本号
+	// example:
+	//
+	// 1.0
 	ApiVersion *string `json:"api_version,omitempty" xml:"api_version,omitempty" require:"true"`
 	// api描述
+	// example:
+	//
+	// 测试用api
 	ApiDesc *string `json:"api_desc,omitempty" xml:"api_desc,omitempty" require:"true"`
 	// api所属网关产品id
+	// example:
+	//
+	// 0000567567
 	ProviderId *string `json:"provider_id,omitempty" xml:"provider_id,omitempty" require:"true"`
 }
 
@@ -205,24 +263,54 @@ func (s *ApiInfoModel) SetProviderId(v string) *ApiInfoModel {
 // 能力信息
 type AbilityInfo struct {
 	// 能力编号
+	// example:
+	//
+	// ak_3821c8f0145440dab91b9b23edb1dc73
 	AbilityId *string `json:"ability_id,omitempty" xml:"ability_id,omitempty" require:"true"`
 	// 能力名称
+	// example:
+	//
+	// B2B支付网关
 	AbilityName *string `json:"ability_name,omitempty" xml:"ability_name,omitempty" require:"true"`
 	// 研发负责人
+	// example:
+	//
+	// 张三
 	DevOwner *string `json:"dev_owner,omitempty" xml:"dev_owner,omitempty" require:"true"`
 	// 创建时间
+	// example:
+	//
+	// 2021-12-30 00:00:00
 	GmtCreate *string `json:"gmt_create,omitempty" xml:"gmt_create,omitempty" require:"true"`
 	// 描述信息
+	// example:
+	//
+	// 适用场景：企业资金支付场景   适合行业：存在企业采购/企业充值/企业转账等企业支付场景的行业   归属行业线：B类基础产品   产品描述：将交易场景与企业对公账户支付线上关联，订单交易对应的支付需求自动发送给企业网银做财务支出的确认和复核。
 	Description *string `json:"description,omitempty" xml:"description,omitempty" require:"true"`
 	// 研发负责人邮箱前缀
+	// example:
+	//
+	// qiujianglong.qjl
 	DevOwnerPrefixEmail *string `json:"dev_owner_prefix_email,omitempty" xml:"dev_owner_prefix_email,omitempty" require:"true"`
 	// 产品负责人
+	// example:
+	//
+	// 江来
 	ProductOwner *string `json:"product_owner,omitempty" xml:"product_owner,omitempty" require:"true"`
 	// 能力对应商业中台L5Code
+	// example:
+	//
+	// DMZNFM00883001
 	BusinessCode *string `json:"business_code,omitempty" xml:"business_code,omitempty"`
 	// apiInfoModels列表
+	// example:
+	//
+	// test
 	ApiInfoModels []*ApiInfoModel `json:"api_info_models,omitempty" xml:"api_info_models,omitempty" require:"true" type:"Repeated"`
 	// 能力sla看板url
+	// example:
+	//
+	// https://antslo.alipay.com/maas/slistd/115600116/std/d/147100480_slistd?var-tag1=xxx&var-tag2=All
 	SlaUrl *string `json:"sla_url,omitempty" xml:"sla_url,omitempty"`
 }
 
@@ -385,6 +473,8 @@ type BindDemoAaaBbbCccResponse struct {
 	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
 	// 异常信息的文本描述
 	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// aaa
+	Aaa *string `json:"aaa,omitempty" xml:"aaa,omitempty"`
 }
 
 func (s BindDemoAaaBbbCccResponse) String() string {
@@ -407,6 +497,11 @@ func (s *BindDemoAaaBbbCccResponse) SetResultCode(v string) *BindDemoAaaBbbCccRe
 
 func (s *BindDemoAaaBbbCccResponse) SetResultMsg(v string) *BindDemoAaaBbbCccResponse {
 	s.ResultMsg = &v
+	return s
+}
+
+func (s *BindDemoAaaBbbCccResponse) SetAaa(v string) *BindDemoAaaBbbCccResponse {
+	s.Aaa = &v
 	return s
 }
 
@@ -782,10 +877,11 @@ type Client struct {
 	MaxRequestsPerHost      *int
 }
 
-/**
- * Init client with Config
- * @param config config contains the necessary information to create a client
- */
+// Description:
+//
+// # Init client with Config
+//
+// @param config - config contains the necessary information to create a client
 func NewClient(config *Config) (*Client, error) {
 	client := new(Client)
 	err := client.Init(config)
@@ -793,7 +889,7 @@ func NewClient(config *Config) (*Client, error) {
 }
 
 func (client *Client) Init(config *Config) (_err error) {
-	if tea.BoolValue(util.IsUnset(tea.ToMap(config))) {
+	if tea.BoolValue(util.IsUnset(config)) {
 		_err = tea.NewSDKError(map[string]interface{}{
 			"code":    "ParameterMissing",
 			"message": "'config' can not be unset",
@@ -822,16 +918,23 @@ func (client *Client) Init(config *Config) (_err error) {
 	return nil
 }
 
-/**
- * Encapsulate the request and invoke the network
- * @param action api name
- * @param protocol http or https
- * @param method e.g. GET
- * @param pathname pathname of every api
- * @param request which contains request params
- * @param runtime which controls some details of call api, such as retry times
- * @return the response
- */
+// Description:
+//
+// # Encapsulate the request and invoke the network
+//
+// @param action - api name
+//
+// @param protocol - http or https
+//
+// @param method - e.g. GET
+//
+// @param pathname - pathname of every api
+//
+// @param request - which contains request params
+//
+// @param runtime - which controls some details of call api, such as retry times
+//
+// @return the response
 func (client *Client) DoRequest(version *string, action *string, protocol *string, method *string, pathname *string, request map[string]interface{}, headers map[string]*string, runtime *util.RuntimeOptions) (_result map[string]interface{}, _err error) {
 	_err = tea.Validate(runtime)
 	if _err != nil {
@@ -940,10 +1043,11 @@ func (client *Client) DoRequest(version *string, action *string, protocol *strin
 	return _resp, _err
 }
 
-/**
- * Description: 调试a s dddd
- * Summary: 调试1
- */
+// Description:
+//
+// Description: 调试a s dddd
+//
+// Summary: 调试1
 func (client *Client) QueryAntchainAbcAbcdaAbcddaa(request *QueryAntchainAbcAbcdaAbcddaaRequest) (_result *QueryAntchainAbcAbcdaAbcddaaResponse, _err error) {
 	runtime := &util.RuntimeOptions{}
 	headers := make(map[string]*string)
@@ -956,10 +1060,11 @@ func (client *Client) QueryAntchainAbcAbcdaAbcddaa(request *QueryAntchainAbcAbcd
 	return _result, _err
 }
 
-/**
- * Description: 调试a s dddd
- * Summary: 调试1
- */
+// Description:
+//
+// Description: 调试a s dddd
+//
+// Summary: 调试1
 func (client *Client) QueryAntchainAbcAbcdaAbcddaaEx(request *QueryAntchainAbcAbcdaAbcddaaRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *QueryAntchainAbcAbcdaAbcddaaResponse, _err error) {
 	_err = util.ValidateModel(request)
 	if _err != nil {
@@ -974,10 +1079,11 @@ func (client *Client) QueryAntchainAbcAbcdaAbcddaaEx(request *QueryAntchainAbcAb
 	return _result, _err
 }
 
-/**
- * Description: 自动化测试创建test，请勿修改、删除
- * Summary: 自动化测试创建test1
- */
+// Description:
+//
+// Description: 自动化测试创建test，请勿修改、删除
+//
+// Summary: 自动化测试创建test，请勿修改、删除
 func (client *Client) BindDemoAaaBbbCcc(request *BindDemoAaaBbbCccRequest) (_result *BindDemoAaaBbbCccResponse, _err error) {
 	runtime := &util.RuntimeOptions{}
 	headers := make(map[string]*string)
@@ -990,10 +1096,11 @@ func (client *Client) BindDemoAaaBbbCcc(request *BindDemoAaaBbbCccRequest) (_res
 	return _result, _err
 }
 
-/**
- * Description: 自动化测试创建test，请勿修改、删除
- * Summary: 自动化测试创建test1
- */
+// Description:
+//
+// Description: 自动化测试创建test，请勿修改、删除
+//
+// Summary: 自动化测试创建test，请勿修改、删除
 func (client *Client) BindDemoAaaBbbCccEx(request *BindDemoAaaBbbCccRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *BindDemoAaaBbbCccResponse, _err error) {
 	_err = util.ValidateModel(request)
 	if _err != nil {
@@ -1008,10 +1115,11 @@ func (client *Client) BindDemoAaaBbbCccEx(request *BindDemoAaaBbbCccRequest, hea
 	return _result, _err
 }
 
-/**
- * Description: 绑定API
- * Summary: 绑定能力与API关系
- */
+// Description:
+//
+// Description: 绑定API
+//
+// Summary: 绑定能力与API关系
 func (client *Client) BindAntchainSaasAbility(request *BindAntchainSaasAbilityRequest) (_result *BindAntchainSaasAbilityResponse, _err error) {
 	runtime := &util.RuntimeOptions{}
 	headers := make(map[string]*string)
@@ -1024,10 +1132,11 @@ func (client *Client) BindAntchainSaasAbility(request *BindAntchainSaasAbilityRe
 	return _result, _err
 }
 
-/**
- * Description: 绑定API
- * Summary: 绑定能力与API关系
- */
+// Description:
+//
+// Description: 绑定API
+//
+// Summary: 绑定能力与API关系
 func (client *Client) BindAntchainSaasAbilityEx(request *BindAntchainSaasAbilityRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *BindAntchainSaasAbilityResponse, _err error) {
 	_err = util.ValidateModel(request)
 	if _err != nil {
@@ -1042,10 +1151,11 @@ func (client *Client) BindAntchainSaasAbilityEx(request *BindAntchainSaasAbility
 	return _result, _err
 }
 
-/**
- * Description: 自动化测试创建,用于测试API的修改
- * Summary: 自动化测试创建,用于测试API的修改勿动
- */
+// Description:
+//
+// Description: 自动化测试创建,用于测试API的修改
+//
+// Summary: 自动化测试创建,用于测试API的修改勿动
 func (client *Client) QueryDemoAbcAbcAbc(request *QueryDemoAbcAbcAbcRequest) (_result *QueryDemoAbcAbcAbcResponse, _err error) {
 	runtime := &util.RuntimeOptions{}
 	headers := make(map[string]*string)
@@ -1058,10 +1168,11 @@ func (client *Client) QueryDemoAbcAbcAbc(request *QueryDemoAbcAbcAbcRequest) (_r
 	return _result, _err
 }
 
-/**
- * Description: 自动化测试创建,用于测试API的修改
- * Summary: 自动化测试创建,用于测试API的修改勿动
- */
+// Description:
+//
+// Description: 自动化测试创建,用于测试API的修改
+//
+// Summary: 自动化测试创建,用于测试API的修改勿动
 func (client *Client) QueryDemoAbcAbcAbcEx(request *QueryDemoAbcAbcAbcRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *QueryDemoAbcAbcAbcResponse, _err error) {
 	_err = util.ValidateModel(request)
 	if _err != nil {
@@ -1076,10 +1187,11 @@ func (client *Client) QueryDemoAbcAbcAbcEx(request *QueryDemoAbcAbcAbcRequest, h
 	return _result, _err
 }
 
-/**
- * Description: api上线回调接口
- * Summary: api上线回调接口
- */
+// Description:
+//
+// Description: api上线回调接口
+//
+// Summary: api上线回调接口
 func (client *Client) CallbackAntchainSaasAbility(request *CallbackAntchainSaasAbilityRequest) (_result *CallbackAntchainSaasAbilityResponse, _err error) {
 	runtime := &util.RuntimeOptions{}
 	headers := make(map[string]*string)
@@ -1092,10 +1204,11 @@ func (client *Client) CallbackAntchainSaasAbility(request *CallbackAntchainSaasA
 	return _result, _err
 }
 
-/**
- * Description: api上线回调接口
- * Summary: api上线回调接口
- */
+// Description:
+//
+// Description: api上线回调接口
+//
+// Summary: api上线回调接口
 func (client *Client) CallbackAntchainSaasAbilityEx(request *CallbackAntchainSaasAbilityRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *CallbackAntchainSaasAbilityResponse, _err error) {
 	_err = util.ValidateModel(request)
 	if _err != nil {
@@ -1110,10 +1223,11 @@ func (client *Client) CallbackAntchainSaasAbilityEx(request *CallbackAntchainSaa
 	return _result, _err
 }
 
-/**
- * Description: 绑定能力的api信息
- * Summary: 绑定能力的api信息
- */
+// Description:
+//
+// Description: 绑定能力的api信息
+//
+// Summary: 绑定能力的api信息
 func (client *Client) BindAntchainSaasAbilityApi(request *BindAntchainSaasAbilityApiRequest) (_result *BindAntchainSaasAbilityApiResponse, _err error) {
 	runtime := &util.RuntimeOptions{}
 	headers := make(map[string]*string)
@@ -1126,10 +1240,11 @@ func (client *Client) BindAntchainSaasAbilityApi(request *BindAntchainSaasAbilit
 	return _result, _err
 }
 
-/**
- * Description: 绑定能力的api信息
- * Summary: 绑定能力的api信息
- */
+// Description:
+//
+// Description: 绑定能力的api信息
+//
+// Summary: 绑定能力的api信息
 func (client *Client) BindAntchainSaasAbilityApiEx(request *BindAntchainSaasAbilityApiRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *BindAntchainSaasAbilityApiResponse, _err error) {
 	_err = util.ValidateModel(request)
 	if _err != nil {
@@ -1144,10 +1259,11 @@ func (client *Client) BindAntchainSaasAbilityApiEx(request *BindAntchainSaasAbil
 	return _result, _err
 }
 
-/**
- * Description: 根据能力id查询能力信息
- * Summary: 根据能力id查询能力信息
- */
+// Description:
+//
+// Description: 根据能力id查询能力信息
+//
+// Summary: 根据能力id查询能力信息
 func (client *Client) QueryAntchainSaasAbilityBusinesscode(request *QueryAntchainSaasAbilityBusinesscodeRequest) (_result *QueryAntchainSaasAbilityBusinesscodeResponse, _err error) {
 	runtime := &util.RuntimeOptions{}
 	headers := make(map[string]*string)
@@ -1160,10 +1276,11 @@ func (client *Client) QueryAntchainSaasAbilityBusinesscode(request *QueryAntchai
 	return _result, _err
 }
 
-/**
- * Description: 根据能力id查询能力信息
- * Summary: 根据能力id查询能力信息
- */
+// Description:
+//
+// Description: 根据能力id查询能力信息
+//
+// Summary: 根据能力id查询能力信息
 func (client *Client) QueryAntchainSaasAbilityBusinesscodeEx(request *QueryAntchainSaasAbilityBusinesscodeRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *QueryAntchainSaasAbilityBusinesscodeResponse, _err error) {
 	_err = util.ValidateModel(request)
 	if _err != nil {
