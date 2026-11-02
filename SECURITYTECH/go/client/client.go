@@ -3919,6 +3919,75 @@ func (s *TripStatisticInfo) SetPeriodCode(v int64) *TripStatisticInfo {
 	return s
 }
 
+// 健康联系人信息
+type HealthContactInfo struct {
+	// 联系人业务id
+	// example:
+	//
+	// 1749795036983016
+	ContactId *string `json:"contact_id,omitempty" xml:"contact_id,omitempty"`
+	// 键位设置优先级（1=红键, 2=黄键, 3=绿键）
+	// example:
+	//
+	// 1
+	Priority *int64 `json:"priority,omitempty" xml:"priority,omitempty"`
+	// 联系人姓名
+	// example:
+	//
+	// 张三
+	ContactName *string `json:"contact_name,omitempty" xml:"contact_name,omitempty"`
+	// 联系人手机号
+	// example:
+	//
+	// 13027589188
+	ContactPhone *string `json:"contact_phone,omitempty" xml:"contact_phone,omitempty"`
+	// 是否锁定 - 锁定时不允许c端用户修改联系人信息
+	// example:
+	//
+	// true
+	Locked *bool `json:"locked,omitempty" xml:"locked,omitempty"`
+	// 预留可扩展字段json
+	ExtraInfo *string `json:"extra_info,omitempty" xml:"extra_info,omitempty"`
+}
+
+func (s HealthContactInfo) String() string {
+	return tea.Prettify(s)
+}
+
+func (s HealthContactInfo) GoString() string {
+	return s.String()
+}
+
+func (s *HealthContactInfo) SetContactId(v string) *HealthContactInfo {
+	s.ContactId = &v
+	return s
+}
+
+func (s *HealthContactInfo) SetPriority(v int64) *HealthContactInfo {
+	s.Priority = &v
+	return s
+}
+
+func (s *HealthContactInfo) SetContactName(v string) *HealthContactInfo {
+	s.ContactName = &v
+	return s
+}
+
+func (s *HealthContactInfo) SetContactPhone(v string) *HealthContactInfo {
+	s.ContactPhone = &v
+	return s
+}
+
+func (s *HealthContactInfo) SetLocked(v bool) *HealthContactInfo {
+	s.Locked = &v
+	return s
+}
+
+func (s *HealthContactInfo) SetExtraInfo(v string) *HealthContactInfo {
+	s.ExtraInfo = &v
+	return s
+}
+
 // 商户入驻-区
 type MaoDistrict struct {
 	// 区编码
@@ -13630,18 +13699,8 @@ type QueryHealthContactResponse struct {
 	ChanneId *string `json:"channe_id,omitempty" xml:"channe_id,omitempty"`
 	// 设备唯一id
 	Tuid *string `json:"tuid,omitempty" xml:"tuid,omitempty"`
-	// 联系人业务id
-	ContactId *string `json:"contact_id,omitempty" xml:"contact_id,omitempty"`
-	// 键位设置优先级（1=红键, 2=黄键, 3=绿键）
-	Priority *int64 `json:"priority,omitempty" xml:"priority,omitempty"`
-	// 联系人姓名
-	ContactName *string `json:"contact_name,omitempty" xml:"contact_name,omitempty"`
-	// 联系人手机号
-	ContactPhone *string `json:"contact_phone,omitempty" xml:"contact_phone,omitempty"`
-	// 是否锁定 - 锁定时不允许c端用户修改联系人信息
-	Locked *bool `json:"locked,omitempty" xml:"locked,omitempty"`
-	// 预留可扩展字段
-	ExtraInfo *string `json:"extra_info,omitempty" xml:"extra_info,omitempty"`
+	// 健康联系人信息
+	ContactList []*HealthContactInfo `json:"contact_list,omitempty" xml:"contact_list,omitempty" type:"Repeated"`
 }
 
 func (s QueryHealthContactResponse) String() string {
@@ -13677,33 +13736,8 @@ func (s *QueryHealthContactResponse) SetTuid(v string) *QueryHealthContactRespon
 	return s
 }
 
-func (s *QueryHealthContactResponse) SetContactId(v string) *QueryHealthContactResponse {
-	s.ContactId = &v
-	return s
-}
-
-func (s *QueryHealthContactResponse) SetPriority(v int64) *QueryHealthContactResponse {
-	s.Priority = &v
-	return s
-}
-
-func (s *QueryHealthContactResponse) SetContactName(v string) *QueryHealthContactResponse {
-	s.ContactName = &v
-	return s
-}
-
-func (s *QueryHealthContactResponse) SetContactPhone(v string) *QueryHealthContactResponse {
-	s.ContactPhone = &v
-	return s
-}
-
-func (s *QueryHealthContactResponse) SetLocked(v bool) *QueryHealthContactResponse {
-	s.Locked = &v
-	return s
-}
-
-func (s *QueryHealthContactResponse) SetExtraInfo(v string) *QueryHealthContactResponse {
-	s.ExtraInfo = &v
+func (s *QueryHealthContactResponse) SetContactList(v []*HealthContactInfo) *QueryHealthContactResponse {
+	s.ContactList = v
 	return s
 }
 
@@ -18887,7 +18921,7 @@ func (client *Client) DoRequest(version *string, action *string, protocol *strin
 				"req_msg_id":       antchainutil.GetNonce(),
 				"access_key":       client.AccessKeyId,
 				"base_sdk_version": tea.String("TeaSDK-2.0"),
-				"sdk_version":      tea.String("1.7.36"),
+				"sdk_version":      tea.String("1.7.37"),
 				"_prod_code":       tea.String("SECURITYTECH"),
 				"_prod_channel":    tea.String("undefined"),
 			}
