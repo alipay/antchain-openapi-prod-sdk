@@ -3578,6 +3578,67 @@ export class TripStatisticInfo extends $tea.Model {
   }
 }
 
+// 健康联系人信息
+export class HealthContactInfo extends $tea.Model {
+  // 联系人业务id
+  /**
+   * @example
+   * 1749795036983016
+   */
+  contactId?: string;
+  // 键位设置优先级（1=红键, 2=黄键, 3=绿键）
+  /**
+   * @example
+   * 1
+   */
+  priority?: number;
+  // 联系人姓名
+  /**
+   * @example
+   * 张三
+   */
+  contactName?: string;
+  // 联系人手机号
+  /**
+   * @example
+   * 13027589188
+   */
+  contactPhone?: string;
+  // 是否锁定 - 锁定时不允许c端用户修改联系人信息
+  /**
+   * @example
+   * true
+   */
+  locked?: boolean;
+  // 预留可扩展字段json
+  extraInfo?: string;
+  static names(): { [key: string]: string } {
+    return {
+      contactId: 'contact_id',
+      priority: 'priority',
+      contactName: 'contact_name',
+      contactPhone: 'contact_phone',
+      locked: 'locked',
+      extraInfo: 'extra_info',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      contactId: 'string',
+      priority: 'number',
+      contactName: 'string',
+      contactPhone: 'string',
+      locked: 'boolean',
+      extraInfo: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
 // 商户入驻-区
 export class MaoDistrict extends $tea.Model {
   // 区编码
@@ -11229,18 +11290,8 @@ export class QueryHealthContactResponse extends $tea.Model {
   channeId?: string;
   // 设备唯一id
   tuid?: string;
-  // 联系人业务id
-  contactId?: string;
-  // 键位设置优先级（1=红键, 2=黄键, 3=绿键）
-  priority?: number;
-  // 联系人姓名
-  contactName?: string;
-  // 联系人手机号
-  contactPhone?: string;
-  // 是否锁定 - 锁定时不允许c端用户修改联系人信息
-  locked?: boolean;
-  // 预留可扩展字段
-  extraInfo?: string;
+  // 健康联系人信息
+  contactList?: HealthContactInfo[];
   static names(): { [key: string]: string } {
     return {
       reqMsgId: 'req_msg_id',
@@ -11248,12 +11299,7 @@ export class QueryHealthContactResponse extends $tea.Model {
       resultMsg: 'result_msg',
       channeId: 'channe_id',
       tuid: 'tuid',
-      contactId: 'contact_id',
-      priority: 'priority',
-      contactName: 'contact_name',
-      contactPhone: 'contact_phone',
-      locked: 'locked',
-      extraInfo: 'extra_info',
+      contactList: 'contact_list',
     };
   }
 
@@ -11264,12 +11310,7 @@ export class QueryHealthContactResponse extends $tea.Model {
       resultMsg: 'string',
       channeId: 'string',
       tuid: 'string',
-      contactId: 'string',
-      priority: 'number',
-      contactName: 'string',
-      contactPhone: 'string',
-      locked: 'boolean',
-      extraInfo: 'string',
+      contactList: { 'type': 'array', 'itemType': HealthContactInfo },
     };
   }
 
@@ -15146,7 +15187,7 @@ export default class Client {
           req_msg_id: AntchainUtil.getNonce(),
           access_key: this._accessKeyId,
           base_sdk_version: "TeaSDK-2.0",
-          sdk_version: "1.7.36",
+          sdk_version: "1.7.37",
           _prod_code: "SECURITYTECH",
           _prod_channel: "undefined",
         };
