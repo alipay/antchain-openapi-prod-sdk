@@ -5,26 +5,129 @@ import RPCUtil from '@alicloud/rpc-util';
 import * as $tea from '@alicloud/tea-typescript';
 
 /**
+ * @remarks
  * Model for initing client
  */
 export class Config extends $tea.Model {
+  /**
+   * @remarks
+   * accesskey id
+   */
   accessKeyId?: string;
+  /**
+   * @remarks
+   * accesskey secret
+   */
   accessKeySecret?: string;
+  /**
+   * @remarks
+   * security token
+   */
   securityToken?: string;
+  /**
+   * @remarks
+   * http protocol
+   * 
+   * @example
+   * http
+   */
   protocol?: string;
+  /**
+   * @remarks
+   * read timeout
+   * 
+   * @example
+   * 10
+   */
   readTimeout?: number;
+  /**
+   * @remarks
+   * connect timeout
+   * 
+   * @example
+   * 10
+   */
   connectTimeout?: number;
+  /**
+   * @remarks
+   * http proxy
+   * 
+   * @example
+   * http://localhost
+   */
   httpProxy?: string;
+  /**
+   * @remarks
+   * https proxy
+   * 
+   * @example
+   * https://localhost
+   */
   httpsProxy?: string;
+  /**
+   * @remarks
+   * endpoint
+   * 
+   * @example
+   * cs.aliyuncs.com
+   */
   endpoint?: string;
+  /**
+   * @remarks
+   * proxy white list
+   * 
+   * @example
+   * http://localhost
+   */
   noProxy?: string;
+  /**
+   * @remarks
+   * max idle conns
+   * 
+   * @example
+   * 3
+   */
   maxIdleConns?: number;
+  /**
+   * @remarks
+   * user agent
+   * 
+   * @example
+   * Alibabacloud/1
+   */
   userAgent?: string;
+  /**
+   * @remarks
+   * socks5 proxy
+   */
   socks5Proxy?: string;
+  /**
+   * @remarks
+   * socks5 network
+   * 
+   * @example
+   * TCP
+   */
   socks5NetWork?: string;
+  /**
+   * @remarks
+   * 长链接最大空闲时长
+   */
   maxIdleTimeMillis?: number;
+  /**
+   * @remarks
+   * 长链接最大连接时长
+   */
   keepAliveDurationMillis?: number;
+  /**
+   * @remarks
+   * 最大连接数（长链接最大总数）
+   */
   maxRequests?: number;
+  /**
+   * @remarks
+   * 每个目标主机的最大连接数（分主机域名的长链接最大总数
+   */
   maxRequestsPerHost?: number;
   static names(): { [key: string]: string } {
     return {
@@ -80,16 +183,40 @@ export class Config extends $tea.Model {
 // api信息结构体
 export class ApiInfoModel extends $tea.Model {
   // api名称
+  /**
+   * @example
+   * demo.sss.ss.ss.bind
+   */
   apiName: string;
   // API所属网关技术产品码
+  /**
+   * @example
+   * demo
+   */
   prodCode: string;
   // 是否是内部接口 0对外 1对内
+  /**
+   * @example
+   * 0
+   */
   internal: number;
   // api版本号
+  /**
+   * @example
+   * 1.0
+   */
   apiVersion: string;
   // api描述
+  /**
+   * @example
+   * 测试用api
+   */
   apiDesc: string;
   // api所属网关产品id
+  /**
+   * @example
+   * 0000567567
+   */
   providerId: string;
   static names(): { [key: string]: string } {
     return {
@@ -121,24 +248,64 @@ export class ApiInfoModel extends $tea.Model {
 // 能力信息
 export class AbilityInfo extends $tea.Model {
   // 能力编号
+  /**
+   * @example
+   * ak_3821c8f0145440dab91b9b23edb1dc73
+   */
   abilityId: string;
   // 能力名称
+  /**
+   * @example
+   * B2B支付网关
+   */
   abilityName: string;
   // 研发负责人
+  /**
+   * @example
+   * 张三
+   */
   devOwner: string;
   // 创建时间
+  /**
+   * @example
+   * 2021-12-30 00:00:00
+   */
   gmtCreate: string;
   // 描述信息
+  /**
+   * @example
+   * 适用场景：企业资金支付场景   适合行业：存在企业采购/企业充值/企业转账等企业支付场景的行业   归属行业线：B类基础产品   产品描述：将交易场景与企业对公账户支付线上关联，订单交易对应的支付需求自动发送给企业网银做财务支出的确认和复核。
+   */
   description: string;
   // 研发负责人邮箱前缀
+  /**
+   * @example
+   * qiujianglong.qjl
+   */
   devOwnerPrefixEmail: string;
   // 产品负责人
+  /**
+   * @example
+   * 江来
+   */
   productOwner: string;
   // 能力对应商业中台L5Code
+  /**
+   * @example
+   * DMZNFM00883001
+   */
   businessCode?: string;
   // apiInfoModels列表
+  /**
+   * @example
+   * test
+   */
   apiInfoModels: ApiInfoModel[];
   // 能力sla看板url
+  /**
+   * @example
+   * https://antslo.alipay.com/maas/slistd/115600116/std/d/147100480_slistd?var-tag1=xxx&var-tag2=All
+   */
   slaUrl?: string;
   static names(): { [key: string]: string } {
     return {
@@ -264,11 +431,14 @@ export class BindDemoAaaBbbCccResponse extends $tea.Model {
   resultCode?: string;
   // 异常信息的文本描述
   resultMsg?: string;
+  // aaa
+  aaa?: string;
   static names(): { [key: string]: string } {
     return {
       reqMsgId: 'req_msg_id',
       resultCode: 'result_code',
       resultMsg: 'result_msg',
+      aaa: 'aaa',
     };
   }
 
@@ -277,6 +447,7 @@ export class BindDemoAaaBbbCccResponse extends $tea.Model {
       reqMsgId: 'string',
       resultCode: 'string',
       resultMsg: 'string',
+      aaa: 'string',
     };
   }
 
@@ -603,8 +774,10 @@ export default class Client {
   _maxRequestsPerHost: number;
 
   /**
+   * @remarks
    * Init client with Config
-   * @param config config contains the necessary information to create a client
+   * 
+   * @param config - config contains the necessary information to create a client
    */
   constructor(config: Config) {
     if (Util.isUnset(config)) {
@@ -635,14 +808,16 @@ export default class Client {
   }
 
   /**
+   * @remarks
    * Encapsulate the request and invoke the network
-   * @param action api name
-   * @param protocol http or https
-   * @param method e.g. GET
-   * @param pathname pathname of every api
-   * @param request which contains request params
-   * @param runtime which controls some details of call api, such as retry times
-   * @return the response
+   * 
+   * @param action - api name
+   * @param protocol - http or https
+   * @param method - e.g. GET
+   * @param pathname - pathname of every api
+   * @param request - which contains request params
+   * @param runtime - which controls some details of call api, such as retry times
+   * @returns the response
    */
   async doRequest(version: string, action: string, protocol: string, method: string, pathname: string, request: {[key: string]: any}, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<{[key: string]: any}> {
     let _runtime: { [key: string]: any } = {
@@ -742,6 +917,7 @@ export default class Client {
   }
 
   /**
+   * @remarks
    * Description: 调试a s dddd
    * Summary: 调试1
    */
@@ -752,6 +928,7 @@ export default class Client {
   }
 
   /**
+   * @remarks
    * Description: 调试a s dddd
    * Summary: 调试1
    */
@@ -761,8 +938,9 @@ export default class Client {
   }
 
   /**
+   * @remarks
    * Description: 自动化测试创建test，请勿修改、删除
-   * Summary: 自动化测试创建test1
+   * Summary: 自动化测试创建test，请勿修改、删除
    */
   async bindDemoAaaBbbCcc(request: BindDemoAaaBbbCccRequest): Promise<BindDemoAaaBbbCccResponse> {
     let runtime = new $Util.RuntimeOptions({ });
@@ -771,8 +949,9 @@ export default class Client {
   }
 
   /**
+   * @remarks
    * Description: 自动化测试创建test，请勿修改、删除
-   * Summary: 自动化测试创建test1
+   * Summary: 自动化测试创建test，请勿修改、删除
    */
   async bindDemoAaaBbbCccEx(request: BindDemoAaaBbbCccRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<BindDemoAaaBbbCccResponse> {
     Util.validateModel(request);
@@ -780,6 +959,7 @@ export default class Client {
   }
 
   /**
+   * @remarks
    * Description: 绑定API
    * Summary: 绑定能力与API关系
    */
@@ -790,6 +970,7 @@ export default class Client {
   }
 
   /**
+   * @remarks
    * Description: 绑定API
    * Summary: 绑定能力与API关系
    */
@@ -799,6 +980,7 @@ export default class Client {
   }
 
   /**
+   * @remarks
    * Description: 自动化测试创建,用于测试API的修改
    * Summary: 自动化测试创建,用于测试API的修改勿动
    */
@@ -809,6 +991,7 @@ export default class Client {
   }
 
   /**
+   * @remarks
    * Description: 自动化测试创建,用于测试API的修改
    * Summary: 自动化测试创建,用于测试API的修改勿动
    */
@@ -818,6 +1001,7 @@ export default class Client {
   }
 
   /**
+   * @remarks
    * Description: api上线回调接口
    * Summary: api上线回调接口
    */
@@ -828,6 +1012,7 @@ export default class Client {
   }
 
   /**
+   * @remarks
    * Description: api上线回调接口
    * Summary: api上线回调接口
    */
@@ -837,6 +1022,7 @@ export default class Client {
   }
 
   /**
+   * @remarks
    * Description: 绑定能力的api信息
    * Summary: 绑定能力的api信息
    */
@@ -847,6 +1033,7 @@ export default class Client {
   }
 
   /**
+   * @remarks
    * Description: 绑定能力的api信息
    * Summary: 绑定能力的api信息
    */
@@ -856,6 +1043,7 @@ export default class Client {
   }
 
   /**
+   * @remarks
    * Description: 根据能力id查询能力信息
    * Summary: 根据能力id查询能力信息
    */
@@ -866,6 +1054,7 @@ export default class Client {
   }
 
   /**
+   * @remarks
    * Description: 根据能力id查询能力信息
    * Summary: 根据能力id查询能力信息
    */
