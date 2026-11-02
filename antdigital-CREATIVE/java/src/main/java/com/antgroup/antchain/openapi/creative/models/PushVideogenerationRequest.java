@@ -18,7 +18,6 @@ public class PushVideogenerationRequest extends TeaModel {
 
     // 文本提示词
     @NameInMap("prompt")
-    @Validation(required = true)
     public String prompt;
 
     // 图生视频参考图片 URL
