@@ -7,7 +7,7 @@
 ### .NET
 
 ```bash
-donet add package AntChain.SDK.Ak_a1f82644937c486c81a62b0e5a6b4fbe
+dotnet add package AntChain.SDK.ak_a1f82644937c486c81a62b0e5a6b4fbe
 ```
 
 ## 问题

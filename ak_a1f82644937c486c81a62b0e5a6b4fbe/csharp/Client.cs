@@ -35,13 +35,17 @@ namespace AntChain.SDK.Ak_a1f82644937c486c81a62b0e5a6b4fbe
         protected int? _maxRequests;
         protected int? _maxRequestsPerHost;
 
-        /**
-         * Init client with Config
-         * @param config config contains the necessary information to create a client
-         */
+        /// <term><b>Description:</b></term>
+        /// <description>
+        /// <para>Init client with Config</para>
+        /// </description>
+        /// 
+        /// <param name="config">
+        /// config contains the necessary information to create a client
+        /// </param>
         public Client(Config config)
         {
-            if (AlibabaCloud.TeaUtil.Common.IsUnset(config.ToMap()))
+            if (AlibabaCloud.TeaUtil.Common.IsUnset(config))
             {
                 throw new TeaException(new Dictionary<string, string>
                 {
@@ -69,16 +73,33 @@ namespace AntChain.SDK.Ak_a1f82644937c486c81a62b0e5a6b4fbe
             this._maxRequestsPerHost = AlibabaCloud.TeaUtil.Common.DefaultNumber(config.MaxRequestsPerHost, 100);
         }
 
-        /**
-         * Encapsulate the request and invoke the network
-         * @param action api name
-         * @param protocol http or https
-         * @param method e.g. GET
-         * @param pathname pathname of every api
-         * @param request which contains request params
-         * @param runtime which controls some details of call api, such as retry times
-         * @return the response
-         */
+        /// <term><b>Description:</b></term>
+        /// <description>
+        /// <para>Encapsulate the request and invoke the network</para>
+        /// </description>
+        /// 
+        /// <param name="action">
+        /// api name
+        /// </param>
+        /// <param name="protocol">
+        /// http or https
+        /// </param>
+        /// <param name="method">
+        /// e.g. GET
+        /// </param>
+        /// <param name="pathname">
+        /// pathname of every api
+        /// </param>
+        /// <param name="request">
+        /// which contains request params
+        /// </param>
+        /// <param name="runtime">
+        /// which controls some details of call api, such as retry times
+        /// </param>
+        /// 
+        /// <returns>
+        /// the response
+        /// </returns>
         public Dictionary<string, object> DoRequest(string version, string action, string protocol, string method, string pathname, Dictionary<string, object> request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
         {
             Dictionary<string, object> runtime_ = new Dictionary<string, object>
@@ -195,16 +216,33 @@ namespace AntChain.SDK.Ak_a1f82644937c486c81a62b0e5a6b4fbe
             throw new TeaUnretryableException(_lastRequest, _lastException);
         }
 
-        /**
-         * Encapsulate the request and invoke the network
-         * @param action api name
-         * @param protocol http or https
-         * @param method e.g. GET
-         * @param pathname pathname of every api
-         * @param request which contains request params
-         * @param runtime which controls some details of call api, such as retry times
-         * @return the response
-         */
+        /// <term><b>Description:</b></term>
+        /// <description>
+        /// <para>Encapsulate the request and invoke the network</para>
+        /// </description>
+        /// 
+        /// <param name="action">
+        /// api name
+        /// </param>
+        /// <param name="protocol">
+        /// http or https
+        /// </param>
+        /// <param name="method">
+        /// e.g. GET
+        /// </param>
+        /// <param name="pathname">
+        /// pathname of every api
+        /// </param>
+        /// <param name="request">
+        /// which contains request params
+        /// </param>
+        /// <param name="runtime">
+        /// which controls some details of call api, such as retry times
+        /// </param>
+        /// 
+        /// <returns>
+        /// the response
+        /// </returns>
         public async Task<Dictionary<string, object>> DoRequestAsync(string version, string action, string protocol, string method, string pathname, Dictionary<string, object> request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
         {
             Dictionary<string, object> runtime_ = new Dictionary<string, object>
@@ -321,10 +359,11 @@ namespace AntChain.SDK.Ak_a1f82644937c486c81a62b0e5a6b4fbe
             throw new TeaUnretryableException(_lastRequest, _lastException);
         }
 
-        /**
-         * Description: 调试a s dddd
-         * Summary: 调试1
-         */
+        /// <term><b>Description:</b></term>
+        /// <description>
+        /// <para>Description: 调试a s dddd
+        /// Summary: 调试1</para>
+        /// </description>
         public QueryAntchainAbcAbcdaAbcddaaResponse QueryAntchainAbcAbcdaAbcddaa(QueryAntchainAbcAbcdaAbcddaaRequest request)
         {
             AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
@@ -332,10 +371,11 @@ namespace AntChain.SDK.Ak_a1f82644937c486c81a62b0e5a6b4fbe
             return QueryAntchainAbcAbcdaAbcddaaEx(request, headers, runtime);
         }
 
-        /**
-         * Description: 调试a s dddd
-         * Summary: 调试1
-         */
+        /// <term><b>Description:</b></term>
+        /// <description>
+        /// <para>Description: 调试a s dddd
+        /// Summary: 调试1</para>
+        /// </description>
         public async Task<QueryAntchainAbcAbcdaAbcddaaResponse> QueryAntchainAbcAbcdaAbcddaaAsync(QueryAntchainAbcAbcdaAbcddaaRequest request)
         {
             AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
@@ -343,30 +383,33 @@ namespace AntChain.SDK.Ak_a1f82644937c486c81a62b0e5a6b4fbe
             return await QueryAntchainAbcAbcdaAbcddaaExAsync(request, headers, runtime);
         }
 
-        /**
-         * Description: 调试a s dddd
-         * Summary: 调试1
-         */
+        /// <term><b>Description:</b></term>
+        /// <description>
+        /// <para>Description: 调试a s dddd
+        /// Summary: 调试1</para>
+        /// </description>
         public QueryAntchainAbcAbcdaAbcddaaResponse QueryAntchainAbcAbcdaAbcddaaEx(QueryAntchainAbcAbcdaAbcddaaRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
         {
             AlibabaCloud.TeaUtil.Common.ValidateModel(request);
             return TeaModel.ToObject<QueryAntchainAbcAbcdaAbcddaaResponse>(DoRequest("1.0", "antchain.abc.abcda.abcddaa.query", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
         }
 
-        /**
-         * Description: 调试a s dddd
-         * Summary: 调试1
-         */
+        /// <term><b>Description:</b></term>
+        /// <description>
+        /// <para>Description: 调试a s dddd
+        /// Summary: 调试1</para>
+        /// </description>
         public async Task<QueryAntchainAbcAbcdaAbcddaaResponse> QueryAntchainAbcAbcdaAbcddaaExAsync(QueryAntchainAbcAbcdaAbcddaaRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
         {
             AlibabaCloud.TeaUtil.Common.ValidateModel(request);
             return TeaModel.ToObject<QueryAntchainAbcAbcdaAbcddaaResponse>(await DoRequestAsync("1.0", "antchain.abc.abcda.abcddaa.query", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
         }
 
-        /**
-         * Description: 自动化测试创建test，请勿修改、删除
-         * Summary: 自动化测试创建test1
-         */
+        /// <term><b>Description:</b></term>
+        /// <description>
+        /// <para>Description: 自动化测试创建test，请勿修改、删除
+        /// Summary: 自动化测试创建test，请勿修改、删除</para>
+        /// </description>
         public BindDemoAaaBbbCccResponse BindDemoAaaBbbCcc(BindDemoAaaBbbCccRequest request)
         {
             AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
@@ -374,10 +417,11 @@ namespace AntChain.SDK.Ak_a1f82644937c486c81a62b0e5a6b4fbe
             return BindDemoAaaBbbCccEx(request, headers, runtime);
         }
 
-        /**
-         * Description: 自动化测试创建test，请勿修改、删除
-         * Summary: 自动化测试创建test1
-         */
+        /// <term><b>Description:</b></term>
+        /// <description>
+        /// <para>Description: 自动化测试创建test，请勿修改、删除
+        /// Summary: 自动化测试创建test，请勿修改、删除</para>
+        /// </description>
         public async Task<BindDemoAaaBbbCccResponse> BindDemoAaaBbbCccAsync(BindDemoAaaBbbCccRequest request)
         {
             AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
@@ -385,30 +429,33 @@ namespace AntChain.SDK.Ak_a1f82644937c486c81a62b0e5a6b4fbe
             return await BindDemoAaaBbbCccExAsync(request, headers, runtime);
         }
 
-        /**
-         * Description: 自动化测试创建test，请勿修改、删除
-         * Summary: 自动化测试创建test1
-         */
+        /// <term><b>Description:</b></term>
+        /// <description>
+        /// <para>Description: 自动化测试创建test，请勿修改、删除
+        /// Summary: 自动化测试创建test，请勿修改、删除</para>
+        /// </description>
         public BindDemoAaaBbbCccResponse BindDemoAaaBbbCccEx(BindDemoAaaBbbCccRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
         {
             AlibabaCloud.TeaUtil.Common.ValidateModel(request);
             return TeaModel.ToObject<BindDemoAaaBbbCccResponse>(DoRequest("1.0", "demo.aaa.bbb.ccc.bind", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
         }
 
-        /**
-         * Description: 自动化测试创建test，请勿修改、删除
-         * Summary: 自动化测试创建test1
-         */
+        /// <term><b>Description:</b></term>
+        /// <description>
+        /// <para>Description: 自动化测试创建test，请勿修改、删除
+        /// Summary: 自动化测试创建test，请勿修改、删除</para>
+        /// </description>
         public async Task<BindDemoAaaBbbCccResponse> BindDemoAaaBbbCccExAsync(BindDemoAaaBbbCccRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
         {
             AlibabaCloud.TeaUtil.Common.ValidateModel(request);
             return TeaModel.ToObject<BindDemoAaaBbbCccResponse>(await DoRequestAsync("1.0", "demo.aaa.bbb.ccc.bind", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
         }
 
-        /**
-         * Description: 绑定API
-         * Summary: 绑定能力与API关系
-         */
+        /// <term><b>Description:</b></term>
+        /// <description>
+        /// <para>Description: 绑定API
+        /// Summary: 绑定能力与API关系</para>
+        /// </description>
         public BindAntchainSaasAbilityResponse BindAntchainSaasAbility(BindAntchainSaasAbilityRequest request)
         {
             AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
@@ -416,10 +463,11 @@ namespace AntChain.SDK.Ak_a1f82644937c486c81a62b0e5a6b4fbe
             return BindAntchainSaasAbilityEx(request, headers, runtime);
         }
 
-        /**
-         * Description: 绑定API
-         * Summary: 绑定能力与API关系
-         */
+        /// <term><b>Description:</b></term>
+        /// <description>
+        /// <para>Description: 绑定API
+        /// Summary: 绑定能力与API关系</para>
+        /// </description>
         public async Task<BindAntchainSaasAbilityResponse> BindAntchainSaasAbilityAsync(BindAntchainSaasAbilityRequest request)
         {
             AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
@@ -427,30 +475,33 @@ namespace AntChain.SDK.Ak_a1f82644937c486c81a62b0e5a6b4fbe
             return await BindAntchainSaasAbilityExAsync(request, headers, runtime);
         }
 
-        /**
-         * Description: 绑定API
-         * Summary: 绑定能力与API关系
-         */
+        /// <term><b>Description:</b></term>
+        /// <description>
+        /// <para>Description: 绑定API
+        /// Summary: 绑定能力与API关系</para>
+        /// </description>
         public BindAntchainSaasAbilityResponse BindAntchainSaasAbilityEx(BindAntchainSaasAbilityRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
         {
             AlibabaCloud.TeaUtil.Common.ValidateModel(request);
             return TeaModel.ToObject<BindAntchainSaasAbilityResponse>(DoRequest("1.0", "antchain.saas.ability.bind", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
         }
 
-        /**
-         * Description: 绑定API
-         * Summary: 绑定能力与API关系
-         */
+        /// <term><b>Description:</b></term>
+        /// <description>
+        /// <para>Description: 绑定API
+        /// Summary: 绑定能力与API关系</para>
+        /// </description>
         public async Task<BindAntchainSaasAbilityResponse> BindAntchainSaasAbilityExAsync(BindAntchainSaasAbilityRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
         {
             AlibabaCloud.TeaUtil.Common.ValidateModel(request);
             return TeaModel.ToObject<BindAntchainSaasAbilityResponse>(await DoRequestAsync("1.0", "antchain.saas.ability.bind", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
         }
 
-        /**
-         * Description: 自动化测试创建,用于测试API的修改
-         * Summary: 自动化测试创建,用于测试API的修改勿动
-         */
+        /// <term><b>Description:</b></term>
+        /// <description>
+        /// <para>Description: 自动化测试创建,用于测试API的修改
+        /// Summary: 自动化测试创建,用于测试API的修改勿动</para>
+        /// </description>
         public QueryDemoAbcAbcAbcResponse QueryDemoAbcAbcAbc(QueryDemoAbcAbcAbcRequest request)
         {
             AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
@@ -458,10 +509,11 @@ namespace AntChain.SDK.Ak_a1f82644937c486c81a62b0e5a6b4fbe
             return QueryDemoAbcAbcAbcEx(request, headers, runtime);
         }
 
-        /**
-         * Description: 自动化测试创建,用于测试API的修改
-         * Summary: 自动化测试创建,用于测试API的修改勿动
-         */
+        /// <term><b>Description:</b></term>
+        /// <description>
+        /// <para>Description: 自动化测试创建,用于测试API的修改
+        /// Summary: 自动化测试创建,用于测试API的修改勿动</para>
+        /// </description>
         public async Task<QueryDemoAbcAbcAbcResponse> QueryDemoAbcAbcAbcAsync(QueryDemoAbcAbcAbcRequest request)
         {
             AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
@@ -469,30 +521,33 @@ namespace AntChain.SDK.Ak_a1f82644937c486c81a62b0e5a6b4fbe
             return await QueryDemoAbcAbcAbcExAsync(request, headers, runtime);
         }
 
-        /**
-         * Description: 自动化测试创建,用于测试API的修改
-         * Summary: 自动化测试创建,用于测试API的修改勿动
-         */
+        /// <term><b>Description:</b></term>
+        /// <description>
+        /// <para>Description: 自动化测试创建,用于测试API的修改
+        /// Summary: 自动化测试创建,用于测试API的修改勿动</para>
+        /// </description>
         public QueryDemoAbcAbcAbcResponse QueryDemoAbcAbcAbcEx(QueryDemoAbcAbcAbcRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
         {
             AlibabaCloud.TeaUtil.Common.ValidateModel(request);
             return TeaModel.ToObject<QueryDemoAbcAbcAbcResponse>(DoRequest("1.0", "demo.abc.abc.abc.query", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
         }
 
-        /**
-         * Description: 自动化测试创建,用于测试API的修改
-         * Summary: 自动化测试创建,用于测试API的修改勿动
-         */
+        /// <term><b>Description:</b></term>
+        /// <description>
+        /// <para>Description: 自动化测试创建,用于测试API的修改
+        /// Summary: 自动化测试创建,用于测试API的修改勿动</para>
+        /// </description>
         public async Task<QueryDemoAbcAbcAbcResponse> QueryDemoAbcAbcAbcExAsync(QueryDemoAbcAbcAbcRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
         {
             AlibabaCloud.TeaUtil.Common.ValidateModel(request);
             return TeaModel.ToObject<QueryDemoAbcAbcAbcResponse>(await DoRequestAsync("1.0", "demo.abc.abc.abc.query", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
         }
 
-        /**
-         * Description: api上线回调接口
-         * Summary: api上线回调接口
-         */
+        /// <term><b>Description:</b></term>
+        /// <description>
+        /// <para>Description: api上线回调接口
+        /// Summary: api上线回调接口</para>
+        /// </description>
         public CallbackAntchainSaasAbilityResponse CallbackAntchainSaasAbility(CallbackAntchainSaasAbilityRequest request)
         {
             AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
@@ -500,10 +555,11 @@ namespace AntChain.SDK.Ak_a1f82644937c486c81a62b0e5a6b4fbe
             return CallbackAntchainSaasAbilityEx(request, headers, runtime);
         }
 
-        /**
-         * Description: api上线回调接口
-         * Summary: api上线回调接口
-         */
+        /// <term><b>Description:</b></term>
+        /// <description>
+        /// <para>Description: api上线回调接口
+        /// Summary: api上线回调接口</para>
+        /// </description>
         public async Task<CallbackAntchainSaasAbilityResponse> CallbackAntchainSaasAbilityAsync(CallbackAntchainSaasAbilityRequest request)
         {
             AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
@@ -511,30 +567,33 @@ namespace AntChain.SDK.Ak_a1f82644937c486c81a62b0e5a6b4fbe
             return await CallbackAntchainSaasAbilityExAsync(request, headers, runtime);
         }
 
-        /**
-         * Description: api上线回调接口
-         * Summary: api上线回调接口
-         */
+        /// <term><b>Description:</b></term>
+        /// <description>
+        /// <para>Description: api上线回调接口
+        /// Summary: api上线回调接口</para>
+        /// </description>
         public CallbackAntchainSaasAbilityResponse CallbackAntchainSaasAbilityEx(CallbackAntchainSaasAbilityRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
         {
             AlibabaCloud.TeaUtil.Common.ValidateModel(request);
             return TeaModel.ToObject<CallbackAntchainSaasAbilityResponse>(DoRequest("1.0", "antchain.saas.ability.callback", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
         }
 
-        /**
-         * Description: api上线回调接口
-         * Summary: api上线回调接口
-         */
+        /// <term><b>Description:</b></term>
+        /// <description>
+        /// <para>Description: api上线回调接口
+        /// Summary: api上线回调接口</para>
+        /// </description>
         public async Task<CallbackAntchainSaasAbilityResponse> CallbackAntchainSaasAbilityExAsync(CallbackAntchainSaasAbilityRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
         {
             AlibabaCloud.TeaUtil.Common.ValidateModel(request);
             return TeaModel.ToObject<CallbackAntchainSaasAbilityResponse>(await DoRequestAsync("1.0", "antchain.saas.ability.callback", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
         }
 
-        /**
-         * Description: 绑定能力的api信息
-         * Summary: 绑定能力的api信息
-         */
+        /// <term><b>Description:</b></term>
+        /// <description>
+        /// <para>Description: 绑定能力的api信息
+        /// Summary: 绑定能力的api信息</para>
+        /// </description>
         public BindAntchainSaasAbilityApiResponse BindAntchainSaasAbilityApi(BindAntchainSaasAbilityApiRequest request)
         {
             AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
@@ -542,10 +601,11 @@ namespace AntChain.SDK.Ak_a1f82644937c486c81a62b0e5a6b4fbe
             return BindAntchainSaasAbilityApiEx(request, headers, runtime);
         }
 
-        /**
-         * Description: 绑定能力的api信息
-         * Summary: 绑定能力的api信息
-         */
+        /// <term><b>Description:</b></term>
+        /// <description>
+        /// <para>Description: 绑定能力的api信息
+        /// Summary: 绑定能力的api信息</para>
+        /// </description>
         public async Task<BindAntchainSaasAbilityApiResponse> BindAntchainSaasAbilityApiAsync(BindAntchainSaasAbilityApiRequest request)
         {
             AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
@@ -553,30 +613,33 @@ namespace AntChain.SDK.Ak_a1f82644937c486c81a62b0e5a6b4fbe
             return await BindAntchainSaasAbilityApiExAsync(request, headers, runtime);
         }
 
-        /**
-         * Description: 绑定能力的api信息
-         * Summary: 绑定能力的api信息
-         */
+        /// <term><b>Description:</b></term>
+        /// <description>
+        /// <para>Description: 绑定能力的api信息
+        /// Summary: 绑定能力的api信息</para>
+        /// </description>
         public BindAntchainSaasAbilityApiResponse BindAntchainSaasAbilityApiEx(BindAntchainSaasAbilityApiRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
         {
             AlibabaCloud.TeaUtil.Common.ValidateModel(request);
             return TeaModel.ToObject<BindAntchainSaasAbilityApiResponse>(DoRequest("1.0", "antchain.saas.ability.api.bind", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
         }
 
-        /**
-         * Description: 绑定能力的api信息
-         * Summary: 绑定能力的api信息
-         */
+        /// <term><b>Description:</b></term>
+        /// <description>
+        /// <para>Description: 绑定能力的api信息
+        /// Summary: 绑定能力的api信息</para>
+        /// </description>
         public async Task<BindAntchainSaasAbilityApiResponse> BindAntchainSaasAbilityApiExAsync(BindAntchainSaasAbilityApiRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
         {
             AlibabaCloud.TeaUtil.Common.ValidateModel(request);
             return TeaModel.ToObject<BindAntchainSaasAbilityApiResponse>(await DoRequestAsync("1.0", "antchain.saas.ability.api.bind", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
         }
 
-        /**
-         * Description: 根据能力id查询能力信息
-         * Summary: 根据能力id查询能力信息
-         */
+        /// <term><b>Description:</b></term>
+        /// <description>
+        /// <para>Description: 根据能力id查询能力信息
+        /// Summary: 根据能力id查询能力信息</para>
+        /// </description>
         public QueryAntchainSaasAbilityBusinesscodeResponse QueryAntchainSaasAbilityBusinesscode(QueryAntchainSaasAbilityBusinesscodeRequest request)
         {
             AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
@@ -584,10 +647,11 @@ namespace AntChain.SDK.Ak_a1f82644937c486c81a62b0e5a6b4fbe
             return QueryAntchainSaasAbilityBusinesscodeEx(request, headers, runtime);
         }
 
-        /**
-         * Description: 根据能力id查询能力信息
-         * Summary: 根据能力id查询能力信息
-         */
+        /// <term><b>Description:</b></term>
+        /// <description>
+        /// <para>Description: 根据能力id查询能力信息
+        /// Summary: 根据能力id查询能力信息</para>
+        /// </description>
         public async Task<QueryAntchainSaasAbilityBusinesscodeResponse> QueryAntchainSaasAbilityBusinesscodeAsync(QueryAntchainSaasAbilityBusinesscodeRequest request)
         {
             AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
@@ -595,20 +659,22 @@ namespace AntChain.SDK.Ak_a1f82644937c486c81a62b0e5a6b4fbe
             return await QueryAntchainSaasAbilityBusinesscodeExAsync(request, headers, runtime);
         }
 
-        /**
-         * Description: 根据能力id查询能力信息
-         * Summary: 根据能力id查询能力信息
-         */
+        /// <term><b>Description:</b></term>
+        /// <description>
+        /// <para>Description: 根据能力id查询能力信息
+        /// Summary: 根据能力id查询能力信息</para>
+        /// </description>
         public QueryAntchainSaasAbilityBusinesscodeResponse QueryAntchainSaasAbilityBusinesscodeEx(QueryAntchainSaasAbilityBusinesscodeRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
         {
             AlibabaCloud.TeaUtil.Common.ValidateModel(request);
             return TeaModel.ToObject<QueryAntchainSaasAbilityBusinesscodeResponse>(DoRequest("1.0", "antchain.saas.ability.businesscode.query", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
         }
 
-        /**
-         * Description: 根据能力id查询能力信息
-         * Summary: 根据能力id查询能力信息
-         */
+        /// <term><b>Description:</b></term>
+        /// <description>
+        /// <para>Description: 根据能力id查询能力信息
+        /// Summary: 根据能力id查询能力信息</para>
+        /// </description>
         public async Task<QueryAntchainSaasAbilityBusinesscodeResponse> QueryAntchainSaasAbilityBusinesscodeExAsync(QueryAntchainSaasAbilityBusinesscodeRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
         {
             AlibabaCloud.TeaUtil.Common.ValidateModel(request);

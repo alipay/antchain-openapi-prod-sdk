@@ -24,6 +24,11 @@ namespace AntChain.SDK.Ak_a1f82644937c486c81a62b0e5a6b4fbe.Models
         [Validation(Required=false)]
         public string ResultMsg { get; set; }
 
+        // aaa
+        [NameInMap("aaa")]
+        [Validation(Required=false)]
+        public string Aaa { get; set; }
+
     }
 
 }
