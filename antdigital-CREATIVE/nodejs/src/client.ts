@@ -285,7 +285,7 @@ export class PushVideogenerationRequest extends $tea.Model {
   // 模型标识，如 ：doubao-seedance-2-0-260128
   model: string;
   // 文本提示词
-  prompt: string;
+  prompt?: string;
   // 图生视频参考图片 URL
   imageUrl?: string[];
   // 视频参考/续写时传入视频 URL
@@ -735,7 +735,7 @@ export default class Client {
           req_msg_id: AntchainUtil.getNonce(),
           access_key: this._accessKeyId,
           base_sdk_version: "TeaSDK-2.0",
-          sdk_version: "1.0.7",
+          sdk_version: "1.0.10",
           _prod_code: "CREATIVE",
           _prod_channel: "default",
         };
