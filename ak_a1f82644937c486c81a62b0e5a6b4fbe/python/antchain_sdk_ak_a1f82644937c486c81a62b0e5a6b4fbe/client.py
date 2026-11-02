@@ -337,7 +337,7 @@ class Client:
     ) -> ak_a_1f_82644937c_486c_81a_62b_0e_5a_6b_4fbe_models.BindDemoAaaBbbCccResponse:
         """
         Description: 自动化测试创建test，请勿修改、删除
-        Summary: 自动化测试创建test1
+        Summary: 自动化测试创建test，请勿修改、删除
         """
         runtime = util_models.RuntimeOptions()
         headers = {}
@@ -349,7 +349,7 @@ class Client:
     ) -> ak_a_1f_82644937c_486c_81a_62b_0e_5a_6b_4fbe_models.BindDemoAaaBbbCccResponse:
         """
         Description: 自动化测试创建test，请勿修改、删除
-        Summary: 自动化测试创建test1
+        Summary: 自动化测试创建test，请勿修改、删除
         """
         runtime = util_models.RuntimeOptions()
         headers = {}
@@ -363,7 +363,7 @@ class Client:
     ) -> ak_a_1f_82644937c_486c_81a_62b_0e_5a_6b_4fbe_models.BindDemoAaaBbbCccResponse:
         """
         Description: 自动化测试创建test，请勿修改、删除
-        Summary: 自动化测试创建test1
+        Summary: 自动化测试创建test，请勿修改、删除
         """
         UtilClient.validate_model(request)
         return TeaCore.from_map(
@@ -379,7 +379,7 @@ class Client:
     ) -> ak_a_1f_82644937c_486c_81a_62b_0e_5a_6b_4fbe_models.BindDemoAaaBbbCccResponse:
         """
         Description: 自动化测试创建test，请勿修改、删除
-        Summary: 自动化测试创建test1
+        Summary: 自动化测试创建test，请勿修改、删除
         """
         UtilClient.validate_model(request)
         return TeaCore.from_map(

@@ -24,13 +24,13 @@ from setuptools import setup, find_packages
 """
 setup module for antchain_ak_a1f82644937c486c81a62b0e5a6b4fbe.
 
-Created on 15/12/2025
+Created on 02/11/2026
 
 @author: Ant Chain SDK
 """
 
 PACKAGE = "antchain_sdk_ak_a1f82644937c486c81a62b0e5a6b4fbe"
-NAME = "antchain_ak_a1f82644937c486c81a62b0e5a6b4fbe" or "alibabacloud-package"
+NAME = 'antchain_ak_a1f82644937c486c81a62b0e5a6b4fbe' or "alibabacloud-package"
 DESCRIPTION = "Ant Chain Ak_a1f82644937c486c81a62b0e5a6b4fbe SDK Library for Python"
 AUTHOR = "Ant Chain SDK"
 AUTHOR_EMAIL = "sdk-team@alibabacloud.com"
@@ -38,7 +38,7 @@ URL = "https://github.com/alipay/antchain-openapi-prod-sdk"
 VERSION = __import__(PACKAGE).__version__
 REQUIRES = [
     "antchain_alipay_util>=1.0.1, <2.0.0",
-    "alibabacloud_tea_util>=0.3.13, <1.0.0",
+    "alibabacloud_tea_util>=0.3.14, <1.0.0",
     "alibabacloud_rpc_util>=0.0.4, <1.0.0"
 ]
 
