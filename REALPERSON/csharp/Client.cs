@@ -158,7 +158,7 @@ namespace AntChain.SDK.REALPERSON
                         {"req_msg_id", AntChain.AlipayUtil.AntchainUtils.GetNonce()},
                         {"access_key", _accessKeyId},
                         {"base_sdk_version", "TeaSDK-2.0"},
-                        {"sdk_version", "1.23.3"},
+                        {"sdk_version", "1.23.5"},
                         {"_prod_code", "REALPERSON"},
                         {"_prod_channel", "undefined"},
                     };
@@ -301,7 +301,7 @@ namespace AntChain.SDK.REALPERSON
                         {"req_msg_id", AntChain.AlipayUtil.AntchainUtils.GetNonce()},
                         {"access_key", _accessKeyId},
                         {"base_sdk_version", "TeaSDK-2.0"},
-                        {"sdk_version", "1.23.3"},
+                        {"sdk_version", "1.23.5"},
                         {"_prod_code", "REALPERSON"},
                         {"_prod_channel", "undefined"},
                     };
@@ -2115,8 +2115,8 @@ namespace AntChain.SDK.REALPERSON
 
         /// <term><b>Description:</b></term>
         /// <description>
-        /// <para>Description: 银行活跃度
-        /// Summary: 银行活跃度</para>
+        /// <para>Description: 个人银行卡状态标准版
+        /// Summary: 个人银行卡状态标准版</para>
         /// </description>
         public QueryBankLivenessResponse QueryBankLiveness(QueryBankLivenessRequest request)
         {
@@ -2127,8 +2127,8 @@ namespace AntChain.SDK.REALPERSON
 
         /// <term><b>Description:</b></term>
         /// <description>
-        /// <para>Description: 银行活跃度
-        /// Summary: 银行活跃度</para>
+        /// <para>Description: 个人银行卡状态标准版
+        /// Summary: 个人银行卡状态标准版</para>
         /// </description>
         public async Task<QueryBankLivenessResponse> QueryBankLivenessAsync(QueryBankLivenessRequest request)
         {
@@ -2139,8 +2139,8 @@ namespace AntChain.SDK.REALPERSON
 
         /// <term><b>Description:</b></term>
         /// <description>
-        /// <para>Description: 银行活跃度
-        /// Summary: 银行活跃度</para>
+        /// <para>Description: 个人银行卡状态标准版
+        /// Summary: 个人银行卡状态标准版</para>
         /// </description>
         public QueryBankLivenessResponse QueryBankLivenessEx(QueryBankLivenessRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
         {
@@ -2150,8 +2150,8 @@ namespace AntChain.SDK.REALPERSON
 
         /// <term><b>Description:</b></term>
         /// <description>
-        /// <para>Description: 银行活跃度
-        /// Summary: 银行活跃度</para>
+        /// <para>Description: 个人银行卡状态标准版
+        /// Summary: 个人银行卡状态标准版</para>
         /// </description>
         public async Task<QueryBankLivenessResponse> QueryBankLivenessExAsync(QueryBankLivenessRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
         {
@@ -2901,8 +2901,8 @@ namespace AntChain.SDK.REALPERSON
 
         /// <term><b>Description:</b></term>
         /// <description>
-        /// <para>Description: 个人银行卡状态验证 V4.0
-        /// Summary: 个人银行卡状态验证 V4.0</para>
+        /// <para>Description: 个人银行卡状态基础版
+        /// Summary: 个人银行卡状态基础版</para>
         /// </description>
         public QueryBankLivenessfourResponse QueryBankLivenessfour(QueryBankLivenessfourRequest request)
         {
@@ -2913,8 +2913,8 @@ namespace AntChain.SDK.REALPERSON
 
         /// <term><b>Description:</b></term>
         /// <description>
-        /// <para>Description: 个人银行卡状态验证 V4.0
-        /// Summary: 个人银行卡状态验证 V4.0</para>
+        /// <para>Description: 个人银行卡状态基础版
+        /// Summary: 个人银行卡状态基础版</para>
         /// </description>
         public async Task<QueryBankLivenessfourResponse> QueryBankLivenessfourAsync(QueryBankLivenessfourRequest request)
         {
@@ -2925,8 +2925,8 @@ namespace AntChain.SDK.REALPERSON
 
         /// <term><b>Description:</b></term>
         /// <description>
-        /// <para>Description: 个人银行卡状态验证 V4.0
-        /// Summary: 个人银行卡状态验证 V4.0</para>
+        /// <para>Description: 个人银行卡状态基础版
+        /// Summary: 个人银行卡状态基础版</para>
         /// </description>
         public QueryBankLivenessfourResponse QueryBankLivenessfourEx(QueryBankLivenessfourRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
         {
@@ -2936,8 +2936,8 @@ namespace AntChain.SDK.REALPERSON
 
         /// <term><b>Description:</b></term>
         /// <description>
-        /// <para>Description: 个人银行卡状态验证 V4.0
-        /// Summary: 个人银行卡状态验证 V4.0</para>
+        /// <para>Description: 个人银行卡状态基础版
+        /// Summary: 个人银行卡状态基础版</para>
         /// </description>
         public async Task<QueryBankLivenessfourResponse> QueryBankLivenessfourExAsync(QueryBankLivenessfourRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
         {
@@ -4686,30 +4686,6 @@ namespace AntChain.SDK.REALPERSON
         /// </description>
         public InitServerWillauthResponse InitServerWillauthEx(InitServerWillauthRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
         {
-            if (!AlibabaCloud.TeaUtil.Common.IsUnset(request.FileObject))
-            {
-                CreateAntcloudGatewayxFileUploadRequest uploadReq = new CreateAntcloudGatewayxFileUploadRequest
-                {
-                    AuthToken = request.AuthToken,
-                    ApiCode = "di.realperson.server.willauth.init",
-                    FileName = request.FileObjectName,
-                };
-                CreateAntcloudGatewayxFileUploadResponse uploadResp = CreateAntcloudGatewayxFileUploadEx(uploadReq, headers, runtime);
-                if (!AntChain.AlipayUtil.AntchainUtils.IsSuccess(uploadResp.ResultCode, "ok"))
-                {
-                    InitServerWillauthResponse initServerWillauthResponse = new InitServerWillauthResponse
-                    {
-                        ReqMsgId = uploadResp.ReqMsgId,
-                        ResultCode = uploadResp.ResultCode,
-                        ResultMsg = uploadResp.ResultMsg,
-                    };
-                    return initServerWillauthResponse;
-                }
-                Dictionary<string, string> uploadHeaders = AntChain.AlipayUtil.AntchainUtils.ParseUploadHeaders(uploadResp.UploadHeaders);
-                AntChain.AlipayUtil.AntchainUtils.PutObject(request.FileObject, uploadHeaders, uploadResp.UploadUrl);
-                request.FileId = uploadResp.FileId;
-                request.FileObject = null;
-            }
             AlibabaCloud.TeaUtil.Common.ValidateModel(request);
             return TeaModel.ToObject<InitServerWillauthResponse>(DoRequest("1.0", "di.realperson.server.willauth.init", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
         }
@@ -4721,30 +4697,6 @@ namespace AntChain.SDK.REALPERSON
         /// </description>
         public async Task<InitServerWillauthResponse> InitServerWillauthExAsync(InitServerWillauthRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
         {
-            if (!AlibabaCloud.TeaUtil.Common.IsUnset(request.FileObject))
-            {
-                CreateAntcloudGatewayxFileUploadRequest uploadReq = new CreateAntcloudGatewayxFileUploadRequest
-                {
-                    AuthToken = request.AuthToken,
-                    ApiCode = "di.realperson.server.willauth.init",
-                    FileName = request.FileObjectName,
-                };
-                CreateAntcloudGatewayxFileUploadResponse uploadResp = await CreateAntcloudGatewayxFileUploadExAsync(uploadReq, headers, runtime);
-                if (!AntChain.AlipayUtil.AntchainUtils.IsSuccess(uploadResp.ResultCode, "ok"))
-                {
-                    InitServerWillauthResponse initServerWillauthResponse = new InitServerWillauthResponse
-                    {
-                        ReqMsgId = uploadResp.ReqMsgId,
-                        ResultCode = uploadResp.ResultCode,
-                        ResultMsg = uploadResp.ResultMsg,
-                    };
-                    return initServerWillauthResponse;
-                }
-                Dictionary<string, string> uploadHeaders = AntChain.AlipayUtil.AntchainUtils.ParseUploadHeaders(uploadResp.UploadHeaders);
-                AntChain.AlipayUtil.AntchainUtils.PutObject(request.FileObject, uploadHeaders, uploadResp.UploadUrl);
-                request.FileId = uploadResp.FileId;
-                request.FileObject = null;
-            }
             AlibabaCloud.TeaUtil.Common.ValidateModel(request);
             return TeaModel.ToObject<InitServerWillauthResponse>(await DoRequestAsync("1.0", "di.realperson.server.willauth.init", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
         }

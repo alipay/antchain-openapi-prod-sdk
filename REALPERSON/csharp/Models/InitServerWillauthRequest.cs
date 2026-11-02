@@ -19,22 +19,8 @@ namespace AntChain.SDK.REALPERSON.Models
         public string ProductInstanceId { get; set; }
 
         // string
-        /// <summary>
-        /// <para>待上传文件</para>
-        /// </summary>
-        [NameInMap("fileObject")]
-        [Validation(Required=false)]
-        public Stream FileObject { get; set; }
-
-        /// <summary>
-        /// <para>待上传文件名</para>
-        /// </summary>
-        [NameInMap("fileObjectName")]
-        [Validation(Required=false)]
-        public string FileObjectName { get; set; }
-
         [NameInMap("file_id")]
-        [Validation(Required=true)]
+        [Validation(Required=false)]
         public string FileId { get; set; }
 
         // 场景id
