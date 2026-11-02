@@ -1,71 +1,20 @@
 <?php
 
 // This file is auto-generated, don't edit it. Thanks.
-
 namespace AntChain\Ak_a1f82644937c486c81a62b0e5a6b4fbe\Models;
 
 use AlibabaCloud\Tea\Model;
 
-class ApiInfoModel extends Model
-{
-    // api名称
-    /**
-     * @example demo.sss.ss.ss.bind
-     *
-     * @var string
-     */
-    public $apiName;
-
-    // API所属网关技术产品码
-    /**
-     * @example demo
-     *
-     * @var string
-     */
-    public $prodCode;
-
-    // 是否是内部接口 0对外 1对内
-    /**
-     * @example 0
-     *
-     * @var int
-     */
-    public $internal;
-
-    // api版本号
-    /**
-     * @example 1.0
-     *
-     * @var string
-     */
-    public $apiVersion;
-
-    // api描述
-    /**
-     * @example 测试用api
-     *
-     * @var string
-     */
-    public $apiDesc;
-
-    // api所属网关产品id
-    /**
-     * @example 0000567567
-     *
-     * @var string
-     */
-    public $providerId;
+class ApiInfoModel extends Model {
     protected $_name = [
-        'apiName'    => 'api_name',
-        'prodCode'   => 'prod_code',
-        'internal'   => 'internal',
+        'apiName' => 'api_name',
+        'prodCode' => 'prod_code',
+        'internal' => 'internal',
         'apiVersion' => 'api_version',
-        'apiDesc'    => 'api_desc',
+        'apiDesc' => 'api_desc',
         'providerId' => 'provider_id',
     ];
-
-    public function validate()
-    {
+    public function validate() {
         Model::validateRequired('apiName', $this->apiName, true);
         Model::validateRequired('prodCode', $this->prodCode, true);
         Model::validateRequired('internal', $this->internal, true);
@@ -73,9 +22,7 @@ class ApiInfoModel extends Model
         Model::validateRequired('apiDesc', $this->apiDesc, true);
         Model::validateRequired('providerId', $this->providerId, true);
     }
-
-    public function toMap()
-    {
+    public function toMap() {
         $res = [];
         if (null !== $this->apiName) {
             $res['api_name'] = $this->apiName;
@@ -95,37 +42,74 @@ class ApiInfoModel extends Model
         if (null !== $this->providerId) {
             $res['provider_id'] = $this->providerId;
         }
-
         return $res;
     }
-
     /**
      * @param array $map
-     *
      * @return ApiInfoModel
      */
-    public static function fromMap($map = [])
-    {
+    public static function fromMap($map = []) {
         $model = new self();
-        if (isset($map['api_name'])) {
+        if(isset($map['api_name'])){
             $model->apiName = $map['api_name'];
         }
-        if (isset($map['prod_code'])) {
+        if(isset($map['prod_code'])){
             $model->prodCode = $map['prod_code'];
         }
-        if (isset($map['internal'])) {
+        if(isset($map['internal'])){
             $model->internal = $map['internal'];
         }
-        if (isset($map['api_version'])) {
+        if(isset($map['api_version'])){
             $model->apiVersion = $map['api_version'];
         }
-        if (isset($map['api_desc'])) {
+        if(isset($map['api_desc'])){
             $model->apiDesc = $map['api_desc'];
         }
-        if (isset($map['provider_id'])) {
+        if(isset($map['provider_id'])){
             $model->providerId = $map['provider_id'];
         }
-
         return $model;
     }
+    // api名称
+    /**
+     * @example demo.sss.ss.ss.bind
+     * @var string
+     */
+    public $apiName;
+
+    // API所属网关技术产品码
+    /**
+     * @example demo
+     * @var string
+     */
+    public $prodCode;
+
+    // 是否是内部接口 0对外 1对内
+    /**
+     * @example 0
+     * @var int
+     */
+    public $internal;
+
+    // api版本号
+    /**
+     * @example 1.0
+     * @var string
+     */
+    public $apiVersion;
+
+    // api描述
+    /**
+     * @example 测试用api
+     * @var string
+     */
+    public $apiDesc;
+
+    // api所属网关产品id
+    /**
+     * @example 0000567567
+     * @var string
+     */
+    public $providerId;
+
 }
