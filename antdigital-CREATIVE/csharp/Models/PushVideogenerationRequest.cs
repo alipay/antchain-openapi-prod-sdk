@@ -25,7 +25,7 @@ namespace AntChain.SDK.CREATIVE.Models
 
         // 文本提示词
         [NameInMap("prompt")]
-        [Validation(Required=true)]
+        [Validation(Required=false)]
         public string Prompt { get; set; }
 
         // 图生视频参考图片 URL
