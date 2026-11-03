@@ -51,6 +51,11 @@ public class CreatePoiMallorderRequest extends TeaModel {
     @Validation(required = true)
     public String pointAmount;
 
+    // 商品类别
+    @NameInMap("mall_category")
+    @Validation(required = true)
+    public String mallCategory;
+
     public static CreatePoiMallorderRequest build(java.util.Map<String, ?> map) throws Exception {
         CreatePoiMallorderRequest self = new CreatePoiMallorderRequest();
         return TeaModel.build(map, self);
@@ -134,6 +139,14 @@ public class CreatePoiMallorderRequest extends TeaModel {
     }
     public String getPointAmount() {
         return this.pointAmount;
+    }
+
+    public CreatePoiMallorderRequest setMallCategory(String mallCategory) {
+        this.mallCategory = mallCategory;
+        return this;
+    }
+    public String getMallCategory() {
+        return this.mallCategory;
     }
 
 }
