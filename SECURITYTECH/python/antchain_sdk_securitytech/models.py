@@ -14319,6 +14319,7 @@ class CreatePoiMallorderRequest(TeaModel):
         goods_name: str = None,
         product_amount: str = None,
         point_amount: str = None,
+        mall_category: str = None,
     ):
         # OAuth模式下的授权token
         self.auth_token = auth_token
@@ -14339,6 +14340,8 @@ class CreatePoiMallorderRequest(TeaModel):
         self.product_amount = product_amount
         # 冻结金额（元，两位小数，冻结/出账/分账基数）
         self.point_amount = point_amount
+        # 商品类别
+        self.mall_category = mall_category
 
     def validate(self):
         self.validate_required(self.open_id, 'open_id')
@@ -14349,6 +14352,7 @@ class CreatePoiMallorderRequest(TeaModel):
         self.validate_required(self.goods_name, 'goods_name')
         self.validate_required(self.product_amount, 'product_amount')
         self.validate_required(self.point_amount, 'point_amount')
+        self.validate_required(self.mall_category, 'mall_category')
 
     def to_map(self):
         _map = super().to_map()
@@ -14376,6 +14380,8 @@ class CreatePoiMallorderRequest(TeaModel):
             result['product_amount'] = self.product_amount
         if self.point_amount is not None:
             result['point_amount'] = self.point_amount
+        if self.mall_category is not None:
+            result['mall_category'] = self.mall_category
         return result
 
     def from_map(self, m: dict = None):
@@ -14400,6 +14406,8 @@ class CreatePoiMallorderRequest(TeaModel):
             self.product_amount = m.get('product_amount')
         if m.get('point_amount') is not None:
             self.point_amount = m.get('point_amount')
+        if m.get('mall_category') is not None:
+            self.mall_category = m.get('mall_category')
         return self
 
 
