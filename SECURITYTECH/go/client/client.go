@@ -12596,6 +12596,8 @@ type CreatePoiMallorderRequest struct {
 	ProductAmount *string `json:"product_amount,omitempty" xml:"product_amount,omitempty" require:"true"`
 	// 冻结金额（元，两位小数，冻结/出账/分账基数）
 	PointAmount *string `json:"point_amount,omitempty" xml:"point_amount,omitempty" require:"true"`
+	// 商品类别
+	MallCategory *string `json:"mall_category,omitempty" xml:"mall_category,omitempty" require:"true"`
 }
 
 func (s CreatePoiMallorderRequest) String() string {
@@ -12653,6 +12655,11 @@ func (s *CreatePoiMallorderRequest) SetProductAmount(v string) *CreatePoiMallord
 
 func (s *CreatePoiMallorderRequest) SetPointAmount(v string) *CreatePoiMallorderRequest {
 	s.PointAmount = &v
+	return s
+}
+
+func (s *CreatePoiMallorderRequest) SetMallCategory(v string) *CreatePoiMallorderRequest {
+	s.MallCategory = &v
 	return s
 }
 
@@ -18921,7 +18928,7 @@ func (client *Client) DoRequest(version *string, action *string, protocol *strin
 				"req_msg_id":       antchainutil.GetNonce(),
 				"access_key":       client.AccessKeyId,
 				"base_sdk_version": tea.String("TeaSDK-2.0"),
-				"sdk_version":      tea.String("1.7.37"),
+				"sdk_version":      tea.String("1.7.38"),
 				"_prod_code":       tea.String("SECURITYTECH"),
 				"_prod_channel":    tea.String("undefined"),
 			}
