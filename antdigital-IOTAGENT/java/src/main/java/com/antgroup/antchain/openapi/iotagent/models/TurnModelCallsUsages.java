@@ -4,83 +4,101 @@ package com.antgroup.antchain.openapi.iotagent.models;
 import com.aliyun.tea.*;
 
 public class TurnModelCallsUsages extends TeaModel {
-    // 模型名称
+    // 模型名
     /**
      * <strong>example:</strong>
-     * <p>deepseek-v4.1-flash</p>
+     * <p>undefined</p>
      */
     @NameInMap("model")
-    @Validation(required = true)
     public String model;
 
-    // 调用状态：COMPLETED / FAILED / CANCELLED / UNKNOWN
+    // 调用状态
     /**
      * <strong>example:</strong>
-     * <p>COMPLETED</p>
+     * <p>undefined</p>
      */
     @NameInMap("status")
-    @Validation(required = true)
     public String status;
 
-    // 输入 token
+    // 输入token
     /**
      * <strong>example:</strong>
-     * <p>20</p>
+     * <p>undefined</p>
      */
     @NameInMap("input_tokens")
-    @Validation(required = true)
     public Long inputTokens;
 
-    // 输出 token
+    // 输出token
     /**
      * <strong>example:</strong>
-     * <p>1024</p>
+     * <p>undefined</p>
      */
     @NameInMap("output_tokens")
-    @Validation(required = true)
     public Long outputTokens;
 
-    // 总 token
+    // 总token
     /**
      * <strong>example:</strong>
-     * <p>1024</p>
+     * <p>undefined</p>
      */
     @NameInMap("total_tokens")
-    @Validation(required = true)
     public Long totalTokens;
 
-    // 推理 token（可选，有才返回）
+    // 推理token
     /**
      * <strong>example:</strong>
-     * <p>1024</p>
+     * <p>undefined</p>
      */
     @NameInMap("reasoning_tokens")
     public Long reasoningTokens;
 
-    // 缓存读取 token（可选）
+    // 缓存读取token
     /**
      * <strong>example:</strong>
-     * <p>1024</p>
+     * <p>undefined</p>
      */
     @NameInMap("cached_read_tokens")
     public Long cachedReadTokens;
 
-    // 缓存写入 token（可选）
+    // 缓存写入token
     /**
      * <strong>example:</strong>
-     * <p>1024</p>
+     * <p>undefined</p>
      */
     @NameInMap("cached_write_tokens")
     public Long cachedWriteTokens;
 
-    // 当前模型调用耗时
+    // 单次模型调用耗时(毫秒)
     /**
      * <strong>example:</strong>
-     * <p>1000</p>
+     * <p>undefined</p>
      */
     @NameInMap("model_duration_ms")
-    @Validation(required = true)
     public Long modelDurationMs;
+
+    // 轮次ID
+    /**
+     * <strong>example:</strong>
+     * <p>undefined</p>
+     */
+    @NameInMap("turn_id")
+    public String turnId;
+
+    // 该轮用量是否完整计量
+    /**
+     * <strong>example:</strong>
+     * <p>undefined</p>
+     */
+    @NameInMap("complete")
+    public Boolean complete;
+
+    // 轮次总耗时(毫秒，含模型调用+工具执行)
+    /**
+     * <strong>example:</strong>
+     * <p>undefined</p>
+     */
+    @NameInMap("turn_duration_ms")
+    public Long turnDurationMs;
 
     public static TurnModelCallsUsages build(java.util.Map<String, ?> map) throws Exception {
         TurnModelCallsUsages self = new TurnModelCallsUsages();
@@ -157,6 +175,30 @@ public class TurnModelCallsUsages extends TeaModel {
     }
     public Long getModelDurationMs() {
         return this.modelDurationMs;
+    }
+
+    public TurnModelCallsUsages setTurnId(String turnId) {
+        this.turnId = turnId;
+        return this;
+    }
+    public String getTurnId() {
+        return this.turnId;
+    }
+
+    public TurnModelCallsUsages setComplete(Boolean complete) {
+        this.complete = complete;
+        return this;
+    }
+    public Boolean getComplete() {
+        return this.complete;
+    }
+
+    public TurnModelCallsUsages setTurnDurationMs(Long turnDurationMs) {
+        this.turnDurationMs = turnDurationMs;
+        return this;
+    }
+    public Long getTurnDurationMs() {
+        return this.turnDurationMs;
     }
 
 }
