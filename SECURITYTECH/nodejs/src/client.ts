@@ -10463,6 +10463,8 @@ export class CreatePoiMallorderRequest extends $tea.Model {
   productAmount: string;
   // 冻结金额（元，两位小数，冻结/出账/分账基数）
   pointAmount: string;
+  // 商品类别
+  mallCategory: string;
   static names(): { [key: string]: string } {
     return {
       authToken: 'auth_token',
@@ -10475,6 +10477,7 @@ export class CreatePoiMallorderRequest extends $tea.Model {
       goodsName: 'goods_name',
       productAmount: 'product_amount',
       pointAmount: 'point_amount',
+      mallCategory: 'mall_category',
     };
   }
 
@@ -10490,6 +10493,7 @@ export class CreatePoiMallorderRequest extends $tea.Model {
       goodsName: 'string',
       productAmount: 'string',
       pointAmount: 'string',
+      mallCategory: 'string',
     };
   }
 
@@ -15187,7 +15191,7 @@ export default class Client {
           req_msg_id: AntchainUtil.getNonce(),
           access_key: this._accessKeyId,
           base_sdk_version: "TeaSDK-2.0",
-          sdk_version: "1.7.37",
+          sdk_version: "1.7.38",
           _prod_code: "SECURITYTECH",
           _prod_channel: "undefined",
         };
