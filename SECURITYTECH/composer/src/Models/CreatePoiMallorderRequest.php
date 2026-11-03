@@ -17,6 +17,7 @@ class CreatePoiMallorderRequest extends Model {
         'goodsName' => 'goods_name',
         'productAmount' => 'product_amount',
         'pointAmount' => 'point_amount',
+        'mallCategory' => 'mall_category',
     ];
     public function validate() {
         Model::validateRequired('openId', $this->openId, true);
@@ -27,6 +28,7 @@ class CreatePoiMallorderRequest extends Model {
         Model::validateRequired('goodsName', $this->goodsName, true);
         Model::validateRequired('productAmount', $this->productAmount, true);
         Model::validateRequired('pointAmount', $this->pointAmount, true);
+        Model::validateRequired('mallCategory', $this->mallCategory, true);
     }
     public function toMap() {
         $res = [];
@@ -59,6 +61,9 @@ class CreatePoiMallorderRequest extends Model {
         }
         if (null !== $this->pointAmount) {
             $res['point_amount'] = $this->pointAmount;
+        }
+        if (null !== $this->mallCategory) {
+            $res['mall_category'] = $this->mallCategory;
         }
         return $res;
     }
@@ -97,6 +102,9 @@ class CreatePoiMallorderRequest extends Model {
         }
         if(isset($map['point_amount'])){
             $model->pointAmount = $map['point_amount'];
+        }
+        if(isset($map['mall_category'])){
+            $model->mallCategory = $map['mall_category'];
         }
         return $model;
     }
@@ -158,5 +166,11 @@ class CreatePoiMallorderRequest extends Model {
      * @var string
      */
     public $pointAmount;
+
+    // 商品类别
+    /**
+     * @var string
+     */
+    public $mallCategory;
 
 }
