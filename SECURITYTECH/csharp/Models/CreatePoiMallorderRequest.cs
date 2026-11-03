@@ -58,6 +58,11 @@ namespace AntChain.SDK.SECURITYTECH.Models
         [Validation(Required=true)]
         public string PointAmount { get; set; }
 
+        // 商品类别
+        [NameInMap("mall_category")]
+        [Validation(Required=true)]
+        public string MallCategory { get; set; }
+
     }
 
 }
