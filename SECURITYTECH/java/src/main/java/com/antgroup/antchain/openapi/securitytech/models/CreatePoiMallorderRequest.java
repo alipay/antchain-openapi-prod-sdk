@@ -53,7 +53,6 @@ public class CreatePoiMallorderRequest extends TeaModel {
 
     // 商品明细
     @NameInMap("product_goods_list")
-    @Validation(required = true)
     public java.util.List<ProductGood> productGoodsList;
 
     public static CreatePoiMallorderRequest build(java.util.Map<String, ?> map) throws Exception {
