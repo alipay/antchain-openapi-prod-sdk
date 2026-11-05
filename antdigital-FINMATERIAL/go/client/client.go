@@ -200,7 +200,7 @@ type SearchContext struct {
 	//
 	// web
 	SearchType *string `json:"search_type,omitempty" xml:"search_type,omitempty" require:"true"`
-	// 实际执行的 AI 上下文档位；当前为 auto，后续可返回 fast 或 pro
+	// 实际执行的 AI 上下文档位；返回 standard；fast、pro 为预设。
 	// example:
 	//
 	// auto
@@ -257,17 +257,12 @@ type WebItem struct {
 	//
 	// -
 	SiteName *string `json:"site_name,omitempty" xml:"site_name,omitempty"`
-	// 网页原文链接；PDF 等无原文链接的结果可能不返回该字段。filter.need_url 为预留参数，当前不生效
+	// 与 Query 相关的已有摘要，适合模型上下文。include_summary=true 且有可用摘要时返回；false 时省略，不触发在线摘要生成。
 	// example:
 	//
 	// -
-	Url *string `json:"url,omitempty" xml:"url,omitempty"`
-	// 与 Query 相关的网页摘要，适合模型上下文
-	// example:
-	//
-	// -
-	Summary *string `json:"summary,omitempty" xml:"summary,omitempty" require:"true"`
-	// 清洗后的网页正文，按 mode 返回；auto 默认返回可用正文，fast 预设不返回，pro 预设按需返回
+	Summary *string `json:"summary,omitempty" xml:"summary,omitempty"`
+	// 清洗后的正文；include_content=true 且当前 mode 有可用正文时返回。standard 默认返回可用正文；fast 预设不返回，pro 预设按需返回。include_content=false 时省略，不改变检索、排序。
 	// example:
 	//
 	// -
@@ -287,7 +282,7 @@ type WebItem struct {
 	//
 	// -
 	LogoUrl *string `json:"logo_url,omitempty" xml:"logo_url,omitempty"`
-	// 随 Content 返回正文实际格式，当前为 text；未返回 Content 时省略
+	// 仅在实际返回 Content 时返回正文格式，当前为 text；include_content=false 或无正文时省略。
 	// example:
 	//
 	// -
@@ -297,6 +292,11 @@ type WebItem struct {
 	//
 	// 中
 	TrustyLevel *string `json:"trusty_level,omitempty" xml:"trusty_level,omitempty" require:"true"`
+	// 网页或 PDF 的原文链接，均必返。
+	// example:
+	//
+	// -
+	Url *string `json:"url,omitempty" xml:"url,omitempty" require:"true"`
 }
 
 func (s WebItem) String() string {
@@ -329,11 +329,6 @@ func (s *WebItem) SetTitle(v string) *WebItem {
 
 func (s *WebItem) SetSiteName(v string) *WebItem {
 	s.SiteName = &v
-	return s
-}
-
-func (s *WebItem) SetUrl(v string) *WebItem {
-	s.Url = &v
 	return s
 }
 
@@ -372,6 +367,53 @@ func (s *WebItem) SetTrustyLevel(v string) *WebItem {
 	return s
 }
 
+func (s *WebItem) SetUrl(v string) *WebItem {
+	s.Url = &v
+	return s
+}
+
+// 行业数据检索结果列表；命中时返回，支持多个结果，一般仅返回 1 个
+type IndustryDataItem struct {
+	// 行业数据标题
+	// example:
+	//
+	// -
+	Title *string `json:"title,omitempty" xml:"title,omitempty" require:"true"`
+	// 行业数据类型及结构标识，用于确定 CardData 的字段结构
+	// example:
+	//
+	// -
+	Type *string `json:"type,omitempty" xml:"type,omitempty" require:"true"`
+	// 行业结构化数据，字段随 Type 定义
+	// example:
+	//
+	// -
+	Result *string `json:"result,omitempty" xml:"result,omitempty" require:"true"`
+}
+
+func (s IndustryDataItem) String() string {
+	return tea.Prettify(s)
+}
+
+func (s IndustryDataItem) GoString() string {
+	return s.String()
+}
+
+func (s *IndustryDataItem) SetTitle(v string) *IndustryDataItem {
+	s.Title = &v
+	return s
+}
+
+func (s *IndustryDataItem) SetType(v string) *IndustryDataItem {
+	s.Type = &v
+	return s
+}
+
+func (s *IndustryDataItem) SetResult(v string) *IndustryDataItem {
+	s.Result = &v
+	return s
+}
+
 // 请求成功时返回搜索结果
 type Result struct {
 	// WebResults 实际返回的网页结果数量
@@ -389,6 +431,11 @@ type Result struct {
 	//
 	// undefined
 	SearchContext *SearchContext `json:"search_context,omitempty" xml:"search_context,omitempty" require:"true"`
+	// 行业数据检索结果列表。仅在 filter_enable_industry_data_search=true 且命中时返回，支持多个结果，一般仅 1 个；开关关闭时不调用垂类接口且省略此字段。
+	// example:
+	//
+	// -
+	IndustryData []*IndustryDataItem `json:"industry_data,omitempty" xml:"industry_data,omitempty" type:"Repeated"`
 }
 
 func (s Result) String() string {
@@ -411,6 +458,11 @@ func (s *Result) SetWebResults(v []*WebItem) *Result {
 
 func (s *Result) SetSearchContext(v *SearchContext) *Result {
 	s.SearchContext = v
+	return s
+}
+
+func (s *Result) SetIndustryData(v []*IndustryDataItem) *Result {
+	s.IndustryData = v
 	return s
 }
 
@@ -650,48 +702,6 @@ func (s *FetchResult) SetContentFormats(v string) *FetchResult {
 	return s
 }
 
-// 行业数据检索结果列表；命中时返回，支持多个结果，一般仅返回 1 个
-type IndustryDataItem struct {
-	// 行业数据标题
-	// example:
-	//
-	// -
-	Title *string `json:"title,omitempty" xml:"title,omitempty" require:"true"`
-	// 行业数据类型及结构标识，用于确定 CardData 的字段结构
-	// example:
-	//
-	// -
-	Type *string `json:"type,omitempty" xml:"type,omitempty" require:"true"`
-	// 行业结构化数据，字段随 Type 定义
-	// example:
-	//
-	// -
-	Result *string `json:"result,omitempty" xml:"result,omitempty" require:"true"`
-}
-
-func (s IndustryDataItem) String() string {
-	return tea.Prettify(s)
-}
-
-func (s IndustryDataItem) GoString() string {
-	return s.String()
-}
-
-func (s *IndustryDataItem) SetTitle(v string) *IndustryDataItem {
-	s.Title = &v
-	return s
-}
-
-func (s *IndustryDataItem) SetType(v string) *IndustryDataItem {
-	s.Type = &v
-	return s
-}
-
-func (s *IndustryDataItem) SetResult(v string) *IndustryDataItem {
-	s.Result = &v
-	return s
-}
-
 type QueryMcpGetcurtimeRequest struct {
 	// OAuth模式下的授权token
 	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
@@ -907,20 +917,22 @@ type QueryAntsearchSearchRequest struct {
 	SearchType *string `json:"search_type,omitempty" xml:"search_type,omitempty"`
 	// 网页结果最大返回数量，取值范围 1～30；不包含 IndustryData
 	Count *int64 `json:"count,omitempty" xml:"count,omitempty"`
-	// 正文格式。当前支持 text；markdown 为预留值，暂不支持
+	// 正文格式，当前支持 text；markdown 为预留值，暂不支持。仅在实际返回 Content 时生效；include_content=false 时不影响输出。
 	ContentFormat *string `json:"content_format,omitempty" xml:"content_format,omitempty"`
-	// 仅搜索指定网站。例如gov.cn表示只返回该域名下的内容；填写域名，不包含协议和路径,如果有多个，使用英文逗号(,)隔开
-	FilterIncludeDomains *string `json:"filter_include_domains,omitempty" xml:"filter_include_domains,omitempty"`
-	// 排除指定网站；填写域名，不包含协议和路径,如果有多个，使用英文逗号(,)隔开
-	FilterExcludeDomains *string `json:"filter_exclude_domains,omitempty" xml:"filter_exclude_domains,omitempty"`
-	// 预留。计划用于按发布时间筛选，当前不生效
+	// 仅返回指定域名及其子域名的结果；最多 5 个，填写域名，不接受协议和路径。多个域名之间使用英文逗号(,)隔开。与排除名单重叠时，排除优先。
+	FilterIncludeSites *string `json:"filter_include_sites,omitempty" xml:"filter_include_sites,omitempty"`
+	// 排除指定域名及其子域名的结果；最多 5 个，填写域名，不接受协议和路径。与包含名单重叠时，排除优先，不因重叠拒绝请求。多个域名之间使用英文逗号(,)隔开。
+	FilterExcludeSites *string `json:"filter_exclude_sites,omitempty" xml:"filter_exclude_sites,omitempty"`
+	// 按发布时间筛选：d 最近一天、w 最近一周、m 最近一月、y 最近一年；不传则不限制。开启后过滤发布时间缺失或无法解析的结果。
 	FilterTimeRange *string `json:"filter_time_range,omitempty" xml:"filter_time_range,omitempty"`
-	// 是否同时查询行业垂类数据接口；命中结果通过 Result.IndustryData 独立返回
-	FilterNeedUrl *bool `json:"filter_need_url,omitempty" xml:"filter_need_url,omitempty"`
 	// 预留。计划支持 news 等网页搜索领域，当前不生效
 	FilterIndustry *string `json:"filter_industry,omitempty" xml:"filter_industry,omitempty"`
-	// 是否返回 IndustryData
+	// 是否查询行业垂类数据接口。false 时不调用垂类接口，也不返回 Result.IndustryData；true 时按查询需要执行，命中才返回。不会关闭普通网页、新闻网页或 PDF 搜索。
 	FilterEnableIndustryDataSearch *bool `json:"filter_enable_industry_data_search,omitempty" xml:"filter_enable_industry_data_search,omitempty"`
+	// 是否返回当前 mode 下已有的可用正文；false 时省略 Content 和 ContentFormats，不影响内部检索、排序，也不强制生成正文。
+	IncludeContent *bool `json:"include_content,omitempty" xml:"include_content,omitempty"`
+	// 是否返回已有摘要；false 时省略 Summary。仅控制输出，不触发在线摘要生成。
+	IncludeSummary *bool `json:"include_summary,omitempty" xml:"include_summary,omitempty"`
 }
 
 func (s QueryAntsearchSearchRequest) String() string {
@@ -966,23 +978,18 @@ func (s *QueryAntsearchSearchRequest) SetContentFormat(v string) *QueryAntsearch
 	return s
 }
 
-func (s *QueryAntsearchSearchRequest) SetFilterIncludeDomains(v string) *QueryAntsearchSearchRequest {
-	s.FilterIncludeDomains = &v
+func (s *QueryAntsearchSearchRequest) SetFilterIncludeSites(v string) *QueryAntsearchSearchRequest {
+	s.FilterIncludeSites = &v
 	return s
 }
 
-func (s *QueryAntsearchSearchRequest) SetFilterExcludeDomains(v string) *QueryAntsearchSearchRequest {
-	s.FilterExcludeDomains = &v
+func (s *QueryAntsearchSearchRequest) SetFilterExcludeSites(v string) *QueryAntsearchSearchRequest {
+	s.FilterExcludeSites = &v
 	return s
 }
 
 func (s *QueryAntsearchSearchRequest) SetFilterTimeRange(v string) *QueryAntsearchSearchRequest {
 	s.FilterTimeRange = &v
-	return s
-}
-
-func (s *QueryAntsearchSearchRequest) SetFilterNeedUrl(v bool) *QueryAntsearchSearchRequest {
-	s.FilterNeedUrl = &v
 	return s
 }
 
@@ -993,6 +1000,16 @@ func (s *QueryAntsearchSearchRequest) SetFilterIndustry(v string) *QueryAntsearc
 
 func (s *QueryAntsearchSearchRequest) SetFilterEnableIndustryDataSearch(v bool) *QueryAntsearchSearchRequest {
 	s.FilterEnableIndustryDataSearch = &v
+	return s
+}
+
+func (s *QueryAntsearchSearchRequest) SetIncludeContent(v bool) *QueryAntsearchSearchRequest {
+	s.IncludeContent = &v
+	return s
+}
+
+func (s *QueryAntsearchSearchRequest) SetIncludeSummary(v bool) *QueryAntsearchSearchRequest {
+	s.IncludeSummary = &v
 	return s
 }
 
@@ -1007,8 +1024,6 @@ type QueryAntsearchSearchResponse struct {
 	ResponseMetadata *ResponseMetadata `json:"response_metadata,omitempty" xml:"response_metadata,omitempty"`
 	// 本次的搜索结果
 	Result *Result `json:"result,omitempty" xml:"result,omitempty"`
-	// 行业数据检索结果列表；命中时返回，支持多个结果，一般仅返回 1 个
-	IndustryData []*IndustryDataItem `json:"industry_data,omitempty" xml:"industry_data,omitempty" type:"Repeated"`
 }
 
 func (s QueryAntsearchSearchResponse) String() string {
@@ -1041,11 +1056,6 @@ func (s *QueryAntsearchSearchResponse) SetResponseMetadata(v *ResponseMetadata) 
 
 func (s *QueryAntsearchSearchResponse) SetResult(v *Result) *QueryAntsearchSearchResponse {
 	s.Result = v
-	return s
-}
-
-func (s *QueryAntsearchSearchResponse) SetIndustryData(v []*IndustryDataItem) *QueryAntsearchSearchResponse {
-	s.IndustryData = v
 	return s
 }
 
@@ -1291,7 +1301,7 @@ func (client *Client) DoRequest(version *string, action *string, protocol *strin
 				"req_msg_id":       antchainutil.GetNonce(),
 				"access_key":       client.AccessKeyId,
 				"base_sdk_version": tea.String("TeaSDK-2.0"),
-				"sdk_version":      tea.String("1.0.12"),
+				"sdk_version":      tea.String("1.0.13"),
 				"_prod_code":       tea.String("FINMATERIAL"),
 				"_prod_channel":    tea.String("default"),
 			}
