@@ -7,12 +7,14 @@ use AlibabaCloud\Tea\Model;
 
 use AntChain\FINMATERIAL\Models\WebItem;
 use AntChain\FINMATERIAL\Models\SearchContext;
+use AntChain\FINMATERIAL\Models\IndustryDataItem;
 
 class Result extends Model {
     protected $_name = [
         'resultCount' => 'result_count',
         'webResults' => 'web_results',
         'searchContext' => 'search_context',
+        'industryData' => 'industry_data',
     ];
     public function validate() {
         Model::validateRequired('resultCount', $this->resultCount, true);
@@ -35,6 +37,15 @@ class Result extends Model {
         }
         if (null !== $this->searchContext) {
             $res['search_context'] = null !== $this->searchContext ? $this->searchContext->toMap() : null;
+        }
+        if (null !== $this->industryData) {
+            $res['industry_data'] = [];
+            if(null !== $this->industryData && is_array($this->industryData)){
+                $n = 0;
+                foreach($this->industryData as $item){
+                    $res['industry_data'][$n++] = null !== $item ? $item->toMap() : $item;
+                }
+            }
         }
         return $res;
     }
@@ -59,6 +70,15 @@ class Result extends Model {
         if(isset($map['search_context'])){
             $model->searchContext = SearchContext::fromMap($map['search_context']);
         }
+        if(isset($map['industry_data'])){
+            if(!empty($map['industry_data'])){
+                $model->industryData = [];
+                $n = 0;
+                foreach($map['industry_data'] as $item) {
+                    $model->industryData[$n++] = null !== $item ? IndustryDataItem::fromMap($item) : $item;
+                }
+            }
+        }
         return $model;
     }
     // WebResults 实际返回的网页结果数量
@@ -81,5 +101,12 @@ class Result extends Model {
      * @var SearchContext
      */
     public $searchContext;
+
+    // 行业数据检索结果列表。仅在 filter_enable_industry_data_search=true 且命中时返回，支持多个结果，一般仅 1 个；开关关闭时不调用垂类接口且省略此字段。
+    /**
+     * @example -
+     * @var IndustryDataItem[]
+     */
+    public $industryData;
 
 }

@@ -7,7 +7,6 @@ use AlibabaCloud\Tea\Model;
 
 use AntChain\FINMATERIAL\Models\ResponseMetadata;
 use AntChain\FINMATERIAL\Models\Result;
-use AntChain\FINMATERIAL\Models\IndustryDataItem;
 
 class QueryAntsearchSearchResponse extends Model {
     protected $_name = [
@@ -16,7 +15,6 @@ class QueryAntsearchSearchResponse extends Model {
         'resultMsg' => 'result_msg',
         'responseMetadata' => 'response_metadata',
         'result' => 'result',
-        'industryData' => 'industry_data',
     ];
     public function validate() {}
     public function toMap() {
@@ -35,15 +33,6 @@ class QueryAntsearchSearchResponse extends Model {
         }
         if (null !== $this->result) {
             $res['result'] = null !== $this->result ? $this->result->toMap() : null;
-        }
-        if (null !== $this->industryData) {
-            $res['industry_data'] = [];
-            if(null !== $this->industryData && is_array($this->industryData)){
-                $n = 0;
-                foreach($this->industryData as $item){
-                    $res['industry_data'][$n++] = null !== $item ? $item->toMap() : $item;
-                }
-            }
         }
         return $res;
     }
@@ -67,15 +56,6 @@ class QueryAntsearchSearchResponse extends Model {
         }
         if(isset($map['result'])){
             $model->result = Result::fromMap($map['result']);
-        }
-        if(isset($map['industry_data'])){
-            if(!empty($map['industry_data'])){
-                $model->industryData = [];
-                $n = 0;
-                foreach($map['industry_data'] as $item) {
-                    $model->industryData[$n++] = null !== $item ? IndustryDataItem::fromMap($item) : $item;
-                }
-            }
         }
         return $model;
     }
@@ -108,11 +88,5 @@ class QueryAntsearchSearchResponse extends Model {
      * @var Result
      */
     public $result;
-
-    // 行业数据检索结果列表；命中时返回，支持多个结果，一般仅返回 1 个
-    /**
-     * @var IndustryDataItem[]
-     */
-    public $industryData;
 
 }

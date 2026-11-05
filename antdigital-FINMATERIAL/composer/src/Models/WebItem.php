@@ -12,7 +12,6 @@ class WebItem extends Model {
         'sortId' => 'sort_id',
         'title' => 'title',
         'siteName' => 'site_name',
-        'url' => 'url',
         'summary' => 'summary',
         'content' => 'content',
         'publishTime' => 'publish_time',
@@ -20,14 +19,15 @@ class WebItem extends Model {
         'logoUrl' => 'logo_url',
         'contentFormats' => 'content_formats',
         'trustyLevel' => 'trusty_level',
+        'url' => 'url',
     ];
     public function validate() {
         Model::validateRequired('id', $this->id, true);
         Model::validateRequired('contentId', $this->contentId, true);
         Model::validateRequired('sortId', $this->sortId, true);
         Model::validateRequired('title', $this->title, true);
-        Model::validateRequired('summary', $this->summary, true);
         Model::validateRequired('trustyLevel', $this->trustyLevel, true);
+        Model::validateRequired('url', $this->url, true);
     }
     public function toMap() {
         $res = [];
@@ -45,9 +45,6 @@ class WebItem extends Model {
         }
         if (null !== $this->siteName) {
             $res['site_name'] = $this->siteName;
-        }
-        if (null !== $this->url) {
-            $res['url'] = $this->url;
         }
         if (null !== $this->summary) {
             $res['summary'] = $this->summary;
@@ -69,6 +66,9 @@ class WebItem extends Model {
         }
         if (null !== $this->trustyLevel) {
             $res['trusty_level'] = $this->trustyLevel;
+        }
+        if (null !== $this->url) {
+            $res['url'] = $this->url;
         }
         return $res;
     }
@@ -93,9 +93,6 @@ class WebItem extends Model {
         if(isset($map['site_name'])){
             $model->siteName = $map['site_name'];
         }
-        if(isset($map['url'])){
-            $model->url = $map['url'];
-        }
         if(isset($map['summary'])){
             $model->summary = $map['summary'];
         }
@@ -116,6 +113,9 @@ class WebItem extends Model {
         }
         if(isset($map['trusty_level'])){
             $model->trustyLevel = $map['trusty_level'];
+        }
+        if(isset($map['url'])){
+            $model->url = $map['url'];
         }
         return $model;
     }
@@ -154,21 +154,14 @@ class WebItem extends Model {
      */
     public $siteName;
 
-    // 网页原文链接；PDF 等无原文链接的结果可能不返回该字段。filter.need_url 为预留参数，当前不生效
-    /**
-     * @example -
-     * @var string
-     */
-    public $url;
-
-    // 与 Query 相关的网页摘要，适合模型上下文
+    // 与 Query 相关的已有摘要，适合模型上下文。include_summary=true 且有可用摘要时返回；false 时省略，不触发在线摘要生成。
     /**
      * @example -
      * @var string
      */
     public $summary;
 
-    // 清洗后的网页正文，按 mode 返回；auto 默认返回可用正文，fast 预设不返回，pro 预设按需返回
+    // 清洗后的正文；include_content=true 且当前 mode 有可用正文时返回。standard 默认返回可用正文；fast 预设不返回，pro 预设按需返回。include_content=false 时省略，不改变检索、排序。
     /**
      * @example -
      * @var string
@@ -196,7 +189,7 @@ class WebItem extends Model {
      */
     public $logoUrl;
 
-    // 随 Content 返回正文实际格式，当前为 text；未返回 Content 时省略
+    // 仅在实际返回 Content 时返回正文格式，当前为 text；include_content=false 或无正文时省略。
     /**
      * @example -
      * @var string
@@ -209,5 +202,12 @@ class WebItem extends Model {
      * @var string
      */
     public $trustyLevel;
+
+    // 网页或 PDF 的原文链接，均必返。
+    /**
+     * @example -
+     * @var string
+     */
+    public $url;
 
 }
