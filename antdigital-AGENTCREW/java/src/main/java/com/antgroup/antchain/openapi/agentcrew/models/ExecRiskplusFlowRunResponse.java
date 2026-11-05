@@ -1,0 +1,108 @@
+// This file is auto-generated, don't edit it. Thanks.
+package com.antgroup.antchain.openapi.agentcrew.models;
+
+import com.aliyun.tea.*;
+
+public class ExecRiskplusFlowRunResponse extends TeaModel {
+    // 请求唯一ID，用于链路跟踪和问题排查
+    @NameInMap("req_msg_id")
+    public String reqMsgId;
+
+    // 结果码，一般OK表示调用成功
+    @NameInMap("result_code")
+    public String resultCode;
+
+    // 异常信息的文本描述
+    @NameInMap("result_msg")
+    public String resultMsg;
+
+    // 生成的 Flow 执行单号，用于后续内部执行和问题排查。
+    @NameInMap("run_no")
+    public String runNo;
+
+    // 本次执行对应的已发布 Flow 编码。
+    @NameInMap("flow_code")
+    public String flowCode;
+
+    // 创建完成后的执行状态，固定返回 RUNNING。
+    @NameInMap("status")
+    public String status;
+
+    // 用户须知，用于展示本平台的使用须知。
+    @NameInMap("user_notice")
+    public String userNotice;
+
+    // 平台生成的计费业务订单号，用于计费查询、对账和问题排查。同一次执行的启动与查询接口返回相同值；与调用方传入的 client_order_no、执行单号 run_no 不同。未生成计费单时可能为空。
+    @NameInMap("biz_order_no")
+    public String bizOrderNo;
+
+    public static ExecRiskplusFlowRunResponse build(java.util.Map<String, ?> map) throws Exception {
+        ExecRiskplusFlowRunResponse self = new ExecRiskplusFlowRunResponse();
+        return TeaModel.build(map, self);
+    }
+
+    public ExecRiskplusFlowRunResponse setReqMsgId(String reqMsgId) {
+        this.reqMsgId = reqMsgId;
+        return this;
+    }
+    public String getReqMsgId() {
+        return this.reqMsgId;
+    }
+
+    public ExecRiskplusFlowRunResponse setResultCode(String resultCode) {
+        this.resultCode = resultCode;
+        return this;
+    }
+    public String getResultCode() {
+        return this.resultCode;
+    }
+
+    public ExecRiskplusFlowRunResponse setResultMsg(String resultMsg) {
+        this.resultMsg = resultMsg;
+        return this;
+    }
+    public String getResultMsg() {
+        return this.resultMsg;
+    }
+
+    public ExecRiskplusFlowRunResponse setRunNo(String runNo) {
+        this.runNo = runNo;
+        return this;
+    }
+    public String getRunNo() {
+        return this.runNo;
+    }
+
+    public ExecRiskplusFlowRunResponse setFlowCode(String flowCode) {
+        this.flowCode = flowCode;
+        return this;
+    }
+    public String getFlowCode() {
+        return this.flowCode;
+    }
+
+    public ExecRiskplusFlowRunResponse setStatus(String status) {
+        this.status = status;
+        return this;
+    }
+    public String getStatus() {
+        return this.status;
+    }
+
+    public ExecRiskplusFlowRunResponse setUserNotice(String userNotice) {
+        this.userNotice = userNotice;
+        return this;
+    }
+    public String getUserNotice() {
+        return this.userNotice;
+    }
+
+    public ExecRiskplusFlowRunResponse setBizOrderNo(String bizOrderNo) {
+        this.bizOrderNo = bizOrderNo;
+        return this;
+    }
+    public String getBizOrderNo() {
+        return this.bizOrderNo;
+    }
+
+}
