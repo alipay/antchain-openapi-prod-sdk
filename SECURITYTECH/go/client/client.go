@@ -2653,6 +2653,68 @@ func (s *InsureInfo) SetInsureCompCreditNo(v string) *InsureInfo {
 	return s
 }
 
+// 商品明细
+type ProductGood struct {
+	// 商品名称
+	// example:
+	//
+	// 猫罐头
+	GoodsName *string `json:"goods_name,omitempty" xml:"goods_name,omitempty" require:"true"`
+	// 商品类别，枚举值
+	// example:
+	//
+	// CAN
+	GoodsCategory *string `json:"goods_category,omitempty" xml:"goods_category,omitempty" require:"true"`
+	// 此商品总金额（元，两位小数）
+	// example:
+	//
+	// 1000.00
+	GoodsAmount *string `json:"goods_amount,omitempty" xml:"goods_amount,omitempty" require:"true"`
+	// 此商消费总积分（两位小数）
+	// example:
+	//
+	// 1000.00
+	GoodsPoints *string `json:"goods_points,omitempty" xml:"goods_points,omitempty" require:"true"`
+	// 商品件数（整数）
+	// example:
+	//
+	// 1
+	GoodsCount *string `json:"goods_count,omitempty" xml:"goods_count,omitempty" require:"true"`
+}
+
+func (s ProductGood) String() string {
+	return tea.Prettify(s)
+}
+
+func (s ProductGood) GoString() string {
+	return s.String()
+}
+
+func (s *ProductGood) SetGoodsName(v string) *ProductGood {
+	s.GoodsName = &v
+	return s
+}
+
+func (s *ProductGood) SetGoodsCategory(v string) *ProductGood {
+	s.GoodsCategory = &v
+	return s
+}
+
+func (s *ProductGood) SetGoodsAmount(v string) *ProductGood {
+	s.GoodsAmount = &v
+	return s
+}
+
+func (s *ProductGood) SetGoodsPoints(v string) *ProductGood {
+	s.GoodsPoints = &v
+	return s
+}
+
+func (s *ProductGood) SetGoodsCount(v string) *ProductGood {
+	s.GoodsCount = &v
+	return s
+}
+
 // 两轮车一体机车辆SPU
 type SimSpuInfo struct {
 	// SPU ID
@@ -12596,8 +12658,8 @@ type CreatePoiMallorderRequest struct {
 	ProductAmount *string `json:"product_amount,omitempty" xml:"product_amount,omitempty" require:"true"`
 	// 冻结金额（元，两位小数，冻结/出账/分账基数）
 	PointAmount *string `json:"point_amount,omitempty" xml:"point_amount,omitempty" require:"true"`
-	// 商品类别
-	MallCategory *string `json:"mall_category,omitempty" xml:"mall_category,omitempty" require:"true"`
+	// 商品明细
+	ProductGoodsList []*ProductGood `json:"product_goods_list,omitempty" xml:"product_goods_list,omitempty" type:"Repeated"`
 }
 
 func (s CreatePoiMallorderRequest) String() string {
@@ -12658,8 +12720,8 @@ func (s *CreatePoiMallorderRequest) SetPointAmount(v string) *CreatePoiMallorder
 	return s
 }
 
-func (s *CreatePoiMallorderRequest) SetMallCategory(v string) *CreatePoiMallorderRequest {
-	s.MallCategory = &v
+func (s *CreatePoiMallorderRequest) SetProductGoodsList(v []*ProductGood) *CreatePoiMallorderRequest {
+	s.ProductGoodsList = v
 	return s
 }
 
@@ -18928,7 +18990,7 @@ func (client *Client) DoRequest(version *string, action *string, protocol *strin
 				"req_msg_id":       antchainutil.GetNonce(),
 				"access_key":       client.AccessKeyId,
 				"base_sdk_version": tea.String("TeaSDK-2.0"),
-				"sdk_version":      tea.String("1.7.38"),
+				"sdk_version":      tea.String("1.7.40"),
 				"_prod_code":       tea.String("SECURITYTECH"),
 				"_prod_channel":    tea.String("undefined"),
 			}
