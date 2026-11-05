@@ -165,7 +165,7 @@ class SearchContext(TeaModel):
         self.origin_query = origin_query
         # 实际执行的搜索类型，当前为 web
         self.search_type = search_type
-        # 实际执行的 AI 上下文档位；当前为 auto，后续可返回 fast 或 pro
+        # 实际执行的 AI 上下文档位；返回 standard；fast、pro 为预设。
         self.mode = mode
 
     def validate(self):
@@ -206,7 +206,6 @@ class WebItem(TeaModel):
         sort_id: int = None,
         title: str = None,
         site_name: str = None,
-        url: str = None,
         summary: str = None,
         content: str = None,
         publish_time: str = None,
@@ -214,6 +213,7 @@ class WebItem(TeaModel):
         logo_url: str = None,
         content_formats: str = None,
         trusty_level: str = None,
+        url: str = None,
     ):
         # 搜索结果唯一标识
         self.id = id
@@ -225,11 +225,9 @@ class WebItem(TeaModel):
         self.title = title
         # 来源站点名称
         self.site_name = site_name
-        # 网页原文链接；PDF 等无原文链接的结果可能不返回该字段。filter.need_url 为预留参数，当前不生效
-        self.url = url
-        # 与 Query 相关的网页摘要，适合模型上下文
+        # 与 Query 相关的已有摘要，适合模型上下文。include_summary=true 且有可用摘要时返回；false 时省略，不触发在线摘要生成。
         self.summary = summary
-        # 清洗后的网页正文，按 mode 返回；auto 默认返回可用正文，fast 预设不返回，pro 预设按需返回
+        # 清洗后的正文；include_content=true 且当前 mode 有可用正文时返回。standard 默认返回可用正文；fast 预设不返回，pro 预设按需返回。include_content=false 时省略，不改变检索、排序。
         self.content = content
         # 网页发布时间，ISO 8601 格式
         self.publish_time = publish_time
@@ -237,18 +235,20 @@ class WebItem(TeaModel):
         self.author = author
         # 来源站点图标链接
         self.logo_url = logo_url
-        # 随 Content 返回正文实际格式，当前为 text；未返回 Content 时省略
+        # 仅在实际返回 Content 时返回正文格式，当前为 text；include_content=false 或无正文时省略。
         self.content_formats = content_formats
         # 可信等级，取值低/中/高
         self.trusty_level = trusty_level
+        # 网页或 PDF 的原文链接，均必返。
+        self.url = url
 
     def validate(self):
         self.validate_required(self.id, 'id')
         self.validate_required(self.content_id, 'content_id')
         self.validate_required(self.sort_id, 'sort_id')
         self.validate_required(self.title, 'title')
-        self.validate_required(self.summary, 'summary')
         self.validate_required(self.trusty_level, 'trusty_level')
+        self.validate_required(self.url, 'url')
 
     def to_map(self):
         _map = super().to_map()
@@ -266,8 +266,6 @@ class WebItem(TeaModel):
             result['title'] = self.title
         if self.site_name is not None:
             result['site_name'] = self.site_name
-        if self.url is not None:
-            result['url'] = self.url
         if self.summary is not None:
             result['summary'] = self.summary
         if self.content is not None:
@@ -282,6 +280,8 @@ class WebItem(TeaModel):
             result['content_formats'] = self.content_formats
         if self.trusty_level is not None:
             result['trusty_level'] = self.trusty_level
+        if self.url is not None:
+            result['url'] = self.url
         return result
 
     def from_map(self, m: dict = None):
@@ -296,8 +296,6 @@ class WebItem(TeaModel):
             self.title = m.get('title')
         if m.get('site_name') is not None:
             self.site_name = m.get('site_name')
-        if m.get('url') is not None:
-            self.url = m.get('url')
         if m.get('summary') is not None:
             self.summary = m.get('summary')
         if m.get('content') is not None:
@@ -312,6 +310,52 @@ class WebItem(TeaModel):
             self.content_formats = m.get('content_formats')
         if m.get('trusty_level') is not None:
             self.trusty_level = m.get('trusty_level')
+        if m.get('url') is not None:
+            self.url = m.get('url')
+        return self
+
+
+class IndustryDataItem(TeaModel):
+    def __init__(
+        self,
+        title: str = None,
+        type: str = None,
+        result: str = None,
+    ):
+        # 行业数据标题
+        self.title = title
+        # 行业数据类型及结构标识，用于确定 CardData 的字段结构
+        self.type = type
+        # 行业结构化数据，字段随 Type 定义
+        self.result = result
+
+    def validate(self):
+        self.validate_required(self.title, 'title')
+        self.validate_required(self.type, 'type')
+        self.validate_required(self.result, 'result')
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.title is not None:
+            result['title'] = self.title
+        if self.type is not None:
+            result['type'] = self.type
+        if self.result is not None:
+            result['result'] = self.result
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('title') is not None:
+            self.title = m.get('title')
+        if m.get('type') is not None:
+            self.type = m.get('type')
+        if m.get('result') is not None:
+            self.result = m.get('result')
         return self
 
 
@@ -321,6 +365,7 @@ class Result(TeaModel):
         result_count: int = None,
         web_results: List[WebItem] = None,
         search_context: SearchContext = None,
+        industry_data: List[IndustryDataItem] = None,
     ):
         # WebResults 实际返回的网页结果数量
         self.result_count = result_count
@@ -328,6 +373,8 @@ class Result(TeaModel):
         self.web_results = web_results
         # 本次搜索的上下文信息
         self.search_context = search_context
+        # 行业数据检索结果列表。仅在 filter_enable_industry_data_search=true 且命中时返回，支持多个结果，一般仅 1 个；开关关闭时不调用垂类接口且省略此字段。
+        self.industry_data = industry_data
 
     def validate(self):
         self.validate_required(self.result_count, 'result_count')
@@ -339,6 +386,10 @@ class Result(TeaModel):
         self.validate_required(self.search_context, 'search_context')
         if self.search_context:
             self.search_context.validate()
+        if self.industry_data:
+            for k in self.industry_data:
+                if k:
+                    k.validate()
 
     def to_map(self):
         _map = super().to_map()
@@ -354,6 +405,10 @@ class Result(TeaModel):
                 result['web_results'].append(k.to_map() if k else None)
         if self.search_context is not None:
             result['search_context'] = self.search_context.to_map()
+        result['industry_data'] = []
+        if self.industry_data is not None:
+            for k in self.industry_data:
+                result['industry_data'].append(k.to_map() if k else None)
         return result
 
     def from_map(self, m: dict = None):
@@ -368,6 +423,11 @@ class Result(TeaModel):
         if m.get('search_context') is not None:
             temp_model = SearchContext()
             self.search_context = temp_model.from_map(m['search_context'])
+        self.industry_data = []
+        if m.get('industry_data') is not None:
+            for k in m.get('industry_data'):
+                temp_model = IndustryDataItem()
+                self.industry_data.append(temp_model.from_map(k))
         return self
 
 
@@ -576,50 +636,6 @@ class FetchResult(TeaModel):
             self.logo_url = m.get('logo_url')
         if m.get('content_formats') is not None:
             self.content_formats = m.get('content_formats')
-        return self
-
-
-class IndustryDataItem(TeaModel):
-    def __init__(
-        self,
-        title: str = None,
-        type: str = None,
-        result: str = None,
-    ):
-        # 行业数据标题
-        self.title = title
-        # 行业数据类型及结构标识，用于确定 CardData 的字段结构
-        self.type = type
-        # 行业结构化数据，字段随 Type 定义
-        self.result = result
-
-    def validate(self):
-        self.validate_required(self.title, 'title')
-        self.validate_required(self.type, 'type')
-        self.validate_required(self.result, 'result')
-
-    def to_map(self):
-        _map = super().to_map()
-        if _map is not None:
-            return _map
-
-        result = dict()
-        if self.title is not None:
-            result['title'] = self.title
-        if self.type is not None:
-            result['type'] = self.type
-        if self.result is not None:
-            result['result'] = self.result
-        return result
-
-    def from_map(self, m: dict = None):
-        m = m or dict()
-        if m.get('title') is not None:
-            self.title = m.get('title')
-        if m.get('type') is not None:
-            self.type = m.get('type')
-        if m.get('result') is not None:
-            self.result = m.get('result')
         return self
 
 
@@ -876,12 +892,13 @@ class QueryAntsearchSearchRequest(TeaModel):
         search_type: str = None,
         count: int = None,
         content_format: str = None,
-        filter_include_domains: str = None,
-        filter_exclude_domains: str = None,
+        filter_include_sites: str = None,
+        filter_exclude_sites: str = None,
         filter_time_range: str = None,
-        filter_need_url: bool = None,
         filter_industry: str = None,
         filter_enable_industry_data_search: bool = None,
+        include_content: bool = None,
+        include_summary: bool = None,
     ):
         # OAuth模式下的授权token
         self.auth_token = auth_token
@@ -894,20 +911,22 @@ class QueryAntsearchSearchRequest(TeaModel):
         self.search_type = search_type
         # 网页结果最大返回数量，取值范围 1～30；不包含 IndustryData
         self.count = count
-        # 正文格式。当前支持 text；markdown 为预留值，暂不支持
+        # 正文格式，当前支持 text；markdown 为预留值，暂不支持。仅在实际返回 Content 时生效；include_content=false 时不影响输出。
         self.content_format = content_format
-        # 仅搜索指定网站。例如gov.cn表示只返回该域名下的内容；填写域名，不包含协议和路径,如果有多个，使用英文逗号(,)隔开
-        self.filter_include_domains = filter_include_domains
-        # 排除指定网站；填写域名，不包含协议和路径,如果有多个，使用英文逗号(,)隔开
-        self.filter_exclude_domains = filter_exclude_domains
-        # 预留。计划用于按发布时间筛选，当前不生效
+        # 仅返回指定域名及其子域名的结果；最多 5 个，填写域名，不接受协议和路径。多个域名之间使用英文逗号(,)隔开。与排除名单重叠时，排除优先。
+        self.filter_include_sites = filter_include_sites
+        # 排除指定域名及其子域名的结果；最多 5 个，填写域名，不接受协议和路径。与包含名单重叠时，排除优先，不因重叠拒绝请求。多个域名之间使用英文逗号(,)隔开。
+        self.filter_exclude_sites = filter_exclude_sites
+        # 按发布时间筛选：d 最近一天、w 最近一周、m 最近一月、y 最近一年；不传则不限制。开启后过滤发布时间缺失或无法解析的结果。
         self.filter_time_range = filter_time_range
-        # 是否同时查询行业垂类数据接口；命中结果通过 Result.IndustryData 独立返回
-        self.filter_need_url = filter_need_url
         # 预留。计划支持 news 等网页搜索领域，当前不生效
         self.filter_industry = filter_industry
-        # 是否返回 IndustryData
+        # 是否查询行业垂类数据接口。false 时不调用垂类接口，也不返回 Result.IndustryData；true 时按查询需要执行，命中才返回。不会关闭普通网页、新闻网页或 PDF 搜索。
         self.filter_enable_industry_data_search = filter_enable_industry_data_search
+        # 是否返回当前 mode 下已有的可用正文；false 时省略 Content 和 ContentFormats，不影响内部检索、排序，也不强制生成正文。
+        self.include_content = include_content
+        # 是否返回已有摘要；false 时省略 Summary。仅控制输出，不触发在线摘要生成。
+        self.include_summary = include_summary
 
     def validate(self):
         self.validate_required(self.query, 'query')
@@ -932,18 +951,20 @@ class QueryAntsearchSearchRequest(TeaModel):
             result['count'] = self.count
         if self.content_format is not None:
             result['content_format'] = self.content_format
-        if self.filter_include_domains is not None:
-            result['filter_include_domains'] = self.filter_include_domains
-        if self.filter_exclude_domains is not None:
-            result['filter_exclude_domains'] = self.filter_exclude_domains
+        if self.filter_include_sites is not None:
+            result['filter_include_sites'] = self.filter_include_sites
+        if self.filter_exclude_sites is not None:
+            result['filter_exclude_sites'] = self.filter_exclude_sites
         if self.filter_time_range is not None:
             result['filter_time_range'] = self.filter_time_range
-        if self.filter_need_url is not None:
-            result['filter_need_url'] = self.filter_need_url
         if self.filter_industry is not None:
             result['filter_industry'] = self.filter_industry
         if self.filter_enable_industry_data_search is not None:
             result['filter_enable_industry_data_search'] = self.filter_enable_industry_data_search
+        if self.include_content is not None:
+            result['include_content'] = self.include_content
+        if self.include_summary is not None:
+            result['include_summary'] = self.include_summary
         return result
 
     def from_map(self, m: dict = None):
@@ -962,18 +983,20 @@ class QueryAntsearchSearchRequest(TeaModel):
             self.count = m.get('count')
         if m.get('content_format') is not None:
             self.content_format = m.get('content_format')
-        if m.get('filter_include_domains') is not None:
-            self.filter_include_domains = m.get('filter_include_domains')
-        if m.get('filter_exclude_domains') is not None:
-            self.filter_exclude_domains = m.get('filter_exclude_domains')
+        if m.get('filter_include_sites') is not None:
+            self.filter_include_sites = m.get('filter_include_sites')
+        if m.get('filter_exclude_sites') is not None:
+            self.filter_exclude_sites = m.get('filter_exclude_sites')
         if m.get('filter_time_range') is not None:
             self.filter_time_range = m.get('filter_time_range')
-        if m.get('filter_need_url') is not None:
-            self.filter_need_url = m.get('filter_need_url')
         if m.get('filter_industry') is not None:
             self.filter_industry = m.get('filter_industry')
         if m.get('filter_enable_industry_data_search') is not None:
             self.filter_enable_industry_data_search = m.get('filter_enable_industry_data_search')
+        if m.get('include_content') is not None:
+            self.include_content = m.get('include_content')
+        if m.get('include_summary') is not None:
+            self.include_summary = m.get('include_summary')
         return self
 
 
@@ -985,7 +1008,6 @@ class QueryAntsearchSearchResponse(TeaModel):
         result_msg: str = None,
         response_metadata: ResponseMetadata = None,
         result: Result = None,
-        industry_data: List[IndustryDataItem] = None,
     ):
         # 请求唯一ID，用于链路跟踪和问题排查
         self.req_msg_id = req_msg_id
@@ -997,18 +1019,12 @@ class QueryAntsearchSearchResponse(TeaModel):
         self.response_metadata = response_metadata
         # 本次的搜索结果
         self.result = result
-        # 行业数据检索结果列表；命中时返回，支持多个结果，一般仅返回 1 个
-        self.industry_data = industry_data
 
     def validate(self):
         if self.response_metadata:
             self.response_metadata.validate()
         if self.result:
             self.result.validate()
-        if self.industry_data:
-            for k in self.industry_data:
-                if k:
-                    k.validate()
 
     def to_map(self):
         _map = super().to_map()
@@ -1026,10 +1042,6 @@ class QueryAntsearchSearchResponse(TeaModel):
             result['response_metadata'] = self.response_metadata.to_map()
         if self.result is not None:
             result['result'] = self.result.to_map()
-        result['industry_data'] = []
-        if self.industry_data is not None:
-            for k in self.industry_data:
-                result['industry_data'].append(k.to_map() if k else None)
         return result
 
     def from_map(self, m: dict = None):
@@ -1046,11 +1058,6 @@ class QueryAntsearchSearchResponse(TeaModel):
         if m.get('result') is not None:
             temp_model = Result()
             self.result = temp_model.from_map(m['result'])
-        self.industry_data = []
-        if m.get('industry_data') is not None:
-            for k in m.get('industry_data'):
-                temp_model = IndustryDataItem()
-                self.industry_data.append(temp_model.from_map(k))
         return self
 
 
