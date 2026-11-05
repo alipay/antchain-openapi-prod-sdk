@@ -2418,6 +2418,63 @@ export class InsureInfo extends $tea.Model {
   }
 }
 
+// 商品明细
+export class ProductGood extends $tea.Model {
+  // 商品名称
+  /**
+   * @example
+   * 猫罐头
+   */
+  goodsName: string;
+  // 商品类别，枚举值
+  /**
+   * @example
+   * CAN
+   */
+  goodsCategory: string;
+  // 此商品总金额（元，两位小数）
+  /**
+   * @example
+   * 1000.00
+   */
+  goodsAmount: string;
+  // 此商消费总积分（两位小数）
+  /**
+   * @example
+   * 1000.00
+   */
+  goodsPoints: string;
+  // 商品件数（整数）
+  /**
+   * @example
+   * 1
+   */
+  goodsCount: string;
+  static names(): { [key: string]: string } {
+    return {
+      goodsName: 'goods_name',
+      goodsCategory: 'goods_category',
+      goodsAmount: 'goods_amount',
+      goodsPoints: 'goods_points',
+      goodsCount: 'goods_count',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      goodsName: 'string',
+      goodsCategory: 'string',
+      goodsAmount: 'string',
+      goodsPoints: 'string',
+      goodsCount: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
 // 两轮车一体机车辆SPU
 export class SimSpuInfo extends $tea.Model {
   // SPU ID
@@ -10463,6 +10520,8 @@ export class CreatePoiMallorderRequest extends $tea.Model {
   productAmount: string;
   // 冻结金额（元，两位小数，冻结/出账/分账基数）
   pointAmount: string;
+  // 商品明细
+  productGoodsList?: ProductGood[];
   static names(): { [key: string]: string } {
     return {
       authToken: 'auth_token',
@@ -10475,6 +10534,7 @@ export class CreatePoiMallorderRequest extends $tea.Model {
       goodsName: 'goods_name',
       productAmount: 'product_amount',
       pointAmount: 'point_amount',
+      productGoodsList: 'product_goods_list',
     };
   }
 
@@ -10490,6 +10550,7 @@ export class CreatePoiMallorderRequest extends $tea.Model {
       goodsName: 'string',
       productAmount: 'string',
       pointAmount: 'string',
+      productGoodsList: { 'type': 'array', 'itemType': ProductGood },
     };
   }
 
@@ -15187,7 +15248,7 @@ export default class Client {
           req_msg_id: AntchainUtil.getNonce(),
           access_key: this._accessKeyId,
           base_sdk_version: "TeaSDK-2.0",
-          sdk_version: "1.7.37",
+          sdk_version: "1.7.40",
           _prod_code: "SECURITYTECH",
           _prod_channel: "undefined",
         };
