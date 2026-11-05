@@ -24,7 +24,7 @@ public class SearchContext extends TeaModel {
     @Validation(required = true)
     public String searchType;
 
-    // 实际执行的 AI 上下文档位；当前为 auto，后续可返回 fast 或 pro
+    // 实际执行的 AI 上下文档位；返回 standard；fast、pro 为预设。
     /**
      * <strong>example:</strong>
      * <p>auto</p>

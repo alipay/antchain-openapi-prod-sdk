@@ -56,17 +56,7 @@ public class WebItem extends TeaModel {
     @NameInMap("site_name")
     public String siteName;
 
-    // 网页原文链接；PDF 等无原文链接的结果可能不返回该字段。filter.need_url 为预留参数，当前不生效
-    /**
-     * <strong>example:</strong>
-     * <ul>
-     * <li></li>
-     * </ul>
-     */
-    @NameInMap("url")
-    public String url;
-
-    // 与 Query 相关的网页摘要，适合模型上下文
+    // 与 Query 相关的已有摘要，适合模型上下文。include_summary=true 且有可用摘要时返回；false 时省略，不触发在线摘要生成。
     /**
      * <strong>example:</strong>
      * <ul>
@@ -74,10 +64,9 @@ public class WebItem extends TeaModel {
      * </ul>
      */
     @NameInMap("summary")
-    @Validation(required = true)
     public String summary;
 
-    // 清洗后的网页正文，按 mode 返回；auto 默认返回可用正文，fast 预设不返回，pro 预设按需返回
+    // 清洗后的正文；include_content=true 且当前 mode 有可用正文时返回。standard 默认返回可用正文；fast 预设不返回，pro 预设按需返回。include_content=false 时省略，不改变检索、排序。
     /**
      * <strong>example:</strong>
      * <ul>
@@ -117,7 +106,7 @@ public class WebItem extends TeaModel {
     @NameInMap("logo_url")
     public String logoUrl;
 
-    // 随 Content 返回正文实际格式，当前为 text；未返回 Content 时省略
+    // 仅在实际返回 Content 时返回正文格式，当前为 text；include_content=false 或无正文时省略。
     /**
      * <strong>example:</strong>
      * <ul>
@@ -135,6 +124,17 @@ public class WebItem extends TeaModel {
     @NameInMap("trusty_level")
     @Validation(required = true)
     public String trustyLevel;
+
+    // 网页或 PDF 的原文链接，均必返。
+    /**
+     * <strong>example:</strong>
+     * <ul>
+     * <li></li>
+     * </ul>
+     */
+    @NameInMap("url")
+    @Validation(required = true)
+    public String url;
 
     public static WebItem build(java.util.Map<String, ?> map) throws Exception {
         WebItem self = new WebItem();
@@ -179,14 +179,6 @@ public class WebItem extends TeaModel {
     }
     public String getSiteName() {
         return this.siteName;
-    }
-
-    public WebItem setUrl(String url) {
-        this.url = url;
-        return this;
-    }
-    public String getUrl() {
-        return this.url;
     }
 
     public WebItem setSummary(String summary) {
@@ -243,6 +235,14 @@ public class WebItem extends TeaModel {
     }
     public String getTrustyLevel() {
         return this.trustyLevel;
+    }
+
+    public WebItem setUrl(String url) {
+        this.url = url;
+        return this;
+    }
+    public String getUrl() {
+        return this.url;
     }
 
 }

@@ -31,6 +31,16 @@ public class Result extends TeaModel {
     @Validation(required = true)
     public SearchContext searchContext;
 
+    // 行业数据检索结果列表。仅在 filter_enable_industry_data_search=true 且命中时返回，支持多个结果，一般仅 1 个；开关关闭时不调用垂类接口且省略此字段。
+    /**
+     * <strong>example:</strong>
+     * <ul>
+     * <li></li>
+     * </ul>
+     */
+    @NameInMap("industry_data")
+    public java.util.List<IndustryDataItem> industryData;
+
     public static Result build(java.util.Map<String, ?> map) throws Exception {
         Result self = new Result();
         return TeaModel.build(map, self);
@@ -58,6 +68,14 @@ public class Result extends TeaModel {
     }
     public SearchContext getSearchContext() {
         return this.searchContext;
+    }
+
+    public Result setIndustryData(java.util.List<IndustryDataItem> industryData) {
+        this.industryData = industryData;
+        return this;
+    }
+    public java.util.List<IndustryDataItem> getIndustryData() {
+        return this.industryData;
     }
 
 }

@@ -24,10 +24,6 @@ public class QueryAntsearchSearchResponse extends TeaModel {
     @NameInMap("result")
     public Result result;
 
-    // 行业数据检索结果列表；命中时返回，支持多个结果，一般仅返回 1 个
-    @NameInMap("industry_data")
-    public java.util.List<IndustryDataItem> industryData;
-
     public static QueryAntsearchSearchResponse build(java.util.Map<String, ?> map) throws Exception {
         QueryAntsearchSearchResponse self = new QueryAntsearchSearchResponse();
         return TeaModel.build(map, self);
@@ -71,14 +67,6 @@ public class QueryAntsearchSearchResponse extends TeaModel {
     }
     public Result getResult() {
         return this.result;
-    }
-
-    public QueryAntsearchSearchResponse setIndustryData(java.util.List<IndustryDataItem> industryData) {
-        this.industryData = industryData;
-        return this;
-    }
-    public java.util.List<IndustryDataItem> getIndustryData() {
-        return this.industryData;
     }
 
 }
