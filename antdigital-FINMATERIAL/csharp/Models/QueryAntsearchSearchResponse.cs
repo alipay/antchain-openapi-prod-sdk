@@ -34,11 +34,6 @@ namespace AntChain.SDK.FINMATERIAL.Models
         [Validation(Required=false)]
         public Result Result { get; set; }
 
-        // 行业数据检索结果列表；命中时返回，支持多个结果，一般仅返回 1 个
-        [NameInMap("industry_data")]
-        [Validation(Required=false)]
-        public List<IndustryDataItem> IndustryData { get; set; }
-
     }
 
 }

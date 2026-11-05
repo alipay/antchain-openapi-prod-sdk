@@ -63,18 +63,7 @@ namespace AntChain.SDK.FINMATERIAL.Models
         [Validation(Required=false)]
         public string SiteName { get; set; }
 
-        // 网页原文链接；PDF 等无原文链接的结果可能不返回该字段。filter.need_url 为预留参数，当前不生效
-        /// <summary>
-        /// <b>Example:</b>
-        /// <list type="bullet">
-        /// <item><description></description></item>
-        /// </list>
-        /// </summary>
-        [NameInMap("url")]
-        [Validation(Required=false)]
-        public string Url { get; set; }
-
-        // 与 Query 相关的网页摘要，适合模型上下文
+        // 与 Query 相关的已有摘要，适合模型上下文。include_summary=true 且有可用摘要时返回；false 时省略，不触发在线摘要生成。
         /// <summary>
         /// <b>Example:</b>
         /// <list type="bullet">
@@ -82,10 +71,10 @@ namespace AntChain.SDK.FINMATERIAL.Models
         /// </list>
         /// </summary>
         [NameInMap("summary")]
-        [Validation(Required=true)]
+        [Validation(Required=false)]
         public string Summary { get; set; }
 
-        // 清洗后的网页正文，按 mode 返回；auto 默认返回可用正文，fast 预设不返回，pro 预设按需返回
+        // 清洗后的正文；include_content=true 且当前 mode 有可用正文时返回。standard 默认返回可用正文；fast 预设不返回，pro 预设按需返回。include_content=false 时省略，不改变检索、排序。
         /// <summary>
         /// <b>Example:</b>
         /// <list type="bullet">
@@ -129,7 +118,7 @@ namespace AntChain.SDK.FINMATERIAL.Models
         [Validation(Required=false)]
         public string LogoUrl { get; set; }
 
-        // 随 Content 返回正文实际格式，当前为 text；未返回 Content 时省略
+        // 仅在实际返回 Content 时返回正文格式，当前为 text；include_content=false 或无正文时省略。
         /// <summary>
         /// <b>Example:</b>
         /// <list type="bullet">
@@ -148,6 +137,17 @@ namespace AntChain.SDK.FINMATERIAL.Models
         [NameInMap("trusty_level")]
         [Validation(Required=true)]
         public string TrustyLevel { get; set; }
+
+        // 网页或 PDF 的原文链接，均必返。
+        /// <summary>
+        /// <b>Example:</b>
+        /// <list type="bullet">
+        /// <item><description></description></item>
+        /// </list>
+        /// </summary>
+        [NameInMap("url")]
+        [Validation(Required=true)]
+        public string Url { get; set; }
 
     }
 

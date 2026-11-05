@@ -37,6 +37,17 @@ namespace AntChain.SDK.FINMATERIAL.Models
         [Validation(Required=true)]
         public SearchContext SearchContext { get; set; }
 
+        // 行业数据检索结果列表。仅在 filter_enable_industry_data_search=true 且命中时返回，支持多个结果，一般仅 1 个；开关关闭时不调用垂类接口且省略此字段。
+        /// <summary>
+        /// <b>Example:</b>
+        /// <list type="bullet">
+        /// <item><description></description></item>
+        /// </list>
+        /// </summary>
+        [NameInMap("industry_data")]
+        [Validation(Required=false)]
+        public List<IndustryDataItem> IndustryData { get; set; }
+
     }
 
 }
