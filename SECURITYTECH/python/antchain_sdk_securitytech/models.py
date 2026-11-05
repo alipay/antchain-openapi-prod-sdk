@@ -2529,6 +2529,66 @@ class InsureInfo(TeaModel):
         return self
 
 
+class ProductGood(TeaModel):
+    def __init__(
+        self,
+        goods_name: str = None,
+        goods_category: str = None,
+        goods_amount: str = None,
+        goods_points: str = None,
+        goods_count: str = None,
+    ):
+        # 商品名称
+        self.goods_name = goods_name
+        # 商品类别，枚举值
+        self.goods_category = goods_category
+        # 此商品总金额（元，两位小数）
+        self.goods_amount = goods_amount
+        # 此商消费总积分（两位小数）
+        self.goods_points = goods_points
+        # 商品件数（整数）
+        self.goods_count = goods_count
+
+    def validate(self):
+        self.validate_required(self.goods_name, 'goods_name')
+        self.validate_required(self.goods_category, 'goods_category')
+        self.validate_required(self.goods_amount, 'goods_amount')
+        self.validate_required(self.goods_points, 'goods_points')
+        self.validate_required(self.goods_count, 'goods_count')
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.goods_name is not None:
+            result['goods_name'] = self.goods_name
+        if self.goods_category is not None:
+            result['goods_category'] = self.goods_category
+        if self.goods_amount is not None:
+            result['goods_amount'] = self.goods_amount
+        if self.goods_points is not None:
+            result['goods_points'] = self.goods_points
+        if self.goods_count is not None:
+            result['goods_count'] = self.goods_count
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('goods_name') is not None:
+            self.goods_name = m.get('goods_name')
+        if m.get('goods_category') is not None:
+            self.goods_category = m.get('goods_category')
+        if m.get('goods_amount') is not None:
+            self.goods_amount = m.get('goods_amount')
+        if m.get('goods_points') is not None:
+            self.goods_points = m.get('goods_points')
+        if m.get('goods_count') is not None:
+            self.goods_count = m.get('goods_count')
+        return self
+
+
 class SimSpuInfo(TeaModel):
     def __init__(
         self,
@@ -14319,7 +14379,7 @@ class CreatePoiMallorderRequest(TeaModel):
         goods_name: str = None,
         product_amount: str = None,
         point_amount: str = None,
-        mall_category: str = None,
+        product_goods_list: List[ProductGood] = None,
     ):
         # OAuth模式下的授权token
         self.auth_token = auth_token
@@ -14340,8 +14400,8 @@ class CreatePoiMallorderRequest(TeaModel):
         self.product_amount = product_amount
         # 冻结金额（元，两位小数，冻结/出账/分账基数）
         self.point_amount = point_amount
-        # 商品类别
-        self.mall_category = mall_category
+        # 商品明细
+        self.product_goods_list = product_goods_list
 
     def validate(self):
         self.validate_required(self.open_id, 'open_id')
@@ -14352,7 +14412,10 @@ class CreatePoiMallorderRequest(TeaModel):
         self.validate_required(self.goods_name, 'goods_name')
         self.validate_required(self.product_amount, 'product_amount')
         self.validate_required(self.point_amount, 'point_amount')
-        self.validate_required(self.mall_category, 'mall_category')
+        if self.product_goods_list:
+            for k in self.product_goods_list:
+                if k:
+                    k.validate()
 
     def to_map(self):
         _map = super().to_map()
@@ -14380,8 +14443,10 @@ class CreatePoiMallorderRequest(TeaModel):
             result['product_amount'] = self.product_amount
         if self.point_amount is not None:
             result['point_amount'] = self.point_amount
-        if self.mall_category is not None:
-            result['mall_category'] = self.mall_category
+        result['product_goods_list'] = []
+        if self.product_goods_list is not None:
+            for k in self.product_goods_list:
+                result['product_goods_list'].append(k.to_map() if k else None)
         return result
 
     def from_map(self, m: dict = None):
@@ -14406,8 +14471,11 @@ class CreatePoiMallorderRequest(TeaModel):
             self.product_amount = m.get('product_amount')
         if m.get('point_amount') is not None:
             self.point_amount = m.get('point_amount')
-        if m.get('mall_category') is not None:
-            self.mall_category = m.get('mall_category')
+        self.product_goods_list = []
+        if m.get('product_goods_list') is not None:
+            for k in m.get('product_goods_list'):
+                temp_model = ProductGood()
+                self.product_goods_list.append(temp_model.from_map(k))
         return self
 
 
