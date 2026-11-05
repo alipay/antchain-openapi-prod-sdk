@@ -194,7 +194,7 @@ export class SearchContext extends $tea.Model {
    * web
    */
   searchType: string;
-  // 实际执行的 AI 上下文档位；当前为 auto，后续可返回 fast 或 pro
+  // 实际执行的 AI 上下文档位；返回 standard；fast、pro 为预设。
   /**
    * @example
    * auto
@@ -253,19 +253,13 @@ export class WebItem extends $tea.Model {
    * -
    */
   siteName?: string;
-  // 网页原文链接；PDF 等无原文链接的结果可能不返回该字段。filter.need_url 为预留参数，当前不生效
+  // 与 Query 相关的已有摘要，适合模型上下文。include_summary=true 且有可用摘要时返回；false 时省略，不触发在线摘要生成。
   /**
    * @example
    * -
    */
-  url?: string;
-  // 与 Query 相关的网页摘要，适合模型上下文
-  /**
-   * @example
-   * -
-   */
-  summary: string;
-  // 清洗后的网页正文，按 mode 返回；auto 默认返回可用正文，fast 预设不返回，pro 预设按需返回
+  summary?: string;
+  // 清洗后的正文；include_content=true 且当前 mode 有可用正文时返回。standard 默认返回可用正文；fast 预设不返回，pro 预设按需返回。include_content=false 时省略，不改变检索、排序。
   /**
    * @example
    * -
@@ -289,7 +283,7 @@ export class WebItem extends $tea.Model {
    * -
    */
   logoUrl?: string;
-  // 随 Content 返回正文实际格式，当前为 text；未返回 Content 时省略
+  // 仅在实际返回 Content 时返回正文格式，当前为 text；include_content=false 或无正文时省略。
   /**
    * @example
    * -
@@ -301,6 +295,12 @@ export class WebItem extends $tea.Model {
    * 中
    */
   trustyLevel: string;
+  // 网页或 PDF 的原文链接，均必返。
+  /**
+   * @example
+   * -
+   */
+  url: string;
   static names(): { [key: string]: string } {
     return {
       id: 'id',
@@ -308,7 +308,6 @@ export class WebItem extends $tea.Model {
       sortId: 'sort_id',
       title: 'title',
       siteName: 'site_name',
-      url: 'url',
       summary: 'summary',
       content: 'content',
       publishTime: 'publish_time',
@@ -316,6 +315,7 @@ export class WebItem extends $tea.Model {
       logoUrl: 'logo_url',
       contentFormats: 'content_formats',
       trustyLevel: 'trusty_level',
+      url: 'url',
     };
   }
 
@@ -326,7 +326,6 @@ export class WebItem extends $tea.Model {
       sortId: 'number',
       title: 'string',
       siteName: 'string',
-      url: 'string',
       summary: 'string',
       content: 'string',
       publishTime: 'string',
@@ -334,6 +333,48 @@ export class WebItem extends $tea.Model {
       logoUrl: 'string',
       contentFormats: 'string',
       trustyLevel: 'string',
+      url: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+// 行业数据检索结果列表；命中时返回，支持多个结果，一般仅返回 1 个
+export class IndustryDataItem extends $tea.Model {
+  // 行业数据标题
+  /**
+   * @example
+   * -
+   */
+  title: string;
+  // 行业数据类型及结构标识，用于确定 CardData 的字段结构
+  /**
+   * @example
+   * -
+   */
+  type: string;
+  // 行业结构化数据，字段随 Type 定义
+  /**
+   * @example
+   * -
+   */
+  result: string;
+  static names(): { [key: string]: string } {
+    return {
+      title: 'title',
+      type: 'type',
+      result: 'result',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      title: 'string',
+      type: 'string',
+      result: 'string',
     };
   }
 
@@ -362,11 +403,18 @@ export class Result extends $tea.Model {
    * undefined
    */
   searchContext: SearchContext;
+  // 行业数据检索结果列表。仅在 filter_enable_industry_data_search=true 且命中时返回，支持多个结果，一般仅 1 个；开关关闭时不调用垂类接口且省略此字段。
+  /**
+   * @example
+   * -
+   */
+  industryData?: IndustryDataItem[];
   static names(): { [key: string]: string } {
     return {
       resultCount: 'result_count',
       webResults: 'web_results',
       searchContext: 'search_context',
+      industryData: 'industry_data',
     };
   }
 
@@ -375,6 +423,7 @@ export class Result extends $tea.Model {
       resultCount: 'number',
       webResults: { 'type': 'array', 'itemType': WebItem },
       searchContext: SearchContext,
+      industryData: { 'type': 'array', 'itemType': IndustryDataItem },
     };
   }
 
@@ -594,47 +643,6 @@ export class FetchResult extends $tea.Model {
   }
 }
 
-// 行业数据检索结果列表；命中时返回，支持多个结果，一般仅返回 1 个
-export class IndustryDataItem extends $tea.Model {
-  // 行业数据标题
-  /**
-   * @example
-   * -
-   */
-  title: string;
-  // 行业数据类型及结构标识，用于确定 CardData 的字段结构
-  /**
-   * @example
-   * -
-   */
-  type: string;
-  // 行业结构化数据，字段随 Type 定义
-  /**
-   * @example
-   * -
-   */
-  result: string;
-  static names(): { [key: string]: string } {
-    return {
-      title: 'title',
-      type: 'type',
-      result: 'result',
-    };
-  }
-
-  static types(): { [key: string]: any } {
-    return {
-      title: 'string',
-      type: 'string',
-      result: 'string',
-    };
-  }
-
-  constructor(map?: { [key: string]: any }) {
-    super(map);
-  }
-}
-
 export class QueryMcpGetcurtimeRequest extends $tea.Model {
   // OAuth模式下的授权token
   authToken?: string;
@@ -801,20 +809,22 @@ export class QueryAntsearchSearchRequest extends $tea.Model {
   searchType?: string;
   // 网页结果最大返回数量，取值范围 1～30；不包含 IndustryData
   count?: number;
-  // 正文格式。当前支持 text；markdown 为预留值，暂不支持
+  // 正文格式，当前支持 text；markdown 为预留值，暂不支持。仅在实际返回 Content 时生效；include_content=false 时不影响输出。
   contentFormat?: string;
-  // 仅搜索指定网站。例如gov.cn表示只返回该域名下的内容；填写域名，不包含协议和路径,如果有多个，使用英文逗号(,)隔开
-  filterIncludeDomains?: string;
-  // 排除指定网站；填写域名，不包含协议和路径,如果有多个，使用英文逗号(,)隔开
-  filterExcludeDomains?: string;
-  // 预留。计划用于按发布时间筛选，当前不生效
+  // 仅返回指定域名及其子域名的结果；最多 5 个，填写域名，不接受协议和路径。多个域名之间使用英文逗号(,)隔开。与排除名单重叠时，排除优先。
+  filterIncludeSites?: string;
+  // 排除指定域名及其子域名的结果；最多 5 个，填写域名，不接受协议和路径。与包含名单重叠时，排除优先，不因重叠拒绝请求。多个域名之间使用英文逗号(,)隔开。
+  filterExcludeSites?: string;
+  // 按发布时间筛选：d 最近一天、w 最近一周、m 最近一月、y 最近一年；不传则不限制。开启后过滤发布时间缺失或无法解析的结果。
   filterTimeRange?: string;
-  // 是否同时查询行业垂类数据接口；命中结果通过 Result.IndustryData 独立返回
-  filterNeedUrl?: boolean;
   // 预留。计划支持 news 等网页搜索领域，当前不生效
   filterIndustry?: string;
-  // 是否返回 IndustryData
+  // 是否查询行业垂类数据接口。false 时不调用垂类接口，也不返回 Result.IndustryData；true 时按查询需要执行，命中才返回。不会关闭普通网页、新闻网页或 PDF 搜索。
   filterEnableIndustryDataSearch?: boolean;
+  // 是否返回当前 mode 下已有的可用正文；false 时省略 Content 和 ContentFormats，不影响内部检索、排序，也不强制生成正文。
+  includeContent?: boolean;
+  // 是否返回已有摘要；false 时省略 Summary。仅控制输出，不触发在线摘要生成。
+  includeSummary?: boolean;
   static names(): { [key: string]: string } {
     return {
       authToken: 'auth_token',
@@ -824,12 +834,13 @@ export class QueryAntsearchSearchRequest extends $tea.Model {
       searchType: 'search_type',
       count: 'count',
       contentFormat: 'content_format',
-      filterIncludeDomains: 'filter_include_domains',
-      filterExcludeDomains: 'filter_exclude_domains',
+      filterIncludeSites: 'filter_include_sites',
+      filterExcludeSites: 'filter_exclude_sites',
       filterTimeRange: 'filter_time_range',
-      filterNeedUrl: 'filter_need_url',
       filterIndustry: 'filter_industry',
       filterEnableIndustryDataSearch: 'filter_enable_industry_data_search',
+      includeContent: 'include_content',
+      includeSummary: 'include_summary',
     };
   }
 
@@ -842,12 +853,13 @@ export class QueryAntsearchSearchRequest extends $tea.Model {
       searchType: 'string',
       count: 'number',
       contentFormat: 'string',
-      filterIncludeDomains: 'string',
-      filterExcludeDomains: 'string',
+      filterIncludeSites: 'string',
+      filterExcludeSites: 'string',
       filterTimeRange: 'string',
-      filterNeedUrl: 'boolean',
       filterIndustry: 'string',
       filterEnableIndustryDataSearch: 'boolean',
+      includeContent: 'boolean',
+      includeSummary: 'boolean',
     };
   }
 
@@ -867,8 +879,6 @@ export class QueryAntsearchSearchResponse extends $tea.Model {
   responseMetadata?: ResponseMetadata;
   // 本次的搜索结果
   result?: Result;
-  // 行业数据检索结果列表；命中时返回，支持多个结果，一般仅返回 1 个
-  industryData?: IndustryDataItem[];
   static names(): { [key: string]: string } {
     return {
       reqMsgId: 'req_msg_id',
@@ -876,7 +886,6 @@ export class QueryAntsearchSearchResponse extends $tea.Model {
       resultMsg: 'result_msg',
       responseMetadata: 'response_metadata',
       result: 'result',
-      industryData: 'industry_data',
     };
   }
 
@@ -887,7 +896,6 @@ export class QueryAntsearchSearchResponse extends $tea.Model {
       resultMsg: 'string',
       responseMetadata: ResponseMetadata,
       result: Result,
-      industryData: { 'type': 'array', 'itemType': IndustryDataItem },
     };
   }
 
@@ -1096,7 +1104,7 @@ export default class Client {
           req_msg_id: AntchainUtil.getNonce(),
           access_key: this._accessKeyId,
           base_sdk_version: "TeaSDK-2.0",
-          sdk_version: "1.0.12",
+          sdk_version: "1.0.13",
           _prod_code: "FINMATERIAL",
           _prod_channel: "default",
         };
