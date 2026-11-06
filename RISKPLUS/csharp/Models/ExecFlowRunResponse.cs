@@ -44,6 +44,11 @@ namespace AntChain.SDK.RISKPLUS.Models
         [Validation(Required=false)]
         public string UserNotice { get; set; }
 
+        // 平台生成的计费业务订单号，用于计费查询、对账和问题排查。同一次执行的启动与查询接口返回相同值；与调用方传入的 client_order_no、执行单号 run_no 不同。未生成计费单时可能为空。
+        [NameInMap("biz_order_no")]
+        [Validation(Required=false)]
+        public string BizOrderNo { get; set; }
+
     }
 
 }
