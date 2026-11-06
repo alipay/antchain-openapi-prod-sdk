@@ -13955,6 +13955,8 @@ type ExecFlowRunResponse struct {
 	Status *string `json:"status,omitempty" xml:"status,omitempty"`
 	// 用户须知，用于展示本平台的使用须知。
 	UserNotice *string `json:"user_notice,omitempty" xml:"user_notice,omitempty"`
+	// 平台生成的计费业务订单号，用于计费查询、对账和问题排查。同一次执行的启动与查询接口返回相同值；与调用方传入的 client_order_no、执行单号 run_no 不同。未生成计费单时可能为空。
+	BizOrderNo *string `json:"biz_order_no,omitempty" xml:"biz_order_no,omitempty"`
 }
 
 func (s ExecFlowRunResponse) String() string {
@@ -13997,6 +13999,11 @@ func (s *ExecFlowRunResponse) SetStatus(v string) *ExecFlowRunResponse {
 
 func (s *ExecFlowRunResponse) SetUserNotice(v string) *ExecFlowRunResponse {
 	s.UserNotice = &v
+	return s
+}
+
+func (s *ExecFlowRunResponse) SetBizOrderNo(v string) *ExecFlowRunResponse {
+	s.BizOrderNo = &v
 	return s
 }
 
@@ -14048,6 +14055,8 @@ type QueryFlowRunResponse struct {
 	Outputs []*FlowRunOutput `json:"outputs,omitempty" xml:"outputs,omitempty" type:"Repeated"`
 	// 用户须知，用于展示本平台的使用须知。
 	UserNotice *string `json:"user_notice,omitempty" xml:"user_notice,omitempty"`
+	// 平台生成的计费业务订单号，用于计费查询、对账和问题排查。同一次执行的启动与查询接口返回相同值；与调用方传入的 client_order_no、执行单号 run_no 不同。未生成计费单时可能为空。
+	BizOrderNo *string `json:"biz_order_no,omitempty" xml:"biz_order_no,omitempty"`
 }
 
 func (s QueryFlowRunResponse) String() string {
@@ -14095,6 +14104,11 @@ func (s *QueryFlowRunResponse) SetOutputs(v []*FlowRunOutput) *QueryFlowRunRespo
 
 func (s *QueryFlowRunResponse) SetUserNotice(v string) *QueryFlowRunResponse {
 	s.UserNotice = &v
+	return s
+}
+
+func (s *QueryFlowRunResponse) SetBizOrderNo(v string) *QueryFlowRunResponse {
+	s.BizOrderNo = &v
 	return s
 }
 
@@ -30563,6 +30577,8 @@ type GetDubbridgeJumpurlResponse struct {
 	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
 	// 跳转URL，请求成功返回
 	Url *string `json:"url,omitempty" xml:"url,omitempty"`
+	// 拓展信息
+	ExtInfo *string `json:"ext_info,omitempty" xml:"ext_info,omitempty"`
 }
 
 func (s GetDubbridgeJumpurlResponse) String() string {
@@ -30590,6 +30606,11 @@ func (s *GetDubbridgeJumpurlResponse) SetResultMsg(v string) *GetDubbridgeJumpur
 
 func (s *GetDubbridgeJumpurlResponse) SetUrl(v string) *GetDubbridgeJumpurlResponse {
 	s.Url = &v
+	return s
+}
+
+func (s *GetDubbridgeJumpurlResponse) SetExtInfo(v string) *GetDubbridgeJumpurlResponse {
+	s.ExtInfo = &v
 	return s
 }
 
@@ -49230,7 +49251,7 @@ func (client *Client) DoRequest(version *string, action *string, protocol *strin
 				"req_msg_id":       antchainutil.GetNonce(),
 				"access_key":       client.AccessKeyId,
 				"base_sdk_version": tea.String("TeaSDK-2.0"),
-				"sdk_version":      tea.String("1.33.12"),
+				"sdk_version":      tea.String("1.33.13"),
 				"_prod_code":       tea.String("RISKPLUS"),
 				"_prod_channel":    tea.String("undefined"),
 			}
