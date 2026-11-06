@@ -158,7 +158,7 @@ namespace AntChain.SDK.REALPERSON
                         {"req_msg_id", AntChain.AlipayUtil.AntchainUtils.GetNonce()},
                         {"access_key", _accessKeyId},
                         {"base_sdk_version", "TeaSDK-2.0"},
-                        {"sdk_version", "1.23.5"},
+                        {"sdk_version", "1.23.6"},
                         {"_prod_code", "REALPERSON"},
                         {"_prod_channel", "undefined"},
                     };
@@ -301,7 +301,7 @@ namespace AntChain.SDK.REALPERSON
                         {"req_msg_id", AntChain.AlipayUtil.AntchainUtils.GetNonce()},
                         {"access_key", _accessKeyId},
                         {"base_sdk_version", "TeaSDK-2.0"},
-                        {"sdk_version", "1.23.5"},
+                        {"sdk_version", "1.23.6"},
                         {"_prod_code", "REALPERSON"},
                         {"_prod_channel", "undefined"},
                     };
@@ -4791,6 +4791,52 @@ namespace AntChain.SDK.REALPERSON
         {
             AlibabaCloud.TeaUtil.Common.ValidateModel(request);
             return TeaModel.ToObject<QueryServerWillauthmaterialResponse>(await DoRequestAsync("1.0", "di.realperson.server.willauthmaterial.query", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /// <term><b>Description:</b></term>
+        /// <description>
+        /// <para>Description: 支付宝返照ASOP开通租户
+        /// Summary: 支付宝返照ASOP开通租户</para>
+        /// </description>
+        public SyncFaceverifyAlipayResponse SyncFaceverifyAlipay(SyncFaceverifyAlipayRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return SyncFaceverifyAlipayEx(request, headers, runtime);
+        }
+
+        /// <term><b>Description:</b></term>
+        /// <description>
+        /// <para>Description: 支付宝返照ASOP开通租户
+        /// Summary: 支付宝返照ASOP开通租户</para>
+        /// </description>
+        public async Task<SyncFaceverifyAlipayResponse> SyncFaceverifyAlipayAsync(SyncFaceverifyAlipayRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return await SyncFaceverifyAlipayExAsync(request, headers, runtime);
+        }
+
+        /// <term><b>Description:</b></term>
+        /// <description>
+        /// <para>Description: 支付宝返照ASOP开通租户
+        /// Summary: 支付宝返照ASOP开通租户</para>
+        /// </description>
+        public SyncFaceverifyAlipayResponse SyncFaceverifyAlipayEx(SyncFaceverifyAlipayRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<SyncFaceverifyAlipayResponse>(DoRequest("1.0", "di.realperson.faceverify.alipay.sync", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /// <term><b>Description:</b></term>
+        /// <description>
+        /// <para>Description: 支付宝返照ASOP开通租户
+        /// Summary: 支付宝返照ASOP开通租户</para>
+        /// </description>
+        public async Task<SyncFaceverifyAlipayResponse> SyncFaceverifyAlipayExAsync(SyncFaceverifyAlipayRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<SyncFaceverifyAlipayResponse>(await DoRequestAsync("1.0", "di.realperson.faceverify.alipay.sync", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
         }
 
         /// <term><b>Description:</b></term>
