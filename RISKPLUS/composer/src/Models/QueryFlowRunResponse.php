@@ -17,6 +17,7 @@ class QueryFlowRunResponse extends Model {
         'status' => 'status',
         'outputs' => 'outputs',
         'userNotice' => 'user_notice',
+        'bizOrderNo' => 'biz_order_no',
     ];
     public function validate() {}
     public function toMap() {
@@ -50,6 +51,9 @@ class QueryFlowRunResponse extends Model {
         }
         if (null !== $this->userNotice) {
             $res['user_notice'] = $this->userNotice;
+        }
+        if (null !== $this->bizOrderNo) {
+            $res['biz_order_no'] = $this->bizOrderNo;
         }
         return $res;
     }
@@ -88,6 +92,9 @@ class QueryFlowRunResponse extends Model {
         }
         if(isset($map['user_notice'])){
             $model->userNotice = $map['user_notice'];
+        }
+        if(isset($map['biz_order_no'])){
+            $model->bizOrderNo = $map['biz_order_no'];
         }
         return $model;
     }
@@ -138,5 +145,11 @@ class QueryFlowRunResponse extends Model {
      * @var string
      */
     public $userNotice;
+
+    // 平台生成的计费业务订单号，用于计费查询、对账和问题排查。同一次执行的启动与查询接口返回相同值；与调用方传入的 client_order_no、执行单号 run_no 不同。未生成计费单时可能为空。
+    /**
+     * @var string
+     */
+    public $bizOrderNo;
 
 }

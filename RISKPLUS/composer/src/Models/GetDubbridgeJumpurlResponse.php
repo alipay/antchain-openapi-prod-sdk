@@ -11,6 +11,7 @@ class GetDubbridgeJumpurlResponse extends Model {
         'resultCode' => 'result_code',
         'resultMsg' => 'result_msg',
         'url' => 'url',
+        'extInfo' => 'ext_info',
     ];
     public function validate() {}
     public function toMap() {
@@ -26,6 +27,9 @@ class GetDubbridgeJumpurlResponse extends Model {
         }
         if (null !== $this->url) {
             $res['url'] = $this->url;
+        }
+        if (null !== $this->extInfo) {
+            $res['ext_info'] = $this->extInfo;
         }
         return $res;
     }
@@ -46,6 +50,9 @@ class GetDubbridgeJumpurlResponse extends Model {
         }
         if(isset($map['url'])){
             $model->url = $map['url'];
+        }
+        if(isset($map['ext_info'])){
+            $model->extInfo = $map['ext_info'];
         }
         return $model;
     }
@@ -72,5 +79,11 @@ class GetDubbridgeJumpurlResponse extends Model {
      * @var string
      */
     public $url;
+
+    // 拓展信息
+    /**
+     * @var string
+     */
+    public $extInfo;
 
 }
