@@ -13291,6 +13291,7 @@ class ExecFlowRunResponse(TeaModel):
         flow_code: str = None,
         status: str = None,
         user_notice: str = None,
+        biz_order_no: str = None,
     ):
         # 请求唯一ID，用于链路跟踪和问题排查
         self.req_msg_id = req_msg_id
@@ -13306,6 +13307,8 @@ class ExecFlowRunResponse(TeaModel):
         self.status = status
         # 用户须知，用于展示本平台的使用须知。
         self.user_notice = user_notice
+        # 平台生成的计费业务订单号，用于计费查询、对账和问题排查。同一次执行的启动与查询接口返回相同值；与调用方传入的 client_order_no、执行单号 run_no 不同。未生成计费单时可能为空。
+        self.biz_order_no = biz_order_no
 
     def validate(self):
         pass
@@ -13330,6 +13333,8 @@ class ExecFlowRunResponse(TeaModel):
             result['status'] = self.status
         if self.user_notice is not None:
             result['user_notice'] = self.user_notice
+        if self.biz_order_no is not None:
+            result['biz_order_no'] = self.biz_order_no
         return result
 
     def from_map(self, m: dict = None):
@@ -13348,6 +13353,8 @@ class ExecFlowRunResponse(TeaModel):
             self.status = m.get('status')
         if m.get('user_notice') is not None:
             self.user_notice = m.get('user_notice')
+        if m.get('biz_order_no') is not None:
+            self.biz_order_no = m.get('biz_order_no')
         return self
 
 
@@ -13403,6 +13410,7 @@ class QueryFlowRunResponse(TeaModel):
         status: str = None,
         outputs: List[FlowRunOutput] = None,
         user_notice: str = None,
+        biz_order_no: str = None,
     ):
         # 请求唯一ID，用于链路跟踪和问题排查
         self.req_msg_id = req_msg_id
@@ -13420,6 +13428,8 @@ class QueryFlowRunResponse(TeaModel):
         self.outputs = outputs
         # 用户须知，用于展示本平台的使用须知。
         self.user_notice = user_notice
+        # 平台生成的计费业务订单号，用于计费查询、对账和问题排查。同一次执行的启动与查询接口返回相同值；与调用方传入的 client_order_no、执行单号 run_no 不同。未生成计费单时可能为空。
+        self.biz_order_no = biz_order_no
 
     def validate(self):
         if self.outputs:
@@ -13451,6 +13461,8 @@ class QueryFlowRunResponse(TeaModel):
                 result['outputs'].append(k.to_map() if k else None)
         if self.user_notice is not None:
             result['user_notice'] = self.user_notice
+        if self.biz_order_no is not None:
+            result['biz_order_no'] = self.biz_order_no
         return result
 
     def from_map(self, m: dict = None):
@@ -13474,6 +13486,8 @@ class QueryFlowRunResponse(TeaModel):
                 self.outputs.append(temp_model.from_map(k))
         if m.get('user_notice') is not None:
             self.user_notice = m.get('user_notice')
+        if m.get('biz_order_no') is not None:
+            self.biz_order_no = m.get('biz_order_no')
         return self
 
 
@@ -33653,6 +33667,7 @@ class GetDubbridgeJumpurlResponse(TeaModel):
         result_code: str = None,
         result_msg: str = None,
         url: str = None,
+        ext_info: str = None,
     ):
         # 请求唯一ID，用于链路跟踪和问题排查
         self.req_msg_id = req_msg_id
@@ -33662,6 +33677,8 @@ class GetDubbridgeJumpurlResponse(TeaModel):
         self.result_msg = result_msg
         # 跳转URL，请求成功返回
         self.url = url
+        # 拓展信息
+        self.ext_info = ext_info
 
     def validate(self):
         pass
@@ -33680,6 +33697,8 @@ class GetDubbridgeJumpurlResponse(TeaModel):
             result['result_msg'] = self.result_msg
         if self.url is not None:
             result['url'] = self.url
+        if self.ext_info is not None:
+            result['ext_info'] = self.ext_info
         return result
 
     def from_map(self, m: dict = None):
@@ -33692,6 +33711,8 @@ class GetDubbridgeJumpurlResponse(TeaModel):
             self.result_msg = m.get('result_msg')
         if m.get('url') is not None:
             self.url = m.get('url')
+        if m.get('ext_info') is not None:
+            self.ext_info = m.get('ext_info')
         return self
 
 
