@@ -135,7 +135,7 @@ class Client:
                     'req_msg_id': AntchainUtils.get_nonce(),
                     'access_key': self._access_key_id,
                     'base_sdk_version': 'TeaSDK-2.0',
-                    'sdk_version': '1.23.5',
+                    'sdk_version': '1.23.6',
                     '_prod_code': 'REALPERSON',
                     '_prod_channel': 'undefined'
                 }
@@ -239,7 +239,7 @@ class Client:
                     'req_msg_id': AntchainUtils.get_nonce(),
                     'access_key': self._access_key_id,
                     'base_sdk_version': 'TeaSDK-2.0',
-                    'sdk_version': '1.23.5',
+                    'sdk_version': '1.23.6',
                     '_prod_code': 'REALPERSON',
                     '_prod_channel': 'undefined'
                 }
@@ -5469,6 +5469,62 @@ class Client:
         return TeaCore.from_map(
             realperson_models.QueryServerWillauthmaterialResponse(),
             await self.do_request_async('1.0', 'di.realperson.server.willauthmaterial.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def sync_faceverify_alipay(
+        self,
+        request: realperson_models.SyncFaceverifyAlipayRequest,
+    ) -> realperson_models.SyncFaceverifyAlipayResponse:
+        """
+        Description: 支付宝返照ASOP开通租户
+        Summary: 支付宝返照ASOP开通租户
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.sync_faceverify_alipay_ex(request, headers, runtime)
+
+    async def sync_faceverify_alipay_async(
+        self,
+        request: realperson_models.SyncFaceverifyAlipayRequest,
+    ) -> realperson_models.SyncFaceverifyAlipayResponse:
+        """
+        Description: 支付宝返照ASOP开通租户
+        Summary: 支付宝返照ASOP开通租户
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.sync_faceverify_alipay_ex_async(request, headers, runtime)
+
+    def sync_faceverify_alipay_ex(
+        self,
+        request: realperson_models.SyncFaceverifyAlipayRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> realperson_models.SyncFaceverifyAlipayResponse:
+        """
+        Description: 支付宝返照ASOP开通租户
+        Summary: 支付宝返照ASOP开通租户
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            realperson_models.SyncFaceverifyAlipayResponse(),
+            self.do_request('1.0', 'di.realperson.faceverify.alipay.sync', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def sync_faceverify_alipay_ex_async(
+        self,
+        request: realperson_models.SyncFaceverifyAlipayRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> realperson_models.SyncFaceverifyAlipayResponse:
+        """
+        Description: 支付宝返照ASOP开通租户
+        Summary: 支付宝返照ASOP开通租户
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            realperson_models.SyncFaceverifyAlipayResponse(),
+            await self.do_request_async('1.0', 'di.realperson.faceverify.alipay.sync', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
     def bind_cutpayment_oneclick(

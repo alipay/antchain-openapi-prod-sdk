@@ -15122,6 +15122,112 @@ class QueryServerWillauthmaterialResponse(TeaModel):
         return self
 
 
+class SyncFaceverifyAlipayRequest(TeaModel):
+    def __init__(
+        self,
+        auth_token: str = None,
+        product_instance_id: str = None,
+        outer_order_no: str = None,
+        tenant_id: str = None,
+        asop_ticket_id: str = None,
+        extern_param: str = None,
+    ):
+        # OAuth模式下的授权token
+        self.auth_token = auth_token
+        self.product_instance_id = product_instance_id
+        # 业务请求唯一标识
+        self.outer_order_no = outer_order_no
+        # 数科租户 ID
+        self.tenant_id = tenant_id
+        # ASOP审批单号
+        self.asop_ticket_id = asop_ticket_id
+        # 扩展参数
+        self.extern_param = extern_param
+
+    def validate(self):
+        self.validate_required(self.outer_order_no, 'outer_order_no')
+        self.validate_required(self.tenant_id, 'tenant_id')
+        self.validate_required(self.asop_ticket_id, 'asop_ticket_id')
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.auth_token is not None:
+            result['auth_token'] = self.auth_token
+        if self.product_instance_id is not None:
+            result['product_instance_id'] = self.product_instance_id
+        if self.outer_order_no is not None:
+            result['outer_order_no'] = self.outer_order_no
+        if self.tenant_id is not None:
+            result['tenant_id'] = self.tenant_id
+        if self.asop_ticket_id is not None:
+            result['asop_ticket_id'] = self.asop_ticket_id
+        if self.extern_param is not None:
+            result['extern_param'] = self.extern_param
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('auth_token') is not None:
+            self.auth_token = m.get('auth_token')
+        if m.get('product_instance_id') is not None:
+            self.product_instance_id = m.get('product_instance_id')
+        if m.get('outer_order_no') is not None:
+            self.outer_order_no = m.get('outer_order_no')
+        if m.get('tenant_id') is not None:
+            self.tenant_id = m.get('tenant_id')
+        if m.get('asop_ticket_id') is not None:
+            self.asop_ticket_id = m.get('asop_ticket_id')
+        if m.get('extern_param') is not None:
+            self.extern_param = m.get('extern_param')
+        return self
+
+
+class SyncFaceverifyAlipayResponse(TeaModel):
+    def __init__(
+        self,
+        req_msg_id: str = None,
+        result_code: str = None,
+        result_msg: str = None,
+    ):
+        # 请求唯一ID，用于链路跟踪和问题排查
+        self.req_msg_id = req_msg_id
+        # 结果码，一般OK表示调用成功
+        self.result_code = result_code
+        # 异常信息的文本描述
+        self.result_msg = result_msg
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.req_msg_id is not None:
+            result['req_msg_id'] = self.req_msg_id
+        if self.result_code is not None:
+            result['result_code'] = self.result_code
+        if self.result_msg is not None:
+            result['result_msg'] = self.result_msg
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('req_msg_id') is not None:
+            self.req_msg_id = m.get('req_msg_id')
+        if m.get('result_code') is not None:
+            self.result_code = m.get('result_code')
+        if m.get('result_msg') is not None:
+            self.result_msg = m.get('result_msg')
+        return self
+
+
 class BindCutpaymentOneclickRequest(TeaModel):
     def __init__(
         self,
