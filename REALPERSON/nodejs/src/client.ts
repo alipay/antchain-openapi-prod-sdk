@@ -10328,6 +10328,73 @@ export class QueryServerWillauthmaterialResponse extends $tea.Model {
   }
 }
 
+export class SyncFaceverifyAlipayRequest extends $tea.Model {
+  // OAuth模式下的授权token
+  authToken?: string;
+  productInstanceId?: string;
+  // 业务请求唯一标识
+  outerOrderNo: string;
+  // 数科租户 ID
+  tenantId: string;
+  // ASOP审批单号
+  asopTicketId: string;
+  // 扩展参数
+  externParam?: string;
+  static names(): { [key: string]: string } {
+    return {
+      authToken: 'auth_token',
+      productInstanceId: 'product_instance_id',
+      outerOrderNo: 'outer_order_no',
+      tenantId: 'tenant_id',
+      asopTicketId: 'asop_ticket_id',
+      externParam: 'extern_param',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      authToken: 'string',
+      productInstanceId: 'string',
+      outerOrderNo: 'string',
+      tenantId: 'string',
+      asopTicketId: 'string',
+      externParam: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class SyncFaceverifyAlipayResponse extends $tea.Model {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string;
+  // 结果码，一般OK表示调用成功
+  resultCode?: string;
+  // 异常信息的文本描述
+  resultMsg?: string;
+  static names(): { [key: string]: string } {
+    return {
+      reqMsgId: 'req_msg_id',
+      resultCode: 'result_code',
+      resultMsg: 'result_msg',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      reqMsgId: 'string',
+      resultCode: 'string',
+      resultMsg: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
 export class BindCutpaymentOneclickRequest extends $tea.Model {
   // OAuth模式下的授权token
   authToken?: string;
@@ -10998,7 +11065,7 @@ export default class Client {
           req_msg_id: AntchainUtil.getNonce(),
           access_key: this._accessKeyId,
           base_sdk_version: "TeaSDK-2.0",
-          sdk_version: "1.23.5",
+          sdk_version: "1.23.6",
           _prod_code: "REALPERSON",
           _prod_channel: "undefined",
         };
@@ -13069,6 +13136,27 @@ export default class Client {
   async queryServerWillauthmaterialEx(request: QueryServerWillauthmaterialRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<QueryServerWillauthmaterialResponse> {
     Util.validateModel(request);
     return $tea.cast<QueryServerWillauthmaterialResponse>(await this.doRequest("1.0", "di.realperson.server.willauthmaterial.query", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new QueryServerWillauthmaterialResponse({}));
+  }
+
+  /**
+   * @remarks
+   * Description: 支付宝返照ASOP开通租户
+   * Summary: 支付宝返照ASOP开通租户
+   */
+  async syncFaceverifyAlipay(request: SyncFaceverifyAlipayRequest): Promise<SyncFaceverifyAlipayResponse> {
+    let runtime = new $Util.RuntimeOptions({ });
+    let headers : {[key: string ]: string} = { };
+    return await this.syncFaceverifyAlipayEx(request, headers, runtime);
+  }
+
+  /**
+   * @remarks
+   * Description: 支付宝返照ASOP开通租户
+   * Summary: 支付宝返照ASOP开通租户
+   */
+  async syncFaceverifyAlipayEx(request: SyncFaceverifyAlipayRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<SyncFaceverifyAlipayResponse> {
+    Util.validateModel(request);
+    return $tea.cast<SyncFaceverifyAlipayResponse>(await this.doRequest("1.0", "di.realperson.faceverify.alipay.sync", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new SyncFaceverifyAlipayResponse({}));
   }
 
   /**
