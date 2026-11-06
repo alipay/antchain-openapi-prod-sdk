@@ -12255,6 +12255,8 @@ export class ExecFlowRunResponse extends $tea.Model {
   status?: string;
   // 用户须知，用于展示本平台的使用须知。
   userNotice?: string;
+  // 平台生成的计费业务订单号，用于计费查询、对账和问题排查。同一次执行的启动与查询接口返回相同值；与调用方传入的 client_order_no、执行单号 run_no 不同。未生成计费单时可能为空。
+  bizOrderNo?: string;
   static names(): { [key: string]: string } {
     return {
       reqMsgId: 'req_msg_id',
@@ -12264,6 +12266,7 @@ export class ExecFlowRunResponse extends $tea.Model {
       flowCode: 'flow_code',
       status: 'status',
       userNotice: 'user_notice',
+      bizOrderNo: 'biz_order_no',
     };
   }
 
@@ -12276,6 +12279,7 @@ export class ExecFlowRunResponse extends $tea.Model {
       flowCode: 'string',
       status: 'string',
       userNotice: 'string',
+      bizOrderNo: 'string',
     };
   }
 
@@ -12328,6 +12332,8 @@ export class QueryFlowRunResponse extends $tea.Model {
   outputs?: FlowRunOutput[];
   // 用户须知，用于展示本平台的使用须知。
   userNotice?: string;
+  // 平台生成的计费业务订单号，用于计费查询、对账和问题排查。同一次执行的启动与查询接口返回相同值；与调用方传入的 client_order_no、执行单号 run_no 不同。未生成计费单时可能为空。
+  bizOrderNo?: string;
   static names(): { [key: string]: string } {
     return {
       reqMsgId: 'req_msg_id',
@@ -12338,6 +12344,7 @@ export class QueryFlowRunResponse extends $tea.Model {
       status: 'status',
       outputs: 'outputs',
       userNotice: 'user_notice',
+      bizOrderNo: 'biz_order_no',
     };
   }
 
@@ -12351,6 +12358,7 @@ export class QueryFlowRunResponse extends $tea.Model {
       status: 'string',
       outputs: { 'type': 'array', 'itemType': FlowRunOutput },
       userNotice: 'string',
+      bizOrderNo: 'string',
     };
   }
 
@@ -24490,12 +24498,15 @@ export class GetDubbridgeJumpurlResponse extends $tea.Model {
   resultMsg?: string;
   // 跳转URL，请求成功返回
   url?: string;
+  // 拓展信息
+  extInfo?: string;
   static names(): { [key: string]: string } {
     return {
       reqMsgId: 'req_msg_id',
       resultCode: 'result_code',
       resultMsg: 'result_msg',
       url: 'url',
+      extInfo: 'ext_info',
     };
   }
 
@@ -24505,6 +24516,7 @@ export class GetDubbridgeJumpurlResponse extends $tea.Model {
       resultCode: 'string',
       resultMsg: 'string',
       url: 'string',
+      extInfo: 'string',
     };
   }
 
@@ -38683,7 +38695,7 @@ export default class Client {
           req_msg_id: AntchainUtil.getNonce(),
           access_key: this._accessKeyId,
           base_sdk_version: "TeaSDK-2.0",
-          sdk_version: "1.33.12",
+          sdk_version: "1.33.13",
           _prod_code: "RISKPLUS",
           _prod_channel: "undefined",
         };
