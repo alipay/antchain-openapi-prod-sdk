@@ -126,7 +126,7 @@ public class Client {
                     new TeaPair("req_msg_id", com.antgroup.antchain.openapi.antchain.util.AntchainUtils.getNonce()),
                     new TeaPair("access_key", _accessKeyId),
                     new TeaPair("base_sdk_version", "TeaSDK-2.0"),
-                    new TeaPair("sdk_version", "1.2.1"),
+                    new TeaPair("sdk_version", "1.2.2"),
                     new TeaPair("_prod_code", "ERAPROD"),
                     new TeaPair("_prod_channel", "default")
                 );
@@ -249,5 +249,26 @@ public class Client {
     public QueryBoardProxyResponse queryBoardProxyEx(QueryBoardProxyRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
         com.aliyun.teautil.Common.validateModel(request);
         return TeaModel.toModel(this.doRequest("1.0", "antdigital.eraprod.board.proxy.query", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new QueryBoardProxyResponse());
+    }
+
+    /**
+     * <b>description</b> :
+     * <p>Description: 投标水印
+     * Summary: 投标水印</p>
+     */
+    public QueryWatermarkFileResponse queryWatermarkFile(QueryWatermarkFileRequest request) throws Exception {
+        com.aliyun.teautil.models.RuntimeOptions runtime = new com.aliyun.teautil.models.RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.queryWatermarkFileEx(request, headers, runtime);
+    }
+
+    /**
+     * <b>description</b> :
+     * <p>Description: 投标水印
+     * Summary: 投标水印</p>
+     */
+    public QueryWatermarkFileResponse queryWatermarkFileEx(QueryWatermarkFileRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "antdigital.eraprod.watermark.file.query", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new QueryWatermarkFileResponse());
     }
 }
