@@ -20,6 +20,10 @@ public class GetDubbridgeJumpurlResponse extends TeaModel {
     @NameInMap("url")
     public String url;
 
+    // 拓展信息
+    @NameInMap("ext_info")
+    public String extInfo;
+
     public static GetDubbridgeJumpurlResponse build(java.util.Map<String, ?> map) throws Exception {
         GetDubbridgeJumpurlResponse self = new GetDubbridgeJumpurlResponse();
         return TeaModel.build(map, self);
@@ -55,6 +59,14 @@ public class GetDubbridgeJumpurlResponse extends TeaModel {
     }
     public String getUrl() {
         return this.url;
+    }
+
+    public GetDubbridgeJumpurlResponse setExtInfo(String extInfo) {
+        this.extInfo = extInfo;
+        return this;
+    }
+    public String getExtInfo() {
+        return this.extInfo;
     }
 
 }

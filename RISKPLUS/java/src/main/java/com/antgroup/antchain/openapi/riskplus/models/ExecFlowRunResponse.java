@@ -32,6 +32,10 @@ public class ExecFlowRunResponse extends TeaModel {
     @NameInMap("user_notice")
     public String userNotice;
 
+    // 平台生成的计费业务订单号，用于计费查询、对账和问题排查。同一次执行的启动与查询接口返回相同值；与调用方传入的 client_order_no、执行单号 run_no 不同。未生成计费单时可能为空。
+    @NameInMap("biz_order_no")
+    public String bizOrderNo;
+
     public static ExecFlowRunResponse build(java.util.Map<String, ?> map) throws Exception {
         ExecFlowRunResponse self = new ExecFlowRunResponse();
         return TeaModel.build(map, self);
@@ -91,6 +95,14 @@ public class ExecFlowRunResponse extends TeaModel {
     }
     public String getUserNotice() {
         return this.userNotice;
+    }
+
+    public ExecFlowRunResponse setBizOrderNo(String bizOrderNo) {
+        this.bizOrderNo = bizOrderNo;
+        return this;
+    }
+    public String getBizOrderNo() {
+        return this.bizOrderNo;
     }
 
 }
