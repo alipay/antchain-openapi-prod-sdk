@@ -188,6 +188,8 @@ use AntChain\REALPERSON\Models\QueryServerWillauthRequest;
 use AntChain\REALPERSON\Models\QueryServerWillauthResponse;
 use AntChain\REALPERSON\Models\QueryServerWillauthmaterialRequest;
 use AntChain\REALPERSON\Models\QueryServerWillauthmaterialResponse;
+use AntChain\REALPERSON\Models\SyncFaceverifyAlipayRequest;
+use AntChain\REALPERSON\Models\SyncFaceverifyAlipayResponse;
 use AntChain\REALPERSON\Models\BindCutpaymentOneclickRequest;
 use AntChain\REALPERSON\Models\BindCutpaymentOneclickResponse;
 use AntChain\REALPERSON\Models\QueryCutpaymentOneclickRequest;
@@ -333,7 +335,7 @@ class Client {
                     "req_msg_id" => UtilClient::getNonce(),
                     "access_key" => $this->_accessKeyId,
                     "base_sdk_version" => "TeaSDK-2.0",
-                    "sdk_version" => "1.23.5",
+                    "sdk_version" => "1.23.6",
                     "_prod_code" => "REALPERSON",
                     "_prod_channel" => "undefined"
                 ];
@@ -2731,6 +2733,31 @@ class Client {
     public function queryServerWillauthmaterialEx($request, $headers, $runtime){
         Utils::validateModel($request);
         return QueryServerWillauthmaterialResponse::fromMap($this->doRequest("1.0", "di.realperson.server.willauthmaterial.query", "HTTPS", "POST", "/gateway.do", Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 支付宝返照ASOP开通租户
+     * Summary: 支付宝返照ASOP开通租户
+     * @param SyncFaceverifyAlipayRequest $request
+     * @return SyncFaceverifyAlipayResponse
+     */
+    public function syncFaceverifyAlipay($request){
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+        return $this->syncFaceverifyAlipayEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 支付宝返照ASOP开通租户
+     * Summary: 支付宝返照ASOP开通租户
+     * @param SyncFaceverifyAlipayRequest $request
+     * @param string[] $headers
+     * @param RuntimeOptions $runtime
+     * @return SyncFaceverifyAlipayResponse
+     */
+    public function syncFaceverifyAlipayEx($request, $headers, $runtime){
+        Utils::validateModel($request);
+        return SyncFaceverifyAlipayResponse::fromMap($this->doRequest("1.0", "di.realperson.faceverify.alipay.sync", "HTTPS", "POST", "/gateway.do", Tea::merge($request), $headers, $runtime));
     }
 
     /**
