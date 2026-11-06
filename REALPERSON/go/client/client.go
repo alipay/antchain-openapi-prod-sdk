@@ -13600,6 +13600,90 @@ func (s *QueryServerWillauthmaterialResponse) SetMaterialInfo(v string) *QuerySe
 	return s
 }
 
+type SyncFaceverifyAlipayRequest struct {
+	// OAuth模式下的授权token
+	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
+	// 业务请求唯一标识
+	OuterOrderNo *string `json:"outer_order_no,omitempty" xml:"outer_order_no,omitempty" require:"true"`
+	// 数科租户 ID
+	TenantId *string `json:"tenant_id,omitempty" xml:"tenant_id,omitempty" require:"true"`
+	// ASOP审批单号
+	AsopTicketId *string `json:"asop_ticket_id,omitempty" xml:"asop_ticket_id,omitempty" require:"true"`
+	// 扩展参数
+	ExternParam *string `json:"extern_param,omitempty" xml:"extern_param,omitempty"`
+}
+
+func (s SyncFaceverifyAlipayRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s SyncFaceverifyAlipayRequest) GoString() string {
+	return s.String()
+}
+
+func (s *SyncFaceverifyAlipayRequest) SetAuthToken(v string) *SyncFaceverifyAlipayRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *SyncFaceverifyAlipayRequest) SetProductInstanceId(v string) *SyncFaceverifyAlipayRequest {
+	s.ProductInstanceId = &v
+	return s
+}
+
+func (s *SyncFaceverifyAlipayRequest) SetOuterOrderNo(v string) *SyncFaceverifyAlipayRequest {
+	s.OuterOrderNo = &v
+	return s
+}
+
+func (s *SyncFaceverifyAlipayRequest) SetTenantId(v string) *SyncFaceverifyAlipayRequest {
+	s.TenantId = &v
+	return s
+}
+
+func (s *SyncFaceverifyAlipayRequest) SetAsopTicketId(v string) *SyncFaceverifyAlipayRequest {
+	s.AsopTicketId = &v
+	return s
+}
+
+func (s *SyncFaceverifyAlipayRequest) SetExternParam(v string) *SyncFaceverifyAlipayRequest {
+	s.ExternParam = &v
+	return s
+}
+
+type SyncFaceverifyAlipayResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+}
+
+func (s SyncFaceverifyAlipayResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s SyncFaceverifyAlipayResponse) GoString() string {
+	return s.String()
+}
+
+func (s *SyncFaceverifyAlipayResponse) SetReqMsgId(v string) *SyncFaceverifyAlipayResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *SyncFaceverifyAlipayResponse) SetResultCode(v string) *SyncFaceverifyAlipayResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *SyncFaceverifyAlipayResponse) SetResultMsg(v string) *SyncFaceverifyAlipayResponse {
+	s.ResultMsg = &v
+	return s
+}
+
 type BindCutpaymentOneclickRequest struct {
 	// OAuth模式下的授权token
 	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
@@ -14524,7 +14608,7 @@ func (client *Client) DoRequest(version *string, action *string, protocol *strin
 				"req_msg_id":       antchainutil.GetNonce(),
 				"access_key":       client.AccessKeyId,
 				"base_sdk_version": tea.String("TeaSDK-2.0"),
-				"sdk_version":      tea.String("1.23.5"),
+				"sdk_version":      tea.String("1.23.6"),
 				"_prod_code":       tea.String("REALPERSON"),
 				"_prod_channel":    tea.String("undefined"),
 			}
@@ -17977,6 +18061,42 @@ func (client *Client) QueryServerWillauthmaterialEx(request *QueryServerWillauth
 	}
 	_result = &QueryServerWillauthmaterialResponse{}
 	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("di.realperson.server.willauthmaterial.query"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
+}
+
+// Description:
+//
+// Description: 支付宝返照ASOP开通租户
+//
+// Summary: 支付宝返照ASOP开通租户
+func (client *Client) SyncFaceverifyAlipay(request *SyncFaceverifyAlipayRequest) (_result *SyncFaceverifyAlipayResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &SyncFaceverifyAlipayResponse{}
+	_body, _err := client.SyncFaceverifyAlipayEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+// Description:
+//
+// Description: 支付宝返照ASOP开通租户
+//
+// Summary: 支付宝返照ASOP开通租户
+func (client *Client) SyncFaceverifyAlipayEx(request *SyncFaceverifyAlipayRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *SyncFaceverifyAlipayResponse, _err error) {
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &SyncFaceverifyAlipayResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("di.realperson.faceverify.alipay.sync"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
 	if _err != nil {
 		return _result, _err
 	}
