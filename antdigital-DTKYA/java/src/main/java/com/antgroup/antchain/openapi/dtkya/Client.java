@@ -126,7 +126,7 @@ public class Client {
                     new TeaPair("req_msg_id", com.antgroup.antchain.openapi.antchain.util.AntchainUtils.getNonce()),
                     new TeaPair("access_key", _accessKeyId),
                     new TeaPair("base_sdk_version", "TeaSDK-2.0"),
-                    new TeaPair("sdk_version", "1.0.28"),
+                    new TeaPair("sdk_version", "1.0.30"),
                     new TeaPair("_prod_code", "DTKYA"),
                     new TeaPair("_prod_channel", "undefined")
                 );
@@ -753,5 +753,194 @@ public class Client {
     public VerifyAntchainDasKyaEvidenceResponse verifyAntchainDasKyaEvidenceEx(VerifyAntchainDasKyaEvidenceRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
         com.aliyun.teautil.Common.validateModel(request);
         return TeaModel.toModel(this.doRequest("1.0", "antchain.das.kya.evidence.verify", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new VerifyAntchainDasKyaEvidenceResponse());
+    }
+
+    /**
+     * <b>description</b> :
+     * <p>Description: Host群组业务调用：群组管理、问答索引及OSS临时上传下载授权
+     * Summary: Host群组业务调用：群组管理、问答索引及OSS临时上传下载授权</p>
+     */
+    public InvokeAntchainDasKyaHostgroupResponse invokeAntchainDasKyaHostgroup(InvokeAntchainDasKyaHostgroupRequest request) throws Exception {
+        com.aliyun.teautil.models.RuntimeOptions runtime = new com.aliyun.teautil.models.RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.invokeAntchainDasKyaHostgroupEx(request, headers, runtime);
+    }
+
+    /**
+     * <b>description</b> :
+     * <p>Description: Host群组业务调用：群组管理、问答索引及OSS临时上传下载授权
+     * Summary: Host群组业务调用：群组管理、问答索引及OSS临时上传下载授权</p>
+     */
+    public InvokeAntchainDasKyaHostgroupResponse invokeAntchainDasKyaHostgroupEx(InvokeAntchainDasKyaHostgroupRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "antchain.das.kya.hostgroup.invoke", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new InvokeAntchainDasKyaHostgroupResponse());
+    }
+
+    /**
+     * <b>description</b> :
+     * <p>Description: kya l3 绑定接口
+     * Summary: kya l3 绑定接口</p>
+     */
+    public RegisterAntchainDasKyaBindingResponse registerAntchainDasKyaBinding(RegisterAntchainDasKyaBindingRequest request) throws Exception {
+        com.aliyun.teautil.models.RuntimeOptions runtime = new com.aliyun.teautil.models.RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.registerAntchainDasKyaBindingEx(request, headers, runtime);
+    }
+
+    /**
+     * <b>description</b> :
+     * <p>Description: kya l3 绑定接口
+     * Summary: kya l3 绑定接口</p>
+     */
+    public RegisterAntchainDasKyaBindingResponse registerAntchainDasKyaBindingEx(RegisterAntchainDasKyaBindingRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "antchain.das.kya.binding.register", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new RegisterAntchainDasKyaBindingResponse());
+    }
+
+    /**
+     * <b>description</b> :
+     * <p>Description: kya 实体绑定关系查询
+     * Summary: kya 实体绑定关系查询</p>
+     */
+    public QueryAntchainDasKyaBindingResponse queryAntchainDasKyaBinding(QueryAntchainDasKyaBindingRequest request) throws Exception {
+        com.aliyun.teautil.models.RuntimeOptions runtime = new com.aliyun.teautil.models.RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.queryAntchainDasKyaBindingEx(request, headers, runtime);
+    }
+
+    /**
+     * <b>description</b> :
+     * <p>Description: kya 实体绑定关系查询
+     * Summary: kya 实体绑定关系查询</p>
+     */
+    public QueryAntchainDasKyaBindingResponse queryAntchainDasKyaBindingEx(QueryAntchainDasKyaBindingRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "antchain.das.kya.binding.query", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new QueryAntchainDasKyaBindingResponse());
+    }
+
+    /**
+     * <b>description</b> :
+     * <p>Description: 核验协作中的 Agent 身份证明并返回逐层核验结果
+     * Summary: 核验协作中的 Agent 身份证明并返回逐层核验结果</p>
+     */
+    public VerifyAntchainDasKyaIdentityResponse verifyAntchainDasKyaIdentity(VerifyAntchainDasKyaIdentityRequest request) throws Exception {
+        com.aliyun.teautil.models.RuntimeOptions runtime = new com.aliyun.teautil.models.RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.verifyAntchainDasKyaIdentityEx(request, headers, runtime);
+    }
+
+    /**
+     * <b>description</b> :
+     * <p>Description: 核验协作中的 Agent 身份证明并返回逐层核验结果
+     * Summary: 核验协作中的 Agent 身份证明并返回逐层核验结果</p>
+     */
+    public VerifyAntchainDasKyaIdentityResponse verifyAntchainDasKyaIdentityEx(VerifyAntchainDasKyaIdentityRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "antchain.das.kya.identity.verify", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new VerifyAntchainDasKyaIdentityResponse());
+    }
+
+    /**
+     * <b>description</b> :
+     * <p>Description: 启用或停用 Agent 的 L3 实体身份核验
+     * Summary: 启用或停用 Agent 的 L3 实体身份核验</p>
+     */
+    public PushAntchainDasKyaLthreeResponse pushAntchainDasKyaLthree(PushAntchainDasKyaLthreeRequest request) throws Exception {
+        com.aliyun.teautil.models.RuntimeOptions runtime = new com.aliyun.teautil.models.RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.pushAntchainDasKyaLthreeEx(request, headers, runtime);
+    }
+
+    /**
+     * <b>description</b> :
+     * <p>Description: 启用或停用 Agent 的 L3 实体身份核验
+     * Summary: 启用或停用 Agent 的 L3 实体身份核验</p>
+     */
+    public PushAntchainDasKyaLthreeResponse pushAntchainDasKyaLthreeEx(PushAntchainDasKyaLthreeRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "antchain.das.kya.lthree.push", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new PushAntchainDasKyaLthreeResponse());
+    }
+
+    /**
+     * <b>description</b> :
+     * <p>Description: 设置 Agent 对协作方的 L1、L2、L3 层级要求
+     * Summary: 设置 Agent 对协作方的 L1、L2、L3 层级要求</p>
+     */
+    public PushAntchainDasKyaRequirementResponse pushAntchainDasKyaRequirement(PushAntchainDasKyaRequirementRequest request) throws Exception {
+        com.aliyun.teautil.models.RuntimeOptions runtime = new com.aliyun.teautil.models.RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.pushAntchainDasKyaRequirementEx(request, headers, runtime);
+    }
+
+    /**
+     * <b>description</b> :
+     * <p>Description: 设置 Agent 对协作方的 L1、L2、L3 层级要求
+     * Summary: 设置 Agent 对协作方的 L1、L2、L3 层级要求</p>
+     */
+    public PushAntchainDasKyaRequirementResponse pushAntchainDasKyaRequirementEx(PushAntchainDasKyaRequirementRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "antchain.das.kya.requirement.push", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new PushAntchainDasKyaRequirementResponse());
+    }
+
+    /**
+     * <b>description</b> :
+     * <p>Description: 发起个人或企业实人认证，完成后绑定 Agent DID
+     * Summary: 发起个人或企业实人认证，完成后绑定 Agent DID</p>
+     */
+    public RegisterAntchainDasKyaEntityResponse registerAntchainDasKyaEntity(RegisterAntchainDasKyaEntityRequest request) throws Exception {
+        com.aliyun.teautil.models.RuntimeOptions runtime = new com.aliyun.teautil.models.RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.registerAntchainDasKyaEntityEx(request, headers, runtime);
+    }
+
+    /**
+     * <b>description</b> :
+     * <p>Description: 发起个人或企业实人认证，完成后绑定 Agent DID
+     * Summary: 发起个人或企业实人认证，完成后绑定 Agent DID</p>
+     */
+    public RegisterAntchainDasKyaEntityResponse registerAntchainDasKyaEntityEx(RegisterAntchainDasKyaEntityRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "antchain.das.kya.entity.register", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new RegisterAntchainDasKyaEntityResponse());
+    }
+
+    /**
+     * <b>description</b> :
+     * <p>Description: 启用或停用 Agent 的 L2 行为连续性核验
+     * Summary: 启用或停用 Agent 的 L2 行为连续性核验</p>
+     */
+    public PushAntchainDasLtwoResponse pushAntchainDasLtwo(PushAntchainDasLtwoRequest request) throws Exception {
+        com.aliyun.teautil.models.RuntimeOptions runtime = new com.aliyun.teautil.models.RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.pushAntchainDasLtwoEx(request, headers, runtime);
+    }
+
+    /**
+     * <b>description</b> :
+     * <p>Description: 启用或停用 Agent 的 L2 行为连续性核验
+     * Summary: 启用或停用 Agent 的 L2 行为连续性核验</p>
+     */
+    public PushAntchainDasLtwoResponse pushAntchainDasLtwoEx(PushAntchainDasLtwoRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "antchain.das.ltwo.push", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new PushAntchainDasLtwoResponse());
+    }
+
+    /**
+     * <b>description</b> :
+     * <p>Description: Agent 身份语义检索
+     * Summary: Agent 身份语义检索</p>
+     */
+    public SearchAntchainDasKyaAgentResponse searchAntchainDasKyaAgent(SearchAntchainDasKyaAgentRequest request) throws Exception {
+        com.aliyun.teautil.models.RuntimeOptions runtime = new com.aliyun.teautil.models.RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.searchAntchainDasKyaAgentEx(request, headers, runtime);
+    }
+
+    /**
+     * <b>description</b> :
+     * <p>Description: Agent 身份语义检索
+     * Summary: Agent 身份语义检索</p>
+     */
+    public SearchAntchainDasKyaAgentResponse searchAntchainDasKyaAgentEx(SearchAntchainDasKyaAgentRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "antchain.das.kya.agent.search", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new SearchAntchainDasKyaAgentResponse());
     }
 }

@@ -62,6 +62,14 @@ public class CustomregisterAntchainDasKyaDidRequest extends TeaModel {
     @Validation(required = true)
     public String nonceSignature;
 
+    // Agent 公开能力列表，最多 64 项
+    @NameInMap("capabilities")
+    public java.util.List<AgentCapabilityDTO> capabilities;
+
+    // A2A 接入资料
+    @NameInMap("a2a")
+    public AgentAtoAInfo a2a;
+
     public static CustomregisterAntchainDasKyaDidRequest build(java.util.Map<String, ?> map) throws Exception {
         CustomregisterAntchainDasKyaDidRequest self = new CustomregisterAntchainDasKyaDidRequest();
         return TeaModel.build(map, self);
@@ -169,6 +177,22 @@ public class CustomregisterAntchainDasKyaDidRequest extends TeaModel {
     }
     public String getNonceSignature() {
         return this.nonceSignature;
+    }
+
+    public CustomregisterAntchainDasKyaDidRequest setCapabilities(java.util.List<AgentCapabilityDTO> capabilities) {
+        this.capabilities = capabilities;
+        return this;
+    }
+    public java.util.List<AgentCapabilityDTO> getCapabilities() {
+        return this.capabilities;
+    }
+
+    public CustomregisterAntchainDasKyaDidRequest setA2a(AgentAtoAInfo a2a) {
+        this.a2a = a2a;
+        return this;
+    }
+    public AgentAtoAInfo getA2a() {
+        return this.a2a;
     }
 
 }
