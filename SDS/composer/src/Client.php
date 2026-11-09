@@ -1,0 +1,594 @@
+<?php
+
+// This file is auto-generated, don't edit it. Thanks.
+namespace AntChain\SDS;
+
+use AlibabaCloud\Tea\Utils\Utils;
+use AlibabaCloud\Tea\Exception\TeaError;
+use \Exception;
+use AlibabaCloud\Tea\Exception\TeaUnableRetryError;
+use AlibabaCloud\Tea\Tea;
+use AlibabaCloud\Tea\Request;
+use AntChain\Util\UtilClient;
+use AlibabaCloud\Tea\RpcUtils\RpcUtils;
+
+use AlibabaCloud\Tea\Utils\Utils\RuntimeOptions;
+use AntChain\SDS\Models\JudgeCrowdPrefermentRequest;
+use AntChain\SDS\Models\JudgeCrowdPrefermentResponse;
+use AntChain\SDS\Models\SubmitScenedataTaskRequest;
+use AntChain\SDS\Models\SubmitScenedataTaskResponse;
+use AntChain\SDS\Models\UploadScenedataFileRequest;
+use AntChain\SDS\Models\UploadScenedataFileResponse;
+use AntChain\SDS\Models\CreateAntcloudGatewayxFileUploadRequest;
+use AntChain\SDS\Models\BatchqueryScenedataTaskresultRequest;
+use AntChain\SDS\Models\BatchqueryScenedataTaskresultResponse;
+use AntChain\SDS\Models\QueryScenedataOnlineRequest;
+use AntChain\SDS\Models\QueryScenedataOnlineResponse;
+use AntChain\SDS\Models\QueryScenedataTaskinfoRequest;
+use AntChain\SDS\Models\QueryScenedataTaskinfoResponse;
+use AntChain\SDS\Models\QueryScenedataDwsRequest;
+use AntChain\SDS\Models\QueryScenedataDwsResponse;
+use AntChain\SDS\Models\QueryFavorStocksRequest;
+use AntChain\SDS\Models\QueryFavorStocksResponse;
+use AntChain\SDS\Models\DownloadStockUseflowRequest;
+use AntChain\SDS\Models\DownloadStockUseflowResponse;
+use AntChain\SDS\Models\DownloadStockRefundflowRequest;
+use AntChain\SDS\Models\DownloadStockRefundflowResponse;
+use AntChain\SDS\Models\UpdateScenedataTaskRequest;
+use AntChain\SDS\Models\UpdateScenedataTaskResponse;
+use AntChain\SDS\Models\GetTrackingTokenRequest;
+use AntChain\SDS\Models\GetTrackingTokenResponse;
+use AntChain\SDS\Models\QueryUserTagRequest;
+use AntChain\SDS\Models\QueryUserTagResponse;
+use AntChain\SDS\Models\CreateAntcloudGatewayxFileUploadResponse;
+
+class Client {
+    protected $_endpoint;
+
+    protected $_regionId;
+
+    protected $_accessKeyId;
+
+    protected $_accessKeySecret;
+
+    protected $_protocol;
+
+    protected $_userAgent;
+
+    protected $_readTimeout;
+
+    protected $_connectTimeout;
+
+    protected $_httpProxy;
+
+    protected $_httpsProxy;
+
+    protected $_socks5Proxy;
+
+    protected $_socks5NetWork;
+
+    protected $_noProxy;
+
+    protected $_maxIdleConns;
+
+    protected $_securityToken;
+
+    protected $_maxIdleTimeMillis;
+
+    protected $_keepAliveDurationMillis;
+
+    protected $_maxRequests;
+
+    protected $_maxRequestsPerHost;
+
+    /**
+     * Init client with Config
+     * @param config config contains the necessary information to create a client
+     */
+    public function __construct($config){
+        if (Utils::isUnset($config)) {
+            throw new TeaError([
+                "code" => "ParameterMissing",
+                "message" => "'config' can not be unset"
+            ]);
+        }
+        $this->_accessKeyId = $config->accessKeyId;
+        $this->_accessKeySecret = $config->accessKeySecret;
+        $this->_securityToken = $config->securityToken;
+        $this->_endpoint = $config->endpoint;
+        $this->_protocol = $config->protocol;
+        $this->_userAgent = $config->userAgent;
+        $this->_readTimeout = Utils::defaultNumber($config->readTimeout, 20000);
+        $this->_connectTimeout = Utils::defaultNumber($config->connectTimeout, 20000);
+        $this->_httpProxy = $config->httpProxy;
+        $this->_httpsProxy = $config->httpsProxy;
+        $this->_noProxy = $config->noProxy;
+        $this->_socks5Proxy = $config->socks5Proxy;
+        $this->_socks5NetWork = $config->socks5NetWork;
+        $this->_maxIdleConns = Utils::defaultNumber($config->maxIdleConns, 60000);
+        $this->_maxIdleTimeMillis = Utils::defaultNumber($config->maxIdleTimeMillis, 5);
+        $this->_keepAliveDurationMillis = Utils::defaultNumber($config->keepAliveDurationMillis, 5000);
+        $this->_maxRequests = Utils::defaultNumber($config->maxRequests, 100);
+        $this->_maxRequestsPerHost = Utils::defaultNumber($config->maxRequestsPerHost, 100);
+    }
+
+    /**
+     * Encapsulate the request and invoke the network
+     * @param string $version
+     * @param string $action api name
+     * @param string $protocol http or https
+     * @param string $method e.g. GET
+     * @param string $pathname pathname of every api
+     * @param mixed[] $request which contains request params
+     * @param string[] $headers
+     * @param RuntimeOptions $runtime which controls some details of call api, such as retry times
+     * @return array the response
+     * @throws TeaError
+     * @throws Exception
+     * @throws TeaUnableRetryError
+     */
+    public function doRequest($version, $action, $protocol, $method, $pathname, $request, $headers, $runtime){
+        $runtime->validate();
+        $_runtime = [
+            "timeouted" => "retry",
+            "readTimeout" => Utils::defaultNumber($runtime->readTimeout, $this->_readTimeout),
+            "connectTimeout" => Utils::defaultNumber($runtime->connectTimeout, $this->_connectTimeout),
+            "httpProxy" => Utils::defaultString($runtime->httpProxy, $this->_httpProxy),
+            "httpsProxy" => Utils::defaultString($runtime->httpsProxy, $this->_httpsProxy),
+            "noProxy" => Utils::defaultString($runtime->noProxy, $this->_noProxy),
+            "maxIdleConns" => Utils::defaultNumber($runtime->maxIdleConns, $this->_maxIdleConns),
+            "maxIdleTimeMillis" => $this->_maxIdleTimeMillis,
+            "keepAliveDuration" => $this->_keepAliveDurationMillis,
+            "maxRequests" => $this->_maxRequests,
+            "maxRequestsPerHost" => $this->_maxRequestsPerHost,
+            "retry" => [
+                "retryable" => $runtime->autoretry,
+                "maxAttempts" => Utils::defaultNumber($runtime->maxAttempts, 3)
+            ],
+            "backoff" => [
+                "policy" => Utils::defaultString($runtime->backoffPolicy, "no"),
+                "period" => Utils::defaultNumber($runtime->backoffPeriod, 1)
+            ],
+            "ignoreSSL" => $runtime->ignoreSSL,
+            // 【固定折扣特定信息】
+        ];
+        $_lastRequest = null;
+        $_lastException = null;
+        $_now = time();
+        $_retryTimes = 0;
+        while (Tea::allowRetry(@$_runtime["retry"], $_retryTimes, $_now)) {
+            if ($_retryTimes > 0) {
+                $_backoffTime = Tea::getBackoffTime(@$_runtime["backoff"], $_retryTimes);
+                if ($_backoffTime > 0) {
+                    Tea::sleep($_backoffTime);
+                }
+            }
+            $_retryTimes = $_retryTimes + 1;
+            try {
+                $_request = new Request();
+                $_request->protocol = Utils::defaultString($this->_protocol, $protocol);
+                $_request->method = $method;
+                $_request->pathname = $pathname;
+                $_request->query = [
+                    "method" => $action,
+                    "version" => $version,
+                    "sign_type" => "HmacSHA1",
+                    "req_time" => UtilClient::getTimestamp(),
+                    "req_msg_id" => UtilClient::getNonce(),
+                    "access_key" => $this->_accessKeyId,
+                    "base_sdk_version" => "TeaSDK-2.0",
+                    "sdk_version" => "1.8.0",
+                    "_prod_code" => "SDS",
+                    "_prod_channel" => "default"
+                ];
+                if (!Utils::empty_($this->_securityToken)) {
+                    $_request->query["security_token"] = $this->_securityToken;
+                }
+                $_request->headers = Tea::merge([
+                    "host" => Utils::defaultString($this->_endpoint, "openapi.antchain.antgroup.com"),
+                    "user-agent" => Utils::getUserAgent($this->_userAgent)
+                ], $headers);
+                $tmp = Utils::anyifyMapValue(RpcUtils::query($request));
+                $_request->body = Utils::toFormString($tmp);
+                $_request->headers["content-type"] = "application/x-www-form-urlencoded";
+                $signedParam = Tea::merge($_request->query, RpcUtils::query($request));
+                $_request->query["sign"] = UtilClient::getSignature($signedParam, $this->_accessKeySecret);
+                $_lastRequest = $_request;
+                $_response= Tea::send($_request, $_runtime);
+                $raw = Utils::readAsString($_response->body);
+                $obj = Utils::parseJSON($raw);
+                $res = Utils::assertAsMap($obj);
+                $resp = Utils::assertAsMap(@$res["response"]);
+                if (UtilClient::hasError($raw, $this->_accessKeySecret)) {
+                    throw new TeaError([
+                        "message" => @$resp["result_msg"],
+                        "data" => $resp,
+                        "code" => @$resp["result_code"]
+                    ]);
+                }
+                return $resp;
+            }
+            catch (Exception $e) {
+                if (!($e instanceof TeaError)) {
+                    $e = new TeaError([], $e->getMessage(), $e->getCode(), $e);
+                }
+                if (Tea::isRetryable($e)) {
+                    $_lastException = $e;
+                    continue;
+                }
+                throw $e;
+            }
+        }
+        throw new TeaUnableRetryError($_lastRequest, $_lastException);
+    }
+
+    /**
+     * Description: 根据人维度的业务号和城市，决定是否优待人群，业务号可以是不同类型的，可以是手机号，也可以是证件号，如果业务号是敏感数据，可以选择算法类型加密传输。
+     * Summary: 优待人群判断
+     * @param JudgeCrowdPrefermentRequest $request
+     * @return JudgeCrowdPrefermentResponse
+     */
+    public function judgeCrowdPreferment($request){
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+        return $this->judgeCrowdPrefermentEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 根据人维度的业务号和城市，决定是否优待人群，业务号可以是不同类型的，可以是手机号，也可以是证件号，如果业务号是敏感数据，可以选择算法类型加密传输。
+     * Summary: 优待人群判断
+     * @param JudgeCrowdPrefermentRequest $request
+     * @param string[] $headers
+     * @param RuntimeOptions $runtime
+     * @return JudgeCrowdPrefermentResponse
+     */
+    public function judgeCrowdPrefermentEx($request, $headers, $runtime){
+        Utils::validateModel($request);
+        return JudgeCrowdPrefermentResponse::fromMap($this->doRequest("1.0", "antchain.sds.crowd.preferment.judge", "HTTPS", "POST", "/gateway.do", Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 创建任务，获取批次号。
+     * Summary: 创建任务，获取批次号。
+     * @param SubmitScenedataTaskRequest $request
+     * @return SubmitScenedataTaskResponse
+     */
+    public function submitScenedataTask($request){
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+        return $this->submitScenedataTaskEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 创建任务，获取批次号。
+     * Summary: 创建任务，获取批次号。
+     * @param SubmitScenedataTaskRequest $request
+     * @param string[] $headers
+     * @param RuntimeOptions $runtime
+     * @return SubmitScenedataTaskResponse
+     */
+    public function submitScenedataTaskEx($request, $headers, $runtime){
+        Utils::validateModel($request);
+        return SubmitScenedataTaskResponse::fromMap($this->doRequest("1.0", "antchain.sds.scenedata.task.submit", "HTTPS", "POST", "/gateway.do", Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 批次数据文件上传
+     * Summary: 批次数据文件上传
+     * @param UploadScenedataFileRequest $request
+     * @return UploadScenedataFileResponse
+     */
+    public function uploadScenedataFile($request){
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+        return $this->uploadScenedataFileEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 批次数据文件上传
+     * Summary: 批次数据文件上传
+     * @param UploadScenedataFileRequest $request
+     * @param string[] $headers
+     * @param RuntimeOptions $runtime
+     * @return UploadScenedataFileResponse
+     */
+    public function uploadScenedataFileEx($request, $headers, $runtime){
+        if (!Utils::isUnset($request->fileObject)) {
+            $uploadReq = new CreateAntcloudGatewayxFileUploadRequest([
+                "authToken" => $request->authToken,
+                "apiCode" => "antchain.sds.scenedata.file.upload",
+                "fileName" => $request->fileObjectName
+            ]);
+            $uploadResp = $this->createAntcloudGatewayxFileUploadEx($uploadReq, $headers, $runtime);
+            if (!UtilClient::isSuccess($uploadResp->resultCode, "ok")) {
+                $uploadScenedataFileResponse = new UploadScenedataFileResponse([
+                    "reqMsgId" => $uploadResp->reqMsgId,
+                    "resultCode" => $uploadResp->resultCode,
+                    "resultMsg" => $uploadResp->resultMsg
+                ]);
+                return $uploadScenedataFileResponse;
+            }
+            $uploadHeaders = UtilClient::parseUploadHeaders($uploadResp->uploadHeaders);
+            UtilClient::putObject($request->fileObject, $uploadHeaders, $uploadResp->uploadUrl);
+            $request->fileId = $uploadResp->fileId;
+            $request->fileObject = null;
+        }
+        Utils::validateModel($request);
+        return UploadScenedataFileResponse::fromMap($this->doRequest("1.0", "antchain.sds.scenedata.file.upload", "HTTPS", "POST", "/gateway.do", Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 任务结果查询
+     * Summary: 任务结果查询
+     * @param BatchqueryScenedataTaskresultRequest $request
+     * @return BatchqueryScenedataTaskresultResponse
+     */
+    public function batchqueryScenedataTaskresult($request){
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+        return $this->batchqueryScenedataTaskresultEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 任务结果查询
+     * Summary: 任务结果查询
+     * @param BatchqueryScenedataTaskresultRequest $request
+     * @param string[] $headers
+     * @param RuntimeOptions $runtime
+     * @return BatchqueryScenedataTaskresultResponse
+     */
+    public function batchqueryScenedataTaskresultEx($request, $headers, $runtime){
+        Utils::validateModel($request);
+        return BatchqueryScenedataTaskresultResponse::fromMap($this->doRequest("1.0", "antchain.sds.scenedata.taskresult.batchquery", "HTTPS", "POST", "/gateway.do", Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 场景数据在线查询，仅支持单条匹配
+     * Summary: 场景数据在线查询
+     * @param QueryScenedataOnlineRequest $request
+     * @return QueryScenedataOnlineResponse
+     */
+    public function queryScenedataOnline($request){
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+        return $this->queryScenedataOnlineEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 场景数据在线查询，仅支持单条匹配
+     * Summary: 场景数据在线查询
+     * @param QueryScenedataOnlineRequest $request
+     * @param string[] $headers
+     * @param RuntimeOptions $runtime
+     * @return QueryScenedataOnlineResponse
+     */
+    public function queryScenedataOnlineEx($request, $headers, $runtime){
+        Utils::validateModel($request);
+        return QueryScenedataOnlineResponse::fromMap($this->doRequest("1.0", "antchain.sds.scenedata.online.query", "HTTPS", "POST", "/gateway.do", Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 通过批次号查询任务详细信息
+     * Summary: 通过批次号查询任务详细信息
+     * @param QueryScenedataTaskinfoRequest $request
+     * @return QueryScenedataTaskinfoResponse
+     */
+    public function queryScenedataTaskinfo($request){
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+        return $this->queryScenedataTaskinfoEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 通过批次号查询任务详细信息
+     * Summary: 通过批次号查询任务详细信息
+     * @param QueryScenedataTaskinfoRequest $request
+     * @param string[] $headers
+     * @param RuntimeOptions $runtime
+     * @return QueryScenedataTaskinfoResponse
+     */
+    public function queryScenedataTaskinfoEx($request, $headers, $runtime){
+        Utils::validateModel($request);
+        return QueryScenedataTaskinfoResponse::fromMap($this->doRequest("1.0", "antchain.sds.scenedata.taskinfo.query", "HTTPS", "POST", "/gateway.do", Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 批次计算结果聚合，任务为ready状态时，返回分页列表数据
+     * Summary: 批次结果聚合查询
+     * @param QueryScenedataDwsRequest $request
+     * @return QueryScenedataDwsResponse
+     */
+    public function queryScenedataDws($request){
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+        return $this->queryScenedataDwsEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 批次计算结果聚合，任务为ready状态时，返回分页列表数据
+     * Summary: 批次结果聚合查询
+     * @param QueryScenedataDwsRequest $request
+     * @param string[] $headers
+     * @param RuntimeOptions $runtime
+     * @return QueryScenedataDwsResponse
+     */
+    public function queryScenedataDwsEx($request, $headers, $runtime){
+        Utils::validateModel($request);
+        return QueryScenedataDwsResponse::fromMap($this->doRequest("1.0", "antchain.sds.scenedata.dws.query", "HTTPS", "POST", "/gateway.do", Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 微信批次分页条件查询。通过此接口可查询商家多个批次的信息，包括批次的配置信息以及批次概况数据。
+     * Summary: 微信批次分页条件查询。通过此接口可查询商家多个批次的信息，包括批次的配置信息以及批次概况数据。
+     * @param QueryFavorStocksRequest $request
+     * @return QueryFavorStocksResponse
+     */
+    public function queryFavorStocks($request){
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+        return $this->queryFavorStocksEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 微信批次分页条件查询。通过此接口可查询商家多个批次的信息，包括批次的配置信息以及批次概况数据。
+     * Summary: 微信批次分页条件查询。通过此接口可查询商家多个批次的信息，包括批次的配置信息以及批次概况数据。
+     * @param QueryFavorStocksRequest $request
+     * @param string[] $headers
+     * @param RuntimeOptions $runtime
+     * @return QueryFavorStocksResponse
+     */
+    public function queryFavorStocksEx($request, $headers, $runtime){
+        Utils::validateModel($request);
+        return QueryFavorStocksResponse::fromMap($this->doRequest("1.0", "antchain.sds.favor.stocks.query", "HTTPS", "POST", "/gateway.do", Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 微信核销账单接口
+     * Summary: 微信核销账单接口
+     * @param DownloadStockUseflowRequest $request
+     * @return DownloadStockUseflowResponse
+     */
+    public function downloadStockUseflow($request){
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+        return $this->downloadStockUseflowEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 微信核销账单接口
+     * Summary: 微信核销账单接口
+     * @param DownloadStockUseflowRequest $request
+     * @param string[] $headers
+     * @param RuntimeOptions $runtime
+     * @return DownloadStockUseflowResponse
+     */
+    public function downloadStockUseflowEx($request, $headers, $runtime){
+        Utils::validateModel($request);
+        return DownloadStockUseflowResponse::fromMap($this->doRequest("1.0", "antchain.sds.stock.useflow.download", "HTTPS", "POST", "/gateway.do", Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 微信退款账单接口
+     * Summary: 微信退款账单接口
+     * @param DownloadStockRefundflowRequest $request
+     * @return DownloadStockRefundflowResponse
+     */
+    public function downloadStockRefundflow($request){
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+        return $this->downloadStockRefundflowEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 微信退款账单接口
+     * Summary: 微信退款账单接口
+     * @param DownloadStockRefundflowRequest $request
+     * @param string[] $headers
+     * @param RuntimeOptions $runtime
+     * @return DownloadStockRefundflowResponse
+     */
+    public function downloadStockRefundflowEx($request, $headers, $runtime){
+        Utils::validateModel($request);
+        return DownloadStockRefundflowResponse::fromMap($this->doRequest("1.0", "antchain.sds.stock.refundflow.download", "HTTPS", "POST", "/gateway.do", Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 【任务修改】修改任务状态，上线的任务可以下线，下线后能够修改任务的动态参数，下线后才能再上线。
+     * Summary: 【任务修改】修改任务状态，上线的任务可以下线，下线后能够修改任务的动态参数，下线后才能再上线。
+     * @param UpdateScenedataTaskRequest $request
+     * @return UpdateScenedataTaskResponse
+     */
+    public function updateScenedataTask($request){
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+        return $this->updateScenedataTaskEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 【任务修改】修改任务状态，上线的任务可以下线，下线后能够修改任务的动态参数，下线后才能再上线。
+     * Summary: 【任务修改】修改任务状态，上线的任务可以下线，下线后能够修改任务的动态参数，下线后才能再上线。
+     * @param UpdateScenedataTaskRequest $request
+     * @param string[] $headers
+     * @param RuntimeOptions $runtime
+     * @return UpdateScenedataTaskResponse
+     */
+    public function updateScenedataTaskEx($request, $headers, $runtime){
+        Utils::validateModel($request);
+        return UpdateScenedataTaskResponse::fromMap($this->doRequest("1.0", "antchain.sds.scenedata.task.update", "HTTPS", "POST", "/gateway.do", Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 传入用户标识，获取上传行为日志的token
+     * Summary: 传入用户标识，获取上传行为日志的token
+     * @param GetTrackingTokenRequest $request
+     * @return GetTrackingTokenResponse
+     */
+    public function getTrackingToken($request){
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+        return $this->getTrackingTokenEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 传入用户标识，获取上传行为日志的token
+     * Summary: 传入用户标识，获取上传行为日志的token
+     * @param GetTrackingTokenRequest $request
+     * @param string[] $headers
+     * @param RuntimeOptions $runtime
+     * @return GetTrackingTokenResponse
+     */
+    public function getTrackingTokenEx($request, $headers, $runtime){
+        Utils::validateModel($request);
+        return GetTrackingTokenResponse::fromMap($this->doRequest("1.0", "antchain.sds.tracking.token.get", "HTTPS", "POST", "/gateway.do", Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 传入渠道、用户id，获取用户在该渠道的标签
+     * Summary: 传入渠道、用户id，获取用户在该渠道的标签
+     * @param QueryUserTagRequest $request
+     * @return QueryUserTagResponse
+     */
+    public function queryUserTag($request){
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+        return $this->queryUserTagEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 传入渠道、用户id，获取用户在该渠道的标签
+     * Summary: 传入渠道、用户id，获取用户在该渠道的标签
+     * @param QueryUserTagRequest $request
+     * @param string[] $headers
+     * @param RuntimeOptions $runtime
+     * @return QueryUserTagResponse
+     */
+    public function queryUserTagEx($request, $headers, $runtime){
+        Utils::validateModel($request);
+        return QueryUserTagResponse::fromMap($this->doRequest("1.0", "antchain.sds.user.tag.query", "HTTPS", "POST", "/gateway.do", Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 创建HTTP PUT提交的文件上传
+     * Summary: 文件上传创建
+     * @param CreateAntcloudGatewayxFileUploadRequest $request
+     * @return CreateAntcloudGatewayxFileUploadResponse
+     */
+    public function createAntcloudGatewayxFileUpload($request){
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+        return $this->createAntcloudGatewayxFileUploadEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 创建HTTP PUT提交的文件上传
+     * Summary: 文件上传创建
+     * @param CreateAntcloudGatewayxFileUploadRequest $request
+     * @param string[] $headers
+     * @param RuntimeOptions $runtime
+     * @return CreateAntcloudGatewayxFileUploadResponse
+     */
+    public function createAntcloudGatewayxFileUploadEx($request, $headers, $runtime){
+        Utils::validateModel($request);
+        return CreateAntcloudGatewayxFileUploadResponse::fromMap($this->doRequest("1.0", "antcloud.gatewayx.file.upload.create", "HTTPS", "POST", "/gateway.do", Tea::merge($request), $headers, $runtime));
+    }
+}
