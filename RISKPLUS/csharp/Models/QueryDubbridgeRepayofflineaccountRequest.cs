@@ -25,7 +25,7 @@ namespace AntChain.SDK.RISKPLUS.Models
 
         // 关联的天枢用信申请订单号
         [NameInMap("use_credit_order_no")]
-        [Validation(Required=true)]
+        [Validation(Required=false)]
         public string UseCreditOrderNo { get; set; }
 
         // 开始日期
@@ -57,6 +57,11 @@ namespace AntChain.SDK.RISKPLUS.Models
         [NameInMap("page_num")]
         [Validation(Required=true)]
         public string PageNum { get; set; }
+
+        // 资金方编号
+        [NameInMap("fund_code")]
+        [Validation(Required=false)]
+        public string FundCode { get; set; }
 
     }
 
