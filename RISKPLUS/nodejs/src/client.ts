@@ -17680,6 +17680,12 @@ export class CountDubbridgeRepayReftrialResponse extends $tea.Model {
   totalInterest?: number;
   // 授信信息
   applyInfo?: ApplyInfo;
+  // lpr利率
+  lpr?: string;
+  // LPR加点值
+  lprPoint?: string;
+  // 总应还商贴
+  totalSubsidyInterest?: string;
   static names(): { [key: string]: string } {
     return {
       reqMsgId: 'req_msg_id',
@@ -17690,6 +17696,9 @@ export class CountDubbridgeRepayReftrialResponse extends $tea.Model {
       repayAccount: 'repay_account',
       totalInterest: 'total_interest',
       applyInfo: 'apply_info',
+      lpr: 'lpr',
+      lprPoint: 'lpr_point',
+      totalSubsidyInterest: 'total_subsidy_interest',
     };
   }
 
@@ -17703,6 +17712,9 @@ export class CountDubbridgeRepayReftrialResponse extends $tea.Model {
       repayAccount: 'string',
       totalInterest: 'number',
       applyInfo: ApplyInfo,
+      lpr: 'string',
+      lprPoint: 'string',
+      totalSubsidyInterest: 'string',
     };
   }
 
@@ -24611,7 +24623,7 @@ export class QueryDubbridgeRepayofflineaccountRequest extends $tea.Model {
   // 请求唯一id
   orderNo: string;
   // 关联的天枢用信申请订单号
-  useCreditOrderNo: string;
+  useCreditOrderNo?: string;
   // 开始日期
   startDate: string;
   // 结束日期
@@ -24624,6 +24636,8 @@ export class QueryDubbridgeRepayofflineaccountRequest extends $tea.Model {
   currentPage: string;
   // 每页记录数
   pageNum: string;
+  // 资金方编号
+  fundCode?: string;
   static names(): { [key: string]: string } {
     return {
       authToken: 'auth_token',
@@ -24636,6 +24650,7 @@ export class QueryDubbridgeRepayofflineaccountRequest extends $tea.Model {
       dcFlag: 'dc_flag',
       currentPage: 'current_page',
       pageNum: 'page_num',
+      fundCode: 'fund_code',
     };
   }
 
@@ -24651,6 +24666,7 @@ export class QueryDubbridgeRepayofflineaccountRequest extends $tea.Model {
       dcFlag: 'string',
       currentPage: 'string',
       pageNum: 'string',
+      fundCode: 'string',
     };
   }
 
@@ -38695,7 +38711,7 @@ export default class Client {
           req_msg_id: AntchainUtil.getNonce(),
           access_key: this._accessKeyId,
           base_sdk_version: "TeaSDK-2.0",
-          sdk_version: "1.33.13",
+          sdk_version: "1.33.14",
           _prod_code: "RISKPLUS",
           _prod_channel: "undefined",
         };
@@ -40112,7 +40128,7 @@ export default class Client {
   /**
    * @remarks
    * Description: 天枢系统还款计划试算，根据借款金额和期数计算还款计划
-   * Summary: 天枢系统还款计划试算
+   * Summary: 天枢系统还款计划试算，根据借款金额和期数计算还款计划
    */
   async countDubbridgeRepayReftrial(request: CountDubbridgeRepayReftrialRequest): Promise<CountDubbridgeRepayReftrialResponse> {
     let runtime = new $Util.RuntimeOptions({ });
@@ -40123,7 +40139,7 @@ export default class Client {
   /**
    * @remarks
    * Description: 天枢系统还款计划试算，根据借款金额和期数计算还款计划
-   * Summary: 天枢系统还款计划试算
+   * Summary: 天枢系统还款计划试算，根据借款金额和期数计算还款计划
    */
   async countDubbridgeRepayReftrialEx(request: CountDubbridgeRepayReftrialRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<CountDubbridgeRepayReftrialResponse> {
     Util.validateModel(request);
