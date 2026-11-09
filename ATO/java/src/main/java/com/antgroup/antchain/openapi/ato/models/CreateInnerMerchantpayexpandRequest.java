@@ -80,6 +80,14 @@ public class CreateInnerMerchantpayexpandRequest extends TeaModel {
     @NameInMap("trace_id")
     public String traceId;
 
+    // 是否需要开通代扣，默认是
+    @NameInMap("need_withholding")
+    public Boolean needWithholding;
+
+    // 是否需要开通预授权，默认否
+    @NameInMap("need_pre_auth_pay")
+    public Boolean needPreAuthPay;
+
     public static CreateInnerMerchantpayexpandRequest build(java.util.Map<String, ?> map) throws Exception {
         CreateInnerMerchantpayexpandRequest self = new CreateInnerMerchantpayexpandRequest();
         return TeaModel.build(map, self);
@@ -211,6 +219,22 @@ public class CreateInnerMerchantpayexpandRequest extends TeaModel {
     }
     public String getTraceId() {
         return this.traceId;
+    }
+
+    public CreateInnerMerchantpayexpandRequest setNeedWithholding(Boolean needWithholding) {
+        this.needWithholding = needWithholding;
+        return this;
+    }
+    public Boolean getNeedWithholding() {
+        return this.needWithholding;
+    }
+
+    public CreateInnerMerchantpayexpandRequest setNeedPreAuthPay(Boolean needPreAuthPay) {
+        this.needPreAuthPay = needPreAuthPay;
+        return this;
+    }
+    public Boolean getNeedPreAuthPay() {
+        return this.needPreAuthPay;
     }
 
 }

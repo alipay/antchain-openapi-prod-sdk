@@ -60,6 +60,10 @@ public class RegisterMerchantexpandMerchantRequest extends TeaModel {
     @NameInMap("need_withholding")
     public Boolean needWithholding;
 
+    // 是否开通“预授权支付”,默认否
+    @NameInMap("need_pre_auth_pay")
+    public Boolean needPreAuthPay;
+
     public static RegisterMerchantexpandMerchantRequest build(java.util.Map<String, ?> map) throws Exception {
         RegisterMerchantexpandMerchantRequest self = new RegisterMerchantexpandMerchantRequest();
         return TeaModel.build(map, self);
@@ -159,6 +163,14 @@ public class RegisterMerchantexpandMerchantRequest extends TeaModel {
     }
     public Boolean getNeedWithholding() {
         return this.needWithholding;
+    }
+
+    public RegisterMerchantexpandMerchantRequest setNeedPreAuthPay(Boolean needPreAuthPay) {
+        this.needPreAuthPay = needPreAuthPay;
+        return this;
+    }
+    public Boolean getNeedPreAuthPay() {
+        return this.needPreAuthPay;
     }
 
 }
