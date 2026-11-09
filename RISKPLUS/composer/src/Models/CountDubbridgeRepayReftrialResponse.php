@@ -18,6 +18,9 @@ class CountDubbridgeRepayReftrialResponse extends Model {
         'repayAccount' => 'repay_account',
         'totalInterest' => 'total_interest',
         'applyInfo' => 'apply_info',
+        'lpr' => 'lpr',
+        'lprPoint' => 'lpr_point',
+        'totalSubsidyInterest' => 'total_subsidy_interest',
     ];
     public function validate() {}
     public function toMap() {
@@ -51,6 +54,15 @@ class CountDubbridgeRepayReftrialResponse extends Model {
         }
         if (null !== $this->applyInfo) {
             $res['apply_info'] = null !== $this->applyInfo ? $this->applyInfo->toMap() : null;
+        }
+        if (null !== $this->lpr) {
+            $res['lpr'] = $this->lpr;
+        }
+        if (null !== $this->lprPoint) {
+            $res['lpr_point'] = $this->lprPoint;
+        }
+        if (null !== $this->totalSubsidyInterest) {
+            $res['total_subsidy_interest'] = $this->totalSubsidyInterest;
         }
         return $res;
     }
@@ -89,6 +101,15 @@ class CountDubbridgeRepayReftrialResponse extends Model {
         }
         if(isset($map['apply_info'])){
             $model->applyInfo = ApplyInfo::fromMap($map['apply_info']);
+        }
+        if(isset($map['lpr'])){
+            $model->lpr = $map['lpr'];
+        }
+        if(isset($map['lpr_point'])){
+            $model->lprPoint = $map['lpr_point'];
+        }
+        if(isset($map['total_subsidy_interest'])){
+            $model->totalSubsidyInterest = $map['total_subsidy_interest'];
         }
         return $model;
     }
@@ -139,5 +160,23 @@ class CountDubbridgeRepayReftrialResponse extends Model {
      * @var ApplyInfo
      */
     public $applyInfo;
+
+    // lpr利率
+    /**
+     * @var string
+     */
+    public $lpr;
+
+    // LPR加点值
+    /**
+     * @var string
+     */
+    public $lprPoint;
+
+    // 总应还商贴
+    /**
+     * @var string
+     */
+    public $totalSubsidyInterest;
 
 }

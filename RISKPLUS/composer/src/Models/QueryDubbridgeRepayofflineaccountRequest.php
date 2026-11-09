@@ -17,10 +17,10 @@ class QueryDubbridgeRepayofflineaccountRequest extends Model {
         'dcFlag' => 'dc_flag',
         'currentPage' => 'current_page',
         'pageNum' => 'page_num',
+        'fundCode' => 'fund_code',
     ];
     public function validate() {
         Model::validateRequired('orderNo', $this->orderNo, true);
-        Model::validateRequired('useCreditOrderNo', $this->useCreditOrderNo, true);
         Model::validateRequired('startDate', $this->startDate, true);
         Model::validateRequired('endDate', $this->endDate, true);
         Model::validateRequired('accountNo', $this->accountNo, true);
@@ -59,6 +59,9 @@ class QueryDubbridgeRepayofflineaccountRequest extends Model {
         if (null !== $this->pageNum) {
             $res['page_num'] = $this->pageNum;
         }
+        if (null !== $this->fundCode) {
+            $res['fund_code'] = $this->fundCode;
+        }
         return $res;
     }
     /**
@@ -96,6 +99,9 @@ class QueryDubbridgeRepayofflineaccountRequest extends Model {
         }
         if(isset($map['page_num'])){
             $model->pageNum = $map['page_num'];
+        }
+        if(isset($map['fund_code'])){
+            $model->fundCode = $map['fund_code'];
         }
         return $model;
     }
@@ -157,5 +163,11 @@ class QueryDubbridgeRepayofflineaccountRequest extends Model {
      * @var string
      */
     public $pageNum;
+
+    // 资金方编号
+    /**
+     * @var string
+     */
+    public $fundCode;
 
 }
